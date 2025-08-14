@@ -110,13 +110,13 @@ const optionalCorruptionSchema = z.object({
 })
 
 const talismanFragmentSchema = z.object({
-  shard: z.number().default(0),
-  commonFragment: z.number().default(0),
-  uncommonFragment: z.number().default(0),
-  rareFragment: z.number().default(0),
-  epicFragment: z.number().default(0),
-  legendaryFragment: z.number().default(0),
-  mythicalFragment: z.number().default(0)
+  shard: decimalSchema.default(() => new Decimal(0)),
+  commonFragment: decimalSchema.default(() => new Decimal(0)),
+  uncommonFragment: decimalSchema.default(() => new Decimal(0)),
+  rareFragment: decimalSchema.default(() => new Decimal(0)),
+  epicFragment: decimalSchema.default(() => new Decimal(0)),
+  legendaryFragment: decimalSchema.default(() => new Decimal(0)),
+  mythicalFragment: decimalSchema.default(() => new Decimal(0))
 })
 
 const goldenQuarkUpgradeSchema = z.object({
@@ -583,13 +583,13 @@ export const playerSchema = z.object({
   talismanFive: arrayStartingWithNull(z.number()).optional(),
   talismanSix: arrayStartingWithNull(z.number()).optional(),
   talismanSeven: arrayStartingWithNull(z.number()).optional(),
-  talismanShards: z.number().default(() => blankSave.talismanShards),
-  commonFragments: z.number().default(() => blankSave.commonFragments),
-  uncommonFragments: z.number().default(() => blankSave.uncommonFragments),
-  rareFragments: z.number().default(() => blankSave.rareFragments),
-  epicFragments: z.number().default(() => blankSave.epicFragments),
-  legendaryFragments: z.number().default(() => blankSave.legendaryFragments),
-  mythicalFragments: z.number().default(() => blankSave.mythicalFragments),
+  talismanShards: decimalSchema.default(() => blankSave.talismanShards),
+  commonFragments: decimalSchema.default(() => blankSave.commonFragments),
+  uncommonFragments: decimalSchema.default(() => blankSave.uncommonFragments),
+  rareFragments: decimalSchema.default(() => blankSave.rareFragments),
+  epicFragments: decimalSchema.default(() => blankSave.epicFragments),
+  legendaryFragments: decimalSchema.default(() => blankSave.legendaryFragments),
+  mythicalFragments: decimalSchema.default(() => blankSave.mythicalFragments),
 
   buyTalismanShardPercent: z.number().default(() => blankSave.buyTalismanShardPercent),
 

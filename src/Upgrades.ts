@@ -16,15 +16,14 @@ const crystalupgdesc: Record<number, () => Record<string, string>> = {
   3: () => ({
     max: format(
       100 * (0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129]
-          * Math.log(player.commonFragments + 1) / Math.log(4)),
+          * Decimal.log(player.commonFragments.add(1), 4)),
       2,
       true
     )
   }),
   4: () => ({
     max: format(
-      10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1)
-          / Math.log(4)
+      10 + 0.05 * player.researches[129] * Decimal.log(player.commonFragments.add(1), 4)
         + getRuneSpiritEffect('prism').crystalCaps
     )
   })
@@ -384,7 +383,7 @@ const crystalupgeffect: Record<number, () => Record<string, string>> = {
         1
           + Math.min(
             0.12 + 0.88 * player.upgrades[122]
-              + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4),
+              + 0.001 * player.researches[129] * Decimal.log(player.commonFragments.add(1), 4),
             0.001 * player.crystalUpgrades[2]
           ),
         player.firstOwnedDiamonds + player.secondOwnedDiamonds + player.thirdOwnedDiamonds + player.fourthOwnedDiamonds
@@ -397,7 +396,7 @@ const crystalupgeffect: Record<number, () => Record<string, string>> = {
   4: () => ({
     x: format(
       Math.min(
-        10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4)
+        10 + 0.05 * player.researches[129] * Decimal.log(player.commonFragments.add(1), 4)
           + getRuneSpiritEffect('prism').crystalCaps,
         0.05 * player.crystalUpgrades[3]
       ),
@@ -525,7 +524,7 @@ const constUpgEffect: Record<number, () => Record<string, string>> = {
   }),
   9: () => ({
     x: format(
-      1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]),
+      1 + 0.01 * Decimal.log(player.talismanShards.add(1), 4) * Math.min(1, player.constantUpgrades[9]),
       4,
       true
     )

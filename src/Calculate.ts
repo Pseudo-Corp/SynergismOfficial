@@ -4,6 +4,7 @@ import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
 import {
+  calculateAntELOCubeBlessing,
   calculateAntSacrificeCubeBlessing,
   calculateObtainiumCubeBlessing,
   calculateOfferingCubeBlessing
@@ -19,7 +20,6 @@ import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { reset, updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
-import { getRuneBlessingEffect } from './RuneBlessings'
 import { sumOfRuneLevels } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import {
@@ -267,7 +267,9 @@ export const calculateQuarkMultiplier = () => {
 }
 
 export const calculateAntSacrificeMultiplier = () => {
-  return Math.min(1e300, antSacrificeRewardStats.reduce((a, b) => a * b.stat(), 1))
+  return antSacrificeRewardStats.reduce((a, b) => a.times(b.stat()), new Decimal(1)).times(
+    calculateAntSacrificeCubeBlessing()
+  )
 }
 
 export const calculateAntSacrificeObtainium = () => {
@@ -275,13 +277,13 @@ export const calculateAntSacrificeObtainium = () => {
   const antSacMult = calculateAntSacrificeMultiplier()
   const obtainiumMult = calculateObtainium()
   const baseObtainium = calculateBaseObtainium()
-  calculateAntSacrificeELO()
+  const effectiveELO = calculateEffectiveAntELO()
 
   const timeMult = antSacrificeTimeStats(player.antSacrificeTimer, true).reduce(
     (a, b) => a * b.stat(),
     1
   )
-  const deltaTime = new Decimal(base).times(antSacMult).times(G.effectiveELO).times(timeMult)
+  const deltaTime = new Decimal(base).times(antSacMult).times(effectiveELO).times(timeMult)
 
   return Decimal.max(
     baseObtainium,
@@ -294,14 +296,13 @@ export const calculateAntSacrificeOffering = () => {
   const antSacMult = calculateAntSacrificeMultiplier()
   const offeringMult = calculateOfferings()
   const baseOfferings = calculateBaseOfferings()
-
-  calculateAntSacrificeELO()
+  const effectiveELO = calculateEffectiveAntELO()
 
   const timeMult = offeringObtainiumTimeModifiers(player.antSacrificeTimer, true).reduce(
     (a, b) => a * b.stat(),
     1
   )
-  const deltaTime = new Decimal(base).times(antSacMult).times(G.effectiveELO).times(timeMult)
+  const deltaTime = new Decimal(base).times(antSacMult).times(effectiveELO).times(timeMult)
 
   return Decimal.max(
     baseOfferings,
@@ -679,185 +680,83 @@ export const calculateAnts = () => {
   )
 }
 
-export const calculateAntSacrificeELO = () => {
-  G.antELO = 0
-  G.effectiveELO = 0
+export const calculateBaseAntELO = () => {
+  let ELO = 0
   const antUpgradeSum = sumContents(player.antUpgrades)
   if (player.antPoints.gte('1e40')) {
-    G.antELO += Decimal.log(player.antPoints, 10)
-    G.antELO += (1 / 2) * antUpgradeSum
-    G.antELO += (1 / 10) * player.firstOwnedAnts
-    G.antELO += (1 / 5) * player.secondOwnedAnts
-    G.antELO += (1 / 3) * player.thirdOwnedAnts
-    G.antELO += (1 / 2) * player.fourthOwnedAnts
-    G.antELO += player.fifthOwnedAnts
-    G.antELO += 2 * player.sixthOwnedAnts
-    G.antELO += 4 * player.seventhOwnedAnts
-    G.antELO += 8 * player.eighthOwnedAnts
-    G.antELO += 666 * player.researches[178]
-    G.antELO += +getAchievementReward('antELOAdditive')
-    G.antELO *= +getAchievementReward('antELOMultiplicative')
-    G.antELO *= 1 + player.researches[110] / 100
-    G.antELO *= 1 + (2.5 * player.researches[148]) / 100
-    G.antELO *= getTalismanEffects('mortuus').antBonus
-
-    G.antELO += 25 * player.researches[108]
-    G.antELO += 25 * player.researches[109]
-    G.antELO += 40 * player.researches[123]
-    G.antELO += 100 * CalcECC('reincarnation', player.challengecompletions[10])
-    G.antELO += 75 * player.upgrades[80]
-    G.antELO = (1 / 10) * Math.floor(10 * G.antELO)
-
-    G.effectiveELO += 0.5 * Math.min(3500, G.antELO)
-    G.effectiveELO += 0.1 * Math.min(4000, G.antELO)
-    G.effectiveELO += 0.1 * Math.min(6000, G.antELO)
-    G.effectiveELO += 0.1 * Math.min(10000, G.antELO)
-    G.effectiveELO += 0.2 * G.antELO
-    G.effectiveELO += 1 * player.cubeUpgrades[50]
-    G.effectiveELO *= 1 + 0.03 * player.upgrades[124]
-    G.effectiveELO *= 1
-      + 0.01 * Decimal.log10(new Decimal(1 + player.cubeBlessings.antELO))
-      + 0.01 * Decimal.log10(new Decimal(1 + player.tesseractBlessings.antELO))
-      + 0.01 * Decimal.log10(new Decimal(1 + player.hypercubeBlessings.antELO))
+    ELO += Decimal.log(player.antPoints, 10)
+    ELO += (1 / 2) * antUpgradeSum
+    ELO += (1 / 10) * player.firstOwnedAnts
+    ELO += (1 / 5) * player.secondOwnedAnts
+    ELO += (1 / 3) * player.thirdOwnedAnts
+    ELO += (1 / 2) * player.fourthOwnedAnts
+    ELO += player.fifthOwnedAnts
+    ELO += 2 * player.sixthOwnedAnts
+    ELO += 4 * player.seventhOwnedAnts
+    ELO += 8 * player.eighthOwnedAnts
+    ELO += 666 * player.researches[178]
+    ELO += +getAchievementReward('antELOAdditive')
+    ELO += 25 * player.researches[108]
+    ELO += 25 * player.researches[109]
+    ELO += 40 * player.researches[123]
+    ELO += 100 * CalcECC('reincarnation', player.challengecompletions[10])
+    ELO += 75 * player.upgrades[80]
   }
+  return ELO
 }
 
-export const calculateAntSacrificeMultipliers = () => {
-  G.timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 10, 2))
-  G.timeMultiplier *= Math.max(1, player.antSacrificeTimer / 10)
-
-  G.timeMultiplier *= getGQUpgradeEffect('halfMind') ? calculateGlobalSpeedMult() / 10 : 1
-
-  G.upgradeMultiplier = 1
-  G.upgradeMultiplier *= 1
-    + 2 * (1 - Math.pow(2, -(player.antUpgrades[11 - 1]! + G.bonusant11) / 125))
-  G.upgradeMultiplier *= 1 + player.researches[103] / 20
-  G.upgradeMultiplier *= 1 + player.researches[104] / 20
-  G.upgradeMultiplier *= getRuneBlessingEffect('prism').antSacrificeMult
-  G.upgradeMultiplier *= 1 + (1 / 50) * CalcECC('reincarnation', player.challengecompletions[10])
-  G.upgradeMultiplier *= 1 + (1 / 50) * player.researches[122]
-  G.upgradeMultiplier *= 1 + (3 / 100) * player.researches[133]
-  G.upgradeMultiplier *= 1 + (2 / 100) * player.researches[163]
-  G.upgradeMultiplier *= 1 + (1 / 100) * player.researches[193]
-  G.upgradeMultiplier *= 1 + (1 / 10) * player.upgrades[79]
-  G.upgradeMultiplier *= 1 + (1 / 4) * player.upgrades[40]
-  G.upgradeMultiplier *= calculateAntSacrificeCubeBlessing()
-  G.upgradeMultiplier *= 1 + calculateEventBuff(BuffType.AntSacrifice)
-  G.upgradeMultiplier = Math.min(1e300, G.upgradeMultiplier)
-  return G.upgradeMultiplier
+export const calculateEffectiveAntELO = (base?: number) => {
+  const baseELO = base ?? calculateBaseAntELO()
+  let effectiveELO = 0
+  effectiveELO += 0.1 * Math.min(5000, baseELO)
+  effectiveELO += 0.2 * Math.min(7500, baseELO)
+  effectiveELO += 0.2 * Math.min(15000, baseELO)
+  effectiveELO += 0.2 * Math.min(50000, baseELO)
+  effectiveELO += 0.3 * baseELO
+  effectiveELO += 1 * player.cubeUpgrades[50]
+  effectiveELO *= 1 + 0.03 * player.upgrades[124]
+  effectiveELO *= calculateAntELOCubeBlessing()
+  effectiveELO *= +getAchievementReward('antELOMultiplicative')
+  effectiveELO *= 1 + player.researches[110] / 100
+  effectiveELO *= 1 + (2.5 * player.researches[148]) / 100
+  effectiveELO *= getTalismanEffects('mortuus').antBonus
+  return effectiveELO
 }
 
 interface IAntSacRewards {
   antSacrificePoints: number
   offerings: Decimal
   obtainium: Decimal
-  talismanShards: number
-  commonFragments: number
-  uncommonFragments: number
-  rareFragments: number
-  epicFragments: number
-  legendaryFragments: number
-  mythicalFragments: number
+  talismanShards: Decimal
+  commonFragments: Decimal
+  uncommonFragments: Decimal
+  rareFragments: Decimal
+  epicFragments: Decimal
+  legendaryFragments: Decimal
+  mythicalFragments: Decimal
 }
 
 export const calculateAntSacrificeRewards = (): IAntSacRewards => {
-  calculateAntSacrificeELO()
-  calculateAntSacrificeMultipliers()
+  const effectiveELO = calculateEffectiveAntELO()
+  const sacRewardMult = calculateAntSacrificeMultiplier()
+  const timeMultiplier = offeringObtainiumTimeModifiers(player.antSacrificeTimer, true).reduce(
+    (a, b) => a * b.stat(),
+    1
+  )
 
-  const halfMindModifier = getGQUpgradeEffect('halfMind')
-    ? calculateGlobalSpeedMult() / 10
-    : 1
+  const rewardMult = sacRewardMult.times(timeMultiplier)
 
-  const maxCap = 1e300
-  const rewardsMult = Math.min(maxCap, G.timeMultiplier * G.upgradeMultiplier * halfMindModifier)
   const rewards: IAntSacRewards = {
-    antSacrificePoints: Math.min(maxCap, (G.effectiveELO * rewardsMult) / 85),
+    antSacrificePoints: Decimal.min(rewardMult.div(85), 1e300).toNumber(),
     offerings: calculateAntSacrificeOffering(),
     obtainium: calculateAntSacrificeObtainium(),
-    talismanShards: G.antELO > 500
-      ? Math.min(
-        maxCap,
-        Math.max(
-          1,
-          Math.floor(
-            (rewardsMult / 210)
-              * Math.pow((1 / 4) * Math.max(0, G.effectiveELO - 500), 2)
-          )
-        )
-      )
-      : 0,
-    commonFragments: G.antELO > 750
-      ? Math.min(
-        maxCap,
-        Math.max(
-          1,
-          Math.floor(
-            (rewardsMult / 110)
-              * Math.pow((1 / 9) * Math.max(0, G.effectiveELO - 750), 1.83)
-          )
-        )
-      )
-      : 0,
-    uncommonFragments: G.antELO > 1000
-      ? Math.min(
-        maxCap,
-        Math.max(
-          1,
-          Math.floor(
-            (rewardsMult / 170)
-              * Math.pow((1 / 16) * Math.max(0, G.effectiveELO - 1000), 1.66)
-          )
-        )
-      )
-      : 0,
-    rareFragments: G.antELO > 1500
-      ? Math.min(
-        maxCap,
-        Math.max(
-          1,
-          Math.floor(
-            (rewardsMult / 200)
-              * Math.pow((1 / 25) * Math.max(0, G.effectiveELO - 1500), 1.5)
-          )
-        )
-      )
-      : 0,
-    epicFragments: G.antELO > 2000
-      ? Math.min(
-        maxCap,
-        Math.max(
-          1,
-          Math.floor(
-            (rewardsMult / 200)
-              * Math.pow((1 / 36) * Math.max(0, G.effectiveELO - 2000), 1.33)
-          )
-        )
-      )
-      : 0,
-    legendaryFragments: G.antELO > 3000
-      ? Math.min(
-        maxCap,
-        Math.max(
-          1,
-          Math.floor(
-            (rewardsMult / 230)
-              * Math.pow((1 / 49) * Math.max(0, G.effectiveELO - 3000), 1.16)
-          )
-        )
-      )
-      : 0,
-    mythicalFragments: G.antELO > 5000
-      ? Math.min(
-        maxCap,
-        Math.max(
-          1,
-          Math.floor(
-            (rewardsMult / 220)
-              * Math.pow((1 / 64) * Math.max(0, G.effectiveELO - 4150), 1)
-          )
-        )
-      )
-      : 0
+    talismanShards: effectiveELO > 500 ? Decimal.floor(rewardMult.div(210).times(Math.pow((1 / 4) * Math.max(0, effectiveELO - 500), 2))) : new Decimal(0),
+    commonFragments: effectiveELO > 750 ? Decimal.floor(rewardMult.div(110).times(Math.pow((1 / 9) * Math.max(0, effectiveELO - 750), 11/6))) : new Decimal(0),
+    uncommonFragments: effectiveELO > 1000 ? Decimal.floor(rewardMult.div(170).times(Math.pow((1 / 16) * Math.max(0, effectiveELO - 1000), 10/6))) : new Decimal(0),
+    rareFragments: effectiveELO > 1500 ? Decimal.floor(rewardMult.div(200).times(Math.pow((1 / 25) * Math.max(0, effectiveELO - 1500), 9/6))) : new Decimal(0),
+    epicFragments: effectiveELO > 2000 ? Decimal.floor(rewardMult.div(250).times(Math.pow((1 / 36) * Math.max(0, effectiveELO - 2000), 8/6))) : new Decimal(0),
+    legendaryFragments: effectiveELO > 3000 ? Decimal.floor(rewardMult.div(230).times(Math.pow((1 / 49) * Math.max(0, effectiveELO - 3000), 7/6))) : new Decimal(0),
+    mythicalFragments: effectiveELO > 5000 ? Decimal.floor(rewardMult.div(220).times(Math.pow((1 / 64) * Math.max(0, effectiveELO - 5000), 1))) : new Decimal(0)
   }
 
   return rewards

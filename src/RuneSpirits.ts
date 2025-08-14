@@ -40,7 +40,7 @@ const spiritMultiplier = (key: RuneKeys) => {
     * runeBlessings[key as RuneBlessingKeys].level
     * (1 + (8 * player.researches[164]) / 100)
     * (player.researches[165] && player.currentChallenge.ascension !== 0 ? 2 : 1)
-    * (1 + 0.15 * Math.log10(player.legendaryFragments + 1) * player.researches[189])
+    * (1 + 0.15 * Decimal.log(player.legendaryFragments.add(1), 10) * player.researches[189])
     * (1 + (2 * player.researches[194]) / 100)
     * G.challenge15Rewards.spiritBonus.value
     * player.corruptions.used.totalCorruptionDifficultyMultiplier

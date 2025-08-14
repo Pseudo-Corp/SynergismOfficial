@@ -9,7 +9,6 @@ import {
   calcAscensionCount,
   CalcCorruptionStuff,
   calculateAnts,
-  calculateAntSacrificeELO,
   calculateGoldenQuarks,
   calculateObtainium,
   calculateOfferings,
@@ -719,7 +718,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
 
     calculateAnts()
-    calculateAntSacrificeELO()
     calculateObtainium()
     awardAchievementGroup('ascensionCount')
 

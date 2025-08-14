@@ -1567,7 +1567,7 @@ export const achievements: Achievement[] = [
     },
     group: 'ungrouped'
   },
-  { pointValue: 50, unlockCondition: () => player.mythicalFragments >= 1e25, group: 'ungrouped' },
+  { pointValue: 50, unlockCondition: () => player.mythicalFragments.gte(1e25), group: 'ungrouped' },
   {
     pointValue: 50,
     unlockCondition: () => player.ascensionCount >= 1414213,

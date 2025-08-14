@@ -18,7 +18,7 @@ import {
   calculateAmbrosiaLuckShopUpgrade,
   calculateAmbrosiaLuckSingularityUpgrade,
   calculateAmbrosiaQuarkMult,
-  calculateAntSacrificeMultipliers,
+  calculateAntSacrificeMultiplier,
   calculateAscensionScore,
   calculateAscensionSpeedExponentSpread,
   calculateAscensionSpeedMult,
@@ -89,7 +89,6 @@ import {
 } from './Calculate'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
 import {
-  calculateAntSacrificeCubeBlessing,
   calculateGlobalSpeedCubeBlessing,
   calculateRuneEffectivenessCubeBlessing,
   calculateSalvageCubeBlessing
@@ -1043,10 +1042,11 @@ export const allOfferingStats = [
       if (!player.singularityChallenges.taxmanLastStand.enabled) {
         return 1
       }
-      const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
+      const obtainiumDigits = Math.floor(1 + Math.max(0, Decimal.log(player.obtainium, 10)))
       const comps = player.singularityChallenges.taxmanLastStand.completions
-      return Math.pow(2.5 + 4 * comps / 100, -Math.min(500, offeringDigits)) // Taxman Debuff
-    }
+      return Math.pow(2.5 + 4 * comps / 100, -Math.min(500, obtainiumDigits)) // Taxman Debuff
+    },
+    color: 'red'
   },
   {
     i18n: 'Event',
@@ -1131,7 +1131,7 @@ export const firstFiveRuneEffectivenessStats: StatLine[] = [
   {
     i18n: 'ConstantUpgrade9',
     stat: () =>
-      1 + ((0.01 * Math.log(player.talismanShards + 1)) / Math.log(4))
+      1 + 0.01 * Decimal.log(player.talismanShards.add(1), 4)
         * Math.min(1, player.constantUpgrades[9]),
     displayCriterion: () => {
       const ascCount = player.ascensionCount
@@ -1542,7 +1542,7 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'Research6x19',
-    stat: () => 1 + ((0.03 * Math.log(player.uncommonFragments + 1)) / Math.log(4)) * player.researches[144] // Research 6x19
+    stat: () => 1 + ((0.03 * Decimal.log(player.uncommonFragments.add(1), 4))) * player.researches[144] // Research 6x19
   },
   {
     i18n: 'CubeUpgrade5x10',
@@ -1619,7 +1619,8 @@ export const allObtainiumStats: StatLine[] = [
       const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
       const comps = player.singularityChallenges.taxmanLastStand.completions
       return Math.pow(2.5 + 6 * comps / 100, -Math.min(500, offeringDigits)) // Taxman Debuff
-    }
+    },
+    color: 'red'
   }
 ]
 
@@ -1703,10 +1704,6 @@ export const antSacrificeRewardStats: StatLine[] = [
   {
     i18n: 'AcceleratorBoostUpgrade',
     stat: () => 1 + (1 / 4) * player.upgrades[40]
-  },
-  {
-    i18n: 'CubeBlessingAres',
-    stat: () => calculateAntSacrificeCubeBlessing()
   },
   {
     i18n: 'Event',
@@ -3328,7 +3325,7 @@ export const loadStatisticsAntSacrificeMult = () => {
     'antSacrificeMultStats',
     'statASM',
     'AntSacrificeStat',
-    calculateAntSacrificeMultipliers
+    calculateAntSacrificeMultiplier
   )
 }
 

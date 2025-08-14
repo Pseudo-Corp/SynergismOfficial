@@ -945,7 +945,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.cubes.items.7',
         {
           amount: format(player.cubeBlessings.antSacrifice, 0, true),
-          bonus: formatAsPercentIncrease(calculateAntSacrificeCubeBlessing(), 2)
+          bonus: formatDecimalAsPercentIncrease(calculateAntSacrificeCubeBlessing(), 2)
         }
       )
 

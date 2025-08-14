@@ -39,7 +39,7 @@ const blessingMultiplier = (key: RuneKeys) => {
     runes[key].level + runes[key].freeLevels()
       * (1 + (6.9 * player.researches[134]) / 100)
       * (getTalismanEffects('midas').blessingBonus)
-      * (1 + 0.1 * Math.log10(player.epicFragments + 1) * player.researches[174])
+      * (1 + 0.1 * Decimal.log(player.epicFragments.add(1), 10) * player.researches[174])
       * (1 + (2 * player.researches[194]) / 100)
       * (1 + 0.25 * player.researches[160])
       * G.challenge15Rewards.blessingBonus.value

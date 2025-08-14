@@ -94,7 +94,7 @@ export const calculatetax = () => {
         + 0.2 * player.platonicUpgrades[10] + calculateTaxPlatonicBlessing()
     )
   exponent *= 1 + getTalismanEffects('exemption').taxReduction
-  exponent *= Math.pow(0.98, 3 / 5 * Math.log(1 + player.rareFragments) / Math.log(10) * player.researches[159])
+  exponent *= Math.pow(0.98, 3 / 5 * Decimal.log(player.rareFragments.add(1), 10) * player.researches[159])
   exponent *= Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13]))
   exponent *= 1 - 0.666 * player.researches[200] / 100000
   exponent *= 1 - 0.666 * player.cubeUpgrades[50] / 100000

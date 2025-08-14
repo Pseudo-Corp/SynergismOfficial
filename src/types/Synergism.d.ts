@@ -466,15 +466,15 @@ export interface Player {
   antSacrificeTimer: number
   antSacrificeTimerReal: number
 
-  talismans: Record<TalismanKeys, Record<TalismanCraftItems, number>>
+  talismans: Record<TalismanKeys, Record<TalismanCraftItems, Decimal>>
 
-  talismanShards: number
-  commonFragments: number
-  uncommonFragments: number
-  rareFragments: number
-  epicFragments: number
-  legendaryFragments: number
-  mythicalFragments: number
+  talismanShards: Decimal
+  commonFragments: Decimal
+  uncommonFragments: Decimal
+  rareFragments: Decimal
+  epicFragments: Decimal
+  legendaryFragments: Decimal
+  mythicalFragments: Decimal
 
   buyTalismanShardPercent: number
 
@@ -885,8 +885,6 @@ export interface GlobalVariables {
   obtainiumGain: number
 
   mirrorTalismanStats: ArrayStartingWithNull<number>
-  antELO: number
-  effectiveELO: number
 
   timeWarp: boolean
 

@@ -1,7 +1,8 @@
 import {
   calculateAnts,
-  calculateAntSacrificeELO,
   calculateAntSacrificeRewards,
+  calculateBaseAntELO,
+  calculateEffectiveAntELO,
   calculateSigmoid,
   calculateSigmoidExponential
 } from './Calculate'
@@ -196,7 +197,6 @@ export const buyAntProducers = (pos: FirstToEighth, originalCost: DecimalSource,
   if (player.antPoints.lt(0)) {
     player.antPoints = new Decimal('0')
   }
-  calculateAntSacrificeELO()
 
   awardAchievementGroup('sacMult')
 
@@ -239,7 +239,6 @@ export const buyAntUpgrade = (originalCost: DecimalSource, auto: boolean, index:
       thisCost = getAntUpgradeCost(originalCost, buyFrom, index)
     }
     calculateAnts()
-    calculateAntSacrificeELO()
     if (!auto) {
       antUpgradeDescription(index)
     }
@@ -288,9 +287,11 @@ export const showSacrifice = () => {
   const sacRewards = calculateAntSacrificeRewards()
   DOMCacheGetOrSet('antSacrificeSummary').style.display = 'block'
 
+  const baseELO = calculateBaseAntELO()
+  const effectiveELO = calculateEffectiveAntELO(baseELO)
   DOMCacheGetOrSet('ELO').innerHTML = i18next.t('ants.yourAntELO', {
-    x: format(G.antELO, 2),
-    y: format(G.effectiveELO, 2, false)
+    x: format(baseELO, 2),
+    y: format(effectiveELO, 2, false)
   })
 
   DOMCacheGetOrSet('SacrificeMultiplier').innerHTML = i18next.t('ants.antSacMultiplier', {
@@ -358,6 +359,9 @@ export const sacrificeAnts = async (auto = false) => {
         player.obtainium = player.obtainium.add(sacRewards.obtainium)
       }
 
+      const baseELO = calculateBaseAntELO()
+      const effectiveELO = calculateEffectiveAntELO(baseELO)
+
       const historyEntry: ResetHistoryEntryAntSacrifice = {
         date: Date.now(),
         seconds: player.antSacrificeTimer,
@@ -366,20 +370,20 @@ export const sacrificeAnts = async (auto = false) => {
         obtainium: sacRewards.obtainium,
         antSacrificePointsBefore,
         antSacrificePointsAfter: player.antSacrificePoints,
-        baseELO: G.antELO,
-        effectiveELO: G.effectiveELO,
+        baseELO: baseELO,
+        effectiveELO: effectiveELO,
         crumbs: player.antPoints.toString(),
         crumbsPerSecond: G.antOneProduce.toString()
       }
 
       if (player.challengecompletions[9] > 0) {
-        player.talismanShards = Math.min(1e300, player.talismanShards + sacRewards.talismanShards)
-        player.commonFragments = Math.min(1e300, player.commonFragments + sacRewards.commonFragments)
-        player.uncommonFragments = Math.min(1e300, player.uncommonFragments + sacRewards.uncommonFragments)
-        player.rareFragments = Math.min(1e300, player.rareFragments + sacRewards.rareFragments)
-        player.epicFragments = Math.min(1e300, player.epicFragments + sacRewards.epicFragments)
-        player.legendaryFragments = Math.min(1e300, player.legendaryFragments + sacRewards.legendaryFragments)
-        player.mythicalFragments = Math.min(1e300, player.mythicalFragments + sacRewards.mythicalFragments)
+        player.talismanShards = player.talismanShards.add(sacRewards.talismanShards)
+        player.commonFragments = player.commonFragments.add(sacRewards.commonFragments)
+        player.uncommonFragments = player.uncommonFragments.add(sacRewards.uncommonFragments)
+        player.rareFragments = player.rareFragments.add(sacRewards.rareFragments)
+        player.epicFragments = player.epicFragments.add(sacRewards.epicFragments)
+        player.legendaryFragments = player.legendaryFragments.add(sacRewards.legendaryFragments)
+        player.mythicalFragments = player.mythicalFragments.add(sacRewards.mythicalFragments)
       }
 
       // Now we're safe to reset the ants.
@@ -391,13 +395,11 @@ export const sacrificeAnts = async (auto = false) => {
         const linGrowth = (player.autoResearch === 200) ? 0.01 : 0
         buyResearch(player.autoResearch, true, linGrowth)
       }
-      calculateAntSacrificeELO()
-
       resetHistoryAdd('ants', historyEntry)
     }
   }
 
-  if (player.mythicalFragments >= 1e11 && player.currentChallenge.ascension === 14) {
+  if (player.mythicalFragments.gte(1e11) && player.currentChallenge.ascension === 14) {
     awardUngroupedAchievement('seeingRedNoBlue')
   }
 }

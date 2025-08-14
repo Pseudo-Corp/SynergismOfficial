@@ -341,20 +341,17 @@ export const calculateAntSpeedCubeBlessing = () => {
     .times(calculateAntSpeedTesseractBlessing())
 }
 
-export const calculateAntSacrificeCubeBlessing = () => {
+export const calculateAntSacrificeCubeBlessing = (): Decimal => {
   const DR = 2 / 3
   const effectPerBlessing = calculateAntSacrificeTesseractBlessing() / 5000
   const limit = 1000
   const DRIncrease = player.cubeUpgrades[15] / 50
 
   if (player.cubeBlessings.antSacrifice < limit) {
-    return Math.pow(1 + effectPerBlessing * player.cubeBlessings.antSacrifice, 1 + DRIncrease)
+    return Decimal.pow(1 + effectPerBlessing * player.cubeBlessings.antSacrifice, 1 + DRIncrease)
   } else {
     const limitMult = Math.pow(limit, 1 - DR + DRIncrease)
-    return Math.min(
-      1e300,
-      1 + limitMult * effectPerBlessing * Math.pow(player.cubeBlessings.antSacrifice, DR + DRIncrease)
-    )
+    return Decimal.pow(player.cubeBlessings.antSacrifice, DR + DRIncrease).times(effectPerBlessing).times(limitMult).add(1)
   }
 }
 

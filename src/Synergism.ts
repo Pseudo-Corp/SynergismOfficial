@@ -777,13 +777,13 @@ export const player: Player = {
     horseShoe: noTalismanFragments
   },
 
-  talismanShards: 0,
-  commonFragments: 0,
-  uncommonFragments: 0,
-  rareFragments: 0,
-  epicFragments: 0,
-  legendaryFragments: 0,
-  mythicalFragments: 0,
+  talismanShards: new Decimal(0),
+  commonFragments: new Decimal(0),
+  uncommonFragments: new Decimal(0),
+  rareFragments: new Decimal(0),
+  epicFragments: new Decimal(0),
+  legendaryFragments: new Decimal(0),
+  mythicalFragments: new Decimal(0),
 
   buyTalismanShardPercent: 10,
 
@@ -1260,7 +1260,7 @@ export const saveSynergy = (button?: boolean) => {
       const k = key as TalismanKeys
       return [key, { ...talismans[k].fragmentsInvested }]
     })
-  ) as Record<TalismanKeys, Record<TalismanCraftItems, number>>
+  ) as Record<TalismanKeys, Record<TalismanCraftItems, Decimal>>
 
   player.runes = Object.fromEntries(
     Object.keys(player.runes).map((key) => {
@@ -2824,8 +2824,7 @@ export const multipliers = (): void => {
   let crystalExponent = 1 / 3
   crystalExponent += Math.min(
     10
-      + (0.05 * player.researches[129] * Math.log(player.commonFragments + 1))
-        / Math.log(4)
+      + (0.05 * player.researches[129] * Decimal.log(player.commonFragments.add(1), 4))
       + getRuneSpiritEffect('prism').crystalCaps,
     0.05 * player.crystalUpgrades[3]
   )
@@ -3073,8 +3072,7 @@ export const multipliers = (): void => {
             + 0.88 * player.upgrades[122]
             + (0.001
                 * player.researches[129]
-                * Math.log(player.commonFragments + 1))
-              / Math.log(4),
+                * Decimal.log(player.commonFragments.add(1), 4)),
           0.001 * player.crystalUpgrades[2]
         ),
       player.firstOwnedDiamonds

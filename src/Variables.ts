@@ -285,8 +285,6 @@ export const Globals: GlobalVariables = {
   obtainiumGain: 0,
 
   mirrorTalismanStats: [null, 1, 1, 1, 1, 1],
-  antELO: 0,
-  effectiveELO: 0,
 
   timeWarp: false,
 
