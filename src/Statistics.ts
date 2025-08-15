@@ -1542,7 +1542,7 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'Research6x19',
-    stat: () => 1 + ((0.03 * Decimal.log(player.uncommonFragments.add(1), 4))) * player.researches[144] // Research 6x19
+    stat: () => 1 + (0.03 * Decimal.log(player.uncommonFragments.add(1), 4)) * player.researches[144] // Research 6x19
   },
   {
     i18n: 'CubeUpgrade5x10',

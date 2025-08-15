@@ -7,13 +7,13 @@ import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosi
 import { prod } from './Config'
 import { updateGlobalsIsEvent } from './Event'
 import { addTimers, automaticTools } from './Helper'
-import { importSynergism, saveFilename } from './ImportExport'
+import { exportData, importSynergism, saveFilename } from './ImportExport'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, refreshQuarkBonus, setQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
-import { assert } from './Utility'
+import { assert, btoa } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -64,6 +64,8 @@ const DIAMOND_SMITH_MESSIAH = '1311165096378105906'
 let ws: WebSocket | undefined
 let loggedIn = false
 let tips = 0
+
+const cloudSaves: Save[] = []
 
 export const isLoggedIn = () => loggedIn
 export const getTips = () => tips
@@ -761,14 +763,12 @@ function handleCloudSaves () {
 
   const uploadButton = subtabElement.querySelector<HTMLButtonElement>('button#upload')
 
-  const saves: Omit<Save, 'save'>[] = []
-
   function populateTable () {
-    fetch('/saves/retrieve/metadata')
+    fetch('/saves/retrieve/all')
       .then((response) => response.json())
-      .then(($saves: Omit<Save, 'save'>[]) => {
-        saves.length = 0
-        saves.push(...$saves)
+      .then(($saves: Save[]) => {
+        cloudSaves.length = 0
+        cloudSaves.push(...$saves)
 
         const existingRows = table.querySelectorAll('.grid-row')
         existingRows.forEach((row) => row.remove())
@@ -776,7 +776,7 @@ function handleCloudSaves () {
         const content = table.querySelector('.details-content')
         content?.remove()
 
-        if (saves.length === 0) {
+        if (cloudSaves.length === 0) {
           const emptyDiv = document.createElement('div')
           emptyDiv.className = 'grid-row empty-state'
           emptyDiv.style.gridColumn = '1 / -1'
@@ -785,7 +785,7 @@ function handleCloudSaves () {
           return
         }
 
-        saves.forEach(({ id, name, uploadedAt }, index) => {
+        cloudSaves.forEach(({ id, name, uploadedAt }, index) => {
           const rowDiv = document.createElement('div')
           rowDiv.className = 'grid-row'
           rowDiv.style.display = 'contents'
@@ -847,7 +847,7 @@ function handleCloudSaves () {
             e.stopPropagation()
 
             const target = e.target as HTMLElement
-            const saveId = target.getAttribute('data-id')!
+            const saveId = Number(target.getAttribute('data-id'))
 
             if (target.classList.contains('btn-download')) {
               handleDownload(saveId)
@@ -862,19 +862,60 @@ function handleCloudSaves () {
           table.appendChild(detailsRow)
         })
 
-        function handleDownload (saveId: string) {
-          console.log('Downloading save:', saveId)
-          // TODO
+        async function decodeSave (save: string) {
+          const decoded = atob(save)
+          const bytes = new Uint8Array(decoded.length)
+          for (let i = 0; i < decoded.length; i++) {
+            bytes[i] = decoded.charCodeAt(i)
+          }
+
+          const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
+          const textBody = await new Response(stream).text()
+          const encoder = new TextEncoder()
+          const jsonBytes = encoder.encode(textBody)
+          const final = btoa(String.fromCharCode(...jsonBytes))
+
+          return final
         }
 
-        function handleLoadSave (saveId: string) {
-          console.log('Loading save:', saveId)
-          // TODO
+        async function handleDownload (saveId: number) {
+          const save = cloudSaves.find((save) => saveId === save.id)
+
+          if (!save) {
+            Alert('No save found with that id.')
+            return
+          }
+
+          const decoded = await decodeSave(save.save)
+
+          if (decoded === null) {
+            Alert('Please send this to Khafra')
+            return
+          }
+
+          await exportData(decoded, save.name)
+          Alert('Download complete')
         }
 
-        function handleDeleteSave (saveId: string) {
-          console.log('Deleting save:', saveId)
-          // TODO
+        async function handleLoadSave (saveId: number) {
+          const save = cloudSaves.find((save) => saveId === save.id)
+
+          if (!save) {
+            Alert('No save found with that id.')
+            return
+          }
+
+          const decoded = await decodeSave(save.save)
+          await importSynergism(decoded)
+        }
+
+        function handleDeleteSave (saveId: number) {
+          const save = cloudSaves.find((save) => saveId === save.id)
+
+          if (!save) {
+            Alert('No save found with that id.')
+            return
+          }
         }
       })
   }
@@ -882,15 +923,14 @@ function handleCloudSaves () {
   populateTable()
 
   // Handle uploading savefiles
-  uploadButton?.addEventListener('click', function(this: typeof uploadButton) {
-    this.disabled = true
-    const originalText = this.textContent
-    this.innerHTML = '<span class="spinner"></span> Uploading...'
-
-    const save = localStorage.getItem('Synergysave2')
-    assert(save !== null, 'no save')
+  uploadButton?.addEventListener('click', () => {
+    uploadButton.disabled = true
+    const originalText = uploadButton.textContent
+    uploadButton.innerHTML = '<span class="spinner"></span> Uploading...'
 
     const name = saveFilename()
+    const save = localStorage.getItem('Synergysave2')
+    assert(save !== null, 'no save')
 
     const fd = new FormData()
     fd.set('file', new File([save], name))
@@ -904,15 +944,15 @@ function handleCloudSaves () {
         throw new TypeError(`Received status ${response.status}`)
       }
 
-      this.textContent = i18next.t('settings.cloud.uploadSuccess')
+      uploadButton.textContent = i18next.t('settings.cloud.uploadSuccess')
       populateTable()
     }).catch((e) => {
       console.error(e)
-      this.textContent = i18next.t('settings.cloud.uploadFailed')
+      uploadButton.textContent = i18next.t('settings.cloud.uploadFailed')
     }).finally(() => {
       setTimeout(() => {
-        this.disabled = false
-        this.textContent = originalText
+        uploadButton.disabled = false
+        uploadButton.textContent = originalText
       }, 5000)
     })
   })

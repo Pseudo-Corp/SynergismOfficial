@@ -351,7 +351,8 @@ export const calculateAntSacrificeCubeBlessing = (): Decimal => {
     return Decimal.pow(1 + effectPerBlessing * player.cubeBlessings.antSacrifice, 1 + DRIncrease)
   } else {
     const limitMult = Math.pow(limit, 1 - DR + DRIncrease)
-    return Decimal.pow(player.cubeBlessings.antSacrifice, DR + DRIncrease).times(effectPerBlessing).times(limitMult).add(1)
+    return Decimal.pow(player.cubeBlessings.antSacrifice, DR + DRIncrease).times(effectPerBlessing).times(limitMult)
+      .add(1)
   }
 }
 

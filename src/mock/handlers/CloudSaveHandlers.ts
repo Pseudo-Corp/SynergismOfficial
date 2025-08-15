@@ -1,5 +1,4 @@
 import { delay, http, type HttpHandler, HttpResponse } from 'msw'
-import { playerSchema } from '../../saves/PlayerSchema'
 
 interface Save {
   id: number
@@ -23,7 +22,7 @@ const saves: Save[] = []
 
 export const cloudSaveHandlers: HttpHandler[] = [
   http.get('/saves/retrieve/metadata', async () => {
-    await delay(2500)
+    await delay(500)
 
     return HttpResponse.json(saves.map((s) => {
       const { save, ...rest } = s
@@ -31,11 +30,11 @@ export const cloudSaveHandlers: HttpHandler[] = [
     }))
   }),
   http.get('/saves/retrieve/all', async () => {
-    await delay(5000)
+    await delay(1000)
     return HttpResponse.json(saves)
   }),
   http.post('/saves/upload', async ({ request }) => {
-    await delay(5000)
+    await delay(1000)
 
     const fd = await request.formData()
     const file = fd.get('file')
@@ -53,9 +52,12 @@ export const cloudSaveHandlers: HttpHandler[] = [
 
     const base64 = await file.text()
     const decoded = atob(base64)
-    const player = playerSchema.parse(JSON.parse(decoded))
-    const save = JSON.stringify(player)
-    saves.push({ id: saves.length, name, uploadedAt: new Date().toString(), save })
+    const stream = new Blob([decoded]).stream().pipeThrough(new CompressionStream('gzip'))
+
+    const compressedData = await new Response(stream).bytes()
+    const encoded = btoa(String.fromCharCode(...compressedData))
+
+    saves.push({ id: saves.length, name, uploadedAt: new Date().toString(), save: encoded })
 
     return new Response('Ok!', { status: 200 })
   })

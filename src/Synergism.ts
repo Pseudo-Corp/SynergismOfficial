@@ -3071,8 +3071,8 @@ export const multipliers = (): void => {
           0.12
             + 0.88 * player.upgrades[122]
             + (0.001
-                * player.researches[129]
-                * Decimal.log(player.commonFragments.add(1), 4)),
+              * player.researches[129]
+              * Decimal.log(player.commonFragments.add(1), 4)),
           0.001 * player.crystalUpgrades[2]
         ),
       player.firstOwnedDiamonds

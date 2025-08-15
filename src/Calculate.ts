@@ -750,13 +750,27 @@ export const calculateAntSacrificeRewards = (): IAntSacRewards => {
     antSacrificePoints: Decimal.min(rewardMult.div(85), 1e300).toNumber(),
     offerings: calculateAntSacrificeOffering(),
     obtainium: calculateAntSacrificeObtainium(),
-    talismanShards: effectiveELO > 500 ? Decimal.floor(rewardMult.div(210).times(Math.pow((1 / 4) * Math.max(0, effectiveELO - 500), 2))) : new Decimal(0),
-    commonFragments: effectiveELO > 750 ? Decimal.floor(rewardMult.div(110).times(Math.pow((1 / 9) * Math.max(0, effectiveELO - 750), 11/6))) : new Decimal(0),
-    uncommonFragments: effectiveELO > 1000 ? Decimal.floor(rewardMult.div(170).times(Math.pow((1 / 16) * Math.max(0, effectiveELO - 1000), 10/6))) : new Decimal(0),
-    rareFragments: effectiveELO > 1500 ? Decimal.floor(rewardMult.div(200).times(Math.pow((1 / 25) * Math.max(0, effectiveELO - 1500), 9/6))) : new Decimal(0),
-    epicFragments: effectiveELO > 2000 ? Decimal.floor(rewardMult.div(250).times(Math.pow((1 / 36) * Math.max(0, effectiveELO - 2000), 8/6))) : new Decimal(0),
-    legendaryFragments: effectiveELO > 3000 ? Decimal.floor(rewardMult.div(230).times(Math.pow((1 / 49) * Math.max(0, effectiveELO - 3000), 7/6))) : new Decimal(0),
-    mythicalFragments: effectiveELO > 5000 ? Decimal.floor(rewardMult.div(220).times(Math.pow((1 / 64) * Math.max(0, effectiveELO - 5000), 1))) : new Decimal(0)
+    talismanShards: effectiveELO > 500
+      ? Decimal.floor(rewardMult.div(210).times(Math.pow((1 / 4) * Math.max(0, effectiveELO - 500), 2)))
+      : new Decimal(0),
+    commonFragments: effectiveELO > 750
+      ? Decimal.floor(rewardMult.div(110).times(Math.pow((1 / 9) * Math.max(0, effectiveELO - 750), 11 / 6)))
+      : new Decimal(0),
+    uncommonFragments: effectiveELO > 1000
+      ? Decimal.floor(rewardMult.div(170).times(Math.pow((1 / 16) * Math.max(0, effectiveELO - 1000), 10 / 6)))
+      : new Decimal(0),
+    rareFragments: effectiveELO > 1500
+      ? Decimal.floor(rewardMult.div(200).times(Math.pow((1 / 25) * Math.max(0, effectiveELO - 1500), 9 / 6)))
+      : new Decimal(0),
+    epicFragments: effectiveELO > 2000
+      ? Decimal.floor(rewardMult.div(250).times(Math.pow((1 / 36) * Math.max(0, effectiveELO - 2000), 8 / 6)))
+      : new Decimal(0),
+    legendaryFragments: effectiveELO > 3000
+      ? Decimal.floor(rewardMult.div(230).times(Math.pow((1 / 49) * Math.max(0, effectiveELO - 3000), 7 / 6)))
+      : new Decimal(0),
+    mythicalFragments: effectiveELO > 5000
+      ? Decimal.floor(rewardMult.div(220).times(Math.pow((1 / 64) * Math.max(0, effectiveELO - 5000), 1)))
+      : new Decimal(0)
   }
 
   return rewards

@@ -134,12 +134,24 @@ const regularCostProgression = (baseMult: Decimal, level: number): Record<Talism
   }
 
   const shardCost = Decimal.pow(level, 3).times(1 / 8).plus(1).floor().times(priceMult)
-  const commonCost = level >= 30 ? Decimal.pow(level - 30, 3).times(1 / 32).plus(1).floor().times(priceMult) : new Decimal(0)
-  const uncommonCost = level >= 60 ? Decimal.pow(level - 60, 3).times(1 / 384).plus(1).floor().times(priceMult) : new Decimal(0)
-  const rareCost = level >= 90 ? Decimal.pow(level - 90, 3).times(1 / 500).plus(1).floor().times(priceMult) : new Decimal(0)
-  const epicCost = level >= 120 ? Decimal.pow(level - 120, 3).times(1 / 375).plus(1).floor().times(priceMult) : new Decimal(0)
-  const legendaryCost = level >= 150 ? Decimal.pow(level - 150, 3).times(1 / 192).plus(1).floor().times(priceMult) : new Decimal(0)
-  const mythicalCost = level >= 150 ? Decimal.pow(level - 150, 3).times(1 / 1280).plus(1).floor().times(priceMult) : new Decimal(0)
+  const commonCost = level >= 30
+    ? Decimal.pow(level - 30, 3).times(1 / 32).plus(1).floor().times(priceMult)
+    : new Decimal(0)
+  const uncommonCost = level >= 60
+    ? Decimal.pow(level - 60, 3).times(1 / 384).plus(1).floor().times(priceMult)
+    : new Decimal(0)
+  const rareCost = level >= 90
+    ? Decimal.pow(level - 90, 3).times(1 / 500).plus(1).floor().times(priceMult)
+    : new Decimal(0)
+  const epicCost = level >= 120
+    ? Decimal.pow(level - 120, 3).times(1 / 375).plus(1).floor().times(priceMult)
+    : new Decimal(0)
+  const legendaryCost = level >= 150
+    ? Decimal.pow(level - 150, 3).times(1 / 192).plus(1).floor().times(priceMult)
+    : new Decimal(0)
+  const mythicalCost = level >= 150
+    ? Decimal.pow(level - 150, 3).times(1 / 1280).plus(1).floor().times(priceMult)
+    : new Decimal(0)
 
   return {
     'shard': Decimal.max(0, shardCost),
@@ -152,17 +164,33 @@ const regularCostProgression = (baseMult: Decimal, level: number): Record<Talism
   }
 }
 
-const exponentialCostProgression = (baseMult: Decimal, level: number, ratio: number): Record<TalismanCraftItems, Decimal> => {
+const exponentialCostProgression = (
+  baseMult: Decimal,
+  level: number,
+  ratio: number
+): Record<TalismanCraftItems, Decimal> => {
   const baseMultDecimal = new Decimal(baseMult)
-  
+
   return {
     shard: Decimal.pow(ratio, level).times(baseMultDecimal).times(100).floor(),
-    commonFragment: level >= 30 ? Decimal.pow(ratio, level - 30).times(baseMultDecimal).times(50).floor() : new Decimal(0),
-    uncommonFragment: level >= 60 ? Decimal.pow(ratio, level - 60).times(baseMultDecimal).times(25).floor() : new Decimal(0),
-    rareFragment: level >= 90 ? Decimal.pow(ratio, level - 90).times(baseMultDecimal).times(20).floor() : new Decimal(0),
-    epicFragment: level >= 120 ? Decimal.pow(ratio, level - 120).times(baseMultDecimal).times(15).floor() : new Decimal(0),
-    legendaryFragment: level >= 150 ? Decimal.pow(ratio, level - 150).times(baseMultDecimal).times(10).floor() : new Decimal(0),
-    mythicalFragment: level >= 150 ? Decimal.pow(ratio, level - 150).times(baseMultDecimal).times(5).floor() : new Decimal(0)
+    commonFragment: level >= 30
+      ? Decimal.pow(ratio, level - 30).times(baseMultDecimal).times(50).floor()
+      : new Decimal(0),
+    uncommonFragment: level >= 60
+      ? Decimal.pow(ratio, level - 60).times(baseMultDecimal).times(25).floor()
+      : new Decimal(0),
+    rareFragment: level >= 90
+      ? Decimal.pow(ratio, level - 90).times(baseMultDecimal).times(20).floor()
+      : new Decimal(0),
+    epicFragment: level >= 120
+      ? Decimal.pow(ratio, level - 120).times(baseMultDecimal).times(15).floor()
+      : new Decimal(0),
+    legendaryFragment: level >= 150
+      ? Decimal.pow(ratio, level - 150).times(baseMultDecimal).times(10).floor()
+      : new Decimal(0),
+    mythicalFragment: level >= 150
+      ? Decimal.pow(ratio, level - 150).times(baseMultDecimal).times(5).floor()
+      : new Decimal(0)
   }
 }
 
@@ -809,7 +837,8 @@ export const buyTalismanLevel = (t: TalismanKeys, fromMultibuy = false): void =>
     player.mythicalFragments = player.mythicalFragments.sub(costs.mythicalFragment)
 
     for (const item in costs) {
-      talismans[t].fragmentsInvested[item as TalismanCraftItems] = talismans[t].fragmentsInvested[item as TalismanCraftItems].add(costs[item as TalismanCraftItems])
+      talismans[t].fragmentsInvested[item as TalismanCraftItems] = talismans[t]
+        .fragmentsInvested[item as TalismanCraftItems].add(costs[item as TalismanCraftItems])
     }
 
     talismans[t].level += 1
@@ -1210,7 +1239,8 @@ export const updateResourcePredefinedLevel = (level: number, t: TalismanKeys): v
   for (let n = 0; n < talismans[t].level; n++) {
     const nextCost = talismans[t].costs(talismans[t].baseMult, n)
     for (const item in nextCost) {
-      talismans[t].fragmentsInvested[item as TalismanCraftItems] = talismans[t].fragmentsInvested[item as TalismanCraftItems].add(nextCost[item as TalismanCraftItems])
+      talismans[t].fragmentsInvested[item as TalismanCraftItems] = talismans[t]
+        .fragmentsInvested[item as TalismanCraftItems].add(nextCost[item as TalismanCraftItems])
     }
   }
 }
@@ -1312,7 +1342,10 @@ const getTalismanResourceInfo = (
     Decimal.floor(player.offerings.div(offeringCost))
   )
 
-  const amountToBuy = Decimal.max(1, Decimal.floor(Decimal.min(maxBuyObtainium, maxBuyOffering).times(percentage / 100)))
+  const amountToBuy = Decimal.max(
+    1,
+    Decimal.floor(Decimal.min(maxBuyObtainium, maxBuyOffering).times(percentage / 100))
+  )
   const canBuy = player.obtainium.gte(obtainiumCost) && player.offerings.gte(offeringCost)
   return {
     canBuy, // Boolean, if false will not buy any fragments

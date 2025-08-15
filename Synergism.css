@@ -4511,7 +4511,7 @@ img#singularityPerksIcon {
 #accountSubTab div#right.scrollbarX > #table > .grid-table {
     display: grid;
     grid-template-columns: 80px 0.5fr 0.5fr;
-    width: 100%;
+    width: 99%;
     justify-content: center;
 }
 
