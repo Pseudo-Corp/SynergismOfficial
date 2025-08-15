@@ -780,7 +780,7 @@ function handleCloudSaves () {
           const emptyDiv = document.createElement('div')
           emptyDiv.className = 'grid-row empty-state'
           emptyDiv.style.gridColumn = '1 / -1'
-          emptyDiv.textContent = 'No saves available'
+          emptyDiv.textContent = i18next.t('account.noSaves')
           table.appendChild(emptyDiv)
           return
         }
@@ -822,9 +822,9 @@ function handleCloudSaves () {
           detailsContent.className = 'details-content'
           detailsContent.innerHTML = `
             <div class="details-actions">
-              <button class="btn-download" data-id="${id}">Download</button>
-              <button class="btn-load" data-id="${id}">Load Save</button>
-              <button class="btn-delete" data-id="${id}">Delete</button>
+              <button class="btn-download" data-id="${id}">${i18next.t('account.download')}</button>
+              <button class="btn-load" data-id="${id}">${i18next.t('account.loadSave')}</button>
+              <button class="btn-delete" data-id="${id}">${i18next.t('account.delete')}</button>
             </div>
           `
 
@@ -882,7 +882,7 @@ function handleCloudSaves () {
           const save = cloudSaves.find((save) => saveId === save.id)
 
           if (!save) {
-            Alert('No save found with that id.')
+            Alert(i18next.t('account.noSaveFound'))
             return
           }
 
@@ -894,14 +894,14 @@ function handleCloudSaves () {
           }
 
           await exportData(decoded, save.name)
-          Alert('Download complete')
+          Alert(i18next.t('account.downloadComplete'))
         }
 
         async function handleLoadSave (saveId: number) {
           const save = cloudSaves.find((save) => saveId === save.id)
 
           if (!save) {
-            Alert('No save found with that id.')
+            Alert(i18next.t('account.noSaveFound'))
             return
           }
 
@@ -909,13 +909,27 @@ function handleCloudSaves () {
           await importSynergism(decoded)
         }
 
-        function handleDeleteSave (saveId: number) {
+        async function handleDeleteSave (saveId: number) {
           const save = cloudSaves.find((save) => saveId === save.id)
 
           if (!save) {
-            Alert('No save found with that id.')
+            Alert(i18next.t('account.noSaveFound'))
             return
           }
+
+          const response = await fetch('/saves/delete', {
+            method: 'DELETE',
+            body: JSON.stringify({ name: save.name })
+          })
+
+          if (response.ok) {
+            Alert(i18next.t('account.deletedSave', { name: save.name }))
+          } else {
+            console.log(response)
+            Alert(i18next.t('account.notDeleted'))
+          }
+
+          populateTable()
         }
       })
   }

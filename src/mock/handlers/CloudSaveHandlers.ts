@@ -60,5 +60,17 @@ export const cloudSaveHandlers: HttpHandler[] = [
     saves.push({ id: saves.length, name, uploadedAt: new Date().toString(), save: encoded })
 
     return new Response('Ok!', { status: 200 })
+  }),
+  http.delete('/saves/delete', async ({ request }) => {
+    await delay(1000)
+
+    const { name } = await request.json() as { name: string }
+    const save = saves.find((save) => save.name === name)
+
+    if (save) {
+      saves.splice(saves.indexOf(save), 1)
+    }
+
+    return new Response(null, { status: 204 })
   })
 ]
