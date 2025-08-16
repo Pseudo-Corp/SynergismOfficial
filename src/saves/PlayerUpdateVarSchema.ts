@@ -176,7 +176,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
     }
 
     // Retroactively reward players with unlocks, because I don't have a better place here
-    player.unlocks.chal7Research = player.achievements[124] === 1
     player.unlocks.anthill = player.achievements[127] === 1
     player.unlocks.talismans = player.achievements[134] === 1
     player.unlocks.blessings = player.achievements[134] === 1

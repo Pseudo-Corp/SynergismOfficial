@@ -106,7 +106,6 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.chal6 = player.achievements[113] === 1 ? 'true' : 'false'
   document.documentElement.dataset.chal7 = player.achievements[120] === 1 ? 'true' : 'false'
-  document.documentElement.dataset.chal7x10 = player.unlocks.chal7Research ? 'true' : 'false'
 
   const example17 = document.getElementsByClassName('chal8') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example17.length; i++) {

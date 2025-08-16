@@ -171,8 +171,7 @@ function createResearchUnlockMap(rangeConditions: RangeCondition[]): Record<numb
 
 const researchUnlockRanges: RangeCondition[] = [
   { range: [0, 0], condition: () => true }, // Not sure if needed!
-  { range: [1, 75], condition: () => player.unlocks.reincarnate },
-  { range: [76, 80], condition: () => player.unlocks.chal7Research },
+  { range: [1, 80], condition: () => player.unlocks.reincarnate },
   { range: [81, 100], condition: () => player.unlocks.anthill },
   /* I don't know if we need these special cases... but it would not be too hard to reinstate.
   // Special cases for 121, 124, 150
