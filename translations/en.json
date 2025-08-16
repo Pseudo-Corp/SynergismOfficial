@@ -747,21 +747,21 @@
       "408": "Halfway to cap: Level your Speed Rune to 500,000",
       "409": "Just kidding, there is no cap: Level your Speed Rune to 750,000.",
       "410": "I want to be a millionaire: Level your Speed Rune to 1,000,000.",
-      "411": "Simulated Tithe: Obtain 50 free levels of the Speed Rune.",
-      "412": "Simulated Tithe II: Obtain 100 free levels of the Speed Rune.",
-      "413": "Simulated Tithe III: Obtain 250 free levels of the Speed Rune.",
-      "414": "Simulated Tithe IV: Obtain 500 free levels of the Speed Rune.",
-      "415": "Simulated Tithe V: Obtain 1,000 free levels of the Speed Rune.",
-      "416": "Simulated Tithe VI: Obtain 2,500 free levels of the Speed Rune.",
-      "417": "Simulated Tithe VII: Obtain 5,000 free levels of the Speed Rune.",
-      "418": "Simulated Tithe VIII: Obtain 10,000 free levels of the Speed Rune.",
-      "419": "Simulated Tithe IX: Obtain 20,000 free levels of the Speed Rune.",
-      "420": "Simulated Tithe X: Obtain 50,000 free levels of the Speed Rune.",
-      "421": "Simulated Tithe XI: Obtain 100,000 free levels of the Speed Rune.",
-      "422": "Simulated Tithe XII: Obtain 200,000 free levels of the Speed Rune.",
-      "423": "Simulated Tithe XIII: Obtain 300,000 free levels of the Speed Rune.",
-      "424": "Simulated Tithe XIV: Obtain 500,000 free levels of the Speed Rune.",
-      "425": "God needs better names: Obtain 750,000 free levels of the Speed Rune.",
+      "411": "Simulated Tithe: Obtain 10 free levels of the Speed Rune.",
+      "412": "Simulated Tithe II: Obtain 40 free levels of the Speed Rune.",
+      "413": "Simulated Tithe III: Obtain 125 free levels of the Speed Rune.",
+      "414": "Simulated Tithe IV: Obtain 250 free levels of the Speed Rune.",
+      "415": "Simulated Tithe V: Obtain 500 free levels of the Speed Rune.",
+      "416": "Simulated Tithe VI: Obtain 1,000 free levels of the Speed Rune.",
+      "417": "Simulated Tithe VII: Obtain 2,000 free levels of the Speed Rune.",
+      "418": "Simulated Tithe VIII: Obtain 4,000 free levels of the Speed Rune.",
+      "419": "Simulated Tithe IX: Obtain 7,500 free levels of the Speed Rune.",
+      "420": "Simulated Tithe X: Obtain 12,500 free levels of the Speed Rune.",
+      "421": "Simulated Tithe XI: Obtain 25,000 free levels of the Speed Rune.",
+      "422": "Simulated Tithe XII: Obtain 37,500 free levels of the Speed Rune.",
+      "423": "Simulated Tithe XIII: Obtain 50,000 free levels of the Speed Rune.",
+      "424": "Simulated Tithe XIV: Obtain 75,000 free levels of the Speed Rune.",
+      "425": "God needs better names: Obtain 100,000 free levels of the Speed Rune.",
       "426": "Proof of Work: Gain 10 Campaign Tokens from Campaigns.",
       "427": "Insert tokens: Gain 20 Campaign Tokens from Campaigns.",
       "428": "Novice Corruptor: Gain 40 Campaign Tokens from Campaigns.",
@@ -1941,7 +1941,7 @@
       "freeRuneLevel": {
         "name": "Progressive Achievement - Free Rune Levels",
         "description": "Gain AP based on the sum of all your free rune levels! Best Total: {{x}}",
-        "apSource": "Gain +1 AP per 1,000 Free Rune Levels purchased, up to 200,000 Levels. <br> Gain +1 AP per 2,500 Free Rune Levels purchased, up to 1,000,000 Levels. <br> Gain +1 AP per 10,000 Free Rune Levels purchased, up to 4,000,000 Levels."
+        "apSource": "Gain +1 AP per 250 Free Rune Levels owned, up to 25,000 Levels. <br> Gain +1 AP per 750 Free Rune Levels owned, up to 150,000 Levels. <br> Gain +1 AP per 2,500 Free Rune Levels owned, up to 500,000 Levels."
       },
       "singularityCount": {
         "name": "Progressive Achievement - Singularity Count",
@@ -1971,7 +1971,7 @@
       "octeractUpgrades": {
         "name": "Progressive Achievement - Octeract Upgrades",
         "description": "Gain AP for each Octeract upgrade you've maxxed!",
-        "apSource": "Capped upgrades: +7 AP if the upgraded level (excluding free upgrades) is the maximum level."
+        "apSource": "Capped upgrades: +8 AP if the upgraded level (excluding free upgrades) is the maximum level."
       },
       "redAmbrosiaUpgrades": {
         "name": "Progressive Achievement - Red Ambrosia Upgrades",

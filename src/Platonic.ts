@@ -19,8 +19,8 @@ export interface IPlatBaseCost {
 
 export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   1: {
-    obtainium: 1e70,
-    offerings: 1e45,
+    obtainium: 1e90,
+    offerings: 1e90,
     cubes: 1e13,
     tesseracts: 1e6,
     hypercubes: 1e5,
@@ -30,8 +30,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     priceMult: 2
   },
   2: {
-    obtainium: 3e70,
-    offerings: 2e45,
+    obtainium: 1e91,
+    offerings: 1e91,
     cubes: 1e11,
     tesseracts: 1e8,
     hypercubes: 1e5,
@@ -41,8 +41,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     priceMult: 2
   },
   3: {
-    obtainium: 1e71,
-    offerings: 4e45,
+    obtainium: 1e92,
+    offerings: 1e92,
     cubes: 1e11,
     tesseracts: 1e6,
     hypercubes: 1e7,
@@ -52,8 +52,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     priceMult: 2
   },
   4: {
-    obtainium: 4e71,
-    offerings: 1e46,
+    obtainium: 1e93,
+    offerings: 1e93,
     cubes: 1e12,
     tesseracts: 1e7,
     hypercubes: 1e6,
@@ -63,8 +63,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     priceMult: 2
   },
   5: {
-    obtainium: 1e80,
-    offerings: 1e60,
+    obtainium: 1e99,
+    offerings: 1e99,
     cubes: 1e14,
     tesseracts: 1e9,
     hypercubes: 1e8,
@@ -73,8 +73,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     maxLevel: 1
   },
   6: {
-    obtainium: 1e82,
-    offerings: 1e61,
+    obtainium: 1e104,
+    offerings: 1e104,
     cubes: 1e15,
     tesseracts: 1e9,
     hypercubes: 1e8,
@@ -83,8 +83,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     maxLevel: 10
   },
   7: {
-    obtainium: 1e84,
-    offerings: 3e62,
+    obtainium: 1e107,
+    offerings: 1e107,
     cubes: 2e15,
     tesseracts: 2e9,
     hypercubes: 2e8,
@@ -93,8 +93,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     maxLevel: 15
   },
   8: {
-    obtainium: 1e87,
-    offerings: 1e64,
+    obtainium: 1e109,
+    offerings: 1e109,
     cubes: 4e15,
     tesseracts: 4e9,
     hypercubes: 4e8,
@@ -103,8 +103,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     maxLevel: 5
   },
   9: {
-    obtainium: 1e90,
-    offerings: 1e66,
+    obtainium: 1e112,
+    offerings: 1e112,
     cubes: 1e16,
     tesseracts: 1e10,
     hypercubes: 1e9,
@@ -113,8 +113,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     maxLevel: 1
   },
   10: {
-    obtainium: 1e93,
-    offerings: 1e68,
+    obtainium: 1e115,
+    offerings: 1e115,
     cubes: 1e18,
     tesseracts: 1e12,
     hypercubes: 1e11,
@@ -123,8 +123,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     maxLevel: 1
   },
   11: {
-    obtainium: 2e96,
-    offerings: 1e70,
+    obtainium: 1e117,
+    offerings: 1e114,
     cubes: 2e17,
     tesseracts: 2e11,
     hypercubes: 2e10,
@@ -133,8 +133,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     maxLevel: 1
   },
   12: {
-    obtainium: 1e100,
-    offerings: 1e72,
+    obtainium: 1e120,
+    offerings: 1e117,
     cubes: 1e18,
     tesseracts: 1e12,
     hypercubes: 1e11,
@@ -143,8 +143,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     maxLevel: 10
   },
   13: {
-    obtainium: 2e104,
-    offerings: 1e74,
+    obtainium: 1e126,
+    offerings: 1e121,
     cubes: 2e19,
     tesseracts: 4e12,
     hypercubes: 4e11,
@@ -153,8 +153,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     maxLevel: 1
   },
   14: {
-    obtainium: 1e108,
-    offerings: 1e77,
+    obtainium: 1e130,
+    offerings: 1e125,
     cubes: 4e20,
     tesseracts: 1e13,
     hypercubes: 1e12,
@@ -163,8 +163,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     maxLevel: 1
   },
   15: {
-    obtainium: 1e115,
-    offerings: 1e80,
+    obtainium: 1e135,
+    offerings: 1e130,
     cubes: 1e23,
     tesseracts: 1e15,
     hypercubes: 1e14,
@@ -174,7 +174,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   },
   16: {
     obtainium: 1e140,
-    offerings: 1e110,
+    offerings: 1e140,
     cubes: 0,
     tesseracts: 0,
     hypercubes: 2.5e15,
@@ -185,7 +185,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   },
   17: {
     obtainium: 1e145,
-    offerings: 1e113,
+    offerings: 1e145,
     cubes: 0,
     tesseracts: 0,
     hypercubes: 1e19,
@@ -195,8 +195,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     priceMult: 10
   },
   18: {
-    obtainium: 1e150,
-    offerings: 1e116,
+    obtainium: 1e155,
+    offerings: 1e155,
     cubes: 0,
     tesseracts: 0,
     hypercubes: 1e19,
@@ -207,7 +207,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   },
   19: {
     obtainium: 1e160,
-    offerings: 1e121,
+    offerings: 1e160,
     cubes: 0,
     tesseracts: 0,
     hypercubes: 1e21,
@@ -218,7 +218,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   },
   20: {
     obtainium: 1e180,
-    offerings: 1e130,
+    offerings: 1e180,
     cubes: 1e45,
     tesseracts: 1e28,
     hypercubes: 1e25,

@@ -1818,6 +1818,13 @@ export const blankGQLevelObject: Record<SingularityDataKeys, { level: number; fr
   ])
 ) as Record<SingularityDataKeys, { level: number; freeLevel: number }>
 
+export const maxGoldenQuarkUpgradeAP = Object.values(goldenQuarkUpgrades).reduce((acc, upgrade) => {
+  if (upgrade.maxLevel === -1) {
+    return acc
+  }
+  return acc + 5
+}, 0)
+
 /**
  * Get the upgrade's HTML representation with all relevant information
  */
@@ -3354,7 +3361,8 @@ export const calculateSingularityDebuff = (
   baseDebuffMultiplier *= (1 - Math.min(300, player.shopUpgrades.shopHorseShoe * getRuneEffectiveLevel('horseShoe')) / 1000)
 
   if (debuff === 'Offering') {
-    return baseDebuffMultiplier * (constitutiveSingularityCount < 150
+    const extraMult = 10 * Math.pow(1.02, constitutiveSingularityCount)
+    return extraMult * baseDebuffMultiplier * (constitutiveSingularityCount < 150
       ? 3 * (Math.sqrt(effectiveSingularities) + 1)
       : Math.pow(effectiveSingularities, 2 / 3) / 400)
   } else if (debuff === 'Salvage') {
@@ -3367,7 +3375,8 @@ export const calculateSingularityDebuff = (
   } else if (debuff === 'Global Speed') {
     return baseDebuffMultiplier * (1 + Math.sqrt(effectiveSingularities) / 4)
   } else if (debuff === 'Obtainium') {
-    return baseDebuffMultiplier * (constitutiveSingularityCount < 150
+    const extraMult = 10 * Math.pow(1.02, constitutiveSingularityCount)
+    return extraMult * baseDebuffMultiplier * (constitutiveSingularityCount < 150
       ? 3 * (Math.sqrt(effectiveSingularities) + 1)
       : Math.pow(effectiveSingularities, 2 / 3) / 400)
   } else if (debuff === 'Researches') {
@@ -3378,8 +3387,8 @@ export const calculateSingularityDebuff = (
       : 1 + Math.pow(effectiveSingularities, 0.75) / 10000)
   } else if (debuff === 'Cubes') {
     const extraMult = constitutiveSingularityCount > 100
-      ? Math.pow(1.02, constitutiveSingularityCount - 100)
-      : 1
+      ? (10 + constitutiveSingularityCount / 10) * Math.pow(1.02, constitutiveSingularityCount - 100)
+      : 10
     return baseDebuffMultiplier * (constitutiveSingularityCount < 150
       ? 3 * (1 + (Math.sqrt(effectiveSingularities) * extraMult) / 4)
       : 1 + (Math.pow(effectiveSingularities, 0.75) * extraMult) / 1000)

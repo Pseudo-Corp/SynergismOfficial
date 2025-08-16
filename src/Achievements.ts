@@ -6,16 +6,16 @@ import { CalcCorruptionStuff, calculateAscensionScore } from './Calculate'
 import { campaignTokens } from './Campaign'
 import { hepteracts } from './Hepteracts'
 import { displayLevelStuff } from './Levels'
-import { octeractUpgrades } from './Octeracts'
-import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
+import { maxOcteractUpgradeAP, octeractUpgrades } from './Octeracts'
+import { maxRedAmbrosiaUpgradeAP, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { runeBlessings } from './RuneBlessings'
 import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
 import { runeSpirits } from './RuneSpirits'
-import { getGQUpgradeEffect, goldenQuarkUpgrades } from './singularity'
+import { getGQUpgradeEffect, goldenQuarkUpgrades, maxGoldenQuarkUpgradeAP } from './singularity'
 import { maxAPFromChallenges, type SingularityChallengeDataKeys } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
-import { talismans } from './Talismans'
+import { maxTalismansRarityAP, talismans } from './Talismans'
 import type { resetNames } from './types/Synergism'
 import { Alert, CloseModal, Modal, Notification, revealStuff } from './UpdateHTML'
 import { isMobile, sumContents } from './Utility'
@@ -261,10 +261,10 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => player.prestigeCount > 0
   },
   freeRuneLevel: {
-    maxPointValue: 1000,
+    maxPointValue: 500,
     pointsAwarded: (cached: number) => {
-      return Math.min(200, Math.floor(cached / 1000)) + Math.min(400, Math.floor(cached / 2500))
-        + Math.min(400, Math.floor(cached / 10000))
+      return Math.min(100, Math.floor(cached / 250)) + Math.min(200, Math.floor(cached / 750))
+        + Math.min(200, Math.floor(cached / 2500))
     },
     updateValue: () => {
       return sumOfFreeRuneLevels()
@@ -357,7 +357,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => player.highestSingularityCount >= 25
   },
   singularityUpgrades: {
-    maxPointValue: -1,
+    maxPointValue: maxGoldenQuarkUpgradeAP,
     pointsAwarded: (_cached: number) => {
       let pointValue = 0
       // Go through all sing upgrades. if the max level is NOT -1, add 5 points if the upgrade level equals max level
@@ -377,10 +377,10 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => player.highestSingularityCount > 0
   },
   octeractUpgrades: {
-    maxPointValue: -1,
+    maxPointValue: maxOcteractUpgradeAP,
     pointsAwarded: (_cached: number) => {
       let pointValue = 0
-      // Go through all octeract upgrades. if the max level is NOT -1, add 5 points if the upgrade level equals max level
+      // Go through all octeract upgrades. if the max level is NOT -1, add 8 points if the upgrade level equals max level
       for (const upgrade of Object.values(octeractUpgrades)) {
         if (upgrade.maxLevel !== -1 && upgrade.level >= upgrade.maxLevel) {
           pointValue += 8
@@ -397,7 +397,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => Boolean(getGQUpgradeEffect('octeractUnlock'))
   },
   redAmbrosiaUpgrades: {
-    maxPointValue: -1,
+    maxPointValue: maxRedAmbrosiaUpgradeAP,
     pointsAwarded: () => {
       let pointValue = 0
       for (const upgrade of Object.values(redAmbrosiaUpgrades)) {
@@ -416,7 +416,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => player.highestSingularityCount >= 150
   },
   talismanRarities: {
-    maxPointValue: -1,
+    maxPointValue: maxTalismansRarityAP,
     pointsAwarded: (cached: number) => {
       return 5 * cached
     },
@@ -1964,49 +1964,49 @@ export const achievements: Achievement[] = [
   },
   {
     pointValue: 2,
-    unlockCondition: () => runes.speed.freeLevels() >= 50,
+    unlockCondition: () => runes.speed.freeLevels() >= 10,
     group: 'runeFreeLevel'
   },
-  { pointValue: 4, unlockCondition: () => runes.speed.freeLevels() >= 100, group: 'runeFreeLevel' },
+  { pointValue: 4, unlockCondition: () => runes.speed.freeLevels() >= 40, group: 'runeFreeLevel' },
   {
     pointValue: 6,
-    unlockCondition: () => runes.speed.freeLevels() >= 250,
+    unlockCondition: () => runes.speed.freeLevels() >= 125,
     group: 'runeFreeLevel'
   },
-  { pointValue: 8, unlockCondition: () => runes.speed.freeLevels() >= 500, group: 'runeFreeLevel' },
+  { pointValue: 8, unlockCondition: () => runes.speed.freeLevels() >= 250, group: 'runeFreeLevel' },
   {
     pointValue: 10,
-    unlockCondition: () => runes.speed.freeLevels() >= 1000,
+    unlockCondition: () => runes.speed.freeLevels() >= 500,
     group: 'runeFreeLevel'
   },
-  { pointValue: 12, unlockCondition: () => runes.speed.freeLevels() >= 2500, group: 'runeFreeLevel' },
+  { pointValue: 12, unlockCondition: () => runes.speed.freeLevels() >= 1000, group: 'runeFreeLevel' },
   {
     pointValue: 14,
-    unlockCondition: () => runes.speed.freeLevels() >= 5000,
+    unlockCondition: () => runes.speed.freeLevels() >= 2000,
     group: 'runeFreeLevel'
   },
-  { pointValue: 16, unlockCondition: () => runes.speed.freeLevels() >= 10000, group: 'runeFreeLevel' },
+  { pointValue: 16, unlockCondition: () => runes.speed.freeLevels() >= 4000, group: 'runeFreeLevel' },
   {
     pointValue: 18,
-    unlockCondition: () => runes.speed.freeLevels() >= 20000,
+    unlockCondition: () => runes.speed.freeLevels() >= 7500,
     group: 'runeFreeLevel'
   },
-  { pointValue: 20, unlockCondition: () => runes.speed.freeLevels() >= 50000, group: 'runeFreeLevel' },
+  { pointValue: 20, unlockCondition: () => runes.speed.freeLevels() >= 12500, group: 'runeFreeLevel' },
   {
     pointValue: 22,
-    unlockCondition: () => runes.speed.freeLevels() >= 100000,
+    unlockCondition: () => runes.speed.freeLevels() >= 25000,
     group: 'runeFreeLevel'
   },
-  { pointValue: 24, unlockCondition: () => runes.speed.freeLevels() >= 200000, group: 'runeFreeLevel' },
+  { pointValue: 24, unlockCondition: () => runes.speed.freeLevels() >= 37500, group: 'runeFreeLevel' },
   {
     pointValue: 26,
-    unlockCondition: () => runes.speed.freeLevels() >= 300000,
+    unlockCondition: () => runes.speed.freeLevels() >= 50000,
     group: 'runeFreeLevel'
   },
-  { pointValue: 28, unlockCondition: () => runes.speed.freeLevels() >= 500000, group: 'runeFreeLevel' },
+  { pointValue: 28, unlockCondition: () => runes.speed.freeLevels() >= 75000, group: 'runeFreeLevel' },
   {
     pointValue: 30,
-    unlockCondition: () => runes.speed.freeLevels() >= 750000,
+    unlockCondition: () => runes.speed.freeLevels() >= 100000,
     group: 'runeFreeLevel'
   },
   {
@@ -2718,6 +2718,8 @@ export const numAchievements = achievements.length
 export const maxAchievementPoints = achievements.reduce((sum, ach) => sum + ach.pointValue, 0)
   + Object.values(progressiveAchievements)
     .reduce((sum, ach) => sum + (ach.maxPointValue !== -1 ? ach.maxPointValue : 0), 0)
+
+console.log('max achievement points, ', maxAchievementPoints)
 
 export const achievementsByGroup: Record<AchievementGroups, number[]> = achievements
   .reduce((groups, achievement, index) => {

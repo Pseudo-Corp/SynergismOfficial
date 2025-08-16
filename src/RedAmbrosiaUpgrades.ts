@@ -521,6 +521,13 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
   }
 }
 
+export const maxRedAmbrosiaUpgradeAP = Object.values(redAmbrosiaUpgrades).reduce((acc, upgrade) => {
+  if (upgrade.maxLevel === -1) {
+    return acc
+  }
+  return acc + 10
+}, 0)
+
 export const setRedAmbrosiaUpgradeLevels = (): void => {
   for (const upgradeKey of Object.keys(redAmbrosiaUpgrades) as RedAmbrosiaNames[]) {
     const upgrade = redAmbrosiaUpgrades[upgradeKey]

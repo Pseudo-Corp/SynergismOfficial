@@ -895,6 +895,13 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   }
 }
 
+export const maxOcteractUpgradeAP = Object.values(octeractUpgrades).reduce((acc, upgrade) => {
+  if (upgrade.maxLevel === -1) {
+    return acc
+  }
+  return acc + 8
+}, 0)
+
 export const blankOcteractLevelObject: Record<OcteractDataKeys, { level: number; freeLevel: number }> = Object
   .fromEntries(
     Object.keys(octeractUpgrades).map((key) => [

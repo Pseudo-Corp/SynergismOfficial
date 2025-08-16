@@ -712,6 +712,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   }
 }
 
+export const maxTalismansRarityAP = 50 * Object.keys(talismans).length
+
 export const getTalismanCostTNL = (t: TalismanKeys) => {
   return talismans[t].costs(talismans[t].baseMult, talismans[t].level)
 }

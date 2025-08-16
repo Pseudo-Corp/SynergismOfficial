@@ -99,112 +99,112 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
   wowCubes: {
     name: () => i18next.t('achievements.levelRewards.wowCubes.name'),
     description: () => i18next.t('achievements.levelRewards.wowCubes.description'),
-    effect: (lv: number) => (1 + (lv - 39) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 4),
+    effect: (lv: number) => (1 + (lv - 69) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 7),
     effectDescription: () => {
       const multiplier = getLevelReward('wowCubes')
       return i18next.t('achievements.levelRewards.wowCubes.effect', {
         mult: formatAsPercentIncrease(multiplier, 2)
       })
     },
-    minLevel: 40,
+    minLevel: 70,
     defaultValue: 1,
     nameColor: 'lightgrey'
   },
   wowTesseracts: {
     name: () => i18next.t('achievements.levelRewards.wowTesseracts.name'),
     description: () => i18next.t('achievements.levelRewards.wowTesseracts.description'),
-    effect: (lv: number) => (1 + (lv - 59) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 6),
+    effect: (lv: number) => (1 + (lv - 89) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 9),
     effectDescription: () => {
       const multiplier = getLevelReward('wowTesseracts')
       return i18next.t('achievements.levelRewards.wowTesseracts.effect', {
         mult: formatAsPercentIncrease(multiplier, 2)
       })
     },
-    minLevel: 60,
+    minLevel: 90,
     defaultValue: 1,
     nameColor: 'orchid'
   },
   wowHyperCubes: {
     name: () => i18next.t('achievements.levelRewards.wowHyperCubes.name'),
     description: () => i18next.t('achievements.levelRewards.wowHyperCubes.description'),
-    effect: (lv: number) => (1 + (lv - 79) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 8),
+    effect: (lv: number) => (1 + (lv - 109) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 11),
     effectDescription: () => {
       const multiplier = getLevelReward('wowHyperCubes')
       return i18next.t('achievements.levelRewards.wowHyperCubes.effect', {
         mult: formatAsPercentIncrease(multiplier, 2)
       })
     },
-    minLevel: 80,
+    minLevel: 110,
     defaultValue: 1,
     nameColor: 'crimson'
   },
   wowPlatonicCubes: {
     name: () => i18next.t('achievements.levelRewards.wowPlatonicCubes.name'),
     description: () => i18next.t('achievements.levelRewards.wowPlatonicCubes.description'),
-    effect: (lv: number) => (1 + (lv - 99) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 10),
+    effect: (lv: number) => (1 + (lv - 139) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 14),
     effectDescription: () => {
       const multiplier = getLevelReward('wowPlatonicCubes')
       return i18next.t('achievements.levelRewards.wowPlatonicCubes.effect', {
         mult: formatAsPercentIncrease(multiplier, 2)
       })
     },
-    minLevel: 100,
+    minLevel: 140,
     defaultValue: 1,
     nameColor: 'lightgoldenrodyellow'
   },
   wowHepteractCubes: {
     name: () => i18next.t('achievements.levelRewards.wowHepteractCubes.name'),
     description: () => i18next.t('achievements.levelRewards.wowHepteractCubes.description'),
-    effect: (lv: number) => (1 + (lv - 124) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 12),
+    effect: (lv: number) => (1 + (lv - 169) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 17),
     effectDescription: () => {
       const multiplier = getLevelReward('wowHepteractCubes')
       return i18next.t('achievements.levelRewards.wowHepteractCubes.effect', {
         mult: formatAsPercentIncrease(multiplier, 2)
       })
     },
-    minLevel: 125,
+    minLevel: 170,
     defaultValue: 1,
     nameColor: 'mediumpurple'
   },
   wowOcteracts: {
     name: () => i18next.t('achievements.levelRewards.wowOcteracts.name'),
     description: () => i18next.t('achievements.levelRewards.wowOcteracts.description'),
-    effect: (lv: number) => (1 + (lv - 187) / 20) * Math.pow(1.02, lv - 187),
+    effect: (lv: number) => (1 + (lv - 209) / 20) * Math.pow(1.02, lv - 209),
     effectDescription: () => {
       const multiplier = getLevelReward('wowOcteracts')
       return i18next.t('achievements.levelRewards.wowOcteracts.effect', {
         mult: formatAsPercentIncrease(multiplier, 2)
       })
     },
-    minLevel: 188,
+    minLevel: 210,
     defaultValue: 1,
     nameColor: 'turquoise'
   },
   ambrosiaLuck: {
     name: () => i18next.t('achievements.levelRewards.ambrosiaLuck.name'),
     description: () => i18next.t('achievements.levelRewards.ambrosiaLuck.description'),
-    effect: (lv: number) => 4 * (lv - 199),
+    effect: (lv: number) => 4 * (lv - 229),
     effectDescription: () => {
       const luck = getLevelReward('ambrosiaLuck')
       return i18next.t('achievements.levelRewards.ambrosiaLuck.effect', {
         luck: format(luck, 0, true)
       })
     },
-    minLevel: 200,
+    minLevel: 230,
     defaultValue: 0,
     nameColor: 'lime'
   },
   redAmbrosiaLuck: {
     name: () => i18next.t('achievements.levelRewards.redAmbrosiaLuck.name'),
     description: () => i18next.t('achievements.levelRewards.redAmbrosiaLuck.description'),
-    effect: (lv: number) => lv - 249,
+    effect: (lv: number) => lv - 259,
     effectDescription: () => {
       const luck = getLevelReward('redAmbrosiaLuck')
       return i18next.t('achievements.levelRewards.redAmbrosiaLuck.effect', {
         luck: format(luck, 0, true)
       })
     },
-    minLevel: 250,
+    minLevel: 260,
     defaultValue: 0,
     nameColor: 'red'
   }
