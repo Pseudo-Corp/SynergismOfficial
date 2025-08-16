@@ -3,7 +3,7 @@ import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { updateMaxTokens, updateTokens } from './Campaign'
 import { getOcteractUpgradeEffect } from './Octeracts'
-import { runes } from './Runes'
+import { getRuneEffectiveLevel, runes } from './Runes'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Prompt, revealStuff } from './UpdateHTML'
 import { isMobile, toOrdinal } from './Utility'
@@ -3350,10 +3350,13 @@ export const calculateSingularityDebuff = (
     constitutiveSingularityCount
   )
 
+  let baseDebuffMultiplier = 1
+  baseDebuffMultiplier *= (1 - Math.min(300, player.shopUpgrades.shopHorseShoe * getRuneEffectiveLevel('horseShoe')) / 1000)
+
   if (debuff === 'Offering') {
-    return constitutiveSingularityCount < 150
+    return baseDebuffMultiplier * (constitutiveSingularityCount < 150
       ? 3 * (Math.sqrt(effectiveSingularities) + 1)
-      : Math.pow(effectiveSingularities, 2 / 3) / 400
+      : Math.pow(effectiveSingularities, 2 / 3) / 400)
   } else if (debuff === 'Salvage') {
     return -(5 * constitutiveSingularityCount
       + 5 * Math.max(0, constitutiveSingularityCount - 100)
@@ -3362,34 +3365,34 @@ export const calculateSingularityDebuff = (
       + 5 * Math.max(0, constitutiveSingularityCount - 270)
       + 5 * Math.max(0, constitutiveSingularityCount - 280))
   } else if (debuff === 'Global Speed') {
-    return 1 + Math.sqrt(effectiveSingularities) / 4
+    return baseDebuffMultiplier * (1 + Math.sqrt(effectiveSingularities) / 4)
   } else if (debuff === 'Obtainium') {
-    return constitutiveSingularityCount < 150
+    return baseDebuffMultiplier * (constitutiveSingularityCount < 150
       ? 3 * (Math.sqrt(effectiveSingularities) + 1)
-      : Math.pow(effectiveSingularities, 2 / 3) / 400
+      : Math.pow(effectiveSingularities, 2 / 3) / 400)
   } else if (debuff === 'Researches') {
-    return 1 + Math.sqrt(effectiveSingularities) / 2
+    return baseDebuffMultiplier * (1 + Math.sqrt(effectiveSingularities) / 2)
   } else if (debuff === 'Ascension Speed') {
-    return constitutiveSingularityCount < 150
+    return baseDebuffMultiplier * (constitutiveSingularityCount < 150
       ? 1 + Math.sqrt(effectiveSingularities) / 5
-      : 1 + Math.pow(effectiveSingularities, 0.75) / 10000
+      : 1 + Math.pow(effectiveSingularities, 0.75) / 10000)
   } else if (debuff === 'Cubes') {
     const extraMult = constitutiveSingularityCount > 100
       ? Math.pow(1.02, constitutiveSingularityCount - 100)
       : 1
-    return constitutiveSingularityCount < 150
+    return baseDebuffMultiplier * (constitutiveSingularityCount < 150
       ? 3 * (1 + (Math.sqrt(effectiveSingularities) * extraMult) / 4)
-      : 1 + (Math.pow(effectiveSingularities, 0.75) * extraMult) / 1000
+      : 1 + (Math.pow(effectiveSingularities, 0.75) * extraMult) / 1000)
   } else if (debuff === 'Platonic Costs') {
-    return constitutiveSingularityCount > 36
+    return baseDebuffMultiplier * (constitutiveSingularityCount > 36
       ? 1 + Math.pow(effectiveSingularities, 3 / 10) / 12
-      : 1
+      : 1)
   } else if (debuff === 'Hepteract Costs') {
-    return constitutiveSingularityCount > 50
+    return baseDebuffMultiplier * (constitutiveSingularityCount > 50
       ? 1 + Math.pow(effectiveSingularities, 11 / 50) / 25
-      : 1
+      : 1)
   } else {
     // Cube upgrades
-    return Math.cbrt(effectiveSingularities + 1)
+    return baseDebuffMultiplier * Math.cbrt(effectiveSingularities + 1)
   }
 }

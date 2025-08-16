@@ -20,10 +20,11 @@ import {
 import type { IMultiBuy } from './Cubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getGQUpgradeEffect } from './singularity'
-import { format, player } from './Synergism'
+import { format, formatAsPercentIncrease, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
+import { getRuneEffectiveLevel } from './Runes'
 
 /**
  * Standardization of metadata contained for each shop upgrade.
@@ -53,6 +54,7 @@ type shopResetTier =
   | 'Exalt7x10'
   | 'Exalt7x20'
   | 'Exalt7x30'
+  | 'Exalt8x5'
 
 export interface IShopData {
   price: number
@@ -778,7 +780,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   shopSadisticRune: {
     tier: 'Exalt7x30',
-    price: 4.44e24,
+    price: 2e27,
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
@@ -790,6 +792,15 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     price: 1e20,
     priceIncrease: 0,
     maxLevel: 100,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopHorseShoe: {
+    tier: 'Exalt8x5',
+    price: 5e26,
+    priceIncrease: 0,
+    maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
@@ -880,6 +891,7 @@ type ShopUpgradeNames =
   | 'shopRedLuck2'
   | 'shopRedLuck3'
   | 'shopInfiniteShopUpgrades'
+  | 'shopHorseShoe'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
   if (
@@ -1461,6 +1473,13 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       })
       break
     }
+    case 'shopHorseShoe': {
+      const horseShoeLevel = getRuneEffectiveLevel('horseShoe')
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopHorseShoe', {
+        amount1: player.shopUpgrades.shopHorseShoe > 0 ? 3 : 0,
+        amount2: formatAsPercentIncrease(1 - Math.min(300, horseShoeLevel * player.shopUpgrades.shopHorseShoe) / 1000, 2),
+      })
+    }
   }
 }
 
@@ -1548,7 +1567,8 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     shopSingularitySpeedup: 'Singularity Timed-Perks Speedup',
     shopSingularityPotency: 'Singularity Passives Potency',
     shopSadisticRune: 'Sadistic Rune Unlock! Or does it?',
-    shopInfiniteShopUpgrades: 'Blue Infinity Shop Voucher'
+    shopInfiniteShopUpgrades: 'Blue Infinity Shop Voucher',
+    shopHorseShoe: 'A Horse Shoe Singularity Debuff',
   }
 
   return names[input]
@@ -2091,5 +2111,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
       return Boolean(player.singularityChallenges.sadisticPrequel.rewards.shopUpgrade3)
     case 'shopInfiniteShopUpgrades':
       return Boolean(player.singularityChallenges.limitedAscensions.rewards.shopUpgrade0)
+    case 'shopHorseShoe':
+      return Boolean(player.singularityChallenges.taxmanLastStand.rewards.shopUpgrade)
   }
 }

@@ -20,7 +20,7 @@ import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { reset, updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
-import { sumOfRuneLevels } from './Runes'
+import { getRuneEffects, sumOfRuneLevels } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import {
   allAdditiveLuckMultStats,
@@ -1328,6 +1328,7 @@ export const computeAscensionScoreBonusMultiplier = () => {
   multiplier *= G.challenge15Rewards.score.value
   multiplier *= calculateAscensionScorePlatonicBlessing()
   multiplier *= player.campaigns.ascensionScoreMultiplier
+  multiplier *= getRuneEffects('finiteDescent').ascensionScore
   if (player.cubeUpgrades[21] > 0) {
     multiplier *= 1 + 0.05 * player.cubeUpgrades[21]
   }

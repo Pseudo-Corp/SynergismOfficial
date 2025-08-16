@@ -582,7 +582,8 @@ export const player: Player = {
     superiorIntellect: new Decimal(0),
     infiniteAscent: new Decimal(0),
     antiquities: new Decimal(0),
-    horseShoe: new Decimal(0)
+    horseShoe: new Decimal(0),
+    finiteDescent: new Decimal(0),
   },
 
   runeBlessings: {
@@ -730,7 +731,8 @@ export const player: Player = {
     shopRedLuck1: 0,
     shopRedLuck2: 0,
     shopRedLuck3: 0,
-    shopInfiniteShopUpgrades: 0
+    shopInfiniteShopUpgrades: 0,
+    shopHorseShoe: 0,
   },
 
   shopPotionsConsumed: {

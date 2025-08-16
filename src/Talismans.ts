@@ -251,7 +251,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       superiorIntellect: 0,
       infiniteAscent: 0,
       antiquities: 0,
-      horseShoe: 0
+      horseShoe: 0,
+      finiteDescent: 0,
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -296,7 +297,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       superiorIntellect: 0.75,
       infiniteAscent: 0,
       antiquities: 0,
-      horseShoe: 0
+      horseShoe: 0,
+      finiteDescent: 0,
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -341,7 +343,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       superiorIntellect: 0,
       infiniteAscent: 0,
       antiquities: 0,
-      horseShoe: 0
+      horseShoe: 0,
+      finiteDescent: 0,
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -388,7 +391,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       superiorIntellect: 0.6,
       infiniteAscent: 0,
       antiquities: 0,
-      horseShoe: 0
+      horseShoe: 0,
+      finiteDescent: 0,
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -433,7 +437,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       superiorIntellect: 1.5,
       infiniteAscent: 0,
       antiquities: 0,
-      horseShoe: 0
+      horseShoe: 0,
+      finiteDescent: 0,
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -478,7 +483,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       superiorIntellect: 0.6,
       infiniteAscent: 0,
       antiquities: 0,
-      horseShoe: 0
+      horseShoe: 0,
+      finiteDescent: 0,
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -518,7 +524,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       superiorIntellect: 0.75,
       infiniteAscent: 0.005,
       antiquities: 0,
-      horseShoe: 0
+      horseShoe: 0,
+      finiteDescent: 0,
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -557,7 +564,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       superiorIntellect: 1,
       infiniteAscent: 0,
       antiquities: 0,
-      horseShoe: 0
+      horseShoe: 0,
+      finiteDescent: 0,
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -602,7 +610,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       superiorIntellect: 1.4,
       infiniteAscent: 0.01,
       antiquities: 0,
-      horseShoe: 0
+      horseShoe: 0,
+      finiteDescent: 0,
     },
     minimalResetTier: 'singularity',
     isUnlocked: () => {
@@ -618,9 +627,9 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     level: 0,
     rarity: 0,
     fragmentsInvested: { ...noTalismanFragments },
-    baseMult: new Decimal('1e450'),
+    baseMult: new Decimal('1e1000'),
     maxLevel: 6,
-    costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 1e10),
+    costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 1e8),
     levelCapIncrease: () => 54,
     effects: (n) => {
       const inscriptValues = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10]
@@ -645,7 +654,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       superiorIntellect: 1,
       infiniteAscent: 0.01,
       antiquities: 0,
-      horseShoe: 0
+      horseShoe: 0,
+      finiteDescent: 0,
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
@@ -658,9 +668,9 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     level: 0,
     rarity: 0,
     fragmentsInvested: { ...noTalismanFragments },
-    baseMult: new Decimal('1e900'),
+    baseMult: new Decimal('1e1200'),
     maxLevel: 12,
-    costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 1e4),
+    costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 1e5),
     levelCapIncrease: () => 88,
     effects: (n) => {
       const inscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.005, 0.007, 0.01, 0.012, 0.015, 0.02]
@@ -690,7 +700,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       superiorIntellect: 1.2,
       infiniteAscent: 0,
       antiquities: 0,
-      horseShoe: 0.01
+      horseShoe: 0.01,
+      finiteDescent: 0,
     },
     minimalResetTier: 'never',
     isUnlocked: () => {

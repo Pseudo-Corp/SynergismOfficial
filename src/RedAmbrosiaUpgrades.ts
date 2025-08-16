@@ -466,8 +466,8 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
       const val = 2 * n
       return i18next.t('redAmbrosia.data.regularLuck2.effect', { amount: val })
     },
-    maxLevel: 500,
-    costPerLevel: 2000,
+    maxLevel: 250,
+    costPerLevel: 8000,
     name: () => i18next.t('redAmbrosia.data.regularLuck2.name'),
     description: () => i18next.t('redAmbrosia.data.regularLuck2.description')
   },
@@ -487,8 +487,8 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
       const val = 1 + n / 1000
       return i18next.t('redAmbrosia.data.blueberryGenerationSpeed2.effect', { amount: formatAsPercentIncrease(val) })
     },
-    maxLevel: 500,
-    costPerLevel: 2000,
+    maxLevel: 250,
+    costPerLevel: 8000,
     name: () => i18next.t('redAmbrosia.data.blueberryGenerationSpeed2.name'),
     description: () => i18next.t('redAmbrosia.data.blueberryGenerationSpeed2.description')
   },

@@ -997,7 +997,7 @@ export const ambrosiaUpgrades: {
     maxLevel: 100,
     costPerLevel: 100,
     blueberryCost: 0,
-    ignoreEXALT: true,
+    ignoreEXALT: false,
     prerequisites: {},
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
@@ -1025,7 +1025,7 @@ export const ambrosiaUpgrades: {
     maxLevel: 100,
     costPerLevel: 2500,
     blueberryCost: 0,
-    ignoreEXALT: true,
+    ignoreEXALT: false,
     prerequisites: {},
     costFormula: (level: number, baseCost: number): number => {
       return Math.ceil(baseCost * (Math.pow(level + 1, 1.5) - Math.pow(level, 1.5)))

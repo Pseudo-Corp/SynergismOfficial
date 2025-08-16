@@ -117,7 +117,7 @@
         "effect": "This third generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
       },
       "ambrosiaLuck4": {
-        "name": "Ambrosia Luck Module IV",
+        "name": "The Eight Leaf Clover",
         "description": "<span class=\"rainbowText\">My magical lucky charms!</span> +0.01% &#9752 Ambrosia Luck/lvl, multiplied by the number of total digits in your Lifetime Ambrosia and Red Ambrosia!",
         "effect": "This fourth generation Luck module increases &#9752 Ambrosia Luck by <span class=\"rainbowText\">{{amount}}</span>"
       },
@@ -2880,8 +2880,9 @@
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
       "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
-      "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?",
-      "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +0.005 effective levels for the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down."
+      "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
+      "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +0.005 effective levels for the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
+      "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by 0.1% per level additive (Max -30%)!"
     },
     "maxed": "Maxed!",
     "upgradeFor": "Upgrade for {{x}} Quarks",
@@ -2986,7 +2987,8 @@
       "shopSingularitySpeedup": "Singularity Perks and Upgrades accumulate <<gray|{{amount}}>> times faster!",
       "shopSingularityPotency": "Free Singularity Upgrades are as if you had <<gray|{{amount}}>> of them.",
       "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
-      "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark shop upgrades are increased by <<white|{{amount}}>>!"
+      "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark shop upgrades are increased by <<white|{{amount}}>>!",
+      "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty effects <<pink|{{amount2}}>>"
     }
   },
   "singularity": {
@@ -4951,8 +4953,14 @@
     "horseShoe": {
       "name": "The Horse's Shoe",
       "description": "I never realized the world was so easily won, just by realizing you got someone to say you won't be lonely anymore.",
-      "values": "Each level gives you +5 Ambrosia Luck, +1 Red Ambrosia Luck. You also reduce the conversion ratio between the two by up to 0.5, depending on level (-0.5 * level / (level + 50))",
+      "values": "Each level gives you +1 Ambrosia Luck, +0.2 Red Ambrosia Luck. You also reduce the conversion ratio between the two by up to 0.5, depending on level (-0.5 * level / (level + 50))",
       "effect": "Horseshoe Rune Bonus: +{{val}} Ambrosia Luck, +{{val2}} Red Ambrosia Luck, {{val3}} conversion ratio."
+    },
+    "finiteDescent": {
+      "name": "Finite Descent",
+      "description": "That shopkeep told me it was an Ascent. That <i>liar</i>!",
+      "values": "Gain up to 2x more Ascension Score for your current Ascension, increase your free Corruption levels up to 0.15, and tack on +1 free Infinite Ascent level every two levels. Shweet!",
+      "effect": "This Ascension, gain +{{val}} Ascension Score, {{val2}} free Corruption levels, and +{{val3}} Infinite Ascent levels."
     },
     "levelup": {
       "1": "+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!",
@@ -5301,8 +5309,8 @@
         "ScalingReward3": "+0.002 <<var(--amber-text-color)|Rune Coefficient>> for Antiquities!",
         "ScalingReward4": "+0.005 <<var(--amber-text-color)|Rune Coefficient>> for... <<burlywood | something>>...",
         "UniqueReward1": "1st - Unlock <<burlywood | Something Cool... and Runelike>>",
-        "UniqueReward2": "15th - Unlock <<pink | a new Shop Upgrade!>>",
-        "UniqueReward3": "30th - Unlock <<burlywood | Something even Cooler... and Fashionable...>>"
+        "UniqueReward2": "5th - Unlock <<pink | a new Shop Upgrade!>>",
+        "UniqueReward3": "10th - Unlock <<burlywood | Something even Cooler... and Fashionable...>>"
       }
     },
     "intro": "Do you have what it takes to earn EXALT from Ant God?",

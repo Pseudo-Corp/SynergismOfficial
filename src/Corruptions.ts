@@ -12,6 +12,7 @@ import { toggleCorruptionLevel } from './Toggles'
 import { Alert, Notification, Prompt } from './UpdateHTML'
 import { getElementById, productContents, sumContents, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
+import { getRuneEffects } from './Runes'
 
 export enum CorruptionIndices {
   'viscosity' = 0,
@@ -248,6 +249,7 @@ export class CorruptionLoadout {
     let bonusLevel = getGQUpgradeEffect('corruptionFifteen')
     bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
     bonusLevel += getTalismanEffects('cookieGrandma').freeCorruptionLevel
+    bonusLevel += getRuneEffects('finiteDescent').corruptionFreeLevels
     return bonusLevel
   }
 

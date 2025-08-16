@@ -1196,6 +1196,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.shopUpgrades = player.shopUpgrades
   hold.shopPotionsConsumed = player.shopPotionsConsumed
 
+  hold.runes = { ...player.runes }
   hold.talismans = { ...player.talismans }
   hold.cubeUpgrades[80] = player.cubeUpgrades[80]
 

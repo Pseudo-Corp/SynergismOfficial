@@ -434,6 +434,7 @@ export interface Player {
     shopRedLuck2: number
     shopRedLuck3: number
     shopInfiniteShopUpgrades: number
+    shopHorseShoe: number
   }
 
   shopPotionsConsumed: {

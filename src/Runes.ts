@@ -82,6 +82,11 @@ type RuneTypeMap = {
     ambrosiaLuck: number
     redLuck: number
     redLuckConversion: number
+  },
+  finiteDescent: {
+    ascensionScore: number
+    corruptionFreeLevels: number
+    infiniteAscentFreeLevel: number
   }
 }
 
@@ -171,6 +176,7 @@ export const bonusRuneLevelsIA = () => {
     + player.cubeUpgrades[73]
     + player.campaigns.bonusRune6
     + getRuneBonusFromAllTalismans('infiniteAscent')
+    + getRuneEffects('finiteDescent').infiniteAscentFreeLevel
   )
 }
 
@@ -180,6 +186,7 @@ export const bonusRuneLevelsAntiquities = () => {
 
 export const bonusRuneLevelsHorseShoe = () => {
   return getRuneBonusFromAllTalismans('horseShoe')
+  + (player.shopUpgrades.shopHorseShoe > 0 ? 3 : 0)
 }
 
 export const speedRuneOOMIncrease = () => {
@@ -589,8 +596,8 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     ignoreChal9: true,
     levelsPerOOMIncrease: () => horseShoeOOMIncrease(),
     effects: (level) => {
-      const ambrosiaLuck = 5 * level
-      const redLuck = level
+      const ambrosiaLuck = level
+      const redLuck = level / 5
       const redLuckConversion = -0.5 * level / (level + 50)
       return {
         ambrosiaLuck: ambrosiaLuck,
@@ -602,7 +609,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
       const effect = getRuneEffects('horseShoe')
       return i18next.t('runes.horseShoe.effect', {
         val: format(effect.ambrosiaLuck, 0, true),
-        val2: format(effect.redLuck, 0, true),
+        val2: format(effect.redLuck, 1, true),
         val3: format(effect.redLuckConversion, 3, false)
       })
     },
@@ -613,10 +620,44 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
       const condition = Boolean(player.singularityChallenges.taxmanLastStand.rewards.horseShoeUnlock)
       return condition
     },
-    minimalResetTier: 'singularity',
+    minimalResetTier: 'never',
     name: () => i18next.t('runes.horseShoe.name'),
     description: () => i18next.t('runes.horseShoe.description'),
     valueText: () => i18next.t('runes.horseShoe.values')
+  },
+  finiteDescent: {
+    level: 0,
+    runeEXP: new Decimal('0'),
+    costCoefficient: new Decimal('1e-40'),
+    levelsPerOOM: 0.1,
+    ignoreChal9: true,
+    levelsPerOOMIncrease: () => 0,
+    effects: (level) => {
+      const ascensionScore = level >= 1 ? 1.04 + 0.96 * (level - 1) / (level + 25) : 1
+      const corruptionFreeLevels = level >= 1 ? 0.01 + 0.14 * (level - 1) / (level + 16) : 0
+      const infiniteAscentFreeLevel = Math.floor(level / 2)
+      return {
+        ascensionScore: ascensionScore,
+        corruptionFreeLevels: corruptionFreeLevels,
+        infiniteAscentFreeLevel: infiniteAscentFreeLevel
+      }
+    },
+    effectsDescription: () => {
+      const effect = getRuneEffects('finiteDescent')
+      return i18next.t('runes.finiteDescent.effect', {
+        val: formatAsPercentIncrease(effect.ascensionScore, 2),
+        val2: format(effect.corruptionFreeLevels, 3, true),
+        val3: format(effect.infiniteAscentFreeLevel, 0, true)
+      })
+    },
+    effectiveLevelMult: () => 1,
+    freeLevels: () => 0,
+    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
+    isUnlocked: () => player.shopUpgrades.shopSadisticRune > 0,
+    minimalResetTier: 'ascension',
+    name: () => i18next.t('runes.finiteDescent.name'),
+    description: () => i18next.t('runes.finiteDescent.description'),
+    valueText: () => i18next.t('runes.finiteDescent.values')
   }
 }
 
@@ -754,6 +795,7 @@ export function resetRunes (tier: keyof typeof resetTiers) {
     if (resetTiers[tier] >= resetTiers[runes[rune].minimalResetTier]) {
       runes[rune].level = 0
       runes[rune].runeEXP = new Decimal(0)
+      player.runes[rune] = new Decimal(0)
     }
 
     if (resetTiers[tier] === resetTiers[runes[rune].minimalResetTier] && tier === 'ascension') {
