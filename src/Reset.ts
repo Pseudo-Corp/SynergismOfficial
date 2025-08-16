@@ -894,6 +894,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.unlocks.hypercubes = false
     player.unlocks.spirits = false
     player.unlocks.platonics = false
+    player.unlocks.chal7Research = false
 
     player.ascendBuilding1.owned = 0
     player.ascendBuilding1.generated = new Decimal('0')
@@ -994,6 +995,8 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
   if (player.highestSingularityCount >= 10) { // Singularity 10
     player.challengecompletions[8] = 1
     player.highestchallengecompletions[8] = 1
+    player.highestchallengecompletions[7] = 10
+    player.unlocks.chal7Research = true
     player.cubeUpgrades[8] = 1
     player.cubeUpgrades[4] = 1 // Adding these ones,
     player.cubeUpgrades[5] = 1 // so they wont reset

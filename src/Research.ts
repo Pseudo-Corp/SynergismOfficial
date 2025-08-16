@@ -150,22 +150,51 @@ export const maxRoombaResearchIndex = (p = player) => {
   return base + c11 + c12 + c13 + c14
 }
 
-// TODO: WHY
-export const isResearchUnlocked = (index: number) => {
-  // https://stackoverflow.com/questions/20477177/creating-an-array-of-cumulative-sum-in-javascript
-  const cumuSum = ((sum) => (value: number) => sum += value)(0)
-  const indices = [3 * 25, 5, 20, 10, 15, 15, 15, 15, 15, 15].map(cumuSum)
-  const chievos = [50, 124, 127, 134, 141, 183, 197, 204, 211, 218]
-  for (let i = 0; i < indices.length; i++) {
-    if (i === 3 && (index === 121 || index === 124 || index === 150)) {
-      return player.achievements[chievos[i]] > 0
-    }
-    if (index <= indices[i]) {
-      return player.achievements[chievos[i]] > 0
-    }
-  }
-  return false
+type RangeCondition = {
+  range: [number, number];
+  condition: () => boolean;
 }
+
+function createResearchUnlockMap(rangeConditions: RangeCondition[]): Record<number,
+() => boolean> {
+ const unlockMap: Record<number, () => boolean> = {};
+
+ for (const { range, condition } of rangeConditions) {
+   const [start, end] = range;
+   for (let i = start; i <= end; i++) {
+     unlockMap[i] = condition;
+   }
+ }
+
+ return unlockMap;
+}
+
+const researchUnlockRanges: RangeCondition[] = [
+  { range: [0, 0], condition: () => true }, // Not sure if needed!
+  { range: [1, 75], condition: () => player.unlocks.reincarnate },
+  { range: [76, 80], condition: () => player.unlocks.chal7Research },
+  { range: [81, 100], condition: () => player.unlocks.anthill },
+  /* I don't know if we need these special cases... but it would not be too hard to reinstate.
+  // Special cases for 121, 124, 150
+  { range: [121, 121], condition: () => player.achievements[134] > 0 },
+  { range: [124, 124], condition: () => player.achievements[134] > 0 },
+  { range: [150, 150], condition: () => player.achievements[134] > 0 },
+  */
+  { range: [101, 110], condition: () => player.unlocks.talismans },
+  { range: [111, 125], condition: () => player.unlocks.ascensions },
+  { range: [126, 140], condition: () => player.ascensionCount > 0 },
+  { range: [141, 155], condition: () => player.highestchallengecompletions[11] > 0 },
+  { range: [156, 170], condition: () => player.highestchallengecompletions[12] > 0 },
+  { range: [171, 185], condition: () => player.highestchallengecompletions[13] > 0 },
+  { range: [186, 200], condition: () => player.highestchallengecompletions[14] > 0 }
+];
+
+const isResearchUnlockedMap = createResearchUnlockMap(researchUnlockRanges);
+
+export const isResearchUnlocked = (index: number): boolean => {
+  const unlockFunction = isResearchUnlockedMap[index];
+  return unlockFunction ? unlockFunction() : false;
+};
 
 const isResearchMaxed = (index: number) => G.researchMaxLevels[index] <= player.researches[index]
 

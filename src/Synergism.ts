@@ -539,7 +539,8 @@ export const player: Player = {
     tesseracts: false,
     hypercubes: false,
     platonics: false,
-    hepteracts: false
+    hepteracts: false,
+    chal7Research: false,
   },
   achievements: Array(numAchievements).fill(0) as number[],
   progressiveAchievements: {
@@ -4071,6 +4072,9 @@ export const resetCheck = async (
       }
     }
     challengeAchievementCheck(q)
+    if (player.highestchallengecompletions[7] >= 10) {
+      player.unlocks.chal7Research = true
+    }
     if (player.highestchallengecompletions[8] > 0) {
       player.unlocks.anthill = true
     }

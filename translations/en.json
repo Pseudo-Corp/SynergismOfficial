@@ -1062,8 +1062,7 @@
         "salvage": "♻ Salvage +5"
       },
       "124": {
-        "taxReduction": "Tax scaling reduced by 5%",
-        "chal7Researches": "Unlock five new Researches!"
+        "taxReduction": "Tax scaling reduced by 5%"
       },
       "125": {
         "multiplicativeObtainium": "Obtainium gain x1.05"
@@ -1072,7 +1071,6 @@
         "chronosTalisman": "Unlock the Chronos Talisman!"
       },
       "127": {
-        "chal8Researches": "Unlock new Research!",
         "diamondUpgrade19": "Unlock the 19th Diamond Upgrade!",
         "antHillUnlock": "Unlock the <span class='rainbowText'>Anthill!</span>"
       },
@@ -1089,7 +1087,6 @@
         "midasTalisman": "Unlock the Midas Talisman!"
       },
       "134": {
-        "chal9Researches": "Unlock new Research!",
         "diamondUpgrade20": "Unlock the 20th Diamond Upgrade!",
         "blessingUnlock": "Unlock Rune Blessings!",
         "talismanUnlock": "Also, unlock Talismans!"
@@ -1759,9 +1756,6 @@
       "polymathTalisman": "• Polymath Talisman {{unlock}}",
       "wowSquareTalisman": "• Wow Square Talisman {{unlock}}",
       "conversionExponent": "• Conversion Exponent +{{val}}",
-      "chal7Researches": "• Challenge 7 Researches {{unlock}}",
-      "chal8Researches": "• Challenge 8 Researches {{unlock}}",
-      "chal9Researches": "• Challenge 9 Researches {{unlock}}",
       "talismanPower": "• Talisman Power {{val}}",
       "sacrificeMult": "• Sacrifice Multiplier x{{val}}",
       "ascensionUnlock": "• Ascension {{unlock}}",

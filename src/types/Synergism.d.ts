@@ -277,6 +277,7 @@ export interface Player {
     hypercubes: boolean
     platonics: boolean
     hepteracts: boolean
+    chal7Research: boolean
   }
   achievements: number[]
   progressiveAchievements: Record<ProgressiveAchievements, number>

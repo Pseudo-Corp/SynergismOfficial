@@ -177,9 +177,6 @@ export type AchievementRewards =
   | 'midasTalisman'
   | 'metaphysicsTalisman'
   | 'polymathTalisman'
-  | 'chal7Researches'
-  | 'chal8Researches'
-  | 'chal9Researches'
   | 'talismanPower'
   | 'sacrificeMult'
   | 'antSpeed'
@@ -1054,7 +1051,7 @@ export const achievements: Achievement[] = [
     pointValue: 25,
     unlockCondition: () => player.challengecompletions[7] >= 10,
     group: 'challenge7',
-    reward: { taxReduction: () => 0.95, chal7Researches: () => 1 },
+    reward: { taxReduction: () => 0.95 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
@@ -1072,7 +1069,7 @@ export const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => player.challengecompletions[8] >= 1,
     group: 'challenge8',
-    reward: { chal8Researches: () => 1, diamondUpgrade19: () => 1 },
+    reward: { diamondUpgrade19: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   { pointValue: 10, unlockCondition: () => player.challengecompletions[8] >= 2, group: 'challenge8' },
@@ -1103,7 +1100,7 @@ export const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => player.challengecompletions[9] >= 1,
     group: 'challenge9',
-    reward: { chal9Researches: () => 1, diamondUpgrade20: () => 1 },
+    reward: { diamondUpgrade20: () => 1 },
     checkReset: () => player.highestSingularityCount >= 20
   },
   {
@@ -2814,15 +2811,6 @@ export const achRewards: Record<AchievementRewards, () => number | boolean> = {
       (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.conversionExponent!() : 0),
       0
     )
-  },
-  chal7Researches: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.chal7Researches[0]])
-  },
-  chal8Researches: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.chal8Researches[0]])
-  },
-  chal9Researches: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.chal9Researches[0]])
   },
   talismanPower: (): number => {
     return achievementsByReward.talismanPower.reduce(
