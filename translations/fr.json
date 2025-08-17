@@ -28,7 +28,7 @@
     "prereqNotMetAlert": "Vous n'avez pas les prérequis nécessaires pour acheter cette amélioration.",
     "notEnoughBlueberries": "Vous n'avez pas assez de Myrtilles pour activer ce module.",
     "timeThresholds": "La quantité de points de la barre d'Ambroisie a été doublée <<cyan | {{threshold}}>> fois à cause de votre total d'Ambroisie. Prochain doublement à <<orange|{{toNext}}>> Ambroisie totale.",
-    "cubeUpgradeThresholds": "La quantité de points de la barre d'Ambroisie a été doublée <<cyan | {{threshold}}>> fois à cause de votre total d'Ambroisie. Prochain doublement à <<orange|{{toNext}}>> Ambroisie totale. <<cyan | gains de points de la barre d'Ambroisie +{{percent}}%>> !",
+    "cubeUpgradeThresholds": "La quantité de points de la barre d'Ambroisie a été doublée <<cyan | {{threshold}}>> fois à cause de votre total d'Ambroisie. Prochain doublement à <<orange|{{toNext}}>> Ambroisie totale. <<cyan | Gains de points de la barre d'Ambroisie +{{percent}}%>> !",
     "cubeUpgradeRedBarFills": "Votre barre Rouge a été remplie <<maroon | {{amount}}>> fois quand l'amélioration de Cookie 29 était achetée, ce qui vous donne <<green | +{{luck}} &#9752 chance d'Ambroisie>> !",
     "ambrosiaBuyPrompt": "Combien d'Ambroisie vous voulez dépenser? Vous avez {{amount}} Ambroisie. Écrivez -1 pour tout les utiliser!",
     "refund": "Vous avez remboursé toute l'Ambroisie et les Myrtilles dépensées.",
@@ -316,47 +316,47 @@
   },
   "achievements": {
     "descriptions": {
-      "1": "[[1]] A Loyal Employee: Hire your first Worker.",
-      "2": "[[2]] Small Business: Hire 10 Workers.",
-      "3": "[[3]] Now we're synergizing!: Hire 100 Workers.",
-      "4": "[[4]] Gaining Redundancies: Hire 1,000 Workers.",
-      "5": "[[5]] A cog in the machine: Hire 5,000 Workers.",
-      "6": "[[6]] A nail in the machine: Hire 10,000 Workers.",
-      "7": "[[7]] Are we even in the machine anymore?: Hire 20,000 Workers.",
-      "8": "[[8]] STONKS!!!: Purchase 1 Investment.",
-      "9": "[[9]] Planning ahead: Purchase 10 Investments.",
-      "10": "[[10]] Inside Trading: Purchase 100 Investments.",
-      "11": "[[11]] Outside Trading?: Purchase 1,000 Investments.",
-      "12": "[[12]] Market Takeover: Purchase 5,000 Investments.",
-      "13": "[[13]] Trickle-Down Economics: Purchase 10,000 Investments.",
-      "14": "[[14]] Eliminated Regulation: Purchase 20,000 Investments.",
-      "15": "[[15]] Stationery!: Build 1 Printer.",
-      "16": "[[16]] Printing Press: Build 10 Printers.",
-      "17": "[[17]] It prints free money!: Build 100 Printers.",
-      "18": "[[18]] Solving Our Debts: Build 1,000 Printers.",
-      "19": "[[19]] Monopolizing the market: Build 5,000 Printers.",
-      "20": "[[20]] We're running out of Ink!: Build 10,000 Printers.",
-      "21": "[[21]] 3D-printing the universe: Build 20,000 Printers.",
-      "22": "[[22]] A national treasure: Establish 1 Coin Mint.",
-      "23": "[[23]] Now with competition!: Establish 10 Coin Mints.",
-      "24": "[[24]] Counterfeiting with Style!: Establish 100 Coin Mints.",
-      "25": "[[25]] Why do we need all these?: Establish 1000 Coin Mints.",
-      "26": "[[26]] No really, why??: Establish 5,000 Coin Mints.",
-      "27": "[[27]] Is no one to stop us???: Establish 10,000 Coin Mints.",
-      "28": "[[28]] Oh well, time to mint: Establish 20,000 Coin Mints.",
-      "29": "[[29]] Newton's Apprentice: Create 1 Alchemy.",
-      "30": "[[30]] Lab Work: Create 10 Alchemies.",
-      "31": "[[31]] Satanic Becomings: Create 66 Alchemies.",
-      "32": "[[32]] Satan Incarnate: Create 666 Alchemies.",
-      "33": "[[33]] Is this more demonic?: Create 6,666 Alchemies.",
-      "34": "[[34]] Golden Paradise: Create 17,777 Alchemies.",
-      "35": "[[35]] Unlocking secrets to the world: Create 42,777 Alchemies.",
-      "36": "[[36]] Leveling up: Prestige for at least 1 Diamond.",
-      "37": "[[37]] High-Tiered: Prestige for at least 1e6 Diamonds.",
-      "38": "[[38]] Highly Regarded: Prestige for at least 1e100 Diamonds.",
-      "39": "[[39]] Prestigious: Prestige for at least 1e1,000 Diamonds.",
-      "40": "[[40]] Legendary: Prestige for at least 1e10,000 Diamonds.",
-      "41": "[[41]] Divine: Prestige for at least 1e77,777 Diamonds.",
+      "1": "[[1]] Un Employé fidèle : Recrutez votre premier Ouvrier.",
+      "2": "[[2]] Petite et Moyenne Entreprise : Recrutez 10 Ouvriers.",
+      "3": "[[3]] Ça c'est de la synergie ! : Recrutez 100 Ouvriers.",
+      "4": "[[4]] Doublez les effectifs : Recrutez 1 000 Ouvriers.",
+      "5": "[[5]] Un rouage dans la machine : Recrutez 5 000 Ouvriers.",
+      "6": "[[6]] Un clou dans la machine : Recrutez 10 000 Ouvriers.",
+      "7": "[[7]] Sommes-nous encore dans la machine ? : Recrutez 20 000 Ouvriers.",
+      "8": "[[8]] STONKS !!! : Achetez 1 Investissement.",
+      "9": "[[9]] Planifier à l'avance : Achetez 10 Investissements.",
+      "10": "[[10]] Délit d'Initié : Achetez 100 Investissements.",
+      "11": "[[11]] Délit de non-initié ? : Achetez 1 000 Investissements.",
+      "12": "[[12]] Reprise de Marché : Achetez 5 000 Investissements.",
+      "13": "[[13]] Théorie du Ruissellement : Acheter 10 000 Investissements.",
+      "14": "[[14]] Réglementation Supprimée : Achetez 20 000 Investissements.",
+      "15": "[[15]] Papeterie ! : Construisez 1 Imprimante.",
+      "16": "[[16]] Planche à Billets : Construisez 10 Imprimantes.",
+      "17": "[[17]] Ça imprime de l'argent gratuitement ! : Construisez 100 Imprimantes.",
+      "18": "[[18]] Rembourser nos dettes : Construisez 1 000 Imprimantes.",
+      "19": "[[19]] Monopolisation du marché : Construire 5 000 Imprimantes.",
+      "20": "[[20]] Nous sommes à court d'encre ! : Construire 10 000 Imprimantes.",
+      "21": "[[21]] Impression 3D de l'univers : Construire 20 000 Imprimantes.",
+      "22": "[[22]] Un trésor national : Établir 1 Machine à Frapper la Monnaie.",
+      "23": "[[23]] Maintenant en compétition ! : Établir 10 Machines à Frapper la Monnaie.",
+      "24": "[[24]] La Contrefaçon avec style ! : Établir 100 Machines à Frapper la Monnaie.",
+      "25": "[[25]] Pourquoi avons-nous besoin de tout ça ? : Établir 1 000 Machines à Frapper la Monnaie.",
+      "26": "[[26]] Non vraiment, pourquoi?? : Établir 5 000 Machines à Frapper la Monnaie.",
+      "27": "[[27]] Personne ne va nous arrêter ??? : Établir 10 000 Machines à Frapper la Monnaie.",
+      "28": "[[28]] Eh bien, il est temps de frapper la monnaie : Établir 20 000 Machines à Frapper la Monnaie.",
+      "29": "[[29]] L'Apprenti de Newton : Créer 1 Alchimie.",
+      "30": "[[30]] Travail de Labo : Créer 10 Alchimies.",
+      "31": "[[31]] Satanistes en devenir : Créer 66 Alchimies.",
+      "32": "[[32]] Satan Incarné : Créer 666 Alchimies.",
+      "33": "[[33]] Est-ce plus démoniaque ? : Créer 6 666 Alchimies.",
+      "34": "[[34]] Paradis Doré : Créer 17 777 Alchimies.",
+      "35": "[[35]] Débloquer les secrets de ce monde : Créer 42 777 Alchimies.",
+      "36": "[[36]] Niveau supérieur : Faire un Prestige pour au moins 1 Diamant.",
+      "37": "[[37]] Haute Gamme : Faire un Prestige pour au moins 1e6 Diamants.",
+      "38": "[[38]] Hautement Respecté : Faire un Prestige pour au moins 1e100 Diamants.",
+      "39": "[[39]] Prestigieux : Faire un Prestige pour au moins 1e1 000 Diamants.",
+      "40": "[[40]] Légendaire : Faire un Prestige pour au moins 1e10 000 Diamants.",
+      "41": "[[41]] Divin : Faire un Prestige pour au moins 1e77 777 Diamants.",
       "42": "[[42]] Perfectly Respected: Prestige for at least 1e250,000 Diamonds.",
       "43": "[[43]] A Simple Detour: Transcend for at least 1 Mythos.",
       "44": "[[44]] Tunnel Vision: Transcend for at least 1e6 Mythos.",
@@ -2023,44 +2023,44 @@
         "effectHaveNot": "Vous n'avez pas débloqué un multiplicateur de 5x pour les Cubes et 6x pour l'Obtainium et les Offrandes."
       },
       "wowPass": {
-        "name": "Shop Bonanza",
+        "name": "Aubaine de la Boutique",
         "description": "Cette amélioration convaincra le Phoque marchant de vous vendre plus de trucs sympas, qui persistent même lors des Singularités !",
-        "effectHave": "You have unlocked the Shop Bonanza.",
-        "effectHaveNot": "You have not unlocked the Shop Bonanza."
+        "effectHave": "Vous avez débloqué l'aubaine de la Boutique.",
+        "effectHaveNot": "Vous n'avez pas débloqué l'aubaine de la Boutique."
       },
       "cookies": {
         "name": "Recettes de Cookies I",
-        "description": "For just a few Golden Quarks, re-open Wow! Bakery, adding five cookie-related Cube upgrades.",
-        "effectHave": "You have unlocked volume 1 of the recipe book.",
-        "effectHaveNot": "You have not unlocked volume 1 of the recipe book."
+        "description": "Pour seulement quelques Quarks Dorés, rouvrez la boulangerie Wow!, ajoutant cinq améliorations de Cubes liées aux cookies.",
+        "effectHave": "Vous avez débloqué le volume 1 du livre de recettes.",
+        "effectHaveNot": "Vous n'avez pas débloqué le volume 1 du livre de recettes."
       },
       "cookies2": {
-        "name": "Cookie Recipes II",
-        "description": "Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related Cube upgrades.",
-        "effectHave": "You have unlocked volume 2 of the recipe book.",
-        "effectHaveNot": "You have not unlocked volume 2 of the recipe book."
+        "name": "Recettes de Cookies II",
+        "description": "Diversifiez la boulangerie Wow! en cuisinant des cookies légèrement plus exotiques, ajoutant ainsi cinque améliorations de Cubes liées aux cookies.",
+        "effectHave": "Vous avez débloqué le volume 2 du livre de recettes.",
+        "effectHaveNot": "Vous n'avez pas débloqué le volume 2 du livre de recettes."
       },
       "cookies3": {
-        "name": "Cookie Recipes III",
-        "description": "Your Bakers threaten to quit without a higher pay. If you do pay them, they will bake even more fancy cookies.",
-        "effectHave": "You have appeased the union of Bakers.",
-        "effectHaveNot": "You have not appeased the union of Bakers."
+        "name": "Recettes de Cookies III",
+        "description": "Vos boulangers menacent de démissionner sans un salaire plus élevé. Si vous les payez, ils cuisineront des cookies encore plus fantaisies.",
+        "effectHave": "Vous avez apaisé le syndicat des boulangers.",
+        "effectHaveNot": "Vous n'avez pas apaisé le syndicat des boulangers."
       },
       "cookies4": {
-        "name": "Cookie Recipes IV",
+        "name": "Recettes de Cookies IV",
         "description": "C'est un petit prix à payer pour le Salut.",
-        "effectHave": "You have paid your price for salvation.",
-        "effectHaveNot": "You have not paid your price for salvation."
+        "effectHave": "Vous avez payé le prix de votre salut.",
+        "effectHaveNot": "Vous n'avez pas payé le prix de votre salut."
       },
       "cookies5": {
-        "name": "Cookie Recipes V",
+        "name": "Recettes de Cookies V",
         "description": "La pire atrocité qu'un homme puisse commettre est d'assister, sans angoisse, à la souffrance des autres.",
-        "effectHave": "You have paid witness to the suffering of the masses.",
-        "effectHaveNot": "You have not paid witness to the suffering of the masses."
+        "effectHave": "Vous avez témoigné de la souffrance des masses.",
+        "effectHaveNot": "Vous n'avez pas témoigné de la souffrance des masses."
       },
       "ascensions": {
-        "name": "Improved Ascension Gain",
-        "description": "Buying this, you will gain +2% Ascension Count forever, per level! Every 10 levels grants an additional, multiplicative +1% Ascension Count.",
+        "name": "Gain d'Ascensions amélioré",
+        "description": "En achetant ceci, vous gagnez +2% de nombre d’Ascensions pour toujours, par niveau ! Tous les 10 niveaux donnent un bonus multiplicatif supplémentaire au nombre d’Ascensions de +1%.",
         "effect": "Le nombre d'Ascensions augmente {{n}}% plus vite."
       },
       "corruptionFourteen": {
@@ -2082,12 +2082,12 @@
       },
       "singOfferings2": {
         "name": "Orage d'Offrandes",
-        "description": "Apparemment, vous pouvez utiliser cette barre pour attirer plus d'Offrandes. +8% par niveau, pour être exact.",
+        "description": "Apparemment, vous pouvez utiliser cette barre pour attirer plus d'Offrandes. +8% par niveau, pour être précis.",
         "effect": "Obtenez {{n}}% d'Offrandes supplémentaires pour toujours."
       },
       "singOfferings3": {
         "name": "Tempête d'Offrandes",
-        "description": "This bar is so prestine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
+        "description": "Cette barre est si parfaite qu'elle fera en sorte que quiconque donne ses Offrandes. +4% par niveau, pour être précis.",
         "effect": "Obtenez {{n}}% d'Offrandes supplémentaires pour toujours."
       },
       "singObtainium1": {
@@ -2112,79 +2112,79 @@
       },
       "singCubes2": {
         "name": "Incendie Cubique",
-        "description": "Burn some more Golden Quarks! +8% gained Cubes per level.",
+        "description": "Brûlez encore des Quarks Dorés ! +8% de Cubes obtenus par niveau.",
         "effect": "Obtenez {{n}}% de Cubes supplémentaires pour toujours."
       },
       "singCubes3": {
         "name": "Fournaise Cubique",
-        "description": "Even Dante is impressed. +4% gained Cubes per level.",
+        "description": "Même Dante est impressionné. +4% de Cubes obtenus par niveau.",
         "effect": "Obtenez {{n}}% de Cubes supplémentaires de façon définitive."
       },
       "singCitadel": {
         "name": "Citadelle de la Singularité",
-        "description": "What a unique structual phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
-        "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
+        "description": "Quel phénomène structurel unique… mais il donne +2% d'Obtainium, d'Offrandes et de Cubes 3-7D par niveau ! +1% additionnel pour chaque tranche de 10 niveaux !",
+        "effect": "+{{n}}% d'Obtainium, d'Offrandes et de Cubes 3-7D, pour toujours !"
       },
       "singCitadel2": {
         "name": "Citadelle de la \"Singularité\" : La Vraie Édition",
-        "description": "This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels! Also sets the free level of the fake citadel to whatever level this is.",
-        "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
+        "description": "Cette véritable Citadelle donne +2% d'Obtainium, d'Offrandes et de Cubes 3-7D par niveau ! +1% additionnel par tranche de 10 niveaux ! De plus, le niveau gratuit de la fausse citadelle est égal au niveau de celle-ci.",
+        "effect": "+{{n}}% d'Obtainium, d'Offrandes et de Cubes 3-7D, pour toujours !"
       },
       "octeractUnlock": {
         "name": "Octeracts",
-        "description": "Hey!!! What are you trying to do?!?",
-        "effectHave": "You have bought into the Octeract hype.",
-        "effectHaveNot": "You have not bought into the Octeract hype."
+        "description": "Hey !!! Qu'essayez-vous de faire ?!?",
+        "effectHave": "Vous avez cédé à la mode des Octeracts.",
+        "effectHaveNot": "Vous n'avez pas cédé à la mode des Octeracts."
       },
       "singOcteractPatreonBonus": {
-        "name": "Platonic $ells out!!!",
-        "description": "You know that Patreon bonus? Yeah, that's cool and all, but what if it also boosted Octeract production by the same amount?",
-        "effect": "Octeract production is {{n}}% faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists."
+        "name": "Platonic V€ndu !!!",
+        "description": "Vous voyez ce bonus de Patreon ? Oui, il est sympa et tout, mais s'il augmentait aussi la production d'Octeracts de la même quantité ?",
+        "effect": "La production d'Octeracts est {{n}}% plus rapide pour chaque $10 par mois sur le Patreon ! Le même bonus que celui qui existe déjà pour les Quarks."
       },
       "offeringAutomatic": {
-        "name": "Blueberry Shards!",
-        "description": "The legends are true. \n The Prophecies are fulfilled. \n Ant God has heard your prayers. \n Let there be blueberries! \n And they were good.",
-        "effect": "You have purchased {{n}} tasty blueberries."
+        "name": "Morceaux de Myrtilles !",
+        "description": "Les légendes sont vraies\nLes prophéties sont accomplies\nLe Dieu Fourmi a entendu vos prières\nQue les Myrtilles Soient !\nEt cela était bien.",
+        "effect": "Vous avez acheté {{n}} Myrtilles savoureuses."
       },
       "intermediatePack": {
         "name": "Paquet Intermédiaire",
-        "description": "Double Global Speed, Multiply Ascension speed by 1.5, and gain +2% Quarks forever. Yum... 2% Quark Milk.",
-        "effectHave": "You have upgraded your package to intermediate.",
-        "effectHaveNot": "You have not upgraded your package to intermediate."
+        "description": "Doublez la vitesse globale, multipliez la vitesse d'Ascension par 1,5 et obtenez +2% de Quarks pour toujours. Miam… 2% de Quarks.",
+        "effectHave": "Vous avez amélioré votre paquet vers intermédiaire.",
+        "effectHaveNot": "Vous n'avez pas amélioré votre paquet vers intermédiaire."
       },
       "advancedPack": {
         "name": "Paquet Avancé",
-        "description": "Now we're cooking with kerosene! Gain +4% Quarks stack with intermediate, +0.33 to all corruption score multipliers, regardless of level!",
-        "effectHave": "You have bought our advanced package.",
-        "effectHaveNot": "You have not bought our advanced package."
+        "description": "Maintenant nous cuisinons avec du kérosène ! Obtenez +4% de Quarks se cumulant avec le paquet intermédiaire, +0,33 à tous les multiplicateurs de points de Corruptions, quel qu'en soit le niveau !",
+        "effectHave": "Vous avez acheté notre paquet avancé.",
+        "effectHaveNot": "Vous n'avez pas acheté notre paquet avancé."
       },
       "expertPack": {
         "name": "Paquet Expert",
-        "description": "That's a handful! Gain +6% Quarks stack with advanced, 1.5x Ascension Score, Code 'add' gives 1.2x Ascension Timer.",
-        "effectHave": "You have switched to the expert provider.",
-        "effectHaveNot": "You have not switched to the expert provider."
+        "description": "C'est une poignée ! Obtenez +6% de Quarks cumulés avec le paquet avancé, 1,5x de score d'Ascension, le code \"Addition\" donne 1,2x de temps d'Ascension.",
+        "effectHave": "Vous êtes passé au fournisseur expert.",
+        "effectHaveNot": "Vous n'êtes pas passé au fournisseur expert."
       },
       "masterPack": {
-        "name": "Paquet Maître",
-        "description": "A tad insane. Gain +8% Quarks stack with expert, for every level 14 corruption, Ascension score is multiplied by 1.1.",
-        "effectHave": "You have mastered your inner chakras.",
-        "effectHaveNot": "You have not mastered your inner chakras."
+        "name": "Paquet de Maître",
+        "description": "Un peu dément. Obtenez +8% de Quarks se cumulant avec le paquet expert, pour chaque Corruption au niveau 14 le score d'Ascension est multiplié par 1,1.",
+        "effectHave": "Vous avez maîtrisé vos chakras intérieurs.",
+        "effectHaveNot": "Vous n'avez pas maîtrisé vos chakras intérieurs."
       },
       "divinePack": {
         "name": "Paquet Divin",
-        "description": "OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14.",
-        "effectHave": "You have found the reason for existence.",
-        "effectHaveNot": "You have not found the reason for existence."
+        "description": "OHHHHH. Obtenez +10% de Quarks se cumulant avec le paquet de Maître, et multipliez les gains d'Octeracts par 7,77 si toutes les Corruptions sont au niveau 14.",
+        "effectHave": "Vous avez trouvé le sens de l'existence.",
+        "effectHaveNot": "Vous n'avez pas trouvé le sens de l'existence."
       },
       "wowPass2": {
         "name": "Soldes",
         "description": "Le Phoque marchant a besoin d'écouler quelques produits exotiques. Mais pour un prix atrocement élevé. Je ne crois pas que les soldes fonctionnent de cette manière.",
-        "effectHave": "You have triggered the Liquidation event!",
-        "effectHaveNot": "You have not triggered the Liquidation event!"
+        "effectHave": "Vous avez déclenché les soldes !",
+        "effectHaveNot": "Vous n'avez pas déclenché les soldes !"
       },
       "wowPass3": {
-        "name": "QUAAAACK",
-        "description": "QUAAAAAAAACK. The Merchant has gone crazy for your QUARKS!",
+        "name": "COIIIIIN",
+        "description": "COIIIIIIIIIIN. Le marchant est devenu dingue de vos CUARKS !",
         "effectHave": "You have triggered the QUACKSTRAVAGANZA!!",
         "effectHaveNot": "You have not triggered the QUACKSTRAVAGANZA!!"
       },
@@ -2445,7 +2445,7 @@
     "enabled": "(Activé)",
     "infinity": "Infini",
     "sacrificeCapital": "SACRIFICE",
-    "multiBuyInstructions": "Achetez plusieurs niveaux d'un coup en maintenant la touche <var(--orchid-text-color)|'SHIFT'> en cliquant !",
+    "multiBuyInstructions": "Achetez plusieurs niveaux d'un coup en maintenant la touche <<var(--orchid-text-color)|\"MAJ\">> en cliquant !",
     "autoOnColon": "Auto : Activé",
     "autoOffColon": "Auto : Désactivé",
     "buyMaxOn": "Achat maximum : Activé",
@@ -4971,7 +4971,7 @@
     "singularityConfirm2": "Êtes-vous sûr·e de vouloir entrer dans la Singularité ?",
     "singularityConfirm3": "Êtes-vous VRAIMENT SÛR·E ? Vous ne pourrez pas retourner en arrière (sans une ancienne sauvegarde) ! Confirmez une dernière fois pour valider votre décision.",
     "noAntiquity": "Mmpf. Revenez avec une Antiquité s'il vous plaît. Merci. - Dieu Fourmi",
-    "insideSingularityChallenge": "Derpsmith pense que vous êtes dans un défi de Singularité. Vous pouvez en sortir en cliquant sur l'icône de défi dans l'onglet de Singularité.",
+    "insideSingularityChallenge": "Derpsmith pense que vous êtes dans un Défi de Singularité. Vous pouvez en sortir en cliquant sur l'icône de Défi dans l'onglet des EXALTs.",
     "gameBeat": "Bien. Il semble que vous avez atteint l'œil de la Singularité. J'en suis satisfait. Cela signifie également qu'il n'y a nulle part ailleurs où aller. Du moins, pas tant que de plus grandes puissances n'allongent votre voyage.",
     "exitAscensionChallenge": "Êtes-vous absolument certain·e que vous souhaitez quitter le défi d'Ascension ? Vous aurez besoin de compléter le défi 10 à nouveau avant de pouvoir de faire une nouvelle tentative !",
     "buyResearch3x11": "[VERROUILLÉ - Achetez la Recherche 3x11]"
