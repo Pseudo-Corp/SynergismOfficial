@@ -708,9 +708,6 @@ export interface GlobalVariables {
   // Mega list of Variables to be used elsewhere
   crystalUpgradesCost: number[]
   crystalUpgradeCostIncrement: number[]
-  researchBaseCosts: number[]
-
-  researchMaxLevels: number[]
 
   ticker: number
 
@@ -797,9 +794,6 @@ export interface GlobalVariables {
   uFifteenMulti: Decimal
   tuSevenMulti: number
   currentTab: Tabs
-
-  researchfiller1: string
-  researchfiller2: string
 
   ordinals: readonly [
     'first',
@@ -896,8 +890,6 @@ export interface GlobalVariables {
   buildingSubTab: BuildingSubtab
 
   autoOfferingCounter: number
-
-  researchOrderByCost: number[]
 
   viscosityPower: number[]
   dilationMultiplier: number[]

@@ -65,6 +65,17 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
     player.runes.superiorIntellect = new Decimal(player.runeexp[4] ?? 0)
     player.runes.infiniteAscent = new Decimal(player.runeexp[5] ?? 0)
     player.runes.antiquities = new Decimal(player.runeexp[6] ?? 0)
+
+    // Retroactively reward players with unlocks, because I don't have a better place here
+    player.unlocks.anthill = player.achievements[127] === 1
+    player.unlocks.talismans = player.achievements[134] === 1
+    player.unlocks.blessings = player.achievements[134] === 1
+    player.unlocks.ascensions = player.achievements[141] === 1
+    player.unlocks.tesseracts = player.achievements[197] === 1
+    player.unlocks.spirits = player.achievements[204] === 1
+    player.unlocks.hypercubes = player.achievements[211] === 1
+    player.unlocks.platonics = player.achievements[218] === 1
+    player.unlocks.hepteracts = player.challenge15Exponent >= 1e15
   }
 
   if (player.runeshards !== undefined) {
@@ -174,17 +185,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
       ambrosiaUpgrades[k].ambrosiaInvested = ambrosiaInvested
       ambrosiaUpgrades[k].blueberriesInvested = blueberriesInvested
     }
-
-    // Retroactively reward players with unlocks, because I don't have a better place here
-    player.unlocks.anthill = player.achievements[127] === 1
-    player.unlocks.talismans = player.achievements[134] === 1
-    player.unlocks.blessings = player.achievements[134] === 1
-    player.unlocks.ascensions = player.achievements[141] === 1
-    player.unlocks.tesseracts = player.achievements[197] === 1
-    player.unlocks.spirits = player.achievements[204] === 1
-    player.unlocks.hypercubes = player.achievements[211] === 1
-    player.unlocks.platonics = player.achievements[218] === 1
-    player.unlocks.hepteracts = player.challenge15Exponent >= 1e15
   }
 
   Reflect.deleteProperty(player, 'runeshards')

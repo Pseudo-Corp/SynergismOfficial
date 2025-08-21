@@ -31,6 +31,7 @@ import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { cleanString, getElementById } from './Utility'
 import { btoa } from './Utility'
 import { Globals as G } from './Variables'
+import { isResearchMaxed } from './Research'
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
   year: 'numeric',
@@ -1063,65 +1064,65 @@ const dailyCodeFormatFreeLevelMessage = (
 }
 
 const dailyCodeReward = () => {
-  let quarks = 0
+  let quarks = 15
   let goldenQuarks = 0
 
   const ascended = player.ascensionCount > 0
   const singularity = player.highestSingularityCount > 0
   if (player.reincarnationCount > 0 || ascended || singularity) {
-    quarks += 20
+    quarks += 15
   }
   if (player.challengecompletions[6] > 0 || ascended || singularity) {
-    quarks += 20
-  } // 40
+    quarks += 15
+  }
   if (player.challengecompletions[7] > 0 || ascended || singularity) {
-    quarks += 30
-  } // 70
+    quarks += 20
+  }
   if (player.challengecompletions[8] > 0 || ascended || singularity) {
-    quarks += 30
-  } // 100
+    quarks += 20
+  }
   if (player.challengecompletions[9] > 0 || ascended || singularity) {
-    quarks += 40
-  } // 140
+    quarks += 25
+  }
   if (player.challengecompletions[10] > 0 || ascended || singularity) {
-    quarks += 60
-  } // 200
+    quarks += 30
+  }
   if (ascended || singularity) {
     quarks += 50
-  } // 250
+  }
   if (player.challengecompletions[11] > 0 || singularity) {
-    quarks += 50
-  } // 300
+    quarks += 25
+  }
   if (player.challengecompletions[12] > 0 || singularity) {
-    quarks += 50
-  } // 350
+    quarks += 25
+  }
   if (player.challengecompletions[13] > 0 || singularity) {
-    quarks += 50
-  } // 400
+    quarks += 25
+  }
   if (player.challengecompletions[14] > 0 || singularity) {
+    quarks += 25
+  }
+  if (isResearchMaxed(200)) {
     quarks += 100
-  } // 500
-  if (player.researches[200] === G.researchMaxLevels[200]) {
-    quarks += 250
-  } // 750
-  if (player.cubeUpgrades[50] === 100000) {
-    quarks += 250
-  } // 1000
+  }
+  if (player.cubeUpgrades[50] >= 100000) {
+    quarks += 125
+  }
   if (player.platonicUpgrades[5] > 0) {
-    quarks += 250
-  } // 1250
+    quarks += 125
+  }
   if (player.platonicUpgrades[10] > 0) {
-    quarks += 500
-  } // 1750
+    quarks += 150
+  }
   if (player.platonicUpgrades[15] > 0) {
-    quarks += 750
-  } // 2500
+    quarks += 200
+  }
   if (player.challenge15Exponent > 1e18) {
-    quarks += Math.floor(1000 * (Math.log10(player.challenge15Exponent) - 18))
-  } // at least 2500
+    quarks += Math.floor(100 * (Math.log10(player.challenge15Exponent) - 18))
+  }
   if (player.platonicUpgrades[20] > 0) {
-    quarks += 2500
-  } // at least 5k
+    quarks += 500
+  }
 
   quarks *= 1 + 0.05 * player.shopUpgrades.shopImprovedDaily
   quarks = Math.floor(quarks)

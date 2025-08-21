@@ -2023,6 +2023,14 @@ p#reincarnatehotkeys {
     padding: 0;
 }
 
+.researchUnlocked {
+    display: block;
+}
+
+.researchLocked {
+    display: none;
+}
+
 .researchContainer {
     display: flex;
     justify-content: center;

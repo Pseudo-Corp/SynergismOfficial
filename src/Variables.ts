@@ -30,94 +30,6 @@ export const Globals: GlobalVariables = {
   // Mega list of Variables to be used elsewhere
   crystalUpgradesCost: [6, 15, 20, 40, 100, 200, 500, 1000],
   crystalUpgradeCostIncrement: [8, 15, 20, 40, 100, 200, 500, 1000],
-  // dprint-ignore
-  researchBaseCosts: [
-    1e200,
-    1, 1, 1, 1, 1,
-    1, 1e2, 1e4, 1e6, 1e8,
-    2, 2e2, 2e4, 2e6, 2e8,
-    4e4, 4e8, 10, 1e5, 1e9,
-    100, 100, 1e4, 2e3, 2e5,
-    40, 200, 50, 5000, 20000000,
-    777, 7777, 50000, 500000, 5000000,
-    2e3, 2e6, 2e9, 1e5, 1e9,
-    1, 1, 5, 25, 125,
-    2, 5, 320, 1280, 2.5e9,
-    10, 2e3, 4e5, 8e7, 2e9,
-    5, 400, 1e4, 3e6, 9e8,
-    100, 2500, 100, 2000, 2e5,
-    1, 20, 3e3, 4e5, 5e7,
-    10, 40, 160, 1000, 10000,
-    4e9, 7e9, 1e10, 1.2e10, 1.5e10,
-    1e12, 1e13, 3e12, 2e13, 2e13,
-    2e14, 6e14, 2e15, 6e15, 2e16,
-    1e16, 2e16, 2e17, 4e17, 1e18,
-    1e13, 1e14, 1e15, 7.777e18, 7.777e20,
-    1e16, 3e16, 1e17, 3e17, 1e20,
-    1e18, 3e18, 1e19, 3e19, 1e20,
-    1e20, 2e20, 4e20, 8e20, 1e21,
-    2e21, 4e21, 8e21, 2e22, 4e22,
-    3.2e21, 2e23, 4e23, 1e21, 7.777e32,
-    5e8, 5e12, 5e16, 5e20, 5e24, /*ascension tier */
-    1e25, 2e25, 4e25, 8e25, 1e26,
-    4e26, 8e26, 1e27, 2e27, 1e28,
-    5e9, 5e15, 5e21, 5e27, 1e28, /*challenge 11 tier */
-    1e29, 2e29, 4e29, 8e29, 1e27,
-    2e30, 4e30, 8e30, 1e31, 2e31,
-    5e31, 1e32, 2e32, 4e32, 8e32, /*challenge 12 tier */
-    1e33, 2e33, 4e33, 8e33, 1e34,
-    3e34, 1e35, 3e35, 6e35, 1e36,
-    3e36, 1e37, 3e37, 1e38, 3e38, /*challenge 13 tier */
-    1e39, 3e39, 1e40, 3e40, 1e50,
-    3e41, 1e42, 3e42, 6e42, 1e43,
-    3e43, 1e44, 3e44, 1e45, 3e45, /*challenge 14 tier */
-    2e46, 6e46, 2e47, 6e47, 1e64,
-    6e48, 2e49, 1e50, 1e51, 4e56
-  ],
-
-  // dprint-ignore
-  researchMaxLevels: [
-    0, 1, 1, 1, 1, 1,
-    10, 10, 10, 10, 10,
-    10, 10, 10, 10, 10,
-    10, 10, 1, 1, 1,
-    25, 25, 25, 20, 20,
-    10, 10, 10, 10, 10,
-    12, 12, 10, 10, 10,
-    10, 10, 10, 1, 1,
-    1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1,
-    10, 10, 10, 10, 10,
-    20, 20, 20, 20, 20,
-    1, 5, 4, 5, 5,
-    10, 10, 10, 10, 10,
-    1, 1, 1, 1, 1,
-    10, 15, 15, 15, 15,
-    10, 1, 20, 20, 20,
-    20, 20, 20, 20, 10,
-    20, 20, 20, 20, 1,
-    20, 5, 5, 3, 2,
-    10, 10, 10, 10, 1,
-    10, 10, 20, 25, 25,
-    15, 15, 15, 15, 30,
-    10, 10, 10, 100, 100,
-    25, 25, 25, 1, 5,
-    10, 10, 10, 10, 1,
-    10, 10, 10, 1, 1,
-    25, 25, 25, 15, 1,
-    10, 10, 10, 10, 1,
-    10, 1, 6, 10, 1,
-    25, 25, 1, 15, 1,
-    10, 10, 10, 1, 1,
-    10, 10, 10, 10, 1,
-    25, 25, 25, 15, 1,
-    10, 10, 10, 1, 1,
-    10, 3, 6, 10, 5,
-    25, 25, 1, 15, 1,
-    20, 20, 20, 1, 1,
-    20, 1, 50, 50, 10,
-    25, 25, 25, 15, 100000
-  ],
 
   ticker: 0,
 
@@ -204,9 +116,6 @@ export const Globals: GlobalVariables = {
   uFifteenMulti: new Decimal(1),
   tuSevenMulti: 1,
   currentTab: Tabs.Buildings,
-
-  researchfiller1: 'Hover over the grid to get details about researches!',
-  researchfiller2: 'Level: ',
 
   // dprint-ignore
   ordinals: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth'] as const,
@@ -296,7 +205,6 @@ export const Globals: GlobalVariables = {
   // 1,000 of each before Diminishing Returns
 
   autoOfferingCounter: 0,
-  researchOrderByCost: [],
 
   viscosityPower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0, 0, 0],
   dilationMultiplier: [

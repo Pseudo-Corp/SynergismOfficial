@@ -2,7 +2,6 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { hepteractEffective } from './Hepteracts'
-import { autoResearchEnabled } from './Research'
 import { getGQUpgradeEffect } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
@@ -435,11 +434,6 @@ export const highestChallengeRewards = (chalNum: number, highestValue: number) =
   }
   if (player.ascensionCount === 0) {
     player.worlds.add(1 + Math.floor(highestValue * multiplier) * 100 / 100)
-  }
-  // Addresses a bug where auto research does not work even if you unlock research
-  if (autoResearchEnabled() && player.ascensionCount === 0 && chalNum >= 6 && chalNum <= 10) {
-    player.roombaResearchIndex = 0
-    player.autoResearch = G.researchOrderByCost[player.roombaResearchIndex]
   }
 }
 

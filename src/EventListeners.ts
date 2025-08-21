@@ -82,7 +82,7 @@ import {
   resetRedAmbrosiaDisplay,
   updateMobileRedAmbrosiaHTML
 } from './RedAmbrosiaUpgrades'
-import { buyResearch, researchDescriptions } from './Research'
+import { buyResearch, researchDescriptions, updateResearchAuto } from './Research'
 import { resetrepeat, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { buyAllBlessingLevels, buyBlessingLevels, runeBlessingKeys } from './RuneBlessings'
 import { type RuneKeys, runes, runeToIndex, sacrificeOfferings, updateFocusedRuneHTML } from './Runes'
@@ -622,17 +622,33 @@ export const generateEventHandlers = () => {
   // RESEARCH TAB
   // Part 1: Researches
   // There are 200 researches, ideally in rewrite 200 would instead be length of research list/array
-  for (let index = 1; index < 200; index++) {
+  for (let index = 1; index <= 200; index++) {
     const research = DOMCacheGetOrSet(`res${index}`)
-    research.addEventListener('click', () => buyResearch(index))
-    research.addEventListener('mouseover', () => researchDescriptions(index))
-    research.addEventListener('focus', () => researchDescriptions(index))
+    research.addEventListener('click', () => {
+      const auto = false
+      const hover = false
+      buyResearch(index, auto, hover)
+      if (player.autoResearchMode === 'manual' && player.autoResearchToggle) {
+        updateResearchAuto(index)
+      }
+    })
+    research.addEventListener('mouseover', () => {
+      if (player.toggles[38] && player.highestSingularityCount > 0) {
+        const auto = false
+        const hover = true
+        buyResearch(index, auto, hover)
+      }
+      researchDescriptions(index)
+    })
+    research.addEventListener('focus', () => {
+      if (player.toggles[38] && player.highestSingularityCount > 0) {
+        const auto = false
+        const hover = true
+        buyResearch(index, auto, hover)
+      }
+      researchDescriptions(index)
+    })
   }
-  // Research 200 is special, uses more params
-  const research200 = DOMCacheGetOrSet('res200')
-  research200.addEventListener('click', () => buyResearch(200, false, 0.01))
-  research200.addEventListener('mouseover', () => researchDescriptions(200, false, 0.01))
-  research200.addEventListener('focus', () => researchDescriptions(200, false, 0.01))
 
   // Part 2: QoL buttons
   DOMCacheGetOrSet('toggleresearchbuy').addEventListener('click', () => toggleResearchBuy())

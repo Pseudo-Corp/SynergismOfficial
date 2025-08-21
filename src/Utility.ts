@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js'
+import Decimal, { DecimalSource } from 'break_infinity.js'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format } from './Synergism'
 
@@ -89,6 +89,12 @@ export const sortWithIndices = (toSort: number[]) => {
   return Array
     .from([...toSort.keys()])
     .sort((a, b) => toSort[a] < toSort[b] ? -1 : +(toSort[b] < toSort[a]))
+}
+
+export const sortDecimalWithIndices = (toSort: DecimalSource[]) => {
+  return Array
+    .from([...toSort.keys()])
+    .sort((a, b) => new Decimal(toSort[a]).lt(new Decimal(toSort[b])) ? -1 : +(new Decimal(toSort[b]).lt(new Decimal(toSort[a]))))
 }
 
 /**

@@ -15,7 +15,6 @@ import i18next from 'i18next'
 import { awardAchievementGroup, awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { resetHistoryAdd, type ResetHistoryEntryAntSacrifice } from './History'
-import { buyResearch } from './Research'
 import { resetAnts } from './Reset'
 import { Tabs } from './Tabs'
 import { updateTalismanInventory } from './Talismans'
@@ -391,10 +390,6 @@ export const sacrificeAnts = async (auto = false) => {
       player.antSacrificeTimer = 0
       player.antSacrificeTimerReal = 0
       updateTalismanInventory()
-      if (player.autoResearch > 0 && player.autoResearchToggle) {
-        const linGrowth = (player.autoResearch === 200) ? 0.01 : 0
-        buyResearch(player.autoResearch, true, linGrowth)
-      }
       resetHistoryAdd('ants', historyEntry)
     }
   }

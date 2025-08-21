@@ -82,7 +82,7 @@ type RuneTypeMap = {
     ambrosiaLuck: number
     redLuck: number
     redLuckConversion: number
-  },
+  }
   finiteDescent: {
     ascensionScore: number
     corruptionFreeLevels: number
@@ -186,7 +186,7 @@ export const bonusRuneLevelsAntiquities = () => {
 
 export const bonusRuneLevelsHorseShoe = () => {
   return getRuneBonusFromAllTalismans('horseShoe')
-  + (player.shopUpgrades.shopHorseShoe > 0 ? 3 : 0)
+    + (player.shopUpgrades.shopHorseShoe > 0 ? 3 : 0)
 }
 
 export const speedRuneOOMIncrease = () => {

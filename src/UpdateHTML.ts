@@ -22,7 +22,6 @@ import { revealCorruptions } from './Corruptions'
 import { getLevelMilestone } from './Levels'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
-import { autoResearchEnabled } from './Research'
 import { getRuneEffects, type RuneKeys, runes, updateRuneEffectHTML, updateRuneHTML } from './Runes'
 import { getGQUpgradeEffect, updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
@@ -46,8 +45,9 @@ import {
   visualUpdateSingularity,
   visualUpdateUpgrades
 } from './UpdateVisuals'
-import { createDeferredPromise } from './Utility'
+import { createDeferredPromise, updateClassList } from './Utility'
 import { Globals as G } from './Variables'
+import { isResearchUnlocked, roombaResearchEnabled } from './Research'
 
 export const revealStuff = () => {
   document.documentElement.dataset.coinOne = player.unlocks.coinone ? 'true' : 'false'
@@ -132,6 +132,16 @@ export const revealStuff = () => {
     } else {
       example21[i].style.display = player.ascensionCount > 0 ? 'block' : 'none'
       example21[i].setAttribute('aria-disabled', `${player.ascensionCount <= 0}`)
+    }
+  }
+
+  for (let i = 1; i <= player.researches.length - 1; i++) {
+    const resKey = `res${i}`
+    if (isResearchUnlocked(i)) {
+      updateClassList(resKey, ['researchUnlocked'], ['researchLocked'])
+    }
+    else {
+      updateClassList(resKey, ['researchLocked'], ['researchUnlocked'])
     }
   }
 
@@ -305,7 +315,7 @@ export const revealStuff = () => {
     : DOMCacheGetOrSet('toggleautoresearch').style.display = 'none'
 
   DOMCacheGetOrSet('toggleautoresearchmode').style.display =
-    player.shopUpgrades.obtainiumAuto > 0 && autoResearchEnabled() // Auto Research Shop Purchase Mode
+    player.shopUpgrades.obtainiumAuto > 0 && roombaResearchEnabled() // Auto Research Shop Purchase Mode
       ? 'block'
       : 'none'
 

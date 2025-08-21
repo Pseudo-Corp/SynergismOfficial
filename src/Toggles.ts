@@ -5,7 +5,6 @@ import { getChallengeConditions } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } from './Corruptions'
 import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
-import { autoResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { indexToRune } from './Runes'
 import { format, player, resetCheck } from './Synergism'
@@ -14,6 +13,7 @@ import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
+import { researchOrderByCost, roombaResearchEnabled } from './Research'
 
 export const toggleSettings = (toggle: HTMLElement) => {
   const toggleId = toggle.getAttribute('toggleId') ?? 1
@@ -278,14 +278,14 @@ export const toggleAutoResearch = () => {
     el.textContent = i18next.t('researches.automaticOn')
   }
 
-  if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
-    player.autoResearch = G.researchOrderByCost[player.roombaResearchIndex]
+  if (player.autoResearchToggle && roombaResearchEnabled() && player.autoResearchMode === 'cheapest') {
+    player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
 }
 
 export const toggleAutoResearchMode = () => {
   const el = DOMCacheGetOrSet('toggleautoresearchmode')
-  if (player.autoResearchMode === 'cheapest' || !autoResearchEnabled()) {
+  if (player.autoResearchMode === 'cheapest' || !roombaResearchEnabled()) {
     player.autoResearchMode = 'manual'
     el.textContent = i18next.t('researches.autoModeManual')
   } else {
@@ -294,8 +294,8 @@ export const toggleAutoResearchMode = () => {
   }
   DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
 
-  if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
-    player.autoResearch = G.researchOrderByCost[player.roombaResearchIndex]
+  if (player.autoResearchToggle && roombaResearchEnabled() && player.autoResearchMode === 'cheapest') {
+    player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
 }
 

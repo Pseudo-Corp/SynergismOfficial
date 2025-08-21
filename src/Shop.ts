@@ -19,12 +19,12 @@ import {
 } from './Calculate'
 import type { IMultiBuy } from './Cubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getRuneEffectiveLevel } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
-import { getRuneEffectiveLevel } from './Runes'
 
 /**
  * Standardization of metadata contained for each shop upgrade.
@@ -1477,7 +1477,10 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       const horseShoeLevel = getRuneEffectiveLevel('horseShoe')
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopHorseShoe', {
         amount1: player.shopUpgrades.shopHorseShoe > 0 ? 3 : 0,
-        amount2: formatAsPercentIncrease(1 - Math.min(300, horseShoeLevel * player.shopUpgrades.shopHorseShoe) / 1000, 2),
+        amount2: formatAsPercentIncrease(
+          1 - Math.min(300, horseShoeLevel * player.shopUpgrades.shopHorseShoe) / 1000,
+          2
+        )
       })
     }
   }
@@ -1568,7 +1571,7 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     shopSingularityPotency: 'Singularity Passives Potency',
     shopSadisticRune: 'Sadistic Rune Unlock! Or does it?',
     shopInfiniteShopUpgrades: 'Blue Infinity Shop Voucher',
-    shopHorseShoe: 'A Horse Shoe Singularity Debuff',
+    shopHorseShoe: 'A Horse Shoe Singularity Debuff'
   }
 
   return names[input]

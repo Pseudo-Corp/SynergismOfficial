@@ -14,7 +14,7 @@ import {
   highestChallengeRewards,
   runChallengeSweep
 } from './Challenges'
-import { btoa, isMobileDevice, sortWithIndices, sumContents } from './Utility'
+import { btoa, isMobileDevice, sumContents } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -85,8 +85,7 @@ import {
 import { generateEventHandlers } from './EventListeners'
 import { addTimers, automaticTools } from './Helper'
 import { resetHistoryRenderAllTables } from './History'
-import { buyResearch, maxRoombaResearchIndex, updateResearchBG } from './Research'
-import { autoResearchEnabled } from './Research'
+import { buyResearch, refundOvercapResearches, researchData, researchOrderByCost, roombaResearchEnabled, updateResearchAuto, updateResearchBG, updateResearchRoomba } from './Research'
 import {
   reset,
   resetrepeat,
@@ -539,7 +538,7 @@ export const player: Player = {
     tesseracts: false,
     hypercubes: false,
     platonics: false,
-    hepteracts: false,
+    hepteracts: false
   },
   achievements: Array(numAchievements).fill(0) as number[],
   progressiveAchievements: {
@@ -583,7 +582,7 @@ export const player: Player = {
     infiniteAscent: new Decimal(0),
     antiquities: new Decimal(0),
     horseShoe: new Decimal(0),
-    finiteDescent: new Decimal(0),
+    finiteDescent: new Decimal(0)
   },
 
   runeBlessings: {
@@ -732,7 +731,7 @@ export const player: Player = {
     shopRedLuck2: 0,
     shopRedLuck3: 0,
     shopInfiniteShopUpgrades: 0,
-    shopHorseShoe: 0,
+    shopHorseShoe: 0
   },
 
   shopPotionsConsumed: {
@@ -1467,7 +1466,6 @@ const loadSynergy = () => {
     for (let j = 1; j < 126; j++) {
       upgradeupdate(j, true)
     }
-
     for (let j = 1; j <= 200; j++) {
       updateResearchBG(j)
     }
@@ -1538,13 +1536,6 @@ const loadSynergy = () => {
       DOMCacheGetOrSet(b).style.backgroundColor = 'green'
     }
 
-    const testArray = []
-    // Creates a copy of research costs array
-    for (let i = 0; i < G.researchBaseCosts.length; i++) {
-      testArray.push(G.researchBaseCosts[i])
-    }
-    // Sorts the above array, and returns the index order of sorted array
-    G.researchOrderByCost = sortWithIndices(testArray)
     player.roombaResearchIndex = 0
 
     // June 09, 2021: Updated toggleShops() and removed boilerplate - Platonic
@@ -2019,13 +2010,13 @@ const loadSynergy = () => {
     ).textContent = `Per second: ${player.historyShowPerSecond ? 'ON' : 'OFF'}`
     DOMCacheGetOrSet('historyTogglePerSecondButton').style.borderColor = player.historyShowPerSecond ? 'green' : 'red'
 
-    // If auto research is enabled and runing; Make sure there is something to try to research if possible
+    // If roomba auto research is enabled and runing; Make sure there is something to try to research if possible
     if (
       player.autoResearchToggle
-      && autoResearchEnabled()
+      && roombaResearchEnabled()
       && player.autoResearchMode === 'cheapest'
     ) {
-      player.autoResearch = G.researchOrderByCost[player.roombaResearchIndex]
+      player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
     }
 
     player.autoResearch = Math.min(200, player.autoResearch)
@@ -5009,23 +5000,36 @@ const tack = (dt: number) => {
       calculateObtainium()
     }
 
-    // Automatically tries and buys researches lol
+    // Regular Research Automation (only once)
+    if (player.autoResearchToggle && player.autoResearch > 0 && player.autoResearchMode === 'manual') {
+      const auto = true
+      const hover = false
+      buyResearch(player.autoResearch, auto, hover)
+      updateResearchAuto(player.autoResearch)
+    }
+    
+    // Roomba! (Cube Upgrade 1x9)
     if (
       player.autoResearchToggle
       && player.autoResearch > 0
-      && player.autoResearch <= maxRoombaResearchIndex(player)
-      && (autoResearchEnabled() || player.autoResearchMode === 'manual')
+      && roombaResearchEnabled()
+      && player.autoResearchMode === 'cheapest'
     ) {
-      // buyResearch() probably shouldn't even be called if player.autoResearch exceeds the highest unlocked research
       let counter = 0
-      const maxCount = 1 + player.challengecompletions[14]
+      const maxCount = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
       while (counter < maxCount) {
-        if (player.autoResearch > 0) {
-          const linGrowth = player.autoResearch === 200 ? 0.01 : 0
-          if (!buyResearch(player.autoResearch, true, linGrowth)) {
-            break
-          }
-        } else {
+        const currIndex = player.autoResearch
+        if (currIndex > 0) {
+          const auto = true
+          const hover = false
+          buyResearch(currIndex, auto, hover)
+        }
+        else {
+          break
+        }
+        updateResearchRoomba()
+        // If not max level, you could not afford the research, so do not run more times
+        if (player.researches[currIndex] < researchData[currIndex].maxLevel) {
           break
         }
         counter++
@@ -5404,6 +5408,7 @@ export const reloadShit = (reset = false) => {
   updateAchievementPoints()
   setAmbrosiaUpgradeLevels()
   setRedAmbrosiaUpgradeLevels()
+  refundOvercapResearches()
 
   if (!reset) {
     calculateOffline()

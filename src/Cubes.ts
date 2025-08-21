@@ -2,7 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateCubicSumData, calculateSummationNonLinear } from './Calculate'
-import { updateResearchBG } from './Research'
+import { researchData, updateResearchBG } from './Research'
 import { calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
 import { format, player } from './Synergism'
 import {
@@ -19,7 +19,6 @@ import {
 } from './Tesseracts'
 import { revealStuff } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
-import { Globals as G } from './Variables'
 
 export interface IMultiBuy {
   levelCanBuy: number
@@ -165,7 +164,7 @@ export const awardAutosCookieUpgrade = () => {
   }
 
   for (const i of researchAutomationIndices) {
-    player.researches[i] = G.researchMaxLevels[i]
+    player.researches[i] = researchData[i].maxLevel
     updateResearchBG(i)
   }
 }

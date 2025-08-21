@@ -3358,7 +3358,8 @@ export const calculateSingularityDebuff = (
   )
 
   let baseDebuffMultiplier = 1
-  baseDebuffMultiplier *= (1 - Math.min(300, player.shopUpgrades.shopHorseShoe * getRuneEffectiveLevel('horseShoe')) / 1000)
+  baseDebuffMultiplier *= 1
+    - Math.min(300, player.shopUpgrades.shopHorseShoe * getRuneEffectiveLevel('horseShoe')) / 1000
 
   if (debuff === 'Offering') {
     const extraMult = 10 * Math.pow(1.02, constitutiveSingularityCount)

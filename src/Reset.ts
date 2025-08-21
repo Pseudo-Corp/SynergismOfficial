@@ -40,7 +40,7 @@ import {
 import { importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
-import { buyResearch, updateResearchBG } from './Research'
+import { isResearchMaxed, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, runes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
@@ -592,11 +592,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.reincarnationcounter = 0
     G.autoResetTimers.reincarnation = 0
 
-    if (player.autoResearchToggle && player.autoResearch > 0.5) {
-      const linGrowth = (player.autoResearch === 200) ? 0.01 : 0
-      buyResearch(player.autoResearch, true, linGrowth)
-    }
-
     calculateAnts()
   }
 
@@ -694,21 +689,21 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.autoResearch = 1
 
     for (let j = 1; j <= (200); j++) {
-      const k = `res${j}`
-      if (player.researches[j] > 0.5 && player.researches[j] < G.researchMaxLevels[j]) {
-        updateClassList(k, ['researchPurchased'], [
+      const id = `res${j}`
+      if (player.researches[j] > 0 && isResearchMaxed(j)) {
+        updateClassList(id, ['researchPurchased'], [
           'researchAvailable',
           'researchMaxed',
           'researchPurchasedAvailable'
         ])
-      } else if (player.researches[j] > 0.5 && player.researches[j] >= G.researchMaxLevels[j]) {
-        updateClassList(k, ['researchMaxed'], [
+      } else if (player.researches[j] > 0 && isResearchMaxed(j)) {
+        updateClassList(id, ['researchMaxed'], [
           'researchAvailable',
           'researchPurchased',
           'researchPurchasedAvailable'
         ])
       } else {
-        updateClassList(k, [], [
+        updateClassList(id, [], [
           'researchAvailable',
           'researchPurchased',
           'researchPurchasedAvailable',
