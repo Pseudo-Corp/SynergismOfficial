@@ -3247,7 +3247,7 @@
   "buildings": {
     "taxWarning": "税收还将您的金币每秒产量上限限制在{{gain}}。",
     "acceleratorPower": "加速器效果：{{power}}% || 加速器倍率：{{mult}}x",
-    "multiplierPower": "加倍器效果：{{power}}% || 加倍器倍率：{{mult}}x",
+    "multiplierPower": "加倍器效果：{{power}}x || 加倍器倍率：{{mult}}x",
     "acceleratorBoost": "重置钻石及转生升级，但将增加{{amount}}%加速器效果，并增加5个免费的加速器。",
     "coinsPerSecond": "金币每秒产量：{{coins}} [{{percent}}%]",
     "costCoins": "花费：{{coins}}金币。",
