@@ -5487,7 +5487,7 @@
       "transfer": "Transfer Save from Old System",
       "transferSuccess": "✅ Transferred Your Save",
       "transferFailed": "❌ Failed to Transfer"
-    }
+    },
     "quarkBonusSimple": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks!",
     "quarkBonusExtended": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks! You also receive an extra {{personalBonus}}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!"
   },

@@ -41,8 +41,8 @@ export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide du
   }, false]],
   ['SHIFT+D', ['hotkeys.names.specActionAdd1', () => promocodes('add', 1), false]],
   ['SHIFT+E', ['hotkeys.names.exitAscChallenge', () => resetCheck('ascensionChallenge'), false]], // Its already checks if inside Asc. Challenge
-  ['SHIFT+O', ['hotkeys.names.useOffPotion', () => useConsumable('offeringPotion'), false]],
-  ['SHIFT+P', ['hotkeys.names.useObtPotion', () => useConsumable('obtainiumPotion'), false]],
+  ['SHIFT+O', ['hotkeys.names.useOffPotion', () => useConsumablePrompt('offeringPotion'), false]],
+  ['SHIFT+P', ['hotkeys.names.useObtPotion', () => useConsumablePrompt('obtainiumPotion'), false]],
   ['SHIFT+S', ['hotkeys.names.resetSingularity', () => resetCheck('singularity'), false]],
   ['CTRL+B', ['hotkeys.names.unhideTabs', () => tabRow.reappend(), false]]
 ])
