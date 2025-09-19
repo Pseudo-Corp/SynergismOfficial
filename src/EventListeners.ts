@@ -159,7 +159,7 @@ import {
   updateRuneBlessingBuyAmount
 } from './Toggles'
 import type { FirstToEighth, FirstToFifth, OneToFive, Player } from './types/Synergism'
-import { CloseModal, Confirm, Modal, Prompt, closeChangelog, openChangelog } from './UpdateHTML'
+import { closeChangelog, CloseModal, Confirm, Modal, openChangelog, Prompt } from './UpdateHTML'
 import { shopMouseover } from './UpdateVisuals'
 import {
   buyConstantUpgrades,
