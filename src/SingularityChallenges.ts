@@ -2,8 +2,8 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateGoldenQuarks } from './Calculate'
 import { singularity } from './Reset'
+import { runes } from './Runes'
 import { player } from './Synergism'
-import type { Player } from './types/Synergism'
 import { Alert, Confirm } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 import { Globals as G } from './Variables'
@@ -12,17 +12,28 @@ export interface ISingularityChallengeData {
   baseReq: number
   maxCompletions: number
   unlockSingularity: number
-  HTMLTag: keyof Player['singularityChallenges']
+  HTMLTag: SingularityChallengeDataKeys
   singularityRequirement: (baseReq: number, completions: number) => number
   effect: (n: number) => Record<string, number | boolean>
+  achievementPointValue: (n: number) => number
   scalingrewardcount: number
   uniquerewardcount: number
   resetTime?: boolean
   completions?: number
   enabled?: boolean
+  alternateDescription?: () => string
   highestSingularityCompleted?: number
-  cacheUpdates?: (() => void)[]
 }
+
+export type SingularityChallengeDataKeys =
+  | 'noSingularityUpgrades'
+  | 'oneChallengeCap'
+  | 'noOcteracts'
+  | 'limitedAscensions'
+  | 'noAmbrosiaUpgrades'
+  | 'limitedTime'
+  | 'sadisticPrequel'
+  | 'taxmanLastStand'
 
 export class SingularityChallenge {
   public name
@@ -37,9 +48,10 @@ export class SingularityChallenge {
   public resetTime
   public singularityRequirement
   public effect
+  public achievementPointValue
+  public alternateDescription
   public scalingrewardcount
   public uniquerewardcount
-  readonly cacheUpdates: (() => void)[] | undefined
   #key: string
 
   public constructor (data: ISingularityChallengeData, key: string) {
@@ -59,12 +71,13 @@ export class SingularityChallenge {
     this.resetTime = data.resetTime ?? false
     this.singularityRequirement = data.singularityRequirement
     this.effect = data.effect
+    this.achievementPointValue = data.achievementPointValue
+    this.alternateDescription = data.alternateDescription ?? undefined
     this.scalingrewardcount = data.scalingrewardcount
     this.uniquerewardcount = data.uniquerewardcount
 
     this.updateIconHTML()
     this.updateChallengeCompletions()
-    this.cacheUpdates = data.cacheUpdates ?? undefined
     this.#key = key
   }
 
@@ -88,7 +101,7 @@ export class SingularityChallenge {
     if (!this.enabled) {
       return this.enableChallenge()
     } else {
-      return this.exitChallenge(player.runelevels[6] > 0)
+      return this.exitChallenge(runes.antiquities.level > 0)
     }
   }
 
@@ -146,7 +159,7 @@ export class SingularityChallenge {
 
   public async exitChallenge (success: boolean) {
     if (!success) {
-      const extra = player.runelevels[6] === 0
+      const extra = runes.antiquities.level === 0
         ? i18next.t('singularityChallenge.exitChallenge.incompleteWarning')
         : ''
       const confirmation = await Confirm(
@@ -174,7 +187,6 @@ export class SingularityChallenge {
       this.updateChallengeCompletions()
       singularity(highestSingularityHold)
       player.singularityCounter = holdSingTimer
-      this.updateCaches()
       return Alert(
         i18next.t('singularityChallenge.exitChallenge.acceptSuccess', {
           tier: toOrdinal(this.completions),
@@ -189,14 +201,6 @@ export class SingularityChallenge {
       return Alert(
         i18next.t('singularityChallenge.exitChallenge.acceptFailure')
       )
-    }
-  }
-
-  updateCaches (): void {
-    if (this.cacheUpdates !== undefined) {
-      for (const cache of this.cacheUpdates) {
-        cache()
-      }
     }
   }
 
@@ -240,7 +244,9 @@ export class SingularityChallenge {
         this.completions
       )
     }</span></span>
-    <span style="color: lightblue">${this.description}</span>`
+    <span style="color: lightblue">${
+      this.alternateDescription !== undefined ? this.alternateDescription() : this.description
+    }</span>`
   }
   // Numerates through total reward count for Scaling & Unique string for EXALTS.
   scaleString (): string {
@@ -277,17 +283,25 @@ export class SingularityChallenge {
     return this.effect(this.completions)
   }
 
+  public get rewardAP () {
+    return this.achievementPointValue(this.completions)
+  }
+
+  public get maxAP () {
+    return this.achievementPointValue(this.maxCompletions)
+  }
+
   valueOf (): ISingularityChallengeData {
     return {
       baseReq: this.baseReq,
       effect: this.effect,
       HTMLTag: this.HTMLTag,
       maxCompletions: this.maxCompletions,
+      achievementPointValue: this.achievementPointValue,
       scalingrewardcount: this.scalingrewardcount,
       singularityRequirement: this.singularityRequirement,
       uniquerewardcount: this.uniquerewardcount,
       unlockSingularity: this.unlockSingularity,
-      cacheUpdates: this.cacheUpdates,
       completions: this.completions,
       enabled: this.enabled,
       highestSingularityCompleted: this.highestSingularityCompleted,
@@ -301,7 +315,7 @@ export class SingularityChallenge {
 }
 
 export const singularityChallengeData: Record<
-  keyof Player['singularityUpgrades'],
+  SingularityChallengeDataKeys,
   ISingularityChallengeData
 > = {
   noSingularityUpgrades: {
@@ -311,6 +325,9 @@ export const singularityChallengeData: Record<
     HTMLTag: 'noSingularityUpgrades',
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 8 * completions
+    },
+    achievementPointValue: (n) => {
+      return 5 * n + 5 * Math.max(0, n - 15)
     },
     scalingrewardcount: 1,
     uniquerewardcount: 5,
@@ -333,6 +350,9 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 11 * completions
     },
+    achievementPointValue: (n) => {
+      return 5 * n + 5 * Math.max(0, n - 12)
+    },
     scalingrewardcount: 2,
     uniquerewardcount: 4,
     effect: (n: number) => {
@@ -351,6 +371,9 @@ export const singularityChallengeData: Record<
     baseReq: 75,
     maxCompletions: 15,
     unlockSingularity: 100,
+    achievementPointValue: (n) => {
+      return 10 * n + 5 * Math.max(0, n - 7)
+    },
     HTMLTag: 'noOcteracts',
     singularityRequirement: (baseReq: number, completions: number) => {
       if (completions < 10) {
@@ -374,6 +397,9 @@ export const singularityChallengeData: Record<
     baseReq: 10,
     maxCompletions: 25,
     unlockSingularity: 50,
+    achievementPointValue: (n) => {
+      return 5 * n + 5 * Math.max(0, n - 10)
+    },
     HTMLTag: 'limitedAscensions',
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 10 * completions
@@ -391,11 +417,18 @@ export const singularityChallengeData: Record<
   },
   noAmbrosiaUpgrades: {
     baseReq: 150,
-    maxCompletions: 20,
+    maxCompletions: 25,
     unlockSingularity: 166,
+    achievementPointValue: (n) => {
+      return 10 * n + 5 * Math.max(0, n - 10)
+    },
     HTMLTag: 'noAmbrosiaUpgrades',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 6 * completions
+      if (completions < 20) {
+        return baseReq + 6 * completions
+      } else {
+        return baseReq + 6 * 19 + 3 * (completions - 19)
+      }
     },
     scalingrewardcount: 4,
     uniquerewardcount: 7,
@@ -417,6 +450,9 @@ export const singularityChallengeData: Record<
     baseReq: 203,
     maxCompletions: 25,
     unlockSingularity: 216,
+    achievementPointValue: (n) => {
+      return 10 * n + 5 * Math.max(0, n - 10) + 5 * Math.max(0, n - 20)
+    },
     HTMLTag: 'limitedTime',
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 3 * completions
@@ -439,6 +475,9 @@ export const singularityChallengeData: Record<
     baseReq: 120,
     maxCompletions: 30,
     unlockSingularity: 256,
+    achievementPointValue: (n) => {
+      return 10 * n + 5 * Math.max(0, n - 10) + 5 * Math.max(0, n - 20) + 5 * Math.max(0, n - 25)
+    },
     HTMLTag: 'sadisticPrequel',
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 4 * completions
@@ -455,5 +494,58 @@ export const singularityChallengeData: Record<
         shopUpgrade3: n >= 30
       }
     }
+  },
+  taxmanLastStand: {
+    baseReq: 231,
+    maxCompletions: 10,
+    unlockSingularity: 281,
+    achievementPointValue: (n) => {
+      return 50 * n
+    },
+    HTMLTag: 'taxmanLastStand',
+    singularityRequirement: (baseReq: number, completions: number) => {
+      return baseReq + 3 * completions
+    },
+    scalingrewardcount: 4,
+    uniquerewardcount: 3,
+    effect: (n: number) => {
+      return {
+        horseShoeUnlock: n > 0,
+        shopUpgrade: n >= 5,
+        talismanUnlock: n >= 10,
+        talismanFreeLevel: 25 * n,
+        talismanRuneEffect: 0.03 * n,
+        antiquityOOM: 1 / 50 * n / 10,
+        horseShoeOOM: 1 / 20 * n / 10
+      }
+    },
+    alternateDescription: () => {
+      const completions = player.singularityChallenges.taxmanLastStand.completions
+      const baseDesc = i18next.t('singularityChallenge.data.taxmanLastStand.description')
+      const salvText = i18next.t('singularityChallenge.data.taxmanLastStand.salvageMod')
+      const taxText = i18next.t('singularityChallenge.data.taxmanLastStand.taxMod')
+      const offText = i18next.t('singularityChallenge.data.taxmanLastStand.offeringMod')
+      const obtText = i18next.t('singularityChallenge.data.taxmanLastStand.obtainiumMod')
+      let stringText = `${baseDesc}<br>${salvText}<br>${taxText}<br>${offText}<br>${obtText}`
+
+      if (completions >= 2) {
+        const capMod = i18next.t('singularityChallenge.data.taxmanLastStand.capMod')
+        stringText += `<br>${capMod}`
+      }
+      if (completions >= 5) {
+        const tributeMod = i18next.t('singularityChallenge.data.taxmanLastStand.tributeMod')
+        stringText += `<br>${tributeMod}`
+      }
+      if (completions >= 8) {
+        const omegaMod = i18next.t('singularityChallenge.data.taxmanLastStand.omegaMod')
+        stringText += `<br>${omegaMod}`
+      }
+      return stringText
+    }
   }
 }
+
+export const maxAPFromChallenges = Object.values(singularityChallengeData).reduce(
+  (acc, challenge) => acc + challenge.achievementPointValue(challenge.maxCompletions),
+  0
+)

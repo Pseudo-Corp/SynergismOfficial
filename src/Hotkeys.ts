@@ -3,7 +3,7 @@ import { sacrificeAnts } from './Ants'
 import { boostAccelerator, buyAccelerator, buyMultiplier } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { promocodes } from './ImportExport'
-import { useConsumable } from './Shop'
+import { useConsumablePrompt } from './Shop'
 import { player, resetCheck, synergismHotkeys } from './Synergism'
 import { getActiveSubTab, keyboardTabChange as kbTabChange, tabRow, Tabs } from './Tabs'
 import { confirmReply, toggleAutoChallengeRun } from './Toggles'
@@ -41,8 +41,8 @@ export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide du
   }, false]],
   ['SHIFT+D', ['hotkeys.names.specActionAdd1', () => promocodes('add', 1), false]],
   ['SHIFT+E', ['hotkeys.names.exitAscChallenge', () => resetCheck('ascensionChallenge'), false]], // Its already checks if inside Asc. Challenge
-  ['SHIFT+O', ['hotkeys.names.useOffPotion', () => useConsumable('offeringPotion'), false]],
-  ['SHIFT+P', ['hotkeys.names.useObtPotion', () => useConsumable('obtainiumPotion'), false]],
+  ['SHIFT+O', ['hotkeys.names.useOffPotion', () => useConsumablePrompt('offeringPotion'), false]],
+  ['SHIFT+P', ['hotkeys.names.useObtPotion', () => useConsumablePrompt('obtainiumPotion'), false]],
   ['SHIFT+S', ['hotkeys.names.resetSingularity', () => resetCheck('singularity'), false]],
   ['CTRL+B', ['hotkeys.names.unhideTabs', () => tabRow.reappend(), false]]
 ])

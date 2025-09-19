@@ -1,8 +1,15 @@
 import { http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
+import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
+import { messageHandlers } from './handlers/MessageHandlers'
 import { consumeHandlers } from './websocket'
 
 const GETHandlers = [
+  http.get('https://synergism.cc/api/v1/quark-bonus', () => {
+    return HttpResponse.json({
+      bonus: 105.3
+    })
+  }),
   http.get('https://synergism.cc/stripe/coins', () => {
     return HttpResponse.json({
       coins: 49001
@@ -1152,8 +1159,6 @@ const PUTHandlers = [
     const { id } = params
 
     // TODO: Mock buying beyond level 1
-    // I was able to confirm that the new upgrades all worked on the frontend
-    // April 29, 2025
     return HttpResponse.json({
       upgradeId: Number(id),
       level: 1
@@ -1208,5 +1213,7 @@ export const worker = setupWorker(
   }),
   ...GETHandlers,
   ...PUTHandlers,
-  ...consumeHandlers
+  ...consumeHandlers,
+  ...cloudSaveHandlers,
+  ...messageHandlers
 )

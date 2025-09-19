@@ -4,6 +4,7 @@ import i18next from 'i18next'
 import { antSacrificePointsToMultiplier } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { applyCorruptions, convertInputToCorruption, type Corruptions } from './Corruptions'
+import { getGQUpgradeEffect } from './singularity'
 import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
 import { Notification } from './UpdateHTML'
@@ -28,25 +29,25 @@ export type ResetHistoryEntryAntSacrifice = ResetHistoryEntryBase & {
   crumbs: string
   crumbsPerSecond: string
   effectiveELO: number
-  obtainium: number
-  offerings: number
+  obtainium: Decimal
+  offerings: Decimal
   kind: 'antsacrifice'
 }
 
 export type ResetHistoryEntryPrestige = ResetHistoryEntryBase & {
-  offerings: number
+  offerings: Decimal
   diamonds: string
   kind: 'prestige'
 }
 export type ResetHistoryEntryTranscend = ResetHistoryEntryBase & {
-  offerings: number
+  offerings: Decimal
   mythos: string
   kind: 'transcend'
 }
 export type ResetHistoryEntryReincarnate = ResetHistoryEntryBase & {
-  offerings: number
+  offerings: Decimal
   particles: string
-  obtainium: number
+  obtainium: Decimal
   kind: 'reincarnate'
 }
 
@@ -214,7 +215,7 @@ const historyGains: Record<
     img: 'TinyWow7.png',
     formatter: conditionalFormatPerSecond,
     imgTitle: 'Hepteracts',
-    onlyif: () => player.achievements[255] > 0
+    onlyif: () => G.challenge15Rewards.hepteractsUnlocked.value >= 1
   },
   singularityCount: {
     img: 'TinyS.png',
@@ -262,7 +263,7 @@ const historyGains: Record<
     img: 'TinyWow8.png',
     formatter: formatDecimalSource,
     imgTitle: 'Octeracts',
-    onlyif: () => (player.singularityUpgrades.octeractUnlock.getEffect().bonus as number) > 0
+    onlyif: () => getGQUpgradeEffect('octeractUnlock') > 0
   },
   c15Score: {
     img: 'TinyChallenge15.png',
@@ -435,7 +436,7 @@ const resetHistoryRenderRow = (
   if (data.kind === 'antsacrifice') {
     const oldMulti = antSacrificePointsToMultiplier(data.antSacrificePointsBefore)
     const newMulti = antSacrificePointsToMultiplier(data.antSacrificePointsAfter)
-    const diff = newMulti - oldMulti
+    const diff = newMulti.sub(oldMulti)
     extra.push(
       `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${
         format(newMulti, 3, false)

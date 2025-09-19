@@ -1997,8 +1997,7 @@
     },
     "toString": {
       "noMinimum": "无进入奇点次数要求",
-      "costNextLevel": "下一级的花费：{{amount}}金夸克。",
-      "spentQuarks": "已花费金夸克数量：{{amount}}"
+      "costNextLevel": "下一级的花费：{{amount}}金夸克。"
     },
     "data": {
       "goldenQuarks1": {
@@ -3651,7 +3650,7 @@
         "duplication": "重叠符文额外等级：{{x}}",
         "prism": "棱柱符文额外等级：{{x}}",
         "thrift": "节俭符文额外等级：{{x}}",
-        "SI": "卓越智慧额外等级：{{x}}"
+        "superiorIntellect": "卓越智慧额外等级：{{x}}"
       },
       "mythicEffects": {
         "exemption": "神秘效果：重叠符文等级增加400！",
@@ -3672,11 +3671,11 @@
       "blessingLevel": "<<orchid|祝福等级>>：{{amount}}",
       "blessingPower": "祝福能量：<<turquoise|{{value}}>> =-=-= 效果：<<gold|{{speed}}>>倍{{reward}}！",
       "rewards": {
-        "0": "全局速度",
-        "1": "加倍器加成",
-        "2": "蚂蚁献祭奖励",
-        "3": "加速器加成成本增长减缓",
-        "4": "难得素对蚂蚁倍率的指数"
+        "speed": "全局速度",
+        "duplication": "加倍器加成",
+        "prism": "蚂蚁献祭奖励",
+        "thrift": "加速器加成成本增长减缓",
+        "superiorIntellect": "难得素对蚂蚁倍率的指数"
       },
       "increaseLevel": "提升<<orchid|{{amount}}>>级[花费：<<orchid|{{offerings}}>>祭品]"
     },
@@ -3684,11 +3683,11 @@
       "spiritLevel": "魂灵等级：<<orchid|{{amount}}>>",
       "spiritPower": "魂灵能量：<<turquoise|{{value}}>> =-=-= 效果：<<gold|{{speed}}>>{{reward}}！",
       "rewards": {
-        "0": "倍全局速度",
-        "1": "倍飞升时惊奇方盒获取数量",
-        "2": "倍额外的水晶升级等级上限",
-        "3": "倍难得素获取数量",
-        "4": "%额外的研究4x9效果"
+        "speed": "倍全局速度",
+        "duplication": "倍飞升时惊奇方盒获取数量",
+        "prism": "倍额外的水晶升级等级上限",
+        "thrift": "倍难得素获取数量",
+        "superiorIntellect": "%额外的研究4x9效果"
       },
       "buyUpTo": "最多一次购买<<var(--orchid-text-color)|{{amount}}>>级。[输入数字来控制]"
     },
@@ -4481,7 +4480,6 @@
       "BaseTimer": "基础时间(单位为毫秒)：",
       "Calculator4": "PL-AT δ加快恢复：",
       "SingularityCount": "奇点次数里程碑加成：",
-      "InfiniteAscent": "无限晋升符文加成：",
       "SingularityPerkBonus": "奇点特权加成：",
       "Total": "“增加”代码最终恢复时间(单位为毫秒)："
     },

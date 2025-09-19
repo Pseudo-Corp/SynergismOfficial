@@ -40,7 +40,7 @@ export const consumeHandlers = [
             sleep(2500).then(() => client.send(messages.timeSkip(data.consumable, length)))
           } else { // Happy Hour Bell
             sleep(1000).then(() => {
-              consumable.broadcast(messages.consumed(data.consumable, Date.now() + (1000 * 60 * 60)))
+              consumable.broadcast(messages.consumed(data.consumable, 'Happy Hour Bell', Date.now() + (1000 * 60 * 60)))
               client.send(messages.thanks())
             })
           }

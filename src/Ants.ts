@@ -1,8 +1,11 @@
 import {
   calculateAnts,
-  calculateAntSacrificeELO,
+  calculateAntSacrificeMultiplier,
+  calculateAntSacrificeObtainiumMultiplier,
+  calculateAntSacrificeOfferingMultiplier,
   calculateAntSacrificeRewards,
-  calculateRuneLevels,
+  calculateBaseAntELO,
+  calculateEffectiveAntELO,
   calculateSigmoid,
   calculateSigmoidExponential
 } from './Calculate'
@@ -12,11 +15,11 @@ import { Globals as G } from './Variables'
 import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { achievementaward } from './Achievements'
+import { awardAchievementGroup, awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { resetHistoryAdd, type ResetHistoryEntryAntSacrifice } from './History'
-import { buyResearch } from './Research'
-import { resetAnts } from './Reset'
+import { reset, resetAnts } from './Reset'
+import { offeringObtainiumTimeModifiers } from './Statistics'
 import { Tabs } from './Tabs'
 import { updateTalismanInventory } from './Talismans'
 import { clearInterval, setInterval } from './Timers'
@@ -60,7 +63,7 @@ const antUpgradeTexts = [
   () => format(Math.min(9999999, 3 * player.antUpgrades[7 - 1]! + 3 * G.bonusant7), 0, true),
   () =>
     format(calculateSigmoidExponential(999, 1 / 10000 * Math.pow(player.antUpgrades[8 - 1]! + G.bonusant8, 1.1)), 3),
-  () => format(1 * Math.min(1e7, player.antUpgrades[9 - 1]! + G.bonusant9), 0, true),
+  () => format(1 * Math.min(3000, player.antUpgrades[9 - 1]! + G.bonusant9), 0, true),
   () => format(1 + 2 * Math.pow((player.antUpgrades[10 - 1]! + G.bonusant10) / 50, 0.75), 4),
   () => format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11 - 1]! + G.bonusant11) / 125)), 4),
   () => format(calculateSigmoid(2, player.antUpgrades[12 - 1]! + G.bonusant12, 69), 4)
@@ -142,7 +145,7 @@ const getAntCost = (originalCost: Decimal, buyTo: number, index: number) => {
   return cost
 }
 
-const getAntUpgradeCost = (originalCost: Decimal, buyTo: number, index: number) => {
+export const getAntUpgradeCost = (originalCost: Decimal, buyTo: number, index: number) => {
   ;--buyTo
 
   const cost = originalCost.times(Decimal.pow(G.antUpgradeCostIncreases[index - 1], buyTo))
@@ -151,7 +154,6 @@ const getAntUpgradeCost = (originalCost: Decimal, buyTo: number, index: number) 
 
 // Note to self: REWRITE THIS SHIT Kevin :3
 export const buyAntProducers = (pos: FirstToEighth, originalCost: DecimalSource, index: number) => {
-  const sacrificeMult = antSacrificePointsToMultiplier(player.antSacrificePoints)
   // This is a fucking cool function. This will buymax ants cus why not
 
   // Things we need: the position of producers, the costvalues, and input var i
@@ -198,18 +200,8 @@ export const buyAntProducers = (pos: FirstToEighth, originalCost: DecimalSource,
   if (player.antPoints.lt(0)) {
     player.antPoints = new Decimal('0')
   }
-  calculateAntSacrificeELO()
 
-  // Check if we award Achievement 176-182: Ant autobuy
-  const achRequirements = [2, 6, 20, 100, 500, 6666, 77777]
-  for (let j = 0; j < achRequirements.length; j++) {
-    if (
-      player.achievements[176 + j] === 0 && sacrificeMult > achRequirements[j]
-      && player[`${G.ordinals[j + 1 as ZeroToSeven]}OwnedAnts` as const] > 0
-    ) {
-      achievementaward(176 + j)
-    }
-  }
+  awardAchievementGroup('sacMult')
 
   if (player.firstOwnedAnts > 6.9e7) {
     player.firstOwnedAnts = 6.9e7
@@ -250,8 +242,6 @@ export const buyAntUpgrade = (originalCost: DecimalSource, auto: boolean, index:
       thisCost = getAntUpgradeCost(originalCost, buyFrom, index)
     }
     calculateAnts()
-    calculateRuneLevels()
-    calculateAntSacrificeELO()
     if (!auto) {
       antUpgradeDescription(index)
     }
@@ -281,10 +271,7 @@ export const antUpgradeDescription = (i: number) => {
     x: format(
       Decimal.pow(
         G.antUpgradeCostIncreases[i - 1],
-        // NOTE: This seems to have always been broken, in the worst way
-        // This corruption was previously never used, so it was never noticed
-        // But now it will be used and thus have major balancing issues
-        player.antUpgrades[i - 1]! * G.extinctionMultiplier[player.corruptions.used.extinction]
+        player.antUpgrades[i - 1]!
       ).times(G.antUpgradeBaseCost[i - 1])
     )
   })
@@ -294,21 +281,28 @@ export const antUpgradeDescription = (i: number) => {
 }
 
 export const antSacrificePointsToMultiplier = (points: number) => {
-  let multiplier = Math.pow(1 + points / 5000, 2)
-  multiplier *= 1 + 0.2 * Math.log(1 + points) / Math.log(10)
-  if (player.achievements[174] > 0) {
-    multiplier *= 1 + 0.4 * Math.log(1 + points) / Math.log(10)
+  const base = 1 + points / 5000
+  const maxExponent = 4
+  const exponent = Math.min(maxExponent, 1.5 + 0.2 * Math.log(1 + points / 10000))
+  if (points > 0) {
+    return Decimal.pow(base, exponent).times(2)
   }
-  return Math.min(1e300, multiplier)
+  return new Decimal(1)
 }
 
 export const showSacrifice = () => {
   const sacRewards = calculateAntSacrificeRewards()
   DOMCacheGetOrSet('antSacrificeSummary').style.display = 'block'
 
+  const baseELO = calculateBaseAntELO()
+  const effectiveELO = calculateEffectiveAntELO(baseELO)
+
+  const timeMultiplier = offeringObtainiumTimeModifiers(player.antSacrificeTimer, true).reduce(
+    (a, b) => a * b.stat(),
+    1
+  )
   DOMCacheGetOrSet('ELO').innerHTML = i18next.t('ants.yourAntELO', {
-    x: format(G.antELO, 2),
-    y: format(G.effectiveELO, 2, false)
+    x: format(effectiveELO, 2, true)
   })
 
   DOMCacheGetOrSet('SacrificeMultiplier').innerHTML = i18next.t('ants.antSacMultiplier', {
@@ -317,11 +311,30 @@ export const showSacrifice = () => {
   })
 
   DOMCacheGetOrSet('SacrificeUpgradeMultiplier').innerHTML = i18next.t('ants.upgradeMultiplier', {
-    x: format(G.upgradeMultiplier, 3, true)
+    x: format(calculateAntSacrificeMultiplier(), 3, true)
   })
 
   DOMCacheGetOrSet('SacrificeTimeMultiplier').innerHTML = i18next.t('ants.timeMultiplier', {
-    x: format(G.timeMultiplier, 3, true)
+    x: format(timeMultiplier, 3, true)
+  })
+
+  DOMCacheGetOrSet('immortalELO').innerHTML = i18next.t('ants.immortalELO', {
+    x: format(player.antSacrificePoints, 0, true)
+  })
+  DOMCacheGetOrSet('immortalELOAntSpeed').innerHTML = i18next.t('ants.immortalELOAntSpeed', {
+    x: format(antSacrificePointsToMultiplier(player.antSacrificePoints), 3, false)
+  })
+
+  DOMCacheGetOrSet('immortalELOGain').innerHTML = i18next.t('ants.immortalELOGain', {
+    x: format(sacRewards.antSacrificePoints, 0, true)
+  })
+
+  DOMCacheGetOrSet('SacrificeOfferingMultiplier').innerHTML = i18next.t('ants.offeringMultiplier', {
+    x: format(calculateAntSacrificeOfferingMultiplier().plus(1), 3, true)
+  })
+
+  DOMCacheGetOrSet('SacrificeObtainiumMultiplier').innerHTML = i18next.t('ants.obtainiumMultiplier', {
+    x: format(calculateAntSacrificeObtainiumMultiplier().plus(1), 3, true)
   })
 
   DOMCacheGetOrSet('antSacrificeOffering').textContent = `+${format(sacRewards.offerings)}`
@@ -370,11 +383,14 @@ export const sacrificeAnts = async (auto = false) => {
 
       const sacRewards = calculateAntSacrificeRewards()
       player.antSacrificePoints += sacRewards.antSacrificePoints
-      player.runeshards += sacRewards.offerings
+      player.offerings = player.offerings.add(sacRewards.offerings)
 
       if (player.currentChallenge.ascension !== 14) {
-        player.researchPoints += sacRewards.obtainium
+        player.obtainium = player.obtainium.add(sacRewards.obtainium)
       }
+
+      const baseELO = calculateBaseAntELO()
+      const effectiveELO = calculateEffectiveAntELO(baseELO)
 
       const historyEntry: ResetHistoryEntryAntSacrifice = {
         date: Date.now(),
@@ -384,20 +400,20 @@ export const sacrificeAnts = async (auto = false) => {
         obtainium: sacRewards.obtainium,
         antSacrificePointsBefore,
         antSacrificePointsAfter: player.antSacrificePoints,
-        baseELO: G.antELO,
-        effectiveELO: G.effectiveELO,
+        baseELO: baseELO,
+        effectiveELO: effectiveELO,
         crumbs: player.antPoints.toString(),
         crumbsPerSecond: G.antOneProduce.toString()
       }
 
       if (player.challengecompletions[9] > 0) {
-        player.talismanShards = Math.min(1e300, player.talismanShards + sacRewards.talismanShards)
-        player.commonFragments = Math.min(1e300, player.commonFragments + sacRewards.commonFragments)
-        player.uncommonFragments = Math.min(1e300, player.uncommonFragments + sacRewards.uncommonFragments)
-        player.rareFragments = Math.min(1e300, player.rareFragments + sacRewards.rareFragments)
-        player.epicFragments = Math.min(1e300, player.epicFragments + sacRewards.epicFragments)
-        player.legendaryFragments = Math.min(1e300, player.legendaryFragments + sacRewards.legendaryFragments)
-        player.mythicalFragments = Math.min(1e300, player.mythicalFragments + sacRewards.mythicalFragments)
+        player.talismanShards = player.talismanShards.add(sacRewards.talismanShards)
+        player.commonFragments = player.commonFragments.add(sacRewards.commonFragments)
+        player.uncommonFragments = player.uncommonFragments.add(sacRewards.uncommonFragments)
+        player.rareFragments = player.rareFragments.add(sacRewards.rareFragments)
+        player.epicFragments = player.epicFragments.add(sacRewards.epicFragments)
+        player.legendaryFragments = player.legendaryFragments.add(sacRewards.legendaryFragments)
+        player.mythicalFragments = player.mythicalFragments.add(sacRewards.mythicalFragments)
       }
 
       // Now we're safe to reset the ants.
@@ -405,18 +421,15 @@ export const sacrificeAnts = async (auto = false) => {
       player.antSacrificeTimer = 0
       player.antSacrificeTimerReal = 0
       updateTalismanInventory()
-      if (player.autoResearch > 0 && player.autoResearchToggle) {
-        const linGrowth = (player.autoResearch === 200) ? 0.01 : 0
-        buyResearch(player.autoResearch, true, linGrowth)
-      }
-      calculateAntSacrificeELO()
-
       resetHistoryAdd('ants', historyEntry)
+
+      // v4: Perform a Reincarnation, as advertised.
+      reset('reincarnation', auto)
     }
   }
 
-  if (player.mythicalFragments >= 1e11 && player.currentChallenge.ascension === 14 && player.achievements[248] < 1) {
-    achievementaward(248)
+  if (player.mythicalFragments.gte(1e11) && player.currentChallenge.ascension === 14) {
+    awardUngroupedAchievement('seeingRedNoBlue')
   }
 }
 
@@ -425,24 +438,23 @@ export const autoBuyAnts = () => {
     player.antPoints.gte(
       getAntUpgradeCost(new Decimal(G.antUpgradeBaseCost[x - 1]), player.antUpgrades[x - 1]! + 1, x).times(m)
     )
-  const ach = [176, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 145]
+
   const cost = ['100', '100', '1000', '1000', '1e5', '1e6', '1e8', '1e11', '1e15', '1e20', '1e40', '1e100']
   if (player.currentChallenge.ascension !== 11) {
-    for (let i = 1; i <= ach.length; i++) {
-      const check = i === 12 ? player.researches[ach[i - 1]] : player.achievements[ach[i - 1]]
+    for (let i = 1; i <= 12; i++) {
+      const check = i === 12 ? player.researches[145] > 0 : +getAchievementReward('antUpgradeAutobuyers') >= i
       if (check && canAffordUpgrade(i, 2)) {
         buyAntUpgrade(cost[i - 1], true, i)
       }
     }
   }
 
-  const _ach = [173, 176, 177, 178, 179, 180, 181, 182]
   const _cost = ['1e700', '3', '100', '10000', '1e12', '1e36', '1e100', '1e300']
-  for (let i = 1; i <= _ach.length; i++) {
+  for (let i = 1; i <= 8; i++) {
     const res = i === 1 ? player.reincarnationPoints : player.antPoints
     const m = i === 1 ? 1 : 2 // no multiplier on the first ant cost because it costs particles
     if (
-      player.achievements[_ach[i - 1]]
+      +getAchievementReward('antAutobuyers') >= i
       && res.gte(player[`${G.ordinals[i - 1 as ZeroToSeven]}CostAnts` as const].times(m))
     ) {
       buyAntProducers(

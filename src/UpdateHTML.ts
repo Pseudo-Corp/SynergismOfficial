@@ -1,22 +1,33 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { achievementaward, totalachievementpoints } from './Achievements'
-import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  CalcCorruptionStuff,
-  calculateAscensionSpeedMult,
-  calculateGlobalSpeedMult,
-  isIARuneUnlocked,
-  isShopTalismanUnlocked
-} from './Calculate'
+  type AchievementGroups,
+  achievementLevel,
+  achievementPoints,
+  getAchievementReward,
+  groupedAchievementData,
+  type ProgressiveAchievements,
+  progressiveAchievements,
+  toNextAchievementLevelEXP,
+  ungroupedAchievementData,
+  type UngroupedAchievementNames,
+  updateAllGroupedAchievementProgress,
+  updateAllProgressiveAchievementProgress,
+  updateAllUngroupedAchievementProgress
+} from './Achievements'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { CalcCorruptionStuff, calculateAscensionSpeedMult, calculateGlobalSpeedMult } from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
+import { getLevelMilestone } from './Levels'
+import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
-import { autoResearchEnabled } from './Research'
-import { displayRuneInformation } from './Runes'
-import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
+import { isResearchUnlocked, roombaResearchEnabled } from './Research'
+import { getRuneEffects, type RuneKeys, runes, updateRuneHTML } from './Runes'
+import { getGQUpgradeEffect, updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
+import { type TalismanKeys, talismans } from './Talismans'
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
 import {
   visualUpdateAchievements,
@@ -35,7 +46,7 @@ import {
   visualUpdateSingularity,
   visualUpdateUpgrades
 } from './UpdateVisuals'
-import { createDeferredPromise } from './Utility'
+import { createDeferredPromise, updateClassList } from './Utility'
 import { Globals as G } from './Variables'
 
 export const revealStuff = () => {
@@ -95,23 +106,22 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.chal6 = player.achievements[113] === 1 ? 'true' : 'false'
   document.documentElement.dataset.chal7 = player.achievements[120] === 1 ? 'true' : 'false'
-  document.documentElement.dataset.chal7x10 = player.achievements[124] === 1 ? 'true' : 'false'
 
   const example17 = document.getElementsByClassName('chal8') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example17.length; i++) {
     const parent = example17[i].parentElement!
     if (parent.classList.contains('offlineStats')) {
-      example17[i].style.display = player.achievements[127] === 1 ? 'flex' : 'none'
-      example17[i].setAttribute('aria-disabled', `${player.achievements[127] !== 1}`)
+      example17[i].style.display = player.unlocks.anthill ? 'flex' : 'none'
+      example17[i].setAttribute('aria-disabled', `${!player.unlocks.anthill}`)
     } else {
-      example17[i].style.display = player.achievements[127] === 1 ? 'block' : 'none'
-      example17[i].setAttribute('aria-disabled', `${player.achievements[127] !== 1}`)
+      example17[i].style.display = player.unlocks.anthill ? 'block' : 'none'
+      example17[i].setAttribute('aria-disabled', `${!player.unlocks.anthill}`)
     }
   }
 
-  document.documentElement.dataset.chal9 = player.achievements[134] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.chal9 = player.unlocks.talismans ? 'true' : 'false'
   document.documentElement.dataset.chal9x1 = player.highestchallengecompletions[9] > 0 ? 'true' : 'false'
-  document.documentElement.dataset.chal10 = player.achievements[141] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.chal10 = player.unlocks.ascensions ? 'true' : 'false'
 
   const example21 = document.getElementsByClassName('ascendunlock') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example21.length; i++) {
@@ -122,6 +132,15 @@ export const revealStuff = () => {
     } else {
       example21[i].style.display = player.ascensionCount > 0 ? 'block' : 'none'
       example21[i].setAttribute('aria-disabled', `${player.ascensionCount <= 0}`)
+    }
+  }
+
+  for (let i = 1; i <= player.researches.length - 1; i++) {
+    const resKey = `res${i}`
+    if (isResearchUnlocked(i)) {
+      updateClassList(resKey, ['researchUnlocked'], ['researchLocked'])
+    } else {
+      updateClassList(resKey, ['researchLocked'], ['researchUnlocked'])
     }
   }
 
@@ -138,7 +157,7 @@ export const revealStuff = () => {
   document.documentElement.dataset.cubeUpgrade10 = player.cubeUpgrades[10] > 0 ? 'true' : 'false'
   document.documentElement.dataset.cubeUpgrade19 = player.cubeUpgrades[19] > 0 ? 'true' : 'false'
 
-  document.documentElement.dataset.sacrificeAnts = player.achievements[173] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.sacrificeAnts = getAchievementReward('antSacrificeUnlock') ? 'true' : 'false'
 
   document.documentElement.dataset.hepteracts = // Ability to use and gain hepteracts
     player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement ? 'true' : 'false'
@@ -149,16 +168,15 @@ export const revealStuff = () => {
   visualUpdateShop()
 
   const hepts = DOMCacheGetOrSet('corruptionHepteracts')
-  hepts.style.display = (player.achievements[255] > 0) ? 'block' : 'none'
+  hepts.style.display = 'block'
 
-  document.documentElement.dataset.cookies1 = player.singularityUpgrades.cookies.getEffect().bonus ? 'true' : 'false'
-  document.documentElement.dataset.cookies2 = player.singularityUpgrades.cookies2.getEffect().bonus ? 'true' : 'false'
-  document.documentElement.dataset.cookies3 = player.singularityUpgrades.cookies3.getEffect().bonus ? 'true' : 'false'
-  document.documentElement.dataset.cookies4 = player.singularityUpgrades.cookies4.getEffect().bonus ? 'true' : 'false'
-  document.documentElement.dataset.cookies5 = player.singularityUpgrades.cookies5.getEffect().bonus ? 'true' : 'false'
+  document.documentElement.dataset.cookies1 = getGQUpgradeEffect('cookies') ? 'true' : 'false'
+  document.documentElement.dataset.cookies2 = getGQUpgradeEffect('cookies2') ? 'true' : 'false'
+  document.documentElement.dataset.cookies3 = getGQUpgradeEffect('cookies3') ? 'true' : 'false'
+  document.documentElement.dataset.cookies4 = getGQUpgradeEffect('cookies4') ? 'true' : 'false'
+  document.documentElement.dataset.cookies5 = getGQUpgradeEffect('cookies5') ? 'true' : 'false'
 
-  document.documentElement.dataset.goldenQuark3Upg =
-    (player.singularityUpgrades.goldenQuarks3.getEffect().bonus as number) > 0 ? 'true' : 'false'
+  document.documentElement.dataset.goldenQuark3Upg = getGQUpgradeEffect('goldenQuarks3') > 0 ? 'true' : 'false'
 
   if (player.upgrades[89] === 1) {
     DOMCacheGetOrSet('transcendautotoggle').style.display = 'block'
@@ -170,15 +188,54 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('autotranscend').style.display = 'none'
   }
 
-  if (player.achievements[38] === 1) { // Prestige Diamond Achievement 3
-    DOMCacheGetOrSet('rune2area').style.display = 'flex'
-    DOMCacheGetOrSet('runeshowpower2').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('rune2area').style.display = 'none'
-    DOMCacheGetOrSet('runeshowpower2').style.display = 'none'
+  for (const groupedAch of Object.keys(groupedAchievementData) as (Exclude<AchievementGroups, 'ungrouped'>)[]) {
+    const capitalizedName = groupedAch.charAt(0).toUpperCase() + groupedAch.slice(1)
+
+    DOMCacheGetOrSet(`achievementGroup${capitalizedName}`).style.display =
+      (groupedAchievementData[groupedAch].displayCondition() || player.highestSingularityCount > 0)
+        ? 'block'
+        : 'none'
   }
 
-  if (player.achievements[43] === 1) { // Transcend Mythos Achievement 1
+  for (const ungroupedAch of Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]) {
+    const capitalizedName = ungroupedAch.charAt(0).toUpperCase() + ungroupedAch.slice(1)
+
+    DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`).style.display =
+      (ungroupedAchievementData[ungroupedAch].displayCondition() || player.highestSingularityCount > 0)
+        ? 'block'
+        : 'none'
+  }
+
+  for (const progAch of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
+    const capitalizedName = progAch.charAt(0).toUpperCase() + progAch.slice(1)
+
+    DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`).style.display =
+      (progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0)
+        ? 'block'
+        : 'none'
+  }
+
+  for (const rune of Object.keys(player.runes) as RuneKeys[]) {
+    if (runes[rune].isUnlocked()) {
+      DOMCacheGetOrSet(`${rune}RuneContainer`).style.display = 'flex'
+      DOMCacheGetOrSet(`${rune}RuneLockedContainer`).style.display = 'none'
+      DOMCacheGetOrSet(`${rune}RunePower`).style.display = 'block'
+    } else {
+      DOMCacheGetOrSet(`${rune}RuneContainer`).style.display = 'none'
+      DOMCacheGetOrSet(`${rune}RuneLockedContainer`).style.display = 'flex'
+      DOMCacheGetOrSet(`${rune}RunePower`).style.display = 'none'
+    }
+  }
+
+  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+    if (talismans[t].isUnlocked()) {
+      DOMCacheGetOrSet(`${t}TalismanContainer`).style.display = 'flex'
+    } else {
+      DOMCacheGetOrSet(`${t}TalismanContainer`).style.display = 'none'
+    }
+  }
+
+  if (getLevelMilestone('autoPrestige') === 1) { // Transcend Mythos Achievement 1
     DOMCacheGetOrSet('prestigeautotoggle').style.display = 'block'
     DOMCacheGetOrSet('prestigeamount').style.display = 'block'
     DOMCacheGetOrSet('autoprestige').style.display = 'block'
@@ -188,35 +245,7 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('autoprestige').style.display = 'none'
   }
 
-  if (player.achievements[44] === 1) { // Transcend Mythos Achievement 2
-    DOMCacheGetOrSet('rune3area').style.display = 'flex'
-    DOMCacheGetOrSet('runeshowpower3').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('rune3area').style.display = 'none'
-    DOMCacheGetOrSet('runeshowpower3').style.display = 'none'
-  }
-
-  if (player.achievements[102] === 1) { // Cost+ Challenge Achievement 4
-    DOMCacheGetOrSet('rune4area').style.display = 'flex'
-    DOMCacheGetOrSet('runeshowpower4').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('rune4area').style.display = 'none'
-    DOMCacheGetOrSet('runeshowpower4').style.display = 'none'
-  }
-
-  player.achievements[119] === 1 // Tax+ Challenge Achievement 7
-    ? DOMCacheGetOrSet('talisman1area').style.display = 'flex'
-    : DOMCacheGetOrSet('talisman1area').style.display = 'none'
-
-  player.achievements[126] === 1 // No MA Challenge Achievement 7
-    ? DOMCacheGetOrSet('talisman2area').style.display = 'flex'
-    : DOMCacheGetOrSet('talisman2area').style.display = 'none'
-
-  player.achievements[133] === 1 // Cost++ Challenge Achievement 7
-    ? DOMCacheGetOrSet('talisman3area').style.display = 'flex'
-    : DOMCacheGetOrSet('talisman3area').style.display = 'none'
-
-  if (player.achievements[134] === 1) { // No Runes Challenge Achievement 1
+  if (player.unlocks.talismans) { // No Runes Challenge Achievement 1
     DOMCacheGetOrSet('toggleRuneSubTab2').style.display = 'block'
     DOMCacheGetOrSet('toggleRuneSubTab3').style.display = 'block'
   } else {
@@ -224,15 +253,7 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('toggleRuneSubTab3').style.display = 'none'
   }
 
-  player.achievements[140] === 1 // No Runes Challenge Achievement 7
-    ? DOMCacheGetOrSet('talisman4area').style.display = 'flex'
-    : DOMCacheGetOrSet('talisman4area').style.display = 'none'
-
-  player.achievements[147] === 1 // Sadistic Challenge Achievement 7
-    ? DOMCacheGetOrSet('talisman5area').style.display = 'flex'
-    : DOMCacheGetOrSet('talisman5area').style.display = 'none'
-
-  player.achievements[173] === 1 // Galactic Crumb Achievement 5
+  getAchievementReward('antSacrificeUnlock') // Galactic Crumb Achievement 5
     ? DOMCacheGetOrSet('sacrificeAnts').style.display = 'block'
     : DOMCacheGetOrSet('sacrificeAnts').style.display = 'none'
 
@@ -247,14 +268,6 @@ export const revealStuff = () => {
   player.researches[46] > 0 // 5x6 Research [Auto R.]
     ? DOMCacheGetOrSet('reincarnateautomation').style.display = 'block'
     : DOMCacheGetOrSet('reincarnateautomation').style.display = 'none'
-
-  if (player.researches[82] > 0) { // 2x17 Research [SI Rune Unlock]
-    DOMCacheGetOrSet('rune5area').style.display = 'flex'
-    DOMCacheGetOrSet('runeshowpower5').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('rune5area').style.display = 'none'
-    DOMCacheGetOrSet('runeshowpower5').style.display = 'none'
-  }
 
   if (player.researches[124] > 0) { // 5x24 Research [AutoSac]
     DOMCacheGetOrSet('antSacrificeButtons').style.display = 'flex'
@@ -271,10 +284,6 @@ export const revealStuff = () => {
   player.researches[130] > 0 // 6x5 Research [Talisman Auto Fortify]
     ? DOMCacheGetOrSet('toggleautofortify').style.display = 'block'
     : DOMCacheGetOrSet('toggleautofortify').style.display = 'none'
-
-  player.researches[135] > 0 // 6x10 Research [Talisman Auto Sac]
-    ? DOMCacheGetOrSet('toggleautoenhance').style.display = 'block'
-    : DOMCacheGetOrSet('toggleautoenhance').style.display = 'none'
 
   for (let z = 1; z <= 5; z++) {
     ;(player.researches[190] > 0) // 8x15 Research [Auto Tesseracts]
@@ -293,9 +302,6 @@ export const revealStuff = () => {
   player.researches[190] > 0 // 8x15 Research [Auto Tesseracts]
     ? DOMCacheGetOrSet('autotessbuyeramount').style.display = 'block'
     : DOMCacheGetOrSet('autotessbuyeramount').style.display = 'none'
-  ;(player.antUpgrades[11]! > 0 || player.ascensionCount > 0) // Ant Talisman Unlock, Mortuus
-    ? DOMCacheGetOrSet('talisman6area').style.display = 'flex'
-    : DOMCacheGetOrSet('talisman6area').style.display = 'none'
 
   player.shopUpgrades.offeringAuto > 0 // Auto Offering Shop Purchase
     ? DOMCacheGetOrSet('toggleautosacrifice').style.display = 'block'
@@ -310,33 +316,13 @@ export const revealStuff = () => {
     : DOMCacheGetOrSet('toggleautoresearch').style.display = 'none'
 
   DOMCacheGetOrSet('toggleautoresearchmode').style.display =
-    player.shopUpgrades.obtainiumAuto > 0 && autoResearchEnabled() // Auto Research Shop Purchase Mode
+    player.shopUpgrades.obtainiumAuto > 0 && roombaResearchEnabled() // Auto Research Shop Purchase Mode
       ? 'block'
       : 'none'
-
-  isShopTalismanUnlocked() // Plastic Talisman Shop Purchase
-    ? DOMCacheGetOrSet('talisman7area').style.display = 'flex'
-    : DOMCacheGetOrSet('talisman7area').style.display = 'none'
 
   player.cubeUpgrades[8] > 0
     ? DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = 'block'
     : DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = 'none'
-
-  if (isIARuneUnlocked()) {
-    DOMCacheGetOrSet('rune6area').style.display = 'flex'
-    DOMCacheGetOrSet('runeshowpower6').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('rune6area').style.display = 'none'
-    DOMCacheGetOrSet('runeshowpower6').style.display = 'none'
-  }
-
-  if (player.platonicUpgrades[20] > 0) {
-    DOMCacheGetOrSet('rune7area').style.display = 'flex'
-    DOMCacheGetOrSet('runeshowpower7').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('rune7area').style.display = 'none'
-    DOMCacheGetOrSet('runeshowpower7').style.display = 'none'
-  }
 
   player.highestSingularityCount > 0 // Save Offerings
     ? DOMCacheGetOrSet('saveOffToggle').style.display = 'block'
@@ -389,11 +375,11 @@ export const revealStuff = () => {
   for (const item of Array.from(octeractUnlocks)) { // Stuff that you need octeracts to access
     const parent = item.parentElement!
     if (parent.classList.contains('offlineStats')) {
-      item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'flex' : 'none'
-      item.setAttribute('aria-disabled', `${!player.singularityUpgrades.octeractUnlock.getEffect().bonus}`)
+      item.style.display = getGQUpgradeEffect('octeractUnlock') ? 'flex' : 'none'
+      item.setAttribute('aria-disabled', `${!getGQUpgradeEffect('octeractUnlock')}`)
     } else {
-      item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'block' : 'none'
-      item.setAttribute('aria-disabled', `${!player.singularityUpgrades.octeractUnlock.getEffect().bonus}`)
+      item.style.display = getGQUpgradeEffect('octeractUnlock') ? 'block' : 'none'
+      item.setAttribute('aria-disabled', `${!getGQUpgradeEffect('octeractUnlock')}`)
     }
   }
 
@@ -434,17 +420,17 @@ export const revealStuff = () => {
     ? 'flex'
     : 'none'
 
-  player.runelevels[6] > 0 || player.highestSingularityCount > 0
+  runes.antiquities.level > 0 || player.highestSingularityCount > 0
     ? (DOMCacheGetOrSet('singularitybtn').style.display = 'block')
     : (DOMCacheGetOrSet('singularitybtn').style.display = 'none')
 
   DOMCacheGetOrSet('ascSingChallengeTimeTakenStats').style.display = player.insideSingularityChallenge ? '' : 'none'
 
   DOMCacheGetOrSet('ascensionStats').style.visibility =
-    (player.achievements[197] > 0 || player.highestSingularityCount > 0) ? 'visible' : 'hidden'
+    (Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0) ? 'visible' : 'hidden'
   DOMCacheGetOrSet('ascHyperStats').style.display = player.challengecompletions[13] > 0 ? '' : 'none'
   DOMCacheGetOrSet('ascPlatonicStats').style.display = player.challengecompletions[14] > 0 ? '' : 'none'
-  DOMCacheGetOrSet('ascHepteractStats').style.display = player.achievements[255] > 0 ? '' : 'none'
+  DOMCacheGetOrSet('ascHepteractStats').style.display = G.challenge15Rewards.hepteractsUnlocked.value >= 1 ? '' : 'none'
 
   // I'll clean this up later. Note to 2019 Platonic: Fuck you
   // note to 2019 and 2020 Platonic, you're welcome
@@ -461,12 +447,12 @@ export const revealStuff = () => {
     toggle6: player.upgrades[86] === 1, // Autobuyer - Coin Buildings - Accelerator
     toggle7: player.upgrades[87] === 1, // Autobuyer - Coin Buildings - Multiplier
     toggle8: player.upgrades[88] === 1, // Autobuyer - Coin Buildings - Accelerator Boost
-    toggle10: player.achievements[78] === 1, // Autobuyer - Diamond Buildings - Tier 1 (Refineries)
-    toggle11: player.achievements[85] === 1, // Autobuyer - Diamond Buildings - Tier 2 (Coal Plants)
-    toggle12: player.achievements[92] === 1, // Autobuyer - Diamond Buildings - Tier 3 (Coal Rigs)
-    toggle13: player.achievements[99] === 1, // Autobuyer - Diamond Buildings - Tier 4 (Pickaxes)
-    toggle14: player.achievements[106] === 1, // Autobuyer - Diamond Buildings - Tier 5 (Pandora's Boxes)
-    toggle15: player.achievements[43] === 1, // Feature - Diamond Buildings - Auto Prestige
+    toggle10: getLevelMilestone('tier1CrystalAutobuy') === 1, // Autobuyer - Diamond Buildings - Tier 1 (Refineries)
+    toggle11: getLevelMilestone('tier2CrystalAutobuy') === 1, // Autobuyer - Diamond Buildings - Tier 2 (Coal Plants)
+    toggle12: getLevelMilestone('tier3CrystalAutobuy') === 1, // Autobuyer - Diamond Buildings - Tier 3 (Coal Rigs)
+    toggle13: getLevelMilestone('tier4CrystalAutobuy') === 1, // Autobuyer - Diamond Buildings - Tier 4 (Pickaxes)
+    toggle14: getLevelMilestone('tier5CrystalAutobuy') === 1, // Autobuyer - Diamond Buildings - Tier 5 (Pandora's Boxes)
+    toggle15: getLevelMilestone('autoPrestige') === 1, // Feature - Diamond Buildings - Auto Prestige
     toggle16: player.upgrades[94] === 1, // Autobuyer - Mythos Buildings - Tier 1 (Augments)
     toggle17: player.upgrades[95] === 1, // Autobuyer - Mythos Buildings - Tier 2 (Enchantments)
     toggle18: player.upgrades[96] === 1, // Autobuyer - Mythos Buildings - Tier 3 (Wizards)
@@ -488,7 +474,7 @@ export const revealStuff = () => {
     toggle29: player.transcendCount > 0.5 || player.reincarnationCount > 0.5, // Settings - Confirmations - Transcension
     toggle30: player.reincarnationCount > 0.5, // Settings - Confirmations - Reincarnation
     toggle31: player.ascensionCount > 0, // Settings - Confirmations - Ascension and Asc. Challenge
-    toggle32: player.achievements[173] > 0, // Settings - Confirmations - Ant Sacrifice
+    toggle32: Boolean(getAchievementReward('antSacrificeUnlock')), // Settings - Confirmations - Ant Sacrifice
     toggle33: player.highestSingularityCount > 0 && player.ascensionCount > 0, // Settings - Confirmations - Singularity
     toggle34: player.unlocks.coinfour, // Achievements - Notifications
     toggle35: player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
@@ -512,6 +498,9 @@ export const revealStuff = () => {
 
     el.style.display = automationUnlocks[key] ? 'block' : 'none'
   })
+
+  // Messages subtab visibility - only show when there are unread messages
+  DOMCacheGetOrSet('switchSettingSubTab10').style.display = hasUnreadMessages() ? 'block' : 'none'
 
   revealCorruptions()
 }
@@ -572,28 +561,28 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('statistics').style.display = 'block'
     DOMCacheGetOrSet('achievementstab').style.backgroundColor = 'white'
     DOMCacheGetOrSet('achievementstab').style.color = 'black'
-    DOMCacheGetOrSet('achievementprogress').textContent = i18next.t('achievements.totalPoints', {
-      x: format(player.achievementPoints),
-      y: format(totalachievementpoints),
-      z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
+    DOMCacheGetOrSet('achievementprogress').textContent = i18next.t('achievements.achievementPoints', {
+      x: format(achievementPoints)
     })
-    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t('achievements.quarkBonus', {
-      multiplier: format(1 + player.achievementPoints / 50000, 3, true)
+    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t('achievements.achievementLevel', {
+      level: format(achievementLevel)
     })
+    DOMCacheGetOrSet('achievementTNLText').innerHTML = i18next.t('achievements.achievementToNextLevel', {
+      level: format(achievementLevel + 1),
+      AP: format(toNextAchievementLevelEXP(), 0, true)
+    })
+    updateAllGroupedAchievementProgress()
+    updateAllUngroupedAchievementProgress()
+    updateAllProgressiveAchievementProgress()
   } else if (G.currentTab === Tabs.Runes) {
     DOMCacheGetOrSet('runes').style.display = 'block'
     DOMCacheGetOrSet('runestab').style.backgroundColor = 'blue'
-    DOMCacheGetOrSet('runeshowlevelup').textContent = i18next.t('runes.hover')
-    DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t('runes.thanksResearches', {
-      percent: format(100 * G.effectiveLevelMult - 100, 4, true)
-    })
-    displayRuneInformation(1, false)
-    displayRuneInformation(2, false)
-    displayRuneInformation(3, false)
-    displayRuneInformation(4, false)
-    displayRuneInformation(5, false)
-    displayRuneInformation(6, false)
-    displayRuneInformation(7, false)
+    DOMCacheGetOrSet('focusedRuneLevelInfo').textContent = i18next.t('runes.hover')
+
+    for (const rune of Object.keys(player.runes)) {
+      const runeKey = rune as RuneKeys
+      updateRuneHTML(runeKey)
+    }
   }
   if (G.currentTab === Tabs.Challenges) {
     DOMCacheGetOrSet('challenges').style.display = 'block'
@@ -666,13 +655,13 @@ export const htmlInserts = () => {
   // ALWAYS Update these, for they are the most important resources
   const playerRequirements = [
     'coins',
-    'runeshards',
+    'offerings',
     'prestigePoints',
     'transcendPoints',
     'transcendShards',
     'reincarnationPoints',
     'worlds',
-    'researchPoints'
+    'obtainium'
   ] as const
   const domRequirements = [
     'coinDisplay',
@@ -685,7 +674,8 @@ export const htmlInserts = () => {
     'obtainiumDisplay'
   ] as const
   for (let i = 0; i < playerRequirements.length; i++) {
-    const text = format(player[`${playerRequirements[i]}` as const])
+    const value = player[`${playerRequirements[i]}` as const]
+    const text = format(value instanceof Decimal ? value : value.valueOf())
     const dom = DOMCacheGetOrSet(`${domRequirements[i]}` as const)
     if (dom.textContent !== text) {
       dom.textContent = text
@@ -699,7 +689,7 @@ export const htmlInserts = () => {
 
 // TODO(not @KhafraDev): cache the elements and stop getting them every time?
 export const buttoncolorchange = () => {
-  DOMCacheGetOrSet('prestigebtn').style.backgroundColor = player.toggles[15] && player.achievements[43] === 1
+  DOMCacheGetOrSet('prestigebtn').style.backgroundColor = player.toggles[15] && getLevelMilestone('autoPrestige') === 1
     ? 'green'
     : ''
 
@@ -726,7 +716,7 @@ export const buttoncolorchange = () => {
   DOMCacheGetOrSet('ascendbtn').style.backgroundColor =
     player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 ? 'green' : ''
 
-  DOMCacheGetOrSet('singularitybtn').style.filter = player.runelevels[6] > 0
+  DOMCacheGetOrSet('singularitybtn').style.filter = runes.antiquities.level > 0
     ? ''
     : 'contrast(1.25) sepia(1) grayscale(0.25)'
 
@@ -800,76 +790,80 @@ export const buttoncolorchange = () => {
     const h = DOMCacheGetOrSet('buycrystalupgrade3')
     const i = DOMCacheGetOrSet('buycrystalupgrade4')
     const j = DOMCacheGetOrSet('buycrystalupgrade5')
-    ;((!player.toggles[10] || player.achievements[78] === 0) && player.prestigePoints.gte(player.firstCostDiamonds))
+    ;((!player.toggles[10] || getLevelMilestone('tier1CrystalAutobuy') === 0)
+        && player.prestigePoints.gte(player.firstCostDiamonds))
       ? a.classList.add('buildingPurchaseBtnAvailable')
       : a.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[11] || player.achievements[85] === 0) && player.prestigePoints.gte(player.secondCostDiamonds))
+    ;((!player.toggles[11] || getLevelMilestone('tier2CrystalAutobuy') === 0)
+        && player.prestigePoints.gte(player.secondCostDiamonds))
       ? b.classList.add('buildingPurchaseBtnAvailable')
       : b.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[12] || player.achievements[92] === 0) && player.prestigePoints.gte(player.thirdCostDiamonds))
+    ;((!player.toggles[12] || getLevelMilestone('tier3CrystalAutobuy') === 0)
+        && player.prestigePoints.gte(player.thirdCostDiamonds))
       ? c.classList.add('buildingPurchaseBtnAvailable')
       : c.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[13] || player.achievements[99] === 0) && player.prestigePoints.gte(player.fourthCostDiamonds))
+    ;((!player.toggles[13] || getLevelMilestone('tier4CrystalAutobuy') === 0)
+        && player.prestigePoints.gte(player.fourthCostDiamonds))
       ? d.classList.add('buildingPurchaseBtnAvailable')
       : d.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[14] || player.achievements[106] === 0) && player.prestigePoints.gte(player.fifthCostDiamonds))
+    ;((!player.toggles[14] || getLevelMilestone('tier5CrystalAutobuy') === 0)
+        && player.prestigePoints.gte(player.fifthCostDiamonds))
       ? e.classList.add('buildingPurchaseBtnAvailable')
       : e.classList.remove('buildingPurchaseBtnAvailable')
     let k = 0
-    k += Math.floor(G.rune3level / 16 * G.effectiveLevelMult) * 100 / 100
     if (player.upgrades[73] === 1 && player.currentChallenge.reincarnation !== 0) {
       k += 10
     }
 
-    player.achievements[79] < 1
+    getLevelMilestone('tier1CrystalAutobuy') === 0
       ? (player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[0]
+            G.crystalUpgradesCost[0] - getRuneEffects('prism').costDivisorLog10
               + G.crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2)
           )
         )
         ? f.style.backgroundColor = 'purple'
         : f.style.backgroundColor = '')
       : f.style.backgroundColor = 'green'
-    player.achievements[86] < 1
+    getLevelMilestone('tier2CrystalAutobuy') === 0
       ? (player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[1]
+            G.crystalUpgradesCost[1] - getRuneEffects('prism').costDivisorLog10
               + G.crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2)
           )
         )
         ? g.style.backgroundColor = 'purple'
         : g.style.backgroundColor = '')
       : g.style.backgroundColor = 'green'
-    player.achievements[93] < 1
+    getLevelMilestone('tier3CrystalAutobuy') === 0
       ? (player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[2]
+            G.crystalUpgradesCost[2] - getRuneEffects('prism').costDivisorLog10
               + G.crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2)
           )
         )
         ? h.style.backgroundColor = 'purple'
         : h.style.backgroundColor = '')
       : h.style.backgroundColor = 'green'
-    player.achievements[100] < 1
+    getLevelMilestone('tier4CrystalAutobuy') === 0
       ? (player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[3]
+            G.crystalUpgradesCost[3] - getRuneEffects('prism').costDivisorLog10
               + G.crystalUpgradeCostIncrement[3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2)
           )
         )
         ? i.style.backgroundColor = 'purple'
         : i.style.backgroundColor = '')
       : i.style.backgroundColor = 'green'
-    player.achievements[107] < 1
+    getLevelMilestone('tier5CrystalAutobuy') === 0
       ? (player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[4]
+            G.crystalUpgradesCost[4] - getRuneEffects('prism').costDivisorLog10
               + G.crystalUpgradeCostIncrement[4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2)
           )
         )
@@ -880,10 +874,12 @@ export const buttoncolorchange = () => {
 
   if (G.currentTab === Tabs.Runes) {
     if (getActiveSubTab() === 0) {
-      for (let i = 1; i <= 7; i++) {
-        player.runeshards > 0.5
-          ? DOMCacheGetOrSet(`activaterune${i}`).classList.add('runeButtonAvailable')
-          : DOMCacheGetOrSet(`activaterune${i}`).classList.remove('runeButtonAvailable')
+      for (const rune of Object.keys(player.runes)) {
+        if (player.offerings.gt(0)) {
+          DOMCacheGetOrSet(`${rune}RuneSacrifice`).classList.add('runeButtonAvailable')
+        } else {
+          DOMCacheGetOrSet(`${rune}RuneSacrifice`).classList.remove('runeButtonAvailable')
+        }
       }
     }
     if (getActiveSubTab() === 1) {
@@ -896,8 +892,8 @@ export const buttoncolorchange = () => {
       const g = DOMCacheGetOrSet('buyTalismanItem7')
       const arr = [a, b, c, d, e, f, g]
       for (let i = 0; i < arr.length; i++) {
-        ;(player.researchPoints > G.talismanResourceObtainiumCosts[i]
-            && player.runeshards > G.talismanResourceOfferingCosts[i])
+        ;(player.obtainium.gte(G.talismanResourceObtainiumCosts[i])
+            && player.offerings.gte(G.talismanResourceOfferingCosts[i]))
           ? arr[i].classList.add('talisminBtnAvailable')
           : arr[i].classList.remove('talisminBtnAvailable')
       }
@@ -969,7 +965,7 @@ export const buttoncolorchange = () => {
       player.antPoints.gte(
           Decimal.pow(
             G.antUpgradeCostIncreases[i - 1],
-            player.antUpgrades[i - 1]! * player.corruptions.used.corruptionEffects('extinction')
+            player.antUpgrades[i - 1]!
           ).times(G.antUpgradeBaseCost[i - 1])
         )
         ? DOMCacheGetOrSet(`antUpgrade${i}`).classList.add('antUpgradeBtnAvailable')
@@ -1015,7 +1011,7 @@ export const updateChallengeLevel = (k: number) => {
   }
 }
 
-export const updateAchievementBG = () => {
+/*export const updateAchievementBG = () => {
   // When loading/importing, the game needs to correctly update achievement backgrounds.
   for (let i = 1; i <= 280; i++) { // Initiates by setting all to default
     DOMCacheGetOrSet(`ach${i}`).classList.remove('green-background')
@@ -1028,12 +1024,12 @@ export const updateAchievementBG = () => {
   for (let i = 0; i < fixDisplay2.length; i++) {
     fixDisplay2[i].style.backgroundColor = 'maroon' // Sets the appropriate achs to maroon (red)
   }
-  for (let i = 1; i < player.achievements.length; i++) {
+  for (let i = 1; i < 281; i++) {
     if (player.achievements[i] > 0.5) {
       achievementaward(i) // This sets all completed ach to green
     }
   }
-}
+} */
 
 export const showCorruptionStatsLoadouts = () => {
   const statsButton = DOMCacheGetOrSet('corrStatsBtn')
@@ -1059,7 +1055,7 @@ const updateAscensionStats = () => {
     t = 1
   }
   const [cubes, tess, hyper, platonic, hepteract] = CalcCorruptionStuff().slice(4)
-  const addedAsterisk = player.singularityUpgrades.oneMind.getEffect().bonus
+  const addedAsterisk = getGQUpgradeEffect('oneMind')
   const fillers: Record<string, string> = {
     ascLen: formatTimeShort(player.ascStatToggles[6] ? player.ascensionCounter : player.ascensionCounterReal, 0),
     ascCubes: format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2),
@@ -1340,6 +1336,71 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
   closeNotification = +setTimeout(close, time)
 
   return p.promise
+}
+
+export type OptionalHTMLStyle = Partial<CSSStyleDeclaration>
+
+let modalUsed = false
+
+export const Modal = (
+  HTML: string,
+  currX: number,
+  currY: number,
+  styleMods: OptionalHTMLStyle = {},
+  forceUpdate = false
+) => {
+  const modal = DOMCacheGetOrSet('modal')
+  const modalContent = DOMCacheGetOrSet('modalContent')
+
+  if (forceUpdate || !modalUsed) {
+    modalContent.innerHTML = HTML
+    modalUsed = true
+  }
+
+  Object.assign(modal.style, styleMods)
+
+  // Measure the dimensions of modal content and viewport
+  modal.style.visibility = 'hidden'
+  modal.style.display = 'block'
+  requestAnimationFrame(() => {
+    const modalRect = modalContent.getBoundingClientRect()
+    const viewportWidth = window.innerWidth
+    const viewportHeight = window.innerHeight
+
+    // Base positioning
+    let modalX = currX + 20
+    let modalY = currY + 20
+
+    // Check right edge boundary
+    if (modalX + modalRect.width > viewportWidth) {
+      modalX = currX - modalRect.width - -20
+    }
+
+    // Check bottom edge boundary
+    if (modalY + modalRect.height > viewportHeight) {
+      modalY = currY - modalRect.height - 20
+    }
+
+    modalX = Math.max(0, modalX)
+    modalY = Math.max(0, modalY)
+
+    modal.style.left = `${modalX}px`
+    modal.style.top = `${modalY}px`
+
+    modal.style.visibility = 'visible'
+  })
+}
+
+export const CloseModal = () => {
+  const modal = DOMCacheGetOrSet('modal')
+  const modalContent = DOMCacheGetOrSet('modalContent')
+
+  // Clear the content
+  modalContent.innerHTML = ''
+
+  // Hide the modal
+  modal.style.display = 'none'
+  modalUsed = false
 }
 
 export const openChangelog = () => {

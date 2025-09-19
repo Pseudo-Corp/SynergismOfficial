@@ -19,11 +19,12 @@ export const messages = {
     })
   },
 
-  consumed (consumable: string, at: number) {
+  consumed (consumable: string, displayName: string, startedAt: number) {
     return JSON.stringify({
       type: 'consumed',
       consumable,
-      startedAt: at
+      displayName,
+      startedAt
     })
   },
 

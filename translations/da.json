@@ -2772,7 +2772,7 @@
                 "duplication": "Bonus Duplication Rune Levels: {{x}}",
                 "prism": "Bonus Prism Rune Levels: {{x}}",
                 "thrift": "Bonus Thrift Rune Levels: {{x}}",
-                "SI": "Bonus SI Rune Levels: {{x}}"
+                "superiorIntellect": "Bonus SI Rune Levels: {{x}}"
             },
             "mythicEffects": {
                 "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
@@ -2793,11 +2793,11 @@
             "blessingLevel": "<<orchid|Blessing level>>: {{amount}}",
             "blessingPower": "Blessing Power: <<turquoise|{{value}}>> =-=-= Effect: <<gold|{{speed}}>>x {{reward}}!",
             "rewards": {
-                "0": "Global Speed",
-                "1": "Multiplier Boosts",
-                "2": "Ant Sacrifice Rewards",
-                "3": "Delay for A.Boost Cost",
-                "4": "Obtainium --> Ant Mult."
+                "speed": "Global Speed",
+                "duplication": "Multiplier Boosts",
+                "prism": "Ant Sacrifice Rewards",
+                "thrift": "Delay for A.Boost Cost",
+                "superiorIntellect": "Obtainium --> Ant Mult."
             },
             "increaseLevel": "Increase Level By <<orchid|{{amount}}>> [Cost: <<orchid|{{offerings}}>> Offerings]"
         },
@@ -2805,11 +2805,11 @@
             "spiritLevel": "Spirit level: <<orchid|{{amount}}>>",
             "spiritPower": "Spirit Power: <<turquoise|{{value}}>> =-=-= Effect: <<gold|{{speed}}>>{{reward}}!",
             "rewards": {
-                "0": "x Global Speed",
-                "1": "x Wow! Cubes by Ascension",
-                "2": "x Additional levels to Crystal caps",
-                "3": "x Obtainium",
-                "4": "% stronger Research 4x9 effect"
+                "speed": "x Global Speed",
+                "duplication": "x Wow! Cubes by Ascension",
+                "prism": "x Additional levels to Crystal caps",
+                "thrift": "x Obtainium",
+                "superiorIntellect": "% stronger Research 4x9 effect"
             },
             "buyUpTo": "Buy up to <<var(--orchid-text-color)|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]"
         },

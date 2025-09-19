@@ -1,4 +1,5 @@
 import i18next from 'i18next'
+import { awardAchievementGroup } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { inheritanceTokens, isIARuneUnlocked, singularityBonusTokenMult } from './Calculate'
 import {
@@ -9,10 +10,15 @@ import {
   corruptionStatsUpdate,
   maxCorruptionLevel
 } from './Corruptions'
+import { getOcteractUpgradeEffect } from './Octeracts'
 import { reset } from './Reset'
-import { format, player } from './Synergism'
+import { getGQUpgradeEffect } from './singularity'
+import { format, formatAsPercentIncrease, player } from './Synergism'
 import { IconSets } from './Themes'
 import { Alert, Confirm, Notification } from './UpdateHTML'
+
+export let campaignTokens = 0
+export let maxCampaignTokens = 0
 
 export type CampaignKeys =
   | 'first'
@@ -110,10 +116,6 @@ export interface ICampaignData {
 export class CampaignManager {
   #currentCampaign: CampaignKeys | undefined
   #campaigns: Record<CampaignKeys, Campaign>
-  #tokens = 0
-  #maxTokens = 0
-  #updatedTokens = false
-  #updatedMaxTokens = false
 
   constructor (campaignManagerData?: ICampaignManagerData) {
     this.#campaigns = {
@@ -269,56 +271,17 @@ export class CampaignManager {
     }
   }
 
-  computeTotalCampaignTokens () {
-    this.#updatedTokens = false
-    let sum = 0
-    for (const campaign of Object.values(this.#campaigns)) {
-      sum += campaign.tokens
-    }
-
-    sum += inheritanceTokens()
-    sum += +player.singularityUpgrades.singBonusTokens4.getEffect().bonus
-    sum += +player.octeractUpgrades.octeractBonusTokens4.getEffect().bonus
-    return sum
-  }
-
   computeMaxCampaignTokens () {
-    this.#updatedMaxTokens = false
     let sum = 0
     for (const campaign of Object.values(this.#campaigns)) {
       sum += campaign.maxTokens
     }
 
     sum += inheritanceTokens()
-    sum += +player.singularityUpgrades.singBonusTokens4.getEffect().bonus
-    sum += +player.octeractUpgrades.octeractBonusTokens4.getEffect().bonus
+    sum += getGQUpgradeEffect('singBonusTokens4')
+    sum += getOcteractUpgradeEffect('octeractBonusTokens4')
 
     return sum
-  }
-
-  get tokens () {
-    if (!this.#updatedTokens) {
-      this.#tokens = this.computeTotalCampaignTokens()
-      this.#updatedTokens = true
-      return this.#tokens
-    } else {
-      return this.#tokens
-    }
-  }
-
-  get maxTokens () {
-    if (!this.#updatedMaxTokens) {
-      this.#maxTokens = this.computeMaxCampaignTokens()
-      this.#updatedMaxTokens = true
-      return this.#maxTokens
-    } else {
-      return this.#maxTokens
-    }
-  }
-
-  updateCurrentTokens () {
-    this.#tokens = this.computeTotalCampaignTokens()
-    this.#maxTokens = this.computeMaxCampaignTokens()
   }
 
   get current () {
@@ -383,7 +346,8 @@ export class CampaignManager {
       this.#currentCampaign = undefined
 
       // Update Token Count for player
-      this.computeTotalCampaignTokens()
+      updateTokens()
+      updateMaxTokens()
       campaignTokenRewardHTMLUpdate()
 
       // Update Campaign Active Text
@@ -399,38 +363,38 @@ export class CampaignManager {
 
   get tutorialBonus (): TutorialBonus {
     return {
-      cubeBonus: 1 + 0.1 * +(this.tokens > 0),
-      obtainiumBonus: 1 + 0.25 * +(this.tokens > 0),
-      offeringBonus: 1 + 0.25 * +(this.tokens > 0)
+      cubeBonus: 1 + 0.05 * +(campaignTokens > 0),
+      obtainiumBonus: 1 + 0.1 * +(campaignTokens > 0),
+      offeringBonus: 1 + 0.1 * +(campaignTokens > 0)
     }
   }
 
   get cubeBonus () {
     return 1
-      + 0.25 * 1 / 25 * Math.min(this.tokens, 25)
-      + 0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500))
-      + 0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
+      + 0.1 * 1 / 25 * Math.min(campaignTokens, 25)
+      + 0.4 * (1 - Math.exp(-Math.max(campaignTokens - 25, 0) / 500))
+      + 0.5 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 5000))
   }
 
   get obtainiumBonus () {
     return 1
-      + 0.25 * 1 / 25 * Math.min(this.tokens, 25)
-      + 0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500))
-      + 0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
+      + 0.1 * 1 / 25 * Math.min(campaignTokens, 25)
+      + 0.4 * (1 - Math.exp(-Math.max(campaignTokens - 25, 0) / 500))
+      + 0.5 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 5000))
   }
 
   get offeringBonus () {
     return 1
-      + 0.25 * 1 / 25 * Math.min(this.tokens, 25)
-      + 0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500))
-      + 0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
+      + 0.1 * 1 / 25 * Math.min(campaignTokens, 25)
+      + 0.4 * (1 - Math.exp(-Math.max(campaignTokens - 25, 0) / 500))
+      + 0.5 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 5000))
   }
 
   get ascensionScoreMultiplier () {
     return 1
-      + 0.5 * 1 / 100 * Math.min(this.tokens, 100)
-      + 0.5 * (1 - Math.exp(-Math.max(this.tokens - 100, 0) / 1000))
-      + 0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
+      + 0.2 * 1 / 100 * Math.min(campaignTokens, 100)
+      + 0.3 * (1 - Math.exp(-Math.max(campaignTokens - 100, 0) / 1000))
+      + 0.5 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 5000))
   }
   /**
    * Returns the time threshold reduction for Prestige, Reincarnation and Ascension
@@ -441,7 +405,7 @@ export class CampaignManager {
   get timeThresholdReduction () {
     const thresholdReqs = [20, 100, 250, 500, 1000, 2000, 3500, 5000]
     for (let i = 0; i < thresholdReqs.length; i++) {
-      if (this.tokens < thresholdReqs[i]) {
+      if (campaignTokens < thresholdReqs[i]) {
         return i / 4
       }
     }
@@ -449,80 +413,107 @@ export class CampaignManager {
   }
 
   get quarkBonus () {
-    if (this.tokens < 100) {
+    if (campaignTokens < 100) {
       return 1
     } else {
       return 1
-        + 0.1 * Math.min(this.tokens - 100, 100) / 100
-        + 0.15 * (1 - Math.exp(-Math.max(this.tokens - 200, 0) / 3000))
-        + 0.15 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 10000))
+        + 0.05 * Math.min(campaignTokens - 100, 100) / 100
+        + 0.05 * (1 - Math.exp(-Math.max(campaignTokens - 200, 0) / 3000))
+        + 0.1 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 10000))
     }
   }
 
   get taxMultiplier () {
-    if (this.tokens < 250) {
+    if (campaignTokens < 250) {
       return 1
     }
     return 1
-      - 0.05 * 1 / 250 * Math.min(this.tokens - 250, 250)
-      - 0.15 * (1 - Math.exp(-Math.max(this.tokens - 500, 0) / 1250))
-      - 0.05 * (1 - Math.exp(-Math.max(this.tokens - 4000, 0) / 5000))
+      - 0.05 * 1 / 250 * Math.min(campaignTokens - 250, 250)
+      - 0.15 * (1 - Math.exp(-Math.max(campaignTokens - 500, 0) / 1250))
+      - 0.05 * (1 - Math.exp(-Math.max(campaignTokens - 4000, 0) / 5000))
   }
 
   get c15Bonus () {
-    if (this.tokens < 250) {
+    if (campaignTokens < 250) {
       return 1
     }
     return 1
-      + 0.1 * 1 / 250 * Math.min(this.tokens - 250, 250)
-      + 0.9 * (1 - Math.exp(-Math.max(this.tokens - 500, 0) / 1250))
+      + 0.05 * 1 / 250 * Math.min(campaignTokens - 250, 250)
+      + 0.95 * (1 - Math.exp(-Math.max(campaignTokens - 500, 0) / 1250))
   }
 
   get bonusRune6 () {
-    const thresholdReqs = [500, 2000, 5000]
+    const thresholdReqs = [500, 2000, 5000, 1000]
     for (let i = 0; i < thresholdReqs.length; i++) {
-      if (this.tokens < thresholdReqs[i]) {
+      if (campaignTokens < thresholdReqs[i]) {
         return i
       }
     }
-    return 3
+    return 4
   }
 
   get goldenQuarkBonus () {
-    if (this.tokens < 500) {
+    if (campaignTokens < 500) {
       return 1
     }
     return 1
-      + 0.1 * 1 / 500 * Math.min(this.tokens - 500, 500)
-      + 0.15 * (1 - Math.exp(-Math.max(this.tokens - 1000, 0) / 2500))
+      + 0.05 * 1 / 500 * Math.min(campaignTokens - 500, 500)
+      + 0.05 * (1 - Math.exp(-Math.max(campaignTokens - 1000, 0) / 2500))
   }
 
   get octeractBonus () {
-    if (this.tokens < 1000) {
+    if (campaignTokens < 1000) {
       return 1
     }
     return 1
-      + 0.1 * 1 / 1000 * Math.min(this.tokens - 1000, 1000)
-      + 0.4 * (1 - Math.exp(-Math.max(this.tokens - 2000, 0) / 4000))
+      + 0.1 * 1 / 1000 * Math.min(campaignTokens - 1000, 1000)
+      + 0.15 * (1 - Math.exp(-Math.max(campaignTokens - 2000, 0) / 4000))
   }
 
   get ambrosiaLuckBonus () {
-    if (this.tokens < 2000) {
+    if (campaignTokens < 2000) {
       return 0
     }
     return 10
-      + 40 * 1 / 2000 * Math.min(this.tokens - 2000, 2000)
-      + 50 * (1 - Math.exp(-Math.max(this.tokens - 4000, 0) / 2500))
+      + 40 * 1 / 2000 * Math.min(campaignTokens - 2000, 2000)
+      + 50 * (1 - Math.exp(-Math.max(campaignTokens - 4000, 0) / 2500))
   }
 
   get blueberrySpeedBonus () {
-    if (this.tokens < 2000) {
+    if (campaignTokens < 2000) {
       return 1
     }
     return 1
-      + 0.05 * 1 / 2000 * Math.min(this.tokens - 2000, 2000)
-      + 0.05 * (1 - Math.exp(-Math.max(this.tokens - 4000, 0) / 2000))
+      + 0.02 * 1 / 2000 * Math.min(campaignTokens - 2000, 2000)
+      + 0.03 * (1 - Math.exp(-Math.max(campaignTokens - 4000, 0) / 2000))
   }
+}
+
+export const updateTokens = () => {
+  let sum = 0
+  for (const campaign of Object.values(player.campaigns.allCampaigns)) {
+    sum += campaign.tokens
+  }
+
+  sum += inheritanceTokens()
+  sum += getGQUpgradeEffect('singBonusTokens4')
+  sum += getOcteractUpgradeEffect('octeractBonusTokens4')
+  campaignTokens = sum
+
+  awardAchievementGroup('campaignTokens')
+}
+
+export const updateMaxTokens = () => {
+  let sum = 0
+  for (const campaign of Object.values(player.campaigns.allCampaigns)) {
+    sum += campaign.maxTokens
+  }
+
+  sum += inheritanceTokens()
+  sum += getGQUpgradeEffect('singBonusTokens4')
+  sum += getOcteractUpgradeEffect('octeractBonusTokens4')
+
+  maxCampaignTokens = sum
 }
 
 export class Campaign {
@@ -557,24 +548,24 @@ export class Campaign {
       if (player.highestSingularityCount >= 16) {
         additiveTotal += 5
       }
-      additiveTotal += +player.singularityUpgrades.singBonusTokens1.getEffect().bonus
-      additiveTotal += +player.octeractUpgrades.octeractBonusTokens3.getEffect().bonus
+      additiveTotal += getGQUpgradeEffect('singBonusTokens1')
+      additiveTotal += getOcteractUpgradeEffect('octeractBonusTokens3')
     }
 
     if (completed === this.#limit) {
       if (player.highestSingularityCount >= 69) {
         additiveTotal += 10
       }
-      additiveTotal += +player.singularityUpgrades.singBonusTokens3.getEffect().bonus
-      additiveTotal += +player.octeractUpgrades.octeractBonusTokens1.getEffect().bonus
+      additiveTotal += getGQUpgradeEffect('singBonusTokens3')
+      additiveTotal += getOcteractUpgradeEffect('octeractBonusTokens1')
     }
 
     let multiplier = 1
 
     multiplier *= this.#isMeta ? 2 : 1
     multiplier *= singularityBonusTokenMult()
-    multiplier *= +player.singularityUpgrades.singBonusTokens2.getEffect().bonus
-    multiplier *= +player.octeractUpgrades.octeractBonusTokens2.getEffect().bonus
+    multiplier *= getGQUpgradeEffect('singBonusTokens2')
+    multiplier *= getOcteractUpgradeEffect('octeractBonusTokens2')
     return Math.floor(additiveTotal * multiplier)
   }
 
@@ -1417,10 +1408,6 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
   }
 }
 
-export const formatAsPercentIncrease = (n: number, accuracy = 2) => {
-  return `${format((n - 1) * 100, accuracy, true)}%`
-}
-
 // For icons, display them only if the player has enough tokens and fits the other requirements
 // This is more of a display thing, the actual reward is computed in the CampaignManager
 export const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRewardDisplay> = {
@@ -1672,16 +1659,14 @@ export const campaignTokenRewardHTMLUpdate = () => {
   DOMCacheGetOrSet('campaignTokenRewardText').textContent = ''
 
   DOMCacheGetOrSet('campaignTokenCount').textContent = i18next.t('campaigns.tokens.count', {
-    count: player.campaigns.tokens,
-    maxCount: player.campaigns.maxTokens
+    count: campaignTokens,
+    maxCount: maxCampaignTokens
   })
-
-  const tokenCount = player.campaigns.tokens
 
   for (const [key, value] of Object.entries(campaignTokenRewardDatas)) {
     // Create a new Icon if the player has enough tokens and extra requirements are met
     if (
-      tokenCount >= value.tokenRequirement
+      campaignTokens >= value.tokenRequirement
       && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())
     ) {
       const tokenIcon = document.createElement('img')
@@ -1709,14 +1694,14 @@ export const campaignTokenRewardHTMLUpdate = () => {
   }
 
   // Create the final icon that displays the total sum of rewards in a popup.
-  if (tokenCount > 0) {
+  if (campaignTokens > 0) {
     const totalRewardIcon = document.createElement('img')
     totalRewardIcon.src = 'Pictures/Campaigns/sum.png'
 
     let popupText = ''
     for (const [key, value] of Object.entries(campaignTokenRewardDatas)) {
       if (
-        tokenCount >= value.tokenRequirement
+        campaignTokens >= value.tokenRequirement
         && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())
       ) {
         if (typeof value.reward() === 'string') {

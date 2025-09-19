@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { hepteracts } from './Hepteracts'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { Alert, revealStuff } from './UpdateHTML'
@@ -30,7 +31,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   },
   2: {
     obtainium: 3e70,
-    offerings: 2e45,
+    offerings: 3e45,
     cubes: 1e11,
     tesseracts: 1e8,
     hypercubes: 1e5,
@@ -40,8 +41,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     priceMult: 2
   },
   3: {
-    obtainium: 1e71,
-    offerings: 4e45,
+    obtainium: 1e74,
+    offerings: 1e46,
     cubes: 1e11,
     tesseracts: 1e6,
     hypercubes: 1e7,
@@ -51,8 +52,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     priceMult: 2
   },
   4: {
-    obtainium: 4e71,
-    offerings: 1e46,
+    obtainium: 3e74,
+    offerings: 3e46,
     cubes: 1e12,
     tesseracts: 1e7,
     hypercubes: 1e6,
@@ -63,7 +64,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   },
   5: {
     obtainium: 1e80,
-    offerings: 1e60,
+    offerings: 1e59,
     cubes: 1e14,
     tesseracts: 1e9,
     hypercubes: 1e8,
@@ -234,8 +235,8 @@ const checkPlatonicUpgrade = (
   let checksum = 0
   const resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals'] as const
   const resourceNames = [
-    'researchPoints',
-    'runeshards',
+    'obtainium',
+    'offerings',
     'wowCubes',
     'wowTesseracts',
     'wowHypercubes',
@@ -274,7 +275,7 @@ const checkPlatonicUpgrade = (
   }
 
   if (
-    player.hepteractCrafts.abyss.BAL >= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier)
+    hepteracts.abyss.BAL >= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier)
     || platUpgradeBaseCosts[index].abyssals === 0
   ) {
     checksum++
@@ -303,7 +304,7 @@ export const createPlatonicDescription = (index: number) => {
   }
   priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
 
-  DOMCacheGetOrSet('platonicUpgradeDescription').textContent = i18next.t(
+  DOMCacheGetOrSet('platonicUpgradeDescription').innerHTML = i18next.t(
     `wowCubes.platonicUpgrades.descriptions.${index}`
   )
   DOMCacheGetOrSet('platonicUpgradeLevel').textContent = i18next.t(translationKey, {
@@ -313,46 +314,46 @@ export const createPlatonicDescription = (index: number) => {
   DOMCacheGetOrSet('platonicOfferingCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.offeringCost',
     {
-      a: format(player.runeshards),
+      a: format(player.offerings),
       b: format(platUpgradeBaseCosts[index].offerings * priceMultiplier)
     }
   )
   DOMCacheGetOrSet('platonicObtainiumCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.obtainiumCost',
     {
-      a: format(player.researchPoints),
+      a: format(player.obtainium),
       b: format(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
     }
   )
   DOMCacheGetOrSet('platonicCubeCost').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.cubeCost', {
-    a: format(player.wowCubes),
+    a: format(player.wowCubes.valueOf()),
     b: format(platUpgradeBaseCosts[index].cubes * priceMultiplier)
   })
   DOMCacheGetOrSet('platonicTesseractCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.tesseractCost',
     {
-      a: format(player.wowTesseracts),
+      a: format(player.wowTesseracts.valueOf()),
       b: format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier)
     }
   )
   DOMCacheGetOrSet('platonicHypercubeCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.hypercubeCost',
     {
-      a: format(player.wowHypercubes),
+      a: format(player.wowHypercubes.valueOf()),
       b: format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier)
     }
   )
   DOMCacheGetOrSet('platonicPlatonicCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.platonicCost',
     {
-      a: format(player.wowPlatonicCubes),
+      a: format(player.wowPlatonicCubes.valueOf()),
       b: format(platUpgradeBaseCosts[index].platonics * priceMultiplier)
     }
   )
   DOMCacheGetOrSet('platonicHepteractCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.hepteractCost',
     {
-      a: format(player.hepteractCrafts.abyss.BAL, 0, true),
+      a: format(hepteracts.abyss.BAL, 0, true),
       b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true)
     }
   )
@@ -439,18 +440,18 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
       player.platonicUpgrades[index] += 1
       // Auto Platonic Upgrades no longer claim the cost of Offerings and Obtainiums
       if (!auto) {
-        player.researchPoints -= Math.floor(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
-        player.runeshards -= Math.floor(platUpgradeBaseCosts[index].offerings * priceMultiplier)
+        player.obtainium = player.obtainium.sub(Math.floor(platUpgradeBaseCosts[index].obtainium * priceMultiplier))
+        player.offerings = player.offerings.sub(Math.floor(platUpgradeBaseCosts[index].offerings * priceMultiplier))
       }
       player.wowCubes.sub(Math.floor(platUpgradeBaseCosts[index].cubes * priceMultiplier))
       player.wowTesseracts.sub(Math.floor(platUpgradeBaseCosts[index].tesseracts * priceMultiplier))
       player.wowHypercubes.sub(Math.floor(platUpgradeBaseCosts[index].hypercubes * priceMultiplier))
       player.wowPlatonicCubes.sub(Math.floor(platUpgradeBaseCosts[index].platonics * priceMultiplier))
-      player.hepteractCrafts.abyss.spend(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier))
+      hepteracts.abyss.BAL -= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier)
 
       if (index === 20 && !auto && player.singularityCount === 0) {
         void Alert(
-          'While I strongly recommended you not to buy this, you did it anyway. For that, you have unlocked the rune of Grandiloquence, for you are a richass.'
+          i18next.t('wowCubes.platonicUpgrades.20Bought')
         )
       }
     } else {

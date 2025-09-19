@@ -1997,8 +1997,7 @@
     },
     "toString": {
       "noMinimum": "No minimal Singularity to purchase required",
-      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks.",
-      "spentQuarks": "Spent Quarks: {{amount}}"
+      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks."
     },
     "data": {
       "goldenQuarks1": {
@@ -3651,7 +3650,7 @@
         "duplication": "Niveaux gratuits pour la Rune de Duplication : {{x}}",
         "prism": "Niveaux gratuits pour la Rune Prismatique : {{x}}",
         "thrift": "Niveaux gratuits pour la Rune de l'Épargne : {{x}}",
-        "SI": "Niveaux gratuits pour la Rune d'IS : {{x}}"
+        "superiorIntellect": "Niveaux gratuits pour la Rune d'IS : {{x}}"
       },
       "mythicEffects": {
         "exemption": "Effet mythique : +400 niveaux gratuits pour la Rune de Duplication !",
@@ -3672,11 +3671,11 @@
       "blessingLevel": "<<orchid|Niveau de Bénédiction>> : {{amount}}",
       "blessingPower": "Puissance de Bénédiction : <<turquoise|{{value}}>> =-=-= Effet : {{reward}} x<<gold|{{speed}}>> !",
       "rewards": {
-        "0": "vitesse globale",
-        "1": "Renfort de Multiplicateurs",
-        "2": "récompenses de sacrifice",
-        "3": "délai du coût des Renforts d'Accélérateurs",
-        "4": "multiplicateur Obtainium → Fourmis"
+        "speed": "vitesse globale",
+        "duplication": "Renfort de Multiplicateurs",
+        "prism": "récompenses de sacrifice",
+        "thrift": "délai du coût des Renforts d'Accélérateurs",
+        "superiorIntellect": "multiplicateur Obtainium → Fourmis"
       },
       "increaseLevel": "Augmenter de <<orchid|{{amount}}>> niveaux [Coût : <<orchid|{{offerings}}>> Offrandes]"
     },
@@ -3684,11 +3683,11 @@
       "spiritLevel": "Niveau d'Esprit : <<orchid|{{amount}}>>",
       "spiritPower": "Puissance d'Esprit : <<turquoise|{{value}}>> =-=-= Effet : {{reward}} x<<gold|{{speed}}>> !",
       "rewards": {
-        "0": "vitesse globale",
-        "1": "Wow! Cubes par Ascension",
-        "2": "limite de niveau des améliorations de Cristaux",
-        "3": "Obtainium",
-        "4": "effet de la Recherche 4x9"
+        "speed": "vitesse globale",
+        "duplication": "Wow! Cubes par Ascension",
+        "prism": "limite de niveau des améliorations de Cristaux",
+        "thrift": "Obtainium",
+        "superiorIntellect": "effet de la Recherche 4x9"
       },
       "buyUpTo": "Achetez jusqu'à <<var(--orchid-text-color);|{{amount}}>> niveaux par achat, si vous en avez les moyens. [Changez la valeur ci-dessus]"
     },
@@ -4481,7 +4480,6 @@
       "BaseTimer": "Base Timer (ms):",
       "Calculator4": "Réduction de la PL-AT δ :",
       "SingularityCount": "Singularity Milestone Bonus:",
-      "InfiniteAscent": "Infinite Ascent Bonus:",
       "SingularityPerkBonus": "Singularity Perk Bonus:",
       "Total": "Final Add Code Interval (ms):"
     },

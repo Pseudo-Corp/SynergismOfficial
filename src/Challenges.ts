@@ -1,12 +1,10 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateRuneLevels } from './Calculate'
 import { hepteractEffective } from './Hepteracts'
-import { autoResearchEnabled } from './Research'
+import { getGQUpgradeEffect } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
-import { productContents } from './Utility'
 import { Globals as G } from './Variables'
 
 export type Challenge15Rewards =
@@ -45,6 +43,7 @@ export type Challenge15Rewards =
   | 'multiplierHepteractUnlocked'
   | 'freeOrbs'
   | 'ascensionSpeed'
+  | 'achievementUnlock'
 
 export type Challenge15RewardsInformation = {
   value: number
@@ -96,9 +95,9 @@ export const getMaxChallenges = (i: number) => {
       maxChallenge += 30
     }
 
-    maxChallenge += 2 * +player.singularityUpgrades.singChallengeExtension.getEffect().bonus
-    maxChallenge += 2 * +player.singularityUpgrades.singChallengeExtension2.getEffect().bonus
-    maxChallenge += 2 * +player.singularityUpgrades.singChallengeExtension3.getEffect().bonus
+    maxChallenge += 2 * getGQUpgradeEffect('singChallengeExtension')
+    maxChallenge += 2 * getGQUpgradeEffect('singChallengeExtension2')
+    maxChallenge += 2 * getGQUpgradeEffect('singChallengeExtension3')
 
     maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.capIncrease
     maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.reinCapIncrease2
@@ -128,9 +127,9 @@ export const getMaxChallenges = (i: number) => {
       maxChallenge += 20
     }
 
-    maxChallenge += +player.singularityUpgrades.singChallengeExtension.getEffect().bonus
-    maxChallenge += +player.singularityUpgrades.singChallengeExtension2.getEffect().bonus
-    maxChallenge += +player.singularityUpgrades.singChallengeExtension3.getEffect().bonus
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension2')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension3')
     maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.ascCapIncrease2
     return maxChallenge
   }
@@ -208,7 +207,8 @@ export const challengeDisplay = (i: number, changefocus = true) => {
 
     switch (i) {
       case 1: {
-        current1 = current2 = format(10 * CalcECC('transcend', player.challengecompletions[1]))
+        current1 = format(2 * CalcECC('transcend', player.challengecompletions[1]))
+        current2 = format(0.75 * CalcECC('transcend', player.challengecompletions[1]), 2, true)
         current3 = format(0.04 * CalcECC('transcend', player.challengecompletions[1]), 2, true)
         break
       }
@@ -232,29 +232,31 @@ export const challengeDisplay = (i: number, changefocus = true) => {
       case 5: {
         current1 = format(0.5 + CalcECC('transcend', player.challengecompletions[5]) / 100, 2, true)
         current2 = format(Math.pow(10, CalcECC('transcend', player.challengecompletions[5])))
+        current3 = format(5 * CalcECC('transcend', player.challengecompletions[5]), 2, true)
         break
       }
       case 6: {
         current1 = format(Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6])), 3, true)
-        current2 = format(10 * CalcECC('reincarnation', player.challengecompletions[6]))
+        current2 = format(0.3 * CalcECC('reincarnation', player.challengecompletions[6]), 2, true)
         current3 = format(2 * CalcECC('reincarnation', player.challengecompletions[6]))
         break
       }
       case 7: {
         current1 = format(1 + 0.04 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
-        current2 = current3 = format(10 * CalcECC('reincarnation', player.challengecompletions[7]))
+        current2 = format(0.3 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
+        current3 = format(15 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
         break
       }
       case 8: {
         current1 = format(0.25 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
-        current2 = format(20 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
+        current2 = format(0.4 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
         current3 = format(4 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
         break
       }
       case 9: {
         current1 = format(CalcECC('reincarnation', player.challengecompletions[9]))
         current2 = format(Math.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])), 2, true)
-        current3 = format(20 * CalcECC('reincarnation', player.challengecompletions[9]), 2, true)
+        current3 = format(0.5 * CalcECC('reincarnation', player.challengecompletions[9]), 2, true)
         break
       }
       case 10: {
@@ -266,13 +268,13 @@ export const challengeDisplay = (i: number, changefocus = true) => {
       case 11: {
         current1 = format(12 * CalcECC('ascension', player.challengecompletions[11]))
         current2 = format(Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11])))
-        current3 = format(80 * CalcECC('ascension', player.challengecompletions[11]))
+        current3 = format(CalcECC('ascension', player.challengecompletions[11]))
         break
       }
       case 12: {
         current1 = format(50 * CalcECC('ascension', player.challengecompletions[12]))
         current2 = format(12 * CalcECC('ascension', player.challengecompletions[12]))
-        current3 = format(CalcECC('ascension', player.challengecompletions[12]))
+        current3 = format(20 * CalcECC('ascension', player.challengecompletions[12]))
         break
       }
       case 13: {
@@ -283,8 +285,8 @@ export const challengeDisplay = (i: number, changefocus = true) => {
       }
       case 14: {
         current1 = format(50 * CalcECC('ascension', player.challengecompletions[14]))
-        current2 = format(1 * player.challengecompletions[14])
-        current3 = format(200 * CalcECC('ascension', player.challengecompletions[14]))
+        current2 = format(CalcECC('ascension', player.challengecompletions[14]))
+        current3 = format(1.5 * CalcECC('ascension', player.challengecompletions[14]))
         break
       }
     }
@@ -404,11 +406,6 @@ export const challengeDisplay = (i: number, changefocus = true) => {
 
 export const getChallengeConditions = (i?: number) => {
   if (player.currentChallenge.reincarnation === 9) {
-    G.rune1level = 1
-    G.rune2level = 1
-    G.rune3level = 1
-    G.rune4level = 1
-    G.rune5level = 1
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
   }
   G.prestigePointGain = new Decimal('0')
@@ -420,7 +417,6 @@ export const getChallengeConditions = (i?: number) => {
       G.reincarnationPointGain = new Decimal('0')
     }
   }
-  calculateRuneLevels()
 }
 
 export const toggleRetryChallenges = () => {
@@ -438,11 +434,6 @@ export const highestChallengeRewards = (chalNum: number, highestValue: number) =
   }
   if (player.ascensionCount === 0) {
     player.worlds.add(1 + Math.floor(highestValue * multiplier) * 100 / 100)
-  }
-  // Addresses a bug where auto research does not work even if you unlock research
-  if (autoResearchEnabled() && player.ascensionCount === 0 && chalNum >= 6 && chalNum <= 10) {
-    player.roombaResearchIndex = 0
-    player.autoResearch = G.researchOrderByCost[player.roombaResearchIndex]
   }
 }
 
@@ -749,10 +740,9 @@ export const autoAscensionChallengeSweepUnlock = () => {
 }
 
 export const challenge15ScoreMultiplier = () => {
-  const arr = [
-    player.campaigns.c15Bonus, // Campaign Bonus to c15
-    1 + 5 / 10000 * hepteractEffective('challenge'), // Challenge Hepteract
-    1 + 0.25 * player.platonicUpgrades[15] // Omega Upgrade
-  ]
-  return productContents(arr)
+  return (
+    player.campaigns.c15Bonus // Campaign Bonus to c15
+    * (1 + 5 / 10000 * hepteractEffective('challenge')) // Challenge Hepteract
+    * (1 + 0.25 * player.platonicUpgrades[15]) // Omega Upgrade
+  )
 }
