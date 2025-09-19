@@ -1403,6 +1403,31 @@ export const CloseModal = () => {
   modalUsed = false
 }
 
+export const openChangelog = () => {
+  const wrapper = document.getElementById('changelogWrapper')!
+  const wrapperBlur = document.getElementById('changelogBlur')!
+
+  if (!wrapper.querySelector('iframe')) {
+    const iframe = document.createElement('iframe')
+    iframe.src = 'https://changelog.synergism.cc/latest'
+    iframe.width = '100%'
+    iframe.height = '100%'
+
+    wrapper.appendChild(iframe)
+  }
+
+  wrapper.style.display = 'block'
+  wrapperBlur.style.display = 'block'
+}
+
+export const closeChangelog = () => {
+  const wrapper = document.getElementById('changelogWrapper')!
+  const wrapperBlur = document.getElementById('changelogBlur')!
+
+  wrapper.style.display = 'none'
+  wrapperBlur.style.display = 'none'
+}
+
 /**
  * Create a popunder under an element.
  * @example

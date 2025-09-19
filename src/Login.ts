@@ -1,5 +1,6 @@
 /// <reference types="@types/cloudflare-turnstile" />
 
+import DOMPurify from 'dompurify'
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -121,7 +122,12 @@ const messageSchema = z.preprocess(
     z.object({ type: z.literal('applied-tip'), amount: z.number(), remaining: z.number() }),
 
     /** Received when a timeSkip is used */
-    z.object({ type: z.literal('time-skip'), consumableName: z.string(), amount: z.number().int() }),
+    z.object({
+      type: z.literal('time-skip'),
+      consumableName: z.string(),
+      id: z.string().uuid(),
+      amount: z.number().int()
+    }),
 
     /** A warning - should *NOT* disconnect from the WebSocket */
     z.object({ type: z.literal('warn'), message: z.string() })
@@ -166,47 +172,51 @@ interface RawMember {
   communication_disabled_until?: string | null
 }
 
-interface SynergismUserAPIResponse {
+interface PatreonUser {
+  data: {
+    attributes: {
+      email: string
+      full_name?: string | null | undefined
+    }
+    id: string
+  }
+}
+
+interface AccountMetadata {
+  discord: RawMember
+  patreon: PatreonUser
+  email: { email: string; verified: boolean }
+  none: null
+}
+
+interface BonusTypes {
+  quarks: number
+}
+
+interface SynergismUserAPIResponse<T extends keyof AccountMetadata> {
   personalBonus: number
   globalBonus: number
-  accountType: string
+  member: AccountMetadata[T]
+  accountType: T
+  bonus: BonusTypes
   subscriptionTier: number
-  bonus: {
-    quarkBonus: number
-  }
-}
-
-interface SynergismDiscordUserAPIResponse extends SynergismUserAPIResponse {
-  member: RawMember | null
-  accountType: 'discord'
-}
-
-interface SynergismPatreonUserAPIResponse extends SynergismUserAPIResponse {
-  member: {
-    user: {
-      username: string | null
-    }
-    roles: string[]
-  }
-  accountType: 'patreon'
-}
-
-interface SynergismEmailUserAPIResponse extends SynergismUserAPIResponse {
-  member: {
-    user: {
-      username: string
-    }
-    roles: string[] & { length: 0 }
-  }
-  accountType: 'email'
-}
-
-interface SynergismNotLoggedInResponse extends SynergismUserAPIResponse {
-  member: null
-  accountType: 'none'
+  error?: unknown
 }
 
 type CloudSave = null | { save: string }
+
+const isDiscordAccount = (
+  account: SynergismUserAPIResponse<keyof AccountMetadata>
+): account is SynergismUserAPIResponse<'discord'> => account.accountType === 'discord'
+const isPatreonAccount = (
+  account: SynergismUserAPIResponse<keyof AccountMetadata>
+): account is SynergismUserAPIResponse<'patreon'> => account.accountType === 'patreon'
+const isEmailAccount = (
+  account: SynergismUserAPIResponse<keyof AccountMetadata>
+): account is SynergismUserAPIResponse<'email'> => account.accountType === 'email'
+const hasAccount = (
+  account: SynergismUserAPIResponse<keyof AccountMetadata>
+): account is SynergismUserAPIResponse<'discord' | 'patreon' | 'email'> => account.accountType !== 'none'
 
 export async function handleLogin () {
   const subtabElement = document.querySelector('#accountSubTab div#left.scrollbarX')!
@@ -227,32 +237,40 @@ export async function handleLogin () {
             globalBonus: 0,
             personalBonus: 0,
             accountType: 'none',
-            bonus: { quarkBonus: 0 },
+            bonus: { quarks: 0 },
             subscriptionTier: 0
-          } satisfies SynergismNotLoggedInResponse
+          } satisfies SynergismUserAPIResponse<'none'>
         ),
         { status: 401 }
       )
   )
 
-  if (!response.ok) {
-    currentBonus.textContent =
-      `Oh no! I couldn't fetch the bonus... Please send this to Khafra in the Discord: ${await response.text()}.`
-    return
-  }
-
-  const { globalBonus, member, personalBonus, accountType, subscriptionTier } = await response.json() as
-    | SynergismDiscordUserAPIResponse
-    | SynergismPatreonUserAPIResponse
-    | SynergismEmailUserAPIResponse
-    | SynergismNotLoggedInResponse
+  const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>
+  const { globalBonus, personalBonus, subscriptionTier } = account
 
   setQuarkBonus(personalBonus, globalBonus)
   setInterval(() => refreshQuarkBonus(), 1000 * 60 * 15)
   player.worlds = new QuarkHandler(Number(player.worlds))
-  loggedIn = accountType !== 'none' && response.ok
+  loggedIn = hasAccount(account)
 
-  currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
+  currentBonus.textContent = i18next.t('settings.quarkBonusSimple', { globalBonus })
+
+  // biome-ignore lint/suspicious/noConfusingLabels: it's not confusing or suspicious
+  generateSubtab: {
+    if (location.hostname !== 'synergism.cc') {
+      // TODO: better error, make link clickable, etc.
+      subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
+    } else if (hasAccount(account)) {
+      if (Object.keys(account.member).length === 0) {
+        subtabElement.innerHTML = `You are logged in, but your profile couldn't be retrieved from Discord or Patreon.`
+        break generateSubtab
+      }
+
+      if (account.error) {
+        subtabElement.innerHTML =
+          `You are logged in, but retrieving your profile yielded the following error: ${account.error}`
+        break generateSubtab
+      }
 
   if (location.hostname !== 'synergism.cc' && prod) {
     // TODO: better error, make link clickable, etc.
@@ -262,33 +280,39 @@ export async function handleLogin () {
       subtabElement.innerHTML = `You are logged in, but your profile couldn't be retrieved from Discord or Patreon.`
       return
     }
+    
+      currentBonus.textContent = i18next.t('settings.quarkBonusExtended', { globalBonus, personalBonus })
 
-    currentBonus.textContent +=
-      ` You also receive an extra ${personalBonus}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!`
+      let user: string | null = null
+      const discord = isDiscordAccount(account)
 
-    let user: string | null
+      if (discord) {
+        user = account.member.nick ?? account.member.user?.username ?? account.member.user?.global_name ?? null
+      } else if (isEmailAccount(account)) {
+        user = account.member.email
+      } else if (isPatreonAccount(account)) {
+        user = account.member?.data?.attributes?.email ?? null
+      }
 
-    if (accountType === 'discord') {
-      user = member.nick ?? member.user?.username ?? member.user?.global_name ?? null
-    } else {
-      user = member.user.username
-    }
+      if (user !== null) {
+        user = DOMPurify.sanitize(user)
+      }
 
-    const boosted = accountType === 'discord' && (Boolean(member?.premium_since) || member?.roles.includes(BOOSTER))
-    // It is possible for someone to have the roles through the Patreon integration with Discord, yet not have their
-    // patreon linked to their Synergism (Discord/email) account.
-    const hasTier1 = subscriptionTier === 1 || member.roles.includes(TRANSCENDED_BALLER)
-    const hasTier2 = subscriptionTier === 2 || member.roles.includes(REINCARNATED_BALLER)
-    const hasTier3 = subscriptionTier === 3 || member.roles.includes(ASCENDED_BALLER)
-    const hasTier4 = subscriptionTier === 4 || member.roles.includes(OMEGA_BALLER)
+      const boosted = discord && (Boolean(account.member?.premium_since) || account.member?.roles.includes(BOOSTER))
+      // It is possible for someone to have the roles through the Patreon integration with Discord, yet not have their
+      // patreon linked to their Synergism (Discord/email) account.
+      const hasTier1 = subscriptionTier === 1 || (discord && account.member.roles?.includes(TRANSCENDED_BALLER))
+      const hasTier2 = subscriptionTier === 2 || (discord && account.member.roles?.includes(REINCARNATED_BALLER))
+      const hasTier3 = subscriptionTier === 3 || (discord && account.member.roles?.includes(ASCENDED_BALLER))
+      const hasTier4 = subscriptionTier === 4 || (discord && account.member.roles?.includes(OMEGA_BALLER))
 
-    const checkMark = (n: number) => {
-      return `<span style="color: lime">[✔] {+${n}%}</span>`
-    }
+      const checkMark = (n: number) => {
+        return `<span style="color: lime">[✔] {+${n}%}</span>`
+      }
 
-    const exMark = '<span style="color: crimson">[✖] {+0%}</span>'
+      const exMark = '<span style="color: crimson">[✖] {+0%}</span>'
 
-    subtabElement.innerHTML = `
+      subtabElement.innerHTML = `
       ${user ? `Hello, ${user}` : 'Hello'}!\n
       Your personal Quark bonus is ${format(personalBonus, 2, true)}%, computed by the following:
       Donator Bonuses (Multiplicative with other bonuses):
@@ -300,40 +324,40 @@ export async function handleLogin () {
 
       Event Bonuses:
       <span style="color: #ffcc00">Thanksgiving 2023</span> [+0.2%] - ${
-      member.roles.includes(THANKSGIVING_2023) ? checkMark(0.2) : exMark
-    }
+        discord && account.member.roles?.includes(THANKSGIVING_2023) ? checkMark(0.2) : exMark
+      }
       <span style="color: #ffcc00">Thanksgiving 2024</span> [+0.3%] - ${
-      member.roles.includes(THANKSGIVING_2024) ? checkMark(0.3) : exMark
-    }
+        discord && account.member.roles?.includes(THANKSGIVING_2024) ? checkMark(0.3) : exMark
+      }
       <span style="color: #ffcc00">Conductor 2023</span> [+0.3%] - ${
-      member.roles.includes(CONDUCTOR_2023) ? checkMark(0.3) : exMark
-    }
+        discord && account.member.roles?.includes(CONDUCTOR_2023) ? checkMark(0.3) : exMark
+      }
       <span style="color: #ffcc00">Conductor 2024</span> [+0.4%] - ${
-      member.roles.includes(CONDUCTOR_2024) ? checkMark(0.4) : exMark
-    }
+        discord && account.member.roles?.includes(CONDUCTOR_2024) ? checkMark(0.4) : exMark
+      }
       <span style="color: #ffcc00">Eight Leaf</span> [+0.3%] - ${
-      member.roles.includes(EIGHT_LEAF) ? checkMark(0.3) : exMark
-    }
+        discord && account.member.roles?.includes(EIGHT_LEAF) ? checkMark(0.3) : exMark
+      }
       <span style="color: #ffcc00">Ten Leaf</span> [+0.4%] - ${
-      member.roles.includes(TEN_LEAF) ? checkMark(0.4) : exMark
-    }
+        discord && account.member.roles?.includes(TEN_LEAF) ? checkMark(0.4) : exMark
+      }
       <span style="color: #ffcc00">Smith Incarnate</span> [+0.6%] - ${
-      member.roles.includes(SMITH_INCARNATE) ? checkMark(0.6) : exMark
-    }
+        discord && account.member.roles?.includes(SMITH_INCARNATE) ? checkMark(0.6) : exMark
+      }
       <span style="color: #ffcc00">Smith God</span> [+0.7%] - ${
-      member.roles.includes(SMITH_GOD) ? checkMark(0.7) : exMark
-    }
+        discord && account.member.roles?.includes(SMITH_GOD) ? checkMark(0.7) : exMark
+      }
       <span style="color: #ffcc00">Golden Smith God</span> [+0.8%] - ${
-      member.roles.includes(GOLDEN_SMITH_GOD) ? checkMark(0.8) : exMark
-    }
+        discord && account.member.roles?.includes(GOLDEN_SMITH_GOD) ? checkMark(0.8) : exMark
+      }
       <span style="color: #ffcc00">Diamond Smith Messiah</span> [+1%] - ${
-      member.roles.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1.2) : exMark
-    }
+        discord && account.member.roles?.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1.2) : exMark
+      }
 
       And Finally...
       <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
-      checkMark(1)
-    }
+        checkMark(1)
+      }
 
       The current maximum is 16%, by being a Discord server booster and an OMEGA Baller on Patreon!
 
@@ -345,51 +369,52 @@ export async function handleLogin () {
       </a>
     `.trim()
 
-    const cloudSaveElement = document.createElement('button')
-    const loadCloudSaveElement = document.createElement('button')
+      const cloudSaveElement = document.createElement('button')
+      const loadCloudSaveElement = document.createElement('button')
 
-    if (personalBonus > 1) {
-      cloudSaveElement.addEventListener('click', saveToCloud)
-      cloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
-      cloudSaveElement.textContent = 'Save to Cloud ☁'
+      if (personalBonus > 1) {
+        cloudSaveElement.addEventListener('click', saveToCloud)
+        cloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
+        cloudSaveElement.textContent = 'Save to Cloud ☁'
 
-      loadCloudSaveElement.addEventListener('click', getCloudSave)
-      loadCloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
-      loadCloudSaveElement.textContent = 'Load from Cloud ☽'
+        loadCloudSaveElement.addEventListener('click', getCloudSave)
+        loadCloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
+        loadCloudSaveElement.textContent = 'Load from Cloud ☽'
+      }
+
+      const cloudSaveParent = document.createElement('div')
+      cloudSaveParent.style.cssText =
+        'display: flex; flex-direction: row; justify-content: space-evenly; padding: 5px; width: 45%; margin: 0 auto;'
+
+      cloudSaveParent.appendChild(cloudSaveElement)
+      cloudSaveParent.appendChild(loadCloudSaveElement)
+
+      subtabElement.appendChild(cloudSaveParent)
+    } else if (!hasAccount(account)) {
+      // User is not logged in
+      subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
+        subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
+        subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
+        subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
+        renderCaptcha()
+      })
+
+      subtabElement.querySelector('#open-signin')?.addEventListener('click', () => {
+        subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
+        subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'flex')
+        subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
+        renderCaptcha()
+      })
+
+      subtabElement.querySelector('#open-forgotpassword')?.addEventListener('click', () => {
+        subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
+        subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
+        subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'flex')
+        renderCaptcha()
+      })
+    } else {
+      assert(false, `unknown account type ${account.accountType}`)
     }
-
-    const cloudSaveParent = document.createElement('div')
-    cloudSaveParent.style.cssText =
-      'display: flex; flex-direction: row; justify-content: space-evenly; padding: 5px; width: 45%; margin: 0 auto;'
-
-    cloudSaveParent.appendChild(cloudSaveElement)
-    cloudSaveParent.appendChild(loadCloudSaveElement)
-
-    subtabElement.appendChild(cloudSaveParent)
-  } else if (accountType === 'none') {
-    // User is not logged in
-    subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
-      subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
-      subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
-      subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
-      renderCaptcha()
-    })
-
-    subtabElement.querySelector('#open-signin')?.addEventListener('click', () => {
-      subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
-      subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'flex')
-      subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
-      renderCaptcha()
-    })
-
-    subtabElement.querySelector('#open-forgotpassword')?.addEventListener('click', () => {
-      subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
-      subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
-      subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'flex')
-      renderCaptcha()
-    })
-  } else {
-    assert(false, `unknown account type ${accountType}`)
   }
 
   if (loggedIn) {
@@ -511,6 +536,12 @@ function handleWebSocket () {
       // Do the thing with the timeSkip
       activateTimeSkip(timeSkipName, minutes)
       saveSynergy()
+
+      sendToWebsocket(JSON.stringify({
+        type: 'confirm',
+        id: data.id,
+        consumableId: data.consumableName
+      }))
 
       setTimeout(() => updatePseudoCoins(), 4000)
     }

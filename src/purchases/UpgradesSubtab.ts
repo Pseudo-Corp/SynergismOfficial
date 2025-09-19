@@ -52,56 +52,53 @@ const buyUpgradeSchema = z.object({
   level: z.number()
 })
 
-function setActiveUpgrade (upgrade: UpgradesList | undefined) {
+function setActiveUpgrade (upgrade: UpgradesList) {
   activeUpgrade = upgrade
 
-  const name = i18next.t(`pseudoCoins.upgradeNames.${upgrade?.internalName}`)
+  const name = i18next.t(`pseudoCoins.upgradeNames.${upgrade.internalName}`)
 
   DOMCacheGetOrSet('pCoinUpgradeName').textContent = `${name ?? '???'}`
-  DOMCacheGetOrSet('description').textContent = `${upgrade?.description ?? '???'}`
+  DOMCacheGetOrSet('description').textContent = `${upgrade.description ?? '???'}`
   DOMCacheGetOrSet('pCoinUpgradeIcon').setAttribute(
     'src',
-    `Pictures/PseudoShop/${upgrade?.internalName ?? 'PseudoCoins'}.png`
+    `Pictures/PseudoShop/${upgrade.internalName ?? 'PseudoCoins'}.png`
   )
 
   const levelCostMap: { [level: number]: number } = {}
-  upgrade?.level.forEach((level, index) => {
+  upgrade.level.forEach((level, index) => {
     levelCostMap[level] = upgrade.cost[index]
   })
 
-  const buy = DOMCacheGetOrSet('buy')
+  const buy = DOMCacheGetOrSet('buy')!
   const currEffect = DOMCacheGetOrSet('pCoinEffectCurr')
   const nextEffect = DOMCacheGetOrSet('pCoinEffectNext')
 
   currEffect.innerHTML = `${i18next.t('pseudoCoins.currEffect')} ${
-    i18next.t(displayPCoinEffect(upgrade!.internalName, upgrade!.playerLevel))
+    i18next.t(displayPCoinEffect(upgrade.internalName, upgrade.playerLevel))
   }`
   nextEffect.innerHTML = `${i18next.t('pseudoCoins.nextEffect')} ${
-    i18next.t(displayPCoinEffect(upgrade!.internalName, upgrade!.playerLevel + 1))
+    i18next.t(displayPCoinEffect(upgrade.internalName, upgrade.playerLevel + 1))
   }`
 
   const costs = DOMCacheGetOrSet('pCoinScalingCosts')
   const effects = DOMCacheGetOrSet('pCoinScalingEffect')
 
-  if (upgrade && upgrade.playerLevel === upgrade.maxLevel) {
-    buy?.setAttribute('disabled', '')
-    buy!.setAttribute('style', 'display: none')
+  if (upgrade.playerLevel === upgrade.maxLevel) {
+    buy.setAttribute('disabled', '')
+    buy.setAttribute('style', 'display: none')
     nextEffect.setAttribute('style', 'display: none')
   } else {
-    buy?.removeAttribute('disabled')
-    buy!.removeAttribute('style')
+    buy.removeAttribute('disabled')
+    buy.removeAttribute('style')
     nextEffect.removeAttribute('style')
-    buy!.innerHTML = upgrade
-      ? `${
-        i18next.t('pseudoCoins.buyButton', {
-          amount: Intl.NumberFormat().format(levelCostMap[upgrade.playerLevel + 1])
-        })
-      }`
-      : 'Cannot buy. Sorry!'
-    const info = showCostAndEffect(upgrade!.internalName)
-    costs.innerHTML = info.cost
-    effects.innerHTML = info.effect
+    buy.innerHTML = i18next.t('pseudoCoins.buyButton', {
+      amount: Intl.NumberFormat().format(levelCostMap[upgrade.playerLevel + 1])
+    })
   }
+
+  const info = showCostAndEffect(upgrade.internalName)
+  costs.textContent = info.cost
+  effects.textContent = info.effect
 }
 
 async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
@@ -183,7 +180,10 @@ const initializeUpgradeSubtab = memoize(() => {
         return
       }
 
-      setActiveUpgrade([...grouped.values()].find((u) => u.upgradeId === upgradeId))
+      const upgrade = [...grouped.values()].find((u) => u.upgradeId === upgradeId)
+      if (upgrade) {
+        setActiveUpgrade(upgrade)
+      }
 
       // Setting an active class here turns the border white due to a CSS rule
       upgradesInGrid.forEach((u) => u.classList.remove('active'))

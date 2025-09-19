@@ -349,11 +349,20 @@ export const importData = async (
 
 export const importSynergism = (input: string | null, reset = false) => {
   if (typeof input !== 'string') {
-    return Alert(i18next.t('importexport.unableImport'))
+    Alert(i18next.t('importexport.unableImport'))
+    return
   }
 
   const d = LZString.decompressFromBase64(input)
-  const f = d ? (JSON.parse(d) as Player) : (JSON.parse(atob(input)) as Player)
+  let f: Record<string, unknown>
+
+  try {
+    f = d ? JSON.parse(d) : JSON.parse(atob(input))
+  } catch (e) {
+    console.error(e)
+    Alert(i18next.t('importexport.unableImport'))
+    return
+  }
 
   if (
     f.exporttest === 'YES!'
@@ -364,7 +373,8 @@ export const importSynergism = (input: string | null, reset = false) => {
     const saveString = btoa(JSON.stringify(f))
 
     if (saveString === null) {
-      return Alert(i18next.t('importexport.unableImport'))
+      Alert(i18next.t('importexport.unableImport'))
+      return
     }
 
     localStorage.setItem('Synergysave2', saveString)
@@ -372,7 +382,8 @@ export const importSynergism = (input: string | null, reset = false) => {
     reloadShit(reset)
     return
   } else {
-    return Alert(i18next.t('importexport.loadTestInLive'))
+    Alert(i18next.t('importexport.loadTestInLive'))
+    return
   }
 }
 
