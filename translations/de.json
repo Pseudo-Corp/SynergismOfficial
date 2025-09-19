@@ -1997,8 +1997,7 @@
     },
     "toString": {
       "noMinimum": "Keine minimale Menge an Singularitäten zum Kaufen erforderlich",
-      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks.",
-      "spentQuarks": "Spent Quarks: {{amount}}"
+      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks."
     },
     "data": {
       "goldenQuarks1": {

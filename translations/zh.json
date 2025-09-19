@@ -1997,8 +1997,7 @@
     },
     "toString": {
       "noMinimum": "无进入奇点次数要求",
-      "costNextLevel": "下一级的花费：{{amount}}金夸克。",
-      "spentQuarks": "已花费金夸克数量：{{amount}}"
+      "costNextLevel": "下一级的花费：{{amount}}金夸克。"
     },
     "data": {
       "goldenQuarks1": {
