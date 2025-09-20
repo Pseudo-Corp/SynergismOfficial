@@ -99,7 +99,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
   wowCubes: {
     name: () => i18next.t('achievements.levelRewards.wowCubes.name'),
     description: () => i18next.t('achievements.levelRewards.wowCubes.description'),
-    effect: (lv: number) => (1 + (lv - 69) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 7),
+    effect: (lv: number) => (1 + (lv - 60) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 6),
     effectDescription: () => {
       const multiplier = getLevelReward('wowCubes')
       return i18next.t('achievements.levelRewards.wowCubes.effect', {
@@ -113,7 +113,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
   wowTesseracts: {
     name: () => i18next.t('achievements.levelRewards.wowTesseracts.name'),
     description: () => i18next.t('achievements.levelRewards.wowTesseracts.description'),
-    effect: (lv: number) => (1 + (lv - 89) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 9),
+    effect: (lv: number) => (1 + (lv - 80) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 8),
     effectDescription: () => {
       const multiplier = getLevelReward('wowTesseracts')
       return i18next.t('achievements.levelRewards.wowTesseracts.effect', {
@@ -127,7 +127,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
   wowHyperCubes: {
     name: () => i18next.t('achievements.levelRewards.wowHyperCubes.name'),
     description: () => i18next.t('achievements.levelRewards.wowHyperCubes.description'),
-    effect: (lv: number) => (1 + (lv - 109) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 11),
+    effect: (lv: number) => (1 + (lv - 100) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 10),
     effectDescription: () => {
       const multiplier = getLevelReward('wowHyperCubes')
       return i18next.t('achievements.levelRewards.wowHyperCubes.effect', {
@@ -141,7 +141,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
   wowPlatonicCubes: {
     name: () => i18next.t('achievements.levelRewards.wowPlatonicCubes.name'),
     description: () => i18next.t('achievements.levelRewards.wowPlatonicCubes.description'),
-    effect: (lv: number) => (1 + (lv - 139) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 14),
+    effect: (lv: number) => (1 + (lv - 120) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 12),
     effectDescription: () => {
       const multiplier = getLevelReward('wowPlatonicCubes')
       return i18next.t('achievements.levelRewards.wowPlatonicCubes.effect', {
@@ -155,7 +155,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
   wowHepteractCubes: {
     name: () => i18next.t('achievements.levelRewards.wowHepteractCubes.name'),
     description: () => i18next.t('achievements.levelRewards.wowHepteractCubes.description'),
-    effect: (lv: number) => (1 + (lv - 169) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 17),
+    effect: (lv: number) => (1 + (lv - 150) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 15),
     effectDescription: () => {
       const multiplier = getLevelReward('wowHepteractCubes')
       return i18next.t('achievements.levelRewards.wowHepteractCubes.effect', {

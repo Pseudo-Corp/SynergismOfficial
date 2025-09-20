@@ -363,17 +363,17 @@ export class CampaignManager {
 
   get tutorialBonus (): TutorialBonus {
     return {
-      cubeBonus: 1 + 0.05 * +(campaignTokens > 0),
-      obtainiumBonus: 1 + 0.1 * +(campaignTokens > 0),
-      offeringBonus: 1 + 0.1 * +(campaignTokens > 0)
+      cubeBonus: 1 + 0.25 * +(campaignTokens > 0),
+      obtainiumBonus: 1 + 0.2 * +(campaignTokens > 0),
+      offeringBonus: 1 + 0.2 * +(campaignTokens > 0)
     }
   }
 
   get cubeBonus () {
     return 1
-      + 0.1 * 1 / 25 * Math.min(campaignTokens, 25)
-      + 0.4 * (1 - Math.exp(-Math.max(campaignTokens - 25, 0) / 500))
-      + 0.5 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 5000))
+      + 0.4 * 1 / 25 * Math.min(campaignTokens, 25)
+      + 0.6 * (1 - Math.exp(-Math.max(campaignTokens - 25, 0) / 500))
+      + 1 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 5000))
   }
 
   get obtainiumBonus () {
@@ -443,13 +443,13 @@ export class CampaignManager {
   }
 
   get bonusRune6 () {
-    const thresholdReqs = [500, 2000, 5000, 1000]
+    const thresholdReqs = [500, 750, 1000, 1250, 1500, 1750, 2000, 3000, 4000, 6000, 8000, 10000]
     for (let i = 0; i < thresholdReqs.length; i++) {
       if (campaignTokens < thresholdReqs[i]) {
         return i
       }
     }
-    return 4
+    return 12
   }
 
   get goldenQuarkBonus () {
