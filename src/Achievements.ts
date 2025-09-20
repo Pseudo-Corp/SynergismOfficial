@@ -111,14 +111,14 @@ export const buildingAchievementCheck = () => {
   awardAchievementGroup('fifthOwnedCoin')
 }
 
-export const getAchievementQuarks = (i: number) => {
+export const getAchievementQuarks = () => {
   const globalQuarkMultiplier = player.worlds.applyBonus(1)
   let actualMultiplier = globalQuarkMultiplier
   if (actualMultiplier > 100) {
     actualMultiplier = Math.pow(100, 0.6) * Math.pow(actualMultiplier, 0.4)
   }
 
-  return Math.floor(achievements[i].pointValue * actualMultiplier)
+  return Math.floor(5 * actualMultiplier)
 }
 
 /* June 9, 2025 Achievements System Rewrite */
@@ -3038,7 +3038,7 @@ export const awardAchievement = (index: number) => {
       const description = i18next.t(`achievements.descriptions.${index}`)
       void Notification(i18next.t('achievements.notification', { m: description }))
     }
-    player.worlds.add(getAchievementQuarks(index), false)
+    player.worlds.add(getAchievementQuarks(), false)
     revealStuff()
 
     // Update displays if we are on Achievements Tab
