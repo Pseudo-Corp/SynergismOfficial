@@ -2768,7 +2768,7 @@
                 "duplication": "Bonus Duplication Rune Levels: {{x}}",
                 "prism": "Bonus Prism Rune Levels: {{x}}",
                 "thrift": "Bonus Thrift Rune Levels: {{x}}",
-                "SI": "Bonus SI Rune Levels: {{x}}"
+                "superiorIntellect": "Bonus SI Rune Levels: {{x}}"
             },
             "mythicEffects": {
                 "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
@@ -2788,25 +2788,11 @@
             "allIncreaseLevel": "",
             "blessingLevel": "",
             "blessingPower": "",
-            "rewards": {
-                "0": "",
-                "1": "",
-                "2": "",
-                "3": "",
-                "4": ""
-            },
             "increaseLevel": ""
         },
         "spirits": {
             "spiritLevel": "",
             "spiritPower": "",
-            "rewards": {
-                "0": "",
-                "1": "",
-                "2": "",
-                "3": "",
-                "4": ""
-            },
             "buyUpTo": ""
         },
         "perOfferingText": "",

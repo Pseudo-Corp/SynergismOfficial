@@ -289,6 +289,28 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--alert-color);
 }
 
+#modal {
+    position: fixed;
+    display: none;
+    z-index: 6969;
+    width: 33%;
+    overflow: hidden;
+    border: 2px solid gold;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: min(1em, 24px);
+    color: white;
+    background-color: var(--alert-color);
+}
+
+#modalContent {
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
 .slide-in {
     animation: slide-in 1000ms;
     animation-fill-mode: forwards;
@@ -778,9 +800,9 @@ p#buildinghotkeys2 {
 
 #upgradesFlex > section > table {
     font-size: 0;
-    min-height: 182px;
     text-align: center;
     border-collapse: collapse;
+    margin: 3px;
 }
 
 #upgradesFlex > section > table td {
@@ -1019,6 +1041,19 @@ p#promocodeinfo {
     font-size: min(1em, 20px);
 }
 
+#coinInformation {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+#coinVanity {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
 .buttonRow > div {
     display: flex;
     justify-content: flex-start;
@@ -1110,6 +1145,46 @@ p#promocodeinfo {
     justify-content: center;
 }
 
+#tieredAchievementsTable {
+    display: grid;
+    grid-template-columns: repeat(8, 48px);
+    grid-template-rows: repeat(5, 48px);
+    gap: 2px 2px;
+}
+
+#tieredAchievementsTable > div {
+    width: 48px;
+    height: 48px;
+}
+
+#ungroupedAchievementsTable {
+    display: grid;
+    grid-template-columns: repeat(12, 32px);
+    grid-template-rows: repeat(5, 32px);
+    gap: 2px 2px;
+}
+
+#ungroupedAchievementsTable > div {
+    width: 32px;
+    height: 32px;
+}
+
+#progressiveAchievementsTable {
+    display: grid;
+    grid-template-columns: repeat(8, 48px);
+    grid-template-rows: repeat(5, 48px);
+    gap: 2px 2px;
+}
+
+#progressiveAchievementsTable > div {
+    width: 48px;
+    height: 48px;
+}
+
+#achievementMultiline {
+    white-space: pre-line;
+}
+
 #achievementstable {
     font-size: 0;
     border-collapse: collapse;
@@ -1117,6 +1192,23 @@ p#promocodeinfo {
 
 #achievementstable [id^="ach"] > img {
     image-rendering: unset;
+}
+
+#achievementHeader {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 10px;
+}
+
+#achievementHeader > p {
+    margin: 4px 0;
+    font-size: 1.2em;
+}
+
+#achievementTNLText {
+    margin: 0;
 }
 
 .NotificationToggle {
@@ -1127,7 +1219,7 @@ p#promocodeinfo {
 }
 
 .NotificationToggle > p {
-    margin: 15px 0;
+    margin: 2px 0;
 }
 
 .achNotification {
@@ -1152,22 +1244,120 @@ p#promocodeinfo {
     margin-top: 10px;
 }
 
-#buyamountoffering {
+.tieredAchievementType > img,
+.progressiveAchievementType > img,
+.synergismLevelRewardType > img {
+    width: 48px;
+    height: 48px;
+}
+
+.ungroupedAchievementType > img,
+.synergismLevelMilestoneType > img {
+    width: 32px;
+    height: 32px;
+}
+
+.tieredAchievementType img.dimmed,
+.ungroupedAchievementType img.dimmed,
+.progressiveAchievementType img.dimmed {
+    opacity: 0.3;
+}
+
+.achievement-ap-overlay {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1em;
+    text-shadow: 2px 2px 4px #000;
+    z-index: 999;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0.8;
+}
+
+.achievement-fraction-numerator {
+    border-bottom: 1px solid white;
+    padding-bottom: 1px;
+    min-width: 1em;
+    text-align: center;
+}
+
+.achievement-fraction-denominator {
+    padding-top: 1px;
+    min-width: 1em;
+    text-align: center;
+}
+
+.tieredAchievementType,
+.ungroupedAchievementType,
+.progressiveAchievementType {
+    position: relative;
+    display: inline-block;
+}
+
+.relative-container {
+    position: relative;
+    display: inline-block;
+}
+
+.achievement-ap-overlay.gold-text {
+    color: gold;
+}
+
+#showAchievementProgress {
+    width: 48px;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid orange;
+}
+
+#achievementContainer1,
+#achievementContainer2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+#synergismLevelRewardsTable {
+    display: grid;
+    grid-template-columns: repeat(12, 48px);
+    grid-template-rows: repeat(1, 48px);
+    gap: 2px 2px;
+    align-items: center;
+    justify-content: center;
+}
+
+#synergismLevelRewardsTable > div {
+    width: 48px;
+    height: 48px;
+}
+
+#synergismLevelMilestonesTable {
+    display: grid;
+    grid-template-columns: repeat(12, 32px);
+    grid-template-rows: repeat(4, 32px);
+    gap: 2px 2px;
+    align-items: center;
+    justify-content: center;
+}
+
+#synergismLevelMilestonesTable > div {
+    width: 32px;
+    height: 32px;
+}
+
+#buyamountoffering {
     left: calc(50% + 350px);
     top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 1;
-}
-
-.talismansCenter {
-    display: flex;
-    width: 70%;
-    flex-direction: column;
-    padding: 0 10px;
-    max-width: 900px;
 }
 
 .talismansModify {
@@ -1179,27 +1369,6 @@ p#promocodeinfo {
 
 .talismansModify p {
     margin: 0;
-}
-
-#talismanSummary,
-#talismanLevelUpSummary,
-#talismanRespecSummary {
-    margin-bottom: 10px;
-}
-
-.talismanBuyAmountContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 30%;
-    margin-top: 23px;
-}
-
-#buyamounttalisman {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
 }
 
 #buyamountcoin,
@@ -1281,6 +1450,14 @@ p#prestigehotkeys {
     padding: 0;
 }
 
+#runesHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
 #runeContainer1,
 #runeContainer3,
 #runeContainer4 {
@@ -1290,12 +1467,8 @@ p#prestigehotkeys {
     position: relative;
 }
 
-#runeContainer2 {
-    margin-top: 20px;
-    justify-content: center;
-}
-
-#runesToggle {
+#runesToggle,
+#achievementsToggle {
     display: flex;
     justify-content: center;
     flex-flow: wrap;
@@ -1308,7 +1481,8 @@ p#prestigehotkeys {
     width: 20px;
 }
 
-#runesToggle > button {
+#runesToggle > button,
+#achievementsToggle > button {
     min-width: 100px;
     text-align: center;
 }
@@ -1326,24 +1500,33 @@ p#prestigehotkeys {
     margin: 0;
 }
 
-#runeDetails {
+#runeDetails,
+#runeBlessings,
+#runeSpirits {
     display: flex;
-    width: 100%;
-    max-width: calc(min(70em, 1600px));
-    min-width: 1200px;
-    flex-direction: row;
+    position: relative;
     justify-content: center;
-    height: auto;
-    margin: 10px 0;
+    flex-wrap: wrap;
+    width: 66%;
 }
 
 .runeType {
-    min-width: 14%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    width: 180px;
     align-items: center;
-    font-size: min(1em, 20px);
+    white-space: nowrap;
+    padding: 2px;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.runeType:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 15px var(--glow-color),
+        0 0 30px var(--glow-color),
+        0 0 45px var(--glow-color);
+    background-color: var(--box-color);
 }
 
 .runeType > button {
@@ -1381,32 +1564,96 @@ img.runeTypeElement:hover {
     background-color: var(--purplehover-color);
 }
 
-#toggleautofortify,
-#toggleautoenhance {
+.runeTypeLocked {
+    opacity: 0.5;
+}
+
+.runeImageLocked {
+    filter: grayscale(50%);
+}
+
+#runeContainer2 {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    position: relative;
+}
+
+.talismansCenter {
+    grid-area: 1 / 2 / 4 / 8;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.talismanShardSection {
+    grid-area: 1 / 1 / 4 / 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.talismanToggles {
+    grid-area: 1 / 8 / 4 / 9;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.talismanSettingsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    align-items: center;
+}
+
+#rarityInfoTexts {
+    display: none;
+    width: 75%;
+    align-items: center;
+}
+
+.rarityReqNum {
+    float: right;
+}
+
+#toggleautofortify {
     min-width: 125px;
     border: 2px solid red;
 }
 
 #talismanFragmentCost {
-    width: 15em;
-    max-width: 250px;
+    width: 20em;
     text-align: center;
-    margin: 0 -30px 0 0;
 }
 
-.talismanShardsContainer {
+.talismanShardContainers {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    width: 30%;
-    margin-top: 23px;
-    z-index: 1;
+    width: 60%;
+    align-items: center;
+}
+
+.talismanShardHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.talismanShardHeader > button {
+    width: 100px;
+    margin: 2px;
 }
 
 .talismanShardContainer {
     display: flex;
     align-items: center;
-    margin-bottom: 12px;
+    padding: 5px;
 }
 
 .talismanShardIcon {
@@ -1417,7 +1664,7 @@ img.runeTypeElement:hover {
     width: 5em;
     min-width: 70px;
     margin-left: 4px;
-    font-size: 0.9em;
+    font-size: 1em;
 }
 
 .fragmentBtn {
@@ -1436,19 +1683,6 @@ img.runeTypeElement:hover {
     min-width: 80px;
 }
 
-#buyTalismanAll {
-    width: 5em;
-    min-width: 80px;
-    color: orange;
-}
-
-#toggleautoBuyFragments {
-    width: 7em;
-    min-width: 94px;
-    margin-right: 10px;
-    color: orange;
-}
-
 .talisminBtnAvailable {
     background-color: var(--purplebtn-color);
     cursor: pointer;
@@ -1461,24 +1695,32 @@ img.runeTypeElement:hover {
 .talismansContainer {
     display: flex;
     position: relative;
-    justify-content: space-around;
-    padding: 0 10px;
-    max-width: 900px;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .talismanContainer {
     flex-direction: column;
-    min-width: 11%;
-    min-width: 102px;
+    width: 80px;
     align-items: center;
     white-space: nowrap;
-    font-size: min(1em, 20px);
+    padding: 2px;
 }
 
 .talismanIcon {
+    height: 64px;
     width: 64px;
-    border: 4px solid white;
     cursor: pointer;
+}
+
+.talismanIcon > img {
+    position: relative;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    object-fit: none;
+    background-color: var(--bg-color);
+    border-radius: 3px;
 }
 
 .talismanLevel {
@@ -1486,27 +1728,17 @@ img.runeTypeElement:hover {
     margin-bottom: 3px;
 }
 
-#respecAllTalismans {
-    position: absolute;
-    width: 7em;
-    max-width: 140px;
-    color: plum;
-    border: 2px solid white;
-    left: 135px;
-    top: 70px;
-    transform: translate(-100%);
-}
-
 #talismanEffect,
-#talismanlevelup,
-#talismanrespec {
-    margin-top: 40px;
+#talismanLevelUpCost {
+    margin-top: 10px;
     text-align: center;
 }
 
 #talismanlevelup {
-    align-self: flex-start;
-    margin-left: 150px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #talismanlevelup table {
@@ -1516,24 +1748,6 @@ img.runeTypeElement:hover {
 #talismanlevelup table p {
     font-size: initial;
     width: 5em;
-}
-
-#talismanrespec > div {
-    display: flex;
-    flex-direction: column;
-    transform: translate(25%);
-    margin-top: 10px;
-}
-
-#talismanrespec > div > div {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
-
-.talismanRespecBtn {
-    width: 200px;
-    text-align: center;
 }
 
 #transcension {
@@ -1825,6 +2039,14 @@ p#reincarnatehotkeys {
 #research {
     position: relative;
     padding: 0;
+}
+
+.researchUnlocked {
+    display: block;
+}
+
+.researchLocked {
+    display: none;
 }
 
 .researchContainer {
@@ -2316,9 +2538,33 @@ p[id$="BlessingsTotal"] {
 }
 
 #cubeBlessingsTotal { color: orange; }
+
 #tesseractBlessingsTotal { color: var(--orchid-text-color); }
+
 #hypercubeBlessingsTotal { color: rgb(255 0 76); }
-#platonicBlessingsTotal { color: orange; }
+
+#platonicBlessingsTotal {
+    color: orange;
+    margin: 0;
+}
+
+#platonicFooter,
+#cubeFooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#platonicFooter p,
+#cubeFooter p {
+    margin: 0;
+}
+
+#platonicAsterisk {
+    font-size: 0.75em;
+}
 
 #cubesWrapper {
     display: flex;
@@ -2829,14 +3075,6 @@ p#ascendHotKeys {
     min-height: 50px;
 }
 
-.runeBlessingRow {
-    display: flex;
-    width: 1200px;
-    align-items: center;
-    gap: 4px 15px;
-    margin-bottom: 10px;
-}
-
 .runeIcons {
     height: 64px;
     width: 64px;
@@ -2938,7 +3176,9 @@ p#ascendHotKeys {
 }
 
 /* Credit: gwabo_ */
-.campaignIcon:not(.green-background) {
+.campaignIcon:not(.green-background),
+.tieredAchievementType img:not(.green-background),
+.progressiveAchievementType img:not(.green-background) {
     --pct: 0;
 
     background-image:
@@ -3745,6 +3985,11 @@ header #obtainiumDisplay { color: pink; }
     gap: 4px;
 }
 
+.blueberryUpgradeTier > div {
+    width: 32px;
+    height: 32px;
+}
+
 .singularityUpgrade,
 .octeractUpgrade,
 .singularityChallenge {
@@ -3815,6 +4060,24 @@ header #obtainiumDisplay { color: pink; }
 
 @keyframes rotaterainbow {
     to { transform: rotate(360deg); }
+}
+
+.rainbowText {
+    color: transparent;
+    background-image: linear-gradient(90deg, #ca001f, #ffb17f, #fff200, #22b14c, #767dda, #a349a4, #ca001f, #ffb17f);
+    background-clip: text;
+    background-size: 700%;
+    animation: rainbow-animation 5s linear infinite;
+}
+
+@keyframes rainbow-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
 }
 
 .singularityUpgrade > img,
@@ -3895,7 +4158,7 @@ img#singularityPerksIcon {
     width: 100%;
 }
 
-#testingMultiline,
+#goldenQuarkMultiline,
 #singularityOcteractsMultiline,
 #singularityAmbrosiaMultiline {
     white-space: pre-line;
@@ -4097,14 +4360,15 @@ img#singularityPerksIcon {
     border: 2px solid gold;
 }
 
-.notInLoadout {
-    visibility: hidden;
-}
-
 /* Style for dimmed image */
 .blueberryUpgrade img.dimmed,
 .redAmbrosiaUpgrade img.dimmed {
-    opacity: 0.5; /* Adjust the opacity to control the dimming effect */
+    opacity: 0.3;
+}
+
+.blueberryUpgrade img.superDimmed,
+.redAmbrosiaUpgrade img.superDimmed {
+    opacity: 0; /* if not bought, fully dim */
 }
 
 /* Style for level display */
@@ -4114,9 +4378,14 @@ img#singularityPerksIcon {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1em; /* Adjust font size as needed */
-    text-shadow: 2px 2px 4px #000; /* Add a text shadow for better readability */
-    z-index: 999; /* Ensure the text is on top of the image */
+    font-size: 1.2em;
+    text-shadow: 2px 2px 4px #000;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0.8;
+    background-color: black;
 }
 
 /* Style for relative positioning */
@@ -4181,20 +4450,20 @@ img#singularityPerksIcon {
 
 /* // Stolen from https://codepen.io/mike-schultz/pen/NgQvGO */
 
-#accountSubTab > div.scrollbarX > div[id="button-holder"] {
+#accountSubTab div#left.scrollbarX > div[id="button-holder"] {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-#accountSubTab > div.scrollbarX > div[id="button-holder"] > button {
+#accountSubTab div#left.scrollbarX > div[id="button-holder"] > button {
     border: 2px solid red;
     min-width: 150px;
     min-height: 30px;
     margin: 2px;
 }
 
-#accountSubTab > div.scrollbarX > div:is(#register, #login, #forgotpassword) {
+#accountSubTab div#left.scrollbarX > div:is(#register, #login, #forgotpassword) {
     display: flex;
     flex-direction: column;
     border: 1px solid gold;
@@ -4202,23 +4471,204 @@ img#singularityPerksIcon {
     margin: 0 auto;
 }
 
-#accountSubTab > div.scrollbarX > div:is(#login, #forgotpassword) {
+#accountSubTab div#left.scrollbarX > div:is(#login, #forgotpassword) {
     display: none;
 }
 
 /** Remove vertical spacing */
-#accountSubTab > div.scrollbarX > div > form {
+#accountSubTab div#left.scrollbarX > div > form {
     font-size: 0;
 }
 
-#accountSubTab > div.scrollbarX > div > form > * {
+#accountSubTab div#left.scrollbarX > div > form > * {
     font-size: medium;
     margin: 2px 10px;
 }
 
-#accountSubTab > div.scrollbarX > div > form > input[type="submit"] {
+#accountSubTab div#left.scrollbarX > div > form > input[type="submit"] {
     border: 1px solid gold;
     padding: 3px 5px;
+}
+
+.splitContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.splitContainer > .scrollbarX {
+    width: 50%;
+}
+
+#accountSubTab div#right.scrollbarX > #buttons {
+    display: flex;
+    justify-content: center;
+}
+
+#accountSubTab div#right.scrollbarX #upload,
+#accountSubTab div#right.scrollbarX #transfer {
+    min-width: 100px;
+    min-height: 30px;
+    border: 2px solid purple;
+    margin: 2px;
+}
+
+#accountSubTab div#right.scrollbarX #transfer {
+    border: 2px solid pink;
+}
+
+.spinner {
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    transform: translateY(-1px); /* Fine-tune this value */
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% { transform: translateY(-1px) rotate(0deg); }
+    100% { transform: translateY(-1px) rotate(360deg); }
+}
+
+#accountSubTab div#right.scrollbarX > #table {
+    white-space: nowrap;
+}
+
+#accountSubTab div#right.scrollbarX > #table > .grid-table {
+    display: grid;
+    grid-template-columns: 80px 0.5fr 0.5fr;
+    width: 99%;
+    justify-content: center;
+}
+
+#accountSubTab div#right.scrollbarX > #table > .grid-table > * {
+    display: flex;
+    align-items: center;
+    padding: 16px 0;
+}
+
+#accountSubTab div#right.scrollbarX > #table > .grid-table > .grid-header {
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid white;
+    padding-bottom: 5px;
+    padding-top: 0;
+}
+
+#accountSubTab div#right.scrollbarX > #table > .grid-table .grid-cell {
+    text-align: left;
+    padding: 5px;
+}
+
+#accountSubTab div#right.scrollbarX > #table > .grid-table .grid-cell.alt-row {
+    background: var(--history-lines);
+}
+
+#accountSubTab div#right.scrollbarX > #table > .grid-table .name-cell {
+    font-weight: 500;
+}
+
+#accountSubTab div#right.scrollbarX > #table > .grid-table .date-cell {
+    font-size: 14px;
+}
+
+#accountSubTab div#right.scrollbarX > #table > .grid-table .grid-details-row {
+    background: var(--alert-color);
+    border-left: 3px solid #007bff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Details content container */
+.details-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* Details actions section */
+.details-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.details-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.details-actions .btn-download {
+    background: var(--success-color, #28a745);
+    color: white;
+}
+
+.details-actions .btn-download:hover {
+    background: var(--success-hover, #218838);
+}
+
+.details-actions .btn-load {
+    background: var(--primary-color, #007bff);
+    color: white;
+}
+
+.details-actions .btn-load:hover {
+    background: var(--primary-hover, #0056b3);
+}
+
+.details-actions .btn-delete {
+    background: var(--danger-color, #dc3545);
+    color: white;
+}
+
+.details-actions .btn-delete:hover {
+    background: var(--danger-hover, #c82333);
+}
+
+/* Add hover effect to main rows to indicate they're clickable */
+#accountSubTab div#right.scrollbarX > #table > .grid-table .grid-row:hover .grid-cell {
+    background: var(--hover-color, rgb(0 123 255 / 10%));
+}
+
+/* Smooth animation for expanding rows */
+.grid-details-row {
+    animation: slide-down 0.2s ease-out;
+}
+
+@keyframes slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .details-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .details-actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
 }
 
 #pixelProgressBar {
@@ -5068,6 +5518,15 @@ html[data-golden-quark3-upg="true"] .goldenQuark3Upg {
 
 html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     display: none;
+}
+
+.modalBtnBuy {
+    width: 60px;
+    height: 30px;
+    background-color: var(--button-color);
+    border: 2px solid gold;
+    margin: 5px auto;
+    text-align: center;
 }
 
 #patchnotes {
