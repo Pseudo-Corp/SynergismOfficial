@@ -2718,8 +2718,6 @@ export const maxAchievementPoints = Object.values(achievements).reduce((sum, ach
   + Object.values(progressiveAchievements)
     .reduce((sum, ach) => sum + (ach.maxPointValue !== -1 ? ach.maxPointValue : 0), 0)
 
-console.log('max achievement points, ', maxAchievementPoints)
-
 export const achievementsByGroup: Record<AchievementGroups, number[]> = achievements
   .reduce((groups, achievement, index) => {
     if (achievement.group) {

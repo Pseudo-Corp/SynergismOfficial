@@ -58,6 +58,7 @@ export type OcteractDataKeys =
 export interface OcteractUpgrade {
   level: number
   freeLevel: number
+  octeractsInvested: number
   maxLevel: number
   qualityOfLife: boolean
   costPerLevel: number
@@ -72,6 +73,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractStarter: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     maxLevel: 1,
     costPerLevel: 1e-15,
     qualityOfLife: false,
@@ -88,6 +90,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractGain: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     maxLevel: 1e8,
     costPerLevel: 1e-8,
     qualityOfLife: false,
@@ -107,6 +110,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractGain2: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(10, Math.pow(level, 0.5) / 3)
     },
@@ -126,6 +130,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractQuarkGain: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       if (level < 1000) {
         return baseCost * (Math.pow(level + 1, 7) - Math.pow(level, 7))
@@ -152,6 +157,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractQuarkGain2: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(1e20, level)
     },
@@ -168,6 +174,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractCorruption: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(10, level * 10)
     },
@@ -184,6 +191,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractGQCostReduce: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(2, level)
     },
@@ -200,6 +208,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractExportQuarks: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(level + 1, 3)
     },
@@ -217,6 +226,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractImprovedDaily: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(1.6, level)
     },
@@ -233,6 +243,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractImprovedDaily2: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(2, level)
     },
@@ -252,6 +263,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractImprovedDaily3: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(20, level)
     },
@@ -269,6 +281,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractImprovedQuarkHept: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(1e3, level)
     },
@@ -288,6 +301,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractImprovedGlobalSpeed: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(level + 1, 3)
     },
@@ -305,6 +319,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractImprovedAscensionSpeed: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(1e9, level / 100)
     },
@@ -322,6 +337,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractImprovedAscensionSpeed2: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(1e12, level / 250)
     },
@@ -339,6 +355,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractImprovedFree: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(level + 1, 3)
     },
@@ -356,6 +373,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractImprovedFree2: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(level + 1, 3)
     },
@@ -373,6 +391,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractImprovedFree3: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(level + 1, 3)
     },
@@ -390,6 +409,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractImprovedFree4: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(1e20, level / 40)
     },
@@ -409,6 +429,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractSingUpgradeCap: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(1e3, level)
     },
@@ -425,6 +446,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractOfferings1: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       if (level < 25) {
         return baseCost * Math.pow(level + 1, 5)
@@ -448,6 +470,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractObtainium1: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       if (level < 25) {
         return baseCost * Math.pow(level + 1, 5)
@@ -471,6 +494,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAscensions: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(level + 1, 3)
     },
@@ -492,6 +516,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAscensions2: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(10, Math.pow(level, 0.5) / 3)
     },
@@ -513,6 +538,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAscensionsOcteractGain: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(40, level)
     },
@@ -530,6 +556,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractFastForward: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(1e8, level)
     },
@@ -546,6 +573,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAutoPotionSpeed: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(10, level)
     },
@@ -562,6 +590,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAutoPotionEfficiency: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(10, level)
     },
@@ -578,6 +607,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractOneMindImprover: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       const fasterMult = (level >= 10) ? (Math.pow(1e3, level - 10)) : 1
       return baseCost * Math.pow(1e5, level) * fasterMult
@@ -598,6 +628,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAmbrosiaLuck: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       const useLevel = level + 1
       return baseCost * (Math.pow(10, useLevel) - Math.pow(10, useLevel - 1))
@@ -615,6 +646,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAmbrosiaLuck2: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
     },
@@ -631,6 +663,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAmbrosiaLuck3: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (Math.pow(level + 1, 8) - Math.pow(level, 8))
     },
@@ -647,6 +680,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAmbrosiaLuck4: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       const useLevel = level + 1
       return baseCost * (Math.pow(3, useLevel) - Math.pow(3, useLevel - 1))
@@ -664,6 +698,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAmbrosiaGeneration: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       const useLevel = level + 1
       return baseCost * (Math.pow(10, useLevel) - Math.pow(10, useLevel - 1))
@@ -681,6 +716,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAmbrosiaGeneration2: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
     },
@@ -697,6 +733,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAmbrosiaGeneration3: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (Math.pow(level + 1, 8) - Math.pow(level, 8))
     },
@@ -713,6 +750,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractAmbrosiaGeneration4: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       const useLevel = level + 1
       return baseCost * (Math.pow(3, useLevel) - Math.pow(3, useLevel - 1))
@@ -731,6 +769,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractBonusTokens1: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(1e2, level)
     },
@@ -747,6 +786,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractBonusTokens2: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(1e8, level)
     },
@@ -763,6 +803,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractBonusTokens3: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(1e10, level)
     },
@@ -779,6 +820,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractBonusTokens4: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(4, level)
     },
@@ -795,6 +837,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractBlueberries: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     maxLevel: 6,
     costPerLevel: 1,
     costFormula: (level: number, baseCost: number) => {
@@ -816,6 +859,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractInfiniteShopUpgrades: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     maxLevel: 80,
     costPerLevel: 1e30,
     costFormula: (level: number, baseCost: number) => {
@@ -832,6 +876,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractTalismanLevelCap1: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     maxLevel: 25,
     costPerLevel: 1e-5,
     costFormula: (level: number, baseCost: number) => {
@@ -848,6 +893,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractTalismanLevelCap2: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     maxLevel: 35,
     costPerLevel: 1e10,
     costFormula: (level: number, baseCost: number) => {
@@ -864,6 +910,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractTalismanLevelCap3: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     maxLevel: 40,
     costPerLevel: 1e20,
     costFormula: (level: number, baseCost: number) => {
@@ -880,6 +927,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
   octeractTalismanLevelCap4: {
     level: 0,
     freeLevel: 0,
+    octeractsInvested: 0,
     maxLevel: -1,
     costPerLevel: 1e40,
     costFormula: (level: number, baseCost: number) => {
@@ -902,16 +950,20 @@ export const maxOcteractUpgradeAP = Object.values(octeractUpgrades).reduce((acc,
   return acc + 8
 }, 0)
 
-export const blankOcteractLevelObject: Record<OcteractDataKeys, { level: number; freeLevel: number }> = Object
+export const blankOcteractLevelObject: Record<
+  OcteractDataKeys,
+  { level: number; freeLevel: number; octeractsInvested: number }
+> = Object
   .fromEntries(
     Object.keys(octeractUpgrades).map((key) => [
       key as OcteractDataKeys,
       {
         level: 0,
-        freeLevel: 0
+        freeLevel: 0,
+        octeractsInvested: 0
       }
     ])
-  ) as Record<OcteractDataKeys, { level: number; freeLevel: number }>
+  ) as Record<OcteractDataKeys, { level: number; freeLevel: number; octeractsInvested: number }>
 
 export const getOcteractUpgradeCostTNL = (upgradeKey: OcteractDataKeys): number => {
   const upgrade = octeractUpgrades[upgradeKey]
@@ -1016,15 +1068,25 @@ export const upgradeOcteractToString = (upgradeKey: OcteractDataKeys): string =>
 
   const costHTML = (upgrade.level === upgrade.maxLevel && upgrade.maxLevel !== -1)
     ? ''
-    : `${i18next.t('octeract.toString.costNextLevel')} ${
-      format(costNextLevel, 2, true, true, true)
-    } Octeracts${affordableInfo}`
+    : `${
+      i18next.t('octeract.toString.costNextLevel', {
+        amount: format(costNextLevel, 2, true, true, true)
+      })
+    } ${affordableInfo}`
+
+  const investedOcteractsHTML = upgrade.octeractsInvested > 0
+    ? `<br><span style="color: turquoise">${
+      i18next.t('octeract.toString.spentOcteracts', {
+        spent: format(upgrade.octeractsInvested, 2, true, true, true)
+      })
+    }</span>`
+    : ''
 
   const qualityOfLifeText = upgrade.qualityOfLife
     ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>`
     : ''
 
-  return `${nameHTML}<br>${levelHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${effectHTML}<br>${costHTML}${qualityOfLifeText}`
+  return `${nameHTML}<br>${levelHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${effectHTML}<br>${costHTML}${investedOcteractsHTML}${qualityOfLifeText}`
 }
 
 export const updateMobileOcteractHTML = (upgradeKey: OcteractDataKeys): void => {
@@ -1102,6 +1164,7 @@ export const buyOcteractUpgradeLevel = async (
       break
     } else {
       player.wowOcteracts -= cost
+      upgrade.octeractsInvested += cost
       OCTBudget -= cost
       upgrade.level += 1
       purchased += 1

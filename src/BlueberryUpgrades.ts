@@ -1152,13 +1152,6 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
     ? `<span style="color: pink"> [+${format(extraLevels, 0, true)}]</span>`
     : ''
 
-  const isAffordable = costNextLevel <= player.ambrosia
-  const affordableInfo = isMaxLevel
-    ? `<span style="color: plum"> ${i18next.t('general.maxed')}</span>`
-    : isAffordable
-    ? `<span style="color: var(--green-text-color)"> ${i18next.t('general.affordable')}</span>`
-    : `<span style="color: yellow"> ${i18next.t('octeract.buyLevel.cannotAfford')}</span>`
-
   let preReqText: string | undefined
 
   if (Object.keys(upgrade.prerequisites).length > 0) {
@@ -1184,15 +1177,17 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
   const preReqHTML = preReqText ? `${preReqText}<br>` : ''
   const descriptionHTML = `<span style="color: lightblue">${upgrade.description()}</span>`
   const effectsHTML = `<span style="color: gold">${effectsDescription}</span>`
-  const costNextLevelHTML = `${i18next.t('octeract.toString.costNextLevel')}: <span style="color:orange">${
-    format(costNextLevel, 0, true, true, true)
-  }</span> ${i18next.t('ambrosia.ambrosia')} ${affordableInfo}`
+  const costNextLevelHTML = `${
+    i18next.t('ambrosia.ambrosiaCost', {
+      amount: format(costNextLevel, 0, true)
+    })
+  }`
   const blueberryCostHTML = `${
     i18next.t('ambrosia.blueberryCost')
   } <span style="color:blue">${upgrade.blueberryCost}</span>`
   const spentAmbrosiaHTML = `${i18next.t('general.spent')} ${
     i18next.t('ambrosia.ambrosia')
-  }: <span style="color:orange">${format(upgrade.ambrosiaInvested, 0, true, true, true)}</span>`
+  }: <span style="color:orange">${format(upgrade.ambrosiaInvested, 0, true)}</span>`
   const ignoreEXALTHTML = upgrade.ignoreEXALT
     ? `<br><span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span>`
     : ''

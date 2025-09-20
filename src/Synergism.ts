@@ -1240,17 +1240,17 @@ export const saveSynergy = (button?: boolean) => {
     Object.keys(player.goldenQuarkUpgrades).map((key) => {
       const k = key as SingularityDataKeys
       const gqu = goldenQuarkUpgrades[k]
-      return [key, { level: gqu.level, freeLevel: gqu.freeLevel }]
+      return [key, { level: gqu.level, freeLevel: gqu.freeLevel, goldenQuarksInvested: gqu.goldenQuarksInvested }]
     })
-  ) as Record<SingularityDataKeys, { level: number; freeLevel: number }>
+  ) as Record<SingularityDataKeys, { level: number; freeLevel: number; goldenQuarksInvested: number }>
 
   player.octUpgrades = Object.fromEntries(
     Object.keys(player.octUpgrades).map((key) => {
       const k = key as OcteractDataKeys
       const ou = octeractUpgrades[k]
-      return [key, { level: ou.level, freeLevel: ou.freeLevel }]
+      return [key, { level: ou.level, freeLevel: ou.freeLevel, octeractsInvested: ou.octeractsInvested }]
     })
-  ) as Record<OcteractDataKeys, { level: number; freeLevel: number }>
+  ) as Record<OcteractDataKeys, { level: number; freeLevel: number; octeractsInvested: number }>
 
   player.ambrosiaUpgrades = Object.fromEntries(
     Object.keys(player.ambrosiaUpgrades).map((key) => {
@@ -5335,6 +5335,7 @@ export const reloadShit = (reset = false) => {
       const k = key as SingularityDataKeys
       goldenQuarkUpgrades[k].level = value.level
       goldenQuarkUpgrades[k].freeLevel = value.freeLevel
+      goldenQuarkUpgrades[k].goldenQuarksInvested = value.goldenQuarksInvested
     }
   }
 
@@ -5345,6 +5346,7 @@ export const reloadShit = (reset = false) => {
 
       octeractUpgrades[k].level = value.level
       octeractUpgrades[k].freeLevel = value.freeLevel
+      octeractUpgrades[k].octeractsInvested = value.octeractsInvested
     }
   }
 

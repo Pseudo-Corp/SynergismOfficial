@@ -121,7 +121,14 @@ const talismanFragmentSchema = z.object({
 
 const goldenQuarkUpgradeSchema = z.object({
   level: z.number().default(0),
-  freeLevel: z.number().default(0)
+  freeLevel: z.number().default(0),
+  goldenQuarksInvested: z.number().default(0)
+})
+
+const octeractUpgradeSchema = z.object({
+  level: z.number().default(0),
+  freeLevel: z.number().default(0),
+  octeractsInvested: z.number().default(0)
 })
 
 const ambrosiaUpgradeSchema = z.object({
@@ -778,20 +785,20 @@ export const playerSchema = z.object({
   goldenQuarkUpgrades: z.record(z.string(), goldenQuarkUpgradeSchema).transform((object) => {
     return Object.fromEntries(
       Object.keys(blankSave.goldenQuarkUpgrades).map((key) => {
-        const value = object[key] ?? { level: 0, freeLevel: 0 }
-        return value === null ? [key, { level: 0, freeLevel: 0 }] : [key, value]
+        const value = object[key] ?? { level: 0, freeLevel: 0, goldenQuarksInvested: 0 }
+        return value === null ? [key, { level: 0, freeLevel: 0, goldenQuarksInvested: 0 }] : [key, value]
       })
     )
   })
     .default(() => ({ ...blankSave.goldenQuarkUpgrades })),
 
-  octUpgrades: z.record(z.string(), goldenQuarkUpgradeSchema).transform((object) => {
+  octUpgrades: z.record(z.string(), octeractUpgradeSchema).transform((object) => {
     // We use the same goldenQuarkUpgradeSchema for multiple things. maybe it should be called
     // something different. Oh well... this can be changed later. -Plat
     return Object.fromEntries(
       Object.keys(blankSave.octUpgrades).map((key) => {
-        const value = object[key] ?? { level: 0, freeLevel: 0 }
-        return value === null ? [key, { level: 0, freeLevel: 0 }] : [key, value]
+        const value = object[key] ?? { level: 0, freeLevel: 0, octeractsInvested: 0 }
+        return value === null ? [key, { level: 0, freeLevel: 0, octeractsInvested: 0 }] : [key, value]
       })
     )
   })

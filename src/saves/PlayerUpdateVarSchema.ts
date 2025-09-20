@@ -145,13 +145,16 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
 
       const level = player.singularityUpgrades[k].level ?? 0
       const freeLevel = player.singularityUpgrades[k].freeLevels ?? 0
+      const goldenQuarksInvested = player.singularityUpgrades[k].goldenQuarksInvested ?? 0
 
       player.goldenQuarkUpgrades[k] = {
         level,
-        freeLevel
+        freeLevel,
+        goldenQuarksInvested
       }
       goldenQuarkUpgrades[k].level = level
       goldenQuarkUpgrades[k].freeLevel = freeLevel
+      goldenQuarkUpgrades[k].goldenQuarksInvested = goldenQuarksInvested
     }
   }
 
@@ -161,13 +164,16 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
 
       const level = player.octeractUpgrades[k].level ?? 0
       const freeLevel = player.octeractUpgrades[k].freeLevels ?? 0
+      const octeractsInvested = player.octeractUpgrades[k].octeractsInvested ?? 0
 
       player.octUpgrades[k] = {
         level,
-        freeLevel
+        freeLevel,
+        octeractsInvested
       }
       octeractUpgrades[k].level = level
       octeractUpgrades[k].freeLevel = level
+      octeractUpgrades[k].octeractsInvested = octeractsInvested
     }
   }
 

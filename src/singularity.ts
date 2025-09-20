@@ -222,6 +222,7 @@ type SingularitySpecialCostFormulae =
 export interface GoldenQuarkUpgrade {
   level: number
   freeLevel: number
+  goldenQuarksInvested: number
   maxLevel: number
   canExceedCap: boolean
   qualityOfLife: boolean
@@ -238,6 +239,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   goldenQuarks1: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 15,
     canExceedCap: true,
     qualityOfLife: true,
@@ -262,6 +264,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   goldenQuarks2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 75,
     canExceedCap: true,
     qualityOfLife: true,
@@ -292,6 +295,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   goldenQuarks3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1000,
     canExceedCap: false,
     qualityOfLife: false,
@@ -316,6 +320,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   starterPack: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -337,6 +342,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   wowPass: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -356,6 +362,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   cookies: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -375,6 +382,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   cookies2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -394,6 +402,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   cookies3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -413,6 +422,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   cookies4: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -432,6 +442,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   cookies5: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -451,6 +462,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   ascensions: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: -1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -472,6 +484,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   corruptionFourteen: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -494,6 +507,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   corruptionFifteen: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -516,6 +530,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singOfferings1: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: -1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -536,6 +551,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singOfferings2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 25,
     canExceedCap: true,
     qualityOfLife: false,
@@ -556,6 +572,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singOfferings3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 40,
     canExceedCap: true,
     qualityOfLife: false,
@@ -576,6 +593,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singObtainium1: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: -1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -596,6 +614,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singObtainium2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 25,
     canExceedCap: true,
     qualityOfLife: false,
@@ -616,6 +635,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singObtainium3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 40,
     canExceedCap: true,
     qualityOfLife: false,
@@ -636,6 +656,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singCubes1: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: -1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -656,6 +677,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singCubes2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 25,
     canExceedCap: true,
     qualityOfLife: false,
@@ -676,6 +698,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singCubes3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 40,
     canExceedCap: true,
     qualityOfLife: false,
@@ -696,6 +719,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singCitadel: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: -1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -716,6 +740,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singCitadel2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 100,
     canExceedCap: false,
     qualityOfLife: false,
@@ -736,6 +761,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   octeractUnlock: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -755,6 +781,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singOcteractPatreonBonus: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -774,6 +801,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   offeringAutomatic: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: -1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -790,6 +818,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   intermediatePack: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -809,6 +838,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   advancedPack: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -828,6 +858,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   expertPack: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -847,6 +878,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   masterPack: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -866,6 +898,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   divinePack: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -897,6 +930,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   wowPass2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -916,6 +950,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   wowPass3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -935,6 +970,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   potionBuff: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: true,
     qualityOfLife: false,
@@ -955,6 +991,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   potionBuff2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: true,
     qualityOfLife: false,
@@ -975,6 +1012,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   potionBuff3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: true,
     qualityOfLife: false,
@@ -995,6 +1033,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singChallengeExtension: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 4,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1015,6 +1054,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singChallengeExtension2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 3,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1035,6 +1075,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singChallengeExtension3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 3,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1055,6 +1096,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singQuarkImprover1: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 30,
     canExceedCap: true,
     qualityOfLife: true,
@@ -1075,6 +1117,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singQuarkHepteract: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1094,6 +1137,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singQuarkHepteract2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1113,6 +1157,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singQuarkHepteract3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: true,
     qualityOfLife: true,
@@ -1132,6 +1177,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singOcteractGain: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: -1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1152,6 +1198,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singOcteractGain2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 25,
     canExceedCap: true,
     qualityOfLife: false,
@@ -1172,6 +1219,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singOcteractGain3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 50,
     canExceedCap: true,
     qualityOfLife: false,
@@ -1192,6 +1240,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singOcteractGain4: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 100,
     canExceedCap: true,
     qualityOfLife: false,
@@ -1212,6 +1261,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singOcteractGain5: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 200,
     canExceedCap: true,
     qualityOfLife: false,
@@ -1232,6 +1282,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   platonicTau: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1251,6 +1302,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   platonicAlpha: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1270,6 +1322,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   platonicDelta: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1289,6 +1342,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   platonicPhi: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1308,6 +1362,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singFastForward: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1327,6 +1382,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singFastForward2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1346,6 +1402,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singAscensionSpeed: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1366,6 +1423,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singAscensionSpeed2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 30,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1386,6 +1444,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   ultimatePen: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1408,6 +1467,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   halfMind: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1427,6 +1487,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   oneMind: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1446,6 +1507,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   wowPass4: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1465,6 +1527,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   blueberries: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1481,6 +1544,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singAmbrosiaLuck: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: -1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1501,6 +1565,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singAmbrosiaLuck2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 30,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1521,6 +1586,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singAmbrosiaLuck3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 30,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1541,6 +1607,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singAmbrosiaLuck4: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 50,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1561,6 +1628,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singAmbrosiaGeneration: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: -1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1580,6 +1648,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singAmbrosiaGeneration2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 20,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1599,6 +1668,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singAmbrosiaGeneration3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 35,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1618,6 +1688,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singAmbrosiaGeneration4: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 50,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1637,6 +1708,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singBonusTokens1: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1656,6 +1728,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singBonusTokens2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1675,6 +1748,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singBonusTokens3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1695,6 +1769,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singBonusTokens4: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 30,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1715,6 +1790,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singInfiniteShopUpgrades: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 80,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1734,6 +1810,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singTalismanBonusRunes1: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1753,6 +1830,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singTalismanBonusRunes2: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1772,6 +1850,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singTalismanBonusRunes3: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1791,6 +1870,7 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   singTalismanBonusRunes4: {
     level: 0,
     freeLevel: 0,
+    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1809,15 +1889,19 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
   }
 }
 
-export const blankGQLevelObject: Record<SingularityDataKeys, { level: number; freeLevel: number }> = Object.fromEntries(
+export const blankGQLevelObject: Record<
+  SingularityDataKeys,
+  { level: number; freeLevel: number; goldenQuarksInvested: number }
+> = Object.fromEntries(
   Object.keys(goldenQuarkUpgrades).map((key) => [
     key as SingularityDataKeys,
     {
       level: 0,
-      freeLevel: 0
+      freeLevel: 0,
+      goldenQuarksInvested: 0
     }
   ])
-) as Record<SingularityDataKeys, { level: number; freeLevel: number }>
+) as Record<SingularityDataKeys, { level: number; freeLevel: number; goldenQuarksInvested: number }>
 
 export const maxGoldenQuarkUpgradeAP = Object.values(goldenQuarkUpgrades).reduce((acc, upgrade) => {
   if (upgrade.maxLevel === -1) {
@@ -1896,12 +1980,18 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     ? ''
     : i18next.t('singularity.toString.costNextLevel', { amount: format(costNextLevel, 0, true) })
 
+  const investedGQHTML = upgrade.goldenQuarksInvested > 0
+    ? `<br><span style="color: orange">${
+      i18next.t('singularity.toString.spentGQ', { spent: format(upgrade.goldenQuarksInvested, 0, true) })
+    }</span>`
+    : ''
+
   // QoL Text
   const qualityOfLifeText = upgrade.qualityOfLife
     ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>`
     : ''
 
-  return `${nameHTML}<br>${levelText}${effectiveLevelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${qualityOfLifeText}`
+  return `${nameHTML}<br>${levelText}${effectiveLevelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${investedGQHTML}${qualityOfLifeText}`
 }
 
 export function updateMobileGQHTML (k: SingularityDataKeys) {
@@ -2039,6 +2129,7 @@ export async function buyGQUpgradeLevel (
       break
     } else {
       player.goldenQuarks -= cost
+      upgrade.goldenQuarksInvested += cost
       GQBudget -= cost
       upgrade.level += 1
       purchased += 1

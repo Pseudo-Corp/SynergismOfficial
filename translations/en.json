@@ -35,6 +35,7 @@
     "refundWord": "Refund",
     "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
     "notUnlocked": "Clear No Golden Quark Upgrades, Tier 1!",
+    "ambrosiaCost": "Cost for next level: <<orange | {{amount}}>> Ambrosia",
     "data": {
       "ambrosiaTutorial": {
         "name": "Ambrosia Tutorial Module",
@@ -216,6 +217,8 @@
     "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: {{ambrosiaLuck}}>>]",
     "redAmbrosiaBuyPrompt": "How many Red Ambrosia would you like to spend? You have {{amount}} Red Ambrosia. Type -1 to use max!",
     "notUnlocked": "Clear No Ambrosia Upgrades, Tier 1!",
+    "redAmbrosiaCost": "Cost for next level: <<red | {{amount}}>> Red Ambrosia",
+    "redAmbrosiaSpent": "Total Red Ambrosia spent: <<red | {{amount}}>>",
     "data": {
       "tutorial": {
         "name": "A beginners guide to Red Ambrosia",
@@ -3256,7 +3259,8 @@
     "toString": {
       "minimum": "Minimum Singularity: {{minSingularity}}",
       "noMinimum": "No minimal Singularity to purchase required",
-      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks"
+      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks",
+      "spentGQ": "Golden Quarks Spent: {{spent}}"
     },
     "data": {
       "goldenQuarks1": {
@@ -4656,9 +4660,9 @@
       "multiBuy": "Purchased {{n}} levels, thanks to Multi Buy!"
     },
     "toString": {
-      "costNextLevel": "Cost for next level: {{amount}} {{resource}}.",
+      "costNextLevel": "Cost for next level: {{amount}} Octeracts.",
       "becomeAffordable": "(Affordable in {{n}})",
-      "spentOcteracts": "Spent Octeracts: {{amount}}"
+      "spentOcteracts": "Spent Octeracts: {{spent}}"
     },
     "data": {
       "octeractStarter": {
@@ -5117,7 +5121,7 @@
         "name": "Freshly-Baked Cookie",
         "description": "Kinda burns your neck. Thanks Grandma!",
         "inscription": "<<gold | ✏>> Inscription: Gain <<gold|+{{val}}>> free Corruption Levels!",
-        "signature": "<<crimson | ✎>> Signature: Unlock three more Cookie Upgrades!"
+        "signature": "<<crimson | ✎>> Signature: Turns out, you cannot write on cookies."
       },
       "horseShoe": {
         "name": "The Horse's Boot",

@@ -650,11 +650,13 @@ export interface Player {
   goldenQuarkUpgrades: Record<SingularityDataKeys, {
     level: number
     freeLevel: number
+    goldenQuarksInvested: number
   }>
 
   octUpgrades: Record<OcteractDataKeys, {
     level: number
     freeLevel: number
+    octeractsInvested: number
   }>
 
   ambrosiaUpgrades: Record<AmbrosiaUpgradeNames, {

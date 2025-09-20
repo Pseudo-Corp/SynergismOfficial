@@ -603,25 +603,25 @@ export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string
   const isMaxLevel = upgrade.maxLevel === upgrade.level
   const color = isMaxLevel ? 'plum' : 'white'
 
-  const isAffordable = costNextLevel <= player.redAmbrosia
-  const affordableInfo = isMaxLevel
-    ? `<span style="color: plum"> ${i18next.t('general.maxed')}</span>`
-    : isAffordable
-    ? `<span style="color: var(--green-text-color)"> ${i18next.t('general.affordable')}</span>`
-    : `<span style="color: yellow"> ${i18next.t('octeract.buyLevel.cannotAfford')}</span>`
-
   const nameSpan = `<span style="color: gold">${upgrade.name()}</span>`
   const levelSpan = `<span style="color: ${color}"> ${i18next.t('general.level')} ${
     format(upgrade.level, 0, true)
   }${maxLevel}</span>`
   const descriptionSpan = `<span style="color: lightblue">${upgrade.description()}</span>`
   const rewardDescSpan = `<span style="color: gold">${getRedAmbrosiaUpgradeEffectsDescription(upgradeKey)}</span>`
-  const costNextLevelSpan = `${i18next.t('octeract.toString.costNextLevel')} <span style="color:red">${
-    format(costNextLevel, 0, true, true, true)
-  }</span> ${i18next.t('redAmbrosia.redAmbrosia')} ${affordableInfo}`
-  const spentSpan = `${i18next.t('general.spent')} ${i18next.t('redAmbrosia.redAmbrosia')}: <span style="color:red">${
-    format(upgrade.redAmbrosiaInvested, 0, true, true, true)
-  }</span>`
+
+  const costNextLevelSpan = `${
+    i18next.t('redAmbrosia.redAmbrosiaCost', {
+      amount: format(costNextLevel, 0, true)
+    })
+  }`
+
+  const spentSpan = `${
+    i18next.t('redAmbrosia.redAmbrosiaSpent', {
+      amount: format(upgrade.redAmbrosiaInvested, 0, true)
+    })
+  }`
+
   const purchaseWarningSpan = `<span>${i18next.t('redAmbrosia.purchaseWarning')}</span>`
 
   return `${nameSpan} <br> ${levelSpan} <br> ${descriptionSpan} <br> ${rewardDescSpan} <br> ${

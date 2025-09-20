@@ -261,8 +261,6 @@ export const levelBlessing = (bless: RuneBlessingKeys, timesLeveled: number, bud
 
   player.offerings = player.offerings.sub(budgetUsed)
 
-  const newEXPRequired = computeEXPLeftToLevel(bless, runeBlessings[bless].level + 1)
-  console.log('newEXPRequired: ', newEXPRequired.toString(), 'blessing: ', bless, 'level: ', runeBlessings[bless].level)
   // this.updatePlayerEXP()
   // this.updateRuneEffectHTML()
 }
