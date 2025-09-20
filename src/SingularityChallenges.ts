@@ -496,7 +496,7 @@ export const singularityChallengeData: Record<
     }
   },
   taxmanLastStand: {
-    baseReq: 231,
+    baseReq: 240,
     maxCompletions: 10,
     unlockSingularity: 281,
     achievementPointValue: (n) => {
@@ -504,7 +504,7 @@ export const singularityChallengeData: Record<
     },
     HTMLTag: 'taxmanLastStand',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 3 * completions
+      return baseReq + 4 * completions
     },
     scalingrewardcount: 4,
     uniquerewardcount: 3,
