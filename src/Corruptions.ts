@@ -1,8 +1,13 @@
+import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getRuneEffects } from './Runes'
+import { getGQUpgradeEffect } from './singularity'
 import { format, player } from './Synergism'
+import { getTalismanEffects } from './Talismans'
 import { IconSets } from './Themes'
 import { toggleCorruptionLevel } from './Toggles'
 import { Alert, Notification, Prompt } from './UpdateHTML'
@@ -98,7 +103,7 @@ export class CorruptionLoadout {
       const corrKey = corr as keyof Corruptions
       if (
         player.challengecompletions[corrChallengeMinimum(corrKey)] === 0
-        && !player.singularityUpgrades.platonicTau.getEffect().bonus
+        && !getGQUpgradeEffect('platonicTau')
       ) {
         this.setLevel(corrKey, 0)
       }
@@ -125,14 +130,14 @@ export class CorruptionLoadout {
   }
 
   public calculateIndividualRawMultiplier (corr: keyof Corruptions) {
-    let bonusVal = player.singularityUpgrades.advancedPack.getEffect().bonus
+    let bonusVal = getGQUpgradeEffect('advancedPack')
       ? 0.33
       : 0
     bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
     bonusVal += 0.3 * player.cubeUpgrades[74]
 
     let bonusMult = 1
-    if (this.#levels[corr] >= 14 && player.singularityUpgrades.masterPack.getEffect().bonus) {
+    if (this.#levels[corr] >= 14 && getGQUpgradeEffect('masterPack')) {
       bonusMult *= 1.1
     }
 
@@ -149,7 +154,8 @@ export class CorruptionLoadout {
       const portionAboveLevel = Math.ceil(totalLevel) - totalLevel
       return Math.pow(
         this.#corruptionScoreMults[Math.floor(totalLevel)] + bonusVal
-          + portionAboveLevel * this.#corruptionScoreMults[Math.ceil(totalLevel)],
+          + portionAboveLevel
+            * (this.#corruptionScoreMults[Math.ceil(totalLevel)] - this.#corruptionScoreMults[Math.floor(totalLevel)]),
         viscosityPower
       ) * bonusMult
     } else {
@@ -168,7 +174,11 @@ export class CorruptionLoadout {
   }
 
   #droughtEffect () {
-    return G.droughtMultiplier[this.#levels.drought]
+    let baseSalvageReduction = G.droughtSalvage[this.#levels.drought]
+    if (player.platonicUpgrades[13] > 0) {
+      baseSalvageReduction *= 0.5
+    }
+    return baseSalvageReduction
   }
 
   #deflationEffect () {
@@ -181,8 +191,8 @@ export class CorruptionLoadout {
 
   #illiteracyEffect () {
     const base = G.illiteracyPower[this.#levels.illiteracy]
-    const multiplier = (player.researchPoints > 1)
-      ? 1 + (1 / 100) * player.platonicUpgrades[9] * Math.min(100, Math.log10(player.researchPoints))
+    const multiplier = (player.obtainium.gte(1))
+      ? 1 + (1 / 100) * player.platonicUpgrades[9] * Math.min(100, Decimal.log10(player.obtainium))
       : 1
     return Math.min(base * multiplier, 1)
   }
@@ -236,8 +246,10 @@ export class CorruptionLoadout {
   }
 
   get bonusLevels () {
-    let bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect().bonus ? 1 : 0
+    let bonusLevel = getGQUpgradeEffect('corruptionFifteen')
     bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
+    bonusLevel += getTalismanEffects('cookieGrandma').freeCorruptionLevel
+    bonusLevel += getRuneEffects('finiteDescent').corruptionFreeLevels
     return bonusLevel
   }
 
@@ -408,14 +420,14 @@ export const maxCorruptionLevel = () => {
   }
 
   // Overrides everything above.
-  if (player.singularityUpgrades.platonicTau.getEffect().bonus) {
+  if (getGQUpgradeEffect('platonicTau')) {
     max = Math.max(13, max)
   }
 
-  if (player.singularityUpgrades.corruptionFourteen.getEffect().bonus) {
+  if (getGQUpgradeEffect('corruptionFourteen')) {
     max += 1
   }
-  max += +player.octeractUpgrades.octeractCorruption.getEffect().bonus
+  max += getOcteractUpgradeEffect('octeractCorruption')
 
   return max
 }
@@ -480,7 +492,7 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
   }
 
   DOMCacheGetOrSet('corruptionName').textContent = text.name
-  DOMCacheGetOrSet('corruptionDescription').textContent = text.description
+  DOMCacheGetOrSet('corruptionDescription').innerHTML = text.description
   DOMCacheGetOrSet('corruptionLevelCurrent').textContent = text.current
   DOMCacheGetOrSet('corruptionLevelPlanned').textContent = text.planned
   DOMCacheGetOrSet('corruptionMultiplierContribution').textContent = text.multiplier
@@ -779,22 +791,22 @@ export const revealCorruptions = () => {
   const c13Unlocks = document.getElementsByClassName('chal13Corruption') as HTMLCollectionOf<HTMLElement>
   const c14Unlocks = document.getElementsByClassName('chal14Corruption') as HTMLCollectionOf<HTMLElement>
 
-  if (player.challengecompletions[11] > 0 || player.singularityUpgrades.platonicTau.getEffect().bonus) {
+  if (player.challengecompletions[11] > 0 || getGQUpgradeEffect('platonicTau')) {
     for (let i = 0; i < c11Unlocks.length; i++) {
       c11Unlocks[i].style.display = 'flex'
     }
   }
-  if (player.challengecompletions[12] > 0 || player.singularityUpgrades.platonicTau.getEffect().bonus) {
+  if (player.challengecompletions[12] > 0 || getGQUpgradeEffect('platonicTau')) {
     for (let i = 0; i < c12Unlocks.length; i++) {
       c12Unlocks[i].style.display = 'flex'
     }
   }
-  if (player.challengecompletions[13] > 0 || player.singularityUpgrades.platonicTau.getEffect().bonus) {
+  if (player.challengecompletions[13] > 0 || getGQUpgradeEffect('platonicTau')) {
     for (let i = 0; i < c13Unlocks.length; i++) {
       c13Unlocks[i].style.display = 'flex'
     }
   }
-  if (player.challengecompletions[14] > 0 || player.singularityUpgrades.platonicTau.getEffect().bonus) {
+  if (player.challengecompletions[14] > 0 || getGQUpgradeEffect('platonicTau')) {
     for (let i = 0; i < c14Unlocks.length; i++) {
       c14Unlocks[i].style.display = 'flex'
     }

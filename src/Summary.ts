@@ -2,22 +2,38 @@
 
 import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
-import { totalachievementpoints } from './Achievements'
+import { achievementPoints, maxAchievementPoints } from './Achievements'
+import { type AmbrosiaUpgradeNames, ambrosiaUpgrades } from './BlueberryUpgrades'
 import {
   calculateAscensionSpeedMult,
+  calculateBlueberryInventory,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
-  calculateMaxRunes,
   calculateOcteractMultiplier,
   calculateTotalOcteractCubeBonus,
-  calculateTotalOcteractQuarkBonus,
-  isIARuneUnlocked
+  calculateTotalOcteractQuarkBonus
 } from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { version } from './Config'
+import { getFinalHepteractCap, hepteractKeys, hepteracts } from './Hepteracts'
 import { saveFilename } from './ImportExport'
+import {
+  actualOcteractUpgradeTotalLevels,
+  computeOcteractFreeLevelSoftcap,
+  type OcteractDataKeys,
+  octeractUpgrades
+} from './Octeracts'
+import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
+import { type RuneKeys, runes } from './Runes'
 import { friendlyShopName, isShopUpgradeUnlocked, shopData, shopUpgradeTypes } from './Shop'
-import { calculateEffectiveSingularities } from './singularity'
+import {
+  actualGQUpgradeTotalLevels,
+  calculateEffectiveSingularities,
+  getGQUpgradeEffect,
+  goldenQuarkUpgrades,
+  type SingularityDataKeys
+} from './singularity'
+import type { SingularityChallengeDataKeys } from './SingularityChallenges'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert } from './UpdateHTML'
@@ -45,7 +61,7 @@ export const generateExportSummary = async (): Promise<void> => {
   if (player.prestigeCount > 0 || player.highestSingularityCount > 0) {
     resources = `${resources}Diamonds: ${format(player.prestigePoints, 2, true)}\n`
     resources = `${resources}Crystals: ${format(player.prestigeShards, 2, true)}\n`
-    resources = `${resources}Offerings: ${format(player.runeshards, 0, true)}\n`
+    resources = `${resources}Offerings: ${format(player.offerings, 0, true)}\n`
   }
   if (player.transcendCount > 0 || player.highestSingularityCount > 0) {
     resources = `${resources}Mythos: ${format(player.transcendPoints, 2, true)}\n`
@@ -54,7 +70,7 @@ export const generateExportSummary = async (): Promise<void> => {
   if (player.reincarnationCount > 0 || player.highestSingularityCount > 0) {
     resources = `${resources}Particles: ${format(player.reincarnationPoints, 2, true)}\n`
     resources = `${resources}Atoms: ${format(player.reincarnationShards, 2, true)}\n`
-    resources = `${resources}Obtainium: ${format(player.researchPoints, 0, true)}\n`
+    resources = `${resources}Obtainium: ${format(player.obtainium, 0, true)}\n`
   }
   if (player.ascensionCount > 0 || player.highestSingularityCount > 0) {
     const cubeArray = [
@@ -123,14 +139,14 @@ export const generateExportSummary = async (): Promise<void> => {
       format(Number(player.wowPlatonicCubes), 0, true)
     } -+- Total Plats Opened: ${platonicSum}\n`
     resources = `${resources}Wow! Hepteracts: ${format(player.wowAbyssals, 0, true)}\n`
-    if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
+    if (getGQUpgradeEffect('octeractUnlock')) {
       resources = `${resources}Wow! Octeracts: ${format(player.wowOcteracts, 0, true)}\n`
     }
   }
 
   // Octeract Subportion!
   let octeract = ''
-  if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
+  if (getGQUpgradeEffect('octeractUnlock')) {
     octeract = '===== OCTERACTS =====\n'
     octeract = `${octeract}Current Octeracts: ${format(player.wowOcteracts, 2, true)}\n`
     octeract = `${octeract}Current Per Second: ${format(calculateOcteractMultiplier(), 2, true)}\n`
@@ -151,7 +167,7 @@ export const generateExportSummary = async (): Promise<void> => {
     singularity = `${singularity}Effective Singularity [for penalties]: ${
       format(calculateEffectiveSingularities(), 2, true)
     }\n`
-    singularity = `${singularity}Antiquity of Ant God Upgraded: ${(player.runelevels[6] > 0) ? '✔' : '✖'}\n`
+    singularity = `${singularity}Antiquity of Ant God Upgraded: ${(runes.antiquities.level > 0) ? '✔' : '✖'}\n`
   }
 
   // Ascension Subportion!
@@ -180,30 +196,13 @@ export const generateExportSummary = async (): Promise<void> => {
       || player.highestSingularityCount > 0
     ) {
       ascension = `${ascension}----- HEPTERACTS -----\n`
-      ascension = `${ascension}Chronos Hepteract: ${format(player.hepteractCrafts.chronos.BAL, 0, true)}/${
-        format(player.hepteractCrafts.chronos.CAP, 0, true)
-      }\n`
-      ascension = `${ascension}Hyperreal Hepteract: ${format(player.hepteractCrafts.hyperrealism.BAL, 0, true)}/${
-        format(player.hepteractCrafts.hyperrealism.CAP, 0, true)
-      }\n`
-      ascension = `${ascension}Quark Hepteract: ${format(player.hepteractCrafts.quark.BAL, 0, true)}/${
-        format(player.hepteractCrafts.quark.CAP, 0, true)
-      }\n`
-      ascension = `${ascension}Challenge Hepteract: ${format(player.hepteractCrafts.challenge.BAL, 0, true)}/${
-        format(player.hepteractCrafts.challenge.CAP, 0, true)
-      }\n`
-      ascension = `${ascension}Abyss Hepteract: ${format(player.hepteractCrafts.abyss.BAL, 0, true)}/${
-        format(player.hepteractCrafts.abyss.CAP, 0, true)
-      }\n`
-      ascension = `${ascension}Accelerators Hepteract: ${format(player.hepteractCrafts.accelerator.BAL, 0, true)}/${
-        format(player.hepteractCrafts.accelerator.CAP, 0, true)
-      }\n`
-      ascension = `${ascension}Accelerator Boosts Hepteract: ${
-        format(player.hepteractCrafts.acceleratorBoost.BAL, 0, true)
-      }/${format(player.hepteractCrafts.acceleratorBoost.CAP, 0, true)}\n`
-      ascension = `${ascension}Multipliers Hepteract: ${format(player.hepteractCrafts.multiplier.BAL, 0, true)}/${
-        format(player.hepteractCrafts.multiplier.CAP, 0, true)
-      }\n`
+
+      for (const key of hepteractKeys) {
+        const bal = hepteracts[key].BAL
+        const cap = getFinalHepteractCap(key)
+        ascension = `${ascension}${key.toUpperCase()} HEPTERACT: ${format(bal, 0, true)}/${format(cap, 0, true)}\n`
+      }
+
       ascension = `${ascension}----- POWDER & ORBS -----\n`
       ascension = `${ascension}Orbs: ${format(player.overfluxOrbs, 0, true)}\n`
       ascension = `${ascension}Powder: ${format(player.overfluxPowder, 2, true)}\n`
@@ -268,43 +267,19 @@ export const generateExportSummary = async (): Promise<void> => {
     prestige = `${prestige}Fastest Prestige: ${formatS(player.fastestprestige)}\n`
     prestige = `${
       prestige + i18next.t('achievements.totalPoints', {
-        x: format(player.achievementPoints),
-        y: format(totalachievementpoints),
-        z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
+        x: format(achievementPoints),
+        y: format(maxAchievementPoints),
+        z: (100 * achievementPoints / maxAchievementPoints).toPrecision(4)
       })
     }\n`
-    prestige = `${prestige}Speed Rune: Level ${format(player.runelevels[0], 0, true)}/${
-      format(calculateMaxRunes(1))
-    } [Bonus: ${format(G.rune1level - player.runelevels[0], 0, true)}]\n`
-    if (player.achievements[38] > 0 || player.highestSingularityCount > 0) {
-      prestige = `${prestige}Duplication Rune: Level ${format(player.runelevels[1], 0, true)}/${
-        format(calculateMaxRunes(2))
-      } [Bonus: ${format(G.rune2level - player.runelevels[1], 0, true)}]\n`
-    }
-    if (player.achievements[44] > 0 || player.highestSingularityCount > 0) {
-      prestige = `${prestige}Prism Rune: Level ${format(player.runelevels[2], 0, true)}/${
-        format(calculateMaxRunes(3))
-      } [Bonus: ${format(G.rune3level - player.runelevels[2], 0, true)}]\n`
-    }
-    if (player.achievements[102] > 0 || player.highestSingularityCount > 0) {
-      prestige = `${prestige}Thrift Rune: Level ${format(player.runelevels[3], 0, true)}/${
-        format(calculateMaxRunes(4))
-      } [Bonus: ${format(G.rune4level - player.runelevels[3], 0, true)}]\n`
-    }
-    if (player.researches[82] > 0 || player.highestSingularityCount > 0) {
-      prestige = `${prestige}Superior Intellect: Level ${format(player.runelevels[4], 0, true)}/${
-        format(calculateMaxRunes(5))
-      } [Bonus: ${format(G.rune5level - player.runelevels[4], 0, true)}]\n`
-    }
-    if (isIARuneUnlocked() || player.highestSingularityCount > 0) {
-      prestige = `${prestige}Infinite Ascent: Level ${format(player.runelevels[5], 0, true)}/${
-        format(calculateMaxRunes(6))
-      }\n`
-    }
-    if (player.platonicUpgrades[20] > 0 || player.highestSingularityCount > 0) {
-      prestige = `${prestige}Antiquities: Level ${format(player.runelevels[6], 0, true)}/${
-        format(calculateMaxRunes(7))
-      }\n`
+
+    for (const rune of Object.keys(runes)) {
+      const runeKey = rune as RuneKeys
+      if (runes[runeKey].isUnlocked()) {
+        prestige = `${prestige}${runes[runeKey].name()}: Level ${format(runes[runeKey].level, 0, true)} [+${
+          format(runes[runeKey].freeLevels(), 0, true)
+        }]\n`
+      }
     }
   }
 
@@ -362,15 +337,15 @@ export const generateExportSummary = async (): Promise<void> => {
   if (player.highestSingularityCount > 0) {
     singularityUpgradeStats =
       '===== SINGULARITY UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
-    const singUpgrade = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[]
+    const GQUpgrade = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
     let totalSingUpgradeCount = -1 // One upgrade cannot ever be leveled, by design, so subtract that from the actual count
     let totalSingInfiniteLevel = 0
     let totalSingUpgradeUnlocked = 0
     let totalSingUpgradeMax = 0
-    let totalGoldenQuarksSpent = 0
-    for (const key of singUpgrade) {
+
+    for (const key of GQUpgrade) {
       let upgradeText = ''
-      const singUpg = player.singularityUpgrades[key]
+      const singUpg = goldenQuarkUpgrades[key]
 
       totalSingUpgradeCount += 1
       if (singUpg.maxLevel === -1) {
@@ -382,8 +357,6 @@ export const generateExportSummary = async (): Promise<void> => {
       if (player.singularityCount >= singUpg.minimumSingularity) {
         totalSingUpgradeUnlocked += 1
       }
-
-      totalGoldenQuarksSpent += singUpg.goldenQuarksInvested
 
       let unicodeSymbol = '[✖]'
       if (player.singularityCount >= singUpg.minimumSingularity) {
@@ -401,12 +374,12 @@ export const generateExportSummary = async (): Promise<void> => {
       upgradeText = upgradeText + (singUpg.maxLevel === -1
         ? ` Level ${singUpg.level}`
         : ` Level ${singUpg.level}/${singUpg.maxLevel}`)
-      upgradeText = upgradeText + (singUpg.freeLevels > 0
-        ? ` [+${format(singUpg.computeFreeLevelSoftcap(), 2, true)}]`
+      upgradeText = upgradeText + (singUpg.freeLevel > 0
+        ? ` [+${format(singUpg.freeLevel, 2, true)}]`
         : '')
 
-      upgradeText = upgradeText + (singUpg.freeLevels > 0
-        ? ` =+= Effective Level: ${format(singUpg.actualTotalLevels(), 2, true)}`
+      upgradeText = upgradeText + (singUpg.freeLevel > 0
+        ? ` =+= Effective Level: ${format(actualGQUpgradeTotalLevels(key), 2, true)}`
         : '')
 
       upgradeText = `${upgradeText}\n`
@@ -418,25 +391,21 @@ export const generateExportSummary = async (): Promise<void> => {
     singularityUpgradeStats = `${singularityUpgradeStats}Upgrades MAXED: ${totalSingUpgradeMax}/${
       totalSingUpgradeCount - totalSingInfiniteLevel
     }\n`
-    singularityUpgradeStats = `${singularityUpgradeStats}Golden Quarks Spent on Upgrades: ${
-      format(totalGoldenQuarksSpent, 0, true)
-    }\n`
     singularityUpgradeStats = singularityUpgradeStats + subCategoryDivisor
   }
 
   // Create Octeract Stuff
   let octeractUpgradeStats = '\n'
-  if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
+  if (getGQUpgradeEffect('octeractUnlock')) {
     octeractUpgradeStats =
       '===== OCTERACT UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [ ]: Upgrade INCOMPLETE - \n'
-    const octUpgrade = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[]
+    const octUpgrade = Object.keys(octeractUpgrades) as OcteractDataKeys[]
     let totalOctUpgradeCount = 0
     let totalOctUpgradeMax = 0
-    let totalOcteractsSpent = 0
 
     for (const key of octUpgrade) {
       let upgradeText = ''
-      const octUpg = player.octeractUpgrades[key]
+      const octUpg = octeractUpgrades[key]
 
       if (octUpg.maxLevel !== -1) {
         totalOctUpgradeCount += 1
@@ -444,7 +413,6 @@ export const generateExportSummary = async (): Promise<void> => {
       if (octUpg.level === octUpg.maxLevel) {
         totalOctUpgradeMax += 1
       }
-      totalOcteractsSpent += octUpg.octeractsInvested
 
       let unicodeSymbol = '[ ]'
       if (octUpg.maxLevel === -1) {
@@ -454,16 +422,16 @@ export const generateExportSummary = async (): Promise<void> => {
       }
 
       upgradeText = upgradeText + unicodeSymbol
-      upgradeText = `${upgradeText + octUpg.name}:`
+      upgradeText = `${upgradeText} ${octUpg.name}:`
       upgradeText = upgradeText + (octUpg.maxLevel === -1
         ? ` Level ${octUpg.level}`
         : ` Level ${octUpg.level}/${octUpg.maxLevel}`)
-      upgradeText = upgradeText + (octUpg.freeLevels > 0
-        ? ` [+${format(octUpg.computeFreeLevelSoftcap(), 2, true)}]`
+      upgradeText = upgradeText + (octUpg.freeLevel > 0
+        ? ` [+${format(computeOcteractFreeLevelSoftcap(key), 2, true)}]`
         : '')
 
-      upgradeText = upgradeText + (octUpg.freeLevels > 0
-        ? ` =+= Effective Level: ${format(octUpg.actualTotalLevels(), 2, true)}`
+      upgradeText = upgradeText + (octUpg.freeLevel > 0
+        ? ` =+= Effective Level: ${format(actualOcteractUpgradeTotalLevels(key), 2, true)}`
         : '')
 
       upgradeText = `${upgradeText}\n`
@@ -471,14 +439,133 @@ export const generateExportSummary = async (): Promise<void> => {
     }
     octeractUpgradeStats = octeractUpgradeStats + subCategoryDivisor
     octeractUpgradeStats = `${octeractUpgradeStats}Upgrades MAXED: ${totalOctUpgradeMax}/${totalOctUpgradeCount}\n`
-    octeractUpgradeStats = `${octeractUpgradeStats}Octeracts Spent on Upgrades: ${
-      format(totalOcteractsSpent, 0, true)
-    }\n`
     octeractUpgradeStats = octeractUpgradeStats + subCategoryDivisor
   }
 
+  // Create EXALT Challenge Completion Stuff
+  let exaltChallengeStats = '\n'
+  if (player.highestSingularityCount >= 25) {
+    exaltChallengeStats =
+      '===== EXALT CHALLENGE COMPLETIONS =====\n - [✔]: Challenge Completed - \n - [✖]: Challenge NOT Completed - \n - [ ]: Challenge NOT Unlocked - \n'
+
+    const exaltChallenges = Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]
+    let totalExaltChallengeCompletions = 0
+    let totalExaltChallengeMaxCompletions = 0
+
+    for (const key of exaltChallenges) {
+      let challengeText = ''
+      const exaltChallenge = player.singularityChallenges[key]
+
+      if (exaltChallenge.unlockSingularity <= player.highestSingularityCount) {
+        if (exaltChallenge.completions === exaltChallenge.maxCompletions) {
+          challengeText = '[✔]'
+        } else {
+          challengeText = '[✖]'
+        }
+        totalExaltChallengeCompletions += exaltChallenge.completions
+        totalExaltChallengeMaxCompletions += exaltChallenge.maxCompletions
+      } else {
+        challengeText = '[ ]'
+      }
+
+      challengeText = `${challengeText} ${exaltChallenge.name}:`
+      challengeText = `${challengeText} ${exaltChallenge.completions}/${exaltChallenge.maxCompletions}`
+      challengeText = `${challengeText}\n`
+      exaltChallengeStats = exaltChallengeStats + challengeText
+    }
+
+    exaltChallengeStats = exaltChallengeStats + subCategoryDivisor
+    exaltChallengeStats =
+      `${exaltChallengeStats}Total Challenges Completed: ${totalExaltChallengeCompletions}/${totalExaltChallengeMaxCompletions}\n`
+    exaltChallengeStats = exaltChallengeStats + subCategoryDivisor
+  }
+
+  // Create Octeract Stuff
+  let ambrosiaUpgradeStats = '\n'
+  if (player.visitedAmbrosiaSubtab) {
+    ambrosiaUpgradeStats =
+      '===== AMBROSIA UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [𖥔]: Upgrade is ACTIVE - \n - [ ]: Upgrade INACTIVE - \n'
+    const ambUpgrade = Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]
+
+    let spentBlueberries = 0
+
+    const currentAmbrosia = player.ambrosia
+    const lifetimeAmbrosia = player.lifetimeAmbrosia
+
+    const blueberries = calculateBlueberryInventory()
+
+    for (const key of ambUpgrade) {
+      let upgradeText = ''
+      const ambUpg = ambrosiaUpgrades[key]
+
+      let unicodeSymbol = '[ ]'
+      if (ambUpg.level > 0) {
+        spentBlueberries += ambUpg.blueberryCost
+        unicodeSymbol = (ambUpg.level === ambUpg.maxLevel) ? '[★]' : '[𖥔]'
+      }
+
+      upgradeText = upgradeText + unicodeSymbol
+      upgradeText = `${upgradeText} ${ambUpg.name}:`
+      upgradeText = `${upgradeText} Level ${ambUpg.level}/${ambUpg.maxLevel} [+${
+        format(ambUpg.extraLevelCalc(), 0, true)
+      }]`
+
+      upgradeText = upgradeText + (ambUpg.extraLevelCalc() > 0
+        ? ` // Effective Level: ${format(ambUpg.extraLevelCalc(), 0, true)}`
+        : '')
+
+      upgradeText = `${upgradeText}\n`
+      ambrosiaUpgradeStats = ambrosiaUpgradeStats + upgradeText
+    }
+    ambrosiaUpgradeStats = ambrosiaUpgradeStats + subCategoryDivisor
+    ambrosiaUpgradeStats = `${ambrosiaUpgradeStats} Current Ambrosia: ${format(currentAmbrosia, 0, true)}\n`
+    ambrosiaUpgradeStats = `${ambrosiaUpgradeStats} Lifetime Ambrosia: ${format(lifetimeAmbrosia, 0, true)}\n`
+    ambrosiaUpgradeStats = `${ambrosiaUpgradeStats} Total Blueberries: ${format(blueberries, 0, true)}\n`
+    ambrosiaUpgradeStats = `${ambrosiaUpgradeStats} Blueberries Spent: ${format(spentBlueberries, 0, true)}\n`
+    ambrosiaUpgradeStats = `${ambrosiaUpgradeStats} UNSPENT BLUEBERRIES: ${
+      format(blueberries - spentBlueberries, 0, true)
+    }\n`
+
+    ambrosiaUpgradeStats = ambrosiaUpgradeStats + subCategoryDivisor
+  }
+
+  // Create Red Ambrosia Stuff
+
+  let redAmbrosiaUpgradeStats = '\n'
+  if (player.visitedAmbrosiaSubtabRed) {
+    redAmbrosiaUpgradeStats =
+      '===== RED AMBROSIA UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [ ]: Upgrade is NOT MAXED - \n'
+    const redAmbUpgrade = Object.keys(player.redAmbrosiaUpgrades) as (keyof Player['redAmbrosiaUpgrades'])[]
+
+    const currentRedAmbrosia = player.redAmbrosia
+    const lifetimeRedAmbrosia = player.lifetimeRedAmbrosia
+
+    for (const key of redAmbUpgrade) {
+      let upgradeText = ''
+      const redAmbUpg = redAmbrosiaUpgrades[key]
+
+      const unicodeSymbol = (redAmbUpg.level === redAmbUpg.maxLevel) ? '[★]' : '[ ]'
+
+      upgradeText = upgradeText + unicodeSymbol
+      upgradeText = `${upgradeText} ${redAmbUpg.name}:`
+      upgradeText = `${upgradeText} Level ${redAmbUpg.level}/${redAmbUpg.maxLevel}`
+
+      upgradeText = `${upgradeText}\n`
+      redAmbrosiaUpgradeStats = redAmbrosiaUpgradeStats + upgradeText
+    }
+    redAmbrosiaUpgradeStats = redAmbrosiaUpgradeStats + subCategoryDivisor
+    redAmbrosiaUpgradeStats = `${redAmbrosiaUpgradeStats} Current Red Ambrosia: ${
+      format(currentRedAmbrosia, 0, true)
+    }\n`
+    redAmbrosiaUpgradeStats = `${redAmbrosiaUpgradeStats} Lifetime Red Ambrosia: ${
+      format(lifetimeRedAmbrosia, 0, true)
+    }\n`
+
+    redAmbrosiaUpgradeStats = redAmbrosiaUpgradeStats + subCategoryDivisor
+  }
+
   const returnString =
-    `${titleText}\n${time}\n${ver}\n${firstPlayed}${resources}${octeract}${singularity}${ascension}${reincarnation}${transcension}${prestige}${shopUpgradeStats}${singularityUpgradeStats}${octeractUpgradeStats}`
+    `${titleText}\n${time}\n${ver}\n${firstPlayed}${resources}${octeract}${singularity}${ascension}${reincarnation}${transcension}${prestige}${shopUpgradeStats}${singularityUpgradeStats}${octeractUpgradeStats}${exaltChallengeStats}${ambrosiaUpgradeStats}${redAmbrosiaUpgradeStats}`
 
   try {
     await navigator.clipboard.writeText(returnString)

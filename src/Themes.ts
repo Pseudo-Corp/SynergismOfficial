@@ -74,7 +74,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('importFileButton').style.backgroundColor = ''
     DOMCacheGetOrSet('switchTheme2').style.borderColor = 'darkslategray'
 
-    DOMCacheGetOrSet('bonussummation').style.color = 'orangered' // CSS colors, instead of having '', will write out full color, in case someone will move CSS color into HTML
     DOMCacheGetOrSet('corruptionDescription').style.color = 'darkviolet'
     DOMCacheGetOrSet('versionnumber').style.color = 'fuchsia'
     DOMCacheGetOrSet('singularitytab').style.color = 'red'
@@ -84,7 +83,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('buildinghotkeys').style.color = 'lightgray'
     DOMCacheGetOrSet('buildinghotkeys2').style.color = 'lightgray'
     DOMCacheGetOrSet('antspecies').style.color = 'royalblue' // HTML colors
-    DOMCacheGetOrSet('achievementcolorcode2').style.color = 'purple'
     DOMCacheGetOrSet('corruptionTesseracts').style.color = 'darkviolet'
     DOMCacheGetOrSet('antwelcome').style.color = 'lightslategrey'
     DOMCacheGetOrSet('confirmationToggleTitle').style.color = 'pink'
@@ -96,7 +94,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('cube6Bonus').style.color = 'brown'
     DOMCacheGetOrSet('tesseract6Bonus').style.color = 'brown'
     DOMCacheGetOrSet('hypercube6Bonus').style.color = 'brown'
-    DOMCacheGetOrSet('runeshowpower5').style.color = 'tomato'
+    DOMCacheGetOrSet('superiorIntellectRunePower').style.color = 'tomato'
     DOMCacheGetOrSet('hypercubeWelcome').style.color = '#ff004c' // Hypercube colors
     DOMCacheGetOrSet('hypercubeQuantity').style.color = '#ff004c'
     DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#ff004c'
@@ -200,7 +198,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     body.style.setProperty('--lightseagreen-text-color', 'limegreen')
     body.style.setProperty('--orangered-text-color', '#f74')
     body.style.setProperty('--gray-text-color', '#a5a5a5')
-    DOMCacheGetOrSet('achievementcolorcode2').style.color = '#dc7dff'
     DOMCacheGetOrSet('corruptionDescription').style.color = '#d272ff'
     DOMCacheGetOrSet('corruptionTesseracts').style.color = '#d272ff'
     DOMCacheGetOrSet('antwelcome').style.color = '#b1b1b1'
@@ -216,7 +213,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('hypercubeWelcome').style.color = '#f58'
     DOMCacheGetOrSet('hypercubeQuantity').style.color = '#f58'
     DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#f58'
-    DOMCacheGetOrSet('runeshowpower5').style.color = '#ff7158'
+    DOMCacheGetOrSet('superiorIntellectRunePower').style.color = '#ff7158'
 
     themeButton.textContent = i18next.t('settings.themes.light')
   } else if (themeNumber === 5) { // 'Dracula Mode'
@@ -267,7 +264,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#04d481'
     DOMCacheGetOrSet('heptGrid').style.backgroundColor = '#11111b'
     DOMCacheGetOrSet('heptGrid').style.borderColor = '#9b7306'
-    DOMCacheGetOrSet('achievementcolorcode2').style.color = '#ef00e4' // Text colors
     DOMCacheGetOrSet('corruptionDescription').style.color = '#c205ff'
     DOMCacheGetOrSet('corruptionTesseracts').style.color = '#c205ff'
     DOMCacheGetOrSet('antwelcome').style.color = 'darkgrey'
@@ -278,7 +274,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('hepteractWelcome').style.color = '#ac47ff'
     DOMCacheGetOrSet('confirmationdisclaimer').style.color = '#bb68ff'
     DOMCacheGetOrSet('antspecies').style.color = '#184ff3'
-    DOMCacheGetOrSet('bonussummation').style.color = '#eb0000'
     DOMCacheGetOrSet('buildinghotkeys').style.color = '#838383'
     DOMCacheGetOrSet('buildinghotkeys2').style.color = '#838383'
 

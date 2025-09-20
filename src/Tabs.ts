@@ -1,11 +1,15 @@
+import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { prod } from './Config'
 import { pressedKeys } from './Hotkeys'
 import { isLoggedIn } from './Login'
+import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
+import { getGQUpgradeEffect } from './singularity'
 import { player } from './Synergism'
 import {
   setActiveSettingScreen,
+  toggleAchievementScreen,
   toggleBuildingScreen,
   toggleChallengesScreen,
   toggleCorruptionLoadoutsStats,
@@ -82,7 +86,14 @@ const subtabInfo: Record<Tabs, SubTab> = {
         buttonID: 'switchSettingSubTab7'
       },
       { subTabID: 'hotkeys', unlocked: true, buttonID: 'switchSettingSubTab8' },
-      { subTabID: 'accountSubTab', unlocked: true, buttonID: 'switchSettingSubTab9' }
+      { subTabID: 'accountSubTab', unlocked: true, buttonID: 'switchSettingSubTab9' },
+      {
+        subTabID: 'messagesSubTab',
+        get unlocked () {
+          return hasUnreadMessages()
+        },
+        buttonID: 'switchSettingSubTab10'
+      }
     ]
   },
   [Tabs.Shop]: {
@@ -118,7 +129,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: 'tesseract',
         get unlocked () {
-          return player.achievements[183] > 0
+          return player.ascensionCount > 0
         },
         buttonID: 'switchToTesseractBuilding'
       }
@@ -129,8 +140,24 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subtabIndex: 0
   },
   [Tabs.Achievements]: {
-    subTabList: [],
-    subtabIndex: 0
+    tabSwitcher: () => toggleAchievementScreen,
+    subtabIndex: 0,
+    subTabList: [
+      {
+        subTabID: '1',
+        get unlocked () {
+          return true
+        },
+        buttonID: 'toggleAchievementSubTab1'
+      },
+      {
+        subTabID: '2',
+        get unlocked () {
+          return true
+        },
+        buttonID: 'toggleAchievementSubTab2'
+      }
+    ]
   },
   [Tabs.Runes]: {
     tabSwitcher: () => toggleRuneScreen,
@@ -146,21 +173,21 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: '2',
         get unlocked () {
-          return player.achievements[134] > 0
+          return player.unlocks.talismans
         },
         buttonID: 'toggleRuneSubTab2'
       },
       {
         subTabID: '3',
         get unlocked () {
-          return player.achievements[134] > 0
+          return player.unlocks.blessings
         },
         buttonID: 'toggleRuneSubTab3'
       },
       {
         subTabID: '4',
         get unlocked () {
-          return player.achievements[204] > 0
+          return player.unlocks.spirits
         },
         buttonID: 'toggleRuneSubTab4'
       }
@@ -195,49 +222,49 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: '1',
         get unlocked () {
-          return player.achievements[141] > 0
+          return player.unlocks.ascensions
         },
         buttonID: 'switchCubeSubTab1'
       },
       {
         subTabID: '2',
         get unlocked () {
-          return player.achievements[197] > 0
+          return player.unlocks.tesseracts
         },
         buttonID: 'switchCubeSubTab2'
       },
       {
         subTabID: '3',
         get unlocked () {
-          return player.achievements[211] > 0
+          return player.unlocks.hypercubes
         },
         buttonID: 'switchCubeSubTab3'
       },
       {
         subTabID: '4',
         get unlocked () {
-          return player.achievements[218] > 0
+          return player.unlocks.platonics
         },
         buttonID: 'switchCubeSubTab4'
       },
       {
         subTabID: '5',
         get unlocked () {
-          return player.achievements[141] > 0
+          return player.unlocks.ascensions
         },
         buttonID: 'switchCubeSubTab5'
       },
       {
         subTabID: '6',
         get unlocked () {
-          return player.achievements[218] > 0
+          return player.unlocks.platonics
         },
         buttonID: 'switchCubeSubTab6'
       },
       {
         subTabID: '7',
         get unlocked () {
-          return player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
+          return player.unlocks.hepteracts
         },
         buttonID: 'switchCubeSubTab7'
       }
@@ -253,16 +280,12 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: 'true',
-        get unlocked () {
-          return player.achievements[141] > 0
-        },
+        unlocked: true,
         buttonID: 'corrStatsBtn'
       },
       {
         subTabID: 'false',
-        get unlocked () {
-          return player.achievements[141] > 0
-        },
+        unlocked: true,
         buttonID: 'corrLoadoutsBtn'
       }
     ]
@@ -288,7 +311,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: '3',
         get unlocked () {
-          return Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus)
+          return Boolean(getGQUpgradeEffect('octeractUnlock'))
         },
         buttonID: 'toggleSingularitySubTab3'
       },
@@ -582,8 +605,8 @@ tabRow.appendButton(
     .setType(Tabs.Upgrades)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'achievementstab', i18n: 'tabs.main.achievements', class: 'coinunlock4' })
-    .setUnlockedState(() => player.unlocks.coinfour)
+  new $Tab({ /*class: 'prestigeunlock',*/ id: 'achievementstab', i18n: 'tabs.main.achievements' })
+    // .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Achievements)
     .makeDraggable()
     .makeRemoveable(),
@@ -603,12 +626,12 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({ class: 'chal8', id: 'anttab', i18n: 'tabs.main.antHill' })
-    .setUnlockedState(() => player.achievements[127] > 0)
+    .setUnlockedState(() => player.unlocks.anthill)
     .setType(Tabs.AntHill)
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({ class: 'chal10', id: 'cubetab', i18n: 'tabs.main.wowCubes' })
-    .setUnlockedState(() => player.achievements[141] > 0)
+    .setUnlockedState(() => player.unlocks.ascensions)
     .setType(Tabs.WowCubes)
     .makeDraggable()
     .makeRemoveable(),
@@ -684,6 +707,10 @@ export const changeTab = (tabs: Tabs, step?: number) => {
 
   G.currentTab = tabRow.getCurrentTab().getType()
   subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex
+
+  if (G.currentTab === Tabs.Achievements) {
+    awardUngroupedAchievement('participationTrophy')
+  }
 
   revealStuff()
   hideStuff()

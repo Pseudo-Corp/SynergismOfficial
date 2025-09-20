@@ -1997,8 +1997,7 @@
     },
     "toString": {
       "noMinimum": "No requiere Singularidad mínima para comprar",
-      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks.",
-      "spentQuarks": "Spent Quarks: {{amount}}"
+      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks."
     },
     "data": {
       "goldenQuarks1": {
@@ -3651,7 +3650,7 @@
         "duplication": "Bonus Duplication Rune Levels: {{x}}",
         "prism": "Bonus Prism Rune Levels: {{x}}",
         "thrift": "Bonus Thrift Rune Levels: {{x}}",
-        "SI": "Bonus SI Rune Levels: {{x}}"
+        "superiorIntellect": "Bonus SI Rune Levels: {{x}}"
       },
       "mythicEffects": {
         "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
@@ -3672,11 +3671,11 @@
       "blessingLevel": "<<orchid|Blessing level>>: {{amount}}",
       "blessingPower": "Poder de Bendición: <<turquoise|{{value}}>> =-= Efecto: ¡<<gold|{{speed}}>>x {{reward}}!",
       "rewards": {
-        "0": "Velocidad Global",
-        "1": "Potenciadores de Multiplicador",
-        "2": "Recompensas de Sacrificio de Hormigas",
-        "3": "Retraso del Costo de P. de Acc",
-        "4": "Obtainium --> Mult. Hormigas"
+        "speed": "Velocidad Global",
+        "duplication": "Potenciadores de Multiplicador",
+        "prism": "Recompensas de Sacrificio de Hormigas",
+        "thrift": "Retraso del Costo de P. de Acc",
+        "superiorIntellect": "Obtainium --> Mult. Hormigas"
       },
       "increaseLevel": "Aumenta el nivel en <<orchid|{{amount}}>> [Coste: <<orchid|{{offerings}}>> Ofrendas]"
     },
@@ -3684,11 +3683,11 @@
       "spiritLevel": "Nivel de Espíritu: <<orchid|{{amount}}>>",
       "spiritPower": "Poder de Espíritus: <<turquoise|{{value}}>> =-= Efecto: ¡<<gold|{{speed}}>>x {{reward}}!",
       "rewards": {
-        "0": "x Velocidad Global",
-        "1": "x Cubos ¡Wow! al Ascender",
-        "2": "x Niveles adicionales al límite de Cristales",
-        "3": "x Obtainium",
-        "4": "Efecto de Investigación 4x9 % más fuerte"
+        "speed": "x Velocidad Global",
+        "duplication": "x Cubos ¡Wow! al Ascender",
+        "prism": "x Niveles adicionales al límite de Cristales",
+        "thrift": "x Obtainium",
+        "superiorIntellect": "Efecto de Investigación 4x9 % más fuerte"
       },
       "buyUpTo": "Compra hasta <<var(--orchid-text-color)|{{amount}}>> Niveles por compra, si es asequible. [Entrada para alternar]"
     },
@@ -4481,7 +4480,6 @@
       "BaseTimer": "Base Timer (ms):",
       "Calculator4": "PL-AT δ Discount:",
       "SingularityCount": "Singularity Milestone Bonus:",
-      "InfiniteAscent": "Infinite Ascent Bonus:",
       "SingularityPerkBonus": "Singularity Perk Bonus:",
       "Total": "Final Add Code Interval (ms):"
     },

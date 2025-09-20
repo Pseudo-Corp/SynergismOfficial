@@ -1,20 +1,35 @@
 import type Decimal from 'break_infinity.js'
-import type { BlueberryUpgrade } from '../BlueberryUpgrades'
+import type { ProgressiveAchievements } from '../Achievements'
+import type {
+  AmbrosiaUpgradeNames,
+  BlueberryLoadoutMode,
+  BlueberryOpt,
+  BlueberryUpgrade,
+  BlueberryUpgradeNames
+} from '../BlueberryUpgrades'
 import type { CampaignManager } from '../Campaign'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
-import type { HepteractCraft } from '../Hepteracts'
+import type { HepteractCraft, HepteractKeys, HepteractNames, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
-import type { OcteractUpgrade } from '../Octeracts'
+import type { OcteractDataKeys, OcteractUpgrade } from '../Octeracts'
 import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
-import type { RedAmbrosiaKeys } from '../RedAmbrosiaUpgrades'
-import type { SingularityUpgrade } from '../singularity'
-import type { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
+import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
+import type { RuneBlessingKeys, RuneKeys, RuneSpiritKeys } from '../Runes'
+import type { SingularityDataKeys, SingularityUpgrade } from '../singularity'
+import type {
+  SingularityChallenge,
+  singularityChallengeData,
+  SingularityChallengeDataKeys
+} from '../SingularityChallenges'
 import type { Tabs } from '../Tabs'
+import type { TalismanCraftItems, TalismanKeys } from '../Talismans'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
+
+export type BuyAmount = 1 | 10 | 100 | 1000 | 10_000 | 100_000
 
 export interface Player {
   firstPlayed: string
@@ -232,11 +247,11 @@ export interface Player {
     reincarnation: number
     ascension: number
   }
-  researchPoints: number
+
+  obtainium: Decimal
+  maxObtainium: Decimal
   obtainiumtimer: number
-  obtainiumpersecond: number
-  maxobtainiumpersecond: number
-  maxobtainium: number
+
   // Ignore the first index. The other 25 are shaped in a 5x5 grid similar to the production appearance
   researches: number[]
 
@@ -253,8 +268,18 @@ export interface Player {
     rrow2: boolean
     rrow3: boolean
     rrow4: boolean
+    anthill: boolean
+    blessings: boolean
+    spirits: boolean
+    talismans: boolean
+    ascensions: boolean
+    tesseracts: boolean
+    hypercubes: boolean
+    platonics: boolean
+    hepteracts: boolean
   }
   achievements: number[]
+  progressiveAchievements: Record<ProgressiveAchievements, number>
 
   achievementPoints: number
 
@@ -275,11 +300,12 @@ export interface Player {
   crystalUpgrades: number[]
   crystalUpgradesCost: number[]
 
-  runelevels: number[]
-  runeexp: number[]
-  runeshards: number
-  maxofferings: number
-  offeringpersecond: number
+  runes: Record<RuneKeys, Decimal>
+  runeBlessings: Record<RuneBlessingKeys, Decimal>
+  runeSpirits: Record<RuneSpiritKeys, Decimal>
+
+  offerings: Decimal
+  maxOfferings: Decimal
 
   prestigecounter: number
   transcendcounter: number
@@ -302,12 +328,12 @@ export interface Player {
   tesseractAutoBuyerToggle: number
   tesseractAutoBuyerAmount: number
 
-  coinbuyamount: number
-  crystalbuyamount: number
-  mythosbuyamount: number
-  particlebuyamount: number
-  offeringbuyamount: number
-  tesseractbuyamount: number
+  coinbuyamount: BuyAmount
+  crystalbuyamount: BuyAmount
+  mythosbuyamount: BuyAmount
+  particlebuyamount: BuyAmount
+  offeringbuyamount: BuyAmount
+  tesseractbuyamount: BuyAmount
 
   shoptoggles: {
     coin: boolean
@@ -408,6 +434,7 @@ export interface Player {
     shopRedLuck2: number
     shopRedLuck3: number
     shopInfiniteShopUpgrades: number
+    shopHorseShoe: number
   }
 
   shopPotionsConsumed: {
@@ -440,22 +467,15 @@ export interface Player {
   antSacrificeTimer: number
   antSacrificeTimerReal: number
 
-  talismanLevels: number[]
-  talismanRarity: number[]
-  talismanOne: ArrayStartingWithNull<number>
-  talismanTwo: ArrayStartingWithNull<number>
-  talismanThree: ArrayStartingWithNull<number>
-  talismanFour: ArrayStartingWithNull<number>
-  talismanFive: ArrayStartingWithNull<number>
-  talismanSix: ArrayStartingWithNull<number>
-  talismanSeven: ArrayStartingWithNull<number>
-  talismanShards: number
-  commonFragments: number
-  uncommonFragments: number
-  rareFragments: number
-  epicFragments: number
-  legendaryFragments: number
-  mythicalFragments: number
+  talismans: Record<TalismanKeys, Record<TalismanCraftItems, Decimal>>
+
+  talismanShards: Decimal
+  commonFragments: Decimal
+  uncommonFragments: Decimal
+  rareFragments: Decimal
+  epicFragments: Decimal
+  legendaryFragments: Decimal
+  mythicalFragments: Decimal
 
   buyTalismanShardPercent: number
 
@@ -499,7 +519,7 @@ export interface Player {
     antSacrifice: number
     antELO: number
     talismanBonus: number
-    globalSpeed: 0
+    globalSpeed: number
   }
   tesseractBlessings: {
     accelerator: number
@@ -561,8 +581,6 @@ export interface Player {
   autoChallengeStartExponent: number
   autoChallengeTimer: Record<string, number>
 
-  runeBlessingLevels: number[]
-  runeSpiritLevels: number[]
   runeBlessingBuyAmount: number
   runeSpiritBuyAmount: number
 
@@ -600,7 +618,9 @@ export interface Player {
     time: number
   }
 
-  hepteractCrafts: {
+  hepteracts: Record<HepteractKeys, HepteractValues>
+
+  /*hepteractCrafts: {
     chronos: HepteractCraft
     hyperrealism: HepteractCraft
     quark: HepteractCraft
@@ -609,7 +629,7 @@ export interface Player {
     accelerator: HepteractCraft
     acceleratorBoost: HepteractCraft
     multiplier: HepteractCraft
-  }
+  }*/
   overfluxOrbs: number
   overfluxOrbsAutoBuy: boolean
   overfluxPowder: number
@@ -627,15 +647,30 @@ export interface Player {
   iconSet: number
   notation: string
 
-  singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
-  octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade>
+  goldenQuarkUpgrades: Record<SingularityDataKeys, {
+    level: number
+    freeLevel: number
+    goldenQuarksInvested: number
+  }>
+
+  octUpgrades: Record<OcteractDataKeys, {
+    level: number
+    freeLevel: number
+    octeractsInvested: number
+  }>
+
+  ambrosiaUpgrades: Record<AmbrosiaUpgradeNames, {
+    ambrosiaInvested: number
+    blueberriesInvested: number
+  }>
+
   dailyCodeUsed: boolean
   hepteractAutoCraftPercentage: number
   octeractTimer: number
 
   insideSingularityChallenge: boolean
   singularityChallenges: Record<
-    keyof typeof singularityChallengeData,
+    SingularityChallengeDataKeys,
     SingularityChallenge
   >
 
@@ -647,17 +682,14 @@ export interface Player {
   visitedAmbrosiaSubtab: boolean
   visitedAmbrosiaSubtabRed: boolean
   spentBlueberries: number
-  blueberryUpgrades: Record<
-    keyof typeof blueberryUpgradeData,
-    BlueberryUpgrade
-  >
+
   blueberryLoadouts: Record<number, BlueberryOpt>
   blueberryLoadoutMode: BlueberryLoadoutMode
 
   redAmbrosia: number
   lifetimeRedAmbrosia: number
   redAmbrosiaTime: number
-  redAmbrosiaUpgrades: Record<RedAmbrosiaKeys, number>
+  redAmbrosiaUpgrades: Record<RedAmbrosiaNames, number>
 
   singChallengeTimer: number
 
@@ -678,9 +710,6 @@ export interface GlobalVariables {
   // Mega list of Variables to be used elsewhere
   crystalUpgradesCost: number[]
   crystalUpgradeCostIncrement: number[]
-  researchBaseCosts: number[]
-
-  researchMaxLevels: number[]
 
   ticker: number
 
@@ -700,7 +729,6 @@ export interface GlobalVariables {
   multiplierPower: number
   multiplierEffect: Decimal
   challengeOneLog: number
-  freeMultiplierBoost: number
   totalMultiplierBoost: number
 
   globalCoinMultiplier: Decimal
@@ -769,9 +797,6 @@ export interface GlobalVariables {
   tuSevenMulti: number
   currentTab: Tabs
 
-  researchfiller1: string
-  researchfiller2: string
-
   ordinals: readonly [
     'first',
     'second',
@@ -805,12 +830,6 @@ export interface GlobalVariables {
 
   maxexponent: number
 
-  effectiveLevelMult: number
-  optimalOfferingTimer: number
-  optimalObtainiumTimer: number
-
-  runeSum: number
-
   globalAntMult: Decimal
   antMultiplier: Decimal
 
@@ -841,28 +860,6 @@ export interface GlobalVariables {
   bonusant11: number
   bonusant12: number
 
-  rune1level: number
-  rune2level: number
-  rune3level: number
-  rune4level: number
-  rune5level: number
-  rune1Talisman: number
-  rune2Talisman: number
-  rune3Talisman: number
-  rune4Talisman: number
-  rune5Talisman: number
-
-  talisman1Effect: ArrayStartingWithNull<number>
-  talisman2Effect: ArrayStartingWithNull<number>
-  talisman3Effect: ArrayStartingWithNull<number>
-  talisman4Effect: ArrayStartingWithNull<number>
-  talisman5Effect: ArrayStartingWithNull<number>
-  talisman6Effect: ArrayStartingWithNull<number>
-  talisman7Effect: ArrayStartingWithNull<number>
-
-  talisman6Power: number
-  talisman7Quarks: number
-
   settingscreen: string
 
   talismanResourceObtainiumCosts: number[]
@@ -885,46 +882,16 @@ export interface GlobalVariables {
   obtainiumGain: number
 
   mirrorTalismanStats: ArrayStartingWithNull<number>
-  antELO: number
-  effectiveELO: number
 
   timeWarp: boolean
-
-  blessingMultiplier: number
-  spiritMultiplier: number
-  runeBlessings: number[]
-  runeSpirits: number[]
-
-  effectiveRuneBlessingPower: number[]
-  effectiveRuneSpiritPower: number[]
-
-  blessingBaseCost: number
-  spiritBaseCost: number
 
   triggerChallenge: number
 
   prevReductionValue: number
 
   buildingSubTab: BuildingSubtab
-  // number000 of each before Diminishing Returns
-  blessingbase: ArrayStartingWithNull<number>
-  blessingDRPower: ArrayStartingWithNull<number>
-  giftbase: number[]
-  giftDRPower: number[]
-  benedictionbase: ArrayStartingWithNull<number>
-  benedictionDRPower: ArrayStartingWithNull<number>
-  // 10 Million of each before Diminishing returns on first number 200k for second, and 10k for the last few
-  platonicCubeBase: number[]
-  platonicDRPower: number[]
-
-  cubeBonusMultiplier: ArrayStartingWithNull<number>
-  tesseractBonusMultiplier: ArrayStartingWithNull<number>
-  hypercubeBonusMultiplier: ArrayStartingWithNull<number>
-  platonicBonusMultiplier: number[]
 
   autoOfferingCounter: number
-
-  researchOrderByCost: number[]
 
   viscosityPower: number[]
   dilationMultiplier: number[]
@@ -932,7 +899,7 @@ export interface GlobalVariables {
   illiteracyPower: number[]
   deflationMultiplier: number[]
   extinctionMultiplier: number[]
-  droughtMultiplier: number[]
+  droughtSalvage: number[]
   recessionPower: number[]
 
   corruptionPointMultipliers: number[]
@@ -981,7 +948,9 @@ export interface GlobalVariables {
   TIME_PER_AMBROSIA: number
   TIME_PER_RED_AMBROSIA: number
 
-  currentSingChallenge: keyof Player['singularityChallenges'] | undefined
+  currentSingChallenge: SingularityChallengeDataKeys | undefined
+
+  coinVanityThresholds: number[]
 }
 
 export interface SynergismEvents {

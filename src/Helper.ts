@@ -1,12 +1,11 @@
+import Decimal from 'break_infinity.js'
 import { sacrificeAnts } from './Ants'
-import { buyAllBlessings } from './Buy'
 import {
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaLuck,
   calculateAscensionSpeedMult,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
-  calculateMaxRunes,
   calculateOcteractMultiplier,
   calculateRedAmbrosiaGenerationSpeed,
   calculateRedAmbrosiaLuck,
@@ -14,11 +13,15 @@ import {
   calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium
 } from './Calculate'
+import { getOcteractUpgradeEffect } from './Octeracts'
 import { quarkHandler } from './Quark'
-import { getRedAmbrosiaUpgrade } from './RedAmbrosiaUpgrades'
+import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { Seed, seededRandom } from './RNG'
-import { checkMaxRunes, redeemShards, unlockedRune } from './Runes'
+import { buyAllBlessingLevels } from './RuneBlessings'
+import { getNumberUnlockedRunes, indexToRune, type RuneKeys, runes, sacrificeOfferings } from './Runes'
+import { buyAllSpiritLevels } from './RuneSpirits'
 import { useConsumable } from './Shop'
+import { getGQUpgradeEffect } from './singularity'
 import { player } from './Synergism'
 import { Tabs } from './Tabs'
 import { buyAllTalismanResources } from './Talismans'
@@ -44,7 +47,7 @@ type TimerInput =
  * @param time
  */
 export const addTimers = (input: TimerInput, time = 0) => {
-  const globalTimeMultiplier = player.singularityUpgrades.halfMind.getEffect().bonus
+  const globalTimeMultiplier = getGQUpgradeEffect('halfMind')
     ? 10
     : calculateGlobalSpeedMult()
 
@@ -74,8 +77,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
     }
     case 'ascension': {
       // Anything in here is affected by add code
-      const ascensionSpeedMulti = player.singularityUpgrades.oneMind.getEffect()
-          .bonus
+      const ascensionSpeedMulti = getGQUpgradeEffect('oneMind')
         ? 10
         : calculateAscensionSpeedMult()
       player.ascensionCounter += time * timeMultiplier * ascensionSpeedMulti
@@ -104,7 +106,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       break
     }
     case 'goldenQuarks': {
-      if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus === 0) {
+      if (getGQUpgradeEffect('goldenQuarks3') === 0) {
         return
       } else {
         player.goldenQuarksTimer += time * timeMultiplier
@@ -115,7 +117,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       break
     }
     case 'octeracts': {
-      if (!player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
+      if (!getGQUpgradeEffect('octeractUnlock')) {
         return
       } else {
         player.octeractTimer += time * timeMultiplier
@@ -162,7 +164,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.autoPotionTimerObtainium += time * timeMultiplier
 
         const timerThreshold = (180 * Math.pow(1.03, -player.highestSingularityCount))
-          / +player.octeractUpgrades.octeractAutoPotionSpeed.getEffect().bonus
+          / getOcteractUpgradeEffect('octeractAutoPotionSpeed')
 
         const effectiveOfferingThreshold = toggleOfferingOn
           ? Math.min(1, timerThreshold) / 20
@@ -176,7 +178,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
             - (player.autoPotionTimer % effectiveOfferingThreshold))
             / effectiveOfferingThreshold
           player.autoPotionTimer %= effectiveOfferingThreshold
-          void useConsumable(
+          useConsumable(
             'offeringPotion',
             true,
             amountOfPotions,
@@ -189,7 +191,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
             - (player.autoPotionTimerObtainium % effectiveObtainiumThreshold))
             / effectiveObtainiumThreshold
           player.autoPotionTimerObtainium %= effectiveObtainiumThreshold
-          void useConsumable(
+          useConsumable(
             'obtainiumPotion',
             true,
             amountOfPotions,
@@ -218,11 +220,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
       let timeToAmbrosia = calculateRequiredBlueberryTime()
 
-      const maxAccelMultiplier = (1 / 2)
-        + (3 / 5 - 1 / 2) * +(player.singularityChallenges.noAmbrosiaUpgrades.completions >= 15)
-        + (2 / 3 - 3 / 5) * +(player.singularityChallenges.noAmbrosiaUpgrades.completions >= 19)
-        + (3 / 4 - 2 / 3) * +(player.singularityChallenges.noAmbrosiaUpgrades.completions >= 20)
-
       while (player.blueberryTime >= timeToAmbrosia) {
         const RNG = seededRandom(Seed.Ambrosia)
         const ambrosiaMult = Math.floor(ambrosiaLuck / 100)
@@ -234,13 +231,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.lifetimeAmbrosia += ambrosiaToGain
         player.blueberryTime -= timeToAmbrosia
 
-        timeToAmbrosia = calculateRequiredBlueberryTime()
-        const secondsToNextAmbrosia = timeToAmbrosia / calculateAmbrosiaGenerationSpeed()
-
-        G.ambrosiaTimer += Math.min(
-          secondsToNextAmbrosia * maxAccelMultiplier,
-          ambrosiaToGain * 0.2 * player.shopUpgrades.shopAmbrosiaAccelerator
-        )
         timeToAmbrosia = calculateRequiredBlueberryTime()
       }
 
@@ -262,7 +252,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         let timeToRedAmbrosia = calculateRequiredRedAmbrosiaTime()
 
         let ambrosiaTimeToGrant = 0
-        const timeCoeff = getRedAmbrosiaUpgrade('redAmbrosiaAccelerator').bonus.ambrosiaTimePerRedAmbrosia
+        const timeCoeff = getRedAmbrosiaUpgradeEffects('redAmbrosiaAccelerator').ambrosiaTimePerRedAmbrosia
 
         while (player.redAmbrosiaTime >= timeToRedAmbrosia) {
           const redAmbrosiaLuck = calculateRedAmbrosiaLuck()
@@ -307,12 +297,19 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
         break
       }
 
-      const obtainiumGain = calculateResearchAutomaticObtainium(time)
+      let obtainiumGain = calculateResearchAutomaticObtainium(time)
+      if (
+        player.singularityChallenges.taxmanLastStand.enabled
+        && player.singularityChallenges.taxmanLastStand.completions >= 2
+      ) {
+        obtainiumGain = Decimal.min(
+          obtainiumGain,
+          player.obtainium.times(100).plus(1)
+        )
+      }
+
       // Add Obtainium
-      player.researchPoints = Math.min(
-        1e300,
-        player.researchPoints + obtainiumGain
-      )
+      player.obtainium = player.obtainium.add(obtainiumGain)
       // Update visual displays if appropriate
       if (G.currentTab === Tabs.Research) {
         visualUpdateResearch()
@@ -324,10 +321,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       // As well as cube upgrade 1x2 (2).
       G.autoOfferingCounter += time
       // Any time this exceeds 1 it adds an offering
-      player.runeshards = Math.min(
-        1e300,
-        player.runeshards + Math.floor(G.autoOfferingCounter)
-      )
+      player.offerings = player.offerings.add(Math.floor(G.autoOfferingCounter))
       G.autoOfferingCounter %= 1
       break
     case 'runeSacrifice':
@@ -335,19 +329,15 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       player.sacrificeTimer += time
       if (
         player.sacrificeTimer >= 1
-        && isFinite(player.runeshards)
-        && player.runeshards > 0
+        && player.offerings.gt(0)
       ) {
         // Automatic purchase of Blessings
         if (player.highestSingularityCount >= 15) {
-          let ratio = 4
           if (player.toggles[36]) {
-            buyAllBlessings('Blessings', 100 / ratio, true)
-            ratio--
+            buyAllBlessingLevels(player.offerings.div(2))
           }
           if (player.toggles[37]) {
-            buyAllBlessings('Spirits', 100 / ratio, true)
-            ratio--
+            buyAllSpiritLevels(player.offerings.div(2))
           }
         }
         if (
@@ -360,36 +350,37 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
 
         // If you bought cube upgrade 2x10 then it sacrifices to all runes equally
         if (player.cubeUpgrades[20] === 1) {
-          const maxi = player.highestSingularityCount >= 50
-            ? 7
-            : player.highestSingularityCount >= 30
-            ? 6
-            : 5
-          const notMaxed = maxi - checkMaxRunes(maxi)
-          if (notMaxed > 0) {
-            const baseAmount = Math.floor(player.runeshards / notMaxed / 2)
-            for (let i = 0; i < maxi; i++) {
-              if (
-                !(
-                  !unlockedRune(i + 1)
-                  || player.runelevels[i] >= calculateMaxRunes(i + 1)
-                )
-              ) {
-                redeemShards(i + 1, true, baseAmount)
-              }
-            }
+          let numUnlocked = getNumberUnlockedRunes()
+
+          // Do not purchase AoAG under s50
+          if (player.highestSingularityCount < 50 && runes.antiquities.isUnlocked()) {
+            numUnlocked -= 1
+          }
+
+          // Do not purchase IA under s30
+          if (player.highestSingularityCount < 30 && runes.infiniteAscent.isUnlocked()) {
+            numUnlocked -= 1
+          }
+
+          const offeringPerRune = Decimal.floor(player.offerings.mul(0.5).div(numUnlocked))
+
+          for (const key of Object.keys(player.runes)) {
+            const runeKey = key as RuneKeys
+            sacrificeOfferings(runeKey, offeringPerRune, true)
           }
         } else {
           // If you did not buy cube upgrade 2x10 it sacrifices to selected rune.
           const rune = player.autoSacrifice
-          redeemShards(rune, true, 0)
+          if (rune !== 0) {
+            sacrificeOfferings(indexToRune[rune], player.offerings, true)
+          }
         }
         // Modulo used in event of a large delta time (this could happen for a number of reasons)
         player.sacrificeTimer %= 1
       }
       break
     case 'antSacrifice': {
-      const globalDelta = player.singularityUpgrades.halfMind.getEffect().bonus ? 10 : calculateGlobalSpeedMult()
+      const globalDelta = getGQUpgradeEffect('halfMind') ? 10 : calculateGlobalSpeedMult()
 
       player.antSacrificeTimer += time * globalDelta
       player.antSacrificeTimerReal += time
