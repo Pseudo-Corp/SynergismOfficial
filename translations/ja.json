@@ -1813,32 +1813,32 @@
       },
       "wowCubes": {
         "name": "Wow! Cube Production",
-        "description": "For each level past 39, gain +5% more Wow! Cubes. Every 10 levels, multiply the bonus by 1.07.",
+        "description": "For each level past 60 (yes, this does unlock at level 70, but just trust me), gain +5% more Wow! Cubes. Every 10 levels past 60, multiply the bonus by 1.07.",
         "effect": "Current Effect: +{{mult}} Wow! Cube Gain"
       },
       "wowTesseracts": {
         "name": "Wow! Tesseract Production",
-        "description": "For each level past 59, gain +5% more Wow! Tesseracts. Every 10 levels, multiply the bonus by 1.07.",
+        "description": "For each level past 80, gain +5% more Wow! Tesseracts. Every 10 levels past 80, multiply the bonus by 1.07.",
         "effect": "Current Effect: +{{mult}} Wow! Tesseract Gain"
       },
       "wowHyperCubes": {
         "name": "Wow! Hypercube Production",
-        "description": "For each level past 79, gain +5% more Wow! Hypercubes. Every 10 levels, multiply the bonus by 1.07.",
+        "description": "For each level past 100, gain +5% more Wow! Hypercubes. Every 10 levels past 100, multiply the bonus by 1.07.",
         "effect": "Current Effect: +{{mult}} Wow! Hypercube Gain"
       },
       "wowPlatonicCubes": {
         "name": "Wow! Platonic Cube Production",
-        "description": "For each level past 99, gain +5% more Wow! Platonic Cubes. Every 10 levels, multiply the bonus by 1.07.",
+        "description": "For each level past 120, gain +5% more Wow! Platonic Cubes. Every 10 levels past 120, multiply the bonus by 1.07.",
         "effect": "Current Effect: +{{mult}} Wow! Platonic Cube Gain"
       },
       "wowHepteractCubes": {
         "name": "Wow! Hepteract Production",
-        "description": "For each level past 124, gain +5% more Wow! Hepteracts. Every 10 levels, multiply the bonus by 1.07.",
+        "description": "For each level past 150, gain +5% more Wow! Hepteracts. Every 10 levels past 150, multiply the bonus by 1.07.",
         "effect": "Current Effect: +{{mult}} Wow! Hepteract Gain"
       },
       "wowOcteracts": {
         "name": "Wow! Octeracts!... Wait, what?",
-        "description": "For each level past 187, gain +5% more Wow! Octeracts. What's more, multiply this by 1.02 per level as well!",
+        "description": "For each level past 209, gain +5% more Wow! Octeracts. What's more, multiply this by 1.02 per level as well!",
         "effect": "Current Effect: +{{mult}} Wow! Octeract Gain"
       },
       "ambrosiaLuck": {
