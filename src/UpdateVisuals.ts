@@ -1465,23 +1465,27 @@ export const visualUpdateSingularity = () => {
       const singItem = player.singularityUpgrades[key]
       const el = DOMCacheGetOrSet(`${String(key)}`)
       if (
+        !val
+      ) {
+        el.classList.value = ''
+      } else if (
         singItem.maxLevel !== -1
         && singItem.level >= singItem.computeMaxLevel()
       ) {
-        el.style.filter = val ? 'brightness(.9)' : 'none'
+        el.classList.value = 'upgradeMaximized'
       } else if (
         singItem.getCostTNL() > player.goldenQuarks
         || player.singularityCount < singItem.minimumSingularity
       ) {
-        el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
+        el.classList.value = 'upgradeLocked'
       } else if (
         singItem.maxLevel === -1
         || singItem.level < singItem.computeMaxLevel()
       ) {
         if (singItem.freeLevels > singItem.level) {
-          el.style.filter = val ? 'blur(1px) invert(.9) saturate(200)' : 'none'
+          el.classList.value = 'upgradeSoftCapped'
         } else {
-          el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none'
+          el.classList.value = 'upgradeAvailable'
         }
       }
     }
@@ -1494,15 +1498,19 @@ export const visualUpdateSingularity = () => {
     for (const key of keys) {
       const octItem = player.octeractUpgrades[key]
       const el = DOMCacheGetOrSet(`${String(key)}`)
-      if (octItem.maxLevel !== -1 && octItem.level >= octItem.maxLevel) {
-        el.style.filter = val ? 'brightness(.9)' : 'none'
+      if (
+        !val
+      ) {
+        el.classList.value = ''
+      } else if (octItem.maxLevel !== -1 && octItem.level >= octItem.maxLevel) {
+        el.classList.value = 'upgradeMaximized'
       } else if (octItem.getCostTNL() > player.wowOcteracts) {
-        el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
+        el.classList.value = 'upgradeLocked'
       } else if (octItem.maxLevel === -1 || octItem.level < octItem.maxLevel) {
         if (octItem.freeLevels > octItem.level) {
-          el.style.filter = val ? 'blur(2px) invert(.9) saturate(200)' : 'none'
+          el.classList.value = 'upgradeSoftCapped'
         } else {
-          el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none'
+          el.classList.value = 'upgradeAvailable'
         }
       }
     }

@@ -1516,9 +1516,9 @@ export const campaignIconHTMLUpdates = () => {
 export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
   const icon = document.querySelector<HTMLElement>(`#campaignIconGrid > #${key}CampaignIcon`)!
   if (!campaignDatas[key].unlockRequirement()) {
-    icon.style.display = 'none'
+    icon.style.visibility = 'hidden'
   } else {
-    icon.style.display = 'block'
+    icon.style.visibility = 'visible'
   }
 
   icon.classList.remove('green-background', 'purple-background')
@@ -1689,19 +1689,21 @@ export const campaignTokenRewardHTMLUpdate = () => {
       tokenIcon.classList.add('campaignTokenRewardIcon')
 
       if (typeof value.reward() === 'string') {
-        tokenIcon.onclick = () => {
+        tokenIcon.addEventListener('mouseenter', () => {
           DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(`campaigns.tokens.rewardTexts.${key}`, {
             reward: value.reward()
           })
         }
+        )
       } else {
-        tokenIcon.onclick = () => {
+        tokenIcon.addEventListener('mouseenter', () => {
           const reward = value.reward() as Partial<Record<CampaignTokenRewardNames, string>>
           DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(
             `campaigns.tokens.rewardTexts.${key}`,
             reward
           )
         }
+        )
       }
 
       DOMCacheGetOrSet('campaignTokenRewardIcons').appendChild(tokenIcon)
