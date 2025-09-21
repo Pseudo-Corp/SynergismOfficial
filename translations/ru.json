@@ -29,33 +29,33 @@
     "notEnoughBlueberries": "У вас недостаточно Голубики для активации этого модуля.",
     "timeThresholds": "Из-за Амброзии за всё время, требования Очков Шкалы Амброзии были удвоены <<cyan | {{threshold}}>> раз. Следующее удвоение при достижении <<orange|{{toNext}}>> Амброзии.",
     "cubeUpgradeThresholds": "Из-за Амброзии за всё время, требования Очков Шкалы Амброзии были удвоены <<cyan | {{threshold}}>> раз. Следующее удвоение при достижении <<orange|{{toNext}}>> Амброзии. <<cyan | Очки Шкалы Амброзии +{{percent}}%>>!",
-    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} Ambrosia Luck>>!",
+    "cubeUpgradeRedBarFills": "Пока Улучшение Печенек 29 было куплено, ваша Красная Шкала была заполнена <<maroon | {{amount}}>> раз, что даёт вам <<green | +{{luck}} Удачи Амброзии>>!",
     "ambrosiaBuyPrompt": "Сколько Амброзии вы хотели бы потратить? У вас {{amount}} Амброзии. Введите -1, чтобы использовать максимум!",
     "refund": "Вы вернули всю потраченную Голубику и Амброзию.",
     "refundWord": "Возврат",
     "ignoreEXALT": "[<<white|♔>>] Это улучшение активно даже когда ВОЗВЫШЕНИЕ упоминает обратное!",
-    "notUnlocked": "Clear No Golden Quark Upgrades, Tier 1!",
-    "ambrosiaCost": "Cost for next level: <<orange | {{amount}}>> Ambrosia",
+    "notUnlocked": "Завершите Без Улучшений Золотых Кварков, Уровень 1!",
+    "ambrosiaCost": "Стоимость следующего уровня: <<orange | {{amount}}>> Амброзии",
     "data": {
       "ambrosiaTutorial": {
         "name": "Тренировочный Модуль Амброзии",
-        "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes per level, +1% Quarks per level",
-        "effect": "This tutorial module increases Cube gain by {{cubeAmount}}% and Quarks by {{quarkAmount}}%"
+        "description": "Голубика со временем создаёт Амброзию. Потратьте её в дереве Амброзии! +5% Кубов за уровень, +1% Кварков за уровень",
+        "effect": "Этот тренировочный модуль увеличивает получение Кубов на {{cubeAmount}}% и Кварков на {{quarkAmount}}%"
       },
       "ambrosiaQuarks1": {
         "name": "Модуль Амброзии: Кварки I",
-        "description": "Congrats on completing the Tutorial module. You need to have it maxed to buy levels of this. +1% Quarks per level.",
-        "effect": "This Quark module increases Quark gain by {{amount}}%"
+        "description": "Поздравляем с завершением Тренировочного модуля. Он нужен максимального уровня, чтобы купить уровень этого. +1% Кварков за уровень.",
+        "effect": "Этот модуль Кварков увеличивает получение Кварков на {{amount}}%"
       },
       "ambrosiaCubes1": {
         "name": "Модуль Амброзии: Кубы I",
-        "description": "Congrats on completing the Tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes per level. Every 5 levels give 1.1x Cubes.",
-        "effect": "This Cube module increases Cube gain by {{amount}}%"
+        "description": "Поздравляем с завершением Тренировочного модуля. Он нужен максимального уровня, чтобы купить уровень этого. +5% Кубов за уровень. Каждые 5 уровней дают 1.1х Кубов.",
+        "effect": "Этот модуль Кубов увеличивает получение Кубов на {{amount}}%"
       },
       "ambrosiaLuck1": {
         "name": "Модуль Амброзии: Удача I",
-        "description": "Congrats on completing the Tutorial module. You need to have it maxxed to buy levels of this. +2 Ambrosia Luck per lvl. Every 10 levels give +12 more!",
-        "effect": "This luck module increases Ambrosia Luck by {{amount}}"
+        "description": "Поздравляем с завершением Тренировочного модуля. Он нужен максимального уровня, чтобы купить уровень этого. +2 к Удаче Амброзии за уровень. Каждые 10 уровней дают ещё +12!",
+        "effect": "Этот модуль удачи увеличивает Удачу Амброзии на {{amount}}"
       },
       "ambrosiaCubeQuark1": {
         "name": "Гибридный Модуль Амброзии: Кубы-Кварки I",
@@ -64,28 +64,28 @@
       },
       "ambrosiaLuckQuark1": {
         "name": "Гибридный Модуль Амброзии: Удача-Кварки I",
-        "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
+        "description": "Гибридный модуль первого поколения. Увеличивает Кварки на +0.01% за уровень за 1 Удачу Амброзии! Убывающая полезность после 1,000 Удачи.",
         "effect": "Этот гибридный модуль первого поколения увеличивает получение Кварков на {{amount}}%"
       },
       "ambrosiaQuarkCube1": {
         "name": "Гибридный Модуль Амброзии: Кварки-Кубы I",
-        "description": "A first generation hybrid module. Gain +0.1% more Cubes per level per digit in your Quark balance, squared!",
-        "effect": "This first generation hybrid module increases Cube gain by {{amount}}%"
+        "description": "Гибридный модуль первого поколения. Увеличивает получение Кубов на +0.1% за уровень за квадрат количества знаков вашего баланса Кварков!",
+        "effect": "Этот гибридный модуль первого поколения увеличивает получение Кубов на {{amount}}%"
       },
       "ambrosiaLuckCube1": {
         "name": "Гибридный Модуль Амброзии: Удача-Кубы I",
-        "description": "A first generation hybrid module. Gain +0.05% more Cubes per level per 1 Ambrosia Luck!",
-        "effect": "This first generation hybrid module increases Cube gain by {{amount}}%"
+        "description": "Гибридный модуль первого поколения. Увеличивает получение Кубов на +0.05% за уровень за 1 Удачу Амброзии!",
+        "effect": "Этот гибридный модуль первого поколения увеличивает получение Кубов на {{amount}}%"
       },
       "ambrosiaCubeLuck1": {
         "name": "Гибридный Модуль Амброзии: Кубы-Удача I",
-        "description": "A first generation hybrid module. Gain +0.02 Ambrosia Luck per level per digit in the values of all cube types.",
-        "effect": "This first generation hybrid module increases Ambrosia Luck by {{amount}}"
+        "description": "Гибридный модуль первого поколения. Даёт +0.02 Удачи Амброзии за уровень за цифру в количестве всех видов кубов.",
+        "effect": "Этот гибридный модуль первого поколения увеличивает Удачу Амброзии на {{amount}}"
       },
       "ambrosiaQuarkLuck1": {
         "name": "Гибридный Модуль Амброзии: Кварки-Удача I",
-        "description": "A first generation hybrid module. Gain +0.02 Ambrosia Luck per level per digit in your Quark balance, squared.",
-        "effect": "This first generation hybrid module increases Ambrosia Luck by {{amount}}"
+        "description": "Гибридный модуль первого поколения. Даёт +0.02 Удачи Амброзии за уровень за квадрат количества знаков вашего баланса Кварков.",
+        "effect": "Этот гибридный модуль первого поколения увеличивает Удачу Амброзии на {{amount}}"
       },
       "ambrosiaQuarks2": {
         "name": "Модуль Амброзии: Кварки II",
