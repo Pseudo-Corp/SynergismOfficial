@@ -829,13 +829,13 @@
         "workerAutobuyer": "初始状态下就解锁工人自动购买！"
       },
       "5": {
-        "accelerators": "每拥有500个工人就获得1个免费加速器"
+        "accelerators": "每拥有500个工人，就获得1个免费加速器"
       },
       "6": {
-        "multipliers": "每拥有1000个工人，就获得1个免费加倍器。"
+        "multipliers": "每拥有1000个工人，就获得1个免费加倍器"
       },
       "7": {
-        "accelBoosts": "每拥有2000个工人获得1个加速器加成"
+        "accelBoosts": "每拥有2000个工人，就获得1个加速器加成"
       },
       "10": {
         "acceleratorPower": "使加速器效果增加0.15%"
@@ -844,13 +844,13 @@
         "investmentAutobuyer": "初始状态下就解锁投资自动购买！"
       },
       "12": {
-        "accelerators": "每拥有500个投资就获得1个免费加速器"
+        "accelerators": "每拥有500个投资，就获得1个免费加速器"
       },
       "13": {
-        "multipliers": "每拥有1000个投资，就获得1个免费加倍器。"
+        "multipliers": "每拥有1000个投资，就获得1个免费加倍器"
       },
       "14": {
-        "accelBoosts": "每拥有2000个投资获得1个加速器加成"
+        "accelBoosts": "每拥有2000个投资，就获得1个加速器加成"
       },
       "17": {
         "acceleratorPower": "使加速器效果增加0.2%"
@@ -859,13 +859,13 @@
         "printerAutobuyer": "初始状态下就解锁打印机自动购买！"
       },
       "19": {
-        "accelerators": "每拥有500个打印机就获得1个免费加速器"
+        "accelerators": "每拥有500台打印机，就获得1个免费加速器"
       },
       "20": {
-        "multipliers": "每拥有1000台打印机，就获得1个免费加倍器。"
+        "multipliers": "每拥有1000台打印机，就获得1个免费加倍器"
       },
       "21": {
-        "accelBoosts": "每拥有2000个打印机获得1个加速器加成"
+        "accelBoosts": "每拥有2000台打印机，就获得1个加速器加成"
       },
       "24": {
         "acceleratorPower": "使加速器效果增加0.2%"
@@ -874,13 +874,13 @@
         "mintAutobuyer": "初始状态下就解锁铸币厂自动购买！"
       },
       "26": {
-        "accelerators": "每拥有500个铸币厂就获得1个免费加速器"
+        "accelerators": "每拥有500个铸币厂，就获得1个免费加速器"
       },
       "27": {
-        "multipliers": "每拥有1000个铸币厂，就获得1个免费加倍器。"
+        "multipliers": "每拥有1000个铸币厂，就获得1个免费加倍器"
       },
       "28": {
-        "accelBoosts": "每拥有2000个铸币厂获得1个加速器加成"
+        "accelBoosts": "每拥有2000个铸币厂，就获得1个加速器加成"
       },
       "31": {
         "acceleratorPower": "使加速器效果增加0.3%"
@@ -889,13 +889,13 @@
         "alchemyAutobuyer": "初始状态下就解锁炼金术自动购买！"
       },
       "33": {
-        "accelerators": "每拥有500个炼金术就获得1个免费加速器"
+        "accelerators": "每拥有500个炼金术，就获得1个免费加速器"
       },
       "34": {
-        "multipliers": "每拥有1000个炼金术，就获得1个免费加倍器。"
+        "multipliers": "每拥有1000个炼金术，就获得1个免费加倍器"
       },
       "35": {
-        "accelBoosts": "每拥有2000个炼金术获得1个加速器加成"
+        "accelBoosts": "每拥有2000个炼金术，就获得1个加速器加成"
       },
       "36": {
         "offeringPrestigeTimer": "根据花费的时间，转生可获得更多祭品！(每10秒增加100%)"
@@ -1996,7 +1996,7 @@
     "notification": "您解锁了成就：{{m}}",
     "quarkBonus": "每500成就点数使夸克获取数量增加0.01倍！目前夸克倍率：<<cyan|{{multiplier}}倍>>",
     "achievementLevel": "基于成就点数，您目前的协同效应为<span class=\"rainbowText\">{{level}}</span>级",
-    "achievementToNextLevel": "再获得{{AP}}成就点数可达到{{level}}级",
+    "achievementToNextLevel": "{{level}}级还需{{AP}}",
     "levelUpNotification": "升级了！协同效应等级从{{old}}提升为{{new}}",
     "complete": "&nbsp;&nbsp;第{{tier}}阶(已完成)",
     "tier": "&nbsp;&nbsp;第{{tier}}阶"
@@ -2702,8 +2702,8 @@
       "114": "[5x14]每级使节俭符文的符文系数再度增加1！",
       "115": "[5x15]每级使卓越智慧符文的符文系数增加1！因为之前没有这个研究，所以它的等级上限翻倍了。",
       "116": "[5x16]每级使护身符强度再度增加0.1%！(与符文效果不同，所有增加护身符强度的效果都是相互叠加的。别问原因。)",
-      "117": "[5x17] Incredibly, gain another +0.1% Talisman Power per level!",
-      "118": "[5x18] Try this for size: gain +0.2% Talisman Power per level! It's like <b>twice as good</b> as the other upgrades.",
+      "117": "[5x17]难以置信，每级使护身符强度再增加0.1%！",
+      "118": "[5x18]试试这个：每级使护身符强度增加0.2%！它的效果是其他升级的<b>两倍</b>。",
       "119": "[5x19]每级使飞升的惊奇方盒获取数量增加0.25%。",
       "120": "[5x20]每级再次使飞升的惊奇方盒获取数量增加0.25%。",
       "121": "[5x21] Bend (global) time to your will, gaining +2% Global Speed per level.",
