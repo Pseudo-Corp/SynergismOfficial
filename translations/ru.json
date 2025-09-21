@@ -227,18 +227,18 @@
       },
       "conversionImprovement1": {
         "name": "Улучшение Конвертации Удачи Амброзии",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<crimson | {{amount}}>>!"
+        "description": "Каждые 20 Удачи Амброзии конвертируются в 1 Красную Удачу? Нее. Давайте-ка уменьшим это соотношение на 1 за уровень.",
+        "effect": "Уменьшает количество необходимой Удачи Амброзии на <<crimson | {{amount}}>>!"
       },
       "conversionImprovement2": {
         "name": "Улучшение Конвертации Удачи Амброзии II: Красное Электрическое Бугалу",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<crimson | {{amount}}>>!"
+        "description": "Каждые 20 Удачи Амброзии конвертируются в 1 Красную Удачу? Нее. Давайте-ка уменьшим это соотношение на 1 за уровень.",
+        "effect": "Уменьшает количество необходимой Удачи Амброзии на <<crimson | {{amount}}>>!"
       },
       "conversionImprovement3": {
         "name": "Улучшение Конвертации Удачи Амброзии III с хвостиком",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<crimson | {{amount}}>>!"
+        "description": "Каждые 20 Удачи Амброзии конвертируются в 1 Красную Удачу? Нее. Давайте-ка уменьшим это соотношение на 1 за уровень.",
+        "effect": "Уменьшает количество необходимой Удачи Амброзии на <<crimson | {{amount}}>>!"
       },
       "freeTutorialLevels": {
         "name": "Больше Уровней Тренировочного Модуля Голубики!",
@@ -272,18 +272,18 @@
       },
       "regularLuck": {
         "name": "Тактика Окостеневшей Голубики",
-        "description": "Most strange. Adding this gold-colored wax on your blueberries makes you slightly more likely to get Ambrosia! +2 Ambrosia Luck per level.",
+        "description": "Интересный феномен. Добавление золотого воска на ваши ягоды увеличивает ваши шансы на получение Амброзии! +2 Удачи Амброзии за уровень.",
         "effect": "Это улучшение увеличивает Удачу Амброзии на {{amount}}!"
       },
       "redGenerationSpeed": {
         "name": "Красная Амброзия Тысячелетней Выдержки",
-        "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +0.3% more Red Bar Points per level.",
-        "effect": "This upgrade increases Red Bar Point gain by {{amount}}!"
+        "description": "Учитывая, насколько эту Амброзию здесь оставили, она, несомненно, что-нибудь да знает о времени. +0.3% Очков Красной Шкалы за уровень.",
+        "effect": "Это улучшение увеличивает Очки Красной Шкалы на {{amount}}!"
       },
       "redLuck": {
         "name": "Кости Решат Вашу Участь",
-        "description": "A life on every face, until you're finally left with an eight. +1 Red Luck per level!",
-        "effect": "This upgrade increases Red Luck by {{amount}}!"
+        "description": "Всякая грань сверкает жизнью, пока вы не останетесь с бесконечностью. +1 Красной Удачи за уровень!",
+        "effect": "Это улучшение увеличивает Красную Удачу на {{amount}}!"
       },
       "redAmbrosiaCube": {
         "name": "Кубы \"из\" Красной Амброзии",
@@ -312,8 +312,8 @@
       },
       "infiniteShopUpgrades": {
         "name": "Купоны Магазина Бесконечностей Красного цвета",
-        "description": "A Shop Voucher, printed on a red tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Shop upgrades.",
-        "effect": "You own {{amount}} Red Infinity Shop Vouchers!"
+        "description": "Купон, напечатанный на красной табличке. Каждый купон даёт +1 эффективный уровень улучшений Магазина Кварков от Компании \"Бесконечность\".",
+        "effect": "У вас {{amount}} Красных Купонов Магазина Бесконечности!"
       },
       "redAmbrosiaAccelerator": {
         "name": "Красно-Синее Ультраслияние",
@@ -331,7 +331,7 @@
         "effect": "Это улучшение увеличивает Очки Шкалы Амброзии на {{amount}}!"
       },
       "salvageYinYang": {
-        "name": "Yin and Yang: Salvage Edition",
+        "name": "Инь и Янь: Издание \"Утилизация\"",
         "description": "This upgrade, oddly enough, increases both your Positive and Negative Salvage by 10 per level! <<orange|Disabled in 'Taxman's last stand'>>",
         "effect": "Your Positive and Negative Salvage are both increased by {{amount}}."
       }
