@@ -188,9 +188,9 @@
         "effect": "Сила Талисманов увеличена на {{amount}}%"
       },
       "ambrosiaRuneOOMBonus": {
-        "name": "Rune Coefficient Module",
-        "description": "For each of the first five runes, add 1 to their Rune Coefficient per level! For Infinite Ascent, add +0.001 to the Rune Coefficient per level.",
-        "effect": "Runes 1-5 have +{{amount}} Rune Coefficient; IA Rune has +{{amount2}} Rune Coefficient"
+        "name": "Модуль Коэффициента Рун",
+        "description": "Для каждой из первых пяти рун, добавляет 1 к их Коэффициенту Руны за уровень! Для Бесконечного Восхождения, добавляет +0.001 к Коэффициенту Руны за уровень.",
+        "effect": "Коэффициент Рун 1-5: +{{amount}}; Руна БВ: +{{amount2}}"
       }
     },
     "loadouts": {
@@ -213,12 +213,12 @@
   "redAmbrosia": {
     "redAmbrosia": "Красная Амброзия",
     "amount": "Амброзия:<<red|{{redAmbrosia}}>> Текущая | <<red|{{lifetimeRedAmbrosia}}>> За всё время",
-    "purchaseWarning": "<<gold | ⚠>> Unlike Blueberry Modules, you <<red | CANNOT>> refund this upgrade.",
-    "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: {{ambrosiaLuck}}>>]",
+    "purchaseWarning": "<<gold | ⚠>> В отличие от Модулей Голубики, возврат этого улучшения <<red | НЕВОЗМОЖЕН>>.",
+    "perGen": "В данный момент получаете <<red|{{guaranteed}}>> Красной Амброзии с вероятностью <<red|{{extraChance}}%>> на ещё одну. [<<red|Удача: {{ambrosiaLuck}}>>]",
     "redAmbrosiaBuyPrompt": "Сколько Красной Амброзии вы хотели бы потратить? У вас {{amount}} Красной Амброзии. Введите -1, чтобы использовать максимум!",
     "notUnlocked": "Завершите Без Амброзии, Уровень 1!",
-    "redAmbrosiaCost": "Cost for next level: <<red | {{amount}}>> Red Ambrosia",
-    "redAmbrosiaSpent": "Total Red Ambrosia spent: <<red | {{amount}}>>",
+    "redAmbrosiaCost": "Стоимость следующего уровня: <<red | {{amount}}>> Красной Амброзии",
+    "redAmbrosiaSpent": "Всего потрачено Красной Амбросии: <<red | {{amount}}>>",
     "data": {
       "tutorial": {
         "name": "Красная Амброзия: руководство для новичков",
