@@ -769,64 +769,64 @@
       "427": "插入代币：从战役中获得20个战役代币。",
       "428": "初心腐化者：从战役中获得40个战役代币。",
       "429": "一卷战役代币：从战役中获得80个战役代币。",
-      "430": "Relative Campaign Expert: Gain 160 Campaign Tokens from Campaigns.",
-      "431": "Five Stacks: Gain 320 Campaign Tokens from Campaigns.",
-      "432": "Thousandaire: Gain 1,000 Campaign Tokens from Campaigns.",
-      "433": "Question 6 of a possible 15: Gain 2,000 Campaign Tokens from Campaigns.",
-      "434": "Platonic Campaigns: Gain 4,000 Campaign Tokens from Campaigns.",
-      "435": "Campaign Master: Gain 9,000 Campaign Tokens from Campaigns.",
-      "436": "Baby's first Prestige: Prestige for the first time.",
-      "437": "Ten Reputation: Prestige 10 times.",
-      "438": "Duplicating yourself: Prestige 100 times.",
-      "439": "Number? Go UP!: Prestige 1,000 times.",
-      "440": "Pretend to be a god: Prestige 10,000 times.",
-      "441": "The now-idolized: Prestige 100,000 times.",
-      "442": "One. Million. Prestige.: Prestige 1,000,000 times.",
-      "443": "Powers of Ten: Prestige 10,000,000 times.",
-      "444": "Now that's what I call Prestige!: Prestige 100,000,000 times.",
-      "445": "Billionaire I: Prestige 1,000,000,000 times.",
-      "446": "Powers of a Hundred: Prestige 100,000,000,000 times.",
-      "447": "Numbers as large as they are wide: Prestige 10,000,000,000,000 times.",
-      "448": "That's a quadrillion to you: Prestige 1e15 times.",
-      "449": "Prestige ad nauseum: Prestige 1e17 times.",
-      "450": "Prestige so Presitgious, it becomes ordinary: Prestige 1e20 times.",
-      "451": "Transcendental: Transcend for the first time.",
-      "452": "Ten degrees of separation: Transcend 10 times.",
-      "453": "Polychroma: Transcend 100 times.",
-      "454": "Absent further instructions: Transcend 1,000 times.",
-      "455": "The visage of godliness: Transcend 10,000 times.",
-      "456": "Post-human: Transcend 100,000 times.",
-      "457": "The Million Transcension Man: Transcend 1,000,000 times.",
-      "458": "Why not another?: Transcend 10,000,000 times.",
-      "459": "The average AI Salary in 2025: Transcend 100,000,000 times.",
-      "460": "Billionaire II: Transcend 1,000,000,000 times.",
-      "461": "Powers of thirty: Transcend 30,000,000,000 times.",
-      "462": "Wheel turning round and round: Transcend 900,000,000,000 times.",
-      "463": "The pursuit of numbers: Transcend 2.7e13 times.",
-      "464": "42 Achievement Points: Transcend 8.1e14 times.",
-      "465": "How to Transcend your Dragon: Transcend 1e17 times.",
-      "466": "Particle Man: Reincarnate for the first time.",
-      "467": "Some giants, possibly: Reincarnate 10 times.",
-      "468": "Atomic Discounts: Reincarnate 100 times.",
-      "469": "The nuclear option: Reincarnate 1,000 times.",
-      "470": "Reinvent yourself: Reincarnate 10,000 times.",
-      "471": "Your mind is software: Reincarnate 100,000 times.",
-      "472": "Bioethical: Reincarnate 1,000,000 times.",
-      "473": "Can you count to 10 million: Reincarnate 10,000,000 times.",
-      "474": "Reincarnated Grandmas... wait: Reincarnate 100,000,000 times.",
-      "475": "Billionaire III: Reincarnate 1,000,000,000 times.",
-      "476": "Out of bodies: Reincarnate 8,000,000,000 times",
-      "477": "Become the unsmith: Reincarnate 100,000,000,000 times.",
-      "478": "One trillion reincarnations later: Reincarnate 1,000,000,000,000 times.",
-      "479": "Log-triskaidekaphobia: Reincarnate 13,131,313,131,313 times.",
-      "480": "M2: Reincarnate 2e14 times."
+      "430": "小试牛刀：从战役中获得160个战役代币。",
+      "431": "五组代币：从战役中获得320个战役代币。",
+      "432": "千元户：从战役中获得1000个战役代币。",
+      "433": "第6题（共15题）：从战役中获得2000个战役代币。",
+      "434": "Platonic的战役：从战役中获得4000个战役代币。",
+      "435": "战役大师：从战役中获得9000个战役代币。",
+      "436": "萌新首次转生：进行首次转生。",
+      "437": "十转：进行10次转生。",
+      "438": "复制自己：进行100次转生。",
+      "439": "数字，起飞！：进行1000次转生。",
+      "440": "假装是神：进行10000次转生。",
+      "441": "成为偶像：进行100000次转生。",
+      "442": "一，百，万，转生：进行1000000次转生。",
+      "443": "十之力：进行10000000(1e7)次转生。",
+      "444": "这才是转生！：进行100000000(1e8)次转生。",
+      "445": "亿万富翁 I：进行1000000000(1e9)次转生。",
+      "446": "百之力：进行100000000000(1e11)次转生。",
+      "447": "数字又大又宽：进行10000000000000(1e13)次转生。",
+      "448": "千万亿了：进行1e15次转生。",
+      "449": "反复转生：进行1e17次转生。",
+      "450": "洗尽铅华的转生：进行1e20次转生。",
+      "451": "超凡：进行首次超越。",
+      "452": "十度分隔：进行10次超越。",
+      "453": "丰富多彩：进行100次超越。",
+      "454": "暂无进一步指示：进行1000次超越。",
+      "455": "神性面容：进行10000次超越。",
+      "456": "超越人类：进行100000次超越。",
+      "457": "百万超越人：进行1000000次超越。",
+      "458": "何不继续？：进行10000000(1e7)次超越。",
+      "459": "2025年人工智能行业平均薪资：进行100000000(1e8)次超越。",
+      "460": "亿万富翁 II：进行1000000000(1e9)次超越。",
+      "461": "三十之力：进行30000000000(3e10)次超越。",
+      "462": "大车轮吱悠悠地转：进行900000000000(9e11)次超越。",
+      "463": "追求数字：进行2.7e13次超越。",
+      "464": "42成就点数：进行8.1e14次超越。",
+      "465": "《超越驭龙指南》：进行1e17次超越。",
+      "466": "粒子人：进行首次转世。",
+      "467": "可能是某些巨人：进行10次转世。",
+      "468": "原子折扣：进行100次转世。",
+      "469": "核子选项：进行1000次转世。",
+      "470": "重塑自身：进行10000次转世。",
+      "471": "思维只是软件：进行100000次转世。",
+      "472": "生物伦理：进行1000000次转世。",
+      "473": "你能数到一千万吗？：进行10000000(1e7)次转世。",
+      "474": "转世宗……啊？：进行100000000(1e8)次转世。",
+      "475": "亿万富翁 III：进行1000000000(1e9)次转世。",
+      "476": "脱离身体：进行8000000000(8e9)次转世。",
+      "477": "变得面无表情：进行100000000000(1e11)次转世。",
+      "478": "一万亿次转世之后：进行1000000000000(1e12)次转世。",
+      "479": "记录十三之恐惧症：进行13131313131313(1.3e13)次转世。",
+      "480": "M2：进行2e14次转世。"
     },
     "achievementRewards": {
       "3": {
-        "acceleratorPower": "+0.1% Accelerator Power"
+        "acceleratorPower": "使加速器效果增加0.1%"
       },
       "4": {
-        "workerAutobuyer": "Start with the Worker Autobuyer unlocked!"
+        "workerAutobuyer": "初始状态下就解锁工人自动购买！"
       },
       "5": {
         "accelerators": "每拥有500个工人就获得1个免费加速器"
@@ -838,79 +838,79 @@
         "accelBoosts": "每拥有2000个工人获得1个加速器加成"
       },
       "10": {
-        "acceleratorPower": "+0.15% Accelerator Power"
+        "acceleratorPower": "使加速器效果增加0.15%"
       },
       "11": {
-        "investmentAutobuyer": "Start with the Investment Autobuyer unlocked!"
+        "investmentAutobuyer": "初始状态下就解锁投资自动购买！"
       },
       "12": {
         "accelerators": "每拥有500个投资就获得1个免费加速器"
       },
       "13": {
-        "multipliers": "+1 Free Multiplier per 1,000 Investments owned"
+        "multipliers": "每拥有1000个投资，就获得1个免费加倍器。"
       },
       "14": {
         "accelBoosts": "每拥有2000个投资获得1个加速器加成"
       },
       "17": {
-        "acceleratorPower": "+0.2% Accelerator Power"
+        "acceleratorPower": "使加速器效果增加0.2%"
       },
       "18": {
-        "printerAutobuyer": "Start with the Printer Autobuyer unlocked!"
+        "printerAutobuyer": "初始状态下就解锁打印机自动购买！"
       },
       "19": {
         "accelerators": "每拥有500个打印机就获得1个免费加速器"
       },
       "20": {
-        "multipliers": "+1 Free Multiplier per 1,000 Printers owned"
+        "multipliers": "每拥有1000台打印机，就获得1个免费加倍器。"
       },
       "21": {
         "accelBoosts": "每拥有2000个打印机获得1个加速器加成"
       },
       "24": {
-        "acceleratorPower": "+0.2% Accelerator Power"
+        "acceleratorPower": "使加速器效果增加0.2%"
       },
       "25": {
-        "mintAutobuyer": "Start with the Mint Autobuyer unlocked!"
+        "mintAutobuyer": "初始状态下就解锁铸币厂自动购买！"
       },
       "26": {
         "accelerators": "每拥有500个铸币厂就获得1个免费加速器"
       },
       "27": {
-        "multipliers": "+1 Free Multiplier per 1,000 Coin Mints owned"
+        "multipliers": "每拥有1000个铸币厂，就获得1个免费加倍器。"
       },
       "28": {
         "accelBoosts": "每拥有2000个铸币厂获得1个加速器加成"
       },
       "31": {
-        "acceleratorPower": "+0.3% Accelerator Power"
+        "acceleratorPower": "使加速器效果增加0.3%"
       },
       "32": {
-        "alchemyAutobuyer": "Start with the Alchemy Autobuyer unlocked!"
+        "alchemyAutobuyer": "初始状态下就解锁炼金术自动购买！"
       },
       "33": {
         "accelerators": "每拥有500个炼金术就获得1个免费加速器"
       },
       "34": {
-        "multipliers": "+1 Free Multiplier per 1,000 Alchemies owned"
+        "multipliers": "每拥有1000个炼金术，就获得1个免费加倍器。"
       },
       "35": {
         "accelBoosts": "每拥有2000个炼金术获得1个加速器加成"
       },
       "36": {
-        "offeringPrestigeTimer": "Prestige gives more Offerings based on time spent! (+100% per 10 seconds)"
+        "offeringPrestigeTimer": "根据花费的时间，转生可获得更多祭品！(每10秒增加100%)"
       },
       "37": {
-        "crystalMultiplier": "Crystal production multiplier based on log(Diamonds)"
+        "crystalMultiplier": "基于log(钻石数量)增加水晶产量"
       },
       "38": {
-        "duplicationRuneUnlock": "Permanently unlock the Duplication Rune!"
+        "duplicationRuneUnlock": "永久解锁重叠符文！"
       },
       "43": {
-        "autoPrestigeFeature": "Unlock the Auto Prestige Feature!"
+        "autoPrestigeFeature": "解锁自动转生功能！"
       },
       "44": {
-        "prismRuneUnlock": "Permanently unlock the Prism Rune!"
+        "prismRuneUnlock": "永久解锁棱柱符文！"
       },
       "45": {
         "taxReduction": "减少税收增长5%"
@@ -922,13 +922,13 @@
         "taxReduction": "减少税收增长10%"
       },
       "50": {
-        "particleGain": "Permanently double your Particle Gain!"
+        "particleGain": "使粒子获取数量永久翻倍！"
       },
       "53": {
-        "multiplicativeObtainium": "Obtainium gain is increased by +0.125% for each Rune level"
+        "multiplicativeObtainium": "每级符文使难得素获取数量增加0.125%"
       },
       "57": {
-        "multipliers": "+1 free Multiplier"
+        "multipliers": "获得1个免费加倍器"
       },
       "58": {
         "multipliers": "再获得1个免费加倍器！"
@@ -946,78 +946,78 @@
         "accelerators": "获得2个免费加速器"
       },
       "71": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "使所有发生器升级的转换指数增加1%！"
       },
       "72": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "使所有发生器升级的转换指数增加1%！"
       },
       "73": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "使所有发生器升级的转换指数增加1%！"
       },
       "74": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "使所有发生器升级的转换指数增加1%！"
       },
       "75": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "使所有发生器升级的转换指数增加1%！"
       },
       "76": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "使所有发生器升级的转换指数增加1%！"
       },
       "77": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "使所有发生器升级的转换指数增加1%！"
       },
       "78": {
-        "refineryAutobuy": "Unlock the Refinery Autobuyer!"
+        "refineryAutobuy": "解锁炼油厂自动购买！"
       },
       "79": {
-        "crystalUpgrade1Autobuy": "Unlock the Autobuyer for the first Crystal Upgrade!"
+        "crystalUpgrade1Autobuy": "解锁第一个水晶升级的自动购买！"
       },
       "80": {
-        "salvage": "Salvage +3",
-        "multAutobuyer": "Start with the Multiplier Autobuyer unlocked!"
+        "salvage": "回收增加3",
+        "multAutobuyer": "初始状态下就解锁加倍器自动购买！"
       },
       "82": {
         "taxReduction": "减少税收增长4%"
       },
       "84": {
-        "multiplicativeObtainium": "Obtainium x1.05"
+        "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
       },
       "85": {
-        "coalPlantAutobuy": "Unlock the Coal Plant Autobuyer!"
+        "coalPlantAutobuy": "解锁煤电厂自动购买！"
       },
       "86": {
-        "crystalUpgrade2Autobuy": "Unlock the Autobuyer for the second Crystal Upgrade!"
+        "crystalUpgrade2Autobuy": "解锁第二个水晶升级的自动购买！"
       },
       "87": {
-        "salvage": "+3 Salvage",
-        "accelAutobuyer": "Start with the Accelerator Autobuyer unlocked!"
+        "salvage": "回收增加3",
+        "accelAutobuyer": "初始状态下就解锁加速器自动购买！"
       },
       "89": {
         "taxReduction": "减少税收增长4%"
       },
       "91": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
       },
       "92": {
-        "coalRigAutobuy": "Unlock the Coal Rig Autobuyer!"
+        "coalRigAutobuy": "解锁煤钻机自动购买！"
       },
       "93": {
-        "crystalUpgrade3Autobuy": "Unlock the Autobuyer for the third Crystal Upgrade!"
+        "crystalUpgrade3Autobuy": "解锁第三个水晶升级的自动购买！"
       },
       "94": {
-        "salvage": "+4 Salvage"
+        "salvage": "回收增加4"
       },
       "96": {
         "taxReduction": "减少税收增长4%"
       },
       "98": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
       },
       "99": {
-        "pickaxeAutobuy": "Unlock the Pickaxe Autobuyer!"
+        "pickaxeAutobuy": "解锁十字镐自动购买！"
       },
       "100": {
-        "crystalUpgrade4Autobuy": "Unlock the Autobuyer for the fourth Crystal Upgrade!"
+        "crystalUpgrade4Autobuy": "解锁第四个水晶升级的自动购买！"
       },
       "101": {
         "salvage": "+5 Salvage"
