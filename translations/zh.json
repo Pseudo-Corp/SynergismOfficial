@@ -381,21 +381,21 @@
       "39": "威名远扬：转生获得至少1e1000个钻石。",
       "40": "成为传奇：转生获得至少1e10000个钻石。",
       "41": "具有神性：转生获得至少1e77777个钻石。",
-      "42": "无人不知：转生获得1e250000个钻石。",
+      "42": "无人不知：转生获得至少1e250000个钻石。",
       "43": "简单迂回：超越获得至少1个神话。",
       "44": "井底之蛙：超越获得至少1e6个神话。",
-      "45": "灰烬重生：超越获得1e50个神话。",
-      "46": "模式转换：超越获得1e308个神话。",
-      "47": "准备工作：超越获得1e1500个神话。",
-      "48": "完善计划：超越获得1e25000个神话。",
-      "49": "离开宇宙：超越获得1e100000个神话。",
+      "45": "灰烬重生：超越获得至少1e50个神话。",
+      "46": "模式转换：超越获得至少1e308个神话。",
+      "47": "准备工作：超越获得至少1e1500个神话。",
+      "48": "完善计划：超越获得至少1e25000个神话。",
+      "49": "离开宇宙：超越获得至少1e100000个神话。",
       "50": "量子化：转世获得至少1个粒子。",
-      "51": "鼠目寸光：转世获得至少100000粒子。",
-      "52": "模拟世界：转世获得1e30个粒子。",
-      "53": "多维创造：转世获得1e200个粒子。",
-      "54": "轻子之舞：转世获得1e1500个粒子。",
-      "55": "还不够吗？：转世获得1e5000个粒子。",
-      "56": "生而为细胞，我很幸运：转世获得1e7777个粒子。",
+      "51": "鼠目寸光：转世获得至少100000个粒子。",
+      "52": "模拟世界：转世获得至少1e30个粒子。",
+      "53": "多维创造：转世获得至少1e200个粒子。",
+      "54": "轻子之舞：转世获得至少1e1500个粒子。",
+      "55": "还不够吗？：转世获得至少1e5000个粒子。",
+      "56": "生而为细胞，我很幸运：转世获得至少1e7777个粒子。",
       "57": "单行道：不购买加倍器进行一次转生。",
       "58": "正宗的转变：不购买加倍器进行一次超越。",
       "59": "[已删除]：不购买加倍器进行一次转世。",
@@ -572,11 +572,11 @@
       "230": "这一点也不公平：以五十亿以上的分数完成飞升。",
       "231": "反基督者：以二百五十亿以上的分数完成飞升。",
       "232": "高度祝福：将加速符文的祝福等级提升到20。",
-      "233": "[{}]神圣祝福：将加速符文的祝福等级提升到40。",
+      "233": "神圣祝福：将加速符文的祝福等级提升到40。",
       "234": "祝福 III：将加速符文的祝福等级提升到80。",
       "235": "魂灵 I：将加速符文的魂灵等级提升到20。",
       "236": "魂灵 II：将加速符文的魂灵等级提升到40。",
-      "237": "[{}]魂灵 III：将加速符文的魂灵等级提升到80。",
+      "237": "魂灵 III：将加速符文的魂灵等级提升到80。",
       "238": "三次折扣：[提示：想想一路走来，有什么刚好可以三重叠加的]",
       "239": "红色危机：[提示：这个游戏中，有什么资源基本全是红色的，当然不是说什么立方，您需要很多那种资源，有多少？应该不是1后面跟25个0啥的了]",
       "240": "多次飞升：[提示：在之前飞升成就的基础上，再多一位，至于是哪一位？肯定跟根号2没关系的]",
@@ -630,58 +630,58 @@
       "288": "周六前要到货：购买100000000(1e8)台打印机。",
       "289": "能做到的话就太棒棒啦：购买五十亿(5e9)台打印机。",
       "290": "铸就完美：建立100000000(1e8)个铸币厂。",
-      "291": "Chocolate Mints, anyone?: Purchase 1 Billion Coin Mints.",
-      "292": "A good clean feeling, no matter what: Purchase 20 Billion Coin Mints",
-      "293": "Alpha Regeneration: Create 1 Billion Coin Mints.",
-      "294": "Citrinitas Synthesis: Create 20 Billion Coin Mints.",
-      "295": "The Philosopher's Stone: Create 1 Trillion Coin Mints.",
-      "296": "Prestige...?: Prestige for at least 1e10,000,000 Diamonds.",
-      "297": "Shine bright like a ...: Prestige for at least 1e10,000,000,000 [1e1e10] Diamonds.",
-      "298": "Diamonds are forever: Prestige for at least 1e10,000,000,000,000 [1e1e13] Diamonds.",
-      "299": "Transcend...?: Transcend for at least 1e2,500,000 Mythos.",
-      "300": "Mythos is not really a good name: Transcend for at least 1e2,500,000,000 [1e2.5e9] Mythos.",
-      "301": "Too Transcendent: Transcend for at least 1e2,500,000,000,000 [1e2.5e12] Mythos.",
-      "302": "Reincarnate...?: Reincarnate for at least 1e100,000 Particles.",
-      "303": "One Hundred Million Dollars.: Reincarnate for at least 1e100,000,000 [1e1e8] Particles.",
-      "304": "12 figure log-salary: Reincarnate for at least 1e100,000,000,000 [1e1e11] Particles.",
-      "305": "Mononucleic: Clear [No Multiplier] 1,000 times.",
-      "306": "Solo Leveled: Clear [No Multiplier] 9,000 times.",
-      "307": "Power of One: Clear [No Multiplier] 9,001 times.",
-      "308": "TREE^-1(n): Clear [No Accelerators] 1,000 times.",
-      "309": "TREE^-1(TREE^-1(n)): Clear [No Accelerators] 9,000 times.",
-      "310": "O(1): Clear [No Accelerators] 9,001 times.",
-      "311": "I saw this in a movie once: Clear [No Shards] 1,000 times.",
-      "312": "Achievement 312: Clear [No Shards] 9,000 times.",
-      "313": "Achievement 313: Clear [No Shards] 9,001 times.",
-      "314": "The consequences of economy: Clear [Cost+] 1,000 times.",
-      "315": "Have been a disaster: Clear [Cost+] 9,000 times.",
-      "316": "For the ant race: Clear [Cost+] 9,001 times.",
-      "317": "491 karats: Clear [Reduced Diamonds] 1,000 times.",
-      "318": "Lab-shrunk diamonds: Clear [Reduced Diamonds] 9,000 times.",
-      "319": "Diamond is not breakable: Clear [Reduced Diamonds] 9,001 times.",
-      "320": "Tariffs: Clear {[Tax+]} 40 times.",
-      "321": "Council Taxes: Clear {[Tax+]} 80 times.",
-      "322": "Death and Taxes: Clear {[Tax+]} 120 times.",
-      "323": "This challenge honestly isn't that bad: Clear {[No Accelerator/Multiplier]} 40 times.",
-      "324": "You can't even rate this game anymore: Clear {[No Accelerator/Multiplier]} 80 times.",
-      "325": "Oh well... -140/5: Clear {[No Accelerator/Multiplier]} 125 times.",
-      "326": "I'm in Jeopardy!: Clear {[Cost++]} 40 times.",
-      "327": "Pretending to afford things: Clear {[Cost++]} 80 times.",
-      "328": "Do you accept traveler's checks?: Clear {[Cost++]} 130 times.",
-      "329": "Hieroglyphics: Clear {[No Runes]} 40 times.",
-      "330": "Hieroglyphics II: Clear {[No Runes]} 80 times.",
-      "331": "The Rosetta Stone: Clear {[No Runes]} 135 times.",
-      "332": "The ender of the universe: Clear {[Sadistic I]} 40 times.",
-      "333": "The endest of the universe: Clear {[Sadistic I]} 80 times.",
-      "334": "The more endest of the universe: Clear {[Sadistic I]} 140 times.",
-      "335": "I would go fast: Purchase 1,000,000 Accelerators",
-      "336": "The journey of 10,000,000 miles: Purchase 10,000,000 Accelerators",
-      "337": "Starts with a single mile: Purchase 100,000,000 Accelerators",
-      "338": "I think I'm a clone now: Purchase 3,000,000 Multipliers",
-      "339": "Variety platters: Purchase 30,000,000 Multipliers",
-      "340": "Every taste and talent: Purchase 300,000,000 Multipliers",
-      "341": "Booster Seats: Purchase 100,000 Accelerator Boosts",
-      "342": "A brief history of time: Purchase 1,000,000 Accelerator Boosts",
+      "291": "一家之铸：建立十亿(1e9)个铸币厂。",
+      "292": "心无挂碍：建立二百亿(2e10)个铸币厂。",
+      "293": "源始再造：创造十亿(1e9)个炼金术。",
+      "294": "黄金炼成术：创造二百亿(2e10)个炼金术。",
+      "295": "点金石：创造一万亿(1e12)个炼金术。",
+      "296": "转生……？：转生获得至少1e10000000个钻石。",
+      "297": "跟它一样亮：转生获得至少1e10000000000[1e1e10]个钻石。",
+      "298": "永恒钻石：转生获得至少1e10000000000000[1e1e13]个钻石。",
+      "299": "超越……？：超越获得至少1e2500000个神话。",
+      "300": "神话真不是个好名字：超越获得至少1e2500000000[1e2.5e9]个神话。",
+      "301": "太超凡脱俗了：超越获得至少1e2500000000000[1e2.5e12]个神话。",
+      "302": "转世……？：转世获得至少1e100000个粒子。",
+      "303": "小目标一个亿：转世获得至少1e100000000[1e1e8]个粒子。",
+      "304": "千亿薪水：转世获得至少1e100000000000[1e1e11]个粒子。",
+      "305": "单核：完成1000次无加倍器挑战。",
+      "306": "独自升级：完成9000次无加倍器挑战。",
+      "307": "一之力：完成9001次无加倍器挑战。",
+      "308": "TREE(n)的反函数：完成1000次无加速器挑战。",
+      "309": "TREE(n)反函数的反函数：完成9000次无加速器挑战。",
+      "310": "O(1)函数：完成9001次无加速器挑战。",
+      "311": "我在电影里看过：完成一千次无碎片挑战。",
+      "312": "成就312：完成9000次无碎片挑战。",
+      "313": "成就313：完成9001次无碎片挑战。",
+      "314": "经济后果：完成1000次花费增加挑战。",
+      "315": "对蚂蚁来说：完成9000次花费增加挑战。",
+      "316": "一直是灾难：完成9001次花费增加挑战。",
+      "317": "491克拉：完成1000次钻石减少挑战。",
+      "318": "人造小钻：完成9000次钻石减少挑战。",
+      "319": "钻石坚不可摧：完成9001次钻石减少挑战。",
+      "320": "关税：完成四十次税收增加挑战。",
+      "321": "市政税：完成八十次税收增加挑战。",
+      "322": "死亡和征税：完成一百二十次税收增加挑战。",
+      "323": "这个挑战真没这么难：完成四十次无加倍器/加速器挑战。",
+      "324": "这游戏都评分不了了：完成八十次无加倍器/加速器挑战。",
+      "325": "那好吧... 游戏评分-140/5：完成一百二十五次无加倍器/加速器挑战。",
+      "326": "我，危！：完成四十次花费增加挑战。",
+      "327": "打肿脸充胖子：完成八十次花费增加挑战。",
+      "328": "这个可以当钱用吗？：完成一百三十次花费增加挑战。",
+      "329": "象形文字：完成四十次无符文挑战。",
+      "330": "象形文字 II：完成八十次无符文挑战。",
+      "331": "罗塞塔石碑：完成一百三十五次无符文挑战。",
+      "332": "宇宙的更尽头：完成四十次虐待狂挑战 I。",
+      "333": "宇宙的更更尽头：完成八十次虐待狂挑战 I。",
+      "334": "宇宙的更更更尽头：完成一百四十次虐待狂挑战 I。",
+      "335": "我要飞速前进：购买1000000个加速器。",
+      "336": "千万里我追寻着你：购买10000000(1e7)个加速器。",
+      "337": "可是你却并不在意：购买100000000(1e8)个加速器。",
+      "338": "我大概不是本尊吧：购买3000000个加倍器。",
+      "339": "多样拼盘：购买30000000(3e7)个加倍器。",
+      "340": "群英荟萃：购买300000000(3e8)个加倍器。",
+      "341": "加高座椅：购买1000000个加速器加成。",
+      "342": "时间简史：购买1000000个加速器加成。",
       "343": "Vivace: Purchase 10,000,000 Accelerator Boosts",
       "344": "A crumby achievement: Obtain 1e25,000 Galactic Crumbs.",
       "345": "Get it? Crumbs?: Obtain 1e125,000 Galactic Crumbs.",
@@ -710,17 +710,17 @@
       "368": "Oh there goes gravity: Clear 'No Reincarnation' challenge 50 times.",
       "369": "Around the world in a tea daze: Clear 'No Reincarnation' challenge 60 times.",
       "370": "So normal I became abnormal: Clear 'No Reincarnation' challenge 65 times.",
-      "371": "I don't need no stinkin' Reincarnation!: Clear 'No Reincarnation' challenge 70 times.",
+      "371": "我说过，这些转世就该扔了！：完成七十次无转世挑战。",
       "372": "Where is Tax++?: Clear 'Tax+++' challenge 40 times.",
       "373": "Early Returns: Clear 'Tax+++' challenge 50 times.",
       "374": "Bank error in your favor: Clear 'Tax+++' challenge 60 times.",
       "375": "Offshoring your Offshore Account: Clear 'Tax+++' challenge 70 times.",
       "376": "Immaculate Accounting: Clear 'Tax+++' challenge 72 times.",
-      "377": "I: Clear 'No Research' challenge 40 times.",
-      "378": "I don't: Clear 'No Research' challenge 50 times.",
-      "379": "I don't like: Clear 'No Research' challenge 60 times.",
-      "380": "I don't like to: Clear 'No Research' challenge 70 times.",
-      "381": "I don't like to study: Clear 'No Research' challenge 72 times.",
+      "377": "我：完成四十次无研究挑战。",
+      "378": "我不：完成五十次无研究挑战。",
+      "379": "我不喜：完成六十次无研究挑战。",
+      "380": "我不喜欢：完成七十次无研究挑战。",
+      "381": "我不喜欢研究：完成七十二次无研究挑战。",
       "382": "Quick to be square: Level your Speed Blessing to 200.",
       "383": "400 Newtons: Level your Speed Blessing to 400.",
       "384": "800 Newtons: Level your Speed Blessing to 800.",
@@ -829,13 +829,13 @@
         "workerAutobuyer": "Start with the Worker Autobuyer unlocked!"
       },
       "5": {
-        "accelerators": "+1 Free Accelerator per 500 Workers owned"
+        "accelerators": "每拥有500个工人就获得1个免费加速器"
       },
       "6": {
-        "multipliers": "+1 Free Multiplier per 1,000 Workers owned"
+        "multipliers": "每拥有1000个工人，就获得1个免费加倍器。"
       },
       "7": {
-        "accelBoosts": "+1 Free Accelerator Boost per 2,000 Workers owned"
+        "accelBoosts": "每拥有2000个工人获得1个加速器加成"
       },
       "10": {
         "acceleratorPower": "+0.15% Accelerator Power"
@@ -844,13 +844,13 @@
         "investmentAutobuyer": "Start with the Investment Autobuyer unlocked!"
       },
       "12": {
-        "accelerators": "+1 Free Accelerator per 500 Investments owned"
+        "accelerators": "每拥有500个投资就获得1个免费加速器"
       },
       "13": {
         "multipliers": "+1 Free Multiplier per 1,000 Investments owned"
       },
       "14": {
-        "accelBoosts": "+1 Free Accelerator Boost per 2,000 Investments owned"
+        "accelBoosts": "每拥有2000个投资获得1个加速器加成"
       },
       "17": {
         "acceleratorPower": "+0.2% Accelerator Power"
@@ -859,13 +859,13 @@
         "printerAutobuyer": "Start with the Printer Autobuyer unlocked!"
       },
       "19": {
-        "accelerators": "+1 Free Accelerator per 500 Printers owned"
+        "accelerators": "每拥有500个打印机就获得1个免费加速器"
       },
       "20": {
         "multipliers": "+1 Free Multiplier per 1,000 Printers owned"
       },
       "21": {
-        "accelBoosts": "+1 Free Accelerator Boost per 2,000 Printers owned"
+        "accelBoosts": "每拥有2000个打印机获得1个加速器加成"
       },
       "24": {
         "acceleratorPower": "+0.2% Accelerator Power"
@@ -874,13 +874,13 @@
         "mintAutobuyer": "Start with the Mint Autobuyer unlocked!"
       },
       "26": {
-        "accelerators": "+1 Free Accelerator per 500 Coin Mints owned"
+        "accelerators": "每拥有500个铸币厂就获得1个免费加速器"
       },
       "27": {
         "multipliers": "+1 Free Multiplier per 1,000 Coin Mints owned"
       },
       "28": {
-        "accelBoosts": "+1 Free Accelerator Boost per 2,000 Coin Mints owned"
+        "accelBoosts": "每拥有2000个铸币厂获得1个加速器加成"
       },
       "31": {
         "acceleratorPower": "+0.3% Accelerator Power"
@@ -889,13 +889,13 @@
         "alchemyAutobuyer": "Start with the Alchemy Autobuyer unlocked!"
       },
       "33": {
-        "accelerators": "+1 Free Accelerator per 500 Alchemies owned"
+        "accelerators": "每拥有500个炼金术就获得1个免费加速器"
       },
       "34": {
         "multipliers": "+1 Free Multiplier per 1,000 Alchemies owned"
       },
       "35": {
-        "accelBoosts": "+1 Free Accelerator Boost per 2,000 Alchemies owned"
+        "accelBoosts": "每拥有2000个炼金术获得1个加速器加成"
       },
       "36": {
         "offeringPrestigeTimer": "Prestige gives more Offerings based on time spent! (+100% per 10 seconds)"
@@ -913,13 +913,13 @@
         "prismRuneUnlock": "Permanently unlock the Prism Rune!"
       },
       "45": {
-        "taxReduction": "Tax scaling is reduced by 5%"
+        "taxReduction": "减少税收增长5%"
       },
       "46": {
-        "taxReduction": "Tax scaling is reduced by 5%"
+        "taxReduction": "减少税收增长5%"
       },
       "47": {
-        "taxReduction": "Tax scaling is reduced by 10%"
+        "taxReduction": "减少税收增长10%"
       },
       "50": {
         "particleGain": "Permanently double your Particle Gain!"
@@ -931,19 +931,19 @@
         "multipliers": "+1 free Multiplier"
       },
       "58": {
-        "multipliers": "Another +1 free Multiplier!"
+        "multipliers": "再获得1个免费加倍器！"
       },
       "59": {
-        "multipliers": "ANOTHER +1 free Multiplier!"
+        "multipliers": "再获得1个免费加倍器！"
       },
       "60": {
-        "accelerators": "+2 free Accelerators"
+        "accelerators": "获得2个免费加速器"
       },
       "61": {
-        "accelerators": "Another +2 free Accelerators"
+        "accelerators": "获得2个免费加速器"
       },
       "62": {
-        "accelerators": "ANOTHER +2 free Accelerators"
+        "accelerators": "获得2个免费加速器"
       },
       "71": {
         "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
@@ -977,7 +977,7 @@
         "multAutobuyer": "Start with the Multiplier Autobuyer unlocked!"
       },
       "82": {
-        "taxReduction": "Tax scaling reduced by 4%"
+        "taxReduction": "减少税收增长4%"
       },
       "84": {
         "multiplicativeObtainium": "Obtainium x1.05"
@@ -993,7 +993,7 @@
         "accelAutobuyer": "Start with the Accelerator Autobuyer unlocked!"
       },
       "89": {
-        "taxReduction": "Tax scaling reduced by 4%"
+        "taxReduction": "减少税收增长4%"
       },
       "91": {
         "multiplicativeObtainium": "Obtainium gain x1.05"
@@ -1008,7 +1008,7 @@
         "salvage": "+4 Salvage"
       },
       "96": {
-        "taxReduction": "Tax scaling reduced by 4%"
+        "taxReduction": "减少税收增长4%"
       },
       "98": {
         "multiplicativeObtainium": "Obtainium gain x1.05"
@@ -1026,7 +1026,7 @@
         "thriftRuneUnlock": "Permanently unlock the Thrift Rune!"
       },
       "103": {
-        "taxReduction": "Tax scaling reduced by 4%"
+        "taxReduction": "减少税收增长4%"
       },
       "105": {
         "multiplicativeObtainium": "Obtainium gain x1.05"
@@ -1041,7 +1041,7 @@
         "salvage": "+5 Salvage"
       },
       "110": {
-        "taxReduction": "Tax scaling reduced by 4%"
+        "taxReduction": "减少税收增长4%"
       },
       "112": {
         "multiplicativeObtainium": "Obtainium gain x1.05"
@@ -1050,7 +1050,7 @@
         "salvage": "+5 Salvage"
       },
       "117": {
-        "taxReduction": "Tax scaling reduced by 5%"
+        "taxReduction": "减少税收增长5%"
       },
       "118": {
         "taxReduction": "Tax scaling reduced by 0.5% per Reincarnation Challenge clear (multiplicative)"
@@ -1065,7 +1065,7 @@
         "salvage": "+5 Salvage"
       },
       "124": {
-        "taxReduction": "Tax scaling reduced by 5%"
+        "taxReduction": "减少税收增长5%"
       },
       "125": {
         "multiplicativeObtainium": "Obtainium gain x1.05"
@@ -1081,7 +1081,7 @@
         "salvage": "+6 Salvage"
       },
       "131": {
-        "taxReduction": "Tax scaling reduced by 5%"
+        "taxReduction": "减少税收增长5%"
       },
       "132": {
         "multiplicativeObtainium": "Obtainium gain x1.05"
@@ -1132,31 +1132,31 @@
         "acceleratorPower": "+1% Accelerator Power"
       },
       "151": {
-        "accelerators": "Gain +5 free Accelerators"
+        "accelerators": "获得5个免费加速器"
       },
       "152": {
-        "accelerators": "Gain +12 free Accelerators"
+        "accelerators": "获得12个免费加速器"
       },
       "153": {
-        "accelerators": "Gain +25 free Accelerators"
+        "accelerators": "获得25个免费加速器"
       },
       "154": {
-        "accelerators": "Gain +50 free Accelerators. <span class='rainbowText'>Wow!</span>"
+        "accelerators": "获得50个免费加速器。<span class='rainbowText'>真惊奇！</span>"
       },
       "156": {
-        "multipliers": "Gain +1 free Multiplier"
+        "multipliers": "获得1个免费加倍器"
       },
       "158": {
-        "multipliers": "Gain +1 free Multiplier"
+        "multipliers": "获得1个免费加倍器"
       },
       "159": {
-        "multipliers": "Gain +3 free Multipliers"
+        "multipliers": "获得3个免费加倍器"
       },
       "160": {
-        "multipliers": "Gain +6 free Multipliers"
+        "multipliers": "获得6个免费加倍器"
       },
       "161": {
-        "multipliers": "Gain +10 free Multipliers. <span class='rainbowText'>Wow!</span>"
+        "multipliers": "获得10个免费加倍器。<span class='rainbowText'>真惊奇！</span>"
       },
       "169": {
         "antSpeed": "Ant Speed is multiplied by logarithm of Galactic Crumbs"
@@ -1685,22 +1685,22 @@
       "prestigePointGain": "Prestige Gains",
       "transcendPointGain": "Transcension Gains",
       "reincarnationPointGain": "Reincarnation Gains",
-      "challenge1": "No Multipliers Challenge",
-      "challenge2": "No Accelerators Challenge",
-      "challenge3": "No Shards Challenge",
+      "challenge1": "无加倍器挑战",
+      "challenge2": "无加速器挑战",
+      "challenge3": "无碎片挑战",
       "challenge4": "Cost+ Challenge",
-      "challenge5": "Reduced Diamonds Challenge",
+      "challenge5": "钻石减少挑战",
       "challenge6": "Higher Tax Challenge",
-      "challenge7": "No Multipliers/Accelerators Challenge",
+      "challenge7": "无加倍器/加速器挑战",
       "challenge8": "Cost++ Challenge",
-      "challenge9": "No Runes Challenge",
+      "challenge9": "无符文挑战",
       "challenge10": "Sadistic Challenge I",
       "challenge11": "Reduced Ants Challenge",
-      "challenge12": "No Reincarnation Challenge",
-      "challenge13": "Tax+++ Challenge",
-      "challenge14": "No Research Challenge",
-      "accelerators": "Accelerators",
-      "acceleratorBoosts": "Accelerator Boosts",
+      "challenge12": "无转世挑战",
+      "challenge13": "税收激增挑战",
+      "challenge14": "无研究挑战",
+      "accelerators": "加速器",
+      "acceleratorBoosts": "加速器加成",
       "multipliers": "Multipliers",
       "antCrumbs": "Galactic Crumbs",
       "sacMult": "Ant Sacrifice",
@@ -1723,9 +1723,9 @@
       "unlocked": "✔",
       "locked": "❌",
       "acceleratorPower": "• Accelerator Power +{{val}}",
-      "accelerators": "• Free Accelerators +{{val}}",
+      "accelerators": "• 免费加速器 +{{val}}",
       "multipliers": "• Free Multipliers +{{val}}",
-      "accelBoosts": "• Free Accelerator Boosts +{{val}}",
+      "accelBoosts": "• 免费加速器加成 +{{val}}",
       "workerAutobuyer": "• Worker Autobuyer {{unlock}}",
       "investmentAutobuyer": "• Investment Autobuyer {{unlock}}",
       "printerAutobuyer": "• Printer Autobuyer {{unlock}}",
@@ -2313,7 +2313,7 @@
       "current": {
         "1": "难得素获取数量增加{{value}}%",
         "2": "祭品获取数量增加{{value}}%",
-        "3": "+{{value}}% Reincarnation Count"
+        "3": "转世次数 +{{value}}%"
       }
     },
     "13": {
@@ -2337,7 +2337,7 @@
     "14": {
       "name": "无研究挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "这个维度没能跨越黑暗时代。很多人甚至不敢越雷池一步。",
-      "restrictions": "立即飞升开始挑战，您无法获得难得素，也无法进行研究。蚂蚁产量^0.2。",
+      "restrictions": "立即飞升开始挑战。您无法获得难得素，也无法进行研究。蚂蚁产量^0.2。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "研究1x1至研究1x5的效果增加50%。当前效果： ",
@@ -6522,22 +6522,22 @@
       "descriptions": {
         "chronos": {
           "effect": "该惊奇七阶立方可以扭曲时间，为您所用。每个惊奇七阶立方·时光可以使飞升的速度增加0.06%。",
-          "currentEffect": "Current Effect: Ascension Speed +{{x}}",
+          "currentEffect": "当前效果：飞升的速度增加{{x}}",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}难得素！"
         },
         "hyperrealism": {
           "effect": "这货可以使五阶立方获取速度变得更快。每个惊奇七阶立方·超真实可以使五阶立方的获取数量增加0.06%。",
-          "currentEffect": "Current Effect: Hypercubes +{{x}}",
+          "currentEffect": "当前效果：五阶立方获取数量增加{{x}}",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}祭品。"
         },
         "quark": {
           "effect": "一磅鱼，两磅鱼，鱼鱼鱼。每个惊奇七阶立方·夸克可以使夸克的获取数量增加0.05%。",
-          "currentEffect": "Current Effect: Quarks +{{x}}",
+          "currentEffect": "当前效果：夸克获取数量增加{{x}}",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}夸克。"
         },
         "challenge": {
           "effect": "这不是扯淡吗？每个惊奇七阶立方·挑战可以使挑战15的指数获取数量增加0.05%？怎么可能？怎么可能！？",
-          "currentEffect": "Current Effect: C15 Exponent +{{x}}",
+          "currentEffect": "当前效果：挑战15的指数增加{{x}}",
           "oneCost": "锻造一个将消耗{{x}}七阶立方，{{y}} PLATONIC方盒及{{z}}惊奇方盒。"
         },
         "abyss": {
@@ -6552,7 +6552,7 @@
         },
         "acceleratorBoost": {
           "effect": "哈哈，腐化你个蠢蛋。每个惊奇七阶立方·加速器加成可以使加速器加成数量增加0.1%。",
-          "currentEffect": "Current Effect: Accelerator Boosts +{{x}}",
+          "currentEffect": "当前效果：加速器加成增加{{x}}",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}惊奇五阶立方"
         },
         "multiplier": {
