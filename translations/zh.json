@@ -1942,43 +1942,43 @@
       },
       "singularityCount": {
         "name": "递进式成就 - 奇点次数",
-        "description": "Gain AP based on the highest Singularity you have reached! Highest Reached: {{x}}",
-        "apSource": "Gain +9 AP for Singularities 1-100 <br> Gain +12 AP for Singularities 101-200 <br> Gain +15 AP for Singularities 201-300"
+        "description": "根据最高奇点次数获得成就点数！最高奇点次数：{{x}}",
+        "apSource": "奇点1至奇点100，每次奇点获得9成就点数<br>奇点101至奇点200，每次奇点获得12成就点数<br>奇点201至奇点300，每次奇点获得15成就点数"
       },
       "ambrosiaCount": {
-        "name": "Progressive Achievement - Lifetime Ambrosia",
-        "description": "Gain AP based on your lifetime Ambrosia! Lifetime Ambrosia: {{x}}",
-        "apSource": "Gain +1 AP per 100 Ambrosia, up to 20,000. <br> Gain +1 AP per 10,000 Ambrosia, up to 2,000,000. <br> Gain up to 400 MORE AP, by reaching 100,000,000 total Lifetime Ambrosia!"
+        "name": "递进式成就 - 神肴总数",
+        "description": "根据神肴总数获得成就点数！神肴总数：{{x}}",
+        "apSource": "在20000神肴之前，每有100神肴，就获得1成就点数。<br>20000神肴至2000000神肴之间，每有10000神肴，就获得1成就点数。<br>2000000神肴至100000000神肴之间，一共可以获得400成就点数！"
       },
       "redAmbrosiaCount": {
-        "name": "Progressive Achievement - Lifetime Red Ambrosia",
-        "description": "Gain AP based on your lifetime Red Ambrosia! Lifetime Red Ambrosia: {{x}}",
-        "apSource": "Gain +1 AP per 25 Red Ambrosia, up to 5,000. <br> Gain +1 AP per 2,500 Red Ambrosia, up to 500,000. <br> Gain up to 400 MORE AP, by reaching 5,000,000 total Lifetime Red Ambrosia!"
+        "name": "递进式成就 - 红神肴总数",
+        "description": "根据红神肴总数获得成就点数！红神肴总数：{{x}}",
+        "apSource": "在5000红神肴之前，每有25红神肴，就获得1成就点数。<br>5000红神肴至500000红神肴之间，每有2500红神肴，就获得1成就点数。<br>500000红神肴至5000000红神肴之间，一共可以获得400成就点数！"
       },
       "exalts": {
-        "name": "Progressive Achievement - EXALT Completions",
-        "description": "Gain AP for each EXALT you have completed!",
-        "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Twenty Ascensions: {{num3}}/{{cap3}} AP <br> No Octeract Effects: {{num4}}/{{cap4}} AP <br> No Ambrosia Upgrades: {{num5}}/{{cap5}} AP <br> Grand Singularity Speedrun: {{num6}}/{{cap6}} AP <br> Sadistic III: {{num7}}/{{cap7}} AP <br> Taxman's Last Stand: {{num8}}/{{cap8}} AP"
+        "name": "递进式成就 - 拔擢完成次数",
+        "description": "每次完成拔擢都可以获得成就点数！",
+        "apSource": "无金夸克升级：{{num1}}/{{cap1}}成就点数<br>挑战上限恒为一：{{num2}}/{{cap2}}成就点数<br>二十飞升挑战：{{num3}}/{{cap3}}成就点数<br>无八阶方块效果：{{num4}}/{{cap4}}成就点数<br>无神肴升级：{{num5}}/{{cap5}}成就点数<br>奇点大竞速赛：{{num6}}/{{cap6}}成就点数<br>虐待狂拔擢 III：{{num7}}/{{cap7}}成就点数<br>税务人员的最后阵地：{{num8}}/{{cap8}}成就点数"
       },
       "singularityUpgrades": {
-        "name": "Progressive Achievement - Golden Quark Upgrades",
-        "description": "Gain AP for each Golden Quark upgrade you've maxxed!",
-        "apSource": "Capped upgrades: +5 AP If the upgraded level (excluding free upgrades) is at least the base maximum level."
+        "name": "递进式成就 - 金夸克升级",
+        "description": "根据满级的金夸克升级数量获得成就点数！",
+        "apSource": "满级升级：只要相应升级的等级(免费升级除外)达到了基础等级上限，则获得5成就点数。"
       },
       "octeractUpgrades": {
-        "name": "Progressive Achievement - Octeract Upgrades",
-        "description": "Gain AP for each Octeract upgrade you've maxxed!",
-        "apSource": "Capped upgrades: +8 AP if the upgraded level (excluding free upgrades) is the maximum level."
+        "name": "递进式成就 - 惊奇八阶方块升级",
+        "description": "根据满级的惊奇八阶方块升级数量获得成就点数！",
+        "apSource": "满级升级：只要相应升级的等级(免费升级除外)达到了等级上限，则获得8成就点数。"
       },
       "redAmbrosiaUpgrades": {
-        "name": "Progressive Achievement - Red Ambrosia Upgrades",
-        "description": "Gain AP for each Red Ambrosia upgrade you've maxxed!",
-        "apSource": "For each upgrade leveled to the max: +10 AP"
+        "name": "递进式成就 - 红神肴升级",
+        "description": "根据满级的红神肴升级数量获得成就点数！",
+        "apSource": "只要相应升级的等级达到了等级上限，则获得10成就点数。"
       },
       "talismanRarities": {
-        "name": "Talisman Rarity",
-        "description": "Your talismans grant AP based on their rarity! Best sum of rarities: {{x}}",
-        "apSource": "Gain +5 AP for each rarity. Unlocked Talismans have a rarity of at least 1."
+        "name": "护身符稀有度",
+        "description": "根据护身符的稀有度获得成就点数！最高稀有度之和：{{x}}",
+        "apSource": "每个稀有度获得5成就点数。护身符解锁后稀有度至少为1。"
       }
     },
     "alerts": {
@@ -1987,19 +1987,19 @@
       "255": "哇哦！您在这一次飞升中获得了1e17的飞升分数。因此从现在起，只要您的飞升分数大于1.66e17，您就可以获得惊奇七阶立方了。祝您好运！"
     },
     "hover": "鼠标停在成就上可以查看详细信息。",
-    "tieredExtraRewards": "This Tiered Achievement has extra rewards!",
-    "ungroupedExtraRewards": "This Achievement has an additional reward!",
+    "tieredExtraRewards": "这个分阶层的成就拥有额外奖励！",
+    "ungroupedExtraRewards": "这个成就拥有额外奖励！",
     "totalPoints": "成就点数：{{x}}/{{y}} [{{z}}%]",
-    "achievementPoints": "You have {{x}} Achievement Points (AP)!",
+    "achievementPoints": "您有{{x}}成就点数！",
     "rewardGainMessage": "奖励：{{x}}成就点数。{{y}}夸克！{{z}}",
     "completed": "已完成！",
     "notification": "您解锁了成就：{{m}}",
     "quarkBonus": "每500成就点数使夸克获取数量增加0.01倍！目前夸克倍率：<<cyan|{{multiplier}}倍>>",
-    "achievementLevel": "Based on your Achievement Points, you are at Synergism Level <span class=\"rainbowText\">{{level}}</span>",
-    "achievementToNextLevel": "Level {{level}} in {{AP}} AP",
-    "levelUpNotification": "Level Up! Synergism Level {{old}} → {{new}}",
-    "complete": " &nbsp;&nbsp; Tier {{tier}} (COMPLETE!)",
-    "tier": " &nbsp;&nbsp; Tier {{tier}}"
+    "achievementLevel": "基于成就点数，您目前的协同效应为<span class=\"rainbowText\">{{level}}</span>级",
+    "achievementToNextLevel": "再获得{{AP}}成就点数可达到{{level}}级",
+    "levelUpNotification": "升级了！协同效应等级从{{old}}提升为{{new}}",
+    "complete": "&nbsp;&nbsp;第{{tier}}阶(已完成)",
+    "tier": "&nbsp;&nbsp;第{{tier}}阶"
   },
   "reset": {
     "details": {
@@ -2033,7 +2033,7 @@
       "6": "尝试取悦蚁神……但很遗憾地失败了[获得额外祭品！]",
       "7": "帮助您到处建造一些东西[每级使建筑成本减缓3%，最高为9999999%]",
       "8": "懂得如何给食物加盐和胡椒[最高为1000倍符文经验值！]",
-      "9": "Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 3,000]",
+      "9": "使您的信息更容易传达给蚁神[每级使所有符文增加1级，最高为3000级]",
       "10": "有一个超级强大的大脑[获得额外难得素！]",
       "11": "献给蚁神的贵重祭品[最高可以获得3倍献祭奖励！]",
       "12": "背叛蚁神将使您的维度更加脆弱[解锁蚂蚁护身符，全局速度最高为2倍]"
@@ -2083,19 +2083,19 @@
     "modeRealTime": "模式：现实时间",
     "modeInGameTime": "模式：游戏时间",
     "sacrificeWhenTimer": "当时间至少经过{{x}}秒({{y}})后献祭蚂蚁，目前时间为：{{z}}秒",
-    "yourAntELO": "<<plum|Current Ant ELO:>> <<gold|{{x}}>>",
-    "upgradeMultiplier": "Upgrade Reward Multiplier: <<gold|{{x}}x>>",
-    "timeMultiplier": "Time Reward Multiplier: <<var(--lightseagreen-text-color);|{{x}}x>>",
-    "immortalELO": "<<crimson | Immortal ELO:>> <<gold|{{x}}>>",
-    "immortalELOAntSpeed": "↳ Ant Speed x{{x}}",
-    "resetAnthill": "Ant Sacrifice",
-    "resetAlert": "<<gold | ⚠>> Performs a <<limegreen | Reincarnation>>",
-    "immortalELOGain": "• Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
-    "antSacMultiplier": "↳ Ant Speed x{{x}}",
-    "offeringMultiplier": "• Gain <<orange | {{x}}x Prestige Offerings>>",
-    "obtainiumMultiplier": "• Gain <<pink | {{x}}x Reincarnation Obtainium>>",
-    "talismanFragments": "• Gain Some Talisman Fragments!",
-    "autoReset": "This resets your Crumbs, Ants and Ant Upgrades, and performs a Reincarnation in exchange for some Ant Speed and resources. Continue?",
+    "yourAntELO": "<<plum|当前蚂蚁强度分：>><<gold|{{x}}>>",
+    "upgradeMultiplier": "升级奖励倍率：<<gold|{{x}}倍>>",
+    "timeMultiplier": "时间奖励倍率：<<var(--lightseagreen-text-color);|{{x}}倍>>",
+    "immortalELO": "<<crimson|不朽强度分：>><<gold|{{x}}>>",
+    "immortalELOAntSpeed": "↳ 使蚂蚁速度变为原来的{{x}}倍",
+    "resetAnthill": "蚂蚁献祭",
+    "resetAlert": "<<gold|⚠>>将进行一次<<limegreen|转世>>",
+    "immortalELOGain": "• <<crimson|不朽强度分>><<gold|增加{{x}}>>",
+    "antSacMultiplier": "↳ 使蚂蚁速度变为原来的{{x}}倍",
+    "offeringMultiplier": "• 获得<<orange|{{x}}倍转生时的祭品>>",
+    "obtainiumMultiplier": "• 获得<<pink|{{x}}倍转世时的难得素>>",
+    "talismanFragments": "• 还会获得一些护身符碎片！",
+    "autoReset": "这么做将重置银河碎屑，蚂蚁以及蚂蚁升级，并进行一次转生，但可以获得更高的蚂蚁速度和一些其他资源。您确定要继续吗？",
     "elo": "+{{x}} [分>{{y}}]",
     "antSacrifice": "蚂蚁献祭"
   },
@@ -2106,15 +2106,15 @@
       "restrictions": "立即超越开始挑战，加倍器失去加倍器效果，变为与加速器作用相同，且效果削弱50%！",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
-        "1": "+2 base Multiplier Boosts! [+0.02 to power!] Current: ",
-        "2": "Duplication Rune level scaling coefficient is increased by 0.75! Current: ",
+        "1": "基础加倍器加成增加2个！[效果增加0.02！]当前效果：",
+        "2": "使重叠符文的等级增长系数增加0.75！当前效果：",
         "3": "每个祭品的基础符文经验值增加0.04！当前效果："
       },
       "first": "免费加倍器增加1个！每个祭品的基础符文经验值增加1！",
       "start": "开始[无加倍器挑战]",
       "current": {
         "1": "增加{{value}}个",
-        "2": "+{{value}} Duplication Rune level scaling coefficient",
+        "2": "使重叠符文的等级增长系数增加{{value}}",
         "3": "增加{{value}}[取最高完成次数]"
       }
     },
@@ -2180,14 +2180,14 @@
       "per": {
         "1": "转生时金币对钻石的转换指数增加0.01！当前效果：",
         "2": "水晶产量变为10倍！当前效果：",
-        "3": "+5% Prestige Count when Prestiging! Current: "
+        "3": "转生时，转生次数获取数量增加5%！当前效果："
       },
       "first": "无",
       "start": "开始[钻石减少挑战]",
       "current": {
         "1": "指数变为{{value}}",
         "2": "水晶产量变为{{value}}倍",
-        "3": "Prestige Count +{{value}}%"
+        "3": "转生次数获取数量增加{{value}}%"
       }
     },
     "6": {
@@ -2197,15 +2197,15 @@
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
       "per": {
         "1": "税收减少3.5%[效果叠乘]！当前效果：",
-        "2": "+0.3 Salvage! Current: ",
-        "3": "Offerings +2%! Current: "
+        "2": "使回收增加0.3！当前效果：",
+        "3": "祭品获取数量增加2%！当前效果："
       },
       "first": "税收减少7.5%！",
       "start": "开始<税收增加挑战>",
       "current": {
         "1": "税收变为{{value}}倍",
-        "2": "Salvage +{{value}}",
-        "3": "+{{value}}% Offerings"
+        "2": "使回收增加{{value}}",
+        "3": "使祭品获取数量增加{{value}}%"
       }
     },
     "7": {
@@ -2215,15 +2215,15 @@
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
       "per": {
         "1": "加速器加成及加倍器加成效果指数增加0.04！当前效果：",
-        "2": "+0.3 Salvage! Current: ",
-        "3": "+15% more Transcension Count when Transcending! Current: "
+        "2": "使回收增加0.3！当前效果：",
+        "3": "超越时，超越次数获取数量增加15%！当前效果："
       },
       "first": "加倍器加成效果增加25%！解锁第一个由Discord助力而出现的全局钻石升级。",
       "start": "开始<无加倍器/加速器挑战>",
       "current": {
         "1": "指数变为{{value}}",
-        "2": "Salvage +{{value}}",
-        "3": "Transcension Count +{{value}}%"
+        "2": "使回收增加{{value}}",
+        "3": "超越次数获取数量增加{{value}}%"
       }
     },
     "8": {
@@ -2233,15 +2233,15 @@
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
       "per": {
         "1": "基础建筑能量增加0.25！当前效果：",
-        "2": "+0.4 Salvage! Current: ",
-        "3": "Offerings +4% (additive with other Challenge bonuses) ! Current: "
+        "2": "使回收增加0.4！当前效果：",
+        "3": "使祭品获取数量增加4%(与其他挑战的同类效果叠加)！当前效果："
       },
       "first": "解锁蚁丘机制！解锁20个新研究。另外还解锁了一个全局钻石升级。",
       "start": "开始<花费暴增挑战>",
       "current": {
         "1": "增加{{value}}",
-        "2": "Salvage +{{value}}",
-        "3": "+{{value}}% Offerings"
+        "2": "使回收增加{{value}}",
+        "3": "使祭品获取数量增加{{value}}%"
       }
     },
     "9": {
@@ -2252,14 +2252,14 @@
       "per": {
         "1": "免费蚂蚁等级增加1！当前效果：",
         "2": "蚂蚁速度增加10%[效果叠乘！]当前效果：",
-        "3": "+0.5 Salvage! Current: "
+        "3": "使回收增加0.5！当前效果："
       },
-      "first": "Unlock Talismans and Blessings, in the rune Tab. A Global Diamond Upgrade.",
+      "first": "在符文选项卡下解锁护身符和祝福。一个全局钻石升级。",
       "start": "开始<无符文挑战>",
       "current": {
         "1": "免费等级增加{{value}}",
         "2": "使蚂蚁速度变为{{value}}倍",
-        "3": "+{{value}} Salvage"
+        "3": "使回收增加{{value}}"
       }
     },
     "10": {
@@ -2270,32 +2270,32 @@
       "per": {
         "1": "蚂蚁基础强度分增加100！当前效果：",
         "2": "蚂蚁献祭奖励增加2%！当前效果：",
-        "3": "Offerings +10% (additive with other Challenge bonuses)! Current: "
+        "3": "使祭品获取数量增加10%(与其他挑战的同类效果叠加)！当前效果："
       },
       "first": "解锁飞升，下一阶的重置！",
       "start": "开始<虐待狂挑战 I>",
       "current": {
         "1": "蚂蚁强度分增加{{value}}",
         "2": "蚂蚁献祭奖励增加{{value}}%",
-        "3": "+{{value}}% Offerings"
+        "3": "使祭品获取数量增加{{value}}%"
       }
     },
     "11": {
       "name": "蚂蚁减少挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "二十一世纪的蚂蚁大战将所有技艺娴熟的蚂蚁都抹杀了。",
-      "restrictions": "Ascend and reach the goal but ant upgrades cannot be purchased. To compensate, Challenge 8 and 9 completions give free ant upgrades. FOR ASCENSION CHALLENGES YOU MUST CLEAR CHALLENGE 10 TO ATTEMPT THEM.",
+      "restrictions": "在不能购买蚂蚁升级的前提下飞升并达到目标。作为补偿，挑战8和挑战9完成后可以提供免费蚂蚁升级。想要进行飞升挑战，您必须至少完成1次挑战10。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "免费蚂蚁等级增加12！当前效果：",
         "2": "蚂蚁速度每完成1次变为1e5倍！当前效果： ",
-        "3": "+1 to the Rune Level Coefficient of the first five runes! Current: "
+        "3": "使前五个符文的符文升级系数增加1！当前效果："
       },
-      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to 'Corrupt' your game... and explore this in the Campaigns feature.",
+      "first": "解锁15个研究，并且可以打开惊奇超立方了！您可以使游戏“腐化”……并且可以在战役机制中探索它。",
       "start": "开始<[(蚂蚁减少挑战)]>",
       "current": {
         "1": "免费蚂蚁等级增加{{value}}",
         "2": "使蚂蚁速度变为{{value}}倍",
-        "3": "+{{value}}"
+        "3": "增加{{value}}"
       }
     },
     "12": {
@@ -2306,9 +2306,9 @@
       "per": {
         "1": "难得素获取数量增加50%！当前效果：",
         "2": "祭品获取数量增加12%！当前效果：",
-        "3": "+20% more Reincarnation Count on Reincarnation! Current: "
+        "3": "转世时，转世次数获取数量增加20%！当前效果："
       },
-      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Also adds additional Campaigns and Corruptions!",
+      "first": "解锁15个研究，并且解锁神秘的魂灵能量！在符文选项卡下可以找到它们。另外，还追加了新战役和新腐化！",
       "start": "开始<[(无转世挑战)]>",
       "current": {
         "1": "难得素获取数量增加{{value}}%",
@@ -2326,7 +2326,7 @@
         "2": "护身符等级上限增加6级！当前效果：",
         "3": "魂灵能量效果增加3%！当前效果："
       },
-      "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Unlock even more Campaigns and Corruptions!",
+      "first": "解锁15个研究，并且解锁五阶立方的力量！另外还解锁了更多战役和腐化！",
       "start": "开始<[(税收激增挑战)]>",
       "current": {
         "1": "腐化税收减少{{value}}%",
@@ -2342,7 +2342,7 @@
       "per": {
         "1": "研究1x1至研究1x5的效果增加50%。当前效果： ",
         "2": "每个时刻自动购买的研究数量增加1！当前效果： ",
-        "3": "+1.5 to the Rune Level Coefficient of the first five runes! Current: "
+        "3": "使前五个符文的符文升级系数增加1.5！当前效果："
       },
       "first": "Unlock 15 Researches, and discover a new type of ideal cube - a Platonic one perhaps? Plus more Campaigns and Corruptions of course.",
       "start": "开始<[(无研究挑战)]>",
