@@ -1756,192 +1756,192 @@
       "chronosTalisman": "• 时光护身符{{unlock}}",
       "midasTalisman": "• 点金护身符{{unlock}}",
       "metaphysicsTalisman": "• 玄学护身符{{unlock}}",
-      "polymathTalisman": "• Polymath Talisman {{unlock}}",
-      "wowSquareTalisman": "• Wow Square Talisman {{unlock}}",
-      "conversionExponent": "• Conversion Exponent +{{val}}",
-      "talismanPower": "• Talisman Power {{val}}",
-      "sacrificeMult": "• Sacrifice Multiplier x{{val}}",
-      "ascensionUnlock": "• Ascension {{unlock}}",
-      "antSpeed": "• Ant Speed x{{val}}",
-      "antSacrificeUnlock": "• Ant Sacrifice {{unlock}}",
-      "antAutobuyers": "• Ant Autobuyers +{{val}}",
-      "antUpgradeAutobuyers": "• Ant Upgrade Autobuyers +{{val}}",
-      "antELOAdditive": "• Ant ELO +{{val}}",
-      "antELOMultiplicative": "• Ant ELO x{{val}}",
-      "ascensionCountMultiplier": "• Ascension Count x{{val}}",
-      "ascensionCountAdditive": "• Ascension Count +{{val}}",
-      "allCubeGain": "• All Cube Gain x{{val}}",
-      "wowCubeGain": "• Wow! Cube Gain x{{val}}",
-      "wowTesseractGain": "• Wow! Tesseract Gain x{{val}}",
-      "wowHypercubeGain": "• Wow! Hypercube Gain x{{val}}",
-      "wowPlatonicGain": "• Wow! Platonic Cube Gain x{{val}}",
-      "wowHepteractGain": "• Wow! Hepteract Gain x{{val}}",
-      "ascensionScore": "• Ascension Score x{{val}}",
-      "ascensionRewardScaling": "• Ascension Reward Scaling {{unlock}}",
-      "constUpgrade1Buff": "• Constant Upgrade 1 Buff +{{val}}",
-      "constUpgrade2Buff": "• Constant Upgrade 2 Buff +{{val}}",
-      "platonicToHypercubes": "• Platonic to Hypercubes +{{val}}",
-      "statTracker": "• Stat Tracker {{unlock}}",
-      "antHillUnlock": "• Anthill Tab {{unlock}}",
-      "diamondUpgrade18": "• Diamond Upgrade 4x3 {{unlock}}",
-      "diamondUpgrade19": "• Diamond Upgrade 4x4 {{unlock}}",
-      "diamondUpgrade20": "• Diamond Upgrade 4x5 {{unlock}}",
-      "overfluxConversionRate": "• Overflux Powder Conversion Rate x{{val}}"
+      "polymathTalisman": "• 博识护身符{{unlock}}",
+      "wowSquareTalisman": "• 惊奇正方形护身符{{unlock}}",
+      "conversionExponent": "• 转换指数增加{{val}}",
+      "talismanPower": "• 护身符强度{{val}}",
+      "sacrificeMult": "• 使献祭倍率变为原来的{{val}}倍",
+      "ascensionUnlock": "• 飞升{{unlock}}",
+      "antSpeed": "• 使蚂蚁速度变为原来的{{val}}倍",
+      "antSacrificeUnlock": "• 蚂蚁献祭{{unlock}}",
+      "antAutobuyers": "• 蚂蚁自动购买{{val}}",
+      "antUpgradeAutobuyers": "• 蚂蚁升级自动购买{{val}}",
+      "antELOAdditive": "• 使蚂蚁强度分增加{{val}}",
+      "antELOMultiplicative": "• 使蚂蚁强度分变为原来的{{val}}倍",
+      "ascensionCountMultiplier": "• 使飞升次数变为原来的{{val}}倍",
+      "ascensionCountAdditive": "• 使飞升次数增加{{val}}",
+      "allCubeGain": "• 使所有类型的方盒、立方和方块获取数量变为原来的{{val}}倍",
+      "wowCubeGain": "• 使惊奇方盒获取数量变为原来的{{val}}倍",
+      "wowTesseractGain": "• 使惊奇超立方获取数量变为原来的{{val}}倍",
+      "wowHypercubeGain": "• 使惊奇五阶立方获取数量变为原来的{{val}}倍",
+      "wowPlatonicGain": "• 使PLATONIC方盒获取数量变为原来的{{val}}倍",
+      "wowHepteractGain": "• 使惊奇七阶立方获取数量变为原来的{{val}}倍",
+      "ascensionScore": "• 使飞升分数变为原来的{{val}}倍",
+      "ascensionRewardScaling": "• 飞升奖励增长{{unlock}}",
+      "constUpgrade1Buff": "• 数学常数升级1的效果增加{{val}}",
+      "constUpgrade2Buff": "• 数学常数升级2的效果增加{{val}}",
+      "platonicToHypercubes": "• 开启每个PLATONIC方盒时获得{{val}}个惊奇五阶立方",
+      "statTracker": "• 数据追踪器{{unlock}}",
+      "antHillUnlock": "• 蚁丘选项卡{{unlock}}",
+      "diamondUpgrade18": "• 钻石升级4x3{{unlock}}",
+      "diamondUpgrade19": "• 钻石升级4x4{{unlock}}",
+      "diamondUpgrade20": "• 钻石升级4x5{{unlock}}",
+      "overfluxConversionRate": "• 超通量粉转换效率变为原来的{{val}}倍"
     },
     "levelRewards": {
-      "minLevel": "Minimum Level Required: {{level}}",
-      "noLevelReq": "Unlocked by Default!",
+      "minLevel": "最低需求等级：{{level}}",
+      "noLevelReq": "默认解锁！",
       "salvage": {
-        "name": "Salvage",
-        "description": "Gain +1 Salvage per Synergism level! This increases by 1 per 100 levels (e.g. gain +2 at level 101).",
-        "effect": "Current Effect: +{{salvage}} Salvage"
+        "name": "回收",
+        "description": "每级协同效应使回收增加1！该数值每100级还会增加1(例如101级时回收增加2)",
+        "effect": "当前效果：回收增加{{salvage}}"
       },
       "quarks": {
-        "name": "Quark Multiplier",
-        "description": "Every 20 Synergism levels, multiply your Quark gain by 1.01(!)",
-        "effect": "Current Effect: +{{mult}} Quark Gain"
+        "name": "夸克倍率",
+        "description": "每20级协同效应，使夸克获取数量变为原来的1.01倍(效果相互叠乘)",
+        "effect": "当前效果：夸克获取数量增加{{mult}}"
       },
       "offerings": {
-        "name": "Offerings Multiplier",
-        "description": "Every level, gain 1.01x Offerings. After level 100, multiply it by another 1.02 per level!",
-        "effect": "Current Effect: +{{mult}} Offerings Gain"
+        "name": "祭品获取数量倍率",
+        "description": "每级协同效应使祭品获取数量变为原来的1.01倍。该数值在100级后，每级还会变为原来的1.02倍！",
+        "effect": "当前效果：祭品获取数量增加{{mult}}"
       },
       "obtainium": {
-        "name": "Obtainium Multiplier",
-        "description": "For each level past 14, multiply your Obtainium gain by 1.01. After level 100, multiply it by another 1.02 per level!",
-        "effect": "Current Effect: +{{mult}} Obtainium Gain"
+        "name": "难得素获取数量倍率",
+        "description": "当协同效应等级超过14级以后，每级使难得素获取数量变为原来的1.01倍。该数值在100级后，每级还会变为原来的1.02倍！",
+        "effect": "当前效果：难得素获取数量增加{{mult}}"
       },
       "wowCubes": {
-        "name": "Wow! Cube Production",
+        "name": "惊奇方盒获取数量",
         "description": "For each level past 60 (yes, this does unlock at level 70, but just trust me), gain +5% more Wow! Cubes. Every 10 levels past 60, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Cube Gain"
+        "effect": "当前效果：惊奇方盒获取数量增加{{mult}}"
       },
       "wowTesseracts": {
-        "name": "Wow! Tesseract Production",
+        "name": "惊奇超立方获取数量",
         "description": "For each level past 80, gain +5% more Wow! Tesseracts. Every 10 levels past 80, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Tesseract Gain"
+        "effect": "当前效果：惊奇超立方获取数量增加{{mult}}"
       },
       "wowHyperCubes": {
-        "name": "Wow! Hypercube Production",
+        "name": "惊奇五阶立方获取数量",
         "description": "For each level past 100, gain +5% more Wow! Hypercubes. Every 10 levels past 100, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Hypercube Gain"
+        "effect": "当前效果：惊奇五阶立方获取数量增加{{mult}}"
       },
       "wowPlatonicCubes": {
-        "name": "Wow! Platonic Cube Production",
+        "name": "PLATONIC方盒获取数量",
         "description": "For each level past 120, gain +5% more Wow! Platonic Cubes. Every 10 levels past 120, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Platonic Cube Gain"
+        "effect": "当前效果：PLATONIC方盒获取数量增加{{mult}}"
       },
       "wowHepteractCubes": {
-        "name": "Wow! Hepteract Production",
+        "name": "惊奇七阶立方获取数量",
         "description": "For each level past 150, gain +5% more Wow! Hepteracts. Every 10 levels past 150, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Hepteract Gain"
+        "effect": "当前效果：惊奇七阶立方获取数量增加{{mult}}"
       },
       "wowOcteracts": {
-        "name": "Wow! Octeracts!... Wait, what?",
+        "name": "惊奇八阶方块……等等，什么？",
         "description": "For each level past 209, gain +5% more Wow! Octeracts. What's more, multiply this by 1.02 per level as well!",
-        "effect": "Current Effect: +{{mult}} Wow! Octeract Gain"
+        "effect": "当前效果：惊奇八阶方块获取数量增加{{mult}}"
       },
       "ambrosiaLuck": {
-        "name": "Ambrosia luck",
-        "description": "For each level past 199, gain +4 Ambrosia Luck! I like stats with symbols next to them.",
-        "effect": "Current Effect: +{{luck}} Ambrosia Luck"
+        "name": "神肴之运",
+        "description": "当协同效应等级超过199级以后，每级获得4神肴之运！我喜欢有符号的数据。",
+        "effect": "当前效果：神肴之运增加{{luck}}"
       },
       "redAmbrosiaLuck": {
-        "name": "Red luck",
-        "description": "For each level past 249, gain +1 Red Luck! I like stats with symbols next to them.",
-        "effect": "Current Effect: +{{luck}} Red Luck"
+        "name": "红运",
+        "description": "当协同效应等级超过249级以后，每级获得1红运！我喜欢有符号的数据。",
+        "effect": "当前效果：红运增加{{luck}}"
       }
     },
     "levelMilestones": {
       "offeringTimerScaling": {
-        "name": "Offerings - Prestige Timer Scaling",
-        "description": "To encourage longer Prestiges, Gain +10% Offerings on Prestige per second, past 10 seconds in your current Prestige.",
-        "effect": "Current Effect: Gain {{mult}} more Offerings from Prestige timer"
+        "name": "祭品 - 转生时间增长",
+        "description": "为了鼓励进行更长时间的转生，只要当前转生时间超过10秒，每秒就使转生时的祭品获取数量增加10%。",
+        "effect": "当前效果：通过转生时间使祭品获取数量变为原来的{{mult}}倍"
       },
       "duplicationRune": {
-        "name": "Duplication Rune XL!",
-        "description": "Power up your Duplication Rune! Each level 40+ grants +0.4 to Duplication Rune's <i>Rune Coefficient</i>.",
-        "effect": "Current Effect: Duplication Rune - Rune Coefficient +{{duplicationRune}}"
+        "name": "重叠符文XL！",
+        "description": "强化重叠符文！当协同效应等级超过40级以后，每级使重叠符文的<i>符文系数</i>增加0.4。",
+        "effect": "当前效果：重叠符文的符文系数增加{{duplicationRune}}"
       },
       "speedRune": {
-        "name": "Speed Rune XL",
-        "description": "Power up your Speed Rune! Each level 20+ grants +0.5 to Speed Rune's <i>Rune Coefficient</i>.",
-        "effect": "Current Effect: Speed Rune - Rune Coefficient +{{speedRune}}"
+        "name": "加速符文XL",
+        "description": "强化加速符文！当协同效应等级超过20级以后，每级使加速符文的<i>符文系数</i>增加0.5。",
+        "effect": "当前效果：加速符文的符文系数增加{{speedRune}}"
       },
       "prismRune": {
-        "name": "Prism Rune XL",
-        "description": "Power up your Prism Rune! Each level 60+ grants +0.3 to Prism Rune's <i>Rune Coefficient</i>.",
-        "effect": "Current Effect: Prism Rune - Rune Coefficient +{{prismRune}}"
+        "name": "棱柱符文XL",
+        "description": "强化棱柱符文！当协同效应等级超过60级以后，每级使棱柱符文的<i>符文系数</i>增加0.3。",
+        "effect": "当前效果：棱柱符文的符文系数增加{{prismRune}}"
       },
       "thriftRune": {
-        "name": "Thrift Rune XL",
-        "description": "Power up your Thrift Rune! Each level 80+ grants +0.2 to Thrift Rune's <i>Rune Coefficient</i>.",
-        "effect": "Current Effect: Thrift Rune - Rune Coefficient +{{thriftRune}}"
+        "name": "节俭符文XL",
+        "description": "强化节俭符文！当协同效应等级超过80级以后，每级使节俭符文的<i>符文系数</i>增加0.2。",
+        "effect": "当前效果：节俭符文的符文系数增加{{thriftRune}}"
       },
       "SIRune": {
-        "name": "SI Rune XL",
-        "description": "Power up your SI Rune! Each level 100+ grants +0.1 to SI Rune's <i>Rune Coefficient</i>.",
-        "effect": "Current Effect: SI Rune - Rune Coefficient +{{siRune}}"
+        "name": "卓越智慧符文XL",
+        "description": "强化卓越智慧符文！当协同效应等级超过100级以后，每级使卓越智慧符文的<i>符文系数</i>增加0.1。",
+        "effect": "当前效果：卓越智慧符文的符文系数增加{{siRune}}"
       },
       "autoPrestige": {
-        "name": "Auto Prestiging!",
-        "description": "Why prestige by hand, when you can make your computer do it for you?",
-        "effect": "Current Effect: Auto-Prestige Feature Unlocked!"
+        "name": "自动转生！",
+        "description": "电脑可以替您代劳，您又何必手动呢？",
+        "effect": "当前效果：已解锁自动转生机制！"
       },
       "tier1CrystalAutobuy": {
-        "name": "Tier 1 Crystal Autobuy",
-        "description": "You can now automatically buy Diamond Refineries! Also automagically buys the first Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "name": "1阶水晶自动购买",
+        "description": "您可以自动购买炼油厂了！且只要资源充足，可以自动购买第一个水晶升级。",
+        "effect": "当前效果：见上方！"
       },
       "tier2CrystalAutobuy": {
-        "name": "Tier 2 Crystal Autobuy",
-        "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "name": "2阶水晶自动购买",
+        "description": "您可以自动购买煤电厂了！且只要资源充足，可以自动购买第二个水晶升级。",
+        "effect": "当前效果：见上方！"
       },
       "tier3CrystalAutobuy": {
-        "name": "Tier 3 Crystal Autobuy",
-        "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "name": "3阶水晶自动购买",
+        "description": "您可以自动购买煤钻机了！且只要资源充足，可以自动购买第三个水晶升级。",
+        "effect": "当前效果：见上方！"
       },
       "tier4CrystalAutobuy": {
-        "name": "Tier 4 Crystal Autobuy",
-        "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "name": "4阶水晶自动购买",
+        "description": "您可以自动购买十字镐了！且只要资源充足，可以自动购买第四个水晶升级。",
+        "effect": "当前效果：见上方！"
       },
       "tier5CrystalAutobuy": {
-        "name": "Tier 5 Crystal Autobuy",
-        "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "name": "5阶水晶自动购买",
+        "description": "您可以自动购买潘多拉魔盒了！且只要资源充足，可以自动购买第五个水晶升级。",
+        "effect": "当前效果：见上方！"
       },
       "achievementTalismanUnlock": {
-        "name": "Achievement Talisman!",
-        "description": "Wear your Achievements with pride, and unlock the new Achievement Talisman!",
-        "effect": "Current Effect: See Above!"
+        "name": "成就护身符！",
+        "description": "自豪地展示您的成就，解锁新的成就护身符！",
+        "effect": "当前效果：见上方！"
       },
       "achievementTalismanEnhancement": {
-        "name": "Achievement Talisman Enhancement",
-        "description": "Your Achievement Talisman may be leveled up one additional time for each Synergism Level!",
-        "effect": "Current Effect: Achievement Talisman may be leveled up {{level}} additional times."
+        "name": "成就护身符附魔",
+        "description": "协同效应每有1级，您的成就护身符就可以额外升级1次！",
+        "effect": "当前效果：成就护身符可以额外升级{{level}}次。"
       },
       "salvageChallengeBuff": {
-        "name": "Salvage Challenge Buff",
-        "description": "Gain +25 Salvage. <br> If you are in any Challenge, this value is doubled. <br> If you are in Challenge 15, this value is doubled. <br> If you are in EXALT, this value is tripled! <br> Effects may stack.",
-        "effect": "Current Effect: +{{salvage}} Salvage"
+        "name": "回收挑战强化",
+        "description": "获得25回收。<br>如果您正在进行任何挑战，该数值将翻倍。<br>如果您正在进行挑战15，该数值将翻倍。<br>如果您在拔擢中，该数值将变为原来的3倍！<br>效果可以相互叠乘。",
+        "effect": "当前效果：回收增加{{salvage}}"
       }
     },
     "progressiveAchievements": {
       "runeLevel": {
-        "name": "Progressive Achievement - Purchased Rune Levels",
-        "description": "Gain AP based on the sum of all rune levels purchased! Best Total: {{x}}",
-        "apSource": "Gain +1 AP per 1,000 Rune Levels purchased, up to 200,000 Levels. <br> Gain +1 AP per 2,500 Rune Levels purchased, up to 1,000,000 Levels. <br> Gain +1 AP per 12,500 Rune Levels purchased, up to 5,000,000 Levels."
+        "name": "递进式成就 - 已购买的符文等级",
+        "description": "根据已经购买的所有符文等级之和获得成就点数！最高总和：{{x}}",
+        "apSource": "在200000级之前，每购买1000级符文，就获得1成就点数。<br>200000级至1000000级之间，每购买2500级符文，就获得1成就点数。<br>1000000级至5000000级之间，每购买12500级符文，就获得1成就点数。"
       },
       "freeRuneLevel": {
-        "name": "Progressive Achievement - Free Rune Levels",
-        "description": "Gain AP based on the sum of all your free rune levels! Best Total: {{x}}",
-        "apSource": "Gain +1 AP per 250 Free Rune Levels owned, up to 25,000 Levels. <br> Gain +1 AP per 750 Free Rune Levels owned, up to 150,000 Levels. <br> Gain +1 AP per 2,500 Free Rune Levels owned, up to 500,000 Levels."
+        "name": "递进式成就 - 免费符文等级",
+        "description": "根据所有符文的免费等级之和获得成就点数！最高总和：{{x}}",
+        "apSource": "在25000级之前，每有250级免费等级，就获得1成就点数。<br>25000级至150000级之间，每有750级免费等级，就获得1成就点数。<br>150000级至500000级之间，每有2500级免费等级，就获得1成就点数。"
       },
       "singularityCount": {
-        "name": "Progressive Achievement - Singularity Count",
+        "name": "递进式成就 - 奇点次数",
         "description": "Gain AP based on the highest Singularity you have reached! Highest Reached: {{x}}",
         "apSource": "Gain +9 AP for Singularities 1-100 <br> Gain +12 AP for Singularities 101-200 <br> Gain +15 AP for Singularities 201-300"
       },
@@ -6464,7 +6464,7 @@
         "costDivisor": "===升级花费===",
         "upgradeLevel": "等级：{{a}}/{{b}}",
         "upgradeLevelMaxed": "等级：{{a}}/{{b}}[已达最大]",
-        "offeringCost": "{{a}}/{{b}}贡品",
+        "offeringCost": "{{a}}/{{b}}祭品",
         "obtainiumCost": "{{a}}/{{b}}难得素",
         "cubeCost": "{{a}}/{{b}}惊奇方盒",
         "tesseractCost": "{{a}}/{{b}}惊奇超立方",
