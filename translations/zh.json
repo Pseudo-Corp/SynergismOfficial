@@ -772,7 +772,7 @@
       "430": "小试牛刀：从战役中获得160个战役代币。",
       "431": "五组代币：从战役中获得320个战役代币。",
       "432": "千元户：从战役中获得1000个战役代币。",
-      "433": "第6题（共15题）：从战役中获得2000个战役代币。",
+      "433": "第6题(共15题)：从战役中获得2000个战役代币。",
       "434": "Platonic的战役：从战役中获得4000个战役代币。",
       "435": "战役大师：从战役中获得9000个战役代币。",
       "436": "萌新首次转生：进行首次转生。",
@@ -913,13 +913,13 @@
         "prismRuneUnlock": "永久解锁棱柱符文！"
       },
       "45": {
-        "taxReduction": "减少税收增长5%"
+        "taxReduction": "使税收增长减少5%"
       },
       "46": {
-        "taxReduction": "减少税收增长5%"
+        "taxReduction": "使税收增长减少5%"
       },
       "47": {
-        "taxReduction": "减少税收增长10%"
+        "taxReduction": "使税收增长减少10%"
       },
       "50": {
         "particleGain": "使粒子获取数量永久翻倍！"
@@ -973,11 +973,11 @@
         "crystalUpgrade1Autobuy": "解锁第一个水晶升级的自动购买！"
       },
       "80": {
-        "salvage": "回收增加3",
+        "salvage": "使回收增加3",
         "multAutobuyer": "初始状态下就解锁加倍器自动购买！"
       },
       "82": {
-        "taxReduction": "减少税收增长4%"
+        "taxReduction": "使税收增长减少4%"
       },
       "84": {
         "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
@@ -989,11 +989,11 @@
         "crystalUpgrade2Autobuy": "解锁第二个水晶升级的自动购买！"
       },
       "87": {
-        "salvage": "回收增加3",
+        "salvage": "使回收增加3",
         "accelAutobuyer": "初始状态下就解锁加速器自动购买！"
       },
       "89": {
-        "taxReduction": "减少税收增长4%"
+        "taxReduction": "使税收增长减少4%"
       },
       "91": {
         "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
@@ -1005,10 +1005,10 @@
         "crystalUpgrade3Autobuy": "解锁第三个水晶升级的自动购买！"
       },
       "94": {
-        "salvage": "回收增加4"
+        "salvage": "使回收增加4"
       },
       "96": {
-        "taxReduction": "减少税收增长4%"
+        "taxReduction": "使税收增长减少4%"
       },
       "98": {
         "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
@@ -1020,116 +1020,116 @@
         "crystalUpgrade4Autobuy": "解锁第四个水晶升级的自动购买！"
       },
       "101": {
-        "salvage": "+5 Salvage"
+        "salvage": "使回收增加5"
       },
       "102": {
-        "thriftRuneUnlock": "Permanently unlock the Thrift Rune!"
+        "thriftRuneUnlock": "永久解锁节俭符文！"
       },
       "103": {
-        "taxReduction": "减少税收增长4%"
+        "taxReduction": "使税收增长减少4%"
       },
       "105": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
       },
       "106": {
-        "pandorasBoxAutobuy": "Unlock the Pandora's Box Autobuyer!"
+        "pandorasBoxAutobuy": "解锁潘多拉魔盒自动购买！"
       },
       "107": {
-        "crystalUpgrade5Autobuy": "Unlock the Autobuyer for the fifth Crystal Upgrade!"
+        "crystalUpgrade5Autobuy": "解锁第五个水晶升级的自动购买！"
       },
       "108": {
-        "salvage": "+5 Salvage"
+        "salvage": "使回收增加5"
       },
       "110": {
-        "taxReduction": "减少税收增长4%"
+        "taxReduction": "使税收增长减少4%"
       },
       "112": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
       },
       "115": {
-        "salvage": "+5 Salvage"
+        "salvage": "使回收增加5"
       },
       "117": {
-        "taxReduction": "减少税收增长5%"
+        "taxReduction": "使税收增长减少5%"
       },
       "118": {
-        "taxReduction": "Tax scaling reduced by 0.5% per Reincarnation Challenge clear (multiplicative)"
+        "taxReduction": "每完成一次转世挑战，就使税收增长减少0.5%(效果叠乘)"
       },
       "119": {
-        "exemptionTalisman": "Unlock the Exemption Talisman!"
+        "exemptionTalisman": "解锁免税护身符！"
       },
       "120": {
-        "diamondUpgrade18": "Unlock the 18th Diamond Upgrade!"
+        "diamondUpgrade18": "解锁第18个钻石升级！"
       },
       "122": {
-        "salvage": "+5 Salvage"
+        "salvage": "使回收增加5"
       },
       "124": {
-        "taxReduction": "减少税收增长5%"
+        "taxReduction": "使税收增长减少5%"
       },
       "125": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
       },
       "126": {
-        "chronosTalisman": "Unlock the Chronos Talisman!"
+        "chronosTalisman": "解锁时光护身符！"
       },
       "127": {
-        "diamondUpgrade19": "Unlock the 19th Diamond Upgrade!",
-        "antHillUnlock": "Unlock the <span class='rainbowText'>Anthill!</span>"
+        "diamondUpgrade19": "解锁第19个钻石升级！",
+        "antHillUnlock": "解锁<span class='rainbowText'>蚁丘！</span>"
       },
       "129": {
-        "salvage": "+6 Salvage"
+        "salvage": "使回收增加6"
       },
       "131": {
-        "taxReduction": "减少税收增长5%"
+        "taxReduction": "使税收增长减少5%"
       },
       "132": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
       },
       "133": {
-        "midasTalisman": "Unlock the Midas Talisman!"
+        "midasTalisman": "解锁点金护身符！"
       },
       "134": {
-        "diamondUpgrade20": "Unlock the 20th Diamond Upgrade!",
-        "blessingUnlock": "Unlock Rune Blessings!",
-        "talismanUnlock": "Also, unlock Talismans!"
+        "diamondUpgrade20": "解锁第20个钻石升级！",
+        "blessingUnlock": "解锁符文祝福！",
+        "talismanUnlock": "另外，还会解锁护身符！"
       },
       "135": {
-        "talismanPower": "+2% Talisman Power"
+        "talismanPower": "使护身符强度增加2%"
       },
       "136": {
-        "talismanPower": "+2% Talisman Power",
-        "salvage": "+7 Salvage"
+        "talismanPower": "使护身符强度增加2%",
+        "salvage": "使回收增加7"
       },
       "137": {
-        "sacrificeMult": "Sacrifice multiplier x1.25"
+        "sacrificeMult": "使献祭倍率变为原来的1.25倍"
       },
       "139": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
       },
       "140": {
-        "metaphysicsTalisman": "Unlock the Metaphysics Talisman!"
+        "metaphysicsTalisman": "解锁玄学护身符！"
       },
       "141": {
-        "ascensionUnlock": "Unlock the Ascension reset tier! Requires at least 1 {[Sadistic I]} clear."
+        "ascensionUnlock": "解锁飞升重置！至少需要完成1次虐待狂挑战 I。"
       },
       "143": {
-        "salvage": "+7 Salvage"
+        "salvage": "使回收增加7"
       },
       "144": {
-        "talismanPower": "+2.5% Talisman Power"
+        "talismanPower": "使护身符强度增加2.5%"
       },
       "145": {
-        "talismanPower": "+2.5% Talisman Power"
+        "talismanPower": "使护身符强度增加2.5%"
       },
       "146": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
       },
       "147": {
-        "polymathTalisman": "Unlock the Polymath Talisman!"
+        "polymathTalisman": "解锁博识护身符！"
       },
       "149": {
-        "acceleratorPower": "+1% Accelerator Power"
+        "acceleratorPower": "使加速器效果增加1%"
       },
       "151": {
         "accelerators": "获得5个免费加速器"
@@ -1159,207 +1159,207 @@
         "multipliers": "获得10个免费加倍器。<span class='rainbowText'>真惊奇！</span>"
       },
       "169": {
-        "antSpeed": "Ant Speed is multiplied by logarithm of Galactic Crumbs"
+        "antSpeed": "使蚂蚁速度乘以银河碎屑数值的对数"
       },
       "171": {
-        "antSpeed": "Ant Speed x1.2"
+        "antSpeed": "使蚂蚁速度变为1.2倍"
       },
       "172": {
-        "antSpeed": "Ant Speed x1.25"
+        "antSpeed": "使蚂蚁速度变为1.25倍"
       },
       "173": {
-        "antSpeed": "Ant Speed x1.4",
-        "antSacrificeUnlock": "Unlock Ant Sacrifice!",
-        "antAutobuyers": "Unlock an Ant Autobuyer!"
+        "antSpeed": "使蚂蚁速度变为1.4倍",
+        "antSacrificeUnlock": "解锁蚂蚁献祭！",
+        "antAutobuyers": "解锁一个蚂蚁自动购买！"
       },
       "174": {
-        "antSpeed": "Ant Speed is multiplied by logarithm of Ant Sacrifice Points"
+        "antSpeed": "使蚂蚁速度乘以蚂蚁献祭点数的对数"
       },
       "176": {
-        "antAutobuyers": "Unlock the Breeder Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Inceptus and Fortunae Ant Autobuyers!"
+        "antAutobuyers": "解锁繁殖蚁自动购买！",
+        "antUpgradeAutobuyers": "解锁创始蚁和财富蚁自动购买！"
       },
       "177": {
-        "antAutobuyers": "Unlock the Meta-Breeder Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Tributum Ant Autobuyer!"
+        "antAutobuyers": "解锁高级繁殖蚁自动购买！",
+        "antUpgradeAutobuyers": "解锁示威蚁自动购买！"
       },
       "178": {
-        "antAutobuyers": "Unlock the Mega-Breeder Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Celeritas and Multa Ant Autobuyers!"
+        "antAutobuyers": "解锁超级繁殖蚁自动购买！",
+        "antUpgradeAutobuyers": "解锁迅捷蚁和加倍蚁自动购买！"
       },
       "179": {
-        "antAutobuyers": "Unlock the Queen Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Sacrificium Ant Autobuyer!"
+        "antAutobuyers": "解锁蚁后自动购买！",
+        "antUpgradeAutobuyers": "解锁献祭蚁自动购买！"
       },
       "180": {
-        "antAutobuyers": "Unlock the Lord Royal Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Hic and Experientia Ant Autobuyers!"
+        "antAutobuyers": "解锁国王蚁自动购买！",
+        "antUpgradeAutobuyers": "解锁建筑蚁和博学蚁自动购买！"
       },
       "181": {
-        "antAutobuyers": "Unlock the ALMIGHTY ANT Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Praemoenio Ant Autobuyer!"
+        "antAutobuyers": "解锁全能蚁自动购买！",
+        "antUpgradeAutobuyers": "解锁预言蚁自动购买！"
       },
       "182": {
-        "antAutobuyers": "Unlock the DISCIPLE OF ANT GOD Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Scientia and Phylacterium Ant Autobuyers!"
+        "antAutobuyers": "解锁神使蚁自动购买！",
+        "antUpgradeAutobuyers": "解锁科学蚁和命匣蚁自动购买！"
       },
       "186": {
-        "wowSquareTalisman": "Unlock the Wow Square Talisman!"
+        "wowSquareTalisman": "解锁惊奇正方形护身符！"
       },
       "187": {
-        "ascensionCountMultiplier": "Gain more Ascension Count based on Ascension Score [+100% per digit of Ascension Score, minus 1]",
-        "multiplicativeOffering": "Offerings multiplier based on Ascension Count"
+        "ascensionCountMultiplier": "基于飞升分数，增加飞升次数获取数量[飞升分数每有1位就增加100%，最后再减去1]",
+        "multiplicativeOffering": "基于飞升次数的祭品倍率"
       },
       "188": {
-        "ascensionCountAdditive": "If your Ascension is at least 10 seconds long, add +100 Base Ascension Count!",
-        "multiplicativeObtainium": "Gain more Obtainium based on Ascension Count [up to x2 at 5 million Ascension Count]"
+        "ascensionCountAdditive": "如果飞升至少经过10秒，则使基础飞升次数增加100次！",
+        "multiplicativeObtainium": "根据飞升次数，增加难得素获取数量[在5000000次飞升时达到上限2倍]"
       },
       "189": {
-        "ascensionCountAdditive": "Ascension Count multiplier based on excess time",
-        "wowCubeGain": "Cube gain multiplier based on Ascension Count"
+        "ascensionCountAdditive": "基于飞升时间超过10秒以后超出部分时间的飞升次数倍率",
+        "wowCubeGain": "基于飞升次数的所有类型方盒、立方和方块获取数量倍率"
       },
       "193": {
-        "wowCubeGain": "Gain more Cubes based on your Constant [+0.25% per digit of Constant]"
+        "wowCubeGain": "根据数学常数，增加惊奇方盒获取数量[数学常数每有一个数量级，就增加0.25%]"
       },
       "195": {
-        "wowCubeGain": "Gain more Cubes based on your Constant [up to x250 at 1e100,000 Constant]",
-        "wowTesseractGain": "Gain more Tesseracts based on your Constant [up to x250 at 1e100,000 Constant]"
+        "wowCubeGain": "根据数学常数，增加惊奇方盒获取数量[在1e100000数学常数时达到上限250倍]",
+        "wowTesseractGain": "根据数学常数，增加惊奇超立方获取数量[在1e100000数学常数时达到上限250倍]"
       },
       "196": {
-        "wowPlatonicGain": "Gain more Platonic Cubes based on your Constant [up to x20 at 1e100,000 Constant]"
+        "wowPlatonicGain": "根据数学常数，增加PLATONIC方盒获取数量[在1e100000数学常数时达到上限20倍]"
       },
       "197": {
-        "statTracker": "Unlock a Stat Tracker at the top of your screen!",
-        "tesseractUnlock": "Unlock gaining Tesseracts from Ascending!"
+        "statTracker": "解锁屏幕顶部的数据追踪器！",
+        "tesseractUnlock": "可以通过飞升获取惊奇超立方了！"
       },
       "198": {
-        "wowCubeGain": "Cube gain x1.02"
+        "wowCubeGain": "使惊奇方盒获取数量变为原来的1.02倍"
       },
       "199": {
-        "wowCubeGain": "Cube gain x1.02"
+        "wowCubeGain": "使惊奇方盒获取数量变为原来的1.02倍"
       },
       "200": {
-        "wowCubeGain": "Cube gain x1.02"
+        "wowCubeGain": "使惊奇方盒获取数量变为原来的1.02倍"
       },
       "201": {
-        "wowCubeGain": "Cube gain x1.02"
+        "wowCubeGain": "使惊奇方盒获取数量变为原来的1.02倍"
       },
       "202": {
-        "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
+        "ascensionCountAdditive": "每有1秒飞升时间，就使基础飞升次数增加2"
       },
       "203": {
-        "talismanPower": "+1% Talisman Power"
+        "talismanPower": "使护身符强度增加1%"
       },
       "204": {
-        "ascensionRewardScaling": "Ascensions give more cubes of all types based on your Ascension time [+10% per second]",
-        "spiritUnlock": "Unlock Spirits, in the Runes tab!"
+        "ascensionRewardScaling": "根据飞升时间，增加飞升时所有类型的方盒和立方获取数量[每秒增加10%]",
+        "spiritUnlock": "在符文选项卡下解锁魂灵！"
       },
       "205": {
-        "wowTesseractGain": "Tesseract gain x1.02"
+        "wowTesseractGain": "使惊奇超立方获取数量变为原来的1.02倍"
       },
       "206": {
-        "wowTesseractGain": "Tesseract gain x1.02"
+        "wowTesseractGain": "使惊奇超立方获取数量变为原来的1.02倍"
       },
       "207": {
-        "wowTesseractGain": "Tesseract gain x1.02"
+        "wowTesseractGain": "使惊奇超立方获取数量变为原来的1.02倍"
       },
       "208": {
-        "wowTesseractGain": "Tesseract gain x1.02"
+        "wowTesseractGain": "使惊奇超立方获取数量变为原来的1.02倍"
       },
       "209": {
-        "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
+        "ascensionCountAdditive": "每有1秒飞升时间，就使基础飞升次数增加2"
       },
       "210": {
-        "talismanPower": "+1% Talisman Power"
+        "talismanPower": "使护身符强度增加1%"
       },
       "211": {
-        "wowHypercubeGain": "Hypercube gain x1.05",
-        "hypercubeUnlock": "Unlock gaining Hypercubes from Ascending!"
+        "wowHypercubeGain": "使惊奇五阶立方获取数量变为原来的1.05倍",
+        "hypercubeUnlock": "可以通过飞升获取惊奇五阶立方了！"
       },
       "212": {
-        "wowHypercubeGain": "Hypercube gain x1.02"
+        "wowHypercubeGain": "使惊奇五阶立方获取数量变为原来的1.02倍"
       },
       "213": {
-        "wowHypercubeGain": "Hypercube gain x1.02"
+        "wowHypercubeGain": "使惊奇五阶立方获取数量变为原来的1.02倍"
       },
       "214": {
-        "wowHypercubeGain": "Hypercube gain x1.02"
+        "wowHypercubeGain": "使惊奇五阶立方获取数量变为原来的1.02倍"
       },
       "215": {
-        "wowHypercubeGain": "Hypercube gain x1.02"
+        "wowHypercubeGain": "使惊奇五阶立方获取数量变为原来的1.02倍"
       },
       "216": {
-        "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
+        "ascensionCountAdditive": "每有1秒飞升时间，就使基础飞升次数增加2"
       },
       "217": {
-        "talismanPower": "+1% Talisman Power"
+        "talismanPower": "使护身符强度增加1%"
       },
       "218": {
-        "wowPlatonicGain": "Platonic Cubes x1.05",
-        "platonicUnlock": "Unlock gaining Platonic Cubes from Ascending!"
+        "wowPlatonicGain": "使PLATONIC方盒获取数量变为原来的1.05倍",
+        "platonicUnlock": "可以通过飞升获取PLATONIC方盒了！"
       },
       "219": {
-        "wowPlatonicGain": "Platonic Cube gain x1.02"
+        "wowPlatonicGain": "使PLATONIC方盒获取数量变为原来的1.02倍"
       },
       "220": {
-        "wowPlatonicGain": "Platonic Cubes gain x1.02"
+        "wowPlatonicGain": "使PLATONIC方盒获取数量变为原来的1.02倍"
       },
       "221": {
-        "wowPlatonicGain": "Platonic Cubes gain x1.02"
+        "wowPlatonicGain": "使PLATONIC方盒获取数量变为原来的1.02倍"
       },
       "222": {
-        "wowPlatonicGain": "Platonic Cubes gain x1.02"
+        "wowPlatonicGain": "使PLATONIC方盒获取数量变为原来的1.02倍"
       },
       "223": {
-        "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time",
-        "wowPlatonicGain": "Gain more Platonic Cubes based on Ascension Count [up to x3 at 2.674e9 Ascension Count]"
+        "ascensionCountAdditive": "每有1秒飞升时间，就使基础飞升次数增加2",
+        "wowPlatonicGain": "根据飞升次数，增加PLATONIC方盒获取数量[在2.674e9次飞升时达到上限3倍]"
       },
       "233": {
-        "salvage": "+2 Salvage"
+        "salvage": "使回收增加2"
       },
       "235": {
-        "salvage": "+2 Salvage"
+        "salvage": "使回收增加2"
       },
       "237": {
-        "salvage": "+3 Salvage"
+        "salvage": "使回收增加3"
       },
       "240": {
-        "allCubeGain": "All Cube Gain x1.2"
+        "allCubeGain": "使所有类型的方盒、立方和方块获取数量变为原来的1.2倍"
       },
       "245": {
-        "salvage": "+3 Salvage"
+        "salvage": "使回收增加3"
       },
       "250": {
-        "allCubeGain": "All Cube Gain x1.05",
-        "multiplicativeObtainium": "Obtainium x1.1",
-        "multiplicativeOffering": "Offerings x1.5",
-        "quarkGain": "Quark Gain x1.05"
+        "allCubeGain": "使所有类型的方盒、立方和方块获取数量变为原来的1.05倍",
+        "multiplicativeObtainium": "使难得素获取数量变为原来的1.1倍",
+        "multiplicativeOffering": "使祭品获取数量变为原来的1.5倍",
+        "quarkGain": "使夸克获取数量变为原来的1.05倍"
       },
       "251": {
-        "allCubeGain": "All Cube Gain x1.05",
-        "multiplicativeObtainium": "Obtainium x1.5",
-        "multiplicativeOffering": "Offerings x1.1",
-        "quarkGain": "Quark Gain x1.05"
+        "allCubeGain": "使所有类型的方盒、立方和方块获取数量变为原来的1.05倍",
+        "multiplicativeObtainium": "使难得素获取数量变为原来的1.5倍",
+        "multiplicativeOffering": "使祭品获取数量变为原来的1.1倍",
+        "quarkGain": "使夸克获取数量变为原来的1.05倍"
       },
       "253": {
-        "wowHypercubeGain": "Hypercube gain x1.1"
+        "wowHypercubeGain": "使惊奇五阶立方获取数量变为原来的1.1倍"
       },
       "254": {
-        "wowCubeGain": "Cube gain x1.1"
+        "wowCubeGain": "使惊奇方盒获取数量变为原来的1.1倍"
       },
       "255": {
-        "wowTesseractGain": "Tesseract gain x1.1"
+        "wowTesseractGain": "使惊奇超立方获取数量变为原来的1.1倍"
       },
       "256": {
-        "wowPlatonicGain": "Platonic Cubes x1.1",
-        "overfluxConversionRate": "Overflux Powder conversion x1.05"
+        "wowPlatonicGain": "使PLATONIC方盒获取数量变为原来的1.1倍",
+        "overfluxConversionRate": "使超通量粉转换效率变为原来的1.05倍"
       },
       "257": {
-        "allCubeGain": "All Cube Gain x1.1",
-        "overfluxConversionRate": "Overflux Powder conversion x1.05"
+        "allCubeGain": "使所有类型的方盒、立方和方块获取数量变为原来的1.1倍",
+        "overfluxConversionRate": "使超通量粉转换效率变为原来的1.05倍"
       },
       "258": {
-        "wowHepteractGain": "Hepteract gain x1.1"
+        "wowHepteractGain": "使惊奇七阶立方获取数量变为原来的1.1倍"
       },
       "259": {
         "ascensionScore": "Ascension Score multiplier based on Abyss Hepteract expansions [x1.01 per expansion]"
@@ -1546,9 +1546,9 @@
       "38": "解锁重叠符文！",
       "43": "在任何屏幕上都可以购买加速器加成了。解锁自动转生机制。",
       "44": "解锁棱柱符文！根据花费的时间，超越可获得更多祭品(在1800秒时达到最大，此时多获得15祭品)",
-      "45": "至多减少税收增长5%，此数值与转生的时长有关。",
-      "46": "再次至多减少税收增长5%，此数值与转生的时长有关。",
-      "47": "再次至多减少税收增长10%，此数值与转生的时长有关！",
+      "45": "至多使税收增长减少5%，此数值与转生的时长有关。",
+      "46": "再次至多使税收增长减少5%，此数值与转生的时长有关。",
+      "47": "再次至多使税收增长减少10%，此数值与转生的时长有关！",
       "50": "解锁原子的生产建筑，另外还解锁了3个非常难的挑战！转世可以获得2倍粒子！",
       "51": "手动转世可以多获得4难得素(除了时间倍率以外，不受其他倍率影响)！",
       "52": "根据花费的时间，转世可获得更多祭品(在1800秒时达到最大，此时多获得25祭品)",
@@ -2064,11 +2064,11 @@
       "3": "税收增长变为原来的{{x}}倍",
       "4": "加速器加成增加{{x}}%",
       "5": "加倍器增加{{x}}%",
-      "6": "祭品获取数量变为原来的{{x}}倍",
+      "6": "使祭品获取数量变为原来的{{x}}倍",
       "7": "建筑成本增长速度减缓{{x}}%！",
       "8": "符文经验值变为原来的{{x}}倍！",
       "9": "每个符文的有效等级增加{{x}}。",
-      "10": "难得素获取数量变为原来的{{x}}倍",
+      "10": "使难得素获取数量变为原来的{{x}}倍",
       "11": "献祭效果变为原来的{{x}}倍",
       "12": "全局速度变为原来的{{x}}倍"
     },
@@ -2258,7 +2258,7 @@
       "start": "开始<无符文挑战>",
       "current": {
         "1": "免费等级增加{{value}}",
-        "2": "蚂蚁速度变为{{value}}倍",
+        "2": "使蚂蚁速度变为{{value}}倍",
         "3": "+{{value}} Salvage"
       }
     },
@@ -2294,7 +2294,7 @@
       "start": "开始<[(蚂蚁减少挑战)]>",
       "current": {
         "1": "免费蚂蚁等级增加{{value}}",
-        "2": "蚂蚁速度变为{{value}}倍",
+        "2": "使蚂蚁速度变为{{value}}倍",
         "3": "+{{value}}"
       }
     },
@@ -2921,7 +2921,7 @@
       "obtainiumEX": "难得素获取数量增加<<pink|{{amount}}%>>！",
       "obtainiumAuto": "每次转世都尝试研究，并且难得素获取数量增加<<pink|{{amount}}%>>。",
       "instantChallenge": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
-      "antSpeed": "所有蚂蚁速度变为<<crimson|{{amount}}>>倍",
+      "antSpeed": "使所有蚂蚁速度变为<<crimson|{{amount}}>>倍",
       "cashGrab": "难得素和祭品的获取数量增加<<gold|{{amount}}%>>！",
       "shopTalisman": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
       "seasonPass": "飞升的方盒和超立方获取数量增加<<lightgoldenrodyellow|{{amount}}%>>。",
@@ -3068,10 +3068,10 @@
       },
       "antGodsCornucopia": {
         "name": "蚁神的聚宝盆",
-        "hasLevel3": "蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1e12倍！",
-        "hasLevel2": "蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1e6倍！",
-        "hasLevel1": "蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1000倍！",
-        "default": "蚂蚁速度变为无瑕的4.44倍。"
+        "hasLevel3": "使蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1e12倍！",
+        "hasLevel2": "使蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1e6倍！",
+        "hasLevel1": "使蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1000倍！",
+        "default": "使蚂蚁速度变为无瑕的4.44倍。"
       },
       "sweepomatic": {
         "name": "自动扫荡·改 2",
@@ -3925,7 +3925,7 @@
       "2": "所有超立方建筑产量变为{{x}}倍",
       "3": "祭品获取数量变为{{x}}倍",
       "4": "难得素获取数量变为{{x}}倍",
-      "5": "蚂蚁速度变为{{x}}倍",
+      "5": "使蚂蚁速度变为{{x}}倍",
       "6": "免费蚂蚁等级增加{{x}}级",
       "7": "+{{x}} free Rune Levels",
       "8": "祭品提供的符文经验值变为{{x}}倍",
@@ -3937,7 +3937,7 @@
       "2": "每级使每购买一个超立方建筑增加0.1%的超立方建筑产量[上限{{max}}%]。",
       "3": "每级使祭品获取数量增加2%。",
       "4": "每级使难得素获取数量增加4%。",
-      "5": "蚂蚁速度变为 (1 + log10(数学常数数量 + 1)/10)^升级等级 倍。",
+      "5": "使蚂蚁速度变为 (1 + log10(数学常数数量 + 1)/10)^升级等级 倍。",
       "6": "每级增加2级免费蚂蚁等级。",
       "7": "Provides 7 free rune levels per level, up to +7,000.",
       "8": "每级使祭品提供的符文经验值增加10%[相互叠加]",
