@@ -326,6 +326,16 @@ export const settingAnnotation = () => {
   }
 }
 
+export const settingSymbols = () => {
+  const symbolButton = DOMCacheGetOrSet('statSymbols')
+  const setting = localStorage.getItem('statSymbols')
+  if (setting === 'true') {
+    symbolButton.textContent = i18next.t('settings.statSymbols.enabled')
+  } else {
+    symbolButton.textContent = i18next.t('settings.statSymbols.disabled')
+  }
+}
+
 // IconSets: ['FolderName', 'FallbackSetIndex']
 // Make sure new sets have a UNIQUE folder name (not used in icon file names), and it is added to IconSets[][] and IconSetsRegex
 export const IconSets: [string, number][] = [

@@ -11,7 +11,7 @@ import { indexToRune } from './Runes'
 import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
-import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
+import { Alert, Confirm, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
@@ -1012,4 +1012,21 @@ export const confirmReply = (confirm = true) => {
       ;(DOMCacheGetOrSet('cancel_confirm') as HTMLButtonElement).click()
     }
   }
+}
+
+export const toggleStatSymbol = async () => {
+
+  const confirmation = await Confirm(i18next.t('main.statSymbolConfirm'))
+  if (!confirmation) {
+    return
+  }
+  else {
+    if (localStorage.getItem('statSymbols') === 'true') {
+      localStorage.setItem('statSymbols', 'false')
+    } else {
+      localStorage.setItem('statSymbols', 'true')
+    }
+  }
+  location.reload()
+
 }

@@ -246,8 +246,9 @@ import {
   type SingularityChallengeDataKeys
 } from './SingularityChallenges'
 import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
-import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
+import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
+import { enableStatSymbols } from './Plugins/StatSymbols'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -5432,6 +5433,7 @@ export const reloadShit = (reset = false) => {
   toggleShops()
   setAutomaticHepteractTexts()
   settingAnnotation()
+  settingSymbols()
   toggleIconSet()
   toggleauto()
   htmlInserts()
@@ -5506,6 +5508,15 @@ window.addEventListener('load', async () => {
         url: './mockServiceWorker.js'
       }
     })
+  }
+
+  const symbolsEnabled = localStorage.getItem('statSymbols')
+  if (!symbolsEnabled) {
+    localStorage.setItem('statSymbols', 'true')
+    enableStatSymbols()
+  }
+  else if (symbolsEnabled === 'true') {
+    enableStatSymbols()
   }
 
   isMobileDevice()

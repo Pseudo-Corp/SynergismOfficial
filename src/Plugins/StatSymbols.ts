@@ -1,6 +1,10 @@
 import type { PostProcessorModule } from 'i18next'
 
-export const showStatSymbol = true
+export let showStatSymbol = false
+
+export const enableStatSymbols = (): void => {
+  showStatSymbol = true
+}
 
 const KEYWORD_SYMBOLS: Record<string, string> = {
   'Offering': '☤',

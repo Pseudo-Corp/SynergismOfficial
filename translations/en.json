@@ -4114,7 +4114,8 @@
         "reincarnate": "Reincarnate",
         "ascension": "Ascension",
         "sacrifice": "Sacrifice Ants",
-        "singularity": "Singularity"
+        "singularity": "Singularity",
+        "statSymbols": "Stat Symbols"
       }
     },
     "pseudocoins": {
@@ -5466,6 +5467,11 @@
       "simplified": "Simplified",
       "monotonous": "Monotonous"
     },
+    "statSymbol": "Stat Symbols",
+    "statSymbols": {
+      "enabled": "Enabled (♻ / Ɑ / ☇ etc.)",
+      "disabled": "Disabled (No symbols by stats)"
+    },
     "joinDiscord": "Click the image below to join the Discord!",
     "joinPatreon": "Support Development!",
     "exportQuark": "{{x}}s until +{{y}} export Quark",
@@ -6728,7 +6734,8 @@
     "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Exalt tab.",
     "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
     "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
-    "buyResearch3x11": "[LOCKED - Buy Research 3x11]"
+    "buyResearch3x11": "[LOCKED - Buy Research 3x11]",
+    "statSymbolConfirm": "Would you like to toggle Stat Symbols? This will refresh the page! [If you see a symbol next to the word 'Quark' then they are currently on. Otherwise they are currently off]"
   },
   "history": {
     "perSecondOn": "Per second: ON",

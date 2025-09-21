@@ -155,6 +155,7 @@ import {
   toggleSettings,
   toggleShopConfirmation,
   toggleShops,
+  toggleStatSymbol,
   updateAutoChallenge,
   updateRuneBlessingBuyAmount
 } from './Toggles'
@@ -971,6 +972,7 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('resetHotkeys').addEventListener('click', () => resetHotkeys())
   DOMCacheGetOrSet('notation').addEventListener('click', () => toggleAnnotation())
   DOMCacheGetOrSet('iconSet').addEventListener('click', () => toggleIconSet(player.iconSet + 1))
+  DOMCacheGetOrSet('statSymbols').addEventListener('click', () => toggleStatSymbol())
 
   document.querySelector('#thirdParty > #discord > button')?.addEventListener(
     'click',
