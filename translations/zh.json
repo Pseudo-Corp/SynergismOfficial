@@ -29,33 +29,33 @@
     "notEnoughBlueberries": "您的蓝莓不足，无法激活该模块。",
     "timeThresholds": "由于神肴总数，神肴进度条点数需求翻倍了<<cyan|{{threshold}}>>次。神肴总数再增加<<orange|{{toNext}}>>后将再度翻倍。",
     "cubeUpgradeThresholds": "由于神肴总数，神肴进度条点数需求翻倍了<<cyan|{{threshold}}>>次。神肴总数再增加<<orange|{{toNext}}>>后将再度翻倍。<<cyan|神肴进度条点数获取速度+{{percent}}%>>！",
-    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} Ambrosia Luck>>!",
+    "cubeUpgradeRedBarFills": "购买饼干升级29以后，您的红色进度条填充了<<maroon|{{amount}}>>次，所以<<green|神肴之运增加{{luck}}>>！",
     "ambrosiaBuyPrompt": "您想要花费多少神肴？您拥有{{amount}}神肴。如果想要购买最大数量，请输入-1！",
     "refund": "所有花费的蓝莓和神肴均已返还。",
     "refundWord": "返还",
     "ignoreEXALT": "[<<white|♔>>]即使拔擢有相应限制，该升级仍然会生效！",
-    "notUnlocked": "Clear No Golden Quark Upgrades, Tier 1!",
-    "ambrosiaCost": "Cost for next level: <<orange | {{amount}}>> Ambrosia",
+    "notUnlocked": "首次完成无金夸克升级！",
+    "ambrosiaCost": "下一级的花费：<<orange|{{amount}}>>神肴",
     "data": {
       "ambrosiaTutorial": {
         "name": "神肴教程模块",
-        "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes per level, +1% Quarks per level",
-        "effect": "This tutorial module increases Cube gain by {{cubeAmount}}% and Quarks by {{quarkAmount}}%"
+        "description": "蓝莓可以随着时间推移产生神肴。您可以使用神肴来购买升级！每级使所有类型的方盒、立方和方块获取数量增加5%，并且使夸克获取数量增加1%。",
+        "effect": "神肴教程模块使所有类型的方盒、立方和方块获取数量增加了{{cubeAmount}}%，并且使夸克获取数量增加了{{quarkAmount}}%。"
       },
       "ambrosiaQuarks1": {
         "name": "神肴夸克模块 I",
-        "description": "Congrats on completing the Tutorial module. You need to have it maxed to buy levels of this. +1% Quarks per level.",
-        "effect": "This Quark module increases Quark gain by {{amount}}%"
+        "description": "恭喜您完成了教程模块的升级。您需要在它满级后才可以购买该模块。每级使夸克获取数量增加1%。",
+        "effect": "神肴夸克模块使夸克获取数量增加了{{amount}}%。"
       },
       "ambrosiaCubes1": {
         "name": "神肴方盒模块 I",
-        "description": "Congrats on completing the Tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes per level. Every 5 levels give 1.1x Cubes.",
-        "effect": "This Cube module increases Cube gain by {{amount}}%"
+        "description": "恭喜您完成了教程模块的升级。您需要在它满级后才可以购买该模块。每级使所有类型的方盒、立方和方块获取数量增加5%，且每5级还可以使所有类型的方盒、立方和方块获取数量变为原来的1.1倍。",
+        "effect": "神肴方盒模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaLuck1": {
         "name": "神肴之运模块 I",
-        "description": "Congrats on completing the Tutorial module. You need to have it maxxed to buy levels of this. +2 Ambrosia Luck per lvl. Every 10 levels give +12 more!",
-        "effect": "This luck module increases Ambrosia Luck by {{amount}}"
+        "description": "恭喜您完成了教程模块的升级。您需要在它满级后才可以购买该模块。每级使神肴之运增加2，且每10级还可以使神肴之运额外增加12！",
+        "effect": "神肴之运模块使神肴之运增加了{{amount}}。"
       },
       "ambrosiaCubeQuark1": {
         "name": "神肴方盒-夸克混合模块 I",
@@ -64,28 +64,28 @@
       },
       "ambrosiaLuckQuark1": {
         "name": "神肴之运-夸克混合模块 I",
-        "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
+        "description": "第一代混合模块。每有1神肴之运，每级该升级就可以使夸克获取数量增加0.01%。超过1000神肴之运之后效果将衰减。",
         "effect": "第一代混合模块使夸克获取数量增加了{{amount}}%。"
       },
       "ambrosiaQuarkCube1": {
         "name": "神肴夸克-方盒混合模块 I",
-        "description": "A first generation hybrid module. Gain +0.1% more Cubes per level per digit in your Quark balance, squared!",
-        "effect": "This first generation hybrid module increases Cube gain by {{amount}}%"
+        "description": "第一代混合模块。当前夸克数量每有一个数量级，每级该升级就可以使所有类型的方盒、立方和方块获取数量增加0.1%，然后再乘以当前夸克数量的数量级。",
+        "effect": "第一代混合模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaLuckCube1": {
         "name": "神肴之运-方盒混合模块 I",
-        "description": "A first generation hybrid module. Gain +0.05% more Cubes per level per 1 Ambrosia Luck!",
-        "effect": "This first generation hybrid module increases Cube gain by {{amount}}%"
+        "description": "第一代混合模块。每有1神肴之运，每级该升级就可以使所有类型的方盒、立方和方块获取数量增加0.05%。",
+        "effect": "第一代混合模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaCubeLuck1": {
         "name": "神肴方盒-之运混合模块 I",
-        "description": "A first generation hybrid module. Gain +0.02 Ambrosia Luck per level per digit in the values of all cube types.",
-        "effect": "This first generation hybrid module increases Ambrosia Luck by {{amount}}"
+        "description": "第一代混合模块。所有类型的方盒、立方和方块每有一个数量级，每级该升级就可以使神肴之运增加0.02。",
+        "effect": "第一代混合模块使神肴之运增加了{{amount}}。"
       },
       "ambrosiaQuarkLuck1": {
         "name": "神肴夸克-之运混合模块 I",
-        "description": "A first generation hybrid module. Gain +0.02 Ambrosia Luck per level per digit in your Quark balance, squared.",
-        "effect": "This first generation hybrid module increases Ambrosia Luck by {{amount}}"
+        "description": "第一代混合模块。当前夸克数量每有一个数量级，每级该升级就可以使神肴之运增加0.02，然后再乘以当前夸克数量的数量级。",
+        "effect": "第一代混合模块使神肴之运增加了{{amount}}。"
       },
       "ambrosiaQuarks2": {
         "name": "神肴夸克模块 II",
@@ -94,13 +94,13 @@
       },
       "ambrosiaCubes2": {
         "name": "神肴方盒模块 II",
-        "description": "Self-Synergies! Gain +10% cubes per level, +1% for every 10 levels in Ambrosia Cube Module I. Every 5 levels give 1.15x Cubes.",
-        "effect": "This second generation Cube module increases Cube gain by {{amount}}%"
+        "description": "自我协同！每级使所有类型的方盒、立方和方块获取数量增加10%，且神肴方盒模块 I每有10级，该数值还会再增加1%。另外，每5级还可以使所有类型的方盒、立方和方块获取数量变为原来的1.15倍。",
+        "effect": "第二代方盒模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaLuck2": {
         "name": "神肴之运模块 II",
-        "description": "Self-Synergies! Gain +3 Ambrosia Luck per level, +0.3 for every 10 levels in Ambrosia Luck Module I. Every 10 levels give +40 more!",
-        "effect": "This second generation Luck module increases Ambrosia Luck by {{amount}}"
+        "description": "自我协同！每级使神肴之运增加3，且神肴之运模块 I每有10级，该数值还会再增加0.3。另外，每10级还可以使神肴之运额外增加40！",
+        "effect": "第二代神肴之运模块使神肴之运增加了{{amount}}。"
       },
       "ambrosiaQuarks3": {
         "name": "神肴夸克模块 III",
@@ -109,37 +109,37 @@
       },
       "ambrosiaCubes3": {
         "name": "神肴方盒模块 III",
-        "description": "A darkness emboldens this module. +20% Cubes per level, and the effect is 3% stronger per level of Ambrosia Cube Module II. Every 5 levels give 1.2x Cubes.",
-        "effect": "This third generation Cube module increases Cube gain by {{amount}}%"
+        "description": "这个模块因黑暗而变得更加强大。每级使所有类型的方盒、立方和方块获取数量增加20%，并且神肴方盒模块 II每有一级，该效果再增加3%。另外，每5级还可以使所有类型的方盒、立方和方块获取数量变为原来的1.2倍。",
+        "effect": "第三代方盒模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaLuck3": {
         "name": "神肴之运模块 III",
-        "description": "A darkness emboldens this module. +1 Ambrosia Luck per level, and the effect is multiplied by the total number of Blueberries you own!",
-        "effect": "This third generation Luck module increases Ambrosia Luck by {{amount}}"
+        "description": "这个模块因黑暗而变得更加强大。每级使神肴之运增加1，且该效果乘以您拥有的蓝莓总数！",
+        "effect": "第三代神肴之运模块使神肴之运增加了{{amount}}。"
       },
       "ambrosiaLuck4": {
-        "name": "The Eight Leaf Clover",
-        "description": "<span class=\"rainbowText\">My magical lucky charms!</span> +0.01% Ambrosia Luck per level, multiplied by the number of total digits in your Lifetime Ambrosia and Red Ambrosia!",
-        "effect": "This fourth generation Luck module increases Ambrosia Luck by <span class=\"rainbowText\">{{amount}}</span>"
+        "name": "八叶草",
+        "description": "<span class=\"rainbowText\">我的神奇幸运符！</span>每级使神肴之运增加0.01%，且该效果乘以您拥有的神肴总数和红神肴总数的数量级之和！",
+        "effect": "第四代神肴之运模块使神肴之运增加了<span class=\"rainbowText\">{{amount}}</span>。"
       },
       "ambrosiaPatreon": {
         "name": "厚颜的蓝莓Patreon提醒",
-        "description": "In every realm, Platonic sells out. The Patreon bonus will also impact your Ambrosia Bar Point generation.",
+        "description": "Platonic到哪都受欢迎。Patreon的加成还会对神肴进度条点数获取速度生效。",
         "effect": "慷慨的Patreon支持者使神肴进度条点数获取速度增加 {{amount}}%。您也可以考虑在Patreon上支持本游戏的开发！"
       },
       "ambrosiaObtainium1": {
         "name": "基于随机数的难得素加成",
-        "description": "Gain +0.1% Obtainium per Ambrosia Luck!",
+        "description": "每有1神肴之运，就使难得素获取数量增加0.1%！",
         "effect": "该模块使难得素获取数量增加{{amount}}%！"
       },
       "ambrosiaOffering1": {
-        "name": "RNG-based Offerings Booster",
-        "description": "Gain +0.1% Offerings per Ambrosia Luck!",
-        "effect": "This module increases Offerings gain by {{amount}}%!"
+        "name": "基于随机数的祭品加成",
+        "description": "每有1神肴之运，就使祭品获取数量增加0.1%！",
+        "effect": "该模块使祭品获取数量增加{{amount}}%！"
       },
       "ambrosiaHyperflux": {
         "name": "惊奇方盒终极工业生产",
-        "description": "Gain +1% (3-7D) Cubes per level, per level of Platonic Upgrade 4x4 purchased (multiplicative!!!)",
+        "description": "Platonic升级4x4每有1级，每级该升级就可以使所有类型的方盒和立方获取数量增加1%(效果叠乘！！！)",
         "effect": "该模块使方盒获取数量增加{{amount}}%！"
       },
       "ambrosiaBaseObtainium1": {
@@ -148,9 +148,9 @@
         "effect": "该模块使基础难得素获取数量增加{{amount}}！"
       },
       "ambrosiaBaseOffering1": {
-        "name": "Basic Offerings Booster",
-        "description": "+1 Base Offerings per level! Exceed the possibilities of your strength.",
-        "effect": "This module increases Base Offerings by {{amount}}!"
+        "name": "基础祭品加成",
+        "description": "每级使基础祭品获取数量增加1！突破力量的极限。",
+        "effect": "该模块使基础祭品获取数量增加{{amount}}！"
       },
       "ambrosiaBaseObtainium2": {
         "name": "基本难得素加成",
@@ -158,9 +158,9 @@
         "effect": "该模块使基础难得素获取数量增加{{amount}}！"
       },
       "ambrosiaBaseOffering2": {
-        "name": "Based Offerings Booster",
-        "description": "+1 Base Offerings per level! Channel your... I got nothing.",
-        "effect": "This module increases Base Offerings by {{amount}}!"
+        "name": "基本祭品加成",
+        "description": "每级使基础祭品获取数量增加1！激活……祭品不足。",
+        "effect": "该模块使基础祭品获取数量增加{{amount}}！"
       },
       "ambrosiaSingReduction1": {
         "name": "奇点稳定模块",
@@ -169,13 +169,13 @@
       },
       "ambrosiaInfiniteShopUpgrades1": {
         "name": "靛蓝无限商店代金券",
-        "description": "A Shop Voucher, printed on an indigo tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Shop upgrades.",
-        "effect": "You own {{amount}} Indigo Infinity Shop Vouchers!"
+        "description": "印在靛蓝铭牌‌上的商店代金券。每级使“无限”夸克商店升级的有效等级增加1。",
+        "effect": "您有{{amount}}张靛蓝无限商店代金券！"
       },
       "ambrosiaInfiniteShopUpgrades2": {
         "name": "紫罗兰无限商店代金券",
-        "description": "A Shop Voucher, printed on a violet tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Shop upgrades.",
-        "effect": "You own {{amount}} Violet Infinity Shop Vouchers!"
+        "description": "印在紫罗兰铭牌‌上的商店代金券。每级使“无限”夸克商店升级的有效等级增加1。",
+        "effect": "您有{{amount}}张紫罗兰无限商店代金券！"
       },
       "ambrosiaSingReduction2": {
         "name": "超维色动后激奇点稳定模块",
@@ -183,9 +183,9 @@
         "effect": "奇点相关惩罚视为减少{{amount}}次奇点的惩罚。"
       },
       "ambrosiaTalismanBonusRuneLevel": {
-        "name": "Talisman Ambrosia Embedding Module",
-        "description": "With the power of a lot of Ambrosia, grant +0.5% Talisman Power per level! Additive with other bonuses.",
-        "effect": "Talisman Power is increased by {{amount}}%"
+        "name": "护身符神肴嵌入模块",
+        "description": "利用许多神肴的力量，每级使护身符强度增加0.5%！与其他同类效果叠加。",
+        "effect": "护身符强度增加了{{amount}}%。"
       },
       "ambrosiaRuneOOMBonus": {
         "name": "Rune Coefficient Module",
@@ -366,56 +366,56 @@
       "24": "Counterfeiting with Style!: Establish 100 Coin Mints.",
       "25": "Why do we need all these?: Establish 250 Coin Mints.",
       "26": "No really, why??: Establish 5,000 Coin Mints.",
-      "27": "Is no one to stop us???: Establish 10,000 Coin Mints.",
-      "28": "Oh well, time to mint: Establish 20,000 Coin Mints.",
-      "29": "Newton's Apprentice: Create 1 Alchemy.",
-      "30": "Lab Work: Create 10 Alchemies.",
-      "31": "Satanic Becomings: Create 66 Alchemies.",
-      "32": "Beelzebub Grinned: Create 200 Alchemies.",
-      "33": "Is this more demonic?: Create 6,666 Alchemies.",
-      "34": "Golden Paradise: Create 17,777 Alchemies.",
-      "35": "Unlocking secrets to the world: Create 42,777 Alchemies.",
-      "36": "Leveling up: Prestige for at least 1 Diamond.",
-      "37": "High-Tiered: Prestige for at least 1e6 Diamonds.",
-      "38": "Highly Regarded: Prestige for at least 1e100 Diamonds.",
-      "39": "Prestigious: Prestige for at least 1e1,000 Diamonds.",
-      "40": "Legendary: Prestige for at least 1e10,000 Diamonds.",
-      "41": "Divine: Prestige for at least 1e77,777 Diamonds.",
-      "42": "Perfectly Respected: Prestige for at least 1e250,000 Diamonds.",
-      "43": "A Simple Detour: Transcend for at least 1 Mythos.",
-      "44": "Tunnel Vision: Transcend for at least 1e6 Mythos.",
-      "45": "Risen from the Ashes: Transcend for at least 1e50 Mythos.",
-      "46": "Paradigm Shift: Transcend for at least 1e308 Mythos.",
-      "47": "Preparation: Transcend for at least 1e1,500 Mythos.",
-      "48": "Revising the Plan: Transcend for at least 1e25,000 Mythos.",
-      "49": "Leaving the Universe: Transcend for at least 1e100,000 Mythos.",
-      "50": "Going Quantum: Reincarnate for at least 1 Particle.",
-      "51": "Tunneling Vision: Reincarnate for at least 100,000 Particles.",
-      "52": "Simulating the World: Reincarnate for at least 1e30 Particles.",
-      "53": "Multidimensional Creation: Reincarnate for at least 1e200 Particles.",
-      "54": "Lepton Dance: Reincarnate for at least 1e1,500 Particles.",
-      "55": "Do we have enough yet?: Reincarnate for at least 1e5,000 Particles.",
-      "56": "I Feel Luck in My Cells: Reincarnate for at least 1e7,777 Particles.",
-      "57": "One Way Only: Prestige without buying Multipliers.",
-      "58": "Authentic Shifting: Transcend without having bought a Multiplier.",
-      "59": "The [REDACTED]: Reincarnate without having bought a Multiplier.",
-      "60": "Gotta go SLOW!: Prestige without buying Accelerators.",
-      "61": "I'm really going slow: Transcend without having bought Accelerators or Boosts.",
-      "62": "Are we there yet?: Reincarnate without having bought Accelerators or Boosts.",
-      "63": "A careful search for Diamonds: Get 1e120,000 Coins in [Reduced Diamonds] without buying Accelerators or Boosts.",
-      "64": "Very Based: Prestige without purchasing Coin Upgrades.",
-      "65": "Miser: Transcend without purchasing Coin Upgrades.",
-      "66": "True Miser: Transcend without purchasing Coin or Diamond Upgrades.",
-      "67": "Coinless Pursuit: Reincarnate without purchasing Coin Upgrades.",
-      "68": "Diamonds don't matter to me!: Reincarnate without purchasing Coin or Diamond Upgrades.",
-      "69": "Leave nothing behind: Reincarnate without purchasing Coin, Diamond or Mythos Upgrades.",
-      "70": "Leave NOTHING behind.: Reincarnate without purchasing Coin, Diamond, Mythos, or Generator Upgrades.",
-      "71": "Out of Order: Buy Generator Upgrade Row 1, #2 first in a Transcension (IV -> III)",
-      "72": "More Out of Order: Buy Generator Upgrade Row 1, #3 first in a Transcension (III -> II)",
-      "73": "Four's a Company: Buy Generator Upgrade Row 1, #4 first in a Transcension (II -> I)",
-      "74": "Five's a Croud: Buy Generator Upgrade Row 1, #5 first in a Transcension (I -> V)",
-      "75": "Vaseline without the Machine: Exit [No Multiplier] with at least 1e1000 coins and without any of the row 1 generator upgrades.",
-      "76": "Rage against the Machine: Exit [No Accelerator] with at least 1e1000 coins and without any of the row 1 generator upgrades.",
+      "27": "就没人能阻止我们吗？？？：建立10000个铸币厂。",
+      "28": "好吧，该铸币了：建立20000个铸币厂。",
+      "29": "牛顿的学徒：创造1个炼金术。",
+      "30": "开始实验：创造10个炼金术。",
+      "31": "正在成为撒旦：创造66个炼金术。",
+      "32": "别西卜咧嘴一笑：创造200个炼金术。",
+      "33": "更邪恶了吗？：创造6666个炼金术。",
+      "34": "黄金天堂：创造17777个炼金术。",
+      "35": "揭示世界之谜底：创造42777个炼金术。",
+      "36": "升级了：转生获得至少1个钻石。",
+      "37": "更高阶了：转生获得至少1e6个钻石。",
+      "38": "备受推崇：转生获得至少1e100个钻石。",
+      "39": "威名远扬：转生获得至少1e1000个钻石。",
+      "40": "成为传奇：转生获得至少1e10000个钻石。",
+      "41": "具有神性：转生获得至少1e77777个钻石。",
+      "42": "无人不知：转生获得1e250000个钻石。",
+      "43": "简单迂回：超越获得至少1个神话。",
+      "44": "井底之蛙：超越获得至少1e6个神话。",
+      "45": "灰烬重生：超越获得1e50个神话。",
+      "46": "模式转换：超越获得1e308个神话。",
+      "47": "准备工作：超越获得1e1500个神话。",
+      "48": "完善计划：超越获得1e25000个神话。",
+      "49": "离开宇宙：超越获得1e100000个神话。",
+      "50": "量子化：转世获得至少1个粒子。",
+      "51": "鼠目寸光：转世获得至少100000粒子。",
+      "52": "模拟世界：转世获得1e30个粒子。",
+      "53": "多维创造：转世获得1e200个粒子。",
+      "54": "轻子之舞：转世获得1e1500个粒子。",
+      "55": "还不够吗？：转世获得1e5000个粒子。",
+      "56": "生而为细胞，我很幸运：转世获得1e7777个粒子。",
+      "57": "单行道：不购买加倍器进行一次转生。",
+      "58": "正宗的转变：不购买加倍器进行一次超越。",
+      "59": "[已删除]：不购买加倍器进行一次转世。",
+      "60": "慢慢来！：不购买加速器进行一次转生。",
+      "61": "真的很慢：不购买加速器和加速器加成进行一次超越。",
+      "62": "还没到吗？：不购买加速器和加速器加成进行一次转世。",
+      "63": "仔细寻找钻石：在钻石减少挑战中不购买加速器和加速器加成达到e120000金币。",
+      "64": "非常基础：不购买金币升级进行一次转生。",
+      "65": "悭吝人：不购买金币升级进行一次超越。",
+      "66": "真·守财奴：不购买金币升级和钻石升级进行一次超越。",
+      "67": "无金币的追求：不购买金币升级进行一次转世。",
+      "68": "钻石无用！：不购买金币升级和钻石升级进行一次转世。",
+      "69": "空手而来：不购买金币升级，钻石升级和神话升级进行一次转世。",
+      "70": "空手而归：不购买金币升级，钻石升级，神话升级和发生器升级进行一次转世。",
+      "71": "顺序错乱：在发生器升级中，首先购买第一排第二项的前提下完成一次超越(图标为IV->III)",
+      "72": "更严重的错乱：在发生器升级中，首先购买第一排第三项的前提下完成一次超越(图标为III->II)",
+      "73": "四人成伴：在发生器升级中，首先购买第一排第四项的前提下完成一次超越(图标为II->I)",
+      "74": "五人不欢：在发生器升级中，首先购买第一排第五项的前提下完成一次超越(图标为I->V)",
+      "75": "有润滑油却没有机器：在拥有1e1000金币并且不购买第一排(横向)发生器升级的前提下退出无加倍器挑战。",
+      "76": "对机器发脾气：在拥有1e1000金币并且不购买第一排(横向)发生器升级的前提下退出无加速器挑战。",
       "77": "Amish Paradise: Exit [No Shards] with at least 1e99,999 coins and without any of the row 1 generator upgrades.",
       "78": "Single-Cell: Complete [No Multiplier] once.",
       "79": "Solidarity: Complete [No Multiplier] three times.",
@@ -466,27 +466,27 @@
       "124": "Multipliers don't even work 0/5: Complete {[No Accelerator/Multiplier]} ten times.",
       "125": "Accelerators don't even work -5/5: Complete {[No Accelerator/Multiplier]} fifteen times.",
       "126": "ACCELERATOR BOOSTS DON'T EVEN WORK -100/5: Complete {[No Accelerator/Multiplier]} twenty-five times.",
-      "127": "I hate this challenge: Complete Cost++ Once.",
-      "128": "A costly mistake: Complete Cost++ Twice.",
-      "129": "Impetus: Complete Cost++ Three Times.",
-      "130": "Are you broke yet? Complete Cost++ Five Times.",
-      "131": "The world of Finance: Complete Cost++ Ten Times.",
-      "132": "Marginal Gains: Complete Cost++ Twenty Times.",
-      "133": "I buy these: Complete Cost++ Twenty-Five Times.",
-      "134": "Agnostic: Complete No Runes Once.",
-      "135": "Ant-i Runes: Complete No Runes Twice.",
-      "136": "Isn't it getting tiresome?: Complete No Runes Three Times.",
-      "137": "Machine does not accept offerings: Complete No Runes Five Times.",
-      "138": "Runes Suck 1/5: Complete No Runes Ten Times.",
-      "139": "I didn't even notice Prism was gone: Complete No Runes Twenty Times.",
-      "140": "Atheist: Complete No Runes Twenty-Five Times.",
-      "141": "Sadism: Complete {[Sadistic I]} Once.",
-      "142": "Masochism: Complete {[Sadistic I]} Twice.",
-      "143": "Insanity: Complete {[Sadistic I]} Three Times.",
-      "144": "How?: Complete {[Sadistic I]} Five Times.",
-      "145": "Why?: Complete {[Sadistic I]} Ten Times.",
-      "146": "Descend: Complete {[Sadistic I]} Twenty Times.",
-      "147": "End of the Universe: Complete {[Sadistic I]} Twenty-Five Times.",
+      "127": "我恨这个挑战：完成一次花费暴增挑战。",
+      "128": "代价高昂的错误：完成两次花费暴增挑战。",
+      "129": "原动力：完成三次花费暴增挑战。",
+      "130": "您破产了吗？：完成五次花费暴增挑战。",
+      "131": "金融世界：完成十次花费暴增挑战。",
+      "132": "边际收益：完成二十次花费暴增挑战。",
+      "133": "这些我买了：完成二十五次花费暴增挑战。",
+      "134": "不可知论：完成一次无符文挑战。",
+      "135": "反蚁符文：完成两次无符文挑战。",
+      "136": "是不是有点厌烦了？：完成三次无符文挑战。",
+      "137": "机器不接受祭品：完成五次无符文挑战。",
+      "138": "符文弱爆了，游戏评分1/5：完成十次无符文挑战。",
+      "139": "棱镜符文什么时候不见了没注意：完成二十次无符文挑战。",
+      "140": "无神论：完成二十五次无符文挑战。",
+      "141": "抖S：完成一次虐待狂挑战 I。",
+      "142": "抖M：完成两次虐待狂挑战 I。",
+      "143": "精神错乱：完成三次虐待狂挑战 I。",
+      "144": "怎么？：完成五次虐待狂挑战 I。",
+      "145": "为何？：完成十次虐待狂挑战 I。",
+      "146": "落凡：完成二十次虐待狂挑战 I。",
+      "147": "宇宙的尽头：完成二十五次虐待狂挑战 I。",
       "148": "Gas gas gas: Purchase 5 Accelerators.",
       "149": "0 to 25: Purchase 25 Accelerators.",
       "150": "0 to 100: Purchase 100 Accelerators",
