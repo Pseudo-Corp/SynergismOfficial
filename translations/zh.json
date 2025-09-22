@@ -3323,7 +3323,7 @@
       "ascensions": {
         "name": "更多飞升次数",
         "description": "购买后，每级使飞升次数获取数量增加2%！每10级还可以使飞升次数获取数量额外增加1%。",
-        "effect": "飞升次数获取数量增加{{n}}。"
+        "effect": "使飞升次数获取数量增加{{n}}。"
       },
       "corruptionFourteen": {
         "name": "腐化等级-十四",
@@ -3488,37 +3488,37 @@
       "singQuarkHepteract": {
         "name": "我希望惊奇七阶立方·夸克的效果略微增加。",
         "description": "哎哟，走错游戏了。总之，您想让惊奇七阶立方·夸克的指数再度增加吗？每级可以再增加0.02。",
-        "effect": "惊奇七阶立方·夸克的指数增加{{n}}"
+        "effect": "使惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "singQuarkHepteract2": {
         "name": "我希望惊奇七阶立方·夸克的效果略微增加 II。",
         "description": "还是走错游戏了。效果与之前类似。",
-        "effect": "惊奇七阶立方·夸克的指数增加{{n}}"
+        "effect": "使惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "singQuarkHepteract3": {
         "name": "我希望惊奇七阶立方·夸克的效果略微增加 III。",
         "description": "我才不是那个教母咧(译者注：指NGU Idle中的泰坦“教母”)！这个愿望更弱……但可以超载。",
-        "effect": "惊奇七阶立方·夸克的指数增加{{n}}"
+        "effect": "使惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "singOcteractGain": {
         "name": "惊奇八阶方块苦艾酒",
         "description": "想不到吧，这玩意可以增加惊奇八阶方块的获取数量[事实上每级可以使它增加1.25%！]",
-        "effect": "惊奇八阶方块获取数量增加{{n}}"
+        "effect": "使惊奇八阶方块获取数量增加{{n}}"
       },
       "singOcteractGain2": {
         "name": "八个里亚尔",
         "description": "确实有八个，但每个的加成只有0.625%，所以合起来，每级可以使惊奇八阶方块的获取数量增加5%。",
-        "effect": "惊奇八阶方块获取数量增加{{n}}"
+        "effect": "使惊奇八阶方块获取数量增加{{n}}"
       },
       "singOcteractGain3": {
         "name": "八角方尖碑",
         "description": "PLATONIC要走很远了。每级可以使惊奇八阶方块的获取数量增加2.5%！",
-        "effect": "惊奇八阶方块获取数量增加{{n}}"
+        "effect": "使惊奇八阶方块获取数量增加{{n}}"
       },
       "singOcteractGain4": {
         "name": "八面合成",
         "description": "这到底是怎么生效的！？？每级可以使惊奇八阶方块的获取数量增加2%！",
-        "effect": "惊奇八阶方块获取数量增加{{n}}"
+        "effect": "使惊奇八阶方块获取数量增加{{n}}"
       },
       "singOcteractGain5": {
         "name": "世界第八大奇迹",
@@ -3681,15 +3681,15 @@
       },
       "singTalismanBonusRunes4": {
         "name": "强化护身符！其四",
-        "description": "Gain +1% more Talisman Power per level again, AGAIN, additive to other bonuses. Instead of adding five upgrades, Platonic gave this one twice as many levels. Game design!",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "description": "每级又使护身符强度增加1%，与其他同类效果叠加。Platonic没有再添加第五个升级，而是使这个升级的等级上限翻倍了，什么叫游戏设计，懂了吗？",
+        "effect": "使护身符的符文额外等级增加{{n}}%！"
       }
     },
     "goldenQuarkAmount": "您有{{goldenQuarks}}金夸克！",
     "penalties": {
       "globalSpeed": "<<royalblue|全局速度>>除以<<royalblue|{{divisor}}>>。",
       "ascensionSpeed": "<<orange|飞升的速度>>除以<<orange|{{divisor}}>>。",
-      "salvage": "<<green|Salvage>> is reduced by <<green|{{amount}}>>",
+      "salvage": "使<<green|回收>>减少<<green|{{amount}}>>",
       "offeringGain": "<<gold|祭品获取数量>>除以<<gold|{{divisor}}>>。",
       "obtainiumGain": "<<steelblue|难得素获取数量>>除以<<steelblue|{{divisor}}>>。",
       "cubeGain": "<<yellow|所有类型的方盒、立方和方块获取数量>>除以<<yellow|{{divisor}}>>。",
@@ -3726,12 +3726,12 @@
     "maxed": "(已满级)",
     "affordable": "(可购买)",
     "enabled": "（已启用）",
-    "effectiveLevel": "Effective Level: {{level}}",
-    "alwaysEnabled": "[<<white|♔>>] This upgrade is <b>always active</b>, even if something else says otherwise!",
+    "effectiveLevel": "有效等级：{{level}}",
+    "alwaysEnabled": "[<<white|♔>>]即使其他地方有相应限制，该升级也<b>永远会生效</b>！",
     "infinity": "无限",
     "sacrificeCapital": "献祭",
-    "blessCapital": "BLESS",
-    "spiritCapital": "REJUVENATE",
+    "blessCapital": "祝福",
+    "spiritCapital": "复苏",
     "multiBuyInstructions": "按住<<var(--orchid-text-color)|'SHIFT'>>键再购买升级，则可以一次性进行多次升级！",
     "autoOnColon": "自动：开",
     "autoOffColon": "自动：关",
@@ -3739,8 +3739,8 @@
     "buyMaxOff": "购买最大数量：关",
     "on": "开",
     "off": "关",
-    "buyOne": "Buy x1",
-    "buyMax": "Buy MAX",
+    "buyOne": "购买1个",
+    "buyMax": "购买最大",
     "updateAlerts": {
       "june282021": "2021年6月28日：V2.5.3。如果您之前购买过计算器，则将重置相应购买。它们之后将无法重置，请注意这一点！",
       "july22021": "2021年7月2日：V2.5.5。如果您之前购买过EX超通量粉，则将重置该项购买。您的T1蚂蚁数量也进行了重置，基础花费变为1e700粒子。EX超通量粉之后将无法重置，请注意这一点！",
@@ -3803,10 +3803,10 @@
       "24": "获得1个加倍器，2个加速器，然后再获得1%的免费加倍器及加速器。",
       "25": "获得1个加倍器，1个加速器，然后再获得1%的免费加倍器及加速器。",
       "26": "获得1个免费加速器加成。",
-      "27": "Gain free levels of Speed Rune based on unspent Coins. (Max: +100)",
-      "28": "Gain a free level of Duplication Rune per 400 Coin producers bought. (Max: +100)",
-      "29": "Gain a free level of Speed Rune per 400 Coin producers bought. (Max: +100)",
-      "30": "Gain free levels of Duplication Rune based on unspent Coins. (Max: +100)",
+      "27": "根据未花费的金币数量增加加速符文的免费等级。(最高增加100)",
+      "28": "每购买400个金币生产者，就使重叠符文的免费等级增加1。(最高增加100)",
+      "29": "每购买400个金币生产者，就使加速符文的免费等级增加1。(最高增加100)",
+      "30": "根据未花费的金币数量增加重叠符文的免费等级。(最高增加100)",
       "31": "每购买2000个金币生产者就获得1个免费加速器加成。",
       "32": "根据未花费的钻石获得免费加速器。",
       "33": "每拥有一个加速器加成就获得1个免费加倍器。",
@@ -3837,12 +3837,12 @@
       "58": "打印机产量变为1e15000倍。",
       "59": "铸币厂产量变为1e25000倍。",
       "60": "炼金术产量变为1e35000倍。",
-      "61": "Welcome to Reincarnation! +7 Salvage to get you started.",
-      "62": "Gain +0.02 Base Offerings per Challenge Completion! (Max: +12)",
+      "61": "欢迎来到转世！作为起步礼物，就为您增加7回收吧。",
+      "62": "每完成1次挑战，就使基础祭品获取数量增加0.02！(最高增加12)",
       "63": "将水晶产量乘以粒子数量的6次方[上限为1e6000]。",
       "64": "将神话碎片产量乘以粒子数量的平方。",
       "65": "转世的粒子获取数量变为5倍！",
-      "66": "Add +2 to the Rune Coefficient of the first five Runes. Reduce how many offerings you need to level up your Runes!",
+      "66": "使前五个符文的符文系数增加2。它可以减少升级符文所需的祭品数量！",
       "67": "每个粒子生产者使原子产量增加3%！",
       "68": "税收每增加1e1000倍就获得一个免费加倍器。",
       "69": "根据您的粒子产量增加难得素的获取数量。[以减少的倍率对自动难得素生效！]",
@@ -3850,12 +3850,12 @@
       "71": "每献祭一个祭品，符文就额外获得(符文等级/25)的经验值。",
       "72": "转世的难得素获取数量变为 (1 + 2C) 倍，上限为50倍，C为转世挑战完成次数！",
       "73": "仅在转世挑战时免费加速器加成数量增加100%，免费水晶升级等级增加10。",
-      "74": "Obtainium gain is increased based on highest ever unspent Offerings. [Max: 100,000 Offerings]",
+      "74": "根据最大持有的祭品数量增加难得素获取数量。[祭品数量效果上限：100000]",
       "75": "根据最大持有的难得素数量增加祭品获取数量。[难得素数量效果上限：30000000]",
-      "76": "Ant generation kinda slow? I agree! Multiply Ant Speed by 5.",
-      "77": "This is Synergism, right? Let's make each purchased Ant multiply Ant Speed by 1.004.",
-      "78": "Gain an Ant speed multiplier! x(1 + 0.005 * (log10(MAX Offerings + 1))^2) Ant Speed, to be precise.",
-      "79": "The Ant God will accept an arbitrary number of Particles in order to give you 10% more rewards from Ant Sacrifice.",
+      "76": "蚂蚁增长得太慢了？我也这么觉得！使蚂蚁速度变为原来的5倍。",
+      "77": "这游戏叫协同放置，对吧？所以每购买一只蚂蚁，蚂蚁速度就变为原来的1.004倍。",
+      "78": "使蚂蚁速度获得倍率！倍率的数值是 1 + 0.005 * (log10(最大持有的祭品数量 + 1))^2 。",
+      "79": "蚁神愿意收下一些粒子，然后使蚂蚁献祭奖励增加10%。",
       "80": "蚁神愿意收下更多一些的粒子，然后增加蚂蚁的强度分。",
       "81": "自动购买工人。",
       "82": "自动购买投资。",
@@ -3911,7 +3911,7 @@
       "5": "水晶产量变为{{x}}倍"
     },
     "crystalUpgrades": {
-      "1": "Gain a 1% multiplicative boost to Crystals per AP per level.",
+      "1": "每有1成就点数，每级就可以使水晶产量增加1%(效果叠乘)。",
       "2": "每级根据未花费的金币数量增加水晶产量。",
       "3": "每级使每购买一个水晶生产者增加0.1%的水晶生产者产量。[上限：{{max}}%]",
       "4": "每级使水晶对金币产量提升的指数增加0.05。[上限：增加{{max}}]",
@@ -3927,7 +3927,7 @@
       "4": "难得素获取数量变为{{x}}倍",
       "5": "使蚂蚁速度变为{{x}}倍",
       "6": "免费蚂蚁等级增加{{x}}级",
-      "7": "+{{x}} free Rune Levels",
+      "7": "使免费符文等级增加{{x}}",
       "8": "祭品提供的符文经验值变为{{x}}倍",
       "9": "符文效果变为{{x}}倍",
       "10": "飞升的惊奇方盒和惊奇超立方获取数量变为{{x}}倍"
@@ -3939,9 +3939,9 @@
       "4": "每级使难得素获取数量增加4%。",
       "5": "使蚂蚁速度变为 (1 + log10(数学常数数量 + 1)/10)^升级等级 倍。",
       "6": "每级使免费蚂蚁等级增加2级。",
-      "7": "Provides 7 free rune levels per level, up to +7,000.",
+      "7": "每级使免费符文等级增加7，最高增加7000。",
       "8": "每级使祭品提供的符文经验值增加10%[相互叠加]",
-      "9": "When bought, Rune Power is increased by Log4(Talisman Shards +1) %",
+      "9": "(译者注：注意，与升级等级无关)购买后，使符文强度增加 log4(护身符碎片数量 + 1)%",
       "10": "(译者注：注意，与升级等级无关)购买后，飞升的惊奇方盒和惊奇超立方获取数量增加 log4(数学常数数量 + 1)%"
     },
     "effects": {
