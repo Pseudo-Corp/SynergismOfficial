@@ -2785,7 +2785,7 @@
       "197": "[8x22]每级使飞升库中的惊奇方盒数量增加0.6%。没人知道发生了什么。或许是银行内部故障。",
       "198": "[8x23]每级使惊奇方盒的贡品获取数量增加0.06%！惊奇方盒真的有很多对您有利的制造错误。",
       "199": "[8x24]每级使超立方建筑的产量增加10%。它觉醒了。赞美[[已删除]]。",
-      "200": "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings per level. +0.004% Cubes per level, +(level/200) free Ant upgrade levels, 0.000666% Tax reduction per level. Every 10,000 levels grant +0.4% more Talisman Power!"
+      "200": "[8x25]获得烈日千阳的力量！每级使加速器、加速器加成、加倍器的数量和祭品获取数量增加0.01%，惊奇方盒获取数量增加0.004%，免费蚂蚁升级等级增加(等级/200)，税收减少0.000666%。每10000级还可以使护身符强度增加0.4%！"
     },
     "thanksToResearches": "由于研究效果，您在现实时间每秒自动获得{{x}}难得素。",
     "level": "等级 {{x}}/{{y}}",
@@ -2849,7 +2849,7 @@
       "challenge15Auto": "您的爷爷奶奶可能还要退出挑战才能获得挑战15指数，但您已经可以直接获得了！在挑战15中，每个时刻可以自动更新挑战15指数！",
       "extraWarp": "“喂，老兄，快进来，这是我昨天在棚子里鼓捣出的传送门！”夸克商人如是说",
       "autoWarp": "依靠夸克的力量，使跃迁机器可以进行过载工作",
-      "improveQuarkHept": "After 1,000 Quark Hepts, you gain +20% more Quarks every doubling! This, however, raises the entire reward by +0.01 power per level!",
+      "improveQuarkHept": "当惊奇七阶立方·夸克的数量超过1000以后，每次数量翻倍可以使夸克获取数量增加20%！而每级该升级则可以使惊奇七阶立方·夸克的指数增加0.01！",
       "improveQuarkHept2": "Want even stronger Quark Hepts? Gain +0.01 power per level to the Quark Hept Exponent!",
       "improveQuarkHept3": "You are probably asking why I would sell this to you instead of using it for myself. Well... here's +0.01 power per level!",
       "improveQuarkHept4": "+0.01 power per level... You know that 10^0.01 is about 1.023, right?",
@@ -4932,7 +4932,7 @@
       "effect": "Speed Rune Bonus: +{{val}}% Accelerator Power, +{{val2}} Free Accelerators, +{{val3}} Global Speed."
     },
     "duplication": {
-      "name": "Duplication",
+      "name": "重叠",
       "description": "\"<i>Its ability lies in the world inside of the mirror...</i>\" -some bizarre inscription",
       "lockedDescription": "This rune is locked! To unlock it, Prestige 100 times. You even get an Achievement for it!",
       "multiplierPower": "<<pink | Multiplier Power Boosts +{{val}}>> (+0.2 per Power)",
@@ -4942,7 +4942,7 @@
       "effect": "Duplication Rune Bonus: +{{val}} Multiplier Power Boosts, +{{val2}} Free Multipliers, -{{val3}}% Tax Growth."
     },
     "prism": {
-      "name": "棱镜",
+      "name": "棱柱",
       "description": "Has all colors of the visible light spectrum. As well as a few you cannot yet fathom.",
       "lockedDescription": "This rune is locked! To unlock it, Transcend 1,000 times. You even get an Achievement for it!",
       "crystalProduction": "<<lightblue | Crystal Production {{val}}x>> (1 + (Power / 2)^2 * 2^(Power / 2) / 256)x",
@@ -4984,7 +4984,7 @@
     "antiquities": {
       "name": "Antiquities of Ant God",
       "description": "The piece of eight, long thought lost, no longer. It went there and back again.",
-      "lockedDescription": "This rune is locked! To unlock it, you might need to buy something that should be left unbought.",
+      "lockedDescription": "该符文未解锁！想要解锁，您得买一些不买为妙的东西。",
       "singularityUnlock": "Something <span class=\"rainbowText\">singular</span> that's unlocked at Level 1: {{symbol}}",
       "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power)",
       "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power)",
@@ -4995,7 +4995,7 @@
     "horseShoe": {
       "name": "The Horse's Shoe",
       "description": "I never realized the world was so easily won, just by realizing you got someone to say you won't be lonely anymore.",
-      "lockedDescription": "This rune is locked! To unlock it, you might need to tussle with the <<lightgray|Taxman>> himself.",
+      "lockedDescription": "该符文未解锁！想要解锁，您可能得与<<lightgray|税务人员>>来上一场搏斗。",
       "ambrosiaLuck": "<<limegreen | {{val}} Ambrosia Luck>> (+1 per Power)",
       "redLuck": "<<red | {{val}} Red Luck>> (+0.2 per Power)",
       "luckConversion": "<<crimson | Luck Conversion Ratio {{val}}>> (Up to -0.5)",
@@ -5005,7 +5005,7 @@
     "finiteDescent": {
       "name": "Finite Descent",
       "description": "That shopkeep told me it was an Ascent. That <i>liar</i>!",
-      "lockedDescription": "This rune is locked! Honestly, I have no idea how you unlock this.",
+      "lockedDescription": "这个符文被锁住了！说实话，我完全不知道怎么解锁。",
       "corruptionLevels": "<<lightgray | +{{val}} Free Corruption Levels>> (up to +0.15)",
       "ascensionScore": "<<orange | +{{val}} Ascension Score>> (up to +100%)",
       "infiniteAscentLevels": "<<lightgoldenrodyellow | +{{val}} Free Infinite Ascent levels>> (+1 every 2 Power)",
@@ -5064,7 +5064,7 @@
       },
       "level": "{{x}}/{{y}}",
       "exemption": {
-        "name": "The Exemption Talisman",
+        "name": "免税护身符",
         "description": "Fake Science Monthly says wearing this trinket lowers your taxes!",
         "inscription": "<<gold | ✏>> Inscription: Your taxes are multiplied by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Duplication Rune."
@@ -5148,7 +5148,7 @@
         "plastic": "信卡"
       },
       "rarityInfo": {
-        "title": "⋆ Rarity Requirements ⋆<br>{{talismanName}}",
+        "title": "⋆ 稀有度要求 ⋆<br>{{talismanName}}",
         "infoText1": "Higher Talisman Rarities improve the power of its <<gold | ✏>> Inscription and give more Free Rune Levels!",
         "infoText2": "When your Talisman is Mythic or better, it gains a <<crimson | ✎>> Signature!",
         "common": "Common",
@@ -5288,8 +5288,8 @@
       "buyUpTo": "最多一次购买<<var(--orchid-text-color)|{{amount}}>>级。[输入数字来控制]",
       "increaseLevel": "Increase Level By <<lightgoldenrodyellow|{{amount}}>> [Cost: <<lightgoldenrodyellow|{{offerings}}>> Offerings]"
     },
-    "lockedRune": "LOCKED",
-    "lockedRuneModal": "??? - LOCKED",
+    "lockedRune": "未解锁",
+    "lockedRuneModal": "??? - 未解锁",
     "perOfferingText": "每个祭品增加{{exp}}经验值。提升1级需要{{x}} [{{y}}]祭品。",
     "runeCoefficientText": "Rune Coefficient: {{total}} ({{base}} + {{bonus}})",
     "perLevelIncrease": "Each additional level costs <b><<lightgoldenrodyellow|{{x}}x>></b> as many Offerings.",
