@@ -16,7 +16,7 @@
     "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>神肴进度条点数。",
     "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：☘ {{ambrosiaLuck}}>>] {{extra}}",
     "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<<blue|{{thresholdTimer}}>>后可以产生神肴。",
-    "generatedCubeBonus": "所有类型的方盒、立方和方块获取数量<<yellow|增加{{cubeBonus}}>>",
+    "generatedCubeBonus": "使所有类型的方盒、立方和方块获取数量<<yellow|增加{{cubeBonus}}>>",
     "generatedQuarkBonus": "夸克获取数量<<cyan|增加{{quarkBonus}}>>",
     "generatedLuckBonus": "神肴之运<<lime|增加{{luckBonus}}>>",
     "generatedBlueberryBonus": "神肴进度条点数获取速度<<blue|增加{{blueberryBonus}}>>",
@@ -3622,22 +3622,22 @@
       "singAmbrosiaGeneration2": {
         "name": "重要之沙漏",
         "description": "一个有点重要的沙漏，每级使神肴进度条点数获取速度增加1%……",
-        "effect": "神肴进度条点数获取速度增加{{n}}%！"
+        "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "singAmbrosiaGeneration3": {
         "name": "显著之沙漏",
         "description": "这个沙漏或许更加重要一些。它每级可以使神肴进度条点数获取速度增加1%。",
-        "effect": "神肴进度条点数获取速度增加{{n}}%！"
+        "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "singAmbrosiaGeneration": {
         "name": "无限之沙漏",
         "description": "切记——这个沙漏真的很重要。它每级可以使神肴进度条点数获取速度增加1%，且该升级无上限！",
-        "effect": "神肴进度条点数获取速度增加{{n}}%！"
+        "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "singAmbrosiaGeneration4": {
         "name": "幻想之沙漏",
         "description": "一个不重要也不那么“及时”的沙漏——至于这是什么意思，管他呢。它每级可以使神肴进度条点数获取速度增加2%。",
-        "effect": "神肴进度条点数获取速度增加{{n}}%！"
+        "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "singBonusTokens1": {
         "name": "沙发垫上的零钱",
@@ -3772,7 +3772,7 @@
       "talismanShardRare": "稀有护身符碎片",
       "talismanShardEpic": "史诗护身符碎片",
       "talismanShardLegendary": "传奇护身符碎片",
-      "talismanShardMythic": "神秘护身符碎片"
+      "talismanShardMythic": "神迹护身符碎片"
     }
   },
   "upgrades": {
@@ -4747,17 +4747,17 @@
       },
       "octeractImprovedFree2": {
         "name": "真惊奇！免费升级还是不够给力。",
-        "description": "Who said beggars can't be choosers? Increase the exponent of the first upgrade in this set by 0.05.",
+        "description": "谁规定免费就不能置喙了？使该系列第一个升级的指数增加0.05。",
         "effect": "前一个升级的指数增加{{n}}。"
       },
       "octeractImprovedFree3": {
         "name": "真惊奇！PLATONIC，让免费升级再度强大吧！",
-        "description": "Increase the exponent of the first upgrade in this set by 0.05",
+        "description": "使该系列第一个升级的指数增加0.05。",
         "effect": "第一个升级的指数增加{{n}}"
       },
       "octeractImprovedFree4": {
         "name": "身无分文的Derpsmith之终极兑换券",
-        "description": "Each level increases the exponent of the first upgrade in this set by 0.001, with the first level adding another 0.01.",
+        "description": "每级使该系列第一个升级的指数增加0.001，且第1级额外增加0.01。",
         "effect": "第一个升级的指数增加{{n}}"
       },
       "octeractBonusTokens1": {
@@ -4782,18 +4782,18 @@
       },
       "octeractSingUpgradeCap": {
         "name": "重写指针",
-        "description": "Derpsmith encountered a SegFault after reassigning null... +1 to level cap on certain Golden Quark Upgrades per level!",
-        "effect": "Some Golden Quark Upgrades have +{{n}} max level!"
+        "description": "Derpsmith在NULL指针重分配时遇到了段出错……每级可以使特定金夸克升级的等级上限增加1！",
+        "effect": "特定金夸克升级的等级上限增加了{{n}}！"
       },
       "octeractOfferings1": {
         "name": "祭品电解",
-        "description": "Gain +1% more Offerings per level.",
-        "effect": "Offering gain +{{n}}"
+        "description": "每级使祭品获取数量增加1%。",
+        "effect": "使祭品获取数量增加{{n}}"
       },
       "octeractObtainium1": {
         "name": "难得素之涌",
-        "description": "Gain +1% more Obtainium per level.",
-        "effect": "Obtainium gain +{{n}}"
+        "description": "每级使难得素获取数量增加1%。",
+        "effect": "使难得素获取数量增加{{n}}"
       },
       "octeractAscensions": {
         "name": "保修失效",
@@ -4808,7 +4808,7 @@
       "octeractAscensionsOcteractGain": {
         "name": "八进制数码累加器",
         "description": "飞升次数每个数量级可以使惊奇八阶方块的获取数量增加1%！",
-        "effect": "Octeract Gain per order of magnitude Ascension count increase +{{n}}%"
+        "effect": "飞升次数每个数量级可以使惊奇八阶方块的获取数量增加{{n}}%！"
       },
       "octeractFastForward": {
         "name": "Derpsmith的奇点小玩意",
@@ -4832,43 +4832,43 @@
       },
       "octeractAmbrosiaLuck2": {
         "name": "佛罗伦萨蔓越莓",
-        "description": "Totally not a reskin of the blueberry! Adds +2 Ambrosia Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
-        "effect": "+{{n}} Ambrosia Luck!"
+        "description": "很显然并不是蓝莓的换皮版本！使神肴之运增加2，它可以在蓝莓产生神肴时，增加神肴的获取数量。",
+        "effect": "使神肴之运增加{{n}}！"
       },
       "octeractAmbrosiaLuck3": {
         "name": "四叶草之莓",
-        "description": "Totally not a reskin of the blueberry! Adds +3 Ambrosia Luck per level.",
-        "effect": "+{{n}} Ambrosia Luck!"
+        "description": "很显然并不是蓝莓的换皮版本！使神肴之运增加3。",
+        "effect": "使神肴之运增加{{n}}！"
       },
       "octeractAmbrosiaLuck": {
         "name": "八叶草之莓",
-        "description": "Totally not a reskin of the blueberry! Adds +4 Ambrosial Luck per level, and it is infinitely levelable!",
-        "effect": "+{{n}} Ambrosia Luck!"
+        "description": "很显然并不是蓝莓的换皮版本！使神肴之运增加4，且该升级无上限！",
+        "effect": "使神肴之运增加{{n}}！"
       },
       "octeractAmbrosiaLuck4": {
         "name": "十叶草之莓",
-        "description": "Totally not a reskin of the blueberry! Adds +5 Ambrosial Luck. And it's mega expensive somehow.",
-        "effect": "+{{n}} Ambrosia Luck!"
+        "description": "很显然并不是蓝莓的换皮版本！使神肴之运增加5，它真的很昂贵。",
+        "effect": "使神肴之运增加{{n}}！"
       },
       "octeractAmbrosiaGeneration2": {
         "name": "细枝末节之沙漏",
-        "description": "A somewhat primative hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "description": "一个有点原始的沙漏，每级使神肴进度条点数获取速度增加1%……",
+        "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "octeractAmbrosiaGeneration3": {
         "name": "肌病之沙漏",
-        "description": "An hourglass which is still primative, though somehow less so. +1% faster Ambrosia Bar Point creation per level",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "description": "这个沙漏略微没那么原始了。它每级可以使神肴进度条点数获取速度增加1%。",
+        "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "octeractAmbrosiaGeneration": {
         "name": "无穷之沙漏",
-        "description": "Don't get it twisted, this hourglass is really primative. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "description": "别弄错了，这个沙漏真的非常原始。但它每级可以使神肴进度条点数获取速度增加1%，且该升级无上限！",
+        "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "octeractAmbrosiaGeneration4": {
         "name": "现实之沙漏",
-        "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "description": "一个不原始而且更加“及时”的沙漏——至于这是什么意思，管他呢。它每级可以使神肴进度条点数获取速度增加2%。",
+        "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "octeractBlueberries": {
         "name": "蓝色的莓！",
@@ -4877,28 +4877,28 @@
       },
       "octeractInfiniteShopUpgrades": {
         "name": "绿色无限商店代金券",
-        "description": "A Shop Voucher, printed on a green tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Shop upgrades.",
-        "effect": "You own {{n}} Green Infinity Shop Vouchers!"
+        "description": "印在绿色铭牌‌上的商店代金券。每级使“无限公司”商店升级的有效等级增加1。",
+        "effect": "您有{{n}}张绿色无限商店代金券！"
       },
       "octeractTalismanLevelCap1": {
-        "name": "Talisman Level Cap Increaser Talisman",
-        "description": "You can't wear this Talisman, but it will give you an extra level to (most) Talisman level caps per level!",
-        "effect": "Talisman level cap is increased by {{n}}"
+        "name": "护身符等级上限增加之护身符",
+        "description": "您无法佩戴这个护身符，但它每级可以使(大多数)护身符的等级上限增加1！",
+        "effect": "使护身符等级上限增加{{n}}"
       },
       "octeractTalismanLevelCap2": {
-        "name": "Talisman Level Cap Increaser Talisman - UNCOMMON Rarity",
-        "description": "By increasing the rarity of this unwearable Talisman, you gain an extra level to (most) Talisman level caps per level!",
-        "effect": "Talisman level cap is increased by {{n}}"
+        "name": "护身符等级上限增加之护身符 - 罕见稀有度",
+        "description": "这个无法佩戴的护身符，在提升稀有度以后，每级可以使(大多数)护身符的等级上限增加1！",
+        "effect": "使护身符等级上限增加{{n}}"
       },
       "octeractTalismanLevelCap3": {
-        "name": "Talisman Level Cap Increaser Talisman - EPIC Rarity",
-        "description": "Gain another extra level to (most) Talisman level caps per level!",
-        "effect": "Talisman level cap is increased by {{n}}"
+        "name": "护身符等级上限增加之护身符 - 史诗稀有度",
+        "description": "每级可以使(大多数)护身符的等级上限增加1！",
+        "effect": "使护身符等级上限增加{{n}}"
       },
       "octeractTalismanLevelCap4": {
-        "name": "Talisman Level Cap Increaser Talisman - MYTHIC Rarity",
-        "description": "I think you can guess what the <<crimson | ✎>> Signature of this Talisman would be...",
-        "effect": "Talisman level cap is increased by {{n}}"
+        "name": "护身符等级上限增加之护身符 - 神迹稀有度",
+        "description": "我想，您可以猜到这个护身符的 <<crimson|✎>> 签名效果会是什么了……",
+        "effect": "使护身符等级上限增加{{n}}"
       }
     },
     "amount": "您有{{octeracts}}惊奇八阶方块！",
@@ -4913,82 +4913,82 @@
   "runes": {
     "runeName": "<b><<{{color}}|{{name}}>></b>符文",
     "offeringsYouHave": "您有{{offerings}}祭品。",
-    "gainExp": "Gain {{amount}}x EXP per Offering sacrificed.",
-    "recycleChance": "You have {{amount}} Salvage. The amount of Offerings needed to level up Runes is divided by {{mult}}!",
-    "recycleChanceDividedBy": "You have {{amount}} Salvage. The amount of Offerings needed to level up Runes is multiplied by {{div}}.",
+    "gainExp": "献祭每个祭品可以获得{{amount}}倍经验值。",
+    "recycleChance": "您有{{amount}}回收。升级符文需要的祭品数量将除以{{mult}}！",
+    "recycleChanceDividedBy": "您有{{amount}}回收。升级符文需要的祭品数量将乘以{{div}}。",
     "hover": "鼠标停在符文上来查看它有什么作用！",
-    "thanksResearches": "🜇 The effect of the first five Runes is increased by {{percent}}%",
-    "offeringInvested": "<<orange | EXP: <b>{{amount}}</b>>",
-    "runeEffectiveLevel": "<b>Effective Rune Power: <<orange | {{level}}>></b>",
-    "runeEffectiveLevelCalc": "[(<<lightgray |{{purchased}}>> + <<orange | {{free}}>>) * <<cyan|{{mult}} (Bonus Mult)>>]",
+    "thanksResearches": "🜇 前五个符文的效果增加{{percent}}%",
+    "offeringInvested": "<<orange|经验值：<b>{{amount}}</b>>>",
+    "runeEffectiveLevel": "<b>有效符文强度：<<orange|{{level}}>></b>",
+    "runeEffectiveLevelCalc": "[(<<lightgray |{{purchased}}>> + <<orange | {{free}}>>) * <<cyan|{{mult}} (加成倍率)>>]",
     "speed": {
       "name": "加速",
-      "description": "An energy emanates from this stone. You feel compelled to inscribe power into it with your Offerings.",
-      "lockedDescription": "Erm. This should be unlocked. If you see this, please report it as a bug.",
-      "acceleratorPower": "<<cyan | Accelerator Power +{{val}}%>> (+0.02% per Power)",
-      "freeAccelerators": "<<cyan | Free Accelerators +{{val}}>> (+0.25% per Power)",
-      "globalSpeed": "<<royalblue | Global Speed +{{val}}>> (Up to +100%)",
-      "values": "+0.02% Accelerator Power, +0.25% Free Accelerators per level. Global Speed (affecting resource production, and most reset timers) is multiplied by up to 2!",
-      "effect": "Speed Rune Bonus: +{{val}}% Accelerator Power, +{{val2}} Free Accelerators, +{{val3}} Global Speed."
+      "description": "这块石头散发出一种能量。你感觉自己被迫用祭品赋予它力量。",
+      "lockedDescription": "呃。这应该要解锁才对。如果您看到这个，请联系我们。",
+      "acceleratorPower": "<<cyan|使加速器效果增加{{val}}%>> (每有1符文强度就增加0.02%)",
+      "freeAccelerators": "<<cyan|使免费加速器数量增加{{val}}>> (每有1符文强度就增加0.25%)",
+      "globalSpeed": "<<royalblue|使全局速度增加{{val}}>> (上限：增加100%)",
+      "values": "每级使加速器效果增加0.02%，免费加速器数量增加0.25%。全局速度(影响资源产量，以及绝大多数重置的时间)至多变为原来的2倍！",
+      "effect": "加速符文的加成：使加速器效果增加{{val}}%，免费加速器数量增加{{val2}}，全局速度增加{{val3}}。"
     },
     "duplication": {
       "name": "重叠",
-      "description": "\"<i>Its ability lies in the world inside of the mirror...</i>\" -some bizarre inscription",
-      "lockedDescription": "This rune is locked! To unlock it, Prestige 100 times. You even get an Achievement for it!",
-      "multiplierPower": "<<pink | Multiplier Power Boosts +{{val}}>> (+0.2 per Power)",
-      "freeMultipliers": "<<pink | Free Multipliers +{{val}}>> (+0.25% per Power)",
-      "taxReduction": "<<lightgray | Tax Growth -{{val}}%>> (Up to -99.9%)",
-      "values": "+0.2 Multiplier Power Boost (each gives +0.02 to Multiplier Power), +0.25% Free Multipliers per level. Tax growth is delayed more for each level (cap: 99.9%)!",
-      "effect": "Duplication Rune Bonus: +{{val}} Multiplier Power Boosts, +{{val2}} Free Multipliers, -{{val3}}% Tax Growth."
+      "description": "“<i>它的能力存在于镜子内的世界......</i>”——奇怪的铭文",
+      "lockedDescription": "该符文未解锁！转生100次即可解锁它。您还可以获得一个成就！",
+      "multiplierPower": "<<pink|使加倍器加成效果增加{{val}}>> (每有1符文强度就增加0.2)",
+      "freeMultipliers": "<<pink|使免费加倍器数量增加{{val}}>> (每有1符文强度就增加0.25%)",
+      "taxReduction": "<<lightgray|使税收增长速度减少{{val}}%>> (上限：减少99.9%)",
+      "values": "每级使加倍器加成效果增加0.2，免费加倍器数量增加0.25%。税收增长速度随着等级逐渐减少(上限：99.9%)！",
+      "effect": "重叠符文的加成：使加倍器加成效果增加{{val}}，免费加倍器数量增加{{val2}}，税收增长速度减少{{val3}}%。"
     },
     "prism": {
       "name": "棱柱",
-      "description": "Has all colors of the visible light spectrum. As well as a few you cannot yet fathom.",
-      "lockedDescription": "This rune is locked! To unlock it, Transcend 1,000 times. You even get an Achievement for it!",
-      "crystalProduction": "<<lightblue | Crystal Production {{val}}x>> (1 + (Power / 2)^2 * 2^(Power / 2) / 256)x",
-      "costDivisor": "<<lightblue | Crystal Upgrade Costs /{{val}}>> (Divide by 10 every 10 Power)",
-      "values": "~(1 + (Level/2)^2 * 2^(Level/2) / 256)x Crystal Production. Every 10 Rune Power, divide the cost of all Crystal Upgrades by 10.",
-      "effect": "Prism Rune Bonus: All Crystal Producer production multiplied by {{val}}x, The costs of all Crystal Upgrades is divided by {{val2}}."
+      "description": "拥有可见光谱的所有颜色，以及一些您还无法理解的颜色。",
+      "lockedDescription": "该符文未解锁！超越1000次即可解锁它。您还可以获得一个成就！",
+      "crystalProduction": "<<lightblue|使水晶产量变为原来的{{val}}倍>> (1 + (符文强度 / 2)^2 * 2^(符文强度 / 2) / 256) 倍",
+      "costDivisor": "<<lightblue|使水晶升级花费除以{{val}}>> (每有10符文强度就除以10)",
+      "values": "使水晶产量变为原来的 (1 + (等级/ 2)^2 * 2^(等级 / 2) / 256) 倍。每有10符文强度，就使所有水晶升级的花费除以10。",
+      "effect": "棱柱符文的加成：使所有水晶生产者的产量变为原来的{{val}}倍，所有水晶升级的花费除以{{val2}}。"
     },
     "thrift": {
       "name": "节俭",
-      "description": "It seems with this Rune in tow, you keep making great deals on your purchases, and your Offerings are just a little more reusable.",
-      "lockedDescription": "This rune is locked! To unlock it, Reincarnate 10,000 times. You even get an Achievement for it!",
-      "costDelay": "<<lime | Building Cost Growth Delay +{{val}}%>> (+0.125% per Power, max +1.00e15% at 8e15 Power)",
-      "salvage": "<<limegreen|+{{val}} Salvage>> (+5.756 * log_10(1 + Power / 10))",
-      "taxReduction": "<<lightgray | Tax Growth -{{val}}%>> (Up to -99%)",
-      "values": "+0.125% building cost growth delay per level, more Salvage per level (log scaling), Tax Growth is delayed more for each level (cap: 99%)!",
-      "effect": "Thrift Rune Bonus: Delay all producer cost increases by {{val}}%, Salvage: +{{val2}}. -{{val3}}% Tax Growth"
+      "description": "有了这个符文以后，您总能找到划算的交易，连祭品都可以更多回收了。",
+      "lockedDescription": "该符文未解锁！转世10000次即可解锁它。您还可以获得一个成就！",
+      "costDelay": "<<lime|使建筑成本增长减缓{{val}}%>> (每有1符文强度就增加0.125%，在8e15符文强度时达到上限1.00e15%)",
+      "salvage": "<<limegreen|使回收增加{{val}}>> (增加 5.756 * log_10(1 + 符文强度 / 10))",
+      "taxReduction": "<<lightgray|使税收增长速度减少{{val}}%>> (上限：减少99%)",
+      "values": "每级使建筑成本增长减缓0.125%，增加更多回收(以对数形式变化)，税收增长速度随着等级逐渐减少(上限：99%)！",
+      "effect": "节俭符文的加成：使所有建筑成本增长减缓{{val}}%，回收增加{{val2}}，税收增长速度减少{{val3}}%。"
     },
     "superiorIntellect": {
       "name": "卓越智慧",
-      "description": "Over a hundred times the number of brain cells the average human has, put into one rock. It's probably sentient.",
-      "lockedDescription": "This rune is locked! Unlocking it might require some novel research.",
-      "offeringMult": "<<orange | Offering Gain +{{val}}>> (+0.05% per Power)",
-      "obtainiumMult": "<<pink | Obtainium Gain +{{val}}>> (+0.50% per Power)",
-      "antSpeed": "<<crimson | Ant Speed {{val}}x>> (1 + Power^2 / 2500)x",
-      "values": "(1 + level/2000)x Offerings, (1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed",
-      "effect": "S. Intellect Rune Bonus: Offerings x{{val}}, Obtainium x{{val2}}, Ant Speed x{{val3}}"
+      "description": "将普通人上百倍数量的脑细胞塞进一块石头里。它或许就产生意识了。",
+      "lockedDescription": "该符文未解锁！可能需要某些小说的研究。",
+      "offeringMult": "<<orange|使祭品获取数量增加{{val}}>> (每有1符文强度就增加0.05%)",
+      "obtainiumMult": "<<pink|使难得素获取数量增加{{val}}>> (每有1符文强度就增加0.50%)",
+      "antSpeed": "<<crimson|使蚂蚁速度变为原来的{{val}}倍>> (1 + 符文强度^2 / 2500) 倍",
+      "values": "使祭品获取数量变为原来的 (1 + 等级/2000) 倍，难得素获取数量变为原来的 (1 + 等级/200) 倍，蚂蚁速度变为原来的 (1 + 等级^2/2500) 倍",
+      "effect": "卓越智慧符文的加成：使祭品获取数量变为原来的{{val}}倍，难得素获取数量变为原来的{{val2}}倍，蚂蚁速度变为原来的{{val3}}倍"
     },
     "infiniteAscent": {
       "name": "无限晋升",
-      "description": "A staircase you can only climb facing backwards, how weird is that?",
-      "lockedDescription": "This rune is locked! You may need some Quarks to unlock this one. Or, head to the <<gold | PseudoCoins>> tab to unlock it instantly!",
-      "quarkBonus": "<<cyan | Quark Gain +{{val}}>> (+0.2% per Power)",
-      "cubeBonus": "<<white | Cube Gain +{{val}}>> (+1% per Power)",
-      "salvage": "BONUS! <<limegreen|+{{val}} Salvage>> (+{{val2}} per Power. see <i>Infinite Recycling</i>)",
-      "values": "+0.2% Quarks, +1% all Cube types per level! Start with +10% Quarks.",
-      "effect": "IA Rune Bonus: Quark Gain +{{val}}, Ascensions give +{{val2}} more Cubes.",
-      "bonusEffect": "PLUS, Salvage +{{val3}} (Infinite Recycling bonus)"
+      "description": "只能倒着爬的楼梯，多奇怪啊？",
+      "lockedDescription": "该符文未解锁！您可能需要一些夸克才能解锁。您也可以使用<<gold|伪币>>来解锁它！",
+      "quarkBonus": "<<cyan|使夸克获取数量增加{{val}}>> (每有1符文强度就增加0.2%)",
+      "cubeBonus": "<<white|使所有类型的方盒、立方和方块获取数量增加{{val}}>> (每有1符文强度就增加1%)",
+      "salvage": "奖励！<<limegreen|使回收增加{{val}}>> (每有1符文强度就增加{{val2}}。详见<i>无限之回收</i>奇点特权)",
+      "values": "每级使夸克获取数量增加0.2%，所有类型的方盒、立方和方块获取数量增加1%！初始状态下使夸克获取数量增加10%。",
+      "effect": "无限晋升符文的加成：使夸克获取数量增加{{val}}%，所有类型的方盒、立方和方块获取数量增加{{val2}}%。",
+      "bonusEffect": "另外，使回收增加{{val3}}(无限之回收奇点特权的加成)"
     },
     "antiquities": {
-      "name": "Antiquities of Ant God",
-      "description": "The piece of eight, long thought lost, no longer. It went there and back again.",
+      "name": "蚁神之古物",
+      "description": "那八块碎片，都以为丢了，其实还在。它去而复返了。",
       "lockedDescription": "该符文未解锁！想要解锁，您可能得买一些不买为妙的东西。",
-      "singularityUnlock": "Something <span class=\"rainbowText\">singular</span> that's unlocked at Level 1: {{symbol}}",
-      "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power)",
-      "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power)",
-      "addCode": "<<lightgray | 'Add' Code Refresh Interval {{val}}>> (-20% at 1 Power, up to -50%)",
+      "singularityUnlock": "某种<span class=\"rainbowText\">奇特</span>的东西在1级时解锁：{{symbol}}",
+      "offeringBonus": "<<orange|使祭品获取数量变为原来的{{val}}倍>> (每有1符文强度就变为原来的10倍)",
+      "obtainiumBonus": "<<pink|使难得素获取数量变为原来的{{val}}倍>> (每有1符文强度就变为原来的10倍)",
+      "addCode": "<<lightgray|使“增加”代码的使用时间间隔{{val}}>> (1符文强度时-20%，上限为-50%)",
       "values": "Level 1 unlocks something <span class=\"rainbowText\">special</span>! Each level gives 10x Offerings, 10x <<cyan | Immaculate>> Obtainium and makes code 'Add' regenerate faster.",
       "effect": "Offerings x{{val}}, <<cyan | Immaculate>> Obtainium x{{val2}}, 'Add' code regeneration interval is {{val3}}% as long."
     },
@@ -5136,7 +5136,7 @@
         "rareFragment": "稀有碎片",
         "epicFragment": "史诗碎片",
         "legendaryFragment": "传奇碎片",
-        "mythicalFragment": "神话碎片"
+        "mythicalFragment": "神迹碎片"
       },
       "names": {
         "exemption": "免税",
@@ -5152,14 +5152,14 @@
         "infoText1": "更高的护身符稀有度可以提高其<<gold | ✏>>铭文的力量并提供更多的免费符文等级！",
         "infoText2": "When your Talisman is Mythic or better, it gains a <<crimson | ✎>> Signature!",
         "common": "普通",
-        "uncommon": "稀有",
-        "rare": "罕见",
+        "uncommon": "罕见",
+        "rare": "稀有",
         "epic": "史诗",
         "legendary": "传奇",
-        "mythic": "神话",
+        "mythic": "神迹",
         "extraordinary": "超凡",
         "godlike": "神造",
-        "perfect": "至臻",
+        "perfect": "完美",
         "immaculate": "无瑕",
         "default": "默认！",
         "levelReq": "≥ {{level}}级"
