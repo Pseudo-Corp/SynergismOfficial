@@ -487,7 +487,7 @@
       "145": "为何？：完成十次虐待狂挑战 I。",
       "146": "落凡：完成二十次虐待狂挑战 I。",
       "147": "宇宙的尽头：完成二十五次虐待狂挑战 I。",
-      "148": "Gas gas gas(头文字D主题曲)：购买5个加速器。",
+      "148": "Gas gas gas(译者注：来自《头文字D》插曲)：购买5个加速器。",
       "149": "从0到25：购买25个加速器。",
       "150": "从0到100：购买100个加速器。",
       "151": "地狱公路：购买666个加速器。",
@@ -829,13 +829,13 @@
         "workerAutobuyer": "初始状态下就解锁工人自动购买！"
       },
       "5": {
-        "accelerators": "每拥有500个工人就获得1个免费加速器"
+        "accelerators": "每拥有500个工人，就获得1个免费加速器"
       },
       "6": {
-        "multipliers": "每拥有1000个工人，就获得1个免费加倍器。"
+        "multipliers": "每拥有1000个工人，就获得1个免费加倍器"
       },
       "7": {
-        "accelBoosts": "每拥有2000个工人获得1个加速器加成"
+        "accelBoosts": "每拥有2000个工人，就获得1个加速器加成"
       },
       "10": {
         "acceleratorPower": "使加速器效果增加0.15%"
@@ -844,13 +844,13 @@
         "investmentAutobuyer": "初始状态下就解锁投资自动购买！"
       },
       "12": {
-        "accelerators": "每拥有500个投资就获得1个免费加速器"
+        "accelerators": "每拥有500个投资，就获得1个免费加速器"
       },
       "13": {
-        "multipliers": "每拥有1000个投资，就获得1个免费加倍器。"
+        "multipliers": "每拥有1000个投资，就获得1个免费加倍器"
       },
       "14": {
-        "accelBoosts": "每拥有2000个投资获得1个加速器加成"
+        "accelBoosts": "每拥有2000个投资，就获得1个加速器加成"
       },
       "17": {
         "acceleratorPower": "使加速器效果增加0.2%"
@@ -859,13 +859,13 @@
         "printerAutobuyer": "初始状态下就解锁打印机自动购买！"
       },
       "19": {
-        "accelerators": "每拥有500个打印机就获得1个免费加速器"
+        "accelerators": "每拥有500台打印机，就获得1个免费加速器"
       },
       "20": {
-        "multipliers": "每拥有1000台打印机，就获得1个免费加倍器。"
+        "multipliers": "每拥有1000台打印机，就获得1个免费加倍器"
       },
       "21": {
-        "accelBoosts": "每拥有2000个打印机获得1个加速器加成"
+        "accelBoosts": "每拥有2000台打印机，就获得1个加速器加成"
       },
       "24": {
         "acceleratorPower": "使加速器效果增加0.2%"
@@ -874,13 +874,13 @@
         "mintAutobuyer": "初始状态下就解锁铸币厂自动购买！"
       },
       "26": {
-        "accelerators": "每拥有500个铸币厂就获得1个免费加速器"
+        "accelerators": "每拥有500个铸币厂，就获得1个免费加速器"
       },
       "27": {
-        "multipliers": "每拥有1000个铸币厂，就获得1个免费加倍器。"
+        "multipliers": "每拥有1000个铸币厂，就获得1个免费加倍器"
       },
       "28": {
-        "accelBoosts": "每拥有2000个铸币厂获得1个加速器加成"
+        "accelBoosts": "每拥有2000个铸币厂，就获得1个加速器加成"
       },
       "31": {
         "acceleratorPower": "使加速器效果增加0.3%"
@@ -889,13 +889,13 @@
         "alchemyAutobuyer": "初始状态下就解锁炼金术自动购买！"
       },
       "33": {
-        "accelerators": "每拥有500个炼金术就获得1个免费加速器"
+        "accelerators": "每拥有500个炼金术，就获得1个免费加速器"
       },
       "34": {
-        "multipliers": "每拥有1000个炼金术，就获得1个免费加倍器。"
+        "multipliers": "每拥有1000个炼金术，就获得1个免费加倍器"
       },
       "35": {
-        "accelBoosts": "每拥有2000个炼金术获得1个加速器加成"
+        "accelBoosts": "每拥有2000个炼金术，就获得1个加速器加成"
       },
       "36": {
         "offeringPrestigeTimer": "根据花费的时间，转生可获得更多祭品！(每10秒增加100%)"
@@ -1996,7 +1996,7 @@
     "notification": "您解锁了成就：{{m}}",
     "quarkBonus": "每500成就点数使夸克获取数量增加0.01倍！目前夸克倍率：<<cyan|{{multiplier}}倍>>",
     "achievementLevel": "基于成就点数，您目前的协同效应为<span class=\"rainbowText\">{{level}}</span>级",
-    "achievementToNextLevel": "再获得{{AP}}成就点数可达到{{level}}级",
+    "achievementToNextLevel": "{{level}}级还需{{AP}}",
     "levelUpNotification": "升级了！协同效应等级从{{old}}提升为{{new}}",
     "complete": "&nbsp;&nbsp;第{{tier}}阶(已完成)",
     "tier": "&nbsp;&nbsp;第{{tier}}阶"
@@ -2308,7 +2308,7 @@
         "2": "祭品获取数量增加12%！当前效果：",
         "3": "转世时，转世次数获取数量增加20%！当前效果："
       },
-      "first": "解锁15个研究，并且解锁神秘的魂灵能量！在符文选项卡下可以找到它们。另外，还追加了新战役和新腐化！",
+      "first": "解锁15个研究，并且解锁神秘的魂灵！在符文选项卡下可以找到它们。另外，还追加了新战役和新腐化！",
       "start": "开始<[(无转世挑战)]>",
       "current": {
         "1": "难得素获取数量增加{{value}}%",
@@ -2324,7 +2324,7 @@
       "per": {
         "1": "税收减少3.33%！效果叠乘！当前效果： ",
         "2": "护身符等级上限增加6级！当前效果：",
-        "3": "魂灵能量效果增加3%！当前效果："
+        "3": "魂灵强度增加3%！当前效果："
       },
       "first": "解锁15个研究，并且解锁五阶立方的力量！另外还解锁了更多战役和腐化！",
       "start": "开始<[(税收激增挑战)]>",
@@ -2530,7 +2530,7 @@
       "47": "[5x7]每级多获得10%难得素！",
       "48": "[5x8]飞升后直接获得一只工蚁(比听起来要强多了！)",
       "49": "[5x9]飞升后直接完成挑战6至挑战8各一次。",
-      "50": "[5x10]这有提升不了的吗？每级使加速器、加倍器、加速器加成的数量增加0.01%，难得素获取数量和祭品获取数量增加0.02%，有效强度分增加1，税收减少0.00066%。每10000级还可以增加0.6%护身符强度！",
+      "50": "[5x10]这有提升不了的吗？每级使加速器、加倍器、加速器加成的数量增加0.01%，难得素获取数量和祭品获取数量增加0.02%，有效强度分增加1，税收减少0.00066%。每10000级还可以使护身符强度增加0.6%！",
       "51": "[Cx1]惊奇烘焙坊开张了！！！立刻解锁方盒选项卡下和研究选项卡下的所有自动化升级。",
       "52": "[Cx2]吃完这些糖饼干血糖一定会飙升的。每级使全局速度增加1%。",
       "53": "[Cx3]美味可口的小点心。每级使夸克获取数量增加0.1%。",
@@ -2589,7 +2589,7 @@
       "1": "[1x1]免费加速器数量增加20%。",
       "2": "[1x2]免费加倍器数量增加20%。",
       "3": "[1x3]免费加速器加成数量增加20%。",
-      "4": "[1x4]使前五个符文的符文效果增加10%！(是的，符文不止五个)",
+      "4": "[1x4]使前五个符文的符文强度增加10%！(是的，符文不止五个)",
       "5": "[1x5]水晶生产者产量变为1e4倍。",
       "6": "[1x6]每级使免费加速器数量增加5%。",
       "7": "[1x7]每级使免费加速器数量增加4%。",
@@ -2606,7 +2606,7 @@
       "18": "[1x18]每个加速器加成额外增加2个免费加速器。",
       "19": "[1x19]每个加速器加成额外增加2个免费加速器。",
       "20": "[1x20]每个加速器加成额外增加3个免费加速器！",
-      "21": "[1x21]每级使前五个符文的符文效果增加1%。",
+      "21": "[1x21]每级使前五个符文的符文强度增加1%。",
       "22": "[1x22]每级使每个祭品增加的经验值提升0.6。",
       "23": "[1x23]每级使每个祭品增加的经验值再提升0.3。",
       "24": "[1x24]每级使基础祭品获取数量增加0.4。",
@@ -2669,13 +2669,13 @@
       "81": "[4x6]您觉得前面的研究太贵了？您会需要这个的！[每级使难得素获取数量增加10%]",
       "82": "[4x7]永久解锁卓越智慧符文！[加成：祭品获取数量、难得素获取数量和蚂蚁速度]",
       "83": "[4x8]觉得新符文升级太慢了吗？此研究每级可以使它的经验值获取数量增加5%。",
-      "84": "[4x9]卓越智慧符文有点糟糕吗？那就强化它！每级使<b>卓越智慧符文</b>的符文效果增加0.5%！",
+      "84": "[4x9]卓越智慧符文有点糟糕吗？那就强化它！每级使<b>卓越智慧符文</b>的符文强度增加0.5%！",
       "85": "[4x10]每级使您每完成一次挑战就增加0.01%的祭品获取数量！",
       "86": "[4x11]是的，回归本源。每级使加速器数量增加5%。",
       "87": "[4x12]游戏评分0/5 加倍器弱爆了：每级使加倍器数量增加5%。",
       "88": "[4x13]游戏评分-1/5 加速器加成也弱爆了：每级使加速器加成数量增加5%。",
       "89": "[4x14]游戏评分-5/5 加倍器真的弱 爆 了：每级使加倍器加成数量增加20%。",
-      "90": "[4x15]符文可不算弱，但为什么不让它们更强一些呢？每级使符文效果增加1%！",
+      "90": "[4x15]符文可不算弱，但为什么不让它们更强一些呢？每级使符文强度增加1%！",
       "91": "[4x16]简明地使所有符文的经验值获取数量增加5%！",
       "92": "[4x17]再次简明地使所有符文的经验值获取数量增加5%！",
       "93": "[4x18]您每有20级符文等级，每级就获得1个加速器加成。",
@@ -2701,91 +2701,91 @@
       "113": "[5x13]每级使棱柱符文的符文系数再度增加1！",
       "114": "[5x14]每级使节俭符文的符文系数再度增加1！",
       "115": "[5x15]每级使卓越智慧符文的符文系数增加1！因为之前没有这个研究，所以它的等级上限翻倍了。",
-      "116": "[5x16]每级使护身符强度再度增加0.1%！(与符文效果不同，所有增加护身符强度的效果都是相互叠加的。别问原因。)",
-      "117": "[5x17] Incredibly, gain another +0.1% Talisman Power per level!",
-      "118": "[5x18] Try this for size: gain +0.2% Talisman Power per level! It's like <b>twice as good</b> as the other upgrades.",
+      "116": "[5x16]每级使护身符强度再度增加0.1%！(与符文强度不同，所有增加护身符强度的效果都是相互叠加的。别问原因。)",
+      "117": "[5x17]难以置信，每级使护身符强度再增加0.1%！",
+      "118": "[5x18]试试这个：每级使护身符强度增加0.2%！它的效果是其他升级的<b>两倍</b>。",
       "119": "[5x19]每级使飞升的惊奇方盒获取数量增加0.25%。",
       "120": "[5x20]每级再次使飞升的惊奇方盒获取数量增加0.25%。",
-      "121": "[5x21] Bend (global) time to your will, gaining +2% Global Speed per level.",
-      "122": "[5x22] +2% Ant Sacrifice rewards per level.",
-      "123": "[5x23] +40 Ant ELO per level.",
-      "124": "[5x24] Unlock the automator for Ant Sacrifice!",
+      "121": "[5x21]扭曲全局时间为您所用，每级使全局速度增加2%。",
+      "122": "[5x22]每级使蚂蚁献祭奖励增加2%。",
+      "123": "[5x23]每级使蚂蚁强度分增加40。",
+      "124": "[5x24]解锁蚂蚁自动献祭！",
       "125": "[5x25]祝好运，哥们。[每级使每小时导出奖励增加1夸克]",
-      "126": "[6x1] 6 rows? That can't be... (+1% Accelerators / level)",
-      "127": "[6x2] Another +1% Accelerator Boosts / level!",
-      "128": "[6x3] The trifecta! +1% Multipliers / level.",
+      "126": "[6x1]六行了？不可能啊……(每级使加速器数量增加1%)",
+      "127": "[6x2]每级使加速器加成数量增加1%！",
+      "128": "[6x3]三重奏！每级使加倍器数量增加1%。",
       "129": "[6x4]使水晶升级上限增加 此研究等级 * 水晶升级对应常数 * log4(普通碎片数量 + 1)",
-      "130": "[6x5] Unlock automation for leveling Talismans! Activates every 2 real life seconds.",
-      "131": "[6x6] Turn some Ant Disciples against Ant God, giving +0.5% Rune Power per level. False prophets, or false profits?",
-      "132": "[6x7] Recruit a couple other Ants towards your side as well, giving +2 free Ant upgrade levels per level.",
-      "133": "[6x8] Using some coalesced Obtainium, you can make Ant Sacrifice +3% more bountiful per level.",
-      "134": "[6x9 lol] The funny number. Gain a +6.9% bonus to Blessing Power.",
-      "135": "[6x10] Makes it so that the Talisman autobuyer automatically buys to Rarity increase!",
-      "136": "[6x11] It may be time to look back. Increase your Global Speed by +1.5% per level.",
+      "130": "[6x5]解锁自动升级护身符！现实时间每2秒激活一次。",
+      "131": "[6x6]让一些神使蚁转而对抗蚁神，每级使符文强度增加0.5%。",
+      "132": "[6x7]让其他一部分蚂蚁也加入您这一方，每级使免费蚂蚁升级等级增加2级。",
+      "133": "[6x8]联合难得素的能量，每级可以使蚂蚁献祭奖励增加3%。",
+      "134": "[6x9 笑]有趣的数字。使祝福强度增加6.9%。",
+      "135": "[6x10]自动升级护身符还会自动增加稀有度！",
+      "136": "[6x11]也许该回顾过去了。每级使全局速度增加1.5%。",
       "137": "[6x12]赞助惊奇公司，每级让他们增加飞升库中1%的惊奇方盒数量。",
-      "138": "[6x13] When you open Wow! Cubes you will get +0.1% Tributes per level!",
+      "138": "[6x13]开启惊奇方盒时，每级额外获得0.1%的贡品数量！",
       "139": "[6x14]每级使超立方建筑的产量增加2%。",
-      "140": "[6x15] The first of a tetralogy, this tome reduces the base requirements of Challenge 10 by dividing it by 1e100M! A must-read!",
-      "141": "[6x16] The Ant God has infiltrated your mind. Run away from your conscience! +0.8% Accelerators per level",
-      "142": "[6x17] Run... RUN FASTER from your nightmares! +0.8% Accelerator Boosts per level",
-      "143": "[6x18] Your resilience somehow gives you +0.8% Multipliers per level!",
+      "140": "[6x15]四部曲的第一部，它可以使挑战10的基础目标减少1e100M！必读的好书！",
+      "141": "[6x16]蚁神正在渗透您的思维。把良心扔掉吧！每级使加速器数量增加0.8%",
+      "142": "[6x17]快逃……一定要逃离您的噩梦！每级使加速器加成数量增加0.8%",
+      "143": "[6x18]您的适应能力使加倍器数量每级增加0.8%！",
       "144": "[6x19]您的难得素获取数量增加 3 * log4(罕见碎片数量 + 1) * 此研究等级%！为什么是这个公式？我也不知道。",
       "145": "[6x20]从蚂蚁大战中获取的知识让您可以自动获得死神蚁等级。",
-      "146": "[6x21] Feed your Disciples pure Obtainium to make them produce +0.4% Rune Power (to the first five runes) per level.",
+      "146": "[6x21]给神使蚁喂食纯净的难得素，每级使前五个符文的符文强度增加0.4%。",
       "147": "[6x22]给蚂蚁们喂食碎屑，使它们的速度变为 log(银河碎屑数 + 10) 倍！",
       "148": "[6x23]每级使蚂蚁基础强度分增加2.5%！",
       "149": "[6x24]每级使每级点金护身符增加0.03%的祭品获取数量！",
-      "150": "[6x25] Auto Challenge. Enough said. Lets you automatically run and complete Challenges!",
-      "151": "[7x1] A new row, old upgrade. Increase your Global Speed by +1.2% per level.",
+      "150": "[6x25]解锁自动挑战。效果一目了然。(您可以自动进行和完成挑战了！)",
+      "151": "[7x1]新的一行，旧的升级。每级使全局速度增加1.2%。",
       "152": "[7x2]惊奇公司再度赞助！每级使飞升库中的惊奇方盒数量增加0.9%。",
-      "153": "[7x3] Hey, I totally didn't steal this idea. You gain 12 Tributes of Wow! Cube tier for every Tesseract opened.",
+      "153": "[7x3]嘿，这可是我自己想出来的点子。每开启一个超立方，您就获得12个惊奇方盒的贡品。",
       "154": "[7x4]每级使超立方建筑的产量增加3%。嘿，这是不是比之前的研究还强力了？",
       "155": "[7x5]四部曲的第二部：如何征服蚂蚁宇宙。使挑战10的基础目标再次减少1e100M。",
-      "156": "[7x6] What, again? Alright. +0.6% Accelerators per level.",
-      "157": "[7x7] Gas, gas, gas. +0.6% Accelerator Boosts per level.",
-      "158": "[7x8] Dupe DUPE DUPE. +0.6% Multipliers per level.",
-      "159": "[7x9] Somehow, I can't explain why, you reduce your Taxes by 2% multiplicative, based on 3/5 * log10(Rare Fragments)!",
-      "160": "[7x10] Want a permanent Blessing boost? I know you do. A permanent +25% Blessing Power increase.",
-      "161": "[7x11] SIGMA KAPPA: +0.3% Rune Power each level!",
+      "156": "[7x6]什么，又来了？好吧。每级使加速器数量增加0.6%。",
+      "157": "[7x7]Gas, gas, gas(译者注：来自《头文字D》插曲)。每级使加速器加成数量增加0.6%。",
+      "158": "[7x8]抄抄抄。每级使加倍器数量增加0.6%。",
+      "159": "[7x9]我也解释不了原因，总之您的税收减少为 (1-2%) 的 3/5 * log10(稀有碎片数量) 次方！",
+      "160": "[7x10]想要永久提升祝福效果吗？我知道您想的。永久使所有祝福强度增加25%。",
+      "161": "[7x11]姐妹旗：每级使符文强度增加0.3%！",
       "162": "[7x12]更多指数！每级使创始蚁效率增加0.0001%！",
       "163": "[7x13]蚁神渴望鲜血：每级使蚂蚁献祭奖励增加2%",
-      "164": "[7x14] Spirits suck, so add +8% Spirit Power per level!",
-      "165": "[7x15] Gain 2x Spirit Power in Ascension Challenges!",
-      "166": "[7x16] < T I M E >: +0.9% Global Speed per level.",
-      "167": "[7x17] Because of sponsorships, Wow! Industries is increasing Cubes gained in Ascension by 0.8% per level.",
-      "168": "[7x18] Gain +0.08% Tributes from Cubes per level. You know, you should expect it at this point.",
+      "164": "[7x14]魂灵太菜了，所以每级使魂灵强度增加8%！",
+      "165": "[7x15]在飞升挑战中魂灵强度翻倍！",
+      "166": "[7x16]《时 间》：每级使全局速度增加0.9%。",
+      "167": "[7x17]由于赞助的缘故，惊奇公司使飞升的惊奇方盒获取数量每级增加0.8%。",
+      "168": "[7x18]每级使惊奇方盒的贡品获取数量增加0.08%。您到这个时候应该预料的到。",
       "169": "[7x19]每级使超立方建筑的产量增加4%。它还在增加。",
       "170": "[7x20]四部曲的第三部：如何完全搞定挑战10。挑战10的基础目标再次减少1e100M！",
-      "171": "[7x21] You should know how this goes. +0.4% Accelerators per level",
-      "172": "[7x22] Accelerator Boosts += 0.004 * Accelerator Boosts * player.researches[172]",
+      "171": "[7x21]您应该知道这个趋势了。每级增加0.4%加速器数量",
+      "172": "[7x22]每级增加0.4%加速器加成，就这样",
       "173": "[7x23]聚沙成塔，每级使加倍器数量增加0.4%",
-      "174": "[7x24] Epic Fragments boost Blessing Power by +10% * Log10(Epic Shards + 1)",
-      "175": "[7x25] Automatically buy Constant Upgrades, if they are affordable! They also no longer subtract from your Constant.",
-      "176": "[8x1] Row 8 baby! +0.2% Rune Power per level.",
-      "177": "[8x2] +Log10(Crumbs)% to Ant Speed per level. Pretty cool buff ain't it?",
+      "174": "[7x24]史诗碎片将祝福强度增加 10% * log10(史诗碎片数量 + 1)",
+      "175": "[7x25]自动购买数学常数升级！升级不再消耗数学常数。",
+      "176": "[8x1]第八行了，乖乖！每级使符文强度增加0.2%。",
+      "177": "[8x2]每级使蚂蚁速度增加log10(银河碎屑数量)%。很棒的效果，对吧？",
       "178": "[8x3]每级使蚂蚁基础强度分增加666！给蚂蚁们刷一波6。",
-      "179": "[8x4] +0.04% more Offerings per level per Midas Talisman level!",
+      "179": "[8x4]每级使每级点金护身符增加0.04%的祭品获取数量！",
       "180": "[8x5]每级使每小时导出奖励增加1夸克，是的，又是这个。",
-      "181": "[8x6] +0.6% Global Speed per level because why not? You're already the speed of light.",
-      "182": "[8x7] +0.7% Cubes in Ascension bank per level, from dividends in Wow! Stock.",
+      "181": "[8x6]每级使全局速度增加0.6%，原因？有拒绝的理由吗？您都已经疾行如光了。",
+      "182": "[8x7]由于惊奇公司的分红，每级使飞升库中的惊奇方盒数量增加0.7%。",
       "183": "[8x8]开启一个五阶立方时，获得100个超立方的奖励！(此研究与研究7x3可以一起生效)",
-      "184": "[8x9] +5% faster Tesseract Buildings per level. ASCENDED.",
-      "185": "[8x10] Tome 4 of 4: How to Train your Ascendant. e100m divisor!",
-      "186": "[8x11] Something something +0.2% Accelerators per level... pretty cool!",
-      "187": "[8x12] Something somewhere, +0.2% Accelerator Boosts per level.",
-      "188": "[8x13] You are a DUPLICATE. +0.2% Multipliers per level",
-      "189": "[8x14] Legendary Fragments increase Spirit Power by +15% * Log10(Legendary Fragments + 1)",
+      "184": "[8x9]每级使超立方建筑的产量增加5%。它快要上天了。",
+      "185": "[8x10]四部曲的第四部：如何训练飞升。挑战10的基础目标再次减少1e100M！",
+      "186": "[8x11]那啥那啥，总之每级使加速器数量增加0.2%，很棒！",
+      "187": "[8x12]那啥这啥，总之每级使加速器加成数量增加0.2%！",
+      "188": "[8x13]您是复制品。每级使加倍器数量增加0.2%",
+      "189": "[8x14]传奇碎片将魂灵强度增加 15% * log10(传奇碎片数量 + 1)",
       "190": "[8x15]解锁超立方建筑的自动购买。",
-      "191": "[8x16] +0.1% Rune Power per level. Woah!",
-      "192": "[8x17] Each purchased level of Mortuus Est (the Ant Upgrade) also increases Ascension Cube reward by +0.03%",
-      "193": "[8x18] +1% Ant Sacrifice reward per level.",
-      "194": "[8x19] Increases both Spirit Power AND Blessing Power by +2% per level.",
+      "191": "[8x16]每级使符文强度增加0.1%。哇哦！",
+      "192": "[8x17]每级死神蚁使飞升时的惊奇方盒获取数量增加0.03%",
+      "193": "[8x18]每级使蚂蚁献祭奖励增加1%。",
+      "194": "[8x19]每级使魂灵强度和祝福强度都增加2%。",
       "195": "[8x20]每级使每小时导出奖励增加1夸克，并且使导出奖励的时间上限增加5小时！",
-      "196": "[8x21] +0.3% Global Speed per level. Faster than the speed of light?",
-      "197": "[8x22] +0.6% Cubes in Ascension Bank per level. No one knows how. Bank error perhaps.",
-      "198": "[8x23] +0.06% Tributes from Cubes per level! Wow! Cubes really has a lot of manufacturing errors in your favor.",
-      "199": "[8x24] +10% faster Tesseract Buildings / level. THE ARISEN. WITH THE PRAISE OF THE [[REDACTED]].",
-      "200": "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings per level. +0.004% Cubes per level, +(level/200) free Ant upgrade levels, 0.000666% Tax reduction per level. Every 10,000 levels grant +0.4% more Talisman Power!"
+      "196": "[8x21]每级使全局速度增加0.3%。比光速还快？",
+      "197": "[8x22]每级使飞升库中的惊奇方盒数量增加0.6%。没人知道发生了什么。或许是银行内部故障。",
+      "198": "[8x23]每级使惊奇方盒的贡品获取数量增加0.06%！惊奇方盒真的有很多对您有利的制造错误。",
+      "199": "[8x24]每级使超立方建筑的产量增加10%。它觉醒了。赞美[[已删除]]。",
+      "200": "[8x25]获得烈日千阳的力量！每级使加速器、加速器加成、加倍器的数量和祭品获取数量增加0.01%，惊奇方盒获取数量增加0.004%，免费蚂蚁升级等级增加(等级/200)，税收减少0.000666%。每10000级还可以使护身符强度增加0.4%！"
     },
     "thanksToResearches": "由于研究效果，您在现实时间每秒自动获得{{x}}难得素。",
     "level": "等级 {{x}}/{{y}}",
@@ -2828,7 +2828,7 @@
       "calculator": "PL-AT在眨眼间就能做完加法。不过它也没其他什么用途了。每级使您使用“增加”代码获取的夸克数量增加14%，另外，第一级可以直接显示答案，而最后一级可以自动完成加法！",
       "calculator2": "PL-AT X提升了内存容量，每级使您使用“增加”代码的次数上限增加2。另外，最后一级可以使您使用“增加”代码获取的夸克数量增加25%！",
       "calculator3": "PL-AT Ω注入了难得素，这使它的性能进一步提升了！每级使您使用“增加”代码获得的夸克数量变化范围减少10%，因此您更有可能获得最高的数值。另外，每级可以使您使用“增加”代码时同时增加60秒飞升时间。",
-      "calculator4": "The PL-AT δ runs at 4,096Hz, which is a huge improvement over previous models. Reduce the interval between 'Add' code uses by 4% per level! Final level adds 32 additional capacity!",
+      "calculator4": "PL-AT δ的主频为4096Hz，这是一项巨大的进步。每级使“增加”代码的使用次数加快4%恢复。另外，最后一级可以使您使用“增加”代码的次数上限增加32。",
       "calculator5": "PL-AT Γ可以进行“更强大”的计算。每级使您使用“增加”代码时导出存档的金夸克奖励计时增加6秒。另外，每10级使您使用“增加”代码的次数上限增加1，且最后一级可以使您使用“增加”代码的次数上限再增加6。",
       "calculator6": "PL-AT _由Derpsmith制造，之后他就被永远逐出了这个行业。每级使您使用“增加”代码时获得相当于1秒产量的惊奇八阶方块。另外，最后一级可以使您使用“增加”代码的次数上限增加24。",
       "calculator7": "PL-AT ΩΩ由Derpsmith Ω制造，之后他就被永远逐出了这个行业。每级使您使用“增加”代码时获得相当于现实时间1秒产量的神肴进度条点数。另外，最后一级可以使您使用“增加”代码的次数上限增加48。",
@@ -2849,7 +2849,7 @@
       "challenge15Auto": "您的爷爷奶奶可能还要退出挑战才能获得挑战15指数，但您已经可以直接获得了！在挑战15中，每个时刻可以自动更新挑战15指数！",
       "extraWarp": "“喂，老兄，快进来，这是我昨天在棚子里鼓捣出的传送门！”夸克商人如是说",
       "autoWarp": "依靠夸克的力量，使跃迁机器可以进行过载工作",
-      "improveQuarkHept": "After 1,000 Quark Hepts, you gain +20% more Quarks every doubling! This, however, raises the entire reward by +0.01 power per level!",
+      "improveQuarkHept": "当惊奇七阶立方·夸克的数量超过1000以后，每次数量翻倍可以使夸克获取数量增加20%！而每级该升级则可以使惊奇七阶立方·夸克的指数增加0.01！",
       "improveQuarkHept2": "Want even stronger Quark Hepts? Gain +0.01 power per level to the Quark Hept Exponent!",
       "improveQuarkHept3": "You are probably asking why I would sell this to you instead of using it for myself. Well... here's +0.01 power per level!",
       "improveQuarkHept4": "+0.01 power per level... You know that 10^0.01 is about 1.023, right?",
@@ -3237,7 +3237,7 @@
       },
       "taxReduction": {
         "name": "Accountants Clicking at Your Desktop",
-        "default": "Reduce your taxes by 50%!"
+        "default": "使税收减少50%！"
       },
       "recycledContent": {
         "name": "... Recycled Content?",
@@ -4071,8 +4071,8 @@
       "tesseract": "超立方建筑"
     },
     "achievements": {
-      "achievements": "Achievements",
-      "rewards": "Rewards"
+      "achievements": "成就",
+      "rewards": "奖励"
     },
     "runes": {
       "runes": "符文",
@@ -4384,7 +4384,7 @@
         "ascensionScore": "Increase Ascension Score by <<orange | {{ reward }}>>",
         "timeThreshold": "对于特定的重置奖励，如果它在一定时间以内重置有负面惩罚，则使触发它的时间减少<<gray |{{ reward }}>>秒(基础值10秒)。",
         "quark": "Increase Quark gain by <<cyan | {{ reward }}>>",
-        "tax": "Taxes <<lightgray | {{ reward }}>>",
+        "tax": "税收<<lightgray|{{ reward }}>>",
         "c15": "Increase Challenge 15 bonus by <<lightgoldenrodyellow | {{ reward }}>>",
         "rune6": "Increase Rune 6 Bonus Levels by <<lightgoldenrodyellow | {{ reward }}>>",
         "goldenQuark": "Increase Golden Quark gain by <<gold | {{ reward }}>>",
@@ -4448,7 +4448,7 @@
     "freeLevels": "免费等级：{{ curr }}(不增加腐化的难度！)",
     "totalScoreMultiplier": "腐化提供的总分数倍率：×{{ curr }} / 下次飞升的总分数倍率：×{{ next }}",
     "totalDifficulty": "总飞升难度分数：{{ curr }} / 下次飞升的难度分数：{{ next }} (基础难度分数为400)",
-    "totalSpiritContribution": "腐化预设的魂灵效果加成：增加{{ curr }} / 下次飞升的魂灵效果加成：增加{{ next }} (每多4点难度分数就增加1%)",
+    "totalSpiritContribution": "腐化预设的魂灵强度加成：增加{{ curr }} / 下次飞升的魂灵强度加成：增加{{ next }} (每多4点难度分数就增加1%)",
     "exitCorruption": {
       "name": "清除腐化",
       "description": "这个罪恶的世界解脱了。",
@@ -4911,7 +4911,7 @@
     "generatedObtainiumBonus": "难得素获取数量<<pink|+{{obtainiumBonus}}%>>"
   },
   "runes": {
-    "runeName": "<b><<{{color}}|{{name}}>></b> Rune",
+    "runeName": "<b><<{{color}}|{{name}}>></b>符文",
     "offeringsYouHave": "您有{{offerings}}祭品。",
     "gainExp": "Gain {{amount}}x EXP per Offering sacrificed.",
     "recycleChance": "You have {{amount}} Salvage. The amount of Offerings needed to level up Runes is divided by {{mult}}!",
@@ -4922,7 +4922,7 @@
     "runeEffectiveLevel": "<b>Effective Rune Power: <<orange | {{level}}>></b>",
     "runeEffectiveLevelCalc": "[(<<lightgray |{{purchased}}>> + <<orange | {{free}}>>) * <<cyan|{{mult}} (Bonus Mult)>>]",
     "speed": {
-      "name": "Speed",
+      "name": "加速",
       "description": "An energy emanates from this stone. You feel compelled to inscribe power into it with your Offerings.",
       "lockedDescription": "Erm. This should be unlocked. If you see this, please report it as a bug.",
       "acceleratorPower": "<<cyan | Accelerator Power +{{val}}%>> (+0.02% per Power)",
@@ -4932,7 +4932,7 @@
       "effect": "Speed Rune Bonus: +{{val}}% Accelerator Power, +{{val2}} Free Accelerators, +{{val3}} Global Speed."
     },
     "duplication": {
-      "name": "Duplication",
+      "name": "重叠",
       "description": "\"<i>Its ability lies in the world inside of the mirror...</i>\" -some bizarre inscription",
       "lockedDescription": "This rune is locked! To unlock it, Prestige 100 times. You even get an Achievement for it!",
       "multiplierPower": "<<pink | Multiplier Power Boosts +{{val}}>> (+0.2 per Power)",
@@ -4942,7 +4942,7 @@
       "effect": "Duplication Rune Bonus: +{{val}} Multiplier Power Boosts, +{{val2}} Free Multipliers, -{{val3}}% Tax Growth."
     },
     "prism": {
-      "name": "Prism",
+      "name": "棱柱",
       "description": "Has all colors of the visible light spectrum. As well as a few you cannot yet fathom.",
       "lockedDescription": "This rune is locked! To unlock it, Transcend 1,000 times. You even get an Achievement for it!",
       "crystalProduction": "<<lightblue | Crystal Production {{val}}x>> (1 + (Power / 2)^2 * 2^(Power / 2) / 256)x",
@@ -4951,7 +4951,7 @@
       "effect": "Prism Rune Bonus: All Crystal Producer production multiplied by {{val}}x, The costs of all Crystal Upgrades is divided by {{val2}}."
     },
     "thrift": {
-      "name": "Thrift",
+      "name": "节俭",
       "description": "It seems with this Rune in tow, you keep making great deals on your purchases, and your Offerings are just a little more reusable.",
       "lockedDescription": "This rune is locked! To unlock it, Reincarnate 10,000 times. You even get an Achievement for it!",
       "costDelay": "<<lime | Building Cost Growth Delay +{{val}}%>> (+0.125% per Power, max +1.00e15% at 8e15 Power)",
@@ -4961,7 +4961,7 @@
       "effect": "Thrift Rune Bonus: Delay all producer cost increases by {{val}}%, Salvage: +{{val2}}. -{{val3}}% Tax Growth"
     },
     "superiorIntellect": {
-      "name": "Superior Intellect",
+      "name": "卓越智慧",
       "description": "Over a hundred times the number of brain cells the average human has, put into one rock. It's probably sentient.",
       "lockedDescription": "This rune is locked! Unlocking it might require some novel research.",
       "offeringMult": "<<orange | Offering Gain +{{val}}>> (+0.05% per Power)",
@@ -4971,7 +4971,7 @@
       "effect": "S. Intellect Rune Bonus: Offerings x{{val}}, Obtainium x{{val2}}, Ant Speed x{{val3}}"
     },
     "infiniteAscent": {
-      "name": "Infinite Ascent",
+      "name": "无限晋升",
       "description": "A staircase you can only climb facing backwards, how weird is that?",
       "lockedDescription": "This rune is locked! You may need some Quarks to unlock this one. Or, head to the <<gold | PseudoCoins>> tab to unlock it instantly!",
       "quarkBonus": "<<cyan | Quark Gain +{{val}}>> (+0.2% per Power)",
@@ -4984,7 +4984,7 @@
     "antiquities": {
       "name": "Antiquities of Ant God",
       "description": "The piece of eight, long thought lost, no longer. It went there and back again.",
-      "lockedDescription": "This rune is locked! To unlock it, you might need to buy something that should be left unbought.",
+      "lockedDescription": "该符文未解锁！想要解锁，您得买一些不买为妙的东西。",
       "singularityUnlock": "Something <span class=\"rainbowText\">singular</span> that's unlocked at Level 1: {{symbol}}",
       "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power)",
       "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power)",
@@ -4995,7 +4995,7 @@
     "horseShoe": {
       "name": "The Horse's Shoe",
       "description": "I never realized the world was so easily won, just by realizing you got someone to say you won't be lonely anymore.",
-      "lockedDescription": "This rune is locked! To unlock it, you might need to tussle with the <<lightgray|Taxman>> himself.",
+      "lockedDescription": "该符文未解锁！想要解锁，您可能得与<<lightgray|税务人员>>来上一场搏斗。",
       "ambrosiaLuck": "<<limegreen | {{val}} Ambrosia Luck>> (+1 per Power)",
       "redLuck": "<<red | {{val}} Red Luck>> (+0.2 per Power)",
       "luckConversion": "<<crimson | Luck Conversion Ratio {{val}}>> (Up to -0.5)",
@@ -5005,7 +5005,7 @@
     "finiteDescent": {
       "name": "Finite Descent",
       "description": "That shopkeep told me it was an Ascent. That <i>liar</i>!",
-      "lockedDescription": "This rune is locked! Honestly, I have no idea how you unlock this.",
+      "lockedDescription": "这个符文被锁住了！说实话，我完全不知道怎么解锁。",
       "corruptionLevels": "<<lightgray | +{{val}} Free Corruption Levels>> (up to +0.15)",
       "ascensionScore": "<<orange | +{{val}} Ascension Score>> (up to +100%)",
       "infiniteAscentLevels": "<<lightgoldenrodyellow | +{{val}} Free Infinite Ascent levels>> (+1 every 2 Power)",
@@ -5064,7 +5064,7 @@
       },
       "level": "{{x}}/{{y}}",
       "exemption": {
-        "name": "The Exemption Talisman",
+        "name": "免税护身符",
         "description": "Fake Science Monthly says wearing this trinket lowers your taxes!",
         "inscription": "<<gold | ✏>> Inscription: Your taxes are multiplied by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Duplication Rune."
@@ -5148,7 +5148,7 @@
         "plastic": "信卡"
       },
       "rarityInfo": {
-        "title": "⋆ Rarity Requirements ⋆<br>{{talismanName}}",
+        "title": "⋆ 稀有度要求 ⋆<br>{{talismanName}}",
         "infoText1": "Higher Talisman Rarities improve the power of its <<gold | ✏>> Inscription and give more Free Rune Levels!",
         "infoText2": "When your Talisman is Mythic or better, it gains a <<crimson | ✎>> Signature!",
         "common": "Common",
@@ -5288,8 +5288,8 @@
       "buyUpTo": "最多一次购买<<var(--orchid-text-color)|{{amount}}>>级。[输入数字来控制]",
       "increaseLevel": "Increase Level By <<lightgoldenrodyellow|{{amount}}>> [Cost: <<lightgoldenrodyellow|{{offerings}}>> Offerings]"
     },
-    "lockedRune": "LOCKED",
-    "lockedRuneModal": "??? - LOCKED",
+    "lockedRune": "未解锁",
+    "lockedRuneModal": "??? - 未解锁",
     "perOfferingText": "每个祭品增加{{exp}}经验值。提升1级需要{{x}} [{{y}}]祭品。",
     "runeCoefficientText": "Rune Coefficient: {{total}} ({{base}} + {{bonus}})",
     "perLevelIncrease": "Each additional level costs <b><<lightgoldenrodyellow|{{x}}x>></b> as many Offerings.",
