@@ -332,8 +332,8 @@
       },
       "salvageYinYang": {
         "name": "阴阳：回收版",
-        "description": "奇怪的是，该升级每级会同时使正面回收和负面回收的数值增加10！<<orange|在税务官的最后阵地中禁用>>",
-        "effect": "您的正面回收和负面回收数值都增加了{{amount}}。"
+        "description": "奇怪的是，该升级每级会同时使正数回收和负数回收的数值增加10！<<orange|在税务官的最后阵地中禁用>>",
+        "effect": "您的正数回收和负数回收数值都增加了{{amount}}。"
       }
     }
   },
@@ -3249,11 +3249,11 @@
       },
       "recyclistsDesktop": {
         "name": "在桌面点击的回收人",
-        "default": "使所有<<crimson|负面回收>>减少{{i}}%！"
+        "default": "使所有<<crimson|负数回收>>减少{{i}}%！"
       },
       "demeterHarvest": {
         "name": "得墨忒耳的丰收",
-        "default": "使所有<<lime|正面回收>>增加{{i}}%！"
+        "default": "使所有<<lime|正数回收>>增加{{i}}%！"
       }
     },
     "toString": {
@@ -5114,8 +5114,8 @@
       "achievement": {
         "name": "成就勋章",
         "description": "上面写着序列号<i>{{num}}</i>。",
-        "inscription": "<<gold | ✏>> 铭文：使正面回收增加<<gold|{{val}}>>！",
-        "signature": "<<crimson | ✎>> 签名：使负面回收<<crimson|{{val}}>>。"
+        "inscription": "<<gold | ✏>> 铭文：使正数回收增加<<gold|{{val}}>>！",
+        "signature": "<<crimson | ✎>> 签名：使负数回收<<crimson|{{val}}>>。"
       },
       "cookieGrandma": {
         "name": "新鲜出炉的饼干",
@@ -5210,91 +5210,91 @@
       "autoRuneOff": "自动符文：关",
       "allIncreaseLevel": "提升所有等级",
       "blessingLevel": "祝福等级<<orchid|{{amount}}>>",
-      "blessingPower": "Blessing Power: <<turquoise|{{value}}>> =-=-= Effect: {{desc}}",
+      "blessingPower": "祝福强度：<<turquoise|{{value}}>> =-=-= 效果：{{desc}}",
       "rewards": {
-        "speed": "{{effect}}x Global Speed",
-        "duplication": "{{effect}}x Multiplier Boosts",
-        "prism": "{{effect}}x Ant Sacrifice Rewards",
-        "thrift": "{{effect}}x Accelerator Boost Cost Delays",
-        "superiorIntellect": "Ant Speed multiplied by Obt^{{effect}} || Ant Speed x{{effect2}}"
+        "speed": "使全局速度变为原来的{{effect}}倍",
+        "duplication": "使加倍器加成变为原来的{{effect}}倍",
+        "prism": "使蚂蚁献祭奖励变为原来的{{effect}}倍",
+        "thrift": "使加速器加成花费增长减缓{{effect}}倍",
+        "superiorIntellect": "使蚂蚁速度乘以难得素数量的{{effect}}次方 || 蚂蚁速度变为原来的{{effect2}}倍"
       },
-      "effectiveBlessingPower": "<b>Effective Blessing Power: <<orchid | {{power}}>></b>",
-      "baseBlessingPower": "{{level}} <<orchid | (Blessing Level)>>",
-      "runePowerMult": "* {{level}} <<orange | ({{name}} Rune Level + Free Levels)>>",
-      "otherPowerMult": "* {{mult}} (Other Bonuses)",
-      "runeCoefficientText": "Rune Coefficient: {{val}}",
-      "blessingEXP": "<b>Blessing EXP: {{exp}}</b> <<orange | (+{{perEXP}} per Offering)>>",
+      "effectiveBlessingPower": "<b>有效祝福强度：<<orchid|{{power}}>></b>",
+      "baseBlessingPower": "{{level}} <<orchid|(祝福等级)>>",
+      "runePowerMult": "* {{level}} <<orange|({{name}}符文等级 + 免费等级)>>",
+      "otherPowerMult": "* {{mult}} (其他加成)",
+      "runeCoefficientText": "符文系数：{{val}}",
+      "blessingEXP": "<b>祝福经验值：{{exp}}</b> <<orange|(每个祭品增加{{perEXP}})>>",
       "speed": {
-        "description": "A few times, it's been around this track.",
-        "globalSpeed": "<<royalblue | Global Speed +{{val}}>> (+1% per 10,000 Blessing Power)"
+        "description": "已经在这条赛道上跑过几次了。",
+        "globalSpeed": "<<royalblue|使全局速度增加{{val}}>> (每有10000祝福强度就增加1%)"
       },
       "duplication": {
-        "description": "<i>I control the inside of the mirror... that's my ability.</i>",
-        "multiplierBoosts": "<<pink | Multiplier Power Boosts +{{val}}>> (+1% per 10,000 Blessing Power)"
+        "description": "<i>我可以控制镜中世界……这是我的能力。</i>",
+        "multiplierBoosts": "<<pink|使加倍器加成增加{{val}}>> (每有10000祝福强度就增加1%)"
       },
       "prism": {
-        "description": "If I get with the ultraviolet dream...",
-        "antSacrifice": "<<crimson | Ant Sacrifice Rewards +{{val}}>> (+1% per 10,000 Blessing Power)"
+        "description": "如果我进入了紫外线之梦……",
+        "antSacrifice": "<<crimson|使蚂蚁献祭奖励增加{{val}}>> (每有10000祝福强度就增加1%)"
       },
       "thrift": {
-        "description": "<i>\"Who wishes to fight must first count the cost.\"</i> - Sun Tzu, <i>The Art of War</i>",
-        "acceleratorBoostDelay": "<<cyan | Accelerator Boost Cost Delay +{{val}}>> (+0.01% per 10,000 Blessing Power)"
+        "description": "<i>“知彼知己，百战不殆。”</i>——孙子，<i>《孙子兵法》</i>",
+        "acceleratorBoostDelay": "<<cyan|使加速器加成花费增长减缓{{val}}>> (每有10000祝福强度就增加1%)"
       },
       "superiorIntellect": {
-        "description": "-- ANT LEGION -- ANT LEGION -- ANT LEGION --",
-        "obtExponent": "<<crimson | Ant Speed x(Obtainium)^{{val}}>> (Exponent = ln(1 + Blessing Power / 1e6))",
-        "antSpeed": "↳<b><<crimson | Ant Speed x{{val}}>></b>"
+        "description": "-- 蚂蚁军团 -- 蚂蚁军团 -- 蚂蚁军团 --",
+        "obtExponent": "<<crimson|使蚂蚁速度乘以难得素数量的{{val}}次方>> (指数公式为 ln(1 + 祝福强度 / 1e6))",
+        "antSpeed": "↳<b><<crimson|使蚂蚁强度变为原来的{{val}}倍>></b>"
       },
       "increaseLevel": "提升<<orchid|{{amount}}>>级[花费：<<orchid|{{offerings}}>>祭品]"
     },
     "spirits": {
-      "spiritName": "<b><<{{color}}|{{name}}>></b> Rune Spirit",
-      "spiritLevel": "Spirit level <<lightgoldenrodyellow|{{amount}}>>",
-      "spiritPower": "Spirit Power: <<turquoise|{{value}}>> =-=-= Effect: {{desc}}",
-      "effectiveSpiritPower": "<b>Effective Spirit Power: <<lightgoldenrodyellow | {{power}}>></b>",
-      "baseSpiritPower": "{{level}} <<lightgoldenrodyellow | (Spirit Level)>>",
-      "runePowerMult": "* {{level}} <<orange | ({{name}} Rune Level + Free Levels)>>",
-      "blessingPowerMult": "* {{level}} <<orchid | ({{name}} Blessing Level)>>",
-      "otherPowerMult": "* {{mult}} (Other Bonuses)",
-      "runeCoefficientText": "Rune Coefficient: {{val}}",
-      "spiritEXP": "<b>Spirit EXP: {{exp}}</b> <<orange | (+{{perEXP}} per Offering)>>",
+      "spiritName": "<b><<{{color}}|{{name}}>></b>符文魂灵",
+      "spiritLevel": "魂灵等级<<lightgoldenrodyellow|{{amount}}>>",
+      "spiritPower": "魂灵强度：<<turquoise|{{value}}>> =-=-= 效果：{{desc}}",
+      "effectiveSpiritPower": "<b>有效魂灵强度：<<lightgoldenrodyellow|{{power}}>></b>",
+      "baseSpiritPower": "{{level}} <<lightgoldenrodyellow|(魂灵等级)>>",
+      "runePowerMult": "* {{level}} <<orange|({{name}}符文等级 + 免费等级)>>",
+      "blessingPowerMult": "* {{level}} <<orchid|({{name}}祝福等级)>>",
+      "otherPowerMult": "* {{mult}} (其他加成)",
+      "runeCoefficientText": "符文系数：{{val}}",
+      "spiritEXP": "<b>魂灵经验值：{{exp}}</b> <<orange|(每个祭品增加{{perEXP}})>>",
       "rewards": {
-        "speed": "{{effect}}x Global Speed",
-        "duplication": "{{effect}}x Wow! Cubes by Ascension",
-        "prism": "{{effect}}x Additional levels to Crystal caps",
-        "thrift": "{{effect}}x Offerings",
-        "superiorIntellect": "{{effect}}x Obtainium"
+        "speed": "使全局速度变为原来的{{effect}}倍",
+        "duplication": "使飞升时惊奇方盒获取数量变为原来的{{effect}}倍",
+        "prism": "使水晶升级等级上限额外增加{{effect}}倍",
+        "thrift": "使祭品获取数量变为原来的{{effect}}倍",
+        "superiorIntellect": "使难得素获取数量变为原来的{{effect}}倍"
       },
       "speed": {
-        "description": "Roger Bannister et al. wore this shoe.",
-        "globalSpeed": "<<royalblue | Global Speed +{{val}}>> (+1% per 10,000,000 Spirit Power)"
+        "description": "罗杰·班尼斯特等人穿过这双鞋。",
+        "globalSpeed": "<<royalblue|使全局速度增加{{val}}>> (每有10000000魂灵强度就增加1%)"
       },
       "duplication": {
-        "description": "A male contained within a reflective surface, quite illusive.",
-        "wowCubes": "<<white | Wow! Cubes +{{val}}>> (+1% per 10,000,000 Spirit Power)"
+        "description": "有男性被困在反光表面中，颇为虚幻。",
+        "wowCubes": "<<white|使惊奇方盒获取数量增加{{val}}>> (每有10000000魂灵强度就增加1%)"
       },
       "prism": {
-        "description": "Hide from the red light beam.",
-        "crystalCaps": "<<lightblue | Crystal Upgrade Caps +{{val}}>> (+1% per 10,000,000 Spirit Power)"
+        "description": "躲避红色光束。",
+        "crystalCaps": "<<lightblue|使水晶升级的上限增加{{val}}>> (每有10000000魂灵强度就增加1%)"
       },
       "thrift": {
-        "description": "Conjure the ghost of Synergism's Past!",
-        "offerings": "<<orange | Offering Gain +{{val}}>> (+1% per 10,000,000 Spirit Power)"
+        "description": "让协同放置过去的幽影出现！",
+        "offerings": "<<orange|使祭品获取数量增加{{val}}>> (每有10000000魂灵强度就增加1%)"
       },
       "superiorIntellect": {
-        "description": "I too have a theoretical degree in Physics.",
-        "obtainium": "<<pink | Obtainium Gain +{{val}}>> (+1% per 10,000,000 Spirit Power)"
+        "description": "我也有理论物理学学位。",
+        "obtainium": "<<pink|使难得素获取数量增加{{val}}>> (每有10000000魂灵强度就增加1%)"
       },
       "buyUpTo": "最多一次购买<<var(--orchid-text-color)|{{amount}}>>级。[输入数字来控制]",
-      "increaseLevel": "Increase Level By <<lightgoldenrodyellow|{{amount}}>> [Cost: <<lightgoldenrodyellow|{{offerings}}>> Offerings]"
+      "increaseLevel": "提升<<lightgoldenrodyellow|{{amount}}>>级[花费：<<lightgoldenrodyellow|{{offerings}}>>祭品]"
     },
     "lockedRune": "未解锁",
     "lockedRuneModal": "??? - 未解锁",
     "perOfferingText": "每个祭品增加{{exp}}经验值。提升1级需要{{x}} [{{y}}]祭品。",
-    "runeCoefficientText": "Rune Coefficient: {{total}} ({{base}} + {{bonus}})",
-    "perLevelIncrease": "Each additional level costs <b><<lightgoldenrodyellow|{{x}}x>></b> as many Offerings.",
-    "runeEXP": "<b>Rune EXP: {{exp}}</b> <<orange | (+{{perEXP}} per Offering)>>",
-    "EXPNeeded": "<b>Level +{{level}} at {{exp}} EXP</b> <<orange | ({{offerings}} Offerings)>>",
+    "runeCoefficientText": "符文系数：{{total}} ({{base}} + {{bonus}})",
+    "perLevelIncrease": "每级多花费<b><<lightgoldenrodyellow|{{x}}倍>></b>祭品。",
+    "runeEXP": "<b>符文经验值：{{exp}}</b> <<orange|(每个祭品增加{{perEXP}})>>",
+    "EXPNeeded": "<b>到达{{exp}}经验值后等级增加{{level}}级</b><<orange|({{offerings}}祭品)>>",
     "runeEffectSummaryTitle": "=====符文效果总结=====",
     "bonusAmount": "[额外等级：{{x}}]",
     "bonusNope": "[额外等级：无！]",
@@ -5313,11 +5313,11 @@
       "IA": "无限晋升",
       "AOAG": "蚁神之古物"
     },
-    "level": "Level {{x}}",
+    "level": "{{x}}级",
     "freeLevels": "[<<orange|+{{x}}>>]",
-    "offeringText": "+{{exp}} EXP per Offering - {{offeringReq}} Offerings for +{{levels}}.",
+    "offeringText": "每个祭品增加{{exp}}经验值 - 增加{{levels}}级需要{{offeringReq}}祭品。",
     "maxLevel": "已满级！",
-    "TNL": "+{{levelAmount}} in <<orange | {{offerings}} ☤>>"
+    "TNL": "<<orange|{{offerings}} ☤>>升1级"
   },
   "singularityChallenge": {
     "enterChallenge": {
@@ -5341,13 +5341,13 @@
     },
     "data": {
       "noSingularityUpgrades": {
-        "name": "No Golden Quark Upgrades",
-        "description": "Simply put, you have to beat the target Singularity without (most) Golden Quark Upgrades.<br/>Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
+        "name": "无金夸克升级",
+        "description": "简而言之，您需要在没有大部分金夸克升级的前提下通过目标奇点。惊奇八阶方块，特权和游戏体验相关的奇点升级将仍然保留。",
         "ScalingReward1": "使<<yellow|所有类型的方盒、立方和方块获取数量>>增加50%",
         "UniqueReward1": "第1次 - 使<<gold|金夸克>>获取数量增加12%！",
         "UniqueReward2": "第1次 - 免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！",
         "UniqueReward3": "第20次 - 新的<<orchid|夸克商店>>升级！",
-        "UniqueReward4": "30th - +5% <<lime|Ambrosia Luck>> for free!",
+        "UniqueReward4": "第30次 - 使<<lime|神肴之运>>免费增加5%！",
         "UniqueReward5": "第30次 - 新的<<orchid|夸克商店>>升级！当然，不免费。"
       },
       "oneChallengeCap": {
@@ -5379,9 +5379,9 @@
       "noAmbrosiaUpgrades": {
         "name": "无神肴升级",
         "description": "那个金色家伙失去了热情，连名字也记不起来了，他需要您的帮助。<br/>您需要在神肴和神肴升级没有效果的前提下通过目标奇点！",
-        "ScalingReward1": "+15 & +0.5% <<lime| Ambrosia Luck>>",
+        "ScalingReward1": "使<<lime|神肴之运>>增加15，再增加0.5%",
         "ScalingReward2": "使<<var(--blueberry-box-color)|神肴进度条点数获取速度>>增加2%",
-        "ScalingReward3": "+4 <<red|Red Luck>>",
+        "ScalingReward3": "使<<red|红运>>增加4",
         "ScalingReward4": "使<<red|红进度条点数获取速度>>增加1%",
         "UniqueReward1": "第1次 - 免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！",
         "UniqueReward2": "第1次 - 每次获得<<var(--amber-text-color)|神肴>>时，使<<var(--amber-text-color)|神肴>>增加1！",
@@ -5413,22 +5413,22 @@
         "UniqueReward4": "第30次 - 特别虐待的<<gray|超究升级>>！"
       },
       "taxmanLastStand": {
-        "name": "The Taxman's Last Stand",
-        "description": "The Tax Man, wanting the Ultimate Pen, has some devious new tricks up his sleeve. Beat the target Singularity, except:",
-        "salvageMod": "<<lime|♽ Positive Salvage past 100 is vastly reduced (Divide by ln(1 + Positive Salvage))>>",
-        "offeringMod": "<<orange|☼ Each digit in your Offering Count divides your Obtainium gain by 2.5>>",
-        "obtainiumMod": "<<pink|☢ Each digit in your Obtainium Count divides your Offering gain by 2.5>>",
-        "taxMod": "¢ Gain <<orange|4x>> the taxes when you've beaten Challenge 10, and <<red|5x>> more taxes when you've beaten Challenge 14",
-        "capMod": "<<white | ▼ You cannot gain more than (100x + 1) your current Obtainium or Offerings from any source>>",
-        "tributeMod": "<<gold | ε When you open Wow! Cubes, the amount of Tributes you get is divided by (ln^3(X + 1)), where X is the total number of Tributes plus Tributes you would otherwise gain>>",
-        "omegaMod": "<b><<gray | Ω Singularity Penalties are substantially worse until you buy Platonic OMEGA!>></b>",
-        "ScalingReward1": "+25 <<var(--red-text-color)|Talisman Level Caps>> for any Talisman that resets on Singularity",
-        "ScalingReward2": "+3% <<var(--blueberry-box-color)|Talisman Free Rune Levels>>",
-        "ScalingReward3": "+0.002 <<var(--amber-text-color)|Rune Coefficient>> for Antiquities!",
-        "ScalingReward4": "+0.005 <<var(--amber-text-color)|Rune Coefficient>> for... <<burlywood | something>>...",
-        "UniqueReward1": "1st - Unlock <<burlywood | Something Cool... and Runelike>>",
-        "UniqueReward2": "5th - Unlock <<pink | a new Shop Upgrade!>>",
-        "UniqueReward3": "10th - Unlock <<burlywood | Something even Cooler... and Fashionable...>>"
+        "name": "税务官的最后阵地",
+        "description": "税务官渴望得到终极妙笔，使出了一些狡猾的新招数。您需要通过目标奇点，但：",
+        "salvageMod": "<<lime|♽ 正数回收超过100时，将大幅度减少(除以 ln(1 + 正数回收))>>",
+        "offeringMod": "<<orange|☼ 祭品数量每有一个数量级，就使难得素获取数量除以2.5>>",
+        "obtainiumMod": "<<pink|☢ 难得素数量每有一个数量级，就使祭品获取数量除以2.5>>",
+        "taxMod": "¢ 通过挑战10以后，税收变为原来的<<orange|4倍>>，通过挑战14以后，税收再度变为原来的<<red|5倍>>",
+        "capMod": "<<white| ▼ 您无法通过任何方式获得超过当前难得素或祭品数量 (100倍 + 1) 的难得素或祭品。",
+        "tributeMod": "<<gold| ε 打开惊奇方盒时，获得的贡品数量除以 (ln^3(X + 1))，X是贡品总数加上贡品的原始获得数量>>",
+        "omegaMod": "<b><<gray| Ω 在购买PLATONIC·欧米伽升级之前，奇点惩罚会严重很多！>></b>",
+        "ScalingReward1": "使奇点时重置等级的<<var(--red-text-color)|护身符的等级上限>>增加25",
+        "ScalingReward2": "使<<var(--blueberry-box-color)|护身符的免费符文等级>>增加3%",
+        "ScalingReward3": "使蚁神之古物的<<var(--amber-text-color)|符文系数>>增加0.002！",
+        "ScalingReward4": "使……<<burlywood|某物>>……的<<var(--amber-text-color)|符文系数>>增加0.005。",
+        "UniqueReward1": "第1次 - 解锁<<burlywood|某种很酷的，像符文的东西>>",
+        "UniqueReward2": "第5次 - 解锁<<pink|新的商店升级！>>",
+        "UniqueReward3": "第10次 - 解锁<<burlywood|某种更酷的，而且时尚的东西>>"
       }
     },
     "intro": "过蒙拔擢，宠命优渥。",
@@ -5485,12 +5485,12 @@
       "starts": "活动开始于{{x}}"
     },
     "cloud": {
-      "upload": "Upload Save",
-      "uploadSuccess": "✅ Uploaded Your Save",
-      "uploadFailed": "❌ Failed to Upload",
-      "transfer": "Transfer Save from Old System",
-      "transferSuccess": "✅ Transferred Your Save",
-      "transferFailed": "❌ Failed to Transfer"
+      "upload": "上传存档",
+      "uploadSuccess": "✅已经上传了您的存档",
+      "uploadFailed": "❌上传失败",
+      "transfer": "从旧系统中转移存档",
+      "transferSuccess": "✅成功转移了您的存档",
+      "transferFailed": "❌转移失败"
     },
     "quarkBonusSimple": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！",
     "quarkBonusExtended": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！由于您也是支持者，又或者您进行了Discord助力，该加成额外再增加{{personalBonus}}%！该加成与全局夸克获取数量倍率叠乘！"
@@ -5500,16 +5500,16 @@
       "misc": "杂项数据",
       "baseOffering": "基础祭品获取数量",
       "offeringMult": "祭品获取数量倍率",
-      "salvage": "Salvage",
+      "salvage": "回收",
       "baseObtainium": "基础难得素获取数量",
-      "runeEffectMult": "Rune Power",
+      "runeEffectMult": "符文强度",
       "obtIgnoreDR": "无瑕难得素",
       "obtMult": "难得素获取数量倍率",
       "quarkMult": "全局夸克获取数量倍率",
       "gSpeedMultIgnoreDR": "无瑕全局速度",
       "gSpeedMult": "全局速度倍率",
       "antSacrificeMult": "蚂蚁献祭倍率",
-      "talismanRuneBonusMult": "Talisman Power",
+      "talismanRuneBonusMult": "护身符强度",
       "ascMult": "飞升的速度倍率",
       "globalCubeMult": "全局方盒倍率",
       "cubeMult": "方盒倍率",
@@ -5527,8 +5527,8 @@
       "ambrosiaBlueberries": "蓝莓库存",
       "ambrosiaGenMult": "神肴进度条点数",
       "luckConversion": "神肴之运转换比率",
-      "redAmbrosiaLuck": "Red Luck",
-      "redAmbrosiaGenMult": "Red Bar Points",
+      "redAmbrosiaLuck": "红运",
+      "redAmbrosiaGenMult": "红进度条点数",
       "shopVouchers": "商店代金券",
       "generate": "生成统计数据报告"
     },
@@ -5537,7 +5537,7 @@
       "PseudoCoins": "伪币升级：",
       "AscensionTime": "飞升时间倍率：",
       "CampaignTutorial": "战役 - 教程加成：",
-      "Campaign": "Campaign - Cube Bonus:",
+      "Campaign": "战役 - 方盒加成：",
       "SunMoon": "[烈日千阳]和[静月千阴]成就倍率：",
       "SpeedAchievement": "成就240的加成：",
       "Challenge15": "挑战15-所有类型的方盒、立方和方块获取数量 I-V加成：",
@@ -5579,12 +5579,12 @@
     },
     "cubeMultiplierStats": {
       "title": "惊奇方盒倍率",
-      "AchievementBonus": "Achievement Wow! Cubes Bonus:",
-      "SynergismLevel": "Synergism Level Reward:",
+      "AchievementBonus": "惊奇方盒成就的加成：",
+      "SynergismLevel": "协同效应等级的奖励：",
       "AscensionScore": "飞升分数倍率：",
       "GlobalCube": "所有类型的方盒、立方和方块倍率：",
       "SeasonPass1": "季票1：",
-      "WowSquare": "Wow Square - Signature Bonus:",
+      "WowSquare": "惊奇正方形 - 签名的加成：",
       "Researches": "除了8x25以外的研究：",
       "Research8x25": "研究8x25：",
       "CubeUpgrades": "方盒升级：",
@@ -5602,12 +5602,12 @@
     },
     "tesseractMultiplierStats": {
       "title": "惊奇超立方倍率",
-      "AchievementBonus": "Achievement Wow! Tesseracts Bonus:",
-      "SynergismLevel": "Synergism Level Reward:",
+      "AchievementBonus": "惊奇超立方成就的加成：",
+      "SynergismLevel": "协同效应等级的奖励：",
       "AscensionScore": "飞升分数倍率：",
       "GlobalCube": "所有类型的方盒、立方和方块倍率：",
       "SeasonPass1": "季票1：",
-      "WowSquare": "Wow Square - Inscription Bonus:",
+      "WowSquare": "惊奇正方形 - 铭文的加成：",
       "ConstantUpgrade10": "数学常数升级10：",
       "CubeUpgrade3x10": "方盒升级3x10：",
       "CubeUpgrade4x8": "方盒升级4x8：",
@@ -5621,12 +5621,12 @@
     },
     "hypercubeMultiplierStats": {
       "title": "惊奇五阶立方倍率",
-      "AchievementBonus": "Achievement Wow! Hypercubes Bonus:",
-      "SynergismLevel": "Synergism Level Reward:",
+      "AchievementBonus": "惊奇五阶立方成就的加成：",
+      "SynergismLevel": "协同效应等级的奖励：",
       "AscensionScore": "飞升分数倍率：",
       "GlobalCube": "所有类型的方盒、立方和方块倍率：",
       "SeasonPass2": "季票2：",
-      "WowSquare": "Wow Square - Signature Bonus:",
+      "WowSquare": "惊奇正方形 - 签名的加成：",
       "Achievement212-215": "成就212-215的加成：",
       "Achievement216": "成就216的加成：",
       "Achievement253": "成就253的加成：",
@@ -5639,12 +5639,12 @@
     },
     "platonicMultiplierStats": {
       "title": "PLATONIC方盒倍率",
-      "AchievementBonus": "Achievement Platonic Cubes Bonus:",
-      "SynergismLevel": "Synergism Level Reward:",
+      "AchievementBonus": "PLATONIC方盒成就的加成：",
+      "SynergismLevel": "协同效应等级的奖励：",
       "AscensionScore": "飞升分数倍率：",
       "GlobalCube": "所有类型的方盒、立方和方块倍率：",
       "SeasonPass2": "季票2：",
-      "WowSquare": "Wow Square - Inscription Bonus:",
+      "WowSquare": "惊奇正方形 - 铭文的加成：",
       "Achievement196": "成就196的加成：",
       "Achievement219-222": "成就219-222的加成：",
       "Achievement223": "成就223的加成：",
@@ -5655,12 +5655,12 @@
     },
     "hepteractMultiplierStats": {
       "title": "惊奇七阶立方倍率",
-      "AchievementBonus": "Achievement Hepteracts Bonus:",
-      "SynergismLevel": "Synergism Level Reward:",
+      "AchievementBonus": "惊奇七阶立方成就的加成：",
+      "SynergismLevel": "协同效应等级的奖励：",
       "AscensionScore": "飞升分数倍率：",
       "GlobalCube": "所有类型的方盒、立方和方块倍率：",
       "SeasonPass3": "季票3：",
-      "WowSquare": "Wow Square - Signature Bonus:",
+      "WowSquare": "惊奇正方形 - 签名的加成：",
       "Achievement258": "成就258的加成：",
       "Achievement264": "成就264的加成：",
       "Achievement265": "成就265的加成：",
@@ -5669,7 +5669,7 @@
     },
     "octeractMultiplierStats": {
       "title": "惊奇八阶方块倍率",
-      "SynergismLevel": "Synergism Level Reward:",
+      "SynergismLevel": "协同效应等级的奖励：",
       "BasePerSecond": "每秒基础值：",
       "AscensionScore": "飞升分数倍率：",
       "PseudoCoins": "伪币升级：",
@@ -5678,7 +5678,7 @@
       "SeasonPassY": "季票Y：",
       "SeasonPassZ": "季票Z：",
       "SeasonPassLost": "季票·失落：",
-      "WowSquare": "Wow Square - Inscription Bonus:",
+      "WowSquare": "惊奇正方形 - 铭文的加成：",
       "CookieUpgrade20": "饼干升级20[Cx20]：",
       "DivinePack": "神圣礼包：",
       "SingCubes1": "方盒之焰：",
@@ -5697,7 +5697,7 @@
       "DigitalOcteractAccumulator": "八进制数码累加器：",
       "Event": "活动加成：",
       "PlatonicDelta": "PLATONIC·德尔塔：",
-      "NoSingUpgrades": "No Golden Quark Upgrades Challenge:",
+      "NoSingUpgrades": "无金夸克升级拔擢：",
       "PassINF": "季票∞：",
       "Ambrosia": "神肴加成：",
       "ModuleTutorial": "教程模块：",
@@ -5735,8 +5735,8 @@
     "offeringMultiplierStats": {
       "title": "祭品获取数量倍率",
       "Base": "基础祭品获取数量：",
-      "AchievementBonus": "Achievement Offering Multiplier:",
-      "SynergismLevel": "Synergism Level Reward:",
+      "AchievementBonus": "祭品成就倍率：",
+      "SynergismLevel": "协同效应等级的奖励：",
       "PrestigeShards": "水晶倍率：",
       "SuperiorIntellect": "卓越智慧符文加成：",
       "ReincarnationChallenge": "转世挑战6、8、10：",
@@ -5758,7 +5758,7 @@
       "TutorialBonus": "战役 - 教程加成：",
       "CampaignBonus": "战役 - 祭品加成：",
       "Challenge12": "挑战12：",
-      "ThriftSpirit": "Thrift Spirit Bonus:",
+      "ThriftSpirit": "节俭魂灵加成：",
       "Research8x25": "研究8x25：",
       "AscensionAchievement": "飞升次数成就：",
       "SunMoonAchievements": "[烈日千阳]和[静月千阴]成就：",
@@ -5768,7 +5768,7 @@
       "PlatonicBETA": "PLATONIC·贝塔：",
       "PlatonicOMEGA": "PLATONIC·欧米伽：",
       "Challenge15": "挑战15：",
-      "Antiquities": "Antiquities of the Ant God:",
+      "Antiquities": "蚁神之古物：",
       "SingularityDebuff": "奇点惩罚：",
       "StarterPack": "奇点升级 - 新手大礼包：",
       "OfferingCharge": "奇点升级 - 祭品增压：",
@@ -5790,37 +5790,37 @@
       "RedAmbrosia": "由红神肴“制取”的祭品升级：",
       "Event": "活动加成：",
       "Exalt6Penalty": "奇点大竞速赛 - 超时惩罚：",
-      "TaxmanDebuff": "Taxman's Last Stand - ☢ Radioactive Debuff:",
+      "TaxmanDebuff": "税务官的最后阵地 - ☢ 辐射惩罚：",
       "Total": "祭品获取数量倍率：",
       "HalfMind": "半心倍率：",
       "Total2": "最终祭品获取数量："
     },
     "runeEffectFirstFive": {
-      "title": "First Five Runes - Rune Power Multiplier",
-      "Research1x4": "Research 1x4:",
-      "Research2x6": "Research 2x6:",
-      "Research4x15": "Research 4x15:",
-      "Research6x6": "Research 6x6:",
-      "Research6x21": "Research 6x21:",
-      "Research7x11": "Research 7x11:",
-      "Research8x1": "Research 8x1:",
-      "Research8x16": "Research 8x16:",
-      "ConstantUpgrade9": "Constant Upgrade 9:",
-      "Challenge15": "Challenge 15:",
-      "MidasTribute": "Midas Tribute:",
-      "Total": "Total Multiplier for first five Runes"
+      "title": "前五个符文 - 符文强度倍率",
+      "Research1x4": "研究1x4：",
+      "Research2x6": "研究2x6：",
+      "Research4x15": "研究4x15：",
+      "Research6x6": "研究6x6：",
+      "Research6x21": "研究6x21：",
+      "Research7x11": "研究7x11：",
+      "Research8x1": "研究8x1：",
+      "Research8x16": "研究8x16：",
+      "ConstantUpgrade9": "数学常数升级9：",
+      "Challenge15": "挑战15：",
+      "MidasTribute": "米达斯的贡品：",
+      "Total": "前五个符文的总倍率"
     },
     "runeEffectSI": {
-      "title": "Superior Intellect - Specific Rune Power Multiplier",
-      "Research4x9": "Research 4x9:",
-      "Total": "Total SI Rune Power Multiplier"
+      "title": "卓越智慧 - 特有的符文强度倍率",
+      "Research4x9": "研究4x9：",
+      "Total": "卓越智慧符文强度总倍率"
     },
     "globalQuarkMultiplierStats": {
       "title": "夸克倍率",
       "AchievementPoints": "成就点数的加成：",
-      "AchievementBonus": "Achievement Quarks Multiplier:",
-      "SynergismLevel": "Synergism Level Reward:",
-      "PlasticTalisman": "Plastic Talisman - Inscription Bonus:",
+      "AchievementBonus": "夸克成就倍率：",
+      "SynergismLevel": "协同效应等级的奖励：",
+      "PlasticTalisman": "氪金信用卡 - 铭文的加成：",
       "Achievement250": "成就250的加成：",
       "Achievement251": "成就251的加成：",
       "Achievement266": "成就266的加成：",
@@ -5835,8 +5835,8 @@
       "SingularityCount": "奇点次数加成：",
       "CookieUpgrade3": "饼干升级3[Cx3]加成：",
       "CookieUpgrade18": "饼干升级18[Cx18]加成：",
-      "SingularityMilestones": "Singularity Perk - Even More Quarks:",
-      "skrauQ": "Singularity Perk - skrauQ:",
+      "SingularityMilestones": "奇点特权 - 更多夸克：",
+      "skrauQ": "奇点特权 - 克夸：",
       "OcteractQuarkBonus": "八阶方块被动加成：",
       "OcteractStarter": "萌新的惊奇八阶方块加成：",
       "OcteractQuarkGain": "惊奇八阶方块·夸克升级：",
@@ -5885,7 +5885,7 @@
       "PlatonicUpgrade9": "PLATONIC升级2x4：",
       "PlatonicBETA": "PLATONIC·贝塔：",
       "PlatonicOMEGA": "PLATONIC·欧米伽：",
-      "Antiquities": "Antiquities of the Ant God:",
+      "Antiquities": "蚁神之古物：",
       "CubeUpgradeCx5": "饼干升级5[Cx5]：",
       "CubeUpgradeCx12": "饼干升级12[Cx12]：",
       "CubeUpgradeCx21": "饼干升级21[Cx21]：",
@@ -5899,8 +5899,8 @@
     "obtainiumMultiplierStats": {
       "title": "难得素获取数量倍率",
       "Base": "基础难得素获取数量：",
-      "AchievementBonus": "Achievement Obtainium Multiplier:",
-      "SynergismLevel": "Synergism Level Reward:",
+      "AchievementBonus": "难得素成就倍率：",
+      "SynergismLevel": "协同效应等级的奖励：",
       "ThresholdPenalty": "转世时间惩罚：",
       "TimeMultiplier": "转世时间倍率：",
       "TranscendShards": "神话碎片加成：",
@@ -5926,7 +5926,7 @@
       "CubeUpgrade1x3": "方盒升级1x3：",
       "CubeUpgrade4x7": "方盒升级4x7：",
       "Challenge12": "挑战12：",
-      "SpiritPower": "Superior Intellect Spirit:",
+      "SpiritPower": "卓越智慧魂灵：",
       "Research6x19": "研究6x19：",
       "PlatonicALPHA": "PLATONIC·阿尔法：",
       "PlatonicUpgrade9": "PLATONIC升级2x4：",
@@ -5952,7 +5952,7 @@
       "Challenge14": "挑战14 - 无研究挑战：",
       "SingularityDebuff": "奇点惩罚：",
       "Exalt6Penalty": "奇点大竞速赛 - 超时惩罚：",
-      "TaxmanDebuff": "Taxman's Last Stand - ☼ A Billion Suns Debuff:",
+      "TaxmanDebuff": "税务官的最后阵地 - ☼ 十亿日照惩罚：",
       "Event": "活动加成：",
       "Total": "难得素获取数量倍率：",
       "ObtainiumDR": "[削减教育经费]腐化的惩罚指数：",
@@ -5962,7 +5962,7 @@
     },
     "antSacrificeMultStats": {
       "title": "蚂蚁献祭奖励倍率",
-      "AchievementBonus": "Achievement Ant Sacrifice Multiplier:",
+      "AchievementBonus": "蚂蚁献祭成就倍率：",
       "AntUpgrade11": "蚂蚁升级11：",
       "Research103": "研究5x3：",
       "Research104": "研究5x4：",
@@ -5993,7 +5993,7 @@
     },
     "globalSpeedMultiplierStats": {
       "title": "全局速度倍率",
-      "SpeedRune": "Speed Rune Bonus:",
+      "SpeedRune": "加速符文加成：",
       "ObtainiumLog": "粒子升级2x5加成：",
       "Research5x21": "研究5x21：",
       "Research6x11": "研究6x11：",
@@ -6018,8 +6018,8 @@
     },
     "ascensionSpeedMultiplierStats": {
       "title": "飞升的速度倍率",
-      "SpeedSpirit": "Speed Spirit Bonus:",
-      "PolymathTalisman": "Polymath Talisman - Inscription Bonus:",
+      "SpeedSpirit": "加速魂灵加成：",
+      "PolymathTalisman": "博识小符饰 - 铭文的加成：",
       "Chronometer": "商店时计升级：",
       "Chronometer2": "商店时计升级2：",
       "Chronometer3": "商店时计升级3：",
@@ -6049,20 +6049,20 @@
     "ambrosiaAdditiveLuckMultStats": {
       "title": "神肴之运倍率(效果叠加)",
       "Base": "基础倍率：",
-      "NoSingularityUpgrades": "No Golden Quark Upgrades Challenge:",
+      "NoSingularityUpgrades": "无金夸克升级拔擢：",
       "DilatedFiveLeaf": "膨胀的五叶草：",
       "ShopUpgrade": "拔擢解锁的商店升级中神肴之运倍率：",
       "NoAmbrosiaUpgrades": "拔擢 - 无神肴升级：",
       "Cookie5": "饼干升级27[Cx27]加成：",
-      "BlueberryUpgrade": "Blueberry Module - Ambrosia Luck IV:",
-      "HorseShoeTalisman": "Horse Shoe Talisman Inscription Bonus:",
+      "BlueberryUpgrade": "蓝莓模块 - 神肴之运 IV：",
+      "HorseShoeTalisman": "马蹄铁护身符 - 铭文的加成：",
       "Event": "活动加成：",
       "Total": "神肴之运总倍率(效果叠加)："
     },
     "ambrosiaLuckStats": {
       "title": "神肴之运",
       "Base": "基础值：",
-      "SynergismLevel": "Synergism Level Reward:",
+      "SynergismLevel": "协同效应等级的奖励：",
       "PseudoCoins": "伪币升级：",
       "Campaign": "战役加成：",
       "SingularityMilestones": "奇点次数里程碑加成：",
@@ -6085,13 +6085,13 @@
       "AmbrosiaUltra": "商店超究神肴升级：",
       "Viscount": "成为子爵的加成：",
       "AdditiveLuckMult": "计算完效果叠加后的神肴之运倍率：",
-      "HorseShoeRune": "Horse Shoe Rune Bonus:",
+      "HorseShoeRune": "马蹄铁符文加成：",
       "Total": "神肴之运：",
       "Total2": "神肴之运总数"
     },
     "ambrosiaBlueberryStats": {
       "title": "神肴蓝莓库存",
-      "E1x1Clear": "No Golden Quark Upgrades Challenge:",
+      "E1x1Clear": "无金夸克升级拔擢：",
       "SingBlueberries": "奇点蓝莓升级：",
       "ConglomerateBerries": "凝结蓝莓(奇点特权)：",
       "NoAmbrosiaUpgrades": "无神肴升级奖励：",
@@ -6121,7 +6121,7 @@
     "powderMultiplierStats": {
       "title": "超通量粉转换效率",
       "Base": "基础转换效率：",
-      "AchievementBonus": "Achievement Power Conversion Bonus:",
+      "AchievementBonus": "超通量粉转换效率成就的加成：",
       "Challenge15": "挑战15奖励：",
       "ShopPowderEX": "商店额外超通量粉转换效率升级：",
       "Achievement256": "成就256的加成：",
@@ -6138,8 +6138,8 @@
       "Challenge15": "挑战15指数：",
       "GoldenQuarks1": "金夸克 I升级：",
       "CookieUpgrade19": "饼干升级19[Cx19]：",
-      "NoSingularityUpgrades": "No Golden Quark Upgrades Challenge:",
-      "GoldenRevolution2": "Golden Revolution I:",
+      "NoSingularityUpgrades": "无金夸克升级拔擢：",
+      "GoldenRevolution2": "金之革命 I：",
       "FastForwards": "奇点以太通量升级：",
       "ImmaculateAlchemy": "完美炼金术特权：",
       "Event": "活动加成：",
@@ -6174,7 +6174,7 @@
       "BaseTimer": "基础时间(单位为毫秒)：",
       "Calculator4": "PL-AT δ加快恢复：",
       "SingularityCount": "奇点次数里程碑加成：",
-      "Antiquities": "Antiquities of Ant God Bonus:",
+      "Antiquities": "蚁神之古物加成：",
       "SingularityPerkBonus": "奇点特权加成：",
       "Total": "“增加”代码最终使用时间间隔(单位为毫秒)："
     },
@@ -6220,13 +6220,13 @@
       "ShopRedLuck1": "赌博魔神的低阶骰子：",
       "ShopRedLuck2": "赌博魔神的骰子：",
       "ShopRedLuck3": "赌博魔神的高阶骰子：",
-      "HorseShoeRune": "Horse Shoe Rune Reduction:",
-      "Total": "Ambrosia Luck per 1 Red Luck:"
+      "HorseShoeRune": "马蹄铁符文减少：",
+      "Total": "1红运需要的神肴之运数量："
     },
     "redAmbrosiaLuckStats": {
-      "title": "Red Luck",
+      "title": "红运",
       "Base": "基础值：",
-      "SynergismLevel": "Synergism Level Reward:",
+      "SynergismLevel": "协同效应等级的奖励：",
       "PseudoCoins": "伪币升级：",
       "LuckConversion": "神肴之运提供的红运：",
       "RedAmbrosia": "决定命运的骰子升级：",
@@ -6235,18 +6235,18 @@
       "ShopRedLuck2": "赌博魔神的骰子：",
       "ShopRedLuck3": "赌博魔神的高阶骰子：",
       "Viscount": "成为子爵的加成：",
-      "HorseShoeRune": "Horse Shoe Rune Bonus:",
-      "HorseShoeTalisman": "Horse Shoe Talisman Bonus:",
-      "Total": "Total Red Luck:"
+      "HorseShoeRune": "马蹄铁符文加成：",
+      "HorseShoeTalisman": "马靴护身符加成：",
+      "Total": "红运总数："
     },
     "redAmbrosiaGenerationStats": {
-      "title": "Red Bar Points",
+      "title": "红进度条点数",
       "PseudoCoins": "伪币升级：",
       "Base": "首次完成拔擢 - 无神肴升级后点击过神肴选项卡：",
       "BlueberrySpeed": "神肴提供的获取速度(超过1000后受到0.5次方的惩罚)：",
       "RedAmbrosia": "千年之红神肴：",
       "Exalt5": "无神肴升级奖励：",
-      "Total": "Total Red Bar Points/s:"
+      "Total": "每秒红进度条点数："
     },
     "shopVoucherStats": {
       "title": "夸克商店“无限公司”升级的免费等级",
@@ -6264,56 +6264,56 @@
       "Total": "免费等级总数："
     },
     "talismanRuneBonusMultiplierStats": {
-      "title": "Talisman Power (Additive Multipliers)",
-      "Base": "Base Multiplier",
-      "AchievementBonus": "Achievement Talisman Effect Bonus:",
-      "Research106": "Research 5x6:",
-      "Research107": "Research 5x7:",
-      "Research116": "Research 5x16:",
-      "Research117": "Research 5x17:",
-      "Research118": "Research 5x18:",
-      "Research200": "Research 8x25:",
-      "CubeUpgrade50": "Cube Upgrade 5x10:",
-      "TaxmanLastStand": "Taxman's Last Stand Reward:",
-      "Challenge15": "Challenge 15:",
-      "SingularityUpgrade1": "Singularity Upgrade - Talisman Rune Bonus:",
-      "SingularityUpgrade2": "Singularity Upgrade - Talisman Rune Bonus II:",
-      "SingularityUpgrade3": "Singularity Upgrade - Talisman Rune Bonus III:",
-      "SingularityUpgrade4": "Singularity Upgrade - Talisman Rune Bonus IV:",
-      "BlueberryUpgrade": "Blueberry Module - Talisman Ambrosia Embedding:",
-      "Total": "Total Talisman Power Multiplier:"
+      "title": "护身符强度(倍率相互叠加)",
+      "Base": "基础倍率",
+      "AchievementBonus": "护身符效果成就加成：",
+      "Research106": "研究5x6：",
+      "Research107": "研究5x7：",
+      "Research116": "研究5x16：",
+      "Research117": "研究5x17：",
+      "Research118": "研究5x18：",
+      "Research200": "研究8x25：",
+      "CubeUpgrade50": "方盒升级5x10：",
+      "TaxmanLastStand": "税务官的最后阵地奖励：",
+      "Challenge15": "挑战15：",
+      "SingularityUpgrade1": "金夸克升级 - 强化护身符加成：",
+      "SingularityUpgrade2": "金夸克升级 - 强化护身符 II加成：",
+      "SingularityUpgrade3": "金夸克升级 - 强化护身符 III加成：",
+      "SingularityUpgrade4": "金夸克升级 - 强化护身符 IV加成：",
+      "BlueberryUpgrade": "蓝莓模块 - 护身符神肴嵌入模块：",
+      "Total": "护身符强度总倍率："
     },
     "salvageStats": {
-      "title": "Offering Salvage",
-      "Total": "Total Salvage:",
-      "extraInfo": "Your Salvage multiplies your Rune, Blessing and Spirit EXP gain by <br> <<yellow |10^(Salvage / 30)>> <br> <<crimson|If your Salvage is negative, your Rune EXP is instead divided by this amount.>>"
+      "title": "祭品回收",
+      "Total": "回收总数：",
+      "extraInfo": "回收使符文、祝福和魂灵的经验值获取数量变为原来的<br><<yellow|10^(回收 / 30)>>倍 <br> <<crimson|如果回收为负数，将改为使符文经验值获取数量除以该数值。>>"
     },
     "salvagePositive": {
-      "title": "Positive Salvage",
-      "AchievementBonus": "Salvage from Achievements:",
-      "SynergismLevel": "Synergism Level Reward:",
-      "SynergismLevelMilestone": "Level Milestone - Salvage Challenge Buff:",
-      "ReincarnationChallenge": "Reincarnation Challenge Rewards:",
-      "UpgradeBonus": "Reincarnation Upgrade 1:",
-      "CubeBlessing": "Iris Cube Blessing:",
-      "RuneBonus": "Thrift Rune:",
-      "CubeUpgrade2": "Cube Upgrade 2:",
-      "AbyssHepteract": "Abyss Hepteract Bonus:",
-      "SingularityPerk": "'...Recycled Content?' Perk:",
-      "InfiniteAscentRune": "Infinite Ascent - Hidden Bonus:",
-      "RedAmbrosiaYinYang": "Red Ambrosia: Yin:",
-      "Total": "Positive Salvage:",
-      "PositiveMultiplier": "'Demeter's Harvest' Perk Multiplier:",
-      "Total2": "Total Positive Salvage:"
+      "title": "正数回收",
+      "AchievementBonus": "回收成就：",
+      "SynergismLevel": "协同效应等级的奖励：",
+      "SynergismLevelMilestone": "等级里程碑 - 回收挑战强化：",
+      "ReincarnationChallenge": "转世挑战奖励：",
+      "UpgradeBonus": "转世升级1：",
+      "CubeBlessing": "伊里斯的贡品加成：",
+      "RuneBonus": "节俭符文：",
+      "CubeUpgrade2": "方盒升级1x2：",
+      "AbyssHepteract": "惊奇七阶立方·深渊加成：",
+      "SingularityPerk": "“……回收的内容呢？”特权",
+      "InfiniteAscentRune": "无限晋升 - 隐藏加成：",
+      "RedAmbrosiaYinYang": "红神肴：阴：",
+      "Total": "正数回收：",
+      "PositiveMultiplier": "“得墨忒耳的丰收”特权倍率：",
+      "Total2": "总正数回收："
     },
     "salvageNegative": {
-      "title": "Negative Salvage",
-      "DroughtCorruption": "'Less Fruitful Harvests' Corruption",
-      "SingularityDebuff": "Singularity Debuff:",
-      "RedAmbrosiaYinYang": "Red Ambrosia: Yang:",
-      "Total": "Negative Salvage:",
-      "NegativeMultiplier": "'Recyclists clicking at your Desktop' Perk Multiplier",
-      "Total2": "Total Negative Salvage:"
+      "title": "负数回收",
+      "DroughtCorruption": "“欠收”腐化",
+      "SingularityDebuff": "奇点惩罚：",
+      "RedAmbrosiaYinYang": "红神肴：阳：",
+      "Total": "负数回收：",
+      "NegativeMultiplier": "“在桌面点击的回收人”特权倍率",
+      "Total2": "总负数回收："
     },
     "gameStage": "当前游戏阶段：{{stage}}"
   },
@@ -6339,7 +6339,7 @@
       "hypercubeQuarksToday": "从五阶立方获取的夸克数量：<<cyan|{{amount}}>>",
       "hypercubeQuarksOpenRequirement": "开启{{amount}}五阶立方后可获取夸克。",
       "hypercubeQuarksOpenToday": "今日开启五阶立方数量：<<orchid|{{amount}}>>",
-      "platonicCubeQuarksToday": "Quarks gained from Platonic Cubes: <<cyan|{{amount}}>>",
+      "platonicCubeQuarksToday": "从PLATONIC方盒获取的夸克数量：<<cyan|{{amount}}>>",
       "platonicCubeQuarksOpenRequirement": "开启{{amount}}PLATONIC方盒后可获取夸克。",
       "platonicCubeQuarksOpenToday": "今日开启PLATONIC方盒数量：<<orchid|{{amount}}>>"
     },
@@ -6350,17 +6350,17 @@
       "total": "您一共有<<yellow|{{amount}}>>方盒的贡品！",
       "items": {
         "1": "赫尔墨斯的贡品×{{amount}}：每个加速器加成额外提供{{bonus}}个加速器",
-        "2": "Aphrodite's Tribute x{{amount}}: +{{bonus}} Multipliers",
-        "3": "Plutus' Tribute x{{amount}}: +{{bonus}} Offering Gain",
-        "4": "Iris' Tribute x{{amount}}: +{{bonus}} Salvage",
-        "5": "Athena's Tribute x{{amount}}: +{{bonus}} Obtainium Gain",
-        "6": "Artemis' Tribute x{{amount}}: +{{bonus}} Ant Speed",
-        "7": "Ares' Tribute x{{amount}}: +{{bonus}} Sacrifice Reward",
-        "8": "Moloch's Tribute x{{amount}}: +{{bonus}} Effective ELO (additive)",
-        "9": "Midas' Tribute x{{amount}}: +{{bonus}} Effective Rune Levels",
-        "10": "Chronos' Tribute x{{amount}}: +{{bonus}} Global Time Acceleration"
+        "2": "阿佛洛狄忒的贡品×{{amount}}：使加倍器数量增加{{bonus}}",
+        "3": "普路托斯的贡品×{{amount}}：使祭品获取数量增加{{bonus}}",
+        "4": "伊里斯的贡品×{{amount}}：使回收增加{{bonus}}",
+        "5": "雅典娜的贡品×{{amount}}：使难得素获取数量增加{{bonus}}",
+        "6": "阿尔忒弥斯的贡品×{{amount}}：使蚂蚁速度增加{{bonus}}",
+        "7": "阿瑞斯的贡品×{{amount}}：使蚂蚁献祭奖励增加{{bonus}}",
+        "8": "摩洛克的贡品×{{amount}}：使有效强度分增加{{bonus}}(效果相互叠加)",
+        "9": "米达斯的贡品×{{amount}}：使符文的有效等级增加{{bonus}}",
+        "10": "柯罗诺斯的贡品×{{amount}}：使全局速度增加{{bonus}}"
       },
-      "full": "▼ Your tributes are <span class='rainbowText'>overflowing</span>!<br><<gold | ⚠>>You no longer gain Cube tributes.<br><<cyan|♔>> Cubes spent still count towards Quark goals.<br><<orchid|✧>> It's lonely, this far in the endgame."
+      "full": "▼ 您的贡品已经<span class='rainbowText'>溢出</span>了！<br><<gold | ⚠>>您无法再获得方盒贡品。<br><<cyan|♔>> 花费的方盒仍然计入夸克目标。<br><<orchid|✧>> 在终局这么远的地方，很孤单。"
     },
     "tesseracts": {
       "intro": "您从另一个维度的生物那边获得了指引！",
@@ -6368,16 +6368,16 @@
       "inventory": "您拥有<<yellow|{{amount}}>>惊奇超立方。您可以通过飞升分数超过100000的飞升获取更多。",
       "total": "您一共有<<yellow|{{amount}}>>超立方的赠礼！",
       "items": {
-        "1": "Hermes' Gift x{{amount}}: +{{bonus}} Hermes Accelerators",
-        "2": "Aphrodite's Gift x{{amount}}: +{{bonus}} Aphrodite Multipliers",
-        "3": "Plutus' Gift x{{amount}}: +{{bonus}} Plutus Offerings",
-        "4": "Iris' Gift x{{amount}}: +{{bonus}} Iris Salvage <<white | [▼ Cap: {{cap}}]>>",
-        "5": "Athena's Gift x{{amount}}: +{{bonus}} Athena Obtainium",
-        "6": "Artemis' Gift x{{amount}}: +{{bonus}} Artemis Ant Speed",
-        "7": "Ares' Gift x{{amount}}: +{{bonus}} Ares Ant Sacrifice Reward",
-        "8": "Moloch's Gift x{{amount}}: +{{bonus}} Moloch ELO Bonus",
-        "9": "Midas' Gift x{{amount}}: +{{bonus}} Midas Effective Rune Levels",
-        "10": "Chronos' Gift x{{amount}}: +{{bonus}} Chronos Tribute Power"
+        "1": "赫尔墨斯的赠礼×{{amount}}：使赫尔墨斯的加速器增加{{bonus}}",
+        "2": "阿佛洛狄忒的赠礼×{{amount}}：使阿佛洛狄忒的倍率增加{{bonus}}",
+        "3": "普路托斯的赠礼×{{amount}}：使普路托斯的祭品增加{{bonus}}",
+        "4": "伊里斯的赠礼×{{amount}}：使伊里斯的回收增加{{bonus}} <<white| [▼ 上限：{{cap}}]>>",
+        "5": "雅典娜的赠礼×{{amount}}：使雅典娜的难得素增加{{bonus}}",
+        "6": "阿尔忒弥斯的赠礼×{{amount}}：使阿尔忒弥斯的蚂蚁速度增加{{bonus}}",
+        "7": "阿瑞斯的赠礼×{{amount}}：使阿瑞斯的蚂蚁献祭奖励增加{{bonus}}",
+        "8": "摩洛克的赠礼×{{amount}}：使摩洛克的强度分加成增加{{bonus}}",
+        "9": "米达斯的赠礼×{{amount}}：使米达斯的符文有效等级增加{{bonus}}",
+        "10": "柯罗诺斯的赠礼×{{amount}}：使柯罗诺斯的贡品效果增加{{bonus}}"
       }
     },
     "hypercubes": {
@@ -6386,16 +6386,16 @@
       "inventory": "您拥有<<yellow|{{amount}}>>惊奇五阶立方。您可以通过飞升分数超过1e9的飞升获取更多。",
       "total": "您一共有<<yellow|{{amount}}>>五阶立方的恩赐！",
       "items": {
-        "1": "Hermes' Benediction x{{amount}}: +{{bonus}} Hermes Gift → Hermes Accelerators",
-        "2": "Aphrodite's Benediction x{{amount}}: +{{bonus}} Aphrodite Gift → Aphrodite Multipliers",
-        "3": "Plutus' Benediction x{{amount}}: +{{bonus}} Plutus Gift → Plutus Offerings",
-        "4": "Iris' Benediction x{{amount}}: +{{bonus}} Iris Gift Cap <<white | [▼ Cap: 150%]>>",
-        "5": "Athena's Benediction x{{amount}}: +{{bonus}} Athena Gift → Athena Ant Speed",
-        "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Sacrifice Reward",
-        "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares ELO Bonus",
-        "8": "Moloch's Benediction x{{amount}}: +{{bonus}} Moloch Gift → Moloch ELO Bonus",
-        "9": "Midas' Benediction x{{amount}}: +{{bonus}} Midas Gift → Midas Effective Rune Levels",
-        "10": "Chronos' Benediction x{{amount}}: +{{bonus}} Chronos Gift → Chronos Tribute Power"
+        "1": "赫尔墨斯的恩赐×{{amount}}：使赫尔墨斯的赠礼对赫尔墨斯的加速器的加成效率增加{{bonus}}",
+        "2": "阿佛洛狄忒的恩赐×{{amount}}：使阿佛洛狄忒的赠礼对阿佛洛狄忒的倍率的加成效率增加{{bonus}}",
+        "3": "普路托斯的恩赐×{{amount}}：使普路托斯的赠礼对普路托斯的祭品的加成效率增加{{bonus}}",
+        "4": "伊里斯的恩赐×{{amount}}：使伊里斯的赠礼上限增加{{bonus}} <<white| [▼ 上限：150%]>>",
+        "5": "雅典娜的恩赐×{{amount}}：使雅典娜的赠礼对雅典娜的难得素的加成效率增加{{bonus}}",
+        "6": "阿尔忒弥斯的恩赐×{{amount}}：使阿尔忒弥斯的赠礼对阿尔忒弥斯的蚂蚁速度的加成效率增加{{bonus}}",
+        "7": "阿瑞斯的恩赐×{{amount}}：使阿瑞斯的赠礼对阿瑞斯的蚂蚁献祭奖励的加成效率增加{{bonus}}",
+        "8": "摩洛克的恩赐×{{amount}}：使摩洛克的赠礼对摩洛克的强度分加成的加成效率增加{{bonus}}",
+        "9": "米达斯的恩赐×{{amount}}：使米达斯的赠礼对米达斯的符文有效等级的加成效率增加{{bonus}}",
+        "10": "柯罗诺斯的恩赐×{{amount}}：使柯罗诺斯的赠礼对柯罗诺斯的贡品效果的加成效率增加{{bonus}}"
       }
     },
     "platonics": {
@@ -6404,16 +6404,16 @@
       "inventory": "您拥有<<yellow|{{amount}}>>PLATONIC方盒。您可以通过飞升分数超过2.666e12的飞升获取更多。",
       "total": "您一共开启了<<yellow|{{amount}}>>PLATONIC方盒！",
       "items": {
-        "1": "Cube Shard: x{{amount}}: +{{bonus}} Bonus Wow! Cubes",
-        "2": "Tesseract Shard: x{{amount}}: +{{bonus}} Bonus Wow! Tesseracts",
-        "3": "Hypercube Shard: x{{amount}}: +{{bonus}} Bonus Wow! Hypercubes",
-        "4": "Platonic Remnant: x{{amount}}: +{{bonus}} Bonus Platonic! Cubes",
-        "5": "Hypercube Statue: x{{amount}}: +{{bonus}} to most<<white|*>> Hypercube Benediction bonuses",
-        "6": "Keynesian Statue: x{{amount}}: +{{bonus}} Bonus Constant exponent on taxes <<white | [▼ Cap: +1.00]>>",
-        "7": "High-Scoring Statue: x{{amount}}: +{{bonus}} More Score on corruptions",
-        "8": "Chronos Statue: x{{amount}}: +{{bonus}} <<cyan|Immaculate>> Global Speed (ignores diminishing returns)"
+        "1": "方盒碎片×{{amount}}：惊奇方盒获取数量额外增加{{bonus}}",
+        "2": "超立方碎片×{{amount}}：惊奇超立方获取数量额外增加{{bonus}}",
+        "3": "五阶立方碎片×{{amount}}：惊奇五阶立方获取数量额外增加{{bonus}}",
+        "4": "PLATONIC遗物×{{amount}}：PLATONIC方盒获取数量额外增加{{bonus}}",
+        "5": "五阶立方塑像×{{amount}}：大部分<<white|*>>惊奇五阶立方的恩赐的加成数值增加{{bonus}}%",
+        "6": "凯恩斯塑像×{{amount}}：数学常数减缓税收的指数的加成数值增加{{bonus}} <<white | [▼ 上限：增加1.00]>>",
+        "7": "高分塑像×{{amount}}：腐化时的飞升分数增加{{bonus}}",
+        "8": "柯罗诺斯塑像×{{amount}}：<<cyan|无瑕>>全局速度增加{{bonus}}(不受效果衰减影响)"
       },
-      "asterisk": "* The Hypercube Statue ignores Iris and Moloch Benedictions, because they do not worship its beauty."
+      "asterisk": "* 五阶立方塑像无法对伊里斯的恩赐和摩洛克的恩赐生效，因为他们并不崇拜它的美丽。"
     },
     "platonicUpgrades": {
       "c15Rewards": {
@@ -6430,15 +6430,15 @@
         "accelerator": "• 加速器：+{{amount}} [无瑕！]",
         "multiplier": "• 加倍器：+{{amount}} [无瑕！]",
         "runeExp": "• 祭品提供的符文经验值：+{{amount}}",
-        "runeBonus": "• Rune Power: +{{amount}}",
+        "runeBonus": "• 符文强度：增加{{amount}}",
         "cube2": "• 所有类型的方盒、立方和方块获取数量 II：+{{amount}}",
         "transcendChallengeReduction": "• 挑战1至挑战5目标增长速度：{{amount}}",
         "reincarnationChallengeReduction": "• 挑战6至挑战10目标增长速度：{{amount}}",
         "antSpeed": "• 蚂蚁速度：+{{amount}} [无瑕！]",
         "bonusAntLevel": "• 蚂蚁额外等级：+{{amount}}",
-        "achievementUnlock": "• Achievement Unlocked! [[252]]",
+        "achievementUnlock": "• 解锁成就！[[252]]",
         "cube3": "• 所有类型的方盒、立方和方块获取数量 III：+{{amount}}",
-        "talismanBonus": "• Talisman Bonus Free Levels: +{{amount}}",
+        "talismanBonus": "• 护身符免费符文等级加成：+{{amount}}",
         "globalSpeed": "• 全局速度：+{{amount}}",
         "blessingBonus": "• 祝福效果：+{{amount}}",
         "constantBonus": "• 超立方建筑产量：+{{amount}}",
@@ -6488,23 +6488,23 @@
         "10": "C10的分数倍率的指数从1.0375变为1.04，数学常数减缓税收的指数增加0.20，数学常数产量变为10倍，夸克获取数量变为原来的1.1倍，转世挑战次数上限增加10次，飞升挑战次数上限增加5次，无瑕难得素倍率和无瑕祭品倍率变为原来的3.5倍，所有类型的方盒及立方获取数量翻倍，腐化等级上限增加1，在挑战15中蚂蚁产量变为蚂蚁产量^1.25！",
         "11": "在11级及以上的水晶矿难中，转世时也可以获取钻石，数值为粒子获取数量！",
         "12": "每完成1次挑战，就使蚂蚁倍率变为 (1 + 该升级等级 / 100) 倍，且该倍率无视腐化。",
-        "13": "'Less Fruitful Harvests' reduces your <<green|Salvage>> by 50% less!",
+        "13": "“欠收”减少的<<green|回收>>数值降低50%！",
         "14": "挑战15中大萧条 II金币获取数量的指数乘以1.55。",
-        "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), 1.15x Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
+        "15": "您开始找寻深渊的起始了。在挑战15中金币指数增加0.10。挑战15的分数增加25%。每级腐化使飞升的速度增加0.2%(上限：20%)。每次完成挑战9就使所有类型的方盒及立方获取数量增加1%(相互叠乘)。夸克获取数量变为原来的1.15倍。超立方建筑产量变为1e250倍。飞升次数获取数量翻倍。转世挑战次数上限增加30，飞升挑战次数上限增加20。无瑕难得素倍率和无瑕祭品倍率变为原来的6倍！聊聊继续深入的事吧。",
         "16": "每级该升级使超通量粉转换效率增加1%，使飞升次数获取数量增加2%，并且根据超通量粉的数量(上限100000)最多还可以使飞升次数获取数量再增加2%。另外，超立方建筑产量变为(超通量粉数量+1)^(10*等级)倍，无上限。",
         "17": "如果粘性加倍器和加速器的等级不低于10级，则使它的分数倍率变为原来的 (3 + 该升级等级 * 0.04) 次方。",
         "18": "每级使数学常数升级1的基础效果百分比增加0.1%，并使数学常数升级2的基础上限百分比增加0.3%！",
         "19": "惊奇七阶立方·时光超过软上限后的效果增加 (该升级等级 / 750) (约0.00133)。(基础值为1/6)",
         "20": "有些东西，还是不买为妙。"
       },
-      "20Bought": "While I strongly recommended you not to buy this, you did it anyway. For that, you have unlocked the Antiquities of Ant God Rune."
+      "20Bought": "尽管我强烈反对，您还是购买了它。那么，您解锁了蚁神之古物符文。"
     },
     "hepteractForge": {
       "howDidIGetHere": "我是怎么到这里的？",
       "noTimeToWaste": "好吧，没时间管那些了。这就是您的实验室。用惊奇七阶立方弄出一些有用的东西来吧！",
       "noPassiveBonus": "惊奇七阶立方没有任何被动加成。必须通过锻造才能变得有用。",
       "youPossessHepteracts": "您拥有<<yellow|{{x}}>>惊奇七阶立方！您应该已经知道这些是哪来的了吧？",
-      "multiplierText": "<<purple | ♔>> Hepteract capacities are currently multiplied by <<gold | {{multiplier}}>>. Expansions cost what they would if this multiplier were 1.",
+      "multiplierText": "<<purple | ♔>> 惊奇七阶立方的库存上限目前变为原来的<<gold|{{multiplier}}>>倍。延展时将按照该倍率为1来计算花费。",
       "craft": "锻造",
       "max": "最大化",
       "expand": "延展",
@@ -6542,12 +6542,12 @@
         },
         "abyss": {
           "effect": "似乎它拥有时间尽头的力量。还记得有哪里出现过类似的东西吗？",
-          "currentEffect": "Your rememberance of Time Immemorial grants you <<green|Salvage +{{x}}>>",
+          "currentEffect": "您对远古时光的记忆让您获得了<<green|{{x}}回收>>",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}惊奇方盒(笑)"
         },
         "accelerator": {
           "effect": "哈哈，腐化你个蠢蛋。每个惊奇七阶立方·加速器可以使无瑕加速器数量增加2000，然后再增加0.03%。",
-          "currentEffect": "Current Effect: Immaculate Accelerators +{{x}} + {{y}}",
+          "currentEffect": "当前效果：无瑕加速器数量增加{{x}}，再增加{{y}}",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}惊奇超立方"
         },
         "acceleratorBoost": {
@@ -6557,7 +6557,7 @@
         },
         "multiplier": {
           "effect": "哈哈，腐化你个蠢蛋。每个惊奇七阶立方·加倍器可以使无瑕加倍器数量增加1000，然后再增加0.03%。",
-          "currentEffect": "Current Effect: Immaculate Multipliers +{{x}} +{{y}}",
+          "currentEffect": "当前效果：无瑕加倍器数量增加{{x}}，再增加{{y}}",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}难得素"
         }
       }
@@ -6709,7 +6709,7 @@
     "transferredFromLZ": "成功将存档转换为新格式！",
     "allCorruptionsZero": "下次飞升时将所有腐化重置为零。",
     "corruptionLoadoutApplied": "第{{x}}个预设\"{{y}}\"已载入。飞升后即可生效。",
-    "ascendPrompt": "Ascending will reset all buildings, rune EXP, talismans, most researches, and the anthill feature for Cubes of Power. Continue?",
+    "ascendPrompt": "飞升后，之前的所有低阶资源，符文经验值，护身符，大部分研究，以及蚁丘都将被重置，但您可以获得方盒的力量。您确定要继续吗？",
     "reincarnatePrompt": "转世后之前的所有低阶资源都将被重置，但您可以获得强大的粒子，以及解锁一些非常强大的升级和新的游戏机制。您确定要转世吗？[您可以在设置中调整是否弹出此对话框。]",
     "transcendPrompt": "超越后金币、钻石升级，金币生产者，水晶生产者和钻石都将被重置。首次超越可以解锁新的游戏机制。您确定要超越吗？[您可以在设置中调整是否弹出此对话框。]",
     "prestigePrompt": "转生后金币升级，金币生产者和水晶都将被重置。首次转生可以解锁新的游戏机制。您确定要转生吗？[您可以在设置中调整是否弹出此对话框。]",
@@ -6747,14 +6747,14 @@
   },
   "account": {
     "logout": "该页面将进行刷新。您已注销！再见！！",
-    "download": "Download",
-    "loadSave": "Load Save",
-    "delete": "Delete",
-    "noSaves": "No saves available",
-    "noSaveFound": "No save found with that ID. Try reloading the page.",
-    "downloadComplete": "Download complete",
-    "deletedSave": "\"{{name}}\" was deleted",
-    "notDeleted": "Your save wasn't deleted. Check the console for more information."
+    "download": "下载",
+    "loadSave": "载入存档",
+    "delete": "删除",
+    "noSaves": "暂无可用的存档",
+    "noSaveFound": "找不到该ID对应的存档。请尝试刷新页面。",
+    "downloadComplete": "下载完毕",
+    "deletedSave": "“{{name}}”已删除",
+    "notDeleted": "您的存档删除失败。请查看控制台获取更多信息。"
   },
   "pseudoCoins": {
     "coinCount": "您拥有<<gold|{{amount}}伪币>>！",
@@ -6797,8 +6797,8 @@
       "ADD_CODE_CAP_BUFF": "使“增加”代码的次数上限变为原来的<<gold|{{amount}}>>倍",
       "BASE_OFFERING_BUFF": "使基础祭品获取数量增加<<gold|{{amount}}>>",
       "BASE_OBTAINIUM_BUFF": "使基础难得素获取数量增加<<gold|{{amount}}>>",
-      "RED_LUCK_BUFF": "Red Luck is increased by <<gold | {{amount}}>>",
-      "RED_GENERATION_BUFF": "Red Bar Point gain is multiplied by <<gold | {{amount}}>>"
+      "RED_LUCK_BUFF": "使红运增加<<gold|{{amount}}>>",
+      "RED_GENERATION_BUFF": "使红进度条点数获取速度变为原来的<<gold|{{amount}}>>倍"
     },
     "consumables": {
       "tipReceived": "最近一分钟内有{{offlineTime}}人给您打赏了！",
@@ -6820,7 +6820,7 @@
       },
       "AMBROSIA": {
         "title": "神肴 - 时间跳跃",
-        "description": "Fast-forward real-life time on your Ambrosia and Red Bar Points!"
+        "description": "使神肴进度条点数和红进度条点数的计时直接增加相应现实时间！"
       },
       "purchaseBtn": "增加{{time}}小时[<<gold|花费{{cost}}伪币>>]",
       "warning": "<<gold|⚠>>购买后需要经过几秒才能生效！<<gold|⚠>>"
