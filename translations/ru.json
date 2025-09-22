@@ -631,11 +631,11 @@
       "289": "Пожааалуйста, буду очень благодарен: Купите 5 Миллиардов Принтеров",
       "290": "Состояние: Только с чеканки: Купите 100 000 000 Монетных Дворов.",
       "291": "Шоколадных Монеток не желаете? Купите 1 Миллиард Монетных Дворов.",
-      "292": "A good clean feeling, no matter what: Purchase 20 Billion Coin Mints",
-      "293": "Alpha Regeneration: Create 1 Billion Coin Mints.",
-      "294": "Citrinitas Synthesis: Create 20 Billion Coin Mints.",
-      "295": "The Philosopher's Stone: Create 1 Trillion Coin Mints.",
-      "296": "Prestige...?: Prestige for at least 1e10,000,000 Diamonds.",
+      "292": "Чистый и сильный звон, неважно от чего: Купите 20 Миллиардов Монетных Дворов",
+      "293": "Альфа Регенерация: Создайте 1 Миллиард Алхимий.",
+      "294": "Синтезис Цитринитас: Создайте 20 Миллиардов Алхимий.",
+      "295": "Философский Камень: Создайте 1 Триллион Алхимий.",
+      "296": "Престиж...?: Престих хотя бы ради 1e10 000 000 Алмазов.",
       "297": "Shine bright like a ...: Prestige for at least 1e10,000,000,000 [1e1e10] Diamonds.",
       "298": "Diamonds are forever: Prestige for at least 1e10,000,000,000,000 [1e1e13] Diamonds.",
       "299": "Transcend...?: Transcend for at least 1e2,500,000 Mythos.",
@@ -1958,7 +1958,7 @@
       "exalts": {
         "name": "Progressive Achievement - EXALT Completions",
         "description": "Gain AP for each EXALT you have completed!",
-        "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Twenty Ascensions: {{num3}}/{{cap3}} AP <br> No Octeract Effects: {{num4}}/{{cap4}} AP <br> No Ambrosia Upgrades: {{num5}}/{{cap5}} AP <br> Grand Singularity Speedrun: {{num6}}/{{cap6}} AP <br> Sadistic III: {{num7}}/{{cap7}} AP <br> Taxman's Last Stand: {{num8}}/{{cap8}} AP"
+        "apSource": "Без Улучшений Золотых Кварков: {{num1}}/{{cap1}} ОД <br> Предел в Одно Испытание: {{num2}}/{{cap2}} ОД <br> Двадцать Вознесений: {{num3}}/{{cap3}} ОД <br> Без Эффектов Октерактов: {{num4}}/{{cap4}} ОД <br> Без Улучшений Амброзии: {{num5}}/{{cap5}} ОД <br> Великий Спидран Сингулярности: {{num6}}/{{cap6}} ОД <br> Садизм III: {{num7}}/{{cap7}} ОД <br> Последний Рубеж Сборщика Налогов: {{num8}}/{{cap8}} ОД"
       },
       "singularityUpgrades": {
         "name": "Progressive Achievement - Golden Quark Upgrades",
