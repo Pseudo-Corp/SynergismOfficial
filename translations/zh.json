@@ -4072,7 +4072,7 @@
     },
     "achievements": {
       "achievements": "成就",
-      "rewards": "Rewards"
+      "rewards": "奖励"
     },
     "runes": {
       "runes": "符文",
@@ -4911,7 +4911,7 @@
     "generatedObtainiumBonus": "难得素获取数量<<pink|+{{obtainiumBonus}}%>>"
   },
   "runes": {
-    "runeName": "<b><<{{color}}|{{name}}>></b> Rune",
+    "runeName": "<b><<{{color}}|{{name}}>></b>符文",
     "offeringsYouHave": "您有{{offerings}}祭品。",
     "gainExp": "Gain {{amount}}x EXP per Offering sacrificed.",
     "recycleChance": "You have {{amount}} Salvage. The amount of Offerings needed to level up Runes is divided by {{mult}}!",
@@ -4922,7 +4922,7 @@
     "runeEffectiveLevel": "<b>Effective Rune Power: <<orange | {{level}}>></b>",
     "runeEffectiveLevelCalc": "[(<<lightgray |{{purchased}}>> + <<orange | {{free}}>>) * <<cyan|{{mult}} (Bonus Mult)>>]",
     "speed": {
-      "name": "Speed",
+      "name": "加速",
       "description": "An energy emanates from this stone. You feel compelled to inscribe power into it with your Offerings.",
       "lockedDescription": "Erm. This should be unlocked. If you see this, please report it as a bug.",
       "acceleratorPower": "<<cyan | Accelerator Power +{{val}}%>> (+0.02% per Power)",
@@ -4942,7 +4942,7 @@
       "effect": "Duplication Rune Bonus: +{{val}} Multiplier Power Boosts, +{{val2}} Free Multipliers, -{{val3}}% Tax Growth."
     },
     "prism": {
-      "name": "Prism",
+      "name": "棱镜",
       "description": "Has all colors of the visible light spectrum. As well as a few you cannot yet fathom.",
       "lockedDescription": "This rune is locked! To unlock it, Transcend 1,000 times. You even get an Achievement for it!",
       "crystalProduction": "<<lightblue | Crystal Production {{val}}x>> (1 + (Power / 2)^2 * 2^(Power / 2) / 256)x",
@@ -4951,7 +4951,7 @@
       "effect": "Prism Rune Bonus: All Crystal Producer production multiplied by {{val}}x, The costs of all Crystal Upgrades is divided by {{val2}}."
     },
     "thrift": {
-      "name": "Thrift",
+      "name": "节俭",
       "description": "It seems with this Rune in tow, you keep making great deals on your purchases, and your Offerings are just a little more reusable.",
       "lockedDescription": "This rune is locked! To unlock it, Reincarnate 10,000 times. You even get an Achievement for it!",
       "costDelay": "<<lime | Building Cost Growth Delay +{{val}}%>> (+0.125% per Power, max +1.00e15% at 8e15 Power)",
@@ -4961,7 +4961,7 @@
       "effect": "Thrift Rune Bonus: Delay all producer cost increases by {{val}}%, Salvage: +{{val2}}. -{{val3}}% Tax Growth"
     },
     "superiorIntellect": {
-      "name": "Superior Intellect",
+      "name": "卓越智慧",
       "description": "Over a hundred times the number of brain cells the average human has, put into one rock. It's probably sentient.",
       "lockedDescription": "This rune is locked! Unlocking it might require some novel research.",
       "offeringMult": "<<orange | Offering Gain +{{val}}>> (+0.05% per Power)",
@@ -4971,7 +4971,7 @@
       "effect": "S. Intellect Rune Bonus: Offerings x{{val}}, Obtainium x{{val2}}, Ant Speed x{{val3}}"
     },
     "infiniteAscent": {
-      "name": "Infinite Ascent",
+      "name": "无限晋升",
       "description": "A staircase you can only climb facing backwards, how weird is that?",
       "lockedDescription": "This rune is locked! You may need some Quarks to unlock this one. Or, head to the <<gold | PseudoCoins>> tab to unlock it instantly!",
       "quarkBonus": "<<cyan | Quark Gain +{{val}}>> (+0.2% per Power)",
