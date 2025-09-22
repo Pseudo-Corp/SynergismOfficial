@@ -4989,28 +4989,28 @@
       "offeringBonus": "<<orange|使祭品获取数量变为原来的{{val}}倍>> (每有1符文强度就变为原来的10倍)",
       "obtainiumBonus": "<<pink|使难得素获取数量变为原来的{{val}}倍>> (每有1符文强度就变为原来的10倍)",
       "addCode": "<<lightgray|使“增加”代码的使用时间间隔{{val}}>> (1符文强度时-20%，上限为-50%)",
-      "values": "Level 1 unlocks something <span class=\"rainbowText\">special</span>! Each level gives 10x Offerings, 10x <<cyan | Immaculate>> Obtainium and makes code 'Add' regenerate faster.",
-      "effect": "Offerings x{{val}}, <<cyan | Immaculate>> Obtainium x{{val2}}, 'Add' code regeneration interval is {{val3}}% as long."
+      "values": "1级时解锁某种<span class=\"rainbowText\">特殊</span>的东西！每级使祭品获取数量和<<cyan|无瑕>>的难得素获取数量变为原来的10倍，并使“增加”代码更快恢复使用次数。",
+      "effect": "使祭品获取数量变为原来的{{val}}倍，<<cyan|无瑕>>难得素获取数量变为原来的{{val2}}倍，“增加”代码的使用时间间隔变为原来的{{val3}}%。"
     },
     "horseShoe": {
-      "name": "The Horse's Shoe",
-      "description": "I never realized the world was so easily won, just by realizing you got someone to say you won't be lonely anymore.",
+      "name": "马蹄铁",
+      "description": "我从未想过，原来拥有世界可以如此简单——只需有那样一个人，对你说出你永远不会再孤单。",
       "lockedDescription": "该符文未解锁！想要解锁，您可能得与<<lightgray|税务官>>来上一场搏斗。",
-      "ambrosiaLuck": "<<limegreen | {{val}} Ambrosia Luck>> (+1 per Power)",
-      "redLuck": "<<red | {{val}} Red Luck>> (+0.2 per Power)",
-      "luckConversion": "<<crimson | Luck Conversion Ratio {{val}}>> (Up to -0.5)",
-      "values": "Each level gives you +1 Ambrosia Luck, +0.2 Red Luck. You also reduce the Luck Conversion Ratio between the two by up to 0.5, depending on level (-0.5 * level / (level + 50))",
-      "effect": "Horseshoe Rune Bonus: +{{val}} Ambrosia Luck, +{{val2}} Red Luck, {{val3}} Luck Conversion Ratio."
+      "ambrosiaLuck": "<<limegreen|使神肴之运{{val}}>> (每有1符文强度就增加1)",
+      "redLuck": "<<red|使红运{{val}}>> (每有1符文强度就增加0.2)",
+      "luckConversion": "<<crimson|使神肴之运转换成红运的比率{{val}}>> (上限为-0.5)",
+      "values": "每级使神肴之运增加1，红运增加0.2。另外，还会使神肴之运转换成红运的比率至多减少0.5，公式为 -0.5 * 等级 / (等级 + 50)",
+      "effect": "马蹄铁符文的加成：使神肴之运增加{{val}}，红运增加{{val2}}，神肴之运转换成红运的比率{{val3}}。"
     },
     "finiteDescent": {
-      "name": "Finite Descent",
-      "description": "That shopkeep told me it was an Ascent. That <i>liar</i>!",
+      "name": "有限降阶",
+      "description": "店主说这是晋升。那个<i>大骗子</i>！",
       "lockedDescription": "该符文未解锁！说实话，我也不知道怎么解锁。",
-      "corruptionLevels": "<<lightgray | +{{val}} Free Corruption Levels>> (up to +0.15)",
-      "ascensionScore": "<<orange | +{{val}} Ascension Score>> (up to +100%)",
-      "infiniteAscentLevels": "<<lightgoldenrodyellow | +{{val}} Free Infinite Ascent levels>> (+1 every 2 Power)",
-      "values": "Gain up to 2x more Ascension Score for your current Ascension, increase your free Corruption levels up to 0.15, and tack on +1 free Infinite Ascent level every two levels. Shweet!",
-      "effect": "This Ascension, gain +{{val}} Ascension Score, {{val2}} free Corruption levels, and +{{val3}} Infinite Ascent levels."
+      "corruptionLevels": "<<lightgray|使腐化等级免费增加{{val}}级>> (上限为增加0.15级)",
+      "ascensionScore": "<<orange|使飞升分数增加{{val}}>> (上限为增加100%)",
+      "infiniteAscentLevels": "<<lightgoldenrodyellow|使无限晋升符文的免费等级增加{{val}}级>> (每有2符文强度就增加1级)",
+      "values": "使当前飞升的飞升分数至多变为原来的2倍，腐化等级至多免费增加0.15，每2级还可以使无限晋升符文的免费等级增加1级。太棒了！",
+      "effect": "本次飞升中，使飞升分数增加{{val}}，腐化等级免费增加{{val2}}级，无限晋升符文的免费等级增加{{val3}}级。"
     },
     "levelup": {
       "1": "使加速器数量增加(等级/4)^1.25，且每级再增加0.25%。每20级使加速器加成数量增加1！",
@@ -5032,8 +5032,8 @@
     },
     "talismans": {
       "fortify": "x1",
-      "enhance": "To Rarity",
-      "respec": "MAX",
+      "enhance": "提升稀有度",
+      "respec": "最大",
       "respecAll": "全部变配",
       "respecConfirm": "确认 [-100,000 祭品]",
       "respecConfirmAll": "确认全部 [-400,000 祭品]",
@@ -5045,18 +5045,18 @@
       "autoBuyOff": "自动购买：关",
       "clickBuyEveryType": "点击后将尽可能购买所有碎片",
       "costToBuy": "购买{{buyAmount}}个{{name}}花费：{{obtainium}}难得素及{{offerings}}祭品。",
-      "doesNotReset": "[<<white|♔>>] This talisman NEVER resets! Not even on Singularity.",
+      "doesNotReset": "[<<white|♔>>]该护身符永不重置！哪怕进入奇点也一样。",
       "rarity": {
-        "1": "<<white | Common>>",
-        "2": "<<green | Uncommon>>",
-        "3": "<<lightblue | Rare>>",
-        "4": "<<orchid | Epic>>",
-        "5": "<<orange | Legendary>>",
-        "6": "<<crimson | Mythic>>",
-        "7": "<<cyan | EXTRAORDINARY!>>",
-        "8": "<<lightgoldenrodyellow | GODLIKE!>>",
-        "9": "<<gold | PERFECT!>>",
-        "10": "<span class=\"rainbowText\">IMMACULATE!</span>"
+        "1": "<<white|普通>>",
+        "2": "<<green|罕见>>",
+        "3": "<<lightblue|稀有>>",
+        "4": "<<orchid|史诗>>",
+        "5": "<<orange|传奇>>",
+        "6": "<<crimson|神迹>>",
+        "7": "<<cyan|超凡！>>",
+        "8": "<<lightgoldenrodyellow|神造！>>",
+        "9": "<<gold|完美！>>",
+        "10": "<span class=\"rainbowText\">无瑕！</span>"
       },
       "modifiers": {
         "positive": "{{name}}：是",
@@ -5065,69 +5065,69 @@
       "level": "{{x}}/{{y}}",
       "exemption": {
         "name": "免税护身符",
-        "description": "Fake Science Monthly says wearing this trinket lowers your taxes!",
-        "inscription": "<<gold | ✏>> Inscription: Your taxes are multiplied by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Duplication Rune."
+        "description": "《伪科学月刊》称，佩戴这个小饰品可以降低税率！",
+        "inscription": "<<gold | ✏>> 铭文：使税收变为原来的<<gold|{{val}}>>倍。",
+        "signature": "<<crimson | ✎>> 签名：使重叠符文的符文升级系数增加<<crimson|12>>。"
       },
       "chronos": {
         "name": "时光护身符",
-        "description": "<i>Time flows just a little faster when worn</i>, you read on the tag.",
-        "inscription": "<<gold | ✏>> Inscription: Global Speed is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Speed Rune."
+        "description": "您在标签上读到：<i>佩戴时，时间流逝得稍微快一些</i>。",
+        "inscription": "<<gold | ✏>> 铭文：使全局速度增加<<gold|{{val}}>>。",
+        "signature": "<<crimson | ✎>> 签名：使加速符文的符文升级系数增加<<crimson|12>>。"
       },
       "midas": {
         "name": "点金项链",
-        "description": "If Midas turned all he touched to gold...",
-        "inscription": "<<gold | ✏>> Inscription: Rune Blessing bonuses are increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Thrift Rune."
+        "description": "如果米达斯触摸到的一切都变成了黄金……",
+        "inscription": "<<gold | ✏>> 铭文：使符文祝福的加成增加<<gold|{{val}}>>。",
+        "signature": "<<crimson | ✎>> 签名：使节俭符文的符文升级系数增加<<crimson|12>>。"
       },
       "metaphysics": {
         "name": "玄学宝石",
-        "description": "Do you wear this, or does this wear you?",
-        "inscription": "<<gold | ✏>> Inscription: This Talismans' Bonus Rune Levels are increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: This Talismans' Bonus Rune Levels are further multiplied by <<crimson|1.07>>."
+        "description": "是您戴着它，还是它戴着您？",
+        "inscription": "<<gold | ✏>> 铭文：使该护身符的额外等级增加<<gold|{{val}}>>。",
+        "signature": "<<crimson | ✎>> 签名：使该护身符的额外等级进一步变为原来的<<crimson|1.07>>倍。"
       },
       "polymath": {
         "name": "博识小符饰",
-        "description": "Do you feel like an exiled trickster?",
-        "inscription": "<<gold | ✏>> Inscription: Ascension Speed is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune level Coefficient of Superior Intellect Rune."
+        "description": "感觉自己像个被放逐的骗子吗？",
+        "inscription": "<<gold | ✏>> 铭文：使飞升的速度增加<<gold|{{val}}>>。",
+        "signature": "<<crimson | ✎>> 签名：使卓越智慧符文的符文升级系数增加<<crimson|12>>。"
       },
       "mortuus": {
         "name": "蚂蚁标本护身符",
-        "description": "It's said that great sacrifice was made for this Talisman to exist.",
-        "inscription": "<<gold | ✏>> Inscription: Ant ELO is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Prism Rune."
+        "description": "据说为了这个护身符付出了巨大的牺牲。",
+        "inscription": "<<gold | ✏>> 铭文：使蚂蚁强度分增加<<gold|{{val}}>>。",
+        "signature": "<<crimson | ✎>> 签名：使棱柱符文的符文升级系数增加<<crimson|12>>。"
       },
       "plastic": {
         "name": "氪金信用卡​​",
-        "description": "Probably purchased on a buy now, pay later app.",
-        "inscription": "<<gold | ✏>> Inscription: Quark Gain is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: None. You cannot seem to sign your name on this hunk of plastic."
+        "description": "可能是通过“先买后付”应用程序购买的。",
+        "inscription": "<<gold | ✏>> 铭文：使夸克获取数量增加<<gold|{{val}}>>。",
+        "signature": "<<crimson | ✎>> 签名：无。您无法在卡体上签名。"
       },
       "wowSquare": {
-        "name": "The Wow! Square",
-        "description": "For the average :unsmith:, this is a cube.",
-        "inscription": "<<gold | ✏>> Inscription: Even-Dimensional Cube Gain is increased by <<gold|{{val}}>>",
-        "signature": "<<crimson | ✎>> Signature: Odd-Dimensional Cube Gain is increased by <<crimson|20%>>"
+        "name": "惊奇正方形",
+        "description": "对普通的:unsmith:来说，这就是一个方盒。",
+        "inscription": "<<gold | ✏>> 铭文：使偶数维的方盒、立方或方块获取数量增加<<gold|{{val}}>>",
+        "signature": "<<crimson | ✎>> 签名：使奇数维的方盒、立方或方块获取数量增加<<crimson|20%>>"
       },
       "achievement": {
         "name": "成就勋章",
-        "description": "Has serial number <i>{{num}}</i> on it.",
-        "inscription": "<<gold | ✏>> Inscription: Sources of Positive Salvage give <<gold|{{val}}>> more!",
-        "signature": "<<crimson | ✎>> Signature: Sources of Negative Salvage effect <<crimson|{{val}}>>."
+        "description": "上面写着序列号<i>{{num}}</i>。",
+        "inscription": "<<gold | ✏>> 铭文：使正面回收增加<<gold|{{val}}>>！",
+        "signature": "<<crimson | ✎>> 签名：使负面回收<<crimson|{{val}}>>。"
       },
       "cookieGrandma": {
-        "name": "Freshly-Baked Cookie",
-        "description": "Kinda burns your neck. Thanks Grandma!",
-        "inscription": "<<gold | ✏>> Inscription: Gain <<gold|+{{val}}>> free Corruption Levels!",
-        "signature": "<<crimson | ✎>> Signature: Turns out, you cannot write on cookies."
+        "name": "新鲜出炉的饼干",
+        "description": "有点烧着脖子了。谢谢奶奶！",
+        "inscription": "<<gold | ✏>> 铭文：使腐化等级免费增加<<gold|{{val}}>>级！",
+        "signature": "<<crimson | ✎>> 签名：看来没法在饼干上写字。"
       },
       "horseShoe": {
-        "name": "The Horse's Boot",
-        "description": "It's an actual horse shoe!",
-        "inscription": "<<gold | ✏>> Inscription: Gain <<gold|+{{val}}%>> Ambrosia Luck.",
-        "signature": "<<crimson | ✎>> Signature: Gain <<crimson|+{{val}}>> Red Luck."
+        "name": "马靴",
+        "description": "这下真的是马儿的鞋子了！",
+        "inscription": "<<gold | ✏>> 铭文：使神肴之运增加<<gold|{{val}}%>>。",
+        "signature": "<<crimson | ✎>> 签名：使红运增加<<crimson|{{val}}>>。"
       },
       "shards": {
         "shard": "护身符碎片",
@@ -5149,8 +5149,8 @@
       },
       "rarityInfo": {
         "title": "⋆ 稀有度要求 ⋆<br>{{talismanName}}",
-        "infoText1": "更高的护身符稀有度可以提高其<<gold | ✏>>铭文的力量并提供更多的免费符文等级！",
-        "infoText2": "When your Talisman is Mythic or better, it gains a <<crimson | ✎>> Signature!",
+        "infoText1": "护身符的稀有度越高，其<<gold | ✏>>铭文效果就越好，且免费符文等级也越多！",
+        "infoText2": "当护身符的稀有度达到神迹以后，可以获得<<crimson | ✎>> 签名！",
         "common": "普通",
         "uncommon": "罕见",
         "rare": "稀有",
@@ -5183,14 +5183,14 @@
         "plastic": "无"
       },
       "bonusRuneLevels": {
-        "speed": "Bonus Speed Rune Levels: <<orange|{{x}}>>",
-        "duplication": "Bonus Duplication Rune Levels: <<orange|{{x}}>>",
-        "prism": "Bonus Prism Rune Levels: <<orange|{{x}}>>",
-        "thrift": "Bonus Thrift Rune Levels: <<orange|{{x}}>>",
-        "superiorIntellect": "Bonus Superior Intellect Rune Levels: <<orange|{{x}}>>",
-        "infiniteAscent": "Bonus Infinite Ascent Rune Levels: <<orange|{{x}}>>",
-        "antiquities": "Bonus Antiquities of Ant God Rune Levels: <<orange|{{x}}>>",
-        "horseShoe": "Bonus Horse Shoe levels: <<orange|{{x}}>>"
+        "speed": "加速符文额外等级：<<orange|{{x}}>>",
+        "duplication": "重叠符文额外等级：<<orange|{{x}}>>",
+        "prism": "棱柱符文额外等级：<<orange|{{x}}>>",
+        "thrift": "节俭符文额外等级：<<orange|{{x}}>>",
+        "superiorIntellect": "卓越智慧符文额外等级：<<orange|{{x}}>>",
+        "infiniteAscent": "无限晋升符文额外等级：<<orange|{{x}}>>",
+        "antiquities": "蚁神之古物符文额外等级：<<orange|{{x}}>>",
+        "horseShoe": "马蹄铁符文额外等级：<<orange|{{x}}>>"
       },
       "mythicEffects": {
         "exemption": "神秘效果：重叠符文等级增加400！",
@@ -5204,12 +5204,12 @@
       "maxEnhance": "升阶到最大后可获得神秘效果！"
     },
     "blessings": {
-      "blessingName": "<b><<{{color}}|{{name}}>></b> Rune Blessing",
+      "blessingName": "<b><<{{color}}|{{name}}>></b>符文祝福",
       "buyUpTo": "最多一次购买<<var(--orchid-text-color);|{{amount}}>>级。[输入数字来控制]",
       "autoRuneOn": "自动符文：开",
       "autoRuneOff": "自动符文：关",
       "allIncreaseLevel": "提升所有等级",
-      "blessingLevel": "Blessing level <<orchid | {{amount}}>>",
+      "blessingLevel": "祝福等级<<orchid|{{amount}}>>",
       "blessingPower": "Blessing Power: <<turquoise|{{value}}>> =-=-= Effect: {{desc}}",
       "rewards": {
         "speed": "{{effect}}x Global Speed",
