@@ -1956,7 +1956,7 @@
         "apSource": "在5000红神肴之前，每有25红神肴，就获得1成就点数。<br>5000红神肴至500000红神肴之间，每有2500红神肴，就获得1成就点数。<br>500000红神肴至5000000红神肴之间，一共可以获得400成就点数！"
       },
       "exalts": {
-        "name": "递进式成就 - 拔擢完成次数",
+        "name": "递进式成就 - 拔擢阶层完成数",
         "description": "每次完成拔擢都可以获得成就点数！",
         "apSource": "无金夸克升级：{{num1}}/{{cap1}}成就点数<br>挑战上限恒为一：{{num2}}/{{cap2}}成就点数<br>二十飞升挑战：{{num3}}/{{cap3}}成就点数<br>无八阶方块效果：{{num4}}/{{cap4}}成就点数<br>无神肴升级：{{num5}}/{{cap5}}成就点数<br>奇点大竞速赛：{{num6}}/{{cap6}}成就点数<br>虐待狂拔擢 III：{{num7}}/{{cap7}}成就点数<br>税务人员的最后阵地：{{num8}}/{{cap8}}成就点数"
       },
@@ -1996,7 +1996,7 @@
     "notification": "您解锁了成就：{{m}}",
     "quarkBonus": "每500成就点数使夸克获取数量增加0.01倍！目前夸克倍率：<<cyan|{{multiplier}}倍>>",
     "achievementLevel": "基于成就点数，您目前的协同效应为<span class=\"rainbowText\">{{level}}</span>级",
-    "achievementToNextLevel": "{{level}}级还需{{AP}}",
+    "achievementToNextLevel": "需要{{AP}}成就点数才能达到{{level}}级",
     "levelUpNotification": "升级了！协同效应等级从{{old}}提升为{{new}}",
     "complete": "&nbsp;&nbsp;第{{tier}}阶(已完成)",
     "tier": "&nbsp;&nbsp;第{{tier}}阶"
@@ -2555,7 +2555,7 @@
       "72": "[Cx22]护身符每有1个稀有度，就使祭品获取数量变为原来的1.04倍。",
       "73": "[Cx23]每级使无限晋升符文的额外等级增加1！",
       "74": "[Cx24]使所有腐化的分数倍率增加0.30。",
-      "75": "[Cx25]每级使金夸克升级的免费等级效果增加0.3%！(效果与其他加成叠加)",
+      "75": "[Cx25]每级使金夸克升级的免费等级效果增加0.3%！(效果与其他效果叠加)",
       "76": "[Cx26]神肴进度条点数每次达到阈值，每级该升级就使<<lightblue|神肴进度条点数获取速度>>增加1%！",
       "77": "[Cx27]每级使<<green|神肴之运>>增加2，然后再增加0.1%！",
       "78": "[Cx28]每级使惊奇八阶方块升级的免费等级效果增加0.3%！",
@@ -2828,7 +2828,7 @@
       "calculator": "PL-AT在眨眼间就能做完加法。不过它也没其他什么用途了。每级使您使用“增加”代码获取的夸克数量增加14%，另外，第一级可以直接显示答案，而最后一级可以自动完成加法！",
       "calculator2": "PL-AT X提升了内存容量，每级使您使用“增加”代码的次数上限增加2。另外，最后一级可以使您使用“增加”代码获取的夸克数量增加25%！",
       "calculator3": "PL-AT Ω注入了难得素，这使它的性能进一步提升了！每级使您使用“增加”代码获得的夸克数量变化范围减少10%，因此您更有可能获得最高的数值。另外，每级可以使您使用“增加”代码时同时增加60秒飞升时间。",
-      "calculator4": "PL-AT δ的主频为4096Hz，这是一项巨大的进步。每级使“增加”代码的使用次数加快4%恢复。另外，最后一级可以使您使用“增加”代码的次数上限增加32。",
+      "calculator4": "PL-AT δ的主频为4096Hz，这是一项巨大的进步。每级使“增加”代码的使用时间间隔减少4%。另外，最后一级可以使您使用“增加”代码的次数上限增加32。",
       "calculator5": "PL-AT Γ可以进行“更强大”的计算。每级使您使用“增加”代码时导出存档的金夸克奖励计时增加6秒。另外，每10级使您使用“增加”代码的次数上限增加1，且最后一级可以使您使用“增加”代码的次数上限再增加6。",
       "calculator6": "PL-AT _由Derpsmith制造，之后他就被永远逐出了这个行业。每级使您使用“增加”代码时获得相当于1秒产量的惊奇八阶方块。另外，最后一级可以使您使用“增加”代码的次数上限增加24。",
       "calculator7": "PL-AT ΩΩ由Derpsmith Ω制造，之后他就被永远逐出了这个行业。每级使您使用“增加”代码时获得相当于现实时间1秒产量的神肴进度条点数。另外，最后一级可以使您使用“增加”代码的次数上限增加48。",
@@ -2937,7 +2937,7 @@
       "calculator": "使用“增加”代码获取的夸克数量增加<<cyan|{{amount1}}%>>。显示答案：<<orchid|{{bool1}}>>，自动回答：<<orchid|{{bool2}}>>",
       "calculator2": "使“增加”代码的次数上限增加<<orchid|{{amount1}}>>。使用“增加”代码可以额外获取<<cyan|{{amount2}}%>>的夸克。",
       "calculator3": "使“增加”代码的奖励变动范围减少<<orchid|{{amount1}}%>>，使用“增加”代码时飞升时间同时增加<<orchid|{{amount2}}>>秒。",
-      "calculator4": "Code 'add' has a <<orchid|{{amount1}}%>> shorter interval between uses. Capacity is increased by <<orchid|+{{amount2}}>>.",
+      "calculator4": "使“增加”代码的使用时间间隔减少<<orchid|{{amount1}}%>>，次数上限增加<<orchid|{{amount2}}>>。",
       "calculator5": "使用“增加”代码时导出存档的金夸克奖励计时增加<<orchid|{{amount1}}>>。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
       "calculator6": "使用“增加”代码时获得相当于<<orchid|{{amount1}}>>秒产量的惊奇八阶方块。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
       "calculator7": "使用“增加”代码时获得相当于<<orchid|{{amount1}}>>秒产量的神肴进度条点数。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
@@ -2959,11 +2959,11 @@
       "challenge15Auto": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
       "extraWarp": "您可以额外进行<<red|{{amount}}>>次时空跃迁。",
       "autoWarp": "购买后您就可以在七阶立方的锻炉选项卡下开启<<red|自动跃迁>>了。",
-      "improveQuarkHept": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
-      "improveQuarkHept2": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
-      "improveQuarkHept3": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
-      "improveQuarkHept4": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
-      "improveQuarkHept5": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
+      "improveQuarkHept": "惊奇七阶立方·夸克的指数增加<<cyan|{{amount}}>>。",
+      "improveQuarkHept2": "惊奇七阶立方·夸克的指数增加<<cyan|{{amount}}>>。",
+      "improveQuarkHept3": "惊奇七阶立方·夸克的指数增加<<cyan|{{amount}}>>。",
+      "improveQuarkHept4": "惊奇七阶立方·夸克的指数增加<<cyan|{{amount}}>>。",
+      "improveQuarkHept5": "惊奇七阶立方·夸克的指数增加<<cyan|{{amount}}>>。",
       "shopImprovedDaily": "“每日”代码的夸克获取数量增加<<cyan|{{amount}}%>>。",
       "shopImprovedDaily2": "“每日”代码获得的免费奇点升级增加<<turquoise|{{amount1}}>>级，且金夸克获取数量增加<<turquoise|{{amount2}}%>>。",
       "shopImprovedDaily3": "“每日”代码获得的免费奇点升级增加<<turquoise|{{amount1}}>>级，且金夸克获取数量增加<<turquoise|{{amount2}}%>>。",
@@ -2973,29 +2973,29 @@
       "chronometerInfinity": "飞升的速度增加<<orange|{{amount}}%>>。飞升的速度指数变化数值增加<<orange|{{amount2}}>>。",
       "seasonPassInfinity": "<<orchid|所有类型的方盒和立方获取数量>>增加<<lightgoldenrodyellow|{{amount}}%>>。八阶方块的获取数量改为增加<<green|{{amount2}}%>>。",
       "shopSingularityPenaltyDebuff": "在<<pink|{{amount1}}>>次奇点时，奇点相关惩罚视为在<<pink|{{amount2}}>>次奇点。",
-      "shopAmbrosiaLuckMultiplier4": "Gain <<green|+{{amount}}%>> Ambrosia Luck!",
-      "shopOcteractAmbrosiaLuck": "Octeracts grant <<green|+{{amount}}>> Ambrosia Luck!",
-      "shopAmbrosiaGeneration1": "Ambrosia Bar Points are generated <<lightblue|{{amount}}%>> faster.",
-      "shopAmbrosiaGeneration2": "Ambrosia Bar Points are generated <<lightblue|{{amount}}%>> faster.",
-      "shopAmbrosiaGeneration3": "Ambrosia Bar Points are generated <<lightblue|{{amount}}%>> faster.",
-      "shopAmbrosiaGeneration4": "Ambrosia Bar Points are generated <<lightblue|{{amount}}%>> faster.",
-      "shopAmbrosiaLuck1": "<<lime|+{{amount}} Ambrosia Luck>>",
-      "shopAmbrosiaLuck2": "<<lime|+{{amount}} Ambrosia Luck>>",
-      "shopAmbrosiaLuck3": "<<lime|+{{amount}} Ambrosia Luck>>",
-      "shopAmbrosiaLuck4": "<<lime|+{{amount}} Ambrosia Luck>>",
-      "shopRedLuck1": "<<red|+{{amount}} Red Luck>>, <<crimson|-{{amount2}} Luck Conversion Ratio>>",
-      "shopRedLuck2": "<<red|+{{amount}} Red Luck>>, <<crimson|-{{amount2}} Luck Conversion Ratio>>",
-      "shopRedLuck3": "<<red|+{{amount}} Red Luck>>, <<crimson|-{{amount2}} Luck Conversion Ratio>>",
-      "shopCashGrabUltra": "<<lightblue|+{{amount}}% Ambrosia Bar Points>>. Also, <<white|+{{amount2}}% Cubes of all dimensions>>! Finally, <<cyan|+{{amount3}}% Quarks>>!",
-      "shopAmbrosiaAccelerator": "Ambrosia Bar Points required for Ambrosia generation are reduced by <<lightblue|{{amount}}%>> per completion of EXALT 5 - No Ambrosia Upgrades. Total: <<lightblue|-{{total}}%>>",
+      "shopAmbrosiaLuckMultiplier4": "使神肴之运增加<<green|{{amount}}%>>！",
+      "shopOcteractAmbrosiaLuck": "根据八阶方块的数量，神肴之运增加了<<green|{{amount}}>>！",
+      "shopAmbrosiaGeneration1": "神肴进度条点数获取速度增加<<lightblue|{{amount}}%>>。",
+      "shopAmbrosiaGeneration2": "神肴进度条点数获取速度增加<<lightblue|{{amount}}%>>。",
+      "shopAmbrosiaGeneration3": "神肴进度条点数获取速度增加<<lightblue|{{amount}}%>>。",
+      "shopAmbrosiaGeneration4": "神肴进度条点数获取速度增加<<lightblue|{{amount}}%>>。",
+      "shopAmbrosiaLuck1": "使<<lime|神肴之运增加{{amount}}>>",
+      "shopAmbrosiaLuck2": "使<<lime|神肴之运增加{{amount}}>>",
+      "shopAmbrosiaLuck3": "使<<lime|神肴之运增加{{amount}}>>",
+      "shopAmbrosiaLuck4": "使<<lime|神肴之运增加{{amount}}>>",
+      "shopRedLuck1": "使<<red|红运增加{{amount}}>>，<<crimson|神肴之运转换成红运的比率减少{{amount2}}>>",
+      "shopRedLuck2": "使<<red|红运增加{{amount}}>>，<<crimson|神肴之运转换成红运的比率减少{{amount2}}>>",
+      "shopRedLuck3": "使<<red|红运增加{{amount}}>>，<<crimson|神肴之运转换成红运的比率减少{{amount2}}>>",
+      "shopCashGrabUltra": "使<<lightblue|神肴进度条点数获取速度增加{{amount}}%>>。另外，使<<white|所有类型的方盒、立方和方块获取数量增加{{amount2}}%>>！最后，使<<cyan|夸克获取数量增加{{amount3}}%>>！",
+      "shopAmbrosiaAccelerator": "每完成一次拔擢 - 无神肴升级，使神肴进度条点数需求减少<<lightblue|{{amount}}%>>。效果合计：<<lightblue|减少{{total}}%>>",
       "shopEXUltra": "神肴使<<orange|祭品获取数量>>、<<orchid|难得素获取数量>>和<<white|方盒获取数量>>增加<<gold|{{amount}}%>>！",
       "shopChronometerS": "飞升的速度和全局速度均增加<<orange|{{amount}}%>>！",
-      "shopAmbrosiaUltra": "Gain <<lime|+{{amount}} Ambrosia Luck>> from your EXALT completions!",
+      "shopAmbrosiaUltra": "根据拔擢阶层完成数，使<<lime|神肴之运增加{{amount}}>>。",
       "shopSingularitySpeedup": "奇点特权和升级的增长速度变为原来的<<gray|{{amount}}>>倍！",
       "shopSingularityPotency": "免费奇点升级的效果变为原来的<<gray|{{amount}}>>倍。",
       "shopSadisticRune": "我也不知道这个符文有什么用。您已经买了吗？总之您知道的，我看不见。",
-      "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark Shop upgrades are increased by <<white|{{amount}}>>!",
-      "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty effects <<pink|{{amount2}}>>"
+      "shopInfiniteShopUpgrades": "使“无限公司”相关商店升级的有效等级增加<<white|{{amount}}>>！",
+      "shopHorseShoe": "使马蹄铁符文的免费等级<<burlywood|增加{{amount1}}>>，奇点惩罚<<pink|{{amount2}}>>"
     }
   },
   "singularity": {
@@ -3158,11 +3158,11 @@
       },
       "irishAnt": {
         "name": "爱尔兰蚂蚁",
-        "default": "Ants blessed with the luck of the Irish grant <<limegreen|{{i}} Ambrosia Luck>>!"
+        "default": "受到爱尔兰之运祝福的蚂蚁可以使<<limegreen|神肴之运增加{{i}}>>！"
       },
       "irishAnt2": {
         "name": "爱尔兰蚂蚁 II：电子布加洛舞",
-        "default": "Ants blessed with more fortunate luck of the Irish increase base <<limegreen|Ambrosia Luck>> by <<limegreen|{{percent}}%>>! <<limegreen|+1%>> per perk level."
+        "default": "受到爱尔兰之运更多祝福的蚂蚁可以使<<limegreen|神肴之运再增加{{percent}}%>>！每级特权使加成数值增加<<limegreen|1%>>。"
       },
       "overclocked": {
         "name": "超载",
@@ -3219,12 +3219,12 @@
       },
       "skrauQ": {
         "name": "克夸",
-        "default": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: <<cyan | x{{amt}}>>... Yes, it's <<gray | that good>>.<br><b><<gold | ⚠>> This Perk takes into account your current Singularity count, and not your highest!</b>"
+        "default": "使夸克获取数量变为原来的 ((奇点次数 - 179) / 20)^2 倍。当前效果：<<cyan|{{amt}}倍>>……是的，它就<<gray|这么好>>。<br><b><<gold|⚠>>这个特权按照当前奇点次数计算，而不是按照最高奇点次数计算！</b>"
       },
       "primalPower": {
         "name": "质数之力！",
-        "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|+131>> & <<limegreen|+269 Ambrosia Luck>>!",
-        "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|+131 Ambrosia Luck>>!"
+        "hasLevel1": "通过达到质数次数的奇点获得惊人的力量！目前获得：<<limegreen|131神肴之运>>及<<limegreen|269神肴之运>>！",
+        "default": "通过达到质数次数的奇点获得惊人的力量！目前获得：<<limegreen|131神肴之运>>！"
       },
       "permanentBenefaction": {
         "name": "永久恩惠",
@@ -3232,41 +3232,41 @@
       },
       "infiniteShopUpgrades": {
         "name": "橙色无限商店代金券",
-        "default": "Gain +0.5 effective levels of the 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down! Currently: {{amt}}",
-        "level2": "Gain +0.8 effective levels of the 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down! Currently: {{amt}}"
+        "default": "最高奇点次数减去200后每有1次，每级该升级就使“无限公司”相关商店升级的有效等级增加0.5，向下取整！目前增加了{{amt}}",
+        "level2": "最高奇点次数减去200后每有1次，每级该升级就使“无限公司”相关商店升级的有效等级增加0.8，向下取整！目前增加了{{amt}}"
       },
       "taxReduction": {
-        "name": "Accountants Clicking at Your Desktop",
+        "name": "在桌面点击的会计师",
         "default": "使税收减少50%！"
       },
       "recycledContent": {
-        "name": "... Recycled Content?",
-        "default": "Increase your <<green|Salvage>> by 5 per tier! Currently: +{{amount}}"
+        "name": "……回收的内容呢？",
+        "default": "每级使<<green|回收>>增加5！当前效果：增加{{amount}}"
       },
       "infiniteRecycling": {
-        "name": "Infinite Recycling",
-        "default": "Your Infinite Ascent Rune gains a third perk: +0.025 <<green|Salvage>> per level, per tier! Currently: +{{salvage}}"
+        "name": "无限之回收",
+        "default": "无限晋升符文获得了第三个特权：无限晋升符文每有一级，每级该特权就使<green|回收>>增加0.025！当前效果：增加{{salvage}}"
       },
       "recyclistsDesktop": {
-        "name": "Recyclists Clicking at Your Desktop",
-        "default": "For all sources of <<crimson|Negative Salvage>>, they reduce it by {{i}}% less!"
+        "name": "在桌面点击的回收人",
+        "default": "使所有<<crimson|负面回收>>减少{{i}}%！"
       },
       "demeterHarvest": {
-        "name": "Demeter's Harvest",
-        "default": "For all sources of <<lime|Positive Salvage>>, they increase it by {{i}}% more!"
+        "name": "得墨忒耳的丰收",
+        "default": "使所有<<lime|正面回收>>增加{{i}}%！"
       }
     },
     "toString": {
-      "minimum": "Minimum Singularity: {{minSingularity}}",
+      "minimum": "最低进入奇点次数：{{minSingularity}}",
       "noMinimum": "无进入奇点次数要求",
-      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks",
-      "spentGQ": "Golden Quarks Spent: {{spent}}"
+      "costNextLevel": "下一级的花费：{{amount}}金夸克",
+      "spentGQ": "金夸克花费总数：{{spent}}"
     },
     "data": {
       "goldenQuarks1": {
         "name": "金夸克 I",
         "description": "每级使进入奇点的金夸克获取数量增加10%！",
-        "effect": "Permanently gain {{n}} more Golden Quarks on Singularities."
+        "effect": "使进入奇点的金夸克获取数量增加{{n}}。"
       },
       "goldenQuarks2": {
         "name": "金夸克 II",
@@ -3280,13 +3280,13 @@
       },
       "starterPack": {
         "name": "新手大礼包",
-        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Immaculate Obtainium and Offerings from all sources.",
-        "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Immaculate Obtainium and Offerings.",
-        "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Immaculate Obtainium and Offerings."
+        "description": "买这个就对了！使所有类型的方盒、立方和方块获取数量变为原来的5倍，并使无瑕难得素获取数量和无瑕祭品获取数量变为原来的6倍。",
+        "effectHave": "您已使所有类型的方盒、立方和方块获取数量变为原来的5倍，无瑕难得素获取数量和无瑕祭品获取数量变为原来的6倍。",
+        "effectHaveNot": "您未使所有类型的方盒、立方和方块获取数量变为原来的5倍，无瑕难得素获取数量和无瑕祭品获取数量变为原来的6倍。"
       },
       "wowPass": {
         "name": "商店促销",
-        "description": "This upgrade will convince the Seal Merchant to sell you more cool stuff, which even persist on Singularity!",
+        "description": "购买后，印记商人将向您出售更多好东西，它们在进入奇点后等级仍然保留！",
         "effectHave": "您已解锁商店促销。",
         "effectHaveNot": "您未解锁商店促销。"
       },
@@ -3304,7 +3304,7 @@
       },
       "cookies3": {
         "name": "饼干配方 III",
-        "description": "Your bakers threaten to quit without a higher pay. If you do pay them, they will bake even more fancy cookies.",
+        "description": "烘焙师们表示不加薪就辞职了。如果给他们加薪，他们会为您制造更棒的饼干。",
         "effectHave": "您已安抚烘焙师工会。",
         "effectHaveNot": "您未安抚烘焙师工会。"
       },
@@ -3323,74 +3323,74 @@
       "ascensions": {
         "name": "更多飞升次数",
         "description": "购买后，每级使飞升次数获取数量增加2%！每10级还可以使飞升次数获取数量额外增加1%。",
-        "effect": "Ascension Count increases {{n}} faster."
+        "effect": "飞升次数获取数量增加{{n}}。"
       },
       "corruptionFourteen": {
         "name": "腐化等级-十四",
-        "description": "Buy this to unlock level fourteen Corruptions. :)",
-        "effectHave": "You have gained the ability to use level 14 Corruptions. {{m}}",
-        "effectHaveNot": "You have not gained the ability to use level 14 Corruptions. {{m}}"
+        "description": "购买后解锁腐化等级14。:)",
+        "effectHave": "您已解锁腐化等级14。{{m}}",
+        "effectHaveNot": "您未解锁腐化等级14。{{m}}"
       },
       "corruptionFifteen": {
         "name": "腐化等级-十五",
-        "description": "This doesn't *really* raise the Corruption limit. Rather, it adds one FREE level to Corruption multipliers, no matter what (can exceed cap). :)",
-        "effectHave": "You have gained a free Corruption level. {{m}}",
-        "effectHaveNot": "You have not gained a free Corruption level. {{m}}"
+        "description": "购买后并*不*会*使腐化等级上限增加，而是使腐化的相关加成倍率直接视为增加1级(可以超过上限)。:)",
+        "effectHave": "您已使腐化加成倍率视为增加1级。{{m}}",
+        "effectHaveNot": "您未使腐化加成倍率视为增加1级。{{m}}"
       },
       "singOfferings1": {
         "name": "祭品增压",
         "description": "购买后，每级使祭品获取数量永久增加2%！",
-        "effect": "Permanently gain {{n}} more Offerings."
+        "effect": "使祭品获取数量增加{{n}}。"
       },
       "singOfferings2": {
         "name": "祭品风暴",
         "description": "很显然，它可以吸引更多祭品。每级使祭品获取数量永久增加8%。",
-        "effect": "Permanently gain {{n}} more Offerings."
+        "effect": "使祭品获取数量增加{{n}}。"
       },
       "singOfferings3": {
         "name": "祭品狂风",
         "description": "它会让所有人乖乖把祭品奉上。每级使祭品获取数量永久增加4%。",
-        "effect": "Permanently gain {{n}} more Offerings."
+        "effect": "使祭品获取数量增加{{n}}。"
       },
       "singObtainium1": {
         "name": "难得素波浪",
         "description": "购买后，每级使难得素获取数量永久增加2%！",
-        "effect": "Permanently gain {{n}} more Obtainium."
+        "effect": "使难得素获取数量增加{{n}}。"
       },
       "singObtainium2": {
         "name": "难得素洪峰",
         "description": "传说中的御水术？！每级使难得素获取数量永久增加8%。",
-        "effect": "Permanently gain {{n}} more Obtainium."
+        "effect": "使难得素获取数量增加{{n}}。"
       },
       "singObtainium3": {
         "name": "难得素海啸",
         "description": "它卷起了所有船只。每级使难得素获取数量永久增加4%。",
-        "effect": "Permanently gain {{n}} more Obtainium."
+        "effect": "使难得素获取数量增加{{n}}。"
       },
       "singCubes1": {
         "name": "方盒之焰",
         "description": "购买后，每级使所有类型的方盒、立方和方块获取数量永久增加0.6%！",
-        "effect": "Permanently gain {{n}} more Cubes."
+        "effect": "使所有类型的方盒、立方和方块获取数量增加{{n}}。"
       },
       "singCubes2": {
         "name": "方盒烈火",
         "description": "再挥霍一些金夸克吧！每级使所有类型的方盒、立方和方块获取数量永久增加8%。",
-        "effect": "Permanently gain {{n}} more Cubes."
+        "effect": "使所有类型的方盒、立方和方块获取数量增加{{n}}。"
       },
       "singCubes3": {
         "name": "方盒炼狱",
         "description": "连但丁都会为之而惊讶。每级使所有类型的方盒、立方和方块获取数量永久增加4%。",
-        "effect": "Permanently gain {{n}} more Cubes."
+        "effect": "使所有类型的方盒、立方和方块获取数量增加{{n}}。"
       },
       "singCitadel": {
         "name": "奇点堡垒",
-        "description": "何等独特的堡垒……它每级可以使难得素获取数量、祭品获取数量、惊奇方盒至惊奇七阶立方获取数量永久增加2%！每10级还可以使加成数值额外增加1%！",
-        "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}, forever!"
+        "description": "何等独特的堡垒……它每级可以使难得素获取数量、祭品获取数量、所有类型的方盒和立方获取数量永久增加2%！每10级还可以使加成数值额外增加1%！",
+        "effect": "使难得素获取数量、祭品获取数量、所有类型的方盒和立方获取数量增加{{n}}。"
       },
       "singCitadel2": {
         "name": "真·奇点堡垒",
-        "description": "真·奇点堡垒每级可以使难得素获取数量、祭品获取数量、惊奇方盒至惊奇七阶立方获取数量永久增加2%！每10级还可以使加成数值额外增加1%！另外还可以使前面那个假奇点堡垒升级的免费等级变为真·奇点堡垒升级的等级。",
-        "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}, forever!"
+        "description": "真·奇点堡垒每级可以使难得素获取数量、祭品获取数量、所有类型的方盒和立方获取数量永久增加2%！每10级还可以使加成数值额外增加1%！另外还可以使前面那个假奇点堡垒升级的免费等级变为真·奇点堡垒升级的等级。",
+        "effect": "使难得素获取数量、祭品获取数量、所有类型的方盒和立方获取数量增加{{n}}。"
       },
       "octeractUnlock": {
         "name": "惊奇八阶方块",
@@ -3401,7 +3401,7 @@
       "singOcteractPatreonBonus": {
         "name": "Platonic脱销！！！",
         "description": "您应该知道Patreon的加成吧？对的，它酷毙啦，但如果它也能加成惊奇八阶方块的获取数量，是不是更酷了？",
-        "effect": "Octeract production is {{n}} faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists."
+        "effect": "Patreon上每月赞助金额每有10美元，就使惊奇八阶方块的获取数量增加{{n}}！数值跟现有的夸克获取数量加成一致。"
       },
       "offeringAutomatic": {
         "name": "蓝莓碎片！",
@@ -3410,32 +3410,32 @@
       },
       "intermediatePack": {
         "name": "中级礼包",
-        "description": "Double Global Speed, Multiply Ascension Speed by 1.5, and gain +2% Quarks forever. Yum... 2% Quark Milk.",
+        "description": "使全局速度翻倍，飞升的速度变为原来的1.5倍，夸克获取数量增加2%。",
         "effectHave": "您已将礼包升级为中级。",
         "effectHaveNot": "您未将礼包升级为中级。"
       },
       "advancedPack": {
         "name": "高级礼包",
-        "description": "Now we're cooking with kerosene! Gain +4% Quarks, additive with intermediate pack, +0.33 to all Corruption score multipliers, regardless of level!",
+        "description": "好上加好！使夸克获取数量增加4%(可以与中级礼包叠加)，并使所有腐化(等级不限)的分数倍率增加0.33！",
         "effectHave": "您已购买高级礼包。",
         "effectHaveNot": "您未购买高级礼包。"
       },
       "expertPack": {
         "name": "专家礼包",
-        "description": "That's a handful! Gain +6% Quarks, additive with other packs, 1.5x Ascension Score, Code 'add' gives 1.2x Ascension Timer.",
+        "description": "越来越难控制了！使夸克获取数量增加6%(可以与其他礼包叠加)，飞升分数变为1.5倍，输入“增加”代码的飞升时间奖励变为原来的1.2倍。",
         "effectHave": "您已切换至专家礼包。",
         "effectHaveNot": "您未切换至专家礼包。"
       },
       "masterPack": {
         "name": "大师礼包",
-        "description": "A tad insane. Gain +8% Quarks, additive with other packs, for every level 14 Corruption, Ascension Score is multiplied by 1.1.",
+        "description": "有点疯狂了。使夸克获取数量增加8%(可以与其他礼包叠加)，每有一个腐化等级达到14，就使飞升分数变为原来的1.1倍。",
         "effectHave": "您已能开宗立派。",
         "effectHaveNot": "您未能开宗立派。"
       },
       "divinePack": {
         "name": "神圣礼包",
-        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by 1.25 for each Corruption at level 14 or higher (1.3 for >=15 and 1.4 for >=16)!",
-        "effectHave": "You have found the reason for existence. Current Octeract Bonus: +{{n}}",
+        "description": "哦哦哦哦哦。使夸克获取数量增加10%(可以与其他礼包叠加)，每有一个腐化等级达到14，就使惊奇八阶方块获取数量变为原来的1.25倍(达到15级则是1.3倍，16级则是1.4倍)。",
+        "effectHave": "您找到了生存的理由。当前惊奇八阶方块加成：增加{{n}}",
         "effectHaveNot": "您暂未发觉生存的理由。"
       },
       "wowPass2": {
@@ -3462,7 +3462,7 @@
       },
       "potionBuff3": {
         "name": "暴躁不稳定药水瓶",
-        "description": "SHE'S GONNA BLOW!!!! Said Midas, the Golden Quark Salesman.",
+        "description": "要炸了要炸了！！！！金夸克推销员米达斯嚷嚷道。",
         "effect": "药剂的效果变为了{{n}}倍！"
       },
       "singChallengeExtension": {
@@ -3482,48 +3482,48 @@
       },
       "singQuarkImprover1": {
         "name": "略微增加夸克获取数量的小装置",
-        "description": "我忘记长什么样的小装置。每级可以使夸克获取数量增加0.5%，效果与其他加成叠乘！不过它的花费增长比其他任何升级都快。另外，您知道描述文本可以这么长的吗？",
+        "description": "我忘记长什么样的小装置。每级可以使夸克获取数量增加0.5%，效果与其他效果叠乘！不过它的花费增长比其他任何升级都快。另外，您知道描述文本可以这么长的吗？",
         "effect": "夸克获取数量增加{{n}}%！"
       },
       "singQuarkHepteract": {
         "name": "我希望惊奇七阶立方·夸克的效果略微增加。",
-        "description": "Wrong game, oops. Anyway, would you like more exponent on your Quark Hepteract. +0.02 per level, to be precise.",
-        "effect": "Quark Hepteract Exponent +{{n}}"
+        "description": "哎哟，走错游戏了。总之，您想让惊奇七阶立方·夸克的指数再度增加吗？每级可以再增加0.02。",
+        "effect": "惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "singQuarkHepteract2": {
         "name": "我希望惊奇七阶立方·夸克的效果略微增加 II。",
         "description": "还是走错游戏了。效果与之前类似。",
-        "effect": "Quark Hepteract Exponent +{{n}}"
+        "effect": "惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "singQuarkHepteract3": {
         "name": "我希望惊奇七阶立方·夸克的效果略微增加 III。",
-        "description": "I AM NOT THE GODMOTHER YOU ARE LOOKING FOR! This wish is weaker... but it can be overclocked.",
-        "effect": "Quark Hepteract Exponent +{{n}}"
+        "description": "我才不是那个教母咧(译者注：指NGU Idle中的泰坦“教母”)！这个愿望更弱……但可以超载。",
+        "effect": "惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "singOcteractGain": {
         "name": "惊奇八阶方块苦艾酒",
         "description": "想不到吧，这玩意可以增加惊奇八阶方块的获取数量[事实上每级可以使它增加1.25%！]",
-        "effect": "Octeract Gain +{{n}}"
+        "effect": "惊奇八阶方块获取数量增加{{n}}"
       },
       "singOcteractGain2": {
         "name": "八个里亚尔",
         "description": "确实有八个，但每个的加成只有0.625%，所以合起来，每级可以使惊奇八阶方块的获取数量增加5%。",
-        "effect": "Octeract Gain +{{n}}"
+        "effect": "惊奇八阶方块获取数量增加{{n}}"
       },
       "singOcteractGain3": {
         "name": "八角方尖碑",
         "description": "PLATONIC要走很远了。每级可以使惊奇八阶方块的获取数量增加2.5%！",
-        "effect": "Octeract Gain +{{n}}"
+        "effect": "惊奇八阶方块获取数量增加{{n}}"
       },
       "singOcteractGain4": {
         "name": "八面合成",
         "description": "这到底是怎么生效的！？？每级可以使惊奇八阶方块的获取数量增加2%！",
-        "effect": "Octeract Gain +{{n}}"
+        "effect": "惊奇八阶方块获取数量增加{{n}}"
       },
       "singOcteractGain5": {
         "name": "世界第八大奇迹",
-        "description": "is the wonder of the world we live in. +1% Octeracts per level.",
-        "effect": "Octeract Gain +{{n}}"
+        "description": "就是我们所生活的这个世界。每级使惊奇八阶方块获取数量增加1%。",
+        "effect": "惊奇八阶方块获取数量增加{{n}}"
       },
       "platonicTau": {
         "name": "PLATONIC·陶",
@@ -3539,30 +3539,30 @@
       },
       "platonicDelta": {
         "name": "PLATONIC·德尔塔",
-        "description": "Time follows you towards the future, after getting this bad boy. Gain +100% more Cubes per day in your current singularity, up to +900% at day 9.",
+        "description": "获得这个玩意以后，时间的力量会向着未来变得更加强大。在本次奇点中，每经过一天，所有类型的方盒、立方和方块获取数量就增加100%，最高为第九天增加900%。",
         "effectHave": "已购买该升级",
         "effectHaveNot": "未购买该升级"
       },
       "platonicPhi": {
         "name": "PLATONIC·斐",
-        "description": "Time follows you toward the past as well. Gain 5 additional free Singularity Upgrades per day in your singularity from code 'daily', up to +50 after 10 days.",
+        "description": "时间的力量也可以向着过去变得更加强大。在本次奇点中，每经过一天，“每日”代码获得的免费奇点升级增加5级，最高为第十天增加50级。",
         "effectHave": "已购买该升级",
         "effectHaveNot": "未购买该升级"
       },
       "singFastForward": {
         "name": "以太通量·奇点",
-        "description": "Golden Quark gained by Singularity is increased by 100% (additive), and going singular at your all time highest count gives +1 Singularity count!",
+        "description": "使进入奇点的金夸克获取数量增加100%(效果相互叠加)，且在最高奇点次数时进入奇点将使奇点次数增加1次！",
         "effectHave": "您已转化以太通量！",
         "effectHaveNot": "您未转化以太通量！"
       },
       "singFastForward2": {
         "name": "超以太通量·奇点",
-        "description": "Golden Quark gained by Singularity is increased by 100% (additive) and going singular at your all time highest count gives +1 Singularity count! It's like Etherflux but with an A.",
+        "description": "使进入奇点的金夸克获取数量增加100%(效果相互叠加)，且在最高奇点次数时进入奇点将使奇点次数增加1次！它的效果与以太通量类似，只是名字多了个超字。",
         "effectHave": "您已转化超以太通量！",
         "effectHaveNot": "您未转化超以太通量！"
       },
       "singAscensionSpeed": {
-        "name": "A hecking good Ascension speedup!",
+        "name": "飞升的速度强力提升！",
         "description": "如果飞升的速度低于1倍，则变为原来的0.97次方，否则变为原来的1.03次方。",
         "effect": "飞升的速度变为原来的{{n}}次方。飞升的速度如果低于1倍，则变为原来的{{m}}次方。"
       },
@@ -3601,43 +3601,43 @@
       },
       "singAmbrosiaLuck2": {
         "name": "好运之镀金莓",
-        "description": "Literally put some gold onto 'berries' and become lucky. +2 Ambrosia Luck per level!",
-        "effect": "+{{n}} Ambrosia Luck!"
+        "description": "就是字面上的意义，把蓝莓镀上金，变得更幸运。每级使神肴之运增加2！",
+        "effect": "使神肴之运增加{{n}}！"
       },
       "singAmbrosiaLuck3": {
         "name": "专注冶金",
-        "description": "More gold is dipped onto each berry. +3 Ambrosia Luck per level!",
-        "effect": "+{{n}} Ambrosia Luck!"
+        "description": "使每颗蓝莓浸润更多黄金。每级使神肴之运增加3！",
+        "effect": "使神肴之运增加{{n}}！"
       },
       "singAmbrosiaLuck": {
         "name": "绝对至高温度",
-        "description": "Your gold smelters get arbitrarily close to 'Absolute Hot'. +4 Ambrosia Luck per level, infinitely levelable!",
-        "effect": "+{{n}} Ambrosia Luck!"
+        "description": "您冶炼黄金的温度已经无限接近绝对至高温度了。每级使神肴之运增加4，且该升级无上限！",
+        "effect": "使神肴之运增加{{n}}！"
       },
       "singAmbrosiaLuck4": {
         "name": "来自游戏最初的炼金术也可以满足您对黄金莓的需求",
-        "description": "Yeah, these upgrade titles can be arbitrarily long, too. +5 Ambrosia Luck per level!",
-        "effect": "+{{n}} Ambrosia Luck!"
+        "description": "是的，升级标题也可以这么长。每级使神肴之运增加5！",
+        "effect": "使神肴之运增加{{n}}！"
       },
       "singAmbrosiaGeneration2": {
         "name": "重要之沙漏",
-        "description": "A somewhat important hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "description": "一个有点重要的沙漏，每级使神肴进度条点数获取速度增加1%……",
+        "effect": "神肴进度条点数获取速度增加{{n}}%！"
       },
       "singAmbrosiaGeneration3": {
         "name": "显著之沙漏",
-        "description": "An hourglass which is still important, perhaps even more so. +1% faster Ambrosia Bar Point creation per level.",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "description": "这个沙漏或许更加重要一些。它每级可以使神肴进度条点数获取速度增加1%。",
+        "effect": "神肴进度条点数获取速度增加{{n}}%！"
       },
       "singAmbrosiaGeneration": {
         "name": "无限之沙漏",
-        "description": "Remember- this hourglass is really important. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "description": "切记——这个沙漏真的很重要。它每级可以使神肴进度条点数获取速度增加1%，且该升级无上限！",
+        "effect": "神肴进度条点数获取速度增加{{n}}%！"
       },
       "singAmbrosiaGeneration4": {
         "name": "幻想之沙漏",
-        "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "description": "一个不重要也不那么“及时”的沙漏——至于这是什么意思，管他呢。它每级可以使神肴进度条点数获取速度增加2%。",
+        "effect": "神肴进度条点数获取速度增加{{n}}%！"
       },
       "singBonusTokens1": {
         "name": "沙发垫上的零钱",
@@ -3661,26 +3661,26 @@
       },
       "singInfiniteShopUpgrades": {
         "name": "黄色无限商店代金券",
-        "description": "A Shop Voucher, printed on a yellow tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Shop upgrades.",
-        "effect": "You own {{n}} Yellow Infinity Shop Vouchers!"
+        "description": "印在黄色铭牌‌上的商店代金券。每级使“无限公司”商店升级的有效等级增加1。",
+        "effect": "您有{{n}}张黄色无限商店代金券！"
       },
       "singTalismanBonusRunes1": {
-        "name": "Talisman Buff!",
-        "description": "Gain +1% Talisman Power per level, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "name": "强化护身符！",
+        "description": "每级使护身符强度增加1%，与其他同类效果叠加。",
+        "effect": "使护身符的符文额外等级增加{{n}}%！"
       },
       "singTalismanBonusRunes2": {
-        "name": "Talisman Buff! The second",
-        "description": "Gain +1% more Talisman Power per level, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "name": "强化护身符！其二",
+        "description": "每级使护身符强度再增加1%，与其他同类效果叠加。",
+        "effect": "使护身符的符文额外等级增加{{n}}%！"
       },
       "singTalismanBonusRunes3": {
-        "name": "Talisman Buff! The third",
-        "description": "Gain +1% more Talisman Power per level again, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "name": "强化护身符！其三",
+        "description": "每级使护身符强度再度增加1%，与其他同类效果叠加。",
+        "effect": "使护身符的符文额外等级增加{{n}}%！"
       },
       "singTalismanBonusRunes4": {
-        "name": "Talisman Buff! The fourth",
+        "name": "强化护身符！其四",
         "description": "Gain +1% more Talisman Power per level again, AGAIN, additive to other bonuses. Instead of adding five upgrades, Platonic gave this one twice as many levels. Game design!",
         "effect": "{{n}}% more bonus Rune Levels from Talismans!"
       }
@@ -5070,37 +5070,37 @@
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Duplication Rune."
       },
       "chronos": {
-        "name": "Talisman of Chronology",
+        "name": "时光护身符",
         "description": "<i>Time flows just a little faster when worn</i>, you read on the tag.",
         "inscription": "<<gold | ✏>> Inscription: Global Speed is increased by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Speed Rune."
       },
       "midas": {
-        "name": "Midas Necklace",
+        "name": "点金项链",
         "description": "If Midas turned all he touched to gold...",
         "inscription": "<<gold | ✏>> Inscription: Rune Blessing bonuses are increased by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Thrift Rune."
       },
       "metaphysics": {
-        "name": "Metaphysical Gem",
+        "name": "玄学宝石",
         "description": "Do you wear this, or does this wear you?",
         "inscription": "<<gold | ✏>> Inscription: This Talismans' Bonus Rune Levels are increased by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: This Talismans' Bonus Rune Levels are further multiplied by <<crimson|1.07>>."
       },
       "polymath": {
-        "name": "Trinket of the Polymath",
+        "name": "博识小符饰",
         "description": "Do you feel like an exiled trickster?",
         "inscription": "<<gold | ✏>> Inscription: Ascension Speed is increased by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune level Coefficient of Superior Intellect Rune."
       },
       "mortuus": {
-        "name": "Preserved Ant Talisman",
+        "name": "蚂蚁标本护身符",
         "description": "It's said that great sacrifice was made for this Talisman to exist.",
         "inscription": "<<gold | ✏>> Inscription: Ant ELO is increased by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Prism Rune."
       },
       "plastic": {
-        "name": "A hunk of Plastic",
+        "name": "氪金信用卡​​",
         "description": "Probably purchased on a buy now, pay later app.",
         "inscription": "<<gold | ✏>> Inscription: Quark Gain is increased by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: None. You cannot seem to sign your name on this hunk of plastic."
@@ -5112,7 +5112,7 @@
         "signature": "<<crimson | ✎>> Signature: Odd-Dimensional Cube Gain is increased by <<crimson|20%>>"
       },
       "achievement": {
-        "name": "Medal of Achievement",
+        "name": "成就勋章",
         "description": "Has serial number <i>{{num}}</i> on it.",
         "inscription": "<<gold | ✏>> Inscription: Sources of Positive Salvage give <<gold|{{val}}>> more!",
         "signature": "<<crimson | ✎>> Signature: Sources of Negative Salvage effect <<crimson|{{val}}>>."
@@ -5160,7 +5160,7 @@
         "extraordinary": "超凡",
         "godlike": "神造",
         "perfect": "至臻",
-        "immaculate": "不朽",
+        "immaculate": "无瑕",
         "default": "默认！",
         "levelReq": "≥ {{level}}级"
       },
@@ -6170,13 +6170,13 @@
       "Ambrosia": "PL-AT ΩΩ - 神肴进度条点数(现实时间秒数)："
     },
     "addCodeTimer": {
-      "title": "“增加”代码恢复时间(单位为毫秒)",
+      "title": "“增加”代码使用时间间隔(单位为毫秒)",
       "BaseTimer": "基础时间(单位为毫秒)：",
       "Calculator4": "PL-AT δ加快恢复：",
       "SingularityCount": "奇点次数里程碑加成：",
       "Antiquities": "Antiquities of Ant God Bonus:",
       "SingularityPerkBonus": "奇点特权加成：",
-      "Total": "“增加”代码最终恢复时间(单位为毫秒)："
+      "Total": "“增加”代码最终使用时间间隔(单位为毫秒)："
     },
     "addCodeCapacity": {
       "title": "“增加”代码使用次数上限",
