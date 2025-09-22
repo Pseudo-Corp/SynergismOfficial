@@ -332,7 +332,7 @@
       },
       "salvageYinYang": {
         "name": "阴阳：回收版",
-        "description": "奇怪的是，该升级每级会同时使正面回收和负面回收的数值增加10！<<orange|在税务人员的最后阵地中禁用>>",
+        "description": "奇怪的是，该升级每级会同时使正面回收和负面回收的数值增加10！<<orange|在税务官的最后阵地中禁用>>",
         "effect": "您的正面回收和负面回收数值都增加了{{amount}}。"
       }
     }
@@ -1958,7 +1958,7 @@
       "exalts": {
         "name": "递进式成就 - 拔擢阶层完成数",
         "description": "每次完成拔擢都可以获得成就点数！",
-        "apSource": "无金夸克升级：{{num1}}/{{cap1}}成就点数<br>挑战上限恒为一：{{num2}}/{{cap2}}成就点数<br>二十飞升挑战：{{num3}}/{{cap3}}成就点数<br>无八阶方块效果：{{num4}}/{{cap4}}成就点数<br>无神肴升级：{{num5}}/{{cap5}}成就点数<br>奇点大竞速赛：{{num6}}/{{cap6}}成就点数<br>虐待狂拔擢 III：{{num7}}/{{cap7}}成就点数<br>税务人员的最后阵地：{{num8}}/{{cap8}}成就点数"
+        "apSource": "无金夸克升级：{{num1}}/{{cap1}}成就点数<br>挑战上限恒为一：{{num2}}/{{cap2}}成就点数<br>二十飞升挑战：{{num3}}/{{cap3}}成就点数<br>无八阶方块效果：{{num4}}/{{cap4}}成就点数<br>无神肴升级：{{num5}}/{{cap5}}成就点数<br>奇点大竞速赛：{{num6}}/{{cap6}}成就点数<br>虐待狂拔擢 III：{{num7}}/{{cap7}}成就点数<br>税务官的最后阵地：{{num8}}/{{cap8}}成就点数"
       },
       "singularityUpgrades": {
         "name": "递进式成就 - 金夸克升级",
@@ -2027,7 +2027,7 @@
     "upgrades": {
       "1": "促进群落的爱意和团结。[每级使蚂蚁速度增加12%]",
       "2": "使碎屑变得更美味以增加它们的价值[每级增加碎屑对金币产量的加成效率，最大为^50000000]",
-      "3": "迫使税务人员屈服[最高可以减少99.5%税收！]",
+      "3": "迫使税务官屈服[最高可以减少99.5%税收！]",
       "4": "恐惧使您跑得更快[最高为20倍]",
       "5": "通过神奇的变形效果模仿您的行动[最高为40倍]",
       "6": "尝试取悦蚁神……但很遗憾地失败了[获得额外祭品！]",
@@ -4553,25 +4553,25 @@
       "10": "还记得您只有一百万金币的时候吗？真的好久以前了。不过，<<grey|您的奶奶>>应该还记得……",
       "11": "您的金币总数前三位其实叫做<<orange|尾数>>。不过对您现在来说，它们还重要吗？",
       "12": "您的财富已经等于宇宙中原子数量的<<gold|1250000>>次方了……",
-      "13": "You see the ants from down here. However, do you see the ants from <<orange | up there>>?",
-      "14": "If you had a dollar for every digit in your wealth, you would be the richest person on this thing one would call <<lightblue|\"Earth\">>...",
-      "15": "10^1,000,000,000,000,000 Coins! If the exponent were multiplied by 9, in some alternative <<grey | Realities>> you would overflow the universe with coins.",
-      "16": "An exponent so large, many wouldn't know it by name.",
-      "17": "Have you ever questioned why the <<gray | Tax Man>> divides your coins? The ultimate creator of this reality, which you believe to be a <<cyan | Platonic>> (ideal) being, instructed as much.",
-      "18": "Octillions of digits in your wealth! What if there were other <<green | Octagonal>> objects in this reality? That would be silly.",
-      "19": "I still remember ye olde days, when workers were <<gold | 100 Coins>>, do you?",
-      "20": "I think you are long past the point where the <<gray | Tax Man>> is the only thing holding you back. Right?",
-      "21": "Sometimes you wonder if the Ant God is better off just feeding off your Coins. You surely have enough.",
-      "22": "Ant God, Derpsmith, the Gold Guy, <<cyan | Platonic>>... who are all of these entities anyway?",
-      "23": "10 to the <<gold|10,000,000,000,000,000,000>><<orange|,000,000,000,000,000,000>><<brown|,000,000,000,000,000,000>><<<grey|,000,000,000,000,000>>",
-      "24": "They should write stories about your wealth. It only suffices that an <<grey | Ultimate Pen>> will do.",
-      "25": "No one will know my name, but the bards' songs will remain.",
-      "26": "That's a lot of coins lol"
+      "13": "您从这里可以看到蚂蚁。但是从<<orange|上面>>也能看到吗？",
+      "14": "如果您拥有您财富位数的美元，那么在那个叫做<<lightblue|“地球”>>的玩意上面，您将是最富有的人……",
+      "15": "10^1000000000000000金币！如果这个指数再乘以9，在另外的<<grey|现实>>中，宇宙将被金币填满。",
+      "16": "指数太大了，很多人甚至不知道它的名字。",
+      "17": "您有没有想过为什么<<gray|税务官>>会使金币的位数减少？据说是这个现实的终级创造者，一个叫做<<cyan|Platonic>>的(理想)生物如此指示的。",
+      "18": "您的财富位数连一千的八次方都超过啦！如果这个现实中还有其他<<green|八边形>>的物体，那该多滑稽啊。",
+      "19": "我还记得很久很久以前，那时工人只需要花费<<gold|100金币>>。您记得吗？",
+      "20": "我想，您早已强到连<<gray|税务官>>都拦不住了吧？",
+      "21": "有时您会想，蚁神靠吃金币过活可能会更划算。毕竟金币您有的是。",
+      "22": "蚁神，Derpsmith，那个金色家伙，还有<<cyan|Platonic>>……这几位都是些什么来头啊？",
+      "23": "10的<<gold|10000000000000000000>><<orange|000000000000000000>><<brown|000000000000000000>><<<grey|000000000000000>>次方",
+      "24": "他们该写写您的财富的故事。只需要一支<<grey|终极妙笔>>就够了。",
+      "25": "我的名字无人知晓，我的事迹永世称道。",
+      "26": "金币真多啊(笑"
     },
     "taxWarning": "税收还将您的金币每秒产量上限限制在{{gain}}。",
     "acceleratorPower": "加速器效果：{{power}}% || 加速器倍率：{{mult}}x",
     "multiplierPower": "加倍器效果：{{power}}x || 加倍器倍率：{{mult}}x",
-    "acceleratorBoost": "Reset Diamonds and Diamond Upgrades, but add {{amount}}% Acceleration Power and {{accelsPerBoost}} free Accelerators.",
+    "acceleratorBoost": "重置钻石及转生升级，但使加速器效果增加{{amount}}%，免费的加速器增加{{accelsPerBoost}}个。",
     "coinsPerSecond": "金币每秒产量：{{coins}} [{{percent}}%]",
     "costCoins": "花费：{{coins}}金币。",
     "costDiamonds": "花费：{{diamonds}}钻石。",
@@ -4636,7 +4636,7 @@
       "currentEffect": "当前效果：<<lightblue|{{effect}}>>"
     },
     "mythosYouHave": "您有{{shards}}神话碎片，加倍器加成因此增加{{mult}}个。",
-    "eachMultiplierBoost": "Each Multiplier Boost increases the base effect of Multipliers by 0.02.",
+    "eachMultiplierBoost": "每1个加倍器加成使加倍器的基础效果增加0.02。",
     "costMythos": "花费：{{mythos}}神话。",
     "atomsYouHave": "您有{{atoms}}原子，建筑能量因此增加{{power}}。金币产量倍率变为{{mult}}倍",
     "costParticles": "花费：{{particles}}粒子",
@@ -4660,9 +4660,9 @@
       "multiBuy": "一共升了{{n}}级，多重购买真是太棒了！"
     },
     "toString": {
-      "costNextLevel": "Cost for next level: {{amount}} Octeracts.",
+      "costNextLevel": "下一级的花费：{{amount}}惊奇八阶方块。",
       "becomeAffordable": "({{n}}后可购买)",
-      "spentOcteracts": "Spent Octeracts: {{spent}}"
+      "spentOcteracts": "已花费惊奇八阶方块数量：{{spent}}"
     },
     "data": {
       "octeractStarter": {
@@ -4672,27 +4672,27 @@
       },
       "octeractGain": {
         "name": "惊奇八阶方块同生",
-        "description": "Are you despising how slow these damn things are? Gain 1% more of them per level! Simple.",
-        "effect": "Octeract Gain is increased by {{n}}."
+        "description": "您有没有感觉这些玩意慢得捉急？每级可以使惊奇八阶方块获取数量增加1%！很简单吧。",
+        "effect": "使惊奇八阶方块获取数量增加{{n}}。"
       },
       "octeractGain2": {
         "name": "惊奇八阶方块三度起源",
         "description": "原来您还有六个维度可以升级同生。每级可以使惊奇八阶方块获取数量增加1%！",
-        "effect": "Octeract Gain is increased by {{n}}."
+        "effect": "使惊奇八阶方块获取数量增加{{n}}。"
       },
       "octeractQuarkGain": {
         "name": "惊奇八阶方块·夸克",
         "description": "惊奇七阶立方的变体版本，每级使夸克获取数量增加1.1%，且效果不衰减。",
-        "effect": "Quark gain is increased by {{n}}."
+        "effect": "使夸克获取数量增加{{n}}。"
       },
       "octeractQuarkGain2": {
         "name": "七-八阶原始协同",
-        "description": "For every 111 levels of Quark Octeract, you gain 0.01% more Quarks per digit in your Quark Hepteract count per level!",
+        "description": "惊奇八阶方块·夸克每有111级，惊奇七阶立方·夸克每有一个数量级，每级该升级就可以使夸克获取数量增加0.01%。",
         "effect": "七-八阶原始协同效果{{n}}生效。"
       },
       "octeractCorruption": {
         "name": "更多腐化",
-        "description": "Adds one level to the cap on Corruptions. Derpsmith approves.",
+        "description": "使腐化等级上限再增加1级。Derpsmith表示赞同。",
         "effect": "腐化等级上限增加{{n}}"
       },
       "octeractGQCostReduce": {
@@ -4702,31 +4702,31 @@
       },
       "octeractExportQuarks": {
         "name": "改善下载速度",
-        "description": "Thanks to ethernet technology, Export Quarks are increased by 40% per level! Only normal ones.",
-        "effect": "Export Quarks +{{n}}%"
+        "description": "感谢伟大的以太网技术，每级使导出夸克奖励增加40%！对金夸克无效。",
+        "effect": "导出夸克奖励增加{{n}}%"
       },
       "octeractImprovedDaily": {
         "name": "加强“每日”代码效果",
-        "description": "Derpsmith hacks into the source code, and adds +1 free Golden Quark upgrade per day from Daily.",
-        "effect": "Code 'daily' gives +{{n}} free Golden Quark upgrades per use."
+        "description": "Derpsmith使用技术手段调整源代码，使“每日”代码获得的免费金夸克升级增加1级。",
+        "effect": "“每日”代码可以额外提供{{n}}级免费金夸克升级。"
       },
       "octeractImprovedDaily2": {
         "name": "再度加强“每日”代码效果",
-        "description": "Derpsmith implemented hyperspeed multiplication. +1% more free Golden Quark upgrades per day from Daily!",
-        "effect": "Code 'daily' gives +{{n}}% more free Golden Quark upgrades per use."
+        "description": "Derpsmith实现了超高速乘法。使“每日”代码获得的免费金夸克升级增加1%！",
+        "effect": "“每日”代码可以额外提供{{n}}%的免费金夸克升级。"
       },
       "octeractImprovedDaily3": {
         "name": "超级加强“每日”代码效果",
-        "description": "It will never satisfy Derpsmith. +1 +0.5% more free Golden Quark upgrades per day from Daily!",
-        "effect": "Code 'daily' gives +{{n}} more free Golden Quark upgrades per use."
+        "description": "Derpsmith永不自满。使“每日”代码获得的免费金夸克升级增加1级和增加0.5%！",
+        "effect": "“每日”代码可以额外提供{{n}}级免费金夸克升级。"
       },
       "octeractImprovedQuarkHept": {
         "name": "我希望惊奇七阶立方·夸克的效果还能增加。",
-        "description": "The godmother is absent, but Derpsmith is here! +0.02 exponent to your Quark Hepteract per level.",
-        "effect": "Quark Hepteract Exponent +{{n}}"
+        "description": "教母跑路了，但Derpsmith还在！每级使惊奇七阶立方·夸克的指数增加0.02。",
+        "effect": "使惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "octeractImprovedGlobalSpeed": {
-        "name": "The Forbidden Clock of Time",
+        "name": "禁忌时钟",
         "description": "就像是时间与精神之屋那样。对于每次奇点，每级使全局速度增加1%！",
         "effect": "每次奇点使全局速度增加{{n}}%"
       },
@@ -4742,8 +4742,8 @@
       },
       "octeractImprovedFree": {
         "name": "真惊奇！我希望免费升级效果变得更好。",
-        "description": "Makes the effective level of Golden Quark upgrades equal to <<gold | (Paid Levels * Free Levels)^0.6>> instead of <<gold | (Paid Levels + Free Levels)>>. But, if the second formula is greater then you still get that value!",
-        "effect": "Golden Quark upgrade free levels are {{n}} being powered!"
+        "description": "使金夸克升级的有效等级从 <<gold|(购买等级 + 免费等级)>> 变为 <<gold|(购买等级 * 免费等级)的0.6次方>>。不过，如果前者更高，那么仍然按照前者计算。",
+        "effect": "金夸克商店的免费等级效果{{n}}强化！"
       },
       "octeractImprovedFree2": {
         "name": "真惊奇！免费升级还是不够给力。",
@@ -4995,7 +4995,7 @@
     "horseShoe": {
       "name": "The Horse's Shoe",
       "description": "I never realized the world was so easily won, just by realizing you got someone to say you won't be lonely anymore.",
-      "lockedDescription": "该符文未解锁！想要解锁，您可能得与<<lightgray|税务人员>>来上一场搏斗。",
+      "lockedDescription": "该符文未解锁！想要解锁，您可能得与<<lightgray|税务官>>来上一场搏斗。",
       "ambrosiaLuck": "<<limegreen | {{val}} Ambrosia Luck>> (+1 per Power)",
       "redLuck": "<<red | {{val}} Red Luck>> (+0.2 per Power)",
       "luckConversion": "<<crimson | Luck Conversion Ratio {{val}}>> (Up to -0.5)",
