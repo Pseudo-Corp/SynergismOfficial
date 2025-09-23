@@ -2700,6 +2700,8 @@
                     <button id="iconSet" class="promocodeButton" style="border: 2px solid white"></button>
                     <p id="notationTitle" style="color: pink" i18n="settings.currentNotation"></p>
                     <button id="notation" class="promocodeButton" style="border: 2px solid white"></button>
+                    <p id="statSymbolTitle" style="color: pink" i18n="settings.statSymbol"></p>
+                    <button id="statSymbols" class="promocodeButton" style="border: 2px solid white"></button>
                 </div>
                 <div id="exportButtons">
                     <p id="quarktimerdisplay" class="tightText" style="color: gold"></p>
@@ -3583,13 +3585,44 @@
 
     <div id="singularity">
         <div id="singularityTabsToggle">
-            <button id="toggleSingularitySubTab1" class="active-subtab" style="border: 2px solid silver; color: white;" i18n="tabs.main.shop"></button>
-            <button id="toggleSingularitySubTab2" style="border: 2px solid orange; color: white" i18n="tabs.singularity.perks-penalties"></button>
-            <button id="toggleSingularitySubTab3" class="octeracts" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
-            <button id="toggleSingularitySubTab4" class="singChallenges" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
+            <button id="toggleSingularitySubTab1" class="active-subtab" style="border: 2px solid silver; color: white;" i18n="tabs.singularity.info"></button>
+            <button id="toggleSingularitySubTab2" style="border: 2px solid gold; color: white;" i18n="tabs.singularity.goldenQuarks"></button>
+            <button id="toggleSingularitySubTab3" style="border: 2px solid orange; color: white" i18n="tabs.singularity.perks-penalties"></button>
+            <button id="toggleSingularitySubTab4" class="octeracts" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
+            <button id="toggleSingularitySubTab5" class="singChallenges" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
         </div>
 
         <div id="singularityContainer1">
+            <div id="lockedSingularityElevator" class="singularityElevatorContainer" style="border: 2px solid gray">
+                <p i18n="singularity.elevator.lockedTitle"></p>
+                <p id="lockedElevatorDescription" i18n="singularity.elevator.lockedDescription"></p>
+            </div>
+            <div id="singularityElevator" class="singularityElevatorContainer">
+                <h3 class="singularityGradient gradientText" i18n="singularity.elevator.title"></h3>
+                <p id="elevatorDescription" i18n="singularity.elevator.description" i18n-options="target:0"></p>
+
+                <div class="elevatorControls">
+                    <div class="elevatorTargetSection">
+                        <label for="elevatorTargetInput" i18n="singularity.elevator.selectTarget"></label>
+                        <input type="number" id="elevatorTargetInput" min="1" max="1" value="1" class="elevatorInput">
+                    </div>
+
+                    <div class="elevatorButtonSection">
+                        <button id="elevatorTeleportButton" class="elevatorButton" i18n="singularity.elevator.teleportButton" i18n-options="target:1"></button>
+                    </div>
+
+                    <div class="elevatorLockSection">
+                        <label class="elevatorToggle">
+                            <input type="checkbox" id="elevatorLockToggle">
+                            <p i18n="singularity.elevator.lockToggle"></p>
+                        </label>
+                        <p id="elevatorLockStatus" class="elevatorLockStatus"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="singularityContainer2">
             <div id="singularityUpgradeContainer">
                 <div id="goldenQuarksDisplay">
                     <img src="Pictures/Default/GoldenQuark.png" width="32" height="32" loading="lazy">
@@ -3840,7 +3873,7 @@
             </div>
         </div>
 
-        <div id="singularityContainer2" style="display: none;">
+        <div id="singularityContainer3" style="display: none;">
             <div id="singularityInfo" class="singularityContainer">
                 <p id="singularityPenaltiesMultiline"></p>
                 <div id="singularityPerkContainer">
@@ -3859,7 +3892,7 @@
             </div>
         </div>
 
-        <div id="singularityContainer3" style="display: none;">
+        <div id="singularityContainer4" style="display: none;">
             <div id="singularityOcteracts" class="singularityContainer">
                 <div id="octeractsDisplay">
                     <img src="Pictures/Default/Octeract.png" loading="lazy">
@@ -4027,7 +4060,7 @@
             </div>
         </div>
 
-        <div id="singularityContainer4" style="display: none;">
+        <div id="singularityContainer5" style="display: none;">
             <div id="singularityAmbrosia" class="singularityContainer">
                 <div id="ambrosiaDisplay" class="Exalt1x1">
                     <img src="Pictures/Default/Ambrosia.png" loading="lazy">
