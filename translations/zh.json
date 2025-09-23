@@ -3701,6 +3701,26 @@
       "penaltyRough": "惩罚将在<<var(--red-text-color)|第{{num}}次进入奇点>>后大幅增加。",
       "antiquitiesBought": "<<var(--green-text-color)|蚁神之古物已购买。奇点相关惩罚已驱散！>>",
       "antiquitiesNotBought": "<<var(--red-text-color)|蚁神之古物未购买。奇点相关惩罚未驱散！>>"
+    },
+    "elevator": {
+      "title": "奇点电梯",
+      "description": "<b> <<gold | 奇点电梯可以让您在 1-{{limit}} 之间改变当前生效的奇点次数！ >> </b><br>您可以选择 1-<b> {{limit}}</b> 之间任意的奇点次数，但是选择比当前奇点相同或更高的奇点次数会强制进行奇点重置。",
+      "targetSingularity": "目标奇点：{{target}}",
+      "selectTarget": "选择目标奇点",
+      "teleportButtonHigher": "加！",
+      "teleportButtonStay": "重新开始！",
+      "teleportButtonLower": "减！",
+      "lockToggle": "锁定接下来的奇点",
+      "lockEnabled": "接下来的奇点被<<orange|锁定>>了。您将重新开始奇点{{target}}。",
+      "lockDisabled": "接下来的奇点已经<<lime|解锁>>。进入奇点之后，您将进入相当于最高的奇点次数的奇点。",
+      "invalidTarget": "请选择 1-{{max}} 范围内的奇点次数。",
+      "noTarget": "请先选择目标奇点次数。",
+      "confirmTeleport": "确实要进入相当于{{target}}次奇点次数的奇点吗？",
+      "confirmTeleportHigher": "因为您即将进入相同或更高次数的奇点，将强制进行奇点重置！请再次确认以继续。",
+      "teleportSuccess": "已进入奇点{{target}}！",
+      "inEXALTError": "Derpsmith缓缓点头。“电梯坏了……”他这么宣布。为什么偏偏是在拔擢中坏了？",
+      "lockedTitle": "奇点电梯 - 无法使用",
+      "lockedDescription": "该电梯只在您进入过第10次奇点后才能使用。之后再来吧！"
     }
   },
   "general": {
@@ -4094,6 +4114,8 @@
       "hepteract": "七阶立方的锻炉"
     },
     "singularity": {
+      "info": "电梯",
+      "goldenQuarks": "金夸克",
       "perks-penalties": "特权 / 惩罚",
       "octeracts": "惊奇八阶方块",
       "ambrosia": "神肴"
@@ -4114,7 +4136,8 @@
         "reincarnate": "转世",
         "ascension": "飞升",
         "sacrifice": "献祭蚂蚁",
-        "singularity": "奇点"
+        "singularity": "奇点",
+        "statSymbols": "名称标识符号"
       }
     },
     "pseudocoins": {
@@ -4495,7 +4518,7 @@
     "intro": "不入虎穴，焉得虎子。",
     "traitInfo": "选择您想要使用的腐化等级。请明智地进行选择！<<var(--red-text-color)|切记，贪多嚼不烂……>>",
     "antExponent": "此飞升的气候使蚂蚁产量变为蚂蚁产量^<<var(--darkorchid-text-color)|{{exponent}}>>。",
-    "spiritBonus": "但它也使符文魂灵效果变为<<wheat|{{multiplier}}>>倍。",
+    "spiritBonus": "但它也使魂灵强度变为<<wheat|{{multiplier}}>>倍。",
     "corruptionBank": "您有<<var(--crimson-text-color)|{{number}}>>个惊奇方盒还存在飞升库中。完成更多挑战，以获得更多惊奇方盒！飞升后才可以获得它们。",
     "corruptionScore": "您的飞升分数为<<goldenrod|{{ascScore}}>></span>(基础值)*<<var(--crimson-text-color)|{{corrMult}}>>(腐化因子)*<<var(--orchid-text-color)|{{bonusMult}}>>(加成因子)=<<var(--darkorchid-text-color)|{{totalScore}}>>",
     "corruptionScoreDR": "分数分数超过1e23以后，后续获取的飞升分数将变为正常的平方根！您已经承受了这个惩罚。",
@@ -4996,8 +5019,8 @@
       "name": "马蹄铁",
       "description": "我从未想过，原来拥有世界可以如此简单——只需有那样一个人，对你说出你永远不会再孤单。",
       "lockedDescription": "该符文未解锁！想要解锁，您可能得与<<lightgray|税务官>>来上一场搏斗。",
-      "ambrosiaLuck": "<<limegreen|使神肴之运{{val}}>> (每有1符文强度就增加1)",
-      "redLuck": "<<red|使红运{{val}}>> (每有1符文强度就增加0.2)",
+      "ambrosiaLuck": "<<limegreen|使神肴之运增加{{val}}>> (每有1符文强度就增加1)",
+      "redLuck": "<<red|使红运增加{{val}}>> (每有1符文强度就增加0.2)",
       "luckConversion": "<<crimson|使神肴之运转换成红运的比率{{val}}>> (上限为-0.5)",
       "values": "每级使神肴之运增加1，红运增加0.2。另外，还会使神肴之运转换成红运的比率至多减少0.5，公式为 -0.5 * 等级 / (等级 + 50)",
       "effect": "马蹄铁符文的加成：使神肴之运增加{{val}}，红运增加{{val2}}，神肴之运转换成红运的比率{{val3}}。"
@@ -5078,7 +5101,7 @@
       "midas": {
         "name": "点金项链",
         "description": "如果米达斯触摸到的一切都变成了黄金……",
-        "inscription": "<<gold | ✏>> 铭文：使符文祝福的加成增加<<gold|{{val}}>>。",
+        "inscription": "<<gold | ✏>> 铭文：使符文的祝福强度增加<<gold|{{val}}>>。",
         "signature": "<<crimson | ✎>> 签名：使节俭符文的符文升级系数增加<<crimson|12>>。"
       },
       "metaphysics": {
@@ -5465,6 +5488,11 @@
       "legacy": "传统",
       "simplified": "简化",
       "monotonous": "单调"
+    },
+    "statSymbol": "名称标识符号",
+    "statSymbols": {
+      "enabled": "启用 (♻ / Ɑ / ☇ 等)",
+      "disabled": "禁用(名称上不显示标识符号)"
     },
     "joinDiscord": "点击下方的图片加入Discord频道！",
     "joinPatreon": "在Patreon上支持本游戏开发！",
@@ -6357,7 +6385,7 @@
         "6": "阿尔忒弥斯的贡品×{{amount}}：使蚂蚁速度增加{{bonus}}",
         "7": "阿瑞斯的贡品×{{amount}}：使蚂蚁献祭奖励增加{{bonus}}",
         "8": "摩洛克的贡品×{{amount}}：使有效强度分增加{{bonus}}(效果相互叠加)",
-        "9": "米达斯的贡品×{{amount}}：使符文的有效等级增加{{bonus}}",
+        "9": "米达斯的贡品×{{amount}}：使符文强度增加{{bonus}}",
         "10": "柯罗诺斯的贡品×{{amount}}：使全局速度增加{{bonus}}"
       },
       "full": "▼ 您的贡品已经<span class='rainbowText'>溢出</span>了！<br><<gold | ⚠>>您无法再获得方盒贡品。<br><<cyan|♔>> 花费的方盒仍然计入夸克目标。<br><<orchid|✧>> 在终局这么远的地方，很孤单。"
@@ -6376,7 +6404,7 @@
         "6": "阿尔忒弥斯的赠礼×{{amount}}：使阿尔忒弥斯的蚂蚁速度增加{{bonus}}",
         "7": "阿瑞斯的赠礼×{{amount}}：使阿瑞斯的蚂蚁献祭奖励增加{{bonus}}",
         "8": "摩洛克的赠礼×{{amount}}：使摩洛克的强度分加成增加{{bonus}}",
-        "9": "米达斯的赠礼×{{amount}}：使米达斯的符文有效等级增加{{bonus}}",
+        "9": "米达斯的赠礼×{{amount}}：使米达斯的符文强度增加{{bonus}}",
         "10": "柯罗诺斯的赠礼×{{amount}}：使柯罗诺斯的贡品效果增加{{bonus}}"
       }
     },
@@ -6394,7 +6422,7 @@
         "6": "阿尔忒弥斯的恩赐×{{amount}}：使阿尔忒弥斯的赠礼对阿尔忒弥斯的蚂蚁速度的加成效率增加{{bonus}}",
         "7": "阿瑞斯的恩赐×{{amount}}：使阿瑞斯的赠礼对阿瑞斯的蚂蚁献祭奖励的加成效率增加{{bonus}}",
         "8": "摩洛克的恩赐×{{amount}}：使摩洛克的赠礼对摩洛克的强度分加成的加成效率增加{{bonus}}",
-        "9": "米达斯的恩赐×{{amount}}：使米达斯的赠礼对米达斯的符文有效等级的加成效率增加{{bonus}}",
+        "9": "米达斯的恩赐×{{amount}}：使米达斯的赠礼对米达斯的符文强度的加成效率增加{{bonus}}",
         "10": "柯罗诺斯的恩赐×{{amount}}：使柯罗诺斯的赠礼对柯罗诺斯的贡品效果的加成效率增加{{bonus}}"
       }
     },
@@ -6440,10 +6468,10 @@
         "cube3": "• 所有类型的方盒、立方和方块获取数量 III：+{{amount}}",
         "talismanBonus": "• 护身符免费符文等级加成：+{{amount}}",
         "globalSpeed": "• 全局速度：+{{amount}}",
-        "blessingBonus": "• 祝福效果：+{{amount}}",
+        "blessingBonus": "• 祝福强度：增加{{amount}}",
         "constantBonus": "• 超立方建筑产量：+{{amount}}",
         "cube4": "• 所有类型的方盒、立方和方块获取数量 IV：+{{amount}}",
-        "spiritBonus": "• 魂灵效果：+{{amount}}",
+        "spiritBonus": "• 魂灵强度：增加{{amount}}",
         "score": "• 飞升分数：+{{amount}}",
         "quarks": "• 夸克获取数量：+{{amount}}",
         "hepteractsUnlocked": "• 惊奇七阶立方：已解锁！",
@@ -6728,7 +6756,8 @@
     "insideSingularityChallenge": "Derpsmith提醒您，您还在奇点挑战中。您可以在奇点选项卡下点击相应挑战的图标退出挑战。",
     "gameBeat": "很好。您已经到了奇点之眼。我很满意。但这也意味着您无法继续前进了。除非有什么更强的力量，为您开辟新道路……",
     "exitAscensionChallenge": "您真的确定要退出飞升挑战吗？退出后，您必须完成挑战10以后才能再次进行飞升挑战！",
-    "buyResearch3x11": "[未解锁 - 请先购买研究3x11]"
+    "buyResearch3x11": "[未解锁 - 请先购买研究3x11]",
+    "statSymbolConfirm": "您想要切换名称标识符号吗？这将刷新页面！[如果您在本对话框的“夸克”旁边看到了一个标识符号，那就说明它启用了。否则说明它禁用了。]"
   },
   "history": {
     "perSecondOn": "每秒产量：开",
@@ -6807,7 +6836,7 @@
       "consumableSpoiler": "使用快乐时光铃，为所有人开启活动！",
       "consumableButton": "在虚假商店购买！",
       "applyTips": "使用打赏！",
-      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s). You may only use up to 1,440 tips per "
+      "applyTipsPrompt": "您想要使用多少打赏？每个打赏价值1分钟离线时间。您拥有{{tips}}个打赏。您最多可以使用1440个打赏。"
     },
     "timeSkips": {
       "GLOBAL": {

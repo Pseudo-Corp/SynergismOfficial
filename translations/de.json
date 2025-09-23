@@ -3701,6 +3701,26 @@
       "penaltyRough": "Deine Strafen werden in <<var(--red-text-color)|Singularity {{num}}>> stark verschlimmert.",
       "antiquitiesBought": "<<var(--green-text-color)|Antiquities of Ant God is maxed! Penalties are dispelled!>>",
       "antiquitiesNotBought": "<<var(--red-text-color)|Penalties are active because you have not leveled up Antiquities of Ant God!>>"
+    },
+    "elevator": {
+      "title": "Singularity Elevator",
+      "description": "<b><<gold | Ride the elevator to your target Singularity!>></b><br>You may choose any Singularity from Singularity 1 to <b>{{limit}}<b>",
+      "targetSingularity": "Target Singularity: {{target}}",
+      "selectTarget": "Select Target Singularity",
+      "teleportButtonHigher": "Up!",
+      "teleportButtonStay": "Reopen!",
+      "teleportButtonLower": "Down!",
+      "lockToggle": "Lock Future Singularities",
+      "lockEnabled": "Future Singularities are <<orange|LOCKED>>. You will repeat Singularity {{target}}.",
+      "lockDisabled": "Future Singularities are <<lime|UNLOCKED>>. You will go to your highest Singularity when you perform a Singularity.",
+      "invalidTarget": "Please select a valid Singularity between 1 and {{max}}.",
+      "noTarget": "Please select a target Singularity first.",
+      "confirmTeleport": "Are you sure you want to go to Singularity {{target}}?",
+      "confirmTeleportHigher": "Since you are heading to a higher Singularity (or resetting your current), your entire Singularity will reset! Please confirm again to continue.",
+      "teleportSuccess": "Transported to Singularity {{target}}!",
+      "inEXALTError": "Derpsmith slowly nods his head. \"Elevator's Out Of Order...\" he declares. Why does this always happen when you're in an EXALT?",
+      "lockedTitle": "Singularity Elevator - OUT OF ORDER",
+      "lockedDescription": "This Elevator only operates if you've seen the 10th Singularity. Check again then!"
     }
   },
   "general": {
@@ -4094,6 +4114,8 @@
       "hepteract": "Hepteract Forge"
     },
     "singularity": {
+      "info": "Elevator",
+      "goldenQuarks": "Golden Quarks",
       "perks-penalties": "Perks / Penalties",
       "octeracts": "Octeracts",
       "ambrosia": "Ambrosia"
@@ -4114,7 +4136,8 @@
         "reincarnate": "Reincarnate",
         "ascension": "Ascension",
         "sacrifice": "Sacrifice Ants",
-        "singularity": "Singularity"
+        "singularity": "Singularity",
+        "statSymbols": "Stat Symbols"
       }
     },
     "pseudocoins": {
@@ -4448,7 +4471,7 @@
     "freeLevels": "Free Levels: {{ curr }} (Does not increase difficulty of Corruption!)",
     "totalScoreMultiplier": "Corruptions give total Score Multiplier: x{{ curr }} / Next Ascension: x{{ next }}",
     "totalDifficulty": "Total Ascension Difficulty Score: {{ curr }} / Next Ascension: {{ next }} (Base 400 difficulty)",
-    "totalSpiritContribution": "Corruption Loadout Spirit Bonus: +{{ curr }} / Next Ascension: +{{ next }} (+1% per 4 extra difficulty)",
+    "totalSpiritContribution": "Corruption Loadout Spirit Power Bonus: +{{ curr }} / Next Ascension: +{{ next }} (+1% per 4 extra difficulty)",
     "exitCorruption": {
       "name": "CLEANSE THE CORRUPTION",
       "description": "Free this world of sin.",
@@ -4495,7 +4518,7 @@
     "intro": "The most rewarding ventures are those few would dare to embark.",
     "traitInfo": "Select the trait levels you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
     "antExponent": "This Ascension's climate raises Ant production to the power of <<var(--darkorchid-text-color)|{{exponent}}>>.",
-    "spiritBonus": "However, it also multiplies Rune Spirit Effects by <<wheat|{{multiplier}}>>.",
+    "spiritBonus": "However, it also multiplies Spirit Power by <<wheat|{{multiplier}}>>.",
     "corruptionBank": "Du hast <<var(--crimson-text-color)|{{number}}>> Wow! Würfel in der Aufstiegsbank. Verdiene mehr durch das Beenden von Herausforderungen! Steige auf, um sie einzulösen.",
     "corruptionScore": "Your Ascension Score is <<goldenrod|{{ascScore}}>></span> (base) * <<var(--crimson-text-color)|{{corrMult}}>> (Corruption mult) * <<var(--orchid-text-color)|{{bonusMult}}>> (Bonus mult) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
     "corruptionScoreDR": "Past 1e23 Ascension Score, further gains are square rooted! You are currently under this penalty.",
@@ -5078,7 +5101,7 @@
       "midas": {
         "name": "Midas Necklace",
         "description": "If Midas turned all he touched to gold...",
-        "inscription": "<<gold | ✏>> Inscription: Rune Blessing bonuses are increased by <<gold|{{val}}>>.",
+        "inscription": "<<gold | ✏>> Inscription: Rune Blessing Power is increased by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Thrift Rune."
       },
       "metaphysics": {
@@ -5465,6 +5488,11 @@
       "legacy": "Legacy",
       "simplified": "Simplified",
       "monotonous": "Monotonous"
+    },
+    "statSymbol": "Stat Symbols",
+    "statSymbols": {
+      "enabled": "Enabled (♻ / Ɑ / ☇ etc.)",
+      "disabled": "Disabled (No symbols by stats)"
     },
     "joinDiscord": "Click the image below to join the Discord!",
     "joinPatreon": "Support Development on Patreon!",
@@ -6357,7 +6385,7 @@
         "6": "Artemis' Tribute x{{amount}}: +{{bonus}} Ant Speed",
         "7": "Ares' Tribute x{{amount}}: +{{bonus}} Sacrifice Reward",
         "8": "Moloch's Tribute x{{amount}}: +{{bonus}} Effective ELO (additive)",
-        "9": "Midas' Tribute x{{amount}}: +{{bonus}} Effective Rune Levels",
+        "9": "Midas' Tribute x{{amount}}: +{{bonus}} Rune Power",
         "10": "Chronos' Tribute x{{amount}}: +{{bonus}} Global Time Acceleration"
       },
       "full": "▼ Your tributes are <span class='rainbowText'>overflowing</span>!<br><<gold | ⚠>>You no longer gain Cube tributes.<br><<cyan|♔>> Cubes spent still count towards Quark goals.<br><<orchid|✧>> It's lonely, this far in the endgame."
@@ -6376,13 +6404,13 @@
         "6": "Artemis' Gift x{{amount}}: +{{bonus}} Artemis Ant Speed",
         "7": "Ares' Gift x{{amount}}: +{{bonus}} Ares Ant Sacrifice Reward",
         "8": "Moloch's Gift x{{amount}}: +{{bonus}} Moloch ELO Bonus",
-        "9": "Midas' Gift x{{amount}}: +{{bonus}} Midas Effective Rune Levels",
+        "9": "Midas' Gift x{{amount}}: +{{bonus}} Midas Effective Rune Power",
         "10": "Chronos' Gift x{{amount}}: +{{bonus}} Chronos Tribute Power"
       }
     },
     "hypercubes": {
       "intro": "I didn't know that Wow! enterprises made 5-Dimensional Objects.",
-      "instructions": "Open up some Lootb-- er, Wow! Hypercubes, to boost blessings from the previous tier.",
+      "instructions": "Open up some Lootb-- er, Wow! Hypercubes, to boost gifts from the previous tier.",
       "inventory": "You possess <<yellow|{{amount}}>> Wow! Hypercubes. Get them from ascending with at least 1e9 score!",
       "total": "You have a total of <<yellow|{{amount}}>> Hypercube benedictions!",
       "items": {
@@ -6394,7 +6422,7 @@
         "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Sacrifice Reward",
         "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares ELO Bonus",
         "8": "Moloch's Benediction x{{amount}}: +{{bonus}} Moloch Gift → Moloch ELO Bonus",
-        "9": "Midas' Benediction x{{amount}}: +{{bonus}} Midas Gift → Midas Effective Rune Levels",
+        "9": "Midas' Benediction x{{amount}}: +{{bonus}} Midas Gift → Midas Effective Rune Power",
         "10": "Chronos' Benediction x{{amount}}: +{{bonus}} Chronos Gift → Chronos Tribute Power"
       }
     },
@@ -6440,10 +6468,10 @@
         "cube3": "• All Cube Types III: +{{amount}}",
         "talismanBonus": "• Talisman Bonus Free Levels: +{{amount}}",
         "globalSpeed": "• Global Speed: +{{amount}}",
-        "blessingBonus": "• Blessing Effectiveness: +{{amount}}",
+        "blessingBonus": "• Blessing Power: +{{amount}}",
         "constantBonus": "• Ascend Building Production: +{{amount}}",
         "cube4": "• All Cube Types IV: +{{amount}}",
-        "spiritBonus": "• Spirit Effectiveness: +{{amount}}",
+        "spiritBonus": "• Spirit Power: +{{amount}}",
         "score": "• Ascension Score: +{{amount}}",
         "quarks": "• Quarks: +{{amount}}",
         "hepteractsUnlocked": "• Hepteracts: Unlocked!",
@@ -6728,7 +6756,8 @@
     "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.",
     "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
     "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
-    "buyResearch3x11": "[LOCKED - Buy Research 3x11]"
+    "buyResearch3x11": "[LOCKED - Buy Research 3x11]",
+    "statSymbolConfirm": "Would you like to toggle Stat Symbols? This will refresh the page! [If you see a symbol next to the word 'Quark' then they are currently on. Otherwise they are currently off]"
   },
   "history": {
     "perSecondOn": "Per second: ON",
