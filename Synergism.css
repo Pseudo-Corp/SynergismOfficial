@@ -3989,21 +3989,6 @@ header #obtainiumDisplay { color: pink; }
     font-weight: bold;
 }
 
-.elevatorInput {
-    background-color: var(--input-color);
-    border: 2px solid gold;
-    border-radius: 4px;
-    padding: 8px 12px;
-    color: var(--text-color);
-    font-size: 1.1em;
-    width: 100px;
-    text-align: center;
-    /* Ensure consistent box sizing */
-    box-sizing: border-box;
-    /* Account for spinner width in webkit browsers */
-    padding-right: 20px;
-}
-
 .elevatorInput:focus {
     outline: none;
     border-color: orange;
@@ -4011,7 +3996,8 @@ header #obtainiumDisplay { color: pink; }
 
 .elevatorButton {
     --glow-color: gold;
-    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out, background-color 0.2s ease, color 0.2s ease !important;
+
+    transition: background-color 0.2s ease, color 0.2s ease !important;
     border: 2px solid gold;
     border-radius: 6px;
     padding: 12px 24px;
@@ -4037,7 +4023,7 @@ header #obtainiumDisplay { color: pink; }
 
 .elevatorInput::-webkit-outer-spin-button,
 .elevatorInput::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+    appearance: none;
     margin: 0;
 }
 
@@ -4067,7 +4053,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #elevatorLockToggle {
-    transform: scale(2.0);
+    transform: scale(2);
     cursor: pointer;
 }
 
@@ -4232,8 +4218,6 @@ header #obtainiumDisplay { color: pink; }
     --gradient-start: gold;
     --gradient-end: lightgoldenrodyellow;
 }
-
-
 
 .singularityUpgrade > img,
 .octeractUpgrade > img,
