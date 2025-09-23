@@ -3701,6 +3701,26 @@
       "penaltyRough": "惩罚将在<<var(--red-text-color)|第{{num}}次进入奇点>>后大幅增加。",
       "antiquitiesBought": "<<var(--green-text-color)|蚁神之古物已购买。奇点相关惩罚已驱散！>>",
       "antiquitiesNotBought": "<<var(--red-text-color)|蚁神之古物未购买。奇点相关惩罚未驱散！>>"
+    },
+    "elevator": {
+      "title": "奇点电梯",
+      "description": "<b> <<gold | 奇点电梯可以让您在 1-{{limit}} 之间改变当前生效的奇点次数！ >> </b><br>您可以选择 1-<b> {{limit}}</b> 之间任意的奇点次数，但是选择比当前奇点相同或更高的奇点次数会强制进行奇点重置。",
+      "targetSingularity": "目标奇点：{{target}}",
+      "selectTarget": "选择目标奇点",
+      "teleportButtonHigher": "Up!",
+      "teleportButtonStay": "Reopen!",
+      "teleportButtonLower": "Down!",
+      "lockToggle": "锁定接下来的奇点",
+      "lockEnabled": "接下来的奇点被<<orange|锁定>>。你将重新开始奇点{{target}}。",
+      "lockDisabled": "接下来的奇点被<<lime|解锁>>。进入奇点之后，你将进入相当于最高的奇点次数的奇点。",
+      "invalidTarget": "请选择1-{{max}}范围内的奇点次数。",
+      "noTarget": "请先选择目标奇点次数。",
+      "confirmTeleport": "确实要进入相当于{{target}}次奇点次数的奇点？",
+      "confirmTeleportHigher": "因为你即将要进入相同或更高次数的奇点，将会强制进行一次奇点重置！请再次确认以继续。",
+      "teleportSuccess": "已进入奇点{{target}}！",
+      "inEXALTError": "Derpsmith slowly nods his head. \"Elevator's Out Of Order...\" he declares. Why does this always happen when you're in an EXALT?",
+      "lockedTitle": "Singularity Elevator - OUT OF ORDER",
+      "lockedDescription": "This Elevator only operates if you've seen the 10th Singularity. Check again then!"
     }
   },
   "general": {
@@ -4094,6 +4114,8 @@
       "hepteract": "七阶立方的锻炉"
     },
     "singularity": {
+      "info": "Elevator",
+      "goldenQuarks": "金夸克",
       "perks-penalties": "特权 / 惩罚",
       "octeracts": "惊奇八阶方块",
       "ambrosia": "神肴"
@@ -4114,7 +4136,8 @@
         "reincarnate": "转世",
         "ascension": "飞升",
         "sacrifice": "献祭蚂蚁",
-        "singularity": "奇点"
+        "singularity": "奇点",
+        "statSymbols": "Stat Symbols"
       }
     },
     "pseudocoins": {
@@ -4448,7 +4471,7 @@
     "freeLevels": "免费等级：{{ curr }}(不增加腐化的难度！)",
     "totalScoreMultiplier": "腐化提供的总分数倍率：×{{ curr }} / 下次飞升的总分数倍率：×{{ next }}",
     "totalDifficulty": "总飞升难度分数：{{ curr }} / 下次飞升的难度分数：{{ next }} (基础难度分数为400)",
-    "totalSpiritContribution": "腐化预设的魂灵强度加成：增加{{ curr }} / 下次飞升的魂灵强度加成：增加{{ next }} (每多4点难度分数就增加1%)",
+    "totalSpiritContribution": "Corruption Loadout Spirit Power Bonus: +{{ curr }} / Next Ascension: +{{ next }} (+1% per 4 extra difficulty)",
     "exitCorruption": {
       "name": "清除腐化",
       "description": "这个罪恶的世界解脱了。",
@@ -4495,7 +4518,7 @@
     "intro": "不入虎穴，焉得虎子。",
     "traitInfo": "选择您想要使用的腐化等级。请明智地进行选择！<<var(--red-text-color)|切记，贪多嚼不烂……>>",
     "antExponent": "此飞升的气候使蚂蚁产量变为蚂蚁产量^<<var(--darkorchid-text-color)|{{exponent}}>>。",
-    "spiritBonus": "但它也使符文魂灵效果变为<<wheat|{{multiplier}}>>倍。",
+    "spiritBonus": "However, it also multiplies Spirit Power by <<wheat|{{multiplier}}>>.",
     "corruptionBank": "您有<<var(--crimson-text-color)|{{number}}>>个惊奇方盒还存在飞升库中。完成更多挑战，以获得更多惊奇方盒！飞升后才可以获得它们。",
     "corruptionScore": "您的飞升分数为<<goldenrod|{{ascScore}}>></span>(基础值)*<<var(--crimson-text-color)|{{corrMult}}>>(腐化因子)*<<var(--orchid-text-color)|{{bonusMult}}>>(加成因子)=<<var(--darkorchid-text-color)|{{totalScore}}>>",
     "corruptionScoreDR": "分数分数超过1e23以后，后续获取的飞升分数将变为正常的平方根！您已经承受了这个惩罚。",
@@ -5078,7 +5101,7 @@
       "midas": {
         "name": "点金项链",
         "description": "如果米达斯触摸到的一切都变成了黄金……",
-        "inscription": "<<gold | ✏>> 铭文：使符文祝福的加成增加<<gold|{{val}}>>。",
+        "inscription": "<<gold | ✏>> Inscription: Rune Blessing Power is increased by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> 签名：使节俭符文的符文升级系数增加<<crimson|12>>。"
       },
       "metaphysics": {
@@ -5465,6 +5488,11 @@
       "legacy": "传统",
       "simplified": "简化",
       "monotonous": "单调"
+    },
+    "statSymbol": "Stat Symbols",
+    "statSymbols": {
+      "enabled": "已启用 (♻ / Ɑ / ☇ 等)",
+      "disabled": "Disabled (No symbols by stats)"
     },
     "joinDiscord": "点击下方的图片加入Discord频道！",
     "joinPatreon": "在Patreon上支持本游戏开发！",
@@ -6357,7 +6385,7 @@
         "6": "阿尔忒弥斯的贡品×{{amount}}：使蚂蚁速度增加{{bonus}}",
         "7": "阿瑞斯的贡品×{{amount}}：使蚂蚁献祭奖励增加{{bonus}}",
         "8": "摩洛克的贡品×{{amount}}：使有效强度分增加{{bonus}}(效果相互叠加)",
-        "9": "米达斯的贡品×{{amount}}：使符文的有效等级增加{{bonus}}",
+        "9": "Midas' Tribute x{{amount}}: +{{bonus}} Rune Power",
         "10": "柯罗诺斯的贡品×{{amount}}：使全局速度增加{{bonus}}"
       },
       "full": "▼ 您的贡品已经<span class='rainbowText'>溢出</span>了！<br><<gold | ⚠>>您无法再获得方盒贡品。<br><<cyan|♔>> 花费的方盒仍然计入夸克目标。<br><<orchid|✧>> 在终局这么远的地方，很孤单。"
@@ -6376,13 +6404,13 @@
         "6": "阿尔忒弥斯的赠礼×{{amount}}：使阿尔忒弥斯的蚂蚁速度增加{{bonus}}",
         "7": "阿瑞斯的赠礼×{{amount}}：使阿瑞斯的蚂蚁献祭奖励增加{{bonus}}",
         "8": "摩洛克的赠礼×{{amount}}：使摩洛克的强度分加成增加{{bonus}}",
-        "9": "米达斯的赠礼×{{amount}}：使米达斯的符文有效等级增加{{bonus}}",
+        "9": "Midas' Gift x{{amount}}: +{{bonus}} Midas Effective Rune Power",
         "10": "柯罗诺斯的赠礼×{{amount}}：使柯罗诺斯的贡品效果增加{{bonus}}"
       }
     },
     "hypercubes": {
       "intro": "我之前可不知道惊奇公司居然有五维的产品。",
-      "instructions": "开启一些嫩牛五——呃，我是说惊奇五阶立方，来加成上一阶的赠礼。",
+      "instructions": "Open up some Lootb-- er, Wow! Hypercubes, to boost gifts from the previous tier.",
       "inventory": "您拥有<<yellow|{{amount}}>>惊奇五阶立方。您可以通过飞升分数超过1e9的飞升获取更多。",
       "total": "您一共有<<yellow|{{amount}}>>五阶立方的恩赐！",
       "items": {
@@ -6394,7 +6422,7 @@
         "6": "阿尔忒弥斯的恩赐×{{amount}}：使阿尔忒弥斯的赠礼对阿尔忒弥斯的蚂蚁速度的加成效率增加{{bonus}}",
         "7": "阿瑞斯的恩赐×{{amount}}：使阿瑞斯的赠礼对阿瑞斯的蚂蚁献祭奖励的加成效率增加{{bonus}}",
         "8": "摩洛克的恩赐×{{amount}}：使摩洛克的赠礼对摩洛克的强度分加成的加成效率增加{{bonus}}",
-        "9": "米达斯的恩赐×{{amount}}：使米达斯的赠礼对米达斯的符文有效等级的加成效率增加{{bonus}}",
+        "9": "Midas' Benediction x{{amount}}: +{{bonus}} Midas Gift → Midas Effective Rune Power",
         "10": "柯罗诺斯的恩赐×{{amount}}：使柯罗诺斯的赠礼对柯罗诺斯的贡品效果的加成效率增加{{bonus}}"
       }
     },
@@ -6440,10 +6468,10 @@
         "cube3": "• 所有类型的方盒、立方和方块获取数量 III：+{{amount}}",
         "talismanBonus": "• 护身符免费符文等级加成：+{{amount}}",
         "globalSpeed": "• 全局速度：+{{amount}}",
-        "blessingBonus": "• 祝福效果：+{{amount}}",
+        "blessingBonus": "• Blessing Power: +{{amount}}",
         "constantBonus": "• 超立方建筑产量：+{{amount}}",
         "cube4": "• 所有类型的方盒、立方和方块获取数量 IV：+{{amount}}",
-        "spiritBonus": "• 魂灵效果：+{{amount}}",
+        "spiritBonus": "• Spirit Power: +{{amount}}",
         "score": "• 飞升分数：+{{amount}}",
         "quarks": "• 夸克获取数量：+{{amount}}",
         "hepteractsUnlocked": "• 惊奇七阶立方：已解锁！",
@@ -6728,7 +6756,8 @@
     "insideSingularityChallenge": "Derpsmith提醒您，您还在奇点挑战中。您可以在奇点选项卡下点击相应挑战的图标退出挑战。",
     "gameBeat": "很好。您已经到了奇点之眼。我很满意。但这也意味着您无法继续前进了。除非有什么更强的力量，为您开辟新道路……",
     "exitAscensionChallenge": "您真的确定要退出飞升挑战吗？退出后，您必须完成挑战10以后才能再次进行飞升挑战！",
-    "buyResearch3x11": "[未解锁 - 请先购买研究3x11]"
+    "buyResearch3x11": "[未解锁 - 请先购买研究3x11]",
+    "statSymbolConfirm": "Would you like to toggle Stat Symbols? This will refresh the page! [If you see a symbol next to the word 'Quark' then they are currently on. Otherwise they are currently off]"
   },
   "history": {
     "perSecondOn": "每秒产量：开",
