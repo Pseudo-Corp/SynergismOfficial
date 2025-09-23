@@ -394,7 +394,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effects: (n) => {
       const multiplierBoosts = n / 5
       const multiplicativeMultipliers = 1 + n / 400
-      const taxReduction = 0.001 + .999 * Math.exp(-Math.cbrt(n) / 10)
+      const taxReduction = 0.001 + .999 * Math.exp(-Math.cbrt(n) / 5)
       return {
         multiplierBoosts: multiplierBoosts,
         multiplicativeMultipliers: multiplicativeMultipliers,
@@ -475,7 +475,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effects: (level) => {
       const costDelay = Math.min(1e15, level / 125)
       const salvage = 2.5 * Math.log(1 + level / 10)
-      const taxReduction = 0.01 + 0.99 * Math.exp(-Math.cbrt(level) / 20)
+      const taxReduction = 0.01 + 0.99 * Math.exp(-Math.cbrt(level) / 10)
       return {
         costDelay: costDelay,
         salvage: salvage,

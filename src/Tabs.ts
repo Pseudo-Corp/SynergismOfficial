@@ -311,16 +311,23 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: '3',
         get unlocked () {
-          return Boolean(getGQUpgradeEffect('octeractUnlock'))
+          return player.highestSingularityCount > 0
         },
         buttonID: 'toggleSingularitySubTab3'
       },
       {
         subTabID: '4',
         get unlocked () {
-          return player.highestSingularityCount >= 25
+          return Boolean(getGQUpgradeEffect('octeractUnlock'))
         },
         buttonID: 'toggleSingularitySubTab4'
+      },
+      {
+        subTabID: '5',
+        get unlocked () {
+          return player.highestSingularityCount >= 25
+        },
+        buttonID: 'toggleSingularitySubTab5'
       }
     ]
   },

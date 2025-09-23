@@ -4,9 +4,10 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateGoldenQuarkCost } from './Calculate'
 import { updateMaxTokens, updateTokens } from './Campaign'
 import { getOcteractUpgradeEffect } from './Octeracts'
+import { singularity } from './Reset'
 import { getRuneEffectiveLevel, runes } from './Runes'
 import { format, formatAsPercentIncrease, player } from './Synergism'
-import { Alert, Prompt, revealStuff } from './UpdateHTML'
+import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { isMobile, toOrdinal } from './Utility'
 
 export type SingularityDataKeys =
@@ -3014,7 +3015,9 @@ export const singularityPerks: SingularityPerk[] = [
     },
     levels: [200],
     description: () => {
-      const amt = format(Math.pow((player.singularityCount - 179) / 20, 2), 4)
+      const amt = (player.singularityCount >= 200)
+        ? format(Math.pow((player.singularityCount - 179) / 20, 2), 4)
+        : format(1, 4)
       return i18next.t('singularity.perks.skrauQ.default', { amt })
     },
     ID: 'skrauQ'
@@ -3398,7 +3401,7 @@ export const calculateEffectiveSingularities = (
     && player.singularityChallenges.taxmanLastStand.completions >= 8
     && player.platonicUpgrades[15] === 0
   ) {
-    effectiveSingularities = Math.pow(effectiveSingularities, 5 / 3)
+    effectiveSingularities = Math.pow(effectiveSingularities, 3 / 2)
   }
 
   return effectiveSingularities
@@ -3439,21 +3442,21 @@ export const calculateSingularityDebuff = (
     - Math.min(300, player.shopUpgrades.shopHorseShoe * getRuneEffectiveLevel('horseShoe')) / 1000
 
   if (debuff === 'Offering') {
-    const extraMult = 10 * Math.pow(1.02, constitutiveSingularityCount)
+    const extraMult = Math.pow(1.02, constitutiveSingularityCount)
     return extraMult * baseDebuffMultiplier * (constitutiveSingularityCount < 150
       ? 3 * (Math.sqrt(effectiveSingularities) + 1)
       : Math.pow(effectiveSingularities, 2 / 3) / 400)
   } else if (debuff === 'Salvage') {
-    return -(5 * constitutiveSingularityCount
-      + 5 * Math.max(0, constitutiveSingularityCount - 100)
-      + 5 * Math.max(0, constitutiveSingularityCount - 200)
-      + 5 * Math.max(0, constitutiveSingularityCount - 250)
-      + 5 * Math.max(0, constitutiveSingularityCount - 270)
-      + 5 * Math.max(0, constitutiveSingularityCount - 280))
+    return -(4 * constitutiveSingularityCount
+      + 4 * Math.max(0, constitutiveSingularityCount - 100)
+      + 4 * Math.max(0, constitutiveSingularityCount - 200)
+      + 3 * Math.max(0, constitutiveSingularityCount - 250)
+      + 3 * Math.max(0, constitutiveSingularityCount - 270)
+      + 2 * Math.max(0, constitutiveSingularityCount - 280))
   } else if (debuff === 'Global Speed') {
     return baseDebuffMultiplier * (1 + Math.sqrt(effectiveSingularities) / 4)
   } else if (debuff === 'Obtainium') {
-    const extraMult = 10 * Math.pow(1.02, constitutiveSingularityCount)
+    const extraMult = Math.pow(1.02, constitutiveSingularityCount)
     return extraMult * baseDebuffMultiplier * (constitutiveSingularityCount < 150
       ? 3 * (Math.sqrt(effectiveSingularities) + 1)
       : Math.pow(effectiveSingularities, 2 / 3) / 400)
@@ -3465,8 +3468,8 @@ export const calculateSingularityDebuff = (
       : 1 + Math.pow(effectiveSingularities, 0.75) / 10000)
   } else if (debuff === 'Cubes') {
     const extraMult = constitutiveSingularityCount > 100
-      ? (10 + constitutiveSingularityCount / 10) * Math.pow(1.02, constitutiveSingularityCount - 100)
-      : 10
+      ? 2 * Math.pow(1.03, constitutiveSingularityCount - 100)
+      : 2
     return baseDebuffMultiplier * (constitutiveSingularityCount < 150
       ? 3 * (1 + (Math.sqrt(effectiveSingularities) * extraMult) / 4)
       : 1 + (Math.pow(effectiveSingularities, 0.75) * extraMult) / 1000)
@@ -3481,5 +3484,106 @@ export const calculateSingularityDebuff = (
   } else {
     // Cube upgrades
     return baseDebuffMultiplier * Math.cbrt(effectiveSingularities + 1)
+  }
+}
+
+export const updateSingularityElevatorVisibility = (): void => {
+  if (player.highestSingularityCount < 10) {
+    DOMCacheGetOrSet('singularityElevator').style.display = 'none'
+    DOMCacheGetOrSet('lockedSingularityElevator').style.display = ''
+  } else {
+    DOMCacheGetOrSet('singularityElevator').style.display = ''
+    DOMCacheGetOrSet('lockedSingularityElevator').style.display = 'none'
+  }
+}
+
+export const updateSingularityElevator = (): void => {
+  const input = DOMCacheGetOrSet('elevatorTargetInput') as HTMLInputElement
+  const description = DOMCacheGetOrSet('elevatorDescription')
+  const teleportButton = DOMCacheGetOrSet('elevatorTeleportButton')
+  const lock = DOMCacheGetOrSet('elevatorLockToggle') as HTMLInputElement
+  const lockStatus = DOMCacheGetOrSet('elevatorLockStatus')
+
+  const maxTarget = Math.max(1, player.highestSingularityCount)
+
+  if (input) {
+    input.max = maxTarget.toString()
+    input.value = player.singularityElevatorTarget.toString()
+  }
+
+  description.innerHTML = i18next.t('singularity.elevator.description', { limit: maxTarget })
+
+  if (player.singularityElevatorTarget > player.singularityCount) {
+    teleportButton.textContent = i18next.t('singularity.elevator.teleportButtonHigher')
+  } else if (player.singularityElevatorTarget < player.singularityCount) {
+    teleportButton.textContent = i18next.t('singularity.elevator.teleportButtonLower')
+  } else {
+    teleportButton.textContent = i18next.t('singularity.elevator.teleportButtonStay')
+  }
+
+  lock.checked = player.singularityElevatorLocked
+
+  if (player.singularityElevatorLocked) {
+    lockStatus.innerHTML = i18next.t('singularity.elevator.lockEnabled', { target: player.singularityElevatorTarget })
+  } else {
+    lockStatus.innerHTML = i18next.t('singularity.elevator.lockDisabled')
+  }
+}
+
+export const teleportToSingularity = async (): Promise<void> => {
+  const target = player.singularityElevatorTarget
+  const maxTarget = Math.max(1, player.highestSingularityCount)
+
+  // Just to prevent some bugs ahead of time. These should probably not be needed...
+
+  if (target < 1 || target > maxTarget) {
+    Alert(i18next.t('singularity.elevator.invalidTarget', { max: maxTarget }))
+    return
+  }
+  if (!target) {
+    Alert(i18next.t('singularity.elevator.noTarget'))
+    return
+  }
+  if (player.insideSingularityChallenge) {
+    Alert(i18next.t('singularity.elevator.inEXALTError'))
+    return
+  }
+
+  const confirmed = await Confirm(i18next.t('singularity.elevator.confirmTeleport', { target }))
+  if (confirmed) {
+    if (player.singularityCount <= target) {
+      const extraConfirm = await Confirm(i18next.t('singularity.elevator.confirmTeleportHigher'))
+      if (extraConfirm) {
+        const heldSingTime = player.singularityCounter
+        const antiquitiesLevel = runes.antiquities.level
+        // Reset
+        singularity(player.singularityElevatorTarget)
+        if (antiquitiesLevel === 0) {
+          player.singularityCounter = heldSingTime
+        }
+      } else {
+        return
+      }
+    } else {
+      player.singularityCount = target
+    }
+
+    // Update display
+    updateSingularityElevator()
+    Alert(i18next.t('singularity.elevator.teleportSuccess', { target }))
+  }
+}
+
+export const calculateSingularityMatterCap = (sing: number) => {
+  return Math.pow(100 + sing, 2)
+}
+
+export const calculateEarnableSingularityMatter = (sing: number) => {
+  const currentMatter = player.singularityMatter
+  const cap = calculateSingularityMatterCap(sing)
+  if (currentMatter >= cap) {
+    return 0
+  } else {
+    return Math.ceil(0.01 * (cap - currentMatter))
   }
 }

@@ -102,7 +102,9 @@ import {
   goldenQuarkUpgrades,
   type SingularityDataKeys,
   singularityPerks,
+  teleportToSingularity,
   updateMobileGQHTML,
+  updateSingularityElevator,
   upgradeGQToString
 } from './singularity'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
@@ -1046,6 +1048,47 @@ TODO: Fix this entire tab it's utter shit
   }
   DOMCacheGetOrSet('buySingularityQuarksButton').addEventListener('click', () => buyGoldenQuarks())
   // SINGULARITY TAB
+
+  // ELEVATOR
+  const elevatorInput = DOMCacheGetOrSet('elevatorTargetInput')
+  const teleportButton = DOMCacheGetOrSet('elevatorTeleportButton')
+  const lockToggle = DOMCacheGetOrSet('elevatorLockToggle')
+
+  elevatorInput.addEventListener('input', () => {
+    const value = Number.parseInt((elevatorInput as HTMLInputElement).value) || 1
+    const maxTarget = Math.max(1, player.highestSingularityCount)
+    const validValue = Math.max(1, Math.min(value, maxTarget))
+    player.singularityElevatorTarget = validValue
+    updateSingularityElevator()
+  })
+
+  // Do the cool scrolling thing
+  elevatorInput.addEventListener('wheel', (e: WheelEvent) => {
+    if (e.deltaY < 0) {
+      // Scroll up: Means we can *increase* singularity
+      if (player.singularityElevatorTarget < player.highestSingularityCount) {
+        player.singularityElevatorTarget++
+        updateSingularityElevator()
+      }
+    } else if (e.deltaY > 0) {
+      // Scroll down: Means we can *decrease* singularity
+      if (player.singularityElevatorTarget > 1) {
+        player.singularityElevatorTarget--
+        updateSingularityElevator()
+      }
+    }
+  })
+
+  teleportButton.addEventListener('click', () => {
+    teleportToSingularity()
+    updateSingularityElevator()
+  })
+
+  lockToggle.addEventListener('change', () => {
+    player.singularityElevatorLocked = !player.singularityElevatorLocked
+    updateSingularityElevator()
+  })
+
   const GQUpgrades = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
   for (const key of GQUpgrades) {
     if (!isMobile) {
@@ -1336,7 +1379,7 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // Toggle subtabs of Singularity tab
-  for (let index = 0; index < 4; index++) {
+  for (let index = 0; index < 5; index++) {
     DOMCacheGetOrSet(`toggleSingularitySubTab${index + 1}`).addEventListener(
       'click',
       () => changeSubTab(Tabs.Singularity, { page: index })

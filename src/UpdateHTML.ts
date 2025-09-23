@@ -24,7 +24,12 @@ import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
 import { isResearchUnlocked, roombaResearchEnabled } from './Research'
 import { getRuneEffects, type RuneKeys, runes, updateRuneHTML } from './Runes'
-import { getGQUpgradeEffect, updateSingularityPenalties, updateSingularityPerks } from './singularity'
+import {
+  getGQUpgradeEffect,
+  updateSingularityElevator,
+  updateSingularityPenalties,
+  updateSingularityPerks
+} from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { type TalismanKeys, talismans } from './Talismans'
@@ -618,6 +623,7 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'lightgoldenrodyellow'
     updateSingularityPenalties()
     updateSingularityPerks()
+    updateSingularityElevator()
   }
 
   if (G.currentTab === Tabs.Event) {

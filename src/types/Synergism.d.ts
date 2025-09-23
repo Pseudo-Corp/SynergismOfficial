@@ -639,6 +639,9 @@ export interface Player {
   singularityCount: number
   highestSingularityCount: number
   singularityCounter: number
+  singularityElevatorTarget: number
+  singularityElevatorLocked: boolean
+  singularityMatter: number
   goldenQuarks: number
   quarksThisSingularity: number
   totalQuarksEver: number

@@ -208,6 +208,7 @@ import {
   octeractUpgrades
 } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
+import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, QuarkHandler } from './Quark'
 import {
@@ -248,7 +249,6 @@ import {
 import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
 import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
-import { enableStatSymbols } from './Plugins/StatSymbols'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -1117,6 +1117,9 @@ export const player: Player = {
   singularityCount: 0,
   highestSingularityCount: 0,
   singularityCounter: 0,
+  singularityElevatorTarget: 1,
+  singularityElevatorLocked: false,
+  singularityMatter: 0,
   goldenQuarks: 0,
   quarksThisSingularity: 0,
   totalQuarksEver: 0,
@@ -5514,8 +5517,7 @@ window.addEventListener('load', async () => {
   if (!symbolsEnabled) {
     localStorage.setItem('statSymbols', 'true')
     enableStatSymbols()
-  }
-  else if (symbolsEnabled === 'true') {
+  } else if (symbolsEnabled === 'true') {
     enableStatSymbols()
   }
 

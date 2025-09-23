@@ -62,6 +62,18 @@ translations/en.json       # Required for all new text strings
 4. Variable location: `player` in `src/Synergism.ts`
 
 ## Code Conventions
+
+### Critical Performance & Style Requirements
+- **DOM Access**: ALWAYS use `DOMCacheGetOrSet('elementId')` instead of `document.getElementById`
+  - Import: `import { DOMCacheGetOrSet } from './Cache/DOM'`
+  - Reason: Performance optimization through caching
+- **Import Style**: Top-level imports ONLY - never use dynamic imports like `import().then()`
+  - Correct: `import { functionName } from './ModuleName'` at top of file
+  - Wrong: `import('./Module').then(({ functionName }) => ...)`
+- **Import Organization**: Alphabetical ordering within import groups
+- **Destructured Imports**: Use for specific functions/variables from modules
+
+### General Patterns
 - Follow existing TypeScript patterns in codebase
 - Use established import/export structures
 - Match existing naming conventions

@@ -59,7 +59,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   speed: {
     level: 0,
     runeEXP: new Decimal(0),
-    costCoefficient: new Decimal(1e8),
+    costCoefficient: new Decimal(1e6),
     levelsPerOOM: 4,
     effects: (level) => {
       const globalSpeed = 1 + level / 1000000
@@ -85,7 +85,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   duplication: {
     level: 0,
     runeEXP: new Decimal(0),
-    costCoefficient: new Decimal(1e10),
+    costCoefficient: new Decimal(1e7),
     levelsPerOOM: 4,
     effects: (level) => {
       const multiplierBoosts = 1 + level / 1000000
@@ -111,7 +111,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   prism: {
     level: 0,
     runeEXP: new Decimal(0),
-    costCoefficient: new Decimal(1e13),
+    costCoefficient: new Decimal(1e9),
     levelsPerOOM: 4,
     effects: (level) => {
       const antSacrificeMult = 1 + level / 1000000
@@ -137,7 +137,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   thrift: {
     level: 0,
     runeEXP: new Decimal(0),
-    costCoefficient: new Decimal(1e16),
+    costCoefficient: new Decimal(1e12),
     levelsPerOOM: 4,
     effects: (level) => {
       const accelBoostCostDelay = 1 + level / 1000000
@@ -163,7 +163,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   superiorIntellect: {
     level: 0,
     runeEXP: new Decimal(0),
-    costCoefficient: new Decimal(1e20),
+    costCoefficient: new Decimal(1e15),
     levelsPerOOM: 4,
     effects: (level) => {
       const obtToAntExponent = Math.log(1 + level / 1000000)

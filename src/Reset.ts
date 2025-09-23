@@ -1150,8 +1150,19 @@ export const singularity = (setSingNumber = -1) => {
 
   if (setSingNumber === -1) {
     const incrementSingCount = 1 + getFastForwardTotalMultiplier()
-    player.singularityCount += incrementSingCount
-    if (player.singularityCount >= player.highestSingularityCount) {
+
+    // Check if elevator is locked to specific target
+    if (player.singularityElevatorLocked) {
+      // If locked, go to the target singularity instead of advancing normally
+      player.singularityCount = player.singularityElevatorTarget
+    } else {
+      // Normal progression
+      player.singularityCount += incrementSingCount
+      // Set to maximum if we undershoot (e.g. we do not lock the elevator)
+      player.singularityCount = Math.max(player.singularityCount, player.highestSingularityCount)
+    }
+
+    if (player.singularityCount > player.highestSingularityCount) {
       player.highestSingularityCount = player.singularityCount
 
       if (player.highestSingularityCount === 5) {
@@ -1187,6 +1198,9 @@ export const singularity = (setSingNumber = -1) => {
   hold.totalQuarksEver = player.totalQuarksEver
   hold.singularityCount = player.singularityCount
   hold.highestSingularityCount = player.highestSingularityCount
+  hold.singularityElevatorTarget = player.singularityElevatorTarget
+  hold.singularityElevatorLocked = player.singularityElevatorLocked
+  hold.singularityMatter = player.singularityMatter
   hold.goldenQuarks = player.goldenQuarks
   hold.shopUpgrades = player.shopUpgrades
   hold.shopPotionsConsumed = player.shopPotionsConsumed

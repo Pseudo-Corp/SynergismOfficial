@@ -72,7 +72,7 @@ export const calculatetax = () => {
       - ((player.singularityCount >= 20) ? 1 : 0)
   )
   if (player.currentChallenge.ascension === 13) {
-    exp *= 700 * (1 + 1 / 6 * player.challengecompletions[13])
+    exp *= 400 * (1 + 1 / 6 * player.challengecompletions[13])
     exp *= Math.pow(1.05, c13effcompletions)
   }
   if (player.challengecompletions[6] > 0) {

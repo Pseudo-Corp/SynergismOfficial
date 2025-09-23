@@ -60,7 +60,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   speed: {
     level: 0,
     runeEXP: new Decimal(0),
-    costCoefficient: new Decimal(1e50),
+    costCoefficient: new Decimal(1e45),
     levelsPerOOM: 2,
     effects: (level) => {
       const globalSpeed = 1 + level / 1e9
@@ -84,7 +84,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   duplication: {
     level: 0,
     runeEXP: new Decimal(0),
-    costCoefficient: new Decimal(1e60),
+    costCoefficient: new Decimal(1e52),
     levelsPerOOM: 2,
     effects: (level) => {
       const wowCubes = 1 + level / 1e9
@@ -108,7 +108,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   prism: {
     level: 0,
     runeEXP: new Decimal(0),
-    costCoefficient: new Decimal(1e70),
+    costCoefficient: new Decimal(1e60),
     levelsPerOOM: 2,
     effects: (level) => {
       const crystalCaps = 1 + level / 1e9
@@ -132,7 +132,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   thrift: {
     level: 0,
     runeEXP: new Decimal(0),
-    costCoefficient: new Decimal(1e85),
+    costCoefficient: new Decimal(1e72),
     levelsPerOOM: 2,
     effects: (level) => {
       const offerings = 1 + level / 1e9
@@ -156,7 +156,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   superiorIntellect: {
     level: 0,
     runeEXP: new Decimal(0),
-    costCoefficient: new Decimal(1e100),
+    costCoefficient: new Decimal(1e85),
     levelsPerOOM: 2,
     effects: (level) => {
       const obtainium = 1 + level / 1e9

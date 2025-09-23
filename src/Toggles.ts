@@ -8,6 +8,7 @@ import { initializeMessages } from './Messages'
 import { researchOrderByCost, roombaResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { indexToRune } from './Runes'
+import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
@@ -482,7 +483,7 @@ export const toggleSaveOff = () => {
 export const toggleSingularityScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= 5; i++) {
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
       b.style.display = 'block'
@@ -491,11 +492,12 @@ export const toggleSingularityScreen = (indexStr: string) => {
     }
   }
 
-  //  player.subtabNumber = index - 1
-
-  if (getActiveSubTab() === 2) {
-    visualUpdateOcteracts()
+  if (index === 1) {
+    updateSingularityElevator()
+    updateSingularityElevatorVisibility()
   } else if (getActiveSubTab() === 3) {
+    visualUpdateOcteracts()
+  } else if (getActiveSubTab() === 4) {
     visualUpdateAmbrosia()
   }
 }
@@ -1015,12 +1017,10 @@ export const confirmReply = (confirm = true) => {
 }
 
 export const toggleStatSymbol = async () => {
-
   const confirmation = await Confirm(i18next.t('main.statSymbolConfirm'))
   if (!confirmation) {
     return
-  }
-  else {
+  } else {
     if (localStorage.getItem('statSymbols') === 'true') {
       localStorage.setItem('statSymbols', 'false')
     } else {
@@ -1028,5 +1028,4 @@ export const toggleStatSymbol = async () => {
     }
   }
   location.reload()
-
 }
