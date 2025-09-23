@@ -9,7 +9,7 @@ export const calculateAcceleratorHypercubeBlessing = () => {
     return 1 + effectPerBlessing * player.hypercubeBlessings.accelerator
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.accelerator, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.accelerator, DR)
   }
 }
 
@@ -21,7 +21,7 @@ export const calculateMultiplierHypercubeBlessing = () => {
     return 1 + effectPerBlessing * player.hypercubeBlessings.multiplier
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.multiplier, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.multiplier, DR)
   }
 }
 
@@ -33,7 +33,7 @@ export const calculateOfferingHypercubeBlessing = () => {
     return 1 + effectPerBlessing * player.hypercubeBlessings.offering
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.offering, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.offering, DR)
   }
 }
 
@@ -51,7 +51,7 @@ export const calculateObtainiumHypercubeBlessing = () => {
     return 1 + effectPerBlessing * player.hypercubeBlessings.obtainium
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.obtainium, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.obtainium, DR)
   }
 }
 
@@ -63,7 +63,7 @@ export const calculateAntSpeedHypercubeBlessing = () => {
     return 1 + effectPerBlessing * player.hypercubeBlessings.antSpeed
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.antSpeed, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.antSpeed, DR)
   }
 }
 
@@ -75,7 +75,7 @@ export const calculateAntSacrificeHypercubeBlessing = () => {
     return 1 + effectPerBlessing * player.hypercubeBlessings.antSacrifice
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.antSacrifice, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.antSacrifice, DR)
   }
 }
 
@@ -91,7 +91,7 @@ export const calculateRuneEffectivenessHypercubeBlessing = () => {
     return 1 + effectPerBlessing * player.hypercubeBlessings.talismanBonus
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.talismanBonus, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.talismanBonus, DR)
   }
 }
 
@@ -103,6 +103,6 @@ export const calculateGlobalSpeedHypercubeBlessing = () => {
     return 1 + effectPerBlessing * player.hypercubeBlessings.globalSpeed
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.globalSpeed, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.globalSpeed, DR)
   }
 }

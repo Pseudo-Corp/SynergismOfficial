@@ -22,7 +22,7 @@ export const calculateAcceleratorTesseractBlessing = () => {
     return 1 + effectPerBlessing * player.tesseractBlessings.accelerator
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.accelerator, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.accelerator, DR)
   }
 }
 
@@ -34,7 +34,7 @@ export const calculateMultiplierTesseractBlessing = () => {
     return 1 + effectPerBlessing * player.tesseractBlessings.multiplier
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.multiplier, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.multiplier, DR)
   }
 }
 
@@ -46,7 +46,7 @@ export const calculateOfferingTesseractBlessing = () => {
     return 1 + effectPerBlessing * player.tesseractBlessings.offering
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.offering, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.offering, DR)
   }
 }
 
@@ -64,7 +64,7 @@ export const calculateObtainiumTesseractBlessing = () => {
     return 1 + effectPerBlessing * player.tesseractBlessings.obtainium
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.obtainium, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.obtainium, DR)
   }
 }
 
@@ -83,7 +83,7 @@ export const calculateAntSacrificeTesseractBlessing = () => {
     return 1 + effectPerBlessing * player.tesseractBlessings.antSacrifice
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.antSacrifice, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.antSacrifice, DR)
   }
 }
 
@@ -100,7 +100,7 @@ export const calculateRuneEffectivenessTesseractBlessing = () => {
     return 1 + effectPerBlessing * player.tesseractBlessings.talismanBonus
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.talismanBonus, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.talismanBonus, DR)
   }
 }
 
@@ -112,6 +112,6 @@ export const calculateGlobalSpeedTesseractBlessing = () => {
     return 1 + effectPerBlessing * player.tesseractBlessings.globalSpeed
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.globalSpeed, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.globalSpeed, DR)
   }
 }
