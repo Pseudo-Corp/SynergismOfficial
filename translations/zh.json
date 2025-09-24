@@ -154,7 +154,7 @@
       },
       "ambrosiaBaseObtainium2": {
         "name": "基本难得素加成",
-        "description": "每级使基础难度素获取数量增加1！激活研究本能。",
+        "description": "+1 Base Obtainium per level! Channel your inner er.",
         "effect": "该模块使基础难得素获取数量增加{{amount}}！"
       },
       "ambrosiaBaseOffering2": {
@@ -557,7 +557,7 @@
       "215": "'Platonic的税收弱爆了，游戏评分1/5'：完成十次税收激增挑战。",
       "216": "哈哈因为某些原因这是有点难：完成二十次税收激增挑战。",
       "217": "严苛的税收：完成三十次税收激增挑战。",
-      "218": "发亮的蓝石：完成一次无研究挑战。",
+      "218": "Shiny Blue Rock: Clear 'No ' once.",
       "219": "就像阿凡达一样：完成两次无研究挑战。",
       "220": "这回真的难得了：完成三次无研究挑战。",
       "221": "就像那啥一样：完成五次无研究挑战。",
@@ -1597,15 +1597,15 @@
       "118": "每完成一次任意转世挑战，税收增长就减缓0.75%，效果叠乘。效果：{{x}}倍",
       "119": "难得素的获取数量增加11%。某个地方解锁了一个很不错的饰品……",
       "122": "祭品回收概率增加7.5%。",
-      "124": "税收增长减缓5.66%。解锁5个非常强大的研究！",
+      "124": "Delay tax growth by 5.66%. Unlock 5 new incredibly powerful Researches!",
       "126": "难得素的获取数量增加13%。您得到了一个纪念这一刻的饰品！",
-      "127": "解锁20个极贵也极强的研究。解锁[蚁丘]机制！",
-      "128": "难得素获取数量变为1.5倍！",
+      "127": "Unlock 20 new incredibly expensive yet good Researches. Unlock the [Anthill] feature!",
+      "128": "Make Researches go Cost-- with 1.5x Obtainium!",
       "129": "祭品回收概率增加7.5%。难得素获取数量变为1.25倍！",
       "131": "税收增长减缓5.66%。",
       "132": "献祭奖励永久增加25%！",
       "133": "难得素的获取数量增加15%。获得米达斯的一份礼物。",
-      "134": "解锁10个极贵也极强的研究。解锁符文选项卡下的<<护身符>>子面板！",
+      "134": "Unlock 10 newer incredibly expensive yet good Researches. Unlock <Talismans> in the Runes Tab!",
       "135": "护身符的每级加成效果增加0.02。",
       "136": "护身符的每级加成效果再增加0.02。",
       "137": "献祭奖励永久增加25%！",
@@ -2092,10 +2092,10 @@
     "resetAlert": "<<gold|⚠>>将进行一次<<limegreen|转世>>",
     "immortalELOGain": "• <<crimson|不朽强度分>><<gold|增加{{x}}>>",
     "antSacMultiplier": "↳ 使蚂蚁速度变为原来的{{x}}倍",
-    "offeringMultiplier": "• 获得<<orange|{{x}}倍转生时的祭品>>",
-    "obtainiumMultiplier": "• 获得<<pink|{{x}}倍转世时的难得素>>",
+    "offeringMultiplier": "• Gain <<orange | {{x}}x Offerings>>",
+    "obtainiumMultiplier": "• Gain <<pink | {{x}}x Obtainium>>",
     "talismanFragments": "• 还会获得一些护身符碎片！",
-    "autoReset": "这么做将重置银河碎屑，蚂蚁以及蚂蚁升级，并进行一次转生，但可以获得更高的蚂蚁速度和一些其他资源。您确定要继续吗？",
+    "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some Ant Speed and resources. Continue?",
     "elo": "+{{x}} [分>{{y}}]",
     "antSacrifice": "蚂蚁献祭"
   },
@@ -2337,11 +2337,11 @@
     "14": {
       "name": "无研究挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "这个维度没能跨越黑暗时代。很多人甚至不敢越雷池一步。",
-      "restrictions": "立即飞升开始挑战。您无法获得难得素，也无法进行研究。蚂蚁产量^0.2。",
+      "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any Researches purchasable. Ant production ^0.2.",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
-        "1": "研究1x1至研究1x5的效果增加50%。当前效果： ",
-        "2": "每个时刻自动购买的研究数量增加1！当前效果： ",
+        "1": "+50% stronger effect on Researches 1x1 through 1x5. Current: ",
+        "2": "+1 Research purchased per roomba tick! Current: ",
         "3": "使前五个符文的符文升级系数增加1.5！当前效果："
       },
       "first": "解锁15个研究，并且发现新型方盒——或许是PLATONIC的？当然还有更多战役和腐化。",
@@ -2531,7 +2531,7 @@
       "48": "[5x8]飞升后直接获得一只工蚁(比听起来要强多了！)",
       "49": "[5x9]飞升后直接完成挑战6至挑战8各一次。",
       "50": "[5x10]这有提升不了的吗？每级使加速器、加倍器、加速器加成的数量增加0.01%，难得素获取数量和祭品获取数量增加0.02%，有效强度分增加1，税收减少0.00066%。每10000级还可以使护身符强度增加0.6%！",
-      "51": "[Cx1]惊奇烘焙坊开张了！！！立刻解锁方盒选项卡下和研究选项卡下的所有自动化升级。",
+      "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the Wow! Cubes tab, and Research as well.",
       "52": "[Cx2]吃完这些糖饼干血糖一定会飙升的。每级使全局速度增加1%。",
       "53": "[Cx3]美味可口的小点心。每级使夸克获取数量增加0.1%。",
       "54": "[Cx4]吃起来有点干，但分量十足。每级使祭品获取数量增加1%。",
@@ -2626,7 +2626,7 @@
       "38": "[2x13]每级使建筑能量增长速度加快2.5%。",
       "39": "[2x14]建筑能量可以以减少的倍率增加水晶产量。",
       "40": "[2x15]建筑能量可以以减少的倍率增加神话碎片产量。",
-      "41": "[2x16]转世后直接解锁自动购买加速器加成。注意：此研究不影响获得成就。",
+      "41": "[2x16] Start Reincarnations with automatic A.Boosts unlocked. Note: this Research doesn't affect earning achievements.",
       "42": "[2x17]转世后直接解锁自动购买发生器升级。",
       "43": "[2x18]转世后直接解锁自动购买金币升级。",
       "44": "[2x19]转世后直接解锁自动购买钻石升级。",
@@ -2666,7 +2666,7 @@
       "78": "[4x3]每级使重叠符文的符文系数增加1！",
       "79": "[4x4]每级使棱柱符文的符文系数增加1！",
       "80": "[4x5]每级使节俭符文的符文系数增加1！",
-      "81": "[4x6]您觉得前面的研究太贵了？您会需要这个的！[每级使难得素获取数量增加10%]",
+      "81": "[4x6] You thought the previous Researches are expensive? You're going to need this! [+10% Obtainium per level]",
       "82": "[4x7]永久解锁卓越智慧符文！[加成：祭品获取数量、难得素获取数量和蚂蚁速度]",
       "83": "[4x8]觉得新符文升级太慢了吗？此研究每级可以使它的经验值获取数量增加5%。",
       "84": "[4x9]卓越智慧符文有点糟糕吗？那就强化它！每级使<b>卓越智慧符文</b>的符文强度增加0.5%！",
@@ -2739,7 +2739,7 @@
       "151": "[7x1]新的一行，旧的升级。每级使全局速度增加1.2%。",
       "152": "[7x2]惊奇公司再度赞助！每级使飞升库中的惊奇方盒数量增加0.9%。",
       "153": "[7x3]嘿，这可是我自己想出来的点子。每开启一个超立方，您就获得12个惊奇方盒的贡品。",
-      "154": "[7x4]每级使超立方建筑的产量增加3%。嘿，这是不是比之前的研究还强力了？",
+      "154": "[7x4] Make all Tesseract buildings produce 3% faster per level. Hey, isn't that more than the last Research tier?",
       "155": "[7x5]四部曲的第二部：如何征服蚂蚁宇宙。使挑战10的基础目标再次减少1e100M。",
       "156": "[7x6]什么，又来了？好吧。每级使加速器数量增加0.6%。",
       "157": "[7x7]Gas, gas, gas(译者注：来自《头文字D》插曲)。每级使加速器加成数量增加0.6%。",
@@ -2787,7 +2787,7 @@
       "199": "[8x24]每级使超立方建筑的产量增加10%。它觉醒了。赞美[[已删除]]。",
       "200": "[8x25]获得烈日千阳的力量！每级使加速器、加速器加成、加倍器的数量和祭品获取数量增加0.01%，惊奇方盒获取数量增加0.004%，免费蚂蚁升级等级增加(等级/200)，税收减少0.000666%。每10000级还可以使护身符强度增加0.4%！"
     },
-    "thanksToResearches": "由于研究效果，您在现实时间每秒自动获得{{x}}难得素。",
+    "thanksToResearches": "Thanks to Research you automatically gain {{x}} Obtainium per real life second.",
     "level": "等级 {{x}}/{{y}}",
     "maxed": " || 已满级！",
     "cost": "花费：{{x}}难得素[可提升{{y}}级]",
@@ -2799,7 +2799,7 @@
     "autoModeManual": "自动模式：手动",
     "hoverToBuyOn": "鼠标停留购买[开]",
     "hoverToBuyOff": "鼠标停留购买[关]",
-    "hover": "将鼠标停在格子上可获得有关研究的详情！",
+    "hover": "Hover over the grid to get details about Research!",
     "resets": "到达下一阶的重置时它将重置。",
     "doesNotReset": "永不重置！"
   },
@@ -2810,7 +2810,7 @@
       "offeringEX": "祭品获取数量增加4%！",
       "offeringAuto": "自动献祭祭品至符文中。第一级解锁机制，且每一级使祭品获取数量增加2%。只要祭品足够，每秒最多献祭祭品使符文增加2^(等级)的等级。",
       "obtainiumEX": "难得素获取数量增加4%！",
-      "obtainiumAuto": "自动使用难得素进行研究。第一级解锁机制，且每一级使难得素获取数量增加2%。每次转世，尽可能地使用难得素升级目标研究，激活方式与自动献祭类似。",
+      "obtainiumAuto": "Automatically pour Obtainium into a Research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every Reincarnation, dump all Obtainium into Research until maxed.",
       "instantChallenge": "只要开启重新尝试挑战，超越和转世挑战将不再重置资源，且每个时刻可以完成10次超越和转世挑战。另外，在退出转世挑战时，立刻使超越挑战的完成次数达到之前的完成次数上限。",
       "antSpeed": "每级使蚂蚁速度变为1.2倍！(无瑕！)简单有效。",
       "cashGrab": "这玩意非常贵，但是效果拔群。每级使祭品和难得素的获取数量增加1%。",
@@ -2919,7 +2919,7 @@
       "offeringEX": "祭品获取数量增加<<goldenrod|{{amount}}%>>！",
       "offeringAuto": "每秒最多使符文增加<<goldenrod|{{amount1}}>>级。祭品获取数量增加<<goldenrod|{{amount2}}%>>。",
       "obtainiumEX": "难得素获取数量增加<<pink|{{amount}}%>>！",
-      "obtainiumAuto": "每次转世都尝试研究，并且难得素获取数量增加<<pink|{{amount}}%>>。",
+      "obtainiumAuto": "Try to upgrade Research each Reincarnation, and gain <<pink|{{amount}}%>> more Obtainium.",
       "instantChallenge": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
       "antSpeed": "使所有蚂蚁速度变为<<crimson|{{amount}}>>倍",
       "cashGrab": "难得素和祭品的获取数量增加<<gold|{{amount}}%>>！",
@@ -3013,7 +3013,7 @@
       "levelInfo": "等级 {{level}} - (奇点 {{singularity}})",
       "improvedIn": "第{{sing}}次进入奇点后将有特权加强",
       "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
-      "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点。</span><br/>以下是您在奇点中获得的特权",
+      "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
       "description": "(鼠标停留在特权上可以查看效果。<span style=\"color: gold\">金色文本</span>的特权在本次奇点解锁或者加强)",
       "welcometoSingularity": {
         "name": "欢迎来到奇点时代！",
@@ -3153,7 +3153,7 @@
       },
       "coolQOLCubes": {
         "name": "酷炫的开盒体验",
-        "hasLevel1": "飞升时，研究6x13、7x3、7x18、8x8、8x23不再重置，并可以自动开启特定比例的方盒及立方！",
+        "hasLevel1": "Keep all Cube Opening Researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
         "default": "飞升时，研究6x13、7x3、7x18、8x8、8x23不再重置"
       },
       "irishAnt": {
@@ -3215,11 +3215,11 @@
         "name": "完美炼金术",
         "hasLevel2": "从第200次奇点开始，增加奇点次数的升级不再生效！但使您的金夸克获取数量变为8倍，并使购买金夸克的花费除以8。",
         "hasLevel1": "从第200次奇点开始，增加奇点次数的升级不再生效！但使您的金夸克获取数量变为5倍，并使购买金夸克的花费除以5。",
-        "default": "从第200次奇点开始，增加奇点次数的升级不再生效！但使您的金夸克获取数量变为3倍，并使购买金夸克的花费除以3。"
+        "default": "Multiply Golden Quark gain and divide the cost to buy Golden Quarks by {{ multiplier }}! <br><b>This perk takes into account your current, not highest Singularity!</b><br>Thresholds: s50, s90, s130, s170, s200, s217, s235, s253, s271, s289</br>"
       },
       "skrauQ": {
         "name": "克夸",
-        "default": "使夸克获取数量变为原来的 ((奇点次数 - 179) / 20)^2 倍。当前效果：<<cyan|{{amt}}倍>>……是的，它就<<gray|这么好>>。<br><b><<gold|⚠>>这个特权按照当前奇点次数计算，而不是按照最高奇点次数计算！</b>"
+        "default": "Multiply all Quark Gain by (1 + (Singularity - 199)/25)^2. Currently: <<cyan | x{{amt}}>>... Yes, it's <<gray | that good>>.<br><b><<gold | ⚠>> This Perk takes into account your current Singularity count, and not your highest!</b>"
       },
       "primalPower": {
         "name": "质数之力！",
@@ -3551,13 +3551,13 @@
       },
       "singFastForward": {
         "name": "以太通量·奇点",
-        "description": "使进入奇点的金夸克获取数量增加100%(效果相互叠加)，且在最高奇点次数时进入奇点将使奇点次数增加1次！",
+        "description": "Golden Quark gained by Singularity is increased by 2.5% (additive), and lets you 'look ahead' an extra Singularity. This means you can choose (from the Elevator) to skip a Singularity if you do one at your all time highest!",
         "effectHave": "您已转化以太通量！",
         "effectHaveNot": "您未转化以太通量！"
       },
       "singFastForward2": {
         "name": "超以太通量·奇点",
-        "description": "使进入奇点的金夸克获取数量增加100%(效果相互叠加)，且在最高奇点次数时进入奇点将使奇点次数增加1次！它的效果与以太通量类似，只是名字多了个超字。",
+        "description": "Golden Quark gained by Singularity is increased by 2.5% (additive) and lets you 'look ahead' yet another Singularity!",
         "effectHave": "您已转化超以太通量！",
         "effectHaveNot": "您未转化超以太通量！"
       },
@@ -3711,8 +3711,9 @@
       "teleportButtonStay": "重新开始！",
       "teleportButtonLower": "减！",
       "lockToggle": "锁定接下来的奇点",
-      "lockEnabled": "接下来的奇点被<<orange|锁定>>了。您将重新开始奇点{{target}}。",
-      "lockDisabled": "接下来的奇点已经<<lime|解锁>>。进入奇点之后，您将进入相当于最高的奇点次数的奇点。",
+      "lockEnabled": "Future Singularities are <<orange|LOCKED>>. You will repeat <<gold | Singularity {{target}}>>.",
+      "lockDisabledIntro": "Future Singularities are <<lime|UNLOCKED>>.",
+      "lockDisabledSing": "Your next Singularity will be <<gold | Singularity {{target}}>>",
       "invalidTarget": "请选择 1-{{max}} 范围内的奇点次数。",
       "noTarget": "请先选择目标奇点次数。",
       "confirmTeleport": "确实要进入相当于{{target}}次奇点次数的奇点吗？",
@@ -3720,7 +3721,13 @@
       "teleportSuccess": "已进入奇点{{target}}！",
       "inEXALTError": "Derpsmith缓缓点头。“电梯坏了……”他这么宣布。为什么偏偏是在拔擢中坏了？",
       "lockedTitle": "奇点电梯 - 无法使用",
-      "lockedDescription": "该电梯只在您进入过第10次奇点后才能使用。之后再来吧！"
+      "lockedDescription": "该电梯只在您进入过第10次奇点后才能使用。之后再来吧！",
+      "slowClimbToggle": "Only go up 1 Singularity",
+      "nextSingInfo": "Next Singularity Info",
+      "highestSingularity": "Highest Singularity: <b><<gold | {{num}}>></b>",
+      "maxLookahead": "Max Lookahead Distance: <b><<gold | +{{num}}>></b> (Requires Antiquities)",
+      "lookahead": "Looking ahead at your Highest Singularity adds <b><<gold | +1>></b> to your Highest Singularity<br><b><<orange | even if you skip Singularities!>></b>",
+      "lookaheadExtra": "If you beat a Singularity higher than your Highest, <br><b><<orchid | your Highest Singularity will update to current Singularity!>></b>"
     }
   },
   "general": {
@@ -4558,7 +4565,7 @@
       "finishTranscension": "如果您无法完成超越挑战，可以按下上面列出的快捷键退出，或者点击顶部重置按钮上的红色 C 按钮来退出。",
       "leaveReincarnation": "如果想要退出转世挑战，请按灰色的 C 按钮！"
     },
-    "research": "欢迎来到研究！难得素可以通过<<var(--green-text-color);|转世>>获得。我个人建议优先研究<<limegreen;|绿色边框>>的升级。<<var(--crimson-text-color);|红色边框>>的升级不会被重置，<<white;|白色边框>>的升级在下一阶重置时将被重置！",
+    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> Researches first. The <<var(--crimson-text-color);|red-bordered>> Researches are never reset whereas the <<white;|white-bordered>> Researches will reset upon the next reset tier!",
     "shop": "鼠标停在商店物品上以查看详细介绍！"
   },
   "buildings": {
@@ -4835,8 +4842,8 @@
       },
       "octeractFastForward": {
         "name": "Derpsmith的奇点小玩意",
-        "description": "每级使进入奇点的金夸克获取数量增加100%(效果相互叠加)，且在最高奇点次数时进入奇点将使奇点次数增加1次！",
-        "effect": "进入奇点的金夸克获取数量增加{{n100}}%，且奇点次数增加{{n}}次。"
+        "description": "Each level gives +2.5% more Golden Quarks (additive), and lets you 'look ahead' another Singularity!",
+        "effect": "Singularities give {{n100}}% more GQ, 'look ahead' limit +{{n}}"
       },
       "octeractAutoPotionSpeed": {
         "name": "口渴药片",
@@ -4986,7 +4993,7 @@
     "superiorIntellect": {
       "name": "卓越智慧",
       "description": "将普通人上百倍数量的脑细胞塞进一块石头里。它或许就产生意识了。",
-      "lockedDescription": "该符文未解锁！可能需要某些小说的研究。",
+      "lockedDescription": "This rune is locked! Unlocking it might require some novel Research.",
       "offeringMult": "<<orange|使祭品获取数量增加{{val}}>> (每有1符文强度就增加0.05%)",
       "obtainiumMult": "<<pink|使难得素获取数量增加{{val}}>> (每有1符文强度就增加0.50%)",
       "antSpeed": "<<crimson|使蚂蚁速度变为原来的{{val}}倍>> (1 + 符文强度^2 / 2500) 倍",
@@ -6737,7 +6744,7 @@
     "transferredFromLZ": "成功将存档转换为新格式！",
     "allCorruptionsZero": "下次飞升时将所有腐化重置为零。",
     "corruptionLoadoutApplied": "第{{x}}个预设\"{{y}}\"已载入。飞升后即可生效。",
-    "ascendPrompt": "飞升后，之前的所有低阶资源，符文经验值，护身符，大部分研究，以及蚁丘都将被重置，但您可以获得方盒的力量。您确定要继续吗？",
+    "ascendPrompt": "Ascending will reset all buildings, rune EXP, talismans, most Researches, and the anthill feature for Cubes of Power. Continue?",
     "reincarnatePrompt": "转世后之前的所有低阶资源都将被重置，但您可以获得强大的粒子，以及解锁一些非常强大的升级和新的游戏机制。您确定要转世吗？[您可以在设置中调整是否弹出此对话框。]",
     "transcendPrompt": "超越后金币、钻石升级，金币生产者，水晶生产者和钻石都将被重置。首次超越可以解锁新的游戏机制。您确定要超越吗？[您可以在设置中调整是否弹出此对话框。]",
     "prestigePrompt": "转生后金币升级，金币生产者和水晶都将被重置。首次转生可以解锁新的游戏机制。您确定要转生吗？[您可以在设置中调整是否弹出此对话框。]",
