@@ -3727,7 +3727,7 @@
       "highestSingularity": "最高奇点次数：<b><<gold|{{num}}>></b>",
       "maxLookahead": "“提前看到”的距离上限：<b><<gold|{{num}}>></b>(需要获得蚁神之古物)",
       "lookahead": "在最高奇点次数“提前看到”会使最高奇点次数<b><<gold|增加1>></b><br><b><<orange|跳过奇点同样也会增加！>></b>",
-      "lookaheadExtra": "If you beat a Singularity higher than your Highest, <br><b><<orchid | your Highest Singularity will update to current Singularity!>></b>"
+      "lookaheadExtra": "如果您通过的奇点次数高于最高奇点次数，<br><b><<orchid|那么最高奇点次数将变为通过的奇点次数！>></b>"
     }
   },
   "general": {
@@ -4565,7 +4565,7 @@
       "finishTranscension": "如果您无法完成超越挑战，可以按下上面列出的快捷键退出，或者点击顶部重置按钮上的红色 C 按钮来退出。",
       "leaveReincarnation": "如果想要退出转世挑战，请按灰色的 C 按钮！"
     },
-    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> Researches first. The <<var(--crimson-text-color);|red-bordered>> Researches are never reset whereas the <<white;|white-bordered>> Researches will reset upon the next reset tier!",
+    "research": "欢迎来到研究！难得素可以通过<<var(--green-text-color);|转世>>获得。我个人建议优先研究<<limegreen;|绿色边框>>的升级。<<var(--crimson-text-color);|红色边框>>的升级不会被重置，<<white;|白色边框>>的升级在下一阶重置时将被重置！",
     "shop": "鼠标停在商店物品上以查看详细介绍！"
   },
   "buildings": {
@@ -4842,8 +4842,8 @@
       },
       "octeractFastForward": {
         "name": "Derpsmith的奇点小玩意",
-        "description": "Each level gives +2.5% more Golden Quarks (additive), and lets you 'look ahead' another Singularity!",
-        "effect": "Singularities give {{n100}}% more GQ, 'look ahead' limit +{{n}}"
+        "description": "使金夸克获取数量增加2.5%(与其他同类效果叠加)，且您可以再“提前看到”一次奇点！",
+        "effect": "进入奇点时的金夸克获取数量增加{{n100}}%，“提前看到”的上限为{{n}}"
       },
       "octeractAutoPotionSpeed": {
         "name": "口渴药片",
@@ -4993,7 +4993,7 @@
     "superiorIntellect": {
       "name": "卓越智慧",
       "description": "将普通人上百倍数量的脑细胞塞进一块石头里。它或许就产生意识了。",
-      "lockedDescription": "This rune is locked! Unlocking it might require some novel Research.",
+      "lockedDescription": "该符文未解锁！可能需要某些小说的研究。",
       "offeringMult": "<<orange|使祭品获取数量增加{{val}}>> (每有1符文强度就增加0.05%)",
       "obtainiumMult": "<<pink|使难得素获取数量增加{{val}}>> (每有1符文强度就增加0.50%)",
       "antSpeed": "<<crimson|使蚂蚁速度变为原来的{{val}}倍>> (1 + 符文强度^2 / 2500) 倍",
@@ -6744,7 +6744,7 @@
     "transferredFromLZ": "成功将存档转换为新格式！",
     "allCorruptionsZero": "下次飞升时将所有腐化重置为零。",
     "corruptionLoadoutApplied": "第{{x}}个预设\"{{y}}\"已载入。飞升后即可生效。",
-    "ascendPrompt": "Ascending will reset all buildings, rune EXP, talismans, most Researches, and the anthill feature for Cubes of Power. Continue?",
+    "ascendPrompt": "飞升后，之前的所有低阶资源，符文经验值，护身符，大部分研究，以及蚁丘都将被重置，但您可以获得方盒的力量。您确定要继续吗？",
     "reincarnatePrompt": "转世后之前的所有低阶资源都将被重置，但您可以获得强大的粒子，以及解锁一些非常强大的升级和新的游戏机制。您确定要转世吗？[您可以在设置中调整是否弹出此对话框。]",
     "transcendPrompt": "超越后金币、钻石升级，金币生产者，水晶生产者和钻石都将被重置。首次超越可以解锁新的游戏机制。您确定要超越吗？[您可以在设置中调整是否弹出此对话框。]",
     "prestigePrompt": "转生后金币升级，金币生产者和水晶都将被重置。首次转生可以解锁新的游戏机制。您确定要转生吗？[您可以在设置中调整是否弹出此对话框。]",
