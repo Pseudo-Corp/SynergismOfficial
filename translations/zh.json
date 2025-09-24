@@ -276,7 +276,7 @@
         "effect": "该升级使神肴之运增加了{{amount}}！"
       },
       "redGenerationSpeed": {
-        "name": "千年之红神肴",
+        "name": "Millennium-Aged Red Ambrosia",
         "description": "考虑到这份神肴放置的时间，它肯定也很了解时间。每级使红进度条点数获取速度增加0.3%。",
         "effect": "该升级使红进度条点数获取速度增加{{amount}}！"
       },
@@ -789,7 +789,7 @@
       "447": "数字又大又宽：进行10000000000000(1e13)次转生。",
       "448": "千万亿了：进行1e15次转生。",
       "449": "反复转生：进行1e17次转生。",
-      "450": "洗尽铅华的转生：进行1e20次转生。",
+      "450": "Prestige so Prestigious, it becomes ordinary: Prestige 1e20 times.",
       "451": "超凡：进行首次超越。",
       "452": "十度分隔：进行10次超越。",
       "453": "丰富多彩：进行100次超越。",
@@ -2482,7 +2482,7 @@
     },
     "upgradeDescriptions": {
       "1": "[1x1]好！每级使飞升时惊奇方盒获取数量增加16.666%。",
-      "2": "[1x2]普路托斯使您每级获得3回收！",
+      "2": "[1x2] Plutus grants you +3 Salvage per level!",
       "3": "[1x3]雅典娜使您每级多获得10%难得素和80%自动难得素。",
       "4": "[1x4]您可以保留升级选项卡下5个有用的自动化升级！",
       "5": "[1x5]您可以保留升级选项卡下的自动购买神话升级！",
@@ -3199,7 +3199,7 @@
         "default": "对于每次奇点，每级特权使“增加”代码的使用次数加快{{counter}}%恢复。目前加快了{{current}}%(最高使恢复时间减少60%)"
       },
       "midasMilleniumAgedGold": {
-        "name": "米达斯的千年之金",
+        "name": "Midas' Millennium-Aged Gold",
         "default": "每次使用“增加”代码后还可以使金夸克 I的免费等级增加0.01，金夸克 III的免费等级增加0.05。"
       },
       "goldenRevolution4": {
@@ -3349,7 +3349,7 @@
       },
       "singOfferings3": {
         "name": "祭品狂风",
-        "description": "它会让所有人乖乖把祭品奉上。每级使祭品获取数量永久增加4%。",
+        "description": "This bar is so pristine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
         "effect": "使祭品获取数量增加{{n}}。"
       },
       "singObtainium1": {
@@ -3384,7 +3384,7 @@
       },
       "singCitadel": {
         "name": "奇点堡垒",
-        "description": "何等独特的堡垒……它每级可以使难得素获取数量、祭品获取数量、所有类型的方盒和立方获取数量永久增加2%！每10级还可以使加成数值额外增加1%！",
+        "description": "What a unique structural phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
         "effect": "使难得素获取数量、祭品获取数量、所有类型的方盒和立方获取数量增加{{n}}。"
       },
       "singCitadel2": {
@@ -3482,7 +3482,7 @@
       },
       "singQuarkImprover1": {
         "name": "略微增加夸克获取数量的小装置",
-        "description": "我忘记长什么样的小装置。每级可以使夸克获取数量增加0.5%，效果与其他效果叠乘！不过它的花费增长比其他任何升级都快。另外，您知道描述文本可以这么长的吗？",
+        "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
         "effect": "夸克获取数量增加{{n}}%！"
       },
       "singQuarkHepteract": {
@@ -3737,7 +3737,7 @@
       "zeroOrLess": "请只输入大于0的数字！",
       "moreThanPlayerHas": "您无法承担它的花费！",
       "fraction": "嗯，这不是整数。这里不接受分数！",
-      "goldenQuarksTooMany": "抱歉，您无法购买这个数量的金夸克！请减少购买数量，或者直接输入-1购买最大数量！",
+      "goldenQuarksTooMany": "Sorry, I cannot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!",
       "finiteInt": "这不是有效的数字啊。",
       "invalidNumber": "哈？不，这不是个有效的数字。"
     },
@@ -4882,22 +4882,22 @@
       },
       "octeractAmbrosiaGeneration2": {
         "name": "细枝末节之沙漏",
-        "description": "一个有点原始的沙漏，每级使神肴进度条点数获取速度增加1%……",
+        "description": "A somewhat primitive hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
         "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "octeractAmbrosiaGeneration3": {
         "name": "肌病之沙漏",
-        "description": "这个沙漏略微没那么原始了。它每级可以使神肴进度条点数获取速度增加1%。",
+        "description": "An hourglass which is still primitive, though somehow less so. +1% faster Ambrosia Bar Point creation per level",
         "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "octeractAmbrosiaGeneration": {
         "name": "无穷之沙漏",
-        "description": "别弄错了，这个沙漏真的非常原始。但它每级可以使神肴进度条点数获取速度增加1%，且该升级无上限！",
+        "description": "Don't get it twisted, this hourglass is really primitive. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
         "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "octeractAmbrosiaGeneration4": {
         "name": "现实之沙漏",
-        "description": "一个不原始而且更加“及时”的沙漏——至于这是什么意思，管他呢。它每级可以使神肴进度条点数获取速度增加2%。",
+        "description": "An hourglass which is nonprimitive and 'more timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
         "effect": "使神肴进度条点数获取速度增加{{n}}%！"
       },
       "octeractBlueberries": {
@@ -6279,7 +6279,7 @@
       "PseudoCoins": "伪币升级：",
       "Base": "首次完成拔擢 - 无神肴升级后点击过神肴选项卡：",
       "BlueberrySpeed": "神肴提供的获取速度(超过1000后受到0.5次方的惩罚)：",
-      "RedAmbrosia": "千年之红神肴：",
+      "RedAmbrosia": "Millennium-Aged Red Ambrosia:",
       "Exalt5": "无神肴升级奖励：",
       "Total": "每秒红进度条点数："
     },
@@ -6577,7 +6577,7 @@
         },
         "abyss": {
           "effect": "似乎它拥有时间尽头的力量。还记得有哪里出现过类似的东西吗？",
-          "currentEffect": "您对远古时光的记忆让您获得了<<green|{{x}}回收>>",
+          "currentEffect": "Your remembrance of Time Immemorial grants you <<green|Salvage +{{x}}>>",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}惊奇方盒(笑)"
         },
         "accelerator": {
