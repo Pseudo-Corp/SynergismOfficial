@@ -1557,7 +1557,7 @@
                 "default": "The 'Add' Special Action refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)"
             },
             "midasMilleniumAgedGold": {
-                "name": "Midas' Millenium-Aged Gold",
+                "name": "Midas' Millennium-Aged Gold",
                 "default": "Every use of the 'Add' Special Action gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3."
             },
             "goldenRevolution4": {

@@ -789,7 +789,7 @@
       "447": "Numbers as large as they are wide: Prestige 10,000,000,000,000 times.",
       "448": "That's a quadrillion to you: Prestige 1e15 times.",
       "449": "Prestige ad nauseum: Prestige 1e17 times.",
-      "450": "Prestige so Presitgious, it becomes ordinary: Prestige 1e20 times.",
+      "450": "Prestige so Prestigious, it becomes ordinary: Prestige 1e20 times.",
       "451": "Transcendental: Transcend for the first time.",
       "452": "Ten degrees of separation: Transcend 10 times.",
       "453": "Polychroma: Transcend 100 times.",
@@ -2482,7 +2482,7 @@
     },
     "upgradeDescriptions": {
       "1": "[1x1] Ça roule ! +16,666% de Cubes 3D lors de l'Ascension par niveau.",
-      "2": "[1x2] Plutus grants you +3 Salage per level!",
+      "2": "[1x2] Plutus grants you +3 Salvage per level!",
       "3": "[1x3] Athéna vous accorde +10% d’Obtainium supplémentaire et +80% d’Obtainium auto par niveau.",
       "4": "[1x4] Vous gardez ces 5 améliorations d'automatisation bien pratiques dans l'onglet des Améliorations !",
       "5": "[1x5] You keep the Mythos upgrade automation upgrade in the upgrades tab!",
@@ -3482,7 +3482,7 @@
       },
       "singQuarkImprover1": {
         "name": "Marginal Quark Gain Improver Thingy",
-        "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitarily long?",
+        "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
         "effect": "You gain {{n}}% more Quarks!"
       },
       "singQuarkHepteract": {
@@ -4875,22 +4875,22 @@
       },
       "octeractAmbrosiaGeneration2": {
         "name": "Sablier de Minutie",
-        "description": "A somewhat primative hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
+        "description": "A somewhat primitive hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration3": {
         "name": "Sablier de Myopathie",
-        "description": "An hourglass which is still primative, though somehow less so. +1% faster Ambrosia Bar Point creation per level",
+        "description": "An hourglass which is still primitive, though somehow less so. +1% faster Ambrosia Bar Point creation per level",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration": {
         "name": "Sablier d'Infinité",
-        "description": "Don't get it twisted, this hourglass is really primative. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
+        "description": "Don't get it twisted, this hourglass is really primitive. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration4": {
         "name": "Sablier de Réalité",
-        "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
+        "description": "An hourglass which is nonprimitive and 'more timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractBlueberries": {
@@ -6570,7 +6570,7 @@
         },
         "abyss": {
           "effect": "Il semblerait que celui ci détient le pouvoir d'être à la Fin des Temps. Vous souvenez-vous pourquoi vous en avez besoin ?",
-          "currentEffect": "Your rememberance of Time Immemorial grants you <<green|Salvage +{{x}}>>",
+          "currentEffect": "Your remembrance of Time Immemorial grants you <<green|Salvage +{{x}}>>",
           "oneCost": "En acheter un vous coûtera {{x}} Hepteracts et {{y}} Cubes Wow! (mdr)"
         },
         "accelerator": {
