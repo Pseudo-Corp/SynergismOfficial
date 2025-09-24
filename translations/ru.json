@@ -154,7 +154,7 @@
       },
       "ambrosiaBaseObtainium2": {
         "name": "Базированный Усилитель Обтаниума",
-        "description": "+1 Базового Обтаниума за уровень! Пробудите своего внутреннего исследователя.",
+        "description": "+1 Base Obtainium per level! Channel your inner er.",
         "effect": "Этот модуль увеличивает Базовый Обтаниум на {{amount}}!"
       },
       "ambrosiaBaseOffering2": {
@@ -557,7 +557,7 @@
       "215": "'Вау, Platonic, Налоги - отстой 1/5': Выполните испытание 'Налоги+++' десять раз.",
       "216": "Хаха, это почему-то так сложно: Выполните испытание 'Налоги+++' двадцать раз.",
       "217": "Налоги - сложная штука: Выполните испытание 'Налоги+++' тридцать раз.",
-      "218": "Блестящий Синий Камень: Выполните 'Без Исследований' один раз.",
+      "218": "Shiny Blue Rock: Clear 'No ' once.",
       "219": "Это как Аватар: Выполните 'Без Исследований' два раза.",
       "220": "Это как Унобтаниум: Выполните 'Без Исследований' три раза.",
       "221": "Это как что-то: Выполните 'Без Исследований' пять раз.",
@@ -1597,15 +1597,15 @@
       "118": "Каждое выполненное Испытание Реинкарнации замедляет прирост налогов на 0.75% за уровень, перемножаемо. Эффект: {{x}}x",
       "119": "+11% Обтаниума. Где-то появился хороший брелок...",
       "122": "+7.5% к переработке Подношений.",
-      "124": "Откладывает рост налогов на 5.66%. Открывает 5 новых невероятно мощных исследований!",
+      "124": "Delay tax growth by 5.66%. Unlock 5 new incredibly powerful Researches!",
       "126": "+13% Обтаниума. Вы получили аксессуар, отпразднуйте этот момент!",
-      "127": "Открывает 20 новых невероятно дорогих, но хороших исследований. Открывает функцию [Муравейник]!",
-      "128": "Стоимость исследований идёт в \"--\"! Обтаниум 1.5x!",
+      "127": "Unlock 20 new incredibly expensive yet good Researches. Unlock the [Anthill] feature!",
+      "128": "Make Researches go Cost-- with 1.5x Obtainium!",
       "129": "+7.5% к переработке Подношений. Получите ещё один 1.25х множитель Обтаниума!",
       "131": "Откладывает рост налогов на 5.66%.",
       "132": "Награды за Пожертвование навсегда на +25% больше!",
       "133": "+15% Обтаниума. Получите дар от самого Мидаса.",
-      "134": "Открывает 10 новейших и невероятно дорогих, но хороших исследований. Открывает <Талисманы> во вкладке \"Руны\"!",
+      "134": "Unlock 10 newer incredibly expensive yet good Researches. Unlock <Talismans> in the Runes Tab!",
       "135": "Положительные бонусы талисманов усилены на +0.02 за уровень.",
       "136": "Положительные бонусы талисманов ещё больше усилены на +0.02 за уровень.",
       "137": "Награды за Пожертвование навсегда на +25% больше!",
@@ -2092,10 +2092,10 @@
     "resetAlert": "<<gold | ⚠>> Performs a <<limegreen | Reincarnation>>",
     "immortalELOGain": "• Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
     "antSacMultiplier": "↳ Ant Speed x{{x}}",
-    "offeringMultiplier": "• Gain <<orange | {{x}}x Prestige Offerings>>",
-    "obtainiumMultiplier": "• Gain <<pink | {{x}}x Reincarnation Obtainium>>",
+    "offeringMultiplier": "• Gain <<orange | {{x}}x Offerings>>",
+    "obtainiumMultiplier": "• Gain <<pink | {{x}}x Obtainium>>",
     "talismanFragments": "• Gain Some Talisman Fragments!",
-    "autoReset": "This resets your Crumbs, Ants and Ant Upgrades, and performs a Reincarnation in exchange for some Ant Speed and resources. Continue?",
+    "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some Ant Speed and resources. Continue?",
     "elo": "+{{x}} [>{{y}} ЭЛО]",
     "antSacrifice": "Пожертвовать Муравьёв"
   },
@@ -2337,11 +2337,11 @@
     "14": {
       "name": "Испытание Без Исследований || {{- value}} Выполнений",
       "flavor": "Измерение, которое никогда не прорвалось через тёмные времена. Многие даже бояться шагнуть.",
-      "restrictions": "Вознеситесь и достигните цели, но вы не получаете Обтаниум и не можете приобрести никакие исследования. Производство Муравьёв ^0.2.",
+      "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any Researches purchasable. Ant production ^0.2.",
       "goal": "Цель: Выполните Испытание 10 [Испытание Садизм I] {{value}} раз.",
       "per": {
-        "1": "Эффект исследований с 1х1 по 1х5 сильнее на +50%. Текущий: ",
-        "2": "+1 купленное исследование за каждый такт roomba! Текущий: ",
+        "1": "+50% stronger effect on Researches 1x1 through 1x5. Current: ",
+        "2": "+1 Research purchased per roomba tick! Current: ",
         "3": "+1.5 to the Rune Level Coefficient of the first five runes! Current: "
       },
       "first": "Unlock 15 Researches, and discover a new type of ideal cube - a Platonic one perhaps? Plus more Campaigns and Corruptions of course.",
@@ -2531,7 +2531,7 @@
       "48": "[5x8] When you ascend, start with 1 Worker Ant (this is a lot better than it sounds!)",
       "49": "[5x9] При вознесении, получите 1 выполнение каждого Испытания 6-8.",
       "50": "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +1 Effective ELO, 0.00066% Tax reduction per level. Every 10,000 levels grant +0.6% Talisman Power!",
-      "51": "[Cx1] Пекарня Wow! открыта!!! Мгновенно открывает все автоматизации из вкладки кубов и исследований.",
+      "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the Wow! Cubes tab, and Research as well.",
       "52": "[Cx2] These sugar cookies sure boost your blood sugar. Gain +1% Global Speed per level.",
       "53": "[Cx3] Какой сытный перекус. +0,1% Кварков за уровень.",
       "54": "[Cx4] Pretty dry, but they suffice. Gain +1% Offerings per level.",
@@ -2626,7 +2626,7 @@
       "38": "[2x13] Сила строений растёт на 2.5% быстрее за уровень.",
       "39": "[2x14] Сила строений влияет на производство Кристаллов в уменьшенном отношении.",
       "40": "[2x15] Сила строений влияет на производство Осколков Мифов в уменьшенном отношении.",
-      "41": "[2x16] Начинайте Реинкарнации с открытой автоматизацией У.Ускорителей. Примечание: это исследование не влияет на получение достижений.",
+      "41": "[2x16] Start Reincarnations with automatic A.Boosts unlocked. Note: this Research doesn't affect earning achievements.",
       "42": "[2x17] Начинайте Реинкарнации с открытой автоматизацией Генераторов.",
       "43": "[2x18] Начинайте Реинкарнации с открытой автоматизацией Ул.Монет.",
       "44": "[2x19] Начинайте Реинкарнации с открытой автоматизацией Ул.Алмазов.",
@@ -2666,7 +2666,7 @@
       "78": "[4x3] Here's +1 Rune Coefficient to Duplication Rune, per level!",
       "79": "[4x4] Here's +1 Rune Coefficient to Prism Rune, per level!",
       "80": "[4x5] Here's +1 Rune Coefficient to Thrift Rune, per level!",
-      "81": "[4x6] You thought the previous researches are expensive? You're going to need this! [+10% Obtainium per level]",
+      "81": "[4x6] You thought the previous Researches are expensive? You're going to need this! [+10% Obtainium per level]",
       "82": "[4x7] Permanently UNLOCK the Rune of Superior Intellect! [Bonuses: Offerings, Obtainium and Ant Speed]",
       "83": "[4x8] Taking forever to level up that new Rune? Here's +5% Superior Intellect Rune EXP per level.",
       "84": "[4x9] Does the Superior Intellect Rune kinda suck? Power it up! +0.5% Rune Power <b>only for SI Rune</b> per level!",
@@ -2739,7 +2739,7 @@
       "151": "[7x1] A new row, old upgrade. Increase your Global Speed by +1.2% per level.",
       "152": "[7x2] Корпорация Wow! спонсирует ещё +0.9% Кубов за уровень в ваш банк Вознесения!",
       "153": "[7x3] Hey, I totally didn't steal this idea. You gain 12 Tributes of Wow! Cube tier for every Tesseract opened.",
-      "154": "[7x4] Делает так, что все здания Тессерактов производят на 3% быстрее за уровень. Эй, разве это не больше, чем на прошлом исследовательском уровне?",
+      "154": "[7x4] Make all Tesseract buildings produce 3% faster per level. Hey, isn't that more than the last Research tier?",
       "155": "[7x5] Том 2 из 4: Как покорить вселенную Муравьёв. При покупке, базовые требования Испытания 10 снова делятся на e100M.",
       "156": "[7x6] What, again? Alright. +0.6% Accelerators per level.",
       "157": "[7x7] Gas, gas, gas. +0.6% Accelerator Boosts per level.",
@@ -2787,7 +2787,7 @@
       "199": "[8x24] +10% faster Tesseract Buildings / level. THE ARISEN. WITH THE PRAISE OF THE [[REDACTED]].",
       "200": "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings per level. +0.004% Cubes per level, +(level/200) free Ant upgrade levels, 0.000666% Tax reduction per level. Every 10,000 levels grant +0.4% more Talisman Power!"
     },
-    "thanksToResearches": "Благодаря исследованиям, вы автоматически получаете {{x}} Обтаниума за одну реальную секунду.",
+    "thanksToResearches": "Thanks to Research you automatically gain {{x}} Obtainium per real life second.",
     "level": "Уровень {{x}}/{{y}}",
     "maxed": " || МАКСИМУМ!",
     "cost": "Стоимость: {{x}} Обтаниума [+{{y}} Уровней]",
@@ -2799,7 +2799,7 @@
     "autoModeManual": "Автоматический режим: Ручной",
     "hoverToBuyOn": "Наведите-для-Покупки [ON]",
     "hoverToBuyOff": "Наведите-для-Покупки [OFF]",
-    "hover": "Наведите курсор на иконки, чтобы узнать сведения об исследованиях!",
+    "hover": "Hover over the grid to get details about Research!",
     "resets": "Сбрасывается при следующем уровне сброса.",
     "doesNotReset": "НИКОГДА не сбрасывается!"
   },
@@ -2810,7 +2810,7 @@
       "offeringEX": "Увеличивает Подношения от всех источников на +4%!",
       "offeringAuto": "Автоматически вливает Подношения в руну. 1-ый уровень открывает возможность, каждый последующий увеличивает получение Подношений на 2%. Каждую секунду, тратится 2^(Уровень) Подношений.",
       "obtainiumEX": "Увеличивает Обтаниум от всех источников на +4%!",
-      "obtainiumAuto": "Автоматически вливает Обтаниум в исследование. 1-й уровень разблокирует функцию, и каждый уровень увеличивает получение Обтаниума на 2%. Каждая Реинкарнация выбрасывает весь полученный Обтаниум на исследование до тех пор, пока его уровень не достигнет максимума.",
+      "obtainiumAuto": "Automatically pour Obtainium into a Research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every Reincarnation, dump all Obtainium into Research until maxed.",
       "instantChallenge": "В и Р Испытания не вызывают сбросов если включён повтор и набирают до 10 прохождений за такт. Также, при выходе из Р Испытаний, мгновенно получаете прохождение В Испытаний до высшего пройденного.",
       "antSpeed": "Каждый уровень даёт 1.2х множитель скорости производства всех видов Муравьёв! (Чистый!) Коротко и просто.",
       "cashGrab": "Это обдираловка, но она даёт пару интересных статов. +1% производства Подношений и Обтаниума за уровень.",
@@ -2919,7 +2919,7 @@
       "offeringEX": "Увеличивает Подношения на <<goldenrod|{{amount}}%>>!",
       "offeringAuto": "За 10 секунд, вливается <<goldenrod|{{amount1}}>> Подношений. +<<goldenrod|{{amount2}}%>> Подношений.",
       "obtainiumEX": "Увеличивает Обтаниум на <<pink|{{amount}}%>>!",
-      "obtainiumAuto": "Пытается улучшить исследование каждую реинкарнацию, и увеличивает Обтаниум на<<pink|{{amount}}%>>.",
+      "obtainiumAuto": "Try to upgrade Research each Reincarnation, and gain <<pink|{{amount}}%>> more Obtainium.",
       "instantChallenge": "Даже для премиум магазина это довольно очевидно, не так ли?",
       "antSpeed": "Скорость всех Муравьёв <<crimson|x{{amount}}>>",
       "cashGrab": "Увеличивает Подношения и Обтаниум на <<gold|{{amount}}%>>!",
@@ -3013,7 +3013,7 @@
       "levelInfo": "Уровень {{level}} - (Сингулярность {{singularity}})",
       "improvedIn": "Уже существующая Привилегия будет улучшена в Сингулярности {{sing}}",
       "unlockedIn": "Вы разблокируете новую Привилегию в Сингулярности {{sing}}",
-      "header": "Высшая Сингулярность, которой вы достигли - <span style=\"color: gold\">{{ord}} Сингулярность.</span><br/>Вот список привилегий, которые вы приобрели для компенсации штрафов ",
+      "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
       "description": "(Наведите курсор для получения более подробной информации. В этой Сингулярности были добавлены или улучшены привилегии, <span style=\"color: gold\">выделенные золотым текстом</span>)",
       "welcometoSingularity": {
         "name": "Добро пожаловать в Сингулярность!",
@@ -3153,7 +3153,7 @@
       },
       "coolQOLCubes": {
         "name": "Крутой Сервис Для Кубов",
-        "hasLevel1": "Сохраняются все исследования Открытия Кубов И появляется возможность автоматически открывать определенный процент ваших кубов при каждом Вознесении!",
+        "hasLevel1": "Keep all Cube Opening Researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
         "default": "Исследования, касающиеся открытия кубов больше не сбрасываются при Вознесении"
       },
       "irishAnt": {
@@ -3215,11 +3215,11 @@
         "name": "Безупречная Алхимия",
         "hasLevel2": "После 200-й Сингулярности, Перемотки больше не работают! Вместо этого ваше получение ЗК умножено, а стоимость покупки ЗК разделена, на 8.",
         "hasLevel1": "После 200-й Сингулярности, Перемотки больше не работают! Вместо этого ваше получение ЗК умножено, а стоимость покупки ЗК разделена, на 5.",
-        "default": "После 200-й Сингулярности, Перемотки больше не работают! Вместо этого ваше получение ЗК умножено, а стоимость покупки ЗК разделена, на 3."
+        "default": "Multiply Golden Quark gain and divide the cost to buy Golden Quarks by {{ multiplier }}! <br><b>This perk takes into account your current, not highest Singularity!</b><br>Thresholds: s50, s90, s130, s170, s200, s217, s235, s253, s271, s289</br>"
       },
       "skrauQ": {
         "name": "икравК",
-        "default": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: <<cyan | x{{amt}}>>... Yes, it's <<gray | that good>>.<br><b><<gold | ⚠>> This Perk takes into account your current Singularity count, and not your highest!</b>"
+        "default": "Multiply all Quark Gain by (1 + (Singularity - 199)/25)^2. Currently: <<cyan | x{{amt}}>>... Yes, it's <<gray | that good>>.<br><b><<gold | ⚠>> This Perk takes into account your current Singularity count, and not your highest!</b>"
       },
       "primalPower": {
         "name": "Первобытная Сила!",
@@ -3551,13 +3551,13 @@
       },
       "singFastForward": {
         "name": "Сингулярности Потока Простых Эфиров",
-        "description": "Golden Quark gained by Singularity is increased by 100% (additive), and going singular at your all time highest count gives +1 Singularity count!",
+        "description": "Golden Quark gained by Singularity is increased by 2.5% (additive), and lets you 'look ahead' an extra Singularity. This means you can choose (from the Elevator) to skip a Singularity if you do one at your all time highest!",
         "effectHave": "Вы преобразили Поток Простых Эфиров!",
         "effectHaveNot": "Вы не преобразили Поток Простых Эфиров!"
       },
       "singFastForward2": {
         "name": "Сингулярности Потока Эфира",
-        "description": "Golden Quark gained by Singularity is increased by 100% (additive) and going singular at your all time highest count gives +1 Singularity count! It's like Etherflux but with an A.",
+        "description": "Golden Quark gained by Singularity is increased by 2.5% (additive) and lets you 'look ahead' yet another Singularity!",
         "effectHave": "Вы преобразили Поток Эфира!",
         "effectHaveNot": "Вы не преобразили Поток Эфира!"
       },
@@ -3711,8 +3711,9 @@
       "teleportButtonStay": "Reopen!",
       "teleportButtonLower": "Down!",
       "lockToggle": "Lock Future Singularities",
-      "lockEnabled": "Future Singularities are <<orange|LOCKED>>. You will repeat Singularity {{target}}.",
-      "lockDisabled": "Future Singularities are <<lime|UNLOCKED>>. You will go to your highest Singularity when you perform a Singularity.",
+      "lockEnabled": "Future Singularities are <<orange|LOCKED>>. You will repeat <<gold | Singularity {{target}}>>.",
+      "lockDisabledIntro": "Future Singularities are <<lime|UNLOCKED>>.",
+      "lockDisabledSing": "Your next Singularity will be <<gold | Singularity {{target}}>>",
       "invalidTarget": "Please select a valid Singularity between 1 and {{max}}.",
       "noTarget": "Please select a target Singularity first.",
       "confirmTeleport": "Are you sure you want to go to Singularity {{target}}?",
@@ -3720,7 +3721,13 @@
       "teleportSuccess": "Transported to Singularity {{target}}!",
       "inEXALTError": "Derpsmith slowly nods his head. \"Elevator's Out Of Order...\" he declares. Why does this always happen when you're in an EXALT?",
       "lockedTitle": "Singularity Elevator - OUT OF ORDER",
-      "lockedDescription": "This Elevator only operates if you've seen the 10th Singularity. Check again then!"
+      "lockedDescription": "This Elevator only operates if you've seen the 10th Singularity. Check again then!",
+      "slowClimbToggle": "Only go up 1 Singularity",
+      "nextSingInfo": "Next Singularity Info",
+      "highestSingularity": "Highest Singularity: <b><<gold | {{num}}>></b>",
+      "maxLookahead": "Max Lookahead Distance: <b><<gold | +{{num}}>></b> (Requires Antiquities)",
+      "lookahead": "Looking ahead at your Highest Singularity adds <b><<gold | +1>></b> to your Highest Singularity<br><b><<orange | even if you skip Singularities!>></b>",
+      "lookaheadExtra": "If you beat a Singularity higher than your Highest, <br><b><<orchid | your Highest Singularity will update to current Singularity!>></b>"
     }
   },
   "general": {
@@ -4558,7 +4565,7 @@
       "finishTranscension": "Если вы неспособны завершить испытание Выхода за пределы, нажмите горячую клавишу ИЛИ кликните на красную кнопку \"С\" в кнопках сброса вверху.",
       "leaveReincarnation": "Вместо этого, чтобы покинуть испытание реинкарнации, нажмите на серую \"С\"!"
     },
-    "research": "Добро пожаловать в будущее! Обтаниум можно получить с помощью <<var(--green-text-color);|Реинкарнации>>. Я бы порекомендовал изучить исследования с <<limegreen;|зелёной рамкой>> в первую очередь. Исследования с <<var(--crimson-text-color);|красной рамкой>> никогда не сбросятся, тогда как исследования <<white;|белой рамкой>> будут сброшены при следующем уровне сброса!",
+    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> Researches first. The <<var(--crimson-text-color);|red-bordered>> Researches are never reset whereas the <<white;|white-bordered>> Researches will reset upon the next reset tier!",
     "shop": "Наведите на каждую иконку в магазине, чтобы увидеть, что делает каждое улучшение!"
   },
   "buildings": {
@@ -4835,8 +4842,8 @@
       },
       "octeractFastForward": {
         "name": "Сумбуратор Сингулярности Кукузнеца",
-        "description": "Каждый уровень даёт +100% (добавочно) Золотых Кварков за Сингулярность и Сингулрование при наибольшем за все время счётчике даёт +1 к счётчику Сингулярности!",
-        "effect": "Сингулярности дают в {{n100}} раз больше ЗК и считаются за {{n}} больше Сингулярность(и)."
+        "description": "Each level gives +2.5% more Golden Quarks (additive), and lets you 'look ahead' another Singularity!",
+        "effect": "Singularities give {{n100}}% more GQ, 'look ahead' limit +{{n}}"
       },
       "octeractAutoPotionSpeed": {
         "name": "Таблетка Повышенной Жажды",
@@ -4986,7 +4993,7 @@
     "superiorIntellect": {
       "name": "Superior Intellect",
       "description": "Over a hundred times the number of brain cells the average human has, put into one rock. It's probably sentient.",
-      "lockedDescription": "This rune is locked! Unlocking it might require some novel research.",
+      "lockedDescription": "This rune is locked! Unlocking it might require some novel Research.",
       "offeringMult": "<<orange | Offering Gain +{{val}}>> (+0.05% per Power)",
       "obtainiumMult": "<<pink | Obtainium Gain +{{val}}>> (+0.50% per Power)",
       "antSpeed": "<<crimson | Ant Speed {{val}}x>> (1 + Power^2 / 2500)x",
@@ -6737,7 +6744,7 @@
     "transferredFromLZ": "Сохранение успешно конвертировано в новый формат!",
     "allCorruptionsZero": "Все Порчи были установлены на Ноль. Эффект вступит в силу при следующем Вознесении.",
     "corruptionLoadoutApplied": "Заготовка Порчи {{x}} \"{{y}}\" была применена. Эффект вступит в силу в следующем Вознесении.",
-    "ascendPrompt": "Ascending will reset all buildings, rune EXP, talismans, most researches, and the anthill feature for Cubes of Power. Continue?",
+    "ascendPrompt": "Ascending will reset all buildings, rune EXP, talismans, most Researches, and the anthill feature for Cubes of Power. Continue?",
     "reincarnatePrompt": "Реинкарнирование сбросит ВСЁ, но в обмен вы получите невероятно могущественные Частицы и разблокируете очень мощные улучшение и новые функции. Хотите ли вы Реинкарнировать? [Сообщение можно отключить в настройках.]",
     "transcendPrompt": "Выход за пределы сбросит ваши монеты и престижные улучшения, производство монет и кристаллов И алмазы. Первый Выход за пределы открывает новые функции. Хотите Выйти за пределы? [Вы можете включить/выключить это сообщение в настройках.]",
     "prestigePrompt": "Престиж сбросит улучшения монет, производителей монет И кристаллов. Первый Престиж открывает новые возможности. Хотите ли вы выполнить Престиж? [Это сообщение переключаемо в настройках.]",
