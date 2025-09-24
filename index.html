@@ -1730,8 +1730,6 @@
                     <span id="immortalELOAntSpeed"></span>
                     <br><br>
                     <p id="antSacrificeTitle" class="crimsonText" i18n="ants.resetAnthill"></p>
-                    <span id="antSacrficeAlert" i18n="ants.resetAlert"></span>
-                    <br>
                     <span id="immortalELOGain"></span>
                     <br>
                     <span id="SacrificeMultiplier"></span>
@@ -3597,9 +3595,17 @@
                 <p i18n="singularity.elevator.lockedTitle"></p>
                 <p id="lockedElevatorDescription" i18n="singularity.elevator.lockedDescription"></p>
             </div>
+
             <div id="singularityElevator" class="singularityElevatorContainer">
                 <h3 class="singularityGradient gradientText" i18n="singularity.elevator.title"></h3>
                 <p id="elevatorDescription" i18n="singularity.elevator.description" i18n-options="target:0"></p>
+
+                <div class="lookaheadInfo">
+                    <p id="highestSingularity" i18n="singularity.elevator.highestSingularity"></p>
+                    <p id="maxLookahead" i18n="singularity.elevator.maxLookahead"></p>
+                    <p id="lookahead" i18n="singularity.elevator.lookahead"></p>
+                    <p id="extraLookahead" i18n="singularity.elevator.lookaheadExtra"></p>
+                </div>
 
                 <div class="elevatorControls">
                     <div class="elevatorTargetSection">
@@ -3612,11 +3618,19 @@
                     </div>
 
                     <div class="elevatorLockSection">
-                        <label class="elevatorToggle">
-                            <input type="checkbox" id="elevatorLockToggle">
-                            <p i18n="singularity.elevator.lockToggle"></p>
-                        </label>
+                        <h3 id="nextSingularityInfo" class="elevatorLockStatus singularityGradient gradientText" i18n="singularity.elevator.nextSingInfo"></h3>
+                        <hr class="mediumHorizontalLine">
                         <p id="elevatorLockStatus" class="elevatorLockStatus"></p>
+                        <div id="elevatorSettings">
+                            <label class="elevatorToggle">
+                                <input type="checkbox" id="elevatorLockToggle">
+                                <p i18n="singularity.elevator.lockToggle"></p>
+                            </label>
+                            <label class="elevatorToggle" id="elevatorSlowClimbLabel">
+                                <input type="checkbox" id="elevatorSlowClimbToggle">
+                                <p i18n="singularity.elevator.slowClimbToggle"></p>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

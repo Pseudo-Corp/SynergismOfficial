@@ -47,8 +47,8 @@ import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { forceResetShopUpgrades, shopData } from './Shop'
 import {
+  calculateMaxSingularityLookahead,
   calculateSingularityDebuff,
-  getFastForwardTotalMultiplier,
   getGQUpgradeEffect,
   goldenQuarkUpgrades
 } from './singularity'
@@ -1149,22 +1149,25 @@ export const singularity = (setSingNumber = -1) => {
   player.goldenQuarks += calculateGoldenQuarks()
 
   if (setSingNumber === -1) {
-    const incrementSingCount = 1 + getFastForwardTotalMultiplier()
+    const lookahead = calculateMaxSingularityLookahead(true)
+    const incrementHighestSing = player.singularityCount === player.highestSingularityCount
 
     // Check if elevator is locked to specific target
     if (player.singularityElevatorLocked) {
       // If locked, go to the target singularity instead of advancing normally
       player.singularityCount = player.singularityElevatorTarget
     } else {
-      // Normal progression
-      player.singularityCount += incrementSingCount
-      // Set to maximum if we undershoot (e.g. we do not lock the elevator)
-      player.singularityCount = Math.max(player.singularityCount, player.highestSingularityCount)
+      // Unlocked, slow climb means just go up by one singularity
+      if (player.singularityElevatorSlowClimb) {
+        player.singularityCount++
+      } else { // Go up as many as we can, including highestSingularity if relevant
+        const maxPotentialSing = player.singularityCount + lookahead
+        player.singularityCount = Math.max(player.highestSingularityCount, maxPotentialSing)
+      }
     }
 
-    if (player.singularityCount > player.highestSingularityCount) {
-      player.highestSingularityCount = player.singularityCount
-
+    if (incrementHighestSing) {
+      player.highestSingularityCount++
       if (player.highestSingularityCount === 5) {
         goldenQuarkUpgrades.goldenQuarks3.freeLevel += 1
       }
@@ -1173,7 +1176,12 @@ export const singularity = (setSingNumber = -1) => {
       }
     }
   } else {
+    const incrementHighestSing = player.singularityCount === player.highestSingularityCount
+      && setSingNumber > player.singularityCount
     player.singularityCount = setSingNumber
+    if (incrementHighestSing) {
+      player.highestSingularityCount++
+    }
   }
 
   player.totalQuarksEver += player.quarksThisSingularity
@@ -1199,6 +1207,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.singularityCount = player.singularityCount
   hold.highestSingularityCount = player.highestSingularityCount
   hold.singularityElevatorTarget = player.singularityElevatorTarget
+  hold.singularityElevatorSlowClimb = player.singularityElevatorSlowClimb
   hold.singularityElevatorLocked = player.singularityElevatorLocked
   hold.singularityMatter = player.singularityMatter
   hold.goldenQuarks = player.goldenQuarks

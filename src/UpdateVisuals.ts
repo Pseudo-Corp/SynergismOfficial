@@ -1573,7 +1573,7 @@ export const visualUpdateSingularity = () => {
   if (G.currentTab !== Tabs.Singularity) {
     return
   }
-  if (getActiveSubTab() === 0) {
+  if (getActiveSubTab() === 1) {
     DOMCacheGetOrSet('goldenQuarkamount').textContent = i18next.t(
       'singularity.goldenQuarkAmount',
       {
@@ -1611,7 +1611,7 @@ export const visualUpdateSingularity = () => {
         }
       }
     }
-  } else if (getActiveSubTab() === 2) {
+  } else if (getActiveSubTab() === 3) {
     const keys = Object.keys(octeractUpgrades) as OcteractDataKeys[]
     const val = G.shopEnhanceVision
 

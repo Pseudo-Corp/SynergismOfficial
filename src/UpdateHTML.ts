@@ -417,7 +417,7 @@ export const revealStuff = () => {
     }
   }
 
-  DOMCacheGetOrSet('toggleSingularitySubTab4').style.display = player.highestSingularityCount >= 25
+  DOMCacheGetOrSet('toggleSingularitySubTab5').style.display = player.highestSingularityCount >= 25
     ? 'block'
     : 'none'
   // Hide Challenge Subtabs until Exalts are unlocked

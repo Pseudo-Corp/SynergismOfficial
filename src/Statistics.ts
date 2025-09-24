@@ -45,6 +45,7 @@ import {
   calculateGoldenQuarks,
   calculateHepteractMultiplier,
   calculateHypercubeMultiplier,
+  calculateImmaculateAlchemyBonus,
   calculateLimitedAscensionsDebuff,
   calculateLuckConversion,
   calculateNegativeSalvage,
@@ -128,8 +129,8 @@ import {
 import { getRuneSpiritEffect } from './RuneSpirits'
 import { shopData } from './Shop'
 import {
+  calculateMaxSingularityLookahead,
   calculateSingularityDebuff,
-  getFastForwardTotalMultiplier,
   getGQUpgradeEffect,
   goldenQuarkUpgrades
 } from './singularity'
@@ -1243,10 +1244,13 @@ export const allQuarkStats: StatLine[] = [
   },
   {
     i18n: 'skrauQ',
-    stat: () =>
-      (player.highestSingularityCount >= 200)
-        ? Math.max(1, Math.pow((player.singularityCount - 179) / 20, 2))
-        : 1
+    stat: () => {
+      if (player.singularityCount >= 200) {
+        return Math.pow(1 + (player.singularityCount - 199) / 20, 2)
+      } else {
+        return 1
+      }
+    }
   },
   {
     i18n: 'OcteractQuarkBonus',
@@ -2279,17 +2283,11 @@ export const allGoldenQuarkMultiplierStats: StatLine[] = [
   },
   {
     i18n: 'FastForwards',
-    stat: () => 1 + getFastForwardTotalMultiplier() // Singularity Fast Forwards
+    stat: () => 1 + 0.025 * (calculateMaxSingularityLookahead(true) - 1) // Singularity Fast Forwards
   },
   {
     i18n: 'ImmaculateAlchemy',
-    stat: () => {
-      let perkMultiplier = 1
-      if (player.highestSingularityCount >= 200) perkMultiplier = 3
-      if (player.highestSingularityCount >= 208) perkMultiplier = 5
-      if (player.highestSingularityCount >= 221) perkMultiplier = 8
-      return perkMultiplier // Immaculate Alchemy
-    }
+    stat: () => calculateImmaculateAlchemyBonus() // Immaculate Alchemy
   },
   {
     i18n: 'PatreonBonus',

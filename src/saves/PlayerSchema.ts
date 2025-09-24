@@ -775,6 +775,7 @@ export const playerSchema = z.object({
   highestSingularityCount: z.number().default(() => blankSave.highestSingularityCount),
   singularityCounter: z.number().default(() => blankSave.singularityCount),
   singularityElevatorTarget: z.number().default(() => blankSave.singularityElevatorTarget),
+  singularityElevatorSlowClimb: z.boolean().default(() => blankSave.singularityElevatorSlowClimb),
   singularityElevatorLocked: z.boolean().default(() => blankSave.singularityElevatorLocked),
   singularityMatter: z.number().default(() => blankSave.singularityMatter),
   goldenQuarks: z.number().default(() => blankSave.goldenQuarks),

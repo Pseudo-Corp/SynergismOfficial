@@ -640,6 +640,7 @@ export interface Player {
   highestSingularityCount: number
   singularityCounter: number
   singularityElevatorTarget: number
+  singularityElevatorSlowClimb: boolean
   singularityElevatorLocked: boolean
   singularityMatter: number
   goldenQuarks: number

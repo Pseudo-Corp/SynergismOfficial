@@ -18,7 +18,7 @@ import i18next from 'i18next'
 import { awardAchievementGroup, awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { resetHistoryAdd, type ResetHistoryEntryAntSacrifice } from './History'
-import { reset, resetAnts } from './Reset'
+import { resetAnts } from './Reset'
 import { offeringObtainiumTimeModifiers } from './Statistics'
 import { Tabs } from './Tabs'
 import { updateTalismanInventory } from './Talismans'
@@ -422,9 +422,6 @@ export const sacrificeAnts = async (auto = false) => {
       player.antSacrificeTimerReal = 0
       updateTalismanInventory()
       resetHistoryAdd('ants', historyEntry)
-
-      // v4: Perform a Reincarnation, as advertised.
-      reset('reincarnation', auto)
     }
   }
 

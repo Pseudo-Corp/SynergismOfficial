@@ -495,9 +495,9 @@ export const toggleSingularityScreen = (indexStr: string) => {
   if (index === 1) {
     updateSingularityElevator()
     updateSingularityElevatorVisibility()
-  } else if (getActiveSubTab() === 3) {
-    visualUpdateOcteracts()
   } else if (getActiveSubTab() === 4) {
+    visualUpdateOcteracts()
+  } else if (getActiveSubTab() === 5) {
     visualUpdateAmbrosia()
   }
 }

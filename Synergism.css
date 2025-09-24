@@ -459,6 +459,12 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     align-items: center;
 }
 
+.mediumHorizontalLine {
+    width: 50%;
+    margin: 0;
+    padding: 0;
+}
+
 #preloadDeleteGame {
     position: fixed;
     bottom: 1em;
@@ -3970,6 +3976,14 @@ header #obtainiumDisplay { color: pink; }
     text-align: center;
 }
 
+.lookaheadInfo {
+    margin: 20px;
+}
+
+.lookaheadInfo > p {
+    margin: 0;
+}
+
 .elevatorControls {
     display: flex;
     flex-direction: column;
@@ -4043,6 +4057,20 @@ header #obtainiumDisplay { color: pink; }
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    width: 100%;
+}
+
+.elevatorLockSection p {
+    margin: 0;
+}
+
+#elevatorSettings {
+    border: 2px solid white;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .elevatorToggle {
@@ -4050,24 +4078,24 @@ header #obtainiumDisplay { color: pink; }
     align-items: center;
     gap: 10px;
     cursor: pointer;
+    justify-content: flex-start;
+    width: 75%;
+    height: 32px;
 }
 
-#elevatorLockToggle {
+#elevatorLockToggle,
+#elevatorSlowClimbToggle {
     transform: scale(2);
     cursor: pointer;
-}
-
-.elevatorToggle input[type="checkbox"]:checked + .elevatorToggleSlider {
-    background-color: var(--orange-text-color);
-}
-
-.elevatorToggle input[type="checkbox"]:checked + .elevatorToggleSlider::before {
-    transform: translateX(26px);
+    flex-shrink: 0;
+    margin: 0;
 }
 
 .elevatorToggleLabel {
     color: var(--text-color);
     font-weight: bold;
+    flex: 1;
+    text-align: left;
 }
 
 .elevatorLockStatus {

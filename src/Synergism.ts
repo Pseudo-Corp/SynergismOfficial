@@ -237,7 +237,7 @@ import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import {
   blankGQLevelObject,
-  getFastForwardTotalMultiplier,
+  calculateMaxSingularityLookahead,
   goldenQuarkUpgrades,
   type SingularityDataKeys
 } from './singularity'
@@ -1118,6 +1118,7 @@ export const player: Player = {
   highestSingularityCount: 0,
   singularityCounter: 0,
   singularityElevatorTarget: 1,
+  singularityElevatorSlowClimb: true,
   singularityElevatorLocked: false,
   singularityMatter: 0,
   goldenQuarks: 0,
@@ -4231,7 +4232,18 @@ export const resetCheck = async (
     }
 
     let confirmed = false
-    const nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier()
+
+    let nextSingularityNumber = 0
+    const lookahead = calculateMaxSingularityLookahead(true)
+    if (player.singularityElevatorLocked) {
+      nextSingularityNumber = player.singularityCount
+    } else {
+      if (player.singularityElevatorSlowClimb) {
+        nextSingularityNumber = player.singularityCount + 1
+      } else {
+        nextSingularityNumber = Math.max(player.singularityCount + lookahead, player.highestSingularityCount)
+      }
+    }
 
     if (!player.toggles[33] && player.singularityCount > 0) {
       confirmed = await Confirm(
@@ -4328,6 +4340,13 @@ export const resetConfirmation = async (i: string): Promise<void> => {
 }
 
 export const updateAll = (): void => {
+  if (runes.antiquities.level > 0) {
+    player.highestSingularityCount = Math.max(
+      player.highestSingularityCount,
+      player.singularityCount
+    )
+  }
+
   G.uFourteenMulti = new Decimal(1)
   G.uFifteenMulti = new Decimal(1)
 

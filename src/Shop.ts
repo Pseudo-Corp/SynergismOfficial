@@ -1781,7 +1781,7 @@ export const useConsumable = (
     ) {
       offeringPotionValue = Decimal.min(
         offeringPotionValue,
-        player.obtainium.times(100).plus(1)
+        player.offerings.times(100).plus(1)
       )
     }
 

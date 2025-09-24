@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateGoldenQuarkCost } from './Calculate'
+import { calculateGoldenQuarkCost, calculateImmaculateAlchemyBonus } from './Calculate'
 import { updateMaxTokens, updateTokens } from './Campaign'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { singularity } from './Reset'
@@ -2515,8 +2515,9 @@ export const singularityPerks: SingularityPerk[] = [
     // dprint-ignore
     levels: [
       5, 7, 10, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170,
-      175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 210, 212, 214, 216, 218,
-      220, 225, 250, 255, 260, 261, 262,
+      175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 210, 213, 216, 219, 225,
+      228, 231, 234, 237, 240, 244, 248, 252, 256, 260, 264, 268, 272, 276, 280,
+      284, 288, 290
     ],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -2772,6 +2773,19 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
+      return i18next.t('singularity.perks.immaculateAlchemy.name')
+    },
+    levels: [50],
+    description: (_n: number, _levels: number[]) => {
+      const multiplier = calculateImmaculateAlchemyBonus()
+      return i18next.t('singularity.perks.immaculateAlchemy.default', {
+        multiplier: format(multiplier, 2, true)
+      })
+    },
+    ID: 'immaculateAlchemy'
+  },
+  {
+    name: () => {
       return i18next.t('singularity.perks.overclocked.name')
     },
     levels: [50, 60, 75, 100, 125, 150, 175, 200, 225, 250],
@@ -2995,28 +3009,12 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
-      return i18next.t('singularity.perks.immaculateAlchemy.name')
-    },
-    levels: [200, 208, 221],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[2]) {
-        return i18next.t('singularity.perks.immaculateAlchemy.hasLevel2')
-      } else if (n >= levels[1]) {
-        return i18next.t('singularity.perks.immaculateAlchemy.hasLevel1')
-      } else {
-        return i18next.t('singularity.perks.immaculateAlchemy.default')
-      }
-    },
-    ID: 'immaculateAlchemy'
-  },
-  {
-    name: () => {
       return i18next.t('singularity.perks.skrauQ.name')
     },
     levels: [200],
     description: () => {
       const amt = (player.singularityCount >= 200)
-        ? format(Math.pow((player.singularityCount - 179) / 20, 2), 4)
+        ? format(Math.pow(1 + (player.singularityCount - 199) / 25, 2), 4)
         : format(1, 4)
       return i18next.t('singularity.perks.skrauQ.default', { amt })
     },
@@ -3176,7 +3174,7 @@ const handlePerks = (singularityCount: number) => {
   })
 
   for (const availablePerk of availablePerks) {
-    const singTolerance = getFastForwardTotalMultiplier()
+    const singTolerance = calculateMaxSingularityLookahead(true) - 1
     const perkId = DOMCacheGetOrSet(availablePerk.htmlID)
     perkId.style.display = ''
     DOMCacheGetOrSet('singularityPerksGrid').append(perkId)
@@ -3203,39 +3201,17 @@ const handlePerks = (singularityCount: number) => {
     countNext.style.display = 'none'
   }
 }
-// Indicates the number of extra Singularity count gained on Singularity reset
-export const getFastForwardTotalMultiplier = (): number => {
-  let fastForward = 0
-  fastForward += getGQUpgradeEffect('singFastForward')
-  fastForward += getGQUpgradeEffect('singFastForward2')
-  fastForward += getOcteractUpgradeEffect('octeractFastForward')
 
-  // Stop at sing 200 even if you include fast forward
-  fastForward = Math.max(
-    0,
-    Math.min(fastForward, 200 - player.singularityCount - 1)
-  )
-
-  // Please for the love of god don't allow FF during a challenge
-  if (player.insideSingularityChallenge) {
+export const calculateMaxSingularityLookahead = (nonZero: boolean): number => {
+  if (!nonZero) {
     return 0
+  } else {
+    let maxLookahead = 1
+    maxLookahead += getGQUpgradeEffect('singFastForward')
+    maxLookahead += getGQUpgradeEffect('singFastForward2')
+    maxLookahead += getOcteractUpgradeEffect('octeractFastForward')
+    return maxLookahead
   }
-
-  // If the next singularityCount is greater than the highestSingularityCount, fast forward to be equal to the highestSingularityCount
-  if (
-    player.highestSingularityCount !== player.singularityCount
-    && player.singularityCount + fastForward + 1 >= player.highestSingularityCount
-  ) {
-    return Math.max(
-      0,
-      Math.min(
-        fastForward,
-        player.highestSingularityCount - player.singularityCount - 1
-      )
-    )
-  }
-
-  return fastForward
 }
 
 export const getGoldenQuarkCost = (): {
@@ -3502,9 +3478,33 @@ export const updateSingularityElevator = (): void => {
   const description = DOMCacheGetOrSet('elevatorDescription')
   const teleportButton = DOMCacheGetOrSet('elevatorTeleportButton')
   const lock = DOMCacheGetOrSet('elevatorLockToggle') as HTMLInputElement
+  const slowClimb = DOMCacheGetOrSet('elevatorSlowClimbToggle') as HTMLInputElement
+  const slowClimbLabel = DOMCacheGetOrSet('elevatorSlowClimbLabel')
   const lockStatus = DOMCacheGetOrSet('elevatorLockStatus')
 
-  const maxTarget = Math.max(1, player.highestSingularityCount)
+  const highestSingularity = DOMCacheGetOrSet('highestSingularity')
+  const lookahead = DOMCacheGetOrSet('lookahead')
+  const maxLookahead = DOMCacheGetOrSet('maxLookahead')
+  const extraLookahead = DOMCacheGetOrSet('extraLookahead')
+
+  highestSingularity.innerHTML = i18next.t('singularity.elevator.highestSingularity', {
+    num: player.highestSingularityCount
+  })
+
+  const canLookahead = runes.antiquities.level > 0
+  let singLook = 0
+  if (canLookahead) {
+    const lookahead = calculateMaxSingularityLookahead(true)
+    singLook = player.singularityCount + lookahead
+  }
+
+  const maxTarget = Math.max(1, player.highestSingularityCount, singLook)
+
+  const theoreticalLookahead = calculateMaxSingularityLookahead(true)
+
+  lookahead.innerHTML = i18next.t('singularity.elevator.lookahead')
+  maxLookahead.innerHTML = i18next.t('singularity.elevator.maxLookahead', { num: theoreticalLookahead })
+  extraLookahead.innerHTML = i18next.t('singularity.elevator.lookaheadExtra')
 
   if (input) {
     input.max = maxTarget.toString()
@@ -3522,17 +3522,38 @@ export const updateSingularityElevator = (): void => {
   }
 
   lock.checked = player.singularityElevatorLocked
+  slowClimb.checked = player.singularityElevatorSlowClimb
+
+  slowClimbLabel.style.display = player.singularityElevatorLocked ? 'none' : 'flex'
 
   if (player.singularityElevatorLocked) {
-    lockStatus.innerHTML = i18next.t('singularity.elevator.lockEnabled', { target: player.singularityElevatorTarget })
+    lockStatus.innerHTML = i18next.t('singularity.elevator.lockEnabled', { target: player.singularityCount })
   } else {
-    lockStatus.innerHTML = i18next.t('singularity.elevator.lockDisabled')
+    const introText = i18next.t('singularity.elevator.lockDisabledIntro')
+    if (player.singularityElevatorSlowClimb) {
+      lockStatus.innerHTML = `${introText}<br>${
+        i18next.t('singularity.elevator.lockDisabledSing', { target: player.singularityCount + 1 })
+      }`
+    } else {
+      const maxTarget = Math.max(player.singularityCount + theoreticalLookahead, player.highestSingularityCount)
+      lockStatus.innerHTML = `${introText}<br>${
+        i18next.t('singularity.elevator.lockDisabledSing', { target: maxTarget })
+      }`
+    }
   }
 }
 
 export const teleportToSingularity = async (): Promise<void> => {
   const target = player.singularityElevatorTarget
-  const maxTarget = Math.max(1, player.highestSingularityCount)
+
+  const canLookahead = runes.antiquities.level > 0
+  let singLook = 0
+  if (canLookahead) {
+    const lookahead = calculateMaxSingularityLookahead(true)
+    singLook = player.singularityCount + lookahead
+  }
+
+  const maxTarget = Math.max(1, player.highestSingularityCount, singLook)
 
   // Just to prevent some bugs ahead of time. These should probably not be needed...
 
@@ -3557,7 +3578,7 @@ export const teleportToSingularity = async (): Promise<void> => {
         const heldSingTime = player.singularityCounter
         const antiquitiesLevel = runes.antiquities.level
         // Reset
-        singularity(player.singularityElevatorTarget)
+        singularity()
         if (antiquitiesLevel === 0) {
           player.singularityCounter = heldSingTime
         }

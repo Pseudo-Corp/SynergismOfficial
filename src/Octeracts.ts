@@ -565,7 +565,8 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
     effect: (n: number) => {
       return n
     },
-    effectDescription: (n: number) => i18next.t('octeract.data.octeractFastForward.effect', { n100: 100 * n, n }),
+    effectDescription: (n: number) =>
+      i18next.t('octeract.data.octeractFastForward.effect', { n100: format(2.5 * n, 2, true), n }),
     name: () => i18next.t('octeract.data.octeractFastForward.name'),
     description: () => i18next.t('octeract.data.octeractFastForward.description'),
     qualityOfLife: false

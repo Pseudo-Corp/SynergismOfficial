@@ -98,6 +98,7 @@ import {
 import {
   buyGoldenQuarks,
   buyGQUpgradeLevel,
+  calculateMaxSingularityLookahead,
   getLastUpgradeInfo,
   goldenQuarkUpgrades,
   type SingularityDataKeys,
@@ -1053,10 +1054,19 @@ TODO: Fix this entire tab it's utter shit
   const elevatorInput = DOMCacheGetOrSet('elevatorTargetInput')
   const teleportButton = DOMCacheGetOrSet('elevatorTeleportButton')
   const lockToggle = DOMCacheGetOrSet('elevatorLockToggle')
+  const slowClimbToggle = DOMCacheGetOrSet('elevatorSlowClimbToggle')
 
   elevatorInput.addEventListener('input', () => {
     const value = Number.parseInt((elevatorInput as HTMLInputElement).value) || 1
-    const maxTarget = Math.max(1, player.highestSingularityCount)
+
+    const canLookahead = runes.antiquities.level > 0
+    let singLook = 0
+    if (canLookahead) {
+      const lookahead = calculateMaxSingularityLookahead(true)
+      singLook = player.singularityCount + lookahead
+    }
+
+    const maxTarget = Math.max(1, player.highestSingularityCount, singLook)
     const validValue = Math.max(1, Math.min(value, maxTarget))
     player.singularityElevatorTarget = validValue
     updateSingularityElevator()
@@ -1086,6 +1096,11 @@ TODO: Fix this entire tab it's utter shit
 
   lockToggle.addEventListener('change', () => {
     player.singularityElevatorLocked = !player.singularityElevatorLocked
+    updateSingularityElevator()
+  })
+
+  slowClimbToggle.addEventListener('change', () => {
+    player.singularityElevatorSlowClimb = !player.singularityElevatorSlowClimb
     updateSingularityElevator()
   })
 
