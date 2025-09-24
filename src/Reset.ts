@@ -1115,6 +1115,8 @@ export const singularity = (setSingNumber = -1) => {
     return
   }
 
+  const antiquitiesPurchased = runes.antiquities.level > 0
+
   // setSingNumber is only not -1 when we are entering and exiting a challenge.
   if (setSingNumber === -1) {
     // get total cube blessings for history
@@ -1177,7 +1179,7 @@ export const singularity = (setSingNumber = -1) => {
     }
   } else {
     const incrementHighestSing = player.singularityCount === player.highestSingularityCount
-      && setSingNumber > player.singularityCount
+      && setSingNumber > player.singularityCount && antiquitiesPurchased
     player.singularityCount = setSingNumber
     if (incrementHighestSing) {
       player.highestSingularityCount++
