@@ -276,7 +276,7 @@
         "effect": "Это улучшение увеличивает Удачу Амброзии на {{amount}}!"
       },
       "redGenerationSpeed": {
-        "name": "Красная Амброзия Тысячелетней Выдержки",
+        "name": "Millennium-Aged Red Ambrosia",
         "description": "Учитывая, насколько эту Амброзию здесь оставили, она, несомненно, что-нибудь да знает о времени. +0.3% Очков Красной Шкалы за уровень.",
         "effect": "Это улучшение увеличивает Очки Красной Шкалы на {{amount}}!"
       },
@@ -789,7 +789,7 @@
       "447": "Числа настолько большие, насколько они широкие: Престиж 10 000 000 000 000 раз.",
       "448": "Знакомьтесь - квадриллион: Престиж 1e15 раз.",
       "449": "Престиж до отвращения: Престиж 1e17 раз.",
-      "450": "Слишком Престижный Престиж - не престижный: Престиж 1e20 раз.",
+      "450": "Prestige so Prestigious, it becomes ordinary: Prestige 1e20 times.",
       "451": "Transcendental: Transcend for the first time.",
       "452": "Ten degrees of separation: Transcend 10 times.",
       "453": "Polychroma: Transcend 100 times.",
@@ -2482,7 +2482,7 @@
     },
     "upgradeDescriptions": {
       "1": "[1x1] Не вопрос! +16.666% 3Д Кубов от Вознесения за уровень.",
-      "2": "[1x2] Plutus grants you +3 Salage per level!",
+      "2": "[1x2] Plutus grants you +3 Salvage per level!",
       "3": "[1x3] Афина дарует вам +10% к Обтаниуму, и +80% Авто Обтаниума за уровень.",
       "4": "[1x4] Вы сохраняете те 5 полезных улучшений автоматизации во вкладке улучшений!",
       "5": "[1x5] You keep the Mythos upgrade automation upgrade in the upgrades tab!",
@@ -3199,7 +3199,7 @@
         "default": "Код 'Add' восполняется на {{counter}}% быстрее за каждый уровень за Сингулярность. Текущий: {{current}} (МАКС: Время перезарядки -60%)"
       },
       "midasMilleniumAgedGold": {
-        "name": "Тысячелетнее Золото Мидаса",
+        "name": "Midas' Millennium-Aged Gold",
         "default": "Каждое использование кода 'Add' даёт 0.01 бесплатных уровней ЗК1 и 0.05 бесплатных уровней ЗК3."
       },
       "goldenRevolution4": {
@@ -3349,7 +3349,7 @@
       },
       "singOfferings3": {
         "name": "Буря Подношений",
-        "description": "Этот слиток настолько хорош, что любой отдаст все свои Подношения. +4% за уровень, если быть точным.",
+        "description": "This bar is so pristine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
         "effect": "Permanently gain {{n}} more Offerings."
       },
       "singObtainium1": {
@@ -3384,7 +3384,7 @@
       },
       "singCitadel": {
         "name": "Цитадель Сингулярности",
-        "description": "Какой уникальный структурный феномен... но он даёт +2% к Обтаниуму, Подношениям и 3-7D Кубам за уровень! +1% дополнительно за каждые 10 уровней!",
+        "description": "What a unique structural phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}, forever!"
       },
       "singCitadel2": {
@@ -3482,7 +3482,7 @@
       },
       "singQuarkImprover1": {
         "name": "Штука, Предельно Улучшающая Получение Кварков",
-        "description": "Я забыл как выглядит эта штуковина. +0.5% Кварков за уровень, перемножаемо со всеми другими бонусами! Кажется, что цена на это растёт гораздо быстрее, чем на что-либо ещё. Кстати, вы знали, что эти описания иногда бывают сколь угодно длинными?",
+        "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
         "effect": "Увеличивает Кварки на {{n}}%!"
       },
       "singQuarkHepteract": {
@@ -3737,7 +3737,7 @@
       "zeroOrLess": "Пожалуйста, только числа больше нуля!",
       "moreThanPlayerHas": "Сейчас вы не можете это купить!",
       "fraction": "Ага, это не целое число. Дробные не принимаем!",
-      "goldenQuarksTooMany": "К сожалению, столько Золотых Кварков я продать не могу! Попробуйте купить меньше или введите -1 для покупки максимума!",
+      "goldenQuarksTooMany": "Sorry, I cannot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!",
       "finiteInt": "Значение должно быть конечным, целым числом!",
       "invalidNumber": "Эй! Это значение недопустимо!"
     },
@@ -4882,22 +4882,22 @@
       },
       "octeractAmbrosiaGeneration2": {
         "name": "Часы Мелочей",
-        "description": "A somewhat primative hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
+        "description": "A somewhat primitive hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration3": {
         "name": "Часы Миопатии",
-        "description": "An hourglass which is still primative, though somehow less so. +1% faster Ambrosia Bar Point creation per level",
+        "description": "An hourglass which is still primitive, though somehow less so. +1% faster Ambrosia Bar Point creation per level",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration": {
         "name": "Часы Бесконечности",
-        "description": "Don't get it twisted, this hourglass is really primative. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
+        "description": "Don't get it twisted, this hourglass is really primitive. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration4": {
         "name": "Часы Реальности",
-        "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
+        "description": "An hourglass which is nonprimitive and 'more timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractBlueberries": {
@@ -6279,7 +6279,7 @@
       "PseudoCoins": "Улучшения ПсевдоМонет:",
       "Base": "Посещение Под-окна Амброзии после зачистки ВОЗВЫШЕНИЯ 5x1:",
       "BlueberrySpeed": "Скорость от Амброзии (0.5 УП после 1000):",
-      "RedAmbrosia": "Красная Амброзия Тысячелетней Выдержки:",
+      "RedAmbrosia": "Millennium-Aged Red Ambrosia:",
       "Exalt5": "Награда ВОЗВЫШЕНИЯ - Без Улучшений Амброзии:",
       "Total": "Total Red Bar Points/s:"
     },
@@ -6577,7 +6577,7 @@
         },
         "abyss": {
           "effect": "Похоже, этот владеет силой быть в Конце Времён. Вы ещё помните, зачем вам это нужно?",
-          "currentEffect": "Your rememberance of Time Immemorial grants you <<green|Salvage +{{x}}>>",
+          "currentEffect": "Your remembrance of Time Immemorial grants you <<green|Salvage +{{x}}>>",
           "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Вау! Кубов(лол)"
         },
         "accelerator": {
