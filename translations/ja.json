@@ -276,7 +276,7 @@
         "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
       },
       "redGenerationSpeed": {
-        "name": "Millenium-Aged Red Ambrosia",
+        "name": "Millennium-Aged Red Ambrosia",
         "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +0.3% more Red Bar Points per level.",
         "effect": "This upgrade increases Red Bar Point gain by {{amount}}!"
       },
@@ -789,7 +789,7 @@
       "447": "Numbers as large as they are wide: Prestige 10,000,000,000,000 times.",
       "448": "That's a quadrillion to you: Prestige 1e15 times.",
       "449": "Prestige ad nauseum: Prestige 1e17 times.",
-      "450": "Prestige so Presitgious, it becomes ordinary: Prestige 1e20 times.",
+      "450": "Prestige so Prestigious, it becomes ordinary: Prestige 1e20 times.",
       "451": "Transcendental: Transcend for the first time.",
       "452": "Ten degrees of separation: Transcend 10 times.",
       "453": "Polychroma: Transcend 100 times.",
@@ -2482,7 +2482,7 @@
     },
     "upgradeDescriptions": {
       "1": "[1x1] You got it! +16.666% 3D Cubes from Ascending per level.",
-      "2": "[1x2] Plutus grants you +3 Salage per level!",
+      "2": "[1x2] Plutus grants you +3 Salvage per level!",
       "3": "[1x3] Athena grants you +10% more Obtainium, and +80% Auto Obtainium per level.",
       "4": "[1x4] You keep those 5 useful automation upgrades in the upgrades tab!",
       "5": "[1x5] You keep the Mythos upgrade automation upgrade in the upgrades tab!",
@@ -3199,7 +3199,7 @@
         "default": "The 'Add' Special Action refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)"
       },
       "midasMilleniumAgedGold": {
-        "name": "Midas' Millenium-Aged Gold",
+        "name": "Midas' Millennium-Aged Gold",
         "default": "Every use of the 'Add' Special Action gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3."
       },
       "goldenRevolution4": {
@@ -3349,7 +3349,7 @@
       },
       "singOfferings3": {
         "name": "Offering Tempest",
-        "description": "This bar is so prestine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
+        "description": "This bar is so pristine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
         "effect": "Permanently gain {{n}} more Offerings."
       },
       "singObtainium1": {
@@ -3384,7 +3384,7 @@
       },
       "singCitadel": {
         "name": "Citadel of Singularity",
-        "description": "What a unique structual phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
+        "description": "What a unique structural phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}, forever!"
       },
       "singCitadel2": {
@@ -3482,7 +3482,7 @@
       },
       "singQuarkImprover1": {
         "name": "Marginal Quark Gain Improver Thingy",
-        "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitarily long?",
+        "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
         "effect": "You gain {{n}}% more Quarks!"
       },
       "singQuarkHepteract": {
@@ -3730,7 +3730,7 @@
       "zeroOrLess": "Only numbers greater than zero, please!",
       "moreThanPlayerHas": "You can't afford this yet!",
       "fraction": "Yeah, that isn't an integer. We don't accept fractions here!",
-      "goldenQuarksTooMany": "Sorry, I cannnot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!",
+      "goldenQuarksTooMany": "Sorry, I cannot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!",
       "finiteInt": "Value must be a finite, non-decimal number!",
       "invalidNumber": "Hey! That's not a valid number!"
     },
@@ -4875,22 +4875,22 @@
       },
       "octeractAmbrosiaGeneration2": {
         "name": "Hourglass of Minutiae",
-        "description": "A somewhat primative hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
+        "description": "A somewhat primitive hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration3": {
         "name": "Hourglass of Myopathy",
-        "description": "An hourglass which is still primative, though somehow less so. +1% faster Ambrosia Bar Point creation per level",
+        "description": "An hourglass which is still primitive, though somehow less so. +1% faster Ambrosia Bar Point creation per level",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration": {
         "name": "Hourglass of Infinitude",
-        "description": "Don't get it twisted, this hourglass is really primative. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
+        "description": "Don't get it twisted, this hourglass is really primitive. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration4": {
         "name": "Hourglass of Reality",
-        "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
+        "description": "An hourglass which is nonprimitive and 'more timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractBlueberries": {
@@ -6272,7 +6272,7 @@
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Base": "Visited Ambrosia Subtab after clearing EXALT 5x1:",
       "BlueberrySpeed": "Speed from Ambrosia (0.5 DR after 1,000):",
-      "RedAmbrosia": "Millenium-Aged Red Ambrosia:",
+      "RedAmbrosia": "Millennium-Aged Red Ambrosia:",
       "Exalt5": "EXALT Reward - No Ambrosia Upgrades:",
       "Total": "Total Red Bar Points/s:"
     },
@@ -6570,7 +6570,7 @@
         },
         "abyss": {
           "effect": "It seems like this holds the power to be at the End of Time. Do you remember why you need this?",
-          "currentEffect": "Your rememberance of Time Immemorial grants you <<green|Salvage +{{x}}>>",
+          "currentEffect": "Your remembrance of Time Immemorial grants you <<green|Salvage +{{x}}>>",
           "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Cubes (lol)"
         },
         "accelerator": {

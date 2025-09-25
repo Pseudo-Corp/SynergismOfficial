@@ -2482,7 +2482,7 @@
     },
     "upgradeDescriptions": {
       "1": "[1x1] Не вопрос! +16.666% 3Д Кубов от Вознесения за уровень.",
-      "2": "[1x2] Plutus grants you +3 Salage per level!",
+      "2": "[1x2] Plutus grants you +3 Salvage per level!",
       "3": "[1x3] Афина дарует вам +10% к Обтаниуму, и +80% Авто Обтаниума за уровень.",
       "4": "[1x4] Вы сохраняете те 5 полезных улучшений автоматизации во вкладке улучшений!",
       "5": "[1x5] You keep the Mythos upgrade automation upgrade in the upgrades tab!",
@@ -4875,22 +4875,22 @@
       },
       "octeractAmbrosiaGeneration2": {
         "name": "Часы Мелочей",
-        "description": "A somewhat primative hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
+        "description": "A somewhat primitive hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration3": {
         "name": "Часы Миопатии",
-        "description": "An hourglass which is still primative, though somehow less so. +1% faster Ambrosia Bar Point creation per level",
+        "description": "An hourglass which is still primitive, though somehow less so. +1% faster Ambrosia Bar Point creation per level",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration": {
         "name": "Часы Бесконечности",
-        "description": "Don't get it twisted, this hourglass is really primative. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
+        "description": "Don't get it twisted, this hourglass is really primitive. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration4": {
         "name": "Часы Реальности",
-        "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
+        "description": "An hourglass which is nonprimitive and 'more timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractBlueberries": {
@@ -6570,7 +6570,7 @@
         },
         "abyss": {
           "effect": "Похоже, этот владеет силой быть в Конце Времён. Вы ещё помните, зачем вам это нужно?",
-          "currentEffect": "Your rememberance of Time Immemorial grants you <<green|Salvage +{{x}}>>",
+          "currentEffect": "Your remembrance of Time Immemorial grants you <<green|Salvage +{{x}}>>",
           "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Вау! Кубов(лол)"
         },
         "accelerator": {
