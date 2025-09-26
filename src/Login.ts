@@ -101,7 +101,12 @@ const messageSchema = z.preprocess(
       startedAt: z.number().int()
     }),
     /** Received after a consumable ends (broadcasted to everyone) */
-    z.object({ type: z.literal('consumable-ended'), consumable: z.string(), endedAt: z.number().int() }),
+    z.object({
+      type: z.literal('consumable-ended'),
+      consumable: z.string(),
+      name: z.string(),
+      endedAt: z.number().int()
+    }),
     /** Information about all currently active consumables, received when the connection opens. */
     z.object({
       type: z.literal('info-all'),
@@ -457,7 +462,8 @@ function handleWebSocket () {
       consumable.ends.shift()
       consumable.amount--
 
-      Notification(`A(n) ${data.consumable} ended!`)
+      const article = /^[AEIOU]/i.test(data.name) ? 'An' : 'A'
+      Notification(`${article} ${data.name} ended!`)
     } else if (data.type === 'join') {
       Notification('Connection was established!')
     } else if (data.type === 'info-all') {
