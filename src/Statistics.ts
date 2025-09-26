@@ -1064,7 +1064,7 @@ export const allOfferingStats = [
 export const firstFiveRuneEffectivenessStats: StatLine[] = [
   {
     i18n: 'Research1x4',
-    stat: () => 1 + player.researches[4] / 10 * CalcECC('ascension', player.challengecompletions[14]),
+    stat: () => 1 + player.researches[4] / 10 * (1 + CalcECC('ascension', player.challengecompletions[14])),
     displayCriterion: () => {
       const reincarnationCount = player.reincarnationCount
       const singularity = player.highestSingularityCount
@@ -1072,7 +1072,7 @@ export const firstFiveRuneEffectivenessStats: StatLine[] = [
     }
   },
   {
-    i18n: 'Research2x6',
+    i18n: 'Research1x21',
     stat: () => 1 + player.researches[21] / 100,
     displayCriterion: () => {
       const reincarnationCount = player.reincarnationCount
