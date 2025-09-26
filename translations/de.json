@@ -1843,12 +1843,12 @@
       },
       "ambrosiaLuck": {
         "name": "Ambrosia luck",
-        "description": "For each level past 199, gain +4 Ambrosia Luck! I like stats with symbols next to them.",
+        "description": "For each level past 229, gain +4 Ambrosia Luck! I like stats with symbols next to them.",
         "effect": "Current Effect: +{{luck}} Ambrosia Luck"
       },
       "redAmbrosiaLuck": {
         "name": "Red luck",
-        "description": "For each level past 249, gain +1 Red Luck! I like stats with symbols next to them.",
+        "description": "For each level past 259, gain +1 Red Luck! I like stats with symbols next to them.",
         "effect": "Current Effect: +{{luck}} Red Luck"
       }
     },
