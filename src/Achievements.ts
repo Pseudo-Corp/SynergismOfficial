@@ -2309,6 +2309,24 @@ export interface AchievementDisplayInfo {
   displayCondition: () => boolean
 }
 
+export enum resetTiers {
+  prestige = 1,
+  transcension = 2,
+  reincarnation = 3,
+  ascension = 4,
+  singularity = 5,
+  never = 6
+}
+
+export const hasResetAtOrAboveLevel = (reset: resetTiers) => {
+  if (reset <= 5 && player.singularityCount > 0) return true
+  if (reset <= 4 && player.ascensionCount > 0) return true
+  if (reset <= 3 && player.reincarnationCount > 0) return true
+  if (reset <= 2 && player.transcendCount > 0) return true
+  if (reset <= 1 && player.prestigeCount > 0) return true
+  return false
+}
+
 export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungrouped'>, AchievementDisplayInfo> = {
   firstOwnedCoin: {
     order: 0,
@@ -2332,11 +2350,11 @@ export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungroupe
   },
   prestigeCount: {
     order: 4.5,
-    displayCondition: () => player.prestigeCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.prestige)
   },
   prestigePointGain: {
     order: 5,
-    displayCondition: () => player.prestigeCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.prestige)
   },
   accelerators: {
     order: 6,
@@ -2348,123 +2366,123 @@ export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungroupe
   },
   acceleratorBoosts: {
     order: 8,
-    displayCondition: () => player.prestigeCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.prestige)
   },
   runeLevel: {
     order: 9,
-    displayCondition: () => player.prestigeCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.prestige)
   },
   transcensionCount: {
     order: 9.5,
-    displayCondition: () => player.transcendCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.transcension)
   },
   transcendPointGain: {
     order: 10,
-    displayCondition: () => player.transcendCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.transcension)
   },
   challenge1: {
     order: 11,
-    displayCondition: () => player.transcendCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.transcension)
   },
   challenge2: {
     order: 12,
-    displayCondition: () => player.transcendCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.transcension)
   },
   challenge3: {
     order: 13,
-    displayCondition: () => player.transcendCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.transcension)
   },
   challenge4: {
     order: 14,
-    displayCondition: () => player.transcendCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.transcension)
   },
   challenge5: {
     order: 15,
-    displayCondition: () => player.transcendCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.transcension)
   },
   reincarnationCount: {
     order: 15.5,
-    displayCondition: () => player.reincarnationCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.reincarnation)
   },
   reincarnationPointGain: {
     order: 16,
-    displayCondition: () => player.reincarnationCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.reincarnation)
   },
   challenge6: {
     order: 17,
-    displayCondition: () => player.reincarnationCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.reincarnation)
   },
   challenge7: {
     order: 18,
-    displayCondition: () => player.highestchallengecompletions[6] > 0
+    displayCondition: () => player.highestchallengecompletions[6] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   challenge8: {
     order: 19,
-    displayCondition: () => player.highestchallengecompletions[7] > 0
+    displayCondition: () => player.highestchallengecompletions[7] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   antCrumbs: {
     order: 20,
-    displayCondition: () => player.highestchallengecompletions[8] > 0
+    displayCondition: () => player.highestchallengecompletions[8] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   sacMult: {
     order: 21,
-    displayCondition: () => player.highestchallengecompletions[8] > 0
+    displayCondition: () => player.highestchallengecompletions[8] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   runeFreeLevel: {
     order: 22,
-    displayCondition: () => player.highestchallengecompletions[8] > 0
+    displayCondition: () => player.highestchallengecompletions[8] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   challenge9: {
     order: 23,
-    displayCondition: () => player.highestchallengecompletions[8] > 0
+    displayCondition: () => player.highestchallengecompletions[8] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   speedBlessing: {
     order: 24,
-    displayCondition: () => player.highestchallengecompletions[9] > 0
+    displayCondition: () => player.highestchallengecompletions[9] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   challenge10: {
     order: 25,
-    displayCondition: () => player.highestchallengecompletions[9] > 0
+    displayCondition: () => player.highestchallengecompletions[9] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   ascensionCount: {
     order: 26,
-    displayCondition: () => player.ascensionCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   constant: {
     order: 27,
-    displayCondition: () => player.ascensionCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   challenge11: {
     order: 28,
-    displayCondition: () => player.ascensionCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   campaignTokens: {
     order: 28.5,
-    displayCondition: () => player.highestchallengecompletions[11] > 0
+    displayCondition: () => player.highestchallengecompletions[11] > 0 || hasResetAtOrAboveLevel(resetTiers.singularity)
   },
   ascensionScore: {
     order: 29,
-    displayCondition: () => player.highestchallengecompletions[11] > 0
+    displayCondition: () => player.highestchallengecompletions[11] > 0 || hasResetAtOrAboveLevel(resetTiers.singularity)
   },
   challenge12: {
     order: 30,
-    displayCondition: () => player.highestchallengecompletions[11] > 0
+    displayCondition: () => player.highestchallengecompletions[11] > 0 || hasResetAtOrAboveLevel(resetTiers.singularity)
   },
   speedSpirit: {
     order: 31,
-    displayCondition: () => player.highestchallengecompletions[12] > 0
+    displayCondition: () => player.highestchallengecompletions[12] > 0 || hasResetAtOrAboveLevel(resetTiers.singularity)
   },
   challenge13: {
     order: 32,
-    displayCondition: () => player.highestchallengecompletions[12] > 0
+    displayCondition: () => player.highestchallengecompletions[12] > 0 || hasResetAtOrAboveLevel(resetTiers.singularity)
   },
   challenge14: {
     order: 33,
-    displayCondition: () => player.highestchallengecompletions[13] > 0
+    displayCondition: () => player.highestchallengecompletions[13] > 0 || hasResetAtOrAboveLevel(resetTiers.singularity)
   },
   singularityCount: {
     order: 34,
-    displayCondition: () => player.singularityCount > 0
+    displayCondition: () => hasResetAtOrAboveLevel(resetTiers.singularity)
   }
 }
 
