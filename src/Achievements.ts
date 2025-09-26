@@ -2319,7 +2319,7 @@ export enum resetTiers {
 }
 
 export const hasResetAtOrAboveLevel = (reset: resetTiers) => {
-  if (reset <= 5 && player.transcendCount > 0) return true
+  if (reset <= 5 && player.singularityCount > 0) return true
   if (reset <= 4 && player.ascensionCount > 0) return true
   if (reset <= 3 && player.reincarnationCount > 0) return true
   if (reset <= 2 && player.transcendCount > 0) return true
