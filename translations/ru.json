@@ -1059,7 +1059,7 @@
         "exemptionTalisman": "Unlock the Exemption Talisman!"
       },
       "120": {
-        "diamondUpgrade18": "Unlock the 18th Diamond Upgrade!"
+        "diamondUpgrade18": "Разблокировать 18-ое Алмазное улучшение!"
       },
       "122": {
         "salvage": "+5 Salvage"
@@ -1092,7 +1092,7 @@
       "134": {
         "diamondUpgrade20": "Unlock the 20th Diamond Upgrade!",
         "blessingUnlock": "Unlock Rune Blessings!",
-        "talismanUnlock": "Also, unlock Talismans!"
+        "talismanUnlock": "Также, разблокировать Талисманы!"
       },
       "135": {
         "talismanPower": "+2% Talisman Power"
@@ -1165,11 +1165,11 @@
         "antSpeed": "Ant Speed x1.2"
       },
       "172": {
-        "antSpeed": "Ant Speed x1.25"
+        "antSpeed": "Скорость Муравьев x1.25"
       },
       "173": {
-        "antSpeed": "Ant Speed x1.4",
-        "antSacrificeUnlock": "Unlock Ant Sacrifice!",
+        "antSpeed": "Скорость Муравьев x1.4",
+        "antSacrificeUnlock": "Разблокировать Пожертвование Муравьев!",
         "antAutobuyers": "Unlock an Ant Autobuyer!"
       },
       "174": {
@@ -3259,7 +3259,7 @@
     "toString": {
       "minimum": "Minimum Singularity: {{minSingularity}}",
       "noMinimum": "Никакой минимальной Сингулярности для покупки не требуется",
-      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks",
+      "costNextLevel": "Стоимость следующего уровня: {{amount}} Золотых Кварков",
       "spentGQ": "Golden Quarks Spent: {{spent}}"
     },
     "data": {
@@ -3754,7 +3754,7 @@
     "affordable": "(Доступно)",
     "enabled": "(Включено)",
     "effectiveLevel": "Effective Level: {{level}}",
-    "alwaysEnabled": "[<<white|♔>>] This upgrade is <b>always active</b>, even if something else says otherwise!",
+    "alwaysEnabled": "[<<white|♔>>] Это улучшение <b>всегда активно</b>, даже если что-то другое говорит иначе!",
     "infinity": "Бесконечность",
     "sacrificeCapital": "ЖЕРТВОПРИНОШЕНИЕ",
     "blessCapital": "BLESS",
