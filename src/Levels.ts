@@ -183,7 +183,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
   ambrosiaLuck: {
     name: () => i18next.t('achievements.levelRewards.ambrosiaLuck.name'),
     description: () => i18next.t('achievements.levelRewards.ambrosiaLuck.description'),
-    effect: (lv: number) => 4 * (lv - 229),
+    effect: (lv: number) => 4 * (lv - 199),
     effectDescription: () => {
       const luck = getLevelReward('ambrosiaLuck')
       return i18next.t('achievements.levelRewards.ambrosiaLuck.effect', {
@@ -197,7 +197,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
   redAmbrosiaLuck: {
     name: () => i18next.t('achievements.levelRewards.redAmbrosiaLuck.name'),
     description: () => i18next.t('achievements.levelRewards.redAmbrosiaLuck.description'),
-    effect: (lv: number) => lv - 259,
+    effect: (lv: number) => lv - 249,
     effectDescription: () => {
       const luck = getLevelReward('redAmbrosiaLuck')
       return i18next.t('achievements.levelRewards.redAmbrosiaLuck.effect', {
