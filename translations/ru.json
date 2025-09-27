@@ -5014,7 +5014,7 @@
     "antiquities": {
       "name": "Антикварии Муравьиного Бога",
       "description": "The piece of eight, long thought lost, no longer. It went there and back again.",
-      "lockedDescription": "This rune is locked! To unlock it, you might need to buy something that should be left unbought.",
+      "lockedDescription": "Эта руна ещё не открыта! Чтобы её открыть, вам необходимо купить что-то, что вы должны оставить не купленным.",
       "singularityUnlock": "Something <span class=\"rainbowText\">singular</span> that's unlocked at Level 1: {{symbol}}",
       "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power)",
       "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power)",
@@ -5035,7 +5035,7 @@
     "finiteDescent": {
       "name": "Finite Descent",
       "description": "That shopkeep told me it was an Ascent. That <i>liar</i>!",
-      "lockedDescription": "This rune is locked! Honestly, I have no idea how you unlock this.",
+      "lockedDescription": "Эта руна ещё не открыта! Честно говоря, понятия не имею как её открыть.",
       "corruptionLevels": "<<lightgray | +{{val}} Free Corruption Levels>> (up to +0.15)",
       "ascensionScore": "<<orange | +{{val}} Ascension Score>> (up to +100%)",
       "infiniteAscentLevels": "<<lightgoldenrodyellow | +{{val}} Free Infinite Ascent levels>> (+1 every 2 Power)",
@@ -5075,7 +5075,7 @@
       "autoBuyOff": "Автопокупка: ВЫКЛ",
       "clickBuyEveryType": "Нажмите, чтобы купить все виды Осколков Талисманов, если они доступны",
       "costToBuy": "Цена покупки {{name}} ({{buyAmount}}): {{obtainium}} Обтаниума и {{offerings}} Подношений.",
-      "doesNotReset": "[<<white|♔>>] This talisman NEVER resets! Not even on Singularity.",
+      "doesNotReset": "[<<white|♔>>] Этот талисман НИКОГДА не сбрасывается! Даже на сингулярности.",
       "rarity": {
         "1": "<<white | Common>>",
         "2": "<<green | Uncommon>>",
@@ -5133,7 +5133,7 @@
         "name": "A hunk of Plastic",
         "description": "Probably purchased on a buy now, pay later app.",
         "inscription": "<<gold | ✏>> Inscription: Quark Gain is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: None. You cannot seem to sign your name on this hunk of plastic."
+        "signature": "<<crimson | ✎>> Подпись: Никакая. Походу вы не сможете подписать этот шлак из пластика."
       },
       "wowSquare": {
         "name": "The Wow! Square",
