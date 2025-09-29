@@ -687,7 +687,7 @@
       "345": "懂了吗？是碎屑：获得1e125000个银河碎屑。",
       "346": "您显然懂了：获得1e1000000个银河碎屑。",
       "347": "戈登·拉姆齐：通过蚂蚁献祭积累1e50x的蚂蚁速度倍率。",
-      "348": "Wolfgang Pluck: Amass a 1e200x Ant Speed Multiplier through Ant Sacrifice.",
+      "348": "沃夫甘·柏克：通过蚂蚁献祭积累1e200x的蚂蚁速度倍率。",
       "349": "马可·皮埃尔·怀特：通过蚂蚁献祭积累1e1000x的蚂蚁速度倍率。",
       "350": "建议飞升：进行1e16次飞升。",
       "351": "不轻诺，故无悔​​：进行1e20次飞升。",
@@ -1843,7 +1843,7 @@
       },
       "ambrosiaLuck": {
         "name": "神肴之运",
-        "description": "For each level past 229, gain +4 Ambrosia Luck! I like stats with symbols next to them.",
+        "description": "当协同效应等级超过229级以后，每级获得4神肴之运！我喜欢有符号的数据。",
         "effect": "当前效果：神肴之运增加{{luck}}"
       },
       "redAmbrosiaLuck": {
