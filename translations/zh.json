@@ -1848,7 +1848,7 @@
       },
       "redAmbrosiaLuck": {
         "name": "红运",
-        "description": "For each level past 259, gain +1 Red Luck! I like stats with symbols next to them.",
+        "description": "当协同效应等级超过259级以后，每级获得1红运！我喜欢有符号的数据。",
         "effect": "当前效果：红运增加{{luck}}"
       }
     },
