@@ -170,6 +170,9 @@ export const revealStuff = () => {
   document.documentElement.dataset.singularity = // Ability to view singularity features
     player.highestSingularityCount >= 1 ? 'true' : 'false'
 
+  // switch color pallete to match legacy wowcubes
+  document.documentElement.dataset.legacyicons = player.iconSet === 0 ? 'true' : 'false'
+
   visualUpdateShop()
 
   const hepts = DOMCacheGetOrSet('corruptionHepteracts')
