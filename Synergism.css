@@ -553,7 +553,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 
 #exitOffline,
 #exitFastForward,
-#closeCart,
 #checkout {
     width: 18em;
     min-height: auto;
@@ -567,7 +566,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 }
 
 #exitOffline:hover,
-#closeCart:hover,
 #checkout:not(:disabled):hover {
     background-color: var(--purplehover-color);
 }
@@ -5034,7 +5032,13 @@ form input:hover {
     margin: 0 auto;
 }
 
-#closeCart,
+#checkout-buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
 #checkout {
     margin: 2px auto 4px;
 }

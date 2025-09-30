@@ -144,7 +144,7 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
           <button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
             Upgrade for ${formatter.format((product.price - existingCosts) / 100)} USD / mo
           </button>
-          <div class="checkout-paypal" data-id="${product.id}"></div>
+          <!--<div class="checkout-paypal" data-id="${product.id}"></div>-->
       </div>
       </section>
     `
