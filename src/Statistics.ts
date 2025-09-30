@@ -1,4 +1,4 @@
-import Decimal, { DecimalSource } from 'break_infinity.js'
+import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
