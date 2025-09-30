@@ -4969,6 +4969,16 @@ form input:hover {
     margin-top: 8px;
 }
 
+#pseudoCoins > #supportContainer {
+    text-align: center;
+    padding-top: 10px;
+}
+
+#pseudoCoins > #supportContainer > a {
+    border: 1px solid gold;
+    padding: 4px 8px;
+}
+
 #pseudoCoins img {
     image-rendering: unset;
 }

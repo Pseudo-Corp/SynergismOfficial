@@ -4153,7 +4153,10 @@
       "upgrades": "Buy Upgrades",
       "merch": "Purchase Merch",
       "consumables": "Consumables & Events",
-      "checkoutStripe": "Checkout with Stripe"
+      "checkoutStripe": "Checkout with Stripe",
+      "support": "Need help?",
+      "khafraDiscord": "Message Khafra on Discord",
+      "platonicDiscord": "Message Platonic on Discord"
     }
   },
   "offlineProgress": {
