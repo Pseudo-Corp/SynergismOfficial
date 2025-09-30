@@ -1557,7 +1557,7 @@
                 "default": "The 'Add' Special Action refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)"
             },
             "midasMilleniumAgedGold": {
-                "name": "Midas' Millenium-Aged Gold",
+                "name": "Midas' Millennium-Aged Gold",
                 "default": "Every use of the 'Add' Special Action gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3."
             },
             "goldenRevolution4": {
@@ -1676,7 +1676,7 @@
             },
             "singOfferings3": {
                 "name": "Offering Tempest",
-                "description": "This bar is so prestine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
+                "description": "This bar is so pristine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
                 "effect": "Permanently gain {{n}}% more Offerings."
             },
             "singObtainium1": {
@@ -1711,7 +1711,7 @@
             },
             "singCitadel": {
                 "name": "Citadel of Singularity",
-                "description": "What a unique structual phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
+                "description": "What a unique structural phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
                 "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
             },
             "singCitadel2": {
@@ -1809,7 +1809,7 @@
             },
             "singQuarkImprover1": {
                 "name": "Marginal Quark Gain Improver Thingy",
-                "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitarily long?",
+                "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
                 "effect": "You gain {{n}}% more Quarks!"
             },
             "singQuarkHepteract": {
@@ -1945,7 +1945,7 @@
             "zeroOrLess": "Only numbers greater than zero, please!",
             "moreThanPlayerHas": "You can't afford this yet!",
             "fraction": "Yeah, that isn't an integer. We don't accept fractions here!",
-            "goldenQuarksTooMany": "Sorry, I cannnot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!",
+            "goldenQuarksTooMany": "Sorry, I cannot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!",
             "finiteInt": "Value must be a finite, non-decimal number!",
             "invalidNumber": "Hey! That's not a valid number!"
         },

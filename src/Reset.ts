@@ -1115,6 +1115,8 @@ export const singularity = (setSingNumber = -1) => {
     return
   }
 
+  const antiquitiesPurchased = runes.antiquities.level > 0
+
   // setSingNumber is only not -1 when we are entering and exiting a challenge.
   if (setSingNumber === -1) {
     // get total cube blessings for history
@@ -1177,7 +1179,7 @@ export const singularity = (setSingNumber = -1) => {
     }
   } else {
     const incrementHighestSing = player.singularityCount === player.highestSingularityCount
-      && setSingNumber > player.singularityCount
+      && setSingNumber > player.singularityCount && antiquitiesPurchased
     player.singularityCount = setSingNumber
     if (incrementHighestSing) {
       player.highestSingularityCount++
@@ -1500,7 +1502,7 @@ export const getResetResearches = () => {
   const destroy = [
     6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 22, 23, 24, 25,
     26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
-    51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 62, 63, 64, 65, 66, 67, 68, 69, 70,
+    51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 62, 63, 64, 65,
     76, 81, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 96, 97, 98,
     101, 102, 103, 104, 106, 107, 108, 109, 110, 116, 117, 118, 121, 122, 123,
     126, 127, 128, 129, 131, 132, 133, 134, 136, 137, 139, 141, 142, 143, 144, 146, 147, 148, 149,
