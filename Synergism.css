@@ -553,7 +553,8 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 
 #exitOffline,
 #exitFastForward,
-#checkout {
+#checkout,
+#checkout-nowpayments {
     width: 18em;
     min-height: auto;
     min-width: 220px;
@@ -568,6 +569,10 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 #exitOffline:hover,
 #checkout:not(:disabled):hover {
     background-color: var(--purplehover-color);
+}
+
+#checkout-buttons > #checkout-nowpayments:not(:disabled):hover {
+    background-color: var(--blessings-hover-color);
 }
 
 .resetInformationContainer {
@@ -5049,8 +5054,12 @@ form input:hover {
     margin: 0 auto;
 }
 
-#checkout {
+#checkout-buttons > button[id^="checkout"] {
     margin: 2px auto 4px;
+}
+
+#checkout-buttons > #checkout-nowpayments {
+    background-color: cadetblue;
 }
 
 .cartListElementContainer > * {

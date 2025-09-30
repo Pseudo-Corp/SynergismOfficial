@@ -1,6 +1,6 @@
 import { loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
-import { Alert, Notification } from '../UpdateHTML'
+import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { products, subscriptionProducts } from './CartTab'
 import { addToCart, clearCart, getPrice, getProductsInCart, getQuantity, removeFromCart } from './CartUtil'
@@ -9,7 +9,8 @@ import { updatePseudoCoins } from './UpgradesSubtab'
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #cartContainer')!
 const form = tab.querySelector('div.cartList')!
 
-const checkout = form.querySelector<HTMLElement>('button#checkout')
+const checkoutStripe = form.querySelector<HTMLElement>('button#checkout')
+const checkoutNowPayments = form.querySelector<HTMLElement>('button#checkout-nowpayments')
 const radioTOSAgree = form.querySelector<HTMLInputElement>('section > input[type="radio"]')!
 const totalCost = form.querySelector('p#totalCost')
 const itemList = form.querySelector('#itemList')!
@@ -34,7 +35,7 @@ export const initializeCheckoutTab = memoize(() => {
     `)).join('')
   )
 
-  function submitCheckout (e: MouseEvent) {
+  async function submitCheckout (e: MouseEvent) {
     if (!radioTOSAgree.checked) {
       e.preventDefault()
       Notification('You must accept the terms of service first!')
@@ -49,18 +50,32 @@ export const initializeCheckoutTab = memoize(() => {
 
     fd.set('tosAgree', radioTOSAgree.checked ? 'on' : 'off')
 
-    checkout?.setAttribute('disabled', '')
+    checkoutStripe?.setAttribute('disabled', '')
+    checkoutNowPayments?.setAttribute('disabled', '')
+
+    function reset () {
+      checkoutStripe?.removeAttribute('disabled')
+      checkoutNowPayments?.removeAttribute('disabled')
+    }
 
     let url: string
 
-    const clickedId = (e.target as HTMLElement).id
-
-    if (clickedId === 'checkout') {
+    if (e.target === checkoutStripe) {
       url = !prod
         ? 'https://synergism.cc/stripe/test/create-checkout-session'
         : 'https://synergism.cc/stripe/create-checkout-session'
+    } else if (e.target === checkoutNowPayments) {
+      url = 'https://synergism.cc/now-payments/checkout'
+
+      const confirmed = await Confirm('NowPayments is experimental and may have issues. Minimum purchase is $15. Do you want to continue?')
+
+      if (!confirmed) {
+        reset()
+        return
+      }
     } else {
-      Notification(`You clicked on ${clickedId}.`)
+      Notification('You clicked on something that I don\'t know.')
+      reset()
       return
     }
 
@@ -75,12 +90,11 @@ export const initializeCheckoutTab = memoize(() => {
           Notification(json.error)
         }
       })
-      .finally(() => {
-        checkout?.removeAttribute('disabled')
-      })
+      .finally(reset)
   }
 
-  checkout?.addEventListener('click', submitCheckout)
+  checkoutStripe?.addEventListener('click', submitCheckout)
+  checkoutNowPayments?.addEventListener('click', submitCheckout)
 
   initializePayPal('#checkout-paypal')
 })
