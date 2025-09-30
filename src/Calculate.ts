@@ -46,9 +46,11 @@ import {
   allTesseractStats,
   allWowCubeStats,
   antSacrificeRewardStats,
+  antSpeedStats,
   negativeSalvageStats,
   offeringObtainiumTimeModifiers,
-  positiveSalvageStats
+  positiveSalvageStats,
+  statLineDecimalMultiplication
 } from './Statistics'
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { getTalismanEffects, toggleTalismanBuy, updateTalismanInventory } from './Talismans'
@@ -572,6 +574,10 @@ export const calculateSalvageRuneEXPMultiplier = (salvageVal: number | undefined
   }
 
   return Decimal.pow(10, salvage / 30)
+}
+
+export const calculateAntSpeedMult = () => {
+  return statLineDecimalMultiplication(antSpeedStats)
 }
 
 export const calculateAnts = () => {

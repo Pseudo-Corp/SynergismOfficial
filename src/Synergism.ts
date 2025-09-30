@@ -35,7 +35,7 @@ import {
   updateAllUngroupedAchievementProgress,
   updateProgressiveCache
 } from './Achievements'
-import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants'
+import { autoBuyAnts, calculateCrumbToCoinExp } from './Ants'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
 import {
@@ -78,7 +78,6 @@ import {
 } from './Corruptions'
 import {
   calculateAcceleratorCubeBlessing,
-  calculateAntSpeedCubeBlessing,
   calculateMultiplierCubeBlessing,
   updateCubeUpgradeBG
 } from './Cubes'
@@ -115,7 +114,7 @@ import {
   sumOfRuneLevels,
   updateAllRuneLevelsFromEXP
 } from './Runes'
-import { c15RewardUpdate } from './Statistics'
+import { antSpeedStats, c15RewardUpdate, statLineDecimalMultiplication } from './Statistics'
 import {
   buyTalismanLevelToRarityIncrease,
   generateTalismansHTML,
@@ -3641,69 +3640,69 @@ export const resourceGain = (dt: number): void => {
 }
 
 export const updateAntMultipliers = (): void => {
-  G.globalAntMult = new Decimal(1)
-  G.globalAntMult = G.globalAntMult.times(getRuneEffects('superiorIntellect').antSpeed)
+  G.globalAntMult = statLineDecimalMultiplication(antSpeedStats)
+  /*G.globalAntMult = G.globalAntMult.times(getRuneEffects('superiorIntellect').antSpeed)
   if (player.upgrades[76] === 1) {
     G.globalAntMult = G.globalAntMult.times(5)
-  }
-  G.globalAntMult = G.globalAntMult.times(
+  } */
+  /*G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(
-      1
-        + player.upgrades[77] / 250
-        + player.researches[96] / 5000
-        + player.cubeUpgrades[65] / 250,
+      // 1
+      //  + player.upgrades[77] / 250
+      // + player.researches[96] / 5000
+      //  + player.cubeUpgrades[65] / 250,
       player.firstOwnedAnts
         + player.secondOwnedAnts
         + player.thirdOwnedAnts
         + player.fourthOwnedAnts
         + player.fifthOwnedAnts
         + player.sixthOwnedAnts
-        + player.seventhOwnedAnts
+        + player.sevennthOwnedAnts
         + player.eighthOwnedAnts
     )
-  )
-  G.globalAntMult = G.globalAntMult.times(
+  )*/
+  /*G.globalAntMult = G.globalAntMult.times(
     1
       + player.upgrades[78]
         * 0.005
         * Math.pow(Decimal.log10(player.maxOfferings.add(1)), 2)
-  )
-  G.globalAntMult = G.globalAntMult.times(
+  )*/
+  /*G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(
       1.11 + player.researches[101] / 1000 + player.researches[162] / 10000,
       player.antUpgrades[0]! + G.bonusant1
     )
-  )
-  G.globalAntMult = G.globalAntMult.times(
+  )*/
+  /*G.globalAntMult = G.globalAntMult.times(
     antSacrificePointsToMultiplier(player.antSacrificePoints)
-  )
-  G.globalAntMult = G.globalAntMult.times(
+  )*/
+  /*G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(
       Decimal.max(1, player.obtainium),
       getRuneBlessingEffect('superiorIntellect').obtToAntExponent
     )
-  )
+  ) */
 
-  G.globalAntMult = G.globalAntMult.times(
+  /*G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9]))
-  )
-  G.globalAntMult = G.globalAntMult.times(calculateAntSpeedCubeBlessing())
-  G.globalAntMult = G.globalAntMult.times(
+  )*/
+  //G.globalAntMult = G.globalAntMult.times(calculateAntSpeedCubeBlessing())
+  /*G.globalAntMult = G.globalAntMult.times(
     +getAchievementReward('antSpeed')
-  )
-  if (player.upgrades[39] === 1) {
+  )*/
+  /*if (player.upgrades[39] === 1) {
     G.globalAntMult = G.globalAntMult.times(1.6)
-  }
-  G.globalAntMult = G.globalAntMult.times(
+  }*/
+  /*G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(
       1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10),
       player.constantUpgrades[5]
     )
-  )
-  G.globalAntMult = G.globalAntMult.times(
+  )*/
+  /*G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11]))
-  )
-  if (player.researches[147] > 0) {
+  )*/
+  /*if (player.researches[147] > 0) {
     G.globalAntMult = G.globalAntMult.times(
       Decimal.log(player.antPoints.add(10), 10)
     )
@@ -3715,7 +3714,7 @@ export const updateAntMultipliers = (): void => {
         player.researches[177]
       )
     )
-  }
+  }*/
 
   if (player.currentChallenge.ascension === 12) {
     G.globalAntMult = Decimal.pow(G.globalAntMult, 0.5)
