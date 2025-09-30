@@ -154,7 +154,7 @@
       },
       "ambrosiaBaseObtainium2": {
         "name": "Based Obtainium Booster",
-        "description": "+1 Base Obtainium per level! Channel your inner researcher.",
+        "description": "+1 Base Obtainium per level! Channel your inner er.",
         "effect": "This module increases Base Obtainium by {{amount}}!"
       },
       "ambrosiaBaseOffering2": {
@@ -557,7 +557,7 @@
       "215": "'Wow Platonic Tax sucks 1/5': Clear 'Tax+++' challenge ten times.",
       "216": "Haha this is hard for some reason: Clear 'Tax+++' challenge twenty times.",
       "217": "Taxes are hard: Clear 'Tax+++' challenge thirty times.",
-      "218": "Shiny Blue Rock: Clear 'No Research' once.",
+      "218": "Shiny Blue Rock: Clear 'No ' once.",
       "219": "It's like Avatar: Clear 'No Research' twice.",
       "220": "It's like Unobtainium: Clear 'No Research' three times.",
       "221": "It's like a thing: Clear 'No Research' five times.",
@@ -1597,15 +1597,15 @@
       "118": "Each Reincarnation Challenge completion delays tax growth by 0.75% per level, multiplicative. Effect: {{x}}x",
       "119": "+11% Obtainium. Unlock a nice trinket somewhere...",
       "122": "+7.5% Offering recycle.",
-      "124": "Delay tax growth by 5.66%. Unlock 5 new incredibly powerful researches!",
+      "124": "Delay tax growth by 5.66%. Unlock 5 new incredibly powerful Researches!",
       "126": "+13% Obtainium. You get an accessory to commemorate this moment!",
-      "127": "Unlock 20 new incredibly expensive yet good researches. Unlock the [Anthill] feature!",
-      "128": "Make researches go Cost-- with 1.5x Obtainium!",
+      "127": "Unlock 20 new incredibly expensive yet good Researches. Unlock the [Anthill] feature!",
+      "128": "Make Researches go Cost-- with 1.5x Obtainium!",
       "129": "+7.5% Offering recycle. Gain another 1.25x Obtainium multiplier!",
       "131": "Delay tax growth by 5.66%.",
       "132": "Permanently gain +25% more sacrifice reward!",
       "133": "+15% Obtainium. Obtain the gift of Midas himself.",
-      "134": "Unlock 10 newer incredibly expensive yet good researches. Unlock <Talismans> in the Runes Tab!",
+      "134": "Unlock 10 newer incredibly expensive yet good Researches. Unlock <Talismans> in the Runes Tab!",
       "135": "Talisman positive bonuses are now +0.02 stronger per level.",
       "136": "Talisman positive bonuses are now +0.02 even stronger per level.",
       "137": "Permanently gain +25% more sacrifice reward!",
@@ -2092,10 +2092,10 @@
     "resetAlert": "<<gold | ⚠>> Performs a <<limegreen | Reincarnation>>",
     "immortalELOGain": "• Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
     "antSacMultiplier": "↳ Ant Speed x{{x}}",
-    "offeringMultiplier": "• Gain <<orange | {{x}}x Prestige Offerings>>",
-    "obtainiumMultiplier": "• Gain <<pink | {{x}}x Reincarnation Obtainium>>",
+    "offeringMultiplier": "• Gain <<orange | {{x}}x Offerings>>",
+    "obtainiumMultiplier": "• Gain <<pink | {{x}}x Obtainium>>",
     "talismanFragments": "• Gain Some Talisman Fragments!",
-    "autoReset": "This resets your Crumbs, Ants and Ant Upgrades, and performs a Reincarnation in exchange for some Ant Speed and resources. Continue?",
+    "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some Ant Speed and resources. Continue?",
     "elo": "+{{x}} [>{{y}} ELO]",
     "antSacrifice": "Ant Sacrifice"
   },
@@ -2337,11 +2337,11 @@
     "14": {
       "name": "No Research Challenge || {{- value}} Completions",
       "flavor": "The dimension that never progressed past the dark ages. Many fear to even step foot.",
-      "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2.",
+      "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any Researches purchasable. Ant production ^0.2.",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
       "per": {
-        "1": "+50% stronger effect on researches 1x1 through 1x5. Current: ",
-        "2": "+1 research purchased per roomba tick! Current: ",
+        "1": "+50% stronger effect on Researches 1x1 through 1x5. Current: ",
+        "2": "+1 Research purchased per roomba tick! Current: ",
         "3": "+1.5 to the Rune Level Coefficient of the first five runes! Current: "
       },
       "first": "Unlock 15 Researches, and discover a new type of ideal cube - a Platonic one perhaps? Plus more Campaigns and Corruptions of course.",
@@ -2531,7 +2531,7 @@
       "48": "[5x8] When you ascend, start with 1 Worker Ant (this is a lot better than it sounds!)",
       "49": "[5x9] When you ascend, gain 1 of each Challenge 6-8 completion.",
       "50": "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +1 Effective ELO, 0.00066% Tax reduction per level. Every 10,000 levels grant +0.6% Talisman Power!",
-      "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the cube tab, and researches as well.",
+      "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the Wow! Cubes tab, and Research as well.",
       "52": "[Cx2] These sugar cookies sure boost your blood sugar. Gain +1% Global Speed per level.",
       "53": "[Cx3] What a hearty snack. Gain +0.1% Quarks per level.",
       "54": "[Cx4] Pretty dry, but they suffice. Gain +1% Offerings per level.",
@@ -2626,7 +2626,7 @@
       "38": "[2x13] Building power scales 2.5% faster per level.",
       "39": "[2x14] Building power affects Crystal production at a reduced rate.",
       "40": "[2x15] Building power affects Mythos Shard production at a reduced rate.",
-      "41": "[2x16] Start Reincarnations with automatic A.Boosts unlocked. Note: this research doesn't affect earning achievements.",
+      "41": "[2x16] Start Reincarnations with automatic A.Boosts unlocked. Note: this Research doesn't affect earning achievements.",
       "42": "[2x17] Start Reincarnations with automatic Generators unlocked.",
       "43": "[2x18] Start Reincarnations with automatic C.Upgrades unlocked.",
       "44": "[2x19] Start Reincarnations with automatic D.Upgrades unlocked.",
@@ -2666,7 +2666,7 @@
       "78": "[4x3] Here's +1 Rune Coefficient to Duplication Rune, per level!",
       "79": "[4x4] Here's +1 Rune Coefficient to Prism Rune, per level!",
       "80": "[4x5] Here's +1 Rune Coefficient to Thrift Rune, per level!",
-      "81": "[4x6] You thought the previous researches are expensive? You're going to need this! [+10% Obtainium per level]",
+      "81": "[4x6] You thought the previous Researches are expensive? You're going to need this! [+10% Obtainium per level]",
       "82": "[4x7] Permanently UNLOCK the Rune of Superior Intellect! [Bonuses: Offerings, Obtainium and Ant Speed]",
       "83": "[4x8] Taking forever to level up that new Rune? Here's +5% Superior Intellect Rune EXP per level.",
       "84": "[4x9] Does the Superior Intellect Rune kinda suck? Power it up! +0.5% Rune Power <b>only for SI Rune</b> per level!",
@@ -2739,7 +2739,7 @@
       "151": "[7x1] A new row, old upgrade. Increase your Global Speed by +1.2% per level.",
       "152": "[7x2] Wow! Industries sponsors another +0.9% Cubes per level towards your Ascension bank!",
       "153": "[7x3] Hey, I totally didn't steal this idea. You gain 12 Tributes of Wow! Cube tier for every Tesseract opened.",
-      "154": "[7x4] Make all Tesseract buildings produce 3% faster per level. Hey, isn't that more than the last research tier?",
+      "154": "[7x4] Make all Tesseract buildings produce 3% faster per level. Hey, isn't that more than the last Research tier?",
       "155": "[7x5] Tome 2 of 4: How to win over the Ant universe. Another e100M Divider to Challenge 10 Base Requirement on purchase.",
       "156": "[7x6] What, again? Alright. +0.6% Accelerators per level.",
       "157": "[7x7] Gas, gas, gas. +0.6% Accelerator Boosts per level.",
@@ -2787,7 +2787,7 @@
       "199": "[8x24] +10% faster Tesseract Buildings / level. THE ARISEN. WITH THE PRAISE OF THE [[REDACTED]].",
       "200": "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings per level. +0.004% Cubes per level, +(level/200) free Ant upgrade levels, 0.000666% Tax reduction per level. Every 10,000 levels grant +0.4% more Talisman Power!"
     },
-    "thanksToResearches": "Thanks to researches you automatically gain {{x}} Obtainium per real life second.",
+    "thanksToResearches": "Thanks to Research you automatically gain {{x}} Obtainium per real life second.",
     "level": "Level {{x}}/{{y}}",
     "maxed": " || MAXED!",
     "cost": "Cost: {{x}} Obtainium [+{{y}} Levels]",
@@ -2799,7 +2799,7 @@
     "autoModeManual": "Automatic mode: Manual",
     "hoverToBuyOn": "Hover-to-Buy [ON]",
     "hoverToBuyOff": "Hover-to-Buy [OFF]",
-    "hover": "Hover over the grid to get details about researches!",
+    "hover": "Hover over the grid to get details about Research!",
     "resets": "Resets upon the next reset tier.",
     "doesNotReset": "NEVER resets!"
   },
@@ -2810,7 +2810,7 @@
       "offeringEX": "Gain +4% more Offerings from all sources!",
       "offeringAuto": "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) Offerings are spent.",
       "obtainiumEX": "Gain +4% more Obtainium from all sources!",
-      "obtainiumAuto": "Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every Reincarnation, dump all Obtainium into research until maxed.",
+      "obtainiumAuto": "Automatically pour Obtainium into a Research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every Reincarnation, dump all Obtainium into Research until maxed.",
       "instantChallenge": "T and R Challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Additionally, instantly gain T Challenge completions up to highest completed when exiting R Challenges.",
       "antSpeed": "Each level gives a 1.2x speed multiplier to all Ant tiers' production! (Immaculate!) Short and simple.",
       "cashGrab": "This is a cash grab but it gives a couple cool stats. +1% production per level to Offerings and Obtainium.",
@@ -2919,7 +2919,7 @@
       "offeringEX": "You will gain <<goldenrod|{{amount}}%>> more Offerings!",
       "offeringAuto": "Per 10 seconds, pour <<goldenrod|{{amount1}}>> Offerings. +<<goldenrod|{{amount2}}%>> Offerings.",
       "obtainiumEX": "You will gain <<pink|{{amount}}%>> more Obtainium!",
-      "obtainiumAuto": "Try to upgrade research each reincarnation, and gain <<pink|{{amount}}%>> more Obtainium.",
+      "obtainiumAuto": "Try to upgrade Research each Reincarnation, and gain <<pink|{{amount}}%>> more Obtainium.",
       "instantChallenge": "Even in a premium shop it's kinda obvious, right?",
       "antSpeed": "All Ants' Speed <<crimson|x{{amount}}>>",
       "cashGrab": "You will gain <<gold|{{amount}}%>> more Obtainium and Offerings!",
@@ -3013,7 +3013,7 @@
       "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
       "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
-      "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties",
+      "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
       "description": "(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
       "welcometoSingularity": {
         "name": "Welcome to Singularity!",
@@ -3153,7 +3153,7 @@
       },
       "coolQOLCubes": {
         "name": "Cool QoL Cubes",
-        "hasLevel1": "Keep all Cube Opening researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
+        "hasLevel1": "Keep all Cube Opening Researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
         "default": "Researches related to opening cubes will no longer reset on Ascension"
       },
       "irishAnt": {
@@ -3215,11 +3215,11 @@
         "name": "Immaculate Alchemy",
         "hasLevel2": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.",
         "hasLevel1": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 5.",
-        "default": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 3."
+        "default": "Multiply Golden Quark gain and divide the cost to buy Golden Quarks by {{ multiplier }}! <br><b>This perk takes into account your current, not highest Singularity!</b><br>Thresholds: s50, s90, s130, s170, s200, s217, s235, s253, s271, s289</br>"
       },
       "skrauQ": {
         "name": "skrauQ",
-        "default": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: <<cyan | x{{amt}}>>... Yes, it's <<gray | that good>>.<br><b><<gold | ⚠>> This Perk takes into account your current Singularity count, and not your highest!</b>"
+        "default": "Multiply all Quark Gain by (1 + (Singularity - 199)/25)^2. Currently: <<cyan | x{{amt}}>>... Yes, it's <<gray | that good>>.<br><b><<gold | ⚠>> This Perk takes into account your current Singularity count, and not your highest!</b>"
       },
       "primalPower": {
         "name": "Primal Power!",
@@ -3551,13 +3551,13 @@
       },
       "singFastForward": {
         "name": "Etherflux Singularities",
-        "description": "Golden Quark gained by Singularity is increased by 100% (additive), and going singular at your all time highest count gives +1 Singularity count!",
+        "description": "Golden Quark gained by Singularity is increased by 2.5% (additive), and lets you 'look ahead' an extra Singularity. This means you can choose (from the Elevator) to skip a Singularity if you do one at your all time highest!",
         "effectHave": "You've transformed the Etherflux!",
         "effectHaveNot": "You haven't transformed the Etherflux!"
       },
       "singFastForward2": {
         "name": "Aetherflux Singularities",
-        "description": "Golden Quark gained by Singularity is increased by 100% (additive) and going singular at your all time highest count gives +1 Singularity count! It's like Etherflux but with an A.",
+        "description": "Golden Quark gained by Singularity is increased by 2.5% (additive) and lets you 'look ahead' yet another Singularity!",
         "effectHave": "You've transformed the Aetherflux!",
         "effectHaveNot": "You haven't transformed the Aetherflux!"
       },
@@ -3711,8 +3711,9 @@
       "teleportButtonStay": "Reopen!",
       "teleportButtonLower": "Down!",
       "lockToggle": "Lock Future Singularities",
-      "lockEnabled": "Future Singularities are <<orange|LOCKED>>. You will repeat Singularity {{target}}.",
-      "lockDisabled": "Future Singularities are <<lime|UNLOCKED>>. You will go to your highest Singularity when you perform a Singularity.",
+      "lockEnabled": "Future Singularities are <<orange|LOCKED>>. You will repeat <<gold | Singularity {{target}}>>.",
+      "lockDisabledIntro": "Future Singularities are <<lime|UNLOCKED>>.",
+      "lockDisabledSing": "Your next Singularity will be <<gold | Singularity {{target}}>>",
       "invalidTarget": "Please select a valid Singularity between 1 and {{max}}.",
       "noTarget": "Please select a target Singularity first.",
       "confirmTeleport": "Are you sure you want to go to Singularity {{target}}?",
@@ -3720,7 +3721,13 @@
       "teleportSuccess": "Transported to Singularity {{target}}!",
       "inEXALTError": "Derpsmith slowly nods his head. \"Elevator's Out Of Order...\" he declares. Why does this always happen when you're in an EXALT?",
       "lockedTitle": "Singularity Elevator - OUT OF ORDER",
-      "lockedDescription": "This Elevator only operates if you've seen the 10th Singularity. Check again then!"
+      "lockedDescription": "This Elevator only operates if you've seen the 10th Singularity. Check again then!",
+      "slowClimbToggle": "Only go up 1 Singularity",
+      "nextSingInfo": "Next Singularity Info",
+      "highestSingularity": "Highest Singularity: <b><<gold | {{num}}>></b>",
+      "maxLookahead": "Max Lookahead Distance: <b><<gold | +{{num}}>></b> (Requires Antiquities)",
+      "lookahead": "Looking ahead at your Highest Singularity adds <b><<gold | +1>></b> to your Highest Singularity<br><b><<orange | even if you skip Singularities!>></b>",
+      "lookaheadExtra": "If you beat a Singularity higher than your Highest, <br><b><<orchid | your Highest Singularity will update to current Singularity!>></b>"
     }
   },
   "general": {
@@ -4558,7 +4565,7 @@
       "finishTranscension": "超越チャレンジを完了できない場合は、上記のホットキーを押すか、上部のリセット ボタンにある紫色のチャレンジ「C」ボタンをクリックしてください。",
       "leaveReincarnation": "To leave a reincarnation challenge, press the grey Challenge \"C\" instead!"
     },
-    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> researches first. The <<var(--crimson-text-color);|red-bordered>> researches are never reset whereas the <<white;|white-bordered>> researches will reset upon the next reset tier!",
+    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> Researches first. The <<var(--crimson-text-color);|red-bordered>> Researches are never reset whereas the <<white;|white-bordered>> Researches will reset upon the next reset tier!",
     "shop": "Hover over each portion of the shop to see what each upgrade does!"
   },
   "buildings": {
@@ -4835,8 +4842,8 @@
       },
       "octeractFastForward": {
         "name": "Derpsmith's Singularity Discombobulator",
-        "description": "Each level makes Singularity give +100% Golden Quarks (additive) and singularity at all time highest count grants +1 singularity count!",
-        "effect": "Singularities give {{n100}}% more GQ and count as {{n}} more."
+        "description": "Each level gives +2.5% more Golden Quarks (additive), and lets you 'look ahead' another Singularity!",
+        "effect": "Singularities give {{n100}}% more GQ, 'look ahead' limit +{{n}}"
       },
       "octeractAutoPotionSpeed": {
         "name": "Pill of Increased Thirst",
@@ -4986,7 +4993,7 @@
     "superiorIntellect": {
       "name": "Superior Intellect",
       "description": "Over a hundred times the number of brain cells the average human has, put into one rock. It's probably sentient.",
-      "lockedDescription": "This rune is locked! Unlocking it might require some novel research.",
+      "lockedDescription": "This rune is locked! Unlocking it might require some novel Research.",
       "offeringMult": "<<orange | Offering Gain +{{val}}>> (+0.05% per Power)",
       "obtainiumMult": "<<pink | Obtainium Gain +{{val}}>> (+0.50% per Power)",
       "antSpeed": "<<crimson | Ant Speed {{val}}x>> (1 + Power^2 / 2500)x",
@@ -6737,7 +6744,7 @@
     "transferredFromLZ": "Transferred save to new format successfully!",
     "allCorruptionsZero": "All Corruptions have been set to Zero. This will take effect on the next Ascension.",
     "corruptionLoadoutApplied": "Corruption Loadout {{x}} \"{{y}}\" has been applied. This will take effect on the next Ascension.",
-    "ascendPrompt": "Ascending will reset all buildings, rune EXP, talismans, most researches, and the anthill feature for Cubes of Power. Continue?",
+    "ascendPrompt": "Ascending will reset all buildings, rune EXP, talismans, most Researches, and the anthill feature for Cubes of Power. Continue?",
     "reincarnatePrompt": "Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]",
     "transcendPrompt": "Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]",
     "prestigePrompt": "Prestige will reset coin upgrades, coin producers AND crystals. The first Prestige unlocks new features. Would you like to Prestige? [Toggle this message in settings.]",

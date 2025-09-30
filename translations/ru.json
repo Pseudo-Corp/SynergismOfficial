@@ -154,7 +154,7 @@
       },
       "ambrosiaBaseObtainium2": {
         "name": "Базированный Усилитель Обтаниума",
-        "description": "+1 Базового Обтаниума за уровень! Пробудите своего внутреннего исследователя.",
+        "description": "+1 Базового Обтаниума за уровень! Пробудите своего внутреннего ля.",
         "effect": "Этот модуль увеличивает Базовый Обтаниум на {{amount}}!"
       },
       "ambrosiaBaseOffering2": {
@@ -557,7 +557,7 @@
       "215": "'Вау, Platonic, Налоги - отстой 1/5': Выполните испытание 'Налоги+++' десять раз.",
       "216": "Хаха, это почему-то так сложно: Выполните испытание 'Налоги+++' двадцать раз.",
       "217": "Налоги - сложная штука: Выполните испытание 'Налоги+++' тридцать раз.",
-      "218": "Блестящий Синий Камень: Выполните 'Без Исследований' один раз.",
+      "218": "Shiny Blue Rock: Clear 'No ' once.",
       "219": "Это как Аватар: Выполните 'Без Исследований' два раза.",
       "220": "Это как Унобтаниум: Выполните 'Без Исследований' три раза.",
       "221": "Это как что-то: Выполните 'Без Исследований' пять раз.",
@@ -665,7 +665,7 @@
       "323": "Будем честны - это испытание не такое уж и плохое: Выполните {[Без Ускорителей/Множителей]} 40 раз.",
       "324": "Эту игру теперь даже нельзя оценить: Выполните {[Без Ускорителей/Множителей]} 80 раз.",
       "325": "Тем не менее... -140/5: Выполните {[Без Ускорителей/Множителей]} 125 раз.",
-      "326": "I'm in Jeopardy!: Clear {[Cost++]} 40 times.",
+      "326": "Я в Опасности!: Выполните {[Стоимость++]} 40 раз.",
       "327": "Притворяясь покупателем: Выполните {[Стоимость++]} 80 раз.",
       "328": "Дорожные чеки принимаете?: Выполните {[Стоимость++]} 130 раз.",
       "329": "Иероглифы: Выполните {[Без Рун]} 40 раз.",
@@ -687,7 +687,7 @@
       "345": "Поняли же? Крошки?: Получите 1r125 000 Галактических Крошек.",
       "346": "Да точно поняли: Получите 1e1 000 000 Галактических Крошек.",
       "347": "Гордон Рамзес: Через Пожертвования Муравьёв, накопите Множитель Скорости Муравьёв 1e50x.",
-      "348": "Букет Вольфганга: Через Пожертвования Муравьёв, накопите Множитель Скорости Муравьёв 1e200x.",
+      "348": "Wolfgang Pluck: Amass a 1e200x Ant Speed Multiplier through Ant Sacrifice.",
       "349": "Марко Пьер Бланко: Через Пожертвования Муравьёв, накопите Множитель Скорости Муравьёв 1e1000x.",
       "350": "Вознесения - всего лишь предписания: Вознеситесь 1e16 раз.",
       "351": "Ноль обещаний, ноль разочарований: Вознеситесь 1e20 раз.",
@@ -735,12 +735,12 @@
       "393": "Дух VIII: Повысьте уровень Духа Скорости до 1280.",
       "394": "Дух IX: Повысьте уровень Духа Скорости до 1600.",
       "395": "Дух X: Повысьте уровень Духа Скорости до 2000.",
-      "396": "A minor sacrifice: Level your Speed Rune to 100.",
-      "397": "A snack for the gods: Level your Speed Rune to 250.",
+      "396": "Малая жертва: Повысьте уровень вашей Руны Скорости до 100.",
+      "397": "Перекус для богов: Повысьте уровень Руны Скорости до 250.",
       "398": "For your consideration: Level your Speed Rune to 500.",
-      "399": "Hints of shine in these rocks: Level your Speed Rune to 1,000.",
-      "400": "Like throwing offerings into a fire: Level your Speed Rune to 2,000.",
-      "401": "Atlas Shirked: Level your Speed Rune to 5,000.",
+      "399": "Нотки блеска в этих камнях: Повысьте уровень Руны Скорости до 1000.",
+      "400": "Подношения на ветер: Повысьте уровень Руны Скорости до 2000.",
+      "401": "Атлант Расправил Гамак: Повысьте уровень Руны Скорости до 5000.",
       "402": "Platonic Sacrifice: Level your Speed Rune to 10,000.",
       "403": "Boots of power: Level your Speed Rune to 20,000.",
       "404": "An amount of Offerings you cannot fathom: Level your Speed Rune to 50,000.",
@@ -776,9 +776,9 @@
       "434": "Platonic Campaigns: Gain 4,000 Campaign Tokens from Campaigns.",
       "435": "Campaign Master: Gain 9,000 Campaign Tokens from Campaigns.",
       "436": "Baby's first Prestige: Prestige for the first time.",
-      "437": "Ten Reputation: Prestige 10 times.",
-      "438": "Duplicating yourself: Prestige 100 times.",
-      "439": "Number? Go UP!: Prestige 1,000 times.",
+      "437": "Десять репутаций: Совершить Престиж 10 раз.",
+      "438": "Самовоспроизведение: Совершить Престиж 100 раз.",
+      "439": "Число? ВПЕРЕД!: Совершить Престиж 1,000 раз.",
       "440": "Pretend to be a god: Prestige 10,000 times.",
       "441": "The now-idolized: Prestige 100,000 times.",
       "442": "One. Million. Prestige.: Prestige 1,000,000 times.",
@@ -789,7 +789,7 @@
       "447": "Числа настолько большие, насколько они широкие: Престиж 10 000 000 000 000 раз.",
       "448": "Знакомьтесь - квадриллион: Престиж 1e15 раз.",
       "449": "Престиж до отвращения: Престиж 1e17 раз.",
-      "450": "Слишком Престижный Престиж - не престижный: Престиж 1e20 раз.",
+      "450": "Prestige so Prestigious, it becomes ordinary: Prestige 1e20 times.",
       "451": "Transcendental: Transcend for the first time.",
       "452": "Ten degrees of separation: Transcend 10 times.",
       "453": "Polychroma: Transcend 100 times.",
@@ -928,13 +928,13 @@
         "multiplicativeObtainium": "Obtainium gain is increased by +0.125% for each Rune level"
       },
       "57": {
-        "multipliers": "+1 free Multiplier"
+        "multipliers": "+1 бесплатный Множитель"
       },
       "58": {
-        "multipliers": "Another +1 free Multiplier!"
+        "multipliers": "Очередной +1 бесплатный Множитель!"
       },
       "59": {
-        "multipliers": "ANOTHER +1 free Multiplier!"
+        "multipliers": "ЕЩЕ ОДИН +1 бесплатный Множитель!"
       },
       "60": {
         "accelerators": "+2 free Accelerators"
@@ -980,7 +980,7 @@
         "taxReduction": "Tax scaling reduced by 4%"
       },
       "84": {
-        "multiplicativeObtainium": "Obtainium x1.05"
+        "multiplicativeObtainium": "Обтаниум x1.05"
       },
       "85": {
         "coalPlantAutobuy": "Unlock the Coal Plant Autobuyer!"
@@ -996,7 +996,7 @@
         "taxReduction": "Tax scaling reduced by 4%"
       },
       "91": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "92": {
         "coalRigAutobuy": "Unlock the Coal Rig Autobuyer!"
@@ -1011,10 +1011,10 @@
         "taxReduction": "Tax scaling reduced by 4%"
       },
       "98": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "99": {
-        "pickaxeAutobuy": "Unlock the Pickaxe Autobuyer!"
+        "pickaxeAutobuy": "Разблокировать автопокупатель Кирок!"
       },
       "100": {
         "crystalUpgrade4Autobuy": "Unlock the Autobuyer for the fourth Crystal Upgrade!"
@@ -1029,7 +1029,7 @@
         "taxReduction": "Tax scaling reduced by 4%"
       },
       "105": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "106": {
         "pandorasBoxAutobuy": "Unlock the Pandora's Box Autobuyer!"
@@ -1044,7 +1044,7 @@
         "taxReduction": "Tax scaling reduced by 4%"
       },
       "112": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "115": {
         "salvage": "+5 Salvage"
@@ -1059,7 +1059,7 @@
         "exemptionTalisman": "Unlock the Exemption Talisman!"
       },
       "120": {
-        "diamondUpgrade18": "Unlock the 18th Diamond Upgrade!"
+        "diamondUpgrade18": "Разблокировать 18-ое Алмазное улучшение!"
       },
       "122": {
         "salvage": "+5 Salvage"
@@ -1074,7 +1074,7 @@
         "chronosTalisman": "Unlock the Chronos Talisman!"
       },
       "127": {
-        "diamondUpgrade19": "Unlock the 19th Diamond Upgrade!",
+        "diamondUpgrade19": "Разблокировать 19-ое Алмазное улучшение!",
         "antHillUnlock": "Unlock the <span class='rainbowText'>Anthill!</span>"
       },
       "129": {
@@ -1090,9 +1090,9 @@
         "midasTalisman": "Unlock the Midas Talisman!"
       },
       "134": {
-        "diamondUpgrade20": "Unlock the 20th Diamond Upgrade!",
+        "diamondUpgrade20": "Разблокировать 20-ое Алмазное улучшение!",
         "blessingUnlock": "Unlock Rune Blessings!",
-        "talismanUnlock": "Also, unlock Talismans!"
+        "talismanUnlock": "Также, разблокировать Талисманы!"
       },
       "135": {
         "talismanPower": "+2% Talisman Power"
@@ -1105,7 +1105,7 @@
         "sacrificeMult": "Sacrifice multiplier x1.25"
       },
       "139": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "140": {
         "metaphysicsTalisman": "Unlock the Metaphysics Talisman!"
@@ -1117,13 +1117,13 @@
         "salvage": "+7 Salvage"
       },
       "144": {
-        "talismanPower": "+2.5% Talisman Power"
+        "talismanPower": "+2.5% к Силе Талисманам"
       },
       "145": {
-        "talismanPower": "+2.5% Talisman Power"
+        "talismanPower": "+2.5% к Силе Талисманам"
       },
       "146": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "147": {
         "polymathTalisman": "Unlock the Polymath Talisman!"
@@ -1144,33 +1144,33 @@
         "accelerators": "Gain +50 free Accelerators. <span class='rainbowText'>Wow!</span>"
       },
       "156": {
-        "multipliers": "Gain +1 free Multiplier"
+        "multipliers": "Получить +1 бесплатный Множитель"
       },
       "158": {
-        "multipliers": "Gain +1 free Multiplier"
+        "multipliers": "Получить +1 бесплатный Множитель"
       },
       "159": {
-        "multipliers": "Gain +3 free Multipliers"
+        "multipliers": "Получить +3 бесплатных Множителей"
       },
       "160": {
-        "multipliers": "Gain +6 free Multipliers"
+        "multipliers": "Получить +6 бесплатных Множителей"
       },
       "161": {
-        "multipliers": "Gain +10 free Multipliers. <span class='rainbowText'>Wow!</span>"
+        "multipliers": "Получить +10 бесплатных Множителей. <span class='rainbowText'>Вау!</span>"
       },
       "169": {
         "antSpeed": "Ant Speed is multiplied by logarithm of Galactic Crumbs"
       },
       "171": {
-        "antSpeed": "Ant Speed x1.2"
+        "antSpeed": "Скорость Муравьев x1.2"
       },
       "172": {
-        "antSpeed": "Ant Speed x1.25"
+        "antSpeed": "Скорость Муравьев x1.25"
       },
       "173": {
-        "antSpeed": "Ant Speed x1.4",
-        "antSacrificeUnlock": "Unlock Ant Sacrifice!",
-        "antAutobuyers": "Unlock an Ant Autobuyer!"
+        "antSpeed": "Скорость Муравьев x1.4",
+        "antSacrificeUnlock": "Разблокировать Пожертвование Муравьев!",
+        "antAutobuyers": "Разблокировать Автопокупку Муравьев!"
       },
       "174": {
         "antSpeed": "Ant Speed is multiplied by logarithm of Ant Sacrifice Points"
@@ -1233,16 +1233,16 @@
         "tesseractUnlock": "Unlock gaining Tesseracts from Ascending!"
       },
       "198": {
-        "wowCubeGain": "Cube gain x1.02"
+        "wowCubeGain": "Прирост Всех Кубов x1.02"
       },
       "199": {
-        "wowCubeGain": "Cube gain x1.02"
+        "wowCubeGain": "Прирост Всех Кубов x1.02"
       },
       "200": {
-        "wowCubeGain": "Cube gain x1.02"
+        "wowCubeGain": "Прирост Всех Кубов x1.02"
       },
       "201": {
-        "wowCubeGain": "Cube gain x1.02"
+        "wowCubeGain": "Прирост Всех Кубов x1.02"
       },
       "202": {
         "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
@@ -1251,20 +1251,20 @@
         "talismanPower": "+1% Talisman Power"
       },
       "204": {
-        "ascensionRewardScaling": "Ascensions give more cubes of all types based on your Ascension time [+10% per second]",
+        "ascensionRewardScaling": "Вознесения дают больше кубов всех типов в зависимости от времени Вознесения [+10% в секунду!]",
         "spiritUnlock": "Unlock Spirits, in the Runes tab!"
       },
       "205": {
-        "wowTesseractGain": "Tesseract gain x1.02"
+        "wowTesseractGain": "Прирост Тессерактов x1.02"
       },
       "206": {
-        "wowTesseractGain": "Tesseract gain x1.02"
+        "wowTesseractGain": "Прирост Тессерактов x1.02"
       },
       "207": {
-        "wowTesseractGain": "Tesseract gain x1.02"
+        "wowTesseractGain": "Прирост Тессерактов x1.02"
       },
       "208": {
-        "wowTesseractGain": "Tesseract gain x1.02"
+        "wowTesseractGain": "Прирост Тессерактов x1.02"
       },
       "209": {
         "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
@@ -1324,38 +1324,38 @@
         "salvage": "+3 Salvage"
       },
       "240": {
-        "allCubeGain": "All Cube Gain x1.2"
+        "allCubeGain": "Прирост Всех Кубов x1.2"
       },
       "245": {
         "salvage": "+3 Salvage"
       },
       "250": {
-        "allCubeGain": "All Cube Gain x1.05",
-        "multiplicativeObtainium": "Obtainium x1.1",
-        "multiplicativeOffering": "Offerings x1.5",
-        "quarkGain": "Quark Gain x1.05"
+        "allCubeGain": "Прирост Всех Кубов x1.05",
+        "multiplicativeObtainium": "Обтаниум x1.1",
+        "multiplicativeOffering": "Подношения x1.5",
+        "quarkGain": "Прирост Кварков x1.05"
       },
       "251": {
-        "allCubeGain": "All Cube Gain x1.05",
-        "multiplicativeObtainium": "Obtainium x1.5",
-        "multiplicativeOffering": "Offerings x1.1",
-        "quarkGain": "Quark Gain x1.05"
+        "allCubeGain": "Прирост Всех Кубов x1.05",
+        "multiplicativeObtainium": "Обтаниум x1.5",
+        "multiplicativeOffering": "Подношения x1.1",
+        "quarkGain": "Прирост Кварков x1.05"
       },
       "253": {
         "wowHypercubeGain": "Hypercube gain x1.1"
       },
       "254": {
-        "wowCubeGain": "Cube gain x1.1"
+        "wowCubeGain": "Прирост Кубов x1.1"
       },
       "255": {
-        "wowTesseractGain": "Tesseract gain x1.1"
+        "wowTesseractGain": "Прирост Тессерактов x1.1"
       },
       "256": {
         "wowPlatonicGain": "Platonic Cubes x1.1",
         "overfluxConversionRate": "Overflux Powder conversion x1.05"
       },
       "257": {
-        "allCubeGain": "All Cube Gain x1.1",
+        "allCubeGain": "Прирост Всех Кубов x1.1",
         "overfluxConversionRate": "Overflux Powder conversion x1.05"
       },
       "258": {
@@ -1365,16 +1365,16 @@
         "ascensionScore": "Ascension Score multiplier based on Abyss Hepteract expansions [x1.01 per expansion]"
       },
       "260": {
-        "ascensionCountMultiplier": "Ascension Count x1.1"
+        "ascensionCountMultiplier": "Счётчик Вознесений x1.1"
       },
       "261": {
-        "ascensionCountMultiplier": "Ascension Count x1.1"
+        "ascensionCountMultiplier": "Счётчик Вознесений x1.1"
       },
       "262": {
-        "allCubeGain": "All Cube Gain x1.1"
+        "allCubeGain": "Прирост Всех Кубов x1.1"
       },
       "263": {
-        "allCubeGain": "All Cube Gain x1.1"
+        "allCubeGain": "Прирост Всех Кубов x1.1"
       },
       "264": {
         "allCubeGain": "All Cube Gain multiplier based on Ascension Count [up to x1.2 at 8e12 Ascension Count]"
@@ -1597,10 +1597,10 @@
       "118": "Каждое выполненное Испытание Реинкарнации замедляет прирост налогов на 0.75% за уровень, перемножаемо. Эффект: {{x}}x",
       "119": "+11% Обтаниума. Где-то появился хороший брелок...",
       "122": "+7.5% к переработке Подношений.",
-      "124": "Откладывает рост налогов на 5.66%. Открывает 5 новых невероятно мощных исследований!",
+      "124": "Delay tax growth by 5.66%. Unlock 5 new incredibly powerful Researches!",
       "126": "+13% Обтаниума. Вы получили аксессуар, отпразднуйте этот момент!",
-      "127": "Открывает 20 новых невероятно дорогих, но хороших исследований. Открывает функцию [Муравейник]!",
-      "128": "Стоимость исследований идёт в \"--\"! Обтаниум 1.5x!",
+      "127": "Unlock 20 new incredibly expensive yet good Researches. Unlock the [Anthill] feature!",
+      "128": "Make Researches go Cost-- with 1.5x Obtainium!",
       "129": "+7.5% к переработке Подношений. Получите ещё один 1.25х множитель Обтаниума!",
       "131": "Откладывает рост налогов на 5.66%.",
       "132": "Награды за Пожертвование навсегда на +25% больше!",
@@ -1677,10 +1677,10 @@
       "271": "Когда вы открываете Платоновы Кубы, получаете {{x}} Гиперкубов, с округлением в меньшую сторону [Макс: 1 при Константе 1e1 000 000]"
     },
     "groupNames": {
-      "firstOwnedCoin": "Workers",
-      "secondOwnedCoin": "Investments",
-      "thirdOwnedCoin": "Printers",
-      "fourthOwnedCoin": "Coin Mints",
+      "firstOwnedCoin": "Рабочий",
+      "secondOwnedCoin": "Инвестиции",
+      "thirdOwnedCoin": "Принтеры",
+      "fourthOwnedCoin": "Монетные Дворы",
       "fifthOwnedCoin": "Alchemies",
       "prestigePointGain": "Prestige Gains",
       "transcendPointGain": "Transcension Gains",
@@ -1692,39 +1692,39 @@
       "challenge5": "Reduced Diamonds Challenge",
       "challenge6": "Higher Tax Challenge",
       "challenge7": "No Multipliers/Accelerators Challenge",
-      "challenge8": "Cost++ Challenge",
-      "challenge9": "No Runes Challenge",
+      "challenge8": "Стоимость++ Испытание",
+      "challenge9": "Испытание Без Рун",
       "challenge10": "Sadistic Challenge I",
       "challenge11": "Reduced Ants Challenge",
       "challenge12": "No Reincarnation Challenge",
-      "challenge13": "Tax+++ Challenge",
-      "challenge14": "No Research Challenge",
-      "accelerators": "Accelerators",
+      "challenge13": "Налоги+++ Испытание",
+      "challenge14": "Нет Исследований Испытание",
+      "accelerators": "Ускорители",
       "acceleratorBoosts": "Accelerator Boosts",
-      "multipliers": "Multipliers",
-      "antCrumbs": "Galactic Crumbs",
+      "multipliers": "Множители",
+      "antCrumbs": "Галактическая Крошка",
       "sacMult": "Ant Sacrifice",
-      "ascensionCount": "Ascensions",
-      "constant": "Constants",
-      "ascensionScore": "Ascension Score",
-      "speedBlessing": "Speed Blessing",
+      "ascensionCount": "Вознесения",
+      "constant": "Константы",
+      "ascensionScore": "Счёт Вознесения",
+      "speedBlessing": "Благословение Скорости",
       "speedSpirit": "Speed Spirit",
-      "singularityCount": "Singularities",
-      "runeLevel": "Rune Levels",
-      "runeFreeLevel": "Free Rune Levels",
-      "campaignTokens": "Campaign Tokens",
+      "singularityCount": "Сингулярности",
+      "runeLevel": "Уровни рун",
+      "runeFreeLevel": "Бесплатные Уровни Рун",
+      "campaignTokens": "Жетоны Кампании",
       "prestigeCount": "Times Prestiged",
       "transcensionCount": "Times Transcended",
       "reincarnationCount": "Times Reincarnated",
-      "ungrouped": "Miscellaneous"
+      "ungrouped": "Разное"
     },
     "rewardTypes": {
       "title": "Achievement-specific bonuses grant you the following!",
       "unlocked": "✔",
       "locked": "❌",
       "acceleratorPower": "• Accelerator Power +{{val}}",
-      "accelerators": "• Free Accelerators +{{val}}",
-      "multipliers": "• Free Multipliers +{{val}}",
+      "accelerators": "• Бесплатные Ускорители +{{val}}",
+      "multipliers": "• Бесплатные Множители +{{val}}",
       "accelBoosts": "• Free Accelerator Boosts +{{val}}",
       "workerAutobuyer": "• Worker Autobuyer {{unlock}}",
       "investmentAutobuyer": "• Investment Autobuyer {{unlock}}",
@@ -1732,15 +1732,15 @@
       "mintAutobuyer": "• Coin Mint Autobuyer {{unlock}}",
       "alchemyAutobuyer": "• Alchemy Autobuyer {{unlock}}",
       "offeringPrestigeTimer": "• Offerings Prestige Timer {{unlock}}",
-      "crystalMultiplier": "• Crystal Production x{{val}}",
+      "crystalMultiplier": "• Производство Кристаллов х{{val}}",
       "duplicationRuneUnlock": "• Duplication Rune {{unlock}}",
-      "quarkGain": "• Quark Gain x{{val}}",
+      "quarkGain": "• Прирост Кварков x{{val}}",
       "autoPrestigeFeature": "• Auto-Prestige Feature {{unlock}}",
       "prismRuneUnlock": "• Prism Rune {{unlock}}",
-      "taxReduction": "• Taxes {{val}}",
-      "particleGain": "• Particle Gain x{{val}}",
-      "multiplicativeObtainium": "• Obtainium x{{val}}",
-      "multiplicativeOffering": "• Offerings x{{val}}",
+      "taxReduction": "• Налоги {{val}}",
+      "particleGain": "• Прирост Частиц x{{val}}",
+      "multiplicativeObtainium": "• Обтаниум: x{{val}}",
+      "multiplicativeOffering": "• Подношения x{{val}}",
       "refineryAutobuy": "• Refinery Autobuy {{unlock}}",
       "coalPlantAutobuy": "• Coal Plant Autobuy {{unlock}}",
       "coalRigAutobuy": "• Coal Rig Autobuy {{unlock}}",
@@ -1761,22 +1761,22 @@
       "conversionExponent": "• Conversion Exponent +{{val}}",
       "talismanPower": "• Talisman Power {{val}}",
       "sacrificeMult": "• Sacrifice Multiplier x{{val}}",
-      "ascensionUnlock": "• Ascension {{unlock}}",
-      "antSpeed": "• Ant Speed x{{val}}",
+      "ascensionUnlock": "• Вознесение {{unlock}}",
+      "antSpeed": "• Скорость Муравьев x{{val}}",
       "antSacrificeUnlock": "• Ant Sacrifice {{unlock}}",
       "antAutobuyers": "• Ant Autobuyers +{{val}}",
       "antUpgradeAutobuyers": "• Ant Upgrade Autobuyers +{{val}}",
       "antELOAdditive": "• Ant ELO +{{val}}",
       "antELOMultiplicative": "• Ant ELO x{{val}}",
-      "ascensionCountMultiplier": "• Ascension Count x{{val}}",
-      "ascensionCountAdditive": "• Ascension Count +{{val}}",
-      "allCubeGain": "• All Cube Gain x{{val}}",
-      "wowCubeGain": "• Wow! Cube Gain x{{val}}",
-      "wowTesseractGain": "• Wow! Tesseract Gain x{{val}}",
+      "ascensionCountMultiplier": "• Счётчик Вознесений: x{{val}}",
+      "ascensionCountAdditive": "• Счётчик Вознесений: +{{val}}",
+      "allCubeGain": "• Прирост Всех Кубов x{{val}}",
+      "wowCubeGain": "• Прирост Вау! Кубов x{{val}}",
+      "wowTesseractGain": "• Прирост Вау! Тессерактов x{{val}}",
       "wowHypercubeGain": "• Wow! Hypercube Gain x{{val}}",
       "wowPlatonicGain": "• Wow! Platonic Cube Gain x{{val}}",
       "wowHepteractGain": "• Wow! Hepteract Gain x{{val}}",
-      "ascensionScore": "• Ascension Score x{{val}}",
+      "ascensionScore": "• Счёт Вознесений: x{{val}}",
       "ascensionRewardScaling": "• Ascension Reward Scaling {{unlock}}",
       "constUpgrade1Buff": "• Constant Upgrade 1 Buff +{{val}}",
       "constUpgrade2Buff": "• Constant Upgrade 2 Buff +{{val}}",
@@ -1789,8 +1789,8 @@
       "overfluxConversionRate": "• Overflux Powder Conversion Rate x{{val}}"
     },
     "levelRewards": {
-      "minLevel": "Minimum Level Required: {{level}}",
-      "noLevelReq": "Unlocked by Default!",
+      "minLevel": "Минимальный Требуемый Уровень: {{level}}",
+      "noLevelReq": "Разблокировано по умолчанию!",
       "salvage": {
         "name": "Salvage",
         "description": "Gain +1 Salvage per Synergism level! This increases by 1 per 100 levels (e.g. gain +2 at level 101).",
@@ -1802,8 +1802,8 @@
         "effect": "Current Effect: +{{mult}} Quark Gain"
       },
       "offerings": {
-        "name": "Offerings Multiplier",
-        "description": "Every level, gain 1.01x Offerings. After level 100, multiply it by another 1.02 per level!",
+        "name": "Множитель Подношений",
+        "description": "За каждый уровень, получайте 1.01x Подношений. После 100-о уровня, умножить его на ещё 1.02 за уровень!",
         "effect": "Current Effect: +{{mult}} Offerings Gain"
       },
       "obtainium": {
@@ -1837,7 +1837,7 @@
         "effect": "Current Effect: +{{mult}} Wow! Hepteract Gain"
       },
       "wowOcteracts": {
-        "name": "Wow! Octeracts!... Wait, what?",
+        "name": "Вау! Октеракты!... Погодите, что?",
         "description": "For each level past 209, gain +5% more Wow! Octeracts. What's more, multiply this by 1.02 per level as well!",
         "effect": "Current Effect: +{{mult}} Wow! Octeract Gain"
       },
@@ -1847,14 +1847,14 @@
         "effect": "Current Effect: +{{luck}} Ambrosia Luck"
       },
       "redAmbrosiaLuck": {
-        "name": "Red luck",
+        "name": "Красная удача",
         "description": "For each level past 259, gain +1 Red Luck! I like stats with symbols next to them.",
-        "effect": "Current Effect: +{{luck}} Red Luck"
+        "effect": "Текущий Эффект: +{{luck}} Красной Удачи"
       }
     },
     "levelMilestones": {
       "offeringTimerScaling": {
-        "name": "Offerings - Prestige Timer Scaling",
+        "name": "Подношения - Наценка Таймера Престижа",
         "description": "To encourage longer Prestiges, Gain +10% Offerings on Prestige per second, past 10 seconds in your current Prestige.",
         "effect": "Current Effect: Gain {{mult}} more Offerings from Prestige timer"
       },
@@ -1884,8 +1884,8 @@
         "effect": "Current Effect: SI Rune - Rune Coefficient +{{siRune}}"
       },
       "autoPrestige": {
-        "name": "Auto Prestiging!",
-        "description": "Why prestige by hand, when you can make your computer do it for you?",
+        "name": "Авто Престиж!",
+        "description": "Зачем совершать престиж вручную, если можно заставить компьютер делать это за вас?",
         "effect": "Current Effect: Auto-Prestige Feature Unlocked!"
       },
       "tier1CrystalAutobuy": {
@@ -1896,30 +1896,30 @@
       "tier2CrystalAutobuy": {
         "name": "Tier 2 Crystal Autobuy",
         "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier3CrystalAutobuy": {
         "name": "Tier 3 Crystal Autobuy",
         "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier4CrystalAutobuy": {
         "name": "Tier 4 Crystal Autobuy",
         "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier5CrystalAutobuy": {
         "name": "Tier 5 Crystal Autobuy",
         "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "effect": "Текущий эффект: Смотрите выше!"
       },
       "achievementTalismanUnlock": {
-        "name": "Achievement Talisman!",
-        "description": "Wear your Achievements with pride, and unlock the new Achievement Talisman!",
-        "effect": "Current Effect: See Above!"
+        "name": "Талисман Достижений!",
+        "description": "Носите свои достижения с гордостью и разблокируйте новый Талисман Достижений!",
+        "effect": "Текущий эффект: Смотрите выше!"
       },
       "achievementTalismanEnhancement": {
-        "name": "Achievement Talisman Enhancement",
+        "name": "Улучшение Талисмана Достижения",
         "description": "Your Achievement Talisman may be leveled up one additional time for each Synergism Level!",
         "effect": "Current Effect: Achievement Talisman may be leveled up {{level}} additional times."
       },
@@ -2092,10 +2092,10 @@
     "resetAlert": "<<gold | ⚠>> Performs a <<limegreen | Reincarnation>>",
     "immortalELOGain": "• Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
     "antSacMultiplier": "↳ Ant Speed x{{x}}",
-    "offeringMultiplier": "• Gain <<orange | {{x}}x Prestige Offerings>>",
-    "obtainiumMultiplier": "• Gain <<pink | {{x}}x Reincarnation Obtainium>>",
+    "offeringMultiplier": "• Получить <<orange | {{x}}x Подношений>>",
+    "obtainiumMultiplier": "• Gain <<pink | {{x}}x Obtainium>>",
     "talismanFragments": "• Gain Some Talisman Fragments!",
-    "autoReset": "This resets your Crumbs, Ants and Ant Upgrades, and performs a Reincarnation in exchange for some Ant Speed and resources. Continue?",
+    "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some Ant Speed and resources. Continue?",
     "elo": "+{{x}} [>{{y}} ЭЛО]",
     "antSacrifice": "Пожертвовать Муравьёв"
   },
@@ -2198,7 +2198,7 @@
       "per": {
         "1": "-3.5% Налогов [Перемножаемо]! Текущий: ",
         "2": "+0.3 Salvage! Current: ",
-        "3": "Offerings +2%! Current: "
+        "3": "+2% Подношений! Текущий: "
       },
       "first": "-7.5% Налогов!",
       "start": "Начать <Налоги+>",
@@ -2270,14 +2270,14 @@
       "per": {
         "1": "+100 к базовому ЭЛО за пожертвование муравьёв! Текущий: ",
         "2": "+2% к Награде за Жертвоприношение Муравьёв! Текущий: ",
-        "3": "Offerings +10% (additive with other Challenge bonuses)! Current: "
+        "3": "+10% Подношений (суммируется с другими бонусами Испытаний)! Текущий: "
       },
       "first": "Открывает Уровень Сброса - Вознесение!",
       "start": "Начать <Садизм I>",
       "current": {
         "1": "+{{value}} к Муравьиному ЭЛО",
         "2": "+{{value}}% к награде за Жертвоприношение Муравьёв",
-        "3": "+{{value}}% Offerings"
+        "3": "+{{value}}% Подношений"
       }
     },
     "11": {
@@ -2337,11 +2337,11 @@
     "14": {
       "name": "Испытание Без Исследований || {{- value}} Выполнений",
       "flavor": "Измерение, которое никогда не прорвалось через тёмные времена. Многие даже бояться шагнуть.",
-      "restrictions": "Вознеситесь и достигните цели, но вы не получаете Обтаниум и не можете приобрести никакие исследования. Производство Муравьёв ^0.2.",
+      "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any Researches purchasable. Ant production ^0.2.",
       "goal": "Цель: Выполните Испытание 10 [Испытание Садизм I] {{value}} раз.",
       "per": {
-        "1": "Эффект исследований с 1х1 по 1х5 сильнее на +50%. Текущий: ",
-        "2": "+1 купленное исследование за каждый такт roomba! Текущий: ",
+        "1": "+50% stronger effect on Researches 1x1 through 1x5. Current: ",
+        "2": "+1 Research purchased per roomba tick! Current: ",
         "3": "+1.5 to the Rune Level Coefficient of the first five runes! Current: "
       },
       "first": "Unlock 15 Researches, and discover a new type of ideal cube - a Platonic one perhaps? Plus more Campaigns and Corruptions of course.",
@@ -2531,7 +2531,7 @@
       "48": "[5x8] When you ascend, start with 1 Worker Ant (this is a lot better than it sounds!)",
       "49": "[5x9] При вознесении, получите 1 выполнение каждого Испытания 6-8.",
       "50": "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +1 Effective ELO, 0.00066% Tax reduction per level. Every 10,000 levels grant +0.6% Talisman Power!",
-      "51": "[Cx1] Пекарня Wow! открыта!!! Мгновенно открывает все автоматизации из вкладки кубов и исследований.",
+      "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the Wow! Cubes tab, and Research as well.",
       "52": "[Cx2] These sugar cookies sure boost your blood sugar. Gain +1% Global Speed per level.",
       "53": "[Cx3] Какой сытный перекус. +0,1% Кварков за уровень.",
       "54": "[Cx4] Pretty dry, but they suffice. Gain +1% Offerings per level.",
@@ -2626,7 +2626,7 @@
       "38": "[2x13] Сила строений растёт на 2.5% быстрее за уровень.",
       "39": "[2x14] Сила строений влияет на производство Кристаллов в уменьшенном отношении.",
       "40": "[2x15] Сила строений влияет на производство Осколков Мифов в уменьшенном отношении.",
-      "41": "[2x16] Начинайте Реинкарнации с открытой автоматизацией У.Ускорителей. Примечание: это исследование не влияет на получение достижений.",
+      "41": "[2x16] Start Reincarnations with automatic A.Boosts unlocked. Note: this Research doesn't affect earning achievements.",
       "42": "[2x17] Начинайте Реинкарнации с открытой автоматизацией Генераторов.",
       "43": "[2x18] Начинайте Реинкарнации с открытой автоматизацией Ул.Монет.",
       "44": "[2x19] Начинайте Реинкарнации с открытой автоматизацией Ул.Алмазов.",
@@ -2666,7 +2666,7 @@
       "78": "[4x3] Here's +1 Rune Coefficient to Duplication Rune, per level!",
       "79": "[4x4] Here's +1 Rune Coefficient to Prism Rune, per level!",
       "80": "[4x5] Here's +1 Rune Coefficient to Thrift Rune, per level!",
-      "81": "[4x6] You thought the previous researches are expensive? You're going to need this! [+10% Obtainium per level]",
+      "81": "[4x6] You thought the previous Researches are expensive? You're going to need this! [+10% Obtainium per level]",
       "82": "[4x7] Permanently UNLOCK the Rune of Superior Intellect! [Bonuses: Offerings, Obtainium and Ant Speed]",
       "83": "[4x8] Taking forever to level up that new Rune? Here's +5% Superior Intellect Rune EXP per level.",
       "84": "[4x9] Does the Superior Intellect Rune kinda suck? Power it up! +0.5% Rune Power <b>only for SI Rune</b> per level!",
@@ -2739,7 +2739,7 @@
       "151": "[7x1] A new row, old upgrade. Increase your Global Speed by +1.2% per level.",
       "152": "[7x2] Корпорация Wow! спонсирует ещё +0.9% Кубов за уровень в ваш банк Вознесения!",
       "153": "[7x3] Hey, I totally didn't steal this idea. You gain 12 Tributes of Wow! Cube tier for every Tesseract opened.",
-      "154": "[7x4] Делает так, что все здания Тессерактов производят на 3% быстрее за уровень. Эй, разве это не больше, чем на прошлом исследовательском уровне?",
+      "154": "[7x4] Make all Tesseract buildings produce 3% faster per level. Hey, isn't that more than the last Research tier?",
       "155": "[7x5] Том 2 из 4: Как покорить вселенную Муравьёв. При покупке, базовые требования Испытания 10 снова делятся на e100M.",
       "156": "[7x6] What, again? Alright. +0.6% Accelerators per level.",
       "157": "[7x7] Gas, gas, gas. +0.6% Accelerator Boosts per level.",
@@ -2787,7 +2787,7 @@
       "199": "[8x24] +10% faster Tesseract Buildings / level. THE ARISEN. WITH THE PRAISE OF THE [[REDACTED]].",
       "200": "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings per level. +0.004% Cubes per level, +(level/200) free Ant upgrade levels, 0.000666% Tax reduction per level. Every 10,000 levels grant +0.4% more Talisman Power!"
     },
-    "thanksToResearches": "Благодаря исследованиям, вы автоматически получаете {{x}} Обтаниума за одну реальную секунду.",
+    "thanksToResearches": "Thanks to Research you automatically gain {{x}} Obtainium per real life second.",
     "level": "Уровень {{x}}/{{y}}",
     "maxed": " || МАКСИМУМ!",
     "cost": "Стоимость: {{x}} Обтаниума [+{{y}} Уровней]",
@@ -2799,7 +2799,7 @@
     "autoModeManual": "Автоматический режим: Ручной",
     "hoverToBuyOn": "Наведите-для-Покупки [ON]",
     "hoverToBuyOff": "Наведите-для-Покупки [OFF]",
-    "hover": "Наведите курсор на иконки, чтобы узнать сведения об исследованиях!",
+    "hover": "Hover over the grid to get details about Research!",
     "resets": "Сбрасывается при следующем уровне сброса.",
     "doesNotReset": "НИКОГДА не сбрасывается!"
   },
@@ -2810,7 +2810,7 @@
       "offeringEX": "Увеличивает Подношения от всех источников на +4%!",
       "offeringAuto": "Автоматически вливает Подношения в руну. 1-ый уровень открывает возможность, каждый последующий увеличивает получение Подношений на 2%. Каждую секунду, тратится 2^(Уровень) Подношений.",
       "obtainiumEX": "Увеличивает Обтаниум от всех источников на +4%!",
-      "obtainiumAuto": "Автоматически вливает Обтаниум в исследование. 1-й уровень разблокирует функцию, и каждый уровень увеличивает получение Обтаниума на 2%. Каждая Реинкарнация выбрасывает весь полученный Обтаниум на исследование до тех пор, пока его уровень не достигнет максимума.",
+      "obtainiumAuto": "Automatically pour Obtainium into a Research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every Reincarnation, dump all Obtainium into Research until maxed.",
       "instantChallenge": "В и Р Испытания не вызывают сбросов если включён повтор и набирают до 10 прохождений за такт. Также, при выходе из Р Испытаний, мгновенно получаете прохождение В Испытаний до высшего пройденного.",
       "antSpeed": "Каждый уровень даёт 1.2х множитель скорости производства всех видов Муравьёв! (Чистый!) Коротко и просто.",
       "cashGrab": "Это обдираловка, но она даёт пару интересных статов. +1% производства Подношений и Обтаниума за уровень.",
@@ -2919,7 +2919,7 @@
       "offeringEX": "Увеличивает Подношения на <<goldenrod|{{amount}}%>>!",
       "offeringAuto": "За 10 секунд, вливается <<goldenrod|{{amount1}}>> Подношений. +<<goldenrod|{{amount2}}%>> Подношений.",
       "obtainiumEX": "Увеличивает Обтаниум на <<pink|{{amount}}%>>!",
-      "obtainiumAuto": "Пытается улучшить исследование каждую реинкарнацию, и увеличивает Обтаниум на<<pink|{{amount}}%>>.",
+      "obtainiumAuto": "Try to upgrade Research each Reincarnation, and gain <<pink|{{amount}}%>> more Obtainium.",
       "instantChallenge": "Даже для премиум магазина это довольно очевидно, не так ли?",
       "antSpeed": "Скорость всех Муравьёв <<crimson|x{{amount}}>>",
       "cashGrab": "Увеличивает Подношения и Обтаниум на <<gold|{{amount}}%>>!",
@@ -3013,7 +3013,7 @@
       "levelInfo": "Уровень {{level}} - (Сингулярность {{singularity}})",
       "improvedIn": "Уже существующая Привилегия будет улучшена в Сингулярности {{sing}}",
       "unlockedIn": "Вы разблокируете новую Привилегию в Сингулярности {{sing}}",
-      "header": "Высшая Сингулярность, которой вы достигли - <span style=\"color: gold\">{{ord}} Сингулярность.</span><br/>Вот список привилегий, которые вы приобрели для компенсации штрафов ",
+      "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
       "description": "(Наведите курсор для получения более подробной информации. В этой Сингулярности были добавлены или улучшены привилегии, <span style=\"color: gold\">выделенные золотым текстом</span>)",
       "welcometoSingularity": {
         "name": "Добро пожаловать в Сингулярность!",
@@ -3153,7 +3153,7 @@
       },
       "coolQOLCubes": {
         "name": "Крутой Сервис Для Кубов",
-        "hasLevel1": "Сохраняются все исследования Открытия Кубов И появляется возможность автоматически открывать определенный процент ваших кубов при каждом Вознесении!",
+        "hasLevel1": "Keep all Cube Opening Researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
         "default": "Исследования, касающиеся открытия кубов больше не сбрасываются при Вознесении"
       },
       "irishAnt": {
@@ -3199,7 +3199,7 @@
         "default": "Код 'Add' восполняется на {{counter}}% быстрее за каждый уровень за Сингулярность. Текущий: {{current}} (МАКС: Время перезарядки -60%)"
       },
       "midasMilleniumAgedGold": {
-        "name": "Тысячелетнее Золото Мидаса",
+        "name": "Midas' Millennium-Aged Gold",
         "default": "Каждое использование кода 'Add' даёт 0.01 бесплатных уровней ЗК1 и 0.05 бесплатных уровней ЗК3."
       },
       "goldenRevolution4": {
@@ -3215,11 +3215,11 @@
         "name": "Безупречная Алхимия",
         "hasLevel2": "После 200-й Сингулярности, Перемотки больше не работают! Вместо этого ваше получение ЗК умножено, а стоимость покупки ЗК разделена, на 8.",
         "hasLevel1": "После 200-й Сингулярности, Перемотки больше не работают! Вместо этого ваше получение ЗК умножено, а стоимость покупки ЗК разделена, на 5.",
-        "default": "После 200-й Сингулярности, Перемотки больше не работают! Вместо этого ваше получение ЗК умножено, а стоимость покупки ЗК разделена, на 3."
+        "default": "Multiply Golden Quark gain and divide the cost to buy Golden Quarks by {{ multiplier }}! <br><b>This perk takes into account your current, not highest Singularity!</b><br>Thresholds: s50, s90, s130, s170, s200, s217, s235, s253, s271, s289</br>"
       },
       "skrauQ": {
         "name": "икравК",
-        "default": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: <<cyan | x{{amt}}>>... Yes, it's <<gray | that good>>.<br><b><<gold | ⚠>> This Perk takes into account your current Singularity count, and not your highest!</b>"
+        "default": "Multiply all Quark Gain by (1 + (Singularity - 199)/25)^2. Currently: <<cyan | x{{amt}}>>... Yes, it's <<gray | that good>>.<br><b><<gold | ⚠>> This Perk takes into account your current Singularity count, and not your highest!</b>"
       },
       "primalPower": {
         "name": "Первобытная Сила!",
@@ -3237,14 +3237,14 @@
       },
       "taxReduction": {
         "name": "Accountants Clicking at Your Desktop",
-        "default": "Reduce your taxes by 50%!"
+        "default": "Уменьшить налогообложение на 50%!"
       },
       "recycledContent": {
         "name": "... Recycled Content?",
         "default": "Increase your <<green|Salvage>> by 5 per tier! Currently: +{{amount}}"
       },
       "infiniteRecycling": {
-        "name": "Infinite Recycling",
+        "name": "Бесконечная переработка",
         "default": "Your Infinite Ascent Rune gains a third perk: +0.025 <<green|Salvage>> per level, per tier! Currently: +{{salvage}}"
       },
       "recyclistsDesktop": {
@@ -3259,7 +3259,7 @@
     "toString": {
       "minimum": "Minimum Singularity: {{minSingularity}}",
       "noMinimum": "Никакой минимальной Сингулярности для покупки не требуется",
-      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks",
+      "costNextLevel": "Стоимость следующего уровня: {{amount}} Золотых Кварков",
       "spentGQ": "Golden Quarks Spent: {{spent}}"
     },
     "data": {
@@ -3327,64 +3327,64 @@
       },
       "corruptionFourteen": {
         "name": "Порчи Четырнадцатого Уровня",
-        "description": "Buy this to unlock level fourteen Corruptions. :)",
-        "effectHave": "You have gained the ability to use level 14 Corruptions. {{m}}",
-        "effectHaveNot": "You have not gained the ability to use level 14 Corruptions. {{m}}"
+        "description": "Купите это, чтобы открыть порчи четырнадцатого уровня. :)",
+        "effectHave": "Вы получили способность использовать порчу 14-го уровня. {{m}}",
+        "effectHaveNot": "Вы не получили способность использовать порчу 14-го уровня. {{m}}"
       },
       "corruptionFifteen": {
         "name": "Порчи Пятнадцатого Уровня",
-        "description": "This doesn't *really* raise the Corruption limit. Rather, it adds one FREE level to Corruption multipliers, no matter what (can exceed cap). :)",
-        "effectHave": "You have gained a free Corruption level. {{m}}",
-        "effectHaveNot": "You have not gained a free Corruption level. {{m}}"
+        "description": "*На самом деле*, это не повышает предел порчи. Скорее, это добавляет один БЕСПЛАТНЫЙ уровень к множителям порчи, ни от чего не зависящий (может превышать лимит). :)",
+        "effectHave": "Вы получили бесплатный уровень порчи. {{m}}",
+        "effectHaveNot": "Вы не получили бесплатный уровень порчи. {{m}}"
       },
       "singOfferings1": {
         "name": "Разряд Подношений",
         "description": "Улучшите это, чтобы навсегда получить +2% Подношений за уровень!",
-        "effect": "Permanently gain {{n}} more Offerings."
+        "effect": "Навсегда увеличивает Подношения на {{n}}%."
       },
       "singOfferings2": {
         "name": "Шторм Подношений",
         "description": "Оказывается, этот слиток можно использовать, чтобы привлечь больше Подношений. +8% за уровень, если быть точным.",
-        "effect": "Permanently gain {{n}} more Offerings."
+        "effect": "Навсегда увеличивает Подношения на {{n}}%."
       },
       "singOfferings3": {
         "name": "Буря Подношений",
-        "description": "Этот слиток настолько хорош, что любой отдаст все свои Подношения. +4% за уровень, если быть точным.",
-        "effect": "Permanently gain {{n}} more Offerings."
+        "description": "This bar is so pristine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
+        "effect": "Навсегда увеличивает Подношения на {{n}}%."
       },
       "singObtainium1": {
         "name": "Прилив Обтаниума",
         "description": "Улучшите это, чтобы навсегда получить +2% Обтаниума за уровень!",
-        "effect": "Permanently gain {{n}} more Obtainium."
+        "effect": "Навсегда увеличивает Обтаниум на {{n}}%."
       },
       "singObtainium2": {
         "name": "Наводнение Обтаниума",
         "description": "Чёрт возьми, магия воды! +8% к полученному Обтаниуму за уровень.",
-        "effect": "Permanently gain {{n}} more Obtainium."
+        "effect": "Навсегда увеличивает Обтаниум на {{n}}%."
       },
       "singObtainium3": {
         "name": "Цунами Обтаниума",
         "description": "Прилив поднимает все лодки. +4% к полученному Обтаниуму за уровень.",
-        "effect": "Permanently gain {{n}} more Obtainium."
+        "effect": "Навсегда увеличивает Обтаниум на {{n}}%."
       },
       "singCubes1": {
         "name": "Пламя Кубов",
         "description": "Улучшите это, чтобы навсегда получить +0.6% Кубов за уровень!",
-        "effect": "Permanently gain {{n}} more Cubes."
+        "effect": "Навсегда увеличивает Кубы на {{n}}."
       },
       "singCubes2": {
         "name": "Пожар Кубов",
         "description": "Время сжечь ещё немного Золотых Кварков! +8% Кубов за уровень.",
-        "effect": "Permanently gain {{n}} more Cubes."
+        "effect": "Навсегда увеличивает Кубы на {{n}}."
       },
       "singCubes3": {
         "name": "Инферно Кубов",
         "description": "Даже Данте впечатён +4% к полученным Кубам за уровень.",
-        "effect": "Permanently gain {{n}} more Cubes."
+        "effect": "Навсегда увеличивает Кубы на {{n}}."
       },
       "singCitadel": {
         "name": "Цитадель Сингулярности",
-        "description": "Какой уникальный структурный феномен... но он даёт +2% к Обтаниуму, Подношениям и 3-7D Кубам за уровень! +1% дополнительно за каждые 10 уровней!",
+        "description": "What a unique structural phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}, forever!"
       },
       "singCitadel2": {
@@ -3434,8 +3434,8 @@
       },
       "divinePack": {
         "name": "Божественный Набор",
-        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by 1.25 for each Corruption at level 14 or higher (1.3 for >=15 and 1.4 for >=16)!",
-        "effectHave": "You have found the reason for existence. Current Octeract Bonus: +{{n}}",
+        "description": "ООООООО. Получайте +10% Кварков, складывается суммированием с другими наборами, а также умножить прирост Октерактов на 1.25 за каждый Порчу 14-о уровня или выше (1.3 для >=15 и 1.4 для >=16)!",
+        "effectHave": "Вы нашли причину вашего бытия. Текущий бонус к Октерактам: +{{n}}",
         "effectHaveNot": "Вы не нашли причину существования."
       },
       "wowPass2": {
@@ -3482,7 +3482,7 @@
       },
       "singQuarkImprover1": {
         "name": "Штука, Предельно Улучшающая Получение Кварков",
-        "description": "Я забыл как выглядит эта штуковина. +0.5% Кварков за уровень, перемножаемо со всеми другими бонусами! Кажется, что цена на это растёт гораздо быстрее, чем на что-либо ещё. Кстати, вы знали, что эти описания иногда бывают сколь угодно длинными?",
+        "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
         "effect": "Увеличивает Кварки на {{n}}%!"
       },
       "singQuarkHepteract": {
@@ -3503,27 +3503,27 @@
       "singOcteractGain": {
         "name": "Абсент \"Октеракт\"",
         "description": "Вы бы и не подумали, что этот тоник может усилить ваши Октеракты! [Фактически, +1.25% за уровень!]",
-        "effect": "Octeract Gain +{{n}}"
+        "effect": "Прирост Октеракта +{{n}}"
       },
       "singOcteractGain2": {
         "name": "Части Восьми",
         "description": "Их действительно восемь, но каждое даёт только +0.625%, поэтому +5% Октерактов за уровень.",
-        "effect": "Octeract Gain +{{n}}"
+        "effect": "Прирост Октеракта +{{n}}"
       },
       "singOcteractGain3": {
         "name": "Обелиск Восьмиугольной Формы.",
         "description": "Platonic должен был зайти довольно далеко в этот раз. +2.5% Октерактов, детка!",
-        "effect": "Octeract Gain +{{n}}"
+        "effect": "Прирост Октеракта +{{n}}"
       },
       "singOcteractGain4": {
         "name": "Октаэдрический Синтез",
         "description": "Как оно вообще работает!?? Держите +2% к Октерактам и не задавайте вопросов!",
-        "effect": "Octeract Gain +{{n}}"
+        "effect": "Прирост Октеракта +{{n}}"
       },
       "singOcteractGain5": {
         "name": "Восьмое Чудо Света",
         "description": "is the wonder of the world we live in. +1% Octeracts per level.",
-        "effect": "Octeract Gain +{{n}}"
+        "effect": "Прирост Октеракта +{{n}}"
       },
       "platonicTau": {
         "name": "Платоново ТАУ",
@@ -3539,7 +3539,7 @@
       },
       "platonicDelta": {
         "name": "Платонова ДЕЛЬТА",
-        "description": "Time follows you towards the future, after getting this bad boy. Gain +100% more Cubes per day in your current singularity, up to +900% at day 9.",
+        "description": "Стоит вам получить эту славную малую, время последует за вами в будущее. Увеличивает кубы на +100% за каждый день в текущей сингулярности, до +900% на 9 день.",
         "effectHave": "Это улучшение уже куплено",
         "effectHaveNot": "Это улучшение ещё не куплено"
       },
@@ -3551,18 +3551,18 @@
       },
       "singFastForward": {
         "name": "Сингулярности Потока Простых Эфиров",
-        "description": "Golden Quark gained by Singularity is increased by 100% (additive), and going singular at your all time highest count gives +1 Singularity count!",
+        "description": "Золотые Кварки, полученные Сингулярностью, увеличены на 2.5% (суммируется), и позволяет вам \"смотреть вперед\" на дополнительную Сингулярность. Это значит, что вы можете (через Лифт) пропустить Сингулярность, если вы совершите её на вашей лучшей Сингулярности!",
         "effectHave": "Вы преобразили Поток Простых Эфиров!",
         "effectHaveNot": "Вы не преобразили Поток Простых Эфиров!"
       },
       "singFastForward2": {
         "name": "Сингулярности Потока Эфира",
-        "description": "Golden Quark gained by Singularity is increased by 100% (additive) and going singular at your all time highest count gives +1 Singularity count! It's like Etherflux but with an A.",
+        "description": "Золотые Кварки, полученные Сингулярностью, увеличены на 2.5% (суммируется), и позволяет вам \"смотреть вперед\" на ещё одну Сингулярность!",
         "effectHave": "Вы преобразили Поток Эфира!",
         "effectHaveNot": "Вы не преобразили Поток Эфира!"
       },
       "singAscensionSpeed": {
-        "name": "A hecking good Ascension speedup!",
+        "name": "Чертовски хорошее ускорение вознесения!",
         "description": "Скорость Вознесения возводится в степень 1.03; если меньше 1x, возводится в степень 0.97.",
         "effect": "Скорость Вознесения ^{{n}}, ^{{m}} если < 1x"
       },
@@ -3601,7 +3601,7 @@
       },
       "singAmbrosiaLuck2": {
         "name": "Позолоченные Ягоды Хорошей Удачи",
-        "description": "Literally put some gold onto 'berries' and become lucky. +2 Ambrosia Luck per level!",
+        "description": "Стать везучим, буквально положив немного золота на 'ягоды'. +2 к Удачи Амброзии за уровень!",
         "effect": "+{{n}} Ambrosia Luck!"
       },
       "singAmbrosiaLuck3": {
@@ -3703,24 +3703,31 @@
       "antiquitiesNotBought": "<var(--red-text-color)|Так как Антикварии Муравьиного Бога не приобретены, штрафы не развеяны!>"
     },
     "elevator": {
-      "title": "Singularity Elevator",
-      "description": "<b><<gold | Ride the elevator to your target Singularity!>></b><br>You may choose any Singularity from Singularity 1 to <b>{{limit}}<b>",
+      "title": "Лифт Сингулярности",
+      "description": "<b><<gold | Используйте лифт чтобы приехать к нужной вам Сингулярности!>></b><br>Вы можете выбрать любую Сингулярность от Сингулярности 1 до <b>{{limit}}</b>",
       "targetSingularity": "Target Singularity: {{target}}",
-      "selectTarget": "Select Target Singularity",
-      "teleportButtonHigher": "Up!",
+      "selectTarget": "Выберите нужную вам Сингулярность",
+      "teleportButtonHigher": "Вверх!",
       "teleportButtonStay": "Reopen!",
-      "teleportButtonLower": "Down!",
-      "lockToggle": "Lock Future Singularities",
-      "lockEnabled": "Future Singularities are <<orange|LOCKED>>. You will repeat Singularity {{target}}.",
-      "lockDisabled": "Future Singularities are <<lime|UNLOCKED>>. You will go to your highest Singularity when you perform a Singularity.",
+      "teleportButtonLower": "Вниз!",
+      "lockToggle": "Заблокировать Будущие Сингулярности",
+      "lockEnabled": "Будущие Сингулярности <<orange|ЗАБЛОКИРОВАНЫ>>. Вы повторите <<gold | Сингулярность {{target}}>>.",
+      "lockDisabledIntro": "Будущие Сингулярности <<lime|РАЗБЛОКИРОВАНЫ>>.",
+      "lockDisabledSing": "Your next Singularity will be <<gold | Singularity {{target}}>>",
       "invalidTarget": "Please select a valid Singularity between 1 and {{max}}.",
-      "noTarget": "Please select a target Singularity first.",
-      "confirmTeleport": "Are you sure you want to go to Singularity {{target}}?",
+      "noTarget": "Пожалуйста, выберите нужную вам Сингулярность.",
+      "confirmTeleport": "Вы уверены, что вы хотите перейти к Сингулярности {{target}}?",
       "confirmTeleportHigher": "Since you are heading to a higher Singularity (or resetting your current), your entire Singularity will reset! Please confirm again to continue.",
       "teleportSuccess": "Transported to Singularity {{target}}!",
-      "inEXALTError": "Derpsmith slowly nods his head. \"Elevator's Out Of Order...\" he declares. Why does this always happen when you're in an EXALT?",
+      "inEXALTError": "Кукузнец медленно кивает головой. \"Лифт не работает\" сообщает он. Почему это постоянно происходит когда вы находитесь в ВОЗВЫШЕНИИ?",
       "lockedTitle": "Singularity Elevator - OUT OF ORDER",
-      "lockedDescription": "This Elevator only operates if you've seen the 10th Singularity. Check again then!"
+      "lockedDescription": "This Elevator only operates if you've seen the 10th Singularity. Check again then!",
+      "slowClimbToggle": "Only go up 1 Singularity",
+      "nextSingInfo": "Next Singularity Info",
+      "highestSingularity": "Highest Singularity: <b><<gold | {{num}}>></b>",
+      "maxLookahead": "Max Lookahead Distance: <b><<gold | +{{num}}>></b> (Requires Antiquities)",
+      "lookahead": "Looking ahead at your Highest Singularity adds <b><<gold | +1>></b> to your Highest Singularity<br><b><<orange | even if you skip Singularities!>></b>",
+      "lookaheadExtra": "If you beat a Singularity higher than your Highest, <br><b><<orchid | your Highest Singularity will update to current Singularity!>></b>"
     }
   },
   "general": {
@@ -3730,7 +3737,7 @@
       "zeroOrLess": "Пожалуйста, только числа больше нуля!",
       "moreThanPlayerHas": "Сейчас вы не можете это купить!",
       "fraction": "Ага, это не целое число. Дробные не принимаем!",
-      "goldenQuarksTooMany": "К сожалению, столько Золотых Кварков я продать не могу! Попробуйте купить меньше или введите -1 для покупки максимума!",
+      "goldenQuarksTooMany": "Sorry, I cannot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!",
       "finiteInt": "Значение должно быть конечным, целым числом!",
       "invalidNumber": "Эй! Это значение недопустимо!"
     },
@@ -3747,7 +3754,7 @@
     "affordable": "(Доступно)",
     "enabled": "(Включено)",
     "effectiveLevel": "Effective Level: {{level}}",
-    "alwaysEnabled": "[<<white|♔>>] This upgrade is <b>always active</b>, even if something else says otherwise!",
+    "alwaysEnabled": "[<<white|♔>>] Это улучшение <b>всегда активно</b>, даже если что-то другое говорит иначе!",
     "infinity": "Бесконечность",
     "sacrificeCapital": "ЖЕРТВОПРИНОШЕНИЕ",
     "blessCapital": "BLESS",
@@ -3759,8 +3766,8 @@
     "buyMaxOff": "Купить Макс: ВЫКЛ",
     "on": "ВКЛ",
     "off": "ВЫКЛ",
-    "buyOne": "Buy x1",
-    "buyMax": "Buy MAX",
+    "buyOne": "Купить x1",
+    "buyMax": "Купить МАКС",
     "updateAlerts": {
       "june282021": "28 Июня, 2021: Вер. 2.5.3. Вам были возвращены кварки за калькуляторы, если они были куплены. Средства за них возврату более не подлежат, так что будьте осторожны!",
       "july22021": "2 Июля, 2021: Вер. 2.5.5. Вам возвращены кварки за улучшение Порошок EX, если были куплены уровни. Ваши У1 муравьи также были сброшены и их базовая цена была установлена на 1e700 частиц. Впрочем, Порошок EX более не подлежит возврату, так что будьте осторожны!",
@@ -3959,7 +3966,7 @@
       "4": "Увеличивает получение Обтаниума +4% за уровень.",
       "5": "Умножает скорость Муравьёв на (1 + log10(Константа + 1)/10)^уровень",
       "6": "Добавляет +2 бесплатных Уровня Муравьёв за уровень.",
-      "7": "Provides 7 free rune levels per level, up to +7,000.",
+      "7": "Даёт 7 бесплатных уровней рун за уровень руны, до +7,000.",
       "8": "Увеличивает опыт рун, получаемых при Подношениях, на 10% за уровень [Добавочно]",
       "9": "When bought, Rune Power is increased by Log4(Talisman Shards +1) %",
       "10": "После покупки, увеличивает Вау! Кубы и Тессеракты при Вознесении на Log4(Константа + 1)%."
@@ -4091,8 +4098,8 @@
       "tesseract": "Строения Тессерактов"
     },
     "achievements": {
-      "achievements": "Achievements",
-      "rewards": "Rewards"
+      "achievements": "Достижения",
+      "rewards": "Награды"
     },
     "runes": {
       "runes": "Руны",
@@ -4114,8 +4121,8 @@
       "hepteract": "Кузница Гептерактов"
     },
     "singularity": {
-      "info": "Elevator",
-      "goldenQuarks": "Golden Quarks",
+      "info": "Лифт",
+      "goldenQuarks": "Золотые Кварки",
       "perks-penalties": "Привилегии / Штрафы",
       "octeracts": "Октеракты",
       "ambrosia": "Амброзия"
@@ -4129,7 +4136,7 @@
       "singularityHistory": "История Сингулярности",
       "hotkeys": "Горячие клавиши",
       "account": "Аккаунт",
-      "messages": "Messages",
+      "messages": "Сообщения",
       "confirmation": {
         "prestige": "Престиж",
         "transcend": "Выйти за пределы",
@@ -4406,8 +4413,8 @@
         "offering": "Increase Offering gain by <<orange | {{ reward }}>>",
         "ascensionScore": "Increase Ascension Score by <<orange | {{ reward }}>>",
         "timeThreshold": "Для Наград за Сброс, у которых есть штраф, если сброс произошёл до определённого момента, уменьшает этот момент на <<gray | {{ reward }}>> секунд. (Начальное: 10 сек.).",
-        "quark": "Increase Quark gain by <<cyan | {{ reward }}>>",
-        "tax": "Taxes <<lightgray | {{ reward }}>>",
+        "quark": "Увеличить получение Кварков на <<cyan | {{ reward }}>>",
+        "tax": "Налоги <<lightgray | {{ reward }}>>",
         "c15": "Increase Challenge 15 bonus by <<lightgoldenrodyellow | {{ reward }}>>",
         "rune6": "Increase Rune 6 Bonus Levels by <<lightgoldenrodyellow | {{ reward }}>>",
         "goldenQuark": "Increase Golden Quark gain by <<gold | {{ reward }}>>",
@@ -4558,14 +4565,14 @@
       "finishTranscension": "Если вы неспособны завершить испытание Выхода за пределы, нажмите горячую клавишу ИЛИ кликните на красную кнопку \"С\" в кнопках сброса вверху.",
       "leaveReincarnation": "Вместо этого, чтобы покинуть испытание реинкарнации, нажмите на серую \"С\"!"
     },
-    "research": "Добро пожаловать в будущее! Обтаниум можно получить с помощью <<var(--green-text-color);|Реинкарнации>>. Я бы порекомендовал изучить исследования с <<limegreen;|зелёной рамкой>> в первую очередь. Исследования с <<var(--crimson-text-color);|красной рамкой>> никогда не сбросятся, тогда как исследования <<white;|белой рамкой>> будут сброшены при следующем уровне сброса!",
+    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> Researches first. The <<var(--crimson-text-color);|red-bordered>> Researches are never reset whereas the <<white;|white-bordered>> Researches will reset upon the next reset tier!",
     "shop": "Наведите на каждую иконку в магазине, чтобы увидеть, что делает каждое улучшение!"
   },
   "buildings": {
     "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold | +{{coinsPerSecond}}/s>>] | Total Ever: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "You have nothing but 100 coins. You can hire a worker, conveniently for exactly 100 coins!",
-      "2": "Your workers sure are working hard. Let's buy some investments with our coins!",
+      "2": "Ваши работники работают усердно. Давайте мы купим инвестиции нашими монетами!",
       "3": "A million coins! Something tells you that being a millionaire here isn't all that impressive.",
       "4": "You're beyond rich, you're loaded! However, it does not feel... <<cyan | prestigious>> enough.",
       "5": "Even with your prestige, it does not do your 1 googol coins justice. You must <<orchid | transcend>> your idea of wealth.",
@@ -4578,9 +4585,9 @@
       "12": "Your wealth is equal to the number of atoms in the universe, raised to the power of <<gold | 1,250,000>>...",
       "13": "You see the ants from down here. However, do you see the ants from <<orange | up there>>?",
       "14": "If you had a dollar for every digit in your wealth, you would be the richest person on this thing one would call <<lightblue|\"Earth\">>...",
-      "15": "10^1,000,000,000,000,000 Coins! If the exponent were multiplied by 9, in some alternative <<grey | Realities>> you would overflow the universe with coins.",
+      "15": "10^1,000,000,000,000,000 Монет! Если бы мы умножили степень в 9 раз, то в параллельной <<grey | Реальности>> вы бы переполнили вселенную монетами.",
       "16": "An exponent so large, many wouldn't know it by name.",
-      "17": "Have you ever questioned why the <<gray | Tax Man>> divides your coins? The ultimate creator of this reality, which you believe to be a <<cyan | Platonic>> (ideal) being, instructed as much.",
+      "17": "Вы когда-либо задумывались почему <<gray | Налоговик>> разделяет ваши монеты? Конечный создатель этой реальности, которого вы считаете <<cyan | Платоном>> (идеал), проинструктировал его.",
       "18": "Octillions of digits in your wealth! What if there were other <<green | Octagonal>> objects in this reality? That would be silly.",
       "19": "I still remember ye olde days, when workers were <<gold | 100 Coins>>, do you?",
       "20": "I think you are long past the point where the <<gray | Tax Man>> is the only thing holding you back. Right?",
@@ -4695,7 +4702,7 @@
       },
       "octeractGain": {
         "name": "Когенезис Октерактов",
-        "description": "Are you despising how slow these damn things are? Gain 1% more of them per level! Simple.",
+        "description": "Не осточертело ли вам то, насколько они медленные? Увеличивает их получение на 1% за уровень! Просто.",
         "effect": "Octeract Gain is increased by {{n}}."
       },
       "octeractGain2": {
@@ -4706,7 +4713,7 @@
       "octeractQuarkGain": {
         "name": "Октеракт Кварков",
         "description": "Видоизменённый гептеракт, даёт +1.1% к Кваркам за уровень без Уменьшающейся Пользы.",
-        "effect": "Quark gain is increased by {{n}}."
+        "effect": "Получение Кварков увеличено на {{n}}."
       },
       "octeractQuarkGain2": {
         "name": "Синергизм Примитивных Окто-Гептерактов",
@@ -4715,7 +4722,7 @@
       },
       "octeractCorruption": {
         "name": "ЭКСТРА ПЛОТНЫЕ Порчи",
-        "description": "Adds one level to the cap on Corruptions. Derpsmith approves.",
+        "description": "Добавляет один уровень порчей к пределу. Кукузнец одобряет.",
         "effect": "Лимит уровня Порчи увеличен на {{n}}"
       },
       "octeractGQCostReduce": {
@@ -4835,8 +4842,8 @@
       },
       "octeractFastForward": {
         "name": "Сумбуратор Сингулярности Кукузнеца",
-        "description": "Каждый уровень даёт +100% (добавочно) Золотых Кварков за Сингулярность и Сингулрование при наибольшем за все время счётчике даёт +1 к счётчику Сингулярности!",
-        "effect": "Сингулярности дают в {{n100}} раз больше ЗК и считаются за {{n}} больше Сингулярность(и)."
+        "description": "Each level gives +2.5% more Golden Quarks (additive), and lets you 'look ahead' another Singularity!",
+        "effect": "Singularities give {{n100}}% more GQ, 'look ahead' limit +{{n}}"
       },
       "octeractAutoPotionSpeed": {
         "name": "Таблетка Повышенной Жажды",
@@ -4965,7 +4972,7 @@
       "effect": "Duplication Rune Bonus: +{{val}} Multiplier Power Boosts, +{{val2}} Free Multipliers, -{{val3}}% Tax Growth."
     },
     "prism": {
-      "name": "Prism",
+      "name": "Призма",
       "description": "Has all colors of the visible light spectrum. As well as a few you cannot yet fathom.",
       "lockedDescription": "This rune is locked! To unlock it, Transcend 1,000 times. You even get an Achievement for it!",
       "crystalProduction": "<<lightblue | Crystal Production {{val}}x>> (1 + (Power / 2)^2 * 2^(Power / 2) / 256)x",
@@ -4986,7 +4993,7 @@
     "superiorIntellect": {
       "name": "Superior Intellect",
       "description": "Over a hundred times the number of brain cells the average human has, put into one rock. It's probably sentient.",
-      "lockedDescription": "This rune is locked! Unlocking it might require some novel research.",
+      "lockedDescription": "This rune is locked! Unlocking it might require some novel Research.",
       "offeringMult": "<<orange | Offering Gain +{{val}}>> (+0.05% per Power)",
       "obtainiumMult": "<<pink | Obtainium Gain +{{val}}>> (+0.50% per Power)",
       "antSpeed": "<<crimson | Ant Speed {{val}}x>> (1 + Power^2 / 2500)x",
@@ -4994,8 +5001,8 @@
       "effect": "S. Intellect Rune Bonus: Offerings x{{val}}, Obtainium x{{val2}}, Ant Speed x{{val3}}"
     },
     "infiniteAscent": {
-      "name": "Infinite Ascent",
-      "description": "A staircase you can only climb facing backwards, how weird is that?",
+      "name": "Бесконечное Восхождение",
+      "description": "Лестница, по которой вы можете подняться только лицом назад, как странно?",
       "lockedDescription": "This rune is locked! You may need some Quarks to unlock this one. Or, head to the <<gold | PseudoCoins>> tab to unlock it instantly!",
       "quarkBonus": "<<cyan | Quark Gain +{{val}}>> (+0.2% per Power)",
       "cubeBonus": "<<white | Cube Gain +{{val}}>> (+1% per Power)",
@@ -5005,9 +5012,9 @@
       "bonusEffect": "PLUS, Salvage +{{val3}} (Infinite Recycling bonus)"
     },
     "antiquities": {
-      "name": "Antiquities of Ant God",
+      "name": "Антикварии Муравьиного Бога",
       "description": "The piece of eight, long thought lost, no longer. It went there and back again.",
-      "lockedDescription": "This rune is locked! To unlock it, you might need to buy something that should be left unbought.",
+      "lockedDescription": "Эта руна ещё не открыта! Чтобы её открыть, вам необходимо купить что-то, что вы должны оставить не купленным.",
       "singularityUnlock": "Something <span class=\"rainbowText\">singular</span> that's unlocked at Level 1: {{symbol}}",
       "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power)",
       "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power)",
@@ -5028,7 +5035,7 @@
     "finiteDescent": {
       "name": "Finite Descent",
       "description": "That shopkeep told me it was an Ascent. That <i>liar</i>!",
-      "lockedDescription": "This rune is locked! Honestly, I have no idea how you unlock this.",
+      "lockedDescription": "Эта руна ещё не открыта! Честно говоря, понятия не имею как её открыть.",
       "corruptionLevels": "<<lightgray | +{{val}} Free Corruption Levels>> (up to +0.15)",
       "ascensionScore": "<<orange | +{{val}} Ascension Score>> (up to +100%)",
       "infiniteAscentLevels": "<<lightgoldenrodyellow | +{{val}} Free Infinite Ascent levels>> (+1 every 2 Power)",
@@ -5068,7 +5075,7 @@
       "autoBuyOff": "Автопокупка: ВЫКЛ",
       "clickBuyEveryType": "Нажмите, чтобы купить все виды Осколков Талисманов, если они доступны",
       "costToBuy": "Цена покупки {{name}} ({{buyAmount}}): {{obtainium}} Обтаниума и {{offerings}} Подношений.",
-      "doesNotReset": "[<<white|♔>>] This talisman NEVER resets! Not even on Singularity.",
+      "doesNotReset": "[<<white|♔>>] Этот талисман НИКОГДА не сбрасывается! Даже на сингулярности.",
       "rarity": {
         "1": "<<white | Common>>",
         "2": "<<green | Uncommon>>",
@@ -5126,7 +5133,7 @@
         "name": "A hunk of Plastic",
         "description": "Probably purchased on a buy now, pay later app.",
         "inscription": "<<gold | ✏>> Inscription: Quark Gain is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: None. You cannot seem to sign your name on this hunk of plastic."
+        "signature": "<<crimson | ✎>> Подпись: Никакая. Походу вы не сможете подписать этот шлак из пластика."
       },
       "wowSquare": {
         "name": "The Wow! Square",
@@ -5235,7 +5242,7 @@
       "blessingLevel": "Blessing level <<orchid | {{amount}}>>",
       "blessingPower": "Blessing Power: <<turquoise|{{value}}>> =-=-= Effect: {{desc}}",
       "rewards": {
-        "speed": "{{effect}}x Global Speed",
+        "speed": "Глобальная скорость {{effect}}x",
         "duplication": "{{effect}}x Multiplier Boosts",
         "prism": "{{effect}}x Ant Sacrifice Rewards",
         "thrift": "{{effect}}x Accelerator Boost Cost Delays",
@@ -5311,10 +5318,10 @@
       "buyUpTo": "Купить до <<var(--orchid-text-color);|{{amount}}>> Уровней за покупку, если возможно. [Введите для переключения]",
       "increaseLevel": "Increase Level By <<lightgoldenrodyellow|{{amount}}>> [Cost: <<lightgoldenrodyellow|{{offerings}}>> Offerings]"
     },
-    "lockedRune": "LOCKED",
-    "lockedRuneModal": "??? - LOCKED",
+    "lockedRune": "ЗАБЛОКИРОВАНО",
+    "lockedRuneModal": "??? - ЗАБЛОКИРОВАНО",
     "perOfferingText": "+{{exp}} Опыта за Подношение, {{x}} [{{y}}] Подношений, чтобы повысить уровень один раз.",
-    "runeCoefficientText": "Rune Coefficient: {{total}} ({{base}} + {{bonus}})",
+    "runeCoefficientText": "Коэффициент руны: {{total}} ({{base}} + {{bonus}})",
     "perLevelIncrease": "Each additional level costs <b><<lightgoldenrodyellow|{{x}}x>></b> as many Offerings.",
     "runeEXP": "<b>Rune EXP: {{exp}}</b> <<orange | (+{{perEXP}} per Offering)>>",
     "EXPNeeded": "<b>Level +{{level}} at {{exp}} EXP</b> <<orange | ({{offerings}} Offerings)>>",
@@ -5336,7 +5343,7 @@
       "IA": "Бесконечное Восхождение",
       "AOAG": "Антикварии Муравьиного Бога"
     },
-    "level": "Level {{x}}",
+    "level": "Уровень {{x}}",
     "freeLevels": "[<<orange|+{{x}}>>]",
     "offeringText": "+{{exp}} EXP per Offering - {{offeringReq}} Offerings for +{{levels}}.",
     "maxLevel": "Макс. уровень!",
@@ -5365,7 +5372,7 @@
     "data": {
       "noSingularityUpgrades": {
         "name": "No Golden Quark Upgrades",
-        "description": "Simply put, you have to beat the target Singularity without (most) Golden Quark Upgrades.<br/>Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
+        "description": "Простыми словами, вам нужно пройти целевую Сингулярность без (большинства) Улучшений Сингулярности.<br/>Октеракты, Привилегии и Улучшения Качества Жизни сохранены.",
         "ScalingReward1": "+50% к получению <<yellow|ВСЕХ Кубов>>",
         "UniqueReward1": "1-ое - +12% <<gold|Золотых Кварков>>!",
         "UniqueReward2": "1-ое - Бесплатная <<var(--blueberry-box-color)|Голубика>>!",
@@ -5825,16 +5832,16 @@
     },
     "runeEffectFirstFive": {
       "title": "First Five Runes - Rune Power Multiplier",
-      "Research1x4": "Research 1x4:",
-      "Research1x21": "Research 1x21:",
+      "Research1x4": "Исследование 1x4:",
+      "Research1x21": "Исследование 1x21:",
       "Research4x15": "Research 4x15:",
-      "Research6x6": "Research 6x6:",
+      "Research6x6": "Исследование 6x6:",
       "Research6x21": "Research 6x21:",
       "Research7x11": "Research 7x11:",
       "Research8x1": "Research 8x1:",
       "Research8x16": "Research 8x16:",
       "ConstantUpgrade9": "Constant Upgrade 9:",
-      "Challenge15": "Challenge 15:",
+      "Challenge15": "Испытание 15:",
       "MidasTribute": "Midas Tribute:",
       "Total": "Total Multiplier for first five Runes"
     },
@@ -6167,7 +6174,7 @@
       "GoldenQuarks1": "Улучшение Золотых Кварков I:",
       "CookieUpgrade19": "Улучшение Печенек 19:",
       "NoSingularityUpgrades": "No Golden Quark Upgrades Challenge:",
-      "GoldenRevolution2": "Golden Revolution I:",
+      "GoldenRevolution2": "Золотая Революция I:",
       "FastForwards": "Перемотки Сингулярности:",
       "ImmaculateAlchemy": "Безупречная Алхимия:",
       "Event": "Бонус События:",
@@ -6202,7 +6209,7 @@
       "BaseTimer": "Базовый Таймер (мс):",
       "Calculator4": "Скидка PL-AT δ:",
       "SingularityCount": "Бонус Вех Сингулярности:",
-      "Antiquities": "Antiquities of Ant God Bonus:",
+      "Antiquities": "Бонус Антикварии Муравьиного Бога:",
       "SingularityPerkBonus": "Бонус Привилегии Сингулярности:",
       "Total": "Окончательный Интервал Кода Add (мс):"
     },
@@ -6272,7 +6279,7 @@
       "PseudoCoins": "Улучшения ПсевдоМонет:",
       "Base": "Посещение Под-окна Амброзии после зачистки ВОЗВЫШЕНИЯ 5x1:",
       "BlueberrySpeed": "Скорость от Амброзии (0.5 УП после 1000):",
-      "RedAmbrosia": "Красная Амброзия Тысячелетней Выдержки:",
+      "RedAmbrosia": "Millennium-Aged Red Ambrosia:",
       "Exalt5": "Награда ВОЗВЫШЕНИЯ - Без Улучшений Амброзии:",
       "Total": "Total Red Bar Points/s:"
     },
@@ -6737,7 +6744,7 @@
     "transferredFromLZ": "Сохранение успешно конвертировано в новый формат!",
     "allCorruptionsZero": "Все Порчи были установлены на Ноль. Эффект вступит в силу при следующем Вознесении.",
     "corruptionLoadoutApplied": "Заготовка Порчи {{x}} \"{{y}}\" была применена. Эффект вступит в силу в следующем Вознесении.",
-    "ascendPrompt": "Ascending will reset all buildings, rune EXP, talismans, most researches, and the anthill feature for Cubes of Power. Continue?",
+    "ascendPrompt": "Ascending will reset all buildings, rune EXP, talismans, most Researches, and the anthill feature for Cubes of Power. Continue?",
     "reincarnatePrompt": "Реинкарнирование сбросит ВСЁ, но в обмен вы получите невероятно могущественные Частицы и разблокируете очень мощные улучшение и новые функции. Хотите ли вы Реинкарнировать? [Сообщение можно отключить в настройках.]",
     "transcendPrompt": "Выход за пределы сбросит ваши монеты и престижные улучшения, производство монет и кристаллов И алмазы. Первый Выход за пределы открывает новые функции. Хотите Выйти за пределы? [Вы можете включить/выключить это сообщение в настройках.]",
     "prestigePrompt": "Престиж сбросит улучшения монет, производителей монет И кристаллов. Первый Престиж открывает новые возможности. Хотите ли вы выполнить Престиж? [Это сообщение переключаемо в настройках.]",
