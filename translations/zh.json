@@ -6739,8 +6739,6 @@
     "modePercentage": "模式：百分比"
   },
   "main": {
-    "dataPersistent": "该页面上的数据将持久保存！如果您不知道这句话的意思，则可以忽略它。",
-    "starRepo": "请支持我们，给我们的Github项目加一个星。 ❤️ https://github.com/pseudo-corp/SynergismOfficial",
     "transferredFromLZ": "成功将存档转换为新格式！",
     "allCorruptionsZero": "下次飞升时将所有腐化重置为零。",
     "corruptionLoadoutApplied": "第{{x}}个预设\"{{y}}\"已载入。飞升后即可生效。",

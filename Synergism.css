@@ -553,8 +553,8 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 
 #exitOffline,
 #exitFastForward,
-#closeCart,
-#checkout {
+#checkout,
+#checkout-nowpayments {
     width: 18em;
     min-height: auto;
     min-width: 220px;
@@ -567,9 +567,12 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 }
 
 #exitOffline:hover,
-#closeCart:hover,
 #checkout:not(:disabled):hover {
     background-color: var(--purplehover-color);
+}
+
+#checkout-buttons > #checkout-nowpayments:not(:disabled):hover {
+    background-color: var(--blessings-hover-color);
 }
 
 .resetInformationContainer {
@@ -4971,6 +4974,16 @@ form input:hover {
     margin-top: 8px;
 }
 
+#pseudoCoins > #supportContainer {
+    text-align: center;
+    padding-top: 10px;
+}
+
+#pseudoCoins > #supportContainer > a {
+    border: 1px solid gold;
+    padding: 4px 8px;
+}
+
 #pseudoCoins img {
     image-rendering: unset;
 }
@@ -5034,9 +5047,19 @@ form input:hover {
     margin: 0 auto;
 }
 
-#closeCart,
-#checkout {
+#checkout-buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+#checkout-buttons > button[id^="checkout"] {
     margin: 2px auto 4px;
+}
+
+#checkout-buttons > #checkout-nowpayments {
+    background-color: cadetblue;
 }
 
 .cartListElementContainer > * {

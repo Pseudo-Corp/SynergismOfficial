@@ -6739,8 +6739,6 @@
     "modePercentage": "Modo: PORCENTAJE"
   },
   "main": {
-    "dataPersistent": "¡Los datos de esta página ahora son persistentes! Si no sabes de qué hablo, puedes ignorarlo sin más.",
-    "starRepo": "Por favor muestra tu agradecimiento dando una estrella al repositorio de GitHub. ❤️ https://github.com/pseudo-corp/SynergismOfficial",
     "transferredFromLZ": "¡Guardado transferido al nuevo formato con éxito!",
     "allCorruptionsZero": "Todas las Corrupciones se han puesto a Cero. Tendrá efecto en la próxima Ascensión.",
     "corruptionLoadoutApplied": "Carga de Corrupción {{x}} \"{{y}}\" aplicada. Tendrá efecto en la siguiente Ascensión.",

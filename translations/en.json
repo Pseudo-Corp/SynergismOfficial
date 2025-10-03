@@ -4152,7 +4152,12 @@
       "subscriptions": "Subscriptions",
       "upgrades": "Buy Upgrades",
       "merch": "Purchase Merch",
-      "consumables": "Consumables & Events"
+      "consumables": "Consumables & Events",
+      "checkoutStripe": "Checkout with Stripe",
+      "checkoutNowPayments": "Checkout with NowPayments (Crypto)",
+      "support": "Need help?",
+      "khafraDiscord": "Message Khafra on Discord",
+      "platonicDiscord": "Message Platonic on Discord"
     }
   },
   "offlineProgress": {
@@ -6739,8 +6744,6 @@
     "modePercentage": "Mode: PERCENTAGE"
   },
   "main": {
-    "dataPersistent": "Data on this page is now persistent! If you do not know what this means, you can safely ignore it.",
-    "starRepo": "Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial",
     "transferredFromLZ": "Transferred save to new format successfully!",
     "allCorruptionsZero": "All Corruptions have been set to Zero. This will take effect on the next Ascension.",
     "corruptionLoadoutApplied": "Corruption Loadout {{x}} \"{{y}}\" has been applied. This will take effect on the next Ascension.",

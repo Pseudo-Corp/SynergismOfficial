@@ -6739,8 +6739,6 @@
     "modePercentage": "Mode : POURCENTAGE"
   },
   "main": {
-    "dataPersistent": "Les données de cette page sont maintenant persistantes ! Si vous ne savez pas ce que cela signifie, vous pouvez ignorer ce message en toute sécurité.",
-    "starRepo": "Merci de montrer votre reconnaissance en donnant une étoile au répertoire GitHub. ❤️ https://github.com/pseudo-corp/SynergismOfficial",
     "transferredFromLZ": "Sauvegarde transférée au nouveau format avec succès !",
     "allCorruptionsZero": "Toutes les corruptions ont été mises à zéro. Ceci prendre effet à la prochaine Ascension.",
     "corruptionLoadoutApplied": "L'ensemble de corruption {{x}} « {{y}} » a été appliqué. Il prendra effet à la prochaine Ascension.",

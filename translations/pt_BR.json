@@ -3231,8 +3231,6 @@
         "modePercentage": ""
     },
     "main": {
-        "dataPersistent": "",
-        "starRepo": "",
         "transferredFromLZ": "",
         "allCorruptionsZero": "",
         "corruptionLoadoutApplied": "",
