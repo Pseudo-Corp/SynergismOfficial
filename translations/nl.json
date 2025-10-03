@@ -3546,8 +3546,6 @@
     "modePercentage": "Modus: PERCENTAGE"
   },
   "main": {
-    "dataPersistent": "Data on this page is now persistent! If you do not know what this means, you can safely ignore it.",
-    "starRepo": "Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial",
     "transferredFromLZ": "Transferred save to new format successfully!",
     "allCorruptionsZero": "All Corruptions have been set to Zero. This will take effect on the next Ascension.",
     "corruptionLoadoutApplied": "Corruption Loadout {{x}} \"{{y}}\" has been applied. This will take effect on the next Ascension.",

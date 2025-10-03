@@ -5498,11 +5498,6 @@ export const reloadShit = (reset = false) => {
   updateChallengeDisplay()
   clearTimeout(preloadDeleteGame)
 
-  if (localStorage.getItem('pleaseStar') === null) {
-    void Alert(i18next.t('main.starRepo'))
-    localStorage.setItem('pleaseStar', '')
-  }
-
   // All versions of Chrome and Firefox supported by the game have this API,
   // but not all versions of Edge and Safari do.
   if (
@@ -5511,11 +5506,6 @@ export const reloadShit = (reset = false) => {
   ) {
     navigator.storage.persisted()
       .then((persistent) => persistent ? Promise.resolve(false) : navigator.storage.persist())
-      .then((isPersistentNow) => {
-        if (isPersistentNow) {
-          void Alert(i18next.t('main.dataPersistent'))
-        }
-      })
   }
 
   const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
