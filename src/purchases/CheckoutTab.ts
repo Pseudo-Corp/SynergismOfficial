@@ -67,7 +67,7 @@ export const initializeCheckoutTab = memoize(() => {
     } else if (e.target === checkoutNowPayments) {
       url = 'https://synergism.cc/now-payments/checkout'
 
-      const confirmed = await Confirm('NowPayments is experimental and may have issues. Minimum purchase is $15. Do you want to continue?')
+      const confirmed = await Confirm('NowPayments is experimental and may have issues. The minimum amount depends on the crypto you choose to pay with. Do you want to continue?')
 
       if (!confirmed) {
         reset()
