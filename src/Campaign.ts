@@ -1510,12 +1510,14 @@ export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
 
   icon.classList.remove('green-background', 'purple-background')
   icon.style.setProperty('border', 'none')
+  icon.style.removeProperty('margin')
   const completions = player.campaigns.getCampaign(key).c10Completions
   const limit = campaignDatas[key].limit
 
   if (key === player.campaigns.current) {
     icon.classList.add('purple-background')
     icon.style.setProperty('border', '1px solid turquoise')
+    icon.style.setProperty('margin', '-1px')
   } else if (completions === limit) {
     icon.classList.add('green-background')
   }
