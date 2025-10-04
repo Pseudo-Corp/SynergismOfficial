@@ -4155,9 +4155,9 @@
       "consumables": "消耗品及活动",
       "checkoutStripe": "Checkout with Stripe",
       "checkoutNowPayments": "Checkout with NowPayments (Crypto)",
-      "support": "Need help?",
-      "khafraDiscord": "Message Khafra on Discord",
-      "platonicDiscord": "Message Platonic on Discord"
+      "support": "需要帮助？",
+      "khafraDiscord": "在Discord上联系Khafra",
+      "platonicDiscord": "在Discord上联系Platonic"
     }
   },
   "offlineProgress": {
@@ -5533,7 +5533,21 @@
       "transferFailed": "❌转移失败"
     },
     "quarkBonusSimple": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！",
-    "quarkBonusExtended": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！由于您也是支持者，又或者您进行了Discord助力，该加成额外再增加{{personalBonus}}%！该加成与全局夸克获取数量倍率叠乘！"
+    "quarkBonusExtended": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！由于您也是支持者，又或者您进行了Discord助力，该加成额外再增加{{personalBonus}}%！该加成与全局夸克获取数量倍率叠乘！",
+    "saveString": {
+      "version": "使用<<cyan|$VERSION$>>来表示完整版本号，<<cyan|$VER$>>来表示版本号，",
+      "time": "<<cyan|$TIME$>>来表示24小时制时间，<<cyan|$TIME12$>>来表示12小时制时间，",
+      "year": "<<cyan|$YEAR$>>或者<<cyan|$Y$>>来表示年，<<cyan|$MONTH$>>或者<<cyan|$M$>>来表示月，",
+      "day": "<<cyan|$DAY$>>或<<cyan|$D$>>来表示日，<<cyan|$HOUR$>>或<<cyan|$H$>>来表示小时，",
+      "min": "<<cyan|$MINUTE$>>或<<cyan|$MI$>>来表示分钟，<<cyan|$SECOND$>>或<<cyan|$S$>>来表示秒数，",
+      "period": "<<cyan|$PERIOD$>> or <<cyan|$P$>> for period, <<cyan|$WEEKDAY$>> or <<cyan|$W$>> for weekday,",
+      "date": "<<cyan|$DATE$>> for date, <<cyan|$DATES$>> for date seconds,",
+      "times": "<<cyan|$TIMES$>>来表示短24小时制时间，",
+      "sing": "<<cyan|$SING$>>来表示奇点，<<cyan|$SINGS$>>来表示奇点数，",
+      "quarks": "<<cyan|$QUARK$>>来表示夸克，<<cyan|$QUARKS$>>来表示格式化后的夸克数，",
+      "gq": "<<cyan|$GQ$>>来表示金夸克，<<cyan|$GQS$>>来表示格式化后的金夸克数，",
+      "stage": "<<cyan|$STAGE$>> for synergism stage"
+    }
   },
   "statistics": {
     "subtabs": {

@@ -5533,7 +5533,21 @@
       "transferFailed": "❌ Failed to Transfer"
     },
     "quarkBonusSimple": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks!",
-    "quarkBonusExtended": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks! You also receive an extra {{personalBonus}}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!"
+    "quarkBonusExtended": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks! You also receive an extra {{personalBonus}}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!",
+    "saveString": {
+      "version": "Use <<cyan|$VERSION$>> for full version, <<cyan|$VER$>> for version number,",
+      "time": "<<cyan|$TIME$>> for 24h time, <<cyan|$TIME12$>> for 12h,",
+      "year": "<<cyan|$YEAR$>> or <<cyan|$Y$>> for year, <<cyan|$MONTH$>> or <<cyan|$M$>> for month,",
+      "day": "<<cyan|$DAY$>> or <<cyan|$D$>> for day, <<cyan|$HOUR$>> or <<cyan|$H$>> for hour,",
+      "min": "<<cyan|$MINUTE$>> or <<cyan|$MI$>> for minute, <<cyan|$SECOND$>> or <<cyan|$S$>> for second,",
+      "period": "<<cyan|$PERIOD$>> or <<cyan|$P$>> for period, <<cyan|$WEEKDAY$>> or <<cyan|$W$>> for weekday,",
+      "date": "<<cyan|$DATE$>> for date, <<cyan|$DATES$>> for date seconds,",
+      "times": "<<cyan|$TIMES$>> for 24h time short,",
+      "sing": "<<cyan|$SING$>> for singularity, <<cyan|$SINGS$>> for singularity number,",
+      "quarks": "<<cyan|$QUARK$>> for quarks, <<cyan|$QUARKS$>> for format quarks,",
+      "gq": "<<cyan|$GQ$>> for golden quarks, <<cyan|$GQS$>> for format golden quarks,",
+      "stage": "<<cyan|$STAGE$>> for synergism stage"
+    }
   },
   "statistics": {
     "subtabs": {
