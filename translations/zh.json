@@ -4153,9 +4153,9 @@
       "upgrades": "购买升级",
       "merch": "购买游戏周边",
       "consumables": "消耗品及活动",
-      "checkoutStripe": "Checkout with Stripe",
-      "checkoutNowPayments": "Checkout with NowPayments (Crypto)",
-      "support": "需要帮助？",
+      "checkoutStripe": "使用Stripe支付",
+      "checkoutNowPayments": "使用NowPayments(加密货币)支付",
+      "support": "需要帮助吗？",
       "khafraDiscord": "在Discord上联系Khafra",
       "platonicDiscord": "在Discord上联系Platonic"
     }
