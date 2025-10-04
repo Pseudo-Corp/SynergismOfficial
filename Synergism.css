@@ -918,6 +918,7 @@ p#themesTitle {
 #savegame,
 #deleteGame,
 #importFileButton,
+#saveStringInput,
 #exportButtons > label {
     width: 12em;
     min-width: 180px;
