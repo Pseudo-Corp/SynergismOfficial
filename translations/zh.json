@@ -4155,9 +4155,9 @@
       "consumables": "消耗品及活动",
       "checkoutStripe": "Checkout with Stripe",
       "checkoutNowPayments": "Checkout with NowPayments (Crypto)",
-      "support": "Need help?",
-      "khafraDiscord": "Message Khafra on Discord",
-      "platonicDiscord": "Message Platonic on Discord"
+      "support": "需要帮助？",
+      "khafraDiscord": "在Discord上联系Khafra",
+      "platonicDiscord": "在Discord上联系Platonic"
     }
   },
   "offlineProgress": {
