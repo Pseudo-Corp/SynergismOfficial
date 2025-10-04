@@ -4152,7 +4152,12 @@
       "subscriptions": "订阅",
       "upgrades": "购买升级",
       "merch": "购买游戏周边",
-      "consumables": "消耗品及活动"
+      "consumables": "消耗品及活动",
+      "checkoutStripe": "Checkout with Stripe",
+      "checkoutNowPayments": "Checkout with NowPayments (Crypto)",
+      "support": "Need help?",
+      "khafraDiscord": "Message Khafra on Discord",
+      "platonicDiscord": "Message Platonic on Discord"
     }
   },
   "offlineProgress": {
