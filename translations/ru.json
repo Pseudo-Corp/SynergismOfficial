@@ -4152,7 +4152,12 @@
       "subscriptions": "Подписки",
       "upgrades": "Купить Улучшения",
       "merch": "Купить Мерч",
-      "consumables": "Расходники и События"
+      "consumables": "Расходники и События",
+      "checkoutStripe": "Checkout with Stripe",
+      "checkoutNowPayments": "Checkout with NowPayments (Crypto)",
+      "support": "Need help?",
+      "khafraDiscord": "Message Khafra on Discord",
+      "platonicDiscord": "Message Platonic on Discord"
     }
   },
   "offlineProgress": {
