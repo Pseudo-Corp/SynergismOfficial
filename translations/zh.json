@@ -4153,9 +4153,9 @@
       "upgrades": "购买升级",
       "merch": "购买游戏周边",
       "consumables": "消耗品及活动",
-      "checkoutStripe": "Checkout with Stripe",
-      "checkoutNowPayments": "Checkout with NowPayments (Crypto)",
-      "support": "需要帮助？",
+      "checkoutStripe": "使用Stripe支付",
+      "checkoutNowPayments": "使用NowPayments(加密货币)支付",
+      "support": "需要帮助吗？",
       "khafraDiscord": "在Discord上联系Khafra",
       "platonicDiscord": "在Discord上联系Platonic"
     }
@@ -5540,13 +5540,13 @@
       "year": "<<cyan|$YEAR$>>或者<<cyan|$Y$>>来表示年，<<cyan|$MONTH$>>或者<<cyan|$M$>>来表示月，",
       "day": "<<cyan|$DAY$>>或<<cyan|$D$>>来表示日，<<cyan|$HOUR$>>或<<cyan|$H$>>来表示小时，",
       "min": "<<cyan|$MINUTE$>>或<<cyan|$MI$>>来表示分钟，<<cyan|$SECOND$>>或<<cyan|$S$>>来表示秒数，",
-      "period": "<<cyan|$PERIOD$>> or <<cyan|$P$>> for period, <<cyan|$WEEKDAY$>> or <<cyan|$W$>> for weekday,",
-      "date": "<<cyan|$DATE$>> for date, <<cyan|$DATES$>> for date seconds,",
+      "period": "<<cyan|$PERIOD$>>或<<cyan|$P$>>来表示上下午，<<cyan|$WEEKDAY$>>或<<cyan|$W$>>来表示星期几，",
+      "date": "<<cyan|$DATE$>>来表示日，<<cyan|$DATES$>>来表示日期对应秒数，",
       "times": "<<cyan|$TIMES$>>来表示短24小时制时间，",
       "sing": "<<cyan|$SING$>>来表示奇点，<<cyan|$SINGS$>>来表示奇点数，",
       "quarks": "<<cyan|$QUARK$>>来表示夸克，<<cyan|$QUARKS$>>来表示格式化后的夸克数，",
       "gq": "<<cyan|$GQ$>>来表示金夸克，<<cyan|$GQS$>>来表示格式化后的金夸克数，",
-      "stage": "<<cyan|$STAGE$>> for synergism stage"
+      "stage": "<<cyan|$STAGE$>>来表示游戏阶段"
     }
   },
   "statistics": {

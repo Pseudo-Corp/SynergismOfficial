@@ -331,20 +331,20 @@
         "effect": "Cette amélioration augmente les gains de points de la barre d'Ambroisie de {{amount}} !"
       },
       "salvageYinYang": {
-        "name": "Yin and Yang: Salvage Edition",
+        "name": "Yin et Yang : Édition de récupération",
         "description": "This upgrade, oddly enough, increases both your Positive and Negative Salvage by 10 per level! <<orange|Disabled in 'Taxman's last stand'>>",
-        "effect": "Your Positive and Negative Salvage are both increased by {{amount}}."
+        "effect": "Votre Récupération positive et négative sont augmentées de {{amount}}."
       }
     }
   },
   "achievements": {
     "descriptions": {
-      "0": "Achievement Hunter: Open the Achievements Screen.",
-      "1": "A Loyal Employee: Hire your first Worker.",
-      "2": "Small Business: Hire 10 Workers.",
-      "3": "Now we're synergizing!: Hire 100 Workers.",
+      "0": "Chasseur d'achèvement : Ouvrez l'écran des accomplissements.",
+      "1": "Un Employé fidèle : Recrutez votre premier Ouvrier.",
+      "2": "Petite entreprise : Embauchez 10 Ouvriers.",
+      "3": "Ça c'est de la synergie ! : Embauchez 100 Ouvriers.",
       "4": "Gaining Redundancies: Hire 1,000 Workers.",
-      "5": "A cog in the machine: Hire 5,000 Workers.",
+      "5": "Un rouage dans la machine : Embauchez 5,000 Ouvriers.",
       "6": "A nail in the machine: Hire 10,000 Workers.",
       "7": "Are we even in the machine anymore?: Hire 20,000 Workers.",
       "8": "STONKS!!!: Purchase 1 Investment.",
@@ -380,13 +380,13 @@
       "38": "Highly Regarded: Prestige for at least 1e100 Diamonds.",
       "39": "Prestigious: Prestige for at least 1e1,000 Diamonds.",
       "40": "Legendary: Prestige for at least 1e10,000 Diamonds.",
-      "41": "Divine: Prestige for at least 1e77,777 Diamonds.",
-      "42": "Perfectly Respected: Prestige for at least 1e250,000 Diamonds.",
+      "41": "Divin : Faire un Prestige pour au moins 1e77,777 Diamants.",
+      "42": "Parfaitement Respecté : Faire un Prestige pour au moins 1e250,000 Diamants.",
       "43": "A Simple Detour: Transcend for at least 1 Mythos.",
       "44": "Tunnel Vision: Transcend for at least 1e6 Mythos.",
       "45": "Risen from the Ashes: Transcend for at least 1e50 Mythos.",
       "46": "Paradigm Shift: Transcend for at least 1e308 Mythos.",
-      "47": "Preparation: Transcend for at least 1e1,500 Mythos.",
+      "47": "Préparation : Transcender pour au moins 1e1,500 Mythos.",
       "48": "Revising the Plan: Transcend for at least 1e25,000 Mythos.",
       "49": "Leaving the Universe: Transcend for at least 1e100,000 Mythos.",
       "50": "Going Quantum: Reincarnate for at least 1 Particle.",
