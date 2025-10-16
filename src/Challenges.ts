@@ -146,10 +146,15 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     DOMCacheGetOrSet('startChallenge').style.display = 'block'
     DOMCacheGetOrSet('retryChallenge').style.display = 'block'
     G.triggerChallenge = i
+  } else {
+    // Don't update display if they don't match
+    if (G.challengefocus !== i) {
+      return;
+    }
   }
 
   const maxChallenges = getMaxChallenges(i)
-  if (i <= 5 && changefocus) {
+  if (i <= 5) {
     if (player.challengecompletions[i] >= 100) {
       DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
         x: 100,
@@ -162,7 +167,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
 
   if (i > 5 && i <= 10) {
     quarksMultiplier = 10
-    if (player.challengecompletions[i] >= 25 && changefocus) {
+    if (player.challengecompletions[i] >= 25) {
       DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
         x: 25,
         y: format(CalcECC('reincarnation', player.challengecompletions[i]), 2, true)
