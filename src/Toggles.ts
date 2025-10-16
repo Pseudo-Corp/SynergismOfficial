@@ -12,7 +12,7 @@ import { updateSingularityElevator, updateSingularityElevatorVisibility } from '
 import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
-import { Alert, Confirm, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
+import { Alert, Confirm, Prompt, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
@@ -937,10 +937,36 @@ export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number) =>
   corruptionLoadoutTableUpdate(true, 0)
 }
 
-export const toggleCorruptionLoadoutsStats = (statsStr: string) => {
-  const stats = statsStr === 'true'
-  player.corruptions.showStats = stats
-  showCorruptionStatsLoadouts()
+export const toggleCorruptionScreen = () => {
+  const statsButton = DOMCacheGetOrSet('switchCorruptionSubTab1')
+  const corrLoadoutsButton = DOMCacheGetOrSet('switchCorruptionSubTab2')
+  const campaignBtn = DOMCacheGetOrSet('switchCorruptionSubTab3')
+
+  if (getActiveSubTab() === 0) {
+    DOMCacheGetOrSet('corruptionsubtab').style.display = 'flex'
+    DOMCacheGetOrSet('campaigns').style.display = 'none'
+    DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
+    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
+    statsButton.classList.add('subtab-active')
+    corrLoadoutsButton.classList.remove('subtab-active')
+    campaignBtn.classList.remove('subtab-active')
+  }
+  if (getActiveSubTab() === 1) {
+    DOMCacheGetOrSet('corruptionsubtab').style.display = 'flex'
+    DOMCacheGetOrSet('campaigns').style.display = 'none'
+    DOMCacheGetOrSet('corruptionStats').style.display = 'none'
+    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
+    statsButton.classList.remove('subtab-active')
+    corrLoadoutsButton.classList.add('subtab-active')
+    campaignBtn.classList.remove('subtab-active')
+  }
+  if (getActiveSubTab() === 2) {
+    DOMCacheGetOrSet('corruptionsubtab').style.display = 'none'
+    DOMCacheGetOrSet('campaigns').style.display = 'block'
+    statsButton.classList.remove('subtab-active')
+    corrLoadoutsButton.classList.remove('subtab-active')
+    campaignBtn.classList.add('subtab-active')
+  }
 }
 
 export const toggleAscStatPerSecond = (id: number) => {

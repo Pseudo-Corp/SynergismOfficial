@@ -38,7 +38,6 @@ import {
   visualUpdateAchievements,
   visualUpdateAnts,
   visualUpdateBuildings,
-  visualUpdateCampaign,
   visualUpdateChallenges,
   visualUpdateCorruptions,
   visualUpdateCubes,
@@ -531,11 +530,9 @@ export const hideStuff = () => {
   DOMCacheGetOrSet('ants').style.display = 'none'
   DOMCacheGetOrSet('anttab').style.backgroundColor = ''
   DOMCacheGetOrSet('cubetab').style.backgroundColor = ''
-  DOMCacheGetOrSet('campaigntab').style.backgroundColor = ''
-  DOMCacheGetOrSet('campaigns').style.display = 'none'
-  DOMCacheGetOrSet('traitstab').style.backgroundColor = ''
+  DOMCacheGetOrSet('corruptiontab').style.backgroundColor = ''
   DOMCacheGetOrSet('cubes').style.display = 'none'
-  DOMCacheGetOrSet('traits').style.display = 'none'
+  DOMCacheGetOrSet('corruption').style.display = 'none'
   DOMCacheGetOrSet('singularity').style.display = 'none'
   DOMCacheGetOrSet('singularitytab').style.backgroundColor = ''
   DOMCacheGetOrSet('event').style.display = 'none'
@@ -609,15 +606,10 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('cubes').style.display = 'flex'
     DOMCacheGetOrSet('cubetab').style.backgroundColor = 'white'
   }
-  if (G.currentTab === Tabs.Campaign) {
-    DOMCacheGetOrSet('campaigns').style.display = 'block'
-    DOMCacheGetOrSet('campaigntab').style.backgroundColor = 'red'
-  }
   if (G.currentTab === Tabs.Corruption) {
-    DOMCacheGetOrSet('traits').style.display = 'flex'
-    DOMCacheGetOrSet('traitstab').style.backgroundColor = 'white'
+    DOMCacheGetOrSet('corruption').style.display = 'block'
+    DOMCacheGetOrSet('corruptiontab').style.backgroundColor = 'white'
   }
-
   if (G.currentTab === Tabs.Singularity) {
     DOMCacheGetOrSet('singularity').style.display = 'block'
     DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'lightgoldenrodyellow'
@@ -650,7 +642,6 @@ const visualTab: Record<Tabs, () => void> = {
   [Tabs.Shop]: visualUpdateShop,
   [Tabs.AntHill]: visualUpdateAnts,
   [Tabs.WowCubes]: visualUpdateCubes,
-  [Tabs.Campaign]: visualUpdateCampaign,
   [Tabs.Corruption]: visualUpdateCorruptions,
   [Tabs.Singularity]: visualUpdateSingularity,
   [Tabs.Event]: visualUpdateEvent,
@@ -1036,23 +1027,6 @@ export const updateChallengeLevel = (k: number) => {
     }
   }
 } */
-
-export const showCorruptionStatsLoadouts = () => {
-  const statsButton = DOMCacheGetOrSet('corrStatsBtn')
-  const corrLoadoutsButton = DOMCacheGetOrSet('corrLoadoutsBtn')
-
-  if (player.corruptions.showStats) {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
-    statsButton.classList.add('subtab-active')
-    corrLoadoutsButton.classList.remove('subtab-active')
-  } else {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'none'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
-    statsButton.classList.remove('subtab-active')
-    corrLoadoutsButton.classList.add('subtab-active')
-  }
-}
 
 const updateAscensionStats = () => {
   let t = player.ascensionCounter

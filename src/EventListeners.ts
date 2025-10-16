@@ -920,8 +920,9 @@ export const generateEventHandlers = () => {
 
   // CORRUPTION TAB
   // Part 0: Subtabs
-  DOMCacheGetOrSet('corrStatsBtn').addEventListener('click', () => changeSubTab(Tabs.Corruption, { page: 0 }))
-  DOMCacheGetOrSet('corrLoadoutsBtn').addEventListener('click', () => changeSubTab(Tabs.Corruption, { page: 1 }))
+  DOMCacheGetOrSet('switchCorruptionSubTab1').addEventListener('click', () => changeSubTab(Tabs.Corruption, { page: 0 }))
+  DOMCacheGetOrSet('switchCorruptionSubTab2').addEventListener('click', () => changeSubTab(Tabs.Corruption, { page: 1 }))
+  DOMCacheGetOrSet('switchCorruptionSubTab3').addEventListener('click', () => changeSubTab(Tabs.Corruption, { page: 2 }))
 
   // Part 1: Displays
   DOMCacheGetOrSet('corruptionDisplays').addEventListener('click', () => corruptionDisplay('exit'))

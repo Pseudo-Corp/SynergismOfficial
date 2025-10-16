@@ -152,7 +152,6 @@ import {
   htmlInserts,
   Notification,
   revealStuff,
-  showCorruptionStatsLoadouts,
   updateChallengeDisplay,
   updateChallengeLevel
 } from './UpdateHTML'
@@ -1581,7 +1580,6 @@ const loadSynergy = () => {
       corruptionLoadoutTableUpdate(false, i)
     }
 
-    showCorruptionStatsLoadouts()
     updateCorruptionLoadoutNames()
 
     // For blueberry upgrades!
