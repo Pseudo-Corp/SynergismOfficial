@@ -1,8 +1,6 @@
 import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
-import { prod } from './Config'
 import { pressedKeys } from './Hotkeys'
-import { isLoggedIn } from './Login'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
 import { getGQUpgradeEffect } from './singularity'
@@ -341,16 +339,12 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: 'productContainer',
-        get unlocked () {
-          return isLoggedIn() || !prod
-        },
+        unlocked: true,
         buttonID: 'cartSubTab1'
       },
       {
         subTabID: 'subscriptionContainer',
-        get unlocked () {
-          return isLoggedIn() || !prod
-        },
+        unlocked: true,
         buttonID: 'cartSubTab2'
       },
       {
@@ -365,9 +359,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'cartContainer',
-        get unlocked () {
-          return isLoggedIn() || !prod
-        },
+        unlocked: true,
         buttonID: 'cartSubTab5'
       },
       {
