@@ -97,7 +97,7 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
   if (product.price < existingCosts) {
     return `
       <section class="subscriptionContainer" key="${product.id}">
-      <div>
+        <div>
           <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
@@ -109,13 +109,13 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
             Downgrade!
           </button>
           <div class="checkout-paypal" data-id="${product.id}"></div>
-      </div>
+        </div>
       </section>
     `
   } else if (product.price === existingCosts) {
     return `
       <section class="subscriptionContainer" key="${product.id}">
-      <div>
+        <div>
           <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
@@ -127,13 +127,13 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
             You are here!
           </button>
           <div class="checkout-paypal" data-id="${product.id}"></div>
-      </div>
+        </div>
       </section>
     `
   } else {
     return `
       <section class="subscriptionContainer" key="${product.id}">
-      <div>
+        <div>
           <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
@@ -144,8 +144,8 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
           <button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
             Upgrade for ${formatter.format((product.price - existingCosts) / 100)} USD / mo
           </button>
-          <!--<div class="checkout-paypal" data-id="${product.id}"></div>-->
-      </div>
+          <div class="checkout-paypal" data-id="${product.id}"></div>
+        /div>
       </section>
     `
   }
@@ -213,7 +213,7 @@ export const initializeSubscriptionPage = memoize(() => {
           async onApprove (data) {
             console.log('subscription approved', data)
 
-            Alert(
+            Notification(
               'Please give us a few minutes to process your subscription (PayPal is slow). You will have to refresh the page to receive the bonuses! Thank you for supporting Synergism!'
             )
           },
