@@ -1,9 +1,10 @@
 import { loadScript } from '@paypal/paypal-js'
 import i18next from 'i18next'
 import { prod } from '../Config'
+import { getSubMetadata } from '../Login'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
-import { type SubscriptionProduct, subscriptionProducts, upgradeResponse } from './CartTab'
+import { type SubscriptionProduct, subscriptionProducts } from './CartTab'
 import { addToCart, getQuantity } from './CartUtil'
 
 const subscriptionsContainer = document.querySelector<HTMLElement>('#pseudoCoins > #subscriptionsContainer')!
@@ -17,8 +18,8 @@ const formatter = Intl.NumberFormat('en-US', {
 const tierCosts = [0, 300, 600, 1000, 2000]
 
 async function changeSubscription (productId: string, type: 'upgrade' | 'downgrade') {
-  const tier = upgradeResponse.tier
-  const existingCosts = tierCosts[tier] ?? 0
+  const tier = getSubMetadata()?.tier ?? 0
+  const existingCosts = tierCosts[tier]
   const newSub = subscriptionProducts.find((v) => v.id === productId)
   const newSubPrice = newSub!.price
   const newSubName = newSub!.name
@@ -51,6 +52,7 @@ async function changeSubscription (productId: string, type: 'upgrade' | 'downgra
   })
   console.log(response, response.text())
   Notification(`You are now subscribed to ${newSubName}!`)
+  createSubscriptionCards()
   return
 }
 
@@ -66,7 +68,9 @@ function clickHandler (this: HTMLButtonElement, e: HTMLElementEventMap['click'])
     return
   }
 
-  if (upgradeResponse.tier !== 0) {
+  const tier = getSubMetadata()?.tier
+
+  if (tier) {
     if (this.hasAttribute('data-downgrade')) {
       changeSubscription(productId, 'downgrade')
       return
@@ -95,6 +99,10 @@ const constructDescriptions = ({ description, quarkBonus }: SubscriptionProduct)
 }
 
 export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, existingCosts: number) => {
+  const sub = getSubMetadata()
+  const isPayPal = sub?.provider === 'paypal'
+  const isStripe = sub?.provider === 'stripe'
+
   if (product.price < existingCosts) {
     return `
       <section class="subscriptionContainer" key="${product.id}">
@@ -106,10 +114,18 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
           <p class="pseudoSubscriptionText">
           ${constructDescriptions(product)}
           </p>
-          <button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
-            Downgrade!
-          </button>
-          <div class="checkout-paypal" data-id="${product.id}"></div>
+          ${
+      isStripe || sub === null
+        ? `<button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
+              Downgrade!
+            </button>`
+        : ''
+    }
+          ${
+      isPayPal || sub === null
+        ? `<div class="checkout-paypal" data-id="${product.id}"></div>`
+        : ''
+    }
         </div>
       </section>
     `
@@ -124,10 +140,18 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
           <p class="pseudoSubscriptionText">
           ${constructDescriptions(product)}
           </p>
-          <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton" style="background-color: #b59410">
+          ${
+      isStripe || sub === null
+        ? `<button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton" style="background-color: #b59410">
             You are here!
-          </button>
-          <div class="checkout-paypal" data-id="${product.id}"></div>
+          </button>`
+        : ''
+    }
+          ${
+      isPayPal || sub === null
+        ? `<div class="checkout-paypal" data-id="${product.id}"></div>`
+        : ''
+    }
         </div>
       </section>
     `
@@ -142,14 +166,27 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
           <p class="pseudoSubscriptionText">
           ${constructDescriptions(product)}
           </p>
-          <button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
+          ${
+      isStripe || sub === null
+        ? `<button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
             Upgrade for ${formatter.format((product.price - existingCosts) / 100)} USD / mo
-          </button>
-          <div class="checkout-paypal" data-id="${product.id}"></div>
+          </button>`
+        : ''
+    }
+          ${isPayPal || sub === null ? `<div class="checkout-paypal" data-id="${product.id}"></div>` : ''}
         </div>
       </section>
     `
   }
+}
+
+function createSubscriptionCards () {
+  const tier = getSubMetadata()?.tier ?? 0
+  const existingCosts = tierCosts[tier] ?? 0
+
+  subscriptionSectionHolder.innerHTML = subscriptionProducts.map((product) =>
+    createIndividualSubscriptionHTML(product, existingCosts)
+  ).join('')
 }
 
 export const initializeSubscriptionPage = memoize(() => {
@@ -168,13 +205,7 @@ export const initializeSubscriptionPage = memoize(() => {
     subscriptionsContainer.prepend(form)
   }
 
-  const tier = upgradeResponse.tier
-  const existingCosts = tierCosts[tier] ?? 0
-
-  subscriptionSectionHolder.innerHTML = subscriptionProducts.map((product) =>
-    createIndividualSubscriptionHTML(product, existingCosts)
-  ).join('')
-
+  createSubscriptionCards()
   subscriptionSectionHolder!.style.display = 'grid'
 
   document.querySelectorAll<HTMLButtonElement>('.subscriptionContainer > div > button[data-id]').forEach(
@@ -190,7 +221,7 @@ export const initializeSubscriptionPage = memoize(() => {
       intent: 'subscription'
     })
 
-    document.querySelectorAll<HTMLElement>('.subscriptionContainer > div > div[data-id]').forEach(
+    document.querySelectorAll<HTMLElement>('.subscriptionContainer > div > div.checkout-paypal[data-id]').forEach(
       (element) => {
         const id = element.getAttribute('data-id')!
 

@@ -37,6 +37,7 @@ export interface UpgradesResponse {
   coins: number
   upgrades: Upgrades[]
   playerUpgrades: PlayerUpgrades[]
+  /** @deprecated don't use this */
   tier: number
 }
 

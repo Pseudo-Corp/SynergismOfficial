@@ -69,12 +69,13 @@ const DIAMOND_SMITH_MESSIAH = '1311165096378105906'
 let ws: WebSocket | undefined
 let loggedIn = false
 let tips = 0
+let subscription: SubscriptionMetadata = null
 
 const cloudSaves: Save[] = []
 
-export const isLoggedIn = () => loggedIn
 export const getTips = () => tips
 export const setTips = (newTips: number) => tips = newTips
+export const getSubMetadata = () => subscription
 
 export const allDurableConsumables: Record<PseudoCoinConsumableNames, Consumable> = {
   HAPPY_HOUR_BELL: {
@@ -202,6 +203,11 @@ interface BonusTypes {
   quarks: number
 }
 
+type SubscriptionMetadata = {
+  provider: 'paypal' | 'stripe' | 'patreon'
+  tier: number
+} | null
+
 interface SynergismUserAPIResponse<T extends keyof AccountMetadata> {
   personalBonus: number
   globalBonus: number
@@ -209,6 +215,7 @@ interface SynergismUserAPIResponse<T extends keyof AccountMetadata> {
   accountType: T
   bonus: BonusTypes
   subscriptionTier: number
+  subscription: SubscriptionMetadata
   error?: unknown
 }
 
@@ -245,7 +252,8 @@ export async function handleLogin () {
             personalBonus: 0,
             accountType: 'none',
             bonus: { quarks: 0 },
-            subscriptionTier: 0
+            subscriptionTier: 0,
+            subscription: null
           } satisfies SynergismUserAPIResponse<'none'>
         ),
         { status: 401 }
@@ -253,20 +261,21 @@ export async function handleLogin () {
   )
 
   const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>
-  const { globalBonus, personalBonus, subscriptionTier } = account
+  const { globalBonus, personalBonus, subscription: sub } = account
 
   setQuarkBonus(personalBonus, globalBonus)
   setInterval(() => refreshQuarkBonus(), 1000 * 60 * 15)
   player.worlds = new QuarkHandler(Number(player.worlds))
   loggedIn = hasAccount(account)
+  subscription = sub
 
   currentBonus.textContent = i18next.t('settings.quarkBonusSimple', { globalBonus })
 
   // biome-ignore lint/suspicious/noConfusingLabels: it's not confusing or suspicious
   generateSubtab: {
     if (location.hostname !== 'synergism.cc') {
-      // TODO: better error, make link clickable, etc.
-      subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
+      subtabElement.innerHTML =
+        'Login is not available here, go to <a href="https://synergism.cc">https://synergism.cc</a> instead!'
     } else if (hasAccount(account)) {
       if (Object.keys(account.member).length === 0) {
         subtabElement.innerHTML = `You are logged in, but your profile couldn't be retrieved from Discord or Patreon.`
@@ -299,10 +308,10 @@ export async function handleLogin () {
       const boosted = discord && (Boolean(account.member?.premium_since) || account.member?.roles.includes(BOOSTER))
       // It is possible for someone to have the roles through the Patreon integration with Discord, yet not have their
       // patreon linked to their Synergism (Discord/email) account.
-      const hasTier1 = subscriptionTier === 1 || (discord && account.member.roles?.includes(TRANSCENDED_BALLER))
-      const hasTier2 = subscriptionTier === 2 || (discord && account.member.roles?.includes(REINCARNATED_BALLER))
-      const hasTier3 = subscriptionTier === 3 || (discord && account.member.roles?.includes(ASCENDED_BALLER))
-      const hasTier4 = subscriptionTier === 4 || (discord && account.member.roles?.includes(OMEGA_BALLER))
+      const hasTier1 = subscription?.tier === 1 || (discord && account.member.roles?.includes(TRANSCENDED_BALLER))
+      const hasTier2 = subscription?.tier === 2 || (discord && account.member.roles?.includes(REINCARNATED_BALLER))
+      const hasTier3 = subscription?.tier === 3 || (discord && account.member.roles?.includes(ASCENDED_BALLER))
+      const hasTier4 = subscription?.tier === 4 || (discord && account.member.roles?.includes(OMEGA_BALLER))
 
       const checkMark = (n: number) => {
         return `<span style="color: lime">[✔] {+${n}%}</span>`
