@@ -50,7 +50,8 @@ async function changeSubscription (productId: string, type: 'upgrade' | 'downgra
     method: 'POST'
   })
   console.log(response, response.text())
-  return Alert(`You are now subscribed to ${newSubName}!`)
+  Notification(`You are now subscribed to ${newSubName}!`)
+  return
 }
 
 function clickHandler (this: HTMLButtonElement, e: HTMLElementEventMap['click']) {
@@ -145,7 +146,7 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
             Upgrade for ${formatter.format((product.price - existingCosts) / 100)} USD / mo
           </button>
           <div class="checkout-paypal" data-id="${product.id}"></div>
-        /div>
+        </div>
       </section>
     `
   }
