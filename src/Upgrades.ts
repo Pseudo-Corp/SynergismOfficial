@@ -4,7 +4,6 @@ import { achievementPoints, getAchievementReward } from './Achievements'
 import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAnts } from './Calculate'
 import { getRuneEffects } from './Runes'
 import { getRuneSpiritEffect } from './RuneSpirits'
 import { format, player } from './Synergism'
@@ -202,8 +201,7 @@ const upgradetexts = [
     format(
       Decimal.pow(
         1.004 + 4 / 100000 * player.researches[96],
-        player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts
-          + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts
+        player.ants.purchased[0]
       ),
       3
     ),
@@ -599,5 +597,4 @@ export const buyConstantUpgrades = (i: number, fast = false) => {
       }
     }
   }
-  calculateAnts()
 }

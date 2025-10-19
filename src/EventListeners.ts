@@ -1,12 +1,18 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
 import {
-  antRepeat,
-  antUpgradeDescription,
+  antMasteryHTML,
+  antProducerHTML,
+  antUpgradeHTML,
+  antUpgradeKeys,
+  antUpgrades,
+  baseAntInfo,
+  buyAntMastery,
   buyAntProducers,
   buyAntUpgrade,
   sacrificeAnts,
-  updateAntDescription
+  toggleLeaderboardMode,
+  toggleRebornELOInfo
 } from './Ants'
 import {
   type AmbrosiaUpgradeNames,
@@ -743,54 +749,81 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('toggleautoresearch').addEventListener('click', () => toggleAutoResearch())
   DOMCacheGetOrSet('toggleautoresearchmode').addEventListener('click', () => toggleAutoResearchMode())
 
-  // ANTHILL TAB
-  // Part 1: Ant Producers (Tiers 1-8)
-  const antProducerCostVals = [
-    'null',
-    '1e700',
-    '3',
-    '100',
-    '10000',
-    '1e12',
-    '1e36',
-    '1e100',
-    '1e300'
-  ]
-  for (let index = 1; index <= 8; index++) {
-    function onFocusMouseover () {
-      updateAntDescription(index)
-      antRepeat(index)
-    }
-
-    const antTier = DOMCacheGetOrSet(`anttier${index}`)
-    antTier.addEventListener('mouseover', onFocusMouseover)
-    antTier.addEventListener('focus', onFocusMouseover)
-
-    antTier.addEventListener('click', () => buyAntProducers(ordinals[index - 1], antProducerCostVals[index], index))
+  for (let index = 0; index < 2; index++) {
+    DOMCacheGetOrSet(`toggleAntSubtab${index + 1}`).addEventListener(
+      'click',
+      () => changeSubTab(Tabs.AntHill, { page: index })
+    )
   }
-  // Part 2: Ant Upgrades (1-12)
-  const antUpgradeCostVals = [
-    '100',
-    '100',
-    '1000',
-    '1000',
-    '1e5',
-    '1e6',
-    '1e8',
-    '1e11',
-    '1e15',
-    '1e20',
-    '1e40',
-    '1e100'
-  ]
-  for (let index = 1; index <= 12; index++) {
-    const antUpgrade = DOMCacheGetOrSet(`antUpgrade${index}`)
-    antUpgrade.addEventListener('mouseover', () => antUpgradeDescription(index))
-    antUpgrade.addEventListener('focus', () => antUpgradeDescription(index))
-    antUpgrade.addEventListener('click', () => buyAntUpgrade(antUpgradeCostVals[index - 1], false, index))
+
+  for (let index = 0; index < 8; index++) {
+    const antTier = DOMCacheGetOrSet(`anttier${index + 1}`)
+    antTier.style.setProperty(
+      '--glow-color',
+      `${baseAntInfo[index].color}`
+    )
+    antTier.addEventListener(
+      'mousemove',
+      (e: MouseEvent) => Modal(antProducerHTML(index), e.clientX, e.clientY, { borderColor: baseAntInfo[index].color })
+    )
+    antTier.addEventListener('focus', () => {
+      const elmRect = antTier.getBoundingClientRect()
+      Modal(antProducerHTML(index), elmRect.x, elmRect.y + elmRect.height / 2, {
+        borderColor: baseAntInfo[index].color
+      })
+    })
+    antTier.addEventListener('mouseout', () => CloseModal())
+    antTier.addEventListener('blur', () => CloseModal())
+    antTier.addEventListener('click', () => buyAntProducers(index, player.antMax))
+  }
+
+  for (let index = 0; index < 8; index++) {
+    const antMastery = DOMCacheGetOrSet(`antMastery${index + 1}`)
+    const blendedColor = `color-mix(in srgb, ${baseAntInfo[index].color} 75%, lime 25%)`
+    antMastery.style.setProperty(
+      '--glow-color',
+      blendedColor
+    )
+    antMastery.addEventListener(
+      'mousemove',
+      (e: MouseEvent) => Modal(antMasteryHTML(index), e.clientX, e.clientY, { borderColor: blendedColor })
+    )
+    antMastery.addEventListener('focus', () => {
+      const elmRect = antMastery.getBoundingClientRect()
+      Modal(antMasteryHTML(index), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: blendedColor })
+    })
+    antMastery.addEventListener('mouseout', () => CloseModal())
+    antMastery.addEventListener('blur', () => CloseModal())
+    antMastery.addEventListener('click', () => buyAntMastery(index))
+  }
+  // Part 2: Ant Upgrades
+  for (const key of antUpgradeKeys) {
+    const index = antUpgrades[key].index
+    const antUpgrade = DOMCacheGetOrSet(`antUpgrade${index + 1}`)
+
+    antUpgrade.style.setProperty(
+      '--glow-color',
+      `color-mix(in srgb, ${antUpgrades[key].antUpgradeHTML.color} 75%, crimson 25%)`
+    )
+
+    antUpgrade.addEventListener(
+      'mousemove',
+      (e: MouseEvent) => Modal(antUpgradeHTML(key), e.clientX, e.clientY, { borderColor: 'burlywood' })
+    )
+    antUpgrade.addEventListener('focus', () => {
+      const elmRect = antUpgrade.getBoundingClientRect()
+      Modal(antUpgradeHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'burlywood' })
+    })
+    antUpgrade.addEventListener('mouseout', () => CloseModal())
+    antUpgrade.addEventListener('blur', () => CloseModal())
+    antUpgrade.addEventListener('click', () => buyAntUpgrade(key, player.antMax))
   }
   // Part 3: Sacrifice
   DOMCacheGetOrSet('antSacrifice').addEventListener('click', () => sacrificeAnts())
+  DOMCacheGetOrSet('immortalELOInfoToggleButton').addEventListener('click', () => toggleRebornELOInfo())
+
+  // Part 3.5: Leaderboard
+  DOMCacheGetOrSet('antLeaderboardToggle').addEventListener('click', () => toggleLeaderboardMode())
 
   // Part 4: QoL Buttons
   DOMCacheGetOrSet('toggleAntMax').addEventListener('click', () => toggleAntMaxBuy())

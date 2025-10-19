@@ -1656,132 +1656,220 @@
 
     <div id="ants" style="display: none;">
         <div id="antsWrapper">
-            <div id="antsWelcomeTexts">
-                <p id="antwelcome" style="color: lightslategrey" i18n="ants.header"></p>
-                <p id="antdescription" style="color: plum" i18n="ants.hover"></p>
+            <div id="antSubtabs">
+                <button id="toggleAntSubtab1" class="active-subtab" style="border: 2px solid burlywood" i18n="tabs.ants.anthill"></button>
+                <button id="toggleAntSubtab2" style="border: 2px solid purple" i18n="tabs.ants.altar"></button>
             </div>
 
-            <div id="antrow1">
-                <button id="anttier1" class="disable-hover-color" i18n-aria-label="ants.descriptions.1"><img alt="" class="antBtn" src="Pictures/Default/AntTier1.png" loading="lazy"></button>
-                <button id="anttier2" class="disable-hover-color" i18n-aria-label="ants.descriptions.2"><img alt="" class="antBtn" src="Pictures/Default/AntTier2.png" loading="lazy"></button>
-                <button id="anttier3" class="disable-hover-color" i18n-aria-label="ants.descriptions.3"><img alt="" class="antBtn" src="Pictures/Default/AntTier3.png" loading="lazy"></button>
-                <button id="anttier4" class="disable-hover-color" i18n-aria-label="ants.descriptions.4"><img alt="" class="antBtn" src="Pictures/Default/AntTier4.png" loading="lazy"></button>
-                <button id="anttier5" class="disable-hover-color" i18n-aria-label="ants.descriptions.5"><img alt="" class="antBtn" src="Pictures/Default/AntTier5.png" loading="lazy"></button>
-                <button id="anttier6" class="disable-hover-color" i18n-aria-label="ants.descriptions.6"><img alt="" class="antBtn" src="Pictures/Default/AntTier6.png" loading="lazy"></button>
-                <button id="anttier7" class="disable-hover-color" i18n-aria-label="ants.descriptions.7"><img alt="" class="antBtn" src="Pictures/Default/AntTier7.png" loading="lazy"></button>
-                <button id="anttier8" class="disable-hover-color" i18n-aria-label="ants.descriptions.8"><img alt="" class="antBtn" src="Pictures/Default/AntTier8.png" loading="lazy"></button>
-            </div>
-
-            <div id="antrow2" style="color: white">
-                <p id="crumbcount" class="crimsonText">You have 0 Galactic Crumbs.</p>
-                <p id="anttierdescription"></p>
-                <p id="antprice"></p>
-                <p id="antquantity"></p>
-                <p id="generateant"></p>
-            </div>
-
-        <!-- <div id="antdivisor" style="border: 1px solid goldenrod"></div> -->
-
-            <div id="antrow3" aria-live="polite" style="color:plum">
-                <p id="antspecies" style="font-size: 1.2em; color:royalblue"> <span id="antlevelbonus" style="color: orange"> </span></p>
-                <p id="antupgradedescription" style="color: burlywood"></p>
-                <p id="antupgradecost" style="color: white"></p>
-                <p id="antupgradeeffect" style="color: yellow"></p>
-            </div>
-
-            <div id="antrow4">
-                <button id="antUpgrade1" class="disable-hover-color" i18n-aria-label="ants.upgrades.1"><img src="Pictures/Default/AntUpgrade1.png" class="antBtn" alt="" loading="lazy"></button>
-                <button id="antUpgrade2" class="disable-hover-color" i18n-aria-label="ants.upgrades.2"><img src="Pictures/Default/AntUpgrade2.png" class="antBtn" alt="" loading="lazy"></button>
-                <button id="antUpgrade3" class="disable-hover-color" i18n-aria-label="ants.upgrades.3"><img src="Pictures/Default/AntUpgrade3.png" class="antBtn" alt="" loading="lazy"></button>
-                <button id="antUpgrade4" class="disable-hover-color" i18n-aria-label="ants.upgrades.4"><img src="Pictures/Default/AntUpgrade4.png" class="antBtn" alt="" loading="lazy"></button>
-                <button id="antUpgrade5" class="disable-hover-color" i18n-aria-label="ants.upgrades.5"><img src="Pictures/Default/AntUpgrade5.png" class="antBtn" alt="" loading="lazy"></button>
-                <button id="antUpgrade6" class="disable-hover-color" i18n-aria-label="ants.upgrades.6"><img src="Pictures/Default/AntUpgrade6.png" class="antBtn" alt="" loading="lazy"></button>
-                <button id="antUpgrade7" class="disable-hover-color" i18n-aria-label="ants.upgrades.7"><img src="Pictures/Default/AntUpgrade7.png" class="antBtn" alt="" loading="lazy"></button>
-                <button id="antUpgrade8" class="disable-hover-color" i18n-aria-label="ants.upgrades.8"><img src="Pictures/Default/AntUpgrade8.png" class="antBtn" alt="" loading="lazy"></button>
-                <button id="antUpgrade9" class="disable-hover-color" i18n-aria-label="ants.upgrades.9"><img src="Pictures/Default/AntUpgrade9.png" class="antBtn" alt="" loading="lazy"></button>
-                <button id="antUpgrade10" class="disable-hover-color" i18n-aria-label="ants.upgrades.10"><img src="Pictures/Default/AntUpgrade10.png" class="antBtn" alt="" loading="lazy"></button>
-                <button id="antUpgrade11" class="disable-hover-color" i18n-aria-label="ants.upgrades.11"><img src="Pictures/Default/AntUpgrade11.png" class="antBtn" alt="" loading="lazy"></button>
-                <button id="antUpgrade12" class="disable-hover-color" i18n-aria-label="ants.upgrades.12"><img src="Pictures/Default/AntUpgrade12.png" class="antBtn" alt="" loading="lazy"></button>
-            </div>
-
-            <div id="antToggleFeatures">
-                <button id="toggleAntMax"></button>
-                <button id="toggleAutoSacrificeAnt"></button>
-                <div class="antSacrificeSettingsContainer" id="antSacrificeButtons">
-                    <button id="autoSacrificeAntMode"></button>
-                    <input id="autoAntSacrificeAmount" type="number">
+            <div id="antSubtab1" style="display: flex;">
+                <div id="antsWelcomeTexts">
+                    <p id="antwelcome" style="color: lightslategrey" i18n="ants.header"></p>
+                    <p id="antdescription" style="color: plum" i18n="ants.hover"></p>
+                    <p id="crumbcount" class="crimsonText">You have 0 Galactic Crumbs.</p>
+                    <p id="crumbsPerSecond" style="color: maroon"></p>
+                    <p id="crumbCoinMultiplier" style="color: yellow"></p>
                 </div>
-            </div>
-            <span id="autoAntSacrifice"></span>
-            <div id="antSacrificeSummary" style="display: none">
-                <div id="sacrificeAnts" style="display: none">
-                    <div class="sacrificeStatus">
-                        <p id="antSacrificeTimer" class="bodycolor" style="color: white">Last Sacrifice: 1s ago</p>
-                        <button id="antSacrifice" i18n-aria-label="ants.antSacrifice" style="display: inline-block;">
-                          <img alt="" src="Pictures/Default/AntSacrifice.png" style="cursor: pointer; display: block;" loading="lazy">
-                        </button>
+
+                <!--<div id="antrow2" style="color: white">
+                    <p id="anttierdescription"></p>
+                    <p id="antprice"></p>
+                    <p id="antquantity"></p>
+                    <p id="generateant"></p>
+                </div> -->
+
+                <div id="antrow1">
+                    <div class="antProducerColumn">
+                        <button id="anttier1" class="disable-hover-color" i18n-aria-label="ants.descriptions.1"><img alt="" class="antBtn" src="Pictures/Default/AntTier1.png" loading="lazy"></button>
+                        <button id="antMastery1"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                    </div>
+                    <div class="antProducerColumn">
+                        <button id="anttier2" class="disable-hover-color" i18n-aria-label="ants.descriptions.2"><img alt="" class="antBtn" src="Pictures/Default/AntTier2.png" loading="lazy"></button>
+                        <button id="antMastery2"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                    </div>
+                    <div class="antProducerColumn">
+                        <button id="anttier3" class="disable-hover-color" i18n-aria-label="ants.descriptions.3"><img alt="" class="antBtn" src="Pictures/Default/AntTier3.png" loading="lazy"></button>
+                        <button id="antMastery3"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                    </div>
+                    <div class="antProducerColumn">
+                        <button id="anttier4" class="disable-hover-color" i18n-aria-label="ants.descriptions.4"><img alt="" class="antBtn" src="Pictures/Default/AntTier4.png" loading="lazy"></button>
+                        <button id="antMastery4"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                    </div>
+                    <div class="antProducerColumn">
+                        <button id="anttier5" class="disable-hover-color" i18n-aria-label="ants.descriptions.5"><img alt="" class="antBtn" src="Pictures/Default/AntTier5.png" loading="lazy"></button>
+                        <button id="antMastery5"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                    </div>
+                    <div class="antProducerColumn">
+                        <button id="anttier6" class="disable-hover-color" i18n-aria-label="ants.descriptions.6"><img alt="" class="antBtn" src="Pictures/Default/AntTier6.png" loading="lazy"></button>
+                        <button id="antMastery6"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                    </div>
+                    <div class="antProducerColumn">
+                        <button id="anttier7" class="disable-hover-color" i18n-aria-label="ants.descriptions.7"><img alt="" class="antBtn" src="Pictures/Default/AntTier7.png" loading="lazy"></button>
+                        <button id="antMastery7"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                    </div>
+                    <div class="antProducerColumn">
+                        <button id="anttier8" class="disable-hover-color" i18n-aria-label="ants.descriptions.8"><img alt="" class="antBtn" src="Pictures/Default/AntTier8.png" loading="lazy"></button>
+                        <button id="antMastery8"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
                     </div>
                 </div>
-                <div class="antSacrificeHeader bodycolor">
-                    <span id="ELO"></span>
-                    <br>
-                    <span id="SacrificeUpgradeMultiplier"></span>
-                    <br>
-                    <span id="SacrificeTimeMultiplier"></span>
-                    <br>
-                    <span id="immortalELO"></span>
-                    <br>
-                    <span id="immortalELOAntSpeed"></span>
-                    <br><br>
-                    <p id="antSacrificeTitle" class="crimsonText" i18n="ants.resetAnthill"></p>
-                    <span id="immortalELOGain"></span>
-                    <br>
-                    <span id="SacrificeMultiplier"></span>
-                    <br>
-                    <span id="SacrificeOfferingMultiplier"></span>
-                    <br>
-                    <span id="SacrificeObtainiumMultiplier"></span>
-                    <br>
-                    <span id="SacrificeFragmentInfo" class="chal9" i18n="ants.talismanFragments"></span>
+
+                <!--<div id="antrow3" aria-live="polite" style="color:plum">
+                    <p id="antUpgradeMultiline"></p>
+                    <p id="antspecies" style="font-size: 1.2em; color:royalblue"> <span id="antlevelbonus" style="color: orange"> </span></p>
+                    <p id="antupgradedescription" style="color: burlywood"></p>
+                    <p id="antupgradecost" style="color: white"></p>
+                    <p id="antupgradeeffect" style="color: yellow"></p>
+                </div>-->
+
+                <div id="antrow4">
+                    <button id="antUpgrade1" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.1"><img src="Pictures/Default/AntUpgrade1.png" class="antBtn" alt="" loading="lazy"></button>
+                    <button id="antUpgrade2" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.2"><img src="Pictures/Default/AntUpgrade2.png" class="antBtn" alt="" loading="lazy"></button>
+                    <button id="antUpgrade3" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.3"><img src="Pictures/Default/AntUpgrade3.png" class="antBtn" alt="" loading="lazy"></button>
+                    <button id="antUpgrade4" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.4"><img src="Pictures/Default/AntUpgrade4.png" class="antBtn" alt="" loading="lazy"></button>
+                    <button id="antUpgrade5" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.5"><img src="Pictures/Default/AntUpgrade5.png" class="antBtn" alt="" loading="lazy"></button>
+                    <button id="antUpgrade6" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.6"><img src="Pictures/Default/AntUpgrade6.png" class="antBtn" alt="" loading="lazy"></button>
+                    <button id="antUpgrade10" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.10"><img src="Pictures/Default/AntUpgrade10.png" class="antBtn" alt="" loading="lazy"></button>
+                    <button id="antUpgrade7" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.7"><img src="Pictures/Default/AntUpgrade7.png" class="antBtn" alt="" loading="lazy"></button>
+                    <button id="antUpgrade8" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.8"><img src="Pictures/Default/AntUpgrade8.png" class="antBtn" alt="" loading="lazy"></button>
+                    <button id="antUpgrade9" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.9"><img src="Pictures/Default/AntUpgrade9.png" class="antBtn" alt="" loading="lazy"></button>
+                    <button id="antUpgrade11" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.11"><img src="Pictures/Default/AntUpgrade11.png" class="antBtn" alt="" loading="lazy"></button>
+                    <button id="antUpgrade12" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.12"><img src="Pictures/Default/AntUpgrade12.png" class="antBtn" alt="" loading="lazy"></button>
                 </div>
-                <table id="antSacrificeTable" class="bodycolor">
-                    <tr style="height: 32px;">
-                        <td style="font-size: 0;"><img src="Pictures/Default/Offering.png" i18n="general.resources.offering" loading="lazy"></td>
-                        <td><p id="antSacrificeOffering" style="color: gold;"></p></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium" loading="lazy"></td>
-                        <td><p id="antSacrificeObtainium" style="color: pink"></p></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShard.png" i18n="general.resources.talismanShard" loading="lazy"></td>
-                        <td><p class="chal9x1" id="antSacrificeTalismanShard" style="color: gold"></p></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardCommon.png" i18n="general.resources.talismanShardCommon" loading="lazy"></td>
-                        <td><p class="chal9x1" id="antSacrificeCommonFragment" style="color: white"></p></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardUncommon.png" i18n="general.resources.talismanShardUncommon" loading="lazy"></td>
-                        <td><p class="chal9x1" id="antSacrificeUncommonFragment" style="color: limegreen"></p></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardRare.png" i18n="general.resources.talismanShardRare" loading="lazy"></td>
-                        <td><p class="chal9x1 darkcyanText" id="antSacrificeRareFragment"></p></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardEpic.png" i18n="general.resources.talismanShardEpic" loading="lazy"></td>
-                        <td><p class="chal9x1" id="antSacrificeEpicFragment" style="color: plum"></p></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardLegendary.png" i18n="general.resources.talismanShardLegendary" loading="lazy"></td>
-                        <td><p class="chal9x1" id="antSacrificeLegendaryFragment" style="color: orange"></p></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardMythical.png" i18n="general.resources.talismanShardMythic" loading="lazy"></td>
-                        <td><p class="chal9x1 crimsonText" id="antSacrificeMythicalFragment"></p></td>
-                    </tr>
-                </table>
+
+                <div id="antToggleFeatures">
+                    <button id="toggleAntMax"></button>
+                    <button id="toggleAutoSacrificeAnt"></button>
+                    <div class="antSacrificeSettingsContainer" id="antSacrificeButtons">
+                        <button id="autoSacrificeAntMode"></button>
+                        <input id="autoAntSacrificeAmount" type="number">
+                    </div>
+                </div>
+                <span id="autoAntSacrifice"></span>
+            </div>
+            <div id="antSubtab2" style="display: none;">
+                <div id="antSacrificeWelcomeTexts">
+                    <p id="antAltarWelcome" style="color: lightslategrey" i18n="ants.altarHeader"></p>
+                    <p id="antAltarDescription" style="color: plum" i18n="ants.altarDetails"></p>
+                </div>
+                <div id="sacrificeAnts" style="display: none">
+                    <div class="sacrificeStatus">
+                        <button id="antSacrifice" i18n-aria-label="ants.antSacrifice" style="display: inline-block;">
+                        <img alt="" src="Pictures/Default/AntSacrifice.png" style="cursor: pointer; display: block;" loading="lazy">
+                        </button>
+                        <p id="anthillAliveText" i18n="ants.anthillAlive"></p>
+                        <p id="antSacrificeTimer" class="bodycolor">Last Sacrifice: 1s ago</p>
+                        <p id="sacrificeTimeMultiplier"></p>
+                        <p id="sacrificeUpgradeMultiplier"></p>
+                        <p id="ELO"></p>
+                    </div>
+                </div>
+                <div id="antSacrificeImmortalAndWorldlyRewards" style="width: 90%;">
+                    <div id="antSacrificeImmortalELO" style="width: 30%;">
+                        <p style="font-size: 1.3em">Immortality</p>
+                        <button id="immortalELOInfoToggleButton" class="antLeaderboardToggleBtn" data-mode="overview">
+                            <span i18n="ants.compendium.toggleOverview"></span>
+                        </button>
+                        <div id="immortalELOOverview" style="display: flex">
+                            <p id="immortalELO"></p>
+                            <p id="immortalELOGain"></p>
+                            <br>
+                            <p id="activatedImmortalELO"></p>
+                            <p id="immortalELOAntSpeed"></p>
+                            <br>
+                            <p id="ELOStage"></p>
+                            <p id="immortalELOOfferings"></p>
+                            <p id="immortalELOObtainium"></p>
+                            <p id="immortalELOTalismanFragments"></p>
+                            <p id="immortalELOCreationSpeed"></p>
+                        </div>
+                        <div id="immortalELOInfo" style="display: none;">
+                            <p id="immortalELODescription" i18n="ants.rebornELOInfo"></p>
+                            <p id="immortalELODescription2" i18n="ants.rebornELOInfo2"></p>
+                            <p id="immortalELODescription3" i18n="ants.rebornELOInfo3"></p>
+                            <br>
+                            <p id="eloStageDetail1" i18n="ants.stageInfo"></p>
+                            <p id="eloStageDetail2" i18n="ants.stageInfo2"></p>
+                            <br>
+                            <p id="eloStageTranche1" i18n="ants.stageTranche1"></p>
+                            <p id="eloStageTranche2" i18n="ants.stageTranche2"></p>
+                            <p id="eloStageTranche3" i18n="ants.stageTranche3"></p>
+                            <p id="eloStageTranche4" i18n="ants.stageTranche4"></p>
+                            <p id="eloStageTranche5" i18n="ants.stageTranche5"></p>
+                        </div>
+                    </div>
+                    <div id="antSacrificeRewards" style="width: 40%;">
+                        <p id="antSacrificeRewardsTitle" style="font-size: 1.3em">Worldly Rewards</p>
+                        <div id="antSacrificeObtainiumOfferings">
+                            <div class="antSacrificeRewardColumn" style="border: 2px solid orange; border-radius: 4px;">
+                                <img src="Pictures/Default/Offering.png" i18n="general.resources.offering" loading="lazy">
+                                <p id="antSacrificeOffering" style="color: gold;"></p>
+                            </div>
+                            <div class="antSacrificeRewardColumn" style="border: 2px solid pink; border-radius: 4px;">
+                                <img src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium" loading="lazy">
+                                <p id="antSacrificeObtainium" style="color: pink"></p>
+                            </div>
+                        </div>
+                        <div id="antSacrificeShardsRow1">
+                            <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid gold; border-radius: 4px;">
+                                <img src="Pictures/Default/TalismanShard.png" i18n="general.resources.talismanShard" loading="lazy">
+                                <p id="antSacrificeTalismanShard" style="color: gold"></p>
+                            </div>
+                            <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid white; border-radius: 4px;">
+                                <img src="Pictures/Default/TalismanShardCommon.png" i18n="general.resources.talismanShardCommon" loading="lazy">
+                                <p id="antSacrificeCommonFragment" style="color: white"></p>
+                            </div>
+                            <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid limegreen; border-radius: 4px;">
+                                <img src="Pictures/Default/TalismanShardUncommon.png" i18n="general.resources.talismanShardUncommon" loading="lazy">
+                                <p id="antSacrificeUncommonFragment" style="color: limegreen"></p>
+                            </div>
+                            <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid darkcyan; border-radius: 4px;">
+                                <img src="Pictures/Default/TalismanShardRare.png" i18n="general.resources.talismanShardRare" loading="lazy">
+                                <p id="antSacrificeRareFragment" style="color: darkcyan"></p>
+                            </div>
+                        </div>
+                        <div id="antSacrificeShardsRow2">
+                            <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid plum; border-radius: 4px;">
+                                <img src="Pictures/Default/TalismanShardEpic.png" i18n="general.resources.talismanShardEpic" loading="lazy">
+                                <p id="antSacrificeEpicFragment" style="color: plum"></p>
+                            </div>
+                            <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid orange; border-radius: 4px;">
+                                <img src="Pictures/Default/TalismanShardLegendary.png" i18n="general.resources.talismanShardLegendary" loading="lazy">
+                                <p id="antSacrificeLegendaryFragment" style="color: orange"></p>
+                            </div>
+                            <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid crimson; border-radius: 4px;">
+                                <img src="Pictures/Default/TalismanShardMythical.png" i18n="general.resources.talismanShardMythic" loading="lazy">
+                                <p id="antSacrificeMythicalFragment" style="color: crimson"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="antSacrificeCompendium" style="width: 30%;">
+                        <p style="font-size: 1.3em" i18n="ants.compendium.header"></p>
+                        <div id="antSacrificeCompendiumInfo">
+                            <div id="antLeaderboardContainer">
+                                <button id="antLeaderboardToggle" class="antLeaderboardToggleBtn" data-mode="daily">
+                                    <span i18n="ants.leaderboard.toggleDaily"></span>
+                                </button>
+                                <div id="antLeaderboardValue" style="margin: 10px 0;">
+                                    <span id="antLeaderboardValueAmount">0</span>
+                                    <br>
+                                    <span id="antLeaderboardQuarkValueAmount"></span>
+                                </div>
+                                <table id="antLeaderboardTable">
+                                    <thead>
+                                        <tr>
+                                            <th i18n="ants.leaderboard.rank"></th>
+                                            <th i18n="ants.leaderboard.elo"></th>
+                                            <th i18n="ants.leaderboard.stages"></th>
+                                            <th i18n="ants.leaderboard.weight"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="antLeaderboardTableBody">
+                                        <!-- Rows will be dynamically generated -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -3645,6 +3733,9 @@
                     </button>
                     <button class="singularityUpgrade" id="intermediatePack" i18n-aria-label="singularity.data.intermediatePack.description">
                         <img alt="intermediatePack" src="Pictures/Default/SingularityIntermediatePack.png" loading="lazy">
+                    </button>
+                    <button class="singularityUpgrade" id="favoriteUpgrade" i18n-aria-label="singularity.data.favoriteUpgrade.description">
+                        <img alt="favoriteUpgrade" src="Pictures/Default/SingularityFavoriteUpgrade.png" loading="lazy">
                     </button>
                     <button class="singularityUpgrade" id="advancedPack" i18n-aria-label="singularity.data.advancedPack.description">
                         <img alt="advancedPack" src="Pictures/Default/SingularityAdvancedPack.png" loading="lazy">
