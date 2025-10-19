@@ -1,7 +1,6 @@
 import { loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
-import { changeSubTab, Tabs } from '../Tabs'
-import { Alert, Notification } from '../UpdateHTML'
+import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { products, subscriptionProducts } from './CartTab'
 import { addToCart, clearCart, getPrice, getProductsInCart, getQuantity, removeFromCart } from './CartUtil'
@@ -10,28 +9,18 @@ import { updatePseudoCoins } from './UpgradesSubtab'
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #cartContainer')!
 const form = tab.querySelector('div.cartList')!
 
-const checkout = form.querySelector('button#checkout')
-const closeCart = form.querySelector('button#closeCart')
+const checkoutStripe = form.querySelector<HTMLElement>('button#checkout')
+const checkoutNowPayments = form.querySelector<HTMLElement>('button#checkout-nowpayments')
 const radioTOSAgree = form.querySelector<HTMLInputElement>('section > input[type="radio"]')!
 const totalCost = form.querySelector('p#totalCost')
 const itemList = form.querySelector('#itemList')!
 
-let tosAgreed = false
 const formatter = Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD'
 })
 
 export const initializeCheckoutTab = memoize(() => {
-  closeCart?.addEventListener('click', () => {
-    changeSubTab(Tabs.Purchase, { page: 0 })
-  })
-
-  radioTOSAgree.addEventListener('click', () => {
-    tosAgreed = !tosAgreed
-    radioTOSAgree.checked = tosAgreed
-  })
-
   itemList.insertAdjacentHTML(
     'afterend',
     products.map((product) => (`
@@ -46,8 +35,8 @@ export const initializeCheckoutTab = memoize(() => {
     `)).join('')
   )
 
-  checkout?.addEventListener('click', (e) => {
-    if (!tosAgreed) {
+  async function submitCheckout (e: MouseEvent) {
+    if (!radioTOSAgree.checked) {
       e.preventDefault()
       Notification('You must accept the terms of service first!')
       return
@@ -59,13 +48,38 @@ export const initializeCheckoutTab = memoize(() => {
       fd.set(product.id, `${product.quantity}`)
     }
 
-    fd.set('tosAgree', tosAgreed ? 'on' : 'off')
+    fd.set('tosAgree', radioTOSAgree.checked ? 'on' : 'off')
 
-    checkout.setAttribute('disabled', '')
+    checkoutStripe?.setAttribute('disabled', '')
+    checkoutNowPayments?.setAttribute('disabled', '')
 
-    const url = !prod
-      ? 'https://synergism.cc/stripe/test/create-checkout-session'
-      : 'https://synergism.cc/stripe/create-checkout-session'
+    function reset () {
+      checkoutStripe?.removeAttribute('disabled')
+      checkoutNowPayments?.removeAttribute('disabled')
+    }
+
+    let url: string
+
+    if (e.target === checkoutStripe) {
+      url = !prod
+        ? 'https://synergism.cc/stripe/test/create-checkout-session'
+        : 'https://synergism.cc/stripe/create-checkout-session'
+    } else if (e.target === checkoutNowPayments) {
+      url = 'https://synergism.cc/now-payments/checkout'
+
+      const confirmed = await Confirm(
+        'NowPayments is experimental and may have issues. The minimum amount depends on the crypto you choose to pay with. Do you want to continue?'
+      )
+
+      if (!confirmed) {
+        reset()
+        return
+      }
+    } else {
+      Notification('You clicked on something that I don\'t know.')
+      reset()
+      return
+    }
 
     fetch(url, {
       method: 'POST',
@@ -78,10 +92,11 @@ export const initializeCheckoutTab = memoize(() => {
           Notification(json.error)
         }
       })
-      .finally(() => {
-        checkout.removeAttribute('disabled')
-      })
-  })
+      .finally(reset)
+  }
+
+  checkoutStripe?.addEventListener('click', submitCheckout)
+  checkoutNowPayments?.addEventListener('click', submitCheckout)
 
   initializePayPal('#checkout-paypal')
 })
@@ -188,7 +203,7 @@ async function initializePayPal (selector: string | HTMLElement) {
           fd.set(product.id, `${product.quantity}`)
         }
 
-        fd.set('tosAgree', tosAgreed ? 'on' : 'off')
+        fd.set('tosAgree', radioTOSAgree.checked ? 'on' : 'off')
         const url = 'https://synergism.cc/paypal/orders/create'
 
         const response = await fetch(url, {

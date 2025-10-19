@@ -40,6 +40,11 @@ interface Save {
   name: string
   uploadedAt: string
   save: string
+  actionButtons?: {
+    download: HTMLButtonElement
+    load: HTMLButtonElement
+    delete: HTMLButtonElement
+  }
 }
 
 // Consts for Patreon Supporter Roles.
@@ -758,7 +763,8 @@ function handleCloudSaves () {
           return
         }
 
-        cloudSaves.forEach(({ id, name, uploadedAt }, index) => {
+        cloudSaves.forEach((save, index) => {
+          const { id, name, uploadedAt } = save
           const rowDiv = document.createElement('div')
           rowDiv.className = 'grid-row'
           rowDiv.style.display = 'contents'
@@ -793,15 +799,36 @@ function handleCloudSaves () {
 
           const detailsContent = document.createElement('div')
           detailsContent.className = 'details-content'
-          detailsContent.innerHTML = `
-            <div class="details-actions">
-              <button class="btn-download" data-id="${id}">${i18next.t('account.download')}</button>
-              <button class="btn-load" data-id="${id}">${i18next.t('account.loadSave')}</button>
-              <button class="btn-delete" data-id="${id}">${i18next.t('account.delete')}</button>
-            </div>
-          `
 
+          const actionsDiv = document.createElement('div')
+          actionsDiv.className = 'details-actions'
+
+          const downloadBtn = document.createElement('button')
+          downloadBtn.className = 'btn-download'
+          downloadBtn.setAttribute('data-id', id.toString())
+          downloadBtn.textContent = i18next.t('account.download')
+
+          const loadBtn = document.createElement('button')
+          loadBtn.className = 'btn-load'
+          loadBtn.setAttribute('data-id', id.toString())
+          loadBtn.textContent = i18next.t('account.loadSave')
+
+          const deleteBtn = document.createElement('button')
+          deleteBtn.className = 'btn-delete'
+          deleteBtn.setAttribute('data-id', id.toString())
+          deleteBtn.textContent = i18next.t('account.delete')
+
+          actionsDiv.appendChild(downloadBtn)
+          actionsDiv.appendChild(loadBtn)
+          actionsDiv.appendChild(deleteBtn)
+          detailsContent.appendChild(actionsDiv)
           detailsRow.appendChild(detailsContent)
+
+          save.actionButtons = {
+            download: downloadBtn,
+            load: loadBtn,
+            delete: deleteBtn
+          }
 
           rowDiv.addEventListener('click', () => {
             const isVisible = detailsRow.style.display !== 'none'
@@ -879,7 +906,7 @@ function handleCloudSaves () {
           }
 
           const decoded = await decodeSave(save.save)
-          await importSynergism(decoded)
+          importSynergism(decoded)
         }
 
         async function handleDeleteSave (saveId: number) {
@@ -888,6 +915,14 @@ function handleCloudSaves () {
           if (!save) {
             Alert(i18next.t('account.noSaveFound'))
             return
+          }
+
+          // Disable the action buttons during deletion
+          if (save.actionButtons) {
+            save.actionButtons.download.disabled = true
+            save.actionButtons.load.disabled = true
+            save.actionButtons.delete.disabled = true
+            save.actionButtons.delete.textContent = 'Deleting...'
           }
 
           const response = await fetch('/saves/delete', {
@@ -900,6 +935,13 @@ function handleCloudSaves () {
           } else {
             console.log(response)
             Alert(i18next.t('account.notDeleted'))
+
+            if (save.actionButtons) {
+              save.actionButtons.download.disabled = false
+              save.actionButtons.load.disabled = false
+              save.actionButtons.delete.disabled = false
+              save.actionButtons.delete.textContent = i18next.t('account.delete')
+            }
           }
 
           populateTable()

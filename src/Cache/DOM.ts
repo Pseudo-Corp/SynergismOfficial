@@ -1,10 +1,10 @@
 /**
  * A cache for DOM elements
  */
-export const DOMCache = new Map<string, HTMLElement>()
+const DOMCache: Record<string, HTMLElement> = {}
 
 export const DOMCacheGetOrSet = (id: string) => {
-  const cachedEl = DOMCache.get(id)
+  const cachedEl = DOMCache[id]
   if (cachedEl) {
     return cachedEl
   }
@@ -15,8 +15,7 @@ export const DOMCacheGetOrSet = (id: string) => {
     throw new TypeError(`Element with id "${id}" was not found on page?`)
   }
 
-  DOMCache.set(id, el)
-  return el
+  return DOMCache[id] = el
 }
 
-export const DOMCacheHas = (id: string) => DOMCache.has(id)
+export const DOMCacheHas = (id: string) => DOMCache[id] !== undefined

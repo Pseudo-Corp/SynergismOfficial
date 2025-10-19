@@ -3245,7 +3245,7 @@
       },
       "infiniteRecycling": {
         "name": "无限之回收",
-        "default": "无限晋升符文获得了第三个特权：无限晋升符文每有一级，每级该特权就使<green|回收>>增加0.025！当前效果：增加{{salvage}}"
+        "default": "无限晋升符文获得了第三个特权：无限晋升符文每有一级，每级该特权就使<<green|回收>>增加0.025！当前效果：增加{{salvage}}"
       },
       "recyclistsDesktop": {
         "name": "在桌面点击的回收人",
@@ -4152,7 +4152,12 @@
       "subscriptions": "订阅",
       "upgrades": "购买升级",
       "merch": "购买游戏周边",
-      "consumables": "消耗品及活动"
+      "consumables": "消耗品及活动",
+      "checkoutStripe": "使用Stripe支付",
+      "checkoutNowPayments": "使用NowPayments(加密货币)支付",
+      "support": "需要帮助吗？",
+      "khafraDiscord": "在Discord上联系Khafra",
+      "platonicDiscord": "在Discord上联系Platonic"
     }
   },
   "offlineProgress": {
@@ -5528,7 +5533,21 @@
       "transferFailed": "❌转移失败"
     },
     "quarkBonusSimple": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！",
-    "quarkBonusExtended": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！由于您也是支持者，又或者您进行了Discord助力，该加成额外再增加{{personalBonus}}%！该加成与全局夸克获取数量倍率叠乘！"
+    "quarkBonusExtended": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！由于您也是支持者，又或者您进行了Discord助力，该加成额外再增加{{personalBonus}}%！该加成与全局夸克获取数量倍率叠乘！",
+    "saveString": {
+      "version": "使用<<cyan|$VERSION$>>来表示完整版本号，<<cyan|$VER$>>来表示版本号，",
+      "time": "<<cyan|$TIME$>>来表示24小时制时间，<<cyan|$TIME12$>>来表示12小时制时间，",
+      "year": "<<cyan|$YEAR$>>或者<<cyan|$Y$>>来表示年，<<cyan|$MONTH$>>或者<<cyan|$M$>>来表示月，",
+      "day": "<<cyan|$DAY$>>或<<cyan|$D$>>来表示日，<<cyan|$HOUR$>>或<<cyan|$H$>>来表示小时，",
+      "min": "<<cyan|$MINUTE$>>或<<cyan|$MI$>>来表示分钟，<<cyan|$SECOND$>>或<<cyan|$S$>>来表示秒数，",
+      "period": "<<cyan|$PERIOD$>>或<<cyan|$P$>>来表示上下午，<<cyan|$WEEKDAY$>>或<<cyan|$W$>>来表示星期几，",
+      "date": "<<cyan|$DATE$>>来表示日，<<cyan|$DATES$>>来表示日期对应秒数，",
+      "times": "<<cyan|$TIMES$>>来表示短24小时制时间，",
+      "sing": "<<cyan|$SING$>>来表示奇点，<<cyan|$SINGS$>>来表示奇点数，",
+      "quarks": "<<cyan|$QUARK$>>来表示夸克，<<cyan|$QUARKS$>>来表示格式化后的夸克数，",
+      "gq": "<<cyan|$GQ$>>来表示金夸克，<<cyan|$GQS$>>来表示格式化后的金夸克数，",
+      "stage": "<<cyan|$STAGE$>>来表示游戏阶段"
+    }
   },
   "statistics": {
     "subtabs": {
@@ -6443,7 +6462,7 @@
         "2": "超立方碎片×{{amount}}：惊奇超立方获取数量额外增加{{bonus}}",
         "3": "五阶立方碎片×{{amount}}：惊奇五阶立方获取数量额外增加{{bonus}}",
         "4": "PLATONIC遗物×{{amount}}：PLATONIC方盒获取数量额外增加{{bonus}}",
-        "5": "五阶立方塑像×{{amount}}：大部分<<white|*>>惊奇五阶立方的恩赐的加成数值增加{{bonus}}%",
+        "5": "五阶立方塑像×{{amount}}：大部分<<white|*>>惊奇五阶立方的恩赐的加成数值增加{{bonus}}",
         "6": "凯恩斯塑像×{{amount}}：数学常数减缓税收的指数的加成数值增加{{bonus}} <<white | [▼ 上限：增加1.00]>>",
         "7": "高分塑像×{{amount}}：腐化时的飞升分数增加{{bonus}}",
         "8": "柯罗诺斯塑像×{{amount}}：<<cyan|无瑕>>全局速度增加{{bonus}}(不受效果衰减影响)"
@@ -6739,8 +6758,6 @@
     "modePercentage": "模式：百分比"
   },
   "main": {
-    "dataPersistent": "该页面上的数据将持久保存！如果您不知道这句话的意思，则可以忽略它。",
-    "starRepo": "请支持我们，给我们的Github项目加一个星。 ❤️ https://github.com/pseudo-corp/SynergismOfficial",
     "transferredFromLZ": "成功将存档转换为新格式！",
     "allCorruptionsZero": "下次飞升时将所有腐化重置为零。",
     "corruptionLoadoutApplied": "第{{x}}个预设\"{{y}}\"已载入。飞升后即可生效。",

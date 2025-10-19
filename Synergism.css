@@ -136,6 +136,28 @@ body.loading {
 .amberText { color: var(--amber-text-color); }
 .lightyellowText { color: var(--lightgoldenrodyellow-text-color); }
 
+html[data-legacyicons="false"] {
+    --wowcube-color: #fd0;
+    --tesseract-color: orange;
+    --hypercube-color: #ff004c;
+    --platonic-color: orchid;
+    --hepteract-color: mediumpurple;
+}
+
+html[data-legacyicons="true"] {
+    --wowcube-color: #fff200;
+    --tesseract-color: #a349a4;
+    --hypercube-color: #ed1c24;
+    --platonic-color: lightgoldenrodyellow;
+    --hepteract-color: #ffc1d6;
+}
+
+.wowcubeText { color: var(--wowcube-color); }
+.wowtesseractText { color: var(--tesseract-color); }
+.wowhypercubeText { color: var(--hypercube-color); }
+.wowplatonicText { color: var(--platonic-color); }
+.wowhepteractText { color: var(--hepteract-color); }
+
 .active-subtab {
     background-color: crimson;
 }
@@ -553,8 +575,8 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 
 #exitOffline,
 #exitFastForward,
-#closeCart,
-#checkout {
+#checkout,
+#checkout-nowpayments {
     width: 18em;
     min-height: auto;
     min-width: 220px;
@@ -567,9 +589,12 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 }
 
 #exitOffline:hover,
-#closeCart:hover,
 #checkout:not(:disabled):hover {
     background-color: var(--purplehover-color);
+}
+
+#checkout-buttons > #checkout-nowpayments:not(:disabled):hover {
+    background-color: var(--blessings-hover-color);
 }
 
 .resetInformationContainer {
@@ -718,8 +743,8 @@ button.isEvent:hover {
 }
 
 #cubetab {
-    border-color: orange;
-    color: red;
+    border-color: var(--wowcube-color);
+    color: var(--hypercube-color);
 }
 
 #campaigntab {
@@ -915,6 +940,7 @@ p#themesTitle {
 #savegame,
 #deleteGame,
 #importFileButton,
+#saveStringInput,
 #exportButtons > label {
     width: 12em;
     min-width: 180px;
@@ -2512,7 +2538,7 @@ p#reincarnatehotkeys {
 .cubeBtn {
     min-width: 100px;
     background-color: var(--blackbtn-color);
-    border: 1px solid gold;
+    border: 1px solid var(--wowcube-color);
 }
 
 .autoOpensBtn {
@@ -2541,17 +2567,6 @@ p[id$="BlessingsTotal"] {
     padding: 15px;
     margin-left: 22.5%;
     margin-right: auto;
-}
-
-#cubeBlessingsTotal { color: orange; }
-
-#tesseractBlessingsTotal { color: var(--orchid-text-color); }
-
-#hypercubeBlessingsTotal { color: rgb(255 0 76); }
-
-#platonicBlessingsTotal {
-    color: orange;
-    margin: 0;
 }
 
 #platonicFooter,
@@ -2812,7 +2827,7 @@ button.language-select span.lang-name {
 
 #tesseractAmount {
     color: white;
-    border: 1px solid orange;
+    border: 1px solid var(--tesseract-color);
     background-color: var(--blackbtn-color);
 }
 
@@ -3640,27 +3655,6 @@ header #obtainiumDisplay { color: pink; }
 
 #ascC10 {
     color: limegreen;
-}
-
-#ascCubes {
-    color: yellow;
-}
-
-#ascTess {
-    /* color: var(--orchid-text-color); */
-    color: orange;
-}
-
-#ascHyper {
-    color: var(--crimson-text-color);
-}
-
-#ascPlatonic {
-    color: orchid;
-}
-
-#ascHepteract {
-    color: mediumpurple;
 }
 
 #ascTimeAccel {
@@ -4971,6 +4965,16 @@ form input:hover {
     margin-top: 8px;
 }
 
+#pseudoCoins > #supportContainer {
+    text-align: center;
+    padding-top: 10px;
+}
+
+#pseudoCoins > #supportContainer > a {
+    border: 1px solid gold;
+    padding: 4px 8px;
+}
+
 #pseudoCoins img {
     image-rendering: unset;
 }
@@ -5034,9 +5038,19 @@ form input:hover {
     margin: 0 auto;
 }
 
-#closeCart,
-#checkout {
+#checkout-buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+#checkout-buttons > button[id^="checkout"] {
     margin: 2px auto 4px;
+}
+
+#checkout-buttons > #checkout-nowpayments {
+    background-color: cadetblue;
 }
 
 .cartListElementContainer > * {

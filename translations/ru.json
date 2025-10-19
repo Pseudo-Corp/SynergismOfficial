@@ -4152,7 +4152,12 @@
       "subscriptions": "Подписки",
       "upgrades": "Купить Улучшения",
       "merch": "Купить Мерч",
-      "consumables": "Расходники и События"
+      "consumables": "Расходники и События",
+      "checkoutStripe": "Checkout with Stripe",
+      "checkoutNowPayments": "Checkout with NowPayments (Crypto)",
+      "support": "Need help?",
+      "khafraDiscord": "Message Khafra on Discord",
+      "platonicDiscord": "Message Platonic on Discord"
     }
   },
   "offlineProgress": {
@@ -5528,7 +5533,21 @@
       "transferFailed": "❌ Failed to Transfer"
     },
     "quarkBonusSimple": "Щедрые покровители даруют вам бонус {{globalBonus}}% к Кваркам!",
-    "quarkBonusExtended": "Щедрые покровители даруют вам бонус {{globalBonus}}% к Кваркам! Вы также получаете дополнительный бонус {{personalBonus}}% за то, что являетесь членом Patreon и/или бустером сервера Discord! Перемножаемо с глобальным бонусом!"
+    "quarkBonusExtended": "Щедрые покровители даруют вам бонус {{globalBonus}}% к Кваркам! Вы также получаете дополнительный бонус {{personalBonus}}% за то, что являетесь членом Patreon и/или бустером сервера Discord! Перемножаемо с глобальным бонусом!",
+    "saveString": {
+      "version": "Use <<cyan|$VERSION$>> for full version, <<cyan|$VER$>> for version number,",
+      "time": "<<cyan|$TIME$>> for 24h time, <<cyan|$TIME12$>> for 12h,",
+      "year": "<<cyan|$YEAR$>> or <<cyan|$Y$>> for year, <<cyan|$MONTH$>> or <<cyan|$M$>> for month,",
+      "day": "<<cyan|$DAY$>> or <<cyan|$D$>> for day, <<cyan|$HOUR$>> or <<cyan|$H$>> for hour,",
+      "min": "<<cyan|$MINUTE$>> or <<cyan|$MI$>> for minute, <<cyan|$SECOND$>> or <<cyan|$S$>> for second,",
+      "period": "<<cyan|$PERIOD$>> or <<cyan|$P$>> for period, <<cyan|$WEEKDAY$>> or <<cyan|$W$>> for weekday,",
+      "date": "<<cyan|$DATE$>> for date, <<cyan|$DATES$>> for date seconds,",
+      "times": "<<cyan|$TIMES$>> for 24h time short,",
+      "sing": "<<cyan|$SING$>> for singularity, <<cyan|$SINGS$>> for singularity number,",
+      "quarks": "<<cyan|$QUARK$>> for quarks, <<cyan|$QUARKS$>> for format quarks,",
+      "gq": "<<cyan|$GQ$>> for golden quarks, <<cyan|$GQS$>> for format golden quarks,",
+      "stage": "<<cyan|$STAGE$>> for synergism stage"
+    }
   },
   "statistics": {
     "subtabs": {
@@ -6739,8 +6758,6 @@
     "modePercentage": "Режим: ПРОЦЕНТ"
   },
   "main": {
-    "dataPersistent": "Данные на этой странице теперь сохраняются! Если вы не знаете, что это значит, вы можете спокойно игнорировать это.",
-    "starRepo": "Пожалуйста, выразите свою признательность, поставив звезду на GitHub. ❤️ https://github.com/pseudo-corp/SynergismOfficial",
     "transferredFromLZ": "Сохранение успешно конвертировано в новый формат!",
     "allCorruptionsZero": "Все Порчи были установлены на Ноль. Эффект вступит в силу при следующем Вознесении.",
     "corruptionLoadoutApplied": "Заготовка Порчи {{x}} \"{{y}}\" была применена. Эффект вступит в силу в следующем Вознесении.",
