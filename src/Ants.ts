@@ -1,298 +1,1363 @@
 import {
-  calculateAnts,
+  calculateActualAntSpeedMult,
   calculateAntSacrificeMultiplier,
-  calculateAntSacrificeObtainiumMultiplier,
-  calculateAntSacrificeOfferingMultiplier,
   calculateAntSacrificeRewards,
   calculateBaseAntELO,
   calculateEffectiveAntELO,
-  calculateSigmoid,
+  calculateELOMult,
   calculateSigmoidExponential
 } from './Calculate'
-import { format, player } from './Synergism'
+import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Globals as G } from './Variables'
 
-import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardAchievementGroup, awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { CalcECC } from './Challenges'
+import { calculateAntELOCubeBlessing } from './Cubes'
 import { resetHistoryAdd, type ResetHistoryEntryAntSacrifice } from './History'
 import { resetAnts } from './Reset'
 import { offeringObtainiumTimeModifiers } from './Statistics'
-import { Tabs } from './Tabs'
-import { updateTalismanInventory } from './Talismans'
-import { clearInterval, setInterval } from './Timers'
-import type { FirstToEighth, ZeroToSeven } from './types/Synergism'
-import { Confirm, revealStuff } from './UpdateHTML'
-import { smallestInc } from './Utility'
+import { getTalismanEffects, updateTalismanInventory } from './Talismans'
+import { Confirm } from './UpdateHTML'
 
-const antspecies: Record<`antspecies${number}`, string> = {
-  antspecies1: 'Inceptus Formicidae',
-  antspecies2: 'Fortunae Formicidae',
-  antspecies3: 'Tributum Formicidae',
-  antspecies4: 'Celeritas Formicidae',
-  antspecies5: 'Multa Formicidae',
-  antspecies6: 'Sacrificium Formicidae',
-  antspecies7: 'Hic Formicidae',
-  antspecies8: 'Experientia Formicidae',
-  antspecies9: 'Praemoenio Formicidae',
-  antspecies10: 'Scientia Formicidae',
-  antspecies11: 'Phylacterium Formicidae',
-  antspecies12: 'Mortuus Est Formicidae'
+/**
+ * PART 1: Ant Producers (Crumbs, Ants, Ant Queens, etc.)
+ */
+
+export interface AntProducerTexts {
+  text: () => string
+  displayCondition: () => boolean
 }
 
-export const calculateCrumbToCoinExp = () => {
-  const exponent = player.currentChallenge.ascension !== 15
-    ? 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2 - 1]! + G.bonusant2) / 5000 * 500 / 499)
-    : 1 / 10000
-      * (100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[2 - 1]! + G.bonusant2) / 5000 * 500 / 499))
-
-  return exponent
+export interface AntProducers {
+  baseCost: Decimal
+  costIncrease: number
+  baseProduction: Decimal
+  color: string
+  additionalTexts: AntProducerTexts[]
+  masteryInfo: {
+    totalELORequirements: number[]
+    particleCosts: Decimal[]
+    selfSpeedMultipliers: Decimal[]
+    // Ant Speed Multiplier = (1 + selfPowerIncrement)^purchased
+    selfPowerIncrement: number
+  }
 }
 
-const antUpgradeTexts = [
-  () => format(Decimal.pow(1.12 + 1 / 1000 * player.researches[101], player.antUpgrades[1 - 1]! + G.bonusant1), 2),
-  () => format(calculateCrumbToCoinExp()),
-  () => format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3 - 1]! + G.bonusant3), 4),
-  () =>
-    format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4 - 1]! + G.bonusant4) / 1000 * 20 / 19) - 1), 3),
-  () =>
-    format(100 * (calculateSigmoidExponential(40, (player.antUpgrades[5 - 1]! + G.bonusant5) / 1000 * 40 / 39) - 1), 3),
-  () => format(1 + Math.pow(player.antUpgrades[6 - 1]! + G.bonusant6, 0.66), 4),
-  () => format(Math.min(9999999, 3 * player.antUpgrades[7 - 1]! + 3 * G.bonusant7), 0, true),
-  () =>
-    format(calculateSigmoidExponential(999, 1 / 10000 * Math.pow(player.antUpgrades[8 - 1]! + G.bonusant8, 1.1)), 3),
-  () => format(1 * Math.min(3000, player.antUpgrades[9 - 1]! + G.bonusant9), 0, true),
-  () => format(1 + 2 * Math.pow((player.antUpgrades[10 - 1]! + G.bonusant10) / 50, 0.75), 4),
-  () => format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11 - 1]! + G.bonusant11) / 125)), 4),
-  () => format(calculateSigmoid(2, player.antUpgrades[12 - 1]! + G.bonusant12, 69), 4)
+export const MAX_ANT_MASTERY_LEVEL = 12
+
+export const baseAntInfo: AntProducers[] = [
+  {
+    baseCost: new Decimal(1),
+    costIncrease: 3,
+    baseProduction: new Decimal(0.01),
+    color: '#AB8654',
+    additionalTexts: [
+      {
+        text: () =>
+          i18next.t('ants.mastery.0.effect', {
+            x: format(calculateSelfSpeedFromMastery(0), 2, false)
+          }),
+        displayCondition: () => player.ants.masteries[0] > 0
+      },
+      {
+        text: () =>
+          i18next.t('ants.producers.0.eloInformation', {
+            x: format(calculateELOMult(), 2, true)
+          }),
+        displayCondition: () => player.ants.antSacrificeCount > 0 || player.ants.highestCrumbsThisSacrifice.gte(1e100)
+      },
+      {
+        text: () =>
+          i18next.t('ants.producers.0.reincarnationUpgrade17', {
+            x: format(Decimal.pow(1.004, player.ants.purchased[0]), 2, true)
+          }),
+        displayCondition: () => player.upgrades[77] > 0
+      },
+      {
+        text: () =>
+          i18next.t('ants.producers.0.research', {
+            x: format(Decimal.pow(1 + player.researches[96] / 5000, player.ants.purchased[0]), 2, true)
+          }),
+        displayCondition: () => player.researches[96] > 0
+      },
+      {
+        text: () =>
+          i18next.t('ants.producers.0.cookieUpgrade', {
+            x: format(Decimal.pow(1.004, player.ants.purchased[0]), 2, true)
+          }),
+        displayCondition: () => player.cubeUpgrades[65] > 0
+      }
+    ],
+    masteryInfo: {
+      totalELORequirements: [0, 0, 0, 0, 100, 500, 1_250, 4_000, 10_000, 25_000, 256_000, 1_024_000],
+      particleCosts: [
+        new Decimal('1e700'),
+        new Decimal('1e1200'),
+        new Decimal('1e2600'),
+        new Decimal('1e5000'),
+        new Decimal('1e12500'),
+        new Decimal('1e40000'),
+        new Decimal('1e100000'),
+        new Decimal('1e250000'),
+        new Decimal('1e500000'),
+        new Decimal('1e1000000'),
+        new Decimal('1e10000000'),
+        new Decimal('1e100000000')
+      ],
+      selfSpeedMultipliers: [
+        new Decimal(1),
+        new Decimal(2),
+        new Decimal(4),
+        new Decimal(8),
+        new Decimal(16),
+        new Decimal(40),
+        new Decimal(1e3),
+        new Decimal(1e6),
+        new Decimal(1e11),
+        new Decimal(1e20),
+        new Decimal(1e50),
+        new Decimal(1e200),
+        new Decimal('1e1000')
+      ],
+      selfPowerIncrement: 0.001
+    }
+  },
+  {
+    baseCost: new Decimal(10),
+    costIncrease: 10,
+    baseProduction: new Decimal(1e-4),
+    color: '#B77D48',
+    additionalTexts: [
+      {
+        text: () =>
+          i18next.t('ants.mastery.1.effect', {
+            x: format(calculateSelfSpeedFromMastery(1), 2, false)
+          }),
+        displayCondition: () => player.ants.masteries[1] > 0
+      }
+    ],
+    masteryInfo: {
+      totalELORequirements: [0, 0, 0, 750, 2_500, 7_500, 15_000, 30_000, 60_000, 115_000, 403_000, 1_344_000],
+      particleCosts: [
+        new Decimal('1e1200'),
+        new Decimal('1e2600'),
+        new Decimal('1e5000'),
+        new Decimal('1e12500'),
+        new Decimal('1e40000'),
+        new Decimal('1e100000'),
+        new Decimal('1e250000'),
+        new Decimal('1e500000'),
+        new Decimal('1e1000000'),
+        new Decimal('1e1750000'),
+        new Decimal('1e17500000'),
+        new Decimal('1e175000000')
+      ],
+      selfSpeedMultipliers: [
+        new Decimal(1),
+        new Decimal(2),
+        new Decimal(5),
+        new Decimal(15),
+        new Decimal(1e3),
+        new Decimal(1e8),
+        new Decimal(1e13),
+        new Decimal(1e25),
+        new Decimal(1e40),
+        new Decimal(1e70),
+        new Decimal(1e120),
+        new Decimal('1e400'),
+        new Decimal('1e1400')
+      ],
+      selfPowerIncrement: 0.002
+    }
+  },
+  {
+    baseCost: new Decimal(1e5),
+    costIncrease: 1e2,
+    baseProduction: new Decimal(1e-7),
+    color: '#C2783D',
+    additionalTexts: [
+      {
+        text: () =>
+          i18next.t('ants.mastery.2.effect', {
+            x: format(calculateSelfSpeedFromMastery(2), 2, false)
+          }),
+        displayCondition: () => player.ants.masteries[2] > 0
+      }
+    ],
+    masteryInfo: {
+      totalELORequirements: [0, 0, 1_250, 3_000, 6_000, 13_000, 27_000, 55_000, 100_000, 180_000, 598_000, 1_996_000],
+      particleCosts: [
+        new Decimal('1e2500'),
+        new Decimal('1e6000'),
+        new Decimal('1e20000'),
+        new Decimal('1e60000'),
+        new Decimal('1e125000'),
+        new Decimal('1e300000'),
+        new Decimal('1e600000'),
+        new Decimal('1e1250000'),
+        new Decimal('1e3000000'),
+        new Decimal('1e8000000'),
+        new Decimal('1e40000000'),
+        new Decimal('1e300000000')
+      ],
+      selfSpeedMultipliers: [
+        new Decimal(1),
+        new Decimal(3),
+        new Decimal(9),
+        new Decimal(100),
+        new Decimal(1e4),
+        new Decimal(1e9),
+        new Decimal(1e16),
+        new Decimal(1e32),
+        new Decimal(1e55),
+        new Decimal(1e100),
+        new Decimal(1e160),
+        new Decimal('1e600'),
+        new Decimal('1e2000')
+      ],
+      selfPowerIncrement: 0.005
+    }
+  },
+  {
+    baseCost: new Decimal(1e12),
+    costIncrease: 1e4,
+    baseProduction: new Decimal(1e-12),
+    color: '#CA7035',
+    additionalTexts: [
+      {
+        text: () =>
+          i18next.t('ants.mastery.3.effect', {
+            x: format(calculateSelfSpeedFromMastery(3), 2, false)
+          }),
+        displayCondition: () => player.ants.masteries[3] > 0
+      }
+    ],
+    masteryInfo: {
+      totalELORequirements: [
+        0,
+        2_500,
+        5_500,
+        13_000,
+        25_000,
+        42_000,
+        65_000,
+        102_000,
+        160_000,
+        260_000,
+        800_000,
+        2,
+        900_000
+      ],
+      particleCosts: [
+        new Decimal('1e6000'),
+        new Decimal('1e15000'),
+        new Decimal('1e35000'),
+        new Decimal('1e80000'),
+        new Decimal('1e240000'),
+        new Decimal('1e1000000'),
+        new Decimal('1e2500000'),
+        new Decimal('1e6000000'),
+        new Decimal('1e12000000'),
+        new Decimal('1e30000000'),
+        new Decimal('1e100000000'),
+        new Decimal('1e500000000')
+      ],
+      selfSpeedMultipliers: [
+        new Decimal(1),
+        new Decimal(4),
+        new Decimal(100),
+        new Decimal(1e5),
+        new Decimal(1e12),
+        new Decimal(1e24),
+        new Decimal(1e48),
+        new Decimal(1e80),
+        new Decimal(1e120),
+        new Decimal(1e200),
+        new Decimal(1e300),
+        new Decimal('1e800'),
+        new Decimal('1e3000')
+      ],
+      selfPowerIncrement: 0.01
+    }
+  },
+  {
+    baseCost: new Decimal(1e300),
+    costIncrease: 1e8,
+    baseProduction: new Decimal(1e-80),
+    color: '#D26B2D',
+    additionalTexts: [
+      {
+        text: () =>
+          i18next.t('ants.mastery.4.effect', {
+            x: format(calculateSelfSpeedFromMastery(4), 2, false)
+          }),
+        displayCondition: () => player.ants.masteries[4] > 0
+      },
+      {
+        text: () => i18next.t('ants.producers.4.eloMult'),
+        displayCondition: () => player.ants.antSacrificeCount > 0
+      },
+      {
+        text: () => i18next.t('ants.producers.4.eloSpeedup'),
+        displayCondition: () => player.ants.antSacrificeCount > 0
+      }
+    ],
+    masteryInfo: {
+      totalELORequirements: [
+        3_000,
+        5_000,
+        11_000,
+        22_000,
+        44_000,
+        83_000,
+        142_000,
+        221_000,
+        333_333,
+        500_000,
+        1_500_000,
+        4_300_000
+      ],
+      particleCosts: [
+        new Decimal('1e15000'),
+        new Decimal('1e40000'),
+        new Decimal('1e100000'),
+        new Decimal('1e250000'),
+        new Decimal('1e600000'),
+        new Decimal('1e1250000'),
+        new Decimal('1e3000000'),
+        new Decimal('1e8000000'),
+        new Decimal('1e20000000'),
+        new Decimal('1e50000000'),
+        new Decimal('1e200000000'),
+        new Decimal('1e800000000')
+      ],
+      selfSpeedMultipliers: [
+        new Decimal(1),
+        new Decimal(100),
+        new Decimal(1e5),
+        new Decimal(1e12),
+        new Decimal(1e24),
+        new Decimal(1e48),
+        new Decimal(1e80),
+        new Decimal(1e120),
+        new Decimal(1e200),
+        new Decimal(1e300),
+        new Decimal('1e600'),
+        new Decimal('1e1550'),
+        new Decimal('1e4500')
+      ],
+      selfPowerIncrement: 0.02
+    }
+  },
+  {
+    baseCost: new Decimal('1e1000'),
+    costIncrease: 1e16,
+    baseProduction: new Decimal(1e-220),
+    color: '#DC6623',
+    additionalTexts: [
+      {
+        text: () =>
+          i18next.t('ants.mastery.5.effect', {
+            x: format(calculateSelfSpeedFromMastery(5), 2, false)
+          }),
+        displayCondition: () => player.ants.masteries[5] > 0
+      },
+      {
+        text: () => i18next.t('ants.producers.5.eloMult'),
+        displayCondition: () => player.ants.antSacrificeCount > 0
+      },
+      {
+        text: () => i18next.t('ants.producers.5.eloSpeedup'),
+        displayCondition: () => player.ants.antSacrificeCount > 0
+      }
+    ],
+    masteryInfo: {
+      totalELORequirements: [
+        6_000,
+        14_000,
+        31_000,
+        61_000,
+        122_000,
+        200_000,
+        340_000,
+        525_000,
+        740_000,
+        1_115_000,
+        2_400_000,
+        6_200_000
+      ],
+      particleCosts: [
+        new Decimal('1e40000'),
+        new Decimal('1e100000'),
+        new Decimal('1e250000'),
+        new Decimal('1e600000'),
+        new Decimal('1e1250000'),
+        new Decimal('1e3000000'),
+        new Decimal('1e8000000'),
+        new Decimal('1e20000000'),
+        new Decimal('1e50000000'),
+        new Decimal('1e150000000'),
+        new Decimal('1e600000000'),
+        new Decimal('1e1250000000')
+      ],
+      selfSpeedMultipliers: [
+        new Decimal(1),
+        new Decimal(1e5),
+        new Decimal(1e12),
+        new Decimal(1e24),
+        new Decimal(1e48),
+        new Decimal(1e80),
+        new Decimal(1e120),
+        new Decimal(1e200),
+        new Decimal(1e300),
+        new Decimal('1e600'),
+        new Decimal('1e1000'),
+        new Decimal('1e2500'),
+        new Decimal('1e7000')
+      ],
+      selfPowerIncrement: 0.04
+    }
+  },
+  {
+    baseCost: new Decimal('1e5000'),
+    costIncrease: 1e32,
+    baseProduction: new Decimal('1e-850'),
+    color: '#E76118',
+    additionalTexts: [
+      {
+        text: () =>
+          i18next.t('ants.mastery.6.effect', {
+            x: format(calculateSelfSpeedFromMastery(6), 2, false)
+          }),
+        displayCondition: () => player.ants.masteries[6] > 0
+      },
+      {
+        text: () => i18next.t('ants.producers.6.eloMult'),
+        displayCondition: () => player.ants.antSacrificeCount > 0
+      },
+      {
+        text: () => i18next.t('ants.producers.6.eloSpeedup'),
+        displayCondition: () => player.ants.antSacrificeCount > 0
+      }
+    ],
+    masteryInfo: {
+      totalELORequirements: [
+        23_000,
+        53_000,
+        100_000,
+        190_000,
+        377_000,
+        621_000,
+        1_021_000,
+        1_600_000,
+        2_340_000,
+        3_400_000,
+        5_100_000,
+        9_250_000
+      ],
+      particleCosts: [
+        new Decimal('1e100000'),
+        new Decimal('1e400000'),
+        new Decimal('1e1250000'),
+        new Decimal('1e4000000'),
+        new Decimal('1e6000000'),
+        new Decimal('1e13000000'),
+        new Decimal('1e26000000'),
+        new Decimal('1e50000000'),
+        new Decimal('1e150000000'),
+        new Decimal('1e400000000'),
+        new Decimal('1e1000000000'),
+        new Decimal('1e3000000000')
+      ],
+      selfSpeedMultipliers: [
+        new Decimal(1),
+        new Decimal(1e24),
+        new Decimal(1e48),
+        new Decimal(1e80),
+        new Decimal(1e120),
+        new Decimal(1e200),
+        new Decimal(1e300),
+        new Decimal('1e600'),
+        new Decimal('1e1000'),
+        new Decimal('1e1800'),
+        new Decimal('1e3000'),
+        new Decimal('1e5000'),
+        new Decimal('1e10000')
+      ],
+      selfPowerIncrement: 0.1
+    }
+  },
+  {
+    baseCost: new Decimal('1e25000'),
+    costIncrease: 1e64,
+    baseProduction: new Decimal('1e-3500'),
+    color: '#F65D09',
+    additionalTexts: [
+      {
+        text: () =>
+          i18next.t('ants.mastery.7.effect', {
+            x: format(calculateSelfSpeedFromMastery(7), 2, false)
+          }),
+        displayCondition: () => player.ants.masteries[7] > 0
+      },
+      {
+        text: () => i18next.t('ants.producers.7.eloMult'),
+        displayCondition: () => player.ants.antSacrificeCount > 0
+      },
+      {
+        text: () => i18next.t('ants.producers.7.eloSpeedup'),
+        displayCondition: () => player.ants.antSacrificeCount > 0
+      }
+    ],
+    masteryInfo: {
+      totalELORequirements: [
+        100_000,
+        200_000,
+        400_000,
+        750_000,
+        1_400_000,
+        2_400_000,
+        4_000_000,
+        6_000_000,
+        8_250_000,
+        11_111_111,
+        15_151_515,
+        22_222_222
+      ],
+      particleCosts: [
+        new Decimal('1e400000'),
+        new Decimal('1e1250000'),
+        new Decimal('1e4000000'),
+        new Decimal('1e6000000'),
+        new Decimal('1e13000000'),
+        new Decimal('1e26000000'),
+        new Decimal('1e50000000'),
+        new Decimal('1e150000000'),
+        new Decimal('1e400000000'),
+        new Decimal('1e1000000000'),
+        new Decimal('1e3000000000'),
+        new Decimal('1e10000000000')
+      ],
+      selfSpeedMultipliers: [
+        new Decimal(1),
+        new Decimal(1e80),
+        new Decimal(1e120),
+        new Decimal(1e200),
+        new Decimal(1e300),
+        new Decimal('1e600'),
+        new Decimal('1e1000'),
+        new Decimal('1e1800'),
+        new Decimal('1e3000'),
+        new Decimal('1e5000'),
+        new Decimal('1e11000'),
+        new Decimal('1e25000'),
+        new Decimal('1e60000')
+      ],
+      selfPowerIncrement: 0.3
+    }
+  }
 ]
 
-let repeatAnt: number
-
-export const antRepeat = (i: number) => {
-  clearInterval(repeatAnt)
-  repeatAnt = +setInterval(() => updateAntDescription(i), 50)
+export const calculateSelfSpeedFromMastery = (t: number) => {
+  const index = player.ants.masteries[t]
+  const selfPowerIncrement = index * baseAntInfo[t].masteryInfo.selfPowerIncrement
+  const selfBaseMult = baseAntInfo[t].masteryInfo.selfSpeedMultipliers[index]
+  return Decimal.pow(1 + selfPowerIncrement, player.ants.purchased[t]).times(selfBaseMult)
 }
 
-export const updateAntDescription = (i: number) => {
-  if (G.currentTab !== Tabs.AntHill) {
-    return
-  }
-  const el = DOMCacheGetOrSet('anttierdescription')
-  const la = DOMCacheGetOrSet('antprice')
-  const ti = DOMCacheGetOrSet('antquantity')
-  const me = DOMCacheGetOrSet('generateant')
-
-  let priceType = 'ants.costGalacticCrumbs'
-  let tier: FirstToEighth = 'first'
-  let x!: string
-  el.textContent = i18next.t(`ants.descriptions.${i}`)
-
-  switch (i) {
-    case 1:
-      priceType = 'ants.costParticles'
-      tier = 'first'
-      x = format(G.antOneProduce, 5)
-      break
-    case 2:
-      tier = 'second'
-      x = format(G.antTwoProduce, 5)
-      break
-    case 3:
-      tier = 'third'
-      x = format(G.antThreeProduce, 5)
-      break
-    case 4:
-      tier = 'fourth'
-      x = format(G.antFourProduce, 5)
-      break
-    case 5:
-      tier = 'fifth'
-      x = format(G.antFiveProduce, 5)
-      break
-    case 6:
-      tier = 'sixth'
-      x = format(G.antSixProduce, 5)
-      break
-    case 7:
-      tier = 'seventh'
-      x = format(G.antSevenProduce, 5)
-      break
-    case 8:
-      tier = 'eighth'
-      x = format(G.antEightProduce, 5)
-      break
-  }
-
-  me.textContent = i18next.t(`ants.generates.${i}`, { x })
-  la.textContent = i18next.t(priceType, { x: format(player[`${tier}CostAnts` as const]) })
-  ti.textContent = i18next.t('ants.owned', {
-    x: format(player[`${tier}OwnedAnts` as const]),
-    y: format(player[`${tier}GeneratedAnts` as const], 2)
-  })
+export const calculateBaseAntsToBeGenerated = (t: number, antSpeedMult = new Decimal(1)) => {
+  return player.ants.generated[t]
+    .add(player.ants.purchased[t])
+    .times(baseAntInfo[t].baseProduction)
+    .times(calculateSelfSpeedFromMastery(t))
+    .times(antSpeedMult)
 }
 
-const getAntCost = (originalCost: Decimal, buyTo: number, index: number) => {
-  ;--buyTo
-
-  // Determine how much the cost is for buyTo
-  const cost = originalCost
-    .times(Decimal.pow(G.antCostGrowth[index - 1], buyTo))
-    .add(1 * buyTo)
-
-  return cost
-}
-
-export const getAntUpgradeCost = (originalCost: Decimal, buyTo: number, index: number) => {
-  ;--buyTo
-
-  const cost = originalCost.times(Decimal.pow(G.antUpgradeCostIncreases[index - 1], buyTo))
-  return cost
-}
-
-// Note to self: REWRITE THIS SHIT Kevin :3
-export const buyAntProducers = (pos: FirstToEighth, originalCost: DecimalSource, index: number) => {
-  // This is a fucking cool function. This will buymax ants cus why not
-
-  // Things we need: the position of producers, the costvalues, and input var i
-  originalCost = new Decimal(originalCost)
-  // Initiate type of resource used
-  const tag = index === 1 ? 'reincarnationPoints' : 'antPoints'
-  const key = `${pos}OwnedAnts` as const
-
-  const buydefault = player[key] + smallestInc(player[key])
-  let buyTo = buydefault
-  let cashToBuy = getAntCost(originalCost, buyTo, index)
-  while (player[tag].gte(cashToBuy)) {
-    // Multiply by 4 until the desired amount. Iterate from there
-    buyTo = buyTo * 4
-    cashToBuy = getAntCost(originalCost, buyTo, index)
-  }
-  let stepdown = Math.floor(buyTo / 8)
-  while (stepdown >= smallestInc(buyTo)) {
-    if (getAntCost(originalCost, buyTo - stepdown, index).lte(player[tag])) {
-      stepdown = Math.floor(stepdown / 2)
-    } else {
-      buyTo = buyTo - Math.max(smallestInc(buyTo), stepdown)
-    }
-  }
-
-  if (!player.antMax) {
-    if (buydefault < buyTo) {
-      buyTo = buydefault
-    }
-  }
-  // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-  let buyFrom = Math.max(buyTo - 6 - smallestInc(buyTo), buydefault)
-  let thisCost = getAntCost(originalCost, buyFrom, index)
-  while (buyFrom <= buyTo && player[tag].gte(thisCost)) {
-    player[tag] = player[tag].sub(thisCost)
-    player[key] = buyFrom
-    buyFrom = buyFrom + smallestInc(buyFrom)
-    thisCost = getAntCost(originalCost, buyFrom, index)
-    player[`${pos}CostAnts` as const] = thisCost
-  }
-  if (player.reincarnationPoints.lt(0)) {
-    player.reincarnationPoints = new Decimal('0')
-  }
-  if (player.antPoints.lt(0)) {
-    player.antPoints = new Decimal('0')
-  }
-
-  awardAchievementGroup('sacMult')
-
-  if (player.firstOwnedAnts > 6.9e7) {
-    player.firstOwnedAnts = 6.9e7
-  }
-}
-
-export const buyAntUpgrade = (originalCost: DecimalSource, auto: boolean, index: number) => {
-  if (player.currentChallenge.ascension !== 11) {
-    originalCost = new Decimal(originalCost)
-    const buydefault = player.antUpgrades[index - 1]! + smallestInc(player.antUpgrades[index - 1]!)
-    let buyTo = buydefault
-    let cashToBuy = getAntUpgradeCost(originalCost, buyTo, index)
-    while (player.antPoints.gte(cashToBuy)) {
-      // Multiply by 4 until the desired amount. Iterate from there
-      buyTo = buyTo * 4
-      cashToBuy = getAntUpgradeCost(originalCost, buyTo, index)
-    }
-    let stepdown = Math.floor(buyTo / 8)
-    while (stepdown >= smallestInc(buyTo)) {
-      if (getAntUpgradeCost(originalCost, buyTo - stepdown, index).lte(player.antPoints)) {
-        stepdown = Math.floor(stepdown / 2)
-      } else {
-        buyTo = buyTo - Math.max(smallestInc(buyTo), stepdown)
-      }
-    }
-    if (!player.antMax) {
-      if (buydefault < buyTo) {
-        buyTo = buydefault
-      }
-    }
-    // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-    let buyFrom = Math.max(buyTo - 6 - smallestInc(buyTo), buydefault)
-    let thisCost = getAntUpgradeCost(originalCost, buyFrom, index)
-    while (buyFrom <= buyTo && player.antPoints.gte(thisCost)) {
-      player.antPoints = player.antPoints.sub(thisCost)
-      player.antUpgrades[index - 1] = buyFrom
-      buyFrom = buyFrom + smallestInc(buyFrom)
-      thisCost = getAntUpgradeCost(originalCost, buyFrom, index)
-    }
-    calculateAnts()
-    if (!auto) {
-      antUpgradeDescription(index)
-    }
-    if (player.antUpgrades[12 - 1] === 1 && index === 12) {
-      revealStuff()
-    }
-  }
-}
-
-export const antUpgradeDescription = (i: number) => {
-  const el = DOMCacheGetOrSet('antspecies')
-  const al = DOMCacheGetOrSet('antlevelbonus')
-  const la = DOMCacheGetOrSet('antupgradedescription')
-  const ti = DOMCacheGetOrSet('antupgradecost')
-  const me = DOMCacheGetOrSet('antupgradeeffect')
-
-  const content1 = antspecies[`antspecies${i}`]
-  const content2 = i18next.t(`ants.upgrades.${i}`)
-  const bonuslevel = G[`bonusant${i}` as keyof typeof G] as typeof G['bonusant1']
-
-  const c11 = player.currentChallenge.ascension === 11 ? 999 : 0
-
-  el.childNodes[0].textContent = `${content1} Level ${format(player.antUpgrades[i - 1])}`
-  al.textContent = ` [+${format(Math.min(player.antUpgrades[i - 1]! + c11, bonuslevel))}]`
-  la.textContent = content2
-  ti.textContent = i18next.t('ants.costGalacticCrumbs', {
-    x: format(
-      Decimal.pow(
-        G.antUpgradeCostIncreases[i - 1],
-        player.antUpgrades[i - 1]!
-      ).times(G.antUpgradeBaseCost[i - 1])
+export const generateAntsAndCrumbs = (dt: number): void => {
+  const antSpeedMult = calculateActualAntSpeedMult()
+  const numAnts = player.ants.purchased.length // should be 8, but just to make sure
+  for (let i = numAnts - 1; i > 0; i--) {
+    const baseGeneration = calculateBaseAntsToBeGenerated(i, antSpeedMult)
+    player.ants.generated[i - 1] = player.ants.generated[i - 1].add(
+      baseGeneration
+        .times(dt)
     )
-  })
-  me.textContent = i18next.t(`ants.rewards.${i}`, {
-    x: antUpgradeTexts[i - 1]()
-  })
+  }
+
+  // Separately handle Crumbs in the same way
+  player.ants.crumbs = player.ants.crumbs.add(
+    calculateBaseAntsToBeGenerated(0, antSpeedMult)
+      .times(dt)
+  )
+
+  player.ants.highestCrumbsThisSacrifice = Decimal.max(player.ants.highestCrumbsThisSacrifice, player.ants.crumbs)
+  player.ants.highestCrumbsEver = Decimal.max(player.ants.highestCrumbsEver, player.ants.crumbs)
+
+  // Activate ELO if appropriate
+  activateELO(dt)
 }
 
-export const antSacrificePointsToMultiplier = (points: number) => {
-  const base = 1 + points / 5000
-  const maxExponent = 4
-  const exponent = Math.min(maxExponent, 1.5 + 0.2 * Math.log(1 + points / 10000))
-  if (points > 0) {
-    return Decimal.pow(base, exponent).times(2)
+export const getCostNextAnt = (tier: number) => {
+  const data = baseAntInfo[tier]
+  const nextCost = data.baseCost.times(
+    Decimal.pow(
+      data.costIncrease,
+      player.ants.purchased[tier]
+    )
+  )
+  const lastCost = player.ants.purchased[tier] > 0
+    ? data.baseCost.times(
+      Decimal.pow(
+        data.costIncrease,
+        player.ants.purchased[tier] - 1
+      )
+    )
+    : new Decimal(0)
+  return nextCost.sub(lastCost)
+}
+
+export const getCostMaxAnts = (tier: number) => {
+  const maxBuyable = getMaxPurchasableAnts(tier, player.ants.crumbs)
+  const data = baseAntInfo[tier]
+
+  const spent = player.ants.purchased[tier] > 0
+    ? Decimal.pow(data.costIncrease, player.ants.purchased[tier] - 1).times(data.baseCost)
+    : new Decimal(0)
+
+  const maxAntCost = Decimal.pow(data.costIncrease, maxBuyable - 1).times(data.baseCost)
+
+  return maxAntCost.sub(spent)
+}
+
+export const getMaxPurchasableAnts = (tier: number, budget: Decimal): number => {
+  const data = baseAntInfo[tier]
+  const sunkCost = player.ants.purchased[tier] > 0
+    ? data.baseCost.times(
+      Decimal.pow(
+        data.costIncrease,
+        player.ants.purchased[tier] - 1
+      )
+    )
+    : new Decimal(0)
+  const realBudget = budget.add(sunkCost)
+
+  return Math.max(0, 1 + Math.floor(Decimal.log(realBudget.div(data.baseCost), data.costIncrease)))
+}
+
+export const buyAntProducers = (tier: number, max: boolean) => {
+  if (max) {
+    const buyTo = getMaxPurchasableAnts(tier, player.ants.crumbs)
+    if (buyTo <= player.ants.purchased[tier]) {
+      return
+    } else {
+      const cost = getCostMaxAnts(tier)
+      if (player.ants.crumbs.gte(cost)) {
+        player.ants.crumbs = player.ants.crumbs.sub(cost)
+        player.ants.purchased[tier] = buyTo
+      }
+    }
+  } else {
+    const cost = getCostNextAnt(tier)
+    if (player.ants.crumbs.gte(cost)) {
+      player.ants.crumbs = player.ants.crumbs.sub(cost)
+      player.ants.purchased[tier] += 1
+    }
   }
-  return new Decimal(1)
+}
+
+export const autobuyAntProducers = () => {
+  const tiersUnlocked = +getAchievementReward('antAutobuyers')
+  for (let i = 8; i > 0; i--) {
+    if (i <= tiersUnlocked) {
+      buyAntProducers(i - 1, player.antMax)
+    }
+  }
+}
+
+export const antProducerHTML = (tier: number) => {
+  let nameText = i18next.t(`ants.producers.${tier}.name`)
+  if (player.ants.masteries[tier] > 0) {
+    nameText += ` <span style="color:green">[★${player.ants.masteries[tier]}]</span>`
+  }
+  const nameHTML = `<span style="font-size: 1.2em; color: ${
+    baseAntInfo[tier].color
+  }" class="titleTextFont">${nameText}</span>`
+  const flavorHTML = `<span class="titleTextFont" style="color: lightgray">${
+    i18next.t(`ants.producers.${tier}.flavor`)
+  }</span>`
+
+  const producerCountHTML = `<span>${
+    i18next.t('ants.producerCount', {
+      x: format(player.ants.purchased[tier], 0, true),
+      y: format(player.ants.generated[tier], 2)
+    })
+  }</span>`
+
+  const antSpeedMult = calculateActualAntSpeedMult()
+  const antsToBeGenerated = calculateBaseAntsToBeGenerated(tier, antSpeedMult)
+  const generationHTML = `<span>${
+    i18next.t(`ants.producers.${tier}.generates`, {
+      x: format(antsToBeGenerated, 5, true)
+    })
+  }</span>`
+
+  let costHTML: string
+  const maxBuy = getMaxPurchasableAnts(tier, player.ants.crumbs)
+  if (player.antMax && maxBuy > player.ants.purchased[tier]) {
+    const cost = getCostMaxAnts(tier)
+    costHTML = i18next.t('ants.costMaxLevels', {
+      x: format(maxBuy - player.ants.purchased[tier], 0, true),
+      y: format(cost, 2, true)
+    })
+  } else {
+    const cost = getCostNextAnt(tier)
+    costHTML = i18next.t('ants.costSingleLevel', { x: format(cost, 2, true) })
+  }
+
+  if (baseAntInfo[tier].additionalTexts.length > 0) {
+    let additionalTextHTML = ''
+    for (const texts of baseAntInfo[tier].additionalTexts) {
+      if (texts.displayCondition()) {
+        additionalTextHTML += `<br>${texts.text()}`
+      }
+    }
+    return `${nameHTML}<br>${flavorHTML}<br><br>${producerCountHTML}<br>${generationHTML}<br>${additionalTextHTML}<br><br>${costHTML}`
+  }
+
+  return `${nameHTML}<br>${flavorHTML}<br><br>${producerCountHTML}<br>${generationHTML}<br><br>${costHTML}`
+}
+
+/**
+ * PART 1.5: Ant Producer Masteries
+ */
+
+export const canBuyAntMastery = (tier: number): boolean => {
+  const level = player.ants.masteries[tier]
+  if (level >= MAX_ANT_MASTERY_LEVEL) {
+    return false
+  } else {
+    const reqELO = baseAntInfo[tier].masteryInfo.totalELORequirements[level]
+    const elo = player.ants.immortalELO
+    const eloCheck = elo >= reqELO
+    const particleCheck = player.reincarnationPoints.gte(baseAntInfo[tier].masteryInfo.particleCosts[level])
+    return eloCheck && particleCheck
+  }
+}
+
+export const buyAntMastery = (tier: number): void => {
+  if (canBuyAntMastery(tier)) {
+    const level = player.ants.masteries[tier]
+    player.ants.masteries[tier] += 1
+    player.ants.maxMasteriesPurchased[tier] = Math.max(
+      player.ants.maxMasteriesPurchased[tier],
+      player.ants.masteries[tier]
+    )
+    player.reincarnationPoints = player.reincarnationPoints.sub(baseAntInfo[tier].masteryInfo.particleCosts[level])
+  }
+}
+
+export const autobuyAntMasteries = (): void => {
+  const tiersUnlocked = +getAchievementReward('antAutobuyers')
+  for (let i = 8; i > 0; i--) {
+    if (i <= tiersUnlocked) {
+      while (canBuyAntMastery(i - 1) && player.ants.masteries[i - 1] < player.ants.maxMasteriesPurchased[i - 1]) {
+        buyAntMastery(i - 1)
+      }
+    }
+  }
+}
+
+export const antMasteryHTML = (tier: number): string => {
+  const nameColor = `color-mix(in srgb, ${baseAntInfo[tier].color} 60%, lime 40%)`
+  const nameHTML = `<span style="font-size: 1.2em; color: ${nameColor}" class="titleTextFont">${
+    i18next.t(`ants.mastery.${tier}.name`)
+  }</span>`
+  const flavorHTML = `<span style="color: lightgray" class="titleTextFont">${
+    i18next.t(`ants.mastery.${tier}.flavor`)
+  }</span>`
+
+  const level = player.ants.masteries[tier]
+  const selfBaseMult = baseAntInfo[tier].masteryInfo.selfSpeedMultipliers[level]
+  const selfPowerBase = level * baseAntInfo[tier].masteryInfo.selfPowerIncrement
+  const selfTotalMult = calculateSelfSpeedFromMastery(tier)
+
+  const levelHTML = `<span>${
+    i18next.t('ants.mastery.level', { x: format(level, 0, true), y: format(MAX_ANT_MASTERY_LEVEL) })
+  }</span>`
+  const multHTML = `<span>${i18next.t(`ants.mastery.${tier}.effect`, { x: format(selfTotalMult, 2, false) })}</span>`
+
+  let effectHTML = ''
+  if (level >= MAX_ANT_MASTERY_LEVEL) {
+    effectHTML = `<span>${
+      i18next.t('ants.mastery.maxedSelfAnt', {
+        x: format(selfBaseMult, 2, false)
+      })
+    }</span>`
+    effectHTML += `<br><span>${
+      i18next.t(`ants.mastery.${tier}.maxedSelfPer`, {
+        x: format(1 + selfPowerBase, 2, true)
+      })
+    }</span>`
+
+    return `${nameHTML}<br>${flavorHTML}<br><br>${levelHTML}<br>${effectHTML}<br>${multHTML}`
+  } else {
+    const selfBaseMultNextLevel = baseAntInfo[tier].masteryInfo.selfSpeedMultipliers[level + 1]
+    const selfPowerBaseNextLevel = (level + 1) * baseAntInfo[tier].masteryInfo.selfPowerIncrement
+    effectHTML = `<span>${
+      i18next.t('ants.mastery.notMaxedSelfAnt', {
+        x: format(selfBaseMult, 2, false),
+        y: format(selfBaseMultNextLevel, 2, false)
+      })
+    }</span>`
+    effectHTML += `<br><span>${
+      i18next.t(`ants.mastery.${tier}.notMaxedSelfPer`, {
+        x: format(1 + selfPowerBase, 3, true),
+        y: format(1 + selfPowerBaseNextLevel, 3, true)
+      })
+    }</span>`
+
+    const autoBuyer = +getAchievementReward('antAutobuyers')
+    let autoBuyerHTML = ''
+    if (autoBuyer >= tier && player.ants.masteries[tier] < player.ants.maxMasteriesPurchased[tier]) {
+      autoBuyerHTML = `<span style="color:lime">${i18next.t('ants.mastery.alreadyPurchased')}</span><br>`
+    }
+
+    const reqELO = baseAntInfo[tier].masteryInfo.totalELORequirements[level]
+    const reqELOHTML = `<span>${
+      i18next.t('ants.mastery.eloRequirement', {
+        x: format(reqELO, 0, true),
+        y: format(player.ants.immortalELO, 0, true)
+      })
+    }</span>`
+
+    const reqParticleCost = baseAntInfo[tier].masteryInfo.particleCosts[level]
+    const reqParticleCostHTML = `<span>${
+      i18next.t('ants.mastery.particleCost', {
+        x: format(reqParticleCost, 0, true, undefined, undefined, true)
+      })
+    }</span>`
+
+    return `${nameHTML}<br>${flavorHTML}<br><br>${levelHTML}<br>${effectHTML}<br>${multHTML}<br><br>${autoBuyerHTML}${reqELOHTML}<br>${reqParticleCostHTML}`
+  }
+}
+
+/**
+ * PART 2: Ant Upgrades (WOAH!)
+ */
+
+type AntUpgradeTypeMap = {
+  antSpeed: { antSpeed: Decimal }
+  coins: {
+    crumbToCoinExp: number
+    coinMultiplier: Decimal
+  }
+  taxes: { taxReduction: number }
+  acceleratorBoosts: { acceleratorBoostMult: number }
+  multipliers: { multiplierMult: number }
+  offerings: { offeringMult: number }
+  obtainium: { obtainiumMult: number }
+  buildingCostScale: { buildingCostScale: number }
+  salvage: { salvage: number }
+  freeRunes: { freeRuneLevel: number }
+  antSacrifice: { antSacrificeMultiplier: number }
+  mortuus: {
+    talismanUnlock: boolean
+    globalSpeed: number
+  }
+}
+
+export type AntUpgradeKeys = keyof AntUpgradeTypeMap
+
+interface AntUpgradeData<K extends AntUpgradeKeys> {
+  baseCost: Decimal
+  costIncrease: number
+  index: number
+  antUpgradeHTML: {
+    color: string
+  }
+  name: () => string
+  intro: () => string
+  description: () => string
+  effect: (n: number) => AntUpgradeTypeMap[K]
+  effectDescription: () => string
+}
+
+export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
+  antSpeed: {
+    baseCost: new Decimal(100),
+    costIncrease: 10,
+    index: 0,
+    antUpgradeHTML: {
+      color: 'crimson'
+    },
+    name: () => i18next.t('ants.upgrades.antSpeed.name'),
+    intro: () => i18next.t('ants.upgrades.antSpeed.intro'),
+    description: () => {
+      let baseMul = 1.1
+      baseMul += player.researches[101] / 1000 // Research 5x1
+      baseMul += player.researches[162] / 1000 // Research 7x12
+      return i18next.t('ants.upgrades.antSpeed.description', { x: format(baseMul, 3, true) })
+    },
+    effect: (n: number) => {
+      let baseMul = 1.1
+      baseMul += player.researches[101] / 1000 // Research 5x1
+      baseMul += player.researches[162] / 1000 // Research 7x12
+      return {
+        antSpeed: Decimal.pow(baseMul, n)
+      }
+    },
+    effectDescription: () => {
+      const antSpeed = getAntUpgradeEffect('antSpeed').antSpeed
+      return i18next.t('ants.upgrades.antSpeed.effect', { x: format(antSpeed, 2, true) })
+    }
+  },
+  coins: {
+    baseCost: new Decimal(100),
+    costIncrease: 10,
+    index: 1,
+    antUpgradeHTML: {
+      color: 'yellow'
+    },
+    name: () => i18next.t('ants.upgrades.coins.name'),
+    intro: () => i18next.t('ants.upgrades.coins.intro'),
+    description: () => i18next.t('ants.upgrades.coins.description'),
+    effect: (n: number) => {
+      let divisor = player.corruptions.used.corruptionEffects('extinction')
+      if (player.currentChallenge.ascension === 15) {
+        divisor *= 1000
+      }
+      const exponent = (99999 + calculateSigmoidExponential(49900001, n / 5000 * 500 / 499)) / divisor
+      const coinMult = Decimal.max(1, Decimal.pow(player.ants.crumbs, exponent))
+      return {
+        crumbToCoinExp: exponent,
+        coinMultiplier: coinMult
+      }
+    },
+    effectDescription: () => {
+      const crumbToCoinExp = getAntUpgradeEffect('coins').crumbToCoinExp
+      const overallEffect = Decimal.max(1, Decimal.pow(player.ants.crumbs, crumbToCoinExp))
+      const effect1 = i18next.t('ants.upgrades.coins.effect', { x: format(crumbToCoinExp, 0, true) })
+      const effect2 = i18next.t('ants.upgrades.coins.effect2', { x: format(overallEffect, 2, true) })
+      return `${effect1}<br>${effect2}`
+    }
+  },
+  taxes: {
+    baseCost: new Decimal(1000),
+    costIncrease: 10,
+    index: 2,
+    antUpgradeHTML: {
+      color: 'lightgray'
+    },
+    name: () => i18next.t('ants.upgrades.taxes.name'),
+    intro: () => i18next.t('ants.upgrades.taxes.intro'),
+    description: () => i18next.t('ants.upgrades.taxes.description'),
+    effect: (n: number) => {
+      return {
+        taxReduction: 0.005 + 0.995 * Math.pow(0.99, n)
+      }
+    },
+    effectDescription: () => {
+      const taxReduction = getAntUpgradeEffect('taxes').taxReduction
+      return i18next.t('ants.upgrades.taxes.effect', { x: formatAsPercentIncrease(taxReduction, 4) })
+    }
+  },
+  acceleratorBoosts: {
+    baseCost: new Decimal(1000),
+    costIncrease: 10,
+    index: 3,
+    antUpgradeHTML: {
+      color: 'cyan'
+    },
+    name: () => i18next.t('ants.upgrades.acceleratorBoosts.name'),
+    intro: () => i18next.t('ants.upgrades.acceleratorBoosts.intro'),
+    description: () => i18next.t('ants.upgrades.acceleratorBoosts.description'),
+    effect: (n: number) => {
+      return {
+        acceleratorBoostMult: calculateSigmoidExponential(40, n / 1000 * 40 / 39)
+      }
+    },
+    effectDescription: () => {
+      const acceleratorBoostMult = getAntUpgradeEffect('acceleratorBoosts').acceleratorBoostMult
+      return i18next.t('ants.upgrades.acceleratorBoosts.effect', {
+        x: formatAsPercentIncrease(acceleratorBoostMult, 2)
+      })
+    }
+  },
+  multipliers: {
+    baseCost: new Decimal(1e5),
+    costIncrease: 100,
+    index: 4,
+    antUpgradeHTML: {
+      color: 'pink'
+    },
+    name: () => i18next.t('ants.upgrades.multipliers.name'),
+    intro: () => i18next.t('ants.upgrades.multipliers.intro'),
+    description: () => i18next.t('ants.upgrades.multipliers.description'),
+    effect: (n: number) => {
+      return {
+        multiplierMult: calculateSigmoidExponential(40, n / 1000 * 80 / 79)
+      }
+    },
+    effectDescription: () => {
+      const multiplierMult = getAntUpgradeEffect('multipliers').multiplierMult
+      return i18next.t('ants.upgrades.multipliers.effect', { x: formatAsPercentIncrease(multiplierMult, 2) })
+    }
+  },
+  offerings: {
+    baseCost: new Decimal(1e6),
+    costIncrease: 100,
+    index: 5,
+    antUpgradeHTML: {
+      color: 'orange'
+    },
+    name: () => i18next.t('ants.upgrades.offerings.name'),
+    intro: () => i18next.t('ants.upgrades.offerings.intro'),
+    description: () => i18next.t('ants.upgrades.offerings.description'),
+    effect: (n: number) => {
+      return {
+        offeringMult: Math.pow(1 + n / 10, 0.5)
+      }
+    },
+    effectDescription: () => {
+      const offeringMult = getAntUpgradeEffect('offerings').offeringMult
+      return i18next.t('ants.upgrades.offerings.effect', { x: formatAsPercentIncrease(offeringMult, 2) })
+    }
+  },
+  obtainium: {
+    baseCost: new Decimal(1e6),
+    costIncrease: 100,
+    index: 9,
+    antUpgradeHTML: {
+      color: 'pink'
+    },
+    name: () => i18next.t('ants.upgrades.obtainium.name'),
+    intro: () => i18next.t('ants.upgrades.obtainium.intro'),
+    description: () => i18next.t('ants.upgrades.obtainium.description'),
+    effect: (n: number) => {
+      return {
+        obtainiumMult: Math.pow(1 + n / 10, 0.5)
+      }
+    },
+    effectDescription: () => {
+      const obtainiumMult = getAntUpgradeEffect('obtainium').obtainiumMult
+      return i18next.t('ants.upgrades.obtainium.effect', { x: formatAsPercentIncrease(obtainiumMult, 2) })
+    }
+  },
+  buildingCostScale: {
+    baseCost: new Decimal(1e11),
+    costIncrease: 100,
+    index: 6,
+    antUpgradeHTML: {
+      color: 'lime'
+    },
+    name: () => i18next.t('ants.upgrades.buildingCostScale.name'),
+    intro: () => i18next.t('ants.upgrades.buildingCostScale.intro'),
+    description: () => i18next.t('ants.upgrades.buildingCostScale.description'),
+    effect: (n: number) => {
+      const scalePercent = Math.min(9999999, 3 * n)
+      return {
+        buildingCostScale: scalePercent / 100
+      }
+    },
+    effectDescription: () => {
+      const buildingCostScale = getAntUpgradeEffect('buildingCostScale').buildingCostScale
+      return i18next.t('ants.upgrades.buildingCostScale.effect', {
+        x: formatAsPercentIncrease(1 + buildingCostScale, 0)
+      })
+    }
+  },
+  salvage: {
+    baseCost: new Decimal(1e15),
+    costIncrease: 1000,
+    index: 7,
+    antUpgradeHTML: {
+      color: 'green'
+    },
+    name: () => i18next.t('ants.upgrades.salvage.name'),
+    intro: () => i18next.t('ants.upgrades.salvage.intro'),
+    description: () => i18next.t('ants.upgrades.salvage.description'),
+    effect: (n: number) => {
+      return {
+        salvage: 120 * (1 - Math.pow(0.995, n))
+      }
+    },
+    effectDescription: () => {
+      const salvage = getAntUpgradeEffect('salvage').salvage
+      return i18next.t('ants.upgrades.salvage.effect', { x: format(salvage, 2) })
+    }
+  },
+  freeRunes: {
+    baseCost: new Decimal(1e20),
+    costIncrease: 1000,
+    index: 8,
+    antUpgradeHTML: {
+      color: 'cyan'
+    },
+    name: () => i18next.t('ants.upgrades.freeRunes.name'),
+    intro: () => i18next.t('ants.upgrades.freeRunes.intro'),
+    description: () => i18next.t('ants.upgrades.freeRunes.description'),
+    effect: (n: number) => {
+      return {
+        freeRuneLevel: 3000 * (1 - Math.pow(1 - 1 / 3000, n))
+      }
+    },
+    effectDescription: () => {
+      const freeRuneLevel = getAntUpgradeEffect('freeRunes').freeRuneLevel
+      return i18next.t('ants.upgrades.freeRunes.effect', { x: format(freeRuneLevel, 0, true) })
+    }
+  },
+  antSacrifice: {
+    baseCost: new Decimal(1e120),
+    costIncrease: 1e20,
+    index: 10,
+    antUpgradeHTML: {
+      color: 'crimson'
+    },
+    name: () => i18next.t('ants.upgrades.antSacrifice.name'),
+    intro: () => i18next.t('ants.upgrades.antSacrifice.intro'),
+    description: () => i18next.t('ants.upgrades.antSacrifice.description'),
+    effect: (n: number) => {
+      return {
+        antSacrificeMultiplier: Math.pow(1 + n / 10, 0.5)
+      }
+    },
+    effectDescription: () => {
+      const antSacrificeMultiplier = getAntUpgradeEffect('antSacrifice').antSacrificeMultiplier
+      return i18next.t('ants.upgrades.antSacrifice.effect', { x: formatAsPercentIncrease(antSacrificeMultiplier, 2) })
+    }
+  },
+  mortuus: {
+    baseCost: new Decimal(1e300),
+    costIncrease: 1e100,
+    index: 11,
+    antUpgradeHTML: {
+      color: 'gray'
+    },
+    name: () => i18next.t('ants.upgrades.mortuus.name'),
+    intro: () => i18next.t('ants.upgrades.mortuus.intro'),
+    description: () => i18next.t('ants.upgrades.mortuus.description'),
+    effect: (n: number) => {
+      return {
+        talismanUnlock: n > 0,
+        globalSpeed: 2 - Math.pow(0.99, n)
+      }
+    },
+    effectDescription: () => {
+      const effects = getAntUpgradeEffect('mortuus')
+      const effect1 = i18next.t('ants.upgrades.mortuus.effect', { checkMark: effects.talismanUnlock ? '✔️' : '❌' })
+      const effect2 = i18next.t('ants.upgrades.mortuus.effect2', { x: formatAsPercentIncrease(effects.globalSpeed, 2) })
+      return `${effect1}<br>${effect2}`
+    }
+  }
+}
+
+export const antUpgradeKeys = Object.keys(antUpgrades) as AntUpgradeKeys[]
+
+export const computeFreeAntUpgradeLevels = () => {
+  let bonusLevels = 0
+  bonusLevels += CalcECC('reincarnation', player.challengecompletions[9])
+  bonusLevels += 2000 * (1 - Math.pow(0.999, player.constantUpgrades[6]))
+  bonusLevels += 12 * CalcECC('ascension', player.challengecompletions[11])
+  bonusLevels += 4 * player.researches[97]
+  bonusLevels += player.researches[102]
+  bonusLevels += 2 * player.researches[132]
+  bonusLevels += Math.floor((1 / 200) * player.researches[200])
+  bonusLevels *= G.challenge15Rewards.bonusAntLevel.value
+
+  if (player.currentChallenge.ascension === 11) {
+    bonusLevels += Math.floor(
+      (4 * player.challengecompletions[8]
+        + 23 * player.challengecompletions[9])
+        * Math.max(0, 1 - player.challengecompletions[11] / 10)
+    )
+    return bonusLevels
+  }
+
+  return bonusLevels
+}
+
+export const calculateTrueAntLevel = (i: number) => {
+  const freeLevels = computeFreeAntUpgradeLevels()
+  const corruptionDivisor = player.corruptions.used.corruptionEffects('extinction')
+  if (player.currentChallenge.ascension === 11) {
+    return freeLevels / corruptionDivisor
+  } else {
+    return (player.ants.upgrades[i]
+      + Math.min(player.ants.upgrades[i], freeLevels)) / corruptionDivisor
+  }
+}
+
+export const calculateTrueAntLevelFromKey = (key: AntUpgradeKeys) => {
+  const index = antUpgrades[key].index
+  return calculateTrueAntLevel(index)
+}
+
+export const getAntUpgradeEffect = <K extends AntUpgradeKeys>(key: K): AntUpgradeTypeMap[K] => {
+  const index = antUpgrades[key].index
+  const actualLevel = calculateTrueAntLevel(index)
+  return antUpgrades[key].effect(actualLevel)
+}
+
+export const getCostNextAntUpgrade = (upgrade: AntUpgradeKeys) => {
+  const data = antUpgrades[upgrade]
+  const nextCost = data.baseCost.times(
+    Decimal.pow(
+      data.costIncrease,
+      player.ants.upgrades[data.index]
+    )
+  )
+  const lastCost = player.ants.upgrades[data.index] > 0
+    ? data.baseCost.times(
+      Decimal.pow(
+        data.costIncrease,
+        player.ants.upgrades[data.index] - 1
+      )
+    )
+    : new Decimal(0)
+  return nextCost.sub(lastCost)
+}
+
+export const getCostMaxAntUpgrades = (upgrade: AntUpgradeKeys) => {
+  const maxBuyable = getMaxPurchasableAntUpgrades(upgrade, player.ants.crumbs)
+  const data = antUpgrades[upgrade]
+
+  const spent = player.ants.upgrades[data.index] > 0
+    ? Decimal.pow(data.costIncrease, player.ants.upgrades[data.index] - 1).times(data.baseCost)
+    : new Decimal(0)
+
+  const maxAntUpgradeCost = Decimal.pow(data.costIncrease, maxBuyable - 1).times(data.baseCost)
+
+  return maxAntUpgradeCost.sub(spent)
+}
+
+export const getMaxPurchasableAntUpgrades = (upgrade: AntUpgradeKeys, budget: Decimal): number => {
+  const data = antUpgrades[upgrade]
+  const sunkCost = player.ants.upgrades[data.index] > 0
+    ? data.baseCost.times(
+      Decimal.pow(
+        data.costIncrease,
+        player.ants.upgrades[data.index] - 1
+      )
+    )
+    : new Decimal(0)
+  const realBudget = budget.add(sunkCost)
+
+  return Math.max(0, 1 + Math.floor(Decimal.log(realBudget.div(data.baseCost), data.costIncrease)))
+}
+
+export const buyAntUpgrade = (upgrade: AntUpgradeKeys, max: boolean) => {
+  const data = antUpgrades[upgrade]
+  if (max) {
+    const buyTo = getMaxPurchasableAntUpgrades(upgrade, player.ants.crumbs)
+    if (buyTo <= player.ants.upgrades[data.index]) {
+      return
+    } else {
+      const cost = getCostMaxAntUpgrades(upgrade)
+      if (player.ants.crumbs.gte(cost)) {
+        player.ants.crumbs = player.ants.crumbs.sub(cost)
+        player.ants.upgrades[data.index] = buyTo
+      }
+    }
+  } else {
+    const cost = getCostNextAntUpgrade(upgrade)
+    if (player.ants.crumbs.gte(cost)) {
+      player.ants.crumbs = player.ants.crumbs.sub(cost)
+      player.ants.upgrades[data.index] += 1
+    }
+  }
+}
+
+export const autoBuyAntUpgrades = () => {
+  const upgradesUnlocked = +getAchievementReward('antUpgradeAutobuyers')
+  for (const key of antUpgradeKeys) {
+    const index = antUpgrades[key].index
+    if (index < upgradesUnlocked) {
+      buyAntUpgrade(key, player.antMax)
+    }
+  }
+
+  // The way mortuus autobuy is unlocked is
+  // research 6x20. The above loop won't catch it!
+  if (player.researches[145] > 0) {
+    buyAntUpgrade('mortuus', player.antMax)
+  }
+}
+
+export const antUpgradeHTML = (key: AntUpgradeKeys) => {
+  const nameHTML = `<span style="font-size: 1.2em;" class="titleTextFont">${antUpgrades[key].name()}</span>`
+  const introHTML = `<span class="titleTextFont" style="color: lightgray">${antUpgrades[key].intro()}</span>`
+
+  const index = antUpgrades[key].index
+  const freeLevels = computeFreeAntUpgradeLevels()
+  const levelHTML = `<span class="crimsonText">${
+    i18next.t('ants.level', { x: format(player.ants.upgrades[index], 0, true), y: format(freeLevels, 0, true) })
+  }</span>`
+
+  let challengeHTML = ''
+  if (player.currentChallenge.ascension === 11) {
+    challengeHTML = `<br><span style="color: orange">${i18next.t('ants.challenge11Modifier')}</span>`
+  }
+
+  let extinctionHTML = ''
+  if (player.corruptions.used.extinction > 0) {
+    extinctionHTML = `<br><span style="color: #00DDFF">${
+      i18next.t('ants.corruptionDivisor', {
+        x: format(player.corruptions.used.extinction, 0, true),
+        y: format(player.corruptions.used.corruptionEffects('extinction'), 0, true)
+      })
+    }</span>`
+  }
+  const effectiveLevelHTML = `<span><b>${
+    i18next.t('ants.effectiveLevel', { level: format(calculateTrueAntLevel(index), 2, true) })
+  }</b></span>`
+
+  const descriptionHTML = `<span>${antUpgrades[key].description()}</span>`
+
+  const effectHTML = `<span style="color: gold">${antUpgrades[key].effectDescription()}</span>`
+
+  let costHTML: string
+  const maxBuy = getMaxPurchasableAntUpgrades(key, player.ants.crumbs)
+  if (player.antMax && maxBuy > player.ants.upgrades[index]) {
+    const cost = getCostMaxAntUpgrades(key)
+    costHTML = i18next.t('ants.costMaxLevels', {
+      x: format(maxBuy - player.ants.upgrades[index], 0, true),
+      y: format(cost, 2, true)
+    })
+  } else {
+    const cost = getCostNextAntUpgrade(key)
+    costHTML = i18next.t('ants.costSingleLevel', { x: format(cost, 2, true) })
+  }
+
+  return `${nameHTML}<br>${introHTML}<br><br>${levelHTML}${challengeHTML}${extinctionHTML}<br>${effectiveLevelHTML}<br><br>${descriptionHTML}<br>${effectHTML}<br><br>${costHTML}`
+}
+
+export const calculateRebornELOThresholds = (elo?: number) => {
+  const rebornELO = elo ?? player.ants.rebornELO
+  let thresholds = 0
+
+  thresholds += Math.floor(Math.min(100, rebornELO / 100))
+  thresholds += Math.floor(Math.min(100, Math.max(0, (rebornELO - 10_000) / 1000)))
+  thresholds += Math.floor(Math.min(100, Math.max(0, (rebornELO - 110_000) / 3000)))
+  thresholds += Math.floor(Math.min(700, Math.max(0, (rebornELO - 410_000) / 20000)))
+  thresholds += Math.floor(Math.max(0, (rebornELO - 14_410_000) / 100000))
+  return thresholds
+}
+
+export const thresholdModifiers = () => {
+  const thresholds = calculateRebornELOThresholds()
+  return {
+    rebornSpeedMult: Math.pow(0.99, thresholds),
+    antSacrificeObtainiumMult: Math.pow(1.05, thresholds),
+    antSacrificeOfferingMult: Math.pow(1.05, thresholds),
+    antSacrificeTalismanFragmentMult: Math.pow(1.2, thresholds)
+  }
 }
 
 export const showSacrifice = () => {
   const sacRewards = calculateAntSacrificeRewards()
-  DOMCacheGetOrSet('antSacrificeSummary').style.display = 'block'
 
   const baseELO = calculateBaseAntELO()
   const effectiveELO = calculateEffectiveAntELO(baseELO)
@@ -305,84 +1370,156 @@ export const showSacrifice = () => {
     x: format(effectiveELO, 2, true)
   })
 
-  DOMCacheGetOrSet('SacrificeMultiplier').innerHTML = i18next.t('ants.antSacMultiplier', {
-    y: format(antSacrificePointsToMultiplier(player.antSacrificePoints), 3, false),
-    x: format(antSacrificePointsToMultiplier(player.antSacrificePoints + sacRewards.antSacrificePoints), 3, false)
-  })
-
-  DOMCacheGetOrSet('SacrificeUpgradeMultiplier').innerHTML = i18next.t('ants.upgradeMultiplier', {
+  DOMCacheGetOrSet('sacrificeUpgradeMultiplier').innerHTML = i18next.t('ants.altarRewardMultiplier', {
     x: format(calculateAntSacrificeMultiplier(), 3, true)
   })
 
-  DOMCacheGetOrSet('SacrificeTimeMultiplier').innerHTML = i18next.t('ants.timeMultiplier', {
+  DOMCacheGetOrSet('sacrificeTimeMultiplier').innerHTML = i18next.t('ants.altarTimeMultiplier', {
     x: format(timeMultiplier, 3, true)
   })
 
   DOMCacheGetOrSet('immortalELO').innerHTML = i18next.t('ants.immortalELO', {
-    x: format(player.antSacrificePoints, 0, true)
+    x: format(player.ants.immortalELO, 0, true)
   })
+  DOMCacheGetOrSet('activatedImmortalELO').innerHTML = i18next.t('ants.activatedImmortalELO', {
+    x: format(player.ants.rebornELO, 2, true),
+    y: format(calculateAvailableActivatableELO(), 2, true)
+  })
+
+  DOMCacheGetOrSet('ELOStage').innerHTML = i18next.t('ants.eloStage', {
+    x: format(calculateRebornELOThresholds(), 0, true)
+  })
+
   DOMCacheGetOrSet('immortalELOAntSpeed').innerHTML = i18next.t('ants.immortalELOAntSpeed', {
-    x: format(antSacrificePointsToMultiplier(player.antSacrificePoints), 3, false)
+    x: format(calculateAntSpeedMultFromELO(), 2, true)
   })
 
-  DOMCacheGetOrSet('immortalELOGain').innerHTML = i18next.t('ants.immortalELOGain', {
-    x: format(sacRewards.antSacrificePoints, 0, true)
+  const thresholdMods = thresholdModifiers()
+
+  DOMCacheGetOrSet('immortalELOOfferings').innerHTML = i18next.t('ants.rebornOfferingMult', {
+    x: format(thresholdMods.antSacrificeOfferingMult, 2, false)
+  })
+  DOMCacheGetOrSet('immortalELOObtainium').innerHTML = i18next.t('ants.rebornObtainiumMult', {
+    x: format(thresholdMods.antSacrificeObtainiumMult, 2, false)
+  })
+  DOMCacheGetOrSet('immortalELOTalismanFragments').innerHTML = i18next.t('ants.rebornTalismanShardMult', {
+    x: format(thresholdMods.antSacrificeTalismanFragmentMult, 2, false)
   })
 
-  DOMCacheGetOrSet('SacrificeOfferingMultiplier').innerHTML = i18next.t('ants.offeringMultiplier', {
-    x: format(calculateAntSacrificeOfferingMultiplier().plus(1), 3, true)
+  DOMCacheGetOrSet('immortalELOCreationSpeed').innerHTML = i18next.t('ants.rebornELOGainSpeed', {
+    x: format(thresholdMods.rebornSpeedMult, 3, true)
   })
 
-  DOMCacheGetOrSet('SacrificeObtainiumMultiplier').innerHTML = i18next.t('ants.obtainiumMultiplier', {
-    x: format(calculateAntSacrificeObtainiumMultiplier().plus(1), 3, true)
-  })
+  if (player.ants.immortalELO < effectiveELO) {
+    DOMCacheGetOrSet('immortalELOGain').innerHTML = i18next.t('ants.immortalELOGain', {
+      x: format(sacRewards.antSacrificePoints, 0, true)
+    })
+  } else {
+    DOMCacheGetOrSet('immortalELOGain').innerHTML = i18next.t('ants.immortalELOUntilGain', {
+      x: format(player.ants.immortalELO - effectiveELO, 0, true)
+    })
+  }
 
   DOMCacheGetOrSet('antSacrificeOffering').textContent = `+${format(sacRewards.offerings)}`
   DOMCacheGetOrSet('antSacrificeObtainium').textContent = `+${format(sacRewards.obtainium)}`
+
+  // ELO requirements for each reward type
+  const eloRequirements = {
+    talismanShards: 200,
+    commonFragments: 400,
+    uncommonFragments: 700,
+    rareFragments: 1200,
+    epicFragments: 2000,
+    legendaryFragments: 4000,
+    mythicalFragments: 10000
+  }
+
   if (player.challengecompletions[9] > 0) {
-    DOMCacheGetOrSet('antSacrificeTalismanShard').textContent = i18next.t('ants.elo', {
-      x: format(sacRewards.talismanShards),
-      y: 500
-    })
-    DOMCacheGetOrSet('antSacrificeCommonFragment').textContent = i18next.t('ants.elo', {
-      x: format(sacRewards.commonFragments),
-      y: 750
-    })
-    DOMCacheGetOrSet('antSacrificeUncommonFragment').textContent = i18next.t('ants.elo', {
-      x: format(sacRewards.uncommonFragments),
-      y: 1000
-    })
-    DOMCacheGetOrSet('antSacrificeRareFragment').textContent = i18next.t('ants.elo', {
-      x: format(sacRewards.rareFragments),
-      y: 1500
-    })
-    DOMCacheGetOrSet('antSacrificeEpicFragment').textContent = i18next.t('ants.elo', {
-      x: format(sacRewards.epicFragments),
-      y: 2000
-    })
-    DOMCacheGetOrSet('antSacrificeLegendaryFragment').textContent = i18next.t('ants.elo', {
-      x: format(sacRewards.legendaryFragments),
-      y: 3000
-    })
-    DOMCacheGetOrSet('antSacrificeMythicalFragment').textContent = i18next.t('ants.elo', {
-      x: format(sacRewards.mythicalFragments),
-      y: 5000
-    })
+    // Helper function to update reward display and styling
+    const updateRewardDisplay = (elementId: string, reward: Decimal, requirement: number, parentElementClass?: string) => {
+      const element = DOMCacheGetOrSet(elementId)
+      const parentElement = parentElementClass ? element.closest(`.${parentElementClass}`) : element.parentElement
+
+      if (effectiveELO >= requirement) {
+        // Unlocked: show reward amount, remove locked styling
+        element.textContent = i18next.t('ants.elo', { x: format(reward) })
+        if (parentElement) {
+          parentElement.classList.remove('antSacrificeRewardLocked')
+        }
+        const img = parentElement?.querySelector('img')
+        if (img) {
+          img.classList.remove('antSacrificeRewardImageLocked')
+        }
+      } else {
+        // Locked: show ELO requirement, add locked styling
+        element.textContent = i18next.t('ants.eloRequirement', { x: format(requirement, 0, true) })
+        if (parentElement) {
+          parentElement.classList.add('antSacrificeRewardLocked')
+        }
+        const img = parentElement?.querySelector('img')
+        if (img) {
+          img.classList.add('antSacrificeRewardImageLocked')
+        }
+      }
+    }
+
+    updateRewardDisplay(
+      'antSacrificeTalismanShard',
+      sacRewards.talismanShards,
+      eloRequirements.talismanShards,
+      'antSacrificeRewardColumn'
+    )
+    updateRewardDisplay(
+      'antSacrificeCommonFragment',
+      sacRewards.commonFragments,
+      eloRequirements.commonFragments,
+      'antSacrificeRewardColumn'
+    )
+    updateRewardDisplay(
+      'antSacrificeUncommonFragment',
+      sacRewards.uncommonFragments,
+      eloRequirements.uncommonFragments,
+      'antSacrificeRewardColumn'
+    )
+    updateRewardDisplay(
+      'antSacrificeRareFragment',
+      sacRewards.rareFragments,
+      eloRequirements.rareFragments,
+      'antSacrificeRewardColumn'
+    )
+    updateRewardDisplay(
+      'antSacrificeEpicFragment',
+      sacRewards.epicFragments,
+      eloRequirements.epicFragments,
+      'antSacrificeRewardColumn'
+    )
+    updateRewardDisplay(
+      'antSacrificeLegendaryFragment',
+      sacRewards.legendaryFragments,
+      eloRequirements.legendaryFragments,
+      'antSacrificeRewardColumn'
+    )
+    updateRewardDisplay(
+      'antSacrificeMythicalFragment',
+      sacRewards.mythicalFragments,
+      eloRequirements.mythicalFragments,
+      'antSacrificeRewardColumn'
+    )
   }
 }
 
 export const sacrificeAnts = async (auto = false) => {
   let p = true
 
-  if (player.antPoints.gte('1e40')) {
+  if (player.ants.crumbs.gte('1e100')) {
     if (!auto && player.toggles[32]) {
       p = await Confirm(i18next.t('ants.autoReset'))
     }
     if (p) {
-      const antSacrificePointsBefore = player.antSacrificePoints
+      const antSacrificePointsBefore = player.ants.immortalELO
 
       const sacRewards = calculateAntSacrificeRewards()
-      player.antSacrificePoints += sacRewards.antSacrificePoints
+      player.ants.immortalELO += sacRewards.antSacrificePoints
       player.offerings = player.offerings.add(sacRewards.offerings)
 
       if (player.currentChallenge.ascension !== 14) {
@@ -391,6 +1528,9 @@ export const sacrificeAnts = async (auto = false) => {
 
       const baseELO = calculateBaseAntELO()
       const effectiveELO = calculateEffectiveAntELO(baseELO)
+      const crumbsPerSecond = player.antSacrificeTimer > 0
+        ? player.ants.crumbs.div(player.antSacrificeTimer)
+        : 0
 
       const historyEntry: ResetHistoryEntryAntSacrifice = {
         date: Date.now(),
@@ -399,11 +1539,11 @@ export const sacrificeAnts = async (auto = false) => {
         offerings: sacRewards.offerings,
         obtainium: sacRewards.obtainium,
         antSacrificePointsBefore,
-        antSacrificePointsAfter: player.antSacrificePoints,
+        antSacrificePointsAfter: player.ants.immortalELO,
         baseELO: baseELO,
         effectiveELO: effectiveELO,
-        crumbs: player.antPoints.toString(),
-        crumbsPerSecond: G.antOneProduce.toString()
+        crumbs: player.ants.crumbs.toString(),
+        crumbsPerSecond: crumbsPerSecond.toString()
       }
 
       if (player.challengecompletions[9] > 0) {
@@ -420,8 +1560,11 @@ export const sacrificeAnts = async (auto = false) => {
       resetAnts()
       player.antSacrificeTimer = 0
       player.antSacrificeTimerReal = 0
+      player.ants.antSacrificeCount += 1
+      player.ants.currentSacrificeId += 1
       updateTalismanInventory()
       resetHistoryAdd('ants', historyEntry)
+      awardAchievementGroup('sacMult')
     }
   }
 
@@ -430,35 +1573,234 @@ export const sacrificeAnts = async (auto = false) => {
   }
 }
 
-export const autoBuyAnts = () => {
-  const canAffordUpgrade = (x: number, m: DecimalSource) =>
-    player.antPoints.gte(
-      getAntUpgradeCost(new Decimal(G.antUpgradeBaseCost[x - 1]), player.antUpgrades[x - 1]! + 1, x).times(m)
-    )
+export const calculateAvailableActivatableELO = () => {
+  const pool = player.ants.immortalELO
+  const alreadyActivated = player.ants.rebornELO
+  const currentELO = calculateEffectiveAntELO()
+  return Math.max(0, Math.min(pool, currentELO) - alreadyActivated)
+}
 
-  const cost = ['100', '100', '1000', '1000', '1e5', '1e6', '1e8', '1e11', '1e15', '1e20', '1e40', '1e100']
-  if (player.currentChallenge.ascension !== 11) {
-    for (let i = 1; i <= 12; i++) {
-      const check = i === 12 ? player.researches[145] > 0 : +getAchievementReward('antUpgradeAutobuyers') >= i
-      if (check && canAffordUpgrade(i, 2)) {
-        buyAntUpgrade(cost[i - 1], true, i)
-      }
+export const activationSpeedMult = () => {
+  let multiplier = 1
+  if (player.ants.purchased[4] > 0) {
+    multiplier *= 1.15
+  }
+  if (player.ants.purchased[5] > 0) {
+    multiplier *= 1.25
+  }
+  if (player.ants.purchased[6] > 0) {
+    multiplier *= 1.4
+  }
+  if (player.ants.purchased[7] > 0) {
+    multiplier *= 2
+  }
+  multiplier *= 1 + 0.1 * player.upgrades[124]
+  multiplier *= calculateAntELOCubeBlessing()
+  multiplier *= +getAchievementReward('antELOMultiplicative')
+  multiplier *= 1 + player.researches[110] / 100
+  multiplier *= 1 + player.researches[148] / 100
+  multiplier *= 1 + player.platonicUpgrades[12] / 10
+  multiplier *= getTalismanEffects('mortuus').antBonus
+  multiplier *= thresholdModifiers().rebornSpeedMult
+  return multiplier
+}
+
+export const activateELO = (dt: number) => {
+  const toActivate = calculateAvailableActivatableELO()
+  if (toActivate > 0) {
+    const activationSpeed = dt * activationSpeedMult()
+    const decayedGain = toActivate * (1 - Math.pow(0.999, activationSpeed))
+    const linearGain = 100 * activationSpeed
+    const actualGain = Math.min(decayedGain, linearGain)
+    player.ants.rebornELO += actualGain
+
+    // Make it so that *eventually* the ELO is fully activated
+    const smallLeak = Math.min(0.001 * activationSpeed, toActivate - actualGain)
+    player.ants.rebornELO += smallLeak
+  }
+  updateAntLeaderboards()
+  const quarksToBeGained = availableQuarksFromELO()
+  player.worlds.add(quarksToBeGained, false)
+  player.ants.quarksGainedFromAnts += quarksToBeGained
+}
+
+export const calculateAntSpeedMultFromELO = () => {
+  return Decimal.pow(1.02, player.ants.rebornELO)
+}
+
+export const quarksFromELOMult = () => {
+  const lifetimeTotalELOValue = calculateLeaderboardValue(player.ants.highestRebornELOEver)
+  const numStages = calculateRebornELOThresholds(lifetimeTotalELOValue)
+  return 2 - Math.pow(0.8, numStages / 100)
+}
+
+export const availableQuarksFromELO = () => {
+  const totalELOValue = calculateLeaderboardValue(player.ants.highestRebornELODaily)
+  const numStages = calculateRebornELOThresholds(totalELOValue)
+  let baseQuarks = 0
+  baseQuarks += Math.min(100, numStages)
+  baseQuarks += 2 * Math.min(100, Math.max(0, numStages - 100))
+  baseQuarks += 3 * Math.min(100, Math.max(0, numStages - 200))
+  baseQuarks += 4 * Math.min(700, Math.max(0, numStages - 300))
+  baseQuarks += 5 * Math.max(0, numStages - 1000)
+
+  const antQuarkMult = quarksFromELOMult()
+  return player.worlds.applyBonus(baseQuarks) * antQuarkMult - player.ants.quarksGainedFromAnts
+}
+
+let ELOInformation: 'overview' | 'info' = 'overview'
+
+export const toggleRebornELOInfo = () => {
+  ELOInformation = ELOInformation === 'overview' ? 'info' : 'overview'
+  const info = DOMCacheGetOrSet('immortalELOInfo')
+  const overview = DOMCacheGetOrSet('immortalELOOverview')
+  const toggleButton = DOMCacheGetOrSet('immortalELOInfoToggleButton')
+
+  if (ELOInformation === 'overview') {
+    info.style.display = 'none'
+    overview.style.display = 'flex'
+  } else {
+    info.style.display = 'flex'
+    overview.style.display = 'none'
+  }
+
+  const mode = ELOInformation === 'overview' ? 'toggleOverview' : 'toggleInfo'
+  toggleButton.setAttribute('data-mode', ELOInformation)
+  toggleButton.querySelector('span')!.textContent = i18next.t(`ants.compendium.${mode}`)
+  toggleButton.querySelector('span')!.setAttribute('i18n', `ants.compendium.${mode}`)
+}
+
+/**
+ * PART 3: Ant ELO Leaderboard System
+ */
+
+const LEADERBOARD_WEIGHTS = [1, 0.7, 0.5, 0.3, 0.2, 0.15, 0.1, 0.05]
+
+export const updateAntLeaderboards = () => {
+  const currentELO = player.ants.rebornELO
+  const currentSacrificeId = player.ants.currentSacrificeId
+
+  // Update daily leaderboard
+  updateSingleLeaderboard(player.ants.highestRebornELODaily, currentELO, currentSacrificeId)
+
+  // Update all-time leaderboard
+  updateSingleLeaderboard(player.ants.highestRebornELOEver, currentELO, currentSacrificeId)
+}
+
+const updateSingleLeaderboard = (
+  leaderboard: Array<{ elo: number; sacrificeId: number }>,
+  currentELO: number,
+  currentSacrificeId: number
+) => {
+  // First, check if currentELO suffices (if it does not... no action needed)
+  if (leaderboard.length === 8) {
+    if (currentELO < leaderboard[leaderboard.length - 1].elo) {
+      return
     }
   }
 
-  const _cost = ['1e700', '3', '100', '10000', '1e12', '1e36', '1e100', '1e300']
-  for (let i = 1; i <= 8; i++) {
-    const res = i === 1 ? player.reincarnationPoints : player.antPoints
-    const m = i === 1 ? 1 : 2 // no multiplier on the first ant cost because it costs particles
-    if (
-      +getAchievementReward('antAutobuyers') >= i
-      && res.gte(player[`${G.ordinals[i - 1 as ZeroToSeven]}CostAnts` as const].times(m))
-    ) {
-      buyAntProducers(
-        G.ordinals[i - 1] as Parameters<typeof buyAntProducers>[0],
-        _cost[i - 1],
-        i
-      )
+  // Find if current sacrifice is already in the leaderboard
+  const existingIndex = leaderboard.findIndex((entry) => entry.sacrificeId === currentSacrificeId)
+  if (existingIndex !== -1) {
+    // Update existing entry
+    leaderboard[existingIndex].elo = currentELO
+    if (existingIndex > 0 && leaderboard[existingIndex].elo > leaderboard[existingIndex - 1].elo) {
+      // Sort again
+      leaderboard.sort((a, b) => b.elo - a.elo)
     }
+  } else {
+    // Add new entry
+    leaderboard.push({ elo: currentELO, sacrificeId: currentSacrificeId })
+    leaderboard.sort((a, b) => b.elo - a.elo)
+  }
+
+  // Keep only top 8
+  if (leaderboard.length > 8) {
+    leaderboard.length = 8
+  }
+}
+
+export const calculateLeaderboardValue = (leaderboard: Array<{ elo: number; sacrificeId: number }>): number => {
+  let total = 0
+  for (let i = 0; i < Math.min(leaderboard.length, LEADERBOARD_WEIGHTS.length); i++) {
+    total += leaderboard[i].elo * LEADERBOARD_WEIGHTS[i]
+  }
+  return total
+}
+
+export const clearDailyLeaderboard = () => {
+  player.ants.highestRebornELODaily = []
+}
+
+let currentLeaderboardMode: 'daily' | 'allTime' = 'daily'
+
+export const toggleLeaderboardMode = () => {
+  currentLeaderboardMode = currentLeaderboardMode === 'daily' ? 'allTime' : 'daily'
+  updateLeaderboardUI()
+}
+
+export const updateLeaderboardUI = () => {
+  const leaderboard = currentLeaderboardMode === 'daily'
+    ? player.ants.highestRebornELODaily
+    : player.ants.highestRebornELOEver
+
+  // Update toggle button text
+  const toggleButton = DOMCacheGetOrSet('antLeaderboardToggle')
+  const modeKey = currentLeaderboardMode === 'daily' ? 'toggleDaily' : 'toggleAllTime'
+  toggleButton.querySelector('span')!.setAttribute('i18n', `ants.leaderboard.${modeKey}`)
+  toggleButton.querySelector('span')!.textContent = i18next.t(`ants.leaderboard.${modeKey}`)
+  toggleButton.setAttribute('data-mode', currentLeaderboardMode)
+
+  // Update leaderboard value
+  const leaderboardValue = calculateLeaderboardValue(leaderboard)
+  DOMCacheGetOrSet('antLeaderboardValueAmount').innerHTML = i18next.t('ants.leaderboard.value', {
+    x: format(leaderboardValue, 0, true),
+    y: format(calculateRebornELOThresholds(leaderboardValue), 0, true)
+  })
+
+  if (currentLeaderboardMode === 'daily') {
+    DOMCacheGetOrSet('antLeaderboardQuarkValueAmount').innerHTML = i18next.t('ants.leaderboard.quarksGained', {
+      x: format(player.ants.quarksGainedFromAnts, 0, false)
+    })
+  } else {
+    DOMCacheGetOrSet('antLeaderboardQuarkValueAmount').innerHTML = i18next.t('ants.leaderboard.quarkMult', {
+      x: formatAsPercentIncrease(quarksFromELOMult(), 2)
+    })
+  }
+
+  // Update table rows
+  const tbody = DOMCacheGetOrSet('antLeaderboardTableBody')
+  tbody.innerHTML = ''
+
+  const currentSacrificeId = player.ants.currentSacrificeId
+
+  for (let i = 0; i < leaderboard.length; i++) {
+    const entry = leaderboard[i]
+    const row = document.createElement('tr')
+
+    // Highlight current ongoing sacrifice
+    if (entry.sacrificeId === currentSacrificeId) {
+      row.classList.add('antLeaderboardCurrentSacrifice')
+    }
+
+    // Rank column
+    const rankCell = document.createElement('td')
+    rankCell.textContent = `#${i + 1}`
+    row.appendChild(rankCell)
+
+    // ELO column
+    const eloCell = document.createElement('td')
+    eloCell.textContent = format(entry.elo, 0, true)
+    row.appendChild(eloCell)
+
+    const stageCell = document.createElement('td')
+    stageCell.textContent = format(calculateRebornELOThresholds(entry.elo), 0, true)
+    row.appendChild(stageCell)
+
+    const weightCell = document.createElement('td')
+    weightCell.textContent = `${LEADERBOARD_WEIGHTS[i]}`
+    row.appendChild(weightCell)
+
+    tbody.appendChild(row)
   }
 }

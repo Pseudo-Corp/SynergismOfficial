@@ -14,7 +14,7 @@ import {
   highestChallengeRewards,
   runChallengeSweep
 } from './Challenges'
-import { btoa, sumContents } from './Utility'
+import { btoa } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -35,7 +35,13 @@ import {
   updateAllUngroupedAchievementProgress,
   updateProgressiveCache
 } from './Achievements'
-import { autoBuyAnts, calculateCrumbToCoinExp } from './Ants'
+import {
+  autobuyAntMasteries,
+  autobuyAntProducers,
+  autoBuyAntUpgrades,
+  generateAntsAndCrumbs,
+  getAntUpgradeEffect
+} from './Ants'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
 import {
@@ -52,13 +58,11 @@ import {
 } from './Buy'
 import {
   calculateAcceleratorMultiplier,
-  calculateAnts,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateObtainium,
   calculateOfferings,
   calculateOffline,
-  calculateSigmoidExponential,
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
   dailyResetCheck,
@@ -110,7 +114,7 @@ import {
   sumOfRuneLevels,
   updateAllRuneLevelsFromEXP
 } from './Runes'
-import { antSpeedStats, c15RewardUpdate, statLineDecimalMultiplication } from './Statistics'
+import { c15RewardUpdate } from './Statistics'
 import {
   buyTalismanLevelToRarityIncrease,
   generateTalismansHTML,
@@ -196,12 +200,7 @@ import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
 import { fetchUnreadMessages } from './Messages'
-import {
-  blankOcteractLevelObject,
-  getOcteractUpgradeEffect,
-  type OcteractDataKeys,
-  octeractUpgrades
-} from './Octeracts'
+import { blankOcteractLevelObject, type OcteractDataKeys, octeractUpgrades } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -355,45 +354,23 @@ export const player: Player = {
   fifthCostParticles: new Decimal('1e16'),
   fifthProduceParticles: 0.5,
 
-  firstOwnedAnts: 0,
-  firstGeneratedAnts: new Decimal('0'),
-  firstCostAnts: new Decimal('1e700'),
-  firstProduceAnts: 0.0001,
-
-  secondOwnedAnts: 0,
-  secondGeneratedAnts: new Decimal('0'),
-  secondCostAnts: new Decimal('3'),
-  secondProduceAnts: 0.00005,
-
-  thirdOwnedAnts: 0,
-  thirdGeneratedAnts: new Decimal('0'),
-  thirdCostAnts: new Decimal('100'),
-  thirdProduceAnts: 0.00002,
-
-  fourthOwnedAnts: 0,
-  fourthGeneratedAnts: new Decimal('0'),
-  fourthCostAnts: new Decimal('1e4'),
-  fourthProduceAnts: 0.00001,
-
-  fifthOwnedAnts: 0,
-  fifthGeneratedAnts: new Decimal('0'),
-  fifthCostAnts: new Decimal('1e12'),
-  fifthProduceAnts: 0.000005,
-
-  sixthOwnedAnts: 0,
-  sixthGeneratedAnts: new Decimal('0'),
-  sixthCostAnts: new Decimal('1e36'),
-  sixthProduceAnts: 0.000002,
-
-  seventhOwnedAnts: 0,
-  seventhGeneratedAnts: new Decimal('0'),
-  seventhCostAnts: new Decimal('1e100'),
-  seventhProduceAnts: 0.000001,
-
-  eighthOwnedAnts: 0,
-  eighthGeneratedAnts: new Decimal('0'),
-  eighthCostAnts: new Decimal('1e300'),
-  eighthProduceAnts: 0.00000001,
+  ants: {
+    purchased: Array(8).fill(0) as number[],
+    generated: Array(8).fill(new Decimal(0)) as Decimal[],
+    masteries: Array(8).fill(0) as number[],
+    maxMasteriesPurchased: Array(8).fill(0) as number[],
+    upgrades: Array(12).fill(0) as number[],
+    crumbs: new Decimal('1'),
+    highestCrumbsThisSacrifice: new Decimal('1'),
+    highestCrumbsEver: new Decimal('1'),
+    immortalELO: 0,
+    rebornELO: 0,
+    highestRebornELODaily: [],
+    highestRebornELOEver: [],
+    quarksGainedFromAnts: 0,
+    antSacrificeCount: 0,
+    currentSacrificeId: 0
+  },
 
   ascendBuilding1: {
     cost: 1,
@@ -766,9 +743,6 @@ export const player: Player = {
   quarkstimer: 90000,
   goldenQuarksTimer: 90000,
 
-  antPoints: new Decimal('1'),
-  antUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  antSacrificePoints: 0,
   antSacrificeTimer: 0,
   antSacrificeTimerReal: 0,
 
@@ -1424,11 +1398,6 @@ const loadSynergy = () => {
       player.loaded10101 = false
     }
 
-    if (player.firstOwnedAnts < 1 && player.firstCostAnts.gte('1e1200')) {
-      player.firstCostAnts = new Decimal('1e700')
-      player.firstOwnedAnts = 0
-    }
-
     // Does this need to be kept here?
     if (player.transcendCount < 0) {
       player.transcendCount = 0
@@ -1584,8 +1553,6 @@ const loadSynergy = () => {
     displayProperLoadoutCount()
 
     DOMCacheGetOrSet('talismanLevelUpCost').style.display = 'none'
-
-    DOMCacheGetOrSet('antSacrificeSummary').style.display = 'none'
 
     // This must be initialized at the beginning of the calculation
     c15RewardUpdate()
@@ -2075,7 +2042,6 @@ const loadSynergy = () => {
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()
     calculateObtainium()
-    calculateAnts()
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
     updateSingularityGlobalPerks()
@@ -2267,7 +2233,8 @@ export const format = (
   accuracy = 0,
   long = false,
   truncate = true,
-  fractional = false
+  fractional = false,
+  longExponent = false
 ): string => {
   if (input == null) {
     return '0 [null]'
@@ -2453,6 +2420,10 @@ export const format = (
       return 'Infinity'
     }
 
+    if (longExponent) {
+      const mantissaLook = (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts)
+      return `${mantissaLook}e${format(power, 0, true)}`
+    }
     // if the power is greater than 1e6 apply notation scientific notation
     // Makes mantissa be rounded down to 2 decimal places
     const mantissaLook = testing && truncate
@@ -2740,10 +2711,7 @@ export const updateAllMultiplier = (): void => {
   a *= 1 + (0.2 / 100) * player.researches[188]
   a *= 1 + (0.01 / 100) * player.researches[200]
   a *= 1 + (0.01 / 100) * player.cubeUpgrades[50]
-  a *= calculateSigmoidExponential(
-    40,
-    (((player.antUpgrades[4]! + G.bonusant5) / 1000) * 40) / 39
-  )
+  a *= getAntUpgradeEffect('multipliers').multiplierMult
   a *= calculateMultiplierCubeBlessing()
   if (
     (player.currentChallenge.transcension !== 0
@@ -2873,10 +2841,7 @@ export const multipliers = (): void => {
   )
   G.reincarnationMultiplier = Decimal.pow(G.buildingPower, G.totalCoinOwned)
 
-  G.antMultiplier = Decimal.pow(
-    Decimal.max(1, player.antPoints),
-    calculateCrumbToCoinExp()
-  )
+  G.antMultiplier = getAntUpgradeEffect('coins').coinMultiplier
 
   s = s.times(G.multiplierEffect)
   s = s.times(G.acceleratorEffect)
@@ -3438,7 +3403,6 @@ export const resourceGain = (dt: number): void => {
     )
   }
 
-  createAnts(dt)
   for (let i = 1; i <= 5; i++) {
     G.ascendBuildingProduction[G.ordinals[(5 - i) as ZeroToFour]] = player[
       `ascendBuilding${(6 - i) as OneToFive}` as const
@@ -3620,218 +3584,6 @@ export const resourceGain = (dt: number): void => {
       challengeAchievementCheck(ascendchal)
     }
   }
-}
-
-export const updateAntMultipliers = (): void => {
-  G.globalAntMult = statLineDecimalMultiplication(antSpeedStats)
-  /*G.globalAntMult = G.globalAntMult.times(getRuneEffects('superiorIntellect').antSpeed)
-  if (player.upgrades[76] === 1) {
-    G.globalAntMult = G.globalAntMult.times(5)
-  } */
-  /*G.globalAntMult = G.globalAntMult.times(
-    Decimal.pow(
-      // 1
-      //  + player.upgrades[77] / 250
-      // + player.researches[96] / 5000
-      //  + player.cubeUpgrades[65] / 250,
-      player.firstOwnedAnts
-        + player.secondOwnedAnts
-        + player.thirdOwnedAnts
-        + player.fourthOwnedAnts
-        + player.fifthOwnedAnts
-        + player.sixthOwnedAnts
-        + player.sevennthOwnedAnts
-        + player.eighthOwnedAnts
-    )
-  )*/
-  /*G.globalAntMult = G.globalAntMult.times(
-    1
-      + player.upgrades[78]
-        * 0.005
-        * Math.pow(Decimal.log10(player.maxOfferings.add(1)), 2)
-  )*/
-  /*G.globalAntMult = G.globalAntMult.times(
-    Decimal.pow(
-      1.11 + player.researches[101] / 1000 + player.researches[162] / 10000,
-      player.antUpgrades[0]! + G.bonusant1
-    )
-  )*/
-  /*G.globalAntMult = G.globalAntMult.times(
-    antSacrificePointsToMultiplier(player.antSacrificePoints)
-  )*/
-  /*G.globalAntMult = G.globalAntMult.times(
-    Decimal.pow(
-      Decimal.max(1, player.obtainium),
-      getRuneBlessingEffect('superiorIntellect').obtToAntExponent
-    )
-  ) */
-
-  /*G.globalAntMult = G.globalAntMult.times(
-    Decimal.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9]))
-  )*/
-  // G.globalAntMult = G.globalAntMult.times(calculateAntSpeedCubeBlessing())
-  /*G.globalAntMult = G.globalAntMult.times(
-    +getAchievementReward('antSpeed')
-  )*/
-  /*if (player.upgrades[39] === 1) {
-    G.globalAntMult = G.globalAntMult.times(1.6)
-  }*/
-  /*G.globalAntMult = G.globalAntMult.times(
-    Decimal.pow(
-      1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10),
-      player.constantUpgrades[5]
-    )
-  )*/
-  /*G.globalAntMult = G.globalAntMult.times(
-    Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11]))
-  )*/
-  /*if (player.researches[147] > 0) {
-    G.globalAntMult = G.globalAntMult.times(
-      Decimal.log(player.antPoints.add(10), 10)
-    )
-  }
-  if (player.researches[177] > 0) {
-    G.globalAntMult = G.globalAntMult.times(
-      Decimal.pow(
-        Decimal.log(player.antPoints.add(10), 10),
-        player.researches[177]
-      )
-    )
-  }*/
-
-  if (player.currentChallenge.ascension === 12) {
-    G.globalAntMult = Decimal.pow(G.globalAntMult, 0.5)
-  }
-  if (player.currentChallenge.ascension === 13) {
-    G.globalAntMult = Decimal.pow(G.globalAntMult, 0.23)
-  }
-  if (player.currentChallenge.ascension === 14) {
-    G.globalAntMult = Decimal.pow(G.globalAntMult, 0.2)
-  }
-
-  if (player.currentChallenge.ascension !== 15) {
-    G.globalAntMult = Decimal.pow(
-      G.globalAntMult,
-      1 - (0.9 / 90) * Math.min(99, player.corruptions.used.totalLevels)
-    )
-  } else {
-    // C15 used to have 9 corruptions set to 11, which above would provide a power of 0.01. Now it's hardcoded this way.
-    G.globalAntMult = Decimal.pow(G.globalAntMult, 0.01)
-  }
-
-  G.globalAntMult = Decimal.pow(
-    G.globalAntMult,
-    G.extinctionMultiplier[player.corruptions.used.extinction]
-  )
-  G.globalAntMult = G.globalAntMult.times(G.challenge15Rewards.antSpeed.value)
-  // V2.5.0: Moved ant shop upgrade as 'uncorruptable'
-  G.globalAntMult = G.globalAntMult.times(
-    Decimal.pow(1.2, player.shopUpgrades.antSpeed)
-  )
-
-  if (player.platonicUpgrades[12] > 0) {
-    G.globalAntMult = G.globalAntMult.times(
-      Decimal.pow(
-        1 + (1 / 100) * player.platonicUpgrades[12],
-        sumContents(player.highestchallengecompletions)
-      )
-    )
-  }
-  if (
-    player.currentChallenge.ascension === 15
-    && player.platonicUpgrades[10] > 0
-  ) {
-    G.globalAntMult = Decimal.pow(G.globalAntMult, 1.25)
-  }
-
-  if (player.highestSingularityCount >= 1) {
-    G.globalAntMult = G.globalAntMult.times(4.44)
-  }
-
-  if (player.corruptions.used.extinction >= 14) {
-    G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
-  }
-  if (player.corruptions.used.extinction >= 15) {
-    G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
-  }
-  if (player.corruptions.used.extinction >= 16) {
-    G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
-  }
-
-  if (getOcteractUpgradeEffect('octeractStarter')) {
-    G.globalAntMult = G.globalAntMult.times(100000)
-  }
-
-  if (player.highestSingularityCount >= 30) {
-    G.globalAntMult = G.globalAntMult.times(1000)
-  }
-
-  if (player.highestSingularityCount >= 70) {
-    G.globalAntMult = G.globalAntMult.times(1000)
-  }
-
-  if (player.highestSingularityCount >= 100) {
-    G.globalAntMult = G.globalAntMult.times(1e6)
-  }
-}
-
-export const createAnts = (dt: number): void => {
-  updateAntMultipliers()
-  G.antEightProduce = player.eighthGeneratedAnts
-    .add(player.eighthOwnedAnts)
-    .times(player.eighthProduceAnts)
-    .times(G.globalAntMult)
-  G.antSevenProduce = player.seventhGeneratedAnts
-    .add(player.seventhOwnedAnts)
-    .times(player.seventhProduceAnts)
-    .times(G.globalAntMult)
-  G.antSixProduce = player.sixthGeneratedAnts
-    .add(player.sixthOwnedAnts)
-    .times(player.sixthProduceAnts)
-    .times(G.globalAntMult)
-  G.antFiveProduce = player.fifthGeneratedAnts
-    .add(player.fifthOwnedAnts)
-    .times(player.fifthProduceAnts)
-    .times(G.globalAntMult)
-  G.antFourProduce = player.fourthGeneratedAnts
-    .add(player.fourthOwnedAnts)
-    .times(player.fourthProduceAnts)
-    .times(G.globalAntMult)
-  G.antThreeProduce = player.thirdGeneratedAnts
-    .add(player.thirdOwnedAnts)
-    .times(player.thirdProduceAnts)
-    .times(G.globalAntMult)
-  G.antTwoProduce = player.secondGeneratedAnts
-    .add(player.secondOwnedAnts)
-    .times(player.secondProduceAnts)
-    .times(G.globalAntMult)
-  G.antOneProduce = player.firstGeneratedAnts
-    .add(player.firstOwnedAnts)
-    .times(player.firstProduceAnts)
-    .times(G.globalAntMult)
-  player.seventhGeneratedAnts = player.seventhGeneratedAnts.add(
-    G.antEightProduce.times(dt / 1)
-  )
-  player.sixthGeneratedAnts = player.sixthGeneratedAnts.add(
-    G.antSevenProduce.times(dt / 1)
-  )
-  player.fifthGeneratedAnts = player.fifthGeneratedAnts.add(
-    G.antSixProduce.times(dt / 1)
-  )
-  player.fourthGeneratedAnts = player.fourthGeneratedAnts.add(
-    G.antFiveProduce.times(dt / 1)
-  )
-  player.thirdGeneratedAnts = player.thirdGeneratedAnts.add(
-    G.antFourProduce.times(dt / 1)
-  )
-  player.secondGeneratedAnts = player.secondGeneratedAnts.add(
-    G.antThreeProduce.times(dt / 1)
-  )
-  player.firstGeneratedAnts = player.firstGeneratedAnts.add(
-    G.antTwoProduce.times(dt / 1)
-  )
-
-  player.antPoints = player.antPoints.add(G.antOneProduce.times(dt / 1))
 }
 
 export const resetCurrency = (): void => {
@@ -4080,7 +3832,6 @@ export const resetCheck = async (
         }
       }
       updateChallengeDisplay()
-      calculateAnts()
     }
     if (player.shopUpgrades.instantChallenge === 0 || leaving) {
       reset('reincarnationChallenge', false, 'leaveChallenge')
@@ -4782,7 +4533,9 @@ export const updateAll = (): void => {
     player.maxObtainium = new Decimal(player.obtainium)
   }
 
-  autoBuyAnts()
+  autobuyAntProducers()
+  autobuyAntMasteries()
+  autoBuyAntUpgrades()
 
   if (
     player.autoAscend
@@ -4981,6 +4734,8 @@ const tack = (dt: number) => {
     // Adds Resources (coins, ants, etc)
     const timeMult = calculateGlobalSpeedMult()
     resourceGain(dt * timeMult)
+    generateAntsAndCrumbs(dt)
+
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
     addTimers('prestige', dt)
     addTimers('transcension', dt)

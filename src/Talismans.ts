@@ -1,6 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementPoints, awardUngroupedAchievement, getAchievementReward } from './Achievements'
+import { getAntUpgradeEffect } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { isShopTalismanUnlocked } from './Calculate'
 import { CalcECC } from './Challenges'
@@ -456,7 +457,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     costs: regularCostProgression,
     levelCapIncrease: () => universalTalismanMaxLevelIncreasers(),
     effects: (n) => {
-      const inscriptValues = [1, 1.02, 1.04, 1.06, 1.07, 1.08, 1.09, 1.10, 1.11, 1.125, 1.15]
+      const inscriptValues = [1, 1.05, 1.1, 1.15, 1.2, 1.3, 1.4, 1.5, 1.65, 1.8, 2]
       const prismOOMBonus = (n >= 6) ? 12 : 0
       return {
         antBonus: inscriptValues[n] ?? 1,
@@ -464,7 +465,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       }
     },
     inscriptionDesc: (n) => {
-      const inscriptValues = [1, 1.02, 1.04, 1.06, 1.07, 1.08, 1.09, 1.10, 1.11, 1.125, 1.15]
+      const inscriptValues = [1, 1.05, 1.1, 1.15, 1.2, 1.3, 1.4, 1.5, 1.65, 1.8, 2]
       return i18next.t('runes.talismans.mortuus.inscription', {
         val: formatAsPercentIncrease(inscriptValues[n] ?? 1, 0)
       })
@@ -488,7 +489,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return player.antUpgrades[11]! > 0 || player.ascensionCount > 0
+      return getAntUpgradeEffect('mortuus').talismanUnlock || player.ascensionCount > 0
     },
     name: () => i18next.t('runes.talismans.mortuus.name'),
     description: () => i18next.t('runes.talismans.mortuus.description')

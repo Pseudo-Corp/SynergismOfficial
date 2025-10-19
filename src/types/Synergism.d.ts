@@ -140,45 +140,23 @@ export interface Player {
   fifthCostParticles: Decimal
   fifthProduceParticles: number
 
-  firstOwnedAnts: number
-  firstGeneratedAnts: Decimal
-  firstCostAnts: Decimal
-  firstProduceAnts: number
-
-  secondOwnedAnts: number
-  secondGeneratedAnts: Decimal
-  secondCostAnts: Decimal
-  secondProduceAnts: number
-
-  thirdOwnedAnts: number
-  thirdGeneratedAnts: Decimal
-  thirdCostAnts: Decimal
-  thirdProduceAnts: number
-
-  fourthOwnedAnts: number
-  fourthGeneratedAnts: Decimal
-  fourthCostAnts: Decimal
-  fourthProduceAnts: number
-
-  fifthOwnedAnts: number
-  fifthGeneratedAnts: Decimal
-  fifthCostAnts: Decimal
-  fifthProduceAnts: number
-
-  sixthOwnedAnts: number
-  sixthGeneratedAnts: Decimal
-  sixthCostAnts: Decimal
-  sixthProduceAnts: number
-
-  seventhOwnedAnts: number
-  seventhGeneratedAnts: Decimal
-  seventhCostAnts: Decimal
-  seventhProduceAnts: number
-
-  eighthOwnedAnts: number
-  eighthGeneratedAnts: Decimal
-  eighthCostAnts: Decimal
-  eighthProduceAnts: number
+  ants: {
+    purchased: number[]
+    generated: Decimal[]
+    masteries: number[]
+    maxMasteriesPurchased: number[]
+    upgrades: number[]
+    crumbs: Decimal
+    highestCrumbsThisSacrifice: Decimal
+    highestCrumbsEver: Decimal
+    immortalELO: number
+    rebornELO: number
+    highestRebornELODaily: Array<{ elo: number; sacrificeId: number }>
+    highestRebornELOEver: Array<{ elo: number; sacrificeId: number }>
+    quarksGainedFromAnts: number
+    antSacrificeCount: number
+    currentSacrificeId: number
+  }
 
   ascendBuilding1: {
     cost: number
@@ -461,9 +439,6 @@ export interface Player {
   quarkstimer: number
   goldenQuarksTimer: number
 
-  antPoints: Decimal
-  antUpgrades: number[]
-  antSacrificePoints: number
   antSacrificeTimer: number
   antSacrificeTimerReal: number
 
@@ -834,35 +809,7 @@ export interface GlobalVariables {
 
   maxexponent: number
 
-  globalAntMult: Decimal
   antMultiplier: Decimal
-
-  antOneProduce: Decimal
-  antTwoProduce: Decimal
-  antThreeProduce: Decimal
-  antFourProduce: Decimal
-  antFiveProduce: Decimal
-  antSixProduce: Decimal
-  antSevenProduce: Decimal
-  antEightProduce: Decimal
-
-  antCostGrowth: number[]
-
-  antUpgradeBaseCost: number[]
-  antUpgradeCostIncreases: number[]
-
-  bonusant1: number
-  bonusant2: number
-  bonusant3: number
-  bonusant4: number
-  bonusant5: number
-  bonusant6: number
-  bonusant7: number
-  bonusant8: number
-  bonusant9: number
-  bonusant10: number
-  bonusant11: number
-  bonusant12: number
 
   settingscreen: string
 
@@ -902,7 +849,7 @@ export interface GlobalVariables {
   hyperchallengeMultiplier: number[]
   illiteracyPower: number[]
   deflationMultiplier: number[]
-  extinctionMultiplier: number[]
+  extinctionDivisor: number[]
   droughtSalvage: number[]
   recessionPower: number[]
 

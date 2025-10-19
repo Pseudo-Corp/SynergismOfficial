@@ -1,7 +1,6 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAnts } from './Calculate'
 import { getResetResearches } from './Reset'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
@@ -98,7 +97,7 @@ const researchMaxLevels: DecimalSource[] = [
   10, 10, 10, 1, 1,
   25, 25, 25, 15, 1,
   10, 10, 10, 10, 1,
-  10, 1, 6, 10, 1,
+  10, 1, 25, 10, 1,
   25, 25, 1, 15, 1,
   10, 10, 10, 1, 1,
   10, 10, 10, 10, 1,
@@ -339,9 +338,6 @@ export const buyResearch = (index: number, auto: boolean, hover: boolean) => {
     if ((index >= 66 && index <= 70) || index === 105) {
       updateChallengeDisplay()
     }
-
-    // Update ants.
-    calculateAnts()
   }
 
   return

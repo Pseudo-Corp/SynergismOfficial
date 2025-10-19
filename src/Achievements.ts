@@ -1,6 +1,5 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { antSacrificePointsToMultiplier } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateAscensionScore } from './Calculate'
 import { campaignTokens } from './Campaign'
@@ -1242,88 +1241,81 @@ export const achievements: Achievement[] = [
   { pointValue: 35, unlockCondition: () => player.acceleratorBoostBought >= 15000, group: 'acceleratorBoosts' },
   {
     pointValue: 5,
-    unlockCondition: () => player.antPoints.gte(3),
+    unlockCondition: () => player.ants.crumbs.gte(3),
     group: 'antCrumbs',
-    reward: { antSpeed: () => Decimal.log(player.antPoints.plus(10), 10) }
+    reward: { antSpeed: () => Decimal.log(player.ants.crumbs.plus(10), 10) }
   },
-  { pointValue: 10, unlockCondition: () => player.antPoints.gte(1e5), group: 'antCrumbs' },
+  { pointValue: 10, unlockCondition: () => player.ants.crumbs.gte(1e5), group: 'antCrumbs' },
   {
     pointValue: 15,
-    unlockCondition: () => player.antPoints.gte(666666666),
+    unlockCondition: () => player.ants.crumbs.gte(666666666),
     group: 'antCrumbs',
     reward: { antSpeed: () => 1.2 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => player.antPoints.gte(1e20),
+    unlockCondition: () => player.ants.crumbs.gte(1e20),
     group: 'antCrumbs',
     reward: { antSpeed: () => 1.25 }
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.antPoints.gte(1e40),
+    unlockCondition: () => player.ants.crumbs.gte(1e100),
     group: 'antCrumbs',
     reward: { antSpeed: () => 1.4, antSacrificeUnlock: () => 1, antAutobuyers: () => 1 }
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.antPoints.gte('1e500'),
+    unlockCondition: () => player.ants.crumbs.gte('1e500'),
     group: 'antCrumbs',
-    reward: { antSpeed: () => 1 + Math.log10(player.antSacrificePoints + 1) }
+    reward: { antSpeed: () => 1 + Math.log10(player.ants.immortalELO + 1) }
   },
-  { pointValue: 35, unlockCondition: () => player.antPoints.gte('1e2500'), group: 'antCrumbs' },
+  { pointValue: 35, unlockCondition: () => player.ants.crumbs.gte('1e2500'), group: 'antCrumbs' },
   {
     pointValue: 5,
-    unlockCondition: () =>
-      antSacrificePointsToMultiplier(player.antSacrificePoints).gte(2) && player.secondOwnedAnts > 0,
+    unlockCondition: () => player.ants.immortalELO >= 50 && player.ants.purchased[1] > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 10,
-    unlockCondition: () =>
-      antSacrificePointsToMultiplier(player.antSacrificePoints).gte(6) && player.thirdOwnedAnts > 0,
+    unlockCondition: () => player.ants.immortalELO >= 200 && player.ants.purchased[2] > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 15,
-    unlockCondition: () =>
-      antSacrificePointsToMultiplier(player.antSacrificePoints).gte(20) && player.fourthOwnedAnts > 0,
+    unlockCondition: () => player.ants.immortalELO >= 500 && player.ants.purchased[3] > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 20,
-    unlockCondition: () =>
-      antSacrificePointsToMultiplier(player.antSacrificePoints).gte(100) && player.fifthOwnedAnts > 0,
+    unlockCondition: () => player.ants.immortalELO >= 1000 && player.ants.purchased[4] > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 25,
-    unlockCondition: () =>
-      antSacrificePointsToMultiplier(player.antSacrificePoints).gte(500) && player.sixthOwnedAnts > 0,
+    unlockCondition: () => player.ants.immortalELO >= 2500 && player.ants.purchased[5] > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 30,
-    unlockCondition: () =>
-      antSacrificePointsToMultiplier(player.antSacrificePoints).gte(6666) && player.seventhOwnedAnts > 0,
+    unlockCondition: () => player.ants.immortalELO >= 20000 && player.ants.purchased[6] > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 35,
-    unlockCondition: () =>
-      antSacrificePointsToMultiplier(player.antSacrificePoints).gte(77777) && player.eighthOwnedAnts > 0,
+    unlockCondition: () => player.ants.immortalELO >= 100000 && player.ants.purchased[7] > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
     checkReset: () => player.highestSingularityCount >= 10
@@ -1817,22 +1809,22 @@ export const achievements: Achievement[] = [
   { pointValue: 40, unlockCondition: () => player.acceleratorBoostBought >= 1e5, group: 'acceleratorBoosts' },
   { pointValue: 45, unlockCondition: () => player.acceleratorBoostBought >= 1e6, group: 'acceleratorBoosts' },
   { pointValue: 50, unlockCondition: () => player.acceleratorBoostBought >= 1e7, group: 'acceleratorBoosts' },
-  { pointValue: 40, unlockCondition: () => player.antPoints.gte('1e25000'), group: 'antCrumbs' },
-  { pointValue: 45, unlockCondition: () => player.antPoints.gte('1e125000'), group: 'antCrumbs' },
-  { pointValue: 50, unlockCondition: () => player.antPoints.gte('1e1000000'), group: 'antCrumbs' },
+  { pointValue: 40, unlockCondition: () => player.ants.crumbs.gte('1e25000'), group: 'antCrumbs' },
+  { pointValue: 45, unlockCondition: () => player.ants.crumbs.gte('1e125000'), group: 'antCrumbs' },
+  { pointValue: 50, unlockCondition: () => player.ants.crumbs.gte('1e1000000'), group: 'antCrumbs' },
   {
     pointValue: 40,
-    unlockCondition: () => antSacrificePointsToMultiplier(player.antSacrificePoints).gte(1e40),
+    unlockCondition: () => player.ants.immortalELO >= 400000,
     group: 'sacMult'
   },
   {
     pointValue: 45,
-    unlockCondition: () => antSacrificePointsToMultiplier(player.antSacrificePoints).gte(1e200),
+    unlockCondition: () => player.ants.immortalELO >= 1500000,
     group: 'sacMult'
   },
   {
     pointValue: 50,
-    unlockCondition: () => antSacrificePointsToMultiplier(player.antSacrificePoints).gte('1e1000'),
+    unlockCondition: () => player.ants.immortalELO >= 5000000,
     group: 'sacMult'
   },
   { pointValue: 75, unlockCondition: () => player.ascensionCount >= 1e16, group: 'ascensionCount' },
