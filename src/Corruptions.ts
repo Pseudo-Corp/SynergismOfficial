@@ -186,7 +186,7 @@ export class CorruptionLoadout {
   }
 
   #extinctionEffect () {
-    return G.extinctionMultiplier[this.#levels.extinction]
+    return G.extinctionDivisor[this.#levels.extinction]
   }
 
   #illiteracyEffect () {

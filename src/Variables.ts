@@ -142,35 +142,7 @@ export const Globals: GlobalVariables = {
 
   maxexponent: 10000,
 
-  globalAntMult: new Decimal('1'),
   antMultiplier: new Decimal('1'),
-
-  antOneProduce: new Decimal('1'),
-  antTwoProduce: new Decimal('1'),
-  antThreeProduce: new Decimal('1'),
-  antFourProduce: new Decimal('1'),
-  antFiveProduce: new Decimal('1'),
-  antSixProduce: new Decimal('1'),
-  antSevenProduce: new Decimal('1'),
-  antEightProduce: new Decimal('1'),
-
-  antCostGrowth: [1e41, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32],
-
-  antUpgradeBaseCost: [100, 100, 1000, 1000, 1e5, 1e6, 1e8, 1e11, 1e15, 1e20, 1e40, 1e100],
-  antUpgradeCostIncreases: [10, 10, 10, 10, 100, 100, 100, 100, 1000, 1000, 1000, 1e100],
-
-  bonusant1: 0,
-  bonusant2: 0,
-  bonusant3: 0,
-  bonusant4: 0,
-  bonusant5: 0,
-  bonusant6: 0,
-  bonusant7: 0,
-  bonusant8: 0,
-  bonusant9: 0,
-  bonusant10: 0,
-  bonusant11: 0,
-  bonusant12: 0,
 
   settingscreen: 'settings',
 
@@ -247,8 +219,8 @@ export const Globals: GlobalVariables = {
     0,
     0
   ],
-  extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0, 0, 0, 0],
-
+  // extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0, 0, 0, 0],
+  extinctionDivisor: [1, 1.25, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 30, 50, 100],
   droughtSalvage: [
     0,
     -25,
