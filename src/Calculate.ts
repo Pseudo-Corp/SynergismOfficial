@@ -589,14 +589,9 @@ export const calculateActualAntSpeedMult = () => {
     exponent = 0.2
   }
 
-  if (player.currentChallenge.ascension !== 15) {
-    exponent *= 1 - 0.01 * Math.min(99, player.corruptions.used.totalLevels)
-  } else {
-    // C15 used to have 9 corruptions set to 11, which above would provide a power of 0.01. Now it's hardcoded this way.
-    exponent *= 0.01
-    if (player.platonicUpgrades[10] > 0) {
-      exponent *= 1.25
-    }
+  exponent *= 1 - 0.01 * Math.min(99, player.corruptions.used.totalLevels)
+  if (player.platonicUpgrades[10] > 0 && player.currentChallenge.ascension === 15) {
+    exponent *= 1.25
   }
 
   return Decimal.pow(base, exponent)
