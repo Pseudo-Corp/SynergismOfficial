@@ -1,7 +1,5 @@
 import { prod } from '../Config'
-import { isLoggedIn } from '../Login'
 import { changeSubTab, getActiveSubTab, Tabs } from '../Tabs'
-import { Alert } from '../UpdateHTML'
 import { createDeferredPromise, type DeferredPromise, memoize } from '../Utility'
 import { setEmptyProductMap } from './CartUtil'
 import { clearCheckoutTab, toggleCheckoutTab } from './CheckoutTab'
@@ -111,11 +109,7 @@ export class CartTab {
   static applySubtabListeners () {
     for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
       element.addEventListener('click', () => {
-        if (isLoggedIn() || !prod || element.classList.contains('without-login')) {
-          changeSubTab(Tabs.Purchase, { page: index })
-        } else {
-          Alert('Note: you must be logged in to view this tab!')
-        }
+        changeSubTab(Tabs.Purchase, { page: index })
       })
     }
   }
@@ -178,11 +172,6 @@ export class CartTab {
 const onInit = memoize(() => {
   CartTab.fetchProducts()
   CartTab.applySubtabListeners()
-
-  // Switch to the upgrades tab if not logged in
-  if (!isLoggedIn() || !prod) {
-    changeSubTab(Tabs.Purchase, { step: 1 })
-  }
 })
 
 export const initializeCart = () => {

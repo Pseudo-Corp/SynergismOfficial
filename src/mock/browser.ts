@@ -1208,7 +1208,11 @@ export const worker = setupWorker(
       bonus: {
         quarkBonus: 0
       },
-      subscriptionTier: 0
+      subscriptionTier: 0,
+      subscription: {
+        provider: 'stripe',
+        tier: 1
+      }
     })
   }),
   ...GETHandlers,
