@@ -2961,7 +2961,7 @@ export const antSpeedStats: DecimalSourceLine[] = [
     displayCriterion: () => player.researches[50] > 0
   },
   {
-    i18n: 'RecinarnationUpgrade18',
+    i18n: 'ReincarnationUpgrade18',
     stat: () => 1 + 0.005 * Math.pow(Decimal.log10(player.maxOfferings.add(1)), 2), // Reincarnation Upgrade 18
     displayCriterion: () => player.researches[50] > 0
   },
