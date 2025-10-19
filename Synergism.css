@@ -5575,14 +5575,6 @@ html[data-chal14="false"] .chal14 {
     display: none;
 }
 
-html[data-chal15="true"] .chal15 {
-    display: block;
-}
-
-html[data-chal15="false"] .chal15 {
-    display: none;
-}
-
 html[data-ascend-unlock="true"] .ascendunlockib {
     display: inline-block;
 }
