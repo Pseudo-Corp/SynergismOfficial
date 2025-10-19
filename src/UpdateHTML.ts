@@ -15,6 +15,7 @@ import {
   updateAllProgressiveAchievementProgress,
   updateAllUngroupedAchievementProgress
 } from './Achievements'
+import { antUpgradeKeys, antUpgrades, getCostNextAnt, getCostNextAntUpgrade } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateAscensionSpeedMult, calculateGlobalSpeedMult } from './Calculate'
 import { getMaxChallenges } from './Challenges'
@@ -33,7 +34,7 @@ import {
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { type TalismanKeys, talismans } from './Talismans'
-import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
+import type { OneToFive, ZeroToFour } from './types/Synergism'
 import {
   visualUpdateAchievements,
   visualUpdateAnts,
@@ -961,24 +962,21 @@ export const buttoncolorchange = () => {
   }
 
   if (G.currentTab === Tabs.AntHill) {
-    ;(player.reincarnationPoints.gte(player.firstCostAnts))
-      ? DOMCacheGetOrSet('anttier1').classList.add('antTierBtnAvailable')
-      : DOMCacheGetOrSet('anttier1').classList.remove('antTierBtnAvailable')
-    for (let i = 2; i <= 8; i++) {
-      const costAnts = player[`${G.ordinals[(i - 1) as ZeroToSeven]}CostAnts` as const]
-      player.antPoints.gte(costAnts)
-        ? DOMCacheGetOrSet(`anttier${i}`).classList.add('antTierBtnAvailable')
-        : DOMCacheGetOrSet(`anttier${i}`).classList.remove('antTierBtnAvailable')
+    for (let i = 0; i < 8; i++) {
+      const antCost = getCostNextAnt(i)
+      player.ants.crumbs.gte(antCost)
+        ? DOMCacheGetOrSet(`anttier${i + 1}`).classList.add('antBtnAvailable')
+        : DOMCacheGetOrSet(`anttier${i + 1}`).classList.remove('antBtnAvailable')
     }
-    for (let i = 1; i <= 12; i++) {
-      player.antPoints.gte(
-          Decimal.pow(
-            G.antUpgradeCostIncreases[i - 1],
-            player.antUpgrades[i - 1]!
-          ).times(G.antUpgradeBaseCost[i - 1])
-        )
-        ? DOMCacheGetOrSet(`antUpgrade${i}`).classList.add('antUpgradeBtnAvailable')
-        : DOMCacheGetOrSet(`antUpgrade${i}`).classList.remove('antUpgradeBtnAvailable')
+    for (const key of antUpgradeKeys) {
+      const index = antUpgrades[key].index
+      const element = DOMCacheGetOrSet(`antUpgrade${index + 1}`)
+      const cost = getCostNextAntUpgrade(key)
+      if (player.ants.crumbs.gte(cost)) {
+        element.classList.add('antUpgradeBtnAvailable')
+      } else {
+        element.classList.remove('antUpgradeBtnAvailable')
+      }
     }
   }
 }

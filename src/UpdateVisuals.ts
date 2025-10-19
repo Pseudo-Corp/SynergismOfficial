@@ -1,11 +1,12 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
-import { showSacrifice } from './Ants'
+import { calculateBaseAntsToBeGenerated, getAntUpgradeEffect, showSacrifice, updateLeaderboardUI } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calcAscensionCount,
   CalcCorruptionStuff,
+  calculateActualAntSpeedMult,
   calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
   calculateAmbrosiaGenerationSpeed,
@@ -26,7 +27,6 @@ import {
   calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium,
   calculateSalvageRuneEXPMultiplier,
-  calculateSigmoidExponential,
   calculateSummationNonLinear,
   calculateToNextThreshold,
   calculateTotalOcteractCubeBonus,
@@ -759,21 +759,24 @@ export const visualUpdateAnts = () => {
   if (G.currentTab !== Tabs.AntHill) {
     return
   }
+  const antSpeedMult = calculateActualAntSpeedMult()
+  const firstTierProduction = calculateBaseAntsToBeGenerated(0, antSpeedMult)
   DOMCacheGetOrSet('crumbcount').textContent = i18next.t(
-    'ants.youHaveGalacticCrumbs',
+    'ants.galacticCrumbCount',
     {
-      x: format(player.antPoints, 2),
-      y: format(G.antOneProduce, 2),
-      z: format(
-        Decimal.pow(
-          Decimal.max(1, player.antPoints),
-          100000
-            + calculateSigmoidExponential(
-              49900000,
-              (((player.antUpgrades[1]! + G.bonusant2) / 5000) * 500) / 499
-            )
-        )
-      )
+      x: format(player.ants.crumbs, 2, true, undefined, undefined, true)
+    }
+  )
+  DOMCacheGetOrSet('crumbsPerSecond').textContent = i18next.t(
+    'ants.crumbsPerSecond',
+    {
+      x: format(firstTierProduction, 2, true, undefined, undefined, true)
+    }
+  )
+  DOMCacheGetOrSet('crumbCoinMultiplier').textContent = i18next.t(
+    'ants.crumbsCoinMultiplier',
+    {
+      x: format(getAntUpgradeEffect('coins').coinMultiplier, 2, true)
     }
   )
 
@@ -794,10 +797,11 @@ export const visualUpdateAnts = () => {
   )
 
   if (getAchievementReward('antSacrificeUnlock')) {
-    DOMCacheGetOrSet('antSacrificeTimer').textContent = formatTimeShort(
+    DOMCacheGetOrSet('antSacrificeTimer').textContent = `⧖ ${formatTimeShort(
       player.antSacrificeTimer
-    )
+    )}`
     showSacrifice()
+    updateLeaderboardUI()
   }
 }
 
@@ -1451,9 +1455,8 @@ export const visualUpdateCorruptions = () => {
     'corruptions.antExponent',
     {
       exponent: format(
-        (1 - (0.9 / 90) * player.corruptions.used.totalLevels)
-          * G.extinctionMultiplier[player.corruptions.used.extinction],
-        3
+        1 - 0.01 * Math.min(99, player.corruptions.used.totalLevels),
+        2
       )
     }
   )
