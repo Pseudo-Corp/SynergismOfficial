@@ -487,6 +487,10 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     padding: 0;
 }
 
+.titleTextFont {
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+}
+
 #preloadDeleteGame {
     position: fixed;
     bottom: 1em;
@@ -1604,6 +1608,15 @@ img.runeTypeElement:hover {
     filter: grayscale(50%);
 }
 
+.antSacrificeRewardLocked {
+    opacity: 0.5;
+    border-color: gray !important;
+}
+
+.antSacrificeRewardImageLocked {
+    filter: grayscale(80%);
+}
+
 #runeContainer2 {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -2332,18 +2345,43 @@ p#reincarnatehotkeys {
     margin: 0 auto;
 }
 
-#antsWrapper {
+#antSubtabs {
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    gap: 10px 15px;
+}
+
+#antSubtabs > button {
+    min-width: 100px;
+    text-align: center;
+}
+
+.antUpgrade:hover,
+.antBtn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 3px var(--glow-color),
+        0 0 6px var(--glow-color),
+        0 0 9px var(--glow-color);
+    background-color: var(--glow-color);
+}
+
+#antSubtab1,
+#antSubtab2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    margin-right: min(10em, 100px);
 }
 
-#antsWelcomeTexts { margin-top: 40px; }
 #antsWelcomeTexts > p { margin: 0; }
+#antSacrificeWelcomeTexts > p { margin: 0; }
 #antwelcome { font-size: 1.3em; }
+#antAltarWelcome { font-size: 1.3em; }
 
 #antrow1 {
     display: flex;
@@ -2351,6 +2389,12 @@ p#reincarnatehotkeys {
     margin-top: 12px;
     color: red;
     z-index: 1;
+}
+
+.antProducerColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #antrow2 {
@@ -2380,7 +2424,6 @@ p#reincarnatehotkeys {
 
 #crumbcount {
     font-size: 1.2em;
-    min-height: 2.8em;
 }
 
 #antToggleFeatures {
@@ -2416,14 +2459,9 @@ p#reincarnatehotkeys {
 }
 
 #sacrificeAnts {
-    position: absolute;
     padding: 0;
-    width: 200px;
-    margin: 0 0 0 -340px;
     text-align: center;
-    left: calc(80% - 5em);
     white-space: nowrap;
-    z-index: 1;
 }
 
 .sacrificeStatus {
@@ -2432,8 +2470,14 @@ p#reincarnatehotkeys {
     align-items: center;
 }
 
+.sacrificeStatus p {
+    margin: 0;
+}
+
 #antSacrificeTimer {
     padding: 2px 0.5em;
+    font-size: 1.2em;
+    color: gold;
 }
 
 .antSacrificeSettingsContainer {
@@ -2441,18 +2485,42 @@ p#reincarnatehotkeys {
     flex-direction: column;
 }
 
-#antSacrificeSummary {
-    position: absolute;
-    padding: 0;
-    width: 300px;
-    top: 30px;
-    left: calc(80% - 5em);
-    text-align: left;
-    white-space: nowrap;
+.antSacrificeRewardColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+    min-width: 100px;
 }
 
-#antSacrificeSummary p {
+.antSacrificeRewardColumn > p {
     margin: 0;
+}
+
+#antSacrificeImmortalAndWorldlyRewards {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+#immortalELOInfo,
+#immortalELOOverview {
+    flex-direction: column;
+}
+
+#immortalELOInfo > p,
+#immortalELOOverview > p {
+    margin: 0;
+}
+
+#antSacrificeObtainiumOfferings,
+#antSacrificeShardsRow1,
+#antSacrificeShardsRow2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 
 .antSacrificeHeader {
@@ -2461,15 +2529,79 @@ p#reincarnatehotkeys {
     white-space: initial;
 }
 
-#antSacrificeTable {
-    margin: 15px 0 0 70px;
-    border-spacing: 0;
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
+/* Ant Leaderboard Styles */
+#antLeaderboardContainer {
+    margin-top: 10px;
 }
 
-#antSacrificeTable p {
-    margin-left: 5px;
+.antLeaderboardToggleBtn {
+    padding: 8px 16px;
+    color: white;
+    border: 2px solid #666;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.2s;
+    margin-bottom: 10px;
+    width: 33%;
+}
+
+.antLeaderboardToggleBtn:hover {
+    background-color: #5a5a5a;
+    border-color: #888;
+}
+
+.antLeaderboardToggleBtn[data-mode="daily"] {
+    border-color: #3a9;
+}
+
+.antLeaderboardToggleBtn[data-mode="allTime"] {
+    border-color: #f90;
+}
+
+.antLeaderboardToggleBtn[data-mode="overview"] {
+    border-color: #0df;
+}
+
+.antLeaderboardToggleBtn[data-mode="info"] {
+    border-color: #8a2be2;
+}
+
+#antLeaderboardTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#antLeaderboardTable th,
+#antLeaderboardTable td {
+    padding: 6px;
+    text-align: center;
+    border: 1px solid #555;
+}
+
+#antLeaderboardTable th {
+    background-color: #3a3a3a;
+    font-weight: bold;
+    color: #fff;
+}
+
+#antLeaderboardTable tr {
+    background-color: #2a2a2a;
+    transition: background-color 0.2s;
+}
+
+#antLeaderboardTable tr:hover {
+    background-color: #3a3a3a;
+}
+
+.antLeaderboardCurrentSacrifice {
+    background-color: #2a4a2a !important;
+    border: 2px solid #4a8a4a !important;
+}
+
+.antLeaderboardCurrentSacrifice:hover {
+    background-color: #3a5a3a !important;
 }
 
 .antBtn {

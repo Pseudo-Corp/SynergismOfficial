@@ -10,6 +10,7 @@ import { player } from './Synergism'
 import {
   setActiveSettingScreen,
   toggleAchievementScreen,
+  toggleAntsSubtab,
   toggleBuildingScreen,
   toggleChallengesScreen,
   toggleCorruptionLoadoutsStats,
@@ -212,8 +213,22 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subtabIndex: 0
   },
   [Tabs.AntHill]: {
-    subTabList: [],
-    subtabIndex: 0
+    tabSwitcher: () => toggleAntsSubtab,
+    subtabIndex: 0,
+    subTabList: [
+      {
+        subTabID: '1',
+        unlocked: true,
+        buttonID: 'toggleAntSubtab1'
+      },
+      {
+        subTabID: '2',
+        get unlocked () {
+          return player.ants.highestCrumbsEver.gte(1e100)
+        },
+        buttonID: 'toggleAntSubtab2'
+      }
+    ]
   },
   [Tabs.WowCubes]: {
     tabSwitcher: () => toggleCubeSubTab,

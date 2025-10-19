@@ -395,7 +395,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
         && player.antSacrificeTimerReal > 0.1
         && player.researches[124] === 1
         && player.autoAntSacrifice
-        && player.antPoints.gte('1e40')
+        && player.ants.crumbs.gte('1e100')
       ) {
         void sacrificeAnts(true)
       }

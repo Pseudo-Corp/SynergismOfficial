@@ -512,16 +512,16 @@
       "170": "Only the finest: Obtain 100,000 Galactic Crumbs.",
       "171": "Six-Course Meal: Obtain 666,666,666 Galactic Crumbs.",
       "172": "Accumulation of Food: Obtain 1e20 Galactic Crumbs.",
-      "173": "Cookie Clicking: Obtain 1e40 Galactic Crumbs.",
+      "173": "Cookie Clicking: Obtain 1e100 Galactic Crumbs.",
       "174": "Unlimited Bread Sticks!: Obtain 1e500 Galactic Crumbs.",
       "175": "Restaurant at the end of the Universe: Obtain 1e2500 Galactic Crumbs.",
-      "176": "Ant-icipation!: Amass a 2x Ant Speed Multiplier through sacrifice and own a Tier 2 Ant.",
-      "177": "Ant-ecedent: Amass a 6x Ant Speed Multiplier through sacrifice and own a Tier 3 Ant.",
-      "178": "Ants are friends, not food!: Amass a 20x Ant Speed Multiplier through sacrifice and own a Tier 4 Ant.",
-      "179": "Ant Devil?: Amass a 100x Ant Speed Multiplier through sacrifice and own a Tier 5 Ant.",
-      "180": "The world's best chef: Amass a 500x Ant Speed Multiplier through sacrifice and own a Tier 6 Ant.",
-      "181": "6 Michelin Stars: Amass a 6,666x Ant Speed Multiplier through sacrifice and own a Tier 7 Ant.",
-      "182": "Keys to the Restaurant at the end of the Universe: Amass a 77,777x Ant Speed Multiplier through sacrifice and own a Tier 8 Ant.",
+      "176": "Ant-icipation!: Reach 50 Immortal ELO and own a Tier 2 Ant.",
+      "177": "Ant-ecedent: Reach 200 Immortal ELO and own a Tier 3 Ant.",
+      "178": "Ants are friends, not food!: Reach 500 Immortal ELO and own a Tier 4 Ant.",
+      "179": "Ant Devil?: Reach 1,000 Immortal ELO and own a Tier 5 Ant.",
+      "180": "The world's best chef: Reach 2,500 Immortal ELO and own a Tier 6 Ant.",
+      "181": "6 Michelin Stars: Reach 20,000 Immortal ELO and own a Tier 7 Ant.",
+      "182": "Keys to the Restaurant at the end of the Universe: Reach 100,000 Immortal ELO and own a Tier 8 Ant.",
       "183": "Up: Ascend Once.",
       "184": "Double-Up: Ascend Twice.",
       "185": "Give me Ten!: Ascend Ten Times.",
@@ -686,9 +686,9 @@
       "344": "A crumby achievement: Obtain 1e25,000 Galactic Crumbs.",
       "345": "Get it? Crumbs?: Obtain 1e125,000 Galactic Crumbs.",
       "346": "You clearly do: Obtain 1e1,000,000 Galactic Crumbs.",
-      "347": "Gordon Ramses: Amass a 1e50x Ant Speed Multiplier through Ant Sacrifice.",
-      "348": "Wolfgang Pluck: Amass a 1e200x Ant Speed Multiplier through Ant Sacrifice.",
-      "349": "Marco Pierre Blanco: Amass a 1e1,000x Ant Speed Multiplier through Ant Sacrifice.",
+      "347": "Gordon Ramses: Reach 400,000 Immortal ELO.",
+      "348": "Wolfgang Pluck: Reach 1,500,000 Immortal ELO.",
+      "349": "Marco Pierre Blanco: Reach 5,000,000 Immortal ELO.",
       "350": "Ascensions are suggestions: Ascend 1e16 times.",
       "351": "Nothing promised, no regrets: Ascend 1e20 times.",
       "352": "Immaculate Ascensions: Ascend 1e25 times.",
@@ -1767,7 +1767,7 @@
       "antAutobuyers": "• Ant Autobuyers +{{val}}",
       "antUpgradeAutobuyers": "• Ant Upgrade Autobuyers +{{val}}",
       "antELOAdditive": "• Ant ELO +{{val}}",
-      "antELOMultiplicative": "• Ant ELO x{{val}}",
+      "antELOMultiplicative": "• Reborn ELO Creation Speed x{{val}}",
       "ascensionCountMultiplier": "• Ascension Count x{{val}}",
       "ascensionCountAdditive": "• Ascension Count +{{val}}",
       "allCubeGain": "• All Cube Gain x{{val}}",
@@ -2029,7 +2029,125 @@
     }
   },
   "ants": {
-    "upgrades": {
+    "producers": {
+      "0": {
+        "name": "Worker Ants - Tier I",
+        "flavor": "The backbone of any colony. Gathers Galactic Crumbs.",
+        "generates": "Generates {{x}} Crumbs per second",
+        "eloInformation": "<<gold | ⤬>> Each Worker Ant you buy grants you <<orchid | +{{x}} Ant ELO>> for Ant Sacrifice.",
+        "reincarnationUpgrade17": "Ant Speed from Reincarnation Upgrade 4x1: <<gold | {{x}}x>>",
+        "research": "Ant Speed from Research 3x21: <<gold | {{x}}x>>",
+        "cookieUpgrade": "Ant Speed from Cookie Upgrade 2x15: <<gold | {{x}}x>>"
+      },
+      "1": {
+        "name": "Breeder Ants - Tier II",
+        "flavor": "Produces Worker Ants automatically. The colony grows.",
+        "generates": "Generates {{x}} Worker Ants per second"
+      },
+      "2": {
+        "name": "Meta-Breeder Ants - Tier III",
+        "flavor": "Slightly bigger. Can produce Breeder Ants!",
+        "generates": "Generates {{x}} Breeder Ants per second"
+      },
+      "3": {
+        "name": "Mega-Breeder Ants - Tier IV",
+        "flavor": "It's not just huge. It's big. It produces Meta-Breeders.",
+        "generates": "Generates {{x}} Meta-Breeder Ants per second"
+      },
+      "4": {
+        "name": "Queen Ants - Tier V",
+        "flavor": "The mother of them all. Produces Mega-Breeders.",
+        "generates": "Generates {{x}} Mega-Breeder Ants per second",
+        "eloMult": "<<orchid | ☇>> Buying your first Queen Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first Queen Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.15x as fast!" 
+      },
+      "5": {
+        "name": "Lord Royal Ants - Tier VI",
+        "flavor": "A King Ant. Produces Queens. Wait, what?",
+        "generates": "Generates {{x}} Queen Ants per second",
+        "eloMult": "<<orchid | ☇>> Buying your first Lord Royal Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first Lord Royal Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.25x as fast!"
+      },
+      "6": {
+        "name": "ALMIGHTY Ants - Tier VII",
+        "flavor": "The stuff of legends. Produces Lord Royals.",
+        "generates": "Generates {{x}} Lord Royal Ants per second",
+        "eloMult": "<<orchid | ☇>> Buying your first ALMIGHTY Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first ALMIGHTY Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.4x as fast!"
+      },
+      "7": {
+        "name": "DISCIPLE OF ANT GOD - Tier VIII",
+        "flavor": "Some call this the Primordial One. Produces ALMIGHTY ANTS.",
+        "generates": "Generates {{x}} ALMIGHTY Ants per second",
+        "eloMult": "<<orchid | ☇>> Buying your first DISCIPLE this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 2%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first DISCIPLE this Sacrifice creates <<#00DDFF|Reborn ELO>> 2x as fast!"
+      }
+    },
+    "mastery": {
+      "notMaxedSelfAnt": "Flat production multiplier: <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+      "maxedSelfAnt": "Flat production multiplier: <<gold | {{x}}>>",
+      "level": "Mastery Level <<gold|{{x}}/{{y}}>>",
+      "eloRequirement": "Buying this Mastery level requires <<crimson | {{x}} Immortal ELO>> (Current: <<crimson | {{y}}>>)",
+      "particleCost": "Cost: <<green | {{x}} Particles>>",
+      "alreadyPurchased": "You've already purchased this Mastery level, and you can autobuy this tier of Ant. When you reach the Immortal ELO requirement, this Mastery level will be automatically bought.",
+      "0": {
+        "name": "Worker Mastery",
+        "flavor": "Crumbs for me, not for thee.",
+        "notMaxedSelfPer": "Each Worker Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Worker Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Worker Mastery multiplies Crumb production by <<gold | {{x}}>>"
+      },
+      "1": {
+        "name": "Breeder Mastery",
+        "flavor": "Get a room!",
+        "notMaxedSelfPer": "Each Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Breeder Mastery multiplies Worker Ant production by <<gold | {{x}}>>"
+      },
+      "2": {
+        "name": "Meta-Breeder Mastery",
+        "flavor": "Two's company. Three's a crowd.",
+        "notMaxedSelfPer": "Each Meta-Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Meta-Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Meta-Breeder Mastery multiplies Breeder Ant production by <<gold | {{x}}>>"
+      },
+      "3": {
+        "name": "Mega-Breeder Mastery",
+        "flavor": "Go big or go home.",
+        "notMaxedSelfPer": "Each Mega-Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Mega-Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Mega-Breeder Mastery multiplies Meta-Breeder Ant production by <<gold | {{x}}>>"
+      },
+      "4": {
+        "name": "Queen Mastery",
+        "flavor": "Bow before me, peasants!",
+        "notMaxedSelfPer": "Each Queen Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Queen Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Queen Mastery multiplies Mega-Breeder Ant production by <<gold | {{x}}>>"
+      },
+      "5": {
+        "name": "Lord Royal Mastery",
+        "flavor": "Straight to dictator academy.",
+        "notMaxedSelfPer": "Each Lord Royal Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Lord Royal Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Lord Royal Mastery multiplies Queen Ant production by <<gold | {{x}}>>"
+      },
+      "6": {
+        "name": "ALMIGHTY Mastery",
+        "flavor": "I am an eventuality.",
+        "notMaxedSelfPer": "Each ALMIGHTY Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each ALMIGHTY Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> ALMIGHTY Mastery multiplies Lord Royal Ant production by <<gold | {{x}}>>"
+      },
+      "7": {
+        "name": "DISCIPLE Mastery",
+        "flavor": "It really does look like ants from up there.",
+        "notMaxedSelfPer": "Each DISCIPLE purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each DISCIPLE purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> DISCIPLE Mastery multiplies ALMIGHTY Ant production by <<gold | {{x}}>>"
+      }
+    },
+    "upgrade": {
       "1": "Promotes romance and unity within the colony. [+12% Ant Speed / level]",
       "2": "Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]",
       "3": "Swarms the Taxman into submission [Up to -99.5% taxes!]",
@@ -2063,6 +2181,82 @@
       "7": "Generates {{x}} Royals/sec",
       "8": "Generates {{x}} ALMIGHTIES/sec"
     },
+    "upgrades": {
+      "antSpeed": {
+        "name": "Inceptus Formicidae",
+        "intro": "Love is in the air.",
+        "description": "Love is in the air. Multiply your Ant Speed by {{x}} per level!",
+        "effect": "<<crimson | Ant Speed x{{x}}>>... that's quite a bit, isn't it?"
+      },
+      "coins": {
+        "name": "Fortunae Formicidae",
+        "intro": "Crumbs are just a <i>little</i> bit sweeter.",
+        "description": "Improve Crumbs' multiplier to Coins, up to ^50,000,000.",
+        "effect": "Crumbs give a Coin multiplier equal to <<yellow | (Crumbs)^{{x}}>>",
+        "effect2": "↳ Coin Multiplier: <<yellow | x{{x}}>>"
+      },
+      "taxes": {
+        "name": "Tributum Formicidae",
+        "intro": "Pocket ants!",
+        "description": "Pocket ants! Reduce your taxes by up to 99.5%.",
+        "effect": "Taxes are reduced by <<lightgrey | {{x}}>>"
+      },
+      "acceleratorBoosts": {
+        "name": "Celeritas Formicidae",
+        "intro": "Eek! This ant is kinda scary, ngl.",
+        "description": "Multiply your Accelerator Boosts by up to x20!",
+        "effect": "<<cyan | Accelerator Boosts +{{x}}>>"
+      },
+      "multipliers": {
+        "name": "Exploratorem Formicidae",
+        "intro": "An international ant of mystery.",
+        "description": "Multiply your Multipliers by up to x40!",
+        "effect": "<<pink | Multipliers +{{x}}>>"
+      },
+      "offerings": {
+        "name": "Sacrificium Formicidae",
+        "intro": "Binds the sweet influences of Pleiades.",
+        "description": "Offering gain is multiplied by (1 + level / 10)^0.5",
+        "effect": "Gain <<orange | +{{x}} Offerings>> from all sources!"
+      },
+      "obtainium": {
+        "name": "Experientia Formicidae",
+        "intro": "An example of the <i>infinite ant theorem</i>",
+        "description": "Obtainium gain is multiplied by (1 + level / 10)^0.5",
+        "effect": "Gain <<pink | +{{x}} Obtainium>> from all sources!"
+      },
+      "buildingCostScale": {
+        "name": "Hic Formicidae",
+        "intro": "A builder ant! Some may call it a Carpenter Ant?",
+        "description": "+3% Building Cost Delay per level, up to +9,999,999%",
+        "effect": "Building Costs take <<lime | {{x}} longer>> to spiral out of control!"
+      },
+      "salvage": {
+        "name": "Experientia Formicidae",
+        "intro": "A rather... resourceful ant.",
+        "description": "Gain up to +120 Salvage!",
+        "effect": "Grants <<green | +{{x}} Salvage>>!"
+      },
+      "freeRunes": {
+        "name": "Praemoenio Formicidae",
+        "intro": "It's giving some mixed signals.",
+        "description": "+1 Free Rune Level for Runes 1-5 per level, up to +3,000",
+        "effect": "Those Runes? <<cyan | +{{x}} Free Levels>>, nice!"
+      },
+      "antSacrifice": {
+        "name": "Phylacterium Formicidae",
+        "intro": "Your soul feels a little heavier near this one.",
+        "description": "Ant Sacrifice rewards are multiplied by (1 + level / 25)^0.5",
+        "effect": "Ant Sacrifice gives <<crimson | +{{x}} rewards>>"
+      },
+      "mortuus": {
+        "name": "Mortuus Est Formicidae",
+        "intro": "And then, he turned himself into a Talisman!",
+        "description": "When purchased, unlock a new Talisman! Also, gain up to 2x Global Speed!",
+        "effect": "<<gray | Mortuus Talisman: {{checkMark}}>>",
+        "effect2": "Somehow, your Global Speed is increased by <<royalblue | {{x}}>>"
+      }
+    },
     "rewards": {
       "1": "ALL Ants work at {{x}}x speed.",
       "2": "Crumb --> Coin exponent is ^{{x}}",
@@ -2077,11 +2271,42 @@
       "11": "Sacrificing is {{x}}x as effective",
       "12": "Global Speed is multiplied by {{x}}"
     },
+    "compendium": {
+      "header": "Ants to Quark Corner",
+      "toggleOverview": "Overview",
+      "toggleInfo": "Info"
+    },
+    "leaderboard": {
+      "toggleDaily": "Daily",
+      "toggleAllTime": "All-Time",
+      "value": "Total Weighted Value: <<gold|{{x}}>> (Stage <<gold|{{y}}>>)",
+      "quarksGained": "Quarks gained from Stages: <<cyan|{{x}}>>",
+      "quarkMult": "Quark gain for Ant-based Quarks: <<cyan|+{{x}}>>",
+      "rank": "Rank",
+      "elo": "<<#00DDFF|Reborn ELO>>",
+      "stages": "<<turquoise|Stage>>",
+      "weight": "Weight"
+    },
     "header": "The ants welcome you to their home.",
     "hover": "Hover over the icons for description. Click icons to buy!",
+    "altarHeader": "Ant God... <<crimson | It Hungers.>>",
+    "altarDetails": "Sacrifice your Ants to her for some <<crimson | Immortal ELO>>, and a bunch of other worldly things.",
+    "anthillAlive": "Your Anthill has been alive for",
+    "altarTimeMultiplier": "<<gold | ⧖>> <<var(--lightseagreen-text-color);|{{x}}x>> \"<<lightblue|Worldly>>\" Resources from Ant Sacrifice",
+    "altarRewardMultiplier": "Powers that be also give <<var(--lightseagreen-text-color);|{{x}}x>> \"<<lightblue|Worldly>>\" Resources from Ant Sacrifice",
     "youHaveGalacticCrumbs": "You have {{x}} Galactic Crumbs [{{y}}/s], providing a {{z}} Coin Multiplier",
+    "galacticCrumbCount": "You have {{x}} Galactic Crumbs.",
+    "crumbsPerSecond": "+{{x}} per second",
+    "crumbsCoinMultiplier": "↳ Coin production is multiplied by {{x}} (Tributum Formicidae)",
     "owned": "Owned: {{x}} [+{{y}}]",
-    "costGalacticCrumbs": "Cost: {{x}} Galactic Crumbs",
+    "producerCount": "<<crimson| {{x}} Purchased>> + <<orange | {{y}} Generated>>",
+    "level": "Level {{x}} <<orange | [+{{y}}]>>",
+    "challenge11Modifier": "Challenge 11 - Only free Ant Upgrade Levels count for Effective Levels",
+    "corruptionDivisor": "Extinction lv{{x}} - Effective Levels are divided by <b>{{y}}</b>",
+    "effectiveLevel": "Effective Level: {{level}}",
+    "costSingleLevel": "Cost: {{x}} Galactic Crumbs",
+    "costMaxLevels": "Cost for +{{x}}: {{y}} Galactic Crumbs",
+    "costGalacticCrumbs": "Cost TNL: {{x}} Galactic Crumbs",
     "costParticles": "Cost: {{x}} Particles",
     "autoSacrificeOn": "Auto Sacrifice: ON",
     "autoSacrificeOff": "Auto Sacrifice: OFF",
@@ -2092,16 +2317,34 @@
     "upgradeMultiplier": "Upgrade Reward Multiplier: <<gold|{{x}}x>>",
     "timeMultiplier": "Time Reward Multiplier: <<var(--lightseagreen-text-color);|{{x}}x>>",
     "immortalELO": "<<crimson | Immortal ELO:>> <<gold|{{x}}>>",
-    "immortalELOAntSpeed": "↳ Ant Speed x{{x}}",
+    "activatedImmortalELO": "<<#00DDFF| Reborn ELO>>: <<gold|{{x}}>> (<<gold|{{y}}>> Available)",
+    "eloStage": "<<turquoise | Stage>> <<gold|{{x}}>>",
+    "immortalELOAntSpeed": "<<#00DDFF|↳>> <<crimson | Ant Speed>> <<gold|x{{x}}>>",
+    "rebornObtainiumMult": "<<turquoise|↳>> <<pink | Obtainium>> <<gold|x{{x}}>>",
+    "rebornOfferingMult": "<<turquoise|↳>> <<orange | Offerings>> <<gold|x{{x}}>>",
+    "rebornTalismanShardMult": "<<turquoise|↳>> <<lightgray | Talisman Fragments>> <<gold|x{{x}}>>",
+    "rebornELOGainSpeed": "<<turquoise|↳>> <<#00DDFF|Reborn ELO creation speed>> <<gold|x{{x}}>>",
     "resetAnthill": "Ant Sacrifice",
     "resetAlert": "<<gold | ⚠>> Performs a <<limegreen | Reincarnation>>",
-    "immortalELOGain": "• Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
+    "immortalELOUntilGain": "Get <<gold | {{x}}>> more <<orchid | Ant ELO>> to gain <<crimson | Immortal ELO>>",
+    "immortalELOGain": "Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
     "antSacMultiplier": "↳ Ant Speed x{{x}}",
     "offeringMultiplier": "• Gain <<orange | {{x}}x Offerings>>",
     "obtainiumMultiplier": "• Gain <<pink | {{x}}x Obtainium>>",
     "talismanFragments": "• Gain Some Talisman Fragments!",
+    "rebornELOInfo": "Gain <<#00DDFF|Reborn ELO>> over time by reaching a higher ELO!",
+    "rebornELOInfo2": "• Limited by your <<crimson|Immortal ELO>> and <<orchid|Ant ELO>>",
+    "rebornELOInfo3": "• The more <<#00DDFF|Reborn ELO>> you have, the slower it generates.",
+    "stageInfo": "<<#00DDFF|Reborn ELO>> gives you a <<turquoise | Stage>>.",
+    "stageInfo2": "Each <<turquoise|Stage>> gives you <<gold|1.05x>> <<orange|Offerings>>, <<gold|1.05x>> <<pink|Obtainium>>, and <<gold|1.20x>> <<lightgray|Talisman Fragments>>! <<#00DDFF|Reborn ELO>> generates <<gold|1%>> slower per <<turquoise|Stage>>.",
+    "stageTranche1": "Stages 1-100: 100 <<#00DDFF|Reborn ELO>> Each",
+    "stageTranche2": "Stages 101-200: 1,000 <<#00DDFF|Reborn ELO>> Each",
+    "stageTranche3": "Stages 201-300: 3,000 <<#00DDFF|Reborn ELO>> Each",
+    "stageTranche4": "Stages 301-1,000: 20,000 <<#00DDFF|Reborn ELO>> Each",
+    "stageTranche5": "Stages 1,001+: 100,000 <<#00DDFF|Reborn ELO>> Each",
     "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some Ant Speed and resources. Continue?",
-    "elo": "+{{x}} [>{{y}} ELO]",
+    "elo": "+{{x}}",
+    "eloRequirement": "{{x}} ELO",
     "antSacrifice": "Ant Sacrifice"
   },
   "challenges": {
@@ -2535,7 +2778,7 @@
       "47": "[5x7] Gain +10% more Obtainium per level!",
       "48": "[5x8] When you ascend, start with 1 Worker Ant (this is a lot better than it sounds!)",
       "49": "[5x9] When you ascend, gain 1 of each Challenge 6-8 completion.",
-      "50": "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +1 Effective ELO, 0.00066% Tax reduction per level. Every 10,000 levels grant +0.6% Talisman Power!",
+      "50": "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, 0.00066% Tax reduction per level. Every 10,000 levels grant +0.6% Talisman Power!",
       "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the Wow! Cubes tab, and Research as well.",
       "52": "[Cx2] These sugar cookies sure boost your blood sugar. Gain +1% Global Speed per level.",
       "53": "[Cx3] What a hearty snack. Gain +0.1% Quarks per level.",
@@ -2700,7 +2943,7 @@
       "107": "[5x7] Refine your talismans with the powder of Obtainium to get +0.1% Talisman Power per level, again!",
       "108": "[5x8] A simple trick makes your base Ant ELO increase by 25 per level!",
       "109": "[5x9] A more convoluted trick makes your base Ant ELO increase by 25 per level again!",
-      "110": "[5x10] Gain +1% more Ant ELO from Ant sources per level because why not?",
+      "110": "[5x10] Each Reborn ELO multiplies Ant Speed by 1.02. Woah! You should create these 1% faster per level.",
       "111": "[5x11] Here's another +1 Rune Coefficient to Speed Rune, per level!",
       "112": "[5x12] Here's another +1 Rune Coefficient to Duplication Rune, per level!",
       "113": "[5x13] Here's another +1 Rune Coefficient to Prism Rune, per level!",
@@ -2738,7 +2981,7 @@
       "145": "[6x20] Your knowledge from the ant war will help you automatically gain Mortuus Est Ant levels.",
       "146": "[6x21] Feed your Disciples pure Obtainium to make them produce +0.4% Rune Power (to the first five runes) per level.",
       "147": "[6x22] Feed your Ants their own crumbs to make them Log(Crumbs + 10)x faster!",
-      "148": "[6x23] Increase your base Ant ELO by 2.5% per level!",
+      "148": "[6x23] Create Reborn ELO 1% faster per level. Did you know Reborn ELO gets 1% slower to create per ~10,000 at a certain point?",
       "149": "[6x24] You will gain +0.03% more Offerings per level per level in the Midas Talisman!",
       "150": "[6x25] Auto Challenge. Enough said. Lets you automatically run and complete Challenges!",
       "151": "[7x1] A new row, old upgrade. Increase your Global Speed by +1.2% per level.",
@@ -3688,6 +3931,20 @@
         "name": "Talisman Buff! The fourth",
         "description": "Gain +1% more Talisman Power per level again, AGAIN, additive to other bonuses. Instead of adding five upgrades, Platonic gave this one twice as many levels. Game design!",
         "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+      },
+      "favoriteUpgrade": {
+        "name": "Your Favorite Upgrades' Favorite Upgrade",
+        "description": "This upgrade gets stronger for every upgrade from the following list that is maxed! (+0.02% Quarks per level, per maxed upgrade + 6)",
+        "upgrade1": "Golden Quarks I: {{checkMark}}",
+        "upgrade2": "Platonic DELTA: {{checkMark}}",
+        "upgrade3": "ONE MIND: {{checkMark}}",
+        "upgrade4": "Wow! I want free upgrades to be better: {{checkMark}}",
+        "upgrade5": "EXTRA CHONKY Corruptions: {{checkMark}}",
+        "upgrade6": "Berries that are blue!: {{checkMark}}",
+        "upgrade7": "A beginner's guide to Red Ambrosia: {{checkMark}}",
+        "upgrade8": "Red Infinity Shop Voucher: {{checkMark}}",
+        "upgrade9": "The Sands of Time II: {{checkMark}}",
+        "effect": "{{n}} more Quarks, thanks to this upgrade and its loving sponsors."
       }
     },
     "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
@@ -3932,7 +4189,7 @@
       "121": "You probably autobought this. -50% taxes!",
       "122": "Increase Crystal Upgrade 3 cap from +12% to +100%!",
       "123": "Raise coin production to the power of 1.025. More EXPONENTS.",
-      "124": "Gain +3% more effective ELO.",
+      "124": "Immortal ELO becomes Reborn ELO 1.1x as fast!",
       "125": "Constant Tax divisor is 0.333% stronger per challenge 10 completion. [Divisor^(1 + upgrade)]"
     },
     "crystalEffects": {
@@ -3969,8 +4226,8 @@
       "2": "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max {{max}}%].",
       "3": "Increase Offering gain +2% per level.",
       "4": "Increase Obtainium gain +4% per level.",
-      "5": "Multiply Ant speed by (1 + log10(Constant + 1)/10)^level",
-      "6": "Add +2 free Ant Levels per level.",
+      "5": "Multiply Ant speed by (1 + level * log10(Constant + 1))",
+      "6": "Add up to 1,000 free Ant Levels! (Each level gives slightly less than the last)",
       "7": "Provides 7 free rune levels per level, up to +7,000.",
       "8": "Increase the rune EXP given by Offerings by 10% per level [Additive]",
       "9": "When bought, Rune Power is increased by Log4(Talisman Shards +1) %",
@@ -4062,7 +4319,7 @@
       "121": "Effect: -50% Taxes duh!",
       "122": "Effect: +88% cap to Crystal Upgrade 3, duh!",
       "123": "Effect: Coin Production ^1.025, duh!",
-      "124": "Effect: +3% Effective Ant ELO, duh!",
+      "124": "Effect: 10% faster Reborn ELO creation!",
       "125": "+{{x}}% Constant Divisor power."
     },
     "shopTitles": {
@@ -4115,6 +4372,10 @@
     "challenges": {
       "normal": "Normal",
       "exalt": "EXALT"
+    },
+    "ants": {
+      "anthill": "The Anthill",
+      "altar": "The Altar"
     },
     "cubes": {
       "cubeTributes": "Cube Tributes",
@@ -4444,14 +4705,14 @@
   },
   "corruptions": {
     "names": {
-      "viscosity": "Viscous Multiplier and Accelerators",
-      "drought": "Less Fruitful Harvests",
-      "deflation": "Crystal Mine Collapse",
-      "extinction": "The Second Meteor",
-      "illiteracy": "Defunded Education",
-      "recession": "Great Depression II",
-      "dilation": "Time Dilation",
-      "hyperchallenge": "The Hyperchallenge Cube"
+      "viscosity": "Viscous Multiplier and Accelerators (Viscosity)",
+      "drought": "Less Fruitful Harvests (Drought)",
+      "deflation": "Crystal Mine Collapse (Deflation)",
+      "extinction": "The Second Meteor (Extinction)",
+      "illiteracy": "Defunded Education (Illiteracy)",
+      "recession": "Great Depression II (Recession)",
+      "dilation": "Time Dilation (Dilation)",
+      "hyperchallenge": "The Hyperchallenge Cube (Hyperchallenge)"
     },
     "descriptions": {
       "viscosity": "You feel lethargic across the universe...",
@@ -4469,7 +4730,7 @@
       "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
       "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
       "deflation": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Upgrade Level Effect /{{ effect }}",
       "drought": "On this Ascension, this corruption is level {{ level }}. Effect: Salvage {{ effect }}",
       "recession": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
@@ -4479,7 +4740,7 @@
       "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
       "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
       "deflation": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Upgrade Level Effect /{{ effect }}",
       "drought": "On next Ascension, this corruption will be level {{ level }}. Effect: Salvage {{ effect }}",
       "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
@@ -5136,7 +5397,7 @@
       "mortuus": {
         "name": "Preserved Ant Talisman",
         "description": "It's said that great sacrifice was made for this Talisman to exist.",
-        "inscription": "<<gold | ✏>> Inscription: Ant ELO is increased by <<gold|{{val}}>>.",
+        "inscription": "<<gold | ✏>> Inscription: Reborn ELO is created <<gold|{{val}}>> faster.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Prism Rune."
       },
       "plastic": {
@@ -6354,6 +6615,7 @@
       "SynergismLevel": "Synergism Level Reward:",
       "SynergismLevelMilestone": "Level Milestone - Salvage Challenge Buff:",
       "ReincarnationChallenge": "Reincarnation Challenge Rewards:",
+      "AntUpgrade": "Ants - Experientia Formicidae:",
       "UpgradeBonus": "Reincarnation Upgrade 1:",
       "CubeBlessing": "Iris Cube Blessing:",
       "RuneBonus": "Thrift Rune:",
@@ -6382,6 +6644,7 @@
       "ImmortalELO": "Immortal ELO (Ant Sacrifice Points):",
       "AntUpgrade1": "Ant Upgrade 1:",
       "DiamondUpgrade19": "Diamond Upgrade 19:",
+      "ShopUpgrade": "Shop Upgrade - Ant Speed:",
       "ReincarnationUpgrade16": "Reincarnation Upgrade 16:",
       "ReincarnationUpgrade17": "Reincarnation Upgrade 17:",
       "ReincarnationUpgrade18": "Reincarnation Upgrade 18:",
@@ -6394,7 +6657,11 @@
       "Challenge11Bonus": "Challenge 11 Bonus:",
       "CubeTribute": "Cube Blessing - Artemis:",
       "ConstantUpgrade": "Constant Upgrade 5:",
+      "Challenge15": "Challenge 15 Reward - Ant Speed:",
+      "PlatonicUpgrade": "Platonic Upgrade 3x2:",
+      "SingularityPerk": "Singularity Perk - Ant God's Cornucopia:",
       "CookieUpgrade": "Cookie Upgrade 15:",
+      "OcteractUpgrade": "Octeract Starter Upgrade:",
       "Total": "Total Ant Speed Multiplier:"
     },
     "gameStage": "Current Game Stage: {{stage}}"
@@ -6438,7 +6705,7 @@
         "5": "Athena's Tribute x{{amount}}: +{{bonus}} Obtainium Gain",
         "6": "Artemis' Tribute x{{amount}}: +{{bonus}} Ant Speed",
         "7": "Ares' Tribute x{{amount}}: +{{bonus}} Sacrifice Reward",
-        "8": "Moloch's Tribute x{{amount}}: +{{bonus}} Effective ELO (additive)",
+        "8": "Moloch's Tribute x{{amount}}: +{{bonus}} Reborn ELO Creation Speed",
         "9": "Midas' Tribute x{{amount}}: +{{bonus}} Rune Power",
         "10": "Chronos' Tribute x{{amount}}: +{{bonus}} Global Time Acceleration"
       },
@@ -6457,7 +6724,7 @@
         "5": "Athena's Gift x{{amount}}: +{{bonus}} Athena Obtainium",
         "6": "Artemis' Gift x{{amount}}: +{{bonus}} Artemis Ant Speed",
         "7": "Ares' Gift x{{amount}}: +{{bonus}} Ares Ant Sacrifice Reward",
-        "8": "Moloch's Gift x{{amount}}: +{{bonus}} Moloch ELO Bonus",
+        "8": "Moloch's Gift x{{amount}}: +{{bonus}} Moloch Reborn ELO Creation Speed",
         "9": "Midas' Gift x{{amount}}: +{{bonus}} Midas Effective Rune Power",
         "10": "Chronos' Gift x{{amount}}: +{{bonus}} Chronos Tribute Power"
       }
@@ -6475,7 +6742,7 @@
         "5": "Athena's Benediction x{{amount}}: +{{bonus}} Athena Gift → Athena Obtainium",
         "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Speed",
         "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares Ant Sacrifice Reward",
-        "8": "Moloch's Benediction x{{amount}}: +{{bonus}} Moloch Gift → Moloch ELO Bonus",
+        "8": "Moloch's Benediction x{{amount}}: +{{bonus}} Moloch Gift → Moloch Reborn ELO Creation Speed",
         "9": "Midas' Benediction x{{amount}}: +{{bonus}} Midas Gift → Midas Effective Rune Power",
         "10": "Chronos' Benediction x{{amount}}: +{{bonus}} Chronos Gift → Chronos Tribute Power"
       }
@@ -6569,7 +6836,7 @@
         "9": "Gain 2.5x Immaculate Obtainium and multiply Defunded Education's exponent by 1+log10(Obtainium+1)/100, capped at 1e100 Obtainium.",
         "10": "C10 Exponent: 1.0375 --> 1.04, Constant tax exponent +0.20, 10x faster Constant production, 1.10x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 3.5x Immaculate Obtainium and Offerings, 2x All Cubes, ^1.25 ant exponent in C15, +1 Corruption Cap Level again!",
         "11": "If Crystal Mine Collapse is set to level 11 or higher, Reincarnations will also give Diamonds based on Particle gain!",
-        "12": "Gain an incorruptible x(1 + level/100) Ant multiplier per Challenge completion!",
+        "12": "For each level of Extinction, gain +0.5% more Ant ELO, per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level!",
         "13": "'Less Fruitful Harvests' reduces your <<green|Salvage>> by 50% less!",
         "14": "Multiply Great Depression II's coin exponent by 1.55, but only in Challenge 15.",
         "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), 1.15x Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
@@ -6939,5 +7206,8 @@
     },
     "hotkeysON": "Hotkeys: ON",
     "hotkeysOFF": "Hotkeys: OFF"
+  },
+  "versionChangeAnnouncements": {
+    "ants": "Ants have been significantly reworked/rebalanced. Your Anthill progress has been set accordingly!"
   }
 }

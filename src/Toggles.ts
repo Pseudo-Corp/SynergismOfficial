@@ -13,7 +13,7 @@ import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
 import { Alert, Confirm, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
-import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
+import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 export const toggleSettings = (toggle: HTMLElement) => {
@@ -1028,4 +1028,24 @@ export const toggleStatSymbol = async () => {
     }
   }
   location.reload()
+}
+
+export const toggleAntsSubtab = (indexStr: string) => {
+  const i = Number(indexStr)
+  const numSubTabs = subTabsInMainTab(Tabs.AntHill)
+
+  for (let j = 1; j <= numSubTabs; j++) {
+    const antTab = DOMCacheGetOrSet(`antSubtab${j}`)
+    console.log(antTab.style, j, i)
+    if (antTab.style.display === 'flex' && j !== i) {
+      console.log('testhere')
+      antTab.style.display = 'none'
+    }
+    if (antTab.style.display === 'none' && j === i) {
+      console.log('testthere2')
+      antTab.style.display = 'flex'
+    }
+  }
+
+  visualUpdateAnts()
 }

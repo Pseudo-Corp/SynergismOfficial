@@ -37,9 +37,45 @@ const arrayExtend = <
   return array
 }
 
+const arrayExtendGeneral = <T>(array: T[], blankArray: T[]): T[] => {
+  if (array.length < blankArray.length) {
+    array.push(...blankArray.slice(array.length))
+  }
+  return array
+}
+
 const buyAmount = z.number().refine((arg) =>
   arg === 1 || arg === 10 || arg === 100 || arg === 1000 || arg === 10_000 || arg === 100_000
 ).default(1)
+
+const leaderboardEntrySchema = z.object({
+  elo: z.number(),
+  sacrificeId: z.number()
+})
+
+const antsSchema = z.object({
+  purchased: z.number().array().transform((array) => arrayExtendGeneral(array, blankSave.ants.purchased)),
+  generated: decimalSchema.array().transform((array) => arrayExtendGeneral(array, blankSave.ants.generated)),
+  masteries: z.number().array().transform((array) => arrayExtendGeneral(array, blankSave.ants.masteries)),
+  maxMasteriesPurchased: z.number().array().transform((array) =>
+    arrayExtendGeneral(array, blankSave.ants.maxMasteriesPurchased)
+  ),
+  upgrades: z.number().array().transform((array) => arrayExtendGeneral(array, blankSave.ants.upgrades)),
+  crumbs: decimalSchema.default(() => blankSave.ants.crumbs),
+  highestCrumbsThisSacrifice: decimalSchema.default(() => blankSave.ants.highestCrumbsThisSacrifice),
+  highestCrumbsEver: decimalSchema.default(() => blankSave.ants.highestCrumbsEver),
+  immortalELO: z.number().default(() => blankSave.ants.immortalELO),
+  rebornELO: z.number().default(() => blankSave.ants.rebornELO),
+  highestRebornELODaily: leaderboardEntrySchema.array().transform((array) =>
+    arrayExtendGeneral(array, blankSave.ants.highestRebornELODaily)
+  ),
+  highestRebornELOEver: leaderboardEntrySchema.array().transform((array) =>
+    arrayExtendGeneral(array, blankSave.ants.highestRebornELOEver)
+  ),
+  quarksGainedFromAnts: z.number().default(() => blankSave.ants.quarksGainedFromAnts),
+  antSacrificeCount: z.number().default(() => blankSave.ants.antSacrificeCount),
+  currentSacrificeId: z.number().default(() => blankSave.ants.currentSacrificeId)
+})
 
 const ascendBuildingSchema = z.object({
   cost: z.number(),
@@ -267,45 +303,47 @@ export const playerSchema = z.object({
   fifthCostParticles: decimalSchema,
   fifthProduceParticles: z.number(),
 
-  firstOwnedAnts: z.number().default(() => blankSave.firstOwnedAnts),
-  firstGeneratedAnts: decimalSchema,
-  firstCostAnts: decimalSchema,
-  firstProduceAnts: z.number().default(() => blankSave.firstProduceAnts),
+  firstOwnedAnts: z.number().optional(),
+  firstGeneratedAnts: decimalSchema.optional(),
+  firstCostAnts: decimalSchema.optional(),
+  firstProduceAnts: z.number().optional(),
 
-  secondOwnedAnts: z.number().default(() => blankSave.secondOwnedAnts),
-  secondGeneratedAnts: decimalSchema,
-  secondCostAnts: decimalSchema,
-  secondProduceAnts: z.number().default(() => blankSave.secondProduceAnts),
+  secondOwnedAnts: z.number().optional(),
+  secondGeneratedAnts: decimalSchema.optional(),
+  secondCostAnts: decimalSchema.optional(),
+  secondProduceAnts: z.number().optional(),
 
-  thirdOwnedAnts: z.number().default(() => blankSave.thirdOwnedAnts),
-  thirdGeneratedAnts: decimalSchema,
-  thirdCostAnts: decimalSchema,
-  thirdProduceAnts: z.number().default(() => blankSave.thirdProduceAnts),
+  thirdOwnedAnts: z.number().optional(),
+  thirdGeneratedAnts: decimalSchema.optional(),
+  thirdCostAnts: decimalSchema.optional(),
+  thirdProduceAnts: z.number().optional(),
 
-  fourthOwnedAnts: z.number().default(() => blankSave.fourthOwnedAnts),
-  fourthGeneratedAnts: decimalSchema,
-  fourthCostAnts: decimalSchema,
-  fourthProduceAnts: z.number().default(() => blankSave.fourthProduceAnts),
+  fourthOwnedAnts: z.number().optional(),
+  fourthGeneratedAnts: decimalSchema.optional(),
+  fourthCostAnts: decimalSchema.optional(),
+  fourthProduceAnts: z.number().optional(),
 
-  fifthOwnedAnts: z.number().default(() => blankSave.fifthOwnedAnts),
-  fifthGeneratedAnts: decimalSchema,
-  fifthCostAnts: decimalSchema,
-  fifthProduceAnts: z.number().default(() => blankSave.fifthProduceAnts),
+  fifthOwnedAnts: z.number().optional(),
+  fifthGeneratedAnts: decimalSchema.optional(),
+  fifthCostAnts: decimalSchema.optional(),
+  fifthProduceAnts: z.number().optional(),
 
-  sixthOwnedAnts: z.number().default(() => blankSave.sixthOwnedAnts),
-  sixthGeneratedAnts: decimalSchema,
-  sixthCostAnts: decimalSchema,
-  sixthProduceAnts: z.number().default(() => blankSave.sixthProduceAnts),
+  sixthOwnedAnts: z.number().optional(),
+  sixthGeneratedAnts: decimalSchema.optional(),
+  sixthCostAnts: decimalSchema.optional(),
+  sixthProduceAnts: z.number().optional(),
 
-  seventhOwnedAnts: z.number().default(() => blankSave.seventhOwnedAnts),
-  seventhGeneratedAnts: decimalSchema,
-  seventhCostAnts: decimalSchema,
-  seventhProduceAnts: z.number().default(() => blankSave.seventhProduceAnts),
+  seventhOwnedAnts: z.number().optional(),
+  seventhGeneratedAnts: decimalSchema.optional(),
+  seventhCostAnts: decimalSchema.optional(),
+  seventhProduceAnts: z.number().optional(),
 
-  eighthOwnedAnts: z.number().default(() => blankSave.eighthOwnedAnts),
-  eighthGeneratedAnts: decimalSchema,
-  eighthCostAnts: decimalSchema,
-  eighthProduceAnts: z.number().default(() => blankSave.eighthProduceAnts),
+  eighthOwnedAnts: z.number().optional(),
+  eighthGeneratedAnts: decimalSchema.optional(),
+  eighthCostAnts: decimalSchema.optional(),
+  eighthProduceAnts: z.number().optional(),
+
+  ants: antsSchema.default(() => deepClone()(blankSave.ants)),
 
   ascendBuilding1: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding1)),
   ascendBuilding2: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding2)),
@@ -555,12 +593,10 @@ export const playerSchema = z.object({
   quarkstimer: z.number().default(() => blankSave.quarkstimer),
   goldenQuarksTimer: z.number().default(() => blankSave.goldenQuarksTimer),
 
-  antPoints: decimalSchema,
+  antPoints: decimalSchema.optional(),
   antUpgrades: z.union([z.number().array(), arrayStartingWithNull(z.number()).transform((array) => array.slice(1))])
-    .default(() => [...blankSave.antUpgrades]),
-  antSacrificePoints: z.union([z.number(), z.null().transform(() => Number.MAX_VALUE)]).default(() =>
-    blankSave.antSacrificePoints
-  ),
+    .optional(),
+  antSacrificePoints: z.union([z.number(), z.null().transform(() => Number.MAX_VALUE)]).optional(),
   antSacrificeTimer: z.number().default(() => blankSave.antSacrificeTimer),
   antSacrificeTimerReal: z.number().default(() => blankSave.antSacrificeTimerReal),
 
