@@ -136,6 +136,28 @@ body.loading {
 .amberText { color: var(--amber-text-color); }
 .lightyellowText { color: var(--lightgoldenrodyellow-text-color); }
 
+html[data-legacyicons="false"] {
+    --wowcube-color: #fd0;
+    --tesseract-color: orange;
+    --hypercube-color: #ff004c;
+    --platonic-color: orchid;
+    --hepteract-color: mediumpurple;
+}
+
+html[data-legacyicons="true"] {
+    --wowcube-color: #fff200;
+    --tesseract-color: #a349a4;
+    --hypercube-color: #ed1c24;
+    --platonic-color: lightgoldenrodyellow;
+    --hepteract-color: #ffc1d6;
+}
+
+.wowcubeText { color: var(--wowcube-color); }
+.wowtesseractText { color: var(--tesseract-color); }
+.wowhypercubeText { color: var(--hypercube-color); }
+.wowplatonicText { color: var(--platonic-color); }
+.wowhepteractText { color: var(--hepteract-color); }
+
 .active-subtab {
     background-color: crimson;
 }
@@ -721,8 +743,8 @@ button.isEvent:hover {
 }
 
 #cubetab {
-    border-color: orange;
-    color: red;
+    border-color: var(--wowcube-color);
+    color: var(--hypercube-color);
 }
 
 #campaigntab {
@@ -2516,7 +2538,7 @@ p#reincarnatehotkeys {
 .cubeBtn {
     min-width: 100px;
     background-color: var(--blackbtn-color);
-    border: 1px solid gold;
+    border: 1px solid var(--wowcube-color);
 }
 
 .autoOpensBtn {
@@ -2545,17 +2567,6 @@ p[id$="BlessingsTotal"] {
     padding: 15px;
     margin-left: 22.5%;
     margin-right: auto;
-}
-
-#cubeBlessingsTotal { color: orange; }
-
-#tesseractBlessingsTotal { color: var(--orchid-text-color); }
-
-#hypercubeBlessingsTotal { color: rgb(255 0 76); }
-
-#platonicBlessingsTotal {
-    color: orange;
-    margin: 0;
 }
 
 #platonicFooter,
@@ -2816,7 +2827,7 @@ button.language-select span.lang-name {
 
 #tesseractAmount {
     color: white;
-    border: 1px solid orange;
+    border: 1px solid var(--tesseract-color);
     background-color: var(--blackbtn-color);
 }
 
@@ -3644,27 +3655,6 @@ header #obtainiumDisplay { color: pink; }
 
 #ascC10 {
     color: limegreen;
-}
-
-#ascCubes {
-    color: yellow;
-}
-
-#ascTess {
-    /* color: var(--orchid-text-color); */
-    color: orange;
-}
-
-#ascHyper {
-    color: var(--crimson-text-color);
-}
-
-#ascPlatonic {
-    color: orchid;
-}
-
-#ascHepteract {
-    color: mediumpurple;
 }
 
 #ascTimeAccel {
