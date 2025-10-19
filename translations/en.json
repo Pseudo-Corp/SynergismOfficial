@@ -6739,9 +6739,9 @@
         "2": "Aphrodite's Benediction x{{amount}}: +{{bonus}} Aphrodite Gift → Aphrodite Multipliers",
         "3": "Plutus' Benediction x{{amount}}: +{{bonus}} Plutus Gift → Plutus Offerings",
         "4": "Iris' Benediction x{{amount}}: +{{bonus}} Iris Gift Cap <<white | [▼ Cap: 150%]>>",
-        "5": "Athena's Benediction x{{amount}}: +{{bonus}} Athena Gift → Athena Obtainium",
-        "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Speed",
-        "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares Ant Sacrifice Reward",
+        "5": "Athena's Benediction x{{amount}}: +{{bonus}} Athena Gift → Athena Ant Speed",
+        "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Sacrifice Reward",
+        "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares ELO Bonus",
         "8": "Moloch's Benediction x{{amount}}: +{{bonus}} Moloch Gift → Moloch Reborn ELO Creation Speed",
         "9": "Midas' Benediction x{{amount}}: +{{bonus}} Midas Gift → Midas Effective Rune Power",
         "10": "Chronos' Benediction x{{amount}}: +{{bonus}} Chronos Gift → Chronos Tribute Power"
