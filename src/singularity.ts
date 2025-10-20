@@ -1124,13 +1124,13 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
     qualityOfLife: true,
     costPerLevel: 14999,
     minimumSingularity: 5,
-    specialCostForm: 'Exponential2',
+    specialCostForm: 'Quadratic',
     effect: (n: number) => {
-      return n / 50
+      return n / 100
     },
     effectDescription: (n: number) =>
       i18next.t('singularity.data.singQuarkHepteract.effect', {
-        n: format(n / 50, 2, true)
+        n: format(n / 100, 2, true)
       }),
     name: () => i18next.t('singularity.data.singQuarkHepteract.name'),
     description: () => i18next.t('singularity.data.singQuarkHepteract.description')
@@ -1144,13 +1144,13 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
     qualityOfLife: true,
     costPerLevel: 449999,
     minimumSingularity: 30,
-    specialCostForm: 'Exponential2',
+    specialCostForm: 'Cubic',
     effect: (n: number) => {
-      return n / 50
+      return n / 100
     },
     effectDescription: (n: number) =>
       i18next.t('singularity.data.singQuarkHepteract2.effect', {
-        n: format(n / 50, 2, true)
+        n: format(n / 100, 2, true)
       }),
     name: () => i18next.t('singularity.data.singQuarkHepteract2.name'),
     description: () => i18next.t('singularity.data.singQuarkHepteract2.description')
@@ -1166,11 +1166,11 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
     minimumSingularity: 61,
     specialCostForm: 'Exponential2',
     effect: (n: number) => {
-      return n / 100
+      return n / 200
     },
     effectDescription: (n: number) =>
       i18next.t('singularity.data.singQuarkHepteract3.effect', {
-        n: format(n / 100, 2, true)
+        n: format(n / 200, 3, true)
       }),
     name: () => i18next.t('singularity.data.singQuarkHepteract3.name'),
     description: () => i18next.t('singularity.data.singQuarkHepteract3.description')

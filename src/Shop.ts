@@ -467,7 +467,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     tier: 'Ascension',
     price: 2e5 - 1,
     priceIncrease: 19999,
-    maxLevel: 15,
+    maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
@@ -476,7 +476,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     tier: 'Singularity',
     price: 2e7 - 1,
     priceIncrease: 2e6 - 1,
-    maxLevel: 15,
+    maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
@@ -485,7 +485,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     tier: 'SingularityVol2',
     price: 2e9 - 1,
     priceIncrease: 2e9 - 1,
-    maxLevel: 15,
+    maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
@@ -494,7 +494,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     tier: 'SingularityVol3',
     price: 2e11 - 1,
     priceIncrease: 2e11 - 1,
-    maxLevel: 15,
+    maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
@@ -557,7 +557,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     tier: 'SingularityVol4',
     price: 1,
     priceIncrease: 2.5e13,
-    maxLevel: 100,
+    maxLevel: 80,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
@@ -804,6 +804,13 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
+  }
+}
+
+export const updateShopLevels = () => {
+  for (const upgrade in player.shopUpgrades){
+    const k = upgrade as keyof Player['shopUpgrades']
+    player.shopUpgrades[k] = Math.min(player.shopUpgrades[k], shopData[k].maxLevel)
   }
 }
 

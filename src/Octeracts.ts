@@ -288,7 +288,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
     maxLevel: 25,
     costPerLevel: 1 / 10,
     effect: (n: number) => {
-      return n / 50
+      return n / 100
     },
     effectDescription: function(n: number) {
       const effectValue = this.effect(n)

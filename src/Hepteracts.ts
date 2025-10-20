@@ -118,13 +118,8 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     UNLOCKED: () => true,
     EFFECTS: (hept) => {
       const exponent = hepteracts.quark.DR + hepteracts.quark.DR_INCREASE()
-      if (hept <= hepteracts.quark.LIMIT) {
-        return {
-          quarkMultiplier: Math.pow(1 + 5 * hept / 10000, exponent)
-        }
-      }
       return {
-        quarkMultiplier: Math.pow(1.5 + 0.2 * Math.log2(hept / 1000), exponent)
+        quarkMultiplier: Math.pow(1 + 0.2 * Math.log2(1 + hept / 500), exponent)
       }
     },
     EFFECTSDESCRIPTION: (hept) => {
@@ -133,10 +128,17 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
         x: formatAsPercentIncrease(effects.quarkMultiplier, 2)
       })
     },
-    DESCRIPTION: () => i18next.t('wowCubes.hepteractForge.descriptions.quark.effect'),
+    DESCRIPTION: () => {
+      const starter = i18next.t('wowCubes.hepteractForge.descriptions.quark.effect')
+      const DR = hepteracts.quark.DR + hepteracts.quark.DR_INCREASE()
+      const extra = i18next.t('wowCubes.hepteractForge.descriptions.quark.effect2', {
+        x: format(DR, 3, true)
+      })
+      return `${starter}<br>${extra}`
+    },
     RESET_TIER: 'never',
     LIMIT: 1000,
-    DR: 1,
+    DR: 2,
     DR_INCREASE: () => {
       return getGQUpgradeEffect('singQuarkHepteract')
         + getGQUpgradeEffect('singQuarkHepteract2')
@@ -668,7 +670,7 @@ export const hepteractDescriptions = (hept: HepteractKeys) => {
       break
   }
 
-  effectText.textContent = i18next.t(`wowCubes.hepteractForge.descriptions.${hept}.effect`)
+  effectText.innerHTML = hepteracts[hept].DESCRIPTION()
   currentEffectText.innerHTML = currentEffectRecord
 
   balanceText.textContent = i18next.t('wowCubes.hepteractForge.inventory', {

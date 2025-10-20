@@ -244,6 +244,7 @@ import {
 import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
 import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
+import { updateShopLevels } from './Shop'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -5433,6 +5434,7 @@ export const reloadShit = (reset = false) => {
   setAmbrosiaUpgradeLevels()
   setRedAmbrosiaUpgradeLevels()
   refundOvercapResearches()
+  updateShopLevels()
 
   if (!reset) {
     calculateOffline()

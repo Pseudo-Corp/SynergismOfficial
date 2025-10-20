@@ -24,6 +24,7 @@ import {
   calculateAscensionScore,
   calculateAscensionSpeedExponentSpread,
   calculateAscensionSpeedMult,
+  calculateBaseGoldenQuarks,
   calculateBaseObtainium,
   calculateBaseOfferings,
   calculateBlueberryInventory,
@@ -2269,8 +2270,7 @@ export const allGoldenQuarkMultiplierStats: NumberStatLine[] = [
   {
     i18n: 'Base',
     stat: () =>
-      10 + 2 * player.singularityCount + Math.max(0, 5 * (10 - player.singularityCount))
-      + player.quarksThisSingularity / 1e5 // Base Value
+      calculateBaseGoldenQuarks(player.singularityCount) // Base Golden Quarks based on Quarks and Sing Count
   },
   {
     i18n: 'PseudoCoins',

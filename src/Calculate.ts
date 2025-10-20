@@ -1645,6 +1645,14 @@ export const calculateQuarkMultFromPowder = () => {
     : 1 + (1 / 100000) * player.overfluxPowder
 }
 
+export const calculateBaseGoldenQuarks = (singularity: number) => {
+  const minimumValue = 100 * Math.pow(1.04, singularity)
+  const contributionFromQuarks = player.quarksThisSingularity / 1e5
+  const firstTenBonus = 10 * Math.min(player.highestSingularityCount, 10)
+  return Math.floor(minimumValue + contributionFromQuarks + firstTenBonus)
+}
+
+
 export const calculateSingularityAmbrosiaLuckMilestoneBonus = () => {
   let bonus = 0
   const singThresholds1 = [35, 42, 49, 56, 63, 70, 77]
