@@ -3487,7 +3487,7 @@
       },
       "singQuarkHepteract": {
         "name": "我希望惊奇七阶立方·夸克的效果略微增加。",
-        "description": "哎哟，走错游戏了。总之，您想让惊奇七阶立方·夸克的指数再度增加吗？每级可以再增加0.02。",
+        "description": "Wrong game, oops. Anyway, would you like more exponent on your Quark Hepteract. +0.01 per level, to be precise.",
         "effect": "使惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "singQuarkHepteract2": {
@@ -3497,7 +3497,7 @@
       },
       "singQuarkHepteract3": {
         "name": "我希望惊奇七阶立方·夸克的效果略微增加 III。",
-        "description": "我才不是那个教母咧(译者注：指NGU Idle中的泰坦“教母”)！这个愿望更弱……但可以超载。",
+        "description": "I AM NOT THE GODMOTHER YOU ARE LOOKING FOR! This wish, unlike the others, can be overclocked!",
         "effect": "使惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "singOcteractGain": {
@@ -4757,7 +4757,7 @@
       },
       "octeractImprovedQuarkHept": {
         "name": "我希望惊奇七阶立方·夸克的效果还能增加。",
-        "description": "教母跑路了，但Derpsmith还在！每级使惊奇七阶立方·夸克的指数增加0.02。",
+        "description": "The godmother is absent, but Derpsmith is here! +0.01 exponent to your Quark Hepteract per level.",
         "effect": "使惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "octeractImprovedGlobalSpeed": {
@@ -6608,7 +6608,8 @@
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}祭品。"
         },
         "quark": {
-          "effect": "一磅鱼，两磅鱼，鱼鱼鱼。每个惊奇七阶立方·夸克可以使夸克的获取数量增加0.05%。",
+          "effect": "One pound, two pound fish.",
+          "effect2": "Grants a Quark Multiplier equal to (1 + 0.2 * log2(1 + QHept / 500))^{{x}}",
           "currentEffect": "当前效果：夸克获取数量增加{{x}}",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}夸克。"
         },
