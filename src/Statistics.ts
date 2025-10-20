@@ -1,6 +1,7 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
+import { antSacrificePointsToMultiplier } from './Ants'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -120,6 +121,7 @@ import {
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
+import { isResearchUnlocked } from './Research'
 import { getRuneBlessingEffect } from './RuneBlessings'
 import {
   firstFiveEffectiveRuneLevelMult,
@@ -141,8 +143,6 @@ import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talisman
 import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { antSacrificePointsToMultiplier } from './Ants'
-import { isResearchUnlocked } from './Research'
 
 export interface StatLine<T = number | Exclude<DecimalSource, string>> {
   i18n: string
@@ -2925,11 +2925,11 @@ export const negativeSalvageStats: NumberStatLine[] = [
 export const antSpeedStats: DecimalSourceLine[] = [
   {
     i18n: 'GlobalSpeed',
-    stat: () => calculateGlobalSpeedMult(), // Global Speed Multiplier
+    stat: () => calculateGlobalSpeedMult() // Global Speed Multiplier
   },
   {
     i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('antSpeed'), // Achievement Bonus
+    stat: () => +getAchievementReward('antSpeed') // Achievement Bonus
   },
   {
     i18n: 'ImmortalELO',
@@ -2939,9 +2939,9 @@ export const antSpeedStats: DecimalSourceLine[] = [
   {
     i18n: 'AntUpgrade1',
     stat: () => {
-      const base = 1.10 + // Base +10% Ant Speed per upgrade lvl
-      player.researches[101] / 1000 + // Research 5x1
-      player.researches[162] / 1000 // Research 7x12
+      const base = 1.10 // Base +10% Ant Speed per upgrade lvl
+        + player.researches[101] / 1000 // Research 5x1
+        + player.researches[162] / 1000 // Research 7x12
       return Decimal.pow(base, player.antUpgrades[0]! + G.bonusant1)
     }
   },
@@ -2957,7 +2957,12 @@ export const antSpeedStats: DecimalSourceLine[] = [
   },
   {
     i18n: 'ReincarnationUpgrade17',
-    stat: () => Decimal.pow(1 + player.upgrades[77] / 250, player.firstOwnedAnts), // Reincarnation Upgrade 17
+    stat: () =>
+      Decimal.pow(
+        1 + player.upgrades[77] / 250,
+        player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts
+          + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts
+      ), // Reincarnation Upgrade 17
     displayCriterion: () => player.researches[50] > 0
   },
   {
@@ -2967,7 +2972,12 @@ export const antSpeedStats: DecimalSourceLine[] = [
   },
   {
     i18n: 'Research4x21',
-    stat: () => Decimal.pow(1 + player.researches[96] / 5000, player.secondOwnedAnts),
+    stat: () =>
+      Decimal.pow(
+        1 + player.researches[96] / 5000,
+        player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts
+          + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts
+      ),
     displayCriterion: () => isResearchUnlocked(96)
   },
   {
@@ -3015,7 +3025,12 @@ export const antSpeedStats: DecimalSourceLine[] = [
   },
   {
     i18n: 'CookieUpgrade',
-    stat: () => Decimal.pow(1 + player.cubeUpgrades[65] / 250, player.firstOwnedAnts) // 65th Cube Upgrade, 15th Cookie Upgrade
+    stat: () =>
+      Decimal.pow(
+        1 + player.cubeUpgrades[65] / 250,
+        player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts
+          + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts
+      ) // 65th Cube Upgrade, 15th Cookie Upgrade
   }
 ]
 

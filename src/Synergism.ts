@@ -76,11 +76,7 @@ import {
   updateCorruptionLoadoutNames,
   updateUndefinedLoadouts
 } from './Corruptions'
-import {
-  calculateAcceleratorCubeBlessing,
-  calculateMultiplierCubeBlessing,
-  updateCubeUpgradeBG
-} from './Cubes'
+import { calculateAcceleratorCubeBlessing, calculateMultiplierCubeBlessing, updateCubeUpgradeBG } from './Cubes'
 import { generateEventHandlers } from './EventListeners'
 import { addTimers, automaticTools } from './Helper'
 import { resetHistoryRenderAllTables } from './History'
@@ -3686,7 +3682,7 @@ export const updateAntMultipliers = (): void => {
   /*G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9]))
   )*/
-  //G.globalAntMult = G.globalAntMult.times(calculateAntSpeedCubeBlessing())
+  // G.globalAntMult = G.globalAntMult.times(calculateAntSpeedCubeBlessing())
   /*G.globalAntMult = G.globalAntMult.times(
     +getAchievementReward('antSpeed')
   )*/
