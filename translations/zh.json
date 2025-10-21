@@ -3487,7 +3487,7 @@
       },
       "singQuarkHepteract": {
         "name": "我希望惊奇七阶立方·夸克的效果略微增加。",
-        "description": "哎哟，走错游戏了。总之，您想让惊奇七阶立方·夸克的指数再度增加吗？每级可以再增加0.02。",
+        "description": "哎哟，走错游戏了。总之，您想让惊奇七阶立方·夸克的指数再度增加吗？每级可以再增加0.01。",
         "effect": "使惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "singQuarkHepteract2": {
@@ -3497,7 +3497,7 @@
       },
       "singQuarkHepteract3": {
         "name": "我希望惊奇七阶立方·夸克的效果略微增加 III。",
-        "description": "我才不是那个教母咧(译者注：指NGU Idle中的泰坦“教母”)！这个愿望更弱……但可以超载。",
+        "description": "我才不是那个教母咧(译者注：指NGU Idle中的泰坦“教母”)！这个愿望跟其他的不同，可以超载！",
         "effect": "使惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "singOcteractGain": {
@@ -4757,7 +4757,7 @@
       },
       "octeractImprovedQuarkHept": {
         "name": "我希望惊奇七阶立方·夸克的效果还能增加。",
-        "description": "教母跑路了，但Derpsmith还在！每级使惊奇七阶立方·夸克的指数增加0.02。",
+        "description": "教母跑路了，但Derpsmith还在！每级使惊奇七阶立方·夸克的指数增加0.01。",
         "effect": "使惊奇七阶立方·夸克的指数增加{{n}}"
       },
       "octeractImprovedGlobalSpeed": {
@@ -5562,7 +5562,7 @@
       "quarkMult": "全局夸克获取数量倍率",
       "gSpeedMultIgnoreDR": "无瑕全局速度",
       "gSpeedMult": "全局速度倍率",
-      "antSpeedMult": "Ant Speed Multipliers",
+      "antSpeedMult": "蚂蚁速度倍率",
       "antSacrificeMult": "蚂蚁献祭倍率",
       "talismanRuneBonusMult": "护身符强度",
       "ascMult": "飞升的速度倍率",
@@ -6371,26 +6371,26 @@
       "Total2": "总负数回收："
     },
     "antSpeedMultStats": {
-      "title": "Ant Speed Multiplier",
-      "GlobalSpeed": "Global Speed Multiplier:",
-      "AchievementBonus": "Achievement Ant Speed Bonus:",
-      "ImmortalELO": "Immortal ELO (Ant Sacrifice Points):",
-      "AntUpgrade1": "Ant Upgrade 1:",
-      "DiamondUpgrade19": "Diamond Upgrade 19:",
-      "ReincarnationUpgrade16": "Reincarnation Upgrade 16:",
-      "ReincarnationUpgrade17": "Reincarnation Upgrade 17:",
+      "title": "蚂蚁速度倍率",
+      "GlobalSpeed": "全局速度倍率：",
+      "AchievementBonus": "蚂蚁速度成就的加成：",
+      "ImmortalELO": "不朽强度分(蚂蚁献祭点数)：",
+      "AntUpgrade1": "蚂蚁升级1：",
+      "DiamondUpgrade19": "钻石升级4x4：",
+      "ReincarnationUpgrade16": "粒子升级4x1：",
+      "ReincarnationUpgrade17": "粒子升级4x2：",
       "ReincarnationUpgrade18": "Reincarnation Upgrade 18:",
-      "Research4x21": "Research 4x21:",
-      "Research6x22": "Research 6x22:",
-      "Research8x2": "Research 8x2:",
-      "SuperiorIntellect": "Superior Intellect Rune:",
-      "RuneBlessingBonus": "Superior Intellect Rune Blessing:",
-      "Challenge9Bonus": "Challenge 9 Bonus:",
-      "Challenge11Bonus": "Challenge 11 Bonus:",
-      "CubeTribute": "Cube Blessing - Artemis:",
-      "ConstantUpgrade": "Constant Upgrade 5:",
-      "CookieUpgrade": "Cookie Upgrade 15:",
-      "Total": "Total Ant Speed Multiplier:"
+      "Research4x21": "研究4x21：",
+      "Research6x22": "研究6x22：",
+      "Research8x2": "研究8x2：",
+      "SuperiorIntellect": "卓越智慧符文加成：",
+      "RuneBlessingBonus": "祝福的第5项加成：",
+      "Challenge9Bonus": "挑战9加成：",
+      "Challenge11Bonus": "挑战11加成：",
+      "CubeTribute": "阿尔忒弥斯的贡品加成：",
+      "ConstantUpgrade": "数学常数升级5：",
+      "CookieUpgrade": "饼干升级15[Cx15]：",
+      "Total": "蚂蚁速度总倍率："
     },
     "gameStage": "当前游戏阶段：{{stage}}"
   },
@@ -6608,7 +6608,8 @@
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}祭品。"
         },
         "quark": {
-          "effect": "一磅鱼，两磅鱼，鱼鱼鱼。每个惊奇七阶立方·夸克可以使夸克的获取数量增加0.05%。",
+          "effect": "一磅，两磅鱼。",
+          "effect2": "使夸克获取数量增加 (1 + 0.2 * log2(1 + 惊奇七阶立方·夸克 / 500))^{{x}}",
           "currentEffect": "当前效果：夸克获取数量增加{{x}}",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}夸克。"
         },

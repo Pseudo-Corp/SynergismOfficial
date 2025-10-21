@@ -3487,7 +3487,7 @@
       },
       "singQuarkHepteract": {
         "name": "Я бы хотел, чтобы мой Гептеракт Кварков был хоть немного лучше.",
-        "description": "Wrong game, oops. Anyway, would you like more exponent on your Quark Hepteract. +0.02 per level, to be precise.",
+        "description": "Wrong game, oops. Anyway, would you like more exponent on your Quark Hepteract. +0.01 per level, to be precise.",
         "effect": "Quark Hepteract Exponent +{{n}}"
       },
       "singQuarkHepteract2": {
@@ -3497,7 +3497,7 @@
       },
       "singQuarkHepteract3": {
         "name": "Я бы хотел, чтобы мой Гептеракт Кварков был хоть немного лучше III.",
-        "description": "I AM NOT THE GODMOTHER YOU ARE LOOKING FOR! This wish is weaker... but it can be overclocked.",
+        "description": "I AM NOT THE GODMOTHER YOU ARE LOOKING FOR! This wish, unlike the others, can be overclocked!",
         "effect": "Quark Hepteract Exponent +{{n}}"
       },
       "singOcteractGain": {
@@ -4757,7 +4757,7 @@
       },
       "octeractImprovedQuarkHept": {
         "name": "Я желаю ещё лучшие Гептеракты Кварков.",
-        "description": "The godmother is absent, but Derpsmith is here! +0.02 exponent to your Quark Hepteract per level.",
+        "description": "The godmother is absent, but Derpsmith is here! +0.01 exponent to your Quark Hepteract per level.",
         "effect": "Quark Hepteract Exponent +{{n}}"
       },
       "octeractImprovedGlobalSpeed": {
@@ -6608,7 +6608,8 @@
           "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Подношений."
         },
         "quark": {
-          "effect": "По щучьему веленью, по моему хотенью, даёт +0.05% Кварков за каждый Гептеракт Кварков.",
+          "effect": "One pound, two pound fish.",
+          "effect2": "Grants a Quark Multiplier equal to (1 + 0.2 * log2(1 + QHept / 500))^{{x}}",
           "currentEffect": "Current Effect: Quarks +{{x}}",
           "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Кварков."
         },
