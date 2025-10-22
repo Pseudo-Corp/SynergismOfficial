@@ -1923,6 +1923,11 @@
         "description": "Your Achievement Talisman may be leveled up one additional time for each Synergism Level!",
         "effect": "Current Effect: Achievement Talisman may be leveled up {{level}} additional times."
       },
+      "runeAutobuyImprover": {
+        "name": "Rune Autobuyer DX",
+        "description": "Permanently hasten the Rune Autobuyer! 2x as fast, +10% speed per Synergism Level above 130.",
+        "effect": "Current Effect: Rune Autobuyer is {{mult}}x faster"
+      },
       "salvageChallengeBuff": {
         "name": "Salvage Challenge Buff",
         "description": "Gain +25 Salvage. <br> If you are in any Challenge, this value is doubled. <br> If you are in Challenge 15, this value is doubled. <br> If you are in EXALT, this value is tripled! <br> Effects may stack.",
@@ -4702,7 +4707,7 @@
     "data": {
       "octeractStarter": {
         "name": "Octeractos para Dummies",
-        "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 40% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...",
+        "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 25% More Quarks, 40% More Octeracts, And 100,000x Ant Speed...",
         "effect": "{{n}} has presentado sus respetos a Derpsmith."
       },
       "octeractGain": {
@@ -6467,9 +6472,9 @@
         "2": "Aphrodite's Benediction x{{amount}}: +{{bonus}} Aphrodite Gift → Aphrodite Multipliers",
         "3": "Plutus' Benediction x{{amount}}: +{{bonus}} Plutus Gift → Plutus Offerings",
         "4": "Iris' Benediction x{{amount}}: +{{bonus}} Iris Gift Cap <<white | [▼ Cap: 150%]>>",
-        "5": "Athena's Benediction x{{amount}}: +{{bonus}} Athena Gift → Athena Ant Speed",
-        "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Sacrifice Reward",
-        "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares ELO Bonus",
+        "5": "Athena's Benediction x{{amount}}: +{{bonus}} Athena Gift → Athena Obtainium",
+        "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Speed",
+        "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares Ant Sacrifice Reward",
         "8": "Moloch's Benediction x{{amount}}: +{{bonus}} Moloch Gift → Moloch ELO Bonus",
         "9": "Midas' Benediction x{{amount}}: +{{bonus}} Midas Gift → Midas Effective Rune Power",
         "10": "Chronos' Benediction x{{amount}}: +{{bonus}} Chronos Gift → Chronos Tribute Power"
