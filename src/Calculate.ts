@@ -1,7 +1,13 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
-import { clearDailyLeaderboard, generateAntsAndCrumbs, getAntUpgradeEffect, thresholdModifiers } from './Ants'
+import {
+  AntProducers,
+  clearDailyLeaderboard,
+  generateAntsAndCrumbs,
+  getAntUpgradeEffect,
+  thresholdModifiers
+} from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
 import { calculateAntSacrificeCubeBlessing, calculateObtainiumCubeBlessing } from './Cubes'
@@ -9,7 +15,7 @@ import { BuffType, calculateEventSourceBuff } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { hepteractEffective } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
-import { getLevelMilestone } from './Levels'
+import { getLevelMilestone, getLevelReward } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { calculateAscensionScorePlatonicBlessing } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -599,7 +605,7 @@ export const calculateActualAntSpeedMult = () => {
 
 export const calculateBaseAntELO = () => {
   let ELO = 0
-  ELO += player.ants.purchased[0]
+  ELO += player.ants.producers[AntProducers.Workers].purchased
   ELO += 666 * player.researches[178]
   ELO += +getAchievementReward('antELOAdditive')
   ELO += 25 * player.researches[108]
@@ -607,21 +613,27 @@ export const calculateBaseAntELO = () => {
   ELO += 40 * player.researches[123]
   ELO += 100 * CalcECC('reincarnation', player.challengecompletions[10])
   ELO += 75 * player.upgrades[80]
+  ELO += getLevelReward('ants')
+  ELO += 5 * Math.min(100, player.ants.antSacrificeCount)
+  ELO += Math.max(0, Math.min(500, player.ants.antSacrificeCount - 100))
   return ELO
 }
 
 export const calculateELOMult = () => {
   let baseMult = 1
-  if (player.ants.purchased[4] > 0) {
+  if (player.ants.producers[AntProducers.Queens].purchased > 0) {
     baseMult += 0.01
   }
-  if (player.ants.purchased[5] > 0) {
+  if (player.ants.producers[AntProducers.LordRoyals].purchased > 0) {
     baseMult += 0.01
   }
-  if (player.ants.purchased[6] > 0) {
+  if (player.ants.producers[AntProducers.Almighties].purchased > 0) {
     baseMult += 0.01
   }
-  if (player.ants.purchased[7] > 0) {
+  if (player.ants.producers[AntProducers.Disciples].purchased > 0) {
+    baseMult += 0.02
+  }
+  if (player.ants.producers[AntProducers.HolySpirit].purchased > 0) {
     baseMult += 0.02
   }
   baseMult += 1 / 200 * player.platonicUpgrades[12] * player.corruptions.used.extinction

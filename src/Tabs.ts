@@ -222,7 +222,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: '2',
         get unlocked () {
-          return player.ants.highestCrumbsEver.gte(1e100)
+          return player.ants.highestCrumbsEver.gte(1e70)
         },
         buttonID: 'toggleAntSubtab2'
       }

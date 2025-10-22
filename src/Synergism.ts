@@ -39,8 +39,10 @@ import {
   autobuyAntMasteries,
   autobuyAntProducers,
   autoBuyAntUpgrades,
+  emptyAntProducer,
   generateAntsAndCrumbs,
-  getAntUpgradeEffect
+  getAntUpgradeEffect,
+  NUM_ANT_UPGRADES
 } from './Ants'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
@@ -355,11 +357,18 @@ export const player: Player = {
   fifthProduceParticles: 0.5,
 
   ants: {
-    purchased: Array(8).fill(0) as number[],
-    generated: Array(8).fill(new Decimal(0)) as Decimal[],
-    masteries: Array(8).fill(0) as number[],
-    maxMasteriesPurchased: Array(8).fill(0) as number[],
-    upgrades: Array(12).fill(0) as number[],
+    producers: {
+      [0]: { ...emptyAntProducer },
+      [1]: { ...emptyAntProducer },
+      [2]: { ...emptyAntProducer },
+      [3]: { ...emptyAntProducer },
+      [4]: { ...emptyAntProducer },
+      [5]: { ...emptyAntProducer },
+      [6]: { ...emptyAntProducer },
+      [7]: { ...emptyAntProducer },
+      [8]: { ...emptyAntProducer }
+    },
+    upgrades: Array(NUM_ANT_UPGRADES).fill(0) as number[],
     crumbs: new Decimal('1'),
     highestCrumbsThisSacrifice: new Decimal('1'),
     highestCrumbsEver: new Decimal('1'),
@@ -529,6 +538,8 @@ export const player: Player = {
   progressiveAchievements: {
     runeLevel: 0,
     freeRuneLevel: 0,
+    antMasteries: 0,
+    rebornELO: 0,
     singularityCount: 0,
     ambrosiaCount: 0,
     redAmbrosiaCount: 0,

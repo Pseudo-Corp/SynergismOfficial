@@ -1,11 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import {
-  awardAchievementGroup,
-  awardUngroupedAchievement,
-  challengeAchievementCheck,
-  getAchievementReward
-} from './Achievements'
+import { awardAchievementGroup, challengeAchievementCheck, getAchievementReward } from './Achievements'
+import { AntProducers, LAST_ANT } from './Ants'
 import type { BlueberryLoadoutMode } from './BlueberryUpgrades'
 import { buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy'
 import type { TesseractBuildings } from './Buy'
@@ -621,22 +617,10 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     G.autoChallengeTimerIncrement = 0
     // reset rest
     resetResearches()
-    resetAnts()
+    resetAnts(resetTiers.ascension)
     resetTalismanData('ascension')
     player.reincarnationPoints = new Decimal('0')
     player.reincarnationShards = new Decimal('0')
-    player.ants.immortalELO = 0
-
-    const numMasteries = player.ants.masteries.length
-    player.ants.masteries = Array(numMasteries).fill(0) as number[]
-
-    player.ants.currentSacrificeId += 1
-
-    player.antSacrificeTimer = 0
-    player.antSacrificeTimerReal = 0
-
-    // Reset Mortuus
-    player.ants.upgrades[11] = 0
 
     for (let j = 61; j <= 80; j++) {
       player.upgrades[j] = 0
@@ -1005,7 +989,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     player.cubeUpgrades[5] = 1 // so they wont reset
     player.cubeUpgrades[6] = 1 // on first Ascension
     player.unlocks.anthill = true
-    player.ants.purchased[0] = 1
+    player.ants.producers[AntProducers.Workers].purchased = 1
   }
   if (player.highestSingularityCount > 10) { // Must be the same as autoResearchEnabled()
     player.cubeUpgrades[9] = 1
@@ -1016,7 +1000,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     if (player.currentChallenge.ascension !== 12) {
       player.reincarnationPoints = new Decimal('2.22e2222')
     }
-    player.ants.purchased[4] = 1
+    player.ants.producers[AntProducers.Queens].purchased = 1
     player.cubeUpgrades[20] = 1
   }
   const perk_20 = player.highestSingularityCount >= 20
@@ -1040,7 +1024,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     }
   }
   if (player.highestSingularityCount >= 25) {
-    player.ants.purchased[7] = 1
+    player.ants.producers[AntProducers.Disciples].purchased = 1
   }
   if (player.highestSingularityCount >= 30) {
     player.researches[130] = 1
@@ -1232,7 +1216,9 @@ export const singularity = (setSingNumber = -1) => {
   hold.cubeUpgrades[80] = player.cubeUpgrades[80]
 
   hold.ants.highestRebornELOEver = player.ants.highestRebornELOEver
-  hold.ants.maxMasteriesPurchased = player.ants.maxMasteriesPurchased
+  for (let ant = AntProducers.Workers; ant <= LAST_ANT; ant++) {
+    hold.ants.producers[ant].highestMastery = player.ants.producers[ant].highestMastery
+  }
 
   if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
     player.worlds.reset()
@@ -1466,21 +1452,39 @@ const resetUpgrades = (i: number) => {
   }
 }
 
-export const resetAnts = () => {
-  const numAntProducers = player.ants.purchased.length
-  player.ants.purchased = Array(numAntProducers).fill(0)
-  player.ants.generated = Array(numAntProducers).fill(new Decimal(0))
+export const resetAnts = (resetTier: resetTiers) => {
+  if (resetTier >= resetTiers.reincarnation) {
+    for (let ants = AntProducers.Workers; ants <= LAST_ANT; ants++) {
+      player.ants.producers[ants].purchased = 0
+      player.ants.producers[ants].generated = new Decimal(0)
+    }
 
-  const numAntUpgrades = player.ants.upgrades.length
-  const mortuus = player.ants.upgrades[11]
-  player.ants.upgrades = Array(numAntUpgrades).fill(0)
-  player.ants.upgrades[11] = mortuus
-  player.ants.crumbs = new Decimal('1')
+    const numAntUpgrades = player.ants.upgrades.length
+    const mortuus = player.ants.upgrades[11]
+    player.ants.upgrades = Array(numAntUpgrades).fill(0)
+    player.ants.upgrades[11] = mortuus
+    player.ants.crumbs = new Decimal('1')
+    player.ants.highestCrumbsThisSacrifice = new Decimal('1')
 
-  player.ants.rebornELO = 0
+    player.ants.rebornELO = 0
 
-  if (player.currentChallenge.ascension === 12) {
-    player.ants.crumbs = new Decimal('7')
+    if (player.currentChallenge.ascension === 12) {
+      player.ants.crumbs = new Decimal('7')
+    }
+
+    player.antSacrificeTimer = 0
+    player.antSacrificeTimerReal = 0
+    player.ants.antSacrificeCount += 1
+    player.ants.currentSacrificeId += 1
+  }
+
+  if (resetTier >= resetTiers.ascension) {
+    for (let ants = AntProducers.Workers; ants <= LAST_ANT; ants++) {
+      player.ants.producers[ants].mastery = 0
+    }
+    player.ants.immortalELO = 0
+    // Reset Mortuus
+    player.ants.upgrades[11] = 0
   }
 }
 

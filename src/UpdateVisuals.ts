@@ -767,6 +767,7 @@ export const visualUpdateAnts = () => {
       x: format(player.ants.crumbs, 2, true, undefined, undefined, true)
     }
   )
+
   DOMCacheGetOrSet('crumbsPerSecond').textContent = i18next.t(
     'ants.crumbsPerSecond',
     {
@@ -797,9 +798,11 @@ export const visualUpdateAnts = () => {
   )
 
   if (getAchievementReward('antSacrificeUnlock')) {
-    DOMCacheGetOrSet('antSacrificeTimer').textContent = `⧖ ${formatTimeShort(
-      player.antSacrificeTimer
-    )}`
+    DOMCacheGetOrSet('antSacrificeTimer').textContent = `⧖ ${
+      formatTimeShort(
+        player.antSacrificeTimer
+      )
+    }`
     showSacrifice()
     updateLeaderboardUI()
   }

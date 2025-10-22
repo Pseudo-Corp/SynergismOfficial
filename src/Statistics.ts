@@ -1,7 +1,7 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
-import { calculateAntSpeedMultFromELO, calculateTrueAntLevelFromKey, getAntUpgradeEffect } from './Ants'
+import { AntProducers, calculateAntSpeedMultFromELO, calculateTrueAntLevelFromKey, getAntUpgradeEffect } from './Ants'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -2958,7 +2958,7 @@ export const antSpeedStats: DecimalSourceLine[] = [
   },
   {
     i18n: 'ReincarnationUpgrade17',
-    stat: () => Decimal.pow(1 + player.upgrades[77] / 250, player.ants.purchased[0]), // Reincarnation Upgrade 17
+    stat: () => Decimal.pow(1 + player.upgrades[77] / 250, player.ants.producers[AntProducers.Workers].purchased), // Reincarnation Upgrade 17
     displayCriterion: () => player.researches[50] > 0
   },
   {
@@ -2968,7 +2968,7 @@ export const antSpeedStats: DecimalSourceLine[] = [
   },
   {
     i18n: 'Research4x21',
-    stat: () => Decimal.pow(1 + player.researches[96] / 5000, player.ants.purchased[0]),
+    stat: () => Decimal.pow(1 + player.researches[96] / 5000, player.ants.producers[AntProducers.Workers].purchased),
     displayCriterion: () => isResearchUnlocked(96)
   },
   {
@@ -3047,7 +3047,7 @@ export const antSpeedStats: DecimalSourceLine[] = [
   },
   {
     i18n: 'CookieUpgrade',
-    stat: () => Decimal.pow(1 + player.cubeUpgrades[65] / 250, player.ants.purchased[0]), // 65th Cube Upgrade, 15th Cookie Upgrade
+    stat: () => Decimal.pow(1 + player.cubeUpgrades[65] / 250, player.ants.producers[AntProducers.Workers].purchased), // 65th Cube Upgrade, 15th Cookie Upgrade
     displayCriterion: () => goldenQuarkUpgrades.cookies3.level > 0
   },
   {
@@ -3878,7 +3878,7 @@ export const gameStages = (): Stage[] => {
       stage: 4,
       tier: 4,
       name: 'reincarnate-ant',
-      unlocked: player.ants.purchased[0] !== 0,
+      unlocked: player.ants.producers[AntProducers.Workers].purchased !== 0,
       reset: player.unlocks.reincarnate
     },
     {
