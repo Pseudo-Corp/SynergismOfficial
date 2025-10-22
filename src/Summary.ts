@@ -370,7 +370,7 @@ export const generateExportSummary = async (): Promise<void> => {
       }
 
       upgradeText = upgradeText + unicodeSymbol
-      upgradeText = `${upgradeText} ${singUpg.name}:`
+      upgradeText = `${upgradeText} ${singUpg.name()}:`
       upgradeText = upgradeText + (singUpg.maxLevel === -1
         ? ` Level ${singUpg.level}`
         : ` Level ${singUpg.level}/${singUpg.maxLevel}`)
@@ -422,7 +422,7 @@ export const generateExportSummary = async (): Promise<void> => {
       }
 
       upgradeText = upgradeText + unicodeSymbol
-      upgradeText = `${upgradeText} ${octUpg.name}:`
+      upgradeText = `${upgradeText} ${octUpg.name()}:`
       upgradeText = upgradeText + (octUpg.maxLevel === -1
         ? ` Level ${octUpg.level}`
         : ` Level ${octUpg.level}/${octUpg.maxLevel}`)
@@ -505,7 +505,7 @@ export const generateExportSummary = async (): Promise<void> => {
       }
 
       upgradeText = upgradeText + unicodeSymbol
-      upgradeText = `${upgradeText} ${ambUpg.name}:`
+      upgradeText = `${upgradeText} ${ambUpg.name()}:`
       upgradeText = `${upgradeText} Level ${ambUpg.level}/${ambUpg.maxLevel} [+${
         format(ambUpg.extraLevelCalc(), 0, true)
       }]`
