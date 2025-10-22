@@ -1923,6 +1923,11 @@
         "description": "协同效应每有1级，您的成就护身符就可以额外升级1次！",
         "effect": "当前效果：成就护身符可以额外升级{{level}}次。"
       },
+      "runeAutobuyImprover": {
+        "name": "Rune Autobuyer DX",
+        "description": "Permanently hasten the Rune Autobuyer! 2x as fast, +10% speed per Synergism Level above 130.",
+        "effect": "Current Effect: Rune Autobuyer is {{mult}}x faster"
+      },
       "salvageChallengeBuff": {
         "name": "回收挑战强化",
         "description": "获得25回收。<br>如果您正在进行任何挑战，该数值将翻倍。<br>如果您正在进行挑战15，该数值将翻倍。<br>如果您在拔擢中，该数值将变为原来的3倍！<br>效果可以相互叠乘。",
@@ -4702,7 +4707,7 @@
     "data": {
       "octeractStarter": {
         "name": "萌新的惊奇八阶方块",
-        "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加40%，惊奇八阶方块获取数量增加20%，蚂蚁速度变为100000倍……",
+        "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 25% More Quarks, 40% More Octeracts, And 100,000x Ant Speed...",
         "effect": "您{{n}}向Derpsmith致敬。"
       },
       "octeractGain": {
@@ -6467,9 +6472,9 @@
         "2": "阿佛洛狄忒的恩赐×{{amount}}：使阿佛洛狄忒的赠礼对阿佛洛狄忒的倍率的加成效率增加{{bonus}}",
         "3": "普路托斯的恩赐×{{amount}}：使普路托斯的赠礼对普路托斯的祭品的加成效率增加{{bonus}}",
         "4": "伊里斯的恩赐×{{amount}}：使伊里斯的赠礼上限增加{{bonus}} <<white| [▼ 上限：150%]>>",
-        "5": "雅典娜的恩赐×{{amount}}：使雅典娜的赠礼对雅典娜的难得素的加成效率增加{{bonus}}",
-        "6": "阿尔忒弥斯的恩赐×{{amount}}：使阿尔忒弥斯的赠礼对阿尔忒弥斯的蚂蚁速度的加成效率增加{{bonus}}",
-        "7": "阿瑞斯的恩赐×{{amount}}：使阿瑞斯的赠礼对阿瑞斯的蚂蚁献祭奖励的加成效率增加{{bonus}}",
+        "5": "Athena's Benediction x{{amount}}: +{{bonus}} Athena Gift → Athena Obtainium",
+        "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Speed",
+        "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares Ant Sacrifice Reward",
         "8": "摩洛克的恩赐×{{amount}}：使摩洛克的赠礼对摩洛克的强度分加成的加成效率增加{{bonus}}",
         "9": "米达斯的恩赐×{{amount}}：使米达斯的赠礼对米达斯的符文强度的加成效率增加{{bonus}}",
         "10": "柯罗诺斯的恩赐×{{amount}}：使柯罗诺斯的赠礼对柯罗诺斯的贡品效果的加成效率增加{{bonus}}"
