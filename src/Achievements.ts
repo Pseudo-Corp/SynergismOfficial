@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { AntProducers, calculateLeaderboardValue, LAST_ANT } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateAscensionScore } from './Calculate'
 import { campaignTokens } from './Campaign'
@@ -241,6 +242,20 @@ export interface ProgressiveAchievement {
   displayCondition: () => boolean
 }
 
+export type ProgressiveAchievements =
+  | 'runeLevel'
+  | 'freeRuneLevel'
+  | 'antMasteries'
+  | 'rebornELO'
+  | 'talismanRarities'
+  | 'singularityCount'
+  | 'ambrosiaCount'
+  | 'redAmbrosiaCount'
+  | 'singularityUpgrades'
+  | 'octeractUpgrades'
+  | 'redAmbrosiaUpgrades'
+  | 'exalts'
+
 export const progressiveAchievements: Record<ProgressiveAchievements, ProgressiveAchievement> = {
   runeLevel: {
     maxPointValue: 1000,
@@ -270,6 +285,44 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayOrder: 2,
     displayCondition: () => player.prestigeCount > 0
   },
+  antMasteries: {
+    maxPointValue: 324,
+    pointsAwarded: (_cached: number) => {
+      let pointValue = 0
+      for (let ant = AntProducers.Workers; ant <= LAST_ANT; ant++) {
+        pointValue += 3 * player.ants.producers[ant].highestMastery
+      }
+      return pointValue
+    },
+    updateValue: () => {
+      let numMasteries = 0
+      for (let ant = AntProducers.Workers; ant <= LAST_ANT; ant++) {
+        numMasteries += player.ants.producers[ant].highestMastery
+      }
+      return numMasteries
+    },
+    useCachedValue: false,
+    rewardedAP: 0,
+    displayOrder: 3,
+    displayCondition: () => player.unlocks.anthill
+  },
+  rebornELO: {
+    maxPointValue: 600,
+    pointsAwarded: (_cached: number) => {
+      const leaderboardELO = calculateLeaderboardValue(player.ants.highestRebornELOEver)
+      return Math.min(100, Math.floor(leaderboardELO / 100))
+        + Math.min(150, Math.floor(leaderboardELO / 1000))
+        + Math.min(150, Math.floor(leaderboardELO / 9000))
+        + Math.min(200, Math.floor(leaderboardELO / 75000))
+    },
+    updateValue: () => {
+      return calculateLeaderboardValue(player.ants.highestRebornELOEver)
+    },
+    useCachedValue: false,
+    rewardedAP: 0,
+    displayOrder: 4,
+    displayCondition: () => player.unlocks.anthill
+  },
   singularityCount: {
     maxPointValue: 3600,
     pointsAwarded: (_cached: number) => {
@@ -282,7 +335,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 4,
+    displayOrder: 6,
     displayCondition: () => player.highestSingularityCount > 0
   },
   ambrosiaCount: {
@@ -297,7 +350,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: true,
     rewardedAP: 0,
-    displayOrder: 8,
+    displayOrder: 10,
     displayCondition: () => player.highestSingularityCount >= 25
   },
   redAmbrosiaCount: {
@@ -312,7 +365,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: true,
     rewardedAP: 0,
-    displayOrder: 9,
+    displayOrder: 11,
     displayCondition: () => player.highestSingularityCount >= 150
   },
   exalts: {
@@ -349,7 +402,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
         cap8: player.singularityChallenges.taxmanLastStand.maxAP
       }
     },
-    displayOrder: 7,
+    displayOrder: 9,
     displayCondition: () => player.highestSingularityCount >= 25
   },
   singularityUpgrades: {
@@ -369,7 +422,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 5,
+    displayOrder: 7,
     displayCondition: () => player.highestSingularityCount > 0
   },
   octeractUpgrades: {
@@ -389,7 +442,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 6,
+    displayOrder: 8,
     displayCondition: () => Boolean(getGQUpgradeEffect('octeractUnlock'))
   },
   redAmbrosiaUpgrades: {
@@ -408,7 +461,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 10,
+    displayOrder: 12,
     displayCondition: () => player.highestSingularityCount >= 150
   },
   talismanRarities: {
@@ -424,7 +477,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: true,
     rewardedAP: 0,
-    displayOrder: 3,
+    displayOrder: 5,
     displayCondition: () => player.unlocks.talismans
   }
 }
@@ -1260,7 +1313,7 @@ export const achievements: Achievement[] = [
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.ants.crumbs.gte(1e100),
+    unlockCondition: () => player.ants.crumbs.gte(1e70),
     group: 'antCrumbs',
     reward: { antSpeed: () => 1.4, antSacrificeUnlock: () => 1, antAutobuyers: () => 1 }
   },
@@ -1273,49 +1326,54 @@ export const achievements: Achievement[] = [
   { pointValue: 35, unlockCondition: () => player.ants.crumbs.gte('1e2500'), group: 'antCrumbs' },
   {
     pointValue: 5,
-    unlockCondition: () => player.ants.immortalELO >= 50 && player.ants.purchased[1] > 0,
+    unlockCondition: () => player.ants.immortalELO >= 50 && player.ants.producers[AntProducers.Breeders].purchased > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 10,
-    unlockCondition: () => player.ants.immortalELO >= 200 && player.ants.purchased[2] > 0,
+    unlockCondition: () =>
+      player.ants.immortalELO >= 200 && player.ants.producers[AntProducers.MetaBreeders].purchased > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 15,
-    unlockCondition: () => player.ants.immortalELO >= 500 && player.ants.purchased[3] > 0,
+    unlockCondition: () =>
+      player.ants.immortalELO >= 500 && player.ants.producers[AntProducers.MegaBreeders].purchased > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 20,
-    unlockCondition: () => player.ants.immortalELO >= 1000 && player.ants.purchased[4] > 0,
+    unlockCondition: () => player.ants.immortalELO >= 1000 && player.ants.producers[AntProducers.Queens].purchased > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.ants.immortalELO >= 2500 && player.ants.purchased[5] > 0,
+    unlockCondition: () =>
+      player.ants.immortalELO >= 2500 && player.ants.producers[AntProducers.LordRoyals].purchased > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.ants.immortalELO >= 20000 && player.ants.purchased[6] > 0,
+    unlockCondition: () =>
+      player.ants.immortalELO >= 20000 && player.ants.producers[AntProducers.Almighties].purchased > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 35,
-    unlockCondition: () => player.ants.immortalELO >= 100000 && player.ants.purchased[7] > 0,
+    unlockCondition: () =>
+      player.ants.immortalELO >= 100000 && player.ants.producers[AntProducers.Disciples].purchased > 0,
     group: 'sacMult',
     reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
     checkReset: () => player.highestSingularityCount >= 10
@@ -1823,7 +1881,9 @@ export const achievements: Achievement[] = [
   },
   {
     pointValue: 50,
-    unlockCondition: () => player.ants.immortalELO >= 5000000,
+    unlockCondition: () =>
+      player.ants.immortalELO >= 5000000 && player.ants.producers[AntProducers.HolySpirit].purchased > 0,
+    reward: { antAutobuyers: () => 1 },
     group: 'sacMult'
   },
   { pointValue: 75, unlockCondition: () => player.ascensionCount >= 1e16, group: 'ascensionCount' },
@@ -2710,18 +2770,6 @@ export const ungroupedAchievementData: Record<UngroupedAchievementNames, Ungroup
 }
 
 export const ungroupedAchievementKeys = Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]
-
-export type ProgressiveAchievements =
-  | 'runeLevel'
-  | 'freeRuneLevel'
-  | 'talismanRarities'
-  | 'singularityCount'
-  | 'ambrosiaCount'
-  | 'redAmbrosiaCount'
-  | 'singularityUpgrades'
-  | 'octeractUpgrades'
-  | 'redAmbrosiaUpgrades'
-  | 'exalts'
 
 export const numAchievements = Object.keys(achievements).length
 export const maxAchievementPoints = Object.values(achievements).reduce((sum, ach) => sum + ach.pointValue, 0)

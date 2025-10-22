@@ -1,6 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementPoints, getAchievementReward } from './Achievements'
+import { AntProducers } from './Ants'
 import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -200,8 +201,8 @@ const upgradetexts = [
   () =>
     format(
       Decimal.pow(
-        1.004 + 4 / 100000 * player.researches[96],
-        player.ants.purchased[0]
+        1.004,
+        player.ants.producers[AntProducers.Workers].purchased
       ),
       3
     ),

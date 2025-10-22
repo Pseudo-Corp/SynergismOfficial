@@ -3,6 +3,7 @@ import { displayAchievementProgress, resetAchievementProgressDisplay } from './A
 import {
   antMasteryHTML,
   antProducerHTML,
+  AntProducers,
   antUpgradeHTML,
   antUpgradeKeys,
   antUpgrades,
@@ -10,6 +11,7 @@ import {
   buyAntMastery,
   buyAntProducers,
   buyAntUpgrade,
+  LAST_ANT,
   sacrificeAnts,
   toggleLeaderboardMode,
   toggleRebornELOInfo
@@ -756,45 +758,49 @@ export const generateEventHandlers = () => {
     )
   }
 
-  for (let index = 0; index < 8; index++) {
-    const antTier = DOMCacheGetOrSet(`anttier${index + 1}`)
+  for (let ant = AntProducers.Workers; ant <= LAST_ANT; ant++) {
+    const antTier = DOMCacheGetOrSet(`anttier${ant + 1}`)
     antTier.style.setProperty(
       '--glow-color',
-      `${baseAntInfo[index].color}`
+      `${baseAntInfo[ant].color}`
     )
     antTier.addEventListener(
       'mousemove',
-      (e: MouseEvent) => Modal(antProducerHTML(index), e.clientX, e.clientY, { borderColor: baseAntInfo[index].color })
+      (e: MouseEvent) => Modal(antProducerHTML(ant), e.clientX, e.clientY, { borderColor: baseAntInfo[ant].color })
     )
     antTier.addEventListener('focus', () => {
       const elmRect = antTier.getBoundingClientRect()
-      Modal(antProducerHTML(index), elmRect.x, elmRect.y + elmRect.height / 2, {
-        borderColor: baseAntInfo[index].color
+      Modal(antProducerHTML(ant), elmRect.x, elmRect.y + elmRect.height / 2, {
+        borderColor: baseAntInfo[ant].color
       })
     })
     antTier.addEventListener('mouseout', () => CloseModal())
     antTier.addEventListener('blur', () => CloseModal())
-    antTier.addEventListener('click', () => buyAntProducers(index, player.antMax))
-  }
+    antTier.addEventListener('click', (event) => {
+      buyAntProducers(ant, player.antMax)
+      Modal(antProducerHTML(ant), event.clientX, event.clientY, { borderColor: baseAntInfo[ant].color }, true)
+    })
 
-  for (let index = 0; index < 8; index++) {
-    const antMastery = DOMCacheGetOrSet(`antMastery${index + 1}`)
-    const blendedColor = `color-mix(in srgb, ${baseAntInfo[index].color} 75%, lime 25%)`
+    const antMastery = DOMCacheGetOrSet(`antMastery${ant + 1}`)
+    const blendedColor = `color-mix(in srgb, ${baseAntInfo[ant].color} 75%, lime 25%)`
     antMastery.style.setProperty(
       '--glow-color',
       blendedColor
     )
     antMastery.addEventListener(
       'mousemove',
-      (e: MouseEvent) => Modal(antMasteryHTML(index), e.clientX, e.clientY, { borderColor: blendedColor })
+      (e: MouseEvent) => Modal(antMasteryHTML(ant), e.clientX, e.clientY, { borderColor: blendedColor })
     )
     antMastery.addEventListener('focus', () => {
       const elmRect = antMastery.getBoundingClientRect()
-      Modal(antMasteryHTML(index), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: blendedColor })
+      Modal(antMasteryHTML(ant), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: blendedColor })
     })
     antMastery.addEventListener('mouseout', () => CloseModal())
     antMastery.addEventListener('blur', () => CloseModal())
-    antMastery.addEventListener('click', () => buyAntMastery(index))
+    antMastery.addEventListener('click', (event) => {
+      buyAntMastery(ant)
+      Modal(antMasteryHTML(ant), event.clientX, event.clientY, { borderColor: blendedColor }, true)
+    })
   }
   // Part 2: Ant Upgrades
   for (const key of antUpgradeKeys) {
@@ -816,7 +822,10 @@ export const generateEventHandlers = () => {
     })
     antUpgrade.addEventListener('mouseout', () => CloseModal())
     antUpgrade.addEventListener('blur', () => CloseModal())
-    antUpgrade.addEventListener('click', () => buyAntUpgrade(key, player.antMax))
+    antUpgrade.addEventListener('click', (event) => {
+      buyAntUpgrade(key, player.antMax)
+      Modal(antUpgradeHTML(key), event.clientX, event.clientY, { borderColor: 'burlywood' }, true)
+    })
   }
   // Part 3: Sacrifice
   DOMCacheGetOrSet('antSacrifice').addEventListener('click', () => sacrificeAnts())
