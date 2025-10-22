@@ -1,5 +1,6 @@
 import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
+import type { AntProducers, PlayerAntProducers } from '../Ants'
 import type {
   AmbrosiaUpgradeNames,
   BlueberryLoadoutMode,
@@ -141,10 +142,7 @@ export interface Player {
   fifthProduceParticles: number
 
   ants: {
-    purchased: number[]
-    generated: Decimal[]
-    masteries: number[]
-    maxMasteriesPurchased: number[]
+    producers: Record<AntProducers, PlayerAntProducers>
     upgrades: number[]
     crumbs: Decimal
     highestCrumbsThisSacrifice: Decimal

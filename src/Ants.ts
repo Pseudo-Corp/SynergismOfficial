@@ -17,7 +17,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
 import { calculateAntELOCubeBlessing } from './Cubes'
 import { resetHistoryAdd, type ResetHistoryEntryAntSacrifice } from './History'
-import { resetAnts } from './Reset'
+import { resetAnts, resetTiers } from './Reset'
 import { offeringObtainiumTimeModifiers } from './Statistics'
 import { getTalismanEffects, updateTalismanInventory } from './Talismans'
 import { Confirm } from './UpdateHTML'
@@ -31,7 +31,7 @@ export interface AntProducerTexts {
   displayCondition: () => boolean
 }
 
-export interface AntProducers {
+export interface AntProducerData {
   baseCost: Decimal
   costIncrease: number
   baseProduction: Decimal
@@ -44,12 +44,41 @@ export interface AntProducers {
     // Ant Speed Multiplier = (1 + selfPowerIncrement)^purchased
     selfPowerIncrement: number
   }
+  produces?: AntProducers
 }
 
+export interface PlayerAntProducers {
+  purchased: number
+  generated: Decimal
+  mastery: number
+  highestMastery: number
+}
+
+export const emptyAntProducer: PlayerAntProducers = {
+  purchased: 0,
+  generated: new Decimal(0),
+  mastery: 0,
+  highestMastery: 0
+}
+
+export enum AntProducers {
+  'Workers' = 0,
+  'Breeders' = 1,
+  'MetaBreeders' = 2,
+  'MegaBreeders' = 3,
+  'Queens' = 4,
+  'LordRoyals' = 5,
+  'Almighties' = 6,
+  'Disciples' = 7,
+  'HolySpirit' = 8
+}
+
+export const NUM_ANTS = Object.keys(AntProducers).length
+export const LAST_ANT = AntProducers.HolySpirit
 export const MAX_ANT_MASTERY_LEVEL = 12
 
-export const baseAntInfo: AntProducers[] = [
-  {
+export const baseAntInfo: Record<AntProducers, AntProducerData> = {
+  [AntProducers.Workers]: {
     baseCost: new Decimal(1),
     costIncrease: 3,
     baseProduction: new Decimal(0.01),
@@ -58,35 +87,39 @@ export const baseAntInfo: AntProducers[] = [
       {
         text: () =>
           i18next.t('ants.mastery.0.effect', {
-            x: format(calculateSelfSpeedFromMastery(0), 2, false)
+            x: format(calculateSelfSpeedFromMastery(AntProducers.Workers), 2, false)
           }),
-        displayCondition: () => player.ants.masteries[0] > 0
+        displayCondition: () => player.ants.producers[AntProducers.Workers].mastery > 0
       },
       {
         text: () =>
           i18next.t('ants.producers.0.eloInformation', {
             x: format(calculateELOMult(), 2, true)
           }),
-        displayCondition: () => player.ants.antSacrificeCount > 0 || player.ants.highestCrumbsThisSacrifice.gte(1e100)
+        displayCondition: () => player.ants.antSacrificeCount > 0 || player.ants.highestCrumbsThisSacrifice.gte(1e70)
       },
       {
         text: () =>
           i18next.t('ants.producers.0.reincarnationUpgrade17', {
-            x: format(Decimal.pow(1.004, player.ants.purchased[0]), 2, true)
+            x: format(Decimal.pow(1.004, player.ants.producers[AntProducers.Workers].purchased), 2, true)
           }),
         displayCondition: () => player.upgrades[77] > 0
       },
       {
         text: () =>
           i18next.t('ants.producers.0.research', {
-            x: format(Decimal.pow(1 + player.researches[96] / 5000, player.ants.purchased[0]), 2, true)
+            x: format(
+              Decimal.pow(1 + player.researches[96] / 5000, player.ants.producers[AntProducers.Workers].purchased),
+              2,
+              true
+            )
           }),
         displayCondition: () => player.researches[96] > 0
       },
       {
         text: () =>
           i18next.t('ants.producers.0.cookieUpgrade', {
-            x: format(Decimal.pow(1.004, player.ants.purchased[0]), 2, true)
+            x: format(Decimal.pow(1.004, player.ants.producers[AntProducers.Workers].purchased), 2, true)
           }),
         displayCondition: () => player.cubeUpgrades[65] > 0
       }
@@ -109,13 +142,13 @@ export const baseAntInfo: AntProducers[] = [
       ],
       selfSpeedMultipliers: [
         new Decimal(1),
-        new Decimal(2),
-        new Decimal(4),
-        new Decimal(8),
-        new Decimal(16),
-        new Decimal(40),
-        new Decimal(1e3),
+        new Decimal(3),
+        new Decimal(9),
+        new Decimal(20),
+        new Decimal(100),
+        new Decimal(1e4),
         new Decimal(1e6),
+        new Decimal(1e8),
         new Decimal(1e11),
         new Decimal(1e20),
         new Decimal(1e50),
@@ -125,7 +158,7 @@ export const baseAntInfo: AntProducers[] = [
       selfPowerIncrement: 0.001
     }
   },
-  {
+  [AntProducers.Breeders]: {
     baseCost: new Decimal(10),
     costIncrease: 10,
     baseProduction: new Decimal(1e-4),
@@ -134,9 +167,9 @@ export const baseAntInfo: AntProducers[] = [
       {
         text: () =>
           i18next.t('ants.mastery.1.effect', {
-            x: format(calculateSelfSpeedFromMastery(1), 2, false)
+            x: format(calculateSelfSpeedFromMastery(AntProducers.Breeders), 2, false)
           }),
-        displayCondition: () => player.ants.masteries[1] > 0
+        displayCondition: () => player.ants.producers[AntProducers.Breeders].mastery > 0
       }
     ],
     masteryInfo: {
@@ -157,10 +190,10 @@ export const baseAntInfo: AntProducers[] = [
       ],
       selfSpeedMultipliers: [
         new Decimal(1),
-        new Decimal(2),
-        new Decimal(5),
-        new Decimal(15),
-        new Decimal(1e3),
+        new Decimal(4),
+        new Decimal(16),
+        new Decimal(100),
+        new Decimal(1e5),
         new Decimal(1e8),
         new Decimal(1e13),
         new Decimal(1e25),
@@ -171,9 +204,10 @@ export const baseAntInfo: AntProducers[] = [
         new Decimal('1e1400')
       ],
       selfPowerIncrement: 0.002
-    }
+    },
+    produces: AntProducers.Workers
   },
-  {
+  [AntProducers.MetaBreeders]: {
     baseCost: new Decimal(1e5),
     costIncrease: 1e2,
     baseProduction: new Decimal(1e-7),
@@ -182,9 +216,9 @@ export const baseAntInfo: AntProducers[] = [
       {
         text: () =>
           i18next.t('ants.mastery.2.effect', {
-            x: format(calculateSelfSpeedFromMastery(2), 2, false)
+            x: format(calculateSelfSpeedFromMastery(AntProducers.MetaBreeders), 2, false)
           }),
-        displayCondition: () => player.ants.masteries[2] > 0
+        displayCondition: () => player.ants.producers[AntProducers.MetaBreeders].mastery > 0
       }
     ],
     masteryInfo: {
@@ -205,10 +239,10 @@ export const baseAntInfo: AntProducers[] = [
       ],
       selfSpeedMultipliers: [
         new Decimal(1),
-        new Decimal(3),
-        new Decimal(9),
-        new Decimal(100),
+        new Decimal(10),
+        new Decimal(200),
         new Decimal(1e4),
+        new Decimal(1e6),
         new Decimal(1e9),
         new Decimal(1e16),
         new Decimal(1e32),
@@ -219,9 +253,10 @@ export const baseAntInfo: AntProducers[] = [
         new Decimal('1e2000')
       ],
       selfPowerIncrement: 0.005
-    }
+    },
+    produces: AntProducers.Breeders
   },
-  {
+  [AntProducers.MegaBreeders]: {
     baseCost: new Decimal(1e12),
     costIncrease: 1e4,
     baseProduction: new Decimal(1e-12),
@@ -230,9 +265,9 @@ export const baseAntInfo: AntProducers[] = [
       {
         text: () =>
           i18next.t('ants.mastery.3.effect', {
-            x: format(calculateSelfSpeedFromMastery(3), 2, false)
+            x: format(calculateSelfSpeedFromMastery(AntProducers.MegaBreeders), 2, false)
           }),
-        displayCondition: () => player.ants.masteries[3] > 0
+        displayCondition: () => player.ants.producers[AntProducers.MegaBreeders].mastery > 0
       }
     ],
     masteryInfo: {
@@ -267,9 +302,9 @@ export const baseAntInfo: AntProducers[] = [
       ],
       selfSpeedMultipliers: [
         new Decimal(1),
-        new Decimal(4),
-        new Decimal(100),
-        new Decimal(1e5),
+        new Decimal(60),
+        new Decimal(1e4),
+        new Decimal(1e7),
         new Decimal(1e12),
         new Decimal(1e24),
         new Decimal(1e48),
@@ -281,9 +316,10 @@ export const baseAntInfo: AntProducers[] = [
         new Decimal('1e3000')
       ],
       selfPowerIncrement: 0.01
-    }
+    },
+    produces: AntProducers.MetaBreeders
   },
-  {
+  [AntProducers.Queens]: {
     baseCost: new Decimal(1e300),
     costIncrease: 1e8,
     baseProduction: new Decimal(1e-80),
@@ -292,9 +328,9 @@ export const baseAntInfo: AntProducers[] = [
       {
         text: () =>
           i18next.t('ants.mastery.4.effect', {
-            x: format(calculateSelfSpeedFromMastery(4), 2, false)
+            x: format(calculateSelfSpeedFromMastery(AntProducers.Queens), 2, false)
           }),
-        displayCondition: () => player.ants.masteries[4] > 0
+        displayCondition: () => player.ants.producers[AntProducers.Queens].mastery > 0
       },
       {
         text: () => i18next.t('ants.producers.4.eloMult'),
@@ -350,9 +386,10 @@ export const baseAntInfo: AntProducers[] = [
         new Decimal('1e4500')
       ],
       selfPowerIncrement: 0.02
-    }
+    },
+    produces: AntProducers.MegaBreeders
   },
-  {
+  [AntProducers.LordRoyals]: {
     baseCost: new Decimal('1e1000'),
     costIncrease: 1e16,
     baseProduction: new Decimal(1e-220),
@@ -361,9 +398,9 @@ export const baseAntInfo: AntProducers[] = [
       {
         text: () =>
           i18next.t('ants.mastery.5.effect', {
-            x: format(calculateSelfSpeedFromMastery(5), 2, false)
+            x: format(calculateSelfSpeedFromMastery(AntProducers.LordRoyals), 2, false)
           }),
-        displayCondition: () => player.ants.masteries[5] > 0
+        displayCondition: () => player.ants.producers[AntProducers.LordRoyals].mastery > 0
       },
       {
         text: () => i18next.t('ants.producers.5.eloMult'),
@@ -419,9 +456,10 @@ export const baseAntInfo: AntProducers[] = [
         new Decimal('1e7000')
       ],
       selfPowerIncrement: 0.04
-    }
+    },
+    produces: AntProducers.Queens
   },
-  {
+  [AntProducers.Almighties]: {
     baseCost: new Decimal('1e5000'),
     costIncrease: 1e32,
     baseProduction: new Decimal('1e-850'),
@@ -430,9 +468,9 @@ export const baseAntInfo: AntProducers[] = [
       {
         text: () =>
           i18next.t('ants.mastery.6.effect', {
-            x: format(calculateSelfSpeedFromMastery(6), 2, false)
+            x: format(calculateSelfSpeedFromMastery(AntProducers.Almighties), 2, false)
           }),
-        displayCondition: () => player.ants.masteries[6] > 0
+        displayCondition: () => player.ants.producers[AntProducers.Almighties].mastery > 0
       },
       {
         text: () => i18next.t('ants.producers.6.eloMult'),
@@ -455,8 +493,8 @@ export const baseAntInfo: AntProducers[] = [
         1_600_000,
         2_340_000,
         3_400_000,
-        5_100_000,
-        9_250_000
+        4_400_000,
+        5_999_000
       ],
       particleCosts: [
         new Decimal('1e100000'),
@@ -488,9 +526,10 @@ export const baseAntInfo: AntProducers[] = [
         new Decimal('1e10000')
       ],
       selfPowerIncrement: 0.1
-    }
+    },
+    produces: AntProducers.LordRoyals
   },
-  {
+  [AntProducers.Disciples]: {
     baseCost: new Decimal('1e25000'),
     costIncrease: 1e64,
     baseProduction: new Decimal('1e-3500'),
@@ -499,9 +538,9 @@ export const baseAntInfo: AntProducers[] = [
       {
         text: () =>
           i18next.t('ants.mastery.7.effect', {
-            x: format(calculateSelfSpeedFromMastery(7), 2, false)
+            x: format(calculateSelfSpeedFromMastery(AntProducers.Disciples), 2, false)
           }),
-        displayCondition: () => player.ants.masteries[7] > 0
+        displayCondition: () => player.ants.producers[AntProducers.Disciples].mastery > 0
       },
       {
         text: () => i18next.t('ants.producers.7.eloMult'),
@@ -520,12 +559,12 @@ export const baseAntInfo: AntProducers[] = [
         750_000,
         1_400_000,
         2_400_000,
-        4_000_000,
-        6_000_000,
-        8_250_000,
-        11_111_111,
-        15_151_515,
-        22_222_222
+        3_500_000,
+        4_666_000,
+        6_020_000,
+        7_250_000,
+        9_000_000,
+        10_000_000,
       ],
       particleCosts: [
         new Decimal('1e400000'),
@@ -557,31 +596,103 @@ export const baseAntInfo: AntProducers[] = [
         new Decimal('1e60000')
       ],
       selfPowerIncrement: 0.3
-    }
+    },
+    produces: AntProducers.Almighties
+  },
+  [AntProducers.HolySpirit]: {
+    baseCost: new Decimal('1e1000000'),
+    costIncrease: 1e128,
+    baseProduction: new Decimal('1e-125000'),
+    color: '#FFFFFF',
+    additionalTexts: [
+      {
+        text: () =>
+          i18next.t('ants.mastery.8.effect', {
+            x: format(calculateSelfSpeedFromMastery(AntProducers.HolySpirit), 2, false)
+          }),
+        displayCondition: () => player.ants.producers[AntProducers.HolySpirit].mastery > 0
+      },
+      {
+        text: () => i18next.t('ants.producers.8.eloMult'),
+        displayCondition: () => player.ants.antSacrificeCount > 0
+      },
+      {
+        text: () => i18next.t('ants.producers.8.eloSpeedup'),
+        displayCondition: () => player.ants.antSacrificeCount > 0
+      }
+    ],
+    masteryInfo: {
+      totalELORequirements: [
+        2_500_000,
+        3_500_000,
+        4_500_000,
+        5_500_000,
+        6_500_000,
+        8_000_000,
+        9_500_000,
+        11_000_000,
+        12_500_000,
+        14_000_000,
+        16_000_000,
+        18_000_000
+      ],
+      particleCosts: [
+        new Decimal('1'),
+        new Decimal('2'),
+        new Decimal('3'),
+        new Decimal('4'),
+        new Decimal('5'),
+        new Decimal('6'),
+        new Decimal('7'),
+        new Decimal('8'),
+        new Decimal('9'),
+        new Decimal('10'),
+        new Decimal('11'),
+        new Decimal('12')
+      ],
+      selfSpeedMultipliers: [
+        new Decimal(1),
+        new Decimal('1e2500'),
+        new Decimal('1e4200'),
+        new Decimal('1e8000'),
+        new Decimal('1e13000'),
+        new Decimal('1e19000'),
+        new Decimal('1e26000'),
+        new Decimal('1e34000'),
+        new Decimal('1e43000'),
+        new Decimal('1e55000'),
+        new Decimal('1e70000'),
+        new Decimal('1e90000'),
+        new Decimal('1e150000')
+      ],
+      selfPowerIncrement: 0.5
+    },
+    produces: AntProducers.Disciples
   }
-]
-
-export const calculateSelfSpeedFromMastery = (t: number) => {
-  const index = player.ants.masteries[t]
-  const selfPowerIncrement = index * baseAntInfo[t].masteryInfo.selfPowerIncrement
-  const selfBaseMult = baseAntInfo[t].masteryInfo.selfSpeedMultipliers[index]
-  return Decimal.pow(1 + selfPowerIncrement, player.ants.purchased[t]).times(selfBaseMult)
 }
 
-export const calculateBaseAntsToBeGenerated = (t: number, antSpeedMult = new Decimal(1)) => {
-  return player.ants.generated[t]
-    .add(player.ants.purchased[t])
-    .times(baseAntInfo[t].baseProduction)
-    .times(calculateSelfSpeedFromMastery(t))
+export const calculateSelfSpeedFromMastery = (ant: AntProducers) => {
+  const level = player.ants.producers[ant].mastery
+  const selfPowerIncrement = level * baseAntInfo[ant].masteryInfo.selfPowerIncrement
+  const selfBaseMult = baseAntInfo[ant].masteryInfo.selfSpeedMultipliers[level]
+  return Decimal.pow(1 + selfPowerIncrement, player.ants.producers[ant].purchased).times(selfBaseMult)
+}
+
+export const calculateBaseAntsToBeGenerated = (ant: AntProducers, antSpeedMult = new Decimal(1)) => {
+  return player.ants.producers[ant].generated
+    .add(player.ants.producers[ant].purchased)
+    .times(baseAntInfo[ant].baseProduction)
+    .times(calculateSelfSpeedFromMastery(ant))
     .times(antSpeedMult)
 }
 
 export const generateAntsAndCrumbs = (dt: number): void => {
   const antSpeedMult = calculateActualAntSpeedMult()
-  const numAnts = player.ants.purchased.length // should be 8, but just to make sure
-  for (let i = numAnts - 1; i > 0; i--) {
-    const baseGeneration = calculateBaseAntsToBeGenerated(i, antSpeedMult)
-    player.ants.generated[i - 1] = player.ants.generated[i - 1].add(
+
+  for (let antType = LAST_ANT; antType > AntProducers.Workers; antType--) {
+    const baseGeneration = calculateBaseAntsToBeGenerated(antType, antSpeedMult)
+    const producedAnt = baseAntInfo[antType].produces!
+    player.ants.producers[producedAnt].generated = player.ants.producers[producedAnt].generated.add(
       baseGeneration
         .times(dt)
     )
@@ -589,7 +700,7 @@ export const generateAntsAndCrumbs = (dt: number): void => {
 
   // Separately handle Crumbs in the same way
   player.ants.crumbs = player.ants.crumbs.add(
-    calculateBaseAntsToBeGenerated(0, antSpeedMult)
+    calculateBaseAntsToBeGenerated(AntProducers.Workers, antSpeedMult)
       .times(dt)
   )
 
@@ -600,31 +711,31 @@ export const generateAntsAndCrumbs = (dt: number): void => {
   activateELO(dt)
 }
 
-export const getCostNextAnt = (tier: number) => {
-  const data = baseAntInfo[tier]
+export const getCostNextAnt = (ant: AntProducers) => {
+  const data = baseAntInfo[ant]
   const nextCost = data.baseCost.times(
     Decimal.pow(
       data.costIncrease,
-      player.ants.purchased[tier]
+      player.ants.producers[ant].purchased
     )
   )
-  const lastCost = player.ants.purchased[tier] > 0
+  const lastCost = player.ants.producers[ant].purchased > 0
     ? data.baseCost.times(
       Decimal.pow(
         data.costIncrease,
-        player.ants.purchased[tier] - 1
+        player.ants.producers[ant].purchased - 1
       )
     )
     : new Decimal(0)
   return nextCost.sub(lastCost)
 }
 
-export const getCostMaxAnts = (tier: number) => {
-  const maxBuyable = getMaxPurchasableAnts(tier, player.ants.crumbs)
-  const data = baseAntInfo[tier]
+export const getCostMaxAnts = (ant: AntProducers) => {
+  const maxBuyable = getMaxPurchasableAnts(ant, player.ants.crumbs)
+  const data = baseAntInfo[ant]
 
-  const spent = player.ants.purchased[tier] > 0
-    ? Decimal.pow(data.costIncrease, player.ants.purchased[tier] - 1).times(data.baseCost)
+  const spent = player.ants.producers[ant].purchased > 0
+    ? Decimal.pow(data.costIncrease, player.ants.producers[ant].purchased - 1).times(data.baseCost)
     : new Decimal(0)
 
   const maxAntCost = Decimal.pow(data.costIncrease, maxBuyable - 1).times(data.baseCost)
@@ -632,13 +743,13 @@ export const getCostMaxAnts = (tier: number) => {
   return maxAntCost.sub(spent)
 }
 
-export const getMaxPurchasableAnts = (tier: number, budget: Decimal): number => {
-  const data = baseAntInfo[tier]
-  const sunkCost = player.ants.purchased[tier] > 0
+export const getMaxPurchasableAnts = (ant: AntProducers, budget: Decimal): number => {
+  const data = baseAntInfo[ant]
+  const sunkCost = player.ants.producers[ant].purchased > 0
     ? data.baseCost.times(
       Decimal.pow(
         data.costIncrease,
-        player.ants.purchased[tier] - 1
+        player.ants.producers[ant].purchased - 1
       )
     )
     : new Decimal(0)
@@ -647,79 +758,79 @@ export const getMaxPurchasableAnts = (tier: number, budget: Decimal): number => 
   return Math.max(0, 1 + Math.floor(Decimal.log(realBudget.div(data.baseCost), data.costIncrease)))
 }
 
-export const buyAntProducers = (tier: number, max: boolean) => {
+export const buyAntProducers = (ant: AntProducers, max: boolean) => {
   if (max) {
-    const buyTo = getMaxPurchasableAnts(tier, player.ants.crumbs)
-    if (buyTo <= player.ants.purchased[tier]) {
+    const buyTo = getMaxPurchasableAnts(ant, player.ants.crumbs)
+    if (buyTo <= player.ants.producers[ant].purchased) {
       return
     } else {
-      const cost = getCostMaxAnts(tier)
+      const cost = getCostMaxAnts(ant)
       if (player.ants.crumbs.gte(cost)) {
         player.ants.crumbs = player.ants.crumbs.sub(cost)
-        player.ants.purchased[tier] = buyTo
+        player.ants.producers[ant].purchased = buyTo
       }
     }
   } else {
-    const cost = getCostNextAnt(tier)
+    const cost = getCostNextAnt(ant)
     if (player.ants.crumbs.gte(cost)) {
       player.ants.crumbs = player.ants.crumbs.sub(cost)
-      player.ants.purchased[tier] += 1
+      player.ants.producers[ant].purchased += 1
     }
   }
 }
 
 export const autobuyAntProducers = () => {
-  const tiersUnlocked = +getAchievementReward('antAutobuyers')
-  for (let i = 8; i > 0; i--) {
-    if (i <= tiersUnlocked) {
-      buyAntProducers(i - 1, player.antMax)
+  const tiersUnlocked = +getAchievementReward('antAutobuyers') - 1
+  for (let ant = LAST_ANT; ant >= AntProducers.Workers; ant--) {
+    if (ant <= tiersUnlocked) {
+      buyAntProducers(ant, player.antMax)
     }
   }
 }
 
-export const antProducerHTML = (tier: number) => {
-  let nameText = i18next.t(`ants.producers.${tier}.name`)
-  if (player.ants.masteries[tier] > 0) {
-    nameText += ` <span style="color:green">[★${player.ants.masteries[tier]}]</span>`
+export const antProducerHTML = (ant: AntProducers) => {
+  let nameText = i18next.t(`ants.producers.${ant}.name`)
+  if (player.ants.producers[ant].mastery > 0) {
+    nameText += ` <span style="color:green">[★${player.ants.producers[ant].mastery}]</span>`
   }
   const nameHTML = `<span style="font-size: 1.2em; color: ${
-    baseAntInfo[tier].color
+    baseAntInfo[ant].color
   }" class="titleTextFont">${nameText}</span>`
   const flavorHTML = `<span class="titleTextFont" style="color: lightgray">${
-    i18next.t(`ants.producers.${tier}.flavor`)
+    i18next.t(`ants.producers.${ant}.flavor`)
   }</span>`
 
   const producerCountHTML = `<span>${
     i18next.t('ants.producerCount', {
-      x: format(player.ants.purchased[tier], 0, true),
-      y: format(player.ants.generated[tier], 2)
+      x: format(player.ants.producers[ant].purchased, 0, true),
+      y: format(player.ants.producers[ant].generated, 2)
     })
   }</span>`
 
   const antSpeedMult = calculateActualAntSpeedMult()
-  const antsToBeGenerated = calculateBaseAntsToBeGenerated(tier, antSpeedMult)
+  const antsToBeGenerated = calculateBaseAntsToBeGenerated(ant, antSpeedMult)
   const generationHTML = `<span>${
-    i18next.t(`ants.producers.${tier}.generates`, {
+    i18next.t(`ants.producers.${ant}.generates`, {
       x: format(antsToBeGenerated, 5, true)
     })
   }</span>`
 
   let costHTML: string
-  const maxBuy = getMaxPurchasableAnts(tier, player.ants.crumbs)
-  if (player.antMax && maxBuy > player.ants.purchased[tier]) {
-    const cost = getCostMaxAnts(tier)
+  const maxBuy = getMaxPurchasableAnts(ant, player.ants.crumbs)
+  if (player.antMax && maxBuy > player.ants.producers[ant].purchased) {
+    const cost = getCostMaxAnts(ant)
     costHTML = i18next.t('ants.costMaxLevels', {
-      x: format(maxBuy - player.ants.purchased[tier], 0, true),
+      x: format(maxBuy - player.ants.producers[ant].purchased, 0, true),
       y: format(cost, 2, true)
     })
   } else {
-    const cost = getCostNextAnt(tier)
+    const cost = getCostNextAnt(ant)
     costHTML = i18next.t('ants.costSingleLevel', { x: format(cost, 2, true) })
   }
 
-  if (baseAntInfo[tier].additionalTexts.length > 0) {
+  if (baseAntInfo[ant].additionalTexts.length > 0) {
     let additionalTextHTML = ''
-    for (const texts of baseAntInfo[tier].additionalTexts) {
+    for (const texts of baseAntInfo[ant].additionalTexts) {
       if (texts.displayCondition()) {
         additionalTextHTML += `<br>${texts.text()}`
       }
@@ -734,60 +845,60 @@ export const antProducerHTML = (tier: number) => {
  * PART 1.5: Ant Producer Masteries
  */
 
-export const canBuyAntMastery = (tier: number): boolean => {
-  const level = player.ants.masteries[tier]
+export const canBuyAntMastery = (ant: AntProducers): boolean => {
+  const level = player.ants.producers[ant].mastery
   if (level >= MAX_ANT_MASTERY_LEVEL) {
     return false
   } else {
-    const reqELO = baseAntInfo[tier].masteryInfo.totalELORequirements[level]
+    const reqELO = baseAntInfo[ant].masteryInfo.totalELORequirements[level]
     const elo = player.ants.immortalELO
     const eloCheck = elo >= reqELO
-    const particleCheck = player.reincarnationPoints.gte(baseAntInfo[tier].masteryInfo.particleCosts[level])
+    const particleCheck = player.reincarnationPoints.gte(baseAntInfo[ant].masteryInfo.particleCosts[level])
     return eloCheck && particleCheck
   }
 }
 
-export const buyAntMastery = (tier: number): void => {
-  if (canBuyAntMastery(tier)) {
-    const level = player.ants.masteries[tier]
-    player.ants.masteries[tier] += 1
-    player.ants.maxMasteriesPurchased[tier] = Math.max(
-      player.ants.maxMasteriesPurchased[tier],
-      player.ants.masteries[tier]
+export const buyAntMastery = (ant: AntProducers): void => {
+  if (canBuyAntMastery(ant)) {
+    const level = player.ants.producers[ant].mastery
+    player.ants.producers[ant].mastery += 1
+    player.ants.producers[ant].highestMastery = Math.max(
+      player.ants.producers[ant].highestMastery,
+      player.ants.producers[ant].mastery
     )
-    player.reincarnationPoints = player.reincarnationPoints.sub(baseAntInfo[tier].masteryInfo.particleCosts[level])
+    player.reincarnationPoints = player.reincarnationPoints.sub(baseAntInfo[ant].masteryInfo.particleCosts[level])
   }
 }
 
 export const autobuyAntMasteries = (): void => {
-  const tiersUnlocked = +getAchievementReward('antAutobuyers')
-  for (let i = 8; i > 0; i--) {
-    if (i <= tiersUnlocked) {
-      while (canBuyAntMastery(i - 1) && player.ants.masteries[i - 1] < player.ants.maxMasteriesPurchased[i - 1]) {
-        buyAntMastery(i - 1)
+  const highestUnlockedTier = +getAchievementReward('antAutobuyers') - 1
+  for (let ant = LAST_ANT; ant >= AntProducers.Workers; ant--) {
+    if (ant <= highestUnlockedTier) {
+      while (canBuyAntMastery(ant) && player.ants.producers[ant].mastery < player.ants.producers[ant].highestMastery) {
+        buyAntMastery(ant)
       }
     }
   }
 }
 
-export const antMasteryHTML = (tier: number): string => {
-  const nameColor = `color-mix(in srgb, ${baseAntInfo[tier].color} 60%, lime 40%)`
+export const antMasteryHTML = (ant: AntProducers): string => {
+  const nameColor = `color-mix(in srgb, ${baseAntInfo[ant].color} 60%, lime 40%)`
   const nameHTML = `<span style="font-size: 1.2em; color: ${nameColor}" class="titleTextFont">${
-    i18next.t(`ants.mastery.${tier}.name`)
+    i18next.t(`ants.mastery.${ant}.name`)
   }</span>`
   const flavorHTML = `<span style="color: lightgray" class="titleTextFont">${
-    i18next.t(`ants.mastery.${tier}.flavor`)
+    i18next.t(`ants.mastery.${ant}.flavor`)
   }</span>`
 
-  const level = player.ants.masteries[tier]
-  const selfBaseMult = baseAntInfo[tier].masteryInfo.selfSpeedMultipliers[level]
-  const selfPowerBase = level * baseAntInfo[tier].masteryInfo.selfPowerIncrement
-  const selfTotalMult = calculateSelfSpeedFromMastery(tier)
+  const level = player.ants.producers[ant].mastery
+  const selfBaseMult = baseAntInfo[ant].masteryInfo.selfSpeedMultipliers[level]
+  const selfPowerBase = level * baseAntInfo[ant].masteryInfo.selfPowerIncrement
+  const selfTotalMult = calculateSelfSpeedFromMastery(ant)
 
   const levelHTML = `<span>${
     i18next.t('ants.mastery.level', { x: format(level, 0, true), y: format(MAX_ANT_MASTERY_LEVEL) })
   }</span>`
-  const multHTML = `<span>${i18next.t(`ants.mastery.${tier}.effect`, { x: format(selfTotalMult, 2, false) })}</span>`
+  const multHTML = `<span>${i18next.t(`ants.mastery.${ant}.effect`, { x: format(selfTotalMult, 2, false) })}</span>`
 
   let effectHTML = ''
   if (level >= MAX_ANT_MASTERY_LEVEL) {
@@ -797,15 +908,15 @@ export const antMasteryHTML = (tier: number): string => {
       })
     }</span>`
     effectHTML += `<br><span>${
-      i18next.t(`ants.mastery.${tier}.maxedSelfPer`, {
+      i18next.t(`ants.mastery.${ant}.maxedSelfPer`, {
         x: format(1 + selfPowerBase, 2, true)
       })
     }</span>`
 
     return `${nameHTML}<br>${flavorHTML}<br><br>${levelHTML}<br>${effectHTML}<br>${multHTML}`
   } else {
-    const selfBaseMultNextLevel = baseAntInfo[tier].masteryInfo.selfSpeedMultipliers[level + 1]
-    const selfPowerBaseNextLevel = (level + 1) * baseAntInfo[tier].masteryInfo.selfPowerIncrement
+    const selfBaseMultNextLevel = baseAntInfo[ant].masteryInfo.selfSpeedMultipliers[level + 1]
+    const selfPowerBaseNextLevel = (level + 1) * baseAntInfo[ant].masteryInfo.selfPowerIncrement
     effectHTML = `<span>${
       i18next.t('ants.mastery.notMaxedSelfAnt', {
         x: format(selfBaseMult, 2, false),
@@ -813,7 +924,7 @@ export const antMasteryHTML = (tier: number): string => {
       })
     }</span>`
     effectHTML += `<br><span>${
-      i18next.t(`ants.mastery.${tier}.notMaxedSelfPer`, {
+      i18next.t(`ants.mastery.${ant}.notMaxedSelfPer`, {
         x: format(1 + selfPowerBase, 3, true),
         y: format(1 + selfPowerBaseNextLevel, 3, true)
       })
@@ -821,11 +932,11 @@ export const antMasteryHTML = (tier: number): string => {
 
     const autoBuyer = +getAchievementReward('antAutobuyers')
     let autoBuyerHTML = ''
-    if (autoBuyer >= tier && player.ants.masteries[tier] < player.ants.maxMasteriesPurchased[tier]) {
+    if (autoBuyer >= ant && player.ants.producers[ant].mastery < player.ants.producers[ant].highestMastery) {
       autoBuyerHTML = `<span style="color:lime">${i18next.t('ants.mastery.alreadyPurchased')}</span><br>`
     }
 
-    const reqELO = baseAntInfo[tier].masteryInfo.totalELORequirements[level]
+    const reqELO = baseAntInfo[ant].masteryInfo.totalELORequirements[level]
     const reqELOHTML = `<span>${
       i18next.t('ants.mastery.eloRequirement', {
         x: format(reqELO, 0, true),
@@ -833,7 +944,7 @@ export const antMasteryHTML = (tier: number): string => {
       })
     }</span>`
 
-    const reqParticleCost = baseAntInfo[tier].masteryInfo.particleCosts[level]
+    const reqParticleCost = baseAntInfo[ant].masteryInfo.particleCosts[level]
     const reqParticleCostHTML = `<span>${
       i18next.t('ants.mastery.particleCost', {
         x: format(reqParticleCost, 0, true, undefined, undefined, true)
@@ -1155,6 +1266,7 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
 }
 
 export const antUpgradeKeys = Object.keys(antUpgrades) as AntUpgradeKeys[]
+export const NUM_ANT_UPGRADES = antUpgradeKeys.length
 
 export const computeFreeAntUpgradeLevels = () => {
   let bonusLevels = 0
@@ -1370,6 +1482,13 @@ export const showSacrifice = () => {
     x: format(effectiveELO, 2, true)
   })
 
+  DOMCacheGetOrSet('crumbCountAgain').textContent = i18next.t(
+    'ants.galacticCrumbCountThisSacrifice',
+    {
+      x: format(player.ants.highestCrumbsThisSacrifice, 2, true, undefined, undefined, true)
+    }
+  )
+
   DOMCacheGetOrSet('sacrificeUpgradeMultiplier').innerHTML = i18next.t('ants.altarRewardMultiplier', {
     x: format(calculateAntSacrificeMultiplier(), 3, true)
   })
@@ -1436,30 +1555,27 @@ export const showSacrifice = () => {
 
   if (player.challengecompletions[9] > 0) {
     // Helper function to update reward display and styling
-    const updateRewardDisplay = (elementId: string, reward: Decimal, requirement: number, parentElementClass?: string) => {
+    const updateRewardDisplay = (
+      elementId: string,
+      reward: Decimal,
+      requirement: number,
+      parentElementClass?: string
+    ) => {
       const element = DOMCacheGetOrSet(elementId)
       const parentElement = parentElementClass ? element.closest(`.${parentElementClass}`) : element.parentElement
 
       if (effectiveELO >= requirement) {
         // Unlocked: show reward amount, remove locked styling
         element.textContent = i18next.t('ants.elo', { x: format(reward) })
-        if (parentElement) {
-          parentElement.classList.remove('antSacrificeRewardLocked')
-        }
+        parentElement?.classList.remove('antSacrificeRewardLocked')
         const img = parentElement?.querySelector('img')
-        if (img) {
-          img.classList.remove('antSacrificeRewardImageLocked')
-        }
+        img?.classList.remove('antSacrificeRewardImageLocked')
       } else {
         // Locked: show ELO requirement, add locked styling
         element.textContent = i18next.t('ants.eloRequirement', { x: format(requirement, 0, true) })
-        if (parentElement) {
-          parentElement.classList.add('antSacrificeRewardLocked')
-        }
+        parentElement?.classList.add('antSacrificeRewardLocked')
         const img = parentElement?.querySelector('img')
-        if (img) {
-          img.classList.add('antSacrificeRewardImageLocked')
-        }
+        img?.classList.add('antSacrificeRewardImageLocked')
       }
     }
 
@@ -1511,7 +1627,7 @@ export const showSacrifice = () => {
 export const sacrificeAnts = async (auto = false) => {
   let p = true
 
-  if (player.ants.crumbs.gte('1e100')) {
+  if (player.ants.crumbs.gte('1e70')) {
     if (!auto && player.toggles[32]) {
       p = await Confirm(i18next.t('ants.autoReset'))
     }
@@ -1555,16 +1671,11 @@ export const sacrificeAnts = async (auto = false) => {
         player.legendaryFragments = player.legendaryFragments.add(sacRewards.legendaryFragments)
         player.mythicalFragments = player.mythicalFragments.add(sacRewards.mythicalFragments)
       }
-
+      awardAchievementGroup('sacMult')
       // Now we're safe to reset the ants.
-      resetAnts()
-      player.antSacrificeTimer = 0
-      player.antSacrificeTimerReal = 0
-      player.ants.antSacrificeCount += 1
-      player.ants.currentSacrificeId += 1
+      resetAnts(resetTiers.reincarnation)
       updateTalismanInventory()
       resetHistoryAdd('ants', historyEntry)
-      awardAchievementGroup('sacMult')
     }
   }
 
@@ -1582,17 +1693,20 @@ export const calculateAvailableActivatableELO = () => {
 
 export const activationSpeedMult = () => {
   let multiplier = 1
-  if (player.ants.purchased[4] > 0) {
+  if (player.ants.producers[AntProducers.Queens].purchased > 0) {
     multiplier *= 1.15
   }
-  if (player.ants.purchased[5] > 0) {
+  if (player.ants.producers[AntProducers.LordRoyals].purchased > 0) {
     multiplier *= 1.25
   }
-  if (player.ants.purchased[6] > 0) {
+  if (player.ants.producers[AntProducers.Almighties].purchased > 0) {
     multiplier *= 1.4
   }
-  if (player.ants.purchased[7] > 0) {
+  if (player.ants.producers[AntProducers.Disciples].purchased > 0) {
     multiplier *= 2
+  }
+  if (player.ants.producers[AntProducers.HolySpirit].purchased > 0) {
+    multiplier *= 3
   }
   multiplier *= 1 + 0.1 * player.upgrades[124]
   multiplier *= calculateAntELOCubeBlessing()

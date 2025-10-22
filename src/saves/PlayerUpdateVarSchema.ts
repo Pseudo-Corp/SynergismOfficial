@@ -198,19 +198,49 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   // In the ants rewrite, we assume that anything above 1e1000 crumbs can be 'chopped off'
   // For balancing purposes
   if (player.antPoints !== undefined) {
-    player.ants.purchased[0] = Math.min(2000, player.firstOwnedAnts ?? 0)
-    player.ants.purchased[1] = Math.min(1000, player.secondOwnedAnts ?? 0)
-    player.ants.purchased[2] = Math.min(500, player.thirdOwnedAnts ?? 0)
-    player.ants.purchased[3] = Math.min(247, player.fourthOwnedAnts ?? 0)
-    player.ants.purchased[4] = Math.min(87, player.fifthOwnedAnts ?? 0)
-    player.ants.purchased[5] = Math.min(1, player.sixthOwnedAnts ?? 0)
-    // The rest cost more than 1e1000 crumbs, so we can ignore
+    player.ants.producers[0] = {
+      purchased: Math.min(2000, player.firstOwnedAnts ?? 0),
+      generated: Decimal.min(new Decimal(1e200), player.firstGeneratedAnts ?? new Decimal(0)),
+      mastery: 0,
+      highestMastery: 0
+    }
 
-    player.ants.generated[0] = Decimal.min(new Decimal(1e200), player.firstGeneratedAnts ?? new Decimal(0))
-    player.ants.generated[1] = Decimal.min(new Decimal(1e200), player.secondGeneratedAnts ?? new Decimal(0))
-    player.ants.generated[2] = Decimal.min(new Decimal(1e200), player.thirdGeneratedAnts ?? new Decimal(0))
-    player.ants.generated[3] = Decimal.min(new Decimal(1e200), player.fourthGeneratedAnts ?? new Decimal(0))
-    player.ants.generated[4] = Decimal.min(new Decimal(10), player.fifthGeneratedAnts ?? new Decimal(0))
+    player.ants.producers[1] = {
+      purchased: Math.min(1000, player.secondOwnedAnts ?? 0),
+      generated: Decimal.min(new Decimal(1e200), player.secondGeneratedAnts ?? new Decimal(0)),
+      mastery: 0,
+      highestMastery: 0
+    }
+
+    player.ants.producers[2] = {
+      purchased: Math.min(500, player.thirdOwnedAnts ?? 0),
+      generated: Decimal.min(new Decimal(1e200), player.thirdGeneratedAnts ?? new Decimal(0)),
+      mastery: 0,
+      highestMastery: 0
+    }
+
+    player.ants.producers[3] = {
+      purchased: Math.min(250, player.fourthOwnedAnts ?? 0),
+      generated: Decimal.min(new Decimal(1e200), player.fourthGeneratedAnts ?? new Decimal(0)),
+      mastery: 0,
+      highestMastery: 0
+    }
+
+    player.ants.producers[4] = {
+      purchased: Math.min(87, player.fifthOwnedAnts ?? 0),
+      generated: Decimal.min(new Decimal(10), player.fifthGeneratedAnts ?? new Decimal(0)),
+      mastery: 0,
+      highestMastery: 0
+    }
+
+    player.ants.producers[5] = {
+      purchased: Math.min(1, player.sixthOwnedAnts ?? 0),
+      generated: new Decimal(0),
+      mastery: 0,
+      highestMastery: 0
+    }
+
+    // The rest cost more than 1e1000 crumbs, so we can ignore
 
     if (player.antUpgrades !== undefined) {
       player.ants.upgrades[0] = Math.min(1000, player.antUpgrades[0] ?? 0)

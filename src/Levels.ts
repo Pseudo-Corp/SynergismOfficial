@@ -9,6 +9,7 @@ export type SynergismLevelReward =
   | 'salvage'
   | 'obtainium'
   | 'offerings'
+  | 'ants'
   | 'wowCubes'
   | 'wowTesseracts'
   | 'wowHyperCubes'
@@ -95,6 +96,25 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     minLevel: 15,
     defaultValue: 1,
     nameColor: 'pink'
+  },
+  ants: {
+    name: () => i18next.t('achievements.levelRewards.ants.name'),
+    description: () => i18next.t('achievements.levelRewards.ants.description'),
+    effect: (lv: number) => {
+      const first100Levels = Math.min(71, lv - 29) * 12
+      const next100Levels = Math.max(0, Math.min(100, lv - 100)) * 24
+      const remainingLevels = Math.max(0, lv - 200) * 48
+      return first100Levels + next100Levels + remainingLevels
+    },
+    effectDescription: () => {
+      const elo = getLevelReward('ants')
+      return i18next.t('achievements.levelRewards.ants.effect', {
+        elo: format(elo, 0, true)
+      })
+    },
+    minLevel: 30,
+    defaultValue: 1,
+    nameColor: 'burlywood'
   },
   wowCubes: {
     name: () => i18next.t('achievements.levelRewards.wowCubes.name'),

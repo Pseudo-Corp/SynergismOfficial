@@ -1,5 +1,6 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
+import { emptyAntProducer, LAST_ANT, type PlayerAntProducers } from '../Ants'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
@@ -53,13 +54,37 @@ const leaderboardEntrySchema = z.object({
   sacrificeId: z.number()
 })
 
+const antProducerSchema = z.object({
+  purchased: z.number(),
+  generated: decimalSchema,
+  mastery: z.number(),
+  highestMastery: z.number()
+})
+
 const antsSchema = z.object({
-  purchased: z.number().array().transform((array) => arrayExtendGeneral(array, blankSave.ants.purchased)),
-  generated: decimalSchema.array().transform((array) => arrayExtendGeneral(array, blankSave.ants.generated)),
-  masteries: z.number().array().transform((array) => arrayExtendGeneral(array, blankSave.ants.masteries)),
-  maxMasteriesPurchased: z.number().array().transform((array) =>
-    arrayExtendGeneral(array, blankSave.ants.maxMasteriesPurchased)
-  ),
+  producers: z.record(z.string(), antProducerSchema).transform(
+    (record) => {
+      const result: Record<number, PlayerAntProducers> = {}
+
+      // Convert existing string keys to numbers and validate they're valid enum values
+      for (const [key, value] of Object.entries(record)) {
+        const numKey = Number(key)
+        if (numKey >= 0 && numKey <= LAST_ANT) {
+          result[numKey] = value
+        }
+      }
+
+      // Ensure all enum values are present, fill missing ones with emptyAntProducer
+      for (let i = 0; i <= LAST_ANT; i++) {
+        if (!(i in result)) {
+          result[i] = { ...emptyAntProducer }
+        }
+      }
+
+      return result
+    }
+  )
+    .default(() => blankSave.ants.producers),
   upgrades: z.number().array().transform((array) => arrayExtendGeneral(array, blankSave.ants.upgrades)),
   crumbs: decimalSchema.default(() => blankSave.ants.crumbs),
   highestCrumbsThisSacrifice: decimalSchema.default(() => blankSave.ants.highestCrumbsThisSacrifice),

@@ -512,7 +512,7 @@
       "170": "Only the finest: Obtain 100,000 Galactic Crumbs.",
       "171": "Six-Course Meal: Obtain 666,666,666 Galactic Crumbs.",
       "172": "Accumulation of Food: Obtain 1e20 Galactic Crumbs.",
-      "173": "Cookie Clicking: Obtain 1e100 Galactic Crumbs.",
+      "173": "Cookie Clicking: Obtain 1e70 Galactic Crumbs.",
       "174": "Unlimited Bread Sticks!: Obtain 1e500 Galactic Crumbs.",
       "175": "Restaurant at the end of the Universe: Obtain 1e2500 Galactic Crumbs.",
       "176": "Ant-icipation!: Reach 50 Immortal ELO and own a Tier 2 Ant.",
@@ -688,7 +688,7 @@
       "346": "You clearly do: Obtain 1e1,000,000 Galactic Crumbs.",
       "347": "Gordon Ramses: Reach 400,000 Immortal ELO.",
       "348": "Wolfgang Pluck: Reach 1,500,000 Immortal ELO.",
-      "349": "Marco Pierre Blanco: Reach 5,000,000 Immortal ELO.",
+      "349": "Marco Pierre Blanco: Reach 5,000,000 Immortal ELO, and purchase a Tier IX Ant.",
       "350": "Ascensions are suggestions: Ascend 1e16 times.",
       "351": "Nothing promised, no regrets: Ascend 1e20 times.",
       "352": "Immaculate Ascensions: Ascend 1e25 times.",
@@ -1396,6 +1396,9 @@
       "271": {
         "platonicToHypercubes": "Platonic Cubes grant Hypercubes when opened [up to +1 at 1e1,000,000 Constant]"
       },
+      "349": {
+        "antAutobuyers": "Automatically buy HOLY SPIRIT OF ANT GOD Ants!"
+      },
       "382": {
         "salvage": "+3 Salvage"
       },
@@ -1811,6 +1814,11 @@
         "description": "For each level past 14, multiply your Obtainium gain by 1.01. After level 100, multiply it by another 1.02 per level!",
         "effect": "Current Effect: +{{mult}} Obtainium Gain"
       },
+      "ants": {
+        "name": "More Ant Fodder for your Ant Diety",
+        "description": "Oh! Your Ant God takes note of your Synergism Level. Gain base Ant ELO for each level above 29. +12 per level until Level 100, +24 per level until level 200, and +48 for each additional level.",
+        "effect": "Current Effect: +{{elo}} Ant ELO"
+      },
       "wowCubes": {
         "name": "Wow! Cube Production",
         "description": "For each level past 60 (yes, this does unlock at level 70, but just trust me), gain +5% more Wow! Cubes. Every 10 levels past 60, multiply the bonus by 1.07.",
@@ -1944,6 +1952,16 @@
         "name": "Progressive Achievement - Free Rune Levels",
         "description": "Gain AP based on the sum of all your free rune levels! Best Total: {{x}}",
         "apSource": "Gain +1 AP per 250 Free Rune Levels owned, up to 25,000 Levels. <br> Gain +1 AP per 750 Free Rune Levels owned, up to 150,000 Levels. <br> Gain +1 AP per 2,500 Free Rune Levels owned, up to 500,000 Levels."
+      },
+      "antMasteries": {
+        "name": "Progressive Achievement - Ant Masteries",
+        "description": "Gain AP based on your unique Ant Mastery levels purchsed! Best Total: {{x}}",
+        "apSource": "Gain +3 AP for every unique level purchased."
+      },
+      "rebornELO": {
+        "name": "Progressive Achievement - Reborn ELO",
+        "description": "Gain AP based on the total weighted value of your best Reborn ELO, lifetime! Best Total: {{x}} (Check the \"Ants to Quark Corner\" in the Altar Subtab)",
+        "apSource": "Gain +1 AP per 100 Reborn ELO, up to 10,000. <br> Gain +1 AP per 1000 Reborn ELO, up to 150,000. <br> Gain +1 AP per 9,000 Reborn ELO, up to 1,350,000. <br> Gain +1 AP per 75,000 Reborn ELO, up to 15,000,000."
       },
       "singularityCount": {
         "name": "Progressive Achievement - Singularity Count",
@@ -2081,6 +2099,13 @@
         "generates": "Generates {{x}} ALMIGHTY Ants per second",
         "eloMult": "<<orchid | ☇>> Buying your first DISCIPLE this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 2%",
         "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first DISCIPLE this Sacrifice creates <<#00DDFF|Reborn ELO>> 2x as fast!"
+      },
+      "8": {
+        "name": "THE HOLY SPIRIT OF ANT GOD - Tier IX",
+        "flavor": "The child is the mother of the woman. Produces DISCIPLES.",
+        "generates": "Generates {{x}} DISCIPLES per second",
+        "eloMult": "<<orchid | ☇>> Buying your first HOLY SPIRIT this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 2%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first HOLY SPIRIT this Sacrifice creates <<#00DDFF|Reborn ELO>> 3x as fast!"
       }
     },
     "mastery": {
@@ -2145,6 +2170,13 @@
         "notMaxedSelfPer": "Each DISCIPLE purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
         "maxedSelfPer": "Each DISCIPLE purchased further multiplies their production by <<gold | {{x}}>>",
         "effect": "<<green | ★>> DISCIPLE Mastery multiplies ALMIGHTY Ant production by <<gold | {{x}}>>"
+      },
+      "8": {
+        "name": "HOLY SPIRIT Mastery",
+        "flavor": "Child, the child, the child.",
+        "notMaxedSelfPer": "Each HOLY SPIRIT purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each HOLY SPIRIT purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> HOLY SPIRIT Mastery multiplies DISCIPLE production by <<gold | {{x}}>>"
       }
     },
     "upgrade": {
@@ -2296,6 +2328,7 @@
     "altarRewardMultiplier": "Powers that be also give <<var(--lightseagreen-text-color);|{{x}}x>> \"<<lightblue|Worldly>>\" Resources from Ant Sacrifice",
     "youHaveGalacticCrumbs": "You have {{x}} Galactic Crumbs [{{y}}/s], providing a {{z}} Coin Multiplier",
     "galacticCrumbCount": "You have {{x}} Galactic Crumbs.",
+    "galacticCrumbCountThisSacrifice": "This Sacrifice, you have gained {{x}} Galactic Crumbs.",
     "crumbsPerSecond": "+{{x}} per second",
     "crumbsCoinMultiplier": "↳ Coin production is multiplied by {{x}} (Tributum Formicidae)",
     "owned": "Owned: {{x}} [+{{y}}]",

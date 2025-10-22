@@ -808,7 +808,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
 }
 
 export const updateShopLevels = () => {
-  for (const upgrade in player.shopUpgrades){
+  for (const upgrade in player.shopUpgrades) {
     const k = upgrade as keyof Player['shopUpgrades']
     player.shopUpgrades[k] = Math.min(player.shopUpgrades[k], shopData[k].maxLevel)
   }
