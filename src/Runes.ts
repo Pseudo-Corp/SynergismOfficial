@@ -1014,9 +1014,10 @@ export const sacrificeOfferings = (rune: RuneKeys, budget: Decimal, auto = false
   let levelsToAdd = player.offeringbuyamount as number
   if (auto) {
     levelsToAdd = 20 * player.shopUpgrades.offeringAuto
-  }
-  if (auto && player.cubeUpgrades[20] > 0) {
+    levelsToAdd *= getLevelMilestone('runeAutobuyImprover')
+    if (player.cubeUpgrades[20] > 0) {
     levelsToAdd *= 20
+    }
   }
 
   if (player.offeringbuyamount !== 100000 || auto) {

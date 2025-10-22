@@ -265,13 +265,16 @@ const updateLevelsFromEXP = (spirit: RuneSpiritKeys) => {
   } else {
     runeSpirits[spirit].level = levels
   }
+
+  if (spirit === 'speed') {
+    awardAchievementGroup('speedSpirit')
+  }
 }
 
 export const updateAllSpiritLevelsFromEXP = () => {
   for (const spirit of runeSpiritKeys) {
     updateLevelsFromEXP(spirit)
   }
-  awardAchievementGroup('speedSpirit')
 }
 
 // Gives levels to buy, total EXP to that level, and offerings required to reach that level

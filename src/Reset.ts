@@ -781,7 +781,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
   if (input === 'ascension' || input === 'ascensionChallenge') {
     // Hepteract Autocraft
-    const numberOfAutoCraftsAndOrbs = Object.values(hepteracts).filter((v) => v.AUTO).length
+    const numberOfAutoCraftsAndOrbs = Object.values(hepteracts).filter((v) => v.AUTO && v.UNLOCKED()).length
       + (player.overfluxOrbsAutoBuy ? 1 : 0)
     if (player.highestSingularityCount >= 1 && numberOfAutoCraftsAndOrbs > 0) {
       // Computes the max number of Hepteracts to spend on each auto Hepteract craft
@@ -790,7 +790,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       )
 
       for (const hept of hepteractKeys) {
-        if (player.hepteracts[hept].AUTO) {
+        if (hepteracts[hept].AUTO && hepteracts[hept].UNLOCKED()) {
           autoCraftHepteracts(hept, heptAutoSpend)
         }
       }

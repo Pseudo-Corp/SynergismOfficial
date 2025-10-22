@@ -4141,18 +4141,6 @@ export const resetCheck = async (
         challengeDisplay(a, false)
       }
       challengeAchievementCheck(a)
-      if (player.highestchallengecompletions[11] > 0) {
-        player.unlocks.tesseracts = true
-      }
-      if (player.highestchallengecompletions[12] > 0) {
-        player.unlocks.spirits = true
-      }
-      if (player.highestchallengecompletions[13] > 0) {
-        player.unlocks.hypercubes = true
-      }
-      if (player.highestchallengecompletions[14] > 0) {
-        player.unlocks.platonics = true
-      }
     }
     if (a === 15) {
       const c15SM = challenge15ScoreMultiplier()
@@ -4189,6 +4177,19 @@ export const resetCheck = async (
       if (player.highestchallengecompletions[a] >= maxCompletions) {
         leaving = true
       }
+    }
+
+    if (player.highestchallengecompletions[11] > 0) {
+      player.unlocks.tesseracts = true
+    }
+    if (player.highestchallengecompletions[12] > 0) {
+      player.unlocks.spirits = true
+    }
+    if (player.highestchallengecompletions[13] > 0) {
+      player.unlocks.hypercubes = true
+    }
+    if (player.highestchallengecompletions[14] > 0) {
+      player.unlocks.platonics = true
     }
 
     if (!player.retrychallenges || manual || leaving) {

@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { awardAchievementGroup } from './Achievements'
+import { awardAchievementGroup, awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSalvageRuneEXPMultiplier } from './Calculate'
 import { resetTiers } from './Reset'
@@ -282,13 +282,17 @@ const updateLevelsFromEXP = (bless: RuneBlessingKeys) => {
   } else {
     runeBlessings[bless].level = levels
   }
+
+  if (bless === 'speed') {
+    awardAchievementGroup('speedBlessing')
+    awardUngroupedAchievement('highlyBlessed')
+  }
 }
 
 export const updateAllBlessingLevelsFromEXP = () => {
   for (const bless of runeBlessingKeys) {
     updateLevelsFromEXP(bless)
   }
-  awardAchievementGroup('speedBlessing')
 }
 
 // Gives levels to buy, total EXP to that level, and offerings required to reach that level

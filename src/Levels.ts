@@ -286,6 +286,7 @@ export type SynergismLevelMilestones =
   | 'tier4CrystalAutobuy'
   | 'tier5CrystalAutobuy'
   | 'achievementTalismanUnlock'
+  | 'runeAutobuyImprover'
   | 'achievementTalismanEnhancement'
   | 'salvageChallengeBuff'
 
@@ -497,6 +498,20 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
     },
     levelReq: 100,
     displayOrder: 13
+  },
+  runeAutobuyImprover: {
+    name: () => i18next.t('achievements.levelMilestones.runeAutobuyImprover.name'),
+    description: () => i18next.t('achievements.levelMilestones.runeAutobuyImprover.description'),
+    effect: () => 2 + (achievementLevel - 130) / 10,
+    defaultValue: 1,
+    effectDescription: () => {
+      const mult = getLevelMilestone('runeAutobuyImprover')
+      return i18next.t('achievements.levelMilestones.runeAutobuyImprover.effect', {
+        mult: format(mult, 1, true)
+      })
+    },
+    levelReq: 130,
+    displayOrder: 13.5
   },
   achievementTalismanEnhancement: {
     name: () => i18next.t('achievements.levelMilestones.achievementTalismanEnhancement.name'),

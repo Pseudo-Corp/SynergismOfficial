@@ -1282,7 +1282,7 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'OcteractStarter',
-    stat: () => 1 + (octeractUpgrades.octeractStarter.level > 0 ? 0.15 : 0)
+    stat: () => 1 + (octeractUpgrades.octeractStarter.level > 0 ? 0.25 : 0)
   },
   {
     i18n: 'OcteractQuarkGain',

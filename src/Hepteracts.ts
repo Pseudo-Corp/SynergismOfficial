@@ -436,7 +436,7 @@ export const craftHepteracts = async (hept: HepteractKeys, max = false) => {
     } else if (item === 'worlds') {
       player.worlds.sub(amountToCraft * hepteracts[hept].OTHER_CONVERSIONS[item]!)
     } else if (player[item] instanceof Decimal) {
-      ;(player[item] as Decimal).sub(
+      ;(player[item] as Decimal) = (player[item] as Decimal).sub(
         new Decimal(amountToCraft).times(craftCostMulti).times(hepteracts[hept].OTHER_CONVERSIONS[item]!)
       )
     }
