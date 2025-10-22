@@ -547,7 +547,7 @@ export const generateExportSummary = async (): Promise<void> => {
       const unicodeSymbol = (redAmbUpg.level === redAmbUpg.maxLevel) ? '[★]' : '[ ]'
 
       upgradeText = upgradeText + unicodeSymbol
-      upgradeText = `${upgradeText} ${redAmbUpg.name}:`
+      upgradeText = `${upgradeText} ${redAmbUpg.name()}:`
       upgradeText = `${upgradeText} Level ${redAmbUpg.level}/${redAmbUpg.maxLevel}`
 
       upgradeText = `${upgradeText}\n`
