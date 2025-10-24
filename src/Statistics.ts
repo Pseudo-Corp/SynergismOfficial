@@ -1,7 +1,13 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
-import { AntProducers, calculateAntSpeedMultFromELO, calculateTrueAntLevelFromKey, getAntUpgradeEffect } from './Ants'
+import {
+  AntProducers,
+  AntUpgrades,
+  calculateAntSpeedMultFromELO,
+  calculateTrueAntLevel,
+  getAntUpgradeEffect
+} from './Ants'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -406,7 +412,7 @@ export const allWowCubeStats: NumberStatLine[] = [
       * (1 + (0.8 * player.researches[167]) / 100) // 7x17
       * (1 + (0.7 * player.researches[182]) / 100) // 8x7
       * (1
-        + (0.03 / 100) * player.researches[192] * calculateTrueAntLevelFromKey('mortuus')) // 8x17
+        + (0.03 / 100) * player.researches[192] * calculateTrueAntLevel(AntUpgrades.Mortuus)) // 8x17
       * (1 + (0.6 * player.researches[197]) / 100) // 8x22
   },
   {
@@ -917,7 +923,7 @@ export const allOfferingStats: DecimalSourceLine[] = [
   },
   {
     i18n: 'AntUpgrade',
-    stat: () => getAntUpgradeEffect('offerings').offeringMult // Ant Upgrade
+    stat: () => getAntUpgradeEffect(AntUpgrades.Offerings).offeringMult // Ant Upgrade
   },
   {
     i18n: 'Brutus',
@@ -1557,7 +1563,7 @@ export const allObtainiumStats: DecimalSourceLine[] = [
   },
   {
     i18n: 'Ant10',
-    stat: () => getAntUpgradeEffect('obtainium').obtainiumMult // Ant 10
+    stat: () => getAntUpgradeEffect(AntUpgrades.Obtainium).obtainiumMult // Ant 10
   },
   {
     i18n: 'CubeBonus',
@@ -1705,7 +1711,7 @@ export const antSacrificeRewardStats: DecimalSourceLine[] = [
   },
   {
     i18n: 'AntUpgrade11',
-    stat: () => getAntUpgradeEffect('antSacrifice').antSacrificeMultiplier
+    stat: () => getAntUpgradeEffect(AntUpgrades.AntSacrifice).antSacrificeMultiplier
   },
   {
     i18n: 'Research103',
@@ -1858,7 +1864,7 @@ export const allGlobalSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'Ant12',
-    stat: () => getAntUpgradeEffect('mortuus').globalSpeed // ant 12
+    stat: () => getAntUpgradeEffect(AntUpgrades.Mortuus).globalSpeed // ant 12
   },
   {
     i18n: 'ChronosTalisman',
@@ -2876,7 +2882,7 @@ export const positiveSalvageStats: NumberStatLine[] = [
   },
   {
     i18n: 'AntUpgrade',
-    stat: () => getAntUpgradeEffect('salvage').salvage // Ant Upgrade
+    stat: () => getAntUpgradeEffect(AntUpgrades.Salvage).salvage // Ant Upgrade
   },
   {
     i18n: 'CubeBlessing',
@@ -2940,7 +2946,7 @@ export const antSpeedStats: DecimalSourceLine[] = [
   },
   {
     i18n: 'AntUpgrade1',
-    stat: () => getAntUpgradeEffect('antSpeed').antSpeed // Ant Upgrade 1
+    stat: () => getAntUpgradeEffect(AntUpgrades.AntSpeed).antSpeed // Ant Upgrade 1
   },
   {
     i18n: 'DiamondUpgrade19',

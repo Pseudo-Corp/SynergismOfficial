@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardAchievementGroup, challengeAchievementCheck, getAchievementReward } from './Achievements'
-import { AntProducers, LAST_ANT } from './Ants'
+import { AntProducers, AntUpgrades, antUpgrades, LAST_ANT, LAST_ANT_UPGRADE } from './Ants'
 import type { BlueberryLoadoutMode } from './BlueberryUpgrades'
 import { buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy'
 import type { TesseractBuildings } from './Buy'
@@ -1451,16 +1451,19 @@ const resetUpgrades = (i: number) => {
 }
 
 export const resetAnts = (resetTier: resetTiers) => {
+  // Reset Upgrades Appropriately
+  for (let upgrade = AntUpgrades.AntSpeed; upgrade <= LAST_ANT_UPGRADE; upgrade++) {
+    if (resetTier >= antUpgrades[upgrade].minimumResetTier) {
+      player.ants.upgrades[upgrade] = 0
+    }
+  }
+
   if (resetTier >= resetTiers.reincarnation) {
     for (let ants = AntProducers.Workers; ants <= LAST_ANT; ants++) {
       player.ants.producers[ants].purchased = 0
       player.ants.producers[ants].generated = new Decimal(0)
     }
 
-    const numAntUpgrades = player.ants.upgrades.length
-    const mortuus = player.ants.upgrades[11]
-    player.ants.upgrades = Array(numAntUpgrades).fill(0)
-    player.ants.upgrades[11] = mortuus
     player.ants.crumbs = new Decimal('1')
     player.ants.highestCrumbsThisSacrifice = new Decimal('1')
 

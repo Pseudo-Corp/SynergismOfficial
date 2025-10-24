@@ -1,6 +1,6 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
-import { emptyAntProducer, LAST_ANT, type PlayerAntProducers } from '../Ants'
+import { emptyAntProducer, LAST_ANT, LAST_ANT_UPGRADE, type PlayerAntProducers } from '../Ants'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
@@ -85,7 +85,29 @@ const antsSchema = z.object({
     }
   )
     .default(() => blankSave.ants.producers),
-  upgrades: z.number().array().transform((array) => arrayExtendGeneral(array, blankSave.ants.upgrades)),
+  upgrades: z.record(z.string(), z.number()).transform(
+    (record) => {
+      const result: Record<number, number> = {}
+
+      // Convert existing string keys to numbers and validate they're valid enum values
+      for (const [key, value] of Object.entries(record)) {
+        const numKey = Number(key)
+        if (numKey >= 0 && numKey <= LAST_ANT_UPGRADE) {
+          result[numKey] = value
+        }
+      }
+
+      // Ensure all enum values are present, fill missing ones with 0
+      for (let i = 0; i <= LAST_ANT_UPGRADE; i++) {
+        if (!(i in result)) {
+          result[i] = 0
+        }
+      }
+
+      return result
+    }
+  )
+    .default(() => blankSave.ants.upgrades),
   crumbs: decimalSchema.default(() => blankSave.ants.crumbs),
   highestCrumbsThisSacrifice: decimalSchema.default(() => blankSave.ants.highestCrumbsThisSacrifice),
   highestCrumbsEver: decimalSchema.default(() => blankSave.ants.highestCrumbsEver),

@@ -36,13 +36,13 @@ import {
   updateProgressiveCache
 } from './Achievements'
 import {
+  AntUpgrades,
   autobuyAntMasteries,
   autobuyAntProducers,
   autoBuyAntUpgrades,
   emptyAntProducer,
   generateAntsAndCrumbs,
-  getAntUpgradeEffect,
-  NUM_ANT_UPGRADES
+  getAntUpgradeEffect
 } from './Ants'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
@@ -368,7 +368,20 @@ export const player: Player = {
       [7]: { ...emptyAntProducer },
       [8]: { ...emptyAntProducer }
     },
-    upgrades: Array(NUM_ANT_UPGRADES).fill(0) as number[],
+    upgrades: {
+      [0]: 0,
+      [1]: 0,
+      [2]: 0,
+      [3]: 0,
+      [4]: 0,
+      [5]: 0,
+      [6]: 0,
+      [7]: 0,
+      [8]: 0,
+      [9]: 0,
+      [10]: 0,
+      [11]: 0
+    },
     crumbs: new Decimal('1'),
     highestCrumbsThisSacrifice: new Decimal('1'),
     highestCrumbsEver: new Decimal('1'),
@@ -2722,7 +2735,7 @@ export const updateAllMultiplier = (): void => {
   a *= 1 + (0.2 / 100) * player.researches[188]
   a *= 1 + (0.01 / 100) * player.researches[200]
   a *= 1 + (0.01 / 100) * player.cubeUpgrades[50]
-  a *= getAntUpgradeEffect('multipliers').multiplierMult
+  a *= getAntUpgradeEffect(AntUpgrades.Multipliers).multiplierMult
   a *= calculateMultiplierCubeBlessing()
   if (
     (player.currentChallenge.transcension !== 0
@@ -2852,7 +2865,7 @@ export const multipliers = (): void => {
   )
   G.reincarnationMultiplier = Decimal.pow(G.buildingPower, G.totalCoinOwned)
 
-  G.antMultiplier = getAntUpgradeEffect('coins').coinMultiplier
+  G.antMultiplier = getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier
 
   s = s.times(G.multiplierEffect)
   s = s.times(G.acceleratorEffect)

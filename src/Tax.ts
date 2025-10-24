@@ -4,7 +4,7 @@ import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
-import { getAntUpgradeEffect } from './Ants'
+import { AntUpgrades, getAntUpgradeEffect } from './Ants'
 import { CalcECC } from './Challenges'
 import { calculateTaxPlatonicBlessing } from './PlatonicCubes'
 import { getRuneEffects } from './Runes'
@@ -87,7 +87,7 @@ export const calculatetax = () => {
   exponent *= Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6]))
   exponent *= getRuneEffects('duplication').taxReduction
   exponent *= getRuneEffects('thrift').taxReduction
-  exponent *= getAntUpgradeEffect('taxes').taxReduction
+  exponent *= getAntUpgradeEffect(AntUpgrades.Taxes).taxReduction
   exponent *= 1
     / Math.pow(
       1 + Decimal.log(player.ascendShards.add(1), 10),
