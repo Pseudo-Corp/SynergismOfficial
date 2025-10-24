@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementPoints, awardUngroupedAchievement, getAchievementReward } from './Achievements'
-import { getAntUpgradeEffect } from './Ants'
+import { AntUpgrades, getAntUpgradeEffect } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { isShopTalismanUnlocked } from './Calculate'
 import { CalcECC } from './Challenges'
@@ -489,7 +489,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return getAntUpgradeEffect('mortuus').talismanUnlock || player.ascensionCount > 0
+      return getAntUpgradeEffect(AntUpgrades.Mortuus).talismanUnlock
     },
     name: () => i18next.t('runes.talismans.mortuus.name'),
     description: () => i18next.t('runes.talismans.mortuus.description')

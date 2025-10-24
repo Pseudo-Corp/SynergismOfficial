@@ -15,7 +15,7 @@ import {
   updateAllProgressiveAchievementProgress,
   updateAllUngroupedAchievementProgress
 } from './Achievements'
-import { antUpgradeKeys, antUpgrades, getCostNextAnt, getCostNextAntUpgrade } from './Ants'
+import { AntUpgrades, getCostNextAnt, getCostNextAntUpgrade, LAST_ANT_UPGRADE } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateAscensionSpeedMult, calculateGlobalSpeedMult } from './Calculate'
 import { getMaxChallenges } from './Challenges'
@@ -968,10 +968,9 @@ export const buttoncolorchange = () => {
         ? DOMCacheGetOrSet(`anttier${i + 1}`).classList.add('antBtnAvailable')
         : DOMCacheGetOrSet(`anttier${i + 1}`).classList.remove('antBtnAvailable')
     }
-    for (const key of antUpgradeKeys) {
-      const index = antUpgrades[key].index
-      const element = DOMCacheGetOrSet(`antUpgrade${index + 1}`)
-      const cost = getCostNextAntUpgrade(key)
+    for (let upgrade = AntUpgrades.AntSpeed; upgrade <= LAST_ANT_UPGRADE; upgrade++) {
+      const element = DOMCacheGetOrSet(`antUpgrade${upgrade + 1}`)
+      const cost = getCostNextAntUpgrade(upgrade)
       if (player.ants.crumbs.gte(cost)) {
         element.classList.add('antUpgradeBtnAvailable')
       } else {

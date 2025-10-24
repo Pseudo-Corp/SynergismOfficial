@@ -1,7 +1,13 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
-import { calculateBaseAntsToBeGenerated, getAntUpgradeEffect, showSacrifice, updateLeaderboardUI } from './Ants'
+import {
+  AntUpgrades,
+  calculateBaseAntsToBeGenerated,
+  getAntUpgradeEffect,
+  showSacrifice,
+  updateLeaderboardUI
+} from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calcAscensionCount,
@@ -777,7 +783,7 @@ export const visualUpdateAnts = () => {
   DOMCacheGetOrSet('crumbCoinMultiplier').textContent = i18next.t(
     'ants.crumbsCoinMultiplier',
     {
-      x: format(getAntUpgradeEffect('coins').coinMultiplier, 2, true)
+      x: format(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier, 2, true)
     }
   )
 
