@@ -73,7 +73,6 @@ export enum AntProducers {
   'HolySpirit' = 8
 }
 
-export const NUM_ANTS = Object.keys(AntProducers).length
 export const LAST_ANT = AntProducers.HolySpirit
 export const MAX_ANT_MASTERY_LEVEL = 12
 
@@ -564,7 +563,7 @@ export const baseAntInfo: Record<AntProducers, AntProducerData> = {
         6_020_000,
         7_250_000,
         9_000_000,
-        10_000_000,
+        10_000_000
       ],
       particleCosts: [
         new Decimal('1e400000'),
@@ -959,36 +958,51 @@ export const antMasteryHTML = (ant: AntProducers): string => {
  * PART 2: Ant Upgrades (WOAH!)
  */
 
+export enum AntUpgrades {
+  AntSpeed = 0,
+  Coins = 1,
+  Taxes = 2,
+  AcceleratorBoosts = 3,
+  Multipliers = 4,
+  Offerings = 5,
+  BuildingCostScale = 6,
+  Salvage = 7,
+  FreeRunes = 8,
+  Obtainium = 9,
+  AntSacrifice = 10,
+  Mortuus = 11
+}
+
+export const LAST_ANT_UPGRADE = AntUpgrades.Mortuus
+
 type AntUpgradeTypeMap = {
-  antSpeed: { antSpeed: Decimal }
-  coins: {
+  [AntUpgrades.AntSpeed]: { antSpeed: Decimal }
+  [AntUpgrades.Coins]: {
     crumbToCoinExp: number
     coinMultiplier: Decimal
   }
-  taxes: { taxReduction: number }
-  acceleratorBoosts: { acceleratorBoostMult: number }
-  multipliers: { multiplierMult: number }
-  offerings: { offeringMult: number }
-  obtainium: { obtainiumMult: number }
-  buildingCostScale: { buildingCostScale: number }
-  salvage: { salvage: number }
-  freeRunes: { freeRuneLevel: number }
-  antSacrifice: { antSacrificeMultiplier: number }
-  mortuus: {
+  [AntUpgrades.Taxes]: { taxReduction: number }
+  [AntUpgrades.AcceleratorBoosts]: { acceleratorBoostMult: number }
+  [AntUpgrades.Multipliers]: { multiplierMult: number }
+  [AntUpgrades.Offerings]: { offeringMult: number }
+  [AntUpgrades.BuildingCostScale]: { buildingCostScale: number }
+  [AntUpgrades.Salvage]: { salvage: number }
+  [AntUpgrades.FreeRunes]: { freeRuneLevel: number }
+  [AntUpgrades.Obtainium]: { obtainiumMult: number }
+  [AntUpgrades.AntSacrifice]: { antSacrificeMultiplier: number }
+  [AntUpgrades.Mortuus]: {
     talismanUnlock: boolean
     globalSpeed: number
   }
 }
 
-export type AntUpgradeKeys = keyof AntUpgradeTypeMap
-
-interface AntUpgradeData<K extends AntUpgradeKeys> {
+interface AntUpgradeData<K extends AntUpgrades> {
   baseCost: Decimal
   costIncrease: number
-  index: number
   antUpgradeHTML: {
     color: string
   }
+  minimumResetTier: resetTiers
   name: () => string
   intro: () => string
   description: () => string
@@ -996,14 +1010,14 @@ interface AntUpgradeData<K extends AntUpgradeKeys> {
   effectDescription: () => string
 }
 
-export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
-  antSpeed: {
+export const antUpgrades: { [K in AntUpgrades]: AntUpgradeData<K> } = {
+  [AntUpgrades.AntSpeed]: {
     baseCost: new Decimal(100),
     costIncrease: 10,
-    index: 0,
     antUpgradeHTML: {
       color: 'crimson'
     },
+    minimumResetTier: resetTiers.reincarnation,
     name: () => i18next.t('ants.upgrades.antSpeed.name'),
     intro: () => i18next.t('ants.upgrades.antSpeed.intro'),
     description: () => {
@@ -1021,17 +1035,17 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
       }
     },
     effectDescription: () => {
-      const antSpeed = getAntUpgradeEffect('antSpeed').antSpeed
+      const antSpeed = getAntUpgradeEffect(AntUpgrades.AntSpeed).antSpeed
       return i18next.t('ants.upgrades.antSpeed.effect', { x: format(antSpeed, 2, true) })
     }
   },
-  coins: {
+  [AntUpgrades.Coins]: {
     baseCost: new Decimal(100),
     costIncrease: 10,
-    index: 1,
     antUpgradeHTML: {
       color: 'yellow'
     },
+    minimumResetTier: resetTiers.reincarnation,
     name: () => i18next.t('ants.upgrades.coins.name'),
     intro: () => i18next.t('ants.upgrades.coins.intro'),
     description: () => i18next.t('ants.upgrades.coins.description'),
@@ -1048,20 +1062,20 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
       }
     },
     effectDescription: () => {
-      const crumbToCoinExp = getAntUpgradeEffect('coins').crumbToCoinExp
+      const crumbToCoinExp = getAntUpgradeEffect(AntUpgrades.Coins).crumbToCoinExp
       const overallEffect = Decimal.max(1, Decimal.pow(player.ants.crumbs, crumbToCoinExp))
       const effect1 = i18next.t('ants.upgrades.coins.effect', { x: format(crumbToCoinExp, 0, true) })
       const effect2 = i18next.t('ants.upgrades.coins.effect2', { x: format(overallEffect, 2, true) })
       return `${effect1}<br>${effect2}`
     }
   },
-  taxes: {
+  [AntUpgrades.Taxes]: {
     baseCost: new Decimal(1000),
     costIncrease: 10,
-    index: 2,
     antUpgradeHTML: {
       color: 'lightgray'
     },
+    minimumResetTier: resetTiers.reincarnation,
     name: () => i18next.t('ants.upgrades.taxes.name'),
     intro: () => i18next.t('ants.upgrades.taxes.intro'),
     description: () => i18next.t('ants.upgrades.taxes.description'),
@@ -1071,17 +1085,17 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
       }
     },
     effectDescription: () => {
-      const taxReduction = getAntUpgradeEffect('taxes').taxReduction
+      const taxReduction = getAntUpgradeEffect(AntUpgrades.Taxes).taxReduction
       return i18next.t('ants.upgrades.taxes.effect', { x: formatAsPercentIncrease(taxReduction, 4) })
     }
   },
-  acceleratorBoosts: {
+  [AntUpgrades.AcceleratorBoosts]: {
     baseCost: new Decimal(1000),
     costIncrease: 10,
-    index: 3,
     antUpgradeHTML: {
       color: 'cyan'
     },
+    minimumResetTier: resetTiers.reincarnation,
     name: () => i18next.t('ants.upgrades.acceleratorBoosts.name'),
     intro: () => i18next.t('ants.upgrades.acceleratorBoosts.intro'),
     description: () => i18next.t('ants.upgrades.acceleratorBoosts.description'),
@@ -1091,19 +1105,19 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
       }
     },
     effectDescription: () => {
-      const acceleratorBoostMult = getAntUpgradeEffect('acceleratorBoosts').acceleratorBoostMult
+      const acceleratorBoostMult = getAntUpgradeEffect(AntUpgrades.AcceleratorBoosts).acceleratorBoostMult
       return i18next.t('ants.upgrades.acceleratorBoosts.effect', {
         x: formatAsPercentIncrease(acceleratorBoostMult, 2)
       })
     }
   },
-  multipliers: {
+  [AntUpgrades.Multipliers]: {
     baseCost: new Decimal(1e5),
     costIncrease: 100,
-    index: 4,
     antUpgradeHTML: {
       color: 'pink'
     },
+    minimumResetTier: resetTiers.reincarnation,
     name: () => i18next.t('ants.upgrades.multipliers.name'),
     intro: () => i18next.t('ants.upgrades.multipliers.intro'),
     description: () => i18next.t('ants.upgrades.multipliers.description'),
@@ -1113,17 +1127,17 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
       }
     },
     effectDescription: () => {
-      const multiplierMult = getAntUpgradeEffect('multipliers').multiplierMult
+      const multiplierMult = getAntUpgradeEffect(AntUpgrades.Multipliers).multiplierMult
       return i18next.t('ants.upgrades.multipliers.effect', { x: formatAsPercentIncrease(multiplierMult, 2) })
     }
   },
-  offerings: {
+  [AntUpgrades.Offerings]: {
     baseCost: new Decimal(1e6),
     costIncrease: 100,
-    index: 5,
     antUpgradeHTML: {
       color: 'orange'
     },
+    minimumResetTier: resetTiers.reincarnation,
     name: () => i18next.t('ants.upgrades.offerings.name'),
     intro: () => i18next.t('ants.upgrades.offerings.intro'),
     description: () => i18next.t('ants.upgrades.offerings.description'),
@@ -1133,37 +1147,17 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
       }
     },
     effectDescription: () => {
-      const offeringMult = getAntUpgradeEffect('offerings').offeringMult
+      const offeringMult = getAntUpgradeEffect(AntUpgrades.Offerings).offeringMult
       return i18next.t('ants.upgrades.offerings.effect', { x: formatAsPercentIncrease(offeringMult, 2) })
     }
   },
-  obtainium: {
-    baseCost: new Decimal(1e6),
-    costIncrease: 100,
-    index: 9,
-    antUpgradeHTML: {
-      color: 'pink'
-    },
-    name: () => i18next.t('ants.upgrades.obtainium.name'),
-    intro: () => i18next.t('ants.upgrades.obtainium.intro'),
-    description: () => i18next.t('ants.upgrades.obtainium.description'),
-    effect: (n: number) => {
-      return {
-        obtainiumMult: Math.pow(1 + n / 10, 0.5)
-      }
-    },
-    effectDescription: () => {
-      const obtainiumMult = getAntUpgradeEffect('obtainium').obtainiumMult
-      return i18next.t('ants.upgrades.obtainium.effect', { x: formatAsPercentIncrease(obtainiumMult, 2) })
-    }
-  },
-  buildingCostScale: {
+  [AntUpgrades.BuildingCostScale]: {
     baseCost: new Decimal(1e11),
     costIncrease: 100,
-    index: 6,
     antUpgradeHTML: {
       color: 'lime'
     },
+    minimumResetTier: resetTiers.reincarnation,
     name: () => i18next.t('ants.upgrades.buildingCostScale.name'),
     intro: () => i18next.t('ants.upgrades.buildingCostScale.intro'),
     description: () => i18next.t('ants.upgrades.buildingCostScale.description'),
@@ -1174,19 +1168,19 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
       }
     },
     effectDescription: () => {
-      const buildingCostScale = getAntUpgradeEffect('buildingCostScale').buildingCostScale
+      const buildingCostScale = getAntUpgradeEffect(AntUpgrades.BuildingCostScale).buildingCostScale
       return i18next.t('ants.upgrades.buildingCostScale.effect', {
         x: formatAsPercentIncrease(1 + buildingCostScale, 0)
       })
     }
   },
-  salvage: {
+  [AntUpgrades.Salvage]: {
     baseCost: new Decimal(1e15),
     costIncrease: 1000,
-    index: 7,
     antUpgradeHTML: {
       color: 'green'
     },
+    minimumResetTier: resetTiers.reincarnation,
     name: () => i18next.t('ants.upgrades.salvage.name'),
     intro: () => i18next.t('ants.upgrades.salvage.intro'),
     description: () => i18next.t('ants.upgrades.salvage.description'),
@@ -1196,17 +1190,17 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
       }
     },
     effectDescription: () => {
-      const salvage = getAntUpgradeEffect('salvage').salvage
+      const salvage = getAntUpgradeEffect(AntUpgrades.Salvage).salvage
       return i18next.t('ants.upgrades.salvage.effect', { x: format(salvage, 2) })
     }
   },
-  freeRunes: {
+  [AntUpgrades.FreeRunes]: {
     baseCost: new Decimal(1e20),
     costIncrease: 1000,
-    index: 8,
     antUpgradeHTML: {
       color: 'cyan'
     },
+    minimumResetTier: resetTiers.reincarnation,
     name: () => i18next.t('ants.upgrades.freeRunes.name'),
     intro: () => i18next.t('ants.upgrades.freeRunes.intro'),
     description: () => i18next.t('ants.upgrades.freeRunes.description'),
@@ -1216,17 +1210,37 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
       }
     },
     effectDescription: () => {
-      const freeRuneLevel = getAntUpgradeEffect('freeRunes').freeRuneLevel
+      const freeRuneLevel = getAntUpgradeEffect(AntUpgrades.FreeRunes).freeRuneLevel
       return i18next.t('ants.upgrades.freeRunes.effect', { x: format(freeRuneLevel, 0, true) })
     }
   },
-  antSacrifice: {
+  [AntUpgrades.Obtainium]: {
+    baseCost: new Decimal(1e6),
+    costIncrease: 100,
+    antUpgradeHTML: {
+      color: 'pink'
+    },
+    minimumResetTier: resetTiers.reincarnation,
+    name: () => i18next.t('ants.upgrades.obtainium.name'),
+    intro: () => i18next.t('ants.upgrades.obtainium.intro'),
+    description: () => i18next.t('ants.upgrades.obtainium.description'),
+    effect: (n: number) => {
+      return {
+        obtainiumMult: Math.pow(1 + n / 10, 0.5)
+      }
+    },
+    effectDescription: () => {
+      const obtainiumMult = getAntUpgradeEffect(AntUpgrades.Obtainium).obtainiumMult
+      return i18next.t('ants.upgrades.obtainium.effect', { x: formatAsPercentIncrease(obtainiumMult, 2) })
+    }
+  },
+  [AntUpgrades.AntSacrifice]: {
     baseCost: new Decimal(1e120),
     costIncrease: 1e20,
-    index: 10,
     antUpgradeHTML: {
       color: 'crimson'
     },
+    minimumResetTier: resetTiers.reincarnation,
     name: () => i18next.t('ants.upgrades.antSacrifice.name'),
     intro: () => i18next.t('ants.upgrades.antSacrifice.intro'),
     description: () => i18next.t('ants.upgrades.antSacrifice.description'),
@@ -1236,17 +1250,17 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
       }
     },
     effectDescription: () => {
-      const antSacrificeMultiplier = getAntUpgradeEffect('antSacrifice').antSacrificeMultiplier
+      const antSacrificeMultiplier = getAntUpgradeEffect(AntUpgrades.AntSacrifice).antSacrificeMultiplier
       return i18next.t('ants.upgrades.antSacrifice.effect', { x: formatAsPercentIncrease(antSacrificeMultiplier, 2) })
     }
   },
-  mortuus: {
+  [AntUpgrades.Mortuus]: {
     baseCost: new Decimal(1e300),
     costIncrease: 1e100,
-    index: 11,
     antUpgradeHTML: {
       color: 'gray'
     },
+    minimumResetTier: resetTiers.singularity,
     name: () => i18next.t('ants.upgrades.mortuus.name'),
     intro: () => i18next.t('ants.upgrades.mortuus.intro'),
     description: () => i18next.t('ants.upgrades.mortuus.description'),
@@ -1257,16 +1271,13 @@ export const antUpgrades: { [K in AntUpgradeKeys]: AntUpgradeData<K> } = {
       }
     },
     effectDescription: () => {
-      const effects = getAntUpgradeEffect('mortuus')
+      const effects = getAntUpgradeEffect(AntUpgrades.Mortuus)
       const effect1 = i18next.t('ants.upgrades.mortuus.effect', { checkMark: effects.talismanUnlock ? '✔️' : '❌' })
       const effect2 = i18next.t('ants.upgrades.mortuus.effect2', { x: formatAsPercentIncrease(effects.globalSpeed, 2) })
       return `${effect1}<br>${effect2}`
     }
   }
 }
-
-export const antUpgradeKeys = Object.keys(antUpgrades) as AntUpgradeKeys[]
-export const NUM_ANT_UPGRADES = antUpgradeKeys.length
 
 export const computeFreeAntUpgradeLevels = () => {
   let bonusLevels = 0
@@ -1291,53 +1302,47 @@ export const computeFreeAntUpgradeLevels = () => {
   return bonusLevels
 }
 
-export const calculateTrueAntLevel = (i: number) => {
+export const calculateTrueAntLevel = (antUpgrade: AntUpgrades) => {
   const freeLevels = computeFreeAntUpgradeLevels()
   const corruptionDivisor = player.corruptions.used.corruptionEffects('extinction')
   if (player.currentChallenge.ascension === 11) {
     return freeLevels / corruptionDivisor
   } else {
-    return (player.ants.upgrades[i]
-      + Math.min(player.ants.upgrades[i], freeLevels)) / corruptionDivisor
+    return (player.ants.upgrades[antUpgrade]
+      + Math.min(player.ants.upgrades[antUpgrade], freeLevels)) / corruptionDivisor
   }
 }
 
-export const calculateTrueAntLevelFromKey = (key: AntUpgradeKeys) => {
-  const index = antUpgrades[key].index
-  return calculateTrueAntLevel(index)
+export const getAntUpgradeEffect = <K extends AntUpgrades>(antUpgrade: K): AntUpgradeTypeMap[K] => {
+  const actualLevel = calculateTrueAntLevel(antUpgrade)
+  return antUpgrades[antUpgrade].effect(actualLevel)
 }
 
-export const getAntUpgradeEffect = <K extends AntUpgradeKeys>(key: K): AntUpgradeTypeMap[K] => {
-  const index = antUpgrades[key].index
-  const actualLevel = calculateTrueAntLevel(index)
-  return antUpgrades[key].effect(actualLevel)
-}
-
-export const getCostNextAntUpgrade = (upgrade: AntUpgradeKeys) => {
-  const data = antUpgrades[upgrade]
+export const getCostNextAntUpgrade = (antUpgrade: AntUpgrades) => {
+  const data = antUpgrades[antUpgrade]
   const nextCost = data.baseCost.times(
     Decimal.pow(
       data.costIncrease,
-      player.ants.upgrades[data.index]
+      player.ants.upgrades[antUpgrade]
     )
   )
-  const lastCost = player.ants.upgrades[data.index] > 0
+  const lastCost = player.ants.upgrades[antUpgrade] > 0
     ? data.baseCost.times(
       Decimal.pow(
         data.costIncrease,
-        player.ants.upgrades[data.index] - 1
+        player.ants.upgrades[antUpgrade] - 1
       )
     )
     : new Decimal(0)
   return nextCost.sub(lastCost)
 }
 
-export const getCostMaxAntUpgrades = (upgrade: AntUpgradeKeys) => {
-  const maxBuyable = getMaxPurchasableAntUpgrades(upgrade, player.ants.crumbs)
-  const data = antUpgrades[upgrade]
+export const getCostMaxAntUpgrades = (antUpgrade: AntUpgrades) => {
+  const maxBuyable = getMaxPurchasableAntUpgrades(antUpgrade, player.ants.crumbs)
+  const data = antUpgrades[antUpgrade]
 
-  const spent = player.ants.upgrades[data.index] > 0
-    ? Decimal.pow(data.costIncrease, player.ants.upgrades[data.index] - 1).times(data.baseCost)
+  const spent = player.ants.upgrades[antUpgrade] > 0
+    ? Decimal.pow(data.costIncrease, player.ants.upgrades[antUpgrade] - 1).times(data.baseCost)
     : new Decimal(0)
 
   const maxAntUpgradeCost = Decimal.pow(data.costIncrease, maxBuyable - 1).times(data.baseCost)
@@ -1345,13 +1350,13 @@ export const getCostMaxAntUpgrades = (upgrade: AntUpgradeKeys) => {
   return maxAntUpgradeCost.sub(spent)
 }
 
-export const getMaxPurchasableAntUpgrades = (upgrade: AntUpgradeKeys, budget: Decimal): number => {
-  const data = antUpgrades[upgrade]
-  const sunkCost = player.ants.upgrades[data.index] > 0
+export const getMaxPurchasableAntUpgrades = (antUpgrade: AntUpgrades, budget: Decimal): number => {
+  const data = antUpgrades[antUpgrade]
+  const sunkCost = player.ants.upgrades[antUpgrade] > 0
     ? data.baseCost.times(
       Decimal.pow(
         data.costIncrease,
-        player.ants.upgrades[data.index] - 1
+        player.ants.upgrades[antUpgrade] - 1
       )
     )
     : new Decimal(0)
@@ -1360,52 +1365,50 @@ export const getMaxPurchasableAntUpgrades = (upgrade: AntUpgradeKeys, budget: De
   return Math.max(0, 1 + Math.floor(Decimal.log(realBudget.div(data.baseCost), data.costIncrease)))
 }
 
-export const buyAntUpgrade = (upgrade: AntUpgradeKeys, max: boolean) => {
-  const data = antUpgrades[upgrade]
+export const buyAntUpgrade = (antUpgrade: AntUpgrades, max: boolean) => {
   if (max) {
-    const buyTo = getMaxPurchasableAntUpgrades(upgrade, player.ants.crumbs)
-    if (buyTo <= player.ants.upgrades[data.index]) {
+    const buyTo = getMaxPurchasableAntUpgrades(antUpgrade, player.ants.crumbs)
+    if (buyTo <= player.ants.upgrades[antUpgrade]) {
       return
     } else {
-      const cost = getCostMaxAntUpgrades(upgrade)
+      const cost = getCostMaxAntUpgrades(antUpgrade)
       if (player.ants.crumbs.gte(cost)) {
         player.ants.crumbs = player.ants.crumbs.sub(cost)
-        player.ants.upgrades[data.index] = buyTo
+        player.ants.upgrades[antUpgrade] = buyTo
       }
     }
   } else {
-    const cost = getCostNextAntUpgrade(upgrade)
+    const cost = getCostNextAntUpgrade(antUpgrade)
     if (player.ants.crumbs.gte(cost)) {
       player.ants.crumbs = player.ants.crumbs.sub(cost)
-      player.ants.upgrades[data.index] += 1
+      player.ants.upgrades[antUpgrade] += 1
     }
   }
 }
 
 export const autoBuyAntUpgrades = () => {
   const upgradesUnlocked = +getAchievementReward('antUpgradeAutobuyers')
-  for (const key of antUpgradeKeys) {
-    const index = antUpgrades[key].index
-    if (index < upgradesUnlocked) {
-      buyAntUpgrade(key, player.antMax)
+  for (let upgrade = AntUpgrades.AntSpeed; upgrade < LAST_ANT_UPGRADE; upgrade++) {
+    if (upgrade < upgradesUnlocked) {
+      buyAntUpgrade(upgrade, player.antMax)
     }
   }
 
   // The way mortuus autobuy is unlocked is
   // research 6x20. The above loop won't catch it!
   if (player.researches[145] > 0) {
-    buyAntUpgrade('mortuus', player.antMax)
+    buyAntUpgrade(AntUpgrades.Mortuus, player.antMax)
   }
 }
 
-export const antUpgradeHTML = (key: AntUpgradeKeys) => {
-  const nameHTML = `<span style="font-size: 1.2em;" class="titleTextFont">${antUpgrades[key].name()}</span>`
-  const introHTML = `<span class="titleTextFont" style="color: lightgray">${antUpgrades[key].intro()}</span>`
+export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
+  const upgradeData = antUpgrades[antUpgrade]
+  const nameHTML = `<span style="font-size: 1.2em;" class="titleTextFont">${upgradeData.name()}</span>`
+  const introHTML = `<span class="titleTextFont" style="color: lightgray">${upgradeData.intro()}</span>`
 
-  const index = antUpgrades[key].index
   const freeLevels = computeFreeAntUpgradeLevels()
   const levelHTML = `<span class="crimsonText">${
-    i18next.t('ants.level', { x: format(player.ants.upgrades[index], 0, true), y: format(freeLevels, 0, true) })
+    i18next.t('ants.level', { x: format(player.ants.upgrades[antUpgrade], 0, true), y: format(freeLevels, 0, true) })
   }</span>`
 
   let challengeHTML = ''
@@ -1423,23 +1426,23 @@ export const antUpgradeHTML = (key: AntUpgradeKeys) => {
     }</span>`
   }
   const effectiveLevelHTML = `<span><b>${
-    i18next.t('ants.effectiveLevel', { level: format(calculateTrueAntLevel(index), 2, true) })
+    i18next.t('ants.effectiveLevel', { level: format(calculateTrueAntLevel(antUpgrade), 2, true) })
   }</b></span>`
 
-  const descriptionHTML = `<span>${antUpgrades[key].description()}</span>`
+  const descriptionHTML = `<span>${upgradeData.description()}</span>`
 
-  const effectHTML = `<span style="color: gold">${antUpgrades[key].effectDescription()}</span>`
+  const effectHTML = `<span style="color: gold">${upgradeData.effectDescription()}</span>`
 
   let costHTML: string
-  const maxBuy = getMaxPurchasableAntUpgrades(key, player.ants.crumbs)
-  if (player.antMax && maxBuy > player.ants.upgrades[index]) {
-    const cost = getCostMaxAntUpgrades(key)
+  const maxBuy = getMaxPurchasableAntUpgrades(antUpgrade, player.ants.crumbs)
+  if (player.antMax && maxBuy > player.ants.upgrades[antUpgrade]) {
+    const cost = getCostMaxAntUpgrades(antUpgrade)
     costHTML = i18next.t('ants.costMaxLevels', {
-      x: format(maxBuy - player.ants.upgrades[index], 0, true),
+      x: format(maxBuy - player.ants.upgrades[antUpgrade], 0, true),
       y: format(cost, 2, true)
     })
   } else {
-    const cost = getCostNextAntUpgrade(key)
+    const cost = getCostNextAntUpgrade(antUpgrade)
     costHTML = i18next.t('ants.costSingleLevel', { x: format(cost, 2, true) })
   }
 

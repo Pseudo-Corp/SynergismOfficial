@@ -3,6 +3,7 @@ import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import {
   AntProducers,
+  AntUpgrades,
   clearDailyLeaderboard,
   generateAntsAndCrumbs,
   getAntUpgradeEffect,
@@ -467,7 +468,7 @@ export const calculateTotalAcceleratorBoost = () => {
       * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14]))
   b *= 1 + (1 / 20) * player.researches[16] + (1 / 20) * player.researches[17]
   b *= 1 + (1 / 20) * player.researches[88]
-  b *= getAntUpgradeEffect('acceleratorBoosts').acceleratorBoostMult
+  b *= getAntUpgradeEffect(AntUpgrades.AcceleratorBoosts).acceleratorBoostMult
   b *= 1 + (1 / 100) * player.researches[127]
   b *= 1 + (0.8 / 100) * player.researches[142]
   b *= 1 + (0.6 / 100) * player.researches[157]

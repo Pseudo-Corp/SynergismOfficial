@@ -5,13 +5,14 @@ import {
   antProducerHTML,
   AntProducers,
   antUpgradeHTML,
-  antUpgradeKeys,
+  AntUpgrades,
   antUpgrades,
   baseAntInfo,
   buyAntMastery,
   buyAntProducers,
   buyAntUpgrade,
   LAST_ANT,
+  LAST_ANT_UPGRADE,
   sacrificeAnts,
   toggleLeaderboardMode,
   toggleRebornELOInfo
@@ -803,28 +804,27 @@ export const generateEventHandlers = () => {
     })
   }
   // Part 2: Ant Upgrades
-  for (const key of antUpgradeKeys) {
-    const index = antUpgrades[key].index
-    const antUpgrade = DOMCacheGetOrSet(`antUpgrade${index + 1}`)
+  for (let upgrade = AntUpgrades.AntSpeed; upgrade <= LAST_ANT_UPGRADE; upgrade++) {
+    const antUpgrade = DOMCacheGetOrSet(`antUpgrade${upgrade + 1}`)
 
     antUpgrade.style.setProperty(
       '--glow-color',
-      `color-mix(in srgb, ${antUpgrades[key].antUpgradeHTML.color} 75%, crimson 25%)`
+      `color-mix(in srgb, ${antUpgrades[upgrade].antUpgradeHTML.color} 75%, crimson 25%)`
     )
 
     antUpgrade.addEventListener(
       'mousemove',
-      (e: MouseEvent) => Modal(antUpgradeHTML(key), e.clientX, e.clientY, { borderColor: 'burlywood' })
+      (e: MouseEvent) => Modal(antUpgradeHTML(upgrade), e.clientX, e.clientY, { borderColor: 'burlywood' })
     )
     antUpgrade.addEventListener('focus', () => {
       const elmRect = antUpgrade.getBoundingClientRect()
-      Modal(antUpgradeHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'burlywood' })
+      Modal(antUpgradeHTML(upgrade), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'burlywood' })
     })
     antUpgrade.addEventListener('mouseout', () => CloseModal())
     antUpgrade.addEventListener('blur', () => CloseModal())
     antUpgrade.addEventListener('click', (event) => {
-      buyAntUpgrade(key, player.antMax)
-      Modal(antUpgradeHTML(key), event.clientX, event.clientY, { borderColor: 'burlywood' }, true)
+      buyAntUpgrade(upgrade, player.antMax)
+      Modal(antUpgradeHTML(upgrade), event.clientX, event.clientY, { borderColor: 'burlywood' }, true)
     })
   }
   // Part 3: Sacrifice

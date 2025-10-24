@@ -5,7 +5,7 @@ import { Globals as G } from './Variables'
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardAchievementGroup, getAchievementReward } from './Achievements'
-import { getAntUpgradeEffect } from './Ants'
+import { AntUpgrades, getAntUpgradeEffect } from './Ants'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
@@ -115,7 +115,7 @@ export interface RuneData<K extends RuneKeys> {
 
 export const firstFiveFreeLevels = () => {
   return (
-    getAntUpgradeEffect('freeRunes').freeRuneLevel
+    getAntUpgradeEffect(AntUpgrades.FreeRunes).freeRuneLevel
     + 7 * Math.min(player.constantUpgrades[7], 1000)
   )
 }
