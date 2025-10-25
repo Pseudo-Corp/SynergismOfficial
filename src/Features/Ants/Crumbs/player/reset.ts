@@ -1,11 +1,12 @@
 import Decimal from 'break_infinity.js'
 import { AntSacrificeTiers } from '../../../../Reset'
 import { player } from '../../../../Synergism'
+import { defaultCrumbs, defaultHighestCrumbsEver, defaultHighestCrumbsThisSacrifice } from './default'
 
 export const resetPlayerAntCrumbs = (resetTier: AntSacrificeTiers): void => {
   if (resetTier >= AntSacrificeTiers.sacrifice) {
-    player.ants.crumbs = Decimal.fromString('1')
-    player.ants.highestCrumbsThisSacrifice = Decimal.fromString('1')
+    player.ants.crumbs = Decimal.fromString(defaultCrumbs)
+    player.ants.highestCrumbsThisSacrifice = Decimal.fromString(defaultHighestCrumbsThisSacrifice)
   }
   // Sing Perk
   if (player.highestSingularityCount >= 20) {
@@ -13,6 +14,6 @@ export const resetPlayerAntCrumbs = (resetTier: AntSacrificeTiers): void => {
   }
   // If player resets the game
   if (resetTier >= AntSacrificeTiers.never) {
-    player.ants.highestCrumbsEver = Decimal.fromString('1')
+    player.ants.highestCrumbsEver = Decimal.fromString(defaultHighestCrumbsEver)
   }
 }
