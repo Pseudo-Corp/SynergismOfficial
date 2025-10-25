@@ -3,13 +3,13 @@ import type { AntSacrificeTiers } from '../../Reset'
 import { player } from '../../Synergism'
 import { resetPlayerAntMasteries } from './AntMasteries/player/reset'
 import { resetPlayerAntProducers } from './AntProducers/player/reset'
+import { resetPlayerAntSacrificeCounts } from './AntSacrifice/player/reset'
 import { resetPlayerAntImmortalELO } from './AntSacrifice/Rewards/ELO/ImmortalELO/player/reset'
 import { resetPlayerRebornELO } from './AntSacrifice/Rewards/ELO/RebornELO/player/reset'
 import { resetPlayerAntUpgrades } from './AntUpgrades/player/reset'
 import { autobuyAntMasteries } from './Autobuy/masteries'
 import { autobuyAntProducers } from './Autobuy/producers'
 import { autobuyAntUpgrades } from './Autobuy/upgrades'
-import { resetPlayerAntSacrificeCounts } from './AntSacrifice/player/reset'
 
 export const autobuyAnts = (): void => {
   autobuyAntMasteries()
