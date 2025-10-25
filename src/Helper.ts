@@ -1,5 +1,4 @@
 import Decimal from 'break_infinity.js'
-import { sacrificeAnts } from './Ants'
 import {
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaLuck,
@@ -13,6 +12,7 @@ import {
   calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium
 } from './Calculate'
+import { sacrificeAnts } from './Features/Ants/AntSacrifice/sacrifice'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'

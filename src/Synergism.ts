@@ -35,7 +35,6 @@ import {
   updateAllUngroupedAchievementProgress,
   updateProgressiveCache
 } from './Achievements'
-import { AntUpgrades, autoBuyAntUpgrades, getAntUpgradeEffect } from './Ants'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
 import {
@@ -184,6 +183,9 @@ import { autobuyAnts } from './Features/Ants'
 import { defaultAntMasteries } from './Features/Ants/AntMasteries/player/default'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { defaultAntProducers } from './Features/Ants/AntProducers/player/default'
+import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
+import { defaultAntUpgrades } from './Features/Ants/AntUpgrades/player/default'
+import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import {
   defaultHepteractValues,
   getHepteractEffects,
@@ -355,20 +357,7 @@ export const player: Player = {
   ants: {
     producers: { ...defaultAntProducers },
     masteries: { ...defaultAntMasteries },
-    upgrades: {
-      [0]: 0,
-      [1]: 0,
-      [2]: 0,
-      [3]: 0,
-      [4]: 0,
-      [5]: 0,
-      [6]: 0,
-      [7]: 0,
-      [8]: 0,
-      [9]: 0,
-      [10]: 0,
-      [11]: 0
-    },
+    upgrades: { ...defaultAntUpgrades },
     crumbs: new Decimal('1'),
     highestCrumbsThisSacrifice: new Decimal('1'),
     highestCrumbsEver: new Decimal('1'),
@@ -4545,7 +4534,6 @@ export const updateAll = (): void => {
   }
 
   autobuyAnts()
-  autoBuyAntUpgrades()
 
   if (
     player.autoAscend
