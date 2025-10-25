@@ -54,6 +54,7 @@ import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { updateLeaderboardUI } from './Features/Ants/HTML/updates/leaderboard'
+import { showSacrifice } from './Features/Ants/HTML/updates/sacrifice'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getFinalHepteractCap, type HepteractKeys, hepteractKeys, hepteracts } from './Hepteracts'
 import {
@@ -113,7 +114,6 @@ import {
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
-import { showSacrifice } from './Features/Ants/HTML/updates/sacrifice'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {

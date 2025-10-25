@@ -6,9 +6,9 @@ import { player } from '../../../Synergism'
 import { updateTalismanInventory } from '../../../Talismans'
 import { Confirm } from '../../../UpdateHTML'
 import { resetAnts } from '..'
+import { MINIMUM_CRUMBS_FOR_SACRIFICE } from './constants'
 import { antSacrificeRewards } from './Rewards/calculate-rewards'
 import { calculateBaseAntELO, calculateEffectiveAntELO } from './Rewards/ELO/AntELO/lib/calculate'
-import { MINIMUM_CRUMBS_FOR_SACRIFICE } from './constants'
 
 export const sacrificeAnts = async (auto = false) => {
   let p = true
