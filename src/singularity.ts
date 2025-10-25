@@ -3498,7 +3498,7 @@ export const updateSingularityElevator = (): void => {
     singLook = player.singularityCount + lookahead
   }
 
-  const maxTarget = Math.max(1, player.highestSingularityCount, singLook)
+  const maxTarget = Math.max(1, player.highestSingularityCount, singLook, player.singularityCount - 1)
 
   const theoreticalLookahead = calculateMaxSingularityLookahead(true)
 
