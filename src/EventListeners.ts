@@ -1,17 +1,10 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
 import {
-  antMasteryHTML,
-  antProducerHTML,
-  AntProducers,
   antUpgradeHTML,
   AntUpgrades,
   antUpgrades,
-  baseAntInfo,
-  buyAntMastery,
-  buyAntProducers,
   buyAntUpgrade,
-  LAST_ANT,
   LAST_ANT_UPGRADE,
   sacrificeAnts,
   toggleLeaderboardMode,
@@ -49,6 +42,12 @@ import { challengeDisplay, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
+import { buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
+import { antProducerData } from './Features/Ants/AntProducers/data/data'
+import { buyAntProducers } from './Features/Ants/AntProducers/lib/buy-producer'
+import { antMasteryHTML } from './Features/Ants/HTML/mastery-modal'
+import { antProducerHTML } from './Features/Ants/HTML/producer-modal'
+import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import {
   craftHepteracts,
   expandHepteracts,
@@ -759,31 +758,31 @@ export const generateEventHandlers = () => {
     )
   }
 
-  for (let ant = AntProducers.Workers; ant <= LAST_ANT; ant++) {
+  for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
     const antTier = DOMCacheGetOrSet(`anttier${ant + 1}`)
     antTier.style.setProperty(
       '--glow-color',
-      `${baseAntInfo[ant].color}`
+      `${antProducerData[ant].color}`
     )
     antTier.addEventListener(
       'mousemove',
-      (e: MouseEvent) => Modal(antProducerHTML(ant), e.clientX, e.clientY, { borderColor: baseAntInfo[ant].color })
+      (e: MouseEvent) => Modal(antProducerHTML(ant), e.clientX, e.clientY, { borderColor: antProducerData[ant].color })
     )
     antTier.addEventListener('focus', () => {
       const elmRect = antTier.getBoundingClientRect()
       Modal(antProducerHTML(ant), elmRect.x, elmRect.y + elmRect.height / 2, {
-        borderColor: baseAntInfo[ant].color
+        borderColor: antProducerData[ant].color
       })
     })
     antTier.addEventListener('mouseout', () => CloseModal())
     antTier.addEventListener('blur', () => CloseModal())
     antTier.addEventListener('click', (event) => {
       buyAntProducers(ant, player.antMax)
-      Modal(antProducerHTML(ant), event.clientX, event.clientY, { borderColor: baseAntInfo[ant].color }, true)
+      Modal(antProducerHTML(ant), event.clientX, event.clientY, { borderColor: antProducerData[ant].color }, true)
     })
 
     const antMastery = DOMCacheGetOrSet(`antMastery${ant + 1}`)
-    const blendedColor = `color-mix(in srgb, ${baseAntInfo[ant].color} 75%, lime 25%)`
+    const blendedColor = `color-mix(in srgb, ${antProducerData[ant].color} 75%, lime 25%)`
     antMastery.style.setProperty(
       '--glow-color',
       blendedColor

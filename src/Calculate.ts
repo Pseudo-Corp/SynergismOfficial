@@ -1,18 +1,13 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
-import {
-  AntProducers,
-  AntUpgrades,
-  clearDailyLeaderboard,
-  generateAntsAndCrumbs,
-  getAntUpgradeEffect,
-  thresholdModifiers
-} from './Ants'
+import { AntUpgrades, clearDailyLeaderboard, getAntUpgradeEffect, thresholdModifiers } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
 import { calculateAntSacrificeCubeBlessing, calculateObtainiumCubeBlessing } from './Cubes'
 import { BuffType, calculateEventSourceBuff } from './Event'
+import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
+import { AntProducers } from './Features/Ants/structs/structs'
 import { addTimers, automaticTools } from './Helper'
 import { hepteractEffective } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'

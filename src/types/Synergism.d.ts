@@ -1,6 +1,6 @@
 import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
-import type { AntProducers, AntUpgrades, PlayerAntProducers } from '../Ants'
+import type { AntUpgrades } from '../Ants'
 import type {
   AmbrosiaUpgradeNames,
   BlueberryLoadoutMode,
@@ -12,6 +12,7 @@ import type { CampaignManager } from '../Campaign'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
+import type { AntProducers, PlayerAntMasteries, PlayerAntProducers } from '../Features/Ants/structs/structs'
 import type { HepteractCraft, HepteractKeys, HepteractNames, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractDataKeys, OcteractUpgrade } from '../Octeracts'
@@ -143,6 +144,7 @@ export interface Player {
 
   ants: {
     producers: Record<AntProducers, PlayerAntProducers>
+    masteries: Record<AntProducers, PlayerAntMasteries>
     upgrades: Record<AntUpgrades, number>
     crumbs: Decimal
     highestCrumbsThisSacrifice: Decimal

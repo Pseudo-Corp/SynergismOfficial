@@ -35,15 +35,7 @@ import {
   updateAllUngroupedAchievementProgress,
   updateProgressiveCache
 } from './Achievements'
-import {
-  AntUpgrades,
-  autobuyAntMasteries,
-  autobuyAntProducers,
-  autoBuyAntUpgrades,
-  emptyAntProducer,
-  generateAntsAndCrumbs,
-  getAntUpgradeEffect
-} from './Ants'
+import { AntUpgrades, autoBuyAntUpgrades, getAntUpgradeEffect } from './Ants'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
 import {
@@ -188,6 +180,10 @@ import {
 import { dev, lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
+import { autobuyAnts } from './Features/Ants'
+import { defaultAntMasteries } from './Features/Ants/AntMasteries/player/default'
+import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
+import { defaultAntProducers } from './Features/Ants/AntProducers/player/default'
 import {
   defaultHepteractValues,
   getHepteractEffects,
@@ -357,17 +353,8 @@ export const player: Player = {
   fifthProduceParticles: 0.5,
 
   ants: {
-    producers: {
-      [0]: { ...emptyAntProducer },
-      [1]: { ...emptyAntProducer },
-      [2]: { ...emptyAntProducer },
-      [3]: { ...emptyAntProducer },
-      [4]: { ...emptyAntProducer },
-      [5]: { ...emptyAntProducer },
-      [6]: { ...emptyAntProducer },
-      [7]: { ...emptyAntProducer },
-      [8]: { ...emptyAntProducer }
-    },
+    producers: { ...defaultAntProducers },
+    masteries: { ...defaultAntMasteries },
     upgrades: {
       [0]: 0,
       [1]: 0,
@@ -4570,8 +4557,7 @@ export const updateAll = (): void => {
     player.maxObtainium = new Decimal(player.obtainium)
   }
 
-  autobuyAntProducers()
-  autobuyAntMasteries()
+  autobuyAnts()
   autoBuyAntUpgrades()
 
   if (
