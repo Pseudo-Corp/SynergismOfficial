@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js'
-import { activateELO } from '../../../../Ants'
 import { calculateActualAntSpeedMult } from '../../../../Calculate'
 import { player } from '../../../../Synergism'
+import { activateELO } from '../../AntSacrifice/Rewards/ELO/RebornELO/lib/create-reborn'
 import { AntProducers, LAST_ANT_PRODUCER } from '../../structs/structs'
 import { antProducerData } from '../data/data'
 import { calculateBaseAntsToBeGenerated } from './calculate-production'
@@ -29,6 +29,5 @@ export const generateAntsAndCrumbs = (dt: number): void => {
   player.ants.highestCrumbsEver = Decimal.max(player.ants.highestCrumbsEver, player.ants.crumbs)
 
   // Activate ELO if appropriate
-  // TODO: Place somewhere in Ants.
   activateELO(dt)
 }

@@ -1,0 +1,71 @@
+import i18next from 'i18next'
+import { awardAchievementGroup, awardUngroupedAchievement } from '../../../Achievements'
+import { resetHistoryAdd, type ResetHistoryEntryAntSacrifice } from '../../../History'
+import { AntSacrificeTiers } from '../../../Reset'
+import { player } from '../../../Synergism'
+import { updateTalismanInventory } from '../../../Talismans'
+import { Confirm } from '../../../UpdateHTML'
+import { resetAnts } from '..'
+import { antSacrificeRewards } from './Rewards/calculate-rewards'
+import { calculateBaseAntELO, calculateEffectiveAntELO } from './Rewards/ELO/AntELO/lib/calculate'
+import { MINIMUM_CRUMBS_FOR_SACRIFICE } from './constants'
+
+export const sacrificeAnts = async (auto = false) => {
+  let p = true
+
+  if (player.ants.crumbs.gte(MINIMUM_CRUMBS_FOR_SACRIFICE)) {
+    if (!auto && player.toggles[32]) {
+      p = await Confirm(i18next.t('ants.autoReset'))
+    }
+    if (p) {
+      const antSacrificePointsBefore = player.ants.immortalELO
+
+      const sacRewards = antSacrificeRewards()
+      player.ants.immortalELO += sacRewards.immortalELO
+      player.offerings = player.offerings.add(sacRewards.offerings)
+
+      if (player.currentChallenge.ascension !== 14) {
+        player.obtainium = player.obtainium.add(sacRewards.obtainium)
+      }
+
+      const baseELO = calculateBaseAntELO()
+      const effectiveELO = calculateEffectiveAntELO(baseELO)
+      const crumbsPerSecond = player.antSacrificeTimer > 0
+        ? player.ants.crumbs.div(player.antSacrificeTimer)
+        : 0
+
+      const historyEntry: ResetHistoryEntryAntSacrifice = {
+        date: Date.now(),
+        seconds: player.antSacrificeTimer,
+        kind: 'antsacrifice',
+        offerings: sacRewards.offerings,
+        obtainium: sacRewards.obtainium,
+        antSacrificePointsBefore,
+        antSacrificePointsAfter: player.ants.immortalELO,
+        baseELO: baseELO,
+        effectiveELO: effectiveELO,
+        crumbs: player.ants.crumbs.toString(),
+        crumbsPerSecond: crumbsPerSecond.toString()
+      }
+
+      if (player.challengecompletions[9] > 0) {
+        player.talismanShards = player.talismanShards.add(sacRewards.talismanCraftItems.shard)
+        player.commonFragments = player.commonFragments.add(sacRewards.talismanCraftItems.commonFragment)
+        player.uncommonFragments = player.uncommonFragments.add(sacRewards.talismanCraftItems.uncommonFragment)
+        player.rareFragments = player.rareFragments.add(sacRewards.talismanCraftItems.rareFragment)
+        player.epicFragments = player.epicFragments.add(sacRewards.talismanCraftItems.epicFragment)
+        player.legendaryFragments = player.legendaryFragments.add(sacRewards.talismanCraftItems.legendaryFragment)
+        player.mythicalFragments = player.mythicalFragments.add(sacRewards.talismanCraftItems.mythicalFragment)
+      }
+      awardAchievementGroup('sacMult')
+      // Now we're safe to reset the ants.
+      resetAnts(AntSacrificeTiers.sacrifice)
+      updateTalismanInventory()
+      resetHistoryAdd('ants', historyEntry)
+    }
+  }
+
+  if (player.mythicalFragments.gte(1e11) && player.currentChallenge.ascension === 14) {
+    awardUngroupedAchievement('seeingRedNoBlue')
+  }
+}

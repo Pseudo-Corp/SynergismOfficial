@@ -1,0 +1,1 @@
+export const MINIMUM_CRUMBS_FOR_SACRIFICE = 1e70

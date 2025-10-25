@@ -1,16 +1,6 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
 import {
-  antUpgradeHTML,
-  AntUpgrades,
-  antUpgrades,
-  buyAntUpgrade,
-  LAST_ANT_UPGRADE,
-  sacrificeAnts,
-  toggleLeaderboardMode,
-  toggleRebornELOInfo
-} from './Ants'
-import {
   type AmbrosiaUpgradeNames,
   ambrosiaUpgrades,
   ambrosiaUpgradeToString,
@@ -45,8 +35,15 @@ import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
 import { buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
 import { antProducerData } from './Features/Ants/AntProducers/data/data'
 import { buyAntProducers } from './Features/Ants/AntProducers/lib/buy-producer'
-import { antMasteryHTML } from './Features/Ants/HTML/mastery-modal'
-import { antProducerHTML } from './Features/Ants/HTML/producer-modal'
+import { sacrificeAnts } from './Features/Ants/AntSacrifice/sacrifice'
+import { antUpgradeData } from './Features/Ants/AntUpgrades/data/data'
+import { buyAntUpgrade } from './Features/Ants/AntUpgrades/lib/buy-upgrade'
+import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
+import { antMasteryHTML } from './Features/Ants/HTML/modals/mastery-modal'
+import { antProducerHTML } from './Features/Ants/HTML/modals/producer-modal'
+import { antUpgradeHTML } from './Features/Ants/HTML/modals/upgrade-modal'
+import { toggleRebornELOInfo } from './Features/Ants/HTML/updates/elo-info'
+import { toggleLeaderboardMode } from './Features/Ants/HTML/updates/leaderboard'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import {
   craftHepteracts,
@@ -808,7 +805,7 @@ export const generateEventHandlers = () => {
 
     antUpgrade.style.setProperty(
       '--glow-color',
-      `color-mix(in srgb, ${antUpgrades[upgrade].antUpgradeHTML.color} 75%, crimson 25%)`
+      `color-mix(in srgb, ${antUpgradeData[upgrade].antUpgradeHTML.color} 75%, crimson 25%)`
     )
 
     antUpgrade.addEventListener(

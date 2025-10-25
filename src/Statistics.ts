@@ -1,7 +1,6 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
-import { AntUpgrades, calculateAntSpeedMultFromELO, calculateTrueAntLevel, getAntUpgradeEffect } from './Ants'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -100,6 +99,10 @@ import {
   calculateSalvageCubeBlessing
 } from './Cubes'
 import { BuffType } from './Event'
+import { calculateAntSpeedMultFromELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
+import { calculateTrueAntLevel } from './Features/Ants/AntUpgrades/lib/total-levels'
+import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
+import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getHepteractEffects, hepteracts } from './Hepteracts'
 import {

@@ -10,4 +10,14 @@ export const resetPlayerAntProducers = (resetTier: AntSacrificeTiers) => {
       player.ants.producers[ant].purchased = defaultAntProducers[ant].purchased
     }
   }
+  if (player.highestSingularityCount >= 10) {
+    player.ants.producers[AntProducers.Workers].purchased = 20
+  }
+  if (player.highestSingularityCount >= 15) {
+    player.ants.producers[AntProducers.Workers].purchased = 40
+    player.ants.producers[AntProducers.Breeders].purchased = 20
+  }
+  if (player.highestSingularityCount >= 20) {
+    player.ants.producers[AntProducers.MetaBreeders].purchased = 25
+  }
 }
