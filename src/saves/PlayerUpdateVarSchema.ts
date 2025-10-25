@@ -2,6 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { type AmbrosiaUpgradeNames, ambrosiaUpgrades } from '../BlueberryUpgrades'
 import { CorruptionLoadout, type Corruptions, CorruptionSaves } from '../Corruptions'
+import { AntProducers } from '../Features/Ants/structs/structs'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { type OcteractDataKeys, octeractUpgrades } from '../Octeracts'
 import { goldenQuarkUpgrades, type SingularityDataKeys } from '../singularity'
@@ -198,46 +199,34 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   // In the ants rewrite, we assume that anything above 1e1000 crumbs can be 'chopped off'
   // For balancing purposes
   if (player.antPoints !== undefined) {
-    player.ants.producers[0] = {
+    player.ants.producers[AntProducers.Workers] = {
       purchased: Math.min(2000, player.firstOwnedAnts ?? 0),
-      generated: Decimal.min(new Decimal(1e200), player.firstGeneratedAnts ?? new Decimal(0)),
-      mastery: 0,
-      highestMastery: 0
+      generated: Decimal.min(new Decimal(1e200), player.firstGeneratedAnts ?? new Decimal(0))
     }
 
-    player.ants.producers[1] = {
+    player.ants.producers[AntProducers.Breeders] = {
       purchased: Math.min(1000, player.secondOwnedAnts ?? 0),
-      generated: Decimal.min(new Decimal(1e200), player.secondGeneratedAnts ?? new Decimal(0)),
-      mastery: 0,
-      highestMastery: 0
+      generated: Decimal.min(new Decimal(1e200), player.secondGeneratedAnts ?? new Decimal(0))
     }
 
-    player.ants.producers[2] = {
+    player.ants.producers[AntProducers.MetaBreeders] = {
       purchased: Math.min(500, player.thirdOwnedAnts ?? 0),
-      generated: Decimal.min(new Decimal(1e200), player.thirdGeneratedAnts ?? new Decimal(0)),
-      mastery: 0,
-      highestMastery: 0
+      generated: Decimal.min(new Decimal(1e200), player.thirdGeneratedAnts ?? new Decimal(0))
     }
 
-    player.ants.producers[3] = {
+    player.ants.producers[AntProducers.MegaBreeders] = {
       purchased: Math.min(250, player.fourthOwnedAnts ?? 0),
-      generated: Decimal.min(new Decimal(1e200), player.fourthGeneratedAnts ?? new Decimal(0)),
-      mastery: 0,
-      highestMastery: 0
+      generated: Decimal.min(new Decimal(1e200), player.fourthGeneratedAnts ?? new Decimal(0))
     }
 
-    player.ants.producers[4] = {
+    player.ants.producers[AntProducers.Queens] = {
       purchased: Math.min(87, player.fifthOwnedAnts ?? 0),
-      generated: Decimal.min(new Decimal(10), player.fifthGeneratedAnts ?? new Decimal(0)),
-      mastery: 0,
-      highestMastery: 0
+      generated: Decimal.min(new Decimal(10), player.fifthGeneratedAnts ?? new Decimal(0))
     }
 
-    player.ants.producers[5] = {
+    player.ants.producers[AntProducers.LordRoyals] = {
       purchased: Math.min(1, player.sixthOwnedAnts ?? 0),
-      generated: new Decimal(0),
-      mastery: 0,
-      highestMastery: 0
+      generated: new Decimal(0)
     }
 
     // The rest cost more than 1e1000 crumbs, so we can ignore
