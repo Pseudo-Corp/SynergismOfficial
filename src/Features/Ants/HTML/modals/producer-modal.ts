@@ -1,10 +1,10 @@
 import i18next from 'i18next'
-import { calculateActualAntSpeedMult } from '../../../Calculate'
-import { format, player } from '../../../Synergism'
-import { antProducerData } from '../AntProducers/data/data'
-import { calculateBaseAntsToBeGenerated } from '../AntProducers/lib/calculate-production'
-import { getCostMaxAnts, getCostNextAnt, getMaxPurchasableAnts } from '../AntProducers/lib/get-cost'
-import type { AntProducers } from '../structs/structs'
+import { calculateActualAntSpeedMult } from '../../../../Calculate'
+import { format, player } from '../../../../Synergism'
+import { antProducerData } from '../../AntProducers/data/data'
+import { calculateBaseAntsToBeGenerated } from '../../AntProducers/lib/calculate-production'
+import { getCostMaxAnts, getCostNextAnt, getMaxPurchasableAnts } from '../../AntProducers/lib/get-cost'
+import type { AntProducers } from '../../structs/structs'
 
 export const antProducerHTML = (ant: AntProducers) => {
   let nameText = i18next.t(`ants.producers.${ant}.name`)

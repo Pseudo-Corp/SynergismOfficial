@@ -1,17 +1,18 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
-import { AntUpgrades, clearDailyLeaderboard, getAntUpgradeEffect, thresholdModifiers } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
 import { calculateAntSacrificeCubeBlessing, calculateObtainiumCubeBlessing } from './Cubes'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
-import { AntProducers } from './Features/Ants/structs/structs'
+import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
+import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
+import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { addTimers, automaticTools } from './Helper'
 import { hepteractEffective } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
-import { getLevelMilestone, getLevelReward } from './Levels'
+import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { calculateAscensionScorePlatonicBlessing } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -277,54 +278,6 @@ export const calculateAntSacrificeMultiplier = () => {
   return antSacrificeRewardStats.reduce((a, b) => a.times(b.stat()), new Decimal(1)).times(
     calculateAntSacrificeCubeBlessing()
   )
-}
-
-export const calculateAntSacrificeObtainiumMultiplier = () => {
-  const thresholdModifier = thresholdModifiers().antSacrificeObtainiumMult
-  const antSacMult = calculateAntSacrificeMultiplier()
-  const timeMultiplier = offeringObtainiumTimeModifiers(player.antSacrificeTimer, true).reduce(
-    (a, b) => a * b.stat(),
-    1
-  )
-  return new Decimal(1).times(antSacMult).times(thresholdModifier).times(timeMultiplier)
-}
-
-export const calculateAntSacrificeOfferingMultiplier = () => {
-  const thresholdModifier = thresholdModifiers().antSacrificeOfferingMult
-  const antSacMult = calculateAntSacrificeMultiplier()
-  const timeMultiplier = offeringObtainiumTimeModifiers(player.antSacrificeTimer, true).reduce(
-    (a, b) => a * b.stat(),
-    1
-  )
-  return new Decimal(1).times(antSacMult).times(thresholdModifier).times(timeMultiplier)
-}
-
-export const calculateAntSacrificeObtainium = () => {
-  if (
-    player.singularityChallenges.taxmanLastStand.enabled
-    && player.singularityChallenges.taxmanLastStand.completions >= 2
-  ) {
-    return Decimal.min(
-      player.obtainium.times(100).plus(1),
-      calculateObtainium(false).times(calculateAntSacrificeObtainiumMultiplier())
-    )
-  } else {
-    return calculateObtainium(false).times(calculateAntSacrificeObtainiumMultiplier())
-  }
-}
-
-export const calculateAntSacrificeOffering = () => {
-  if (
-    player.singularityChallenges.taxmanLastStand.enabled
-    && player.singularityChallenges.taxmanLastStand.completions >= 2
-  ) {
-    return Decimal.min(
-      player.offerings.times(100).plus(1),
-      calculateOfferings(false).times(calculateAntSacrificeOfferingMultiplier())
-    )
-  } else {
-    return calculateOfferings(false).times(calculateAntSacrificeOfferingMultiplier())
-  }
 }
 
 export const calculateGlobalSpeedDRIgnoreMult = () => {
@@ -597,120 +550,6 @@ export const calculateActualAntSpeedMult = () => {
   }
 
   return Decimal.pow(base, exponent)
-}
-
-export const calculateBaseAntELO = () => {
-  let ELO = 0
-  ELO += player.ants.producers[AntProducers.Workers].purchased
-  ELO += 666 * player.researches[178]
-  ELO += +getAchievementReward('antELOAdditive')
-  ELO += 25 * player.researches[108]
-  ELO += 25 * player.researches[109]
-  ELO += 40 * player.researches[123]
-  ELO += 100 * CalcECC('reincarnation', player.challengecompletions[10])
-  ELO += 75 * player.upgrades[80]
-  ELO += getLevelReward('ants')
-  ELO += 5 * Math.min(100, player.ants.antSacrificeCount)
-  ELO += Math.max(0, Math.min(500, player.ants.antSacrificeCount - 100))
-  return ELO
-}
-
-export const calculateELOMult = () => {
-  let baseMult = 1
-  if (player.ants.producers[AntProducers.Queens].purchased > 0) {
-    baseMult += 0.01
-  }
-  if (player.ants.producers[AntProducers.LordRoyals].purchased > 0) {
-    baseMult += 0.01
-  }
-  if (player.ants.producers[AntProducers.Almighties].purchased > 0) {
-    baseMult += 0.01
-  }
-  if (player.ants.producers[AntProducers.Disciples].purchased > 0) {
-    baseMult += 0.02
-  }
-  if (player.ants.producers[AntProducers.HolySpirit].purchased > 0) {
-    baseMult += 0.02
-  }
-  baseMult += 1 / 200 * player.platonicUpgrades[12] * player.corruptions.used.extinction
-  return baseMult
-}
-
-export const calculateEffectiveAntELO = (base?: number) => {
-  const baseELO = base ?? calculateBaseAntELO()
-  const mult = calculateELOMult()
-  return baseELO * mult
-}
-/*
-  const baseELO = base ?? calculateBaseAntELO()
-  let effectiveELO = 0
-  effectiveELO += 0.1 * Math.min(5000, baseELO)
-  effectiveELO += 0.2 * Math.min(7500, baseELO)
-  effectiveELO += 0.2 * Math.min(15000, baseELO)
-  effectiveELO += 0.2 * Math.min(50000, baseELO)
-  effectiveELO += 0.3 * baseELO
-  effectiveELO += 1 * player.cubeUpgrades[50]
-  effectiveELO *= 1 + 0.03 * player.upgrades[124]
-  effectiveELO *= calculateAntELOCubeBlessing()
-  effectiveELO *= +getAchievementReward('antELOMultiplicative')
-  effectiveELO *= 1 + player.researches[110] / 100
-  effectiveELO *= 1 + (2.5 * player.researches[148]) / 100
-  effectiveELO *= getTalismanEffects('mortuus').antBonus
-  return effectiveELO
-} */
-
-interface IAntSacRewards {
-  antSacrificePoints: number
-  offerings: Decimal
-  obtainium: Decimal
-  talismanShards: Decimal
-  commonFragments: Decimal
-  uncommonFragments: Decimal
-  rareFragments: Decimal
-  epicFragments: Decimal
-  legendaryFragments: Decimal
-  mythicalFragments: Decimal
-}
-
-export const calculateAntSacrificeRewards = (): IAntSacRewards => {
-  const effectiveELO = calculateEffectiveAntELO()
-  const sacRewardMult = calculateAntSacrificeMultiplier()
-  const timeMultiplier = offeringObtainiumTimeModifiers(player.antSacrificeTimer, true).reduce(
-    (a, b) => a * b.stat(),
-    1
-  )
-
-  const rewardMult = sacRewardMult.times(timeMultiplier)
-  const talismanFragmentMult = thresholdModifiers().antSacrificeTalismanFragmentMult
-
-  const rewards: IAntSacRewards = {
-    antSacrificePoints: Math.max(0, effectiveELO - player.ants.immortalELO),
-    offerings: calculateAntSacrificeOffering(),
-    obtainium: calculateAntSacrificeObtainium(),
-    talismanShards: effectiveELO > 200
-      ? Decimal.floor(rewardMult.times(effectiveELO).times(talismanFragmentMult))
-      : new Decimal(0),
-    commonFragments: effectiveELO > 400
-      ? Decimal.floor(rewardMult.times(effectiveELO - 399).times(talismanFragmentMult).times(0.4))
-      : new Decimal(0),
-    uncommonFragments: effectiveELO > 700
-      ? Decimal.floor(rewardMult.times(effectiveELO - 699).times(talismanFragmentMult).times(0.1))
-      : new Decimal(0),
-    rareFragments: effectiveELO > 1200
-      ? Decimal.floor(rewardMult.times(effectiveELO - 1199).times(talismanFragmentMult).times(0.06))
-      : new Decimal(0),
-    epicFragments: effectiveELO > 2000
-      ? Decimal.floor(rewardMult.times(effectiveELO - 1999).times(talismanFragmentMult).times(0.02))
-      : new Decimal(0),
-    legendaryFragments: effectiveELO > 4000
-      ? Decimal.floor(rewardMult.times(effectiveELO - 3999).times(talismanFragmentMult).times(0.008))
-      : new Decimal(0),
-    mythicalFragments: effectiveELO > 10000
-      ? Decimal.floor(rewardMult.times(effectiveELO - 9999).times(talismanFragmentMult).times(0.002))
-      : new Decimal(0)
-  }
-
-  return rewards
 }
 
 export const timeWarp = async () => {
@@ -1835,8 +1674,7 @@ export const forcedDailyReset = (rewards = false) => {
   player.tesseractOpenedDaily = 0
   player.hypercubeOpenedDaily = 0
   player.platonicCubeOpenedDaily = 0
-  clearDailyLeaderboard()
-  player.ants.quarksGainedFromAnts = 0
+  resetPlayerRebornELODaily()
 
   if (rewards) {
     player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion()

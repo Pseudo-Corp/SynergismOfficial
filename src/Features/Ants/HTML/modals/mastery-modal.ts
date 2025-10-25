@@ -1,11 +1,11 @@
 import i18next from 'i18next'
-import { getAchievementReward } from '../../../Achievements'
-import { format, player } from '../../../Synergism'
-import { antMasteryData } from '../AntMasteries/data/data'
-import { calculateSelfSpeedFromMastery } from '../AntMasteries/lib/ant-speed'
-import { getMaxAntMasteryLevel } from '../AntMasteries/lib/max-level'
-import { antProducerData } from '../AntProducers/data/data'
-import type { AntProducers } from '../structs/structs'
+import { getAchievementReward } from '../../../../Achievements'
+import { format, player } from '../../../../Synergism'
+import { antMasteryData } from '../../AntMasteries/data/data'
+import { calculateSelfSpeedFromMastery } from '../../AntMasteries/lib/ant-speed'
+import { getMaxAntMasteryLevel } from '../../AntMasteries/lib/max-level'
+import { antProducerData } from '../../AntProducers/data/data'
+import type { AntProducers } from '../../structs/structs'
 
 export const antMasteryHTML = (ant: AntProducers): string => {
   const nameColor = `color-mix(in srgb, ${antProducerData[ant].color} 60%, lime 40%)`

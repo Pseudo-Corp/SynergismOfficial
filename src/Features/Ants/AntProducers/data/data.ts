@@ -1,8 +1,8 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { calculateELOMult } from '../../../../Calculate'
 import { format, player } from '../../../../Synergism'
 import { calculateSelfSpeedFromMastery } from '../../AntMasteries/lib/ant-speed'
+import { calculateELOMult } from '../../AntSacrifice/Rewards/ELO/AntELO/lib/calculate'
 import { AntProducers } from '../../structs/structs'
 import type { AntProducerData } from '../structs/structs'
 
@@ -23,7 +23,6 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
       {
         text: () =>
           i18next.t('ants.producers.0.eloInformation', {
-            // TODO: Place into Ants folder somewhere
             x: format(calculateELOMult(), 2, true)
           }),
         displayCondition: () => player.ants.antSacrificeCount > 0 || player.ants.highestCrumbsThisSacrifice.gte(1e70)

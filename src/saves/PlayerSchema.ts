@@ -1,11 +1,13 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
-import { LAST_ANT_UPGRADE } from '../Ants'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
+import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
 import { defaultAntProducers } from '../Features/Ants/AntProducers/player/default'
 import type { PlayerAntProducers } from '../Features/Ants/AntProducers/structs/structs'
+import { defaultAntUpgrades } from '../Features/Ants/AntUpgrades/player/default'
+import { AntUpgrades, LAST_ANT_UPGRADE } from '../Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from '../Features/Ants/structs/structs'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { QuarkHandler } from '../Quark'
@@ -104,7 +106,7 @@ const antsSchema = z.object({
 
       for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
         if (!(ant in result)) {
-          result[ant] = { mastery: 0, highestMastery: 0 }
+          result[ant] = { ...defaultAntMasteries[ant] }
         }
       }
 
@@ -116,7 +118,6 @@ const antsSchema = z.object({
     (record) => {
       const result: Record<number, number> = {}
 
-      // Convert existing string keys to numbers and validate they're valid enum values
       for (const [key, value] of Object.entries(record)) {
         const numKey = Number(key)
         if (numKey >= 0 && numKey <= LAST_ANT_UPGRADE) {
@@ -124,10 +125,9 @@ const antsSchema = z.object({
         }
       }
 
-      // Ensure all enum values are present, fill missing ones with 0
-      for (let i = 0; i <= LAST_ANT_UPGRADE; i++) {
-        if (!(i in result)) {
-          result[i] = 0
+      for (let upgrade = AntUpgrades.AntSpeed; upgrade <= LAST_ANT_UPGRADE; upgrade++) {
+        if (!(upgrade in result)) {
+          result[upgrade] = defaultAntUpgrades[upgrade]
         }
       }
 
