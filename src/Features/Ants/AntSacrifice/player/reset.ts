@@ -1,6 +1,6 @@
 import { AntSacrificeTiers } from '../../../../Reset'
 import { player } from '../../../../Synergism'
-import { defaultAntSacrificeCount } from './default'
+import { defaultAntSacrificeCount, defaultCurrentSacrificeId } from './default'
 
 export const resetPlayerAntSacrificeCounts = (resetTier: AntSacrificeTiers) => {
   // ALWAYS increment sacrificeId for the permanent Reborn ELO leaderboard
@@ -13,6 +13,6 @@ export const resetPlayerAntSacrificeCounts = (resetTier: AntSacrificeTiers) => {
 
   // If you reset the game
   if (resetTier >= AntSacrificeTiers.never) {
-    player.ants.currentSacrificeId = 0
+    player.ants.currentSacrificeId = defaultCurrentSacrificeId
   }
 }
