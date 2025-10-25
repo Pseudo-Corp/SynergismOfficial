@@ -1,3 +1,8 @@
+import type Decimal from 'break_infinity.js'
+import type { PlayerAntMasteries } from '../AntMasteries/structs/structs'
+import type { PlayerAntProducers } from '../AntProducers/structs/structs'
+import type { AntUpgrades } from '../AntUpgrades/structs/structs'
+
 export enum AntProducers {
   'Workers' = 0,
   'Breeders' = 1,
@@ -11,3 +16,19 @@ export enum AntProducers {
 }
 
 export const LAST_ANT_PRODUCER = AntProducers.HolySpirit
+
+export interface PlayerAnts {
+  producers: Record<AntProducers, PlayerAntProducers>
+  masteries: Record<AntProducers, PlayerAntMasteries>
+  upgrades: Record<AntUpgrades, number>
+  crumbs: Decimal
+  highestCrumbsThisSacrifice: Decimal
+  highestCrumbsEver: Decimal
+  immortalELO: number
+  rebornELO: number
+  highestRebornELODaily: Array<{ elo: number; sacrificeId: number }>
+  highestRebornELOEver: Array<{ elo: number; sacrificeId: number }>
+  quarksGainedFromAnts: number
+  antSacrificeCount: number
+  currentSacrificeId: number
+}
