@@ -27,7 +27,7 @@ import { CalcECC, challengeRequirement } from './Challenges'
 import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate, type SavedCorruption } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
-import { resetAnts } from './Features/Ants'
+import { resetAnts } from './Features/Ants/player/reset'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { autoCraftHepteracts, hepteractKeys, hepteracts, resetHepteracts } from './Hepteracts'
 import {
