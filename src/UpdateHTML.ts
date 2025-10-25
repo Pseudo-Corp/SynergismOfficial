@@ -15,11 +15,14 @@ import {
   updateAllProgressiveAchievementProgress,
   updateAllUngroupedAchievementProgress
 } from './Achievements'
-import { AntUpgrades, getCostNextAnt, getCostNextAntUpgrade, LAST_ANT_UPGRADE } from './Ants'
+import { AntUpgrades, getCostNextAntUpgrade, LAST_ANT_UPGRADE } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateAscensionSpeedMult, calculateGlobalSpeedMult } from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
+import { canBuyAntMastery } from './Features/Ants/AntMasteries/lib/get-buyable'
+import { getCostNextAnt } from './Features/Ants/AntProducers/lib/get-cost'
+import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
@@ -962,11 +965,17 @@ export const buttoncolorchange = () => {
   }
 
   if (G.currentTab === Tabs.AntHill) {
-    for (let i = 0; i < 8; i++) {
-      const antCost = getCostNextAnt(i)
+    for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
+      const antCost = getCostNextAnt(ant)
       player.ants.crumbs.gte(antCost)
-        ? DOMCacheGetOrSet(`anttier${i + 1}`).classList.add('antBtnAvailable')
-        : DOMCacheGetOrSet(`anttier${i + 1}`).classList.remove('antBtnAvailable')
+        ? DOMCacheGetOrSet(`anttier${ant + 1}`).classList.add('antTierBtnAvailable')
+        : DOMCacheGetOrSet(`anttier${ant + 1}`).classList.remove('antTierBtnAvailable')
+
+      const antMasteryBuyable = canBuyAntMastery(ant)
+      const antMasteryElement = DOMCacheGetOrSet(`antMastery${ant + 1}`)
+      antMasteryBuyable
+        ? antMasteryElement.classList.add('antMasteryBtnAvailable')
+        : antMasteryElement.classList.remove('antMasteryBtnAvailable')
     }
     for (let upgrade = AntUpgrades.AntSpeed; upgrade <= LAST_ANT_UPGRADE; upgrade++) {
       const element = DOMCacheGetOrSet(`antUpgrade${upgrade + 1}`)

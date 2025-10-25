@@ -1,9 +1,10 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { AntProducers, calculateLeaderboardValue, LAST_ANT } from './Ants'
+import { calculateLeaderboardValue } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateAscensionScore } from './Calculate'
 import { campaignTokens } from './Campaign'
+import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { hepteracts } from './Hepteracts'
 import { displayLevelStuff } from './Levels'
 import { maxOcteractUpgradeAP, octeractUpgrades } from './Octeracts'
@@ -289,15 +290,15 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     maxPointValue: 324,
     pointsAwarded: (_cached: number) => {
       let pointValue = 0
-      for (let ant = AntProducers.Workers; ant <= LAST_ANT; ant++) {
-        pointValue += 3 * player.ants.producers[ant].highestMastery
+      for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
+        pointValue += 3 * player.ants.masteries[ant].highestMastery
       }
       return pointValue
     },
     updateValue: () => {
       let numMasteries = 0
-      for (let ant = AntProducers.Workers; ant <= LAST_ANT; ant++) {
-        numMasteries += player.ants.producers[ant].highestMastery
+      for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
+        numMasteries += player.ants.masteries[ant].highestMastery
       }
       return numMasteries
     },

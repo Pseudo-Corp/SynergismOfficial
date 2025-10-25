@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardAchievementGroup, challengeAchievementCheck, getAchievementReward } from './Achievements'
-import { AntProducers, AntUpgrades, antUpgrades, LAST_ANT, LAST_ANT_UPGRADE } from './Ants'
+import { AntUpgrades, antUpgrades, LAST_ANT_UPGRADE } from './Ants'
 import type { BlueberryLoadoutMode } from './BlueberryUpgrades'
 import { buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy'
 import type { TesseractBuildings } from './Buy'
@@ -28,6 +28,7 @@ import { CalcECC, challengeRequirement } from './Challenges'
 import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate, type SavedCorruption } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
+import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { autoCraftHepteracts, hepteractKeys, hepteracts, resetHepteracts } from './Hepteracts'
 import {
   resetHistoryAdd,
@@ -75,6 +76,13 @@ export enum resetTiers {
   ascension = 4,
   singularity = 5,
   never = 6
+}
+
+export enum AntSacrificeTiers {
+  sacrifice = 0,
+  ascension = 1,
+  singularity = 2,
+  never = 3
 }
 
 export const resetrepeat = (input: resetNames) => {
@@ -1214,8 +1222,8 @@ export const singularity = (setSingNumber = -1) => {
   hold.cubeUpgrades[80] = player.cubeUpgrades[80]
 
   hold.ants.highestRebornELOEver = player.ants.highestRebornELOEver
-  for (let ant = AntProducers.Workers; ant <= LAST_ANT; ant++) {
-    hold.ants.producers[ant].highestMastery = player.ants.producers[ant].highestMastery
+  for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
+    hold.ants.masteries[ant].highestMastery = player.ants.producers[ant].highestMastery
   }
 
   if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
@@ -1450,6 +1458,7 @@ const resetUpgrades = (i: number) => {
   }
 }
 
+// This will eventually be replaced by resetAnts in the Features folder :)
 export const resetAnts = (resetTier: resetTiers) => {
   // Reset Upgrades Appropriately
   for (let upgrade = AntUpgrades.AntSpeed; upgrade <= LAST_ANT_UPGRADE; upgrade++) {
@@ -1459,7 +1468,7 @@ export const resetAnts = (resetTier: resetTiers) => {
   }
 
   if (resetTier >= resetTiers.reincarnation) {
-    for (let ants = AntProducers.Workers; ants <= LAST_ANT; ants++) {
+    for (let ants = AntProducers.Workers; ants <= LAST_ANT_PRODUCER; ants++) {
       player.ants.producers[ants].purchased = 0
       player.ants.producers[ants].generated = new Decimal(0)
     }
@@ -1480,7 +1489,7 @@ export const resetAnts = (resetTier: resetTiers) => {
   }
 
   if (resetTier >= resetTiers.ascension) {
-    for (let ants = AntProducers.Workers; ants <= LAST_ANT; ants++) {
+    for (let ants = AntProducers.Workers; ants <= LAST_ANT_PRODUCER; ants++) {
       player.ants.producers[ants].mastery = 0
     }
     player.ants.immortalELO = 0

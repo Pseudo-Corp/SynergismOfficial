@@ -1,9 +1,12 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
-import { emptyAntProducer, LAST_ANT, LAST_ANT_UPGRADE, type PlayerAntProducers } from '../Ants'
+import { LAST_ANT_UPGRADE } from '../Ants'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
+import { defaultAntProducers } from '../Features/Ants/AntProducers/player/default'
+import type { PlayerAntProducers } from '../Features/Ants/AntProducers/structs/structs'
+import { AntProducers, LAST_ANT_PRODUCER } from '../Features/Ants/structs/structs'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { QuarkHandler } from '../Quark'
 import {
@@ -56,7 +59,10 @@ const leaderboardEntrySchema = z.object({
 
 const antProducerSchema = z.object({
   purchased: z.number(),
-  generated: decimalSchema,
+  generated: decimalSchema
+})
+
+const antMasterySchema = z.object({
   mastery: z.number(),
   highestMastery: z.number()
 })
@@ -66,18 +72,17 @@ const antsSchema = z.object({
     (record) => {
       const result: Record<number, PlayerAntProducers> = {}
 
-      // Convert existing string keys to numbers and validate they're valid enum values
-      for (const [key, value] of Object.entries(record)) {
+      for (const key of Object.keys(record)) {
+        const value = record[key]
         const numKey = Number(key)
-        if (numKey >= 0 && numKey <= LAST_ANT) {
+        if (numKey >= 0 && numKey <= LAST_ANT_PRODUCER) {
           result[numKey] = value
         }
       }
 
-      // Ensure all enum values are present, fill missing ones with emptyAntProducer
-      for (let i = 0; i <= LAST_ANT; i++) {
-        if (!(i in result)) {
-          result[i] = { ...emptyAntProducer }
+      for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
+        if (!(ant in result)) {
+          result[ant] = { ...defaultAntProducers[ant] }
         }
       }
 
@@ -85,6 +90,28 @@ const antsSchema = z.object({
     }
   )
     .default(() => blankSave.ants.producers),
+  masteries: z.record(z.string(), antMasterySchema).transform(
+    (record) => {
+      const result: Record<number, { mastery: number; highestMastery: number }> = {}
+
+      for (const key of Object.keys(record)) {
+        const value = record[key]
+        const numKey = Number(key)
+        if (numKey >= 0 && numKey <= LAST_ANT_PRODUCER) {
+          result[numKey] = value
+        }
+      }
+
+      for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
+        if (!(ant in result)) {
+          result[ant] = { mastery: 0, highestMastery: 0 }
+        }
+      }
+
+      return result
+    }
+  )
+    .default(() => blankSave.ants.masteries),
   upgrades: z.record(z.string(), z.number()).transform(
     (record) => {
       const result: Record<number, number> = {}

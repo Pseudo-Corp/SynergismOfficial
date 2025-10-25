@@ -1,13 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
-import {
-  AntUpgrades,
-  calculateBaseAntsToBeGenerated,
-  getAntUpgradeEffect,
-  showSacrifice,
-  updateLeaderboardUI
-} from './Ants'
+import { AntUpgrades, getAntUpgradeEffect, showSacrifice, updateLeaderboardUI } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calcAscensionCount,
@@ -57,6 +51,8 @@ import {
   type IMultiBuy
 } from './Cubes'
 import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
+import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib/calculate-production'
+import { AntProducers } from './Features/Ants/structs/structs'
 import { getFinalHepteractCap, type HepteractKeys, hepteractKeys, hepteracts } from './Hepteracts'
 import {
   calculateAcceleratorHypercubeBlessing,
@@ -766,7 +762,7 @@ export const visualUpdateAnts = () => {
     return
   }
   const antSpeedMult = calculateActualAntSpeedMult()
-  const firstTierProduction = calculateBaseAntsToBeGenerated(0, antSpeedMult)
+  const firstTierProduction = calculateBaseAntsToBeGenerated(AntProducers.Workers, antSpeedMult)
   DOMCacheGetOrSet('crumbcount').textContent = i18next.t(
     'ants.galacticCrumbCount',
     {
