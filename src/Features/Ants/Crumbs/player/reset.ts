@@ -5,8 +5,8 @@ import { defaultCrumbs, defaultHighestCrumbsEver, defaultHighestCrumbsThisSacrif
 
 export const resetPlayerAntCrumbs = (resetTier: AntSacrificeTiers): void => {
   if (resetTier >= AntSacrificeTiers.sacrifice) {
-    player.ants.crumbs = Decimal.fromString(defaultCrumbs)
-    player.ants.highestCrumbsThisSacrifice = Decimal.fromString(defaultHighestCrumbsThisSacrifice)
+    player.ants.crumbs = Decimal.fromDecimal(defaultCrumbs)
+    player.ants.highestCrumbsThisSacrifice = Decimal.fromDecimal(defaultHighestCrumbsThisSacrifice)
   }
   // Sing Perk
   if (player.highestSingularityCount >= 20) {
@@ -14,6 +14,6 @@ export const resetPlayerAntCrumbs = (resetTier: AntSacrificeTiers): void => {
   }
   // If player resets the game
   if (resetTier >= AntSacrificeTiers.never) {
-    player.ants.highestCrumbsEver = Decimal.fromString(defaultHighestCrumbsEver)
+    player.ants.highestCrumbsEver = Decimal.fromDecimal(defaultHighestCrumbsEver)
   }
 }
