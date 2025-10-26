@@ -9,7 +9,7 @@ export const calculateAntSacrificeObtainium = (stageMult: number) => {
     (a, b) => a * b.stat(),
     1
   )
-  const overallSacrificeMultiplier = new Decimal(1).times(antSacMult).times(stageMult).times(timeMultiplier)
+  const overallSacrificeMultiplier = Decimal.fromString('1').times(antSacMult).times(stageMult).times(timeMultiplier)
 
   const useTimeMultInCalculateObtainium = false
   const finalObtainium = calculateObtainium(useTimeMultInCalculateObtainium).times(overallSacrificeMultiplier)
