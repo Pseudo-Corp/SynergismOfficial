@@ -8,9 +8,9 @@ import type { AntProducerData } from '../structs/structs'
 
 export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.Workers]: {
-    baseCost: new Decimal(1),
+    baseCost: Decimal.fromString('1'),
     costIncrease: 3,
-    baseProduction: new Decimal(0.01),
+    baseProduction: Decimal.fromNumber(0.01),
     color: '#AB8654',
     additionalTexts: [
       {
@@ -57,7 +57,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.Breeders]: {
     baseCost: Decimal.fromString('10'),
     costIncrease: 10,
-    baseProduction: new Decimal(1e-4),
+    baseProduction: Decimal.fromNumber(1e-4),
     color: '#B77D48',
     additionalTexts: [
       {
@@ -73,7 +73,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.MetaBreeders]: {
     baseCost: Decimal.fromString('1e5'),
     costIncrease: 1e2,
-    baseProduction: new Decimal(1e-7),
+    baseProduction: Decimal.fromNumber(1e-7),
     color: '#C2783D',
     additionalTexts: [
       {
@@ -89,7 +89,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.MegaBreeders]: {
     baseCost: Decimal.fromString('1e12'),
     costIncrease: 1e4,
-    baseProduction: new Decimal(1e-12),
+    baseProduction: Decimal.fromNumber(1e-12),
     color: '#CA7035',
     additionalTexts: [
       {
@@ -105,7 +105,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.Queens]: {
     baseCost: Decimal.fromString('1e300'),
     costIncrease: 1e8,
-    baseProduction: new Decimal(1e-80),
+    baseProduction: Decimal.fromNumber(1e-80),
     color: '#D26B2D',
     additionalTexts: [
       {
@@ -129,7 +129,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.LordRoyals]: {
     baseCost: Decimal.fromString('1e1000'),
     costIncrease: 1e16,
-    baseProduction: new Decimal(1e-220),
+    baseProduction: Decimal.fromNumber(1e-220),
     color: '#DC6623',
     additionalTexts: [
       {

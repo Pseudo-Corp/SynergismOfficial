@@ -20,9 +20,9 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       Decimal.fromString('1e100000000')
     ],
     selfSpeedMultipliers: [
-      new Decimal(1),
-      new Decimal(3),
-      new Decimal(9),
+      Decimal.fromString('1'),
+      Decimal.fromString('3'),
+      Decimal.fromString('9'),
       Decimal.fromString('20'),
       Decimal.fromString('100'),
       Decimal.fromString('1e4'),
@@ -53,8 +53,8 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       Decimal.fromString('1e175000000')
     ],
     selfSpeedMultipliers: [
-      new Decimal(1),
-      new Decimal(4),
+      Decimal.fromString('1'),
+      Decimal.fromString('4'),
       Decimal.fromString('16'),
       Decimal.fromString('100'),
       Decimal.fromString('1e5'),
@@ -86,7 +86,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       Decimal.fromString('1e300000000')
     ],
     selfSpeedMultipliers: [
-      new Decimal(1),
+      Decimal.fromString('1'),
       Decimal.fromString('10'),
       Decimal.fromString('200'),
       Decimal.fromString('1e4'),
@@ -133,7 +133,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       Decimal.fromString('1e500000000')
     ],
     selfSpeedMultipliers: [
-      new Decimal(1),
+      Decimal.fromString('1'),
       Decimal.fromString('60'),
       Decimal.fromString('1e4'),
       Decimal.fromString('1e7'),
@@ -179,7 +179,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       Decimal.fromString('1e800000000')
     ],
     selfSpeedMultipliers: [
-      new Decimal(1),
+      Decimal.fromString('1'),
       Decimal.fromString('100'),
       Decimal.fromString('1e5'),
       Decimal.fromString('1e12'),
@@ -225,7 +225,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       Decimal.fromString('1e1250000000')
     ],
     selfSpeedMultipliers: [
-      new Decimal(1),
+      Decimal.fromString('1'),
       Decimal.fromString('1e5'),
       Decimal.fromString('1e12'),
       Decimal.fromString('1e24'),
@@ -271,7 +271,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       Decimal.fromString('1e3000000000')
     ],
     selfSpeedMultipliers: [
-      new Decimal(1),
+      Decimal.fromString('1'),
       Decimal.fromString('1e24'),
       Decimal.fromString('1e48'),
       Decimal.fromString('1e80'),
@@ -317,7 +317,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       Decimal.fromString('1e10000000000')
     ],
     selfSpeedMultipliers: [
-      new Decimal(1),
+      Decimal.fromString('1'),
       Decimal.fromString('1e80'),
       Decimal.fromString('1e120'),
       Decimal.fromString('1e200'),
@@ -363,7 +363,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       Decimal.fromString('12')
     ],
     selfSpeedMultipliers: [
-      new Decimal(1),
+      Decimal.fromString('1'),
       Decimal.fromString('1e2500'),
       Decimal.fromString('1e4200'),
       Decimal.fromString('1e8000'),

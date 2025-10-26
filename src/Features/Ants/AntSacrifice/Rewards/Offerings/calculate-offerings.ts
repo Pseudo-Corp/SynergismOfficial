@@ -9,7 +9,7 @@ export const calculateAntSacrificeOffering = (stageMult: number) => {
     (a, b) => a * b.stat(),
     1
   )
-  const overallSacrificeMultiplier = new Decimal(1).times(antSacMult).times(stageMult).times(timeMultiplier)
+  const overallSacrificeMultiplier = Decimal.fromString('1').times(antSacMult).times(stageMult).times(timeMultiplier)
 
   const useTimeMultInCalculateOfferings = false
   const offeringMult = calculateOfferings(useTimeMultInCalculateOfferings)
