@@ -1,31 +1,25 @@
 import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
-import type { AntUpgrades } from '../Ants'
-import type {
-  AmbrosiaUpgradeNames,
-  BlueberryLoadoutMode,
-  BlueberryOpt,
-  BlueberryUpgrade,
-  BlueberryUpgradeNames
-} from '../BlueberryUpgrades'
+import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
 import type { CampaignManager } from '../Campaign'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
-import type { AntProducers, PlayerAntMasteries, PlayerAntProducers } from '../Features/Ants/structs/structs'
-import type { HepteractCraft, HepteractKeys, HepteractNames, HepteractValues } from '../Hepteracts'
+import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
+import type { PlayerAntProducers } from '../Features/Ants/AntProducers/structs/structs'
+import type { AntUpgrades } from '../Features/Ants/AntUpgrades/structs/structs'
+import type { AntProducers } from '../Features/Ants/structs/structs'
+import type { HepteractKeys, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
-import type { OcteractDataKeys, OcteractUpgrade } from '../Octeracts'
+import type { OcteractDataKeys } from '../Octeracts'
 import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
-import type { RuneBlessingKeys, RuneKeys, RuneSpiritKeys } from '../Runes'
-import type { SingularityDataKeys, SingularityUpgrade } from '../singularity'
-import type {
-  SingularityChallenge,
-  singularityChallengeData,
-  SingularityChallengeDataKeys
-} from '../SingularityChallenges'
+import type { RuneBlessingKeys } from '../RuneBlessings'
+import type { RuneKeys } from '../Runes'
+import type { RuneSpiritKeys } from '../RuneSpirits'
+import type { SingularityDataKeys } from '../singularity'
+import type { SingularityChallenge, SingularityChallengeDataKeys } from '../SingularityChallenges'
 import type { Tabs } from '../Tabs'
 import type { TalismanCraftItems, TalismanKeys } from '../Talismans'
 

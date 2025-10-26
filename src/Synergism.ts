@@ -183,6 +183,7 @@ import { autobuyAnts } from './Features/Ants'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
+import { defaultPlayerAnts } from './Features/Ants/player/default'
 import {
   defaultHepteractValues,
   getHepteractEffects,
@@ -241,7 +242,6 @@ import {
 import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
 import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
-import { defaultPlayerAnts } from './Features/Ants/player/default'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
