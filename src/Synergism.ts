@@ -180,11 +180,8 @@ import { dev, lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
 import { autobuyAnts } from './Features/Ants'
-import { defaultAntMasteries } from './Features/Ants/AntMasteries/player/default'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
-import { defaultAntProducers } from './Features/Ants/AntProducers/player/default'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
-import { defaultAntUpgrades } from './Features/Ants/AntUpgrades/player/default'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import {
   defaultHepteractValues,
@@ -244,6 +241,7 @@ import {
 import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
 import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
+import { defaultPlayerAnts } from './Features/Ants/player/default'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -354,21 +352,7 @@ export const player: Player = {
   fifthCostParticles: new Decimal('1e16'),
   fifthProduceParticles: 0.5,
 
-  ants: {
-    producers: { ...defaultAntProducers },
-    masteries: { ...defaultAntMasteries },
-    upgrades: { ...defaultAntUpgrades },
-    crumbs: new Decimal('1'),
-    highestCrumbsThisSacrifice: new Decimal('1'),
-    highestCrumbsEver: new Decimal('1'),
-    immortalELO: 0,
-    rebornELO: 0,
-    highestRebornELODaily: [],
-    highestRebornELOEver: [],
-    quarksGainedFromAnts: 0,
-    antSacrificeCount: 0,
-    currentSacrificeId: 0
-  },
+  ants: defaultPlayerAnts,
 
   ascendBuilding1: {
     cost: 1,
