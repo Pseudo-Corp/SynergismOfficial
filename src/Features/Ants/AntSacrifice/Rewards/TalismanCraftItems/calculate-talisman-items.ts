@@ -9,9 +9,9 @@ export const calculateAntSacrificeTalismanItem = (
   stageMult: number
 ): Decimal => {
   if (elo < talismanItemRequiredELO[item]) {
-    return new Decimal(0)
+    return Decimal.fromString('0')
   } else {
-    return new Decimal(rewardMult)
+    return Decimal.fromDecimal(rewardMult)
       .times(elo - talismanItemRequiredELO[item] + 1)
       .times(stageMult)
       .times(talismanRewardMultipliers[item])

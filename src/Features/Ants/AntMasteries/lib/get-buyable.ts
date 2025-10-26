@@ -12,7 +12,6 @@ export const canBuyAntMastery = (ant: AntProducers): boolean => {
     const reqELO = antMasteryData[ant].totalELORequirements[level]
     const elo = player.ants.immortalELO
     const eloCheck = elo >= reqELO
-    const particleCheck = player.reincarnationPoints.gte(antMasteryData[ant].particleCosts[level])
-    return eloCheck && particleCheck
+    return eloCheck && player.reincarnationPoints.gte(antMasteryData[ant].particleCosts[level])
   }
 }
