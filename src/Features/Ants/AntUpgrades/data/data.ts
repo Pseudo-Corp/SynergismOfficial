@@ -8,7 +8,7 @@ import { type AntUpgradeData, AntUpgrades } from '../structs/structs'
 
 export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   [AntUpgrades.AntSpeed]: {
-    baseCost: new Decimal(100),
+    baseCost: Decimal.fromString('100'),
     costIncrease: 10,
     antUpgradeHTML: {
       color: 'crimson'
@@ -36,7 +36,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.Coins]: {
-    baseCost: new Decimal(100),
+    baseCost: Decimal.fromString('100'),
     costIncrease: 10,
     antUpgradeHTML: {
       color: 'yellow'
@@ -66,7 +66,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.Taxes]: {
-    baseCost: new Decimal(1000),
+    baseCost: Decimal.fromString('1000'),
     costIncrease: 10,
     antUpgradeHTML: {
       color: 'lightgray'
@@ -86,7 +86,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.AcceleratorBoosts]: {
-    baseCost: new Decimal(1000),
+    baseCost: Decimal.fromString('1000'),
     costIncrease: 10,
     antUpgradeHTML: {
       color: 'cyan'
@@ -108,7 +108,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.Multipliers]: {
-    baseCost: new Decimal(1e5),
+    baseCost: Decimal.fromString('1e5'),
     costIncrease: 100,
     antUpgradeHTML: {
       color: 'pink'
@@ -128,7 +128,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.Offerings]: {
-    baseCost: new Decimal(1e6),
+    baseCost: Decimal.fromString('1e6'),
     costIncrease: 100,
     antUpgradeHTML: {
       color: 'orange'
@@ -148,7 +148,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.BuildingCostScale]: {
-    baseCost: new Decimal(1e11),
+    baseCost: Decimal.fromString('1e11'),
     costIncrease: 100,
     antUpgradeHTML: {
       color: 'lime'
@@ -171,7 +171,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.Salvage]: {
-    baseCost: new Decimal(1e15),
+    baseCost: Decimal.fromString('1e15'),
     costIncrease: 1000,
     antUpgradeHTML: {
       color: 'green'
@@ -191,7 +191,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.FreeRunes]: {
-    baseCost: new Decimal(1e20),
+    baseCost: Decimal.fromString('1e20'),
     costIncrease: 1000,
     antUpgradeHTML: {
       color: 'cyan'
@@ -211,7 +211,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.Obtainium]: {
-    baseCost: new Decimal(1e6),
+    baseCost: Decimal.fromString('1e6'),
     costIncrease: 100,
     antUpgradeHTML: {
       color: 'pink'
@@ -231,7 +231,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.AntSacrifice]: {
-    baseCost: new Decimal(1e120),
+    baseCost: Decimal.fromString('1e120'),
     costIncrease: 1e20,
     antUpgradeHTML: {
       color: 'crimson'
@@ -251,7 +251,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.Mortuus]: {
-    baseCost: new Decimal(1e300),
+    baseCost: Decimal.fromString('1e300'),
     costIncrease: 1e100,
     antUpgradeHTML: {
       color: 'gray'
