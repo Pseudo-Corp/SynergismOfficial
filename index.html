@@ -1740,18 +1740,16 @@
                 </div>
 
                 <div id="antToggleFeatures">
+                    <div>
+                        <button id="toggleAutobuyAntProducer" class="antToggleBtn"></button>
+                        <button id="toggleAutobuyAntMastery" class="antToggleBtn"></button>
+                        <button id="toggleAutobuyAntUpgrades" class="antToggleBtn"></button>
+                    </div>
+                    <div>
                     <button id="toggleBuyAntProducerMax" class="antToggleBtn"></button>
                     <button id="toggleBuyAntUpgradesMax" class="antToggleBtn"></button>
-                    <button id="toggleAutobuyAntProducer" class="antToggleBtn"></button>
-                    <button id="toggleAutobuyAntMastery" class="antToggleBtn"></button>
-                    <button id="toggleAutobuyAntUpgrades" class="antToggleBtn"></button>
-                    <button id="toggleAutoSacrificeAnt" class="antToggleBtn"></button>
-                    <div class="antSacrificeSettingsContainer" id="antSacrificeButtons">
-                        <button id="autoSacrificeAntMode"></button>
-                        <input id="autoAntSacrificeAmount" type="number">
                     </div>
                 </div>
-                <span id="autoAntSacrifice"></span>
             </div>
             <div id="antSubtab2" style="display: none;">
                 <div id="antSacrificeWelcomeTexts">
@@ -1759,21 +1757,34 @@
                     <p id="antAltarDescription" style="color: plum" i18n="ants.altarDetails"></p>
                 </div>
                 <div id="sacrificeAnts" style="display: none">
-                    <div class="sacrificeStatus">
+                    <div id="sacrificeStatus">
                         <button id="antSacrifice" i18n-aria-label="ants.antSacrifice" style="display: inline-block;">
                         <img alt="" src="Pictures/Default/AntSacrifice.png" style="cursor: pointer; display: block;" loading="lazy">
                         </button>
                         <p id="anthillAliveText" i18n="ants.anthillAlive"></p>
                         <p id="antSacrificeTimer" class="bodycolor">Last Sacrifice: 1s ago</p>
+                        <p id="antSacrificeNumber" class="bodycolor">34</p>
                         <p id="sacrificeTimeMultiplier"></p>
                         <p id="sacrificeUpgradeMultiplier"></p>
                         <p id="crumbCountAgain" class="crimsonText"></p>
                         <p id="ELO"></p>
                     </div>
+                    <div id="autoSacrificeSettings">
+                        <p style="font-size: 1.3em">The Great Automator</p>
+                        <button id="toggleAutoSacrificeAnt" class="antToggleBtn"></button>
+                        <div class="antSacrificeSettingsContainer" id="antSacrificeButtons">
+                            <button id="autoSacrificeAntMode"></button>
+                            <input id="autoAntSacrificeAmount" type="number">
+                        </div>
+                        <span id="autoAntSacrifice"></span>
+                        <br>
+                        <span id="minimumTimeToSacrifice" i18n="ants.minimumTimeToSacrifice"></span>
+                        <span id="sacrificeSecondsElapsed"></span>
+                    </div>
                 </div>
                 <div id="antSacrificeImmortalAndWorldlyRewards" style="width: 90%;">
                     <div id="antSacrificeImmortalELO" style="width: 30%;">
-                        <p style="font-size: 1.3em">Immortality</p>
+                        <p style="font-size: 1.3em; text-decoration: underline solid crimson 2px">Immortality</p>
                         <button id="immortalELOInfoToggleButton" class="antLeaderboardToggleBtn" data-mode="overview">
                             <span i18n="ants.compendium.toggleOverview"></span>
                         </button>
@@ -1806,7 +1817,7 @@
                         </div>
                     </div>
                     <div id="antSacrificeRewards" style="width: 40%;">
-                        <p id="antSacrificeRewardsTitle" style="font-size: 1.3em">Worldly Rewards</p>
+                        <p id="antSacrificeRewardsTitle" style="font-size: 1.3em; text-decoration: underline solid var(--lightseagreen-text-color) 2px">Worldly Rewards</p>
                         <div id="antSacrificeObtainiumOfferings">
                             <div class="antSacrificeRewardColumn" style="border: 2px solid orange; border-radius: 4px;">
                                 <img src="Pictures/Default/Offering.png" i18n="general.resources.offering" loading="lazy">
@@ -1851,7 +1862,7 @@
                         </div>
                     </div>
                     <div id="antSacrificeCompendium" style="width: 30%;">
-                        <p style="font-size: 1.3em" i18n="ants.compendium.header"></p>
+                        <p style="font-size: 1.3em; text-decoration: underline solid cyan 2px;" i18n="ants.compendium.header"></p>
                         <div id="antSacrificeCompendiumInfo">
                             <div id="antLeaderboardContainer">
                                 <button id="antLeaderboardToggle" class="antLeaderboardToggleBtn" data-mode="daily">

@@ -9,12 +9,14 @@ import { thresholdModifiers } from '../Stages/lib/threshold'
 export const calculateAvailableRebornELO = () => {
   const pool = player.ants.immortalELO
   const alreadyActivated = player.ants.rebornELO
-  const currentELO = calculateEffectiveAntELO()
-  return Math.max(0, Math.min(pool, currentELO) - alreadyActivated)
+  return Math.max(0, pool - alreadyActivated)
 }
 
 export const rebornELOCreationSpeedMult = () => {
   let multiplier = 1
+  const effectiveELO = calculateEffectiveAntELO()
+  const immortalELO = Math.max(player.ants.immortalELO, 1)
+  multiplier *= Math.pow(effectiveELO / immortalELO, 2)
   if (player.ants.producers[AntProducers.Queens].purchased > 0) {
     multiplier *= 1.15
   }

@@ -7,7 +7,8 @@ export const computeFreeAntUpgradeLevels = () => {
   bonusLevels += CalcECC('reincarnation', player.challengecompletions[9])
   bonusLevels += 2000 * (1 - Math.pow(0.999, player.constantUpgrades[6]))
   bonusLevels += 12 * CalcECC('ascension', player.challengecompletions[11])
-  bonusLevels += 4 * player.researches[97]
+  bonusLevels += 2 * player.researches[97]
+  bonusLevels += 2 * player.researches[98]
   bonusLevels += player.researches[102]
   bonusLevels += 2 * player.researches[132]
   bonusLevels += Math.floor((1 / 200) * player.researches[200])

@@ -7,8 +7,8 @@ export const activateELO = (dt: number) => {
   const toActivate = calculateAvailableRebornELO()
   if (toActivate > 0) {
     const activationSpeed = dt * rebornELOCreationSpeedMult()
-    const decayedGain = toActivate * (1 - Math.pow(0.999, activationSpeed))
-    const linearGain = 100 * activationSpeed
+    const decayedGain = toActivate * (1 - Math.pow(0.995, activationSpeed))
+    const linearGain = 400 * activationSpeed
     const actualGain = Math.min(decayedGain, linearGain)
     player.ants.rebornELO += actualGain
 

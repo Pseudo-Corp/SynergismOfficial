@@ -267,7 +267,7 @@ export const revealStuff = () => {
   }
 
   getAchievementReward('antSacrificeUnlock') // Galactic Crumb Achievement 5
-    ? DOMCacheGetOrSet('sacrificeAnts').style.display = 'block'
+    ? DOMCacheGetOrSet('sacrificeAnts').style.display = 'flex'
     : DOMCacheGetOrSet('sacrificeAnts').style.display = 'none'
 
   player.researches[39] > 0 // 3x9 Research [Crystal Building Power]
@@ -282,17 +282,9 @@ export const revealStuff = () => {
     ? DOMCacheGetOrSet('reincarnateautomation').style.display = 'block'
     : DOMCacheGetOrSet('reincarnateautomation').style.display = 'none'
 
-  if (player.researches[124] > 0) { // 5x24 Research [AutoSac]
-    DOMCacheGetOrSet('antSacrificeButtons').style.display = 'flex'
-    DOMCacheGetOrSet('autoAntSacrifice').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('antSacrificeButtons').style.display = 'none'
-    DOMCacheGetOrSet('autoAntSacrifice').style.display = 'none'
-  }
-
-  player.researches[124] > 0 || player.highestSingularityCount > 0 // So you can turn it off before 5x24 Research
-    ? DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'block'
-    : DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'none'
+  player.researches[124] > 0 || player.highestSingularityCount > 0 // IF you've singularity'd, just unlock this already.
+    ? DOMCacheGetOrSet('autoSacrificeSettings').style.display = 'flex'
+    : DOMCacheGetOrSet('autoSacrificeSettings').style.display = 'none'
 
   player.researches[130] > 0 // 6x5 Research [Talisman Auto Fortify]
     ? DOMCacheGetOrSet('toggleautofortify').style.display = 'block'
