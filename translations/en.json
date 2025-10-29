@@ -2319,6 +2319,48 @@
       "stages": "<<turquoise|Stage>>",
       "weight": "Weight"
     },
+    "maxBuy": {
+      "producer": {
+        "on": "Ant Producers: Buy MAX",
+        "off": "Ant Producers: Buy 1"
+      },
+      "upgrade": {
+        "on": "Ant Upgrades: Buy MAX",
+        "off": "Ant Upgrades: Buy 1"
+      }
+    },
+    "autobuy": {
+      "producer": {
+        "on": "Ant Producer: AUTO",
+        "off": "Ant Producer: MANUAL"
+      },
+      "mastery": {
+        "on": "Ant Mastery: AUTO",
+        "off": "Ant Mastery: MANUAL"
+      },
+      "upgrade": {
+        "on": "Ant Upgrade: AUTO",
+        "off": "Ant Upgrade: MANUAL"
+      }
+    },
+    "autoSacrifice": {
+      "inGameTimer": {
+        "name": "Mode: In-Game time",
+        "info": "Sacrifice when the in-game Ant Timer reaches {{req}} seconds. [{{curr}}/{{req}}]"
+      },
+      "realLifeTimer": {
+        "name": "Mode: Real time",
+        "info": "Sacrifice after {{req}} real-life seconds. [{{curr}}/{{req}}]"
+      },
+      "immortalELOGain": {
+        "name": "Mode: Immortal ELO",
+        "info": "Sacrifice when you can gain at least {{req}} Immortal ELO. [{{curr}}/{{req}}]"
+      },
+      "maxRebornELO": {
+        "name": "Mode: Reborn ELO",
+        "info": "Sacrifice when your maximum Reborn ELO is reached. [{{curr}} Available]"
+      }
+    },
     "header": "The ants welcome you to their home.",
     "hover": "Hover over the icons for description. Click icons to buy!",
     "altarHeader": "Ant God... <<crimson | It Hungers.>>",

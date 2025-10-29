@@ -4,6 +4,7 @@ import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
+import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
 import { defaultAntProducers } from '../Features/Ants/AntProducers/player/default'
 import type { PlayerAntProducers } from '../Features/Ants/AntProducers/structs/structs'
 import { defaultAntUpgrades } from '../Features/Ants/AntUpgrades/player/default'
@@ -94,7 +95,7 @@ const antsSchema = z.object({
     .default(() => blankSave.ants.producers),
   masteries: z.record(z.string(), antMasterySchema).transform(
     (record) => {
-      const result: Record<number, { mastery: number; highestMastery: number }> = {}
+      const result: Record<number, PlayerAntMasteries> = {}
 
       for (const key of Object.keys(record)) {
         const value = record[key]
@@ -148,7 +149,17 @@ const antsSchema = z.object({
   ),
   quarksGainedFromAnts: z.number().default(() => blankSave.ants.quarksGainedFromAnts),
   antSacrificeCount: z.number().default(() => blankSave.ants.antSacrificeCount),
-  currentSacrificeId: z.number().default(() => blankSave.ants.currentSacrificeId)
+  currentSacrificeId: z.number().default(() => blankSave.ants.currentSacrificeId),
+  toggles: z.object({
+    autobuyProducers: z.boolean().default(() => blankSave.ants.toggles.autobuyProducers),
+    autobuyMasteries: z.boolean().default(() => blankSave.ants.toggles.autobuyMasteries),
+    autobuyUpgrades: z.boolean().default(() => blankSave.ants.toggles.autobuyUpgrades),
+    maxBuyProducers: z.boolean().default(() => blankSave.ants.toggles.maxBuyProducers),
+    maxBuyUpgrades: z.boolean().default(() => blankSave.ants.toggles.maxBuyUpgrades),
+    autoSacrificeEnabled: z.boolean().default(() => blankSave.ants.toggles.autoSacrificeEnabled),
+    autoSacrificeThreshold: z.number().default(() => blankSave.ants.toggles.autoSacrificeThreshold),
+    autoSacrificeMode: z.number().default(() => blankSave.ants.toggles.autoSacrificeMode)
+  })
 })
 
 const ascendBuildingSchema = z.object({
@@ -710,10 +721,10 @@ export const playerSchema = z.object({
 
   buyTalismanShardPercent: z.number().default(() => blankSave.buyTalismanShardPercent),
 
-  autoAntSacrifice: z.boolean().default(() => blankSave.autoAntSacrifice),
-  autoAntSacTimer: z.number().default(() => blankSave.autoAntSacTimer),
-  autoAntSacrificeMode: z.number().default(() => blankSave.autoAntSacrificeMode),
-  antMax: z.boolean().default(() => blankSave.antMax),
+  autoAntSacrifice: z.boolean().optional(),
+  autoAntSacTimer: z.number().optional(),
+  autoAntSacrificeMode: z.number().optional(),
+  antMax: z.boolean().optional(),
 
   ascensionCount: z.number().default(() => blankSave.ascensionCount),
   ascensionCounter: z.number().default(() => blankSave.ascensionCounter),

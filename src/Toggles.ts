@@ -644,37 +644,6 @@ export const toggleHideShop = () => {
   player.shopHideToggle = !player.shopHideToggle
 }
 
-export const toggleAntMaxBuy = () => {
-  const el = DOMCacheGetOrSet('toggleAntMax')
-  el.textContent = player.antMax
-    ? i18next.t('general.buyMaxOff')
-    : i18next.t('general.buyMaxOn')
-
-  player.antMax = !player.antMax
-}
-
-export const toggleAntAutoSacrifice = (mode = 0) => {
-  if (mode === 0) {
-    const el = DOMCacheGetOrSet('toggleAutoSacrificeAnt')
-    if (player.autoAntSacrifice) {
-      player.autoAntSacrifice = false
-      el.textContent = i18next.t('ants.autoSacrificeOff')
-    } else {
-      player.autoAntSacrifice = true
-      el.textContent = i18next.t('ants.autoSacrificeOn')
-    }
-  } else if (mode === 1) {
-    const el = DOMCacheGetOrSet('autoSacrificeAntMode')
-    if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
-      player.autoAntSacrificeMode = 2
-      el.textContent = i18next.t('ants.modeRealTime')
-    } else {
-      player.autoAntSacrificeMode = 1
-      el.textContent = i18next.t('ants.modeInGameTime')
-    }
-  }
-}
-
 export const toggleMaxBuyCube = () => {
   const el = DOMCacheGetOrSet('toggleCubeBuy')
   if (player.cubeUpgradesBuyMaxToggle) {

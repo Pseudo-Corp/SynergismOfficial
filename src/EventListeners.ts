@@ -45,6 +45,12 @@ import { antUpgradeHTML } from './Features/Ants/HTML/modals/upgrade-modal'
 import { toggleRebornELOInfo } from './Features/Ants/HTML/updates/elo-info'
 import { toggleLeaderboardMode } from './Features/Ants/HTML/updates/leaderboard'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
+import { toggleAutoAntSacrificeEnabled, toggleAutoAntSacrificeMode } from './Features/Ants/toggles/auto-sacrifice'
+import { toggleAutobuyAntMastery } from './Features/Ants/toggles/autobuy-mastery'
+import { toggleAutobuyAntProducer } from './Features/Ants/toggles/autobuy-producer'
+import { toggleAutobuyAntUpgrade } from './Features/Ants/toggles/autobuy-upgrade'
+import { toggleMaxBuyAntProducer } from './Features/Ants/toggles/max-producer-buy'
+import { toggleMaxBuyAntUpgrade } from './Features/Ants/toggles/max-upgrade-buy'
 import {
   craftHepteracts,
   expandHepteracts,
@@ -136,8 +142,6 @@ import { IconSets, imgErrorHandler, toggleAnnotation, toggleIconSet, toggleTheme
 import {
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
-  toggleAntAutoSacrifice,
-  toggleAntMaxBuy,
   toggleAscStatPerSecond,
   toggleAutoAscend,
   toggleAutoBuyFragment,
@@ -774,7 +778,7 @@ export const generateEventHandlers = () => {
     antTier.addEventListener('mouseout', () => CloseModal())
     antTier.addEventListener('blur', () => CloseModal())
     antTier.addEventListener('click', (event) => {
-      buyAntProducers(ant, player.antMax)
+      buyAntProducers(ant, player.ants.toggles.maxBuyProducers)
       Modal(antProducerHTML(ant), event.clientX, event.clientY, { borderColor: antProducerData[ant].color }, true)
     })
 
@@ -819,7 +823,7 @@ export const generateEventHandlers = () => {
     antUpgrade.addEventListener('mouseout', () => CloseModal())
     antUpgrade.addEventListener('blur', () => CloseModal())
     antUpgrade.addEventListener('click', (event) => {
-      buyAntUpgrade(upgrade, player.antMax)
+      buyAntUpgrade(upgrade, player.ants.toggles.maxBuyUpgrades)
       Modal(antUpgradeHTML(upgrade), event.clientX, event.clientY, { borderColor: 'burlywood' }, true)
     })
   }
@@ -831,9 +835,13 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('antLeaderboardToggle').addEventListener('click', () => toggleLeaderboardMode())
 
   // Part 4: QoL Buttons
-  DOMCacheGetOrSet('toggleAntMax').addEventListener('click', () => toggleAntMaxBuy())
-  DOMCacheGetOrSet('toggleAutoSacrificeAnt').addEventListener('click', () => toggleAntAutoSacrifice(0))
-  DOMCacheGetOrSet('autoSacrificeAntMode').addEventListener('click', () => toggleAntAutoSacrifice(1))
+  DOMCacheGetOrSet('toggleBuyAntProducerMax').addEventListener('click', () => toggleMaxBuyAntProducer())
+  DOMCacheGetOrSet('toggleBuyAntUpgradesMax').addEventListener('click', () => toggleMaxBuyAntUpgrade())
+  DOMCacheGetOrSet('toggleAutobuyAntProducer').addEventListener('click', () => toggleAutobuyAntProducer())
+  DOMCacheGetOrSet('toggleAutobuyAntMastery').addEventListener('click', () => toggleAutobuyAntMastery())
+  DOMCacheGetOrSet('toggleAutobuyAntUpgrades').addEventListener('click', () => toggleAutobuyAntUpgrade())
+  DOMCacheGetOrSet('toggleAutoSacrificeAnt').addEventListener('click', () => toggleAutoAntSacrificeEnabled())
+  DOMCacheGetOrSet('autoSacrificeAntMode').addEventListener('click', () => toggleAutoAntSacrificeMode())
 
   // WOW! Cubes Tab
   // Part 0: Subtab UI
