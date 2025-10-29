@@ -3,6 +3,7 @@ import i18next from 'i18next'
 import { type AmbrosiaUpgradeNames, ambrosiaUpgrades } from '../BlueberryUpgrades'
 import { CorruptionLoadout, type Corruptions, CorruptionSaves } from '../Corruptions'
 import { AntProducers } from '../Features/Ants/structs/structs'
+import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { type OcteractDataKeys, octeractUpgrades } from '../Octeracts'
 import { goldenQuarkUpgrades, type SingularityDataKeys } from '../singularity'
@@ -256,6 +257,23 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
       player.ants.antSacrificeCount = (player.antSacrificePoints > 0) ? 1 : 0
     }
 
+    if (player.autoAntSacrifice !== undefined) {
+      player.ants.toggles.autoSacrificeEnabled = player.autoAntSacrifice
+    }
+
+    if (player.autoAntSacTimer !== undefined) {
+      player.ants.toggles.autoSacrificeThreshold = player.autoAntSacTimer
+    }
+
+    if (player.autoAntSacrificeMode !== undefined) {
+      player.ants.toggles.autoSacrificeMode = player.autoAntSacrificeMode % NUM_SACRIFICE_MODES
+    }
+
+    if (player.antMax !== undefined) {
+      player.ants.toggles.maxBuyProducers = player.antMax
+      player.ants.toggles.maxBuyUpgrades = player.antMax
+    }
+
     Alert(i18next.t('versionChangeAnnouncements.ants'))
   }
 
@@ -326,6 +344,10 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   Reflect.deleteProperty(player, 'antPoints')
   Reflect.deleteProperty(player, 'antSacrificePoints')
   Reflect.deleteProperty(player, 'antUpgrades')
+  Reflect.deleteProperty(player, 'autoAntSacrifice')
+  Reflect.deleteProperty(player, 'autoAntSacTimer')
+  Reflect.deleteProperty(player, 'autoAntSacrificeMode')
+  Reflect.deleteProperty(player, 'antMax')
 
   return player
 })

@@ -55,6 +55,7 @@ import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-eff
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { updateLeaderboardUI } from './Features/Ants/HTML/updates/leaderboard'
 import { showSacrifice } from './Features/Ants/HTML/updates/sacrifice'
+import { autoAntSacrificeModeDescHTML } from './Features/Ants/HTML/updates/toggles/sacrifice-mode'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getFinalHepteractCap, type HepteractKeys, hepteractKeys, hepteracts } from './Hepteracts'
 import {
@@ -786,21 +787,7 @@ export const visualUpdateAnts = () => {
     }
   )
 
-  const mode = player.autoAntSacrificeMode === 2
-    ? i18next.t('ants.modeRealTime')
-    : i18next.t('ants.modeInGameTime')
-  const timer = player.autoAntSacrificeMode === 2
-    ? player.antSacrificeTimerReal
-    : player.antSacrificeTimer
-
-  DOMCacheGetOrSet('autoAntSacrifice').textContent = i18next.t(
-    'ants.sacrificeWhenTimer',
-    {
-      x: player.autoAntSacTimer,
-      y: mode,
-      z: format(timer, 2)
-    }
-  )
+  autoAntSacrificeModeDescHTML(player.ants.toggles.autoSacrificeMode)
 
   if (getAchievementReward('antSacrificeUnlock')) {
     DOMCacheGetOrSet('antSacrificeTimer').textContent = `⧖ ${

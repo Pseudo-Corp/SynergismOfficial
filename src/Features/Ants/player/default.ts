@@ -12,6 +12,16 @@ import {
 import { defaultAntUpgrades } from '../AntUpgrades/player/default'
 import { defaultCrumbs, defaultHighestCrumbsEver, defaultHighestCrumbsThisSacrifice } from '../Crumbs/player/default'
 import type { PlayerAnts } from '../structs/structs'
+import {
+  defaultAutobuyAntMasterySetting,
+  defaultAutobuyAntProducerSetting,
+  defaultAutobuyAntUpgradeSetting,
+  defaultAutoSacrificeEnabled,
+  defaultAutoSacrificeSetting,
+  defaultAutoSacrificeThreshold,
+  defaultMaxAntProducerBuySetting,
+  defaultMaxAntUpgradeBuySetting
+} from '../toggles/player/default'
 
 export const defaultPlayerAnts: PlayerAnts = {
   producers: { ...defaultAntProducers },
@@ -26,5 +36,15 @@ export const defaultPlayerAnts: PlayerAnts = {
   highestRebornELOEver: [...defaultHighestRebornELOEver],
   quarksGainedFromAnts: defaultQuarksGainedFromAnts,
   antSacrificeCount: defaultAntSacrificeCount,
-  currentSacrificeId: defaultCurrentSacrificeId
+  currentSacrificeId: defaultCurrentSacrificeId,
+  toggles: {
+    autobuyProducers: defaultAutobuyAntProducerSetting,
+    autobuyMasteries: defaultAutobuyAntMasterySetting,
+    autobuyUpgrades: defaultAutobuyAntUpgradeSetting,
+    maxBuyProducers: defaultMaxAntProducerBuySetting,
+    maxBuyUpgrades: defaultMaxAntUpgradeBuySetting,
+    autoSacrificeEnabled: defaultAutoSacrificeEnabled,
+    autoSacrificeThreshold: defaultAutoSacrificeThreshold,
+    autoSacrificeMode: defaultAutoSacrificeSetting
+  }
 }

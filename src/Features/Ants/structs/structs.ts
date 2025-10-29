@@ -2,6 +2,7 @@ import type Decimal from 'break_infinity.js'
 import type { PlayerAntMasteries } from '../AntMasteries/structs/structs'
 import type { PlayerAntProducers } from '../AntProducers/structs/structs'
 import type { AntUpgrades } from '../AntUpgrades/structs/structs'
+import type { AutoSacrificeModes } from '../toggles/structs/sacrifice'
 
 export enum AntProducers {
   'Workers' = 0,
@@ -31,4 +32,14 @@ export interface PlayerAnts {
   quarksGainedFromAnts: number
   antSacrificeCount: number
   currentSacrificeId: number
+  toggles: {
+    autobuyProducers: boolean
+    autobuyMasteries: boolean
+    autobuyUpgrades: boolean
+    maxBuyProducers: boolean
+    maxBuyUpgrades: boolean
+    autoSacrificeEnabled: boolean
+    autoSacrificeThreshold: number
+    autoSacrificeMode: AutoSacrificeModes
+  }
 }

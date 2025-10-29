@@ -7,7 +7,7 @@ export const autobuyAntProducers = () => {
   const tiersUnlocked = +getAchievementReward('antAutobuyers') - 1
   for (let ant = LAST_ANT_PRODUCER; ant >= AntProducers.Workers; ant--) {
     if (ant <= tiersUnlocked) {
-      buyAntProducers(ant, player.antMax)
+      buyAntProducers(ant, player.ants.toggles.maxBuyProducers)
     }
   }
 }

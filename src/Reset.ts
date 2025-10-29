@@ -29,6 +29,7 @@ import { WowCubes } from './CubeExperimental'
 import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
 import { resetAnts } from './Features/Ants/player/reset'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
+import { toggleAutoAntSacrificeThreshold } from './Features/Ants/toggles/auto-sacrifice'
 import { autoCraftHepteracts, hepteractKeys, hepteracts, resetHepteracts } from './Hepteracts'
 import {
   resetHistoryAdd,
@@ -253,7 +254,7 @@ export const updateAutoReset = (i: number) => {
     player.autoAscendThreshold = Math.max(value, 1)
   } else if (i === 5) {
     value = Number.parseFloat((DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value) || 0
-    player.autoAntSacTimer = Math.max(value, 0)
+    toggleAutoAntSacrificeThreshold(value)
   }
 }
 
@@ -1217,7 +1218,7 @@ export const singularity = (setSingNumber = -1) => {
 
   hold.ants.highestRebornELOEver = player.ants.highestRebornELOEver
   for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
-    hold.ants.masteries[ant].highestMastery = player.ants.producers[ant].highestMastery
+    hold.ants.masteries[ant].highestMastery = player.ants.masteries[ant].highestMastery
   }
 
   if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
@@ -1267,10 +1268,6 @@ export const singularity = (setSingNumber = -1) => {
   hold.transcendamount = player.transcendamount
   hold.reincarnationamount = player.reincarnationamount
   hold.buyTalismanShardPercent = player.buyTalismanShardPercent
-  hold.antMax = player.antMax
-  hold.autoAntSacrifice = player.autoAntSacrifice
-  hold.autoAntSacrificeMode = player.autoAntSacrificeMode
-  hold.autoAntSacTimer = player.autoAntSacTimer
   hold.autoAscend = player.autoAscend
   hold.autoAscendMode = player.autoAscendMode
   hold.autoAscendThreshold = player.autoAscendThreshold

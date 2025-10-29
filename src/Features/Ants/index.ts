@@ -1,9 +1,16 @@
-import { autobuyAntMasteries } from './Autobuy/masteries'
-import { autobuyAntProducers } from './Autobuy/producers'
-import { autobuyAntUpgrades } from './Autobuy/upgrades'
+import { player } from '../../Synergism'
+import { autobuyAntMasteries } from './Automation/masteries'
+import { autobuyAntProducers } from './Automation/producers'
+import { autobuyAntUpgrades } from './Automation/upgrades'
 
 export const autobuyAnts = (): void => {
-  autobuyAntMasteries()
-  autobuyAntProducers()
-  autobuyAntUpgrades()
+  if (player.ants.toggles.autobuyMasteries) {
+    autobuyAntMasteries()
+  }
+  if (player.ants.toggles.autobuyProducers) {
+    autobuyAntProducers()
+  }
+  if (player.ants.toggles.autobuyUpgrades) {
+    autobuyAntUpgrades()
+  }
 }
