@@ -2426,6 +2426,28 @@ p#reincarnatehotkeys {
     font-size: 1.2em;
 }
 
+.enabledAntToggle {
+    border-color: green;
+}
+
+.disabledAntToggle {
+    border-color: crimson;
+}
+
+.singlePurchaseAnt {
+    border-color: white;
+}
+
+.maxPurchaseAnt {
+    border-color: gold;
+}
+
+.antToggleBtn {
+    min-width: 150px;
+    cursor: pointer;
+    border-width: 1px;
+}
+
 #antToggleFeatures {
     display: flex;
     justify-content: center;

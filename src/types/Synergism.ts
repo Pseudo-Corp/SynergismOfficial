@@ -5,10 +5,7 @@ import type { CampaignManager } from '../Campaign'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
-import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
-import type { PlayerAntProducers } from '../Features/Ants/AntProducers/structs/structs'
-import type { AntUpgrades } from '../Features/Ants/AntUpgrades/structs/structs'
-import type { AntProducers } from '../Features/Ants/structs/structs'
+import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type { HepteractKeys, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractDataKeys } from '../Octeracts'
@@ -136,21 +133,7 @@ export interface Player {
   fifthCostParticles: Decimal
   fifthProduceParticles: number
 
-  ants: {
-    producers: Record<AntProducers, PlayerAntProducers>
-    masteries: Record<AntProducers, PlayerAntMasteries>
-    upgrades: Record<AntUpgrades, number>
-    crumbs: Decimal
-    highestCrumbsThisSacrifice: Decimal
-    highestCrumbsEver: Decimal
-    immortalELO: number
-    rebornELO: number
-    highestRebornELODaily: Array<{ elo: number; sacrificeId: number }>
-    highestRebornELOEver: Array<{ elo: number; sacrificeId: number }>
-    quarksGainedFromAnts: number
-    antSacrificeCount: number
-    currentSacrificeId: number
-  }
+  ants: PlayerAnts
 
   ascendBuilding1: {
     cost: number
@@ -447,11 +430,6 @@ export interface Player {
   mythicalFragments: Decimal
 
   buyTalismanShardPercent: number
-
-  autoAntSacrifice: boolean
-  autoAntSacTimer: number
-  autoAntSacrificeMode: number
-  antMax: boolean
 
   ascensionCount: number
   ascensionCounter: number

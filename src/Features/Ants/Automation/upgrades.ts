@@ -7,13 +7,13 @@ export const autobuyAntUpgrades = () => {
   const upgradesUnlocked = +getAchievementReward('antUpgradeAutobuyers')
   for (let upgrade = AntUpgrades.AntSpeed; upgrade < LAST_ANT_UPGRADE; upgrade++) {
     if (upgrade < upgradesUnlocked) {
-      buyAntUpgrade(upgrade, player.antMax)
+      buyAntUpgrade(upgrade, player.ants.toggles.maxBuyUpgrades)
     }
   }
 
   // The way mortuus autobuy is unlocked is
   // research 6x20. The above loop won't catch it!
   if (player.researches[145] > 0) {
-    buyAntUpgrade(AntUpgrades.Mortuus, player.antMax)
+    buyAntUpgrade(AntUpgrades.Mortuus, player.ants.toggles.maxBuyUpgrades)
   }
 }

@@ -124,8 +124,6 @@ import { calculatetax } from './Tax'
 import {
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
-  toggleAntAutoSacrifice,
-  toggleAntMaxBuy,
   toggleAscStatPerSecond,
   toggleauto,
   toggleAutoAscend,
@@ -183,6 +181,7 @@ import { autobuyAnts } from './Features/Ants'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
+import { loadSynergyAntHTMLUpdates } from './Features/Ants/HTML/updates/load-game-update'
 import { defaultPlayerAnts } from './Features/Ants/player/default'
 import {
   defaultHepteractValues,
@@ -753,11 +752,6 @@ export const player: Player = {
   mythicalFragments: new Decimal(0),
 
   buyTalismanShardPercent: 10,
-
-  autoAntSacrifice: false,
-  autoAntSacTimer: 900,
-  autoAntSacrificeMode: 0,
-  antMax: false,
 
   ascensionCount: 0,
   ascensionCounter: 0,
@@ -1645,13 +1639,13 @@ const loadSynergy = () => {
       }`.replace(omit, 'e')
       updateAutoReset(4)
     }
-    inputd = player.autoAntSacTimer
+    inputd = player.ants.toggles.autoSacrificeThreshold
     inpute = Number(
       (DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       ;(DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value = `${
-        player.autoAntSacTimer || blankSave.autoAntSacTimer
+        player.ants.toggles.autoSacrificeThreshold || blankSave.ants.toggles.autoSacrificeThreshold
       }`.replace(
         omit,
         'e'
@@ -1957,11 +1951,7 @@ const loadSynergy = () => {
     autoCubeUpgradesToggle(false)
     autoPlatonicUpgradesToggle(false)
 
-    for (let i = 1; i <= 2; i++) {
-      toggleAntMaxBuy()
-      toggleAntAutoSacrifice(0)
-      toggleAntAutoSacrifice(1)
-    }
+    loadSynergyAntHTMLUpdates()
 
     for (let i = 1; i <= 2; i++) {
       toggleAutoAscend(0)

@@ -35,7 +35,7 @@ export const antProducerHTML = (ant: AntProducers) => {
 
   let costHTML: string
   const maxBuy = getMaxPurchasableAnts(ant, player.ants.crumbs)
-  if (player.antMax && maxBuy > player.ants.producers[ant].purchased) {
+  if (player.ants.toggles.maxBuyProducers && maxBuy > player.ants.producers[ant].purchased) {
     const cost = getCostMaxAnts(ant)
     costHTML = i18next.t('ants.costMaxLevels', {
       x: format(maxBuy - player.ants.producers[ant].purchased, 0, true),
