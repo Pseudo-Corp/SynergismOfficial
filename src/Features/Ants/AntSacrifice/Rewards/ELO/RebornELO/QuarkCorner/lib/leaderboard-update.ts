@@ -1,6 +1,7 @@
 import { player } from '../../../../../../../../Synergism'
 
-export const LEADERBOARD_WEIGHTS = [1, 0.7, 0.5, 0.3, 0.2, 0.15, 0.1, 0.05]
+export const LEADERBOARD_WEIGHTS = [1, 0.8, 0.6, 0.4, 0.2]
+export const NUM_LEADERBOARD_ENTRIES = LEADERBOARD_WEIGHTS.length
 
 export const updateAntLeaderboards = () => {
   const currentELO = player.ants.rebornELO
@@ -19,7 +20,7 @@ const updateSingleLeaderboard = (
   currentSacrificeId: number
 ) => {
   // First, check if currentELO suffices (if it does not... no action needed)
-  if (leaderboard.length === 8) {
+  if (leaderboard.length === NUM_LEADERBOARD_ENTRIES) {
     if (currentELO < leaderboard[leaderboard.length - 1].elo) {
       return
     }
@@ -40,8 +41,8 @@ const updateSingleLeaderboard = (
     leaderboard.sort((a, b) => b.elo - a.elo)
   }
 
-  // Keep only top 8
-  if (leaderboard.length > 8) {
-    leaderboard.length = 8
+  // Keep only top 5
+  if (leaderboard.length > NUM_LEADERBOARD_ENTRIES) {
+    leaderboard.length = NUM_LEADERBOARD_ENTRIES
   }
 }

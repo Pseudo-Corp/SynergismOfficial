@@ -2053,8 +2053,8 @@
         "flavor": "The backbone of any colony. Gathers Galactic Crumbs.",
         "generates": "Generates {{x}} Crumbs per second",
         "eloInformation": "<<gold | ⤬>> Each Worker Ant you buy grants you <<orchid | +{{x}} Ant ELO>> for Ant Sacrifice.",
-        "reincarnationUpgrade17": "Ant Speed from Reincarnation Upgrade 4x1: <<gold | {{x}}x>>",
-        "research": "Ant Speed from Research 3x21: <<gold | {{x}}x>>",
+        "reincarnationUpgrade17": "Ant Speed from Reincarnation Upgrade 4x2: <<gold | {{x}}x>>",
+        "research": "Ant Speed from Research 4x21: <<gold | {{x}}x>>",
         "cookieUpgrade": "Ant Speed from Cookie Upgrade 2x15: <<gold | {{x}}x>>"
       },
       "1": {
@@ -2223,7 +2223,7 @@
       "coins": {
         "name": "Fortunae Formicidae",
         "intro": "Crumbs are just a <i>little</i> bit sweeter.",
-        "description": "Improve Crumbs' multiplier to Coins, up to ^50,000,000.",
+        "description": "Improve Crumbs' multiplier to Coins.",
         "effect": "Crumbs give a Coin multiplier equal to <<yellow | (Crumbs)^{{x}}>>",
         "effect2": "↳ Coin Multiplier: <<yellow | x{{x}}>>"
       },
@@ -2346,19 +2346,19 @@
     "autoSacrifice": {
       "inGameTimer": {
         "name": "Mode: In-Game time",
-        "info": "Sacrifice when the in-game Ant Timer reaches {{req}} seconds. [{{curr}}/{{req}}]"
+        "info": "Sacrifice when the in-game Ant Timer reaches <<gold|{{req}}>> seconds <br><<gold|{{curr}}/{{req}}>>"
       },
       "realLifeTimer": {
         "name": "Mode: Real time",
-        "info": "Sacrifice after {{req}} real-life seconds. [{{curr}}/{{req}}]"
+        "info": "Sacrifice after <<gold|{{req}}>> real-life seconds <br><<gold|{{curr}}/{{req}}>>"
       },
       "immortalELOGain": {
         "name": "Mode: Immortal ELO",
-        "info": "Sacrifice when you can gain at least {{req}} Immortal ELO. [{{curr}}/{{req}}]"
+        "info": "Sacrifice when you can gain at least <<gold|{{req}}>> <<crimson|Immortal ELO>> <br><<gold|{{curr}}/{{req}}>>"
       },
       "maxRebornELO": {
         "name": "Mode: Reborn ELO",
-        "info": "Sacrifice when your maximum Reborn ELO is reached. [{{curr}} Available]"
+        "info": "Sacrifice when your maximum <<#00DDFF|Reborn ELO>> is reached <br><<gold|{{curr}} Available>>"
       }
     },
     "header": "The ants welcome you to their home.",
@@ -2366,13 +2366,14 @@
     "altarHeader": "Ant God... <<crimson | It Hungers.>>",
     "altarDetails": "Sacrifice your Ants to her for some <<crimson | Immortal ELO>>, and a bunch of other worldly things.",
     "anthillAlive": "Your Anthill has been alive for",
+    "currentAnthill": "(This is your <<gold|{{ord}}>> Anthill)",
     "altarTimeMultiplier": "<<gold | ⧖>> <<var(--lightseagreen-text-color);|{{x}}x>> \"<<lightblue|Worldly>>\" Resources from Ant Sacrifice",
     "altarRewardMultiplier": "Powers that be also give <<var(--lightseagreen-text-color);|{{x}}x>> \"<<lightblue|Worldly>>\" Resources from Ant Sacrifice",
     "youHaveGalacticCrumbs": "You have {{x}} Galactic Crumbs [{{y}}/s], providing a {{z}} Coin Multiplier",
     "galacticCrumbCount": "You have {{x}} Galactic Crumbs.",
     "galacticCrumbCountThisSacrifice": "This Sacrifice, you have gained {{x}} Galactic Crumbs.",
     "crumbsPerSecond": "+{{x}} per second",
-    "crumbsCoinMultiplier": "↳ Coin production is multiplied by {{x}} (Tributum Formicidae)",
+    "crumbsCoinMultiplier": "↳ Coin production is multiplied by {{x}} (Fortunae Formicidae)",
     "owned": "Owned: {{x}} [+{{y}}]",
     "producerCount": "<<crimson| {{x}} Purchased>> + <<orange | {{y}} Generated>>",
     "level": "Level {{x}} <<orange | [+{{y}}]>>",
@@ -2408,7 +2409,7 @@
     "obtainiumMultiplier": "• Gain <<pink | {{x}}x Obtainium>>",
     "talismanFragments": "• Gain Some Talisman Fragments!",
     "rebornELOInfo": "Gain <<#00DDFF|Reborn ELO>> over time by reaching a higher ELO!",
-    "rebornELOInfo2": "• Limited by your <<crimson|Immortal ELO>> and <<orchid|Ant ELO>>",
+    "rebornELOInfo2": "• Limited by your <<crimson|Immortal ELO>>. <<orchid | Ant ELO>> speeds up generation!",
     "rebornELOInfo3": "• The more <<#00DDFF|Reborn ELO>> you have, the slower it generates.",
     "stageInfo": "<<#00DDFF|Reborn ELO>> gives you a <<turquoise | Stage>>.",
     "stageInfo2": "Each <<turquoise|Stage>> gives you <<gold|1.05x>> <<orange|Offerings>>, <<gold|1.05x>> <<pink|Obtainium>>, and <<gold|1.20x>> <<lightgray|Talisman Fragments>>! <<#00DDFF|Reborn ELO>> generates <<gold|1%>> slower per <<turquoise|Stage>>.",
@@ -2420,7 +2421,9 @@
     "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some Ant Speed and resources. Continue?",
     "elo": "+{{x}}",
     "eloRequirement": "{{x}} ELO",
-    "antSacrifice": "Ant Sacrifice"
+    "antSacrifice": "Ant Sacrifice",
+    "minimumTimeToSacrifice": "Minimum interval between Sacrifices: <<gold|0.05>> real-life seconds",
+    "timeElapsed": "Time elapsed: <<gold|{{x}}>> real-life seconds"
   },
   "challenges": {
     "1": {
@@ -2868,7 +2871,7 @@
       "62": "[Cx12] Platonic loves toffee. 8x your Obtainium and Offering gain in Challenge 15.",
       "63": "[Cx13] Brownie Cookies, the best of both worlds. Increase 3D Cube Gain by 1% based on owned Hepteracts (+3% per OOM).",
       "64": "[Cx14] Some say the Ant God itself penned these fortunes. When you gain a statue from Platonic Cubes, you gain two instead.",
-      "65": "[Cx15] That's amore, but is quite a crumbful! Multiply Ant Speed by 1.004 per purchased Ant.",
+      "65": "[Cx15] That's amore, but is quite a crumbful! Multiply Ant Speed by 1.004 per purchased Worker Ant.",
       "66": "[Cx16] You just wish you could have one more cookie baked by her. Gain 2x all Cubes until you purchase OMEGA.",
       "67": "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
       "68": "[Cx18] What the heck! These aren't even cookies. +0.01% Quarks per level purchased of this upgrade. +5% more at level 1,000!",
@@ -3004,9 +3007,9 @@
       "93": "[4x18] +1 Accelerator Boost per 20 Rune Levels, per level.",
       "94": "[4x19] +20 Multiplier per 8 Rune Levels, per level.",
       "95": "[4x20] Gain +4 base Offerings from by purchasing this. Easy Shmeezy.",
-      "96": "[4x21] Ants slow? Multiply Ant Speed by 1.0002 per Ant purchased.",
-      "97": "[4x22] Add +4 free levels to the first six upgradable Ants per level!",
-      "98": "[4x23] Add +4 free levels to the next five upgradable Ants per level!",
+      "96": "[4x21] Ants slow? Multiply Ant Speed by (1 + 0.0002 * level) per Worker Ant purchased.",
+      "97": "[4x22] Add +2 free levels to Ant Upgrades per level! Free levels require a corresponding purchased level to work!",
+      "98": "[4x23] Add +2 more free levels to Ant Upgrades per level!",
       "99": "[4x24] Is the Quark Shop too hot to resist? Get +1 Quark per hour from Exporting for each level!",
       "100": "[4x25] Alright, Platonic is off his rocker. +1 MORE Quark per hour from Exporting for each level!",
       "101": "[5x1] Let's add +.001 to Inceptus Ant efficiency per level?",
@@ -4217,7 +4220,7 @@
       "74": "Obtainium gain is increased based on highest ever unspent Offerings. [Max: 100,000 Offerings]",
       "75": "Offering gain is increased based on highest ever unspent Obtainium [Max: 30,000,000 Obtainium]",
       "76": "Ant generation kinda slow? I agree! Multiply Ant Speed by 5.",
-      "77": "This is Synergism, right? Let's make each purchased Ant multiply Ant Speed by 1.004.",
+      "77": "This is Synergism, right? Let's make each purchased Worker Ant multiply Ant Speed by 1.004.",
       "78": "Gain an Ant speed multiplier! x(1 + 0.005 * (log10(MAX Offerings + 1))^2) Ant Speed, to be precise.",
       "79": "The Ant God will accept an arbitrary number of Particles in order to give you 10% more rewards from Ant Sacrifice.",
       "80": "The Ant God will accept a larger arbitrary number of Particles to give you more Ant ELO.",
@@ -6229,6 +6232,7 @@
       "QuarkHepteract": "Quark Hepteract Bonus:",
       "Powder": "Overflux Powder Bonus:",
       "SingularityCount": "Singularity Count Bonus:",
+      "FavoriteUpgrade": "Golden Quark - Favorite Upgrade Bonus:",
       "CookieUpgrade3": "Cookie Upgrade 3 Bonus:",
       "CookieUpgrade18": "Cookie Upgrade 18 Bonus:",
       "SingularityMilestones": "Singularity Perk - Even More Quarks:",

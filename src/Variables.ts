@@ -122,7 +122,7 @@ export const Globals: GlobalVariables = {
   // dprint-ignore
   cardinals: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'twentyone', 'twentytwo', 'twentythree', 'twentyfour', 'twentyfive', 'twentysix', 'twentyseven', 'twentyeight', 'twentynine', 'thirty', 'thirtyone', 'thirtytwo', 'thirtythree', 'thirtyfour'],
 
-  challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 7500, 2.0e8, 3.5e9],
+  challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 7500, 2.0e8, 2.5e9],
 
   prestigeamount: 1,
   taxdivisor: new Decimal('1'),
@@ -220,7 +220,7 @@ export const Globals: GlobalVariables = {
     0
   ],
   // extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0, 0, 0, 0],
-  extinctionDivisor: [1, 1.25, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 30, 50, 100],
+  extinctionDivisor: [1, 1.25, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
   droughtSalvage: [
     0,
     -25,

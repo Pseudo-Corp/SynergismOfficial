@@ -1258,6 +1258,10 @@ export const allQuarkStats: NumberStatLine[] = [
     stat: () => 1 + player.singularityCount / 10
   },
   {
+    i18n: 'FavoriteUpgrade',
+    stat: () => getGQUpgradeEffect('favoriteUpgrade')
+  },
+  {
     i18n: 'CookieUpgrade3',
     stat: () => 1 + 0.001 * player.cubeUpgrades[53]
   },

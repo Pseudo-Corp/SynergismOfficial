@@ -4,6 +4,7 @@ import { DOMCacheGetOrSet } from '../../../../Cache/DOM'
 import { calculateAntSacrificeMultiplier } from '../../../../Calculate'
 import { offeringObtainiumTimeModifiers } from '../../../../Statistics'
 import { format, player } from '../../../../Synergism'
+import { toOrdinal } from '../../../../Utility'
 import { antSacrificeRewards } from '../../AntSacrifice/Rewards/calculate-rewards'
 import { calculateBaseAntELO, calculateEffectiveAntELO } from '../../AntSacrifice/Rewards/ELO/AntELO/lib/calculate'
 import { calculateAntSpeedMultFromELO } from '../../AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
@@ -157,4 +158,9 @@ export const showSacrifice = () => {
       'antSacrificeRewardColumn'
     )
   }
+}
+
+export const sacrificeCountHTML = (sacrificeCount: number): void => {
+  const numAnthills = toOrdinal(sacrificeCount + 1)
+  DOMCacheGetOrSet('antSacrificeNumber').innerHTML = i18next.t('ants.currentAnthill', { ord: numAnthills })
 }

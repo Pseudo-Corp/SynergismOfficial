@@ -1,7 +1,7 @@
 import type Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { format, player } from '../../../Synergism'
-import { hasEnoughCrumbsForSacrifice } from '../AntSacrifice/constants'
+import { hasEnoughCrumbsForSacrifice, sacrificeOffCooldown } from '../AntSacrifice/constants'
 import { antSacrificeRewards } from '../AntSacrifice/Rewards/calculate-rewards'
 import { AutoSacrificeModes } from '../toggles/structs/sacrifice'
 import type { AutoSacrificeModeData } from './structs/structs'
@@ -16,7 +16,8 @@ export const autoSacrificeData: Record<AutoSacrificeModes, AutoSacrificeModeData
       i18next.t('ants.autoSacrifice.inGameTimer.info', {
         curr: format(player.antSacrificeTimer, 2, true),
         req: format(player.ants.toggles.autoSacrificeThreshold, 0, true)
-      })
+      }),
+    modeHTMLcolor: 'var(--lightseagreen-text-color)'
   },
   [AutoSacrificeModes.RealTime]: {
     sacrificeCheck: () => {
@@ -27,7 +28,8 @@ export const autoSacrificeData: Record<AutoSacrificeModes, AutoSacrificeModeData
       i18next.t('ants.autoSacrifice.realLifeTimer.info', {
         curr: format(player.antSacrificeTimerReal, 2, true),
         req: format(player.ants.toggles.autoSacrificeThreshold, 0, true)
-      })
+      }),
+    modeHTMLcolor: 'lightgray'
   },
   [AutoSacrificeModes.ImmortalELOGain]: {
     sacrificeCheck: () => {
@@ -39,7 +41,8 @@ export const autoSacrificeData: Record<AutoSacrificeModes, AutoSacrificeModeData
       i18next.t('ants.autoSacrifice.immortalELOGain.info', {
         curr: format(antSacrificeRewards().immortalELO, 0, true),
         req: format(player.ants.toggles.autoSacrificeThreshold, 0, true)
-      })
+      }),
+    modeHTMLcolor: 'crimson'
   },
   [AutoSacrificeModes.MaxRebornELO]: {
     sacrificeCheck: () => {
@@ -52,11 +55,13 @@ export const autoSacrificeData: Record<AutoSacrificeModes, AutoSacrificeModeData
       return i18next.t('ants.autoSacrifice.maxRebornELO.info', {
         curr: format(rebornELOToGain, 0, true)
       })
-    }
+    },
+    modeHTMLcolor: '#00DDFF'
   }
 }
 
-export const canAutoSacrifice = (crumbs: Decimal, sacMode: AutoSacrificeModes): boolean => {
+export const canAutoSacrifice = (crumbs: Decimal, sacMode: AutoSacrificeModes, time: number): boolean => {
   return hasEnoughCrumbsForSacrifice(crumbs) && autoSacrificeData[sacMode].sacrificeCheck()
     && player.ants.toggles.autoSacrificeEnabled
+    && sacrificeOffCooldown(time)
 }

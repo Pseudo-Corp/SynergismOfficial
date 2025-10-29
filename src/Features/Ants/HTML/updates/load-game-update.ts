@@ -1,4 +1,5 @@
 import { player } from '../../../../Synergism'
+import { sacrificeCountHTML } from './sacrifice'
 import { autobuyAntMasteryHTML } from './toggles/autobuy-mastery'
 import { autobuyAntProducerHTML } from './toggles/autobuy-producer'
 import { autobuyAntUpgradeHTML } from './toggles/autobuy-upgrade'
@@ -15,4 +16,5 @@ export const loadSynergyAntHTMLUpdates = (): void => {
   maxBuyUpgradeHTML(player.ants.toggles.maxBuyUpgrades)
   autoAntSacrificeEnabledHTML(player.ants.toggles.autoSacrificeEnabled)
   autoAntSacrificeModeNameHTML(player.ants.toggles.autoSacrificeMode)
+  sacrificeCountHTML(player.ants.antSacrificeCount)
 }

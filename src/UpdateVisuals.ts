@@ -51,6 +51,7 @@ import {
 } from './Cubes'
 import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
 import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib/calculate-production'
+import { hasEnoughCrumbsForSacrifice } from './Features/Ants/AntSacrifice/constants'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { updateLeaderboardUI } from './Features/Ants/HTML/updates/leaderboard'
@@ -788,6 +789,9 @@ export const visualUpdateAnts = () => {
   )
 
   autoAntSacrificeModeDescHTML(player.ants.toggles.autoSacrificeMode)
+  DOMCacheGetOrSet('sacrificeSecondsElapsed').innerHTML = i18next.t('ants.timeElapsed', {
+    x: format(player.antSacrificeTimerReal, 2, true)
+  })
 
   if (getAchievementReward('antSacrificeUnlock')) {
     DOMCacheGetOrSet('antSacrificeTimer').textContent = `⧖ ${
@@ -797,6 +801,12 @@ export const visualUpdateAnts = () => {
     }`
     showSacrifice()
     updateLeaderboardUI()
+
+    if (hasEnoughCrumbsForSacrifice(player.ants.crumbs)) {
+      DOMCacheGetOrSet('antSacrifice').classList.add('canAntSacrifice')
+    } else {
+      DOMCacheGetOrSet('antSacrifice').classList.remove('canAntSacrifice')
+    }
   }
 }
 

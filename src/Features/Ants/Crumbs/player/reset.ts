@@ -10,7 +10,7 @@ export const resetPlayerAntCrumbs = (resetTier: AntSacrificeTiers): void => {
   }
   // Sing Perk
   if (player.highestSingularityCount >= 20) {
-    player.ants.crumbs = Decimal.fromString('1e100')
+    player.ants.crumbs = Decimal.fromString('1e50')
   }
   // If player resets the game
   if (resetTier >= AntSacrificeTiers.never) {

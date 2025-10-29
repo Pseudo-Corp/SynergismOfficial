@@ -18,6 +18,7 @@ export const availableQuarksFromELO = () => {
   baseQuarks += 4 * Math.min(700, Math.max(0, numStages - 300))
   baseQuarks += 5 * Math.max(0, numStages - 1000)
 
-  const antQuarkMult = quarksFromELOMult()
+  let antQuarkMult = quarksFromELOMult()
+  antQuarkMult *= Math.pow(1.003, numStages)
   return player.worlds.applyBonus(baseQuarks) * antQuarkMult - player.ants.quarksGainedFromAnts
 }

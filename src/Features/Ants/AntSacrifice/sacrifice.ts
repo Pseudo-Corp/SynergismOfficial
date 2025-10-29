@@ -5,15 +5,18 @@ import { AntSacrificeTiers } from '../../../Reset'
 import { player } from '../../../Synergism'
 import { updateTalismanInventory } from '../../../Talismans'
 import { Confirm } from '../../../UpdateHTML'
+import { sacrificeCountHTML } from '../HTML/updates/sacrifice'
 import { resetAnts } from '../player/reset'
-import { MINIMUM_CRUMBS_FOR_SACRIFICE } from './constants'
+import { hasEnoughCrumbsForSacrifice, sacrificeOffCooldown } from './constants'
 import { antSacrificeRewards } from './Rewards/calculate-rewards'
 import { calculateBaseAntELO, calculateEffectiveAntELO } from './Rewards/ELO/AntELO/lib/calculate'
 
 export const sacrificeAnts = async (auto = false) => {
   let p = true
+  const cooldownCheck = sacrificeOffCooldown(player.antSacrificeTimerReal)
+  const crumbCheck = hasEnoughCrumbsForSacrifice(player.ants.highestCrumbsThisSacrifice)
 
-  if (player.ants.crumbs.gte(MINIMUM_CRUMBS_FOR_SACRIFICE)) {
+  if (cooldownCheck && crumbCheck) {
     if (!auto && player.toggles[32]) {
       p = await Confirm(i18next.t('ants.autoReset'))
     }
@@ -62,6 +65,7 @@ export const sacrificeAnts = async (auto = false) => {
       resetAnts(AntSacrificeTiers.sacrifice)
       updateTalismanInventory()
       resetHistoryAdd('ants', historyEntry)
+      sacrificeCountHTML(player.ants.antSacrificeCount)
     }
   }
 
