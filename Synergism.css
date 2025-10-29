@@ -2450,6 +2450,7 @@ p#reincarnatehotkeys {
 
 #antToggleFeatures {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     gap: 10px;
     margin: 5px 0;
@@ -2469,7 +2470,6 @@ p#reincarnatehotkeys {
 
 #toggleAutoSacrificeAnt {
     min-width: 150px;
-    border: 1px solid crimson;
 }
 
 #autoSacrificeAntMode,
@@ -2481,25 +2481,53 @@ p#reincarnatehotkeys {
 }
 
 #sacrificeAnts {
-    padding: 0;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
     text-align: center;
-    white-space: nowrap;
+    width: 100%;
 }
 
-.sacrificeStatus {
+#sacrificeStatus {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 50%;
 }
 
-.sacrificeStatus p {
+#sacrificeStatus p {
     margin: 0;
+}
+
+#autoSacrificeSettings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
 }
 
 #antSacrificeTimer {
     padding: 2px 0.5em;
     font-size: 1.2em;
     color: gold;
+}
+
+.canAntSacrifice {
+    box-shadow:
+        0 0 15px crimson,
+        0 0 30px crimson,
+        0 0 45px crimson;
+    background-color: crimson;
+    border-radius: 50%;
+}
+
+.canAntSacrifice:hover {
+    box-shadow:
+        0 0 20px lightgoldenrodyellow,
+        0 0 40px gold,
+        0 0 60px goldenrod;
+    background-color: white !important;
+    border-radius: 50%;
 }
 
 .antSacrificeSettingsContainer {
@@ -5891,7 +5919,7 @@ html[data-cube-upgrade19="false"] .cubeUpgrade19 {
 }
 
 html[data-sacrifice-ants="true"] .sacrificeAnts {
-    display: block;
+    display: flex;
 }
 
 html[data-sacrifice-ants="false"] .sacrificeAnts {

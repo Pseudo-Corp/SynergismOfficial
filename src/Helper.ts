@@ -385,8 +385,12 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
 
       player.antSacrificeTimer += time * globalDelta
       player.antSacrificeTimerReal += time
+
+      const timeElapsed = player.antSacrificeTimerReal
+      const crumbs = player.ants.highestCrumbsThisSacrifice
+      const mode = player.ants.toggles.autoSacrificeMode
       if (
-        canAutoSacrifice(player.ants.crumbs, player.ants.toggles.autoSacrificeMode)
+        canAutoSacrifice(crumbs, mode, timeElapsed)
       ) {
         void sacrificeAnts(true)
       }

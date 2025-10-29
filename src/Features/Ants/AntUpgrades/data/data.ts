@@ -46,11 +46,13 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.coins.intro'),
     description: () => i18next.t('ants.upgrades.coins.description'),
     effect: (n: number) => {
-      let divisor = player.corruptions.used.corruptionEffects('extinction')
+      let divisor = 1
       if (player.currentChallenge.ascension === 15) {
-        divisor *= 1000
+        divisor = 10000
       }
-      const exponent = (99999 + calculateSigmoidExponential(49900001, n / 5000 * 500 / 499)) / divisor
+      const baseExponent = 99999 + calculateSigmoidExponential(49900001, n / 3000)
+      const bonusExponent = 250 * n
+      const exponent = (baseExponent + bonusExponent) / divisor
       const coinMult = Decimal.max(1, Decimal.pow(player.ants.crumbs, exponent))
       return {
         crumbToCoinExp: exponent,

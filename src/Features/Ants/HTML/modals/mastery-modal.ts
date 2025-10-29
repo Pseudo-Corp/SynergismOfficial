@@ -36,7 +36,7 @@ export const antMasteryHTML = (ant: AntProducers): string => {
     }</span>`
     effectHTML += `<br><span>${
       i18next.t(`ants.mastery.${ant}.maxedSelfPer`, {
-        x: format(1 + selfPowerBase, 2, true)
+        x: format(1 + selfPowerBase, 3, true)
       })
     }</span>`
 
