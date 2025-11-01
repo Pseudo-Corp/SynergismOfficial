@@ -109,8 +109,7 @@ const messageSchema = z.preprocess(
     z.object({
       type: z.literal('consumable-ended'),
       consumable: z.string(),
-      name: z.string(),
-      endedAt: z.number().int()
+      name: z.string()
     }),
     /** Information about all currently active consumables, received when the connection opens. */
     z.object({

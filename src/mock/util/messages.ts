@@ -28,11 +28,10 @@ export const messages = {
     })
   },
 
-  consumableEnded (consumable: string, ended: string) {
+  consumableEnded (consumable: string) {
     return JSON.stringify({
       type: 'consumable-ended',
-      consumable,
-      endedAt: Date.parse(ended)
+      consumable
     })
   },
 
