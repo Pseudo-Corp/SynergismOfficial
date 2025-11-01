@@ -2,6 +2,7 @@ import { http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
 import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
 import { messageHandlers } from './handlers/MessageHandlers'
+import { paymentHandlers } from './handlers/PaymentHandlers'
 import { consumeHandlers } from './websocket'
 
 const GETHandlers = [
@@ -1215,5 +1216,6 @@ export const worker = setupWorker(
   ...PUTHandlers,
   ...consumeHandlers,
   ...cloudSaveHandlers,
-  ...messageHandlers
+  ...messageHandlers,
+  ...paymentHandlers
 )

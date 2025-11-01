@@ -1,5 +1,4 @@
 import { loadScript } from '@paypal/paypal-js'
-import i18next from 'i18next'
 import { prod } from '../Config'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
@@ -71,18 +70,25 @@ function clickHandler (this: HTMLButtonElement, e: HTMLElementEventMap['click'])
   Notification(`Added ${productName} to the cart!`)
 }
 
-const constructDescriptions = ({ description, quarkBonus }: SubscriptionProduct) => {
-  const [firstLine, secondLine] = description.split(' and ')
-  // capitalize the first letter of the second line
-  const secondLineCap = secondLine.charAt(0).toUpperCase() + secondLine.slice(1)
+const colors = ['gold', 'cyan', 'magenta', 'red']
 
-  return `
-    <span style="color: gold">${firstLine}</span>
-    <br>
-    <span style="color: cyan">${secondLineCap}</span>
-    <br>
-    <span style="color: magenta">${i18next.t('pseudoCoins.globalQuarkBonus', { percent: quarkBonus })}</span>
-  `
+const constructFeatureList = ({ features }: SubscriptionProduct) => {
+  const ul = document.createElement('ul')
+  ul.style.textAlign = 'left'
+  ul.style.marginTop = '0'
+
+  for (let i = 0; i < features.length; i++) {
+    const feature = features[i]
+    const color = colors[i] ?? 'blue'
+
+    const li = document.createElement('li')
+    li.style.color = color
+    li.textContent = `${feature}`
+
+    ul.appendChild(li)
+  }
+
+  return ul.outerHTML
 }
 
 export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentSubTier: number) => {
@@ -94,9 +100,8 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
           </p>
-          <p class="pseudoSubscriptionText">
-          ${constructDescriptions(product)}
-          </p>
+          <p class="pseudoSubscriptionText">${product.description}</p>
+          ${constructFeatureList(product)}
           <button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
             Downgrade!
           </button>
@@ -112,9 +117,8 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
           </p>
-          <p class="pseudoSubscriptionText">
-          ${constructDescriptions(product)}
-          </p>
+          <p class="pseudoSubscriptionText">${product.description}</p>
+          ${constructFeatureList(product)}
           <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton" style="background-color: #b59410">
             You are here!
           </button>
@@ -130,9 +134,8 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
           </p>
-          <p class="pseudoSubscriptionText">
-          ${constructDescriptions(product)}
-          </p>
+          <p class="pseudoSubscriptionText">${product.description}</p>
+          ${constructFeatureList(product)}
           <button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
             Upgrade for ${formatter.format(product.price / 100)} USD / mo
           </button>

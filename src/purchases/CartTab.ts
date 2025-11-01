@@ -17,6 +17,7 @@ interface BaseProduct {
   price: number
   coins: number
   description: string
+  features: string[]
 }
 
 export interface SubscriptionProduct extends BaseProduct {
