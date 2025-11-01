@@ -4942,9 +4942,10 @@ form input:hover {
 }
 
 .pseudoSubscriptionContainer > #sub-section-holder {
+    font-family: Inconsolata, monospace;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    width: 70%;
+    width: 75%;
 }
 
 .pseudoCoinContainer {
@@ -4980,13 +4981,13 @@ form input:hover {
 }
 
 .pseudoCoinSubImage {
+    margin-top: 7px;
     height: 48px;
     width: 48px;
 }
 
 .pseudoCoinText {
     width: 90%;
-    height: 80px;
     padding: 10px;
     box-sizing: border-box;
     text-align: center;
@@ -5001,7 +5002,7 @@ form input:hover {
     box-sizing: border-box;
     text-align: center;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
-    margin: 5px auto;
+    margin: 5px auto 0;
 }
 
 .pseudoCoinButton {
@@ -5015,6 +5016,7 @@ form input:hover {
     font-size: 1.2em;
     word-wrap: break-word;
     margin-bottom: 5px;
+    font-family: Inconsolata, monospace;
 }
 
 .pseudoCoinButton:hover {
