@@ -230,6 +230,7 @@ import {
 } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
+import { updateShopLevels } from './Shop'
 import {
   blankGQLevelObject,
   calculateMaxSingularityLookahead,
@@ -244,7 +245,6 @@ import {
 import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
 import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
-import { updateShopLevels } from './Shop'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),

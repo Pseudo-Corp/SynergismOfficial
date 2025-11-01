@@ -2269,8 +2269,7 @@ export const allPowderMultiplierStats: NumberStatLine[] = [
 export const allGoldenQuarkMultiplierStats: NumberStatLine[] = [
   {
     i18n: 'Base',
-    stat: () =>
-      calculateBaseGoldenQuarks(player.singularityCount) // Base Golden Quarks based on Quarks and Sing Count
+    stat: () => calculateBaseGoldenQuarks(player.singularityCount) // Base Golden Quarks based on Quarks and Sing Count
   },
   {
     i18n: 'PseudoCoins',

@@ -1652,7 +1652,6 @@ export const calculateBaseGoldenQuarks = (singularity: number) => {
   return Math.floor(minimumValue + contributionFromQuarks + firstTenBonus)
 }
 
-
 export const calculateSingularityAmbrosiaLuckMilestoneBonus = () => {
   let bonus = 0
   const singThresholds1 = [35, 42, 49, 56, 63, 70, 77]

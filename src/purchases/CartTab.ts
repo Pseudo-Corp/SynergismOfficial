@@ -22,6 +22,7 @@ interface BaseProduct {
 export interface SubscriptionProduct extends BaseProduct {
   subscription: true
   quarkBonus: number
+  tier: number
 }
 
 export interface RegularProduct extends BaseProduct {

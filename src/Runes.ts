@@ -1016,7 +1016,7 @@ export const sacrificeOfferings = (rune: RuneKeys, budget: Decimal, auto = false
     levelsToAdd = 20 * player.shopUpgrades.offeringAuto
     levelsToAdd *= getLevelMilestone('runeAutobuyImprover')
     if (player.cubeUpgrades[20] > 0) {
-    levelsToAdd *= 20
+      levelsToAdd *= 20
     }
   }
 

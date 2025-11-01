@@ -14,26 +14,18 @@ const formatter = Intl.NumberFormat('en-US', {
   currency: 'USD'
 })
 
-const tierCosts = [0, 300, 600, 1000, 2000]
-
 async function changeSubscription (productId: string, type: 'upgrade' | 'downgrade') {
-  const tier = upgradeResponse.tier
-  const existingCosts = tierCosts[tier] ?? 0
   const newSub = subscriptionProducts.find((v) => v.id === productId)
   const newSubPrice = newSub!.price
   const newSubName = newSub!.name
   const confirm = (type === 'downgrade')
     ? await Confirm(
       `You are downgrading to ${newSubName}, which costs ${
-        formatter.format((existingCosts - newSubPrice) / 100)
-      } less per month. New cost: ${
         formatter.format(newSubPrice / 100)
       } per month. Downgrading takes effect immediately!`
     )
     : await Confirm(
-      `You are upgrading to ${newSubName}, which costs ${
-        formatter.format((newSubPrice - existingCosts) / 100)
-      } more per month. New cost: ${formatter.format(newSubPrice / 100)} per month`
+      `You are upgrading to ${newSubName}, which costs ${formatter.format(newSubPrice / 100)} per month`
     )
 
   if (!confirm) {
@@ -93,11 +85,11 @@ const constructDescriptions = ({ description, quarkBonus }: SubscriptionProduct)
   `
 }
 
-export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, existingCosts: number) => {
-  if (product.price < existingCosts) {
+export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentSubTier: number) => {
+  if (product.tier < currentSubTier) {
     return `
       <section class="subscriptionContainer" key="${product.id}">
-      <div>
+        <div>
           <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
@@ -109,13 +101,13 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
             Downgrade!
           </button>
           <div class="checkout-paypal" data-id="${product.id}"></div>
-      </div>
+        </div>
       </section>
     `
-  } else if (product.price === existingCosts) {
+  } else if (product.tier === currentSubTier) {
     return `
       <section class="subscriptionContainer" key="${product.id}">
-      <div>
+        <div>
           <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
@@ -127,13 +119,13 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
             You are here!
           </button>
           <div class="checkout-paypal" data-id="${product.id}"></div>
-      </div>
+        </div>
       </section>
     `
   } else {
     return `
       <section class="subscriptionContainer" key="${product.id}">
-      <div>
+        <div>
           <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
@@ -142,10 +134,10 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
           ${constructDescriptions(product)}
           </p>
           <button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
-            Upgrade for ${formatter.format((product.price - existingCosts) / 100)} USD / mo
+            Upgrade for ${formatter.format(product.price / 100)} USD / mo
           </button>
           <!--<div class="checkout-paypal" data-id="${product.id}"></div>-->
-      </div>
+        </div>
       </section>
     `
   }
@@ -168,10 +160,9 @@ export const initializeSubscriptionPage = memoize(() => {
   }
 
   const tier = upgradeResponse.tier
-  const existingCosts = tierCosts[tier] ?? 0
 
   subscriptionSectionHolder.innerHTML = subscriptionProducts.map((product) =>
-    createIndividualSubscriptionHTML(product, existingCosts)
+    createIndividualSubscriptionHTML(product, tier)
   ).join('')
 
   subscriptionSectionHolder!.style.display = 'grid'
