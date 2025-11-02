@@ -1209,7 +1209,7 @@ export const worker = setupWorker(
       bonus: {
         quarkBonus: 0
       },
-      subscriptionTier: 0
+      subscription: null
     })
   }),
   ...GETHandlers,

@@ -4,6 +4,7 @@ import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { products, subscriptionProducts } from './CartTab'
 import { addToCart, clearCart, getPrice, getProductsInCart, getQuantity, removeFromCart } from './CartUtil'
+import { initializePayPal_Subscription } from './SubscriptionsSubtab'
 import { updatePseudoCoins } from './UpgradesSubtab'
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #cartContainer')!
@@ -98,7 +99,7 @@ export const initializeCheckoutTab = memoize(() => {
   checkoutStripe?.addEventListener('click', submitCheckout)
   checkoutNowPayments?.addEventListener('click', submitCheckout)
 
-  initializePayPal('#checkout-paypal')
+  initializePayPal_OneTime('#checkout-paypal')
 })
 
 function addItem (e: MouseEvent) {
@@ -177,55 +178,59 @@ const updateTotalPriceInCart = () => {
   totalCost!.textContent = `${formatter.format(getPrice() / 100)} USD`
 }
 
-async function initializePayPal (selector: string | HTMLElement) {
-  try {
-    const paypal = await loadScript({
-      clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
-      disableFunding: ['paylater', 'credit', 'card', 'venmo']
-    })
+/**
+ * https://stackoverflow.com/a/69024269
+ */
+async function initializePayPal_OneTime (selector: string | HTMLElement) {
+  const paypal = await loadScript({
+    clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
+    disableFunding: ['paylater', 'credit', 'card', 'venmo'],
+    dataNamespace: 'paypal_one_time'
+  })
 
-    paypal?.Buttons?.({
-      style: {
-        shape: 'rect',
-        layout: 'vertical',
-        color: 'gold',
-        label: 'paypal'
-      },
+  paypal?.Buttons?.({
+    style: {
+      shape: 'rect',
+      layout: 'vertical',
+      color: 'gold',
+      label: 'paypal'
+    },
 
-      async createOrder () {
-        const fd = new FormData()
+    async createOrder () {
+      const fd = new FormData()
 
-        for (const product of getProductsInCart()) {
-          if (product.quantity > 0 && product.subscription) {
-            throw new TypeError('skipping')
-          }
-
-          fd.set(product.id, `${product.quantity}`)
+      for (const product of getProductsInCart()) {
+        if (product.quantity > 0 && product.subscription) {
+          throw new TypeError('skipping')
         }
 
-        fd.set('tosAgree', radioTOSAgree.checked ? 'on' : 'off')
-        const url = 'https://synergism.cc/paypal/orders/create'
+        fd.set(product.id, `${product.quantity}`)
+      }
 
-        const response = await fetch(url, {
-          method: 'POST',
-          body: fd
-        })
+      fd.set('tosAgree', radioTOSAgree.checked ? 'on' : 'off')
+      const url = 'https://synergism.cc/paypal/orders/create'
 
-        const orderData = await response.json()
+      const response = await fetch(url, {
+        method: 'POST',
+        body: fd
+      })
 
-        if (orderData.id) {
-          return orderData.id
-        }
+      const orderData = await response.json()
 
-        const errorDetail = orderData?.details?.[0]
-        const errorMessage = errorDetail
-          ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
-          : JSON.stringify(orderData)
+      if (orderData.id) {
+        return orderData.id
+      }
 
-        throw new Error(errorMessage)
-      },
+      const errorDetail = orderData?.details?.[0]
+      const errorMessage = errorDetail
+        ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
+        : JSON.stringify(orderData)
 
-      async onApprove (data, actions) {
+      throw new Error(errorMessage)
+    },
+
+    async onApprove (data, actions) {
+      try {
         const url = `https://synergism.cc/paypal/orders/${data.orderID}/capture`
 
         const response = await fetch(url, { method: 'POST' })
@@ -240,9 +245,7 @@ async function initializePayPal (selector: string | HTMLElement) {
           return actions.restart()
         } else if (errorDetail) {
           // (2) Other non-recoverable errors -> Show a failure message
-          throw new Error(
-            `${errorDetail.description} (${orderData.debug_id})`
-          )
+          throw new Error(`${errorDetail.description} (${orderData.debug_id})`)
         } else if (!orderData.purchase_units) {
           throw new Error(JSON.stringify(orderData))
         } else {
@@ -263,16 +266,26 @@ async function initializePayPal (selector: string | HTMLElement) {
 
           exponentialPseudoCoinBalanceCheck()
         }
-      },
-
-      onError (error) {
-        Notification('An error with PayPal happened. More info in console.')
-        console.log(error)
+      } finally {
+        initializePayPal_Subscription()
       }
-    }).render(selector)
-  } catch (e) {
-    console.error(e)
-  }
+    },
+
+    onError (error) {
+      const message = []
+
+      for (const [key, value] of Object.entries(error)) {
+        message.push(`${key}: ${value}`)
+      }
+
+      Notification(`An error with PayPal happened. More info in console. ${message.join(', ')}`)
+      console.log(error)
+    },
+
+    onCancel () {
+      initializePayPal_Subscription()
+    }
+  }).render(selector)
 }
 
 const sleep = (delay: number) => new Promise((r) => setTimeout(r, delay))

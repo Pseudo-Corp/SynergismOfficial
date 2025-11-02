@@ -4962,6 +4962,11 @@ form input:hover {
     text-align: center;
 }
 
+.subscriptionContainer > div > div.checkout-paypal {
+    width: 76%;
+    margin: 0 auto;
+}
+
 #pseudoCoins > #productContainer > section > * > .pseudoCoinImage {
     margin-top: 8px;
 }

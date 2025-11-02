@@ -1,8 +1,9 @@
 import { loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
+import { getSubMetadata } from '../Login'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
-import { type SubscriptionProduct, subscriptionProducts, upgradeResponse } from './CartTab'
+import { type SubscriptionProduct, subscriptionProducts } from './CartTab'
 import { addToCart, getQuantity } from './CartUtil'
 
 const subscriptionsContainer = document.querySelector<HTMLElement>('#pseudoCoins > #subscriptionsContainer')!
@@ -56,7 +57,9 @@ function clickHandler (this: HTMLButtonElement, e: HTMLElementEventMap['click'])
     return
   }
 
-  if (upgradeResponse.tier !== 0) {
+  const sub = getSubMetadata()
+
+  if (sub?.tier) {
     if (this.hasAttribute('data-downgrade')) {
       changeSubscription(productId, 'downgrade')
       return
@@ -92,7 +95,17 @@ const constructFeatureList = ({ features }: SubscriptionProduct) => {
 }
 
 export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentSubTier: number) => {
+  const sub = getSubMetadata()
+  const isPayPal = sub?.provider === 'paypal'
+  const isStripe = sub?.provider === 'stripe'
+
   if (product.tier < currentSubTier) {
+    const stripeDowngradeButton = isStripe || sub === null
+      ? `<button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
+          Downgrade!
+        </button>`
+      : ''
+
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>
@@ -102,14 +115,17 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
           ${constructFeatureList(product)}
-          <button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
-            Downgrade!
-          </button>
-          <div class="checkout-paypal" data-id="${product.id}"></div>
+          ${stripeDowngradeButton}
         </div>
       </section>
     `
   } else if (product.tier === currentSubTier) {
+    const stripeYouAreHereButton = isStripe
+      ? `<button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton" style="background-color: #b59410">
+          You are here!
+        </button>`
+      : ''
+
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>
@@ -119,14 +135,19 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
           ${constructFeatureList(product)}
-          <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton" style="background-color: #b59410">
-            You are here!
-          </button>
-          <div class="checkout-paypal" data-id="${product.id}"></div>
+          ${stripeYouAreHereButton}
         </div>
       </section>
     `
   } else {
+    const stripeUpgradeButton = isStripe || sub === null
+      ? `<button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
+          Upgrade for ${formatter.format(product.price / 100)} USD / mo
+        </button>`
+      : ''
+
+    const paypalButton = isPayPal || sub === null ? `<div class="checkout-paypal" data-id="${product.id}"></div>` : ''
+
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>
@@ -136,10 +157,8 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
           ${constructFeatureList(product)}
-          <button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
-            Upgrade for ${formatter.format(product.price / 100)} USD / mo
-          </button>
-          <!--<div class="checkout-paypal" data-id="${product.id}"></div>-->
+          ${stripeUpgradeButton}
+          ${paypalButton}
         </div>
       </section>
     `
@@ -162,7 +181,7 @@ export const initializeSubscriptionPage = memoize(() => {
     subscriptionsContainer.prepend(form)
   }
 
-  const tier = upgradeResponse.tier
+  const tier = getSubMetadata()?.tier ?? 0
 
   subscriptionSectionHolder.innerHTML = subscriptionProducts.map((product) =>
     createIndividualSubscriptionHTML(product, tier)
@@ -175,52 +194,62 @@ export const initializeSubscriptionPage = memoize(() => {
       element.addEventListener('click', clickHandler)
     }
   )
-  ;(async () => {
-    const paypal = await loadScript({
-      clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
-      disableFunding: ['venmo', 'paylater', 'credit', 'card'],
-      vault: true,
-      intent: 'subscription'
-    })
 
-    document.querySelectorAll<HTMLElement>('.subscriptionContainer > div > div[data-id]').forEach(
-      (element) => {
-        const id = element.getAttribute('data-id')!
-
-        paypal?.Buttons?.({
-          style: {
-            shape: 'rect',
-            layout: 'vertical',
-            color: 'gold',
-            label: 'paypal'
-          },
-
-          async createSubscription () {
-            const response = await fetch(`https://synergism.cc/paypal/subscriptions/create?product=${id}`, {
-              method: 'POST'
-            })
-
-            const json = await response.json()
-            return json.id
-          },
-
-          async onApprove (data) {
-            console.log('subscription approved', data)
-
-            Alert(
-              'Please give us a few minutes to process your subscription (PayPal is slow). You will have to refresh the page to receive the bonuses! Thank you for supporting Synergism!'
-            )
-          },
-
-          onError (error) {
-            Notification('An error with PayPal happened. More info in console.')
-            console.log(error)
-          }
-        }).render(element)
-      }
-    )
-  })()
+  initializePayPal_Subscription()
 })
+
+/**
+ * https://stackoverflow.com/a/69024269
+ */
+export const initializePayPal_Subscription = async () => {
+  const paypal = await loadScript({
+    clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
+    disableFunding: ['venmo', 'paylater', 'credit', 'card'],
+    dataNamespace: 'paypal_subscription',
+    vault: true,
+    intent: 'subscription'
+  })
+
+  const checkoutButtons = Array.from<HTMLElement>(
+    document.querySelectorAll('.subscriptionContainer > div > div.checkout-paypal')
+  )
+
+  for (const element of checkoutButtons) {
+    element.innerHTML = ''
+    const id = element.getAttribute('data-id')!
+
+    paypal?.Buttons?.({
+      style: {
+        shape: 'rect',
+        layout: 'vertical',
+        color: 'gold',
+        label: 'paypal'
+      },
+
+      async createSubscription () {
+        const response = await fetch(`https://synergism.cc/paypal/subscriptions/create?product=${id}`, {
+          method: 'POST'
+        })
+
+        const json = await response.json()
+        return json.id
+      },
+
+      async onApprove (data) {
+        console.log('subscription approved', data)
+
+        Alert(
+          'Please give us a few minutes to process your subscription (PayPal is slow). You will have to refresh the page to receive the bonuses! Thank you for supporting Synergism!'
+        )
+      },
+
+      onError (error) {
+        Notification('An error with PayPal happened. More info in console.')
+        console.log(error)
+      }
+    }).render(element)
+  }
+}
 
 export const clearSubscriptionPage = () => {
   subscriptionsContainer.style.display = 'none'
