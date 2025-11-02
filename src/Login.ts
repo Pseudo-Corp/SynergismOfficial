@@ -364,7 +364,7 @@ export async function handleLogin () {
         checkMark(1)
       }
 
-      The current maximum is 16%, by being a Discord server booster and an OMEGA Baller on Patreon!
+      The current maximum is 16%, by being a Discord server booster and an OMEGA Baller!
 
       More will be incorporated both for general accounts and supporters of the game shortly.
       Become a supporter of development via the link below, and get special bonuses,
