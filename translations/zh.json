@@ -1923,6 +1923,11 @@
         "description": "协同效应每有1级，您的成就护身符就可以额外升级1次！",
         "effect": "当前效果：成就护身符可以额外升级{{level}}次。"
       },
+      "runeAutobuyImprover": {
+        "name": "符文自动购买DX",
+        "description": "永久加速符文自动购买！速度变为原来的2倍，且协同效应超过130级后，每级还会使速度增加10%。",
+        "effect": "当前效果：符文自动购买的速度变为原来的{{mult}}倍"
+      },
       "salvageChallengeBuff": {
         "name": "回收挑战强化",
         "description": "获得25回收。<br>如果您正在进行任何挑战，该数值将翻倍。<br>如果您正在进行挑战15，该数值将翻倍。<br>如果您在拔擢中，该数值将变为原来的3倍！<br>效果可以相互叠乘。",
@@ -4702,7 +4707,7 @@
     "data": {
       "octeractStarter": {
         "name": "萌新的惊奇八阶方块",
-        "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加40%，惊奇八阶方块获取数量增加20%，蚂蚁速度变为100000倍……",
+        "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加25%，惊奇八阶方块获取数量增加40%，蚂蚁速度变为100000倍……",
         "effect": "您{{n}}向Derpsmith致敬。"
       },
       "octeractGain": {
@@ -6379,7 +6384,7 @@
       "DiamondUpgrade19": "钻石升级4x4：",
       "ReincarnationUpgrade16": "粒子升级4x1：",
       "ReincarnationUpgrade17": "粒子升级4x2：",
-      "ReincarnationUpgrade18": "Reincarnation Upgrade 18:",
+      "ReincarnationUpgrade18": "转世升级18：",
       "Research4x21": "研究4x21：",
       "Research6x22": "研究6x22：",
       "Research8x2": "研究8x2：",
