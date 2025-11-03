@@ -13,10 +13,14 @@ export enum AntUpgrades {
   FreeRunes = 8,
   Obtainium = 9,
   AntSacrifice = 10,
-  Mortuus = 11
+  Mortuus = 11,
+  AntSpeed2 = 12,
+  WowCubes = 13,
+  AscensionScore = 14,
+  Mortuus2 = 15
 }
 
-export const LAST_ANT_UPGRADE = AntUpgrades.Mortuus
+export const LAST_ANT_UPGRADE = AntUpgrades.Mortuus2
 
 export type AntUpgradeTypeMap = {
   [AntUpgrades.AntSpeed]: { antSpeed: Decimal }
@@ -36,16 +40,33 @@ export type AntUpgradeTypeMap = {
   [AntUpgrades.Mortuus]: {
     talismanUnlock: boolean
     globalSpeed: number
+  },
+  [AntUpgrades.AntSpeed2]: {
+    antSpeed: Decimal
+    perSacrificeMult: number
+    antSacrificeLimitCount: number
+  },
+  [AntUpgrades.Mortuus2]: {
+    talismanLevelIncreaser: number
+    talismanEffectBuff: number
+    ascensionSpeed: number
+  },
+  [AntUpgrades.AscensionScore]: {
+    ascensionScoreBase: number
+  },
+  [AntUpgrades.WowCubes]: {
+    wowCubes: number
   }
 }
 
 export interface AntUpgradeData<K extends AntUpgrades> {
   baseCost: Decimal
-  costIncrease: number
+  costIncreaseExponent: number
   antUpgradeHTML: {
     color: string
   }
   minimumResetTier: AntSacrificeTiers
+  exemptFromCorruption: boolean
   name: () => string
   intro: () => string
   description: () => string

@@ -1145,6 +1145,7 @@ export const singularity = (setSingNumber = -1) => {
   resetRuneBlessings('singularity')
   resetRuneSpirits('singularity')
   resetTalismanData('singularity')
+  resetAnts(AntSacrificeTiers.singularity)
 
   player.goldenQuarks += calculateGoldenQuarks()
 
@@ -1217,6 +1218,8 @@ export const singularity = (setSingNumber = -1) => {
   hold.runes = { ...player.runes }
   hold.talismans = { ...player.talismans }
   hold.cubeUpgrades[80] = player.cubeUpgrades[80]
+
+  hold.ants = deepClone()(player.ants)
 
   hold.ants.highestRebornELOEver = player.ants.highestRebornELOEver
   for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {

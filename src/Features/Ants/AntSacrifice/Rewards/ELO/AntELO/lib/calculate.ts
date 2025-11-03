@@ -15,8 +15,11 @@ export const calculateBaseAntELO = () => {
   ELO += 100 * CalcECC('reincarnation', player.challengecompletions[10])
   ELO += 75 * player.upgrades[80]
   ELO += getLevelReward('ants')
-  ELO += 5 * Math.min(100, player.ants.antSacrificeCount)
-  ELO += Math.max(0, Math.min(500, player.ants.antSacrificeCount - 100))
+
+  if (player.upgrades[79] > 0) {
+    ELO += Math.round(1000 * (1 - Math.pow(0.995, player.ants.antSacrificeCount)))
+  }
+
   return ELO
 }
 

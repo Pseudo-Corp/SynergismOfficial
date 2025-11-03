@@ -12,5 +12,9 @@ export const defaultAntUpgrades: Record<AntUpgrades, number> = {
   [AntUpgrades.FreeRunes]: 0,
   [AntUpgrades.Obtainium]: 0,
   [AntUpgrades.AntSacrifice]: 0,
-  [AntUpgrades.Mortuus]: 0
+  [AntUpgrades.Mortuus]: 0,
+  [AntUpgrades.AntSpeed2]: 0,
+  [AntUpgrades.Mortuus2]: 0,
+  [AntUpgrades.AscensionScore]: 0,
+  [AntUpgrades.WowCubes]: 0
 }

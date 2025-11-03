@@ -32,7 +32,7 @@ export const showSacrifice = () => {
   DOMCacheGetOrSet('crumbCountAgain').textContent = i18next.t(
     'ants.galacticCrumbCountThisSacrifice',
     {
-      x: format(player.ants.highestCrumbsThisSacrifice, 2, true, undefined, undefined, true)
+      x: format(player.ants.crumbsThisSacrifice, 2, true, undefined, undefined, true)
     }
   )
 

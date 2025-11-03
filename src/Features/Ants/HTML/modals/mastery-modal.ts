@@ -12,9 +12,9 @@ export const antMasteryHTML = (ant: AntProducers): string => {
   const nameHTML = `<span style="font-size: 1.2em; color: ${nameColor}" class="titleTextFont">${
     i18next.t(`ants.mastery.${ant}.name`)
   }</span>`
-  const flavorHTML = `<span style="color: lightgray" class="titleTextFont">${
+  const flavorHTML = `<i><span style="color: lightgray" class="titleTextFont">${
     i18next.t(`ants.mastery.${ant}.flavor`)
-  }</span>`
+  }</span></i>`
 
   const level = player.ants.masteries[ant].mastery
   const maxLevel = getMaxAntMasteryLevel()

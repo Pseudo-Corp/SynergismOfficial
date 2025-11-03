@@ -14,7 +14,7 @@ import { calculateBaseAntELO, calculateEffectiveAntELO } from './Rewards/ELO/Ant
 export const sacrificeAnts = async (auto = false) => {
   let p = true
   const cooldownCheck = sacrificeOffCooldown(player.antSacrificeTimerReal)
-  const crumbCheck = hasEnoughCrumbsForSacrifice(player.ants.highestCrumbsThisSacrifice)
+  const crumbCheck = hasEnoughCrumbsForSacrifice(player.ants.crumbsThisSacrifice)
 
   if (cooldownCheck && crumbCheck) {
     if (!auto && player.toggles[32]) {
