@@ -13,7 +13,7 @@ import { QuarkHandler, refreshQuarkBonus, setQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
-import { assert, btoa } from './Utility'
+import { assert, btoa, isomorphicDecode } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -880,7 +880,7 @@ function handleCloudSaves () {
           const textBody = await new Response(stream).text()
           const encoder = new TextEncoder()
           const jsonBytes = encoder.encode(textBody)
-          const final = btoa(String.fromCharCode(...jsonBytes))
+          const final = btoa(isomorphicDecode(jsonBytes))
 
           return final
         }

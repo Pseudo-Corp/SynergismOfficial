@@ -301,6 +301,38 @@ export const findInsertionIndex = (target: number, array: number[]): number => {
   return low + 1
 }
 
+/**
+ * @license {MIT}
+ * https://github.com/nodejs/undici/blob/6301265a20868d077faae6d51f5f6cf57ac2ebfe/lib/web/infra/index.js#L121
+ * 
+ * I'm stealing my own code, fuck off
+ */
+export function isomorphicDecode (input: Uint8Array) {
+  function fromCharCode (input: Iterable<number>) {
+    // https://tc39.es/ecma262/#sec-string.fromcharcode
+    return String.fromCharCode.apply(null, input as number[])
+  }
+
+  const length = input.length
+
+  if ((2 << 15) - 1 > length) {
+    return fromCharCode(input)
+  }
+
+  let result = ''
+  let i = 0
+  let addition = (2 << 15) - 1
+
+  while (i < length) {
+    if (i + addition > length) {
+      addition = length - i
+    }
+    result += fromCharCode(input.subarray(i, i += addition))
+  }
+
+  return result
+}
+
 export let isMobile = true
 
 export function isMobileDevice () {
