@@ -207,7 +207,7 @@ const upgradetexts = [
       3
     ),
   () => format(1 + 0.005 * Math.pow(Decimal.log10(player.maxOfferings.plus(1)), 2), 2, true),
-  () => null,
+  () => format(Math.round(1000 * (1 - Math.pow(0.995, player.ants.antSacrificeCount))), 0, true),
   () => null,
   ...Array.from({ length: 39 }, () => () => null),
   () => null,

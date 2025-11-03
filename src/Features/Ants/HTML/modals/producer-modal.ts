@@ -14,9 +14,9 @@ export const antProducerHTML = (ant: AntProducers) => {
   const nameHTML = `<span style="font-size: 1.2em; color: ${
     antProducerData[ant].color
   }" class="titleTextFont">${nameText}</span>`
-  const flavorHTML = `<span class="titleTextFont" style="color: lightgray">${
+  const flavorHTML = `<i><span class="titleTextFont" style="color: lightgray">${
     i18next.t(`ants.producers.${ant}.flavor`)
-  }</span>`
+  }</span></i>`
 
   const producerCountHTML = `<span>${
     i18next.t('ants.producerCount', {

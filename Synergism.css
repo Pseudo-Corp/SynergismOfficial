@@ -2409,12 +2409,19 @@ p#reincarnatehotkeys {
     min-height: 7em;
 }
 
-#antrow4 {
+#antUpgradesContainer {
     display: flex;
-    gap: 0 4px;
+    flex-direction: column;
     margin-top: 10px;
     color: red;
     z-index: 1;
+}
+
+.antUpgradeRow {
+    display: flex;
+    flex-direction: row;
+    gap: 4px 4px;
+    justify-content: center;
 }
 
 #antrow2 > p,

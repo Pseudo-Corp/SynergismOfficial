@@ -10,9 +10,10 @@ import {
   defaultQuarksGainedFromAnts
 } from '../AntSacrifice/Rewards/ELO/RebornELO/player/default'
 import { defaultAntUpgrades } from '../AntUpgrades/player/default'
-import { defaultCrumbs, defaultHighestCrumbsEver, defaultHighestCrumbsThisSacrifice } from '../Crumbs/player/default'
+import { defaultCrumbs, defaultCrumbsThisSacrifice, defaultCrumbsEverMade } from '../Crumbs/player/default'
 import type { PlayerAnts } from '../structs/structs'
 import {
+  defaultAlwaysSacrificeMaxRebornELO,
   defaultAutobuyAntMasterySetting,
   defaultAutobuyAntProducerSetting,
   defaultAutobuyAntUpgradeSetting,
@@ -28,8 +29,8 @@ export const defaultPlayerAnts: PlayerAnts = {
   masteries: { ...defaultAntMasteries },
   upgrades: { ...defaultAntUpgrades },
   crumbs: Decimal.fromDecimal(defaultCrumbs),
-  highestCrumbsThisSacrifice: Decimal.fromDecimal(defaultHighestCrumbsThisSacrifice),
-  highestCrumbsEver: Decimal.fromDecimal(defaultHighestCrumbsEver),
+  crumbsThisSacrifice: Decimal.fromDecimal(defaultCrumbsThisSacrifice),
+  crumbsEverMade: Decimal.fromDecimal(defaultCrumbsEverMade),
   immortalELO: defaultAntImmortalELO,
   rebornELO: defaultAntRebornELO,
   highestRebornELODaily: [...defaultHighestRebornELODaily],
@@ -45,6 +46,7 @@ export const defaultPlayerAnts: PlayerAnts = {
     maxBuyUpgrades: defaultMaxAntUpgradeBuySetting,
     autoSacrificeEnabled: defaultAutoSacrificeEnabled,
     autoSacrificeThreshold: defaultAutoSacrificeThreshold,
-    autoSacrificeMode: defaultAutoSacrificeSetting
+    autoSacrificeMode: defaultAutoSacrificeSetting,
+    alwaysSacrificeMaxRebornELO: defaultAlwaysSacrificeMaxRebornELO
   }
 }

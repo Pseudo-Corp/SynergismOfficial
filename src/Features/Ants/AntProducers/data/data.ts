@@ -25,7 +25,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
           i18next.t('ants.producers.0.eloInformation', {
             x: format(calculateELOMult(), 2, true)
           }),
-        displayCondition: () => player.ants.antSacrificeCount > 0 || player.ants.highestCrumbsThisSacrifice.gte(1e70)
+        displayCondition: () => true
       },
       {
         text: () =>
@@ -201,7 +201,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.HolySpirit]: {
     baseCost: Decimal.fromString('1e1000000'),
     costIncrease: 1e128,
-    baseProduction: Decimal.fromString('1e-125000'),
+    baseProduction: Decimal.fromString('1e-110000'),
     color: '#FFFFFF',
     additionalTexts: [
       {

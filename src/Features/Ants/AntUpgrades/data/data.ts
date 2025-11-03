@@ -9,11 +9,12 @@ import { type AntUpgradeData, AntUpgrades } from '../structs/structs'
 export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   [AntUpgrades.AntSpeed]: {
     baseCost: Decimal.fromString('100'),
-    costIncrease: 10,
+    costIncreaseExponent: 1,
     antUpgradeHTML: {
       color: 'crimson'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
     name: () => i18next.t('ants.upgrades.antSpeed.name'),
     intro: () => i18next.t('ants.upgrades.antSpeed.intro'),
     description: () => {
@@ -37,11 +38,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   },
   [AntUpgrades.Coins]: {
     baseCost: Decimal.fromString('100'),
-    costIncrease: 10,
+    costIncreaseExponent: 1,
     antUpgradeHTML: {
       color: 'yellow'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
     name: () => i18next.t('ants.upgrades.coins.name'),
     intro: () => i18next.t('ants.upgrades.coins.intro'),
     description: () => i18next.t('ants.upgrades.coins.description'),
@@ -69,11 +71,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   },
   [AntUpgrades.Taxes]: {
     baseCost: Decimal.fromString('1000'),
-    costIncrease: 10,
+    costIncreaseExponent: 1,
     antUpgradeHTML: {
       color: 'lightgray'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
     name: () => i18next.t('ants.upgrades.taxes.name'),
     intro: () => i18next.t('ants.upgrades.taxes.intro'),
     description: () => i18next.t('ants.upgrades.taxes.description'),
@@ -89,11 +92,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   },
   [AntUpgrades.AcceleratorBoosts]: {
     baseCost: Decimal.fromString('1000'),
-    costIncrease: 10,
+    costIncreaseExponent: 1,
     antUpgradeHTML: {
       color: 'cyan'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
     name: () => i18next.t('ants.upgrades.acceleratorBoosts.name'),
     intro: () => i18next.t('ants.upgrades.acceleratorBoosts.intro'),
     description: () => i18next.t('ants.upgrades.acceleratorBoosts.description'),
@@ -111,11 +115,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   },
   [AntUpgrades.Multipliers]: {
     baseCost: Decimal.fromString('1e5'),
-    costIncrease: 100,
+    costIncreaseExponent: 2,
     antUpgradeHTML: {
       color: 'pink'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
     name: () => i18next.t('ants.upgrades.multipliers.name'),
     intro: () => i18next.t('ants.upgrades.multipliers.intro'),
     description: () => i18next.t('ants.upgrades.multipliers.description'),
@@ -131,11 +136,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   },
   [AntUpgrades.Offerings]: {
     baseCost: Decimal.fromString('1e6'),
-    costIncrease: 100,
+    costIncreaseExponent: 2,
     antUpgradeHTML: {
       color: 'orange'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
     name: () => i18next.t('ants.upgrades.offerings.name'),
     intro: () => i18next.t('ants.upgrades.offerings.intro'),
     description: () => i18next.t('ants.upgrades.offerings.description'),
@@ -151,11 +157,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   },
   [AntUpgrades.BuildingCostScale]: {
     baseCost: Decimal.fromString('1e11'),
-    costIncrease: 100,
+    costIncreaseExponent: 2,
     antUpgradeHTML: {
       color: 'lime'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
     name: () => i18next.t('ants.upgrades.buildingCostScale.name'),
     intro: () => i18next.t('ants.upgrades.buildingCostScale.intro'),
     description: () => i18next.t('ants.upgrades.buildingCostScale.description'),
@@ -174,11 +181,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   },
   [AntUpgrades.Salvage]: {
     baseCost: Decimal.fromString('1e15'),
-    costIncrease: 1000,
+    costIncreaseExponent: 3,
     antUpgradeHTML: {
       color: 'green'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
     name: () => i18next.t('ants.upgrades.salvage.name'),
     intro: () => i18next.t('ants.upgrades.salvage.intro'),
     description: () => i18next.t('ants.upgrades.salvage.description'),
@@ -194,11 +202,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   },
   [AntUpgrades.FreeRunes]: {
     baseCost: Decimal.fromString('1e20'),
-    costIncrease: 1000,
+    costIncreaseExponent: 3,
     antUpgradeHTML: {
       color: 'cyan'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
     name: () => i18next.t('ants.upgrades.freeRunes.name'),
     intro: () => i18next.t('ants.upgrades.freeRunes.intro'),
     description: () => i18next.t('ants.upgrades.freeRunes.description'),
@@ -214,11 +223,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   },
   [AntUpgrades.Obtainium]: {
     baseCost: Decimal.fromString('1e6'),
-    costIncrease: 100,
+    costIncreaseExponent: 2,
     antUpgradeHTML: {
       color: 'pink'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
     name: () => i18next.t('ants.upgrades.obtainium.name'),
     intro: () => i18next.t('ants.upgrades.obtainium.intro'),
     description: () => i18next.t('ants.upgrades.obtainium.description'),
@@ -234,11 +244,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   },
   [AntUpgrades.AntSacrifice]: {
     baseCost: Decimal.fromString('1e120'),
-    costIncrease: 1e20,
+    costIncreaseExponent: 20,
     antUpgradeHTML: {
       color: 'crimson'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
     name: () => i18next.t('ants.upgrades.antSacrifice.name'),
     intro: () => i18next.t('ants.upgrades.antSacrifice.intro'),
     description: () => i18next.t('ants.upgrades.antSacrifice.description'),
@@ -254,11 +265,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   },
   [AntUpgrades.Mortuus]: {
     baseCost: Decimal.fromString('1e300'),
-    costIncrease: 1e100,
+    costIncreaseExponent: 100,
     antUpgradeHTML: {
       color: 'gray'
     },
-    minimumResetTier: AntSacrificeTiers.sacrifice,
+    minimumResetTier: AntSacrificeTiers.ascension,
+    exemptFromCorruption: true,
     name: () => i18next.t('ants.upgrades.mortuus.name'),
     intro: () => i18next.t('ants.upgrades.mortuus.intro'),
     description: () => i18next.t('ants.upgrades.mortuus.description'),
@@ -273,6 +285,109 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
       const effect1 = i18next.t('ants.upgrades.mortuus.effect', { checkMark: effects.talismanUnlock ? '✔️' : '❌' })
       const effect2 = i18next.t('ants.upgrades.mortuus.effect2', { x: formatAsPercentIncrease(effects.globalSpeed, 2) })
       return `${effect1}<br>${effect2}`
+    }
+  },
+  [AntUpgrades.AntSpeed2]: {
+    baseCost: Decimal.fromString('1e70'),
+    costIncreaseExponent: 4,
+    antUpgradeHTML: {
+      color: '#FF766A'
+    },
+    minimumResetTier: AntSacrificeTiers.sacrifice,
+    exemptFromCorruption: false,
+    name: () => i18next.t('ants.upgrades.antSpeed2.name'),
+    intro: () => i18next.t('ants.upgrades.antSpeed2.intro'),
+    description: () => i18next.t('ants.upgrades.antSpeed2.description'),
+    effect: (n: number) => {
+      let baseMul = 1.01
+      baseMul += 0.01 * (1 - Math.pow(0.999, n))
+      const antSacrificeLimitCount = Math.min(1_000_000, n + 400)
+      const effectiveSacs = Math.min(antSacrificeLimitCount, player.ants.antSacrificeCount)
+      const antSpeed = Decimal.pow(baseMul, effectiveSacs)
+      return {
+        antSpeed: antSpeed,
+        perSacrificeMult: baseMul,
+        antSacrificeLimitCount: antSacrificeLimitCount
+      }
+    },
+    effectDescription: () => {
+      const effects = getAntUpgradeEffect(AntUpgrades.AntSpeed2)
+      const effect1 = i18next.t('ants.upgrades.antSpeed2.effect', { x: format(effects.antSpeed, 2, true) })
+      const effect2 = i18next.t('ants.upgrades.antSpeed2.effect2', { x: formatAsPercentIncrease(effects.perSacrificeMult, 4) })
+      const effect3 = i18next.t('ants.upgrades.antSpeed2.effect3', { x: format(effects.antSacrificeLimitCount, 0, true) })
+      return `${effect1}<br>${effect2}<br>${effect3}`
+    }
+  },
+  [AntUpgrades.Mortuus2]: {
+    baseCost: Decimal.fromString('1e37777'),
+    costIncreaseExponent: 2000,
+    antUpgradeHTML: {
+      color: 'darkgray'
+    },
+    minimumResetTier: AntSacrificeTiers.singularity,
+    exemptFromCorruption: true,
+    name: () => i18next.t('ants.upgrades.mortuus2.name'),
+    intro: () => i18next.t('ants.upgrades.mortuus2.intro'),
+    description: () => i18next.t('ants.upgrades.mortuus2.description'),
+    effect: (n: number) => {
+      const talismanMaxLevels = Math.min(1200, Math.floor(n / 2))
+      const talismanEffectBuff = 1 + 0.9 * (1 - Math.pow(0.999, n)) + 0.005 * Math.min(20, n)
+      const ascensionSpeed = 2 - Math.pow(0.996, n)
+      return {
+        talismanLevelIncreaser: talismanMaxLevels,
+        talismanEffectBuff: talismanEffectBuff,
+        ascensionSpeed: ascensionSpeed
+      }
+    },
+    effectDescription: () => {
+      const effects = getAntUpgradeEffect(AntUpgrades.Mortuus2)
+      const effect1 = i18next.t('ants.upgrades.mortuus2.effect', { x: format(effects.talismanLevelIncreaser, 0, true) })
+      const effect2 = i18next.t('ants.upgrades.mortuus2.effect2', { x: formatAsPercentIncrease(effects.talismanEffectBuff, 2) })
+      const effect3 = i18next.t('ants.upgrades.mortuus2.effect3', { x: formatAsPercentIncrease(effects.ascensionSpeed, 2) })
+      return `${effect1}<br>${effect2}<br>${effect3}`
+    }
+  },
+  [AntUpgrades.AscensionScore]: {
+    baseCost: Decimal.fromString('1e100'),
+    costIncreaseExponent: 2,
+    antUpgradeHTML: {
+      color: 'orange'
+    },
+    minimumResetTier: AntSacrificeTiers.ascension,
+    exemptFromCorruption: true,
+    name: () => i18next.t('ants.upgrades.ascensionScore.name'),
+    intro: () => i18next.t('ants.upgrades.ascensionScore.intro'),
+    description: () => i18next.t('ants.upgrades.ascensionScore.description'),
+    effect: (n: number) => {
+      const ascensionScoreBase = 2 * n
+      return {
+        ascensionScoreBase: ascensionScoreBase,
+      }
+    },
+    effectDescription: () => {
+      const ascensionScoreBase = getAntUpgradeEffect(AntUpgrades.AscensionScore)
+      return i18next.t('ants.upgrades.ascensionScore.effect', { x: format(ascensionScoreBase.ascensionScoreBase, 0, true) })
+    }
+  },
+  [AntUpgrades.WowCubes]: {
+    baseCost: Decimal.fromString('1e400'),
+    costIncreaseExponent: 10,
+    minimumResetTier: AntSacrificeTiers.ascension,
+    exemptFromCorruption: true,
+    name: () => i18next.t('ants.upgrades.wowCubes.name'),
+    intro: () => i18next.t('ants.upgrades.wowCubes.intro'),
+    description: () => i18next.t('ants.upgrades.wowCubes.description'),
+    antUpgradeHTML: {
+      color: '#66FFFF'
+    },
+    effect: (n: number) => {
+      return {
+        wowCubes: 1 + n / 500,
+      }
+    },
+    effectDescription: () => {
+      const effects = getAntUpgradeEffect(AntUpgrades.WowCubes)
+      return i18next.t('ants.upgrades.wowCubes.effect', { x: formatAsPercentIncrease(effects.wowCubes, 2) })
     }
   }
 }

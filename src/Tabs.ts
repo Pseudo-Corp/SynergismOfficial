@@ -223,9 +223,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: '2',
-        get unlocked () {
-          return player.ants.highestCrumbsEver.gte(1e70)
-        },
+        unlocked: true,
         buttonID: 'toggleAntSubtab2'
       }
     ]

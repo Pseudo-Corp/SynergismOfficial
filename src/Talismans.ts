@@ -212,6 +212,10 @@ export const metaphysicsTalismanMaxLevelIncreasers = () => {
   return player.cubeUpgrades[67] > 0 ? 1337 : 0
 }
 
+export const mortuusTalismanMaxLevelIncreasers = () => {
+  return getAntUpgradeEffect(AntUpgrades.Mortuus2).talismanLevelIncreaser
+}
+
 export const plasticTalismanMaxLevelIncreasers = () => {
   return PCoinUpgradeEffects.INSTANT_UNLOCK_1 ? 10 : 0
 }
@@ -456,7 +460,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     baseMult: new Decimal(100),
     maxLevel: 180,
     costs: regularCostProgression,
-    levelCapIncrease: () => universalTalismanMaxLevelIncreasers(),
+    levelCapIncrease: () => universalTalismanMaxLevelIncreasers() + mortuusTalismanMaxLevelIncreasers(),
     effects: (n) => {
       const inscriptValues = [1, 1.05, 1.1, 1.15, 1.2, 1.3, 1.4, 1.5, 1.65, 1.8, 2]
       const prismOOMBonus = (n >= 6) ? 12 : 0
@@ -909,13 +913,16 @@ export const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneKe
     return 0
   }
 
-  let metaPhysicsMult = 1
+  let bonusMult = 1
   if (t === 'metaphysics') {
-    metaPhysicsMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).talismanEffect
-    metaPhysicsMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).extraTalismanEffect
+    bonusMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).talismanEffect
+    bonusMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).extraTalismanEffect
+  }
+  if (t === 'mortuus') {
+    bonusMult *= getAntUpgradeEffect(AntUpgrades.Mortuus2).talismanEffectBuff
   }
 
-  return talisman.talismanBaseCoefficient[rune] * metaPhysicsMult * talisman.level * rarityValues[talisman.rarity]
+  return talisman.talismanBaseCoefficient[rune] * bonusMult * talisman.level * rarityValues[talisman.rarity]
 }
 
 export const getRuneBonusFromAllTalismans = (rune: RuneKeys): number => {

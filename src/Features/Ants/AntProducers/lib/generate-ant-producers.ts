@@ -19,14 +19,11 @@ export const generateAntsAndCrumbs = (dt: number): void => {
     )
   }
 
+  const crumbsToGenerate = calculateBaseAntsToBeGenerated(AntProducers.Workers, antSpeedMult).times(dt)
   // Separately handle Crumbs in the same way
-  player.ants.crumbs = player.ants.crumbs.add(
-    calculateBaseAntsToBeGenerated(AntProducers.Workers, antSpeedMult)
-      .times(dt)
-  )
-
-  player.ants.highestCrumbsThisSacrifice = Decimal.max(player.ants.highestCrumbsThisSacrifice, player.ants.crumbs)
-  player.ants.highestCrumbsEver = Decimal.max(player.ants.highestCrumbsEver, player.ants.crumbs)
+  player.ants.crumbs = Decimal.add(player.ants.crumbs, crumbsToGenerate)
+  player.ants.crumbsThisSacrifice = Decimal.add(player.ants.crumbsThisSacrifice, crumbsToGenerate)
+  player.ants.crumbsEverMade = Decimal.add(player.ants.crumbsEverMade, crumbsToGenerate)
 
   // Activate ELO if appropriate
   activateELO(dt)

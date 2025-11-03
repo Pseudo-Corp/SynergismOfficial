@@ -23,8 +23,8 @@ export interface PlayerAnts {
   masteries: Record<AntProducers, PlayerAntMasteries>
   upgrades: Record<AntUpgrades, number>
   crumbs: Decimal
-  highestCrumbsThisSacrifice: Decimal
-  highestCrumbsEver: Decimal
+  crumbsThisSacrifice: Decimal
+  crumbsEverMade: Decimal
   immortalELO: number
   rebornELO: number
   highestRebornELODaily: Array<{ elo: number; sacrificeId: number }>
@@ -41,5 +41,6 @@ export interface PlayerAnts {
     autoSacrificeEnabled: boolean
     autoSacrificeThreshold: number
     autoSacrificeMode: AutoSacrificeModes
+    alwaysSacrificeMaxRebornELO: boolean
   }
 }

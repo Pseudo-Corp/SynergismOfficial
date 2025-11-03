@@ -1186,6 +1186,9 @@ export const calculateAscensionScore = () => {
     }
   }
 
+  baseScore += getAntUpgradeEffect(AntUpgrades.AscensionScore).ascensionScoreBase
+
+
   // Calculation of Challenge 10 Exponent (It gives a constant multiplier per completion)
   // 1.03 +
   // 0.005 from Cube 3x9 +
