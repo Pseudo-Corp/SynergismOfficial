@@ -7,15 +7,15 @@ export const getCostNextAntUpgrade = (antUpgrade: AntUpgrades) => {
   const data = antUpgradeData[antUpgrade]
   const nextCost = data.baseCost.times(
     Decimal.pow(
-      data.costIncrease,
-      player.ants.upgrades[antUpgrade]
+      10,
+      player.ants.upgrades[antUpgrade] * data.costIncreaseExponent
     )
   )
   const lastCost = player.ants.upgrades[antUpgrade] > 0
     ? data.baseCost.times(
       Decimal.pow(
-        data.costIncrease,
-        player.ants.upgrades[antUpgrade] - 1
+        10,
+        (player.ants.upgrades[antUpgrade] - 1) * data.costIncreaseExponent
       )
     )
     : Decimal.fromNumber(0)
@@ -27,10 +27,10 @@ export const getCostMaxAntUpgrades = (antUpgrade: AntUpgrades) => {
   const data = antUpgradeData[antUpgrade]
 
   const spent = player.ants.upgrades[antUpgrade] > 0
-    ? Decimal.pow(data.costIncrease, player.ants.upgrades[antUpgrade] - 1).times(data.baseCost)
+    ? Decimal.pow(10, data.costIncreaseExponent * (player.ants.upgrades[antUpgrade] - 1)).times(data.baseCost)
     : Decimal.fromNumber(0)
 
-  const maxAntUpgradeCost = Decimal.pow(data.costIncrease, maxBuyable - 1).times(data.baseCost)
+  const maxAntUpgradeCost = Decimal.pow(10, data.costIncreaseExponent * (maxBuyable - 1)).times(data.baseCost)
 
   return maxAntUpgradeCost.sub(spent)
 }
@@ -40,12 +40,13 @@ export const getMaxPurchasableAntUpgrades = (antUpgrade: AntUpgrades, budget: De
   const sunkCost = player.ants.upgrades[antUpgrade] > 0
     ? data.baseCost.times(
       Decimal.pow(
-        data.costIncrease,
-        player.ants.upgrades[antUpgrade] - 1
+        10,
+        data.costIncreaseExponent *
+        (player.ants.upgrades[antUpgrade] - 1)
       )
     )
     : Decimal.fromNumber(0)
   const realBudget = budget.add(sunkCost)
 
-  return Math.max(0, 1 + Math.floor(Decimal.log(realBudget.div(data.baseCost), data.costIncrease)))
+  return Math.max(0, 1 + Math.floor(Decimal.log(realBudget.div(data.baseCost), 10) / data.costIncreaseExponent))
 }

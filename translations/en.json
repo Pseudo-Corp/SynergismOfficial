@@ -1940,6 +1940,26 @@
         "name": "Salvage Challenge Buff",
         "description": "Gain +25 Salvage. <br> If you are in any Challenge, this value is doubled. <br> If you are in Challenge 15, this value is doubled. <br> If you are in EXALT, this value is tripled! <br> Effects may stack.",
         "effect": "Current Effect: +{{salvage}} Salvage"
+      },
+      "antSpeed2Autobuyer": {
+        "name": "Impia Reproducta Autobuyer",
+        "description": "Autobuy Impia Reproducta Formicidae if you have autobuy enabled!",
+        "effect": "Current Effect: See Above!"
+      },
+      "wowCubesAutobuyer": {
+        "name": "Cubus Admirabilis Autobuyer",
+        "description": "Autobuy Cubus Admirabilis Formicidae if you have autobuy enabled!",
+        "effect": "Current Effect: See Above!"
+      },
+      "ascensionScoreAutobuyer": {
+        "name": "Ascendens Autobuyer",
+        "description": "Autobuy Ascendens Formicidae if you have autobuy enabled!",
+        "effect": "Current Effect: See Above!"
+      },
+      "mortuus2Autobuyer": {
+        "name": "Mortuus Iterum Autobuyer",
+        "description": "Autobuy Mortuus Iterum Formicidae if you have autobuy enabled!",
+        "effect": "Current Effect: See Above!"
       }
     },
     "progressiveAchievements": {
@@ -2214,6 +2234,10 @@
       "8": "Generates {{x}} ALMIGHTIES/sec"
     },
     "upgrades": {
+      "sacrificeReset": "This Ant resets when you perform an Ant Sacrifice.",
+      "ascensionReset": "This Ant resets when you Ascend.",
+      "singularityReset": "This Ant resets when you perform a Singularity.",
+      "ignoreCorruption": "[<<white|♔>>] This Ant is unaffected by the effects of Corruptions.",
       "antSpeed": {
         "name": "Inceptus Formicidae",
         "intro": "Love is in the air.",
@@ -2287,6 +2311,34 @@
         "description": "When purchased, unlock a new Talisman! Also, gain up to 2x Global Speed!",
         "effect": "<<gray | Mortuus Talisman: {{checkMark}}>>",
         "effect2": "Somehow, your Global Speed is increased by <<royalblue | {{x}}>>"
+      },
+      "antSpeed2": {
+        "name": "Impia Reproducta Formicidae",
+        "intro": "A bridge from the Altar to your Anthill.",
+        "description": "Gain Ant Speed per Ant Sacrifice! Up to 1.02x per Sacrifice, up to 1,000,000 Anthills Sacrificed!",
+        "effect": "Current Effect: <<crimson | Ant Speed x{{x}}>>",
+        "effect2": "Ant Speed Multiplier per Sacrifice: <<crimson | +{{x}}>>",
+        "effect3": "Effect is maxed at <<crimson | {{x}}>> Anthills Sacrificed"
+      },
+      "mortuus2": {
+        "name": "Mortuus Iterum Formicidae",
+        "intro": "The cyan glow... it's... Reborn?",
+        "description": "Improve your Mortuus Talisman! Up to +100% Effect, +1,200 Max Level, and gain some Ascension Speed on the side.",
+        "effect": "Mortuus Talisman Max Level: <<royalblue | +{{x}}>>",
+        "effect2": "Mortuus Talisman Effect: <<royalblue | +{{x}}>>",
+        "effect3": "Ascension Speed: <<orange | +{{x}}>>"
+      },
+      "ascensionScore": {
+        "name": "Ascendens Formicidae",
+        "intro": "And this, is to go even further beyond!",
+        "description": "Add Ascension Score to your current Ascension! Value added is <b>before</b> any multipliers.",
+        "effect": "Ascension Score <<orange | +{{x}}>>"
+      },
+      "wowCubes": {
+        "name": "Cubus Admirabilis Formicidae",
+        "intro": "Picasso's Ant Period.",
+        "description": "Gain more Wow! Cubes! +0.2% per level, to be exact.",
+        "effect": "Gain <<white | +{{x}}>> more Wow! Cubes"
       }
     },
     "rewards": {
@@ -3103,7 +3155,7 @@
       "189": "[8x14] Legendary Fragments increase Spirit Power by +15% * Log10(Legendary Fragments + 1)",
       "190": "[8x15] Unlock Automations for all 5 of the Tesseract buildings.",
       "191": "[8x16] +0.1% Rune Power per level. Woah!",
-      "192": "[8x17] Each purchased level of Mortuus Est (the Ant Upgrade) also increases Ascension Cube reward by +0.03%",
+      "192": "[8x17] Each purchased level of Mortuus Est (the Ant Upgrade) also increases Wow! Cube reward by +0.20%",
       "193": "[8x18] +1% Ant Sacrifice reward per level.",
       "194": "[8x19] Increases both Spirit Power AND Blessing Power by +2% per level.",
       "195": "[8x20] Gain +1 export Quark per level, and increases the max timer to redeem Quarks by 5 hours each!",
@@ -4222,7 +4274,7 @@
       "76": "Ant generation kinda slow? I agree! Multiply Ant Speed by 5.",
       "77": "This is Synergism, right? Let's make each purchased Worker Ant multiply Ant Speed by 1.004.",
       "78": "Gain an Ant speed multiplier! x(1 + 0.005 * (log10(MAX Offerings + 1))^2) Ant Speed, to be precise.",
-      "79": "The Ant God will accept an arbitrary number of Particles in order to give you 10% more rewards from Ant Sacrifice.",
+      "79": "Gain Ant ELO based on your total Sacrifice Count! Up to +1,000 Ant ELO.",
       "80": "The Ant God will accept a larger arbitrary number of Particles to give you more Ant ELO.",
       "81": "Automatically buy Workers if affordable.",
       "82": "Automatically buy Investments if affordable.",
@@ -4390,7 +4442,7 @@
       "76": "Effect: Epic 5x Ant Speed!",
       "77": "Effect: Ant Speed x{{x}}",
       "78": "Effect: Ant Speed x{{x}}",
-      "79": "Effect: Ant Sacrifice reward will be increased by 10% =)",
+      "79": "Effect: Ant ELO +{{x}}",
       "80": "Effect: +75 Ant ELO if this upgrade is purchased.",
       "81": "Effect: All you need is right above this message.",
       "120": "Effect: All you need to know is right above this message!",
@@ -5986,6 +6038,7 @@
       "WowSquare": "Wow Square - Signature Bonus:",
       "Researches": "Researches (Except 8x25):",
       "Research8x25": "Research 8x25:",
+      "AntUpgrade": "Ants - Cubus Admirabilis:",
       "CubeUpgrades": "Cube Upgrades:",
       "ConstantUpgrade10": "Constant Upgrade 10:",
       "Achievement189": "Achievement 189 Bonus:",
@@ -6418,6 +6471,7 @@
     },
     "ascensionSpeedMultiplierStats": {
       "title": "Ascension Speed Multiplier",
+      "AntUpgrade": "Ants - Mortuus Iterum Formicidae:",
       "SpeedSpirit": "Speed Spirit Bonus:",
       "PolymathTalisman": "Polymath Talisman - Inscription Bonus:",
       "Chronometer": "Chronometer Shop Upgrade:",

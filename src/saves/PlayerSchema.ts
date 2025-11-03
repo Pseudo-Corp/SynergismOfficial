@@ -137,8 +137,8 @@ const antsSchema = z.object({
   )
     .default(() => blankSave.ants.upgrades),
   crumbs: decimalSchema.default(() => blankSave.ants.crumbs),
-  highestCrumbsThisSacrifice: decimalSchema.default(() => blankSave.ants.highestCrumbsThisSacrifice),
-  highestCrumbsEver: decimalSchema.default(() => blankSave.ants.highestCrumbsEver),
+  crumbsThisSacrifice: decimalSchema.default(() => blankSave.ants.crumbsThisSacrifice),
+  crumbsEverMade: decimalSchema.default(() => blankSave.ants.crumbsEverMade),
   immortalELO: z.number().default(() => blankSave.ants.immortalELO),
   rebornELO: z.number().default(() => blankSave.ants.rebornELO),
   highestRebornELODaily: leaderboardEntrySchema.array().transform((array) =>
@@ -158,8 +158,9 @@ const antsSchema = z.object({
     maxBuyUpgrades: z.boolean().default(() => blankSave.ants.toggles.maxBuyUpgrades),
     autoSacrificeEnabled: z.boolean().default(() => blankSave.ants.toggles.autoSacrificeEnabled),
     autoSacrificeThreshold: z.number().default(() => blankSave.ants.toggles.autoSacrificeThreshold),
-    autoSacrificeMode: z.number().default(() => blankSave.ants.toggles.autoSacrificeMode)
-  })
+    autoSacrificeMode: z.number().default(() => blankSave.ants.toggles.autoSacrificeMode),
+    alwaysSacrificeMaxRebornELO: z.boolean().default(() => blankSave.ants.toggles.alwaysSacrificeMaxRebornELO),
+  }).default(() => deepClone()(blankSave.ants.toggles))
 })
 
 const ascendBuildingSchema = z.object({

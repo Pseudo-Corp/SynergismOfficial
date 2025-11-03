@@ -5289,8 +5289,8 @@ window.addEventListener('load', async () => {
         )
       }-${lastUpdated.getFullYear()}].`
       : ''
-    ver.textContent = `You're ${testing ? 'testing' : 'playing'} v${version} - The Alternate Reality${textUpdate} ${
-      testing ? i18next.t('testing.saveInLive') : ''
+    ver.innerHTML = `You're ${testing ? 'testing' : 'playing'} v${version} ${textUpdate} ${
+      testing ? `<br><span style="font-size: 1.3em" class="rainbowText">${i18next.t('testing.saveInLive')}</span>` : ''
     }`
   }
   document.title = `Synergism v${version}`

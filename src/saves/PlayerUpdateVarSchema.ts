@@ -248,8 +248,8 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
     }
 
     player.ants.crumbs = Decimal.min(new Decimal('1e1000'), Decimal.max(1, player.antPoints))
-    player.ants.highestCrumbsThisSacrifice = Decimal.min(new Decimal('1e1000'), Decimal.max(1, player.antPoints))
-    player.ants.highestCrumbsEver = Decimal.min(new Decimal('1e1000'), Decimal.max(1, player.antPoints))
+    player.ants.crumbsThisSacrifice = Decimal.min(new Decimal('1e1000'), Decimal.max(1, player.antPoints))
+    player.ants.crumbsEverMade = Decimal.min(new Decimal('1e1000'), Decimal.max(1, player.antPoints))
 
     if (player.antSacrificePoints !== undefined) {
       player.ants.immortalELO = Math.min(1000, player.antSacrificePoints)

@@ -3160,7 +3160,7 @@ export const updateAchievementLevel = (fromUpdatePoints = false) => {
     achievementLevel = 50 + Math.floor((achievementPoints - 2500) / 100)
   }
   displayLevelStuff()
-
+  achievementLevel += 999;
   if (oldLevel < achievementLevel) {
     if (player.toggles[34] && !fromUpdatePoints) {
       void Notification(i18next.t('achievements.levelUpNotification', { old: oldLevel, new: achievementLevel }))

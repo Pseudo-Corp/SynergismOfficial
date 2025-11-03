@@ -410,12 +410,16 @@ export const allWowCubeStats: NumberStatLine[] = [
       * (1 + (0.8 * player.researches[167]) / 100) // 7x17
       * (1 + (0.7 * player.researches[182]) / 100) // 8x7
       * (1
-        + (0.03 / 100) * player.researches[192] * calculateTrueAntLevel(AntUpgrades.Mortuus)) // 8x17
+        + (1 / 500) * player.researches[192] * calculateTrueAntLevel(AntUpgrades.Mortuus)) // 8x17
       * (1 + (0.6 * player.researches[197]) / 100) // 8x22
   },
   {
     i18n: 'Research8x25',
     stat: () => 1 + (0.004 / 100) * player.researches[200]
+  },
+  {
+    i18n: 'AntUpgrade',
+    stat: () => getAntUpgradeEffect(AntUpgrades.WowCubes).wowCubes
   },
   {
     i18n: 'CubeUpgrades',
@@ -1748,10 +1752,6 @@ export const antSacrificeRewardStats: DecimalSourceLine[] = [
     stat: () => 1 + (1 / 100) * player.researches[193]
   },
   {
-    i18n: 'ParticleUpgrade4x4',
-    stat: () => 1 + (1 / 10) * player.upgrades[79]
-  },
-  {
     i18n: 'AcceleratorBoostUpgrade',
     stat: () => 1 + (1 / 4) * player.upgrades[40]
   },
@@ -1904,6 +1904,10 @@ export const allGlobalSpeedDRStats: NumberStatLine[] = [
 ]
 
 export const allAscensionSpeedStats: NumberStatLine[] = [
+  {
+    i18n: 'AntUpgrade',
+    stat: () => getAntUpgradeEffect(AntUpgrades.Mortuus2).ascensionSpeed // Ant Upgrade Mortuus 2
+  },
   {
     i18n: 'PolymathTalisman',
     stat: () => getTalismanEffects('polymath').ascensionSpeedBonus // Polymath Talisman
@@ -2949,6 +2953,10 @@ export const antSpeedStats: DecimalSourceLine[] = [
   {
     i18n: 'AntUpgrade1',
     stat: () => getAntUpgradeEffect(AntUpgrades.AntSpeed).antSpeed // Ant Upgrade 1
+  },
+  {
+    i18n: 'AntUpgrade13',
+    stat: () => getAntUpgradeEffect(AntUpgrades.AntSpeed2).antSpeed // Ant Upgrade 13
   },
   {
     i18n: 'DiamondUpgrade19',
