@@ -120,12 +120,6 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
       </section>
     `
   } else if (product.tier === currentSubTier) {
-    const stripeYouAreHereButton = isStripe
-      ? `<button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton" style="background-color: #b59410">
-          You are here!
-        </button>`
-      : ''
-
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>
@@ -135,7 +129,9 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
           ${constructFeatureList(product)}
-          ${stripeYouAreHereButton}
+          <button data-name="${product.name}" class="pseudoCoinButton" style="background-color: #b59410">
+            You are here!
+          </button>
         </div>
       </section>
     `
