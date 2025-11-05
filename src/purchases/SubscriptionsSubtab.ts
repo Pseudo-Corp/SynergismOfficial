@@ -107,8 +107,8 @@ export const createSubscriptionTierName = (product: SubscriptionProduct) => {
 }
 
 export const noSubscriptionButton = (product: SubscriptionProduct) => {
-  return `<div class="checkout-paypal" data-id=${product.id}></div>
-  <button data-id=${product.id} data-name="${product.name}" class="pseudoCoinButton">
+  return `<div class="checkout-paypal" data-id="${product.id}"></div>
+  <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton">
     ${formatter.format(product.price / 100)} USD / mo
   </button>`
 }

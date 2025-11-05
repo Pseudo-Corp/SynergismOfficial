@@ -5518,9 +5518,6 @@ window.addEventListener('load', async () => {
         url: './mockServiceWorker.js'
       }
     })
-    const response = await fetch('https://synergism.cc/api/v1/users/me')
-    const data = await response.json()
-    console.log(data)
   }
 
   const symbolsEnabled = localStorage.getItem('statSymbols')
