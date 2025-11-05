@@ -4,6 +4,7 @@ import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
 import { messageHandlers } from './handlers/MessageHandlers'
 import { paymentHandlers } from './handlers/PaymentHandlers'
 import { consumeHandlers } from './websocket'
+import { paypalSubscriptionActive } from './handlers/SubscriptionHandlers'
 
 const GETHandlers = [
   http.get('https://synergism.cc/api/v1/quark-bonus', () => {
@@ -1170,8 +1171,8 @@ const PUTHandlers = [
 export const worker = setupWorker(
   http.get('https://synergism.cc/api/v1/users/me', () => {
     return HttpResponse.json({
-      personalBonus: 0,
-      globalBonus: 100,
+      personalBonus: 5,
+      globalBonus: 50,
       member: {
         user: {
           id: '267774648622645249',
@@ -1207,9 +1208,9 @@ export const worker = setupWorker(
       },
       accountType: 'discord',
       bonus: {
-        quarkBonus: 0
+        quarkBonus: 5
       },
-      subscription: null
+      subscription: paypalSubscriptionActive
     })
   }),
   ...GETHandlers,

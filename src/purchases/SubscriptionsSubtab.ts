@@ -8,6 +8,7 @@ import { addToCart, getQuantity } from './CartUtil'
 
 const subscriptionsContainer = document.querySelector<HTMLElement>('#pseudoCoins > #subscriptionsContainer')!
 const subscriptionSectionHolder = subscriptionsContainer.querySelector<HTMLElement>('#sub-section-holder')!
+const manageSubscriptionHolder = subscriptionsContainer.querySelector<HTMLElement>('#manage-subscription-holder')!
 
 const formatter = Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -50,7 +51,7 @@ function clickHandler (this: HTMLButtonElement, e: HTMLElementEventMap['click'])
   const productName = (e.target as HTMLButtonElement).getAttribute('data-name')
 
   if (productId === null || !subscriptionProducts.some((product) => product.id === productId)) {
-    Alert('Stop fucking touching the html! We do server-side validation!')
+    Alert('Sorry, but the product does not exist or is not in the subscriptions catalogue! Did you edit the HTML?')
     return
   } else if (subscriptionProducts.some((product) => getQuantity(product.id) !== 0)) {
     Alert('You can only subscribe to 1 subscription tier!')
@@ -94,67 +95,116 @@ const constructFeatureList = ({ features }: SubscriptionProduct) => {
   return ul.outerHTML
 }
 
+const subscriptionTierGradients = [
+  'transcendedBallerGradient gradientText',
+  'reincarnatedBallerGradient gradientText',
+  'ascendedBallerGradient gradientText',
+  'rainbowText'
+]
+
+export const createSubscriptionTierName = (product: SubscriptionProduct) => {
+  return `Tier ${product.tier}<br><span class="${subscriptionTierGradients[product.tier - 1]}">${product.name}</span>`
+}
+
+export const noSubscriptionButton = (product: SubscriptionProduct) => {
+  return `<div class="checkout-paypal" data-id=${product.id}></div>
+  <button data-id=${product.id} data-name="${product.name}" class="pseudoCoinButton">
+    ${formatter.format(product.price / 100)} USD / mo
+  </button>`
+}
+
+export const downgradeButton = (product: SubscriptionProduct) => {
+  return `<button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
+    Downgrade
+    </button>`
+}
+
+export const nonPaypalCurrentSubscriptionButton = () => {
+  return `<button data-name="current-subscription" class="pseudoCoinButton" style="background-color: #b59410">
+    You are here!
+  </button>`
+}
+
+export const paypalCancelButton = (product: SubscriptionProduct) => {
+  return `<button data-id="${product.id}" data-name="${product.name}" data-cancel class="pseudoCoinButton" style="background-color: maroon">
+      Cancel
+    </button>`
+}
+
+export const upgradeButton = (product: SubscriptionProduct, currentSubTier: number) => {
+  const currentPrice = subscriptionProducts.find((v) => v.tier === currentSubTier)?.price ?? 0
+  return `<button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton" style="background-color: green">
+    ↑ (+${formatter.format((product.price - currentPrice) / 100)} USD / mo)
+  </button>`
+}
+
 export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentSubTier: number) => {
   const sub = getSubMetadata()
   const isPayPal = sub?.provider === 'paypal'
-  const isStripe = sub?.provider === 'stripe'
-
+  const isPatreon = sub?.provider === 'patreon'
+  const notSubbed = sub === null
+  const nameHTML = createSubscriptionTierName(product)
   if (product.tier < currentSubTier) {
-    const stripeDowngradeButton = isStripe || sub === null
-      ? `<button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
-          Downgrade!
-        </button>`
-      : ''
+    const downgradeBtn = isPatreon
+      ? '' // Don't display because we probably should just let players manage Patreon subs on Patreon
+      : downgradeButton(product)
 
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>
           <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
-          ${product.name.split(' - ').join('<br>')}
+          ${nameHTML}
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
           ${constructFeatureList(product)}
-          ${stripeDowngradeButton}
+          ${downgradeBtn}
         </div>
       </section>
     `
   } else if (product.tier === currentSubTier) {
+    const paypalCancelBtn = isPayPal
+      ? paypalCancelButton(product)
+      : ''
+
+    const currentSubBtn = !isPayPal
+      ? nonPaypalCurrentSubscriptionButton()
+      : ''
+
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>
           <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
-          ${product.name.split(' - ').join('<br>')}
+          ${nameHTML}
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
           ${constructFeatureList(product)}
-          <button data-name="${product.name}" class="pseudoCoinButton" style="background-color: #b59410">
-            You are here!
-          </button>
+          ${currentSubBtn}
+          ${paypalCancelBtn}
         </div>
       </section>
     `
   } else {
-    const stripeUpgradeButton = isStripe || sub === null
-      ? `<button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
-          Upgrade for ${formatter.format(product.price / 100)} USD / mo
-        </button>`
-      : ''
+    const upgradeBtn = isPatreon || notSubbed
+      ? '' // Again for Patreon. If not subbed, display subscriptions as purchases, not upgrades
+      : upgradeButton(product, currentSubTier)
 
-    const paypalButton = isPayPal || sub === null ? `<div class="checkout-paypal" data-id="${product.id}"></div>` : ''
+    const noSubscription = sub === null
+      ? noSubscriptionButton(product)
+      : ''
 
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>
           <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
-          ${product.name.split(' - ').join('<br>')}
+          ${nameHTML}
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
           ${constructFeatureList(product)}
-          ${stripeUpgradeButton}
-          ${paypalButton}
+          ${noSubscription}
+          ${upgradeBtn}
         </div>
       </section>
     `
@@ -162,7 +212,7 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
 }
 
 export const initializeSubscriptionPage = memoize(() => {
-  // Manage subscription button
+  // Manage subscription button (Stripe)
   {
     const form = document.createElement('form')
     form.action = !prod
@@ -171,10 +221,21 @@ export const initializeSubscriptionPage = memoize(() => {
 
     const submit = document.createElement('input')
     submit.type = 'submit'
-    submit.value = 'Manage Subscription'
+    submit.value = 'Manage Subscription (Stripe)'
     form.appendChild(submit)
 
-    subscriptionsContainer.prepend(form)
+    manageSubscriptionHolder.append(form)
+  }
+  // Manage subscription button (Patreon)
+  {
+    const form = document.createElement('form')
+    form.action = 'https://www.patreon.com/c/synergism/membership'
+    const submit = document.createElement('input')
+    submit.type = 'submit'
+    submit.value = 'Manage Subscription (Patreon)'
+    form.appendChild(submit)
+
+    manageSubscriptionHolder.append(form)
   }
 
   const tier = getSubMetadata()?.tier ?? 0

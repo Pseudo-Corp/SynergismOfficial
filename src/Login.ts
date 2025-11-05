@@ -203,7 +203,7 @@ interface BonusTypes {
   quarks: number
 }
 
-type SubscriptionMetadata = {
+export type SubscriptionMetadata = {
   provider: 'paypal' | 'stripe' | 'patreon'
   tier: number
 } | null

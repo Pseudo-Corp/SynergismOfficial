@@ -4236,6 +4236,21 @@ header #obtainiumDisplay { color: pink; }
     }
 }
 
+.transcendedBallerGradient {
+    --gradient-start: orchid;
+    --gradient-end: rgb(167, 65, 167);
+}
+
+.reincarnatedBallerGradient {
+    --gradient-start: green;
+    --gradient-end: greenyellow;
+}
+
+.ascendedBallerGradient {
+    --gradient-start: orange;
+    --gradient-end: yellow;
+}
+
 .singularityGradient {
     --gradient-start: gold;
     --gradient-end: lightgoldenrodyellow;
@@ -4928,14 +4943,19 @@ form input:hover {
     align-items: center;
 }
 
-.pseudoSubscriptionContainer > form {
+#manage-subscription-holder {
+    display: flex;
+    flex: row;
+}
+
+#manage-subscription-holder > form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 10px;
+    margin: 5px;
 }
 
-.pseudoSubscriptionContainer > form > input[type="submit"] {
+#manage-subscription-holder > form > input[type="submit"] {
     border: 2px solid gold;
     width: 200px;
     height: 40px;
@@ -4956,7 +4976,7 @@ form input:hover {
 }
 
 .subscriptionContainer {
-    margin: 10px 10px 0 0;
+    margin: 0;
     border: 1px solid lightgoldenrodyellow;
     border: 2px solid gold;
     text-align: center;
