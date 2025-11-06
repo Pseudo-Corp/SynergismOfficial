@@ -257,6 +257,7 @@ interface SynergismUserAPIResponse<T extends keyof AccountMetadata> {
   bonus: BonusTypes
   error?: unknown
   subscription: SubscriptionMetadata
+  linkedAccounts: string[]
 }
 
 const isDiscordAccount = (
@@ -290,7 +291,8 @@ export async function handleLogin () {
             personalBonus: 0,
             accountType: 'none',
             bonus: { quarks: 0 },
-            subscription: null
+            subscription: null,
+            linkedAccounts: []
           } satisfies SynergismUserAPIResponse<'none'>
         ),
         { status: 401 }
@@ -298,7 +300,7 @@ export async function handleLogin () {
   )
 
   const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>
-  const { personalBonus, subscription: sub } = account
+  const { personalBonus, subscription: sub, linkedAccounts } = account
 
   setPersonalQuarkBonus(personalBonus)
   player.worlds = new QuarkHandler(Number(player.worlds))
@@ -362,37 +364,42 @@ export async function handleLogin () {
       <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${hasTier4 ? checkMark(5) : exMark}
       <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${boosted ? checkMark(1) : exMark}
 
-      Event Bonuses:
-      <span style="color: #ffcc00">Thanksgiving 2023</span> [+0.2%] - ${
+      <div class="event-bonuses-header" id="eventBonusesHeader">
+        <span class="chevron" id="eventBonusesChevron">▼</span>
+        <span>${i18next.t('account.eventBonuses')}:</span>
+      </div>
+      <div class="event-bonuses-content" id="eventBonusesContent">
+        <span style="color: #ffcc00">Thanksgiving 2023</span> [+0.2%] - ${
         discord && account.member.roles?.includes(THANKSGIVING_2023) ? checkMark(0.2) : exMark
       }
-      <span style="color: #ffcc00">Thanksgiving 2024</span> [+0.3%] - ${
+        <span style="color: #ffcc00">Thanksgiving 2024</span> [+0.3%] - ${
         discord && account.member.roles?.includes(THANKSGIVING_2024) ? checkMark(0.3) : exMark
       }
-      <span style="color: #ffcc00">Conductor 2023</span> [+0.3%] - ${
+        <span style="color: #ffcc00">Conductor 2023</span> [+0.3%] - ${
         discord && account.member.roles?.includes(CONDUCTOR_2023) ? checkMark(0.3) : exMark
       }
-      <span style="color: #ffcc00">Conductor 2024</span> [+0.4%] - ${
+        <span style="color: #ffcc00">Conductor 2024</span> [+0.4%] - ${
         discord && account.member.roles?.includes(CONDUCTOR_2024) ? checkMark(0.4) : exMark
       }
-      <span style="color: #ffcc00">Eight Leaf</span> [+0.3%] - ${
+        <span style="color: #ffcc00">Eight Leaf</span> [+0.3%] - ${
         discord && account.member.roles?.includes(EIGHT_LEAF) ? checkMark(0.3) : exMark
       }
-      <span style="color: #ffcc00">Ten Leaf</span> [+0.4%] - ${
+        <span style="color: #ffcc00">Ten Leaf</span> [+0.4%] - ${
         discord && account.member.roles?.includes(TEN_LEAF) ? checkMark(0.4) : exMark
       }
-      <span style="color: #ffcc00">Smith Incarnate</span> [+0.6%] - ${
+        <span style="color: #ffcc00">Smith Incarnate</span> [+0.6%] - ${
         discord && account.member.roles?.includes(SMITH_INCARNATE) ? checkMark(0.6) : exMark
       }
-      <span style="color: #ffcc00">Smith God</span> [+0.7%] - ${
+        <span style="color: #ffcc00">Smith God</span> [+0.7%] - ${
         discord && account.member.roles?.includes(SMITH_GOD) ? checkMark(0.7) : exMark
       }
-      <span style="color: #ffcc00">Golden Smith God</span> [+0.8%] - ${
+        <span style="color: #ffcc00">Golden Smith God</span> [+0.8%] - ${
         discord && account.member.roles?.includes(GOLDEN_SMITH_GOD) ? checkMark(0.8) : exMark
       }
-      <span style="color: #ffcc00">Diamond Smith Messiah</span> [+1%] - ${
+        <span style="color: #ffcc00">Diamond Smith Messiah</span> [+1%] - ${
         discord && account.member.roles?.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1.2) : exMark
       }
+      </div>
 
       And Finally...
       <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
@@ -404,10 +411,85 @@ export async function handleLogin () {
       More will be incorporated both for general accounts and supporters of the game shortly.
       Become a supporter of development via the link below, and get special bonuses,
       while also improving the Global Bonus for all to enjoy!
-      <a href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
-      <span style="color: lightgoldenrodyellow">--> PATREON <--</span>
-      </a>
     `.trim()
+
+      const allPlatforms = ['discord', 'patreon']
+      const unlinkedPlatforms = allPlatforms.filter((platform) => !linkedAccounts.includes(platform))
+
+      if (unlinkedPlatforms.length > 0) {
+        const linkAccountsSection = document.createElement('div')
+
+        const buttonContainer = document.createElement('div')
+        buttonContainer.style.display = 'flex'
+        buttonContainer.style.flexWrap = 'wrap'
+        buttonContainer.style.gap = '10px'
+        buttonContainer.style.marginTop = '10px'
+        buttonContainer.style.justifyContent = 'center'
+
+        const platformConfig = {
+          discord: {
+            label: 'Link Discord',
+            color: '#5865F2',
+            logo:
+              `<svg width="20" height="20" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
+                <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="white"/>
+              </svg>`
+          },
+          patreon: {
+            label: 'Link Patreon',
+            color: '#FF424D',
+            logo:
+              `<svg width="20" height="20" viewBox="0 0 436 476" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
+                <path d="M436 143.371C436 64.203 373.797 2 294.629 2C215.461 2 153.258 64.203 153.258 143.371C153.258 222.539 215.461 284.742 294.629 284.742C373.797 284.742 436 222.539 436 143.371ZM0 474H74.8139V2H0V474Z" fill="white"/>
+              </svg>`
+          }
+        }
+
+        unlinkedPlatforms.forEach((platform) => {
+          const config = platformConfig[platform as keyof typeof platformConfig]
+          const button = document.createElement('button')
+          button.innerHTML = `${config.logo}${config.label}`
+          button.style.padding = '10px 20px'
+          button.style.cursor = 'pointer'
+          button.style.backgroundColor = config.color
+          button.style.color = 'white'
+          button.style.border = 'none'
+          button.style.borderRadius = '5px'
+          button.style.fontSize = '14px'
+          button.style.fontWeight = 'bold'
+          button.style.display = 'flex'
+          button.style.alignItems = 'center'
+          button.style.transition = 'opacity 0.2s'
+          button.addEventListener('mouseenter', () => {
+            button.style.opacity = '0.85'
+          })
+          button.addEventListener('mouseleave', () => {
+            button.style.opacity = '1'
+          })
+          button.addEventListener('click', () => {
+            window.open(`https://synergism.cc/login?with=${platform}&link=true`, '_blank')
+          })
+          buttonContainer.appendChild(button)
+        })
+
+        linkAccountsSection.appendChild(buttonContainer)
+        subtabElement.appendChild(linkAccountsSection)
+      }
+
+      // Add event listener for event bonuses dropdown toggle
+      const eventBonusesHeader = DOMCacheGetOrSet('eventBonusesHeader')
+      const eventBonusesContent = DOMCacheGetOrSet('eventBonusesContent')
+      const eventBonusesChevron = DOMCacheGetOrSet('eventBonusesChevron')
+
+      eventBonusesContent.style.display = 'none'
+      eventBonusesChevron.style.transform = 'rotate(-90deg)'
+
+      eventBonusesHeader.style.cursor = 'pointer'
+      eventBonusesHeader.addEventListener('click', () => {
+        const isCollapsed = eventBonusesContent.style.display === 'none'
+        eventBonusesContent.style.display = isCollapsed ? 'block' : 'none'
+        eventBonusesChevron.style.transform = isCollapsed ? 'rotate(0deg)' : 'rotate(-90deg)'
+      })
     } else if (!hasAccount(account)) {
       // User is not logged in
       subtabElement.querySelector('#open-register')?.addEventListener('click', () => {

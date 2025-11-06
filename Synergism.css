@@ -5204,6 +5204,37 @@ form input:hover {
     margin-top: 5px;
 }
 
+/* Event Bonuses Dropdown Styles */
+.event-bonuses-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    user-select: none;
+    vertical-align: middle;
+}
+
+.event-bonuses-header:hover {
+    opacity: 0.8;
+}
+
+.event-bonuses-header .chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    font-size: 12px;
+    line-height: 1;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+}
+
+.event-bonuses-content {
+    display: block;
+    margin-left: 24px;
+}
+
 .pseudoUpgradeContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
