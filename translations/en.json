@@ -7378,8 +7378,7 @@
     "downloadComplete": "Download complete",
     "deletedSave": "\"{{name}}\" was deleted",
     "notDeleted": "Your save wasn't deleted. Check the console for more information.",
-    "eventBonuses": "Event Bonuses",
-    "linkAccounts": "Link Additional Accounts"
+    "eventBonuses": "Event Bonuses"
   },
   "pseudoCoins": {
     "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",

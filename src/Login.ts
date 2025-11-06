@@ -445,7 +445,7 @@ export async function handleLogin () {
           }
         }
 
-        unlinkedPlatforms.forEach((platform) => {
+        for (const platform of unlinkedPlatforms) {
           const config = platformConfig[platform as keyof typeof platformConfig]
           const button = document.createElement('button')
           button.innerHTML = `${config.logo}${config.label}`
@@ -470,7 +470,7 @@ export async function handleLogin () {
             window.open(`https://synergism.cc/login?with=${platform}&link=true`, '_blank')
           })
           buttonContainer.appendChild(button)
-        })
+        }
 
         linkAccountsSection.appendChild(buttonContainer)
         subtabElement.appendChild(linkAccountsSection)
