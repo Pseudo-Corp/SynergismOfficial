@@ -1209,7 +1209,8 @@ export const worker = setupWorker(
       bonus: {
         quarkBonus: 0
       },
-      subscription: null
+      subscription: null,
+      linkedAccounts: ['email']
     })
   }),
   ...GETHandlers,

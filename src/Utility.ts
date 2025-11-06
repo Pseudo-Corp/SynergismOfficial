@@ -304,7 +304,7 @@ export const findInsertionIndex = (target: number, array: number[]): number => {
 /**
  * @license {MIT}
  * https://github.com/nodejs/undici/blob/6301265a20868d077faae6d51f5f6cf57ac2ebfe/lib/web/infra/index.js#L121
- * 
+ *
  * I'm stealing my own code, fuck off
  */
 export function isomorphicDecode (input: Uint8Array) {
