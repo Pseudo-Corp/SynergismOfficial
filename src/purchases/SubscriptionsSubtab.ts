@@ -1,6 +1,6 @@
 import { loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
-import { getSubMetadata } from '../Login'
+import { getSubMetadata, SubscriptionMetadata, SubscriptionProvider } from '../Login'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { type SubscriptionProduct, subscriptionProducts } from './CartTab'
@@ -10,40 +10,147 @@ const subscriptionsContainer = document.querySelector<HTMLElement>('#pseudoCoins
 const subscriptionSectionHolder = subscriptionsContainer.querySelector<HTMLElement>('#sub-section-holder')!
 const manageSubscriptionHolder = subscriptionsContainer.querySelector<HTMLElement>('#manage-subscription-holder')!
 
+type Actions = 'manage' | 'upgrade' | 'downgrade' | 'cancel'
+type RouteLinks = Partial<Record<Actions, string>>
+
+const prodRouteLinks: Record<'stripe' | 'paypal', RouteLinks> = {
+  stripe: {
+    manage: 'https://synergism.cc/stripe/manage-subscription',
+    upgrade: 'https://synergism.cc/stripe/subscription/upgrade',
+    downgrade: 'https://synergism.cc/stripe/subscription/downgrade',
+    cancel: 'https://synergism.cc/stripe/subscription/cancel'
+  },
+  paypal: {
+    // Potential issue: manage link is the same as upgrade/downgrade
+    manage: 'https://synergism.cc/paypal/subscriptions/revise',
+    upgrade: 'https://synergism.cc/paypal/subscriptions/revise',
+    downgrade: 'https://synergism.cc/paypal/subscriptions/revise',
+    cancel: 'https://synergism.cc/paypal/subscriptions/cancel'
+  },
+}
+
+const devRouteLinks: Record<'stripe' | 'paypal', RouteLinks> = {
+  stripe: {
+    manage: 'https://synergism.cc/stripe/test/manage-subscription',
+    upgrade: 'https://synergism.cc/stripe/test/subscription/upgrade',
+    downgrade: 'https://synergism.cc/stripe/test/subscription/downgrade',
+    cancel: 'https://synergism.cc/stripe/test/subscription/cancel'
+  },
+  paypal: {
+    manage: 'https://synergism.cc/paypal/subscriptions/revise',
+    upgrade: 'https://synergism.cc/paypal/subscriptions/revise',
+    downgrade: 'https://synergism.cc/paypal/subscriptions/revise',
+    cancel: 'https://synergism.cc/paypal/subscriptions/cancel'
+  },
+}
+
 const formatter = Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD'
 })
 
-async function changeSubscription (productId: string, type: 'upgrade' | 'downgrade') {
+async function changeSubscription (sub: SubscriptionMetadata, productId: string, type: 'upgrade' | 'downgrade') {
   const newSub = subscriptionProducts.find((v) => v.id === productId)
   const newSubPrice = newSub!.price
   const newSubName = newSub!.name
+
+  const oldSub = subscriptionProducts.find((v) => v.tier === sub!.tier)
+  const oldSubPrice = oldSub!.price
+
+  if (sub!.provider === 'patreon') {
+    return Alert('Please visit our Patreon page to manage your subscription. (You actually should not be seeing this at all, funny enough)')
+  }
+
   const confirm = (type === 'downgrade')
     ? await Confirm(
       `You are downgrading to ${newSubName}, which costs ${
         formatter.format(newSubPrice / 100)
-      } per month. Downgrading takes effect immediately!`
+      } per month. Downgrading takes effect immediately! Proceed?`
     )
     : await Confirm(
-      `You are upgrading to ${newSubName}, which costs ${formatter.format(newSubPrice / 100)} per month`
+      `You are upgrading to ${newSubName}, which costs ${formatter.format(newSubPrice / 100)} per month (an increase of ${formatter.format((newSubPrice - oldSubPrice) / 100)} per month). Proceed?`
     )
 
   if (!confirm) {
     return
   }
 
-  const link = !prod
-    ? `https://synergism.cc/stripe/test/subscription/${type}`
-    : `https://synergism.cc/stripe/subscription/${type}`
+  const link = prod
+    ? prodRouteLinks[sub!.provider][type]!
+    : devRouteLinks[sub!.provider][type]!
+
   const url = new URL(link)
   url.searchParams.set('key', productId)
 
   const response = await fetch(url, {
     method: 'POST'
   })
+
   console.log(response, response.text())
+  updateSubscriptionPage()
+  console.log(getSubMetadata())
   return Alert(`You are now subscribed to ${newSubName}!`)
+}
+
+async function manageSubscription (provider: SubscriptionProvider) {
+
+  if (provider === 'patreon') {
+    return Alert('You should not see this alert! Let Platonic know immediately.')
+  }
+
+  const link = prod
+    ? prodRouteLinks[provider]['manage']!
+    : devRouteLinks[provider]['manage']!
+
+  const url = new URL(link)
+  const response = await fetch(url, {
+    method: 'POST'
+  })
+
+  console.log(response, response.text())
+  updateSubscriptionPage()
+  console.log(getSubMetadata())
+  return Alert('(TODO) Please follow the instructions from the provider to manage your subscription.')
+}
+
+async function cancelSubscription (provider: SubscriptionProvider) {
+
+  if (provider === 'patreon') {
+    return Alert('You should not see this alert! Let Platonic know immediately.')
+  }
+
+  const confirm = await Confirm(
+    `Are you sure you want to cancel your subscription? You will keep the associated perks until your current Subscription expires.`
+  )
+
+  if (!confirm) {
+    return
+  }
+
+  const link = prod
+    ? prodRouteLinks[provider]['cancel']!
+    : devRouteLinks[provider]['cancel']!
+
+  const url = new URL(link)
+  const response = await fetch(url, {
+    method: 'POST'
+  })
+
+  console.log(response, response.text())
+  updateSubscriptionPage()
+  console.log(getSubMetadata())
+  return Alert('Your subscription has been cancelled. You will keep your perks until the end of the current billing period.')
+}
+
+function manageSubClickHandler (this: HTMLButtonElement, e: HTMLElementEventMap['click']) {
+  const provider = (e.target as HTMLButtonElement).getAttribute('data-provider') as SubscriptionProvider
+  if (this.classList.contains('subscriptionCancel')) {
+    cancelSubscription(provider)
+    return
+  } else if (this.classList.contains('subscriptionWebsite')) {
+    manageSubscription(provider)
+    return
+  }
 }
 
 function clickHandler (this: HTMLButtonElement, e: HTMLElementEventMap['click']) {
@@ -59,13 +166,12 @@ function clickHandler (this: HTMLButtonElement, e: HTMLElementEventMap['click'])
   }
 
   const sub = getSubMetadata()
-
   if (sub?.tier) {
     if (this.hasAttribute('data-downgrade')) {
-      changeSubscription(productId, 'downgrade')
+      changeSubscription(sub, productId, 'downgrade')
       return
     } else if (this.hasAttribute('data-upgrade')) {
-      changeSubscription(productId, 'upgrade')
+      changeSubscription(sub, productId, 'upgrade')
       return
     }
   }
@@ -119,7 +225,7 @@ export const downgradeButton = (product: SubscriptionProduct) => {
     </button>`
 }
 
-export const nonPaypalCurrentSubscriptionButton = () => {
+export const currentSubscriptionBox = () => {
   return `<button data-name="current-subscription" class="pseudoCoinButton" style="background-color: #b59410">
     You are here!
   </button>`
@@ -140,15 +246,14 @@ export const upgradeButton = (product: SubscriptionProduct, currentSubTier: numb
 
 export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentSubTier: number) => {
   const sub = getSubMetadata()
-  const isPayPal = sub?.provider === 'paypal'
-  const isPatreon = sub?.provider === 'patreon'
   const notSubbed = sub === null
+  const patreonSub = sub?.provider === 'patreon'
   const nameHTML = createSubscriptionTierName(product)
+
   if (product.tier < currentSubTier) {
-    const downgradeBtn = isPatreon
-      ? '' // Don't display because we probably should just let players manage Patreon subs on Patreon
-      : downgradeButton(product)
-
+    const downgradeBtn = patreonSub
+    ? '' // No downgrade button for Patreon subs
+    : downgradeButton(product)
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>
@@ -158,19 +263,12 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
           ${constructFeatureList(product)}
-          ${downgradeBtn}
         </div>
-      </section>
-    `
-  } else if (product.tier === currentSubTier) {
-    const paypalCancelBtn = isPayPal
-      ? paypalCancelButton(product)
-      : ''
-
-    const currentSubBtn = !isPayPal
-      ? nonPaypalCurrentSubscriptionButton()
-      : ''
-
+        ${downgradeBtn}
+      </section>`
+  }
+  else if (product.tier === currentSubTier) {
+    const currentSub = currentSubscriptionBox()
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>
@@ -180,20 +278,20 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
           ${constructFeatureList(product)}
-          ${currentSubBtn}
-          ${paypalCancelBtn}
         </div>
+        ${currentSub}
       </section>
     `
-  } else {
-    const upgradeBtn = isPatreon || notSubbed
-      ? '' // Again for Patreon. If not subbed, display subscriptions as purchases, not upgrades
-      : upgradeButton(product, currentSubTier)
+  } else if (product.tier > currentSubTier) {
 
-    const noSubscription = sub === null
+    const noSubscription = notSubbed
       ? noSubscriptionButton(product)
       : ''
 
+    const upgradeBtn = notSubbed || patreonSub
+      ? ''
+      : upgradeButton(product, currentSubTier)
+
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>
@@ -203,57 +301,86 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, c
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
           ${constructFeatureList(product)}
-          ${noSubscription}
-          ${upgradeBtn}
         </div>
+        ${noSubscription}
+        ${upgradeBtn}
       </section>
     `
   }
 }
 
+const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
+  const patreonManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-patreon-sub')!
+  const stripeManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-stripe-sub')!
+  const paypalManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-paypal-sub')!;
+
+  const subscriptionCancelButtons = manageSubscriptionHolder.querySelectorAll<HTMLElement>('.subscriptionCancel');
+
+  (sub === null || sub.provider === 'patreon') ?
+    patreonManageForm.style.display = 'flex' :
+    patreonManageForm.style.display = 'none';
+
+  (sub === null || sub.provider === 'stripe') ?
+    stripeManageForm.style.display = 'flex' :
+    stripeManageForm.style.display = 'none';
+  
+  (sub === null || sub.provider === 'paypal') ?
+    paypalManageForm.style.display = 'flex' :
+    paypalManageForm.style.display = 'none';
+  
+  (sub === null) ?
+    subscriptionCancelButtons.forEach(btn => btn.style.display = 'none') :
+    subscriptionCancelButtons.forEach(btn => btn.style.display = 'block');
+}
+
 export const initializeSubscriptionPage = memoize(() => {
-  // Manage subscription button (Stripe)
-  {
-    const form = document.createElement('form')
-    form.action = !prod
-      ? 'https://synergism.cc/stripe/test/manage-subscription'
-      : 'https://synergism.cc/stripe/manage-subscription'
 
-    const submit = document.createElement('input')
-    submit.type = 'submit'
-    submit.value = 'Manage Subscription (Stripe)'
-    form.appendChild(submit)
-
-    manageSubscriptionHolder.append(form)
-  }
-  // Manage subscription button (Patreon)
-  {
-    const form = document.createElement('form')
-    form.action = 'https://www.patreon.com/c/synergism/membership'
-    const submit = document.createElement('input')
-    submit.type = 'submit'
-    submit.value = 'Manage Subscription (Patreon)'
-    form.appendChild(submit)
-
-    manageSubscriptionHolder.append(form)
-  }
+  const sub = getSubMetadata()
+  manageSubscriptionButtonVisibility(sub)
 
   const tier = getSubMetadata()?.tier ?? 0
-
   subscriptionSectionHolder.innerHTML = subscriptionProducts.map((product) =>
     createIndividualSubscriptionHTML(product, tier)
   ).join('')
 
   subscriptionSectionHolder!.style.display = 'grid'
 
-  document.querySelectorAll<HTMLButtonElement>('.subscriptionContainer > div > button[data-id]').forEach(
+  document.querySelectorAll<HTMLButtonElement>('.subscriptionContainer > button[data-id]').forEach(
     (element) => {
       element.addEventListener('click', clickHandler)
     }
   )
 
+  document.querySelectorAll<HTMLButtonElement>('.subscriptionCancel, .subscriptionWebsite').forEach(
+    (element) => {
+      element.addEventListener('click', manageSubClickHandler)
+    }
+  )
+
   initializePayPal_Subscription()
 })
+
+// TODO: When I buy a subscription, cancel or change it, the page should update
+// its HTML without a full refresh, but without having to re-initialize the whole page
+export const updateSubscriptionPage = () => {
+
+  const sub = getSubMetadata()
+  manageSubscriptionButtonVisibility(sub)
+  subscriptionSectionHolder.innerHTML = ''
+
+  const tier = sub?.tier ?? 0
+
+  subscriptionSectionHolder.innerHTML = subscriptionProducts.map((product) =>
+    createIndividualSubscriptionHTML(product, tier)
+  ).join('')
+
+  document.querySelectorAll<HTMLButtonElement>('.subscriptionContainer > button[data-id]').forEach(
+    (element) => {
+      element.addEventListener('click', clickHandler)
+    }
+  )
+  initializePayPal_Subscription()
+}
 
 /**
  * https://stackoverflow.com/a/69024269
@@ -268,7 +395,7 @@ export const initializePayPal_Subscription = async () => {
   })
 
   const checkoutButtons = Array.from<HTMLElement>(
-    document.querySelectorAll('.subscriptionContainer > div > div.checkout-paypal')
+    document.querySelectorAll('.subscriptionContainer > div.checkout-paypal')
   )
 
   for (const element of checkoutButtons) {
@@ -284,10 +411,10 @@ export const initializePayPal_Subscription = async () => {
       },
 
       async createSubscription () {
-        const response = await fetch(`https://synergism.cc/paypal/subscriptions/create?product=${id}`, {
-          method: 'POST'
-        })
 
+        const response = await fetch(`https://synergism.cc/paypal/subscriptions/create?product=${id}`, {
+          method: 'POST',
+        })
         const json = await response.json()
         return json.id
       },

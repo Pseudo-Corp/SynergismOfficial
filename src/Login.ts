@@ -14,6 +14,8 @@ import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount 
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
 import { assert, btoa, isomorphicDecode } from './Utility'
+import { prod } from './Config'
+import { mockSubscription } from './mock/handlers/SubscriptionHandlers'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -76,7 +78,7 @@ const cloudSaves: Save[] = []
 export const isLoggedIn = () => loggedIn
 export const getTips = () => tips
 export const setTips = (newTips: number) => tips = newTips
-export const getSubMetadata = () => subscription
+export const getSubMetadata = () => prod ? subscription : mockSubscription
 
 export const allDurableConsumables: Record<PseudoCoinConsumableNames, Consumable> = {
   HAPPY_HOUR_BELL: {
@@ -203,9 +205,12 @@ interface BonusTypes {
   quarks: number
 }
 
+export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon'
+export type SubscriptionTier = 1 | 2 | 3 | 4
+
 export type SubscriptionMetadata = {
-  provider: 'paypal' | 'stripe' | 'patreon'
-  tier: number
+  provider: SubscriptionProvider
+  tier: SubscriptionTier
 } | null
 
 interface SynergismUserAPIResponse<T extends keyof AccountMetadata> {

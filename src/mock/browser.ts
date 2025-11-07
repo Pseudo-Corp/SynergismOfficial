@@ -4,7 +4,7 @@ import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
 import { messageHandlers } from './handlers/MessageHandlers'
 import { paymentHandlers } from './handlers/PaymentHandlers'
 import { consumeHandlers } from './websocket'
-import { paypalSubscriptionActive } from './handlers/SubscriptionHandlers'
+import { subscriptionHandlers } from './handlers/SubscriptionHandlers'
 
 const GETHandlers = [
   http.get('https://synergism.cc/api/v1/quark-bonus', () => {
@@ -1210,7 +1210,7 @@ export const worker = setupWorker(
       bonus: {
         quarkBonus: 5
       },
-      subscription: paypalSubscriptionActive
+      subscription: null,
     })
   }),
   ...GETHandlers,
@@ -1218,5 +1218,6 @@ export const worker = setupWorker(
   ...consumeHandlers,
   ...cloudSaveHandlers,
   ...messageHandlers,
-  ...paymentHandlers
+  ...paymentHandlers,
+  ...subscriptionHandlers
 )
