@@ -12,6 +12,7 @@ const form = tab.querySelector('div.cartList')!
 
 const checkoutStripe = form.querySelector<HTMLElement>('button#checkout')
 const checkoutNowPayments = form.querySelector<HTMLElement>('button#checkout-nowpayments')
+const tosSection = form.querySelector('section#tosSection')!
 const radioTOSAgree = form.querySelector<HTMLInputElement>('section > input[type="radio"]')!
 const totalCost = form.querySelector('p#totalCost')
 const itemList = form.querySelector('#itemList')!
@@ -98,6 +99,11 @@ export const initializeCheckoutTab = memoize(() => {
 
   checkoutStripe?.addEventListener('click', submitCheckout)
   checkoutNowPayments?.addEventListener('click', submitCheckout)
+
+  // Remove rainbow border highlight when TOS is clicked
+  radioTOSAgree.addEventListener('change', () => {
+    tosSection.classList.remove('rainbow-border-highlight')
+  })
 
   initializePayPal_OneTime('#checkout-paypal')
 })
@@ -272,6 +278,22 @@ async function initializePayPal_OneTime (selector: string | HTMLElement) {
     },
 
     onError (error) {
+      if (error instanceof Error) {
+        try {
+          const message = JSON.parse(error.message)
+
+          if (message.error) {
+            if (!radioTOSAgree.checked) {
+              tosSection.classList.add('rainbow-border-highlight')
+            }
+
+            Notification(`An error with PayPal happened. ${message.error}`)
+            return
+          }
+        } catch {
+        }
+      }
+
       const message = []
 
       for (const [key, value] of Object.entries(error)) {
@@ -279,7 +301,7 @@ async function initializePayPal_OneTime (selector: string | HTMLElement) {
       }
 
       Notification(`An error with PayPal happened. More info in console. ${message.join(', ')}`)
-      console.log(error)
+      console.log({ error })
     },
 
     onCancel () {

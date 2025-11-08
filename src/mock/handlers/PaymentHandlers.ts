@@ -113,5 +113,8 @@ export const paymentHandlers: HttpHandler[] = [
         'features': []
       }
     ])
+  }),
+  http.post('https://synergism.cc/paypal/orders/create', () => {
+    return HttpResponse.json({ error: 'You did not agree to the TOS.' })
   })
 ]
