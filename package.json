@@ -7,6 +7,9 @@
     "node": ">=22.21.0"
   },
   "dependencies": {
+    "@capacitor/android": "^7.4.4",
+    "@capacitor/core": "^7.4.4",
+    "@capacitor/ios": "^7.4.4",
     "@paypal/paypal-js": "^8.2.0",
     "@tauri-apps/api": "^2.9.1",
     "@tauri-apps/plugin-http": "^2.5.4",
@@ -29,6 +32,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@capacitor/cli": "^7.4.4",
     "@tauri-apps/cli": "^2.9.6",
     "@types/cloudflare-turnstile": "^0.2.2",
     "@types/discord-rpc": "^4.0.10",
@@ -75,7 +79,9 @@
     "electron:build": "npm run electron:build:assets && electron-builder --win --mac --linux",
     "electron:build:win": "npm run electron:build:assets && electron-builder --win",
     "electron:build:mac": "npm run electron:build:assets && electron-builder --mac",
-    "electron:build:linux": "npm run electron:build:assets && electron-builder --linux"
+    "electron:build:linux": "npm run electron:build:assets && electron-builder --linux",
+    "cap:copy": "mkdir -p dist-cap && cp -r Pictures translations dist Synergism.css index.html dist-cap/",
+    "cap:build": "npm run build:esbuild && npm run cap:copy && npx cap sync"
   },
   "repository": {
     "type": "git",
