@@ -111,9 +111,14 @@ async function manageSubscription (provider: SubscriptionProvider) {
 
   const response = await fetch(link, { method: 'POST' })
 
-  console.log(response, await response.text(), link)
+  if (!response.ok) {
+    const { error } = await response.json() as { error: string }
+    Notification(error)
+    return
+  }
+
   updateSubscriptionPage()
-  console.log(getSubMetadata())
+
   return Alert('(TODO) Please follow the instructions from the provider to manage your subscription.')
 }
 
@@ -137,9 +142,13 @@ async function cancelSubscription (provider: SubscriptionProvider) {
     method: 'POST'
   })
 
-  console.log(response, response.text())
+  if (!response.ok) {
+    const { error } = await response.json() as { error: string }
+    Notification(error)
+    return
+  }
+
   updateSubscriptionPage()
-  console.log(getSubMetadata())
   return Alert(
     'Your subscription has been cancelled. You will keep your perks until the end of the current billing period.'
   )
