@@ -3,8 +3,8 @@ import { setupWorker } from 'msw/browser'
 import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
 import { messageHandlers } from './handlers/MessageHandlers'
 import { paymentHandlers } from './handlers/PaymentHandlers'
-import { consumeHandlers } from './websocket'
 import { subscriptionHandlers } from './handlers/SubscriptionHandlers'
+import { consumeHandlers } from './websocket'
 
 const GETHandlers = [
   http.get('https://synergism.cc/api/v1/quark-bonus', () => {
@@ -1210,7 +1210,10 @@ export const worker = setupWorker(
       bonus: {
         quarkBonus: 5
       },
-      subscription: null,
+      subscription: {
+        provider: 'paypal',
+        tier: 3
+      }
     })
   }),
   ...GETHandlers,

@@ -4238,7 +4238,7 @@ header #obtainiumDisplay { color: pink; }
 
 .transcendedBallerGradient {
     --gradient-start: orchid;
-    --gradient-end: rgb(167, 65, 167);
+    --gradient-end: #a741a7;
 }
 
 .reincarnatedBallerGradient {
@@ -5060,7 +5060,7 @@ form input:hover {
 }
 
 .subscriptionContainer > div > .pseudoCoinSubImage {
-    margin: 12px auto 4px auto;
+    margin: 12px auto 4px;
 }
 
 #pseudoCoins > #productContainer > section > * > .pseudoCoinImage {
