@@ -221,7 +221,7 @@ const subscriptionTierGradients = [
 ]
 
 export const createSubscriptionTierName = (product: SubscriptionProduct) => {
-  return `Tier ${product.tier}<br><span class="${subscriptionTierGradients[product.tier - 1]}">${product.name}</span>`
+  return `<span class="${subscriptionTierGradients[product.tier - 1]}">${product.name}</span>`
 }
 
 export const noSubscriptionButton = (product: SubscriptionProduct) => {
