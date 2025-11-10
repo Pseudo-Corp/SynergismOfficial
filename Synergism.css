@@ -4236,6 +4236,21 @@ header #obtainiumDisplay { color: pink; }
     }
 }
 
+.transcendedBallerGradient {
+    --gradient-start: orchid;
+    --gradient-end: #a741a7;
+}
+
+.reincarnatedBallerGradient {
+    --gradient-start: green;
+    --gradient-end: greenyellow;
+}
+
+.ascendedBallerGradient {
+    --gradient-start: orange;
+    --gradient-end: yellow;
+}
+
 .singularityGradient {
     --gradient-start: gold;
     --gradient-end: lightgoldenrodyellow;
@@ -4928,17 +4943,52 @@ form input:hover {
     align-items: center;
 }
 
-.pseudoSubscriptionContainer > form {
+#manage-subscription-holder {
+    display: flex;
+    flex: row;
+}
+
+#manage-subscription-holder > form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 10px;
+    margin: 5px;
 }
 
-.pseudoSubscriptionContainer > form > input[type="submit"] {
+#manage-subscription-holder > form > input[type="submit"] {
+    border: 2px solid gold;
+    background-color: var(--box-color);
+    width: 200px;
+    height: 40px;
+}
+
+#manage-subscription-holder > form > input[type="submit"]:hover {
+    background-color: var(--hover-color);
+    cursor: pointer;
+}
+
+.subscriptionManager:focus-within > div { display: flex; }
+
+.subscriptionManager > button {
     border: 2px solid gold;
     width: 200px;
     height: 40px;
+    margin: 5px;
+}
+
+.subscriptionManager > div {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    border: 2px solid white;
+    margin-top: 50px;
+    background-color: var(--box-color);
+}
+
+.subscriptionManager > div > button {
+    width: 200px;
+    height: 40px;
+    margin: 2px;
 }
 
 .pseudoSubscriptionContainer > #sub-section-holder {
@@ -4946,6 +4996,22 @@ form input:hover {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: 75%;
+}
+
+.subscriptionWebsite {
+    border: 1px solid gold;
+    background-color: darkgoldenrod;
+    color: var(--text-color);
+    margin: 2px;
+    cursor: pointer;
+}
+
+.subscriptionCancel {
+    border: 1px solid red;
+    background-color: maroon;
+    color: var(--text-color);
+    margin: 2px;
+    cursor: pointer;
 }
 
 .pseudoCoinContainer {
@@ -4956,15 +5022,45 @@ form input:hover {
 }
 
 .subscriptionContainer {
-    margin: 10px 10px 0 0;
+    margin: 0;
     border: 1px solid lightgoldenrodyellow;
     border: 2px solid gold;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
 }
 
-.subscriptionContainer > div > div.checkout-paypal {
+.subscriptionContainer > div:first-child {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.subscriptionContainer > div:first-child > ul {
+    flex: 1;
+    margin-bottom: auto;
+}
+
+.subscriptionContainer > .pseudoCoinButton,
+.subscriptionContainer > div:not(:first-child) {
+    margin-top: auto;
+}
+
+.subscriptionContainer > div.checkout-paypal {
     width: 76%;
     margin: 0 auto;
+}
+
+.subscriptionContainer > .pseudoCoinButton {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 12px;
+}
+
+.subscriptionContainer > div > .pseudoCoinSubImage {
+    margin: 12px auto 4px;
 }
 
 #pseudoCoins > #productContainer > section > * > .pseudoCoinImage {

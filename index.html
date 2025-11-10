@@ -4491,6 +4491,25 @@
       <div id="productContainer" class="pseudoUpgradeContainer">
       </div>
       <div id="subscriptionsContainer" class="pseudoSubscriptionContainer">
+        <div id="manage-subscription-holder">
+            <form id="manage-patreon-sub" class="subscriptionManager" target="_blank" action="https://www.patreon.com/c/synergism/membership" method="get">
+                <input type="submit" id="manage-patreon-sub-button" value="Manage Patreon Subscription">
+            </form>
+            <div id="manage-stripe-sub" class="subscriptionManager">
+                <button id="manage-stripe-sub-button">Manage Stripe Subscription</button>
+                <div id="stripe-sub-options">
+                    <button id="stripe-sub-website" class="subscriptionWebsite" data-provider="stripe">Go to Stripe</button>
+                    <button id="stripe-sub-cancel" class="subscriptionCancel" data-provider="stripe">Cancel Subscription</button>
+                </div>
+            </div>
+            <div id="manage-paypal-sub" class="subscriptionManager">
+                <button id="manage-paypal-sub-button">Manage PayPal Subscription</button>
+                <div id="paypal-sub-options">
+                    <button id="paypal-sub-website" class="subscriptionWebsite" data-provider="paypal">Go to PayPal</button>
+                    <button id="paypal-sub-cancel" class="subscriptionCancel" data-provider="paypal">Cancel Subscription</button>
+                </div>
+            </div>
+        </div>
         <div id="sub-section-holder"></div>
       </div>
       <div id="upgradesContainer">

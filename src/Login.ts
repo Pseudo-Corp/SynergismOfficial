@@ -77,6 +77,10 @@ export const isLoggedIn = () => loggedIn
 export const getTips = () => tips
 export const setTips = (newTips: number) => tips = newTips
 export const getSubMetadata = () => subscription
+// For testing purposes only
+export const setSubMetadata = (newSub: SubscriptionMetadata) => {
+  subscription = newSub
+}
 
 export const allDurableConsumables: Record<PseudoCoinConsumableNames, Consumable> = {
   HAPPY_HOUR_BELL: {
@@ -203,8 +207,10 @@ interface BonusTypes {
   quarks: number
 }
 
-type SubscriptionMetadata = {
-  provider: 'paypal' | 'stripe' | 'patreon'
+export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon'
+
+export type SubscriptionMetadata = {
+  provider: SubscriptionProvider
   tier: number
 } | null
 

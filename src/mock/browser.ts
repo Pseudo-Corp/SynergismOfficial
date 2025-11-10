@@ -3,6 +3,7 @@ import { setupWorker } from 'msw/browser'
 import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
 import { messageHandlers } from './handlers/MessageHandlers'
 import { paymentHandlers } from './handlers/PaymentHandlers'
+import { subscriptionHandlers } from './handlers/SubscriptionHandlers'
 import { consumeHandlers } from './websocket'
 
 const GETHandlers = [
@@ -1170,8 +1171,8 @@ const PUTHandlers = [
 export const worker = setupWorker(
   http.get('https://synergism.cc/api/v1/users/me', () => {
     return HttpResponse.json({
-      personalBonus: 0,
-      globalBonus: 100,
+      personalBonus: 5,
+      globalBonus: 50,
       member: {
         user: {
           id: '267774648622645249',
@@ -1207,7 +1208,7 @@ export const worker = setupWorker(
       },
       accountType: 'discord',
       bonus: {
-        quarkBonus: 0
+        quarkBonus: 5
       },
       subscription: null
     })
@@ -1217,5 +1218,6 @@ export const worker = setupWorker(
   ...consumeHandlers,
   ...cloudSaveHandlers,
   ...messageHandlers,
-  ...paymentHandlers
+  ...paymentHandlers,
+  ...subscriptionHandlers
 )
