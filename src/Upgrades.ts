@@ -11,6 +11,7 @@ import { format, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
+import { calculateGlobalSpeedMult } from './Calculate'
 
 const crystalupgdesc: Record<number, () => Record<string, string>> = {
   3: () => ({
@@ -207,8 +208,10 @@ const upgradetexts = [
       3
     ),
   () => format(1 + 0.005 * Math.pow(Decimal.log10(player.maxOfferings.plus(1)), 2), 2, true),
-  () => format(Math.round(1000 * (1 - Math.pow(0.995, player.ants.antSacrificeCount))), 0, true),
-  () => null,
+  () => format(Decimal.max(Decimal.pow(calculateGlobalSpeedMult(), 3), 1), 2, true),
+  () => format(10 * Math.min(50, player.ants.antSacrificeCount) +
+  5 * Math.min(50, Math.max(player.ants.antSacrificeCount - 50, 0)) +
+  Math.min(250, Math.max(0, player.ants.antSacrificeCount - 100)), 0, true),
   ...Array.from({ length: 39 }, () => () => null),
   () => null,
   () => null,

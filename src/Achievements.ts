@@ -163,6 +163,7 @@ export type AchievementGroups =
   | 'prestigeCount'
   | 'transcensionCount'
   | 'reincarnationCount'
+  | 'sacCount'
   | 'ungrouped'
 
 export type AchievementRewards =
@@ -185,7 +186,7 @@ export type AchievementRewards =
   | 'antAutobuyers'
   | 'antUpgradeAutobuyers'
   | 'antELOAdditive'
-  | 'antELOMultiplicative'
+  | 'antELOAdditiveMultiplier'
   | 'wowSquareTalisman'
   | 'ascensionCountMultiplier'
   | 'ascensionCountAdditive'
@@ -216,6 +217,10 @@ export type AchievementRewards =
   | 'obtainiumBonus'
   | 'transcendToPrestige'
   | 'reincarnationToTranscend'
+  | 'antSacrificeCountMultiplier'
+  | 'freeAntUpgrades'
+  | 'autoAntSacrifice'
+  | 'antSpeed2UpgradeImprover'
 
 export type AchievementReward = Partial<Record<AchievementRewards, () => number>>
 
@@ -1072,7 +1077,7 @@ export const achievements: Achievement[] = [
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.challengecompletions[6] >= 20,
+    unlockCondition: () => player.challengecompletions[6] >= 15,
     group: 'challenge6',
     reward: {
       taxReduction: () =>
@@ -1111,7 +1116,7 @@ export const achievements: Achievement[] = [
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.challengecompletions[7] >= 20,
+    unlockCondition: () => player.challengecompletions[7] >= 15,
     group: 'challenge7'
   },
   {
@@ -1142,7 +1147,7 @@ export const achievements: Achievement[] = [
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.challengecompletions[8] >= 20,
+    unlockCondition: () => player.challengecompletions[8] >= 15,
     group: 'challenge8'
   },
   {
@@ -1314,15 +1319,15 @@ export const achievements: Achievement[] = [
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.ants.crumbs.gte(1e70),
+    unlockCondition: () => player.ants.crumbsThisSacrifice.gte(1e40),
     group: 'antCrumbs',
     reward: { antSpeed: () => 1.4, antSacrificeUnlock: () => 1, antAutobuyers: () => 1 }
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.ants.crumbs.gte('1e500'),
+    unlockCondition: () => player.ants.crumbs.gte('1e250'),
     group: 'antCrumbs',
-    reward: { antSpeed: () => 1 + Math.log10(player.ants.immortalELO + 1) }
+    reward: { antSpeed: () => 1 + player.ants.immortalELO / 1000 }
   },
   { pointValue: 35, unlockCondition: () => player.ants.crumbs.gte('1e2500'), group: 'antCrumbs' },
   {
@@ -2355,6 +2360,62 @@ export const achievements: Achievement[] = [
     pointValue: 60,
     unlockCondition: () => player.reincarnationCount >= 2e14,
     group: 'reincarnationCount'
+  },
+  {
+    pointValue: 2,
+    unlockCondition: () => player.ants.antSacrificeCount >= 1,
+    group: 'sacCount',
+    reward: { freeAntUpgrades: () => 1}
+  },
+  {
+    pointValue: 4,
+    unlockCondition: () => player.ants.antSacrificeCount >= 10,
+    group: 'sacCount',
+    reward: { antSacrificeCountMultiplier: () => 2 }
+  },
+  {
+    pointValue: 6,
+    unlockCondition: () => player.ants.antSacrificeCount >= 50,
+    group: 'sacCount',
+    reward: { autoAntSacrifice: () => 1 }
+  },
+  {
+    pointValue: 8,
+    unlockCondition: () => player.ants.antSacrificeCount >= 250,
+    group: 'sacCount',
+    reward: { antELOAdditiveMultiplier: () => 0.01}
+  },
+  {
+    pointValue: 10,
+    unlockCondition: () => player.ants.antSacrificeCount >= 1250,
+    group: 'sacCount',
+    reward: { antELOAdditive: () => 25 }
+  },
+  {
+    pointValue: 12,
+    unlockCondition: () => player.ants.antSacrificeCount >= 5000,
+    group: 'sacCount',
+    reward: { antSpeed2UpgradeImprover: () => 2 * achievementLevel }
+  },
+  {
+    pointValue: 14,
+    unlockCondition: () => player.ants.antSacrificeCount >= 20000,
+    group: 'sacCount'
+  },
+  {
+    pointValue: 16,
+    unlockCondition: () => player.ants.antSacrificeCount >= 80000,
+    group: 'sacCount'
+  },
+  {
+    pointValue: 18,
+    unlockCondition: () => player.ants.antSacrificeCount >= 250000,
+    group: 'sacCount'
+  },
+  {
+    pointValue: 20,
+    unlockCondition: () => player.ants.antSacrificeCount >= 1000000,
+    group: 'sacCount'
   }
 ]
 
@@ -2478,9 +2539,13 @@ export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungroupe
     order: 20,
     displayCondition: () => player.highestchallengecompletions[8] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
   },
+  sacCount: {
+    order: 20.5,
+    displayCondition: () => player.highestchallengecompletions[9] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
+  },
   sacMult: {
     order: 21,
-    displayCondition: () => player.highestchallengecompletions[8] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
+    displayCondition: () => player.highestchallengecompletions[9] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension)
   },
   runeFreeLevel: {
     order: 22,
@@ -2908,20 +2973,16 @@ export const achRewards: Record<AchievementRewards, () => number | boolean> = {
     )
   },
   antELOAdditive: (): number => {
-    return 0
-    /*
     return achievementsByReward.antELOAdditive.reduce(
       (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.antELOAdditive!() : 0),
       0
-    )*/
+    )
   },
-  antELOMultiplicative: (): number => {
-    return 1
-    /*
-    return achievementsByReward.antELOMultiplicative.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.antELOMultiplicative!() : 1),
-      1
-    )*/
+  antELOAdditiveMultiplier: (): number => {
+    return achievementsByReward.antELOAdditiveMultiplier.reduce(
+      (prod, index) => prod + (player.achievements[index] ? achievements[index].reward!.antELOAdditiveMultiplier!() : 0),
+      0
+    )
   },
   ascensionCountMultiplier: (): number => {
     return achievementsByReward.ascensionCountMultiplier.reduce(
@@ -3063,6 +3124,28 @@ export const achRewards: Record<AchievementRewards, () => number | boolean> = {
   },
   reincarnationToTranscend: (): boolean => {
     return Boolean(player.achievements[achievementsByReward.reincarnationToTranscend[0]])
+  },
+  freeAntUpgrades: (): number => {
+    return achievementsByReward.freeAntUpgrades.reduce(
+      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.freeAntUpgrades!() : 0),
+      0
+    )
+  },
+  antSacrificeCountMultiplier: (): number => {
+    return achievementsByReward.antSacrificeCountMultiplier.reduce(
+      (prod, index) =>
+        prod * (player.achievements[index] ? achievements[index].reward!.antSacrificeCountMultiplier!() : 1),
+      1
+    )
+  },
+  autoAntSacrifice: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.autoAntSacrifice[0]])
+  },
+  antSpeed2UpgradeImprover: (): number => {
+    return achievementsByReward.antSpeed2UpgradeImprover.reduce(
+      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.antSpeed2UpgradeImprover!() : 0),
+      0
+    )
   }
 }
 
@@ -3161,7 +3244,6 @@ export const updateAchievementLevel = (fromUpdatePoints = false) => {
     achievementLevel = 50 + Math.floor((achievementPoints - 2500) / 100)
   }
   displayLevelStuff()
-  achievementLevel += 999;
   if (oldLevel < achievementLevel) {
     if (player.toggles[34] && !fromUpdatePoints) {
       void Notification(i18next.t('achievements.levelUpNotification', { old: oldLevel, new: achievementLevel }))

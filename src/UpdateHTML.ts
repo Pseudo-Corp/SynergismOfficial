@@ -129,6 +129,8 @@ export const revealStuff = () => {
     }
   }
 
+  DOMCacheGetOrSet('challenge8AntLocked').style.display = (player.challengecompletions[8] > 0) ? 'none' : 'block'
+
   document.documentElement.dataset.chal9 = player.unlocks.talismans ? 'true' : 'false'
   document.documentElement.dataset.chal9x1 = player.highestchallengecompletions[9] > 0 ? 'true' : 'false'
   document.documentElement.dataset.chal10 = player.unlocks.ascensions ? 'true' : 'false'
@@ -266,9 +268,37 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('toggleRuneSubTab3').style.display = 'none'
   }
 
-  getAchievementReward('antSacrificeUnlock') // Galactic Crumb Achievement 5
-    ? DOMCacheGetOrSet('sacrificeAnts').style.display = 'flex'
-    : DOMCacheGetOrSet('sacrificeAnts').style.display = 'none'
+  const unlockedAntSac = getAchievementReward('antSacrificeUnlock')
+  if (unlockedAntSac) {
+    DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'none'
+    DOMCacheGetOrSet('antSacrificeImmortalAndWorldlyRewards').style.display = 'flex'
+    DOMCacheGetOrSet('sacrificeAnts').style.display = 'flex'
+  }
+  else {
+    DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'flex'
+    DOMCacheGetOrSet('antSacrificeImmortalAndWorldlyRewards').style.display = 'none'
+    DOMCacheGetOrSet('sacrificeAnts').style.display = 'none'
+  }
+
+  const unlockedAutoAntSac = getAchievementReward('autoAntSacrifice')
+  if (unlockedAutoAntSac) {
+    DOMCacheGetOrSet('autoSacrifice').style.display = 'flex'
+    DOMCacheGetOrSet('autoSacrificeLocked').style.display = 'none'
+  } else {
+    DOMCacheGetOrSet('autoSacrifice').style.display = 'none'
+    DOMCacheGetOrSet('autoSacrificeLocked').style.display = 'block'
+  }
+
+  const unlockedAdditionalSacrificeOptions = player.researches[124] > 0
+  if (unlockedAdditionalSacrificeOptions) {
+    DOMCacheGetOrSet('additionalAutoSacOptionsLocked').style.display = 'none'
+    DOMCacheGetOrSet('additionalAutoSacOptions').style.display = 'flex'
+  }
+  else {
+    DOMCacheGetOrSet('additionalAutoSacOptionsLocked').style.display = 'block'
+    DOMCacheGetOrSet('additionalAutoSacOptions').style.display = 'none'
+  }
+  
 
   player.researches[39] > 0 // 3x9 Research [Crystal Building Power]
     ? DOMCacheGetOrSet('reincarnationCrystalInfo').style.display = 'block'
@@ -281,10 +311,6 @@ export const revealStuff = () => {
   player.researches[46] > 0 // 5x6 Research [Auto R.]
     ? DOMCacheGetOrSet('reincarnateautomation').style.display = 'block'
     : DOMCacheGetOrSet('reincarnateautomation').style.display = 'none'
-
-  player.researches[124] > 0 || player.highestSingularityCount > 0 // IF you've singularity'd, just unlock this already.
-    ? DOMCacheGetOrSet('autoSacrificeSettings').style.display = 'flex'
-    : DOMCacheGetOrSet('autoSacrificeSettings').style.display = 'none'
 
   player.researches[130] > 0 // 6x5 Research [Talisman Auto Fortify]
     ? DOMCacheGetOrSet('toggleautofortify').style.display = 'block'

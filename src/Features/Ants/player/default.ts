@@ -21,7 +21,8 @@ import {
   defaultAutoSacrificeSetting,
   defaultAutoSacrificeThreshold,
   defaultMaxAntProducerBuySetting,
-  defaultMaxAntUpgradeBuySetting
+  defaultMaxAntUpgradeBuySetting,
+  defaultOnlySacrificeMaxRebornELO
 } from '../toggles/player/default'
 
 export const defaultPlayerAnts: PlayerAnts = {
@@ -47,6 +48,7 @@ export const defaultPlayerAnts: PlayerAnts = {
     autoSacrificeEnabled: defaultAutoSacrificeEnabled,
     autoSacrificeThreshold: defaultAutoSacrificeThreshold,
     autoSacrificeMode: defaultAutoSacrificeSetting,
-    alwaysSacrificeMaxRebornELO: defaultAlwaysSacrificeMaxRebornELO
+    alwaysSacrificeMaxRebornELO: defaultAlwaysSacrificeMaxRebornELO,
+    onlySacrificeMaxRebornELO: defaultOnlySacrificeMaxRebornELO
   }
 }

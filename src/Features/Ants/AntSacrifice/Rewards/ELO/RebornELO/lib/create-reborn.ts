@@ -13,7 +13,7 @@ export const activateELO = (dt: number) => {
     player.ants.rebornELO += actualGain
 
     // Make it so that *eventually* the ELO is fully activated
-    const smallLeak = Math.min(0.001 * activationSpeed, toActivate - actualGain)
+    const smallLeak = Math.min(dt, toActivate - actualGain)
     player.ants.rebornELO += smallLeak
   }
   updateAntLeaderboards()

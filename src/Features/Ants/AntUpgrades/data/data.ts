@@ -5,6 +5,7 @@ import { AntSacrificeTiers } from '../../../../Reset'
 import { format, formatAsPercentIncrease, player } from '../../../../Synergism'
 import { getAntUpgradeEffect } from '../lib/upgrade-effects'
 import { type AntUpgradeData, AntUpgrades } from '../structs/structs'
+import { getAchievementReward } from '../../../../Achievements'
 
 export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   [AntUpgrades.AntSpeed]: {
@@ -52,7 +53,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
       if (player.currentChallenge.ascension === 15) {
         divisor = 10000
       }
-      const baseExponent = 99999 + calculateSigmoidExponential(49900001, n / 3000)
+      const baseExponent = 999999 + calculateSigmoidExponential(49000001, n / 3000)
       const bonusExponent = 250 * n
       const exponent = (baseExponent + bonusExponent) / divisor
       const coinMult = Decimal.max(1, Decimal.pow(player.ants.crumbs, exponent))
@@ -255,12 +256,15 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     description: () => i18next.t('ants.upgrades.antSacrifice.description'),
     effect: (n: number) => {
       return {
-        antSacrificeMultiplier: Math.pow(1 + n / 10, 0.5)
+        antSacrificeMultiplier: Math.pow(1 + n / 10, 0.5),
+        elo: Math.round(5 * Math.min(200, n))
       }
     },
     effectDescription: () => {
-      const antSacrificeMultiplier = getAntUpgradeEffect(AntUpgrades.AntSacrifice).antSacrificeMultiplier
-      return i18next.t('ants.upgrades.antSacrifice.effect', { x: formatAsPercentIncrease(antSacrificeMultiplier, 2) })
+      const effects = getAntUpgradeEffect(AntUpgrades.AntSacrifice)
+      const effect1 = i18next.t('ants.upgrades.antSacrifice.effect', { x: formatAsPercentIncrease(effects.antSacrificeMultiplier, 2) })
+      const effect2 = i18next.t('ants.upgrades.antSacrifice.effect2', { x: format(effects.elo, 0, true) })
+      return `${effect1}<br>${effect2}`
     }
   },
   [AntUpgrades.Mortuus]: {
@@ -299,15 +303,18 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.antSpeed2.intro'),
     description: () => i18next.t('ants.upgrades.antSpeed2.description'),
     effect: (n: number) => {
-      let baseMul = 1.01
-      baseMul += 0.01 * (1 - Math.pow(0.999, n))
-      const antSacrificeLimitCount = Math.min(1_000_000, n + 400)
-      const effectiveSacs = Math.min(antSacrificeLimitCount, player.ants.antSacrificeCount)
+      let baseMul = 1.00
+      baseMul += 0.01 * Math.min(n, 1)
+      baseMul += 0.001 * Math.min(n / 100, 1)
+      baseMul += 0.009 * (1 - Math.pow(0.9985, n))
+      let antSacrificeLimitCount = Math.min(1_000_000, n + 400)
+      const upgradeImprover = +getAchievementReward('antSpeed2UpgradeImprover')
+      const effectiveSacs = Math.min(antSacrificeLimitCount + upgradeImprover, player.ants.antSacrificeCount)
       const antSpeed = Decimal.pow(baseMul, effectiveSacs)
       return {
         antSpeed: antSpeed,
         perSacrificeMult: baseMul,
-        antSacrificeLimitCount: antSacrificeLimitCount
+        antSacrificeLimitCount: antSacrificeLimitCount + upgradeImprover
       }
     },
     effectDescription: () => {

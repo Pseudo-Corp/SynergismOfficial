@@ -160,6 +160,7 @@ const antsSchema = z.object({
     autoSacrificeThreshold: z.number().default(() => blankSave.ants.toggles.autoSacrificeThreshold),
     autoSacrificeMode: z.number().default(() => blankSave.ants.toggles.autoSacrificeMode),
     alwaysSacrificeMaxRebornELO: z.boolean().default(() => blankSave.ants.toggles.alwaysSacrificeMaxRebornELO),
+    onlySacrificeMaxRebornELO: z.boolean().default(() => blankSave.ants.toggles.onlySacrificeMaxRebornELO)
   }).default(() => deepClone()(blankSave.ants.toggles))
 })
 
