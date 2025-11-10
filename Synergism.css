@@ -2487,6 +2487,30 @@ p#reincarnatehotkeys {
     border: 1px solid green;
 }
 
+#additionalAutoSacOptions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.antSacToggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    justify-content: flex-start;
+    height: 32px;
+}
+
+.antSacToggle p {
+    margin: 0;
+}
+
+#sacrificeUnlockTexts > p {
+    margin: 0;
+    font-size: 1.3em;
+}
+
 #sacrificeAnts {
     display: flex;
     flex-direction: row;
@@ -2511,6 +2535,13 @@ p#reincarnatehotkeys {
     flex-direction: column;
     align-items: center;
     width: 50%;
+}
+
+#autoSacrifice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 #antSacrificeTimer {

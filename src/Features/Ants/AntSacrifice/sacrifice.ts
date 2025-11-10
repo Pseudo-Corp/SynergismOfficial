@@ -5,7 +5,6 @@ import { AntSacrificeTiers } from '../../../Reset'
 import { player } from '../../../Synergism'
 import { updateTalismanInventory } from '../../../Talismans'
 import { Confirm } from '../../../UpdateHTML'
-import { sacrificeCountHTML } from '../HTML/updates/sacrifice'
 import { resetAnts } from '../player/reset'
 import { hasEnoughCrumbsForSacrifice, sacrificeOffCooldown } from './constants'
 import { antSacrificeRewards } from './Rewards/calculate-rewards'
@@ -65,7 +64,6 @@ export const sacrificeAnts = async (auto = false) => {
       resetAnts(AntSacrificeTiers.sacrifice)
       updateTalismanInventory()
       resetHistoryAdd('ants', historyEntry)
-      sacrificeCountHTML(player.ants.antSacrificeCount)
     }
   }
 

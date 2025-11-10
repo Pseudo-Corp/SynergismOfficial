@@ -45,7 +45,7 @@ import { antUpgradeHTML } from './Features/Ants/HTML/modals/upgrade-modal'
 import { toggleRebornELOInfo } from './Features/Ants/HTML/updates/elo-info'
 import { toggleLeaderboardMode } from './Features/Ants/HTML/updates/leaderboard'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
-import { toggleAutoAntSacrificeEnabled, toggleAutoAntSacrificeMode } from './Features/Ants/toggles/auto-sacrifice'
+import { toggleAlwaysSacrificeMaxRebornELO, toggleAutoAntSacrificeEnabled, toggleAutoAntSacrificeMode, toggleOnlySacrificeMaxRebornELO } from './Features/Ants/toggles/auto-sacrifice'
 import { toggleAutobuyAntMastery } from './Features/Ants/toggles/autobuy-mastery'
 import { toggleAutobuyAntProducer } from './Features/Ants/toggles/autobuy-producer'
 import { toggleAutobuyAntUpgrade } from './Features/Ants/toggles/autobuy-upgrade'
@@ -184,6 +184,7 @@ import {
 } from './Upgrades'
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
+import { updateAlwaysSacrificeMaxRebornELOToggle, updateOnlySacrificeMaxRebornELOToggle } from './Features/Ants/HTML/updates/toggles/additional-sacrifice-toggles'
 
 /* STYLE GUIDE */
 /*
@@ -830,6 +831,19 @@ export const generateEventHandlers = () => {
   // Part 3: Sacrifice
   DOMCacheGetOrSet('antSacrifice').addEventListener('click', () => sacrificeAnts())
   DOMCacheGetOrSet('immortalELOInfoToggleButton').addEventListener('click', () => toggleRebornELOInfo())
+
+  const alwaysMaxRebornELOToggle = DOMCacheGetOrSet('alwaysMaxRebornELOToggle')
+  const onlyMaxRebornELOToggle = DOMCacheGetOrSet('onlyMaxRebornELOToggle')
+
+  alwaysMaxRebornELOToggle.addEventListener('change', () => {
+    toggleAlwaysSacrificeMaxRebornELO()
+    updateAlwaysSacrificeMaxRebornELOToggle(player.ants.toggles.alwaysSacrificeMaxRebornELO)
+  })
+
+  onlyMaxRebornELOToggle.addEventListener('change', () => {
+    toggleOnlySacrificeMaxRebornELO()
+    updateOnlySacrificeMaxRebornELOToggle(player.ants.toggles.onlySacrificeMaxRebornELO)
+  })
 
   // Part 3.5: Leaderboard
   DOMCacheGetOrSet('antLeaderboardToggle').addEventListener('click', () => toggleLeaderboardMode())

@@ -101,9 +101,9 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     name: () => i18next.t('achievements.levelRewards.ants.name'),
     description: () => i18next.t('achievements.levelRewards.ants.description'),
     effect: (lv: number) => {
-      const first100Levels = Math.min(71, lv - 29) * 12
-      const next100Levels = Math.max(0, Math.min(100, lv - 100)) * 24
-      const remainingLevels = Math.max(0, lv - 200) * 48
+      const first100Levels = Math.min(71, lv - 59) * 25
+      const next100Levels = Math.max(0, Math.min(100, lv - 100)) * 50
+      const remainingLevels = Math.max(0, lv - 200) * 100
       return first100Levels + next100Levels + remainingLevels
     },
     effectDescription: () => {
@@ -112,7 +112,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
         elo: format(elo, 0, true)
       })
     },
-    minLevel: 30,
+    minLevel: 60,
     defaultValue: 1,
     nameColor: 'burlywood'
   },

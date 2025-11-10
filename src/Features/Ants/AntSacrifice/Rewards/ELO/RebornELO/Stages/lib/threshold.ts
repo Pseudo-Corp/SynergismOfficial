@@ -15,7 +15,7 @@ export const calculateRebornELOThresholds = (elo?: number) => {
 export const thresholdModifiers = () => {
   const thresholds = calculateRebornELOThresholds()
   return {
-    rebornSpeedMult: Math.pow(0.99, thresholds),
+    rebornSpeedMult: Math.pow(0.98, thresholds),
     antSacrificeObtainiumMult: Math.pow(1.05, thresholds),
     antSacrificeOfferingMult: Math.pow(1.05, thresholds),
     antSacrificeTalismanFragmentMult: Math.pow(1.2, thresholds)

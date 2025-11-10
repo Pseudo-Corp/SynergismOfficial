@@ -36,7 +36,10 @@ export type AntUpgradeTypeMap = {
   [AntUpgrades.Salvage]: { salvage: number }
   [AntUpgrades.FreeRunes]: { freeRuneLevel: number }
   [AntUpgrades.Obtainium]: { obtainiumMult: number }
-  [AntUpgrades.AntSacrifice]: { antSacrificeMultiplier: number }
+  [AntUpgrades.AntSacrifice]: { 
+    antSacrificeMultiplier: number
+    elo: number
+  }
   [AntUpgrades.Mortuus]: {
     talismanUnlock: boolean
     globalSpeed: number

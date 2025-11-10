@@ -42,5 +42,6 @@ export interface PlayerAnts {
     autoSacrificeThreshold: number
     autoSacrificeMode: AutoSacrificeModes
     alwaysSacrificeMaxRebornELO: boolean
+    onlySacrificeMaxRebornELO: boolean
   }
 }

@@ -147,6 +147,7 @@ import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talisman
 import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
+import { prod } from './Config'
 
 export interface StatLine<T = number | Exclude<DecimalSource, string>> {
   i18n: string
@@ -2938,8 +2939,25 @@ export const negativeSalvageStats: NumberStatLine[] = [
 
 export const antSpeedStats: DecimalSourceLine[] = [
   {
+    i18n: 'Base',
+    stat: () => {
+      return (player.challengecompletions[8] > 0) ?
+      1 :
+      0
+    }
+  },
+  {
     i18n: 'GlobalSpeed',
-    stat: () => calculateGlobalSpeedMult() // Global Speed Multiplier
+    stat: () => {
+      const exponent = 1 + 3 * player.upgrades[79]
+      const speedMult = calculateGlobalSpeedMult()
+      if (speedMult > 1) {
+        return Decimal.pow(speedMult, exponent)
+      }
+      else {
+        return speedMult
+      }
+    } 
   },
   {
     i18n: 'AchievementBonus',
@@ -2964,22 +2982,18 @@ export const antSpeedStats: DecimalSourceLine[] = [
     displayCriterion: () => Boolean(getAchievementReward('diamondUpgrade19'))
   },
   {
-    i18n: 'ShopUpgrade',
-    stat: () => Math.pow(1.2, player.shopUpgrades.antSpeed)
-  },
-  {
     i18n: 'ReincarnationUpgrade16',
     stat: () => 1 + 4 * player.upgrades[76], // Reincarnation Upgrade 16
     displayCriterion: () => player.researches[50] > 0 // Research 2x25
   },
   {
     i18n: 'ReincarnationUpgrade17',
-    stat: () => Decimal.pow(1 + player.upgrades[77] / 250, player.ants.producers[AntProducers.Workers].purchased), // Reincarnation Upgrade 17
+    stat: () => (player.upgrades[77] > 0) ? Decimal.pow(1 + player.upgrades[77] / 250, player.ants.producers[AntProducers.Workers].purchased) : 1, // Reincarnation Upgrade 17
     displayCriterion: () => player.researches[50] > 0
   },
   {
     i18n: 'ReincarnationUpgrade18',
-    stat: () => 1 + 0.005 * Math.pow(Decimal.log10(player.maxOfferings.add(1)), 2), // Reincarnation Upgrade 18
+    stat: () => (player.upgrades[78] > 0) ? 1 + 0.005 * Math.pow(Decimal.log10(player.maxOfferings.add(1)), 2) : 1, // Reincarnation Upgrade 18
     displayCriterion: () => player.researches[50] > 0
   },
   {
@@ -3069,7 +3083,7 @@ export const antSpeedStats: DecimalSourceLine[] = [
   {
     i18n: 'OcteractUpgrade',
     stat: () => {
-      return getOcteractUpgradeEffect('octeractStarter') ? 100000 : 1
+      return octeractUpgrades.octeractStarter.level > 0 ? 100000 : 1
     },
     displayCriterion: () => octeractUpgrades.octeractStarter.level > 0
   }
@@ -3353,7 +3367,20 @@ export const loadStatistics = (
     const statNumber = DOMCacheGetOrSet(statNumHTMLName)
 
     if (obj.displayCriterion) {
-      statLine.style.display = obj.displayCriterion() ? 'block' : 'none'
+      if (!prod) {
+        // Testing purposes: ALWAYS show statlines
+        statLine.style.display = 'block'
+        if (!obj.displayCriterion()) {
+          // Distinguish between shown via testing and shown via criterion
+          statLine.style.backgroundColor = 'crimson'
+        }
+        else {
+          statLine.style.backgroundColor = ''
+        }
+      }
+      else { 
+        statLine.style.display = obj.displayCriterion() ? 'block' : 'none'
+      }
     }
 
     const accuracy = obj.acc ?? 2

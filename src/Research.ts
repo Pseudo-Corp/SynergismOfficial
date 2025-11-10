@@ -6,6 +6,7 @@ import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { sortDecimalWithIndices, updateClassList } from './Utility'
+import { getAchievementReward } from './Achievements'
 
 export interface IResearchData {
   baseCost: Decimal
@@ -45,10 +46,10 @@ const researchBaseCosts: DecimalSource[] = [
   1e16, 2e16, 2e17, 4e17, 1e18,
   1e13, 1e14, 1e15, 7.777e18, 7.777e20,
   1e16, 3e16, 1e17, 3e17, 1e20,
-  1e18, 3e18, 1e19, 3e19, 1e20,
+  1e18, 3e18, 2e18, 1e19, 2e19,
   1e20, 2e20, 4e20, 8e20, 1e21,
   2e21, 4e21, 8e21, 2e22, 4e22,
-  3.2e21, 2e23, 4e23, 1e21, 7.777e32,
+  3.2e21, 2e23, 4e23, 1e20, 7.777e32,
   5e8, 5e12, 5e16, 5e20, 5e24, /*ascension tier */
   1e25, 2e25, 4e25, 8e25, 1e26,
   4e26, 8e26, 1e27, 2e27, 1e28,
@@ -87,8 +88,8 @@ const researchMaxLevels: DecimalSource[] = [
   10, 1, 20, 20, 20,
   20, 20, 20, 20, 10,
   20, 20, 20, 20, 1,
-  20, 5, 5, 3, 2,
-  10, 10, 10, 10, 1,
+  20, 7, 7, 3, 2,
+  10, 12, 10, 10, 1,
   10, 10, 20, 25, 25,
   15, 15, 15, 15, 30,
   10, 10, 10, 100, 100,
@@ -164,8 +165,9 @@ const researchUnlockRanges: RangeCondition[] = [
   { range: [0, 0], condition: () => true }, // Not sure if needed!
   { range: [1, 80], condition: () => player.unlocks.reincarnate },
   { range: [81, 100], condition: () => player.unlocks.anthill },
-  { range: [101, 110], condition: () => player.unlocks.talismans },
-  { range: [111, 125], condition: () => player.unlocks.ascensions },
+  { range: [101, 118], condition: () => player.unlocks.talismans },
+  { range: [119, 123], condition: () => player.unlocks.ascensions },
+  { range: [124, 125], condition: () => Boolean(getAchievementReward('antSacrificeUnlock')) },
   { range: [126, 140], condition: () => player.ascensionCount > 0 },
   { range: [141, 155], condition: () => player.highestchallengecompletions[11] > 0 },
   { range: [156, 170], condition: () => player.highestchallengecompletions[12] > 0 },

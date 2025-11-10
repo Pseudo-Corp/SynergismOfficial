@@ -5,6 +5,7 @@ import { hasEnoughCrumbsForSacrifice, sacrificeOffCooldown } from '../AntSacrifi
 import { antSacrificeRewards } from '../AntSacrifice/Rewards/calculate-rewards'
 import { AutoSacrificeModes } from '../toggles/structs/sacrifice'
 import type { AutoSacrificeModeData } from './structs/structs'
+import { calculateAvailableRebornELO } from '../AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
 
 export const autoSacrificeData: Record<AutoSacrificeModes, AutoSacrificeModeData> = {
   [AutoSacrificeModes.InGameTime]: {
@@ -61,7 +62,25 @@ export const autoSacrificeData: Record<AutoSacrificeModes, AutoSacrificeModeData
 }
 
 export const canAutoSacrifice = (crumbs: Decimal, sacMode: AutoSacrificeModes, time: number): boolean => {
-  return hasEnoughCrumbsForSacrifice(crumbs) && autoSacrificeData[sacMode].sacrificeCheck()
-    && player.ants.toggles.autoSacrificeEnabled
-    && sacrificeOffCooldown(time)
+
+  const availableRebornELO = calculateAvailableRebornELO()
+  const maxRebornELO = availableRebornELO < 0.001 // Could probably be 0, this is effectively fine
+
+  // Check first if we should only sacrifice at max reborn ELO
+  const onlySacrificeMaxReborn = player.ants.toggles.onlySacrificeMaxRebornELO
+  if (onlySacrificeMaxReborn && !maxRebornELO) {
+    return false
+  }
+
+  const universalChecks = hasEnoughCrumbsForSacrifice(crumbs)
+  && sacrificeOffCooldown(time)
+  && player.ants.toggles.autoSacrificeEnabled
+  const specificCheck = autoSacrificeData[sacMode].sacrificeCheck()
+  const alwaysSacrificeMaxReborn = player.ants.toggles.alwaysSacrificeMaxRebornELO
+  if (alwaysSacrificeMaxReborn) {
+    return universalChecks && (maxRebornELO || specificCheck)
+  }
+  else {
+    return universalChecks && specificCheck
+  }
 }

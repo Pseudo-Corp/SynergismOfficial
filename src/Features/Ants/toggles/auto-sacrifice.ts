@@ -20,3 +20,11 @@ export const toggleAutoAntSacrificeMode = (): void => {
 export const toggleAutoAntSacrificeThreshold = (value: number): void => {
   player.ants.toggles.autoSacrificeThreshold = value
 }
+
+export const toggleAlwaysSacrificeMaxRebornELO = (): void => {
+  player.ants.toggles.alwaysSacrificeMaxRebornELO = !player.ants.toggles.alwaysSacrificeMaxRebornELO
+}
+
+export const toggleOnlySacrificeMaxRebornELO = (): void => {
+  player.ants.toggles.onlySacrificeMaxRebornELO = !player.ants.toggles.onlySacrificeMaxRebornELO
+}
