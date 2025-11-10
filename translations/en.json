@@ -512,8 +512,8 @@
       "170": "Only the finest: Obtain 100,000 Galactic Crumbs.",
       "171": "Six-Course Meal: Obtain 666,666,666 Galactic Crumbs.",
       "172": "Accumulation of Food: Obtain 1e20 Galactic Crumbs.",
-      "173": "Cookie Clicking: Obtain 1e70 Galactic Crumbs.",
-      "174": "Unlimited Bread Sticks!: Obtain 1e500 Galactic Crumbs.",
+      "173": "Cookie Clicking: Obtain 1e40 Galactic Crumbs.",
+      "174": "Unlimited Bread Sticks!: Obtain 1e250 Galactic Crumbs.",
       "175": "Restaurant at the end of the Universe: Obtain 1e2500 Galactic Crumbs.",
       "176": "Ant-icipation!: Reach 50 Immortal ELO and own a Tier 2 Ant.",
       "177": "Ant-ecedent: Reach 200 Immortal ELO and own a Tier 3 Ant.",
@@ -819,7 +819,17 @@
       "477": "Become the unsmith: Reincarnate 100,000,000,000 times.",
       "478": "One trillion reincarnations later: Reincarnate 1,000,000,000,000 times.",
       "479": "Log-triskaidekaphobia: Reincarnate 13,131,313,131,313 times.",
-      "480": "M2: Reincarnate 2e14 times."
+      "480": "M2: Reincarnate 2e14 times.",
+      "481": "The Sacrificial Ant: Sacrifice your Anthill once.",
+      "482": "Building back better: Sacrifice your Anthill 10 times.",
+      "483": "A feast for a god: Sacrifice your Anthill 50 times.",
+      "484": "Quartering: Sacrifice your Anthill 250 times.",
+      "485": "Blemished Altar: Sacrifice your Anthill 1,250 times.",
+      "486": "Formicae Caedem: Sacrifice your Anthill 5,000 times.",
+      "487": "King of Kings: Sacrifice your Anthill 20,000 times.",
+      "488": "Lord of Lords: Sacrifice your Anthill 80,000 times.",
+      "489": "Why are we here?: Sacrifice your Anthill 250,000 times.",
+      "490": "Just to suffer?: Sacrifice your Anthill 1,000,000 times."
     },
     "achievementRewards": {
       "3": {
@@ -1173,7 +1183,7 @@
         "antAutobuyers": "Unlock an Ant Autobuyer!"
       },
       "174": {
-        "antSpeed": "Ant Speed is multiplied by logarithm of Ant Sacrifice Points"
+        "antSpeed": "+0.1% Ant Speed per Immortal ELO!"
       },
       "176": {
         "antAutobuyers": "Unlock the Breeder Ant Autobuyer!",
@@ -1516,6 +1526,24 @@
       "474": {
         "prestigeCountMultiplier": "Gain up to 4x the Prestige Count based on your Prestige Timer (maxes at 1,000,000s)",
         "ascensionCountMultiplier": "Gain up to 1.25x the Ascension Count based on your Ascension Timer (maxes at 1,000,000s)"
+      },
+      "481": {
+        "freeAntUpgrades": "Gain +1 free Ant Upgrade level!"
+      },
+      "482": {
+        "antSacrificeCountMultiplier": "Each Sacrifice adds +2 to your Anthill count instead of +1!"
+      },
+      "483": {
+        "autoAntSacrifice": "Unlock the Auto-Sacrifice feature!"
+      },
+      "484": {
+        "antELOAdditiveMultiplier": "Gain +1% Ant ELO from all sources!"
+      },
+      "485": {
+        "antELOAdditive": "Gain +25 Ant ELO, all the time!"
+      },
+      "486": {
+        "antSpeed2UpgradeImprover": "<i>Impia Reproducta Formicidae</i> can be boosted by 2 additional Anthills per Synergism Level"
       }
     },
     "rewards": {
@@ -1719,6 +1747,7 @@
       "prestigeCount": "Times Prestiged",
       "transcensionCount": "Times Transcended",
       "reincarnationCount": "Times Reincarnated",
+      "sacCount": "Anthills Sacrificed",
       "ungrouped": "Miscellaneous"
     },
     "rewardTypes": {
@@ -1816,7 +1845,7 @@
       },
       "ants": {
         "name": "More Ant Fodder for your Ant Diety",
-        "description": "Oh! Your Ant God takes note of your Synergism Level. Gain base Ant ELO for each level above 29. +12 per level until Level 100, +24 per level until level 200, and +48 for each additional level.",
+        "description": "Oh! Your Ant God takes note of your Synergism Level. Gain base Ant ELO for each level above 59. +25 per level until Level 100, +50 per level until level 200, and +100 for each additional level.",
         "effect": "Current Effect: +{{elo}} Ant ELO"
       },
       "wowCubes": {
@@ -2302,8 +2331,9 @@
       "antSacrifice": {
         "name": "Phylacterium Formicidae",
         "intro": "Your soul feels a little heavier near this one.",
-        "description": "Ant Sacrifice rewards are multiplied by (1 + level / 25)^0.5",
-        "effect": "Ant Sacrifice gives <<crimson | +{{x}} rewards>>"
+        "description": "Ant Sacrifice rewards are multiplied by (1 + level / 25)^0.5. The first 200 levels also grant +5 ELO each!",
+        "effect": "Ant Sacrifice gives <<crimson | +{{x}} rewards>>",
+        "effect2": "Ant ELO <<orchid | +{{x}}>>"
       },
       "mortuus": {
         "name": "Mortuus Est Formicidae",
@@ -2355,8 +2385,29 @@
       "11": "Sacrificing is {{x}}x as effective",
       "12": "Global Speed is multiplied by {{x}}"
     },
+    "altar": {
+      "titles": {
+        "altar": "The Great Ant Altar",
+        "automator": "The Great Altar Automator (Antomator?)",
+        "immortality": "Immortality",
+        "worldRewards": "Worldly Rewards",
+        "compendium": "Ants to Quark Corner"
+      },
+      "locked": {
+        "crumbsMade": "You have made <<gold|{{x}}>> Galactic Crumbs.",
+        "altarRequirements": "This Altar will open when you have made <<gold|1e40>>."
+      },
+      "autoSacrificeLocked": {
+        "info": "Unlock Auto Sacrifice from the Ant Sacrifice Count Achievements!",
+        "anthillsUntilAutoSac": "Automatic Ant Sacrifice is unlocked in <<gold|{{x}}>> Anthills."
+      },
+      "additionalAutoSacOptions": {
+        "info": "Head to Research to unlock more options!",
+        "onlyMaxReborn": "Only Sacrifice if you reach your max Reborn ELO",
+        "alwaysMaxReborn": "Always Sacrifice when you reach your max Reborn ELO"
+      }
+    },
     "compendium": {
-      "header": "Ants to Quark Corner",
       "toggleOverview": "Overview",
       "toggleInfo": "Info"
     },
@@ -2415,6 +2466,7 @@
     },
     "header": "The ants welcome you to their home.",
     "hover": "Hover over the icons for description. Click icons to buy!",
+    "challenge8Lock": "You need to beat <<limegreen | Challenge 8>> in your current Ascension to generate Crumbs!",
     "altarHeader": "Ant God... <<crimson | It Hungers.>>",
     "altarDetails": "Sacrifice your Ants to her for some <<crimson | Immortal ELO>>, and a bunch of other worldly things.",
     "anthillAlive": "Your Anthill has been alive for",
@@ -2464,7 +2516,7 @@
     "rebornELOInfo2": "• Limited by your <<crimson|Immortal ELO>>. <<orchid | Ant ELO>> speeds up generation!",
     "rebornELOInfo3": "• The more <<#00DDFF|Reborn ELO>> you have, the slower it generates.",
     "stageInfo": "<<#00DDFF|Reborn ELO>> gives you a <<turquoise | Stage>>.",
-    "stageInfo2": "Each <<turquoise|Stage>> gives you <<gold|1.05x>> <<orange|Offerings>>, <<gold|1.05x>> <<pink|Obtainium>>, and <<gold|1.20x>> <<lightgray|Talisman Fragments>>! <<#00DDFF|Reborn ELO>> generates <<gold|1%>> slower per <<turquoise|Stage>>.",
+    "stageInfo2": "Each <<turquoise|Stage>> gives you <<gold|1.05x>> <<orange|Offerings>>, <<gold|1.05x>> <<pink|Obtainium>>, and <<gold|1.20x>> <<lightgray|Talisman Fragments>>! <<#00DDFF|Reborn ELO>> generates <<gold|2%>> slower per <<turquoise|Stage>>.",
     "stageTranche1": "Stages 1-100: 100 <<#00DDFF|Reborn ELO>> Each",
     "stageTranche2": "Stages 101-200: 1,000 <<#00DDFF|Reborn ELO>> Each",
     "stageTranche3": "Stages 201-300: 3,000 <<#00DDFF|Reborn ELO>> Each",
@@ -2642,8 +2694,8 @@
     },
     "10": {
       "name": "Sadistic Challenge I || {{- value}} Completions",
-      "flavor": "I'm sorry for what I've unleashed onto the world.",
-      "restrictions": "Reincarnate and reach the goal except run the first five challenges AT THE SAME TIME! Coin Production /e12,500,000.",
+      "flavor": "I'm sorry for what I've unleashed onto the world. You read a note on the floor: \"You probably want about 1e300 Galactic Crumbs before you fully embrace the challenge. Try to Sacrifice some more Anthills, master your Ants and become one with the Ant God to achieve this.\"",
+      "restrictions": "Reincarnate and reach the goal except run the first five challenges AT THE SAME TIME!",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+100 base ELO for sacrificing ants! Current: ",
@@ -3073,7 +3125,7 @@
       "107": "[5x7] Refine your talismans with the powder of Obtainium to get +0.1% Talisman Power per level, again!",
       "108": "[5x8] A simple trick makes your base Ant ELO increase by 25 per level!",
       "109": "[5x9] A more convoluted trick makes your base Ant ELO increase by 25 per level again!",
-      "110": "[5x10] Each Reborn ELO multiplies Ant Speed by 1.02. Woah! You should create these 1% faster per level.",
+      "110": "[5x10] Each Reborn ELO multiplies Ant Speed by 1.02. Woah! You should create these 2% faster per level.",
       "111": "[5x11] Here's another +1 Rune Coefficient to Speed Rune, per level!",
       "112": "[5x12] Here's another +1 Rune Coefficient to Duplication Rune, per level!",
       "113": "[5x13] Here's another +1 Rune Coefficient to Prism Rune, per level!",
@@ -3087,7 +3139,7 @@
       "121": "[5x21] Bend (global) time to your will, gaining +2% Global Speed per level.",
       "122": "[5x22] +2% Ant Sacrifice rewards per level.",
       "123": "[5x23] +40 Ant ELO per level.",
-      "124": "[5x24] Unlock the automator for Ant Sacrifice!",
+      "124": "[5x24] Unlock enhanced toggles for The Great Automator! Be able to control when you Sacrifice based on your Reborn ELO.",
       "125": "[5x25] Good luck, buddy. [+1 Export Quark/hour per level]",
       "126": "[6x1] 6 rows? That can't be... (+1% Accelerators / level)",
       "127": "[6x2] Another +1% Accelerator Boosts / level!",
@@ -3111,7 +3163,7 @@
       "145": "[6x20] Your knowledge from the ant war will help you automatically gain Mortuus Est Ant levels.",
       "146": "[6x21] Feed your Disciples pure Obtainium to make them produce +0.4% Rune Power (to the first five runes) per level.",
       "147": "[6x22] Feed your Ants their own crumbs to make them Log(Crumbs + 10)x faster!",
-      "148": "[6x23] Create Reborn ELO 1% faster per level. Did you know Reborn ELO gets 1% slower to create per ~10,000 at a certain point?",
+      "148": "[6x23] Create Reborn ELO 1% faster per level. Did you know Reborn ELO gets 2% slower to create per ~10,000 at a certain point?",
       "149": "[6x24] You will gain +0.03% more Offerings per level per level in the Midas Talisman!",
       "150": "[6x25] Auto Challenge. Enough said. Lets you automatically run and complete Challenges!",
       "151": "[7x1] A new row, old upgrade. Increase your Global Speed by +1.2% per level.",
@@ -3190,7 +3242,7 @@
       "obtainiumEX": "Gain +4% more Obtainium from all sources!",
       "obtainiumAuto": "Automatically pour Obtainium into a Research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every Reincarnation, dump all Obtainium into Research until maxed.",
       "instantChallenge": "T and R Challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Additionally, instantly gain T Challenge completions up to highest completed when exiting R Challenges.",
-      "antSpeed": "Each level gives a 1.2x speed multiplier to all Ant tiers' production! (Immaculate!) Short and simple.",
+      "antSpeed": "Each level grants +4 Ant ELO per level. Don't ask where it comes from.",
       "cashGrab": "This is a cash grab but it gives a couple cool stats. +1% production per level to Offerings and Obtainium.",
       "shopTalisman": "Permanently unlock a Shop talisman!",
       "seasonPass": "Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +2.25% Cubes and Tesseracts per level when you Ascend!",
@@ -3299,7 +3351,7 @@
       "obtainiumEX": "You will gain <<pink|{{amount}}%>> more Obtainium!",
       "obtainiumAuto": "Try to upgrade Research each Reincarnation, and gain <<pink|{{amount}}%>> more Obtainium.",
       "instantChallenge": "Even in a premium shop it's kinda obvious, right?",
-      "antSpeed": "All Ants' Speed <<crimson|x{{amount}}>>",
+      "antSpeed": "Ant ELO is increased by <<orchid|{{amount}}>>.",
       "cashGrab": "You will gain <<gold|{{amount}}%>> more Obtainium and Offerings!",
       "shopTalisman": "Even in a premium shop it's kinda obvious, right?",
       "seasonPass": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Wow! Cubes and Tesseracts.",
@@ -4274,8 +4326,8 @@
       "76": "Ant generation kinda slow? I agree! Multiply Ant Speed by 5.",
       "77": "This is Synergism, right? Let's make each purchased Worker Ant multiply Ant Speed by 1.004.",
       "78": "Gain an Ant speed multiplier! x(1 + 0.005 * (log10(MAX Offerings + 1))^2) Ant Speed, to be precise.",
-      "79": "Gain Ant ELO based on your total Sacrifice Count! Up to +1,000 Ant ELO.",
-      "80": "The Ant God will accept a larger arbitrary number of Particles to give you more Ant ELO.",
+      "79": "The Ant Speed multiplier from your Global Speed multiplier is raised to the fourth power! If Global Speed multiplier is less than 1 this upgrade does nothing.",
+      "80": "Gain Ant ELO based on your total Sacrifice Count! Up to +1,000 Ant ELO.",
       "81": "Automatically buy Workers if affordable.",
       "82": "Automatically buy Investments if affordable.",
       "83": "Automatically buy Printers if affordable.",
@@ -4442,8 +4494,8 @@
       "76": "Effect: Epic 5x Ant Speed!",
       "77": "Effect: Ant Speed x{{x}}",
       "78": "Effect: Ant Speed x{{x}}",
-      "79": "Effect: Ant ELO +{{x}}",
-      "80": "Effect: +75 Ant ELO if this upgrade is purchased.",
+      "79": "Effect: Net Ant Speed multiplier: {{x}}",
+      "80": "Effect: Ant ELO +{{x}}",
       "81": "Effect: All you need is right above this message.",
       "120": "Effect: All you need to know is right above this message!",
       "121": "Effect: -50% Taxes duh!",
@@ -5397,7 +5449,7 @@
       "lockedDescription": "This rune is locked! Unlocking it might require some novel Research.",
       "offeringMult": "<<orange | Offering Gain +{{val}}>> (+0.05% per Power)",
       "obtainiumMult": "<<pink | Obtainium Gain +{{val}}>> (+0.50% per Power)",
-      "antSpeed": "<<crimson | Ant Speed {{val}}x>> (1 + Power^2 / 2500)x",
+      "antSpeed": "<<crimson | Ant Speed x{{val}}>> x(1 + Power / 500)^2",
       "values": "(1 + level/2000)x Offerings, (1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed",
       "effect": "S. Intellect Rune Bonus: Offerings x{{val}}, Obtainium x{{val2}}, Ant Speed x{{val3}}"
     },
@@ -6446,6 +6498,7 @@
     },
     "globalSpeedMultiplierStats": {
       "title": "Global Speed Multiplier",
+      "Base": "Beaten Challenge 8:",
       "SpeedRune": "Speed Rune Bonus:",
       "ObtainiumLog": "Obtainium Log Bonus:",
       "Research5x21": "Research 5x21:",
@@ -6772,10 +6825,12 @@
     },
     "antSpeedMultStats": {
       "title": "Ant Speed Multiplier",
+      "Base": "Cleared Challenge 8 (1 if cleared, 0 if uncleared):",
       "GlobalSpeed": "Global Speed Multiplier:",
       "AchievementBonus": "Achievement Ant Speed Bonus:",
       "ImmortalELO": "Immortal ELO (Ant Sacrifice Points):",
-      "AntUpgrade1": "Ant Upgrade 1:",
+      "AntUpgrade1": "Ants - Inceptus Formicidae:",
+      "AntUpgrade13": "Ants - Impia Reproducta Formicidate:",
       "DiamondUpgrade19": "Diamond Upgrade 19:",
       "ShopUpgrade": "Shop Upgrade - Ant Speed:",
       "ReincarnationUpgrade16": "Reincarnation Upgrade 16:",
@@ -7190,7 +7245,7 @@
     "transferredFromLZ": "Transferred save to new format successfully!",
     "allCorruptionsZero": "All Corruptions have been set to Zero. This will take effect on the next Ascension.",
     "corruptionLoadoutApplied": "Corruption Loadout {{x}} \"{{y}}\" has been applied. This will take effect on the next Ascension.",
-    "ascendPrompt": "Ascending will reset all buildings, rune EXP, talismans, most Researches, and the anthill feature for Cubes of Power. Continue?",
+    "ascendPrompt": "Ascending will reset your Buildings, (some) Runes and Talismans, Upgrades, most Researches, Anthill Count, Immortal ELO, and your Transcension/Reincarnation Challenges, in exchange for industrial Wow! Cubes. Shop Upgrades are preserved. Continue?",
     "reincarnatePrompt": "Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]",
     "transcendPrompt": "Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]",
     "prestigePrompt": "Prestige will reset coin upgrades, coin producers AND crystals. The first Prestige unlocks new features. Would you like to Prestige? [Toggle this message in settings.]",

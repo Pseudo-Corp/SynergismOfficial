@@ -506,7 +506,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effects: (level) => {
       const offeringMult = 1 + level / 2000
       const obtainiumMult = 1 + level / 200
-      const antSpeed = 1 + Math.pow(level, 2) / 2500
+      const antSpeed = Math.pow(1 + level / 500, 2)
       return {
         offeringMult: offeringMult,
         obtainiumMult: obtainiumMult,

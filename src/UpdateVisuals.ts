@@ -55,7 +55,7 @@ import { hasEnoughCrumbsForSacrifice } from './Features/Ants/AntSacrifice/consta
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { updateLeaderboardUI } from './Features/Ants/HTML/updates/leaderboard'
-import { showSacrifice } from './Features/Ants/HTML/updates/sacrifice'
+import { showLockedSacrifice, showSacrifice } from './Features/Ants/HTML/updates/sacrifice'
 import { autoAntSacrificeModeDescHTML } from './Features/Ants/HTML/updates/toggles/sacrifice-mode'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getFinalHepteractCap, type HepteractKeys, hepteractKeys, hepteracts } from './Hepteracts'
@@ -802,11 +802,14 @@ export const visualUpdateAnts = () => {
     showSacrifice()
     updateLeaderboardUI()
 
-    if (hasEnoughCrumbsForSacrifice(player.ants.crumbs)) {
+    if (hasEnoughCrumbsForSacrifice(player.ants.crumbsThisSacrifice)) {
       DOMCacheGetOrSet('antSacrifice').classList.add('canAntSacrifice')
     } else {
       DOMCacheGetOrSet('antSacrifice').classList.remove('canAntSacrifice')
     }
+  }
+  else {
+    showLockedSacrifice()
   }
 }
 

@@ -14,6 +14,15 @@ import {
   thresholdModifiers
 } from '../../AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
 import { talismanItemRequiredELO } from '../../AntSacrifice/Rewards/TalismanCraftItems/constants'
+import { getAchievementReward } from '../../../../Achievements'
+
+export const showLockedSacrifice = () => {
+  const crumbs = player.ants.crumbsThisSacrifice
+  DOMCacheGetOrSet('sacrificeLockedText').innerHTML = i18next.t('ants.altar.locked.crumbsMade', {
+    x: format(crumbs, 2, true, undefined, undefined, true)
+  })
+
+}
 
 export const showSacrifice = () => {
   const sacRewards = antSacrificeRewards()
@@ -163,4 +172,10 @@ export const showSacrifice = () => {
 export const sacrificeCountHTML = (sacrificeCount: number): void => {
   const numAnthills = toOrdinal(sacrificeCount + 1)
   DOMCacheGetOrSet('antSacrificeNumber').innerHTML = i18next.t('ants.currentAnthill', { ord: numAnthills })
+
+  if (!getAchievementReward('autoAntSacrifice')) {
+    DOMCacheGetOrSet('anthillsRemainingForAutoSac').innerHTML = i18next.t('ants.altar.autoSacrificeLocked.anthillsUntilAutoSac', {
+      x: format(50 - sacrificeCount, 0, true)
+    })
+  }
 }

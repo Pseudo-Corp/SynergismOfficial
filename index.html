@@ -1665,9 +1665,10 @@
                 <div id="antsWelcomeTexts">
                     <p id="antwelcome" style="color: lightslategrey" i18n="ants.header"></p>
                     <p id="antdescription" style="color: plum" i18n="ants.hover"></p>
-                    <p id="crumbcount" class="crimsonText">You have 0 Galactic Crumbs.</p>
+                    <p id="crumbcount" class="crimsonText"></p>
                     <p id="crumbsPerSecond" style="color: maroon"></p>
                     <p id="crumbCoinMultiplier" style="color: yellow"></p>
+                    <p id="challenge8AntLocked" style="color: red; font-size: 1.3em" i18n="ants.challenge8Lock"></p>
                 </div>
 
                 <!--<div id="antrow2" style="color: white">
@@ -1764,35 +1765,61 @@
                     <p id="antAltarWelcome" style="color: lightslategrey" i18n="ants.altarHeader"></p>
                     <p id="antAltarDescription" style="color: plum" i18n="ants.altarDetails"></p>
                 </div>
+                <div id="sacrificeAntsLocked">
+                    <div id="sacrificeUnlockTexts">
+                        <p id="sacrificeLockedText" style="color: crimson"></p>
+                        <p id="sacrificeUnlockCondition" i18n="ants.altar.locked.altarRequirements"></p>
+                    </div>
+                </div>
                 <div id="sacrificeAnts" style="display: none">
                     <div id="sacrificeStatus">
+                        <p style="font-size: 1.3em" i18n="ants.altar.titles.altar"></p>
                         <button id="antSacrifice" i18n-aria-label="ants.antSacrifice" style="display: inline-block;">
                         <img alt="" src="Pictures/Default/AntSacrifice.png" style="cursor: pointer; display: block;" loading="lazy">
                         </button>
                         <p id="anthillAliveText" i18n="ants.anthillAlive"></p>
-                        <p id="antSacrificeTimer" class="bodycolor">Last Sacrifice: 1s ago</p>
-                        <p id="antSacrificeNumber" class="bodycolor">34</p>
+                        <p id="antSacrificeTimer" class="bodycolor"></p>
+                        <p id="antSacrificeNumber" class="bodycolor"></p>
                         <p id="sacrificeTimeMultiplier"></p>
                         <p id="sacrificeUpgradeMultiplier"></p>
                         <p id="crumbCountAgain" class="crimsonText"></p>
                         <p id="ELO"></p>
                     </div>
                     <div id="autoSacrificeSettings">
-                        <p style="font-size: 1.3em">The Great Automator</p>
-                        <button id="toggleAutoSacrificeAnt" class="antToggleBtn"></button>
-                        <div class="antSacrificeSettingsContainer" id="antSacrificeButtons">
-                            <button id="autoSacrificeAntMode"></button>
-                            <input id="autoAntSacrificeAmount" type="number">
+                        <p style="font-size: 1.3em" i18n="ants.altar.titles.automator"></p>
+                        <div id="autoSacrificeLocked">
+                            <p i18n="ants.altar.autoSacrificeLocked.info"></p>
+                            <p id="anthillsRemainingForAutoSac"></p>
                         </div>
-                        <span id="autoAntSacrifice"></span>
-                        <br>
-                        <span id="minimumTimeToSacrifice" i18n="ants.minimumTimeToSacrifice"></span>
-                        <span id="sacrificeSecondsElapsed"></span>
+                        <div id="autoSacrifice">
+                            <button id="toggleAutoSacrificeAnt" class="antToggleBtn"></button>
+                            <div class="antSacrificeSettingsContainer" id="antSacrificeButtons">
+                                <button id="autoSacrificeAntMode"></button>
+                                <input id="autoAntSacrificeAmount" type="number">
+                            </div>
+                            <span id="autoAntSacrifice"></span>
+                            <div id="otherAutoSac">
+                                <div id="additionalAutoSacOptionsLocked" style="font-size: 1.15em; color: greenyellow" i18n="ants.altar.additionalAutoSacOptions.info"></div>
+                                <div id="additionalAutoSacOptions">
+                                    <label class="antSacToggle">
+                                        <input type="checkbox" id="alwaysMaxRebornELOToggle" class="antSacToggleInput">
+                                        <p i18n="ants.altar.additionalAutoSacOptions.alwaysMaxReborn"></p>
+                                    </label>
+                                    <label class="antSacToggle">
+                                        <input type="checkbox" id="onlyMaxRebornELOToggle" class="antSacToggleInput">
+                                        <p i18n="ants.altar.additionalAutoSacOptions.onlyMaxReborn"></p>
+                                    </label>
+                                </div>
+                            </div>
+                            <br>
+                            <span id="minimumTimeToSacrifice" i18n="ants.minimumTimeToSacrifice"></span>
+                            <span id="sacrificeSecondsElapsed"></span>
+                        </div>
                     </div>
                 </div>
                 <div id="antSacrificeImmortalAndWorldlyRewards" style="width: 90%;">
                     <div id="antSacrificeImmortalELO" style="width: 30%;">
-                        <p style="font-size: 1.3em; text-decoration: underline solid crimson 2px">Immortality</p>
+                        <p style="font-size: 1.3em; text-decoration: underline solid crimson 2px" i18n="ants.altar.titles.immortality"></p>
                         <button id="immortalELOInfoToggleButton" class="antLeaderboardToggleBtn" data-mode="overview">
                             <span i18n="ants.compendium.toggleOverview"></span>
                         </button>
@@ -1825,7 +1852,7 @@
                         </div>
                     </div>
                     <div id="antSacrificeRewards" style="width: 40%;">
-                        <p id="antSacrificeRewardsTitle" style="font-size: 1.3em; text-decoration: underline solid var(--lightseagreen-text-color) 2px">Worldly Rewards</p>
+                        <p id="antSacrificeRewardsTitle" style="font-size: 1.3em; text-decoration: underline solid var(--lightseagreen-text-color) 2px" i18n="ants.altar.titles.worldRewards"></p>
                         <div id="antSacrificeObtainiumOfferings">
                             <div class="antSacrificeRewardColumn" style="border: 2px solid orange; border-radius: 4px;">
                                 <img src="Pictures/Default/Offering.png" i18n="general.resources.offering" loading="lazy">
@@ -1870,7 +1897,7 @@
                         </div>
                     </div>
                     <div id="antSacrificeCompendium" style="width: 30%;">
-                        <p style="font-size: 1.3em; text-decoration: underline solid cyan 2px;" i18n="ants.compendium.header"></p>
+                        <p style="font-size: 1.3em; text-decoration: underline solid cyan 2px;" i18n="ants.altar.titles.compendium"></p>
                         <div id="antSacrificeCompendiumInfo">
                             <div id="antLeaderboardContainer">
                                 <button id="antLeaderboardToggle" class="antLeaderboardToggleBtn" data-mode="daily">
@@ -3305,7 +3332,7 @@
                             <p id="instantChallenge2Level"></p>
                             <button class="permshopbutton" id="instantChallenge2Button" style="border: 2px solid orchid"></button>
                         </div>
-                        <div class="chal8" id="antSpeedHide">
+                        <div class="chal10" id="antSpeedHide">
                             <img id="antSpeed" alt="antSpeed" src="Pictures/Default/ShopAntSpeed.png" loading="lazy">
                             <p id="antSpeedLevel">Level: 0/3</p>
                             <button class="permshopbutton" id="antSpeedButton" style="border: 2px solid crimson">Upgrade for 200 Quarks</button>

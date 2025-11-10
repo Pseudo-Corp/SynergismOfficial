@@ -1,4 +1,3 @@
-import { getAchievementReward } from '../../../../../../../Achievements'
 import { calculateAntELOCubeBlessing } from '../../../../../../../Cubes'
 import { player } from '../../../../../../../Synergism'
 import { getTalismanEffects } from '../../../../../../../Talismans'
@@ -13,10 +12,9 @@ export const calculateAvailableRebornELO = () => {
 }
 
 export const rebornELOCreationSpeedMult = () => {
-  let multiplier = 1
-  const effectiveELO = calculateEffectiveAntELO()
-  const immortalELO = Math.max(player.ants.immortalELO, 1)
-  multiplier *= Math.pow(effectiveELO / immortalELO, 2)
+  let multiplier = 0.001
+  const eloMultiplier = calculateEffectiveAntELO() + 1000
+  multiplier *= eloMultiplier
   if (player.ants.producers[AntProducers.Queens].purchased > 0) {
     multiplier *= 1.15
   }
@@ -34,9 +32,8 @@ export const rebornELOCreationSpeedMult = () => {
   }
   multiplier *= 1 + 0.1 * player.upgrades[124]
   multiplier *= calculateAntELOCubeBlessing()
-  multiplier *= +getAchievementReward('antELOMultiplicative')
-  multiplier *= 1 + player.researches[110] / 100
-  multiplier *= 1 + player.researches[148] / 100
+  multiplier *= 1 + player.researches[110] / 50
+  multiplier *= 1 + player.researches[148] / 50
   multiplier *= 1 + player.platonicUpgrades[12] / 10
   multiplier *= getTalismanEffects('mortuus').antBonus
   multiplier *= thresholdModifiers().rebornSpeedMult

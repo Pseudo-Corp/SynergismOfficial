@@ -57,7 +57,7 @@ export const antMasteryHTML = (ant: AntProducers): string => {
       })
     }</span>`
 
-    const autoBuyer = +getAchievementReward('antAutobuyers')
+    const autoBuyer = +getAchievementReward('antAutobuyers') - 1
     let autoBuyerHTML = ''
     if (autoBuyer >= ant && player.ants.masteries[ant].mastery < player.ants.masteries[ant].highestMastery) {
       autoBuyerHTML = `<span style="color:lime">${i18next.t('ants.mastery.alreadyPurchased')}</span><br>`

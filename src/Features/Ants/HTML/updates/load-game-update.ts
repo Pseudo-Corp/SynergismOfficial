@@ -1,5 +1,6 @@
 import { player } from '../../../../Synergism'
 import { sacrificeCountHTML } from './sacrifice'
+import { updateAlwaysSacrificeMaxRebornELOToggle, updateOnlySacrificeMaxRebornELOToggle } from './toggles/additional-sacrifice-toggles'
 import { autobuyAntMasteryHTML } from './toggles/autobuy-mastery'
 import { autobuyAntProducerHTML } from './toggles/autobuy-producer'
 import { autobuyAntUpgradeHTML } from './toggles/autobuy-upgrade'
@@ -17,4 +18,6 @@ export const loadSynergyAntHTMLUpdates = (): void => {
   autoAntSacrificeEnabledHTML(player.ants.toggles.autoSacrificeEnabled)
   autoAntSacrificeModeNameHTML(player.ants.toggles.autoSacrificeMode)
   sacrificeCountHTML(player.ants.antSacrificeCount)
+  updateAlwaysSacrificeMaxRebornELOToggle(player.ants.toggles.alwaysSacrificeMaxRebornELO)
+  updateOnlySacrificeMaxRebornELOToggle(player.ants.toggles.onlySacrificeMaxRebornELO)
 }

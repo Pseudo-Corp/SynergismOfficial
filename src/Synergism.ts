@@ -2865,9 +2865,6 @@ export const multipliers = (): void => {
   if (player.currentChallenge.reincarnation === 9) {
     s = s.dividedBy('1e2000000')
   }
-  if (player.currentChallenge.reincarnation === 10) {
-    s = s.dividedBy('1e12500000')
-  }
   c = Decimal.pow(s, 1 + 0.001 * player.researches[17])
   let lol = Decimal.pow(c, 1 + 0.025 * player.upgrades[123])
   if (
@@ -3371,11 +3368,16 @@ export const resourceGain = (dt: number): void => {
       G.produceMythos.times(dt / 0.025)
     )
   }
-  if (player.currentChallenge.reincarnation !== 10) {
+
+  player.reincarnationShards = player.reincarnationShards.add(
+    G.produceParticles.times(dt / 0.025)
+  )
+
+  /*if (player.currentChallenge.reincarnation !== 10) {
     player.reincarnationShards = player.reincarnationShards.add(
       G.produceParticles.times(dt / 0.025)
     )
-  }
+  }*/
 
   for (let i = 1; i <= 5; i++) {
     G.ascendBuildingProduction[G.ordinals[(5 - i) as ZeroToFour]] = player[

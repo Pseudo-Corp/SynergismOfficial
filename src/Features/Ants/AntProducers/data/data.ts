@@ -57,7 +57,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.Breeders]: {
     baseCost: Decimal.fromString('10'),
     costIncrease: 10,
-    baseProduction: Decimal.fromNumber(1e-4),
+    baseProduction: Decimal.fromNumber(1.5e-4),
     color: '#B77D48',
     additionalTexts: [
       {
@@ -73,7 +73,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.MetaBreeders]: {
     baseCost: Decimal.fromString('1e5'),
     costIncrease: 1e2,
-    baseProduction: Decimal.fromNumber(1e-7),
+    baseProduction: Decimal.fromNumber(5e-6),
     color: '#C2783D',
     additionalTexts: [
       {
@@ -89,7 +89,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.MegaBreeders]: {
     baseCost: Decimal.fromString('1e12'),
     costIncrease: 1e4,
-    baseProduction: Decimal.fromNumber(1e-12),
+    baseProduction: Decimal.fromNumber(3e-7),
     color: '#CA7035',
     additionalTexts: [
       {
@@ -103,9 +103,9 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
     produces: AntProducers.MetaBreeders
   },
   [AntProducers.Queens]: {
-    baseCost: Decimal.fromString('1e300'),
+    baseCost: Decimal.fromString('1e145'),
     costIncrease: 1e8,
-    baseProduction: Decimal.fromNumber(1e-80),
+    baseProduction: Decimal.fromNumber(1e-30),
     color: '#D26B2D',
     additionalTexts: [
       {
