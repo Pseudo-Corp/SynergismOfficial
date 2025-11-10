@@ -109,17 +109,7 @@ async function manageSubscription (provider: SubscriptionProvider) {
 
   const link = prod ? prodRouteLinks[provider].manage : devRouteLinks[provider].manage
 
-  const response = await fetch(link, { method: 'POST' })
-
-  if (!response.ok) {
-    const { error } = await response.json() as { error: string }
-    Notification(error)
-    return
-  }
-
-  updateSubscriptionPage()
-
-  return Alert('(TODO) Please follow the instructions from the provider to manage your subscription.')
+  location.href = link
 }
 
 async function cancelSubscription (provider: SubscriptionProvider) {
