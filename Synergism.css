@@ -5258,10 +5258,6 @@ form input:hover {
     color: var(--amber-text-color);
 }
 
-#consumablesGrid > div > * {
-    margin: 0;
-}
-
 #upgradeGrid {
     display: grid;
     grid-template-columns: repeat(6, 15%);
@@ -5314,7 +5310,6 @@ form input:hover {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 10px;
 }
 
 #pseudoCoinAmounts > img,
