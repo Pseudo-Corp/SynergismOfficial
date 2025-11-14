@@ -376,7 +376,7 @@ export const updateSubscriptionPage = () => {
 export const initializePayPal_Subscription = async () => {
   const paypal = await loadScript({
     clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
-    disableFunding: ['venmo', 'paylater', 'credit', 'card'],
+    disableFunding: ['paylater', 'credit', 'card'],
     dataNamespace: 'paypal_subscription',
     vault: true,
     intent: 'subscription'
