@@ -1,4 +1,4 @@
-import { loadScript } from '@paypal/paypal-js'
+import { type FUNDING_SOURCE, loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
@@ -190,7 +190,8 @@ const updateTotalPriceInCart = () => {
 async function initializePayPal_OneTime (selector: string | HTMLElement) {
   const paypal = await loadScript({
     clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
-    disableFunding: ['paylater', 'credit', 'card'],
+    disableFunding: ['paylater', 'credit', 'card'] satisfies FUNDING_SOURCE[],
+    enableFunding: ['venmo'] satisfies FUNDING_SOURCE[],
     dataNamespace: 'paypal_one_time'
   })
 

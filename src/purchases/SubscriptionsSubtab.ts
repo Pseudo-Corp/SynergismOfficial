@@ -1,4 +1,4 @@
-import { loadScript } from '@paypal/paypal-js'
+import { type FUNDING_SOURCE, loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
 import { getSubMetadata, type SubscriptionMetadata, type SubscriptionProvider } from '../Login'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
@@ -376,7 +376,8 @@ export const updateSubscriptionPage = () => {
 export const initializePayPal_Subscription = async () => {
   const paypal = await loadScript({
     clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
-    disableFunding: ['paylater', 'credit', 'card'],
+    disableFunding: ['paylater', 'credit', 'card'] satisfies FUNDING_SOURCE[],
+    enableFunding: ['venmo'] satisfies FUNDING_SOURCE[],
     dataNamespace: 'paypal_subscription',
     vault: true,
     intent: 'subscription'
