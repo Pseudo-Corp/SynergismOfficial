@@ -35,7 +35,7 @@ const initializeConsumablesTab = memoize(() => {
           data-cost="${u.cost}"
           data-name="${u.name}"
           class="purchaseConsumableContainer"
-          style="margin: 40px;"
+          style="margin: 10px;"
         >
           <img src='Pictures/PseudoShop/${u.internalName}.png' alt='${u.name} Consumable' />
           <p>${u.name}</p>
