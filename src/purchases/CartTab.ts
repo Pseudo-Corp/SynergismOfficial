@@ -1,6 +1,6 @@
 import { prod } from '../Config'
 import { changeSubTab, getActiveSubTab, Tabs } from '../Tabs'
-import { createDeferredPromise, type DeferredPromise, memoize } from '../Utility'
+import { assert, createDeferredPromise, type DeferredPromise, memoize, retry } from '../Utility'
 import { setEmptyProductMap } from './CartUtil'
 import { clearCheckoutTab, toggleCheckoutTab } from './CheckoutTab'
 import { clearConsumablesTab, toggleConsumablesTab } from './ConsumablesTab'
@@ -95,15 +95,20 @@ export class CartTab {
 
     CartTab.#upgradesFetch = createDeferredPromise()
 
-    const url = !prod ? 'https://synergism.cc/stripe/test/upgrades' : 'https://synergism.cc/stripe/upgrades'
+    const url = 'https://synergism.cc/stripe/upgrades'
 
     // TODO: move this fetch to the products page.
-    fetch(url)
+    retry(5, async () => {
+      const response = await fetch(url)
+      assert(response.ok, `received status ${response.status}`) // internal server error
+      return response
+    }, { backoff: 'exponential', maxDelay: 30_000 })
       .then((response) => response.json())
       .then((upgrades: UpgradesResponse) => {
-        CartTab.#upgradesFetch!.resolve(upgrades)
+        CartTab.#upgradesFetch?.resolve(upgrades)
         upgradeResponse = upgrades
-      }, CartTab.#upgradesFetch.reject)
+      })
+      .catch((err: Error) => CartTab.#upgradesFetch?.reject(err))
 
     return CartTab.#upgradesFetch.promise
   }

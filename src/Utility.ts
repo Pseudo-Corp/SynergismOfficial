@@ -339,3 +339,44 @@ export function isMobileDevice () {
   isMobile = window.matchMedia('(pointer: coarse)').matches
     || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 }
+
+interface RetryOptions {
+  backoff: 'exponential' | 'linear'
+  initialDelay?: number // default: 1000ms
+  maxDelay?: number // default: 30000ms
+  multiplier?: number // default: 2
+}
+
+export const sleep = (delay: number) => new Promise((r) => setTimeout(r, delay))
+
+/**
+ * Retry a promise {@param times} times
+ */
+export async function retry<T> (
+  times: number,
+  operation: () => Promise<T>,
+  retryOptions?: RetryOptions
+) {
+  const reject: unknown[] = []
+
+  for (let i = 0; i < times; i++) {
+    try {
+      return await operation()
+    } catch (e) {
+      reject.push(e)
+
+      if (retryOptions?.backoff === 'exponential') {
+        const { initialDelay = 1000, multiplier = 2, maxDelay = 30_000 } = retryOptions
+        const delay = Math.min(initialDelay * multiplier ** i, maxDelay)
+
+        await sleep(delay)
+      } else if (retryOptions?.backoff === 'linear') {
+        const { initialDelay = 1000 } = retryOptions
+
+        await sleep(initialDelay)
+      }
+    }
+  }
+
+  throw new AggregateError(reject, `Failed after ${times} retries`)
+}
