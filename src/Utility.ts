@@ -333,12 +333,10 @@ export function isomorphicDecode (input: Uint8Array) {
   return result
 }
 
-export let isMobile = true
-
-export function isMobileDevice () {
-  isMobile = window.matchMedia('(pointer: coarse)').matches
+export const isMobile = (function isMobileDevice () {
+  return window.matchMedia('(pointer: coarse)').matches
     || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-}
+})()
 
 interface RetryOptions {
   backoff: 'exponential' | 'linear'
