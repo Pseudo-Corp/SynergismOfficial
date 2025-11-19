@@ -763,22 +763,22 @@ export const generateEventHandlers = () => {
 
   DOMCacheGetOrSet('buyAllAntUpgrades').addEventListener('click', (e: MouseEvent) => {
     buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades)
-    Modal(allAntUpgradeHTML, e.clientX, e.clientY, { borderColor: 'crimson' }, true, MEDIUM_MODAL_UPDATE_TICK)
+    Modal(allAntUpgradeHTML, e.clientX, e.clientY, { borderColor: 'crimson' }, MEDIUM_MODAL_UPDATE_TICK)
   })
   DOMCacheGetOrSet('buyAllAntProducers').addEventListener('click', (e: MouseEvent) => {
     buyAllAntProducers(player.ants.toggles.maxBuyProducers)
     buyAllAntMasteries()
-    Modal(allAntProducerHTML, e.clientX, e.clientY, { borderColor: 'gold' }, true, MEDIUM_MODAL_UPDATE_TICK)
+    Modal(allAntProducerHTML, e.clientX, e.clientY, { borderColor: 'gold' }, MEDIUM_MODAL_UPDATE_TICK)
   })
 
   DOMCacheGetOrSet('buyAllAntProducers').addEventListener('mousemove', (e: MouseEvent) => {
-    Modal(allAntProducerHTML, e.clientX, e.clientY, { borderColor: 'gold' }, undefined, MEDIUM_MODAL_UPDATE_TICK)
+    Modal(allAntProducerHTML, e.clientX, e.clientY, { borderColor: 'gold' }, MEDIUM_MODAL_UPDATE_TICK)
   })
 
   DOMCacheGetOrSet('buyAllAntProducers').addEventListener('mouseout', () => CloseModal())
 
   DOMCacheGetOrSet('buyAllAntUpgrades').addEventListener('mousemove', (e: MouseEvent) => {
-    Modal(allAntUpgradeHTML, e.clientX, e.clientY, { borderColor: 'crimson' }, undefined, MEDIUM_MODAL_UPDATE_TICK)
+    Modal(allAntUpgradeHTML, e.clientX, e.clientY, { borderColor: 'crimson' }, MEDIUM_MODAL_UPDATE_TICK)
   })
 
   DOMCacheGetOrSet('buyAllAntUpgrades').addEventListener('mouseout', () => CloseModal())
@@ -808,7 +808,7 @@ export const generateEventHandlers = () => {
     //antTier.addEventListener('blur', () => CloseModal())
     antTier.addEventListener('click', (event) => {
       buyAntProducers(ant, player.ants.toggles.maxBuyProducers)
-      Modal(() => antProducerHTML(ant), event.clientX, event.clientY, { borderColor: antProducerData[ant].color }, true)
+      Modal(() => antProducerHTML(ant), event.clientX, event.clientY, { borderColor: antProducerData[ant].color })
     })
 
     const antMastery = DOMCacheGetOrSet(`antMastery${ant + 1}`)
@@ -829,7 +829,7 @@ export const generateEventHandlers = () => {
     //antMastery.addEventListener('blur', () => CloseModal())
     antMastery.addEventListener('click', (event) => {
       buyAntMastery(ant)
-      Modal(() => antMasteryHTML(ant), event.clientX, event.clientY, { borderColor: blendedColor }, true)
+      Modal(() => antMasteryHTML(ant), event.clientX, event.clientY, { borderColor: blendedColor })
     })
   }
   // Part 2: Ant Upgrades
@@ -853,7 +853,7 @@ export const generateEventHandlers = () => {
     //antUpgrade.addEventListener('blur', () => CloseModal())
     antUpgrade.addEventListener('click', (event) => {
       buyAntUpgrade(upgrade, player.ants.toggles.maxBuyUpgrades)
-      Modal(() => antUpgradeHTML(upgrade), event.clientX, event.clientY, { borderColor: 'burlywood' }, true)
+      Modal(() => antUpgradeHTML(upgrade), event.clientX, event.clientY, { borderColor: 'burlywood' })
     })
   }
   // Part 3: Sacrifice
@@ -1249,7 +1249,7 @@ TODO: Fix this entire tab it's utter shit
         'click',
         (event) => {
           buyGQUpgradeLevel(key, event)
-          Modal(() => upgradeGQToString(key), event.clientX, event.clientY, { borderColor: 'gold' }, true)
+          Modal(() => upgradeGQToString(key), event.clientX, event.clientY, { borderColor: 'gold' })
         }
       )
     } else {
@@ -1328,7 +1328,7 @@ TODO: Fix this entire tab it's utter shit
         'click',
         (event) => {
           buyOcteractUpgradeLevel(key, event)
-          Modal(() => upgradeOcteractToString(key), event.clientX, event.clientY, { borderColor: 'lightseagreen' }, true)
+          Modal(() => upgradeOcteractToString(key), event.clientX, event.clientY, { borderColor: 'lightseagreen' })
         }
       )
     } else {
@@ -1401,7 +1401,7 @@ TODO: Fix this entire tab it's utter shit
         'click',
         (event) => {
           buyAmbrosiaUpgradeLevel(key, event)
-          Modal(() => ambrosiaUpgradeToString(key), event.clientX, event.clientY, { borderColor: 'blue' }, true)
+          Modal(() => ambrosiaUpgradeToString(key), event.clientX, event.clientY, { borderColor: 'blue' })
         }
       )
     } else {
@@ -1495,7 +1495,7 @@ TODO: Fix this entire tab it's utter shit
         'click',
         (event) => {
           buyRedAmbrosiaUpgradeLevel(key, event)
-          Modal(() => redAmbrosiaUpgradeToString(key), event.clientX, event.clientY, { borderColor: 'red' }, true)
+          Modal(() => redAmbrosiaUpgradeToString(key), event.clientX, event.clientY, { borderColor: 'red' })
         }
       )
     } else {
