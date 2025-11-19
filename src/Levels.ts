@@ -594,7 +594,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
           : i18next.t('achievements.rewardTypes.locked')
       })
     },
-    levelReq: 45,
+    levelReq: 65,
     displayOrder: 16
   },
   wowCubesAutobuyer: {
@@ -610,7 +610,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
           : i18next.t('achievements.rewardTypes.locked')
       })
     },
-    levelReq: 75,
+    levelReq: 80,
     displayOrder: 17
   },
   ascensionScoreAutobuyer: {
@@ -626,7 +626,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
           : i18next.t('achievements.rewardTypes.locked')
       })
     },
-    levelReq: 100,
+    levelReq: 80,
     displayOrder: 18
   },
   mortuus2Autobuyer: {
@@ -642,7 +642,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
           : i18next.t('achievements.rewardTypes.locked')
       })
     },
-    levelReq: 220,
+    levelReq: 225,
     displayOrder: 19
   }
 }

@@ -1375,21 +1375,42 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
 export type OptionalHTMLStyle = Partial<CSSStyleDeclaration>
 
 let modalUsed = false
+let modalUpdateInterval: number | null = null
+
+export const SLOW_MODAL_UPDATE_TICK = 1000
+export const MEDIUM_MODAL_UPDATE_TICK = 250
+export const FAST_MODAL_UPDATE_TICK = 100
+export const VERY_FAST_MODAL_UPDATE_TICK = 20
 
 export const Modal = (
-  HTML: string,
+  HTML: () => string,
   currX: number,
   currY: number,
   styleMods: OptionalHTMLStyle = {},
-  forceUpdate = false
+  forceUpdate = false,
+  updateInterval = VERY_FAST_MODAL_UPDATE_TICK
 ) => {
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
 
+  if (modalUpdateInterval !== null) {
+    clearInterval(modalUpdateInterval)
+    modalUpdateInterval = null
+  }
+
+  const updateContent = () => {
+    const htmlContent = HTML()
+    if (modalContent.innerHTML !== htmlContent) {
+      modalContent.innerHTML = htmlContent
+    }
+  }
+
   if (forceUpdate || !modalUsed) {
-    modalContent.innerHTML = HTML
+    updateContent()
     modalUsed = true
   }
+
+  modalUpdateInterval = window.setInterval(updateContent, updateInterval)
 
   Object.assign(modal.style, styleMods)
 
@@ -1428,6 +1449,12 @@ export const Modal = (
 export const CloseModal = () => {
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
+
+  // Clear any existing update interval
+  if (modalUpdateInterval !== null) {
+    clearInterval(modalUpdateInterval)
+    modalUpdateInterval = null
+  }
 
   // Clear the content
   modalContent.innerHTML = ''

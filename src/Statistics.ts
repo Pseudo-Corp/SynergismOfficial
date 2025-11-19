@@ -1,6 +1,6 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
-import { getAchievementReward } from './Achievements'
+import { achievementLevel, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -91,6 +91,7 @@ import {
 } from './Calculate'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
 import {
+  calculateAntELOCubeBlessing,
   calculateAntSpeedCubeBlessing,
   calculateGlobalSpeedCubeBlessing,
   calculateObtainiumCubeBlessing,
@@ -113,7 +114,7 @@ import {
   addCodeSingularityPerkBonus,
   addCodeTimeToNextUse
 } from './ImportExport'
-import { getLevelMilestone, getLevelReward } from './Levels'
+import { getLevelMilestone, getLevelReward, synergismLevelRewards } from './Levels'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import {
   calculateCubeMultiplierPlatonicBlessing,
@@ -148,6 +149,10 @@ import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 import { prod } from './Config'
+import { canGenerateAntCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
+import { calculateBaseAntELO, calculateEffectiveAntELO, calculateELOMult } from './Features/Ants/AntSacrifice/Rewards/ELO/AntELO/lib/calculate'
+import { thresholdModifiers } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
+import { rebornELOCreationSpeedMult } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
 
 export interface StatLine<T = number | Exclude<DecimalSource, string>> {
   i18n: string
@@ -2941,7 +2946,7 @@ export const antSpeedStats: DecimalSourceLine[] = [
   {
     i18n: 'Base',
     stat: () => {
-      return (player.challengecompletions[8] > 0) ?
+      return canGenerateAntCrumbs() ?
       1 :
       0
     }
@@ -3089,6 +3094,181 @@ export const antSpeedStats: DecimalSourceLine[] = [
   }
 ]
 
+export const antELOStats: NumberStatLine[] = [
+  {
+    i18n: 'AntWorkers',
+    stat: () => player.ants.producers[AntProducers.Workers].purchased
+  },
+  {
+    i18n: 'AchievementBonus',
+    stat: () => +getAchievementReward('antELOAdditive'),
+  },
+  {
+    i18n: 'SynergismLevel',
+    stat: () => getLevelReward('ants'),
+    displayCriterion: () => achievementLevel >= synergismLevelRewards.ants.minLevel
+  },
+  {
+    i18n: 'ReincarnationUpgrade20',
+    stat: () => {
+      let ELO = 0
+      ELO += 10 * Math.min(50, player.ants.antSacrificeCount)
+      ELO += 5 * Math.min(50, Math.max(player.ants.antSacrificeCount - 50, 0))
+      ELO += Math.min(250, Math.max(0, player.ants.antSacrificeCount - 100))
+      return ELO
+    }
+  },
+  {
+    i18n: 'Challenge10',
+    stat: () => 100 * CalcECC('reincarnation', player.challengecompletions[10]),
+    displayCriterion: () => player.challengecompletions[9] > 0 || player.ascensionCount > 0
+  },
+  {
+    i18n: 'ShopUpgrade',
+    stat: () => 4 * player.shopUpgrades.antSpeed,
+    displayCriterion: () => player.highestchallengecompletions[10] > 0 || player.ascensionCount > 0 || player.shopUpgrades.antSpeed > 0
+  },
+  {
+    i18n: 'Research5x8',
+    stat: () => 25 * player.researches[108],
+    displayCriterion: () => isResearchUnlocked(108)
+  },
+  {
+    i18n: 'Research5x9',
+    stat: () => 25 * player.researches[109],
+    displayCriterion: () => isResearchUnlocked(109)
+  },
+  {
+    i18n: 'Research5x23',
+    stat: () => 50 * player.researches[123],
+    displayCriterion: () => isResearchUnlocked(123)
+  },
+  {
+    i18n: 'Research8x3',
+    stat: () => 666 * player.researches[178],
+    displayCriterion: () => isResearchUnlocked(178)
+  },
+  {
+    i18n: 'AntUpgrade',
+    stat: () => getAntUpgradeEffect(AntUpgrades.AntSacrifice).elo,
+    displayCriterion: () => player.unlocks.anthill
+  }
+]
+
+export const additiveAntELOMultStats: NumberStatLine[] = [
+  {
+    i18n: 'Base',
+    stat: () => 1
+  },
+  {
+    i18n: 'AchievementMultiplier',
+    stat: () => +getAchievementReward('antELOAdditiveMultiplier')
+  },
+  {
+    i18n: 'AntQueens',
+    stat: () => player.ants.producers[AntProducers.Queens].purchased > 0 ? 0.01 : 0
+  },
+  {
+    i18n: 'AntLordRoyals',
+    stat: () => player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 0.01 : 0
+  },
+  {
+    i18n: 'AntAlmighties',
+    stat: () => player.ants.producers[AntProducers.Almighties].purchased > 0 ? 0.01 : 0
+  },
+  {
+    i18n: 'AntDisciples',
+    stat: () => player.ants.producers[AntProducers.Disciples].purchased > 0 ? 0.02 : 0
+  },
+  {
+    i18n: 'AntHolySpirit',
+    stat: () => player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 0.02 : 0
+  },
+  {
+    i18n: 'PlatonicUpgrade12',
+    stat: () => (1 / 200) * player.platonicUpgrades[12] * player.corruptions.used.extinction,
+    displayCriterion: () => player.challengecompletions[14] > 0
+  },
+]
+
+const effectiveAntELOStats: NumberStatLine[] = [
+  {
+    i18n: 'BaseELO',
+    stat: () => calculateBaseAntELO(),
+    color: 'gold'
+  },
+  {
+    i18n: 'AdditiveMultiplier',
+    stat: () => calculateELOMult(),
+  }
+]
+
+export const rebornELOCreationSpeedMultStats: NumberStatLine[] = [
+    {
+      i18n: 'Base',
+      stat: () => 0.01,
+      acc: 3
+    },
+    {
+      i18n: 'EffectiveELO',
+      stat: () => calculateEffectiveAntELO()
+    },
+    {
+      i18n: 'CoinUpgrade24',
+      stat: () => 1 + 0.1 * player.upgrades[124]
+    },
+    {
+      i18n: 'Research5x10',
+      stat: () => 1 + player.researches[110] / 50,
+      displayCriterion: () => isResearchUnlocked(110)
+    },
+    {
+      i18n: 'Research6x23',
+      stat: () => 1 + player.researches[148] / 50,
+      displayCriterion: () => isResearchUnlocked(148)
+    },
+    {
+      i18n: 'AntQueens',
+      stat: () => player.ants.producers[AntProducers.Queens].purchased > 0 ? 1.15 : 1
+    },
+    {
+      i18n: 'AntLordRoyals',
+      stat: () => player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 1.25 : 1
+    },
+    {
+      i18n: 'AntAlmighties',
+      stat: () => player.ants.producers[AntProducers.Almighties].purchased > 0 ? 1.4 : 1
+    },
+    {
+      i18n: 'AntDisciples',
+      stat: () => player.ants.producers[AntProducers.Disciples].purchased > 0 ? 2 : 1
+    },
+    {
+      i18n: 'AntHolySpirit',
+      stat: () => player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 3 : 1
+    },
+    {
+      i18n: 'ThresholdModifiers',
+      stat: () => thresholdModifiers().rebornSpeedMult,
+      acc: 5
+    },
+    {
+      i18n: 'MortuusTalisman',
+      stat: () => getTalismanEffects('mortuus').antBonus,
+      displayCriterion: () => talismans.mortuus.isUnlocked()
+    },
+    {
+      i18n: 'CubeBlessing',
+      stat: () => calculateAntELOCubeBlessing(),
+      displayCriterion: () => player.ascensionCount > 0
+    },
+    {
+      i18n: 'PlatonicUpgrade12',
+      stat: () => 1 + player.platonicUpgrades[12] / 10,
+      displayCriterion: () => player.challengecompletions[14] > 0
+    },
+]
+
 export const allMiscStats: DecimalSourceLine[] = [
   {
     i18n: 'PrestigeCount',
@@ -3168,6 +3348,9 @@ const associated = new Map<string, string>([
   ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
   ['kAntSpeedMult', 'antSpeedMultStats'],
   ['kAntSacrificeMult', 'antSacrificeMultStats'],
+  ['kAntELO', 'eloStats'],
+  ['kAdditiveAntELOMult', 'additiveAntELOMultStats'],
+  ['kRebornELOCreationSpeedMult', 'rebornELOCreationSpeedMultStats'],
   ['kTalismanRuneBonusMult', 'talismanRuneBonusMultiplierStats'],
   ['kQuarkMult', 'globalQuarkMultiplierStats'],
   ['kGSpeedMultIgnoreDR', 'globalSpeedIgnoreDRStats'],
@@ -3256,6 +3439,16 @@ export const loadStatisticsUpdate = () => {
       case 'antSacrificeMultStats':
         loadStatisticsAntSacrificeMult()
         break
+      case 'eloStats':
+        loadStatisticsAntELO()
+        loadStatisticsEffectiveAntELO()
+        break
+      case 'additiveAntELOMultStats':
+        loadStatisticsAdditiveAntELOMult()
+        break
+      case 'rebornELOCreationSpeedMultStats':
+        loadStatisticsRebornELOCreationSpeedMult()
+        break
       case 'talismanRuneBonusMultiplierStats':
         loadTalismanRuneBonusMultiplierStats()
         break
@@ -3337,8 +3530,6 @@ export const loadStatistics = (
   const parent = DOMCacheGetOrSet(parentDiv)
   const numStatLines = document.getElementsByClassName(specificClass).length
   let createdStatLines = 0
-
-  console.log()
 
   for (const obj of statsObj) {
     const key = obj.i18n
@@ -3554,6 +3745,42 @@ export const loadStatisticsAntSacrificeMult = () => {
     'AntSacrificeStat',
     calculateAntSacrificeMultiplier
   )
+}
+
+export const loadStatisticsAntELO = () => {
+  loadStatistics(antELOStats, 'antELOStats', 'statAELo', 'AntELOStat', calculateBaseAntELO)
+}
+
+export const loadStatisticsEffectiveAntELO = () => {
+  loadStatistics(
+    effectiveAntELOStats,
+    'effectiveAntELOStats',
+    'statEAELo',
+    'EffectiveAntELOStat',
+    calculateEffectiveAntELO
+  )
+}
+
+export const loadStatisticsAdditiveAntELOMult = () => {
+  loadStatistics(
+    additiveAntELOMultStats,
+    'additiveAntELOMultStats',
+    'statAAELoM',
+    'AdditiveAntELOStat',
+    calculateELOMult
+  )
+}
+
+export const loadStatisticsRebornELOCreationSpeedMult = () => {
+  loadStatistics(
+    rebornELOCreationSpeedMultStats,
+    'rebornELOCreationSpeedMultStats',
+    'statRELOCSM',
+    'RebornELOCreationSpeedStat',
+    rebornELOCreationSpeedMult
+  )
+
+  DOMCacheGetOrSet('rebornELOExtra').innerHTML = i18next.t('statistics.rebornELOCreationSpeedMultStats.extraInfo')
 }
 
 export const loadStatisticsGlobalSpeedIgnoreDR = () => {

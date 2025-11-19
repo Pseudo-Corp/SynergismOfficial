@@ -1186,8 +1186,8 @@ export const updateTalismanDisplay = (t: TalismanKeys) => {
     la.style.color = 'cyan'
   }
   if (rarity === 8) {
-    ti.style.border = '3px solid red'
-    la.style.color = 'red'
+    ti.style.border = '3px solid lightgoldenrodyellow'
+    la.style.color = 'lightgoldenrodyellow'
   }
   if (rarity === 9) {
     ti.style.border = '3px solid gold'

@@ -2383,12 +2383,15 @@ p#reincarnatehotkeys {
 #antwelcome { font-size: 1.3em; }
 #antAltarWelcome { font-size: 1.3em; }
 
-#antrow1 {
+#antProducersContainer {
     display: flex;
-    gap: 0 4px;
+    flex-direction: column;
     margin-top: 12px;
-    color: red;
-    z-index: 1;
+}
+
+#antProducers {
+    display: flex;
+    flex-direction: row;
 }
 
 .antProducerColumn {
@@ -2412,9 +2415,7 @@ p#reincarnatehotkeys {
 #antUpgradesContainer {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
-    color: red;
-    z-index: 1;
+    margin-top: 12px;
 }
 
 .antUpgradeRow {
@@ -2446,6 +2447,11 @@ p#reincarnatehotkeys {
 }
 
 .maxPurchaseAnt {
+    border-color: gold;
+}
+
+.buyAllAntBtn {
+    border-width: 2px;
     border-color: gold;
 }
 

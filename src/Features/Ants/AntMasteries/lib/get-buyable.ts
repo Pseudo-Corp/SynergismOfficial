@@ -10,8 +10,26 @@ export const canBuyAntMastery = (ant: AntProducers): boolean => {
     return false
   } else {
     const reqELO = antMasteryData[ant].totalELORequirements[level]
-    const elo = player.ants.immortalELO
+    const elo = player.ants.rebornELO
     const eloCheck = elo >= reqELO
     return eloCheck && player.reincarnationPoints.gte(antMasteryData[ant].particleCosts[level])
   }
+}
+
+export const getBuyableMasteryLevels = (ant: AntProducers): number => {
+  let buyableLevels = 0
+  const maxLevel = getMaxAntMasteryLevel()
+  let level = player.ants.masteries[ant].mastery
+  while (level + buyableLevels < maxLevel) {
+    const reqELO = antMasteryData[ant].totalELORequirements[level + buyableLevels]
+    const elo = player.ants.rebornELO
+    const eloCheck = elo >= reqELO
+    const cost = antMasteryData[ant].particleCosts[level + buyableLevels]
+    if (eloCheck && player.reincarnationPoints.gte(cost)) {
+      buyableLevels++
+    } else {
+      break
+    }
+  }
+  return buyableLevels
 }

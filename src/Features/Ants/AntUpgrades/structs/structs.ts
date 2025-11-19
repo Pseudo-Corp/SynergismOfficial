@@ -70,6 +70,7 @@ export interface AntUpgradeData<K extends AntUpgrades> {
   }
   minimumResetTier: AntSacrificeTiers
   exemptFromCorruption: boolean
+  autobuy: () => boolean
   name: () => string
   intro: () => string
   description: () => string

@@ -1,15 +1,40 @@
 import { player } from '../../../../../../../../Synergism'
+import { assert } from '../../../../../../../../Utility'
+
+export const thresholdTranches = [
+  { stages: 100, perStage: 100 },
+  { stages: 100, perStage: 1000 },
+  { stages: 100, perStage: 3000 },
+  { stages: 700, perStage: 20000 },
+  { stages: Infinity, perStage: 100000 }
+]
 
 export const calculateRebornELOThresholds = (elo?: number) => {
-  const rebornELO = elo ?? player.ants.rebornELO
+  let rebornELOBudget = elo ?? player.ants.rebornELO
   let thresholds = 0
 
-  thresholds += Math.floor(Math.min(100, rebornELO / 100))
-  thresholds += Math.floor(Math.min(100, Math.max(0, (rebornELO - 10_000) / 1000)))
-  thresholds += Math.floor(Math.min(100, Math.max(0, (rebornELO - 110_000) / 3000)))
-  thresholds += Math.floor(Math.min(700, Math.max(0, (rebornELO - 410_000) / 20000)))
-  thresholds += Math.floor(Math.max(0, (rebornELO - 14_410_000) / 100000))
+  for (const tranche of thresholdTranches) {
+    const stagesAdded = Math.min(tranche.stages, Math.floor(rebornELOBudget / tranche.perStage))
+    thresholds += stagesAdded
+    rebornELOBudget -= stagesAdded * tranche.perStage
+    if (stagesAdded < tranche.stages) {
+      break
+    }
+  }
   return thresholds
+}
+
+export const calculateToNextELOThreshold = (rebornELO: number, stage?: number) => {
+  const thresholds = stage ?? calculateRebornELOThresholds(rebornELO)
+  let stagesChecked = 0
+  for (const tranche of thresholdTranches) {
+    if (thresholds < stagesChecked + tranche.stages) {
+      const reqELOThisThreshold = tranche.perStage
+      return reqELOThisThreshold - rebornELO % reqELOThisThreshold
+    }
+    stagesChecked += tranche.stages
+  }
+  assert(false, 'Unreachable code in calculateToNextELOThreshold')
 }
 
 export const thresholdModifiers = () => {

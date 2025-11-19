@@ -13,8 +13,7 @@ import { getTalismanEffects } from './Talismans'
 
 export const calculatetax = () => {
   let exp = 1
-  let compareB = new Decimal(0)
-  let compareC = new Decimal(0)
+  // To 2020 Platonic: Why the HELL is this done here???
   G.produceFirst = (player.firstGeneratedCoin.add(player.firstOwnedCoin)).times(G.globalCoinMultiplier).times(
     G.coinOneMulti
   )
@@ -123,8 +122,17 @@ export const calculatetax = () => {
   if (exponent < 1e-300) {
     exponent = 1e-300
   }
-  G.maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1
-  const a2 = Math.min(G.maxexponent, Math.floor(Decimal.log(G.produceTotal.add(1), 10)))
+
+  // Ant Upgrade "Fortunae Formicidae" gives a flat max exponent increase equal to its coin multi
+  // It multiplies the coin production but is also tax-exempt, which we do by increasing the tax cap
+  // While also deducting the log value from `exponentForDivisor`. 
+  // Implementing this was much more difficult than it needed to be.
+  const flatMaxExponentIncrease = Decimal.log(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier, 10)
+
+  G.maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1 + flatMaxExponentIncrease
+
+  const exponentForDivisor = Math.max(0, Math.min(G.maxexponent, Math.floor(Decimal.log(G.produceTotal.add(1), 10))) - flatMaxExponentIncrease)
+  const exponentForWarning = Math.max(0, G.maxexponent - flatMaxExponentIncrease)
 
   if (player.currentChallenge.ascension === 13 && G.maxexponent <= 99999) {
     // i don't think it makes sense to give the achievement as soon as the challenge is opened
@@ -135,12 +143,16 @@ export const calculatetax = () => {
     }
   }
 
-  if (a2 >= 1) {
-    compareB = Decimal.pow(a2, 2).div(550)
-  }
+  let divisorExponent = 1/550 * Math.pow(exponentForDivisor, 2)
+  // Not exactly clear why this is needed?
+  let checkExponent = 1/550 * Math.pow(exponentForWarning, 2)
 
-  compareC = Decimal.pow(G.maxexponent, 2).div(550)
 
-  G.taxdivisor = Decimal.pow(1.01, Decimal.mul(compareB, exponent))
-  G.taxdivisorcheck = Decimal.pow(1.01, Decimal.mul(compareC, exponent))
+  // After the ants update, I really should get rid of these bad globals
+
+  // November 11, 2025: Platonic re-derived these equations to understand why this works.
+  // If you write this value out, you end up getting a function whose log is O(exponent^-1), 
+  // Which is intentional.
+  G.taxdivisor = Decimal.pow(1.01, divisorExponent * exponent)
+  G.taxdivisorcheck = Decimal.pow(1.01, checkExponent * exponent)
 }
