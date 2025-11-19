@@ -6,6 +6,11 @@ import { AntProducers, LAST_ANT_PRODUCER } from '../../structs/structs'
 import { antProducerData } from '../data/data'
 import { calculateBaseAntsToBeGenerated } from './calculate-production'
 
+export const canGenerateAntCrumbs = (): boolean => {
+  // Cube 5x8 is "Wow! I want to ALWAYS generate Galactic Crumbs."
+  return player.challengecompletions[8] > 0 || player.cubeUpgrades[48] > 0
+}
+
 export const generateAntsAndCrumbs = (dt: number): void => {
   // TODO: Place somewhere in Ants.
   const antSpeedMult = calculateActualAntSpeedMult()

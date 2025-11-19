@@ -67,7 +67,7 @@ export const antMasteryHTML = (ant: AntProducers): string => {
     const reqELOHTML = `<span>${
       i18next.t('ants.mastery.eloRequirement', {
         x: format(reqELO, 0, true),
-        y: format(player.ants.immortalELO, 0, true)
+        y: format(player.ants.rebornELO, 0, true)
       })
     }</span>`
 

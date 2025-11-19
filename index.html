@@ -1668,6 +1668,7 @@
                     <p id="crumbcount" class="crimsonText"></p>
                     <p id="crumbsPerSecond" style="color: maroon"></p>
                     <p id="crumbCoinMultiplier" style="color: yellow"></p>
+                    <p id="crumbTaxExemptionInfo" style="color: orange">Coin Multiplier also increases your Tax Cap, and is further exempt from taxation</p>
                     <p id="challenge8AntLocked" style="color: red; font-size: 1.3em" i18n="ants.challenge8Lock"></p>
                 </div>
 
@@ -1678,42 +1679,45 @@
                     <p id="generateant"></p>
                 </div> -->
 
-                <div id="antrow1">
-                    <div class="antProducerColumn">
-                        <button id="anttier1" class="disable-hover-color" i18n-aria-label="ants.descriptions.1"><img alt="" class="antBtn" src="Pictures/Default/AntTier1.png" loading="lazy"></button>
-                        <button id="antMastery1"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
-                    </div>
-                    <div class="antProducerColumn">
-                        <button id="anttier2" class="disable-hover-color" i18n-aria-label="ants.descriptions.2"><img alt="" class="antBtn" src="Pictures/Default/AntTier2.png" loading="lazy"></button>
-                        <button id="antMastery2"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
-                    </div>
-                    <div class="antProducerColumn">
-                        <button id="anttier3" class="disable-hover-color" i18n-aria-label="ants.descriptions.3"><img alt="" class="antBtn" src="Pictures/Default/AntTier3.png" loading="lazy"></button>
-                        <button id="antMastery3"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
-                    </div>
-                    <div class="antProducerColumn">
-                        <button id="anttier4" class="disable-hover-color" i18n-aria-label="ants.descriptions.4"><img alt="" class="antBtn" src="Pictures/Default/AntTier4.png" loading="lazy"></button>
-                        <button id="antMastery4"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
-                    </div>
-                    <div class="antProducerColumn">
-                        <button id="anttier5" class="disable-hover-color" i18n-aria-label="ants.descriptions.5"><img alt="" class="antBtn" src="Pictures/Default/AntTier5.png" loading="lazy"></button>
-                        <button id="antMastery5"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
-                    </div>
-                    <div class="antProducerColumn">
-                        <button id="anttier6" class="disable-hover-color" i18n-aria-label="ants.descriptions.6"><img alt="" class="antBtn" src="Pictures/Default/AntTier6.png" loading="lazy"></button>
-                        <button id="antMastery6"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
-                    </div>
-                    <div class="antProducerColumn">
-                        <button id="anttier7" class="disable-hover-color" i18n-aria-label="ants.descriptions.7"><img alt="" class="antBtn" src="Pictures/Default/AntTier7.png" loading="lazy"></button>
-                        <button id="antMastery7"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
-                    </div>
-                    <div class="antProducerColumn">
-                        <button id="anttier8" class="disable-hover-color" i18n-aria-label="ants.descriptions.8"><img alt="" class="antBtn" src="Pictures/Default/AntTier8.png" loading="lazy"></button>
-                        <button id="antMastery8"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
-                    </div>
-                    <div class="antProducerColumn">
-                        <button id="anttier9" class="disable-hover-color" i18n-aria-label="ants.descriptions.9"><img alt="" class="antBtn" src="Pictures/Default/AntTier9.png" loading="lazy"></button>
-                        <button id="antMastery9"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                <div id="antProducersContainer">
+                    <button id="buyAllAntProducers" class="buyAllAntBtn" style="margin-bottom: 12px;" i18n="ants.buyAllProducers"></button>
+                    <div id="antProducers">
+                        <div class="antProducerColumn">
+                            <button id="anttier1" class="disable-hover-color" i18n-aria-label="ants.descriptions.1"><img alt="" class="antBtn" src="Pictures/Default/AntTier1.png" loading="lazy"></button>
+                            <button id="antMastery1"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                        </div>
+                        <div class="antProducerColumn">
+                            <button id="anttier2" class="disable-hover-color" i18n-aria-label="ants.descriptions.2"><img alt="" class="antBtn" src="Pictures/Default/AntTier2.png" loading="lazy"></button>
+                            <button id="antMastery2"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                        </div>
+                        <div class="antProducerColumn">
+                            <button id="anttier3" class="disable-hover-color" i18n-aria-label="ants.descriptions.3"><img alt="" class="antBtn" src="Pictures/Default/AntTier3.png" loading="lazy"></button>
+                            <button id="antMastery3"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                        </div>
+                        <div class="antProducerColumn">
+                            <button id="anttier4" class="disable-hover-color" i18n-aria-label="ants.descriptions.4"><img alt="" class="antBtn" src="Pictures/Default/AntTier4.png" loading="lazy"></button>
+                            <button id="antMastery4"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                        </div>
+                        <div class="antProducerColumn">
+                            <button id="anttier5" class="disable-hover-color" i18n-aria-label="ants.descriptions.5"><img alt="" class="antBtn" src="Pictures/Default/AntTier5.png" loading="lazy"></button>
+                            <button id="antMastery5"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                        </div>
+                        <div class="antProducerColumn">
+                            <button id="anttier6" class="disable-hover-color" i18n-aria-label="ants.descriptions.6"><img alt="" class="antBtn" src="Pictures/Default/AntTier6.png" loading="lazy"></button>
+                            <button id="antMastery6"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                        </div>
+                        <div class="antProducerColumn">
+                            <button id="anttier7" class="disable-hover-color" i18n-aria-label="ants.descriptions.7"><img alt="" class="antBtn" src="Pictures/Default/AntTier7.png" loading="lazy"></button>
+                            <button id="antMastery7"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                        </div>
+                        <div class="antProducerColumn">
+                            <button id="anttier8" class="disable-hover-color" i18n-aria-label="ants.descriptions.8"><img alt="" class="antBtn" src="Pictures/Default/AntTier8.png" loading="lazy"></button>
+                            <button id="antMastery8"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                        </div>
+                        <div class="antProducerColumn">
+                            <button id="anttier9" class="disable-hover-color" i18n-aria-label="ants.descriptions.9"><img alt="" class="antBtn" src="Pictures/Default/AntTier9.png" loading="lazy"></button>
+                            <button id="antMastery9"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                        </div>
                     </div>
                 </div>
 
@@ -1726,6 +1730,7 @@
                 </div>-->
 
                 <div id="antUpgradesContainer">
+                    <button id="buyAllAntUpgrades" class="buyAllAntBtn" style="margin-bottom: 12px;" i18n="ants.buyAllUpgrades"></button>
                     <div class="antUpgradeRow">
                         <button id="antUpgrade1" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.1"><img src="Pictures/Default/AntUpgrade1.png" class="antBtn" alt="" loading="lazy"></button>
                         <button id="antUpgrade2" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.2"><img src="Pictures/Default/AntUpgrade2.png" class="antBtn" alt="" loading="lazy"></button>
@@ -2926,6 +2931,9 @@
                 <button class="statsNerds prestigeunlock" id="kGSpeedMult" style="border: 2px solid blue" i18n="statistics.subtabs.gSpeedMult"></button>
                 <button class="statsNerds chal8" id="kAntSpeedMult" style="border: 2px solid crimson" i18n="statistics.subtabs.antSpeedMult"></button>
                 <button class="statsNerds chal8" id="kAntSacrificeMult" style="border: 2px solid burlywood" i18n="statistics.subtabs.antSacrificeMult"></button>
+                <button class="statsNerds chal8" id="kAntELO" style="border: 2px solid orchid" i18n="statistics.subtabs.antELO"></button>
+                <button class="statsNerds chal8" id="kAdditiveAntELOMult" style="border: 2px solid orchid" i18n="statistics.subtabs.additiveAntELOMult"></button>
+                <button class="statsNerds chal8" id="kRebornELOCreationSpeedMult" style="border: 2px solid #00DDFF" i18n="statistics.subtabs.rebornELOCreationSpeedMult"></button>
                 <button class="statsNerds chal9" id="kTalismanRuneBonusMult" style="border: 2px solid green" i18n="statistics.subtabs.talismanRuneBonusMult"></button>
                 <button class="statsNerds ascendunlock" id="kASCMult" style="border: 2px solid orange" i18n="statistics.subtabs.ascMult"></button>
                 <button class="statsNerds ascendunlock" id="kGlobalCubeMult" style="border: 2px solid khaki" i18n="statistics.subtabs.globalCubeMult"></button>
@@ -3003,6 +3011,25 @@
 
             <div id="antSacrificeMultStats" class="statContainer" style="display: none;" aria-live="polite">
                 <p id="antSacrificeMultStatTitle" class="statPortion" style="font-size: 1.2em; color:burlywood" i18n="statistics.antSacrificeMultStats.title"></p>
+            </div>
+
+            <div id="eloStats" class="statContainer" style="display: none;" aria-live="polite">
+                <div id="antELOStats">
+                    <div id="antELOStatTitle" class="statPortion" style="font-size: 1.2em; color:orchid" i18n="statistics.antELOStats.title"></div>
+                </div>
+                <p id="statELOSep" class="statPortion">&nbsp;</p>
+                <div id="effectiveAntELOStats">
+                    <div id="effectiveAntELOStatTitle" class="statPortion" style="font-size: 1.2em; color:orchid" i18n="statistics.effectiveAntELOStats.title"></div>
+                </div>
+            </div>
+
+            <div id="additiveAntELOMultStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="additiveAntELOStatTitle" class="statPortion" style="font-size: 1.2em; color:orchid" i18n="statistics.additiveAntELOMultStats.title"></p>
+            </div>
+
+            <div id="rebornELOCreationSpeedMultStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="rebornELOCreationSpeedStatTitle" class="statPortion" style="font-size: 1.2em; color:#00DDFF" i18n="statistics.rebornELOCreationSpeedMultStats.title"></p>
+                <p id="rebornELOExtra"></p>
             </div>
 
             <div id="globalSpeedIgnoreDRStats" class="statContainer" style="display: none;" aria-live="polite">

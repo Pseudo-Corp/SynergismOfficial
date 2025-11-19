@@ -18,9 +18,8 @@ export const computeFreeAntUpgradeLevels = () => {
 
   if (player.currentChallenge.ascension === 11) {
     bonusLevels += Math.floor(
-      (4 * player.challengecompletions[8]
-        + 23 * player.challengecompletions[9])
-        * Math.max(0, 1 - player.challengecompletions[11] / 10)
+      player.challengecompletions[8] +
+      2 * player.challengecompletions[9]
     )
     return bonusLevels
   }

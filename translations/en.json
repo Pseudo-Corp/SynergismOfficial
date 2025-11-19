@@ -466,27 +466,27 @@
       "124": "Multipliers don't even work 0/5: Complete {[No Accelerator/Multiplier]} ten times.",
       "125": "Accelerators don't even work -5/5: Complete {[No Accelerator/Multiplier]} fifteen times.",
       "126": "ACCELERATOR BOOSTS DON'T EVEN WORK -100/5: Complete {[No Accelerator/Multiplier]} twenty-five times.",
-      "127": "I hate this challenge: Complete Cost++ Once.",
-      "128": "A costly mistake: Complete Cost++ Twice.",
-      "129": "Impetus: Complete Cost++ Three Times.",
-      "130": "Are you broke yet? Complete Cost++ Five Times.",
-      "131": "The world of Finance: Complete Cost++ Ten Times.",
-      "132": "Marginal Gains: Complete Cost++ Twenty Times.",
-      "133": "I buy these: Complete Cost++ Twenty-Five Times.",
-      "134": "Agnostic: Complete No Runes Once.",
-      "135": "Ant-i Runes: Complete No Runes Twice.",
-      "136": "Isn't it getting tiresome?: Complete No Runes Three Times.",
-      "137": "Machine does not accept offerings: Complete No Runes Five Times.",
-      "138": "Runes Suck 1/5: Complete No Runes Ten Times.",
-      "139": "I didn't even notice Prism was gone: Complete No Runes Twenty Times.",
-      "140": "Atheist: Complete No Runes Twenty-Five Times.",
-      "141": "Sadism: Complete {[Sadistic I]} Once.",
-      "142": "Masochism: Complete {[Sadistic I]} Twice.",
-      "143": "Insanity: Complete {[Sadistic I]} Three Times.",
-      "144": "How?: Complete {[Sadistic I]} Five Times.",
-      "145": "Why?: Complete {[Sadistic I]} Ten Times.",
-      "146": "Descend: Complete {[Sadistic I]} Twenty Times.",
-      "147": "End of the Universe: Complete {[Sadistic I]} Twenty-Five Times.",
+      "127": "I hate this challenge: Complete {[Cost++]} once.",
+      "128": "A costly mistake: Complete {[Cost++]} twice.",
+      "129": "Impetus: Complete {[Cost++]} Three times.",
+      "130": "Are you broke yet? Complete {[Cost++]} five times.",
+      "131": "The world of Finance: Complete {[Cost++}] ten times.",
+      "132": "Marginal Gains: Complete {[Cost++]} fifteen times.",
+      "133": "I buy these: Complete {[Cost++]} twenty-five times.",
+      "134": "Agnostic: Complete {[No Runes]} once.",
+      "135": "Ant-i Runes: Complete {[No Runes]} twice.",
+      "136": "Isn't it getting tiresome?: Complete {[No Runes]} three times.",
+      "137": "Machine does not accept offerings: Complete {[No Runes]} five times.",
+      "138": "Runes Suck 1/5: Complete {[No Runes]} ten times.",
+      "139": "I didn't even notice Prism was gone: Complete {[No Runes]} twenty times.",
+      "140": "Atheist: Complete {[No Runes]} twenty-five times.",
+      "141": "Sadism: Complete {[Sadistic I]} once.",
+      "142": "Masochism: Complete {[Sadistic I]} twice.",
+      "143": "Insanity: Complete {[Sadistic I]} three times.",
+      "144": "How?: Complete {[Sadistic I]} five times.",
+      "145": "Why?: Complete {[Sadistic I]} ten times.",
+      "146": "Descend: Complete {[Sadistic I]} twenty times.",
+      "147": "End of the Universe: Complete {[Sadistic I]} twenty-five times.",
       "148": "Gas gas gas: Purchase 5 Accelerators.",
       "149": "0 to 25: Purchase 25 Accelerators.",
       "150": "0 to 100: Purchase 100 Accelerators",
@@ -1112,7 +1112,8 @@
         "salvage": "+7 Salvage"
       },
       "137": {
-        "sacrificeMult": "Sacrifice multiplier x1.25"
+        "sacrificeMult": "x1.25 Sacrifice Rewards!",
+        "experientiaAutobuy": "Unlock the <i>Experientia</i> Ant Upgrade Autobuyer!"
       },
       "139": {
         "multiplicativeObtainium": "Obtainium gain x1.05"
@@ -1183,35 +1184,35 @@
         "antAutobuyers": "Unlock an Ant Autobuyer!"
       },
       "174": {
-        "antSpeed": "+0.1% Ant Speed per Immortal ELO!"
+        "antSpeed": "+0.1% Ant Speed per Immortal ELO!",
+        "scientiaAutobuy": "Unlock the <i>Scientia</i> Ant Upgrade Autobuyer!"
       },
       "176": {
         "antAutobuyers": "Unlock the Breeder Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Inceptus and Fortunae Ant Autobuyers!"
+        "inceptusAutobuy": "Unlock the <i>Inceptus</i> Ant Upgrade Autobuyer!",
+        "fortunaeAutobuy": "Unlock the <i>Fortunae</i> Ant Upgrade Autobuyer!"
       },
       "177": {
         "antAutobuyers": "Unlock the Meta-Breeder Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Tributum Ant Autobuyer!"
+        "tributumAutobuy": "Unlock the <i>Tributum</i> Ant Upgrade Autobuyer!"
       },
       "178": {
         "antAutobuyers": "Unlock the Mega-Breeder Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Celeritas and Multa Ant Autobuyers!"
+        "celeritasAutobuy": "Unlock the <i>Celeritas</i> Ant Upgrade Autobuyer!",
+        "exploratoremAutobuy": "Unlock the <i>Exploratorem</i> Ant Upgrade Autobuyer!"
       },
       "179": {
         "antAutobuyers": "Unlock the Queen Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Sacrificium Ant Autobuyer!"
+        "sacrificiumAutobuy": "Unlock the <i>Sacrificium</i> Ant Upgrade Autobuyer!"
       },
       "180": {
-        "antAutobuyers": "Unlock the Lord Royal Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Hic and Experientia Ant Autobuyers!"
+        "antAutobuyers": "Unlock the Lord Royal Ant Autobuyer!"
       },
       "181": {
-        "antAutobuyers": "Unlock the ALMIGHTY ANT Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Praemoenio Ant Autobuyer!"
+        "antAutobuyers": "Unlock the ALMIGHTY ANT Autobuyer!"
       },
       "182": {
-        "antAutobuyers": "Unlock the DISCIPLE OF ANT GOD Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Scientia and Phylacterium Ant Autobuyers!"
+        "antAutobuyers": "Unlock the DISCIPLE OF ANT GOD Autobuyer!"
       },
       "186": {
         "wowSquareTalisman": "Unlock the Wow Square Talisman!"
@@ -1531,19 +1532,22 @@
         "freeAntUpgrades": "Gain +1 free Ant Upgrade level!"
       },
       "482": {
-        "antSacrificeCountMultiplier": "Each Sacrifice adds +2 to your Anthill count instead of +1!"
+        "antSacrificeCountMultiplier": "Each Sacrifice adds +2 to your Anthill count instead of +1!",
+        "hicAutobuy": "Unlock the <i>Hic</i> Ant Upgrade Autobuyer!"
       },
       "483": {
         "autoAntSacrifice": "Unlock the Auto-Sacrifice feature!"
       },
       "484": {
-        "antELOAdditiveMultiplier": "Gain +1% Ant ELO from all sources!"
+        "antELOAdditiveMultiplier": "Gain +1% Ant ELO from all sources!",
+        "praemoenioAutobuy": "Unlock the <i>Praemoenio</i> Ant Upgrade Autobuyer!"
       },
       "485": {
         "antELOAdditive": "Gain +25 Ant ELO, all the time!"
       },
       "486": {
-        "antSpeed2UpgradeImprover": "<i>Impia Reproducta Formicidae</i> can be boosted by 2 additional Anthills per Synergism Level"
+        "antSpeed2UpgradeImprover": "<i>Impia Reproducta Formicidae</i> can be boosted by 2 additional Anthills per Synergism Level",
+        "phylacteriumAutobuy": "Unlock the <i>Phylacterium</i> Ant Upgrade Autobuyer!"
       }
     },
     "rewards": {
@@ -2161,9 +2165,9 @@
       "notMaxedSelfAnt": "Flat production multiplier: <<gray | {{x}} ⇾>><<gold | {{y}}>>",
       "maxedSelfAnt": "Flat production multiplier: <<gold | {{x}}>>",
       "level": "Mastery Level <<gold|{{x}}/{{y}}>>",
-      "eloRequirement": "Buying this Mastery level requires <<crimson | {{x}} Immortal ELO>> (Current: <<crimson | {{y}}>>)",
+      "eloRequirement": "Buying this Mastery level requires <<#00DDFF | {{x}} Reborn ELO>> (Current: <<#00DDFF | {{y}}>>)",
       "particleCost": "Cost: <<green | {{x}} Particles>>",
-      "alreadyPurchased": "You've already purchased this Mastery level, and you can autobuy this tier of Ant. When you reach the Immortal ELO requirement, this Mastery level will be automatically bought.",
+      "alreadyPurchased": "You've already purchased this Mastery level, and you can autobuy this tier of Ant. When you reach the Reborn ELO requirement, this Mastery level will be automatically bought.",
       "0": {
         "name": "Worker Mastery",
         "flavor": "Crumbs for me, not for thee.",
@@ -2317,7 +2321,7 @@
         "effect": "Building Costs take <<lime | {{x}} longer>> to spiral out of control!"
       },
       "salvage": {
-        "name": "Experientia Formicidae",
+        "name": "Scientia Formicidae",
         "intro": "A rather... resourceful ant.",
         "description": "Gain up to +120 Salvage!",
         "effect": "Grants <<green | +{{x}} Salvage>>!"
@@ -2527,7 +2531,14 @@
     "eloRequirement": "{{x}} ELO",
     "antSacrifice": "Ant Sacrifice",
     "minimumTimeToSacrifice": "Minimum interval between Sacrifices: <<gold|0.05>> real-life seconds",
-    "timeElapsed": "Time elapsed: <<gold|{{x}}>> real-life seconds"
+    "timeElapsed": "Time elapsed: <<gold|{{x}}>> real-life seconds",
+    "buyAllUpgrades": "Buy All Upgrades",
+    "buyAllProducers": "Buy All Producers and Masteries",
+    "clickBuyAllIntro": "This button will purchase the following:",
+    "clickBuyAllProducersListItem": "{{name}} <br> <<gold|+{{level}} Producers>> &nbsp;&nbsp; <<lime | +{{masteries}} Masteries>>",
+    "clickBuyAllUpgradesListItem": "{{name}} <br> <<gold|+{{level}} Levels>>",
+    "clickBuyAllNothing": "<<lime | Nothing to buy, for now.>>",
+    "clickBuyAllDisclaimer": "<<gray|This tooltip does not display anything for which Automation is unlocked, if Automation is enabled.>>"
   },
   "challenges": {
     "1": {
@@ -2855,7 +2866,7 @@
       "24": "Wow! I want Plutus Tribute bonuses to scale better.",
       "25": "Wow! I want Moloch Tribute bonuses to scale better.",
       "26": "Wow! I want to start Ascensions with Rune levels.",
-      "27": "Wow! I want to start Ascensions with one of each Reincarnation building.",
+      "27": "Wow! I want to start Ascensions with one of each Reincarnation Building.",
       "28": "Wow! I want to render Reincarnating even MORE obsolete.",
       "29": "Wow! I want to increase maximum Reincarnation Challenge completions.",
       "30": "Wow! I want to arbitrarily increase my Cube and Tesseract gain.",
@@ -2876,8 +2887,8 @@
       "45": "Wow! I want Hermes Tribute bonus to scale better.",
       "46": "Wow! I want even MORE Offerings!",
       "47": "Wow! I want even MORE Obtainium!",
-      "48": "Wow! I want to start ascension with an Ant.",
-      "49": "Wow! I want to start ascension with a Challenge 6-8 completion.",
+      "48": "Wow! I want to ALWAYS generate Galactic Crumbs.",
+      "49": "Wow! I want to start Ascensions with a Challenge 6-8 completion.",
       "50": "Wow! I want to be enlightened by the power of a thousand suns.",
       "51": "Wow! A pile of Chocolate Chip Cookies.",
       "52": "Wow! A pile of Sugar Cookies.",
@@ -2932,7 +2943,7 @@
       "19": "[2x9] Unlocks new Coin upgrades ranging from start of Ascend to after Challenge 10 and beyond.",
       "20": "[2x10] The Rune automator in shop now spends all Offerings automatically, splitting them into unlocked runes evenly. It also buys levels 20 times faster. Have fun!",
       "21": "[3x1] Perhaps Score will benefit you more? Gain +5% more Ascension Score per level.",
-      "22": "[3x2] Te effect of Artemis Tributes is raised to the power of (1 + level / 100).",
+      "22": "[3x2] The effect of Artemis Tributes is raised to the power of (1 + level / 100).",
       "23": "[3x3] For each 20 Cubes opened at once, you get 1 additional Tribute at random.",
       "24": "[3x4] Plutus teaches you the Art of the Deal. The effect of his Tributes is raised to the power of (1 + level / 100).",
       "25": "[3x5] Moloch lends you a hand in communicating with Ant God. The effect of his Tributes is raised to the power of (1 + level / 100).",
@@ -2958,7 +2969,7 @@
       "45": "[5x5] Blah blah blah Hermes works harder. The effect of Hermes Tributes is raised to the power of (1 + level / 100).",
       "46": "[5x6] Gain +5% more Offerings per level!",
       "47": "[5x7] Gain +10% more Obtainium per level!",
-      "48": "[5x8] When you ascend, start with 1 Worker Ant (this is a lot better than it sounds!)",
+      "48": "[5x8] Your Worker Ant at the start of Ascensions can now generate crumbs, even without having Challenge 8 cleared!",
       "49": "[5x9] When you ascend, gain 1 of each Challenge 6-8 completion.",
       "50": "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, 0.00066% Tax reduction per level. Every 10,000 levels grant +0.6% Talisman Power!",
       "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the Wow! Cubes tab, and Research as well.",
@@ -6012,6 +6023,9 @@
       "gSpeedMult": "Global Speed Multipliers",
       "antSpeedMult": "Ant Speed Multipliers",
       "antSacrificeMult": "Ant Sacrifice Multipliers",
+      "antELO": "Ant ELO",
+      "additiveAntELOMult": "Ant ELO Mult",
+      "rebornELOCreationSpeedMult": "Reborn ELO Creation",
       "talismanRuneBonusMult": "Talisman Power",
       "ascMult": "Asc. Speed Multipliers",
       "globalCubeMult": "Global Cube Multipliers",
@@ -6851,6 +6865,58 @@
       "CookieUpgrade": "Cookie Upgrade 15:",
       "OcteractUpgrade": "Octeract Starter Upgrade:",
       "Total": "Total Ant Speed Multiplier:"
+    },
+    "antELOStats": {
+      "title": "Ant ELO",
+      "AntWorkers": "Ant Workers Purchased:",
+      "AchievementBonus": "Achievement Ant ELO Bonus:",
+      "SynergismLevel": "Synergism Level Reward - More Ant Fodder for your Ant Diety:",
+      "ReincarnationUpgrade20": "Reincarnation Upgrade 20:",
+      "Challenge10": "Challenge 10 Reward:",
+      "ShopUpgrade": "Shop Upgrade - Ant ELO:",
+      "Research5x8": "Research 5x8:",
+      "Research5x9": "Research 5x9:",
+      "Research5x23": "Research 5x23:",
+      "Research8x3": "Research 8x3:",
+      "AntUpgrade": "Ants - Phylacterium Formicidae:",
+      "Total": "Total Base Ant ELO:"
+    },
+    "additiveAntELOMultStats": {
+      "title": "Ant ELO Multiplier (Additive)",
+      "Base": "Base Multiplier:",
+      "AchievementMultiplier": "Achievement Ant ELO Additive Multiplier:",
+      "AntQueens": "Ant Queens Purchased:",
+      "AntLordRoyals": "Ant Lord Royals Purchased:",
+      "AntAlmighties": "Ant Almighties Purchased:",
+      "AntDisciples": "Ant Disciples Purchased:",
+      "AntHolySpirit": "Ant Holy Spirit Purchased:",
+      "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
+      "Total": "Total Ant ELO Multiplier:"
+    },
+    "effectiveAntELOStats": {
+      "title": "Effective Ant ELO",
+      "BaseELO": "Base Ant ELO:",
+      "AdditiveMultiplier": "Additive Ant ELO Multiplier:",
+      "Total": "Effective Ant ELO:"
+    },
+    "rebornELOCreationSpeedMultStats": {
+      "title": "Reborn ELO Creation Speed Multiplier",
+      "extraInfo": "Each tick, you generate <<#00DDFF|Reborn ELO>> equal to <br><<yellow | SpeedMult * TickLength>><br><<yellow|TickLength>> is the time since previous tick (in seconds)<br>On top of this, gain +1 <<#00DDFF|Reborn ELO>> per second, if available.",
+      "Base": "Base Multiplier:",
+      "EffectiveELO": "Effective Ant ELO:",
+      "AntQueens": "Queen Ant Purchased:",
+      "AntLordRoyals": "Lord Royal Ant Purchased:",
+      "AntAlmighties": "ALMIGHTY Ant Purchased:",
+      "AntDisciples": "DISCIPLE OF ANT GOD Purchased:",
+      "AntHolySpirit": "THE HOLY SPIRIT OF ANT GOD Purchased:",
+      "CoinUpgrade24": "Coin Upgrade 24:",
+      "CubeBlessing": "Moloch's Cube Blessing:",
+      "Research5x10": "Research 5x10:",
+      "Research6x23": "Research 6x23:",
+      "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
+      "MortuusTalisman": "Mortuus Talisman:",
+      "ThresholdModifiers": "Threshold Modifiers:",
+      "Total": "Total Reborn ELO Creation Speed Multiplier:"
     },
     "gameStage": "Current Game Stage: {{stage}}"
   },
