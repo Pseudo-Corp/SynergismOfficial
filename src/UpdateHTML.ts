@@ -1374,45 +1374,41 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
 
 export type OptionalHTMLStyle = Partial<CSSStyleDeclaration>
 
-let modalUsed = false
-let modalUpdateInterval: number | null = null
+let id: number | null = null
 
 export const SLOW_MODAL_UPDATE_TICK = 1000
 export const MEDIUM_MODAL_UPDATE_TICK = 250
 export const FAST_MODAL_UPDATE_TICK = 100
 export const VERY_FAST_MODAL_UPDATE_TICK = 20
 
+const updateModal = (HTML: () => string) => {
+  const modalContent = DOMCacheGetOrSet('modalContent')
+  const htmlContent = HTML()
+  modalContent.innerHTML = htmlContent
+}
+
 export const Modal = (
   HTML: () => string,
   currX: number,
   currY: number,
   styleMods: OptionalHTMLStyle = {},
-  forceUpdate = false,
   updateInterval = VERY_FAST_MODAL_UPDATE_TICK
 ) => {
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
 
-  if (modalUpdateInterval !== null) {
-    clearInterval(modalUpdateInterval)
-    modalUpdateInterval = null
-  }
-
-  const updateContent = () => {
-    const htmlContent = HTML()
-    if (modalContent.innerHTML !== htmlContent) {
-      modalContent.innerHTML = htmlContent
+  const modalId = id = Math.random()
+  const interval = setInterval(() => {
+    if (id !== modalId) {
+      clearInterval(interval)
+      return
     }
-  }
-
-  if (forceUpdate || !modalUsed) {
-    updateContent()
-    modalUsed = true
-  }
-
-  modalUpdateInterval = window.setInterval(updateContent, updateInterval)
+    updateModal(HTML)
+  }, updateInterval)
 
   Object.assign(modal.style, styleMods)
+  // Instantly update the modal once
+  updateModal(HTML)
 
   // Measure the dimensions of modal content and viewport
   modal.style.visibility = 'hidden'
@@ -1450,18 +1446,9 @@ export const CloseModal = () => {
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
 
-  // Clear any existing update interval
-  if (modalUpdateInterval !== null) {
-    clearInterval(modalUpdateInterval)
-    modalUpdateInterval = null
-  }
-
-  // Clear the content
+  id = null
   modalContent.innerHTML = ''
-
-  // Hide the modal
   modal.style.display = 'none'
-  modalUsed = false
 }
 
 export const openChangelog = () => {
