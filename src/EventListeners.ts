@@ -32,12 +32,12 @@ import { challengeDisplay, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
-import { buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
+import { buyAllAntMasteries, buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
 import { antProducerData } from './Features/Ants/AntProducers/data/data'
-import { buyAntProducers } from './Features/Ants/AntProducers/lib/buy-producer'
+import { buyAllAntProducers, buyAntProducers } from './Features/Ants/AntProducers/lib/buy-producer'
 import { sacrificeAnts } from './Features/Ants/AntSacrifice/sacrifice'
 import { antUpgradeData } from './Features/Ants/AntUpgrades/data/data'
-import { buyAntUpgrade } from './Features/Ants/AntUpgrades/lib/buy-upgrade'
+import { buyAllAntUpgrades, buyAntUpgrade } from './Features/Ants/AntUpgrades/lib/buy-upgrade'
 import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
 import { antMasteryHTML } from './Features/Ants/HTML/modals/mastery-modal'
 import { antProducerHTML } from './Features/Ants/HTML/modals/producer-modal'
@@ -172,7 +172,7 @@ import {
   updateRuneBlessingBuyAmount
 } from './Toggles'
 import type { FirstToEighth, FirstToFifth, OneToFive, Player } from './types/Synergism'
-import { closeChangelog, CloseModal, Confirm, Modal, openChangelog, Prompt } from './UpdateHTML'
+import { closeChangelog, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openChangelog, Prompt } from './UpdateHTML'
 import { shopMouseover } from './UpdateVisuals'
 import {
   buyConstantUpgrades,
@@ -185,6 +185,7 @@ import {
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
 import { updateAlwaysSacrificeMaxRebornELOToggle, updateOnlySacrificeMaxRebornELOToggle } from './Features/Ants/HTML/updates/toggles/additional-sacrifice-toggles'
+import { allAntProducerHTML, allAntUpgradeHTML } from './Features/Ants/HTML/modals/buy-all-ant-modal'
 
 /* STYLE GUIDE */
 /*
@@ -489,13 +490,13 @@ export const generateEventHandlers = () => {
     rune.addEventListener(
       'mousemove',
       (e) => {
-        Modal(focusedRuneHTML(key), e.clientX, e.clientY, { borderColor: runes[key].runeHTMLStyle.borderColor })
+        Modal(() => focusedRuneHTML(key), e.clientX, e.clientY, { borderColor: runes[key].runeHTMLStyle.borderColor })
       }
     )
     rune.addEventListener('focus', () => {
       const element = DOMCacheGetOrSet(`${key}Rune`)
       const elmRect = element.getBoundingClientRect()
-      Modal(focusedRuneHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
+      Modal(() => focusedRuneHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
         borderColor: runes[key].runeHTMLStyle.borderColor
       })
     })
@@ -514,13 +515,13 @@ export const generateEventHandlers = () => {
     lockedRune.addEventListener(
       'mousemove',
       (e) => {
-        Modal(focusedRuneLockedHTML(key), e.clientX, e.clientY, { borderColor: 'gray' })
+        Modal(() => focusedRuneLockedHTML(key), e.clientX, e.clientY, { borderColor: 'gray' })
       }
     )
     lockedRune.addEventListener('focus', () => {
       const element = DOMCacheGetOrSet(`${key}RuneLockedContainer`)
       const elmRect = element.getBoundingClientRect()
-      Modal(focusedRuneLockedHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
+      Modal(() => focusedRuneLockedHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
         borderColor: 'gray'
       })
     })
@@ -626,13 +627,13 @@ export const generateEventHandlers = () => {
     runeBlessing.addEventListener(
       'mousemove',
       (e) => {
-        Modal(focusedRuneBlessingHTML(key), e.clientX, e.clientY, { borderColor: runes[key].runeHTMLStyle.borderColor })
+        Modal(() => focusedRuneBlessingHTML(key), e.clientX, e.clientY, { borderColor: runes[key].runeHTMLStyle.borderColor })
       }
     )
     runeBlessing.addEventListener('focus', () => {
       const element = DOMCacheGetOrSet(`${key}RuneBlessing`)
       const elmRect = element.getBoundingClientRect()
-      Modal(focusedRuneBlessingHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
+      Modal(() => focusedRuneBlessingHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
         borderColor: runes[key].runeHTMLStyle.borderColor
       })
     })
@@ -649,13 +650,13 @@ export const generateEventHandlers = () => {
     runeSpirit.addEventListener(
       'mousemove',
       (e) => {
-        Modal(focusedRuneSpiritHTML(key), e.clientX, e.clientY, { borderColor: runes[key].runeHTMLStyle.borderColor })
+        Modal(() => focusedRuneSpiritHTML(key), e.clientX, e.clientY, { borderColor: runes[key].runeHTMLStyle.borderColor })
       }
     )
     runeSpirit.addEventListener('focus', () => {
       const element = DOMCacheGetOrSet(`${key}RuneSpirit`)
       const elmRect = element.getBoundingClientRect()
-      Modal(focusedRuneSpiritHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
+      Modal(() => focusedRuneSpiritHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
         borderColor: runes[key].runeHTMLStyle.borderColor
       })
     })
@@ -760,6 +761,28 @@ export const generateEventHandlers = () => {
     )
   }
 
+  DOMCacheGetOrSet('buyAllAntUpgrades').addEventListener('click', (e: MouseEvent) => {
+    buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades)
+    Modal(allAntUpgradeHTML, e.clientX, e.clientY, { borderColor: 'crimson' }, true, MEDIUM_MODAL_UPDATE_TICK)
+  })
+  DOMCacheGetOrSet('buyAllAntProducers').addEventListener('click', (e: MouseEvent) => {
+    buyAllAntProducers(player.ants.toggles.maxBuyProducers)
+    buyAllAntMasteries()
+    Modal(allAntProducerHTML, e.clientX, e.clientY, { borderColor: 'gold' }, true, MEDIUM_MODAL_UPDATE_TICK)
+  })
+
+  DOMCacheGetOrSet('buyAllAntProducers').addEventListener('mousemove', (e: MouseEvent) => {
+    Modal(allAntProducerHTML, e.clientX, e.clientY, { borderColor: 'gold' }, undefined, MEDIUM_MODAL_UPDATE_TICK)
+  })
+
+  DOMCacheGetOrSet('buyAllAntProducers').addEventListener('mouseout', () => CloseModal())
+
+  DOMCacheGetOrSet('buyAllAntUpgrades').addEventListener('mousemove', (e: MouseEvent) => {
+    Modal(allAntUpgradeHTML, e.clientX, e.clientY, { borderColor: 'crimson' }, undefined, MEDIUM_MODAL_UPDATE_TICK)
+  })
+
+  DOMCacheGetOrSet('buyAllAntUpgrades').addEventListener('mouseout', () => CloseModal())
+
   for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
     const antTier = DOMCacheGetOrSet(`anttier${ant + 1}`)
     antTier.style.setProperty(
@@ -768,19 +791,24 @@ export const generateEventHandlers = () => {
     )
     antTier.addEventListener(
       'mousemove',
-      (e: MouseEvent) => Modal(antProducerHTML(ant), e.clientX, e.clientY, { borderColor: antProducerData[ant].color })
+      (e: MouseEvent) => Modal(() => antProducerHTML(ant), e.clientX, e.clientY, { borderColor: antProducerData[ant].color })
     )
-    antTier.addEventListener('focus', () => {
+
+    // TODO: When we have event listeners for Focus on modals, clicking on the element in question
+    // will set the Modal's positioning to be dependent on the element, which causes a jank
+    // "Teleport" of the modal for a frame until it's set back to the mouse position.
+    // Fix is urgently needed for accessibility.
+    /*antTier.addEventListener('focus', () => {
       const elmRect = antTier.getBoundingClientRect()
-      Modal(antProducerHTML(ant), elmRect.x, elmRect.y + elmRect.height / 2, {
+      Modal(() => antProducerHTML(ant), elmRect.x, elmRect.y + elmRect.height / 2, {
         borderColor: antProducerData[ant].color
       })
-    })
+    })*/
     antTier.addEventListener('mouseout', () => CloseModal())
-    antTier.addEventListener('blur', () => CloseModal())
+    //antTier.addEventListener('blur', () => CloseModal())
     antTier.addEventListener('click', (event) => {
       buyAntProducers(ant, player.ants.toggles.maxBuyProducers)
-      Modal(antProducerHTML(ant), event.clientX, event.clientY, { borderColor: antProducerData[ant].color }, true)
+      Modal(() => antProducerHTML(ant), event.clientX, event.clientY, { borderColor: antProducerData[ant].color }, true)
     })
 
     const antMastery = DOMCacheGetOrSet(`antMastery${ant + 1}`)
@@ -791,17 +819,17 @@ export const generateEventHandlers = () => {
     )
     antMastery.addEventListener(
       'mousemove',
-      (e: MouseEvent) => Modal(antMasteryHTML(ant), e.clientX, e.clientY, { borderColor: blendedColor })
+      (e: MouseEvent) => Modal(() => antMasteryHTML(ant), e.clientX, e.clientY, { borderColor: blendedColor })
     )
-    antMastery.addEventListener('focus', () => {
+    /*antMastery.addEventListener('focus', () => {
       const elmRect = antMastery.getBoundingClientRect()
-      Modal(antMasteryHTML(ant), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: blendedColor })
-    })
+      Modal(() => antMasteryHTML(ant), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: blendedColor })
+    })*/
     antMastery.addEventListener('mouseout', () => CloseModal())
-    antMastery.addEventListener('blur', () => CloseModal())
+    //antMastery.addEventListener('blur', () => CloseModal())
     antMastery.addEventListener('click', (event) => {
       buyAntMastery(ant)
-      Modal(antMasteryHTML(ant), event.clientX, event.clientY, { borderColor: blendedColor }, true)
+      Modal(() => antMasteryHTML(ant), event.clientX, event.clientY, { borderColor: blendedColor }, true)
     })
   }
   // Part 2: Ant Upgrades
@@ -815,17 +843,17 @@ export const generateEventHandlers = () => {
 
     antUpgrade.addEventListener(
       'mousemove',
-      (e: MouseEvent) => Modal(antUpgradeHTML(upgrade), e.clientX, e.clientY, { borderColor: 'burlywood' })
+      (e: MouseEvent) => Modal(() => antUpgradeHTML(upgrade), e.clientX, e.clientY, { borderColor: 'burlywood' })
     )
-    antUpgrade.addEventListener('focus', () => {
+    /*antUpgrade.addEventListener('focus', () => {
       const elmRect = antUpgrade.getBoundingClientRect()
-      Modal(antUpgradeHTML(upgrade), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'burlywood' })
-    })
+      Modal(() => antUpgradeHTML(upgrade), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'burlywood' })
+    })*/
     antUpgrade.addEventListener('mouseout', () => CloseModal())
-    antUpgrade.addEventListener('blur', () => CloseModal())
+    //antUpgrade.addEventListener('blur', () => CloseModal())
     antUpgrade.addEventListener('click', (event) => {
       buyAntUpgrade(upgrade, player.ants.toggles.maxBuyUpgrades)
-      Modal(antUpgradeHTML(upgrade), event.clientX, event.clientY, { borderColor: 'burlywood' }, true)
+      Modal(() => antUpgradeHTML(upgrade), event.clientX, event.clientY, { borderColor: 'burlywood' }, true)
     })
   }
   // Part 3: Sacrifice
@@ -1055,10 +1083,10 @@ export const generateEventHandlers = () => {
       i18next.t('settings.saveString.stage')
     ].join('<br>')
 
-  saveStringInput.addEventListener('mousemove', (e) => Modal(html(), e.clientX, e.clientY))
+  saveStringInput.addEventListener('mousemove', (e) => Modal(() => html(), e.clientX, e.clientY))
   saveStringInput.addEventListener('focus', () => {
     const elmRect = saveStringInput.getBoundingClientRect()
-    Modal(html(), elmRect.x, elmRect.y + elmRect.height / 2)
+    Modal(() => html(), elmRect.x, elmRect.y + elmRect.height / 2)
   })
   saveStringInput.addEventListener('mouseout', CloseModal)
 
@@ -1197,14 +1225,14 @@ TODO: Fix this entire tab it's utter shit
       }
       DOMCacheGetOrSet(key).addEventListener(
         'mousemove',
-        (e) => Modal(upgradeGQToString(key), e.clientX, e.clientY, { borderColor: 'gold' })
+        (e) => Modal(() => upgradeGQToString(key), e.clientX, e.clientY, { borderColor: 'gold' })
       )
       DOMCacheGetOrSet(key).addEventListener(
         'focus',
         () => {
           const element = DOMCacheGetOrSet(key)
           const elmRect = element.getBoundingClientRect()
-          Modal(upgradeGQToString(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'gold' })
+          Modal(() => upgradeGQToString(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'gold' })
         }
       )
 
@@ -1221,7 +1249,7 @@ TODO: Fix this entire tab it's utter shit
         'click',
         (event) => {
           buyGQUpgradeLevel(key, event)
-          Modal(upgradeGQToString(key), event.clientX, event.clientY, { borderColor: 'gold' }, true)
+          Modal(() => upgradeGQToString(key), event.clientX, event.clientY, { borderColor: 'gold' }, true)
         }
       )
     } else {
@@ -1276,14 +1304,14 @@ TODO: Fix this entire tab it's utter shit
     if (!isMobile) {
       DOMCacheGetOrSet(key).addEventListener(
         'mousemove',
-        (e) => Modal(upgradeOcteractToString(key), e.clientX, e.clientY, { borderColor: 'lightseagreen' })
+        (e) => Modal(() => upgradeOcteractToString(key), e.clientX, e.clientY, { borderColor: 'lightseagreen' })
       )
       DOMCacheGetOrSet(key).addEventListener(
         'focus',
         () => {
           const element = DOMCacheGetOrSet(key)
           const elmRect = element.getBoundingClientRect()
-          Modal(upgradeOcteractToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {
+          Modal(() => upgradeOcteractToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {
             borderColor: 'lightseagreen'
           })
         }
@@ -1300,7 +1328,7 @@ TODO: Fix this entire tab it's utter shit
         'click',
         (event) => {
           buyOcteractUpgradeLevel(key, event)
-          Modal(upgradeOcteractToString(key), event.clientX, event.clientY, { borderColor: 'lightseagreen' }, true)
+          Modal(() => upgradeOcteractToString(key), event.clientX, event.clientY, { borderColor: 'lightseagreen' }, true)
         }
       )
     } else {
@@ -1342,7 +1370,7 @@ TODO: Fix this entire tab it's utter shit
       DOMCacheGetOrSet(key).addEventListener(
         'mousemove',
         (e) => {
-          Modal(ambrosiaUpgradeToString(key), e.clientX, e.clientY, { borderColor: 'blue' })
+          Modal(() => ambrosiaUpgradeToString(key), e.clientX, e.clientY, { borderColor: 'blue' })
           highlightPrerequisites(key)
         }
       )
@@ -1358,7 +1386,7 @@ TODO: Fix this entire tab it's utter shit
         () => {
           const element = DOMCacheGetOrSet(key)
           const elmRect = element.getBoundingClientRect()
-          Modal(ambrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'blue' })
+          Modal(() => ambrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'blue' })
           highlightPrerequisites(key)
         }
       )
@@ -1373,7 +1401,7 @@ TODO: Fix this entire tab it's utter shit
         'click',
         (event) => {
           buyAmbrosiaUpgradeLevel(key, event)
-          Modal(ambrosiaUpgradeToString(key), event.clientX, event.clientY, { borderColor: 'blue' }, true)
+          Modal(() => ambrosiaUpgradeToString(key), event.clientX, event.clientY, { borderColor: 'blue' }, true)
         }
       )
     } else {
@@ -1445,7 +1473,7 @@ TODO: Fix this entire tab it's utter shit
     if (!isMobile) {
       DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
         'mousemove',
-        (e) => Modal(redAmbrosiaUpgradeToString(key), e.clientX, e.clientY, { borderColor: 'red' })
+        (e) => Modal(() => redAmbrosiaUpgradeToString(key), e.clientX, e.clientY, { borderColor: 'red' })
       )
       DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
         'mouseout',
@@ -1456,7 +1484,7 @@ TODO: Fix this entire tab it's utter shit
         () => {
           const element = DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`)
           const elmRect = element.getBoundingClientRect()
-          Modal(redAmbrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'red' })
+          Modal(() => redAmbrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'red' })
         }
       )
       DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
@@ -1467,7 +1495,7 @@ TODO: Fix this entire tab it's utter shit
         'click',
         (event) => {
           buyRedAmbrosiaUpgradeLevel(key, event)
-          Modal(redAmbrosiaUpgradeToString(key), event.clientX, event.clientY, { borderColor: 'red' }, true)
+          Modal(() => redAmbrosiaUpgradeToString(key), event.clientX, event.clientY, { borderColor: 'red' }, true)
         }
       )
     } else {

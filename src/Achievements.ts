@@ -184,7 +184,17 @@ export type AchievementRewards =
   | 'antSpeed'
   | 'antSacrificeUnlock'
   | 'antAutobuyers'
-  | 'antUpgradeAutobuyers'
+  | 'inceptusAutobuy'
+  | 'fortunaeAutobuy'
+  | 'tributumAutobuy'
+  | 'celeritasAutobuy'
+  | 'exploratoremAutobuy'
+  | 'sacrificiumAutobuy'
+  | 'experientiaAutobuy'
+  | 'hicAutobuy'
+  | 'scientiaAutobuy'
+  | 'praemoenioAutobuy'
+  | 'phylacteriumAutobuy'
   | 'antELOAdditive'
   | 'antELOAdditiveMultiplier'
   | 'wowSquareTalisman'
@@ -1179,7 +1189,7 @@ export const achievements: Achievement[] = [
     pointValue: 20,
     unlockCondition: () => player.challengecompletions[9] >= 5,
     group: 'challenge9',
-    reward: { sacrificeMult: () => 1.25 }
+    reward: { sacrificeMult: () => 1.25, experientiaAutobuy: () => 1 }
   },
   { pointValue: 25, unlockCondition: () => player.challengecompletions[9] >= 10, group: 'challenge9' },
   {
@@ -1327,14 +1337,14 @@ export const achievements: Achievement[] = [
     pointValue: 30,
     unlockCondition: () => player.ants.crumbs.gte('1e250'),
     group: 'antCrumbs',
-    reward: { antSpeed: () => 1 + player.ants.immortalELO / 1000 }
+    reward: { antSpeed: () => 1 + player.ants.immortalELO / 1000, scientiaAutobuy: () => 1 }
   },
   { pointValue: 35, unlockCondition: () => player.ants.crumbs.gte('1e2500'), group: 'antCrumbs' },
   {
     pointValue: 5,
     unlockCondition: () => player.ants.immortalELO >= 50 && player.ants.producers[AntProducers.Breeders].purchased > 0,
     group: 'sacMult',
-    reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
+    reward: { antAutobuyers: () => 1, inceptusAutobuy: () => 1, fortunaeAutobuy: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
@@ -1342,7 +1352,7 @@ export const achievements: Achievement[] = [
     unlockCondition: () =>
       player.ants.immortalELO >= 200 && player.ants.producers[AntProducers.MetaBreeders].purchased > 0,
     group: 'sacMult',
-    reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 1 },
+    reward: { antAutobuyers: () => 1, tributumAutobuy: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
@@ -1350,14 +1360,14 @@ export const achievements: Achievement[] = [
     unlockCondition: () =>
       player.ants.immortalELO >= 500 && player.ants.producers[AntProducers.MegaBreeders].purchased > 0,
     group: 'sacMult',
-    reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
+    reward: { antAutobuyers: () => 1, celeritasAutobuy: () => 1, exploratoremAutobuy: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
     pointValue: 20,
     unlockCondition: () => player.ants.immortalELO >= 1000 && player.ants.producers[AntProducers.Queens].purchased > 0,
     group: 'sacMult',
-    reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 1 },
+    reward: { antAutobuyers: () => 1, sacrificiumAutobuy: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
@@ -1365,7 +1375,7 @@ export const achievements: Achievement[] = [
     unlockCondition: () =>
       player.ants.immortalELO >= 2500 && player.ants.producers[AntProducers.LordRoyals].purchased > 0,
     group: 'sacMult',
-    reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
+    reward: { antAutobuyers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
@@ -1373,7 +1383,7 @@ export const achievements: Achievement[] = [
     unlockCondition: () =>
       player.ants.immortalELO >= 20000 && player.ants.producers[AntProducers.Almighties].purchased > 0,
     group: 'sacMult',
-    reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 1 },
+    reward: { antAutobuyers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   {
@@ -1381,7 +1391,7 @@ export const achievements: Achievement[] = [
     unlockCondition: () =>
       player.ants.immortalELO >= 100000 && player.ants.producers[AntProducers.Disciples].purchased > 0,
     group: 'sacMult',
-    reward: { antAutobuyers: () => 1, antUpgradeAutobuyers: () => 2 },
+    reward: { antAutobuyers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
   { pointValue: 5, unlockCondition: () => player.ascensionCount >= 1, group: 'ascensionCount' },
@@ -2370,7 +2380,7 @@ export const achievements: Achievement[] = [
     pointValue: 4,
     unlockCondition: () => player.ants.antSacrificeCount >= 10,
     group: 'sacCount',
-    reward: { antSacrificeCountMultiplier: () => 2 }
+    reward: { antSacrificeCountMultiplier: () => 2, hicAutobuy: () => 1 }
   },
   {
     pointValue: 6,
@@ -2382,7 +2392,7 @@ export const achievements: Achievement[] = [
     pointValue: 8,
     unlockCondition: () => player.ants.antSacrificeCount >= 250,
     group: 'sacCount',
-    reward: { antELOAdditiveMultiplier: () => 0.01}
+    reward: { antELOAdditiveMultiplier: () => 0.01, praemoenioAutobuy: () => 1}
   },
   {
     pointValue: 10,
@@ -2394,7 +2404,7 @@ export const achievements: Achievement[] = [
     pointValue: 12,
     unlockCondition: () => player.ants.antSacrificeCount >= 5000,
     group: 'sacCount',
-    reward: { antSpeed2UpgradeImprover: () => 2 * achievementLevel }
+    reward: { antSpeed2UpgradeImprover: () => 2 * achievementLevel, phylacteriumAutobuy: () => 1 }
   },
   {
     pointValue: 14,
@@ -2965,11 +2975,38 @@ export const achRewards: Record<AchievementRewards, () => number | boolean> = {
       0
     )
   },
-  antUpgradeAutobuyers: (): number => {
-    return achievementsByReward.antUpgradeAutobuyers.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.antUpgradeAutobuyers!() : 0),
-      0
-    )
+  inceptusAutobuy: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.inceptusAutobuy[0]])
+  },
+  fortunaeAutobuy: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.fortunaeAutobuy[0]])
+  },
+  tributumAutobuy: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.tributumAutobuy[0]])
+  },
+  celeritasAutobuy: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.celeritasAutobuy[0]])
+  },
+  exploratoremAutobuy: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.exploratoremAutobuy[0]])
+  },
+  sacrificiumAutobuy: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.sacrificiumAutobuy[0]])
+  },
+  experientiaAutobuy: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.experientiaAutobuy[0]])
+  },
+  hicAutobuy: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.hicAutobuy[0]])
+  },
+  scientiaAutobuy: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.scientiaAutobuy[0]])
+  },
+  praemoenioAutobuy: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.praemoenioAutobuy[0]])
+  },
+  phylacteriumAutobuy: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.phylacteriumAutobuy[0]])
   },
   antELOAdditive: (): number => {
     return achievementsByReward.antELOAdditive.reduce(
@@ -3523,12 +3560,12 @@ export const generateAchievementHTMLs = () => {
 
       if (!isMobile) {
         img.onmousemove = (e: MouseEvent) => {
-          Modal(createGroupedAchievementDescription(k), e.clientX, e.clientY, { borderColor: 'cyan' })
+          Modal(() => createGroupedAchievementDescription(k), e.clientX, e.clientY, { borderColor: 'cyan' })
         }
         img.onfocus = () => {
           const elm = img.getBoundingClientRect()
           // Get x, y current based on the element's position
-          Modal(createGroupedAchievementDescription(k), elm.x, elm.y + elm.height / 2, { borderColor: 'cyan' })
+          Modal(() => createGroupedAchievementDescription(k), elm.x, elm.y + elm.height / 2, { borderColor: 'cyan' })
         }
 
         img.onmouseout = () => {
@@ -3572,7 +3609,7 @@ export const generateAchievementHTMLs = () => {
 
       if (!isMobile) {
         img.onmousemove = (e: MouseEvent) => {
-          Modal(generateUngroupedDescription(k as UngroupedAchievementNames), e.clientX, e.clientY, {
+          Modal(() => generateUngroupedDescription(k as UngroupedAchievementNames), e.clientX, e.clientY, {
             borderColor: 'white'
           })
         }
@@ -3580,7 +3617,7 @@ export const generateAchievementHTMLs = () => {
         img.onfocus = () => {
           const elm = img.getBoundingClientRect()
           // Get x, y current based on the element's position
-          Modal(generateUngroupedDescription(k as UngroupedAchievementNames), elm.x, elm.y + elm.height / 2, {
+          Modal(() => generateUngroupedDescription(k as UngroupedAchievementNames), elm.x, elm.y + elm.height / 2, {
             borderColor: 'white'
           })
         }
@@ -3627,7 +3664,7 @@ export const generateAchievementHTMLs = () => {
 
       if (!isMobile) {
         img.onmousemove = (e: MouseEvent) => {
-          Modal(generateProgressiveAchievementDescription(k as ProgressiveAchievements), e.clientX, e.clientY, {
+          Modal(() => generateProgressiveAchievementDescription(k as ProgressiveAchievements), e.clientX, e.clientY, {
             borderColor: 'turquoise'
           })
         }
@@ -3636,7 +3673,7 @@ export const generateAchievementHTMLs = () => {
           const elm = img.getBoundingClientRect()
           // Get x, y current based on the element's position
           Modal(
-            generateProgressiveAchievementDescription(k as ProgressiveAchievements),
+            () => generateProgressiveAchievementDescription(k as ProgressiveAchievements),
             elm.x,
             elm.y + elm.height / 2,
             { borderColor: 'turquoise' }

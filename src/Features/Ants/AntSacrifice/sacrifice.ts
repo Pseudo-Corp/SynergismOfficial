@@ -31,7 +31,7 @@ export const sacrificeAnts = async (auto = false) => {
       }
 
       const baseELO = calculateBaseAntELO()
-      const effectiveELO = calculateEffectiveAntELO(baseELO)
+      const effectiveELO = calculateEffectiveAntELO()
       const crumbsPerSecond = player.antSacrificeTimer > 0
         ? player.ants.crumbs.div(player.antSacrificeTimer)
         : 0

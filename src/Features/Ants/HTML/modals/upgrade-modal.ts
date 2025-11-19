@@ -31,7 +31,7 @@ export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
     extinctionHTML = `<br><span style="color: #00DDFF">${
       i18next.t('ants.corruptionDivisor', {
         x: format(player.corruptions.used.extinction, 0, true),
-        y: format(player.corruptions.used.corruptionEffects('extinction'), 0, true)
+        y: format(player.corruptions.used.corruptionEffects('extinction'), 2, true)
       })
     }</span>`
   }
