@@ -9,7 +9,7 @@ import { updateGlobalsIsEvent } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
-import { QuarkHandler, refreshQuarkBonus, setQuarkBonus } from './Quark'
+import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
@@ -216,7 +216,6 @@ export type SubscriptionMetadata = {
 
 interface SynergismUserAPIResponse<T extends keyof AccountMetadata> {
   personalBonus: number
-  globalBonus: number
   member: AccountMetadata[T]
   accountType: T
   bonus: BonusTypes
@@ -239,7 +238,6 @@ const hasAccount = (
 
 export async function handleLogin () {
   const subtabElement = document.querySelector('#accountSubTab div#left.scrollbarX')!
-  const currentBonus = DOMCacheGetOrSet('currentBonus')
 
   const logoutElement = document.getElementById('logoutButton')
   if (logoutElement !== null) {
@@ -247,13 +245,12 @@ export async function handleLogin () {
     document.getElementById('accountSubTab')?.appendChild(logoutElement)
   }
 
-  const response = await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'include' }).catch(
+  const response = await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'same-origin' }).catch(
     () =>
       new Response(
         JSON.stringify(
           {
             member: null,
-            globalBonus: 0,
             personalBonus: 0,
             accountType: 'none',
             bonus: { quarks: 0 },
@@ -265,15 +262,13 @@ export async function handleLogin () {
   )
 
   const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>
-  const { globalBonus, personalBonus, subscription: sub } = account
+  const { personalBonus, subscription: sub } = account
 
-  setQuarkBonus(personalBonus, globalBonus)
-  setInterval(() => refreshQuarkBonus(), 1000 * 60 * 15)
+  setPersonalQuarkBonus(personalBonus)
   player.worlds = new QuarkHandler(Number(player.worlds))
+
   loggedIn = hasAccount(account)
   subscription = sub
-
-  currentBonus.textContent = i18next.t('settings.quarkBonusSimple', { globalBonus })
 
   // biome-ignore lint/suspicious/noConfusingLabels: it's not confusing or suspicious
   generateSubtab: {
@@ -291,8 +286,6 @@ export async function handleLogin () {
           `You are logged in, but retrieving your profile yielded the following error: ${account.error}`
         break generateSubtab
       }
-
-      currentBonus.textContent = i18next.t('settings.quarkBonusExtended', { globalBonus, personalBonus })
 
       let user: string | null = null
       const discord = isDiscordAccount(account)

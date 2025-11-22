@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw'
+import { delay, http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
 import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
 import { messageHandlers } from './handlers/MessageHandlers'
@@ -7,7 +7,9 @@ import { subscriptionHandlers } from './handlers/SubscriptionHandlers'
 import { consumeHandlers } from './websocket'
 
 const GETHandlers = [
-  http.get('https://synergism.cc/api/v1/quark-bonus', () => {
+  http.get('https://synergism.cc/api/v1/quark-bonus', async () => {
+    await delay(Math.random() * (2000 - 100) + 100)
+
     return HttpResponse.json({
       bonus: 105.3
     })

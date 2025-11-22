@@ -205,7 +205,7 @@ import {
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { getQuarkBonus, QuarkHandler } from './Quark'
+import { getQuarkBonus, QuarkHandler, refreshQuarkBonus } from './Quark'
 import {
   blankRedAmbrosiaUpgradeObject,
   type RedAmbrosiaNames,
@@ -5530,6 +5530,10 @@ window.addEventListener('load', async () => {
 
   await i18nInit()
   handleLogin().catch(console.error)
+
+  refreshQuarkBonus()
+    .catch(console.error)
+    .finally(() => setInterval(() => refreshQuarkBonus(), 1000 * 60 * 15))
 
   try {
     await initializePCoinCache()

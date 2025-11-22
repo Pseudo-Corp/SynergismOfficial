@@ -1,3 +1,5 @@
+import i18next from 'i18next'
+import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateCubeQuarkMultiplier, calculateQuarkMultiplier } from './Calculate'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { format, player } from './Synergism'
@@ -40,12 +42,42 @@ export const quarkHandler = () => {
 
 let bonus = 0
 let personalQuarkBonus = 0
+let globalQuarkBonus = 0
+
+const recalculateBonus = () => {
+  bonus = 100 * (1 + globalQuarkBonus / 100) * (1 + personalQuarkBonus / 100) - 100
+}
+
+const updateQuarkUI = (personalBonus: number, globalBonus: number) => {
+  const currentBonus = DOMCacheGetOrSet('currentBonus')
+  if (personalBonus > 0) {
+    currentBonus.textContent = i18next.t('settings.quarkBonusExtended', { globalBonus, personalBonus })
+  } else {
+    currentBonus.textContent = i18next.t('settings.quarkBonusSimple', { globalBonus })
+  }
+}
 
 export const setQuarkBonus = (personalBonus: number, globalBonus: number) => {
-  bonus = 100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100
+  globalQuarkBonus = globalBonus
   personalQuarkBonus = personalBonus
+  recalculateBonus()
 }
+
 export const getQuarkBonus = () => bonus
+
+export const setPersonalQuarkBonus = (personalBonus: number) => {
+  personalQuarkBonus = personalBonus
+  recalculateBonus()
+
+  updateQuarkUI(personalBonus, globalQuarkBonus)
+}
+
+export const setGlobalQuarkBonus = (globalBonus: number) => {
+  globalQuarkBonus = globalBonus
+  recalculateBonus()
+
+  updateQuarkUI(personalQuarkBonus, globalBonus)
+}
 
 export class QuarkHandler {
   /** Quark amount */
@@ -99,5 +131,5 @@ export const refreshQuarkBonus = async () => {
   const response = await fetch('https://synergism.cc/api/v1/quark-bonus')
   const { bonus } = await response.json() as { bonus: number }
 
-  setQuarkBonus(personalQuarkBonus, bonus)
+  setGlobalQuarkBonus(bonus)
 }
