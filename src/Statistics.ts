@@ -409,8 +409,8 @@ export const allWowCubeStats: NumberStatLine[] = [
   {
     i18n: 'Researches',
     stat: () =>
-      (1 + player.researches[119] / 400) // 5x19
-      * (1 + player.researches[120] / 400) // 5x20
+      (1 + player.researches[119] / 1000) // 5x19
+      * (1 + player.researches[120] / 200) // 5x20
       * (1 + player.researches[137] / 100) // 6x12
       * (1 + (0.9 * player.researches[152]) / 100) // 7x2
       * (1 + (0.8 * player.researches[167]) / 100) // 7x17
@@ -912,6 +912,11 @@ export const allOfferingStats: DecimalSourceLine[] = [
       1
       + player.upgrades[75] * 2
         * Math.min(1, Math.pow(Decimal.min(player.maxObtainium, 1e10).toNumber() / 30000000, 0.5)) // Particle Upgrade 3x5
+  },
+  {
+    i18n: 'Research5x19',
+    stat: () => 1 + player.researches[119] / 200, // Research 5x19
+    displayCriterion: () => isResearchUnlocked(119)
   },
   {
     i18n: 'AutoOfferingShop',
@@ -1556,6 +1561,11 @@ export const allObtainiumStats: DecimalSourceLine[] = [
   {
     i18n: 'Research4x6',
     stat: () => 1 + player.researches[81] / 10 // Research 4x6
+  },
+  {
+    i18n: 'Research5x19',
+    stat: () => 1 + player.researches[119] / 200,
+    displayCriterion: () => isResearchUnlocked(119)
   },
   {
     i18n: 'ShopObtainiumAuto',
@@ -2717,8 +2727,6 @@ export const allTalismanRuneBonusStatsSum = () => {
     + +getAchievementReward('talismanPower')
     + (player.researches[106] / 1000)
     + (player.researches[107] / 1000)
-    + (player.researches[116] / 1000)
-    + (player.researches[117] / 1000)
     + (2 * player.researches[118] / 1000)
     + (0.004 * Math.floor(player.researches[200] / 10000))
     + (0.006 * Math.floor(player.cubeUpgrades[50] / 10000))
@@ -2769,26 +2777,10 @@ export const allTalismanRuneBonusStats: NumberStatLine[] = [
     }
   },
   {
-    i18n: 'Research116',
-    stat: () => player.researches[116] / 1000,
-    displayCriterion: () => {
-      const chal10 = player.highestchallengecompletions[10] >= 1
-      return chal10
-    }
-  },
-  {
-    i18n: 'Research117',
-    stat: () => player.researches[117] / 1000,
-    displayCriterion: () => {
-      const chal10 = player.highestchallengecompletions[10] >= 1
-      return chal10
-    }
-  },
-  {
     i18n: 'Research118',
     stat: () => 2 * player.researches[118] / 1000,
     displayCriterion: () => {
-      const chal10 = player.highestchallengecompletions[10] >= 1
+      const chal10 = player.highestchallengecompletions[9] >= 1
       return chal10
     }
   },
@@ -3007,6 +2999,14 @@ export const antSpeedStats: DecimalSourceLine[] = [
     displayCriterion: () => isResearchUnlocked(96)
   },
   {
+    i18n: 'Research5x17',
+    stat: () => {
+      const sacCount = player.ants.antSacrificeCount
+      return 1 + player.researches[117] * sacCount / 10000
+    },
+    displayCriterion: () => isResearchUnlocked(117)
+  },
+  {
     i18n: 'Research6x22',
     stat: () => 1 + player.researches[147] * Decimal.log10(player.ants.crumbs.add(10)),
     displayCriterion: () => isResearchUnlocked(147)
@@ -3111,12 +3111,16 @@ export const antELOStats: NumberStatLine[] = [
   {
     i18n: 'ReincarnationUpgrade20',
     stat: () => {
+      if (player.upgrades[80] === 0) {
+        return 0
+      }
       let ELO = 0
       ELO += 10 * Math.min(50, player.ants.antSacrificeCount)
       ELO += 5 * Math.min(50, Math.max(player.ants.antSacrificeCount - 50, 0))
       ELO += Math.min(250, Math.max(0, player.ants.antSacrificeCount - 100))
       return ELO
-    }
+    },
+    displayCriterion: () => player.researches[50] > 0 // Research 2x25
   },
   {
     i18n: 'Challenge10',
@@ -3137,6 +3141,11 @@ export const antELOStats: NumberStatLine[] = [
     i18n: 'Research5x9',
     stat: () => 25 * player.researches[109],
     displayCriterion: () => isResearchUnlocked(109)
+  },
+  {
+    i18n: 'Research5x20',
+    stat: () => 2 * player.researches[120],
+    displayCriterion: () => isResearchUnlocked(120)
   },
   {
     i18n: 'Research5x23',
@@ -3221,6 +3230,11 @@ export const rebornELOCreationSpeedMultStats: NumberStatLine[] = [
       i18n: 'Research5x10',
       stat: () => 1 + player.researches[110] / 50,
       displayCriterion: () => isResearchUnlocked(110)
+    },
+    {
+      i18n: 'Research5x20',
+      stat: () => 1 + player.researches[120] / 250,
+      displayCriterion: () => isResearchUnlocked(120)
     },
     {
       i18n: 'Research6x23',

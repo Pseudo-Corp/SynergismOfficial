@@ -89,7 +89,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.MegaBreeders]: {
     baseCost: Decimal.fromString('1e12'),
     costIncrease: 1e4,
-    baseProduction: Decimal.fromNumber(3e-7),
+    baseProduction: Decimal.fromNumber(3e-5),
     color: '#CA7035',
     additionalTexts: [
       {

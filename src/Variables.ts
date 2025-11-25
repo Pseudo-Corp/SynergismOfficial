@@ -22,7 +22,7 @@ export const Globals: GlobalVariables = {
     5, 15, 25, 40, 60, 45, 75, 100, 125, 150, 150, 400, 800, 1600, 3200, 10000, 20000, 50000, 100000, 200000,
     1, 2, 3, 5, 6, 7, 42, 65, 87, 150, 300, 500, 1000, 1500, 2000, 3000, 6000, 12000, 25000, 75000,
     0, 1, 2, 2, 3, 5, 6, 10, 15, 22, 30, 37, 45, 52, 60, 1900, 2500, 3000, 10000, 21397,
-    3, 6, 9, 12, 15, 60, 200, 6, 8, 8, 10, 13, 60, 1, 2, 4, 8, 16, 25, 40,
+    3, 6, 9, 12, 15, 60, 90, 6, 8, 8, 10, 13, 60, 1, 2, 4, 8, 16, 25, 40,
     12, 16, 20, 30, 50, 500, 1250, 5000, 25000, 125000, 1500, 7500, 30000, 150000, 1000000, 250, 1000, 5000, 25000, 125000,
     1e3, 1e6, 1e9, 1e12, 1e15
   ],
@@ -52,10 +52,6 @@ export const Globals: GlobalVariables = {
   totalMultiplierBoost: 0,
 
   globalCoinMultiplier: new Decimal(1),
-  totalCoinOwned: 0,
-  prestigeMultiplier: new Decimal(1),
-  buildingPower: 1,
-  reincarnationMultiplier: new Decimal(1),
 
   coinOneMulti: new Decimal(1),
   coinTwoMulti: new Decimal(1),

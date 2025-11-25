@@ -1214,6 +1214,13 @@
       "182": {
         "antAutobuyers": "Unlock the DISCIPLE OF ANT GOD Autobuyer!"
       },
+      "183": {
+        "freeAntUpgrades": "Gain 2 free Ant Upgrade Levels!"
+      },
+      "184": {
+        "preserveAnthillCount": "Preserve Anthill Count on Ascension!",
+        "antSacrificeCountMultiplier": "Double the amount of Anthills you Sacrifice at once! (only contributes to more Anthill count)"
+      },
       "186": {
         "wowSquareTalisman": "Unlock the Wow Square Talisman!"
       },
@@ -1548,6 +1555,9 @@
       "486": {
         "antSpeed2UpgradeImprover": "<i>Impia Reproducta Formicidae</i> can be boosted by 2 additional Anthills per Synergism Level",
         "phylacteriumAutobuy": "Unlock the <i>Phylacterium</i> Ant Upgrade Autobuyer!"
+      },
+      "490": {
+        "preserveAnthillCountSingularity": "Preserve your Anthil Count when you do something <span class='rainbowText'>even more impressive than an Ascension!</span>"
       }
     },
     "rewards": {
@@ -2317,8 +2327,9 @@
       "buildingCostScale": {
         "name": "Hic Formicidae",
         "intro": "A builder ant! Some may call it a Carpenter Ant?",
-        "description": "+3% Building Cost Delay per level, up to +9,999,999%",
-        "effect": "Building Costs take <<lime | {{x}} longer>> to spiral out of control!"
+        "description": "+3% Building Cost Delay per level, and +1% Building Power per level!",
+        "effect": "Building Costs take <<lime | {{x}} longer>> to spiral out of control!",
+        "effect2": "Building Power <<lime | x{{x}}>>"
       },
       "salvage": {
         "name": "Scientia Formicidae",
@@ -2365,13 +2376,14 @@
       "ascensionScore": {
         "name": "Ascendens Formicidae",
         "intro": "And this, is to go even further beyond!",
-        "description": "Add Ascension Score to your current Ascension! Value added is <b>before</b> any multipliers.",
-        "effect": "Ascension Score <<orange | +{{x}}>>"
+        "description": "Add Ascension Score to your current Ascension! Also add Cubes to your Ascension Bank. Value added is <b>before</b> any multipliers.",
+        "effect": "Ascension Score <<orange | +{{x}}>>",
+        "effect2": "Cubes in Ascension Bank <<yellow | +{{x}}>>"
       },
       "wowCubes": {
         "name": "Cubus Admirabilis Formicidae",
         "intro": "Picasso's Ant Period.",
-        "description": "Gain more Wow! Cubes! +0.2% per level, to be exact.",
+        "description": "Gain more Wow! Cubes! Up to +100% more of them.",
         "effect": "Gain <<white | +{{x}}>> more Wow! Cubes"
       }
     },
@@ -2544,7 +2556,7 @@
     "1": {
       "name": "No Multipliers Challenge || {{- value}} Completions",
       "flavor": "Multipliers make the game a little too fast. Let's take them out!",
-      "restrictions": "Transcend and reach the goal except Multipliers do nothing but act like Accelerators, which are nerfed by 50%!",
+      "restrictions": "Transcend and reach the goal except Multipliers count as Accelerators. <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Accelerator Power is reduced. Each completion reduces it more! <br> ☆ Each Multiplier gives a Coin Producer production multiplier equal to Accelerator Power.",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+2 base Multiplier Boosts! [+0.02 to power!] Current: ",
@@ -2562,7 +2574,7 @@
     "2": {
       "name": "No Accelerators Challenge || {{- value}} Completions",
       "flavor": "Who needs accelerators? They do basically nothing now.",
-      "restrictions": "Transcend and reach the goal except Accelerators do nothing! Multipliers are nerfed a bit as well.",
+      "restrictions": "Transcend and reach the goal except Accelerators do nothing! <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power is reduced to be <<gold|1.25, +0.0012>> per Multiplier Boost",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+5 Free Accelerators! Current: ",
@@ -2580,7 +2592,7 @@
     "3": {
       "name": "No Shards Challenge || {{- value}} Completions",
       "flavor": "Alright, now you're thinking, how else can I make the game harder?",
-      "restrictions": "Transcend and reach the goal except you do not produce Crystals or Mythos Shards.",
+      "restrictions": "Transcend and reach the goal except you do not produce Crystals or Mythos Shards. <br> ☆ Refineries do not produce Crystals <br> ☆ Augments do not produce Mythos Shards. <br> ☆ Accelerator Power above 1 is reduced by <<gold|50%>> ",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "Crystal --> Coin conversion exponent +0.04! Current: ",
@@ -2598,7 +2610,7 @@
     "4": {
       "name": "Cost+ Challenge || {{- value}} Completions",
       "flavor": "You're getting rich now, but inflation hasn't happened yet? I don't think so!",
-      "restrictions": "Transcend and reach the goal except Coin/Crystal producers, Accelerators and Multipliers cost more. [Gets harder each time!]",
+      "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Prices grow super-exponentially after <<gold|1,000>> of each Building. <br> ☆ Each completion lowers the above number by <<gold|10>> <br> ☆ Accelerator and Multiplier prices <<gold|immediately>> grow super-exponentially!",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "Accelerator Cost scale slows down by +5 purchases. Current: ",
@@ -2616,7 +2628,7 @@
     "5": {
       "name": "Reduced Diamonds Challenge || {{- value}} Completions",
       "flavor": "You ever wonder how you get so many diamonds?",
-      "restrictions": "Transcend and reach the goal except you gain far fewer Diamonds from all sources [Gets harder each time!]",
+      "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.01 / (1 + completions)]>>",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+0.01 Coin --> Diamond conversion exponent on Prestige! Current: ",
@@ -2634,7 +2646,7 @@
     "6": {
       "name": "Higher Tax Challenge || {{- value}} Completions",
       "flavor": "The tax man caught wind that you reincarnated recently...",
-      "restrictions": "Reincarnate and reach the goal except tax has a lower cap, and Coin production is divided by 1e250.",
+      "restrictions": "Reincarnate and reach the goal except you pay more Tax! <br> ☆ Your Tax burden is multiplied by <<gold|3 * (1 + completions / 25)^2>> <br> ☆ Your Coin production is divided by <<gold | 1e250>>",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
       "per": {
         "1": "-3.5% Taxes [Multiplicative]! Current: ",
@@ -2652,7 +2664,7 @@
     "7": {
       "name": "No Multipliers/Accelerators Challenge || {{- value}} Completions",
       "flavor": "You're really going to hate this one.",
-      "restrictions": "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. Coin Production is divided by 1e1,250.",
+      "restrictions": "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Power above 1 is reduced by <<gold|95%>> <br> ☆ Your Coin production is divided by <<gold | 1e1,250>>",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
       "per": {
         "1": "Accelerator/Multiplier boost power exponent +0.04! Current: ",
@@ -2670,7 +2682,7 @@
     "8": {
       "name": "Cost++ Challenge || {{- value}} Completions",
       "flavor": "You thought you could outgrow inflation by Reincarnating?",
-      "restrictions": "Reincarnate and reach the goal except Cost Scaling for producers and Accelerators/Multipliers scale much, much faster.",
+      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices increase <<gold|50x>> faster than in Cost+ <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building costs start growing super-exponentially after <<gold|1000 + 1000 per completion>> purchased. <br> ",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
       "per": {
         "1": "Base Building Power +0.25! Current: ",
@@ -2687,8 +2699,8 @@
     },
     "9": {
       "name": "No Runes Challenge || {{- value}} Completions",
-      "flavor": "You'll never complain about Prism being bad again.",
-      "restrictions": "Reincarnate and reach the goal except runes always have level 1 effects. All coin production is divided by e2,000,000.",
+      "flavor": "Bet you won't even notice Prism Rune's disappearance.",
+      "restrictions": "Reincarnate and reach the goal except Runes always have level 1 effects. <br> ☆ Your Coin production is divided by <<gold | 1e2,000,000>>. You may want a few Galactic Crumbs. <br> ☆ Your Tax burden is reduced by <<pink|99.5%>> to compensate",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+1 free Ant level! Current: ",
@@ -2706,7 +2718,7 @@
     "10": {
       "name": "Sadistic Challenge I || {{- value}} Completions",
       "flavor": "I'm sorry for what I've unleashed onto the world. You read a note on the floor: \"You probably want about 1e300 Galactic Crumbs before you fully embrace the challenge. Try to Sacrifice some more Anthills, master your Ants and become one with the Ant God to achieve this.\"",
-      "restrictions": "Reincarnate and reach the goal except run the first five challenges AT THE SAME TIME!",
+      "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|25,000>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.0001 / (1 + completions)]>> <br> ☆ Mythos gain is reduced to <<gold | Coins^0.001>>",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+100 base ELO for sacrificing ants! Current: ",
@@ -2724,7 +2736,7 @@
     "11": {
       "name": "Reduced Ants Challenge || {{- value}} Completions",
       "flavor": "The great Ant War of '21 wiped off all of the skilled ants.",
-      "restrictions": "Ascend and reach the goal but ant upgrades cannot be purchased. To compensate, Challenge 8 and 9 completions give free ant upgrades. FOR ASCENSION CHALLENGES YOU MUST CLEAR CHALLENGE 10 TO ATTEMPT THEM.",
+      "restrictions": "Reach the Goal, but only free Ant Upgrade levels do anything. <br> ☆ In Challenge, each Challenge 8 completion gives <<gold|+3>> free Ant Upgrade Levels. <br> ☆ Each Challenge 9 completion gives <<gold|+5>> free Ant Upgrade levels!",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
       "per": {
         "1": "+12 free Ant Levels! Current: ",
@@ -2742,7 +2754,7 @@
     "12": {
       "name": "No Reincarnation Challenge || {{- value}} Completions",
       "flavor": "For some reason, you just can't do it.",
-      "restrictions": "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! Ant production ^0.5.",
+      "restrictions": "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! <br> ☆ Ant Speed <<gold|^0.4>>",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
       "per": {
         "1": "+50% Obtainium! Current: ",
@@ -2760,7 +2772,7 @@
     "13": {
       "name": "Tax+++ Challenge || {{- value}} Completions",
       "flavor": "Good luck with the IRS, buddy.",
-      "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. Ant production ^0.23",
+      "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. <br> ☆ Ant Speed <<gold|^0.23>> <br> ☆ Each Transcension and Reincarnation Challenge completed multiplies your tax burden by <<gold|1.05>>",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
       "per": {
         "1": "Taxes -3.33%! Multiplicative! Current: ",
@@ -2770,7 +2782,7 @@
       "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Unlock even more Campaigns and Corruptions!",
       "start": "Start <[(Tax+++)]>",
       "current": {
-        "1": "+{{value}}% Corruption Tax",
+        "1": "-{{value}}% Tax Burden",
         "2": "+{{value}} Talisman Level Cap",
         "3": "+{{value}}% Effectiveness"
       }
@@ -2778,7 +2790,7 @@
     "14": {
       "name": "No Research Challenge || {{- value}} Completions",
       "flavor": "The dimension that never progressed past the dark ages. Many fear to even step foot.",
-      "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any Researches purchasable. Ant production ^0.2.",
+      "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any Researches purchasable. <br> ☆ Ant Speed <<gold|^0.2>>",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
       "per": {
         "1": "+50% stronger effect on Researches 1x1 through 1x5. Current: ",
@@ -2796,7 +2808,7 @@
     "15": {
       "name": "SADISTIC CHALLENGE II || {{- value}} Completions",
       "flavor": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-      "restrictions": "Ascend and reach the goal but you're stuck in all corruptions at level 11, and Ant production ^0.01.",
+      "restrictions": "Ascend and reach the goal but you're stuck in all Corruptions at level 11. <br> ☆ Ant Speed <<gold|^0.12>> (from Corruptions, of course!) <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>> <br> ☆ Your Tax burden is reduced by <<pink|99.9995%>>",
       "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
       "per": {
         "1": "Folly of mankind: ",
@@ -3054,9 +3066,9 @@
       "25": "[1x25] Increase your Base Offerings by 0.6 per level.",
       "26": "[2x1] Multiply all Crystal producer production by 150% per level (Multiplicative).",
       "27": "[2x2] Multiply all Crystal producer production by 150% per level (Multiplicative).",
-      "28": "[2x3] Coin Exponent is increased by 0.08 per level.",
-      "29": "[2x4] Coin Exponent is increased by another 0.08 per level.",
-      "30": "[2x5] Coin Exponent is increased by ANOTHER 0.04 per level.",
+      "28": "[2x3] You know the formula for the Crystal multiplier to Coins? Add 0.08 to its Exponent per level!",
+      "29": "[2x4] Same as [2x3]. Add 0.08 to its Exponent per level!",
+      "30": "[2x5] Half of [2x3]. Add 0.04 to its Exponent per level!",
       "31": "[2x6] Want to bake cookies instead? You can go offline for 4 additional hours per level (Base 72hr).",
       "32": "[2x7] Want to bake a lot of cookies instead? Extend the offline maximum timer by another 4 hours per level!",
       "33": "[2x8] Gain +11% more Multiplier Boosts from Mythos Shards per level.",
@@ -3077,18 +3089,18 @@
       "48": "[2x23] Unlock Reincarnation upgrades 6-10. [Upgrades cost between 100,000 and 1e22 Particles]",
       "49": "[2x24] Unlock Reincarnation upgrades 11-15. [Upgrades cost between 1e30 and 1e60 Particles]",
       "50": "[2x25] Unlock Reincarnation upgrades 16-20. [You might want to wait until Challenge 8 is doable!]",
-      "51": "[3x1] Taxation scales 5.0% slower per level. [Up to -50%]",
-      "52": "[3x2] Taxation scales 2.5% slower per level. [Up to -75%]",
-      "53": "[3x3] Taxation scales 1.25% slower per level. [Up to -87.5%]",
-      "54": "[3x4] Taxation scales 0.625% slower per level. [Up to -93.75%]",
-      "55": "[3x5] Taxation scales 0.3125% slower per level. [Up to -96.875%]",
+      "51": "[3x1] Reduces your tax burden by 6% per level.",
+      "52": "[3x2] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
+      "53": "[3x3] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
+      "54": "[3x4] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
+      "55": "[3x5] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
       "56": "[3x6] Building Cost Scale is delayed by 0.5% per level.",
       "57": "[3x7] Building Cost Scale is delayed by 0.5% per level.",
       "58": "[3x8] Building Cost Scale is delayed by 0.5% per level.",
       "59": "[3x9] Building Cost Scale is delayed by 0.5% per level.",
       "60": "[3x10] Building Cost Scale is delayed by 0.5% per level.",
-      "61": "[3x11] Gain +50% of your best Obtainium per second AUTOMATICALLY!",
-      "62": "[3x12] Gain an additional +10% of your best Obtainium per second automatically.",
+      "61": "[3x11] Waiting to Reincarnate gives you more Obtainium when you finally do. Gain 50% of that amount increase, without having to Reincarnate! This does <b>NOT</b> effect Obtainium you would gain on Reincarnation, so it's like double dipping!",
+      "62": "[3x12] Adds a flat +10% to [3x11]'s effect per level.",
       "63": "[3x13] If your Reincarnation lasts at least 2 seconds you gain +1 Base Obtainium per level.",
       "64": "[3x14] If your Reincarnation lasts at least 5 seconds you gain +2 Base Obtainium per level.",
       "65": "[3x15] Gain +20% more Obtainium per level. Quite simple!",
@@ -3142,11 +3154,11 @@
       "113": "[5x13] Here's another +1 Rune Coefficient to Prism Rune, per level!",
       "114": "[5x14] Here's another +1 Rune Coefficient to Thrift Rune, per level!",
       "115": "[5x15] Here's +1 Rune Coefficient to Superior Intellect Rune, per level! I realize you didn't have an earlier Research for this, so this has twice as many levels.",
-      "116": "[5x16] Gain yet another +0.1% Talisman Power per level! (Unlike Rune Power, Talisman Power is additive across all sources. Don't ask why.)",
-      "117": "[5x17] Incredibly, gain another +0.1% Talisman Power per level!",
+      "116": "[5x16] When you Sacrifice your Anthill, increment the Anthill count by 1 more per level!",
+      "117": "[5x17] Past lives couldn't ever hold your Ants down. Gain +0.01% Ant Speed per Anthill Count, per level!",
       "118": "[5x18] Try this for size: gain +0.2% Talisman Power per level! It's like <b>twice as good</b> as the other upgrades.",
-      "119": "[5x19] Gain +0.25% Wow! Cubes per level upon Ascension.",
-      "120": "[5x20] Gain another +0.25% Wow! Cubes per level upon Ascension.",
+      "119": "[5x19] Gain +0.10% Wow! Cubes per level. These are earned on Ascension.<br>Also, gain +0.5% Offerings per level.<br>ALSO! Gain +0.5% Obtainium per level.",
+      "120": "[5x20] Gain +0.50% Wow! Cubes per level.<br>Also, create Reborn ELO 0.4% faster per level.<br>ALSO! Gain +2 ELO per level.",
       "121": "[5x21] Bend (global) time to your will, gaining +2% Global Speed per level.",
       "122": "[5x22] +2% Ant Sacrifice rewards per level.",
       "123": "[5x23] +40 Ant ELO per level.",
@@ -3155,7 +3167,7 @@
       "126": "[6x1] 6 rows? That can't be... (+1% Accelerators / level)",
       "127": "[6x2] Another +1% Accelerator Boosts / level!",
       "128": "[6x3] The trifecta! +1% Multipliers / level.",
-      "129": "[6x4] Add +1 extra level to Crystal upgrade caps multiplied by Level * Log4(Common Fragments + 1)",
+      "129": "[6x4] Crystal Upgrade 3 has a higher cap (+0.01% per Level * log4(Common Fragments + 1)).<br>Crystal Upgrade 4 also gets a higher cap (+0.05 per Level * log4(Common Fragments + 1)).",
       "130": "[6x5] Unlock automation for leveling Talismans! Activates every 2 real life seconds.",
       "131": "[6x6] Turn some Ant Disciples against Ant God, giving +0.5% Rune Power per level. False prophets, or false profits?",
       "132": "[6x7] Recruit a couple other Ants towards your side as well, giving +2 free Ant upgrade levels per level.",
@@ -3174,7 +3186,7 @@
       "145": "[6x20] Your knowledge from the ant war will help you automatically gain Mortuus Est Ant levels.",
       "146": "[6x21] Feed your Disciples pure Obtainium to make them produce +0.4% Rune Power (to the first five runes) per level.",
       "147": "[6x22] Feed your Ants their own crumbs to make them Log(Crumbs + 10)x faster!",
-      "148": "[6x23] Create Reborn ELO 1% faster per level. Did you know Reborn ELO gets 2% slower to create per ~10,000 at a certain point?",
+      "148": "[6x23] Create Reborn ELO 2% faster per level. Reborn ELO is created 2% slower per Stage. This Research doesn't quite cancel that out.",
       "149": "[6x24] You will gain +0.03% more Offerings per level per level in the Midas Talisman!",
       "150": "[6x25] Auto Challenge. Enough said. Lets you automatically run and complete Challenges!",
       "151": "[7x1] A new row, old upgrade. Increase your Global Speed by +1.2% per level.",
@@ -4380,24 +4392,24 @@
       "119": "Protons -> Grandmaster exponent increased from 0.15 to 0.20",
       "120": "Protons -> Grandmaster exponent increased from 0.20 to 0.25",
       "121": "You probably autobought this. -50% taxes!",
-      "122": "Increase Crystal Upgrade 3 cap from +12% to +100%!",
+      "122": "Increase Crystal Upgrade 3 cap by 100%! (Adds +100% to the max Diamond Building production bonus)",
       "123": "Raise coin production to the power of 1.025. More EXPONENTS.",
       "124": "Immortal ELO becomes Reborn ELO 1.1x as fast!",
       "125": "Constant Tax divisor is 0.333% stronger per challenge 10 completion. [Divisor^(1 + upgrade)]"
     },
     "crystalEffects": {
-      "1": "Crystal production x{{x}}",
-      "2": "Crystal production x{{x}}",
-      "3": "Crystal production x{{x}}",
-      "4": "Coin production multiplier exponent +{{x}}",
-      "5": "Crystal production x{{x}}"
+      "1": "Diamond Building Production x{{x}}",
+      "2": "Diamond Building Production x{{x}}",
+      "3": "Bonus: +{{base}}<br>Diamond Building Production x{{x}}",
+      "4": "Crystal --> Coin Exponent +{{x}}",
+      "5": "Diamond Building Production x{{x}}"
     },
     "crystalUpgrades": {
-      "1": "Gain a 1% multiplicative boost to Crystals per AP per level.",
-      "2": "Gain a boost to Crystals based on held coins per level.",
-      "3": "Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: {{max}}%]",
-      "4": "Improve the multiplier to coin production by .05 exponent per level. [MAX: +{{max}}]",
-      "5": "Every Transcension Challenge completion increases Crystal gain by 1% per level.",
+      "1": "Gain +1% Diamond Building production per level, for each Achievement Point!<br>Formula: <<orchid|(1 + level / 100)^(AP)>>",
+      "2": "Gain a boost to Crystals based on held coins per level.<br>Formula: <<orchid|(1 + level * log10(Coins + 1) / 100)^(2 + log2(level + 1))>>",
+      "3": "Increase how much each purchased Diamond Building buffs Diamond Building production!<br>Max bonus per Diamond Building: <<gold|+{{max}}>><br>Formula: <<orchid|(1 + Bonus%)^(Diamond Buildings Bought)>>",
+      "4": "Add to the Exponent in the Crystal to Coin Multiplier formula!<br>Max Exponent increase from this upgrade: <<gold|{{max}}>>",
+      "5": "Gain +5% Diamond Building production per level, per Transcension Challenge completed!<br>Formula: <<orchid|(1 + level / 20)^(Transcension Challenges Completed)>>",
       "6": "Coming (not so) SOON!",
       "7": "Coming (not so) SOON!",
       "8": "Coming (not so) SOON!"
@@ -4419,7 +4431,7 @@
       "2": "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max {{max}}%].",
       "3": "Increase Offering gain +2% per level.",
       "4": "Increase Obtainium gain +4% per level.",
-      "5": "Multiply Ant speed by (1 + level * log10(Constant + 1))",
+      "5": "Multiply Ant speed by (1 + 0.1 * level * log10(Constant + 1))",
       "6": "Add up to 1,000 free Ant Levels! (Each level gives slightly less than the last)",
       "7": "Provides 7 free rune levels per level, up to +7,000.",
       "8": "Increase the rune EXP given by Offerings by 10% per level [Additive]",
@@ -5099,7 +5111,7 @@
       "bentTime": "Bent Time: {{amount}} [+{{gain}}]",
       "hilbertSpace": "Hilbert Space: {{amount}} [+{{gain}}]"
     },
-    "crystalMult": "You have {{crystals}} Crystals, multiplying Coin production by {{gain}}.",
+    "crystalMult": "You have <<gold|{{crystals}}>> Crystals, multiplying Coin production by <<gold|{{gain}}>>.<br>Formula: <<orchid|(1 + {{crystals}})^{{exponent}}>> = <<gold|{{gain}}>>",
     "hoverCrystalUpgrade": "Hover over a crystal upgrade to get information!",
     "autoPrestige": "{{action}} when your {{name}} can increase by a factor {{factor}} [Toggle number above]. Current Multiplier: {{mult}}.",
     "per": {
@@ -5132,7 +5144,7 @@
     "mythosYouHave": "You have {{shards}} Mythos Shards, providing {{mult}} Multiplier Power boosts.",
     "eachMultiplierBoost": "Each Multiplier Boost increases the base effect of Multipliers by 0.02.",
     "costMythos": "Cost: {{mythos}} Mythos",
-    "atomsYouHave": "You have {{atoms}} Atoms, providing {{power}} Building Power. Multiplier to Coin Production: {{mult}}",
+    "atomsYouHave": "You have <<white|{{atoms}}>> Atoms, providing <<gold|{{power}}>> Building Power.<br>Each Coin Producer purchased multiplies Coin Production by <<gold|{{power}}>><br>Multiplier to Coin Production: <<gold|{{mult}}>><br><<orange|Coin multiplier also increases your Tax Cap, and is further exempt from Taxation>>",
     "costParticles": "Cost: {{particles}} Particles",
     "autoReincarnate": "{{name}} when the autotimer is at least {{amount}} real-life seconds. [Toggle number above]. Current timer: {{timer}}s.",
     "thanksR2x14": "Thanks to Research 2x14, you also multiply Crystal production by {{mult}}",
@@ -5769,7 +5781,7 @@
       },
       "prism": {
         "description": "Hide from the red light beam.",
-        "crystalCaps": "<<lightblue | Crystal Upgrade Caps +{{val}}>> (+1% per 10,000,000 Spirit Power)"
+        "crystalCaps": "<<lightblue | Crystal Upgrade 4 Max Exponent +{{val}}>> (Spirit Power / 1e9)"
       },
       "thrift": {
         "description": "Conjure the ghost of Synergism's Past!",
@@ -6272,6 +6284,7 @@
       "AntUpgrade": "Sacrificium Formicidae:",
       "Brutus": "Plutus Cube Tribute:",
       "ConstantUpgrade3": "Constant Upgrade 3:",
+      "Research5x19": "Research 5x19:",
       "ResearchTalismans": "Research 6x24 & 8x4:",
       "TutorialBonus": "Campaign - Tutorial Bonus:",
       "CampaignBonus": "Campaign - Offering Bonus:",
@@ -6429,6 +6442,7 @@
       "Research3x15": "Research 3x15:",
       "Research4x1": "Research 4x1:",
       "Research4x6": "Research 4x6:",
+      "Research5x19": "Research 5x19:",
       "ShopObtainiumAuto": "Shop - Auto Obtainium:",
       "ShopCashGrab": "Shop - Cash Grab:",
       "ShopObtainiumEX": "Shop - Obtainium EX:",
@@ -6790,8 +6804,6 @@
       "AchievementBonus": "Achievement Talisman Effect Bonus:",
       "Research106": "Research 5x6:",
       "Research107": "Research 5x7:",
-      "Research116": "Research 5x16:",
-      "Research117": "Research 5x17:",
       "Research118": "Research 5x18:",
       "Research200": "Research 8x25:",
       "CubeUpgrade50": "Cube Upgrade 5x10:",
@@ -6851,6 +6863,7 @@
       "ReincarnationUpgrade17": "Reincarnation Upgrade 17:",
       "ReincarnationUpgrade18": "Reincarnation Upgrade 18:",
       "Research4x21": "Research 4x21:",
+      "Research5x17": "Research 5x17:",
       "Research6x22": "Research 6x22:",
       "Research8x2": "Research 8x2:",
       "SuperiorIntellect": "Superior Intellect Rune:",
@@ -6876,6 +6889,7 @@
       "ShopUpgrade": "Shop Upgrade - Ant ELO:",
       "Research5x8": "Research 5x8:",
       "Research5x9": "Research 5x9:",
+      "Research5x20": "Research 5x20",
       "Research5x23": "Research 5x23:",
       "Research8x3": "Research 8x3:",
       "AntUpgrade": "Ants - Phylacterium Formicidae:",
@@ -6912,6 +6926,7 @@
       "CoinUpgrade24": "Coin Upgrade 24:",
       "CubeBlessing": "Moloch's Cube Blessing:",
       "Research5x10": "Research 5x10:",
+      "Research5x20": "Research 5x20:",
       "Research6x23": "Research 6x23:",
       "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
       "MortuusTalisman": "Mortuus Talisman:",

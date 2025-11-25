@@ -683,10 +683,6 @@ export interface GlobalVariables {
   totalMultiplierBoost: number
 
   globalCoinMultiplier: Decimal
-  totalCoinOwned: number
-  prestigeMultiplier: Decimal
-  buildingPower: number
-  reincarnationMultiplier: Decimal
 
   coinOneMulti: Decimal
   coinTwoMulti: Decimal
