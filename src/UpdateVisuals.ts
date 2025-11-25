@@ -98,7 +98,7 @@ import {
   type SingularityDataKeys
 } from './singularity'
 import { loadStatisticsUpdate } from './Statistics'
-import { format, formatAsPercentIncrease, formatDecimalAsPercentIncrease, formatTimeShort, player } from './Synergism'
+import { calculateBuildingPower, calculateBuildingPowerCoinMultiplier, calculateCrystalCoinMultiplier, calculateCrystalExponent, format, formatAsPercentIncrease, formatDecimalAsPercentIncrease, formatTimeShort, player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { getTalismanLevelCap, type TalismanKeys, talismans, updateAllTalismanHTML } from './Talismans'
 import {
@@ -316,11 +316,14 @@ export const visualUpdateBuildings = () => {
     ]
     const perSecNames = ['crystal', 'ref', 'plants', 'rigs', 'pickaxes']
 
-    DOMCacheGetOrSet('prestigeshardinfo').textContent = i18next.t(
+    const crystalExponent = calculateCrystalExponent()
+    const crystalCoinMult = calculateCrystalCoinMultiplier(crystalExponent)
+    DOMCacheGetOrSet('prestigeshardinfo').innerHTML = i18next.t(
       'buildings.crystalMult',
       {
         crystals: format(player.prestigeShards, 2),
-        gain: format(G.prestigeMultiplier, 2)
+        gain: format(crystalCoinMult, 2),
+        exponent: format(crystalExponent, 2, true)
       }
     )
 
@@ -508,26 +511,29 @@ export const visualUpdateBuildings = () => {
       )
     }
 
-    DOMCacheGetOrSet('reincarnationshardinfo').textContent = i18next.t(
+    const buildingPower = calculateBuildingPower()
+    const buildingPowerMult = calculateBuildingPowerCoinMultiplier(buildingPower)
+
+    DOMCacheGetOrSet('reincarnationshardinfo').innerHTML = i18next.t(
       'buildings.atomsYouHave',
       {
         atoms: format(player.reincarnationShards, 2),
-        power: format(G.buildingPower, 4),
-        mult: format(G.reincarnationMultiplier)
+        power: format(buildingPower, 4, true),
+        mult: format(buildingPowerMult, 2, true)
       }
     )
 
     DOMCacheGetOrSet('reincarnationCrystalInfo').textContent = i18next.t(
       'buildings.thanksR2x14',
       {
-        mult: format(Decimal.pow(G.reincarnationMultiplier, 1 / 50), 3, false)
+        mult: format(Decimal.pow(buildingPowerMult, 1 / 50), 3, false)
       }
     )
 
     DOMCacheGetOrSet('reincarnationMythosInfo').textContent = i18next.t(
       'buildings.thanksR2x15',
       {
-        mult: format(Decimal.pow(G.reincarnationMultiplier, 1 / 250), 3, false)
+        mult: format(Decimal.pow(buildingPowerMult, 1 / 250), 3, false)
       }
     )
 

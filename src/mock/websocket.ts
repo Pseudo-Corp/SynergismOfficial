@@ -10,15 +10,6 @@ export const consumeHandlers = [
     console.log('connected', client.url)
 
     client.send(messages.join())
-    sleep(1000).then(() =>
-      client.send(messages.infoAll([
-        {
-          name: 'Happy Hour Bell',
-          internalName: 'HAPPY_HOUR_BELL',
-          endsAt: Date.now() + (1000 * 60 * 60)
-        }
-      ], tips))
-    )
 
     client.addEventListener('message', ({ data: body }) => {
       const { success, data } = messageSchema.safeParse(body)

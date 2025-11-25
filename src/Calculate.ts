@@ -250,24 +250,24 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
     return new Decimal('0')
   }
 
-  const multiplier = (0.5 * player.researches[61] + 0.1 * player.researches[62])
-    * (1 + 0.8 * player.cubeUpgrades[3])
+  const multiplier = 0.5 * player.researches[61] 
+  + 0.1 * player.researches[62] 
+  + 0.8 * player.cubeUpgrades[3]
 
   if (multiplier === 0) {
     return new Decimal('0')
   }
 
+  const useTimer = false
+  const resourceMult = calculateObtainium(useTimer)
+  const globalSpeedMult = calculateGlobalSpeedMult()
+  const resetTimeDivisor = resetTimeThreshold()
+  const timePenaltyMult = Math.min(1, player.reincarnationcounter / resetTimeDivisor)
+
   const baseObtainium = calculateBaseObtainium()
+  const nonBaseValue = resourceMult.times(globalSpeedMult).times(timePenaltyMult)
 
-  const resourceMult = calculateObtainium()
-  const fastForwardMult = calculateFastForwardResourcesGlobal(
-    player.reincarnationcounter,
-    new Decimal(deltaTime),
-    resourceMult,
-    baseObtainium
-  )
-
-  return fastForwardMult.times(multiplier)
+  return Decimal.max(baseObtainium, nonBaseValue).times(deltaTime).div(resetTimeDivisor).times(multiplier)
 }
 
 export const calculateQuarkMultiplier = () => {
@@ -388,20 +388,21 @@ export const calculateFreeShopInfinityUpgrades = () => {
 }
 
 export const calculateTotalCoinOwned = () => {
-  G.totalCoinOwned = player.firstOwnedCoin
-    + player.secondOwnedCoin
-    + player.thirdOwnedCoin
-    + player.fourthOwnedCoin
-    + player.fifthOwnedCoin
+  return player.firstOwnedCoin
+  + player.secondOwnedCoin
+  + player.thirdOwnedCoin
+  + player.fourthOwnedCoin
+  + player.fifthOwnedCoin
 }
 
 export const calculateTotalAcceleratorBoost = () => {
   let b = 0
+  const totalCoinOwned = calculateTotalCoinOwned()
   if (player.upgrades[26] > 0.5) {
     b += 1
   }
   if (player.upgrades[31] > 0.5) {
-    b += (Math.floor(G.totalCoinOwned / 2000) * 100) / 100
+    b += (Math.floor(totalCoinOwned / 2000) * 100) / 100
   }
   b += +getAchievementReward('accelBoosts')
 
@@ -1241,6 +1242,8 @@ export const CalcCorruptionStuff = () => {
     challengeModifier = i >= 6 ? 2 : 1
     cubeBank += challengeModifier * player.highestchallengecompletions[i]
   }
+
+  cubeBank += getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked
 
   const oneMindModifier = getGQUpgradeEffect('oneMind')
     ? calculateAscensionSpeedMult() / 10

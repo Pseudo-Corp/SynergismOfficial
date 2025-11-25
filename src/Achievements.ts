@@ -183,6 +183,8 @@ export type AchievementRewards =
   | 'sacrificeMult'
   | 'antSpeed'
   | 'antSacrificeUnlock'
+  | 'preserveAnthillCount'
+  | 'preserveAnthillCountSingularity'
   | 'antAutobuyers'
   | 'inceptusAutobuy'
   | 'fortunaeAutobuy'
@@ -1394,8 +1396,8 @@ export const achievements: Achievement[] = [
     reward: { antAutobuyers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
-  { pointValue: 5, unlockCondition: () => player.ascensionCount >= 1, group: 'ascensionCount' },
-  { pointValue: 10, unlockCondition: () => player.ascensionCount >= 2, group: 'ascensionCount' },
+  { pointValue: 5, unlockCondition: () => player.ascensionCount >= 1, group: 'ascensionCount', reward: { freeAntUpgrades: () => 2 } },
+  { pointValue: 10, unlockCondition: () => player.ascensionCount >= 2, group: 'ascensionCount', reward: { preserveAnthillCount: () => 1, antSacrificeCountMultiplier: () => 2 } },
   { pointValue: 15, unlockCondition: () => player.ascensionCount >= 10, group: 'ascensionCount' },
   {
     pointValue: 20,
@@ -2425,7 +2427,8 @@ export const achievements: Achievement[] = [
   {
     pointValue: 20,
     unlockCondition: () => player.ants.antSacrificeCount >= 1000000,
-    group: 'sacCount'
+    group: 'sacCount',
+    reward: { preserveAnthillCountSingularity: () => 1 }
   }
 ]
 
@@ -2975,6 +2978,12 @@ export const achRewards: Record<AchievementRewards, () => number | boolean> = {
       (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.antAutobuyers!() : 0),
       0
     )
+  },
+  preserveAnthillCount: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.preserveAnthillCount[0]])
+  },
+  preserveAnthillCountSingularity: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.preserveAnthillCountSingularity[0]])
   },
   inceptusAutobuy: (): boolean => {
     return Boolean(player.achievements[achievementsByReward.inceptusAutobuy[0]])

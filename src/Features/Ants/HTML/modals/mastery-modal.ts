@@ -19,7 +19,7 @@ export const antMasteryHTML = (ant: AntProducers): string => {
   const level = player.ants.masteries[ant].mastery
   const maxLevel = getMaxAntMasteryLevel()
   const selfBaseMult = antMasteryData[ant].selfSpeedMultipliers[level]
-  const selfPowerBase = level * antMasteryData[ant].selfPowerIncrement
+  const selfPowerBase = level * antMasteryData[ant].selfPowerIncrement + 0.01 * Math.min(1, level)
   const selfTotalMult = calculateSelfSpeedFromMastery(ant)
 
   const levelHTML = `<span>${
@@ -43,7 +43,7 @@ export const antMasteryHTML = (ant: AntProducers): string => {
     return `${nameHTML}<br>${flavorHTML}<br><br>${levelHTML}<br>${effectHTML}<br>${multHTML}`
   } else {
     const selfBaseMultNextLevel = antMasteryData[ant].selfSpeedMultipliers[level + 1]
-    const selfPowerBaseNextLevel = (level + 1) * antMasteryData[ant].selfPowerIncrement
+    const selfPowerBaseNextLevel = (level + 1) * antMasteryData[ant].selfPowerIncrement + 0.01 * Math.min(1, level + 1)
     effectHTML = `<span>${
       i18next.t('ants.mastery.notMaxedSelfAnt', {
         x: format(selfBaseMult, 2, false),

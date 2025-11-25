@@ -1,4 +1,4 @@
-import { player } from './Synergism'
+import { calculateBuildingPowerCoinMultiplier, player } from './Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -81,8 +81,11 @@ export const calculatetax = () => {
   }
   let exponent = 1
   exponent *= exp
-  exponent *= 1 - 1 / 20 * player.researches[51] - 1 / 40 * player.researches[52] - 1 / 80 * player.researches[53]
-    - 1 / 160 * player.researches[54] - 1 / 320 * player.researches[55]
+  exponent *= (1 - 0.06 * player.researches[51])
+  exponent *= (1 - 0.05 * player.researches[52])
+  exponent *= (1 - 0.05 * player.researches[53])
+  exponent *= (1 - 0.05 * player.researches[54])
+  exponent *= (1 - 0.05 * player.researches[55])
   exponent *= +getAchievementReward('taxReduction')
   exponent *= Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6]))
   exponent *= getRuneEffects('duplication').taxReduction
@@ -127,7 +130,8 @@ export const calculatetax = () => {
   // It multiplies the coin production but is also tax-exempt, which we do by increasing the tax cap
   // While also deducting the log value from `exponentForDivisor`. 
   // Implementing this was much more difficult than it needed to be.
-  const flatMaxExponentIncrease = Decimal.log(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier, 10)
+  let flatMaxExponentIncrease = Decimal.log(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier, 10)
+  flatMaxExponentIncrease += Decimal.log(calculateBuildingPowerCoinMultiplier(), 10)
 
   G.maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1 + flatMaxExponentIncrease
 

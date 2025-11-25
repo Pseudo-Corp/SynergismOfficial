@@ -176,16 +176,22 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.buildingCostScale.intro'),
     description: () => i18next.t('ants.upgrades.buildingCostScale.description'),
     effect: (n: number) => {
-      const scalePercent = Math.min(9999999, 3 * n)
+      const scalePercent = 3 * n
+      const buildingPowerMult = 1 + n / 100
       return {
-        buildingCostScale: scalePercent / 100
+        buildingCostScale: scalePercent / 100,
+        buildingPowerMult
       }
     },
     effectDescription: () => {
-      const buildingCostScale = getAntUpgradeEffect(AntUpgrades.BuildingCostScale).buildingCostScale
-      return i18next.t('ants.upgrades.buildingCostScale.effect', {
-        x: formatAsPercentIncrease(1 + buildingCostScale, 0)
+      const effects = getAntUpgradeEffect(AntUpgrades.BuildingCostScale)
+      const effect1 = i18next.t('ants.upgrades.buildingCostScale.effect', {
+        x: formatAsPercentIncrease(1 + effects.buildingCostScale, 2)
       })
+      const effect2 = i18next.t('ants.upgrades.buildingCostScale.effect2', {
+        x: format(effects.buildingPowerMult, 2, true)
+      })
+      return `${effect1}<br>${effect2}`
     }
   },
   [AntUpgrades.Salvage]: {
@@ -194,7 +200,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     antUpgradeHTML: {
       color: 'green'
     },
-    minimumResetTier: AntSacrificeTiers.sacrifice,
+    minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
     autobuy: () => Boolean(getAchievementReward('scientiaAutobuy')),
     name: () => i18next.t('ants.upgrades.salvage.name'),
@@ -370,7 +376,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     }
   },
   [AntUpgrades.AscensionScore]: {
-    baseCost: Decimal.fromString('1e100'),
+    baseCost: Decimal.fromString('1e300'),
     costIncreaseExponent: 2,
     antUpgradeHTML: {
       color: 'orange'
@@ -382,14 +388,18 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.ascensionScore.intro'),
     description: () => i18next.t('ants.upgrades.ascensionScore.description'),
     effect: (n: number) => {
-      const ascensionScoreBase = 2 * n
+      const ascensionScoreBase = 1000000 * (1 - Math.pow(0.999, n))
+      const bankedCubes = 4 * n
       return {
+        cubesBanked: bankedCubes,
         ascensionScoreBase: ascensionScoreBase,
       }
     },
     effectDescription: () => {
-      const ascensionScoreBase = getAntUpgradeEffect(AntUpgrades.AscensionScore)
-      return i18next.t('ants.upgrades.ascensionScore.effect', { x: format(ascensionScoreBase.ascensionScoreBase, 0, true) })
+      const effects = getAntUpgradeEffect(AntUpgrades.AscensionScore)
+      const effect1 = i18next.t('ants.upgrades.ascensionScore.effect', { x: format(effects.ascensionScoreBase, 0, true) })
+      const effect2 = i18next.t('ants.upgrades.ascensionScore.effect2', { x: format(effects.cubesBanked, 0, true) })
+      return `${effect1}<br>${effect2}`
     }
   },
   [AntUpgrades.WowCubes]: {
@@ -406,7 +416,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     },
     effect: (n: number) => {
       return {
-        wowCubes: 1 + n / 500,
+        wowCubes: 2 - Math.pow(0.999, n),
       }
     },
     effectDescription: () => {

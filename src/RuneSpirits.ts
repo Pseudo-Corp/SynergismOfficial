@@ -111,13 +111,13 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
     costCoefficient: new Decimal(1e60),
     levelsPerOOM: 2,
     effects: (level) => {
-      const crystalCaps = 1 + level / 1e9
+      const crystalCaps = level / 1e9
       return { crystalCaps }
     },
     effectsDescription: (level) => {
       const crystalCaps = runeSpirits.prism.effects(level).crystalCaps
       return i18next.t('runes.spirits.prism.crystalCaps', {
-        val: formatAsPercentIncrease(crystalCaps, 2)
+        val: format(crystalCaps, 2, true)
       })
     },
     effectiveLevelMult: () => spiritMultiplier('prism'),

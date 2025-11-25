@@ -32,7 +32,7 @@ export type AntUpgradeTypeMap = {
   [AntUpgrades.AcceleratorBoosts]: { acceleratorBoostMult: number }
   [AntUpgrades.Multipliers]: { multiplierMult: number }
   [AntUpgrades.Offerings]: { offeringMult: number }
-  [AntUpgrades.BuildingCostScale]: { buildingCostScale: number }
+  [AntUpgrades.BuildingCostScale]: { buildingCostScale: number, buildingPowerMult: number }
   [AntUpgrades.Salvage]: { salvage: number }
   [AntUpgrades.FreeRunes]: { freeRuneLevel: number }
   [AntUpgrades.Obtainium]: { obtainiumMult: number }
@@ -55,6 +55,7 @@ export type AntUpgradeTypeMap = {
     ascensionSpeed: number
   },
   [AntUpgrades.AscensionScore]: {
+    cubesBanked: number
     ascensionScoreBase: number
   },
   [AntUpgrades.WowCubes]: {

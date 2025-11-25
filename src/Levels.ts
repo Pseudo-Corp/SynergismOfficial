@@ -354,7 +354,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
           : i18next.t('achievements.rewardTypes.locked')
       })
     },
-    levelReq: 10,
+    levelReq: 7,
     displayOrder: 2
   },
   speedRune: {

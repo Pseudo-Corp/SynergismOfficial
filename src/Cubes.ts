@@ -345,10 +345,11 @@ export const calculateObtainiumCubeBlessing = () => {
 }
 
 export const calculateAntSpeedCubeBlessing = () => {
-  const effectPerBlessing = 1 / 10000
+  const effectPerBlessing = 1 / 1000
   const exponentIncrease = player.cubeUpgrades[22] / 40
+  const firstBonus = 0.1 * Math.min(player.cubeBlessings.antSpeed, 1)
 
-  return Decimal.pow(1 + effectPerBlessing * player.cubeBlessings.antSpeed, 2 + exponentIncrease)
+  return Decimal.pow(1 + effectPerBlessing * player.cubeBlessings.antSpeed + firstBonus, 2 + exponentIncrease)
     .times(calculateAntSpeedTesseractBlessing())
 }
 
@@ -371,7 +372,7 @@ export const calculateAntELOCubeBlessing = () => {
   const effectExponent = 1 + player.cubeUpgrades[25] / 100
 
   return Math.pow(
-    1 + Math.log10(1 + player.cubeBlessings.antELO) / 100 * calculateAntELOTesseractBlessing(),
+    1 + 0.1 * Math.log10(1 + player.cubeBlessings.antELO) * calculateAntELOTesseractBlessing(),
     effectExponent
   )
 }
