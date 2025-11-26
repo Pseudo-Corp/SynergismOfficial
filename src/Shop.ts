@@ -1760,7 +1760,7 @@ export const useConsumablePrompt = async (
   used = 1,
   spend = true
 ) => {
-  const p = player.shopConfirmationToggle || await Confirm('Would you like to use some of this potion?')
+  const p = !player.shopConfirmationToggle || await Confirm('Would you like to use some of this potion?')
 
   if (p) {
     return useConsumable(input, false, used, spend)
