@@ -3620,20 +3620,6 @@ export const resourceGain = (dt: number): void => {
       challengeAchievementCheck(ascendchal)
     }
   }
-  if (ascendchal === 15) {
-    if (
-      player.coins.gte(
-        challengeRequirement(
-          ascendchal,
-          player.challengecompletions[ascendchal],
-          ascendchal
-        )
-      )
-    ) {
-      void resetCheck('ascensionChallenge', false)
-      challengeAchievementCheck(15)
-    }
-  }
 }
 
 export const updateAntMultipliers = (): void => {
@@ -4167,6 +4153,7 @@ export const resetCheck = async (
       if (player.challenge15Exponent >= 1e15) {
         player.unlocks.hepteracts = true
       }
+      awardUngroupedAchievement('sadisticAch')
     }
 
     if (

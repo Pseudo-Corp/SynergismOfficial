@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { awardAchievementGroup, challengeAchievementCheck, getAchievementReward } from './Achievements'
+import { awardAchievementGroup, awardUngroupedAchievement, challengeAchievementCheck, getAchievementReward } from './Achievements'
 import type { BlueberryLoadoutMode } from './BlueberryUpgrades'
 import { buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy'
 import type { TesseractBuildings } from './Buy'
@@ -534,6 +534,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
 
     awardAchievementGroup('ascensionCount')
+    awardUngroupedAchievement('ascended')
 
     player.obtainium = player.obtainium.add(obtainiumToGain)
 
@@ -715,6 +716,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     calculateAnts()
     calculateObtainium()
     awardAchievementGroup('ascensionCount')
+    awardUngroupedAchievement('ascended')
 
     player.ascensionCounter = 0
     player.ascensionCounterReal = 0
