@@ -6442,7 +6442,7 @@
         "9": "米达斯的贡品×{{amount}}：使符文强度增加{{bonus}}",
         "10": "柯罗诺斯的贡品×{{amount}}：使全局速度增加{{bonus}}"
       },
-      "full": "▼ 您的贡品已经<span class='rainbowText'>溢出</span>了！<br><<gold | ⚠>>您无法再获得方盒贡品。<br><<cyan|♔>> 花费的方盒仍然计入夸克目标。<br><<orchid|✧>> 在终局这么远的地方，很孤单。"
+      "full": "▼ 您的贡品已经<span class='rainbowText'>溢出</span>了！<br><<gold | ⚠>> 您无法再获得方盒贡品。<br><<cyan|♔>> 花费的方盒仍然计入夸克目标。<br><<orchid|✧>> 在终局这么远的地方，很孤单。"
     },
     "tesseracts": {
       "intro": "您从另一个维度的生物那边获得了指引！",
