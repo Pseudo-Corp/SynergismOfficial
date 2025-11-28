@@ -12,35 +12,35 @@
   "ambrosia": {
     "ambrosia": "Ambrozja",
     "amount": "Ambrosia: <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Current | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Lifetime",
-    "blueberryAmount": "Blueberries: <<lightblue | {{unspentBlueberries}}>> Unspent | <<lightblue | {{blueberries}}>> Total",
-    "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> Ambrosia Bar Points.",
+    "blueberryAmount": "Jagody <<lightblue | {{unspentBlueberries}}>>  ",
+    "blueberryGeneration": "Każdej sekundy, zyskaj  <<var(--amber-text-color)|{{chance}}>>  Niewykorzystane | <<lightblue | {{blueberries}}>> Łączne",
     "perGen": "Aktualnie zyskuje <<var(--amber-text-color)|{{guaranteed}}>> z <<var(--amber-text-color)|{{extraChance}}%>> szansy na inne. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "Obecnie masz<<var(--amber-text-color)|{{blueberrySecond}}>> zgromadzonych sekund borówek! Produkuję Ambrozję kiedy <<blue|{{thresholdTimer}}>> jest zgomadzone.",
-    "generatedCubeBonus": "Cubes <<yellow|+{{cubeBonus}}>>",
-    "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}>>",
-    "generatedLuckBonus": "Ambrosia Luck <<lime|+{{luckBonus}}>>",
-    "generatedBlueberryBonus": "Ambrosia Bar Point Gain <<blue|+{{blueberryBonus}}>>",
+    "generatedCubeBonus": "Kostki <<yellow|+{{cubeBonus}}>>",
+    "generatedQuarkBonus": "Kwartki <<cyan|+{{quarkBonus}}>>",
+    "generatedLuckBonus": "Szczęście Ambrozji <<lime|+{{luckBonus}}>>",
+    "generatedBlueberryBonus": "Zyskane punkty paska Ambrozji",
     "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}>>",
-    "generatedOfferingBonus": "Offerings <<orange|+{{offeringBonus}}>>",
+    "generatedOfferingBonus": "ofiary  <<orange|+{{offeringBonus}}>>",
     "prerequisite": "Wymagania wstępne:",
     "prereqNotMet": " (Nie spełnione!)",
     "blueberryCost": "Borówki (Aby aktywować):",
     "prereqNotMetAlert": "Nie spełniasz wszystkich warunków, aby zakupić to ulepszenie.",
     "notEnoughBlueberries": "Nie masz wystarczającej ilości borówek, aby aktywować ten moduł.",
-    "timeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia.",
-    "cubeUpgradeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Ambrosia Bar Point gain +{{percent}}%>>!",
-    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} Ambrosia Luck>>!",
+    "timeThresholds": "Wymagania dotyczące podwojenia punktów paska Ambrozji zostały spełnione  <<cyan | {{threshold}}>> razy z powodu trwającej przez całe życie ambrozji. Kolejne podwojenie w <<orange|{{toNext}}>> Łączna Ambrozja",
+    "cubeUpgradeThresholds": "Wymagania dotyczące podwojenia punktów paska Ambrozji zostały spełnione  <<cyan | {{threshold}}>> razy z powodu trwającej przez całe życie ambrozji. Kolejne podwojenie w <<orange|{{toNext}}>> Łączna Ambrozja <<cyan | Ambrosia Bar Point gain +{{percent}}%>>!",
+    "cubeUpgradeRedBarFills": "Twój czerwony pasek napełnił się <<maroon | {{amount}}>> razy podczas gdy ulepszenie ciastek 29 zostało zakupione, dając  <<green | +{{luck}} Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "Ile Ambrozji chciałbyś wydać? Masz {{amount}} Ambrozji. Wpisz -1, aby użyć wszystko!",
     "refund": "Wszystkie zużyte borówki i Ambrozja zostały zwrócone.",
     "refundWord": "Zwróć",
-    "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
-    "notUnlocked": "Clear No Golden Quark Upgrades, Tier 1!",
-    "ambrosiaCost": "Cost for next level: <<orange | {{amount}}>> Ambrosia",
+    "ignoreEXALT": "[<<white|♔>>] To ulepszenie  jest aktywne, nawet jeśli EXALT twierdzi inaczej!",
+    "notUnlocked": "Nie resetuj ulepszenia za Złote kwarki, Poziom 1!",
+    "ambrosiaCost": "Koszt następnego poziomu: <<orange | {{amount}}>> Ambrozji",
     "data": {
       "ambrosiaTutorial": {
         "name": "Moduł samouczka Ambrozji",
-        "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes per level, +1% Quarks per level",
-        "effect": "This tutorial module increases Cube gain by {{cubeAmount}}% and Quarks by {{quarkAmount}}%"
+        "description": "Jagody generują Ambrozję z biegiem czasu, Wydaj je w drzewku rozwoju Ambrozji! +5% Kostek/poziom, +1% Kwarków/poziom",
+        "effect": "Ten moduł samouczka zwiększa ilość zdobytych kostek o  {{cubeAmount}}%  i Kwartków o  {{cubeAmount}}%"
       },
       "ambrosiaQuarks1": {
         "name": "Moduł Kwark Ambrozji I",
@@ -3488,7 +3488,7 @@
       "singQuarkImprover1": {
         "name": "Marginal Quark Gain Improver Thingy",
         "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
-        "effect": "otrzymasz {{n}}% więcej kwarków!"
+        "effect": "otrzymujesz {{n}}% więcej kwarków!"
       },
       "singQuarkHepteract": {
         "name": "I wish my Quark Hepteract was marginally better.",
@@ -3923,7 +3923,7 @@
       "112": "Wykładnik potęgi Ulepszenia --> Pudełka zwiększony z 0.08 do 0.16",
       "113": "Wykładnik potęgi Ulepszenia --> Pudełka zwiększony z 0.16 do 0.24",
       "114": "Wykładnik potęgi Ulepszenia --> Pudełka zwiększony z 0.24 do 0.32",
-      "115": "Wykładnik potęgi Ulepszenia --> Pudełka zwiększony z 0.32 do 0.40",
+      "115": "UlepszenieWykładnik potęgi Ulepszenia --> Pudełka zwiększony z 0.32 do 0.40",
       "116": "Protons can produce Grandmasters equal to Protons owned raised to 0.05",
       "117": "Wykładnik potęgi Protony --> Mistrzowie zwiększony z 0.05 do 0.10",
       "118": "Wykładnik potęgi Protony --> Mistrzowie zwiększony z 0.10 do 0.15",
@@ -3968,9 +3968,9 @@
       "1": "Spraw by budowle Teseraktów było o {{level}}% bardziej produktywne co poziom.",
       "2": "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max {{max}}%].",
       "3": "Increase Offering gain +2% per level.",
-      "4": "Zwiększa Zyski obtainium o +4% na poziom.",
+      "4": "Zwiększa Zyski Obtanium o +4% na poziom.",
       "5": "Pomnóż prędkość Mrówki przez (1 + log10(Constant + 1)/10)^poziom",
-      "6": "dodaje +2 darmowe poziomy mrówek na poziom.",
+      "6": "Dodaje +2 darmowe poziomy mrówek na poziom.",
       "7": "Provides 7 free rune levels per level, up to +7,000.",
       "8": "Increase the rune EXP given by Offerings by 10% per level [Additive]",
       "9": "When bought, Rune Power is increased by Log4(Talisman Shards +1) %",
@@ -4089,10 +4089,10 @@
       "wowCubes": "WOW! Kostki",
       "campaign": "Campaigns",
       "corruption": "Korupcja",
-      "singularity": "Osobliwość",
+      "singularity": "Singularność",
       "settings": "Ustawienia",
       "shop": "Sklep",
-      "unsmith": "Unsmith",
+      "unsmith": "Wydarzenia",
       "purchase": "PseudoCoins"
     },
     "buildings": {
@@ -4500,16 +4500,16 @@
     "current": "Obecnie: ",
     "next": " / Następne: ",
     "loadoutTable": {
-      "next": "Następne: ",
+      "next": "Następne:",
       "firstRowTitle": "Click to copy the next Corruptions to the clipboard. This is the format that can be imported",
-      "otherRowTitle": "Kliknij aby zmienić nazwę, skrót: SHIFT+{{ value }}",
+      "otherRowTitle": "Kliknij, by zmienić nazwę, skrót: SHIFT+{{ value }}",
       "import": "Wczytaj",
       "importTitle": "Wczytaj ustawienia korupcji w formacie tekstu",
-      "zero": "zero",
+      "zero": "Zero",
       "zeroTitle": "Reset Corruptions to zero on your next Ascension. Hotkey: SHIFT+9",
-      "save": "zapisz",
+      "save": "Zapisz",
       "saveTitle": "Save current Corruptions to this Loadout",
-      "load": "wczytaj"
+      "load": "Wczytaj"
     },
     "importCorruptionsPrompt": {
       "import": "Enter a Corruption Loadout to import for next Ascension. You can have it in the following format: \n {\"corr1Name\": num1, \"corr2Name\": num2, ...} \n It can also be in the following text format: num1/num2/.../num8 [Legacy] \n Possible corrNames: \"viscosity\", \"drought\", \"deflation\", \"extinction\", \"illiteracy\", \"recession\", \"dilation\". \"hyperchallenge\"",
@@ -4572,7 +4572,7 @@
     "runes": "Press [1], [2], [3], [4], [5], [6], or [7] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!",
     "challenges": {
       "hotkey": "Press [1], [2]... up to [0] on your keyboard to enter challenges 1 to 10. Press [E] to exit your Transcension or Reincarnation challenge if stuck!",
-      "finishTranscension": "If you are unable to finish a Transcension challenge, press the hotkey listed above OR click on the red Challenge \"C\" button on the reset buttons on top.",
+      "finishTranscension": "Jeśli nie możesz zakończyć wyzwania Transcenzja, Naciśnij klawisz skrótu wymieniony powyżej LUB kliknij na fioletowe Wyzwanie \"C\" na przyciskach resetowania na górze.",
       "leaveReincarnation": "To leave a reincarnation challenge, press the grey Challenge \"C\" instead!"
     },
     "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> Researches first. The <<var(--crimson-text-color);|red-bordered>> Researches are never reset whereas the <<white;|white-bordered>> Researches will reset upon the next reset tier!",
@@ -4672,7 +4672,7 @@
     },
     "crystalUpgrades": {
       "currentLevel": "Current Level: <<lightblue|{{amount}}>>",
-      "cost": "Koszt: <<lightblue|{{amount}}>> kryształów",
+      "cost": "Koszt: <<lightblue|{{amount}}>> Kryształów",
       "currentEffect": "Bieżący efekt: <<lightblue|{{effect}}>>"
     },
     "mythosYouHave": "You have {{shards}} Mythos Shards, providing {{mult}} Multiplier Power boosts.",
@@ -5375,7 +5375,7 @@
       "acceptFailure": "You have been transported back to your highest reached Singularity. Try again soon! -Derpsmith"
     },
     "toString": {
-      "canEnter": "Can be entered at highest Singularity {{unlockSing}} [Your highest: {{highestSing}}]",
+      "canEnter": "Można wprowadzić po osiągnięciu jedności {{unlockSing}} [Twoja najwyższa: {{highestSing}}]",
       "tiersCompleted": "Tiers completed",
       "currentTierSingularity": "The current tier of this challenge takes place in Singularity"
     },
@@ -5512,7 +5512,7 @@
       "disabled": "Disabled (No symbols by stats)"
     },
     "joinDiscord": "Click the image below to join the Discord!",
-    "joinPatreon": "Support Development on Patreon!",
+    "joinPatreon": "Wspomóż rozwój na Patreon!",
     "exportQuark": "{{x}}s until +{{y}} export Quark",
     "exportGoldenQuark": "{{x}}s until +{{y}} export Golden Quark",
     "quarksOnExport": "Quarks on export: {{x}} [Max {{y}}]",
@@ -6710,7 +6710,7 @@
     "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism2021\" or \"Khafra\" perchance?]",
     "comeBackSoon": "Alright, come back soon!",
     "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
-    "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use? You can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you use all attempts except the specified number.",
+    "useXAdds": "Możesz na raz wykorzystać następującą liczbę akcji: {{x}}. Ile chcesz użyć? Możesz również podać minusową liczbę, wtedy zostaną użyte wszystkie próby oprócz podanej liczby prób.",
     "cancelAdd": "No worries, you didn't lose any of your uses! Come back later!",
     "daily0Uses": "0 uses left. Next: end of the day.",
     "daily1Uses": "1 use left. Next: end of the day.",
@@ -6734,7 +6734,7 @@
         "calculator7": "Finally, thanks to PL-AT Ω you have gained {{x}} real-life seconds of Ambrosia Bar Points!",
         "calculatorSolution": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}? The answer is {{z}} according to your calculator.",
         "calculatorPrompt": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}?",
-        "calculatorMaxed": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} You have {{i}} uses of Add. You will gain 1 in {{j}} seconds.",
+        "calculatorMaxed": "Twój kalkulator sam doszedł do wniosku, że {{a}} + {{b}} = {{c}}, Otrzymano więc następującą liczbę Kwarków: {{d}} ! {{e}}{{f}}{{g}}{{h}} Liczba pozostałych użyć Dodawania: {{i}}. Otrzymasz jedno Dodawanie za następującą liczbę sekund: {{j}}.",
         "freeLevel": "Moreover, gain {{x}} free levels of GQ1 and {{y}} free levels of GQ3!!!",
         "cancelled": "No worries, you didn't lose any of your uses! Come back later!",
         "reward": "You were awarded {{a}} Quarks! {{b}} {{c}} {{d}} You have {{e}} uses of Add. You will gain 1 in {{f}} seconds.",
@@ -6806,7 +6806,7 @@
     "singularityConfirm2": "Are you sure you wish to enter the Singularity?",
     "singularityConfirm3": "Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.",
     "noAntiquity": "Hmph. Please return with an Antiquity. Thank you. -Ant God",
-    "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.",
+    "insideSingularityChallenge": "Derpsmith uważa, że jesteś w wyzwaniu Singularności. Możesz go opuścić, klikając ikonę wyzwania w zakładce Exalt.",
     "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
     "exitAscensionChallenge": "Czy na pewno chcesz wyjść z Wyzwania Wniebowstąpienia? Musisz przejść wyzwanie 10 jeszcze raz, zanim będzie można ponownie podejść do wyzwania!",
     "buyResearch3x11": "[ZABLOKOWANY - Kup badania 3x11]",
