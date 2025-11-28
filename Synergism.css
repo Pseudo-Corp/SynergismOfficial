@@ -162,8 +162,9 @@ html[data-legacyicons="true"] {
     background-color: crimson;
 }
 
-#corrStatsBtn.active-subtab,
-#corrLoadoutsBtn.active-subtab {
+#switchCorruptionSubTab1.active-subtab,
+#switchCorruptionSubTab2.active-subtab,
+#switchCorruptionSubTab3.active-subtab {
     background-color: dodgerblue;
 }
 
@@ -747,12 +748,7 @@ button.isEvent:hover {
     color: var(--hypercube-color);
 }
 
-#campaigntab {
-    border-color: red;
-    color: orange;
-}
-
-#traitstab {
+#corruptiontab {
     border-color: orange;
     color: red;
 }
@@ -3163,8 +3159,9 @@ p#ascendHotKeys {
 
 #campaigns {
     justify-content: center;
-    align-items: start;
+    align-items: center;
     margin-top: 10px;
+    width: 90%;
 }
 
 #campaignsMain {
@@ -3332,7 +3329,13 @@ p#ascendHotKeys {
     margin-bottom: 1px;
 }
 
-#traits {
+#corruption {
+    position: relative;
+    padding: 0;
+    text-align: center;
+}
+
+#corruptionContainer {
     justify-content: center;
     align-items: start;
 
@@ -3423,8 +3426,13 @@ p#ascendHotKeys {
     text-align: center;
 }
 
-#corrStatsBtn,
-#corrLoadoutsBtn {
+#corruptionsubtab {
+    align-items: center;
+}
+
+#switchCorruptionSubTab1,
+#switchCorruptionSubTab2,
+#switchCorruptionSubTab3 {
     min-width: 120px;
     max-width: 100%;
     border: 2px solid;

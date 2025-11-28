@@ -10,7 +10,7 @@ import {
   toggleAchievementScreen,
   toggleBuildingScreen,
   toggleChallengesScreen,
-  toggleCorruptionLoadoutsStats,
+  toggleCorruptionScreen,
   toggleCubeSubTab,
   toggleRuneScreen,
   toggleSingularityScreen
@@ -28,13 +28,12 @@ export enum Tabs {
   Research = 5,
   AntHill = 6,
   WowCubes = 7,
-  Campaign = 8,
-  Corruption = 9,
-  Singularity = 10,
-  Settings = 11,
-  Shop = 12,
-  Event = 13,
-  Purchase = 14
+  Corruption = 8,
+  Singularity = 9,
+  Settings = 10,
+  Shop = 11,
+  Event = 12,
+  Purchase = 13
 }
 
 /**
@@ -268,24 +267,25 @@ const subtabInfo: Record<Tabs, SubTab> = {
       }
     ]
   },
-  [Tabs.Campaign]: {
-    subTabList: [],
-    subtabIndex: 0
-  },
   [Tabs.Corruption]: {
-    tabSwitcher: () => toggleCorruptionLoadoutsStats,
+    tabSwitcher: () => toggleCorruptionScreen,
     subtabIndex: 0,
     subTabList: [
       {
-        subTabID: 'true',
+        subTabID: '0',
         unlocked: true,
-        buttonID: 'corrStatsBtn'
+        buttonID: 'switchCorruptionSubTab1'
       },
       {
-        subTabID: 'false',
+        subTabID: '1',
         unlocked: true,
-        buttonID: 'corrLoadoutsBtn'
-      }
+        buttonID: 'switchCorruptionSubTab2'
+      },
+      {
+        subTabID: '2',
+        unlocked: true,
+        buttonID: 'switchCorruptionSubTab3'
+      },
     ]
   },
   [Tabs.Singularity]: {
@@ -634,12 +634,7 @@ tabRow.appendButton(
     .setType(Tabs.WowCubes)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal11', id: 'campaigntab', i18n: 'tabs.main.campaign' })
-    .setUnlockedState(() => player.challengecompletions[11] > 0)
-    .setType(Tabs.Campaign)
-    .makeDraggable()
-    .makeRemoveable(),
-  new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
+  new $Tab({ class: 'chal11', id: 'corruptiontab', i18n: 'tabs.main.corruption' })
     .setUnlockedState(() => (player.challengecompletions[11] > 0))
     .setType(Tabs.Corruption)
     .makeDraggable()

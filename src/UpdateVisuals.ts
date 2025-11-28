@@ -2073,5 +2073,3 @@ export const visualUpdateEvent = () => {
 }
 
 export const visualUpdatePurchase = () => {}
-
-export const visualUpdateCampaign = () => {}
