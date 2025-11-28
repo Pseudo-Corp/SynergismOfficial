@@ -7,6 +7,9 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
+    "@capacitor/android": "^7.4.4",
+    "@capacitor/core": "^7.4.4",
+    "@capacitor/ios": "^7.4.4",
     "@paypal/paypal-js": "^8.2.0",
     "@ungap/custom-elements": "^1.3.0",
     "break_infinity.js": "^2.0.0",
@@ -21,6 +24,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@capacitor/cli": "^7.4.4",
     "@types/cloudflare-turnstile": "^0.2.2",
     "@types/lodash.clonedeepwith": "^4.5.9",
     "@types/lz-string": "^1.3.34",
@@ -52,7 +56,9 @@
     "prepare": "husky install",
     "cloudflare:build": "node scripts/needsBundling.js || npm run build:esbuild",
     "msw:init": "npx -y msw init . --save",
-    "check-circular": "madge --circular src/"
+    "check-circular": "madge --circular src/",
+    "cap:copy": "mkdir -p dist-cap && cp -r Pictures translations dist Synergism.css index.html dist-cap/",
+    "cap:build": "npm run build:esbuild && npm run cap:copy && npx cap sync"
   },
   "repository": {
     "type": "git",
