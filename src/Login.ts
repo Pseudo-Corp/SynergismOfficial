@@ -976,6 +976,8 @@ function handleCloudSaves () {
       body: fd
     }).then((response) => {
       if (!response.ok) {
+        response.text().then((error) => Notification(error || i18next.t('settings.cloud.uploadFailed')))
+
         throw new TypeError(`Received status ${response.status}`)
       }
 

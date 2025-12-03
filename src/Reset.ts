@@ -1,6 +1,11 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { awardAchievementGroup, awardUngroupedAchievement, challengeAchievementCheck, getAchievementReward } from './Achievements'
+import {
+  awardAchievementGroup,
+  awardUngroupedAchievement,
+  challengeAchievementCheck,
+  getAchievementReward
+} from './Achievements'
 import type { BlueberryLoadoutMode } from './BlueberryUpgrades'
 import { buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy'
 import type { TesseractBuildings } from './Buy'
