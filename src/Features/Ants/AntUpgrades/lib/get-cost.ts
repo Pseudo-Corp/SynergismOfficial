@@ -41,8 +41,8 @@ export const getMaxPurchasableAntUpgrades = (antUpgrade: AntUpgrades, budget: De
     ? data.baseCost.times(
       Decimal.pow(
         10,
-        data.costIncreaseExponent *
-        (player.ants.upgrades[antUpgrade] - 1)
+        data.costIncreaseExponent
+          * (player.ants.upgrades[antUpgrade] - 1)
       )
     )
     : Decimal.fromNumber(0)

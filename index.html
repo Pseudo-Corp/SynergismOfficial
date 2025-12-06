@@ -1659,11 +1659,12 @@
             <div id="antSubtabs">
                 <button id="toggleAntSubtab1" class="active-subtab" style="border: 2px solid burlywood" i18n="tabs.ants.anthill"></button>
                 <button id="toggleAntSubtab2" style="border: 2px solid purple" i18n="tabs.ants.altar"></button>
+                <button id="toggleAntSubtab3" style="border: 2px solid cyan" i18n="tabs.ants.quarkCorner"></button>
             </div>
 
             <div id="antSubtab1" style="display: flex;">
-                <div id="antsWelcomeTexts">
-                    <p id="antwelcome" style="color: lightslategrey" i18n="ants.header"></p>
+                <div id="antsWelcomeTexts" class="introTextContainer">
+                    <p id="antwelcome" style="color: lightslategrey" i18n="ants.header" class="introText"></p>
                     <p id="antdescription" style="color: plum" i18n="ants.hover"></p>
                     <p id="crumbcount" class="crimsonText"></p>
                     <p id="crumbsPerSecond" style="color: maroon"></p>
@@ -1766,8 +1767,8 @@
                 </div>
             </div>
             <div id="antSubtab2" style="display: none;">
-                <div id="antSacrificeWelcomeTexts">
-                    <p id="antAltarWelcome" style="color: lightslategrey" i18n="ants.altarHeader"></p>
+                <div id="antAltarWelcomeTexts" class="introTextContainer">
+                    <p id="antAltarWelcome" style="color: lightslategrey" class="introText" i18n="ants.altarHeader"></p>
                     <p id="antAltarDescription" style="color: plum" i18n="ants.altarDetails"></p>
                 </div>
                 <div id="sacrificeAntsLocked">
@@ -1777,7 +1778,43 @@
                     </div>
                 </div>
                 <div id="sacrificeAnts" style="display: none">
-                    <div id="sacrificeStatus">
+                    <div id="eloCorner" class="sacrificeAntsContainer">
+                        <p style="font-size: 1.3em" i18n="ants.altar.titles.elo"></p>
+                        <button id="immortalELOInfoToggleButton" class="antLeaderboardToggleBtn" data-mode="overview">
+                            <span i18n="ants.compendium.toggleOverview"></span>
+                        </button>
+                        <div id="immortalELOOverview" style="display: flex">
+                            <p id="ELO"></p>
+                            <p id="immortalELO"></p>
+                            <p id="immortalELOGain"></p>
+                            <br>
+                            <p id="activatedImmortalELO"></p>
+                            <p id="rebornELOPerSecond"></p>
+                            <p id="rebornELOTimeRemaining"></p>
+                            <p id="immortalELOAntSpeed"></p>
+                            <br>
+                            <p id="ELOStage"></p>
+                            <p id="immortalELOOfferings"></p>
+                            <p id="immortalELOObtainium"></p>
+                            <p id="immortalELOTalismanFragments"></p>
+                            <p id="immortalELOCreationSpeed"></p>
+                        </div>
+                        <div id="immortalELOInfo" style="display: none;">
+                            <p id="immortalELODescription" i18n="ants.rebornELOInfo"></p>
+                            <p id="immortalELODescription2" i18n="ants.rebornELOInfo2"></p>
+                            <p id="immortalELODescription3" i18n="ants.rebornELOInfo3"></p>
+                            <br>
+                            <p id="eloStageDetail1" i18n="ants.stageInfo"></p>
+                            <p id="eloStageDetail2" i18n="ants.stageInfo2"></p>
+                            <br>
+                            <p id="eloStageTranche1" i18n="ants.stageTranche1"></p>
+                            <p id="eloStageTranche2" i18n="ants.stageTranche2"></p>
+                            <p id="eloStageTranche3" i18n="ants.stageTranche3"></p>
+                            <p id="eloStageTranche4" i18n="ants.stageTranche4"></p>
+                            <p id="eloStageTranche5" i18n="ants.stageTranche5"></p>
+                        </div>
+                    </div>
+                    <div id="altar" class="sacrificeAntsContainer">
                         <p style="font-size: 1.3em" i18n="ants.altar.titles.altar"></p>
                         <button id="antSacrifice" i18n-aria-label="ants.antSacrifice" style="display: inline-block;">
                         <img alt="" src="Pictures/Default/AntSacrifice.png" style="cursor: pointer; display: block;" loading="lazy">
@@ -1785,13 +1822,8 @@
                         <p id="anthillAliveText" i18n="ants.anthillAlive"></p>
                         <p id="antSacrificeTimer" class="bodycolor"></p>
                         <p id="antSacrificeNumber" class="bodycolor"></p>
-                        <p id="sacrificeTimeMultiplier"></p>
-                        <p id="sacrificeUpgradeMultiplier"></p>
-                        <p id="crumbCountAgain" class="crimsonText"></p>
-                        <p id="ELO"></p>
-                    </div>
-                    <div id="autoSacrificeSettings">
-                        <p style="font-size: 1.3em" i18n="ants.altar.titles.automator"></p>
+                        <p id="antSacrificeRequired" class="bodycolor"></p>
+                        <br>
                         <div id="autoSacrificeLocked">
                             <p i18n="ants.altar.autoSacrificeLocked.info"></p>
                             <p id="anthillsRemainingForAutoSac"></p>
@@ -1821,43 +1853,8 @@
                             <span id="sacrificeSecondsElapsed"></span>
                         </div>
                     </div>
-                </div>
-                <div id="antSacrificeImmortalAndWorldlyRewards" style="width: 90%;">
-                    <div id="antSacrificeImmortalELO" style="width: 30%;">
-                        <p style="font-size: 1.3em; text-decoration: underline solid crimson 2px" i18n="ants.altar.titles.immortality"></p>
-                        <button id="immortalELOInfoToggleButton" class="antLeaderboardToggleBtn" data-mode="overview">
-                            <span i18n="ants.compendium.toggleOverview"></span>
-                        </button>
-                        <div id="immortalELOOverview" style="display: flex">
-                            <p id="immortalELO"></p>
-                            <p id="immortalELOGain"></p>
-                            <br>
-                            <p id="activatedImmortalELO"></p>
-                            <p id="immortalELOAntSpeed"></p>
-                            <br>
-                            <p id="ELOStage"></p>
-                            <p id="immortalELOOfferings"></p>
-                            <p id="immortalELOObtainium"></p>
-                            <p id="immortalELOTalismanFragments"></p>
-                            <p id="immortalELOCreationSpeed"></p>
-                        </div>
-                        <div id="immortalELOInfo" style="display: none;">
-                            <p id="immortalELODescription" i18n="ants.rebornELOInfo"></p>
-                            <p id="immortalELODescription2" i18n="ants.rebornELOInfo2"></p>
-                            <p id="immortalELODescription3" i18n="ants.rebornELOInfo3"></p>
-                            <br>
-                            <p id="eloStageDetail1" i18n="ants.stageInfo"></p>
-                            <p id="eloStageDetail2" i18n="ants.stageInfo2"></p>
-                            <br>
-                            <p id="eloStageTranche1" i18n="ants.stageTranche1"></p>
-                            <p id="eloStageTranche2" i18n="ants.stageTranche2"></p>
-                            <p id="eloStageTranche3" i18n="ants.stageTranche3"></p>
-                            <p id="eloStageTranche4" i18n="ants.stageTranche4"></p>
-                            <p id="eloStageTranche5" i18n="ants.stageTranche5"></p>
-                        </div>
-                    </div>
-                    <div id="antSacrificeRewards" style="width: 40%;">
-                        <p id="antSacrificeRewardsTitle" style="font-size: 1.3em; text-decoration: underline solid var(--lightseagreen-text-color) 2px" i18n="ants.altar.titles.worldRewards"></p>
+                    <div id="antSacrificeRewards" class="sacrificeAntsContainer">
+                        <p id="antSacrificeRewardsTitle" style="font-size: 1.3em;" i18n="ants.altar.titles.worldRewards"></p>
                         <div id="antSacrificeObtainiumOfferings">
                             <div class="antSacrificeRewardColumn" style="border: 2px solid orange; border-radius: 4px;">
                                 <img src="Pictures/Default/Offering.png" i18n="general.resources.offering" loading="lazy">
@@ -1901,32 +1898,39 @@
                             </div>
                         </div>
                     </div>
-                    <div id="antSacrificeCompendium" style="width: 30%;">
-                        <p style="font-size: 1.3em; text-decoration: underline solid cyan 2px;" i18n="ants.altar.titles.compendium"></p>
-                        <div id="antSacrificeCompendiumInfo">
-                            <div id="antLeaderboardContainer">
-                                <button id="antLeaderboardToggle" class="antLeaderboardToggleBtn" data-mode="daily">
-                                    <span i18n="ants.leaderboard.toggleDaily"></span>
-                                </button>
-                                <div id="antLeaderboardValue" style="margin: 10px 0;">
-                                    <span id="antLeaderboardValueAmount">0</span>
-                                    <br>
-                                    <span id="antLeaderboardQuarkValueAmount"></span>
-                                </div>
-                                <table id="antLeaderboardTable">
-                                    <thead>
-                                        <tr>
-                                            <th i18n="ants.leaderboard.rank"></th>
-                                            <th i18n="ants.leaderboard.elo"></th>
-                                            <th i18n="ants.leaderboard.stages"></th>
-                                            <th i18n="ants.leaderboard.weight"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="antLeaderboardTableBody">
-                                        <!-- Rows will be dynamically generated -->
-                                    </tbody>
-                                </table>
+                </div>
+            </div>
+            <div id="antSubtab3" style="display: none;">
+                <div id="antCompendiumWelcomeTexts" class="introTextContainer">
+                    <p id="antCompendiumWelcome" style="color: lightslategrey" class="introText" i18n="ants.compendiumHeader"></p>
+                    <p id="antCompendiumDescription" style="color: cyan" i18n="ants.compendiumDetails"></p>
+                </div>
+                <div id="antSacrificeCompendium">
+                    <p style="font-size: 1.3em;" i18n="ants.altar.titles.compendium"></p>
+                    <div id="antSacrificeCompendiumInfo">
+                        <div id="antLeaderboardContainer">
+                            <button id="antLeaderboardToggle" class="antLeaderboardToggleBtn" data-mode="daily">
+                                <span i18n="ants.leaderboard.toggleDaily"></span>
+                            </button>
+                            <div id="antLeaderboardValue" style="margin: 10px 0;">
+                                <span id="antLeaderboardValueAmount">0</span>
+                                <br>
+                                <span id="antLeaderboardQuarkValueAmount"></span>
                             </div>
+                            <br>
+                            <table id="antLeaderboardTable">
+                                <thead>
+                                    <tr>
+                                        <th i18n="ants.leaderboard.rank"></th>
+                                        <th i18n="ants.leaderboard.elo"></th>
+                                        <th i18n="ants.leaderboard.stages"></th>
+                                        <th i18n="ants.leaderboard.weight"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="antLeaderboardTableBody">
+                                    <!-- Rows will be dynamically generated -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -2762,7 +2766,6 @@
             <p id="corruptionMultiplierTotal" class="tightText"></p>
             <p id="corruptionDifficultyTotal" class="tightText"></p>
             <p id="corruptionSpiritTotal" class="chal12 tightText" style="color: gold"></p>
-            <p id="corruptionAntExponent" class="tightText crimsonText"></p>
             <p id="corruptionBank" class="tightText" style="color: white"></p>
             <p id="corruptionScore" class="tightText" style="color: white"></p>
             <p id="corruptionScoreDR" class="tightText" style="color: red" i18n="corruptions.corruptionScoreDR"></p>

@@ -1,4 +1,5 @@
 import i18next from 'i18next'
+import { AntSacrificeTiers } from '../../../../Reset'
 import { format, player } from '../../../../Synergism'
 import { antUpgradeData } from '../../AntUpgrades/data/data'
 import { computeFreeAntUpgradeLevels } from '../../AntUpgrades/lib/free-levels'
@@ -9,7 +10,6 @@ import {
 } from '../../AntUpgrades/lib/get-cost'
 import { calculateTrueAntLevel } from '../../AntUpgrades/lib/total-levels'
 import type { AntUpgrades } from '../../AntUpgrades/structs/structs'
-import { AntSacrificeTiers } from '../../../../Reset'
 
 export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
   const upgradeData = antUpgradeData[antUpgrade]
@@ -61,19 +61,24 @@ export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
     costHTML = i18next.t('ants.costSingleLevel', { x: format(cost, 2, true) })
   }
 
+  let autoHTML: string
+  if (upgradeData.autobuy()) {
+    autoHTML = `<span style="color: lightgreen">${i18next.t('ants.upgrades.automationUnlocked')}</span>`
+  } else {
+    autoHTML = `<span style="color: gray">${upgradeData.lockedAutoDescription()}</span>`
+  }
+
   let resetHTML: string
   if (upgradeData.minimumResetTier === AntSacrificeTiers.sacrifice) {
     resetHTML = `<span style="color: crimson">${i18next.t('ants.upgrades.sacrificeReset')}</span>`
-  }
-  else if (upgradeData.minimumResetTier === AntSacrificeTiers.ascension) {
+  } else if (upgradeData.minimumResetTier === AntSacrificeTiers.ascension) {
     resetHTML = `<span style="color: orange">${i18next.t('ants.upgrades.ascensionReset')}</span>`
-  }
-  else {
+  } else {
     resetHTML = `<span style="color: lightgoldenrodyellow">${i18next.t('ants.upgrades.singularityReset')}</span>`
   }
 
   return `${nameHTML}<br>${introHTML}<br><br>
   ${levelHTML}${challengeHTML}${extinctionHTML}${exemptHTML}<br>${effectiveLevelHTML}<br><br>
-  ${descriptionHTML}<br>${effectHTML}<br><br>
+  ${descriptionHTML}<br>${effectHTML}<br>${autoHTML}<br><br>
   ${resetHTML}<br>${costHTML}`
 }

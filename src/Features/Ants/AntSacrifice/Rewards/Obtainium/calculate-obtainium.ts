@@ -3,9 +3,9 @@ import { calculateAntSacrificeMultiplier, calculateObtainium } from '../../../..
 import { offeringObtainiumTimeModifiers } from '../../../../../Statistics'
 import { player } from '../../../../../Synergism'
 
-export const calculateAntSacrificeObtainium = (stageMult: number) => {
+export const calculateAntSacrificeObtainium = (stageMult: number, useTime = true) => {
   const antSacMult = calculateAntSacrificeMultiplier()
-  const timeMultiplier = offeringObtainiumTimeModifiers(player.antSacrificeTimer, true).reduce(
+  const timeMultiplier = offeringObtainiumTimeModifiers(player.antSacrificeTimer, useTime).reduce(
     (a, b) => a * b.stat(),
     1
   )

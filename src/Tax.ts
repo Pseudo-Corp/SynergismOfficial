@@ -69,7 +69,7 @@ export const calculatetax = () => {
     0,
     sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12]
       - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15]
-      - 3 * player.cubeUpgrades[49] - ((player.singularityCount >= 15) ? 4 : 0)
+      - ((player.singularityCount >= 15) ? 4 : 0)
       - ((player.singularityCount >= 20) ? 1 : 0)
   )
   if (player.currentChallenge.ascension === 13) {
@@ -81,11 +81,11 @@ export const calculatetax = () => {
   }
   let exponent = 1
   exponent *= exp
-  exponent *= (1 - 0.06 * player.researches[51])
-  exponent *= (1 - 0.05 * player.researches[52])
-  exponent *= (1 - 0.05 * player.researches[53])
-  exponent *= (1 - 0.05 * player.researches[54])
-  exponent *= (1 - 0.05 * player.researches[55])
+  exponent *= 1 - 0.06 * player.researches[51]
+  exponent *= 1 - 0.05 * player.researches[52]
+  exponent *= 1 - 0.05 * player.researches[53]
+  exponent *= 1 - 0.05 * player.researches[54]
+  exponent *= 1 - 0.05 * player.researches[55]
   exponent *= +getAchievementReward('taxReduction')
   exponent *= Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6]))
   exponent *= getRuneEffects('duplication').taxReduction
@@ -128,14 +128,17 @@ export const calculatetax = () => {
 
   // Ant Upgrade "Fortunae Formicidae" gives a flat max exponent increase equal to its coin multi
   // It multiplies the coin production but is also tax-exempt, which we do by increasing the tax cap
-  // While also deducting the log value from `exponentForDivisor`. 
+  // While also deducting the log value from `exponentForDivisor`.
   // Implementing this was much more difficult than it needed to be.
   let flatMaxExponentIncrease = Decimal.log(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier, 10)
   flatMaxExponentIncrease += Decimal.log(calculateBuildingPowerCoinMultiplier(), 10)
 
   G.maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1 + flatMaxExponentIncrease
 
-  const exponentForDivisor = Math.max(0, Math.min(G.maxexponent, Math.floor(Decimal.log(G.produceTotal.add(1), 10))) - flatMaxExponentIncrease)
+  const exponentForDivisor = Math.max(
+    0,
+    Math.min(G.maxexponent, Math.floor(Decimal.log(G.produceTotal.add(1), 10))) - flatMaxExponentIncrease
+  )
   const exponentForWarning = Math.max(0, G.maxexponent - flatMaxExponentIncrease)
 
   if (player.currentChallenge.ascension === 13 && G.maxexponent <= 99999) {
@@ -147,15 +150,14 @@ export const calculatetax = () => {
     }
   }
 
-  let divisorExponent = 1/550 * Math.pow(exponentForDivisor, 2)
+  const divisorExponent = 1 / 550 * Math.pow(exponentForDivisor, 2)
   // Not exactly clear why this is needed?
-  let checkExponent = 1/550 * Math.pow(exponentForWarning, 2)
-
+  const checkExponent = 1 / 550 * Math.pow(exponentForWarning, 2)
 
   // After the ants update, I really should get rid of these bad globals
 
   // November 11, 2025: Platonic re-derived these equations to understand why this works.
-  // If you write this value out, you end up getting a function whose log is O(exponent^-1), 
+  // If you write this value out, you end up getting a function whose log is O(exponent^-1),
   // Which is intentional.
   G.taxdivisor = Decimal.pow(1.01, divisorExponent * exponent)
   G.taxdivisorcheck = Decimal.pow(1.01, checkExponent * exponent)

@@ -5,11 +5,10 @@ import { computeFreeAntUpgradeLevels } from './free-levels'
 
 export const calculateTrueAntLevel = (antUpgrade: AntUpgrades) => {
   const freeLevels = computeFreeAntUpgradeLevels()
-  const corruptionDivisor = 
-    (antUpgradeData[antUpgrade].exemptFromCorruption) ?
-    1:
-    player.corruptions.used.corruptionEffects('extinction');
-    
+  const corruptionDivisor = (antUpgradeData[antUpgrade].exemptFromCorruption)
+    ? 1
+    : player.corruptions.used.corruptionEffects('extinction')
+
   if (player.currentChallenge.ascension === 11) {
     return Math.min(player.ants.upgrades[antUpgrade], freeLevels) / corruptionDivisor
   } else {

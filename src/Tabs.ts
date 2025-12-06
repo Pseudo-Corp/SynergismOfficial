@@ -223,6 +223,13 @@ const subtabInfo: Record<Tabs, SubTab> = {
         subTabID: '2',
         unlocked: true,
         buttonID: 'toggleAntSubtab2'
+      },
+      {
+        subTabID: '3',
+        get unlocked () {
+          return player.ants.antSacrificeCount > 0
+        },
+        buttonID: 'toggleAntSubtab3'
       }
     ]
   },

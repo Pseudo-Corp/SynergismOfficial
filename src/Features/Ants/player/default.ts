@@ -10,7 +10,7 @@ import {
   defaultQuarksGainedFromAnts
 } from '../AntSacrifice/Rewards/ELO/RebornELO/player/default'
 import { defaultAntUpgrades } from '../AntUpgrades/player/default'
-import { defaultCrumbs, defaultCrumbsThisSacrifice, defaultCrumbsEverMade } from '../Crumbs/player/default'
+import { defaultCrumbs, defaultCrumbsEverMade, defaultCrumbsThisSacrifice } from '../Crumbs/player/default'
 import type { PlayerAnts } from '../structs/structs'
 import {
   defaultAlwaysSacrificeMaxRebornELO,

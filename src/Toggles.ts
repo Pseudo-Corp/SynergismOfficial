@@ -1002,6 +1002,7 @@ export const toggleStatSymbol = async () => {
 export const toggleAntsSubtab = (indexStr: string) => {
   const i = Number(indexStr)
   const numSubTabs = subTabsInMainTab(Tabs.AntHill)
+  console.log(numSubTabs)
 
   for (let j = 1; j <= numSubTabs; j++) {
     const antTab = DOMCacheGetOrSet(`antSubtab${j}`)

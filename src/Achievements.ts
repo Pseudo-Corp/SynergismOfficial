@@ -304,11 +304,14 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => player.prestigeCount > 0
   },
   antMasteries: {
-    maxPointValue: 324,
+    maxPointValue: 360,
     pointsAwarded: (_cached: number) => {
       let pointValue = 0
       for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
         pointValue += 3 * player.ants.masteries[ant].highestMastery
+        if (player.ants.masteries[ant].highestMastery >= 12) {
+          pointValue += 4
+        }
       }
       return pointValue
     },
@@ -325,13 +328,14 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => player.unlocks.anthill
   },
   rebornELO: {
-    maxPointValue: 600,
+    maxPointValue: 1000,
     pointsAwarded: (_cached: number) => {
       const leaderboardELO = calculateLeaderboardValue(player.ants.highestRebornELOEver)
       return Math.min(100, Math.floor(leaderboardELO / 100))
         + Math.min(150, Math.floor(leaderboardELO / 1000))
         + Math.min(150, Math.floor(leaderboardELO / 9000))
         + Math.min(200, Math.floor(leaderboardELO / 75000))
+        + Math.min(400, Math.floor(leaderboardELO / 100000))
     },
     updateValue: () => {
       return calculateLeaderboardValue(player.ants.highestRebornELOEver)
@@ -1396,8 +1400,18 @@ export const achievements: Achievement[] = [
     reward: { antAutobuyers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 10
   },
-  { pointValue: 5, unlockCondition: () => player.ascensionCount >= 1, group: 'ascensionCount', reward: { freeAntUpgrades: () => 2 } },
-  { pointValue: 10, unlockCondition: () => player.ascensionCount >= 2, group: 'ascensionCount', reward: { preserveAnthillCount: () => 1, antSacrificeCountMultiplier: () => 2 } },
+  {
+    pointValue: 5,
+    unlockCondition: () => player.ascensionCount >= 1,
+    group: 'ascensionCount',
+    reward: { freeAntUpgrades: () => 2 }
+  },
+  {
+    pointValue: 10,
+    unlockCondition: () => player.ascensionCount >= 2,
+    group: 'ascensionCount',
+    reward: { preserveAnthillCount: () => 1, antSacrificeCountMultiplier: () => 2 }
+  },
   { pointValue: 15, unlockCondition: () => player.ascensionCount >= 10, group: 'ascensionCount' },
   {
     pointValue: 20,
@@ -2373,61 +2387,66 @@ export const achievements: Achievement[] = [
     group: 'reincarnationCount'
   },
   {
-    pointValue: 2,
+    pointValue: 3,
     unlockCondition: () => player.ants.antSacrificeCount >= 1,
     group: 'sacCount',
-    reward: { freeAntUpgrades: () => 1}
+    reward: { freeAntUpgrades: () => 1 }
   },
   {
-    pointValue: 4,
+    pointValue: 6,
     unlockCondition: () => player.ants.antSacrificeCount >= 10,
     group: 'sacCount',
     reward: { antSacrificeCountMultiplier: () => 2, hicAutobuy: () => 1 }
   },
   {
-    pointValue: 6,
+    pointValue: 9,
     unlockCondition: () => player.ants.antSacrificeCount >= 50,
     group: 'sacCount',
     reward: { autoAntSacrifice: () => 1 }
   },
   {
-    pointValue: 8,
+    pointValue: 12,
     unlockCondition: () => player.ants.antSacrificeCount >= 250,
     group: 'sacCount',
-    reward: { antELOAdditiveMultiplier: () => 0.01, praemoenioAutobuy: () => 1}
+    reward: { antELOAdditiveMultiplier: () => 0.01, praemoenioAutobuy: () => 1 }
   },
   {
-    pointValue: 10,
+    pointValue: 15,
     unlockCondition: () => player.ants.antSacrificeCount >= 1250,
     group: 'sacCount',
     reward: { antELOAdditive: () => 25 }
   },
   {
-    pointValue: 12,
+    pointValue: 17,
     unlockCondition: () => player.ants.antSacrificeCount >= 5000,
     group: 'sacCount',
     reward: { antSpeed2UpgradeImprover: () => 2 * achievementLevel, phylacteriumAutobuy: () => 1 }
   },
   {
-    pointValue: 14,
+    pointValue: 19,
     unlockCondition: () => player.ants.antSacrificeCount >= 20000,
     group: 'sacCount'
   },
   {
-    pointValue: 16,
+    pointValue: 21,
     unlockCondition: () => player.ants.antSacrificeCount >= 80000,
     group: 'sacCount'
   },
   {
-    pointValue: 18,
+    pointValue: 23,
     unlockCondition: () => player.ants.antSacrificeCount >= 250000,
     group: 'sacCount'
   },
   {
-    pointValue: 20,
+    pointValue: 25,
     unlockCondition: () => player.ants.antSacrificeCount >= 1000000,
     group: 'sacCount',
     reward: { preserveAnthillCountSingularity: () => 1 }
+  },
+  {
+    pointValue: 40,
+    unlockCondition: () => player.ants.antSacrificeCount >= 3_000_000,
+    group: 'sacCount'
   }
 ]
 
@@ -3025,7 +3044,8 @@ export const achRewards: Record<AchievementRewards, () => number | boolean> = {
   },
   antELOAdditiveMultiplier: (): number => {
     return achievementsByReward.antELOAdditiveMultiplier.reduce(
-      (prod, index) => prod + (player.achievements[index] ? achievements[index].reward!.antELOAdditiveMultiplier!() : 0),
+      (prod, index) =>
+        prod + (player.achievements[index] ? achievements[index].reward!.antELOAdditiveMultiplier!() : 0),
       0
     )
   },

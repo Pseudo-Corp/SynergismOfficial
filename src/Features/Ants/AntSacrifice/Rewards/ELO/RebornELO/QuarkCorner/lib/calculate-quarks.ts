@@ -1,5 +1,9 @@
 import { player } from '../../../../../../../../Synergism'
-import { calculateRebornELOThresholds } from '../../Stages/lib/threshold'
+import {
+  calculateRebornELOThresholds,
+  quarkMultiplierPerThreshold,
+  thresholdTranches
+} from '../../Stages/lib/threshold'
 import { calculateLeaderboardValue } from './calculate-leaderboard'
 
 export const quarksFromELOMult = () => {
@@ -10,15 +14,19 @@ export const quarksFromELOMult = () => {
 
 export const availableQuarksFromELO = () => {
   const totalELOValue = calculateLeaderboardValue(player.ants.highestRebornELODaily)
-  const numStages = calculateRebornELOThresholds(totalELOValue)
+  let numStages = calculateRebornELOThresholds(totalELOValue)
   let baseQuarks = 0
-  baseQuarks += Math.min(100, numStages)
-  baseQuarks += 2 * Math.min(100, Math.max(0, numStages - 100))
-  baseQuarks += 3 * Math.min(100, Math.max(0, numStages - 200))
-  baseQuarks += 4 * Math.min(700, Math.max(0, numStages - 300))
-  baseQuarks += 5 * Math.max(0, numStages - 1000)
+  const stageMult = Math.pow(quarkMultiplierPerThreshold, numStages)
+  for (const tranch of thresholdTranches) {
+    const stagesInThisTranche = Math.min(tranch.stages, numStages)
+    baseQuarks += stagesInThisTranche * tranch.quarkPerStage
+    numStages -= stagesInThisTranche
+    if (numStages <= 0) {
+      break
+    }
+  }
 
   let antQuarkMult = quarksFromELOMult()
-  antQuarkMult *= Math.pow(1.003, numStages)
+  antQuarkMult *= stageMult
   return Math.max(0, player.worlds.applyBonus(baseQuarks) * antQuarkMult - player.ants.quarksGainedFromAnts)
 }

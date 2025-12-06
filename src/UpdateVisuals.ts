@@ -34,7 +34,7 @@ import {
   calculateTotalOcteractQuarkBonus,
   calculateTotalSalvage
 } from './Calculate'
-import { CalcECC } from './Challenges'
+import { CalcECC, challengeDisplay } from './Challenges'
 import { version } from './Config'
 import {
   calculateAcceleratorCubeBlessing,
@@ -51,7 +51,7 @@ import {
 } from './Cubes'
 import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
 import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib/calculate-production'
-import { hasEnoughCrumbsForSacrifice } from './Features/Ants/AntSacrifice/constants'
+import { hasEnoughCrumbsForSacrifice, MINIMUM_CRUMBS_FOR_SACRIFICE } from './Features/Ants/AntSacrifice/constants'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { updateLeaderboardUI } from './Features/Ants/HTML/updates/leaderboard'
@@ -98,7 +98,17 @@ import {
   type SingularityDataKeys
 } from './singularity'
 import { loadStatisticsUpdate } from './Statistics'
-import { calculateBuildingPower, calculateBuildingPowerCoinMultiplier, calculateCrystalCoinMultiplier, calculateCrystalExponent, format, formatAsPercentIncrease, formatDecimalAsPercentIncrease, formatTimeShort, player } from './Synergism'
+import {
+  calculateBuildingPower,
+  calculateBuildingPowerCoinMultiplier,
+  calculateCrystalCoinMultiplier,
+  calculateCrystalExponent,
+  format,
+  formatAsPercentIncrease,
+  formatDecimalAsPercentIncrease,
+  formatTimeShort,
+  player
+} from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { getTalismanLevelCap, type TalismanKeys, talismans, updateAllTalismanHTML } from './Talismans'
 import {
@@ -114,6 +124,7 @@ import {
   calculateSalvageTesseractBlessing
 } from './Tesseracts'
 import type { Player, ZeroToFour } from './types/Synergism'
+import { updateChallengeDisplay } from './UpdateHTML'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -739,6 +750,10 @@ export const visualUpdateChallenges = () => {
   if (G.currentTab !== Tabs.Challenges) {
     return
   }
+  updateChallengeDisplay()
+  if (G.challengefocus !== 0) {
+    challengeDisplay(G.challengefocus)
+  }
   if (player.researches[150] > 0) {
     DOMCacheGetOrSet('autoIncrementerAmount').innerHTML = i18next.t(
       'challenges.autoTimer',
@@ -755,7 +770,7 @@ export const visualUpdateResearch = () => {
   }
 
   if (player.researches[61] > 0) {
-    DOMCacheGetOrSet('automaticobtainium').textContent = i18next.t(
+    DOMCacheGetOrSet('automaticobtainium').innerHTML = i18next.t(
       'researches.thanksToResearches',
       {
         x: format(
@@ -799,6 +814,15 @@ export const visualUpdateAnts = () => {
     x: format(player.antSacrificeTimerReal, 2, true)
   })
 
+  if (player.ants.crumbsThisSacrifice.gte(MINIMUM_CRUMBS_FOR_SACRIFICE)) {
+    DOMCacheGetOrSet('antSacrificeRequired').innerHTML = i18next.t('ants.altar.sacrificeReady.unlocked')
+  } else {
+    DOMCacheGetOrSet('antSacrificeRequired').innerHTML = i18next.t('ants.altar.sacrificeReady.locked', {
+      x: format(player.ants.crumbsThisSacrifice, 0, true),
+      y: format(MINIMUM_CRUMBS_FOR_SACRIFICE, 0, true)
+    })
+  }
+
   if (getAchievementReward('antSacrificeUnlock')) {
     DOMCacheGetOrSet('antSacrificeTimer').textContent = `⧖ ${
       formatTimeShort(
@@ -813,8 +837,7 @@ export const visualUpdateAnts = () => {
     } else {
       DOMCacheGetOrSet('antSacrifice').classList.remove('canAntSacrifice')
     }
-  }
-  else {
+  } else {
     showLockedSacrifice()
   }
 }
@@ -1463,15 +1486,6 @@ export const visualUpdateCorruptions = () => {
     'corruptions.corruptionHepteracts',
     {
       hepteractAmount: format(metaData[8], 0, true)
-    }
-  )
-  DOMCacheGetOrSet('corruptionAntExponent').innerHTML = i18next.t(
-    'corruptions.antExponent',
-    {
-      exponent: format(
-        1 - 0.01 * Math.min(99, player.corruptions.used.totalLevels),
-        2
-      )
     }
   )
   DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {

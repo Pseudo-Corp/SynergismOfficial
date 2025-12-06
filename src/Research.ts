@@ -1,12 +1,12 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
+import { getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getResetResearches } from './Reset'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { sortDecimalWithIndices, updateClassList } from './Utility'
-import { getAchievementReward } from './Achievements'
 
 export interface IResearchData {
   baseCost: Decimal
@@ -102,7 +102,7 @@ const researchMaxLevels: DecimalSource[] = [
   25, 25, 1, 15, 1,
   10, 10, 10, 1, 1,
   10, 10, 10, 10, 1,
-  25, 25, 25, 15, 1,
+  25, 25, 25, 10000, 1,
   10, 10, 10, 1, 1,
   10, 3, 6, 10, 5,
   25, 25, 1, 15, 1,
@@ -152,7 +152,9 @@ type RangeLevelAndCost = {
 
 // polyCostForLevels(1) implies constant cost per level, polyCostForLevels(2) implies linear growth in cost per level, etc.
 const researchLevelCostRanges: RangeLevelAndCost[] = [
-  { range: [0, 199], level: polyBuyToLevel(1), cost: polyCostForLevels(1) },
+  { range: [0, 168], level: polyBuyToLevel(1), cost: polyCostForLevels(1) },
+  { range: [169, 169], level: polyBuyToLevel(2), cost: polyCostForLevels(2) },
+  { range: [170, 199], level: polyBuyToLevel(1), cost: polyCostForLevels(1) },
   { range: [200, 200], level: polyBuyToLevel(2), cost: polyCostForLevels(2) }
 ]
 

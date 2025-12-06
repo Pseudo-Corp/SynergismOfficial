@@ -179,6 +179,7 @@ import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './Cube
 import { eventCheck } from './Event'
 import { autobuyAnts } from './Features/Ants'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
+import { calculateImmortalELOGain } from './Features/Ants/AntSacrifice/Rewards/ELO/ImmortalELO/lib/calculate'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { loadSynergyAntHTMLUpdates } from './Features/Ants/HTML/updates/load-game-update'
@@ -2762,25 +2763,24 @@ export const updateAllMultiplier = (): void => {
 }
 
 export const calculateBuildingPower = (): number => {
-
   const challenge8Bonus = 0.25 * CalcECC('reincarnation', player.challengecompletions[8])
 
   let power = 1
   // Atom bonus
-  power += ((1 - Math.pow(2, -1 / 160)))
-  * Decimal.log(player.reincarnationShards.add(1), 10)
+  power += (1 - Math.pow(2, -1 / 160))
+    * Decimal.log(player.reincarnationShards.add(1), 10)
   // Challenge 8 Reward
   power += challenge8Bonus
 
   // Researches
-  power *= (1 + (1 / 20) * player.researches[36])
-  power *= (1 + (1 / 40) * player.researches[37])
-  power *= (1 + (1 / 40) * player.researches[38])
+  power *= 1 + (1 / 20) * player.researches[36]
+  power *= 1 + (1 / 40) * player.researches[37]
+  power *= 1 + (1 / 40) * player.researches[38]
 
   // Ant
 
   power *= getAntUpgradeEffect(AntUpgrades.BuildingCostScale).buildingPowerMult
-  
+
   // Cube Upgrades each raise the base to a power.
   power = Math.pow(power, 1 + player.cubeUpgrades[12] * 0.09)
   power = Math.pow(power, 1 + player.cubeUpgrades[36] * 0.05)
@@ -2790,8 +2790,7 @@ export const calculateBuildingPower = (): number => {
   if (player.challengecompletions[7] > 0) {
     power = 1 + 0.05 * power
   }
-  
-  
+
   return power
 }
 
@@ -2811,7 +2810,7 @@ export const crystalUpgrade4MaxExponent = (): number => {
 
 export const calculateCrystalExponent = (): number => {
   const crystalUpgrade3Max = crystalUpgrade4MaxExponent()
-  let exponent = 1/3 // Base Val
+  let exponent = 1 / 3 // Base Val
   exponent += crystalUpgrade3Max * (1 - Math.pow(0.995, player.crystalUpgrades[3]))
   exponent += 0.04 * CalcECC('transcend', player.challengecompletions[3])
   exponent += 0.08 * player.researches[28] // 2x3
@@ -2841,10 +2840,10 @@ export const crystalUpgrade3Base = (maxBase?: number): number => {
 export const crystalUpgrade3CrystalMultiplier = (base?: number): Decimal => {
   const baseToUse = base ?? crystalUpgrade3Base()
   const crystalProducersOwned = player.firstOwnedDiamonds
-  + player.secondOwnedDiamonds
-  + player.thirdOwnedDiamonds
-  + player.fourthOwnedDiamonds
-  + player.fifthOwnedDiamonds
+    + player.secondOwnedDiamonds
+    + player.thirdOwnedDiamonds
+    + player.fourthOwnedDiamonds
+    + player.fifthOwnedDiamonds
 
   return Decimal.pow(baseToUse, crystalProducersOwned)
 }
@@ -2852,7 +2851,7 @@ export const crystalUpgrade3CrystalMultiplier = (base?: number): Decimal => {
 export const multipliers = (): void => {
   let s = new Decimal(1)
   let c = new Decimal(1)
-  
+
   const crystalMult = calculateCrystalCoinMultiplier()
 
   const buildingPower = calculateBuildingPower()
@@ -3041,7 +3040,10 @@ export const multipliers = (): void => {
     Decimal.pow(1 + 0.01 * player.crystalUpgrades[0], achievementPoints)
   )
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
-    Decimal.pow(1 + player.crystalUpgrades[1] * Decimal.log(player.coins.add(1), 10) / 100, 2 + Math.log2(player.crystalUpgrades[1] + 1))
+    Decimal.pow(
+      1 + player.crystalUpgrades[1] * Decimal.log(player.coins.add(1), 10) / 100,
+      2 + Math.log2(player.crystalUpgrades[1] + 1)
+    )
   )
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
     upgrade3Multiplier
@@ -3049,11 +3051,11 @@ export const multipliers = (): void => {
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
     Decimal.pow(
       1 + 0.05 * player.crystalUpgrades[4],
-      (player.challengecompletions[1]
+      player.challengecompletions[1]
         + player.challengecompletions[2]
         + player.challengecompletions[3]
         + player.challengecompletions[4]
-        + player.challengecompletions[5])
+        + player.challengecompletions[5]
     )
   )
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
@@ -3180,9 +3182,6 @@ export const multipliers = (): void => {
   )
   G.globalConstantMult = G.globalConstantMult.times(
     1 + (3 / 100) * player.researches[154]
-  )
-  G.globalConstantMult = G.globalConstantMult.times(
-    1 + (4 / 100) * player.researches[169]
   )
   G.globalConstantMult = G.globalConstantMult.times(
     1 + (5 / 100) * player.researches[184]
@@ -3405,7 +3404,7 @@ export const resourceGain = (dt: number): void => {
     ].generated
       .add(player[`ascendBuilding${(6 - i) as OneToFive}` as const].owned)
       // 4.1.0: Removing this from player, also because I want to make the multiplier 1.00 instead of 0.01 anyway
-      //.times(player[`ascendBuilding${i as OneToFive}` as const].multiplier)
+      // .times(player[`ascendBuilding${i as OneToFive}` as const].multiplier)
       .times(G.globalConstantMult)
 
     if (i !== 5) {
@@ -4544,6 +4543,11 @@ export const updateAll = (): void => {
   }
 
   autobuyAnts()
+  // Cube Upgrade 5x9: Automatically gain immortal ELO
+  if (player.cubeUpgrades[49] > 0) {
+    const eloGain = calculateImmortalELOGain()
+    player.ants.immortalELO += eloGain
+  }
 
   if (
     player.autoAscend

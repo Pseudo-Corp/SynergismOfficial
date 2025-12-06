@@ -11,5 +11,5 @@ export const calculateELOMult = () => {
 export const calculateEffectiveAntELO = () => {
   const baseELO = calculateBaseAntELO()
   const mult = calculateELOMult()
-  return baseELO * mult
+  return Math.floor(baseELO * mult)
 }

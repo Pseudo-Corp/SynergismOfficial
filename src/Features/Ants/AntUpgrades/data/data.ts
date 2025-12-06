@@ -1,12 +1,12 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { getAchievementReward } from '../../../../Achievements'
 import { calculateSigmoidExponential } from '../../../../Calculate'
+import { getLevelMilestone } from '../../../../Levels'
 import { AntSacrificeTiers } from '../../../../Reset'
 import { format, formatAsPercentIncrease, player } from '../../../../Synergism'
 import { getAntUpgradeEffect } from '../lib/upgrade-effects'
 import { type AntUpgradeData, AntUpgrades } from '../structs/structs'
-import { getAchievementReward } from '../../../../Achievements'
-import { getLevelMilestone } from '../../../../Levels'
 
 export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   [AntUpgrades.AntSpeed]: {
@@ -37,7 +37,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     effectDescription: () => {
       const antSpeed = getAntUpgradeEffect(AntUpgrades.AntSpeed).antSpeed
       return i18next.t('ants.upgrades.antSpeed.effect', { x: format(antSpeed, 2, true) })
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.antSpeed.lockedAutomation')
   },
   [AntUpgrades.Coins]: {
     baseCost: Decimal.fromString('100'),
@@ -54,7 +55,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     effect: (n: number) => {
       let divisor = 1
       if (player.currentChallenge.ascension === 15) {
-        divisor = 10000
+        divisor = 1 + 399 * (5000 + n) / (5000 + n ** 2)
       }
       const baseExponent = 999999 + calculateSigmoidExponential(49000001, n / 3000)
       const bonusExponent = 250 * n
@@ -71,7 +72,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
       const effect1 = i18next.t('ants.upgrades.coins.effect', { x: format(crumbToCoinExp, 0, true) })
       const effect2 = i18next.t('ants.upgrades.coins.effect2', { x: format(overallEffect, 2, true) })
       return `${effect1}<br>${effect2}`
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.coins.lockedAutomation')
   },
   [AntUpgrades.Taxes]: {
     baseCost: Decimal.fromString('1000'),
@@ -93,7 +95,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     effectDescription: () => {
       const taxReduction = getAntUpgradeEffect(AntUpgrades.Taxes).taxReduction
       return i18next.t('ants.upgrades.taxes.effect', { x: formatAsPercentIncrease(taxReduction, 4) })
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.taxes.lockedAutomation')
   },
   [AntUpgrades.AcceleratorBoosts]: {
     baseCost: Decimal.fromString('1000'),
@@ -117,7 +120,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
       return i18next.t('ants.upgrades.acceleratorBoosts.effect', {
         x: formatAsPercentIncrease(acceleratorBoostMult, 2)
       })
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.acceleratorBoosts.lockedAutomation')
   },
   [AntUpgrades.Multipliers]: {
     baseCost: Decimal.fromString('1e5'),
@@ -139,7 +143,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     effectDescription: () => {
       const multiplierMult = getAntUpgradeEffect(AntUpgrades.Multipliers).multiplierMult
       return i18next.t('ants.upgrades.multipliers.effect', { x: formatAsPercentIncrease(multiplierMult, 2) })
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.multipliers.lockedAutomation')
   },
   [AntUpgrades.Offerings]: {
     baseCost: Decimal.fromString('1e6'),
@@ -161,7 +166,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     effectDescription: () => {
       const offeringMult = getAntUpgradeEffect(AntUpgrades.Offerings).offeringMult
       return i18next.t('ants.upgrades.offerings.effect', { x: formatAsPercentIncrease(offeringMult, 2) })
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.offerings.lockedAutomation')
   },
   [AntUpgrades.BuildingCostScale]: {
     baseCost: Decimal.fromString('1e11'),
@@ -192,7 +198,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
         x: format(effects.buildingPowerMult, 2, true)
       })
       return `${effect1}<br>${effect2}`
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.buildingCostScale.lockedAutomation')
   },
   [AntUpgrades.Salvage]: {
     baseCost: Decimal.fromString('1e15'),
@@ -214,7 +221,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     effectDescription: () => {
       const salvage = getAntUpgradeEffect(AntUpgrades.Salvage).salvage
       return i18next.t('ants.upgrades.salvage.effect', { x: format(salvage, 2) })
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.salvage.lockedAutomation')
   },
   [AntUpgrades.FreeRunes]: {
     baseCost: Decimal.fromString('1e20'),
@@ -236,7 +244,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     effectDescription: () => {
       const freeRuneLevel = getAntUpgradeEffect(AntUpgrades.FreeRunes).freeRuneLevel
       return i18next.t('ants.upgrades.freeRunes.effect', { x: format(freeRuneLevel, 0, true) })
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.freeRunes.lockedAutomation')
   },
   [AntUpgrades.Obtainium]: {
     baseCost: Decimal.fromString('1e6'),
@@ -258,7 +267,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     effectDescription: () => {
       const obtainiumMult = getAntUpgradeEffect(AntUpgrades.Obtainium).obtainiumMult
       return i18next.t('ants.upgrades.obtainium.effect', { x: formatAsPercentIncrease(obtainiumMult, 2) })
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.obtainium.lockedAutomation')
   },
   [AntUpgrades.AntSacrifice]: {
     baseCost: Decimal.fromString('1e120'),
@@ -280,10 +290,13 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     },
     effectDescription: () => {
       const effects = getAntUpgradeEffect(AntUpgrades.AntSacrifice)
-      const effect1 = i18next.t('ants.upgrades.antSacrifice.effect', { x: formatAsPercentIncrease(effects.antSacrificeMultiplier, 2) })
+      const effect1 = i18next.t('ants.upgrades.antSacrifice.effect', {
+        x: formatAsPercentIncrease(effects.antSacrificeMultiplier, 2)
+      })
       const effect2 = i18next.t('ants.upgrades.antSacrifice.effect2', { x: format(effects.elo, 0, true) })
       return `${effect1}<br>${effect2}`
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.antSacrifice.lockedAutomation')
   },
   [AntUpgrades.Mortuus]: {
     baseCost: Decimal.fromString('1e300'),
@@ -308,9 +321,10 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
       const effect1 = i18next.t('ants.upgrades.mortuus.effect', { checkMark: effects.talismanUnlock ? '✔️' : '❌' })
       const effect2 = i18next.t('ants.upgrades.mortuus.effect2', { x: formatAsPercentIncrease(effects.globalSpeed, 2) })
       return `${effect1}<br>${effect2}`
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.mortuus.lockedAutomation')
   },
-  [AntUpgrades.AntSpeed2]: {
+  [AntUpgrades.AntELO]: {
     baseCost: Decimal.fromString('1e70'),
     costIncreaseExponent: 4,
     antUpgradeHTML: {
@@ -323,27 +337,24 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.antSpeed2.intro'),
     description: () => i18next.t('ants.upgrades.antSpeed2.description'),
     effect: (n: number) => {
-      let baseMul = 1.00
-      baseMul += 0.01 * Math.min(n, 1)
-      baseMul += 0.001 * Math.min(n / 100, 1)
-      baseMul += 0.009 * (1 - Math.pow(0.9985, n))
-      let antSacrificeLimitCount = Math.min(1_000_000, n + 400)
+      const antSacrificeLimitCount = n + 200
       const upgradeImprover = +getAchievementReward('antSpeed2UpgradeImprover')
       const effectiveSacs = Math.min(antSacrificeLimitCount + upgradeImprover, player.ants.antSacrificeCount)
-      const antSpeed = Decimal.pow(baseMul, effectiveSacs)
+      const antELO = effectiveSacs
       return {
-        antSpeed: antSpeed,
-        perSacrificeMult: baseMul,
+        antELO: antELO,
         antSacrificeLimitCount: antSacrificeLimitCount + upgradeImprover
       }
     },
     effectDescription: () => {
-      const effects = getAntUpgradeEffect(AntUpgrades.AntSpeed2)
-      const effect1 = i18next.t('ants.upgrades.antSpeed2.effect', { x: format(effects.antSpeed, 2, true) })
-      const effect2 = i18next.t('ants.upgrades.antSpeed2.effect2', { x: formatAsPercentIncrease(effects.perSacrificeMult, 4) })
-      const effect3 = i18next.t('ants.upgrades.antSpeed2.effect3', { x: format(effects.antSacrificeLimitCount, 0, true) })
-      return `${effect1}<br>${effect2}<br>${effect3}`
-    }
+      const effects = getAntUpgradeEffect(AntUpgrades.AntELO)
+      const effect1 = i18next.t('ants.upgrades.antSpeed2.effect', { x: format(effects.antELO, 2, true) })
+      const effect2 = i18next.t('ants.upgrades.antSpeed2.effect2', {
+        x: format(effects.antSacrificeLimitCount, 0, true)
+      })
+      return `${effect1}<br>${effect2}`
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.antSpeed2.lockedAutomation')
   },
   [AntUpgrades.Mortuus2]: {
     baseCost: Decimal.fromString('1e37777'),
@@ -370,10 +381,15 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     effectDescription: () => {
       const effects = getAntUpgradeEffect(AntUpgrades.Mortuus2)
       const effect1 = i18next.t('ants.upgrades.mortuus2.effect', { x: format(effects.talismanLevelIncreaser, 0, true) })
-      const effect2 = i18next.t('ants.upgrades.mortuus2.effect2', { x: formatAsPercentIncrease(effects.talismanEffectBuff, 2) })
-      const effect3 = i18next.t('ants.upgrades.mortuus2.effect3', { x: formatAsPercentIncrease(effects.ascensionSpeed, 2) })
+      const effect2 = i18next.t('ants.upgrades.mortuus2.effect2', {
+        x: formatAsPercentIncrease(effects.talismanEffectBuff, 2)
+      })
+      const effect3 = i18next.t('ants.upgrades.mortuus2.effect3', {
+        x: formatAsPercentIncrease(effects.ascensionSpeed, 2)
+      })
       return `${effect1}<br>${effect2}<br>${effect3}`
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.mortuus2.lockedAutomation')
   },
   [AntUpgrades.AscensionScore]: {
     baseCost: Decimal.fromString('1e300'),
@@ -388,19 +404,22 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.ascensionScore.intro'),
     description: () => i18next.t('ants.upgrades.ascensionScore.description'),
     effect: (n: number) => {
-      const ascensionScoreBase = 1000000 * (1 - Math.pow(0.999, n))
-      const bankedCubes = 4 * n
+      const ascensionScoreBase = 100000 * (1 - Math.pow(0.999, n))
+      const bankedCubes = 4 * Math.min(200, n) + n
       return {
         cubesBanked: bankedCubes,
-        ascensionScoreBase: ascensionScoreBase,
+        ascensionScoreBase: ascensionScoreBase
       }
     },
     effectDescription: () => {
       const effects = getAntUpgradeEffect(AntUpgrades.AscensionScore)
-      const effect1 = i18next.t('ants.upgrades.ascensionScore.effect', { x: format(effects.ascensionScoreBase, 0, true) })
+      const effect1 = i18next.t('ants.upgrades.ascensionScore.effect', {
+        x: format(effects.ascensionScoreBase, 0, true)
+      })
       const effect2 = i18next.t('ants.upgrades.ascensionScore.effect2', { x: format(effects.cubesBanked, 0, true) })
       return `${effect1}<br>${effect2}`
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.ascensionScore.lockedAutomation')
   },
   [AntUpgrades.WowCubes]: {
     baseCost: Decimal.fromString('1e400'),
@@ -416,12 +435,13 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     },
     effect: (n: number) => {
       return {
-        wowCubes: 2 - Math.pow(0.999, n),
+        wowCubes: 2 - Math.pow(0.999, n)
       }
     },
     effectDescription: () => {
       const effects = getAntUpgradeEffect(AntUpgrades.WowCubes)
       return i18next.t('ants.upgrades.wowCubes.effect', { x: formatAsPercentIncrease(effects.wowCubes, 2) })
-    }
+    },
+    lockedAutoDescription: () => i18next.t('ants.upgrades.wowCubes.lockedAutomation')
   }
 }

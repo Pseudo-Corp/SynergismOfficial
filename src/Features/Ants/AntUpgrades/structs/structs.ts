@@ -14,7 +14,7 @@ export enum AntUpgrades {
   Obtainium = 9,
   AntSacrifice = 10,
   Mortuus = 11,
-  AntSpeed2 = 12,
+  AntELO = 12,
   WowCubes = 13,
   AscensionScore = 14,
   Mortuus2 = 15
@@ -32,32 +32,31 @@ export type AntUpgradeTypeMap = {
   [AntUpgrades.AcceleratorBoosts]: { acceleratorBoostMult: number }
   [AntUpgrades.Multipliers]: { multiplierMult: number }
   [AntUpgrades.Offerings]: { offeringMult: number }
-  [AntUpgrades.BuildingCostScale]: { buildingCostScale: number, buildingPowerMult: number }
+  [AntUpgrades.BuildingCostScale]: { buildingCostScale: number; buildingPowerMult: number }
   [AntUpgrades.Salvage]: { salvage: number }
   [AntUpgrades.FreeRunes]: { freeRuneLevel: number }
   [AntUpgrades.Obtainium]: { obtainiumMult: number }
-  [AntUpgrades.AntSacrifice]: { 
+  [AntUpgrades.AntSacrifice]: {
     antSacrificeMultiplier: number
     elo: number
   }
   [AntUpgrades.Mortuus]: {
     talismanUnlock: boolean
     globalSpeed: number
-  },
-  [AntUpgrades.AntSpeed2]: {
-    antSpeed: Decimal
-    perSacrificeMult: number
+  }
+  [AntUpgrades.AntELO]: {
+    antELO: number
     antSacrificeLimitCount: number
-  },
+  }
   [AntUpgrades.Mortuus2]: {
     talismanLevelIncreaser: number
     talismanEffectBuff: number
     ascensionSpeed: number
-  },
+  }
   [AntUpgrades.AscensionScore]: {
     cubesBanked: number
     ascensionScoreBase: number
-  },
+  }
   [AntUpgrades.WowCubes]: {
     wowCubes: number
   }
@@ -77,4 +76,5 @@ export interface AntUpgradeData<K extends AntUpgrades> {
   description: () => string
   effect: (n: number) => AntUpgradeTypeMap[K]
   effectDescription: () => string
+  lockedAutoDescription: () => string
 }

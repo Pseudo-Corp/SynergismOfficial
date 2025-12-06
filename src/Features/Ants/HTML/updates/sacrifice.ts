@@ -1,27 +1,28 @@
 import type Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { getAchievementReward } from '../../../../Achievements'
 import { DOMCacheGetOrSet } from '../../../../Cache/DOM'
-import { calculateAntSacrificeMultiplier } from '../../../../Calculate'
-import { offeringObtainiumTimeModifiers } from '../../../../Statistics'
 import { format, player } from '../../../../Synergism'
 import { toOrdinal } from '../../../../Utility'
 import { antSacrificeRewards } from '../../AntSacrifice/Rewards/calculate-rewards'
 import { calculateEffectiveAntELO } from '../../AntSacrifice/Rewards/ELO/AntELO/lib/calculate'
 import { calculateAntSpeedMultFromELO } from '../../AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
-import { calculateAvailableRebornELO } from '../../AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
+import {
+  calculateAvailableRebornELO,
+  calculateSecondsToMaxRebornELO,
+  rebornELOCreationSpeedMult
+} from '../../AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
 import {
   calculateRebornELOThresholds,
   thresholdModifiers
 } from '../../AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
 import { talismanItemRequiredELO } from '../../AntSacrifice/Rewards/TalismanCraftItems/constants'
-import { getAchievementReward } from '../../../../Achievements'
 
 export const showLockedSacrifice = () => {
   const crumbs = player.ants.crumbsThisSacrifice
   DOMCacheGetOrSet('sacrificeLockedText').innerHTML = i18next.t('ants.altar.locked.crumbsMade', {
     x: format(crumbs, 2, true, undefined, undefined, true)
   })
-
 }
 
 export const showSacrifice = () => {
@@ -29,27 +30,8 @@ export const showSacrifice = () => {
 
   const effectiveELO = calculateEffectiveAntELO()
 
-  const timeMultiplier = offeringObtainiumTimeModifiers(player.antSacrificeTimer, true).reduce(
-    (a, b) => a * b.stat(),
-    1
-  )
   DOMCacheGetOrSet('ELO').innerHTML = i18next.t('ants.yourAntELO', {
     x: format(effectiveELO, 2, true)
-  })
-
-  DOMCacheGetOrSet('crumbCountAgain').textContent = i18next.t(
-    'ants.galacticCrumbCountThisSacrifice',
-    {
-      x: format(player.ants.crumbsThisSacrifice, 2, true, undefined, undefined, true)
-    }
-  )
-
-  DOMCacheGetOrSet('sacrificeUpgradeMultiplier').innerHTML = i18next.t('ants.altarRewardMultiplier', {
-    x: format(calculateAntSacrificeMultiplier(), 3, true)
-  })
-
-  DOMCacheGetOrSet('sacrificeTimeMultiplier').innerHTML = i18next.t('ants.altarTimeMultiplier', {
-    x: format(timeMultiplier, 3, true)
   })
 
   DOMCacheGetOrSet('immortalELO').innerHTML = i18next.t('ants.immortalELO', {
@@ -59,6 +41,11 @@ export const showSacrifice = () => {
     x: format(player.ants.rebornELO, 2, true),
     y: format(calculateAvailableRebornELO(), 2, true)
   })
+
+  DOMCacheGetOrSet('rebornELOPerSecond').innerHTML = `+${format(rebornELOCreationSpeedMult(), 2, true)} per Second`
+  DOMCacheGetOrSet('rebornELOTimeRemaining').innerHTML = `Estimated time until max: ${
+    format(calculateSecondsToMaxRebornELO(), 0, true)
+  } seconds`
 
   DOMCacheGetOrSet('ELOStage').innerHTML = i18next.t('ants.eloStage', {
     x: format(calculateRebornELOThresholds(), 0, true)
@@ -173,8 +160,11 @@ export const sacrificeCountHTML = (sacrificeCount: number): void => {
   DOMCacheGetOrSet('antSacrificeNumber').innerHTML = i18next.t('ants.currentAnthill', { ord: numAnthills })
 
   if (!getAchievementReward('autoAntSacrifice')) {
-    DOMCacheGetOrSet('anthillsRemainingForAutoSac').innerHTML = i18next.t('ants.altar.autoSacrificeLocked.anthillsUntilAutoSac', {
-      x: format(50 - sacrificeCount, 0, true)
-    })
+    DOMCacheGetOrSet('anthillsRemainingForAutoSac').innerHTML = i18next.t(
+      'ants.altar.autoSacrificeLocked.anthillsUntilAutoSac',
+      {
+        x: format(50 - sacrificeCount, 0, true)
+      }
+    )
   }
 }
