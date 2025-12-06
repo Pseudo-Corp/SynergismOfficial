@@ -2559,6 +2559,8 @@
     "rebornOfferingMult": "<<turquoise|↳>> <<orange | Offerings>> <<gold|x{{x}}>>",
     "rebornTalismanShardMult": "<<turquoise|↳>> <<lightgray | Talisman Fragments>> <<gold|x{{x}}>>",
     "rebornELOGainSpeed": "<<turquoise|↳>> <<#00DDFF|Reborn ELO creation speed>> <<gold|x{{x}}>>",
+    "rebornELOPerSecond": "<<#00DDFF|{{x}}>> per second",
+    "rebornELOTimeToMax": "Estimated time until max: <<gold|{{x}}>> seconds",
     "resetAnthill": "Ant Sacrifice",
     "resetAlert": "<<gold | ⚠>> Performs a <<limegreen | Reincarnation>>",
     "immortalELOUntilGain": "Get <<gold | {{x}}>> more <<orchid | Ant ELO>> to gain <<crimson | Immortal ELO>>",

@@ -42,10 +42,12 @@ export const showSacrifice = () => {
     y: format(calculateAvailableRebornELO(), 2, true)
   })
 
-  DOMCacheGetOrSet('rebornELOPerSecond').innerHTML = `+${format(rebornELOCreationSpeedMult(), 2, true)} per Second`
-  DOMCacheGetOrSet('rebornELOTimeRemaining').innerHTML = `Estimated time until max: ${
-    format(calculateSecondsToMaxRebornELO(), 0, true)
-  } seconds`
+  DOMCacheGetOrSet('rebornELOPerSecond').innerHTML = i18next.t('ants.rebornELOPerSecond', {
+    x: format(rebornELOCreationSpeedMult(), 2, true)
+  })
+  DOMCacheGetOrSet('rebornELOTimeRemaining').innerHTML = i18next.t('ants.rebornELOTimeToMax', {
+    x: format(calculateSecondsToMaxRebornELO(), 0, true)
+  })
 
   DOMCacheGetOrSet('ELOStage').innerHTML = i18next.t('ants.eloStage', {
     x: format(calculateRebornELOThresholds(), 0, true)
