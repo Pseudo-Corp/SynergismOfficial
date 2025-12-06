@@ -22,10 +22,7 @@ export const activateELO = (dt: number) => {
     }
 
     player.ants.rebornELO += budget
-
-    // Make it so that *eventually* the ELO is fully activated
-    const plusOnePerSecond = Math.min(dt, toActivate)
-    player.ants.rebornELO += plusOnePerSecond
+    player.ants.rebornELO = Math.min(player.ants.rebornELO, player.ants.immortalELO)
   }
   updateAntLeaderboards()
   const quarksToBeGained = availableQuarksFromELO()

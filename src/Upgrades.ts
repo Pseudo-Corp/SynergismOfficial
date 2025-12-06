@@ -4,19 +4,28 @@ import { achievementPoints, getAchievementReward } from './Achievements'
 import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateGlobalSpeedMult, calculateTotalCoinOwned } from './Calculate'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getRuneEffects } from './Runes'
-import { calculateBuildingPower, crystalUpgrade3Base, crystalUpgrade3CrystalMultiplier, crystalUpgrade3MaxBase, crystalUpgrade4MaxExponent, format, formatAsPercentIncrease, player } from './Synergism'
+import {
+  calculateBuildingPower,
+  crystalUpgrade3Base,
+  crystalUpgrade3CrystalMultiplier,
+  crystalUpgrade3MaxBase,
+  crystalUpgrade4MaxExponent,
+  format,
+  formatAsPercentIncrease,
+  player
+} from './Synergism'
 import { revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
-import { calculateGlobalSpeedMult, calculateTotalCoinOwned } from './Calculate'
 
 const crystalupgdesc: Record<number, () => Record<string, string>> = {
   3: () => ({
     max: formatAsPercentIncrease(
       crystalUpgrade3MaxBase(),
-      2,
+      2
     )
   }),
   4: () => ({
@@ -79,7 +88,11 @@ const upgradetexts = [
     ),
   () => format(Decimal.min(1e125, player.transcendShards.add(1))),
   () => format(Decimal.min(1e200, player.transcendPoints.times(1e30).add(1))),
-  () => format(Decimal.pow((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 10), 2),
+  () =>
+    format(
+      Decimal.pow((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 10),
+      2
+    ),
   () => ({
     x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
     y: format(Math.floor(5 + (1 / 101 * G.freeAccelerator)))
@@ -207,9 +220,14 @@ const upgradetexts = [
     ),
   () => format(1 + 0.005 * Math.pow(Decimal.log10(player.maxOfferings.plus(1)), 2), 2, true),
   () => format(Decimal.max(Decimal.pow(calculateGlobalSpeedMult(), 3), 1), 2, true),
-  () => format(10 * Math.min(50, player.ants.antSacrificeCount) +
-  5 * Math.min(50, Math.max(player.ants.antSacrificeCount - 50, 0)) +
-  Math.min(250, Math.max(0, player.ants.antSacrificeCount - 100)), 0, true),
+  () =>
+    format(
+      10 * Math.min(50, player.ants.antSacrificeCount)
+        + 5 * Math.min(50, Math.max(player.ants.antSacrificeCount - 50, 0))
+        + Math.min(250, Math.max(0, player.ants.antSacrificeCount - 100)),
+      0,
+      true
+    ),
   ...Array.from({ length: 39 }, () => () => null),
   () => null,
   () => null,
@@ -366,7 +384,10 @@ const crystalupgeffect: Record<number, () => Record<string, string>> = {
   }),
   2: () => ({
     x: format(
-      Decimal.pow(1 + player.crystalUpgrades[1] * Decimal.log(player.coins.add(1), 10) / 100, 2 + Math.log2(player.crystalUpgrades[1] + 1)),
+      Decimal.pow(
+        1 + player.crystalUpgrades[1] * Decimal.log(player.coins.add(1), 10) / 100,
+        2 + Math.log2(player.crystalUpgrades[1] + 1)
+      ),
       2,
       true
     )
@@ -374,7 +395,7 @@ const crystalupgeffect: Record<number, () => Record<string, string>> = {
   3: () => ({
     base: formatAsPercentIncrease(
       crystalUpgrade3Base(),
-      2,
+      2
     ),
     x: format(
       crystalUpgrade3CrystalMultiplier(),

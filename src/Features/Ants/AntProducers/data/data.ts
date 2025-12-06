@@ -127,9 +127,9 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
     produces: AntProducers.MegaBreeders
   },
   [AntProducers.LordRoyals]: {
-    baseCost: Decimal.fromString('1e1000'),
+    baseCost: Decimal.fromString('1e700'),
     costIncrease: 1e16,
-    baseProduction: Decimal.fromNumber(1e-220),
+    baseProduction: Decimal.fromNumber(1e-90),
     color: '#DC6623',
     additionalTexts: [
       {
@@ -153,7 +153,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
   [AntProducers.Almighties]: {
     baseCost: Decimal.fromString('1e5000'),
     costIncrease: 1e32,
-    baseProduction: Decimal.fromString('1e-850'),
+    baseProduction: Decimal.fromString('1e-600'),
     color: '#E76118',
     additionalTexts: [
       {

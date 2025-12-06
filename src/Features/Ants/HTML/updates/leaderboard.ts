@@ -6,7 +6,7 @@ import { quarksFromELOMult } from '../../AntSacrifice/Rewards/ELO/RebornELO/Quar
 import { LEADERBOARD_WEIGHTS } from '../../AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/leaderboard-update'
 import { calculateRebornELOThresholds } from '../../AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
 
-let currentLeaderboardMode: 'daily' | 'allTime' = 'daily'
+export let currentLeaderboardMode: 'daily' | 'allTime' = 'daily'
 
 export const toggleLeaderboardMode = () => {
   currentLeaderboardMode = currentLeaderboardMode === 'daily' ? 'allTime' : 'daily'

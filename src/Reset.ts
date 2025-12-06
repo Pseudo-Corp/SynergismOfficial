@@ -684,10 +684,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       player.highestchallengecompletions[j] = 0
     }
 
-    player.challengecompletions[6] = player.highestchallengecompletions[6] = player.cubeUpgrades[49]
-    player.challengecompletions[7] = player.highestchallengecompletions[7] = player.cubeUpgrades[49]
-    player.challengecompletions[8] = player.highestchallengecompletions[8] = player.cubeUpgrades[49]
-
     DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
     player.roombaResearchIndex = 0
     player.autoResearch = 1

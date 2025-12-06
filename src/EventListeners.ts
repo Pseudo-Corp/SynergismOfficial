@@ -39,13 +39,24 @@ import { sacrificeAnts } from './Features/Ants/AntSacrifice/sacrifice'
 import { antUpgradeData } from './Features/Ants/AntUpgrades/data/data'
 import { buyAllAntUpgrades, buyAntUpgrade } from './Features/Ants/AntUpgrades/lib/buy-upgrade'
 import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
+import { antCornerQuarkHTML, antCornerStageHTML } from './Features/Ants/HTML/modals/ant-quark-corner-modal'
+import { allAntProducerHTML, allAntUpgradeHTML } from './Features/Ants/HTML/modals/buy-all-ant-modal'
 import { antMasteryHTML } from './Features/Ants/HTML/modals/mastery-modal'
 import { antProducerHTML } from './Features/Ants/HTML/modals/producer-modal'
 import { antUpgradeHTML } from './Features/Ants/HTML/modals/upgrade-modal'
 import { toggleRebornELOInfo } from './Features/Ants/HTML/updates/elo-info'
 import { toggleLeaderboardMode } from './Features/Ants/HTML/updates/leaderboard'
+import {
+  updateAlwaysSacrificeMaxRebornELOToggle,
+  updateOnlySacrificeMaxRebornELOToggle
+} from './Features/Ants/HTML/updates/toggles/additional-sacrifice-toggles'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
-import { toggleAlwaysSacrificeMaxRebornELO, toggleAutoAntSacrificeEnabled, toggleAutoAntSacrificeMode, toggleOnlySacrificeMaxRebornELO } from './Features/Ants/toggles/auto-sacrifice'
+import {
+  toggleAlwaysSacrificeMaxRebornELO,
+  toggleAutoAntSacrificeEnabled,
+  toggleAutoAntSacrificeMode,
+  toggleOnlySacrificeMaxRebornELO
+} from './Features/Ants/toggles/auto-sacrifice'
 import { toggleAutobuyAntMastery } from './Features/Ants/toggles/autobuy-mastery'
 import { toggleAutobuyAntProducer } from './Features/Ants/toggles/autobuy-producer'
 import { toggleAutobuyAntUpgrade } from './Features/Ants/toggles/autobuy-upgrade'
@@ -172,7 +183,15 @@ import {
   updateRuneBlessingBuyAmount
 } from './Toggles'
 import type { FirstToEighth, FirstToFifth, OneToFive, Player } from './types/Synergism'
-import { closeChangelog, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openChangelog, Prompt } from './UpdateHTML'
+import {
+  closeChangelog,
+  CloseModal,
+  Confirm,
+  MEDIUM_MODAL_UPDATE_TICK,
+  Modal,
+  openChangelog,
+  Prompt
+} from './UpdateHTML'
 import { shopMouseover } from './UpdateVisuals'
 import {
   buyConstantUpgrades,
@@ -184,8 +203,6 @@ import {
 } from './Upgrades'
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
-import { updateAlwaysSacrificeMaxRebornELOToggle, updateOnlySacrificeMaxRebornELOToggle } from './Features/Ants/HTML/updates/toggles/additional-sacrifice-toggles'
-import { allAntProducerHTML, allAntUpgradeHTML } from './Features/Ants/HTML/modals/buy-all-ant-modal'
 
 /* STYLE GUIDE */
 /*
@@ -627,7 +644,9 @@ export const generateEventHandlers = () => {
     runeBlessing.addEventListener(
       'mousemove',
       (e) => {
-        Modal(() => focusedRuneBlessingHTML(key), e.clientX, e.clientY, { borderColor: runes[key].runeHTMLStyle.borderColor })
+        Modal(() => focusedRuneBlessingHTML(key), e.clientX, e.clientY, {
+          borderColor: runes[key].runeHTMLStyle.borderColor
+        })
       }
     )
     runeBlessing.addEventListener('focus', () => {
@@ -650,7 +669,9 @@ export const generateEventHandlers = () => {
     runeSpirit.addEventListener(
       'mousemove',
       (e) => {
-        Modal(() => focusedRuneSpiritHTML(key), e.clientX, e.clientY, { borderColor: runes[key].runeHTMLStyle.borderColor })
+        Modal(() => focusedRuneSpiritHTML(key), e.clientX, e.clientY, {
+          borderColor: runes[key].runeHTMLStyle.borderColor
+        })
       }
     )
     runeSpirit.addEventListener('focus', () => {
@@ -754,7 +775,7 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('toggleautoresearch').addEventListener('click', () => toggleAutoResearch())
   DOMCacheGetOrSet('toggleautoresearchmode').addEventListener('click', () => toggleAutoResearchMode())
 
-  for (let index = 0; index < 2; index++) {
+  for (let index = 0; index < 3; index++) {
     DOMCacheGetOrSet(`toggleAntSubtab${index + 1}`).addEventListener(
       'click',
       () => changeSubTab(Tabs.AntHill, { page: index })
@@ -791,7 +812,8 @@ export const generateEventHandlers = () => {
     )
     antTier.addEventListener(
       'mousemove',
-      (e: MouseEvent) => Modal(() => antProducerHTML(ant), e.clientX, e.clientY, { borderColor: antProducerData[ant].color })
+      (e: MouseEvent) =>
+        Modal(() => antProducerHTML(ant), e.clientX, e.clientY, { borderColor: antProducerData[ant].color })
     )
 
     // TODO: When we have event listeners for Focus on modals, clicking on the element in question
@@ -805,7 +827,7 @@ export const generateEventHandlers = () => {
       })
     })*/
     antTier.addEventListener('mouseout', () => CloseModal())
-    //antTier.addEventListener('blur', () => CloseModal())
+    // antTier.addEventListener('blur', () => CloseModal())
     antTier.addEventListener('click', (event) => {
       buyAntProducers(ant, player.ants.toggles.maxBuyProducers)
       Modal(() => antProducerHTML(ant), event.clientX, event.clientY, { borderColor: antProducerData[ant].color })
@@ -826,7 +848,7 @@ export const generateEventHandlers = () => {
       Modal(() => antMasteryHTML(ant), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: blendedColor })
     })*/
     antMastery.addEventListener('mouseout', () => CloseModal())
-    //antMastery.addEventListener('blur', () => CloseModal())
+    // antMastery.addEventListener('blur', () => CloseModal())
     antMastery.addEventListener('click', (event) => {
       buyAntMastery(ant)
       Modal(() => antMasteryHTML(ant), event.clientX, event.clientY, { borderColor: blendedColor })
@@ -850,7 +872,7 @@ export const generateEventHandlers = () => {
       Modal(() => antUpgradeHTML(upgrade), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'burlywood' })
     })*/
     antUpgrade.addEventListener('mouseout', () => CloseModal())
-    //antUpgrade.addEventListener('blur', () => CloseModal())
+    // antUpgrade.addEventListener('blur', () => CloseModal())
     antUpgrade.addEventListener('click', (event) => {
       buyAntUpgrade(upgrade, player.ants.toggles.maxBuyUpgrades)
       Modal(() => antUpgradeHTML(upgrade), event.clientX, event.clientY, { borderColor: 'burlywood' })
@@ -875,6 +897,15 @@ export const generateEventHandlers = () => {
 
   // Part 3.5: Leaderboard
   DOMCacheGetOrSet('antLeaderboardToggle').addEventListener('click', () => toggleLeaderboardMode())
+  DOMCacheGetOrSet('antLeaderboardValueAmount').addEventListener('mousemove', (e: MouseEvent) => {
+    Modal(() => antCornerStageHTML(), e.clientX, e.clientY, { borderColor: 'orange' })
+  })
+  DOMCacheGetOrSet('antLeaderboardValueAmount').addEventListener('mouseout', () => CloseModal())
+
+  DOMCacheGetOrSet('antLeaderboardQuarkValueAmount').addEventListener('mousemove', (e: MouseEvent) => {
+    Modal(() => antCornerQuarkHTML(), e.clientX, e.clientY, { borderColor: 'cyan' })
+  })
+  DOMCacheGetOrSet('antLeaderboardQuarkValueAmount').addEventListener('mouseout', () => CloseModal())
 
   // Part 4: QoL Buttons
   DOMCacheGetOrSet('toggleBuyAntProducerMax').addEventListener('click', () => toggleMaxBuyAntProducer())
@@ -1484,7 +1515,9 @@ TODO: Fix this entire tab it's utter shit
         () => {
           const element = DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`)
           const elmRect = element.getBoundingClientRect()
-          Modal(() => redAmbrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'red' })
+          Modal(() => redAmbrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {
+            borderColor: 'red'
+          })
         }
       )
       DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(

@@ -271,12 +271,9 @@ export const revealStuff = () => {
   const unlockedAntSac = getAchievementReward('antSacrificeUnlock')
   if (unlockedAntSac) {
     DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'none'
-    DOMCacheGetOrSet('antSacrificeImmortalAndWorldlyRewards').style.display = 'flex'
     DOMCacheGetOrSet('sacrificeAnts').style.display = 'flex'
-  }
-  else {
+  } else {
     DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'flex'
-    DOMCacheGetOrSet('antSacrificeImmortalAndWorldlyRewards').style.display = 'none'
     DOMCacheGetOrSet('sacrificeAnts').style.display = 'none'
   }
 
@@ -293,12 +290,10 @@ export const revealStuff = () => {
   if (unlockedAdditionalSacrificeOptions) {
     DOMCacheGetOrSet('additionalAutoSacOptionsLocked').style.display = 'none'
     DOMCacheGetOrSet('additionalAutoSacOptions').style.display = 'flex'
-  }
-  else {
+  } else {
     DOMCacheGetOrSet('additionalAutoSacOptionsLocked').style.display = 'block'
     DOMCacheGetOrSet('additionalAutoSacOptions').style.display = 'none'
   }
-  
 
   player.researches[39] > 0 // 3x9 Research [Crystal Building Power]
     ? DOMCacheGetOrSet('reincarnationCrystalInfo').style.display = 'block'

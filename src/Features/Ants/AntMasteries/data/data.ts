@@ -4,7 +4,7 @@ import type { AntMasteryData } from '../structs/structs'
 
 export const antMasteryData: Record<AntProducers, AntMasteryData> = {
   [AntProducers.Workers]: {
-    totalELORequirements: [0, 0, 0, 0, 0, 500, 1_250, 3_000, 10_000, 25_000, 256_000, 1_024_000],
+    totalELORequirements: [0, 0, 0, 0, 0, 500, 1_250, 3_000, 7_500, 25_000, 256_000, 1_024_000],
     particleCosts: [
       Decimal.fromString('1e700'),
       Decimal.fromString('1e1200'),
@@ -14,7 +14,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       Decimal.fromString('1e20000'),
       Decimal.fromString('1e32000'),
       Decimal.fromString('1e100000'),
-      Decimal.fromString('1e1000000'),
+      Decimal.fromString('1e800000'),
       Decimal.fromString('1e3000000'),
       Decimal.fromString('1e10000000'),
       Decimal.fromString('1e100000000')
@@ -37,7 +37,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
     selfPowerIncrement: 0.001
   },
   [AntProducers.Breeders]: {
-    totalELORequirements: [0, 0, 0, 0, 2_500, 3_000, 15_000, 30_000, 60_000, 115_000, 403_000, 1_344_000],
+    totalELORequirements: [0, 0, 0, 0, 2_500, 3_000, 8_000, 30_000, 60_000, 115_000, 403_000, 1_344_000],
     particleCosts: [
       Decimal.fromString('1e1000'),
       Decimal.fromString('1e2000'),
@@ -45,7 +45,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       Decimal.fromString('1e12500'),
       Decimal.fromString('1e40000'),
       Decimal.fromString('1e100000'),
-      Decimal.fromString('1e3000000'),
+      Decimal.fromString('1e1500000'),
       Decimal.fromString('1e5000000'),
       Decimal.fromString('1e10000000'),
       Decimal.fromString('1e17500000'),
@@ -70,7 +70,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
     selfPowerIncrement: 0.002
   },
   [AntProducers.MetaBreeders]: {
-    totalELORequirements: [0, 0, 1_250, 2_600, 6_000, 13_000, 27_000, 55_000, 100_000, 180_000, 598_000, 1_996_000],
+    totalELORequirements: [0, 0, 1_250, 2_600, 6_000, 9_000, 27_000, 55_000, 100_000, 180_000, 598_000, 1_996_000],
     particleCosts: [
       Decimal.fromString('1e2500'),
       Decimal.fromString('1e6000'),
@@ -107,7 +107,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       0,
       0,
       2_700,
-      13_000,
+      10_000,
       25_000,
       42_000,
       65_000,
@@ -197,7 +197,7 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
   [AntProducers.LordRoyals]: {
     totalELORequirements: [
       6_000,
-      14_000,
+      12_000,
       31_000,
       61_000,
       122_000,
@@ -338,14 +338,14 @@ export const antMasteryData: Record<AntProducers, AntMasteryData> = {
       3_500_000,
       4_500_000,
       5_500_000,
-      6_500_000,
-      8_000_000,
-      9_500_000,
+      6_250_000,
+      7_000_000,
+      7_750_000,
+      8_500_000,
+      9_250_000,
+      10_000_000,
       11_000_000,
-      12_500_000,
-      14_000_000,
-      16_000_000,
-      18_000_000
+      12_500_000
     ],
     particleCosts: [
       Decimal.fromString('1'),

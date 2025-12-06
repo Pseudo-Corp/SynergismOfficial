@@ -19,7 +19,7 @@ export const canBuyAntMastery = (ant: AntProducers): boolean => {
 export const getBuyableMasteryLevels = (ant: AntProducers): number => {
   let buyableLevels = 0
   const maxLevel = getMaxAntMasteryLevel()
-  let level = player.ants.masteries[ant].mastery
+  const level = player.ants.masteries[ant].mastery
   while (level + buyableLevels < maxLevel) {
     const reqELO = antMasteryData[ant].totalELORequirements[level + buyableLevels]
     const elo = player.ants.rebornELO

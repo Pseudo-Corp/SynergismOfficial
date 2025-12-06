@@ -90,6 +90,7 @@ import {
   sumOfExaltCompletions
 } from './Calculate'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
+import { prod } from './Config'
 import {
   calculateAntELOCubeBlessing,
   calculateAntSpeedCubeBlessing,
@@ -100,7 +101,15 @@ import {
   calculateSalvageCubeBlessing
 } from './Cubes'
 import { BuffType } from './Event'
+import { canGenerateAntCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
+import {
+  calculateBaseAntELO,
+  calculateEffectiveAntELO,
+  calculateELOMult
+} from './Features/Ants/AntSacrifice/Rewards/ELO/AntELO/lib/calculate'
 import { calculateAntSpeedMultFromELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
+import { rebornELOCreationSpeedMult } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
+import { thresholdModifiers } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
 import { calculateTrueAntLevel } from './Features/Ants/AntUpgrades/lib/total-levels'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
@@ -148,11 +157,6 @@ import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talisman
 import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { prod } from './Config'
-import { canGenerateAntCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
-import { calculateBaseAntELO, calculateEffectiveAntELO, calculateELOMult } from './Features/Ants/AntSacrifice/Rewards/ELO/AntELO/lib/calculate'
-import { thresholdModifiers } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
-import { rebornELOCreationSpeedMult } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
 
 export interface StatLine<T = number | Exclude<DecimalSource, string>> {
   i18n: string
@@ -1600,10 +1604,6 @@ export const allObtainiumStats: DecimalSourceLine[] = [
     stat: () => 1 + 0.1 * player.cubeUpgrades[3] // Cube Upgrade 1x3
   },
   {
-    i18n: 'CubeUpgrade4x7',
-    stat: () => 1 + 0.1 * player.cubeUpgrades[47] // Cube Upgrade 4x7
-  },
-  {
     i18n: 'Challenge12',
     stat: () => 1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]) // Challenge 12
   },
@@ -2938,9 +2938,9 @@ export const antSpeedStats: DecimalSourceLine[] = [
   {
     i18n: 'Base',
     stat: () => {
-      return canGenerateAntCrumbs() ?
-      1 :
-      0
+      return canGenerateAntCrumbs()
+        ? 1
+        : 0
     }
   },
   {
@@ -2950,11 +2950,10 @@ export const antSpeedStats: DecimalSourceLine[] = [
       const speedMult = calculateGlobalSpeedMult()
       if (speedMult > 1) {
         return Decimal.pow(speedMult, exponent)
-      }
-      else {
+      } else {
         return speedMult
       }
-    } 
+    }
   },
   {
     i18n: 'AchievementBonus',
@@ -2970,10 +2969,6 @@ export const antSpeedStats: DecimalSourceLine[] = [
     stat: () => getAntUpgradeEffect(AntUpgrades.AntSpeed).antSpeed // Ant Upgrade 1
   },
   {
-    i18n: 'AntUpgrade13',
-    stat: () => getAntUpgradeEffect(AntUpgrades.AntSpeed2).antSpeed // Ant Upgrade 13
-  },
-  {
     i18n: 'DiamondUpgrade19',
     stat: () => 1 + 0.6 * player.upgrades[39], // Diamond Upgrade 19
     displayCriterion: () => Boolean(getAchievementReward('diamondUpgrade19'))
@@ -2985,7 +2980,10 @@ export const antSpeedStats: DecimalSourceLine[] = [
   },
   {
     i18n: 'ReincarnationUpgrade17',
-    stat: () => (player.upgrades[77] > 0) ? Decimal.pow(1 + player.upgrades[77] / 250, player.ants.producers[AntProducers.Workers].purchased) : 1, // Reincarnation Upgrade 17
+    stat: () =>
+      (player.upgrades[77] > 0)
+        ? Decimal.pow(1 + player.upgrades[77] / 250, player.ants.producers[AntProducers.Workers].purchased)
+        : 1, // Reincarnation Upgrade 17
     displayCriterion: () => player.researches[50] > 0
   },
   {
@@ -3101,7 +3099,7 @@ export const antELOStats: NumberStatLine[] = [
   },
   {
     i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('antELOAdditive'),
+    stat: () => +getAchievementReward('antELOAdditive')
   },
   {
     i18n: 'SynergismLevel',
@@ -3130,7 +3128,8 @@ export const antELOStats: NumberStatLine[] = [
   {
     i18n: 'ShopUpgrade',
     stat: () => 4 * player.shopUpgrades.antSpeed,
-    displayCriterion: () => player.highestchallengecompletions[10] > 0 || player.ascensionCount > 0 || player.shopUpgrades.antSpeed > 0
+    displayCriterion: () =>
+      player.highestchallengecompletions[10] > 0 || player.ascensionCount > 0 || player.shopUpgrades.antSpeed > 0
   },
   {
     i18n: 'Research5x8',
@@ -3153,6 +3152,11 @@ export const antELOStats: NumberStatLine[] = [
     displayCriterion: () => isResearchUnlocked(123)
   },
   {
+    i18n: 'Research7x19',
+    stat: () => 0.2 * player.researches[169],
+    displayCriterion: () => isResearchUnlocked(169)
+  },
+  {
     i18n: 'Research8x3',
     stat: () => 666 * player.researches[178],
     displayCriterion: () => isResearchUnlocked(178)
@@ -3160,6 +3164,11 @@ export const antELOStats: NumberStatLine[] = [
   {
     i18n: 'AntUpgrade',
     stat: () => getAntUpgradeEffect(AntUpgrades.AntSacrifice).elo,
+    displayCriterion: () => player.unlocks.anthill
+  },
+  {
+    i18n: 'AntUpgrade13',
+    stat: () => getAntUpgradeEffect(AntUpgrades.AntELO).antELO,
     displayCriterion: () => player.unlocks.anthill
   }
 ]
@@ -3197,7 +3206,7 @@ export const additiveAntELOMultStats: NumberStatLine[] = [
     i18n: 'PlatonicUpgrade12',
     stat: () => (1 / 200) * player.platonicUpgrades[12] * player.corruptions.used.extinction,
     displayCriterion: () => player.challengecompletions[14] > 0
-  },
+  }
 ]
 
 const effectiveAntELOStats: NumberStatLine[] = [
@@ -3208,79 +3217,79 @@ const effectiveAntELOStats: NumberStatLine[] = [
   },
   {
     i18n: 'AdditiveMultiplier',
-    stat: () => calculateELOMult(),
+    stat: () => calculateELOMult()
   }
 ]
 
 export const rebornELOCreationSpeedMultStats: NumberStatLine[] = [
-    {
-      i18n: 'Base',
-      stat: () => 0.01,
-      acc: 3
-    },
-    {
-      i18n: 'EffectiveELO',
-      stat: () => calculateEffectiveAntELO()
-    },
-    {
-      i18n: 'CoinUpgrade24',
-      stat: () => 1 + 0.1 * player.upgrades[124]
-    },
-    {
-      i18n: 'Research5x10',
-      stat: () => 1 + player.researches[110] / 50,
-      displayCriterion: () => isResearchUnlocked(110)
-    },
-    {
-      i18n: 'Research5x20',
-      stat: () => 1 + player.researches[120] / 250,
-      displayCriterion: () => isResearchUnlocked(120)
-    },
-    {
-      i18n: 'Research6x23',
-      stat: () => 1 + player.researches[148] / 50,
-      displayCriterion: () => isResearchUnlocked(148)
-    },
-    {
-      i18n: 'AntQueens',
-      stat: () => player.ants.producers[AntProducers.Queens].purchased > 0 ? 1.15 : 1
-    },
-    {
-      i18n: 'AntLordRoyals',
-      stat: () => player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 1.25 : 1
-    },
-    {
-      i18n: 'AntAlmighties',
-      stat: () => player.ants.producers[AntProducers.Almighties].purchased > 0 ? 1.4 : 1
-    },
-    {
-      i18n: 'AntDisciples',
-      stat: () => player.ants.producers[AntProducers.Disciples].purchased > 0 ? 2 : 1
-    },
-    {
-      i18n: 'AntHolySpirit',
-      stat: () => player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 3 : 1
-    },
-    {
-      i18n: 'ThresholdModifiers',
-      stat: () => thresholdModifiers().rebornSpeedMult,
-      acc: 5
-    },
-    {
-      i18n: 'MortuusTalisman',
-      stat: () => getTalismanEffects('mortuus').antBonus,
-      displayCriterion: () => talismans.mortuus.isUnlocked()
-    },
-    {
-      i18n: 'CubeBlessing',
-      stat: () => calculateAntELOCubeBlessing(),
-      displayCriterion: () => player.ascensionCount > 0
-    },
-    {
-      i18n: 'PlatonicUpgrade12',
-      stat: () => 1 + player.platonicUpgrades[12] / 10,
-      displayCriterion: () => player.challengecompletions[14] > 0
-    },
+  {
+    i18n: 'Base',
+    stat: () => 0.01,
+    acc: 3
+  },
+  {
+    i18n: 'EffectiveELO',
+    stat: () => calculateEffectiveAntELO()
+  },
+  {
+    i18n: 'CoinUpgrade24',
+    stat: () => 1 + 0.1 * player.upgrades[124]
+  },
+  {
+    i18n: 'Research5x10',
+    stat: () => 1 + player.researches[110] / 50,
+    displayCriterion: () => isResearchUnlocked(110)
+  },
+  {
+    i18n: 'Research5x20',
+    stat: () => 1 + player.researches[120] / 250,
+    displayCriterion: () => isResearchUnlocked(120)
+  },
+  {
+    i18n: 'Research6x23',
+    stat: () => 1 + player.researches[148] / 50,
+    displayCriterion: () => isResearchUnlocked(148)
+  },
+  {
+    i18n: 'AntQueens',
+    stat: () => player.ants.producers[AntProducers.Queens].purchased > 0 ? 1.15 : 1
+  },
+  {
+    i18n: 'AntLordRoyals',
+    stat: () => player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 1.25 : 1
+  },
+  {
+    i18n: 'AntAlmighties',
+    stat: () => player.ants.producers[AntProducers.Almighties].purchased > 0 ? 1.4 : 1
+  },
+  {
+    i18n: 'AntDisciples',
+    stat: () => player.ants.producers[AntProducers.Disciples].purchased > 0 ? 2 : 1
+  },
+  {
+    i18n: 'AntHolySpirit',
+    stat: () => player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 3 : 1
+  },
+  {
+    i18n: 'ThresholdModifiers',
+    stat: () => thresholdModifiers().rebornSpeedMult,
+    acc: 5
+  },
+  {
+    i18n: 'MortuusTalisman',
+    stat: () => getTalismanEffects('mortuus').antBonus,
+    displayCriterion: () => talismans.mortuus.isUnlocked()
+  },
+  {
+    i18n: 'CubeBlessing',
+    stat: () => calculateAntELOCubeBlessing(),
+    displayCriterion: () => player.ascensionCount > 0
+  },
+  {
+    i18n: 'PlatonicUpgrade12',
+    stat: () => 1 + player.platonicUpgrades[12] / 10,
+    displayCriterion: () => player.challengecompletions[14] > 0
+  }
 ]
 
 export const allMiscStats: DecimalSourceLine[] = [
@@ -3578,12 +3587,10 @@ export const loadStatistics = (
         if (!obj.displayCriterion()) {
           // Distinguish between shown via testing and shown via criterion
           statLine.style.backgroundColor = 'crimson'
-        }
-        else {
+        } else {
           statLine.style.backgroundColor = ''
         }
-      }
-      else { 
+      } else {
         statLine.style.display = obj.displayCriterion() ? 'block' : 'none'
       }
     }

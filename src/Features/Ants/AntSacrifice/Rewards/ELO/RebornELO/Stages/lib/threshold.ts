@@ -2,12 +2,21 @@ import { player } from '../../../../../../../../Synergism'
 import { assert } from '../../../../../../../../Utility'
 
 export const thresholdTranches = [
-  { stages: 100, perStage: 100 },
-  { stages: 100, perStage: 1000 },
-  { stages: 100, perStage: 3000 },
-  { stages: 700, perStage: 20000 },
-  { stages: Infinity, perStage: 100000 }
+  { stages: 100, perStage: 100, quarkPerStage: 1 },
+  { stages: 100, perStage: 1000, quarkPerStage: 2 },
+  { stages: 100, perStage: 3000, quarkPerStage: 3 },
+  { stages: 700, perStage: 20000, quarkPerStage: 4 },
+  { stages: Number.POSITIVE_INFINITY, perStage: 100000, quarkPerStage: 5 }
 ]
+
+export const quarkMultiplierPerThreshold = 1.003
+
+export const perThresholdModifiers = {
+  rebornSpeedMult: 0.98,
+  antSacrificeObtainiumMult: 1.05,
+  antSacrificeOfferingMult: 1.05,
+  antSacrificeTalismanFragmentMult: 1.2
+}
 
 export const calculateRebornELOThresholds = (elo?: number) => {
   let rebornELOBudget = elo ?? player.ants.rebornELO
@@ -37,12 +46,27 @@ export const calculateToNextELOThreshold = (rebornELO: number, stage?: number) =
   assert(false, 'Unreachable code in calculateToNextELOThreshold')
 }
 
+export const calculateLeftoverELO = (rebornELO: number, stage?: number) => {
+  const thresholds = stage ?? calculateRebornELOThresholds(rebornELO)
+  let usedELO = 0
+  let stagesChecked = 0
+  for (const tranche of thresholdTranches) {
+    const stagesInThisTranche = Math.min(tranche.stages, thresholds - stagesChecked)
+    usedELO += stagesInThisTranche * tranche.perStage
+    stagesChecked += stagesInThisTranche
+    if (stagesChecked >= thresholds) {
+      break
+    }
+  }
+  return rebornELO - usedELO
+}
+
 export const thresholdModifiers = () => {
   const thresholds = calculateRebornELOThresholds()
   return {
-    rebornSpeedMult: Math.pow(0.98, thresholds),
-    antSacrificeObtainiumMult: Math.pow(1.05, thresholds),
-    antSacrificeOfferingMult: Math.pow(1.05, thresholds),
-    antSacrificeTalismanFragmentMult: Math.pow(1.2, thresholds)
+    rebornSpeedMult: Math.pow(perThresholdModifiers.rebornSpeedMult, thresholds),
+    antSacrificeObtainiumMult: Math.pow(perThresholdModifiers.antSacrificeObtainiumMult, thresholds),
+    antSacrificeOfferingMult: Math.pow(perThresholdModifiers.antSacrificeOfferingMult, thresholds),
+    antSacrificeTalismanFragmentMult: Math.pow(perThresholdModifiers.antSacrificeTalismanFragmentMult, thresholds)
   }
 }

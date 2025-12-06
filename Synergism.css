@@ -2370,7 +2370,8 @@ p#reincarnatehotkeys {
 }
 
 #antSubtab1,
-#antSubtab2 {
+#antSubtab2,
+#antSubtab3 {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2378,10 +2379,13 @@ p#reincarnatehotkeys {
     flex-shrink: 0;
 }
 
-#antsWelcomeTexts > p { margin: 0; }
-#antSacrificeWelcomeTexts > p { margin: 0; }
-#antwelcome { font-size: 1.3em; }
-#antAltarWelcome { font-size: 1.3em; }
+.introTextContainer > p {
+    margin: 0;
+}
+
+.introText {
+    font-size: 1.3em;
+}
 
 #antProducersContainer {
     display: flex;
@@ -2525,22 +2529,18 @@ p#reincarnatehotkeys {
     width: 100%;
 }
 
-#sacrificeStatus {
+.sacrificeAntsContainer {
+    width: 33.33%;
+}
+
+#altar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
 }
 
-#sacrificeStatus p {
+#altar p {
     margin: 0;
-}
-
-#autoSacrificeSettings {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
 }
 
 #autoSacrifice {
@@ -2591,13 +2591,6 @@ p#reincarnatehotkeys {
     margin: 0;
 }
 
-#antSacrificeImmortalAndWorldlyRewards {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 10px 0;
-}
-
 #immortalELOInfo,
 #immortalELOOverview {
     flex-direction: column;
@@ -2621,6 +2614,10 @@ p#reincarnatehotkeys {
     margin-bottom: 4px;
     overflow-wrap: break-word;
     white-space: initial;
+}
+
+#antSacrificeCompendium {
+    width: 50%;
 }
 
 /* Ant Leaderboard Styles */

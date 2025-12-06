@@ -378,3 +378,18 @@ export async function retry<T> (
 
   throw new AggregateError(reject, `Failed after ${times} retries`)
 }
+
+export const geometricSeries = (startIndex: number, endIndex: number, ratio: number): number => {
+  if (ratio === 1) {
+    return endIndex - startIndex + 1
+  } else {
+    return (ratio ** (endIndex + 1) - ratio ** startIndex) / (ratio - 1)
+  }
+}
+
+export const infiniteGeometricSeries = (startIndex: number, ratio: number): number => {
+  if (Math.abs(ratio) >= 1) {
+    throw new Error('Ratio must be less than 1 for an infinite geometric series to converge.')
+  }
+  return ratio ** startIndex / (1 - ratio)
+}

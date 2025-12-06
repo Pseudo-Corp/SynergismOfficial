@@ -7,6 +7,8 @@ import { calculateAntSacrificeCubeBlessing, calculateObtainiumCubeBlessing } fro
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
+import { thresholdModifiers } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
+import { calculateAntSacrificeObtainium } from './Features/Ants/AntSacrifice/Rewards/Obtainium/calculate-obtainium'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { addTimers, automaticTools } from './Helper'
@@ -250,9 +252,9 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
     return new Decimal('0')
   }
 
-  const multiplier = 0.5 * player.researches[61] 
-  + 0.1 * player.researches[62] 
-  + 0.8 * player.cubeUpgrades[3]
+  const multiplier = 0.5 * player.researches[61]
+    + 0.1 * player.researches[62]
+    + 0.8 * player.cubeUpgrades[3]
 
   if (multiplier === 0) {
     return new Decimal('0')
@@ -266,8 +268,16 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
 
   const baseObtainium = calculateBaseObtainium()
   const nonBaseValue = resourceMult.times(globalSpeedMult).times(timePenaltyMult)
+  let nonBaseAntValue = new Decimal(0)
+  if (player.cubeUpgrades[47] > 0) {
+    const stageMod = thresholdModifiers().antSacrificeObtainiumMult
+    const antMult = calculateAntSacrificeObtainium(stageMod, useTimer)
+    const antTimePenaltyMult = Math.min(1, player.antSacrificeTimer / resetTimeDivisor)
+    nonBaseAntValue = antMult.times(globalSpeedMult).times(antTimePenaltyMult)
+  }
 
-  return Decimal.max(baseObtainium, nonBaseValue).times(deltaTime).div(resetTimeDivisor).times(multiplier)
+  return Decimal.max(baseObtainium, Decimal.max(nonBaseValue, nonBaseAntValue)).times(deltaTime).div(resetTimeDivisor)
+    .times(multiplier)
 }
 
 export const calculateQuarkMultiplier = () => {
@@ -389,10 +399,10 @@ export const calculateFreeShopInfinityUpgrades = () => {
 
 export const calculateTotalCoinOwned = () => {
   return player.firstOwnedCoin
-  + player.secondOwnedCoin
-  + player.thirdOwnedCoin
-  + player.fourthOwnedCoin
-  + player.fifthOwnedCoin
+    + player.secondOwnedCoin
+    + player.thirdOwnedCoin
+    + player.fourthOwnedCoin
+    + player.fifthOwnedCoin
 }
 
 export const calculateTotalAcceleratorBoost = () => {
@@ -538,14 +548,15 @@ export const calculateActualAntSpeedMult = () => {
   // TODO: How can we make these penalties not suck to balance?
   let exponent = 1
   if (player.currentChallenge.ascension === 12) {
-    exponent = 0.4
+    exponent = 0.75
   } else if (player.currentChallenge.ascension === 13) {
     exponent = 0.23
   } else if (player.currentChallenge.ascension === 14) {
     exponent = 0.2
+  } else if (player.currentChallenge.ascension === 15) {
+    exponent = 0.5
   }
 
-  exponent *= 1 - 0.01 * Math.min(99, player.corruptions.used.totalLevels)
   if (player.platonicUpgrades[10] > 0 && player.currentChallenge.ascension === 15) {
     exponent *= 1.25
   }
@@ -1188,7 +1199,6 @@ export const calculateAscensionScore = () => {
   }
 
   baseScore += getAntUpgradeEffect(AntUpgrades.AscensionScore).ascensionScoreBase
-
 
   // Calculation of Challenge 10 Exponent (It gives a constant multiplier per completion)
   // 1.03 +
