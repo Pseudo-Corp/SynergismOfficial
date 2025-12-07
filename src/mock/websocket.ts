@@ -1,6 +1,7 @@
 import { ws } from 'msw'
 import { messages, messageSchema } from './util/messages'
 import { sleep } from './util/util'
+import { getLotus, getUsedLotus } from '../Login'
 
 const consumable = ws.link('wss://synergism.cc/consumables/connect')
 let tips = 1000
@@ -29,6 +30,17 @@ export const consumeHandlers = [
               : 1440 // jumbo
 
             sleep(2500).then(() => client.send(messages.timeSkip(data.consumable, length)))
+          } else if (data.consumable.includes('LOTUS')) {
+            const amount = data.consumable.includes('SINGLE')
+            ? 1
+            : data.consumable.includes('DOZEN')
+            ? 12
+            : 50 // Huge bundle
+
+            sleep(2500).then(() => {
+              client.send(messages.lotus(data.consumable, amount))
+            })
+
           } else { // Happy Hour Bell
             sleep(1000).then(() => {
               consumable.broadcast(messages.consumed(data.consumable, 'Happy Hour Bell', Date.now() + (1000 * 60 * 60)))
@@ -42,6 +54,12 @@ export const consumeHandlers = [
           const previous = tips
           tips -= data.amount
           messages.appliedTips(Math.max(previous - tips, 0), Math.max(tips, 0))
+          return
+        }
+        case 'applied-lotus': {
+          const time = Date.now()
+          console.log('Applying lotus at time ', time)
+          client.send(messages.appliedLotus(time, getLotus() - 1, getUsedLotus() + 1))
         }
       }
     })

@@ -125,7 +125,7 @@ import {
 } from './Tesseracts'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
-import { sumContents, timeReminingHours } from './Utility'
+import { sumContents, timeRemainingHours } from './Utility'
 import { Globals as G } from './Variables'
 
 export const visualUpdateBuildings = () => {
@@ -2050,7 +2050,7 @@ export const visualUpdateShop = () => {
 export const constructConsumableTimes = (p: PseudoCoinConsumableNames) => {
   const msg: string[] = []
   for (const time of allDurableConsumables[p].ends) {
-    msg.push(timeReminingHours(new Date(time)))
+    msg.push(timeRemainingHours(new Date(time)))
   }
   return msg.join(', ')
 }
@@ -2059,7 +2059,7 @@ export const visualUpdateEvent = () => {
   const event = getEvent()
   if (event !== null) {
     const eventEnd = new Date(event.end)
-    DOMCacheGetOrSet('globalEventTimer').textContent = timeReminingHours(eventEnd)
+    DOMCacheGetOrSet('globalEventTimer').textContent = timeRemainingHours(eventEnd)
     DOMCacheGetOrSet('globalEventName').textContent = `(${event.name.length}) - ${event.name.join(', ')}`
 
     for (let i = 0; i < eventBuffType.length; i++) {

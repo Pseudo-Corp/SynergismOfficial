@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { getAchievementReward } from '../../../../Achievements'
 import { DOMCacheGetOrSet } from '../../../../Cache/DOM'
 import { format, player } from '../../../../Synergism'
-import { toOrdinal } from '../../../../Utility'
+import { timeRemainingMinutes, toOrdinal } from '../../../../Utility'
 import { antSacrificeRewards } from '../../AntSacrifice/Rewards/calculate-rewards'
 import { calculateEffectiveAntELO } from '../../AntSacrifice/Rewards/ELO/AntELO/lib/calculate'
 import { calculateAntSpeedMultFromELO } from '../../AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
@@ -17,6 +17,7 @@ import {
   thresholdModifiers
 } from '../../AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
 import { talismanItemRequiredELO } from '../../AntSacrifice/Rewards/TalismanCraftItems/constants'
+import { getLotus, lotusTimeExpiresAt } from '../../../../Login'
 
 export const showLockedSacrifice = () => {
   const crumbs = player.ants.crumbsThisSacrifice
@@ -85,6 +86,9 @@ export const showSacrifice = () => {
 
   DOMCacheGetOrSet('antSacrificeOffering').textContent = `+${format(sacRewards.offerings)}`
   DOMCacheGetOrSet('antSacrificeObtainium').textContent = `+${format(sacRewards.obtainium)}`
+
+  DOMCacheGetOrSet('lotusStatus').innerHTML = i18next.t('pseudoCoins.lotus.status', {time: timeRemainingMinutes(lotusTimeExpiresAt)})
+  DOMCacheGetOrSet('lotusOwnedAnt').innerHTML = i18next.t('pseudoCoins.lotus.owned', { x: format(getLotus(), 0, true) })
 
   if (player.challengecompletions[9] > 0) {
     // Helper function to update reward display and styling

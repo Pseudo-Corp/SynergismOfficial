@@ -6958,6 +6958,7 @@
       "extraInfo": "Each tick, you generate <<#00DDFF|Reborn ELO>> equal to <br><<yellow | SpeedMult * TickLength>><br><<yellow|TickLength>> is the time since previous tick (in seconds)",
       "Base": "Base Multiplier:",
       "EffectiveELO": "Effective Ant ELO:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
       "AntQueens": "Queen Ant Purchased:",
       "AntLordRoyals": "Lord Royal Ant Purchased:",
       "AntAlmighties": "ALMIGHTY Ant Purchased:",
@@ -7438,7 +7439,8 @@
       "BASE_OFFERING_BUFF": "Abundant Harvests",
       "BASE_OBTAINIUM_BUFF": "Super Literate Scientists",
       "RED_LUCK_BUFF": "Golden Fuzzy Dice",
-      "RED_GENERATION_BUFF": "Century-Aged Red Ambrosia"
+      "RED_GENERATION_BUFF": "Century-Aged Red Ambrosia",
+      "REBORN_ELO_BUFF": "A Fabergé Phoenix Egg"
     },
     "upgradeEffects": {
       "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
@@ -7456,7 +7458,8 @@
       "BASE_OFFERING_BUFF": "Base Offering Gain is increased by <<gold | {{amount}}>>",
       "BASE_OBTAINIUM_BUFF": "Base Obtainium Gain is increased by <<gold | {{amount}}>>",
       "RED_LUCK_BUFF": "Red Luck is increased by <<gold | {{amount}}>>",
-      "RED_GENERATION_BUFF": "Red Bar Point gain is multiplied by <<gold | {{amount}}>>"
+      "RED_GENERATION_BUFF": "Red Bar Point gain is multiplied by <<gold | {{amount}}>>",
+      "REBORN_ELO_BUFF": "Reborn ELO Creation Speed is multiplied by <<gold | {{amount}}>>"
     },
     "consumables": {
       "tipReceived": "{{offlineTime}} people tipped you in the last minute!",
@@ -7465,7 +7468,9 @@
       "consumableSpoiler": "Start an event for everyone, with the Happy Hour Bell!",
       "consumableButton": "Buy at the PseudoShop!",
       "applyTips": "Use Tips!",
-      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s). You may only use up to 1,440 tips per "
+      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s). You may only use up to 1,440 tips per ",
+      "confirmActivation": "You are about to activate a {{name}} for {{cost}} PseudoCoins. Continue?",
+      "cancelled": "Puchase has been cancelled."
     },
     "timeSkips": {
       "GLOBAL": {
@@ -7482,6 +7487,23 @@
       },
       "purchaseBtn": "+{{time}} hours [<<gold|{{cost}} PseudoCoins>>]",
       "warning": "<<gold | ⚠>> Takes a few seconds to apply after purchase! <<gold | ⚠>>"
+    },
+    "lotus": {
+      "name": "Loti of Rejuvenation",
+      "nameSingular": "Lotus of Rejuvenation",
+      "owned": "Owned: {{x}}",
+      "lifetimeUsed": "Used: {{x}}",
+      "intro": "When you activate a Lotus, immediately gain the full amount of Reborn ELO you can get from Immortal ELO, no waiting required! Effect applies for 5 minutes after purchasing. Use Loti at the Ant Altar.",
+      "boxText1": "Don't like waiting for Reborn ELO?",
+      "boxText2": "Use a Lotus to skip the wait!",
+      "boxText3": "Each Lotus lasts for 5 minutes.",
+      "useLotus": "Use Lotus!",
+      "purchaseBtn": "+{{amount}} Lotus [<<gold|{{cost}} PseudoCoins>>]",
+      "buyConfirm": "You are about to buy a {{name}} for {{cost}} PseudoCoins. Continue?",
+      "useConfirm": "You are about to use a Lotus of Rejuvenation. This will consume one of your Loti and activate its effect for 5 minutes, granting you Reborn ELO without having to wait. Continue?",
+      "noLotus": "You do not currently possess a Lotus. Buy some at the PseudoCoins shop!",
+      "status": "Lotus Time: {{time}}",
+      "lotusActive": "You've used a Lotus! For the next 5 minutes, you will gain Reborn ELO from your Immortal ELO without having to wait!"
     }
   },
   "hotkeys": {

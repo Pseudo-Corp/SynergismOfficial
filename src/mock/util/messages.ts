@@ -70,6 +70,24 @@ export const messages = {
       amount,
       remaining
     })
+  },
+
+  lotus (name: string, amount: number) {
+    return JSON.stringify({
+      type: 'lotus',
+      consumableName: name,
+      id: "a1b2c3d4-e5f6-7890-1234-567890abcdef", // Just a fake id
+      amount
+    })
+  },
+
+  appliedLotus (startedAt: number, remaining: number, lifetimeSpent: number) {
+    return JSON.stringify({
+      type: 'applied-lotus',
+      startedAt,
+      remaining,
+      lifetimeSpent
+    })
   }
 }
 
@@ -91,6 +109,16 @@ export const messageSchema = z.preprocess(
     z.object({
       type: z.union([z.literal('applied-tip'), z.literal('use-tips')]),
       amount: z.number().int().nonnegative().safe()
+    }),
+    z.object({
+      type: z.literal('lotus'),
+      amount: z.number().int().nonnegative().safe()
+    }),
+    z.object({
+      type: z.literal('applied-lotus'),
+      startedAt: z.number().int().nonnegative().safe(),
+      remaining: z.number().int().nonnegative().safe(),
+      lifetimeSpent: z.number().int().nonnegative().safe()
     })
   ])
 )
