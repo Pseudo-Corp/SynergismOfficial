@@ -192,7 +192,7 @@ export const addLeadingZero = (n: number): string => {
   return n < 10 ? `0${n}` : String(n)
 }
 
-export const timeReminingHours = (targetDate: Date): string => {
+export const timeRemainingHours = (targetDate: Date): string => {
   const now = new Date()
   const timeDifference = targetDate.getTime() - now.getTime()
 
@@ -205,6 +205,26 @@ export const timeReminingHours = (targetDate: Date): string => {
   const seconds = addLeadingZero(Math.floor((timeDifference % (1000 * 60)) / 1000))
 
   return `${hours}:${minutes}:${seconds}`
+}
+;
+export const timeRemainingMinutes = (targetDate: number | Date | undefined): string => {
+
+  if (targetDate === undefined) {
+    return '--:--'
+  }
+
+  const now = Date.now()
+  const targetTime = targetDate instanceof Date ? targetDate.getTime() : targetDate
+  const timeDifference = targetTime - now
+
+  if (timeDifference < 0) {
+    return '--:--'
+  }
+
+  const minutes = addLeadingZero(Math.floor(timeDifference / (1000 * 60)))
+  const seconds = addLeadingZero(Math.floor((timeDifference % (1000 * 60)) / 1000))
+
+  return `${minutes}:${seconds}`
 }
 
 export const cleanString = (s: string): string => {

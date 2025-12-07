@@ -3,7 +3,7 @@ import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
 import { getGQUpgradeEffect } from './singularity'
 import { getTimePinnedToLoadDate, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
-import { timeReminingHours } from './Utility'
+import { timeRemainingHours } from './Utility'
 import { Globals as G } from './Variables'
 
 export enum BuffType {
@@ -69,7 +69,7 @@ export const eventCheck = async () => {
   }
 
   const eventNowEndDate = new Date(nowEvent?.end ?? 0)
-  DOMCacheGetOrSet('globalEventTimer').textContent = timeReminingHours(eventNowEndDate)
+  DOMCacheGetOrSet('globalEventTimer').textContent = timeRemainingHours(eventNowEndDate)
 
   const updateIsEventCheck = G.isEvent
 

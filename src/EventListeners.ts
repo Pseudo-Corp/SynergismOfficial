@@ -88,7 +88,7 @@ import {
   resetGame,
   updateSaveString
 } from './ImportExport'
-import { exitFastForward, getTips, sendToWebsocket, setTips } from './Login'
+import { exitFastForward, getLotus, getTips, getUsedLotus, sendToWebsocket, setTips } from './Login'
 import {
   buyOcteractUpgradeLevel,
   type OcteractDataKeys,
@@ -184,6 +184,7 @@ import {
 } from './Toggles'
 import type { FirstToEighth, FirstToFifth, OneToFive, Player } from './types/Synergism'
 import {
+  Alert,
   closeChangelog,
   CloseModal,
   Confirm,
@@ -893,6 +894,22 @@ export const generateEventHandlers = () => {
   onlyMaxRebornELOToggle.addEventListener('change', () => {
     toggleOnlySacrificeMaxRebornELO()
     updateOnlySacrificeMaxRebornELOToggle(player.ants.toggles.onlySacrificeMaxRebornELO)
+  })
+
+  document.getElementById('use-lotus')?.addEventListener('click', () => {
+    Confirm(i18next.t('pseudoCoins.lotus.useConfirm'))
+      .then((bool) => {
+
+        if (!bool) {
+          return
+        }
+
+        if (getLotus() < 1) {
+          return Alert(i18next.t('pseudoCoins.lotus.noLotus'))
+        }
+
+        sendToWebsocket(JSON.stringify({ type: 'applied-lotus', startedAt: Date.now(), remaining: getLotus() - 1, lifetimeSpent: getUsedLotus() + 1 }))
+      })
   })
 
   // Part 3.5: Leaderboard

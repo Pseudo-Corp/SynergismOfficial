@@ -73,10 +73,10 @@ function setActiveUpgrade (upgrade: UpgradesList) {
   const nextEffect = DOMCacheGetOrSet('pCoinEffectNext')
 
   currEffect.innerHTML = `${i18next.t('pseudoCoins.currEffect')} ${
-    i18next.t(displayPCoinEffect(upgrade.internalName, upgrade.playerLevel))
+    displayPCoinEffect(upgrade.internalName, upgrade.playerLevel)
   }`
   nextEffect.innerHTML = `${i18next.t('pseudoCoins.nextEffect')} ${
-    i18next.t(displayPCoinEffect(upgrade.internalName, upgrade.playerLevel + 1))
+    displayPCoinEffect(upgrade.internalName, upgrade.playerLevel + 1)
   }`
 
   const costs = DOMCacheGetOrSet('pCoinScalingCosts')

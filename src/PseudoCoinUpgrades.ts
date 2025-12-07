@@ -21,6 +21,7 @@ export type PseudoCoinUpgradeNames =
   | 'BASE_OBTAINIUM_BUFF'
   | 'RED_GENERATION_BUFF'
   | 'RED_LUCK_BUFF'
+  | 'REBORN_ELO_BUFF'
 
 export type PseudoCoinUpgrades = Record<PseudoCoinUpgradeNames, number>
 export type PseudoCoinUpgradeEffects = Record<PseudoCoinUpgradeNames, number>
@@ -43,7 +44,8 @@ export const PCoinUpgrades: PseudoCoinUpgrades = {
   'BASE_OFFERING_BUFF': 0,
   'BASE_OBTAINIUM_BUFF': 0,
   'RED_GENERATION_BUFF': 0,
-  'RED_LUCK_BUFF': 0
+  'RED_LUCK_BUFF': 0,
+  'REBORN_ELO_BUFF': 0
 }
 
 export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
@@ -62,7 +64,8 @@ export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
   BASE_OFFERING_BUFF: 0,
   BASE_OBTAINIUM_BUFF: 0,
   RED_GENERATION_BUFF: 1,
-  RED_LUCK_BUFF: 0
+  RED_LUCK_BUFF: 0,
+  REBORN_ELO_BUFF: 1
 }
 
 export const initializePCoinCache = async () => {
@@ -139,6 +142,9 @@ export const updatePCoinEffects = (name: PseudoCoinUpgradeNames, level: number) 
     case 'RED_LUCK_BUFF':
       PCoinUpgradeEffects.RED_LUCK_BUFF = level * 20
       break
+    case 'REBORN_ELO_BUFF':
+      PCoinUpgradeEffects.REBORN_ELO_BUFF = 1 + level * 0.06
+      break
   }
 }
 
@@ -198,6 +204,8 @@ export const displayPCoinEffect = (name: PseudoCoinUpgradeNames, level: number) 
       )
     case 'RED_LUCK_BUFF':
       return String(i18next.t('pseudoCoins.upgradeEffects.RED_LUCK_BUFF', { amount: 20 * level }))
+    case 'REBORN_ELO_BUFF':
+      return String(i18next.t('pseudoCoins.upgradeEffects.REBORN_ELO_BUFF', { amount: format(1 + 0.06 * level, 2, true) }))
   }
 }
 
@@ -282,6 +290,11 @@ export const showCostAndEffect = (name: PseudoCoinUpgradeNames) => {
       return {
         cost: 'Cost: 100/150/200/250/300 PseudoCoins',
         effect: 'Effect: 20/40/60/80/100 Red Luck'
+      }
+    case 'REBORN_ELO_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: 1.06/1.12/1.18/1.24/1.30x Reborn ELO'
       }
   }
 }

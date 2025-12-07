@@ -343,6 +343,15 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     animation-fill-mode: forwards;
 }
 
+.iconAndNameContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+}
+
 #notification > p {
     position: fixed;
     top: 50%;
@@ -2601,6 +2610,23 @@ p#reincarnatehotkeys {
     margin: 0;
 }
 
+#lotusCorner {
+    border: 2px solid pink;
+    width: 66%;
+    justify-self: center;
+}
+
+#lotusCorner p {
+    margin: 0;
+}
+
+#use-lotus {
+    border: 2px solid pink;
+    width: 50%;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
 #antSacrificeObtainiumOfferings,
 #antSacrificeShardsRow1,
 #antSacrificeShardsRow2 {
@@ -4488,6 +4514,16 @@ header #obtainiumDisplay { color: pink; }
     --gradient-end: lightgoldenrodyellow;
 }
 
+.bellGradient {
+    --gradient-start: gold;
+    --gradient-end: darkgoldenrod;
+}
+
+.lotusGradient {
+    --gradient-start: purple;
+    --gradient-end: pink;
+}
+
 .singularityUpgrade > img,
 .octeractUpgrade > img,
 .singularityChallenge img {
@@ -5446,6 +5482,7 @@ form input:hover {
     border: 2px solid var(--amber-text-color);
     padding: 5px;
     box-sizing: border-box;
+    width: 50%;
 }
 
 .consumablePurchaseBtn {
@@ -5463,7 +5500,7 @@ form input:hover {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .timeSkipContainer {
@@ -5471,8 +5508,7 @@ form input:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    width: 33%;
+    width: 33.333%;
     height: 30%;
 }
 
@@ -5483,6 +5519,24 @@ form input:hover {
     align-items: center;
     margin: 0;
     padding: 0;
+}
+
+#topRowConsumables {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.lotusHeaderText {
+    text-align: center;
+}
+
+.lotusHeaderText p {
+    margin: 0;
+}
+
+.lotusContainer {
+    border: 2px solid pink !important
 }
 
 /* Cost text */
