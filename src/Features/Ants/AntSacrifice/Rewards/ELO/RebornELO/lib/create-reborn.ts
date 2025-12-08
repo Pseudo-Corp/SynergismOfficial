@@ -12,8 +12,7 @@ export const activateELO = (dt: number) => {
     // Lotus is active.
     if (lotusTimeExpiresAt !== undefined && time < lotusTimeExpiresAt) {
       player.ants.rebornELO = player.ants.immortalELO
-    }
-    else {
+    } else {
       const limit = player.ants.immortalELO - player.ants.rebornELO
       const gain = Math.min(limit, dt * rebornELOCreationSpeedMult())
       let stages = calculateRebornELOThresholds(player.ants.rebornELO)

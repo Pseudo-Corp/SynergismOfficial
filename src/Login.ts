@@ -8,13 +8,13 @@ import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosi
 import { updateGlobalsIsEvent } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
+import { updateLotusDisplay } from './purchases/ConsumablesTab'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
 import { assert, btoa, isomorphicDecode } from './Utility'
-import { updateLotusDisplay } from './purchases/ConsumablesTab'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -28,11 +28,6 @@ type PseudoCoinTimeskipNames =
   | 'SMALL_AMBROSIA_TIMESKIP'
   | 'LARGE_AMBROSIA_TIMESKIP'
   | 'JUMBO_AMBROSIA_TIMESKIP'
-
-type PseudoCoinLotusNames = 
-  | 'LOTUS_SINGLE'
-  | 'LOTUS_DOZEN'
-  | 'LOTUS_BUNDLE'
 
 interface Consumable {
   /** array of unix timestamps for when each individual consumable ends */
@@ -83,12 +78,13 @@ export let lotusTimeExpiresAt: number | undefined = undefined
 const cloudSaves: Save[] = []
 
 export const isLoggedIn = () => loggedIn
+
 export const getTips = () => tips
 export const setTips = (newTips: number) => tips = newTips
+
 export const getLotus = () => lotus
-export const setLotus = (newLotus: number) => lotus = newLotus
 export const getUsedLotus = () => usedLotus
-export const setUsedLotus = (newUsedLotus: number) => usedLotus = newUsedLotus
+
 export const getSubMetadata = () => subscription
 // For testing purposes only
 export const setSubMetadata = (newSub: SubscriptionMetadata) => {
@@ -139,10 +135,11 @@ const messageSchema = z.preprocess(
         endsAt: z.number().int()
       }).array(),
       tips: z.number().int().nonnegative(),
-      lotus: z.number().int().nonnegative(),
-      usedLotus: z.number().int().nonnegative(),
-      // If a player logs out with Lotus still active, this is when it will expire
-      lotusExpiry: z.number().int().nonnegative().optional()
+      inventory: z.object({
+        type: z.literal('LOTUS'),
+        amount: z.number().int().positive(),
+        used: z.number().int().positive()
+      }).array()
     }),
     /** Received after the *user* successfully redeems a consumable. */
     z.object({ type: z.literal('thanks') }),
@@ -164,16 +161,21 @@ const messageSchema = z.preprocess(
     z.object({
       type: z.literal('lotus'),
       consumableName: z.string(),
-      id: z.string().uuid(),
       amount: z.number().int()
     }),
 
     /** Received when a player *consumes* a Lotus */
     z.object({
       type: z.literal('applied-lotus'),
-      startedAt: z.number().int(),
       remaining: z.number(),
-      lifetimeSpent: z.number(),
+      lifetimePurchased: z.number()
+    }),
+
+    z.object({ type: z.literal('lotus-ended') }),
+
+    z.object({
+      type: z.literal('lotus-active'),
+      remainingMs: z.number()
     }),
 
     /** A warning - should *NOT* disconnect from the WebSocket */
@@ -534,10 +536,14 @@ function handleWebSocket () {
       }
 
       tips = data.tips
-      lotus = data.lotus
-      usedLotus = data.usedLotus
-      lotusTimeExpiresAt = data.lotusExpiry
-      updateLotusDisplay()
+
+      const lotusInventory = data.inventory.find((item) => item.type === 'LOTUS')
+
+      if (lotusInventory) {
+        lotus = lotusInventory.amount
+        usedLotus = lotusInventory.used
+        updateLotusDisplay()
+      }
     } else if (data.type === 'thanks') {
       Alert(i18next.t('pseudoCoins.consumables.thanks'))
       updatePseudoCoins()
@@ -565,26 +571,32 @@ function handleWebSocket () {
 
       setTimeout(() => updatePseudoCoins(), 4000)
     } else if (data.type === 'lotus') {
-
-      sendToWebsocket(JSON.stringify({
-        type: 'confirm',
-        id: data.id,
-        consumableId: data.consumableName
-      }))
-
+      buyLotusNotification(data.amount)
       lotus += data.amount
-      buyLotusNotification(data.consumableName as PseudoCoinLotusNames)
       updateLotusDisplay()
 
       setTimeout(() => updatePseudoCoins(), 4000)
     } else if (data.type === 'applied-lotus') {
-      lotus = data.remaining
-      usedLotus = data.lifetimeSpent
+      lotus -= Math.ceil(data.remaining / 300_000)
+      usedLotus = data.lifetimePurchased
+      lotusTimeExpiresAt = Date.now() + data.remaining
 
-      const timeComparison = lotusTimeExpiresAt ?? 0
-      lotusTimeExpiresAt = Math.max(timeComparison, data.startedAt) + 300 * 1000
-      Notification(i18next.t('pseudoCoins.lotus.lotusActive'))
       updateLotusDisplay()
+    } else if (data.type === 'lotus-ended') {
+      lotusTimeExpiresAt = undefined
+
+      updateLotusDisplay()
+    } else if (data.type === 'lotus-active') {
+      lotusTimeExpiresAt = Date.now() + data.remainingMs
+      updateLotusDisplay()
+
+      Notification(i18next.t('pseudoCoins.lotus.lotusActive'))
+    } else {
+      const assertNever = (_x: never) => {
+        throw new Error()
+      }
+
+      assertNever(data)
     }
 
     updateGlobalsIsEvent()
@@ -798,17 +810,11 @@ const activateTimeSkip = (name: PseudoCoinTimeskipNames, minutes: number) => {
   }
 }
 
-const buyLotusNotification = (name: PseudoCoinLotusNames) => {
-  switch(name) {
-    case 'LOTUS_SINGLE':
-      Notification('You have successfully purchased a lotus. Enjoy!')
-      break
-    case 'LOTUS_DOZEN':
-      Notification('You have successfully purchased a dozen loti. Enjoy!')
-      break
-    case 'LOTUS_BUNDLE':
-      Notification('You have successfully purchased FIFTY Loti! Woah. Enjoy!')
-      break
+const buyLotusNotification = (amount: number) => {
+  if (amount === 1) {
+    Notification('You have successfully purchased a lotus. Enjoy!')
+  } else {
+    Notification(`You have successfully purchased ${amount} loti. Enjoy!`)
   }
 }
 

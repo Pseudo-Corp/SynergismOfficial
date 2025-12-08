@@ -206,9 +206,7 @@ export const timeRemainingHours = (targetDate: Date): string => {
 
   return `${hours}:${minutes}:${seconds}`
 }
-;
 export const timeRemainingMinutes = (targetDate: number | Date | undefined): string => {
-
   if (targetDate === undefined) {
     return '--:--'
   }

@@ -94,24 +94,25 @@ const GETHandlers = [
       },
       {
         name: 'Lotus of Rejuvenation',
-        description: 'Grants +1 Lotus, which you can use in the Anthill to instantly gain Reborn ELO for the next five Ant Sacrifices.',
+        description:
+          'Grants +1 Lotus, which you can use in the Anthill to instantly gain Reborn ELO for the next five Ant Sacrifices.',
         internalName: 'LOTUS_SINGLE',
         cost: 20,
         length: '1'
       },
       {
         name: 'dozen Loti of Rejuvenation',
-        description: "Grants +12 Lotuses, for the price of 11.",
+        description: 'Grants +12 Lotuses, for the price of 11.',
         internalName: 'LOTUS_DOZEN',
         cost: 220,
         length: '12'
       },
       {
         name: 'Loti of Rejuvenation bouquet (50)',
-        description: "Grants +50 Lotuses, for the price of 40. What a steal!",
+        description: 'Grants +50 Lotuses, for the price of 40. What a steal!',
         internalName: 'LOTUS_BUNDLE',
         cost: 800,
-        length: '50',
+        length: '50'
       }
     ])
   }),

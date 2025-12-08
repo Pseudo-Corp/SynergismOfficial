@@ -205,7 +205,9 @@ export const displayPCoinEffect = (name: PseudoCoinUpgradeNames, level: number) 
     case 'RED_LUCK_BUFF':
       return String(i18next.t('pseudoCoins.upgradeEffects.RED_LUCK_BUFF', { amount: 20 * level }))
     case 'REBORN_ELO_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.REBORN_ELO_BUFF', { amount: format(1 + 0.06 * level, 2, true) }))
+      return String(
+        i18next.t('pseudoCoins.upgradeEffects.REBORN_ELO_BUFF', { amount: format(1 + 0.06 * level, 2, true) })
+      )
   }
 }
 
