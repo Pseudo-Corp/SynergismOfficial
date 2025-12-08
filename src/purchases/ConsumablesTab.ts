@@ -1,10 +1,10 @@
 import i18next from 'i18next'
+import { DOMCacheGetOrSet } from '../Cache/DOM'
 import { getLotus, getUsedLotus, sendToWebsocket } from '../Login'
 import { format } from '../Synergism'
 import { Alert, Confirm } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { updatePseudoCoins } from './UpgradesSubtab'
-import { DOMCacheGetOrSet } from '../Cache/DOM'
 
 interface ConsumableListItems {
   name: string
@@ -34,7 +34,8 @@ const initializeConsumablesTab = memoize(() => {
       const grid = tab!.querySelector('#consumablesGrid')!
       grid.innerHTML = `
       <div id="topRowConsumables">
-        ${durableConsume.map((u) => `
+        ${
+        durableConsume.map((u) => `
           <div
             data-key="${u.internalName}"
             data-cost="${u.cost}"
@@ -49,7 +50,7 @@ const initializeConsumablesTab = memoize(() => {
             <button class="consumablePurchaseBtn"><p>ACTIVATE: </p><p>${u.cost} PseudoCoins</p></button>
           </div>
         `).join('')
-        }
+      }
         ${createLotusHTML(lotus)}
       </div>
       <div class="timeSkipSet">
@@ -80,8 +81,7 @@ const initializeConsumablesTab = memoize(() => {
               }))
             }
           })
-        }
-        else {
+        } else {
           element.addEventListener('click', async () => {
             const alert = await Confirm(i18next.t('pseudoCoins.lotus.buyConfirm', {
               name,
@@ -150,8 +150,12 @@ export const createLotusHTML = (lotusItems: ConsumableListItems[]) => {
     orderedLotus.map((u) => `
           <div data-key="${u.internalName}" data-cost="${u.cost}" data-name="${u.name}" data-lotus="true">
             <button class="consumablePurchaseBtn" style="width: 190px"> 
-              <p style="text-align: center; width: 180px">${i18next.t('pseudoCoins.lotus.purchaseBtn', {
-              amount: u.length, cost: u.cost})}</p>
+              <p style="text-align: center; width: 180px">${
+      i18next.t('pseudoCoins.lotus.purchaseBtn', {
+        amount: u.length,
+        cost: u.cost
+      })
+    }</p>
             </button>
           </div>
         `).join('')
@@ -159,7 +163,6 @@ export const createLotusHTML = (lotusItems: ConsumableListItems[]) => {
       </div>
     </div>
   `
-
 
   return html
 }
@@ -176,5 +179,7 @@ export const clearConsumablesTab = () => {
 
 export const updateLotusDisplay = () => {
   DOMCacheGetOrSet('lotusOwned').textContent = i18next.t('pseudoCoins.lotus.owned', { x: format(getLotus(), 0, true) })
-  DOMCacheGetOrSet('lotusUsed').textContent = i18next.t('pseudoCoins.lotus.lifetimeUsed', { x: format(getUsedLotus(), 0, true) })
+  DOMCacheGetOrSet('lotusUsed').textContent = i18next.t('pseudoCoins.lotus.lifetimeUsed', {
+    x: format(getUsedLotus(), 0, true)
+  })
 }
