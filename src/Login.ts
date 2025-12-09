@@ -70,10 +70,10 @@ const DIAMOND_SMITH_MESSIAH = '1311165096378105906'
 let ws: WebSocket | undefined
 let loggedIn = false
 let tips = 0
-let lotus = 0
+let ownedLotus = 0
 let usedLotus = 0
 let subscription: SubscriptionMetadata = null
-export let lotusTimeExpiresAt: number | undefined = undefined
+let lotusTimeExpiresAt: number | undefined = undefined
 
 const cloudSaves: Save[] = []
 
@@ -82,8 +82,9 @@ export const isLoggedIn = () => loggedIn
 export const getTips = () => tips
 export const setTips = (newTips: number) => tips = newTips
 
-export const getLotus = () => lotus
+export const getOwnedLotus = () => ownedLotus
 export const getUsedLotus = () => usedLotus
+export const getLotusTimeExpiresAt = () => lotusTimeExpiresAt
 
 export const getSubMetadata = () => subscription
 // For testing purposes only
@@ -449,7 +450,7 @@ const queue: string[] = []
 const exponentialBackoff = [5000, 15000, 30000, 60000]
 let tries = 0
 
-function resetConsumables () {
+function resetWebSocket () {
   for (const key of Object.keys(allDurableConsumables)) {
     allDurableConsumables[key as PseudoCoinConsumableNames] = {
       amount: 0,
@@ -457,6 +458,8 @@ function resetConsumables () {
       displayName: ''
     }
   }
+
+  lotusTimeExpiresAt = undefined
 }
 
 function handleWebSocket () {
@@ -473,7 +476,7 @@ function handleWebSocket () {
       Notification(
         'Could not re-establish your connection. Consumables and events related to Consumables will not work.'
       )
-      resetConsumables()
+      resetWebSocket()
     }
   })
 
@@ -494,7 +497,7 @@ function handleWebSocket () {
       Notification(data.message, 5_000)
     } else if (data.type === 'error') {
       Notification(data.message, 5_000)
-      resetConsumables()
+      resetWebSocket()
     } else if (data.type === 'consumed') {
       const consumable = allDurableConsumables[data.consumable as PseudoCoinConsumableNames]
       consumable.ends.push(data.startedAt + 3600 * 1000)
@@ -513,7 +516,7 @@ function handleWebSocket () {
     } else if (data.type === 'join') {
       Notification('Connection was established!')
     } else if (data.type === 'info-all') {
-      resetConsumables() // So that we can get an accurate count each time
+      resetWebSocket() // So that we can get an accurate count each time
       if (data.active.length !== 0) {
         let message = 'The following consumables are active:\n'
 
@@ -540,7 +543,7 @@ function handleWebSocket () {
       const lotusInventory = data.inventory.find((item) => item.type === 'LOTUS')
 
       if (lotusInventory) {
-        lotus = lotusInventory.amount
+        ownedLotus = lotusInventory.amount
         usedLotus = lotusInventory.used
         updateLotusDisplay()
       }
@@ -572,12 +575,12 @@ function handleWebSocket () {
       setTimeout(() => updatePseudoCoins(), 4000)
     } else if (data.type === 'lotus') {
       buyLotusNotification(data.amount)
-      lotus += data.amount
+      ownedLotus += data.amount
       updateLotusDisplay()
 
       setTimeout(() => updatePseudoCoins(), 4000)
     } else if (data.type === 'applied-lotus') {
-      lotus -= Math.ceil(data.remaining / 300_000)
+      ownedLotus -= Math.ceil(data.remaining / 300_000)
       usedLotus = data.lifetimePurchased
       lotusTimeExpiresAt = Date.now() + data.remaining
 

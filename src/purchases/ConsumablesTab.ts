@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
-import { getLotus, getUsedLotus, sendToWebsocket } from '../Login'
+import { getOwnedLotus, getUsedLotus, sendToWebsocket } from '../Login'
 import { format } from '../Synergism'
 import { Alert, Confirm } from '../UpdateHTML'
 import { memoize } from '../Utility'
@@ -141,7 +141,7 @@ export const createLotusHTML = (lotusItems: ConsumableListItems[]) => {
         <p class="gradientText lotusGradient">${i18next.t('pseudoCoins.lotus.nameSingular')}</p>
       </div>
       <div class="lotusHeaderText">
-        <p id="lotusOwned">${i18next.t('pseudoCoins.lotus.owned', { x: format(getLotus(), 0, true) })}</p>
+        <p id="lotusOwned">${i18next.t('pseudoCoins.lotus.owned', { x: format(getOwnedLotus(), 0, true) })}</p>
         <p id="lotusUsed">${i18next.t('pseudoCoins.lotus.lifetimeUsed', { x: format(getUsedLotus(), 0, true) })}</p>
       </div>
       <p style="text-align: center; min-height: 55px">${i18next.t('pseudoCoins.lotus.intro')}</p>
@@ -178,7 +178,9 @@ export const clearConsumablesTab = () => {
 }
 
 export const updateLotusDisplay = () => {
-  DOMCacheGetOrSet('lotusOwned').textContent = i18next.t('pseudoCoins.lotus.owned', { x: format(getLotus(), 0, true) })
+  DOMCacheGetOrSet('lotusOwned').textContent = i18next.t('pseudoCoins.lotus.owned', {
+    x: format(getOwnedLotus(), 0, true)
+  })
   DOMCacheGetOrSet('lotusUsed').textContent = i18next.t('pseudoCoins.lotus.lifetimeUsed', {
     x: format(getUsedLotus(), 0, true)
   })

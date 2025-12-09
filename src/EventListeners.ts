@@ -88,7 +88,7 @@ import {
   resetGame,
   updateSaveString
 } from './ImportExport'
-import { exitFastForward, getLotus, getTips, sendToWebsocket, setTips } from './Login'
+import { exitFastForward, getOwnedLotus, getTips, sendToWebsocket, setTips } from './Login'
 import {
   buyOcteractUpgradeLevel,
   type OcteractDataKeys,
@@ -903,7 +903,7 @@ export const generateEventHandlers = () => {
           return
         }
 
-        if (getLotus() < 1) {
+        if (getOwnedLotus() < 1) {
           return Alert(i18next.t('pseudoCoins.lotus.noLotus'))
         }
 

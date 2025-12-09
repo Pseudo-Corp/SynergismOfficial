@@ -1,4 +1,4 @@
-import { lotusTimeExpiresAt } from '../../../../../../../Login'
+import { getLotusTimeExpiresAt } from '../../../../../../../Login'
 import { player } from '../../../../../../../Synergism'
 import { availableQuarksFromELO } from '../QuarkCorner/lib/calculate-quarks'
 import { updateAntLeaderboards } from '../QuarkCorner/lib/leaderboard-update'
@@ -10,6 +10,7 @@ export const activateELO = (dt: number) => {
   if (toActivate > 0) {
     const time = Date.now()
     // Lotus is active.
+    const lotusTimeExpiresAt = getLotusTimeExpiresAt()
     if (lotusTimeExpiresAt !== undefined && time < lotusTimeExpiresAt) {
       player.ants.rebornELO = player.ants.immortalELO
     } else {
