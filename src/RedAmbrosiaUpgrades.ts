@@ -28,6 +28,7 @@ type RedAmbrosiaUpgradeRewards = {
   regularLuck2: { ambrosiaLuck: number }
   blueberryGenerationSpeed2: { blueberryGenerationSpeed: number }
   salvageYinYang: { positiveSalvage: number; negativeSalvage: number }
+  blueberries: { blueberries: number }
 }
 
 export type RedAmbrosiaNames = keyof RedAmbrosiaUpgradeRewards
@@ -518,6 +519,25 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
     costPerLevel: 200,
     name: () => i18next.t('redAmbrosia.data.salvageYinYang.name'),
     description: () => i18next.t('redAmbrosia.data.salvageYinYang.description')
+  },
+  blueberries: {
+    level: 0,
+    redAmbrosiaInvested: 0,
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(30, level)
+    },
+    effects: (n: number) => {
+      return {
+        blueberries: n
+      }
+    },
+    effectsDescription: (n: number) => {
+      return i18next.t('redAmbrosia.data.blueberries.effect', { amount: n })
+    },
+    maxLevel: 2,
+    costPerLevel: 1e5,
+    name: () => i18next.t('redAmbrosia.data.blueberries.name'),
+    description: () => i18next.t('redAmbrosia.data.blueberries.description')
   }
 }
 

@@ -2939,6 +2939,7 @@
                 <button class="statsNerds chal8" id="kRebornELOCreationSpeedMult" style="border: 2px solid #00DDFF" i18n="statistics.subtabs.rebornELOCreationSpeedMult"></button>
                 <button class="statsNerds chal9" id="kTalismanRuneBonusMult" style="border: 2px solid green" i18n="statistics.subtabs.talismanRuneBonusMult"></button>
                 <button class="statsNerds ascendunlock" id="kASCMult" style="border: 2px solid orange" i18n="statistics.subtabs.ascMult"></button>
+                <button class="statsNerds ascendunlock" id="kACountMult" style="border: 2px solid orange" i18n="statistics.subtabs.ascCountMult"></button>
                 <button class="statsNerds ascendunlock" id="kGlobalCubeMult" style="border: 2px solid khaki" i18n="statistics.subtabs.globalCubeMult"></button>
                 <button class="statsNerds ascendunlock" id="kCubeMult" style="border: 2px solid darkgoldenrod" i18n="statistics.subtabs.cubeMult"></button>
                 <button class="statsNerds ascendunlock" id="kTessMult" style="border: 2px solid honeydew" i18n="statistics.subtabs.tessMult"></button>
@@ -3054,6 +3055,11 @@
             <div id="ascensionSpeedMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
                 <p id="asmStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;" i18n="statistics.ascensionSpeedMultiplierStats.title"></p>
             </div>
+
+            <div id="ascensionCountMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="acmStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;" i18n="statistics.ascensionCountMultiplierStats.title"></p>
+            </div>
+
             <div id="globalCubeMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
                 <p id="globalCubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.globalCubeMultiplierStats.title"></p>
             </div>
@@ -3139,7 +3145,13 @@
                     <p id="addCodeStatTitle3" class="statPortion" style="color: green; font-size: 1.2em" i18n="statistics.addCodeCapacity.title"></p>
                 </div>
                 <p id="stat+next" class="statPortion" style="color: gold"></p>
+
             </div>
+
+            <div id="freeUpgradeStats" class="statContainer">
+                
+            </div>
+
         </div>
         <div class="subtabContent subtabDisplayFlex historySubTab" id="resetHistorySubTab">
             <div class="scrollbarX">
@@ -4302,6 +4314,9 @@
                         </button>
                         <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaRegularLuck">
                             <img src="Pictures/RedAmbrosia/RedAmbrosiaRegularLuck.png">
+                        </button>
+                        <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaBlueberries">
+                            <img src="Pictures/RedAmbrosia/RedAmbrosiaBlueberries.png">
                         </button>
                     </div>
                     <div class="blueberryUpgradeTier">

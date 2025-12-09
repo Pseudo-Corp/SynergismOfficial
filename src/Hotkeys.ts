@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { boostAccelerator, buyAccelerator, buyMultiplier } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { sacrificeAnts } from './Features/Ants/AntSacrifice/sacrifice'
+import { confirmAntSacrifice } from './Features/Ants/AntSacrifice/sacrifice'
 import { promocodes } from './ImportExport'
 import { useConsumablePrompt } from './Shop'
 import { player, resetCheck, synergismHotkeys } from './Synergism'
@@ -27,7 +27,7 @@ export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide du
   ['N', ['hotkeys.names.noCancel', () => confirmReply(false), true]],
   ['P', ['hotkeys.names.resetPrestige', () => resetCheck('prestige'), false]],
   ['R', ['hotkeys.names.resetReincarnate', () => resetCheck('reincarnation'), false]],
-  ['S', ['hotkeys.names.sacrificeAnts', () => sacrificeAnts(), false]],
+  ['S', ['hotkeys.names.sacrificeAnts', () => confirmAntSacrifice(), false]],
   ['T', ['hotkeys.names.resetTranscend', () => resetCheck('transcension'), false]],
   ['Y', ['hotkeys.names.yesOK', () => confirmReply(true), true]],
   ['ARROWLEFT', ['hotkeys.names.backTab', () => kbTabChange(-1), false]],

@@ -2421,7 +2421,7 @@ export const achievements: Achievement[] = [
     pointValue: 17,
     unlockCondition: () => player.ants.antSacrificeCount >= 5000,
     group: 'sacCount',
-    reward: { antSpeed2UpgradeImprover: () => 2 * achievementLevel, phylacteriumAutobuy: () => 1 }
+    reward: { antSpeed2UpgradeImprover: () => achievementLevel, phylacteriumAutobuy: () => 1 }
   },
   {
     pointValue: 19,

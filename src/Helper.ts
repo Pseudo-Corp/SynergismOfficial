@@ -392,7 +392,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       if (
         canAutoSacrifice(crumbs, mode, timeElapsed)
       ) {
-        void sacrificeAnts(true)
+        sacrificeAnts()
       }
       break
     }

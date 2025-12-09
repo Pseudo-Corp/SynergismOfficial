@@ -35,7 +35,7 @@ import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
 import { buyAllAntMasteries, buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
 import { antProducerData } from './Features/Ants/AntProducers/data/data'
 import { buyAllAntProducers, buyAntProducers } from './Features/Ants/AntProducers/lib/buy-producer'
-import { sacrificeAnts } from './Features/Ants/AntSacrifice/sacrifice'
+import { confirmAntSacrifice } from './Features/Ants/AntSacrifice/sacrifice'
 import { antUpgradeData } from './Features/Ants/AntUpgrades/data/data'
 import { buyAllAntUpgrades, buyAntUpgrade } from './Features/Ants/AntUpgrades/lib/buy-upgrade'
 import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
@@ -879,7 +879,7 @@ export const generateEventHandlers = () => {
     })
   }
   // Part 3: Sacrifice
-  DOMCacheGetOrSet('antSacrifice').addEventListener('click', () => sacrificeAnts())
+  DOMCacheGetOrSet('antSacrifice').addEventListener('click', () => confirmAntSacrifice())
   DOMCacheGetOrSet('immortalELOInfoToggleButton').addEventListener('click', () => toggleRebornELOInfo())
 
   const alwaysMaxRebornELOToggle = DOMCacheGetOrSet('alwaysMaxRebornELOToggle')

@@ -1002,17 +1002,13 @@ export const toggleStatSymbol = async () => {
 export const toggleAntsSubtab = (indexStr: string) => {
   const i = Number(indexStr)
   const numSubTabs = subTabsInMainTab(Tabs.AntHill)
-  console.log(numSubTabs)
 
   for (let j = 1; j <= numSubTabs; j++) {
     const antTab = DOMCacheGetOrSet(`antSubtab${j}`)
-    console.log(antTab.style, j, i)
     if (antTab.style.display === 'flex' && j !== i) {
-      console.log('testhere')
       antTab.style.display = 'none'
     }
     if (antTab.style.display === 'none' && j === i) {
-      console.log('testthere2')
       antTab.style.display = 'flex'
     }
   }

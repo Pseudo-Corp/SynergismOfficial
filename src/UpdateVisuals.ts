@@ -3,7 +3,6 @@ import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  calcAscensionCount,
   CalcCorruptionStuff,
   calculateActualAntSpeedMult,
   calculateAmbrosiaAdditiveLuckMult,
@@ -12,6 +11,7 @@ import {
   calculateAmbrosiaLuck,
   calculateAmbrosiaLuckRaw,
   calculateAmbrosiaQuarkMult,
+  calculateAscensionCount,
   calculateBlueberryInventory,
   calculateCookieUpgrade29Luck,
   calculateCubeQuarkMultiplier,
@@ -1422,7 +1422,7 @@ export const visualUpdateCorruptions = () => {
   }
 
   const metaData = CalcCorruptionStuff()
-  const ascCount = calcAscensionCount()
+  const ascCount = calculateAscensionCount()
   DOMCacheGetOrSet('autoAscend').innerHTML = player.autoAscendMode === 'c10Completions'
     ? i18next.t('corruptions.autoAscend.c10Completions', {
       input: format(player.autoAscendThreshold),
@@ -1507,7 +1507,7 @@ export const visualUpdateCorruptions = () => {
     DOMCacheGetOrSet('corruptionAscensionCount').innerHTML = i18next.t(
       'corruptions.ascensionCount',
       {
-        ascCount: format(calcAscensionCount())
+        ascCount: format(calculateAscensionCount())
       }
     )
   }

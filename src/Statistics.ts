@@ -19,6 +19,7 @@ import {
   calculateAmbrosiaLuckSingularityUpgrade,
   calculateAmbrosiaQuarkMult,
   calculateAntSacrificeMultiplier,
+  calculateAscensionCount,
   calculateAscensionScore,
   calculateAscensionSpeedExponentSpread,
   calculateAscensionSpeedMult,
@@ -2188,6 +2189,10 @@ export const allAmbrosiaBlueberryStats: NumberStatLine[] = [
     stat: () => getOcteractUpgradeEffect('octeractBlueberries') // Octeract Blueberry Upgrade
   },
   {
+    i18n: 'RedAmbrosiaBlueberries',
+    stat: () => getRedAmbrosiaUpgradeEffects('blueberries').blueberries // Red Ambrosia Blueberry Upgrade
+  },
+  {
     i18n: 'ConglomerateBerries',
     stat: () => calculateSingularityMilestoneBlueberries() // Singularity Milestones (Congealed Blueberries)
   },
@@ -3289,6 +3294,63 @@ export const rebornELOCreationSpeedMultStats: NumberStatLine[] = [
     i18n: 'PlatonicUpgrade12',
     stat: () => 1 + player.platonicUpgrades[12] / 10,
     displayCriterion: () => player.challengecompletions[14] > 0
+  },
+  {
+    i18n: 'Exalt6',
+    stat: () => (player.singularityChallenges.limitedTime.enabled && runes.antiquities.level === 0) ? 5 : 1,
+    displayCriterion: () => player.highestSingularityCount >= 216,
+    color: 'orchid'
+  }
+]
+
+export const ascensionCountMultStats: NumberStatLine[] = [
+  {
+    i18n: 'Base',
+    stat: () => 1 + +getAchievementReward('ascensionCountAdditive')
+  },
+  {
+    i18n: 'AchievementMultiplier',
+    stat: () => +getAchievementReward('ascensionCountMultiplier')
+  },
+  {
+    i18n: 'Challenge15',
+    stat: () => G.challenge15Rewards.ascensions.value,
+    displayCriterion: () => G.challenge15Rewards.ascensions.value > 1
+  },
+  {
+    i18n: 'PlatonicOMEGA',
+    stat: () => player.platonicUpgrades[15] > 0 ? 2 : 1,
+    displayCriterion: () => player.challengecompletions[14] > 0
+  },
+  {
+    i18n: 'PlatonicUpgrade16',
+    stat: () => 1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000),
+    displayCriterion: () => player.challengecompletions[14] > 0
+  },
+  {
+    i18n: 'SingularityCount',
+    stat: () => 1 + player.singularityCount / 10,
+    displayCriterion: () => player.highestSingularityCount > 0
+  },
+  {
+    i18n: 'SingularityUpgrade',
+    stat: () => getGQUpgradeEffect('ascensions'),
+    displayCriterion: () => player.highestSingularityCount > 0
+  },
+  {
+    i18n: 'OcteractUpgrade1',
+    stat: () => getOcteractUpgradeEffect('octeractAscensions'),
+    displayCriterion: () => player.highestSingularityCount >= 8
+  },
+  {
+    i18n: 'OcteractUpgrade2',
+    stat: () => getOcteractUpgradeEffect('octeractAscensions2'),
+    displayCriterion: () => player.highestSingularityCount >= 8
+  },
+  {
+    i18n: 'OneMind',
+    stat: () => getGQUpgradeEffect('oneMind') ? calculateAscensionSpeedMult() / 10 : 1,
+    displayCriterion: () => player.highestSingularityCount >= 8
   }
 ]
 
@@ -3386,6 +3448,7 @@ const associated = new Map<string, string>([
   ['kOrbPowderMult', 'powderMultiplierStats'],
   ['kOctMult', 'octeractMultiplierStats'],
   ['kASCMult', 'ascensionSpeedMultiplierStats'],
+  ['kACountMult', 'ascensionCountMultiplierStats'],
   ['kGQMult', 'goldenQuarkMultiplierStats'],
   ['kGQCost', 'goldenQuarkPurchaseCostStats'],
   ['kAddStats', 'addCodeStats'],
@@ -3480,6 +3543,9 @@ export const loadStatisticsUpdate = () => {
         break
       case 'ascensionSpeedMultiplierStats':
         loadStatisticsAscensionSpeed()
+        break
+      case 'ascensionCountMultiplierStats':
+        loadStatisticsAscensionCountMultiplierStats()
         break
       case 'goldenQuarkMultiplierStats':
         loadStatisticsGoldenQuarkMultipliers()
@@ -4053,6 +4119,16 @@ export const loadNegativeSalvageStats = () => {
     'SalvageStatNegative2',
     calculateNegativeSalvage,
     'Total2'
+  )
+}
+
+export const loadStatisticsAscensionCountMultiplierStats = () => {
+  loadStatistics(
+    ascensionCountMultStats,
+    'ascensionCountMultiplierStats',
+    'statACM',
+    'AscensionCountMultStat',
+    calculateAscensionCount
   )
 }
 

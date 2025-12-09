@@ -6,8 +6,8 @@ import { buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy'
 import type { TesseractBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  calcAscensionCount,
   CalcCorruptionStuff,
+  calculateAscensionCount,
   calculateGoldenQuarks,
   calculateObtainium,
   calculateOfferings,
@@ -664,7 +664,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     // If challenge 10 is incomplete, you won't get a cube no matter what
     if (player.challengecompletions[10] > 0 && player.ascensionCounter > 0) {
-      player.ascensionCount += calcAscensionCount()
+      player.ascensionCount += calculateAscensionCount()
       // Metadata is defined up in the top of the (i > 3.5) case
       // Protect the cube from developer mistakes
       if (
@@ -932,12 +932,7 @@ export const updateSingularityAchievements = (): void => {
 }
 
 export const updateSingularityMilestoneAwards = (singularityReset = true): void => {
-  // 1 transcension, 1001 mythos
   if (player.highestSingularityCount >= 2) { // Singularity 2
-    if (singularityReset) {
-      player.prestigeCount = 1
-      player.transcendCount = 1
-    }
     player.transcendPoints = new Decimal('1001')
     player.firstOwnedCoin = 1
     player.unlocks.coinone = true
@@ -1210,6 +1205,12 @@ export const singularity = (setSingNumber = -1) => {
   hold.goldenQuarks = player.goldenQuarks
   hold.shopUpgrades = player.shopUpgrades
   hold.shopPotionsConsumed = player.shopPotionsConsumed
+
+  if (player.highestSingularityCount >= 8) {
+    hold.prestigeCount = player.prestigeCount
+    hold.transcendCount = player.transcendCount
+    hold.reincarnationCount = player.reincarnationCount
+  }
 
   hold.runes = { ...player.runes }
   hold.talismans = { ...player.talismans }

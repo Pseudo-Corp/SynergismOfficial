@@ -185,7 +185,7 @@
       "ambrosiaTalismanBonusRuneLevel": {
         "name": "Talisman Ambrosia Embedding Module",
         "description": "With the power of a lot of Ambrosia, grant +0.5% Talisman Power per level! Additive with other bonuses.",
-        "effect": "Talisman Power is increased by {{amount}}%"
+        "effect": "Talisman Power is increased by {{amount}}"
       },
       "ambrosiaRuneOOMBonus": {
         "name": "Rune Coefficient Module",
@@ -334,6 +334,11 @@
         "name": "Yin and Yang: Salvage Edition",
         "description": "This upgrade, oddly enough, increases both your Positive and Negative Salvage by 10 per level! <<orange|Disabled in 'Taxman's last stand'>>",
         "effect": "Your Positive and Negative Salvage are both increased by {{amount}}."
+      },
+      "blueberries": {
+        "name": "Berries that are... blue?",
+        "description": "They look like Blueberries. They act like Blueberries. You're not really sure if they're Blueberries.",
+        "effect": "Your Blueberry inventory is increased by {{amount}}"
       }
     }
   },
@@ -1554,7 +1559,7 @@
         "antELOAdditive": "Gain +25 Ant ELO, all the time!"
       },
       "486": {
-        "antSpeed2UpgradeImprover": "<i>Impia Reproducta Formicidae</i> can be boosted by 2 additional Anthills per Synergism Level",
+        "antSpeed2UpgradeImprover": "The first N levels of <i>Impia Reproducta</i> give an extra Ant ELO, where N is your Synergism Level!",
         "phylacteriumAutobuy": "Unlock the <i>Phylacterium</i> Ant Upgrade Autobuyer!"
       },
       "490": {
@@ -3748,6 +3753,10 @@
       "demeterHarvest": {
         "name": "Demeter's Harvest",
         "default": "For all sources of <<lime|Positive Salvage>>, they increase it by {{i}}% more!"
+      },
+      "persistentGlobalResets": {
+        "name": "Soulbound Global Resets",
+        "default": "Your Prestige, Transcension and Reincarnation counts no longer reset. You're welcome!"
       }
     },
     "toString": {
@@ -5940,7 +5949,10 @@
       },
       "limitedTime": {
         "name": "The Grand Singularity Speedrun!",
-        "description": "Derpsmith has a stopwatch and he's not afraid to use it! Beat the target Singularity in a limited time frame!<br/><<red|The time limit is based on the tier of the challenge.>> <br/>After (600 - 20 * completion) seconds, your obt/off/cube production shatters (Divides by (10 + completions) every minute.",
+        "description": "<i>Time, time is something never meant to last.</i> Beat the target Singularity, but the fabric of your reality quickly collapses.",
+        "timeMod1": "<<red|⏱ Time Limit: {{time}} seconds>>",
+        "timeMod2": "<<gold|⚠>> After the time limit, your Obtainium, Offering, and Cube production is divided by <<red|{{perSecondDivisor}}>> per second.",
+        "timeMod3": "Derpsmith gives you a slight boost: <<#00DDFF | 5x faster Reborn ELO Creation Speed!>> Until you buy Antiquities, at least.",
         "ScalingReward1": "+6% <<orange|Global Speed>>!",
         "ScalingReward2": "+6% <<orange|Ascension Speed>>!",
         "ScalingReward3": "+1% <<cyan|Quarks>>!",
@@ -6081,6 +6093,7 @@
       "rebornELOCreationSpeedMult": "Reborn ELO Creation",
       "talismanRuneBonusMult": "Talisman Power",
       "ascMult": "Asc. Speed Multipliers",
+      "ascCountMult": "Asc. Count Multipliers",
       "globalCubeMult": "Global Cube Multipliers",
       "cubeMult": "Cube Multipliers",
       "tessMult": "Tesseract Multipliers",
@@ -6671,6 +6684,7 @@
       "ConglomerateBerries": "Congealed Blueberries (Singularity Milestones):",
       "NoAmbrosiaUpgrades": "No Ambrosia Upgrades Challenge Reward:",
       "OcteractBlueberries": "Octeract Blueberry Upgrade:",
+      "RedAmbrosiaBlueberries": "Red Ambrosia - Berries that are... blue?:",
       "Total": "Total Blueberries Owned:"
     },
     "ambrosiaGenerationStats": {
@@ -6971,7 +6985,22 @@
       "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
       "MortuusTalisman": "Mortuus Talisman:",
       "ThresholdModifiers": "Threshold Modifiers:",
+      "Exalt6": "The Grand Singularity Speedrun - Derpsmith's Boost:",
       "Total": "Total Reborn ELO Creation Speed Multiplier:"
+    },
+    "ascensionCountMultiplierStats": {
+      "title": "Ascension Count Multiplier",
+      "Base": "Base Multiplier + Achievement Additive Bonus:",
+      "AchievementMultiplier": "Achievement Ascension Count Multiplier:",
+      "Challenge15": "Challenge 15 Reward:",
+      "PlatonicOMEGA": "Platonic OMEGA:",
+      "PlatonicUpgrade16": "Platonic Upgrade 4x1:",
+      "SingularityCount": "Singularity Perk - Unlimited Growth:",
+      "SingularityUpgrade": "Singularity Upgrade - Improved Ascension Gain:",
+      "OcteractUpgrade1": "Octeract Upgrade - Voided Warranty:",
+      "OcteractUpgrade2": "Octeract Upgrade - Hidden Late Fees:",
+      "OneMind": "One Mind Modifier:",
+      "Total": "Ascension Count gained this Ascension:"
     },
     "gameStage": "Current Game Stage: {{stage}}"
   },

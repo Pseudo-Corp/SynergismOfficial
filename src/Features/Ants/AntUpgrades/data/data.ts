@@ -337,13 +337,16 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.antSpeed2.intro'),
     description: () => i18next.t('ants.upgrades.antSpeed2.description'),
     effect: (n: number) => {
-      const antSacrificeLimitCount = n + 200
-      const upgradeImprover = +getAchievementReward('antSpeed2UpgradeImprover')
-      const effectiveSacs = Math.min(antSacrificeLimitCount + upgradeImprover, player.ants.antSacrificeCount)
+      const antSacrificeLimitCount = n + 200 * Math.min(1, n)
+      const upgradeImprover = Math.min(n, +getAchievementReward('antSpeed2UpgradeImprover'))
+      const effectiveSacs = Math.min(
+        antSacrificeLimitCount + upgradeImprover,
+        player.ants.antSacrificeCount + upgradeImprover
+      )
       const antELO = effectiveSacs
       return {
         antELO: antELO,
-        antSacrificeLimitCount: antSacrificeLimitCount + upgradeImprover
+        antSacrificeLimitCount: antSacrificeLimitCount
       }
     },
     effectDescription: () => {

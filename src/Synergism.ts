@@ -2787,7 +2787,7 @@ export const calculateBuildingPower = (): number => {
 
   // Challenge 7 effect!
 
-  if (player.challengecompletions[7] > 0) {
+  if (player.currentChallenge.reincarnation === 7) {
     power = 1 + 0.05 * power
   }
 

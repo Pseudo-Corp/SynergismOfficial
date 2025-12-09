@@ -53,6 +53,7 @@ import {
   allWowCubeStats,
   antSacrificeRewardStats,
   antSpeedStats,
+  ascensionCountMultStats,
   negativeSalvageStats,
   offeringObtainiumTimeModifiers,
   positiveSalvageStats,
@@ -1312,35 +1313,11 @@ export const CalcCorruptionStuff = () => {
   ]
 }
 
-export const calcAscensionCount = () => {
-  let ascCount = 1
-
-  if (player.challengecompletions[10] === 0) {
-    return 0
-  }
-
-  if (player.singularityChallenges.limitedAscensions.enabled) {
-    return ascCount
-  }
-
-  ascCount += +getAchievementReward('ascensionCountAdditive')
-  ascCount *= +getAchievementReward('ascensionCountMultiplier')
-  ascCount *= G.challenge15Rewards.ascensions.value
-  ascCount *= player.platonicUpgrades[15] > 0 ? 2 : 1
-  ascCount *= 1 + 0.02 * player.platonicUpgrades[16]
-  ascCount *= 1
-    + 0.02
-      * player.platonicUpgrades[16]
-      * Math.min(1, player.overfluxPowder / 100000)
-  ascCount *= 1 + player.singularityCount / 10
-  ascCount *= getGQUpgradeEffect('ascensions')
-  ascCount *= getOcteractUpgradeEffect('octeractAscensions')
-  ascCount *= getOcteractUpgradeEffect('octeractAscensions2')
-  ascCount *= getGQUpgradeEffect('oneMind')
-    ? calculateAscensionSpeedMult() / 10
-    : 1
-
-  return Math.floor(ascCount)
+export const calculateAscensionCount = () => {
+  return Math.floor(ascensionCountMultStats.reduce(
+    (a, b) => a * b.stat(),
+    1
+  ))
 }
 
 export const calculateCubeQuarkMultiplier = () => {
@@ -1627,12 +1604,31 @@ export const calculateEXUltraCubeBonus = () => {
   return calculateEXUltraBonus(EX_ULTRA_CUBES)
 }
 
+export const calculateExalt6TimeLimit = (comps: number) => {
+  return 600 - 20 * Math.min(24, comps) - 5 * Math.max(0, comps - 24)
+}
+
+export const calculateExalt6PenaltyPerMinute = (comps: number) => {
+  let penaltyPerMinute = 10 + comps
+  if (comps >= 25) {
+    penaltyPerMinute *= Math.pow(comps - 23, 2)
+  }
+  return penaltyPerMinute
+}
+
+export const calculateExalt6PenaltyPerSecond = (comps: number) => {
+  const penaltyPerMinute = calculateExalt6PenaltyPerMinute(comps)
+  return Math.pow(penaltyPerMinute, 1 / 60)
+}
+
 export const calculateExalt6Penalty = (comps: number, time: number) => {
-  const displacedTime = Math.max(0, time - 600 + 20 * comps)
+  const timeLimit = calculateExalt6TimeLimit(comps)
+  const displacedTime = Math.max(0, time - timeLimit)
   if (displacedTime === 0) {
     return 1
   } else {
-    return Math.pow(10 + comps, -displacedTime / 60)
+    const penaltyPerSecond = calculateExalt6PenaltyPerSecond(comps)
+    return Math.pow(penaltyPerSecond, -displacedTime)
   }
 }
 

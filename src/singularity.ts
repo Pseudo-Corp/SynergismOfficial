@@ -2649,6 +2649,16 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
+      return i18next.t('singularity.perks.persistentGlobalResets.name')
+    },
+    levels: [8],
+    description: () => {
+      return i18next.t('singularity.perks.persistentGlobalResets.default')
+    },
+    ID: 'persistentGlobalResets'
+  },
+  {
+    name: () => {
       return i18next.t('singularity.perks.forTheLoveOfTheAntGod.name')
     },
     levels: [10, 15, 25],

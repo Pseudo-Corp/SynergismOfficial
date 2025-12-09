@@ -16,7 +16,7 @@ import {
   updateAllUngroupedAchievementProgress
 } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CalcCorruptionStuff, calculateAscensionSpeedMult, calculateGlobalSpeedMult } from './Calculate'
+import { CalcCorruptionStuff, calculateAscensionSpeedMult, calculateExalt6TimeLimit, calculateGlobalSpeedMult } from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
 import { canBuyAntMastery } from './Features/Ants/AntMasteries/lib/get-buyable'
@@ -1107,7 +1107,7 @@ const updateAscensionStats = () => {
     if (key === 'ascSingChallengeLen') {
       if (
         player.singularityChallenges.limitedTime.enabled
-        && player.singChallengeTimer > 600 - 20 * player.singularityChallenges.limitedTime.completions
+        && player.singChallengeTimer > calculateExalt6TimeLimit(player.singularityChallenges.limitedTime.completions)
       ) {
         dom.style.color = 'red'
       } else {
