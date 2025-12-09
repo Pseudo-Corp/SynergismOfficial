@@ -612,12 +612,6 @@ export const player: Player = {
   // create a Map with keys defaulting to false
   codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false])),
 
-  loaded1009: true,
-  loaded1009hotfix1: true,
-  loaded10091: true,
-  loaded1010: true,
-  loaded10101: true,
-
   shopUpgrades: {
     offeringPotion: 1,
     obtainiumPotion: 1,
@@ -1047,17 +1041,6 @@ export const player: Player = {
   overfluxPowder: 0,
   dailyPowderResetUses: 1,
   autoWarpCheck: false,
-  loadedOct4Hotfix: false,
-  loadedNov13Vers: true,
-  loadedDec16Vers: true,
-  loadedV253: true,
-  loadedV255: true,
-  loadedV297Hotfix1: true,
-  loadedV2927Hotfix1: true,
-  loadedV2930Hotfix1: true,
-  loadedV2931Hotfix1: true,
-  loadedV21003Hotfix1: true,
-  loadedV21007Hotfix1: true,
   version,
   rngCode: 0,
   promoCodeTiming: {
@@ -1186,8 +1169,6 @@ export const blankSave = deepClone()(player)
 
 export const saveSynergy = (button?: boolean) => {
   player.offlinetick = Date.now()
-  player.loaded1009 = true
-  player.loaded1009hotfix1 = true
 
   // save to player.goldenQuarkUpgrades, taking the level and freeLevel from corresponding goldenQuarkUpgrades from singularity.ts
   player.goldenQuarkUpgrades = Object.fromEntries(
@@ -1359,22 +1340,6 @@ const loadSynergy = () => {
           break
         }
       }
-    }
-
-    if (data.loaded1009 === undefined || !data.loaded1009) {
-      player.loaded1009 = false
-    }
-    if (data.loaded1009hotfix1 === undefined || !data.loaded1009hotfix1) {
-      player.loaded1009hotfix1 = false
-    }
-    if (data.loaded10091 === undefined) {
-      player.loaded10091 = false
-    }
-    if (data.loaded1010 === undefined) {
-      player.loaded1010 = false
-    }
-    if (data.loaded10101 === undefined) {
-      player.loaded10101 = false
     }
 
     // Does this need to be kept here?

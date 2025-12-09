@@ -20,7 +20,7 @@ import { calculateAscensionScorePlatonicBlessing } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
-import { reset, updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
+import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { getRuneEffects, sumOfRuneLevels } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import {
@@ -803,17 +803,6 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
   )
 
   player.offlinetick = updatedTime
-  if (!player.loadedNov13Vers) {
-    if (
-      player.challengecompletions[14] > 0
-      || player.highestchallengecompletions[14] > 0
-    ) {
-      const ascCount = player.ascensionCount
-      reset('ascensionChallenge')
-      player.ascensionCount = ascCount + 1
-    }
-    player.loadedNov13Vers = true
-  }
 
   saveSynergy()
 
