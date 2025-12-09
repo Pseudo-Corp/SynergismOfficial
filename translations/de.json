@@ -3773,15 +3773,6 @@
     "off": "AUS",
     "buyOne": "Buy x1",
     "buyMax": "Buy MAX",
-    "updateAlerts": {
-      "june282021": "28. Juni. 2021: V2.5.3. Du hast deine Quarks von den Taschenrechnern wiedergekriegt, wenn du welche gekauft hattest. Diese sind nicht länger zurücksetzbar, also sei vorsichtig!",
-      "july22021": "2. Juli. 2021: V. 2.5.5. Du hast deine Quarks von dem Powder EX Upgrade wiedergekriegt, wenn du welche gekauft hast. Auch deine T1 Ameisen wurden zurückgesetzt und die Grundkosten auf 1e700 Partikel gesetzt. Powder EX ist nicht länger zurücksetzbar, also sei vorsichtig!",
-      "sing230Balancing": "Aufgrund von Balance Veränderung, wurdest du zu Singularity 230 zurückgesetzt, um dein Speicherstand vor Softlocking zu schützen!",
-      "december22xxxx": "Du wurdest in den Dezember 22 Patch v1 geladen.",
-      "january42023": "Du wurdest in den 4. Januar 2023, Patch v1 geladen.",
-      "v297hotfix1NoSing": "Du wurdest in die Version 2.9.7 Hotfix 1 geladen!",
-      "v297hotfix1Sing": "Du wurdest in die Version 2.9.7 Hotfix 1 geladen! Deine unbegrenzten Singularity Upgrades wurden zurückerstattet! Entschuldung für die Unannehmlichkeiten."
-    },
     "languageChange": "Wechseln der Sprache erfordert ein neu laden! Möchtest du jetzt neu laden?",
     "resources": {
       "offering": "Offering",

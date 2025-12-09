@@ -3773,15 +3773,6 @@
     "off": "OFF",
     "buyOne": "Buy x1",
     "buyMax": "Buy MAX",
-    "updateAlerts": {
-      "june282021": "28 de junio de 2021: V2.5.3. Se te han reembolsado los quarks de las calculadoras si las compraste. ¡Ya no son reembolsables, así que cuidado!",
-      "july22021": "2 de julio de 2021: V2.5.5. Has sido reembolsado los quarks de la mejora de Polvo EX, si compraste. Tus hormigas de Rango 1 también se resetearon y el costo base establecido en 1e700 partículas. ¡Polvo EX ya no es reembolsable, así que cuidado!",
-      "sing230Balancing": "¡Debido a un reequilibrio, fuiste enviado de vuelta a la Singularidad 230 para evitar el bloqueo parcial de tu fichero de guardado!",
-      "december22xxxx": "Has cargado el parche v1 del 22 de Diciembre.",
-      "january42023": "Has cargado el Parche v1 del 4 de Enero 2023.",
-      "v297hotfix1NoSing": "¡Has cargado la revisión 1 de la versión 2.9.7!",
-      "v297hotfix1Sing": "¡Has cargado la revisión 1 de la versión 2.9.7! ¡Tus mejoras de singularidad sin límite se han devuelto! Disculpa los inconvenientes."
-    },
     "languageChange": "¡Para cambiar de lenguaje se necesita recargar! ¿Quieres hacerlo ahora?",
     "resources": {
       "offering": "Offering",
