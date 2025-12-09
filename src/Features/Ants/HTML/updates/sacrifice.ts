@@ -2,7 +2,7 @@ import type Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from '../../../../Achievements'
 import { DOMCacheGetOrSet } from '../../../../Cache/DOM'
-import { getLotus, lotusTimeExpiresAt } from '../../../../Login'
+import { getLotusTimeExpiresAt, getOwnedLotus } from '../../../../Login'
 import { format, player } from '../../../../Synergism'
 import { timeRemainingMinutes, toOrdinal } from '../../../../Utility'
 import { antSacrificeRewards } from '../../AntSacrifice/Rewards/calculate-rewards'
@@ -88,9 +88,11 @@ export const showSacrifice = () => {
   DOMCacheGetOrSet('antSacrificeObtainium').textContent = `+${format(sacRewards.obtainium)}`
 
   DOMCacheGetOrSet('lotusStatus').innerHTML = i18next.t('pseudoCoins.lotus.status', {
-    time: timeRemainingMinutes(lotusTimeExpiresAt)
+    time: timeRemainingMinutes(getLotusTimeExpiresAt())
   })
-  DOMCacheGetOrSet('lotusOwnedAnt').innerHTML = i18next.t('pseudoCoins.lotus.owned', { x: format(getLotus(), 0, true) })
+  DOMCacheGetOrSet('lotusOwnedAnt').innerHTML = i18next.t('pseudoCoins.lotus.owned', {
+    x: format(getOwnedLotus(), 0, true)
+  })
 
   if (player.challengecompletions[9] > 0) {
     // Helper function to update reward display and styling
