@@ -16,7 +16,12 @@ import {
   updateAllUngroupedAchievementProgress
 } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CalcCorruptionStuff, calculateAscensionSpeedMult, calculateExalt6TimeLimit, calculateGlobalSpeedMult } from './Calculate'
+import {
+  CalcCorruptionStuff,
+  calculateAscensionSpeedMult,
+  calculateExalt6TimeLimit,
+  calculateGlobalSpeedMult
+} from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
 import { canBuyAntMastery } from './Features/Ants/AntMasteries/lib/get-buyable'

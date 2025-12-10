@@ -731,7 +731,7 @@ const GETHandlers = [
           internalName: 'RED_GENERATION_BUFF',
           level: 1,
           cost: 100
-        },
+        }
       ],
       playerUpgrades: [],
       tier: 0
@@ -1352,7 +1352,7 @@ const GETHandlers = [
           internalName: 'RED_GENERATION_BUFF',
           level: 1,
           cost: 100
-        },
+        }
       ],
       playerUpgrades: [],
       tier: 0

@@ -43,7 +43,7 @@ export const PCoinUpgrades: PseudoCoinUpgrades = {
   'BASE_OFFERING_BUFF': 0,
   'BASE_OBTAINIUM_BUFF': 0,
   'RED_GENERATION_BUFF': 0,
-  'RED_LUCK_BUFF': 0,
+  'RED_LUCK_BUFF': 0
 }
 
 export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
@@ -62,7 +62,7 @@ export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
   BASE_OFFERING_BUFF: 0,
   BASE_OBTAINIUM_BUFF: 0,
   RED_GENERATION_BUFF: 1,
-  RED_LUCK_BUFF: 0,
+  RED_LUCK_BUFF: 0
 }
 
 export const initializePCoinCache = async () => {
