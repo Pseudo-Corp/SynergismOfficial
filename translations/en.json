@@ -2854,7 +2854,7 @@
     "15": {
       "name": "SADISTIC CHALLENGE II || {{- value}} Completions",
       "flavor": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-      "restrictions": "Ascend and reach the goal but you're stuck in all Corruptions at level 11. <br> ☆ Ant Speed <<gold|^0.12>> (from Corruptions, of course!) <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>> <br> ☆ Your Tax burden is reduced by <<pink|99.9995%>>",
+      "restrictions": "Ascend and reach the goal but you're stuck in all Corruptions at level 11. <br> ☆ Ant Speed <<gold|^0.5>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>> <br> ☆ Your Tax burden is reduced by <<pink|99.9995%>>",
       "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
       "per": {
         "1": "Folly of mankind: ",
