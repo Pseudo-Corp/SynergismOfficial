@@ -639,12 +639,6 @@ export const playerSchema = z.object({
     deepClone()([...blankSave.codes])
   ),
 
-  loaded1009: z.boolean().default(() => blankSave.loaded1009),
-  loaded1009hotfix1: z.boolean().default(() => blankSave.loaded1009hotfix1),
-  loaded10091: z.boolean().default(() => blankSave.loaded10091),
-  loaded1010: z.boolean().default(() => blankSave.loaded1010),
-  loaded10101: z.boolean().default(() => blankSave.loaded10101),
-
   shopUpgrades: z.record(z.string(), z.union([z.number(), z.null(), z.boolean()]))
     .transform((object) => {
       return Object.fromEntries(
@@ -880,17 +874,6 @@ export const playerSchema = z.object({
   overfluxPowder: z.number().default(() => blankSave.overfluxPowder),
   dailyPowderResetUses: z.number().default(() => blankSave.dailyPowderResetUses),
   autoWarpCheck: z.boolean().default(() => blankSave.autoWarpCheck),
-  loadedOct4Hotfix: z.boolean().default(() => blankSave.loadedOct4Hotfix),
-  loadedNov13Vers: z.boolean().default(() => blankSave.loadedNov13Vers),
-  loadedDec16Vers: z.boolean().default(() => blankSave.loadedDec16Vers),
-  loadedV253: z.boolean().default(() => blankSave.loadedV253),
-  loadedV255: z.boolean().default(() => blankSave.loadedV255),
-  loadedV297Hotfix1: z.boolean().default(() => blankSave.loadedV297Hotfix1),
-  loadedV2927Hotfix1: z.boolean().default(() => blankSave.loadedV2927Hotfix1),
-  loadedV2930Hotfix1: z.boolean().default(() => blankSave.loadedV2930Hotfix1),
-  loadedV2931Hotfix1: z.boolean().default(() => blankSave.loadedV2931Hotfix1),
-  loadedV21003Hotfix1: z.boolean().default(() => blankSave.loadedV21003Hotfix1),
-  loadedV21007Hotfix1: z.boolean().default(() => blankSave.loadedV21007Hotfix1),
   version: z.string().default(() => blankSave.version),
   rngCode: z.number().default(() => blankSave.rngCode),
   promoCodeTiming: z.record(z.string(), z.number()).default(() => ({ time: Date.now() - 60 * 1000 * 15 })),

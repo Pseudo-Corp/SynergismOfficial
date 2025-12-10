@@ -301,12 +301,6 @@ export interface Player {
   // create a Map with keys defaulting to boolean
   codes: Map<number, boolean>
 
-  loaded1009: boolean
-  loaded1009hotfix1: boolean
-  loaded10091: boolean
-  loaded1010: boolean
-  loaded10101: boolean
-
   shopUpgrades: {
     offeringPotion: number
     obtainiumPotion: number
@@ -546,17 +540,7 @@ export interface Player {
   hypercubeQuarkDaily: number
   platonicCubeOpenedDaily: number
   platonicCubeQuarkDaily: number
-  loadedOct4Hotfix: boolean
-  loadedNov13Vers: boolean
-  loadedDec16Vers: boolean
-  loadedV253: boolean
-  loadedV255: boolean
-  loadedV297Hotfix1: boolean
-  loadedV2927Hotfix1: boolean
-  loadedV2930Hotfix1: boolean
-  loadedV2931Hotfix1: boolean
-  loadedV21003Hotfix1: boolean
-  loadedV21007Hotfix1: boolean
+
   version: string
 
   rngCode: number

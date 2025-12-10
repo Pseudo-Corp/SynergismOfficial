@@ -3768,15 +3768,6 @@
     "off": "OFF",
     "buyOne": "Buy x1",
     "buyMax": "Buy MAX",
-    "updateAlerts": {
-      "june282021": "June 28, 2021: V2.5.3. You have been refunded quarks from calculators if you purchased them. They are no longer refundable so be wary!",
-      "july22021": "July 2, 2021: V2.5.5. You have been refunded quarks from Powder EX upgrade, if you purchased levels. Your T1 ants were also reset and base cost set to 1e700 particles. Powder EX is no longer refundable, though, so be careful!",
-      "sing230Balancing": "Due to balancing changes, you were sent back to Singularity 230 to prevent softlocking your savefile!",
-      "december22xxxx": "You have loaded into the December 22 patch v1.",
-      "january42023": "You have loaded into the January 4, 2023 Patch v1.",
-      "v297hotfix1NoSing": "You have loaded into the version 2.9.7 hotfix 1!",
-      "v297hotfix1Sing": "You have loaded into the version 2.9.7 hotfix 1! Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience."
-    },
     "languageChange": "Changing the language requires a reload! Would you like to reload now?",
     "resources": {
       "offering": "Offering",
