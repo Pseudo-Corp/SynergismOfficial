@@ -1398,51 +1398,6 @@ const GETHandlers = [
           level: 1,
           cost: 100
         },
-        {
-          upgradeId: 20,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Reborn ELO is created 6% faster per level',
-          internalName: 'REBORN_ELO_BUFF',
-          level: 5,
-          cost: 300
-        },
-        {
-          upgradeId: 20,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Reborn ELO is created 6% faster per level',
-          internalName: 'REBORN_ELO_BUFF',
-          level: 4,
-          cost: 250
-        },
-        {
-          upgradeId: 20,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Reborn ELO is created 6% faster per level',
-          internalName: 'REBORN_ELO_BUFF',
-          level: 3,
-          cost: 200
-        },
-        {
-          upgradeId: 20,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Reborn ELO is created 6% faster per level',
-          internalName: 'REBORN_ELO_BUFF',
-          level: 2,
-          cost: 150
-        },
-        {
-          upgradeId: 20,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Reborn ELO is created 6% faster per level',
-          internalName: 'REBORN_ELO_BUFF',
-          level: 1,
-          cost: 100
-        }
       ],
       playerUpgrades: [],
       tier: 0

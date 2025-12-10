@@ -6958,7 +6958,6 @@
       "extraInfo": "Each tick, you generate <<#00DDFF|Reborn ELO>> equal to <br><<yellow | SpeedMult * TickLength>><br><<yellow|TickLength>> is the time since previous tick (in seconds)",
       "Base": "Base Multiplier:",
       "EffectiveELO": "Effective Ant ELO:",
-      "PseudoCoins": "PseudoCoin Upgrade:",
       "AntQueens": "Queen Ant Purchased:",
       "AntLordRoyals": "Lord Royal Ant Purchased:",
       "AntAlmighties": "ALMIGHTY Ant Purchased:",
@@ -7439,8 +7438,7 @@
       "BASE_OFFERING_BUFF": "Abundant Harvests",
       "BASE_OBTAINIUM_BUFF": "Super Literate Scientists",
       "RED_LUCK_BUFF": "Golden Fuzzy Dice",
-      "RED_GENERATION_BUFF": "Century-Aged Red Ambrosia",
-      "REBORN_ELO_BUFF": "A Fabergé Phoenix Egg"
+      "RED_GENERATION_BUFF": "Century-Aged Red Ambrosia"
     },
     "upgradeEffects": {
       "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
@@ -7458,8 +7456,7 @@
       "BASE_OFFERING_BUFF": "Base Offering Gain is increased by <<gold | {{amount}}>>",
       "BASE_OBTAINIUM_BUFF": "Base Obtainium Gain is increased by <<gold | {{amount}}>>",
       "RED_LUCK_BUFF": "Red Luck is increased by <<gold | {{amount}}>>",
-      "RED_GENERATION_BUFF": "Red Bar Point gain is multiplied by <<gold | {{amount}}>>",
-      "REBORN_ELO_BUFF": "Reborn ELO Creation Speed is multiplied by <<gold | {{amount}}>>"
+      "RED_GENERATION_BUFF": "Red Bar Point gain is multiplied by <<gold | {{amount}}>>"
     },
     "consumables": {
       "tipReceived": "{{offlineTime}} people tipped you in the last minute!",

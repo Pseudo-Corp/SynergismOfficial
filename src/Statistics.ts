@@ -3232,11 +3232,6 @@ export const rebornELOCreationSpeedMultStats: NumberStatLine[] = [
     stat: () => calculateEffectiveAntELO()
   },
   {
-    i18n: 'PseudoCoins',
-    stat: () => PCoinUpgradeEffects.REBORN_ELO_BUFF,
-    color: 'gold'
-  },
-  {
     i18n: 'CoinUpgrade24',
     stat: () => 1 + 0.1 * player.upgrades[124]
   },
