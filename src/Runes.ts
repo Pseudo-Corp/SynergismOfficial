@@ -195,7 +195,7 @@ export const bonusRuneLevelsHorseShoe = () => {
 export const speedRuneOOMIncrease = () => {
   return (
     player.upgrades[66] * 2
-    + player.researches[77]
+    + player.researches[78]
     + player.researches[111]
     + CalcECC('ascension', player.challengecompletions[11])
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
@@ -210,7 +210,7 @@ export const duplicationRuneOOMIncrease = () => {
   return (
     0.75 * CalcECC('transcend', player.challengecompletions[1])
     + player.upgrades[66] * 2
-    + player.researches[78]
+    + player.researches[90]
     + player.researches[112]
     + CalcECC('ascension', player.challengecompletions[11])
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
@@ -237,7 +237,7 @@ export const prismRuneOOMIncrease = () => {
 export const thriftRuneOOMIncrease = () => {
   return (
     player.upgrades[66] * 2
-    + player.researches[80]
+    + player.researches[77]
     + player.researches[114]
     + CalcECC('ascension', player.challengecompletions[11])
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
