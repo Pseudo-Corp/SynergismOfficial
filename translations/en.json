@@ -7463,7 +7463,7 @@
       "thanks": "The booster is now in effect! Thank you for supporting the game!",
       "eventTitle": "Active Consumables",
       "consumableSpoiler": "Start an event for everyone, with the Happy Hour Bell!",
-      "consumableButton": "Buy at the PseudoShop!",
+      "consumableButton": "Consumables Shop",
       "applyTips": "Use Tips!",
       "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s). You may only use up to 1,440 tips per ",
       "confirmActivation": "You are about to activate a {{name}} for {{cost}} PseudoCoins. Continue?",

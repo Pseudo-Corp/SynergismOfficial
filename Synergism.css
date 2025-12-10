@@ -2620,12 +2620,21 @@ p#reincarnatehotkeys {
     margin: 0;
 }
 
+#lotusButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
 #use-lotus {
     border: 2px solid pink;
     width: 50%;
     height: 30px;
-    margin-bottom: 10px;
 }
+
+
 
 #antSacrificeObtainiumOfferings,
 #antSacrificeShardsRow1,
