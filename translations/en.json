@@ -7501,6 +7501,7 @@
       "purchaseBtn": "+{{amount}} Lotus [<<gold|{{cost}} PseudoCoins>>]",
       "buyConfirm": "You are about to buy a {{name}} for {{cost}} PseudoCoins. Continue?",
       "useConfirm": "You are about to use a Lotus of Rejuvenation. This will consume one of your Loti and activate its effect for 5 minutes, granting you Reborn ELO without having to wait. Continue?",
+      "useConfirmMulti": "Since you have this effect active, consuming a Lotus will add 5 minutes to the remaining time.",
       "noLotus": "You do not currently possess a Lotus. Buy some at the PseudoCoins shop!",
       "status": "Lotus Time: {{time}}",
       "lotusActive": "You've used a Lotus! For the next 5 minutes, you will gain Reborn ELO from your Immortal ELO without having to wait!"

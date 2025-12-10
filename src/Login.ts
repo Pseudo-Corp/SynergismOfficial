@@ -580,7 +580,7 @@ function handleWebSocket () {
 
       setTimeout(() => updatePseudoCoins(), 4000)
     } else if (data.type === 'applied-lotus') {
-      ownedLotus -= Math.ceil(data.remaining / 300_000)
+      ownedLotus -= 1
       usedLotus = data.lifetimePurchased
       lotusTimeExpiresAt = Date.now() + data.remaining
 

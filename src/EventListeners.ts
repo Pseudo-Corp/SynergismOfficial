@@ -88,7 +88,7 @@ import {
   resetGame,
   updateSaveString
 } from './ImportExport'
-import { exitFastForward, getOwnedLotus, getTips, sendToWebsocket, setTips } from './Login'
+import { exitFastForward, getLotusTimeExpiresAt, getOwnedLotus, getTips, sendToWebsocket, setTips } from './Login'
 import {
   buyOcteractUpgradeLevel,
   type OcteractDataKeys,
@@ -897,7 +897,13 @@ export const generateEventHandlers = () => {
   })
 
   document.getElementById('use-lotus')?.addEventListener('click', () => {
-    Confirm(i18next.t('pseudoCoins.lotus.useConfirm'))
+    const timeNow = Date.now()
+    const lotusTime = getLotusTimeExpiresAt()
+    let extraHTML = ''
+    if (lotusTime !== undefined && timeNow < lotusTime) {
+      extraHTML = `${i18next.t('pseudoCoins.lotus.useConfirmMulti')}`
+    }
+    Confirm(`${i18next.t('pseudoCoins.lotus.useConfirm')} ${extraHTML}`)
       .then((bool) => {
         if (!bool) {
           return
