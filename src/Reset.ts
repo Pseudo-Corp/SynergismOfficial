@@ -950,9 +950,6 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
   }
   if (player.highestSingularityCount >= 3) { // Singularity 3
     if (player.currentChallenge.ascension !== 12) {
-      if (singularityReset) {
-        player.reincarnationCount = 1
-      }
       player.reincarnationPoints = new Decimal('10')
     }
     player.unlocks.reincarnate = true

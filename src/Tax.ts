@@ -141,7 +141,7 @@ export const calculatetax = () => {
   )
   const exponentForWarning = Math.max(0, G.maxexponent - flatMaxExponentIncrease)
 
-  if (player.currentChallenge.ascension === 13 && G.maxexponent <= 99999) {
+  if (player.currentChallenge.ascension === 13 && (G.maxexponent - flatMaxExponentIncrease) <= 99999) {
     // i don't think it makes sense to give the achievement as soon as the challenge is opened
     // as soon as the challenge is opened you don't have enough tax reducers to have max exponent above 100000
     // so for the achievement description to make sense i think it should require at least 1 challenge completion || Dorijanko

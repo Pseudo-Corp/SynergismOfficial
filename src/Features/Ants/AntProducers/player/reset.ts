@@ -1,14 +1,12 @@
-import Decimal from 'break_infinity.js'
 import { AntSacrificeTiers } from '../../../../Reset'
 import { player } from '../../../../Synergism'
 import { AntProducers, LAST_ANT_PRODUCER } from '../../structs/structs'
-import { defaultAntProducers } from './default'
+import { emptyAntProducer } from './default'
 
 export const resetPlayerAntProducers = (resetTier: AntSacrificeTiers) => {
   if (resetTier >= AntSacrificeTiers.sacrifice) {
     for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
-      player.ants.producers[ant].generated = Decimal.fromDecimal(defaultAntProducers[ant].generated)
-      player.ants.producers[ant].purchased = defaultAntProducers[ant].purchased
+      player.ants.producers[ant] = emptyAntProducer()
     }
   }
   if (player.highestSingularityCount >= 10) {

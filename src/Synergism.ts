@@ -352,7 +352,7 @@ export const player: Player = {
   fifthCostParticles: new Decimal('1e16'),
   fifthProduceParticles: 0.5,
 
-  ants: defaultPlayerAnts,
+  ants: { ...defaultPlayerAnts },
 
   ascendBuilding1: {
     cost: 1,
@@ -1262,18 +1262,8 @@ export const saveSynergy = (button?: boolean) => {
 const loadSynergy = () => {
   const saveString = localStorage.getItem('Synergysave2')
   const data = saveString ? JSON.parse(atob(saveString)) : null
-
-  if (testing || !prod) {
-    Object.defineProperties(window, {
-      player: { value: player },
-      G: { value: G },
-      Decimal: { value: Decimal },
-      i18n: { value: i18next }
-    })
-
-    if (data && testing) {
-      data.exporttest = false
-    }
+  if (data && testing) {
+    data.exporttest = false
   }
 
   Object.assign(G, { ...blankGlobals })
@@ -3368,8 +3358,9 @@ export const resourceGain = (dt: number): void => {
       `ascendBuilding${(6 - i) as OneToFive}` as const
     ].generated
       .add(player[`ascendBuilding${(6 - i) as OneToFive}` as const].owned)
-      // 4.1.0: Removing this from player, also because I want to make the multiplier 1.00 instead of 0.01 anyway
+      // 4.1.0: Removing this from player, also because I want to make the multiplier 0.05 instead of 0.01 anyway
       // .times(player[`ascendBuilding${i as OneToFive}` as const].multiplier)
+      .times(0.05)
       .times(G.globalConstantMult)
 
     if (i !== 5) {
@@ -5290,6 +5281,15 @@ window.addEventListener('load', async () => {
   fetchUnreadMessages().catch(console.error)
 
   reloadShit()
+
+  if (testing || !prod) {
+    Object.defineProperties(window, {
+      player: { value: player },
+      G: { value: G },
+      Decimal: { value: Decimal },
+      i18n: { value: i18next }
+    })
+  }
 }, { once: true })
 
 window.addEventListener('unload', () => {

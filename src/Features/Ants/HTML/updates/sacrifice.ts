@@ -107,7 +107,7 @@ export const showSacrifice = () => {
 
       if (effectiveELO >= requirement) {
         // Unlocked: show reward amount, remove locked styling
-        element.textContent = i18next.t('ants.elo', { x: format(reward) })
+        element.textContent = i18next.t('ants.itemReward', { x: format(reward) })
         parentElement?.classList.remove('antSacrificeRewardLocked')
         const img = parentElement?.querySelector('img')
         img?.classList.remove('antSacrificeRewardImageLocked')

@@ -6,8 +6,8 @@ export const talismanItemRequiredELO: Record<TalismanCraftItems, number> = {
   uncommonFragment: 600,
   rareFragment: 1200,
   epicFragment: 2000,
-  legendaryFragment: 4000,
-  mythicalFragment: 10000
+  legendaryFragment: 7500,
+  mythicalFragment: 7500
 }
 
 export const talismanRewardMultipliers: Record<TalismanCraftItems, number> = {
@@ -16,6 +16,6 @@ export const talismanRewardMultipliers: Record<TalismanCraftItems, number> = {
   uncommonFragment: 0.1,
   rareFragment: 0.06,
   epicFragment: 0.02,
-  legendaryFragment: 0.008,
-  mythicalFragment: 0.003
+  legendaryFragment: 0.0008,
+  mythicalFragment: 0.0001
 }

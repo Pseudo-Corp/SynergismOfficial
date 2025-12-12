@@ -25,6 +25,7 @@ import {
 import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
 import { canBuyAntMastery } from './Features/Ants/AntMasteries/lib/get-buyable'
+import { canGenerateAntCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { getCostNextAnt } from './Features/Ants/AntProducers/lib/get-cost'
 import { getCostNextAntUpgrade } from './Features/Ants/AntUpgrades/lib/get-cost'
 import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
@@ -134,11 +135,13 @@ export const revealStuff = () => {
     }
   }
 
-  DOMCacheGetOrSet('challenge8AntLocked').style.display = (player.challengecompletions[8] > 0) ? 'none' : 'block'
+  DOMCacheGetOrSet('challenge8AntLocked').style.display = canGenerateAntCrumbs() ? 'none' : 'block'
 
   document.documentElement.dataset.chal9 = player.unlocks.talismans ? 'true' : 'false'
   document.documentElement.dataset.chal9x1 = player.highestchallengecompletions[9] > 0 ? 'true' : 'false'
   document.documentElement.dataset.chal10 = player.unlocks.ascensions ? 'true' : 'false'
+
+  document.documentElement.dataset.sacrificeUnlock = player.ants.antSacrificeCount > 0 ? 'true' : 'false'
 
   const example21 = document.getElementsByClassName('ascendunlock') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example21.length; i++) {

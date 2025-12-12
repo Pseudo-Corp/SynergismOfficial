@@ -5,7 +5,7 @@ import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
 import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
-import { defaultAntProducers } from '../Features/Ants/AntProducers/player/default'
+import { emptyAntProducer } from '../Features/Ants/AntProducers/player/default'
 import type { PlayerAntProducers } from '../Features/Ants/AntProducers/structs/structs'
 import { defaultAntUpgrades } from '../Features/Ants/AntUpgrades/player/default'
 import { AntUpgrades, LAST_ANT_UPGRADE } from '../Features/Ants/AntUpgrades/structs/structs'
@@ -85,7 +85,7 @@ const antsSchema = z.object({
 
       for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
         if (!(ant in result)) {
-          result[ant] = { ...defaultAntProducers[ant] }
+          result[ant] = emptyAntProducer()
         }
       }
 

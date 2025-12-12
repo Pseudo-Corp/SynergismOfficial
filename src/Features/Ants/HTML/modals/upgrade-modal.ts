@@ -18,7 +18,7 @@ export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
 
   const freeLevels = computeFreeAntUpgradeLevels()
   const levelHTML = `<span class="crimsonText">${
-    i18next.t('ants.level', { x: format(player.ants.upgrades[antUpgrade], 0, true), y: format(freeLevels, 0, true) })
+    i18next.t('ants.level', { x: format(player.ants.upgrades[antUpgrade], 0, true), y: format(freeLevels, 2, true) })
   }</span>`
 
   let challengeHTML = ''

@@ -2248,40 +2248,6 @@
         "effect": "<<green | ★>> HOLY SPIRIT Mastery multiplies DISCIPLE production by <<gold | {{x}}>>"
       }
     },
-    "upgrade": {
-      "1": "Promotes romance and unity within the colony. [+12% Ant Speed / level]",
-      "2": "Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]",
-      "3": "Swarms the Taxman into submission [Up to -99.5% taxes!]",
-      "4": "Scares you into running faster [up to x20]",
-      "5": "Imitates your body through magic shape-shifting powers [up to x40]",
-      "6": "Tries to please Ant God... but fails [Additional Offerings!]",
-      "7": "Helps you build a few things here and there [+3% Building Cost Delay / level, Cap 9,999,999%]",
-      "8": "Knows how to salt and pepper food [Up to 1,000x Rune EXP!]",
-      "9": "Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 3,000]",
-      "10": "Has big brain energy [Additional Obtainium!]",
-      "11": "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]",
-      "12": "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
-    },
-    "descriptions": {
-      "1": "Gain a Worker Ant for your everyday life. Gathers Galactic Crumbs. Essential!",
-      "2": "Gain a Breeder Ant that produces Worker Ants automatically!",
-      "3": "Gain a Meta-breeder Ant that produces Breeder Ants automatically!",
-      "4": "Gain a Mega-breeder Ant that produces Meta-breeder Ants automatically!",
-      "5": "Gain a Queen Ant that produces Mega-breeder Ants automatically!",
-      "6": "Gain a Lord Royal Ant that produces Queen Ants automatically!",
-      "7": "Gain an ALMIGHTY ANT that produces Lord Royal Ants automatically!",
-      "8": "Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!"
-    },
-    "generates": {
-      "1": "Generates {{x}} Crumbs/sec",
-      "2": "Generates {{x}} Workers/sec",
-      "3": "Generates {{x}} Breeders/sec",
-      "4": "Generates {{x}} MetaBreeders/sec",
-      "5": "Generates {{x}} MegaBreeders/sec",
-      "6": "Generates {{x}} Queens/sec",
-      "7": "Generates {{x}} Royals/sec",
-      "8": "Generates {{x}} ALMIGHTIES/sec"
-    },
     "upgrades": {
       "sacrificeReset": "This Ant resets when you perform an Ant Sacrifice.",
       "ascensionReset": "This Ant resets when you Ascend.",
@@ -2409,20 +2375,6 @@
         "effect": "Gain <<white | +{{x}}>> more Wow! Cubes"
       }
     },
-    "rewards": {
-      "1": "ALL Ants work at {{x}}x speed.",
-      "2": "Crumb --> Coin exponent is ^{{x}}",
-      "3": "Tax growth is multiplied by {{x}}",
-      "4": "Accelerator Boosts +{{x}}%",
-      "5": "Multipliers +{{x}}%",
-      "6": "Offerings x{{x}}",
-      "7": "Building Costs scale {{x}}% slower!",
-      "8": "Rune EXP is multiplied by {{x}}!",
-      "9": "Each rune has +{{x}} effective levels.",
-      "10": "Obtainium x{{x}}",
-      "11": "Sacrificing is {{x}}x as effective",
-      "12": "Global Speed is multiplied by {{x}}"
-    },
     "altar": {
       "titles": {
         "altar": "The Great Ant Altar",
@@ -2480,7 +2432,6 @@
         "intro": "Your all-time leaderboard multiplies Quark gain from Ant Sacrifice by <<cyan|{{x}}>>.",
         "formula": "Formula: <<orchid|2 - 0.8^(Stage / 100)>>",
         "specificMult": "Stage <<turquoise|{{x}}>>: <<orchid|2 - 0.8^{{y}}>> = <<cyan|{{z}}>>"
-
       }
     },
     "maxBuy": {
@@ -2534,11 +2485,9 @@
     "compendiumDetails": "She offers you some Quarks in exchange for your best Sacrifices each day.",
     "anthillAlive": "Your Anthill has been alive for",
     "currentAnthill": "(This is your <<gold|{{ord}}>> Anthill)",
-    "youHaveGalacticCrumbs": "You have {{x}} Galactic Crumbs [{{y}}/s], providing a {{z}} Coin Multiplier",
     "galacticCrumbCount": "You have {{x}} Galactic Crumbs.",
     "crumbsPerSecond": "+{{x}} per second",
     "crumbsCoinMultiplier": "↳ Coin production is multiplied by {{x}} (Fortunae Formicidae)",
-    "owned": "Owned: {{x}} [+{{y}}]",
     "producerCount": "<<crimson| {{x}} Purchased>> + <<orange | {{y}} Generated>>",
     "level": "Level {{x}} <<orange | [+{{y}}]>>",
     "challenge11Modifier": "Challenge 11 - Only free Ant Upgrade Levels count for Effective Levels",
@@ -2566,14 +2515,9 @@
     "rebornELOGainSpeed": "<<turquoise|↳>> <<#00DDFF|Reborn ELO creation speed>> <<gold|x{{x}}>>",
     "rebornELOPerSecond": "<<#00DDFF|{{x}}>> per second",
     "rebornELOTimeToMax": "Estimated time until max: <<gold|{{x}}>> seconds",
-    "resetAnthill": "Ant Sacrifice",
-    "resetAlert": "<<gold | ⚠>> Performs a <<limegreen | Reincarnation>>",
     "immortalELOUntilGain": "Get <<gold | {{x}}>> more <<orchid | Ant ELO>> to gain <<crimson | Immortal ELO>>",
     "immortalELOGain": "Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
     "antSacMultiplier": "↳ Ant Speed x{{x}}",
-    "offeringMultiplier": "• Gain <<orange | {{x}}x Offerings>>",
-    "obtainiumMultiplier": "• Gain <<pink | {{x}}x Obtainium>>",
-    "talismanFragments": "• Gain Some Talisman Fragments!",
     "rebornELOInfo": "Gain <<#00DDFF|Reborn ELO>> over time by reaching a higher ELO!",
     "rebornELOInfo2": "• Limited by your <<crimson|Immortal ELO>>. <<orchid | Ant ELO>> speeds up generation!",
     "rebornELOInfo3": "• The more <<#00DDFF|Reborn ELO>> you have, the slower it generates.",
@@ -2584,8 +2528,8 @@
     "stageTranche3": "Stages 201-300: 3,000 <<#00DDFF|Reborn ELO>> Each",
     "stageTranche4": "Stages 301-1,000: 20,000 <<#00DDFF|Reborn ELO>> Each",
     "stageTranche5": "Stages 1,001+: 100,000 <<#00DDFF|Reborn ELO>> Each",
-    "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some Ant Speed and resources. Continue?",
-    "elo": "+{{x}}",
+    "autoReset": "This resets your Crumbs, Ant Producers and Ant Upgrades in exchange for Immortal ELO and some worldly items. Continue?",
+    "itemReward": "+{{x}}",
     "eloRequirement": "{{x}} ELO",
     "antSacrifice": "Ant Sacrifice",
     "minimumTimeToSacrifice": "Minimum interval between Sacrifices: <<gold|0.05>> real-life seconds",
@@ -6935,6 +6879,7 @@
       "Research5x9": "Research 5x9:",
       "Research5x20": "Research 5x20",
       "Research5x23": "Research 5x23:",
+      "Research7x19": "Research 7x19:",
       "Research8x3": "Research 8x3:",
       "AntUpgrade": "Ants - Phylacterium Formicidae:",
       "AntUpgrade13": "Ants - Impia Reproducta Formicidate:",

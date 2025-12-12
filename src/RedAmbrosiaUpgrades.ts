@@ -523,8 +523,9 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
   blueberries: {
     level: 0,
     redAmbrosiaInvested: 0,
-    costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(30, level)
+    costFormula: (level: number, _baseCost: number) => {
+      const costValue = [100_000, 1_400_000, 3_000_000]
+      return costValue[level] ?? 0
     },
     effects: (n: number) => {
       return {
@@ -534,7 +535,7 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
     effectsDescription: (n: number) => {
       return i18next.t('redAmbrosia.data.blueberries.effect', { amount: n })
     },
-    maxLevel: 2,
+    maxLevel: 3,
     costPerLevel: 1e5,
     name: () => i18next.t('redAmbrosia.data.blueberries.name'),
     description: () => i18next.t('redAmbrosia.data.blueberries.description')

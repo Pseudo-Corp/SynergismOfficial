@@ -112,7 +112,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     description: () => i18next.t('ants.upgrades.acceleratorBoosts.description'),
     effect: (n: number) => {
       return {
-        acceleratorBoostMult: calculateSigmoidExponential(40, n / 1000 * 40 / 39)
+        acceleratorBoostMult: calculateSigmoidExponential(20, n / 1000)
       }
     },
     effectDescription: () => {
@@ -137,7 +137,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     description: () => i18next.t('ants.upgrades.multipliers.description'),
     effect: (n: number) => {
       return {
-        multiplierMult: calculateSigmoidExponential(40, n / 1000 * 80 / 79)
+        multiplierMult: calculateSigmoidExponential(40, n / 1000)
       }
     },
     effectDescription: () => {

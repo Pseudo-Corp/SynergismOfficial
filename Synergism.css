@@ -2613,7 +2613,8 @@ p#reincarnatehotkeys {
 #lotusCorner {
     border: 2px solid pink;
     width: 66%;
-    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #lotusCorner p {
@@ -5937,6 +5938,14 @@ html[data-chal9x1="true"] .chal9x1 {
 }
 
 html[data-chal9x1="false"] .chal9x1 {
+    display: none;
+}
+
+html[data-sacrifice-unlock="true"] .sacrificeUnlock {
+    display: inline-block;
+}
+
+html[data-sacrifice-unlock="false"] .sacrificeUnlock {
     display: none;
 }
 

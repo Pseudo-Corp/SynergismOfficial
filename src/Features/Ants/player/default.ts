@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import { defaultAntMasteries } from '../AntMasteries/player/default'
-import { defaultAntProducers } from '../AntProducers/player/default'
+import { createDefaultAntProducers } from '../AntProducers/player/default'
 import { defaultAntSacrificeCount, defaultCurrentSacrificeId } from '../AntSacrifice/player/default'
 import { defaultAntImmortalELO } from '../AntSacrifice/Rewards/ELO/ImmortalELO/player/default'
 import {
@@ -26,7 +26,7 @@ import {
 } from '../toggles/player/default'
 
 export const defaultPlayerAnts: PlayerAnts = {
-  producers: { ...defaultAntProducers },
+  producers: createDefaultAntProducers(),
   masteries: { ...defaultAntMasteries },
   upgrades: { ...defaultAntUpgrades },
   crumbs: Decimal.fromDecimal(defaultCrumbs),
