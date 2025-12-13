@@ -825,17 +825,17 @@
       "478": "一万亿次转世之后：进行1000000000000(1e12)次转世。",
       "479": "记录十三之恐惧症：进行13131313131313(1.3e13)次转世。",
       "480": "M2：进行2e14次转世。",
-      "481": "献祭蚂蚁：献祭一次蚁丘。",
-      "482": "建设更好的未来：献祭十次蚁丘。",
-      "483": "神之盛宴：献祭五十次蚁丘。",
-      "484": "四分之一：献祭二百五十次蚁丘。",
-      "485": "Blemished Altar: Sacrifice your Anthill 1,250 times.",
-      "486": "Formicae Caedem: Sacrifice your Anthill 5,000 times.",
-      "487": "King of Kings: Sacrifice your Anthill 20,000 times.",
-      "488": "Lord of Lords: Sacrifice your Anthill 80,000 times.",
-      "489": "Why are we here?: Sacrifice your Anthill 250,000 times.",
-      "490": "Just to suffer?: Sacrifice your Anthill 1,000,000 times.",
-      "491": "Scorched Earth: Sacrifice your Anthill 3,000,000 times."
+      "481": "献祭蚂蚁：献祭1次蚁丘。",
+      "482": "建设更好的未来：献祭10次蚁丘。",
+      "483": "神之盛宴：献祭50次蚁丘。",
+      "484": "四分之一：献祭250次蚁丘。",
+      "485": "祭坛微瑕：献祭1250次蚁丘。",
+      "486": "蚁之屠戮：献祭5000次蚁丘。",
+      "487": "万王之王：献祭20000次蚁丘。",
+      "488": "万主之主：献祭80000次蚁丘。",
+      "489": "我们为何在此？：献祭250000次蚁丘。",
+      "490": "只为受苦吗？：献祭1000000次蚁丘。",
+      "491": "焦土：献祭3000000次蚁丘。"
     },
     "achievementRewards": {
       "3": {
@@ -1118,8 +1118,8 @@
         "salvage": "使回收增加7"
       },
       "137": {
-        "sacrificeMult": "x1.25 Sacrifice Rewards!",
-        "experientiaAutobuy": "Unlock the <i>Experientia</i> Ant Upgrade Autobuyer!"
+        "sacrificeMult": "使献祭奖励变为原来的1.25倍！",
+        "experientiaAutobuy": "解锁<i>博学</i>蚁的自动购买！"
       },
       "139": {
         "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
@@ -1190,26 +1190,26 @@
         "antAutobuyers": "解锁一个蚂蚁自动购买！"
       },
       "174": {
-        "antSpeed": "+0.1% Ant Speed per Immortal ELO!",
-        "scientiaAutobuy": "Unlock the <i>Scientia</i> Ant Upgrade Autobuyer!"
+        "antSpeed": "每拥有1不朽强度分，就使蚂蚁速度增加0.1%！",
+        "scientiaAutobuy": "解锁<i>科学</i>蚁的自动购买！"
       },
       "176": {
         "antAutobuyers": "解锁繁殖蚁自动购买！",
-        "inceptusAutobuy": "Unlock the <i>Inceptus</i> Ant Upgrade Autobuyer!",
-        "fortunaeAutobuy": "Unlock the <i>Fortunae</i> Ant Upgrade Autobuyer!"
+        "inceptusAutobuy": "解锁<i>创始</i>蚁的自动购买！",
+        "fortunaeAutobuy": "解锁<i>财富</i>蚁的自动购买！"
       },
       "177": {
         "antAutobuyers": "解锁高级繁殖蚁自动购买！",
-        "tributumAutobuy": "Unlock the <i>Tributum</i> Ant Upgrade Autobuyer!"
+        "tributumAutobuy": "解锁<i>示威</i>蚁的自动购买！"
       },
       "178": {
         "antAutobuyers": "解锁超级繁殖蚁自动购买！",
-        "celeritasAutobuy": "Unlock the <i>Celeritas</i> Ant Upgrade Autobuyer!",
-        "exploratoremAutobuy": "Unlock the <i>Exploratorem</i> Ant Upgrade Autobuyer!"
+        "celeritasAutobuy": "解锁<i>迅捷</i>蚁的自动购买！",
+        "exploratoremAutobuy": "解锁<i>加倍</i>蚁的自动购买！"
       },
       "179": {
         "antAutobuyers": "解锁蚁后自动购买！",
-        "sacrificiumAutobuy": "Unlock the <i>Sacrificium</i> Ant Upgrade Autobuyer!"
+        "sacrificiumAutobuy": "解锁<i>献祭</i>蚁的自动购买！"
       },
       "180": {
         "antAutobuyers": "解锁国王蚁自动购买！"
@@ -1221,11 +1221,11 @@
         "antAutobuyers": "解锁神使蚁自动购买！"
       },
       "183": {
-        "freeAntUpgrades": "Gain 2 free Ant Upgrade Levels!"
+        "freeAntUpgrades": "使免费蚂蚁等级增加2！"
       },
       "184": {
-        "preserveAnthillCount": "Preserve Anthill Count on Ascension!",
-        "antSacrificeCountMultiplier": "Double the amount of Anthills you Sacrifice at once! (only contributes to more Anthill count)"
+        "preserveAnthillCount": "飞升时保留蚁丘次数！",
+        "antSacrificeCountMultiplier": "使献祭蚁丘的次数翻倍！(只增加蚁丘次数)"
       },
       "186": {
         "wowSquareTalisman": "解锁惊奇正方形护身符！"
@@ -1421,7 +1421,7 @@
         "platonicToHypercubes": "开启PLATONIC方盒时，可以获得惊奇五阶立方[在1e1000000数学常数时达到上限1个]"
       },
       "349": {
-        "antAutobuyers": "Automatically buy HOLY SPIRIT OF ANT GOD Ants!"
+        "antAutobuyers": "自动购买蚁神圣灵蚁！"
       },
       "382": {
         "salvage": "使回收增加3"
@@ -1542,28 +1542,28 @@
         "ascensionCountMultiplier": "基于飞升时间，增加飞升次数获取数量(在1000000秒时达到上限1.25倍)"
       },
       "481": {
-        "freeAntUpgrades": "Gain +1 free Ant Upgrade level!"
+        "freeAntUpgrades": "使免费蚂蚁等级增加1！"
       },
       "482": {
-        "antSacrificeCountMultiplier": "Each Sacrifice adds +2 to your Anthill count instead of +1!",
-        "hicAutobuy": "Unlock the <i>Hic</i> Ant Upgrade Autobuyer!"
+        "antSacrificeCountMultiplier": "每次献祭蚁丘时，蚁丘次数从增加1变为增加2！",
+        "hicAutobuy": "解锁<i>建筑</i>蚁的自动购买！"
       },
       "483": {
-        "autoAntSacrifice": "Unlock the Auto-Sacrifice feature!"
+        "autoAntSacrifice": "解锁蚂蚁自动献祭功能！"
       },
       "484": {
-        "antELOAdditiveMultiplier": "Gain +1% Ant ELO from all sources!",
-        "praemoenioAutobuy": "Unlock the <i>Praemoenio</i> Ant Upgrade Autobuyer!"
+        "antELOAdditiveMultiplier": "使蚂蚁强度分增加1%！",
+        "praemoenioAutobuy": "解锁<i>预言</i>蚁的自动购买！"
       },
       "485": {
-        "antELOAdditive": "Gain +25 Ant ELO, all the time!"
+        "antELOAdditive": "使蚂蚁强度分增加25！"
       },
       "486": {
-        "antSpeed2UpgradeImprover": "The first N levels of <i>Impia Reproducta</i> give an extra Ant ELO, where N is your Synergism Level!",
-        "phylacteriumAutobuy": "Unlock the <i>Phylacterium</i> Ant Upgrade Autobuyer!"
+        "antSpeed2UpgradeImprover": "<i>孽生蚁</i>的前N级额外增加蚂蚁强度分，N为协同效应等级！",
+        "phylacteriumAutobuy": "解锁<i>命匣</i>蚁的自动购买！"
       },
       "490": {
-        "preserveAnthillCountSingularity": "Preserve your Anthil Count when you do something <span class='rainbowText'>even more impressive than an Ascension!</span>"
+        "preserveAnthillCountSingularity": "进行某种<span class='rainbowText'>比飞升还棒的事情时</span>，保留蚁丘次数！"
       }
     },
     "rewards": {
@@ -1767,7 +1767,7 @@
       "prestigeCount": "转生次数",
       "transcensionCount": "超越次数",
       "reincarnationCount": "转世次数",
-      "sacCount": "Anthills Sacrificed",
+      "sacCount": "蚁丘献祭次数",
       "ungrouped": "杂项"
     },
     "rewardTypes": {
@@ -1819,7 +1819,7 @@
       "antAutobuyers": "• 蚂蚁自动购买{{val}}",
       "antUpgradeAutobuyers": "• 蚂蚁升级自动购买{{val}}",
       "antELOAdditive": "• 使蚂蚁强度分增加{{val}}",
-      "antELOMultiplicative": "• Reborn ELO Creation Speed x{{val}}",
+      "antELOMultiplicative": "• 重生强度分生成速度×{{val}}",
       "ascensionCountMultiplier": "• 使飞升次数变为原来的{{val}}倍",
       "ascensionCountAdditive": "• 使飞升次数增加{{val}}",
       "allCubeGain": "• 使所有类型的方盒、立方和方块获取数量变为原来的{{val}}倍",
@@ -1864,9 +1864,9 @@
         "effect": "当前效果：难得素获取数量增加{{mult}}"
       },
       "ants": {
-        "name": "More Ant Fodder for your Ant Diety",
-        "description": "Oh! Your Ant God takes note of your Synergism Level. Gain base Ant ELO for each level above 59. +25 per level until Level 100, +50 per level until level 200, and +100 for each additional level.",
-        "effect": "Current Effect: +{{elo}} Ant ELO"
+        "name": "为蚁神准备更多饲料",
+        "description": "哦！蚁神注意到了您的协同效应等级。当协同效应等级超过59级以后，额外获得基础蚂蚁强度分。在100级之前每级增加25，101级至200级时每级增加50，之后每级增加100。",
+        "effect": "当前效果：蚂蚁强度分增加{{elo}}"
       },
       "wowCubes": {
         "name": "惊奇方盒获取数量",
@@ -1991,24 +1991,24 @@
         "effect": "当前效果：回收增加{{salvage}}"
       },
       "antSpeed2Autobuyer": {
-        "name": "Impia Reproducta Autobuyer",
-        "description": "Autobuy Impia Reproducta Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "name": "孽生蚁自动购买",
+        "description": "如果启用自动购买，则自动购买孽生蚁！",
+        "effect": "当前效果：见上方！"
       },
       "wowCubesAutobuyer": {
-        "name": "Cubus Admirabilis Autobuyer",
-        "description": "Autobuy Cubus Admirabilis Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "name": "崇盒蚁自动购买",
+        "description": "如果启用自动购买，则自动购买崇盒蚁！",
+        "effect": "当前效果：见上方！"
       },
       "ascensionScoreAutobuyer": {
-        "name": "Ascendens Autobuyer",
-        "description": "Autobuy Ascendens Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "name": "飞升蚁自动购买",
+        "description": "如果启用自动购买，则自动购买飞升蚁！",
+        "effect": "当前效果：见上方！"
       },
       "mortuus2Autobuyer": {
-        "name": "Mortuus Iterum Autobuyer",
-        "description": "Autobuy Mortuus Iterum Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "name": "复死蚁自动购买",
+        "description": "如果启用自动购买，则自动购买复死蚁！",
+        "effect": "当前效果：见上方！"
       }
     },
     "progressiveAchievements": {
@@ -2023,14 +2023,14 @@
         "apSource": "在25000级之前，每有250级免费等级，就获得1成就点数。<br>25000级至150000级之间，每有750级免费等级，就获得1成就点数。<br>150000级至500000级之间，每有2500级免费等级，就获得1成就点数。"
       },
       "antMasteries": {
-        "name": "Progressive Achievement - Ant Masteries",
-        "description": "Gain AP based on your unique Ant Mastery levels purchsed! Best Total: {{x}}",
-        "apSource": "Gain +3 AP for every unique level purchased. <br> Gain +4 AP for every unique level 12 Mastery."
+        "name": "递进式成就 - 蚂蚁专精",
+        "description": "根据已经购买的所有蚂蚁专精等级之和获得成就点数！最高总和：{{x}}",
+        "apSource": "每购买1级蚂蚁专精，就获得3成就点数。<br>每有1个12级专精，就获得4成就点数。"
       },
       "rebornELO": {
-        "name": "Progressive Achievement - Reborn ELO",
-        "description": "Gain AP based on the total weighted value of your best Reborn ELO, lifetime! Best Total: {{x}} (Check the \"Ants to Quark Corner\" in the Altar Subtab)",
-        "apSource": "Gain +1 AP per 100 Reborn ELO, up to 10,000. <br> Gain +1 AP per 1000 Reborn ELO, up to 150,000. <br> Gain +1 AP per 9,000 Reborn ELO, up to 1,350,000. <br> Gain +1 AP per 75,000 Reborn ELO, up to 15,000,000. <br> Gain +1 AP per 100,000 Reborn ELO, up to 40,000,000."
+        "name": "递进式成就 - 重生强度分",
+        "description": "根据最高的重生强度分获得成就点数！最高总和：{{x}} (可以查看祭坛子面板下的“蚂蚁夸克角”)",
+        "apSource": "在10000重生强度分之前，每有100重生强度分，就获得1成就点数。<br>10000重生强度分至150000重生强度分之间，每有1000重生强度分，就获得1成就点数。<br>150000重生强度分至1350000重生强度分之间，每有9000重生强度分，就获得1成就点数。<br>1350000重生强度分至15000000重生强度分之间，每有75000重生强度分，就获得1成就点数。<br>15000000重生强度分至40000000重生强度分之间，每有100000重生强度分，就获得1成就点数。"
       },
       "singularityCount": {
         "name": "递进式成就 - 奇点次数",
@@ -2118,13 +2118,13 @@
   "ants": {
     "producers": {
       "0": {
-        "name": "Worker Ants - Tier I",
-        "flavor": "The backbone of any colony. Gathers Galactic Crumbs.",
-        "generates": "Generates {{x}} Crumbs per second",
-        "eloInformation": "<<gold | ⤬>> Each Worker Ant you buy grants you <<orchid | +{{x}} Ant ELO>> for Ant Sacrifice.",
-        "reincarnationUpgrade17": "Ant Speed from Reincarnation Upgrade 4x2: <<gold | {{x}}x>>",
-        "research": "Ant Speed from Research 4x21: <<gold | {{x}}x>>",
-        "cookieUpgrade": "Ant Speed from Cookie Upgrade 2x15: <<gold | {{x}}x>>"
+        "name": "T1 - 工蚁",
+        "flavor": "定居点的支柱。可以收集银河碎屑。",
+        "generates": "每秒产生{{x}}银河碎屑",
+        "eloInformation": "<<gold | ⤬>>每购买1只工蚁，蚂蚁献祭时的<<orchid|蚂蚁强度分就增加{{x}}>>。",
+        "reincarnationUpgrade17": "转世升级4x2的蚂蚁速度加成：<<gold|{{x}}倍>>",
+        "research": "研究4x21的蚂蚁速度加成：<<gold|{{x}}倍>>",
+        "cookieUpgrade": "饼干升级Cx15的蚂蚁速度加成：<<gold|{{x}}倍>>"
       },
       "1": {
         "name": "Breeder Ants - Tier II",
