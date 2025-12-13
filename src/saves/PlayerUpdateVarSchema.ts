@@ -273,8 +273,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
       player.ants.toggles.maxBuyProducers = player.antMax
       player.ants.toggles.maxBuyUpgrades = player.antMax
     }
-
-    Alert(i18next.t('versionChangeAnnouncements.ants'))
   }
 
   Reflect.deleteProperty(player, 'runeshards')
