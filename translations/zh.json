@@ -2127,74 +2127,74 @@
         "cookieUpgrade": "饼干升级Cx15的蚂蚁速度加成：<<gold|{{x}}倍>>"
       },
       "1": {
-        "name": "Breeder Ants - Tier II",
-        "flavor": "Produces Worker Ants automatically. The colony grows.",
-        "generates": "Generates {{x}} Worker Ants per second"
+        "name": "T2 - 繁殖蚁",
+        "flavor": "自动产生工蚁。定居点扩大中。",
+        "generates": "每秒产生{{x}}工蚁"
       },
       "2": {
-        "name": "Meta-Breeder Ants - Tier III",
-        "flavor": "Slightly bigger. Can produce Breeder Ants!",
-        "generates": "Generates {{x}} Breeder Ants per second"
+        "name": "T3 - 高级繁殖蚁",
+        "flavor": "略微大了一些。可以产生繁殖蚁！",
+        "generates": "每秒产生{{x}}繁殖蚁"
       },
       "3": {
-        "name": "Mega-Breeder Ants - Tier IV",
-        "flavor": "It's not just huge. It's big. It produces Meta-Breeders.",
-        "generates": "Generates {{x}} Meta-Breeder Ants per second"
+        "name": "T4 - 超级繁殖蚁",
+        "flavor": "不止是大，是超大。可以产生高级繁殖蚁。",
+        "generates": "每秒产生{{x}}高级繁殖蚁"
       },
       "4": {
-        "name": "Queen Ants - Tier V",
-        "flavor": "The mother of them all. Produces Mega-Breeders.",
-        "generates": "Generates {{x}} Mega-Breeder Ants per second",
-        "eloMult": "<<orchid | ☇>> Buying your first Queen Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
-        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first Queen Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.15x as fast!"
+        "name": "T5 - 蚁后",
+        "flavor": "之前所有蚂蚁的母亲。可以产生超级繁殖蚁。",
+        "generates": "每秒产生{{x}}超级繁殖蚁",
+        "eloMult": "<<orchid | ☇>>本次献祭中首次购买蚁后之后，可以使本次献祭中的<<orchid|蚂蚁强度分>>增加1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>>本次献祭中首次购买蚁后之后，可以使<<#00DDFF|重生强度分>>的产生速度变为原来的1.15倍！"
       },
       "5": {
-        "name": "Lord Royal Ants - Tier VI",
-        "flavor": "A King Ant. Produces Queens. Wait, what?",
-        "generates": "Generates {{x}} Queen Ants per second",
-        "eloMult": "<<orchid | ☇>> Buying your first Lord Royal Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
-        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first Lord Royal Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.25x as fast!"
+        "name": "T6 - 国王蚁",
+        "flavor": "国王蚁可以产生蚁后。对的……等等，对吗？",
+        "generates": "每秒产生{{x}}蚁后",
+        "eloMult": "<<orchid | ☇>>本次献祭中首次购买国王蚁之后，可以使本次献祭中的<<orchid|蚂蚁强度分>>增加1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>>本次献祭中首次购买国王蚁之后，可以使<<#00DDFF|重生强度分>>的产生速度变为原来的1.25倍！"
       },
       "6": {
-        "name": "ALMIGHTY Ants - Tier VII",
-        "flavor": "The stuff of legends. Produces Lord Royals.",
-        "generates": "Generates {{x}} Lord Royal Ants per second",
-        "eloMult": "<<orchid | ☇>> Buying your first ALMIGHTY Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
-        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first ALMIGHTY Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.4x as fast!"
+        "name": "T7 - 全能蚁",
+        "flavor": "传说般的存在。可以产生国王蚁。",
+        "generates": "每秒产生{{x}}国王蚁",
+        "eloMult": "<<orchid | ☇>>本次献祭中首次购买全能蚁之后，可以使本次献祭中的<<orchid|蚂蚁强度分>>增加1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>>本次献祭中首次购买全能蚁之后，可以使<<#00DDFF|重生强度分>>的产生速度变为原来的1.4倍！"
       },
       "7": {
-        "name": "DISCIPLE OF ANT GOD - Tier VIII",
-        "flavor": "Some call this the Primordial One. Produces ALMIGHTY ANTS.",
-        "generates": "Generates {{x}} ALMIGHTY Ants per second",
-        "eloMult": "<<orchid | ☇>> Buying your first DISCIPLE this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 2%",
-        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first DISCIPLE this Sacrifice creates <<#00DDFF|Reborn ELO>> 2x as fast!"
+        "name": "T8 - 神使蚁",
+        "flavor": "有人称其为“原初者”。可以产生全能蚁。",
+        "generates": "每秒产生{{x}}全能蚁",
+        "eloMult": "<<orchid | ☇>>本次献祭中首次购买神使蚁之后，可以使本次献祭中的<<orchid|蚂蚁强度分>>增加2%",
+        "eloSpeedup": "<<#00DDFF | 🝘>>本次献祭中首次购买神使蚁之后，可以使<<#00DDFF|重生强度分>>的产生速度变为原来的2倍！"
       },
       "8": {
-        "name": "THE HOLY SPIRIT OF ANT GOD - Tier IX",
-        "flavor": "The child is the mother of the woman. Produces DISCIPLES.",
-        "generates": "Generates {{x}} DISCIPLES per second",
-        "eloMult": "<<orchid | ☇>> Buying your first HOLY SPIRIT this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 2%",
-        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first HOLY SPIRIT this Sacrifice creates <<#00DDFF|Reborn ELO>> 3x as fast!"
+        "name": "T9 - 蚁神圣灵蚁",
+        "flavor": "本源即是终级。可以产生神使蚁。",
+        "generates": "每秒产生{{x}}神使蚁",
+        "eloMult": "<<orchid | ☇>>本次献祭中首次购买蚁神圣灵蚁之后，可以使本次献祭中的<<orchid|蚂蚁强度分>>增加2%",
+        "eloSpeedup": "<<#00DDFF | 🝘>>本次献祭中首次购买蚁神圣灵蚁之后，可以使<<#00DDFF|重生强度分>>的产生速度变为原来的3倍！"
       }
     },
     "mastery": {
-      "notMaxedSelfAnt": "Flat production multiplier: <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-      "maxedSelfAnt": "Flat production multiplier: <<gold | {{x}}>>",
-      "level": "Mastery Level <<gold|{{x}}/{{y}}>>",
-      "eloRequirement": "Buying this Mastery level requires <<#00DDFF | {{x}} Reborn ELO>> (Current: <<#00DDFF | {{y}}>>)",
-      "particleCost": "Cost: <<green | {{x}} Particles>>",
-      "alreadyPurchased": "You've already purchased this Mastery level, and you can autobuy this tier of Ant. When you reach the Reborn ELO requirement, this Mastery level will be automatically bought.",
+      "notMaxedSelfAnt": "固定产量倍率：<<gray |{{x}} ⇾>><<gold | {{y}}>>",
+      "maxedSelfAnt": "固定产量倍率：<<gray |{{x}}>>",
+      "level": "专精等级<<gold|{{x}}/{{y}}>>",
+      "eloRequirement": "购买该等级的专精需要<<#00DDFF|{{x}}重生强度分>> (目前有<<#00DDFF|{{y}}>>)",
+      "particleCost": "花费：<<green|{{x}}粒子>>",
+      "alreadyPurchased": "您购买过该等级的专精，只要重生强度分达到要求，就可以自动购买它。",
       "0": {
-        "name": "Worker Mastery",
-        "flavor": "Crumbs for me, not for thee.",
-        "notMaxedSelfPer": "Each Worker Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each Worker Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Worker Mastery multiplies Crumb production by <<gold | {{x}}>>"
+        "name": "工蚁专精",
+        "flavor": "我的碎屑，没你啥事。",
+        "notMaxedSelfPer": "每只工蚁的产量倍率从<<gray|{{x}}>>变为<<gold|{{y}}>>",
+        "maxedSelfPer": "每只工蚁的产量倍率变为<<gold|{{x}}>>",
+        "effect": "<<green | ★>> 工蚁专精使银河碎屑产量变为原来的<<gold|{{x}}>>倍"
       },
       "1": {
-        "name": "Breeder Mastery",
-        "flavor": "Get a room!",
-        "notMaxedSelfPer": "Each Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "name": "繁殖蚁专精",
+        "flavor": "自己开房去！",
+        "notMaxedSelfPer": "每只繁殖蚁的产量倍率从<<gray|{{x}}>>变为<<gold|{{y}}>>",
         "maxedSelfPer": "Each Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
         "effect": "<<green | ★>> Breeder Mastery multiplies Worker Ant production by <<gold | {{x}}>>"
       },
