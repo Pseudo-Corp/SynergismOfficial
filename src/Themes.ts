@@ -82,7 +82,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('ascTimeAccel').style.color = 'royalblue'
     DOMCacheGetOrSet('buildinghotkeys').style.color = 'lightgray'
     DOMCacheGetOrSet('buildinghotkeys2').style.color = 'lightgray'
-    DOMCacheGetOrSet('antspecies').style.color = 'royalblue' // HTML colors
     DOMCacheGetOrSet('corruptionTesseracts').style.color = 'darkviolet'
     DOMCacheGetOrSet('antwelcome').style.color = 'lightslategrey'
     DOMCacheGetOrSet('confirmationToggleTitle').style.color = 'pink'
@@ -202,7 +201,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('singularitytab').style.color = '#ff5252'
     DOMCacheGetOrSet('traitstab').style.color = '#ff5252'
     DOMCacheGetOrSet('cubetab').style.color = '#ff5252'
-    DOMCacheGetOrSet('antspecies').style.color = '#8da9ff'
     DOMCacheGetOrSet('ascTimeAccel').style.color = '#97b0ff'
     DOMCacheGetOrSet('hypercubeWelcome').style.color = '#f58'
     DOMCacheGetOrSet('hypercubeQuantity').style.color = '#f58'
@@ -267,7 +265,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('notationTitle').style.color = '#eb0000'
     DOMCacheGetOrSet('hepteractWelcome').style.color = '#ac47ff'
     DOMCacheGetOrSet('confirmationdisclaimer').style.color = '#bb68ff'
-    DOMCacheGetOrSet('antspecies').style.color = '#184ff3'
     DOMCacheGetOrSet('buildinghotkeys').style.color = '#838383'
     DOMCacheGetOrSet('buildinghotkeys2').style.color = '#838383'
 
