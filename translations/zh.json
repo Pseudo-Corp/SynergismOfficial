@@ -2323,179 +2323,179 @@
         "name": "预言蚁",
         "intro": "它发出了一些混杂的信号。",
         "description": "每级使前五个符文的免费等级增加1，至多增加3000级",
-        "lockedAutomation": "您需要通过<<gold|<i>蚁丘献祭次数</i>>>递进式成就来解锁<i>命匣蚁</i>自动购买",
+        "lockedAutomation": "您需要通过<<gold|<i>蚁丘献祭次数</i>>>递进式成就来解锁<i>预言蚁</i>自动购买",
         "effect": "符文吗？免费等级可以增加<<cyan|{{x}}级>>，是不是很棒？"
       },
       "antSacrifice": {
-        "name": "Phylacterium Formicidae",
-        "intro": "Your soul feels a little heavier near this one.",
-        "description": "Ant Sacrifice rewards are multiplied by (1 + level / 25)^0.5. The first 200 levels also grant +5 ELO each!",
-        "lockedAutomation": "Unlock the <i>Phylacterium Formicidae</i> autobuyer from the <<gold|<i>Anthills Sacrificed</i> >> Achievement Group",
-        "effect": "Ant Sacrifice gives <<crimson | +{{x}} rewards>>",
-        "effect2": "Ant ELO <<orchid | +{{x}}>>"
+        "name": "命匣蚁",
+        "intro": "靠近它时，灵魂都变重了一点。",
+        "description": "使蚂蚁献祭奖励变为原来的 (1 + 等级 / 25)^0.5 倍。前200级每级还可以使强度分增加5！",
+        "lockedAutomation": "您需要通过<<gold|<i>蚁丘献祭次数</i>>>递进式成就来解锁<i>命匣蚁</i>自动购买",
+        "effect": "使蚂蚁献祭奖励增加<<crimson|{{x}}>>",
+        "effect2": "使蚂蚁强度分增加<<orchid|{{x}}>>"
       },
       "mortuus": {
-        "name": "Mortuus Est Formicidae",
-        "intro": "And then, he turned himself into a Talisman!",
-        "description": "When purchased, unlock a new Talisman! Also, gain up to 2x Global Speed!",
-        "lockedAutomation": "Unlock the <i>Mortuus Est Formicidae</i> autobuyer from <<green|Research>>",
-        "effect": "<<gray | Mortuus Talisman: {{checkMark}}>>",
-        "effect2": "Somehow, your Global Speed is increased by <<royalblue | {{x}}>>"
+        "name": "死神蚁",
+        "intro": "然后变成了护身符。",
+        "description": "购买后，解锁新的护身符！并且至多使全局速度变为原来的2倍！",
+        "lockedAutomation": "您需要通过<<green|研究>>来解锁<i>死神蚁</i>自动购买",
+        "effect": "<<gray|蚂蚁标本护身符：{{checkMark}}>>",
+        "effect2": "全局速度增加了<<royalblue|{{x}}>>"
       },
       "antSpeed2": {
-        "name": "Impia Reproducta Formicidae",
-        "intro": "A bridge from the Altar to your Anthill.",
-        "description": "Gain +1 additional Ant ELO per level, if you have Sacrificed your Anthill at least (level) times.",
-        "lockedAutomation": "Unlock the <i>Impia Reproducta Formicidae</i> autobuyer from reaching Synergism Level <<gold|65>>",
-        "effect": "Current Effect: <<orchid | +{{x}} Ant ELO>>",
-        "effect2": "Effect is maxed at <<crimson | {{x}}>> Anthills Sacrificed"
+        "name": "孽生蚁",
+        "intro": "连接祭坛和蚁丘。",
+        "description": "只要您至少献祭了该蚂蚁升级等级次数的蚁丘，每级就可以使蚂蚁强度分额外增加1。",
+        "lockedAutomation": "您需要通过协同效应等级到达<<gold|65>>来解锁<i>孽生蚁</i>自动购买",
+        "effect": "当前效果：<<orchid|蚂蚁强度分增加{{x}}>>",
+        "effect2": "蚁丘献祭次数达到<<crimson|{{x}}>>次后，该升级效果达到最大"
       },
       "mortuus2": {
-        "name": "Mortuus Iterum Formicidae",
-        "intro": "The cyan glow... it's... Reborn?",
-        "description": "Improve your Mortuus Talisman! Up to +100% Effect, +1,200 Max Level, and gain some Ascension Speed on the side.",
-        "lockedAutomation": "Unlock the <i>Mortuus Iterum Formicidae</i> autobuyer from reaching Synergism Level <<gold|225>>",
-        "effect": "Mortuus Talisman Max Level: <<royalblue | +{{x}}>>",
-        "effect2": "Mortuus Talisman Effect: <<royalblue | +{{x}}>>",
-        "effect3": "Ascension Speed: <<orange | +{{x}}>>"
+        "name": "复死蚁",
+        "intro": "青色的光芒……它……复生了？",
+        "description": "增加蚂蚁标本护身符的效果！至多使效果增加100%，等级上限增加1200级，还能额外获得一些飞升的速度。",
+        "lockedAutomation": "您需要通过协同效应等级到达<<gold|225>>来解锁<i>复死蚁</i>自动购买",
+        "effect": "蚂蚁标本护身符等级上限：<<royalblue|增加{{x}}>>",
+        "effect2": "蚂蚁标本护身符效果：<<royalblue|增加{{x}}>>",
+        "effect3": "飞升的速度：<<orange|增加{{x}}>>"
       },
       "ascensionScore": {
-        "name": "Ascendens Formicidae",
-        "intro": "And this, is to go even further beyond!",
-        "description": "Add Ascension Score to your current Ascension! Also add Cubes to your Ascension Bank. Value added is <b>before</b> any multipliers.",
-        "lockedAutomation": "Unlock the <i>Ascendens Formicidae</i> autobuyer from reaching Synergism Level <<gold|80>>",
-        "effect": "Ascension Score <<orange | +{{x}}>>",
-        "effect2": "Cubes in Ascension Bank <<yellow | +{{x}}>>"
+        "name": "飞升蚁",
+        "intro": "为了更进一步！",
+        "description": "增加当前飞升的飞升份数！还会增加飞升库中的惊奇方盒数量。这些数值在其他所有加成生效<b>之前</b>生效。",
+        "lockedAutomation": "您需要通过协同效应等级到达<<gold|80>>来解锁<i>飞升蚁</i>自动购买",
+        "effect": "飞升分数<<orange|增加{{x}}>>",
+        "effect2": "飞升库中的惊奇方盒数量<<yellow|增加{{x}}>>"
       },
       "wowCubes": {
-        "name": "Cubus Admirabilis Formicidae",
-        "intro": "Picasso's Ant Period.",
-        "description": "Gain more Wow! Cubes! Up to +100% more of them.",
-        "lockedAutomation": "Unlock the <i>Cubus Admirabilis Formicidae</i> autobuyer from reaching Synergism Level <<gold|80>>",
-        "effect": "Gain <<white | +{{x}}>> more Wow! Cubes"
+        "name": "崇盒蚁",
+        "intro": "毕加索的蚂蚁时期。",
+        "description": "可以获得更多惊奇方盒！至多可以使获取数量增加100%。",
+        "lockedAutomation": "您需要通过协同效应等级到达<<gold|80>>来解锁<i>崇盒蚁</i>自动购买",
+        "effect": "使惊奇方盒获取数量增加<<white|{{x}}>>"
       }
     },
     "altar": {
       "titles": {
-        "altar": "The Great Ant Altar",
-        "elo": "ELO Details",
-        "worldRewards": "Item Rewards",
-        "compendium": "Ants to Quark Corner"
+        "altar": "蚂蚁大祭坛",
+        "elo": "强度分详情",
+        "worldRewards": "奖励细项",
+        "compendium": "蚂蚁夸克角"
       },
       "locked": {
-        "crumbsMade": "You have made <<gold|{{x}}>> Galactic Crumbs.",
-        "altarRequirements": "This Altar will open when you have made <<gold|1e40>>."
+        "crumbsMade": "您获得了<<gold|{{x}}>>银河碎屑。",
+        "altarRequirements": "当您获得<<gold|1e40>>银河碎屑后，祭坛将开启。"
       },
       "autoSacrificeLocked": {
-        "info": "Unlock Auto Sacrifice from the Ant Sacrifice Count Achievements!",
-        "anthillsUntilAutoSac": "Automatic Ant Sacrifice is unlocked in <<gold|{{x}}>> Anthills."
+        "info": "您需要通过蚂蚁献祭次数成就解锁蚂蚁自动献祭！",
+        "anthillsUntilAutoSac": "再献祭<<gold|{{x}}>>次蚁丘即可解锁蚂蚁自动献祭。"
       },
       "additionalAutoSacOptions": {
-        "info": "Head to Research to unlock more options!",
-        "onlyMaxReborn": "Only Sacrifice if you reach your max Reborn ELO",
-        "alwaysMaxReborn": "Always Sacrifice when you reach your max Reborn ELO"
+        "info": "通过研究还可以解锁更多选项！",
+        "onlyMaxReborn": "只在重生强度分达到最大时进行献祭",
+        "alwaysMaxReborn": "只要重生强度分达到最大就进行献祭"
       },
       "sacrificeReady": {
-        "unlocked": "<<gold|Sacrifice Ready!>> Click the icon to Sacrifice your Ants!",
-        "locked": "Galactic Crumbs this sacrifice: <<gold|{{x}}/{{y}}>>"
+        "unlocked": "<<gold|可以进行献祭了！>>点击图标献祭蚂蚁！",
+        "locked": "银河碎屑的获取数量：<<gold|{{x}}/{{y}}>>"
       }
     },
     "compendium": {
-      "toggleOverview": "Overview",
-      "toggleInfo": "Info"
+      "toggleOverview": "概览",
+      "toggleInfo": "信息"
     },
     "leaderboard": {
-      "toggleDaily": "Daily",
-      "toggleAllTime": "All-Time",
-      "value": "Total Weighted Value: <<gold|{{x}}>> (Stage <<gold|{{y}}>>)",
-      "quarksGained": "Quarks gained from Stages: <<cyan|{{x}}>>",
-      "quarkMult": "Quark gain for Ant-based Quarks: <<cyan|+{{x}}>>",
-      "rank": "Rank",
-      "elo": "<<#00DDFF|Reborn ELO>>",
-      "stages": "<<turquoise|Stage>>",
-      "weight": "Weight",
+      "toggleDaily": "每日",
+      "toggleAllTime": "全局",
+      "value": "总加权值：<<gold|{{x}}>> (阶段<<gold|{{y}}>>)",
+      "quarksGained": "从阶段获取的夸克数量：<<cyan|{{x}}>>",
+      "quarkMult": "从蚂蚁获取的夸克数量：<<cyan|增加{{x}}>>",
+      "rank": "排名",
+      "elo": "<<#00DDFF|重生强度分>>",
+      "stages": "<<turquoise|阶段>>",
+      "weight": "权重",
       "stageModal": {
-        "introDaily": "Your daily leaderboard is at Stage <<gold|{{x}}>>.",
-        "introAllTime": "Your all-time leaderboard is at Stage <<gold|{{x}}>>.",
-        "stageLine": "<<turquoise|{{x}}>> Stages, worth <<#00DDFF|{{y}}>> Weighted Value (<<gold|{{z}}>> per Stage)",
-        "toNextStage": "You need <<gold|{{x}}>> more Weighted Value to reach the next Stage.",
-        "disclaimer": "Stages from Weighted Value are calculated the <<gold|same way>> as Stages for Reborn ELO. Weighted Value formula: <<orchid | Sum(ELO_i * Weight_i)>>, where i is the placement of the Ant Sacrifice in the leaderboard."
+        "introDaily": "每日排行榜位于阶段<<gold|{{x}}>>。",
+        "introAllTime": "全局排行榜位于阶段<<gold|{{x}}>>。",
+        "stageLine": "<<turquoise|{{x}}>>个阶段，价值<<#00DDFF|{{y}}>>加权值(每阶段<<gold|{{z}}>>)",
+        "toNextStage": "您还需要<<gold|{{x}}>>加权值才能达到下个阶段。",
+        "disclaimer": "计算加权值时，阶段的计算方式与重生强度分中的计算方式<<gold|相同>>。加权值公式：<<orchid|Sum(ELO_i * Weight_i)>>，i为该蚂蚁献祭在排行榜上的名次。"
       },
       "dailyQuarkModal": {
-        "intro": "You've gained <<cyan|{{x}}>> Quarks from Ant Sacrifice today!",
-        "quarkLine": "<<turquoise|{{x}}>> Stages, worth <<cyan|{{y}}>> Quarks (<<cyan|{{z}}>> per Stage)",
-        "bonusMult": "Get 1.003x the Quarks per stage! Current: <<cyan|x{{x}}>>",
-        "allTimeMult": "All-Time Leaderboard Quark Multiplier: <<cyan|x{{x}}>>",
-        "globalQuarkMult": "Global Quark Multiplier: <<cyan|x{{x}}>>"
+        "intro": "今日您通过蚂蚁献祭获得了<<cyan|{{x}}>>夸克！",
+        "quarkLine": "<<turquoise|{{x}}>>个阶段，价值<<cyan|{{y}}>>夸克(每阶段<<cyan|{{z}}>>)",
+        "bonusMult": "每个阶段使蚂蚁献祭时夸克获取数量变为原来的1.003倍！当前效果：<<cyan|{{x}}倍>>",
+        "allTimeMult": "全局排行榜蚂蚁献祭时夸克获取数量倍率：<<cyan|{{x}}倍>>",
+        "globalQuarkMult": "蚂蚁献祭时夸克获取数量倍率：<<cyan|{{x}}倍>>"
       },
       "allTimeQuarkModal": {
-        "intro": "Your all-time leaderboard multiplies Quark gain from Ant Sacrifice by <<cyan|{{x}}>>.",
-        "formula": "Formula: <<orchid|2 - 0.8^(Stage / 100)>>",
-        "specificMult": "Stage <<turquoise|{{x}}>>: <<orchid|2 - 0.8^{{y}}>> = <<cyan|{{z}}>>"
+        "intro": "全局排行榜使蚂蚁献祭时夸克获取数量变为原来的<<cyan|{{x}}>>倍。",
+        "formula": "公式：<<orchid|2 - 0.8^(阶段 / 100)>>",
+        "specificMult": "阶段<<turquoise|{{x}}>>：<<orchid|2 - 0.8^{{y}}>> = <<cyan|{{z}}>>"
       }
     },
     "maxBuy": {
       "producer": {
-        "on": "Ant Producers: Buy MAX",
-        "off": "Ant Producers: Buy 1"
+        "on": "蚂蚁生产者：购买最大",
+        "off": "蚂蚁生产者：购买1个"
       },
       "upgrade": {
-        "on": "Ant Upgrades: Buy MAX",
-        "off": "Ant Upgrades: Buy 1"
+        "on": "蚂蚁升级：购买最大",
+        "off": "蚂蚁升级：购买1个"
       }
     },
     "autobuy": {
       "producer": {
-        "on": "Ant Producer: AUTO",
-        "off": "Ant Producer: MANUAL"
+        "on": "蚂蚁生产者：自动",
+        "off": "蚂蚁生产者：手动"
       },
       "mastery": {
-        "on": "Ant Mastery: AUTO",
-        "off": "Ant Mastery: MANUAL"
+        "on": "蚂蚁专精：自动",
+        "off": "蚂蚁专精：手动"
       },
       "upgrade": {
-        "on": "Ant Upgrade: AUTO",
-        "off": "Ant Upgrade: MANUAL"
+        "on": "蚂蚁升级：自动",
+        "off": "蚂蚁升级：手动"
       }
     },
     "autoSacrifice": {
       "inGameTimer": {
-        "name": "Mode: In-Game time",
-        "info": "Sacrifice when the in-game Ant Timer reaches <<gold|{{req}}>> seconds <br><<gold|{{curr}}/{{req}}>>"
+        "name": "模式：游戏时间",
+        "info": "当游戏内的蚂蚁计时到达<<gold|{{req}}>>秒后进行蚂蚁献祭<br><<gold|{{curr}}/{{req}}>>"
       },
       "realLifeTimer": {
-        "name": "Mode: Real time",
-        "info": "Sacrifice after <<gold|{{req}}>> real-life seconds <br><<gold|{{curr}}/{{req}}>>"
+        "name": "模式：现实时间",
+        "info": "当现实时间经过<<gold|{{req}}>>秒后进行蚂蚁献祭<br><<gold|{{curr}}/{{req}}>>"
       },
       "immortalELOGain": {
-        "name": "Mode: Immortal ELO",
-        "info": "Sacrifice when you can gain at least <<gold|{{req}}>> <<crimson|Immortal ELO>> <br><<gold|{{curr}}/{{req}}>>"
+        "name": "模式：不朽强度分",
+        "info": "当您至少可以获得<<gold|{{req}}>><<crimson|不朽强度分>>后进行蚂蚁献祭<br><<gold|{{curr}}/{{req}}>>"
       },
       "maxRebornELO": {
-        "name": "Mode: Reborn ELO",
-        "info": "Sacrifice when your maximum <<#00DDFF|Reborn ELO>> is reached <br><<gold|{{curr}} Available>>"
+        "name": "模式：重生强度分",
+        "info": "当<<#00DDFF|重生强度分>>到达最大时进行蚂蚁献祭<br><<gold|剩余{{curr}}>>"
       }
     },
     "header": "蚂蚁们欢迎您来到它们的家。",
     "hover": "鼠标停在图标上可获取信息。点击图标来购买！",
-    "challenge8Lock": "You need to beat <<limegreen | Challenge 8>> in your current Ascension to generate Crumbs!",
-    "altarHeader": "Ant God... <<crimson | It Hungers.>>",
-    "altarDetails": "Sacrifice your Ants to her for some <<crimson | Immortal ELO>>, and a bunch of other worldly things.",
-    "compendiumHeader": "Ant God appreciates your donations.",
-    "compendiumDetails": "She offers you some Quarks in exchange for your best Sacrifices each day.",
-    "anthillAlive": "Your Anthill has been alive for",
-    "currentAnthill": "(This is your <<gold|{{ord}}>> Anthill)",
-    "galacticCrumbCount": "You have {{x}} Galactic Crumbs.",
-    "crumbsPerSecond": "+{{x}} per second",
-    "crumbsCoinMultiplier": "↳ Coin production is multiplied by {{x}} (Fortunae Formicidae)",
-    "producerCount": "<<crimson| {{x}} Purchased>> + <<orange | {{y}} Generated>>",
-    "level": "Level {{x}} <<orange | [+{{y}}]>>",
-    "challenge11Modifier": "Challenge 11 - Only free Ant Upgrade Levels count for Effective Levels",
-    "corruptionDivisor": "Extinction lv{{x}} - Effective Levels are divided by <b>{{y}}</b>",
-    "effectiveLevel": "Effective Level: {{level}}",
-    "costSingleLevel": "Cost: {{x}} Galactic Crumbs",
-    "costMaxLevels": "Cost for +{{x}}: {{y}} Galactic Crumbs",
-    "costGalacticCrumbs": "Cost TNL: {{x}} Galactic Crumbs",
+    "challenge8Lock": "您至少需要在本次飞升中完成一次<<limegreen|挑战8>>才能获得银河碎屑！",
+    "altarHeader": "蚁神……<<crimson|渴望血食。>>",
+    "altarDetails": "献祭蚂蚁，获得<<crimson|不朽强度分>>，以及其他俗物。",
+    "compendiumHeader": "蚁神感谢您的捐赠。",
+    "compendiumDetails": "每天蚁神会根据您当天最多的一次献祭给予您夸克。",
+    "anthillAlive": "您的蚁丘存活了",
+    "currentAnthill": "(这是您的第<<gold|{{ord}}>>个蚁丘)",
+    "galacticCrumbCount": "您拥有{{x}}银河碎屑。",
+    "crumbsPerSecond": "每秒增加{{x}}",
+    "crumbsCoinMultiplier": "↳ 金币产量变为原来的{{x}}倍(财富蚁的效果)",
+    "producerCount": "<<crimson|购买了{{x}}只>> + <<orange|产生了{{y}}只>>",
+    "level": "{{x}}级<<orange| [+{{y}}]>>",
+    "challenge11Modifier": "挑战11 - 只有免费蚂蚁升级的等级才计入有效等级",
+    "corruptionDivisor": "腐化：灭绝 等级{{x}} - 有效等级除以<b>{{y}}</b>",
+    "effectiveLevel": "有效等级：{{level}}",
+    "costSingleLevel": "花费：{{x}}银河碎屑",
+    "costMaxLevels": "购买{{x}}只的花费：{{y}}银河碎屑",
+    "costGalacticCrumbs": "下一级的花费：{{x}}银河碎屑",
     "costParticles": "花费：{{x}}粒子",
     "autoSacrificeOn": "自动献祭：开",
     "autoSacrificeOff": "自动献祭：关",
@@ -2506,47 +2506,47 @@
     "upgradeMultiplier": "升级奖励倍率：<<gold|{{x}}倍>>",
     "timeMultiplier": "时间奖励倍率：<<var(--lightseagreen-text-color);|{{x}}倍>>",
     "immortalELO": "<<crimson|不朽强度分：>><<gold|{{x}}>>",
-    "activatedImmortalELO": "<<#00DDFF| Reborn ELO>>: <<gold|{{x}}>> (<<gold|{{y}}>> Available)",
-    "eloStage": "<<turquoise | Stage>> <<gold|{{x}}>>",
-    "immortalELOAntSpeed": "<<#00DDFF|↳>> <<crimson | Ant Speed>> <<gold|x{{x}}>>",
-    "rebornObtainiumMult": "<<turquoise|↳>> <<pink | Obtainium>> <<gold|x{{x}}>>",
-    "rebornOfferingMult": "<<turquoise|↳>> <<orange | Offerings>> <<gold|x{{x}}>>",
-    "rebornTalismanShardMult": "<<turquoise|↳>> <<lightgray | Talisman Fragments>> <<gold|x{{x}}>>",
-    "rebornELOGainSpeed": "<<turquoise|↳>> <<#00DDFF|Reborn ELO creation speed>> <<gold|x{{x}}>>",
-    "rebornELOPerSecond": "<<#00DDFF|{{x}}>> per second",
-    "rebornELOTimeToMax": "Estimated time until max: <<gold|{{x}}>> seconds",
-    "immortalELOUntilGain": "Get <<gold | {{x}}>> more <<orchid | Ant ELO>> to gain <<crimson | Immortal ELO>>",
-    "immortalELOGain": "Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
+    "activatedImmortalELO": "<<#00DDFF|重生强度分>>：<<gold|{{x}}>>(剩余<<gold|{{y}}>>)",
+    "eloStage": "<<turquoise|阶段>><<gold|{{x}}>>",
+    "immortalELOAntSpeed": "<<#00DDFF|↳>>使<<crimson|蚂蚁速度>><<gold|变为原来的{{x}}倍>>",
+    "rebornObtainiumMult": "<<turquoise|↳>>使<<pink|难得素获取数量>><<gold|变为原来的{{x}}倍>>",
+    "rebornOfferingMult": "<<turquoise|↳>>使<<orange|祭品获取数量>><<gold|变为原来的{{x}}倍>>",
+    "rebornTalismanShardMult": "<<turquoise|↳>>使<<lightgray|护身符的所有碎片获取数量>><<gold|变为原来的{{x}}倍>>",
+    "rebornELOGainSpeed": "<<turquoise|↳>>使<<#00DDFF|重生强度分的产生速度>><<gold|变为原来的{{x}}倍>>",
+    "rebornELOPerSecond": "每秒<<#00DDFF|{{x}}>>",
+    "rebornELOTimeToMax": "预计达到最大所需时间：<<gold|{{x}}>>秒",
+    "immortalELOUntilGain": "<<orchid|蚂蚁强度分>>再增加<<gold|{{x}}>>后可以获得<<crimson|不朽强度分>>",
+    "immortalELOGain": "<<crimson|不朽强度分>><<gold|增加{{x}}>>",
     "antSacMultiplier": "↳ 使蚂蚁速度变为原来的{{x}}倍",
-    "rebornELOInfo": "Gain <<#00DDFF|Reborn ELO>> over time by reaching a higher ELO!",
-    "rebornELOInfo2": "• Limited by your <<crimson|Immortal ELO>>. <<orchid | Ant ELO>> speeds up generation!",
-    "rebornELOInfo3": "• The more <<#00DDFF|Reborn ELO>> you have, the slower it generates.",
-    "stageInfo": "<<#00DDFF|Reborn ELO>> gives you a <<turquoise | Stage>>.",
-    "stageInfo2": "Each <<turquoise|Stage>> gives you <<gold|1.05x>> <<orange|Offerings>>, <<gold|1.05x>> <<pink|Obtainium>>, and <<gold|1.20x>> <<lightgray|Talisman Fragments>>! <<#00DDFF|Reborn ELO>> generates <<gold|2%>> slower per <<turquoise|Stage>>.",
-    "stageTranche1": "Stages 1-100: 100 <<#00DDFF|Reborn ELO>> Each",
-    "stageTranche2": "Stages 101-200: 1,000 <<#00DDFF|Reborn ELO>> Each",
-    "stageTranche3": "Stages 201-300: 3,000 <<#00DDFF|Reborn ELO>> Each",
-    "stageTranche4": "Stages 301-1,000: 20,000 <<#00DDFF|Reborn ELO>> Each",
-    "stageTranche5": "Stages 1,001+: 100,000 <<#00DDFF|Reborn ELO>> Each",
-    "autoReset": "This resets your Crumbs, Ant Producers and Ant Upgrades in exchange for Immortal ELO and some worldly items. Continue?",
+    "rebornELOInfo": "达到更高的强度分以后，可以随着时间获得<<#00DDFF|重生强度分>>！",
+    "rebornELOInfo2": "• 受<<crimson|不朽强度分>>限制。<<orchid|蚂蚁强度分>>可以加快它的产生！",
+    "rebornELOInfo3": "• <<#00DDFF|重生强度分>>越高，产生的就越慢。",
+    "stageInfo": "您可以通过<<#00DDFF|重生强度分>>获得<<turquoise|阶段>>。",
+    "stageInfo2": "每有1个<<turquoise|阶段>>，就使<<orange|祭品获取数量>>和<<pink|难得素获取数量>>变为原来的<<gold|1.05倍>>，<<lightgray|护身符的所有碎片获取数量>>变为原来的<<gold|1.20倍>>，且<<#00DDFF|重生强度分>>产生速度减慢<<gold|2%>>！",
+    "stageTranche1": "阶段1至阶段100：每个阶段价值100<<#00DDFF|重生强度分>>",
+    "stageTranche2": "阶段101至阶段200：每个阶段价值1000<<#00DDFF|重生强度分>>",
+    "stageTranche3": "阶段201至阶段300：每个阶段价值3000<<#00DDFF|重生强度分>>",
+    "stageTranche4": "阶段301至阶段1000：每个阶段价值20000<<#00DDFF|重生强度分>>",
+    "stageTranche5": "阶段1001及以上：每个阶段价值100000<<#00DDFF|重生强度分>>",
+    "autoReset": "这么做将重置银河碎屑，蚂蚁生产者以及蚂蚁升级，但可以获得不朽强度分和一些其他俗物。您确定要继续吗？",
     "itemReward": "+{{x}}",
-    "eloRequirement": "{{x}} ELO",
+    "eloRequirement": "{{x}}强度分",
     "antSacrifice": "蚂蚁献祭",
-    "minimumTimeToSacrifice": "Minimum interval between Sacrifices: <<gold|0.05>> real-life seconds",
-    "timeElapsed": "Time elapsed: <<gold|{{x}}>> real-life seconds",
-    "buyAllUpgrades": "Buy All Upgrades",
-    "buyAllProducers": "Buy All Producers and Masteries",
-    "clickBuyAllIntro": "This button will purchase the following:",
-    "clickBuyAllProducersListItem": "{{name}} <br> <<gold|+{{level}} Producers>> &nbsp;&nbsp; <<lime | +{{masteries}} Masteries>>",
-    "clickBuyAllUpgradesListItem": "{{name}} <br> <<gold|+{{level}} Levels>>",
-    "clickBuyAllNothing": "<<lime | Nothing to buy, for now.>>",
-    "clickBuyAllDisclaimer": "<<gray|This tooltip does not display anything for which Automation is unlocked, if Automation is enabled.>>"
+    "minimumTimeToSacrifice": "献祭之间的最小时间间隔：现实时间<<gold|0.05>>秒",
+    "timeElapsed": "已经过时间：现实时间<<gold|{{x}}>>秒",
+    "buyAllUpgrades": "购买所有升级",
+    "buyAllProducers": "购买所有升级和专精",
+    "clickBuyAllIntro": "该按钮将购买以下内容：",
+    "clickBuyAllProducersListItem": "{{name}}<br><<gold|{{level}}只生产者>>&nbsp;&nbsp;<<lime|{{masteries}}级专精>>",
+    "clickBuyAllUpgradesListItem": "{{name}}<br><<gold|{{level}}级>>",
+    "clickBuyAllNothing": "<<lime|暂无。>>",
+    "clickBuyAllDisclaimer": "<<gray|启用自动模式后，该提示框不会再显示任何已经解锁自动购买的项目。>>"
   },
   "challenges": {
     "1": {
       "name": "无加倍器挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "加倍器让游戏的进度有点太快了。它们可以走了！",
-      "restrictions": "Transcend and reach the goal except Multipliers count as Accelerators. <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Accelerator Power is reduced. Each completion reduces it more! <br> ☆ Each Multiplier gives a Coin Producer production multiplier equal to Accelerator Power.",
+      "restrictions": "立即超越，开始挑战，但加倍器将视为加速器。<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 加速器效果也减少了。且随着挑战完成次数增加，减少的数值还会继续增加！<br>☆ 加倍器会提供与加速器效果相同的金币产量加成。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "基础加倍器加成增加2个！[效果增加0.02！]当前效果：",
@@ -3296,7 +3296,7 @@
       "improveQuarkHept2": "想让惊奇七阶立方·夸克变得更强吗？每级可以使惊奇七阶立方·夸克的指数增加0.01！",
       "improveQuarkHept3": "您可能会疑惑我为什么不自用，而是选择向您出售。好吧……每级使惊奇七阶立方·夸克的指数增加0.01！",
       "improveQuarkHept4": "每级使惊奇七阶立方·夸克的指数增加0.01……您应该知道10的0.01次方是1.023吧？",
-      "shopImprovedDaily": "嘿，屏幕前的那个，对，就是你！夸克让印记商人们很高兴。每级使“每日”代码的夸克获取数量增加5%。",
+      "shopImprovedDaily": "嘿，那边的那位，对，就是你！夸克让印记商人们很高兴。每级使“每日”代码的夸克获取数量增加5%。",
       "shopImprovedDaily2": "每级使“每日”代码获得的免费奇点升级增加1级，获得的金夸克数量增加20%！",
       "shopImprovedDaily3": "每级使“每日”代码获得的免费奇点升级增加1级，获得的金夸克数量增加15%！",
       "shopImprovedDaily4": "每级使“每日”代码获得的免费奇点升级增加1级，获得的金夸克数量增加100%！",
@@ -4997,8 +4997,8 @@
     "corruptionPlatonics": "如果现在飞升，您可以获得<<orchid|{{platonicAmount}}>>个PLATONIC方盒。[<<var(--orchid-text-color)|需要分数大于2,666,000,000,000>>]",
     "corruptionHepteracts": "如果现在飞升，您可以获得<<mediumpurple|{{hepteractAmount}}>>个惊奇七阶立方。[<<mediumpurple|需要分数大于1.666e17>>]",
     "autoAscend": {
-      "c10Completions": "当进行<<var(--violet-text-color)|{{input}}>>次挑战10以后飞升，目前次数为<<gold|{{completions}}>>",
-      "realTime": "当时间至少经过<<var(--violet-text-color)|{{input}}>>秒(现实时间)后飞升，目前秒数为<<gold|{{time}}>>",
+      "c10Completions": "当进行<<var(--violet-text-color)|{{input}}>>次挑战10以后，进行飞升，目前次数为<<gold|{{completions}}>>",
+      "realTime": "当时间至少经过<<var(--violet-text-color)|{{input}}>>秒(现实时间)以后，进行飞升，目前秒数为<<gold|{{time}}>>",
       "on": "自动飞升[开]",
       "off": "自动飞升[关]",
       "modeCompletions": "模式：挑战10完成数",
@@ -6273,7 +6273,7 @@
       "AntUpgrade": "献祭蚁：",
       "Brutus": "普路托斯的贡品：",
       "ConstantUpgrade3": "数学常数升级3：",
-      "Research5x19": "Research 5x19:",
+      "Research5x19": "研究5x19：",
       "ResearchTalismans": "研究6x24和研究8x4加成：",
       "TutorialBonus": "战役 - 教程加成：",
       "CampaignBonus": "战役 - 祭品加成：",
@@ -6431,7 +6431,7 @@
       "Research3x15": "研究3x15：",
       "Research4x1": "研究4x1：",
       "Research4x6": "研究4x6：",
-      "Research5x19": "Research 5x19:",
+      "Research5x19": "研究5x19：",
       "ShopObtainiumAuto": "商店自动使用难得素升级：",
       "ShopCashGrab": "商店昂贵物品升级：",
       "ShopObtainiumEX": "商店额外难得素升级：",
