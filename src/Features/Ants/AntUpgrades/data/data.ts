@@ -55,7 +55,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     effect: (n: number) => {
       let divisor = 1
       if (player.currentChallenge.ascension === 15) {
-        divisor = 1 + 399 * (5000 + n) / (5000 + n ** 2)
+        divisor = 100 + 9900 * (1000 + n) / (1000 + n ** 2)
       }
       const baseExponent = 999999 + calculateSigmoidExponential(49000001, n / 3000)
       const bonusExponent = 250 * n

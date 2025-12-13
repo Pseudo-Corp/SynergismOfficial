@@ -1,5 +1,4 @@
 import Decimal from 'break_infinity.js'
-import i18next from 'i18next'
 import { type AmbrosiaUpgradeNames, ambrosiaUpgrades } from '../BlueberryUpgrades'
 import { CorruptionLoadout, type Corruptions, CorruptionSaves } from '../Corruptions'
 import { AntProducers } from '../Features/Ants/structs/structs'
@@ -8,7 +7,6 @@ import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { type OcteractDataKeys, octeractUpgrades } from '../Octeracts'
 import { goldenQuarkUpgrades, type SingularityDataKeys } from '../singularity'
 import { updateResourcePredefinedLevel } from '../Talismans'
-import { Alert } from '../UpdateHTML'
 import { convertArrayToCorruption } from './PlayerJsonSchema'
 import { playerSchema } from './PlayerSchema'
 

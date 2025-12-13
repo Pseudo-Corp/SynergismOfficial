@@ -28,5 +28,6 @@ export const availableQuarksFromELO = () => {
 
   let antQuarkMult = quarksFromELOMult()
   antQuarkMult *= stageMult
+  antQuarkMult *= (player.autoWarpCheck) ? 1 + player.dailyPowderResetUses : 1
   return Math.max(0, player.worlds.applyBonus(baseQuarks) * antQuarkMult - player.ants.quarksGainedFromAnts)
 }

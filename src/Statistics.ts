@@ -3324,7 +3324,7 @@ export const ascensionCountMultStats: NumberStatLine[] = [
   },
   {
     i18n: 'PlatonicUpgrade16',
-    stat: () => 1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000),
+    stat: () => 1 + player.platonicUpgrades[16] * 0.02 * (1 + Math.min(1, player.overfluxPowder / 100000)),
     displayCriterion: () => player.challengecompletions[14] > 0
   },
   {

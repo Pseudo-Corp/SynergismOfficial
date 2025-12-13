@@ -1303,6 +1303,9 @@ export const CalcCorruptionStuff = () => {
 }
 
 export const calculateAscensionCount = () => {
+  if (player.singularityChallenges.limitedAscensions.enabled) {
+    return 1
+  }
   return Math.floor(ascensionCountMultStats.reduce(
     (a, b) => a * b.stat(),
     1
