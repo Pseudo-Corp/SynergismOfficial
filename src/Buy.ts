@@ -2,6 +2,8 @@ import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
 import { awardAchievementGroup } from './Achievements'
 import { CalcECC } from './Challenges'
+import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
+import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { reset } from './Reset'
 import { getRuneBlessingEffect } from './RuneBlessings'
 import { getRuneEffects } from './Runes'
@@ -17,7 +19,7 @@ export const getReductionValue = () => {
   reduction += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59]
     + player.researches[60]) / 200
   reduction += CalcECC('transcend', player.challengecompletions[4]) / 200
-  reduction += Math.min(99999.9, (3 * (player.antUpgrades[7 - 1]! + G.bonusant7)) / 100)
+  reduction += getAntUpgradeEffect(AntUpgrades.BuildingCostScale).buildingCostScale
   return reduction
 }
 
@@ -572,7 +574,7 @@ export const buyProducer = (
   r += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59]
     + player.researches[60]) / 200
   r += CalcECC('transcend', player.challengecompletions[4]) / 200
-  r += (3 * (G.bonusant7 + player.antUpgrades[7 - 1]!)) / 100
+  r += getAntUpgradeEffect(AntUpgrades.BuildingCostScale).buildingCostScale
 
   const posCostType = `${pos}Cost${type}` as const
   const posOwnedType = `${pos}Owned${type}` as const

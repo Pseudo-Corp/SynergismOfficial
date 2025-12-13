@@ -1,29 +1,22 @@
 import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
-import type {
-  AmbrosiaUpgradeNames,
-  BlueberryLoadoutMode,
-  BlueberryOpt,
-  BlueberryUpgrade,
-  BlueberryUpgradeNames
-} from '../BlueberryUpgrades'
+import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
 import type { CampaignManager } from '../Campaign'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
-import type { HepteractCraft, HepteractKeys, HepteractNames, HepteractValues } from '../Hepteracts'
+import type { PlayerAnts } from '../Features/Ants/structs/structs'
+import type { HepteractKeys, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
-import type { OcteractDataKeys, OcteractUpgrade } from '../Octeracts'
+import type { OcteractDataKeys } from '../Octeracts'
 import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
-import type { RuneBlessingKeys, RuneKeys, RuneSpiritKeys } from '../Runes'
-import type { SingularityDataKeys, SingularityUpgrade } from '../singularity'
-import type {
-  SingularityChallenge,
-  singularityChallengeData,
-  SingularityChallengeDataKeys
-} from '../SingularityChallenges'
+import type { RuneBlessingKeys } from '../RuneBlessings'
+import type { RuneKeys } from '../Runes'
+import type { RuneSpiritKeys } from '../RuneSpirits'
+import type { SingularityDataKeys } from '../singularity'
+import type { SingularityChallenge, SingularityChallengeDataKeys } from '../SingularityChallenges'
 import type { Tabs } from '../Tabs'
 import type { TalismanCraftItems, TalismanKeys } from '../Talismans'
 
@@ -140,45 +133,7 @@ export interface Player {
   fifthCostParticles: Decimal
   fifthProduceParticles: number
 
-  firstOwnedAnts: number
-  firstGeneratedAnts: Decimal
-  firstCostAnts: Decimal
-  firstProduceAnts: number
-
-  secondOwnedAnts: number
-  secondGeneratedAnts: Decimal
-  secondCostAnts: Decimal
-  secondProduceAnts: number
-
-  thirdOwnedAnts: number
-  thirdGeneratedAnts: Decimal
-  thirdCostAnts: Decimal
-  thirdProduceAnts: number
-
-  fourthOwnedAnts: number
-  fourthGeneratedAnts: Decimal
-  fourthCostAnts: Decimal
-  fourthProduceAnts: number
-
-  fifthOwnedAnts: number
-  fifthGeneratedAnts: Decimal
-  fifthCostAnts: Decimal
-  fifthProduceAnts: number
-
-  sixthOwnedAnts: number
-  sixthGeneratedAnts: Decimal
-  sixthCostAnts: Decimal
-  sixthProduceAnts: number
-
-  seventhOwnedAnts: number
-  seventhGeneratedAnts: Decimal
-  seventhCostAnts: Decimal
-  seventhProduceAnts: number
-
-  eighthOwnedAnts: number
-  eighthGeneratedAnts: Decimal
-  eighthCostAnts: Decimal
-  eighthProduceAnts: number
+  ants: PlayerAnts
 
   ascendBuilding1: {
     cost: number
@@ -346,12 +301,6 @@ export interface Player {
   // create a Map with keys defaulting to boolean
   codes: Map<number, boolean>
 
-  loaded1009: boolean
-  loaded1009hotfix1: boolean
-  loaded10091: boolean
-  loaded1010: boolean
-  loaded10101: boolean
-
   shopUpgrades: {
     offeringPotion: number
     obtainiumPotion: number
@@ -461,9 +410,6 @@ export interface Player {
   quarkstimer: number
   goldenQuarksTimer: number
 
-  antPoints: Decimal
-  antUpgrades: number[]
-  antSacrificePoints: number
   antSacrificeTimer: number
   antSacrificeTimerReal: number
 
@@ -478,11 +424,6 @@ export interface Player {
   mythicalFragments: Decimal
 
   buyTalismanShardPercent: number
-
-  autoAntSacrifice: boolean
-  autoAntSacTimer: number
-  autoAntSacrificeMode: number
-  antMax: boolean
 
   ascensionCount: number
   ascensionCounter: number
@@ -599,17 +540,7 @@ export interface Player {
   hypercubeQuarkDaily: number
   platonicCubeOpenedDaily: number
   platonicCubeQuarkDaily: number
-  loadedOct4Hotfix: boolean
-  loadedNov13Vers: boolean
-  loadedDec16Vers: boolean
-  loadedV253: boolean
-  loadedV255: boolean
-  loadedV297Hotfix1: boolean
-  loadedV2927Hotfix1: boolean
-  loadedV2930Hotfix1: boolean
-  loadedV2931Hotfix1: boolean
-  loadedV21003Hotfix1: boolean
-  loadedV21007Hotfix1: boolean
+
   version: string
 
   rngCode: number
@@ -736,10 +667,6 @@ export interface GlobalVariables {
   totalMultiplierBoost: number
 
   globalCoinMultiplier: Decimal
-  totalCoinOwned: number
-  prestigeMultiplier: Decimal
-  buildingPower: number
-  reincarnationMultiplier: Decimal
 
   coinOneMulti: Decimal
   coinTwoMulti: Decimal
@@ -834,35 +761,7 @@ export interface GlobalVariables {
 
   maxexponent: number
 
-  globalAntMult: Decimal
   antMultiplier: Decimal
-
-  antOneProduce: Decimal
-  antTwoProduce: Decimal
-  antThreeProduce: Decimal
-  antFourProduce: Decimal
-  antFiveProduce: Decimal
-  antSixProduce: Decimal
-  antSevenProduce: Decimal
-  antEightProduce: Decimal
-
-  antCostGrowth: number[]
-
-  antUpgradeBaseCost: number[]
-  antUpgradeCostIncreases: number[]
-
-  bonusant1: number
-  bonusant2: number
-  bonusant3: number
-  bonusant4: number
-  bonusant5: number
-  bonusant6: number
-  bonusant7: number
-  bonusant8: number
-  bonusant9: number
-  bonusant10: number
-  bonusant11: number
-  bonusant12: number
 
   settingscreen: string
 
@@ -902,7 +801,7 @@ export interface GlobalVariables {
   hyperchallengeMultiplier: number[]
   illiteracyPower: number[]
   deflationMultiplier: number[]
-  extinctionMultiplier: number[]
+  extinctionDivisor: number[]
   droughtSalvage: number[]
   recessionPower: number[]
 

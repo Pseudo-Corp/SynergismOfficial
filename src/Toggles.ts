@@ -13,7 +13,7 @@ import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
 import { Alert, Confirm, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
-import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
+import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 export const toggleSettings = (toggle: HTMLElement) => {
@@ -644,37 +644,6 @@ export const toggleHideShop = () => {
   player.shopHideToggle = !player.shopHideToggle
 }
 
-export const toggleAntMaxBuy = () => {
-  const el = DOMCacheGetOrSet('toggleAntMax')
-  el.textContent = player.antMax
-    ? i18next.t('general.buyMaxOff')
-    : i18next.t('general.buyMaxOn')
-
-  player.antMax = !player.antMax
-}
-
-export const toggleAntAutoSacrifice = (mode = 0) => {
-  if (mode === 0) {
-    const el = DOMCacheGetOrSet('toggleAutoSacrificeAnt')
-    if (player.autoAntSacrifice) {
-      player.autoAntSacrifice = false
-      el.textContent = i18next.t('ants.autoSacrificeOff')
-    } else {
-      player.autoAntSacrifice = true
-      el.textContent = i18next.t('ants.autoSacrificeOn')
-    }
-  } else if (mode === 1) {
-    const el = DOMCacheGetOrSet('autoSacrificeAntMode')
-    if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
-      player.autoAntSacrificeMode = 2
-      el.textContent = i18next.t('ants.modeRealTime')
-    } else {
-      player.autoAntSacrificeMode = 1
-      el.textContent = i18next.t('ants.modeInGameTime')
-    }
-  }
-}
-
 export const toggleMaxBuyCube = () => {
   const el = DOMCacheGetOrSet('toggleCubeBuy')
   if (player.cubeUpgradesBuyMaxToggle) {
@@ -1028,4 +997,21 @@ export const toggleStatSymbol = async () => {
     }
   }
   location.reload()
+}
+
+export const toggleAntsSubtab = (indexStr: string) => {
+  const i = Number(indexStr)
+  const numSubTabs = subTabsInMainTab(Tabs.AntHill)
+
+  for (let j = 1; j <= numSubTabs; j++) {
+    const antTab = DOMCacheGetOrSet(`antSubtab${j}`)
+    if (antTab.style.display === 'flex' && j !== i) {
+      antTab.style.display = 'none'
+    }
+    if (antTab.style.display === 'none' && j === i) {
+      antTab.style.display = 'flex'
+    }
+  }
+
+  visualUpdateAnts()
 }

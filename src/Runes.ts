@@ -1,9 +1,4 @@
-import {
-  calculateOfferings,
-  calculateSalvageRuneEXPMultiplier,
-  calculateSigmoidExponential,
-  isIARuneUnlocked
-} from './Calculate'
+import { calculateOfferings, calculateSalvageRuneEXPMultiplier, isIARuneUnlocked } from './Calculate'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Globals as G } from './Variables'
 
@@ -13,6 +8,8 @@ import { awardAchievementGroup, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
+import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
+import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
@@ -119,7 +116,7 @@ export interface RuneData<K extends RuneKeys> {
 
 export const firstFiveFreeLevels = () => {
   return (
-    Math.min(1e3, (player.antUpgrades[8] ?? 0) + G.bonusant9)
+    getAntUpgradeEffect(AntUpgrades.FreeRunes).freeRuneLevel
     + 7 * Math.min(player.constantUpgrades[7], 1000)
   )
 }
@@ -198,7 +195,7 @@ export const bonusRuneLevelsHorseShoe = () => {
 export const speedRuneOOMIncrease = () => {
   return (
     player.upgrades[66] * 2
-    + player.researches[77]
+    + player.researches[78]
     + player.researches[111]
     + CalcECC('ascension', player.challengecompletions[11])
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
@@ -213,7 +210,7 @@ export const duplicationRuneOOMIncrease = () => {
   return (
     0.75 * CalcECC('transcend', player.challengecompletions[1])
     + player.upgrades[66] * 2
-    + player.researches[78]
+    + player.researches[90]
     + player.researches[112]
     + CalcECC('ascension', player.challengecompletions[11])
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
@@ -240,7 +237,7 @@ export const prismRuneOOMIncrease = () => {
 export const thriftRuneOOMIncrease = () => {
   return (
     player.upgrades[66] * 2
-    + player.researches[80]
+    + player.researches[77]
     + player.researches[114]
     + CalcECC('ascension', player.challengecompletions[11])
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
@@ -324,11 +321,6 @@ export const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
     1 + player.researches[91] / 20,
     // Research 4x17
     1 + player.researches[92] / 20,
-    // Ant 8
-    calculateSigmoidExponential(
-      999,
-      (1 / 10000) * Math.pow(player.antUpgrades[8 - 1]! + G.bonusant8, 1.1)
-    ),
     // Cube Upgrade Bonus
     1 + (player.ascensionCounter / 1000) * player.cubeUpgrades[32],
     // Constant Upgrade Multiplier
@@ -514,7 +506,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effects: (level) => {
       const offeringMult = 1 + level / 2000
       const obtainiumMult = 1 + level / 200
-      const antSpeed = 1 + Math.pow(level, 2) / 2500
+      const antSpeed = Math.pow(1 + level / 500, 2)
       return {
         offeringMult: offeringMult,
         obtainiumMult: obtainiumMult,

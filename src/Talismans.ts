@@ -4,6 +4,8 @@ import { achievementPoints, awardUngroupedAchievement, getAchievementReward } fr
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { isShopTalismanUnlocked } from './Calculate'
 import { CalcECC } from './Challenges'
+import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
+import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -208,6 +210,10 @@ export const universalTalismanMaxLevelIncreasers = () => {
 
 export const metaphysicsTalismanMaxLevelIncreasers = () => {
   return player.cubeUpgrades[67] > 0 ? 1337 : 0
+}
+
+export const mortuusTalismanMaxLevelIncreasers = () => {
+  return getAntUpgradeEffect(AntUpgrades.Mortuus2).talismanLevelIncreaser
 }
 
 export const plasticTalismanMaxLevelIncreasers = () => {
@@ -454,9 +460,9 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     baseMult: new Decimal(100),
     maxLevel: 180,
     costs: regularCostProgression,
-    levelCapIncrease: () => universalTalismanMaxLevelIncreasers(),
+    levelCapIncrease: () => universalTalismanMaxLevelIncreasers() + mortuusTalismanMaxLevelIncreasers(),
     effects: (n) => {
-      const inscriptValues = [1, 1.02, 1.04, 1.06, 1.07, 1.08, 1.09, 1.10, 1.11, 1.125, 1.15]
+      const inscriptValues = [1, 1.05, 1.1, 1.15, 1.2, 1.3, 1.4, 1.5, 1.65, 1.8, 2]
       const prismOOMBonus = (n >= 6) ? 12 : 0
       return {
         antBonus: inscriptValues[n] ?? 1,
@@ -464,7 +470,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       }
     },
     inscriptionDesc: (n) => {
-      const inscriptValues = [1, 1.02, 1.04, 1.06, 1.07, 1.08, 1.09, 1.10, 1.11, 1.125, 1.15]
+      const inscriptValues = [1, 1.05, 1.1, 1.15, 1.2, 1.3, 1.4, 1.5, 1.65, 1.8, 2]
       return i18next.t('runes.talismans.mortuus.inscription', {
         val: formatAsPercentIncrease(inscriptValues[n] ?? 1, 0)
       })
@@ -488,7 +494,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return player.antUpgrades[11]! > 0 || player.ascensionCount > 0
+      return getAntUpgradeEffect(AntUpgrades.Mortuus).talismanUnlock
     },
     name: () => i18next.t('runes.talismans.mortuus.name'),
     description: () => i18next.t('runes.talismans.mortuus.description')
@@ -907,13 +913,16 @@ export const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneKe
     return 0
   }
 
-  let metaPhysicsMult = 1
+  let bonusMult = 1
   if (t === 'metaphysics') {
-    metaPhysicsMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).talismanEffect
-    metaPhysicsMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).extraTalismanEffect
+    bonusMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).talismanEffect
+    bonusMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).extraTalismanEffect
+  }
+  if (t === 'mortuus') {
+    bonusMult *= getAntUpgradeEffect(AntUpgrades.Mortuus2).talismanEffectBuff
   }
 
-  return talisman.talismanBaseCoefficient[rune] * metaPhysicsMult * talisman.level * rarityValues[talisman.rarity]
+  return talisman.talismanBaseCoefficient[rune] * bonusMult * talisman.level * rarityValues[talisman.rarity]
 }
 
 export const getRuneBonusFromAllTalismans = (rune: RuneKeys): number => {
@@ -1177,8 +1186,8 @@ export const updateTalismanDisplay = (t: TalismanKeys) => {
     la.style.color = 'cyan'
   }
   if (rarity === 8) {
-    ti.style.border = '3px solid red'
-    la.style.color = 'red'
+    ti.style.border = '3px solid lightgoldenrodyellow'
+    la.style.color = 'lightgoldenrodyellow'
   }
   if (rarity === 9) {
     ti.style.border = '3px solid gold'

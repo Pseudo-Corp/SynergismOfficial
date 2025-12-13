@@ -976,7 +976,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       break
     case 'antSpeed':
       lol.innerHTML = i18next.t('shop.upgradeEffects.antSpeed', {
-        amount: format(Math.pow(1.2, player.shopUpgrades.antSpeed), 2)
+        amount: format(4 * player.shopUpgrades.antSpeed, 0, true)
       })
       break
     case 'cashGrab':
@@ -1934,7 +1934,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
       )
     case 'antSpeed':
       return (
-        player.highestchallengecompletions[8] > 0
+        player.highestchallengecompletions[10] > 0
         || player.ascensionCount > 0
         || player.highestSingularityCount > 0
       )

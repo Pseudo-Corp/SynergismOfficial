@@ -9,6 +9,7 @@ export type SynergismLevelReward =
   | 'salvage'
   | 'obtainium'
   | 'offerings'
+  | 'ants'
   | 'wowCubes'
   | 'wowTesseracts'
   | 'wowHyperCubes'
@@ -95,6 +96,25 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     minLevel: 15,
     defaultValue: 1,
     nameColor: 'pink'
+  },
+  ants: {
+    name: () => i18next.t('achievements.levelRewards.ants.name'),
+    description: () => i18next.t('achievements.levelRewards.ants.description'),
+    effect: (lv: number) => {
+      const first100Levels = Math.min(71, lv - 59) * 25
+      const next100Levels = Math.max(0, Math.min(100, lv - 100)) * 50
+      const remainingLevels = Math.max(0, lv - 200) * 100
+      return first100Levels + next100Levels + remainingLevels
+    },
+    effectDescription: () => {
+      const elo = getLevelReward('ants')
+      return i18next.t('achievements.levelRewards.ants.effect', {
+        elo: format(elo, 0, true)
+      })
+    },
+    minLevel: 60,
+    defaultValue: 1,
+    nameColor: 'burlywood'
   },
   wowCubes: {
     name: () => i18next.t('achievements.levelRewards.wowCubes.name'),
@@ -289,6 +309,10 @@ export type SynergismLevelMilestones =
   | 'runeAutobuyImprover'
   | 'achievementTalismanEnhancement'
   | 'salvageChallengeBuff'
+  | 'antSpeed2Autobuyer'
+  | 'wowCubesAutobuyer'
+  | 'ascensionScoreAutobuyer'
+  | 'mortuus2Autobuyer'
 
 interface SynergismLevelMilestoneData {
   name: () => string
@@ -330,7 +354,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
           : i18next.t('achievements.rewardTypes.locked')
       })
     },
-    levelReq: 10,
+    levelReq: 7,
     displayOrder: 2
   },
   speedRune: {
@@ -556,6 +580,70 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
     },
     levelReq: 180,
     displayOrder: 15
+  },
+  antSpeed2Autobuyer: {
+    name: () => i18next.t('achievements.levelMilestones.antSpeed2Autobuyer.name'),
+    description: () => i18next.t('achievements.levelMilestones.antSpeed2Autobuyer.description'),
+    effect: () => 1,
+    defaultValue: 0,
+    effectDescription: () => {
+      const unlocked = getLevelMilestone('antSpeed2Autobuyer') === 1
+      return i18next.t('achievements.levelMilestones.antSpeed2Autobuyer.effect', {
+        unlocked: unlocked
+          ? i18next.t('achievements.rewardTypes.unlocked')
+          : i18next.t('achievements.rewardTypes.locked')
+      })
+    },
+    levelReq: 65,
+    displayOrder: 16
+  },
+  wowCubesAutobuyer: {
+    name: () => i18next.t('achievements.levelMilestones.wowCubesAutobuyer.name'),
+    description: () => i18next.t('achievements.levelMilestones.wowCubesAutobuyer.description'),
+    effect: () => 1,
+    defaultValue: 0,
+    effectDescription: () => {
+      const unlocked = getLevelMilestone('wowCubesAutobuyer') === 1
+      return i18next.t('achievements.levelMilestones.wowCubesAutobuyer.effect', {
+        unlocked: unlocked
+          ? i18next.t('achievements.rewardTypes.unlocked')
+          : i18next.t('achievements.rewardTypes.locked')
+      })
+    },
+    levelReq: 80,
+    displayOrder: 17
+  },
+  ascensionScoreAutobuyer: {
+    name: () => i18next.t('achievements.levelMilestones.ascensionScoreAutobuyer.name'),
+    description: () => i18next.t('achievements.levelMilestones.ascensionScoreAutobuyer.description'),
+    effect: () => 1,
+    defaultValue: 0,
+    effectDescription: () => {
+      const unlocked = getLevelMilestone('ascensionScoreAutobuyer') === 1
+      return i18next.t('achievements.levelMilestones.ascensionScoreAutobuyer.effect', {
+        unlocked: unlocked
+          ? i18next.t('achievements.rewardTypes.unlocked')
+          : i18next.t('achievements.rewardTypes.locked')
+      })
+    },
+    levelReq: 80,
+    displayOrder: 18
+  },
+  mortuus2Autobuyer: {
+    name: () => i18next.t('achievements.levelMilestones.mortuus2Autobuyer.name'),
+    description: () => i18next.t('achievements.levelMilestones.mortuus2Autobuyer.description'),
+    effect: () => 1,
+    defaultValue: 0,
+    effectDescription: () => {
+      const unlocked = getLevelMilestone('mortuus2Autobuyer') === 1
+      return i18next.t('achievements.levelMilestones.mortuus2Autobuyer.effect', {
+        unlocked: unlocked
+          ? i18next.t('achievements.rewardTypes.unlocked')
+          : i18next.t('achievements.rewardTypes.locked')
+      })
+    },
+    levelReq: 225,
+    displayOrder: 19
   }
 }
 

@@ -91,6 +91,28 @@ const GETHandlers = [
         internalName: 'JUMBO_AMBROSIA_TIMESKIP',
         cost: 400,
         length: '1440'
+      },
+      {
+        name: 'Lotus of Rejuvenation',
+        description:
+          'Grants +1 Lotus, which you can use in the Anthill to instantly gain Reborn ELO for the next five Ant Sacrifices.',
+        internalName: 'LOTUS_SINGLE',
+        cost: 20,
+        length: '1'
+      },
+      {
+        name: 'dozen Loti of Rejuvenation',
+        description: 'Grants +12 Lotuses, for the price of 11.',
+        internalName: 'LOTUS_DOZEN',
+        cost: 220,
+        length: '12'
+      },
+      {
+        name: 'Loti of Rejuvenation bouquet (50)',
+        description: 'Grants +50 Lotuses, for the price of 40. What a steal!',
+        internalName: 'LOTUS_BUNDLE',
+        cost: 800,
+        length: '50'
       }
     ])
   }),
@@ -529,6 +551,186 @@ const GETHandlers = [
           internalName: 'ADD_CODE_CAP_BUFF',
           level: 2,
           cost: 600
+        },
+        {
+          upgradeId: 16,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +6 Base Offerings per level, affected by all multipliers!',
+          internalName: 'BASE_OFFERING_BUFF',
+          level: 1,
+          cost: 100
+        },
+        {
+          upgradeId: 16,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +6 Base Offerings per level, affected by all multipliers!',
+          internalName: 'BASE_OFFERING_BUFF',
+          level: 2,
+          cost: 150
+        },
+        {
+          upgradeId: 16,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +6 Base Offerings per level, affected by all multipliers!',
+          internalName: 'BASE_OFFERING_BUFF',
+          level: 3,
+          cost: 200
+        },
+        {
+          upgradeId: 16,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +6 Base Offerings per level, affected by all multipliers!',
+          internalName: 'BASE_OFFERING_BUFF',
+          level: 4,
+          cost: 250
+        },
+        {
+          upgradeId: 16,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +6 Base Offerings per level, affected by all multipliers!',
+          internalName: 'BASE_OFFERING_BUFF',
+          level: 5,
+          cost: 300
+        },
+        {
+          upgradeId: 17,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +3 Base Obtainium per level, affected by all multipliers!',
+          internalName: 'BASE_OBTAINIUM_BUFF',
+          level: 1,
+          cost: 100
+        },
+        {
+          upgradeId: 17,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +3 Base Obtainium per level, affected by all multipliers!',
+          internalName: 'BASE_OBTAINIUM_BUFF',
+          level: 2,
+          cost: 150
+        },
+        {
+          upgradeId: 17,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +3 Base Obtainium per level, affected by all multipliers!',
+          internalName: 'BASE_OBTAINIUM_BUFF',
+          level: 3,
+          cost: 200
+        },
+        {
+          upgradeId: 17,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +3 Base Obtainium per level, affected by all multipliers!',
+          internalName: 'BASE_OBTAINIUM_BUFF',
+          level: 4,
+          cost: 250
+        },
+        {
+          upgradeId: 17,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +3 Base Obtainium per level, affected by all multipliers!',
+          internalName: 'BASE_OBTAINIUM_BUFF',
+          level: 5,
+          cost: 300
+        },
+        {
+          upgradeId: 18,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +20 Red Ambrosia Luck per level',
+          internalName: 'RED_LUCK_BUFF',
+          level: 1,
+          cost: 100
+        },
+        {
+          upgradeId: 18,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +20 Red Ambrosia Luck per level',
+          internalName: 'RED_LUCK_BUFF',
+          level: 2,
+          cost: 150
+        },
+        {
+          upgradeId: 18,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +20 Red Ambrosia Luck per level',
+          internalName: 'RED_LUCK_BUFF',
+          level: 3,
+          cost: 200
+        },
+        {
+          upgradeId: 18,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +20 Red Ambrosia Luck per level',
+          internalName: 'RED_LUCK_BUFF',
+          level: 4,
+          cost: 250
+        },
+        {
+          upgradeId: 18,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +20 Red Ambrosia Luck per level',
+          internalName: 'RED_LUCK_BUFF',
+          level: 5,
+          cost: 300
+        },
+        {
+          upgradeId: 19,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5% more Red Ambrosia Bar Points per level',
+          internalName: 'RED_GENERATION_BUFF',
+          level: 5,
+          cost: 300
+        },
+        {
+          upgradeId: 19,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5% more Red Ambrosia Bar Points per level',
+          internalName: 'RED_GENERATION_BUFF',
+          level: 4,
+          cost: 250
+        },
+        {
+          upgradeId: 19,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5% more Red Ambrosia Bar Points per level',
+          internalName: 'RED_GENERATION_BUFF',
+          level: 3,
+          cost: 200
+        },
+        {
+          upgradeId: 19,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5% more Red Ambrosia Bar Points per level',
+          internalName: 'RED_GENERATION_BUFF',
+          level: 2,
+          cost: 150
+        },
+        {
+          upgradeId: 19,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5% more Red Ambrosia Bar Points per level',
+          internalName: 'RED_GENERATION_BUFF',
+          level: 1,
+          cost: 100
         }
       ],
       playerUpgrades: [],
@@ -651,7 +853,7 @@ const GETHandlers = [
           upgradeId: 5,
           maxLevel: 5,
           name: 'Multi-Level',
-          description: 'Rceeive +5% Ambrosia Generation Speed per level',
+          description: 'Receive +5% Ambrosia Generation Speed per level',
           internalName: 'AMBROSIA_GENERATION_BUFF',
           level: 1,
           cost: 100

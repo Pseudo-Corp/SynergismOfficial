@@ -1,5 +1,4 @@
 import Decimal from 'break_infinity.js'
-import { sacrificeAnts } from './Ants'
 import {
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaLuck,
@@ -13,6 +12,8 @@ import {
   calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium
 } from './Calculate'
+import { sacrificeAnts } from './Features/Ants/AntSacrifice/sacrifice'
+import { canAutoSacrifice } from './Features/Ants/Automation/sacrifice'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
@@ -385,19 +386,13 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       player.antSacrificeTimer += time * globalDelta
       player.antSacrificeTimerReal += time
 
-      // Equal to real time iff "Real Time" option selected in ants tab.
-      const antSacrificeTimer = player.autoAntSacrificeMode === 2
-        ? player.antSacrificeTimerReal
-        : player.antSacrificeTimer
-
+      const timeElapsed = player.antSacrificeTimerReal
+      const crumbs = player.ants.crumbsThisSacrifice
+      const mode = player.ants.toggles.autoSacrificeMode
       if (
-        antSacrificeTimer >= player.autoAntSacTimer
-        && player.antSacrificeTimerReal > 0.1
-        && player.researches[124] === 1
-        && player.autoAntSacrifice
-        && player.antPoints.gte('1e40')
+        canAutoSacrifice(crumbs, mode, timeElapsed)
       ) {
-        void sacrificeAnts(true)
+        sacrificeAnts()
       }
       break
     }

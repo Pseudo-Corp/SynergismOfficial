@@ -8,6 +8,7 @@ import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosi
 import { updateGlobalsIsEvent } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
+import { updateLotusDisplay } from './purchases/ConsumablesTab'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
@@ -69,13 +70,22 @@ const DIAMOND_SMITH_MESSIAH = '1311165096378105906'
 let ws: WebSocket | undefined
 let loggedIn = false
 let tips = 0
+let ownedLotus = 0
+let usedLotus = 0
 let subscription: SubscriptionMetadata = null
+let lotusTimeExpiresAt: number | undefined = undefined
 
 const cloudSaves: Save[] = []
 
 export const isLoggedIn = () => loggedIn
+
 export const getTips = () => tips
 export const setTips = (newTips: number) => tips = newTips
+
+export const getOwnedLotus = () => ownedLotus
+export const getUsedLotus = () => usedLotus
+export const getLotusTimeExpiresAt = () => lotusTimeExpiresAt
+
 export const getSubMetadata = () => subscription
 // For testing purposes only
 export const setSubMetadata = (newSub: SubscriptionMetadata) => {
@@ -125,7 +135,12 @@ const messageSchema = z.preprocess(
         internalName: z.string(),
         endsAt: z.number().int()
       }).array(),
-      tips: z.number().int().nonnegative()
+      tips: z.number().int().nonnegative(),
+      inventory: z.object({
+        type: z.literal('LOTUS'),
+        amount: z.number().int().positive(),
+        used: z.number().int().positive()
+      }).array()
     }),
     /** Received after the *user* successfully redeems a consumable. */
     z.object({ type: z.literal('thanks') }),
@@ -141,6 +156,27 @@ const messageSchema = z.preprocess(
       consumableName: z.string(),
       id: z.string().uuid(),
       amount: z.number().int()
+    }),
+
+    /** Received when a player *buys* a Lotus Package */
+    z.object({
+      type: z.literal('lotus'),
+      consumableName: z.string(),
+      amount: z.number().int()
+    }),
+
+    /** Received when a player *consumes* a Lotus */
+    z.object({
+      type: z.literal('applied-lotus'),
+      remaining: z.number(),
+      lifetimePurchased: z.number()
+    }),
+
+    z.object({ type: z.literal('lotus-ended') }),
+
+    z.object({
+      type: z.literal('lotus-active'),
+      remainingMs: z.number()
     }),
 
     /** A warning - should *NOT* disconnect from the WebSocket */
@@ -414,7 +450,7 @@ const queue: string[] = []
 const exponentialBackoff = [5000, 15000, 30000, 60000]
 let tries = 0
 
-function resetConsumables () {
+function resetWebSocket () {
   for (const key of Object.keys(allDurableConsumables)) {
     allDurableConsumables[key as PseudoCoinConsumableNames] = {
       amount: 0,
@@ -422,6 +458,8 @@ function resetConsumables () {
       displayName: ''
     }
   }
+
+  lotusTimeExpiresAt = undefined
 }
 
 function handleWebSocket () {
@@ -438,7 +476,7 @@ function handleWebSocket () {
       Notification(
         'Could not re-establish your connection. Consumables and events related to Consumables will not work.'
       )
-      resetConsumables()
+      resetWebSocket()
     }
   })
 
@@ -459,7 +497,7 @@ function handleWebSocket () {
       Notification(data.message, 5_000)
     } else if (data.type === 'error') {
       Notification(data.message, 5_000)
-      resetConsumables()
+      resetWebSocket()
     } else if (data.type === 'consumed') {
       const consumable = allDurableConsumables[data.consumable as PseudoCoinConsumableNames]
       consumable.ends.push(data.startedAt + 3600 * 1000)
@@ -478,7 +516,7 @@ function handleWebSocket () {
     } else if (data.type === 'join') {
       Notification('Connection was established!')
     } else if (data.type === 'info-all') {
-      resetConsumables() // So that we can get an accurate count each time
+      resetWebSocket() // So that we can get an accurate count each time
       if (data.active.length !== 0) {
         let message = 'The following consumables are active:\n'
 
@@ -501,6 +539,14 @@ function handleWebSocket () {
       }
 
       tips = data.tips
+
+      const lotusInventory = data.inventory.find((item) => item.type === 'LOTUS')
+
+      if (lotusInventory) {
+        ownedLotus = lotusInventory.amount
+        usedLotus = lotusInventory.used
+        updateLotusDisplay()
+      }
     } else if (data.type === 'thanks') {
       Alert(i18next.t('pseudoCoins.consumables.thanks'))
       updatePseudoCoins()
@@ -527,6 +573,33 @@ function handleWebSocket () {
       }))
 
       setTimeout(() => updatePseudoCoins(), 4000)
+    } else if (data.type === 'lotus') {
+      buyLotusNotification(data.amount)
+      ownedLotus += data.amount
+      updateLotusDisplay()
+
+      setTimeout(() => updatePseudoCoins(), 4000)
+    } else if (data.type === 'applied-lotus') {
+      ownedLotus -= 1
+      usedLotus = data.lifetimePurchased
+      lotusTimeExpiresAt = Date.now() + data.remaining
+
+      updateLotusDisplay()
+    } else if (data.type === 'lotus-ended') {
+      lotusTimeExpiresAt = undefined
+
+      updateLotusDisplay()
+    } else if (data.type === 'lotus-active') {
+      lotusTimeExpiresAt = Date.now() + data.remainingMs
+      updateLotusDisplay()
+
+      Notification(i18next.t('pseudoCoins.lotus.lotusActive'))
+    } else {
+      const assertNever = (_x: never) => {
+        throw new Error()
+      }
+
+      assertNever(data)
     }
 
     updateGlobalsIsEvent()
@@ -737,6 +810,14 @@ const activateTimeSkip = (name: PseudoCoinTimeskipNames, minutes: number) => {
     case 'JUMBO_AMBROSIA_TIMESKIP':
       Notification('You have activated a JUMBO ambrosia timeskip! Enjoy!')
       break
+  }
+}
+
+const buyLotusNotification = (amount: number) => {
+  if (amount === 1) {
+    Notification('You have successfully purchased a lotus. Enjoy!')
+  } else {
+    Notification(`You have successfully purchased ${amount} loti. Enjoy!`)
   }
 }
 

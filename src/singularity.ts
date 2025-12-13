@@ -3,7 +3,8 @@ import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateGoldenQuarkCost, calculateImmaculateAlchemyBonus } from './Calculate'
 import { updateMaxTokens, updateTokens } from './Campaign'
-import { getOcteractUpgradeEffect } from './Octeracts'
+import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
+import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { singularity } from './Reset'
 import { getRuneEffectiveLevel, runes } from './Runes'
 import { format, formatAsPercentIncrease, player } from './Synergism'
@@ -90,6 +91,7 @@ export type SingularityDataKeys =
   | 'singTalismanBonusRunes2'
   | 'singTalismanBonusRunes3'
   | 'singTalismanBonusRunes4'
+  | 'favoriteUpgrade'
 
 export const updateSingularityPenalties = (): void => {
   const singularityCount = player.singularityCount
@@ -1887,6 +1889,82 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
       }),
     name: () => i18next.t('singularity.data.singTalismanBonusRunes4.name'),
     description: () => i18next.t('singularity.data.singTalismanBonusRunes4.description')
+  },
+  favoriteUpgrade: {
+    level: 0,
+    freeLevel: 0,
+    goldenQuarksInvested: 0,
+    maxLevel: 100,
+    canExceedCap: false,
+    qualityOfLife: true,
+    costPerLevel: 1,
+    specialCostForm: 'Exponential2',
+    minimumSingularity: 2,
+    effect: (n: number) => {
+      const upgrade1 = +(goldenQuarkUpgrades.goldenQuarks1.level >= goldenQuarkUpgrades.goldenQuarks1.maxLevel)
+      const upgrade2 = +(goldenQuarkUpgrades.platonicDelta.level >= goldenQuarkUpgrades.platonicDelta.maxLevel)
+      const upgrade3 = +(goldenQuarkUpgrades.oneMind.level >= goldenQuarkUpgrades.oneMind.maxLevel)
+      const upgrade4 = +(octeractUpgrades.octeractImprovedFree.level >= octeractUpgrades.octeractImprovedFree.maxLevel)
+      const upgrade5 = +(octeractUpgrades.octeractCorruption.level >= octeractUpgrades.octeractCorruption.maxLevel)
+      const upgrade6 = +(octeractUpgrades.octeractBlueberries.level >= octeractUpgrades.octeractBlueberries.maxLevel)
+      const upgrade7 = +(redAmbrosiaUpgrades.tutorial.level >= redAmbrosiaUpgrades.tutorial.maxLevel)
+      const upgrade8 =
+        +(redAmbrosiaUpgrades.infiniteShopUpgrades.level >= redAmbrosiaUpgrades.infiniteShopUpgrades.maxLevel)
+      const upgrade9 =
+        +(redAmbrosiaUpgrades.blueberryGenerationSpeed2.level >= redAmbrosiaUpgrades.blueberryGenerationSpeed2.maxLevel)
+      const sumOfUpgrades = upgrade1 + upgrade2 + upgrade3 + upgrade4 + upgrade5 + upgrade6 + upgrade7 + upgrade8
+        + upgrade9
+      return 1 + n / 5000 * (sumOfUpgrades + 6)
+    },
+    name: () => i18next.t('singularity.data.favoriteUpgrade.name'),
+    description: () => {
+      const titleText = i18next.t('singularity.data.favoriteUpgrade.description')
+      const upgrade1 = i18next.t('singularity.data.favoriteUpgrade.upgrade1', {
+        checkMark: goldenQuarkUpgrades.goldenQuarks1.level >= goldenQuarkUpgrades.goldenQuarks1.maxLevel ? '✔️' : '❌'
+      })
+      const upgrade2 = i18next.t('singularity.data.favoriteUpgrade.upgrade2', {
+        checkMark: goldenQuarkUpgrades.platonicDelta.level >= goldenQuarkUpgrades.platonicDelta.maxLevel ? '✔️' : '❌'
+      })
+      const upgrade3 = i18next.t('singularity.data.favoriteUpgrade.upgrade3', {
+        checkMark: goldenQuarkUpgrades.oneMind.level >= goldenQuarkUpgrades.oneMind.maxLevel ? '✔️' : '❌'
+      })
+      const upgrade4 = i18next.t('singularity.data.favoriteUpgrade.upgrade4', {
+        checkMark: octeractUpgrades.octeractImprovedFree.level >= octeractUpgrades.octeractImprovedFree.maxLevel
+          ? '✔️'
+          : '❌'
+      })
+      const upgrade5 = i18next.t('singularity.data.favoriteUpgrade.upgrade5', {
+        checkMark: octeractUpgrades.octeractCorruption.level >= octeractUpgrades.octeractCorruption.maxLevel
+          ? '✔️'
+          : '❌'
+      })
+      const upgrade6 = i18next.t('singularity.data.favoriteUpgrade.upgrade6', {
+        checkMark: octeractUpgrades.octeractBlueberries.level >= octeractUpgrades.octeractBlueberries.maxLevel
+          ? '✔️'
+          : '❌'
+      })
+      const upgrade7 = i18next.t('singularity.data.favoriteUpgrade.upgrade7', {
+        checkMark: redAmbrosiaUpgrades.tutorial.level >= redAmbrosiaUpgrades.tutorial.maxLevel ? '✔️' : '❌'
+      })
+      const upgrade8 = i18next.t('singularity.data.favoriteUpgrade.upgrade8', {
+        checkMark: redAmbrosiaUpgrades.infiniteShopUpgrades.level >= redAmbrosiaUpgrades.infiniteShopUpgrades.maxLevel
+          ? '✔️'
+          : '❌'
+      })
+      const upgrade9 = i18next.t('singularity.data.favoriteUpgrade.upgrade9', {
+        checkMark:
+          redAmbrosiaUpgrades.blueberryGenerationSpeed2.level >= redAmbrosiaUpgrades.blueberryGenerationSpeed2.maxLevel
+            ? '✔️'
+            : '❌'
+      })
+      return `${titleText}<br>${upgrade1}<br>${upgrade2}<br>${upgrade3}<br>${upgrade4}<br>${upgrade5}<br>${upgrade6}<br>${upgrade7}<br>${upgrade8}<br>${upgrade9}`
+    },
+    effectDescription: (_n: number) => {
+      const bonus = getGQUpgradeEffect('favoriteUpgrade')
+      return i18next.t('singularity.data.favoriteUpgrade.effect', {
+        n: formatAsPercentIncrease(bonus, 2)
+      })
+    }
   }
 }
 
@@ -2568,6 +2646,16 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t('singularity.perks.respecBeGone.default')
     },
     ID: 'respecBeGone'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.persistentGlobalResets.name')
+    },
+    levels: [8],
+    description: () => {
+      return i18next.t('singularity.perks.persistentGlobalResets.default')
+    },
+    ID: 'persistentGlobalResets'
   },
   {
     name: () => {

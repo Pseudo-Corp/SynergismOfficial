@@ -35,11 +35,12 @@ export const messages = {
     })
   },
 
-  infoAll (active: unknown, tips: number) {
+  infoAll (active: unknown, inventory: unknown, tips: number) {
     return JSON.stringify({
       type: 'info-all',
       active,
-      tips
+      tips,
+      inventory
     })
   },
 
@@ -70,6 +71,39 @@ export const messages = {
       amount,
       remaining
     })
+  },
+
+  /* Received after a player buys loti */
+  lotus (name: string, amount: number) {
+    return JSON.stringify({
+      type: 'lotus',
+      consumableName: name,
+      amount
+    })
+  },
+
+  /* Received after a player uses a lotus */
+  appliedLotus (remaining: number, lifetimePurchased: number) {
+    return JSON.stringify({
+      type: 'applied-lotus',
+      remaining,
+      lifetimePurchased
+    })
+  },
+
+  /* Received when all loti end */
+  lotusEnded () {
+    return JSON.stringify({
+      type: 'lotus-ended'
+    })
+  },
+
+  /* Received when the timer starts (usually when the player connects, letting them know how many loti they have active) */
+  lotusActive (remaining: number) {
+    return JSON.stringify({
+      type: 'lotus-active',
+      remainingMs: remaining
+    })
   }
 }
 
@@ -91,6 +125,10 @@ export const messageSchema = z.preprocess(
     z.object({
       type: z.union([z.literal('applied-tip'), z.literal('use-tips')]),
       amount: z.number().int().nonnegative().safe()
+    }),
+    z.object({
+      type: z.literal('applied-lotus'),
+      amount: z.number().int().min(0).safe()
     })
   ])
 )

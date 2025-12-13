@@ -1,7 +1,7 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
+import { getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAnts } from './Calculate'
 import { getResetResearches } from './Reset'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
@@ -41,15 +41,15 @@ const researchBaseCosts: DecimalSource[] = [
   1, 20, 3e3, 4e5, 5e7,
   10, 40, 160, 1000, 10000,
   4e9, 7e9, 1e10, 1.2e10, 1.5e10,
-  1e12, 1e13, 3e12, 2e13, 2e13,
-  2e14, 6e14, 2e15, 6e15, 2e16,
-  1e16, 2e16, 2e17, 4e17, 1e18,
-  1e13, 1e14, 1e15, 7.777e18, 7.777e20,
-  1e16, 3e16, 1e17, 3e17, 1e20,
-  1e18, 3e18, 1e19, 3e19, 1e20,
-  1e20, 2e20, 4e20, 8e20, 1e21,
-  2e21, 4e21, 8e21, 2e22, 4e22,
-  3.2e21, 2e23, 4e23, 1e21, 7.777e32,
+  1e12, 1e13, 1e12, 4e12, 7e12,
+  1e13, 1e13, 4e13, 6e13, 1e14,
+  8e13, 1e14, 2e14, 2e14, 1e15,
+  4e12, 3e13, 8e13, 7.777e18, 7.777e20,
+  2e14, 3e14, 1e16, 3e16, 1e16,
+  1e17, 3e17, 5e16, 1.2e17, 1e18,
+  1e18, 2e18, 3e18, 4e18, 1e19,
+  1e19, 2e19, 1e21, 5e21, 1e22,
+  1e21, 1e22, 1e22, 1e20, 7.777e32,
   5e8, 5e12, 5e16, 5e20, 5e24, /*ascension tier */
   1e25, 2e25, 4e25, 8e25, 1e26,
   4e26, 8e26, 1e27, 2e27, 1e28,
@@ -88,21 +88,21 @@ const researchMaxLevels: DecimalSource[] = [
   10, 1, 20, 20, 20,
   20, 20, 20, 20, 10,
   20, 20, 20, 20, 1,
-  20, 5, 5, 3, 2,
-  10, 10, 10, 10, 1,
+  20, 7, 7, 3, 2,
+  10, 12, 10, 10, 1,
   10, 10, 20, 25, 25,
   15, 15, 15, 15, 30,
-  10, 10, 10, 100, 100,
+  2, 10, 10, 100, 100,
   25, 25, 25, 1, 5,
   10, 10, 10, 10, 1,
   10, 10, 10, 1, 1,
   25, 25, 25, 15, 1,
   10, 10, 10, 10, 1,
-  10, 1, 6, 10, 1,
+  10, 1, 25, 10, 1,
   25, 25, 1, 15, 1,
   10, 10, 10, 1, 1,
   10, 10, 10, 10, 1,
-  25, 25, 25, 15, 1,
+  25, 25, 25, 10000, 1,
   10, 10, 10, 1, 1,
   10, 3, 6, 10, 5,
   25, 25, 1, 15, 1,
@@ -152,7 +152,9 @@ type RangeLevelAndCost = {
 
 // polyCostForLevels(1) implies constant cost per level, polyCostForLevels(2) implies linear growth in cost per level, etc.
 const researchLevelCostRanges: RangeLevelAndCost[] = [
-  { range: [0, 199], level: polyBuyToLevel(1), cost: polyCostForLevels(1) },
+  { range: [0, 168], level: polyBuyToLevel(1), cost: polyCostForLevels(1) },
+  { range: [169, 169], level: polyBuyToLevel(2), cost: polyCostForLevels(2) },
+  { range: [170, 199], level: polyBuyToLevel(1), cost: polyCostForLevels(1) },
   { range: [200, 200], level: polyBuyToLevel(2), cost: polyCostForLevels(2) }
 ]
 
@@ -165,8 +167,9 @@ const researchUnlockRanges: RangeCondition[] = [
   { range: [0, 0], condition: () => true }, // Not sure if needed!
   { range: [1, 80], condition: () => player.unlocks.reincarnate },
   { range: [81, 100], condition: () => player.unlocks.anthill },
-  { range: [101, 110], condition: () => player.unlocks.talismans },
-  { range: [111, 125], condition: () => player.unlocks.ascensions },
+  { range: [101, 118], condition: () => player.unlocks.talismans },
+  { range: [119, 123], condition: () => player.unlocks.ascensions },
+  { range: [124, 125], condition: () => Boolean(getAchievementReward('antSacrificeUnlock')) },
   { range: [126, 140], condition: () => player.ascensionCount > 0 },
   { range: [141, 155], condition: () => player.highestchallengecompletions[11] > 0 },
   { range: [156, 170], condition: () => player.highestchallengecompletions[12] > 0 },
@@ -339,9 +342,6 @@ export const buyResearch = (index: number, auto: boolean, hover: boolean) => {
     if ((index >= 66 && index <= 70) || index === 105) {
       updateChallengeDisplay()
     }
-
-    // Update ants.
-    calculateAnts()
   }
 
   return

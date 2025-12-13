@@ -1,9 +1,9 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateGoldenQuarks } from './Calculate'
+import { calculateExalt6PenaltyPerSecond, calculateExalt6TimeLimit, calculateGoldenQuarks } from './Calculate'
 import { singularity } from './Reset'
 import { runes } from './Runes'
-import { player } from './Synergism'
+import { format, player } from './Synergism'
 import { Alert, Confirm } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 import { Globals as G } from './Variables'
@@ -448,14 +448,14 @@ export const singularityChallengeData: Record<
   },
   limitedTime: {
     baseReq: 203,
-    maxCompletions: 25,
+    maxCompletions: 30,
     unlockSingularity: 216,
     achievementPointValue: (n) => {
-      return 10 * n + 5 * Math.max(0, n - 10) + 5 * Math.max(0, n - 20)
+      return 10 * n + 5 * Math.max(0, n - 10) + 5 * Math.max(0, n - 20) + 10 * Math.max(0, n - 25)
     },
     HTMLTag: 'limitedTime',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 3 * completions
+      return baseReq + 3 * Math.min(24, completions) + 2 * Math.max(0, completions - 24)
     },
     scalingrewardcount: 4,
     uniquerewardcount: 3,
@@ -469,6 +469,22 @@ export const singularityChallengeData: Record<
         tier1Upgrade: n >= 15,
         tier2Upgrade: n >= 25
       }
+    },
+    alternateDescription: () => {
+      const completions = player.singularityChallenges.limitedTime.completions
+      const baseDesc = i18next.t('singularityChallenge.data.limitedTime.description')
+      const timeLimit = calculateExalt6TimeLimit(completions)
+      const perSecondPenalty = calculateExalt6PenaltyPerSecond(completions)
+
+      const timeMod1 = i18next.t('singularityChallenge.data.limitedTime.timeMod1', {
+        time: format(timeLimit, 0, true)
+      })
+      const timeMod2 = i18next.t('singularityChallenge.data.limitedTime.timeMod2', {
+        perSecondDivisor: format(perSecondPenalty, 3, true)
+      })
+      const timeMod3 = i18next.t('singularityChallenge.data.limitedTime.timeMod3')
+
+      return `${baseDesc}<br>${timeMod1}<br>${timeMod2}<br>${timeMod3}`
     }
   },
   sadisticPrequel: {

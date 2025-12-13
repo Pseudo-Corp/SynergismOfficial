@@ -8,6 +8,7 @@ import { player } from './Synergism'
 import {
   setActiveSettingScreen,
   toggleAchievementScreen,
+  toggleAntsSubtab,
   toggleBuildingScreen,
   toggleChallengesScreen,
   toggleCorruptionLoadoutsStats,
@@ -210,8 +211,27 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subtabIndex: 0
   },
   [Tabs.AntHill]: {
-    subTabList: [],
-    subtabIndex: 0
+    tabSwitcher: () => toggleAntsSubtab,
+    subtabIndex: 0,
+    subTabList: [
+      {
+        subTabID: '1',
+        unlocked: true,
+        buttonID: 'toggleAntSubtab1'
+      },
+      {
+        subTabID: '2',
+        unlocked: true,
+        buttonID: 'toggleAntSubtab2'
+      },
+      {
+        subTabID: '3',
+        get unlocked () {
+          return player.ants.antSacrificeCount > 0
+        },
+        buttonID: 'toggleAntSubtab3'
+      }
+    ]
   },
   [Tabs.WowCubes]: {
     tabSwitcher: () => toggleCubeSubTab,

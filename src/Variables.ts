@@ -21,8 +21,8 @@ export const Globals: GlobalVariables = {
     0, 6, 7, 8, 10, 12, 20, 35, 50, 75, 100, 55, 75, 125, 150, 200, 250, 500, 750, 1000, 1500,
     5, 15, 25, 40, 60, 45, 75, 100, 125, 150, 150, 400, 800, 1600, 3200, 10000, 20000, 50000, 100000, 200000,
     1, 2, 3, 5, 6, 7, 42, 65, 87, 150, 300, 500, 1000, 1500, 2000, 3000, 6000, 12000, 25000, 75000,
-    0, 1, 2, 2, 3, 5, 6, 10, 15, 22, 30, 37, 45, 52, 60, 1900, 2500, 3000, 7482, 21397,
-    3, 6, 9, 12, 15, 60, 200, 6, 8, 8, 10, 13, 60, 1, 2, 4, 8, 16, 25, 40,
+    0, 1, 2, 2, 3, 5, 6, 10, 15, 22, 30, 37, 45, 52, 60, 1900, 2500, 3000, 10000, 21397,
+    3, 6, 9, 12, 15, 60, 90, 6, 8, 8, 10, 13, 60, 1, 2, 4, 8, 16, 25, 40,
     12, 16, 20, 30, 50, 500, 1250, 5000, 25000, 125000, 1500, 7500, 30000, 150000, 1000000, 250, 1000, 5000, 25000, 125000,
     1e3, 1e6, 1e9, 1e12, 1e15
   ],
@@ -52,10 +52,6 @@ export const Globals: GlobalVariables = {
   totalMultiplierBoost: 0,
 
   globalCoinMultiplier: new Decimal(1),
-  totalCoinOwned: 0,
-  prestigeMultiplier: new Decimal(1),
-  buildingPower: 1,
-  reincarnationMultiplier: new Decimal(1),
 
   coinOneMulti: new Decimal(1),
   coinTwoMulti: new Decimal(1),
@@ -122,7 +118,7 @@ export const Globals: GlobalVariables = {
   // dprint-ignore
   cardinals: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'twentyone', 'twentytwo', 'twentythree', 'twentyfour', 'twentyfive', 'twentysix', 'twentyseven', 'twentyeight', 'twentynine', 'thirty', 'thirtyone', 'thirtytwo', 'thirtythree', 'thirtyfour'],
 
-  challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 7500, 2.0e8, 3.5e9],
+  challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 7500, 2.0e8, 2.5e9],
 
   prestigeamount: 1,
   taxdivisor: new Decimal('1'),
@@ -142,35 +138,7 @@ export const Globals: GlobalVariables = {
 
   maxexponent: 10000,
 
-  globalAntMult: new Decimal('1'),
   antMultiplier: new Decimal('1'),
-
-  antOneProduce: new Decimal('1'),
-  antTwoProduce: new Decimal('1'),
-  antThreeProduce: new Decimal('1'),
-  antFourProduce: new Decimal('1'),
-  antFiveProduce: new Decimal('1'),
-  antSixProduce: new Decimal('1'),
-  antSevenProduce: new Decimal('1'),
-  antEightProduce: new Decimal('1'),
-
-  antCostGrowth: [1e41, 3, 10, 1e2, 1e4, 1e8, 1e16, 1e32],
-
-  antUpgradeBaseCost: [100, 100, 1000, 1000, 1e5, 1e6, 1e8, 1e11, 1e15, 1e20, 1e40, 1e100],
-  antUpgradeCostIncreases: [10, 10, 10, 10, 100, 100, 100, 100, 1000, 1000, 1000, 1e100],
-
-  bonusant1: 0,
-  bonusant2: 0,
-  bonusant3: 0,
-  bonusant4: 0,
-  bonusant5: 0,
-  bonusant6: 0,
-  bonusant7: 0,
-  bonusant8: 0,
-  bonusant9: 0,
-  bonusant10: 0,
-  bonusant11: 0,
-  bonusant12: 0,
 
   settingscreen: 'settings',
 
@@ -247,8 +215,8 @@ export const Globals: GlobalVariables = {
     0,
     0
   ],
-  extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0, 0, 0, 0],
-
+  // extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0, 0, 0, 0],
+  extinctionDivisor: [1, 1.25, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
   droughtSalvage: [
     0,
     -25,

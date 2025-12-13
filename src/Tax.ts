@@ -1,18 +1,19 @@
-import { player } from './Synergism'
+import { calculateBuildingPowerCoinMultiplier, player } from './Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { CalcECC } from './Challenges'
+import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
+import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { calculateTaxPlatonicBlessing } from './PlatonicCubes'
 import { getRuneEffects } from './Runes'
 import { getTalismanEffects } from './Talismans'
 
 export const calculatetax = () => {
   let exp = 1
-  let compareB = new Decimal(0)
-  let compareC = new Decimal(0)
+  // To 2020 Platonic: Why the HELL is this done here???
   G.produceFirst = (player.firstGeneratedCoin.add(player.firstOwnedCoin)).times(G.globalCoinMultiplier).times(
     G.coinOneMulti
   )
@@ -68,7 +69,7 @@ export const calculatetax = () => {
     0,
     sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12]
       - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15]
-      - 3 * player.cubeUpgrades[49] - ((player.singularityCount >= 15) ? 4 : 0)
+      - ((player.singularityCount >= 15) ? 4 : 0)
       - ((player.singularityCount >= 20) ? 1 : 0)
   )
   if (player.currentChallenge.ascension === 13) {
@@ -80,13 +81,16 @@ export const calculatetax = () => {
   }
   let exponent = 1
   exponent *= exp
-  exponent *= 1 - 1 / 20 * player.researches[51] - 1 / 40 * player.researches[52] - 1 / 80 * player.researches[53]
-    - 1 / 160 * player.researches[54] - 1 / 320 * player.researches[55]
+  exponent *= 1 - 0.06 * player.researches[51]
+  exponent *= 1 - 0.05 * player.researches[52]
+  exponent *= 1 - 0.05 * player.researches[53]
+  exponent *= 1 - 0.05 * player.researches[54]
+  exponent *= 1 - 0.05 * player.researches[55]
   exponent *= +getAchievementReward('taxReduction')
   exponent *= Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6]))
   exponent *= getRuneEffects('duplication').taxReduction
   exponent *= getRuneEffects('thrift').taxReduction
-  exponent *= 0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[2]! + G.bonusant3)
+  exponent *= getAntUpgradeEffect(AntUpgrades.Taxes).taxReduction
   exponent *= 1
     / Math.pow(
       1 + Decimal.log(player.ascendShards.add(1), 10),
@@ -121,10 +125,23 @@ export const calculatetax = () => {
   if (exponent < 1e-300) {
     exponent = 1e-300
   }
-  G.maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1
-  const a2 = Math.min(G.maxexponent, Math.floor(Decimal.log(G.produceTotal.add(1), 10)))
 
-  if (player.currentChallenge.ascension === 13 && G.maxexponent <= 99999) {
+  // Ant Upgrade "Fortunae Formicidae" gives a flat max exponent increase equal to its coin multi
+  // It multiplies the coin production but is also tax-exempt, which we do by increasing the tax cap
+  // While also deducting the log value from `exponentForDivisor`.
+  // Implementing this was much more difficult than it needed to be.
+  let flatMaxExponentIncrease = Decimal.log(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier, 10)
+  flatMaxExponentIncrease += Decimal.log(calculateBuildingPowerCoinMultiplier(), 10)
+
+  G.maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1 + flatMaxExponentIncrease
+
+  const exponentForDivisor = Math.max(
+    0,
+    Math.min(G.maxexponent, Math.floor(Decimal.log(G.produceTotal.add(1), 10))) - flatMaxExponentIncrease
+  )
+  const exponentForWarning = Math.max(0, G.maxexponent - flatMaxExponentIncrease)
+
+  if (player.currentChallenge.ascension === 13 && (G.maxexponent - flatMaxExponentIncrease) <= 99999) {
     // i don't think it makes sense to give the achievement as soon as the challenge is opened
     // as soon as the challenge is opened you don't have enough tax reducers to have max exponent above 100000
     // so for the achievement description to make sense i think it should require at least 1 challenge completion || Dorijanko
@@ -133,12 +150,15 @@ export const calculatetax = () => {
     }
   }
 
-  if (a2 >= 1) {
-    compareB = Decimal.pow(a2, 2).div(550)
-  }
+  const divisorExponent = 1 / 550 * Math.pow(exponentForDivisor, 2)
+  // Not exactly clear why this is needed?
+  const checkExponent = 1 / 550 * Math.pow(exponentForWarning, 2)
 
-  compareC = Decimal.pow(G.maxexponent, 2).div(550)
+  // After the ants update, I really should get rid of these bad globals
 
-  G.taxdivisor = Decimal.pow(1.01, Decimal.mul(compareB, exponent))
-  G.taxdivisorcheck = Decimal.pow(1.01, Decimal.mul(compareC, exponent))
+  // November 11, 2025: Platonic re-derived these equations to understand why this works.
+  // If you write this value out, you end up getting a function whose log is O(exponent^-1),
+  // Which is intentional.
+  G.taxdivisor = Decimal.pow(1.01, divisorExponent * exponent)
+  G.taxdivisorcheck = Decimal.pow(1.01, checkExponent * exponent)
 }

@@ -16,9 +16,20 @@ import {
   updateAllUngroupedAchievementProgress
 } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CalcCorruptionStuff, calculateAscensionSpeedMult, calculateGlobalSpeedMult } from './Calculate'
+import {
+  CalcCorruptionStuff,
+  calculateAscensionSpeedMult,
+  calculateExalt6TimeLimit,
+  calculateGlobalSpeedMult
+} from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
+import { canBuyAntMastery } from './Features/Ants/AntMasteries/lib/get-buyable'
+import { canGenerateAntCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
+import { getCostNextAnt } from './Features/Ants/AntProducers/lib/get-cost'
+import { getCostNextAntUpgrade } from './Features/Ants/AntUpgrades/lib/get-cost'
+import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
+import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
@@ -33,7 +44,7 @@ import {
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { type TalismanKeys, talismans } from './Talismans'
-import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
+import type { OneToFive, ZeroToFour } from './types/Synergism'
 import {
   visualUpdateAchievements,
   visualUpdateAnts,
@@ -124,9 +135,13 @@ export const revealStuff = () => {
     }
   }
 
+  DOMCacheGetOrSet('challenge8AntLocked').style.display = canGenerateAntCrumbs() ? 'none' : 'block'
+
   document.documentElement.dataset.chal9 = player.unlocks.talismans ? 'true' : 'false'
   document.documentElement.dataset.chal9x1 = player.highestchallengecompletions[9] > 0 ? 'true' : 'false'
   document.documentElement.dataset.chal10 = player.unlocks.ascensions ? 'true' : 'false'
+
+  document.documentElement.dataset.sacrificeUnlock = player.ants.antSacrificeCount > 0 ? 'true' : 'false'
 
   const example21 = document.getElementsByClassName('ascendunlock') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example21.length; i++) {
@@ -261,9 +276,32 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('toggleRuneSubTab3').style.display = 'none'
   }
 
-  getAchievementReward('antSacrificeUnlock') // Galactic Crumb Achievement 5
-    ? DOMCacheGetOrSet('sacrificeAnts').style.display = 'block'
-    : DOMCacheGetOrSet('sacrificeAnts').style.display = 'none'
+  const unlockedAntSac = getAchievementReward('antSacrificeUnlock')
+  if (unlockedAntSac) {
+    DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'none'
+    DOMCacheGetOrSet('sacrificeAnts').style.display = 'flex'
+  } else {
+    DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'flex'
+    DOMCacheGetOrSet('sacrificeAnts').style.display = 'none'
+  }
+
+  const unlockedAutoAntSac = getAchievementReward('autoAntSacrifice')
+  if (unlockedAutoAntSac) {
+    DOMCacheGetOrSet('autoSacrifice').style.display = 'flex'
+    DOMCacheGetOrSet('autoSacrificeLocked').style.display = 'none'
+  } else {
+    DOMCacheGetOrSet('autoSacrifice').style.display = 'none'
+    DOMCacheGetOrSet('autoSacrificeLocked').style.display = 'block'
+  }
+
+  const unlockedAdditionalSacrificeOptions = player.researches[124] > 0
+  if (unlockedAdditionalSacrificeOptions) {
+    DOMCacheGetOrSet('additionalAutoSacOptionsLocked').style.display = 'none'
+    DOMCacheGetOrSet('additionalAutoSacOptions').style.display = 'flex'
+  } else {
+    DOMCacheGetOrSet('additionalAutoSacOptionsLocked').style.display = 'block'
+    DOMCacheGetOrSet('additionalAutoSacOptions').style.display = 'none'
+  }
 
   player.researches[39] > 0 // 3x9 Research [Crystal Building Power]
     ? DOMCacheGetOrSet('reincarnationCrystalInfo').style.display = 'block'
@@ -276,18 +314,6 @@ export const revealStuff = () => {
   player.researches[46] > 0 // 5x6 Research [Auto R.]
     ? DOMCacheGetOrSet('reincarnateautomation').style.display = 'block'
     : DOMCacheGetOrSet('reincarnateautomation').style.display = 'none'
-
-  if (player.researches[124] > 0) { // 5x24 Research [AutoSac]
-    DOMCacheGetOrSet('antSacrificeButtons').style.display = 'flex'
-    DOMCacheGetOrSet('autoAntSacrifice').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('antSacrificeButtons').style.display = 'none'
-    DOMCacheGetOrSet('autoAntSacrifice').style.display = 'none'
-  }
-
-  player.researches[124] > 0 || player.highestSingularityCount > 0 // So you can turn it off before 5x24 Research
-    ? DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'block'
-    : DOMCacheGetOrSet('toggleAutoSacrificeAnt').style.display = 'none'
 
   player.researches[130] > 0 // 6x5 Research [Talisman Auto Fortify]
     ? DOMCacheGetOrSet('toggleautofortify').style.display = 'block'
@@ -961,24 +987,26 @@ export const buttoncolorchange = () => {
   }
 
   if (G.currentTab === Tabs.AntHill) {
-    ;(player.reincarnationPoints.gte(player.firstCostAnts))
-      ? DOMCacheGetOrSet('anttier1').classList.add('antTierBtnAvailable')
-      : DOMCacheGetOrSet('anttier1').classList.remove('antTierBtnAvailable')
-    for (let i = 2; i <= 8; i++) {
-      const costAnts = player[`${G.ordinals[(i - 1) as ZeroToSeven]}CostAnts` as const]
-      player.antPoints.gte(costAnts)
-        ? DOMCacheGetOrSet(`anttier${i}`).classList.add('antTierBtnAvailable')
-        : DOMCacheGetOrSet(`anttier${i}`).classList.remove('antTierBtnAvailable')
+    for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
+      const antCost = getCostNextAnt(ant)
+      player.ants.crumbs.gte(antCost)
+        ? DOMCacheGetOrSet(`anttier${ant + 1}`).classList.add('antTierBtnAvailable')
+        : DOMCacheGetOrSet(`anttier${ant + 1}`).classList.remove('antTierBtnAvailable')
+
+      const antMasteryBuyable = canBuyAntMastery(ant)
+      const antMasteryElement = DOMCacheGetOrSet(`antMastery${ant + 1}`)
+      antMasteryBuyable
+        ? antMasteryElement.classList.add('antMasteryBtnAvailable')
+        : antMasteryElement.classList.remove('antMasteryBtnAvailable')
     }
-    for (let i = 1; i <= 12; i++) {
-      player.antPoints.gte(
-          Decimal.pow(
-            G.antUpgradeCostIncreases[i - 1],
-            player.antUpgrades[i - 1]!
-          ).times(G.antUpgradeBaseCost[i - 1])
-        )
-        ? DOMCacheGetOrSet(`antUpgrade${i}`).classList.add('antUpgradeBtnAvailable')
-        : DOMCacheGetOrSet(`antUpgrade${i}`).classList.remove('antUpgradeBtnAvailable')
+    for (let upgrade = AntUpgrades.AntSpeed; upgrade <= LAST_ANT_UPGRADE; upgrade++) {
+      const element = DOMCacheGetOrSet(`antUpgrade${upgrade + 1}`)
+      const cost = getCostNextAntUpgrade(upgrade)
+      if (player.ants.crumbs.gte(cost)) {
+        element.classList.add('antUpgradeBtnAvailable')
+      } else {
+        element.classList.remove('antUpgradeBtnAvailable')
+      }
     }
   }
 }
@@ -1087,7 +1115,7 @@ const updateAscensionStats = () => {
     if (key === 'ascSingChallengeLen') {
       if (
         player.singularityChallenges.limitedTime.enabled
-        && player.singChallengeTimer > 600 - 20 * player.singularityChallenges.limitedTime.completions
+        && player.singChallengeTimer > calculateExalt6TimeLimit(player.singularityChallenges.limitedTime.completions)
       ) {
         dom.style.color = 'red'
       } else {
@@ -1349,24 +1377,41 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
 
 export type OptionalHTMLStyle = Partial<CSSStyleDeclaration>
 
-let modalUsed = false
+let id: number | null = null
+
+export const SLOW_MODAL_UPDATE_TICK = 1000
+export const MEDIUM_MODAL_UPDATE_TICK = 250
+export const FAST_MODAL_UPDATE_TICK = 100
+export const VERY_FAST_MODAL_UPDATE_TICK = 20
+
+const updateModal = (HTML: () => string) => {
+  const modalContent = DOMCacheGetOrSet('modalContent')
+  const htmlContent = HTML()
+  modalContent.innerHTML = htmlContent
+}
 
 export const Modal = (
-  HTML: string,
+  HTML: () => string,
   currX: number,
   currY: number,
   styleMods: OptionalHTMLStyle = {},
-  forceUpdate = false
+  updateInterval = VERY_FAST_MODAL_UPDATE_TICK
 ) => {
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
 
-  if (forceUpdate || !modalUsed) {
-    modalContent.innerHTML = HTML
-    modalUsed = true
-  }
+  const modalId = id = Math.random()
+  const interval = setInterval(() => {
+    if (id !== modalId) {
+      clearInterval(interval)
+      return
+    }
+    updateModal(HTML)
+  }, updateInterval)
 
   Object.assign(modal.style, styleMods)
+  // Instantly update the modal once
+  updateModal(HTML)
 
   // Measure the dimensions of modal content and viewport
   modal.style.visibility = 'hidden'
@@ -1404,12 +1449,9 @@ export const CloseModal = () => {
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
 
-  // Clear the content
+  id = null
   modalContent.innerHTML = ''
-
-  // Hide the modal
   modal.style.display = 'none'
-  modalUsed = false
 }
 
 export const openChangelog = () => {

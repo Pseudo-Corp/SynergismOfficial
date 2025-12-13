@@ -1,9 +1,9 @@
 import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { antSacrificePointsToMultiplier } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { applyCorruptions, convertInputToCorruption, type Corruptions } from './Corruptions'
+import { calculateAntSpeedMultFromELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
 import { getGQUpgradeEffect } from './singularity'
 import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
@@ -434,8 +434,8 @@ const resetHistoryRenderRow = (
   // the kind check.
   const extra: string[] = []
   if (data.kind === 'antsacrifice') {
-    const oldMulti = antSacrificePointsToMultiplier(data.antSacrificePointsBefore)
-    const newMulti = antSacrificePointsToMultiplier(data.antSacrificePointsAfter)
+    const oldMulti = calculateAntSpeedMultFromELO()
+    const newMulti = calculateAntSpeedMultFromELO()
     const diff = newMulti.sub(oldMulti)
     extra.push(
       `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${

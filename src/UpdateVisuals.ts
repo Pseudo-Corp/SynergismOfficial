@@ -1,17 +1,17 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
-import { showSacrifice } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  calcAscensionCount,
   CalcCorruptionStuff,
+  calculateActualAntSpeedMult,
   calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaLuck,
   calculateAmbrosiaLuckRaw,
   calculateAmbrosiaQuarkMult,
+  calculateAscensionCount,
   calculateBlueberryInventory,
   calculateCookieUpgrade29Luck,
   calculateCubeQuarkMultiplier,
@@ -26,7 +26,6 @@ import {
   calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium,
   calculateSalvageRuneEXPMultiplier,
-  calculateSigmoidExponential,
   calculateSummationNonLinear,
   calculateToNextThreshold,
   calculateTotalOcteractCubeBonus,
@@ -35,7 +34,7 @@ import {
   calculateTotalOcteractQuarkBonus,
   calculateTotalSalvage
 } from './Calculate'
-import { CalcECC } from './Challenges'
+import { CalcECC, challengeDisplay } from './Challenges'
 import { version } from './Config'
 import {
   calculateAcceleratorCubeBlessing,
@@ -51,6 +50,14 @@ import {
   type IMultiBuy
 } from './Cubes'
 import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
+import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib/calculate-production'
+import { hasEnoughCrumbsForSacrifice, MINIMUM_CRUMBS_FOR_SACRIFICE } from './Features/Ants/AntSacrifice/constants'
+import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
+import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
+import { updateLeaderboardUI } from './Features/Ants/HTML/updates/leaderboard'
+import { showLockedSacrifice, showSacrifice } from './Features/Ants/HTML/updates/sacrifice'
+import { autoAntSacrificeModeDescHTML } from './Features/Ants/HTML/updates/toggles/sacrifice-mode'
+import { AntProducers } from './Features/Ants/structs/structs'
 import { getFinalHepteractCap, type HepteractKeys, hepteractKeys, hepteracts } from './Hepteracts'
 import {
   calculateAcceleratorHypercubeBlessing,
@@ -91,7 +98,17 @@ import {
   type SingularityDataKeys
 } from './singularity'
 import { loadStatisticsUpdate } from './Statistics'
-import { format, formatAsPercentIncrease, formatDecimalAsPercentIncrease, formatTimeShort, player } from './Synergism'
+import {
+  calculateBuildingPower,
+  calculateBuildingPowerCoinMultiplier,
+  calculateCrystalCoinMultiplier,
+  calculateCrystalExponent,
+  format,
+  formatAsPercentIncrease,
+  formatDecimalAsPercentIncrease,
+  formatTimeShort,
+  player
+} from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { getTalismanLevelCap, type TalismanKeys, talismans, updateAllTalismanHTML } from './Talismans'
 import {
@@ -107,7 +124,8 @@ import {
   calculateSalvageTesseractBlessing
 } from './Tesseracts'
 import type { Player, ZeroToFour } from './types/Synergism'
-import { sumContents, timeReminingHours } from './Utility'
+import { updateChallengeDisplay } from './UpdateHTML'
+import { sumContents, timeRemainingHours } from './Utility'
 import { Globals as G } from './Variables'
 
 export const visualUpdateBuildings = () => {
@@ -309,11 +327,14 @@ export const visualUpdateBuildings = () => {
     ]
     const perSecNames = ['crystal', 'ref', 'plants', 'rigs', 'pickaxes']
 
-    DOMCacheGetOrSet('prestigeshardinfo').textContent = i18next.t(
+    const crystalExponent = calculateCrystalExponent()
+    const crystalCoinMult = calculateCrystalCoinMultiplier(crystalExponent)
+    DOMCacheGetOrSet('prestigeshardinfo').innerHTML = i18next.t(
       'buildings.crystalMult',
       {
         crystals: format(player.prestigeShards, 2),
-        gain: format(G.prestigeMultiplier, 2)
+        gain: format(crystalCoinMult, 2),
+        exponent: format(crystalExponent, 2, true)
       }
     )
 
@@ -501,26 +522,29 @@ export const visualUpdateBuildings = () => {
       )
     }
 
-    DOMCacheGetOrSet('reincarnationshardinfo').textContent = i18next.t(
+    const buildingPower = calculateBuildingPower()
+    const buildingPowerMult = calculateBuildingPowerCoinMultiplier(buildingPower)
+
+    DOMCacheGetOrSet('reincarnationshardinfo').innerHTML = i18next.t(
       'buildings.atomsYouHave',
       {
         atoms: format(player.reincarnationShards, 2),
-        power: format(G.buildingPower, 4),
-        mult: format(G.reincarnationMultiplier)
+        power: format(buildingPower, 4, true),
+        mult: format(buildingPowerMult, 2, true)
       }
     )
 
     DOMCacheGetOrSet('reincarnationCrystalInfo').textContent = i18next.t(
       'buildings.thanksR2x14',
       {
-        mult: format(Decimal.pow(G.reincarnationMultiplier, 1 / 50), 3, false)
+        mult: format(Decimal.pow(buildingPowerMult, 1 / 50), 3, false)
       }
     )
 
     DOMCacheGetOrSet('reincarnationMythosInfo').textContent = i18next.t(
       'buildings.thanksR2x15',
       {
-        mult: format(Decimal.pow(G.reincarnationMultiplier, 1 / 250), 3, false)
+        mult: format(Decimal.pow(buildingPowerMult, 1 / 250), 3, false)
       }
     )
 
@@ -726,6 +750,10 @@ export const visualUpdateChallenges = () => {
   if (G.currentTab !== Tabs.Challenges) {
     return
   }
+  updateChallengeDisplay()
+  if (G.challengefocus !== 0) {
+    challengeDisplay(G.challengefocus)
+  }
   if (player.researches[150] > 0) {
     DOMCacheGetOrSet('autoIncrementerAmount').innerHTML = i18next.t(
       'challenges.autoTimer',
@@ -742,7 +770,7 @@ export const visualUpdateResearch = () => {
   }
 
   if (player.researches[61] > 0) {
-    DOMCacheGetOrSet('automaticobtainium').textContent = i18next.t(
+    DOMCacheGetOrSet('automaticobtainium').innerHTML = i18next.t(
       'researches.thanksToResearches',
       {
         x: format(
@@ -759,45 +787,58 @@ export const visualUpdateAnts = () => {
   if (G.currentTab !== Tabs.AntHill) {
     return
   }
+  const antSpeedMult = calculateActualAntSpeedMult()
+  const firstTierProduction = calculateBaseAntsToBeGenerated(AntProducers.Workers, antSpeedMult)
   DOMCacheGetOrSet('crumbcount').textContent = i18next.t(
-    'ants.youHaveGalacticCrumbs',
+    'ants.galacticCrumbCount',
     {
-      x: format(player.antPoints, 2),
-      y: format(G.antOneProduce, 2),
-      z: format(
-        Decimal.pow(
-          Decimal.max(1, player.antPoints),
-          100000
-            + calculateSigmoidExponential(
-              49900000,
-              (((player.antUpgrades[1]! + G.bonusant2) / 5000) * 500) / 499
-            )
-        )
-      )
+      x: format(player.ants.crumbs, 2, true, undefined, undefined, true)
     }
   )
 
-  const mode = player.autoAntSacrificeMode === 2
-    ? i18next.t('ants.modeRealTime')
-    : i18next.t('ants.modeInGameTime')
-  const timer = player.autoAntSacrificeMode === 2
-    ? player.antSacrificeTimerReal
-    : player.antSacrificeTimer
-
-  DOMCacheGetOrSet('autoAntSacrifice').textContent = i18next.t(
-    'ants.sacrificeWhenTimer',
+  DOMCacheGetOrSet('crumbsPerSecond').textContent = i18next.t(
+    'ants.crumbsPerSecond',
     {
-      x: player.autoAntSacTimer,
-      y: mode,
-      z: format(timer, 2)
+      x: format(firstTierProduction, 2, true, undefined, undefined, true)
     }
   )
+  DOMCacheGetOrSet('crumbCoinMultiplier').textContent = i18next.t(
+    'ants.crumbsCoinMultiplier',
+    {
+      x: format(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier, 2, true)
+    }
+  )
+
+  autoAntSacrificeModeDescHTML(player.ants.toggles.autoSacrificeMode)
+  DOMCacheGetOrSet('sacrificeSecondsElapsed').innerHTML = i18next.t('ants.timeElapsed', {
+    x: format(player.antSacrificeTimerReal, 2, true)
+  })
+
+  if (player.ants.crumbsThisSacrifice.gte(MINIMUM_CRUMBS_FOR_SACRIFICE)) {
+    DOMCacheGetOrSet('antSacrificeRequired').innerHTML = i18next.t('ants.altar.sacrificeReady.unlocked')
+  } else {
+    DOMCacheGetOrSet('antSacrificeRequired').innerHTML = i18next.t('ants.altar.sacrificeReady.locked', {
+      x: format(player.ants.crumbsThisSacrifice, 0, true),
+      y: format(MINIMUM_CRUMBS_FOR_SACRIFICE, 0, true)
+    })
+  }
 
   if (getAchievementReward('antSacrificeUnlock')) {
-    DOMCacheGetOrSet('antSacrificeTimer').textContent = formatTimeShort(
-      player.antSacrificeTimer
-    )
+    DOMCacheGetOrSet('antSacrificeTimer').textContent = `⧖ ${
+      formatTimeShort(
+        player.antSacrificeTimer
+      )
+    }`
     showSacrifice()
+    updateLeaderboardUI()
+
+    if (hasEnoughCrumbsForSacrifice(player.ants.crumbsThisSacrifice)) {
+      DOMCacheGetOrSet('antSacrifice').classList.add('canAntSacrifice')
+    } else {
+      DOMCacheGetOrSet('antSacrifice').classList.remove('canAntSacrifice')
+    }
+  } else {
+    showLockedSacrifice()
   }
 }
 
@@ -1381,7 +1422,7 @@ export const visualUpdateCorruptions = () => {
   }
 
   const metaData = CalcCorruptionStuff()
-  const ascCount = calcAscensionCount()
+  const ascCount = calculateAscensionCount()
   DOMCacheGetOrSet('autoAscend').innerHTML = player.autoAscendMode === 'c10Completions'
     ? i18next.t('corruptions.autoAscend.c10Completions', {
       input: format(player.autoAscendThreshold),
@@ -1447,16 +1488,6 @@ export const visualUpdateCorruptions = () => {
       hepteractAmount: format(metaData[8], 0, true)
     }
   )
-  DOMCacheGetOrSet('corruptionAntExponent').innerHTML = i18next.t(
-    'corruptions.antExponent',
-    {
-      exponent: format(
-        (1 - (0.9 / 90) * player.corruptions.used.totalLevels)
-          * G.extinctionMultiplier[player.corruptions.used.extinction],
-        3
-      )
-    }
-  )
   DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {
     curr: format(player.corruptions.used.totalCorruptionAscensionMultiplier, 2, true),
     next: format(player.corruptions.next.totalCorruptionAscensionMultiplier, 2, true)
@@ -1476,7 +1507,7 @@ export const visualUpdateCorruptions = () => {
     DOMCacheGetOrSet('corruptionAscensionCount').innerHTML = i18next.t(
       'corruptions.ascensionCount',
       {
-        ascCount: format(calcAscensionCount())
+        ascCount: format(calculateAscensionCount())
       }
     )
   }
@@ -2019,7 +2050,7 @@ export const visualUpdateShop = () => {
 export const constructConsumableTimes = (p: PseudoCoinConsumableNames) => {
   const msg: string[] = []
   for (const time of allDurableConsumables[p].ends) {
-    msg.push(timeReminingHours(new Date(time)))
+    msg.push(timeRemainingHours(new Date(time)))
   }
   return msg.join(', ')
 }
@@ -2028,7 +2059,7 @@ export const visualUpdateEvent = () => {
   const event = getEvent()
   if (event !== null) {
     const eventEnd = new Date(event.end)
-    DOMCacheGetOrSet('globalEventTimer').textContent = timeReminingHours(eventEnd)
+    DOMCacheGetOrSet('globalEventTimer').textContent = timeRemainingHours(eventEnd)
     DOMCacheGetOrSet('globalEventName').textContent = `(${event.name.length}) - ${event.name.join(', ')}`
 
     for (let i = 0; i < eventBuffType.length; i++) {
