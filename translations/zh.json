@@ -2195,136 +2195,136 @@
         "name": "繁殖蚁专精",
         "flavor": "自己开房去！",
         "notMaxedSelfPer": "每只繁殖蚁的产量倍率从<<gray|{{x}}>>变为<<gold|{{y}}>>",
-        "maxedSelfPer": "Each Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Breeder Mastery multiplies Worker Ant production by <<gold | {{x}}>>"
+        "maxedSelfPer": "每只繁殖蚁的产量倍率变为<<gold|{{x}}>>",
+        "effect": "<<green | ★>> 繁殖蚁专精使工蚁产量变为原来的<<gold|{{x}}>>倍"
       },
       "2": {
-        "name": "Meta-Breeder Mastery",
-        "flavor": "Two's company. Three's a crowd.",
-        "notMaxedSelfPer": "Each Meta-Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each Meta-Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Meta-Breeder Mastery multiplies Breeder Ant production by <<gold | {{x}}>>"
+        "name": "高级繁殖蚁专精",
+        "flavor": "两人为伴，三人不欢。",
+        "notMaxedSelfPer": "每只高级繁殖蚁的产量倍率从<<gray|{{x}}>>变为<<gold|{{y}}>>",
+        "maxedSelfPer": "每只高级繁殖蚁的产量倍率变为<<gold|{{x}}>>",
+        "effect": "<<green | ★>> 高级繁殖蚁专精使繁殖蚁产量变为原来的<<gold|{{x}}>>倍"
       },
       "3": {
-        "name": "Mega-Breeder Mastery",
-        "flavor": "Go big or go home.",
-        "notMaxedSelfPer": "Each Mega-Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each Mega-Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Mega-Breeder Mastery multiplies Meta-Breeder Ant production by <<gold | {{x}}>>"
+        "name": "超级繁殖蚁专精",
+        "flavor": "不成功便成仁。",
+        "notMaxedSelfPer": "每只超级繁殖蚁的产量倍率从<<gray|{{x}}>>变为<<gold|{{y}}>>",
+        "maxedSelfPer": "每只超级繁殖蚁的产量倍率变为<<gold|{{x}}>>",
+        "effect": "<<green | ★>> 超级繁殖蚁专精使高级繁殖蚁产量变为原来的<<gold|{{x}}>>倍"
       },
       "4": {
-        "name": "Queen Mastery",
-        "flavor": "Bow before me, peasants!",
-        "notMaxedSelfPer": "Each Queen Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each Queen Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Queen Mastery multiplies Mega-Breeder Ant production by <<gold | {{x}}>>"
+        "name": "蚁后专精",
+        "flavor": "蝼蚁们，向我低头！",
+        "notMaxedSelfPer": "每只蚁后的产量倍率从<<gray|{{x}}>>变为<<gold|{{y}}>>",
+        "maxedSelfPer": "每只蚁后的产量倍率变为<<gold|{{x}}>>",
+        "effect": "<<green | ★>> 蚁后专精使超级繁殖蚁产量变为原来的<<gold|{{x}}>>倍"
       },
       "5": {
-        "name": "Lord Royal Mastery",
-        "flavor": "Straight to dictator academy.",
-        "notMaxedSelfPer": "Each Lord Royal Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each Lord Royal Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Lord Royal Mastery multiplies Queen Ant production by <<gold | {{x}}>>"
+        "name": "国王蚁专精",
+        "flavor": "直通独裁者学院。",
+        "notMaxedSelfPer": "每只国王蚁的产量倍率从<<gray|{{x}}>>变为<<gold|{{y}}>>",
+        "maxedSelfPer": "每只国王蚁的产量倍率变为<<gold|{{x}}>>",
+        "effect": "<<green | ★>> 国王蚁专精使蚁后产量变为原来的<<gold|{{x}}>>倍"
       },
       "6": {
-        "name": "ALMIGHTY Mastery",
-        "flavor": "I am an eventuality.",
-        "notMaxedSelfPer": "Each ALMIGHTY Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each ALMIGHTY Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> ALMIGHTY Mastery multiplies Lord Royal Ant production by <<gold | {{x}}>>"
+        "name": "全能蚁专精",
+        "flavor": "我，终将到来。",
+        "notMaxedSelfPer": "每只全能蚁的产量倍率从<<gray|{{x}}>>变为<<gold|{{y}}>>",
+        "maxedSelfPer": "每只全能蚁的产量倍率变为<<gold|{{x}}>>",
+        "effect": "<<green | ★>> 全能蚁专精使国王蚁产量变为原来的<<gold|{{x}}>>倍"
       },
       "7": {
-        "name": "DISCIPLE Mastery",
-        "flavor": "It really does look like ants from up there.",
-        "notMaxedSelfPer": "Each DISCIPLE purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each DISCIPLE purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> DISCIPLE Mastery multiplies ALMIGHTY Ant production by <<gold | {{x}}>>"
+        "name": "神使蚁专精",
+        "flavor": "从上面看起来真的像蚂蚁。",
+        "notMaxedSelfPer": "每只神使蚁的产量倍率从<<gray|{{x}}>>变为<<gold|{{y}}>>",
+        "maxedSelfPer": "每只神使蚁的产量倍率变为<<gold|{{x}}>>",
+        "effect": "<<green | ★>> 神使蚁专精使全能蚁产量变为原来的<<gold|{{x}}>>倍"
       },
       "8": {
-        "name": "HOLY SPIRIT Mastery",
-        "flavor": "Child, the child, the child.",
-        "notMaxedSelfPer": "Each HOLY SPIRIT purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each HOLY SPIRIT purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> HOLY SPIRIT Mastery multiplies DISCIPLE production by <<gold | {{x}}>>"
+        "name": "蚁神圣灵蚁专精",
+        "flavor": "孩子啊，那孩子，即是那孩子。",
+        "notMaxedSelfPer": "每只蚁神圣灵蚁的产量倍率从<<gray|{{x}}>>变为<<gold|{{y}}>>",
+        "maxedSelfPer": "每只蚁神圣灵蚁的产量倍率变为<<gold|{{x}}>>",
+        "effect": "<<green | ★>> 蚁神圣灵蚁专精使神使蚁产量变为原来的<<gold|{{x}}>>倍"
       }
     },
     "upgrades": {
-      "sacrificeReset": "This Ant resets when you perform an Ant Sacrifice.",
-      "ascensionReset": "This Ant resets when you Ascend.",
-      "singularityReset": "This Ant resets when you perform a Singularity.",
-      "ignoreCorruption": "[<<white|♔>>] This Ant is unaffected by the effects of Corruptions.",
-      "automationUnlocked": "You've unlocked the autobuyer for this Ant Upgrade!",
+      "sacrificeReset": "该蚂蚁在蚂蚁献祭时重置数量。",
+      "ascensionReset": "该蚂蚁在飞升时重置数量。",
+      "singularityReset": "该蚂蚁在进入奇点时重置数量。",
+      "ignoreCorruption": "[<<white|♔>>]该蚂蚁不受腐化效果的影响。",
+      "automationUnlocked": "您解锁了该蚂蚁升级的自动购买！",
       "antSpeed": {
-        "name": "Inceptus Formicidae",
-        "intro": "Love is in the air.",
-        "description": "Love is in the air. Multiply your Ant Speed by {{x}} per level!",
-        "lockedAutomation": "Unlock the <i>Inceptus Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "<<crimson | Ant Speed x{{x}}>>... that's quite a bit, isn't it?"
+        "name": "创始蚁",
+        "intro": "爱无所不在。",
+        "description": "爱无所不在。每级使蚂蚁速度变为原来的{{x}}倍！",
+        "lockedAutomation": "您需要通过<<gold|<i>蚂蚁献祭</i>>>递进式成就来解锁<i>创始蚁</i>自动购买",
+        "effect": "<<crimson|蚂蚁速度变为原来的{{x}}倍>>……挺多的，对吧？"
       },
       "coins": {
-        "name": "Fortunae Formicidae",
-        "intro": "Crumbs are just a <i>little</i> bit sweeter.",
-        "description": "Improve Crumbs' multiplier to Coins.",
-        "lockedAutomation": "Unlock the <i>Fortunae Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "Crumbs give a Coin multiplier equal to <<yellow | (Crumbs)^{{x}}>>",
-        "effect2": "↳ Coin Multiplier: <<yellow | x{{x}}>>"
+        "name": "财富蚁",
+        "intro": "银河碎屑<i>略微</i>甜了一点。",
+        "description": "增加银河碎屑对金币产量的加成倍率。",
+        "lockedAutomation": "您需要通过<<gold|<i>蚂蚁献祭</i>>>递进式成就来解锁<i>财富蚁</i>自动购买",
+        "effect": "银河碎屑对金币产量的加成倍率为<<yellow | (银河碎屑数量)^{{x}}>>",
+        "effect2": "↳ 金币产量的加成倍率：<<yellow|{{x}}倍>>"
       },
       "taxes": {
-        "name": "Tributum Formicidae",
-        "intro": "Pocket ants!",
-        "description": "Pocket ants! Reduce your taxes by up to 99.5%.",
-        "lockedAutomation": "Unlock the <i>Tributum Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "Taxes are reduced by <<lightgrey | {{x}}>>"
+        "name": "示威蚁",
+        "intro": "口袋蚂蚁！",
+        "description": "口袋蚂蚁！至多使税收减少99.5%。",
+        "lockedAutomation": "您需要通过<<gold|<i>蚂蚁献祭</i>>>递进式成就来解锁<i>示威蚁</i>自动购买",
+        "effect": "税收减少<<lightgrey|{{x}}>>"
       },
       "acceleratorBoosts": {
-        "name": "Celeritas Formicidae",
-        "intro": "Eek! This ant is kinda scary, ngl.",
-        "description": "Multiply your Accelerator Boosts by up to x20!",
-        "lockedAutomation": "Unlock the <i>Celeritas Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "<<cyan | Accelerator Boosts +{{x}}>>"
+        "name": "迅捷蚁",
+        "intro": "呀！真的，这蚂蚁太吓人了。",
+        "description": "至多使加速器加成变为原来的20倍！",
+        "lockedAutomation": "您需要通过<<gold|<i>蚂蚁献祭</i>>>递进式成就来解锁<i>迅捷蚁</i>自动购买",
+        "effect": "<<cyan|使加速器加成增加{{x}}>>"
       },
       "multipliers": {
-        "name": "Exploratorem Formicidae",
-        "intro": "An international ant of mystery.",
-        "description": "Multiply your Multipliers by up to x40!",
-        "lockedAutomation": "Unlock the <i>Exploratorem Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "<<pink | Multipliers +{{x}}>>"
+        "name": "加倍蚁",
+        "intro": "神秘的国际蚂蚁。",
+        "description": "至多使加倍器数量变为原来的40倍！",
+        "lockedAutomation": "您需要通过<<gold|<i>蚂蚁献祭</i>>>递进式成就来解锁<i>加倍蚁</i>自动购买",
+        "effect": "<<pink|使加倍器数量增加{{x}}>>"
       },
       "offerings": {
-        "name": "Sacrificium Formicidae",
-        "intro": "Binds the sweet influences of Pleiades.",
-        "description": "Offering gain is multiplied by (1 + level / 10)^0.5",
-        "lockedAutomation": "Unlock the <i>Sacrificium Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "Gain <<orange | +{{x}} Offerings>> from all sources!"
+        "name": "献祭蚁",
+        "intro": "束缚昴宿星团的甘美恩泽。",
+        "description": "使祭品获取数量变为原来的 (1 + 等级 / 10)^0.5 倍",
+        "lockedAutomation": "您需要通过<<gold|<i>蚂蚁献祭</i>>>递进式成就来解锁<i>献祭蚁</i>自动购买",
+        "effect": "使祭品获取数量增加<<orange|{{x}}>>！"
       },
       "obtainium": {
-        "name": "Experientia Formicidae",
-        "intro": "An example of the <i>infinite ant theorem</i>",
-        "description": "Obtainium gain is multiplied by (1 + level / 10)^0.5",
-        "lockedAutomation": "Unlock the <i>Experientia Formicidae</i> autobuyer from the <<gold|<i>Challenge 9</i> >> Achievement Group",
-        "effect": "Gain <<pink | +{{x}} Obtainium>> from all sources!"
+        "name": "博学蚁",
+        "intro": "<i>无限蚂蚁定理</i>的范例",
+        "description": "使难得素获取数量变为原来的 (1 + 等级 / 10)^0.5 倍",
+        "lockedAutomation": "您需要通过<<gold|<i>挑战9</i>>>递进式成就来解锁<i>博学蚁</i>自动购买",
+        "effect": "使难得素获取数量增加<<pink|{{x}}>>！"
       },
       "buildingCostScale": {
-        "name": "Hic Formicidae",
-        "intro": "A builder ant! Some may call it a Carpenter Ant?",
-        "description": "+3% Building Cost Delay per level, and +1% Building Power per level!",
-        "lockedAutomation": "Unlock the <i>Hic Formicidae</i> autobuyer from the <<gold|<i>Anthills Sacrificed</i> >> Achievement Group",
-        "effect": "Building Costs take <<lime | {{x}} longer>> to spiral out of control!",
-        "effect2": "Building Power <<lime | x{{x}}>>"
+        "name": "建筑蚁",
+        "intro": "这是建筑蚁！也有人叫它们蚁匠。",
+        "description": "每级使建筑成本减缓3%，且每级使建筑能量增加1%！",
+        "lockedAutomation": "您需要通过<<gold|<i>蚁丘献祭次数</i>>>递进式成就来解锁<i>建筑蚁</i>自动购买",
+        "effect": "建筑成本减缓<<lime|{{x}}>>！",
+        "effect2": "建筑能量变为原来的<<lime|{{x}}>>倍"
       },
       "salvage": {
-        "name": "Scientia Formicidae",
-        "intro": "A rather... resourceful ant.",
-        "description": "Gain up to +120 Salvage!",
-        "lockedAutomation": "Unlock the <i>Scientia Formicidae</i> autobuyer from the <<gold|<i>Galactic Crumbs</i> >> Achievement Group",
-        "effect": "Grants <<green | +{{x}} Salvage>>!"
+        "name": "科学蚁",
+        "intro": "相当……足智多谋的蚂蚁。",
+        "description": "至多增加120回收！",
+        "lockedAutomation": "您需要通过<<gold|<i>银河碎屑</i>>>递进式成就来解锁<i>科学蚁</i>自动购买",
+        "effect": "使回收增加<<green|{{x}}>>！"
       },
       "freeRunes": {
-        "name": "Praemoenio Formicidae",
-        "intro": "It's giving some mixed signals.",
-        "description": "+1 Free Rune Level for Runes 1-5 per level, up to +3,000",
-        "lockedAutomation": "Unlock the <i>Praemoenio Formicidae</i> autobuyer from the <<gold|<i>Anthills Sacrificed</i> >> Achievement Group",
-        "effect": "Those Runes? <<cyan | +{{x}} Free Levels>>, nice!"
+        "name": "预言蚁",
+        "intro": "它发出了一些混杂的信号。",
+        "description": "每级使前五个符文的免费等级增加1，至多增加3000级",
+        "lockedAutomation": "您需要通过<<gold|<i>蚁丘献祭次数</i>>>递进式成就来解锁<i>命匣蚁</i>自动购买",
+        "effect": "符文吗？免费等级可以增加<<cyan|{{x}}级>>，是不是很棒？"
       },
       "antSacrifice": {
         "name": "Phylacterium Formicidae",
