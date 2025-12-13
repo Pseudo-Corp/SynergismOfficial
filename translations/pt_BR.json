@@ -486,58 +486,8 @@
         }
     },
     "ants": {
-        "upgrades": {
-            "1": "Promove romace e união em meio à colônia. [+12% de Velocidade de Formiga / nível]",
-            "2": "Adocica Migalhas para aumentar seu valor [Cada nível aumenta a eficiência da conversão Migalha --> Moeda, até ^50.000.000]",
-            "3": "Enxameia o Fiscal da Receita à submissão [Até -99,5% de impostos]",
-            "4": "Te assusta para correr mais rápido [até x20]",
-            "5": "Imita o seu corpo através de poedres mágicos de metamorfose [até x40]",
-            "6": "Tenta agradar o Deus Formiga... mas falha [Oferendas Adicionais!]",
-            "7": "Te ajuda a construir algumas coisas aqui e ali [+3% de Atraso no custo de Construções / nível, Máximo de 9.999.999%]",
-            "8": "Sabe temperar comida com sal e pimeta [Até x1.000 Experiência de Runa!]",
-            "9": "Consegue deixar a sua mensagem para o Deus Formiga mais clara [+1 para todos os níveis de Runas / nível, Máximo de 10 Milhões]",
-            "10": "Sabe de tudo [Obtainium adicional!]",
-            "11": "Um oferenda de valor para o Deus Formiga [Ganhe até 3x Recompensas de Sacrifício]",
-            "12": "Traia o Deus Formiga aumentando a fragilidade da sua dimensão [Desbloqueia um talismã, velocidade até duas vezes mais rápida na maioria das coisas]"
-        },
-        "descriptions": {
-            "1": "Ganhe uma Formiga Operária para o seu dia a dia. Coleta Migalhas Galáticas. Essencial!",
-            "2": "Ganhe uma Formiga Procriadora que produz Formigas Operárias automaticamente!",
-            "3": "Ganhe uma Formiga Metacriadora que poduz Formigas Procriadoras automaticamente!",
-            "4": "Ganhe uma Formiga Mega Procriadora que produz Formigas Metacriadoras automaticamente!",
-            "5": "Ganhe uma Rainha Formiga que produz Formigas Mega Procriadoras automaticamente!",
-            "6": "Ganhe um Formiga Lorde Real que produz Formigas Rainhas automaticamente!",
-            "7": "Ganhe uma FORMIGA TODA PODEROSA que produz Formigas Lordes Reais automaticamente!",
-            "8": "Ganhe DISCÍPULO DO DEUS FORMIGA que produz FORMIGAS TODO PODEROSAS automaticamente!"
-        },
-        "generates": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "7": "",
-            "8": ""
-        },
-        "rewards": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "7": "",
-            "8": "",
-            "9": "",
-            "10": "",
-            "11": "",
-            "12": ""
-        },
         "header": "",
         "hover": "",
-        "youHaveGalacticCrumbs": "",
-        "owned": "",
         "costGalacticCrumbs": "",
         "costParticles": "",
         "autoSacrificeOn": "",
@@ -548,10 +498,8 @@
         "yourAntELO": "",
         "upgradeMultiplier": "",
         "timeMultiplier": "",
-        "resetAnthill": "",
         "antSacMultiplier": "",
-        "autoReset": "",
-        "elo": ""
+        "autoReset": ""
     },
     "challenges": {
         "1": {
@@ -2392,7 +2340,6 @@
         "confirm": "",
         "intro": "",
         "traitInfo": "",
-        "antExponent": "",
         "spiritBonus": "",
         "corruptionBank": "",
         "corruptionScore": "",

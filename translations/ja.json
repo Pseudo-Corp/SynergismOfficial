@@ -1176,32 +1176,25 @@
         "antSpeed": "Ant Speed is multiplied by logarithm of Ant Sacrifice Points"
       },
       "176": {
-        "antAutobuyers": "Unlock the Breeder Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Inceptus and Fortunae Ant Autobuyers!"
+        "antAutobuyers": "Unlock the Breeder Ant Autobuyer!"
       },
       "177": {
-        "antAutobuyers": "Unlock the Meta-Breeder Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Tributum Ant Autobuyer!"
+        "antAutobuyers": "Unlock the Meta-Breeder Ant Autobuyer!"
       },
       "178": {
-        "antAutobuyers": "Unlock the Mega-Breeder Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Celeritas and Multa Ant Autobuyers!"
+        "antAutobuyers": "Unlock the Mega-Breeder Ant Autobuyer!"
       },
       "179": {
-        "antAutobuyers": "Unlock the Queen Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Sacrificium Ant Autobuyer!"
+        "antAutobuyers": "Unlock the Queen Ant Autobuyer!"
       },
       "180": {
-        "antAutobuyers": "Unlock the Lord Royal Ant Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Hic and Experientia Ant Autobuyers!"
+        "antAutobuyers": "Unlock the Lord Royal Ant Autobuyer!"
       },
       "181": {
-        "antAutobuyers": "Unlock the ALMIGHTY ANT Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Praemoenio Ant Autobuyer!"
+        "antAutobuyers": "Unlock the ALMIGHTY ANT Autobuyer!"
       },
       "182": {
-        "antAutobuyers": "Unlock the DISCIPLE OF ANT GOD Autobuyer!",
-        "antUpgradeAutobuyers": "Unlock the Scientia and Phylacterium Ant Autobuyers!"
+        "antAutobuyers": "Unlock the DISCIPLE OF ANT GOD Autobuyer!"
       },
       "186": {
         "wowSquareTalisman": "Unlock the Wow Square Talisman!"
@@ -2024,58 +2017,8 @@
     }
   },
   "ants": {
-    "upgrades": {
-      "1": "Promotes romance and unity within the colony. [+12% Ant Speed / level]",
-      "2": "Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]",
-      "3": "Swarms the Taxman into submission [Up to -99.5% taxes!]",
-      "4": "Scares you into running faster [up to x20]",
-      "5": "Imitates your body through magic shape-shifting powers [up to x40]",
-      "6": "Tries to please Ant God... but fails [Additional Offerings!]",
-      "7": "Helps you build a few things here and there [+3% Building Cost Delay / level, Cap 9,999,999%]",
-      "8": "Knows how to salt and pepper food [Up to 1,000x Rune EXP!]",
-      "9": "Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 3,000]",
-      "10": "Has big brain energy [Additional Obtainium!]",
-      "11": "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]",
-      "12": "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
-    },
-    "descriptions": {
-      "1": "Gain a Worker Ant for your everyday life. Gathers Galactic Crumbs. Essential!",
-      "2": "Gain a Breeder Ant that produces Worker Ants automatically!",
-      "3": "Gain a Meta-breeder Ant that produces Breeder Ants automatically!",
-      "4": "Gain a Mega-breeder Ant that produces Meta-breeder Ants automatically!",
-      "5": "Gain a Queen Ant that produces Mega-breeder Ants automatically!",
-      "6": "Gain a Lord Royal Ant that produces Queen Ants automatically!",
-      "7": "Gain an ALMIGHTY ANT that produces Lord Royal Ants automatically!",
-      "8": "Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!"
-    },
-    "generates": {
-      "1": "Generates {{x}} Crumbs/sec",
-      "2": "Generates {{x}} Workers/sec",
-      "3": "Generates {{x}} Breeders/sec",
-      "4": "Generates {{x}} MetaBreeders/sec",
-      "5": "Generates {{x}} MegaBreeders/sec",
-      "6": "Generates {{x}} Queens/sec",
-      "7": "Generates {{x}} Royals/sec",
-      "8": "Generates {{x}} ALMIGHTIES/sec"
-    },
-    "rewards": {
-      "1": "ALL Ants work at {{x}}x speed.",
-      "2": "Crumb --> Coin exponent is ^{{x}}",
-      "3": "Tax growth is multiplied by {{x}}",
-      "4": "Accelerator Boosts +{{x}}%",
-      "5": "Multipliers +{{x}}%",
-      "6": "Offerings x{{x}}",
-      "7": "Building Costs scale {{x}}% slower!",
-      "8": "Rune EXP is multiplied by {{x}}!",
-      "9": "Each rune has +{{x}} effective levels.",
-      "10": "Obtainium x{{x}}",
-      "11": "Sacrificing is {{x}}x as effective",
-      "12": "Global Speed is multiplied by {{x}}"
-    },
     "header": "The ants welcome you to their home.",
     "hover": "Hover over the icons for description. Click icons to buy!",
-    "youHaveGalacticCrumbs": "You have {{x}} Galactic Crumbs [{{y}}/s], providing a {{z}} Coin Multiplier",
-    "owned": "Owned: {{x}} [+{{y}}]",
     "costGalacticCrumbs": "Cost: {{x}} Galactic Crumbs",
     "costParticles": "Cost: {{x}} Particles",
     "autoSacrificeOn": "Auto Sacrifice: ON",
@@ -2088,15 +2031,9 @@
     "timeMultiplier": "Time Reward Multiplier: <<var(--lightseagreen-text-color);|{{x}}x>>",
     "immortalELO": "<<crimson | Immortal ELO:>> <<gold|{{x}}>>",
     "immortalELOAntSpeed": "↳ Ant Speed x{{x}}",
-    "resetAnthill": "Ant Sacrifice",
-    "resetAlert": "<<gold | ⚠>> Performs a <<limegreen | Reincarnation>>",
     "immortalELOGain": "• Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
     "antSacMultiplier": "↳ Ant Speed x{{x}}",
-    "offeringMultiplier": "• Gain <<orange | {{x}}x Offerings>>",
-    "obtainiumMultiplier": "• Gain <<pink | {{x}}x Obtainium>>",
-    "talismanFragments": "• Gain Some Talisman Fragments!",
     "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some Ant Speed and resources. Continue?",
-    "elo": "+{{x}} [>{{y}} ELO]",
     "antSacrifice": "Ant Sacrifice"
   },
   "challenges": {
@@ -4515,7 +4452,6 @@
     "resetCorruptionsError": "You cannot cleanse your Corruptions if you are in a Campaign, or Challenge 15!",
     "intro": "The most rewarding ventures are those few would dare to embark.",
     "traitInfo": "Select the trait levels you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
-    "antExponent": "This Ascension's climate raises Ant production to the power of <<var(--darkorchid-text-color)|{{exponent}}>>.",
     "spiritBonus": "However, it also multiplies Spirit Power by <<wheat|{{multiplier}}>>.",
     "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
     "corruptionScore": "Your Ascension Score is <<goldenrod|{{ascScore}}>></span> (base) * <<var(--crimson-text-color)|{{corrMult}}>> (Corruption mult) * <<var(--orchid-text-color)|{{bonusMult}}>> (Bonus mult) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
@@ -5950,7 +5886,6 @@
       "CubeBonus": "Athena's Cube Tribute:",
       "ConstantUpgrade4": "Constant Upgrade 4:",
       "CubeUpgrade1x3": "Cube Upgrade 1x3:",
-      "CubeUpgrade4x7": "Cube Upgrade 4x7:",
       "Challenge12": "Challenge 12:",
       "SpiritPower": "Superior Intellect Spirit:",
       "Research6x19": "Research 6x19:",
@@ -6295,8 +6230,6 @@
       "AchievementBonus": "Achievement Talisman Effect Bonus:",
       "Research106": "Research 5x6:",
       "Research107": "Research 5x7:",
-      "Research116": "Research 5x16:",
-      "Research117": "Research 5x17:",
       "Research118": "Research 5x18:",
       "Research200": "Research 8x25:",
       "CubeUpgrade50": "Cube Upgrade 5x10:",
