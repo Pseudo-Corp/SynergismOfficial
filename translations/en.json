@@ -2146,7 +2146,7 @@
         "flavor": "The mother of them all. Produces Mega-Breeders.",
         "generates": "Generates {{x}} Mega-Breeder Ants per second",
         "eloMult": "<<orchid | ☇>> Buying your first Queen Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
-        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first Queen Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.15x as fast!" 
+        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first Queen Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.15x as fast!"
       },
       "5": {
         "name": "Lord Royal Ants - Tier VI",
