@@ -2546,7 +2546,7 @@
     "1": {
       "name": "无加倍器挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "加倍器让游戏的进度有点太快了。它们可以走了！",
-      "restrictions": "立即超越，开始挑战，但加倍器将视为加速器。<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 加速器效果也减少了。且随着挑战完成次数增加，减少的数值还会继续增加！<br>☆ 加倍器会提供与加速器效果相同的金币产量加成。",
+      "restrictions": "立即超越，需要达到目标，但加倍器将视为加速器。<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 加速器效果也减少了。且随着挑战完成次数增加，减少的数值还会继续增加！<br>☆ 加倍器会提供与加速器效果相同的金币产量加成。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "基础加倍器加成增加2个！[效果增加0.02！]当前效果：",
@@ -2564,7 +2564,7 @@
     "2": {
       "name": "无加速器挑战 || 完成{{completions}}次，次数上限为{{max}}",
       "flavor": "加速器？谁要就拿去，不过是无用之物而已。",
-      "restrictions": "Transcend and reach the goal except Accelerators do nothing! <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power is reduced to be <<gold|1.25, +0.0012>> per Multiplier Boost",
+      "restrictions": "立即超越，需要达到目标，但加速器将完全失效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果除以<<gold|1.25>>，且加倍器加成的效果变为使加倍器的基础效果增加<<gold|0.0012>>。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "免费加速器增加5个！当前效果：",
@@ -2582,7 +2582,7 @@
     "3": {
       "name": "无碎片挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "很好，您是不是在想，我还能玩出什么花样来？",
-      "restrictions": "Transcend and reach the goal except you do not produce Crystals or Mythos Shards. <br> ☆ Refineries do not produce Crystals <br> ☆ Augments do not produce Mythos Shards. <br> ☆ Accelerator Power above 1 is reduced by <<gold|50%>> ",
+      "restrictions": "立即超越，需要达到目标，但您无法产生水晶或神话碎片。<br>☆ 炼油厂不产生水晶。<br>☆ 强化不产生神话碎片。<br>☆ 加速器效果超过1时，减少<<gold|50%>>。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "水晶对金币转换指数增加0.04！当前效果：",
@@ -2600,7 +2600,7 @@
     "4": {
       "name": "花费增加挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "您腰包越来越鼓了。但，没有通货膨胀？您想多了！",
-      "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Prices grow super-exponentially after <<gold|1,000>> of each Building. <br> ☆ Each completion lowers the above number by <<gold|10>> <br> ☆ Accelerator and Multiplier prices <<gold|immediately>> grow super-exponentially!",
+      "restrictions": "立即超越，需要达到目标，但金币和水晶生产者，加速器和加倍器的花费变得更高。<br>☆ 每种建筑的数量超过<<gold|1000>>以后，价格将以超指数速度增长。<br>☆ 每完成1次该挑战，上述数量还会减少<<gold|10>>。<br>☆ 加速器和加倍器的花费<<gold|立刻>>以超指数速度增长！",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "加速器花费增长减缓5次购买。当前效果：",
@@ -2618,7 +2618,7 @@
     "5": {
       "name": "钻石减少挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "您想过钻石是怎么来的吗？",
-      "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.01 / (1 + completions)]>>",
+      "restrictions": "立即超越，需要达到目标，但转生时获得的钻石数量大幅度减少！<br>☆ 钻石获取数量变为<<gold| 金币数量^[0.01 / (1 + 该挑战完成次数)]>>。",
       "goal": "目标：在挑战中达到{{value}}金币。",
       "per": {
         "1": "转生时金币对钻石的转换指数增加0.01！当前效果：",
@@ -2636,7 +2636,7 @@
     "6": {
       "name": "税收增加挑战 || 完成{{- completions}}次，次数上限为{{max}}",
       "flavor": "据说，您最近在转世……税务官如是说",
-      "restrictions": "Reincarnate and reach the goal except you pay more Tax! <br> ☆ Your Tax burden is multiplied by <<gold|3 * (1 + completions / 25)^2>> <br> ☆ Your Coin production is divided by <<gold | 1e250>>",
+      "restrictions": "立即转世，需要达到目标，但需要缴纳更多税收！<br>☆ 税负变为原来的 <<gold|3 * (1 + 该挑战完成次数 / 25)^2>> 倍<br>☆ 金币产量除以<<gold|1e250>>。",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
       "per": {
         "1": "税收减少3.5%[效果叠乘]！当前效果：",
@@ -2654,7 +2654,7 @@
     "7": {
       "name": "无加倍器/加速器挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "憎恨我，怨恨我，然后，再来到我眼前吧。",
-      "restrictions": "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Power above 1 is reduced by <<gold|95%>> <br> ☆ Your Coin production is divided by <<gold | 1e1,250>>",
+      "restrictions": "立即转世，需要达到目标，但加速器和加倍器将完全失效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 建筑能量超过1时，减少<<gold|95%>>。<br>☆ 金币产量除以<<gold|1e1250>>。",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
       "per": {
         "1": "加速器加成及加倍器加成效果指数增加0.04！当前效果：",
@@ -2672,7 +2672,7 @@
     "8": {
       "name": "花费暴增挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "转世了，您以为通货膨胀从此就消失了吗？太天真了。",
-      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices increase <<gold|50x>> faster than in Cost+ <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building costs start growing super-exponentially after <<gold|1000 + 1000 per completion>> purchased. <br> ",
+      "restrictions": "立即转世，需要达到目标，但它比花费增加挑战还要难！<br>☆ 加速器和加倍器的价格增长速度是花费增加挑战的<<gold|50倍>>。<br>☆ 神话建筑的价格也会增加！<br>☆ 每种建筑的数量超过 <<gold|1000(每次完成该挑战后再增加1000)>> 时，价格将以超指数速度增长。<br>",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
       "per": {
         "1": "基础建筑能量增加0.25！当前效果：",
@@ -2689,8 +2689,8 @@
     },
     "9": {
       "name": "无符文挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "flavor": "Bet you won't even notice Prism Rune's disappearance.",
-      "restrictions": "Reincarnate and reach the goal except Runes always have level 1 effects. <br> ☆ Your Coin production is divided by <<gold | 1e2,000,000>>. You may want a few Galactic Crumbs. <br> ☆ Your Tax burden is reduced by <<pink|99.5%>> to compensate",
+      "flavor": "我敢打赌，您根本没注意到棱柱符文消失了。",
+      "restrictions": "立即转世，需要达到目标，但符文永远只有1级时的效果。<br>☆ 金币产量除以<<gold|1e2000000>>。您可能需要一些银河碎屑。<br>☆ 作为补偿，税负减少<<pink|99.5%>>。",
       "goal": "目标：在挑战中达到{{value}}金币。",
       "per": {
         "1": "免费蚂蚁等级增加1！当前效果：",
@@ -2707,8 +2707,8 @@
     },
     "10": {
       "name": "虐待狂挑战 I || 完成{{- completions}}次，次数上限为{{- max}}",
-      "flavor": "I'm sorry for what I've unleashed onto the world. You read a note on the floor: \"You probably want about 1e300 Galactic Crumbs before you fully embrace the challenge. Try to Sacrifice some more Anthills, master your Ants and become one with the Ant God to achieve this.\"",
-      "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|25,000>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.0001 / (1 + completions)]>> <br> ☆ Mythos gain is reduced to <<gold | Coins^0.001>>",
+      "flavor": "生而为人，我很抱歉。您在地上看到一张便条：“您可能需要1e300银河碎屑才能考虑这个挑战。试着献祭蚁丘，掌控蚂蚁，与蚁神合为一体，这样才有机会完成挑战。”",
+      "restrictions": "立即转世，需要达到目标，但前五个挑战的限制将混合起来同时生效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 每种建筑的数量超过<<gold|25000>>以后，价格将以超指数速度增长。该数值受建筑成本增长减缓的影响。<br>☆ 钻石获取数量变为<<gold| 金币数量^[0.0001 / (1 + 该挑战完成次数)]>>。<br>☆ 神话获取数量变为<<gold| 金币数量^0.001>>。",
       "goal": "目标：在挑战中达到{{value}}金币。",
       "per": {
         "1": "蚂蚁基础强度分增加100！当前效果：",
@@ -2726,7 +2726,7 @@
     "11": {
       "name": "蚂蚁减少挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "二十一世纪的蚂蚁大战将所有技艺娴熟的蚂蚁都抹杀了。",
-      "restrictions": "Reach the Goal, but only free Ant Upgrade levels do anything. <br> ☆ In Challenge, each Challenge 8 completion gives <<gold|+3>> free Ant Upgrade Levels. <br> ☆ Each Challenge 9 completion gives <<gold|+5>> free Ant Upgrade levels!",
+      "restrictions": "需要达到目标，但只有免费蚂蚁升级等级才有效。<br>☆ 在该挑战中，每次完成挑战8，都可以使免费蚂蚁升级等级<<gold|增加3>>。<br>☆ 在该挑战中，每次完成挑战9，都可以使免费蚂蚁升级等级<<gold|增加5>>！",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "免费蚂蚁等级增加12！当前效果：",
@@ -2744,7 +2744,7 @@
     "12": {
       "name": "无转世挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "总之就是不行，别问原因，没有原因。",
-      "restrictions": "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! <br> ☆ Ant Speed <<gold|^0.75>>",
+      "restrictions": "立即飞升，需要达到目标，但您无法获得粒子，也无法进行转世！<br>☆ 蚂蚁速度变为原来的<<gold|0.75次方>>。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "难得素获取数量增加50%！当前效果：",
@@ -2762,7 +2762,7 @@
     "13": {
       "name": "税收激增挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "祝您好运，税务局又归来了。",
-      "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. <br> ☆ Ant Speed <<gold|^0.23>> <br> ☆ Each Transcension and Reincarnation Challenge completed multiplies your tax burden by <<gold|1.05>>",
+      "restrictions": "立即飞升，需要达到目标，但税收高得多，且随着挑战的完成次数增加。<br>☆ 蚂蚁速度变为原来的<<gold|0.23次方>>。<br>☆ 每完成1次任意超越或转世挑战后，税负变为原来的<<gold|1.05>>倍。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "税收减少3.33%！效果叠乘！当前效果： ",
@@ -2772,7 +2772,7 @@
       "first": "解锁15个研究，并且解锁五阶立方的力量！另外还解锁了更多战役和腐化！",
       "start": "开始<[(税收激增挑战)]>",
       "current": {
-        "1": "-{{value}}% Tax Burden",
+        "1": "税负减少{{value}}%",
         "2": "护身符等级上限增加{{value}}级",
         "3": "效果增加{{value}}%"
       }
@@ -2780,7 +2780,7 @@
     "14": {
       "name": "无研究挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "这个维度没能跨越黑暗时代。很多人甚至不敢越雷池一步。",
-      "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any Researches purchasable. <br> ☆ Ant Speed <<gold|^0.2>>",
+      "restrictions": "立即飞升，需要达到目标，但您无法获得难得素，也无法进行研究。<br>☆ 蚂蚁速度变为原来的<<gold|0.2次方>>。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "研究1x1至研究1x5的效果增加50%。当前效果： ",
@@ -2798,7 +2798,7 @@
     "15": {
       "name": "虐待狂挑战 II || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "袖手旁观是人类最大的原罪。",
-      "restrictions": "Ascend and reach the goal but you're stuck in all Corruptions at level 11. <br> ☆ Ant Speed <<gold|^0.5>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>> <br> ☆ Your Tax burden is reduced by <<pink|99.9995%>>",
+      "restrictions": "立即飞升，需要达到目标，但腐化全部为11级。<br>☆ 蚂蚁速度变为原来的<<gold|0.5次方>>。<br>☆ 财富蚁的效果变为原来的<<gold|0.0001>>倍。<br>☆ 税负减少<<pink|99.9995%>>。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "世人多可笑",
@@ -2868,7 +2868,7 @@
       "24": "真惊奇！我想让普路托斯的贡品加成更高。",
       "25": "真惊奇！我想让摩洛克的贡品加成更高。",
       "26": "真惊奇！我想要在飞升后就有符文等级。",
-      "27": "Wow! I want to start Ascensions with one of each Reincarnation Building.",
+      "27": "真惊奇！我想要在飞升后就有各一个粒子建筑。",
       "28": "真惊奇！我想让转世变得更加过时。",
       "29": "真惊奇！我想要增加转世挑战的完成次数上限。",
       "30": "真惊奇！我想要随意增加方盒和超立方的获取数量。",
@@ -2888,9 +2888,9 @@
       "44": "真惊奇！我想让米达斯的贡品加成更高。",
       "45": "真惊奇！我想让赫尔墨斯的贡品加成更高。",
       "46": "真惊奇！我想要更多更多的祭品！",
-      "47": "Wow! I want Auto Obtainium to mean something again!",
-      "48": "Wow! I want to ALWAYS generate Galactic Crumbs.",
-      "49": "Wow! I want to ALWAYS have as much Immortal ELO as I can.",
+      "47": "真惊奇！我想让自动获得难得素重新变得有用！",
+      "48": "真惊奇！我想要常时产生一些银河碎屑。",
+      "49": "真惊奇！我想要常时拥有尽可能多的不朽强度分。",
       "50": "真惊奇！我想要获得静月千阴的启迪。",
       "51": "真惊奇！这是一堆巧克力曲奇饼干。",
       "52": "真惊奇！这是一堆糖饼干。",
@@ -2945,7 +2945,7 @@
       "19": "[2x9]解锁新的金币升级。",
       "20": "[2x10]商店中的自动符文会自动献祭祭品并平均分配给所有已解锁的符文了。它的购买速度也变为了原来的20倍。希望您玩的开心！",
       "21": "[3x1]或许分数能让您获益更多？每级使飞升分数增加5%。",
-      "22": "[3x2] The effect of Artemis Tributes is raised to the power of (1 + level / 100).",
+      "22": "[3x2]使阿尔忒弥斯的贡品效果变为原来的 (1 + 等级 / 100) 次方。",
       "23": "[3x3]每开启20个方盒，就额外获得1个随机贡品。",
       "24": "[3x4]普路托斯教导您交易的艺术。普路托斯的贡品效果变为原来的 (1 + 等级 / 100) 次方。",
       "25": "[3x5]摩洛克帮助您与蚁神沟通。摩洛克的贡品效果变为原来的 (1 + 等级 / 100) 次方。",
@@ -2970,10 +2970,10 @@
       "44": "[5x4]总之米达斯更努力工作。米达斯的贡品效果变为原来的 (1 + 等级 / 100) 次方。",
       "45": "[5x5]总之赫尔墨斯更努力工作。赫尔墨斯的贡品效果变为原来的 (1 + 等级 / 100) 次方。",
       "46": "[5x6]每级多获得5%祭品！",
-      "47": "[5x7] Wish granted. Auto Obtainium now gives Obtainium based on your Ant Sacrifice rewards, if it is greater than Reincarnation-based Obtainium gain.",
-      "48": "[5x8] Your Worker Ant at the start of Ascensions can now generate crumbs, even without having Challenge 8 cleared!",
-      "49": "[5x9] Immortal ELO is now automatically gained, without having to Sacrifice your ants!",
-      "50": "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, 0.00066% Tax reduction per level. Every 10,000 levels grant +0.6% Talisman Power!",
+      "47": "[5x7]如您所愿。自动获得难得素将变为根据蚂蚁献祭的奖励来获取，只要它的数值比转世的更高。",
+      "48": "[5x8]即使没有完成过挑战8，工蚁也可以在飞升后就产生银河碎屑了！",
+      "49": "[5x9]不朽强度分不需要献祭也可以自动获得了！",
+      "50": "[5x10]这有提升不了的吗？每级使加速器、加倍器、加速器加成的数量增加0.01%，难得素获取数量和祭品获取数量增加0.02%，税收减少0.00066%。每10000级还可以使护身符强度增加0.6%！",
       "51": "[Cx1]惊奇烘焙坊开张了！！！立刻解锁惊奇方盒选项卡下和研究选项卡下的所有自动化升级。",
       "52": "[Cx2]吃完这些糖饼干血糖一定会飙升的。每级使全局速度增加1%。",
       "53": "[Cx3]美味可口的小点心。每级使夸克获取数量增加0.1%。",
@@ -2988,7 +2988,7 @@
       "62": "[Cx12]Platonic很喜欢太妃糖。使挑战15中难得素获取数量和祭品获取数量变为原来的8倍。",
       "63": "[Cx13]布朗尼曲奇，两全其美。使惊奇方盒获取数量基于七阶立方的数量而增加1%(每数量级增加3%)。",
       "64": "[Cx14]有人说这是蚁神的造物。当您开启PLATONIC方盒获得塑像时，使获取量翻倍。",
-      "65": "[Cx15] That's amore, but is quite a crumbful! Multiply Ant Speed by 1.004 per purchased Worker Ant.",
+      "65": "[Cx15]爱意满满，碎屑多多！每购买1只工蚁，就使蚂蚁速度变为原来的1.004倍。",
       "66": "[Cx16]您永远吃不腻的饼干。在购买PLATONIC·欧米伽升级之前，使所有类型的方盒、立方和方块获取数量翻倍。",
       "67": "[Cx17]这里面都是什么玩意？？？不管了，总之玄学护身符的等级上限增加1337。",
       "68": "[Cx18]什么情况，这根本就不是饼干！每级使夸克获取数量增加0.01%，达到等级上限1000时可以使夸克获取数量再增加5%！",
@@ -3056,9 +3056,9 @@
       "25": "[1x25]每级使基础祭品获取数量增加0.6。",
       "26": "[2x1]每级使水晶生产者产量变为之前的150%(效果叠乘)。",
       "27": "[2x2]每级使水晶生产者产量变为之前的150%(效果叠乘)。",
-      "28": "[2x3] You know the formula for the Crystal multiplier to Coins? Add 0.08 to its Exponent per level!",
-      "29": "[2x4] Same as [2x3]. Add 0.08 to its Exponent per level!",
-      "30": "[2x5] Half of [2x3]. Add 0.04 to its Exponent per level!",
+      "28": "[2x3]您知道水晶对金币产量的加成公式吗？每级使该公式的指数增加0.08！",
+      "29": "[2x4]与[2x3]相同，每级使指数增加0.08！",
+      "30": "[2x5]只有[2x3]的一半，每级使指数增加0.04！",
       "31": "[2x6]想要稍微划划水吗？每级可以使离线时间上限增加4小时(基础值为72小时)。",
       "32": "[2x7]想要多划几次水吗？每级可以使离线时间上限再增加4小时！",
       "33": "[2x8]每级使神话碎片的加倍器加成增加11%。",
@@ -3079,18 +3079,18 @@
       "48": "[2x23]解锁转世升级6-10。[升级花费在100000至1e22粒子之间]",
       "49": "[2x24]解锁转世升级11-15。[升级花费在1e30至1e60粒子之间]",
       "50": "[2x25]解锁转世升级16-20。[建议到能完成挑战8时再购买此升级！]",
-      "51": "[3x1] Reduces your tax burden by 6% per level.",
-      "52": "[3x2] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
-      "53": "[3x3] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
-      "54": "[3x4] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
-      "55": "[3x5] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
+      "51": "[3x1]每级使税负减少6%。",
+      "52": "[3x2]每级使税负减少5%(效果与其他税负减少效果叠乘)。",
+      "53": "[3x3]每级使税负减少5%(效果与其他税负减少效果叠乘)。",
+      "54": "[3x4]每级使税负减少5%(效果与其他税负减少效果叠乘)。",
+      "55": "[3x5]每级使税负减少5%(效果与其他税负减少效果叠乘)。",
       "56": "[3x6]每级使建筑成本增长减缓0.5%。",
       "57": "[3x7]每级使建筑成本增长减缓0.5%。",
       "58": "[3x8]每级使建筑成本增长减缓0.5%。",
       "59": "[3x9]每级使建筑成本增长减缓0.5%。",
       "60": "[3x10]每级使建筑成本增长减缓0.5%。",
-      "61": "[3x11] Waiting to Reincarnate gives you more Obtainium when you finally do. Gain 50% of that amount increase, without having to Reincarnate! This does <b>NOT</b> effect Obtainium you would gain on Reincarnation, so it's like double dipping!",
-      "62": "[3x12] Adds a flat +10% to [3x11]'s effect per level.",
+      "61": "[3x11]不需要转世也能自动获得难得素了，每秒可以获得该数值50%的难得素！而且它<b>不</b>影响转世时的获取数量！",
+      "62": "[3x12]每级使[3x11]的效果数值增加10%。",
       "63": "[3x13]如果转世持续时间超过2秒，则每级使基础难得素获取数量增加1。",
       "64": "[3x14]如果转世持续时间超过5秒，则每级使基础难得素获取数量增加2。",
       "65": "[3x15]每级使难得素获取数量增加20%。就这么简单！",
@@ -3105,10 +3105,10 @@
       "74": "[3x24]在转世挑战中自动完成挑战4。",
       "75": "[3x25]在转世挑战中自动完成挑战5。",
       "76": "[4x1]每级使难得素获取数量增加10%，以帮助您购买后续研究！",
-      "77": "[4x2] Here's +1 Rune Coefficient to Thrift Rune, per level!",
-      "78": "[4x3] Here's +1 Rune Coefficient to Speed Rune, per level!",
+      "77": "[4x2]每级使节俭符文的符文系数增加1！",
+      "78": "[4x3]每级使加速符文的符文系数增加1！",
       "79": "[4x4]每级使棱柱符文的符文系数增加1！",
-      "80": "[4x5] Here's +1 Rune Coefficient to Duplication Rune, per level!",
+      "80": "[4x5]每级使重叠符文的符文系数增加1！",
       "81": "[4x6]您觉得前面的研究太贵了？您会需要这个的！[每级使难得素获取数量增加10%]",
       "82": "[4x7]永久解锁卓越智慧符文！[加成：祭品获取数量、难得素获取数量和蚂蚁速度]",
       "83": "[4x8]觉得新符文升级太慢了吗？此研究每级可以使它的经验值获取数量增加5%。",
@@ -3124,9 +3124,9 @@
       "93": "[4x18]您每有20级符文等级，每级就获得1个加速器加成。",
       "94": "[4x19]您每有8级符文等级，每级就获得20个加倍器。",
       "95": "[4x20]购买后使基础祭品获取数量增加4。简明易懂。",
-      "96": "[4x21] Ants slow? Multiply Ant Speed by (1 + 0.0002 * level) per Worker Ant purchased.",
-      "97": "[4x22] Add +2 free levels to Ant Upgrades per level! Free levels require a corresponding purchased level to work!",
-      "98": "[4x23] Add +2 more free levels to Ant Upgrades per level!",
+      "96": "[4x21]蚂蚁很慢吗？每购买1只工蚁，就使蚂蚁速度变为原来的 (1 + 0.0002 * 等级) 倍。",
+      "97": "[4x22]每级使蚂蚁升级的免费等级增加2！免费等级需要有相应数量的购买等级才能生效！",
+      "98": "[4x23]每级使蚂蚁升级的免费等级再增加2！",
       "99": "[4x24]夸克商店的诱惑太强无法自制了？每级使每小时导出奖励增加1夸克！",
       "100": "[4x25]好吧，Platonic彻底疯了。每级使每小时导出奖励再增加1夸克！",
       "101": "[5x1]要不，每级使创始蚁的效果增加0.001？",
@@ -3138,7 +3138,7 @@
       "107": "[5x7]使用难得素粉末精炼护身符，每级再次使护身符强度增加0.1%。",
       "108": "[5x8]一个简单的小把戏就可以每级使蚂蚁基础强度分增加25！",
       "109": "[5x9]一个更复杂一点的小把戏就可以每级再次使蚂蚁基础强度分增加25！",
-      "110": "[5x10] Each Reborn ELO multiplies Ant Speed by 1.02. Woah! You should create these 2% faster per level.",
+      "110": "[5x10]每1点重生强度分使蚂蚁速度变为原来的1.02倍。哇！每级加速2%。",
       "111": "[5x11]每级使加速符文的符文系数再度增加1！",
       "112": "[5x12]每级使重叠符文的符文系数再度增加1！",
       "113": "[5x13]每级使棱柱符文的符文系数再度增加1！",
