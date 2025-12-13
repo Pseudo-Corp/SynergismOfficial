@@ -397,7 +397,7 @@ export async function handleLogin () {
         discord && account.member.roles?.includes(GOLDEN_SMITH_GOD) ? checkMark(0.8) : exMark
       }
         <span style="color: #ffcc00">Diamond Smith Messiah</span> [+1%] - ${
-        discord && account.member.roles?.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1.2) : exMark
+        discord && account.member.roles?.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1) : exMark
       }
       </div>
 
