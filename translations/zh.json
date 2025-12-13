@@ -185,7 +185,7 @@
       "ambrosiaTalismanBonusRuneLevel": {
         "name": "护身符神肴嵌入模块",
         "description": "依靠许多神肴的力量，每级使护身符强度增加0.5%！与其他同类效果叠加。",
-        "effect": "护身符强度增加了{{amount}}%。"
+        "effect": "Talisman Power is increased by {{amount}}"
       },
       "ambrosiaRuneOOMBonus": {
         "name": "符文系数模块",
@@ -334,6 +334,11 @@
         "name": "阴阳：回收版",
         "description": "奇怪的是，该升级每级会同时使正数回收和负数回收的数值增加10！<<orange|在税务官的最后阵地中禁用>>",
         "effect": "您的正数回收和负数回收数值都增加了{{amount}}。"
+      },
+      "blueberries": {
+        "name": "Berries that are... blue?",
+        "description": "They look like Blueberries. They act like Blueberries. You're not really sure if they're Blueberries.",
+        "effect": "Your Blueberry inventory is increased by {{amount}}"
       }
     }
   },
@@ -466,27 +471,27 @@
       "124": "加倍器没效果，游戏评分0/5：完成十次无加倍器/加速器挑战。",
       "125": "加速器也没效果，游戏评分-5/5：完成十五次无加倍器/加速器挑战。",
       "126": "连加速器加成都没效果，游戏评分-100/5：完成二十五次无加倍器/加速器挑战。",
-      "127": "我恨这个挑战：完成一次花费暴增挑战。",
-      "128": "代价高昂的错误：完成两次花费暴增挑战。",
-      "129": "原动力：完成三次花费暴增挑战。",
-      "130": "您破产了吗？：完成五次花费暴增挑战。",
-      "131": "金融世界：完成十次花费暴增挑战。",
-      "132": "边际收益：完成二十次花费暴增挑战。",
-      "133": "这些我买了：完成二十五次花费暴增挑战。",
-      "134": "不可知论：完成一次无符文挑战。",
-      "135": "反蚁符文：完成两次无符文挑战。",
-      "136": "是不是有点厌烦了？：完成三次无符文挑战。",
-      "137": "机器不接受祭品：完成五次无符文挑战。",
-      "138": "符文弱爆了，游戏评分1/5：完成十次无符文挑战。",
-      "139": "棱柱符文什么时候不见了没注意：完成二十次无符文挑战。",
-      "140": "无神论：完成二十五次无符文挑战。",
-      "141": "抖S：完成一次虐待狂挑战 I。",
-      "142": "抖M：完成两次虐待狂挑战 I。",
-      "143": "精神错乱：完成三次虐待狂挑战 I。",
-      "144": "怎么？：完成五次虐待狂挑战 I。",
-      "145": "为何？：完成十次虐待狂挑战 I。",
-      "146": "落凡：完成二十次虐待狂挑战 I。",
-      "147": "宇宙的尽头：完成二十五次虐待狂挑战 I。",
+      "127": "I hate this challenge: Complete {[Cost++]} once.",
+      "128": "A costly mistake: Complete {[Cost++]} twice.",
+      "129": "Impetus: Complete {[Cost++]} Three times.",
+      "130": "Are you broke yet? Complete {[Cost++]} five times.",
+      "131": "The world of Finance: Complete {[Cost++}] ten times.",
+      "132": "Marginal Gains: Complete {[Cost++]} fifteen times.",
+      "133": "I buy these: Complete {[Cost++]} twenty-five times.",
+      "134": "Agnostic: Complete {[No Runes]} once.",
+      "135": "Ant-i Runes: Complete {[No Runes]} twice.",
+      "136": "Isn't it getting tiresome?: Complete {[No Runes]} three times.",
+      "137": "Machine does not accept offerings: Complete {[No Runes]} five times.",
+      "138": "Runes Suck 1/5: Complete {[No Runes]} ten times.",
+      "139": "I didn't even notice Prism was gone: Complete {[No Runes]} twenty times.",
+      "140": "Atheist: Complete {[No Runes]} twenty-five times.",
+      "141": "Sadism: Complete {[Sadistic I]} once.",
+      "142": "Masochism: Complete {[Sadistic I]} twice.",
+      "143": "Insanity: Complete {[Sadistic I]} three times.",
+      "144": "How?: Complete {[Sadistic I]} five times.",
+      "145": "Why?: Complete {[Sadistic I]} ten times.",
+      "146": "Descend: Complete {[Sadistic I]} twenty times.",
+      "147": "End of the Universe: Complete {[Sadistic I]} twenty-five times.",
       "148": "Gas gas gas(译者注：来自《头文字D》插曲)：购买5个加速器。",
       "149": "从0到25：购买25个加速器。",
       "150": "从0到100：购买100个加速器。",
@@ -513,15 +518,15 @@
       "171": "六道菜的大餐：获得666666666个银河碎屑。",
       "172": "囤积食物：获得1e20个银河碎屑。",
       "173": "点击饼干：获得1e40个银河碎屑。",
-      "174": "无限的面包棒！：获得1e500个银河碎屑。",
+      "174": "Unlimited Bread Sticks!: Obtain 1e250 Galactic Crumbs.",
       "175": "宇宙尽头的餐馆：获得1e2500个银河碎屑。",
-      "176": "蚁之期待！：通过献祭获得2x的蚂蚁速度倍率并拥有一个T2蚂蚁。",
-      "177": "蚁之前提：通过献祭获得6x的蚂蚁速度倍率并拥有一个T3蚂蚁。",
-      "178": "蚂蚁是朋友，不是食物！：通过献祭获得20x的蚂蚁速度倍率并拥有一个T4蚂蚁。",
-      "179": "蚁之魔？：通过献祭获得100x的蚂蚁速度倍率并拥有一个T5蚂蚁。",
-      "180": "世界上最好的厨师：通过献祭获得500x的蚂蚁速度倍率并拥有一个T6蚂蚁。",
-      "181": "米其林6星：通过献祭获得6666x的蚂蚁速度倍率并拥有一个T7蚂蚁。",
-      "182": "宇宙尽头的餐馆的钥匙：通过献祭获得77777x的蚂蚁速度倍率并拥有一个T8蚂蚁。",
+      "176": "Ant-icipation!: Reach 50 Immortal ELO and own a Tier 2 Ant.",
+      "177": "Ant-ecedent: Reach 200 Immortal ELO and own a Tier 3 Ant.",
+      "178": "Ants are friends, not food!: Reach 500 Immortal ELO and own a Tier 4 Ant.",
+      "179": "Ant Devil?: Reach 1,000 Immortal ELO and own a Tier 5 Ant.",
+      "180": "The world's best chef: Reach 2,500 Immortal ELO and own a Tier 6 Ant.",
+      "181": "6 Michelin Stars: Reach 20,000 Immortal ELO and own a Tier 7 Ant.",
+      "182": "Keys to the Restaurant at the end of the Universe: Reach 100,000 Immortal ELO and own a Tier 8 Ant.",
       "183": "向上走：进行1次飞升。",
       "184": "双倍向上：进行2次飞升。",
       "185": "我要打十个！：进行10次飞升。",
@@ -557,7 +562,7 @@
       "215": "'Platonic的税收弱爆了，游戏评分1/5'：完成十次税收激增挑战。",
       "216": "哈哈因为某些原因这是有点难：完成二十次税收激增挑战。",
       "217": "严苛的税收：完成三十次税收激增挑战。",
-      "218": "发亮的蓝石：完成一次无研究挑战。",
+      "218": "Shiny Blue Rock: Clear 'No Research' once.",
       "219": "就像阿凡达一样：完成两次无研究挑战。",
       "220": "这回真的难得了：完成三次无研究挑战。",
       "221": "就像那啥一样：完成五次无研究挑战。",
@@ -686,9 +691,9 @@
       "344": "有点碎的成就：获得1e25000个银河碎屑。",
       "345": "懂了吗？是碎屑：获得1e125000个银河碎屑。",
       "346": "您显然懂了：获得1e1000000个银河碎屑。",
-      "347": "戈登·拉姆齐：通过蚂蚁献祭积累1e50x的蚂蚁速度倍率。",
-      "348": "沃夫甘·柏克：通过蚂蚁献祭积累1e200x的蚂蚁速度倍率。",
-      "349": "马可·皮埃尔·怀特：通过蚂蚁献祭积累1e1000x的蚂蚁速度倍率。",
+      "347": "Gordon Ramses: Reach 400,000 Immortal ELO.",
+      "348": "Wolfgang Pluck: Reach 1,500,000 Immortal ELO.",
+      "349": "Marco Pierre Blanco: Reach 5,000,000 Immortal ELO, and purchase a Tier IX Ant.",
       "350": "建议飞升：进行1e16次飞升。",
       "351": "不轻诺，故无悔​​：进行1e20次飞升。",
       "352": "无瑕飞升：进行1e25次飞升。",
@@ -819,7 +824,18 @@
       "477": "变得面无表情：进行100000000000(1e11)次转世。",
       "478": "一万亿次转世之后：进行1000000000000(1e12)次转世。",
       "479": "记录十三之恐惧症：进行13131313131313(1.3e13)次转世。",
-      "480": "M2：进行2e14次转世。"
+      "480": "M2：进行2e14次转世。",
+      "481": "The Sacrificial Ant: Sacrifice your Anthill once.",
+      "482": "Building back better: Sacrifice your Anthill 10 times.",
+      "483": "A feast for a god: Sacrifice your Anthill 50 times.",
+      "484": "Quartering: Sacrifice your Anthill 250 times.",
+      "485": "Blemished Altar: Sacrifice your Anthill 1,250 times.",
+      "486": "Formicae Caedem: Sacrifice your Anthill 5,000 times.",
+      "487": "King of Kings: Sacrifice your Anthill 20,000 times.",
+      "488": "Lord of Lords: Sacrifice your Anthill 80,000 times.",
+      "489": "Why are we here?: Sacrifice your Anthill 250,000 times.",
+      "490": "Just to suffer?: Sacrifice your Anthill 1,000,000 times.",
+      "491": "Scorched Earth: Sacrifice your Anthill 3,000,000 times."
     },
     "achievementRewards": {
       "3": {
@@ -1102,7 +1118,8 @@
         "salvage": "使回收增加7"
       },
       "137": {
-        "sacrificeMult": "使献祭倍率变为原来的1.25倍"
+        "sacrificeMult": "x1.25 Sacrifice Rewards!",
+        "experientiaAutobuy": "Unlock the <i>Experientia</i> Ant Upgrade Autobuyer!"
       },
       "139": {
         "multiplicativeObtainium": "使难得素获取数量变为原来的1.05倍"
@@ -1173,35 +1190,42 @@
         "antAutobuyers": "解锁一个蚂蚁自动购买！"
       },
       "174": {
-        "antSpeed": "使蚂蚁速度乘以蚂蚁献祭点数的对数"
+        "antSpeed": "+0.1% Ant Speed per Immortal ELO!",
+        "scientiaAutobuy": "Unlock the <i>Scientia</i> Ant Upgrade Autobuyer!"
       },
       "176": {
         "antAutobuyers": "解锁繁殖蚁自动购买！",
-        "antUpgradeAutobuyers": "解锁创始蚁和财富蚁自动购买！"
+        "inceptusAutobuy": "Unlock the <i>Inceptus</i> Ant Upgrade Autobuyer!",
+        "fortunaeAutobuy": "Unlock the <i>Fortunae</i> Ant Upgrade Autobuyer!"
       },
       "177": {
         "antAutobuyers": "解锁高级繁殖蚁自动购买！",
-        "antUpgradeAutobuyers": "解锁示威蚁自动购买！"
+        "tributumAutobuy": "Unlock the <i>Tributum</i> Ant Upgrade Autobuyer!"
       },
       "178": {
         "antAutobuyers": "解锁超级繁殖蚁自动购买！",
-        "antUpgradeAutobuyers": "解锁迅捷蚁和加倍蚁自动购买！"
+        "celeritasAutobuy": "Unlock the <i>Celeritas</i> Ant Upgrade Autobuyer!",
+        "exploratoremAutobuy": "Unlock the <i>Exploratorem</i> Ant Upgrade Autobuyer!"
       },
       "179": {
         "antAutobuyers": "解锁蚁后自动购买！",
-        "antUpgradeAutobuyers": "解锁献祭蚁自动购买！"
+        "sacrificiumAutobuy": "Unlock the <i>Sacrificium</i> Ant Upgrade Autobuyer!"
       },
       "180": {
-        "antAutobuyers": "解锁国王蚁自动购买！",
-        "antUpgradeAutobuyers": "解锁建筑蚁和博学蚁自动购买！"
+        "antAutobuyers": "解锁国王蚁自动购买！"
       },
       "181": {
-        "antAutobuyers": "解锁全能蚁自动购买！",
-        "antUpgradeAutobuyers": "解锁预言蚁自动购买！"
+        "antAutobuyers": "解锁全能蚁自动购买！"
       },
       "182": {
-        "antAutobuyers": "解锁神使蚁自动购买！",
-        "antUpgradeAutobuyers": "解锁科学蚁和命匣蚁自动购买！"
+        "antAutobuyers": "解锁神使蚁自动购买！"
+      },
+      "183": {
+        "freeAntUpgrades": "Gain 2 free Ant Upgrade Levels!"
+      },
+      "184": {
+        "preserveAnthillCount": "Preserve Anthill Count on Ascension!",
+        "antSacrificeCountMultiplier": "Double the amount of Anthills you Sacrifice at once! (only contributes to more Anthill count)"
       },
       "186": {
         "wowSquareTalisman": "解锁惊奇正方形护身符！"
@@ -1396,6 +1420,9 @@
       "271": {
         "platonicToHypercubes": "开启PLATONIC方盒时，可以获得惊奇五阶立方[在1e1000000数学常数时达到上限1个]"
       },
+      "349": {
+        "antAutobuyers": "Automatically buy HOLY SPIRIT OF ANT GOD Ants!"
+      },
       "382": {
         "salvage": "使回收增加3"
       },
@@ -1513,6 +1540,30 @@
       "474": {
         "prestigeCountMultiplier": "基于转生时间，增加转生次数获取数量(在1000000秒时达到上限4倍)",
         "ascensionCountMultiplier": "基于飞升时间，增加飞升次数获取数量(在1000000秒时达到上限1.25倍)"
+      },
+      "481": {
+        "freeAntUpgrades": "Gain +1 free Ant Upgrade level!"
+      },
+      "482": {
+        "antSacrificeCountMultiplier": "Each Sacrifice adds +2 to your Anthill count instead of +1!",
+        "hicAutobuy": "Unlock the <i>Hic</i> Ant Upgrade Autobuyer!"
+      },
+      "483": {
+        "autoAntSacrifice": "Unlock the Auto-Sacrifice feature!"
+      },
+      "484": {
+        "antELOAdditiveMultiplier": "Gain +1% Ant ELO from all sources!",
+        "praemoenioAutobuy": "Unlock the <i>Praemoenio</i> Ant Upgrade Autobuyer!"
+      },
+      "485": {
+        "antELOAdditive": "Gain +25 Ant ELO, all the time!"
+      },
+      "486": {
+        "antSpeed2UpgradeImprover": "The first N levels of <i>Impia Reproducta</i> give an extra Ant ELO, where N is your Synergism Level!",
+        "phylacteriumAutobuy": "Unlock the <i>Phylacterium</i> Ant Upgrade Autobuyer!"
+      },
+      "490": {
+        "preserveAnthillCountSingularity": "Preserve your Anthil Count when you do something <span class='rainbowText'>even more impressive than an Ascension!</span>"
       }
     },
     "rewards": {
@@ -1716,6 +1767,7 @@
       "prestigeCount": "转生次数",
       "transcensionCount": "超越次数",
       "reincarnationCount": "转世次数",
+      "sacCount": "Anthills Sacrificed",
       "ungrouped": "杂项"
     },
     "rewardTypes": {
@@ -1767,7 +1819,7 @@
       "antAutobuyers": "• 蚂蚁自动购买{{val}}",
       "antUpgradeAutobuyers": "• 蚂蚁升级自动购买{{val}}",
       "antELOAdditive": "• 使蚂蚁强度分增加{{val}}",
-      "antELOMultiplicative": "• 使蚂蚁强度分变为原来的{{val}}倍",
+      "antELOMultiplicative": "• Reborn ELO Creation Speed x{{val}}",
       "ascensionCountMultiplier": "• 使飞升次数变为原来的{{val}}倍",
       "ascensionCountAdditive": "• 使飞升次数增加{{val}}",
       "allCubeGain": "• 使所有类型的方盒、立方和方块获取数量变为原来的{{val}}倍",
@@ -1810,6 +1862,11 @@
         "name": "难得素获取数量倍率",
         "description": "当协同效应等级超过14级以后，每级使难得素获取数量变为原来的1.01倍。该数值在100级后，每级还会变为原来的1.02倍！",
         "effect": "当前效果：难得素获取数量增加{{mult}}"
+      },
+      "ants": {
+        "name": "More Ant Fodder for your Ant Diety",
+        "description": "Oh! Your Ant God takes note of your Synergism Level. Gain base Ant ELO for each level above 59. +25 per level until Level 100, +50 per level until level 200, and +100 for each additional level.",
+        "effect": "Current Effect: +{{elo}} Ant ELO"
       },
       "wowCubes": {
         "name": "惊奇方盒获取数量",
@@ -1932,6 +1989,26 @@
         "name": "回收挑战强化",
         "description": "获得25回收。<br>如果您正在进行任何挑战，该数值将翻倍。<br>如果您正在进行挑战15，该数值将翻倍。<br>如果您在拔擢中，该数值将变为原来的3倍！<br>效果可以相互叠乘。",
         "effect": "当前效果：回收增加{{salvage}}"
+      },
+      "antSpeed2Autobuyer": {
+        "name": "Impia Reproducta Autobuyer",
+        "description": "Autobuy Impia Reproducta Formicidae if you have autobuy enabled!",
+        "effect": "Current Effect: See Above!"
+      },
+      "wowCubesAutobuyer": {
+        "name": "Cubus Admirabilis Autobuyer",
+        "description": "Autobuy Cubus Admirabilis Formicidae if you have autobuy enabled!",
+        "effect": "Current Effect: See Above!"
+      },
+      "ascensionScoreAutobuyer": {
+        "name": "Ascendens Autobuyer",
+        "description": "Autobuy Ascendens Formicidae if you have autobuy enabled!",
+        "effect": "Current Effect: See Above!"
+      },
+      "mortuus2Autobuyer": {
+        "name": "Mortuus Iterum Autobuyer",
+        "description": "Autobuy Mortuus Iterum Formicidae if you have autobuy enabled!",
+        "effect": "Current Effect: See Above!"
       }
     },
     "progressiveAchievements": {
@@ -1944,6 +2021,16 @@
         "name": "递进式成就 - 免费符文等级",
         "description": "根据所有符文的免费等级之和获得成就点数！最高总和：{{x}}",
         "apSource": "在25000级之前，每有250级免费等级，就获得1成就点数。<br>25000级至150000级之间，每有750级免费等级，就获得1成就点数。<br>150000级至500000级之间，每有2500级免费等级，就获得1成就点数。"
+      },
+      "antMasteries": {
+        "name": "Progressive Achievement - Ant Masteries",
+        "description": "Gain AP based on your unique Ant Mastery levels purchsed! Best Total: {{x}}",
+        "apSource": "Gain +3 AP for every unique level purchased. <br> Gain +4 AP for every unique level 12 Mastery."
+      },
+      "rebornELO": {
+        "name": "Progressive Achievement - Reborn ELO",
+        "description": "Gain AP based on the total weighted value of your best Reborn ELO, lifetime! Best Total: {{x}} (Check the \"Ants to Quark Corner\" in the Altar Subtab)",
+        "apSource": "Gain +1 AP per 100 Reborn ELO, up to 10,000. <br> Gain +1 AP per 1000 Reborn ELO, up to 150,000. <br> Gain +1 AP per 9,000 Reborn ELO, up to 1,350,000. <br> Gain +1 AP per 75,000 Reborn ELO, up to 15,000,000. <br> Gain +1 AP per 100,000 Reborn ELO, up to 40,000,000."
       },
       "singularityCount": {
         "name": "递进式成就 - 奇点次数",
@@ -2029,59 +2116,386 @@
     }
   },
   "ants": {
+    "producers": {
+      "0": {
+        "name": "Worker Ants - Tier I",
+        "flavor": "The backbone of any colony. Gathers Galactic Crumbs.",
+        "generates": "Generates {{x}} Crumbs per second",
+        "eloInformation": "<<gold | ⤬>> Each Worker Ant you buy grants you <<orchid | +{{x}} Ant ELO>> for Ant Sacrifice.",
+        "reincarnationUpgrade17": "Ant Speed from Reincarnation Upgrade 4x2: <<gold | {{x}}x>>",
+        "research": "Ant Speed from Research 4x21: <<gold | {{x}}x>>",
+        "cookieUpgrade": "Ant Speed from Cookie Upgrade 2x15: <<gold | {{x}}x>>"
+      },
+      "1": {
+        "name": "Breeder Ants - Tier II",
+        "flavor": "Produces Worker Ants automatically. The colony grows.",
+        "generates": "Generates {{x}} Worker Ants per second"
+      },
+      "2": {
+        "name": "Meta-Breeder Ants - Tier III",
+        "flavor": "Slightly bigger. Can produce Breeder Ants!",
+        "generates": "Generates {{x}} Breeder Ants per second"
+      },
+      "3": {
+        "name": "Mega-Breeder Ants - Tier IV",
+        "flavor": "It's not just huge. It's big. It produces Meta-Breeders.",
+        "generates": "Generates {{x}} Meta-Breeder Ants per second"
+      },
+      "4": {
+        "name": "Queen Ants - Tier V",
+        "flavor": "The mother of them all. Produces Mega-Breeders.",
+        "generates": "Generates {{x}} Mega-Breeder Ants per second",
+        "eloMult": "<<orchid | ☇>> Buying your first Queen Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first Queen Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.15x as fast!"
+      },
+      "5": {
+        "name": "Lord Royal Ants - Tier VI",
+        "flavor": "A King Ant. Produces Queens. Wait, what?",
+        "generates": "Generates {{x}} Queen Ants per second",
+        "eloMult": "<<orchid | ☇>> Buying your first Lord Royal Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first Lord Royal Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.25x as fast!"
+      },
+      "6": {
+        "name": "ALMIGHTY Ants - Tier VII",
+        "flavor": "The stuff of legends. Produces Lord Royals.",
+        "generates": "Generates {{x}} Lord Royal Ants per second",
+        "eloMult": "<<orchid | ☇>> Buying your first ALMIGHTY Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first ALMIGHTY Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.4x as fast!"
+      },
+      "7": {
+        "name": "DISCIPLE OF ANT GOD - Tier VIII",
+        "flavor": "Some call this the Primordial One. Produces ALMIGHTY ANTS.",
+        "generates": "Generates {{x}} ALMIGHTY Ants per second",
+        "eloMult": "<<orchid | ☇>> Buying your first DISCIPLE this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 2%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first DISCIPLE this Sacrifice creates <<#00DDFF|Reborn ELO>> 2x as fast!"
+      },
+      "8": {
+        "name": "THE HOLY SPIRIT OF ANT GOD - Tier IX",
+        "flavor": "The child is the mother of the woman. Produces DISCIPLES.",
+        "generates": "Generates {{x}} DISCIPLES per second",
+        "eloMult": "<<orchid | ☇>> Buying your first HOLY SPIRIT this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 2%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first HOLY SPIRIT this Sacrifice creates <<#00DDFF|Reborn ELO>> 3x as fast!"
+      }
+    },
+    "mastery": {
+      "notMaxedSelfAnt": "Flat production multiplier: <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+      "maxedSelfAnt": "Flat production multiplier: <<gold | {{x}}>>",
+      "level": "Mastery Level <<gold|{{x}}/{{y}}>>",
+      "eloRequirement": "Buying this Mastery level requires <<#00DDFF | {{x}} Reborn ELO>> (Current: <<#00DDFF | {{y}}>>)",
+      "particleCost": "Cost: <<green | {{x}} Particles>>",
+      "alreadyPurchased": "You've already purchased this Mastery level, and you can autobuy this tier of Ant. When you reach the Reborn ELO requirement, this Mastery level will be automatically bought.",
+      "0": {
+        "name": "Worker Mastery",
+        "flavor": "Crumbs for me, not for thee.",
+        "notMaxedSelfPer": "Each Worker Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Worker Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Worker Mastery multiplies Crumb production by <<gold | {{x}}>>"
+      },
+      "1": {
+        "name": "Breeder Mastery",
+        "flavor": "Get a room!",
+        "notMaxedSelfPer": "Each Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Breeder Mastery multiplies Worker Ant production by <<gold | {{x}}>>"
+      },
+      "2": {
+        "name": "Meta-Breeder Mastery",
+        "flavor": "Two's company. Three's a crowd.",
+        "notMaxedSelfPer": "Each Meta-Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Meta-Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Meta-Breeder Mastery multiplies Breeder Ant production by <<gold | {{x}}>>"
+      },
+      "3": {
+        "name": "Mega-Breeder Mastery",
+        "flavor": "Go big or go home.",
+        "notMaxedSelfPer": "Each Mega-Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Mega-Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Mega-Breeder Mastery multiplies Meta-Breeder Ant production by <<gold | {{x}}>>"
+      },
+      "4": {
+        "name": "Queen Mastery",
+        "flavor": "Bow before me, peasants!",
+        "notMaxedSelfPer": "Each Queen Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Queen Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Queen Mastery multiplies Mega-Breeder Ant production by <<gold | {{x}}>>"
+      },
+      "5": {
+        "name": "Lord Royal Mastery",
+        "flavor": "Straight to dictator academy.",
+        "notMaxedSelfPer": "Each Lord Royal Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each Lord Royal Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> Lord Royal Mastery multiplies Queen Ant production by <<gold | {{x}}>>"
+      },
+      "6": {
+        "name": "ALMIGHTY Mastery",
+        "flavor": "I am an eventuality.",
+        "notMaxedSelfPer": "Each ALMIGHTY Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each ALMIGHTY Ant purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> ALMIGHTY Mastery multiplies Lord Royal Ant production by <<gold | {{x}}>>"
+      },
+      "7": {
+        "name": "DISCIPLE Mastery",
+        "flavor": "It really does look like ants from up there.",
+        "notMaxedSelfPer": "Each DISCIPLE purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each DISCIPLE purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> DISCIPLE Mastery multiplies ALMIGHTY Ant production by <<gold | {{x}}>>"
+      },
+      "8": {
+        "name": "HOLY SPIRIT Mastery",
+        "flavor": "Child, the child, the child.",
+        "notMaxedSelfPer": "Each HOLY SPIRIT purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+        "maxedSelfPer": "Each HOLY SPIRIT purchased further multiplies their production by <<gold | {{x}}>>",
+        "effect": "<<green | ★>> HOLY SPIRIT Mastery multiplies DISCIPLE production by <<gold | {{x}}>>"
+      }
+    },
     "upgrades": {
-      "1": "促进群落的爱意和团结。[每级使蚂蚁速度增加12%]",
-      "2": "使碎屑变得更美味以增加它们的价值[每级增加碎屑对金币产量的加成效率，最大为^50000000]",
-      "3": "迫使税务官屈服[最高可以减少99.5%税收！]",
-      "4": "恐惧使您跑得更快[最高为20倍]",
-      "5": "通过神奇的变形效果模仿您的行动[最高为40倍]",
-      "6": "尝试取悦蚁神……但很遗憾地失败了[获得额外祭品！]",
-      "7": "帮助您到处建造一些东西[每级使建筑成本减缓3%，最高为9999999%]",
-      "8": "懂得如何给食物加盐和胡椒[最高为1000倍符文经验值！]",
-      "9": "使您的信息更容易传达给蚁神[每级使所有符文增加1级，最高为3000级]",
-      "10": "有一个超级强大的大脑[获得额外难得素！]",
-      "11": "献给蚁神的贵重祭品[最高可以获得3倍献祭奖励！]",
-      "12": "背叛蚁神将使您的维度更加脆弱[解锁蚂蚁护身符，全局速度最高为2倍]"
+      "sacrificeReset": "This Ant resets when you perform an Ant Sacrifice.",
+      "ascensionReset": "This Ant resets when you Ascend.",
+      "singularityReset": "This Ant resets when you perform a Singularity.",
+      "ignoreCorruption": "[<<white|♔>>] This Ant is unaffected by the effects of Corruptions.",
+      "automationUnlocked": "You've unlocked the autobuyer for this Ant Upgrade!",
+      "antSpeed": {
+        "name": "Inceptus Formicidae",
+        "intro": "Love is in the air.",
+        "description": "Love is in the air. Multiply your Ant Speed by {{x}} per level!",
+        "lockedAutomation": "Unlock the <i>Inceptus Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
+        "effect": "<<crimson | Ant Speed x{{x}}>>... that's quite a bit, isn't it?"
+      },
+      "coins": {
+        "name": "Fortunae Formicidae",
+        "intro": "Crumbs are just a <i>little</i> bit sweeter.",
+        "description": "Improve Crumbs' multiplier to Coins.",
+        "lockedAutomation": "Unlock the <i>Fortunae Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
+        "effect": "Crumbs give a Coin multiplier equal to <<yellow | (Crumbs)^{{x}}>>",
+        "effect2": "↳ Coin Multiplier: <<yellow | x{{x}}>>"
+      },
+      "taxes": {
+        "name": "Tributum Formicidae",
+        "intro": "Pocket ants!",
+        "description": "Pocket ants! Reduce your taxes by up to 99.5%.",
+        "lockedAutomation": "Unlock the <i>Tributum Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
+        "effect": "Taxes are reduced by <<lightgrey | {{x}}>>"
+      },
+      "acceleratorBoosts": {
+        "name": "Celeritas Formicidae",
+        "intro": "Eek! This ant is kinda scary, ngl.",
+        "description": "Multiply your Accelerator Boosts by up to x20!",
+        "lockedAutomation": "Unlock the <i>Celeritas Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
+        "effect": "<<cyan | Accelerator Boosts +{{x}}>>"
+      },
+      "multipliers": {
+        "name": "Exploratorem Formicidae",
+        "intro": "An international ant of mystery.",
+        "description": "Multiply your Multipliers by up to x40!",
+        "lockedAutomation": "Unlock the <i>Exploratorem Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
+        "effect": "<<pink | Multipliers +{{x}}>>"
+      },
+      "offerings": {
+        "name": "Sacrificium Formicidae",
+        "intro": "Binds the sweet influences of Pleiades.",
+        "description": "Offering gain is multiplied by (1 + level / 10)^0.5",
+        "lockedAutomation": "Unlock the <i>Sacrificium Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
+        "effect": "Gain <<orange | +{{x}} Offerings>> from all sources!"
+      },
+      "obtainium": {
+        "name": "Experientia Formicidae",
+        "intro": "An example of the <i>infinite ant theorem</i>",
+        "description": "Obtainium gain is multiplied by (1 + level / 10)^0.5",
+        "lockedAutomation": "Unlock the <i>Experientia Formicidae</i> autobuyer from the <<gold|<i>Challenge 9</i> >> Achievement Group",
+        "effect": "Gain <<pink | +{{x}} Obtainium>> from all sources!"
+      },
+      "buildingCostScale": {
+        "name": "Hic Formicidae",
+        "intro": "A builder ant! Some may call it a Carpenter Ant?",
+        "description": "+3% Building Cost Delay per level, and +1% Building Power per level!",
+        "lockedAutomation": "Unlock the <i>Hic Formicidae</i> autobuyer from the <<gold|<i>Anthills Sacrificed</i> >> Achievement Group",
+        "effect": "Building Costs take <<lime | {{x}} longer>> to spiral out of control!",
+        "effect2": "Building Power <<lime | x{{x}}>>"
+      },
+      "salvage": {
+        "name": "Scientia Formicidae",
+        "intro": "A rather... resourceful ant.",
+        "description": "Gain up to +120 Salvage!",
+        "lockedAutomation": "Unlock the <i>Scientia Formicidae</i> autobuyer from the <<gold|<i>Galactic Crumbs</i> >> Achievement Group",
+        "effect": "Grants <<green | +{{x}} Salvage>>!"
+      },
+      "freeRunes": {
+        "name": "Praemoenio Formicidae",
+        "intro": "It's giving some mixed signals.",
+        "description": "+1 Free Rune Level for Runes 1-5 per level, up to +3,000",
+        "lockedAutomation": "Unlock the <i>Praemoenio Formicidae</i> autobuyer from the <<gold|<i>Anthills Sacrificed</i> >> Achievement Group",
+        "effect": "Those Runes? <<cyan | +{{x}} Free Levels>>, nice!"
+      },
+      "antSacrifice": {
+        "name": "Phylacterium Formicidae",
+        "intro": "Your soul feels a little heavier near this one.",
+        "description": "Ant Sacrifice rewards are multiplied by (1 + level / 25)^0.5. The first 200 levels also grant +5 ELO each!",
+        "lockedAutomation": "Unlock the <i>Phylacterium Formicidae</i> autobuyer from the <<gold|<i>Anthills Sacrificed</i> >> Achievement Group",
+        "effect": "Ant Sacrifice gives <<crimson | +{{x}} rewards>>",
+        "effect2": "Ant ELO <<orchid | +{{x}}>>"
+      },
+      "mortuus": {
+        "name": "Mortuus Est Formicidae",
+        "intro": "And then, he turned himself into a Talisman!",
+        "description": "When purchased, unlock a new Talisman! Also, gain up to 2x Global Speed!",
+        "lockedAutomation": "Unlock the <i>Mortuus Est Formicidae</i> autobuyer from <<green|Research>>",
+        "effect": "<<gray | Mortuus Talisman: {{checkMark}}>>",
+        "effect2": "Somehow, your Global Speed is increased by <<royalblue | {{x}}>>"
+      },
+      "antSpeed2": {
+        "name": "Impia Reproducta Formicidae",
+        "intro": "A bridge from the Altar to your Anthill.",
+        "description": "Gain +1 additional Ant ELO per level, if you have Sacrificed your Anthill at least (level) times.",
+        "lockedAutomation": "Unlock the <i>Impia Reproducta Formicidae</i> autobuyer from reaching Synergism Level <<gold|65>>",
+        "effect": "Current Effect: <<orchid | +{{x}} Ant ELO>>",
+        "effect2": "Effect is maxed at <<crimson | {{x}}>> Anthills Sacrificed"
+      },
+      "mortuus2": {
+        "name": "Mortuus Iterum Formicidae",
+        "intro": "The cyan glow... it's... Reborn?",
+        "description": "Improve your Mortuus Talisman! Up to +100% Effect, +1,200 Max Level, and gain some Ascension Speed on the side.",
+        "lockedAutomation": "Unlock the <i>Mortuus Iterum Formicidae</i> autobuyer from reaching Synergism Level <<gold|225>>",
+        "effect": "Mortuus Talisman Max Level: <<royalblue | +{{x}}>>",
+        "effect2": "Mortuus Talisman Effect: <<royalblue | +{{x}}>>",
+        "effect3": "Ascension Speed: <<orange | +{{x}}>>"
+      },
+      "ascensionScore": {
+        "name": "Ascendens Formicidae",
+        "intro": "And this, is to go even further beyond!",
+        "description": "Add Ascension Score to your current Ascension! Also add Cubes to your Ascension Bank. Value added is <b>before</b> any multipliers.",
+        "lockedAutomation": "Unlock the <i>Ascendens Formicidae</i> autobuyer from reaching Synergism Level <<gold|80>>",
+        "effect": "Ascension Score <<orange | +{{x}}>>",
+        "effect2": "Cubes in Ascension Bank <<yellow | +{{x}}>>"
+      },
+      "wowCubes": {
+        "name": "Cubus Admirabilis Formicidae",
+        "intro": "Picasso's Ant Period.",
+        "description": "Gain more Wow! Cubes! Up to +100% more of them.",
+        "lockedAutomation": "Unlock the <i>Cubus Admirabilis Formicidae</i> autobuyer from reaching Synergism Level <<gold|80>>",
+        "effect": "Gain <<white | +{{x}}>> more Wow! Cubes"
+      }
     },
-    "descriptions": {
-      "1": "获得一只工蚁为您每日工作。它会采集银河碎屑。它很有用！",
-      "2": "获得一只繁殖蚁，它会自动产生工蚁！",
-      "3": "获得一只高级繁殖蚁，它会自动产生繁殖蚁！",
-      "4": "获得一只超级繁殖蚁，它会自动产生高级繁殖蚁！",
-      "5": "获得一只蚁后，它会自动产生超级繁殖蚁！",
-      "6": "获得一只国王蚁，它会自动产生蚁后！",
-      "7": "获得一只全能蚁，它会自动产生国王蚁！",
-      "8": "获得一只神使蚁，它会自动产生全能蚁！"
+    "altar": {
+      "titles": {
+        "altar": "The Great Ant Altar",
+        "elo": "ELO Details",
+        "worldRewards": "Item Rewards",
+        "compendium": "Ants to Quark Corner"
+      },
+      "locked": {
+        "crumbsMade": "You have made <<gold|{{x}}>> Galactic Crumbs.",
+        "altarRequirements": "This Altar will open when you have made <<gold|1e40>>."
+      },
+      "autoSacrificeLocked": {
+        "info": "Unlock Auto Sacrifice from the Ant Sacrifice Count Achievements!",
+        "anthillsUntilAutoSac": "Automatic Ant Sacrifice is unlocked in <<gold|{{x}}>> Anthills."
+      },
+      "additionalAutoSacOptions": {
+        "info": "Head to Research to unlock more options!",
+        "onlyMaxReborn": "Only Sacrifice if you reach your max Reborn ELO",
+        "alwaysMaxReborn": "Always Sacrifice when you reach your max Reborn ELO"
+      },
+      "sacrificeReady": {
+        "unlocked": "<<gold|Sacrifice Ready!>> Click the icon to Sacrifice your Ants!",
+        "locked": "Galactic Crumbs this sacrifice: <<gold|{{x}}/{{y}}>>"
+      }
     },
-    "generates": {
-      "1": "每秒产生{{x}}银河碎屑",
-      "2": "每秒产生{{x}}工蚁",
-      "3": "每秒产生{{x}}繁殖蚁",
-      "4": "每秒产生{{x}}高级繁殖蚁",
-      "5": "每秒产生{{x}}超级繁殖蚁",
-      "6": "每秒产生{{x}}蚁后",
-      "7": "每秒产生{{x}}国王蚁",
-      "8": "每秒产生{{x}}全能蚁"
+    "compendium": {
+      "toggleOverview": "Overview",
+      "toggleInfo": "Info"
     },
-    "rewards": {
-      "1": "所有蚂蚁的工作速度变为原来的{{x}}倍。",
-      "2": "碎屑对金币产量的加成效率变为^{{x}}",
-      "3": "税收增长变为原来的{{x}}倍",
-      "4": "加速器加成增加{{x}}%",
-      "5": "加倍器增加{{x}}%",
-      "6": "使祭品获取数量变为原来的{{x}}倍",
-      "7": "建筑成本增长速度减缓{{x}}%！",
-      "8": "符文经验值变为原来的{{x}}倍！",
-      "9": "每个符文的有效等级增加{{x}}。",
-      "10": "使难得素获取数量变为原来的{{x}}倍",
-      "11": "献祭效果变为原来的{{x}}倍",
-      "12": "全局速度变为原来的{{x}}倍"
+    "leaderboard": {
+      "toggleDaily": "Daily",
+      "toggleAllTime": "All-Time",
+      "value": "Total Weighted Value: <<gold|{{x}}>> (Stage <<gold|{{y}}>>)",
+      "quarksGained": "Quarks gained from Stages: <<cyan|{{x}}>>",
+      "quarkMult": "Quark gain for Ant-based Quarks: <<cyan|+{{x}}>>",
+      "rank": "Rank",
+      "elo": "<<#00DDFF|Reborn ELO>>",
+      "stages": "<<turquoise|Stage>>",
+      "weight": "Weight",
+      "stageModal": {
+        "introDaily": "Your daily leaderboard is at Stage <<gold|{{x}}>>.",
+        "introAllTime": "Your all-time leaderboard is at Stage <<gold|{{x}}>>.",
+        "stageLine": "<<turquoise|{{x}}>> Stages, worth <<#00DDFF|{{y}}>> Weighted Value (<<gold|{{z}}>> per Stage)",
+        "toNextStage": "You need <<gold|{{x}}>> more Weighted Value to reach the next Stage.",
+        "disclaimer": "Stages from Weighted Value are calculated the <<gold|same way>> as Stages for Reborn ELO. Weighted Value formula: <<orchid | Sum(ELO_i * Weight_i)>>, where i is the placement of the Ant Sacrifice in the leaderboard."
+      },
+      "dailyQuarkModal": {
+        "intro": "You've gained <<cyan|{{x}}>> Quarks from Ant Sacrifice today!",
+        "quarkLine": "<<turquoise|{{x}}>> Stages, worth <<cyan|{{y}}>> Quarks (<<cyan|{{z}}>> per Stage)",
+        "bonusMult": "Get 1.003x the Quarks per stage! Current: <<cyan|x{{x}}>>",
+        "allTimeMult": "All-Time Leaderboard Quark Multiplier: <<cyan|x{{x}}>>",
+        "globalQuarkMult": "Global Quark Multiplier: <<cyan|x{{x}}>>"
+      },
+      "allTimeQuarkModal": {
+        "intro": "Your all-time leaderboard multiplies Quark gain from Ant Sacrifice by <<cyan|{{x}}>>.",
+        "formula": "Formula: <<orchid|2 - 0.8^(Stage / 100)>>",
+        "specificMult": "Stage <<turquoise|{{x}}>>: <<orchid|2 - 0.8^{{y}}>> = <<cyan|{{z}}>>"
+      }
+    },
+    "maxBuy": {
+      "producer": {
+        "on": "Ant Producers: Buy MAX",
+        "off": "Ant Producers: Buy 1"
+      },
+      "upgrade": {
+        "on": "Ant Upgrades: Buy MAX",
+        "off": "Ant Upgrades: Buy 1"
+      }
+    },
+    "autobuy": {
+      "producer": {
+        "on": "Ant Producer: AUTO",
+        "off": "Ant Producer: MANUAL"
+      },
+      "mastery": {
+        "on": "Ant Mastery: AUTO",
+        "off": "Ant Mastery: MANUAL"
+      },
+      "upgrade": {
+        "on": "Ant Upgrade: AUTO",
+        "off": "Ant Upgrade: MANUAL"
+      }
+    },
+    "autoSacrifice": {
+      "inGameTimer": {
+        "name": "Mode: In-Game time",
+        "info": "Sacrifice when the in-game Ant Timer reaches <<gold|{{req}}>> seconds <br><<gold|{{curr}}/{{req}}>>"
+      },
+      "realLifeTimer": {
+        "name": "Mode: Real time",
+        "info": "Sacrifice after <<gold|{{req}}>> real-life seconds <br><<gold|{{curr}}/{{req}}>>"
+      },
+      "immortalELOGain": {
+        "name": "Mode: Immortal ELO",
+        "info": "Sacrifice when you can gain at least <<gold|{{req}}>> <<crimson|Immortal ELO>> <br><<gold|{{curr}}/{{req}}>>"
+      },
+      "maxRebornELO": {
+        "name": "Mode: Reborn ELO",
+        "info": "Sacrifice when your maximum <<#00DDFF|Reborn ELO>> is reached <br><<gold|{{curr}} Available>>"
+      }
     },
     "header": "蚂蚁们欢迎您来到它们的家。",
     "hover": "鼠标停在图标上可获取信息。点击图标来购买！",
-    "youHaveGalacticCrumbs": "您有{{x}}银河碎屑[每秒{{y}}]，使金币产量变为{{z}}倍。",
-    "owned": "拥有：{{x}} [+{{y}}]",
-    "costGalacticCrumbs": "花费：{{x}}银河碎屑",
+    "challenge8Lock": "You need to beat <<limegreen | Challenge 8>> in your current Ascension to generate Crumbs!",
+    "altarHeader": "Ant God... <<crimson | It Hungers.>>",
+    "altarDetails": "Sacrifice your Ants to her for some <<crimson | Immortal ELO>>, and a bunch of other worldly things.",
+    "compendiumHeader": "Ant God appreciates your donations.",
+    "compendiumDetails": "She offers you some Quarks in exchange for your best Sacrifices each day.",
+    "anthillAlive": "Your Anthill has been alive for",
+    "currentAnthill": "(This is your <<gold|{{ord}}>> Anthill)",
+    "galacticCrumbCount": "You have {{x}} Galactic Crumbs.",
+    "crumbsPerSecond": "+{{x}} per second",
+    "crumbsCoinMultiplier": "↳ Coin production is multiplied by {{x}} (Fortunae Formicidae)",
+    "producerCount": "<<crimson| {{x}} Purchased>> + <<orange | {{y}} Generated>>",
+    "level": "Level {{x}} <<orange | [+{{y}}]>>",
+    "challenge11Modifier": "Challenge 11 - Only free Ant Upgrade Levels count for Effective Levels",
+    "corruptionDivisor": "Extinction lv{{x}} - Effective Levels are divided by <b>{{y}}</b>",
+    "effectiveLevel": "Effective Level: {{level}}",
+    "costSingleLevel": "Cost: {{x}} Galactic Crumbs",
+    "costMaxLevels": "Cost for +{{x}}: {{y}} Galactic Crumbs",
+    "costGalacticCrumbs": "Cost TNL: {{x}} Galactic Crumbs",
     "costParticles": "花费：{{x}}粒子",
     "autoSacrificeOn": "自动献祭：开",
     "autoSacrificeOff": "自动献祭：关",
@@ -2092,23 +2506,47 @@
     "upgradeMultiplier": "升级奖励倍率：<<gold|{{x}}倍>>",
     "timeMultiplier": "时间奖励倍率：<<var(--lightseagreen-text-color);|{{x}}倍>>",
     "immortalELO": "<<crimson|不朽强度分：>><<gold|{{x}}>>",
-    "immortalELOAntSpeed": "↳ 使蚂蚁速度变为原来的{{x}}倍",
-    "resetAnthill": "蚂蚁献祭",
-    "resetAlert": "<<gold|⚠>>将进行一次<<limegreen|转世>>",
-    "immortalELOGain": "• <<crimson|不朽强度分>><<gold|增加{{x}}>>",
+    "activatedImmortalELO": "<<#00DDFF| Reborn ELO>>: <<gold|{{x}}>> (<<gold|{{y}}>> Available)",
+    "eloStage": "<<turquoise | Stage>> <<gold|{{x}}>>",
+    "immortalELOAntSpeed": "<<#00DDFF|↳>> <<crimson | Ant Speed>> <<gold|x{{x}}>>",
+    "rebornObtainiumMult": "<<turquoise|↳>> <<pink | Obtainium>> <<gold|x{{x}}>>",
+    "rebornOfferingMult": "<<turquoise|↳>> <<orange | Offerings>> <<gold|x{{x}}>>",
+    "rebornTalismanShardMult": "<<turquoise|↳>> <<lightgray | Talisman Fragments>> <<gold|x{{x}}>>",
+    "rebornELOGainSpeed": "<<turquoise|↳>> <<#00DDFF|Reborn ELO creation speed>> <<gold|x{{x}}>>",
+    "rebornELOPerSecond": "<<#00DDFF|{{x}}>> per second",
+    "rebornELOTimeToMax": "Estimated time until max: <<gold|{{x}}>> seconds",
+    "immortalELOUntilGain": "Get <<gold | {{x}}>> more <<orchid | Ant ELO>> to gain <<crimson | Immortal ELO>>",
+    "immortalELOGain": "Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
     "antSacMultiplier": "↳ 使蚂蚁速度变为原来的{{x}}倍",
-    "offeringMultiplier": "• 获得<<orange|{{x}}倍祭品>>",
-    "obtainiumMultiplier": "• 获得<<pink|{{x}}倍难得素>>",
-    "talismanFragments": "• 还会获得一些护身符碎片！",
-    "autoReset": "这么做将重置银河碎屑，蚂蚁以及蚂蚁升级，但可以获得更高的蚂蚁速度和一些其他资源。您确定要继续吗？",
-    "elo": "+{{x}} [分>{{y}}]",
-    "antSacrifice": "蚂蚁献祭"
+    "rebornELOInfo": "Gain <<#00DDFF|Reborn ELO>> over time by reaching a higher ELO!",
+    "rebornELOInfo2": "• Limited by your <<crimson|Immortal ELO>>. <<orchid | Ant ELO>> speeds up generation!",
+    "rebornELOInfo3": "• The more <<#00DDFF|Reborn ELO>> you have, the slower it generates.",
+    "stageInfo": "<<#00DDFF|Reborn ELO>> gives you a <<turquoise | Stage>>.",
+    "stageInfo2": "Each <<turquoise|Stage>> gives you <<gold|1.05x>> <<orange|Offerings>>, <<gold|1.05x>> <<pink|Obtainium>>, and <<gold|1.20x>> <<lightgray|Talisman Fragments>>! <<#00DDFF|Reborn ELO>> generates <<gold|2%>> slower per <<turquoise|Stage>>.",
+    "stageTranche1": "Stages 1-100: 100 <<#00DDFF|Reborn ELO>> Each",
+    "stageTranche2": "Stages 101-200: 1,000 <<#00DDFF|Reborn ELO>> Each",
+    "stageTranche3": "Stages 201-300: 3,000 <<#00DDFF|Reborn ELO>> Each",
+    "stageTranche4": "Stages 301-1,000: 20,000 <<#00DDFF|Reborn ELO>> Each",
+    "stageTranche5": "Stages 1,001+: 100,000 <<#00DDFF|Reborn ELO>> Each",
+    "autoReset": "This resets your Crumbs, Ant Producers and Ant Upgrades in exchange for Immortal ELO and some worldly items. Continue?",
+    "itemReward": "+{{x}}",
+    "eloRequirement": "{{x}} ELO",
+    "antSacrifice": "蚂蚁献祭",
+    "minimumTimeToSacrifice": "Minimum interval between Sacrifices: <<gold|0.05>> real-life seconds",
+    "timeElapsed": "Time elapsed: <<gold|{{x}}>> real-life seconds",
+    "buyAllUpgrades": "Buy All Upgrades",
+    "buyAllProducers": "Buy All Producers and Masteries",
+    "clickBuyAllIntro": "This button will purchase the following:",
+    "clickBuyAllProducersListItem": "{{name}} <br> <<gold|+{{level}} Producers>> &nbsp;&nbsp; <<lime | +{{masteries}} Masteries>>",
+    "clickBuyAllUpgradesListItem": "{{name}} <br> <<gold|+{{level}} Levels>>",
+    "clickBuyAllNothing": "<<lime | Nothing to buy, for now.>>",
+    "clickBuyAllDisclaimer": "<<gray|This tooltip does not display anything for which Automation is unlocked, if Automation is enabled.>>"
   },
   "challenges": {
     "1": {
       "name": "无加倍器挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "加倍器让游戏的进度有点太快了。它们可以走了！",
-      "restrictions": "立即超越开始挑战，加倍器失去加倍器效果，变为与加速器作用相同，且效果削弱50%！",
+      "restrictions": "Transcend and reach the goal except Multipliers count as Accelerators. <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Accelerator Power is reduced. Each completion reduces it more! <br> ☆ Each Multiplier gives a Coin Producer production multiplier equal to Accelerator Power.",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "基础加倍器加成增加2个！[效果增加0.02！]当前效果：",
@@ -2126,7 +2564,7 @@
     "2": {
       "name": "无加速器挑战 || 完成{{completions}}次，次数上限为{{max}}",
       "flavor": "加速器？谁要就拿去，不过是无用之物而已。",
-      "restrictions": "立即超越开始挑战，加速器完全无效，加倍器也被削弱了。",
+      "restrictions": "Transcend and reach the goal except Accelerators do nothing! <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power is reduced to be <<gold|1.25, +0.0012>> per Multiplier Boost",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "免费加速器增加5个！当前效果：",
@@ -2144,7 +2582,7 @@
     "3": {
       "name": "无碎片挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "很好，您是不是在想，我还能玩出什么花样来？",
-      "restrictions": "立即超越开始挑战，无法产生水晶或神话碎片。",
+      "restrictions": "Transcend and reach the goal except you do not produce Crystals or Mythos Shards. <br> ☆ Refineries do not produce Crystals <br> ☆ Augments do not produce Mythos Shards. <br> ☆ Accelerator Power above 1 is reduced by <<gold|50%>> ",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "水晶对金币转换指数增加0.04！当前效果：",
@@ -2162,7 +2600,7 @@
     "4": {
       "name": "花费增加挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "您腰包越来越鼓了。但，没有通货膨胀？您想多了！",
-      "restrictions": "立即超越开始挑战，金币/水晶生产者，加速器和加倍器的花费变得更高。[挑战难度会随着完成次数增加而越来越高！]",
+      "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Prices grow super-exponentially after <<gold|1,000>> of each Building. <br> ☆ Each completion lowers the above number by <<gold|10>> <br> ☆ Accelerator and Multiplier prices <<gold|immediately>> grow super-exponentially!",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "加速器花费增长减缓5次购买。当前效果：",
@@ -2180,7 +2618,7 @@
     "5": {
       "name": "钻石减少挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "您想过钻石是怎么来的吗？",
-      "restrictions": "立即超越开始挑战，您获得的钻石数量大幅度减少[挑战难度会随着完成次数增加而越来越高！]",
+      "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.01 / (1 + completions)]>>",
       "goal": "目标：在挑战中达到{{value}}金币。",
       "per": {
         "1": "转生时金币对钻石的转换指数增加0.01！当前效果：",
@@ -2198,7 +2636,7 @@
     "6": {
       "name": "税收增加挑战 || 完成{{- completions}}次，次数上限为{{max}}",
       "flavor": "据说，您最近在转世……税务官如是说",
-      "restrictions": "立即转世开始挑战，税收将金币上限限制得更低，并且金币产量将除以1e250。",
+      "restrictions": "Reincarnate and reach the goal except you pay more Tax! <br> ☆ Your Tax burden is multiplied by <<gold|3 * (1 + completions / 25)^2>> <br> ☆ Your Coin production is divided by <<gold | 1e250>>",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
       "per": {
         "1": "税收减少3.5%[效果叠乘]！当前效果：",
@@ -2216,7 +2654,7 @@
     "7": {
       "name": "无加倍器/加速器挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "憎恨我，怨恨我，然后，再来到我眼前吧。",
-      "restrictions": "立即转世开始挑战，加速器和加倍器完全无效。金币产量将除以1e1250。",
+      "restrictions": "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Power above 1 is reduced by <<gold|95%>> <br> ☆ Your Coin production is divided by <<gold | 1e1,250>>",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
       "per": {
         "1": "加速器加成及加倍器加成效果指数增加0.04！当前效果：",
@@ -2234,7 +2672,7 @@
     "8": {
       "name": "花费暴增挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "转世了，您以为通货膨胀从此就消失了吗？太天真了。",
-      "restrictions": "立即转世开始挑战，生产者，加速器和加倍器的花费变得高得多。",
+      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices increase <<gold|50x>> faster than in Cost+ <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building costs start growing super-exponentially after <<gold|1000 + 1000 per completion>> purchased. <br> ",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
       "per": {
         "1": "基础建筑能量增加0.25！当前效果：",
@@ -2251,8 +2689,8 @@
     },
     "9": {
       "name": "无符文挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "flavor": "您大概不会再抱怨棱柱符文没用了。",
-      "restrictions": "立即转世开始挑战，所有符文永远只有1级的效果。金币产量将除以1e2000000。",
+      "flavor": "Bet you won't even notice Prism Rune's disappearance.",
+      "restrictions": "Reincarnate and reach the goal except Runes always have level 1 effects. <br> ☆ Your Coin production is divided by <<gold | 1e2,000,000>>. You may want a few Galactic Crumbs. <br> ☆ Your Tax burden is reduced by <<pink|99.5%>> to compensate",
       "goal": "目标：在挑战中达到{{value}}金币。",
       "per": {
         "1": "免费蚂蚁等级增加1！当前效果：",
@@ -2269,8 +2707,8 @@
     },
     "10": {
       "name": "虐待狂挑战 I || 完成{{- completions}}次，次数上限为{{- max}}",
-      "flavor": "生而为人，我很抱歉。",
-      "restrictions": "立即转世开始挑战，前五个挑战的限制同时生效！金币产量将除以1e12500000。",
+      "flavor": "I'm sorry for what I've unleashed onto the world. You read a note on the floor: \"You probably want about 1e300 Galactic Crumbs before you fully embrace the challenge. Try to Sacrifice some more Anthills, master your Ants and become one with the Ant God to achieve this.\"",
+      "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|25,000>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.0001 / (1 + completions)]>> <br> ☆ Mythos gain is reduced to <<gold | Coins^0.001>>",
       "goal": "目标：在挑战中达到{{value}}金币。",
       "per": {
         "1": "蚂蚁基础强度分增加100！当前效果：",
@@ -2288,7 +2726,7 @@
     "11": {
       "name": "蚂蚁减少挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "二十一世纪的蚂蚁大战将所有技艺娴熟的蚂蚁都抹杀了。",
-      "restrictions": "在不能购买蚂蚁升级的前提下飞升并达到目标。作为补偿，挑战8和挑战9完成后可以提供免费蚂蚁升级。想要进行飞升挑战，您必须至少完成1次挑战10。",
+      "restrictions": "Reach the Goal, but only free Ant Upgrade levels do anything. <br> ☆ In Challenge, each Challenge 8 completion gives <<gold|+3>> free Ant Upgrade Levels. <br> ☆ Each Challenge 9 completion gives <<gold|+5>> free Ant Upgrade levels!",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "免费蚂蚁等级增加12！当前效果：",
@@ -2306,7 +2744,7 @@
     "12": {
       "name": "无转世挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "总之就是不行，别问原因，没有原因。",
-      "restrictions": "立即飞升开始挑战，您无法获得粒子，也无法转世！蚂蚁产量^0.5。",
+      "restrictions": "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! <br> ☆ Ant Speed <<gold|^0.75>>",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "难得素获取数量增加50%！当前效果：",
@@ -2324,7 +2762,7 @@
     "13": {
       "name": "税收激增挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "祝您好运，税务局又归来了。",
-      "restrictions": "立即飞升开始挑战，税收高得多，而且随着所有挑战的完成次数增加。蚂蚁产量^0.23",
+      "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. <br> ☆ Ant Speed <<gold|^0.23>> <br> ☆ Each Transcension and Reincarnation Challenge completed multiplies your tax burden by <<gold|1.05>>",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "税收减少3.33%！效果叠乘！当前效果： ",
@@ -2334,7 +2772,7 @@
       "first": "解锁15个研究，并且解锁五阶立方的力量！另外还解锁了更多战役和腐化！",
       "start": "开始<[(税收激增挑战)]>",
       "current": {
-        "1": "腐化税收减少{{value}}%",
+        "1": "-{{value}}% Tax Burden",
         "2": "护身符等级上限增加{{value}}级",
         "3": "效果增加{{value}}%"
       }
@@ -2342,7 +2780,7 @@
     "14": {
       "name": "无研究挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "这个维度没能跨越黑暗时代。很多人甚至不敢越雷池一步。",
-      "restrictions": "立即飞升开始挑战。您无法获得难得素，也无法进行研究。蚂蚁产量^0.2。",
+      "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any Researches purchasable. <br> ☆ Ant Speed <<gold|^0.2>>",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "研究1x1至研究1x5的效果增加50%。当前效果： ",
@@ -2360,7 +2798,7 @@
     "15": {
       "name": "虐待狂挑战 II || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "袖手旁观是人类最大的原罪。",
-      "restrictions": "立即飞升开始挑战，腐化全部为11级，并且无法清除，蚂蚁产量^0.01。",
+      "restrictions": "Ascend and reach the goal but you're stuck in all Corruptions at level 11. <br> ☆ Ant Speed <<gold|^0.5>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>> <br> ☆ Your Tax burden is reduced by <<pink|99.9995%>>",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
         "1": "世人多可笑",
@@ -2430,7 +2868,7 @@
       "24": "真惊奇！我想让普路托斯的贡品加成更高。",
       "25": "真惊奇！我想让摩洛克的贡品加成更高。",
       "26": "真惊奇！我想要在飞升后就有符文等级。",
-      "27": "真惊奇！我想要在飞升后就有各一个粒子建筑。",
+      "27": "Wow! I want to start Ascensions with one of each Reincarnation Building.",
       "28": "真惊奇！我想让转世变得更加过时。",
       "29": "真惊奇！我想要增加转世挑战的完成次数上限。",
       "30": "真惊奇！我想要随意增加方盒和超立方的获取数量。",
@@ -2450,9 +2888,9 @@
       "44": "真惊奇！我想让米达斯的贡品加成更高。",
       "45": "真惊奇！我想让赫尔墨斯的贡品加成更高。",
       "46": "真惊奇！我想要更多更多的祭品！",
-      "47": "真惊奇！我想要更多更多的难得素！",
-      "48": "真惊奇！我想要在飞升后就有一只蚂蚁。",
-      "49": "真惊奇！我想要在飞升后就已经各完成了挑战6至挑战8一次。",
+      "47": "Wow! I want Auto Obtainium to mean something again!",
+      "48": "Wow! I want to ALWAYS generate Galactic Crumbs.",
+      "49": "Wow! I want to ALWAYS have as much Immortal ELO as I can.",
       "50": "真惊奇！我想要获得静月千阴的启迪。",
       "51": "真惊奇！这是一堆巧克力曲奇饼干。",
       "52": "真惊奇！这是一堆糖饼干。",
@@ -2507,7 +2945,7 @@
       "19": "[2x9]解锁新的金币升级。",
       "20": "[2x10]商店中的自动符文会自动献祭祭品并平均分配给所有已解锁的符文了。它的购买速度也变为了原来的20倍。希望您玩的开心！",
       "21": "[3x1]或许分数能让您获益更多？每级使飞升分数增加5%。",
-      "22": "[3x2]使阿尔忒弥斯的贡品效果变为原来的 (1 + 等级 / 100) 次方。",
+      "22": "[3x2] The effect of Artemis Tributes is raised to the power of (1 + level / 100).",
       "23": "[3x3]每开启20个方盒，就额外获得1个随机贡品。",
       "24": "[3x4]普路托斯教导您交易的艺术。普路托斯的贡品效果变为原来的 (1 + 等级 / 100) 次方。",
       "25": "[3x5]摩洛克帮助您与蚁神沟通。摩洛克的贡品效果变为原来的 (1 + 等级 / 100) 次方。",
@@ -2532,10 +2970,10 @@
       "44": "[5x4]总之米达斯更努力工作。米达斯的贡品效果变为原来的 (1 + 等级 / 100) 次方。",
       "45": "[5x5]总之赫尔墨斯更努力工作。赫尔墨斯的贡品效果变为原来的 (1 + 等级 / 100) 次方。",
       "46": "[5x6]每级多获得5%祭品！",
-      "47": "[5x7]每级多获得10%难得素！",
-      "48": "[5x8]飞升后直接获得一只工蚁(比听起来要强多了！)",
-      "49": "[5x9]飞升后直接完成挑战6至挑战8各一次。",
-      "50": "[5x10]这有提升不了的吗？每级使加速器、加倍器、加速器加成的数量增加0.01%，难得素获取数量和祭品获取数量增加0.02%，有效强度分增加1，税收减少0.00066%。每10000级还可以使护身符强度增加0.6%！",
+      "47": "[5x7] Wish granted. Auto Obtainium now gives Obtainium based on your Ant Sacrifice rewards, if it is greater than Reincarnation-based Obtainium gain.",
+      "48": "[5x8] Your Worker Ant at the start of Ascensions can now generate crumbs, even without having Challenge 8 cleared!",
+      "49": "[5x9] Immortal ELO is now automatically gained, without having to Sacrifice your ants!",
+      "50": "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, 0.00066% Tax reduction per level. Every 10,000 levels grant +0.6% Talisman Power!",
       "51": "[Cx1]惊奇烘焙坊开张了！！！立刻解锁惊奇方盒选项卡下和研究选项卡下的所有自动化升级。",
       "52": "[Cx2]吃完这些糖饼干血糖一定会飙升的。每级使全局速度增加1%。",
       "53": "[Cx3]美味可口的小点心。每级使夸克获取数量增加0.1%。",
@@ -2550,7 +2988,7 @@
       "62": "[Cx12]Platonic很喜欢太妃糖。使挑战15中难得素获取数量和祭品获取数量变为原来的8倍。",
       "63": "[Cx13]布朗尼曲奇，两全其美。使惊奇方盒获取数量基于七阶立方的数量而增加1%(每数量级增加3%)。",
       "64": "[Cx14]有人说这是蚁神的造物。当您开启PLATONIC方盒获得塑像时，使获取量翻倍。",
-      "65": "[Cx15]爱意满满，碎屑多多！每购买1只蚂蚁，就使蚂蚁速度变为原来的1.004倍。",
+      "65": "[Cx15] That's amore, but is quite a crumbful! Multiply Ant Speed by 1.004 per purchased Worker Ant.",
       "66": "[Cx16]您永远吃不腻的饼干。在购买PLATONIC·欧米伽升级之前，使所有类型的方盒、立方和方块获取数量翻倍。",
       "67": "[Cx17]这里面都是什么玩意？？？不管了，总之玄学护身符的等级上限增加1337。",
       "68": "[Cx18]什么情况，这根本就不是饼干！每级使夸克获取数量增加0.01%，达到等级上限1000时可以使夸克获取数量再增加5%！",
@@ -2618,9 +3056,9 @@
       "25": "[1x25]每级使基础祭品获取数量增加0.6。",
       "26": "[2x1]每级使水晶生产者产量变为之前的150%(效果叠乘)。",
       "27": "[2x2]每级使水晶生产者产量变为之前的150%(效果叠乘)。",
-      "28": "[2x3]每级使金币指数增加0.08。",
-      "29": "[2x4]每级使金币指数再增加0.08。",
-      "30": "[2x5]每级使金币指数再度增加0.04。",
+      "28": "[2x3] You know the formula for the Crystal multiplier to Coins? Add 0.08 to its Exponent per level!",
+      "29": "[2x4] Same as [2x3]. Add 0.08 to its Exponent per level!",
+      "30": "[2x5] Half of [2x3]. Add 0.04 to its Exponent per level!",
       "31": "[2x6]想要稍微划划水吗？每级可以使离线时间上限增加4小时(基础值为72小时)。",
       "32": "[2x7]想要多划几次水吗？每级可以使离线时间上限再增加4小时！",
       "33": "[2x8]每级使神话碎片的加倍器加成增加11%。",
@@ -2641,18 +3079,18 @@
       "48": "[2x23]解锁转世升级6-10。[升级花费在100000至1e22粒子之间]",
       "49": "[2x24]解锁转世升级11-15。[升级花费在1e30至1e60粒子之间]",
       "50": "[2x25]解锁转世升级16-20。[建议到能完成挑战8时再购买此升级！]",
-      "51": "[3x1]每级使税收增长减缓5.0%。[上限50%]",
-      "52": "[3x2]每级使税收增长减缓2.5%。[加上前面的研究，上限75%]",
-      "53": "[3x3]每级使税收增长减缓1.25%。[加上前面的研究，上限87.5%]",
-      "54": "[3x4]每级使税收增长减缓0.625%。[加上前面的研究，上限93.75%]",
-      "55": "[3x5]每级使税收增长减缓0.3125%。[加上前面的研究，上限96.875%]",
+      "51": "[3x1] Reduces your tax burden by 6% per level.",
+      "52": "[3x2] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
+      "53": "[3x3] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
+      "54": "[3x4] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
+      "55": "[3x5] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
       "56": "[3x6]每级使建筑成本增长减缓0.5%。",
       "57": "[3x7]每级使建筑成本增长减缓0.5%。",
       "58": "[3x8]每级使建筑成本增长减缓0.5%。",
       "59": "[3x9]每级使建筑成本增长减缓0.5%。",
       "60": "[3x10]每级使建筑成本增长减缓0.5%。",
-      "61": "[3x11]每秒自动获得难得素，数量为最佳每秒难得素的50%！",
-      "62": "[3x12]每秒再自动获得难得素，数量为最佳每秒难得素的10%。",
+      "61": "[3x11] Waiting to Reincarnate gives you more Obtainium when you finally do. Gain 50% of that amount increase, without having to Reincarnate! This does <b>NOT</b> effect Obtainium you would gain on Reincarnation, so it's like double dipping!",
+      "62": "[3x12] Adds a flat +10% to [3x11]'s effect per level.",
       "63": "[3x13]如果转世持续时间超过2秒，则每级使基础难得素获取数量增加1。",
       "64": "[3x14]如果转世持续时间超过5秒，则每级使基础难得素获取数量增加2。",
       "65": "[3x15]每级使难得素获取数量增加20%。就这么简单！",
@@ -2667,10 +3105,10 @@
       "74": "[3x24]在转世挑战中自动完成挑战4。",
       "75": "[3x25]在转世挑战中自动完成挑战5。",
       "76": "[4x1]每级使难得素获取数量增加10%，以帮助您购买后续研究！",
-      "77": "[4x2]每级使加速符文的符文系数增加1！",
-      "78": "[4x3]每级使重叠符文的符文系数增加1！",
+      "77": "[4x2] Here's +1 Rune Coefficient to Thrift Rune, per level!",
+      "78": "[4x3] Here's +1 Rune Coefficient to Speed Rune, per level!",
       "79": "[4x4]每级使棱柱符文的符文系数增加1！",
-      "80": "[4x5]每级使节俭符文的符文系数增加1！",
+      "80": "[4x5] Here's +1 Rune Coefficient to Duplication Rune, per level!",
       "81": "[4x6]您觉得前面的研究太贵了？您会需要这个的！[每级使难得素获取数量增加10%]",
       "82": "[4x7]永久解锁卓越智慧符文！[加成：祭品获取数量、难得素获取数量和蚂蚁速度]",
       "83": "[4x8]觉得新符文升级太慢了吗？此研究每级可以使它的经验值获取数量增加5%。",
@@ -2686,9 +3124,9 @@
       "93": "[4x18]您每有20级符文等级，每级就获得1个加速器加成。",
       "94": "[4x19]您每有8级符文等级，每级就获得20个加倍器。",
       "95": "[4x20]购买后使基础祭品获取数量增加4。简明易懂。",
-      "96": "[4x21]蚂蚁很慢吗？每购买1只蚂蚁，就使蚂蚁速度变为原来的1.0002倍。",
-      "97": "[4x22]每级使前六个蚂蚁升级的免费等级增加4级！",
-      "98": "[4x23]每级使后五个蚂蚁升级的免费等级增加4级！",
+      "96": "[4x21] Ants slow? Multiply Ant Speed by (1 + 0.0002 * level) per Worker Ant purchased.",
+      "97": "[4x22] Add +2 free levels to Ant Upgrades per level! Free levels require a corresponding purchased level to work!",
+      "98": "[4x23] Add +2 more free levels to Ant Upgrades per level!",
       "99": "[4x24]夸克商店的诱惑太强无法自制了？每级使每小时导出奖励增加1夸克！",
       "100": "[4x25]好吧，Platonic彻底疯了。每级使每小时导出奖励再增加1夸克！",
       "101": "[5x1]要不，每级使创始蚁的效果增加0.001？",
@@ -2700,26 +3138,26 @@
       "107": "[5x7]使用难得素粉末精炼护身符，每级再次使护身符强度增加0.1%。",
       "108": "[5x8]一个简单的小把戏就可以每级使蚂蚁基础强度分增加25！",
       "109": "[5x9]一个更复杂一点的小把戏就可以每级再次使蚂蚁基础强度分增加25！",
-      "110": "[5x10]每级使蚂蚁增加1%蚂蚁强度分，原因？有拒绝的理由吗？",
+      "110": "[5x10] Each Reborn ELO multiplies Ant Speed by 1.02. Woah! You should create these 2% faster per level.",
       "111": "[5x11]每级使加速符文的符文系数再度增加1！",
       "112": "[5x12]每级使重叠符文的符文系数再度增加1！",
       "113": "[5x13]每级使棱柱符文的符文系数再度增加1！",
       "114": "[5x14]每级使节俭符文的符文系数再度增加1！",
       "115": "[5x15]每级使卓越智慧符文的符文系数增加1！因为之前没有这个研究，所以它的等级上限翻倍了。",
-      "116": "[5x16]每级使护身符强度再度增加0.1%！(与符文强度不同，所有增加护身符强度的效果都是相互叠加的。别问原因。)",
-      "117": "[5x17]难以置信，每级使护身符强度再增加0.1%！",
+      "116": "[5x16] When you Sacrifice your Anthill, increment the Anthill count by 1 more per level!",
+      "117": "[5x17] Past lives couldn't ever hold your Ants down. Gain +0.01% Ant Speed per Anthill Count, per level!",
       "118": "[5x18]试试这个：每级使护身符强度增加0.2%！它的效果是其他升级的<b>两倍</b>。",
-      "119": "[5x19]每级使飞升的惊奇方盒获取数量增加0.25%。",
-      "120": "[5x20]每级再次使飞升的惊奇方盒获取数量增加0.25%。",
+      "119": "[5x19] Gain +0.10% Wow! Cubes per level. These are earned on Ascension.<br>Also, gain +0.5% Offerings per level.<br>ALSO! Gain +0.5% Obtainium per level.",
+      "120": "[5x20] Gain +0.50% Wow! Cubes per level.<br>Also, create Reborn ELO 0.4% faster per level.<br>ALSO! Gain +2 ELO per level.",
       "121": "[5x21]扭曲全局时间为您所用，每级使全局速度增加2%。",
       "122": "[5x22]每级使蚂蚁献祭奖励增加2%。",
       "123": "[5x23]每级使蚂蚁强度分增加40。",
-      "124": "[5x24]解锁蚂蚁自动献祭！",
+      "124": "[5x24] Unlock enhanced toggles for The Great Automator! Be able to control when you Sacrifice based on your Reborn ELO.",
       "125": "[5x25]祝好运，哥们。[每级使每小时导出奖励增加1夸克]",
       "126": "[6x1]六行了？不可能啊……(每级使加速器数量增加1%)",
       "127": "[6x2]每级使加速器加成数量增加1%！",
       "128": "[6x3]三重奏！每级使加倍器数量增加1%。",
-      "129": "[6x4]使水晶升级上限增加 此研究等级 * 水晶升级对应常数 * log4(普通碎片数量 + 1)",
+      "129": "[6x4] Crystal Upgrade 3 has a higher cap (+0.01% per Level * log4(Common Fragments + 1)).<br>Crystal Upgrade 4 also gets a higher cap (+0.05 per Level * log4(Common Fragments + 1)).",
       "130": "[6x5]解锁自动升级护身符！现实时间每2秒激活一次。",
       "131": "[6x6]让一些神使蚁转而对抗蚁神，每级使符文强度增加0.5%。",
       "132": "[6x7]让其他一部分蚂蚁也加入您这一方，每级使免费蚂蚁升级等级增加2级。",
@@ -2738,7 +3176,7 @@
       "145": "[6x20]从蚂蚁大战中获取的知识让您可以自动获得死神蚁等级。",
       "146": "[6x21]给神使蚁喂食纯净的难得素，每级使前五个符文的符文强度增加0.4%。",
       "147": "[6x22]给蚂蚁们喂食碎屑，使它们的速度变为 log(银河碎屑数 + 10) 倍！",
-      "148": "[6x23]每级使蚂蚁基础强度分增加2.5%！",
+      "148": "[6x23] Create Reborn ELO 2% faster per level. Reborn ELO is created 2% slower per Stage. This Research doesn't quite cancel that out.",
       "149": "[6x24]每级使每级点金护身符增加0.03%的祭品获取数量！",
       "150": "[6x25]解锁自动挑战。效果一目了然。(您可以自动进行和完成挑战了！)",
       "151": "[7x1]新的一行，旧的升级。每级使全局速度增加1.2%。",
@@ -2759,7 +3197,7 @@
       "166": "[7x16]《时 间》：每级使全局速度增加0.9%。",
       "167": "[7x17]由于赞助的缘故，惊奇公司使飞升的惊奇方盒获取数量每级增加0.8%。",
       "168": "[7x18]每级使惊奇方盒的贡品获取数量增加0.08%。您到这个时候应该预料的到。",
-      "169": "[7x19]每级使超立方建筑的产量增加4%。它还在增加。",
+      "169": "[7x19] A great wave of Ant ELO! +0.2 per level. Hmmm. Does the cost of this Research increase per level, or is it just <b>me</b>?",
       "170": "[7x20]四部曲的第三部：如何完全搞定挑战10。挑战10的基础目标再次减少1e100M！",
       "171": "[7x21]您应该知道这个趋势了。每级增加0.4%加速器数量",
       "172": "[7x22]每级增加0.4%加速器加成，就这样",
@@ -2782,7 +3220,7 @@
       "189": "[8x14]传奇碎片将魂灵强度增加 15% * log10(传奇碎片数量 + 1)",
       "190": "[8x15]解锁超立方建筑的自动购买。",
       "191": "[8x16]每级使符文强度增加0.1%。哇哦！",
-      "192": "[8x17]每级死神蚁使飞升时的惊奇方盒获取数量增加0.03%",
+      "192": "[8x17] Each purchased level of Mortuus Est (the Ant Upgrade) also increases Wow! Cube reward by +0.20%",
       "193": "[8x18]每级使蚂蚁献祭奖励增加1%。",
       "194": "[8x19]每级使魂灵强度和祝福强度都增加2%。",
       "195": "[8x20]每级使每小时导出奖励增加1夸克，并且使导出奖励的时间上限增加5小时！",
@@ -2792,7 +3230,7 @@
       "199": "[8x24]每级使超立方建筑的产量增加10%。它觉醒了。赞美[已删除]。",
       "200": "[8x25]获得烈日千阳的力量！每级使加速器、加速器加成、加倍器的数量和祭品获取数量增加0.01%，惊奇方盒获取数量增加0.004%，免费蚂蚁升级等级增加(等级/200)，税收减少0.000666%。每10000级还可以使护身符强度增加0.4%！"
     },
-    "thanksToResearches": "由于研究效果，您在现实时间每秒自动获得{{x}}难得素。",
+    "thanksToResearches": "[Research 3x11] grants you this much Obtainium per second: <br> <<gold|<b>{{x}}</b> >>",
     "level": "等级 {{x}}/{{y}}",
     "maxed": " || 已满级！",
     "cost": "花费：{{x}}难得素[可提升{{y}}级]",
@@ -2817,7 +3255,7 @@
       "obtainiumEX": "难得素获取数量增加4%！",
       "obtainiumAuto": "自动使用难得素进行研究。第一级解锁机制，且每一级使难得素获取数量增加2%。每次转世，尽可能地使用难得素升级目标研究，激活方式与自动献祭类似。",
       "instantChallenge": "只要开启重新尝试挑战，超越和转世挑战将不再重置资源，且每个时刻可以完成10次超越和转世挑战。另外，在退出转世挑战时，立刻使超越挑战的完成次数达到之前的完成次数上限。",
-      "antSpeed": "每级使蚂蚁速度变为1.2倍！(无瑕！)简单有效。",
+      "antSpeed": "Each level grants +4 Ant ELO per level. Don't ask where it comes from.",
       "cashGrab": "这玩意非常贵，但是效果拔群。每级使祭品和难得素的获取数量增加1%。",
       "shopTalisman": "永久解锁一个商店护身符！",
       "seasonPass": "惊奇方盒提出交易：购买这个完全公平的季票以后，每级使您飞升的方盒和超立方获取数量增加2.25%！",
@@ -2926,7 +3364,7 @@
       "obtainiumEX": "难得素获取数量增加<<pink|{{amount}}%>>！",
       "obtainiumAuto": "每次转世都尝试研究，并且难得素获取数量增加<<pink|{{amount}}%>>。",
       "instantChallenge": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
-      "antSpeed": "使所有蚂蚁速度变为<<crimson|{{amount}}>>倍",
+      "antSpeed": "Ant ELO is increased by <<orchid|{{amount}}>>.",
       "cashGrab": "难得素和祭品的获取数量增加<<gold|{{amount}}%>>！",
       "shopTalisman": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
       "seasonPass": "飞升的方盒和超立方获取数量增加<<lightgoldenrodyellow|{{amount}}%>>。",
@@ -3259,6 +3697,10 @@
       "demeterHarvest": {
         "name": "得墨忒耳的丰收",
         "default": "使所有<<lime|正数回收>>增加{{i}}%！"
+      },
+      "persistentGlobalResets": {
+        "name": "Soulbound Global Resets",
+        "default": "Your Prestige, Transcension and Reincarnation counts no longer reset. You're welcome!"
       }
     },
     "toString": {
@@ -3688,6 +4130,20 @@
         "name": "强化护身符！其四",
         "description": "每级又使护身符强度增加1%，与其他同类效果叠加。Platonic没有再添加第五个升级，而是使这个升级的等级上限翻倍了，什么叫游戏设计，懂了吗？",
         "effect": "使护身符的符文额外等级增加{{n}}%！"
+      },
+      "favoriteUpgrade": {
+        "name": "Your Favorite Upgrades' Favorite Upgrade",
+        "description": "This upgrade gets stronger for every upgrade from the following list that is maxed! (+0.02% Quarks per level, per maxed upgrade + 6)",
+        "upgrade1": "Golden Quarks I: {{checkMark}}",
+        "upgrade2": "Platonic DELTA: {{checkMark}}",
+        "upgrade3": "ONE MIND: {{checkMark}}",
+        "upgrade4": "Wow! I want free upgrades to be better: {{checkMark}}",
+        "upgrade5": "EXTRA CHONKY Corruptions: {{checkMark}}",
+        "upgrade6": "Berries that are blue!: {{checkMark}}",
+        "upgrade7": "A beginner's guide to Red Ambrosia: {{checkMark}}",
+        "upgrade8": "Red Infinity Shop Voucher: {{checkMark}}",
+        "upgrade9": "The Sands of Time II: {{checkMark}}",
+        "effect": "{{n}} more Quarks, thanks to this upgrade and its loving sponsors."
       }
     },
     "goldenQuarkAmount": "您有{{goldenQuarks}}金夸克！",
@@ -3876,10 +4332,10 @@
       "74": "根据最大持有的祭品数量增加难得素获取数量。[祭品数量效果上限：100000]",
       "75": "根据最大持有的难得素数量增加祭品获取数量。[难得素数量效果上限：30000000]",
       "76": "蚂蚁增长得太慢了？我也这么觉得！使蚂蚁速度变为原来的5倍。",
-      "77": "这游戏叫协同放置，对吧？所以每购买一只蚂蚁，蚂蚁速度就变为原来的1.004倍。",
+      "77": "This is Synergism, right? Let's make each purchased Worker Ant multiply Ant Speed by 1.004.",
       "78": "使蚂蚁速度获得倍率！倍率的数值是 1 + 0.005 * (log10(最大持有的祭品数量 + 1))^2 。",
-      "79": "蚁神愿意收下一些粒子，然后使蚂蚁献祭奖励增加10%。",
-      "80": "蚁神愿意收下更多一些的粒子，然后增加蚂蚁的强度分。",
+      "79": "The Ant Speed multiplier from your Global Speed multiplier is raised to the fourth power! If Global Speed multiplier is less than 1 this upgrade does nothing.",
+      "80": "Gain Ant ELO based on your total Sacrifice Count! Up to +1,000 Ant ELO.",
       "81": "自动购买工人。",
       "82": "自动购买投资。",
       "83": "自动购买打印机。",
@@ -3921,24 +4377,24 @@
       "119": "质子产生宗师的指数从 0.15 变为 0.20",
       "120": "质子产生宗师的指数从 0.20 变为 0.25",
       "121": "您可能已经自动购买了这个升级。税收减少50%！",
-      "122": "将水晶升级3的上限从+12%增加到+100%！",
+      "122": "Increase Crystal Upgrade 3 cap by 100%! (Adds +100% to the max Diamond Building production bonus)",
       "123": "将金币产量乘以1.025次方。又是指数。",
-      "124": "蚂蚁有效分增加3%。",
+      "124": "Immortal ELO becomes Reborn ELO 1.1x as fast!",
       "125": "每完成一次挑战10，数学常数的税收除数效果就增加0.333%。[除数^(1 + 升级效果)]"
     },
     "crystalEffects": {
-      "1": "水晶产量变为{{x}}倍",
-      "2": "水晶产量变为{{x}}倍",
-      "3": "水晶产量变为{{x}}倍",
-      "4": "水晶对金币产量提升的指数增加{{x}}",
-      "5": "水晶产量变为{{x}}倍"
+      "1": "Diamond Building Production x{{x}}",
+      "2": "Diamond Building Production x{{x}}",
+      "3": "Bonus: +{{base}}<br>Diamond Building Production x{{x}}",
+      "4": "Crystal --> Coin Exponent +{{x}}",
+      "5": "Diamond Building Production x{{x}}"
     },
     "crystalUpgrades": {
-      "1": "每有1成就点数，每级就可以使水晶产量增加1%(效果叠乘)。",
-      "2": "每级根据未花费的金币数量增加水晶产量。",
-      "3": "每级使每购买一个水晶生产者增加0.1%的水晶生产者产量。[上限：{{max}}%]",
-      "4": "每级使水晶对金币产量提升的指数增加0.05。[上限：增加{{max}}]",
-      "5": "每级使每次转世挑战完成次数增加水晶产量1%。",
+      "1": "Gain +1% Diamond Building production per level, for each Achievement Point!<br>Formula: <<orchid|(1 + level / 100)^(AP)>>",
+      "2": "Gain a boost to Crystals based on held coins per level.<br>Formula: <<orchid|(1 + level * log10(Coins + 1) / 100)^(2 + log2(level + 1))>>",
+      "3": "Increase how much each purchased Diamond Building buffs Diamond Building production!<br>Max bonus per Diamond Building: <<gold|+{{max}}>><br>Formula: <<orchid|(1 + Bonus%)^(Diamond Buildings Bought)>>",
+      "4": "Add to the Exponent in the Crystal to Coin Multiplier formula!<br>Max Exponent increase from this upgrade: <<gold|{{max}}>>",
+      "5": "Gain +5% Diamond Building production per level, per Transcension Challenge completed!<br>Formula: <<orchid|(1 + level / 20)^(Transcension Challenges Completed)>>",
       "6": "敬请期待(虽然可能没那么快)！",
       "7": "敬请期待(虽然可能没那么快)！",
       "8": "敬请期待(虽然可能没那么快)！"
@@ -3960,8 +4416,8 @@
       "2": "每级使每购买一个超立方建筑增加0.1%的超立方建筑产量[上限{{max}}%]。",
       "3": "每级使祭品获取数量增加2%。",
       "4": "每级使难得素获取数量增加4%。",
-      "5": "使蚂蚁速度变为 (1 + log10(数学常数数量 + 1)/10)^升级等级 倍。",
-      "6": "每级使免费蚂蚁等级增加2级。",
+      "5": "Multiply Ant speed by (1 + 0.1 * level * log10(Constant + 1))",
+      "6": "Add up to 1,000 free Ant Levels! (Each level gives slightly less than the last)",
       "7": "每级使免费符文等级增加7，最高增加7000。",
       "8": "每级使祭品提供的符文经验值增加10%[相互叠加]",
       "9": "(译者注：注意，与升级等级无关)购买后，使符文强度增加 log4(护身符碎片数量 + 1)%",
@@ -4046,14 +4502,14 @@
       "76": "效果：使蚂蚁速度变为史诗般的5倍！",
       "77": "效果：使蚂蚁速度变为原来的{{x}}倍",
       "78": "效果：使蚂蚁速度变为原来的{{x}}倍",
-      "79": "效果：使蚂蚁献祭奖励增加10% =)",
-      "80": "效果：使蚂蚁强度分增加75。",
+      "79": "Effect: Net Ant Speed multiplier: {{x}}",
+      "80": "Effect: Ant ELO +{{x}}",
       "81": "效果：想要知道的，都在上面了。",
       "120": "效果：想要知道的，都在上面了！",
       "121": "效果：减少50%税收，又开始废话了！",
       "122": "效果：水晶升级3的上限增加88%，还是废话！",
       "123": "效果：金币产量变为原来的1.025次方，废话废话！",
-      "124": "效果：蚂蚁有效分增加3%，废话废话废话！",
+      "124": "Effect: 10% faster Reborn ELO creation!",
       "125": "效果：增加{{x}}%数学常数的税收除数效果。"
     },
     "shopTitles": {
@@ -4106,6 +4562,11 @@
     "challenges": {
       "normal": "普通",
       "exalt": "拔擢"
+    },
+    "ants": {
+      "anthill": "The Anthill",
+      "altar": "The Altar",
+      "quarkCorner": "Quark Corner"
     },
     "cubes": {
       "cubeTributes": "方盒的贡品",
@@ -4391,7 +4852,7 @@
       "hyperchallenge": "挑战需求指数乘以{{ effect }}",
       "illiteracy": "难得素获取数量变为原来的{{ effect }}次方",
       "deflation": "钻石获取数量变为原来的{{ effect }}次方",
-      "extinction": "蚂蚁产量变为原来的{{ effect }}次方",
+      "extinction": "Ant Upgrade Effective Level /{{ effect }}",
       "drought": "回收{{ effect }}",
       "recession": "金币获取数量变为原来的{{ effect }}次方"
     },
@@ -4435,14 +4896,14 @@
   },
   "corruptions": {
     "names": {
-      "viscosity": "粘性加倍器和加速器",
-      "drought": "欠收",
-      "deflation": "水晶矿难",
-      "extinction": "第二颗陨石",
-      "illiteracy": "削减教育经费",
-      "recession": "大萧条 II",
-      "dilation": "时间膨胀",
-      "hyperchallenge": "极致挑战"
+      "viscosity": "Viscous Multiplier and Accelerators (Viscosity)",
+      "drought": "Less Fruitful Harvests (Drought)",
+      "deflation": "Crystal Mine Collapse (Deflation)",
+      "extinction": "The Second Meteor (Extinction)",
+      "illiteracy": "Defunded Education (Illiteracy)",
+      "recession": "Great Depression II (Recession)",
+      "dilation": "Time Dilation (Dilation)",
+      "hyperchallenge": "The Hyperchallenge Cube (Hyperchallenge)"
     },
     "descriptions": {
       "viscosity": "您感到昏昏欲睡……",
@@ -4460,7 +4921,7 @@
       "hyperchallenge": "本次飞升，此腐化等级为{{ level }}。效果为：挑战需求指数乘以{{ effect }}",
       "illiteracy": "本次飞升，此腐化等级为{{ level }}。效果为：难得素获取数量变为原来的{{ effect }}次方",
       "deflation": "本次飞升，此腐化等级为{{ level }}。效果为：钻石获取数量变为原来的{{ effect }}次方",
-      "extinction": "本次飞升，此腐化等级为{{ level }}。效果为：蚂蚁产量变为原来的{{ effect }}次方",
+      "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Upgrade Level Effect /{{ effect }}",
       "drought": "本次飞升，此腐化等级为{{ level }}。效果为：回收{{ effect }}",
       "recession": "本次飞升，此腐化等级为{{ level }}。效果为：金币获取数量变为原来的{{ effect }}次方"
     },
@@ -4470,7 +4931,7 @@
       "hyperchallenge": "下次飞升，此腐化等级将变为{{ level }}。效果为：挑战需求指数乘以{{ effect }}",
       "illiteracy": "下次飞升，此腐化等级将变为{{ level }}。效果为：难得素获取数量变为原来的{{ effect }}次方",
       "deflation": "下次飞升，此腐化等级将变为{{ level }}。效果为：钻石获取数量变为原来的{{ effect }}次方",
-      "extinction": "下次飞升，此腐化等级将变为{{ level }}。效果为：蚂蚁产量变为原来的{{ effect }}次方",
+      "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Upgrade Level Effect /{{ effect }}",
       "drought": "下次飞升，此腐化等级将变为{{ level }}。效果为：回收{{ effect }}",
       "recession": "下次飞升，此腐化等级将变为{{ level }}。效果为：金币获取数量变为原来的{{ effect }}次方"
     },
@@ -4525,7 +4986,6 @@
     "resetCorruptionsError": "在战役或者挑战15中无法清除腐化！",
     "intro": "不入虎穴，焉得虎子。",
     "traitInfo": "选择您想要使用的腐化等级。请明智地进行选择！<<var(--red-text-color)|切记，贪多嚼不烂……>>",
-    "antExponent": "此飞升的气候使蚂蚁产量变为蚂蚁产量^<<var(--darkorchid-text-color)|{{exponent}}>>。",
     "spiritBonus": "但它也使魂灵强度变为<<wheat|{{multiplier}}>>倍。",
     "corruptionBank": "您有<<var(--crimson-text-color)|{{number}}>>个惊奇方盒还存在飞升库中。完成更多挑战，以获得更多惊奇方盒！飞升后才可以获得它们。",
     "corruptionScore": "您的飞升分数为<<goldenrod|{{ascScore}}>></span>(基础值)*<<var(--crimson-text-color)|{{corrMult}}>>(腐化因子)*<<var(--orchid-text-color)|{{bonusMult}}>>(加成因子)=<<var(--darkorchid-text-color)|{{totalScore}}>>",
@@ -4636,7 +5096,7 @@
       "bentTime": "时间扭曲：{{amount}} [+{{gain}}]",
       "hilbertSpace": "希尔伯特空间：{{amount}} [+{{gain}}]"
     },
-    "crystalMult": "您有{{crystals}}水晶，金币产量因此乘以{{gain}}。",
+    "crystalMult": "You have <<gold|{{crystals}}>> Crystals, multiplying Coin production by <<gold|{{gain}}>>.<br>Formula: <<orchid|(1 + {{crystals}})^{{exponent}}>> = <<gold|{{gain}}>>",
     "hoverCrystalUpgrade": "将鼠标停在水晶升级上可以获得更多信息！",
     "autoPrestige": "当{{name}}为之前的{{factor}}倍时{{action}}[在上方输入设置数值]。当前倍率：{{mult}}。",
     "per": {
@@ -4669,7 +5129,7 @@
     "mythosYouHave": "您有{{shards}}神话碎片，加倍器加成因此增加{{mult}}个。",
     "eachMultiplierBoost": "每1个加倍器加成使加倍器的基础效果增加0.02。",
     "costMythos": "花费：{{mythos}}神话。",
-    "atomsYouHave": "您有{{atoms}}原子，建筑能量因此增加{{power}}。金币产量倍率变为{{mult}}倍",
+    "atomsYouHave": "You have <<white|{{atoms}}>> Atoms, providing <<gold|{{power}}>> Building Power.<br>Each Coin Producer purchased multiplies Coin Production by <<gold|{{power}}>><br>Multiplier to Coin Production: <<gold|{{mult}}>><br><<orange|Coin multiplier also increases your Tax Cap, and is further exempt from Taxation>>",
     "costParticles": "花费：{{particles}}粒子",
     "autoReincarnate": "当现实时间经过{{amount}}秒后{{name}}[在上方输入设置数值]。当前时间：{{timer}}秒。",
     "thanksR2x14": "由于研究2x14的效果，水晶产量变为{{mult}}倍",
@@ -4997,7 +5457,7 @@
       "lockedDescription": "该符文未解锁！可能需要某些小说的研究。",
       "offeringMult": "<<orange|使祭品获取数量增加{{val}}>> (每有1符文强度就增加0.05%)",
       "obtainiumMult": "<<pink|使难得素获取数量增加{{val}}>> (每有1符文强度就增加0.50%)",
-      "antSpeed": "<<crimson|使蚂蚁速度变为原来的{{val}}倍>> (1 + 符文强度^2 / 2500) 倍",
+      "antSpeed": "<<crimson | Ant Speed x{{val}}>> x(1 + Power / 500)^2",
       "values": "使祭品获取数量变为原来的 (1 + 等级/2000) 倍，难得素获取数量变为原来的 (1 + 等级/200) 倍，蚂蚁速度变为原来的 (1 + 等级^2/2500) 倍",
       "effect": "卓越智慧符文的加成：使祭品获取数量变为原来的{{val}}倍，难得素获取数量变为原来的{{val2}}倍，蚂蚁速度变为原来的{{val3}}倍"
     },
@@ -5127,7 +5587,7 @@
       "mortuus": {
         "name": "蚂蚁标本护身符",
         "description": "据说为了这个护身符付出了巨大的牺牲。",
-        "inscription": "<<gold | ✏>> 铭文：使蚂蚁强度分增加<<gold|{{val}}>>。",
+        "inscription": "<<gold | ✏>> Inscription: Reborn ELO is created <<gold|{{val}}>> faster.",
         "signature": "<<crimson | ✎>> 签名：使棱柱符文的符文升级系数增加<<crimson|12>>。"
       },
       "plastic": {
@@ -5306,7 +5766,7 @@
       },
       "prism": {
         "description": "躲避红色光束。",
-        "crystalCaps": "<<lightblue|使水晶升级的上限增加{{val}}>> (每有10000000魂灵强度就增加1%)"
+        "crystalCaps": "<<lightblue | Crystal Upgrade 4 Max Exponent +{{val}}>> (Spirit Power / 1e9)"
       },
       "thrift": {
         "description": "让协同放置过去的幽影出现！",
@@ -5424,7 +5884,10 @@
       },
       "limitedTime": {
         "name": "奇点大竞速赛！",
-        "description": "Derpsmith正在计时。在限定时间内通过目标奇点！<br/><<red|时间限制与该拔擢的阶层完成数有关。>>在 (600 - 20 × 阶层完成数) 秒后，您的难得素、祭品和所有类型的方盒、立方和方块获取数量将每分钟除以 (10 + 阶层完成数)。",
+        "description": "<i>Time, time is something never meant to last.</i> Beat the target Singularity, but the fabric of your reality quickly collapses.",
+        "timeMod1": "<<red|⏱ Time Limit: {{time}} seconds>>",
+        "timeMod2": "<<gold|⚠>> After the time limit, your Obtainium, Offering, and Cube production is divided by <<red|{{perSecondDivisor}}>> per second.",
+        "timeMod3": "Derpsmith gives you a slight boost: <<#00DDFF | 5x faster Reborn ELO Creation Speed!>> Until you buy Antiquities, at least.",
         "ScalingReward1": "使<<orange|全局速度>>增加6%！",
         "ScalingReward2": "使<<orange|飞升的速度>>增加6%！",
         "ScalingReward3": "使<<cyan|夸克获取数量>>增加1%！",
@@ -5560,8 +6023,12 @@
       "gSpeedMult": "全局速度倍率",
       "antSpeedMult": "蚂蚁速度倍率",
       "antSacrificeMult": "蚂蚁献祭倍率",
+      "antELO": "Ant ELO",
+      "additiveAntELOMult": "Ant ELO Mult",
+      "rebornELOCreationSpeedMult": "Reborn ELO Creation",
       "talismanRuneBonusMult": "护身符强度",
       "ascMult": "飞升的速度倍率",
+      "ascCountMult": "Asc. Count Multipliers",
       "globalCubeMult": "全局方盒倍率",
       "cubeMult": "方盒倍率",
       "tessMult": "超立方倍率",
@@ -5638,6 +6105,7 @@
       "WowSquare": "惊奇正方形 - 签名的加成：",
       "Researches": "除了8x25以外的研究：",
       "Research8x25": "研究8x25：",
+      "AntUpgrade": "Ants - Cubus Admirabilis:",
       "CubeUpgrades": "方盒升级：",
       "ConstantUpgrade10": "数学常数升级10：",
       "Achievement189": "成就189的加成：",
@@ -5805,6 +6273,7 @@
       "AntUpgrade": "献祭蚁：",
       "Brutus": "普路托斯的贡品：",
       "ConstantUpgrade3": "数学常数升级3：",
+      "Research5x19": "Research 5x19:",
       "ResearchTalismans": "研究6x24和研究8x4加成：",
       "TutorialBonus": "战役 - 教程加成：",
       "CampaignBonus": "战役 - 祭品加成：",
@@ -5884,6 +6353,7 @@
       "QuarkHepteract": "惊奇七阶立方·夸克加成：",
       "Powder": "超通量粉加成：",
       "SingularityCount": "奇点次数加成：",
+      "FavoriteUpgrade": "Golden Quark - Favorite Upgrade Bonus:",
       "CookieUpgrade3": "饼干升级3[Cx3]加成：",
       "CookieUpgrade18": "饼干升级18[Cx18]加成：",
       "SingularityMilestones": "奇点特权 - 更多夸克：",
@@ -5961,6 +6431,7 @@
       "Research3x15": "研究3x15：",
       "Research4x1": "研究4x1：",
       "Research4x6": "研究4x6：",
+      "Research5x19": "Research 5x19:",
       "ShopObtainiumAuto": "商店自动使用难得素升级：",
       "ShopCashGrab": "商店昂贵物品升级：",
       "ShopObtainiumEX": "商店额外难得素升级：",
@@ -5975,7 +6446,6 @@
       "CubeBonus": "雅典娜的贡品：",
       "ConstantUpgrade4": "数学常数升级4：",
       "CubeUpgrade1x3": "方盒升级1x3：",
-      "CubeUpgrade4x7": "方盒升级4x7：",
       "Challenge12": "挑战12：",
       "SpiritPower": "卓越智慧魂灵：",
       "Research6x19": "研究6x19：",
@@ -6044,6 +6514,7 @@
     },
     "globalSpeedMultiplierStats": {
       "title": "全局速度倍率",
+      "Base": "Beaten Challenge 8:",
       "SpeedRune": "加速符文加成：",
       "ObtainiumLog": "粒子升级2x5加成：",
       "Research5x21": "研究5x21：",
@@ -6069,6 +6540,7 @@
     },
     "ascensionSpeedMultiplierStats": {
       "title": "飞升的速度倍率",
+      "AntUpgrade": "Ants - Mortuus Iterum Formicidae:",
       "SpeedSpirit": "加速魂灵加成：",
       "PolymathTalisman": "博识小符饰 - 铭文的加成：",
       "Chronometer": "商店时计升级：",
@@ -6147,6 +6619,7 @@
       "ConglomerateBerries": "凝结蓝莓(奇点特权)：",
       "NoAmbrosiaUpgrades": "无神肴升级奖励：",
       "OcteractBlueberries": "八阶方块蓝莓升级：",
+      "RedAmbrosiaBlueberries": "Red Ambrosia - Berries that are... blue?:",
       "Total": "拥有的蓝莓总数："
     },
     "ambrosiaGenerationStats": {
@@ -6320,8 +6793,6 @@
       "AchievementBonus": "护身符效果成就加成：",
       "Research106": "研究5x6：",
       "Research107": "研究5x7：",
-      "Research116": "研究5x16：",
-      "Research117": "研究5x17：",
       "Research118": "研究5x18：",
       "Research200": "研究8x25：",
       "CubeUpgrade50": "方盒升级5x10：",
@@ -6345,6 +6816,7 @@
       "SynergismLevel": "协同效应等级的奖励：",
       "SynergismLevelMilestone": "等级里程碑 - 回收挑战强化：",
       "ReincarnationChallenge": "转世挑战奖励：",
+      "AntUpgrade": "Ants - Scientia Formicidae:",
       "UpgradeBonus": "转世升级1：",
       "CubeBlessing": "伊里斯的贡品加成：",
       "RuneBonus": "节俭符文：",
@@ -6352,31 +6824,34 @@
       "AbyssHepteract": "惊奇七阶立方·深渊加成：",
       "SingularityPerk": "“……回收的内容呢？”特权",
       "InfiniteAscentRune": "无限晋升 - 隐藏加成：",
-      "RedAmbrosiaYinYang": "红神肴：阴：",
+      "RedAmbrosiaYinYang": "Red Ambrosia - Yang:",
       "Total": "正数回收：",
-      "PositiveMultiplier": "“得墨忒耳的丰收”特权倍率：",
+      "PositiveMultiplier": "Positive Salvage Multiplier:",
       "Total2": "总正数回收："
     },
     "salvageNegative": {
       "title": "负数回收",
       "DroughtCorruption": "“欠收”腐化",
       "SingularityDebuff": "奇点惩罚：",
-      "RedAmbrosiaYinYang": "红神肴：阳：",
+      "RedAmbrosiaYinYang": "Red Ambrosia - Yin:",
       "Total": "负数回收：",
-      "NegativeMultiplier": "“在桌面点击的回收人”特权倍率",
+      "NegativeMultiplier": "Negative Salvage Multiplier:",
       "Total2": "总负数回收："
     },
     "antSpeedMultStats": {
       "title": "蚂蚁速度倍率",
+      "Base": "Cleared Challenge 8 (1 if cleared, 0 if uncleared):",
       "GlobalSpeed": "全局速度倍率：",
       "AchievementBonus": "蚂蚁速度成就的加成：",
       "ImmortalELO": "不朽强度分(蚂蚁献祭点数)：",
-      "AntUpgrade1": "蚂蚁升级1：",
+      "AntUpgrade1": "Ants - Inceptus Formicidae:",
       "DiamondUpgrade19": "钻石升级4x4：",
+      "ShopUpgrade": "Shop Upgrade - Ant Speed:",
       "ReincarnationUpgrade16": "粒子升级4x1：",
       "ReincarnationUpgrade17": "粒子升级4x2：",
       "ReincarnationUpgrade18": "转世升级18：",
       "Research4x21": "研究4x21：",
+      "Research5x17": "Research 5x17:",
       "Research6x22": "研究6x22：",
       "Research8x2": "研究8x2：",
       "SuperiorIntellect": "卓越智慧符文加成：",
@@ -6385,8 +6860,83 @@
       "Challenge11Bonus": "挑战11加成：",
       "CubeTribute": "阿尔忒弥斯的贡品加成：",
       "ConstantUpgrade": "数学常数升级5：",
+      "Challenge15": "Challenge 15 Reward - Ant Speed:",
+      "PlatonicUpgrade": "Platonic Upgrade 3x2:",
+      "SingularityPerk": "Singularity Perk - Ant God's Cornucopia:",
       "CookieUpgrade": "饼干升级15[Cx15]：",
+      "OcteractUpgrade": "Octeract Starter Upgrade:",
       "Total": "蚂蚁速度总倍率："
+    },
+    "antELOStats": {
+      "title": "Ant ELO",
+      "AntWorkers": "Ant Workers Purchased:",
+      "AchievementBonus": "Achievement Ant ELO Bonus:",
+      "SynergismLevel": "Synergism Level Reward - More Ant Fodder for your Ant Diety:",
+      "ReincarnationUpgrade20": "Reincarnation Upgrade 20:",
+      "Challenge10": "Challenge 10 Reward:",
+      "ShopUpgrade": "Shop Upgrade - Ant ELO:",
+      "Research5x8": "Research 5x8:",
+      "Research5x9": "Research 5x9:",
+      "Research5x20": "Research 5x20",
+      "Research5x23": "Research 5x23:",
+      "Research7x19": "Research 7x19:",
+      "Research8x3": "Research 8x3:",
+      "AntUpgrade": "Ants - Phylacterium Formicidae:",
+      "AntUpgrade13": "Ants - Impia Reproducta Formicidate:",
+      "Total": "Total Base Ant ELO:"
+    },
+    "additiveAntELOMultStats": {
+      "title": "Ant ELO Multiplier (Additive)",
+      "Base": "Base Multiplier:",
+      "AchievementMultiplier": "Achievement Ant ELO Additive Multiplier:",
+      "AntQueens": "Ant Queens Purchased:",
+      "AntLordRoyals": "Ant Lord Royals Purchased:",
+      "AntAlmighties": "Ant Almighties Purchased:",
+      "AntDisciples": "Ant Disciples Purchased:",
+      "AntHolySpirit": "Ant Holy Spirit Purchased:",
+      "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
+      "Total": "Total Ant ELO Multiplier:"
+    },
+    "effectiveAntELOStats": {
+      "title": "Effective Ant ELO",
+      "BaseELO": "Base Ant ELO:",
+      "AdditiveMultiplier": "Additive Ant ELO Multiplier:",
+      "Total": "Effective Ant ELO:"
+    },
+    "rebornELOCreationSpeedMultStats": {
+      "title": "Reborn ELO Creation Speed Multiplier",
+      "extraInfo": "Each tick, you generate <<#00DDFF|Reborn ELO>> equal to <br><<yellow | SpeedMult * TickLength>><br><<yellow|TickLength>> is the time since previous tick (in seconds)",
+      "Base": "Base Multiplier:",
+      "EffectiveELO": "Effective Ant ELO:",
+      "AntQueens": "Queen Ant Purchased:",
+      "AntLordRoyals": "Lord Royal Ant Purchased:",
+      "AntAlmighties": "ALMIGHTY Ant Purchased:",
+      "AntDisciples": "DISCIPLE OF ANT GOD Purchased:",
+      "AntHolySpirit": "THE HOLY SPIRIT OF ANT GOD Purchased:",
+      "CoinUpgrade24": "Coin Upgrade 24:",
+      "CubeBlessing": "Moloch's Cube Blessing:",
+      "Research5x10": "Research 5x10:",
+      "Research5x20": "Research 5x20:",
+      "Research6x23": "Research 6x23:",
+      "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
+      "MortuusTalisman": "Mortuus Talisman:",
+      "ThresholdModifiers": "Threshold Modifiers:",
+      "Exalt6": "The Grand Singularity Speedrun - Derpsmith's Boost:",
+      "Total": "Total Reborn ELO Creation Speed Multiplier:"
+    },
+    "ascensionCountMultiplierStats": {
+      "title": "Ascension Count Multiplier",
+      "Base": "Base Multiplier + Achievement Additive Bonus:",
+      "AchievementMultiplier": "Achievement Ascension Count Multiplier:",
+      "Challenge15": "Challenge 15 Reward:",
+      "PlatonicOMEGA": "Platonic OMEGA:",
+      "PlatonicUpgrade16": "Platonic Upgrade 4x1:",
+      "SingularityCount": "Singularity Perk - Unlimited Growth:",
+      "SingularityUpgrade": "Singularity Upgrade - Improved Ascension Gain:",
+      "OcteractUpgrade1": "Octeract Upgrade - Voided Warranty:",
+      "OcteractUpgrade2": "Octeract Upgrade - Hidden Late Fees:",
+      "OneMind": "One Mind Modifier:",
+      "Total": "Ascension Count gained this Ascension:"
     },
     "gameStage": "当前游戏阶段：{{stage}}"
   },
@@ -6429,7 +6979,7 @@
         "5": "雅典娜的贡品×{{amount}}：使难得素获取数量增加{{bonus}}",
         "6": "阿尔忒弥斯的贡品×{{amount}}：使蚂蚁速度增加{{bonus}}",
         "7": "阿瑞斯的贡品×{{amount}}：使蚂蚁献祭奖励增加{{bonus}}",
-        "8": "摩洛克的贡品×{{amount}}：使有效强度分增加{{bonus}}(效果相互叠加)",
+        "8": "Moloch's Tribute x{{amount}}: +{{bonus}} Reborn ELO Creation Speed",
         "9": "米达斯的贡品×{{amount}}：使符文强度增加{{bonus}}",
         "10": "柯罗诺斯的贡品×{{amount}}：使全局速度增加{{bonus}}"
       },
@@ -6448,7 +6998,7 @@
         "5": "雅典娜的赠礼×{{amount}}：使雅典娜的难得素增加{{bonus}}",
         "6": "阿尔忒弥斯的赠礼×{{amount}}：使阿尔忒弥斯的蚂蚁速度增加{{bonus}}",
         "7": "阿瑞斯的赠礼×{{amount}}：使阿瑞斯的蚂蚁献祭奖励增加{{bonus}}",
-        "8": "摩洛克的赠礼×{{amount}}：使摩洛克的强度分加成增加{{bonus}}",
+        "8": "Moloch's Gift x{{amount}}: +{{bonus}} Moloch Reborn ELO Creation Speed",
         "9": "米达斯的赠礼×{{amount}}：使米达斯的符文强度增加{{bonus}}",
         "10": "柯罗诺斯的赠礼×{{amount}}：使柯罗诺斯的贡品效果增加{{bonus}}"
       }
@@ -6463,10 +7013,10 @@
         "2": "阿佛洛狄忒的恩赐×{{amount}}：使阿佛洛狄忒的赠礼对阿佛洛狄忒的倍率的加成效率增加{{bonus}}",
         "3": "普路托斯的恩赐×{{amount}}：使普路托斯的赠礼对普路托斯的祭品的加成效率增加{{bonus}}",
         "4": "伊里斯的恩赐×{{amount}}：使伊里斯的赠礼上限增加{{bonus}} <<white| [▼ 上限：150%]>>",
-        "5": "雅典娜的恩赐×{{amount}}：使雅典娜的赠礼对雅典娜的难得素的加成效率增加{{bonus}}",
-        "6": "阿尔忒弥斯的恩赐×{{amount}}：使阿尔忒弥斯的赠礼对阿尔忒弥斯的蚂蚁速度的加成效率增加{{bonus}}",
-        "7": "阿瑞斯的恩赐×{{amount}}：使阿瑞斯的赠礼对阿瑞斯的蚂蚁献祭奖励的加成效率增加{{bonus}}",
-        "8": "摩洛克的恩赐×{{amount}}：使摩洛克的赠礼对摩洛克的强度分加成的加成效率增加{{bonus}}",
+        "5": "Athena's Benediction x{{amount}}: +{{bonus}} Athena Gift → Athena Ant Speed",
+        "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Sacrifice Reward",
+        "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares ELO Bonus",
+        "8": "Moloch's Benediction x{{amount}}: +{{bonus}} Moloch Gift → Moloch Reborn ELO Creation Speed",
         "9": "米达斯的恩赐×{{amount}}：使米达斯的赠礼对米达斯的符文强度的加成效率增加{{bonus}}",
         "10": "柯罗诺斯的恩赐×{{amount}}：使柯罗诺斯的赠礼对柯罗诺斯的贡品效果的加成效率增加{{bonus}}"
       }
@@ -6560,7 +7110,7 @@
         "9": "使无瑕难得素倍率变为原来的2.5倍，且削减教育经费的指数乘以 (1 + log10(难得素当前数量 + 1) / 100)，最高到1e100难得素。",
         "10": "C10的分数倍率的指数从1.0375变为1.04，数学常数减缓税收的指数增加0.20，数学常数产量变为10倍，夸克获取数量变为原来的1.1倍，转世挑战次数上限增加10次，飞升挑战次数上限增加5次，无瑕难得素倍率和无瑕祭品倍率变为原来的3.5倍，所有类型的方盒及立方获取数量翻倍，腐化等级上限增加1，在挑战15中蚂蚁产量变为蚂蚁产量^1.25！",
         "11": "在11级及以上的水晶矿难中，转世时也可以获取钻石，数值为粒子获取数量！",
-        "12": "每完成1次挑战，就使蚂蚁倍率变为 (1 + 该升级等级 / 100) 倍，且该倍率无视腐化。",
+        "12": "For each level of Extinction, gain +0.5% more Ant ELO, per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level!",
         "13": "“欠收”减少的<<green|回收>>数值降低50%！",
         "14": "挑战15中大萧条 II金币获取数量的指数乘以1.55。",
         "15": "您开始找寻深渊的起始了。在挑战15中金币指数增加0.10。挑战15的分数增加25%。每级腐化使飞升的速度增加0.2%(上限：20%)。每次完成挑战9就使所有类型的方盒及立方获取数量增加1%(相互叠乘)。夸克获取数量变为原来的1.15倍。超立方建筑产量变为1e250倍。飞升次数获取数量翻倍。转世挑战次数上限增加30，飞升挑战次数上限增加20。无瑕难得素倍率和无瑕祭品倍率变为原来的6倍！聊聊继续深入的事吧。",
@@ -6781,7 +7331,7 @@
     "transferredFromLZ": "成功将存档转换为新格式！",
     "allCorruptionsZero": "下次飞升时将所有腐化重置为零。",
     "corruptionLoadoutApplied": "第{{x}}个预设\"{{y}}\"已载入。飞升后即可生效。",
-    "ascendPrompt": "飞升后，之前的所有低阶资源，符文经验值，护身符，大部分研究，以及蚁丘都将被重置，但您可以获得方盒的力量。您确定要继续吗？",
+    "ascendPrompt": "Ascending will reset your Buildings, (some) Runes and Talismans, Upgrades, most Researches, Anthill Count, Immortal ELO, and your Transcension/Reincarnation Challenges, in exchange for industrial Wow! Cubes. Shop Upgrades are preserved. Continue?",
     "reincarnatePrompt": "转世后之前的所有低阶资源都将被重置，但您可以获得强大的粒子，以及解锁一些非常强大的升级和新的游戏机制。您确定要转世吗？[您可以在设置中调整是否弹出此对话框。]",
     "transcendPrompt": "超越后金币、钻石升级，金币生产者，水晶生产者和钻石都将被重置。首次超越可以解锁新的游戏机制。您确定要超越吗？[您可以在设置中调整是否弹出此对话框。]",
     "prestigePrompt": "转生后金币升级，金币生产者和水晶都将被重置。首次转生可以解锁新的游戏机制。您确定要转生吗？[您可以在设置中调整是否弹出此对话框。]",
@@ -6878,9 +7428,11 @@
       "thanks": "加成已生效！感谢您支持游戏！",
       "eventTitle": "激活消耗品",
       "consumableSpoiler": "使用快乐时光铃，为所有人开启活动！",
-      "consumableButton": "在虚假商店购买！",
+      "consumableButton": "Consumables Shop",
       "applyTips": "使用打赏！",
-      "applyTipsPrompt": "您想要使用多少打赏？每个打赏价值1分钟离线时间。您拥有{{tips}}个打赏。您最多可以使用1440个打赏。"
+      "applyTipsPrompt": "您想要使用多少打赏？每个打赏价值1分钟离线时间。您拥有{{tips}}个打赏。您最多可以使用1440个打赏。",
+      "confirmActivation": "You are about to activate a {{name}} for {{cost}} PseudoCoins. Continue?",
+      "cancelled": "Puchase has been cancelled."
     },
     "timeSkips": {
       "GLOBAL": {
@@ -6897,6 +7449,24 @@
       },
       "purchaseBtn": "增加{{time}}小时[<<gold|花费{{cost}}伪币>>]",
       "warning": "<<gold|⚠>>购买后需要经过几秒才能生效！<<gold|⚠>>"
+    },
+    "lotus": {
+      "name": "Loti of Rejuvenation",
+      "nameSingular": "Lotus of Rejuvenation",
+      "owned": "Owned: {{x}}",
+      "lifetimeUsed": "Used: {{x}}",
+      "intro": "When you activate a Lotus, immediately gain the full amount of Reborn ELO you can get from Immortal ELO, no waiting required! Effect applies for 5 minutes after purchasing. Use Loti at the Ant Altar.",
+      "boxText1": "Don't like waiting for Reborn ELO?",
+      "boxText2": "Use a Lotus to skip the wait!",
+      "boxText3": "Each Lotus lasts for 5 minutes.",
+      "useLotus": "Use Lotus!",
+      "purchaseBtn": "+{{amount}} Lotus [<<gold|{{cost}} PseudoCoins>>]",
+      "buyConfirm": "You are about to buy a {{name}} for {{cost}} PseudoCoins. Continue?",
+      "useConfirm": "You are about to use a Lotus of Rejuvenation. This will consume one of your Loti and activate its effect for 5 minutes, granting you Reborn ELO without having to wait. Continue?",
+      "useConfirmMulti": "Since you have this effect active, consuming a Lotus will add 5 minutes to the remaining time.",
+      "noLotus": "You do not currently possess a Lotus. Buy some at the PseudoCoins shop!",
+      "status": "Lotus Time: {{time}}",
+      "lotusActive": "You've used a Lotus! For the next 5 minutes, you will gain Reborn ELO from your Immortal ELO without having to wait!"
     }
   },
   "hotkeys": {
@@ -6930,5 +7500,8 @@
     },
     "hotkeysON": "快捷键：开",
     "hotkeysOFF": "快捷键：关"
+  },
+  "versionChangeAnnouncements": {
+    "ants": "Ants have been significantly reworked/rebalanced. Your Anthill progress has been set accordingly!"
   }
 }
