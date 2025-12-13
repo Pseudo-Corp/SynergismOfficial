@@ -343,6 +343,15 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     animation-fill-mode: forwards;
 }
 
+.iconAndNameContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+}
+
 #notification > p {
     position: fixed;
     top: 50%;
@@ -485,6 +494,10 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     width: 50%;
     margin: 0;
     padding: 0;
+}
+
+.titleTextFont {
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 
 #preloadDeleteGame {
@@ -1604,6 +1617,15 @@ img.runeTypeElement:hover {
     filter: grayscale(50%);
 }
 
+.antSacrificeRewardLocked {
+    opacity: 0.5;
+    border-color: gray !important;
+}
+
+.antSacrificeRewardImageLocked {
+    filter: grayscale(80%);
+}
+
 #runeContainer2 {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -2332,25 +2354,63 @@ p#reincarnatehotkeys {
     margin: 0 auto;
 }
 
-#antsWrapper {
+#antSubtabs {
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    gap: 10px 15px;
+}
+
+#antSubtabs > button {
+    min-width: 100px;
+    text-align: center;
+}
+
+.antUpgrade:hover,
+.antBtn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 3px var(--glow-color),
+        0 0 6px var(--glow-color),
+        0 0 9px var(--glow-color);
+    background-color: var(--glow-color);
+}
+
+#antSubtab1,
+#antSubtab2,
+#antSubtab3 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    margin-right: min(10em, 100px);
 }
 
-#antsWelcomeTexts { margin-top: 40px; }
-#antsWelcomeTexts > p { margin: 0; }
-#antwelcome { font-size: 1.3em; }
+.introTextContainer > p {
+    margin: 0;
+}
 
-#antrow1 {
+.introText {
+    font-size: 1.3em;
+}
+
+#antProducersContainer {
     display: flex;
-    gap: 0 4px;
+    flex-direction: column;
     margin-top: 12px;
-    color: red;
-    z-index: 1;
+}
+
+#antProducers {
+    display: flex;
+    flex-direction: row;
+}
+
+.antProducerColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #antrow2 {
@@ -2365,12 +2425,17 @@ p#reincarnatehotkeys {
     min-height: 7em;
 }
 
-#antrow4 {
+#antUpgradesContainer {
     display: flex;
-    gap: 0 4px;
-    margin-top: 10px;
-    color: red;
-    z-index: 1;
+    flex-direction: column;
+    margin-top: 12px;
+}
+
+.antUpgradeRow {
+    display: flex;
+    flex-direction: row;
+    gap: 4px 4px;
+    justify-content: center;
 }
 
 #antrow2 > p,
@@ -2380,11 +2445,38 @@ p#reincarnatehotkeys {
 
 #crumbcount {
     font-size: 1.2em;
-    min-height: 2.8em;
+}
+
+.enabledAntToggle {
+    border-color: green;
+}
+
+.disabledAntToggle {
+    border-color: crimson;
+}
+
+.singlePurchaseAnt {
+    border-color: white;
+}
+
+.maxPurchaseAnt {
+    border-color: gold;
+}
+
+.buyAllAntBtn {
+    border-width: 2px;
+    border-color: gold;
+}
+
+.antToggleBtn {
+    min-width: 150px;
+    cursor: pointer;
+    border-width: 1px;
 }
 
 #antToggleFeatures {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     gap: 10px;
     margin: 5px 0;
@@ -2404,7 +2496,6 @@ p#reincarnatehotkeys {
 
 #toggleAutoSacrificeAnt {
     min-width: 150px;
-    border: 1px solid crimson;
 }
 
 #autoSacrificeAntMode,
@@ -2415,25 +2506,81 @@ p#reincarnatehotkeys {
     border: 1px solid green;
 }
 
-#sacrificeAnts {
-    position: absolute;
-    padding: 0;
-    width: 200px;
-    margin: 0 0 0 -340px;
-    text-align: center;
-    left: calc(80% - 5em);
-    white-space: nowrap;
-    z-index: 1;
+#additionalAutoSacOptions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
-.sacrificeStatus {
+.antSacToggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    justify-content: flex-start;
+    height: 32px;
+}
+
+.antSacToggle p {
+    margin: 0;
+}
+
+#sacrificeUnlockTexts > p {
+    margin: 0;
+    font-size: 1.3em;
+}
+
+#sacrificeAnts {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.sacrificeAntsContainer {
+    width: 33.33%;
+}
+
+#altar {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+#altar p {
+    margin: 0;
+}
+
+#autoSacrifice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 #antSacrificeTimer {
     padding: 2px 0.5em;
+    font-size: 1.2em;
+    color: gold;
+}
+
+.canAntSacrifice {
+    box-shadow:
+        0 0 15px crimson,
+        0 0 30px crimson,
+        0 0 45px crimson;
+    background-color: crimson;
+    border-radius: 50%;
+}
+
+.canAntSacrifice:hover {
+    box-shadow:
+        0 0 20px lightgoldenrodyellow,
+        0 0 40px gold,
+        0 0 60px goldenrod;
+    background-color: white !important;
+    border-radius: 50%;
 }
 
 .antSacrificeSettingsContainer {
@@ -2441,18 +2588,60 @@ p#reincarnatehotkeys {
     flex-direction: column;
 }
 
-#antSacrificeSummary {
-    position: absolute;
-    padding: 0;
-    width: 300px;
-    top: 30px;
-    left: calc(80% - 5em);
-    text-align: left;
-    white-space: nowrap;
+.antSacrificeRewardColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+    min-width: 100px;
 }
 
-#antSacrificeSummary p {
+.antSacrificeRewardColumn > p {
     margin: 0;
+}
+
+#immortalELOInfo,
+#immortalELOOverview {
+    flex-direction: column;
+}
+
+#immortalELOInfo > p,
+#immortalELOOverview > p {
+    margin: 0;
+}
+
+#lotusCorner {
+    border: 2px solid pink;
+    width: 66%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#lotusCorner p {
+    margin: 0;
+}
+
+#lotusButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#use-lotus {
+    border: 2px solid pink;
+    width: 50%;
+    height: 30px;
+}
+
+#antSacrificeObtainiumOfferings,
+#antSacrificeShardsRow1,
+#antSacrificeShardsRow2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 
 .antSacrificeHeader {
@@ -2461,22 +2650,99 @@ p#reincarnatehotkeys {
     white-space: initial;
 }
 
-#antSacrificeTable {
-    margin: 15px 0 0 70px;
-    border-spacing: 0;
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
+#antSacrificeCompendium {
+    width: 50%;
 }
 
-#antSacrificeTable p {
-    margin-left: 5px;
+/* Ant Leaderboard Styles */
+#antLeaderboardContainer {
+    margin-top: 10px;
+}
+
+.antLeaderboardToggleBtn {
+    padding: 8px 16px;
+    color: white;
+    border: 2px solid #666;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.2s;
+    margin-bottom: 10px;
+    width: 33%;
+}
+
+.antLeaderboardToggleBtn:hover {
+    background-color: #5a5a5a;
+    border-color: #888;
+}
+
+.antLeaderboardToggleBtn[data-mode="daily"] {
+    border-color: #3a9;
+}
+
+.antLeaderboardToggleBtn[data-mode="allTime"] {
+    border-color: #f90;
+}
+
+.antLeaderboardToggleBtn[data-mode="overview"] {
+    border-color: #0df;
+}
+
+.antLeaderboardToggleBtn[data-mode="info"] {
+    border-color: #8a2be2;
+}
+
+#antLeaderboardTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#antLeaderboardTable th,
+#antLeaderboardTable td {
+    padding: 6px;
+    text-align: center;
+    border: 1px solid #555;
+}
+
+#antLeaderboardTable th {
+    background-color: #3a3a3a;
+    font-weight: bold;
+    color: #fff;
+}
+
+#antLeaderboardTable tr {
+    background-color: #2a2a2a;
+    transition: background-color 0.2s;
+}
+
+#antLeaderboardTable tr:hover {
+    background-color: #3a3a3a;
+}
+
+.antLeaderboardCurrentSacrifice {
+    background-color: #2a4a2a !important;
+    border: 2px solid #4a8a4a !important;
+}
+
+.antLeaderboardCurrentSacrifice:hover {
+    background-color: #3a5a3a !important;
 }
 
 .antBtn {
     height: 100%;
 }
 
-.antTierBtnAvailable,
+.antTierBtnAvailable {
+    cursor: pointer;
+    background-color: burlywood;
+}
+
+.antMasteryBtnAvailable {
+    cursor: pointer;
+    background-color: lightgreen;
+}
+
 .antUpgradeBtnAvailable {
     cursor: pointer;
     background-color: silver;
@@ -4256,6 +4522,16 @@ header #obtainiumDisplay { color: pink; }
     --gradient-end: lightgoldenrodyellow;
 }
 
+.bellGradient {
+    --gradient-start: gold;
+    --gradient-end: darkgoldenrod;
+}
+
+.lotusGradient {
+    --gradient-start: purple;
+    --gradient-end: pink;
+}
+
 .singularityUpgrade > img,
 .octeractUpgrade > img,
 .singularityChallenge img {
@@ -5214,6 +5490,7 @@ form input:hover {
     border: 2px solid var(--amber-text-color);
     padding: 5px;
     box-sizing: border-box;
+    width: 50%;
 }
 
 .consumablePurchaseBtn {
@@ -5231,7 +5508,7 @@ form input:hover {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .timeSkipContainer {
@@ -5239,8 +5516,7 @@ form input:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    width: 33%;
+    width: 33.333%;
     height: 30%;
 }
 
@@ -5251,6 +5527,24 @@ form input:hover {
     align-items: center;
     margin: 0;
     padding: 0;
+}
+
+#topRowConsumables {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.lotusHeaderText {
+    text-align: center;
+}
+
+.lotusHeaderText p {
+    margin: 0;
+}
+
+.lotusContainer {
+    border: 2px solid pink !important;
 }
 
 /* Cost text */
@@ -5647,6 +5941,14 @@ html[data-chal9x1="false"] .chal9x1 {
     display: none;
 }
 
+html[data-sacrifice-unlock="true"] .sacrificeUnlock {
+    display: inline-block;
+}
+
+html[data-sacrifice-unlock="false"] .sacrificeUnlock {
+    display: none;
+}
+
 html[data-chal10="true"] .chal10 {
     display: block;
 }
@@ -5728,7 +6030,7 @@ html[data-cube-upgrade19="false"] .cubeUpgrade19 {
 }
 
 html[data-sacrifice-ants="true"] .sacrificeAnts {
-    display: block;
+    display: flex;
 }
 
 html[data-sacrifice-ants="false"] .sacrificeAnts {
