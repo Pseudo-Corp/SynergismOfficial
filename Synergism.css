@@ -6659,6 +6659,27 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         height: 24px;
         width: 24px;
     }
+
+    #upgradeGrid {
+        width: 100%;
+        grid-template-columns: repeat(5, 15%);
+        grid-template-rows: unset;
+        justify-content: center;
+        column-gap: 4px;
+        row-gap: 4px;
+        max-height: none;
+        height: auto;
+        padding: 0;
+    }
+
+    #upgradeGrid > div {
+        place-self: unset;
+        margin: unset !important;
+    }
+
+    #upgradeInfo {
+        width: unset;
+    }
 }
 
 /* Ensure touch-friendly tap targets */
