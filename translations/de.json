@@ -7377,7 +7377,9 @@
     "noSaveFound": "No save found with that ID. Try reloading the page.",
     "downloadComplete": "Download complete",
     "deletedSave": "\"{{name}}\" was deleted",
-    "notDeleted": "Your save wasn't deleted. Check the console for more information."
+    "notDeleted": "Your save wasn't deleted. Check the console for more information.",
+    "eventBonuses": "Event Bonuses",
+    "eventBonusMulti": "<<cyan|♔>> Your total Event Bonus is <<gold|multiplicative>> to your total Subscription Bonus."
   },
   "pseudoCoins": {
     "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",
