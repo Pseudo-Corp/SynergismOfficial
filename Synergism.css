@@ -6187,3 +6187,503 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     padding: 5px;
     animation: rainbow-border 2s linear infinite;
 }
+
+/* ============================================
+   MOBILE RESPONSIVE STYLES
+   ============================================ */
+
+@media (max-width: 1024px) {
+    html {
+        min-width: unset;
+        width: 100%;
+    }
+
+    body {
+        overflow-x: auto;
+    }
+
+    /* Ascension stats - remove fixed min-width */
+    #ascensionStats {
+        min-width: unset;
+        width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    /* Navigation tabs - make scrollable */
+    #tabrow {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 0 10px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    nav button {
+        min-width: 80px;
+        flex-shrink: 0;
+        font-size: 0.85em;
+    }
+
+    /* Sub tab wrappers */
+    .subTabWrapper {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        width: 95%;
+        gap: 8px 10px;
+    }
+
+    .subTabWrapper > button {
+        min-width: unset;
+        width: 100%;
+        font-size: 0.85em;
+    }
+
+    /* Building rows */
+    .buttonRow {
+        margin-left: 2%;
+        margin-right: 2%;
+        font-size: 0.9em;
+    }
+
+    .buttonRow > div {
+        gap: 5px;
+    }
+
+    .buttonRow > div > .desc {
+        width: 100%;
+        order: -1;
+    }
+
+    .buttonRow > div > .stats {
+        width: 100%;
+        font-size: 0.9em;
+    }
+
+    /* Building text */
+    #buildingtext {
+        width: 95%;
+        max-width: 100%;
+    }
+
+    /* Coin buildings */
+    #coinBuildings {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    #coinInformation {
+        font-size: 1em;
+        padding: 5px;
+    }
+
+    /* Upgrades flex container */
+    #upgradesFlex {
+        flex-direction: column;
+        width: 95%;
+        margin: 2% auto;
+        gap: 20px;
+    }
+
+    /* Prestige/Transcension containers */
+    #prestige,
+    #transcension {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    #crystalupgrades {
+        width: 95%;
+        max-width: 100%;
+    }
+
+    p#prestigehotkeys,
+    p#buildinghotkeys {
+        width: 95%;
+        font-size: 0.85em;
+    }
+
+    /* Rune containers */
+    #runeDetails,
+    #runeBlessings,
+    #runeSpirits {
+        width: 90%;
+    }
+
+    .runeType {
+        width: 140px;
+    }
+
+    #runeContainer2 {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .talismansCenter {
+        order: 1;
+    }
+
+    .talismanShardSection {
+        order: 2;
+        align-items: center;
+        margin-left: 0;
+    }
+
+    .talismanToggles {
+        order: 3;
+        align-items: center;
+    }
+
+    /* Challenge section */
+    #challengeDetails {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    #challengeTimers {
+        margin-right: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    #oneChallengeDetails {
+        width: 95%;
+    }
+
+    #startChallenge {
+        min-width: 200px;
+        width: 80%;
+    }
+
+    /* Research section */
+    #researchContainer {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Achievement grids */
+    #tieredAchievementsTable {
+        grid-template-columns: repeat(4, 48px);
+        grid-template-rows: repeat(10, 48px);
+    }
+
+    #ungroupedAchievementsTable {
+        grid-template-columns: repeat(6, 32px);
+        grid-template-rows: repeat(10, 32px);
+    }
+
+    #progressiveAchievementsTable {
+        grid-template-columns: repeat(4, 48px);
+        grid-template-rows: repeat(10, 48px);
+    }
+
+    #synergismLevelRewardsTable {
+        grid-template-columns: repeat(6, 48px);
+        grid-template-rows: repeat(2, 48px);
+    }
+
+    /* Settings */
+    .settingSubTabUpper {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    #confirmationToggleBox,
+    #exportButtons,
+    #thirdParty {
+        max-width: 95%;
+    }
+
+    /* Modals and dialogs */
+    #confirmationBox,
+    #captchaHolder {
+        width: 90vw;
+        min-width: unset;
+        max-width: 95vw;
+    }
+
+    #modal {
+        width: 90%;
+        max-width: 95vw;
+    }
+
+    #notification {
+        width: 80%;
+        min-width: unset;
+    }
+
+    #offlineContainer,
+    #fastForwardContainer {
+        width: 90vw;
+        max-width: 95vw;
+        font-size: 0.9em;
+    }
+
+    #changelogWrapper {
+        width: 90%;
+    }
+
+    /* Reset information */
+    .resetInformationContainer {
+        width: 95%;
+        flex-basis: 95%;
+    }
+
+    .resetsContainer {
+        flex-wrap: wrap;
+    }
+
+    /* Cube upgrades */
+    .pseudoUpgradeContainer {
+        grid-template-columns: repeat(2, 1fr);
+        width: 90%;
+    }
+
+    /* Hepteract bars */
+    #pixelProgressBar,
+    #ambrosiaProgressBar {
+        width: 80%;
+    }
+
+    /* Toggle buttons */
+    #runesToggle,
+    #achievementsToggle,
+    #challengesTabsToggle,
+    #challengesAutoToggles {
+        gap: 8px 10px;
+    }
+
+    #runesToggle > button,
+    #achievementsToggle > button,
+    #challengesTabsToggle > button {
+        min-width: 80px;
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Extra small screens */
+    html {
+        font-size: 14px;
+    }
+
+    nav button {
+        min-width: 70px;
+        font-size: 0.75em;
+        padding: 2px;
+    }
+
+    .subTabWrapper {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+    }
+
+    .buttonRow {
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 0.85em;
+    }
+
+    .buttonRow > div > .image {
+        height: 24px;
+        width: 24px;
+    }
+
+    .buildingPurchaseBtn {
+        width: 100%;
+        font-size: 0.85em;
+    }
+
+    .buttonRow > div > .auto {
+        width: 5em;
+        min-width: 60px;
+    }
+
+    /* Runes */
+    .runeType {
+        width: 100px;
+    }
+
+    #runeDetails,
+    #runeBlessings,
+    #runeSpirits {
+        width: 100%;
+    }
+
+    /* Achievements */
+    #tieredAchievementsTable {
+        grid-template-columns: repeat(4, 40px);
+        grid-template-rows: repeat(10, 40px);
+    }
+
+    #tieredAchievementsTable > div {
+        width: 40px;
+        height: 40px;
+    }
+
+    .tieredAchievementType > img,
+    .progressiveAchievementType > img,
+    .synergismLevelRewardType > img {
+        width: 40px;
+        height: 40px;
+    }
+
+    #ungroupedAchievementsTable {
+        grid-template-columns: repeat(4, 32px);
+        grid-template-rows: repeat(15, 32px);
+    }
+
+    #progressiveAchievementsTable {
+        grid-template-columns: repeat(4, 40px);
+        grid-template-rows: repeat(10, 40px);
+    }
+
+    #progressiveAchievementsTable > div {
+        width: 40px;
+        height: 40px;
+    }
+
+    #synergismLevelRewardsTable {
+        grid-template-columns: repeat(4, 40px);
+        grid-template-rows: repeat(3, 40px);
+    }
+
+    #synergismLevelRewardsTable > div {
+        width: 40px;
+        height: 40px;
+    }
+
+    #synergismLevelMilestonesTable {
+        grid-template-columns: repeat(6, 32px);
+        grid-template-rows: repeat(8, 32px);
+    }
+
+    /* Challenge icons */
+    #challengeIcons img {
+        width: 48px;
+        height: 48px;
+    }
+
+    #oneChallengeDetails {
+        font-size: 0.9em;
+    }
+
+    #startChallenge {
+        min-width: 150px;
+        min-height: 60px;
+        font-size: 1em;
+    }
+
+    /* Dialogs */
+    #confirmationBox,
+    #captchaHolder {
+        min-height: unset;
+        padding: 10px;
+    }
+
+    #confirm,
+    #alert,
+    #prompt {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+
+    #confirm {
+        grid-template-areas:
+            "txt"
+            "btn"
+            "btn2";
+        gap: 10px;
+    }
+
+    #alert {
+        grid-template-areas:
+            "txt"
+            "btn";
+        gap: 10px;
+    }
+
+    #prompt {
+        grid-template-areas:
+            "txt"
+            "lbl"
+            "btn"
+            "btn2";
+        gap: 10px;
+    }
+
+    #prompt_text {
+        margin: 0;
+    }
+
+    /* Cubes */
+    .pseudoUpgradeContainer {
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+
+    /* Talisman */
+    .talismanContainer {
+        width: 60px;
+    }
+
+    .talismanIcon {
+        height: 48px;
+        width: 48px;
+    }
+
+    /* Settings */
+    #savegame,
+    #deleteGame,
+    #importFileButton,
+    #saveStringInput,
+    #exportButtons > label {
+        width: 100%;
+        min-width: unset;
+    }
+
+    #exportgame {
+        width: 100%;
+        min-width: unset;
+    }
+
+    /* Reset row */
+    #resetrow {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #resetrow img {
+        height: 24px;
+        width: 24px;
+    }
+}
+
+/* Ensure touch-friendly tap targets */
+@media (pointer: coarse) {
+    button,
+    .buildingPurchaseBtn,
+    nav button,
+    .subTabWrapper > button {
+        min-height: 44px;
+    }
+
+    input[type="checkbox"] {
+        min-width: 24px;
+        min-height: 24px;
+    }
+
+    .confirmationToggle {
+        gap: 10px;
+    }
+
+    #runesToggle > button,
+    #achievementsToggle > button,
+    #challengesTabsToggle > button,
+    #challengesAutoToggles > button {
+        min-height: 44px;
+        padding: 8px 12px;
+    }
+}
