@@ -7377,7 +7377,9 @@
     "noSaveFound": "找不到该ID对应的存档。请尝试刷新页面。",
     "downloadComplete": "下载完毕",
     "deletedSave": "“{{name}}”已删除",
-    "notDeleted": "您的存档删除失败。请查看控制台获取更多信息。"
+    "notDeleted": "您的存档删除失败。请查看控制台获取更多信息。",
+    "eventBonuses": "Event Bonuses",
+    "eventBonusMulti": "<<cyan|♔>> Your total Event Bonus is <<gold|multiplicative>> to your total Subscription Bonus."
   },
   "pseudoCoins": {
     "coinCount": "您拥有<<gold|{{amount}}伪币>>！",
