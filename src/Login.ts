@@ -356,11 +356,12 @@ export async function handleLogin () {
 
       subtabElement.innerHTML = `
       ${user ? `Hello, ${user}` : 'Hello'}!\n
-      Your personal Quark bonus is ${format(personalBonus, 2, true)}%, computed by the following:
-      Donator Bonuses (Multiplicative with other bonuses):
-      <span style="color: orchid">Transcended Baller</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
-      <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
-      <span style="color: orange">ASCENDED Baller</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}
+      Your personal Quark bonus is ${format(personalBonus, 2, true)}%, from the following sources:
+
+      Subscription Bonuses:
+      <span style="color: orchid">Transcended Baller (or higher)</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
+      <span style="color: green">Reincarnated Baller (or higher)</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
+      <span style="color: orange">ASCENDED Baller (or higher)</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}
       <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${hasTier4 ? checkMark(5) : exMark}
       <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${boosted ? checkMark(1) : exMark}
 
@@ -369,6 +370,7 @@ export async function handleLogin () {
         <span>${i18next.t('account.eventBonuses')}:</span>
       </div>
       <div class="event-bonuses-content" id="eventBonusesContent">
+      ${i18next.t('account.eventBonusMulti')}
         <span style="color: #ffcc00">Thanksgiving 2023</span> [+0.2%] - ${
         discord && account.member.roles?.includes(THANKSGIVING_2023) ? checkMark(0.2) : exMark
       }
@@ -405,12 +407,6 @@ export async function handleLogin () {
       <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
         checkMark(1)
       }
-
-      The current maximum is 16%, by being a Discord server booster and an OMEGA Baller!
-
-      More will be incorporated both for general accounts and supporters of the game shortly.
-      Become a supporter of development via the link below, and get special bonuses,
-      while also improving the Global Bonus for all to enjoy!
     `.trim()
 
       const allPlatforms = ['discord', 'patreon']
