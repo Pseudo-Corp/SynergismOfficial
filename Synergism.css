@@ -6680,6 +6680,44 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     #upgradeInfo {
         width: unset;
     }
+
+    #consumablesSection {
+        width: 95%;
+    }
+
+    #topRowConsumables {
+        flex-wrap: wrap;
+    }
+
+    .purchaseConsumableContainer {
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .timeSkipSet {
+        flex-wrap: wrap;
+        align-items: stretch;
+    }
+
+    .timeSkipContainer {
+        height: auto;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        overflow: hidden; /* TODO */
+    }
+
+    #manage-subscription-holder {
+        flex-direction: column;
+    }
+
+    .pseudoSubscriptionContainer > #sub-section-holder {
+        grid-template-columns: repeat(2, 50%);
+        width: unset;
+    }
+
+    #cartContainer {
+        width: unset;
+    }
 }
 
 /* Ensure touch-friendly tap targets */
