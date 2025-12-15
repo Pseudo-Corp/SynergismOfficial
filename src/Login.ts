@@ -58,14 +58,17 @@ const BOOSTER = '677272036820910098'
 // Const for Event Roles.
 const THANKSGIVING_2023 = '1177364773986386021'
 const THANKSGIVING_2024 = '1311161342987603979'
+const THANKSGIVING_2025 = '1443340983012954332'
 const CONDUCTOR_2023 = '1178131525049520138'
 const CONDUCTOR_2024 = '1311164406209450064'
+const CONDUCTOR_2025 = '1444405599600115875'
 const EIGHT_LEAF = '983484264865730560'
 const TEN_LEAF = '1045560188574380042'
 const SMITH_INCARNATE = '1045560846169935922'
 const SMITH_GOD = '1045562390995009606'
 const GOLDEN_SMITH_GOD = '1178125584061173800'
 const DIAMOND_SMITH_MESSIAH = '1311165096378105906'
+const MYTHOS_SMITH = '1443012119455994046'
 
 let ws: WebSocket | undefined
 let loggedIn = false
@@ -310,7 +313,7 @@ export async function handleLogin () {
 
   // biome-ignore lint/suspicious/noConfusingLabels: it's not confusing or suspicious
   generateSubtab: {
-    if (location.hostname !== 'synergism.cc') {
+    if (location.hostname !== 'synergism.cc' && false) {
       subtabElement.innerHTML =
         'Login is not available here, go to <a href="https://synergism.cc">https://synergism.cc</a> instead!'
     } else if (hasAccount(account)) {
@@ -348,65 +351,55 @@ export async function handleLogin () {
       const hasTier3 = sub?.tier === 3 || (discord && account.member.roles?.includes(ASCENDED_BALLER))
       const hasTier4 = sub?.tier === 4 || (discord && account.member.roles?.includes(OMEGA_BALLER))
 
-      const checkMark = (n: number) => {
-        return `<span style="color: lime">[✔] {+${n}%}</span>`
+      const checkMark = '<span style="color: lime">[✔]</span>'
+      const exMark = '<span style="color: crimson">[✖]</span>'
+
+      const createLineHTML = (i18nKey: string, value: number, statusCheck: boolean, nameClasses: string[]) => {
+        const classesForName = ['bonus-line-name', ...nameClasses].join(' ')
+        const style = nameClasses.length > 0 ? '' : 'color: gold'
+        return `<div class="personal-bonus-line">
+          <span class="${classesForName}" style="${style}">${i18next.t(`account.bonuses.${i18nKey}`)}</span>
+          <span class="bonus-line-right">
+            <span class="bonus-line-value">+${value}%</span>
+            <span class="bonus-line-status">${statusCheck ? checkMark : exMark}</span>
+          </span>
+        </div>`
       }
 
-      const exMark = '<span style="color: crimson">[✖] {+0%}</span>'
-
       subtabElement.innerHTML = `
-      ${user ? `Hello, ${user}` : 'Hello'}!\n
-      Your personal Quark bonus is ${format(personalBonus, 2, true)}%, from the following sources:
+      ${user ? i18next.t('account.helloUser', {username: user}) : i18next.t('account.helloNoUser')}
+      ${i18next.t('account.personalQuarkBonus', {percent: format(personalBonus, 2, true)})}
 
-      Subscription Bonuses:
-      <span style="color: orchid">Transcended Baller (or higher)</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
-      <span style="color: green">Reincarnated Baller (or higher)</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
-      <span style="color: orange">ASCENDED Baller (or higher)</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}
-      <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${hasTier4 ? checkMark(5) : exMark}
-      <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${boosted ? checkMark(1) : exMark}
-
+      ${i18next.t('account.subscriptionBonuses')}
+      ${createLineHTML('transcendedBaller', 2, hasTier1, ['gradientText', 'transcendedBallerGradient'])
+       +createLineHTML('reincarnatedBaller', 3, hasTier2, ['gradientText', 'reincarnatedBallerGradient'])
+       +createLineHTML('ascendedBaller', 4, hasTier3, ['gradientText', 'ascendedBallerGradient'])
+       +createLineHTML('omegaBaller', 5, hasTier4, ['rainbowText'])
+       +createLineHTML('serverBooster', 1, boosted, ['gradientText', 'lotusGradient'])}
       <div class="event-bonuses-header" id="eventBonusesHeader">
         <span class="chevron" id="eventBonusesChevron">▼</span>
         <span>${i18next.t('account.eventBonuses')}:</span>
       </div>
       <div class="event-bonuses-content" id="eventBonusesContent">
-      ${i18next.t('account.eventBonusMulti')}
-        <span style="color: #ffcc00">Thanksgiving 2023</span> [+0.2%] - ${
-        discord && account.member.roles?.includes(THANKSGIVING_2023) ? checkMark(0.2) : exMark
-      }
-        <span style="color: #ffcc00">Thanksgiving 2024</span> [+0.3%] - ${
-        discord && account.member.roles?.includes(THANKSGIVING_2024) ? checkMark(0.3) : exMark
-      }
-        <span style="color: #ffcc00">Conductor 2023</span> [+0.3%] - ${
-        discord && account.member.roles?.includes(CONDUCTOR_2023) ? checkMark(0.3) : exMark
-      }
-        <span style="color: #ffcc00">Conductor 2024</span> [+0.4%] - ${
-        discord && account.member.roles?.includes(CONDUCTOR_2024) ? checkMark(0.4) : exMark
-      }
-        <span style="color: #ffcc00">Eight Leaf</span> [+0.3%] - ${
-        discord && account.member.roles?.includes(EIGHT_LEAF) ? checkMark(0.3) : exMark
-      }
-        <span style="color: #ffcc00">Ten Leaf</span> [+0.4%] - ${
-        discord && account.member.roles?.includes(TEN_LEAF) ? checkMark(0.4) : exMark
-      }
-        <span style="color: #ffcc00">Smith Incarnate</span> [+0.6%] - ${
-        discord && account.member.roles?.includes(SMITH_INCARNATE) ? checkMark(0.6) : exMark
-      }
-        <span style="color: #ffcc00">Smith God</span> [+0.7%] - ${
-        discord && account.member.roles?.includes(SMITH_GOD) ? checkMark(0.7) : exMark
-      }
-        <span style="color: #ffcc00">Golden Smith God</span> [+0.8%] - ${
-        discord && account.member.roles?.includes(GOLDEN_SMITH_GOD) ? checkMark(0.8) : exMark
-      }
-        <span style="color: #ffcc00">Diamond Smith Messiah</span> [+1%] - ${
-        discord && account.member.roles?.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1) : exMark
-      }
+      ${i18next.t('account.eventBonusMulti')
+        + (discord ? '' : `<br>${i18next.t('account.eventBonusLink')}`)
+      }     
+      ${createLineHTML('thanksgiving2023', 0.2, discord && account.member.roles?.includes(THANKSGIVING_2023), [])
+        +createLineHTML('thanksgiving2024', 0.3, discord && account.member.roles?.includes(THANKSGIVING_2024), [])
+        +createLineHTML('thanksgiving2025', 0.4, discord && account.member.roles?.includes(THANKSGIVING_2025), [])
+        +createLineHTML('conductor2023', 0.3, discord && account.member.roles?.includes(CONDUCTOR_2023), [])
+        +createLineHTML('conductor2024', 0.4, discord && account.member.roles?.includes(CONDUCTOR_2024), [])
+        +createLineHTML('conductor2025', 0.5, discord && account.member.roles?.includes(CONDUCTOR_2025), [])
+        +createLineHTML('eightLeaf', 0.3, discord && account.member.roles?.includes(EIGHT_LEAF), [])
+        +createLineHTML('tenLeaf', 0.4, discord && account.member.roles?.includes(TEN_LEAF), [])
+        +createLineHTML('smithIncarnate', 0.6, discord && account.member.roles?.includes(SMITH_INCARNATE), [])
+        +createLineHTML('smithGod', 0.7, discord && account.member.roles?.includes(SMITH_GOD), [])
+        +createLineHTML('goldenSmithGod', 0.8, discord && account.member.roles?.includes(GOLDEN_SMITH_GOD), [])
+        +createLineHTML('diamondSmithMessiah', 1, discord && account.member.roles?.includes(DIAMOND_SMITH_MESSIAH), [])
+        +createLineHTML('mythosSmith', 1.1, discord && account.member.roles?.includes(MYTHOS_SMITH), [])}
       </div>
-
-      And Finally...
-      <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
-        checkMark(1)
-      }
+      ${i18next.t('account.lastButNotLeast')}
+      ${createLineHTML('yourself', 1, true, ['rainbowText'])}
     `.trim()
 
       const allPlatforms = ['discord', 'patreon']

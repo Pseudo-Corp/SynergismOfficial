@@ -5235,6 +5235,25 @@ form input:hover {
     margin-left: 24px;
 }
 
+.personal-bonus-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bonus-line-name {
+    flex: 1;
+    text-align: left;
+}
+
+.bonus-line-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .pseudoUpgradeContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
