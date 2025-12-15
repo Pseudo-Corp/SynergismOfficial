@@ -3027,6 +3027,7 @@ button.language-select span.lang-name {
 
 #creditssubtab {
     margin-top: 20px;
+    flex-direction: column;
 }
 
 #creditssubtab > * {
@@ -6729,17 +6730,31 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
       min-width: unset;
     }
 
-    #creditssubtab {
-      display: flex;
-      flex-direction: column;
-    }
-
     #creditList {
       grid-template-columns: repeat(2, 50%);
     }
 
     #artistList {
       grid-template-columns: repeat(2, 50%);
+    }
+
+    .splitContainer {
+      flex-direction: column;
+    }
+
+    .splitContainer > div {
+      width: unset !important;
+    }
+
+    .grid-row > .name-cell {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hotkeys {
+      grid-template-columns: repeat(2, 50%);
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 }
 
