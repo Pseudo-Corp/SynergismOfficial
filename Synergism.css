@@ -6470,6 +6470,13 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         font-size: 14px;
     }
 
+    /* Prevent mobile browsers from zooming in on input focus https://css-tricks.com/16px-or-larger-text-prevents-ios-form-zoom/ */
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
+
     nav button {
         min-width: 70px;
         font-size: 0.75em;
