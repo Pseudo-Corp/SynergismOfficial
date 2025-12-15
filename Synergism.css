@@ -6718,6 +6718,29 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     #cartContainer {
         width: unset;
     }
+
+    /* Settings subtabs */
+
+    #languagesubtab {
+      flex-direction: column;
+    }
+
+    .languageContribution {
+      min-width: unset;
+    }
+
+    #creditssubtab {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #creditList {
+      grid-template-columns: repeat(2, 50%);
+    }
+
+    #artistList {
+      grid-template-columns: repeat(2, 50%);
+    }
 }
 
 /* Ensure touch-friendly tap targets */
