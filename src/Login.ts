@@ -313,7 +313,7 @@ export async function handleLogin () {
 
   // biome-ignore lint/suspicious/noConfusingLabels: it's not confusing or suspicious
   generateSubtab: {
-    if (location.hostname !== 'synergism.cc' && false) {
+    if (location.hostname !== 'synergism.cc') {
       subtabElement.innerHTML =
         'Login is not available here, go to <a href="https://synergism.cc">https://synergism.cc</a> instead!'
     } else if (hasAccount(account)) {
