@@ -678,6 +678,8 @@ function handleWebSocket () {
 }
 
 export function sendToWebsocket (message: string) {
+  if (!isLoggedIn()) return
+
   if (ws?.readyState !== WebSocket.OPEN) {
     queue.push(message)
     return
