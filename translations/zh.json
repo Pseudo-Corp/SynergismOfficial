@@ -2564,7 +2564,7 @@
     "2": {
       "name": "无加速器挑战 || 完成{{completions}}次，次数上限为{{max}}",
       "flavor": "加速器？谁要就拿去，不过是无用之物而已。",
-      "restrictions": "立即超越，需要达到目标，但加速器将完全失效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果除以<<gold|1.25>>，且加倍器加成的效果变为使加倍器的基础效果增加<<gold|0.0012>>。",
+      "restrictions": "立即超越，需要达到目标，但加速器将完全失效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果降至<<gold|1.25>>，且加倍器加成的效果降至<<gold|+0.0012>>。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "免费加速器增加5个！当前效果：",
@@ -3456,7 +3456,7 @@
       "levelInfo": "等级 {{level}} - (奇点 {{singularity}})",
       "improvedIn": "第{{sing}}次进入奇点后将有特权加强",
       "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
-      "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点</span><br/>。",
+      "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点。</span><br/>",
       "description": "(鼠标停留在特权上可以查看效果。<span style=\"color: gold\">金色文本</span>的特权在本次奇点解锁或者加强)",
       "welcometoSingularity": {
         "name": "欢迎来到奇点时代！",
@@ -4539,7 +4539,7 @@
       "singularity": "奇点",
       "settings": "设置",
       "shop": "商店",
-      "unsmith": "UNSMITH",
+      "unsmith": "活动",
       "purchase": "伪币"
     },
     "buildings": {
@@ -5128,7 +5128,7 @@
     },
     "mythosYouHave": "您有{{shards}}神话碎片，加倍器加成因此增加{{mult}}个。",
     "eachMultiplierBoost": "每1个加倍器加成使加倍器的基础效果增加0.02。",
-    "costMythos": "花费：{{mythos}}神话。",
+    "costMythos": "花费：{{mythos}}神话",
     "atomsYouHave": "您有<<white|{{atoms}}>>原子，建筑能量因此增加<<gold|{{power}}>>。<br>每购买1个金币生产者，就使金币产量变为原来的<<gold|{{power}}>>倍<br>金币产量的倍率：<<gold|{{mult}}>><br><<orange|金币倍率也会同时增加税收上限，且不受税收影响>>",
     "costParticles": "花费：{{particles}}粒子",
     "autoReincarnate": "当现实时间经过{{amount}}秒后{{name}}[在上方输入设置数值]。当前时间：{{timer}}秒。",
@@ -5591,7 +5591,7 @@
         "signature": "<<crimson | ✎>> 签名：使棱柱符文的符文升级系数增加<<crimson|12>>。"
       },
       "plastic": {
-        "name": "氪金信用卡​​",
+        "name": "一块塑胶",
         "description": "可能是通过“先买后付”应用程序购买的。",
         "inscription": "<<gold | ✏>> 铭文：使夸克获取数量增加<<gold|{{val}}>>。",
         "signature": "<<crimson | ✎>> 签名：无。您无法在卡体上签名。"
@@ -6340,7 +6340,7 @@
       "AchievementPoints": "成就点数的加成：",
       "AchievementBonus": "夸克成就倍率：",
       "SynergismLevel": "协同效应等级的奖励：",
-      "PlasticTalisman": "氪金信用卡 - 铭文的加成：",
+      "PlasticTalisman": "一块塑胶 - 铭文的加成：",
       "Achievement250": "成就250的加成：",
       "Achievement251": "成就251的加成：",
       "Achievement266": "成就266的加成：",
@@ -6578,7 +6578,7 @@
       "NoAmbrosiaUpgrades": "拔擢 - 无神肴升级：",
       "Cookie5": "饼干升级27[Cx27]加成：",
       "BlueberryUpgrade": "蓝莓模块 - 神肴之运 IV：",
-      "HorseShoeTalisman": "马蹄铁护身符 - 铭文的加成：",
+      "HorseShoeTalisman": "马靴 - 铭文的加成：",
       "Event": "活动加成：",
       "Total": "神肴之运总倍率(效果叠加)："
     },
@@ -6921,7 +6921,7 @@
       "PlatonicUpgrade12": "PLATONIC升级3x2：",
       "MortuusTalisman": "蚂蚁标本护身符：",
       "ThresholdModifiers": "阈值倍率：",
-      "Exalt6": "奇点大竞速赛 - Derpsmith的小加成：",
+      "Exalt6": "奇点速通大赛 - Derpsmith的小加成：",
       "Total": "重生强度分的产生速度总倍率："
     },
     "ascensionCountMultiplierStats": {
