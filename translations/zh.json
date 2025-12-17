@@ -5883,7 +5883,7 @@
         "UniqueReward7": "第20次 - 新的<<orchid|超究夸克商店>>升级！"
       },
       "limitedTime": {
-        "name": "奇点大竞速赛！",
+        "name": "奇点速通大赛！",
         "description": "<i>时间，时间从未意味着永恒。</i>您需要在现实结构迅速崩溃的前提下通过目标奇点。",
         "timeMod1": "<<red|⏱ 时间限制：{{time}}秒>>",
         "timeMod2": "<<gold|⚠>> 超过时间限制以后，难得素获取数量、祭品获取数量和所有类型的方盒、立方和方块获取数量将每秒除以<<red|{{perSecondDivisor}}>>。",
@@ -6091,7 +6091,7 @@
       "ModuleHyperflux": "神肴 - 惊奇方盒终极工业生产模块：",
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的方盒升级：",
-      "Exalt6": "奇点大竞速赛 - 超时惩罚：",
+      "Exalt6": "奇点速通大赛 - 超时惩罚：",
       "Event": "活动加成：",
       "Total": "所有类型的方盒、立方和方块获取数量总倍率："
     },
@@ -6309,7 +6309,7 @@
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的祭品升级：",
       "Event": "活动加成：",
-      "Exalt6Penalty": "奇点大竞速赛 - 超时惩罚：",
+      "Exalt6Penalty": "奇点速通大赛 - 超时惩罚：",
       "TaxmanDebuff": "税务官的最后阵地 - ☢ 辐射惩罚：",
       "Total": "祭品获取数量倍率：",
       "HalfMind": "半心倍率：",
@@ -6413,7 +6413,7 @@
       "ObtainiumEX3": "商店额外难得素升级3[每25级]：",
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的难得素升级：",
-      "Exalt6Penalty": "奇点大竞速赛 - 超时惩罚：",
+      "Exalt6Penalty": "奇点速通大赛 - 超时惩罚：",
       "Event": "活动加成：",
       "Total": "不受效果衰减影响的难得素总倍率："
     },
@@ -6472,7 +6472,7 @@
       "EXUltraObtainium": "终极额外难得素加成：",
       "Challenge14": "挑战14 - 无研究挑战：",
       "SingularityDebuff": "奇点惩罚：",
-      "Exalt6Penalty": "奇点大竞速赛 - 超时惩罚：",
+      "Exalt6Penalty": "奇点速通大赛 - 超时惩罚：",
       "TaxmanDebuff": "税务官的最后阵地 - ☼ 十亿日照惩罚：",
       "Event": "活动加成：",
       "Total": "难得素获取数量倍率：",
