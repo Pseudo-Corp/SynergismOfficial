@@ -4,6 +4,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateGoldenQuarkCost, calculateImmaculateAlchemyBonus } from './Calculate'
 import { updateMaxTokens, updateTokens } from './Campaign'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
+import { getGlobalBonus, getPersonalBonus, getQuarkBonus } from './Quark'
 import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { singularity } from './Reset'
 import { getRuneEffectiveLevel, runes } from './Runes'
@@ -157,6 +158,15 @@ export const updateSingularityPenalties = (): void => {
       divisor: format(
         calculateSingularityDebuff('Obtainium', singularityCount),
         2,
+        true
+      )
+    })
+  }
+        ${
+    i18next.t('singularity.penalties.antELOGain', {
+      amount: format(
+        -calculateSingularityDebuff('Ant ELO', singularityCount),
+        3,
         true
       )
     })
@@ -794,9 +804,11 @@ export const goldenQuarkUpgrades: Record<SingularityDataKeys, GoldenQuarkUpgrade
     effect: (n: number) => {
       return n
     },
-    effectDescription: (n: number) =>
+    effectDescription: (_n: number) =>
       i18next.t('singularity.data.singOcteractPatreonBonus.effect', {
-        n
+        n: format(1 + getQuarkBonus() / 100, 3, true),
+        x: format(1 + getGlobalBonus() / 100, 3, true),
+        y: format(1 + getPersonalBonus() / 100, 3, true)
       }),
     name: () => i18next.t('singularity.data.singOcteractPatreonBonus.name'),
     description: () => i18next.t('singularity.data.singOcteractPatreonBonus.description')
@@ -2333,6 +2345,8 @@ export function resetGQUpgrade (upgradeKey: SingularityDataKeys): void {
   upgrade.level = 0
 }
 
+const currentSingularityText = () => i18next.t('singularity.perks.usesCurrentSing')
+
 /**
  * Singularity Perks are automatically obtained and upgraded, based on player.singularityCount
  * They can have one or several levels with a description for each level
@@ -2483,6 +2497,24 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
+      return i18next.t('singularity.perks.bringToLife.name')
+    },
+    levels: [1, 9, 25, 49, 81, 121, 169, 196, 225, 256, 289],
+    description: (n: number, levels: number[]) => {
+      for (let i = levels.length - 1; i > 0; i--) {
+        if (n >= levels[i]) {
+          const effectText = i18next.t('singularity.perks.bringToLife.default', {
+            amount: format(2 - 0.01 - i * 0.009, 3, true)
+          })
+          return `${effectText}<br><b>${currentSingularityText()}</b>`
+        }
+      }
+      return i18next.t('singularity.perks.bringToLife.default', { amount: 2 })
+    },
+    ID: 'bringToLife'
+  },
+  {
+    name: () => {
       return i18next.t('singularity.perks.tokenInheritance.name')
     },
     levels: [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277],
@@ -2533,6 +2565,46 @@ export const singularityPerks: SingularityPerk[] = [
       }
     },
     ID: 'superStart'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.invigoratedSpirits.name')
+    },
+    levels: [2, 10, 26, 50, 82, 122, 170, 197, 226, 257, 290],
+    description: (n: number, levels: number[]) => {
+      for (let i = levels.length - 1; i >= 0; i--) {
+        if (n >= levels[i]) {
+          const intro = i18next.t('singularity.perks.invigoratedSpirits.default')
+          const line2 = i18next.t('singularity.perks.invigoratedSpirits.line2', {
+            x: format(2 + 1.8 * i, 1, true)
+          })
+          const line3 = i18next.t('singularity.perks.invigoratedSpirits.line3', {
+            x: format(0.1 + 0.09 * i, 2, true)
+          })
+          return `${intro}<br>${line2}<br>${line3}<br><b>${currentSingularityText()}</b>`
+        }
+      }
+      return i18next.t('singularity.perks.invigoratedSpirits.default', { amount: 0 })
+    },
+    ID: 'invigoratedSpirits'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.eloBonus.name')
+    },
+    levels: [3, 11, 27, 51, 83, 123, 171, 198, 227, 258, 291],
+    description: (n: number, levels: number[]) => {
+      for (let i = levels.length - 1; i >= 0; i--) {
+        if (n >= levels[i]) {
+          const effectText = i18next.t('singularity.perks.eloBonus.default', {
+            amount: format(0.1 + 0.09 * i, 2, true)
+          })
+          return `${effectText}<br><b>${currentSingularityText()}</b>`
+        }
+      }
+      return i18next.t('singularity.perks.eloBonus.default', { amount: 0 })
+    },
+    ID: 'eloBonus'
   },
   {
     name: () => {
@@ -3378,6 +3450,7 @@ export type SingularityDebuffs =
   | 'Salvage'
   | 'Global Speed'
   | 'Researches'
+  | 'Ant ELO'
   | 'Ascension Speed'
   | 'Cubes'
   | 'Cube Upgrades'
@@ -3489,7 +3562,7 @@ export const calculateSingularityDebuff = (
   singularityCount: number = player.singularityCount
 ) => {
   if (singularityCount === 0 || runes.antiquities.level > 0) {
-    return (debuff === 'Salvage') ? 0 : 1
+    return (debuff === 'Salvage' || debuff === 'Ant ELO') ? 0 : 1
   }
 
   const constitutiveSingularityCount = singularityCount - calculateSingularityReductions()
@@ -3517,6 +3590,8 @@ export const calculateSingularityDebuff = (
       + 3 * Math.max(0, constitutiveSingularityCount - 250)
       + 3 * Math.max(0, constitutiveSingularityCount - 270)
       + 2 * Math.max(0, constitutiveSingularityCount - 280))
+  } else if (debuff === 'Ant ELO') {
+    return -Math.min(1, 0.001 * constitutiveSingularityCount)
   } else if (debuff === 'Global Speed') {
     return baseDebuffMultiplier * (1 + Math.sqrt(effectiveSingularities) / 4)
   } else if (debuff === 'Obtainium') {

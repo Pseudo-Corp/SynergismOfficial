@@ -6,16 +6,33 @@ export const thresholdTranches = [
   { stages: 100, perStage: 1000, quarkPerStage: 2 },
   { stages: 100, perStage: 3000, quarkPerStage: 3 },
   { stages: 700, perStage: 20000, quarkPerStage: 4 },
-  { stages: Number.POSITIVE_INFINITY, perStage: 100000, quarkPerStage: 5 }
+  { stages: Number.POSITIVE_INFINITY, perStage: 100000, quarkPerStage: 7 }
 ]
 
-export const quarkMultiplierPerThreshold = 1.003
+export const quarkMultiplierPerThreshold = 1.002
 
 export const perThresholdModifiers = {
   rebornSpeedMult: 0.98,
   antSacrificeObtainiumMult: 1.05,
   antSacrificeOfferingMult: 1.05,
   antSacrificeTalismanFragmentMult: 1.2
+}
+
+export const singularityPerkRebornSpeedMultModifier = () => {
+  const singCount = player.singularityCount
+  const levelArray = [1, 9, 25, 49, 81, 121, 169, 196, 225, 256, 289]
+  for (let i = levelArray.length - 1; i >= 0; i--) {
+    if (singCount >= levelArray[i]) {
+      return 0.0001 + 0.00009 * i
+    }
+  }
+  return 0
+}
+
+export const calculateStageRebornSpeedMult = () => {
+  const base = perThresholdModifiers.rebornSpeedMult
+  const increase = singularityPerkRebornSpeedMultModifier()
+  return Math.min(1, base + increase)
 }
 
 export const calculateRebornELOThresholds = (elo?: number) => {
@@ -64,7 +81,7 @@ export const calculateLeftoverELO = (rebornELO: number, stage?: number) => {
 export const thresholdModifiers = () => {
   const thresholds = calculateRebornELOThresholds()
   return {
-    rebornSpeedMult: Math.pow(perThresholdModifiers.rebornSpeedMult, thresholds),
+    rebornSpeedMult: Math.pow(calculateStageRebornSpeedMult(), thresholds),
     antSacrificeObtainiumMult: Math.pow(perThresholdModifiers.antSacrificeObtainiumMult, thresholds),
     antSacrificeOfferingMult: Math.pow(perThresholdModifiers.antSacrificeOfferingMult, thresholds),
     antSacrificeTalismanFragmentMult: Math.pow(perThresholdModifiers.antSacrificeTalismanFragmentMult, thresholds)

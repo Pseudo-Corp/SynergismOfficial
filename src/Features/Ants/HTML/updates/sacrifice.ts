@@ -15,6 +15,7 @@ import {
 } from '../../AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
 import {
   calculateRebornELOThresholds,
+  calculateStageRebornSpeedMult,
   thresholdModifiers
 } from '../../AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
 import { talismanItemRequiredELO } from '../../AntSacrifice/Rewards/TalismanCraftItems/constants'
@@ -43,12 +44,24 @@ export const showSacrifice = () => {
     y: format(calculateAvailableRebornELO(), 2, true)
   })
 
-  DOMCacheGetOrSet('rebornELOPerSecond').innerHTML = i18next.t('ants.rebornELOPerSecond', {
-    x: format(rebornELOCreationSpeedMult(), 2, true)
-  })
-  DOMCacheGetOrSet('rebornELOTimeRemaining').innerHTML = i18next.t('ants.rebornELOTimeToMax', {
-    x: format(calculateSecondsToMaxRebornELO(), 0, true)
-  })
+  const rebornELOPerSecond = DOMCacheGetOrSet('rebornELOPerSecond')
+  const rebornELOTimeRemaining = DOMCacheGetOrSet('rebornELOTimeRemaining')
+
+  const time = Date.now()
+  // Lotus is active.
+  const lotusTimeExpiresAt = getLotusTimeExpiresAt()
+  const lotusActive = lotusTimeExpiresAt !== undefined && time < lotusTimeExpiresAt
+  if (lotusActive) {
+    rebornELOPerSecond.innerHTML = i18next.t('ants.rebornELOPerSecondWithLotus')
+    rebornELOTimeRemaining.innerHTML = '<br>' // Break imitates "no text" in this case
+  } else {
+    rebornELOPerSecond.innerHTML = i18next.t('ants.rebornELOPerSecond', {
+      x: format(rebornELOCreationSpeedMult(), 2, true)
+    })
+    rebornELOTimeRemaining.innerHTML = i18next.t('ants.rebornELOTimeToMax', {
+      x: format(calculateSecondsToMaxRebornELO(), 0, true)
+    })
+  }
 
   DOMCacheGetOrSet('ELOStage').innerHTML = i18next.t('ants.eloStage', {
     x: format(calculateRebornELOThresholds(), 0, true)
@@ -83,6 +96,10 @@ export const showSacrifice = () => {
       x: format(player.ants.immortalELO - effectiveELO, 0, true)
     })
   }
+
+  DOMCacheGetOrSet('eloStageDetail2').innerHTML = i18next.t('ants.stageInfo2', {
+    percentage: format((1 - calculateStageRebornSpeedMult()) * 100, 3, true)
+  })
 
   DOMCacheGetOrSet('antSacrificeOffering').textContent = `+${format(sacRewards.offerings)}`
   DOMCacheGetOrSet('antSacrificeObtainium').textContent = `+${format(sacRewards.obtainium)}`

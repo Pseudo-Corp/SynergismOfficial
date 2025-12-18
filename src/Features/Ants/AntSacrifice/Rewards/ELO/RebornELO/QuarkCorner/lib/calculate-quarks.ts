@@ -16,7 +16,8 @@ export const availableQuarksFromELO = () => {
   const totalELOValue = calculateLeaderboardValue(player.ants.highestRebornELODaily)
   let numStages = calculateRebornELOThresholds(totalELOValue)
   let baseQuarks = 0
-  const stageMult = Math.pow(quarkMultiplierPerThreshold, numStages)
+  const usedNumberStagesForMult = Math.min(numStages, 1000)
+  const stageMult = Math.pow(quarkMultiplierPerThreshold, usedNumberStagesForMult)
   for (const tranch of thresholdTranches) {
     const stagesInThisTranche = Math.min(tranch.stages, numStages)
     baseQuarks += stagesInThisTranche * tranch.quarkPerStage

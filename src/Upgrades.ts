@@ -520,7 +520,7 @@ const constUpgEffect: Record<number, () => Record<string, string>> = {
     x: format(1 + 0.1 * player.constantUpgrades[5] * Decimal.log(player.ascendShards.add(1), 10), 2, true)
   }),
   6: () => ({
-    x: format(2 * player.constantUpgrades[6])
+    x: format(Math.round(2000 * (1 - Math.pow(0.999, player.constantUpgrades[6]))), 0, true)
   }),
   7: () => ({
     x: format(7 * Math.min(1000, player.constantUpgrades[7]))

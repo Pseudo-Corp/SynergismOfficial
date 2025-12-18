@@ -1566,7 +1566,6 @@ p#prestigehotkeys {
 }
 
 .runeType:hover {
-    transform: translateY(-2px);
     box-shadow:
         0 0 15px var(--glow-color),
         0 0 30px var(--glow-color),
@@ -2370,7 +2369,6 @@ p#reincarnatehotkeys {
 
 .antUpgrade:hover,
 .antBtn:hover {
-    transform: translateY(-2px);
     box-shadow:
         0 0 3px var(--glow-color),
         0 0 6px var(--glow-color),
@@ -2716,17 +2714,9 @@ p#reincarnatehotkeys {
     transition: background-color 0.2s;
 }
 
-#antLeaderboardTable tr:hover {
-    background-color: #3a3a3a;
-}
-
 .antLeaderboardCurrentSacrifice {
     background-color: #2a4a2a !important;
     border: 2px solid #4a8a4a !important;
-}
-
-.antLeaderboardCurrentSacrifice:hover {
-    background-color: #3a5a3a !important;
 }
 
 .antBtn {
@@ -4305,7 +4295,6 @@ header #obtainiumDisplay { color: pink; }
     background-color: white !important;
     border: 2px solid lightgoldenrodyellow;
     color: black;
-    transform: translateY(-2px);
     box-shadow:
         0 0 15px var(--glow-color),
         0 0 30px var(--glow-color),

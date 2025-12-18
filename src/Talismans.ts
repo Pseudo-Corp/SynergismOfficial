@@ -771,12 +771,16 @@ export const levelsUntilRarityIncrease = (t: TalismanKeys) => {
 export const affordableNextLevel = (
   t: TalismanKeys,
   budget: Record<TalismanCraftItems, Decimal>,
-  level: number
+  level: number,
+  loadingTalismans = false
 ): boolean => {
   const costs = talismans[t].costs(talismans[t].baseMult, level)
+  // This fixes a bug where imprecisions cause Talismans to be one level lower after loading
+  // Talismans might need a redesign in terms of leveling, to make it more in line with Runes/Spirits/Blessings
+  const smallBufferMult = loadingTalismans ? 1.0001 : 1
 
   for (const item in costs) {
-    if (costs[item as TalismanCraftItems].gt(budget[item as TalismanCraftItems])) {
+    if (costs[item as TalismanCraftItems].gt(budget[item as TalismanCraftItems].times(smallBufferMult))) {
       return false
     }
   }
@@ -792,8 +796,9 @@ export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void =
   const trueLevelCap = getTalismanLevelCap(t)
 
   let nextCost = talismans[t].costs(talismans[t].baseMult, level)
+  const loadingTalismans = true
 
-  let canAffordNextLevel = affordableNextLevel(t, budget, level)
+  let canAffordNextLevel = affordableNextLevel(t, budget, level, loadingTalismans)
 
   while (canAffordNextLevel) {
     for (const item in nextCost) {
@@ -806,7 +811,7 @@ export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void =
       break
     }
 
-    canAffordNextLevel = affordableNextLevel(t, budget, level)
+    canAffordNextLevel = affordableNextLevel(t, budget, level, loadingTalismans)
   }
 
   talismans[t].level = level

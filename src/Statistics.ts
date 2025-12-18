@@ -108,6 +108,10 @@ import {
   calculateEffectiveAntELO,
   calculateELOMult
 } from './Features/Ants/AntSacrifice/Rewards/ELO/AntELO/lib/calculate'
+import {
+  calculateSingularityPerkELO,
+  singularityELOBonusMult
+} from './Features/Ants/AntSacrifice/Rewards/ELO/AntELO/lib/singularity-perk'
 import { calculateAntSpeedMultFromELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
 import { rebornELOCreationSpeedMult } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
 import { thresholdModifiers } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
@@ -134,7 +138,7 @@ import {
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { getQuarkBonus } from './Quark'
+import { getGlobalBonus, getPersonalBonus, getQuarkBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { isResearchUnlocked } from './Research'
 import { getRuneBlessingEffect } from './RuneBlessings'
@@ -1390,8 +1394,14 @@ export const allQuarkStats: NumberStatLine[] = [
     color: 'lime'
   },
   {
-    i18n: 'PatreonBonus',
-    stat: () => 1 + getQuarkBonus() / 100,
+    i18n: 'GlobalSubscriber',
+    stat: () => 1 + getGlobalBonus() / 100,
+    acc: 3,
+    color: 'gold'
+  },
+  {
+    i18n: 'AccountBonus',
+    stat: () => 1 + getPersonalBonus() / 100,
     acc: 3,
     color: 'gold'
   }
@@ -2344,8 +2354,15 @@ export const allGoldenQuarkMultiplierStats: NumberStatLine[] = [
     stat: () => calculateImmaculateAlchemyBonus() // Immaculate Alchemy
   },
   {
-    i18n: 'PatreonBonus',
-    stat: () => 1 + getQuarkBonus() / 100, // Patreon Bonus
+    i18n: 'GlobalSubscriber',
+    stat: () => 1 + getGlobalBonus() / 100,
+    acc: 3,
+    color: 'gold'
+  },
+  {
+    i18n: 'AccountBonus',
+    stat: () => 1 + getPersonalBonus() / 100,
+    acc: 3,
     color: 'gold'
   },
   {
@@ -2363,11 +2380,6 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLine[] = [
   {
     i18n: 'PseudoCoins',
     stat: () => 1 / PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
-    color: 'gold'
-  },
-  {
-    i18n: 'Patreon',
-    stat: () => 1 / (1 + getQuarkBonus() / 100),
     color: 'gold'
   },
   {
@@ -2391,13 +2403,19 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLine[] = [
   },
   {
     i18n: 'ImmaculateAlchemy',
-    stat: () => {
-      let perkDivisor = 1
-      if (player.highestSingularityCount >= 200) perkDivisor = 3
-      if (player.highestSingularityCount >= 208) perkDivisor = 5
-      if (player.highestSingularityCount >= 221) perkDivisor = 8
-      return 1 / perkDivisor
-    }
+    stat: () => 1 / calculateImmaculateAlchemyBonus() // Immaculate Alchemy
+  },
+  {
+    i18n: 'GlobalSubscriber',
+    stat: () => 1 / (1 + getGlobalBonus() / 100),
+    acc: 3,
+    color: 'gold'
+  },
+  {
+    i18n: 'AccountBonus',
+    stat: () => 1 / (1 + getPersonalBonus() / 100),
+    acc: 3,
+    color: 'gold'
   },
   {
     i18n: 'Event',
@@ -3175,6 +3193,11 @@ export const antELOStats: NumberStatLine[] = [
     i18n: 'AntUpgrade13',
     stat: () => getAntUpgradeEffect(AntUpgrades.AntELO).antELO,
     displayCriterion: () => player.unlocks.anthill
+  },
+  {
+    i18n: 'SingularityPerk',
+    stat: () => calculateSingularityPerkELO(),
+    displayCriterion: () => player.highestSingularityCount >= 2
   }
 ]
 
@@ -3211,6 +3234,19 @@ export const additiveAntELOMultStats: NumberStatLine[] = [
     i18n: 'PlatonicUpgrade12',
     stat: () => (1 / 200) * player.platonicUpgrades[12] * player.corruptions.used.extinction,
     displayCriterion: () => player.challengecompletions[14] > 0
+  },
+  {
+    i18n: 'SingularityDebuff',
+    stat: () => calculateSingularityDebuff('Ant ELO'),
+    displayCriterion: () => player.highestSingularityCount >= 1,
+    color: 'red',
+    acc: 3
+  },
+  {
+    i18n: 'SingularityPerk',
+    stat: () => singularityELOBonusMult(),
+    displayCriterion: () => player.highestSingularityCount >= 3,
+    acc: 4
   }
 ]
 

@@ -5082,12 +5082,6 @@ export const reloadShit = (reset = false) => {
     }
   }
 
-  if (player.talismans !== undefined) {
-    for (const key of Object.keys(player.talismans) as TalismanKeys[]) {
-      updateTalismanLevelAndSpentFromInvested(key)
-    }
-  }
-
   if (player.runes !== undefined) {
     for (const key of Object.keys(player.runes) as RuneKeys[]) {
       const runeEXP = player.runes[key]
@@ -5121,6 +5115,14 @@ export const reloadShit = (reset = false) => {
     }
   }
 
+  const sourcedFromUpdate = true
+  updateAchievementPoints(sourcedFromUpdate)
+  if (player.talismans !== undefined) {
+    for (const key of Object.keys(player.talismans) as TalismanKeys[]) {
+      updateTalismanLevelAndSpentFromInvested(key)
+    }
+  }
+
   // Probably want to remove Corruptions from Player Object...
   player.corruptions.used = new CorruptionLoadout(player.corruptions.used.loadout)
   // This is needed to fix saves that had issues with not resetting corruption at the singularity
@@ -5128,7 +5130,6 @@ export const reloadShit = (reset = false) => {
 
   updateTokens()
   updateMaxTokens()
-  updateAchievementPoints()
   setAmbrosiaUpgradeLevels()
   setRedAmbrosiaUpgradeLevels()
   refundOvercapResearches()

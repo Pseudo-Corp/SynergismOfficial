@@ -278,6 +278,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
   runeLevel: {
     maxPointValue: 1000,
     pointsAwarded: (cached: number) => {
+      console.log(cached)
       return Math.min(200, Math.floor(cached / 1000)) + Math.min(400, Math.floor(cached / 2500))
         + Math.min(400, Math.floor(cached / 12500))
     },
@@ -335,7 +336,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
         + Math.min(150, Math.floor(leaderboardELO / 1000))
         + Math.min(150, Math.floor(leaderboardELO / 9000))
         + Math.min(200, Math.floor(leaderboardELO / 75000))
-        + Math.min(400, Math.floor(leaderboardELO / 100000))
+        + Math.min(400, Math.floor(leaderboardELO / 150000))
     },
     updateValue: () => {
       return calculateLeaderboardValue(player.ants.highestRebornELOEver)
@@ -376,11 +377,12 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => player.highestSingularityCount >= 25
   },
   redAmbrosiaCount: {
-    maxPointValue: 800,
+    maxPointValue: 1000,
     pointsAwarded: (cached: number) => {
       return Math.min(200, Math.floor(cached / 25))
         + Math.min(200, Math.floor(cached / 2500))
-        + Math.min(400, Math.floor(400 * Math.sqrt(cached / 5e6)))
+        + Math.min(400, Math.floor(400 * cached / 5e6))
+        + Math.min(200, Math.floor(200 * cached / 1.25e7))
     },
     updateValue: () => {
       return player.lifetimeRedAmbrosia
@@ -3218,7 +3220,7 @@ export const achRewards: Record<AchievementRewards, () => number | boolean> = {
 export let achievementPoints = 0
 export let achievementLevel = 0
 
-export const updateAchievementPoints = () => {
+export const updateAchievementPoints = (sourcedFromUpdate = false) => {
   achievementPoints = 0
 
   achievementPoints += achievements.reduce((sum, ach, index) => {
@@ -3229,10 +3231,10 @@ export const updateAchievementPoints = () => {
     const pointsAwarded = progressiveAchievements[k].pointsAwarded(player.progressiveAchievements[k])
     achievementPoints += pointsAwarded
     progressiveAchievements[k].rewardedAP = pointsAwarded
+    updateProgressiveCache(k, sourcedFromUpdate)
   }
 
-  const sourcedFromUpdatePoints = true
-  updateAchievementLevel(sourcedFromUpdatePoints)
+  updateAchievementLevel(sourcedFromUpdate)
 }
 
 export const awardAchievement = (index: number) => {
@@ -3276,7 +3278,7 @@ export const awardAchievementGroup = (group: AchievementGroups) => {
   }
 }
 
-export const updateProgressiveAP = (ach: ProgressiveAchievements) => {
+export const updateProgressiveAP = (ach: ProgressiveAchievements, sourcedFromUpdate = false) => {
   const oldPoints = progressiveAchievements[ach].rewardedAP
   const pointsAwarded = progressiveAchievements[ach].pointsAwarded(player.progressiveAchievements[ach])
   achievementPoints += pointsAwarded - progressiveAchievements[ach].rewardedAP
@@ -3284,13 +3286,13 @@ export const updateProgressiveAP = (ach: ProgressiveAchievements) => {
 
   if (oldPoints !== pointsAwarded) {
     updateProgressiveAchievementProgress(ach)
-    updateAchievementLevel()
+    updateAchievementLevel(sourcedFromUpdate)
   }
 }
 
-export const updateProgressiveCache = (ach: ProgressiveAchievements) => {
+export const updateProgressiveCache = (ach: ProgressiveAchievements, sourcedFromUpdate = false) => {
   if (!progressiveAchievements[ach].useCachedValue) {
-    updateProgressiveAP(ach)
+    updateProgressiveAP(ach, sourcedFromUpdate)
   }
   const oldVal = player.progressiveAchievements[ach]
   player.progressiveAchievements[ach] = Math.max(
@@ -3298,7 +3300,7 @@ export const updateProgressiveCache = (ach: ProgressiveAchievements) => {
     progressiveAchievements[ach].updateValue()
   )
   if (oldVal !== player.progressiveAchievements[ach]) {
-    updateProgressiveAP(ach)
+    updateProgressiveAP(ach, sourcedFromUpdate)
   }
 }
 

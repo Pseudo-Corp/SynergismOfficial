@@ -11,10 +11,10 @@ export const resetPlayerAntUpgrades = (resetTier: AntSacrificeTiers) => {
     }
   }
   if (player.highestSingularityCount >= 10) {
-    player.ants.upgrades[AntUpgrades.AntSpeed] = 10
+    player.ants.upgrades[AntUpgrades.AntSpeed] = Math.max(10, player.ants.upgrades[AntUpgrades.AntSpeed])
   }
   if (player.highestSingularityCount >= 20) {
-    player.ants.upgrades[AntUpgrades.Mortuus] = 1
-    player.ants.upgrades[AntUpgrades.AntSpeed] = 25
+    player.ants.upgrades[AntUpgrades.Mortuus] = Math.max(1, player.ants.upgrades[AntUpgrades.Mortuus])
+    player.ants.upgrades[AntUpgrades.AntSpeed] = Math.max(25, player.ants.upgrades[AntUpgrades.AntSpeed])
   }
 }

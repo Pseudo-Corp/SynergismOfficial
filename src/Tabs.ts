@@ -16,7 +16,7 @@ import {
   toggleRuneScreen,
   toggleSingularityScreen
 } from './Toggles'
-import { changeTabColor, hideStuff, revealStuff } from './UpdateHTML'
+import { changeTabColor, CloseModal, hideStuff, revealStuff } from './UpdateHTML'
 import { assert, limitRange } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -733,6 +733,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
 
   revealStuff()
   hideStuff()
+  CloseModal()
   ;(document.activeElement as HTMLElement | null)?.blur()
 
   const subTabList = subtabInfo[G.currentTab].subTabList
@@ -808,6 +809,8 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
       }
     }
   }
+
+  CloseModal()
 }
 
 export function subTabsInMainTab (name: Tabs) {

@@ -82,7 +82,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('ascTimeAccel').style.color = 'royalblue'
     DOMCacheGetOrSet('buildinghotkeys').style.color = 'lightgray'
     DOMCacheGetOrSet('buildinghotkeys2').style.color = 'lightgray'
-    DOMCacheGetOrSet('corruptionTesseracts').style.color = 'darkviolet'
     DOMCacheGetOrSet('antwelcome').style.color = 'lightslategrey'
     DOMCacheGetOrSet('confirmationToggleTitle').style.color = 'pink'
     DOMCacheGetOrSet('specialActionsTitle').style.color = 'pink'
@@ -195,7 +194,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     body.style.setProperty('--orangered-text-color', '#f74')
     body.style.setProperty('--gray-text-color', '#a5a5a5')
     DOMCacheGetOrSet('corruptionDescription').style.color = '#d272ff'
-    DOMCacheGetOrSet('corruptionTesseracts').style.color = '#d272ff'
     DOMCacheGetOrSet('antwelcome').style.color = '#b1b1b1'
     DOMCacheGetOrSet('versionnumber').style.color = '#ff5aff'
     DOMCacheGetOrSet('singularitytab').style.color = '#ff5252'
@@ -258,7 +256,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('heptGrid').style.borderColor = '#9b7306'
     DOMCacheGetOrSet('corruptionDescription').style.color = '#c205ff'
     DOMCacheGetOrSet('corruptionTesseracts').style.color = '#c205ff'
-    DOMCacheGetOrSet('antwelcome').style.color = 'darkgrey'
     DOMCacheGetOrSet('confirmationToggleTitle').style.color = '#eb0000'
     DOMCacheGetOrSet('specialActionsTitle').style.color = '#eb0000'
     DOMCacheGetOrSet('themesTitle').style.color = '#eb0000'

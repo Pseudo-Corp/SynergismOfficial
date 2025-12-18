@@ -367,36 +367,41 @@ export async function handleLogin () {
       }
 
       subtabElement.innerHTML = `
-      ${user ? i18next.t('account.helloUser', {username: user}) : i18next.t('account.helloNoUser')}
-      ${i18next.t('account.personalQuarkBonus', {percent: format(personalBonus, 2, true)})}
+      ${user ? i18next.t('account.helloUser', { username: user }) : i18next.t('account.helloNoUser')}
+      ${i18next.t('account.personalQuarkBonus', { percent: format(personalBonus, 2, true) })}
 
       ${i18next.t('account.subscriptionBonuses')}
-      ${createLineHTML('transcendedBaller', 2, hasTier1, ['gradientText', 'transcendedBallerGradient'])
-       +createLineHTML('reincarnatedBaller', 3, hasTier2, ['gradientText', 'reincarnatedBallerGradient'])
-       +createLineHTML('ascendedBaller', 4, hasTier3, ['gradientText', 'ascendedBallerGradient'])
-       +createLineHTML('omegaBaller', 5, hasTier4, ['rainbowText'])
-       +createLineHTML('serverBooster', 1, boosted, ['gradientText', 'lotusGradient'])}
+      ${
+        createLineHTML('transcendedBaller', 2, hasTier1, ['gradientText', 'transcendedBallerGradient'])
+        + createLineHTML('reincarnatedBaller', 3, hasTier2, ['gradientText', 'reincarnatedBallerGradient'])
+        + createLineHTML('ascendedBaller', 4, hasTier3, ['gradientText', 'ascendedBallerGradient'])
+        + createLineHTML('omegaBaller', 5, hasTier4, ['rainbowText'])
+        + createLineHTML('serverBooster', 1, boosted, ['gradientText', 'lotusGradient'])
+      }
       <div class="event-bonuses-header" id="eventBonusesHeader">
         <span class="chevron" id="eventBonusesChevron">▼</span>
         <span>${i18next.t('account.eventBonuses')}:</span>
       </div>
       <div class="event-bonuses-content" id="eventBonusesContent">
-      ${i18next.t('account.eventBonusMulti')
+      ${
+        i18next.t('account.eventBonusMulti')
         + (discord ? '' : `<br>${i18next.t('account.eventBonusLink')}`)
       }     
-      ${createLineHTML('thanksgiving2023', 0.2, discord && account.member.roles?.includes(THANKSGIVING_2023), [])
-        +createLineHTML('thanksgiving2024', 0.3, discord && account.member.roles?.includes(THANKSGIVING_2024), [])
-        +createLineHTML('thanksgiving2025', 0.4, discord && account.member.roles?.includes(THANKSGIVING_2025), [])
-        +createLineHTML('conductor2023', 0.3, discord && account.member.roles?.includes(CONDUCTOR_2023), [])
-        +createLineHTML('conductor2024', 0.4, discord && account.member.roles?.includes(CONDUCTOR_2024), [])
-        +createLineHTML('conductor2025', 0.5, discord && account.member.roles?.includes(CONDUCTOR_2025), [])
-        +createLineHTML('eightLeaf', 0.3, discord && account.member.roles?.includes(EIGHT_LEAF), [])
-        +createLineHTML('tenLeaf', 0.4, discord && account.member.roles?.includes(TEN_LEAF), [])
-        +createLineHTML('smithIncarnate', 0.6, discord && account.member.roles?.includes(SMITH_INCARNATE), [])
-        +createLineHTML('smithGod', 0.7, discord && account.member.roles?.includes(SMITH_GOD), [])
-        +createLineHTML('goldenSmithGod', 0.8, discord && account.member.roles?.includes(GOLDEN_SMITH_GOD), [])
-        +createLineHTML('diamondSmithMessiah', 1, discord && account.member.roles?.includes(DIAMOND_SMITH_MESSIAH), [])
-        +createLineHTML('mythosSmith', 1.1, discord && account.member.roles?.includes(MYTHOS_SMITH), [])}
+      ${
+        createLineHTML('thanksgiving2023', 0.2, discord && account.member.roles?.includes(THANKSGIVING_2023), [])
+        + createLineHTML('thanksgiving2024', 0.3, discord && account.member.roles?.includes(THANKSGIVING_2024), [])
+        + createLineHTML('thanksgiving2025', 0.4, discord && account.member.roles?.includes(THANKSGIVING_2025), [])
+        + createLineHTML('conductor2023', 0.3, discord && account.member.roles?.includes(CONDUCTOR_2023), [])
+        + createLineHTML('conductor2024', 0.4, discord && account.member.roles?.includes(CONDUCTOR_2024), [])
+        + createLineHTML('conductor2025', 0.5, discord && account.member.roles?.includes(CONDUCTOR_2025), [])
+        + createLineHTML('eightLeaf', 0.3, discord && account.member.roles?.includes(EIGHT_LEAF), [])
+        + createLineHTML('tenLeaf', 0.4, discord && account.member.roles?.includes(TEN_LEAF), [])
+        + createLineHTML('smithIncarnate', 0.6, discord && account.member.roles?.includes(SMITH_INCARNATE), [])
+        + createLineHTML('smithGod', 0.7, discord && account.member.roles?.includes(SMITH_GOD), [])
+        + createLineHTML('goldenSmithGod', 0.8, discord && account.member.roles?.includes(GOLDEN_SMITH_GOD), [])
+        + createLineHTML('diamondSmithMessiah', 1, discord && account.member.roles?.includes(DIAMOND_SMITH_MESSIAH), [])
+        + createLineHTML('mythosSmith', 1.1, discord && account.member.roles?.includes(MYTHOS_SMITH), [])
+      }
       </div>
       ${i18next.t('account.lastButNotLeast')}
       ${createLineHTML('yourself', 1, true, ['rainbowText'])}

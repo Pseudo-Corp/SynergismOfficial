@@ -4,7 +4,7 @@ import { geometricSeries } from '../../../../../../../Utility'
 import {
   calculateLeftoverELO,
   calculateRebornELOThresholds,
-  perThresholdModifiers,
+  calculateStageRebornSpeedMult,
   thresholdModifiers,
   thresholdTranches
 } from '../Stages/lib/threshold'
@@ -23,7 +23,7 @@ export const calculateTotalProductionForRebornELO = (rebornELO: number) => {
   const stage = calculateRebornELOThresholds(rebornELO)
   const leftover = calculateLeftoverELO(rebornELO, stage)
 
-  const perStageMult = 1 / perThresholdModifiers.rebornSpeedMult // Using recriprocal because you need 1/modifier times as much production to get the same ELO/sec
+  const perStageMult = 1 / calculateStageRebornSpeedMult() // Using recriprocal because you need 1/modifier times as much production to get the same ELO/sec
 
   let production = 0
   let stagesSpent = 0
