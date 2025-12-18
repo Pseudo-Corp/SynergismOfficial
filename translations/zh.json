@@ -123,9 +123,9 @@
         "effect": "第四代神肴之运模块使神肴之运增加了<span class=\"rainbowText\">{{amount}}</span>。"
       },
       "ambrosiaPatreon": {
-        "name": "Shameless, Ambrosial Subscriber Advertisement",
-        "description": "In every realm, Platonic sells out. The Global Subscriber Bonus and the Personal Account Bonus will also impact your Ambrosia Bar Point generation. Consider Subscribing to support development and increase this bonus, for you and all Synergism players!",
-        "effect": "Generous Subscribers and your Personal Bonus grants you {{amount}}% more Ambrosia Bar Points!"
+        "name": "厚颜的神肴订阅广告",
+        "description": "Platonic到哪都受欢迎。使全局订阅加成和个人账户加成对神肴进度条点数获取速度也生效。欢迎您进行订阅，支持开发并提升加成，不止是您自己，所有协同放置的玩家都会受益！",
+        "effect": "慷慨的Patreon支持者和您的个人加成使神肴进度条点数获取速度增加{{amount}}%！"
       },
       "ambrosiaObtainium1": {
         "name": "基于随机数的难得素加成",
@@ -2030,7 +2030,7 @@
       "rebornELO": {
         "name": "递进式成就 - 重生强度分",
         "description": "根据最高的重生强度分获得成就点数！最高总和：{{x}} (可以查看祭坛子面板下的“蚂蚁夸克角”)",
-        "apSource": "Gain +1 AP per 100 Reborn ELO, up to 10,000. <br> Gain +1 AP per 1000 Reborn ELO, up to 150,000. <br> Gain +1 AP per 9,000 Reborn ELO, up to 1,350,000. <br> Gain +1 AP per 75,000 Reborn ELO, up to 15,000,000. <br> Gain +1 AP per 150,000 Reborn ELO, up to 60,000,000."
+        "apSource": "在10000重生强度分之前，每有100重生强度分，就获得1成就点数。<br>10000重生强度分至150000重生强度分之间，每有1000重生强度分，就获得1成就点数。<br>150000重生强度分至1350000重生强度分之间，每有9000重生强度分，就获得1成就点数。<br>1350000重生强度分至15000000重生强度分之间，每有75000重生强度分，就获得1成就点数。<br>15000000重生强度分至60000000重生强度分之间，每有150000重生强度分，就获得1成就点数。"
       },
       "singularityCount": {
         "name": "递进式成就 - 奇点次数",
@@ -2045,7 +2045,7 @@
       "redAmbrosiaCount": {
         "name": "递进式成就 - 红神肴总数",
         "description": "根据红神肴总数获得成就点数！红神肴总数：{{x}}",
-        "apSource": "Gain +1 AP per 25 Red Ambrosia, up to 5,000. <br> Gain +1 AP per 2,500 Red Ambrosia, up to 500,000. <br> Gain +1 AP per 12,500 Ambrosia, up to 5,000,000. <br> Finally, Gain +1 AP per 62,500 Red Ambrosia, up to 12,500,000."
+        "apSource": "在5000红神肴之前，每有25红神肴，就获得1成就点数。<br>5000红神肴至500000红神肴之间，每有2500红神肴，就获得1成就点数。<br>500000红神肴至5000000红神肴之间，每有12500红神肴，就获得1成就点数。<br>最后，5000000红神肴至12500000红神肴之间，每有62500红神肴，就获得1成就点数。"
       },
       "exalts": {
         "name": "递进式成就 - 拔擢阶层完成数",
@@ -2424,7 +2424,7 @@
       "dailyQuarkModal": {
         "intro": "今日您通过蚂蚁献祭获得了<<cyan|{{x}}>>夸克！",
         "quarkLine": "<<turquoise|{{x}}>>个阶段，价值<<cyan|{{y}}>>夸克(每阶段<<cyan|{{z}}>>)",
-        "bonusMult": "Get 1.002x the Quarks per stage, up until Stage 1,000. Current: <<cyan|x{{x}}>>",
+        "bonusMult": "每个阶段使蚂蚁献祭时夸克获取数量变为原来的1.002倍，上限为阶段1000！当前效果：<<cyan|{{x}}倍>>",
         "allTimeMult": "全局排行榜蚂蚁献祭时夸克获取数量倍率：<<cyan|{{x}}倍>>",
         "globalQuarkMult": "蚂蚁献祭时夸克获取数量倍率：<<cyan|{{x}}倍>>"
       },
@@ -2488,7 +2488,7 @@
     "galacticCrumbCount": "您拥有{{x}}银河碎屑。",
     "crumbsPerSecond": "每秒增加{{x}}",
     "crumbsCoinMultiplier": "↳ 金币产量变为原来的{{x}}倍(财富蚁的效果)",
-    "crumbsCoinTaxExempt": "Coin Multiplier also increases your Tax Cap, and is further exempt from taxation",
+    "crumbsCoinTaxExempt": "金币倍率也会同时增加税收上限，且不受税收影响",
     "producerCount": "<<crimson|购买了{{x}}只>> + <<orange|产生了{{y}}只>>",
     "level": "{{x}}级<<orange| [+{{y}}]>>",
     "challenge11Modifier": "挑战11 - 只有免费蚂蚁升级的等级才计入有效等级",
@@ -2515,7 +2515,7 @@
     "rebornTalismanShardMult": "<<turquoise|↳>>使<<lightgray|护身符的所有碎片获取数量>><<gold|变为原来的{{x}}倍>>",
     "rebornELOGainSpeed": "<<turquoise|↳>>使<<#00DDFF|重生强度分的产生速度>><<gold|变为原来的{{x}}倍>>",
     "rebornELOPerSecond": "每秒<<#00DDFF|{{x}}>>",
-    "rebornELOPerSecondWithLotus": "<<#00DDFF|∞>> per second (Lotus Active)",
+    "rebornELOPerSecondWithLotus": "每秒<<#00DDFF|∞>>(已启用莲花)",
     "rebornELOTimeToMax": "预计达到最大所需时间：<<gold|{{x}}>>秒",
     "immortalELOUntilGain": "<<orchid|蚂蚁强度分>>再增加<<gold|{{x}}>>后可以获得<<crimson|不朽强度分>>",
     "immortalELOGain": "<<crimson|不朽强度分>><<gold|增加{{x}}>>",
@@ -2524,7 +2524,7 @@
     "rebornELOInfo2": "• 受<<crimson|不朽强度分>>限制。<<orchid|蚂蚁强度分>>可以加快它的产生！",
     "rebornELOInfo3": "• <<#00DDFF|重生强度分>>越高，产生的就越慢。",
     "stageInfo": "您可以通过<<#00DDFF|重生强度分>>获得<<turquoise|阶段>>。",
-    "stageInfo2": "Each <<turquoise|Stage>> gives you <<gold|1.05x>> <<orange|Offerings>>, <<gold|1.05x>> <<pink|Obtainium>>, and <<gold|1.20x>> <<lightgray|Talisman Fragments>>! <<#00DDFF|Reborn ELO>> generates <<gold|{{percentage}}%>> slower per <<turquoise|Stage>>.",
+    "stageInfo2": "每有1个<<turquoise|阶段>>，就使<<orange|祭品获取数量>>和<<pink|难得素获取数量>>变为原来的<<gold|1.05倍>>，<<lightgray|护身符的所有碎片获取数量>>变为原来的<<gold|1.20倍>>，且<<#00DDFF|重生强度分>>产生速度减慢<<gold|{{percentage}}%>>！",
     "stageTranche1": "阶段1至阶段100：每个阶段价值100<<#00DDFF|重生强度分>>",
     "stageTranche2": "阶段101至阶段200：每个阶段价值1000<<#00DDFF|重生强度分>>",
     "stageTranche3": "阶段201至阶段300：每个阶段价值3000<<#00DDFF|重生强度分>>",
@@ -3091,7 +3091,7 @@
       "58": "[3x8]每级使建筑成本增长减缓0.5%。",
       "59": "[3x9]每级使建筑成本增长减缓0.5%。",
       "60": "[3x10]每级使建筑成本增长减缓0.5%。",
-      "61": "[3x11] Waiting to Reincarnate gives you more Obtainium when you finally do. Gain 50% of that amount increase, without having to Reincarnate! This does <b>NOT</b> affect Obtainium you would gain on Reincarnation, so it's like double dipping!",
+      "61": "[3x11]不需要转世也能自动获得难得素了，每秒可以获得该数值50%的难得素！而且它<b>不</b>影响转世时的获取数量！",
       "62": "[3x12]每级使[3x11]的效果数值增加10%。",
       "63": "[3x13]如果转世持续时间超过2秒，则每级使基础难得素获取数量增加1。",
       "64": "[3x14]如果转世持续时间超过5秒，则每级使基础难得素获取数量增加2。",
@@ -3460,7 +3460,7 @@
       "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
       "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点。</span><br/>",
       "description": "(鼠标停留在特权上可以查看效果。<span style=\"color: gold\">金色文本</span>的特权在本次奇点解锁或者加强)",
-      "usesCurrentSing": "This perk uses your current Singularity count. The level of this perk may <<crimson|decrease>> if you are in a lower Singularity.",
+      "usesCurrentSing": "该特权与您当前奇点次数有关。如果次数降低，特权等级可能会<<crimson|降低>>",
       "welcometoSingularity": {
         "name": "欢迎来到奇点时代！",
         "default": "欢迎进入奇点时代！您可以在解锁相应七阶立方后，自动进行七阶立方锻造，且只要资源充足，可以最大化购买PLATONIC方盒升级！"
