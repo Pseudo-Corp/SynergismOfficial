@@ -123,9 +123,9 @@
         "effect": "This fourth generation Luck module increases Ambrosia Luck by <span class=\"rainbowText\">{{amount}}</span>"
       },
       "ambrosiaPatreon": {
-        "name": "Shameless, Ambrosial Patreon Reminder",
-        "description": "In every realm, Platonic sells out. The Patreon bonus will also impact your Ambrosia Bar Point generation.",
-        "effect": "Generous Patreon supporters grant you {{amount}}% more Ambrosia Bar Points. If you are not already, consider buying PseudoCoins to support development!"
+        "name": "Shameless, Ambrosial Subscriber Advertisement",
+        "description": "In every realm, Platonic sells out. The Global Subscriber Bonus and the Personal Account Bonus will also impact your Ambrosia Bar Point generation. Consider Subscribing to support development and increase this bonus, for you and all Synergism players!",
+        "effect": "Generous Subscribers and your Personal Bonus grants you {{amount}}% more Ambrosia Bar Points!"
       },
       "ambrosiaObtainium1": {
         "name": "RNG-based Obtainium Booster",
@@ -2030,7 +2030,7 @@
       "rebornELO": {
         "name": "Progressive Achievement - Reborn ELO",
         "description": "Gain AP based on the total weighted value of your best Reborn ELO, lifetime! Best Total: {{x}} (Check the \"Ants to Quark Corner\" in the Altar Subtab)",
-        "apSource": "Gain +1 AP per 100 Reborn ELO, up to 10,000. <br> Gain +1 AP per 1000 Reborn ELO, up to 150,000. <br> Gain +1 AP per 9,000 Reborn ELO, up to 1,350,000. <br> Gain +1 AP per 75,000 Reborn ELO, up to 15,000,000. <br> Gain +1 AP per 100,000 Reborn ELO, up to 40,000,000."
+        "apSource": "Gain +1 AP per 100 Reborn ELO, up to 10,000. <br> Gain +1 AP per 1000 Reborn ELO, up to 150,000. <br> Gain +1 AP per 9,000 Reborn ELO, up to 1,350,000. <br> Gain +1 AP per 75,000 Reborn ELO, up to 15,000,000. <br> Gain +1 AP per 150,000 Reborn ELO, up to 60,000,000."
       },
       "singularityCount": {
         "name": "Progressive Achievement - Singularity Count",
@@ -2045,7 +2045,7 @@
       "redAmbrosiaCount": {
         "name": "Progressive Achievement - Lifetime Red Ambrosia",
         "description": "Gain AP based on your lifetime Red Ambrosia! Lifetime Red Ambrosia: {{x}}",
-        "apSource": "Gain +1 AP per 25 Red Ambrosia, up to 5,000. <br> Gain +1 AP per 2,500 Red Ambrosia, up to 500,000. <br> Gain up to 400 MORE AP, by reaching 5,000,000 total Lifetime Red Ambrosia!"
+        "apSource": "Gain +1 AP per 25 Red Ambrosia, up to 5,000. <br> Gain +1 AP per 2,500 Red Ambrosia, up to 500,000. <br> Gain +1 AP per 12,500 Ambrosia, up to 5,000,000. <br> Finally, Gain +1 AP per 62,500 Red Ambrosia, up to 12,500,000."
       },
       "exalts": {
         "name": "Progressive Achievement - EXALT Completions",
@@ -2424,7 +2424,7 @@
       "dailyQuarkModal": {
         "intro": "You've gained <<cyan|{{x}}>> Quarks from Ant Sacrifice today!",
         "quarkLine": "<<turquoise|{{x}}>> Stages, worth <<cyan|{{y}}>> Quarks (<<cyan|{{z}}>> per Stage)",
-        "bonusMult": "Get 1.003x the Quarks per stage! Current: <<cyan|x{{x}}>>",
+        "bonusMult": "Get 1.002x the Quarks per stage, up until Stage 1,000. Current: <<cyan|x{{x}}>>",
         "allTimeMult": "All-Time Leaderboard Quark Multiplier: <<cyan|x{{x}}>>",
         "globalQuarkMult": "Global Quark Multiplier: <<cyan|x{{x}}>>"
       },
@@ -2488,6 +2488,7 @@
     "galacticCrumbCount": "You have {{x}} Galactic Crumbs.",
     "crumbsPerSecond": "+{{x}} per second",
     "crumbsCoinMultiplier": "↳ Coin production is multiplied by {{x}} (Fortunae Formicidae)",
+    "crumbsCoinTaxExempt": "Coin Multiplier also increases your Tax Cap, and is further exempt from taxation",
     "producerCount": "<<crimson| {{x}} Purchased>> + <<orange | {{y}} Generated>>",
     "level": "Level {{x}} <<orange | [+{{y}}]>>",
     "challenge11Modifier": "Challenge 11 - Only free Ant Upgrade Levels count for Effective Levels",
@@ -2514,6 +2515,7 @@
     "rebornTalismanShardMult": "<<turquoise|↳>> <<lightgray | Talisman Fragments>> <<gold|x{{x}}>>",
     "rebornELOGainSpeed": "<<turquoise|↳>> <<#00DDFF|Reborn ELO creation speed>> <<gold|x{{x}}>>",
     "rebornELOPerSecond": "<<#00DDFF|{{x}}>> per second",
+    "rebornELOPerSecondWithLotus": "<<#00DDFF|∞>> per second (Lotus Active)",
     "rebornELOTimeToMax": "Estimated time until max: <<gold|{{x}}>> seconds",
     "immortalELOUntilGain": "Get <<gold | {{x}}>> more <<orchid | Ant ELO>> to gain <<crimson | Immortal ELO>>",
     "immortalELOGain": "Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
@@ -2522,7 +2524,7 @@
     "rebornELOInfo2": "• Limited by your <<crimson|Immortal ELO>>. <<orchid | Ant ELO>> speeds up generation!",
     "rebornELOInfo3": "• The more <<#00DDFF|Reborn ELO>> you have, the slower it generates.",
     "stageInfo": "<<#00DDFF|Reborn ELO>> gives you a <<turquoise | Stage>>.",
-    "stageInfo2": "Each <<turquoise|Stage>> gives you <<gold|1.05x>> <<orange|Offerings>>, <<gold|1.05x>> <<pink|Obtainium>>, and <<gold|1.20x>> <<lightgray|Talisman Fragments>>! <<#00DDFF|Reborn ELO>> generates <<gold|2%>> slower per <<turquoise|Stage>>.",
+    "stageInfo2": "Each <<turquoise|Stage>> gives you <<gold|1.05x>> <<orange|Offerings>>, <<gold|1.05x>> <<pink|Obtainium>>, and <<gold|1.20x>> <<lightgray|Talisman Fragments>>! <<#00DDFF|Reborn ELO>> generates <<gold|{{percentage}}%>> slower per <<turquoise|Stage>>.",
     "stageTranche1": "Stages 1-100: 100 <<#00DDFF|Reborn ELO>> Each",
     "stageTranche2": "Stages 101-200: 1,000 <<#00DDFF|Reborn ELO>> Each",
     "stageTranche3": "Stages 201-300: 3,000 <<#00DDFF|Reborn ELO>> Each",
@@ -3089,7 +3091,7 @@
       "58": "[3x8] Building Cost Scale is delayed by 0.5% per level.",
       "59": "[3x9] Building Cost Scale is delayed by 0.5% per level.",
       "60": "[3x10] Building Cost Scale is delayed by 0.5% per level.",
-      "61": "[3x11] Waiting to Reincarnate gives you more Obtainium when you finally do. Gain 50% of that amount increase, without having to Reincarnate! This does <b>NOT</b> effect Obtainium you would gain on Reincarnation, so it's like double dipping!",
+      "61": "[3x11] Waiting to Reincarnate gives you more Obtainium when you finally do. Gain 50% of that amount increase, without having to Reincarnate! This does <b>NOT</b> affect Obtainium you would gain on Reincarnation, so it's like double dipping!",
       "62": "[3x12] Adds a flat +10% to [3x11]'s effect per level.",
       "63": "[3x13] If your Reincarnation lasts at least 2 seconds you gain +1 Base Obtainium per level.",
       "64": "[3x14] If your Reincarnation lasts at least 5 seconds you gain +2 Base Obtainium per level.",
@@ -3458,6 +3460,7 @@
       "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
       "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
       "description": "(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
+      "usesCurrentSing": "This perk uses your current Singularity count. The level of this perk may <<crimson|decrease>> if you are in a lower Singularity.",
       "welcometoSingularity": {
         "name": "Welcome to Singularity!",
         "default": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!"
@@ -3515,6 +3518,20 @@
         "hasLevel2": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e6 multiplier!",
         "hasLevel1": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1,000 multiplier!",
         "default": "Ant Speed now has a permanent immaculate x4.44 multiplier."
+      },
+      "bringToLife": {
+        "name": "Bring to Life",
+        "default": "Stages affect your Reborn ELO Creation Speed just a little bit less. <<gray|2%>> → <<gold|{{amount}}%>> per Stage."
+      },
+      "eloBonus": {
+        "name": "Advanced... Cheating Tactics?",
+        "default": "You use some highly unconventional methods to increase your Ant ELO! ELO is increased by <<orchid|{{amount}}%>>."
+      },
+      "invigoratedSpirits": {
+        "name": "Invigorated Spirits!",
+        "default": "Your ants feel a greater emotional weight from their lost bretheren of Sacrifices past.",
+        "line2": "For your first 200,000 Immortal ELO, <<orchid|{{x}}%>> of it gets added to your Ant ELO!",
+        "line3": "For the next 1,800,000 Immortal ELO, <<orchid|{{x}}%>> of it gets added."
       },
       "sweepomatic": {
         "name": "Automatic Sweep-o-matic Mk.2",
@@ -3847,8 +3864,8 @@
       },
       "singOcteractPatreonBonus": {
         "name": "Platonic $ells out!!!",
-        "description": "You know that Patreon bonus? Yeah, that's cool and all, but what if it also boosted Octeract production by the same amount?",
-        "effect": "Octeract production is {{n}} faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists."
+        "description": "The Global Subscriber Bonus and your Personal Account Bonus now affect Octeract production! Yippee. Consider Subscribing to support development and increase this bonus, for you and all Synergism players!",
+        "effect": "If you own this upgrade, Octeract production is {{n}}x faster! <br> <<turquoise | {{x}}x>> Global Subscriber Bonus <br> * <<turquoise|{{y}}x>> Personal Account Bonus"
       },
       "offeringAutomatic": {
         "name": "Blueberry Shards!",
@@ -4153,6 +4170,7 @@
       "salvage": "<<green|Salvage>> is reduced by <<green|{{amount}}>>",
       "offeringGain": "<<gold|Offering Gain>> is divided by <<gold|{{divisor}}>>.",
       "obtainiumGain": "<<steelblue|Obtainium Gain>> is divided by <<steelblue|{{divisor}}>>.",
+      "antELOGain": "<<orchid|Ant ELO Additive Multiplier>> is reduced by <<orchid|{{amount}}>>.",
       "cubeGain": "<<yellow|Cube Gain>> is divided by <<yellow|{{divisor}}>>.",
       "researchCosts": "<<var(--green-text-color)|Research Costs>> are multiplied by <<var(--green-text-color)|{{multiplier}}>>.",
       "cubeUpgradeCosts": "<<Silver|Cube Upgrade costs>> (Excluding Cookies) are multiplied by <<Silver|{{multiplier}}>>.",
@@ -6377,7 +6395,8 @@
       "Viscount": "Benefits of being a Viscount:",
       "FirstSingularityBonus": "First Singularity Bonus:",
       "Event": "Event + Consumables Bonus:",
-      "PatreonBonus": "Patreon Bonus:",
+      "GlobalSubscriber": "Global Bonus from our Wonderful Subscribers:",
+      "AccountBonus": "Synergism Account Personal Quark Bonus:",
       "Total": "Total Quark Multiplier:"
     },
     "baseObtainiumStats": {
@@ -6630,7 +6649,7 @@
       "ShopUpgrades": "Shop Upgrades (I-IV):",
       "SingularityUpgrades": "Singularity Upgrades (I-IV):",
       "OcteractUpgrades": "Octeract Upgrades (I-IV):",
-      "PatreonBonus": "Patreon Bonus:",
+      "PatreonBonus": "Ambrosia Module - Shameless, Ambrosial Subscriber Advertisement:",
       "OneChallengeCap": "One Challenge Cap Reward:",
       "NoAmbrosiaUpgradesReward": "No Ambrosia Upgrades Challenge Reward:",
       "RedAmbrosiaUpgrade": "Red Ambrosia Upgrade - Sands of Time",
@@ -6667,21 +6686,22 @@
       "FastForwards": "Singularity Fast Forwards:",
       "ImmaculateAlchemy": "Immaculate Alchemy:",
       "Event": "Event Bonus:",
-      "PatreonBonus": "Patreon Bonus:",
-      "FirstSingBonus": "First Singularity Bonus:",
+      "GlobalSubscriber": "Global Bonus from our Wonderful Subscribers:",
+      "AccountBonus": "Synergism Account Personal Quark Bonus:",
       "Total": "Total Golden Quark Gained:"
     },
     "goldenQuarkPurchaseCostStats": {
       "title": "Golden Quark Purchase Cost",
       "Base": "Base Cost:",
       "PseudoCoins": "Gold Quark PseudoCoin Upgrade:",
-      "Patreon": "Patreon:",
       "AchievementPoints": "Achievement Points:",
       "CubeUpgrade6x10": "Cube Upgrade 6x10:",
       "GoldenQuarks2": "Golden Quarks II:",
       "OcteractCostReduce": "Octeract Cost Reduce:",
       "GoldenRevolution2": "Golden Revolution II:",
       "ImmaculateAlchemy": "Immaculate Alchemy:",
+      "GlobalSubscriber": "1 / Global Bonus from our Wonderful Subscribers:",
+      "AccountBonus": "1 / Synergism Account Personal Quark Bonus:",
       "Event": "Event:",
       "Total": "Final Quarks per Golden Quark Cost:"
     },
@@ -6883,6 +6903,7 @@
       "Research8x3": "Research 8x3:",
       "AntUpgrade": "Ants - Phylacterium Formicidae:",
       "AntUpgrade13": "Ants - Impia Reproducta Formicidate:",
+      "SingularityPerk": "Singularity Perk - Invigorated Spirits!:",
       "Total": "Total Base Ant ELO:"
     },
     "additiveAntELOMultStats": {
@@ -6895,6 +6916,8 @@
       "AntDisciples": "Ant Disciples Purchased:",
       "AntHolySpirit": "Ant Holy Spirit Purchased:",
       "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
+      "SingularityPerk": "Singularity Perk - Advanced... Cheating Tactics?",
+      "SingularityDebuff": "Singularity Debuff:",
       "Total": "Total Ant ELO Multiplier:"
     },
     "effectiveAntELOStats": {
@@ -6938,7 +6961,7 @@
       "OneMind": "One Mind Modifier:",
       "Total": "Ascension Count gained this Ascension:"
     },
-    "gameStage": "Current Game Stage: {{stage}}"
+    "gameStage": "Current Game Section: {{stage}}"
   },
   "wowCubes": {
     "greenText": "You can also spend them on upgrades that persist through Ascension.",
@@ -7013,9 +7036,9 @@
         "2": "Aphrodite's Benediction x{{amount}}: +{{bonus}} Aphrodite Gift → Aphrodite Multipliers",
         "3": "Plutus' Benediction x{{amount}}: +{{bonus}} Plutus Gift → Plutus Offerings",
         "4": "Iris' Benediction x{{amount}}: +{{bonus}} Iris Gift Cap <<white | [▼ Cap: 150%]>>",
-        "5": "Athena's Benediction x{{amount}}: +{{bonus}} Athena Gift → Athena Ant Speed",
-        "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Sacrifice Reward",
-        "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares ELO Bonus",
+        "5": "Athena's Benediction x{{amount}}: +{{bonus}} Athena Gift → Athena Obtainium",
+        "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Speed",
+        "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares Ant Sacrifice Reward",
         "8": "Moloch's Benediction x{{amount}}: +{{bonus}} Moloch Gift → Moloch Reborn ELO Creation Speed",
         "9": "Midas' Benediction x{{amount}}: +{{bonus}} Midas Gift → Midas Effective Rune Power",
         "10": "Chronos' Benediction x{{amount}}: +{{bonus}} Chronos Gift → Chronos Tribute Power"
