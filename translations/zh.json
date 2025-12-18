@@ -3458,7 +3458,7 @@
       "levelInfo": "等级 {{level}} - (奇点 {{singularity}})",
       "improvedIn": "第{{sing}}次进入奇点后将有特权加强",
       "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
-      "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点。</span><br/>",
+      "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点</span><br/>。",
       "description": "(鼠标停留在特权上可以查看效果。<span style=\"color: gold\">金色文本</span>的特权在本次奇点解锁或者加强)",
       "usesCurrentSing": "该特权与您当前奇点次数有关。如果次数降低，特权等级可能会<<crimson|降低>>",
       "welcometoSingularity": {
@@ -3520,18 +3520,18 @@
         "default": "使蚂蚁速度变为无瑕的4.44倍。"
       },
       "bringToLife": {
-        "name": "Bring to Life",
-        "default": "Stages affect your Reborn ELO Creation Speed just a little bit less. <<gray|2%>> → <<gold|{{amount}}%>> per Stage."
+        "name": "赋予生命",
+        "default": "使阶段对重生强度分产生速度的减慢效果略微缓和。每阶段从<<gray|2%>>变为<<gold|{{amount}}%>>。"
       },
       "eloBonus": {
-        "name": "Advanced... Cheating Tactics?",
-        "default": "You use some highly unconventional methods to increase your Ant ELO! ELO is increased by <<orchid|{{amount}}%>>."
+        "name": "高级的……作弊手法？",
+        "default": "您用了一些完全非常规的方法来提升蚂蚁强度分！它增加了<<orchid|{{amount}}%>>。"
       },
       "invigoratedSpirits": {
-        "name": "Invigorated Spirits!",
-        "default": "Your ants feel a greater emotional weight from their lost bretheren of Sacrifices past.",
-        "line2": "For your first 200,000 Immortal ELO, <<orchid|{{x}}%>> of it gets added to your Ant ELO!",
-        "line3": "For the next 1,800,000 Immortal ELO, <<orchid|{{x}}%>> of it gets added."
+        "name": "振奋精神！",
+        "default": "蚂蚁们从过去同胞的献祭中感受到更强的情感力量。",
+        "line2": "在200000不朽强度分之前，它有<<orchid|{{x}}%>>会转化为蚂蚁强度分！",
+        "line3": "200000至2000000不朽强度分之间，它有<<orchid|{{x}}%>>会转化为蚂蚁强度分。"
       },
       "sweepomatic": {
         "name": "自动扫荡·改 2",
@@ -3864,8 +3864,8 @@
       },
       "singOcteractPatreonBonus": {
         "name": "Platonic脱销！！！",
-        "description": "The Global Subscriber Bonus and your Personal Account Bonus now affect Octeract production! Yippee. Consider Subscribing to support development and increase this bonus, for you and all Synergism players!",
-        "effect": "If you own this upgrade, Octeract production is {{n}}x faster! <br> <<turquoise | {{x}}x>> Global Subscriber Bonus <br> * <<turquoise|{{y}}x>> Personal Account Bonus"
+        "description": "使全局订阅加成和个人账户加成对八阶方块的获取数量也生效。耶！欢迎您进行订阅，支持开发并提升加成，不止是您自己，所有协同放置的玩家都会受益！",
+        "effect": "如果您拥有该升级，八阶方块的获取数量将增加{{n}}倍！<br><<turquoise|{{x}}倍>>全局订阅加成<br>×<<turquoise|{{y}}倍>>个人账户加成"
       },
       "offeringAutomatic": {
         "name": "蓝莓碎片！",
@@ -4170,7 +4170,7 @@
       "salvage": "使<<green|回收>>减少<<green|{{amount}}>>",
       "offeringGain": "<<gold|祭品获取数量>>除以<<gold|{{divisor}}>>。",
       "obtainiumGain": "<<steelblue|难得素获取数量>>除以<<steelblue|{{divisor}}>>。",
-      "antELOGain": "<<orchid|Ant ELO Additive Multiplier>> is reduced by <<orchid|{{amount}}>>.",
+      "antELOGain": "使<<orchid|蚂蚁强度分叠加倍率>>减少<<orchid|{{amount}}>>。",
       "cubeGain": "<<yellow|所有类型的方盒、立方和方块获取数量>>除以<<yellow|{{divisor}}>>。",
       "researchCosts": "<<var(--green-text-color)|研究花费>>乘以<<var(--green-text-color)|{{multiplier}}>>。",
       "cubeUpgradeCosts": "<<Silver|方盒升级花费>>(饼干升级除外)乘以<<Silver|{{multiplier}}>>。",
@@ -5609,7 +5609,7 @@
         "signature": "<<crimson | ✎>> 签名：使棱柱符文的符文升级系数增加<<crimson|12>>。"
       },
       "plastic": {
-        "name": "一块塑胶",
+        "name": "氪金信用卡​​",
         "description": "可能是通过“先买后付”应用程序购买的。",
         "inscription": "<<gold | ✏>> 铭文：使夸克获取数量增加<<gold|{{val}}>>。",
         "signature": "<<crimson | ✎>> 签名：无。您无法在卡体上签名。"
@@ -6358,7 +6358,7 @@
       "AchievementPoints": "成就点数的加成：",
       "AchievementBonus": "夸克成就倍率：",
       "SynergismLevel": "协同效应等级的奖励：",
-      "PlasticTalisman": "一块塑胶 - 铭文的加成：",
+      "PlasticTalisman": "氪金信用卡 - 铭文的加成：",
       "Achievement250": "成就250的加成：",
       "Achievement251": "成就251的加成：",
       "Achievement266": "成就266的加成：",
@@ -6395,8 +6395,8 @@
       "Viscount": "成为子爵的加成：",
       "FirstSingularityBonus": "首次进入奇点加成：",
       "Event": "活动及消耗品加成：",
-      "GlobalSubscriber": "Global Bonus from our Wonderful Subscribers:",
-      "AccountBonus": "Synergism Account Personal Quark Bonus:",
+      "GlobalSubscriber": "来自尊贵订阅者的全局加成：",
+      "AccountBonus": "协同放置个人账户加成：",
       "Total": "夸克获取数量总倍率："
     },
     "baseObtainiumStats": {
@@ -6597,7 +6597,7 @@
       "NoAmbrosiaUpgrades": "拔擢 - 无神肴升级：",
       "Cookie5": "饼干升级27[Cx27]加成：",
       "BlueberryUpgrade": "蓝莓模块 - 神肴之运 IV：",
-      "HorseShoeTalisman": "马靴 - 铭文的加成：",
+      "HorseShoeTalisman": "马蹄铁护身符 - 铭文的加成：",
       "Event": "活动加成：",
       "Total": "神肴之运总倍率(效果叠加)："
     },
@@ -6649,7 +6649,7 @@
       "ShopUpgrades": "商店升级(I-IV)：",
       "SingularityUpgrades": "奇点升级(I-IV)：",
       "OcteractUpgrades": "八阶方块升级(I-IV)：",
-      "PatreonBonus": "Ambrosia Module - Shameless, Ambrosial Subscriber Advertisement:",
+      "PatreonBonus": "神肴模块 - 厚颜的神肴订阅广告：",
       "OneChallengeCap": "挑战上限恒为一奖励：",
       "NoAmbrosiaUpgradesReward": "无神肴升级奖励：",
       "RedAmbrosiaUpgrade": "红神肴升级 - 时之沙",
@@ -6686,8 +6686,8 @@
       "FastForwards": "奇点以太通量升级：",
       "ImmaculateAlchemy": "完美炼金术特权：",
       "Event": "活动加成：",
-      "GlobalSubscriber": "Global Bonus from our Wonderful Subscribers:",
-      "AccountBonus": "Synergism Account Personal Quark Bonus:",
+      "GlobalSubscriber": "来自尊贵订阅者的全局加成：",
+      "AccountBonus": "协同放置个人账户加成：",
       "Total": "金夸克获取数量总倍率："
     },
     "goldenQuarkPurchaseCostStats": {
@@ -6700,8 +6700,8 @@
       "OcteractCostReduce": "八阶方块降低花费升级：",
       "GoldenRevolution2": "金之革命 II：",
       "ImmaculateAlchemy": "完美炼金术特权：",
-      "GlobalSubscriber": "1 / Global Bonus from our Wonderful Subscribers:",
-      "AccountBonus": "1 / Synergism Account Personal Quark Bonus:",
+      "GlobalSubscriber": "1 / 来自尊贵订阅者的全局加成：",
+      "AccountBonus": "1 / 协同放置个人账户加成：",
       "Event": "活动加成：",
       "Total": "每购买1金夸克最终花费的夸克数量："
     },
@@ -6903,7 +6903,7 @@
       "Research8x3": "研究8x3：",
       "AntUpgrade": "蚂蚁 - 命匣蚁：",
       "AntUpgrade13": "蚂蚁 - 孽生蚁：",
-      "SingularityPerk": "Singularity Perk - Invigorated Spirits!:",
+      "SingularityPerk": "奇点特权 - 振奋精神！：",
       "Total": "总蚂蚁基础强度分："
     },
     "additiveAntELOMultStats": {
@@ -6916,8 +6916,8 @@
       "AntDisciples": "购买过神使蚁：",
       "AntHolySpirit": "购买过蚁神圣灵蚁：",
       "PlatonicUpgrade12": "PLATONIC升级3x2：",
-      "SingularityPerk": "Singularity Perk - Advanced... Cheating Tactics?",
-      "SingularityDebuff": "Singularity Debuff:",
+      "SingularityPerk": "奇点特权 - 高级的……作弊手法？",
+      "SingularityDebuff": "奇点惩罚：",
       "Total": "蚂蚁强度分总倍率："
     },
     "effectiveAntELOStats": {
@@ -6961,7 +6961,7 @@
       "OneMind": "一心倍率：",
       "Total": "本次飞升获得的飞升次数："
     },
-    "gameStage": "Current Game Section: {{stage}}"
+    "gameStage": "当前游戏所处部分：{{stage}}"
   },
   "wowCubes": {
     "greenText": "您也可以将它们用来购买升级，这些升级不会因为飞升而重置。",
@@ -7036,9 +7036,9 @@
         "2": "阿佛洛狄忒的恩赐×{{amount}}：使阿佛洛狄忒的赠礼对阿佛洛狄忒的倍率的加成效率增加{{bonus}}",
         "3": "普路托斯的恩赐×{{amount}}：使普路托斯的赠礼对普路托斯的祭品的加成效率增加{{bonus}}",
         "4": "伊里斯的恩赐×{{amount}}：使伊里斯的赠礼上限增加{{bonus}} <<white| [▼ 上限：150%]>>",
-        "5": "Athena's Benediction x{{amount}}: +{{bonus}} Athena Gift → Athena Obtainium",
-        "6": "Artemis' Benediction x{{amount}}: +{{bonus}} Artemis Gift → Artemis Ant Speed",
-        "7": "Ares' Benediction x{{amount}}: +{{bonus}} Ares Gift → Ares Ant Sacrifice Reward",
+        "5": "雅典娜的恩赐×{{amount}}：使雅典娜的赠礼对雅典娜的难得素的加成效率增加{{bonus}}",
+        "6": "阿尔忒弥斯的恩赐×{{amount}}：使阿尔忒弥斯的赠礼对阿尔忒弥斯的蚂蚁速度的加成效率增加{{bonus}}",
+        "7": "阿瑞斯的恩赐×{{amount}}：使阿瑞斯的赠礼对阿瑞斯的蚂蚁献祭奖励的加成效率增加{{bonus}}",
         "8": "摩洛克的恩赐×{{amount}}：使摩洛克的赠礼对摩洛克的重生强度分产生速度的加成效率增加{{bonus}}",
         "9": "米达斯的恩赐×{{amount}}：使米达斯的赠礼对米达斯的符文强度的加成效率增加{{bonus}}",
         "10": "柯罗诺斯的恩赐×{{amount}}：使柯罗诺斯的赠礼对柯罗诺斯的贡品效果的加成效率增加{{bonus}}"
