@@ -83,7 +83,8 @@ export class CartTab {
         // The Subscriptions do not naturally sort themselves by price
         subscriptionProducts.sort((a, b) => a.price - b.price)
         CartTab.#productsFetch?.resolve(undefined)
-      }, CartTab.#productsFetch.reject)
+      })
+      .catch((e) => CartTab.#productsFetch!.reject(e))
 
     return CartTab.#productsFetch.promise
   }

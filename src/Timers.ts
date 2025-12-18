@@ -24,7 +24,10 @@ export const clearInterval: typeof workerTimers['clearInterval'] = (timerId) => 
 }
 
 export const setTimeout: typeof workerTimers['setTimeout'] = (fn, delay) => {
-  const timer = workerTimers.setTimeout(fn, delay)
+  const timer = workerTimers.setTimeout(() => {
+    fn()
+    clearTimeout(timer)
+  }, delay)
   activeTimers.push({ id: timer, type: 'timeout' })
   return timer
 }
