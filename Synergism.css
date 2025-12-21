@@ -6189,6 +6189,20 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     animation: rainbow-border 2s linear infinite;
 }
 
+.mobile-menu-toggle {
+    display: none;
+}
+
+.hamburger-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: white;
+    margin: 2px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border-radius: 1px;
+}
+
 /* ============================================
    MOBILE RESPONSIVE STYLES
    ============================================ */
@@ -6225,6 +6239,12 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         min-width: 80px;
         flex-shrink: 0;
         font-size: 0.85em;
+    }
+
+    .subHeader {
+        flex-direction: column;
+        min-width: unset;
+        max-width: unset;
     }
 
     /* Sub tab wrappers */
@@ -6426,14 +6446,22 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         width: 90%;
     }
 
-    /* Reset information */
-    .resetInformationContainer {
-        width: 95%;
-        flex-basis: 95%;
+    .resetsContainer {
+        margin-top: 10px;
+        flex-wrap: wrap;
     }
 
-    .resetsContainer {
-        flex-wrap: wrap;
+    .resetInformationContainer {
+        width: unset;
+    }
+
+    .resetsButtons {
+        margin: 0 auto;
+    }
+
+    #resetinfo {
+        text-align: center;
+        height: unset;
     }
 
     /* Cube upgrades */
@@ -6470,11 +6498,82 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         font-size: 14px;
     }
 
-    /* Prevent mobile browsers from zooming in on input focus https://css-tricks.com/16px-or-larger-text-prevents-ios-form-zoom/ */
+    /* Prevent mobile browsers from zooming in on input focus
+       https://css-tricks.com/16px-or-larger-text-prevents-ios-form-zoom/ */
     input,
     select,
     textarea {
         font-size: 16px;
+    }
+
+    /* Mobile menu toggle button - use high specificity to override nav button */
+    nav.navbar > button.mobile-menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+        border: 1px solid #555;
+        border-radius: 4px;
+        padding: 4px 8px;
+        cursor: pointer;
+        margin: 3px auto;
+        min-height: unset;
+        min-width: unset;
+        width: auto;
+        font-size: 1em;
+    }
+
+    nav.navbar > button.mobile-menu-toggle:hover,
+    nav.navbar > button.mobile-menu-toggle:focus {
+        background: linear-gradient(135deg, #444 0%, #2a2a2a 100%);
+        border-color: #777;
+    }
+
+    nav.navbar > button.mobile-menu-toggle:active {
+        transform: scale(0.95);
+    }
+
+    /* Hamburger animation when menu is open */
+    .mobile-menu-toggle.menu-open .hamburger-line:nth-child(1) {
+        transform: rotate(45deg) translate(3px, 3px);
+    }
+
+    .mobile-menu-toggle.menu-open .hamburger-line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-toggle.menu-open .hamburger-line:nth-child(3) {
+        transform: rotate(-45deg) translate(3px, -3px);
+    }
+
+    /* Tab row - collapsed by default on mobile */
+    nav.navbar #tabrow {
+        display: none !important;
+        flex-direction: column;
+        gap: 5px;
+        padding: 10px;
+        background: #000c;
+        border-radius: 8px;
+        margin: 5px 10px;
+        max-height: 60vh;
+        overflow-y: auto;
+        flex-wrap: nowrap;
+    }
+
+    /* Show tab row when menu is open */
+    nav.navbar.menu-open #tabrow {
+        display: flex !important;
+    }
+
+    /* Tab buttons in mobile menu */
+    nav.navbar #tabrow > button {
+        width: 100%;
+        min-width: unset;
+        padding: 12px 15px;
+        font-size: 1em;
+        text-align: center;
+        border-radius: 6px;
     }
 
     nav button {
@@ -6730,46 +6829,46 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     /* Settings subtabs */
 
     #languagesubtab {
-      flex-direction: column;
+        flex-direction: column;
     }
 
     .languageContribution {
-      min-width: unset;
+        min-width: unset;
     }
 
     #creditList {
-      grid-template-columns: repeat(2, 50%);
+        grid-template-columns: repeat(2, 50%);
     }
 
     #artistList {
-      grid-template-columns: repeat(2, 50%);
+        grid-template-columns: repeat(2, 50%);
     }
 
     .splitContainer {
-      flex-direction: column;
+        flex-direction: column;
     }
 
     .splitContainer > div {
-      width: unset !important;
+        width: unset !important;
     }
 
     .grid-row > .name-cell {
-      overflow: hidden;
-      text-overflow: ellipsis;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .hotkeys {
-      grid-template-columns: repeat(2, 50%);
-      text-overflow: ellipsis;
-      overflow: hidden;
+        grid-template-columns: repeat(2, 50%);
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 }
 
 /* Ensure touch-friendly tap targets */
 @media (pointer: coarse) {
-    button,
+    button:not(.mobile-menu-toggle),
     .buildingPurchaseBtn,
-    nav button,
+    nav button:not(.mobile-menu-toggle),
     .subTabWrapper > button {
         min-height: 44px;
     }

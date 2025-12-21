@@ -686,6 +686,26 @@ tabRow.appendButton(
     .makeDraggable()
 )
 
+// Mobile menu toggle functionality
+const mobileMenuToggle = DOMCacheGetOrSet('mobileMenuToggle')
+const navbar = document.querySelector('.navbar')
+
+const toggleMobileMenu = () => {
+  const isOpen = navbar?.classList.toggle('menu-open')
+  mobileMenuToggle.classList.toggle('menu-open', isOpen)
+  mobileMenuToggle.setAttribute('aria-expanded', String(isOpen))
+}
+
+mobileMenuToggle.addEventListener('click', toggleMobileMenu)
+
+// Close mobile menu when a tab is clicked
+tabRow.addEventListener('click', (e) => {
+  const target = e.target as HTMLElement
+  if (target.tagName === 'BUTTON' && navbar?.classList.contains('menu-open')) {
+    toggleMobileMenu()
+  }
+})
+
 /**
  * @param step 1 to go forward; -1 to go back
  * @param changeSubtab true to change the subtab, false to change the main tabs
