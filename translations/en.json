@@ -4248,6 +4248,7 @@
     "on": "ON",
     "off": "OFF",
     "buyOne": "Buy x1",
+    "buyX": "Buy X",
     "buyMax": "Buy MAX",
     "languageChange": "Changing the language requires a reload! Would you like to reload now?",
     "resources": {
