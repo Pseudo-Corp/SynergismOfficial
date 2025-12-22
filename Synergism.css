@@ -1768,7 +1768,7 @@ img.runeTypeElement:hover {
     cursor: pointer;
 }
 
-.talismanIcon > img {
+.talismanIcon img {
     position: relative;
     width: calc(100% - 6px);
     height: calc(100% - 6px);
@@ -6400,12 +6400,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         align-items: center;
     }
 
-    /* Challenge section */
-    #challengeDetails {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
     #challengeTimers {
         margin-right: 0;
         width: 100%;
@@ -6663,6 +6657,11 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         width: 100%;
     }
 
+    #buyRuneBlessingToggle,
+    #buyRuneSpiritToggleValue {
+        text-align: center;
+    }
+
     /* Achievements */
     #tieredAchievementsTable {
         grid-template-columns: repeat(4, 40px);
@@ -6727,6 +6726,18 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         font-size: 1em;
     }
 
+    .singularityChallenges {
+        flex-wrap: wrap;
+    }
+
+    #singularityChallengeAllRewards {
+        grid-template-columns: repeat(2, 50%);
+    }
+
+    #researchToggles {
+        flex-wrap: wrap;
+    }
+
     /* Dialogs */
     #confirmationBox,
     #captchaHolder {
@@ -6773,16 +6784,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     .pseudoUpgradeContainer {
         grid-template-columns: 1fr 1fr;
         gap: 5px;
-    }
-
-    /* Talisman */
-    .talismanContainer {
-        width: 60px;
-    }
-
-    .talismanIcon {
-        height: 48px;
-        width: 48px;
     }
 
     /* Settings */
