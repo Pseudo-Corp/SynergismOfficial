@@ -6762,7 +6762,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         background: #000c;
         border-radius: 8px;
         margin: 5px 10px;
-        max-height: 60vh;
         overflow-y: auto;
         flex-wrap: nowrap;
     }
