@@ -7074,6 +7074,28 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         text-overflow: ellipsis;
         overflow: hidden;
     }
+
+    /* Shops tab */
+    #actualWrapper {
+        flex-direction: column;
+    }
+
+    #actualConsumables {
+        width: unset;
+    }
+
+    #actualShop {
+        width: unset;
+        justify-content: center;
+    }
+
+    #actualShop > div {
+        width: 30%;
+    }
+
+    #shopHovers {
+        width: unset;
+    }
 }
 
 /* Ensure touch-friendly tap targets */
