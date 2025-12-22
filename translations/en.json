@@ -4240,7 +4240,7 @@
     "spiritCapital": "REJUVENATE",
     "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!",
 	"freeLevelDescription": "Perks with a negative coloring have more free levels than normal levels",
-	"expandWarning": "Warn on expand",
+	"maxCraftWarning": "Warn when crafting max",
     "autoOnColon": "Auto: ON",
     "autoOffColon": "Auto: OFF",
     "buyMaxOn": "Buy Max: ON",
