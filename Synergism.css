@@ -6033,6 +6033,30 @@ html[data-prestige-unlock="true"] .prestigeunlockib {
     display: inline-block;
 }
 
+html[data-prestige-unlock="true"] .prestigeunlock {
+    display: block;
+}
+
+html[data-prestige-unlock="true"] .offlineStats > .prestigeunlock {
+    display: flex;
+}
+
+html[data-prestige-unlock="true"] .transcendunlock {
+    display: block;
+}
+
+html[data-prestige-unlock="true"] .offlineStats > .transcendunlock {
+    display: flex;
+}
+
+html[data-prestige-unlock="true"] .reincarnationunlock {
+    display: block;
+}
+
+html[data-prestige-unlock="true"] .offlineStats > .reincarnationunlock {
+    display: flex;
+}
+
 html[data-prestige-unlock="false"] .prestigeunlockib {
     display: none;
 }
@@ -6217,12 +6241,20 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         overflow-x: auto;
     }
 
-    /* Ascension stats - remove fixed min-width */
+    /* Ascension stats - horizontally scrollable on mobile */
     #ascensionStats {
         min-width: unset;
         width: 100%;
         padding: 0 10px;
         box-sizing: border-box;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        scrollbar-width: thin;
+    }
+
+    #ascensionStats > span {
+        flex-shrink: 0;
     }
 
     /* Navigation tabs - make scrollable */
@@ -6300,10 +6332,22 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 
     /* Upgrades flex container */
     #upgradesFlex {
-        flex-direction: column;
-        width: 95%;
+        display: grid;
+        grid-template-columns: repeat(2, 50%);
         margin: 2% auto;
-        gap: 20px;
+        width: unset;
+    }
+
+    #upgradesFlex button:has(img) {
+        min-height: unset;
+    }
+
+    #upgradesFlex > section {
+        margin-top: 10px;
+    }
+
+    .shop-section.mobile-flex {
+        display: flex;
     }
 
     /* Prestige/Transcension containers */

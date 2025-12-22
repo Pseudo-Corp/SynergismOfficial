@@ -70,44 +70,9 @@ export const revealStuff = () => {
   document.documentElement.dataset.coinTwo = player.unlocks.cointwo ? 'true' : 'false'
   document.documentElement.dataset.coinThree = player.unlocks.cointhree ? 'true' : 'false'
   document.documentElement.dataset.coinFour = player.unlocks.coinfour ? 'true' : 'false'
-
-  const example5 = document.getElementsByClassName('prestigeunlock') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example5.length; i++) {
-    const parent = example5[i].parentElement
-    if (parent?.classList.contains('offlineStats')) {
-      example5[i].style.display = player.unlocks.prestige ? 'flex' : 'none'
-      example5[i].setAttribute('aria-disabled', `${!player.unlocks.prestige}`)
-    } else {
-      example5[i].style.display = player.unlocks.prestige ? 'block' : 'none'
-      example5[i].setAttribute('aria-disabled', `${!player.unlocks.prestige}`)
-    }
-  }
-
   document.documentElement.dataset.generationUnlock = player.unlocks.generation ? 'true' : 'false'
-
-  const example7 = document.getElementsByClassName('transcendunlock') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example7.length; i++) {
-    const parent = example7[i].parentElement!
-    if (parent.classList.contains('offlineStats')) {
-      example7[i].style.display = player.unlocks.transcend ? 'flex' : 'none'
-      example7[i].setAttribute('aria-disabled', `${!player.unlocks.transcend}`)
-    } else {
-      example7[i].style.display = player.unlocks.transcend ? 'block' : 'none'
-      example7[i].setAttribute('aria-disabled', `${!player.unlocks.transcend}`)
-    }
-  }
-
-  const example8 = document.getElementsByClassName('reincarnationunlock') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example8.length; i++) {
-    const parent = example8[i].parentElement!
-    if (parent.classList.contains('offlineStats')) {
-      example8[i].style.display = player.unlocks.reincarnate ? 'flex' : 'none'
-      example8[i].setAttribute('aria-disabled', `${!player.unlocks.reincarnate}`)
-    } else {
-      example8[i].style.display = player.unlocks.reincarnate ? 'block' : 'none'
-      example8[i].setAttribute('aria-disabled', `${!player.unlocks.reincarnate}`)
-    }
-  }
+  document.documentElement.dataset.transcendUnlock = `${player.unlocks.transcend}`
+  document.documentElement.dataset.reincarnateUnlock = `${player.unlocks.reincarnate}`
 
   const example9 = document.getElementsByClassName('auto') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example9.length; i++) {
