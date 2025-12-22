@@ -6527,6 +6527,27 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         width: unset;
     }
 
+    #traits {
+        flex-direction: column;
+    }
+
+    #corruptionStatsLoadouts {
+        min-width: 100%;
+        margin: unset;
+    }
+
+    .corrDesc {
+        min-width: unset;
+    }
+
+    .corruptionStatRow > button {
+        min-width: 44px;
+    }
+
+    #corruptionMain {
+        min-width: unset;
+    }
+
     /* Achievement grids */
     #tieredAchievementsTable {
         grid-template-columns: repeat(4, 48px);
