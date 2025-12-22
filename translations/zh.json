@@ -123,9 +123,9 @@
         "effect": "第四代神肴之运模块使神肴之运增加了<span class=\"rainbowText\">{{amount}}</span>。"
       },
       "ambrosiaPatreon": {
-        "name": "厚颜的蓝莓Patreon提醒",
-        "description": "Platonic到哪都受欢迎。Patreon的加成还会对神肴进度条点数获取速度生效。",
-        "effect": "慷慨的Patreon支持者使神肴进度条点数获取速度增加 {{amount}}%。您也可以考虑在Patreon上支持本游戏的开发！"
+        "name": "厚颜的神肴订阅广告",
+        "description": "Platonic到哪都受欢迎。使全局订阅加成和个人账户加成对神肴进度条点数获取速度也生效。欢迎您进行订阅，支持开发并提升加成，不止是您自己，所有协同放置的玩家都会受益！",
+        "effect": "慷慨的Patreon支持者和您的个人加成使神肴进度条点数获取速度增加{{amount}}%！"
       },
       "ambrosiaObtainium1": {
         "name": "基于随机数的难得素加成",
@@ -828,7 +828,7 @@
       "481": "献祭蚂蚁：献祭1次蚁丘。",
       "482": "建设更好的未来：献祭10次蚁丘。",
       "483": "神之盛宴：献祭50次蚁丘。",
-      "484": "四分之一：献祭250次蚁丘。",
+      "484": "车裂：献祭250次蚁丘。",
       "485": "祭坛微瑕：献祭1250次蚁丘。",
       "486": "蚁之屠戮：献祭5000次蚁丘。",
       "487": "万王之王：献祭20000次蚁丘。",
@@ -2030,7 +2030,7 @@
       "rebornELO": {
         "name": "递进式成就 - 重生强度分",
         "description": "根据最高的重生强度分获得成就点数！最高总和：{{x}} (可以查看祭坛子面板下的“蚂蚁夸克角”)",
-        "apSource": "在10000重生强度分之前，每有100重生强度分，就获得1成就点数。<br>10000重生强度分至150000重生强度分之间，每有1000重生强度分，就获得1成就点数。<br>150000重生强度分至1350000重生强度分之间，每有9000重生强度分，就获得1成就点数。<br>1350000重生强度分至15000000重生强度分之间，每有75000重生强度分，就获得1成就点数。<br>15000000重生强度分至40000000重生强度分之间，每有100000重生强度分，就获得1成就点数。"
+        "apSource": "在10000重生强度分之前，每有100重生强度分，就获得1成就点数。<br>10000重生强度分至150000重生强度分之间，每有1000重生强度分，就获得1成就点数。<br>150000重生强度分至1350000重生强度分之间，每有9000重生强度分，就获得1成就点数。<br>1350000重生强度分至15000000重生强度分之间，每有75000重生强度分，就获得1成就点数。<br>15000000重生强度分至60000000重生强度分之间，每有150000重生强度分，就获得1成就点数。"
       },
       "singularityCount": {
         "name": "递进式成就 - 奇点次数",
@@ -2045,7 +2045,7 @@
       "redAmbrosiaCount": {
         "name": "递进式成就 - 红神肴总数",
         "description": "根据红神肴总数获得成就点数！红神肴总数：{{x}}",
-        "apSource": "在5000红神肴之前，每有25红神肴，就获得1成就点数。<br>5000红神肴至500000红神肴之间，每有2500红神肴，就获得1成就点数。<br>500000红神肴至5000000红神肴之间，一共可以获得400成就点数！"
+        "apSource": "在5000红神肴之前，每有25红神肴，就获得1成就点数。<br>5000红神肴至500000红神肴之间，每有2500红神肴，就获得1成就点数。<br>500000红神肴至5000000红神肴之间，每有12500红神肴，就获得1成就点数。<br>最后，5000000红神肴至12500000红神肴之间，每有62500红神肴，就获得1成就点数。"
       },
       "exalts": {
         "name": "递进式成就 - 拔擢阶层完成数",
@@ -2424,7 +2424,7 @@
       "dailyQuarkModal": {
         "intro": "今日您通过蚂蚁献祭获得了<<cyan|{{x}}>>夸克！",
         "quarkLine": "<<turquoise|{{x}}>>个阶段，价值<<cyan|{{y}}>>夸克(每阶段<<cyan|{{z}}>>)",
-        "bonusMult": "每个阶段使蚂蚁献祭时夸克获取数量变为原来的1.003倍！当前效果：<<cyan|{{x}}倍>>",
+        "bonusMult": "每个阶段使蚂蚁献祭时夸克获取数量变为原来的1.002倍，上限为阶段1000！当前效果：<<cyan|{{x}}倍>>",
         "allTimeMult": "全局排行榜蚂蚁献祭时夸克获取数量倍率：<<cyan|{{x}}倍>>",
         "globalQuarkMult": "蚂蚁献祭时夸克获取数量倍率：<<cyan|{{x}}倍>>"
       },
@@ -2488,6 +2488,7 @@
     "galacticCrumbCount": "您拥有{{x}}银河碎屑。",
     "crumbsPerSecond": "每秒增加{{x}}",
     "crumbsCoinMultiplier": "↳ 金币产量变为原来的{{x}}倍(财富蚁的效果)",
+    "crumbsCoinTaxExempt": "金币倍率也会同时增加税收上限，且不受税收影响",
     "producerCount": "<<crimson|购买了{{x}}只>> + <<orange|产生了{{y}}只>>",
     "level": "{{x}}级<<orange| [+{{y}}]>>",
     "challenge11Modifier": "挑战11 - 只有免费蚂蚁升级的等级才计入有效等级",
@@ -2514,6 +2515,7 @@
     "rebornTalismanShardMult": "<<turquoise|↳>>使<<lightgray|护身符的所有碎片获取数量>><<gold|变为原来的{{x}}倍>>",
     "rebornELOGainSpeed": "<<turquoise|↳>>使<<#00DDFF|重生强度分的产生速度>><<gold|变为原来的{{x}}倍>>",
     "rebornELOPerSecond": "每秒<<#00DDFF|{{x}}>>",
+    "rebornELOPerSecondWithLotus": "每秒<<#00DDFF|∞>>(已启用莲花)",
     "rebornELOTimeToMax": "预计达到最大所需时间：<<gold|{{x}}>>秒",
     "immortalELOUntilGain": "<<orchid|蚂蚁强度分>>再增加<<gold|{{x}}>>后可以获得<<crimson|不朽强度分>>",
     "immortalELOGain": "<<crimson|不朽强度分>><<gold|增加{{x}}>>",
@@ -2522,7 +2524,7 @@
     "rebornELOInfo2": "• 受<<crimson|不朽强度分>>限制。<<orchid|蚂蚁强度分>>可以加快它的产生！",
     "rebornELOInfo3": "• <<#00DDFF|重生强度分>>越高，产生的就越慢。",
     "stageInfo": "您可以通过<<#00DDFF|重生强度分>>获得<<turquoise|阶段>>。",
-    "stageInfo2": "每有1个<<turquoise|阶段>>，就使<<orange|祭品获取数量>>和<<pink|难得素获取数量>>变为原来的<<gold|1.05倍>>，<<lightgray|护身符的所有碎片获取数量>>变为原来的<<gold|1.20倍>>，且<<#00DDFF|重生强度分>>产生速度减慢<<gold|2%>>！",
+    "stageInfo2": "每有1个<<turquoise|阶段>>，就使<<orange|祭品获取数量>>和<<pink|难得素获取数量>>变为原来的<<gold|1.05倍>>，<<lightgray|护身符的所有碎片获取数量>>变为原来的<<gold|1.20倍>>，且<<#00DDFF|重生强度分>>产生速度减慢<<gold|{{percentage}}%>>！",
     "stageTranche1": "阶段1至阶段100：每个阶段价值100<<#00DDFF|重生强度分>>",
     "stageTranche2": "阶段101至阶段200：每个阶段价值1000<<#00DDFF|重生强度分>>",
     "stageTranche3": "阶段201至阶段300：每个阶段价值3000<<#00DDFF|重生强度分>>",
@@ -2564,7 +2566,7 @@
     "2": {
       "name": "无加速器挑战 || 完成{{completions}}次，次数上限为{{max}}",
       "flavor": "加速器？谁要就拿去，不过是无用之物而已。",
-      "restrictions": "立即超越，需要达到目标，但加速器将完全失效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果除以<<gold|1.25>>，且加倍器加成的效果变为使加倍器的基础效果增加<<gold|0.0012>>。",
+      "restrictions": "立即超越，需要达到目标，但加速器将完全失效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果降至<<gold|1.25>>，且加倍器加成的效果降至<<gold|+0.0012>>。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "免费加速器增加5个！当前效果：",
@@ -3458,6 +3460,7 @@
       "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
       "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点</span><br/>。",
       "description": "(鼠标停留在特权上可以查看效果。<span style=\"color: gold\">金色文本</span>的特权在本次奇点解锁或者加强)",
+      "usesCurrentSing": "该特权与您当前奇点次数有关。如果次数降低，特权等级可能会<<crimson|降低>>",
       "welcometoSingularity": {
         "name": "欢迎来到奇点时代！",
         "default": "欢迎进入奇点时代！您可以在解锁相应七阶立方后，自动进行七阶立方锻造，且只要资源充足，可以最大化购买PLATONIC方盒升级！"
@@ -3515,6 +3518,20 @@
         "hasLevel2": "使蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1e6倍！",
         "hasLevel1": "使蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1000倍！",
         "default": "使蚂蚁速度变为无瑕的4.44倍。"
+      },
+      "bringToLife": {
+        "name": "赋予生命",
+        "default": "使阶段对重生强度分产生速度的减慢效果略微缓和。每阶段从<<gray|2%>>变为<<gold|{{amount}}%>>。"
+      },
+      "eloBonus": {
+        "name": "高级的……作弊手法？",
+        "default": "您用了一些完全非常规的方法来提升蚂蚁强度分！它增加了<<orchid|{{amount}}%>>。"
+      },
+      "invigoratedSpirits": {
+        "name": "振奋精神！",
+        "default": "蚂蚁们从过去同胞的献祭中感受到更强的情感力量。",
+        "line2": "在200000不朽强度分之前，它有<<orchid|{{x}}%>>会转化为蚂蚁强度分！",
+        "line3": "200000至2000000不朽强度分之间，它有<<orchid|{{x}}%>>会转化为蚂蚁强度分。"
       },
       "sweepomatic": {
         "name": "自动扫荡·改 2",
@@ -3847,8 +3864,8 @@
       },
       "singOcteractPatreonBonus": {
         "name": "Platonic脱销！！！",
-        "description": "您应该知道Patreon的加成吧？对的，它酷毙啦，但如果它也能加成惊奇八阶方块的获取数量，是不是更酷了？",
-        "effect": "Patreon上每月赞助金额每有10美元，就使惊奇八阶方块的获取数量增加{{n}}！数值跟现有的夸克获取数量加成一致。"
+        "description": "使全局订阅加成和个人账户加成对八阶方块的获取数量也生效。耶！欢迎您进行订阅，支持开发并提升加成，不止是您自己，所有协同放置的玩家都会受益！",
+        "effect": "如果您拥有该升级，八阶方块的获取数量将增加{{n}}倍！<br><<turquoise|{{x}}倍>>全局订阅加成<br>×<<turquoise|{{y}}倍>>个人账户加成"
       },
       "offeringAutomatic": {
         "name": "蓝莓碎片！",
@@ -4153,6 +4170,7 @@
       "salvage": "使<<green|回收>>减少<<green|{{amount}}>>",
       "offeringGain": "<<gold|祭品获取数量>>除以<<gold|{{divisor}}>>。",
       "obtainiumGain": "<<steelblue|难得素获取数量>>除以<<steelblue|{{divisor}}>>。",
+      "antELOGain": "使<<orchid|蚂蚁强度分叠加倍率>>减少<<orchid|{{amount}}>>。",
       "cubeGain": "<<yellow|所有类型的方盒、立方和方块获取数量>>除以<<yellow|{{divisor}}>>。",
       "researchCosts": "<<var(--green-text-color)|研究花费>>乘以<<var(--green-text-color)|{{multiplier}}>>。",
       "cubeUpgradeCosts": "<<Silver|方盒升级花费>>(饼干升级除外)乘以<<Silver|{{multiplier}}>>。",
@@ -4539,7 +4557,7 @@
       "singularity": "奇点",
       "settings": "设置",
       "shop": "商店",
-      "unsmith": "UNSMITH",
+      "unsmith": "活动",
       "purchase": "伪币"
     },
     "buildings": {
@@ -5128,7 +5146,7 @@
     },
     "mythosYouHave": "您有{{shards}}神话碎片，加倍器加成因此增加{{mult}}个。",
     "eachMultiplierBoost": "每1个加倍器加成使加倍器的基础效果增加0.02。",
-    "costMythos": "花费：{{mythos}}神话。",
+    "costMythos": "花费：{{mythos}}神话",
     "atomsYouHave": "您有<<white|{{atoms}}>>原子，建筑能量因此增加<<gold|{{power}}>>。<br>每购买1个金币生产者，就使金币产量变为原来的<<gold|{{power}}>>倍<br>金币产量的倍率：<<gold|{{mult}}>><br><<orange|金币倍率也会同时增加税收上限，且不受税收影响>>",
     "costParticles": "花费：{{particles}}粒子",
     "autoReincarnate": "当现实时间经过{{amount}}秒后{{name}}[在上方输入设置数值]。当前时间：{{timer}}秒。",
@@ -5883,7 +5901,7 @@
         "UniqueReward7": "第20次 - 新的<<orchid|超究夸克商店>>升级！"
       },
       "limitedTime": {
-        "name": "奇点大竞速赛！",
+        "name": "奇点速通大赛！",
         "description": "<i>时间，时间从未意味着永恒。</i>您需要在现实结构迅速崩溃的前提下通过目标奇点。",
         "timeMod1": "<<red|⏱ 时间限制：{{time}}秒>>",
         "timeMod2": "<<gold|⚠>> 超过时间限制以后，难得素获取数量、祭品获取数量和所有类型的方盒、立方和方块获取数量将每秒除以<<red|{{perSecondDivisor}}>>。",
@@ -6091,7 +6109,7 @@
       "ModuleHyperflux": "神肴 - 惊奇方盒终极工业生产模块：",
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的方盒升级：",
-      "Exalt6": "奇点大竞速赛 - 超时惩罚：",
+      "Exalt6": "奇点速通大赛 - 超时惩罚：",
       "Event": "活动加成：",
       "Total": "所有类型的方盒、立方和方块获取数量总倍率："
     },
@@ -6309,7 +6327,7 @@
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的祭品升级：",
       "Event": "活动加成：",
-      "Exalt6Penalty": "奇点大竞速赛 - 超时惩罚：",
+      "Exalt6Penalty": "奇点速通大赛 - 超时惩罚：",
       "TaxmanDebuff": "税务官的最后阵地 - ☢ 辐射惩罚：",
       "Total": "祭品获取数量倍率：",
       "HalfMind": "半心倍率：",
@@ -6377,7 +6395,8 @@
       "Viscount": "成为子爵的加成：",
       "FirstSingularityBonus": "首次进入奇点加成：",
       "Event": "活动及消耗品加成：",
-      "PatreonBonus": "Patreon加成：",
+      "GlobalSubscriber": "来自尊贵订阅者的全局加成：",
+      "AccountBonus": "协同放置个人账户加成：",
       "Total": "夸克获取数量总倍率："
     },
     "baseObtainiumStats": {
@@ -6413,7 +6432,7 @@
       "ObtainiumEX3": "商店额外难得素升级3[每25级]：",
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的难得素升级：",
-      "Exalt6Penalty": "奇点大竞速赛 - 超时惩罚：",
+      "Exalt6Penalty": "奇点速通大赛 - 超时惩罚：",
       "Event": "活动加成：",
       "Total": "不受效果衰减影响的难得素总倍率："
     },
@@ -6472,7 +6491,7 @@
       "EXUltraObtainium": "终极额外难得素加成：",
       "Challenge14": "挑战14 - 无研究挑战：",
       "SingularityDebuff": "奇点惩罚：",
-      "Exalt6Penalty": "奇点大竞速赛 - 超时惩罚：",
+      "Exalt6Penalty": "奇点速通大赛 - 超时惩罚：",
       "TaxmanDebuff": "税务官的最后阵地 - ☼ 十亿日照惩罚：",
       "Event": "活动加成：",
       "Total": "难得素获取数量倍率：",
@@ -6630,7 +6649,7 @@
       "ShopUpgrades": "商店升级(I-IV)：",
       "SingularityUpgrades": "奇点升级(I-IV)：",
       "OcteractUpgrades": "八阶方块升级(I-IV)：",
-      "PatreonBonus": "Patreon加成：",
+      "PatreonBonus": "神肴模块 - 厚颜的神肴订阅广告：",
       "OneChallengeCap": "挑战上限恒为一奖励：",
       "NoAmbrosiaUpgradesReward": "无神肴升级奖励：",
       "RedAmbrosiaUpgrade": "红神肴升级 - 时之沙",
@@ -6667,21 +6686,22 @@
       "FastForwards": "奇点以太通量升级：",
       "ImmaculateAlchemy": "完美炼金术特权：",
       "Event": "活动加成：",
-      "PatreonBonus": "Patreon加成：",
-      "FirstSingBonus": "首次进入奇点加成：",
+      "GlobalSubscriber": "来自尊贵订阅者的全局加成：",
+      "AccountBonus": "协同放置个人账户加成：",
       "Total": "金夸克获取数量总倍率："
     },
     "goldenQuarkPurchaseCostStats": {
       "title": "购买金夸克的花费",
       "Base": "基础花费：",
       "PseudoCoins": "金夸克伪币升级：",
-      "Patreon": "Patreon加成：",
       "AchievementPoints": "成就点数：",
       "CubeUpgrade6x10": "饼干升级10[Cx10]：",
       "GoldenQuarks2": "金夸克 II：",
       "OcteractCostReduce": "八阶方块降低花费升级：",
       "GoldenRevolution2": "金之革命 II：",
       "ImmaculateAlchemy": "完美炼金术特权：",
+      "GlobalSubscriber": "1 / 来自尊贵订阅者的全局加成：",
+      "AccountBonus": "1 / 协同放置个人账户加成：",
       "Event": "活动加成：",
       "Total": "每购买1金夸克最终花费的夸克数量："
     },
@@ -6883,6 +6903,7 @@
       "Research8x3": "研究8x3：",
       "AntUpgrade": "蚂蚁 - 命匣蚁：",
       "AntUpgrade13": "蚂蚁 - 孽生蚁：",
+      "SingularityPerk": "奇点特权 - 振奋精神！：",
       "Total": "总蚂蚁基础强度分："
     },
     "additiveAntELOMultStats": {
@@ -6895,6 +6916,8 @@
       "AntDisciples": "购买过神使蚁：",
       "AntHolySpirit": "购买过蚁神圣灵蚁：",
       "PlatonicUpgrade12": "PLATONIC升级3x2：",
+      "SingularityPerk": "奇点特权 - 高级的……作弊手法？",
+      "SingularityDebuff": "奇点惩罚：",
       "Total": "蚂蚁强度分总倍率："
     },
     "effectiveAntELOStats": {
@@ -6921,7 +6944,7 @@
       "PlatonicUpgrade12": "PLATONIC升级3x2：",
       "MortuusTalisman": "蚂蚁标本护身符：",
       "ThresholdModifiers": "阈值倍率：",
-      "Exalt6": "奇点大竞速赛 - Derpsmith的小加成：",
+      "Exalt6": "奇点速通大赛 - Derpsmith的小加成：",
       "Total": "重生强度分的产生速度总倍率："
     },
     "ascensionCountMultiplierStats": {
@@ -6938,7 +6961,7 @@
       "OneMind": "一心倍率：",
       "Total": "本次飞升获得的飞升次数："
     },
-    "gameStage": "当前游戏阶段：{{stage}}"
+    "gameStage": "当前游戏所处部分：{{stage}}"
   },
   "wowCubes": {
     "greenText": "您也可以将它们用来购买升级，这些升级不会因为飞升而重置。",
