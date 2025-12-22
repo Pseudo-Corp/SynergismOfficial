@@ -6415,10 +6415,43 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         width: 80%;
     }
 
-    /* Research section */
-    #researchContainer {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+    /* Research section - convert table to wrapping grid */
+    .researchContainer {
+        overflow-x: visible;
+    }
+
+    .researchContainer > .scrollbarX {
+        overflow-x: visible;
+    }
+
+    #researchtable,
+    #researchtable > tbody,
+    #researchtable > tbody > tr {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #researchtable > tbody > tr > td {
+        display: block;
+    }
+
+    #researchtable button > img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .antUpgradeRow {
+        display: grid;
+        grid-template-columns: repeat(4, 25%);
+    }
+
+    .antProducerColumn {
+        min-width: 44px;
+    }
+
+    #antSacrificeCompendium {
+        width: unset;
     }
 
     /* Achievement grids */
