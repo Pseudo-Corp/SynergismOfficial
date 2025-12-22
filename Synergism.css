@@ -6454,6 +6454,57 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         width: unset;
     }
 
+    /* TODO: make buttons smaller */
+    #cubesWrapper {
+        width: unset;
+        flex-direction: column;
+    }
+
+    #wowCubeSidebar {
+        width: unset;
+    }
+
+    .cubeTab {
+        width: 100vw;
+        margin-left: unset;
+    }
+
+    .cubeBonus {
+        white-space: unset;
+        margin-top: 25px; /* fix overlapping with custom open input */
+    }
+
+    p[id$="BlessingsTotal"] {
+        margin-left: unset;
+        margin-right: unset;
+    }
+
+    #cubeTab6 {
+        flex-direction: column;
+        align-items: unset;
+    }
+
+    .challengePortion {
+        width: unset;
+    }
+
+    .platonicUpgradesContainer {
+        margin-left: unset;
+    }
+
+    .platonicContainer {
+        width: unset;
+    }
+
+    .hepteractGrid {
+        grid-template-columns: repeat(2, 50%);
+        width: 95%;
+    }
+
+    #heptGrid button:not(#hepteractAutoPercentageButton) {
+        min-height: 100%;
+    }
+
     /* Achievement grids */
     #tieredAchievementsTable {
         grid-template-columns: repeat(4, 48px);
