@@ -6548,6 +6548,47 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         min-width: unset;
     }
 
+    #elevatorLockToggle,
+    #elevatorSlowClimbToggle {
+        transform: unset;
+    }
+
+    #actualSingularityUpgradeContainer,
+    #octeractUpgradeContainer,
+    #blueberryUpgradeContainer {
+        width: unset;
+    }
+
+    #singularityInfo {
+        grid-template-columns: unset;
+    }
+
+    #singularityPerksGrid {
+        grid-template-columns: repeat(2, 50%);
+        grid-gap: unset;
+    }
+
+    #singularityPerksDesc {
+        height: unset;
+        min-width: unset;
+    }
+
+    #ambrosiaTexts {
+        line-height: unset;
+    }
+
+    #bbLoadoutContainer {
+        flex-wrap: wrap;
+    }
+
+    .blueberryUpgradeTier {
+        gap: unset;
+    }
+
+    .blueberryUpgradeTier button {
+        min-height: unset !important;
+    }
+
     /* Achievement grids */
     #tieredAchievementsTable {
         grid-template-columns: repeat(4, 48px);
