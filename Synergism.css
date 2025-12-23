@@ -6037,6 +6037,10 @@ html[data-prestige-unlock="true"] .prestigeunlockib {
     display: inline-block;
 }
 
+html[data-prestige-unlock="false"] .prestigeunlockib {
+    display: none;
+}
+
 html[data-prestige-unlock="true"] .prestigeunlock {
     display: block;
 }
@@ -6061,7 +6065,27 @@ html[data-prestige-unlock="true"] .offlineStats > .reincarnationunlock {
     display: flex;
 }
 
-html[data-prestige-unlock="false"] .prestigeunlockib {
+html[data-prestige-unlock="false"] .prestigeunlock {
+    display: none;
+}
+
+html[data-prestige-unlock="false"] .offlineStats > .prestigeunlock {
+    display: none;
+}
+
+html[data-prestige-unlock="false"] .transcendunlock {
+    display: none;
+}
+
+html[data-prestige-unlock="false"] .offlineStats > .transcendunlock {
+    display: none;
+}
+
+html[data-prestige-unlock="false"] .reincarnationunlock {
+    display: none;
+}
+
+html[data-prestige-unlock="false"] .offlineStats > .reincarnationunlock {
     display: none;
 }
 
