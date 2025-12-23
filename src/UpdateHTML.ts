@@ -244,10 +244,14 @@ export const revealStuff = () => {
   const unlockedAntSac = getAchievementReward('antSacrificeUnlock')
   if (unlockedAntSac) {
     DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'none'
-    DOMCacheGetOrSet('sacrificeAnts').style.display = 'flex'
+    const sacAnts = DOMCacheGetOrSet('sacrificeAnts')
+    sacAnts.classList.add('flex')
+    sacAnts.classList.remove('none')
   } else {
     DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'flex'
-    DOMCacheGetOrSet('sacrificeAnts').style.display = 'none'
+    const sacAnts = DOMCacheGetOrSet('sacrificeAnts')
+    sacAnts.classList.remove('flex')
+    sacAnts.classList.add('none')
   }
 
   const unlockedAutoAntSac = getAchievementReward('autoAntSacrifice')

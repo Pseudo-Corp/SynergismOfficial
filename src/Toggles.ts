@@ -1005,13 +1005,12 @@ export const toggleAntsSubtab = (indexStr: string) => {
 
   for (let j = 1; j <= numSubTabs; j++) {
     const antTab = DOMCacheGetOrSet(`antSubtab${j}`)
-    if (antTab.style.display === 'flex' && j !== i) {
-      antTab.style.display = 'none'
-    }
-    if (antTab.style.display === 'none' && j === i) {
-      antTab.style.display = 'flex'
-    }
+    antTab.classList.add('none')
   }
+
+  const antTab = DOMCacheGetOrSet(`antSubtab${i}`)
+  antTab.classList.add('flex')
+  antTab.classList.remove('none')
 
   visualUpdateAnts()
 }

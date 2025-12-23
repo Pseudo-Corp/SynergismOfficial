@@ -235,6 +235,10 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--hover-color);
 }
 
+.none {
+    display: none !important;
+}
+
 .flex {
     display: flex;
 }
@@ -6297,6 +6301,7 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         margin-left: 2%;
         margin-right: 2%;
         font-size: 0.9em;
+        margin-top: unset;
     }
 
     .buttonRow > div {
@@ -7095,6 +7100,49 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 
     #shopHovers {
         width: unset;
+    }
+
+    #sacrificeAnts {
+        display: grid;
+        grid-template-columns: repeat(1, 100%);
+    }
+
+    .sacrificeAntsContainer {
+        width: unset;
+    }
+
+    #antSacrificeShardsRow1,
+    #antSacrificeShardsRow2 {
+        flex-wrap: wrap;
+    }
+
+    /* Auto-buy quantity */
+    #buyamountcoin,
+    #buyamountcrystal,
+    #buyamountmythos,
+    #buyamountparticle,
+    #buyAmountTesseract {
+        position: unset;
+        left: unset;
+    }
+
+    /* Stats for nerds */
+    #statsForNerds {
+        min-width: unset;
+        align-items: stretch;
+    }
+
+    #summaryGeneration {
+        width: unset;
+    }
+
+    .statContainer {
+        min-width: unset;
+    }
+
+    #statsForNerds > button {
+        min-width: unset;
+        width: 100%;
     }
 }
 
