@@ -6660,6 +6660,7 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     .resetsContainer {
         margin-top: 10px;
         flex-wrap: wrap;
+        flex-direction: column;
     }
 
     .resetInformationContainer {
@@ -6700,6 +6701,25 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     #challengesTabsToggle > button {
         min-width: 80px;
         font-size: 0.85em;
+    }
+
+    /* Reset Subtabs */
+    #historyResetTable,
+    #historyAntsTable {
+        min-width: unset;
+    }
+
+    #historyReset,
+    #historyAnts {
+        margin-left: unset;
+    }
+
+    .subtabContent.subtabActive.historySubTab.subtabDisplayFlex > div {
+        flex-direction: column;
+    }
+
+    html[data-sacrifice-ants="true"] .sacrificeAnts {
+        flex-direction: column;
     }
 }
 
@@ -6977,6 +6997,8 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     #resetrow {
         flex-direction: column;
         gap: 10px;
+        align-items: center;
+        margin-top: 10px;
     }
 
     #resetrow img {
@@ -7130,10 +7152,11 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     #statsForNerds {
         min-width: unset;
         align-items: stretch;
+        flex-direction: column;
     }
 
     #summaryGeneration {
-        width: unset;
+        width: unset !important;
     }
 
     .statContainer {
@@ -7141,7 +7164,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     }
 
     #statsForNerds > button {
-        min-width: unset;
         width: 100%;
     }
 }
