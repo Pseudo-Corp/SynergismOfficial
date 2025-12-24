@@ -5530,7 +5530,6 @@ form input:hover {
 }
 
 .consumablePurchaseBtn {
-    display: flex;
     align-items: center;
     white-space: pre;
     padding: 0 5px;
@@ -6745,6 +6744,62 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     html[data-sacrifice-ants="true"] .sacrificeAnts {
         flex-direction: column;
     }
+
+    #achievements {
+        flex-wrap: wrap;
+    }
+
+    /* Display values on a new line */
+    .statNumber {
+        float: none;
+        display: block;
+    }
+
+    #statisticsSubTab > * {
+        word-break: break-word;
+    }
+
+    .statContainer {
+        min-width: unset;
+        max-width: 50%;
+    }
+
+    .statPortion {
+        min-width: unset;
+    }
+
+    #pseudoCoins > #supportContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .lotusOptions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    *[data-lotus="true"] *:not(span) {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .consumablePurchaseBtn {
+        white-space: unset;
+        width: 80%;
+    }
+
+    #topRowConsumables > .purchaseConsumableContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #event {
+        padding: unset;
+        padding-top: 20px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -6755,7 +6810,7 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 
     /* Prevent mobile browsers from zooming in on input focus
        https://css-tricks.com/16px-or-larger-text-prevents-ios-form-zoom/ */
-    input,
+    input:not(#manage-patreon-sub-button),
     select,
     textarea {
         font-size: 16px;
@@ -7181,10 +7236,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 
     #summaryGeneration {
         width: unset !important;
-    }
-
-    .statContainer {
-        min-width: unset;
     }
 
     #statsForNerds > button {
