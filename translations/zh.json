@@ -3679,7 +3679,7 @@
       },
       "skrauQ": {
         "name": "克夸",
-        "default": "使夸克获取数量变为原来的 (1 + (奇点次数 - 179) / 25)^2 倍。当前效果：<<cyan|{{amt}}倍>>……是的，它就<<gray|这么好>>。<br><b><<gold|⚠>>该特权根据当前奇点次数，而不是最高奇点次数进行计算！</b>"
+        "default": "使夸克获取数量变为原来的 (1 + (奇点次数 - 199) / 25)^2 倍。当前效果：<<cyan|{{amt}}倍>>……是的，它就<<gray|这么好>>。<br><b><<gold|⚠>>该特权根据当前奇点次数，而不是最高奇点次数进行计算！</b>"
       },
       "primalPower": {
         "name": "质数之力！",
@@ -5609,7 +5609,7 @@
         "signature": "<<crimson | ✎>> 签名：使棱柱符文的符文升级系数增加<<crimson|12>>。"
       },
       "plastic": {
-        "name": "氪金信用卡​​",
+        "name": "一块塑胶",
         "description": "可能是通过“先买后付”应用程序购买的。",
         "inscription": "<<gold | ✏>> 铭文：使夸克获取数量增加<<gold|{{val}}>>。",
         "signature": "<<crimson | ✎>> 签名：无。您无法在卡体上签名。"
@@ -6358,7 +6358,7 @@
       "AchievementPoints": "成就点数的加成：",
       "AchievementBonus": "夸克成就倍率：",
       "SynergismLevel": "协同效应等级的奖励：",
-      "PlasticTalisman": "氪金信用卡 - 铭文的加成：",
+      "PlasticTalisman": "一块塑胶 - 铭文的加成：",
       "Achievement250": "成就250的加成：",
       "Achievement251": "成就251的加成：",
       "Achievement266": "成就266的加成：",
@@ -6597,7 +6597,7 @@
       "NoAmbrosiaUpgrades": "拔擢 - 无神肴升级：",
       "Cookie5": "饼干升级27[Cx27]加成：",
       "BlueberryUpgrade": "蓝莓模块 - 神肴之运 IV：",
-      "HorseShoeTalisman": "马蹄铁护身符 - 铭文的加成：",
+      "HorseShoeTalisman": "马靴 - 铭文的加成：",
       "Event": "活动加成：",
       "Total": "神肴之运总倍率(效果叠加)："
     },
