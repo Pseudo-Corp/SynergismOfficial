@@ -6764,6 +6764,9 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     .statContainer {
         min-width: unset;
         max-width: 50%;
+        width: unset;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     .statPortion {
@@ -7229,6 +7232,7 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     /* Stats for nerds */
     #statsForNerds {
         min-width: unset;
+        max-width: 50%;
         align-items: stretch;
         flex-direction: column;
     }
