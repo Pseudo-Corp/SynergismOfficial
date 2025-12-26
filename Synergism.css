@@ -6619,23 +6619,47 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 
     /* Achievement grids */
     #tieredAchievementsTable {
-        grid-template-columns: repeat(4, 48px);
-        grid-template-rows: repeat(10, 48px);
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #tieredAchievementsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     #ungroupedAchievementsTable {
-        grid-template-columns: repeat(6, 32px);
-        grid-template-rows: repeat(10, 32px);
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #ungroupedAchievementsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     #progressiveAchievementsTable {
-        grid-template-columns: repeat(4, 48px);
-        grid-template-rows: repeat(10, 48px);
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #progressiveAchievementsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     #synergismLevelRewardsTable {
-        grid-template-columns: repeat(6, 48px);
-        grid-template-rows: repeat(2, 48px);
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #synergismLevelRewardsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     /* Settings */
@@ -6935,50 +6959,65 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 
     /* Achievements */
     #tieredAchievementsTable {
-        grid-template-columns: repeat(4, 40px);
-        grid-template-rows: repeat(10, 40px);
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
     }
 
     #tieredAchievementsTable > div {
-        width: 40px;
-        height: 40px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     .tieredAchievementType > img,
     .progressiveAchievementType > img,
     .synergismLevelRewardType > img {
-        width: 40px;
-        height: 40px;
+        width: 100%;
+        height: 100%;
     }
 
     #ungroupedAchievementsTable {
-        grid-template-columns: repeat(4, 32px);
-        grid-template-rows: repeat(15, 32px);
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #ungroupedAchievementsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     #progressiveAchievementsTable {
-        grid-template-columns: repeat(4, 40px);
-        grid-template-rows: repeat(10, 40px);
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
     }
 
     #progressiveAchievementsTable > div {
-        width: 40px;
-        height: 40px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     #synergismLevelRewardsTable {
-        grid-template-columns: repeat(4, 40px);
-        grid-template-rows: repeat(3, 40px);
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
     }
 
     #synergismLevelRewardsTable > div {
-        width: 40px;
-        height: 40px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     #synergismLevelMilestonesTable {
-        grid-template-columns: repeat(6, 32px);
-        grid-template-rows: repeat(8, 32px);
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #synergismLevelMilestonesTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     /* Challenge icons */
