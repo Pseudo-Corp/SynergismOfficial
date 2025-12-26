@@ -6474,10 +6474,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         grid-template-columns: repeat(4, 25%);
     }
 
-    .antProducerColumn {
-        min-width: 44px;
-    }
-
     #antSacrificeCompendium {
         width: unset;
     }
@@ -6628,21 +6624,9 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         grid-template-rows: auto;
     }
 
-    #ungroupedAchievementsTable > div {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1;
-    }
-
     #progressiveAchievementsTable {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: auto;
-    }
-
-    #progressiveAchievementsTable > div {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1;
     }
 
     #synergismLevelRewardsTable {
@@ -6969,21 +6953,9 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         grid-template-rows: auto;
     }
 
-    #ungroupedAchievementsTable > div {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1;
-    }
-
     #progressiveAchievementsTable {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: auto;
-    }
-
-    #progressiveAchievementsTable > div {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1;
     }
 
     #synergismLevelRewardsTable {
@@ -7277,6 +7249,10 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     nav button:not(.mobile-menu-toggle),
     .subTabWrapper > button {
         min-height: 44px;
+    }
+
+    .antProducerColumn > button {
+        min-height: unset;
     }
 
     input[type="checkbox"] {
