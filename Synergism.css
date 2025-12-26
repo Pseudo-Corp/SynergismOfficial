@@ -6623,12 +6623,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         grid-template-rows: auto;
     }
 
-    #tieredAchievementsTable > div {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1;
-    }
-
     #ungroupedAchievementsTable {
         grid-template-columns: repeat(6, 1fr);
         grid-template-rows: auto;
@@ -6961,12 +6955,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     #tieredAchievementsTable {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: auto;
-    }
-
-    #tieredAchievementsTable > div {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1;
     }
 
     .tieredAchievementType > img,
