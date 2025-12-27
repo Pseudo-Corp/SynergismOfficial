@@ -2094,23 +2094,32 @@ export function updateMobileGQHTML (k: SingularityDataKeys) {
     const buttonDiv = document.createElement('div')
 
     const buyOne = document.createElement('button')
+    const buyX = document.createElement('button')
     const buyMax = document.createElement('button')
 
     buyOne.classList.add('modalBtnBuy')
     buyOne.textContent = i18next.t('general.buyOne')
     buyOne.addEventListener('click', (event: MouseEvent) => {
-      buyGQUpgradeLevel(k, event, false)
+      buyGQUpgradeLevel(k, event, false, false)
+      updateMobileGQHTML(k)
+    })
+
+    buyX.classList.add('modalBtnBuy')
+    buyX.textContent = i18next.t('general.buyX')
+    buyX.addEventListener('click', (event: MouseEvent) => {
+      buyGQUpgradeLevel(k, event, true, true)
       updateMobileGQHTML(k)
     })
 
     buyMax.classList.add('modalBtnBuy')
     buyMax.textContent = i18next.t('general.buyMax')
     buyMax.addEventListener('click', (event: MouseEvent) => {
-      buyGQUpgradeLevel(k, event, true)
+      buyGQUpgradeLevel(k, event, true, false)
       updateMobileGQHTML(k)
     })
 
     buttonDiv.appendChild(buyOne)
+    buttonDiv.appendChild(buyX)
     buttonDiv.appendChild(buyMax)
     elm.appendChild(buttonDiv)
   }
@@ -2168,7 +2177,8 @@ export function getGQUpgradeCostTNL (upgradeKey: SingularityDataKeys): number {
 export async function buyGQUpgradeLevel (
   upgradeKey: SingularityDataKeys,
   event: MouseEvent,
-  buyMax = false
+  buyMax = false,
+  alert = true
 ): Promise<void> {
   const upgrade = goldenQuarkUpgrades[upgradeKey]
   let purchased = 0
@@ -2177,13 +2187,15 @@ export async function buyGQUpgradeLevel (
 
   if (event.shiftKey || buyMax) {
     maxPurchasable = 100000000
-    const buy = Number(
-      await Prompt(
+
+    let buy = Number(-1)
+    if (alert) {
+      buy = Number(await Prompt(
         i18next.t('singularity.goldenQuarks.spendPrompt', {
           gq: format(player.goldenQuarks, 0, true)
         })
-      )
-    )
+      ))
+    }
 
     if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) {
       return Alert(i18next.t('general.validation.finite'))
