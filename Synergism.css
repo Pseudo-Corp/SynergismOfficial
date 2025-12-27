@@ -6494,6 +6494,7 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 
     #wowCubeSidebar {
         width: unset;
+        flex-direction: row;
     }
 
     .cubeTab {
@@ -6529,8 +6530,12 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     }
 
     .hepteractGrid {
-        grid-template-columns: repeat(2, 50%);
-        width: 95%;
+        grid-template-columns: repeat(3, 33%);
+        align-self: center;
+    }
+
+    .openGrid {
+        align-self: unset;
     }
 
     #heptGrid button:not(#hepteractAutoPercentageButton) {
@@ -7269,6 +7274,15 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     #statsForNerds > button {
         width: 100%;
     }
+
+    #wowCubeSidebar {
+        flex-direction: column;
+    }
+
+    .hepteractGrid {
+        grid-template-columns: repeat(2, 50%);
+        width: 95%;
+    }
 }
 
 /* Ensure touch-friendly tap targets */
@@ -7281,6 +7295,10 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     }
 
     .antProducerColumn > button {
+        min-height: unset;
+    }
+
+    #platonicUpgradePics button {
         min-height: unset;
     }
 
