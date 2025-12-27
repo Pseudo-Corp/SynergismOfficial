@@ -6818,6 +6818,14 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         padding: unset;
         padding-top: 20px;
     }
+
+    #themeArea > div {
+        position: unset;
+    }
+
+    #themeArea.open > div {
+        display: inline-grid;
+    }
 }
 
 @media (max-width: 600px) {

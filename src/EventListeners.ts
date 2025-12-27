@@ -1597,8 +1597,21 @@ TODO: Fix this entire tab it's utter shit
   // Import button
   DOMCacheGetOrSet('importfile').addEventListener('change', (e) => importData(e, importSynergism))
 
+  // Mobile theme dropdown toggle
+  if (isMobile) {
+    const themeArea = DOMCacheGetOrSet('themeArea')
+    DOMCacheGetOrSet('theme').addEventListener('click', () => {
+      themeArea.classList.toggle('open')
+    })
+  }
+
   for (let i = 1; i <= 5; i++) {
-    DOMCacheGetOrSet(`switchTheme${i}`).addEventListener('click', () => toggleTheme(false, i, true))
+    DOMCacheGetOrSet(`switchTheme${i}`).addEventListener('click', () => {
+      toggleTheme(false, i, true)
+      if (isMobile) {
+        DOMCacheGetOrSet('themeArea').classList.remove('open')
+      }
+    })
   }
 
   DOMCacheGetOrSet('saveType').addEventListener('click', async (event) => {
