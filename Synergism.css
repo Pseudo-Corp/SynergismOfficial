@@ -6773,6 +6773,10 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         min-width: unset;
     }
 
+    .subscriptionContainer > div.checkout-paypal {
+        width: unset;
+    }
+
     #pseudoCoins > #supportContainer {
         display: flex;
         flex-wrap: wrap;
