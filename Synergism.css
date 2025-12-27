@@ -7156,6 +7156,10 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         min-width: unset;
     }
 
+    .languagesMenu {
+        min-width: unset;
+    }
+
     #creditList {
         grid-template-columns: repeat(2, 50%);
     }
