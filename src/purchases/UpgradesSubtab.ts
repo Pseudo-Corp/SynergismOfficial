@@ -8,7 +8,7 @@ import {
   updatePCoinCache
 } from '../PseudoCoinUpgrades'
 import { Alert } from '../UpdateHTML'
-import { memoize } from '../Utility'
+import { isMobile, memoize } from '../Utility'
 import { upgradeResponse } from './CartTab'
 
 interface Upgrades {
@@ -161,7 +161,7 @@ const initializeUpgradeSubtab = memoize(() => {
     <div
       data-id="${u.upgradeId}"
       data-key="${u.name}"
-      style="margin: 40px;"
+      ${isMobile ? '' : 'style="margin: 40px;"'}
     >
       <img src='Pictures/PseudoShop/${u.internalName}.png' alt='${u.internalName}' />
       <p id="a">${u.playerLevel}/${u.maxLevel}</p>

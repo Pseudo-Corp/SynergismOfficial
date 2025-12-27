@@ -6369,7 +6369,7 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     /* Upgrades flex container */
     #upgradesFlex {
         display: grid;
-        grid-template-columns: repeat(2, 50%);
+        grid-template-columns: repeat(3, 33%);
         margin: 2% auto;
         width: unset;
     }
@@ -6477,6 +6477,19 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         height: 36px;
     }
 
+    /* Ants */
+    #sacrificeAnts > *:nth-child(odd) {
+        background-color: #ffffff08;
+    }
+
+    #antSacrificeRewards > div {
+        flex-wrap: wrap;
+    }
+
+    .antSacToggle {
+        height: unset;
+    }
+
     .antUpgradeRow {
         display: grid;
         grid-template-columns: repeat(4, 25%);
@@ -6513,7 +6526,7 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     }
 
     #cubeTab6 {
-        flex-direction: column;
+        flex-direction: row;
         align-items: unset;
     }
 
@@ -6546,18 +6559,10 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         width: unset;
     }
 
-    #campaignsMain {
-        display: unset;
-    }
-
     #campaignIconGrid {
         grid-template-columns: repeat(5, 48px);
         grid-column-gap: unset;
         grid-row-gap: unset;
-    }
-
-    #campaignsDescriptions {
-        width: unset;
     }
 
     #campaignsTokensInfo {
@@ -6717,7 +6722,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     /* Cube upgrades */
     .pseudoUpgradeContainer {
         grid-template-columns: repeat(2, 1fr);
-        width: 90%;
     }
 
     /* Hepteract bars */
@@ -6786,6 +6790,7 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         min-width: unset;
     }
 
+    /* PseudoCoins / Subscriptions */
     .subscriptionContainer > div.checkout-paypal {
         width: unset;
     }
@@ -6796,6 +6801,30 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
+    }
+
+    .pseudoSubscriptionContainer > #sub-section-holder {
+        width: unset;
+    }
+
+    #upgradeGrid {
+        grid-template-rows: repeat(3, 33%);
+        row-gap: 5px;
+        width: unset;
+        max-height: unset;
+        padding-bottom: 15px;
+    }
+
+    .timeSkipSet {
+        align-items: stretch;
+        flex-wrap: wrap;
+    }
+
+    .timeSkipContainer {
+        height: auto;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        overflow: hidden; /* TODO */
     }
 
     .lotusOptions {
@@ -6948,6 +6977,11 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         min-width: 60px;
     }
 
+    /* Upgrades */
+    #upgradesFlex {
+        grid-template-columns: repeat(2, 50%);
+    }
+
     /* Runes */
     .runeType {
         width: 100px;
@@ -7037,6 +7071,20 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         flex-wrap: wrap;
     }
 
+    /* Cubes */
+    #cubeTab6 {
+        flex-direction: column;
+    }
+
+    /* Campaigns */
+    #campaignsMain {
+        display: unset;
+    }
+
+    #campaignsDescriptions {
+        width: unset;
+    }
+
     /* Dialogs */
     #confirmationBox,
     #captchaHolder {
@@ -7077,12 +7125,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 
     #prompt_text {
         margin: 0;
-    }
-
-    /* Cubes */
-    .pseudoUpgradeContainer {
-        grid-template-columns: 1fr 1fr;
-        gap: 5px;
     }
 
     /* Settings */
@@ -7134,6 +7176,11 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         width: unset;
     }
 
+    /* PseudoCoins / Subscriptions */
+    #productContainer {
+        width: unset;
+    }
+
     #consumablesSection {
         width: 95%;
     }
@@ -7145,18 +7192,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     .purchaseConsumableContainer {
         min-width: 0;
         flex: 1 1 auto;
-    }
-
-    .timeSkipSet {
-        flex-wrap: wrap;
-        align-items: stretch;
-    }
-
-    .timeSkipContainer {
-        height: auto;
-        justify-content: space-between;
-        font-size: 0.75rem;
-        overflow: hidden; /* TODO */
     }
 
     #manage-subscription-holder {
