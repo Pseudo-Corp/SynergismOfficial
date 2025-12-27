@@ -6349,6 +6349,16 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         font-size: 0.9em;
     }
 
+    /* Auto-buy quantity */
+    #buyamountcoin,
+    #buyamountcrystal,
+    #buyamountmythos,
+    #buyamountparticle,
+    #buyAmountTesseract {
+        position: unset;
+        left: unset;
+    }
+
     /* Building text */
     #buildingtext {
         width: 95%;
@@ -6543,8 +6553,9 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     }
 
     .hepteractGrid {
-        grid-template-columns: repeat(3, 33%);
+        grid-template-columns: repeat(3, 1fr);
         align-self: center;
+        width: unset;
     }
 
     .openGrid {
@@ -7284,16 +7295,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         flex-wrap: wrap;
     }
 
-    /* Auto-buy quantity */
-    #buyamountcoin,
-    #buyamountcrystal,
-    #buyamountmythos,
-    #buyamountparticle,
-    #buyAmountTesseract {
-        position: unset;
-        left: unset;
-    }
-
     /* Stats for nerds */
     #statsForNerds {
         min-width: unset;
@@ -7316,7 +7317,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 
     .hepteractGrid {
         grid-template-columns: repeat(2, 50%);
-        width: 95%;
     }
 }
 
