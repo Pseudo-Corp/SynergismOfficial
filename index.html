@@ -294,6 +294,11 @@
             </div>
         </div>
         <nav class="navbar">
+            <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
         </nav>
     </header>
     <div id="tabBorder" style="background-color: yellow;"></div>
@@ -1662,7 +1667,7 @@
                 <button id="toggleAntSubtab3" class="sacrificeUnlock" style="border: 2px solid cyan" i18n="tabs.ants.quarkCorner"></button>
             </div>
 
-            <div id="antSubtab1" style="display: flex;">
+            <div id="antSubtab1">
                 <div id="antsWelcomeTexts" class="introTextContainer">
                     <p id="antwelcome" style="color: lightslategrey" i18n="ants.header" class="introText"></p>
                     <p id="antdescription" style="color: plum" i18n="ants.hover"></p>
@@ -1751,7 +1756,7 @@
                     </div>
                 </div>
             </div>
-            <div id="antSubtab2" style="display: none;">
+            <div id="antSubtab2">
                 <div id="antAltarWelcomeTexts" class="introTextContainer">
                     <p id="antAltarWelcome" style="color: lightslategrey" class="introText" i18n="ants.altarHeader"></p>
                     <p id="antAltarDescription" style="color: plum" i18n="ants.altarDetails"></p>
@@ -1762,7 +1767,7 @@
                         <p id="sacrificeUnlockCondition" i18n="ants.altar.locked.altarRequirements"></p>
                     </div>
                 </div>
-                <div id="sacrificeAnts" style="display: none">
+                <div id="sacrificeAnts" class="none">
                     <div id="eloCorner" class="sacrificeAntsContainer">
                         <p style="font-size: 1.3em" i18n="ants.altar.titles.elo"></p>
                         <button id="immortalELOInfoToggleButton" class="antLeaderboardToggleBtn" data-mode="overview">
@@ -1905,7 +1910,7 @@
                     </div>
                 </div>
             </div>
-            <div id="antSubtab3" style="display: none;">
+            <div id="antSubtab3">
                 <div id="antCompendiumWelcomeTexts" class="introTextContainer">
                     <p id="antCompendiumWelcome" style="color: lightslategrey" class="introText" i18n="ants.compendiumHeader"></p>
                     <p id="antCompendiumDescription" style="color: cyan" i18n="ants.compendiumDetails"></p>
@@ -2918,7 +2923,7 @@
                 <p>P.S. we know this section isn't translated!</p>
             </div>
         </div>
-        <div class="subtabContent" id="creditssubtab">
+        <div class="subtabContent subtabDisplayFlex" id="creditssubtab">
             <h1>Coders</h1>
             <div id="creditList"></div>
             <h1>Artists</h1>

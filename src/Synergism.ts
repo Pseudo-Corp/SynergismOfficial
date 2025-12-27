@@ -124,6 +124,7 @@ import { calculatetax } from './Tax'
 import {
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
+  toggleAntsSubtab,
   toggleAscStatPerSecond,
   toggleauto,
   toggleAutoAscend,
@@ -5277,6 +5278,7 @@ window.addEventListener('load', async () => {
   generateAchievementHTMLs()
   generateLevelRewardHTMLs()
   generateLevelMilestoneHTMLS()
+  toggleAntsSubtab('1')
 
   // Initialize messages on game load
   fetchUnreadMessages().catch(console.error)

@@ -235,6 +235,10 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--hover-color);
 }
 
+.none {
+    display: none !important;
+}
+
 .flex {
     display: flex;
 }
@@ -1767,7 +1771,7 @@ img.runeTypeElement:hover {
     cursor: pointer;
 }
 
-.talismanIcon > img {
+.talismanIcon img {
     position: relative;
     width: calc(100% - 6px);
     height: calc(100% - 6px);
@@ -3017,6 +3021,7 @@ button.language-select span.lang-name {
 
 #creditssubtab {
     margin-top: 20px;
+    flex-direction: column;
 }
 
 #creditssubtab > * {
@@ -5533,7 +5538,6 @@ form input:hover {
 }
 
 .consumablePurchaseBtn {
-    display: flex;
     align-items: center;
     white-space: pre;
     padding: 0 5px;
@@ -6044,6 +6048,54 @@ html[data-prestige-unlock="false"] .prestigeunlockib {
     display: none;
 }
 
+html[data-prestige-unlock="true"] .prestigeunlock {
+    display: block;
+}
+
+html[data-prestige-unlock="true"] .offlineStats > .prestigeunlock {
+    display: flex;
+}
+
+html[data-prestige-unlock="true"] .transcendunlock {
+    display: block;
+}
+
+html[data-prestige-unlock="true"] .offlineStats > .transcendunlock {
+    display: flex;
+}
+
+html[data-prestige-unlock="true"] .reincarnationunlock {
+    display: block;
+}
+
+html[data-prestige-unlock="true"] .offlineStats > .reincarnationunlock {
+    display: flex;
+}
+
+html[data-prestige-unlock="false"] .prestigeunlock {
+    display: none;
+}
+
+html[data-prestige-unlock="false"] .offlineStats > .prestigeunlock {
+    display: none;
+}
+
+html[data-prestige-unlock="false"] .transcendunlock {
+    display: none;
+}
+
+html[data-prestige-unlock="false"] .offlineStats > .transcendunlock {
+    display: none;
+}
+
+html[data-prestige-unlock="false"] .reincarnationunlock {
+    display: none;
+}
+
+html[data-prestige-unlock="false"] .offlineStats > .reincarnationunlock {
+    display: none;
+}
+
 html[data-research150="true"] .research150 {
     display: block;
 }
@@ -6194,4 +6246,1050 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     border-radius: 5px;
     padding: 5px;
     animation: rainbow-border 2s linear infinite;
+}
+
+.mobile-menu-toggle {
+    display: none;
+}
+
+.hamburger-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: white;
+    margin: 2px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border-radius: 1px;
+}
+
+/* ============================================
+   MOBILE RESPONSIVE STYLES
+   ============================================ */
+
+@media (max-width: 1024px) {
+    html {
+        min-width: unset;
+        width: 100%;
+    }
+
+    body {
+        overflow-x: auto;
+    }
+
+    /* Ascension stats - horizontally scrollable on mobile */
+    #ascensionStats {
+        min-width: unset;
+        width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        scrollbar-width: thin;
+    }
+
+    #ascensionStats > span {
+        flex-shrink: 0;
+    }
+
+    /* Navigation tabs - make scrollable */
+    #tabrow {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 0 10px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    nav button {
+        min-width: 80px;
+        flex-shrink: 0;
+        font-size: 0.85em;
+    }
+
+    .subHeader {
+        flex-direction: column;
+        min-width: unset;
+        max-width: unset;
+    }
+
+    /* Sub tab wrappers */
+    .subTabWrapper {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        width: 95%;
+        gap: 8px 10px;
+    }
+
+    .subTabWrapper > button {
+        min-width: unset;
+        width: 100%;
+        font-size: 0.85em;
+    }
+
+    /* Building rows */
+    .buttonRow {
+        margin-left: 2%;
+        margin-right: 2%;
+        font-size: 0.9em;
+        margin-top: unset;
+    }
+
+    .buttonRow > div {
+        gap: 5px;
+    }
+
+    .buttonRow > div > .desc {
+        width: 100%;
+        order: -1;
+    }
+
+    .buttonRow > div > .stats {
+        width: 100%;
+        font-size: 0.9em;
+    }
+
+    /* Building text */
+    #buildingtext {
+        width: 95%;
+        max-width: 100%;
+    }
+
+    /* Coin buildings */
+    #coinBuildings {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    #coinInformation {
+        font-size: 1em;
+        padding: 5px;
+    }
+
+    /* Upgrades flex container */
+    #upgradesFlex {
+        display: grid;
+        grid-template-columns: repeat(2, 50%);
+        margin: 2% auto;
+        width: unset;
+    }
+
+    #upgradesFlex button:has(img) {
+        min-height: unset;
+    }
+
+    #upgradesFlex > section {
+        margin-top: 10px;
+    }
+
+    .shop-section.mobile-flex {
+        display: flex;
+    }
+
+    /* Prestige/Transcension containers */
+    #prestige,
+    #transcension {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    #crystalupgrades {
+        width: 95%;
+        max-width: 100%;
+    }
+
+    p#prestigehotkeys,
+    p#buildinghotkeys {
+        width: 95%;
+        font-size: 0.85em;
+    }
+
+    /* Rune containers */
+    #runeDetails,
+    #runeBlessings,
+    #runeSpirits {
+        width: 90%;
+    }
+
+    .runeType {
+        width: 140px;
+    }
+
+    #runeContainer2 {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .talismansCenter {
+        order: 1;
+    }
+
+    .talismanShardSection {
+        order: 2;
+        align-items: center;
+        margin-left: 0;
+    }
+
+    .talismanToggles {
+        order: 3;
+        align-items: center;
+    }
+
+    #challengeTimers {
+        margin-right: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    #oneChallengeDetails {
+        width: 95%;
+    }
+
+    #startChallenge {
+        min-width: 200px;
+        width: 80%;
+    }
+
+    /* Research section - convert table to wrapping grid */
+    .researchContainer {
+        overflow-x: visible;
+    }
+
+    .researchContainer > .scrollbarX {
+        overflow-x: visible;
+    }
+
+    #researchtable,
+    #researchtable > tbody,
+    #researchtable > tbody > tr {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #researchtable > tbody > tr > td {
+        display: block;
+    }
+
+    #researchtable button > img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .antUpgradeRow {
+        display: grid;
+        grid-template-columns: repeat(4, 25%);
+    }
+
+    #antSacrificeCompendium {
+        width: unset;
+    }
+
+    /* TODO: make buttons smaller */
+    #cubesWrapper {
+        width: unset;
+        flex-direction: column;
+    }
+
+    #wowCubeSidebar {
+        width: unset;
+    }
+
+    .cubeTab {
+        width: 100vw;
+        margin-left: unset;
+    }
+
+    .cubeBonus {
+        white-space: unset;
+        margin-top: 25px; /* fix overlapping with custom open input */
+    }
+
+    p[id$="BlessingsTotal"] {
+        margin-left: unset;
+        margin-right: unset;
+    }
+
+    #cubeTab6 {
+        flex-direction: column;
+        align-items: unset;
+    }
+
+    .challengePortion {
+        width: unset;
+    }
+
+    .platonicUpgradesContainer {
+        margin-left: unset;
+    }
+
+    .platonicContainer {
+        width: unset;
+    }
+
+    .hepteractGrid {
+        grid-template-columns: repeat(2, 50%);
+        width: 95%;
+    }
+
+    #heptGrid button:not(#hepteractAutoPercentageButton) {
+        min-height: 100%;
+    }
+
+    #campaignsIcons {
+        width: unset;
+    }
+
+    #campaignsMain {
+        display: unset;
+    }
+
+    #campaignIconGrid {
+        grid-template-columns: repeat(5, 48px);
+        grid-column-gap: unset;
+        grid-row-gap: unset;
+    }
+
+    #campaignsDescriptions {
+        width: unset;
+    }
+
+    #campaignsTokensInfo {
+        width: unset;
+    }
+
+    #traits {
+        flex-direction: column;
+    }
+
+    #corruptionStatsLoadouts {
+        min-width: 100%;
+        margin: unset;
+    }
+
+    .corrDesc {
+        min-width: unset;
+    }
+
+    .corruptionStatRow > button {
+        min-width: 44px;
+    }
+
+    #corruptionMain {
+        min-width: unset;
+    }
+
+    #elevatorLockToggle,
+    #elevatorSlowClimbToggle {
+        transform: unset;
+    }
+
+    #actualSingularityUpgradeContainer,
+    #octeractUpgradeContainer,
+    #blueberryUpgradeContainer {
+        width: unset;
+    }
+
+    #singularityInfo {
+        grid-template-columns: unset;
+    }
+
+    #singularityPerksGrid {
+        grid-template-columns: repeat(2, 50%);
+        grid-gap: unset;
+    }
+
+    #singularityPerksDesc {
+        height: unset;
+        min-width: unset;
+    }
+
+    #ambrosiaTexts {
+        line-height: unset;
+    }
+
+    #bbLoadoutContainer {
+        flex-wrap: wrap;
+    }
+
+    .blueberryUpgradeTier {
+        gap: unset;
+    }
+
+    .blueberryUpgradeTier button {
+        min-height: unset !important;
+    }
+
+    /* Achievement grids */
+    #tieredAchievementsTable {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #ungroupedAchievementsTable {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #progressiveAchievementsTable {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #synergismLevelRewardsTable {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #synergismLevelRewardsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    /* Settings */
+    .settingSubTabUpper {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    #confirmationToggleBox,
+    #exportButtons,
+    #thirdParty {
+        max-width: 95%;
+    }
+
+    /* Modals and dialogs */
+    #confirmationBox,
+    #captchaHolder {
+        width: 90vw;
+        min-width: unset;
+        max-width: 95vw;
+    }
+
+    #modal {
+        width: 90%;
+        max-width: 95vw;
+    }
+
+    #notification {
+        width: 80%;
+        min-width: unset;
+    }
+
+    #offlineContainer,
+    #fastForwardContainer {
+        width: 90vw;
+        max-width: 95vw;
+        font-size: 0.9em;
+    }
+
+    #changelogWrapper {
+        width: 90%;
+    }
+
+    .resetsContainer {
+        margin-top: 10px;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .resetInformationContainer {
+        width: unset;
+    }
+
+    .resetsButtons {
+        margin: 0 auto;
+    }
+
+    #resetinfo {
+        text-align: center;
+        height: unset;
+    }
+
+    /* Cube upgrades */
+    .pseudoUpgradeContainer {
+        grid-template-columns: repeat(2, 1fr);
+        width: 90%;
+    }
+
+    /* Hepteract bars */
+    #pixelProgressBar,
+    #ambrosiaProgressBar {
+        width: 80%;
+    }
+
+    /* Toggle buttons */
+    #runesToggle,
+    #achievementsToggle,
+    #challengesTabsToggle,
+    #challengesAutoToggles {
+        gap: 8px 10px;
+    }
+
+    #runesToggle > button,
+    #achievementsToggle > button,
+    #challengesTabsToggle > button {
+        min-width: 80px;
+        font-size: 0.85em;
+    }
+
+    /* Reset Subtabs */
+    #historyResetTable,
+    #historyAntsTable {
+        min-width: unset;
+    }
+
+    #historyReset,
+    #historyAnts {
+        margin-left: unset;
+    }
+
+    .subtabContent.subtabActive.historySubTab.subtabDisplayFlex > div {
+        flex-direction: column;
+    }
+
+    html[data-sacrifice-ants="true"] .sacrificeAnts {
+        flex-direction: column;
+    }
+
+    #achievements {
+        flex-wrap: wrap;
+    }
+
+    /* Display values on a new line */
+    .statNumber {
+        float: none;
+        display: block;
+    }
+
+    #statisticsSubTab > * {
+        word-break: break-word;
+    }
+
+    .statContainer {
+        min-width: unset;
+        max-width: 50%;
+        width: unset;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .statPortion {
+        min-width: unset;
+    }
+
+    .subscriptionContainer > div.checkout-paypal {
+        width: unset;
+    }
+
+    #pseudoCoins > #supportContainer {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .lotusOptions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    *[data-lotus="true"] *:not(span) {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .consumablePurchaseBtn {
+        white-space: unset;
+        width: 80%;
+    }
+
+    #topRowConsumables > .purchaseConsumableContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #event {
+        padding: unset;
+        padding-top: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Extra small screens */
+    html {
+        font-size: 14px;
+    }
+
+    /* Prevent mobile browsers from zooming in on input focus
+       https://css-tricks.com/16px-or-larger-text-prevents-ios-form-zoom/ */
+    input:not(#manage-patreon-sub-button),
+    select,
+    textarea {
+        font-size: 16px;
+    }
+
+    /* Mobile menu toggle button - use high specificity to override nav button */
+    nav.navbar > button.mobile-menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+        border: 1px solid #555;
+        border-radius: 4px;
+        padding: 4px 8px;
+        cursor: pointer;
+        margin: 3px auto;
+        min-height: unset;
+        min-width: unset;
+        width: auto;
+        font-size: 1em;
+    }
+
+    nav.navbar > button.mobile-menu-toggle:hover,
+    nav.navbar > button.mobile-menu-toggle:focus {
+        background: linear-gradient(135deg, #444 0%, #2a2a2a 100%);
+        border-color: #777;
+    }
+
+    nav.navbar > button.mobile-menu-toggle:active {
+        transform: scale(0.95);
+    }
+
+    /* Hamburger animation when menu is open */
+    .mobile-menu-toggle.menu-open .hamburger-line:nth-child(1) {
+        transform: rotate(45deg) translate(3px, 3px);
+    }
+
+    .mobile-menu-toggle.menu-open .hamburger-line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-toggle.menu-open .hamburger-line:nth-child(3) {
+        transform: rotate(-45deg) translate(3px, -3px);
+    }
+
+    /* Tab row - collapsed by default on mobile */
+    nav.navbar #tabrow {
+        display: none !important;
+        flex-direction: column;
+        gap: 5px;
+        padding: 10px;
+        background: #000c;
+        border-radius: 8px;
+        margin: 5px 10px;
+        overflow-y: auto;
+        flex-wrap: nowrap;
+    }
+
+    /* Show tab row when menu is open */
+    nav.navbar.menu-open #tabrow {
+        display: flex !important;
+    }
+
+    /* Tab buttons in mobile menu */
+    nav.navbar #tabrow > button {
+        width: 100%;
+        min-width: unset;
+        padding: 12px 15px;
+        font-size: 1em;
+        text-align: center;
+        border-radius: 6px;
+    }
+
+    nav button {
+        min-width: 70px;
+        font-size: 0.75em;
+        padding: 2px;
+    }
+
+    .subTabWrapper {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+    }
+
+    .buttonRow {
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 0.85em;
+    }
+
+    .buttonRow > div > .image {
+        height: 24px;
+        width: 24px;
+    }
+
+    .buildingPurchaseBtn {
+        width: 100%;
+        font-size: 0.85em;
+    }
+
+    .buttonRow > div > .auto {
+        width: 5em;
+        min-width: 60px;
+    }
+
+    /* Runes */
+    .runeType {
+        width: 100px;
+    }
+
+    #runeDetails,
+    #runeBlessings,
+    #runeSpirits {
+        width: 100%;
+    }
+
+    #buyRuneBlessingToggle,
+    #buyRuneSpiritToggleValue {
+        text-align: center;
+    }
+
+    /* Achievements */
+    #tieredAchievementsTable {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
+    }
+
+    .tieredAchievementType > img,
+    .progressiveAchievementType > img,
+    .synergismLevelRewardType > img {
+        width: 100%;
+        height: 100%;
+    }
+
+    #ungroupedAchievementsTable {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #progressiveAchievementsTable {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #synergismLevelRewardsTable {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #synergismLevelRewardsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    #synergismLevelMilestonesTable {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #synergismLevelMilestonesTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    /* Challenge icons */
+    #challengeIcons img {
+        width: 48px;
+        height: 48px;
+    }
+
+    #oneChallengeDetails {
+        font-size: 0.9em;
+    }
+
+    #startChallenge {
+        min-width: 150px;
+        min-height: 60px;
+        font-size: 1em;
+    }
+
+    .singularityChallenges {
+        flex-wrap: wrap;
+    }
+
+    #singularityChallengeAllRewards {
+        grid-template-columns: repeat(2, 50%);
+    }
+
+    #researchToggles {
+        flex-wrap: wrap;
+    }
+
+    /* Dialogs */
+    #confirmationBox,
+    #captchaHolder {
+        min-height: unset;
+        padding: 10px;
+    }
+
+    #confirm,
+    #alert,
+    #prompt {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+
+    #confirm {
+        grid-template-areas:
+            "txt"
+            "btn"
+            "btn2";
+        gap: 10px;
+    }
+
+    #alert {
+        grid-template-areas:
+            "txt"
+            "btn";
+        gap: 10px;
+    }
+
+    #prompt {
+        grid-template-areas:
+            "txt"
+            "lbl"
+            "btn"
+            "btn2";
+        gap: 10px;
+    }
+
+    #prompt_text {
+        margin: 0;
+    }
+
+    /* Cubes */
+    .pseudoUpgradeContainer {
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+
+    /* Settings */
+    #savegame,
+    #deleteGame,
+    #importFileButton,
+    #saveStringInput,
+    #exportButtons > label {
+        width: 100%;
+        min-width: unset;
+    }
+
+    #exportgame {
+        width: 100%;
+        min-width: unset;
+    }
+
+    /* Reset row */
+    #resetrow {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    #resetrow img {
+        height: 24px;
+        width: 24px;
+    }
+
+    #upgradeGrid {
+        width: 100%;
+        grid-template-columns: repeat(5, 15%);
+        grid-template-rows: unset;
+        justify-content: center;
+        column-gap: 4px;
+        row-gap: 4px;
+        max-height: none;
+        height: auto;
+        padding: 0;
+    }
+
+    #upgradeGrid > div {
+        place-self: unset;
+        margin: unset !important;
+    }
+
+    #upgradeInfo {
+        width: unset;
+    }
+
+    #consumablesSection {
+        width: 95%;
+    }
+
+    #topRowConsumables {
+        flex-wrap: wrap;
+    }
+
+    .purchaseConsumableContainer {
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .timeSkipSet {
+        flex-wrap: wrap;
+        align-items: stretch;
+    }
+
+    .timeSkipContainer {
+        height: auto;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        overflow: hidden; /* TODO */
+    }
+
+    #manage-subscription-holder {
+        flex-direction: column;
+    }
+
+    .pseudoSubscriptionContainer > #sub-section-holder {
+        grid-template-columns: repeat(2, 50%);
+        width: unset;
+    }
+
+    #cartContainer {
+        width: unset;
+    }
+
+    /* Settings subtabs */
+
+    #languagesubtab {
+        flex-direction: column;
+    }
+
+    .languageContribution {
+        min-width: unset;
+    }
+
+    .languagesMenu {
+        min-width: unset;
+    }
+
+    #creditList {
+        grid-template-columns: repeat(2, 50%);
+    }
+
+    #artistList {
+        grid-template-columns: repeat(2, 50%);
+    }
+
+    .splitContainer {
+        flex-direction: column;
+    }
+
+    .splitContainer > div {
+        width: unset !important;
+    }
+
+    .grid-row > .name-cell {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .hotkeys {
+        grid-template-columns: repeat(2, 50%);
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    /* Shops tab */
+    #actualWrapper {
+        flex-direction: column;
+    }
+
+    #actualConsumables {
+        width: unset;
+    }
+
+    #actualShop {
+        width: unset;
+        justify-content: center;
+    }
+
+    #actualShop > div {
+        width: 30%;
+    }
+
+    #shopHovers {
+        width: unset;
+    }
+
+    #sacrificeAnts {
+        display: grid;
+        grid-template-columns: repeat(1, 100%);
+    }
+
+    .sacrificeAntsContainer {
+        width: unset;
+    }
+
+    #antSacrificeShardsRow1,
+    #antSacrificeShardsRow2 {
+        flex-wrap: wrap;
+    }
+
+    /* Auto-buy quantity */
+    #buyamountcoin,
+    #buyamountcrystal,
+    #buyamountmythos,
+    #buyamountparticle,
+    #buyAmountTesseract {
+        position: unset;
+        left: unset;
+    }
+
+    /* Stats for nerds */
+    #statsForNerds {
+        min-width: unset;
+        max-width: 50%;
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    #summaryGeneration {
+        width: unset !important;
+    }
+
+    #statsForNerds > button {
+        width: 100%;
+    }
+}
+
+/* Ensure touch-friendly tap targets */
+@media (pointer: coarse) {
+    button:not(.mobile-menu-toggle),
+    .buildingPurchaseBtn,
+    nav button:not(.mobile-menu-toggle),
+    .subTabWrapper > button {
+        min-height: 44px;
+    }
+
+    .antProducerColumn > button {
+        min-height: unset;
+    }
+
+    input[type="checkbox"] {
+        min-width: 24px;
+        min-height: 24px;
+    }
+
+    .confirmationToggle {
+        gap: 10px;
+    }
+
+    #runesToggle > button,
+    #achievementsToggle > button,
+    #challengesTabsToggle > button,
+    #challengesAutoToggles > button {
+        min-height: 44px;
+        padding: 8px 12px;
+    }
 }

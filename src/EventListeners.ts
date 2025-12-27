@@ -1625,6 +1625,10 @@ TODO: Fix this entire tab it's utter shit
   document.getElementById('patchnotes')?.addEventListener('click', () => openChangelog())
   document.getElementById('changelogBlur')?.addEventListener('click', () => closeChangelog())
 
+  if (isMobile) {
+    DOMCacheGetOrSet('modalContent').addEventListener('click', CloseModal)
+  }
+
   // Window
   window.addEventListener('error', imgErrorHandler, { capture: true })
 }
