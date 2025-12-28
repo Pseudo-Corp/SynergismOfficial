@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^7.4.4",
     "@types/cloudflare-turnstile": "^0.2.2",
     "@types/lodash.clonedeepwith": "^4.5.9",
@@ -58,7 +59,8 @@
     "msw:init": "npx -y msw init . --save",
     "check-circular": "madge --circular src/",
     "cap:copy": "mkdir -p dist-cap && cp -r Pictures translations dist Synergism.css index.html dist-cap/",
-    "cap:build": "npm run build:esbuild && npm run cap:copy && npx cap sync"
+    "cap:build": "npm run build:esbuild && npm run cap:copy && npx cap sync",
+    "cap:generate:assets": "npx @capacitor/assets generate --ios --android"
   },
   "repository": {
     "type": "git",
