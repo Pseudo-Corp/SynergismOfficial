@@ -7,6 +7,7 @@
     "node": ">=22.21.0"
   },
   "dependencies": {
+    "@capacitor-community/apple-sign-in": "^7.1.0",
     "@capacitor/android": "^7.4.4",
     "@capacitor/core": "^7.4.4",
     "@capacitor/ios": "^7.4.4",
@@ -82,7 +83,7 @@
     "electron:build:mac": "npm run electron:build:assets && electron-builder --mac",
     "electron:build:linux": "npm run electron:build:assets && electron-builder --linux",
     "cap:copy": "mkdir -p dist-cap && cp -r Pictures translations dist Synergism.css index.html dist-cap/",
-    "cap:build": "npm run build:esbuild && npm run cap:copy && npx cap sync",
+    "cap:build": "npm run build:esbuild -- --define:DEVICE=\\\"'mobile'\\\" && npm run cap:copy && npx cap sync",
     "cap:generate:assets": "npx @capacitor/assets generate --ios --android",
     "cap:open:ios": "npx cap open ios"
   },
