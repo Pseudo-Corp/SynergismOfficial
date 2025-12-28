@@ -60,7 +60,8 @@
     "check-circular": "madge --circular src/",
     "cap:copy": "mkdir -p dist-cap && cp -r Pictures translations dist Synergism.css index.html dist-cap/",
     "cap:build": "npm run build:esbuild && npm run cap:copy && npx cap sync",
-    "cap:generate:assets": "npx @capacitor/assets generate --ios --android"
+    "cap:generate:assets": "npx @capacitor/assets generate --ios --android",
+    "cap:open:ios": "npx cap open ios"
   },
   "repository": {
     "type": "git",
