@@ -6509,7 +6509,7 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         width: unset;
     }
 
-    /* TODO: make buttons smaller */
+    /* WowCubes */
     #cubesWrapper {
         width: unset;
         flex-direction: column;
@@ -6566,6 +6566,11 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         min-height: 100%;
     }
 
+    #cubeUpgradeTable button {
+        min-height: unset;
+    }
+
+    /* Campaigns */
     #campaignsIcons {
         width: unset;
     }
@@ -6870,6 +6875,10 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 
     #themeArea.open > div {
         display: inline-grid;
+    }
+
+    #ascendConstantUpgrades {
+        width: unset;
     }
 }
 
