@@ -141,8 +141,8 @@ const messageSchema = z.preprocess(
       tips: z.number().int().nonnegative(),
       inventory: z.object({
         type: z.literal('LOTUS'),
-        amount: z.number().int().positive(),
-        used: z.number().int().positive()
+        amount: z.number().int().gte(0),
+        used: z.number().int().gte(0)
       }).array()
     }),
     /** Received after the *user* successfully redeems a consumable. */
