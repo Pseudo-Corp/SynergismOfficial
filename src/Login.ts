@@ -4,6 +4,7 @@ import DOMPurify from 'dompurify'
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { dev, device } from './Config'
 import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
 import { updateGlobalsIsEvent } from './Event'
 import { addTimers, automaticTools } from './Helper'
@@ -285,7 +286,19 @@ export async function handleLogin () {
     document.getElementById('accountSubTab')?.appendChild(logoutElement)
   }
 
-  const response = await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'same-origin' }).catch(
+  // Build headers - include token for mobile auth
+  const headers: HeadersInit = {}
+  if (device === 'mobile') {
+    const token = localStorage.getItem('synergism_token')
+    if (token) {
+      headers.Authorization = `Bearer ${token}`
+    }
+  }
+
+  const response = await fetch('https://synergism.cc/api/v1/users/me', {
+    credentials: device === 'browser' ? 'same-origin' : undefined,
+    headers
+  }).catch(
     () =>
       new Response(
         JSON.stringify(
@@ -313,7 +326,7 @@ export async function handleLogin () {
 
   // biome-ignore lint/suspicious/noConfusingLabels: it's not confusing or suspicious
   generateSubtab: {
-    if (location.hostname !== 'synergism.cc') {
+    if (location.hostname !== 'synergism.cc' && device === 'browser') {
       subtabElement.innerHTML =
         'Login is not available here, go to <a href="https://synergism.cc">https://synergism.cc</a> instead!'
     } else if (hasAccount(account)) {
@@ -485,27 +498,45 @@ export async function handleLogin () {
         eventBonusesChevron.style.transform = isCollapsed ? 'rotate(0deg)' : 'rotate(-90deg)'
       })
     } else if (!hasAccount(account)) {
-      // User is not logged in
-      subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
-        subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
-        subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
-        subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
-        renderCaptcha()
-      })
+      if (device !== 'mobile') {
+        // User is not logged in
+        subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
+          subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
+          subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
+          subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
+          renderCaptcha()
+        })
 
-      subtabElement.querySelector('#open-signin')?.addEventListener('click', () => {
-        subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
-        subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'flex')
-        subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
-        renderCaptcha()
-      })
+        subtabElement.querySelector('#open-signin')?.addEventListener('click', () => {
+          subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
+          subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'flex')
+          subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
+          renderCaptcha()
+        })
 
-      subtabElement.querySelector('#open-forgotpassword')?.addEventListener('click', () => {
-        subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
-        subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
-        subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'flex')
-        renderCaptcha()
-      })
+        subtabElement.querySelector('#open-forgotpassword')?.addEventListener('click', () => {
+          subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
+          subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
+          subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'flex')
+          renderCaptcha()
+        })
+      } else {
+        // Mobile: hide browser login forms and show Sign in with Apple
+        subtabElement.querySelector('#button-holder')?.classList.add('none')
+        subtabElement.querySelector('#register')?.classList.add('none')
+        subtabElement.querySelector('#login')?.classList.add('none')
+        subtabElement.querySelector('#forgotpassword')?.classList.add('none')
+        // Hide Discord/Patreon login links
+        subtabElement.querySelectorAll<HTMLElement>('a[href*="login?with="]').forEach((el) => {
+          el.classList.add('none')
+        })
+
+        const appleButton = subtabElement.querySelector<HTMLButtonElement>('#apple-sign-in')
+        if (appleButton) {
+          appleButton.style.display = 'inline-block'
+          appleButton.addEventListener('click', signInWithApple)
+        }
+      }
     } else {
       assert(false, `unknown account type ${account.accountType}`)
     }
@@ -715,6 +746,71 @@ export function renderCaptcha () {
     })
 
     hasCaptcha.add(visible)
+  }
+}
+
+/**
+ * Sign in with Apple
+ */
+export async function signInWithApple (): Promise<void> {
+  if (device !== 'mobile') {
+    return
+  }
+
+  try {
+    const { SignInWithApple } = await import('@capacitor-community/apple-sign-in')
+
+    const result = await SignInWithApple.authorize({
+      clientId: 'com.pseudocorp.synergism',
+      redirectURI: 'https://synergism.cc',
+      scopes: 'email name',
+      nonce: crypto.randomUUID()
+    })
+
+    // Send the authorization to the backend to register/sign in
+    let response: Response
+    try {
+      response = await fetch('https://synergism.cc/login/apple/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          identityToken: result.response.identityToken,
+          authorizationCode: result.response.authorizationCode,
+          email: result.response.email,
+          givenName: result.response.givenName,
+          familyName: result.response.familyName
+        })
+      })
+    } catch (e) {
+      console.error('Apple Sign-In fetch error:', e)
+      Notification(`Network error: ${(e as Error).message}`)
+      return
+    }
+
+    console.log('got response', response)
+
+    if (response.ok) {
+      const data = await response.json() as { success: boolean; token: string }
+      console.log('data', JSON.stringify(data))
+      // Store token for authenticated requests
+      localStorage.setItem('synergism_token', data.token)
+      // Reload to trigger handleLogin with the new session
+      location.reload()
+    } else {
+      const text = await response.text()
+      console.error('Apple Sign-In error:', response.status, text)
+      try {
+        const data = JSON.parse(text) as { error: string }
+        Notification(data.error || 'Apple Sign-In failed. Please try again.')
+      } catch {
+        Notification(`Apple Sign-In failed: ${text || response.status}`)
+      }
+    }
+  } catch (error) {
+    console.error('Apple Sign-In error:', error)
+    Notification('Apple Sign-In was cancelled or failed.')
   }
 }
 
