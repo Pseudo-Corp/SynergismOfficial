@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@paypal/paypal-js": "^8.2.0",
+    "@tauri-apps/api": "^2.9.1",
     "@ungap/custom-elements": "^1.3.0",
     "break_infinity.js": "^2.0.0",
     "clipboard": "^2.0.11",
@@ -16,11 +17,13 @@
     "i18next": "^22.4.9",
     "lz-string": "^1.4.4",
     "rfdc": "^1.4.1",
+    "tauri-plugin-drpc": "^1.0.3",
     "worker-timers": "^7.0.53",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@tauri-apps/cli": "^2.9.6",
     "@types/cloudflare-turnstile": "^0.2.2",
     "@types/lodash.clonedeepwith": "^4.5.9",
     "@types/lz-string": "^1.3.34",
@@ -36,7 +39,8 @@
     "typescript": "^5.0.3"
   },
   "scripts": {
-    "dev": "concurrently \"npm run watch:esbuild\" \"npx live-server --port=3000\"",
+    "live-server": "npx live-server --port=3000 --ignore=./src-tauri/**",
+    "dev": "concurrently \"npm run watch:esbuild\" \"npm run live-server\"",
     "lint": "npx @biomejs/biome lint .",
     "lint:fix": "npx @biomejs/biome lint --write .",
     "lint:fix-unsafe": "npx @biomejs/biome lint --write --unsafe .",
@@ -52,7 +56,11 @@
     "prepare": "husky install",
     "cloudflare:build": "node scripts/needsBundling.js || npm run build:esbuild",
     "msw:init": "npx -y msw init . --save",
-    "check-circular": "madge --circular src/"
+    "check-circular": "madge --circular src/",
+    "tauri:build": "npm run build:esbuild -- --define:PLATFORM=\\\"'steam'\\\"",
+    "tauri:dev": "concurrently \"npm run watch:esbuild -- --define:PLATFORM=\\\"'steam'\\\"\" \"npm run live-server\"",
+    "tauri:run:dev": "npx tauri dev",
+    "tauri:icon": "npx tauri icon favicon.ico"
   },
   "repository": {
     "type": "git",
