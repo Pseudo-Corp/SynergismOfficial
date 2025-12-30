@@ -5295,7 +5295,12 @@ window.addEventListener('load', async () => {
   }
 
   if (platform === 'steam') {
-    await import('./steam/rich-presence')
+    const [, steam] = await Promise.all([
+      import('./steam/rich-presence'),
+      import('./steam/steam')
+    ])
+
+    steam.initSteam();
   }
 }, { once: true })
 

@@ -39,7 +39,7 @@
     "typescript": "^5.0.3"
   },
   "scripts": {
-    "live-server": "npx live-server --port=3000 --ignore=./src-tauri/**",
+    "live-server": "npx live-server --port=3000 -q --ignore=./src-tauri",
     "dev": "concurrently \"npm run watch:esbuild\" \"npm run live-server\"",
     "lint": "npx @biomejs/biome lint .",
     "lint:fix": "npx @biomejs/biome lint --write .",
