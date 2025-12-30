@@ -2112,7 +2112,7 @@
       },
       "ascensionChallenge": "Cliquez ici si vous êtes dans un Défi d'Ascension et que vous voulez en sortir. Vous connaissez la chanson !",
       "ascension": "Terminez l'Ascension, C10 est requis ! +{{cubeAmount}} Cubes Wow! au moment de le faire ! Temps : {{timeSpent}} secondes. (Temps réel : {{realTimeSpent}} secondes)",
-      "singularity": "Êtes-vous prêt·e à abandonner vous lauriers pour un plus grand Défi ? Le Dieu Fourmi vous soudoie avec {{gqAmount}} Quarks Dorés. Temps : {{timeSpent}} secondes."
+      "singularity": "Êtes-vous prêt·e à abandonner vos lauriers pour un plus grand Défi ? Le Dieu Fourmi vous soudoie avec {{gqAmount}} Quarks Dorés. Temps : {{timeSpent}} secondes."
     }
   },
   "ants": {
