@@ -6,7 +6,7 @@ let steamAvailable = false
  * Initialize the Steam API. Call this once at app startup.
  * Returns true if Steam is available, false otherwise.
  */
-export async function initSteam() {
+export async function initSteam () {
   try {
     steamAvailable = await invoke<boolean>('steam_init')
   } catch (e) {
@@ -15,7 +15,7 @@ export async function initSteam() {
   }
 }
 
-export async function runCallbacks(): Promise<void> {
+export async function runCallbacks (): Promise<void> {
   if (!steamAvailable) return
   try {
     await invoke('steam_run_callbacks')
@@ -31,7 +31,7 @@ export const isSteamAvailable = () => steamAvailable
 /**
  * Unlock a Steam achievement
  */
-export async function unlockAchievement(name: string) {
+export async function unlockAchievement (name: string) {
   if (!steamAvailable) return
   try {
     await invoke('steam_unlock_achievement', { name })
@@ -43,7 +43,7 @@ export async function unlockAchievement(name: string) {
 /**
  * Clear a Steam achievement (for testing)
  */
-export async function clearAchievement(name: string): Promise<void> {
+export async function clearAchievement (name: string): Promise<void> {
   if (!steamAvailable) return
   try {
     await invoke('steam_clear_achievement', { name })
@@ -55,7 +55,7 @@ export async function clearAchievement(name: string): Promise<void> {
 /**
  * Check if an achievement is unlocked
  */
-export async function isAchievementUnlocked(name: string): Promise<boolean> {
+export async function isAchievementUnlocked (name: string): Promise<boolean> {
   if (!steamAvailable) return false
   try {
     return await invoke<boolean>('steam_is_achievement_unlocked', { name })
@@ -68,7 +68,7 @@ export async function isAchievementUnlocked(name: string): Promise<boolean> {
 /**
  * Save data to Steam Cloud
  */
-export async function cloudSave(filename: string, data: string): Promise<void> {
+export async function cloudSave (filename: string, data: string): Promise<void> {
   if (!steamAvailable) return
 
   await invoke('steam_cloud_save', { filename, data })
@@ -78,7 +78,7 @@ export async function cloudSave(filename: string, data: string): Promise<void> {
  * Load data from Steam Cloud
  * Returns null if file doesn't exist
  */
-export async function cloudLoad(filename: string): Promise<string | null> {
+export async function cloudLoad (filename: string): Promise<string | null> {
   if (!steamAvailable) return null
 
   return await invoke<string | null>('steam_cloud_load', { filename })
@@ -87,7 +87,7 @@ export async function cloudLoad(filename: string): Promise<string | null> {
 /**
  * Delete a file from Steam Cloud
  */
-export async function cloudDelete(filename: string): Promise<void> {
+export async function cloudDelete (filename: string): Promise<void> {
   if (!steamAvailable) return
   try {
     await invoke('steam_cloud_delete', { filename })
@@ -99,7 +99,7 @@ export async function cloudDelete(filename: string): Promise<void> {
 /**
  * Check if a file exists in Steam Cloud
  */
-export async function cloudExists(filename: string): Promise<boolean> {
+export async function cloudExists (filename: string): Promise<boolean> {
   if (!steamAvailable) return false
   try {
     return await invoke<boolean>('steam_cloud_exists', { filename })
@@ -112,7 +112,7 @@ export async function cloudExists(filename: string): Promise<boolean> {
 /**
  * Get the current Steam user's display name
  */
-export async function getUsername(): Promise<string | null> {
+export async function getUsername (): Promise<string | null> {
   if (!steamAvailable) return null
   try {
     return await invoke<string>('steam_get_username')

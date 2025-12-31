@@ -27,7 +27,7 @@
         "noUndeclaredVariables": "error"
       }
     },
-    "ignore": ["./dist/*", "**/node_modules/*", "mockServiceWorker.js"]
+    "ignore": ["./dist/*", "**/node_modules/*", "mockServiceWorker.js", "src-tauri"]
   },
   "formatter": {
     "enabled": false
