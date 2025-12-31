@@ -1,30 +1,16 @@
 import { invoke } from '@tauri-apps/api/core'
 
-let steamAvailable = false
-
-/**
- * Initialize the Steam API. Call this once at app startup.
- * Returns true if Steam is available, false otherwise.
+let steamAvailable = false /**
+ * Initialize the Steam API.
  */
-export async function initSteam () {
+;(async () => {
   try {
     steamAvailable = await invoke<boolean>('steam_init')
   } catch (e) {
     console.error('Steam init error', e)
     steamAvailable = false
   }
-}
-
-export async function runCallbacks (): Promise<void> {
-  if (!steamAvailable) return
-  try {
-    await invoke('steam_run_callbacks')
-  } catch (e) {
-    // Silently ignore callback errors
-  } finally {
-    queueMicrotask(() => runCallbacks())
-  }
-}
+})()
 
 export const isSteamAvailable = () => steamAvailable
 
@@ -106,18 +92,5 @@ export async function cloudExists (filename: string): Promise<boolean> {
   } catch (e) {
     console.error(`Failed to check Steam Cloud file (${filename}):`, e)
     return false
-  }
-}
-
-/**
- * Get the current Steam user's display name
- */
-export async function getUsername (): Promise<string | null> {
-  if (!steamAvailable) return null
-  try {
-    return await invoke<string>('steam_get_username')
-  } catch (e) {
-    console.error('Failed to get Steam username:', e)
-    return null
   }
 }

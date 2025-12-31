@@ -1,35 +1,28 @@
 use std::io::{Read, Write};
 use std::sync::{mpsc, Arc, Mutex};
 use steamworks::{AppId, Client, TicketForWebApiResponse};
-use tauri::{
-    plugin::{Builder, TauriPlugin},
-    Manager, Runtime, State,
-};
+use tauri::State;
 
 const STEAM_APP_ID: u32 = 3552310;
 
 pub struct SteamState(pub Arc<Mutex<Option<Client>>>);
 
-pub fn init<R: Runtime>() -> TauriPlugin<R> {
-    Builder::new("steam")
-        .invoke_handler(tauri::generate_handler![
-            steam_init,
-            steam_run_callbacks,
-            steam_unlock_achievement,
-            steam_clear_achievement,
-            steam_is_achievement_unlocked,
-            steam_cloud_save,
-            steam_cloud_load,
-            steam_cloud_delete,
-            steam_cloud_exists,
-            steam_get_username,
-            steam_get_auth_ticket
-        ])
-        .setup(|app, _api| {
-            app.manage(SteamState(Arc::new(Mutex::new(None))));
-            Ok(())
-        })
-        .build()
+pub fn steam_state() -> SteamState {
+    SteamState(Arc::new(Mutex::new(None)))
+}
+
+pub fn steam_invoke_handler() -> impl Fn(tauri::ipc::Invoke) -> bool + Send + Sync + 'static {
+    tauri::generate_handler![
+        steam_init,
+        steam_unlock_achievement,
+        steam_clear_achievement,
+        steam_is_achievement_unlocked,
+        steam_cloud_save,
+        steam_cloud_load,
+        steam_cloud_delete,
+        steam_cloud_exists,
+        steam_get_auth_ticket
+    ]
 }
 
 #[tauri::command]
@@ -48,13 +41,6 @@ pub fn steam_init(state: State<SteamState>) -> Result<bool, String> {
             Ok(true)
         }
         Err(e) => Err(format!("Steam init failed: {}", e)),
-    }
-}
-
-#[tauri::command]
-pub fn steam_run_callbacks(state: State<SteamState>) {
-    if let Some(client) = state.0.lock().unwrap().as_ref() {
-        client.run_callbacks();
     }
 }
 
@@ -157,13 +143,6 @@ pub fn steam_cloud_exists(state: State<SteamState>, filename: String) -> Result<
     let guard = state.0.lock().unwrap();
     let client = guard.as_ref().ok_or("Steam not initialized")?;
     Ok(client.remote_storage().file(&filename).exists())
-}
-
-#[tauri::command]
-pub fn steam_get_username(state: State<SteamState>) -> Result<String, String> {
-    let guard = state.0.lock().unwrap();
-    let client = guard.as_ref().ok_or("Steam not initialized")?;
-    Ok(client.friends().name())
 }
 
 #[tauri::command]
