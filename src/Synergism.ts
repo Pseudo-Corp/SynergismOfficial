@@ -5300,7 +5300,7 @@ window.addEventListener('load', async () => {
       import('./steam/steam')
     ])
 
-    steam.initSteam();
+    steam.initSteam()
   }
 }, { once: true })
 
