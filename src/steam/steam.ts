@@ -12,10 +12,6 @@ export async function initSteam() {
   } catch (e) {
     console.error('Steam init error', e)
     steamAvailable = false
-  } finally {
-    if (steamAvailable) {
-      await runCallbacks()
-    }
   }
 }
 

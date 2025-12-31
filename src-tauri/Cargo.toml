@@ -25,3 +25,4 @@ tauri = { version = "2.9.5", features = [] }
 tauri-plugin-log = "2"
 tauri-plugin-drpc = "0.1.4"
 steamworks = "0.12.1"
+hex = "0.4.3"
