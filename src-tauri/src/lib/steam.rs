@@ -217,7 +217,10 @@ pub async fn steam_get_auth_ticket(state: State<'_, SteamState>) -> Result<Strin
 }
 
 #[tauri::command]
-pub async fn steam_login(state: State<'_, SteamState>) -> Result<String, String> {
+pub async fn steam_login(
+    webview: tauri::WebviewWindow,
+    state: State<'_, SteamState>,
+) -> Result<(), String> {
     let user_id = {
         let guard = state.0.lock().unwrap();
         let client = guard.as_ref().ok_or("Steam not initialized")?;
@@ -239,7 +242,16 @@ pub async fn steam_login(state: State<'_, SteamState>) -> Result<String, String>
         .await
         .map_err(|e| e.to_string())?;
 
-    let response_body = res.text().await.map_err(|e| e.to_string())?;
+    if res.status().is_success() {
+        for value in res.headers().get_all("set-cookie").iter() {
+            webview
+                .eval(format!(
+                    "document.cookie = '{}'",
+                    value.to_str().map_err(|e| e.to_string())?
+                ))
+                .map_err(|e| e.to_string())?;
+        }
+    }
 
-    Ok(response_body)
+    Ok(())
 }
