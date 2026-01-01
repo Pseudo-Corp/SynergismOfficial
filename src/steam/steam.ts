@@ -94,3 +94,6 @@ export async function cloudExists (filename: string): Promise<boolean> {
     return false
   }
 }
+
+// @ts-ignore TODO: remove this
+globalThis.invoke = invoke
