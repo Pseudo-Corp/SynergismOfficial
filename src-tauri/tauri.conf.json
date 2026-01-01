@@ -14,7 +14,8 @@
       {
         "title": "Synergism",
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "maximized": true
       }
     ],
     "security": {
