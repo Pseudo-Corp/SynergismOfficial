@@ -13,8 +13,6 @@
     "windows": [
       {
         "title": "Synergism",
-        "width": 800,
-        "height": 600,
         "resizable": true,
         "fullscreen": false
       }
