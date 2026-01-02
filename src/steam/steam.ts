@@ -134,5 +134,9 @@ export async function login () {
   })
 }
 
+export async function logout () {
+  await tauriFetch('https://synergism.cc/api/v1/users/logout')
+}
+
 // @ts-ignore TODO: remove this
 globalThis.invoke = invoke

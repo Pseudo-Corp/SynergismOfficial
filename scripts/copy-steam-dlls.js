@@ -1,5 +1,5 @@
-const fs = require('fs')
-const path = require('path')
+const fs = require('node:fs')
+const path = require('node:path')
 
 const cargoHome = process.env.CARGO_HOME || path.join(process.env.HOME || process.env.USERPROFILE, '.cargo')
 const registryPath = path.join(cargoHome, 'registry', 'src')
@@ -38,7 +38,8 @@ const targetDebug = path.join(tauriDir, 'target', 'debug')
 const targetRelease = path.join(tauriDir, 'target', 'release')
 
 const platform = process.platform
-let dllName, srcSubdir
+let dllName
+let srcSubdir
 
 if (platform === 'win32') {
   dllName = 'steam_api64.dll'

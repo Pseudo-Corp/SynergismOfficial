@@ -752,9 +752,14 @@ export function sendToWebsocket (message: string) {
 }
 
 async function logout () {
-  await fetch('https://synergism.cc/api/v1/users/logout')
-  await Alert(i18next.t('account.logout'))
+  if (platform === 'steam') {
+    const { logout } = await import('./steam/steam')
+    await logout()
+  } else {
+    await fetch('https://synergism.cc/api/v1/users/logout')
+  }
 
+  await Alert(i18next.t('account.logout'))
   location.reload()
 }
 
