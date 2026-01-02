@@ -1,4 +1,3 @@
-use serde_json::json;
 use std::io::{Read, Write};
 use std::sync::{mpsc, Arc, Mutex};
 use steamworks::{AppId, Client, TicketForWebApiResponse};
@@ -22,8 +21,7 @@ pub fn steam_invoke_handler() -> impl Fn(tauri::ipc::Invoke) -> bool + Send + Sy
         steam_cloud_load,
         steam_cloud_delete,
         steam_cloud_exists,
-        steam_get_auth_ticket,
-        steam_login
+        steam_get_auth_ticket
     ]
 }
 
@@ -214,44 +212,4 @@ pub async fn steam_get_auth_ticket(state: State<'_, SteamState>) -> Result<Strin
     })
     .await
     .map_err(|e| e.to_string())?
-}
-
-#[tauri::command]
-pub async fn steam_login(
-    webview: tauri::WebviewWindow,
-    state: State<'_, SteamState>,
-) -> Result<(), String> {
-    let user_id = {
-        let guard = state.0.lock().unwrap();
-        let client = guard.as_ref().ok_or("Steam not initialized")?;
-        client.user().steam_id().raw()
-    };
-    let session_ticket = steam_get_auth_ticket(state.clone()).await?;
-
-    let body = json!({
-      "sessionTicket": session_ticket,
-      "steamId": user_id
-    })
-    .to_string();
-
-    let client = reqwest::Client::new();
-    let res = client
-        .post("https://synergism.cc/api/v1/steam/login")
-        .body(body)
-        .send()
-        .await
-        .map_err(|e| e.to_string())?;
-
-    if res.status().is_success() {
-        for value in res.headers().get_all("set-cookie").iter() {
-            webview
-                .eval(format!(
-                    "document.cookie = '{}'",
-                    value.to_str().map_err(|e| e.to_string())?
-                ))
-                .map_err(|e| e.to_string())?;
-        }
-    }
-
-    Ok(())
 }

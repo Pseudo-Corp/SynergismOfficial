@@ -1,24 +1,30 @@
 import { invoke } from '@tauri-apps/api/core'
+import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
+import { memoize } from '../Utility'
 
-let steamAvailable = false /**
+let steamAvailable = false
+let triedInitSteam = false
+
+/**
  * Initialize the Steam API.
  */
-;(async () => {
+const initializeSteam = memoize(async () => {
   try {
     steamAvailable = await invoke<boolean>('steam_init')
   } catch (e) {
     console.error('Steam init error', e)
     steamAvailable = false
+  } finally {
+    triedInitSteam = true
   }
-})()
-
-export const isSteamAvailable = () => steamAvailable
+})
 
 /**
  * Unlock a Steam achievement
  */
 export async function unlockAchievement (name: string) {
   if (!steamAvailable) return
+
   try {
     await invoke('steam_unlock_achievement', { name })
   } catch (e) {
@@ -93,6 +99,39 @@ export async function cloudExists (filename: string): Promise<boolean> {
     console.error(`Failed to check Steam Cloud file (${filename}):`, e)
     return false
   }
+}
+
+/**
+ * Registers a new Synergism account for Steam users
+ */
+export async function register () {
+  const sessionTicket = await invoke<string>('steam_get_auth_ticket')
+
+  const response = await tauriFetch('https://synergism.cc/login/using/steam', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({ sessionTicket })
+  })
+
+  if (!response.ok) {
+    throw new TypeError(`Failed to login, received ${response.status}`)
+  }
+}
+
+/**
+ * Validates the user against Steam's API
+ */
+export async function login () {
+  if (!triedInitSteam) await initializeSteam()
+  if (!steamAvailable) return
+
+  return await tauriFetch('https://synergism.cc/api/v1/users/me', {
+    headers: {
+      Origin: 'https://synergism.cc'
+    }
+  })
 }
 
 // @ts-ignore TODO: remove this

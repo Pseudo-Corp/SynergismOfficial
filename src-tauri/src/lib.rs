@@ -5,6 +5,7 @@ mod steam;
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_drpc::init())
+        .plugin(tauri_plugin_http::init())
         .manage(steam::steam_state())
         .invoke_handler(steam::steam_invoke_handler())
         .setup(|app| {
