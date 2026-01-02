@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "identifier": "com.pseudocorp.synergism",
   "build": {
-    "frontendDist": "../..",
+    "frontendDist": "../dist",
     "devUrl": "http://localhost:3000",
     "beforeDevCommand": "npm run tauri:dev",
     "beforeBuildCommand": "npm run tauri:build"
@@ -31,6 +31,11 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "resources": {
+      "./lib/steam/win64/steam_api64.dll": "./",
+      "./lib/steam/linux64/libsteam_api.so": "./",
+      "./lib/steam/osx/libsteam_api.dylib": "./"
+    }
   }
 }
