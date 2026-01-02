@@ -5,6 +5,7 @@ import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
+import { platform } from './Config'
 import { updateGlobalsIsEvent } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
@@ -239,6 +240,7 @@ interface AccountMetadata {
   discord: RawMember
   patreon: PatreonUser
   email: { email: string; verified: boolean }
+  steam: { avatar: string; profileURL: string; username: string }
   none: null
 }
 
@@ -269,63 +271,75 @@ const isDiscordAccount = (
 const isPatreonAccount = (
   account: SynergismUserAPIResponse<keyof AccountMetadata>
 ): account is SynergismUserAPIResponse<'patreon'> => account.accountType === 'patreon'
+const isSteamAccount = (
+  account: SynergismUserAPIResponse<keyof AccountMetadata>
+): account is SynergismUserAPIResponse<'steam'> => account.accountType === 'steam'
 const isEmailAccount = (
   account: SynergismUserAPIResponse<keyof AccountMetadata>
 ): account is SynergismUserAPIResponse<'email'> => account.accountType === 'email'
 const hasAccount = (
   account: SynergismUserAPIResponse<keyof AccountMetadata>
-): account is SynergismUserAPIResponse<'discord' | 'patreon' | 'email'> => account.accountType !== 'none'
+): account is SynergismUserAPIResponse<Exclude<keyof AccountMetadata, 'none'>> => account.accountType !== 'none'
 
-export async function handleLogin () {
-  const subtabElement = document.querySelector('#accountSubTab div#left.scrollbarX')!
-
-  const logoutElement = document.getElementById('logoutButton')
-  if (logoutElement !== null) {
-    logoutElement.addEventListener('click', logout, { once: true })
-    document.getElementById('accountSubTab')?.appendChild(logoutElement)
-  }
-
-  const response = await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'same-origin' }).catch(
-    () =>
-      new Response(
-        JSON.stringify(
-          {
-            member: null,
-            personalBonus: 0,
-            accountType: 'none',
-            bonus: { quarks: 0 },
-            subscription: null,
-            linkedAccounts: []
-          } satisfies SynergismUserAPIResponse<'none'>
-        ),
-        { status: 401 }
-      )
+async function fetchMeRoute () {
+  const fallback = new Response(
+    JSON.stringify(
+      {
+        member: null,
+        personalBonus: 0,
+        accountType: 'none',
+        bonus: { quarks: 0 },
+        subscription: null,
+        linkedAccounts: []
+      } satisfies SynergismUserAPIResponse<'none'>
+    ),
+    { status: 401 }
   )
 
-  const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>
-  const { personalBonus, subscription: sub, linkedAccounts } = account
+  if (platform === 'browser') {
+    return await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'same-origin' }).catch(() => fallback)
+  } else {
+    const { login } = await import('./steam/steam')
 
-  setPersonalQuarkBonus(personalBonus)
-  player.worlds = new QuarkHandler(Number(player.worlds))
+    return await login() ?? fallback
+  }
+}
 
-  loggedIn = hasAccount(account)
-  subscription = sub
-
+export async function handleLogin () {
   // biome-ignore lint/suspicious/noConfusingLabels: it's not confusing or suspicious
-  generateSubtab: {
-    if (location.hostname !== 'synergism.cc') {
+  generateSubtabBrowser: {
+    const subtabElement = document.querySelector('#accountSubTab div#left.scrollbarX')!
+
+    const logoutElement = document.getElementById('logoutButton')
+    if (logoutElement !== null) {
+      logoutElement.addEventListener('click', logout, { once: true })
+      document.getElementById('accountSubTab')?.appendChild(logoutElement)
+    }
+
+    const response = await fetchMeRoute()
+
+    const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>
+    const { personalBonus, subscription: sub, linkedAccounts } = account
+
+    setPersonalQuarkBonus(personalBonus)
+    player.worlds = new QuarkHandler(Number(player.worlds))
+
+    loggedIn = hasAccount(account)
+    subscription = sub
+
+    if (location.hostname !== 'synergism.cc' && platform === 'browser') {
       subtabElement.innerHTML =
         'Login is not available here, go to <a href="https://synergism.cc">https://synergism.cc</a> instead!'
     } else if (hasAccount(account)) {
       if (Object.keys(account.member).length === 0) {
         subtabElement.innerHTML = `You are logged in, but your profile couldn't be retrieved from Discord or Patreon.`
-        break generateSubtab
+        break generateSubtabBrowser
       }
 
       if (account.error) {
         subtabElement.innerHTML =
           `You are logged in, but retrieving your profile yielded the following error: ${account.error}`
-        break generateSubtab
+        break generateSubtabBrowser
       }
 
       let user: string | null = null
@@ -337,6 +351,8 @@ export async function handleLogin () {
         user = account.member.email
       } else if (isPatreonAccount(account)) {
         user = account.member?.data?.attributes?.email ?? null
+      } else if (isSteamAccount(account)) {
+        user = account.member.username
       }
 
       if (user !== null) {
@@ -408,7 +424,9 @@ export async function handleLogin () {
     `.trim()
 
       const allPlatforms = ['discord', 'patreon']
-      const unlinkedPlatforms = allPlatforms.filter((platform) => !linkedAccounts.includes(platform))
+      const unlinkedPlatforms = platform === 'steam'
+        ? []
+        : allPlatforms.filter((platform) => !linkedAccounts.includes(platform))
 
       if (unlinkedPlatforms.length > 0) {
         const linkAccountsSection = document.createElement('div')
@@ -486,6 +504,46 @@ export async function handleLogin () {
       })
     } else if (!hasAccount(account)) {
       // User is not logged in
+
+      if (platform === 'steam') {
+        subtabElement.querySelectorAll('#left a').forEach((value) => value.classList.add('none'))
+
+        const a = document.createElement('a')
+        a.textContent = 'Login with Steam'
+        a.setAttribute(
+          'style',
+          'display:inline-block;border: 2px solid #5865F2; height: 25px; width: 20%; margin-bottom:5px; cursor: pointer;'
+        )
+        a.addEventListener('click', async () => {
+          if (a.dataset.loading) return
+          a.dataset.loading = 'true'
+          a.style.pointerEvents = 'none'
+          a.style.opacity = '0.6'
+
+          const spinner = document.createElement('span')
+          spinner.className = 'spinner'
+          spinner.style.marginLeft = '8px'
+          a.appendChild(spinner)
+
+          try {
+            const { register } = await import('./steam/steam')
+
+            await register()
+            location.reload()
+          } catch (e) {
+            console.error(e)
+            a.dataset.loading = undefined
+            a.style.pointerEvents = ''
+            a.style.opacity = ''
+            spinner.remove()
+          }
+        })
+
+        subtabElement.appendChild(a)
+
+        break generateSubtabBrowser
+      }
+
       subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
         subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
         subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')

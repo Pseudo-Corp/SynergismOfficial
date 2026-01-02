@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "Synergism",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "com.pseudocorp.synergism",
   "build": {
     "frontendDist": "../..",
     "devUrl": "http://localhost:3000",
