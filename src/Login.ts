@@ -506,13 +506,11 @@ export async function handleLogin () {
       // User is not logged in
 
       if (platform === 'steam') {
-        subtabElement.querySelectorAll('#left a').forEach((value) => value.classList.add('none'))
-
         const a = document.createElement('a')
         a.textContent = 'Login/Register with Steam'
         a.setAttribute(
           'style',
-          'display:inline-block;border: 2px solid #5865F2; height: 25px; width: 20%; margin-bottom:5px; cursor: pointer;'
+          'display:inline-block;border: 2px solid #5865F2; width: 20%; margin-bottom:5px; cursor: pointer;'
         )
         a.addEventListener('click', async () => {
           if (a.dataset.loading) return
@@ -540,8 +538,6 @@ export async function handleLogin () {
         })
 
         subtabElement.appendChild(a)
-
-        break generateSubtabBrowser
       }
 
       subtabElement.querySelector('#open-register')?.addEventListener('click', () => {

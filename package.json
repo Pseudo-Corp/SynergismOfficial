@@ -61,7 +61,7 @@
     "check-circular": "madge --circular src/",
     "tauri:cp": "shx rm -rf ./dist && shx mkdir dist && shx cp -r Pictures dist/ && shx cp -r translations dist/ && shx cp index.html Synergism.css favicon.ico package.json dist/",
     "tauri:copy-steam": "node scripts/copy-steam-dlls.js",
-    "tauri:build": "npm run tauri:cp && npm run tauri:copy-steam && npm run build:esbuild -- --define:PLATFORM=\\\"'steam'\\\" --outfile=\"./dist/dist/out.js\"",
+    "tauri:build": "npm run tauri:cp && npm run tauri:copy-steam && npm run build:esbuild -- --define:PLATFORM=\"'steam'\" --outfile=\"./dist/dist/out.js\"",
     "tauri:prod": "npx tauri build",
     "tauri:dev": "concurrently \"npm run watch:esbuild -- --define:PLATFORM=\\\"'steam'\\\"\" \"npm run live-server\"",
     "tauri:run:dev": "npx tauri dev",

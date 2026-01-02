@@ -135,7 +135,11 @@ export async function login () {
 }
 
 export async function logout () {
-  await tauriFetch('https://synergism.cc/api/v1/users/logout')
+  await tauriFetch('https://synergism.cc/api/v1/users/logout', {
+    headers: {
+      Origin: 'https://synergism.cc'
+    }
+  })
 }
 
 // @ts-ignore TODO: remove this
