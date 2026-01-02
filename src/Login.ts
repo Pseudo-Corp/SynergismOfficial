@@ -509,7 +509,7 @@ export async function handleLogin () {
         subtabElement.querySelectorAll('#left a').forEach((value) => value.classList.add('none'))
 
         const a = document.createElement('a')
-        a.textContent = 'Login with Steam'
+        a.textContent = 'Login/Register with Steam'
         a.setAttribute(
           'style',
           'display:inline-block;border: 2px solid #5865F2; height: 25px; width: 20%; margin-bottom:5px; cursor: pointer;'
