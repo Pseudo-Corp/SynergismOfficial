@@ -469,8 +469,8 @@ export async function handleLogin () {
           }
         }
 
-        for (const platform of unlinkedPlatforms) {
-          const config = platformConfig[platform.name as keyof typeof platformConfig]
+        for (const unlinked of unlinkedPlatforms) {
+          const config = platformConfig[unlinked.name as keyof typeof platformConfig]
           const button = document.createElement('button')
           button.innerHTML = `${config.logo}${config.label}`
           button.style.padding = '10px 20px'
@@ -490,11 +490,37 @@ export async function handleLogin () {
           button.addEventListener('mouseleave', () => {
             button.style.opacity = '1'
           })
-          button.addEventListener('click', () => {
-            if (platform.direct) {
-              window.open(`https://synergism.cc/login/link-direct/${platform.name}`, '_blank')
+          button.addEventListener('click', async () => {
+            if (unlinked.direct) {
+              if (button.dataset.loading) return
+              button.dataset.loading = 'true'
+
+              if (platform === 'steam') {
+                const { getSessionTicket } = await import('./steam/steam')
+                const sessionTicket = await getSessionTicket()
+
+                if (!sessionTicket) {
+                  await Alert('Failed to validate against Steam API')
+                  return
+                }
+
+                const response = await fetch(`https://synergism.cc/login/link-direct/${unlinked.name}`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  credentials: 'include',
+                  body: JSON.stringify({ sessionTicket })
+                }).finally(() => {
+                  button.dataset.loading = ''
+                })
+
+                if (response.redirected || response.ok) {
+                  location.reload()
+                }
+              }
             } else {
-              window.open(`https://synergism.cc/login?with=${platform.name}&link=true`, '_blank')
+              window.open(`https://synergism.cc/login?with=${unlinked.name}&link=true`, '_blank')
             }
           })
           buttonContainer.appendChild(button)
