@@ -4,6 +4,7 @@ import mimeTypes from 'mime-types'
 import fs from 'node:fs'
 import path from 'node:path'
 import { enableSteamOverlay, initializeSteam } from './lib/steam-ipc.ts'
+import './lib/discord.ts' // Discord RPC
 
 app.commandLine.appendSwitch('disable-http-cache')
 

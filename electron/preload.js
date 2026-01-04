@@ -13,3 +13,10 @@ contextBridge.exposeInMainWorld('steam', {
   setRichPresence: (key, value) => ipcRenderer.invoke('steam:setRichPresence', key, value),
   getSessionTicket: () => ipcRenderer.invoke('steam:getSessionTicket')
 })
+
+contextBridge.exposeInMainWorld('discord', {
+  /**
+   * @param {import('./lib/discord').PresenceOptions} options
+   */
+  setRichPresence: (options) => ipcRenderer.invoke('discord:setRichPresence', options)
+})
