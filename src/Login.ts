@@ -15,7 +15,7 @@ import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
-import { assert, btoa, isomorphicDecode } from './Utility'
+import { assert, btoa, isomorphicDecode, memoize } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -296,13 +296,7 @@ async function fetchMeRoute () {
     { status: 401 }
   )
 
-  if (platform === 'browser') {
-    return await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'same-origin' }).catch(() => fallback)
-  } else {
-    const { login } = await import('./steam/steam')
-
-    return await login() ?? fallback
-  }
+  return await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'same-origin' }).catch(() => fallback)
 }
 
 export async function handleLogin () {
@@ -423,10 +417,15 @@ export async function handleLogin () {
       ${createLineHTML('yourself', 1, true, ['rainbowText'])}
     `.trim()
 
-      const allPlatforms = ['discord', 'patreon']
+      const allPlatforms = [
+        { name: 'discord', direct: false },
+        { name: 'patreon', direct: false },
+        { name: 'steam', direct: true }
+      ]
+
       const unlinkedPlatforms = platform === 'steam'
-        ? []
-        : allPlatforms.filter((platform) => !linkedAccounts.includes(platform))
+        ? allPlatforms.filter((platform) => platform.direct && !linkedAccounts.includes(platform.name))
+        : allPlatforms.filter((platform) => !linkedAccounts.includes(platform.name))
 
       if (unlinkedPlatforms.length > 0) {
         const linkAccountsSection = document.createElement('div')
@@ -454,11 +453,20 @@ export async function handleLogin () {
               `<svg width="20" height="20" viewBox="0 0 436 476" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
                 <path d="M436 143.371C436 64.203 373.797 2 294.629 2C215.461 2 153.258 64.203 153.258 143.371C153.258 222.539 215.461 284.742 294.629 284.742C373.797 284.742 436 222.539 436 143.371ZM0 474H74.8139V2H0V474Z" fill="white"/>
               </svg>`
+          },
+          steam: {
+            label: 'Link Steam',
+            color: '#1b2838',
+            logo:
+              `<svg width="20" height="20" viewBox="0 0 256 259" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
+                <path d="M127.779 0C60.42 0 5.24 52.412 0 119.014l68.724 28.674c5.937-4.073 13.095-6.467 20.803-6.467.682 0 1.356.021 2.023.054l31.18-45.58v-.639c0-25.366 20.47-46.011 45.634-46.011 25.164 0 45.634 20.645 45.634 46.05 0 25.405-20.47 46.05-45.634 46.05h-1.062l-44.633 32.143c0 .554.033 1.108.033 1.678 0 19.017-15.33 34.49-34.162 34.49-16.594 0-30.475-12.022-33.486-27.94L4.168 159.19C22.806 214.768 74.686 254.469 127.779 254.469c70.682 0 128.004-57.546 128.004-128.467C255.783 55.082 198.461 0 127.779 0" fill="white"/>
+                <path d="M81.281 197.267l-15.614-6.512c2.77 5.812 7.348 10.772 13.299 13.687 12.867 6.302 28.248.948 34.396-11.962 2.972-6.246 3.131-13.143.448-19.425-2.684-6.283-7.69-11.2-14.104-13.862-6.373-2.639-13.14-2.487-18.997-.206l16.136 6.723c9.484 3.976 13.987 14.971 10.058 24.564-3.93 9.593-14.809 14.123-24.293 10.147l-.329-.154zM213.083 95.686c0-16.908-13.639-30.644-30.408-30.644-16.77 0-30.408 13.736-30.408 30.644 0 16.907 13.638 30.643 30.408 30.643 16.77 0 30.408-13.736 30.408-30.643zm-53.457.04c0-12.803 10.263-23.173 22.93-23.173 12.666 0 22.93 10.37 22.93 23.173s-10.264 23.173-22.93 23.173c-12.667 0-22.93-10.37-22.93-23.173z" fill="white"/>
+              </svg>`
           }
         }
 
         for (const platform of unlinkedPlatforms) {
-          const config = platformConfig[platform as keyof typeof platformConfig]
+          const config = platformConfig[platform.name as keyof typeof platformConfig]
           const button = document.createElement('button')
           button.innerHTML = `${config.logo}${config.label}`
           button.style.padding = '10px 20px'
@@ -479,7 +487,11 @@ export async function handleLogin () {
             button.style.opacity = '1'
           })
           button.addEventListener('click', () => {
-            window.open(`https://synergism.cc/login?with=${platform}&link=true`, '_blank')
+            if (platform.direct) {
+              window.open(`https://synergism.cc/login/link-direct/${platform.name}`, '_blank')
+            } else {
+              window.open(`https://synergism.cc/login?with=${platform.name}&link=true`, '_blank')
+            }
           })
           buttonContainer.appendChild(button)
         }
@@ -504,42 +516,6 @@ export async function handleLogin () {
       })
     } else if (!hasAccount(account)) {
       // User is not logged in
-
-      if (platform === 'steam') {
-        const a = document.createElement('a')
-        a.textContent = 'Login/Register with Steam'
-        a.setAttribute(
-          'style',
-          'display:inline-block;border: 2px solid #5865F2; width: 20%; margin-bottom:5px; cursor: pointer;'
-        )
-        a.addEventListener('click', async () => {
-          if (a.dataset.loading) return
-          a.dataset.loading = 'true'
-          a.style.pointerEvents = 'none'
-          a.style.opacity = '0.6'
-
-          const spinner = document.createElement('span')
-          spinner.className = 'spinner'
-          spinner.style.marginLeft = '8px'
-          a.appendChild(spinner)
-
-          try {
-            const { register } = await import('./steam/steam')
-
-            await register()
-            location.reload()
-          } catch (e) {
-            console.error(e)
-            a.dataset.loading = undefined
-            a.style.pointerEvents = ''
-            a.style.opacity = ''
-            spinner.remove()
-          }
-        })
-
-        subtabElement.appendChild(a)
-      }
-
       subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
         subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
         subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
@@ -748,12 +724,7 @@ export function sendToWebsocket (message: string) {
 }
 
 async function logout () {
-  if (platform === 'steam') {
-    const { logout } = await import('./steam/steam')
-    await logout()
-  } else {
-    await fetch('https://synergism.cc/api/v1/users/logout')
-  }
+  await fetch('https://synergism.cc/api/v1/users/logout')
 
   await Alert(i18next.t('account.logout'))
   location.reload()
@@ -761,21 +732,68 @@ async function logout () {
 
 const hasCaptcha = new WeakSet<HTMLElement>()
 
-export function renderCaptcha () {
-  const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
-  const visible = captchaElements.find((el) => el.offsetParent !== null)
+export const renderCaptcha = platform === 'steam'
+  ? memoize(() => {
+    const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
 
-  if (visible && !hasCaptcha.has(visible)) {
-    // biome-ignore lint/correctness/noUndeclaredVariables: declared in types as a global
-    turnstile.render(visible, {
-      sitekey: visible.getAttribute('data-sitekey')!,
-      'error-callback' () {},
-      retry: 'never'
-    })
+    for (const element of captchaElements) {
+      if (element.parentElement instanceof HTMLFormElement) {
+        const form = element.parentElement
+        form.addEventListener('submit', async (ev) => {
+          ev.preventDefault()
 
-    hasCaptcha.add(visible)
+          if (form.dataset.submitting) return
+          form.dataset.submitting = 'true'
+
+          try {
+            const { getSessionTicket } = await import('./steam/steam')
+
+            const sessionTicket = await getSessionTicket()
+
+            if (!sessionTicket) {
+              await Alert('Failed to validate against Steam API')
+              return
+            }
+
+            const dataAction = form.getAttribute('data-steam-action')!
+
+            const fd = new FormData(form)
+            const body = new URLSearchParams()
+
+            fd.forEach((value, key) => body.set(key, `${value}`))
+            body.set('sessionTicket', sessionTicket)
+
+            const response = await fetch(dataAction, {
+              method: form.method.toUpperCase(),
+              body,
+              credentials: 'include'
+            })
+
+            if (response.redirected || response.ok) {
+              location.reload()
+            }
+          } finally {
+            form.dataset.submitting = undefined
+          }
+        })
+      }
+    }
+  })
+  : () => {
+    const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
+    const visible = captchaElements.find((el) => el.offsetParent !== null)
+
+    if (visible && !hasCaptcha.has(visible)) {
+      // biome-ignore lint/correctness/noUndeclaredVariables: declared in types as a global
+      turnstile.render(visible, {
+        sitekey: visible.getAttribute('data-sitekey')!,
+        'error-callback' () {},
+        retry: 'never'
+      })
+
+      hasCaptcha.add(visible)
+    }
   }
-}
 
 const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
   const seconds = minutes * 60
