@@ -15,8 +15,6 @@ jobs:
       id: cf-pages
       uses: WalshyDev/cf-pages-await@v1
       with:
-        apiToken: ${{ secrets.CF_API_TOKEN }}
-        accountId: 'bd22ac056a23329365c8a57927490701'
         project: 'synergism'
         # Add this if you want GitHub Deployments (see below)
         githubToken: ${{ secrets.API_TOKEN_GITHUB }}
