@@ -1,0 +1,83 @@
+{
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  "appId": "cc.synergism.app",
+  "productName": "Synergism",
+  "directories": {
+    "output": "release",
+    "buildResources": "build"
+  },
+  "files": [
+    "dist/**/*",
+    "electron/**/*"
+  ],
+  "extraMetadata": {
+    "main": "electron/main.ts"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      },
+      {
+        "target": "portable",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "dist/Pictures/electron-logo.ico",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "extraFiles": [
+      { "from": "node_modules/steamworks.js/dist/win64/steam_api64.dll", "to": "." }
+    ]
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "installerIcon": "dist/Pictures/electron-logo.ico",
+    "uninstallerIcon": "dist/Pictures/electron-logo.ico",
+    "installerHeaderIcon": "dist/Pictures/electron-logo.ico",
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Synergism"
+  },
+  "mac": {
+    "target": [
+      {
+        "target": "dmg",
+        "arch": ["x64", "arm64"]
+      },
+      {
+        "target": "zip",
+        "arch": ["x64", "arm64"]
+      }
+    ],
+    "icon": "build/icon.icns",
+    "category": "public.app-category.games",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "extraFiles": [
+      { "from": "node_modules/steamworks.js/dist/osx/libsteam_api.dylib", "to": "." }
+    ]
+  },
+  "linux": {
+    "target": [
+      {
+        "target": "AppImage",
+        "arch": ["x64"]
+      },
+      {
+        "target": "deb",
+        "arch": ["x64"]
+      },
+      {
+        "target": "tar.gz",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "build/icons",
+    "category": "Game",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "extraFiles": [
+      { "from": "node_modules/steamworks.js/dist/linux64/libsteam_api.so", "to": "." }
+    ]
+  }
+}

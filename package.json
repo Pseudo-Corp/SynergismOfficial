@@ -1,10 +1,10 @@
 {
   "name": "synergismofficial",
-  "version": "2.9.0",
+  "version": "4.1.1",
   "description": "",
   "main": "dist/bundle.js",
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=22.21.0"
   },
   "dependencies": {
     "@paypal/paypal-js": "^8.2.0",
@@ -13,11 +13,15 @@
     "@ungap/custom-elements": "^1.3.0",
     "break_infinity.js": "^2.0.0",
     "clipboard": "^2.0.11",
+    "cookie": "^1.1.1",
     "dompurify": "^3.2.7",
+    "electron-log": "^5.4.3",
     "fast-mersenne-twister": "^1.0.3",
     "i18next": "^22.4.9",
     "lz-string": "^1.4.4",
+    "mime-types": "^3.0.2",
     "rfdc": "^1.4.1",
+    "steamworks.js": "^0.4.0",
     "tauri-plugin-drpc": "^1.0.3",
     "worker-timers": "^7.0.53",
     "zod": "^3.23.8"
@@ -28,9 +32,12 @@
     "@types/cloudflare-turnstile": "^0.2.2",
     "@types/lodash.clonedeepwith": "^4.5.9",
     "@types/lz-string": "^1.3.34",
+    "@types/mime-types": "^3.0.1",
     "concurrently": "^9.2.1",
     "deep-object-diff": "^1.1.9",
     "dprint": "^0.48.0",
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12",
     "esbuild": "^0.25.5",
     "htmlhint": "^1.1.4",
     "husky": "^8.0.3",
@@ -59,13 +66,14 @@
     "cloudflare:build": "node scripts/needsBundling.js || npm run build:esbuild",
     "msw:init": "npx -y msw init . --save",
     "check-circular": "madge --circular src/",
-    "tauri:cp": "shx rm -rf ./dist && shx mkdir dist && shx cp -r Pictures dist/ && shx cp -r translations dist/ && shx cp index.html Synergism.css favicon.ico package.json dist/",
-    "tauri:copy-steam": "node scripts/copy-steam-dlls.js",
-    "tauri:build": "npm run tauri:cp && npm run tauri:copy-steam && npm run build:esbuild -- --define:PLATFORM=\"'steam'\" --outfile=\"./dist/dist/out.js\"",
-    "tauri:prod": "npx tauri build",
-    "tauri:dev": "concurrently \"npm run watch:esbuild -- --define:PLATFORM=\\\"'steam'\\\"\" \"npm run live-server\"",
-    "tauri:run:dev": "npx tauri dev",
-    "tauri:icon": "npx tauri icon favicon.ico"
+    "electron:cp": "shx rm -rf ./dist && shx mkdir dist && shx cp -r Pictures dist/ && shx cp -r translations dist/ && shx cp index.html Synergism.css favicon.ico dist/",
+    "electron:build:assets": "npm run electron:cp && npm run build:esbuild -- --define:PLATFORM=\\\"steam\\\" --outfile=\"./dist/dist/out.js\"",
+    "electron:watch": "npx esbuild src/Synergism.ts --bundle --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/dist/out.js\" --watch --sourcemap --define:PROD=false --define:DEV=true --define:PLATFORM=\\\"steam\\\"",
+    "electron:dev": "npm run electron:cp && npm run build:esbuild -- --define:PLATFORM=\\\"steam\\\" --outfile=\"./dist/dist/out.js\" && npx -y msw init dist --save && electron electron/main.ts",
+    "electron:build": "npm run electron:build:assets && electron-builder --win --mac --linux",
+    "electron:build:win": "npm run electron:build:assets && electron-builder --win",
+    "electron:build:mac": "npm run electron:build:assets && electron-builder --mac",
+    "electron:build:linux": "npm run electron:build:assets && electron-builder --linux"
   },
   "repository": {
     "type": "git",
@@ -84,7 +92,8 @@
   "msw": {
     "workerDirectory": [
       ".",
-      ""
+      "",
+      "dist"
     ]
   }
 }
