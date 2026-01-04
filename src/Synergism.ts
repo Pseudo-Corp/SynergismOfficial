@@ -5298,8 +5298,8 @@ window.addEventListener('load', async () => {
     const { setRichPresenceDiscord } = await import('./steam/discord')
 
     setRichPresenceDiscord({
-      details: 'this is details',
-      state: 'this is state'
+      details: 'Playing Synergism',
+      state: 'gathering quarks...'
     })
   }
 }, { once: true })

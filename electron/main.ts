@@ -87,17 +87,22 @@ app.whenReady().then(async () => {
     const setCookieHeaders = response.headers.getSetCookie()
     for (const cookieValue of setCookieHeaders) {
       const c = cookie.parseSetCookie(cookieValue)
+      // https://stackoverflow.com/a/39136448
+      // Cookies require an expirationDate to be persistent, for some reason
+      const expires = c.maxAge
+        ? Date.now() + (c.maxAge * 1000)
+        : c.expires?.getTime()
 
       await session.defaultSession.cookies.set({
         url: request.url,
         domain: c.domain,
-        expirationDate: c.expires?.getTime(),
+        expirationDate: expires,
         httpOnly: c.httpOnly,
         name: c.name,
         path: c.path,
-        sameSite: typeof c.sameSite === 'boolean'
-          ? 'no_restriction'
-          : c.sameSite === 'none'
+        sameSite: c.sameSite === true
+          ? 'strict'
+          : c.sameSite === 'none' || c.sameSite === false
           ? 'no_restriction'
           : c.sameSite,
         secure: c.secure,

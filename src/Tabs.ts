@@ -1,3 +1,4 @@
+import i18next from 'i18next'
 import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { platform } from './Config'
@@ -479,7 +480,7 @@ class TabRow extends HTMLDivElement {
 interface kSubTabOptionsBag {
   id: string
   class?: string
-  i18n?: string
+  i18n: string
   borderColor?: string
 }
 
@@ -496,9 +497,9 @@ class $Tab extends HTMLButtonElement {
     if (options.class) {
       this.classList.add(options.class)
     }
-    if (options.i18n) {
-      this.setAttribute('i18n', options.i18n)
-    }
+
+    this.setAttribute('i18n', options.i18n)
+
     if (options.borderColor) {
       this.style.borderColor = options.borderColor
     }
@@ -715,6 +716,17 @@ export const changeTab = (tabs: Tabs, step?: number) => {
         subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex = i
       }
     }
+  }
+
+  if (platform === 'steam') {
+    import('./steam/discord').then(({ setRichPresenceDiscord }) => {
+      const i18n = tabRow.getCurrentTab().getAttribute('i18n')
+      setRichPresenceDiscord({
+        details: 'Playing Synergism',
+        state: `Looking at ${i18next.t(i18n!)}...`,
+        startTimestamp: new Date()
+      })
+    })
   }
 }
 
