@@ -175,7 +175,7 @@ import {
   updateMaxTokens,
   updateTokens
 } from './Campaign'
-import { dev, lastUpdated, prod, testing, version } from './Config'
+import { dev, lastUpdated, platform, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
 import { autobuyAnts } from './Features/Ants'
@@ -5291,6 +5291,15 @@ window.addEventListener('load', async () => {
       G: { value: G },
       Decimal: { value: Decimal },
       i18n: { value: i18next }
+    })
+  }
+
+  if (platform === 'steam') {
+    const { setRichPresenceDiscord } = await import('./steam/discord')
+
+    setRichPresenceDiscord({
+      details: 'this is details',
+      state: 'this is state'
     })
   }
 }, { once: true })
