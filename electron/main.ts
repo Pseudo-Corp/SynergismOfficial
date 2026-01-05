@@ -10,8 +10,6 @@ app.commandLine.appendSwitch('disable-http-cache')
 
 let mainWindow: BrowserWindow | null = null
 
-initializeSteam()
-
 function createWindow (): void {
   mainWindow = new BrowserWindow({
     maximizable: true,
@@ -128,4 +126,5 @@ app.on('window-all-closed', () => {
   }
 })
 
+initializeSteam()
 enableSteamOverlay()

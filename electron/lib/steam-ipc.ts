@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import { BrowserWindow, ipcMain } from 'electron'
 import log from 'electron-log/main.js'
 import steamworks from 'steamworks.js'
 
@@ -11,6 +11,17 @@ let steamClient: ReturnType<typeof steamworks.init> | null = null
 export function initializeSteam (): boolean {
   try {
     steamClient = steamworks.init(STEAM_APP_ID)
+
+    // Register callback for MicroTxnAuthorizationResponse_t
+    // https://partner.steamgames.com/doc/features/microtransactions/implementation#5
+    steamClient.callback.register(
+      steamworks.SteamCallback.MicroTxnAuthorizationResponse,
+      (response) => {
+        log.info('MicroTxnAuthorizationResponse received:', response)
+        BrowserWindow.getAllWindows()[0]?.webContents.send('steam:microTxnAuthorizationResponse', response)
+      }
+    )
+
     return true
   } catch (error) {
     log.error('Failed to initialize Steam:', error)
@@ -28,6 +39,10 @@ export function initializeSteam (): boolean {
   ipcMain.handle('steam:getUsername', () => {
     if (!steamClient) return null
     return steamClient.localplayer.getName()
+  })
+
+  ipcMain.handle('steam:getCurrentGameLanguage', () => {
+    return steamClient?.apps.currentGameLanguage() ?? null
   })
 
   ipcMain.handle('steam:setRichPresence', (_, key: string, value?: string) => {
