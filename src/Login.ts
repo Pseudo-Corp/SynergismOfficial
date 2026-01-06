@@ -14,7 +14,7 @@ import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { format, player, saveSynergy } from './Synergism'
-import { Alert, Notification } from './UpdateHTML'
+import { Alert, Confirm, Notification } from './UpdateHTML'
 import { assert, btoa, isomorphicDecode, memoize } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
@@ -574,6 +574,11 @@ export async function handleLogin () {
   if (loggedIn) {
     handleWebSocket()
     handleCloudSaves()
+  }
+
+  // Steam cloud saves work without login
+  if (platform === 'steam') {
+    handleSteamCloudSave()
   }
 }
 
@@ -1282,4 +1287,179 @@ function handleCloudSaves () {
       }, 5000)
     })
   })
+}
+
+async function handleSteamCloudSave () {
+  const { cloudFileExists, cloudReadFile, cloudWriteFile, getSteamId } = await import('./steam/steam')
+
+  const steamId = await getSteamId()
+  if (!steamId) return
+
+  const saveFileName = `synergism_${steamId}.txt`
+  const table = document.querySelector('#accountSubTab div#right.scrollbarX #table > #dataGrid')!
+
+  // Remove any existing Steam save row
+  table.querySelectorAll('.steam-save-row, .steam-details-row').forEach((row) => row.remove())
+
+  const steamSaveExists = await cloudFileExists(saveFileName)
+
+  // Create the Steam save row
+  const rowDiv = document.createElement('div')
+  rowDiv.className = 'grid-row steam-save-row'
+  rowDiv.style.display = 'contents'
+
+  const idCell = document.createElement('div')
+  idCell.className = 'grid-cell id-cell'
+  idCell.textContent = '☁️'
+  idCell.title = i18next.t('account.steamCloud.title')
+
+  const nameCell = document.createElement('div')
+  nameCell.className = 'grid-cell name-cell'
+  nameCell.textContent = i18next.t('account.steamCloud.name')
+
+  const dateCell = document.createElement('div')
+  dateCell.className = 'grid-cell date-cell'
+  dateCell.textContent = steamSaveExists
+    ? i18next.t('account.steamCloud.exists')
+    : i18next.t('account.steamCloud.noSave')
+
+  rowDiv.appendChild(idCell)
+  rowDiv.appendChild(nameCell)
+  rowDiv.appendChild(dateCell)
+
+  // Alternate row styling (Steam is always first)
+  idCell.classList.add('alt-row')
+  nameCell.classList.add('alt-row')
+  dateCell.classList.add('alt-row')
+
+  // Create the expandable details row
+  const detailsRow = document.createElement('div')
+  detailsRow.className = 'grid-details-row steam-details-row'
+  detailsRow.style.display = 'none'
+  detailsRow.style.gridColumn = '1 / -1'
+
+  const detailsContent = document.createElement('div')
+  detailsContent.className = 'details-content'
+
+  const actionsDiv = document.createElement('div')
+  actionsDiv.className = 'details-actions'
+
+  // Upload button (to Steam Cloud)
+  const uploadBtn = document.createElement('button')
+  uploadBtn.className = 'btn-upload'
+  uploadBtn.textContent = i18next.t('account.steamCloud.upload')
+
+  // Download button (export Steam Cloud save to file)
+  const downloadBtn = document.createElement('button')
+  downloadBtn.className = 'btn-download'
+  downloadBtn.textContent = i18next.t('account.download')
+  downloadBtn.disabled = !steamSaveExists
+
+  // Load button (load Steam Cloud save into game)
+  const loadBtn = document.createElement('button')
+  loadBtn.className = 'btn-load'
+  loadBtn.textContent = i18next.t('account.loadSave')
+  loadBtn.disabled = !steamSaveExists
+
+  actionsDiv.appendChild(uploadBtn)
+  actionsDiv.appendChild(downloadBtn)
+  actionsDiv.appendChild(loadBtn)
+  detailsContent.appendChild(actionsDiv)
+  detailsRow.appendChild(detailsContent)
+
+  rowDiv.addEventListener('click', () => {
+    const isVisible = detailsRow.style.display !== 'none'
+
+    // Close all other detail rows
+    const allDetailsRows = table.querySelectorAll<HTMLElement>('.grid-details-row')
+    allDetailsRows.forEach((row) => {
+      if (row !== detailsRow) {
+        row.style.display = 'none'
+      }
+    })
+
+    detailsRow.style.display = isVisible ? 'none' : 'block'
+  })
+
+  // Handle upload to Steam Cloud
+  uploadBtn.addEventListener('click', async (e) => {
+    e.stopPropagation()
+
+    const saveExists = await cloudFileExists(saveFileName)
+    if (saveExists) {
+      const confirmed = await Confirm(i18next.t('account.steamCloud.confirmOverwrite'))
+      if (!confirmed) return
+    }
+
+    uploadBtn.disabled = true
+    uploadBtn.textContent = i18next.t('account.steamCloud.uploading')
+
+    const localSave = localStorage.getItem('Synergysave2')
+    if (!localSave) {
+      Alert(i18next.t('account.steamCloud.noLocalSave'))
+      uploadBtn.disabled = false
+      uploadBtn.textContent = i18next.t('account.steamCloud.upload')
+      return
+    }
+
+    const success = await cloudWriteFile(saveFileName, localSave)
+    if (success) {
+      Notification(i18next.t('account.steamCloud.uploadSuccess'))
+      // Refresh the Steam save row
+      handleSteamCloudSave()
+    } else {
+      Alert(i18next.t('account.steamCloud.uploadFailed'))
+      uploadBtn.disabled = false
+      uploadBtn.textContent = i18next.t('account.steamCloud.upload')
+    }
+  })
+
+  // Handle download (export to file)
+  downloadBtn.addEventListener('click', async (e) => {
+    e.stopPropagation()
+
+    downloadBtn.disabled = true
+    const steamSave = await cloudReadFile(saveFileName)
+
+    if (!steamSave) {
+      Alert(i18next.t('account.steamCloud.readFailed'))
+      downloadBtn.disabled = false
+      return
+    }
+
+    await exportData(steamSave, `synergism_steam_cloud_${steamId}.txt`)
+    Alert(i18next.t('account.downloadComplete'))
+    downloadBtn.disabled = false
+  })
+
+  // Handle load (import into game)
+  loadBtn.addEventListener('click', async (e) => {
+    e.stopPropagation()
+
+    loadBtn.disabled = true
+    const steamSave = await cloudReadFile(saveFileName)
+
+    if (!steamSave) {
+      Alert(i18next.t('account.steamCloud.readFailed'))
+      loadBtn.disabled = false
+      return
+    }
+
+    importSynergism(steamSave)
+  })
+
+  // Insert Steam row at the beginning (after headers)
+  const firstRow = table.querySelector('.grid-row')
+  const emptyState = table.querySelector('.empty-state')
+
+  // Remove empty state if exists
+  emptyState?.remove()
+
+  if (firstRow) {
+    table.insertBefore(rowDiv, firstRow)
+    table.insertBefore(detailsRow, firstRow)
+  } else {
+    table.appendChild(rowDiv)
+    table.appendChild(detailsRow)
+  }
 }

@@ -29,7 +29,6 @@ export function initializeSteam (): boolean {
   }
 }
 
-// biome-ignore lint/complexity/noUselessLoneBlockStatements: organization
 {
   ipcMain.handle('steam:getSteamId', () => {
     if (!steamClient) return null
@@ -54,6 +53,44 @@ export function initializeSteam (): boolean {
 
     const ticket = await steamClient.auth.getAuthTicketForWebApi('synergism-backend', 60 * 3)
     return ticket.getBytes().toString('hex')
+  })
+
+  // Steam Cloud Storage
+  const isCloudEnabled = () => steamClient?.cloud.isEnabledForAccount() && steamClient?.cloud.isEnabledForApp()
+
+  ipcMain.handle('steam:cloudFileExists', (_, name: string) => {
+    if (!steamClient || !isCloudEnabled()) return false
+    return steamClient.cloud.fileExists(name)
+  })
+
+  ipcMain.handle('steam:cloudReadFile', (_, name: string) => {
+    if (!steamClient || !isCloudEnabled()) return null
+    try {
+      return steamClient.cloud.readFile(name)
+    } catch (error) {
+      log.error('Failed to read Steam Cloud file:', error)
+      return null
+    }
+  })
+
+  ipcMain.handle('steam:cloudWriteFile', (_, name: string, content: string) => {
+    if (!steamClient || !isCloudEnabled()) return false
+    try {
+      return steamClient.cloud.writeFile(name, content)
+    } catch (error) {
+      log.error('Failed to write Steam Cloud file:', error)
+      return false
+    }
+  })
+
+  ipcMain.handle('steam:cloudDeleteFile', (_, name: string) => {
+    if (!steamClient || !isCloudEnabled()) return false
+    try {
+      return steamClient.cloud.deleteFile(name)
+    } catch (error) {
+      log.error('Failed to delete Steam Cloud file:', error)
+      return false
+    }
   })
 }
 

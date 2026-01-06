@@ -20,7 +20,19 @@ contextBridge.exposeInMainWorld('steam', {
    */
   onMicroTxnAuthorizationResponse: (callback) => {
     ipcRenderer.once('steam:microTxnAuthorizationResponse', (_, response) => callback(response))
-  }
+  },
+  // Steam Cloud Storage
+  /** @param {string} name */
+  cloudFileExists: (name) => ipcRenderer.invoke('steam:cloudFileExists', name),
+  /** @param {string} name */
+  cloudReadFile: (name) => ipcRenderer.invoke('steam:cloudReadFile', name),
+  /**
+   * @param {string} name
+   * @param {string} content
+   */
+  cloudWriteFile: (name, content) => ipcRenderer.invoke('steam:cloudWriteFile', name, content),
+  /** @param {string} name */
+  cloudDeleteFile: (name) => ipcRenderer.invoke('steam:cloudDeleteFile', name)
 })
 
 contextBridge.exposeInMainWorld('discord', {
