@@ -59,6 +59,7 @@
     ]
   },
   "linux": {
+    "maintainer": "Khafra <support@synergism.cc>",
     "target": [
       {
         "target": "AppImage",

@@ -5818,7 +5818,6 @@
       "Viscount": "Benefits of being a Viscount:",
       "FirstSingularityBonus": "First Singularity Bonus:",
       "Event": "Event + Consumables Bonus:",
-      "PatreonBonus": "Patreon Bonus:",
       "Total": "Total Quark Multiplier:"
     },
     "baseObtainiumStats": {
@@ -6104,15 +6103,12 @@
       "FastForwards": "Singularity Fast Forwards:",
       "ImmaculateAlchemy": "Immaculate Alchemy:",
       "Event": "Event Bonus:",
-      "PatreonBonus": "Patreon Bonus:",
-      "FirstSingBonus": "First Singularity Bonus:",
       "Total": "Total Golden Quark Gained:"
     },
     "goldenQuarkPurchaseCostStats": {
       "title": "Golden Quark Purchase Cost",
       "Base": "Base Cost:",
       "PseudoCoins": "Gold Quark PseudoCoin Upgrade:",
-      "Patreon": "Patreon:",
       "AchievementPoints": "Achievement Points:",
       "CubeUpgrade6x10": "Cube Upgrade 6x10:",
       "GoldenQuarks2": "Golden Quarks II:",
