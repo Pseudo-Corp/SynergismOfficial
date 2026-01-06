@@ -85,7 +85,17 @@
     "synergism",
     "synergismofficial"
   ],
-  "author": "Platonic/Pseudonian",
+  "author": "Platonic (Kevin Bunn)",
+  "maintainers": [
+    {
+      "email": "pseudonian@gmail.com",
+      "name": "Kevin Bunn"
+    },
+    {
+      "email": "maitken033380023@gmail.com",
+      "name": "Matthew Aitken"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Pseudo-Corp/SynergismOfficial/issues"
