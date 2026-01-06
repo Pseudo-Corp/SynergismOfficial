@@ -1257,7 +1257,27 @@ export const saveSynergy = (button?: boolean) => {
     setTimeout(() => (el.textContent = ''), 4000)
   }
 
+  // Auto-sync to Steam Cloud (throttled to every 60 seconds)
+  if (platform === 'steam') {
+    const now = Date.now()
+    if (now - lastSteamCloudSync >= 60_000) {
+      lastSteamCloudSync = now
+      void syncToSteamCloud(save)
+    }
+  }
+
   return true
+}
+
+let lastSteamCloudSync = 0
+
+async function syncToSteamCloud (saveData: string) {
+  const { cloudWriteFile, getSteamId } = await import('./steam/steam')
+  const steamId = await getSteamId()
+  if (!steamId) return
+
+  const saveFileName = `synergism_${steamId}.txt`
+  await cloudWriteFile(saveFileName, saveData)
 }
 
 const loadSynergy = () => {

@@ -10,6 +10,11 @@ interface Steam {
   setRichPresence: (key: string, value?: string) => Promise<void>
   getSessionTicket: () => Promise<string>
   onMicroTxnAuthorizationResponse: (callback: (response: MicroTxnAuthorizationResponse) => void) => void
+  // Steam Cloud Storage
+  cloudFileExists: (name: string) => Promise<boolean>
+  cloudReadFile: (name: string) => Promise<string | null>
+  cloudWriteFile: (name: string, content: string) => Promise<boolean>
+  cloudDeleteFile: (name: string) => Promise<boolean>
 }
 
 declare global {
@@ -32,3 +37,16 @@ export const getSessionTicket = () => window.steam?.getSessionTicket() ?? Promis
 
 export const onMicroTxnAuthorizationResponse: Steam['onMicroTxnAuthorizationResponse'] = (callback) =>
   window.steam?.onMicroTxnAuthorizationResponse(callback)
+
+// Steam Cloud Storage
+export const cloudFileExists: Steam['cloudFileExists'] = (name) =>
+  window.steam?.cloudFileExists(name) ?? Promise.resolve(false)
+
+export const cloudReadFile: Steam['cloudReadFile'] = (name) =>
+  window.steam?.cloudReadFile(name) ?? Promise.resolve(null)
+
+export const cloudWriteFile: Steam['cloudWriteFile'] = (name, content) =>
+  window.steam?.cloudWriteFile(name, content) ?? Promise.resolve(false)
+
+export const cloudDeleteFile: Steam['cloudDeleteFile'] = (name) =>
+  window.steam?.cloudDeleteFile(name) ?? Promise.resolve(false)
