@@ -8,10 +8,7 @@
   },
   "files": [
     "dist/**/*",
-    "electron/**/*",
-    "!**/steamworksjs.darwin-arm64.node",
-    "!**/steamworksjs.darwin-x64.node",
-    "**/steamworksjs.darwin-${arch}.node"
+    "electron/**/*"
   ],
   "extraMetadata": {
     "main": "electron/main.ts"
@@ -60,7 +57,7 @@
     "extraFiles": [
       { "from": "node_modules/steamworks.js/dist/osx/libsteam_api.dylib", "to": "." }
     ],
-    "singleArchFiles": "**/steamworksjs.darwin-*.node"
+    "x64ArchFiles": "**/steamworksjs.darwin-*.node"
   },
   "linux": {
     "maintainer": "Khafra <support@synergism.cc>",
