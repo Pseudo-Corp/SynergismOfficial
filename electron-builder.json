@@ -59,7 +59,8 @@
     "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
     "extraFiles": [
       { "from": "node_modules/steamworks.js/dist/osx/libsteam_api.dylib", "to": "." }
-    ]
+    ],
+    "singleArchFiles": "**/steamworksjs.darwin-*.node"
   },
   "linux": {
     "maintainer": "Khafra <support@synergism.cc>",
