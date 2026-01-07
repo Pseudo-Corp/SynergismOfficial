@@ -3,7 +3,15 @@ import { platform, prod } from '../Config'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { assert, memoize } from '../Utility'
 import { products, subscriptionProducts } from './CartTab'
-import { addToCart, clearCart, getPrice, getProductsInCart, getQuantity, removeFromCart } from './CartUtil'
+import {
+  addToCart,
+  calculateGrossPrice,
+  clearCart,
+  getPrice,
+  getProductsInCart,
+  getQuantity,
+  removeFromCart
+} from './CartUtil'
 import { initializePayPal_Subscription } from './SubscriptionsSubtab'
 import { updatePseudoCoins } from './UpgradesSubtab'
 
@@ -311,7 +319,7 @@ export const clearCheckoutTab = () => {
 }
 
 const updateTotalPriceInCart = () => {
-  totalCost!.textContent = `${formatter.format(getPrice() / 100)} USD`
+  totalCost!.textContent = `${formatter.format(calculateGrossPrice(getPrice() / 100))} USD`
 }
 
 /**
