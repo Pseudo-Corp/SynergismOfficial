@@ -8,7 +8,10 @@
   },
   "files": [
     "dist/**/*",
-    "electron/**/*"
+    "electron/**/*",
+    "!**/steamworksjs.darwin-arm64.node",
+    "!**/steamworksjs.darwin-x64.node",
+    "**/steamworksjs.darwin-${arch}.node"
   ],
   "extraMetadata": {
     "main": "electron/main.ts"
