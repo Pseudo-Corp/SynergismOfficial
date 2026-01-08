@@ -25,7 +25,7 @@
       }
     ],
     "icon": "dist/Pictures/electron-logo.ico",
-    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "artifactName": "${productName}-${os}-${arch}.${ext}",
     "extraFiles": [
       { "from": "node_modules/steamworks.js/dist/win64/steam_api64.dll", "to": "." }
     ]
@@ -53,7 +53,7 @@
     ],
     "icon": "build/icon.icns",
     "category": "public.app-category.games",
-    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "artifactName": "${productName}-${os}-${arch}.${ext}",
     "extraFiles": [
       { "from": "node_modules/steamworks.js/dist/osx/libsteam_api.dylib", "to": "." }
     ],
@@ -77,7 +77,7 @@
     ],
     "icon": "build/icons",
     "category": "Game",
-    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "artifactName": "${productName}-${os}-${arch}.${ext}",
     "extraFiles": [
       { "from": "node_modules/steamworks.js/dist/linux64/libsteam_api.so", "to": "." }
     ]
