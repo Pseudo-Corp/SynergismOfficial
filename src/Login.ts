@@ -5,7 +5,7 @@ import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
-import { dev, device, platform } from './Config'
+import { platform } from './Config'
 import { updateGlobalsIsEvent } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
@@ -298,7 +298,7 @@ async function fetchMeRoute () {
 
   // Build headers - include token for mobile auth
   const headers: HeadersInit = {}
-  if (device === 'mobile') {
+  if (platform === 'mobile') {
     const token = localStorage.getItem('synergism_token')
     if (token) {
       headers.Authorization = `Bearer ${token}`
@@ -306,7 +306,7 @@ async function fetchMeRoute () {
   }
 
   return await fetch('https://synergism.cc/api/v1/users/me', {
-    credentials: device === 'browser' ? 'same-origin' : undefined,
+    credentials: platform === 'browser' ? 'same-origin' : undefined,
     headers
   }).catch(() => fallback)
 }
@@ -337,7 +337,7 @@ export async function handleLogin () {
     loggedIn = hasAccount(account)
     subscription = sub
 
-    if (location.hostname !== 'synergism.cc' && platform === 'browser' && device === 'browser') {
+    if (location.hostname !== 'synergism.cc' && platform === 'browser') {
       subtabElement.innerHTML =
         'Login is not available here, go to <a href="https://synergism.cc">https://synergism.cc</a> instead!'
     } else if (hasAccount(account)) {
@@ -557,7 +557,7 @@ export async function handleLogin () {
         eventBonusesChevron.style.transform = isCollapsed ? 'rotate(0deg)' : 'rotate(-90deg)'
       })
     } else if (!hasAccount(account)) {
-      if (device !== 'mobile') {
+      if (platform !== 'mobile') {
         // User is not logged in
         subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
           subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
@@ -864,7 +864,7 @@ export const renderCaptcha = platform === 'steam'
  * Sign in with Apple
  */
 export async function signInWithApple (): Promise<void> {
-  if (device !== 'mobile') {
+  if (platform !== 'mobile') {
     return
   }
 

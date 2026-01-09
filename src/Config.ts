@@ -1,7 +1,6 @@
 declare const PROD: boolean | undefined
 declare const DEV: boolean | undefined
-declare const PLATFORM: 'steam' | undefined
-declare const DEVICE: 'mobile' | undefined
+declare const PLATFORM: 'steam' | 'mobile' | undefined
 
 export const version = '4.1.1 December 17, 2025: The Ants Update'
 
@@ -15,4 +14,3 @@ export const prod = typeof PROD === 'undefined' ? false : PROD
 export const dev = typeof DEV === 'undefined' ? false : DEV
 
 export const platform = typeof PLATFORM === 'undefined' ? 'browser' : PLATFORM
-export const device = typeof DEVICE === 'undefined' ? 'browser' : DEVICE

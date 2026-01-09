@@ -83,7 +83,7 @@
     "electron:build:mac": "npm run electron:build:assets && electron-builder --mac",
     "electron:build:linux": "npm run electron:build:assets && electron-builder --linux",
     "cap:copy": "mkdir -p dist-cap && cp -r Pictures translations dist Synergism.css index.html dist-cap/",
-    "cap:build": "npm run build:esbuild -- --define:DEVICE=\\\"'mobile'\\\" && npm run cap:copy && npx cap sync",
+    "cap:build": "npm run build:esbuild -- --define:PLATFORM=\\\"mobile\\\" && npm run cap:copy && npx cap sync",
     "cap:generate:assets": "npx @capacitor/assets generate --ios --android",
     "cap:open:ios": "npx cap open ios"
   },
