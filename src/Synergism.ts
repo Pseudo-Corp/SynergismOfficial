@@ -5314,6 +5314,13 @@ window.addEventListener('load', async () => {
     })
   }
 
+  if (platform === 'mobile') {
+    document.body.style.paddingTop = 'env(safe-area-inset-top)'
+    document.body.style.paddingLeft = 'env(safe-area-inset-left)'
+    document.body.style.paddingRight = 'env(safe-area-inset-right)'
+    document.body.style.paddingBottom = 'env(safe-area-inset-bottom)'
+  }
+
   if (platform === 'steam') {
     const { setRichPresenceDiscord } = await import('./steam/discord')
 
