@@ -3467,21 +3467,26 @@
       },
       "unlimitedGrowth": {
         "name": "Unlimited Growth",
-        "default": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%"
+        "default": "Gain +10% Quarks and +10% Ascension Count per Singularity! Applies your <b> Current Singularity </b>.",
+        "effect": "<<cyan|+{{quark}}%>> Quarks and <<orange|+{{ascensionCount}}%>> Ascension Count"
       },
       "goldenCoins": {
         "name": "Golden Coins",
-        "default": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity. Currently: x{{amount}}"
+        "default": "Unspent Golden Quarks boost Coin production. Simple enough!",
+        "formula": "Formula: <<orchid | (1 + GoldenQuarks)^1.5 * (HighestSingularity)^2 + 1 >>",
+        "effect": "Golden Quarks multiply your Coin production by <<gold | {{amount}}>>."
       },
       "xyz": {
         "name": "XYZ: Xtra dailY rewardZ",
-        "hasLevel2": "In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!",
-        "hasLevel1": "In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.",
-        "default": "The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades, both scaling with your singularity count!"
+        "default": "Your Daily Code is so much better than before!",
+        "effectLevel1": "You now gain <<gold | {{goldQuarks}}>> Golden Quarks, <<gray | {{freeLevels}}>> Free Upgrade levels to select Singularity Upgrades, and <<cyan | {{quarkMult}}x>> Quarks from code 'Daily'!",
+        "effectLevel2": "You also gain {{x}} free levels of Golden Quarks I and II, {{y}} free levels of Golden Quarks III.",
+        "effectLevel3": "Oh, and your total number of Free Upgrades you receive from this code are doubled! Including the flat amount given by this perk."
       },
       "generousOrbs": {
         "name": "Generous Orbs",
-        "default": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%"
+        "default": "Overflux Orbs effect on opening Cubes for Quarks goes higher, thanks to this perk.",
+        "effect": "Current increase to Orb's Cube to Quark Multiplier: <<cyan|{{current}}%>>, Maximum of <<cyan|{{cap}}%>>."
       },
       "tokenInheritance": {
         "name": "Token Inheritance",
@@ -3509,50 +3514,52 @@
       },
       "researchDummies": {
         "name": "Research for Dummies",
-        "hasLevel1": "You permanently keep Auto Research and can Research using Hover to Buy!",
-        "default": "You can Research using Hover to Buy"
+        "default": "Unlock some nifty little Quality of Life perks for your Research!",
+        "effectLevel1": "Hover to Buy for Researches is unlocked.",
+        "effectLevel2": "Additionally, you keep your Research Automations, even through Singularity!"
       },
       "antGodsCornucopia": {
         "name": "Ant God's Cornucopia",
-        "hasLevel3": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e12 multiplier!",
-        "hasLevel2": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent immaculate x4.44 multiplier."
+        "default": "Gain Ant Speed through... deals with the Ant God? What <<gray | Astral Plane >> is Ant God on?",
+        "effect": "Multiply your Ant Speed by <<crimson|{{x}}>>, at all times!"
       },
       "bringToLife": {
         "name": "Bring to Life",
-        "default": "Stages affect your Reborn ELO Creation Speed just a little bit less. <<gray|2%>> → <<gold|{{amount}}%>> per Stage."
+        "default": "Stages affect your Reborn ELO Creation Speed just a little bit less. <<gray|2%>> → <<gold|{{amount}}%>> per Stage.",
+        "effect": "Reborn ELO is created <<gray|2%>> → <<gold|{{amount}}%>> slower per Stage."
       },
       "eloBonus": {
         "name": "Advanced... Cheating Tactics?",
-        "default": "You use some highly unconventional methods to increase your Ant ELO! ELO is increased by <<orchid|{{amount}}%>>."
+        "default": "You use some highly unconventional methods to increase your Ant ELO!",
+        "effect": "ELO is increased by <<orchid|{{amount}}%>>"
       },
       "invigoratedSpirits": {
         "name": "Invigorated Spirits!",
         "default": "Your ants feel a greater emotional weight from their lost bretheren of Sacrifices past.",
         "line2": "For your first 200,000 Immortal ELO, <<orchid|{{x}}%>> of it gets added to your Ant ELO!",
-        "line3": "For the next 1,800,000 Immortal ELO, <<orchid|{{x}}%>> of it gets added."
+        "line3": "For the next 1,800,000 Immortal ELO, <<orchid|{{x}}%>> of it gets added.",
+        "effect": "Effect: <<orchid|+{{x}}>> Ant ELO!"
       },
       "sweepomatic": {
         "name": "Automatic Sweep-o-matic Mk.2",
-        "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
-        "default": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
+        "default": "Improve your Auto Challenge Sweeper, why don't you?",
+        "effectLevel1": "The Auto Challenge Sweeper starts Ascension Challenges with Challenge 10, saving you clicks!",
+        "effectLevel2": "Also, the Auto Challenge Sweeper will sweep through Ascension Challenges if you've purchased Instant Challenges 2 in the Quarks Shop!"
       },
       "superStart": {
         "name": "Super Start",
-        "hasLevel4": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 2.22e2222 Particles and 500 Obtainium",
-        "hasLevel3": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e100 Particles and 500 Obtainium",
-        "hasLevel2": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e16 Particles and 500 Obtainium",
-        "hasLevel1": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos and 10 Particles",
-        "default": "You start each Ascension with 1 Transcension and 1001 Mythos"
+        "default": "Get a bit of a leg up on your Ascensions.",
+        "effectLevel1": "You start each Ascension with <<orchid | {{mythos}}>> Mythos!",
+        "effectLevel2": "You alseo start each Ascension with <<green | {{particles}}>> Particles!",
+        "effectLevel3": "You can't forget the <<pink | {{obtainium}}>> Obtainium, surely?"
       },
       "notSoChallenging": {
         "name": "Not So Challenging",
-        "hasLevel4": "You start each Ascension with 1 completion of Challenges 6, 7 & 9 and 5 completions of Challenge 8",
-        "hasLevel3": "You start each Ascension with 1 completion of Challenges 6 & 7 and 5 completions of Challenge 8",
-        "hasLevel2": "You start each Ascension with 1 completion of Challenges 6, 7 and 8",
-        "hasLevel1": "You start each Ascension with 1 completion of Challenges 6 and 7",
-        "default": "You start each Ascension with 1 completion of Challenge 6"
+        "default": "Start your Ascensions with some Reincarnation Challenges already completed!",
+        "effectLevel1": "Start the Ascension with <<gold|{{x}}>> Challenge 6 completions!",
+        "effectLevel2": "Also <<gold|{{x}}>> Challenge 7 completions.",
+        "effectLevel3": "And <<gold|{{x}}>> Challenge 8 completions...",
+        "effectLevel4": "How about we throw in <<gold|{{x}}>> Challenge 9 completions? <<teal|Is this enough?>>"
       },
       "automationUpgrades": {
         "name": "Automation Upgrades",
@@ -3630,8 +3637,7 @@
       },
       "wowCubeAutomatedShipping": {
         "name": "Wow! Cube Automated Shipping",
-        "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
-        "default": "Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge."
+        "default": "Automatically buy Cube Upgrades with each Ascension."
       },
       "congealedblueberries": {
         "name": "Congealed Blueberries",
@@ -3651,8 +3657,7 @@
       },
       "platonicClones": {
         "name": "Clones of Platonic Clicking at Your Desktop",
-        "hasLevel1": "Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, anywhere!",
-        "default": "Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, but only in a Singularity Challenge."
+        "default": "Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings!"
       },
       "platSigma": {
         "name": "PL-AT Σ",
@@ -3701,7 +3706,8 @@
       },
       "recycledContent": {
         "name": "... Recycled Content?",
-        "default": "Increase your <<green|Salvage>> by 5 per tier! Currently: +{{amount}}"
+        "default": "Increase your <<green|Salvage>> by 5 per tier!",
+        "effect": "Current Bonus: <<green|+{{x}} Salvage>>"
       },
       "infiniteRecycling": {
         "name": "Infinite Recycling",
