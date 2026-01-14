@@ -536,6 +536,7 @@ function resetWebSocket () {
   }
 
   lotusTimeExpiresAt = undefined
+  setFavicon('./favicon.ico')
 }
 
 function handleWebSocket () {
@@ -581,6 +582,7 @@ function handleWebSocket () {
 
       const article = /^[AEIOU]/i.test(data.displayName) ? 'an' : 'a'
       Notification(`Someone redeemed ${article} ${data.displayName}!`)
+      setFavicon('./Pictures/favicon-notification.ico')
     } else if (data.type === 'consumable-ended') {
       // Because of the invariant that the timestamps are sorted, we can just remove the first element
       const consumable = allDurableConsumables[data.consumable as PseudoCoinConsumableNames]
@@ -589,6 +591,10 @@ function handleWebSocket () {
 
       const article = /^[AEIOU]/i.test(data.name) ? 'An' : 'A'
       Notification(`${article} ${data.name} ended!`)
+
+      if (consumable.amount === 0) {
+        setFavicon('./favicon.ico')
+      }
     } else if (data.type === 'join') {
       Notification('Connection was established!')
     } else if (data.type === 'info-all') {
@@ -612,6 +618,8 @@ function handleWebSocket () {
         }
 
         Notification(message)
+
+        setFavicon('./Pictures/favicon-notification.ico')
       }
 
       tips = data.tips
@@ -1175,4 +1183,9 @@ function handleCloudSaves () {
       }, 5000)
     })
   })
+}
+
+function setFavicon (path: string) {
+  const favicon = document.querySelector<HTMLLinkElement>('link[rel~=icon]')
+  favicon?.setAttribute('href', path)
 }
