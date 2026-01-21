@@ -1062,7 +1062,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       break
     case 'calculator4':
       lol.innerHTML = i18next.t('shop.upgradeEffects.calculator4', {
-        amount1: format(2 * player.shopUpgrades.calculator4),
+        amount1: format(4 * player.shopUpgrades.calculator4),
         amount2: player.shopUpgrades.calculator4 === 10 ? 32 : 0
       })
       break
