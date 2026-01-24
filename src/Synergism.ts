@@ -1844,11 +1844,17 @@ const loadSynergy = () => {
       )
       DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid red'
     }
-    player.maxPlatToggle = true // Lint doesnt like it being inside if
-    DOMCacheGetOrSet('maxPlatToggle').textContent = i18next.t(
-      'toggles.maxPlatOn'
-    )
-    DOMCacheGetOrSet('maxPlatToggle').style.color = 'yellow'
+    if (player.maxPlatToggle) {
+      DOMCacheGetOrSet('maxPlatToggle').textContent = i18next.t(
+        'toggles.maxPlatOn'
+      )
+      DOMCacheGetOrSet('maxPlatToggle').style.color = 'yellow'
+    } else {
+      DOMCacheGetOrSet('maxPlatToggle').textContent = i18next.t(
+        'toggles.maxPlatOff'
+      )
+      DOMCacheGetOrSet('maxPlatToggle').style.color = 'white'
+    }
     if (player.autoAscend) {
       DOMCacheGetOrSet('ascensionAutoEnable').textContent = i18next.t(
         'corruptions.autoAscend.on'
