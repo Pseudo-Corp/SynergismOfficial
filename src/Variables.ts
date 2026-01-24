@@ -583,7 +583,16 @@ export const Globals: GlobalVariables = {
     1e80,
     1e90,
     1e100
-  ]
+  ],
+    ngamb:false,
+    ngquark:false,
+    nginf:false,
+    uncap1:false,
+    uncap2:false,
+    uncap3:false,
+    notax:false,
+    onemx:false,
+    tenx:false
 }
 
 export const blankGlobals = { ...Globals }

@@ -25,6 +25,15 @@ type ArrayStartingWithNull<T> = [null, ...T[]]
 export type BuyAmount = 1 | 10 | 100 | 1000 | 10_000 | 100_000
 
 export interface Player {
+  ngamb:boolean
+  ngquark:boolean
+  nginf:boolean
+  uncap1:boolean
+  uncap2:boolean
+  uncap3:boolean
+  notax:boolean
+  onemx:boolean
+  tenx:boolean
   firstPlayed: string
   worlds: QuarkHandler
   coins: Decimal
@@ -854,6 +863,15 @@ export interface GlobalVariables {
   currentSingChallenge: SingularityChallengeDataKeys | undefined
 
   coinVanityThresholds: number[]
+  ngamb:boolean,
+    ngquark:boolean,
+    nginf:boolean,
+    uncap1:boolean,
+    uncap2:boolean,
+    uncap3:boolean,
+    notax:boolean,
+    onemx:boolean,
+    tenx:boolean
 }
 
 export interface SynergismEvents {

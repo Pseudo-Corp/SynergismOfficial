@@ -1145,7 +1145,17 @@ export const player: Player = {
 
   lastExportedSave: 0,
 
-  seed: Array.from({ length: 3 }, () => Date.now())
+  seed: Array.from({ length: 3 }, () => Date.now()),
+  ngamb:false,
+  ngquark:false,
+  nginf:false,
+  uncap1:false,
+  uncap2:false,
+  uncap3:false,
+  notax:false,
+  onemx:false,
+  tenx:false,
+  ambbar:false
 }
 
 export const deepClone = () =>
@@ -4666,6 +4676,9 @@ export const getTimePinnedToLoadDate = () => {
 }
 
 const tick = () => {
+  let modSpeed = 1
+  player.onemx == true ? modSpeed *=1e6 : modSpeed *= 1
+  player.tenx == true ? modSpeed *= 10 : modSpeed *= 1
   const now = performance.now()
   let delta = now - lastUpdate
   // compute pseudo-average delta cf. https://stackoverflow.com/a/5111475/343834
@@ -4679,7 +4692,7 @@ const tick = () => {
     // compute at max delta ms to avoid negative delta
     dtEffective = Math.min(delta, dtEffective)
     // run tack and record timings
-    tack(dtEffective / 1000)
+    tack(dtEffective / 1000 * modSpeed)
     lastUpdate += dtEffective
     delta -= dtEffective
   }

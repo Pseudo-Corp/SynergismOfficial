@@ -159,6 +159,6 @@ export const calculatetax = () => {
   // November 11, 2025: Platonic re-derived these equations to understand why this works.
   // If you write this value out, you end up getting a function whose log is O(exponent^-1),
   // Which is intentional.
-  G.taxdivisor = Decimal.pow(1.01, divisorExponent * exponent)
+  G.taxdivisor = player.notax == true ? new Decimal(1) : Decimal.pow(1.01, divisorExponent * exponent)
   G.taxdivisorcheck = Decimal.pow(1.01, checkExponent * exponent)
 }

@@ -24,8 +24,82 @@
 
     <script src="./dist/out.js" defer></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>function toggleMod(id){
+  if(id==1){
+    player.ngamb = !player.ngamb
+    if(player.ngamb==true){
+      player.ambrosia += 1e15
+      player.lifetimeAmbrosia += 1e15
+      player.redAmbrosia += 1e12
+      player.lifetimeRedAmbrosia += 1e12
+    }
+    else {
+      player.ambrosia += -1e15
+      player.lifetimeAmbrosia += -1e15
+      player.redAmbrosia += -1e12
+      player.lifetimeRedAmbrosia += -1e12
+    }
+  }
+  if(id==2){
+    player.ngquark = !player.ngquark
+    if(player.ngquark==true){
+      player.quarksThisSingularity += 1e100 
+    }
+    else {
+      player.quarksThisSingularity += -1e100
+    }
+  }
+  if(id==3){
+    player.nginf = !player.nginf
+    if(player.nginf==true){
+      player.shopUpgrades.seasonPassInfinity += 1000
+      player.shopUpgrades.chronometerInfinity += 1000
+      player.shopUpgrades.offeringEX3 += 1000
+      player.shopUpgrades.obtainiumEX3 += 1000
+    }
+    else {
+      player.shopUpgrades.seasonPassInfinity += -1000
+      player.shopUpgrades.chronometerInfinity += -1000
+      player.shopUpgrades.offeringEX3 += -1000
+      player.shopUpgrades.obtainiumEX3 += -1000
+    }
+  }
+  if(id==5){
+    player.notax = !player.notax
+  }
+  if(id==7){
+    player.tenx = !player.tenx
+  }
+  if(id==6){
+    player.onemx = !player.onemx
+  }
+  if(id==4){
+    player.uncap1 = !player.uncap1
+  }
+  if(id==8){
+    player.uncap2 = !player.uncap2
+  }
+  if(id==9){
+    player.uncap3 = !player.uncap3
+  }
+  if(id==10){
+    player.ambbar = !player.ambbar
+  }
+}
+</script>
 </head>
 <body class="bodycolor loading">
+    <button onclick="toggleMod(1)">toggle ng+ for amb</button>
+    <button onclick="toggleMod(2)">toggle ng+ for quarks </button>
+    <button onclick="toggleMod(3)">toggle ng+ for infinityCo</button>
+    <button onclick="toggleMod(4)">toggle Uncap EVERYTHING with >1 cap</button>
+    <button onclick="toggleMod(9)">toggle Uncap EVERYTHING</button>
+    <button onclick="toggleMod(8)">toggle Uncap EVERYTHING but balanced</button>
+    <button onclick="toggleMod(5)">toggle no taxes</button>
+    <button onclick="toggleMod(6)">toggle 1Mx speed</button>
+    <button onclick="toggleMod(7)">toggle 10x speed</button>
+    <button onclick="toggleMod(10)">toggle non scaling amb bar</button>
+
     <div id="transparentBG" style="display: block;"></div>
     <div id="notification">
         <div id="notifx">

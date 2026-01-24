@@ -1496,6 +1496,7 @@ export const calculateToNextThreshold = () => {
 
 export const calculateRequiredBlueberryTime = () => {
   let val = G.TIME_PER_AMBROSIA // Currently 30
+
   val += Math.floor(player.lifetimeAmbrosia / 500)
 
   const exalt5Comps = player.singularityChallenges.noAmbrosiaUpgrades.completions
@@ -1506,7 +1507,8 @@ export const calculateRequiredBlueberryTime = () => {
 
   const thresholds = calculateNumberOfThresholds()
   const thresholdBase = 2
-  return Math.pow(thresholdBase, thresholds) * val
+  val *= Math.pow(thresholdBase, thresholds)
+  return player.ambbar == true ? 30 : val
 }
 
 export const calculateRequiredRedAmbrosiaTime = () => {
@@ -1516,8 +1518,8 @@ export const calculateRequiredRedAmbrosiaTime = () => {
   const max = 1e6 * +player.singularityChallenges.limitedTime.rewards.barRequirementMultiplier
   val *= +player.singularityChallenges.limitedTime.rewards.barRequirementMultiplier
 
-  return Math.min(max, val)
-}
+  return player.ambbar == true ? 1e5    : Math.min(max, val)
+} 
 
 export const calculateSingularityMilestoneBlueberries = () => {
   let val = 0
