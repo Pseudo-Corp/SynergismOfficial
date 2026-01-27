@@ -43,10 +43,6 @@
   "mac": {
     "target": [
       {
-        "target": "dmg",
-        "arch": ["universal"]
-      },
-      {
         "target": "zip",
         "arch": ["universal"]
       }
@@ -63,15 +59,7 @@
     "maintainer": "Khafra <support@synergism.cc>",
     "target": [
       {
-        "target": "AppImage",
-        "arch": ["x64"]
-      },
-      {
-        "target": "deb",
-        "arch": ["x64"]
-      },
-      {
-        "target": "tar.gz",
+        "target": "dir",
         "arch": ["x64"]
       }
     ],

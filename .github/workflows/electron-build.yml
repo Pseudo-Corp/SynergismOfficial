@@ -53,7 +53,6 @@ jobs:
         with:
           name: synergism-macos
           path: |
-            release/*.dmg
             release/*.zip
           if-no-files-found: error
 
@@ -62,8 +61,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: synergism-linux
-          path: |
-            release/*.AppImage
-            release/*.deb
-            release/*.tar.gz
+          path: release/linux-unpacked/
           if-no-files-found: error
