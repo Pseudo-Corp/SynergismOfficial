@@ -938,7 +938,7 @@
         "taxReduction": "Tax scaling is reduced by 10%"
       },
       "50": {
-        "particleGain": "Permanently double your Particle Gain!"
+        "particleGain": "Doublez de façon permanente votre Gain de Particules !"
       },
       "53": {
         "multiplicativeObtainium": "Obtainium gain is increased by +0.125% for each Rune level"
@@ -1563,7 +1563,7 @@
         "phylacteriumAutobuy": "Unlock the <i>Phylacterium</i> Ant Upgrade Autobuyer!"
       },
       "490": {
-        "preserveAnthillCountSingularity": "Preserve your Anthil Count when you do something <span class='rainbowText'>even more impressive than an Ascension!</span>"
+        "preserveAnthillCountSingularity": "Préserve votre Compteur de Fourmilière quand vous faites quelque chose d'<span class='rainbowText'>encore plus impressionnant qu'une Ascension !</span>"
       }
     },
     "rewards": {
@@ -4334,7 +4334,7 @@
       "58": "La production des Imprimantes est multipliée par 1e15 000.",
       "59": "La production de Presses à Monnaie est multipliée par 1e25 000.",
       "60": "La production des Alchimies est multipliée par 1e35 000.",
-      "61": "Welcome to Reincarnation! +7 Salvage to get you started.",
+      "61": "Bienvenue à la Réincarnation ! +7 Recyclage pour bien démarrer.",
       "62": "Gain +0.02 Base Offerings per Challenge Completion! (Max: +12)",
       "63": "Multipliez la production de Cristaux en fonction des Particules à la puissance six. [Maximum : x1e6 000]",
       "64": "La production d'Éclats de Mythos est multipliée par vos Particules au carré.",
@@ -4665,7 +4665,7 @@
     "data": {
       "first": {
         "name": "The first Campaign",
-        "description": "Welcome to Campaigns! These are Ascensions with corruption modifiers, which make the Ascension harder, but give better rewards!"
+        "description": "Bienvenue aux Campagnes ! Ce sont des Ascensions avec des modificateurs de corruptions, qui rendent l'Ascension plus corsée, mais pour de meilleures récompenses !"
       },
       "second": {
         "name": "The second Campaign",
@@ -5026,25 +5026,25 @@
     "loadoutApplied": "L'ensemble de corruption de la précédente Ascension a été appliqué. Il prendra effet à la prochaine Ascension."
   },
   "footnotes": {
-    "buildings": "Press [1], [2], [3], [4], or [5] on your keyboard to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost.",
-    "buildings2": "Press [Left arrow] or [Right arrow] on your keyboard to switch tabs. Enjoy!",
-    "crystals": "Press [1], [2], [3], [4], or [5] on your keyboard to buy the respective tiered producer. Press [6], [7], [8], [9] or [0] to buy the corresponding Crystal upgrade starting on the left.",
-    "mythos": "Press [1], [2], [3], [4], or [5] on your keyboard to buy the respective tiered producer.",
-    "particle": "Press [1], [2], [3], [4], or [5] on your keyboard to buy the respective tiered producer.",
-    "upgrade": "Press [1], [2], [3], [4], [5], or [6] on your keyboard to use resources for each upgrades.",
+    "buildings": "Appuyez sur [1], [2], [3], [4], ou [5] sur votre clavier pour acheter le rang correspondant en partant du haut. Appuyez sur [A] pour acheter des Accélérateurs, [M] pour acheter des Multiplicateurs, ou [B] pour acheter des Renforts d'Accélérateur.",
+    "buildings2": "Appuyez sur [Flèche gauche] ou [Flèche droite] sur votre clavier. À la votre !",
+    "crystals": "Appuyez sur [1], [2], [3], [4], ou [5] sur votre clavier pour acheter le producteur du rang correspondant. Appuyez sur [6], [7], [8], [9] ou [0] pour acheter l'amélioration de cristal en partant de la gauche.",
+    "mythos": "Appuyez sur [1], [2], [3], [4], ou [5] sur votre clavier pour acheter le producteur du palier respectif.",
+    "particle": "Appuyez sur [1], [2], [3], [4], ou [5] sur votre clavier pour acheter le producteur du palier respectif.",
+    "upgrade": "Appuyez sur [1], [2], [3], [4], [5], ou [6] sur votre clavier pour utiliser les ressources pour chaque amélioration.",
     "achievements": {
       "green": "Fond vert : atteint.",
       "purple": "Fond violet : non atteint, fournit un multiplicateur de bonus.",
       "red": "Fond rouge : non atteint, fournit un déverrouillage de contenu/fonctionnalité.",
       "none": "Pas de fond : Inachevé, rien de spécial."
     },
-    "runes": "Press [1], [2], [3], [4], [5], [6], or [7] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!",
+    "runes": "Appuyez sur [1], [2], [3], [4], [5], [6], ou [7] sur votre clavier pour utiliser des offrandes pour chaque rune, en commençant par la rune de Célérité sur la gauche ; vous devez avoir débloqué les runes en question pour utiliser ces raccourcis !",
     "challenges": {
-      "hotkey": "Press [1], [2]... up to [0] on your keyboard to enter challenges 1 to 10. Press [E] to exit your Transcension or Reincarnation challenge if stuck!",
+      "hotkey": "Appuyez sur [1], [2]... jusqu'à [0] sur votre clavier pour entrer dans les défis 1 à 10. Appuyez sur [E] pour sortir de votre Transcendance ou défi de Réincarnation si vous êtes coincés !",
       "finishTranscension": "Si vous n'arrivez pas à finir un Défi de Transcendance, appuyez sur le raccourci indiqué au-dessus OU cliquez sur le bouton de Défi \"C\" rouge en haut, à côté des boutons de réinitialisation.",
       "leaveReincarnation": "Pour quitter un Défi de réincarnation, cliquez plutôt sur le \"C\" gris !"
     },
-    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> Researches first. The <<var(--crimson-text-color);|red-bordered>> Researches are never reset whereas the <<white;|white-bordered>> Researches will reset upon the next reset tier!",
+    "research": "Bienvenue dans le futur ! l'Obtainium est acquis grâce aux <var(--green-text-color);|Reincarnations>. À votre place j'étudierais les Recherches <limegreen;|green-bordered> en premier. Les Recherches <var(--crimson-text-color);|red-bordered> ne sont jamais réinitialisées tandis que les Recherches <white;|white-bordered> se réinitialiseront lors du prochain palier de réinitialisation !",
     "shop": "Survolez-les éléments de la boutique pour voir ce que font les améliorations !"
   },
   "buildings": {
@@ -5052,7 +5052,7 @@
     "coinFlavorTexts": {
       "1": "You have nothing but 100 coins. You can hire a worker, conveniently for exactly 100 coins!",
       "2": "Your workers sure are working hard. Let's buy some investments with our coins!",
-      "3": "A million coins! Something tells you that being a millionaire here isn't all that impressive.",
+      "3": "Un million de pièces ! Votre petit doigt vous dit qu'être un millionnaire n'est pas si impressionnant par ici.",
       "4": "You're beyond rich, you're loaded! However, it does not feel... <<cyan | prestigious>> enough.",
       "5": "Even with your prestige, it does not do your 1 googol coins justice. You must <<orchid | transcend>> your idea of wealth.",
       "6": "1e500 coins! Weren't you dirt poor just a couple hours ago?",
@@ -5286,7 +5286,7 @@
       },
       "octeractBonusTokens4": {
         "name": "Tokens of Derpsmith IV",
-        "description": "Derpsmith is impressed by your dedication. +2 Tokens at the start of your Singularity per level.",
+        "description": "Derpsmith est impressionné par ton dévouement. +2 Jetons au début de ta Singularité par niveau.",
         "effect": "Token gain +{{n}} at the start of your Singularity.."
       },
       "octeractSingUpgradeCap": {
@@ -7135,7 +7135,7 @@
         "11": "If Crystal Mine Collapse is set to level 11 or higher, Reincarnations will also give Diamonds based on Particle gain!",
         "12": "For each level of Extinction, gain +0.5% more Ant ELO, per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level!",
         "13": "'Less Fruitful Harvests' reduces your <<green|Salvage>> by 50% less!",
-        "14": "Multiply Great Depression II's coin exponent by 1.55, but only in Challenge 15.",
+        "14": "Multiplie l'exposant de pièces de Grande Dépression II par 1,55, mais uniquement dans le défi 15.",
         "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), 1.15x Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
         "16": "Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to 100,000. This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.",
         "17": "If this is bought, Viscous's score multiplier is raised to 3+(level*0.04) if its level is set to 10 or higher.",
