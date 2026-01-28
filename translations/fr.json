@@ -1170,7 +1170,7 @@
         "multipliers": "Gain +3 free Multipliers"
       },
       "160": {
-        "multipliers": "Gain +6 free Multipliers"
+        "multipliers": "Gagnez +6 Multiplicateurs gratuits"
       },
       "161": {
         "multipliers": "Gain +10 free Multipliers. <span class='rainbowText'>Wow!</span>"
@@ -1354,10 +1354,10 @@
         "salvage": "+3 Salvage"
       },
       "250": {
-        "allCubeGain": "All Cube Gain x1.05",
+        "allCubeGain": "Gain de tout Cube x1,5",
         "multiplicativeObtainium": "Obtainium x1.1",
         "multiplicativeOffering": "Offerings x1.5",
-        "quarkGain": "Quark Gain x1.05"
+        "quarkGain": "Gain de Quark x1,05"
       },
       "251": {
         "allCubeGain": "All Cube Gain x1.05",
@@ -1413,7 +1413,7 @@
         "ascensionScore": "Ascension Score multiplier based on constants [up to x2 at 1e100,000 Constant]"
       },
       "270": {
-        "wowHepteractGain": "Hepteract gain multiplier based on constants [up to x2 at 1e1,000,000 Constant]",
+        "wowHepteractGain": "Multiplicateur de gain des hepteracts basé sur des constantes [jusqu'à x2 à 1e1,000,000 Constante]",
         "constUpgrade1Buff": "Constant Upgrade 1 boosted to 1.06",
         "constUpgrade2Buff": "Constant Upgrade 2 boosted to 1.11"
       },
@@ -2030,7 +2030,7 @@
       "rebornELO": {
         "name": "Progressive Achievement - Reborn ELO",
         "description": "Gain AP based on the total weighted value of your best Reborn ELO, lifetime! Best Total: {{x}} (Check the \"Ants to Quark Corner\" in the Altar Subtab)",
-        "apSource": "Gain +1 AP per 100 Reborn ELO, up to 10,000. <br> Gain +1 AP per 1000 Reborn ELO, up to 150,000. <br> Gain +1 AP per 9,000 Reborn ELO, up to 1,350,000. <br> Gain +1 AP per 75,000 Reborn ELO, up to 15,000,000. <br> Gain +1 AP per 150,000 Reborn ELO, up to 60,000,000."
+        "apSource": "Gain de +1 PA par 100 ELO Réincarnés, jusqu'à 10 000. <br> Gain de +1 PA par 1000 ELO Réincarnés, jusqu'à 150 000. <br> Gain de +1 PA par 9 000 ELO Réincarnés, jusqu'à 1 350,000. <br> Gain de +1 PA pour 75 000 ELO Réincarnés, jusqu'à 15 000 000. <br> Gain de +1 PA par 150 000 ELO Réincarnés, jusqu'à 60 000 000."
       },
       "singularityCount": {
         "name": "Progressive Achievement - Singularity Count",
@@ -2293,14 +2293,14 @@
       "offerings": {
         "name": "Sacrificium Formicidae",
         "intro": "Binds the sweet influences of Pleiades.",
-        "description": "Offering gain is multiplied by (1 + level / 10)^0.5",
+        "description": "Gain d'Offrandes multiplié par (1 + niveau / 10)^0,5",
         "lockedAutomation": "Unlock the <i>Sacrificium Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
         "effect": "Gain <<orange | +{{x}} Offerings>> from all sources!"
       },
       "obtainium": {
         "name": "Experientia Formicidae",
         "intro": "An example of the <i>infinite ant theorem</i>",
-        "description": "Obtainium gain is multiplied by (1 + level / 10)^0.5",
+        "description": "Gain d'Obtainium multiplié par (1 + niveau / 10)^0,5",
         "lockedAutomation": "Unlock the <i>Experientia Formicidae</i> autobuyer from the <<gold|<i>Challenge 9</i> >> Achievement Group",
         "effect": "Gain <<pink | +{{x}} Obtainium>> from all sources!"
       },
@@ -2620,7 +2620,7 @@
     "5": {
       "name": "Défi 'Moins de Diamants' || {{- value}} Complétions",
       "flavor": "Vous êtes vous déjà demandé comment vous avez obtenu autant de diamants ?",
-      "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.01 / (1 + completions)]>>",
+      "restrictions": "Transcendez et atteignez l'objectif sauf que les prestiges vous donnent beaucoup moins de Diamants ! <br> ☆ Le Gain de Diamants est réduit à <<gold | Coins^[0.01 / (1 + completions)]>>",
       "goal": "Objectif : obtenir {{value}} Pièces dans le Défi.",
       "per": {
         "1": "+0,01 à l'exposant de la conversion Pièce → Diamant lors du Prestige ! Actuellement : ",
@@ -2746,7 +2746,7 @@
     "12": {
       "name": "Défi 'Pas de Réincarnation' || {{- value}} Complétions",
       "flavor": "Pour une raison quelconque, vous n'arrivez juste pas à le faire.",
-      "restrictions": "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! <br> ☆ Ant Speed <<gold|^0.75>>",
+      "restrictions": "Faites une ascension et atteignez l'objectif mais vous ne gagnez pas de Particules et vous ne pouvez pas Réincarner du tout ! ☆ Vitesse de fourmis <gold|^0.75>",
       "goal": "Objectif : compléter le Défi 10 [Défi Sadique I] {{value}} fois.",
       "per": {
         "1": "+50% d'Obtainium ! Actuellement : ",
@@ -2963,7 +2963,7 @@
       "35": "[4x5] Aphrodite increases the fertility of your coins. The effect of Aphrodite Tributes is raised to the power of (1 + level / 100).",
       "36": "[4x6] Raise Building Power to (1 + 0.05 * Level) once more.",
       "37": "[4x7] For Thrift and Superior Intellect runes, add +1 to the Rune Level Coefficient per level!",
-      "38": "[4x8] Gain +0.5% more Tesseracts on Ascension for each additional level in a Corruption you enable.",
+      "38": "[4x8] Gagnez +0,5% plus de Tesseracts lors de l'Ascension pour chaque niveau additionnel d'une corruption que vous activez.",
       "39": "[4x9] Instead of the Ascension Score multiplier being 1.03^(C10 completions), it is now 1.035^(C10 completions)!",
       "40": "[4x10] Athena is very smart. The effect of Athena Tributes is raised to the power of (1 + level / 100).",
       "41": "[5x1] Yeah yeah yeah, +5% Ascension Score per level. Isn't it enough?",
@@ -2995,7 +2995,7 @@
       "67": "[Cx17] C'est quoi ces horreurs ??? En tout cas, la limite de niveau du Talisman Métaphysique est augmentée de 1337.",
       "68": "[Cx18] Mais enfin ! Ce ne sont même pas des biscuits. +0,01% de Quarks par niveau acheté, et +5% supplémentaires au niveau 1000 !",
       "69": "[Cx19] Des biscuits dont vous ne garderez aucun souvenir. +12% de Quarks Dorés pendant cette Singularité.",
-      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts per level on Ascension if the average level of your Corruptions is at least 14.",
+      "70": "[Cx20] L'apogée de la pâtisserie. Vous ne goûterez rien de meilleur que ça. Gagnez +0,01% d'Octeracts en plus par niveau lors de l'ascension si le niveau moyen de vos Corruptions est d'au moins 14.",
       "71": "[Cx21] For each Talisman Rarity, multiply Obtainium gain by 1.04.",
       "72": "[Cx22] For each Talisman Rarity, multiply Offering gain by 1.04.",
       "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
@@ -3137,7 +3137,7 @@
       "104": "[5x4] You're beginning to feel like an Ant God (Ant God): +5% Ant Sacrifice reward per level!",
       "105": "[5x5] Buy this and be able to run the first five Challenges up to 9,001 times! (Note that requirements scale a LOT faster after 75, and again after 1,000)",
       "106": "[5x6] Engrave your talismans with Obtainium to get +0.1% Talisman Power per level (increases the amount of free levels you get for Runes)!",
-      "107": "[5x7] Refine your talismans with the powder of Obtainium to get +0.1% Talisman Power per level, again!",
+      "107": "[5x7] Raffinez vos talismans avec de la poudre d'Obtainium pour acquérir +0,1% de puissance de Talisman par niveau, encore !",
       "108": "[5x8] Une bête astuce permet d'augmenter votre ELO de Fourmi de base de 25 par niveau !",
       "109": "[5x9] Une astuce un peu plus complexe permet d'augmenter à nouveau votre ELO de Fourmi de 25 par niveau !",
       "110": "[5x10] Each Reborn ELO multiplies Ant Speed by 1.02. Woah! You should create these 2% faster per level.",
@@ -3147,7 +3147,7 @@
       "114": "[5x14] Here's another +1 Rune Coefficient to Thrift Rune, per level!",
       "115": "[5x15] Here's +1 Rune Coefficient to Superior Intellect Rune, per level! I realize you didn't have an earlier Research for this, so this has twice as many levels.",
       "116": "[5x16] When you Sacrifice your Anthill, increment the Anthill count by 1 more per level!",
-      "117": "[5x17] Past lives couldn't ever hold your Ants down. Gain +0.01% Ant Speed per Anthill Count, per level!",
+      "117": "[5x17] Vos vies antérieures ne pouvaient pas ralentir vos Fourmis. Gagnez +0,01% de Vitesse de Fourmis par Compteur de Fourmilières, par niveau !",
       "118": "[5x18] Try this for size: gain +0.2% Talisman Power per level! It's like <b>twice as good</b> as the other upgrades.",
       "119": "[5x19] Gain +0.10% Wow! Cubes per level. These are earned on Ascension.<br>Also, gain +0.5% Offerings per level.<br>ALSO! Gain +0.5% Obtainium per level.",
       "120": "[5x20] Gain +0.50% Wow! Cubes per level.<br>Also, create Reborn ELO 0.4% faster per level.<br>ALSO! Gain +2 ELO per level.",
