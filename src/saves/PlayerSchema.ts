@@ -745,7 +745,7 @@ export const playerSchema = z.object({
   wowPlatonicCubes: z.number().default(() => Number(blankSave.wowPlatonicCubes)).transform((cubes) =>
     new WowPlatonicCubes(cubes)
   ),
-  saveOfferingToggle: z.boolean().default(() => blankSave.saveOfferingToggle),
+  maxPlatToggle: z.boolean().default(() => blankSave.maxPlatToggle),
   wowAbyssals: z.number().default(() => blankSave.wowAbyssals),
   wowOcteracts: z.number().default(() => blankSave.wowOcteracts),
   totalWowOcteracts: z.number().default(() => blankSave.totalWowOcteracts),

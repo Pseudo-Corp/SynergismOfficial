@@ -442,7 +442,7 @@ export interface Player {
   autoCubeUpgradesToggle: boolean
   autoPlatonicUpgradesToggle: boolean
   platonicUpgrades: number[]
-  saveOfferingToggle: boolean
+  maxPlatToggle: boolean
   wowCubes: WowCubes
   wowTesseracts: WowTesseracts
   wowHypercubes: WowHypercubes

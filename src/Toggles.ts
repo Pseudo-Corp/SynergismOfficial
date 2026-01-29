@@ -311,11 +311,8 @@ export const toggleAutoSacrifice = (index: number) => {
       player.autoSacrifice = 0
     } else {
       player.autoSacrificeToggle = true
-      player.saveOfferingToggle = false
       el.textContent = i18next.t('runes.blessings.autoRuneOn')
       el.style.border = '2px solid green'
-      DOMCacheGetOrSet('saveOffToggle').textContent = i18next.t('toggles.saveOfferingsOff')
-      DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
     }
   } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5) {
     if (player.autoSacrifice === numIndex) {
@@ -460,24 +457,17 @@ export const toggleautoenhance = () => {
   player.autoEnhanceToggle = !player.autoEnhanceToggle
 }
 
-export const toggleSaveOff = () => {
-  const el = DOMCacheGetOrSet('saveOffToggle')
-  const et = DOMCacheGetOrSet('toggleautosacrifice')
-  if (player.saveOfferingToggle) {
-    player.autoSacrificeToggle = true
-    el.textContent = i18next.t('toggles.saveOfferingsOff')
+export const toggleMaxPlat = () => {
+  const el = DOMCacheGetOrSet('maxPlatToggle')
+  if (player.maxPlatToggle) {
+    el.textContent = i18next.t('toggles.maxPlatOff')
     el.style.color = 'white'
-    et.textContent = 'Auto Runes: ON'
-    et.style.border = '2px solid green'
   } else {
-    player.autoSacrificeToggle = false
-    el.textContent = i18next.t('toggles.saveOfferingsOn')
+    el.textContent = i18next.t('toggles.maxPlatOn')
     el.style.color = 'yellow'
-    et.textContent = 'Auto Runes: OFF'
-    et.style.border = '2px solid red'
   }
 
-  player.saveOfferingToggle = !player.saveOfferingToggle
+  player.maxPlatToggle = !player.maxPlatToggle
 }
 
 export const toggleSingularityScreen = (indexStr: string) => {

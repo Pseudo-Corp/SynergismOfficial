@@ -1307,6 +1307,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.notation = player.notation
   hold.firstPlayed = player.firstPlayed
   hold.autoCubeUpgradesToggle = player.autoCubeUpgradesToggle
+  hold.maxPlatToggle = player.maxPlatToggle
   hold.autoPlatonicUpgradesToggle = player.autoPlatonicUpgradesToggle
   hold.insideSingularityChallenge = player.insideSingularityChallenge
   hold.redAmbrosia = player.redAmbrosia

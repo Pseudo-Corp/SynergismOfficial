@@ -328,8 +328,8 @@ export const revealStuff = () => {
     : DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = 'none'
 
   player.highestSingularityCount > 0 // Save Offerings
-    ? DOMCacheGetOrSet('saveOffToggle').style.display = 'block'
-    : DOMCacheGetOrSet('saveOffToggle').style.display = 'none'
+    ? DOMCacheGetOrSet('maxPlatToggle').style.display = 'block'
+    : DOMCacheGetOrSet('maxPlatToggle').style.display = 'none'
 
   // Auto Open Cubes toggle
   if (player.highestSingularityCount >= 35) {

@@ -867,7 +867,7 @@ export const player: Player = {
   wowTesseracts: new WowTesseracts(0),
   wowHypercubes: new WowHypercubes(0),
   wowPlatonicCubes: new WowPlatonicCubes(0),
-  saveOfferingToggle: false,
+  maxPlatToggle: true,
   wowAbyssals: 0,
   wowOcteracts: 0,
   totalWowOcteracts: 0,
@@ -1844,11 +1844,17 @@ const loadSynergy = () => {
       )
       DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid red'
     }
-    player.saveOfferingToggle = false // Lint doesnt like it being inside if
-    DOMCacheGetOrSet('saveOffToggle').textContent = i18next.t(
-      'toggles.saveOfferingsOff'
-    )
-    DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
+    if (player.maxPlatToggle) {
+      DOMCacheGetOrSet('maxPlatToggle').textContent = i18next.t(
+        'toggles.maxPlatOn'
+      )
+      DOMCacheGetOrSet('maxPlatToggle').style.color = 'yellow'
+    } else {
+      DOMCacheGetOrSet('maxPlatToggle').textContent = i18next.t(
+        'toggles.maxPlatOff'
+      )
+      DOMCacheGetOrSet('maxPlatToggle').style.color = 'white'
+    }
     if (player.autoAscend) {
       DOMCacheGetOrSet('ascensionAutoEnable').textContent = i18next.t(
         'corruptions.autoAscend.on'
