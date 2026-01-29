@@ -584,7 +584,7 @@
       "237": "Spirit III: Level your Speed Spirit to 80.",
       "238": "Three-folded: [Hint: you may want to look into the inception]",
       "239": "Seeing red: [Hint: you may need a lot of red items]",
-      "240": "ASCENDED: [Hint: you may need a LOT of Ascensions OR an particularly amazing Ascension]",
+      "240": "ASCENDED: [Hint: you may need a LOT of Ascensions OR a particularly amazing Ascension]",
       "241": "Aesop: [Hint: you gotta be pretty dang slow]",
       "242": "Aesop's Revenge: [Hint: you gotta be pretty dang fast]",
       "243": "Unsmith: [Hint: unsmith emoji :unsmith: can be a pretty good input]",
@@ -1170,7 +1170,7 @@
         "multipliers": "Gain +3 free Multipliers"
       },
       "160": {
-        "multipliers": "Gain +6 free Multipliers"
+        "multipliers": "Gagnez +6 Multiplicateurs gratuits"
       },
       "161": {
         "multipliers": "Gain +10 free Multipliers. <span class='rainbowText'>Wow!</span>"
@@ -1354,10 +1354,10 @@
         "salvage": "+3 Salvage"
       },
       "250": {
-        "allCubeGain": "All Cube Gain x1.05",
+        "allCubeGain": "Gain de tout Cube x1,5",
         "multiplicativeObtainium": "Obtainium x1.1",
         "multiplicativeOffering": "Offerings x1.5",
-        "quarkGain": "Quark Gain x1.05"
+        "quarkGain": "Gain de Quark x1,05"
       },
       "251": {
         "allCubeGain": "All Cube Gain x1.05",
@@ -1413,7 +1413,7 @@
         "ascensionScore": "Ascension Score multiplier based on constants [up to x2 at 1e100,000 Constant]"
       },
       "270": {
-        "wowHepteractGain": "Hepteract gain multiplier based on constants [up to x2 at 1e1,000,000 Constant]",
+        "wowHepteractGain": "Multiplicateur de gain des hepteracts basé sur des constantes [jusqu'à x2 à 1e1,000,000 Constante]",
         "constUpgrade1Buff": "Constant Upgrade 1 boosted to 1.06",
         "constUpgrade2Buff": "Constant Upgrade 2 boosted to 1.11"
       },
@@ -2030,7 +2030,7 @@
       "rebornELO": {
         "name": "Progressive Achievement - Reborn ELO",
         "description": "Gain AP based on the total weighted value of your best Reborn ELO, lifetime! Best Total: {{x}} (Check the \"Ants to Quark Corner\" in the Altar Subtab)",
-        "apSource": "Gain +1 AP per 100 Reborn ELO, up to 10,000. <br> Gain +1 AP per 1000 Reborn ELO, up to 150,000. <br> Gain +1 AP per 9,000 Reborn ELO, up to 1,350,000. <br> Gain +1 AP per 75,000 Reborn ELO, up to 15,000,000. <br> Gain +1 AP per 150,000 Reborn ELO, up to 60,000,000."
+        "apSource": "Gain de +1 PA par 100 ELO Réincarnés, jusqu'à 10 000. <br> Gain de +1 PA par 1000 ELO Réincarnés, jusqu'à 150 000. <br> Gain de +1 PA par 9 000 ELO Réincarnés, jusqu'à 1 350,000. <br> Gain de +1 PA pour 75 000 ELO Réincarnés, jusqu'à 15 000 000. <br> Gain de +1 PA par 150 000 ELO Réincarnés, jusqu'à 60 000 000."
       },
       "singularityCount": {
         "name": "Progressive Achievement - Singularity Count",
@@ -2293,14 +2293,14 @@
       "offerings": {
         "name": "Sacrificium Formicidae",
         "intro": "Binds the sweet influences of Pleiades.",
-        "description": "Offering gain is multiplied by (1 + level / 10)^0.5",
+        "description": "Gain d'Offrandes multiplié par (1 + niveau / 10)^0,5",
         "lockedAutomation": "Unlock the <i>Sacrificium Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
         "effect": "Gain <<orange | +{{x}} Offerings>> from all sources!"
       },
       "obtainium": {
         "name": "Experientia Formicidae",
         "intro": "An example of the <i>infinite ant theorem</i>",
-        "description": "Obtainium gain is multiplied by (1 + level / 10)^0.5",
+        "description": "Gain d'Obtainium multiplié par (1 + niveau / 10)^0,5",
         "lockedAutomation": "Unlock the <i>Experientia Formicidae</i> autobuyer from the <<gold|<i>Challenge 9</i> >> Achievement Group",
         "effect": "Gain <<pink | +{{x}} Obtainium>> from all sources!"
       },
@@ -2620,7 +2620,7 @@
     "5": {
       "name": "Défi 'Moins de Diamants' || {{- value}} Complétions",
       "flavor": "Vous êtes vous déjà demandé comment vous avez obtenu autant de diamants ?",
-      "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.01 / (1 + completions)]>>",
+      "restrictions": "Transcendez et atteignez l'objectif sauf que les prestiges vous donnent beaucoup moins de Diamants ! <br> ☆ Le Gain de Diamants est réduit à <<gold | Coins^[0.01 / (1 + completions)]>>",
       "goal": "Objectif : obtenir {{value}} Pièces dans le Défi.",
       "per": {
         "1": "+0,01 à l'exposant de la conversion Pièce → Diamant lors du Prestige ! Actuellement : ",
@@ -2746,7 +2746,7 @@
     "12": {
       "name": "Défi 'Pas de Réincarnation' || {{- value}} Complétions",
       "flavor": "Pour une raison quelconque, vous n'arrivez juste pas à le faire.",
-      "restrictions": "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! <br> ☆ Ant Speed <<gold|^0.75>>",
+      "restrictions": "Faites une ascension et atteignez l'objectif mais vous ne gagnez pas de Particules et vous ne pouvez pas Réincarner du tout ! ☆ Vitesse de fourmis <gold|^0.75>",
       "goal": "Objectif : compléter le Défi 10 [Défi Sadique I] {{value}} fois.",
       "per": {
         "1": "+50% d'Obtainium ! Actuellement : ",
@@ -2963,7 +2963,7 @@
       "35": "[4x5] Aphrodite increases the fertility of your coins. The effect of Aphrodite Tributes is raised to the power of (1 + level / 100).",
       "36": "[4x6] Raise Building Power to (1 + 0.05 * Level) once more.",
       "37": "[4x7] For Thrift and Superior Intellect runes, add +1 to the Rune Level Coefficient per level!",
-      "38": "[4x8] Gain +0.5% more Tesseracts on Ascension for each additional level in a Corruption you enable.",
+      "38": "[4x8] Gagnez +0,5% plus de Tesseracts lors de l'Ascension pour chaque niveau additionnel d'une corruption que vous activez.",
       "39": "[4x9] Instead of the Ascension Score multiplier being 1.03^(C10 completions), it is now 1.035^(C10 completions)!",
       "40": "[4x10] Athena is very smart. The effect of Athena Tributes is raised to the power of (1 + level / 100).",
       "41": "[5x1] Yeah yeah yeah, +5% Ascension Score per level. Isn't it enough?",
@@ -2995,7 +2995,7 @@
       "67": "[Cx17] C'est quoi ces horreurs ??? En tout cas, la limite de niveau du Talisman Métaphysique est augmentée de 1337.",
       "68": "[Cx18] Mais enfin ! Ce ne sont même pas des biscuits. +0,01% de Quarks par niveau acheté, et +5% supplémentaires au niveau 1000 !",
       "69": "[Cx19] Des biscuits dont vous ne garderez aucun souvenir. +12% de Quarks Dorés pendant cette Singularité.",
-      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts per level on Ascension if the average level of your Corruptions is at least 14.",
+      "70": "[Cx20] L'apogée de la pâtisserie. Vous ne goûterez rien de meilleur que ça. Gagnez +0,01% d'Octeracts en plus par niveau lors de l'ascension si le niveau moyen de vos Corruptions est d'au moins 14.",
       "71": "[Cx21] For each Talisman Rarity, multiply Obtainium gain by 1.04.",
       "72": "[Cx22] For each Talisman Rarity, multiply Offering gain by 1.04.",
       "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
@@ -3137,7 +3137,7 @@
       "104": "[5x4] You're beginning to feel like an Ant God (Ant God): +5% Ant Sacrifice reward per level!",
       "105": "[5x5] Buy this and be able to run the first five Challenges up to 9,001 times! (Note that requirements scale a LOT faster after 75, and again after 1,000)",
       "106": "[5x6] Engrave your talismans with Obtainium to get +0.1% Talisman Power per level (increases the amount of free levels you get for Runes)!",
-      "107": "[5x7] Refine your talismans with the powder of Obtainium to get +0.1% Talisman Power per level, again!",
+      "107": "[5x7] Raffinez vos talismans avec de la poudre d'Obtainium pour acquérir +0,1% de puissance de Talisman par niveau, encore !",
       "108": "[5x8] Une bête astuce permet d'augmenter votre ELO de Fourmi de base de 25 par niveau !",
       "109": "[5x9] Une astuce un peu plus complexe permet d'augmenter à nouveau votre ELO de Fourmi de 25 par niveau !",
       "110": "[5x10] Each Reborn ELO multiplies Ant Speed by 1.02. Woah! You should create these 2% faster per level.",
@@ -3147,7 +3147,7 @@
       "114": "[5x14] Here's another +1 Rune Coefficient to Thrift Rune, per level!",
       "115": "[5x15] Here's +1 Rune Coefficient to Superior Intellect Rune, per level! I realize you didn't have an earlier Research for this, so this has twice as many levels.",
       "116": "[5x16] When you Sacrifice your Anthill, increment the Anthill count by 1 more per level!",
-      "117": "[5x17] Past lives couldn't ever hold your Ants down. Gain +0.01% Ant Speed per Anthill Count, per level!",
+      "117": "[5x17] Vos vies antérieures ne pouvaient pas ralentir vos Fourmis. Gagnez +0,01% de Vitesse de Fourmis par Compteur de Fourmilières, par niveau !",
       "118": "[5x18] Try this for size: gain +0.2% Talisman Power per level! It's like <b>twice as good</b> as the other upgrades.",
       "119": "[5x19] Gain +0.10% Wow! Cubes per level. These are earned on Ascension.<br>Also, gain +0.5% Offerings per level.<br>ALSO! Gain +0.5% Obtainium per level.",
       "120": "[5x20] Gain +0.50% Wow! Cubes per level.<br>Also, create Reborn ELO 0.4% faster per level.<br>ALSO! Gain +2 ELO per level.",
@@ -3269,7 +3269,7 @@
       "seasonPass2": "Cinq fois plus cher, deux fois plus de fun ! +1.5% d'Hypercubes Wow! et de Cubes Platonics par niveau.",
       "seasonPass3": "Bon, là c'est juste abusé. +1.5% d'Hepteracts Wow! et d'Octeracts par niveau !",
       "chronometer": "Ces Ascensions sont plutôt lentes, non ? Tu prendras bien +1.2% de temps d'Ascension supplémentaire par niveau ?",
-      "infiniteAscent": "Bon, pour un prix exorbitant, tu peux obtenir la 6ᵉ rune, qui te donnera +35% de Quarks et +125% de tous les types de Cubes une fois complétée !",
+      "infiniteAscent": "Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +0.2% Quarks and +1% all Cube types per level!",
       "calculator": "La PL-AT peut faire des additions plus vite que son ombre. Pas beaucoup plus par contre. +14% de Quarks en utilisant le code 'Addition' par niveau. Le premier niveau fournit les solutions et le dernier niveau les remplit automatiquement !",
       "calculator2": "La PL-AT X a une plus grande mémoire, ce qui vous permet de stocker 2 utilisations supplémentaires du code 'Addition' par niveau. Le dernier niveau augmente de 25% les Quarks obtenus en utilisant le code 'Addition' !",
       "calculator3": "La PL-AT Ω est infusée avec de l'Unobtainium, c'est épique ! Mais en plus, elle réduit la variance des Quarks obtenus avec le code 'Addition' de 10% par niveau, ce qui augmente les chances d'avoir le multiplicateur maximum. Elle peut aussi donner +60 secondes au temps d'ascension par niveau en utilisant ce code.",
@@ -3294,7 +3294,7 @@
       "challenge15Auto": "Tes grands-parents devaient tordre les dimensions pour obtenir leur score du Défi 15, mais pas toi ! Mets à jour automatiquement ton score du Défi 15 chaque tick lorsque tu es dedans !",
       "extraWarp": "\"Hé mec, rentre dans ce portail que j'ai construit hier soir dans mon garage !\" dit le Marchand de Quarks",
       "autoWarp": "Avec le pouvoir des Quarks, la machine de distorsion peut maintenant rentrer en surcharge.",
-      "improveQuarkHept": "After 1,000 Quark Hepts, you gain +20% more Quarks every doubling! This, however, raises the entire reward by +0.01 power per level!",
+      "improveQuarkHept": "That exponent on your Quark Hepteracts is nice, but what if it was better? Gain +0.01 power per level to the Quark Hept Exponent!",
       "improveQuarkHept2": "Want even stronger Quark Hepts? Gain +0.01 power per level to the Quark Hept Exponent!",
       "improveQuarkHept3": "You are probably asking why I would sell this to you instead of using it for myself. Well... here's +0.01 power per level!",
       "improveQuarkHept4": "+0.01 power per level... You know that 10^0.01 is about 1.023, right?",
@@ -3386,7 +3386,7 @@
       "calculator5": "Code 'add' generates <<orchid|{{amount1}}>> seconds of GQ export timer. Capacity is increased by <<orchid|+{{amount2}}>>.",
       "calculator6": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Octeracts. Capacity is increased by <<orchid|+{{amount2}}>>.",
       "calculator7": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Ambrosia Bar Points. Capacity is increased by <<orchid|+{{amount2}}>>.",
-      "constantEX": "<<orange|+{{amount}}>> pourcent maximum sur l'amélioration de Constante 2",
+      "constantEX": "<<orange|+{{amount}}>> max percent on Constant Upgrade 2",
       "powderEX": "Gain <<red|+{{amount}}%>> Overflux Powder when Overflux Orbs expire (midnight, daily).",
       "chronometer2": "Ascension timer increases <<orange|{{amount}}%>> faster!",
       "chronometer3": "Ascension timer increases <<orange|{{amount}}%>> faster! This one <<red|never>> resets!",
@@ -3463,7 +3463,7 @@
       "usesCurrentSing": "This perk uses your current Singularity count. The level of this perk may <<crimson|decrease>> if you are in a lower Singularity.",
       "welcometoSingularity": {
         "name": "Bienvenue dans la Singularité !",
-        "default": "Bienvenue dans la Singularité ! Vous obtenez une Faveur pour avoir atteint cette étape : vous pouvez maintenant fabriquer automatiquement des Hepteracts (quand vous les débloquerez à nouveau) et vous achèterez le maximum d'améliorations Platoniques que vous pouvez payer !"
+        "default": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and you can BuyMax Platonic Upgrades if they are affordable!"
       },
       "unlimitedGrowth": {
         "name": "Croissance Illimitée",
@@ -7344,8 +7344,8 @@
     "autoUpgradeOff": "Améliorations automatiques : [DÉSACTIVÉ]",
     "upgradeMaxIfPossible": "Améliorer : Maximum [si possible ouah]",
     "upgradeOneLevelWow": "Upgrade: 1 Level wow",
-    "saveOfferingsOn": "Save Offerings [ON]",
-    "saveOfferingsOff": "Save Offerings [OFF]",
+    "maxPlatOn": "Buy Max [ON]",
+    "maxPlatOff": "Buy Max [OFF]",
     "modeTime": "Mode : TEMPS",
     "modeAmount": "Mode : QUANTITÉ",
     "modePercentage": "Mode : POURCENTAGE"
@@ -7364,7 +7364,7 @@
     "singularityMessage2": "Vous pouvez vous reposer sur vos lauriers et considérer que vous avez fini le jeu, ou vous pouvez faire quelque chose de plus intéressant.",
     "singularityMessage3": "Vous êtes trop puissant cet univers. Le multivers de Synergism est vraiment infini, mais il y a des univers parallèles au vôtre qui vous mettront encore bien plus au défi.",
     "singularityMessage4": "Reprenez du tout début, et entrez dans la Singularité numéro {{x}}. Votre prochain univers est plus dur que l'actuel, mais vous débloquez une bonification permanente de 10% pour les Quarks et le nombre d'Ascensions, et vous obtenez également {{y}} Quarks Dorés, qui peuvent être utilisés pour acheter des améliorations de fin de partie qui changent la donne. [Augmentés de {{z}}% grâce à la bonification de Patreon !]",
-    "singularityMessage5": "Cependant, tous vos accomplissements passés sont oubliés ! Tous les défis, les améliorations remboursables de la boutique, l'onglet des améliorations, les Runes, toutes les améliorations de Cubes, tous les Cubes ouverts, les Hepteracts (à l'exceptions des Hepteracts de Quarks) et les succès seront complètement effacés.",
+    "singularityMessage5": "However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, and non-Quark Hepteracts will be wiped clean.",
     "singularityConfirm0": "Voulez-vous commencer la Singularité numéro {{x}} ? Votre prochain univers sera plus difficile mais vous obtiendrez {{y}} Quarks Dorés.",
     "singularityConfirm1": "Alors, qu'en dites-vous ? Voulez-vous entrer dans la Singularité ?",
     "singularityConfirm2": "Êtes-vous sûr·e de vouloir entrer dans la Singularité ?",
