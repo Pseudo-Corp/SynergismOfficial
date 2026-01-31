@@ -1,11 +1,26 @@
 import { type FUNDING_SOURCE, loadScript } from '@paypal/paypal-js'
-import { prod } from '../Config'
+import { platform, prod } from '../Config'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
-import { memoize } from '../Utility'
+import { assert, memoize } from '../Utility'
 import { products, subscriptionProducts } from './CartTab'
-import { addToCart, clearCart, getPrice, getProductsInCart, getQuantity, removeFromCart } from './CartUtil'
+import {
+  addToCart,
+  calculateGrossPrice,
+  clearCart,
+  getPrice,
+  getProductsInCart,
+  getQuantity,
+  removeFromCart
+} from './CartUtil'
 import { initializePayPal_Subscription } from './SubscriptionsSubtab'
 import { updatePseudoCoins } from './UpgradesSubtab'
+
+interface SteamGetUserInfoResponse {
+  country: string
+  currency: string
+  state: string
+  status: 'Locked' | 'Active' | 'Trusted'
+}
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #cartContainer')!
 const form = tab.querySelector('div.cartList')!
@@ -97,15 +112,138 @@ export const initializeCheckoutTab = memoize(() => {
       .finally(reset)
   }
 
-  checkoutStripe?.addEventListener('click', submitCheckout)
-  checkoutNowPayments?.addEventListener('click', submitCheckout)
+  // https://partner.steamgames.com/doc/features/microtransactions/implementation#5
+  async function submitCheckoutSteam (_e: MouseEvent) {
+    // Step 2
+    const { getCurrentGameLanguage, getSteamId, onMicroTxnAuthorizationResponse } = await import('../steam/steam')
+
+    const [steamId, currentGameLanguage] = await Promise.all([getSteamId(), getCurrentGameLanguage()])
+
+    if (!steamId || !currentGameLanguage) {
+      await Alert('Steam is not initialized, I cannot create a transaction')
+      return
+    }
+
+    const response = await fetch('/api/v1/steam/get-user-info', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        steamId,
+        currentGameLanguage
+      })
+    })
+
+    if (!response.ok) {
+      const { error } = await response.json()
+      Notification(error)
+      return
+    }
+
+    const { status } = await response.json() as SteamGetUserInfoResponse
+
+    if (status === 'Locked') {
+      await Alert('Your Steam account is locked. You cannot make purchases.')
+      return
+    }
+
+    // Step 3
+    const fd = new FormData()
+
+    for (const product of getProductsInCart()) {
+      fd.set(product.id, `${product.quantity}`)
+    }
+
+    fd.set('tosAgree', radioTOSAgree.checked ? 'on' : 'off')
+
+    const initTxnResponse = await fetch('/api/v1/steam/init-txn', {
+      method: 'POST',
+      body: fd
+    })
+
+    if (!initTxnResponse.ok) {
+      const { error } = await initTxnResponse.json() as { error: string }
+      Notification(error)
+      return
+    }
+
+    const { orderId } = await initTxnResponse.json() as { orderId: string; transId: string }
+
+    // Step 4
+    type MicroTxnAuthorizationResponse = import('../steam/steam').MicroTxnAuthorizationResponse
+
+    const p = Promise.withResolvers<MicroTxnAuthorizationResponse>()
+    onMicroTxnAuthorizationResponse((txnResponse) => p.resolve(txnResponse))
+
+    const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 15 * 60 * 1000))
+
+    let txnResponse: MicroTxnAuthorizationResponse
+    try {
+      txnResponse = await Promise.race([p.promise, timeout])
+    } catch {
+      Notification('Steam did not respond in time. Please try again.')
+      return
+    }
+
+    if (txnResponse.order_id.toString() !== orderId) {
+      return
+    }
+
+    if (!txnResponse.authorized) {
+      Notification('Transaction was not authorized.')
+      return
+    }
+
+    // Step 5
+    const finalizeResponse = await fetch('/api/v1/steam/finalize-txn', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ orderId })
+    })
+
+    if (!finalizeResponse.ok) {
+      const { error } = await finalizeResponse.json() as { error: string }
+      Notification(error)
+      return
+    }
+
+    Notification('Transaction completed successfully!')
+    clearCart()
+    updateItemList()
+    updateTotalPriceInCart()
+    exponentialPseudoCoinBalanceCheck()
+  }
 
   // Remove rainbow border highlight when TOS is clicked
   radioTOSAgree.addEventListener('change', () => {
     tosSection.classList.remove('rainbow-border-highlight')
   })
 
-  initializePayPal_OneTime('#checkout-paypal')
+  if (platform !== 'steam') {
+    checkoutStripe?.addEventListener('click', submitCheckout)
+    checkoutNowPayments?.addEventListener('click', submitCheckout)
+
+    initializePayPal_OneTime('#checkout-paypal')
+  } else {
+    const checkoutButtonsContainer = tab.querySelector('#checkout-buttons')!
+
+    // Hide Stripe/PayPal/NowPayments checkout buttons
+    checkoutButtonsContainer.querySelectorAll('*').forEach((el) => el.classList.add('none'))
+
+    // Add Steam checkout button
+    const checkoutSteam = document.createElement('button')
+    checkoutSteam.id = 'checkout-steam'
+    checkoutSteam.type = 'submit'
+    checkoutSteam.textContent = 'Checkout with Steam'
+    checkoutSteam.addEventListener('click', (ev) => {
+      checkoutSteam.disabled = true
+      submitCheckoutSteam(ev).finally(() => checkoutSteam.disabled = false)
+    })
+    checkoutButtonsContainer.appendChild(checkoutSteam)
+  }
 })
 
 function addItem (e: MouseEvent) {
@@ -181,13 +319,15 @@ export const clearCheckoutTab = () => {
 }
 
 const updateTotalPriceInCart = () => {
-  totalCost!.textContent = `${formatter.format(getPrice() / 100)} USD`
+  totalCost!.textContent = `${formatter.format(calculateGrossPrice(getPrice() / 100))} USD`
 }
 
 /**
  * https://stackoverflow.com/a/69024269
  */
 async function initializePayPal_OneTime (selector: string | HTMLElement) {
+  assert(platform !== 'steam', 'Cannot use PayPal on steam')
+
   const paypal = await loadScript({
     clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
     disableFunding: ['paylater', 'credit', 'card'] satisfies FUNDING_SOURCE[],
@@ -314,14 +454,13 @@ async function initializePayPal_OneTime (selector: string | HTMLElement) {
 const sleep = (delay: number) => new Promise((r) => setTimeout(r, delay))
 
 async function exponentialPseudoCoinBalanceCheck () {
-  const delays = [0, 30_000, 60_000, 120_000, 180_000, 240_000, 300_000]
-  const lastCoinAmount = 0
+  const delays = [15_000, 30_000, 60_000, 120_000, 180_000, 240_000, 300_000]
+  const lastCoinAmount = await updatePseudoCoins()
 
   for (const delay of delays) {
     await sleep(delay)
-    const coins = await updatePseudoCoins()
 
-    if (lastCoinAmount !== coins) {
+    if (lastCoinAmount !== await updatePseudoCoins()) {
       break
     }
   }

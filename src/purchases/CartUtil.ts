@@ -93,3 +93,9 @@ export const getProductsInCart = () => {
 
   return temp
 }
+
+export function calculateGrossPrice (net: number) {
+  const platformFeePercent = 0
+
+  return net / ((100 - platformFeePercent) / 100)
+}

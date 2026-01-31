@@ -5,6 +5,7 @@ import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
+import { platform } from './Config'
 import { updateGlobalsIsEvent } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
@@ -13,8 +14,8 @@ import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { format, player, saveSynergy } from './Synergism'
-import { Alert, Notification } from './UpdateHTML'
-import { assert, btoa, isomorphicDecode } from './Utility'
+import { Alert, Confirm, Notification } from './UpdateHTML'
+import { assert, btoa, isomorphicDecode, memoize } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -239,6 +240,7 @@ interface AccountMetadata {
   discord: RawMember
   patreon: PatreonUser
   email: { email: string; verified: boolean }
+  steam: { avatar: string; profileURL: string; username: string }
   none: null
 }
 
@@ -269,63 +271,73 @@ const isDiscordAccount = (
 const isPatreonAccount = (
   account: SynergismUserAPIResponse<keyof AccountMetadata>
 ): account is SynergismUserAPIResponse<'patreon'> => account.accountType === 'patreon'
+const isSteamAccount = (
+  account: SynergismUserAPIResponse<keyof AccountMetadata>
+): account is SynergismUserAPIResponse<'steam'> => account.accountType === 'steam'
 const isEmailAccount = (
   account: SynergismUserAPIResponse<keyof AccountMetadata>
 ): account is SynergismUserAPIResponse<'email'> => account.accountType === 'email'
 const hasAccount = (
   account: SynergismUserAPIResponse<keyof AccountMetadata>
-): account is SynergismUserAPIResponse<'discord' | 'patreon' | 'email'> => account.accountType !== 'none'
+): account is SynergismUserAPIResponse<Exclude<keyof AccountMetadata, 'none'>> => account.accountType !== 'none'
 
-export async function handleLogin () {
-  const subtabElement = document.querySelector('#accountSubTab div#left.scrollbarX')!
-
-  const logoutElement = document.getElementById('logoutButton')
-  if (logoutElement !== null) {
-    logoutElement.addEventListener('click', logout, { once: true })
-    document.getElementById('accountSubTab')?.appendChild(logoutElement)
-  }
-
-  const response = await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'same-origin' }).catch(
-    () =>
-      new Response(
-        JSON.stringify(
-          {
-            member: null,
-            personalBonus: 0,
-            accountType: 'none',
-            bonus: { quarks: 0 },
-            subscription: null,
-            linkedAccounts: []
-          } satisfies SynergismUserAPIResponse<'none'>
-        ),
-        { status: 401 }
-      )
+async function fetchMeRoute () {
+  const fallback = new Response(
+    JSON.stringify(
+      {
+        member: null,
+        personalBonus: 0,
+        accountType: 'none',
+        bonus: { quarks: 0 },
+        subscription: null,
+        linkedAccounts: []
+      } satisfies SynergismUserAPIResponse<'none'>
+    ),
+    { status: 401 }
   )
 
-  const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>
-  const { personalBonus, subscription: sub, linkedAccounts } = account
+  return await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'same-origin' }).catch(() => fallback)
+}
 
-  setPersonalQuarkBonus(personalBonus)
-  player.worlds = new QuarkHandler(Number(player.worlds))
-
-  loggedIn = hasAccount(account)
-  subscription = sub
-
+export async function handleLogin () {
   // biome-ignore lint/suspicious/noConfusingLabels: it's not confusing or suspicious
-  generateSubtab: {
-    if (location.hostname !== 'synergism.cc') {
+  generateSubtabBrowser: {
+    const subtabElement = document.querySelector('#accountSubTab div#left.scrollbarX')!
+
+    const logoutElement = document.getElementById('logoutButton')
+    if (logoutElement !== null) {
+      logoutElement.addEventListener('click', logout, { once: true })
+      document.getElementById('accountSubTab')?.appendChild(logoutElement)
+    }
+
+    if (platform === 'steam') {
+      subtabElement.querySelectorAll('a').forEach((element) => element.classList.add('none'))
+    }
+
+    const response = await fetchMeRoute()
+
+    const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>
+    const { personalBonus, subscription: sub, linkedAccounts } = account
+
+    setPersonalQuarkBonus(personalBonus)
+    player.worlds = new QuarkHandler(Number(player.worlds))
+
+    loggedIn = hasAccount(account)
+    subscription = sub
+
+    if (location.hostname !== 'synergism.cc' && platform === 'browser') {
       subtabElement.innerHTML =
         'Login is not available here, go to <a href="https://synergism.cc">https://synergism.cc</a> instead!'
     } else if (hasAccount(account)) {
       if (Object.keys(account.member).length === 0) {
         subtabElement.innerHTML = `You are logged in, but your profile couldn't be retrieved from Discord or Patreon.`
-        break generateSubtab
+        break generateSubtabBrowser
       }
 
       if (account.error) {
         subtabElement.innerHTML =
           `You are logged in, but retrieving your profile yielded the following error: ${account.error}`
-        break generateSubtab
+        break generateSubtabBrowser
       }
 
       let user: string | null = null
@@ -337,6 +349,8 @@ export async function handleLogin () {
         user = account.member.email
       } else if (isPatreonAccount(account)) {
         user = account.member?.data?.attributes?.email ?? null
+      } else if (isSteamAccount(account)) {
+        user = account.member.username
       }
 
       if (user !== null) {
@@ -407,8 +421,15 @@ export async function handleLogin () {
       ${createLineHTML('yourself', 1, true, ['rainbowText'])}
     `.trim()
 
-      const allPlatforms = ['discord', 'patreon']
-      const unlinkedPlatforms = allPlatforms.filter((platform) => !linkedAccounts.includes(platform))
+      const allPlatforms = [
+        { name: 'discord', direct: false },
+        { name: 'patreon', direct: false },
+        { name: 'steam', direct: true }
+      ]
+
+      const unlinkedPlatforms = platform === 'steam'
+        ? allPlatforms.filter((platform) => platform.direct && !linkedAccounts.includes(platform.name))
+        : allPlatforms.filter((platform) => !linkedAccounts.includes(platform.name))
 
       if (unlinkedPlatforms.length > 0) {
         const linkAccountsSection = document.createElement('div')
@@ -436,11 +457,20 @@ export async function handleLogin () {
               `<svg width="20" height="20" viewBox="0 0 436 476" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
                 <path d="M436 143.371C436 64.203 373.797 2 294.629 2C215.461 2 153.258 64.203 153.258 143.371C153.258 222.539 215.461 284.742 294.629 284.742C373.797 284.742 436 222.539 436 143.371ZM0 474H74.8139V2H0V474Z" fill="white"/>
               </svg>`
+          },
+          steam: {
+            label: 'Link Steam',
+            color: '#1b2838',
+            logo:
+              `<svg width="20" height="20" viewBox="0 0 256 259" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
+                <path d="M127.779 0C60.42 0 5.24 52.412 0 119.014l68.724 28.674c5.937-4.073 13.095-6.467 20.803-6.467.682 0 1.356.021 2.023.054l31.18-45.58v-.639c0-25.366 20.47-46.011 45.634-46.011 25.164 0 45.634 20.645 45.634 46.05 0 25.405-20.47 46.05-45.634 46.05h-1.062l-44.633 32.143c0 .554.033 1.108.033 1.678 0 19.017-15.33 34.49-34.162 34.49-16.594 0-30.475-12.022-33.486-27.94L4.168 159.19C22.806 214.768 74.686 254.469 127.779 254.469c70.682 0 128.004-57.546 128.004-128.467C255.783 55.082 198.461 0 127.779 0" fill="white"/>
+                <path d="M81.281 197.267l-15.614-6.512c2.77 5.812 7.348 10.772 13.299 13.687 12.867 6.302 28.248.948 34.396-11.962 2.972-6.246 3.131-13.143.448-19.425-2.684-6.283-7.69-11.2-14.104-13.862-6.373-2.639-13.14-2.487-18.997-.206l16.136 6.723c9.484 3.976 13.987 14.971 10.058 24.564-3.93 9.593-14.809 14.123-24.293 10.147l-.329-.154zM213.083 95.686c0-16.908-13.639-30.644-30.408-30.644-16.77 0-30.408 13.736-30.408 30.644 0 16.907 13.638 30.643 30.408 30.643 16.77 0 30.408-13.736 30.408-30.643zm-53.457.04c0-12.803 10.263-23.173 22.93-23.173 12.666 0 22.93 10.37 22.93 23.173s-10.264 23.173-22.93 23.173c-12.667 0-22.93-10.37-22.93-23.173z" fill="white"/>
+              </svg>`
           }
         }
 
-        for (const platform of unlinkedPlatforms) {
-          const config = platformConfig[platform as keyof typeof platformConfig]
+        for (const unlinked of unlinkedPlatforms) {
+          const config = platformConfig[unlinked.name as keyof typeof platformConfig]
           const button = document.createElement('button')
           button.innerHTML = `${config.logo}${config.label}`
           button.style.padding = '10px 20px'
@@ -460,8 +490,38 @@ export async function handleLogin () {
           button.addEventListener('mouseleave', () => {
             button.style.opacity = '1'
           })
-          button.addEventListener('click', () => {
-            window.open(`https://synergism.cc/login?with=${platform}&link=true`, '_blank')
+          button.addEventListener('click', async () => {
+            if (unlinked.direct) {
+              if (button.dataset.loading) return
+              button.dataset.loading = 'true'
+
+              if (platform === 'steam') {
+                const { getSessionTicket } = await import('./steam/steam')
+                const sessionTicket = await getSessionTicket()
+
+                if (!sessionTicket) {
+                  await Alert('Failed to validate against Steam API')
+                  return
+                }
+
+                const response = await fetch(`https://synergism.cc/login/link-direct/${unlinked.name}`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  credentials: 'include',
+                  body: JSON.stringify({ sessionTicket })
+                }).finally(() => {
+                  button.dataset.loading = ''
+                })
+
+                if (response.redirected || response.ok) {
+                  location.reload()
+                }
+              }
+            } else {
+              window.open(`https://synergism.cc/login?with=${unlinked.name}&link=true`, '_blank')
+            }
           })
           buttonContainer.appendChild(button)
         }
@@ -514,6 +574,11 @@ export async function handleLogin () {
   if (loggedIn) {
     handleWebSocket()
     handleCloudSaves()
+  }
+
+  // Steam cloud saves work without login
+  if (platform === 'steam') {
+    handleSteamCloudSave()
   }
 }
 
@@ -703,28 +768,75 @@ export function sendToWebsocket (message: string) {
 
 async function logout () {
   await fetch('https://synergism.cc/api/v1/users/logout')
-  await Alert(i18next.t('account.logout'))
 
+  await Alert(i18next.t('account.logout'))
   location.reload()
 }
 
 const hasCaptcha = new WeakSet<HTMLElement>()
 
-export function renderCaptcha () {
-  const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
-  const visible = captchaElements.find((el) => el.offsetParent !== null)
+export const renderCaptcha = platform === 'steam'
+  ? memoize(() => {
+    const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
 
-  if (visible && !hasCaptcha.has(visible)) {
-    // biome-ignore lint/correctness/noUndeclaredVariables: declared in types as a global
-    turnstile.render(visible, {
-      sitekey: visible.getAttribute('data-sitekey')!,
-      'error-callback' () {},
-      retry: 'never'
-    })
+    for (const element of captchaElements) {
+      if (element.parentElement instanceof HTMLFormElement) {
+        const form = element.parentElement
+        form.addEventListener('submit', async (ev) => {
+          ev.preventDefault()
 
-    hasCaptcha.add(visible)
+          if (form.dataset.submitting) return
+          form.dataset.submitting = 'true'
+
+          try {
+            const { getSessionTicket } = await import('./steam/steam')
+
+            const sessionTicket = await getSessionTicket()
+
+            if (!sessionTicket) {
+              await Alert('Failed to validate against Steam API')
+              return
+            }
+
+            const dataAction = form.getAttribute('data-steam-action')!
+
+            const fd = new FormData(form)
+            const body = new URLSearchParams()
+
+            fd.forEach((value, key) => body.set(key, `${value}`))
+            body.set('sessionTicket', sessionTicket)
+
+            const response = await fetch(dataAction, {
+              method: form.method.toUpperCase(),
+              body,
+              credentials: 'include'
+            })
+
+            if (response.redirected || response.ok) {
+              location.reload()
+            }
+          } finally {
+            form.dataset.submitting = undefined
+          }
+        })
+      }
+    }
+  })
+  : () => {
+    const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
+    const visible = captchaElements.find((el) => el.offsetParent !== null)
+
+    if (visible && !hasCaptcha.has(visible)) {
+      // biome-ignore lint/correctness/noUndeclaredVariables: declared in types as a global
+      turnstile.render(visible, {
+        sitekey: visible.getAttribute('data-sitekey')!,
+        'error-callback' () {},
+        retry: 'never'
+      })
+
+      hasCaptcha.add(visible)
+    }
   }
-}
 
 const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
   const seconds = minutes * 60
@@ -1183,6 +1295,181 @@ function handleCloudSaves () {
       }, 5000)
     })
   })
+}
+
+async function handleSteamCloudSave () {
+  const { cloudFileExists, cloudReadFile, cloudWriteFile, getSteamId } = await import('./steam/steam')
+
+  const steamId = await getSteamId()
+  if (!steamId) return
+
+  const saveFileName = `synergism_${steamId}.txt`
+  const table = document.querySelector('#accountSubTab div#right.scrollbarX #table > #dataGrid')!
+
+  // Remove any existing Steam save row
+  table.querySelectorAll('.steam-save-row, .steam-details-row').forEach((row) => row.remove())
+
+  const steamSaveExists = await cloudFileExists(saveFileName)
+
+  // Create the Steam save row
+  const rowDiv = document.createElement('div')
+  rowDiv.className = 'grid-row steam-save-row'
+  rowDiv.style.display = 'contents'
+
+  const idCell = document.createElement('div')
+  idCell.className = 'grid-cell id-cell'
+  idCell.textContent = '☁️'
+  idCell.title = i18next.t('account.steamCloud.title')
+
+  const nameCell = document.createElement('div')
+  nameCell.className = 'grid-cell name-cell'
+  nameCell.textContent = i18next.t('account.steamCloud.name')
+
+  const dateCell = document.createElement('div')
+  dateCell.className = 'grid-cell date-cell'
+  dateCell.textContent = steamSaveExists
+    ? i18next.t('account.steamCloud.exists')
+    : i18next.t('account.steamCloud.noSave')
+
+  rowDiv.appendChild(idCell)
+  rowDiv.appendChild(nameCell)
+  rowDiv.appendChild(dateCell)
+
+  // Alternate row styling (Steam is always first)
+  idCell.classList.add('alt-row')
+  nameCell.classList.add('alt-row')
+  dateCell.classList.add('alt-row')
+
+  // Create the expandable details row
+  const detailsRow = document.createElement('div')
+  detailsRow.className = 'grid-details-row steam-details-row'
+  detailsRow.style.display = 'none'
+  detailsRow.style.gridColumn = '1 / -1'
+
+  const detailsContent = document.createElement('div')
+  detailsContent.className = 'details-content'
+
+  const actionsDiv = document.createElement('div')
+  actionsDiv.className = 'details-actions'
+
+  // Upload button (to Steam Cloud)
+  const uploadBtn = document.createElement('button')
+  uploadBtn.className = 'btn-upload'
+  uploadBtn.textContent = i18next.t('account.steamCloud.upload')
+
+  // Download button (export Steam Cloud save to file)
+  const downloadBtn = document.createElement('button')
+  downloadBtn.className = 'btn-download'
+  downloadBtn.textContent = i18next.t('account.download')
+  downloadBtn.disabled = !steamSaveExists
+
+  // Load button (load Steam Cloud save into game)
+  const loadBtn = document.createElement('button')
+  loadBtn.className = 'btn-load'
+  loadBtn.textContent = i18next.t('account.loadSave')
+  loadBtn.disabled = !steamSaveExists
+
+  actionsDiv.appendChild(uploadBtn)
+  actionsDiv.appendChild(downloadBtn)
+  actionsDiv.appendChild(loadBtn)
+  detailsContent.appendChild(actionsDiv)
+  detailsRow.appendChild(detailsContent)
+
+  rowDiv.addEventListener('click', () => {
+    const isVisible = detailsRow.style.display !== 'none'
+
+    // Close all other detail rows
+    const allDetailsRows = table.querySelectorAll<HTMLElement>('.grid-details-row')
+    allDetailsRows.forEach((row) => {
+      if (row !== detailsRow) {
+        row.style.display = 'none'
+      }
+    })
+
+    detailsRow.style.display = isVisible ? 'none' : 'block'
+  })
+
+  // Handle upload to Steam Cloud
+  uploadBtn.addEventListener('click', async (e) => {
+    e.stopPropagation()
+
+    const saveExists = await cloudFileExists(saveFileName)
+    if (saveExists) {
+      const confirmed = await Confirm(i18next.t('account.steamCloud.confirmOverwrite'))
+      if (!confirmed) return
+    }
+
+    uploadBtn.disabled = true
+    uploadBtn.textContent = i18next.t('account.steamCloud.uploading')
+
+    const localSave = localStorage.getItem('Synergysave2')
+    if (!localSave) {
+      Alert(i18next.t('account.steamCloud.noLocalSave'))
+      uploadBtn.disabled = false
+      uploadBtn.textContent = i18next.t('account.steamCloud.upload')
+      return
+    }
+
+    const success = await cloudWriteFile(saveFileName, localSave)
+    if (success) {
+      Notification(i18next.t('account.steamCloud.uploadSuccess'))
+      // Refresh the Steam save row
+      handleSteamCloudSave()
+    } else {
+      Alert(i18next.t('account.steamCloud.uploadFailed'))
+      uploadBtn.disabled = false
+      uploadBtn.textContent = i18next.t('account.steamCloud.upload')
+    }
+  })
+
+  // Handle download (export to file)
+  downloadBtn.addEventListener('click', async (e) => {
+    e.stopPropagation()
+
+    downloadBtn.disabled = true
+    const steamSave = await cloudReadFile(saveFileName)
+
+    if (!steamSave) {
+      Alert(i18next.t('account.steamCloud.readFailed'))
+      downloadBtn.disabled = false
+      return
+    }
+
+    await exportData(steamSave, `synergism_steam_cloud_${steamId}.txt`)
+    Alert(i18next.t('account.downloadComplete'))
+    downloadBtn.disabled = false
+  })
+
+  // Handle load (import into game)
+  loadBtn.addEventListener('click', async (e) => {
+    e.stopPropagation()
+
+    loadBtn.disabled = true
+    const steamSave = await cloudReadFile(saveFileName)
+
+    if (!steamSave) {
+      Alert(i18next.t('account.steamCloud.readFailed'))
+      loadBtn.disabled = false
+      return
+    }
+
+    importSynergism(steamSave)
+  })
+
+  // Insert Steam row at the beginning (after headers)
+  const firstRow = table.querySelector('.grid-row')
+  const emptyState = table.querySelector('.empty-state')
+
+  // Remove empty state if exists
+  emptyState?.remove()
+
+  if (firstRow) {
+    table.insertBefore(rowDiv, firstRow)
+    table.insertBefore(detailsRow, firstRow)
+  } else {
+    table.appendChild(rowDiv)
+    table.appendChild(detailsRow)
+  }
 }
 
 function setFavicon (path: string) {
