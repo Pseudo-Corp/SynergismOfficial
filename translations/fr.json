@@ -1846,74 +1846,74 @@
       "salvage": {
         "name": "Salvage",
         "description": "Gain +1 Salvage per Synergism level! This increases by 1 per 100 levels (e.g. gain +2 at level 101).",
-        "effect": "Current Effect: +{{salvage}} Salvage"
+        "effect": "Effet Actuel : +{{salvage}} Recyclage"
       },
       "quarks": {
         "name": "Quark Multiplier",
         "description": "Every 20 Synergism levels, multiply your Quark gain by 1.01(!)",
-        "effect": "Current Effect: +{{mult}} Quark Gain"
+        "effect": "Effet Actuel : +{{mult}} Gain de Quarks"
       },
       "offerings": {
         "name": "Offerings Multiplier",
         "description": "Every level, gain 1.01x Offerings. After level 100, multiply it by another 1.02 per level!",
-        "effect": "Current Effect: +{{mult}} Offerings Gain"
+        "effect": "Effet Actuel : +{{mult}} Gain d'Offrandes"
       },
       "obtainium": {
         "name": "Obtainium Multiplier",
         "description": "For each level past 14, multiply your Obtainium gain by 1.01. After level 100, multiply it by another 1.02 per level!",
-        "effect": "Current Effect: +{{mult}} Obtainium Gain"
+        "effect": "Effet Actuel : +{{mult}} Gain d'Obtainium"
       },
       "ants": {
         "name": "More Ant Fodder for your Ant Diety",
         "description": "Oh! Your Ant God takes note of your Synergism Level. Gain base Ant ELO for each level above 59. +25 per level until Level 100, +50 per level until level 200, and +100 for each additional level.",
-        "effect": "Current Effect: +{{elo}} Ant ELO"
+        "effect": "Effet Actuel : +{{elo}} ELO de Fourmi"
       },
       "wowCubes": {
         "name": "Wow! Cube Production",
         "description": "For each level past 60 (yes, this does unlock at level 70, but just trust me), gain +5% more Wow! Cubes. Every 10 levels past 60, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Cube Gain"
+        "effect": "Effet Actuel : +{{mult}} Gain de Cubes Wow!"
       },
       "wowTesseracts": {
         "name": "Wow! Tesseract Production",
         "description": "For each level past 80, gain +5% more Wow! Tesseracts. Every 10 levels past 80, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Tesseract Gain"
+        "effect": "Effet Actuel : +{{mult}} Gain de Tesseracts Wow!"
       },
       "wowHyperCubes": {
         "name": "Wow! Hypercube Production",
         "description": "For each level past 100, gain +5% more Wow! Hypercubes. Every 10 levels past 100, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Hypercube Gain"
+        "effect": "Effet Actuel : +{{mult}} Gain d'Hypercubes Wow!"
       },
       "wowPlatonicCubes": {
         "name": "Wow! Platonic Cube Production",
         "description": "For each level past 120, gain +5% more Wow! Platonic Cubes. Every 10 levels past 120, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Platonic Cube Gain"
+        "effect": "Effet Actuel : +{{mult}} Gain de Cubes Platonics Wow!"
       },
       "wowHepteractCubes": {
         "name": "Wow! Hepteract Production",
         "description": "For each level past 150, gain +5% more Wow! Hepteracts. Every 10 levels past 150, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Hepteract Gain"
+        "effect": "Effet Actuel : +{{mult}} Gain d'Hepteracts Wow!"
       },
       "wowOcteracts": {
         "name": "Wow! Octeracts!... Wait, what?",
         "description": "For each level past 209, gain +5% more Wow! Octeracts. What's more, multiply this by 1.02 per level as well!",
-        "effect": "Current Effect: +{{mult}} Wow! Octeract Gain"
+        "effect": "Effet Actuel : +{{mult}} Gain d'Octeracts Wow!"
       },
       "ambrosiaLuck": {
         "name": "Ambrosia luck",
         "description": "For each level past 229, gain +4 Ambrosia Luck! I like stats with symbols next to them.",
-        "effect": "Current Effect: +{{luck}} Ambrosia Luck"
+        "effect": "Effet Actuel : +{{luck}} Chance d'Ambroisie"
       },
       "redAmbrosiaLuck": {
         "name": "Red luck",
         "description": "For each level past 259, gain +1 Red Luck! I like stats with symbols next to them.",
-        "effect": "Current Effect: +{{luck}} Red Luck"
+        "effect": "Effet Actuel : +{{luck}} Chance Rouge"
       }
     },
     "levelMilestones": {
       "offeringTimerScaling": {
         "name": "Offerings - Prestige Timer Scaling",
         "description": "To encourage longer Prestiges, Gain +10% Offerings on Prestige per second, past 10 seconds in your current Prestige.",
-        "effect": "Current Effect: Gain {{mult}} more Offerings from Prestige timer"
+        "effect": "Effet Actuel : Gagnez {{mult}} plus d'Offrandes grâce à la minuterie de Prestige"
       },
       "duplicationRune": {
         "name": "Duplication Rune XL!",
@@ -1948,67 +1948,67 @@
       "tier1CrystalAutobuy": {
         "name": "Tier 1 Crystal Autobuy",
         "description": "You can now automatically buy Diamond Refineries! Also automagically buys the first Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "tier2CrystalAutobuy": {
         "name": "Tier 2 Crystal Autobuy",
         "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "tier3CrystalAutobuy": {
         "name": "Tier 3 Crystal Autobuy",
         "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "tier4CrystalAutobuy": {
         "name": "Tier 4 Crystal Autobuy",
         "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "tier5CrystalAutobuy": {
         "name": "Tier 5 Crystal Autobuy",
         "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "achievementTalismanUnlock": {
         "name": "Achievement Talisman!",
         "description": "Wear your Achievements with pride, and unlock the new Achievement Talisman!",
-        "effect": "Current Effect: See Above!"
+        "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "achievementTalismanEnhancement": {
         "name": "Achievement Talisman Enhancement",
         "description": "Your Achievement Talisman may be leveled up one additional time for each Synergism Level!",
-        "effect": "Current Effect: Achievement Talisman may be leveled up {{level}} additional times."
+        "effect": "Effet Actuel : le Talisman de Succès peut être additionnellement mis à niveau {{level}} fois."
       },
       "runeAutobuyImprover": {
         "name": "Rune Autobuyer DX",
         "description": "Permanently hasten the Rune Autobuyer! 2x as fast, +10% speed per Synergism Level above 130.",
-        "effect": "Current Effect: Rune Autobuyer is {{mult}}x faster"
+        "effect": "Effet Actuel : l'auto-acheteur de Rune est {{mult}}x plus rapide"
       },
       "salvageChallengeBuff": {
         "name": "Salvage Challenge Buff",
         "description": "Gain +25 Salvage. <br> If you are in any Challenge, this value is doubled. <br> If you are in Challenge 15, this value is doubled. <br> If you are in EXALT, this value is tripled! <br> Effects may stack.",
-        "effect": "Current Effect: +{{salvage}} Salvage"
+        "effect": "Effet Actuel : +{{salvage}} Recyclage"
       },
       "antSpeed2Autobuyer": {
         "name": "Impia Reproducta Autobuyer",
         "description": "Autobuy Impia Reproducta Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "wowCubesAutobuyer": {
         "name": "Cubus Admirabilis Autobuyer",
         "description": "Autobuy Cubus Admirabilis Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "ascensionScoreAutobuyer": {
         "name": "Ascendens Autobuyer",
         "description": "Autobuy Ascendens Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "mortuus2Autobuyer": {
         "name": "Mortuus Iterum Autobuyer",
         "description": "Autobuy Mortuus Iterum Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "effect": "Effet Actuel : Regardez au-dessus !"
       }
     },
     "progressiveAchievements": {
@@ -2347,7 +2347,7 @@
         "intro": "A bridge from the Altar to your Anthill.",
         "description": "Gain +1 additional Ant ELO per level, if you have Sacrificed your Anthill at least (level) times.",
         "lockedAutomation": "Unlock the <i>Impia Reproducta Formicidae</i> autobuyer from reaching Synergism Level <<gold|65>>",
-        "effect": "Current Effect: <<orchid | +{{x}} Ant ELO>>",
+        "effect": "Effet Actuel : <<orchid | +{{x}} Ant ELO>>",
         "effect2": "Effect is maxed at <<crimson | {{x}}>> Anthills Sacrificed"
       },
       "mortuus2": {
@@ -2356,7 +2356,7 @@
         "description": "Improve your Mortuus Talisman! Up to +100% Effect, +1,200 Max Level, and gain some Ascension Speed on the side.",
         "lockedAutomation": "Unlock the <i>Mortuus Iterum Formicidae</i> autobuyer from reaching Synergism Level <<gold|225>>",
         "effect": "Mortuus Talisman Max Level: <<royalblue | +{{x}}>>",
-        "effect2": "Mortuus Talisman Effect: <<royalblue | +{{x}}>>",
+        "effect2": "Effet du Talisman Mortuus : <<royalblue | +{{x}}>>",
         "effect3": "Ascension Speed: <<orange | +{{x}}>>"
       },
       "ascensionScore": {
@@ -4335,7 +4335,7 @@
       "59": "La production de Presses à Monnaie est multipliée par 1e25 000.",
       "60": "La production des Alchimies est multipliée par 1e35 000.",
       "61": "Bienvenue à la Réincarnation ! +7 Recyclage pour bien démarrer.",
-      "62": "Gain +0.02 Base Offerings per Challenge Completion! (Max: +12)",
+      "62": "Obtenez +0,02 Offrande de Base par Complétion de Défi ! (Max : +12)",
       "63": "Multipliez la production de Cristaux en fonction des Particules à la puissance six. [Maximum : x1e6 000]",
       "64": "La production d'Éclats de Mythos est multipliée par vos Particules au carré.",
       "65": "Multipliez les gains de Particules lors des Réincarnations par 5 !",
@@ -4502,8 +4502,8 @@
       "58": "Effet : regardez au-dessus !",
       "59": "Effet : regardez au-dessus !",
       "60": "Effet : regardez au-dessus !",
-      "61": "Effect: +7 Salvage. Wow!",
-      "62": "Effect: +{{x}} Base Offerings. Challenge yourself!",
+      "61": "Effet : +7 Recyclage. Wow !",
+      "62": "Effet : +{{x}} Offrandes de Base. Défiez-vous !",
       "63": "Effet : production totale de Cristaux x{{x}}.",
       "64": "Effet : production totale d'Éclats de Mythos x{{x}}.",
       "65": "Effet : obtenez 5 fois plus de Particules lors des Réincarnations. Bah oui !",
@@ -4512,7 +4512,7 @@
       "68": "Effet : votre conformité vis-à-vis du fisc vous rapporte {{x}} Multiplicateurs gratuits, pour une raison quelconque.",
       "69": "Effet : le magnétisme cosmique vous permet d'obtenir {{x}} fois plus d'Obtainium en vous Réincarnant, et multiplie les gains automatiques par {{y}}.",
       "70": "Effect: Global Speed +{{x}}%!",
-      "71": "Effet : Writing's on the wall. Regardez au-dessus !",
+      "71": "Effet : c'est écrit jaune sur noir. Regardez au-dessus !",
       "72": "Effet : multiplicateur d'Obtainium : x{{x}}.",
       "73": "Effet : identique à l'amélioration de Transcendance 10, sauf que vous DEVEZ être dans un challenge de Réincarnation en particulier.",
       "74": "Effet : multiplicateur d'Obtainium : x{{x}}.",
@@ -4934,24 +4934,24 @@
       "recession": "Yet another 2025 catastrophe."
     },
     "currentLevel": {
-      "viscosity": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is multiplied by {{ effect }}",
-      "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-      "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-      "deflation": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Upgrade Level Effect /{{ effect }}",
-      "drought": "On this Ascension, this corruption is level {{ level }}. Effect: Salvage {{ effect }}",
-      "recession": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+      "viscosity": "Lors de cette Ascension, Cette corruption est au niveau {{ level }}. Effet : Exposant ^{{ effect }} d'accélérateurs gratuits et de multiplicateur",
+      "dilation": "Lors de cette Ascension, Cette corruption est au niveau {{ level }}. Effet : la Vitesse du Temps est multipliée par {{ effect }}",
+      "hyperchallenge": "Lors de cette Ascension, Cette corruption est au niveau {{ level }}. Effet : Exposant de Défi Requis x{{ effect }}",
+      "illiteracy": "Lors de cette Ascension, Cette corruption est au niveau {{ level }}. Effet : Gain d'Obtainium ^{{ effect }}",
+      "deflation": "Lors de cette Ascension, Cette corruption est au niveau {{ level }}. Effet : Gain de Diamants ^{{ effect }}",
+      "extinction": "Lors de cette Ascension, Cette corruption est au niveau {{ level }}. Effet : Effet du Niveau d'Amélioration de Fourmi /{{ effect }}",
+      "drought": "Lors de cette Ascension, Cette corruption est au niveau {{ level }}. Effet : Recyclage {{ effect }}",
+      "recession": "Lors de cette Ascension, Cette corruption est au niveau {{ level }}. Effet : Gain de Pièces ^{{ effect }}"
     },
     "prototypeLevel": {
-      "viscosity": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is multiplied by {{ effect }}",
-      "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-      "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-      "deflation": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Upgrade Level Effect /{{ effect }}",
-      "drought": "On next Ascension, this corruption will be level {{ level }}. Effect: Salvage {{ effect }}",
-      "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+      "viscosity": "Lors de la prochaine Ascension, Cette corruption est au niveau {{ level }}. Effet : Exposant ^{{ effect }} d'accélérateurs gratuits et de multiplicateur",
+      "dilation": "Lors de la prochaine Ascension, Cette corruption est au niveau {{ level }}. Effet : la Vitesse du Temps est multipliée par {{ effect }}",
+      "hyperchallenge": "Lors de la prochaine Ascension, Cette corruption est au niveau {{ level }}. Effet : Exposant de Défi Requis x{{ effect }}",
+      "illiteracy": "Lors de la prochaine Ascension, Cette corruption est au niveau {{ level }}. Effet : Gain d'Obtainium ^{{ effect }}",
+      "deflation": "Lors de la prochaine Ascension, Cette corruption est au niveau {{ level }}. Effet : Gain de Diamants ^{{ effect }}",
+      "extinction": "Lors de la prochaine Ascension, Cette corruption est au niveau {{ level }}. Effet : Effet du Niveau d'Amélioration de Fourmi /{{ effect }}",
+      "drought": "Lors de la prochaine Ascension, Cette corruption est au niveau {{ level }}. Effet : Recyclage {{ effect }}",
+      "recession": "Lors de la prochaine Ascension, Cette corruption est au niveau {{ level }}. Effet : Gain de Pièces ^{{ effect }}"
     },
     "scoreMultiplier": "Multiplicateur de score actuel : {{ curr }} / Multiplicateur de score de la prochaine Ascension : {{ next }}",
     "difficultyEffect": "This corruption adds {{ curr }} difficulty rating / Next Ascension +{{next}}",
@@ -7168,12 +7168,12 @@
       "descriptions": {
         "chronos": {
           "effect": "Cet Hepteract courbe le temps en votre faveur. +0,06% de vitesse d'Ascension par Hepteract de Chronos.",
-          "currentEffect": "Current Effect: Ascension Speed +{{x}}",
+          "currentEffect": "Effet Actuel : Vitesse d'Ascension +{{x}}",
           "oneCost": "En acheter un vous coûtera {{x}} Hepteracts et {{y}} Obtainium !"
         },
         "hyperrealism": {
           "effect": "Ce mauvais garçon peut faire décoller vos gains d'Hypercubes. +0,06% d'Hypercubes par Hepteract Hyperréel.",
-          "currentEffect": "Current Effect: Hypercubes +{{x}}",
+          "currentEffect": "Effet Actuel : Hypercubes +{{x}}",
           "oneCost": "En acheter un vous coûtera {{x}} Hepteracts et {{y}} Offrandes."
         },
         "quark": {
