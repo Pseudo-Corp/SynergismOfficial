@@ -32,7 +32,13 @@ contextBridge.exposeInMainWorld('steam', {
    */
   cloudWriteFile: (name, content) => ipcRenderer.invoke('steam:cloudWriteFile', name, content),
   /** @param {string} name */
-  cloudDeleteFile: (name) => ipcRenderer.invoke('steam:cloudDeleteFile', name)
+  cloudDeleteFile: (name) => ipcRenderer.invoke('steam:cloudDeleteFile', name),
+
+  // Steam Achievements
+  /** @param {string} achievementId */
+  unlockAchievement: (achievementId) => ipcRenderer.invoke('steam:unlockAchievement', achievementId),
+  /** @param {string} achievementId */
+  getAchievement: (achievementId) => ipcRenderer.invoke('steam:getAchievement', achievementId)
 })
 
 contextBridge.exposeInMainWorld('discord', {

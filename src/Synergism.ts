@@ -29,6 +29,7 @@ import {
   type ProgressiveAchievements,
   progressiveAchievements,
   resetAchievementCheck,
+  syncSteamAchievements,
   updateAchievementPoints,
   updateAllGroupedAchievementProgress,
   updateAllProgressiveAchievementProgress,
@@ -2010,6 +2011,8 @@ const loadSynergy = () => {
   } else if (player.currentChallenge.transcension) {
     resetrepeat('transcensionChallenge')
   }
+
+  syncSteamAchievements()
 
   const d = new Date()
   const h = d.getHours()

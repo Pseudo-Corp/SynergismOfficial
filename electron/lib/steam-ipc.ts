@@ -92,6 +92,26 @@ export function initializeSteam (): boolean {
       return false
     }
   })
+
+  ipcMain.handle('steam:unlockAchievement', (_, achievementId: string) => {
+    if (!steamClient) return false
+    try {
+      return steamClient.achievement.activate(achievementId)
+    } catch (error) {
+      log.error('Failed to unlock achievement:', error)
+      return false
+    }
+  })
+
+  ipcMain.handle('steam:getAchievement', (_, achievementId: string) => {
+    if (!steamClient) return false
+    try {
+      return steamClient.achievement.isActivated(achievementId)
+    } catch (error) {
+      log.error('Failed to get achievement status:', error)
+      return null
+    }
+  })
 }
 
 export function enableSteamOverlay () {
