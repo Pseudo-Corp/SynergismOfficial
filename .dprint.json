@@ -16,8 +16,7 @@
     "**/*-lock.json",
     "translations/*.json",
     "dist",
-    "mockServiceWorker.js",
-    "src-tauri"
+    "mockServiceWorker.js"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.88.7.wasm"

@@ -40,6 +40,6 @@
     }
   },
   "files": {
-    "ignore": ["./dist/*", "**/node_modules/*", "mockServiceWorker.js", "./src-tauri/*"]
+    "ignore": ["./dist/*", "**/node_modules/*", "mockServiceWorker.js"]
   }
 }
