@@ -15,6 +15,9 @@ interface Steam {
   cloudReadFile: (name: string) => Promise<string | null>
   cloudWriteFile: (name: string, content: string) => Promise<boolean>
   cloudDeleteFile: (name: string) => Promise<boolean>
+  // Steam Achievements
+  unlockAchievement: (achievementId: string) => Promise<void>
+  getAchievement: (achievementId: string) => Promise<boolean>
 }
 
 declare global {
@@ -50,3 +53,10 @@ export const cloudWriteFile: Steam['cloudWriteFile'] = (name, content) =>
 
 export const cloudDeleteFile: Steam['cloudDeleteFile'] = (name) =>
   window.steam?.cloudDeleteFile(name) ?? Promise.resolve(false)
+
+// Steam Achievements
+export const unlockAchievement: Steam['unlockAchievement'] = (achievementId) =>
+  window.steam?.unlockAchievement(achievementId) ?? Promise.resolve()
+
+export const getAchievement: Steam['getAchievement'] = (achievementId) =>
+  window.steam?.getAchievement(achievementId) ?? Promise.resolve(false)

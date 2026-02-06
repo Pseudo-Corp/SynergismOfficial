@@ -1,12 +1,28 @@
 import cookie from 'cookie'
 import { app, BrowserWindow, session } from 'electron'
 import mimeTypes from 'mime-types'
-import fs from 'node:fs'
+import fsp from 'node:fs/promises'
 import path from 'node:path'
 import { enableSteamOverlay, initializeSteam } from './lib/steam-ipc.ts'
 import './lib/discord.ts' // Discord RPC
 
 app.commandLine.appendSwitch('disable-http-cache')
+
+// macOS-specific performance optimizations
+if (process.platform === 'darwin') {
+  // Enable GPU acceleration on macOS
+  app.commandLine.appendSwitch('enable-gpu-rasterization')
+  app.commandLine.appendSwitch('enable-zero-copy')
+  app.commandLine.appendSwitch('disable-software-rasterizer')
+
+  // Memory optimization for better performance
+  app.commandLine.appendSwitch('js-flags', '--max-old-space-size=4096')
+
+  // Disable background throttling for better idle game performance
+  // This ensures the game continues to run smoothly even when not in focus
+  app.commandLine.appendSwitch('disable-renderer-backgrounding')
+  app.commandLine.appendSwitch('disable-background-timer-throttling')
+}
 
 let mainWindow: BrowserWindow | null = null
 
@@ -16,7 +32,11 @@ function createWindow (): void {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(app.getAppPath(), 'electron', 'preload.js')
+      preload: path.join(app.getAppPath(), 'electron', 'preload.js'),
+      // Performance optimizations
+      enableWebSQL: false,
+      webgl: true,
+      backgroundThrottling: false // Important for idle games - keeps game running smoothly
     },
     icon: path.join(app.getAppPath(), 'dist', 'favicon.ico'),
     title: 'Synergism',
@@ -50,7 +70,8 @@ app.whenReady().then(async () => {
       filePath = path.join(distPath, filePath)
 
       try {
-        const data = fs.readFileSync(filePath)
+        // Use async file reading for better performance (non-blocking)
+        const data = await fsp.readFile(filePath)
         const ext = path.extname(filePath)
 
         return new Response(data, {
