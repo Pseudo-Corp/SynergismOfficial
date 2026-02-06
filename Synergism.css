@@ -3658,6 +3658,184 @@ p#ascendHotKeys {
     margin-top: 10px;
 }
 
+/* =========================================
+  SELECTED AND TOTAL CORRUPTIONS TABLE (Corruptions Redesign)
+   ========================================= */
+
+.allCorruptionEffectsHeader {
+    margin-top: 10px;
+    margin-bottom: 2px;
+    font-weight: 800;
+    color: #ddd;
+    text-align: center;
+}
+
+/* shared table style */
+.corruptionTable {
+    margin: 6px auto;
+    border-collapse: collapse;
+    background-color: #141414;
+    font-size: 15px;
+    width: 540px;
+}
+
+/* header */
+.corruptionTable th {
+    background-color: #1f1f1f;
+    color: orange;
+    border: 1px solid #2a2a2a;
+    padding: 6px 10px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* cells */
+.corruptionTable td {
+    border: 1px solid #2a2a2a;
+    padding: 4px 8px;
+    color: #dcdcdc;
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* label column */
+.corruptionTable td:first-child,
+.corruptionTable th:first-child {
+    width: 160px;
+    text-align: left;
+    color: #bfbfbf;
+}
+
+/* value columns */
+.corruptionTable td:nth-child(2),
+.corruptionTable td:nth-child(3),
+.corruptionTable th:nth-child(2),
+.corruptionTable th:nth-child(3) {
+    width: 180px;
+    text-align: right;
+    font-family: monospace;
+}
+
+/* slightly taller effect row */
+.corruptionTable tr:nth-child(3) td {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+/* =========================================
+   ASCEND REWARDS GRID (Corruptions Redesign)
+   ========================================= */
+#ascensionRewardsTitle {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#corruptionDetails.vAlign {
+    justify-content: flex-start !important;
+    align-items: center !important;
+    min-height: unset !important;
+    height: auto !important;
+}
+
+#corruptionScore {
+    font-size: 1.18em;
+    font-weight: 600;
+    color: #ffd700;
+}
+
+#corruptionScoreDR {
+    font-size: 0.95em;
+    font-weight: 500;
+    margin-top: 4px;
+    opacity: 0.85;
+}
+
+#ascendRewardsSection {
+    margin-top: 6px;
+}
+
+/* To make Ascension rewards closer up */
+#corruptionMain #ascensionRewardsTitle {
+    margin-top: 6px !important;
+    margin-bottom: 4px !important;
+}
+
+#ascendRewardsGrid {
+    max-width: 530px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 10px auto 0;
+}
+
+.ascendRewardTile {
+    border: 1px solid #666;
+    height: 118px;
+    padding: 10px 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(1) {
+    border-color: darkorange;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(2) {
+    border-color: gold;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(3) {
+    border-color: orange;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(4) {
+    border-color: crimson;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(5) {
+    border-color: orchid;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(6) {
+    border-color: mediumpurple;
+}
+
+.ascendRewardTile img.openImage {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 6px;
+}
+
+/* Number styling */
+.ascendRewardTile span {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* Req line styling */
+.ascendRewardTile p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.15;
+}
+
+.reqLine {
+    display: block;        /* forces it under the number */
+    font-size: 12px;
+    opacity: 0.75;
+    margin-top: 6px;
+}
+
+.ascendRewardTile p span,
+.ascendRewardTile p img {
+    font-size: initial;
+}
+
 #ascensionAmount,
 #ascensionAutoEnable,
 #ascensionAutoToggle {
@@ -3676,12 +3854,18 @@ p#ascendHotKeys {
     min-width: 500px;
     max-width: 600px;
     margin: 10px;
+    padding: 0;
+    border: none;
+    background: none;
+    box-sizing: border-box;
+}
+
+#corruptionStatsBox {
     padding: 30px 10px;
     border: 1px solid orange;
+    background-color: var(--box-color);
     box-sizing: border-box;
     color: white;
-    background-color: var(--box-color);
-    text-align: center;
 }
 
 #corrStatsBtn,

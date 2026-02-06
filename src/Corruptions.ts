@@ -444,6 +444,9 @@ export const corrIcons: Record<keyof Corruptions, string> = {
 }
 
 export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
+  // Always hide selected table first (safe reset)
+  DOMCacheGetOrSet('selectedCorruptionSection').style.display = 'none'
+
   if (DOMCacheGetOrSet('corruptionDetails').style.visibility !== 'visible') {
     DOMCacheGetOrSet('corruptionDetails').style.visibility = 'visible'
   }
@@ -487,8 +490,11 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
       }),
       image: `Pictures/${IconSets[player.iconSet][0]}${corrIcons[corr]}`
     }
-    DOMCacheGetOrSet(`corrCurrent${corr}`).textContent = format(player.corruptions.used.getLevel(corr))
-    DOMCacheGetOrSet(`corrNext${corr}`).textContent = format(player.corruptions.next.getLevel(corr))
+
+    DOMCacheGetOrSet(`corrCurrent${corr}`).textContent =
+      format(player.corruptions.used.getLevel(corr))
+    DOMCacheGetOrSet(`corrNext${corr}`).textContent =
+      format(player.corruptions.next.getLevel(corr))
   }
 
   DOMCacheGetOrSet('corruptionName').textContent = text.name
@@ -499,6 +505,59 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
   DOMCacheGetOrSet('corruptionDifficultyContribution').textContent = text.difficulty
   DOMCacheGetOrSet('corruptionFreeLevels').textContent = text.freeLevels
   DOMCacheGetOrSet('corruptionSelectedPic').setAttribute('src', text.image)
+
+  // -------------------------------
+  // VIEW MODE SWITCHING
+  // -------------------------------
+
+  if (corr !== 'exit') {
+    // Hide text stats
+    DOMCacheGetOrSet('corruptionLevelCurrent').style.display = 'none'
+    DOMCacheGetOrSet('corruptionLevelPlanned').style.display = 'none'
+    DOMCacheGetOrSet('corruptionMultiplierContribution').style.display = 'none'
+    DOMCacheGetOrSet('corruptionDifficultyContribution').style.display = 'none'
+
+    // Show table
+    DOMCacheGetOrSet('selectedCorruptionSection').style.display = 'block'
+
+    // Populate table
+    DOMCacheGetOrSet('selectedLevelCurr').textContent =
+      format(player.corruptions.used.getLevel(corr))
+
+    DOMCacheGetOrSet('selectedLevelNext').textContent =
+      format(player.corruptions.next.getLevel(corr))
+
+    DOMCacheGetOrSet('selectedEffectCurr').textContent =
+  i18next.t(`corruptions.currentLevel.${corr}`, {
+    level: player.corruptions.used.getLevel(corr),
+    effect: format(player.corruptions.used.corruptionEffects(corr), 3, true)
+  })
+
+DOMCacheGetOrSet('selectedEffectNext').textContent =
+  i18next.t(`corruptions.prototypeLevel.${corr}`, {
+    level: player.corruptions.next.getLevel(corr),
+    effect: format(player.corruptions.next.corruptionEffects(corr), 3, true)
+  })
+
+    DOMCacheGetOrSet('selectedMultiplierCurr').textContent =
+      format(player.corruptions.used.scoreMult(corr), 2, true)
+
+    DOMCacheGetOrSet('selectedMultiplierNext').textContent =
+      format(player.corruptions.next.scoreMult(corr), 2, true)
+
+    DOMCacheGetOrSet('selectedDifficultyCurr').textContent =
+      format(16 * Math.pow(player.corruptions.used.getTotalLevel(corr), 2), 0, false)
+
+    DOMCacheGetOrSet('selectedDifficultyNext').textContent =
+      format(16 * Math.pow(player.corruptions.next.getTotalLevel(corr), 2), 0, false)
+
+  } else {
+    // Restore text stats for cleanse mode
+    DOMCacheGetOrSet('corruptionLevelCurrent').style.display = 'block'
+    DOMCacheGetOrSet('corruptionLevelPlanned').style.display = 'block'
+    DOMCacheGetOrSet('corruptionMultiplierContribution').style.display = 'block'
+    DOMCacheGetOrSet('corruptionDifficultyContribution').style.display = 'block'
+  }
 }
 
 export const corruptionStatsUpdate = () => {

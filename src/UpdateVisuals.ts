@@ -1488,18 +1488,28 @@ export const visualUpdateCorruptions = () => {
       hepteractAmount: format(metaData[8], 0, true)
     }
   )
-  DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {
-    curr: format(player.corruptions.used.totalCorruptionAscensionMultiplier, 2, true),
-    next: format(player.corruptions.next.totalCorruptionAscensionMultiplier, 2, true)
-  })
-  DOMCacheGetOrSet('corruptionDifficultyTotal').textContent = i18next.t('corruptions.totalDifficulty', {
-    curr: format(player.corruptions.used.totalCorruptionDifficultyScore, 2, true),
-    next: format(player.corruptions.next.totalCorruptionDifficultyScore, 2, true)
-  })
-  DOMCacheGetOrSet('corruptionSpiritTotal').textContent = i18next.t('corruptions.totalSpiritContribution', {
-    curr: formatAsPercentIncrease(player.corruptions.used.totalCorruptionDifficultyMultiplier),
-    next: formatAsPercentIncrease(player.corruptions.next.totalCorruptionDifficultyMultiplier)
-  })
+  // Split these into two seperate curr and next variables for table
+  DOMCacheGetOrSet('corruptionMultiplierTotalCurr').textContent =
+    `x${format(player.corruptions.used.totalCorruptionAscensionMultiplier, 2, true)}`;
+
+  DOMCacheGetOrSet('corruptionMultiplierTotalNext').textContent =
+    `x${format(player.corruptions.next.totalCorruptionAscensionMultiplier, 2, true)}`;
+
+
+  // Split these into two seperate curr and next variables for table
+  DOMCacheGetOrSet('corruptionDifficultyTotalCurr').textContent =
+    format(player.corruptions.used.totalCorruptionDifficultyScore, 2, true);
+
+  DOMCacheGetOrSet('corruptionDifficultyTotalNext').textContent =
+    format(player.corruptions.next.totalCorruptionDifficultyScore, 2, true);
+
+
+  // Split these into two seperate curr and next variables for table
+  DOMCacheGetOrSet('corruptionSpiritTotalCurr').textContent =
+    `+${formatAsPercentIncrease(player.corruptions.used.totalCorruptionDifficultyMultiplier)}`;
+
+  DOMCacheGetOrSet('corruptionSpiritTotalNext').textContent =
+    `+${formatAsPercentIncrease(player.corruptions.next.totalCorruptionDifficultyMultiplier)}`;
 
   DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'block' : 'none'
 
