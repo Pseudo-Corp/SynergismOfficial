@@ -330,7 +330,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'merchContainer',
-        unlocked: () => true,
+        unlocked: () => platform === 'browser', // Steam disallows purchases outside of the Steam ecosystem
         buttonID: 'cartSubTab6'
       }
     ]
