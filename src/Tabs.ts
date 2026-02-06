@@ -734,7 +734,7 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
   let tab = tabRow.getCurrentTab()
 
   if (tab.getType() !== tabs) {
-    changeTab(tab.getType())
+    changeTab(tabs)
     tab = tabRow.getCurrentTab()
   }
 
