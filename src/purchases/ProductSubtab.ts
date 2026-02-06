@@ -2,7 +2,7 @@ import { format } from '../Synergism'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { coinProducts } from './CartTab'
-import { addToCart } from './CartUtil'
+import { addToCart, calculateGrossPrice } from './CartUtil'
 
 const productContainer = document.querySelector<HTMLElement>('#pseudoCoins > #productContainer')
 
@@ -33,7 +33,7 @@ export const initializeProductPage = memoize(() => {
           ${product.name} [${format(product.coins)} PseudoCoins]
         </p>
         <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton">
-          ${formatter.format(product.price / 100)} USD
+          ${formatter.format(calculateGrossPrice(product.price / 100))} USD
         </button>
       </div>
     </section>

@@ -1,7 +1,7 @@
 import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
 import LZString from 'lz-string'
-import { awardUngroupedAchievement, resetAchievements } from './Achievements'
+import { awardUngroupedAchievement, resetAchievements, syncSteamAchievements } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
 import { testing, version } from './Config'
@@ -377,8 +377,8 @@ export const importSynergism = (input: string | null, reset = false) => {
     }
 
     localStorage.setItem('Synergysave2', saveString)
-
     reloadShit(reset)
+    syncSteamAchievements()
     return
   } else {
     Alert(i18next.t('importexport.loadTestInLive'))

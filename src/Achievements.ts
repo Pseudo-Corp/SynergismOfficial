@@ -242,6 +242,7 @@ export interface Achievement {
   group: AchievementGroups
   reward?: AchievementReward
   checkReset?: () => boolean
+  steamAchievementId?: string
 }
 
 export interface ProgressiveAchievementsObject {
@@ -521,7 +522,8 @@ export const achievements: Achievement[] = [
     pointValue: 15,
     unlockCondition: () => player.firstOwnedCoin >= 100,
     group: 'firstOwnedCoin',
-    reward: { acceleratorPower: () => 0.001 }
+    reward: { acceleratorPower: () => 0.001 },
+    steamAchievementId: 'GROUPED_WORKERS_1'
   },
   {
     pointValue: 20,
@@ -553,7 +555,8 @@ export const achievements: Achievement[] = [
     pointValue: 15,
     unlockCondition: () => player.secondOwnedCoin >= 100,
     group: 'secondOwnedCoin',
-    reward: { acceleratorPower: () => 0.0015 }
+    reward: { acceleratorPower: () => 0.0015 },
+    steamAchievementId: 'GROUPED_INVESTMENTS_1'
   },
   {
     pointValue: 20,
@@ -585,7 +588,8 @@ export const achievements: Achievement[] = [
     pointValue: 15,
     unlockCondition: () => player.thirdOwnedCoin >= 100,
     group: 'thirdOwnedCoin',
-    reward: { acceleratorPower: () => 0.002 }
+    reward: { acceleratorPower: () => 0.002 },
+    steamAchievementId: 'GROUPED_PRINTERS_1'
   },
   {
     pointValue: 20,
@@ -617,7 +621,8 @@ export const achievements: Achievement[] = [
     pointValue: 15,
     unlockCondition: () => player.thirdOwnedCoin >= 100,
     group: 'fourthOwnedCoin',
-    reward: { acceleratorPower: () => 0.002 }
+    reward: { acceleratorPower: () => 0.002 },
+    steamAchievementId: 'GROUPED_MINTS_1'
   },
   {
     pointValue: 20,
@@ -649,7 +654,8 @@ export const achievements: Achievement[] = [
     pointValue: 15,
     unlockCondition: () => player.fifthOwnedCoin >= 66,
     group: 'fifthOwnedCoin',
-    reward: { acceleratorPower: () => 0.003 }
+    reward: { acceleratorPower: () => 0.003 },
+    steamAchievementId: 'GROUPED_ALCHEMIES_1'
   },
   {
     pointValue: 20,
@@ -679,7 +685,8 @@ export const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => G.prestigePointGain.gte(1),
     group: 'prestigePointGain',
-    checkReset: () => player.highestSingularityCount >= 2
+    checkReset: () => player.highestSingularityCount >= 2,
+    steamAchievementId: 'GROUPED_DIAMONDS_1'
   },
   {
     pointValue: 10,
@@ -702,7 +709,8 @@ export const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => G.transcendPointGain.gte(1),
     group: 'transcendPointGain',
-    checkReset: () => player.highestSingularityCount >= 2
+    checkReset: () => player.highestSingularityCount >= 2,
+    steamAchievementId: 'GROUPED_MYTHOS_1'
   },
   {
     pointValue: 10,
@@ -735,7 +743,8 @@ export const achievements: Achievement[] = [
     unlockCondition: () => G.reincarnationPointGain.gte(1),
     group: 'reincarnationPointGain',
     reward: { particleGain: () => 2 },
-    checkReset: () => player.highestSingularityCount >= 3
+    checkReset: () => player.highestSingularityCount >= 3,
+    steamAchievementId: 'GROUPED_PARTICLES_1'
   },
   { pointValue: 10, unlockCondition: () => G.reincarnationPointGain.gte(1e5), group: 'reincarnationPointGain' },
   { pointValue: 15, unlockCondition: () => G.reincarnationPointGain.gte(1e30), group: 'reincarnationPointGain' },
@@ -922,7 +931,8 @@ export const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => player.challengecompletions[1] >= 1,
     group: 'challenge1',
-    checkReset: () => player.highestSingularityCount >= 3
+    checkReset: () => player.highestSingularityCount >= 3,
+    steamAchievementId: 'GROUPED_CHALLENGE1_1'
   },
   {
     pointValue: 10,
@@ -953,7 +963,8 @@ export const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => player.challengecompletions[2] >= 1,
     group: 'challenge2',
-    checkReset: () => player.highestSingularityCount >= 3
+    checkReset: () => player.highestSingularityCount >= 3,
+    steamAchievementId: 'GROUPED_CHALLENGE2_1'
   },
   {
     pointValue: 10,
@@ -984,7 +995,8 @@ export const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => player.challengecompletions[3] >= 1,
     group: 'challenge3',
-    checkReset: () => player.highestSingularityCount >= 3
+    checkReset: () => player.highestSingularityCount >= 3,
+    steamAchievementId: 'GROUPED_CHALLENGE3_1'
   },
   {
     pointValue: 10,
@@ -1014,7 +1026,8 @@ export const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => player.challengecompletions[4] >= 1,
     group: 'challenge4',
-    checkReset: () => player.highestSingularityCount >= 3
+    checkReset: () => player.highestSingularityCount >= 3,
+    steamAchievementId: 'GROUPED_CHALLENGE4_1'
   },
   {
     pointValue: 10,
@@ -1048,7 +1061,8 @@ export const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => player.challengecompletions[5] >= 1,
     group: 'challenge5',
-    checkReset: () => player.highestSingularityCount >= 3
+    checkReset: () => player.highestSingularityCount >= 3,
+    steamAchievementId: 'GROUPED_CHALLENGE5_1'
   },
   {
     pointValue: 10,
@@ -1078,7 +1092,8 @@ export const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => player.challengecompletions[6] >= 1,
     group: 'challenge6',
-    checkReset: () => player.highestSingularityCount >= 4
+    checkReset: () => player.highestSingularityCount >= 4,
+    steamAchievementId: 'GROUPED_CHALLENGE6_1'
   },
   { pointValue: 10, unlockCondition: () => player.challengecompletions[6] >= 2, group: 'challenge6' },
   {
@@ -1116,7 +1131,8 @@ export const achievements: Achievement[] = [
     unlockCondition: () => player.challengecompletions[7] >= 1,
     group: 'challenge7',
     reward: { diamondUpgrade18: () => 0 },
-    checkReset: () => player.highestSingularityCount >= 7
+    checkReset: () => player.highestSingularityCount >= 7,
+    steamAchievementId: 'GROUPED_CHALLENGE7_1'
   },
   { pointValue: 10, unlockCondition: () => player.challengecompletions[7] >= 2, group: 'challenge7' },
   {
@@ -1148,7 +1164,8 @@ export const achievements: Achievement[] = [
     unlockCondition: () => player.challengecompletions[8] >= 1,
     group: 'challenge8',
     reward: { diamondUpgrade19: () => 1 },
-    checkReset: () => player.highestSingularityCount >= 10
+    checkReset: () => player.highestSingularityCount >= 10,
+    steamAchievementId: 'GROUPED_CHALLENGE8_1'
   },
   { pointValue: 10, unlockCondition: () => player.challengecompletions[8] >= 2, group: 'challenge8' },
   {
@@ -1179,7 +1196,8 @@ export const achievements: Achievement[] = [
     unlockCondition: () => player.challengecompletions[9] >= 1,
     group: 'challenge9',
     reward: { diamondUpgrade20: () => 1 },
-    checkReset: () => player.highestSingularityCount >= 20
+    checkReset: () => player.highestSingularityCount >= 20,
+    steamAchievementId: 'GROUPED_CHALLENGE9_1'
   },
   {
     pointValue: 10,
@@ -1214,7 +1232,8 @@ export const achievements: Achievement[] = [
   {
     pointValue: 5,
     unlockCondition: () => player.challengecompletions[10] >= 1,
-    group: 'challenge10'
+    group: 'challenge10',
+    steamAchievementId: 'GROUPED_CHALLENGE10_1'
   },
   { pointValue: 10, unlockCondition: () => player.challengecompletions[10] >= 2, group: 'challenge10' },
   {
@@ -1245,7 +1264,12 @@ export const achievements: Achievement[] = [
     group: 'challenge10',
     reward: { polymathTalisman: () => 1 }
   },
-  { pointValue: 5, unlockCondition: () => player.acceleratorBought >= 5, group: 'accelerators' },
+  {
+    pointValue: 5,
+    unlockCondition: () => player.acceleratorBought >= 5,
+    group: 'accelerators',
+    steamAchievementId: 'GROUPED_ACCELERATOR_1'
+  },
   {
     pointValue: 10,
     unlockCondition: () => player.acceleratorBought >= 25,
@@ -1277,7 +1301,12 @@ export const achievements: Achievement[] = [
     group: 'accelerators',
     reward: { accelerators: () => 50 }
   },
-  { pointValue: 5, unlockCondition: () => player.multiplierBought >= 2, group: 'multipliers' },
+  {
+    pointValue: 5,
+    unlockCondition: () => player.multiplierBought >= 2,
+    group: 'multipliers',
+    steamAchievementId: 'GROUPED_MULTIPLIER_1'
+  },
   {
     pointValue: 10,
     unlockCondition: () => player.multiplierBought >= 20,
@@ -1309,7 +1338,12 @@ export const achievements: Achievement[] = [
     group: 'multipliers',
     reward: { multipliers: () => 10 }
   },
-  { pointValue: 5, unlockCondition: () => player.acceleratorBoostBought >= 2, group: 'acceleratorBoosts' },
+  {
+    pointValue: 5,
+    unlockCondition: () => player.acceleratorBoostBought >= 2,
+    group: 'acceleratorBoosts',
+    steamAchievementId: 'GROUPED_ACCELERATOR_BOOSTS_1'
+  },
   { pointValue: 10, unlockCondition: () => player.acceleratorBoostBought >= 10, group: 'acceleratorBoosts' },
   { pointValue: 15, unlockCondition: () => player.acceleratorBoostBought >= 50, group: 'acceleratorBoosts' },
   { pointValue: 20, unlockCondition: () => player.acceleratorBoostBought >= 200, group: 'acceleratorBoosts' },
@@ -1320,7 +1354,8 @@ export const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => player.ants.crumbs.gte(3),
     group: 'antCrumbs',
-    reward: { antSpeed: () => Decimal.log(player.ants.crumbs.plus(10), 10) }
+    reward: { antSpeed: () => Decimal.log(player.ants.crumbs.plus(10), 10) },
+    steamAchievementId: 'GROUPED_CRUMBS_1'
   },
   { pointValue: 10, unlockCondition: () => player.ants.crumbs.gte(1e5), group: 'antCrumbs' },
   {
@@ -1475,7 +1510,8 @@ export const achievements: Achievement[] = [
     pointValue: 10,
     unlockCondition: () => player.challengecompletions[11] >= 1,
     group: 'challenge11',
-    reward: { statTracker: () => 1 }
+    reward: { statTracker: () => 1 },
+    steamAchievementId: 'GROUPED_CHALLENGE11_1'
   },
   {
     pointValue: 20,
@@ -1513,7 +1549,8 @@ export const achievements: Achievement[] = [
     pointValue: 10,
     unlockCondition: () => player.challengecompletions[12] >= 1,
     group: 'challenge12',
-    reward: { ascensionRewardScaling: () => 1 }
+    reward: { ascensionRewardScaling: () => 1 },
+    steamAchievementId: 'GROUPED_CHALLENGE12_1'
   },
   {
     pointValue: 20,
@@ -1550,7 +1587,8 @@ export const achievements: Achievement[] = [
   {
     pointValue: 10,
     unlockCondition: () => player.challengecompletions[13] >= 1,
-    group: 'challenge13'
+    group: 'challenge13',
+    steamAchievementId: 'GROUPED_CHALLENGE13_1'
   },
   {
     pointValue: 20,
@@ -1587,7 +1625,8 @@ export const achievements: Achievement[] = [
   {
     pointValue: 10,
     unlockCondition: () => player.challengecompletions[14] >= 1,
-    group: 'challenge14'
+    group: 'challenge14',
+    steamAchievementId: 'GROUPED_CHALLENGE14_1'
   },
   {
     pointValue: 20,
@@ -1619,7 +1658,12 @@ export const achievements: Achievement[] = [
     }
   },
   { pointValue: 70, unlockCondition: () => player.challengecompletions[14] >= 30, group: 'challenge14' },
-  { pointValue: 5, unlockCondition: () => CalcCorruptionStuff()[3] >= 1e5, group: 'ascensionScore' },
+  {
+    pointValue: 5,
+    unlockCondition: () => CalcCorruptionStuff()[3] >= 1e5,
+    group: 'ascensionScore',
+    steamAchievementId: 'GROUPED_ASCENSIONSCORE_1'
+  },
   { pointValue: 10, unlockCondition: () => CalcCorruptionStuff()[3] >= 1e6, group: 'ascensionScore' },
   { pointValue: 15, unlockCondition: () => CalcCorruptionStuff()[3] >= 1e7, group: 'ascensionScore' },
   { pointValue: 20, unlockCondition: () => CalcCorruptionStuff()[3] >= 1e8, group: 'ascensionScore' },
@@ -1745,7 +1789,8 @@ export const achievements: Achievement[] = [
     pointValue: 70,
     unlockCondition: () => CalcCorruptionStuff()[3] >= 1e23,
     group: 'ascensionScore',
-    reward: { ascensionScore: () => Math.pow(1.01, hepteracts.abyss.TIMES_CAP_EXTENDED) }
+    reward: { ascensionScore: () => Math.pow(1.01, hepteracts.abyss.TIMES_CAP_EXTENDED) },
+    steamAchievementId: 'GROUPED_ASCENSIONSCORE_2'
   },
   {
     pointValue: 40,
@@ -1811,41 +1856,78 @@ export const achievements: Achievement[] = [
   },
   { pointValue: 65, unlockCondition: () => player.ascendShards.gte('1e300000'), group: 'constant' },
   { pointValue: 70, unlockCondition: () => player.ascendShards.gte('1e1000000'), group: 'constant' },
-  { pointValue: 10, unlockCondition: () => player.highestSingularityCount >= 1, group: 'singularityCount' },
+  {
+    pointValue: 10,
+    unlockCondition: () => player.highestSingularityCount >= 1,
+    group: 'singularityCount',
+    steamAchievementId: 'GROUPED_SINGULARITY_1'
+  },
   { pointValue: 20, unlockCondition: () => player.highestSingularityCount >= 2, group: 'singularityCount' },
   { pointValue: 30, unlockCondition: () => player.highestSingularityCount >= 3, group: 'singularityCount' },
   { pointValue: 40, unlockCondition: () => player.highestSingularityCount >= 4, group: 'singularityCount' },
   { pointValue: 50, unlockCondition: () => player.highestSingularityCount >= 5, group: 'singularityCount' },
   { pointValue: 60, unlockCondition: () => player.highestSingularityCount >= 7, group: 'singularityCount' },
-  { pointValue: 70, unlockCondition: () => player.highestSingularityCount >= 10, group: 'singularityCount' },
+  {
+    pointValue: 70,
+    unlockCondition: () => player.highestSingularityCount >= 10,
+    group: 'singularityCount',
+    steamAchievementId: 'GROUPED_SINGULARITY_2'
+  },
   { pointValue: 40, unlockCondition: () => player.firstOwnedCoin >= 1e5, group: 'firstOwnedCoin' },
   { pointValue: 45, unlockCondition: () => player.firstOwnedCoin >= 1e6, group: 'firstOwnedCoin' },
-  { pointValue: 50, unlockCondition: () => player.firstOwnedCoin >= 1e8, group: 'firstOwnedCoin' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.firstOwnedCoin >= 1e8,
+    group: 'firstOwnedCoin',
+    steamAchievementId: 'GROUPED_WORKERS_2'
+  },
   { pointValue: 40, unlockCondition: () => player.secondOwnedCoin >= 1e6, group: 'secondOwnedCoin' },
   { pointValue: 45, unlockCondition: () => player.secondOwnedCoin >= 1e8, group: 'secondOwnedCoin' },
-  { pointValue: 50, unlockCondition: () => player.secondOwnedCoin >= 1e9, group: 'secondOwnedCoin' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.secondOwnedCoin >= 1e9,
+    group: 'secondOwnedCoin',
+    steamAchievementId: 'GROUPED_INVESTMENTS_2'
+  },
   { pointValue: 40, unlockCondition: () => player.thirdOwnedCoin >= 1e7, group: 'thirdOwnedCoin' },
   { pointValue: 45, unlockCondition: () => player.thirdOwnedCoin >= 1e8, group: 'thirdOwnedCoin' },
-  { pointValue: 50, unlockCondition: () => player.thirdOwnedCoin >= 5e9, group: 'thirdOwnedCoin' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.thirdOwnedCoin >= 5e9,
+    group: 'thirdOwnedCoin',
+    steamAchievementId: 'GROUPED_PRINTERS_2'
+  },
   { pointValue: 40, unlockCondition: () => player.fourthOwnedCoin >= 1e8, group: 'fourthOwnedCoin' },
   { pointValue: 45, unlockCondition: () => player.fourthOwnedCoin >= 1e9, group: 'fourthOwnedCoin' },
-  { pointValue: 50, unlockCondition: () => player.fourthOwnedCoin >= 2e10, group: 'fourthOwnedCoin' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.fourthOwnedCoin >= 2e10,
+    group: 'fourthOwnedCoin',
+    steamAchievementId: 'GROUPED_MINTS_2'
+  },
   { pointValue: 40, unlockCondition: () => player.fifthOwnedCoin >= 1e9, group: 'fifthOwnedCoin' },
   { pointValue: 45, unlockCondition: () => player.fifthOwnedCoin >= 2e10, group: 'fifthOwnedCoin' },
-  { pointValue: 50, unlockCondition: () => player.fifthOwnedCoin >= 1e12, group: 'fifthOwnedCoin' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.fifthOwnedCoin >= 1e12,
+    group: 'fifthOwnedCoin',
+    steamAchievementId: 'GROUPED_ALCHEMIES_2'
+  },
   { pointValue: 40, unlockCondition: () => G.prestigePointGain.gte('1e10000000'), group: 'prestigePointGain' },
   { pointValue: 45, unlockCondition: () => G.prestigePointGain.gte('1e10000000000'), group: 'prestigePointGain' },
   {
     pointValue: 50,
     unlockCondition: () => G.prestigePointGain.gte('1e10000000000000'),
-    group: 'prestigePointGain'
+    group: 'prestigePointGain',
+    steamAchievementId: 'GROUPED_DIAMONDS_2'
   },
   { pointValue: 40, unlockCondition: () => G.transcendPointGain.gte('1e2500000'), group: 'transcendPointGain' },
   { pointValue: 45, unlockCondition: () => G.transcendPointGain.gte('1e2500000000'), group: 'transcendPointGain' },
   {
     pointValue: 50,
     unlockCondition: () => G.transcendPointGain.gte('1e2500000000000'),
-    group: 'transcendPointGain'
+    group: 'transcendPointGain',
+    steamAchievementId: 'GROUPED_MYTHOS_2'
   },
   {
     pointValue: 40,
@@ -1860,50 +1942,121 @@ export const achievements: Achievement[] = [
   {
     pointValue: 50,
     unlockCondition: () => G.reincarnationPointGain.gte('1e100000000000'),
-    group: 'reincarnationPointGain'
+    group: 'reincarnationPointGain',
+    steamAchievementId: 'GROUPED_PARTICLES_2'
   },
   { pointValue: 40, unlockCondition: () => player.challengecompletions[1] >= 1000, group: 'challenge1' },
   { pointValue: 45, unlockCondition: () => player.challengecompletions[1] >= 9000, group: 'challenge1' },
-  { pointValue: 50, unlockCondition: () => player.challengecompletions[1] >= 9001, group: 'challenge1' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.challengecompletions[1] >= 9001,
+    group: 'challenge1',
+    steamAchievementId: 'GROUPED_CHALLENGE1_2'
+  },
   { pointValue: 40, unlockCondition: () => player.challengecompletions[2] >= 1000, group: 'challenge2' },
   { pointValue: 45, unlockCondition: () => player.challengecompletions[2] >= 9000, group: 'challenge2' },
-  { pointValue: 50, unlockCondition: () => player.challengecompletions[2] >= 9001, group: 'challenge2' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.challengecompletions[2] >= 9001,
+    group: 'challenge2',
+    steamAchievementId: 'GROUPED_CHALLENGE2_2'
+  },
   { pointValue: 40, unlockCondition: () => player.challengecompletions[3] >= 1000, group: 'challenge3' },
   { pointValue: 45, unlockCondition: () => player.challengecompletions[3] >= 9000, group: 'challenge3' },
-  { pointValue: 50, unlockCondition: () => player.challengecompletions[3] >= 9001, group: 'challenge3' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.challengecompletions[3] >= 9001,
+    group: 'challenge3',
+    steamAchievementId: 'GROUPED_CHALLENGE3_2'
+  },
   { pointValue: 40, unlockCondition: () => player.challengecompletions[4] >= 1000, group: 'challenge4' },
   { pointValue: 45, unlockCondition: () => player.challengecompletions[4] >= 9000, group: 'challenge4' },
-  { pointValue: 50, unlockCondition: () => player.challengecompletions[4] >= 9001, group: 'challenge4' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.challengecompletions[4] >= 9001,
+    group: 'challenge4',
+    steamAchievementId: 'GROUPED_CHALLENGE4_2'
+  },
   { pointValue: 40, unlockCondition: () => player.challengecompletions[5] >= 1000, group: 'challenge5' },
   { pointValue: 45, unlockCondition: () => player.challengecompletions[5] >= 9000, group: 'challenge5' },
-  { pointValue: 50, unlockCondition: () => player.challengecompletions[5] >= 9001, group: 'challenge5' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.challengecompletions[5] >= 9001,
+    group: 'challenge5',
+    steamAchievementId: 'GROUPED_CHALLENGE5_2'
+  },
   { pointValue: 40, unlockCondition: () => player.challengecompletions[6] >= 40, group: 'challenge6' },
   { pointValue: 45, unlockCondition: () => player.challengecompletions[6] >= 80, group: 'challenge6' },
-  { pointValue: 50, unlockCondition: () => player.challengecompletions[6] >= 120, group: 'challenge6' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.challengecompletions[6] >= 120,
+    group: 'challenge6',
+    steamAchievementId: 'GROUPED_CHALLENGE6_2'
+  },
   { pointValue: 40, unlockCondition: () => player.challengecompletions[7] >= 40, group: 'challenge7' },
   { pointValue: 45, unlockCondition: () => player.challengecompletions[7] >= 80, group: 'challenge7' },
-  { pointValue: 50, unlockCondition: () => player.challengecompletions[7] >= 125, group: 'challenge7' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.challengecompletions[7] >= 125,
+    group: 'challenge7',
+    steamAchievementId: 'GROUPED_CHALLENGE7_2'
+  },
   { pointValue: 40, unlockCondition: () => player.challengecompletions[8] >= 40, group: 'challenge8' },
   { pointValue: 45, unlockCondition: () => player.challengecompletions[8] >= 80, group: 'challenge8' },
-  { pointValue: 50, unlockCondition: () => player.challengecompletions[8] >= 130, group: 'challenge8' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.challengecompletions[8] >= 130,
+    group: 'challenge8',
+    steamAchievementId: 'GROUPED_CHALLENGE8_2'
+  },
   { pointValue: 40, unlockCondition: () => player.challengecompletions[9] >= 40, group: 'challenge9' },
   { pointValue: 45, unlockCondition: () => player.challengecompletions[9] >= 80, group: 'challenge9' },
-  { pointValue: 50, unlockCondition: () => player.challengecompletions[9] >= 135, group: 'challenge9' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.challengecompletions[9] >= 135,
+    group: 'challenge9',
+    steamAchievementId: 'GROUPED_CHALLENGE9_2'
+  },
   { pointValue: 40, unlockCondition: () => player.challengecompletions[10] >= 40, group: 'challenge10' },
   { pointValue: 45, unlockCondition: () => player.challengecompletions[10] >= 80, group: 'challenge10' },
-  { pointValue: 50, unlockCondition: () => player.challengecompletions[10] >= 140, group: 'challenge10' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.challengecompletions[10] >= 140,
+    group: 'challenge10',
+    steamAchievementId: 'GROUPED_CHALLENGE10_2'
+  },
   { pointValue: 40, unlockCondition: () => player.acceleratorBought >= 1e6, group: 'accelerators' },
   { pointValue: 45, unlockCondition: () => player.acceleratorBought >= 1e7, group: 'accelerators' },
-  { pointValue: 50, unlockCondition: () => player.acceleratorBought >= 1e8, group: 'accelerators' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.acceleratorBought >= 1e8,
+    group: 'accelerators',
+    steamAchievementId: 'GROUPED_ACCELERATOR_2'
+  },
   { pointValue: 40, unlockCondition: () => player.multiplierBought >= 3e6, group: 'multipliers' },
   { pointValue: 45, unlockCondition: () => player.multiplierBought >= 3e7, group: 'multipliers' },
-  { pointValue: 50, unlockCondition: () => player.multiplierBought >= 3e8, group: 'multipliers' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.multiplierBought >= 3e8,
+    group: 'multipliers',
+    steamAchievementId: 'GROUPED_MULTIPLIER_2'
+  },
   { pointValue: 40, unlockCondition: () => player.acceleratorBoostBought >= 1e5, group: 'acceleratorBoosts' },
   { pointValue: 45, unlockCondition: () => player.acceleratorBoostBought >= 1e6, group: 'acceleratorBoosts' },
-  { pointValue: 50, unlockCondition: () => player.acceleratorBoostBought >= 1e7, group: 'acceleratorBoosts' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.acceleratorBoostBought >= 1e7,
+    group: 'acceleratorBoosts',
+    steamAchievementId: 'GROUPED_ACCELERATOR_BOOSTS_2'
+  },
   { pointValue: 40, unlockCondition: () => player.ants.crumbs.gte('1e25000'), group: 'antCrumbs' },
   { pointValue: 45, unlockCondition: () => player.ants.crumbs.gte('1e125000'), group: 'antCrumbs' },
-  { pointValue: 50, unlockCondition: () => player.ants.crumbs.gte('1e1000000'), group: 'antCrumbs' },
+  {
+    pointValue: 50,
+    unlockCondition: () => player.ants.crumbs.gte('1e1000000'),
+    group: 'antCrumbs',
+    steamAchievementId: 'GROUPED_CRUMBS_2'
+  },
   {
     pointValue: 40,
     unlockCondition: () => player.ants.immortalELO >= 400000,
@@ -1937,22 +2090,42 @@ export const achievements: Achievement[] = [
   { pointValue: 90, unlockCondition: () => player.challengecompletions[11] >= 50, group: 'challenge11' },
   { pointValue: 100, unlockCondition: () => player.challengecompletions[11] >= 60, group: 'challenge11' },
   { pointValue: 110, unlockCondition: () => player.challengecompletions[11] >= 65, group: 'challenge11' },
-  { pointValue: 120, unlockCondition: () => player.challengecompletions[11] >= 70, group: 'challenge11' },
+  {
+    pointValue: 120,
+    unlockCondition: () => player.challengecompletions[11] >= 70,
+    group: 'challenge11',
+    steamAchievementId: 'GROUPED_CHALLENGE11_2'
+  },
   { pointValue: 80, unlockCondition: () => player.challengecompletions[12] >= 40, group: 'challenge12' },
   { pointValue: 90, unlockCondition: () => player.challengecompletions[12] >= 50, group: 'challenge12' },
   { pointValue: 100, unlockCondition: () => player.challengecompletions[12] >= 60, group: 'challenge12' },
   { pointValue: 110, unlockCondition: () => player.challengecompletions[12] >= 65, group: 'challenge12' },
-  { pointValue: 120, unlockCondition: () => player.challengecompletions[12] >= 70, group: 'challenge12' },
+  {
+    pointValue: 120,
+    unlockCondition: () => player.challengecompletions[12] >= 70,
+    group: 'challenge12',
+    steamAchievementId: 'GROUPED_CHALLENGE12_2'
+  },
   { pointValue: 80, unlockCondition: () => player.challengecompletions[13] >= 40, group: 'challenge13' },
   { pointValue: 90, unlockCondition: () => player.challengecompletions[13] >= 50, group: 'challenge13' },
   { pointValue: 100, unlockCondition: () => player.challengecompletions[13] >= 60, group: 'challenge13' },
   { pointValue: 110, unlockCondition: () => player.challengecompletions[13] >= 70, group: 'challenge13' },
-  { pointValue: 120, unlockCondition: () => player.challengecompletions[13] >= 72, group: 'challenge13' },
+  {
+    pointValue: 120,
+    unlockCondition: () => player.challengecompletions[13] >= 72,
+    group: 'challenge13',
+    steamAchievementId: 'GROUPED_CHALLENGE13_2'
+  },
   { pointValue: 80, unlockCondition: () => player.challengecompletions[14] >= 40, group: 'challenge14' },
   { pointValue: 90, unlockCondition: () => player.challengecompletions[14] >= 50, group: 'challenge14' },
   { pointValue: 100, unlockCondition: () => player.challengecompletions[14] >= 60, group: 'challenge14' },
   { pointValue: 110, unlockCondition: () => player.challengecompletions[14] >= 70, group: 'challenge14' },
-  { pointValue: 120, unlockCondition: () => player.challengecompletions[14] >= 72, group: 'challenge14' },
+  {
+    pointValue: 120,
+    unlockCondition: () => player.challengecompletions[14] >= 72,
+    group: 'challenge14',
+    steamAchievementId: 'GROUPED_CHALLENGE14_2'
+  },
   {
     pointValue: 40,
     unlockCondition: () => runeBlessings.speed.level >= 200,
@@ -3237,6 +3410,42 @@ export const updateAchievementPoints = (sourcedFromUpdate = false) => {
   updateAchievementLevel(sourcedFromUpdate)
 }
 
+import { platform } from './Config'
+
+const unlockedSteamAchievements = new Set<string>()
+
+export const unlockSteamAchievement = async (steamAchievementId: string): Promise<void> => {
+  if (platform === 'steam') {
+    if (unlockedSteamAchievements.has(steamAchievementId)) {
+      return // Prevent unnecessary calls to Steam
+    }
+    unlockedSteamAchievements.add(steamAchievementId)
+    try {
+      const { unlockAchievement } = await import('./steam/steam')
+      await unlockAchievement(steamAchievementId)
+    } catch (error) {
+      unlockedSteamAchievements.delete(steamAchievementId)
+      console.error(`Failed to unlock Steam achievement ${steamAchievementId}:`, error)
+    }
+  }
+}
+
+/**
+ * Syncs all earned in-game achievements to Steam.
+ * Call this after loading a save to ensure Steam achievements match game state.
+ */
+export const syncSteamAchievements = async (): Promise<void> => {
+  if (platform === 'steam') {
+    unlockedSteamAchievements.clear()
+    for (let i = 0; i < achievements.length; i++) {
+      const steamId = achievements[i].steamAchievementId
+      if (steamId && player.achievements[i] === 1) {
+        await unlockSteamAchievement(steamId)
+      }
+    }
+  }
+}
+
 export const awardAchievement = (index: number) => {
   if (player.achievements[index] === 1) {
     return false
@@ -3251,6 +3460,12 @@ export const awardAchievement = (index: number) => {
     }
     player.worlds.add(getAchievementQuarks(), false)
     revealStuff()
+
+    // Unlock Steam achievement if configured
+    const steamId = achievements[index].steamAchievementId
+    if (steamId) {
+      void unlockSteamAchievement(steamId)
+    }
 
     // Update displays if we are on Achievements Tab
     if (G.currentTab === Tabs.Achievements) {
