@@ -3410,22 +3410,23 @@ export const updateAchievementPoints = (sourcedFromUpdate = false) => {
   updateAchievementLevel(sourcedFromUpdate)
 }
 
-import { unlockAchievement } from './steam/steam'
+import { platform } from './Config'
 
 const unlockedSteamAchievements = new Set<string>()
 
 export const unlockSteamAchievement = async (steamAchievementId: string): Promise<void> => {
-  if (unlockedSteamAchievements.has(steamAchievementId)) {
-    return
-  }
-
-  unlockedSteamAchievements.add(steamAchievementId)
-
-  try {
-    await unlockAchievement(steamAchievementId)
-  } catch (error) {
-    unlockedSteamAchievements.delete(steamAchievementId)
-    console.error(`Failed to unlock Steam achievement ${steamAchievementId}:`, error)
+  if (platform === 'steam') {
+    if (unlockedSteamAchievements.has(steamAchievementId)) {
+      return // Prevent unnecessary calls to Steam
+    }
+    unlockedSteamAchievements.add(steamAchievementId)
+    try {
+      const { unlockAchievement } = await import('./steam/steam')
+      await unlockAchievement(steamAchievementId)
+    } catch (error) {
+      unlockedSteamAchievements.delete(steamAchievementId)
+      console.error(`Failed to unlock Steam achievement ${steamAchievementId}:`, error)
+    }
   }
 }
 
@@ -3434,12 +3435,13 @@ export const unlockSteamAchievement = async (steamAchievementId: string): Promis
  * Call this after loading a save to ensure Steam achievements match game state.
  */
 export const syncSteamAchievements = async (): Promise<void> => {
-  unlockedSteamAchievements.clear()
-  // Sync regular achievements
-  for (let i = 0; i < achievements.length; i++) {
-    const steamId = achievements[i].steamAchievementId
-    if (steamId && player.achievements[i] === 1) {
-      await unlockSteamAchievement(steamId)
+  if (platform === 'steam') {
+    unlockedSteamAchievements.clear()
+    for (let i = 0; i < achievements.length; i++) {
+      const steamId = achievements[i].steamAchievementId
+      if (steamId && player.achievements[i] === 1) {
+        await unlockSteamAchievement(steamId)
+      }
     }
   }
 }
