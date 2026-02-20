@@ -6056,19 +6056,19 @@ html[data-prestige-unlock="true"] .offlineStats > .prestigeunlock {
     display: flex;
 }
 
-html[data-prestige-unlock="true"] .transcendunlock {
+html[data-transcend-unlock="true"] .transcendunlock {
     display: block;
 }
 
-html[data-prestige-unlock="true"] .offlineStats > .transcendunlock {
+html[data-transcend-unlock="true"] .offlineStats > .transcendunlock {
     display: flex;
 }
 
-html[data-prestige-unlock="true"] .reincarnationunlock {
+html[data-reincarnation-unlock="true"] .reincarnationunlock {
     display: block;
 }
 
-html[data-prestige-unlock="true"] .offlineStats > .reincarnationunlock {
+html[data-reincarnation-unlock="true"] .offlineStats > .reincarnationunlock {
     display: flex;
 }
 
@@ -6080,19 +6080,19 @@ html[data-prestige-unlock="false"] .offlineStats > .prestigeunlock {
     display: none;
 }
 
-html[data-prestige-unlock="false"] .transcendunlock {
+html[data-transcend-unlock="false"] .transcendunlock {
     display: none;
 }
 
-html[data-prestige-unlock="false"] .offlineStats > .transcendunlock {
+html[data-transcend-unlock="false"] .offlineStats > .transcendunlock {
     display: none;
 }
 
-html[data-prestige-unlock="false"] .reincarnationunlock {
+html[data-reincarnation-unlock="false"] .reincarnationunlock {
     display: none;
 }
 
-html[data-prestige-unlock="false"] .offlineStats > .reincarnationunlock {
+html[data-reincarnation-unlock="false"] .offlineStats > .reincarnationunlock {
     display: none;
 }
 

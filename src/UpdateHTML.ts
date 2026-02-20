@@ -136,6 +136,8 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.ascendUnlock = player.ascensionCount > 0 ? 'true' : 'false'
   document.documentElement.dataset.prestigeUnlock = player.unlocks.prestige ? 'true' : 'false'
+  document.documentElement.dataset.transcendUnlock = player.unlocks.transcend ? 'true' : 'false'
+  document.documentElement.dataset.reincarnationUnlock = player.unlocks.reincarnate ? 'true' : 'false'
 
   document.documentElement.dataset.research150 = player.researches[150] > 0 ? 'true' : 'false'
 
