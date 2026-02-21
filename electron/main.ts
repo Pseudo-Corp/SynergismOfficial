@@ -1,4 +1,4 @@
-import { app, BrowserWindow, net, session } from 'electron'
+import { app, BrowserWindow, net, session, shell } from 'electron'
 import mimeTypes from 'mime-types'
 import fsp from 'node:fs/promises'
 import path from 'node:path'
@@ -16,7 +16,50 @@ if (process.platform === 'darwin') {
   app.commandLine.appendSwitch('disable-background-timer-throttling')
 }
 
+// Single instance lock — on Windows/Linux, custom protocol URLs launch a new
+// instance. We grab the lock so the second instance can forward the URL to us.
+const gotTheLock = app.requestSingleInstanceLock()
+if (!gotTheLock) {
+  app.quit()
+}
+
+app.setAsDefaultProtocolClient('synergism')
+
 let mainWindow: BrowserWindow | null = null
+
+/**
+ * Handle a `synergism://` protocol callback URL.
+ * Expected format: synergism://login-callback?token=<session_token>
+ */
+async function handleProtocolUrl (raw: string): Promise<void> {
+  try {
+    const url = new URL(raw)
+
+    if (url.hostname === 'link-callback') {
+      mainWindow?.webContents.reload()
+      return
+    }
+
+    if (url.hostname !== 'login-callback') return
+
+    const token = url.searchParams.get('token')
+    if (!token) return
+
+    await session.defaultSession.cookies.set({
+      url: 'https://synergism.cc',
+      name: 'token',
+      value: token,
+      path: '/',
+      secure: true,
+      httpOnly: true,
+      sameSite: 'lax'
+    })
+
+    mainWindow?.webContents.reload()
+  } catch {
+    // Malformed URL — ignore silently
+  }
+}
 
 function createWindow (): void {
   mainWindow = new BrowserWindow({
@@ -43,56 +86,54 @@ function createWindow (): void {
     mainWindow.webContents.openDevTools()
   }
 
+  // Intercept all in-page navigations (location.href = '...', <a> clicks, etc.)
+  // External URLs and login/OAuth URLs open in the system browser.
   mainWindow.webContents.on('will-navigate', (event, u) => {
-    const url = new URL(u)
-
-    if (url.hostname === 'synergism.cc' && url.pathname === '/login') {
+    try {
+      const url = new URL(u)
+      if (url.hostname !== 'synergism.cc') {
+        event.preventDefault()
+        shell.openExternal(u)
+      } else if (url.pathname.startsWith('/login')) {
+        // OAuth login flows should go through the system browser so the
+        // backend can redirect back via synergism:// protocol.
+        event.preventDefault()
+        shell.openExternal(u)
+      }
+    } catch {
       event.preventDefault()
-
-      const loginWindow = new BrowserWindow({
-        parent: mainWindow!,
-        width: 500,
-        height: 700,
-        autoHideMenuBar: true,
-        title: 'Login',
-        webPreferences: {
-          partition: 'login'
-        }
-      })
-
-      loginWindow.loadURL(u)
-
-      loginWindow.webContents.on('will-redirect', (_ev, navUrl) => {
-        const parsed = new URL(navUrl)
-        if (parsed.hostname === 'synergism.cc' && !parsed.pathname.startsWith('/login')) {
-          // Copy cookies from the login session to the main session
-          const loginSession = loginWindow.webContents.session
-          loginSession.cookies.get({ domain: 'synergism.cc' }).then(async (cookies) => {
-            for (const cookie of cookies) {
-              await session.defaultSession.cookies.set({
-                url: 'https://synergism.cc',
-                name: cookie.name,
-                value: cookie.value,
-                path: cookie.path,
-                secure: cookie.secure,
-                httpOnly: cookie.httpOnly,
-                sameSite: cookie.sameSite,
-                expirationDate: cookie.expirationDate
-              })
-            }
-
-            loginWindow.close()
-            mainWindow?.webContents.reload()
-          })
-        }
-      })
     }
+  })
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url)
+    return { action: 'deny' }
   })
 
   mainWindow.on('closed', () => {
     mainWindow = null
   })
 }
+
+// Windows/Linux: when a second instance is launched (e.g. from a protocol URL),
+// the existing instance receives the argv here.
+app.on('second-instance', (_event, argv) => {
+  const protocolUrl = argv.find((arg) => arg.startsWith('synergism://'))
+  if (protocolUrl) {
+    handleProtocolUrl(protocolUrl)
+  }
+
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore()
+    mainWindow.focus()
+  }
+})
+
+// macOS: protocol URLs are delivered via this event
+app.on('open-url', (event, url) => {
+  event.preventDefault()
+  handleProtocolUrl(url)
+})
 
 app.whenReady().then(async () => {
   const distPath = path.join(app.getAppPath(), 'dist')
