@@ -1,25 +1,17 @@
-import cookie from 'cookie'
-import { app, BrowserWindow, session } from 'electron'
+import { app, BrowserWindow, net, session } from 'electron'
 import mimeTypes from 'mime-types'
 import fsp from 'node:fs/promises'
 import path from 'node:path'
 import { enableSteamOverlay, initializeSteam } from './lib/steam-ipc.ts'
 import './lib/discord.ts' // Discord RPC
 
-app.commandLine.appendSwitch('disable-http-cache')
-
-// macOS-specific performance optimizations
 if (process.platform === 'darwin') {
-  // Enable GPU acceleration on macOS
   app.commandLine.appendSwitch('enable-gpu-rasterization')
   app.commandLine.appendSwitch('enable-zero-copy')
   app.commandLine.appendSwitch('disable-software-rasterizer')
 
-  // Memory optimization for better performance
   app.commandLine.appendSwitch('js-flags', '--max-old-space-size=4096')
 
-  // Disable background throttling for better idle game performance
-  // This ensures the game continues to run smoothly even when not in focus
   app.commandLine.appendSwitch('disable-renderer-backgrounding')
   app.commandLine.appendSwitch('disable-background-timer-throttling')
 }
@@ -33,10 +25,8 @@ function createWindow (): void {
       nodeIntegration: false,
       contextIsolation: true,
       preload: path.join(app.getAppPath(), 'electron', 'preload.js'),
-      // Performance optimizations
       enableWebSQL: false,
-      webgl: true,
-      backgroundThrottling: false // Important for idle games - keeps game running smoothly
+      backgroundThrottling: false
     },
     icon: path.join(app.getAppPath(), 'dist', 'favicon.ico'),
     title: 'Synergism',
@@ -47,11 +37,57 @@ function createWindow (): void {
     mainWindow.maximize()
   }
 
-  mainWindow.loadURL('https://synergism.cc/', { extraHeaders: 'pragma: no-cache\n' })
+  mainWindow.loadURL('https://synergism.cc/')
 
   if (!app.isPackaged) {
     mainWindow.webContents.openDevTools()
   }
+
+  mainWindow.webContents.on('will-navigate', (event, u) => {
+    const url = new URL(u)
+
+    if (url.hostname === 'synergism.cc' && url.pathname === '/login') {
+      event.preventDefault()
+
+      const loginWindow = new BrowserWindow({
+        parent: mainWindow!,
+        width: 500,
+        height: 700,
+        autoHideMenuBar: true,
+        title: 'Login',
+        webPreferences: {
+          partition: 'login'
+        }
+      })
+
+      loginWindow.loadURL(u)
+
+      loginWindow.webContents.on('will-redirect', (_ev, navUrl) => {
+        const parsed = new URL(navUrl)
+        if (parsed.hostname === 'synergism.cc' && !parsed.pathname.startsWith('/login')) {
+          // Copy cookies from the login session to the main session
+          const loginSession = loginWindow.webContents.session
+          loginSession.cookies.get({ domain: 'synergism.cc' }).then(async (cookies) => {
+            for (const cookie of cookies) {
+              await session.defaultSession.cookies.set({
+                url: 'https://synergism.cc',
+                name: cookie.name,
+                value: cookie.value,
+                path: cookie.path,
+                secure: cookie.secure,
+                httpOnly: cookie.httpOnly,
+                sameSite: cookie.sameSite,
+                expirationDate: cookie.expirationDate
+              })
+            }
+
+            loginWindow.close()
+            mainWindow?.webContents.reload()
+          })
+        }
+      })
+    }
+  })
 
   mainWindow.on('closed', () => {
     mainWindow = null
@@ -61,7 +97,6 @@ function createWindow (): void {
 app.whenReady().then(async () => {
   const distPath = path.join(app.getAppPath(), 'dist')
 
-  // Intercept requests to synergism.cc and serve local files
   session.defaultSession.protocol.handle('https', async (request) => {
     const url = new URL(request.url)
 
@@ -70,66 +105,19 @@ app.whenReady().then(async () => {
       filePath = path.join(distPath, filePath)
 
       try {
-        // Use async file reading for better performance (non-blocking)
         const data = await fsp.readFile(filePath)
         const ext = path.extname(filePath)
 
         return new Response(data, {
-          headers: { 'Content-Type': mimeTypes.contentType(ext) || 'application/octet-stream' }
+          headers: {
+            'Content-Type': mimeTypes.contentType(ext) || 'application/octet-stream'
+          }
         })
       } catch {
       }
     }
 
-    // Pass through to network - attach cookies from Electron's cookie jar
-    const cookies = await session.defaultSession.cookies.get({ url: request.url })
-    const cookieHeader = cookies.reduce((prev, curr) => {
-      prev[curr.name] = curr.value
-      return prev
-    }, {} as Record<string, string>)
-
-    const headers = new Headers(request.headers)
-    if (cookies.length > 0) {
-      headers.set('Cookie', cookie.stringifyCookie(cookieHeader))
-    }
-
-    const response = await fetch(request.url, {
-      method: request.method,
-      headers,
-      body: ['GET', 'HEAD'].includes(request.method) ? undefined : request.clone().body,
-      redirect: 'manual', // Handle redirects manually to preserve cookies
-      // @ts-expect-error Who needs types when you have ts-expect-error?
-      duplex: 'half'
-    })
-
-    // Manually apply Set-Cookie headers to Chrome's cookie jar
-    const setCookieHeaders = response.headers.getSetCookie()
-    for (const cookieValue of setCookieHeaders) {
-      const c = cookie.parseSetCookie(cookieValue)
-      // https://stackoverflow.com/a/39136448
-      // Cookies require an expirationDate to be persistent, for some reason
-      const expires = c.maxAge
-        ? Date.now() + (c.maxAge * 1000)
-        : c.expires?.getTime()
-
-      await session.defaultSession.cookies.set({
-        url: request.url,
-        domain: c.domain,
-        expirationDate: expires,
-        httpOnly: c.httpOnly,
-        name: c.name,
-        path: c.path,
-        sameSite: c.sameSite === true
-          ? 'strict'
-          : c.sameSite === 'none' || c.sameSite === false
-          ? 'no_restriction'
-          : c.sameSite,
-        secure: c.secure,
-        value: c.value
-      })
-    }
-
-    return response
+    return net.fetch(request, { bypassCustomProtocolHandlers: true })
   })
 
   createWindow()

@@ -310,10 +310,6 @@ export async function handleLogin () {
       document.getElementById('accountSubTab')?.appendChild(logoutElement)
     }
 
-    if (platform === 'steam') {
-      subtabElement.querySelectorAll('a').forEach((element) => element.classList.add('none'))
-    }
-
     const response = await fetchMeRoute()
 
     const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>
@@ -500,7 +496,7 @@ export async function handleLogin () {
                 const sessionTicket = await getSessionTicket()
 
                 if (!sessionTicket) {
-                  await Alert('Failed to validate against Steam API')
+                  await Alert('Failed to validate with Steam. Is Steam open?')
                   return
                 }
 
@@ -517,6 +513,20 @@ export async function handleLogin () {
 
                 if (response.redirected || response.ok) {
                   location.reload()
+                } else {
+                  const html = await response.text()
+                  const overlay = document.createElement('div')
+                  overlay.style.cssText =
+                    'position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:99999'
+                  const modal = document.createElement('div')
+                  modal.style.cssText =
+                    'background:var(--alert-color);color:var(--text-color);padding:20px;border:1px solid var(--boxmain-bordercolor);border-radius:8px;max-width:500px;max-height:80vh;overflow:auto'
+                  modal.innerHTML = DOMPurify.sanitize(html)
+                  overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) overlay.remove()
+                  })
+                  overlay.appendChild(modal)
+                  document.body.appendChild(overlay)
                 }
               }
             } else {
@@ -794,7 +804,7 @@ export const renderCaptcha = platform === 'steam'
             const sessionTicket = await getSessionTicket()
 
             if (!sessionTicket) {
-              await Alert('Failed to validate against Steam API')
+              await Alert('Failed to validate with Steam. Is Steam open?')
               return
             }
 
