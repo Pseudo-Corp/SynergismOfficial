@@ -424,7 +424,7 @@ export async function handleLogin () {
       ]
 
       const unlinkedPlatforms = platform === 'steam'
-        ? allPlatforms//.filter((platform) => platform.direct && !linkedAccounts.includes(platform.name))
+        ? allPlatforms.filter((platform) => platform.direct && !linkedAccounts.includes(platform.name))
         : allPlatforms.filter((platform) => !linkedAccounts.includes(platform.name))
 
       if (unlinkedPlatforms.length > 0) {
