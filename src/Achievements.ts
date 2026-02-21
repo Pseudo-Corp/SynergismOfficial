@@ -516,14 +516,18 @@ export const emptyProgressiveAchievements = Object
 
 export const achievements: Achievement[] = [
   { pointValue: 5, unlockCondition: () => true, group: 'ungrouped' }, // Free Achievement Perhaps?
-  { pointValue: 5, unlockCondition: () => player.firstOwnedCoin >= 1, group: 'firstOwnedCoin' },
+  {
+    pointValue: 5,
+    unlockCondition: () => player.firstOwnedCoin >= 1,
+    group: 'firstOwnedCoin',
+    steamAchievementId: 'GROUPED_WORKERS_1'
+  },
   { pointValue: 10, unlockCondition: () => player.firstOwnedCoin >= 10, group: 'firstOwnedCoin' },
   {
     pointValue: 15,
     unlockCondition: () => player.firstOwnedCoin >= 100,
     group: 'firstOwnedCoin',
-    reward: { acceleratorPower: () => 0.001 },
-    steamAchievementId: 'GROUPED_WORKERS_1'
+    reward: { acceleratorPower: () => 0.001 }
   },
   {
     pointValue: 20,
@@ -549,14 +553,18 @@ export const achievements: Achievement[] = [
     group: 'firstOwnedCoin',
     reward: { accelBoosts: () => Math.floor(player.firstOwnedCoin / 2000) }
   },
-  { pointValue: 5, unlockCondition: () => player.secondOwnedCoin >= 1, group: 'secondOwnedCoin' },
+  {
+    pointValue: 5,
+    unlockCondition: () => player.secondOwnedCoin >= 1,
+    group: 'secondOwnedCoin',
+    steamAchievementId: 'GROUPED_INVESTMENTS_1'
+  },
   { pointValue: 10, unlockCondition: () => player.secondOwnedCoin >= 10, group: 'secondOwnedCoin' },
   {
     pointValue: 15,
     unlockCondition: () => player.secondOwnedCoin >= 100,
     group: 'secondOwnedCoin',
-    reward: { acceleratorPower: () => 0.0015 },
-    steamAchievementId: 'GROUPED_INVESTMENTS_1'
+    reward: { acceleratorPower: () => 0.0015 }
   },
   {
     pointValue: 20,
@@ -582,14 +590,18 @@ export const achievements: Achievement[] = [
     group: 'secondOwnedCoin',
     reward: { accelBoosts: () => Math.floor(player.secondOwnedCoin / 2000) }
   },
-  { pointValue: 5, unlockCondition: () => player.thirdOwnedCoin >= 1, group: 'thirdOwnedCoin' },
+  {
+    pointValue: 5,
+    unlockCondition: () => player.thirdOwnedCoin >= 1,
+    group: 'thirdOwnedCoin',
+    steamAchievementId: 'GROUPED_PRINTERS_1'
+  },
   { pointValue: 10, unlockCondition: () => player.thirdOwnedCoin >= 10, group: 'thirdOwnedCoin' },
   {
     pointValue: 15,
     unlockCondition: () => player.thirdOwnedCoin >= 100,
     group: 'thirdOwnedCoin',
-    reward: { acceleratorPower: () => 0.002 },
-    steamAchievementId: 'GROUPED_PRINTERS_1'
+    reward: { acceleratorPower: () => 0.002 }
   },
   {
     pointValue: 20,
@@ -615,47 +627,55 @@ export const achievements: Achievement[] = [
     group: 'thirdOwnedCoin',
     reward: { accelBoosts: () => Math.floor(player.thirdOwnedCoin / 2000) }
   },
-  { pointValue: 5, unlockCondition: () => player.fourthOwnedCoin >= 1, group: 'fourthOwnedCoin' },
+  {
+    pointValue: 5,
+    unlockCondition: () => player.fourthOwnedCoin >= 1,
+    group: 'fourthOwnedCoin',
+    steamAchievementId: 'GROUPED_MINTS_1'
+  },
   { pointValue: 10, unlockCondition: () => player.fourthOwnedCoin >= 10, group: 'fourthOwnedCoin' },
   {
     pointValue: 15,
-    unlockCondition: () => player.thirdOwnedCoin >= 100,
+    unlockCondition: () => player.fourthOwnedCoin >= 100,
     group: 'fourthOwnedCoin',
-    reward: { acceleratorPower: () => 0.002 },
-    steamAchievementId: 'GROUPED_MINTS_1'
+    reward: { acceleratorPower: () => 0.002 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => player.thirdOwnedCoin >= 333,
+    unlockCondition: () => player.fourthOwnedCoin >= 333,
     group: 'fourthOwnedCoin',
     checkReset: () => player.highestSingularityCount >= 2
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.thirdOwnedCoin >= 5000,
+    unlockCondition: () => player.fourthOwnedCoin >= 5000,
     group: 'fourthOwnedCoin',
-    reward: { accelerators: () => Math.floor(player.thirdOwnedCoin / 500) }
+    reward: { accelerators: () => Math.floor(player.fourthOwnedCoin / 500) }
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.thirdOwnedCoin >= 10000,
+    unlockCondition: () => player.fourthOwnedCoin >= 10000,
     group: 'fourthOwnedCoin',
-    reward: { multipliers: () => Math.floor(player.thirdOwnedCoin / 1000) }
+    reward: { multipliers: () => Math.floor(player.fourthOwnedCoin / 1000) }
   },
   {
     pointValue: 35,
-    unlockCondition: () => player.thirdOwnedCoin >= 20000,
+    unlockCondition: () => player.fourthOwnedCoin >= 20000,
     group: 'fourthOwnedCoin',
-    reward: { accelBoosts: () => Math.floor(player.thirdOwnedCoin / 2000) }
+    reward: { accelBoosts: () => Math.floor(player.fourthOwnedCoin / 2000) }
   },
-  { pointValue: 5, unlockCondition: () => player.fifthOwnedCoin >= 1, group: 'fifthOwnedCoin' },
+  {
+    pointValue: 5,
+    unlockCondition: () => player.fifthOwnedCoin >= 1,
+    group: 'fifthOwnedCoin',
+    steamAchievementId: 'GROUPED_ALCHEMIES_1'
+  },
   { pointValue: 10, unlockCondition: () => player.fifthOwnedCoin >= 10, group: 'fifthOwnedCoin' },
   {
     pointValue: 15,
     unlockCondition: () => player.fifthOwnedCoin >= 66,
     group: 'fifthOwnedCoin',
-    reward: { acceleratorPower: () => 0.003 },
-    steamAchievementId: 'GROUPED_ALCHEMIES_1'
+    reward: { acceleratorPower: () => 0.003 }
   },
   {
     pointValue: 20,
