@@ -1,5 +1,7 @@
+import i18next from 'i18next'
 import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
+import { platform } from './Config'
 import { pressedKeys } from './Hotkeys'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
@@ -49,8 +51,8 @@ interface SubTab {
   subtabIndex: number
   subTabList: {
     subTabID: string
-    unlocked: boolean
-    buttonID?: string
+    unlocked: () => boolean
+    buttonID: string
   }[]
 }
 
@@ -59,38 +61,30 @@ const subtabInfo: Record<Tabs, SubTab> = {
     tabSwitcher: () => setActiveSettingScreen,
     subtabIndex: 0,
     subTabList: [
-      { subTabID: 'settingsubtab', unlocked: true, buttonID: 'switchSettingSubTab1' },
-      { subTabID: 'languagesubtab', unlocked: true, buttonID: 'switchSettingSubTab2' },
-      { subTabID: 'creditssubtab', unlocked: true, buttonID: 'switchSettingSubTab3' },
-      { subTabID: 'statisticsSubTab', unlocked: true, buttonID: 'switchSettingSubTab4' },
+      { subTabID: 'settingsubtab', unlocked: () => true, buttonID: 'switchSettingSubTab1' },
+      { subTabID: 'languagesubtab', unlocked: () => true, buttonID: 'switchSettingSubTab2' },
+      { subTabID: 'creditssubtab', unlocked: () => true, buttonID: 'switchSettingSubTab3' },
+      { subTabID: 'statisticsSubTab', unlocked: () => true, buttonID: 'switchSettingSubTab4' },
       {
         subTabID: 'resetHistorySubTab',
-        get unlocked () {
-          return player.unlocks.prestige
-        },
+        unlocked: () => player.unlocks.prestige,
         buttonID: 'switchSettingSubTab5'
       },
       {
         subTabID: 'ascendHistorySubTab',
-        get unlocked () {
-          return player.ascensionCount > 0
-        },
+        unlocked: () => player.ascensionCount > 0,
         buttonID: 'switchSettingSubTab6'
       },
       {
         subTabID: 'singularityHistorySubTab',
-        get unlocked () {
-          return player.highestSingularityCount > 0
-        },
+        unlocked: () => player.highestSingularityCount > 0,
         buttonID: 'switchSettingSubTab7'
       },
-      { subTabID: 'hotkeys', unlocked: true, buttonID: 'switchSettingSubTab8' },
-      { subTabID: 'accountSubTab', unlocked: true, buttonID: 'switchSettingSubTab9' },
+      { subTabID: 'hotkeys', unlocked: () => true, buttonID: 'switchSettingSubTab8' },
+      { subTabID: 'accountSubTab', unlocked: () => true, buttonID: 'switchSettingSubTab9' },
       {
         subTabID: 'messagesSubTab',
-        get unlocked () {
-          return hasUnreadMessages()
-        },
+        unlocked: hasUnreadMessages,
         buttonID: 'switchSettingSubTab10'
       }
     ]
@@ -103,33 +97,25 @@ const subtabInfo: Record<Tabs, SubTab> = {
     tabSwitcher: () => toggleBuildingScreen,
     subtabIndex: 0,
     subTabList: [
-      { subTabID: 'coin', unlocked: true, buttonID: 'switchToCoinBuilding' },
+      { subTabID: 'coin', unlocked: () => true, buttonID: 'switchToCoinBuilding' },
       {
         subTabID: 'diamond',
-        get unlocked () {
-          return player.unlocks.prestige
-        },
+        unlocked: () => player.unlocks.prestige,
         buttonID: 'switchToDiamondBuilding'
       },
       {
         subTabID: 'mythos',
-        get unlocked () {
-          return player.unlocks.transcend
-        },
+        unlocked: () => player.unlocks.transcend,
         buttonID: 'switchToMythosBuilding'
       },
       {
         subTabID: 'particle',
-        get unlocked () {
-          return player.unlocks.reincarnate
-        },
+        unlocked: () => player.unlocks.reincarnate,
         buttonID: 'switchToParticleBuilding'
       },
       {
         subTabID: 'tesseract',
-        get unlocked () {
-          return player.ascensionCount > 0
-        },
+        unlocked: () => player.ascensionCount > 0,
         buttonID: 'switchToTesseractBuilding'
       }
     ]
@@ -144,16 +130,12 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: '1',
-        get unlocked () {
-          return true
-        },
+        unlocked: () => true,
         buttonID: 'toggleAchievementSubTab1'
       },
       {
         subTabID: '2',
-        get unlocked () {
-          return true
-        },
+        unlocked: () => true,
         buttonID: 'toggleAchievementSubTab2'
       }
     ]
@@ -164,30 +146,22 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: '1',
-        get unlocked () {
-          return player.unlocks.prestige
-        },
+        unlocked: () => player.unlocks.prestige,
         buttonID: 'toggleRuneSubTab1'
       },
       {
         subTabID: '2',
-        get unlocked () {
-          return player.unlocks.talismans
-        },
+        unlocked: () => player.unlocks.talismans,
         buttonID: 'toggleRuneSubTab2'
       },
       {
         subTabID: '3',
-        get unlocked () {
-          return player.unlocks.blessings
-        },
+        unlocked: () => player.unlocks.blessings,
         buttonID: 'toggleRuneSubTab3'
       },
       {
         subTabID: '4',
-        get unlocked () {
-          return player.unlocks.spirits
-        },
+        unlocked: () => player.unlocks.spirits,
         buttonID: 'toggleRuneSubTab4'
       }
     ]
@@ -196,12 +170,10 @@ const subtabInfo: Record<Tabs, SubTab> = {
     tabSwitcher: () => toggleChallengesScreen,
     subtabIndex: 0,
     subTabList: [
-      { subTabID: '1', unlocked: true, buttonID: 'toggleChallengesSubTab1' },
+      { subTabID: '1', unlocked: () => true, buttonID: 'toggleChallengesSubTab1' },
       {
         subTabID: '2',
-        get unlocked () {
-          return player.highestSingularityCount >= 25
-        },
+        unlocked: () => player.highestSingularityCount >= 25,
         buttonID: 'toggleChallengesSubTab2'
       }
     ]
@@ -216,19 +188,17 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: '1',
-        unlocked: true,
+        unlocked: () => true,
         buttonID: 'toggleAntSubtab1'
       },
       {
         subTabID: '2',
-        unlocked: true,
+        unlocked: () => true,
         buttonID: 'toggleAntSubtab2'
       },
       {
         subTabID: '3',
-        get unlocked () {
-          return player.ants.antSacrificeCount > 0
-        },
+        unlocked: () => player.ants.antSacrificeCount > 0,
         buttonID: 'toggleAntSubtab3'
       }
     ]
@@ -239,51 +209,37 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: '1',
-        get unlocked () {
-          return player.unlocks.ascensions
-        },
+        unlocked: () => player.unlocks.ascensions,
         buttonID: 'switchCubeSubTab1'
       },
       {
         subTabID: '2',
-        get unlocked () {
-          return player.unlocks.tesseracts
-        },
+        unlocked: () => player.unlocks.tesseracts,
         buttonID: 'switchCubeSubTab2'
       },
       {
         subTabID: '3',
-        get unlocked () {
-          return player.unlocks.hypercubes
-        },
+        unlocked: () => player.unlocks.hypercubes,
         buttonID: 'switchCubeSubTab3'
       },
       {
         subTabID: '4',
-        get unlocked () {
-          return player.unlocks.platonics
-        },
+        unlocked: () => player.unlocks.platonics,
         buttonID: 'switchCubeSubTab4'
       },
       {
         subTabID: '5',
-        get unlocked () {
-          return player.unlocks.ascensions
-        },
+        unlocked: () => player.unlocks.ascensions,
         buttonID: 'switchCubeSubTab5'
       },
       {
         subTabID: '6',
-        get unlocked () {
-          return player.unlocks.platonics
-        },
+        unlocked: () => player.unlocks.platonics,
         buttonID: 'switchCubeSubTab6'
       },
       {
         subTabID: '7',
-        get unlocked () {
-          return player.unlocks.hepteracts
-        },
+        unlocked: () => player.unlocks.hepteracts,
         buttonID: 'switchCubeSubTab7'
       }
     ]
@@ -298,12 +254,12 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: 'true',
-        unlocked: true,
+        unlocked: () => true,
         buttonID: 'corrStatsBtn'
       },
       {
         subTabID: 'false',
-        unlocked: true,
+        unlocked: () => true,
         buttonID: 'corrLoadoutsBtn'
       }
     ]
@@ -314,37 +270,27 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: '1',
-        get unlocked () {
-          return player.highestSingularityCount > 0
-        },
+        unlocked: () => player.highestSingularityCount > 0,
         buttonID: 'toggleSingularitySubTab1'
       },
       {
         subTabID: '2',
-        get unlocked () {
-          return player.highestSingularityCount > 0
-        },
+        unlocked: () => player.highestSingularityCount > 0,
         buttonID: 'toggleSingularitySubTab2'
       },
       {
         subTabID: '3',
-        get unlocked () {
-          return player.highestSingularityCount > 0
-        },
+        unlocked: () => player.highestSingularityCount > 0,
         buttonID: 'toggleSingularitySubTab3'
       },
       {
         subTabID: '4',
-        get unlocked () {
-          return Boolean(getGQUpgradeEffect('octeractUnlock'))
-        },
+        unlocked: () => Boolean(getGQUpgradeEffect('octeractUnlock')),
         buttonID: 'toggleSingularitySubTab4'
       },
       {
         subTabID: '5',
-        get unlocked () {
-          return player.highestSingularityCount >= 25
-        },
+        unlocked: () => player.highestSingularityCount >= 25,
         buttonID: 'toggleSingularitySubTab5'
       }
     ]
@@ -359,32 +305,32 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: 'productContainer',
-        unlocked: true,
+        unlocked: () => true,
         buttonID: 'cartSubTab1'
       },
       {
         subTabID: 'subscriptionContainer',
-        unlocked: true,
+        unlocked: () => platform !== 'steam',
         buttonID: 'cartSubTab2'
       },
       {
         subTabID: 'upgradesContainer',
-        unlocked: true,
+        unlocked: () => true,
         buttonID: 'cartSubTab3'
       },
       {
         subTabID: 'consumablesSection',
-        unlocked: true,
+        unlocked: () => true,
         buttonID: 'cartSubTab4'
       },
       {
         subTabID: 'cartContainer',
-        unlocked: true,
+        unlocked: () => true,
         buttonID: 'cartSubTab5'
       },
       {
         subTabID: 'merchContainer',
-        unlocked: true,
+        unlocked: () => platform === 'browser', // Steam disallows purchases outside of the Steam ecosystem
         buttonID: 'cartSubTab6'
       }
     ]
@@ -534,7 +480,7 @@ class TabRow extends HTMLDivElement {
 interface kSubTabOptionsBag {
   id: string
   class?: string
-  i18n?: string
+  i18n: string
   borderColor?: string
 }
 
@@ -551,9 +497,9 @@ class $Tab extends HTMLButtonElement {
     if (options.class) {
       this.classList.add(options.class)
     }
-    if (options.i18n) {
-      this.setAttribute('i18n', options.i18n)
-    }
+
+    this.setAttribute('i18n', options.i18n)
+
     if (options.borderColor) {
       this.style.borderColor = options.borderColor
     }
@@ -759,14 +705,28 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   const subTabList = subtabInfo[G.currentTab].subTabList
   for (let i = 0; i < subTabList.length; i++) {
     const id = subTabList[i].buttonID
-    if (id && DOMCacheHas(id)) {
+    if (DOMCacheHas(id)) {
       const button = DOMCacheGetOrSet(id)
+
+      if (!subTabList[i].unlocked()) {
+        button.classList.add('none')
+      }
 
       if (button.classList.contains('active-subtab')) {
         subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex = i
-        break
       }
     }
+  }
+
+  if (platform === 'steam') {
+    import('./steam/discord').then(({ setRichPresenceDiscord }) => {
+      const i18n = tabRow.getCurrentTab().getAttribute('i18n')
+      setRichPresenceDiscord({
+        details: 'Playing Synergism',
+        state: `Looking at ${i18next.t(i18n!)}...`,
+        startTimestamp: new Date()
+      })
+    })
   }
 }
 
@@ -774,7 +734,7 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
   let tab = tabRow.getCurrentTab()
 
   if (tab.getType() !== tabs) {
-    changeTab(tab.getType())
+    changeTab(tabs)
     tab = tabRow.getCurrentTab()
   }
 
@@ -796,7 +756,7 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
 
   let subTabList = subTabs.subTabList[subtabInfo[tab.getType()].subtabIndex]
 
-  while (!subTabList.unlocked) {
+  while (!subTabList.unlocked()) {
     subtabInfo[tab.getType()].subtabIndex = limitRange(
       subtabInfo[tab.getType()].subtabIndex + (step ?? 1),
       0,
@@ -805,10 +765,8 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
     subTabList = subTabs.subTabList[subtabInfo[tab.getType()].subtabIndex]
   }
 
-  if (subTabList.unlocked) {
+  if (subTabList.unlocked()) {
     for (const subtab of subTabs.subTabList) {
-      if (!subtab.buttonID) continue
-
       const element = DOMCacheGetOrSet(subtab.buttonID)
 
       if (subtab === subTabList) {

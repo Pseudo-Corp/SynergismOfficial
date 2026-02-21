@@ -29,6 +29,7 @@ import {
   type ProgressiveAchievements,
   progressiveAchievements,
   resetAchievementCheck,
+  syncSteamAchievements,
   updateAchievementPoints,
   updateAllGroupedAchievementProgress,
   updateAllProgressiveAchievementProgress,
@@ -175,7 +176,7 @@ import {
   updateMaxTokens,
   updateTokens
 } from './Campaign'
-import { dev, lastUpdated, prod, testing, version } from './Config'
+import { dev, lastUpdated, platform, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
 import { autobuyAnts } from './Features/Ants'
@@ -1257,7 +1258,27 @@ export const saveSynergy = (button?: boolean) => {
     setTimeout(() => (el.textContent = ''), 4000)
   }
 
+  // Auto-sync to Steam Cloud (throttled to every 60 seconds)
+  if (platform === 'steam') {
+    const now = Date.now()
+    if (now - lastSteamCloudSync >= 60_000) {
+      lastSteamCloudSync = now
+      void syncToSteamCloud(save)
+    }
+  }
+
   return true
+}
+
+let lastSteamCloudSync = 0
+
+async function syncToSteamCloud (saveData: string) {
+  const { cloudWriteFile, getSteamId } = await import('./steam/steam')
+  const steamId = await getSteamId()
+  if (!steamId) return
+
+  const saveFileName = `synergism_${steamId}.txt`
+  await cloudWriteFile(saveFileName, saveData)
 }
 
 const loadSynergy = () => {
@@ -1996,6 +2017,8 @@ const loadSynergy = () => {
   } else if (player.currentChallenge.transcension) {
     resetrepeat('transcensionChallenge')
   }
+
+  syncSteamAchievements()
 
   const d = new Date()
   const h = d.getHours()
@@ -5297,6 +5320,15 @@ window.addEventListener('load', async () => {
       G: { value: G },
       Decimal: { value: Decimal },
       i18n: { value: i18next }
+    })
+  }
+
+  if (platform === 'steam') {
+    const { setRichPresenceDiscord } = await import('./steam/discord')
+
+    setRichPresenceDiscord({
+      details: 'Playing Synergism',
+      state: 'gathering quarks...'
     })
   }
 }, { once: true })
