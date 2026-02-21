@@ -516,11 +516,15 @@ export async function handleLogin () {
                 } else {
                   const html = await response.text()
                   const overlay = document.createElement('div')
-                  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:99999'
+                  overlay.style.cssText =
+                    'position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:99999'
                   const modal = document.createElement('div')
-                  modal.style.cssText = 'background:var(--alert-color);color:var(--text-color);padding:20px;border:1px solid var(--boxmain-bordercolor);border-radius:8px;max-width:500px;max-height:80vh;overflow:auto'
+                  modal.style.cssText =
+                    'background:var(--alert-color);color:var(--text-color);padding:20px;border:1px solid var(--boxmain-bordercolor);border-radius:8px;max-width:500px;max-height:80vh;overflow:auto'
                   modal.innerHTML = DOMPurify.sanitize(html)
-                  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove() })
+                  overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) overlay.remove()
+                  })
                   overlay.appendChild(modal)
                   document.body.appendChild(overlay)
                 }
