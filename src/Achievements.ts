@@ -279,7 +279,6 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
   runeLevel: {
     maxPointValue: 1000,
     pointsAwarded: (cached: number) => {
-      console.log(cached)
       return Math.min(200, Math.floor(cached / 1000)) + Math.min(400, Math.floor(cached / 2500))
         + Math.min(400, Math.floor(cached / 12500))
     },
@@ -3552,6 +3551,21 @@ export const updateAchievementLevel = (fromUpdatePoints = false) => {
       void Notification(i18next.t('achievements.levelUpNotification', { old: oldLevel, new: achievementLevel }))
     }
   }
+}
+
+export function computeAchievementPoints (
+  savedAchievements: number[],
+  savedProgressiveAchievements: Record<string, number>
+): number {
+  let points = achievements.reduce((sum, ach, index) => {
+    return sum + (savedAchievements[index] ? ach.pointValue : 0)
+  }, 0)
+
+  for (const k of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
+    points += progressiveAchievements[k].pointsAwarded(savedProgressiveAchievements[k] ?? 0)
+  }
+
+  return points
 }
 
 export const toNextAchievementLevelEXP = () => {

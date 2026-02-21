@@ -23,6 +23,7 @@ import {
   awardUngroupedAchievement,
   buildingAchievementCheck,
   challengeAchievementCheck,
+  computeAchievementPoints,
   generateAchievementHTMLs,
   getAchievementReward,
   numAchievements,
@@ -1258,10 +1259,10 @@ export const saveSynergy = (button?: boolean) => {
     setTimeout(() => (el.textContent = ''), 4000)
   }
 
-  // Auto-sync to Steam Cloud (throttled to every 60 seconds)
+  // Auto-sync to Steam Cloud (throttled to every 60 seconds, or immediately on manual save)
   if (platform === 'steam') {
     const now = Date.now()
-    if (now - lastSteamCloudSync >= 60_000) {
+    if (button || now - lastSteamCloudSync >= 60_000) {
       lastSteamCloudSync = now
       void syncToSteamCloud(save)
     }
@@ -1273,12 +1274,36 @@ export const saveSynergy = (button?: boolean) => {
 let lastSteamCloudSync = 0
 
 async function syncToSteamCloud (saveData: string) {
-  const { cloudWriteFile, getSteamId } = await import('./steam/steam')
+  const { cloudFileExists, cloudReadFile, cloudWriteFile, getSteamId } = await import('./steam/steam')
   const steamId = await getSteamId()
   if (!steamId) return
 
   const saveFileName = `synergism_${steamId}.txt`
-  await cloudWriteFile(saveFileName, saveData)
+
+  const exists = await cloudFileExists(saveFileName)
+  console.log('[SteamCloud] cloudFileExists:', exists)
+
+  if (exists) {
+    const cloudSave = await cloudReadFile(saveFileName)
+    console.log('[SteamCloud] cloudReadFile returned:', cloudSave ? `string(${cloudSave.length})` : cloudSave)
+
+    if (cloudSave) {
+      try {
+        const parsed = playerUpdateVarSchema.parse(JSON.parse(atob(cloudSave)))
+        const cloudPoints = computeAchievementPoints(parsed.achievements, parsed.progressiveAchievements)
+        console.log('[SteamCloud] achievementPoints:', achievementPoints, 'cloudPoints:', cloudPoints)
+        if (achievementPoints < cloudPoints) {
+          console.log('[SteamCloud] skipping upload, cloud has higher points')
+          return
+        }
+      } catch (e) {
+        console.error('[SteamCloud] failed to parse cloud save:', e)
+      }
+    }
+  }
+
+  const writeResult = await cloudWriteFile(saveFileName, saveData)
+  console.log('[SteamCloud] cloudWriteFile result:', writeResult)
 }
 
 const loadSynergy = () => {

@@ -1043,11 +1043,11 @@ function handleCloudSaves () {
         cloudSaves.length = 0
         cloudSaves.push(...$saves)
 
-        const existingRows = table.querySelectorAll('.grid-row')
+        const existingRows = table.querySelectorAll('.grid-row:not(.steam-save-row)')
         existingRows.forEach((row) => row.remove())
 
-        const content = table.querySelector('.details-content')
-        content?.remove()
+        const detailsRows = table.querySelectorAll('.grid-details-row:not(.steam-details-row)')
+        detailsRows.forEach((row) => row.remove())
 
         if (cloudSaves.length === 0) {
           const emptyDiv = document.createElement('div')
