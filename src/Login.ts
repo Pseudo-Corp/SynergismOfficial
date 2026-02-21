@@ -530,7 +530,16 @@ export async function handleLogin () {
                 }
               }
             } else {
-              window.open(`https://synergism.cc/login?with=${unlinked.name}&link=true`, '_blank')
+              if (platform === 'steam') {
+                const res = await fetch('https://synergism.cc/login/link-token', { credentials: 'include' })
+                const { token } = await res.json()
+                window.open(
+                  `https://synergism.cc/login?with=${unlinked.name}&link=true&platform=steam&link_token=${token}`,
+                  '_blank'
+                )
+              } else {
+                window.open(`https://synergism.cc/login?with=${unlinked.name}&link=true`, '_blank')
+              }
             }
           })
           buttonContainer.appendChild(button)
