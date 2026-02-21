@@ -7431,17 +7431,17 @@
       "yourself": "做自己！(创建账户)"
     },
     "steamCloud": {
-      "title": "Steam Cloud Save",
-      "name": "Steam Cloud Save",
-      "exists": "Save available",
-      "noSave": "No save yet",
-      "upload": "Upload to Steam",
-      "uploading": "Uploading...",
-      "uploadSuccess": "Save uploaded to Steam Cloud!",
-      "uploadFailed": "Failed to upload to Steam Cloud.",
-      "readFailed": "Failed to read Steam Cloud save.",
-      "noLocalSave": "No local save found.",
-      "confirmOverwrite": "This will overwrite your existing Steam Cloud save. Continue?"
+      "title": "Steam云存档",
+      "name": "Steam云存档",
+      "exists": "可用的存档",
+      "noSave": "还没有存档",
+      "upload": "上传到Steam",
+      "uploading": "上传中……",
+      "uploadSuccess": "存档上传至Steam云！",
+      "uploadFailed": "上传到Steam云失败。",
+      "readFailed": "读取Steam云存档失败。",
+      "noLocalSave": "未找到本地存档。",
+      "confirmOverwrite": "这将覆盖您现有的Steam云存档。您确定要继续吗？"
     }
   },
   "pseudoCoins": {
