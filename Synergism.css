@@ -6064,11 +6064,11 @@ html[data-transcend-unlock="true"] .offlineStats > .transcendunlock {
     display: flex;
 }
 
-html[data-reincarnation-unlock="true"] .reincarnationunlock {
+html[data-reincarnate-unlock="true"] .reincarnationunlock {
     display: block;
 }
 
-html[data-reincarnation-unlock="true"] .offlineStats > .reincarnationunlock {
+html[data-reincarnate-unlock="true"] .offlineStats > .reincarnationunlock {
     display: flex;
 }
 
@@ -6088,11 +6088,11 @@ html[data-transcend-unlock="false"] .offlineStats > .transcendunlock {
     display: none;
 }
 
-html[data-reincarnation-unlock="false"] .reincarnationunlock {
+html[data-reincarnate-unlock="false"] .reincarnationunlock {
     display: none;
 }
 
-html[data-reincarnation-unlock="false"] .offlineStats > .reincarnationunlock {
+html[data-reincarnate-unlock="false"] .offlineStats > .reincarnationunlock {
     display: none;
 }
 

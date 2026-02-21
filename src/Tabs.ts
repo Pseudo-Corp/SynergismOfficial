@@ -657,15 +657,16 @@ tabRow.addEventListener('click', (e) => {
  * @param changeSubtab true to change the subtab, false to change the main tabs
  */
 export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
-  let tab = step === 1 ? tabRow.getNextTab() : tabRow.getPreviousTab()
-
-  while (!tab?.isUnlocked()) {
-    tab = step === 1 ? tabRow.getNextTab(tab) : tabRow.getPreviousTab(tab)
-  }
-
   if (changeSubtab) {
-    changeSubTab(tab.getType(), { step })
+    // When changing subtabs, use the current tab instead of calculating next/previous
+    changeSubTab(tabRow.getCurrentTab().getType(), { step })
   } else {
+    let tab = step === 1 ? tabRow.getNextTab() : tabRow.getPreviousTab()
+
+    while (!tab?.isUnlocked()) {
+      tab = step === 1 ? tabRow.getNextTab(tab) : tabRow.getPreviousTab(tab)
+    }
+
     changeTab(tab.getType(), step)
     changeTabColor()
   }
@@ -710,6 +711,8 @@ export const changeTab = (tabs: Tabs, step?: number) => {
 
       if (!subTabList[i].unlocked()) {
         button.classList.add('none')
+      } else {
+        button.classList.remove('none')
       }
 
       if (button.classList.contains('active-subtab')) {
