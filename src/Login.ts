@@ -310,10 +310,6 @@ export async function handleLogin () {
       document.getElementById('accountSubTab')?.appendChild(logoutElement)
     }
 
-    if (platform === 'steam') {
-      subtabElement.querySelectorAll('a').forEach((element) => element.classList.add('none'))
-    }
-
     const response = await fetchMeRoute()
 
     const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>

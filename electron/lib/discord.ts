@@ -23,7 +23,7 @@ rpc.on('error', (error) => {
 
     // If already ready, set activity immediately
     if (isReady) {
-      setActivity().catch(err => console.error('[Discord RPC] Failed to set activity:', err))
+      setActivity().catch((err) => console.error('[Discord RPC] Failed to set activity:', err))
     }
   })
 }
@@ -67,7 +67,7 @@ rpc.once('ready', () => {
 })
 
 // Connect with retry logic, especially important for macOS
-async function connectWithRetry(maxRetries = 3, delayMs = 5000): Promise<void> {
+async function connectWithRetry (maxRetries = 3, delayMs = 5000): Promise<void> {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       await rpc.login({ clientId })
@@ -78,7 +78,7 @@ async function connectWithRetry(maxRetries = 3, delayMs = 5000): Promise<void> {
 
       if (attempt < maxRetries) {
         console.log(`[Discord RPC] Retrying in ${delayMs / 1000} seconds...`)
-        await new Promise(resolve => setTimeout(resolve, delayMs))
+        await new Promise((resolve) => setTimeout(resolve, delayMs))
       }
     }
   }
