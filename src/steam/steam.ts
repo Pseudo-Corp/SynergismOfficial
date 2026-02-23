@@ -3,6 +3,13 @@ import type { callback } from 'steamworks.js/client'
 
 export type MicroTxnAuthorizationResponse = CallbackReturns[callback.SteamCallback.MicroTxnAuthorizationResponse]
 
+export interface SteamGetUserInfoResponse {
+  country: string
+  currency: string
+  state: string
+  status: 'Locked' | 'Active' | 'Trusted'
+}
+
 interface Steam {
   getSteamId: () => Promise<string | null>
   getUsername: () => Promise<string | null>

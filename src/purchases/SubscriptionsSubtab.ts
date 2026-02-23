@@ -1,8 +1,8 @@
 import { type FUNDING_SOURCE, loadScript } from '@paypal/paypal-js'
-import { prod } from '../Config'
+import { platform, prod } from '../Config'
 import { getSubMetadata, type SubscriptionMetadata, type SubscriptionProvider } from '../Login'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
-import { memoize } from '../Utility'
+import { assert, memoize } from '../Utility'
 import { type SubscriptionProduct, subscriptionProducts } from './CartTab'
 import { addToCart, getQuantity } from './CartUtil'
 
@@ -210,43 +210,43 @@ const subscriptionTierGradients = [
   'rainbowText'
 ]
 
-export const createSubscriptionTierName = (product: SubscriptionProduct) => {
+const createSubscriptionTierName = (product: SubscriptionProduct) => {
   return `<span class="${subscriptionTierGradients[product.tier - 1]}">${product.name}</span>`
 }
 
-export const noSubscriptionButton = (product: SubscriptionProduct) => {
+const noSubscriptionButton = (product: SubscriptionProduct) => {
+  if (platform === 'steam') {
+    return `<button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton steamSubscribeButton">
+      Subscribe with Steam - ${formatter.format(product.price / 100)} USD / mo
+    </button>`
+  }
+
   return `<div class="checkout-paypal" data-id="${product.id}"></div>
   <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton">
     ${formatter.format(product.price / 100)} USD / mo
   </button>`
 }
 
-export const downgradeButton = (product: SubscriptionProduct) => {
+const downgradeButton = (product: SubscriptionProduct) => {
   return `<button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
     Downgrade
     </button>`
 }
 
-export const currentSubscriptionBox = () => {
+const currentSubscriptionBox = () => {
   return `<button data-name="current-subscription" class="pseudoCoinButton" style="background-color: #b59410">
     You are here!
   </button>`
 }
 
-export const paypalCancelButton = (product: SubscriptionProduct) => {
-  return `<button data-id="${product.id}" data-name="${product.name}" data-cancel class="pseudoCoinButton" style="background-color: maroon">
-      Cancel
-    </button>`
-}
-
-export const upgradeButton = (product: SubscriptionProduct, currentSubTier: number) => {
+const upgradeButton = (product: SubscriptionProduct, currentSubTier: number) => {
   const currentPrice = subscriptionProducts.find((v) => v.tier === currentSubTier)?.price ?? 0
   return `<button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton" style="background-color: green">
     ↑ (+${formatter.format((product.price - currentPrice) / 100)} USD / mo)
   </button>`
 }
 
-export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentSubTier: number) => {
+const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentSubTier: number) => {
   const sub = getSubMetadata()
   const notSubbed = sub === null
   const patreonSub = sub?.provider === 'patreon'
@@ -316,6 +316,11 @@ const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
 
   const subscriptionCancelButtons = manageSubscriptionHolder.querySelectorAll<HTMLElement>('.subscriptionCancel')
 
+  if (platform === 'steam') {
+    manageSubscriptionHolder.classList.add('none')
+    return
+  }
+
   patreonManageForm.style.display = sub === null || sub.provider === 'patreon' ? 'flex' : 'none'
   stripeManageForm.style.display = sub === null || sub.provider === 'stripe' ? 'flex' : 'none'
   paypalManageForm.style.display = sub === null || sub.provider === 'paypal' ? 'flex' : 'none'
@@ -323,7 +328,34 @@ const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
   subscriptionCancelButtons.forEach((btn) => btn.style.display = sub === null ? 'none' : 'block')
 }
 
-export const initializeSubscriptionPage = memoize(() => {
+async function submitSubscriptionSteam (productId: string) {
+  assert(platform === 'steam')
+  const { submitSteamMicroTxn } = await import('../steam/microtxn')
+
+  const fd = new FormData()
+  fd.set(productId, '1')
+  fd.set('tosAgree', 'on')
+
+  const success = await submitSteamMicroTxn(fd)
+
+  if (success) {
+    Notification('Subscription completed successfully!')
+    updateSubscriptionPage()
+  }
+}
+
+function initializeSteamSubscriptionButtons () {
+  assert(platform === 'steam')
+  document.querySelectorAll<HTMLButtonElement>('.steamSubscribeButton').forEach((button) => {
+    button.addEventListener('click', function(this: HTMLButtonElement) {
+      const productId = this.getAttribute('data-id')!
+      this.disabled = true
+      submitSubscriptionSteam(productId).finally(() => this.disabled = false)
+    })
+  })
+}
+
+const initializeSubscriptionPage = memoize(() => {
   const sub = getSubMetadata()
   manageSubscriptionButtonVisibility(sub)
 
@@ -334,11 +366,12 @@ export const initializeSubscriptionPage = memoize(() => {
 
   subscriptionSectionHolder!.style.display = 'grid'
 
-  document.querySelectorAll<HTMLButtonElement>('.subscriptionContainer > button[data-id]').forEach(
-    (element) => {
-      element.addEventListener('click', clickHandler)
-    }
-  )
+  document.querySelectorAll<HTMLButtonElement>('.subscriptionContainer > button[data-id]:not(.steamSubscribeButton)')
+    .forEach(
+      (element) => {
+        element.addEventListener('click', clickHandler)
+      }
+    )
 
   document.querySelectorAll<HTMLButtonElement>('.subscriptionCancel, .subscriptionWebsite').forEach(
     (element) => {
@@ -346,12 +379,16 @@ export const initializeSubscriptionPage = memoize(() => {
     }
   )
 
-  initializePayPal_Subscription()
+  if (platform === 'steam') {
+    initializeSteamSubscriptionButtons()
+  } else {
+    initializePayPal_Subscription()
+  }
 })
 
 // TODO: When I buy a subscription, cancel or change it, the page should update
 // its HTML without a full refresh, but without having to re-initialize the whole page
-export const updateSubscriptionPage = () => {
+const updateSubscriptionPage = () => {
   const sub = getSubMetadata()
   manageSubscriptionButtonVisibility(sub)
   subscriptionSectionHolder.innerHTML = ''
@@ -362,18 +399,26 @@ export const updateSubscriptionPage = () => {
     createIndividualSubscriptionHTML(product, tier)
   ).join('')
 
-  document.querySelectorAll<HTMLButtonElement>('.subscriptionContainer > button[data-id]').forEach(
-    (element) => {
-      element.addEventListener('click', clickHandler)
-    }
-  )
-  initializePayPal_Subscription()
+  document.querySelectorAll<HTMLButtonElement>('.subscriptionContainer > button[data-id]:not(.steamSubscribeButton)')
+    .forEach(
+      (element) => {
+        element.addEventListener('click', clickHandler)
+      }
+    )
+
+  if (platform === 'steam') {
+    initializeSteamSubscriptionButtons()
+  } else {
+    initializePayPal_Subscription()
+  }
 }
 
 /**
  * https://stackoverflow.com/a/69024269
  */
 export const initializePayPal_Subscription = async () => {
+  assert(platform === 'browser')
+
   const paypal = await loadScript({
     clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
     disableFunding: ['paylater', 'credit', 'card'] satisfies FUNDING_SOURCE[],

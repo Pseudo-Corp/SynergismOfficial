@@ -15,13 +15,6 @@ import {
 import { initializePayPal_Subscription } from './SubscriptionsSubtab'
 import { updatePseudoCoins } from './UpgradesSubtab'
 
-interface SteamGetUserInfoResponse {
-  country: string
-  currency: string
-  state: string
-  status: 'Locked' | 'Active' | 'Trusted'
-}
-
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #cartContainer')!
 const form = tab.querySelector('div.cartList')!
 
@@ -112,43 +105,9 @@ export const initializeCheckoutTab = memoize(() => {
       .finally(reset)
   }
 
-  // https://partner.steamgames.com/doc/features/microtransactions/implementation#5
   async function submitCheckoutSteam (_e: MouseEvent) {
-    // Step 2
-    const { getCurrentGameLanguage, getSteamId, onMicroTxnAuthorizationResponse } = await import('../steam/steam')
+    const { submitSteamMicroTxn } = await import('../steam/microtxn')
 
-    const [steamId, currentGameLanguage] = await Promise.all([getSteamId(), getCurrentGameLanguage()])
-
-    if (!steamId || !currentGameLanguage) {
-      await Alert('Steam is not initialized, I cannot create a transaction')
-      return
-    }
-
-    const response = await fetch('/api/v1/steam/get-user-info', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        steamId,
-        currentGameLanguage
-      })
-    })
-
-    if (!response.ok) {
-      const { error } = await response.json()
-      Notification(error)
-      return
-    }
-
-    const { status } = await response.json() as SteamGetUserInfoResponse
-
-    if (status === 'Locked') {
-      await Alert('Your Steam account is locked. You cannot make purchases.')
-      return
-    }
-
-    // Step 3
     const fd = new FormData()
 
     for (const product of getProductsInCart()) {
@@ -157,64 +116,15 @@ export const initializeCheckoutTab = memoize(() => {
 
     fd.set('tosAgree', radioTOSAgree.checked ? 'on' : 'off')
 
-    const initTxnResponse = await fetch('/api/v1/steam/init-txn', {
-      method: 'POST',
-      body: fd
-    })
+    const success = await submitSteamMicroTxn(fd)
 
-    if (!initTxnResponse.ok) {
-      const { error } = await initTxnResponse.json() as { error: string }
-      Notification(error)
-      return
+    if (success) {
+      Notification('Transaction completed successfully!')
+      clearCart()
+      updateItemList()
+      updateTotalPriceInCart()
+      exponentialPseudoCoinBalanceCheck()
     }
-
-    const { orderId } = await initTxnResponse.json() as { orderId: string; transId: string }
-
-    // Step 4
-    type MicroTxnAuthorizationResponse = import('../steam/steam').MicroTxnAuthorizationResponse
-
-    const p = Promise.withResolvers<MicroTxnAuthorizationResponse>()
-    onMicroTxnAuthorizationResponse((txnResponse) => p.resolve(txnResponse))
-
-    const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 15 * 60 * 1000))
-
-    let txnResponse: MicroTxnAuthorizationResponse
-    try {
-      txnResponse = await Promise.race([p.promise, timeout])
-    } catch {
-      Notification('Steam did not respond in time. Please try again.')
-      return
-    }
-
-    if (txnResponse.order_id.toString() !== orderId) {
-      return
-    }
-
-    if (!txnResponse.authorized) {
-      Notification('Transaction was not authorized.')
-      return
-    }
-
-    // Step 5
-    const finalizeResponse = await fetch('/api/v1/steam/finalize-txn', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ orderId })
-    })
-
-    if (!finalizeResponse.ok) {
-      const { error } = await finalizeResponse.json() as { error: string }
-      Notification(error)
-      return
-    }
-
-    Notification('Transaction completed successfully!')
-    clearCart()
-    updateItemList()
-    updateTotalPriceInCart()
-    exponentialPseudoCoinBalanceCheck()
   }
 
   // Remove rainbow border highlight when TOS is clicked

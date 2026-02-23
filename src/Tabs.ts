@@ -310,7 +310,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'subscriptionContainer',
-        unlocked: () => platform !== 'steam',
+        unlocked: () => true,
         buttonID: 'cartSubTab2'
       },
       {
