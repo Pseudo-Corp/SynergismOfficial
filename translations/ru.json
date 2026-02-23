@@ -336,8 +336,8 @@
         "effect": "Позитивный и Негативный Утиль увеличены на {{amount}}."
       },
       "blueberries": {
-        "name": "Berries that are... blue?",
-        "description": "They look like Blueberries. They act like Blueberries. You're not really sure if they're Blueberries.",
+        "name": "Ягоды которые... синие?",
+        "description": "Они выглядят как черника. Они ведут себя как черника. Вы не уверены, что это черника.",
         "effect": "Your Blueberry inventory is increased by {{amount}}"
       }
     }
@@ -7429,6 +7429,19 @@
       "diamondSmithMessiah": "Diamond Smith Messiah",
       "mythosSmith": "The Mythos Smith SPIRIT OF DERPSMITH",
       "yourself": "Being yourself! (Making a Synergism Account)"
+    },
+    "steamCloud": {
+      "title": "Steam Cloud Save",
+      "name": "Steam Cloud Save",
+      "exists": "Save available",
+      "noSave": "No save yet",
+      "upload": "Upload to Steam",
+      "uploading": "Uploading...",
+      "uploadSuccess": "Save uploaded to Steam Cloud!",
+      "uploadFailed": "Failed to upload to Steam Cloud.",
+      "readFailed": "Failed to read Steam Cloud save.",
+      "noLocalSave": "No local save found.",
+      "confirmOverwrite": "This will overwrite your existing Steam Cloud save. Continue?"
     }
   },
   "pseudoCoins": {
