@@ -184,8 +184,8 @@
       },
       "ambrosiaTalismanBonusRuneLevel": {
         "name": "Модуль Внедрения Амброзии в Талисманы",
-        "description": "Благодарю силе большого количества Амброзии, даёт +0.5% Силы Талисманов за уровень! Складывается с другими бонусами.",
-        "effect": "Talisman Power is increased by {{amount}}"
+        "description": "Благодаря силе большого количества Амброзии, даёт +0.5% силы талисманов за уровень! Складывается с другими бонусами.",
+        "effect": "Сила талисманов увеличена на {{amount}}"
       },
       "ambrosiaRuneOOMBonus": {
         "name": "Модуль Коэффициента Рун",
@@ -968,257 +968,257 @@
         "conversionExponent": "+1% к степени преобразования на всех улучшениях генератора!"
       },
       "73": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "+1% к степени преобразования на всех улучшениях генератора!"
       },
       "74": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "+1% к степени преобразования на всех улучшениях генератора!"
       },
       "75": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "+1% к степени преобразования на всех улучшениях генератора!"
       },
       "76": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "+1% к степени преобразования на всех улучшениях генератора!"
       },
       "77": {
-        "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
+        "conversionExponent": "+1% к степени преобразования на всех улучшениях генератора!"
       },
       "78": {
-        "refineryAutobuy": "Unlock the Refinery Autobuyer!"
+        "refineryAutobuy": "Открывает автопокупщик нефтеперерабатывающих заводов!"
       },
       "79": {
-        "crystalUpgrade1Autobuy": "Unlock the Autobuyer for the first Crystal Upgrade!"
+        "crystalUpgrade1Autobuy": "Открывает автопокупщик для первого улучшения кристаллов!"
       },
       "80": {
-        "salvage": "Salvage +3",
-        "multAutobuyer": "Start with the Multiplier Autobuyer unlocked!"
+        "salvage": "Утилизация +3",
+        "multAutobuyer": "Начинаете с открытым автопокупщиком множителей!"
       },
       "82": {
-        "taxReduction": "Tax scaling reduced by 4%"
+        "taxReduction": "Масштабирование налогов уменьшено на 4%"
       },
       "84": {
         "multiplicativeObtainium": "Обтаниум x1.05"
       },
       "85": {
-        "coalPlantAutobuy": "Unlock the Coal Plant Autobuyer!"
+        "coalPlantAutobuy": "Открывает автопокупщик угольных генераторов!"
       },
       "86": {
-        "crystalUpgrade2Autobuy": "Unlock the Autobuyer for the second Crystal Upgrade!"
+        "crystalUpgrade2Autobuy": "Открывает автопокупщик для второго улучшения кристаллов!"
       },
       "87": {
-        "salvage": "+3 Salvage",
-        "accelAutobuyer": "Start with the Accelerator Autobuyer unlocked!"
+        "salvage": "+3 утилизации",
+        "accelAutobuyer": "Начинаете с открытым автопокупщиком ускорителей!"
       },
       "89": {
-        "taxReduction": "Tax scaling reduced by 4%"
+        "taxReduction": "Масштабирование налогов уменьшено на 4%"
       },
       "91": {
         "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "92": {
-        "coalRigAutobuy": "Unlock the Coal Rig Autobuyer!"
+        "coalRigAutobuy": "Открывает автопокупщик угольного карьера!"
       },
       "93": {
-        "crystalUpgrade3Autobuy": "Unlock the Autobuyer for the third Crystal Upgrade!"
+        "crystalUpgrade3Autobuy": "Открывает автопокупщик для третьего улучшения кристаллов!"
       },
       "94": {
-        "salvage": "+4 Salvage"
+        "salvage": "+4 утилизации"
       },
       "96": {
-        "taxReduction": "Tax scaling reduced by 4%"
+        "taxReduction": "Масштабирование налогов уменьшено на 4%"
       },
       "98": {
         "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "99": {
-        "pickaxeAutobuy": "Разблокировать автопокупатель Кирок!"
+        "pickaxeAutobuy": "Открывает автопокупщик кирок!"
       },
       "100": {
-        "crystalUpgrade4Autobuy": "Unlock the Autobuyer for the fourth Crystal Upgrade!"
+        "crystalUpgrade4Autobuy": "Открывает автопокупщик для четвёртого улучшения кристаллов!"
       },
       "101": {
-        "salvage": "+5 Salvage"
+        "salvage": "+5 утилизации"
       },
       "102": {
-        "thriftRuneUnlock": "Permanently unlock the Thrift Rune!"
+        "thriftRuneUnlock": "Навсегда открывает руну Экономии!"
       },
       "103": {
-        "taxReduction": "Tax scaling reduced by 4%"
+        "taxReduction": "Масштабирование налогов уменьшено на 4%"
       },
       "105": {
         "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "106": {
-        "pandorasBoxAutobuy": "Unlock the Pandora's Box Autobuyer!"
+        "pandorasBoxAutobuy": "Открывает автопокупщик ящика Пандоры!"
       },
       "107": {
-        "crystalUpgrade5Autobuy": "Unlock the Autobuyer for the fifth Crystal Upgrade!"
+        "crystalUpgrade5Autobuy": "Открывает автопокупщик для пятого улучшения кристаллов!"
       },
       "108": {
-        "salvage": "+5 Salvage"
+        "salvage": "+5 утилизации"
       },
       "110": {
-        "taxReduction": "Tax scaling reduced by 4%"
+        "taxReduction": "Масштабирование налогов уменьшено на 4%"
       },
       "112": {
         "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "115": {
-        "salvage": "+5 Salvage"
+        "salvage": "+5 утилизации"
       },
       "117": {
-        "taxReduction": "Tax scaling reduced by 5%"
+        "taxReduction": "Масштабирование налогов уменьшено на 5%"
       },
       "118": {
-        "taxReduction": "Tax scaling reduced by 0.5% per Reincarnation Challenge clear (multiplicative)"
+        "taxReduction": "Масштабирование налогов уменьшено на 0.5% за каждое пройденное испытание реинкарнации (перемножаемо)"
       },
       "119": {
-        "exemptionTalisman": "Unlock the Exemption Talisman!"
+        "exemptionTalisman": "Открывает талисман Исключения!"
       },
       "120": {
-        "diamondUpgrade18": "Разблокировать 18-ое Алмазное улучшение!"
+        "diamondUpgrade18": "Открывает 18-ое улучшение алмазов!"
       },
       "122": {
-        "salvage": "+5 Salvage"
+        "salvage": "+5 утилизации"
       },
       "124": {
-        "taxReduction": "Tax scaling reduced by 5%"
+        "taxReduction": "Масштабирование налогов уменьшено на 5%"
       },
       "125": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "126": {
-        "chronosTalisman": "Unlock the Chronos Talisman!"
+        "chronosTalisman": "Открывает талисман Хроноса!"
       },
       "127": {
-        "diamondUpgrade19": "Разблокировать 19-ое Алмазное улучшение!",
-        "antHillUnlock": "Unlock the <span class='rainbowText'>Anthill!</span>"
+        "diamondUpgrade19": "Открывает 19-ое улучшение алмазов!",
+        "antHillUnlock": "Открывает <span class='rainbowText'>Муравейник!</span>"
       },
       "129": {
-        "salvage": "+6 Salvage"
+        "salvage": "+6 утилизации"
       },
       "131": {
-        "taxReduction": "Tax scaling reduced by 5%"
+        "taxReduction": "Масштабирование налогов уменьшено на 5%"
       },
       "132": {
-        "multiplicativeObtainium": "Obtainium gain x1.05"
+        "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "133": {
-        "midasTalisman": "Unlock the Midas Talisman!"
+        "midasTalisman": "Открывает талисман Мидаса!"
       },
       "134": {
-        "diamondUpgrade20": "Разблокировать 20-ое Алмазное улучшение!",
-        "blessingUnlock": "Unlock Rune Blessings!",
-        "talismanUnlock": "Также, разблокировать Талисманы!"
+        "diamondUpgrade20": "Открывает 20-ое улучшение алмазов!",
+        "blessingUnlock": "Открывает благословения рун!",
+        "talismanUnlock": "Также, открывает талисманы!"
       },
       "135": {
-        "talismanPower": "+2% Talisman Power"
+        "talismanPower": "+2% силы талистанов"
       },
       "136": {
-        "talismanPower": "+2% Talisman Power",
-        "salvage": "+7 Salvage"
+        "talismanPower": "+2% силы талистанов",
+        "salvage": "+7 утилизации"
       },
       "137": {
-        "sacrificeMult": "x1.25 Sacrifice Rewards!",
-        "experientiaAutobuy": "Unlock the <i>Experientia</i> Ant Upgrade Autobuyer!"
+        "sacrificeMult": "х1.25 награды с жертвоприношения!",
+        "experientiaAutobuy": "Открывает автопокупщик улучшения муравья <i>Experientia</i>!"
       },
       "139": {
         "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "140": {
-        "metaphysicsTalisman": "Unlock the Metaphysics Talisman!"
+        "metaphysicsTalisman": "Открывает талисман метафизики!"
       },
       "141": {
-        "ascensionUnlock": "Unlock the Ascension reset tier! Requires at least 1 {[Sadistic I]} clear."
+        "ascensionUnlock": "Открывает уровень сброса Вознесение! Требуется хотя бы один выполненный {[Sadistic I]}."
       },
       "143": {
-        "salvage": "+7 Salvage"
+        "salvage": "+7 утилизации"
       },
       "144": {
-        "talismanPower": "+2.5% к Силе Талисманам"
+        "talismanPower": "+2.5% к силе талисманов"
       },
       "145": {
-        "talismanPower": "+2.5% к Силе Талисманам"
+        "talismanPower": "+2.5% к силе талисманов"
       },
       "146": {
         "multiplicativeObtainium": "Прирост Обтаниума x1.05"
       },
       "147": {
-        "polymathTalisman": "Unlock the Polymath Talisman!"
+        "polymathTalisman": "Отрывает талисман Эрудита!"
       },
       "149": {
-        "acceleratorPower": "+1% Accelerator Power"
+        "acceleratorPower": "+1% силы ускорителей"
       },
       "151": {
-        "accelerators": "Gain +5 free Accelerators"
+        "accelerators": "Получите +5 бесплатных ускорителей"
       },
       "152": {
-        "accelerators": "Gain +12 free Accelerators"
+        "accelerators": "Получите +12 бесплатных ускорителей"
       },
       "153": {
-        "accelerators": "Gain +25 free Accelerators"
+        "accelerators": "Получите +25 бесплатных ускорителей"
       },
       "154": {
-        "accelerators": "Gain +50 free Accelerators. <span class='rainbowText'>Wow!</span>"
+        "accelerators": "Получите +50 бесплатных ускорителей. <span class='rainbowText'>Вау!</span>"
       },
       "156": {
-        "multipliers": "Получить +1 бесплатный Множитель"
+        "multipliers": "Получите +1 бесплатный множитель"
       },
       "158": {
-        "multipliers": "Получить +1 бесплатный Множитель"
+        "multipliers": "Получите +1 бесплатный множитель"
       },
       "159": {
-        "multipliers": "Получить +3 бесплатных Множителей"
+        "multipliers": "Получите +3 бесплатных множителя"
       },
       "160": {
-        "multipliers": "Получить +6 бесплатных Множителей"
+        "multipliers": "Получите +6 бесплатных множителя"
       },
       "161": {
-        "multipliers": "Получить +10 бесплатных Множителей. <span class='rainbowText'>Вау!</span>"
+        "multipliers": "Получите +10 бесплатных множителя <span class='rainbowText'>Вау!</span>"
       },
       "169": {
-        "antSpeed": "Ant Speed is multiplied by logarithm of Galactic Crumbs"
+        "antSpeed": "Скорость муравьев умножается логарифмом галактических крошек"
       },
       "171": {
-        "antSpeed": "Скорость Муравьев x1.2"
+        "antSpeed": "Скорость муравьев x1.2"
       },
       "172": {
-        "antSpeed": "Скорость Муравьев x1.25"
+        "antSpeed": "Скорость муравьев x1.25"
       },
       "173": {
-        "antSpeed": "Скорость Муравьев x1.4",
-        "antSacrificeUnlock": "Разблокировать Пожертвование Муравьев!",
-        "antAutobuyers": "Разблокировать Автопокупку Муравьев!"
+        "antSpeed": "Скорость муравьев x1.4",
+        "antSacrificeUnlock": "Открывает Жертвоприношение муравьев!",
+        "antAutobuyers": "Открывает автопокупщик муравьев!"
       },
       "174": {
         "antSpeed": "+0.1% Ant Speed per Immortal ELO!",
-        "scientiaAutobuy": "Unlock the <i>Scientia</i> Ant Upgrade Autobuyer!"
+        "scientiaAutobuy": "Открывает автопокупщик улучшения муравья <i>Scientia</i>!"
       },
       "176": {
-        "antAutobuyers": "Unlock the Breeder Ant Autobuyer!",
-        "inceptusAutobuy": "Unlock the <i>Inceptus</i> Ant Upgrade Autobuyer!",
-        "fortunaeAutobuy": "Unlock the <i>Fortunae</i> Ant Upgrade Autobuyer!"
+        "antAutobuyers": "Открывает автопокупщик муравья-селекционера!",
+        "inceptusAutobuy": "Открывает автопокупщик улучшения муравья <i>Inceptus</i>!",
+        "fortunaeAutobuy": "Открывает автопокупщик улучшения муравья <i>Fortunae</i>!"
       },
       "177": {
-        "antAutobuyers": "Unlock the Meta-Breeder Ant Autobuyer!",
-        "tributumAutobuy": "Unlock the <i>Tributum</i> Ant Upgrade Autobuyer!"
+        "antAutobuyers": "Открывает автопокупщик муравья-мета-селекционера!",
+        "tributumAutobuy": "Открывает автопокупщик улучшения муравья <i>Tributum</i>!"
       },
       "178": {
-        "antAutobuyers": "Unlock the Mega-Breeder Ant Autobuyer!",
-        "celeritasAutobuy": "Unlock the <i>Celeritas</i> Ant Upgrade Autobuyer!",
-        "exploratoremAutobuy": "Unlock the <i>Exploratorem</i> Ant Upgrade Autobuyer!"
+        "antAutobuyers": "Открывает автопокупщик муравья-мега-селекционера!",
+        "celeritasAutobuy": "Открывает автопокупщик улучшения муравья <i>Celeritas</i>!",
+        "exploratoremAutobuy": "Открывает автопокупщик улучшения муравья <i>Exploratorem</i>!"
       },
       "179": {
-        "antAutobuyers": "Unlock the Queen Ant Autobuyer!",
-        "sacrificiumAutobuy": "Unlock the <i>Sacrificium</i> Ant Upgrade Autobuyer!"
+        "antAutobuyers": "Открывает автопокупщик королевы муравьёв!",
+        "sacrificiumAutobuy": "Открывает автопокупщик улучшения муравья <i>Sacrificium</i>!"
       },
       "180": {
-        "antAutobuyers": "Unlock the Lord Royal Ant Autobuyer!"
+        "antAutobuyers": "Открывает автопокупщик королевского лорда-муравья!"
       },
       "181": {
-        "antAutobuyers": "Unlock the ALMIGHTY ANT Autobuyer!"
+        "antAutobuyers": "Открывает автопокупщик ВСЕМОГУЩЕГО МУРАВЬЯ!"
       },
       "182": {
-        "antAutobuyers": "Unlock the DISCIPLE OF ANT GOD Autobuyer!"
+        "antAutobuyers": "Открывает автопокупщик УЧЕНИКА БОГА МУРАВЬЁВ!"
       },
       "183": {
         "freeAntUpgrades": "Gain 2 free Ant Upgrade Levels!"
@@ -1272,7 +1272,7 @@
         "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
       },
       "203": {
-        "talismanPower": "+1% Talisman Power"
+        "talismanPower": "+1% силы талисманов"
       },
       "204": {
         "ascensionRewardScaling": "Вознесения дают больше кубов всех типов в зависимости от времени Вознесения [+10% в секунду!]",
@@ -1294,29 +1294,29 @@
         "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
       },
       "210": {
-        "talismanPower": "+1% Talisman Power"
+        "talismanPower": "+1% силы талисманов"
       },
       "211": {
-        "wowHypercubeGain": "Hypercube gain x1.05",
-        "hypercubeUnlock": "Unlock gaining Hypercubes from Ascending!"
+        "wowHypercubeGain": "Получение гиперкубов x1.05",
+        "hypercubeUnlock": "Открывает получение гиперкубов с вознесения!"
       },
       "212": {
-        "wowHypercubeGain": "Hypercube gain x1.02"
+        "wowHypercubeGain": "Получение гиперкубов x1.02"
       },
       "213": {
-        "wowHypercubeGain": "Hypercube gain x1.02"
+        "wowHypercubeGain": "Получение гиперкубов x1.02"
       },
       "214": {
-        "wowHypercubeGain": "Hypercube gain x1.02"
+        "wowHypercubeGain": "Получение гиперкубов x1.02"
       },
       "215": {
-        "wowHypercubeGain": "Hypercube gain x1.02"
+        "wowHypercubeGain": "Получение гиперкубов x1.02"
       },
       "216": {
         "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
       },
       "217": {
-        "talismanPower": "+1% Talisman Power"
+        "talismanPower": "+1% силы талисманов"
       },
       "218": {
         "wowPlatonicGain": "Platonic Cubes x1.05",
@@ -1339,19 +1339,19 @@
         "wowPlatonicGain": "Gain more Platonic Cubes based on Ascension Count [up to x3 at 2.674e9 Ascension Count]"
       },
       "233": {
-        "salvage": "+2 Salvage"
+        "salvage": "+2 утилизации"
       },
       "235": {
-        "salvage": "+2 Salvage"
+        "salvage": "+2 утилизации"
       },
       "237": {
-        "salvage": "+3 Salvage"
+        "salvage": "+3 утилизации"
       },
       "240": {
         "allCubeGain": "Прирост Всех Кубов x1.2"
       },
       "245": {
-        "salvage": "+3 Salvage"
+        "salvage": "+3 утилизации"
       },
       "250": {
         "allCubeGain": "Прирост Всех Кубов x1.05",
@@ -1366,7 +1366,7 @@
         "quarkGain": "Прирост Кварков x1.05"
       },
       "253": {
-        "wowHypercubeGain": "Hypercube gain x1.1"
+        "wowHypercubeGain": "Получение гиперкубов x1.1"
       },
       "254": {
         "wowCubeGain": "Прирост Кубов x1.1"
@@ -1424,79 +1424,79 @@
         "antAutobuyers": "Automatically buy HOLY SPIRIT OF ANT GOD Ants!"
       },
       "382": {
-        "salvage": "+3 Salvage"
+        "salvage": "+3 утилизации"
       },
       "384": {
-        "salvage": "+4 Salvage"
+        "salvage": "+4 утилизации"
       },
       "386": {
-        "salvage": "+5 Salvage"
+        "salvage": "+5 утилизации"
       },
       "388": {
-        "salvage": "+6 Salvage"
+        "salvage": "+6 утилизации"
       },
       "390": {
-        "salvage": "+4 Salvage"
+        "salvage": "+4 утилизации"
       },
       "392": {
-        "salvage": "+5 Salvage"
+        "salvage": "+5 утилизации"
       },
       "394": {
-        "salvage": "+6 Salvage"
+        "salvage": "+6 утилизации"
       },
       "396": {
-        "salvage": "+1 Salvage"
+        "salvage": "+1 утилизации"
       },
       "398": {
-        "salvage": "+2 Salvage"
+        "salvage": "+2 утилизации"
       },
       "400": {
-        "salvage": "+3 Salvage"
+        "salvage": "+3 утилизации"
       },
       "402": {
-        "salvage": "+4 Salvage"
+        "salvage": "+4 утилизации"
       },
       "404": {
-        "salvage": "+5 Salvage"
+        "salvage": "+5 утилизации"
       },
       "406": {
-        "salvage": "+6 Salvage"
+        "salvage": "+6 утилизации"
       },
       "407": {
-        "salvage": "+2 Salvage"
+        "salvage": "+2 утилизации"
       },
       "408": {
-        "salvage": "+7 Salvage"
+        "salvage": "+7 утилизации"
       },
       "409": {
-        "salvage": "+2 Salvage"
+        "salvage": "+2 утилизации"
       },
       "410": {
-        "salvage": "+8 Salvage"
+        "salvage": "+8 утилизации"
       },
       "411": {
-        "salvage": "+1 Salvage"
+        "salvage": "+1 утилизации"
       },
       "413": {
-        "salvage": "+2 Salvage"
+        "salvage": "+2 утилизации"
       },
       "415": {
-        "salvage": "+2 Salvage"
+        "salvage": "+2 утилизации"
       },
       "417": {
-        "salvage": "+3 Salvage"
+        "salvage": "+3 утилизации"
       },
       "419": {
-        "salvage": "+4 Salvage"
+        "salvage": "+4 утилизации"
       },
       "421": {
-        "salvage": "+5 Salvage"
+        "salvage": "+5 утилизации"
       },
       "423": {
-        "salvage": "+6 Salvage"
+        "salvage": "+6 утилизации"
       },
       "425": {
-        "salvage": "+7 Salvage"
+        "salvage": "+7 утилизации"
       },
       "437": {
         "prestigeCountMultiplier": "Gain +100% more Prestige Count per digit in your Prestige Count (additive)!"
@@ -1546,48 +1546,48 @@
       },
       "482": {
         "antSacrificeCountMultiplier": "Each Sacrifice adds +2 to your Anthill count instead of +1!",
-        "hicAutobuy": "Unlock the <i>Hic</i> Ant Upgrade Autobuyer!"
+        "hicAutobuy": "Открывает автопокупщик улучшения муравья <i>Hic</i>!"
       },
       "483": {
         "autoAntSacrifice": "Unlock the Auto-Sacrifice feature!"
       },
       "484": {
         "antELOAdditiveMultiplier": "Gain +1% Ant ELO from all sources!",
-        "praemoenioAutobuy": "Unlock the <i>Praemoenio</i> Ant Upgrade Autobuyer!"
+        "praemoenioAutobuy": "Открывает автопокупщик улучшения муравья <i>Praemoenio</i>!"
       },
       "485": {
         "antELOAdditive": "Gain +25 Ant ELO, all the time!"
       },
       "486": {
         "antSpeed2UpgradeImprover": "The first N levels of <i>Impia Reproducta</i> give an extra Ant ELO, where N is your Synergism Level!",
-        "phylacteriumAutobuy": "Unlock the <i>Phylacterium</i> Ant Upgrade Autobuyer!"
+        "phylacteriumAutobuy": "Открывает автопокупщик улучшения муравья <i>Phylacterium</i>!"
       },
       "490": {
         "preserveAnthillCountSingularity": "Preserve your Anthil Count when you do something <span class='rainbowText'>even more impressive than an Ascension!</span>"
       }
     },
     "rewards": {
-      "3": "Gain +.10% to Accelerator Power.",
+      "3": "Получите +.10% силы ускорителей",
       "4": "Начинайте Выход за пределы/Испытания с разблокированным Автопокупателем Работников.",
       "5": "+1 Ускоритель за каждые 500 Работников.",
       "6": "+1 Множитель за каждую 1000 Работников.",
       "7": "+1 Усилитель Ускорителя за каждые 2000 Работников.",
-      "10": "Gain +.15% to Accelerator Power.",
+      "10": "Получите +.15% силы ускорителей",
       "11": "Начинайте Выход за пределы/Испытания с разблокированным Автопокупателем Инвестиций.",
       "12": "+1 Ускоритель за каждые 500 Инвестиций.",
       "13": "+1 Множитель за каждую 1000 Инвестиций.",
       "14": "+1 Усилитель Ускорителя за каждые 2000 Инвестиций.",
-      "17": "Gain +.20% to Accelerator Power.",
+      "17": "Получите +.20% силы ускорителей",
       "18": "Начинайте Выход за пределы/Испытания с разблокированным Автопокупателем Принтеров.",
       "19": "+1 Ускоритель за каждые 500 Принтеров.",
       "20": "+1 Множитель за каждые 1000 Принтеров.",
       "21": "+1 Усилитель Ускорителя за каждые 2000 Принтеров.",
-      "24": "Gain +.25% to Accelerator Power.",
+      "24": "Получите +.25% силы ускорителей",
       "25": "Начинайте Выход за пределы/Испытания с разблокированным Автопокупателем Монетных Дворов.",
       "26": "+1 Ускоритель за каждые 500 Монетных Дворов.",
       "27": "+1 Множитель за каждые 1000 Монетных Дворов.",
       "28": "+1 Усилитель Ускорителя за каждые 2000 Монетных Дворов.",
-      "31": "Gain +.30% to Accelerator Power.",
+      "31": "Получите +.30% силы ускорителей",
       "32": "Начинайте Выход за пределы/Испытания с разблокированным Автопокупателем Алхимий.",
       "33": "+10% Подношений от сбросов || +1 Ускоритель за 500 Алхимий!",
       "34": "+15% Подношений от сбросов (складывается перемножаемо!) || +1 Множитель за 1000 Алхимий!",
@@ -1648,10 +1648,10 @@
       "118": "Каждое выполненное Испытание Реинкарнации замедляет прирост налогов на 0.75% за уровень, перемножаемо. Эффект: {{x}}x",
       "119": "+11% Обтаниума. Где-то появился хороший брелок...",
       "122": "+7.5% к переработке Подношений.",
-      "124": "Delay tax growth by 5.66%. Unlock 5 new incredibly powerful Researches!",
+      "124": "Откладывает рост налогов на 5.66%. Открывает 5 новых невероятно сильных исследований!",
       "126": "+13% Обтаниума. Вы получили аксессуар, отпразднуйте этот момент!",
-      "127": "Unlock 20 new incredibly expensive yet good Researches. Unlock the [Anthill] feature!",
-      "128": "Make Researches go Cost-- with 1.5x Obtainium!",
+      "127": "Открывает 20 новых невероятно хороших исследований. Открывает функции [Муравейник]!",
+      "128": "Заставьте исследования стоить меньше с помощью 1.5x обтаиниума!",
       "129": "+7.5% к переработке Подношений. Получите ещё один 1.25х множитель Обтаниума!",
       "131": "Откладывает рост налогов на 5.66%.",
       "132": "Награды за Пожертвование навсегда на +25% больше!",
@@ -1675,7 +1675,7 @@
       "180": "Открывает автопокупку 6 уровня Муравьёв, и автопокупку Муравьёв Hic и Experientia! Добавляет +1% к базовому Муравьиному ЭЛО.",
       "181": "Открывает автопокупку 7 уровня Муравьёв, и автопокупку Муравьёв Praemoenio! Добавляет +2% к базовому Муравьиному ЭЛО.",
       "182": "Открывает автопокупку 8 уровня Муравьёв, и автопокупку Муравьёв Scientia и Phylacterium! Добавляет +3% к базовому Муравьиному ЭЛО.",
-      "186": "Unlock the powers of a 'Wow Square' Talisman. Sounds cool!",
+      "186": "Открвает силы талисмана \"Вау квадрат\". Звучит круто!",
       "187": "Получите множитель Кубов Вознесения в зависимости от вашего счёта: x{{x}}. Также: Подношения +{{y}}% [Макс: 100% при 1M Вознесений]",
       "188": "Получите +100 к счётчику Вознесения для всех Вознесений дольше 10 секунд. Также: Обтаниум +{{x}}% [Макс: 100% при 5M Вознесений]",
       "189": "Получите 20% Избыточного времени после 10 секунд каждого Вознесения как линейный множитель к счётчику Вознесения. Также: Кубы +{{x}}% [Макс: 200% при 500M Вознесений]",
@@ -1732,113 +1732,113 @@
       "secondOwnedCoin": "Инвестиции",
       "thirdOwnedCoin": "Принтеры",
       "fourthOwnedCoin": "Монетные Дворы",
-      "fifthOwnedCoin": "Alchemies",
-      "prestigePointGain": "Prestige Gains",
-      "transcendPointGain": "Transcension Gains",
-      "reincarnationPointGain": "Reincarnation Gains",
-      "challenge1": "No Multipliers Challenge",
-      "challenge2": "No Accelerators Challenge",
-      "challenge3": "No Shards Challenge",
-      "challenge4": "Cost+ Challenge",
-      "challenge5": "Reduced Diamonds Challenge",
-      "challenge6": "Higher Tax Challenge",
-      "challenge7": "No Multipliers/Accelerators Challenge",
+      "fifthOwnedCoin": "Алхимии",
+      "prestigePointGain": "Получение престижей",
+      "transcendPointGain": "Получение выходов за пределы",
+      "reincarnationPointGain": "Получение реинкарнаций",
+      "challenge1": "Испытание Без множителей",
+      "challenge2": "Испытание Без ускорителей",
+      "challenge3": "Испытание Без осколков",
+      "challenge4": "Испытание Стоимость+",
+      "challenge5": "Испытание Меньше алмазов",
+      "challenge6": "Испытание Больше налогов",
+      "challenge7": "Испытание Без множителей/ускорителей",
       "challenge8": "Стоимость++ Испытание",
       "challenge9": "Испытание Без Рун",
-      "challenge10": "Sadistic Challenge I",
-      "challenge11": "Reduced Ants Challenge",
-      "challenge12": "No Reincarnation Challenge",
+      "challenge10": "Испытание Садист I",
+      "challenge11": "Испытание Меньше муравьёв",
+      "challenge12": "Испытание Без реинкарнаций",
       "challenge13": "Налоги+++ Испытание",
-      "challenge14": "Нет Исследований Испытание",
+      "challenge14": "Испытание Без исследований",
       "accelerators": "Ускорители",
-      "acceleratorBoosts": "Accelerator Boosts",
+      "acceleratorBoosts": "Усилители ускорителя",
       "multipliers": "Множители",
-      "antCrumbs": "Галактическая Крошка",
-      "sacMult": "Ant Sacrifice",
+      "antCrumbs": "Галактические крошки",
+      "sacMult": "Жертвоприношение муравьёв",
       "ascensionCount": "Вознесения",
       "constant": "Константы",
-      "ascensionScore": "Счёт Вознесения",
-      "speedBlessing": "Благословение Скорости",
-      "speedSpirit": "Speed Spirit",
+      "ascensionScore": "Счёт вознесения",
+      "speedBlessing": "Благословение скорости",
+      "speedSpirit": "Дух скорости",
       "singularityCount": "Сингулярности",
       "runeLevel": "Уровни рун",
       "runeFreeLevel": "Бесплатные Уровни Рун",
       "campaignTokens": "Жетоны Кампании",
-      "prestigeCount": "Times Prestiged",
-      "transcensionCount": "Times Transcended",
-      "reincarnationCount": "Times Reincarnated",
-      "sacCount": "Anthills Sacrificed",
+      "prestigeCount": "Количество престижей",
+      "transcensionCount": "Выходов за рамки",
+      "reincarnationCount": "Кол-во реинкарнаций",
+      "sacCount": "Принесено в жертву муравейников",
       "ungrouped": "Разное"
     },
     "rewardTypes": {
-      "title": "Achievement-specific bonuses grant you the following!",
+      "title": "Бонусы за достижения дают вам следующее!",
       "unlocked": "✔",
       "locked": "❌",
-      "acceleratorPower": "• Accelerator Power +{{val}}",
-      "accelerators": "• Бесплатные Ускорители +{{val}}",
-      "multipliers": "• Бесплатные Множители +{{val}}",
-      "accelBoosts": "• Free Accelerator Boosts +{{val}}",
-      "workerAutobuyer": "• Worker Autobuyer {{unlock}}",
-      "investmentAutobuyer": "• Investment Autobuyer {{unlock}}",
-      "printerAutobuyer": "• Printer Autobuyer {{unlock}}",
-      "mintAutobuyer": "• Coin Mint Autobuyer {{unlock}}",
-      "alchemyAutobuyer": "• Alchemy Autobuyer {{unlock}}",
-      "offeringPrestigeTimer": "• Offerings Prestige Timer {{unlock}}",
+      "acceleratorPower": "• Сила ускорителей +{{val}}",
+      "accelerators": "• Бесплатные ускорители +{{val}}",
+      "multipliers": "• Бесплатные множители +{{val}}",
+      "accelBoosts": "• Бесплатных усилителей ускорителей +{{val}}",
+      "workerAutobuyer": "• Автопокупщик работников {{unlock}}",
+      "investmentAutobuyer": "• Автопокупщик инвестиций {{unlock}}",
+      "printerAutobuyer": "• Автопокупщик принтеров {{unlock}}",
+      "mintAutobuyer": "• Автопокупщик монетных дворов {{unlock}}",
+      "alchemyAutobuyer": "• Автопокупщик алхимий {{unlock}}",
+      "offeringPrestigeTimer": "• Таймер подношений престижа {{unlock}}",
       "crystalMultiplier": "• Производство Кристаллов х{{val}}",
-      "duplicationRuneUnlock": "• Duplication Rune {{unlock}}",
+      "duplicationRuneUnlock": "• Руна Умножения {{unlock}}",
       "quarkGain": "• Прирост Кварков x{{val}}",
-      "autoPrestigeFeature": "• Auto-Prestige Feature {{unlock}}",
-      "prismRuneUnlock": "• Prism Rune {{unlock}}",
+      "autoPrestigeFeature": "• Функция авто-престижа {{unlock}}",
+      "prismRuneUnlock": "•  Руна Призмы {{unlock}}",
       "taxReduction": "• Налоги {{val}}",
       "particleGain": "• Прирост Частиц x{{val}}",
       "multiplicativeObtainium": "• Обтаниум: x{{val}}",
       "multiplicativeOffering": "• Подношения x{{val}}",
-      "refineryAutobuy": "• Refinery Autobuy {{unlock}}",
-      "coalPlantAutobuy": "• Coal Plant Autobuy {{unlock}}",
-      "coalRigAutobuy": "• Coal Rig Autobuy {{unlock}}",
-      "pickaxeAutobuy": "• Diamond Pickaxe Autobuy {{unlock}}",
-      "pandorasBoxAutobuy": "• Pandora's Box Autobuy {{unlock}}",
-      "crystalUpgrade1Autobuy": "• Crystal Upgrade 1 Autobuy {{unlock}}",
-      "crystalUpgrade2Autobuy": "• Crystal Upgrade 2 Autobuy {{unlock}}",
-      "crystalUpgrade3Autobuy": "• Crystal Upgrade 3 Autobuy {{unlock}}",
-      "crystalUpgrade4Autobuy": "• Crystal Upgrade 4 Autobuy {{unlock}}",
-      "crystalUpgrade5Autobuy": "• Crystal Upgrade 5 Autobuy {{unlock}}",
-      "salvage": "• Salvage +{{val}}",
-      "exemptionTalisman": "• Exemption Talisman {{unlock}}",
-      "chronosTalisman": "• Chronos Talisman {{unlock}}",
-      "midasTalisman": "• Midas Talisman {{unlock}}",
-      "metaphysicsTalisman": "• Metaphysics Talisman {{unlock}}",
-      "polymathTalisman": "• Polymath Talisman {{unlock}}",
-      "wowSquareTalisman": "• Wow Square Talisman {{unlock}}",
-      "conversionExponent": "• Conversion Exponent +{{val}}",
-      "talismanPower": "• Talisman Power {{val}}",
-      "sacrificeMult": "• Sacrifice Multiplier x{{val}}",
+      "refineryAutobuy": "• Автопокупщик нефтеперерабатывающих заводов {{unlock}}",
+      "coalPlantAutobuy": "• Автопокупщик угольных генераторов {{unlock}}",
+      "coalRigAutobuy": "• Автопокупщик угольных карьеров {{unlock}}",
+      "pickaxeAutobuy": "• Автопокупщик алмазных кирок{{unlock}}",
+      "pandorasBoxAutobuy": "• Автопокупщик ящиков Пандоры {{unlock}}",
+      "crystalUpgrade1Autobuy": "• Автопокупщик 1 улучшения кристаллов {{unlock}}",
+      "crystalUpgrade2Autobuy": "• Автопокупщик 2 улучшения кристаллов {{unlock}}",
+      "crystalUpgrade3Autobuy": "• Автопокупщик 3 улучшения кристаллов {{unlock}}",
+      "crystalUpgrade4Autobuy": "• Автопокупщик 4 улучшения кристаллов {{unlock}}",
+      "crystalUpgrade5Autobuy": "• Автопокупщик 5 улучшения кристаллов {{unlock}}",
+      "salvage": "• Утилизация +{{val}}",
+      "exemptionTalisman": "• Талисман Исключения {{unlock}}",
+      "chronosTalisman": "• Талисман Хроноса {{unlock}}",
+      "midasTalisman": "• Талисман Мидаса {{unlock}}",
+      "metaphysicsTalisman": "• Талисман Метафизики {{unlock}}",
+      "polymathTalisman": "• Талисман Эрудита {{unlock}}",
+      "wowSquareTalisman": "• Талисман Вау квадрата {{unlock}}",
+      "conversionExponent": "• Экспонент преобразования +{{val}}",
+      "talismanPower": "Сила талисманов {{val}}",
+      "sacrificeMult": "•  Множитель жертвоприношений x{{val}}",
       "ascensionUnlock": "• Вознесение {{unlock}}",
       "antSpeed": "• Скорость Муравьев x{{val}}",
-      "antSacrificeUnlock": "• Ant Sacrifice {{unlock}}",
-      "antAutobuyers": "• Ant Autobuyers +{{val}}",
-      "antUpgradeAutobuyers": "• Ant Upgrade Autobuyers +{{val}}",
-      "antELOAdditive": "• Ant ELO +{{val}}",
-      "antELOMultiplicative": "• Reborn ELO Creation Speed x{{val}}",
+      "antSacrificeUnlock": "• Жертвоприношение муравьёв {{unlock}}",
+      "antAutobuyers": "• Автопокупщики муравьёв +{{val}}",
+      "antUpgradeAutobuyers": "• Автопокупщики улучшений муравьёв +{{val}}",
+      "antELOAdditive": "• ELO муравьёв +{{val}}",
+      "antELOMultiplicative": "• Скорость создания ELO возрождения x{{val}}",
       "ascensionCountMultiplier": "• Счётчик Вознесений: x{{val}}",
       "ascensionCountAdditive": "• Счётчик Вознесений: +{{val}}",
       "allCubeGain": "• Прирост Всех Кубов x{{val}}",
       "wowCubeGain": "• Прирост Вау! Кубов x{{val}}",
       "wowTesseractGain": "• Прирост Вау! Тессерактов x{{val}}",
-      "wowHypercubeGain": "• Wow! Hypercube Gain x{{val}}",
-      "wowPlatonicGain": "• Wow! Platonic Cube Gain x{{val}}",
-      "wowHepteractGain": "• Wow! Hepteract Gain x{{val}}",
+      "wowHypercubeGain": "Получение Вау! гиперкубов x{{val}}",
+      "wowPlatonicGain": "Получения Вау! Платонических кубов x{{val}}",
+      "wowHepteractGain": "Получение Вау! Гептерактов x{{val}}",
       "ascensionScore": "• Счёт Вознесений: x{{val}}",
-      "ascensionRewardScaling": "• Ascension Reward Scaling {{unlock}}",
-      "constUpgrade1Buff": "• Constant Upgrade 1 Buff +{{val}}",
-      "constUpgrade2Buff": "• Constant Upgrade 2 Buff +{{val}}",
-      "platonicToHypercubes": "• Platonic to Hypercubes +{{val}}",
-      "statTracker": "• Stat Tracker {{unlock}}",
-      "antHillUnlock": "• Anthill Tab {{unlock}}",
-      "diamondUpgrade18": "• Diamond Upgrade 4x3 {{unlock}}",
-      "diamondUpgrade19": "• Diamond Upgrade 4x4 {{unlock}}",
-      "diamondUpgrade20": "• Diamond Upgrade 4x5 {{unlock}}",
-      "overfluxConversionRate": "• Overflux Powder Conversion Rate x{{val}}"
+      "ascensionRewardScaling": "• Масштабирование награды вознесения {{unlock}}",
+      "constUpgrade1Buff": "• Бафф улучшения константы 1 +{{val}}",
+      "constUpgrade2Buff": "• Бафф улучшения константы 2 +{{val}}",
+      "platonicToHypercubes": "• Платонические в гиперкубы +{{val}}",
+      "statTracker": "• Отслеживание статистики {{unlock}}",
+      "antHillUnlock": "• Вкладка муравейника {{unlock}}",
+      "diamondUpgrade18": "• Улучшение алмазов 4x3 {{unlock}}",
+      "diamondUpgrade19": "• Улучшение алмазов 4x4 {{unlock}}",
+      "diamondUpgrade20": "• Улучшение алмазов 4x5 {{unlock}}",
+      "overfluxConversionRate": "• Коэффициент конверсии порошка изобильного потока x{{val}}"
     },
     "levelRewards": {
       "minLevel": "Минимальный Требуемый Уровень: {{level}}",
@@ -2436,31 +2436,31 @@
     },
     "maxBuy": {
       "producer": {
-        "on": "Ant Producers: Buy MAX",
-        "off": "Ant Producers: Buy 1"
+        "on": "Производители муравьёв: Купить макс.",
+        "off": "Производители муравьёв: Купить 1"
       },
       "upgrade": {
-        "on": "Ant Upgrades: Buy MAX",
-        "off": "Ant Upgrades: Buy 1"
+        "on": "Улучшения мурьвёв: Купить макс.",
+        "off": "Улучшения мурьвёв: Купить 1"
       }
     },
     "autobuy": {
       "producer": {
-        "on": "Ant Producer: AUTO",
-        "off": "Ant Producer: MANUAL"
+        "on": "Производители муравьёв: АВТО",
+        "off": "Производители муравьёв: ВРУЧНУЮ"
       },
       "mastery": {
-        "on": "Ant Mastery: AUTO",
-        "off": "Ant Mastery: MANUAL"
+        "on": "Мастерство муравьёв: АВТО",
+        "off": "Мастерство муравьёв: ВРУЧНУЮ"
       },
       "upgrade": {
-        "on": "Ant Upgrade: AUTO",
-        "off": "Ant Upgrade: MANUAL"
+        "on": "Улучшения муравьёв: АВТО",
+        "off": "Улучшения муравьёв: ВРУЧНУЮ"
       }
     },
     "autoSacrifice": {
       "inGameTimer": {
-        "name": "Mode: In-Game time",
+        "name": "Режим: внутреигровое время",
         "info": "Sacrifice when the in-game Ant Timer reaches <<gold|{{req}}>> seconds <br><<gold|{{curr}}/{{req}}>>"
       },
       "realLifeTimer": {
@@ -4236,8 +4236,8 @@
     "alwaysEnabled": "[<<white|♔>>] Это улучшение <b>всегда активно</b>, даже если что-то другое говорит иначе!",
     "infinity": "Бесконечность",
     "sacrificeCapital": "ЖЕРТВОПРИНОШЕНИЕ",
-    "blessCapital": "BLESS",
-    "spiritCapital": "REJUVENATE",
+    "blessCapital": "БЛАГОСЛОВИТЬ",
+    "spiritCapital": "ОМОЛОДИТЬ",
     "multiBuyInstructions": "Чтобы купить несколько уровней сразу, удерживайте <<var(--orchid-text-color)|'SHIFT'>>!",
     "autoOnColon": "Авто: ВКЛ",
     "autoOffColon": "Авто: ВЫКЛ",
@@ -4582,9 +4582,9 @@
       "exalt": "ВОЗВЫШЕНИЕ"
     },
     "ants": {
-      "anthill": "The Anthill",
-      "altar": "The Altar",
-      "quarkCorner": "Quark Corner"
+      "anthill": "Муравейник",
+      "altar": "Алтарь",
+      "quarkCorner": "Уголок кварков"
     },
     "cubes": {
       "cubeTributes": "Дань Кубов",
@@ -4619,7 +4619,7 @@
         "ascension": "Вознесение",
         "sacrifice": "Пожертвовать Муравьёв",
         "singularity": "Сингулярность",
-        "statSymbols": "Stat Symbols"
+        "statSymbols": "Символы статистики"
       }
     },
     "pseudocoins": {
@@ -4628,11 +4628,11 @@
       "upgrades": "Купить Улучшения",
       "merch": "Купить Мерч",
       "consumables": "Расходники и События",
-      "checkoutStripe": "Checkout with Stripe",
-      "checkoutNowPayments": "Checkout with NowPayments (Crypto)",
-      "support": "Need help?",
-      "khafraDiscord": "Message Khafra on Discord",
-      "platonicDiscord": "Message Platonic on Discord"
+      "checkoutStripe": "Оплатить через Stripe",
+      "checkoutNowPayments": "Оплатить через NowPayments (Crypto)",
+      "support": "Нужна помощь?",
+      "khafraDiscord": "Написать Khafra в Discord",
+      "platonicDiscord": "Написать Platonic в Discord"
     }
   },
   "offlineProgress": {
@@ -5441,7 +5441,7 @@
       "effect": "Speed Rune Bonus: +{{val}}% Accelerator Power, +{{val2}} Free Accelerators, +{{val3}} Global Speed."
     },
     "duplication": {
-      "name": "Duplication",
+      "name": "Умножение",
       "description": "\"<i>Its ability lies in the world inside of the mirror...</i>\" -some bizarre inscription",
       "lockedDescription": "This rune is locked! To unlock it, Prestige 100 times. You even get an Achievement for it!",
       "multiplierPower": "<<pink | Multiplier Power Boosts +{{val}}>> (+0.2 per Power)",
@@ -5502,7 +5502,7 @@
       "effect": "Offerings x{{val}}, <<cyan | Immaculate>> Obtainium x{{val2}}, 'Add' code regeneration interval is {{val3}}% as long."
     },
     "horseShoe": {
-      "name": "The Horse's Shoe",
+      "name": "Лошадиная подкова",
       "description": "I never realized the world was so easily won, just by realizing you got someone to say you won't be lonely anymore.",
       "lockedDescription": "This rune is locked! To unlock it, you might need to tussle with the <<lightgray|Taxman>> himself.",
       "ambrosiaLuck": "<<limegreen | {{val}} Ambrosia Luck>> (+1 per Power)",
@@ -5541,8 +5541,8 @@
     },
     "talismans": {
       "fortify": "x1",
-      "enhance": "To Rarity",
-      "respec": "MAX",
+      "enhance": "К редкости",
+      "respec": "Макс",
       "respecAll": "ПЕРЕНАБРАТЬ ВСЁ",
       "respecConfirm": "Подтвердить [-100,000 Подношений]",
       "respecConfirmAll": "Подтвердить Все [-400,000 Подношений]",
@@ -5660,17 +5660,17 @@
         "title": "⋆ Rarity Requirements ⋆<br>{{talismanName}}",
         "infoText1": "Higher Talisman Rarities improve the power of its <<gold | ✏>> Inscription and give more Free Rune Levels!",
         "infoText2": "When your Talisman is Mythic or better, it gains a <<crimson | ✎>> Signature!",
-        "common": "Common",
-        "uncommon": "Uncommon",
-        "rare": "Rare",
-        "epic": "Epic",
-        "legendary": "Legendary",
-        "mythic": "Mythic",
-        "extraordinary": "Extraordinary",
-        "godlike": "Godlike",
-        "perfect": "Perfect",
-        "immaculate": "Immaculate",
-        "default": "Default!",
+        "common": "Обычный",
+        "uncommon": "Необычный",
+        "rare": "Редкий",
+        "epic": "Эпический",
+        "legendary": "Легендарный",
+        "mythic": "Мифический",
+        "extraordinary": "Экстраординарный",
+        "godlike": "Божественный",
+        "perfect": "Идеальный",
+        "immaculate": "Безупречный",
+        "default": "Базовый!",
         "levelReq": "≥ Level {{level}}"
       },
       "summaries": {
@@ -5978,10 +5978,10 @@
       "simplified": "Упрощённое",
       "monotonous": "Монотонный"
     },
-    "statSymbol": "Stat Symbols",
+    "statSymbol": "Символы статистик",
     "statSymbols": {
-      "enabled": "Enabled (♻ / Ɑ / ☇ etc.)",
-      "disabled": "Disabled (No symbols by stats)"
+      "enabled": "Включено (♻ / Ɑ / ☇ и тд.)",
+      "disabled": "Выключено (без символов возле статистики)"
     },
     "joinDiscord": "Нажмите на изображение ниже, чтобы присоединиться к Discord!",
     "joinPatreon": "Поддержите разработку на Patreon!",
@@ -6002,12 +6002,12 @@
       "starts": "НАЧАЛО {{x}}"
     },
     "cloud": {
-      "upload": "Upload Save",
-      "uploadSuccess": "✅ Uploaded Your Save",
-      "uploadFailed": "❌ Failed to Upload",
-      "transfer": "Transfer Save from Old System",
-      "transferSuccess": "✅ Transferred Your Save",
-      "transferFailed": "❌ Failed to Transfer"
+      "upload": "Выгрузить сохранение",
+      "uploadSuccess": "✅ Ваше сохранение выгружено",
+      "uploadFailed": "❌ Ошибка выгрузки",
+      "transfer": "Перенести сохранение со старой системы",
+      "transferSuccess": "✅ Ваше сохранение перенесено",
+      "transferFailed": "❌ Ошибка переноса"
     },
     "quarkBonusSimple": "Щедрые покровители даруют вам бонус {{globalBonus}}% к Кваркам!",
     "quarkBonusExtended": "Щедрые покровители даруют вам бонус {{globalBonus}}% к Кваркам! Вы также получаете дополнительный бонус {{personalBonus}}% за то, что являетесь членом Patreon и/или бустером сервера Discord! Перемножаемо с глобальным бонусом!",
@@ -6044,7 +6044,7 @@
       "antELO": "Ant ELO",
       "additiveAntELOMult": "Ant ELO Mult",
       "rebornELOCreationSpeedMult": "Reborn ELO Creation",
-      "talismanRuneBonusMult": "Talisman Power",
+      "talismanRuneBonusMult": "Сила талисманов",
       "ascMult": "Множители Скорости Возн.",
       "ascCountMult": "Asc. Count Multipliers",
       "globalCubeMult": "Глобальные Множители Кубов",
@@ -6808,7 +6808,7 @@
       "Total": "Всего Бесплатных Уровней:"
     },
     "talismanRuneBonusMultiplierStats": {
-      "title": "Talisman Power (Additive Multipliers)",
+      "title": "Сила талисманов (складываемые множители)",
       "Base": "Base Multiplier",
       "AchievementBonus": "Achievement Talisman Effect Bonus:",
       "Research106": "Research 5x6:",
@@ -6823,7 +6823,7 @@
       "SingularityUpgrade3": "Singularity Upgrade - Talisman Rune Bonus III:",
       "SingularityUpgrade4": "Singularity Upgrade - Talisman Rune Bonus IV:",
       "BlueberryUpgrade": "Blueberry Module - Talisman Ambrosia Embedding:",
-      "Total": "Total Talisman Power Multiplier:"
+      "Total": "Общий множитель силы талисманов:"
     },
     "salvageStats": {
       "title": "Offering Salvage",
@@ -7344,8 +7344,8 @@
     "autoUpgradeOff": "Авто Улучшения: [OFF]",
     "upgradeMaxIfPossible": "Улучшить: МАКС. [если возможно вау]",
     "upgradeOneLevelWow": "Улучшить: 1 Уровень вау",
-    "maxPlatOn": "Buy Max [ON]",
-    "maxPlatOff": "Buy Max [OFF]",
+    "maxPlatOn": "Купить макс. [ВКЛ]",
+    "maxPlatOff": "Купить макс. [ВЫКЛ]",
     "modeTime": "Режим: ВРЕМЯ",
     "modeAmount": "Режим: КОЛИЧЕСТВО",
     "modePercentage": "Режим: ПРОЦЕНТ"
@@ -7393,22 +7393,22 @@
   },
   "account": {
     "logout": "Страница сейчас обновится. Вы вышли из аккаунта! Пока!!",
-    "download": "Download",
-    "loadSave": "Load Save",
-    "delete": "Delete",
-    "noSaves": "No saves available",
-    "noSaveFound": "No save found with that ID. Try reloading the page.",
-    "downloadComplete": "Download complete",
-    "deletedSave": "\"{{name}}\" was deleted",
-    "notDeleted": "Your save wasn't deleted. Check the console for more information.",
-    "personalQuarkBonus": "Your Subscription and Discord Roles are giving you a <<cyan|{{percent}}%>> Quark Bonus!",
-    "subscriptionBonuses": "Subscription Bonus",
-    "eventBonuses": "Discord Role Bonus",
+    "download": "Скачать",
+    "loadSave": "Загрузить сохранение",
+    "delete": "Удалить",
+    "noSaves": "Нет доступных сохранений",
+    "noSaveFound": "Не найдено сохранение с этим ID. Попробуйте перезагрузить страницу.",
+    "downloadComplete": "Загрузка завершена",
+    "deletedSave": "\"{{name}}\" было удалено",
+    "notDeleted": "Ваше сохранение не удалено. Проверьте консоль для большей информации.",
+    "personalQuarkBonus": "Ваша подписка и роли Discord дают вам <<cyan|{{percent}}%>> бонусных кварков!",
+    "subscriptionBonuses": "Бонус подписки",
+    "eventBonuses": "Бонус Discord роли",
     "eventBonusMulti": "<<cyan|♔>> Your total Role Bonus is <<gold|multiplicative>> to your total Subscription Bonus.",
-    "eventBonusLink": "Link your account to Discord to activate Roles!",
-    "lastButNotLeast": "Last but not least...",
-    "helloNoUser": "Hello!",
-    "helloUser": "Hello, <<gold|{{username}}>>!",
+    "eventBonusLink": "Привяжите ваш аккаунт к Discord, чтобы активировать роли!",
+    "lastButNotLeast": "Последнее, но не менее важное...",
+    "helloNoUser": "Привет!",
+    "helloUser": "Привет, <<gold|{{username}}>>!",
     "bonuses": {
       "transcendedBaller": "Transcended Baller <<gold|(or higher)>>",
       "reincarnatedBaller": "Reincarnated Baller <<gold|(or higher)>>",
@@ -7428,19 +7428,19 @@
       "goldenSmithGod": "Golden Smith God",
       "diamondSmithMessiah": "Diamond Smith Messiah",
       "mythosSmith": "The Mythos Smith SPIRIT OF DERPSMITH",
-      "yourself": "Being yourself! (Making a Synergism Account)"
+      "yourself": "Быть собой! (Создание аккаунта Synergism)"
     },
     "steamCloud": {
-      "title": "Steam Cloud Save",
-      "name": "Steam Cloud Save",
-      "exists": "Save available",
-      "noSave": "No save yet",
-      "upload": "Upload to Steam",
-      "uploading": "Uploading...",
-      "uploadSuccess": "Save uploaded to Steam Cloud!",
-      "uploadFailed": "Failed to upload to Steam Cloud.",
-      "readFailed": "Failed to read Steam Cloud save.",
-      "noLocalSave": "No local save found.",
+      "title": "Сохранение Steam Cloud",
+      "name": "Сохранение из Steam Cloud",
+      "exists": "Доступно сохранение",
+      "noSave": "Нет сохранения",
+      "upload": "Загрузить в Steam",
+      "uploading": "Загрузка...",
+      "uploadSuccess": "Сохранения загружено в Steam Cloud.",
+      "uploadFailed": "Ошибка загрузки сохранения в Steam Cloud.",
+      "readFailed": "Ошибка чтения сохранения из Steam Cloud.",
+      "noLocalSave": "Локальных сохранений не найдено.",
       "confirmOverwrite": "This will overwrite your existing Steam Cloud save. Continue?"
     }
   },
@@ -7493,11 +7493,11 @@
       "thanks": "Усилитель активирован! Спасибо за поддержку игры!",
       "eventTitle": "Активные Расходники",
       "consumableSpoiler": "Начните событие для всех, использовав Колокольчик Счастливого Часа!",
-      "consumableButton": "Consumables Shop",
+      "consumableButton": "Магазин расходников",
       "applyTips": "Использовать Чаевые!",
       "applyTipsPrompt": "Сколько чаевых вы бы хотели использовать? Каждые дают 1 минуту Оффлайн Времени. У вас {{tips}} чаевых. За раз можно использовать до 1 440 чаевых ",
       "confirmActivation": "You are about to activate a {{name}} for {{cost}} PseudoCoins. Continue?",
-      "cancelled": "Puchase has been cancelled."
+      "cancelled": "Покупка была отменена."
     },
     "timeSkips": {
       "GLOBAL": {
@@ -7516,22 +7516,22 @@
       "warning": "<<gold | ⚠>> После покупки потребуется несколько секунд, чтобы активировать! <<gold | ⚠>>"
     },
     "lotus": {
-      "name": "Loti of Rejuvenation",
-      "nameSingular": "Lotus of Rejuvenation",
-      "owned": "Owned: {{x}}",
-      "lifetimeUsed": "Used: {{x}}",
-      "intro": "When you activate a Lotus, immediately gain the full amount of Reborn ELO you can get from Immortal ELO, no waiting required! Effect applies for 5 minutes after purchasing. Use Loti at the Ant Altar.",
-      "boxText1": "Don't like waiting for Reborn ELO?",
-      "boxText2": "Use a Lotus to skip the wait!",
-      "boxText3": "Each Lotus lasts for 5 minutes.",
-      "useLotus": "Use Lotus!",
+      "name": "Лотос омоложения",
+      "nameSingular": "Лотос омоложения",
+      "owned": "Имеется: {{x}}",
+      "lifetimeUsed": "Использовано: {{x}}",
+      "intro": "Когда вы активируете лотос, вы сразу же получаете полное количество ELO возрождения которые можете получить из Бессмертных ELO, и не нужно ждать! Эффект длится 5 минут после покупки. Используйте лотус на муравьином алтаре.",
+      "boxText1": "Не нравится здать ELO возрождения?",
+      "boxText2": "Используйте лотос, чтобы пропустить ожидание!",
+      "boxText3": "Каждый лотос длится 5 минут.",
+      "useLotus": "Используйте лотос!",
       "purchaseBtn": "+{{amount}} Lotus [<<gold|{{cost}} PseudoCoins>>]",
       "buyConfirm": "You are about to buy a {{name}} for {{cost}} PseudoCoins. Continue?",
       "useConfirm": "You are about to use a Lotus of Rejuvenation. This will consume one of your Loti and activate its effect for 5 minutes, granting you Reborn ELO without having to wait. Continue?",
       "useConfirmMulti": "Since you have this effect active, consuming a Lotus will add 5 minutes to the remaining time.",
       "noLotus": "You do not currently possess a Lotus. Buy some at the PseudoCoins shop!",
-      "status": "Lotus Time: {{time}}",
-      "lotusActive": "You've used a Lotus! For the next 5 minutes, you will gain Reborn ELO from your Immortal ELO without having to wait!"
+      "status": "Время лотоса: {{time}}",
+      "lotusActive": "Вы использовали лотос! Следующие 5 минут вы будете получить ELO возрождения из ваших бессмертных ELO без ожиданий!"
     }
   },
   "hotkeys": {
@@ -7567,6 +7567,6 @@
     "hotkeysOFF": "Горячие Клавиши: ВЫКЛ"
   },
   "versionChangeAnnouncements": {
-    "ants": "Ants have been significantly reworked/rebalanced. Your Anthill progress has been set accordingly!"
+    "ants": "Муравьи были сильно переработаны/сбалансированны. Исходя из этого ваш прогресс муравейника был изменён!"
   }
 }
