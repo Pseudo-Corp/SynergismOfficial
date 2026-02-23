@@ -336,8 +336,8 @@
         "effect": "Позитивный и Негативный Утиль увеличены на {{amount}}."
       },
       "blueberries": {
-        "name": "Berries that are... blue?",
-        "description": "They look like Blueberries. They act like Blueberries. You're not really sure if they're Blueberries.",
+        "name": "Ягоды которые... синие?",
+        "description": "Они выглядят как черника. Они ведут себя как черника. Вы не уверены, что это черника.",
         "effect": "Your Blueberry inventory is increased by {{amount}}"
       }
     }
