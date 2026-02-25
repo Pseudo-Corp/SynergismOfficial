@@ -264,11 +264,6 @@ export class CampaignManager {
     }
 
     this.#currentCampaign = campaignManagerData?.currentCampaign ?? undefined
-    if (this.#currentCampaign !== undefined) {
-      player.corruptions.used = new CorruptionLoadout(
-        this.#campaigns[this.#currentCampaign].campaignCorruptions
-      )
-    }
   }
 
   computeMaxCampaignTokens () {
