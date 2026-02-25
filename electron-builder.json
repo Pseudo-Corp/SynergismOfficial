@@ -53,7 +53,7 @@
     "extraFiles": [
       { "from": "node_modules/steamworks.js/dist/osx/libsteam_api.dylib", "to": "." }
     ],
-    "x64ArchFiles": "**/steamworksjs.darwin-*.node"
+    "x64ArchFiles": "{**/steamworksjs.darwin-*.node,**/libsteam_api.dylib}"
   },
   "linux": {
     "maintainer": "Khafra <support@synergism.cc>",
