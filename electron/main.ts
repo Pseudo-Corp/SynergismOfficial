@@ -5,6 +5,10 @@ import path from 'node:path'
 import { enableSteamOverlay, initializeSteam } from './lib/steam-ipc.ts'
 import './lib/discord.ts' // Discord RPC
 
+if (process.platform === 'linux') {
+  app.commandLine.appendSwitch('no-sandbox')
+}
+
 if (process.platform === 'darwin') {
   app.commandLine.appendSwitch('enable-gpu-rasterization')
   app.commandLine.appendSwitch('enable-zero-copy')
