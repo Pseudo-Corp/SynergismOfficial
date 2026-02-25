@@ -4,7 +4,6 @@ node_modules/
 dist
 !.eslintrc.js
 .idea
-package-lock.json
 
 .project
 .settings/*
