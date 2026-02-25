@@ -3166,8 +3166,6 @@
         "autoUpgradeOff": "Auto Upgrades: [OFF]",
         "upgradeMaxIfPossible": "Upgrade: MAX [if possible wow]",
         "upgradeOneLevelWow": "Upgrade: 1 Level wow",
-        "saveOfferingsOn": "Save Offerings [ON]",
-        "saveOfferingsOff": "Save Offerings [OFF]",
         "modeTime": "Mode: TIME",
         "modeAmount": "Mode: AMOUNT",
         "modePercentage": "Mode: PERCENTAGE"
