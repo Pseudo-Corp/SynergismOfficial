@@ -11,7 +11,8 @@
     "electron/**/*"
   ],
   "extraMetadata": {
-    "main": "electron/main.ts"
+    "main": "electron/main.ts",
+    "type": "module"
   },
   "win": {
     "target": [
