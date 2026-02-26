@@ -45,5 +45,9 @@ contextBridge.exposeInMainWorld('discord', {
   /**
    * @param {import('./lib/discord').PresenceOptions} options
    */
-  setRichPresence: (options) => ipcRenderer.invoke('discord:setRichPresence', options)
+  setRichPresence: (options) => ipcRenderer.invoke('discord:setRichPresence', options),
+  /** @returns {Promise<boolean>} */
+  getEnabled: () => ipcRenderer.invoke('discord:getEnabled'),
+  /** @param {boolean} enabled */
+  setEnabled: (enabled) => ipcRenderer.invoke('discord:setEnabled', enabled)
 })

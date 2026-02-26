@@ -5349,12 +5349,33 @@ window.addEventListener('load', async () => {
   }
 
   if (platform === 'steam') {
-    const { setRichPresenceDiscord } = await import('./steam/discord')
+    const { setRichPresenceDiscord, getDiscordRpcEnabled, setDiscordRpcEnabled } = await import('./steam/discord')
 
     setRichPresenceDiscord({
       details: 'Playing Synergism',
       state: 'gathering quarks...'
     })
+
+    // Add Discord RPC toggle to settings, after the delete save button
+    const deleteBtn = DOMCacheGetOrSet('deleteGame')
+    const toggleBtn = document.createElement('button')
+    toggleBtn.style.border = '2px solid red'
+    toggleBtn.textContent = 'Discord Rich Presence: OFF'
+
+    getDiscordRpcEnabled().then((enabled) => {
+      toggleBtn.textContent = `Discord Rich Presence: ${enabled ? 'ON' : 'OFF'}`
+      toggleBtn.style.border = `2px solid ${enabled ? 'green' : 'red'}`
+    })
+
+    toggleBtn.addEventListener('click', async () => {
+      const current = await getDiscordRpcEnabled()
+      const next = !current
+      await setDiscordRpcEnabled(next)
+      toggleBtn.textContent = `Discord Rich Presence: ${next ? 'ON' : 'OFF'}`
+      toggleBtn.style.border = `2px solid ${next ? 'green' : 'red'}`
+    })
+
+    deleteBtn.after(toggleBtn)
   }
 }, { once: true })
 

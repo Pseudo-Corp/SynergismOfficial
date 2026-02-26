@@ -14,7 +14,7 @@
     "cookie": "^1.1.1",
     "discord-rpc": "^4.0.1",
     "dompurify": "^3.2.7",
-    "electron-log": "^5.4.3",
+    "electron-store": "^11.0.2",
     "fast-mersenne-twister": "^1.0.3",
     "i18next": "^22.4.9",
     "lz-string": "^1.4.4",
