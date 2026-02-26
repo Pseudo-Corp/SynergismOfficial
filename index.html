@@ -710,7 +710,7 @@
                 <p class="mainText" id="constUpgradeEffect1">Current Effect: <span id="constUpgradeEffect2" class="orchidText">---</span></p>
             </div>
             <div class="resetautomation" id="ascendautomation">
-                <button id="tesseractautobuytoggle" style="border:2px solid red;"></button>
+                <button id="tesseractautobuytoggle" style="border:2px solid red;" i18n="runes.talismans.autoBuyOff"></button>
                 <button id="tesseractautobuymode" style="border:2px solid green;">Mode: AMOUNT</button>
                 <input class="tesseractautobuyamount" type="number" id="tesseractAmount" min="1" max="999999999" defaultValue="1">
                 <p class="tesseractautobuyamount mainText" id="autotessbuyeramount"></p>
@@ -967,10 +967,10 @@
             </section>
             <section class="shop-section reincarnationunlock" aria-labelledby="reincarnationtext">
               <header>
-                <button class="currency-icon reincarnationunlock" i18n-aria-label="upgrades.descriptions.currency">
+                <button class="currency-icon particleUpgradeResearch" i18n-aria-label="upgrades.descriptions.currency">
                     <img id="upgrades6" src="Pictures/Default/Particle.png" alt="" loading="lazy">
                 </button>
-                <h3 class="reincarnationunlock" id="reincarnationtext" style="color: limegreen" i18n="upgrades.shopTitles.particles"></h3>
+                <h3 class="particleUpgradeResearch" id="reincarnationtext" style="color: limegreen" i18n="upgrades.shopTitles.particles"></h3>
               </header>
               <table class="reincarnationunlock" id="reincarnationupgradestable" i18n-aria-label="upgrades.shopTitles.particles">
                   <tr>
@@ -1002,7 +1002,7 @@
                       <td><button id="upg80" class="upgrade-button reinrow4" i18n-aria-label="upgrades.descriptions.80"><img src="Pictures/Default/Particle20.png" alt="" loading="lazy"></button></td>
                   </tr>
               </table>
-              <button class="autobuyerToggleButton" id="reincarnateAutoUpgrade" i18n-aria-label="upgrades.descriptions.autobuyer" aria-pressed="true" style="border: 2px solid green"></button>
+              <button class="autobuyerToggleButton particleUpgradeResearch" id="reincarnateAutoUpgrade" i18n-aria-label="upgrades.descriptions.autobuyer" aria-pressed="true" style="border: 2px solid green"></button>
             </section>
         </div>
 
@@ -1340,12 +1340,13 @@
                     <div id="challengeTimersText">
                         <button id="startChallenge">Start Challenge 1</button>
                         <span id="startTimerValue" class="research150"></span>
-                        <input type="number" class="research150" id="startAutoChallengeTimerInput" min="0" max="999999999" defaultValue="10">
+                        <input type="number" class="research150" id="startAutoChallengeTimerInput" min="0.1" max="999999999" defaultValue="10">
                         <span id="exitTimerValue" class="research150"></span>
-                        <input type="number" class="research150" id="exitAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
+                        <input type="number" class="research150" id="exitAutoChallengeTimerInput" min="0.1" max="999999999" defaultValue="2">
                         <span id="enterTimerValue" class="research150"></span>
-                        <input type="number" class="research150" id="enterAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
+                        <input type="number" class="research150" id="enterAutoChallengeTimerInput" min="0.1" max="999999999" defaultValue="2">
                         <span id="autoIncrementerAmount" class="research150"></span>
+                        <p id="autoChallengeMinimums" i18n="challenges.minimumTimer"></p>
                         <p class="research150" id="autoChallengeType" style="color: lightgoldenrodyellow"></p>
                     </div>
                 </div>
@@ -2867,6 +2868,7 @@
                     <button id="statSymbols" class="promocodeButton" style="border: 2px solid white"></button>
                 </div>
                 <div id="exportButtons">
+                    <div id="versionnumber"></div>
                     <p id="quarktimerdisplay" class="tightText" style="color: gold"></p>
                     <p id="quarktimeramount" class="tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
                     <p id="goldenQuarkTimerDisplay" class="tightText goldenQuark3Upg" style="color: goldenrod">3600s until +1 export Gold Quark</p>
@@ -2889,15 +2891,15 @@
                 <div id="thirdParty">
                     <div id="discord">
                         <p style="color: gold" i18n="settings.joinDiscord"></p>
-                        <button>
+                        <button style="background: transparent">
                             <img alt="Discord Icon" src="Pictures/Default/icon.gif" title="Click to join the official Discord!" width="100" height="100" loading="lazy">
                         </button>
                     </div>
                     <div id="patreon">
                         <p style="color: gold" i18n="settings.joinPatreon"></p>
-                        <button href="https://www.patreon.com/synergism">
+                        <button href="https://www.patreon.com/synergism" style="background: transparent">
                             <img alt="Store Icon" src="Pictures/PseudoShop/GOLDEN_QUARK_BUFF.png" title="Click to support development!" loading="lazy">
-                            <p id="currentBonus" style="color: springgreen">Current Bonus: 0%</p>
+                            <p id="currentBonus">Current Bonus: 0%</p>
                         </button>
                     </div>
                     <div id="patchnotes">
@@ -2905,7 +2907,6 @@
                     </div>
                 </div>
             </div>
-            <div id="versionnumber"></div>
             <a href="#" target="_blank" id="happyHolidays" style="color: greenyellow"></a>
         </div>
         <div class="subtabContent subtabDisplayFlex" id="languagesubtab">
@@ -3173,7 +3174,7 @@
                         </table>
                     </div>
                 </div>
-                <div id="historyAnts" class="sacrificeAnts">
+                <div id="historyAnts">
                     <p i18n="history.historySac"></p>
                     <div class="historyTableWrap">
                         <table id="historyAntsTable">

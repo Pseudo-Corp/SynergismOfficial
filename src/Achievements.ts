@@ -233,6 +233,7 @@ export type AchievementRewards =
   | 'freeAntUpgrades'
   | 'autoAntSacrifice'
   | 'antSpeed2UpgradeImprover'
+  | 'antSacrificeToReincarnation'
 
 export type AchievementReward = Partial<Record<AchievementRewards, () => number>>
 
@@ -2642,6 +2643,17 @@ export const achievements: Achievement[] = [
     pointValue: 40,
     unlockCondition: () => player.ants.antSacrificeCount >= 3_000_000,
     group: 'sacCount'
+  },
+  {
+    pointValue: 45,
+    unlockCondition: () => player.ants.antSacrificeCount >= 10_000_000,
+    group: 'sacCount',
+    reward: { antSacrificeToReincarnation: () => 1 }
+  },
+  {
+    pointValue: 55,
+    unlockCondition: () => player.ants.antSacrificeCount >= 100_000_000,
+    group: 'sacCount'
   }
 ]
 
@@ -3406,6 +3418,9 @@ export const achRewards: Record<AchievementRewards, () => number | boolean> = {
       (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.antSpeed2UpgradeImprover!() : 0),
       0
     )
+  },
+  antSacrificeToReincarnation: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.antSacrificeToReincarnation[0]])
   }
 }
 

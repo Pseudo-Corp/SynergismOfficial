@@ -594,7 +594,7 @@ export const player: Player = {
   resettoggle3: 1,
   resettoggle4: 1,
 
-  tesseractAutoBuyerToggle: 0,
+  tesseractAutoBuyerToggle: false,
   tesseractAutoBuyerAmount: 0,
 
   coinbuyamount: 1,
@@ -1770,13 +1770,12 @@ const loadSynergy = () => {
       )
     }
 
-    if (player.tesseractAutoBuyerToggle === 1) {
+    if (player.tesseractAutoBuyerToggle) {
       DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t(
         'runes.talismans.autoBuyOn'
       )
       DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid green'
-    }
-    if (player.tesseractAutoBuyerToggle === 2) {
+    } else {
       DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t(
         'runes.talismans.autoBuyOff'
       )
@@ -4382,7 +4381,7 @@ export const updateAll = (): void => {
   // Autobuy tesseract buildings (Mode: AMOUNT)
   if (
     player.researches[190] > 0
-    && player.tesseractAutoBuyerToggle === 1
+    && player.tesseractAutoBuyerToggle
     && player.resettoggle4 < 2
   ) {
     const ownedBuildings: TesseractBuildings = [null, null, null, null, null]

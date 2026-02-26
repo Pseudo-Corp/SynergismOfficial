@@ -171,6 +171,12 @@ const ascendBuildingSchema = z.object({
   multiplier: z.number()
 })
 
+const autoChallengeTimerSchema = z.object({
+  start: z.number(),
+  exit: z.number(),
+  enter: z.number()
+})
+
 const singularityUpgradeSchema = (...keys: string[]) => {
   return z.object<Record<'level' | 'freeLevels' | typeof keys[number], ZodNumber>>({
     level: z.number(),
@@ -621,7 +627,13 @@ export const playerSchema = z.object({
   resettoggle3: z.number().default(() => blankSave.resettoggle3),
   resettoggle4: z.number().default(() => blankSave.resettoggle4),
 
-  tesseractAutoBuyerToggle: z.number().default(() => blankSave.tesseractAutoBuyerToggle),
+  tesseractAutoBuyerToggle: z.union([z.number(), z.boolean()]).transform((value) => {
+    // Migrate old number values: 0 or 2 = OFF (false), 1 = ON (true)
+    if (typeof value === 'number') {
+      return value === 1
+    }
+    return value
+  }).default(() => blankSave.tesseractAutoBuyerToggle),
   tesseractAutoBuyerAmount: z.number().default(() => blankSave.tesseractAutoBuyerAmount),
 
   coinbuyamount: buyAmount,
@@ -839,7 +851,14 @@ export const playerSchema = z.object({
   autoChallengeIndex: z.number().default(() => blankSave.autoChallengeIndex),
   autoChallengeToggles: z.boolean().array().default(() => [...blankSave.autoChallengeToggles]),
   autoChallengeStartExponent: z.number().default(() => blankSave.autoChallengeStartExponent),
-  autoChallengeTimer: z.record(z.string(), z.number()).default(() => ({ ...blankSave.autoChallengeTimer })),
+  autoChallengeTimer: autoChallengeTimerSchema.transform((times) => {
+    // Enforce minimum of 0.1s on old savefiles
+    return {
+      start: Math.max(0.1, times.start),
+      exit: Math.max(0.1, times.exit),
+      enter: Math.max(0.1, times.enter)
+    }
+  }).default(() => ({ ...blankSave.autoChallengeTimer })),
 
   runeBlessingLevels: z.number().array().optional(),
   runeSpiritLevels: z.number().array().optional(),

@@ -199,14 +199,14 @@ export const toggleautoreset = (i: number) => {
 }
 
 export const toggleautobuytesseract = () => {
-  if (player.tesseractAutoBuyerToggle === 1 || player.tesseractAutoBuyerToggle === 0) {
-    player.tesseractAutoBuyerToggle = 2
-    DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOff')
-    DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
-  } else {
-    player.tesseractAutoBuyerToggle = 1
+  player.tesseractAutoBuyerToggle = !player.tesseractAutoBuyerToggle
+
+  if (player.tesseractAutoBuyerToggle) {
     DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOn')
     DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid green'
+  } else {
+    DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOff')
+    DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
   }
 }
 
@@ -695,7 +695,7 @@ export const updateAutoChallenge = (i: number) => {
   switch (i) {
     case 1: {
       const t = Number.parseFloat((DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value) || 0
-      player.autoChallengeTimer.start = Math.max(t, 0)
+      player.autoChallengeTimer.start = Math.max(t, 0.1)
       DOMCacheGetOrSet('startTimerValue').innerHTML = i18next.t('challenges.timeStartSweep', {
         time: format(player.autoChallengeTimer.start, 2, true)
       })
@@ -703,7 +703,7 @@ export const updateAutoChallenge = (i: number) => {
     }
     case 2: {
       const u = Number.parseFloat((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value) || 0
-      player.autoChallengeTimer.exit = Math.max(u, 0)
+      player.autoChallengeTimer.exit = Math.max(u, 0.1)
 
       DOMCacheGetOrSet('exitTimerValue').innerHTML = i18next.t('challenges.timeExitChallenge', {
         time: format(player.autoChallengeTimer.exit, 2, true)
@@ -713,7 +713,7 @@ export const updateAutoChallenge = (i: number) => {
     }
     case 3: {
       const v = Number.parseFloat((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value) || 0
-      player.autoChallengeTimer.enter = Math.max(v, 0)
+      player.autoChallengeTimer.enter = Math.max(v, 0.1)
 
       DOMCacheGetOrSet('enterTimerValue').innerHTML = i18next.t('challenges.timeEnterChallenge', {
         time: format(player.autoChallengeTimer.enter, 2, true)

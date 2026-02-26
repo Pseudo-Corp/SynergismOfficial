@@ -585,6 +585,8 @@ export const challengeRequirement = (challenge: number, completion: number, spec
   }
 }
 
+type actionValues = 'none' | 'start' | 'enter' | 'exit' | 'wait'
+
 /**
  * Function that handles the autochallenge feature.
  * Currently includes ability to enter a challenge, leave a challenge
@@ -605,7 +607,7 @@ export const runChallengeSweep = (dt: number) => {
   G.autoChallengeTimerIncrement += dt
 
   // Determine what Action you can take with the current state of the savefile
-  let action = 'none'
+  let action: actionValues = 'none'
   if (
     player.currentChallenge.reincarnation !== 0
     || player.currentChallenge.transcension !== 0
@@ -650,8 +652,7 @@ export const runChallengeSweep = (dt: number) => {
     // Reset based on challenge type
     if (challengeType === 'transcension') {
       void resetCheck('transcensionChallenge', undefined, true)
-    }
-    if (challengeType === 'reincarnation') {
+    } else if (challengeType === 'reincarnation') {
       void resetCheck('reincarnationChallenge', undefined, true)
     }
 

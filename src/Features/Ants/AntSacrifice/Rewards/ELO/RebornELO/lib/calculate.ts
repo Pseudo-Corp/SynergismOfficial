@@ -50,8 +50,5 @@ export const calculateSecondsToMaxRebornELO = () => {
   const discountRequiredProduction = calculateTotalProductionForRebornELO(player.ants.rebornELO)
   const totalRequiredProduction = calculateTotalProductionForRebornELO(player.ants.immortalELO)
 
-  // console.log(`Reborn ELO Production Calculation: ${discountRequiredProduction}`)
-  // console.log(`Immortal ELO Production Calculation: ${totalRequiredProduction}`)
-
   return (totalRequiredProduction - discountRequiredProduction) / baseProductionPerSecond
 }

@@ -53,12 +53,17 @@ export const calculateRebornELOThresholds = (elo?: number) => {
 export const calculateToNextELOThreshold = (rebornELO: number, stage?: number) => {
   const thresholds = stage ?? calculateRebornELOThresholds(rebornELO)
   let stagesChecked = 0
+  let tempELO = rebornELO
   for (const tranche of thresholdTranches) {
     if (thresholds < stagesChecked + tranche.stages) {
       const reqELOThisThreshold = tranche.perStage
-      return reqELOThisThreshold - rebornELO % reqELOThisThreshold
+      // When tempELO is a multiple of reqELOThisThreshold it returns `reqELOThisThreshold`, and
+      // increasing tempELO by 1 will reduce the returned value by 1, so this equation is correct.
+      // Yes, this did take pen and paper to solve
+      return (1 + Math.floor(tempELO / reqELOThisThreshold)) * reqELOThisThreshold - tempELO
     }
     stagesChecked += tranche.stages
+    tempELO -= tranche.stages * tranche.perStage
   }
   assert(false, 'Unreachable code in calculateToNextELOThreshold')
 }

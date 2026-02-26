@@ -301,21 +301,21 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
 
     resetHistoryAdd('reset', historyEntry)
   } else if (input === 'transcension' || input === 'transcensionChallenge') {
-    // Heuristics: transcend entries are not added when entering or leaving a challenge,
-    // unless a meaningful gain in particles was made. This prevents spam when using the challenge automator.
-    const historyEntry: ResetHistoryEntryTranscend = {
-      seconds: player.transcendcounter,
-      date: Date.now(),
-      offerings: offeringsGiven,
-      kind: 'transcend',
-      mythos: G.transcendPointGain.toString()
-    }
+    // Challenges should not be included in the reset history data, because we say it's not added.
+    if (!isChallenge) {
+      const historyEntry: ResetHistoryEntryTranscend = {
+        seconds: player.transcendcounter,
+        date: Date.now(),
+        offerings: offeringsGiven,
+        kind: 'transcend',
+        mythos: G.transcendPointGain.toString()
+      }
 
-    resetHistoryAdd('reset', historyEntry)
+      resetHistoryAdd('reset', historyEntry)
+    }
   } else if (input === 'reincarnation' || input === 'reincarnationChallenge') {
-    // Heuristics: reincarnate entries are not added when entering or leaving a challenge,
-    // unless a meaningful gain in particles was made. This prevents spam when using the challenge automator.
-    if (!isChallenge || G.reincarnationPointGain.gte(player.reincarnationPoints.div(10))) {
+    // Challenges should not be included in the reset history data.
+    if (!isChallenge) {
       const historyEntry: ResetHistoryEntryReincarnate = {
         seconds: player.reincarnationcounter,
         date: Date.now(),
@@ -550,7 +550,14 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     awardAchievementGroup('ascensionCount')
     awardUngroupedAchievement('ascended')
 
-    player.obtainium = player.obtainium.add(obtainiumToGain)
+    /* When entering a Reincarnation Challenge, we "force" a Reincarnation. This is to ensure that
+       we only credit Obtainium and Reincarnation Count from a Reincarnation when the threshold
+       to Reincarnate normally is reached (1e300 Transcension Shards).
+    */
+    if (player.transcendShards.gte('1e300')) {
+      player.obtainium = player.obtainium.add(obtainiumToGain)
+      updateReincarnationCount(1)
+    }
 
     player.currentChallenge.transcension = 0
     resetUpgrades(3)
@@ -571,7 +578,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.fourthGeneratedParticles = new Decimal('0')
     player.fifthGeneratedParticles = new Decimal('0')
 
-    updateReincarnationCount(1)
     awardAchievementGroup('reincarnationCount')
 
     player.transcendPoints = new Decimal('0')
@@ -814,7 +820,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
 
     // Autobuy tesseract buildings (Mode: PERCENTAGE)
-    if (player.researches[190] > 0 && player.tesseractAutoBuyerToggle === 1 && player.resettoggle4 === 2) {
+    if (player.researches[190] > 0 && player.tesseractAutoBuyerToggle && player.resettoggle4 === 2) {
       const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
       for (let i = 1; i <= 5; i++) {
         if (player.autoTesseracts[i]) {
@@ -847,7 +853,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
       }
       if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
-        if (player.tesseractAutoBuyerToggle !== 1 || player.resettoggle4 === 2) {
+        if (!player.tesseractAutoBuyerToggle || player.resettoggle4 === 2) {
           player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) * player.openTesseracts / 100), false)
         }
       }
