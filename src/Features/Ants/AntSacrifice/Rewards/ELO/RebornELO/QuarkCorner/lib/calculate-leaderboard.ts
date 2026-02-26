@@ -5,5 +5,5 @@ export const calculateLeaderboardValue = (leaderboard: Array<{ elo: number; sacr
   for (let i = 0; i < Math.min(leaderboard.length, LEADERBOARD_WEIGHTS.length); i++) {
     total += leaderboard[i].elo * LEADERBOARD_WEIGHTS[i]
   }
-  return total
+  return Math.floor(total)
 }

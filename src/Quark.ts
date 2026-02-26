@@ -51,9 +51,13 @@ const recalculateBonus = () => {
 const updateQuarkUI = (personalBonus: number, globalBonus: number) => {
   const currentBonus = DOMCacheGetOrSet('currentBonus')
   if (personalBonus > 0) {
-    currentBonus.textContent = i18next.t('settings.quarkBonusExtended', { globalBonus, personalBonus })
+    currentBonus.innerHTML = i18next.t('settings.quarkBonusExtended', {
+      globalBonus,
+      personalBonusMult: format(1 + personalBonus / 100, 3, true),
+      totalBonus: format(bonus, 2, true)
+    })
   } else {
-    currentBonus.textContent = i18next.t('settings.quarkBonusSimple', { globalBonus })
+    currentBonus.innerHTML = i18next.t('settings.quarkBonusSimple', { globalBonus })
   }
 }
 

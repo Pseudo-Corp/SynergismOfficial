@@ -108,6 +108,9 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.sacrificeUnlock = player.ants.antSacrificeCount > 0 ? 'true' : 'false'
 
+  document.documentElement.dataset.particleUpgradeResearch =
+    player.researches[47] || player.researches[48] || player.researches[49] || player.researches[50] ? 'true' : 'false'
+
   const example21 = document.getElementsByClassName('ascendunlock') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example21.length; i++) {
     const parent = example21[i].parentElement!

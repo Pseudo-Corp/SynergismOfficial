@@ -41,6 +41,7 @@ type shopResetTier =
   | 'SingularityVol2'
   | 'SingularityVol3'
   | 'SingularityVol4'
+  | 'SingularityVol5'
   | 'Exalt1'
   | 'Exalt2'
   | 'Exalt3'

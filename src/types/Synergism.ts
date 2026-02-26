@@ -280,7 +280,7 @@ export interface Player {
   resettoggle3: number
   resettoggle4: number
 
-  tesseractAutoBuyerToggle: number
+  tesseractAutoBuyerToggle: boolean
   tesseractAutoBuyerAmount: number
 
   coinbuyamount: BuyAmount
@@ -520,7 +520,11 @@ export interface Player {
   autoChallengeIndex: number
   autoChallengeToggles: boolean[]
   autoChallengeStartExponent: number
-  autoChallengeTimer: Record<string, number>
+  autoChallengeTimer: {
+    start: number
+    exit: number
+    enter: number
+  }
 
   runeBlessingBuyAmount: number
   runeSpiritBuyAmount: number

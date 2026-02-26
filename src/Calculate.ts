@@ -184,6 +184,12 @@ export const calculateObtainium = (timeMultUsed = true) => {
     return new Decimal('0')
   }
 
+  // In a reincarnation challenge, you can trigger Base Obtainium gain by repeatedly entering/exiting.
+  // This prevents being able to get Obtainium if your run does not otherwise qualify for reincarnation.
+  if (player.transcendShards.lt(1e300)) {
+    return new Decimal('0')
+  }
+
   const total = new Decimal(immaculate).times(Decimal.pow(baseMults, DR)).times(timeMultiplier)
 
   if (
