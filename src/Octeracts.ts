@@ -1099,23 +1099,32 @@ export const updateMobileOcteractHTML = (upgradeKey: OcteractDataKeys): void => 
     const buttonDiv = document.createElement('div')
 
     const buyOne = document.createElement('button')
+    const buyX = document.createElement('button')
     const buyMax = document.createElement('button')
 
     buyOne.classList.add('modalBtnBuy')
     buyOne.textContent = i18next.t('general.buyOne')
     buyOne.addEventListener('click', (event: MouseEvent) => {
-      buyOcteractUpgradeLevel(upgradeKey, event, false)
+      buyOcteractUpgradeLevel(upgradeKey, event, false, false)
+      updateMobileOcteractHTML(upgradeKey)
+    })
+
+    buyX.classList.add('modalBtnBuy')
+    buyX.textContent = i18next.t('general.buyX')
+    buyX.addEventListener('click', (event: MouseEvent) => {
+      buyOcteractUpgradeLevel(upgradeKey, event, true, true)
       updateMobileOcteractHTML(upgradeKey)
     })
 
     buyMax.classList.add('modalBtnBuy')
     buyMax.textContent = i18next.t('general.buyMax')
     buyMax.addEventListener('click', (event: MouseEvent) => {
-      buyOcteractUpgradeLevel(upgradeKey, event, true)
+      buyOcteractUpgradeLevel(upgradeKey, event, true, false)
       updateMobileOcteractHTML(upgradeKey)
     })
 
     buttonDiv.appendChild(buyOne)
+    buttonDiv.appendChild(buyX)
     buttonDiv.appendChild(buyMax)
     elm.appendChild(buttonDiv)
   }
@@ -1124,7 +1133,8 @@ export const updateMobileOcteractHTML = (upgradeKey: OcteractDataKeys): void => 
 export const buyOcteractUpgradeLevel = async (
   upgradeKey: OcteractDataKeys,
   event: MouseEvent,
-  buyMax = false
+  buyMax = false,
+  alert = true
 ): Promise<void> => {
   const upgrade = octeractUpgrades[upgradeKey]
   let purchased = 0
@@ -1133,9 +1143,10 @@ export const buyOcteractUpgradeLevel = async (
 
   if (event.shiftKey || buyMax) {
     maxPurchasable = 100000000
-    const buy = Number(
-      await Prompt(`${i18next.t('octeract.buyLevel.buyPrompt', { n: format(player.wowOcteracts, 0, true) })}`)
-    )
+    let buy = Number(-1)
+    if(alert) {
+      buy = Number(await Prompt(`${i18next.t('octeract.buyLevel.buyPrompt', { n: format(player.wowOcteracts, 0, true) })}`))
+	}
 
     if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) {
       return Alert(i18next.t('general.validation.finite'))

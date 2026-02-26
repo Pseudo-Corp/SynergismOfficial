@@ -1611,6 +1611,7 @@ export const visualUpdateSingularity = () => {
         goldenQuarks: format(player.goldenQuarks, 0, true)
       }
     )
+	DOMCacheGetOrSet('freeLevelDescription').innerHTML = i18next.t('singularity.freeLevelDescription')
 
     const keys = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
     const val = G.shopEnhanceVision

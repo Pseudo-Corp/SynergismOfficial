@@ -2805,7 +2805,7 @@
     "15": {
       "name": "SADISTIC CHALLENGE II || {{- value}} Completions",
       "flavor": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-      "restrictions": "Ascend and reach the goal but you're stuck in all Corruptions at level 11. <br> ☆ Ant Speed <<gold|^0.5>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>> <br> ☆ Your Tax burden is reduced by <<pink|99.9995%>>",
+      "restrictions": "Ascend and reach the goal but you're stuck in all Corruptions at level 11. <br> ☆ Ant Speed <<gold|^0.5>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>> <br> ☆ Your Tax burden is reduced by <<pink|99.9995%>> <br> ☆ You cannot enter challenges before 2 seconds Ascension time",
       "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
       "per": {
         "1": "Folly of mankind: ",
@@ -3586,7 +3586,7 @@
       },
       "respecBeGone": {
         "name": "Respec, be gone!",
-        "default": "Talismans now buff all runes at all times!"
+        "default": "Wow that was effective! Respecs were already gone! This perk does nothing!"
       },
       "forTheLoveOfTheAntGod": {
         "name": "For the love of (the Ant) God!",
@@ -3953,7 +3953,7 @@
       "singQuarkImprover1": {
         "name": "Marginal Quark Gain Improver Thingy",
         "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
-        "effect": "You gain {{n}}% more Quarks!"
+        "effect": "You gain {{n}} more Quarks!"
       },
       "singQuarkHepteract": {
         "name": "I wish my Quark Hepteract was marginally better.",
@@ -4245,6 +4245,8 @@
     "blessCapital": "BLESS",
     "spiritCapital": "REJUVENATE",
     "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!",
+	"freeLevelDescription": "Perks with a negative coloring have more free levels than normal levels",
+	"maxCraftWarning": "Warn when crafting max",
     "autoOnColon": "Auto: ON",
     "autoOffColon": "Auto: OFF",
     "buyMaxOn": "Buy Max: ON",
@@ -4252,6 +4254,7 @@
     "on": "ON",
     "off": "OFF",
     "buyOne": "Buy x1",
+    "buyX": "Buy X",
     "buyMax": "Buy MAX",
     "languageChange": "Changing the language requires a reload! Would you like to reload now?",
     "resources": {
