@@ -1,5 +1,5 @@
 import { awardAchievementGroup, getAchievementReward } from '../../../../Achievements'
-import { AntSacrificeTiers } from '../../../../Reset'
+import { AntSacrificeTiers, updateReincarnationCount } from '../../../../Reset'
 import { player } from '../../../../Synergism'
 import { sacrificeCountHTML } from '../../HTML/updates/sacrifice'
 import { defaultAntSacrificeCount, defaultCurrentSacrificeId } from './default'
@@ -22,6 +22,9 @@ export const resetPlayerAntSacrificeCounts = (resetTier: AntSacrificeTiers) => {
     sacrificeAdd += player.researches[116] // 5x16: +1 per level
     sacrificeAdd *= +getAchievementReward('antSacrificeCountMultiplier')
     player.ants.antSacrificeCount += sacrificeAdd
+    if (getAchievementReward('antSacrificeToReincarnation')) {
+      updateReincarnationCount(sacrificeAdd)
+    }
     awardAchievementGroup('sacCount')
   }
 
