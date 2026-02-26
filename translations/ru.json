@@ -594,8 +594,8 @@
       "247": "Вызов! [Подсказка: Испытание 11 зовёт вас, но с ещё меньшим количеством Муравьёв]",
       "248": "Бычий гнев без единой мысли: [Подсказка: Сможете ли вы получить красные вещи, не получив синих вещей?]",
       "249": "Сверх налог: [Подсказка: Неграмотный платит трижды!]",
-      "250": "Тысяча солнц: [Подсказка: Завершите исследование по превращению в БОГА]",
-      "251": "Тысяча лун: [Подсказка: Постройте лестницу из кубов до луны]",
+      "250": "The Thousand Moons: [Hint: You need to fully research into becoming GOD]",
+      "251": "The Thousand Suns: [Hint: You may need to cube yourself up]",
       "252": "Финал: [Подсказка: хорошего счёта второго испытания Садиста будет достаточно]",
       "253": "Платонизм: Завершите Вознесение со счётом 1e12.",
       "254": "Целая горстка!: Завершите Вознесение со счётом 1e14.",
@@ -835,7 +835,9 @@
       "488": "Лорд лордов: Принесите в жертву свой муравейник 80000 раз.",
       "489": "Почему мы здесь?: Принесите в жертву свой муравейник 250000 раз.",
       "490": "Просто страдать?: Принесите в жертву свой муравейник 1000000 раз.",
-      "491": "Выжженная земля: Принесите в жертву свой муравейник 3000000 раз."
+      "491": "Выжженная земля: Принесите в жертву свой муравейник 3000000 раз.",
+      "492": "It's so clear that all we have now: Sacrifice your Anthill 10,000,000 times.",
+      "493": "Are our thoughts of yesterday: Sacrifice your Anthill 100,000,000 times."
     },
     "achievementRewards": {
       "3": {
@@ -1563,7 +1565,10 @@
         "phylacteriumAutobuy": "Открывает автопокупщик улучшения муравья <i>Phylacterium</i>!"
       },
       "490": {
-        "preserveAnthillCountSingularity": "Preserve your Anthil Count when you do something <span class='rainbowText'>even more impressive than an Ascension!</span>"
+        "preserveAnthillCountSingularity": "Preserve your Anthill Count when you do something <span class='rainbowText'>even more impressive than an Ascension!</span>"
+      },
+      "492": {
+        "antSacrificeToReincarnation": "For each Anthill you sacrifice, you gain a Reincarnation! This cascades if you also get a Transcension per Reincarnation, and so on."
       }
     },
     "rewards": {
@@ -2835,6 +2840,7 @@
     "timeExitChallenge": "Время перед выходом из испытания: <<var(--orchid-text-color)|{{time}}>>сек",
     "timeEnterChallenge": "Время перед входом в испытание: <<var(--orchid-text-color)|{{time}}>>сек",
     "autoTimer": "<<orange|Авто Таймер:>> <<var(--orchid-text-color)|{{time}}s>>",
+    "minimumTimer": "Minimum Timers: <<var(--orchid-text-color)|0.1s>>",
     "perCompletionBonus": "Бонусы за Выполнение|| <<var(--orchid-text-color)|Предел после {{x}}! Количество эффективных прохождений {{y}}>>",
     "perCompletionBonusEmpty": "Бонусы За Каждое Выполнение",
     "hypercubeOneTimeBonus": "Получите 1 Вау! ГИПЕРКУБ за прохождение этого испытания (Бонус Первого Раза)",
@@ -3230,7 +3236,7 @@
       "197": "[8x22] +0.6% Cubes in Ascension Bank per level. No one knows how. Bank error perhaps.",
       "198": "[8x23] +0.06% Tributes from Cubes per level! Wow! Cubes really has a lot of manufacturing errors in your favor.",
       "199": "[8x24] +10% faster Tesseract Buildings / level. THE ARISEN. WITH THE PRAISE OF THE [[REDACTED]].",
-      "200": "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings per level. +0.004% Cubes per level, +(level/200) free Ant upgrade levels, 0.000666% Tax reduction per level. Every 10,000 levels grant +0.4% more Talisman Power!"
+      "200": "[8x25] Gain the power of a thousand moons! +0.01% Accelerators, A. Boosts, Multipliers, Offerings per level. +0.004% Cubes per level, +(level/200) free Ant upgrade levels, 0.000666% Tax reduction per level. Every 10,000 levels grant +0.4% more Talisman Power!"
     },
     "thanksToResearches": "[Research 3x11] grants you this much Obtainium per second: <br> <<gold|<b>{{x}}</b> >>",
     "level": "Уровень {{x}}/{{y}}",
@@ -6009,8 +6015,8 @@
       "transferSuccess": "✅ Ваше сохранение перенесено",
       "transferFailed": "❌ Ошибка переноса"
     },
-    "quarkBonusSimple": "Щедрые покровители даруют вам бонус {{globalBonus}}% к Кваркам!",
-    "quarkBonusExtended": "Щедрые покровители даруют вам бонус {{globalBonus}}% к Кваркам! Вы также получаете дополнительный бонус {{personalBonus}}% за то, что являетесь членом Patreon и/или бустером сервера Discord! Перемножаемо с глобальным бонусом!",
+    "quarkBonusSimple": "Generous Subscribers grant you <<gold|{{globalBonus}}%>> more <<cyan|Quarks>>!",
+    "quarkBonusExtended": "Generous Subscribers grant you <<gold|{{globalBonus}}%>> more <<cyan|Quarks>>! <br> Your Subscriptions and Role Bonuses multiply this by <<gold|{{personalBonusMult}}>> <br> ↳ Total <<cyan|Quark>> bonus: <<gold|+{{totalBonus}}%>>",
     "saveString": {
       "version": "Use <<cyan|$VERSION$>> for full version, <<cyan|$VER$>> for version number,",
       "time": "<<cyan|$TIME$>> for 24h time, <<cyan|$TIME12$>> for 12h,",
