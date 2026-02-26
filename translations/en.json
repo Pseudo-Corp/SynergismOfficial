@@ -594,8 +594,8 @@
       "247": "Challenging!: [Hint: Challenge 11 is calling your name, but with even less Ants]",
       "248": "Seeing Red but not Blue: [Hint: Can you get red stuff without getting blue stuff?]",
       "249": "Overtaxed: [Hint: It might pay not to read!]",
-      "250": "The Thousand Suns: [Hint: You need to fully research into becoming GOD]",
-      "251": "The Thousand Moons: [Hint: You may need to cube yourself up]",
+      "250": "The Thousand Moons: [Hint: You need to fully research into becoming GOD]",
+      "251": "The Thousand Suns: [Hint: You may need to cube yourself up]",
       "252": "Ultimate: [Hint: a good enough score from the second Sadistic challenge shall do]",
       "253": "Platonicism: Clear an Ascension with 1e12 score.",
       "254": "That's a handful!: Clear an Ascension with 1e14 score.",
@@ -835,7 +835,9 @@
       "488": "Lord of Lords: Sacrifice your Anthill 80,000 times.",
       "489": "Why are we here?: Sacrifice your Anthill 250,000 times.",
       "490": "Just to suffer?: Sacrifice your Anthill 1,000,000 times.",
-      "491": "Scorched Earth: Sacrifice your Anthill 3,000,000 times."
+      "491": "Scorched Earth: Sacrifice your Anthill 3,000,000 times.",
+      "492": "It's so clear that all we have now: Sacrifice your Anthill 10,000,000 times.",
+      "493": "Are our thoughts of yesterday: Sacrifice your Anthill 100,000,000 times."
     },
     "achievementRewards": {
       "3": {
@@ -1563,7 +1565,10 @@
         "phylacteriumAutobuy": "Unlock the <i>Phylacterium</i> Ant Upgrade Autobuyer!"
       },
       "490": {
-        "preserveAnthillCountSingularity": "Preserve your Anthil Count when you do something <span class='rainbowText'>even more impressive than an Ascension!</span>"
+        "preserveAnthillCountSingularity": "Preserve your Anthill Count when you do something <span class='rainbowText'>even more impressive than an Ascension!</span>"
+      },
+      "492": {
+        "antSacrificeToReincarnation": "For each Anthill you sacrifice, you gain a Reincarnation! This cascades if you also get a Transcension per Reincarnation, and so on."
       }
     },
     "rewards": {
@@ -2835,6 +2840,7 @@
     "timeExitChallenge": "Time before exiting challenge: <<var(--orchid-text-color)|{{time}}>>s",
     "timeEnterChallenge": "Time before entering challenge: <<var(--orchid-text-color)|{{time}}>>s",
     "autoTimer": "<<orange|Auto Timer:>> <<var(--orchid-text-color)|{{time}}s>>",
+    "minimumTimer": "Minimum Timers: <<var(--orchid-text-color)|0.1s>>",
     "perCompletionBonus": "Per Completion Bonuses || <<var(--orchid-text-color)|Softcapped past {{x}}! Effective completion count: {{y}}>>",
     "perCompletionBonusEmpty": "Per Completion Bonuses",
     "hypercubeOneTimeBonus": "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)",
@@ -3230,7 +3236,7 @@
       "197": "[8x22] +0.6% Cubes in Ascension Bank per level. No one knows how. Bank error perhaps.",
       "198": "[8x23] +0.06% Tributes from Cubes per level! Wow! Cubes really has a lot of manufacturing errors in your favor.",
       "199": "[8x24] +10% faster Tesseract Buildings / level. THE ARISEN. WITH THE PRAISE OF THE [[REDACTED]].",
-      "200": "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings per level. +0.004% Cubes per level, +(level/200) free Ant upgrade levels, 0.000666% Tax reduction per level. Every 10,000 levels grant +0.4% more Talisman Power!"
+      "200": "[8x25] Gain the power of a thousand moons! +0.01% Accelerators, A. Boosts, Multipliers, Offerings per level. +0.004% Cubes per level, +(level/200) free Ant upgrade levels, 0.000666% Tax reduction per level. Every 10,000 levels grant +0.4% more Talisman Power!"
     },
     "thanksToResearches": "[Research 3x11] grants you this much Obtainium per second: <br> <<gold|<b>{{x}}</b> >>",
     "level": "Level {{x}}/{{y}}",
@@ -6009,8 +6015,8 @@
       "transferSuccess": "✅ Transferred Your Save",
       "transferFailed": "❌ Failed to Transfer"
     },
-    "quarkBonusSimple": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks!",
-    "quarkBonusExtended": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks! You also receive an extra {{personalBonus}}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!",
+    "quarkBonusSimple": "Generous Subscribers grant you <<gold|{{globalBonus}}%>> more <<cyan|Quarks>>!",
+    "quarkBonusExtended": "Generous Subscribers grant you <<gold|{{globalBonus}}%>> more <<cyan|Quarks>>! <br> Your Subscriptions and Role Bonuses multiply this by <<gold|{{personalBonusMult}}>> <br> ↳ Total <<cyan|Quark>> bonus: <<gold|+{{totalBonus}}%>>",
     "saveString": {
       "version": "Use <<cyan|$VERSION$>> for full version, <<cyan|$VER$>> for version number,",
       "time": "<<cyan|$TIME$>> for 24h time, <<cyan|$TIME12$>> for 12h,",
