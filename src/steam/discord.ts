@@ -19,7 +19,7 @@ export const setRichPresenceDiscord: Discord['setRichPresence'] = (options) => {
 }
 
 export const getDiscordRpcEnabled: Discord['getEnabled'] = () => {
-  return window.discord?.getEnabled() ?? Promise.resolve(true)
+  return window.discord?.getEnabled() ?? Promise.resolve(false)
 }
 
 export const setDiscordRpcEnabled: Discord['setEnabled'] = (enabled) => {
