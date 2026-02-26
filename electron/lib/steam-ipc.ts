@@ -1,8 +1,5 @@
 import { BrowserWindow, ipcMain } from 'electron'
-import log from 'electron-log/main.js'
 import steamworks from 'steamworks.js'
-
-log.initialize()
 
 const STEAM_APP_ID = 3552310
 
@@ -17,14 +14,14 @@ export function initializeSteam (): boolean {
     steamClient.callback.register(
       steamworks.SteamCallback.MicroTxnAuthorizationResponse,
       (response) => {
-        log.info('MicroTxnAuthorizationResponse received:', response)
+        console.info('MicroTxnAuthorizationResponse received:', response)
         BrowserWindow.getAllWindows()[0]?.webContents.send('steam:microTxnAuthorizationResponse', response)
       }
     )
 
     return true
   } catch (error) {
-    log.error('Failed to initialize Steam:', error)
+    console.error('Failed to initialize Steam:', error)
     return false
   }
 }
@@ -68,7 +65,7 @@ export function initializeSteam (): boolean {
     try {
       return steamClient.cloud.readFile(name)
     } catch (error) {
-      log.error('Failed to read Steam Cloud file:', error)
+      console.error('Failed to read Steam Cloud file:', error)
       return null
     }
   })
@@ -78,7 +75,7 @@ export function initializeSteam (): boolean {
     try {
       return steamClient.cloud.writeFile(name, content)
     } catch (error) {
-      log.error('Failed to write Steam Cloud file:', error)
+      console.error('Failed to write Steam Cloud file:', error)
       return false
     }
   })
@@ -88,7 +85,7 @@ export function initializeSteam (): boolean {
     try {
       return steamClient.cloud.deleteFile(name)
     } catch (error) {
-      log.error('Failed to delete Steam Cloud file:', error)
+      console.error('Failed to delete Steam Cloud file:', error)
       return false
     }
   })
@@ -98,7 +95,7 @@ export function initializeSteam (): boolean {
     try {
       return steamClient.achievement.activate(achievementId)
     } catch (error) {
-      log.error('Failed to unlock achievement:', error)
+      console.error('Failed to unlock achievement:', error)
       return false
     }
   })
@@ -108,7 +105,7 @@ export function initializeSteam (): boolean {
     try {
       return steamClient.achievement.isActivated(achievementId)
     } catch (error) {
-      log.error('Failed to get achievement status:', error)
+      console.error('Failed to get achievement status:', error)
       return null
     }
   })

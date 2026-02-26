@@ -1,0 +1,4 @@
+{
+  "//": "this is just so typescript shuts up (the electron-builder config sets this)",
+  "type": "module"
+}
