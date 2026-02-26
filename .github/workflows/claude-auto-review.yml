@@ -22,6 +22,7 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           timeout_minutes: "60"
+          use_sticky_comment: "true"
           direct_prompt: |
             Please review this pull request and provide comprehensive feedback.
 
