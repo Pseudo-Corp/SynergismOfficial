@@ -1,4 +1,6 @@
-import type { PresenceOptions } from '../../electron/lib/discord'
+import type { Presence } from 'discord-rpc'
+
+type PresenceOptions = Omit<Presence, 'instance' | 'buttons'>
 
 interface Discord {
   setRichPresence: (options: PresenceOptions) => Promise<void>
