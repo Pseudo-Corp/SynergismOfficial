@@ -594,8 +594,8 @@
       "247": "真正的挑战！：[提示：使用某个跟蚂蚁产量有关的腐化以后，完成挑战11，且本次完成挑战10的次数不能低于49，也不需要高于51？什么，腐化要多少级？挑战10至少需要次数的第一位就是了]",
       "248": "无蓝见红：[提示：在某个见不到发亮蓝石的挑战中，获得1后面跟着11个0的某种红色资源。什么资源？前面成就不是有一个一样的吗，就那个]",
       "249": "课税过重：[提示：在某个税收增加极快的挑战，当然不是那种转转世就能完成的挑战中，由于税收，金币产量连1后面跟着……100000个0都达不到]",
-      "250": "烈日千阳：[提示：将某个最后出现的研究提升至满级]",
-      "251": "静月千阴：[提示：将方盒最后的某个升级提升至满级]",
+      "250": "The Thousand Moons: [Hint: You need to fully research into becoming GOD]",
+      "251": "The Thousand Suns: [Hint: You may need to cube yourself up]",
       "252": "终焉：[提示：从虐待狂挑战 II中获得足够高的分数]",
       "253": "帕拉图主义：以1e12以上的分数完成飞升。",
       "254": "屈指可数：以1e14以上的分数完成飞升。",
@@ -835,7 +835,9 @@
       "488": "万主之主：献祭80000次蚁丘。",
       "489": "我们为何在此？：献祭250000次蚁丘。",
       "490": "只为受苦吗？：献祭1000000次蚁丘。",
-      "491": "焦土：献祭3000000次蚁丘。"
+      "491": "焦土：献祭3000000次蚁丘。",
+      "492": "It's so clear that all we have now: Sacrifice your Anthill 10,000,000 times.",
+      "493": "Are our thoughts of yesterday: Sacrifice your Anthill 100,000,000 times."
     },
     "achievementRewards": {
       "3": {
@@ -1563,7 +1565,10 @@
         "phylacteriumAutobuy": "解锁<i>命匣</i>蚁的自动购买！"
       },
       "490": {
-        "preserveAnthillCountSingularity": "进行某种<span class='rainbowText'>比飞升还棒的事情时</span>，保留蚁丘次数！"
+        "preserveAnthillCountSingularity": "Preserve your Anthill Count when you do something <span class='rainbowText'>even more impressive than an Ascension!</span>"
+      },
+      "492": {
+        "antSacrificeToReincarnation": "For each Anthill you sacrifice, you gain a Reincarnation! This cascades if you also get a Transcension per Reincarnation, and so on."
       }
     },
     "rewards": {
@@ -2835,6 +2840,7 @@
     "timeExitChallenge": "退出挑战前经过时间：<<var(--orchid-text-color)|{{time}}>>秒",
     "timeEnterChallenge": "进入挑战前经过时间：<<var(--orchid-text-color)|{{time}}>>秒",
     "autoTimer": "<<orange|扫荡计时：>><<var(--orchid-text-color)|{{time}}秒>>",
+    "minimumTimer": "Minimum Timers: <<var(--orchid-text-color)|0.1s>>",
     "perCompletionBonus": "每次完成奖励||超过{{x}}次以后效果下降！有效的完成次数为{{y}}",
     "perCompletionBonusEmpty": "每次完成奖励",
     "hypercubeOneTimeBonus": "完成挑战后可以获得1个惊奇五阶立方(首次完成奖励)",
@@ -3230,7 +3236,7 @@
       "197": "[8x22]每级使飞升库中的惊奇方盒数量增加0.6%。没人知道发生了什么。或许是银行内部故障。",
       "198": "[8x23]每级使惊奇方盒的贡品获取数量增加0.06%！惊奇方盒真的有很多对您有利的制造错误。",
       "199": "[8x24]每级使超立方建筑的产量增加10%。它觉醒了。赞美[已删除]。",
-      "200": "[8x25]获得烈日千阳的力量！每级使加速器、加速器加成、加倍器的数量和祭品获取数量增加0.01%，惊奇方盒获取数量增加0.004%，免费蚂蚁升级等级增加(等级/200)，税收减少0.000666%。每10000级还可以使护身符强度增加0.4%！"
+      "200": "[8x25] Gain the power of a thousand moons! +0.01% Accelerators, A. Boosts, Multipliers, Offerings per level. +0.004% Cubes per level, +(level/200) free Ant upgrade levels, 0.000666% Tax reduction per level. Every 10,000 levels grant +0.4% more Talisman Power!"
     },
     "thanksToResearches": "由于[研究3x11]的效果，您每秒自动获得难得素：<br><<gold|<b>{{x}}</b>>>",
     "level": "等级 {{x}}/{{y}}",
@@ -6009,8 +6015,8 @@
       "transferSuccess": "✅成功转移了您的存档",
       "transferFailed": "❌转移失败"
     },
-    "quarkBonusSimple": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！",
-    "quarkBonusExtended": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！由于您也是支持者，又或者您进行了Discord助力，该加成额外再增加{{personalBonus}}%！该加成与全局夸克获取数量倍率叠乘！",
+    "quarkBonusSimple": "Generous Subscribers grant you <<gold|{{globalBonus}}%>> more <<cyan|Quarks>>!",
+    "quarkBonusExtended": "Generous Subscribers grant you <<gold|{{globalBonus}}%>> more <<cyan|Quarks>>! <br> Your Subscriptions and Role Bonuses multiply this by <<gold|{{personalBonusMult}}>> <br> ↳ Total <<cyan|Quark>> bonus: <<gold|+{{totalBonus}}%>>",
     "saveString": {
       "version": "使用<<cyan|$VERSION$>>来表示完整版本号，<<cyan|$VER$>>来表示版本号，",
       "time": "<<cyan|$TIME$>>来表示24小时制时间，<<cyan|$TIME12$>>来表示12小时制时间，",
