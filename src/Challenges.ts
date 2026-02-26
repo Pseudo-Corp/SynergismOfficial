@@ -641,7 +641,6 @@ export const runChallengeSweep = (dt: number) => {
   if (G.autoChallengeTimerIncrement >= player.autoChallengeTimer.exit && action === 'exit') {
     // Determine if you're in a reincarnation or transcension challenge
     const challengeType = player.currentChallenge.reincarnation !== 0 ? 'reincarnation' : 'transcension'
-    console.log(challengeType)
 
     // Reset our autochallenge timer
     G.autoChallengeTimerIncrement = 0
@@ -692,7 +691,6 @@ export const runChallengeSweep = (dt: number) => {
 
     // Set our index to calculated starting challenge and run the challenge
     player.autoChallengeIndex = nextChallenge
-    console.log('index: ', player.autoChallengeIndex)
     toggleChallenges(player.autoChallengeIndex, true)
 
     // Sets Mode to "EXIT" as displayed in the challenge tab

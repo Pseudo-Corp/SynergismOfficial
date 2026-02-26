@@ -10,7 +10,6 @@ export const toggleAutoAntSacrificeEnabled = (): void => {
 }
 
 export const toggleAutoAntSacrificeMode = (): void => {
-  console.log(NUM_SACRIFICE_MODES)
   const nextEnum = (player.ants.toggles.autoSacrificeMode + 1) % NUM_SACRIFICE_MODES
   player.ants.toggles.autoSacrificeMode = nextEnum as AutoSacrificeModes
 

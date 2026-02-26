@@ -550,7 +550,14 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     awardAchievementGroup('ascensionCount')
     awardUngroupedAchievement('ascended')
 
-    player.obtainium = player.obtainium.add(obtainiumToGain)
+    /* When entering a Reincarnation Challenge, we "force" a Reincarnation. This is to ensure that
+       we only credit Obtainium and Reincarnation Count from a Reincarnation when the threshold
+       to Reincarnate normally is reached (1e300 Transcension Shards).
+    */
+    if (player.transcendShards.gte('1e300')) {
+      player.obtainium = player.obtainium.add(obtainiumToGain)
+      updateReincarnationCount(1)
+    }
 
     player.currentChallenge.transcension = 0
     resetUpgrades(3)
@@ -571,7 +578,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.fourthGeneratedParticles = new Decimal('0')
     player.fifthGeneratedParticles = new Decimal('0')
 
-    updateReincarnationCount(1)
     awardAchievementGroup('reincarnationCount')
 
     player.transcendPoints = new Decimal('0')
