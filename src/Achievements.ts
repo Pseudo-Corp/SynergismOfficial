@@ -355,7 +355,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
         + 3 * Math.max(0, player.highestSingularityCount - 200)
     },
     updateValue: () => {
-      return 0
+      return player.highestSingularityCount
     },
     useCachedValue: false,
     rewardedAP: 0,
