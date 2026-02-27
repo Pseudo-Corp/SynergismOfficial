@@ -7236,7 +7236,7 @@
     "cancelled": "Okay, maybe next time.",
     "notEnough": "Insufficient inventory to expand.",
     "craftedHepteracts": "You have successfully crafted {{x}} hepteracts.",
-    "craftedHepteractsMax": "You have successfully crafted {{x}} hepteracts. If this is less than your input, you either hit the inventory limit or you had insufficient resources.",
+    "craftedHepteractLower": "You crafted fewer Hepteracts than you wanted to, because you might have spent resources elsewhere before crafting the requested amount.",
     "expandPrompt": "This will reduce your balance by {{x}}, but capacity will increase from {{y}} to {{z}} [Expansion Multiplier: {{a}}]. Agree to the terms and conditions and stuff?",
     "doubleSpent": "Something already modified your balance or cap, try again!",
     "expandedInventory": "Successfully expanded your inventory. You can now fit {{x}}.",
