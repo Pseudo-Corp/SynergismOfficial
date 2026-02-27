@@ -585,6 +585,18 @@ export async function handleLogin () {
         subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'flex')
         renderCaptcha()
       })
+
+      if (platform === 'steam') {
+        for (
+          const link of Array.from(
+            subtabElement.querySelectorAll<HTMLAnchorElement>('a[href*="synergism.cc/login?with="]')
+          )
+        ) {
+          const url = new URL(link.href)
+          url.searchParams.set('platform', 'steam')
+          link.href = url.toString()
+        }
+      }
     } else {
       assert(false, `unknown account type ${account.accountType}`)
     }
