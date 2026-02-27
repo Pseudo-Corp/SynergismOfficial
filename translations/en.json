@@ -3584,10 +3584,6 @@
         "name": "Potion Autogenerator",
         "default": "Every 180 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity."
       },
-      "respecBeGone": {
-        "name": "Respec, be gone!",
-        "default": "Talismans now buff all runes at all times!"
-      },
       "forTheLoveOfTheAntGod": {
         "name": "For the love of (the Ant) God!",
         "hasLevel2": "You permanently keep Ant autobuyers and start each Ascension with a Tier 8 Ant",
