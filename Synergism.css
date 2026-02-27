@@ -5895,10 +5895,6 @@ html[data-coin-three="false"] .coinunlock3 {
     display: none;
 }
 
-html[data-coin-four="true"] .coinunlock4 {
-    display: flex;
-}
-
 html[data-coin-four="false"] .coinunlock4 {
     display: none;
 }
