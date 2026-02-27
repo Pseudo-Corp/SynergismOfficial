@@ -3744,7 +3744,6 @@ export const resetCheck = async (
     }
     if (player.shopUpgrades.instantChallenge === 0 || leaving) {
       reset('transcensionChallenge', false, 'leaveChallenge')
-      player.transcendCount -= 1
     }
   }
 
@@ -3841,7 +3840,6 @@ export const resetCheck = async (
     }
     if (player.shopUpgrades.instantChallenge === 0 || leaving) {
       reset('reincarnationChallenge', false, 'leaveChallenge')
-      player.reincarnationCount -= 1
     }
   }
 

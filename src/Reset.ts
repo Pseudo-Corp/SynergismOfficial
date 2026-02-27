@@ -401,6 +401,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
   resetAddHistoryEntry(input, from)
 
+  const transcensionCheck = player.coinsThisTranscension.gte(1e100)
   const reincarnationCheck = player.transcendShards.gte(1e300)
   const obtainiumToGain = calculateObtainium()
 
@@ -499,7 +500,10 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.acceleratorBoostBought = 0
     player.acceleratorBoostCost = new Decimal('1e3')
 
-    updateTranscensionCount(1)
+    if (transcensionCheck) {
+      updateTranscensionCount(1)
+    }
+
     awardAchievementGroup('transcensionCount')
 
     player.prestigePoints = new Decimal('0')
