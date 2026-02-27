@@ -2,7 +2,7 @@ declare const PROD: boolean | undefined
 declare const DEV: boolean | undefined
 declare const PLATFORM: 'steam' | undefined
 
-export const version = '4.1.4 February 26, 2025: Steam!!!'
+export const version = '4.1.4 February 26, 2026 2: Steam!!!'
 
 /**
  * If true, the version is marked as a testing version.

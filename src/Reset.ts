@@ -401,6 +401,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
   resetAddHistoryEntry(input, from)
 
+  const reincarnationCheck = player.transcendShards.gte(1e300)
   const obtainiumToGain = calculateObtainium()
 
   resetOfferings()
@@ -554,7 +555,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
        we only credit Obtainium and Reincarnation Count from a Reincarnation when the threshold
        to Reincarnate normally is reached (1e300 Transcension Shards).
     */
-    if (player.transcendShards.gte('1e300')) {
+    if (reincarnationCheck) {
       player.obtainium = player.obtainium.add(obtainiumToGain)
       updateReincarnationCount(1)
     }
