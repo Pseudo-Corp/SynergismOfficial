@@ -2948,7 +2948,7 @@
       "14": "[2x4] Iris shines her light on you. Each level increases the amount of Salvage she gives by 1%!",
       "15": "[2x5] Ares teaches you the Art of War. The effect of Ares Tributes is raised to the power of (1 + level / 100).",
       "16": "[2x6] You got it buster! For Speed and Prism Runes, add +1 to their Rune Coefficients per level!",
-      "17": "[2x7] Yep. +5 exponent per level to crystals.",
+      "17": "[2x7] Yep. +8 exponent per level to crystals.",
       "18": "[2x8] Quantum tunnelling ftw. +20% Global Speed.",
       "19": "[2x9] Unlocks new Coin upgrades ranging from start of Ascend to after Challenge 10 and beyond.",
       "20": "[2x10] The Rune automator in shop now spends all Offerings automatically, splitting them into unlocked runes evenly. It also buys levels 20 times faster. Have fun!",
@@ -3340,6 +3340,9 @@
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by 0.1% per level additive (Max -30%)!"
     },
     "maxed": "Maxed!",
+    "bought": "Bought!",
+    "notBought": "Not Bought!",
+    "level": "{{x}}/{{y}}",
     "upgradeFor": "Upgrade for {{x}} Quarks",
     "plusForQuarks": "+ {{x}} for {{y}} Quarks",
     "consume": "CONSUME",

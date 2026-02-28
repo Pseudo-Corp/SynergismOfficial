@@ -6199,6 +6199,32 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     display: none;
 }
 
+html[data-instant-unlock1="true"] .shopTalismanShopUpgrade {
+    opacity: 0.5;
+}
+
+html[data-instant-unlock1="true"] .shopTalismanShopUpgrade button {
+    display: none;
+}
+
+html[data-instant-unlock1="false"] .shopTalismanShopUpgrade {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+html[data-instant-unlock2="true"] .infiniteAscentShopUpgrade {
+    opacity: 0.5;
+}
+
+html[data-instant-unlock2="true"] .infiniteAscentShopUpgrade button {
+    display: none;
+}
+
+html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .modalBtnBuy {
     width: 60px;
     height: 30px;

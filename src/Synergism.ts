@@ -2804,7 +2804,7 @@ export const calculateCrystalExponent = (): number => {
   exponent += 0.08 * player.researches[28] // 2x3
   exponent += 0.08 * player.researches[29] // 2x4
   exponent += 0.04 * player.researches[30] // 2x5
-  exponent += 5 * player.cubeUpgrades[17] // 2x7
+  exponent += 8 * player.cubeUpgrades[17] // 2x7
   return exponent
 }
 

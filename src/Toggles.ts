@@ -88,15 +88,14 @@ export const toggleChallenges = (i: number, auto = false) => {
        We have to do the confirmation in this place because some players may want to avoid accidentally entering an Ascension Challenge
        even if they have a Challenge 10 completion, to avoid accidentally losing progress.
     */
-    if (!auto && player.toggles[31]) { 
+    if (!auto && player.toggles[31]) {
       Confirm(i18next.t('main.ascendPrompt')).then((r) => {
         if (r) {
           return toggleChallenges(i, true)
         }
       })
       return
-    }
-    else {
+    } else {
       player.currentChallenge.ascension = i
       reset('ascensionChallenge', false, 'enterChallenge')
     }

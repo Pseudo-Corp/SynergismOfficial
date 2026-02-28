@@ -83,6 +83,7 @@ import {
   calculateTaxPlatonicBlessing,
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
+import { PCoinUpgrades } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
@@ -1974,18 +1975,36 @@ export const visualUpdateShop = () => {
       }
       // Case: If max level is 1, then it can be considered a boolean "bought" or "not bought" item
       if (shopItem.maxLevel === 1) {
-        // TODO(@KhafraDev): i18n
-        DOMCacheGetOrSet(`${key}Level`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel
-          ? 'Bought!'
-          : 'Not Bought!'
+        const upgradeDom = DOMCacheGetOrSet(`${key}Level`)
+        if (player.shopUpgrades[key] === shopItem.maxLevel) {
+          upgradeDom.textContent = i18next.t('shop.bought')
+          upgradeDom.style.color = 'gold'
+        } else {
+          upgradeDom.textContent = i18next.t('shop.notBought')
+          upgradeDom.style.color = 'white'
+        }
+
+        if (key === 'shopTalisman' && PCoinUpgrades.INSTANT_UNLOCK_1 > 0) {
+          upgradeDom.textContent = i18next.t('shop.bought')
+          upgradeDom.style.color = 'orchid'
+        }
+        if (key === 'infiniteAscent' && PCoinUpgrades.INSTANT_UNLOCK_2 > 0) {
+          upgradeDom.textContent = i18next.t('shop.bought')
+          upgradeDom.style.color = 'orchid'
+        }
       } else {
         // Case: max level greater than 1, treat it as a fraction out of max level
-        // TODO(@KhafraDev): i18n
-        DOMCacheGetOrSet(`${key}Level`).textContent = `${
-          player.highestSingularityCount > 0 || player.ascensionCount > 0
-            ? ''
-            : 'Level '
-        }${format(player.shopUpgrades[key])}/${format(shopItem.maxLevel)}`
+        const upgradeDom = DOMCacheGetOrSet(`${key}Level`)
+        upgradeDom.textContent = i18next.t('shop.level', {
+          x: format(player.shopUpgrades[key]),
+          y: format(shopItem.maxLevel)
+        })
+
+        if (player.shopUpgrades[key] === shopItem.maxLevel) {
+          upgradeDom.style.color = 'gold'
+        } else {
+          upgradeDom.style.color = 'white'
+        }
       }
       // Handles Button - max level needs no price indicator, otherwise it's necessary
 
