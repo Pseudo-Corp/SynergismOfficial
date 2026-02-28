@@ -48,6 +48,8 @@ type AmbrosiaUpgradeRewards = {
 
 export type AmbrosiaUpgradeNames = keyof AmbrosiaUpgradeRewards
 
+export type AmbrosiaUpgradeUnlockCriterion = 'Exalt1x1' | 'Exalt5x1'
+
 export interface AmbrosiaUpgrade<T extends AmbrosiaUpgradeNames> {
   name: () => string
   description: () => string
@@ -63,6 +65,7 @@ export interface AmbrosiaUpgrade<T extends AmbrosiaUpgradeNames> {
   blueberryCost: number
   prerequisites: BlueberryOpt
   ignoreEXALT: boolean
+  unlockCriterion: AmbrosiaUpgradeUnlockCriterion
 }
 
 export const ambrosiaUpgrades: {
@@ -97,7 +100,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeTutorialLevels').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaTutorial.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaTutorial.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaTutorial.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaQuarks1: {
     level: 0,
@@ -127,7 +131,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow2').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaQuarks1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaQuarks1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaQuarks1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaCubes1: {
     level: 0,
@@ -157,7 +162,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow2').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaCubes1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaCubes1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaCubes1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaLuck1: {
     level: 0,
@@ -187,7 +193,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow2').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaLuck1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaLuck1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaLuck1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaQuarkCube1: {
     level: 0,
@@ -221,7 +228,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow3').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaQuarkCube1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaQuarkCube1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaQuarkCube1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaLuckCube1: {
     level: 0,
@@ -253,7 +261,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow3').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaLuckCube1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaLuckCube1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaLuckCube1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaCubeQuark1: {
     level: 0,
@@ -293,7 +302,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow3').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaCubeQuark1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaCubeQuark1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaCubeQuark1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaLuckQuark1: {
     level: 0,
@@ -330,7 +340,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow3').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaLuckQuark1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaLuckQuark1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaLuckQuark1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaCubeLuck1: {
     level: 0,
@@ -369,7 +380,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow3').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaCubeLuck1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaCubeLuck1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaCubeLuck1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaQuarkLuck1: {
     level: 0,
@@ -401,7 +413,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow3').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaQuarkLuck1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaQuarkLuck1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaQuarkLuck1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaQuarks2: {
     level: 0,
@@ -435,7 +448,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow4').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaQuarks2.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaQuarks2.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaQuarks2.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaCubes2: {
     level: 0,
@@ -471,7 +485,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow4').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaCubes2.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaCubes2.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaCubes2.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaLuck2: {
     level: 0,
@@ -504,7 +519,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow4').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaLuck2.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaLuck2.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaLuck2.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaQuarks3: {
     level: 0,
@@ -537,7 +553,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow5').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaQuarks3.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaQuarks3.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaQuarks3.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaCubes3: {
     level: 0,
@@ -571,7 +588,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow5').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaCubes3.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaCubes3.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaCubes3.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaLuck3: {
     level: 0,
@@ -602,7 +620,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow5').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaLuck3.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaLuck3.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaLuck3.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaLuck4: {
     level: 0,
@@ -631,7 +650,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow5').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaLuck4.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaLuck4.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaLuck4.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaPatreon: {
     level: 0,
@@ -659,7 +679,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => 0,
     name: () => i18next.t('ambrosia.data.ambrosiaPatreon.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaPatreon.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaPatreon.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaObtainium1: {
     level: 0,
@@ -688,7 +709,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => 0,
     name: () => i18next.t('ambrosia.data.ambrosiaObtainium1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaObtainium1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaObtainium1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaOffering1: {
     level: 0,
@@ -717,7 +739,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => 0,
     name: () => i18next.t('ambrosia.data.ambrosiaOffering1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaOffering1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaOffering1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaHyperflux: {
     level: 0,
@@ -748,7 +771,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => 0,
     name: () => i18next.t('ambrosia.data.ambrosiaHyperflux.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaHyperflux.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaHyperflux.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaBaseOffering1: {
     level: 0,
@@ -775,7 +799,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow2').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaBaseOffering1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaBaseOffering1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaBaseOffering1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaBaseObtainium1: {
     level: 0,
@@ -803,7 +828,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow2').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaBaseObtainium1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaBaseObtainium1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaBaseObtainium1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaBaseOffering2: {
     level: 0,
@@ -834,7 +860,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow4').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaBaseOffering2.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaBaseOffering2.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaBaseOffering2.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaBaseObtainium2: {
     level: 0,
@@ -865,7 +892,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow4').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaBaseObtainium2.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaBaseObtainium2.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaBaseObtainium2.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaSingReduction1: {
     level: 0,
@@ -895,7 +923,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => 0,
     name: () => i18next.t('ambrosia.data.ambrosiaSingReduction1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaSingReduction1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaSingReduction1.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaInfiniteShopUpgrades1: {
     level: 0,
@@ -927,7 +956,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow4').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaInfiniteShopUpgrades1.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaInfiniteShopUpgrades1.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaInfiniteShopUpgrades1.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaInfiniteShopUpgrades2: {
     level: 0,
@@ -960,7 +990,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow5').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaInfiniteShopUpgrades2.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaInfiniteShopUpgrades2.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaInfiniteShopUpgrades2.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaSingReduction2: {
     level: 0,
@@ -988,7 +1019,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => 0,
     name: () => i18next.t('ambrosia.data.ambrosiaSingReduction2.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaSingReduction2.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaSingReduction2.description'),
+    unlockCriterion: 'Exalt5x1'
   },
   ambrosiaTalismanBonusRuneLevel: {
     level: 0,
@@ -1016,7 +1048,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow2').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaTalismanBonusRuneLevel.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaTalismanBonusRuneLevel.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaTalismanBonusRuneLevel.description'),
+    unlockCriterion: 'Exalt1x1'
   },
   ambrosiaRuneOOMBonus: {
     level: 0,
@@ -1047,7 +1080,8 @@ export const ambrosiaUpgrades: {
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow4').freeLevels,
     name: () => i18next.t('ambrosia.data.ambrosiaRuneOOMBonus.name'),
-    description: () => i18next.t('ambrosia.data.ambrosiaRuneOOMBonus.description')
+    description: () => i18next.t('ambrosia.data.ambrosiaRuneOOMBonus.description'),
+    unlockCriterion: 'Exalt5x1'
   }
 }
 
@@ -1347,6 +1381,7 @@ export const validateBlueberryTree = (modules: BlueberryOpt) => {
   let meetsPrerequisites = true
   let meetsAmbrosia = true
   let meetsBlueberries = true
+  let meetsUnlockConditions = true
 
   for (const [key, val] of Object.entries(modules)) {
     const k = key as AmbrosiaUpgradeNames
@@ -1365,6 +1400,17 @@ export const validateBlueberryTree = (modules: BlueberryOpt) => {
 
     // Set val to max if it exceeds it, since it is possible module caps change over time.
     const effectiveVal = Math.min(ambrosiaUpgrades[k].maxLevel, val!)
+
+    // Check if you have the module unlocked.
+    if (effectiveVal > 0) {
+      const unlockCriterion = ambrosiaUpgrades[k].unlockCriterion
+      if (unlockCriterion === 'Exalt1x1' && !(player.singularityChallenges.noSingularityUpgrades.completions > 0)) {
+        meetsUnlockConditions = false
+      }
+      if (unlockCriterion === 'Exalt5x1' && !(player.singularityChallenges.noAmbrosiaUpgrades.completions > 0)) {
+        meetsUnlockConditions = false
+      }
+    }
 
     // Check prereq for this specific module
     const prereqs = ambrosiaUpgrades[k].prerequisites
@@ -1401,7 +1447,7 @@ export const validateBlueberryTree = (modules: BlueberryOpt) => {
   meetsAmbrosia = ambrosiaBudget >= spentAmbrosia
   meetsBlueberries = blueberryBudget >= spentBlueberries
 
-  return meetsPrerequisites && meetsAmbrosia && meetsBlueberries
+  return meetsPrerequisites && meetsAmbrosia && meetsBlueberries && meetsUnlockConditions
 }
 
 export const getBlueberryTree = () => {

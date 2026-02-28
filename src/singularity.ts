@@ -2711,16 +2711,6 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
-      return i18next.t('singularity.perks.respecBeGone.name')
-    },
-    levels: [7],
-    description: () => {
-      return i18next.t('singularity.perks.respecBeGone.default')
-    },
-    ID: 'respecBeGone'
-  },
-  {
-    name: () => {
       return i18next.t('singularity.perks.persistentGlobalResets.name')
     },
     levels: [8],

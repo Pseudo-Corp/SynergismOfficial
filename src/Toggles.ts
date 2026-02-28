@@ -71,6 +71,7 @@ export const toggleChallenges = (i: number, auto = false) => {
     }
   }
   if (
+    // To be honest I don't want to touch this shit in fear of breaking everything
     (i >= 11 && i <= 15)
     && (i === 11
       ? player.unlocks.ascensions
@@ -82,8 +83,22 @@ export const toggleChallenges = (i: number, auto = false) => {
     if (player.currentChallenge.ascension === 15) {
       void resetCheck('ascensionChallenge', false, true)
     }
-    player.currentChallenge.ascension = i
-    reset('ascensionChallenge', false, 'enterChallenge')
+
+    /* player.toggles[31] is the toggle for whether you want Ascensions to ask Confirmation
+       We have to do the confirmation in this place because some players may want to avoid accidentally entering an Ascension Challenge
+       even if they have a Challenge 10 completion, to avoid accidentally losing progress.
+    */
+    if (!auto && player.toggles[31]) {
+      Confirm(i18next.t('main.ascendPrompt')).then((r) => {
+        if (r) {
+          return toggleChallenges(i, true)
+        }
+      })
+      return
+    } else {
+      player.currentChallenge.ascension = i
+      reset('ascensionChallenge', false, 'enterChallenge')
+    }
   }
   updateChallengeDisplay()
   getChallengeConditions(i)
@@ -160,40 +175,57 @@ export const toggleShops = (toggle?: upgradeAutos) => {
   }
 }
 
-export const toggleautoreset = (i: number) => {
-  if (i === 1) {
-    if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
-      player.resettoggle1 = 2
-      DOMCacheGetOrSet('prestigeautotoggle').textContent = i18next.t('toggles.modeTime')
-    } else {
-      player.resettoggle1 = 1
-      DOMCacheGetOrSet('prestigeautotoggle').textContent = i18next.t('toggles.modeAmount')
-    }
-  } else if (i === 2) {
-    if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
-      player.resettoggle2 = 2
-      DOMCacheGetOrSet('transcendautotoggle').textContent = i18next.t('toggles.modeTime')
-    } else {
-      player.resettoggle2 = 1
-      DOMCacheGetOrSet('transcendautotoggle').textContent = i18next.t('toggles.modeAmount')
-    }
-  } else if (i === 3) {
-    if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
-      player.resettoggle3 = 2
-      DOMCacheGetOrSet('reincarnateautotoggle').textContent = i18next.t('toggles.modeTime')
-    } else {
-      player.resettoggle3 = 1
-      DOMCacheGetOrSet('reincarnateautotoggle').textContent = i18next.t('toggles.modeAmount')
-    }
-  } else if (i === 4) {
-    if (player.resettoggle4 === 1 || player.resettoggle4 === 0) {
-      player.resettoggle4 = 2
-      DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('toggles.modePercentage')
-    } else {
-      player.resettoggle4 = 1
-      DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('toggles.modeAmount')
-    }
-  }
+export enum AutoResetModes {
+  amount = 0,
+  time = 1
+}
+
+export enum AutoAscensionModes {
+  amount = 0,
+  percentage = 1
+}
+
+export const autoResetTogglei18n: Record<AutoResetModes, () => string> = {
+  [AutoResetModes.amount]: () => i18next.t('toggles.modeAmount'),
+  [AutoResetModes.time]: () => i18next.t('toggles.modeTime')
+}
+
+export const autoAscensionTogglei18n: Record<AutoAscensionModes, () => string> = {
+  [AutoAscensionModes.amount]: () => i18next.t('toggles.modeAmount'),
+  [AutoAscensionModes.percentage]: () => i18next.t('toggles.modePercentage')
+}
+
+const NUM_TOGGLE_MODES = 2
+
+export const setAutoResetModeTexts = () => {
+  DOMCacheGetOrSet('prestigeautotoggle').textContent = autoResetTogglei18n[player.resetToggleModes.prestige]()
+  DOMCacheGetOrSet('transcendautotoggle').textContent = autoResetTogglei18n[player.resetToggleModes.transcend]()
+  DOMCacheGetOrSet('reincarnateautotoggle').textContent = autoResetTogglei18n[player.resetToggleModes.reincarnation]()
+  DOMCacheGetOrSet('tesseractautobuymode').textContent = autoAscensionTogglei18n[player.resetToggleModes.ascension]()
+}
+
+export const toggleAutoPrestigeMode = () => {
+  const nextEnum = (player.resetToggleModes.prestige + 1) % NUM_TOGGLE_MODES
+  player.resetToggleModes.prestige = nextEnum as AutoResetModes
+  DOMCacheGetOrSet('prestigeautotoggle').textContent = autoResetTogglei18n[player.resetToggleModes.prestige]()
+}
+
+export const toggleAutoTranscendMode = () => {
+  const nextEnum = (player.resetToggleModes.transcend + 1) % NUM_TOGGLE_MODES
+  player.resetToggleModes.transcend = nextEnum as AutoResetModes
+  DOMCacheGetOrSet('transcendautotoggle').textContent = autoResetTogglei18n[player.resetToggleModes.transcend]()
+}
+
+export const toggleAutoReincarnateMode = () => {
+  const nextEnum = (player.resetToggleModes.reincarnation + 1) % NUM_TOGGLE_MODES
+  player.resetToggleModes.reincarnation = nextEnum as AutoResetModes
+  DOMCacheGetOrSet('reincarnateautotoggle').textContent = autoResetTogglei18n[player.resetToggleModes.reincarnation]()
+}
+
+export const toggleAutoAscensionMode = () => {
+  const nextEnum = (player.resetToggleModes.ascension + 1) % NUM_TOGGLE_MODES
+  player.resetToggleModes.ascension = nextEnum as AutoAscensionModes
+  DOMCacheGetOrSet('tesseractautobuymode').textContent = autoAscensionTogglei18n[player.resetToggleModes.ascension]()
 }
 
 export const toggleautobuytesseract = () => {

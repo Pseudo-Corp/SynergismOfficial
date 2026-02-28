@@ -83,6 +83,7 @@ import {
   calculateTaxPlatonicBlessing,
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
+import { PCoinUpgrades } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
@@ -123,6 +124,7 @@ import {
   calculateRuneEffectivenessTesseractBlessing,
   calculateSalvageTesseractBlessing
 } from './Tesseracts'
+import { AutoAscensionModes, AutoResetModes } from './Toggles'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { sumContents, timeRemainingHours } from './Utility'
@@ -365,7 +367,7 @@ export const visualUpdateBuildings = () => {
       )
     }
 
-    if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
+    if (player.resetToggleModes.prestige === AutoResetModes.amount) {
       const p = Decimal.pow(
         10,
         Decimal.log(G.prestigePointGain.add(1), 10)
@@ -380,7 +382,7 @@ export const visualUpdateBuildings = () => {
           mult: format(p)
         }
       )
-    } else if (player.resettoggle1 === 2) {
+    } else if (player.resetToggleModes.prestige === AutoResetModes.time) {
       DOMCacheGetOrSet('autoprestige').textContent = i18next.t(
         'buildings.autoReincarnate',
         {
@@ -449,7 +451,7 @@ export const visualUpdateBuildings = () => {
       )
     }
 
-    if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
+    if (player.resetToggleModes.transcend === AutoResetModes.amount) {
       DOMCacheGetOrSet('autotranscend').textContent = i18next.t(
         'buildings.autoPrestige',
         {
@@ -467,7 +469,7 @@ export const visualUpdateBuildings = () => {
         }
       )
     }
-    if (player.resettoggle2 === 2) {
+    if (player.resetToggleModes.transcend === AutoResetModes.time) {
       // TODO(@KhafraDev): i18n this
       DOMCacheGetOrSet(
         'autotranscend'
@@ -548,7 +550,7 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
+    if (player.resetToggleModes.reincarnation === AutoResetModes.amount) {
       DOMCacheGetOrSet('autoreincarnate').textContent = i18next.t(
         'buildings.autoPrestige',
         {
@@ -565,7 +567,7 @@ export const visualUpdateBuildings = () => {
           )
         }
       )
-    } else if (player.resettoggle3 === 2) {
+    } else if (player.resetToggleModes.reincarnation === AutoResetModes.time) {
       DOMCacheGetOrSet('autoreincarnate').textContent = i18next.t(
         'buildings.autoReincarnate',
         {
@@ -638,14 +640,14 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    if (player.resettoggle4 === 1 || player.resettoggle4 === 0) {
+    if (player.resetToggleModes.ascension === AutoAscensionModes.amount) {
       DOMCacheGetOrSet('autotessbuyeramount').textContent = i18next.t(
         'buildings.autoTesseract',
         {
           tesseracts: format(player.tesseractAutoBuyerAmount)
         }
       )
-    } else if (player.resettoggle4 === 2) {
+    } else if (player.resetToggleModes.ascension === AutoAscensionModes.percentage) {
       DOMCacheGetOrSet('autotessbuyeramount').textContent = i18next.t(
         'buildings.autoAscensionTesseract',
         {
@@ -1973,18 +1975,36 @@ export const visualUpdateShop = () => {
       }
       // Case: If max level is 1, then it can be considered a boolean "bought" or "not bought" item
       if (shopItem.maxLevel === 1) {
-        // TODO(@KhafraDev): i18n
-        DOMCacheGetOrSet(`${key}Level`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel
-          ? 'Bought!'
-          : 'Not Bought!'
+        const upgradeDom = DOMCacheGetOrSet(`${key}Level`)
+        if (player.shopUpgrades[key] === shopItem.maxLevel) {
+          upgradeDom.textContent = i18next.t('shop.bought')
+          upgradeDom.style.color = 'gold'
+        } else {
+          upgradeDom.textContent = i18next.t('shop.notBought')
+          upgradeDom.style.color = 'white'
+        }
+
+        if (key === 'shopTalisman' && PCoinUpgrades.INSTANT_UNLOCK_1 > 0) {
+          upgradeDom.textContent = i18next.t('shop.bought')
+          upgradeDom.style.color = 'orchid'
+        }
+        if (key === 'infiniteAscent' && PCoinUpgrades.INSTANT_UNLOCK_2 > 0) {
+          upgradeDom.textContent = i18next.t('shop.bought')
+          upgradeDom.style.color = 'orchid'
+        }
       } else {
         // Case: max level greater than 1, treat it as a fraction out of max level
-        // TODO(@KhafraDev): i18n
-        DOMCacheGetOrSet(`${key}Level`).textContent = `${
-          player.highestSingularityCount > 0 || player.ascensionCount > 0
-            ? ''
-            : 'Level '
-        }${format(player.shopUpgrades[key])}/${format(shopItem.maxLevel)}`
+        const upgradeDom = DOMCacheGetOrSet(`${key}Level`)
+        upgradeDom.textContent = i18next.t('shop.level', {
+          x: format(player.shopUpgrades[key]),
+          y: format(shopItem.maxLevel)
+        })
+
+        if (player.shopUpgrades[key] === shopItem.maxLevel) {
+          upgradeDom.style.color = 'gold'
+        } else {
+          upgradeDom.style.color = 'white'
+        }
       }
       // Handles Button - max level needs no price indicator, otherwise it's necessary
 

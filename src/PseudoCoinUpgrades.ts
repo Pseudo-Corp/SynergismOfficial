@@ -90,9 +90,11 @@ export const updatePCoinEffects = (name: PseudoCoinUpgradeNames, level: number) 
   switch (name) {
     case 'INSTANT_UNLOCK_1':
       PCoinUpgradeEffects.INSTANT_UNLOCK_1 = level > 0 ? 1 : 0
+      document.documentElement.dataset.instantUnlock1 = level > 0 ? 'true' : 'false'
       break
     case 'INSTANT_UNLOCK_2':
       PCoinUpgradeEffects.INSTANT_UNLOCK_2 = level > 0 ? 1 : 0
+      document.documentElement.dataset.instantUnlock2 = level > 0 ? 'true' : 'false'
       break
     case 'CUBE_BUFF':
       PCoinUpgradeEffects.CUBE_BUFF = 1 + level * 0.06

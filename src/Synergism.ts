@@ -124,8 +124,11 @@ import {
 } from './Talismans'
 import { calculatetax } from './Tax'
 import {
+  AutoAscensionModes,
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
+  AutoResetModes,
+  setAutoResetModeTexts,
   toggleAntsSubtab,
   toggleAscStatPerSecond,
   toggleauto,
@@ -589,10 +592,12 @@ export const player: Player = {
   fastesttranscend: 99999999999,
   fastestreincarnate: 999999999999,
 
-  resettoggle1: 1,
-  resettoggle2: 1,
-  resettoggle3: 1,
-  resettoggle4: 1,
+  resetToggleModes: {
+    prestige: AutoResetModes.amount,
+    transcend: AutoResetModes.amount,
+    reincarnation: AutoResetModes.amount,
+    ascension: AutoAscensionModes.amount
+  },
 
   tesseractAutoBuyerToggle: false,
   tesseractAutoBuyerAmount: 0,
@@ -1742,33 +1747,7 @@ const loadSynergy = () => {
       }
     )
 
-    if (player.resettoggle1 === 1) {
-      DOMCacheGetOrSet('prestigeautotoggle').textContent = i18next.t('toggles.modeAmount')
-    }
-    if (player.resettoggle2 === 1) {
-      DOMCacheGetOrSet('transcendautotoggle').textContent = i18next.t('toggles.modeAmount')
-    }
-    if (player.resettoggle3 === 1) {
-      DOMCacheGetOrSet('reincarnateautotoggle').textContent = i18next.t('toggles.modeAmount')
-    }
-    if (player.resettoggle4 === 1) {
-      DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('toggles.modeAmount')
-    }
-
-    if (player.resettoggle1 === 2) {
-      DOMCacheGetOrSet('prestigeautotoggle').textContent = i18next.t('toggles.modeTime')
-    }
-    if (player.resettoggle2 === 2) {
-      DOMCacheGetOrSet('transcendautotoggle').textContent = i18next.t('toggles.modeTime')
-    }
-    if (player.resettoggle3 === 2) {
-      DOMCacheGetOrSet('reincarnateautotoggle').textContent = i18next.t('toggles.modeTime')
-    }
-    if (player.resettoggle4 === 2) {
-      DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t(
-        'toggles.modePercentage'
-      )
-    }
+    setAutoResetModeTexts()
 
     if (player.tesseractAutoBuyerToggle) {
       DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t(
@@ -4380,7 +4359,7 @@ export const updateAll = (): void => {
   if (
     player.researches[190] > 0
     && player.tesseractAutoBuyerToggle
-    && player.resettoggle4 < 2
+    && player.resetToggleModes.ascension === AutoAscensionModes.amount
   ) {
     const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
     for (let i = 1; i <= 5; i++) {
@@ -4818,8 +4797,8 @@ const tack = (dt: number) => {
   runChallengeSweep(dt)
 
   // Check for automatic resets
-  // Auto Prestige. === 1 indicates amount, === 2 indicates time.
-  if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
+  // Auto Prestige.
+  if (player.resetToggleModes.prestige === AutoResetModes.amount) {
     if (
       player.toggles[15]
       && getLevelMilestone('autoPrestige') === 1
@@ -4832,7 +4811,7 @@ const tack = (dt: number) => {
       reset('prestige', true)
     }
   }
-  if (player.resettoggle1 === 2) {
+  if (player.resetToggleModes.prestige === AutoResetModes.time) {
     G.autoResetTimers.prestige += dt
     const time = Math.max(0.01, player.prestigeamount)
     if (
@@ -4846,7 +4825,7 @@ const tack = (dt: number) => {
     }
   }
 
-  if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
+  if (player.resetToggleModes.transcend === AutoResetModes.amount) {
     if (
       player.toggles[21]
       && player.upgrades[89] === 1
@@ -4860,7 +4839,7 @@ const tack = (dt: number) => {
       reset('transcension', true)
     }
   }
-  if (player.resettoggle2 === 2) {
+  if (player.resetToggleModes.transcend === AutoResetModes.time) {
     G.autoResetTimers.transcension += dt
     const time = Math.max(0.01, player.transcendamount)
     if (
@@ -4877,7 +4856,7 @@ const tack = (dt: number) => {
 
   if (player.currentChallenge.ascension !== 12) {
     G.autoResetTimers.reincarnation += dt
-    if (player.resettoggle3 === 2) {
+    if (player.resetToggleModes.reincarnation === AutoResetModes.time) {
       const time = Math.max(0.01, player.reincarnationamount)
       if (
         player.toggles[27]
@@ -4891,7 +4870,7 @@ const tack = (dt: number) => {
         reset('reincarnation', true)
       }
     }
-    if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
+    if (player.resetToggleModes.reincarnation === AutoResetModes.amount) {
       if (
         player.toggles[27]
         && player.researches[46] > 0.5

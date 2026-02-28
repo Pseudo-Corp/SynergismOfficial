@@ -64,7 +64,7 @@ import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
 import { clearInterval, setInterval } from './Timers'
-import { toggleAutoChallengeModeText } from './Toggles'
+import { AutoAscensionModes, toggleAutoChallengeModeText } from './Toggles'
 import type { OneToFive, Player, resetNames } from './types/Synergism'
 import { Alert, revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
@@ -825,7 +825,10 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
 
     // Autobuy tesseract buildings (Mode: PERCENTAGE)
-    if (player.researches[190] > 0 && player.tesseractAutoBuyerToggle && player.resettoggle4 === 2) {
+    if (
+      player.researches[190] > 0 && player.tesseractAutoBuyerToggle
+      && player.resetToggleModes.ascension === AutoAscensionModes.percentage
+    ) {
       const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
       for (let i = 1; i <= 5; i++) {
         if (player.autoTesseracts[i]) {
@@ -858,7 +861,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
       }
       if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
-        if (!player.tesseractAutoBuyerToggle || player.resettoggle4 === 2) {
+        if (!player.tesseractAutoBuyerToggle || player.resetToggleModes.ascension === AutoAscensionModes.percentage) {
           player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) * player.openTesseracts / 100), false)
         }
       }
@@ -1259,10 +1262,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.corruptions.showStats = player.corruptions.showStats
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
-  hold.resettoggle1 = player.resettoggle1
-  hold.resettoggle2 = player.resettoggle2
-  hold.resettoggle3 = player.resettoggle3
-  hold.resettoggle4 = player.resettoggle4
+  hold.resetToggleModes = player.resetToggleModes
   hold.coinbuyamount = player.coinbuyamount
   hold.crystalbuyamount = player.crystalbuyamount
   hold.mythosbuyamount = player.mythosbuyamount

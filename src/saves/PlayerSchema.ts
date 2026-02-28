@@ -177,6 +177,13 @@ const autoChallengeTimerSchema = z.object({
   enter: z.number()
 })
 
+const resetToggleModesSchema = z.object({
+  prestige: z.number().default(() => blankSave.resetToggleModes.prestige),
+  transcend: z.number().default(() => blankSave.resetToggleModes.transcend),
+  reincarnation: z.number().default(() => blankSave.resetToggleModes.reincarnation),
+  ascension: z.number().default(() => blankSave.resetToggleModes.ascension)
+})
+
 const singularityUpgradeSchema = (...keys: string[]) => {
   return z.object<Record<'level' | 'freeLevels' | typeof keys[number], ZodNumber>>({
     level: z.number(),
@@ -622,10 +629,12 @@ export const playerSchema = z.object({
   fastesttranscend: z.number(),
   fastestreincarnate: z.number(),
 
-  resettoggle1: z.number().default(() => blankSave.resettoggle1),
-  resettoggle2: z.number().default(() => blankSave.resettoggle2),
-  resettoggle3: z.number().default(() => blankSave.resettoggle3),
-  resettoggle4: z.number().default(() => blankSave.resettoggle4),
+  resetToggleModes: resetToggleModesSchema.default(() => deepClone()(blankSave.resetToggleModes)),
+
+  resettoggle1: z.number().optional(),
+  resettoggle2: z.number().optional(),
+  resettoggle3: z.number().optional(),
+  resettoggle4: z.number().optional(),
 
   tesseractAutoBuyerToggle: z.union([z.number(), z.boolean()]).transform((value) => {
     // Migrate old number values: 0 or 2 = OFF (false), 1 = ON (true)
