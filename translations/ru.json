@@ -2019,37 +2019,37 @@
     "progressiveAchievements": {
       "runeLevel": {
         "name": "Progressive Achievement - Purchased Rune Levels",
-        "description": "Gain AP based on the sum of all rune levels purchased! Best Total: {{x}}",
+        "description": "Gain AP based on the sum of all rune levels purchased! <br> Best Total: <<gold|{{x}}>>",
         "apSource": "Gain +1 AP per 1,000 Rune Levels purchased, up to 200,000 Levels. <br> Gain +1 AP per 2,500 Rune Levels purchased, up to 1,000,000 Levels. <br> Gain +1 AP per 12,500 Rune Levels purchased, up to 5,000,000 Levels."
       },
       "freeRuneLevel": {
         "name": "Progressive Achievement - Free Rune Levels",
-        "description": "Gain AP based on the sum of all your free rune levels! Best Total: {{x}}",
+        "description": "Gain AP based on the sum of all your free rune levels! <br> Best Total: <<gold|{{x}}>>",
         "apSource": "Gain +1 AP per 250 Free Rune Levels owned, up to 25,000 Levels. <br> Gain +1 AP per 750 Free Rune Levels owned, up to 150,000 Levels. <br> Gain +1 AP per 2,500 Free Rune Levels owned, up to 500,000 Levels."
       },
       "antMasteries": {
         "name": "Progressive Achievement - Ant Masteries",
-        "description": "Gain AP based on your unique Ant Mastery levels purchsed! Best Total: {{x}}",
+        "description": "Gain AP based on your unique Ant Mastery levels purchsed! <br> Best Total: <<gold|{{x}}>>",
         "apSource": "Gain +3 AP for every unique level purchased. <br> Gain +4 AP for every unique level 12 Mastery."
       },
       "rebornELO": {
         "name": "Progressive Achievement - Reborn ELO",
-        "description": "Gain AP based on the total weighted value of your best Reborn ELO, lifetime! Best Total: {{x}} (Check the \"Ants to Quark Corner\" in the Altar Subtab)",
+        "description": "Gain AP based on the total weighted value of your best Reborn ELO, lifetime! <br> Best Total: <<gold|{{x}}>> <br> (Check the \"Ants to Quark Corner\" in the Altar Subtab)",
         "apSource": "Gain +1 AP per 100 Reborn ELO, up to 10,000. <br> Gain +1 AP per 1000 Reborn ELO, up to 150,000. <br> Gain +1 AP per 9,000 Reborn ELO, up to 1,350,000. <br> Gain +1 AP per 75,000 Reborn ELO, up to 15,000,000. <br> Gain +1 AP per 150,000 Reborn ELO, up to 60,000,000."
       },
       "singularityCount": {
         "name": "Progressive Achievement - Singularity Count",
-        "description": "Gain AP based on the highest Singularity you have reached! Highest Reached: {{x}}",
+        "description": "Gain AP based on the highest Singularity you have reached! <br> Highest Reached: <<gold|{{x}}>>",
         "apSource": "Gain +9 AP for Singularities 1-100 <br> Gain +12 AP for Singularities 101-200 <br> Gain +15 AP for Singularities 201-300"
       },
       "ambrosiaCount": {
         "name": "Progressive Achievement - Lifetime Ambrosia",
-        "description": "Gain AP based on your lifetime Ambrosia! Lifetime Ambrosia: {{x}}",
+        "description": "Gain AP based on your lifetime Ambrosia! <br> Lifetime Ambrosia: <<gold|{{x}}>>",
         "apSource": "Gain +1 AP per 100 Ambrosia, up to 20,000. <br> Gain +1 AP per 10,000 Ambrosia, up to 2,000,000. <br> Gain up to 400 MORE AP, by reaching 100,000,000 total Lifetime Ambrosia!"
       },
       "redAmbrosiaCount": {
         "name": "Progressive Achievement - Lifetime Red Ambrosia",
-        "description": "Gain AP based on your lifetime Red Ambrosia! Lifetime Red Ambrosia: {{x}}",
+        "description": "Gain AP based on your lifetime Red Ambrosia! <br> Lifetime Red Ambrosia: <<gold|{{x}}>>",
         "apSource": "Gain +1 AP per 25 Red Ambrosia, up to 5,000. <br> Gain +1 AP per 2,500 Red Ambrosia, up to 500,000. <br> Gain +1 AP per 12,500 Ambrosia, up to 5,000,000. <br> Finally, Gain +1 AP per 62,500 Red Ambrosia, up to 12,500,000."
       },
       "exalts": {
@@ -2074,7 +2074,7 @@
       },
       "talismanRarities": {
         "name": "Talisman Rarity",
-        "description": "Your talismans grant AP based on their rarity! Best sum of rarities: {{x}}",
+        "description": "Your talismans grant AP based on their rarity! <br> Best sum of rarities: <<gold|{{x}}>>",
         "apSource": "Gain +5 AP for each rarity. Unlocked Talismans have a rarity of at least 1."
       }
     },
@@ -2948,7 +2948,7 @@
       "14": "[2x4] Радуга светит на вас. Каждый уровень увеличивает количество утилизации, которое она даёт, на 1%!",
       "15": "[2x5] Арес обучил вас искусству войны. Эффект дани Ареса возведён в степень (1 + уровень / 100).",
       "16": "[2x6] Ты смог дружище! Добавляет руне Скорости и Призмы по +1 коэффициента рун за уровень!",
-      "17": "[2x7] Да. +5 к степени кристаллам за уровень.",
+      "17": "[2x7] Yep. +8 exponent per level to crystals.",
       "18": "[2x8] Квантовое туннелирование ради победы. +20% к глобальной скорости.",
       "19": "[2x9] На протяжении от старта вознесения до после 10 испытания и далее открывает новые улучшения монет.",
       "20": "[2x10] Автоматизатор рун в магазине теперь автоматически тратит все подношения, разделяя их по всех открытым рунам. Так что работает в 20 раз быстрее. Веселитесь!",
@@ -3340,6 +3340,9 @@
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by 0.1% per level additive (Max -30%)!"
     },
     "maxed": "Максимум!",
+    "bought": "Bought!",
+    "notBought": "Not Bought!",
+    "level": "{{x}}/{{y}}",
     "upgradeFor": "Улучшить за {{x}} Кварков",
     "plusForQuarks": "+{{x}} за {{y}} Кварков",
     "consume": "ИСПОЛЬЗОВАТЬ",
@@ -3583,10 +3586,6 @@
       "potionAutogenerator": {
         "name": "Автогенератор Зелий",
         "default": "Каждые 180 секунд автоматически используется одно зелье Обтаниума и Подношений! Интервал уменьшается на 3% за сингулярность."
-      },
-      "respecBeGone": {
-        "name": "Уходи, Перенабор!",
-        "default": "Теперь Талисманы всегда усиливают все руны!"
       },
       "forTheLoveOfTheAntGod": {
         "name": "Ради (Муравьиного) Бога!",
@@ -7236,7 +7235,7 @@
     "cancelled": "Ладно, может в другой раз.",
     "notEnough": "Недостаточно запасов для расширения.",
     "craftedHepteracts": "Вы успешно создали {{x}} гептерактов.",
-    "craftedHepteractsMax": "Вы успешно создали {{x}} гептерактов. Если это меньше, чем вы задали, вы либо достигли лимит запасов, либо у вас недостаточно ресурсов.",
+    "craftedHepteractLower": "You crafted fewer Hepteracts than you wanted to, because you might have spent resources elsewhere before crafting the requested amount.",
     "expandPrompt": "Это уменьшит ваш баланс на {{x}}, но емкость увеличится с {{y}} до {{z}} [Множитель расширения: {{a}}]. Согласиться с условиями и положениями и остальным?",
     "doubleSpent": "Что-то уже изменило ваш баланс или максимум, попробуйте снова!",
     "expandedInventory": "Инвентарь успешно расширен. Теперь вы можете поместить {{x}}.",
