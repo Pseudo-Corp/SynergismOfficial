@@ -93,8 +93,8 @@ export const toggleChallenges = (i: number, auto = false) => {
         if (r) {
           return toggleChallenges(i, true)
         }
-        return
       })
+      return
     }
     else {
       player.currentChallenge.ascension = i
