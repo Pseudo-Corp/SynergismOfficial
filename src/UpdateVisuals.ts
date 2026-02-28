@@ -123,6 +123,7 @@ import {
   calculateRuneEffectivenessTesseractBlessing,
   calculateSalvageTesseractBlessing
 } from './Tesseracts'
+import { AutoAscensionModes, AutoResetModes } from './Toggles'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { sumContents, timeRemainingHours } from './Utility'
@@ -365,7 +366,7 @@ export const visualUpdateBuildings = () => {
       )
     }
 
-    if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
+    if (player.resetToggleModes.prestige === AutoResetModes.amount) {
       const p = Decimal.pow(
         10,
         Decimal.log(G.prestigePointGain.add(1), 10)
@@ -380,7 +381,7 @@ export const visualUpdateBuildings = () => {
           mult: format(p)
         }
       )
-    } else if (player.resettoggle1 === 2) {
+    } else if (player.resetToggleModes.prestige === AutoResetModes.time) {
       DOMCacheGetOrSet('autoprestige').textContent = i18next.t(
         'buildings.autoReincarnate',
         {
@@ -449,7 +450,7 @@ export const visualUpdateBuildings = () => {
       )
     }
 
-    if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
+    if (player.resetToggleModes.transcend === AutoResetModes.amount) {
       DOMCacheGetOrSet('autotranscend').textContent = i18next.t(
         'buildings.autoPrestige',
         {
@@ -467,7 +468,7 @@ export const visualUpdateBuildings = () => {
         }
       )
     }
-    if (player.resettoggle2 === 2) {
+    if (player.resetToggleModes.transcend === AutoResetModes.time) {
       // TODO(@KhafraDev): i18n this
       DOMCacheGetOrSet(
         'autotranscend'
@@ -548,7 +549,7 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
+    if (player.resetToggleModes.reincarnation === AutoResetModes.amount) {
       DOMCacheGetOrSet('autoreincarnate').textContent = i18next.t(
         'buildings.autoPrestige',
         {
@@ -565,7 +566,7 @@ export const visualUpdateBuildings = () => {
           )
         }
       )
-    } else if (player.resettoggle3 === 2) {
+    } else if (player.resetToggleModes.reincarnation === AutoResetModes.time) {
       DOMCacheGetOrSet('autoreincarnate').textContent = i18next.t(
         'buildings.autoReincarnate',
         {
@@ -638,14 +639,14 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    if (player.resettoggle4 === 1 || player.resettoggle4 === 0) {
+    if (player.resetToggleModes.ascension === AutoAscensionModes.amount) {
       DOMCacheGetOrSet('autotessbuyeramount').textContent = i18next.t(
         'buildings.autoTesseract',
         {
           tesseracts: format(player.tesseractAutoBuyerAmount)
         }
       )
-    } else if (player.resettoggle4 === 2) {
+    } else if (player.resetToggleModes.ascension === AutoAscensionModes.percentage) {
       DOMCacheGetOrSet('autotessbuyeramount').textContent = i18next.t(
         'buildings.autoAscensionTesseract',
         {

@@ -155,17 +155,20 @@ import {
   autoPlatonicUpgradesToggle,
   toggleAscStatPerSecond,
   toggleAutoAscend,
+  toggleAutoAscensionMode,
   toggleAutoBuyFragment,
   toggleautobuytesseract,
   toggleAutoChallengeRun,
   toggleAutoChallengesIgnore,
   toggleautofortify,
   toggleautoopensCubes,
+  toggleAutoPrestigeMode,
+  toggleAutoReincarnateMode,
   toggleAutoResearch,
   toggleAutoResearchMode,
-  toggleautoreset,
   toggleAutoSacrifice,
   toggleAutoTesseracts,
+  toggleAutoTranscendMode,
   toggleBlueberryLoadoutmode,
   toggleBuyAmount,
   toggleBuyMaxShop,
@@ -418,10 +421,10 @@ export const generateEventHandlers = () => {
   const toggles = document.querySelectorAll<HTMLElement>('.auto[toggleid]')
   toggles.forEach((b) => b.addEventListener('click', () => toggleSettings(b)))
   // Toggles auto reset type (between TIME and AMOUNT for 3 first Tiers, and between PERCENTAGE and AMOUNT for Tesseracts)
-  DOMCacheGetOrSet('prestigeautotoggle').addEventListener('click', () => toggleautoreset(1))
-  DOMCacheGetOrSet('transcendautotoggle').addEventListener('click', () => toggleautoreset(2))
-  DOMCacheGetOrSet('reincarnateautotoggle').addEventListener('click', () => toggleautoreset(3))
-  DOMCacheGetOrSet('tesseractautobuymode').addEventListener('click', () => toggleautoreset(4))
+  DOMCacheGetOrSet('prestigeautotoggle').addEventListener('click', () => toggleAutoPrestigeMode())
+  DOMCacheGetOrSet('transcendautotoggle').addEventListener('click', () => toggleAutoTranscendMode())
+  DOMCacheGetOrSet('reincarnateautotoggle').addEventListener('click', () => toggleAutoReincarnateMode())
+  DOMCacheGetOrSet('tesseractautobuymode').addEventListener('click', () => toggleAutoAscensionMode())
   // Toggles auto reset amount required to trigger
   DOMCacheGetOrSet('prestigeamount').addEventListener('blur', () => updateAutoReset(1))
   DOMCacheGetOrSet('transcendamount').addEventListener('blur', () => updateAutoReset(2))

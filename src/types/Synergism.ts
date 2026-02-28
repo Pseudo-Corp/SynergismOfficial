@@ -19,6 +19,7 @@ import type { SingularityDataKeys } from '../singularity'
 import type { SingularityChallenge, SingularityChallengeDataKeys } from '../SingularityChallenges'
 import type { Tabs } from '../Tabs'
 import type { TalismanCraftItems, TalismanKeys } from '../Talismans'
+import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
@@ -275,10 +276,12 @@ export interface Player {
   fastesttranscend: number
   fastestreincarnate: number
 
-  resettoggle1: number
-  resettoggle2: number
-  resettoggle3: number
-  resettoggle4: number
+  resetToggleModes: {
+    prestige: AutoResetModes
+    transcend: AutoResetModes
+    reincarnation: AutoResetModes
+    ascension: AutoAscensionModes
+  }
 
   tesseractAutoBuyerToggle: boolean
   tesseractAutoBuyerAmount: number

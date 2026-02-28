@@ -7,6 +7,7 @@ import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { type OcteractDataKeys, octeractUpgrades } from '../Octeracts'
 import { goldenQuarkUpgrades, type SingularityDataKeys } from '../singularity'
 import { updateResourcePredefinedLevel } from '../Talismans'
+import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
 import { convertArrayToCorruption } from './PlayerJsonSchema'
 import { playerSchema } from './PlayerSchema'
 
@@ -273,6 +274,26 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
     }
   }
 
+  // The old resettoggles treated '0' and '1' states the same, and '2' state as the alternative.
+  const oldToNewToggles: Record<number, number> = {
+    0: 0,
+    1: 0,
+    2: 1
+  }
+
+  if (player.resettoggle1 !== undefined) {
+    player.resetToggleModes.prestige = (oldToNewToggles[player.resettoggle1] ?? 0) as AutoResetModes
+  }
+  if (player.resettoggle2 !== undefined) {
+    player.resetToggleModes.transcend = (oldToNewToggles[player.resettoggle2] ?? 0) as AutoResetModes
+  }
+  if (player.resettoggle3 !== undefined) {
+    player.resetToggleModes.reincarnation = (oldToNewToggles[player.resettoggle3] ?? 0) as AutoResetModes
+  }
+  if (player.resettoggle4 !== undefined) {
+    player.resetToggleModes.ascension = (oldToNewToggles[player.resettoggle4] ?? 0) as AutoAscensionModes
+  }
+
   Reflect.deleteProperty(player, 'runeshards')
   Reflect.deleteProperty(player, 'maxofferings')
   Reflect.deleteProperty(player, 'researchPoints')
@@ -344,6 +365,11 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   Reflect.deleteProperty(player, 'autoAntSacTimer')
   Reflect.deleteProperty(player, 'autoAntSacrificeMode')
   Reflect.deleteProperty(player, 'antMax')
+
+  Reflect.deleteProperty(player, 'resettoggle1')
+  Reflect.deleteProperty(player, 'resettoggle2')
+  Reflect.deleteProperty(player, 'resettoggle3')
+  Reflect.deleteProperty(player, 'resettoggle4')
 
   return player
 })
