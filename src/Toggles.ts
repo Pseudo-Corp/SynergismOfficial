@@ -71,6 +71,7 @@ export const toggleChallenges = (i: number, auto = false) => {
     }
   }
   if (
+    // To be honest I don't want to touch this shit in fear of breaking everything
     (i >= 11 && i <= 15)
     && (i === 11
       ? player.unlocks.ascensions
@@ -82,8 +83,23 @@ export const toggleChallenges = (i: number, auto = false) => {
     if (player.currentChallenge.ascension === 15) {
       void resetCheck('ascensionChallenge', false, true)
     }
-    player.currentChallenge.ascension = i
-    reset('ascensionChallenge', false, 'enterChallenge')
+
+    /* player.toggles[31] is the toggle for whether you want Ascensions to ask Confirmation
+       We have to do the confirmation in this place because some players may want to avoid accidentally entering an Ascension Challenge
+       even if they have a Challenge 10 completion, to avoid accidentally losing progress.
+    */
+    if (!auto && player.toggles[31]) { 
+      Confirm(i18next.t('main.ascendPrompt')).then((r) => {
+        if (r) {
+          player.currentChallenge.ascension = i
+          reset('ascensionChallenge', false, 'enterChallenge')
+        }
+      })
+    }
+    else {
+      player.currentChallenge.ascension = i
+      reset('ascensionChallenge', false, 'enterChallenge')
+    }
   }
   updateChallengeDisplay()
   getChallengeConditions(i)
