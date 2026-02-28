@@ -6199,6 +6199,32 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     display: none;
 }
 
+html[data-instant-unlock1="true"] .shopTalismanShopUpgrade {
+    opacity: 0.5;
+}
+
+html[data-instant-unlock1="true"] .shopTalismanShopUpgrade button {
+    display: none;
+}
+
+html[data-instant-unlock1="false"] .shopTalismanShopUpgrade {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+html[data-instant-unlock2="true"] .infiniteAscentShopUpgrade {
+    opacity: 0.5;
+}
+
+html[data-instant-unlock2="true"] .infiniteAscentShopUpgrade button {
+    display: none;
+}
+
+html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .modalBtnBuy {
     width: 60px;
     height: 30px;
@@ -7369,4 +7395,54 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
         min-height: 44px;
         padding: 8px 12px;
     }
+}
+
+/* TODO: (Platonic) Make a more comprehensive Sprite Sheet system if this ends up being good. */
+#seasonPass {
+    width: 64px;
+    height: 64px;
+    background-image: url("Pictures/Default/Spritesheets/WowPasses.png");
+    background-position: 0 0;
+}
+
+#seasonPass2 {
+    width: 64px;
+    height: 64px;
+    background-image: url("Pictures/Default/Spritesheets/WowPasses.png");
+    background-position: -64px 0;
+}
+
+#seasonPass3 {
+    width: 64px;
+    height: 64px;
+    background-image: url("Pictures/Default/Spritesheets/WowPasses.png");
+    background-position: -128px 0;
+}
+
+#seasonPassY {
+    width: 64px;
+    height: 64px;
+    background-image: url("Pictures/Default/Spritesheets/WowPasses.png");
+    background-position: -192px 0;
+}
+
+#seasonPassZ {
+    width: 64px;
+    height: 64px;
+    background-image: url("Pictures/Default/Spritesheets/WowPasses.png");
+    background-position: -256px 0;
+}
+
+#seasonPassLost {
+    width: 64px;
+    height: 64px;
+    background-image: url("Pictures/Default/Spritesheets/WowPasses.png");
+    background-position: -320px 0;
+}
+
+#seasonPassInfinity {
+    width: 64px;
+    height: 64px;
+    background-image: url("Pictures/Default/Spritesheets/WowPasses.png");
+    background-position: -384px 0;
 }
