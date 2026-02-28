@@ -91,9 +91,9 @@ export const toggleChallenges = (i: number, auto = false) => {
     if (!auto && player.toggles[31]) { 
       Confirm(i18next.t('main.ascendPrompt')).then((r) => {
         if (r) {
-          player.currentChallenge.ascension = i
-          reset('ascensionChallenge', false, 'enterChallenge')
+          return toggleChallenges(i, true)
         }
+        return
       })
     }
     else {
