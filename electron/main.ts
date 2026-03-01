@@ -52,7 +52,8 @@ async function handleProtocolUrl (raw: string): Promise<void> {
       path: '/',
       secure: true,
       httpOnly: true,
-      sameSite: 'lax'
+      sameSite: 'lax',
+      expirationDate: Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60
     })
 
     mainWindow?.webContents.reload()
