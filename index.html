@@ -2696,102 +2696,228 @@
         </div>
     </div>
 
-    <div id="traits" style="display: none;">
-        <div id="corruptionStatsLoadouts" class="flex column">
-            <span id="corrButtonRow" class="flex row center">
-                <button id="corrStatsBtn" class="active-subtab" i18n="corruptions.corrStatsBtn"></button>
-                <button id="corrLoadoutsBtn" i18n="corruptions.corrLoadoutsBtn"></button>
-            </span>
-            <div id="corruptionStats" class="corruptionContainer">
-                <span class="corruptionStatRow chal11Corruption">
-                </span>
-                <span class="corruptionStatRow chal11Corruption">
-                </span>
-                <span class="corruptionStatRow chal12Corruption">
-                </span>
-                <span class="corruptionStatRow chal12Corruption">
-                </span>
-                <span class="corruptionStatRow chal13Corruption">
-                </span>
-                <span class="corruptionStatRow chal13Corruption">
-                </span>
-                <span class="corruptionStatRow chal14Corruption">
-                </span>
-                <span class="corruptionStatRow chal14Corruption">
-                </span>
-                <!-- TODO: <script>corruptionButtonsAdd()</script> -->
-            </div>
-            <div id="corruptionLoadouts" style="display: none">
-                <table id="corruptionLoadoutTable">
-                    <tr>
-                        <th class="corrLoadoutNameCol"></th>
-                        <th>
-                            <img src="Pictures/Default/CorruptViscosity.png" class="corruptionImg small" title="Viscosity" loading="lazy">
-                        </th>
-                        <th>
-                            <img src="Pictures/Default/CorruptDrought.png" class="corruptionImg small" title="Drought" loading="lazy">
-                        </th>
-                        <th>
-                            <img src="Pictures/Default/CorruptDeflation.png" class="corruptionImg small" title="Deflation" loading="lazy">
-                        </th>
-                        <th>
-                            <img src="Pictures/Default/CorruptExtinction.png" class="corruptionImg small" title="Extinction" loading="lazy">
-                        </th>
-                        <th>
-                            <img src="Pictures/Default/CorruptIlliteracy.png" class="corruptionImg small" title="Illiteracy" loading="lazy">
-                        </th>
-                        <th>
-                            <img src="Pictures/Default/CorruptRecession.png" class="corruptionImg small" title="Recession" loading="lazy">
-                        </th>
-                        <th>
-                            <img src="Pictures/Default/CorruptDilation.png" class="corruptionImg small" title="Dilation" loading="lazy">
-                        </th>
-                        <th>
-                            <img src="Pictures/Default/CorruptHyperchallenge.png" class="corruptionImg small" title="Hyperchallenge" loading="lazy">
-                        </th>
-                    </tr>
-                </table>
-                <!-- TODO: <script>corruptionLoadoutTableCreate()</script> -->
-            </div>
-            <div id="corruptionDisplays" class="flex row center">
-                <img src="Pictures/Default/CorruptExit.png" class="corruptionImg" loading="lazy">
-                <button id="corruptionCleanse" i18n="corruptions.cleanse"></button>
-                <button id="corruptionCleanseConfirm" i18n="corruptions.confirm"></button>
-            </div>
-        </div>
-        <div id="corruptionMain" class="flex column">
+    <div id="traits" class="flex column" style="display: none;">
+
+        <div id="corruptionHeader">
             <div id="corruptionIntroduction" class="tightText" i18n="corruptions.intro"></div>
             <div id="corruptionInfo1" class="tightText" i18n="corruptions.traitInfo"></div>
-            <div id="corruptionSelected" class="hCenter">
-                <img id="corruptionSelectedPic" alt="Corruption Exit" class="corruptionImg" src="Pictures/Default/CorruptExit.png" style="visibility: hidden" loading="lazy">
+        </div>
+
+        <div id="corruptionBody" class="flex">
+            <div id="corruptionStatsLoadouts" class="flex column">
+                <div id="corruptionStatsBox">
+                    <span id="corrButtonRow" class="flex row center">
+                        <button id="corrStatsBtn" class="active-subtab" i18n="corruptions.corrStatsBtn"></button>
+                        <button id="corrLoadoutsBtn" i18n="corruptions.corrLoadoutsBtn"></button>
+                    </span>
+                    <div id="corruptionStats" class="corruptionContainer">
+                        <span class="corruptionStatRow chal11Corruption">
+                        </span>
+                        <span class="corruptionStatRow chal11Corruption">
+                        </span>
+                        <span class="corruptionStatRow chal12Corruption">
+                        </span>
+                        <span class="corruptionStatRow chal12Corruption">
+                        </span>
+                        <span class="corruptionStatRow chal13Corruption">
+                        </span>
+                        <span class="corruptionStatRow chal13Corruption">
+                        </span>
+                        <span class="corruptionStatRow chal14Corruption">
+                        </span>
+                        <span class="corruptionStatRow chal14Corruption">
+                        </span>
+                        <!-- TODO: <script>corruptionButtonsAdd()</script> -->
+                    </div>
+                    
+                    <div id="corruptionLoadouts" style="display: none">
+                        <table id="corruptionLoadoutTable">
+                            <tr>
+                                <th class="corrLoadoutNameCol"></th>
+                                <th>
+                                    <img src="Pictures/Default/CorruptViscosity.png" class="corruptionImg small" title="Viscosity" loading="lazy">
+                                </th>
+                                <th>
+                                    <img src="Pictures/Default/CorruptDrought.png" class="corruptionImg small" title="Drought" loading="lazy">
+                                </th>
+                                <th>
+                                    <img src="Pictures/Default/CorruptDeflation.png" class="corruptionImg small" title="Deflation" loading="lazy">
+                                </th>
+                                <th>
+                                    <img src="Pictures/Default/CorruptExtinction.png" class="corruptionImg small" title="Extinction" loading="lazy">
+                                </th>
+                                <th>
+                                    <img src="Pictures/Default/CorruptIlliteracy.png" class="corruptionImg small" title="Illiteracy" loading="lazy">
+                                </th>
+                                <th>
+                                    <img src="Pictures/Default/CorruptRecession.png" class="corruptionImg small" title="Recession" loading="lazy">
+                                </th>
+                                <th>
+                                    <img src="Pictures/Default/CorruptDilation.png" class="corruptionImg small" title="Dilation" loading="lazy">
+                                </th>
+                                <th>
+                                    <img src="Pictures/Default/CorruptHyperchallenge.png" class="corruptionImg small" title="Hyperchallenge" loading="lazy">
+                                </th>
+                            </tr>
+                        </table>
+                        <!-- TODO: <script>corruptionLoadoutTableCreate()</script> -->
+                    </div>
+                    <div id="corruptionDisplays" class="flex row center">
+                        <img src="Pictures/Default/CorruptExit.png" class="corruptionImg" loading="lazy">
+                        <button id="corruptionCleanse" i18n="corruptions.cleanse"></button>
+                        <button id="corruptionCleanseConfirm" i18n="corruptions.confirm"></button>
+                    </div>
+                </div>
+                <div id="ascensionAutomation" class="cubeUpgrade10 vAlign">
+                    <button id="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green"></button>
+                    <button id="ascensionAutoToggle" class="hCenter tight" style="border:2px solid orchid;"></button>
+                    <input id="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1">
+                    <p id="autoAscend" class="ascendunlock tightText"></p>
+                </div>
             </div>
-            <div id="corruptionDetails" class="vAlign">
-                <p id="corruptionName" class="tightText redText"></p>
-                <p id="corruptionDescription" class="tightText"></p>
-                <p id="corruptionLevelCurrent" class="tightText"></p>
-                <p id="corruptionLevelPlanned" class="tightText"></p>
-                <p id="corruptionFreeLevels" class="tightText" style="color: orchid"></p>
-                <p id="corruptionMultiplierContribution" class="tightText"></p>
-                <p id="corruptionDifficultyContribution" class="tightText"></p>
+            
+            <div id="corruptionMain" class="flex column">
+                <div id="corruptionHeaderRow">
+                    <div id="corruptionSelected" class="hCenter">
+                        <img id="corruptionSelectedPic" alt="Corruption Exit" class="corruptionImg"
+                            src="Pictures/Default/CorruptExit.png" style="visibility: hidden" loading="lazy">
+                    </div>
+
+                    <div id="corruptionDetails" class="vAlign">
+                        <p id="corruptionName" class="tightText redText"></p>
+                        <p id="corruptionDescription" class="tightText"></p>
+                    </div>
+                </div>
+
+                <div id="corruptionStatLines">
+                    <p id="corruptionLevelCurrent" class="tightText"></p>
+                    <p id="corruptionLevelPlanned" class="tightText"></p>
+                    <p id="corruptionMultiplierContribution" class="tightText"></p>
+                    <p id="corruptionDifficultyContribution" class="tightText"></p>
+                </div>
+
+                <!-- TABLES WRAPPER -->
+                <div id="corruptionTablesWrap">
+                <!-- SELECTED CORRUPTION EFFECTS TABLE -->
+                <div id="selectedCorruptionSection" style="display:none;">
+                    <p class="allCorruptionEffectsHeader">Selected Corruption Effects</p>
+                    <p id="corruptionFreeLevels" class="tightText" style="color: orchid"></p>
+
+                    <table id="selectedCorruptionTable" class="corruptionTable">
+                    <colgroup>
+                        <col style="width: 185px;">
+                        <col style="width: 235px;">
+                        <col style="width: 235px;">
+                    </colgroup>
+
+                    <tr>
+                        <th></th>
+                        <th>Current Ascension</th>
+                        <th>Next Ascension</th>
+                    </tr>
+
+                    <tr>
+                        <td>Corruption Level:</td>
+                        <td id="selectedLevelCurr"></td>
+                        <td id="selectedLevelNext"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Corruption Effect:</td>
+                        <td id="selectedEffectCurr" class="effectCell"></td>
+                        <td id="selectedEffectNext" class="effectCell"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Score Multiplier:</td>
+                        <td id="selectedMultiplierCurr"></td>
+                        <td id="selectedMultiplierNext"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Difficulty Rating:</td>
+                        <td id="selectedDifficultyCurr"></td>
+                        <td id="selectedDifficultyNext"></td>
+                    </tr>
+                    </table>
+                </div>
+
+                <div id="allCorruptionSection">
+                    <p class="allCorruptionEffectsHeader">All Corruption Effects</p>
+
+                    <table id="corruptionTotalsTable" class="corruptionTable">
+                    <colgroup>
+                        <col style="width: 185px;">
+                        <col style="width: 235px;">
+                        <col style="width: 235px;">
+                    </colgroup>
+
+                    <tr>
+                        <th></th>
+                        <th>Current Ascension</th>
+                        <th>Next Ascension</th>
+                    </tr>
+
+                    <tr>
+                        <td>Total Score:</td>
+                        <td id="corruptionMultiplierTotalCurr"></td>
+                        <td id="corruptionMultiplierTotalNext"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Total Difficulty:</td>
+                        <td id="corruptionDifficultyTotalCurr"></td>
+                        <td id="corruptionDifficultyTotalNext"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Spirit Power Bonus:</td>
+                        <td id="corruptionSpiritTotalCurr"></td>
+                        <td id="corruptionSpiritTotalNext"></td>
+                    </tr>
+                    </table>
+                </div>
+                </div>
+
+                <div id="ascendRewardsSection">
+                <p id="ascensionRewardsTitle" style="font-size: 1.3em;" i18n="corruptions.ascensionRewards">
+                Ascension Rewards
+                </p>
+
+                <p id="corruptionScore" class="tightText" style="color: white"></p>
+
+                <div id="ascendOutcomeBox">
+                    <div id="ascendRewardsGrid">
+                        <div class="ascendRewardTile">
+                            <img class="openImage" src="Pictures/Default/OcteractAscensionCount2.png" loading="lazy">
+                            <p id="corruptionAscensionCount" class="tightText" style="color: white"></p>
+                        </div>
+                        <div class="ascendRewardTile">
+                            <img class="openImage" src="Pictures/Default/WowCube2.png" loading="lazy">
+                            <p id="corruptionCubes" class="tightText" style="color: white"></p>
+                        </div>
+                        <div class="ascendRewardTile">
+                            <img class="openImage" src="Pictures/Default/WowTessaract.png" loading="lazy">
+                            <p id="corruptionTesseracts" class="tightText" style="color: white"></p>
+                        </div>
+                        <div class="ascendRewardTile">
+                            <img class="openImage" src="Pictures/Default/WowHypercube.png" loading="lazy">
+                            <p id="corruptionHypercubes" class="chal13 tightText" style="color: white"></p>
+                        </div>
+                        <div class="ascendRewardTile">
+                            <img class="openImage" src="Pictures/Default/PlatonicCube.png" loading="lazy">
+                            <p id="corruptionPlatonicCubes" class="chal14 tightText" style="color: white"></p>
+                        </div>
+                        <div class="ascendRewardTile">
+                            <img class="openImage" src="Pictures/Default/Hepteract.png" loading="lazy">
+                            <p id="corruptionHepteracts" class="chal15 tightText" style="color: white"></p>
+                        </div>
+                    </div>
+                </div>
+                <p id="corruptionBank" class="tightText" style="color: white"></p>
+                <p id="corruptionScoreDR" class="tightText" style="color: red" i18n="corruptions.corruptionScoreDR"></p>
             </div>
-            <p id="corruptionMultiplierTotal" class="tightText"></p>
-            <p id="corruptionDifficultyTotal" class="tightText"></p>
-            <p id="corruptionSpiritTotal" class="chal12 tightText" style="color: gold"></p>
-            <p id="corruptionBank" class="tightText" style="color: white"></p>
-            <p id="corruptionScore" class="tightText" style="color: white"></p>
-            <p id="corruptionScoreDR" class="tightText" style="color: red" i18n="corruptions.corruptionScoreDR"></p>
-            <p id="corruptionAscensionCount" class="tightText" style="color: white"></p>
-            <p id="corruptionCubes" class="tightText" style="color: white"></p>
-            <p id="corruptionTesseracts" class="tightText" style="color: white"></p>
-            <p id="corruptionHypercubes" class="chal13 tightText" style="color: white"></p>
-            <p id="corruptionPlatonicCubes" class="chal14 tightText" style="color: white"></p>
-            <p id="corruptionHepteracts" class="chal15 tightText" style="color: white"></p>
-            <div id="ascensionAutomation" class="cubeUpgrade10 vAlign">
-                <button id="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green"></button>
-                <button id="ascensionAutoToggle" class="hCenter tight" style="border:2px solid orchid;"></button>
-                <input id="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1">
-                <p id="autoAscend" class="ascendunlock tightText"></p>
-            </div>
+        </div>
         </div>
     </div>
 

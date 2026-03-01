@@ -3603,7 +3603,7 @@ p#ascendHotKeys {
 #corruptionMain {
     min-width: 700px;
     max-width: 1200px;
-    margin: 10px;
+    margin: -6px 10px 10px;
     padding: 10px 0;
 }
 
@@ -3616,28 +3616,43 @@ p#ascendHotKeys {
     color: yellow;
 }
 
+#corruptionHeaderRow {
+    width: 590px;
+    margin: 14px auto 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
 #corruptionSelected {
     width: 70px;
     height: 70px;
-    margin-top: 15px;
-}
-
-#corruptionSelectedPic {
-    height: 100%;
-    object-fit: contain;
+    margin-left: 35px;
+    margin-right: 5px;
 }
 
 #corruptionDetails {
-    display: flex;
-    min-height: 9em;
-    visibility: hidden;
+    flex: 0 1 420px;
+    max-width: 420px;
+    text-align: left;
+    margin-top: -9px;
+}
+
+#corruptionStatLines {
+    flex: 0 0 100%;
+    text-align: center;
 }
 
 #corruptionName {
+    text-align: left;
+    width: 100%;
     font-size: 1.2em;
 }
 
 #corruptionDescription {
+    text-align: left;
+    width: 100%;
     color: darkviolet;
 }
 
@@ -3657,6 +3672,185 @@ p#ascendHotKeys {
     margin-top: 10px;
 }
 
+/* Title and columns (Corruptions Redesign) */
+#corruptionHeader {
+    text-align: center;
+    margin: 2px auto;
+}
+
+#corruptionBody {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+
+/* =========================================
+  SELECTED AND TOTAL CORRUPTIONS TABLE (Corruptions Redesign)
+   ========================================= */
+
+.allCorruptionEffectsHeader {
+    margin-top: 2px;
+    margin-bottom: 0;
+    font-weight: 800;
+    color: #ddd;
+    text-align: center;
+}
+
+.corruptionTable {
+    margin: 6px auto;
+    width: 540px;
+    font-size: 15px;
+    background: #141414;
+    border: 1px solid orange;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.corruptionTable th {
+    background: #1f1f1f;
+    color: orange;
+    border: 1px solid #2a2a2a;
+    padding: 5px 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.corruptionTable td {
+    border: 1px solid #2a2a2a;
+    padding: 4px 8px;
+    color: #dcdcdc;
+    word-break: break-word;
+}
+
+.corruptionTable td:first-child,
+.corruptionTable th:first-child {
+    width: 175px;
+    text-align: left;
+    color: #bfbfbf;
+}
+
+.corruptionTable td:nth-child(2),
+.corruptionTable td:nth-child(3),
+.corruptionTable th:nth-child(2),
+.corruptionTable th:nth-child(3) {
+    width: 180px;
+    text-align: right;
+    font-family: monospace;
+}
+
+.corruptionTable tr:nth-child(3) td {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+/* =========================================
+   ASCEND REWARDS GRID (Corruptions Redesign)
+   ========================================= */
+#ascensionRewardsTitle {
+    text-align: center;
+}
+
+#corruptionScore {
+    font-size: 1.18em;
+    font-weight: 600;
+    color: #ffd700;
+}
+
+#corruptionScoreDR {
+    font-size: 0.95em;
+    font-weight: 500;
+    opacity: 0.85;
+}
+
+#ascendRewardsSection {
+    margin-top: 4px;
+}
+
+/* To make Ascension rewards closer up */
+#corruptionMain #ascensionRewardsTitle {
+    margin-top: 6px !important;
+    margin-bottom: 4px !important;
+}
+
+#ascendRewardsGrid {
+    max-width: 530px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 10px auto 0;
+}
+
+.ascendRewardTile {
+    border: 1px solid #666;
+    height: 118px;
+    padding: 10px 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(1) {
+    border-color: darkorange;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(2) {
+    border-color: gold;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(3) {
+    border-color: orange;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(4) {
+    border-color: crimson;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(5) {
+    border-color: orchid;
+}
+
+#ascendRewardsGrid .ascendRewardTile:nth-child(6) {
+    border-color: mediumpurple;
+}
+
+.ascendRewardTile img.openImage {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 6px;
+}
+
+/* Number styling */
+.ascendRewardTile span {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* Req line styling */
+.ascendRewardTile p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.15;
+}
+
+.reqLine {
+    display: block;
+    font-size: 12px;
+    opacity: 0.75;
+    margin-top: 6px;
+}
+
+.ascendRewardTile p span,
+.ascendRewardTile p img {
+    font-size: initial;
+}
+
 #ascensionAmount,
 #ascensionAutoEnable,
 #ascensionAutoToggle {
@@ -3671,16 +3865,28 @@ p#ascendHotKeys {
     background-color: var(--blackbtn-color);
 }
 
+#autoAscend {
+    width: 100% !important;
+    white-space: pre-line !important;
+    overflow-wrap: anywhere !important;
+}
+
 #corruptionStatsLoadouts {
-    min-width: 500px;
-    max-width: 600px;
+    flex: 0 0 530px;
+    width: 530px;
+    max-width: 530px;
+    min-width: 0;
     margin: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+#corruptionStatsBox {
     padding: 30px 10px;
     border: 1px solid orange;
+    background-color: var(--box-color);
     box-sizing: border-box;
     color: white;
-    background-color: var(--box-color);
-    text-align: center;
 }
 
 #corrStatsBtn,
@@ -6620,11 +6826,6 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
 
     #traits {
         flex-direction: column;
-    }
-
-    #corruptionStatsLoadouts {
-        min-width: 100%;
-        margin: unset;
     }
 
     .corrDesc {
