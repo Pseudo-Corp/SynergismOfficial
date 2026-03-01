@@ -594,8 +594,8 @@
       "247": "Вызов! [Подсказка: Испытание 11 зовёт вас, но с ещё меньшим количеством Муравьёв]",
       "248": "Бычий гнев без единой мысли: [Подсказка: Сможете ли вы получить красные вещи, не получив синих вещей?]",
       "249": "Сверх налог: [Подсказка: Неграмотный платит трижды!]",
-      "250": "The Thousand Moons: [Hint: You need to fully research into becoming GOD]",
-      "251": "The Thousand Suns: [Hint: You may need to cube yourself up]",
+      "250": "Тысяча лун: [Подсказка: вам нужно полностью изучить становление БОГОМ]",
+      "251": "Тысяча солнц: [Подсказка: возможно, вам потребуется подкубироваться]",
       "252": "Финал: [Подсказка: хорошего счёта второго испытания Садиста будет достаточно]",
       "253": "Платонизм: Завершите Вознесение со счётом 1e12.",
       "254": "Целая горстка!: Завершите Вознесение со счётом 1e14.",
@@ -836,8 +836,8 @@
       "489": "Почему мы здесь?: Принесите в жертву свой муравейник 250000 раз.",
       "490": "Просто страдать?: Принесите в жертву свой муравейник 1000000 раз.",
       "491": "Выжженная земля: Принесите в жертву свой муравейник 3000000 раз.",
-      "492": "It's so clear that all we have now: Sacrifice your Anthill 10,000,000 times.",
-      "493": "Are our thoughts of yesterday: Sacrifice your Anthill 100,000,000 times."
+      "492": "Так ясно, что все, что у нас есть сейчас: Принесите в жертву ваш муравейник 10000000 раз.",
+      "493": "Наши мысли вчерашнего дня: Принесите в жертву ваш муравейник 100000000 раз."
     },
     "achievementRewards": {
       "3": {
@@ -1192,7 +1192,7 @@
         "antAutobuyers": "Открывает автопокупщик муравьев!"
       },
       "174": {
-        "antSpeed": "+0.1% Ant Speed per Immortal ELO!",
+        "antSpeed": "+0.1% скорости муравьёв за вечного ELO!",
         "scientiaAutobuy": "Открывает автопокупщик улучшения муравья <i>Scientia</i>!"
       },
       "176": {
@@ -1223,40 +1223,40 @@
         "antAutobuyers": "Открывает автопокупщик УЧЕНИКА БОГА МУРАВЬЁВ!"
       },
       "183": {
-        "freeAntUpgrades": "Gain 2 free Ant Upgrade Levels!"
+        "freeAntUpgrades": "Получаете 2 бесплатных уровня улучшений муравья!"
       },
       "184": {
-        "preserveAnthillCount": "Preserve Anthill Count on Ascension!",
-        "antSacrificeCountMultiplier": "Double the amount of Anthills you Sacrifice at once! (only contributes to more Anthill count)"
+        "preserveAnthillCount": "Сохраняйте количество муравейников при вознесении!",
+        "antSacrificeCountMultiplier": "Удваивает количество приносимых в жертву муравейников за раз! (способствует только большему количеству муравейников)"
       },
       "186": {
-        "wowSquareTalisman": "Unlock the Wow Square Talisman!"
+        "wowSquareTalisman": "Открывает талисман Вау квадрат!"
       },
       "187": {
-        "ascensionCountMultiplier": "Gain more Ascension Count based on Ascension Score [+100% per digit of Ascension Score, minus 1]",
-        "multiplicativeOffering": "Offerings multiplier based on Ascension Count"
+        "ascensionCountMultiplier": "Получайте больше вознесений в зависимости от очков вознесения [100% за цифру в очках вознесения минус 1]",
+        "multiplicativeOffering": "Множитель подношений зависит от количества вознесений"
       },
       "188": {
-        "ascensionCountAdditive": "If your Ascension is at least 10 seconds long, add +100 Base Ascension Count!",
-        "multiplicativeObtainium": "Gain more Obtainium based on Ascension Count [up to x2 at 5 million Ascension Count]"
+        "ascensionCountAdditive": "Если ваше вознесение длится хотя бы 10 секунд, добавляет +100 базового количества вознесений!",
+        "multiplicativeObtainium": "Получайте больше обтаиниума в зависимости от количества вознесений [вплоть до х2 при 5 миллионах очков вознесения]"
       },
       "189": {
-        "ascensionCountAdditive": "Ascension Count multiplier based on excess time",
-        "wowCubeGain": "Cube gain multiplier based on Ascension Count"
+        "ascensionCountAdditive": "Множитель очков вознесения зависит от проведённого времени",
+        "wowCubeGain": "Множитель получения кубов зависит от количества вознесений"
       },
       "193": {
-        "wowCubeGain": "Gain more Cubes based on your Constant [+0.25% per digit of Constant]"
+        "wowCubeGain": "Получайте больше кубов в зависимости от вашей постоянной [+0.25% за цифру константы]"
       },
       "195": {
-        "wowCubeGain": "Gain more Cubes based on your Constant [up to x250 at 1e100,000 Constant]",
-        "wowTesseractGain": "Gain more Tesseracts based on your Constant [up to x250 at 1e100,000 Constant]"
+        "wowCubeGain": "Получайте больше кубов в зависимости от вашей постоянной [вплоть до х250 при 1e100000 постоянной]",
+        "wowTesseractGain": "Получайте больше тессерактов в зависимости от вашей константы [вплоть до х250 при 1e100000 постоянной]"
       },
       "196": {
-        "wowPlatonicGain": "Gain more Platonic Cubes based on your Constant [up to x20 at 1e100,000 Constant]"
+        "wowPlatonicGain": "Получайте больше платоновых кубов в зависимости от вашей константы [вплоть до х20 при 1e100000 постоянной]"
       },
       "197": {
-        "statTracker": "Unlock a Stat Tracker at the top of your screen!",
-        "tesseractUnlock": "Unlock gaining Tesseracts from Ascending!"
+        "statTracker": "Открывает отслеживание статистики вверху экрана!",
+        "tesseractUnlock": "Открывает получение тессерактов с вознесений!"
       },
       "198": {
         "wowCubeGain": "Прирост Всех Кубов x1.02"
@@ -1271,14 +1271,14 @@
         "wowCubeGain": "Прирост Всех Кубов x1.02"
       },
       "202": {
-        "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
+        "ascensionCountAdditive": "Добавляет +2 базового количества вознесения в секунду времени вознесения"
       },
       "203": {
         "talismanPower": "+1% силы талисманов"
       },
       "204": {
         "ascensionRewardScaling": "Вознесения дают больше кубов всех типов в зависимости от времени Вознесения [+10% в секунду!]",
-        "spiritUnlock": "Unlock Spirits, in the Runes tab!"
+        "spiritUnlock": "Открывает духов во вкладке рун!"
       },
       "205": {
         "wowTesseractGain": "Прирост Тессерактов x1.02"
@@ -1293,7 +1293,7 @@
         "wowTesseractGain": "Прирост Тессерактов x1.02"
       },
       "209": {
-        "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
+        "ascensionCountAdditive": "Добавляет +2 базового количества вознесения в секунду времени вознесения"
       },
       "210": {
         "talismanPower": "+1% силы талисманов"
@@ -1315,30 +1315,30 @@
         "wowHypercubeGain": "Получение гиперкубов x1.02"
       },
       "216": {
-        "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
+        "ascensionCountAdditive": "Добавляет +2 базового количества вознесения в секунду времени вознесения"
       },
       "217": {
         "talismanPower": "+1% силы талисманов"
       },
       "218": {
-        "wowPlatonicGain": "Platonic Cubes x1.05",
-        "platonicUnlock": "Unlock gaining Platonic Cubes from Ascending!"
+        "wowPlatonicGain": "Платоновы кубы х1.05",
+        "platonicUnlock": "Открывает получение платоновых кубов с вознесений!"
       },
       "219": {
-        "wowPlatonicGain": "Platonic Cube gain x1.02"
+        "wowPlatonicGain": "Платоновы кубы х1.02"
       },
       "220": {
-        "wowPlatonicGain": "Platonic Cubes gain x1.02"
+        "wowPlatonicGain": "Платоновы кубы х1.02"
       },
       "221": {
-        "wowPlatonicGain": "Platonic Cubes gain x1.02"
+        "wowPlatonicGain": "Платоновы кубы х1.02"
       },
       "222": {
-        "wowPlatonicGain": "Platonic Cubes gain x1.02"
+        "wowPlatonicGain": "Платоновы кубы х1.02"
       },
       "223": {
-        "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time",
-        "wowPlatonicGain": "Gain more Platonic Cubes based on Ascension Count [up to x3 at 2.674e9 Ascension Count]"
+        "ascensionCountAdditive": "Добавляет +2 базового количества вознесения в секунду времени вознесения",
+        "wowPlatonicGain": "Получайте больше платоновых кубов в зависимости от количества вознесений [вплоть до х3 при 2.674e9 количества вознесений]"
       },
       "233": {
         "salvage": "+2 утилизации"
@@ -1377,18 +1377,18 @@
         "wowTesseractGain": "Прирост Тессерактов x1.1"
       },
       "256": {
-        "wowPlatonicGain": "Platonic Cubes x1.1",
-        "overfluxConversionRate": "Overflux Powder conversion x1.05"
+        "wowPlatonicGain": "Платоновы кубы х1.1",
+        "overfluxConversionRate": "Преобразование порошка изобильного потока x1.05"
       },
       "257": {
         "allCubeGain": "Прирост Всех Кубов x1.1",
-        "overfluxConversionRate": "Overflux Powder conversion x1.05"
+        "overfluxConversionRate": "Преобразование порошка изобильного потока x1.05"
       },
       "258": {
-        "wowHepteractGain": "Hepteract gain x1.1"
+        "wowHepteractGain": "Прирост гептерактов x1.1"
       },
       "259": {
-        "ascensionScore": "Ascension Score multiplier based on Abyss Hepteract expansions [x1.01 per expansion]"
+        "ascensionScore": "Множитель очков вознесения зависит от расширений гептерактов бездны [х1.01 за расширение]"
       },
       "260": {
         "ascensionCountMultiplier": "Счётчик Вознесений x1.1"
@@ -1403,27 +1403,27 @@
         "allCubeGain": "Прирост Всех Кубов x1.1"
       },
       "264": {
-        "allCubeGain": "All Cube Gain multiplier based on Ascension Count [up to x1.2 at 8e12 Ascension Count]"
+        "allCubeGain": "Множитель получения всех кубов зависит от количества вознесений [вплоть до х1.2 при 8e12 количестве вознесений]"
       },
       "265": {
-        "allCubeGain": "All Cube Gain multiplier based on Ascension Count [up to x1.2 at 1.6e14 Ascension Count]"
+        "allCubeGain": "Множитель получения всех кубов зависит от количества вознесений [вплоть до х1.2 при 1.6e14 количестве вознесений]"
       },
       "266": {
-        "quarkGain": "Quark gain multiplier based on Ascension Count [up to x1.1 at 1e15 Ascension Count]"
+        "quarkGain": "Множитель получения кварков зависит от количества вознесений [вплоть до х1.1 при 1e15 количестве вознесений]"
       },
       "267": {
-        "ascensionScore": "Ascension Score multiplier based on constants [up to x2 at 1e100,000 Constant]"
+        "ascensionScore": "Множитель очков вознесения зависит от постоянной [вплоть до х2 при 1е100000 постоянной]"
       },
       "270": {
-        "wowHepteractGain": "Hepteract gain multiplier based on constants [up to x2 at 1e1,000,000 Constant]",
-        "constUpgrade1Buff": "Constant Upgrade 1 boosted to 1.06",
-        "constUpgrade2Buff": "Constant Upgrade 2 boosted to 1.11"
+        "wowHepteractGain": "Множитель получения гептерактов зависит от постоянной [вплоть до х2 при 1е1000000 постоянной]",
+        "constUpgrade1Buff": "Улучшение постоянной 1 усилено в 1.06 раз",
+        "constUpgrade2Buff": "Улучшение постоянной 1 усилено в 1.11 раз"
       },
       "271": {
-        "platonicToHypercubes": "Platonic Cubes grant Hypercubes when opened [up to +1 at 1e1,000,000 Constant]"
+        "platonicToHypercubes": "Платоновы кубы дают гиперкубы при открытии [вплоть до +1 при 1e1000000 постоянной]"
       },
       "349": {
-        "antAutobuyers": "Automatically buy HOLY SPIRIT OF ANT GOD Ants!"
+        "antAutobuyers": "Автоматически покупает СВЯТЫХ ДУХОВ МУРАВЬИНОГО БОГА!"
       },
       "382": {
         "salvage": "+3 утилизации"
@@ -1501,74 +1501,74 @@
         "salvage": "+7 утилизации"
       },
       "437": {
-        "prestigeCountMultiplier": "Gain +100% more Prestige Count per digit in your Prestige Count (additive)!"
+        "prestigeCountMultiplier": "Получайте +100% больше количества престижей за цифру в вашем количестве престижа (суммируется)!"
       },
       "438": {
-        "duplicationRuneUnlock": "Permanently unlock the Duplication Rune!"
+        "duplicationRuneUnlock": "Навсегда открывает руну умножения!"
       },
       "439": {
-        "offeringBonus": "Gain +2% more Offerings per digit in your Prestige Count (additive)!"
+        "offeringBonus": "Получайте +2% больше подношений за цифру в вашем количестве престижа (суммируется)"
       },
       "442": {
-        "transcendToPrestige": "For each Transcension Count you gain, you get 1 Prestige Count (subject to Prestige Count multipliers)"
+        "transcendToPrestige": "За каждое полученное количество запредельности, вы получаете 1 количество престижа (с учетом множителей престижа)"
       },
       "444": {
-        "transcensionCountMultiplier": "Gain up to 4x the Transcension Count based on your Prestige Timer (maxes at 10s)"
+        "transcensionCountMultiplier": "Получайте вплоть до 4х количества запредельности в зависимости от вашего таймера престижа (достигает максимума при 10 секундах)"
       },
       "452": {
-        "transcensionCountMultiplier": "Gain +100% more Transcension Count per digit in your Transcension Count (additive)!"
+        "transcensionCountMultiplier": "Получайте +100% больше запредельности за цифру в вашем количестве запредельности (суммируется)!"
       },
       "453": {
-        "salvage": "Gain +2 Salvage per digit in your Transcension Count!"
+        "salvage": "Получайте 2 очка Спасения за каждый знак в Количестве Выходов за пределы!"
       },
       "454": {
-        "prismRuneUnlock": "Permanently unlock the Prism Rune!"
+        "prismRuneUnlock": "Навсегда открывает руну призмы!"
       },
       "457": {
-        "reincarnationToTranscend": "For each Reincarnation Count you gain, you get 1 Transcension Count (subject to Transcension Count multipliers)"
+        "reincarnationToTranscend": "За каждое получемое количество реинкарнаций, вы получаете 1 количество запредельности (с учетом множителей престижа)"
       },
       "459": {
-        "reincarnationCountMultiplier": "Gain up to 4x the Reincarnation Count based on your Prestige Timer (maxes at 1,000s)"
+        "reincarnationCountMultiplier": "Получайте вплоть до 4х количества реинкарнации в зависимости от вашего таймера престижа (достигает максимума при 1000 секунд)"
       },
       "467": {
-        "reincarnationCountMultiplier": "Gain +100% more Reincarnation Count per digit in your Reincarnation Count (additive)!"
+        "reincarnationCountMultiplier": "Получайте +100% больше количества реинкарнаций за цифру в вашем количестве реинкарнаций (суммируется)!"
       },
       "468": {
-        "obtainiumBonus": "Gain +2% more Obtainium per digit in your Reincarnation Count (additive)!"
+        "obtainiumBonus": "Получайте +2% больше обтаиниума за цифру в вашем количестве реинкарнаций (суммируется)!"
       },
       "470": {
-        "thriftRuneUnlock": "Permanently unlock the Thrift Rune!"
+        "thriftRuneUnlock": "Навсегда открывает руну экономии!"
       },
       "474": {
-        "prestigeCountMultiplier": "Gain up to 4x the Prestige Count based on your Prestige Timer (maxes at 1,000,000s)",
-        "ascensionCountMultiplier": "Gain up to 1.25x the Ascension Count based on your Ascension Timer (maxes at 1,000,000s)"
+        "prestigeCountMultiplier": "Получайте вплоть до 4х количества престижа в зависимости от вашего таймера престижа (достигает максимума при 1000000 секунд)!",
+        "ascensionCountMultiplier": "Получайте вплоть до 1.25х количества вознессений в зависимости от вашего таймера вознесения (достигает максимума при 1000000 секунд)!"
       },
       "481": {
-        "freeAntUpgrades": "Gain +1 free Ant Upgrade level!"
+        "freeAntUpgrades": "Получаете 1 бесплатный уровень улучшений муравьёв!"
       },
       "482": {
-        "antSacrificeCountMultiplier": "Each Sacrifice adds +2 to your Anthill count instead of +1!",
+        "antSacrificeCountMultiplier": "Каждое пожертвование добавляет +2 к вашему счету муравейника вместо +1!",
         "hicAutobuy": "Открывает автопокупщик улучшения муравья <i>Hic</i>!"
       },
       "483": {
-        "autoAntSacrifice": "Unlock the Auto-Sacrifice feature!"
+        "autoAntSacrifice": "Открывает функции авто-пожертвования!"
       },
       "484": {
-        "antELOAdditiveMultiplier": "Gain +1% Ant ELO from all sources!",
+        "antELOAdditiveMultiplier": "Получите +1% муравьиного ELO из всех источников!",
         "praemoenioAutobuy": "Открывает автопокупщик улучшения муравья <i>Praemoenio</i>!"
       },
       "485": {
-        "antELOAdditive": "Gain +25 Ant ELO, all the time!"
+        "antELOAdditive": "Получите +25 муравьиного ELO, постоянно!"
       },
       "486": {
-        "antSpeed2UpgradeImprover": "The first N levels of <i>Impia Reproducta</i> give an extra Ant ELO, where N is your Synergism Level!",
+        "antSpeed2UpgradeImprover": "Первые N уровней <i>Impia Reproducta</i> дают дополнительные муравьиные ELO, где N - ваш уровень Synergism!",
         "phylacteriumAutobuy": "Открывает автопокупщик улучшения муравья <i>Phylacterium</i>!"
       },
       "490": {
-        "preserveAnthillCountSingularity": "Preserve your Anthill Count when you do something <span class='rainbowText'>even more impressive than an Ascension!</span>"
+        "preserveAnthillCountSingularity": "Сохраняйте ваше количество муравейников, когда вы делаете что-то <span class='rainbowText'>еще более впечатляющее, чем вознесение!</span>"
       },
       "492": {
-        "antSacrificeToReincarnation": "For each Anthill you sacrifice, you gain a Reincarnation! This cascades if you also get a Transcension per Reincarnation, and so on."
+        "antSacrificeToReincarnation": "За каждый пожертвованный муравейник, вы получаете реинкарнации! Это происходит каскадно, если вы также получаете запредельности за реинкарнации, и так далее."
       }
     },
     "rewards": {
@@ -1849,159 +1849,159 @@
       "minLevel": "Минимальный Требуемый Уровень: {{level}}",
       "noLevelReq": "Разблокировано по умолчанию!",
       "salvage": {
-        "name": "Salvage",
-        "description": "Gain +1 Salvage per Synergism level! This increases by 1 per 100 levels (e.g. gain +2 at level 101).",
-        "effect": "Current Effect: +{{salvage}} Salvage"
+        "name": "Утилизация",
+        "description": "Получаете +1 утилизацию за уровень Synergism! Так же увеличивается на 1 за каждые 100 уровней (к примеру, получаете +2 при уровне 101).",
+        "effect": "Текущий эффект: +{{salvage}} утилизации"
       },
       "quarks": {
-        "name": "Quark Multiplier",
-        "description": "Every 20 Synergism levels, multiply your Quark gain by 1.01(!)",
-        "effect": "Current Effect: +{{mult}} Quark Gain"
+        "name": "Множитель кварков",
+        "description": "Каждые 20 уровней Synergism, ваше получение кварков умножается на 1.01(!)",
+        "effect": "Текущий Эффект: +{{mult}} получения кварков"
       },
       "offerings": {
         "name": "Множитель Подношений",
         "description": "За каждый уровень, получайте 1.01x Подношений. После 100-о уровня, умножить его на ещё 1.02 за уровень!",
-        "effect": "Current Effect: +{{mult}} Offerings Gain"
+        "effect": "Текущий эффект: +{{mult}} получения подношений"
       },
       "obtainium": {
-        "name": "Obtainium Multiplier",
-        "description": "For each level past 14, multiply your Obtainium gain by 1.01. After level 100, multiply it by another 1.02 per level!",
-        "effect": "Current Effect: +{{mult}} Obtainium Gain"
+        "name": "Множитель обтаиниума",
+        "description": "За каждые 14 уровней после 14, умножает ваше получение обтаиниума за 1.01. После 100 уровня, умножает его ещё на 1.02 за уровень!",
+        "effect": "Текущий эффект: +{{mult}} получения обтаиниума"
       },
       "ants": {
-        "name": "More Ant Fodder for your Ant Diety",
-        "description": "Oh! Your Ant God takes note of your Synergism Level. Gain base Ant ELO for each level above 59. +25 per level until Level 100, +50 per level until level 200, and +100 for each additional level.",
-        "effect": "Current Effect: +{{elo}} Ant ELO"
+        "name": "Больше муравьиной пищи для муравьиного божества",
+        "description": "Ой! Ваш муравьины Бог примечает ваш уровень Synergism. Получайте базовый муравьиный ELO за каждые уровень выше 59. +25 за уровень до 100 уровня, +50 за уровень до 200 уровня, и +100 за каждый дополнительный уровень.",
+        "effect": "Текущий Эффект: +{{elo}} муравьиного ELO"
       },
       "wowCubes": {
-        "name": "Wow! Cube Production",
-        "description": "For each level past 60 (yes, this does unlock at level 70, but just trust me), gain +5% more Wow! Cubes. Every 10 levels past 60, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Cube Gain"
+        "name": "Производство Вау! кубов",
+        "description": "За каждый уровень выше 60 (да, это разблокирует на 70, но просто поверьте мне), вы получаете на 5% больше Вау! кубов. Каждые 10 уровней после 60 уровня, бонус умножается на 1.07.",
+        "effect": "Текущий эффект: +{{mult}} получения Вау! кубов"
       },
       "wowTesseracts": {
-        "name": "Wow! Tesseract Production",
-        "description": "For each level past 80, gain +5% more Wow! Tesseracts. Every 10 levels past 80, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Tesseract Gain"
+        "name": "Производство Вау! тессерактов",
+        "description": "За каждый уровень выше 80, вы получаете +5% больше Вау! тессерактов. Каждые 10 уровней после 80, бонус умножается на 1.07.",
+        "effect": "Текущий эффект: +{{mult}} получения Вау! тессерактов"
       },
       "wowHyperCubes": {
-        "name": "Wow! Hypercube Production",
-        "description": "For each level past 100, gain +5% more Wow! Hypercubes. Every 10 levels past 100, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Hypercube Gain"
+        "name": "Производство Вау! гиперкубов",
+        "description": "За каждый уровень выше 100, вы получаете +5% больше Вау! гиперкубов. Каждые 10 уровней после 100, бонус умножается на 1.07.",
+        "effect": "Текущий эффект: +{{mult}} получения Вау! гиперкубов"
       },
       "wowPlatonicCubes": {
-        "name": "Wow! Platonic Cube Production",
-        "description": "For each level past 120, gain +5% more Wow! Platonic Cubes. Every 10 levels past 120, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Platonic Cube Gain"
+        "name": "Производство Вау! Платоновых кубов",
+        "description": "За каждый уровень выше 120 вы получаете на 5% больше Вау! платоновых кубов. Каждые 10 уровней после 120, бонус умножается на 1.07.",
+        "effect": "Текущий эффект: +{{mult}} получения Вау! Платоновых кубов"
       },
       "wowHepteractCubes": {
-        "name": "Wow! Hepteract Production",
-        "description": "For each level past 150, gain +5% more Wow! Hepteracts. Every 10 levels past 150, multiply the bonus by 1.07.",
-        "effect": "Current Effect: +{{mult}} Wow! Hepteract Gain"
+        "name": "Производство Вау! гептерактов",
+        "description": "За каждый уровень выше 150 вы получаете на 5% больше Вау! гептерактов. Каждые 10 уровней после 150, бонус умножается на 1.07.",
+        "effect": "Текущий эффект: +{{mult}} получения Вау! гептерактов"
       },
       "wowOcteracts": {
         "name": "Вау! Октеракты!... Погодите, что?",
-        "description": "For each level past 209, gain +5% more Wow! Octeracts. What's more, multiply this by 1.02 per level as well!",
-        "effect": "Current Effect: +{{mult}} Wow! Octeract Gain"
+        "description": "За каждый уровень после 209, получаете +5% Вау октерактов! Более того, это умножается на 1,02 за уровень!",
+        "effect": "Текущий эффект: +{{mult}} получения Вау! октерактов"
       },
       "ambrosiaLuck": {
-        "name": "Ambrosia luck",
-        "description": "For each level past 229, gain +4 Ambrosia Luck! I like stats with symbols next to them.",
-        "effect": "Current Effect: +{{luck}} Ambrosia Luck"
+        "name": "Удача амброзии",
+        "description": "За каждый уровень после 229, получаете +4 удачи амброзии! Мне нравятся характеристики с символами рядом.",
+        "effect": "Текущий Эффект: +{{luck}} удачи амброзии"
       },
       "redAmbrosiaLuck": {
         "name": "Красная удача",
-        "description": "For each level past 259, gain +1 Red Luck! I like stats with symbols next to them.",
-        "effect": "Текущий Эффект: +{{luck}} Красной Удачи"
+        "description": "За каждый уровень после 259, получаете +1 красную удачу! Мне нравятся характеристики с символами рядом.",
+        "effect": "Текущий Эффект: +{{luck}} красной удачи"
       }
     },
     "levelMilestones": {
       "offeringTimerScaling": {
-        "name": "Подношения - Наценка Таймера Престижа",
-        "description": "To encourage longer Prestiges, Gain +10% Offerings on Prestige per second, past 10 seconds in your current Prestige.",
-        "effect": "Current Effect: Gain {{mult}} more Offerings from Prestige timer"
+        "name": "Подношения - масштабирование таймера престижа",
+        "description": "Для поощрения долгих престижей, получайте +10% подношений при престиже в секунду, после 10 секунд в текущем престиже.",
+        "effect": "Текущий эффект: получаете {{mult}} больше подношений от таймера престижа"
       },
       "duplicationRune": {
-        "name": "Duplication Rune XL!",
-        "description": "Power up your Duplication Rune! Each level 40+ grants +0.4 to Duplication Rune's <i>Rune Coefficient</i>.",
-        "effect": "Current Effect: Duplication Rune - Rune Coefficient +{{duplicationRune}}"
+        "name": "Руна умножени XL!",
+        "description": "Усиливает вашу руну умножения! Каждые 40+ уровней дают +0.4 к <i>коэффициенту рун</i> руны умножения.",
+        "effect": "Текущий эффект: Руна умножения - коэффициент руны +{{duplicationRune}}"
       },
       "speedRune": {
-        "name": "Speed Rune XL",
-        "description": "Power up your Speed Rune! Each level 20+ grants +0.5 to Speed Rune's <i>Rune Coefficient</i>.",
-        "effect": "Current Effect: Speed Rune - Rune Coefficient +{{speedRune}}"
+        "name": "Руна скорости XL",
+        "description": "Усиливает вашу руну скорости! Каждые 20+ уровней дают +0.5 к <i>коэффициенту рун</i> руны скорости.",
+        "effect": "Текущий эффект: Руна скорости - коэффициент руны +{{speedRune}}"
       },
       "prismRune": {
-        "name": "Prism Rune XL",
-        "description": "Power up your Prism Rune! Each level 60+ grants +0.3 to Prism Rune's <i>Rune Coefficient</i>.",
-        "effect": "Current Effect: Prism Rune - Rune Coefficient +{{prismRune}}"
+        "name": "Руна призмы XL",
+        "description": "Усиливает вашу руну призмы! Каждые 60+ уровней дают +0.3 к <i>коэффициенту рун</i> руны призмы.",
+        "effect": "Текущий эффект: Руна призмы - коэффициент руны +{{prismRune}}"
       },
       "thriftRune": {
-        "name": "Thrift Rune XL",
-        "description": "Power up your Thrift Rune! Each level 80+ grants +0.2 to Thrift Rune's <i>Rune Coefficient</i>.",
-        "effect": "Current Effect: Thrift Rune - Rune Coefficient +{{thriftRune}}"
+        "name": "Руна экономии XL",
+        "description": "Усиливает вашу руну экономии! Каждые 80+ уровней дают +0.2 к <i>коэффициенту рун</i> руны экономии.",
+        "effect": "Текущий эффект: Руна экономии - коэффициент руны +{{thriftRune}}"
       },
       "SIRune": {
-        "name": "SI Rune XL",
-        "description": "Power up your SI Rune! Each level 100+ grants +0.1 to SI Rune's <i>Rune Coefficient</i>.",
-        "effect": "Current Effect: SI Rune - Rune Coefficient +{{siRune}}"
+        "name": "Руна ВР XL",
+        "description": "Усиливает вашу руну ВР! Каждые 100+ уровней дают +0.1 к <i>коэффициенту рун</i> руны ВР.",
+        "effect": "Текущий эффект: Руна ВР - коэффициент руны +{{siRune}}"
       },
       "autoPrestige": {
-        "name": "Авто Престиж!",
+        "name": "Авто престиж!",
         "description": "Зачем совершать престиж вручную, если можно заставить компьютер делать это за вас?",
-        "effect": "Current Effect: Auto-Prestige Feature Unlocked!"
+        "effect": "Текущий эффект: Функция авто-престижа открыта!"
       },
       "tier1CrystalAutobuy": {
-        "name": "Tier 1 Crystal Autobuy",
-        "description": "You can now automatically buy Diamond Refineries! Also automagically buys the first Crystal upgrade if you can afford it.",
-        "effect": "Current Effect: See Above!"
+        "name": "Автопокупщик первого уровня кристаллов",
+        "description": "Теперь вы можете автоматически покупать алмазные переработчики! Также автоматически покупает первое улучшение кристаллов, если вы можете себе его позволить.",
+        "effect": "Текущий эффект: смотрите выше!"
       },
       "tier2CrystalAutobuy": {
-        "name": "Tier 2 Crystal Autobuy",
-        "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it.",
+        "name": "Автопокупщик втого уровня кристаллов",
+        "description": "Теперь вы можете автоматически покупать алмазные угольные переработчики! Также автоматически покупает втогое улучшение кристаллов, если вы можете себе его позволить.",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier3CrystalAutobuy": {
-        "name": "Tier 3 Crystal Autobuy",
-        "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it.",
+        "name": "Автопокупщик третьего уровня кристаллов",
+        "description": "Теперь вы можете автоматически покупать алмазные угольные карьеры! Также автоматически покупает третье улучшение кристаллов, если вы можете себе его позволить.",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier4CrystalAutobuy": {
-        "name": "Tier 4 Crystal Autobuy",
-        "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it.",
+        "name": "Автопокупщик четвёртого уровня кристаллов",
+        "description": "Теперь вы можете автоматически покупать алмазные кирки! Также автоматически покупает четвёртое улучшение кристаллов, если вы можете себе его позволить.",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier5CrystalAutobuy": {
-        "name": "Tier 5 Crystal Autobuy",
-        "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it.",
-        "effect": "Текущий эффект: Смотрите выше!"
+        "name": "Автопокупщик пятого уровня кристаллов",
+        "description": "Теперь вы можете автоматически покупать алмазные ящики Пандоры! Также автоматически покупает пятое улучшение кристаллов, если вы можете себе его позволить.",
+        "effect": "Текущий эффект: смотрите выше!"
       },
       "achievementTalismanUnlock": {
-        "name": "Талисман Достижений!",
-        "description": "Носите свои достижения с гордостью и разблокируйте новый Талисман Достижений!",
-        "effect": "Текущий эффект: Смотрите выше!"
+        "name": "Талисман достижений!",
+        "description": "Носите свои достижения с гордостью и разблокируйте новый талисман достижений!",
+        "effect": "Текущий эффект: смотрите выше!"
       },
       "achievementTalismanEnhancement": {
-        "name": "Улучшение Талисмана Достижения",
-        "description": "Your Achievement Talisman may be leveled up one additional time for each Synergism Level!",
-        "effect": "Current Effect: Achievement Talisman may be leveled up {{level}} additional times."
+        "name": "Улучшение талисмана достижения",
+        "description": "Ваш талисман достижений можно улучшить ещё раз за каждый уровень Synergism!",
+        "effect": "Текущий эффект: талисман достижений можно улучшить {{level}} дополнительных раз."
       },
       "runeAutobuyImprover": {
-        "name": "Rune Autobuyer DX",
-        "description": "Permanently hasten the Rune Autobuyer! 2x as fast, +10% speed per Synergism Level above 130.",
-        "effect": "Current Effect: Rune Autobuyer is {{mult}}x faster"
+        "name": "Автопокупщик рун DX",
+        "description": "Навсегда ускоряет автопокупщик рун! В 2 раза быстрее, +10% скорости за уровень Synergism выше 130.",
+        "effect": "Текущий эффект: автопокупщик рун в {{mult}} раз быстрее"
       },
       "salvageChallengeBuff": {
-        "name": "Salvage Challenge Buff",
-        "description": "Gain +25 Salvage. <br> If you are in any Challenge, this value is doubled. <br> If you are in Challenge 15, this value is doubled. <br> If you are in EXALT, this value is tripled! <br> Effects may stack.",
-        "effect": "Current Effect: +{{salvage}} Salvage"
+        "name": "Усиление утилизации в испытаниях",
+        "description": "Получаете +25 утилизации. <br> Удваивается если вы в каком-либо испытании. <br> Удваивается если вы в 15 испытании. <br> Утраивается если вы в EXALT! <br> Эффекты могут складываться.",
+        "effect": "Текущий эффект: +{{salvage}} утилизации"
       },
       "antSpeed2Autobuyer": {
-        "name": "Impia Reproducta Autobuyer",
-        "description": "Autobuy Impia Reproducta Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "name": "Автопокупщик Impia Reproducta",
+        "description": "Автоматически покупает Impia Reproducta Formicidae если у вам включена автопокупка!",
+        "effect": "Текущий эффект: смотрите выше!"
       },
       "wowCubesAutobuyer": {
-        "name": "Cubus Admirabilis Autobuyer",
+        "name": "Автопокупщик Cubus Admirabilis",
         "description": "Autobuy Cubus Admirabilis Formicidae if you have autobuy enabled!",
         "effect": "Current Effect: See Above!"
       },
@@ -2019,37 +2019,37 @@
     "progressiveAchievements": {
       "runeLevel": {
         "name": "Progressive Achievement - Purchased Rune Levels",
-        "description": "Gain AP based on the sum of all rune levels purchased! Best Total: {{x}}",
+        "description": "Gain AP based on the sum of all rune levels purchased! <br> Best Total: <<gold|{{x}}>>",
         "apSource": "Gain +1 AP per 1,000 Rune Levels purchased, up to 200,000 Levels. <br> Gain +1 AP per 2,500 Rune Levels purchased, up to 1,000,000 Levels. <br> Gain +1 AP per 12,500 Rune Levels purchased, up to 5,000,000 Levels."
       },
       "freeRuneLevel": {
         "name": "Progressive Achievement - Free Rune Levels",
-        "description": "Gain AP based on the sum of all your free rune levels! Best Total: {{x}}",
+        "description": "Gain AP based on the sum of all your free rune levels! <br> Best Total: <<gold|{{x}}>>",
         "apSource": "Gain +1 AP per 250 Free Rune Levels owned, up to 25,000 Levels. <br> Gain +1 AP per 750 Free Rune Levels owned, up to 150,000 Levels. <br> Gain +1 AP per 2,500 Free Rune Levels owned, up to 500,000 Levels."
       },
       "antMasteries": {
         "name": "Progressive Achievement - Ant Masteries",
-        "description": "Gain AP based on your unique Ant Mastery levels purchsed! Best Total: {{x}}",
+        "description": "Gain AP based on your unique Ant Mastery levels purchsed! <br> Best Total: <<gold|{{x}}>>",
         "apSource": "Gain +3 AP for every unique level purchased. <br> Gain +4 AP for every unique level 12 Mastery."
       },
       "rebornELO": {
         "name": "Progressive Achievement - Reborn ELO",
-        "description": "Gain AP based on the total weighted value of your best Reborn ELO, lifetime! Best Total: {{x}} (Check the \"Ants to Quark Corner\" in the Altar Subtab)",
+        "description": "Gain AP based on the total weighted value of your best Reborn ELO, lifetime! <br> Best Total: <<gold|{{x}}>> <br> (Check the \"Ants to Quark Corner\" in the Altar Subtab)",
         "apSource": "Gain +1 AP per 100 Reborn ELO, up to 10,000. <br> Gain +1 AP per 1000 Reborn ELO, up to 150,000. <br> Gain +1 AP per 9,000 Reborn ELO, up to 1,350,000. <br> Gain +1 AP per 75,000 Reborn ELO, up to 15,000,000. <br> Gain +1 AP per 150,000 Reborn ELO, up to 60,000,000."
       },
       "singularityCount": {
         "name": "Progressive Achievement - Singularity Count",
-        "description": "Gain AP based on the highest Singularity you have reached! Highest Reached: {{x}}",
+        "description": "Gain AP based on the highest Singularity you have reached! <br> Highest Reached: <<gold|{{x}}>>",
         "apSource": "Gain +9 AP for Singularities 1-100 <br> Gain +12 AP for Singularities 101-200 <br> Gain +15 AP for Singularities 201-300"
       },
       "ambrosiaCount": {
         "name": "Progressive Achievement - Lifetime Ambrosia",
-        "description": "Gain AP based on your lifetime Ambrosia! Lifetime Ambrosia: {{x}}",
+        "description": "Gain AP based on your lifetime Ambrosia! <br> Lifetime Ambrosia: <<gold|{{x}}>>",
         "apSource": "Gain +1 AP per 100 Ambrosia, up to 20,000. <br> Gain +1 AP per 10,000 Ambrosia, up to 2,000,000. <br> Gain up to 400 MORE AP, by reaching 100,000,000 total Lifetime Ambrosia!"
       },
       "redAmbrosiaCount": {
         "name": "Progressive Achievement - Lifetime Red Ambrosia",
-        "description": "Gain AP based on your lifetime Red Ambrosia! Lifetime Red Ambrosia: {{x}}",
+        "description": "Gain AP based on your lifetime Red Ambrosia! <br> Lifetime Red Ambrosia: <<gold|{{x}}>>",
         "apSource": "Gain +1 AP per 25 Red Ambrosia, up to 5,000. <br> Gain +1 AP per 2,500 Red Ambrosia, up to 500,000. <br> Gain +1 AP per 12,500 Ambrosia, up to 5,000,000. <br> Finally, Gain +1 AP per 62,500 Red Ambrosia, up to 12,500,000."
       },
       "exalts": {
@@ -2074,7 +2074,7 @@
       },
       "talismanRarities": {
         "name": "Talisman Rarity",
-        "description": "Your talismans grant AP based on their rarity! Best sum of rarities: {{x}}",
+        "description": "Your talismans grant AP based on their rarity! <br> Best sum of rarities: <<gold|{{x}}>>",
         "apSource": "Gain +5 AP for each rarity. Unlocked Talismans have a rarity of at least 1."
       }
     },
@@ -2948,7 +2948,7 @@
       "14": "[2x4] Радуга светит на вас. Каждый уровень увеличивает количество утилизации, которое она даёт, на 1%!",
       "15": "[2x5] Арес обучил вас искусству войны. Эффект дани Ареса возведён в степень (1 + уровень / 100).",
       "16": "[2x6] Ты смог дружище! Добавляет руне Скорости и Призмы по +1 коэффициента рун за уровень!",
-      "17": "[2x7] Да. +5 к степени кристаллам за уровень.",
+      "17": "[2x7] Yep. +8 exponent per level to crystals.",
       "18": "[2x8] Квантовое туннелирование ради победы. +20% к глобальной скорости.",
       "19": "[2x9] На протяжении от старта вознесения до после 10 испытания и далее открывает новые улучшения монет.",
       "20": "[2x10] Автоматизатор рун в магазине теперь автоматически тратит все подношения, разделяя их по всех открытым рунам. Так что работает в 20 раз быстрее. Веселитесь!",
@@ -3340,6 +3340,9 @@
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by 0.1% per level additive (Max -30%)!"
     },
     "maxed": "Максимум!",
+    "bought": "Bought!",
+    "notBought": "Not Bought!",
+    "level": "{{x}}/{{y}}",
     "upgradeFor": "Улучшить за {{x}} Кварков",
     "plusForQuarks": "+{{x}} за {{y}} Кварков",
     "consume": "ИСПОЛЬЗОВАТЬ",
@@ -3583,10 +3586,6 @@
       "potionAutogenerator": {
         "name": "Автогенератор Зелий",
         "default": "Каждые 180 секунд автоматически используется одно зелье Обтаниума и Подношений! Интервал уменьшается на 3% за сингулярность."
-      },
-      "respecBeGone": {
-        "name": "Уходи, Перенабор!",
-        "default": "Теперь Талисманы всегда усиливают все руны!"
       },
       "forTheLoveOfTheAntGod": {
         "name": "Ради (Муравьиного) Бога!",
@@ -6921,35 +6920,35 @@
       "AntAlmighties": "Ant Almighties Purchased:",
       "AntDisciples": "Ant Disciples Purchased:",
       "AntHolySpirit": "Ant Holy Spirit Purchased:",
-      "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
+      "PlatonicUpgrade12": "Платоново улучение 3х2:",
       "SingularityPerk": "Singularity Perk - Advanced... Cheating Tactics?",
       "SingularityDebuff": "Singularity Debuff:",
-      "Total": "Total Ant ELO Multiplier:"
+      "Total": "Общий множитель муравьиного ELO:"
     },
     "effectiveAntELOStats": {
-      "title": "Effective Ant ELO",
-      "BaseELO": "Base Ant ELO:",
-      "AdditiveMultiplier": "Additive Ant ELO Multiplier:",
-      "Total": "Effective Ant ELO:"
+      "title": "Эффективный муравьины ELO",
+      "BaseELO": "Базовый муравьиный ELO:",
+      "AdditiveMultiplier": "Добавляемый множитель муравьиного ELO:",
+      "Total": "Эффективный муравьины ELO:"
     },
     "rebornELOCreationSpeedMultStats": {
-      "title": "Reborn ELO Creation Speed Multiplier",
-      "extraInfo": "Each tick, you generate <<#00DDFF|Reborn ELO>> equal to <br><<yellow | SpeedMult * TickLength>><br><<yellow|TickLength>> is the time since previous tick (in seconds)",
-      "Base": "Base Multiplier:",
-      "EffectiveELO": "Effective Ant ELO:",
-      "AntQueens": "Queen Ant Purchased:",
-      "AntLordRoyals": "Lord Royal Ant Purchased:",
-      "AntAlmighties": "ALMIGHTY Ant Purchased:",
-      "AntDisciples": "DISCIPLE OF ANT GOD Purchased:",
-      "AntHolySpirit": "THE HOLY SPIRIT OF ANT GOD Purchased:",
-      "CoinUpgrade24": "Coin Upgrade 24:",
-      "CubeBlessing": "Moloch's Cube Blessing:",
-      "Research5x10": "Research 5x10:",
-      "Research5x20": "Research 5x20:",
-      "Research6x23": "Research 6x23:",
-      "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
-      "MortuusTalisman": "Mortuus Talisman:",
-      "ThresholdModifiers": "Threshold Modifiers:",
+      "title": "Множитель скорости создания ELO возрождения",
+      "extraInfo": "Каждый тик вы генерируете <<#00DDFF|ELO возрождения>> равные вашему <br><<yellow | МножительСкорости * КолвоТиков>><br><<yellow|КолвоооТиков>> это время с предыдущего типа (в секундах)",
+      "Base": "Базовый множитель:",
+      "EffectiveELO": "Эффективный муравьиный ELO:",
+      "AntQueens": "Купленные королевы муравьёв:",
+      "AntLordRoyals": "Купленные королевские муравьи:",
+      "AntAlmighties": "Купленные ВСЕМОГУЩИЕ муравьи:",
+      "AntDisciples": "Купленные ПОСЛЕДОВАТЕЛИ МУРАВЬИНОГО БОГА:",
+      "AntHolySpirit": "Купленные СВЯВЫЕ ДУХИ МУРАВЬИНОГО БОГА:",
+      "CoinUpgrade24": "Улучшение монет 24:",
+      "CubeBlessing": "Дань кубов Молоха:",
+      "Research5x10": "Исследование 5х10:",
+      "Research5x20": "Исследование 5х20:",
+      "Research6x23": "Исследование 6х23:",
+      "PlatonicUpgrade12": "Платоново улучшение 3х2:",
+      "MortuusTalisman": "Талисман смерти:",
+      "ThresholdModifiers": "Модификатор предела:",
       "Exalt6": "The Grand Singularity Speedrun - Derpsmith's Boost:",
       "Total": "Total Reborn ELO Creation Speed Multiplier:"
     },
@@ -6970,7 +6969,7 @@
     "gameStage": "Current Game Section: {{stage}}"
   },
   "wowCubes": {
-    "greenText": "Вы также можете потратить их на улучшения, которые сохраняются при Вознесениях.",
+    "greenText": "Вы также можете потратить их на улучшения, которые сохраняются при вознесениях.",
     "open1": "Открыть х1",
     "open10%": "Открыть 10%",
     "open50%": "Открыть 50%",
@@ -7082,20 +7081,20 @@
         "accelerator": "• Ускорители: +{{amount}} [Чистые!]",
         "multiplier": "• Множители: +{{amount}} [Чистые!]",
         "runeExp": "• ОПЫТ Рун +{{amount}}",
-        "runeBonus": "• Rune Power: +{{amount}}",
+        "runeBonus": "• Сила рун: +{{amount}}",
         "cube2": "• Все Кубы II: +{{amount}}",
         "transcendChallengeReduction": "• Рост Требований Испытаний 1-5: {{amount}}",
         "reincarnationChallengeReduction": "• Рост Требований Испытаний 6-10: {{amount}}",
         "antSpeed": "• Скорость Муравьёв: +{{amount}} [Чистая!]",
         "bonusAntLevel": "• Бонусные Уровни Муравьёв: +{{amount}}",
-        "achievementUnlock": "• Achievement Unlocked! [[252]]",
+        "achievementUnlock": "• Достижение открыто! [[252]]",
         "cube3": "• Все Кубы III: +{{amount}}",
-        "talismanBonus": "• Talisman Bonus Free Levels: +{{amount}}",
+        "talismanBonus": "• Бонусные бесплатные уровни талисманов: +{{amount}}",
         "globalSpeed": "• Глобальная Скорость: +{{amount}}",
-        "blessingBonus": "• Blessing Power: +{{amount}}",
+        "blessingBonus": "• Сила благословений: +{{amount}}",
         "constantBonus": "• Производство Строений Вознесения: +{{amount}}",
         "cube4": "• Все Кубы IV: +{{amount}}",
-        "spiritBonus": "• Spirit Power: +{{amount}}",
+        "spiritBonus": "• Сила духов: +{{amount}}",
         "score": "• Счёт Вознесений: +{{amount}}",
         "quarks": "• Кварки: +{{amount}}",
         "hepteractsUnlocked": "• Гептеракты: Разблокированы!",
@@ -7236,7 +7235,7 @@
     "cancelled": "Ладно, может в другой раз.",
     "notEnough": "Недостаточно запасов для расширения.",
     "craftedHepteracts": "Вы успешно создали {{x}} гептерактов.",
-    "craftedHepteractsMax": "Вы успешно создали {{x}} гептерактов. Если это меньше, чем вы задали, вы либо достигли лимит запасов, либо у вас недостаточно ресурсов.",
+    "craftedHepteractLower": "You crafted fewer Hepteracts than you wanted to, because you might have spent resources elsewhere before crafting the requested amount.",
     "expandPrompt": "Это уменьшит ваш баланс на {{x}}, но емкость увеличится с {{y}} до {{z}} [Множитель расширения: {{a}}]. Согласиться с условиями и положениями и остальным?",
     "doubleSpent": "Что-то уже изменило ваш баланс или максимум, попробуйте снова!",
     "expandedInventory": "Инвентарь успешно расширен. Теперь вы можете поместить {{x}}.",
@@ -7447,7 +7446,7 @@
       "uploadFailed": "Ошибка загрузки сохранения в Steam Cloud.",
       "readFailed": "Ошибка чтения сохранения из Steam Cloud.",
       "noLocalSave": "Локальных сохранений не найдено.",
-      "confirmOverwrite": "This will overwrite your existing Steam Cloud save. Continue?"
+      "confirmOverwrite": "Это действие перепишет ваше имеющееся сохранение Steam Cloud. Продолжить?"
     }
   },
   "pseudoCoins": {
@@ -7486,12 +7485,12 @@
       "FREE_UPGRADE_PROMOCODE_BUFF": "Код 'Daily' даёт в <<gold | {{amount}}x>> раз больше Бесплатных Улучшений!",
       "CORRUPTION_LOADOUT_SLOT_QOL": "У вас <<gold | {{amount}}>> дополнительных слотов под Заготовки Порчи!",
       "AMBROSIA_LOADOUT_SLOT_QOL": "У вас <<gold | {{amount}}>> дополнительных слотов под Заготовки Амброзии!",
-      "AUTO_POTION_FREE_POTIONS_QOL": "Авто-Зелья <<gold | {{descriptor}}>> БЕСПЛАТНЫ!",
+      "AUTO_POTION_FREE_POTIONS_QOL": "Авто-зелья <<gold | {{descriptor}}>> БЕСПЛАТНЫ!",
       "OFFLINE_TIMER_CAP_BUFF": "Лимит Офлайн Времени увеличен в <<gold | {{amount}}>> раз",
       "ADD_CODE_CAP_BUFF": "Ёмкость кода 'add' увеличена в <<gold | {{amount}}>> раз",
       "BASE_OFFERING_BUFF": "Прирост Базовых Подношений Увеличен на <<gold | {{amount}}>>",
       "BASE_OBTAINIUM_BUFF": "Прирост Базового Обтаниума Увеличен на <<gold | {{amount}}>>",
-      "RED_LUCK_BUFF": "Red Luck is increased by <<gold | {{amount}}>>",
+      "RED_LUCK_BUFF": "Красная удача увеличена на <<gold | {{amount}}>>",
       "RED_GENERATION_BUFF": "Red Bar Point gain is multiplied by <<gold | {{amount}}>>"
     },
     "consumables": {
@@ -7537,7 +7536,7 @@
       "useConfirmMulti": "Since you have this effect active, consuming a Lotus will add 5 minutes to the remaining time.",
       "noLotus": "You do not currently possess a Lotus. Buy some at the PseudoCoins shop!",
       "status": "Время лотоса: {{time}}",
-      "lotusActive": "Вы использовали лотос! Следующие 5 минут вы будете получить ELO возрождения из ваших бессмертных ELO без ожиданий!"
+      "lotusActive": "Вы использовали Лотос! Следующие 5 минут вы будете получить ELO возрождения из ваших бессмертных ELO без ожиданий!"
     }
   },
   "hotkeys": {
