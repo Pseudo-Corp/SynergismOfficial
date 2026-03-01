@@ -5016,8 +5016,8 @@
     "corruptionPlatonics": "<<orchid|+{{platonicAmount}}>> <span class='reqLine'><<orchid|Req Score > 2.67e12>></span>",
     "corruptionHepteracts": "<<mediumpurple|+{{hepteractAmount}}>> <span class='reqLine'><<mediumpurple|Req Score > 1.67e17>></span>",
     "autoAscend": {
-      "c10Completions": "Ascend when you've completed Sadistic Challenge I a total of <<var(--violet-text-color)|{{input}}>> times, Currently <<gold|{{completions}}>>",
-      "realTime": "Ascend when the timer is at least <<var(--violet-text-color)|{{input}}>> seconds (Real-time), Currently <<gold|{{time}}>>",
+      "c10Completions": "Ascend when you've completed Sadistic Challenge I a total of <<var(--violet-text-color)|{{input}}>> times.\n Currently: <<gold|{{completions}}>>",
+      "realTime": "Ascend when the timer is at least <<var(--violet-text-color)|{{input}}>> seconds (Real-time).\nCurrently: <<gold|{{time}}>>",
       "on": "Auto Ascend [ON]",
       "off": "Auto Ascend [OFF]",
       "modeCompletions": "Mode: C10 Completions",

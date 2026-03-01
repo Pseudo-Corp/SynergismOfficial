@@ -3637,6 +3637,7 @@ p#ascendHotKeys {
     flex: 0 1 420px;
     max-width: 420px;
     text-align: left;
+    margin-top: -9px;
 }
 
 #corruptionStatLines {
@@ -3672,19 +3673,33 @@ p#ascendHotKeys {
     margin-top: 10px;
 }
 
+/* Title and columns (Corruptions Redesign) */
+#corruptionHeader {
+    text-align: center;
+    margin: 2px auto;
+}
+
+#corruptionBody {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+
 /* =========================================
   SELECTED AND TOTAL CORRUPTIONS TABLE (Corruptions Redesign)
    ========================================= */
 
 .allCorruptionEffectsHeader {
-    margin-top: 8px;
+    margin-top: 2px;
     margin-bottom: 0;
     font-weight: 800;
     color: #ddd;
     text-align: center;
 }
 
-/* shared table style */
 .corruptionTable {
     margin: 6px auto;
     width: 540px;
@@ -3695,7 +3710,6 @@ p#ascendHotKeys {
     border-spacing: 0;
 }
 
-/* header */
 .corruptionTable th {
     background: #1f1f1f;
     color: orange;
@@ -3705,7 +3719,6 @@ p#ascendHotKeys {
     font-weight: 500;
 }
 
-/* cells */
 .corruptionTable td {
     border: 1px solid #2a2a2a;
     padding: 4px 8px;
@@ -3713,7 +3726,6 @@ p#ascendHotKeys {
     word-break: break-word;
 }
 
-/* label column */
 .corruptionTable td:first-child,
 .corruptionTable th:first-child {
     width: 175px;
@@ -3721,7 +3733,6 @@ p#ascendHotKeys {
     color: #bfbfbf;
 }
 
-/* value columns */
 .corruptionTable td:nth-child(2),
 .corruptionTable td:nth-child(3),
 .corruptionTable th:nth-child(2),
@@ -3731,7 +3742,6 @@ p#ascendHotKeys {
     font-family: monospace;
 }
 
-/* slightly taller effect row */
 .corruptionTable tr:nth-child(3) td {
     padding-top: 8px;
     padding-bottom: 8px;
@@ -3742,13 +3752,6 @@ p#ascendHotKeys {
    ========================================= */
 #ascensionRewardsTitle {
     text-align: center;
-}
-
-#corruptionDetails.vAlign {
-    justify-content: flex-start !important;
-    align-items: center !important;
-    min-height: unset !important;
-    height: auto !important;
 }
 
 #corruptionScore {
@@ -3863,13 +3866,19 @@ p#ascendHotKeys {
     background-color: var(--blackbtn-color);
 }
 
+#autoAscend {
+    width: 100% !important;
+    white-space: pre-line !important;
+    overflow-wrap: anywhere !important;
+}
+
 #corruptionStatsLoadouts {
-    min-width: 500px;
-    max-width: 600px;
+    flex: 0 0 530px;
+    width: 530px;
+    max-width: 530px;
+    min-width: 0;
     margin: 10px;
-    padding: 0;
-    border: none;
-    background: none;
+    padding: 8px;
     box-sizing: border-box;
 }
 
@@ -6784,11 +6793,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 
     #traits {
         flex-direction: column;
-    }
-
-    #corruptionStatsLoadouts {
-        min-width: 100%;
-        margin: unset;
     }
 
     .corrDesc {
