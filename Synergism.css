@@ -3604,7 +3604,7 @@ p#ascendHotKeys {
 #corruptionMain {
     min-width: 700px;
     max-width: 1200px;
-    margin: 10px;
+    margin: -6px 10px 10px;
     padding: 10px 0;
 }
 
@@ -3617,28 +3617,42 @@ p#ascendHotKeys {
     color: yellow;
 }
 
+#corruptionHeaderRow {
+    width: 590px;
+    margin: 14px auto 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
 #corruptionSelected {
     width: 70px;
     height: 70px;
-    margin-top: 15px;
-}
-
-#corruptionSelectedPic {
-    height: 100%;
-    object-fit: contain;
+    margin-left: 35px;
+    margin-right: 5px;
 }
 
 #corruptionDetails {
-    display: flex;
-    min-height: 9em;
-    visibility: hidden;
+    flex: 0 1 420px;
+    max-width: 420px;
+    text-align: left;
+}
+
+#corruptionStatLines {
+    flex: 0 0 100%;
+    text-align: center;
 }
 
 #corruptionName {
+    text-align: left;
+    width: 100%;
     font-size: 1.2em;
 }
 
 #corruptionDescription {
+    text-align: left;
+    width: 100%;
     color: darkviolet;
 }
 
@@ -3663,8 +3677,8 @@ p#ascendHotKeys {
    ========================================= */
 
 .allCorruptionEffectsHeader {
-    margin-top: 10px;
-    margin-bottom: 2px;
+    margin-top: 8px;
+    margin-bottom: 0;
     font-weight: 800;
     color: #ddd;
     text-align: center;
@@ -3673,18 +3687,20 @@ p#ascendHotKeys {
 /* shared table style */
 .corruptionTable {
     margin: 6px auto;
-    border-collapse: collapse;
-    background-color: #141414;
-    font-size: 15px;
     width: 540px;
+    font-size: 15px;
+    background: #141414;
+    border: 1px solid orange;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 /* header */
 .corruptionTable th {
-    background-color: #1f1f1f;
+    background: #1f1f1f;
     color: orange;
     border: 1px solid #2a2a2a;
-    padding: 6px 10px;
+    padding: 5px 8px;
     text-align: center;
     font-weight: 500;
 }
@@ -3694,14 +3710,13 @@ p#ascendHotKeys {
     border: 1px solid #2a2a2a;
     padding: 4px 8px;
     color: #dcdcdc;
-    white-space: normal;
     word-break: break-word;
 }
 
 /* label column */
 .corruptionTable td:first-child,
 .corruptionTable th:first-child {
-    width: 160px;
+    width: 175px;
     text-align: left;
     color: #bfbfbf;
 }
@@ -3727,7 +3742,6 @@ p#ascendHotKeys {
    ========================================= */
 #ascensionRewardsTitle {
     text-align: center;
-    margin-bottom: 5px;
 }
 
 #corruptionDetails.vAlign {
@@ -3746,12 +3760,11 @@ p#ascendHotKeys {
 #corruptionScoreDR {
     font-size: 0.95em;
     font-weight: 500;
-    margin-top: 4px;
     opacity: 0.85;
 }
 
 #ascendRewardsSection {
-    margin-top: 6px;
+    margin-top: 4px;
 }
 
 /* To make Ascension rewards closer up */
@@ -3825,7 +3838,7 @@ p#ascendHotKeys {
 }
 
 .reqLine {
-    display: block;        /* forces it under the number */
+    display: block;
     font-size: 12px;
     opacity: 0.75;
     margin-top: 6px;
