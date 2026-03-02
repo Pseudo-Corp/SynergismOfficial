@@ -295,8 +295,8 @@ export class CorruptionLoadout {
     this.updateCorruptionScoreMult()
   }
 
-  resetCorruptions () {
-    if (player.currentChallenge.ascension !== 15 && player.campaigns.currentCampaign === undefined) {
+  resetCorruptions (nextLoadout = false) {
+    if (player.currentChallenge.ascension !== 15 && player.campaigns.currentCampaign === undefined || nextLoadout) {
       for (const corr in this.#levels) {
         const corrKey = corr as keyof Corruptions
         this.setLevel(corrKey, 0)
@@ -622,7 +622,7 @@ export const corruptionLoadoutTableCreate = () => {
   const zeroBtn = document.createElement('button')
   zeroBtn.className = 'corrLoad'
   zeroBtn.textContent = i18next.t('corruptions.loadoutTable.zero')
-  zeroBtn.addEventListener('click', () => player.corruptions.next.resetCorruptions())
+  zeroBtn.addEventListener('click', () => player.corruptions.next.resetCorruptions(true))
   zeroCell.appendChild(zeroBtn)
   zeroCell.title = i18next.t('corruptions.loadoutTable.zeroTitle')
 
