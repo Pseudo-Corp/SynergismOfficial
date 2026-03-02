@@ -248,7 +248,7 @@ interface BonusTypes {
   quarks: number
 }
 
-export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon'
+export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon' | 'steam'
 
 export type SubscriptionMetadata = {
   provider: SubscriptionProvider
@@ -356,10 +356,10 @@ export async function handleLogin () {
       const boosted = discord && (Boolean(account.member?.premium_since) || account.member?.roles.includes(BOOSTER))
       // It is possible for someone to have the roles through the Patreon integration with Discord, yet not have their
       // patreon linked to their Synergism (Discord/email) account.
-      const hasTier1 = sub?.tier === 1 || (discord && account.member.roles?.includes(TRANSCENDED_BALLER))
-      const hasTier2 = sub?.tier === 2 || (discord && account.member.roles?.includes(REINCARNATED_BALLER))
-      const hasTier3 = sub?.tier === 3 || (discord && account.member.roles?.includes(ASCENDED_BALLER))
-      const hasTier4 = sub?.tier === 4 || (discord && account.member.roles?.includes(OMEGA_BALLER))
+      const hasTier1 = sub?.tier! >= 1 || (discord && account.member.roles?.includes(TRANSCENDED_BALLER))
+      const hasTier2 = sub?.tier! >= 2 || (discord && account.member.roles?.includes(REINCARNATED_BALLER))
+      const hasTier3 = sub?.tier! >= 3 || (discord && account.member.roles?.includes(ASCENDED_BALLER))
+      const hasTier4 = sub?.tier! >= 4 || (discord && account.member.roles?.includes(OMEGA_BALLER))
 
       const checkMark = '<span style="color: lime">[✔]</span>'
       const exMark = '<span style="color: crimson">[✖]</span>'
@@ -387,35 +387,47 @@ export async function handleLogin () {
         + createLineHTML('ascendedBaller', 4, hasTier3, ['gradientText', 'ascendedBallerGradient'])
         + createLineHTML('omegaBaller', 5, hasTier4, ['rainbowText'])
         + createLineHTML('serverBooster', 1, boosted, ['gradientText', 'lotusGradient'])
+      }`
+
+      if (linkedAccounts.includes('discord')) {
+        subtabElement.innerHTML += `
+          <div class="event-bonuses-header" id="eventBonusesHeader">
+            <span class="chevron" id="eventBonusesChevron">▼</span>
+            <span>${i18next.t('account.eventBonuses')}:</span>
+          </div>
+          <div class="event-bonuses-content" id="eventBonusesContent">
+          ${i18next.t('account.eventBonusMulti')}     
+          ${
+          createLineHTML('thanksgiving2023', 0.2, discord && account.member.roles?.includes(THANKSGIVING_2023), [])
+          + createLineHTML('thanksgiving2024', 0.3, discord && account.member.roles?.includes(THANKSGIVING_2024), [])
+          + createLineHTML('thanksgiving2025', 0.4, discord && account.member.roles?.includes(THANKSGIVING_2025), [])
+          + createLineHTML('conductor2023', 0.3, discord && account.member.roles?.includes(CONDUCTOR_2023), [])
+          + createLineHTML('conductor2024', 0.4, discord && account.member.roles?.includes(CONDUCTOR_2024), [])
+          + createLineHTML('conductor2025', 0.5, discord && account.member.roles?.includes(CONDUCTOR_2025), [])
+          + createLineHTML('eightLeaf', 0.3, discord && account.member.roles?.includes(EIGHT_LEAF), [])
+          + createLineHTML('tenLeaf', 0.4, discord && account.member.roles?.includes(TEN_LEAF), [])
+          + createLineHTML('smithIncarnate', 0.6, discord && account.member.roles?.includes(SMITH_INCARNATE), [])
+          + createLineHTML('smithGod', 0.7, discord && account.member.roles?.includes(SMITH_GOD), [])
+          + createLineHTML('goldenSmithGod', 0.8, discord && account.member.roles?.includes(GOLDEN_SMITH_GOD), [])
+          + createLineHTML(
+            'diamondSmithMessiah',
+            1,
+            discord && account.member.roles?.includes(DIAMOND_SMITH_MESSIAH),
+            []
+          )
+          + createLineHTML('mythosSmith', 1.1, discord && account.member.roles?.includes(MYTHOS_SMITH), [])
+        }
+          </div>
+          ${i18next.t('account.lastButNotLeast')}
+          ${createLineHTML('yourself', 1, true, ['rainbowText'])}
+        `.trim()
+      } else {
+        subtabElement.innerHTML += `
+          <div class="event-bonuses-content" id="eventBonusesContent">
+            <br>${i18next.t('account.eventBonusLink')}
+          </div>
+        `
       }
-      <div class="event-bonuses-header" id="eventBonusesHeader">
-        <span class="chevron" id="eventBonusesChevron">▼</span>
-        <span>${i18next.t('account.eventBonuses')}:</span>
-      </div>
-      <div class="event-bonuses-content" id="eventBonusesContent">
-      ${
-        i18next.t('account.eventBonusMulti')
-        + (discord ? '' : `<br>${i18next.t('account.eventBonusLink')}`)
-      }     
-      ${
-        createLineHTML('thanksgiving2023', 0.2, discord && account.member.roles?.includes(THANKSGIVING_2023), [])
-        + createLineHTML('thanksgiving2024', 0.3, discord && account.member.roles?.includes(THANKSGIVING_2024), [])
-        + createLineHTML('thanksgiving2025', 0.4, discord && account.member.roles?.includes(THANKSGIVING_2025), [])
-        + createLineHTML('conductor2023', 0.3, discord && account.member.roles?.includes(CONDUCTOR_2023), [])
-        + createLineHTML('conductor2024', 0.4, discord && account.member.roles?.includes(CONDUCTOR_2024), [])
-        + createLineHTML('conductor2025', 0.5, discord && account.member.roles?.includes(CONDUCTOR_2025), [])
-        + createLineHTML('eightLeaf', 0.3, discord && account.member.roles?.includes(EIGHT_LEAF), [])
-        + createLineHTML('tenLeaf', 0.4, discord && account.member.roles?.includes(TEN_LEAF), [])
-        + createLineHTML('smithIncarnate', 0.6, discord && account.member.roles?.includes(SMITH_INCARNATE), [])
-        + createLineHTML('smithGod', 0.7, discord && account.member.roles?.includes(SMITH_GOD), [])
-        + createLineHTML('goldenSmithGod', 0.8, discord && account.member.roles?.includes(GOLDEN_SMITH_GOD), [])
-        + createLineHTML('diamondSmithMessiah', 1, discord && account.member.roles?.includes(DIAMOND_SMITH_MESSIAH), [])
-        + createLineHTML('mythosSmith', 1.1, discord && account.member.roles?.includes(MYTHOS_SMITH), [])
-      }
-      </div>
-      ${i18next.t('account.lastButNotLeast')}
-      ${createLineHTML('yourself', 1, true, ['rainbowText'])}
-    `.trim()
 
       const allPlatforms = [
         { name: 'discord', direct: false },
