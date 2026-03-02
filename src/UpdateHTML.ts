@@ -162,9 +162,6 @@ export const revealStuff = () => {
 
   visualUpdateShop()
 
-  const hepts = DOMCacheGetOrSet('corruptionHepteracts')
-  hepts.style.display = 'block'
-
   document.documentElement.dataset.cookies1 = getGQUpgradeEffect('cookies') ? 'true' : 'false'
   document.documentElement.dataset.cookies2 = getGQUpgradeEffect('cookies2') ? 'true' : 'false'
   document.documentElement.dataset.cookies3 = getGQUpgradeEffect('cookies3') ? 'true' : 'false'
