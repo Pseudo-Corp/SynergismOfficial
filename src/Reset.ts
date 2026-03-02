@@ -635,7 +635,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     ) {
       player.autoChallengeIndex = 10
     } else {
-      player.autoChallengeIndex = 1
+      player.autoChallengeIndex = 0
     }
     toggleAutoChallengeModeText('START')
 
