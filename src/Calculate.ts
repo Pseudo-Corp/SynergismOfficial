@@ -1762,8 +1762,8 @@ export const inheritanceTokens = () => {
   const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
 
   for (let i = 15; i > 0; i--) {
-    if (player.highestSingularityCount >= levels[i]) {
-      return tokens[i]
+    if (player.highestSingularityCount >= levels[i - 1]) {
+      return tokens[i - 1]
     }
   }
 
