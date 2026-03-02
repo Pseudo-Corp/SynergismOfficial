@@ -33,6 +33,7 @@ import {
   calculateCookieUpgrade29Luck,
   calculateCubeMultFromPowder,
   calculateCubeMultiplier,
+  calculateCubeMultiplierWithTau,
   calculateDilatedFiveLeafBonus,
   calculateEventBuff,
   calculateExalt6Penalty,
@@ -383,6 +384,15 @@ export const allCubeStats: NumberStatLine[] = [
     }
   },
   {
+    i18n: 'OneMind',
+    stat: () => {
+      return getGQUpgradeEffect('oneMind')
+        ? calculateAscensionSpeedMult() / 10
+        : 1
+    },
+    color: 'magenta'
+  },
+  {
     i18n: 'Event',
     stat: () => 1 + calculateEventBuff(BuffType.Cubes),
     color: 'lime'
@@ -472,6 +482,13 @@ export const allWowCubeStats: NumberStatLine[] = [
     stat: () =>
       1 + Math.pow(1.03, Math.log10(Math.max(1, player.wowAbyssals))) * player.cubeUpgrades[63]
       - player.cubeUpgrades[63]
+  }
+]
+
+export const allWowCubePowerStats: NumberStatLine[] = [
+  {
+    i18n: 'Tau',
+    stat: () => getGQUpgradeEffect('platonicTau') ? 1.01 : 1
   }
 ]
 
@@ -3742,6 +3759,14 @@ export const loadGlobalCubeMultiplierStats = () => {
 
 export const loadWowCubeMultiplierStats = () => {
   loadStatistics(allWowCubeStats, 'cubeMultiplierStats', 'statCM', 'WowCubeStat', calculateCubeMultiplier)
+  loadStatistics(
+    allWowCubePowerStats,
+    'cubeMultiplierStats',
+    'statCM2',
+    'WowCubeStat2',
+    calculateCubeMultiplierWithTau,
+    'Total2'
+  )
 }
 
 export const loadTesseractMultiplierStats = () => {

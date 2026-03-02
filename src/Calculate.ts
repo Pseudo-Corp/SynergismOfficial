@@ -82,6 +82,14 @@ export const calculateCubeMultiplier = () => {
   return allWowCubeStats.reduce((a, b) => a * b.stat(), 1)
 }
 
+export const calculateCubeMultiplierWithTau = () => {
+  const base = calculateCubeMultiplier()
+  const tauBonus = getGQUpgradeEffect('platonicTau')
+    ? 1.01
+    : 1
+  return Math.pow(base, tauBonus)
+}
+
 export const calculateTesseractMultiplier = () => {
   return allTesseractStats.reduce((a, b) => a * b.stat(), 1)
 }
@@ -1245,19 +1253,8 @@ export const CalcCorruptionStuff = () => {
 
   cubeBank += getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked
 
-  const oneMindModifier = getGQUpgradeEffect('oneMind')
-    ? calculateAscensionSpeedMult() / 10
-    : 1
-
   // Calculation of Cubes :)
-  let cubeGain = cubeBank
-  cubeGain *= calculateCubeMultiplier()
-  cubeGain *= oneMindModifier
-
-  const bonusCubeExponent = getGQUpgradeEffect('platonicTau')
-    ? 1.01
-    : 1
-  cubeGain = Math.pow(cubeGain, bonusCubeExponent)
+  const cubeGain = calculateCubeMultiplierWithTau()
 
   // Calculation of Tesseracts :))
   let tesseractGain = 1
@@ -1265,17 +1262,14 @@ export const CalcCorruptionStuff = () => {
     tesseractGain += 0.5
   }
   tesseractGain *= calculateTesseractMultiplier()
-  tesseractGain *= oneMindModifier
 
   // Calculation of Hypercubes :)))
   let hypercubeGain = effectiveScore >= 1e9 ? 1 : 0
   hypercubeGain *= calculateHypercubeMultiplier()
-  hypercubeGain *= oneMindModifier
 
   // Calculation of Platonic Cubes :))))
   let platonicGain = effectiveScore >= 2.666e12 ? 1 : 0
   platonicGain *= calculatePlatonicMultiplier()
-  platonicGain *= oneMindModifier
 
   // Calculation of Hepteracts :)))))
   let hepteractGain = G.challenge15Rewards.hepteractsUnlocked.value
@@ -1283,7 +1277,6 @@ export const CalcCorruptionStuff = () => {
     ? 1
     : 0
   hepteractGain *= calculateHepteractMultiplier()
-  hepteractGain *= oneMindModifier
 
   return [
     cubeBank,

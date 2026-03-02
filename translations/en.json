@@ -3523,10 +3523,10 @@
       },
       "antGodsCornucopia": {
         "name": "Ant God's Cornucopia",
-        "hasLevel3": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e12 multiplier!",
-        "hasLevel2": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent immaculate x4.44 multiplier."
+        "hasLevel3": "Ant God gives you <<crimson | 1,000,000,000,000x Ant Speed>>!",
+        "hasLevel2": "Ant God gives you <<crimson | 1,000,000x Ant Speed>>!",
+        "hasLevel1": "Ant God gives you <<crimson | 1,000x Ant Speed>>!",
+        "default": "Ant God gives you <<crimson | 4.44x Ant Speed>>!"
       },
       "bringToLife": {
         "name": "Bring to Life",
@@ -3749,7 +3749,7 @@
       },
       "starterPack": {
         "name": "Starter Pack",
-        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Immaculate Obtainium and Offerings from all sources.",
+        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources.",
         "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Immaculate Obtainium and Offerings.",
         "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Immaculate Obtainium and Offerings."
       },
@@ -3952,7 +3952,7 @@
       "singQuarkImprover1": {
         "name": "Marginal Quark Gain Improver Thingy",
         "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
-        "effect": "You gain {{n}}% more Quarks!"
+        "effect": "You gain {{n}} more Quarks!"
       },
       "singQuarkHepteract": {
         "name": "I wish my Quark Hepteract was marginally better.",
@@ -6116,6 +6116,7 @@
       "RedAmbrosia": "Cubes \"made\" of Red Ambrosia",
       "Exalt6": "The Grand Singularity Speedrun - Too Slow:",
       "Event": "Event Bonus:",
+      "OneMind": "One Mind Modifier:",
       "Total": "Total Universal Cube Multiplier:"
     },
     "cubeMultiplierStats": {
@@ -6140,7 +6141,9 @@
       "PlatonicOpening": "Platonic Cubes:",
       "Platonic1x1": "Platonic 1x1:",
       "CookieUpgrade13": "Cookie Upgrade 13:",
-      "Total": "Total Wow! Cube Multiplier:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Total Wow! Cube Multiplier:",
+      "Total2": "Final Wow! Cube Multiplier:"
     },
     "tesseractMultiplierStats": {
       "title": "Wow! Tesseract Multiplier",
