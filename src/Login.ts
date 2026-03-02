@@ -245,7 +245,7 @@ interface AccountMetadata {
 }
 
 interface BonusTypes {
-  quarks: number
+  quark: number
 }
 
 export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon' | 'steam'
@@ -256,7 +256,6 @@ export type SubscriptionMetadata = {
 } | null
 
 interface SynergismUserAPIResponse<T extends keyof AccountMetadata> {
-  personalBonus: number
   member: AccountMetadata[T]
   accountType: T
   bonus: BonusTypes
@@ -286,9 +285,8 @@ async function fetchMeRoute () {
     JSON.stringify(
       {
         member: null,
-        personalBonus: 0,
         accountType: 'none',
-        bonus: { quarks: 0 },
+        bonus: { quark: 0 },
         subscription: null,
         linkedAccounts: []
       } satisfies SynergismUserAPIResponse<'none'>
@@ -313,9 +311,9 @@ export async function handleLogin () {
     const response = await fetchMeRoute()
 
     const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>
-    const { personalBonus, subscription: sub, linkedAccounts } = account
+    const { bonus, subscription: sub, linkedAccounts } = account
 
-    setPersonalQuarkBonus(personalBonus)
+    setPersonalQuarkBonus(bonus.quark)
     player.worlds = new QuarkHandler(Number(player.worlds))
 
     loggedIn = hasAccount(account)
@@ -378,7 +376,7 @@ export async function handleLogin () {
 
       subtabElement.innerHTML = `
       ${user ? i18next.t('account.helloUser', { username: user }) : i18next.t('account.helloNoUser')}
-      ${i18next.t('account.personalQuarkBonus', { percent: format(personalBonus, 2, true) })}
+      ${i18next.t('account.personalQuarkBonus', { percent: format(bonus.quark, 2, true) })}
 
       ${i18next.t('account.subscriptionBonuses')}
       ${
