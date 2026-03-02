@@ -1003,8 +1003,8 @@ export const playerSchema = z.object({
   lifetimeAmbrosia: z.number().default(() => blankSave.lifetimeAmbrosia),
   ambrosiaRNG: z.number().default(() => blankSave.ambrosiaRNG),
   blueberryTime: z.number().default(() => blankSave.blueberryTime),
-  visitedAmbrosiaSubtab: z.boolean().default(() => blankSave.visitedAmbrosiaSubtab),
-  visitedAmbrosiaSubtabRed: z.boolean().default(() => blankSave.visitedAmbrosiaSubtabRed),
+  visitedAmbrosiaSubtab: z.boolean().optional(),
+  visitedAmbrosiaSubtabRed: z.boolean().optional(),
   spentBlueberries: z.number().default(() => blankSave.spentBlueberries),
   // TODO: is this right?
   blueberryUpgrades: z.record(z.string(), singularityUpgradeSchema('blueberriesInvested', 'ambrosiaInvested'))

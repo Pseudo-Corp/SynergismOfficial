@@ -6651,7 +6651,7 @@
     },
     "ambrosiaGenerationStats": {
       "title": "Ambrosia Bar Points",
-      "VisitedTab": "Visited Ambrosia Tab:",
+      "Default": "Default Per Second:",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Campaign": "Campaign Bonus:",
       "ShopUpgrades": "Shop Upgrades (I-IV):",
@@ -6794,7 +6794,7 @@
     "redAmbrosiaGenerationStats": {
       "title": "Red Bar Points",
       "PseudoCoins": "PseudoCoin Upgrade:",
-      "Base": "Visited Ambrosia Subtab after clearing EXALT 5x1:",
+      "Base": "Default Per Second:",
       "BlueberrySpeed": "Speed from Ambrosia (0.5 DR after 1,000):",
       "RedAmbrosia": "Millennium-Aged Red Ambrosia:",
       "Exalt5": "EXALT Reward - No Ambrosia Upgrades:",

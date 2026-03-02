@@ -621,8 +621,6 @@ export interface Player {
 
   blueberryTime: number
   ambrosiaRNG: number // DEPRECIATED, DO NOT USE
-  visitedAmbrosiaSubtab: boolean
-  visitedAmbrosiaSubtabRed: boolean
   spentBlueberries: number
 
   blueberryLoadouts: Record<number, BlueberryOpt>

@@ -2231,8 +2231,8 @@ export const allAmbrosiaBlueberryStats: NumberStatLine[] = [
 
 export const allAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   {
-    i18n: 'VisitedTab',
-    stat: () => +(player.visitedAmbrosiaSubtab) // Visited Ambrosia Tab
+    i18n: 'Default',
+    stat: () => player.singularityChallenges.noSingularityUpgrades.completions > 0 ? 1 : 0
   },
   {
     i18n: 'PseudoCoins',
@@ -2662,7 +2662,7 @@ export const allRedAmbrosiaLuckStats: NumberStatLine[] = [
 export const allRedAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   {
     i18n: 'Base',
-    stat: () => 1 // Base value of 1.00
+    stat: () => player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? 1 : 0
   },
   {
     i18n: 'PseudoCoins',

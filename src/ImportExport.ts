@@ -893,9 +893,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
           actualQuarkAward = Math.pow(actualQuarkAward, 0.35) * Math.pow(66666, 0.65)
         }
 
-        if (player.visitedAmbrosiaSubtab) {
-          blueberryTime = 1800 * rewardMult
-        }
+        blueberryTime = 1800 * rewardMult
 
         player.worlds.add(actualQuarkAward * rewardMult, false)
         G.ambrosiaTimer += blueberryTime

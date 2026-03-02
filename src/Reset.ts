@@ -1325,7 +1325,6 @@ export const singularity = (setSingNumber = -1) => {
   hold.lifetimeRedAmbrosia = player.lifetimeRedAmbrosia
   hold.redAmbrosiaTime = player.redAmbrosiaTime
   hold.redAmbrosiaUpgrades = player.redAmbrosiaUpgrades
-  hold.visitedAmbrosiaSubtabRed = player.visitedAmbrosiaSubtabRed
   hold.singularityChallenges = Object.fromEntries(
     Object.entries(player.singularityChallenges).map(([key, value]) => {
       return [key, {
@@ -1343,7 +1342,6 @@ export const singularity = (setSingNumber = -1) => {
 
   hold.ambrosia = player.ambrosia
   hold.lifetimeAmbrosia = player.lifetimeAmbrosia
-  hold.visitedAmbrosiaSubtab = player.visitedAmbrosiaSubtab
   hold.blueberryTime = player.blueberryTime
   hold.blueberryLoadouts = player.blueberryLoadouts
   hold.blueberryLoadoutMode = player.blueberryLoadoutMode as BlueberryLoadoutMode

@@ -1117,8 +1117,6 @@ export const player: Player = {
   lifetimeAmbrosia: 0,
   ambrosiaRNG: 0,
   blueberryTime: 0,
-  visitedAmbrosiaSubtab: false,
-  visitedAmbrosiaSubtabRed: false,
   spentBlueberries: 0,
 
   blueberryLoadouts: {

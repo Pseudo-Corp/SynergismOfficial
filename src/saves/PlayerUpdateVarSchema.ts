@@ -371,5 +371,8 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   Reflect.deleteProperty(player, 'resettoggle3')
   Reflect.deleteProperty(player, 'resettoggle4')
 
+  Reflect.deleteProperty(player, 'visitedAmbrosiaSubtab')
+  Reflect.deleteProperty(player, 'visitedAmbrosiaSubtabRed')
+
   return player
 })

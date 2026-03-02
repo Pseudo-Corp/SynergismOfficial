@@ -1770,7 +1770,7 @@ export const visualUpdateAmbrosia = () => {
 
   DOMCacheGetOrSet('ambrosiaProgress').style.width = `${barWidth}%`
 
-  if (player.visitedAmbrosiaSubtab) {
+  if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
     DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true)} / ${
       format(requiredTime, 0, true)
     } [+${format(totalTimePerSecond, 0, true)}/s]`
@@ -1780,7 +1780,7 @@ export const visualUpdateAmbrosia = () => {
 
   DOMCacheGetOrSet('pixelProgress').style.width = `${pixelBarWidth}%`
 
-  if (player.visitedAmbrosiaSubtabRed) {
+  if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
     DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.redAmbrosiaTime, 0, true)} / ${
       format(requiredTimeRed, 0, true)
     } [+${format(totalTimePerSecondRed, 2, true)}/s]`
