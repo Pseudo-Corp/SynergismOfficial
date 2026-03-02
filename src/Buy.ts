@@ -685,7 +685,10 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
 
   if (toBuy + c > player.crystalUpgrades[u]) {
     player.crystalUpgrades[u] = 100 / 100 * (toBuy + c)
-    if (toBuy > 0) {
+    /* Automation no longer spends Crystals. Late game players experience weird 'zeroing' of Crystals
+       When they can afford Crystal Upgrades, due to precision issues. It is easier to just
+       Not spend crystals before this becomes a significant issue. */
+    if (toBuy > 0 && !auto) {
       player.prestigeShards = player.prestigeShards.sub(
         Decimal.pow(
           10,

@@ -1952,27 +1952,27 @@
       },
       "tier1CrystalAutobuy": {
         "name": "Tier 1 Crystal Autobuy",
-        "description": "You can now automatically buy Diamond Refineries! Also automagically buys the first Crystal upgrade if you can afford it.",
+        "description": "You can now automatically buy Diamond Refineries! Also automagically buys the first Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Current Effect: See Above!"
       },
       "tier2CrystalAutobuy": {
         "name": "Tier 2 Crystal Autobuy",
-        "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it.",
+        "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Current Effect: See Above!"
       },
       "tier3CrystalAutobuy": {
         "name": "Tier 3 Crystal Autobuy",
-        "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it.",
+        "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Current Effect: See Above!"
       },
       "tier4CrystalAutobuy": {
         "name": "Tier 4 Crystal Autobuy",
-        "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it.",
+        "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Current Effect: See Above!"
       },
       "tier5CrystalAutobuy": {
         "name": "Tier 5 Crystal Autobuy",
-        "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it.",
+        "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Current Effect: See Above!"
       },
       "achievementTalismanUnlock": {
