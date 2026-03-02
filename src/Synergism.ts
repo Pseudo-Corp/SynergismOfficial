@@ -1000,7 +1000,7 @@ export const player: Player = {
   historyShowPerSecond: false,
 
   autoChallengeRunning: false,
-  autoChallengeIndex: 0,
+  autoChallengeIndex: 1,
   autoChallengeToggles: [
     false,
     true,

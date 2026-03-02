@@ -615,7 +615,6 @@ export const runChallengeSweep = (dt: number) => {
     // If you are in a challenge, you'd only want the automation to exit the challenge
     action = 'exit'
   } else if (player.autoChallengeIndex === 1) {
-    console.log('start loop' , 'c1 completed', player.challengecompletions[1], '/', 9001)
     // If the index is set to 1, then you are at the start of a loop
     action = 'start'
   } else {
