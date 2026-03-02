@@ -1375,7 +1375,6 @@ const PUTHandlers = [
 export const worker = setupWorker(
   http.get('https://synergism.cc/api/v1/users/me', () => {
     return HttpResponse.json({
-      personalBonus: 5,
       globalBonus: 50,
       member: {
         user: {
@@ -1412,7 +1411,7 @@ export const worker = setupWorker(
       },
       accountType: 'discord',
       bonus: {
-        quarkBonus: 5
+        quark: 0
       },
       subscription: null,
       linkedAccounts: ['email']
