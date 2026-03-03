@@ -266,7 +266,7 @@ export const allCubeStats: NumberStatLine[] = [
   {
     i18n: 'PassZ',
     stat: () => 1 + (player.shopUpgrades.seasonPassZ * player.singularityCount) / 100,
-    displayCriterion: () => Boolean(getGQUpgradeEffect('wowPass2'))
+    displayCriterion: () => Boolean(getGQUpgradeEffect('wowPass'))
   },
   {
     i18n: 'PassINF',
