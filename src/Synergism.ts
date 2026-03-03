@@ -1150,7 +1150,9 @@ export const player: Player = {
 
   lastExportedSave: 0,
 
-  seed: Array.from({ length: 3 }, () => Date.now())
+  seed: Array.from({ length: 3 }, () => Date.now()),
+
+  totalAddCodesUsed: 0,
 }
 
 export const deepClone = () =>

@@ -1,7 +1,7 @@
 import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
 import LZString from 'lz-string'
-import { awardUngroupedAchievement, resetAchievements, syncSteamAchievements } from './Achievements'
+import { awardAchievementGroup, awardUngroupedAchievement, resetAchievements, syncSteamAchievements } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
 import { testing, version } from './Config'
@@ -714,6 +714,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
       })
       : ''
 
+    player.totalAddCodesUsed += toUse
+    awardAchievementGroup('addCodesUsed')
     // Calculator Maxed: you don't need to insert anything!
     if (player.shopUpgrades.calculator === shopData.calculator.maxLevel) {
       player.worlds.add(actualQuarks)

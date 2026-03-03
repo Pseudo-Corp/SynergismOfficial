@@ -165,6 +165,7 @@ export type AchievementGroups =
   | 'reincarnationCount'
   | 'sacCount'
   | 'ungrouped'
+  | 'addCodesUsed'
 
 export type AchievementRewards =
   | 'acceleratorPower'
@@ -1728,9 +1729,9 @@ export const achievements: Achievement[] = [
   // 242: Global speed is FAST
   { pointValue: 50, unlockCondition: () => true, group: 'ungrouped' },
   // 243: :unsmith:
-  { pointValue: 50, unlockCondition: () => true, group: 'ungrouped' },
+  { pointValue: 5, unlockCondition: () => true, group: 'ungrouped' },
   // 244: :smith:
-  { pointValue: 50, unlockCondition: () => true, group: 'ungrouped' },
+  { pointValue: 5, unlockCondition: () => true, group: 'ungrouped' },
   // 245: High Speed Blessing
   {
     pointValue: 50,
@@ -2654,6 +2655,81 @@ export const achievements: Achievement[] = [
     pointValue: 55,
     unlockCondition: () => player.ants.antSacrificeCount >= 100_000_000,
     group: 'sacCount'
+  },
+  {
+    pointValue: 3,
+    unlockCondition: () => player.totalAddCodesUsed >= 10,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 6,
+    unlockCondition: () => player.totalAddCodesUsed >= 20,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 9,
+    unlockCondition: () => player.totalAddCodesUsed >= 50,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 12,
+    unlockCondition: () => player.totalAddCodesUsed >= 100,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 15,
+    unlockCondition: () => player.totalAddCodesUsed >= 200,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 18,
+    unlockCondition: () => player.totalAddCodesUsed >= 300,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 21,
+    unlockCondition: () => player.totalAddCodesUsed >= 500,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 24,
+    unlockCondition: () => player.totalAddCodesUsed >= 750,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 27,
+    unlockCondition: () => player.totalAddCodesUsed >= 1000,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 30,
+    unlockCondition: () => player.totalAddCodesUsed >= 2000,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 33,
+    unlockCondition: () => player.totalAddCodesUsed >= 3000,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 36,
+    unlockCondition: () => player.totalAddCodesUsed >= 5000,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 39,
+    unlockCondition: () => player.totalAddCodesUsed >= 6000,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 42,
+    unlockCondition: () => player.totalAddCodesUsed >= 7500,
+    group: 'addCodesUsed',
+  },
+  {
+    pointValue: 45,
+    unlockCondition: () => player.totalAddCodesUsed >= 10000,
+    group: 'addCodesUsed',
   }
 ]
 
@@ -2840,6 +2916,10 @@ export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungroupe
   singularityCount: {
     order: 34,
     displayCondition: () => hasResetAtOrAboveLevel(resetTiers.singularity)
+  },
+  addCodesUsed: {
+    order: 35,
+    displayCondition: () => true
   }
 }
 

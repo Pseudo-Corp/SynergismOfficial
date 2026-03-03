@@ -639,6 +639,8 @@ export interface Player {
   lastExportedSave: number
 
   seed: number[]
+
+  totalAddCodesUsed: number
 }
 
 export interface GlobalVariables {
