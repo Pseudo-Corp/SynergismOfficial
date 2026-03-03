@@ -371,7 +371,7 @@ export const generateEventHandlers = () => {
     for (let index2 = 1; index2 <= 5; index2++) {
       DOMCacheGetOrSet(
         `buy${buildingTypesAlternate2[index]}${index2}`
-      ).addEventListener('click', () =>
+      ).addEventListener('pointerdown', () =>
         buyProducer(
           ordinals[index2 - 1] as FirstToFifth,
           buildingTypesAlternate3[index],
@@ -399,7 +399,7 @@ export const generateEventHandlers = () => {
   // Tesseract Buildings
   for (let index = 0; index < 5; index++) {
     DOMCacheGetOrSet(`buyTesseracts${index + 1}`).addEventListener(
-      'click',
+      'pointerdown',
       () => buyTesseractBuilding((index + 1) as OneToFive)
     )
     DOMCacheGetOrSet(`tesseractAutoToggle${index + 1}`).addEventListener(
@@ -1218,7 +1218,7 @@ TODO: Fix this entire tab it's utter shit
       DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
       DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
       // DOMCacheGetOrSet(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
-      DOMCacheGetOrSet(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
+      DOMCacheGetOrSet(`${key}Button`).addEventListener('pointerdown', () => buyShopUpgrades(key))
     }
   }
   DOMCacheGetOrSet('buySingularityQuarksButton').addEventListener('click', () => buyGoldenQuarks())
