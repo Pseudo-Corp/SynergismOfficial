@@ -654,7 +654,7 @@ function handleWebSocket () {
     const delay = exponentialBackoff[++tries]
 
     if (delay !== undefined) {
-      setTimeout(() => handleWebSocket(), delay)
+      setTimeout(handleWebSocket, delay)
     } else {
       Notification(
         'Could not re-establish your connection. Consumables and events related to Consumables will not work.'
@@ -762,13 +762,13 @@ function handleWebSocket () {
         consumableId: data.consumableName
       }))
 
-      setTimeout(() => updatePseudoCoins(), 4000)
+      setTimeout(updatePseudoCoins, 4000)
     } else if (data.type === 'lotus') {
       buyLotusNotification(data.amount)
       ownedLotus += data.amount
       updateLotusDisplay()
 
-      setTimeout(() => updatePseudoCoins(), 4000)
+      setTimeout(updatePseudoCoins, 4000)
     } else if (data.type === 'applied-lotus') {
       ownedLotus -= 1
       usedLotus = data.lifetimePurchased
@@ -1307,10 +1307,10 @@ function handleCloudSaves () {
       console.error(e)
       uploadButton.textContent = i18next.t('settings.cloud.uploadFailed')
     }).finally(() => {
-      setTimeout(() => {
+      setTimeout((uploadButton: HTMLButtonElement) => {
         uploadButton.disabled = false
         uploadButton.textContent = originalText
-      }, 5000)
+      }, 5000, uploadButton)
     })
   })
 
@@ -1330,10 +1330,10 @@ function handleCloudSaves () {
       console.error(e)
       transferButton.textContent = i18next.t('settings.cloud.transferFailed')
     }).finally(() => {
-      setTimeout(() => {
+      setTimeout((transferButton: HTMLButtonElement) => {
         transferButton.disabled = false
         transferButton.textContent = originalText
-      }, 5000)
+      }, 5000, transferButton)
     })
   })
 }

@@ -251,9 +251,7 @@ export const updateMessagesUI = () => {
         if (messageItem) {
           messageItem.style.transition = 'opacity 0.3s ease-out'
           messageItem.style.opacity = '0'
-          setTimeout(() => {
-            updateMessagesUI()
-          }, 300)
+          setTimeout(updateMessagesUI, 300)
         }
       }
     })

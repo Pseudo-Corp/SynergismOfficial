@@ -7295,7 +7295,7 @@
     "wrongAnswer": "Answer was wrong, not resetting!",
     "unableImport": "Unable to import this file!",
     "loadTestInLive": "You are attempting to load a testing file in a non-testing version!",
-    "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism2021\" or \"Khafra\" perchance?]",
+    "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"{{year}}\" or \"Khafra\" perchance?]",
     "comeBackSoon": "Alright, come back soon!",
     "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
     "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use? You can enter a negative value which will use all attempts except the specified number.",
@@ -7331,15 +7331,6 @@
       "sub": {
         "subbed": "Thanks for using the \"sub\" code! I've taken away {{x}} Quarks! :)",
         "gave": "I gave you {{x}} Quarks so I could take {{y}} away."
-      },
-      "gamble": {
-        "wait": "Wait a little bit. We'll get back to you when you're ready to lose again.",
-        "prompt": "Are you sure? The house always wins!",
-        "cancelled": "Scared? You should be!",
-        "betPrompt": "How many Quarks are you putting up?",
-        "cheaters": "Due to cheaters, you can only bet 10k max.",
-        "won": "You won. The Syncasino offers you a grand total of 25% of the pot! [+{{x}} Quarks]",
-        "lost": "Try again... you can do it! [-{{x}} quarks]"
       },
       "time": {
         "wait": "If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.\n\nRegardless, you must wait at least 15 minutes between each use.",

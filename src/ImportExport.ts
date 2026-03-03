@@ -436,7 +436,7 @@ export const promocodesInfo = (input: string) => {
 }
 
 export const promocodesPrompt = async () => {
-  const input = await Prompt(i18next.t('importexport.promocodePrompt'))
+  const input = await Prompt(i18next.t('importexport.promocodePrompt', { year: new Date().getFullYear() }))
   void promocodes(input)
 }
 
@@ -446,7 +446,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
   if (input === null) {
     return Alert(i18next.t('importexport.comeBackSoon'))
   }
-  if (input === 'synergism2021' && !player.codes.get(1)) {
+  if (input === `synergism${new Date().getFullYear()}` && !player.codes.get(1)) {
     player.codes.set(1, true)
     player.offerings = player.offerings.add(25)
     player.worlds.add(50)
@@ -815,54 +815,6 @@ export const promocodes = async (input: string | null, amount?: number) => {
     }
 
     player.worlds.sub(quarks < amount ? amount - quarks : amount)
-  } else if (input === 'gamble') {
-    if (typeof player.skillCode === 'number') {
-      if ((Date.now() - player.skillCode!) / 1000 < 3600) {
-        return (el.textContent = i18next.t(
-          'importexport.promocodes.gamble.wait'
-        ))
-      }
-    }
-
-    const confirmed = await Confirm(i18next.t('importexport.promocodes.gamble.prompt'))
-
-    if (!confirmed) {
-      return (el.textContent = i18next.t(
-        'importexport.promocodes.gamble.cancelled'
-      ))
-    }
-
-    const bet = Number(
-      await Prompt(i18next.t('importexport.promocodes.gamble.betPrompt'))
-    )
-    if (Number.isNaN(bet) || bet <= 0) {
-      return (el.textContent = i18next.t('general.validation.zeroOrLess'))
-    } else if (bet > 1e4) {
-      return (el.textContent = i18next.t(
-        'importexport.promocodes.gamble.cheaters'
-      ))
-    } else if (Number(player.worlds) < bet) {
-      return (el.textContent = i18next.t(
-        'general.validation.moreThanPlayerHas'
-      ))
-    }
-
-    const dice = seededBetween(Seed.PromoCodes, 1, 6) // [1, 6]
-
-    if (dice === 1) {
-      const won = bet * 0.25 // lmao
-      player.worlds.add(won, false)
-
-      player.skillCode = Date.now()
-      return (el.textContent = i18next.t('importexport.promocodes.gamble.won', {
-        x: won
-      }))
-    }
-
-    player.worlds.sub(bet)
-    el.textContent = i18next.t('importexport.promocodes.gamble.lost', {
-      x: bet
-    })
   } else if (input === 'time') {
     const availableUses = timeCodeAvailableUses()
     if (availableUses === 0) {
@@ -935,7 +887,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     return
   }
 
-  setTimeout(() => (el.textContent = ''), 15000)
+  setTimeout((el: HTMLElement) => el.textContent = '', 15000, el)
 }
 
 export const addCodeSingularityPerkBonus = (): number => {
