@@ -1349,7 +1349,7 @@ export const allQuarkStats: NumberStatLine[] = [
     stat: () =>
       1 + 0.02 * getGQUpgradeEffect('intermediatePack')
       + 0.04 * getGQUpgradeEffect('advancedPack') + 0.06 * getGQUpgradeEffect('expertPack')
-      + 0.08 * getGQUpgradeEffect('expertPack') + 0.1 * goldenQuarkUpgrades.divinePack.level
+      + 0.08 * getGQUpgradeEffect('masterPack') + 0.1 * goldenQuarkUpgrades.divinePack.level
   },
   {
     i18n: 'SingQuarkImprover1',

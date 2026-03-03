@@ -137,9 +137,6 @@ export class CorruptionLoadout {
     bonusVal += 0.3 * player.cubeUpgrades[74]
 
     let bonusMult = 1
-    if (this.#levels[corr] >= 14 && getGQUpgradeEffect('masterPack')) {
-      bonusMult *= 1.1
-    }
 
     // player.platonicUpgrades[17] is the 17th platonic upgrade, known usually as P4x2, makes
     // Exponent 3 + 0.04 * level if the corr is viscosity and it is set at least level 10.

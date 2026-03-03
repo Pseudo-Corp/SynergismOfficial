@@ -1122,6 +1122,7 @@ export const computeAscensionScoreBonusMultiplier = () => {
     multiplier *= 1 + 0.05 * player.cubeUpgrades[41]
   }
   multiplier *= +getAchievementReward('ascensionScore')
+  multiplier *= 1 + 0.5 * getGQUpgradeEffect('masterPack')
   if (G.isEvent) {
     multiplier *= 1 + calculateEventBuff(BuffType.AscensionScore)
   }
