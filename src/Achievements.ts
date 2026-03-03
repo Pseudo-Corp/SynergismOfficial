@@ -2659,77 +2659,77 @@ export const achievements: Achievement[] = [
   {
     pointValue: 3,
     unlockCondition: () => player.totalAddCodesUsed >= 10,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 6,
     unlockCondition: () => player.totalAddCodesUsed >= 20,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 9,
     unlockCondition: () => player.totalAddCodesUsed >= 50,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 12,
     unlockCondition: () => player.totalAddCodesUsed >= 100,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 15,
     unlockCondition: () => player.totalAddCodesUsed >= 200,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 18,
     unlockCondition: () => player.totalAddCodesUsed >= 300,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 21,
     unlockCondition: () => player.totalAddCodesUsed >= 500,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 24,
     unlockCondition: () => player.totalAddCodesUsed >= 750,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 27,
     unlockCondition: () => player.totalAddCodesUsed >= 1000,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 30,
     unlockCondition: () => player.totalAddCodesUsed >= 2000,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 33,
     unlockCondition: () => player.totalAddCodesUsed >= 3000,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 36,
     unlockCondition: () => player.totalAddCodesUsed >= 5000,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 39,
     unlockCondition: () => player.totalAddCodesUsed >= 6000,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 42,
     unlockCondition: () => player.totalAddCodesUsed >= 7500,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   },
   {
     pointValue: 45,
     unlockCondition: () => player.totalAddCodesUsed >= 10000,
-    group: 'addCodesUsed',
+    group: 'addCodesUsed'
   }
 ]
 

@@ -5,7 +5,7 @@ import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
-import { platform } from './Config'
+import { isSynergismCC, platform } from './Config'
 import { updateGlobalsIsEvent } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
@@ -319,7 +319,7 @@ export async function handleLogin () {
     loggedIn = hasAccount(account)
     subscription = sub
 
-    if (location.hostname !== 'synergism.cc' && platform === 'browser') {
+    if (!isSynergismCC && platform === 'browser') {
       subtabElement.innerHTML =
         'Login is not available here, go to <a href="https://synergism.cc">https://synergism.cc</a> instead!'
     } else if (hasAccount(account)) {
@@ -1307,10 +1307,14 @@ function handleCloudSaves () {
       console.error(e)
       uploadButton.textContent = i18next.t('settings.cloud.uploadFailed')
     }).finally(() => {
-      setTimeout((uploadButton: HTMLButtonElement) => {
-        uploadButton.disabled = false
-        uploadButton.textContent = originalText
-      }, 5000, uploadButton)
+      setTimeout(
+        (uploadButton: HTMLButtonElement) => {
+          uploadButton.disabled = false
+          uploadButton.textContent = originalText
+        },
+        5000,
+        uploadButton
+      )
     })
   })
 
@@ -1330,10 +1334,14 @@ function handleCloudSaves () {
       console.error(e)
       transferButton.textContent = i18next.t('settings.cloud.transferFailed')
     }).finally(() => {
-      setTimeout((transferButton: HTMLButtonElement) => {
-        transferButton.disabled = false
-        transferButton.textContent = originalText
-      }, 5000, transferButton)
+      setTimeout(
+        (transferButton: HTMLButtonElement) => {
+          transferButton.disabled = false
+          transferButton.textContent = originalText
+        },
+        5000,
+        transferButton
+      )
     })
   })
 }

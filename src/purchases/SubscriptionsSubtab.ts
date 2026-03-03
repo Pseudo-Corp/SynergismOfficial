@@ -1,5 +1,6 @@
 import { type FUNDING_SOURCE, loadScript } from '@paypal/paypal-js'
-import { platform, prod } from '../Config'
+import i18next from 'i18next'
+import { isSynergismCC, platform, prod } from '../Config'
 import { getSubMetadata, type SubscriptionMetadata, type SubscriptionProvider } from '../Login'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { assert, memoize } from '../Utility'
@@ -461,7 +462,11 @@ export const initializePayPal_Subscription = async () => {
       },
 
       onError (error) {
-        Notification('An error with PayPal happened. More info in console.')
+        if (isSynergismCC) {
+          Notification(i18next.t('pseudoCoins.error.paypalGeneric'))
+        } else {
+          Notification(i18next.t('pseudoCoins.error.pseudoCoins.error.paypalNotSynergismCC'))
+        }
         console.log(error)
       }
     }).render(element)

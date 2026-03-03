@@ -1,7 +1,12 @@
 import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
 import LZString from 'lz-string'
-import { awardAchievementGroup, awardUngroupedAchievement, resetAchievements, syncSteamAchievements } from './Achievements'
+import {
+  awardAchievementGroup,
+  awardUngroupedAchievement,
+  resetAchievements,
+  syncSteamAchievements
+} from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
 import { testing, version } from './Config'

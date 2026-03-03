@@ -1171,7 +1171,10 @@ export const singularity = (setSingNumber = -1) => {
       } else { // Go up as many as we can, including highestSingularity if relevant
         const maxPotentialSing = player.singularityCount + lookahead
         // We also need to consider the target singularity (which is always at most (highest sing + lookadhead))
-        player.singularityCount = Math.min(Math.max(player.highestSingularityCount, maxPotentialSing), player.singularityElevatorTarget)
+        player.singularityCount = Math.min(
+          Math.max(player.highestSingularityCount, maxPotentialSing),
+          player.singularityElevatorTarget
+        )
       }
     }
 
