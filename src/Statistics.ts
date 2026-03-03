@@ -4210,7 +4210,7 @@ export const c15RewardUpdate = () => {
   updateDisplayC15Rewards()
 }
 
-const updateDisplayC15Rewards = () => {
+export const updateDisplayC15Rewards = () => {
   DOMCacheGetOrSet('c15Reward0').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.0', {
     exponent: format(player.challenge15Exponent, 3, true)
   })
