@@ -1039,5 +1039,7 @@ export const playerSchema = z.object({
 
   seed: z.number().array().default(() => blankSave.seed)
     .transform((value) => arrayExtend(value, 'seed'))
-    .refine((value) => value.every((seed) => seed > Date.parse('2020-01-01T00:00:00Z') && seed < Date.now() + 1000))
+    .refine((value) => value.every((seed) => seed > Date.parse('2020-01-01T00:00:00Z') && seed < Date.now() + 1000)),
+  
+  totalAddCodesUsed: z.number().default(() => blankSave.totalAddCodesUsed)
 })
