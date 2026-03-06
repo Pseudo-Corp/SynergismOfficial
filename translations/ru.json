@@ -114,27 +114,27 @@
       },
       "ambrosiaLuck3": {
         "name": "Модуль Амброзии: Удача III",
-        "description": "Тьма окутывает этот модуль. +1 Удачи Амброзии за уровень; эффект также умножен на число имеющихся Ягод Голубики!",
-        "effect": "Этот модуль Удачи третьего поколения увеличивает Удачу Амброзии на {{amount}}"
+        "description": "Тьма окутывает этот модуль. +1 удачи амброзии за уровень; эффект также умножается на число имеющейся голубики!",
+        "effect": "Этот модуль удачи третьего поколения увеличивает удачу амброзии на {{amount}}"
       },
       "ambrosiaLuck4": {
-        "name": "Восьмилистный Клевер",
-        "description": "<span class=\"rainbowText\">Мои магические талисманы на удачу!</span> +0.01% Удачи Амброзии за уровень; эффект умножен на количество цифр в ваших Амброзии и Красной Амброзии За Всё Время!",
-        "effect": "Этот модуль Удачи четвёртого поколения увеличивает Удачу Амброзии на <span class=\"rainbowText\">{{amount}}</span>"
+        "name": "Восьмилистный клевер",
+        "description": "<span class=\"rainbowText\">Мои магические талисманы на удачу!</span> +0.01% удачи амброзии за уровень; эффект умножается на количество цифр ваших амброзий и красных амброзий за всё время!",
+        "effect": "Этот модуль Удачи четвёртого поколения увеличивает удачу амброзии на <span class=\"rainbowText\">{{amount}}</span>"
       },
       "ambrosiaPatreon": {
-        "name": "Shameless, Ambrosial Subscriber Advertisement",
-        "description": "In every realm, Platonic sells out. The Global Subscriber Bonus and the Personal Account Bonus will also impact your Ambrosia Bar Point generation. Consider Subscribing to support development and increase this bonus, for you and all Synergism players!",
-        "effect": "Generous Subscribers and your Personal Bonus grants you {{amount}}% more Ambrosia Bar Points!"
+        "name": "Бесстыдная реклама Амброзиевой подписки",
+        "description": "Распрожада от Платоника в каждом измерении. Глобальный бонус подписчиков и бонус персонального аккаунта так же влияют на вашу генерацию очков в шкале амброзии. Подпишитесь, если хотите поддержать разработку и увеличить бонус для себя и всех игроков Synergism!",
+        "effect": "Щедрые подписчики и ваш персональный бонус дают ват на {{amount}}% больше очков шкалы амброзии!"
       },
       "ambrosiaObtainium1": {
-        "name": "Рандомный Усилитель Обтаниума",
-        "description": "+0.1% Обтаниума за каждое очко Удачи Амброзии!",
-        "effect": "Этот модуль увеличивает получение Обтаниума на {{amount}}%!"
+        "name": "Усилитель обтаиниума основанный на RNG",
+        "description": "+0.1% Обтаиниума за каждое очко удачи амброзии!",
+        "effect": "Этот модуль увеличивает получение Обтаиниума на {{amount}}%!"
       },
       "ambrosiaOffering1": {
-        "name": "Рандомный Усилитель Подношений",
-        "description": "+0.1% Подношений за каждое очко Удачи Амброзии!",
+        "name": "Усилитель подношений основанный на RNG",
+        "description": "+0.1% подношений за каждое очко удачи амброзии!",
         "effect": "Этот модуль увеличивает получение Подношений на {{amount}}%!"
       },
       "ambrosiaHyperflux": {
@@ -2002,108 +2002,108 @@
       },
       "wowCubesAutobuyer": {
         "name": "Автопокупщик Cubus Admirabilis",
-        "description": "Autobuy Cubus Admirabilis Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "description": "Автоматически покупает Cubus Admirabilis Formicidae, если у вас куплен автопокупщик!",
+        "effect": "Текущий эффект: смотрите выше!"
       },
       "ascensionScoreAutobuyer": {
         "name": "Ascendens Autobuyer",
-        "description": "Autobuy Ascendens Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "description": "Автоматически покупает Ascendens Formicidae, если у вас куплен автопокупщик!",
+        "effect": "Текущий эффект: смотрите выше!"
       },
       "mortuus2Autobuyer": {
-        "name": "Mortuus Iterum Autobuyer",
-        "description": "Autobuy Mortuus Iterum Formicidae if you have autobuy enabled!",
-        "effect": "Current Effect: See Above!"
+        "name": "Автопокупщик Mortuus Iterum",
+        "description": "Автоматически покупает Mortuus Iterum Formicidae, если у вас куплен автопокупщик!",
+        "effect": "Текущий эффект: смотрите выше!"
       }
     },
     "progressiveAchievements": {
       "runeLevel": {
-        "name": "Progressive Achievement - Purchased Rune Levels",
-        "description": "Gain AP based on the sum of all rune levels purchased! <br> Best Total: <<gold|{{x}}>>",
-        "apSource": "Gain +1 AP per 1,000 Rune Levels purchased, up to 200,000 Levels. <br> Gain +1 AP per 2,500 Rune Levels purchased, up to 1,000,000 Levels. <br> Gain +1 AP per 12,500 Rune Levels purchased, up to 5,000,000 Levels."
+        "name": "Прогрессивное достижение - Купленные уровни рун",
+        "description": "Получайте ОД в зависимости от суммы всех купленных уровней рун! <br> Лучший счёт: <<gold|{{x}}>>",
+        "apSource": "Получайте +1 ОД за 1000 купленных уровней рун, вплоть до 200000 уровней. <br> Получайте +1 ОД за 2500 купленных уровней рун, вплоть до 1000000 уровней. <br> Получайте +1 ОД за 12500 купленных уровней рун, вплоть до 5000000 уровней."
       },
       "freeRuneLevel": {
-        "name": "Progressive Achievement - Free Rune Levels",
-        "description": "Gain AP based on the sum of all your free rune levels! <br> Best Total: <<gold|{{x}}>>",
-        "apSource": "Gain +1 AP per 250 Free Rune Levels owned, up to 25,000 Levels. <br> Gain +1 AP per 750 Free Rune Levels owned, up to 150,000 Levels. <br> Gain +1 AP per 2,500 Free Rune Levels owned, up to 500,000 Levels."
+        "name": "Прогрессивное достижение - Бесплатные уровни рун",
+        "description": "Получайте ОД в зависимости от суммы всех бесплатных уровней рун! <br> Лучший счёт: <<gold|{{x}}>>",
+        "apSource": "Получайте +1 ОД за 250 бесплатных уровней рун, вплоть до 25000 уровней. <br> Получайте +1 ОД за 750 бесплатных уровней рун, вплоть до 150000 уровней. <br> Получайте +1 ОД за 2500 бесплатных уровней рун, вплоть до 500000 уровней."
       },
       "antMasteries": {
-        "name": "Progressive Achievement - Ant Masteries",
-        "description": "Gain AP based on your unique Ant Mastery levels purchsed! <br> Best Total: <<gold|{{x}}>>",
-        "apSource": "Gain +3 AP for every unique level purchased. <br> Gain +4 AP for every unique level 12 Mastery."
+        "name": "Прогрессивное достижение - Мастерство муравьёв",
+        "description": "Получайте ОД в зависимости от уровней мастерства муравьёв! <br> Лучший счёт: <<gold|{{x}}>>",
+        "apSource": "Получайте +3 ОД за каждый уникальный купленный уровень. <br> Получайте +4 ОД за каждый уникальный 12 уровень мастерства."
       },
       "rebornELO": {
-        "name": "Progressive Achievement - Reborn ELO",
-        "description": "Gain AP based on the total weighted value of your best Reborn ELO, lifetime! <br> Best Total: <<gold|{{x}}>> <br> (Check the \"Ants to Quark Corner\" in the Altar Subtab)",
-        "apSource": "Gain +1 AP per 100 Reborn ELO, up to 10,000. <br> Gain +1 AP per 1000 Reborn ELO, up to 150,000. <br> Gain +1 AP per 9,000 Reborn ELO, up to 1,350,000. <br> Gain +1 AP per 75,000 Reborn ELO, up to 15,000,000. <br> Gain +1 AP per 150,000 Reborn ELO, up to 60,000,000."
+        "name": "Прогрессивное достижение - ELO возрождения",
+        "description": "Получайте ОД в зависимости от взвешенного счёта вашего лучшего ELO возрождения за всё время! <br> Лучший счёт: <<gold|{{x}}>> <br> (Проверьте \"Уголок муравьёв в кварки\" в подкатегории алтаря)",
+        "apSource": "Получайте +1 ОД за каждые 100 ELO возрождения, вплоть до 10000. <br> Получайте +1 ОД за каждые 1000 ELO возрождения, вплоть до 150000. <br> Получайте +1 ОД за каждые 9000 ELO возрождения, вплоть до 1350000. <br> Получайте +1 ОД за каждые 75000 ELO возрождения, вплоть до 15000000. <br> Получайте +1 ОД за каждые 15000 ELO возрождения, вплоть до 60000000."
       },
       "singularityCount": {
-        "name": "Progressive Achievement - Singularity Count",
-        "description": "Gain AP based on the highest Singularity you have reached! <br> Highest Reached: <<gold|{{x}}>>",
-        "apSource": "Gain +9 AP for Singularities 1-100 <br> Gain +12 AP for Singularities 101-200 <br> Gain +15 AP for Singularities 201-300"
+        "name": "Прогрессивное достижение - Количество сингулярностей",
+        "description": "Получайте ОД в зависимости от самой высокой достигнутов сингулярности! <br>  Рекорд: <<gold|{{x}}>>",
+        "apSource": "Получайте +9 ОД за сингулярности с 1 по 100 <br> Получайте +12 ОД за сингулярности с 101 по 200 <br> Получайте +15 ОД за сингулярности с 201 по 300"
       },
       "ambrosiaCount": {
-        "name": "Progressive Achievement - Lifetime Ambrosia",
-        "description": "Gain AP based on your lifetime Ambrosia! <br> Lifetime Ambrosia: <<gold|{{x}}>>",
-        "apSource": "Gain +1 AP per 100 Ambrosia, up to 20,000. <br> Gain +1 AP per 10,000 Ambrosia, up to 2,000,000. <br> Gain up to 400 MORE AP, by reaching 100,000,000 total Lifetime Ambrosia!"
+        "name": "Прогрессивное достижение - Амброзия за всё время",
+        "description": "Получайте ОД в зависимости от вашей амброзии за всё время! <br> Амброзии за всё время: <<gold|{{x}}>>",
+        "apSource": "Получайте +1 ОД за каждые 100 амброзии, вплоть до 20000 уровней. <br> Получайте +1 ОД за каждые 2000000 амброзии, вплоть до 150000 уровней. <br> Получите ЕЩЁ до 400 ОД, достигнув 100000000 амброзии за всё время!"
       },
       "redAmbrosiaCount": {
-        "name": "Progressive Achievement - Lifetime Red Ambrosia",
-        "description": "Gain AP based on your lifetime Red Ambrosia! <br> Lifetime Red Ambrosia: <<gold|{{x}}>>",
-        "apSource": "Gain +1 AP per 25 Red Ambrosia, up to 5,000. <br> Gain +1 AP per 2,500 Red Ambrosia, up to 500,000. <br> Gain +1 AP per 12,500 Ambrosia, up to 5,000,000. <br> Finally, Gain +1 AP per 62,500 Red Ambrosia, up to 12,500,000."
+        "name": "Прогрессивное достижение - Красная амброзия за всё время",
+        "description": "Получайте ОД в зависимости от вашей красной амброзии за всё время! <br> Красной амброзии за всё время: <<gold|{{x}}>>",
+        "apSource": "Получайте +1 ОД за каждые 25 красной амброзии, вплоть до 5000. <br> Получайте +1 ОД за каждые 2500 красной амброзии, вплоть до 500000. <br> Получайте +1 ОД за каждые 12500 красной амброзии, вплоть до 5000000. <br> Наконец, получайте +1 ОД за каждые 62500 красной амброзии, вплоть до 12500000. <br> "
       },
       "exalts": {
-        "name": "Progressive Achievement - EXALT Completions",
-        "description": "Gain AP for each EXALT you have completed!",
-        "apSource": "Без Улучшений Золотых Кварков: {{num1}}/{{cap1}} ОД <br> Предел в Одно Испытание: {{num2}}/{{cap2}} ОД <br> Двадцать Вознесений: {{num3}}/{{cap3}} ОД <br> Без Эффектов Октерактов: {{num4}}/{{cap4}} ОД <br> Без Улучшений Амброзии: {{num5}}/{{cap5}} ОД <br> Великий Спидран Сингулярности: {{num6}}/{{cap6}} ОД <br> Садизм III: {{num7}}/{{cap7}} ОД <br> Последний Рубеж Сборщика Налогов: {{num8}}/{{cap8}} ОД"
+        "name": "Прогрессивное достижение - Завершённые EXALT",
+        "description": "Получайте ОД за каждый завершённый EXALT!",
+        "apSource": "Без улучшений золотых кварков: {{num1}}/{{cap1}} ОД <br> Предел в одно испытание: {{num2}}/{{cap2}} ОД <br> Двадцать вознесений: {{num3}}/{{cap3}} ОД <br> Без эффектов октерактов: {{num4}}/{{cap4}} ОД <br> Без улучшений амброзии: {{num5}}/{{cap5}} ОД <br> Великий спидран сингулярности: {{num6}}/{{cap6}} ОД <br> Садизм III: {{num7}}/{{cap7}} ОД <br> Последний рубеж сборщика налогов: {{num8}}/{{cap8}} ОД"
       },
       "singularityUpgrades": {
-        "name": "Progressive Achievement - Golden Quark Upgrades",
-        "description": "Gain AP for each Golden Quark upgrade you've maxxed!",
-        "apSource": "Capped upgrades: +5 AP If the upgraded level (excluding free upgrades) is at least the base maximum level."
+        "name": "Прогрессивное достижение - Улучшения золотых кварков",
+        "description": "Получайте ОД за каждое максимальное улучшение золотых кварков!",
+        "apSource": "Лимитные улучшения: +5 ОД если уровень улучшения (исключая бесплатные улучшения) как минимум достиг базового максимального уровня."
       },
       "octeractUpgrades": {
-        "name": "Progressive Achievement - Octeract Upgrades",
-        "description": "Gain AP for each Octeract upgrade you've maxxed!",
-        "apSource": "Capped upgrades: +8 AP if the upgraded level (excluding free upgrades) is the maximum level."
+        "name": "Прогрессивное достижение - Улучшения октерактов",
+        "description": "Получайте ОД за каждое максимальное улучшение октерактов!",
+        "apSource": "Лимитные улучшения: +8 ОД если уровень улучшения (исключая бесплатные улучшения) максимальный."
       },
       "redAmbrosiaUpgrades": {
-        "name": "Progressive Achievement - Red Ambrosia Upgrades",
-        "description": "Gain AP for each Red Ambrosia upgrade you've maxxed!",
-        "apSource": "For each upgrade leveled to the max: +10 AP"
+        "name": "Прогрессивное улучшение - Улучшения красной амброзии",
+        "description": "Получайте ОД за каждое максимальное улучшение красной амброзии!",
+        "apSource": "За каждое улучшение максимального уровня: +10 ОД"
       },
       "talismanRarities": {
-        "name": "Talisman Rarity",
-        "description": "Your talismans grant AP based on their rarity! <br> Best sum of rarities: <<gold|{{x}}>>",
-        "apSource": "Gain +5 AP for each rarity. Unlocked Talismans have a rarity of at least 1."
+        "name": "Редкость талисманов",
+        "description": "Ваши талисманы дают ОД в зависимости от своей редкости! <br> Лучшая сумма редкостей: <<gold|{{x}}>>",
+        "apSource": "Получайте +5 ОД за каждую редкость. Открытые талисманы имеют минимум 1 редкость."
       }
     },
     "alerts": {
-      "36": "Поздравляем вас с первым Престижем. Первым из многих. Теперь вы получаете Подношения, которые вы можете использовать в новой вкладке \"Руны!\" [Разблокированы: Руны, Достижения, Алмазные Строения и ещё немного Улучшений!]",
-      "38": "Хм-м, кажется вы становитесь богаче, имея возможность получить 1 Гугол алмазов за один Престиж. Как насчёт того, что мы дадим тебе ещё одну Руну? [Разблокирована руна Дубликации во вкладке \"Руны\"]",
-      "255": "Вау! Вы достигли счёта 1e17 (100 Квадриллионов) за одно Вознесение. В качестве награды, теперь, если ваш счёт будет выше 1.66e17 (166.6 Квадриллионов), вы сможете генерировать Гептеракты. Удачи!"
+      "36": "Поздравляем вас с первым престижем. Первым из многих. Теперь вы получаете подношения, которые вы можете использовать в новой вкладке \"Руны!\" [Разблокированы: Руны, Достижения, Алмазные строения и ещё немного улучшений!]",
+      "38": "Хм-м, кажется вы становитесь богаче, имея возможность получить 1 Гугол алмазов за один престиж. Как насчёт того, что мы дадим тебе ещё одну руну? [Разблокирована руна Размножения во вкладке \"Руны\"]",
+      "255": "Вау! Вы достигли счёта 1e17 (100 квадриллионов) за одно вознесение. В качестве награды, теперь, если ваш счёт будет выше 1.66e17 (166.6 Квадриллионов), вы сможете генерировать Гептеракты. Удачи!"
     },
     "hover": "Наведите на достижение, чтобы просмотреть его информацию.",
-    "tieredExtraRewards": "This Tiered Achievement has extra rewards!",
-    "ungroupedExtraRewards": "This Achievement has an additional reward!",
-    "totalPoints": "Очки Достижений: {{x}}/{{y}} [{{z}}%]",
-    "achievementPoints": "You have {{x}} Achievement Points (AP)!",
-    "rewardGainMessage": "Награда: {{x}} ОД. {{y}} Кварков! {{z}}",
+    "tieredExtraRewards": "Это уровневое достижение имеет дополнительные награды!",
+    "ungroupedExtraRewards": "Это достижение имеет дополнительные награды!",
+    "totalPoints": "Очки достижений: {{x}}/{{y}} [{{z}}%]",
+    "achievementPoints": "У вас имеется {{x}} очков достижений (ОД)!",
+    "rewardGainMessage": "Награда: {{x}} ОД. {{y}} кварков! {{z}}",
     "completed": " ЗАВЕРШЕНО!",
     "notification": "Вы разблокировали достижение: {{m}}",
-    "quarkBonus": "+0.01 К Множителю Кварков за 500 ОД! Множитель Кварков: <<cyan | x{{multiplier}}>>",
-    "achievementLevel": "Based on your Achievement Points, you are at Synergism Level <span class=\"rainbowText\">{{level}}</span>",
-    "achievementToNextLevel": "Level {{level}} in {{AP}} AP",
-    "levelUpNotification": "Level Up! Synergism Level {{old}} → {{new}}",
-    "complete": " &nbsp;&nbsp; Tier {{tier}} (COMPLETE!)",
-    "tier": " &nbsp;&nbsp; Tier {{tier}}"
+    "quarkBonus": "+0.01 К множителю кварков за 500 ОД! Множитель кварков: <<cyan | x{{multiplier}}>>",
+    "achievementLevel": "Основываясь на ваших очках достижений, ваш уровень Synergism равен <span class=\"rainbowText\">{{level}}</span>",
+    "achievementToNextLevel": "Уровень {{level}} через {{AP}} ОД",
+    "levelUpNotification": "Уровень повышен! Уровень Synergism {{old}} → {{new}}",
+    "complete": "&nbsp; Уровень {{tier}} (ЗАВЕРШЁН!)",
+    "tier": "&nbsp; Уровень {{tier}}"
   },
   "reset": {
     "details": {
-      "prestige": "Монеты, Производители Монет, Улучшения Монет и Кристаллы сбросятся, но взамен вы получите алмазы и новые Подношения. Требуется: {{amount}}/1e16 Монет || ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд.",
-      "transcension": "Сбрасывает все Улучшения/Функции Монет и Алмазов, Производителей и Улучшения Кристаллов, взамен давая Мифы/Подношения. Требуется: {{amount}}/1e100 Монет || ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд.",
-      "reincarnation": "Сбрасывает ВСЕ предыдущие уровни сброса, но взамен вы получите Частицы, Обтаниум и Подношения! Требуется: {{amount}}/1e300 Осколков Мифов || ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд.",
-      "acceleratorBoost": "Сброс всех Производителей/Улучшений Монет, Кристаллов и Алмазов для того, чтобы увеличить силу ваших Ускорителей. Требуется: {{amount}}/{{required}} Алмазов.",
+      "prestige": "Монеты, производители монет, улучшения монет и кристаллы сбросятся, но взамен вы получите алмазы и немного подношений. Требуется: {{amount}}/1e16 монет || ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} секунд.",
+      "transcension": "Сбрасывает все улучшения/Функции монет и алмазов, производители и улучшения кристаллов, взамен давая мифы/подношения. Требуется: {{amount}}/1e100 монет || ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} секунд.",
+      "reincarnation": "Сбрасывает ВСЕ предыдущие уровни сброса, но взамен вы получите частицы, обтаиниум и подношения! Требуется: {{amount}}/1e300 осколков мифов || ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} секунд.",
+      "acceleratorBoost": "Сброс всех производителей/улучшений монет, кристаллов и алмазов для того, чтобы увеличить силу ваших ускорителей. Требуется: {{amount}}/{{required}} алмазов.",
       "transcensionChallenge": {
         "in": "Устали быть в Испытании или попросту застряли? Нажмите сюда, чтобы покинуть Испытание {{n}}. Прогресс: {{amount}}/{{required}} Монет. ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд.",
         "out": "Прямо сейчас вы не в Испытании Выхода за пределы. Попадите в него, прежде чем выходить, кэп!"
@@ -2111,146 +2111,146 @@
       "reincarnationChallenge": {
         "in": {
           "coins": "Вы закончили или устали быть в Испытании? Нажмите сюда, чтобы покинуть Испытание {{n}}. Прогресс: {{amount}}/{{required}} Монет. ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд.",
-          "transcendShards": "Устали быть в Испытании или попросту застряли? Нажмите сюда, чтобы покинуть Испытание {{n}}. Прогресс: {{amount}}/{{required}} Осколков Мифов. ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд."
+          "transcendShards": "Устали быть в испытании или попросту застряли? Нажмите сюда, чтобы покинуть испытание {{n}}. Прогресс: {{amount}}/{{required}} осколков мифов. ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} секунд."
         },
-        "out": "В данный момент вы не в Испытании Реинкарнации. Как можно покинуть что-то, не находясь в нём?"
+        "out": "В данный момент вы не в испытании реинкарнации. Как можно покинуть что-то, не находясь в этом?"
       },
-      "ascensionChallenge": "Нажмите, если вы в Испытании Вознесения и хотите покинуть его. Уже должно быть очевидно!",
-      "ascension": "Вознестись, необходимо И-10! Вы получите +{{cubeAmount}} Вау! Кубов за это! Время: {{timeSpent}} Секунд. ({{realTimeSpent}} Реальных Секунд)",
-      "singularity": "Хотите ли вы отказаться от ваших лавр для более великого Испытания? Муравьиный Бог подсластит сделку, дав вам {{gqAmount}} Золотых Кварков. Время: {{timeSpent}} Секунд."
+      "ascensionChallenge": "Нажмите, если вы в испытании вознесения и хотите покинуть его. Уже должно быть очевидно!",
+      "ascension": "Вознестись, необходимо И-10! Вы получите +{{cubeAmount}} Вау! Кубов за это! Время: {{timeSpent}} секунд. ({{realTimeSpent}} реальных секунд)",
+      "singularity": "Хотите ли вы отказаться от ваших лавр для более великого испытания? Муравьиный Бог подсластит сделку, дав вам {{gqAmount}} золотых кварков. Время: {{timeSpent}} секунд."
     }
   },
   "ants": {
     "producers": {
       "0": {
-        "name": "Worker Ants - Tier I",
-        "flavor": "The backbone of any colony. Gathers Galactic Crumbs.",
-        "generates": "Generates {{x}} Crumbs per second",
-        "eloInformation": "<<gold | ⤬>> Each Worker Ant you buy grants you <<orchid | +{{x}} Ant ELO>> for Ant Sacrifice.",
-        "reincarnationUpgrade17": "Ant Speed from Reincarnation Upgrade 4x2: <<gold | {{x}}x>>",
-        "research": "Ant Speed from Research 4x21: <<gold | {{x}}x>>",
-        "cookieUpgrade": "Ant Speed from Cookie Upgrade 2x15: <<gold | {{x}}x>>"
+        "name": "Рабочие муравьи - уровень 1",
+        "flavor": "Основа любой колонии. Собирает галактические крошки.",
+        "generates": "Создаёт {{x}} крошек в секунду",
+        "eloInformation": "<<gold | ⤬>> Каждый купленный рабочий муравей даёт вам <<orchid | +{{x}} Муравьиного ELO>> за жертвоприношение.",
+        "reincarnationUpgrade17": "Скорость муравьёв от улучшения реинкарнации 4х2: <<gold | {{x}}x>>",
+        "research": "Скорость муравьёв от исследования 4х21: <<gold | {{x}}x>>",
+        "cookieUpgrade": "Скорость муравьёв от улучшения печенья 2х15: <<gold | {{x}}x>>"
       },
       "1": {
-        "name": "Breeder Ants - Tier II",
-        "flavor": "Produces Worker Ants automatically. The colony grows.",
-        "generates": "Generates {{x}} Worker Ants per second"
+        "name": "Муравьи-селекционеры - уровень 2",
+        "flavor": "Автоматически создают рабочих муравьёв",
+        "generates": "Создают {{x}} рабочих муравьёв в секунду"
       },
       "2": {
-        "name": "Meta-Breeder Ants - Tier III",
-        "flavor": "Slightly bigger. Can produce Breeder Ants!",
-        "generates": "Generates {{x}} Breeder Ants per second"
+        "name": "Муравьи-мета-селекционеры - уровень 3",
+        "flavor": "Слегка больше. Могут создавать муравьёв-селекционеров!",
+        "generates": "Создают {{x}} муравьёв-селекционеров в секунду"
       },
       "3": {
-        "name": "Mega-Breeder Ants - Tier IV",
-        "flavor": "It's not just huge. It's big. It produces Meta-Breeders.",
-        "generates": "Generates {{x}} Meta-Breeder Ants per second"
+        "name": "Мега-муравьи-селекционеры - уровень 4",
+        "flavor": "Они не просто большие. Они большущие. Производят муравьёв-мета-селекционеров.",
+        "generates": "Создают {{x}} муравьёв-мета-селекционеров в секунду"
       },
       "4": {
-        "name": "Queen Ants - Tier V",
-        "flavor": "The mother of them all. Produces Mega-Breeders.",
-        "generates": "Generates {{x}} Mega-Breeder Ants per second",
-        "eloMult": "<<orchid | ☇>> Buying your first Queen Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
-        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first Queen Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.15x as fast!"
+        "name": "Королевы муравьёв - уровень 5",
+        "flavor": "Мать их всех. Производит мега-муравьёв-селекционеров.",
+        "generates": "Создают {{x}} мега-муравьёв-селекционеров в секунду",
+        "eloMult": "<<orchid | ☇>> Покупка первой королевы муравьёв за это жертвоприношение увеличивает ваш <<orchid|Муравьиный ELO>> на 1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Покупка первой королевы муравьёв за это жертвоприношение создаёт <<#00DDFF|ELO возрождения>> в 1,15 раз быстрее!"
       },
       "5": {
-        "name": "Lord Royal Ants - Tier VI",
-        "flavor": "A King Ant. Produces Queens. Wait, what?",
-        "generates": "Generates {{x}} Queen Ants per second",
-        "eloMult": "<<orchid | ☇>> Buying your first Lord Royal Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
-        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first Lord Royal Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.25x as fast!"
+        "name": "Королевские муравьи - уровень 6",
+        "flavor": "Муравей-король. Производит королев. Погоди, что?",
+        "generates": "Создают {{x}} королев муравьёв в секунду",
+        "eloMult": "<<orchid | ☇>> Покупка первого муравья-короля за это жертвоприношение увеличивает ваш <<orchid|муравьиный ELO>> на 1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Покупка первого муравья-короля за это жертвоприношение создаёт <<#00DDFF|ELO возрождения>> в 1,25 раз быстрее!"
       },
       "6": {
-        "name": "ALMIGHTY Ants - Tier VII",
-        "flavor": "The stuff of legends. Produces Lord Royals.",
-        "generates": "Generates {{x}} Lord Royal Ants per second",
-        "eloMult": "<<orchid | ☇>> Buying your first ALMIGHTY Ant this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 1%",
-        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first ALMIGHTY Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.4x as fast!"
+        "name": "ВСЕМОГУЩИЕ муравьи - уровень 7",
+        "flavor": "Одни из легенд. Создают марвьёв-королей.",
+        "generates": "Создают {{x}} муравьёв-королей в секунду",
+        "eloMult": "<<orchid | ☇>> Покупка первого ВСЕМОГУЩЕГО муравья за это жертвоприношение увеличивает ваш <<orchid|муравьиный ELO>> на 1%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Покупка первого ВСЕМОГУЩЕГО муравья за это жертвоприношение создаёт <<#00DDFF|ELO возрождения>> в 1,4 раз быстрее!"
       },
       "7": {
-        "name": "DISCIPLE OF ANT GOD - Tier VIII",
-        "flavor": "Some call this the Primordial One. Produces ALMIGHTY ANTS.",
-        "generates": "Generates {{x}} ALMIGHTY Ants per second",
-        "eloMult": "<<orchid | ☇>> Buying your first DISCIPLE this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 2%",
-        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first DISCIPLE this Sacrifice creates <<#00DDFF|Reborn ELO>> 2x as fast!"
+        "name": "ПОСЛЕДОВАТЕЛЬ БОГА МУРАВЬЁВ - уровень 8",
+        "flavor": "Некоторые зовут их Первородными. Создают ВСЕМОГУЩИХ МУРАВЬЁВ.",
+        "generates": "Создают {{x}} ВСЕМОГУЩИХ муравьёв в секунду",
+        "eloMult": "<<orchid | ☇>> Покупка первого ПОСЛЕДОВАТЕЛЯ за это жертвоприношение увеличивает ваш <<orchid|муравьиный ELO>> на 2%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Покупка первого ПОСЛЕДОВАТЕЛЯ за это жертвоприношение создаёт <<#00DDFF|ELO возрождения>> в 2 раза быстрее!"
       },
       "8": {
-        "name": "THE HOLY SPIRIT OF ANT GOD - Tier IX",
-        "flavor": "The child is the mother of the woman. Produces DISCIPLES.",
-        "generates": "Generates {{x}} DISCIPLES per second",
-        "eloMult": "<<orchid | ☇>> Buying your first HOLY SPIRIT this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 2%",
-        "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first HOLY SPIRIT this Sacrifice creates <<#00DDFF|Reborn ELO>> 3x as fast!"
+        "name": "СВЯТОЙ ДУХ МУРАВЬИНОГО БОГА - уровень 9",
+        "flavor": "Дитя является матерью женщины. Создают ПОСЛЕДОВАТЕЛЕЙ.",
+        "generates": "Создают {{x}} ПОСЛЕДОВАТЕЛЕЙ в секунду",
+        "eloMult": "<<orchid | ☇>> Покупка первого СВЯТОГО ДУХА за это жертвоприношение увеличивает ваш <<orchid|муравьиный ELO>> на 2%",
+        "eloSpeedup": "<<#00DDFF | 🝘>> Покупка первого СВЯТОГО ДУХА за это жертвоприношение создаёт <<#00DDFF|ELO возрождения>> в 3 раза быстрее!"
       }
     },
     "mastery": {
-      "notMaxedSelfAnt": "Flat production multiplier: <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-      "maxedSelfAnt": "Flat production multiplier: <<gold | {{x}}>>",
-      "level": "Mastery Level <<gold|{{x}}/{{y}}>>",
-      "eloRequirement": "Buying this Mastery level requires <<#00DDFF | {{x}} Reborn ELO>> (Current: <<#00DDFF | {{y}}>>)",
-      "particleCost": "Cost: <<green | {{x}} Particles>>",
-      "alreadyPurchased": "You've already purchased this Mastery level, and you can autobuy this tier of Ant. When you reach the Reborn ELO requirement, this Mastery level will be automatically bought.",
+      "notMaxedSelfAnt": "Плоский множитель производства: <<gray | {{x}} ⇾>><<gold | {{y}}>>",
+      "maxedSelfAnt": "Плоский множитель производства: <<gold | {{x}}>>",
+      "level": "Уровень мастерства <<gold|{{x}}/{{y}}>>",
+      "eloRequirement": "Покупка этого мастерства требует <<#00DDFF | {{x}} ELO возрождения>> (Текущее: <<#00DDFF | {{y}}>>)",
+      "particleCost": "Стоит: <<green | {{x}} частиц>>",
+      "alreadyPurchased": "Вы уже купили этот уровень мастерства, и теперь можете автоматически покупать этот уровень муравья. Когда вы достигните требования ELO возрождения,  этот уровень мастерства автоматически купится.",
       "0": {
-        "name": "Worker Mastery",
-        "flavor": "Crumbs for me, not for thee.",
-        "notMaxedSelfPer": "Each Worker Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each Worker Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Worker Mastery multiplies Crumb production by <<gold | {{x}}>>"
+        "name": "Мастерство рабочих",
+        "flavor": "Крошки мне, а не тебе.",
+        "notMaxedSelfPer": "Каждый последующий купленный рабочий муравей умножает своё производство в <<gray | {{x}} ⇾>><<gold | {{y}}>> раз",
+        "maxedSelfPer": "Каждый последующих купленный рабочий муравей умножает своё производство в <<gold | {{x}}>> раз",
+        "effect": "<<green | ★>> Мастерство рабочих умножает производство крошек в <<gold | {{x}}>> раз"
       },
       "1": {
-        "name": "Breeder Mastery",
-        "flavor": "Get a room!",
-        "notMaxedSelfPer": "Each Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Breeder Mastery multiplies Worker Ant production by <<gold | {{x}}>>"
+        "name": "Мастерство селекционеров",
+        "flavor": "Найдите комнату!",
+        "notMaxedSelfPer": "Каждый последующий купленный муравей-селекционер умножает своё производство в <<gray | {{x}} ⇾>><<gold | {{y}}>> раз",
+        "maxedSelfPer": "Каждый последующий купленный муравей-селекционер умножает своё производство в <<gold | {{x}}>> раз",
+        "effect": "<<green | ★>> Мастерство селекционеров умножает производство крошек в <<gold | {{x}}>> раз"
       },
       "2": {
-        "name": "Meta-Breeder Mastery",
-        "flavor": "Two's company. Three's a crowd.",
-        "notMaxedSelfPer": "Each Meta-Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each Meta-Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Meta-Breeder Mastery multiplies Breeder Ant production by <<gold | {{x}}>>"
+        "name": "Мастерство мета-селекционеров",
+        "flavor": "Два - компания. Три - толпа.",
+        "notMaxedSelfPer": "Каждый последующий купленный муравей-мета-селекционер умножает своё производство в <<gray | {{x}} ⇾>><<gold | {{y}}>> раз",
+        "maxedSelfPer": "Каждый последующий купленный муравей-мета-селекционер умножает своё производство в <<gold | {{x}}>> раз",
+        "effect": "<<green | ★>> Мастерство мета-селекционеров умножает производство крошек в <<gold | {{x}}>> раз"
       },
       "3": {
-        "name": "Mega-Breeder Mastery",
-        "flavor": "Go big or go home.",
-        "notMaxedSelfPer": "Each Mega-Breeder Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each Mega-Breeder Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Mega-Breeder Mastery multiplies Meta-Breeder Ant production by <<gold | {{x}}>>"
+        "name": "Мастерство мега-селекционеров",
+        "flavor": "Увеличивайся или иди домой.",
+        "notMaxedSelfPer": "Каждый последующий купленный муравей-мега-селекционер умножает своё производство в <<gray | {{x}} ⇾>><<gold | {{y}}>> раз",
+        "maxedSelfPer": "Каждый последующий купленный муравей-мега-селекционер умножает своё производство в <<gold | {{x}}>> раз",
+        "effect": "<<green | ★>> Мастерство мега-селекционеров умножает производство крошек в <<gold | {{x}}>> раз"
       },
       "4": {
-        "name": "Queen Mastery",
-        "flavor": "Bow before me, peasants!",
-        "notMaxedSelfPer": "Each Queen Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each Queen Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Queen Mastery multiplies Mega-Breeder Ant production by <<gold | {{x}}>>"
+        "name": "Мастерство королев",
+        "flavor": "Склонитесь предо мной, простолюдины!",
+        "notMaxedSelfPer": "Каждая последующая купленная королева муравьёв умножает своё производство в <<gray | {{x}} ⇾>><<gold | {{y}}>> раз",
+        "maxedSelfPer": "Каждая последующая купленная королева муравьёв умножает своё производство в <<gold | {{x}}>> раз",
+        "effect": "<<green | ★>> Мастерство королев умножает производство крошек в <<gold | {{x}}>> раз"
       },
       "5": {
-        "name": "Lord Royal Mastery",
-        "flavor": "Straight to dictator academy.",
-        "notMaxedSelfPer": "Each Lord Royal Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each Lord Royal Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> Lord Royal Mastery multiplies Queen Ant production by <<gold | {{x}}>>"
+        "name": "Мастерство королей",
+        "flavor": "Прямо в диктаторскую академию.",
+        "notMaxedSelfPer": "Каждый последующий купленный муравей-король умножает своё производство в <<gray | {{x}} ⇾>><<gold | {{y}}>> раз",
+        "maxedSelfPer": "Каждый последующий купленный муравей-король умножает своё производство в <<gold | {{x}}>> раз",
+        "effect": "<<green | ★>> Мастерство королей умножает производство крошек в <<gold | {{x}}>> раз"
       },
       "6": {
-        "name": "ALMIGHTY Mastery",
-        "flavor": "I am an eventuality.",
-        "notMaxedSelfPer": "Each ALMIGHTY Ant purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each ALMIGHTY Ant purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> ALMIGHTY Mastery multiplies Lord Royal Ant production by <<gold | {{x}}>>"
+        "name": "Мастерство ВСЕМОГУЩИХ",
+        "flavor": "Я возможен.",
+        "notMaxedSelfPer": "Каждый последующий купленный ВСЕГМОГУЙ муравей умножает своё производство в <<gray | {{x}} ⇾>><<gold | {{y}}>> раз",
+        "maxedSelfPer": "Каждый последующий купленный ВСЕГМОГУЙ муравей умножает своё производство в <<gold | {{x}}>> раз",
+        "effect": "<<green | ★>> Мастерство ВСЕМОГУЩИХ умножает производство крошек в <<gold | {{x}}>> раз"
       },
       "7": {
-        "name": "DISCIPLE Mastery",
-        "flavor": "It really does look like ants from up there.",
-        "notMaxedSelfPer": "Each DISCIPLE purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each DISCIPLE purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> DISCIPLE Mastery multiplies ALMIGHTY Ant production by <<gold | {{x}}>>"
+        "name": "Мастерство ПОСЛЕДОВАТЕЛЕЙ",
+        "flavor": "Он действительно выглядит будто муравьи свыше.",
+        "notMaxedSelfPer": "Каждый последующий купленный ПОСЛЕДОВАТЕЛЬ умножает своё производство в <<gray | {{x}} ⇾>><<gold | {{y}}>> раз",
+        "maxedSelfPer": "Каждый последующий купленный ПОСЛЕДОВАТЕЛЬ умножает своё производство в <<gold | {{x}}>> раз",
+        "effect": "<<green | ★>> Мастерство ПОСЛЕДОВАТЕЛЕЙ умножает производство крошек в <<gold | {{x}}>> раз"
       },
       "8": {
-        "name": "HOLY SPIRIT Mastery",
-        "flavor": "Child, the child, the child.",
-        "notMaxedSelfPer": "Each HOLY SPIRIT purchased further multiplies their production by <<gray | {{x}} ⇾>><<gold | {{y}}>>",
-        "maxedSelfPer": "Each HOLY SPIRIT purchased further multiplies their production by <<gold | {{x}}>>",
-        "effect": "<<green | ★>> HOLY SPIRIT Mastery multiplies DISCIPLE production by <<gold | {{x}}>>"
+        "name": "Мастерство СВЯТЫХ ДУХОВ",
+        "flavor": "Дитя, дитя, дитя.",
+        "notMaxedSelfPer": "Каждый последующий купленный СВЯТОЙ ДУХ умножает своё производство в <<gray | {{x}} ⇾>><<gold | {{y}}>> раз",
+        "maxedSelfPer": "Каждый последующий купленный СВЯТОЙ ДУХ умножает своё производство в <<gold | {{x}}>> раз",
+        "effect": "<<green | ★>> Мастерство СВЯТЫХ ДУХОВ умножает производство крошек в <<gold | {{x}}>> раз"
       }
     },
     "upgrades": {
