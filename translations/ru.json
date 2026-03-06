@@ -2254,189 +2254,189 @@
       }
     },
     "upgrades": {
-      "sacrificeReset": "This Ant resets when you perform an Ant Sacrifice.",
-      "ascensionReset": "This Ant resets when you Ascend.",
-      "singularityReset": "This Ant resets when you perform a Singularity.",
-      "ignoreCorruption": "[<<white|♔>>] This Ant is unaffected by the effects of Corruptions.",
-      "automationUnlocked": "You've unlocked the autobuyer for this Ant Upgrade!",
+      "sacrificeReset": "Этот муравей сбрасывается, когда вы совершаете жертвоприношение.",
+      "ascensionReset": "Этот муравей сбрасывается, когда вы возноситесь.",
+      "singularityReset": "Этот муравей сбрасывается, когда вы выполняете сингулярность.",
+      "ignoreCorruption": "[<<white|♔>>] Этот муравей не подвластен эффектам порчи.",
+      "automationUnlocked": "Вы открыли автопокупщик для данного улучшения муравья!",
       "antSpeed": {
-        "name": "Inceptus Formicidae",
-        "intro": "Love is in the air.",
-        "description": "Love is in the air. Multiply your Ant Speed by {{x}} per level!",
-        "lockedAutomation": "Unlock the <i>Inceptus Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "<<crimson | Ant Speed x{{x}}>>... that's quite a bit, isn't it?"
+        "name": "Inceptus Formicidae (Начальный муравей)",
+        "intro": "Любовь витает в воздухе.",
+        "description": "Любовь витает в воздухе. Умножает скорость муравьёв на {{x}} за уровень!",
+        "lockedAutomation": "Открывает автопокупщик <i>Inceptus Formicidae</i> из группы достижений <<gold|<i>Муравьиные жертвоприношения</i> >>",
+        "effect": "<<crimson | Скорость муравьёв x{{x}}>>... это не мало, не так-ли?"
       },
       "coins": {
-        "name": "Fortunae Formicidae",
-        "intro": "Crumbs are just a <i>little</i> bit sweeter.",
-        "description": "Improve Crumbs' multiplier to Coins.",
-        "lockedAutomation": "Unlock the <i>Fortunae Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "Crumbs give a Coin multiplier equal to <<yellow | (Crumbs)^{{x}}>>",
-        "effect2": "↳ Coin Multiplier: <<yellow | x{{x}}>>"
+        "name": "Fortunae Formicidae (Муравей удачи)",
+        "intro": "Крошки стали ещё <i>немного</i> слаще.",
+        "description": "Улучшает множитель монет от крошек.",
+        "lockedAutomation": "Открывает автопокупщик <i>Fortunae Formicidae</i> из группы достижений <<gold|<i>Муравьиные жертвоприношения</i> >>",
+        "effect": "Крошки дают множитель монет равный <<yellow | (крошки)^{{x}}>>",
+        "effect2": "↳ Множитель монет: <<yellow | x{{x}}>>"
       },
       "taxes": {
-        "name": "Tributum Formicidae",
-        "intro": "Pocket ants!",
-        "description": "Pocket ants! Reduce your taxes by up to 99.5%.",
-        "lockedAutomation": "Unlock the <i>Tributum Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "Taxes are reduced by <<lightgrey | {{x}}>>"
+        "name": "Tributum Formicidae (Налоговый муравей)",
+        "intro": "Карманные муравьи!",
+        "description": "Карманные муравьи! Уменьшает налоги вплоть до 99,5%.",
+        "lockedAutomation": "Открывает автопокупщик <i>Tributum Formicidae</i> из группы достижений <<gold|<i>Муравьиные жертвоприношения</i> >>",
+        "effect": "Налоги уменьшены на <<lightgrey | {{x}}>>"
       },
       "acceleratorBoosts": {
-        "name": "Celeritas Formicidae",
-        "intro": "Eek! This ant is kinda scary, ngl.",
-        "description": "Multiply your Accelerator Boosts by up to x20!",
-        "lockedAutomation": "Unlock the <i>Celeritas Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "<<cyan | Accelerator Boosts +{{x}}>>"
+        "name": "Celeritas Formicidae (Муравей скорости)",
+        "intro": "Фу! Этот муравей стрёмный, честно говоря.",
+        "description": "Умножает ваши усилители ускорителей вплоть до х20 раз!",
+        "lockedAutomation": "Открывает автопокупщик <i>Celeritas Formicidae</i> из группы достижений <<gold|<i>Муравьиные жертвоприношения</i> >>",
+        "effect": "<<cyan |+{{x}} усилителей ускорителей>>"
       },
       "multipliers": {
-        "name": "Exploratorem Formicidae",
-        "intro": "An international ant of mystery.",
-        "description": "Multiply your Multipliers by up to x40!",
-        "lockedAutomation": "Unlock the <i>Exploratorem Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "<<pink | Multipliers +{{x}}>>"
+        "name": "Exploratorem Formicidae (Муравей исследователь)",
+        "intro": "Международная муравьиная загадка.",
+        "description": "Умножает ваши умножители вплоть до х40 раз!",
+        "lockedAutomation": "Открывает автопокупщик <i>Exploratorem Formicidae</i> из группы достижений <<gold|<i>Муравьиные жертвоприношения</i> >>",
+        "effect": "<<pink |+{{x}} множителей>>"
       },
       "offerings": {
-        "name": "Sacrificium Formicidae",
-        "intro": "Binds the sweet influences of Pleiades.",
-        "description": "Offering gain is multiplied by (1 + level / 10)^0.5",
-        "lockedAutomation": "Unlock the <i>Sacrificium Formicidae</i> autobuyer from the <<gold|<i>Ant Sacrifice</i> >> Achievement Group",
-        "effect": "Gain <<orange | +{{x}} Offerings>> from all sources!"
+        "name": "Sacrificium Formicidae (Жертвенный муравей)",
+        "intro": "Связывает сладкие влияния Плеяд",
+        "description": "Получение подношений умножается в (1 + уровень / 10)^0.5 раз",
+        "lockedAutomation": "Открывает автопокупщик <i>Sacrificium Formicidae</i> из группы достижений <<gold|<i>Муравьиные жертвоприношения</i> >>",
+        "effect": "Получаете <<orange | +{{x}} подношений>> из всех источников!"
       },
       "obtainium": {
-        "name": "Experientia Formicidae",
-        "intro": "An example of the <i>infinite ant theorem</i>",
-        "description": "Obtainium gain is multiplied by (1 + level / 10)^0.5",
-        "lockedAutomation": "Unlock the <i>Experientia Formicidae</i> autobuyer from the <<gold|<i>Challenge 9</i> >> Achievement Group",
-        "effect": "Gain <<pink | +{{x}} Obtainium>> from all sources!"
+        "name": "Experientia Formicidae (Испытывающий муравей)",
+        "intro": "Пример <i>теоремы бесконечным муравьёв</i>",
+        "description": "Получение обтаиниума умножается в (1 + уровень / 10)^0.5 раз",
+        "lockedAutomation": "Открывает автопокупщик <i>Experientia Formicidae</i> из группы достижений <<gold|<i>Муравьиные жертвоприношения</i> >>",
+        "effect": "Получаете <<orange | +{{x}} обтаиниума>> из всех источников!"
       },
       "buildingCostScale": {
-        "name": "Hic Formicidae",
-        "intro": "A builder ant! Some may call it a Carpenter Ant?",
-        "description": "+3% Building Cost Delay per level, and +1% Building Power per level!",
-        "lockedAutomation": "Unlock the <i>Hic Formicidae</i> autobuyer from the <<gold|<i>Anthills Sacrificed</i> >> Achievement Group",
-        "effect": "Building Costs take <<lime | {{x}} longer>> to spiral out of control!",
-        "effect2": "Building Power <<lime | x{{x}}>>"
+        "name": "Hic Formicidae (Зодчий муравей)",
+        "intro": "Муравей-строитель! Кто-то может звать его плотником?",
+        "description": "+3% задержки стоимости улучшения за уровень, и +1% силы строений за уровень!",
+        "lockedAutomation": "Открывает автопокупщик <i>Hic Formicidae</i> из группы достижений <<gold|<i>Муравьиные жертвоприношения</i> >>",
+        "effect": "Стоимость строений <<lime | {{x}} дольше>> выходит из-под контроля!",
+        "effect2": "Сила строений <<lime | x{{x}}>>"
       },
       "salvage": {
-        "name": "Scientia Formicidae",
-        "intro": "A rather... resourceful ant.",
-        "description": "Gain up to +120 Salvage!",
-        "lockedAutomation": "Unlock the <i>Scientia Formicidae</i> autobuyer from the <<gold|<i>Galactic Crumbs</i> >> Achievement Group",
-        "effect": "Grants <<green | +{{x}} Salvage>>!"
+        "name": "Scientia Formicidae (Муравей познания)",
+        "intro": "Менее... ресурсный муравей.",
+        "description": "Получаете вплоть до +120 утилизации!",
+        "lockedAutomation": "Открывает автопокупщик <i>Scientia Formicidae</i> из группы достижений <<gold|<i>Муравьиные жертвоприношения</i> >>",
+        "effect": "Даёт <<green | +{{x}} подношений>>!"
       },
       "freeRunes": {
-        "name": "Praemoenio Formicidae",
-        "intro": "It's giving some mixed signals.",
-        "description": "+1 Free Rune Level for Runes 1-5 per level, up to +3,000",
-        "lockedAutomation": "Unlock the <i>Praemoenio Formicidae</i> autobuyer from the <<gold|<i>Anthills Sacrificed</i> >> Achievement Group",
-        "effect": "Those Runes? <<cyan | +{{x}} Free Levels>>, nice!"
+        "name": "Praemoenio Formicidae (Муравей даров)",
+        "intro": "Даёт какие-то смешанные сигналы.",
+        "description": "+1 бесплатного уровня рун для рун с 1 по 5 за уровень, вплоть до +3000",
+        "lockedAutomation": "Открывает автопокупщик <i>Praemoenio Formicidae</i> из группы достижений <<gold|<i>Муравьиные жертвоприношения</i> >>",
+        "effect": "Эти руны? <<cyan | +{{x}} бесплатных уровней>>, класс!"
       },
       "antSacrifice": {
-        "name": "Phylacterium Formicidae",
-        "intro": "Your soul feels a little heavier near this one.",
-        "description": "Ant Sacrifice rewards are multiplied by (1 + level / 25)^0.5. The first 200 levels also grant +5 ELO each!",
-        "lockedAutomation": "Unlock the <i>Phylacterium Formicidae</i> autobuyer from the <<gold|<i>Anthills Sacrificed</i> >> Achievement Group",
-        "effect": "Ant Sacrifice gives <<crimson | +{{x}} rewards>>",
-        "effect2": "Ant ELO <<orchid | +{{x}}>>"
+        "name": "Phylacterium Formicidae (Муравей-хранитель)",
+        "intro": "Рядом с ним ваша душа чувствуется более тяжёлой.",
+        "description": "Награда с жертвоприношения умножается в (1 + уровень / 25)^0,5. Первые 200 уровней так же дают +5 ELO за каждый!",
+        "lockedAutomation": "Открывает автопокупщик <i>Phylacterium Formicidae</i> из группы достижений <<gold|<i>Муравьиные жертвоприношения</i> >>",
+        "effect": "Жертвоприношение муравьёв даёт <<crimson | +{{x}} наград>>",
+        "effect2": "Муравьиный ELO <<orchid | +{{x}}>>"
       },
       "mortuus": {
-        "name": "Mortuus Est Formicidae",
-        "intro": "And then, he turned himself into a Talisman!",
-        "description": "When purchased, unlock a new Talisman! Also, gain up to 2x Global Speed!",
-        "lockedAutomation": "Unlock the <i>Mortuus Est Formicidae</i> autobuyer from <<green|Research>>",
-        "effect": "<<gray | Mortuus Talisman: {{checkMark}}>>",
-        "effect2": "Somehow, your Global Speed is increased by <<royalblue | {{x}}>>"
+        "name": "Mortuus Est Formicidae (Муравей смерти)",
+        "intro": "И после, он сделал из себя талисман!",
+        "description": "При покупке открывает новый талисман! Так же получаете вплоть до х2 глобальной скорости!",
+        "lockedAutomation": "Открывает автопокупщик <i>Mortuus Est Formicidae</i> из <<green|исследований>>",
+        "effect": "<<gray | Талисман смерти: {{checkMark}}>>",
+        "effect2": "Каким-то образом ваша глобальная скорость увеличена на <<royalblue | {{x}}>>"
       },
       "antSpeed2": {
-        "name": "Impia Reproducta Formicidae",
-        "intro": "A bridge from the Altar to your Anthill.",
-        "description": "Gain +1 additional Ant ELO per level, if you have Sacrificed your Anthill at least (level) times.",
-        "lockedAutomation": "Unlock the <i>Impia Reproducta Formicidae</i> autobuyer from reaching Synergism Level <<gold|65>>",
-        "effect": "Current Effect: <<orchid | +{{x}} Ant ELO>>",
-        "effect2": "Effect is maxed at <<crimson | {{x}}>> Anthills Sacrificed"
+        "name": "Impia Reproducta Formicidae (Размножающий муравей)",
+        "intro": "Мост от алтаря до вашего муравейника.",
+        "description": "Получайте 1 дополнительный муравьиный ELO за уровень, если вы принесли в жертву ваш муравейник минимум (уровень) раз.",
+        "lockedAutomation": "Открывает автопокупщик <i>Impia Reproducta Formicidae</i> после достижения <<gold|65>> уровня Synergism",
+        "effect": "Текущий эффект: <<orchid | +{{x}} муравьиного ELO>>",
+        "effect2": "Эффект становится максимальным при <<crimson | {{x}}>> жертвоприношений муравейников"
       },
       "mortuus2": {
-        "name": "Mortuus Iterum Formicidae",
-        "intro": "The cyan glow... it's... Reborn?",
-        "description": "Improve your Mortuus Talisman! Up to +100% Effect, +1,200 Max Level, and gain some Ascension Speed on the side.",
-        "lockedAutomation": "Unlock the <i>Mortuus Iterum Formicidae</i> autobuyer from reaching Synergism Level <<gold|225>>",
-        "effect": "Mortuus Talisman Max Level: <<royalblue | +{{x}}>>",
-        "effect2": "Mortuus Talisman Effect: <<royalblue | +{{x}}>>",
-        "effect3": "Ascension Speed: <<orange | +{{x}}>>"
+        "name": "Mortuus Iterum Formicidae (Муравей повторной смерти)",
+        "intro": "Голубое свечение... это... перерождение?",
+        "description": "Улучшает талисман смерти! Вплоть до +100% эффекта, +1200 максимального уровня, и получаете немного дополнительной скорости вознесения.",
+        "lockedAutomation": "Открывает автопокупщик <i>Mortuus Iterum Formicidae</i> после достижения <<gold|225>> уровня Synergism",
+        "effect": "Максимальный уровень талисмана смерти: <<royalblue | +{{x}}>>",
+        "effect2": "Эффект талисмана смерти: <<royalblue | +{{x}}>>",
+        "effect3": "Скорость вознесения: <<orange | +{{x}}>>"
       },
       "ascensionScore": {
-        "name": "Ascendens Formicidae",
-        "intro": "And this, is to go even further beyond!",
-        "description": "Add Ascension Score to your current Ascension! Also add Cubes to your Ascension Bank. Value added is <b>before</b> any multipliers.",
-        "lockedAutomation": "Unlock the <i>Ascendens Formicidae</i> autobuyer from reaching Synergism Level <<gold|80>>",
-        "effect": "Ascension Score <<orange | +{{x}}>>",
-        "effect2": "Cubes in Ascension Bank <<yellow | +{{x}}>>"
+        "name": "Ascendens Formicidae (Муравей вознесения)",
+        "intro": "И так далее, и далее, и далее.",
+        "description": "Добавляет очки вознесения к вашему текущему вознесению! Так же добавляет кубы в ваш банк вознесения. Добавляемое количество учитывается <b>перед</b> любыми множителями.",
+        "lockedAutomation": "Открывает автопокупщик <i>Ascendens Formicidae</i> после достижения <<gold|80>> уровня Synergism",
+        "effect": "Очки вознесения <<orange | +{{x}}>>",
+        "effect2": "Кубы в банке вознесения <<yellow | +{{x}}>>"
       },
       "wowCubes": {
-        "name": "Cubus Admirabilis Formicidae",
-        "intro": "Picasso's Ant Period.",
-        "description": "Gain more Wow! Cubes! Up to +100% more of them.",
-        "lockedAutomation": "Unlock the <i>Cubus Admirabilis Formicidae</i> autobuyer from reaching Synergism Level <<gold|80>>",
-        "effect": "Gain <<white | +{{x}}>> more Wow! Cubes"
+        "name": "Cubus Admirabilis Formicidae (Муравей восхитительного куба)",
+        "intro": "Период муравья-Пикассо.",
+        "description": "Получайте больше Вау! Кубов! Вплоть до +100%.",
+        "lockedAutomation": "Открывает автопокупщик <i>Cubus Admirabilis Formicidae</i> после достижения <<gold|80>> уровня Synergism",
+        "effect": "Получите ещё <<white | +{{x}}>> Вау! Кубов"
       }
     },
     "altar": {
       "titles": {
-        "altar": "The Great Ant Altar",
-        "elo": "ELO Details",
-        "worldRewards": "Item Rewards",
-        "compendium": "Ants to Quark Corner"
+        "altar": "Великий муравьиный алтарь",
+        "elo": "Подробнее об ELO",
+        "worldRewards": "Предметы в награду",
+        "compendium": "Уголок муравьёв в кварки"
       },
       "locked": {
-        "crumbsMade": "You have made <<gold|{{x}}>> Galactic Crumbs.",
-        "altarRequirements": "This Altar will open when you have made <<gold|1e40>>."
+        "crumbsMade": "Вы произвели <<gold|{{x}}>> галактических крошек.",
+        "altarRequirements": "Алтарь откроется, когда вы достигните <<gold|1e40>>."
       },
       "autoSacrificeLocked": {
-        "info": "Unlock Auto Sacrifice from the Ant Sacrifice Count Achievements!",
-        "anthillsUntilAutoSac": "Automatic Ant Sacrifice is unlocked in <<gold|{{x}}>> Anthills."
+        "info": "Откроется автоматического жертвоприношение из достижения на количество жертвоприношений!",
+        "anthillsUntilAutoSac": "В муравейнике открыто автоматическое жертвоприношение муравьёв."
       },
       "additionalAutoSacOptions": {
-        "info": "Head to Research to unlock more options!",
-        "onlyMaxReborn": "Only Sacrifice if you reach your max Reborn ELO",
-        "alwaysMaxReborn": "Always Sacrifice when you reach your max Reborn ELO"
+        "info": "Направляйтесь в исследования, чтобы открыть больше вариантов!",
+        "onlyMaxReborn": "Жертвовать только если достигнут максимальный ELO возрождения",
+        "alwaysMaxReborn": "Всегда жертвовать когда достигнут максимальный ELO возрождения"
       },
       "sacrificeReady": {
-        "unlocked": "<<gold|Sacrifice Ready!>> Click the icon to Sacrifice your Ants!",
-        "locked": "Galactic Crumbs this sacrifice: <<gold|{{x}}/{{y}}>>"
+        "unlocked": "<<gold|Жертвоприношение готово!>> Нажмите на иконку, чтобы принести своих муравьёв в жертву!",
+        "locked": "Галактические крошки за это жертвоприношение: <<gold|{{x}}/{{y}}>>"
       }
     },
     "compendium": {
-      "toggleOverview": "Overview",
-      "toggleInfo": "Info"
+      "toggleOverview": "Подробности",
+      "toggleInfo": "Информация"
     },
     "leaderboard": {
-      "toggleDaily": "Daily",
-      "toggleAllTime": "All-Time",
-      "value": "Total Weighted Value: <<gold|{{x}}>> (Stage <<gold|{{y}}>>)",
-      "quarksGained": "Quarks gained from Stages: <<cyan|{{x}}>>",
-      "quarkMult": "Quark gain for Ant-based Quarks: <<cyan|+{{x}}>>",
-      "rank": "Rank",
-      "elo": "<<#00DDFF|Reborn ELO>>",
-      "stages": "<<turquoise|Stage>>",
-      "weight": "Weight",
+      "toggleDaily": "Ежедневно",
+      "toggleAllTime": "За всё время",
+      "value": "Общий взвешенный счёт: <<gold|{{x}}>> (Стадия <<gold|{{y}}>>)",
+      "quarksGained": "Кварки полученный со стадии: <<cyan|{{x}}>>",
+      "quarkMult": "Полученные кварки от муравьёв: <<cyan|+{{x}}>>",
+      "rank": "Ранг",
+      "elo": "<<#00DDFF|ELO возрождения>>",
+      "stages": "<<turquoise|Стадия>>",
+      "weight": "Вес",
       "stageModal": {
-        "introDaily": "Your daily leaderboard is at Stage <<gold|{{x}}>>.",
-        "introAllTime": "Your all-time leaderboard is at Stage <<gold|{{x}}>>.",
-        "stageLine": "<<turquoise|{{x}}>> Stages, worth <<#00DDFF|{{y}}>> Weighted Value (<<gold|{{z}}>> per Stage)",
-        "toNextStage": "You need <<gold|{{x}}>> more Weighted Value to reach the next Stage.",
-        "disclaimer": "Stages from Weighted Value are calculated the <<gold|same way>> as Stages for Reborn ELO. Weighted Value formula: <<orchid | Sum(ELO_i * Weight_i)>>, where i is the placement of the Ant Sacrifice in the leaderboard."
+        "introDaily": "Ваша ежедневная таблица лидеров на <<gold|{{x}}>> стадии.",
+        "introAllTime": "Ваша таблица лидеров за всё время на <<gold|{{x}}>> стадии.",
+        "stageLine": "<<turquoise|{{x}}>> стадий, стоимостью <<#00DDFF|{{y}}>> взвешенного счёта (<<gold|{{z}}>> за стадию)",
+        "toNextStage": "Вам нужно еще <<gold|{{x}}>> взвешенного счёта, чтобы достичь следующей стадии.",
+        "disclaimer": "Стадии от взвешенного счёта считаются <<gold|тем же путём>>, как и стадии для ELO возрождения. Формула взвешенного счёта: <<orchid | Сумма(ELO_i * Вес_i)>>, где i - это место жертвоприношения в таблице лидеров."
       },
       "dailyQuarkModal": {
-        "intro": "You've gained <<cyan|{{x}}>> Quarks from Ant Sacrifice today!",
-        "quarkLine": "<<turquoise|{{x}}>> Stages, worth <<cyan|{{y}}>> Quarks (<<cyan|{{z}}>> per Stage)",
-        "bonusMult": "Get 1.002x the Quarks per stage, up until Stage 1,000. Current: <<cyan|x{{x}}>>",
-        "allTimeMult": "All-Time Leaderboard Quark Multiplier: <<cyan|x{{x}}>>",
-        "globalQuarkMult": "Global Quark Multiplier: <<cyan|x{{x}}>>"
+        "intro": "Вы получили <<cyan|{{x}}>> кварков от жертвоприношения сегодня!",
+        "quarkLine": "<<turquoise|{{x}}>> стадий, стоимостью <<cyan|{{y}}>> кварков (<<cyan|{{z}}>> за стадию)",
+        "bonusMult": "Получайте 1,002х кварков за стадию, вплоть до 1000 стадии. Текущая: <<cyan|x{{x}}>>",
+        "allTimeMult": "Множитель кварков таблицы лидеров за всё время: <<cyan|x{{x}}>>",
+        "globalQuarkMult": "Глобальный множитель кварков: <<cyan|x{{x}}>>"
       },
       "allTimeQuarkModal": {
-        "intro": "Your all-time leaderboard multiplies Quark gain from Ant Sacrifice by <<cyan|{{x}}>>.",
-        "formula": "Formula: <<orchid|2 - 0.8^(Stage / 100)>>",
-        "specificMult": "Stage <<turquoise|{{x}}>>: <<orchid|2 - 0.8^{{y}}>> = <<cyan|{{z}}>>"
+        "intro": "Ваша таблица лидеров за всё время умножает получения кварков от жертвоприношения на <<cyan|{{x}}>>.",
+        "formula": "Формула: <<orchid|2 - 0.8^(стадия/ 100)>>",
+        "specificMult": "Стадия <<turquoise|{{x}}>>: <<orchid|2 - 0.8^{{y}}>> = <<cyan|{{z}}>>"
       }
     },
     "maxBuy": {
@@ -2445,8 +2445,8 @@
         "off": "Производители муравьёв: Купить 1"
       },
       "upgrade": {
-        "on": "Улучшения мурьвёв: Купить макс.",
-        "off": "Улучшения мурьвёв: Купить 1"
+        "on": "Улучшения муравьёв: Купить макс.",
+        "off": "Улучшения муравьёв: Купить 1"
       }
     },
     "autobuy": {
