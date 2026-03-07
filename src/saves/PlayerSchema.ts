@@ -1041,5 +1041,7 @@ export const playerSchema = z.object({
     .transform((value) => arrayExtend(value, 'seed'))
     .refine((value) => value.every((seed) => seed > Date.parse('2020-01-01T00:00:00Z') && seed < Date.now() + 1000)),
 
-  totalAddCodesUsed: z.number().default(() => blankSave.totalAddCodesUsed)
+  stats: z.object({
+    totalAddCodesUsed: z.number()
+  }).default(() => deepClone()(blankSave.stats))
 })

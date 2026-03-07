@@ -1350,6 +1350,8 @@ export const singularity = (setSingNumber = -1) => {
   hold.blueberryLoadouts = player.blueberryLoadouts
   hold.blueberryLoadoutMode = player.blueberryLoadoutMode as BlueberryLoadoutMode
 
+  hold.stats = player.stats
+
   const saveCode42 = player.codes.get(42) ?? false
   const saveCode43 = player.codes.get(43) ?? false
   const saveCode44 = player.codes.get(44) ?? false

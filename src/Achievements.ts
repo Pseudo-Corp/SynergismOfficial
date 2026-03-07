@@ -2658,77 +2658,77 @@ export const achievements: Achievement[] = [
   },
   {
     pointValue: 3,
-    unlockCondition: () => player.totalAddCodesUsed >= 10,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 10,
     group: 'addCodesUsed'
   },
   {
     pointValue: 6,
-    unlockCondition: () => player.totalAddCodesUsed >= 20,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 20,
     group: 'addCodesUsed'
   },
   {
     pointValue: 9,
-    unlockCondition: () => player.totalAddCodesUsed >= 50,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 50,
     group: 'addCodesUsed'
   },
   {
     pointValue: 12,
-    unlockCondition: () => player.totalAddCodesUsed >= 100,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 100,
     group: 'addCodesUsed'
   },
   {
     pointValue: 15,
-    unlockCondition: () => player.totalAddCodesUsed >= 200,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 200,
     group: 'addCodesUsed'
   },
   {
     pointValue: 18,
-    unlockCondition: () => player.totalAddCodesUsed >= 300,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 300,
     group: 'addCodesUsed'
   },
   {
     pointValue: 21,
-    unlockCondition: () => player.totalAddCodesUsed >= 500,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 500,
     group: 'addCodesUsed'
   },
   {
     pointValue: 24,
-    unlockCondition: () => player.totalAddCodesUsed >= 750,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 750,
     group: 'addCodesUsed'
   },
   {
     pointValue: 27,
-    unlockCondition: () => player.totalAddCodesUsed >= 1000,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 1000,
     group: 'addCodesUsed'
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.totalAddCodesUsed >= 2000,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 2000,
     group: 'addCodesUsed'
   },
   {
     pointValue: 33,
-    unlockCondition: () => player.totalAddCodesUsed >= 3000,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 3000,
     group: 'addCodesUsed'
   },
   {
     pointValue: 36,
-    unlockCondition: () => player.totalAddCodesUsed >= 5000,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 5000,
     group: 'addCodesUsed'
   },
   {
     pointValue: 39,
-    unlockCondition: () => player.totalAddCodesUsed >= 6000,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 6000,
     group: 'addCodesUsed'
   },
   {
     pointValue: 42,
-    unlockCondition: () => player.totalAddCodesUsed >= 7500,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 7500,
     group: 'addCodesUsed'
   },
   {
     pointValue: 45,
-    unlockCondition: () => player.totalAddCodesUsed >= 10000,
+    unlockCondition: () => player.stats.totalAddCodesUsed >= 10000,
     group: 'addCodesUsed'
   }
 ]

@@ -640,7 +640,9 @@ export interface Player {
 
   seed: number[]
 
-  totalAddCodesUsed: number
+  stats: {
+    totalAddCodesUsed: number
+  }
 }
 
 export interface GlobalVariables {

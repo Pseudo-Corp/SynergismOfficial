@@ -719,7 +719,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       })
       : ''
 
-    player.totalAddCodesUsed += toUse
+    player.stats.totalAddCodesUsed += toUse
     awardAchievementGroup('addCodesUsed')
     // Calculator Maxed: you don't need to insert anything!
     if (player.shopUpgrades.calculator === shopData.calculator.maxLevel) {
