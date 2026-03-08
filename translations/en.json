@@ -7549,7 +7549,7 @@
       "lotusActive": "You've used a Lotus! For the next 5 minutes, you will gain Reborn ELO from your Immortal ELO without having to wait!"
     },
     "error": {
-      "paypalGeneric": "An error with PayPal happened. More info is available in the console (CTRL+SHIFT+I).",
+      "paypalGeneric": "An error with PayPal happened. More info is available in the console (CTRL+SHIFT+I). {{error}}",
       "paypalNotSynergismCC": "Please migrate to https://synergism.cc to make a purchase! Thank you for supporting the game!",
       "checkoutGeneric": "There was an error checking out: {{error}}",
       "checkoutNotSynergismCC": "Please migrate to https://synergism.cc to checkout! Thank you for supporting the game!"

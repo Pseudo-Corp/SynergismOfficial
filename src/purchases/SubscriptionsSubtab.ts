@@ -462,10 +462,16 @@ export const initializePayPal_Subscription = async () => {
       },
 
       onError (error) {
+        const message = []
+
+        for (const [key, value] of Object.entries(error)) {
+          message.push(`${key}: ${value}`)
+        }
+
         if (isSynergismCC) {
-          Notification(i18next.t('pseudoCoins.error.paypalGeneric'))
+          Notification(i18next.t('pseudoCoins.error.paypalGeneric', { error: message.join(', ') }))
         } else {
-          Notification(i18next.t('pseudoCoins.error.pseudoCoins.error.paypalNotSynergismCC'))
+          Notification(i18next.t('pseudoCoins.error.paypalNotSynergismCC'))
         }
         console.log(error)
       }

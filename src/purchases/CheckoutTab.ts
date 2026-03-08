@@ -353,9 +353,9 @@ async function initializePayPal_OneTime (selector: string | HTMLElement) {
       }
 
       if (isSynergismCC) {
-        Notification(`${i18next.t('pseudoCoins.error.paypalGeneric')} - ${message.join(', ')}`)
+        Notification(i18next.t('pseudoCoins.error.paypalGeneric', { error: message.join(', ') }))
       } else {
-        Notification(i18next.t('pseudoCoins.error.pseudoCoins.error.paypalNotSynergismCC'))
+        Notification(i18next.t('pseudoCoins.error.paypalNotSynergismCC'))
       }
 
       console.log({ error })
