@@ -12,19 +12,11 @@ import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-eff
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { resetTiers } from './Reset'
 import { firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
 import { assert } from './Utility'
-
-export enum resetTiers {
-  prestige = 1,
-  transcension = 2,
-  reincarnation = 3,
-  ascension = 4,
-  singularity = 5,
-  never = 6
-}
 
 export const indexToRune: Record<number, RuneKeys> = {
   1: 'speed',
