@@ -5026,7 +5026,7 @@
     "intro": "The most rewarding ventures are those few would dare to embark.",
     "traitInfo": "Select the trait levels you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
     "spiritBonus": "However, it also multiplies Spirit Power by <<wheat|{{multiplier}}>>.",
-    "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
+    "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Total Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
     "corruptionScore": "Your Ascension Score is <<goldenrod|{{ascScore}}>></span> (base) * <<var(--crimson-text-color)|{{corrMult}}>> (Corruption mult) * <<var(--orchid-text-color)|{{bonusMult}}>> (Bonus mult) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
     "corruptionScoreDR": "Past 1e23 Ascension Score, further gains are square rooted! You are currently under this penalty.",
     "ascensionCount": "If you Ascend now, <<darkorange|{{ascCount}}>> will be added to your ascension count.",
@@ -6137,6 +6137,7 @@
     },
     "cubeMultiplierStats": {
       "title": "Wow! Cube Multiplier",
+      "CubeBank": "Wow! Cubes Banked This Ascension:",
       "AchievementBonus": "Achievement Wow! Cubes Bonus:",
       "SynergismLevel": "Synergism Level Reward:",
       "AscensionScore": "Ascension Score Multiplier:",
