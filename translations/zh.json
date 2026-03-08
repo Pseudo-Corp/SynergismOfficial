@@ -5026,7 +5026,7 @@
     "intro": "不入虎穴，焉得虎子。",
     "traitInfo": "选择您想要使用的腐化等级。请明智地进行选择！<<var(--red-text-color)|切记，贪多嚼不烂……>>",
     "spiritBonus": "但它也使魂灵强度变为<<wheat|{{multiplier}}>>倍。",
-    "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Total Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
+    "corruptionBank": "您有<<var(--crimson-text-color)|{{number}}>>个惊奇方盒还存在飞升库中。完成更多挑战，以获得更多惊奇方盒！飞升后才可以获得它们。",
     "corruptionScore": "您的飞升分数为<<goldenrod|{{ascScore}}>></span>(基础值)*<<var(--crimson-text-color)|{{corrMult}}>>(腐化因子)*<<var(--orchid-text-color)|{{bonusMult}}>>(加成因子)=<<var(--darkorchid-text-color)|{{totalScore}}>>",
     "corruptionScoreDR": "分数分数超过1e23以后，后续获取的飞升分数将变为正常的平方根！您已经承受了这个惩罚。",
     "ascensionCount": "如果现在飞升，您的飞升次数将增加<<darkorange|{{ascCount}}>>次。",
@@ -6137,7 +6137,7 @@
     },
     "cubeMultiplierStats": {
       "title": "惊奇方盒倍率",
-      "CubeBank": "Wow! Cubes Banked This Ascension:",
+      "CubeBank": "本次飞升中飞升库里的惊奇方盒：",
       "AchievementBonus": "惊奇方盒成就的加成：",
       "SynergismLevel": "协同效应等级的奖励：",
       "AscensionScore": "飞升分数倍率：",
