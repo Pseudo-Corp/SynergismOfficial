@@ -1238,21 +1238,13 @@ export const calculateAscensionScore = () => {
 }
 
 export const CalcCorruptionStuff = () => {
-  let cubeBank = 0
-  let challengeModifier = 1
+
   const scores = calculateAscensionScore()
 
   const baseScore = scores.baseScore
   const corruptionMultiplier = scores.corruptionMultiplier
   const bonusMultiplier = scores.bonusMultiplier
   const effectiveScore = scores.effectiveScore
-
-  for (let i = 1; i <= 10; i++) {
-    challengeModifier = i >= 6 ? 2 : 1
-    cubeBank += challengeModifier * player.highestchallengecompletions[i]
-  }
-
-  cubeBank += getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked
 
   // Calculation of Cubes :)
   const cubeGain = calculateCubeMultiplierWithTau()
@@ -1280,7 +1272,9 @@ export const CalcCorruptionStuff = () => {
   hepteractGain *= calculateHepteractMultiplier()
 
   return [
-    cubeBank,
+    // WTF IS THIS...
+    // Also, I don't think the first element of this array is used anywhere. So stupid
+    cubeGain,
     Math.floor(baseScore),
     corruptionMultiplier,
     Math.floor(effectiveScore),

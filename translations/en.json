@@ -6137,6 +6137,7 @@
     },
     "cubeMultiplierStats": {
       "title": "Wow! Cube Multiplier",
+      "CubeBank": "Wow! Cubes Banked This Ascension:",
       "AchievementBonus": "Achievement Wow! Cubes Bonus:",
       "SynergismLevel": "Synergism Level Reward:",
       "AscensionScore": "Ascension Score Multiplier:",

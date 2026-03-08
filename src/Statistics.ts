@@ -401,6 +401,21 @@ export const allCubeStats: NumberStatLine[] = [
 
 export const allWowCubeStats: NumberStatLine[] = [
   {
+    i18n: 'CubeBank',
+    stat: () => {
+      let cubeBank = 0
+      // Award Cubes for Challenges
+      for (let i = 1; i <= 10; i++) {
+        // Reward more for Reincarnation Challenges (c6-10)
+        const valuePerChallenge = i >= 6 ? 2 : 1
+        cubeBank += valuePerChallenge * player.challengecompletions[i]
+      }
+      // Award Cubes for Ant Upgrade
+      cubeBank += getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked
+      return cubeBank
+    }
+  },
+  {
     i18n: 'AscensionScore',
     stat: () => Math.pow(calculateAscensionScore().effectiveScore / 3000, 1 / 4.1)
   },
