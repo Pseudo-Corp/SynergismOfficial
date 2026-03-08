@@ -5026,7 +5026,7 @@
     "intro": "Las empresas más lucrativas son aquellas que pocos se atreven a realizar.",
     "traitInfo": "Selecciona los niveles de rasgos que deseas utilizar. ¡Elige sabiamente! <<var(--red-text-color)|No muerdas más de lo que puedes tragar...>>",
     "spiritBonus": "However, it also multiplies Spirit Power by <<wheat|{{multiplier}}>>.",
-    "corruptionBank": "Tienes <<var(--crimson-text-color)|{{number}}>> Cubos ¡Wow! en el banco de Ascensión. ¡Gana más terminando los Desafíos! Asciende para ganártelos.",
+    "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Total Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
     "corruptionScore": "Tu puntuación de Ascensión es <<goldenrod|{{ascScore}}>></span> (base) * <<var(--crimson-text-color)|{{corrMult}}>> (mult de Corrupción) * <<var(--orchid-text-color)|{{bonusMult}}>> (mult de Bonus) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
     "corruptionScoreDR": "Past 1e23 Ascension Score, further gains are square rooted! You are currently under this penalty.",
     "ascensionCount": "Si Asciendes ahora, <<darkorange|{{ascCount}}>> se añadirán a su cuenta de ascensión.",
@@ -6137,6 +6137,7 @@
     },
     "cubeMultiplierStats": {
       "title": "Wow! Cube Multiplier",
+      "CubeBank": "Wow! Cubes Banked This Ascension:",
       "AchievementBonus": "Achievement Wow! Cubes Bonus:",
       "SynergismLevel": "Synergism Level Reward:",
       "AscensionScore": "Ascension Score Multiplier:",
