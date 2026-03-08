@@ -5026,7 +5026,7 @@
     "intro": "Самая прибыльная затея - это та, на которую немногие отважились бы пуститься.",
     "traitInfo": "Выберите уровни характеристик, с которыми вы хотите начать. Выбирайте с умом! <<var(--red-text-color)|Не откусывайте больше, чем можете прожевать...>>",
     "spiritBonus": "However, it also multiplies Spirit Power by <<wheat|{{multiplier}}>>.",
-    "corruptionBank": "У вас <<var(--crimson-text-color)|{{number}}>> Wow! Кубов в банке Вознесения. Получите больше, выполняя Испытания! Вознеситесь, чтобы забрать их.",
+    "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Total Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
     "corruptionScore": "Ваш счёт Вознесения <<goldenrod|{{ascScore}}>></span> (основной) * <<var(--crimson-text-color)|{{corrMult}}>> (Множ. порчи) * <<var(--orchid-text-color)|{{bonusMult}}>> (Бонусный множ.) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
     "corruptionScoreDR": "После Счёта Вознесение 1e23, дальнейшее получение возведено в квадратный корень! В данный момент, штраф активен.",
     "ascensionCount": "Если вы Вознесётесь сейчас, к вашему счётчику вознесений будет добавлено <<darkorange|{{ascCount}}>>.",
@@ -6137,6 +6137,7 @@
     },
     "cubeMultiplierStats": {
       "title": "Множитель Вау! Кубов",
+      "CubeBank": "Wow! Cubes Banked This Ascension:",
       "AchievementBonus": "Achievement Wow! Cubes Bonus:",
       "SynergismLevel": "Synergism Level Reward:",
       "AscensionScore": "Множитель Очков Вознесения:",
