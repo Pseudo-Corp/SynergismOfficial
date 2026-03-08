@@ -7313,15 +7313,6 @@
         "subbed": "Merci d'avoir utilisé le code 'sub' ! J'ai récupéré {{x}} de vos Quarks ! :)",
         "gave": "Je vous ai donné {{x}} Quarks pour pouvoir en reprendre {{y}}."
       },
-      "gamble": {
-        "wait": "Veuillez patienter. Nous reviendrons vers vous quand vous serez prêts à perdre à nouveau.",
-        "prompt": "Êtes-vous certain ? La maison gagne toujours !",
-        "cancelled": "Effrayé ? Vous devriez l'être !",
-        "betPrompt": "Combien de Quarks misez-vous ?",
-        "cheaters": "À cause des tricheurs, vous ne pouvez miser que 10k Quarks au maximum.",
-        "won": "Vous avez gagné. Le Syncasino vous offre un total de 25% de la cagnotte ! [+{{x}} Quarks]",
-        "lost": "Essayez encore… vous pouvez le faire ! [-{{x}} Quarks]"
-      },
       "time": {
         "wait": "Si vous venez d'importer une sauvegarde, vous ne pouvez pas utiliser ce code pendant 15 minutes pour éviter la triche.\nIndépendamment de cela, vous devez attendre 15 minutes entre chaque utilisation.",
         "confirm": "Cliquez le bouton dans les 15 prochaines secondes pour tester votre chance ! Si vous cliquez au temps généré aléatoirement à {{x}} ms près, vous gagnerez un prix ! Dans ce cas, les récompenses seront multipliées par x{{y}} à cause du temps passé depuis la dernière utilisation.",
