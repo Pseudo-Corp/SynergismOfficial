@@ -74,6 +74,99 @@ const EX_ULTRA_OFFERING = 0.125
 const EX_ULTRA_OBTAINIUM = 0.125
 const EX_ULTRA_CUBES = 0.125
 
+const posSalvagePerkSings = [230, 245, 260, 275, 290]
+const negSalvagePerkSings = [75, 85, 105, 125, 155, 185, 215, 245, 260, 275]
+
+// dprint-ignore
+const singQuarkMilestoneThresholds = [
+  5, 7, 10, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170,
+  175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 210, 213, 216, 219, 225,
+  228, 231, 234, 237, 240, 244, 248, 252, 256, 260, 264, 268, 272, 276, 280,
+  284, 288, 290
+];
+
+const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
+const challengeScoreArrays3 = [
+  0,
+  20,
+  30,
+  50,
+  100,
+  200,
+  250,
+  300,
+  400,
+  500,
+  750
+]
+const challengeScoreArrays4 = [
+  0,
+  10000,
+  10000,
+  10000,
+  10000,
+  10000,
+  2000,
+  3000,
+  4000,
+  5000,
+  7500
+]
+
+const ambrosiaLuckSingThresholds1 = [35, 42, 49, 56, 63, 70, 77]
+const ambrosiaLuckSingThresholds2 = [135, 142, 149, 156, 163, 170, 177]
+
+const derpsmithSingCounts = [
+  18,
+  38,
+  58,
+  78,
+  88,
+  98,
+  118,
+  148,
+  178,
+  188,
+  198,
+  208,
+  218,
+  228,
+  238,
+  248
+]
+
+const immaculateAlchemyThresholds = [50, 90, 130, 170, 200, 217, 235, 253, 271, 289]
+
+const inheritanceLevels = [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277]
+const inheritanceTokenValues = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
+
+const bonusTokenLevels = [41, 58, 113, 163, 229]
+
+const offeringPotionThresholds = [
+  1,
+  10,
+  25,
+  50,
+  100,
+  500,
+  1000,
+  10000,
+  5e4,
+  1e5,
+  1e6,
+  1e7,
+  1e8,
+  1e9,
+  1e10,
+  1e11,
+  1e12,
+  1e13,
+  1e14,
+  1e15
+]
+
+const obtainiumPotionThresholds = [1, 20, 50, 250, 1000, 20000, 4e5, 1e7, 4e8, 1e10, 1e11, 1e12, 1e13, 1e14, 1e15]
+
 export const calculateAllCubeMultiplier = () => {
   return allCubeStats.reduce((a, b) => a * b.stat(), 1)
 }
@@ -496,7 +589,6 @@ export const calculateAcceleratorMultiplier = () => {
 }
 
 export const calculatePositiveSalvageMultiplier = () => {
-  const posSalvagePerkSings = [230, 245, 260, 275, 290]
   let multiplier = 1 + posSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
   multiplier += getTalismanEffects('achievement').positiveSalvageMult
 
@@ -519,7 +611,6 @@ export const calculatePositiveSalvage = () => {
 }
 
 export const calculateNegativeSalvageMultiplier = () => {
-  const negSalvagePerkSings = [75, 85, 105, 125, 155, 185, 215, 245, 260, 275]
   let multiplier = 1 - negSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
   multiplier += getTalismanEffects('achievement').negativeSalvageMult
   return multiplier
@@ -910,14 +1001,7 @@ export const calculateLimitedAscensionsDebuff = () => {
 
 export const calculateSingularityQuarkMilestoneMultiplier = () => {
   let multiplier = 1
-  // dprint-ignore
-  const singThresholds = [
-    5, 7, 10, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170,
-    175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 210, 213, 216, 219, 225,
-    228, 231, 234, 237, 240, 244, 248, 252, 256, 260, 264, 268, 272, 276, 280,
-    284, 288, 290
-  ];
-  for (const sing of singThresholds) {
+  for (const sing of singQuarkMilestoneThresholds) {
     if (player.singularityCount >= sing) {
       multiplier *= 1.05
     }
@@ -1140,33 +1224,6 @@ export const calculateAscensionScore = () => {
 
   // Init Arrays with challenge values :)
   const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
-  const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
-  const challengeScoreArrays3 = [
-    0,
-    20,
-    30,
-    50,
-    100,
-    200,
-    250,
-    300,
-    400,
-    500,
-    750
-  ]
-  const challengeScoreArrays4 = [
-    0,
-    10000,
-    10000,
-    10000,
-    10000,
-    10000,
-    2000,
-    3000,
-    4000,
-    5000,
-    7500
-  ]
 
   challengeScoreArrays1[1] += player.cubeUpgrades[56]
   challengeScoreArrays1[2] += player.cubeUpgrades[56]
@@ -1385,16 +1442,14 @@ export const calculateBaseGoldenQuarks = (singularity: number) => {
 
 export const calculateSingularityAmbrosiaLuckMilestoneBonus = () => {
   let bonus = 0
-  const singThresholds1 = [35, 42, 49, 56, 63, 70, 77]
-  const singThresholds2 = [135, 142, 149, 156, 163, 170, 177]
 
-  for (const sing of singThresholds1) {
+  for (const sing of ambrosiaLuckSingThresholds1) {
     if (player.highestSingularityCount >= sing) {
       bonus += 5
     }
   }
 
-  for (const sing of singThresholds2) {
+  for (const sing of ambrosiaLuckSingThresholds2) {
     if (player.highestSingularityCount >= sing) {
       bonus += 6
     }
@@ -1682,25 +1737,7 @@ export const calculateEventBuff = (buff: BuffType) => {
 
 export const derpsmithCornucopiaBonus = () => {
   let counter = 0
-  const singCounts = [
-    18,
-    38,
-    58,
-    78,
-    88,
-    98,
-    118,
-    148,
-    178,
-    188,
-    198,
-    208,
-    218,
-    228,
-    238,
-    248
-  ]
-  for (const sing of singCounts) {
+  for (const sing of derpsmithSingCounts) {
     if (player.highestSingularityCount >= sing) {
       counter += 1
     }
@@ -1711,9 +1748,8 @@ export const derpsmithCornucopiaBonus = () => {
 
 export const calculateImmaculateAlchemyBonus = () => {
   let bonus = 1
-  const thresholds = [50, 90, 130, 170, 200, 217, 235, 253, 271, 289]
-  for (let i = 0; i < thresholds.length; i++) {
-    if (player.singularityCount >= thresholds[i]) {
+  for (let i = 0; i < immaculateAlchemyThresholds.length; i++) {
+    if (player.singularityCount >= immaculateAlchemyThresholds[i]) {
       bonus += 0.4
     }
   }
@@ -1745,12 +1781,9 @@ export const sumOfExaltCompletions = () => {
 }
 
 export const inheritanceTokens = () => {
-  const levels = [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277]
-  const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
-
   for (let i = 15; i > 0; i--) {
-    if (player.highestSingularityCount >= levels[i]) {
-      return tokens[i]
+    if (player.highestSingularityCount >= inheritanceLevels[i]) {
+      return inheritanceTokenValues[i]
     }
   }
 
@@ -1758,10 +1791,8 @@ export const inheritanceTokens = () => {
 }
 
 export const singularityBonusTokenMult = () => {
-  const levels = [41, 58, 113, 163, 229]
-
   for (let i = 5; i > 0; i--) {
-    if (player.highestSingularityCount >= levels[i - 1]) {
+    if (player.highestSingularityCount >= bonusTokenLevels[i - 1]) {
       return 1 + 0.02 * i
     }
   }
@@ -1783,46 +1814,23 @@ export const calculatePlatonic7UpgradePower = () => {
 }
 
 export const calculateOfferingPotionBaseOfferings = () => {
-  const thresholds = [
-    1,
-    10,
-    25,
-    50,
-    100,
-    500,
-    1000,
-    10000,
-    5e4,
-    1e5,
-    1e6,
-    1e7,
-    1e8,
-    1e9,
-    1e10,
-    1e11,
-    1e12,
-    1e13,
-    1e14,
-    1e15
-  ]
-  const amount = findInsertionIndex(player.shopPotionsConsumed.offering, thresholds)
+  const amount = findInsertionIndex(player.shopPotionsConsumed.offering, offeringPotionThresholds)
 
   return {
     amount: amount,
-    toNext: (amount < thresholds.length)
-      ? thresholds[amount] - player.shopPotionsConsumed.offering
+    toNext: (amount < offeringPotionThresholds.length)
+      ? offeringPotionThresholds[amount] - player.shopPotionsConsumed.offering
       : Number.POSITIVE_INFINITY
   }
 }
 
 export const calculateObtainiumPotionBaseObtainium = () => {
-  const thresholds = [1, 20, 50, 250, 1000, 20000, 4e5, 1e7, 4e8, 1e10, 1e11, 1e12, 1e13, 1e14, 1e15]
-  const amount = findInsertionIndex(player.shopPotionsConsumed.obtainium, thresholds)
+  const amount = findInsertionIndex(player.shopPotionsConsumed.obtainium, obtainiumPotionThresholds)
 
   return {
     amount: amount,
-    toNext: (amount < thresholds.length)
-      ? thresholds[amount] - player.shopPotionsConsumed.obtainium
+    toNext: (amount < obtainiumPotionThresholds.length)
+      ? obtainiumPotionThresholds[amount] - player.shopPotionsConsumed.obtainium
       : Number.POSITIVE_INFINITY
   }
 }

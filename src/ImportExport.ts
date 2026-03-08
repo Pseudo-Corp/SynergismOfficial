@@ -37,6 +37,8 @@ import { cleanString, getElementById } from './Utility'
 import { btoa } from './Utility'
 import { Globals as G } from './Variables'
 
+const weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+
 const format24 = new Intl.DateTimeFormat('EN-GB', {
   year: 'numeric',
   month: '2-digit',
@@ -69,7 +71,6 @@ const getRealTime = (type = 'default', use12 = false) => {
   >
 
   const period = use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : ''
-  const weekday = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
   switch (type) {
     case 'default':
       return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`
@@ -90,7 +91,7 @@ const getRealTime = (type = 'default', use12 = false) => {
     case 'period':
       return `${dateParts.dayPeriod.toUpperCase()}`
     case 'weekday':
-      return `${weekday[new Date().getUTCDay()]}`
+      return `${weekdays[new Date().getUTCDay()]}`
     default:
       return type
   }

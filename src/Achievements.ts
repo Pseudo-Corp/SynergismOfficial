@@ -22,6 +22,12 @@ import { Alert, CloseModal, Modal, Notification, revealStuff } from './UpdateHTM
 import { isMobile, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
+const achievementProgressSelectors = [
+  '.tieredAchievementType',
+  '.ungroupedAchievementType',
+  '.progressiveAchievementType'
+]
+
 export const resetAchievementCheck = (reset: resetNames) => {
   if (reset === 'prestige') {
     awardUngroupedAchievement('prestigeNoAccelerator')
@@ -4319,14 +4325,7 @@ export const displayAchievementProgress = () => {
 }
 
 export const resetAchievementProgressDisplay = () => {
-  // Reset all achievement types
-  const selectors = [
-    '.tieredAchievementType',
-    '.ungroupedAchievementType',
-    '.progressiveAchievementType'
-  ]
-
-  selectors.forEach((selector) => {
+  achievementProgressSelectors.forEach((selector) => {
     const elements = document.querySelectorAll(selector)
     elements.forEach((element) => {
       const img = element.querySelector('img')

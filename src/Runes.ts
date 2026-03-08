@@ -106,6 +106,8 @@ export interface RuneData<K extends RuneKeys> {
   runeHTMLStyle: RuneHTMLStyle
 }
 
+const salvagePerkLevels = [30, 40, 61, 81, 111, 131, 161, 191, 236, 260]
+
 export const firstFiveFreeLevels = () => {
   return (
     getAntUpgradeEffect(AntUpgrades.FreeRunes).freeRuneLevel
@@ -540,7 +542,6 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
       const quarkMult = 1 + level / 500 + (level > 0 ? 0.1 : 0)
       const cubeMult = 1 + level / 100
 
-      const salvagePerkLevels = [30, 40, 61, 81, 111, 131, 161, 191, 236, 260]
       const salvageCoefficient = 0.025 * salvagePerkLevels.filter((x) => x <= player.highestSingularityCount).length
       const salvage = salvageCoefficient * level
 
@@ -559,7 +560,6 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
         val: formatAsPercentIncrease(effectValues.cubeMult, 2)
       })
       if (player.highestSingularityCount >= 30) {
-        const salvagePerkLevels = [30, 40, 61, 81, 111, 131, 161, 191, 236, 260]
         const salvageCoefficient = 0.025 * salvagePerkLevels.filter((x) => x <= player.highestSingularityCount).length
         const salvageText = `<span style="color: lightgoldenrodyellow">${
           i18next.t('runes.infiniteAscent.salvage', {

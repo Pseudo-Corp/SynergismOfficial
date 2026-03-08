@@ -75,6 +75,32 @@ import { Globals as G } from './Variables'
 
 let repeatreset: number
 
+const resetTypes = [
+  'transcension',
+  'transcensionChallenge',
+  'reincarnation',
+  'reincarnationChallenge',
+  'ascension',
+  'ascensionChallenge'
+]
+const shopItemPerk_5 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const
+const shopItemPerk_20 = [
+  'offeringAuto',
+  'offeringEX',
+  'obtainiumAuto',
+  'obtainiumEX',
+  'antSpeed',
+  'cashGrab'
+] as const
+const shopItemPerk_51 = [
+  'seasonPass',
+  'seasonPass2',
+  'seasonPass3',
+  'seasonPassY',
+  'chronometer',
+  'chronometer2'
+] as const
+
 export enum resetTiers {
   prestige = 1,
   transcension = 2,
@@ -471,15 +497,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
   G.generatorPower = new Decimal(1)
 
-  const types = [
-    'transcension',
-    'transcensionChallenge',
-    'reincarnation',
-    'reincarnationChallenge',
-    'ascension',
-    'ascensionChallenge'
-  ]
-  if (types.includes(input)) {
+  if (resetTypes.includes(input)) {
     resetUpgrades(2)
     player.coinsThisTranscension = new Decimal('100')
     player.firstOwnedDiamonds = 0
@@ -982,7 +1000,6 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     player.challengecompletions[6] = 1
     player.highestchallengecompletions[6] = 1
   }
-  const shopItemPerk_5 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const
   const perk_5 = player.highestSingularityCount >= 5
   if (perk_5 && singularityReset) { // Singularity 5
     for (const key of shopItemPerk_5) {
@@ -1019,14 +1036,6 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
   }
   const perk_20 = player.highestSingularityCount >= 20
   if (perk_20) {
-    const shopItemPerk_20 = [
-      'offeringAuto',
-      'offeringEX',
-      'obtainiumAuto',
-      'obtainiumEX',
-      'antSpeed',
-      'cashGrab'
-    ] as const
     player.challengecompletions[9] = 1
     player.highestchallengecompletions[9] = 1
     player.unlocks.talismans = true
@@ -1080,33 +1089,16 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
 // so that we can call on save load to fix game state
 export const updateSingularityGlobalPerks = () => {
   const perk_5 = player.highestSingularityCount >= 5
-  const shopItemPerk_5 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const
   for (const key of shopItemPerk_5) {
     shopData[key].refundMinimumLevel = perk_5 ? 10 : key.endsWith('Auto') ? 1 : 0
   }
 
   const perk_20 = player.highestSingularityCount >= 20
-  const shopItemPerk_20 = [
-    'offeringAuto',
-    'offeringEX',
-    'obtainiumAuto',
-    'obtainiumEX',
-    'antSpeed',
-    'cashGrab'
-  ] as const
   for (const key of shopItemPerk_20) {
     shopData[key].refundable = !perk_20
   }
 
   const perk_51 = player.highestSingularityCount >= 51
-  const shopItemPerk_51 = [
-    'seasonPass',
-    'seasonPass2',
-    'seasonPass3',
-    'seasonPassY',
-    'chronometer',
-    'chronometer2'
-  ] as const
   for (const key of shopItemPerk_51) {
     shopData[key].refundable = !perk_51
   }

@@ -16,6 +16,10 @@ import { Alert, Confirm, Prompt, showCorruptionStatsLoadouts, updateChallengeDis
 import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
+type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract'
+
+const buyAmountNames = ['one', 'ten', 'hundred', 'thousand', '10k', '100k']
+
 export const toggleSettings = (toggle: HTMLElement) => {
   const toggleId = toggle.getAttribute('toggleId') ?? 1
   if (player.toggles[+toggleId]) {
@@ -115,11 +119,9 @@ export const toggleChallenges = (i: number, auto = false) => {
   }
 }
 
-type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract'
-
 export const toggleBuyAmount = (quantity: BuyAmount, type: ToggleBuy) => {
   player[`${type}buyamount` as const] = quantity
-  const a = ['one', 'ten', 'hundred', 'thousand', '10k', '100k'][quantity.toString().length - 1]
+  const a = buyAmountNames[quantity.toString().length - 1]
 
   DOMCacheGetOrSet(`${type}${a}`).style.backgroundColor = 'Green'
   if (quantity !== 1) {

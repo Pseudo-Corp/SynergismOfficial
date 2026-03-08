@@ -46,6 +46,9 @@ const platonicBlessings: Record<
   globalSpeed: { weight: 1, pdf: (x: number) => 99.9975 < x && x <= 100 }
 }
 
+const platonicRNGesus = ['hypercubeBonus', 'taxes', 'scoreBonus', 'globalSpeed']
+const platonicCommonDrops = ['cubes', 'tesseracts', 'hypercubes', 'platonics'] as const
+
 /**
  * @description Generic class for handling cube subsets.
  * @example
@@ -357,11 +360,10 @@ export class WowPlatonicCubes extends Cube {
       }
     }
     // Then, the remaining hypercube will be opened, simulating the probability [RNG Element]
-    const RNGesus = ['hypercubeBonus', 'taxes', 'scoreBonus', 'globalSpeed']
-    for (let i = 0; i < RNGesus.length; i++) {
+    for (let i = 0; i < platonicRNGesus.length; i++) {
       const num = Math.random()
       if (toSpendModulo / 40000 >= num && toSpendModulo !== 0) {
-        player.platonicBlessings[RNGesus[i] as keyof Player['platonicBlessings']] += 1
+        player.platonicBlessings[platonicRNGesus[i] as keyof Player['platonicBlessings']] += 1
         toSpendModulo -= 1
       }
     }
@@ -371,9 +373,8 @@ export class WowPlatonicCubes extends Cube {
       Math.floor(33 * toSpendModulo / 100),
       Math.floor(396 * toSpendModulo / 40000)
     ]
-    const commonDrops = ['cubes', 'tesseracts', 'hypercubes', 'platonics'] as const
-    for (let i = 0; i < commonDrops.length; i++) {
-      player.platonicBlessings[commonDrops[i]] += gainValues[i]
+    for (let i = 0; i < platonicCommonDrops.length; i++) {
+      player.platonicBlessings[platonicCommonDrops[i]] += gainValues[i]
       toSpendModulo -= gainValues[i]
     }
 

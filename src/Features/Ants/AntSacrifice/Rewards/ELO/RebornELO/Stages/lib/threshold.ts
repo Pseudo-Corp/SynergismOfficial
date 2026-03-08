@@ -18,11 +18,12 @@ export const perThresholdModifiers = {
   antSacrificeTalismanFragmentMult: 1.2
 }
 
+const rebornSpeedPerkLevels = [1, 9, 25, 49, 81, 121, 169, 196, 225, 256, 289]
+
 export const singularityPerkRebornSpeedMultModifier = () => {
   const singCount = player.singularityCount
-  const levelArray = [1, 9, 25, 49, 81, 121, 169, 196, 225, 256, 289]
-  for (let i = levelArray.length - 1; i >= 0; i--) {
-    if (singCount >= levelArray[i]) {
+  for (let i = rebornSpeedPerkLevels.length - 1; i >= 0; i--) {
+    if (singCount >= rebornSpeedPerkLevels[i]) {
       return 0.0001 + 0.00009 * i
     }
   }
