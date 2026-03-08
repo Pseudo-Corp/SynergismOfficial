@@ -823,11 +823,11 @@ export const renderCaptcha = platform === 'steam'
             const sessionTicket = await getSessionTicket()
 
             if (!sessionTicket) {
-              await Alert('Failed to validate with Steam. Is Steam open?')
+              Alert('Failed to validate with Steam. Is Steam open?')
               return
             }
 
-            const dataAction = form.getAttribute('data-steam-action')!
+            const dataAction = form.getAttribute('data-steam-action') ?? form.action
 
             const fd = new FormData(form)
             const body = new URLSearchParams()
