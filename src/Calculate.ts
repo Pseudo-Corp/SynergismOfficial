@@ -1238,7 +1238,6 @@ export const calculateAscensionScore = () => {
 }
 
 export const CalcCorruptionStuff = () => {
-
   const scores = calculateAscensionScore()
 
   const baseScore = scores.baseScore
