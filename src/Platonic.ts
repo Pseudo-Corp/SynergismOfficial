@@ -17,7 +17,15 @@ export interface IPlatBaseCost {
   priceMult?: number
 }
 
-const platonicResources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals'] as const
+const platonicResources = [
+  'obtainium',
+  'offerings',
+  'cubes',
+  'tesseracts',
+  'hypercubes',
+  'platonics',
+  'abyssals'
+] as const
 const platonicResourceNames = [
   'obtainium',
   'offerings',
@@ -288,7 +296,8 @@ const checkPlatonicUpgrade = (
       checksum++
       checks[platonicResources[i]] = true
     } else if (
-      Math.floor(platUpgradeBaseCosts[index][platonicResources[i]] * priceMultiplier) <= (player[platonicResourceNames[i]] as number)
+      Math.floor(platUpgradeBaseCosts[index][platonicResources[i]] * priceMultiplier)
+        <= (player[platonicResourceNames[i]] as number)
     ) {
       checksum++
       checks[platonicResources[i]] = true

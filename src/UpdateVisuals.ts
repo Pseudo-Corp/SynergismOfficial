@@ -209,7 +209,6 @@ export const visualUpdateBuildings = () => {
 
   // When you're in Building --> Coin, update these.
   if (G.buildingSubTab === 'coin') {
-
     let totalProductionDivisor = new Decimal(G.produceTotal)
     if (totalProductionDivisor.equals(0)) {
       totalProductionDivisor = new Decimal(1)
@@ -368,7 +367,6 @@ export const visualUpdateBuildings = () => {
       }
     )
   } else if (G.buildingSubTab === 'diamond') {
-
     const crystalExponent = calculateCrystalExponent()
     const crystalCoinMult = calculateCrystalCoinMultiplier(crystalExponent)
     DOMCacheGetOrSet('prestigeshardinfo').innerHTML = i18next.t(
@@ -433,7 +431,6 @@ export const visualUpdateBuildings = () => {
       )
     }
   } else if (G.buildingSubTab === 'mythos') {
-
     DOMCacheGetOrSet('transcendshardinfo').textContent = i18next.t(
       'buildings.mythosYouHave',
       {

@@ -9,13 +9,13 @@ import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { resetTiers } from './Reset'
 import { type RuneKeys, runes } from './Runes'
 import { allTalismanRuneBonusStatsSum } from './Statistics'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { assert } from './Utility'
 import { Globals as G } from './Variables'
-import { resetTiers } from './Reset'
 
 interface TalismanFragmentCost {
   obtainium: number
