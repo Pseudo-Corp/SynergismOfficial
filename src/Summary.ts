@@ -482,7 +482,7 @@ export const generateExportSummary = async (): Promise<void> => {
 
   // Create Octeract Stuff
   let ambrosiaUpgradeStats = '\n'
-  if (player.visitedAmbrosiaSubtab) {
+  if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
     ambrosiaUpgradeStats =
       '===== AMBROSIA UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [𖥔]: Upgrade is ACTIVE - \n - [ ]: Upgrade INACTIVE - \n'
     const ambUpgrade = Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]
@@ -532,7 +532,7 @@ export const generateExportSummary = async (): Promise<void> => {
   // Create Red Ambrosia Stuff
 
   let redAmbrosiaUpgradeStats = '\n'
-  if (player.visitedAmbrosiaSubtabRed) {
+  if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
     redAmbrosiaUpgradeStats =
       '===== RED AMBROSIA UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [ ]: Upgrade is NOT MAXED - \n'
     const redAmbUpgrade = Object.keys(player.redAmbrosiaUpgrades) as (keyof Player['redAmbrosiaUpgrades'])[]

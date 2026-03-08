@@ -203,45 +203,45 @@ export const addTimers = (input: TimerInput, time = 0) => {
       break
     }
     case 'ambrosia': {
-      const compute = calculateAmbrosiaGenerationSpeed()
-      if (compute === 0) {
-        break
+      if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
+        const compute = calculateAmbrosiaGenerationSpeed()
+        if (compute === 0) {
+          break
+        }
+
+        G.ambrosiaTimer += time * timeMultiplier
+
+        if (G.ambrosiaTimer < 0.125) {
+          break
+        }
+
+        const ambrosiaLuck = calculateAmbrosiaLuck()
+        const baseBlueberryTime = calculateAmbrosiaGenerationSpeed()
+        player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
+        G.ambrosiaTimer %= 0.125
+
+        let timeToAmbrosia = calculateRequiredBlueberryTime()
+
+        while (player.blueberryTime >= timeToAmbrosia) {
+          const RNG = seededRandom(Seed.Ambrosia)
+          const ambrosiaMult = Math.floor(ambrosiaLuck / 100)
+          const luckMult = RNG < ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100) ? 1 : 0
+          const bonusAmbrosia = (player.singularityChallenges.noAmbrosiaUpgrades.rewards.bonusAmbrosia) ? 1 : 0
+          const ambrosiaToGain = (ambrosiaMult + luckMult) + bonusAmbrosia
+
+          player.ambrosia += ambrosiaToGain
+          player.lifetimeAmbrosia += ambrosiaToGain
+          player.blueberryTime -= timeToAmbrosia
+
+          timeToAmbrosia = calculateRequiredBlueberryTime()
+        }
+
+        visualUpdateAmbrosia()
       }
-
-      G.ambrosiaTimer += time * timeMultiplier
-
-      if (G.ambrosiaTimer < 0.125) {
-        break
-      }
-
-      const ambrosiaLuck = calculateAmbrosiaLuck()
-      const baseBlueberryTime = calculateAmbrosiaGenerationSpeed()
-      player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
-      G.ambrosiaTimer %= 0.125
-
-      let timeToAmbrosia = calculateRequiredBlueberryTime()
-
-      while (player.blueberryTime >= timeToAmbrosia) {
-        const RNG = seededRandom(Seed.Ambrosia)
-        const ambrosiaMult = Math.floor(ambrosiaLuck / 100)
-        const luckMult = RNG < ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100) ? 1 : 0
-        const bonusAmbrosia = (player.singularityChallenges.noAmbrosiaUpgrades.rewards.bonusAmbrosia) ? 1 : 0
-        const ambrosiaToGain = (ambrosiaMult + luckMult) + bonusAmbrosia
-
-        player.ambrosia += ambrosiaToGain
-        player.lifetimeAmbrosia += ambrosiaToGain
-        player.blueberryTime -= timeToAmbrosia
-
-        timeToAmbrosia = calculateRequiredBlueberryTime()
-      }
-
-      visualUpdateAmbrosia()
       break
     }
     case 'redAmbrosia': {
-      if (!player.visitedAmbrosiaSubtabRed) {
-        break
-      } else {
+      if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
         const speed = calculateRedAmbrosiaGenerationSpeed()
         G.redAmbrosiaTimer += time * timeMultiplier
         if (G.redAmbrosiaTimer < 0.125) {

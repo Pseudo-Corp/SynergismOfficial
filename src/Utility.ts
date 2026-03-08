@@ -1,4 +1,5 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
+import DOMPurify from 'dompurify'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format } from './Synergism'
 
@@ -410,4 +411,20 @@ export const infiniteGeometricSeries = (startIndex: number, ratio: number): numb
     throw new Error('Ratio must be less than 1 for an infinite geometric series to converge.')
   }
   return ratio ** startIndex / (1 - ratio)
+}
+
+export const displayHTMLError = async (response: Response) => {
+  const html = await response.text()
+  const overlay = document.createElement('div')
+  overlay.style.cssText =
+    'position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:99999'
+  const modal = document.createElement('div')
+  modal.style.cssText =
+    'background:var(--alert-color);color:var(--text-color);padding:20px;border:1px solid var(--boxmain-bordercolor);border-radius:8px;max-width:500px;max-height:80vh;overflow:auto'
+  modal.innerHTML = DOMPurify.sanitize(html)
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.remove()
+  }, { once: true })
+  overlay.appendChild(modal)
+  document.body.appendChild(overlay)
 }

@@ -3132,15 +3132,6 @@
                 "subbed": "",
                 "gave": ""
             },
-            "gamble": {
-                "wait": "",
-                "prompt": "",
-                "cancelled": "",
-                "betPrompt": "",
-                "cheaters": "",
-                "won": "",
-                "lost": ""
-            },
             "time": {
                 "wait": "",
                 "confirm": "",

@@ -9,7 +9,7 @@ import { getRuneBlessingEffect } from './RuneBlessings'
 import { getRuneEffects } from './Runes'
 import { player, updateAllMultiplier, updateAllTick } from './Synergism'
 import type { FirstToFifth, OneToFive, ZeroToFour } from './types/Synergism'
-import { crystalupgradedescriptions, upgradeupdate } from './Upgrades'
+import { crystalupgradedescriptions, upgradeRequirements, upgradeupdate } from './Upgrades'
 import { smallestInc } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
 
@@ -626,6 +626,10 @@ export const buyProducer = (
 }
 
 export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
+  if (!upgradeRequirements[pos]) {
+    return
+  }
+
   const currency = type
   if (player[currency].gte(Decimal.pow(10, G.upgradeCosts[pos])) && player.upgrades[pos] === 0) {
     player[currency] = player[currency].sub(Decimal.pow(10, G.upgradeCosts[pos]))
@@ -685,7 +689,10 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
 
   if (toBuy + c > player.crystalUpgrades[u]) {
     player.crystalUpgrades[u] = 100 / 100 * (toBuy + c)
-    if (toBuy > 0) {
+    /* Automation no longer spends Crystals. Late game players experience weird 'zeroing' of Crystals
+       When they can afford Crystal Upgrades, due to precision issues. It is easier to just
+       Not spend crystals before this becomes a significant issue. */
+    if (toBuy > 0 && !auto) {
       player.prestigeShards = player.prestigeShards.sub(
         Decimal.pow(
           10,

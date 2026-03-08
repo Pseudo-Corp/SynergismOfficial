@@ -237,6 +237,162 @@ const upgradetexts = [
   () => format(0.333 * player.challengecompletions[10], 0)
 ]
 
+// TODO: We really should make a more unified Upgrade Data object...
+export const upgradeRequirements = [
+  // Zeroth Upgrade, because upgrades are 1-indexed (FUCK YOU PLATONIC)
+  () => true,
+  // Coin Upgrades 1-5
+  () => true,
+  () => true,
+  () => true,
+  () => true,
+  () => true,
+  // Coin Upgrades 6-10
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  // Coin Upgrades 11-15
+  () => player.unlocks.generation,
+  () => player.unlocks.generation,
+  () => player.unlocks.generation,
+  () => player.unlocks.generation,
+  () => player.unlocks.generation,
+  // Coin Upgrades 16-20
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  // Diamond Upgrades 1-5
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  // Diamond Upgrades 6-10
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  // Diamond Upgrades 11-15
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  // Diamond Upgrades 16-20
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  () => getAchievementReward('diamondUpgrade18'),
+  () => getAchievementReward('diamondUpgrade19'),
+  () => getAchievementReward('diamondUpgrade20'),
+  // Mythos Upgrade 1-5
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  // Mythos Upgrade 6-10
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  // Mythos Upgrade 11-15
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  // Mythos Upgrade 16-20
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  // Reincarnation Upgrade 1-5
+  () => player.researches[47] > 0,
+  () => player.researches[47] > 0,
+  () => player.researches[47] > 0,
+  () => player.researches[47] > 0,
+  () => player.researches[47] > 0,
+  // Reincarnation Upgrade 6-10
+  () => player.researches[48] > 0,
+  () => player.researches[48] > 0,
+  () => player.researches[48] > 0,
+  () => player.researches[48] > 0,
+  () => player.researches[48] > 0,
+  // Reincarnation Upgrade 11-15
+  () => player.researches[49] > 0,
+  () => player.researches[49] > 0,
+  () => player.researches[49] > 0,
+  () => player.researches[49] > 0,
+  () => player.researches[49] > 0,
+  // Reincarnation Upgrade 16-20
+  () => player.researches[50] > 0,
+  () => player.researches[50] > 0,
+  () => player.researches[50] > 0,
+  () => player.researches[50] > 0,
+  () => player.researches[50] > 0,
+  // Automation Upgrade 1-5
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  // Automation Upgrade 6-10
+  () => player.unlocks.prestige,
+  () => player.unlocks.prestige,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  // Automation Upgrade 11-15
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  // Automation Upgrade 16-20
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  () => player.unlocks.reincarnate,
+  // Generation Upgrades 1-5
+  () => player.unlocks.prestige,
+  () => player.unlocks.generation,
+  () => player.unlocks.generation,
+  () => player.unlocks.generation,
+  () => player.unlocks.generation,
+  // Generation Upgrades 6-10
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  // Generation Upgrades 11-15
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  // Generation Upgrades 16-20
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  () => player.unlocks.transcend,
+  // Coin Upgrades 21-25
+  () => player.cubeUpgrades[19] > 0,
+  () => player.cubeUpgrades[19] > 0,
+  () => player.cubeUpgrades[19] > 0,
+  () => player.cubeUpgrades[19] > 0,
+  () => player.cubeUpgrades[19] > 0
+]
+
 export const upgradeeffects = (i: number) => {
   const effect = upgradetexts[i - 1]?.()
   const type = typeof effect

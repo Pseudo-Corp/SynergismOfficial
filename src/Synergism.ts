@@ -109,7 +109,7 @@ import {
   sumOfRuneLevels,
   updateAllRuneLevelsFromEXP
 } from './Runes'
-import { c15RewardUpdate } from './Statistics'
+import { c15RewardUpdate, updateDisplayC15Rewards } from './Statistics'
 import {
   buyTalismanLevelToRarityIncrease,
   generateTalismansHTML,
@@ -1117,8 +1117,6 @@ export const player: Player = {
   lifetimeAmbrosia: 0,
   ambrosiaRNG: 0,
   blueberryTime: 0,
-  visitedAmbrosiaSubtab: false,
-  visitedAmbrosiaSubtabRed: false,
   spentBlueberries: 0,
 
   blueberryLoadouts: {
@@ -1152,7 +1150,11 @@ export const player: Player = {
 
   lastExportedSave: 0,
 
-  seed: Array.from({ length: 3 }, () => Date.now())
+  seed: Array.from({ length: 3 }, () => Date.now()),
+
+  stats: {
+    totalAddCodesUsed: 0
+  }
 }
 
 export const deepClone = () =>
@@ -5223,6 +5225,7 @@ export const reloadShit = (reset = false) => {
   updateAllGroupedAchievementProgress()
   updateAllProgressiveAchievementProgress()
   updateChallengeDisplay()
+  updateDisplayC15Rewards()
   clearTimeout(preloadDeleteGame)
 
   // All versions of Chrome and Firefox supported by the game have this API,

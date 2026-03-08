@@ -136,10 +136,7 @@ export class CorruptionLoadout {
     bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
     bonusVal += 0.3 * player.cubeUpgrades[74]
 
-    let bonusMult = 1
-    if (this.#levels[corr] >= 14 && getGQUpgradeEffect('masterPack')) {
-      bonusMult *= 1.1
-    }
+    const bonusMult = 1
 
     // player.platonicUpgrades[17] is the 17th platonic upgrade, known usually as P4x2, makes
     // Exponent 3 + 0.04 * level if the corr is viscosity and it is set at least level 10.
@@ -295,8 +292,8 @@ export class CorruptionLoadout {
     this.updateCorruptionScoreMult()
   }
 
-  resetCorruptions () {
-    if (player.currentChallenge.ascension !== 15 && player.campaigns.currentCampaign === undefined) {
+  resetCorruptions (nextLoadout = false) {
+    if (player.currentChallenge.ascension !== 15 && player.campaigns.currentCampaign === undefined || nextLoadout) {
       for (const corr in this.#levels) {
         const corrKey = corr as keyof Corruptions
         this.setLevel(corrKey, 0)
@@ -622,7 +619,7 @@ export const corruptionLoadoutTableCreate = () => {
   const zeroBtn = document.createElement('button')
   zeroBtn.className = 'corrLoad'
   zeroBtn.textContent = i18next.t('corruptions.loadoutTable.zero')
-  zeroBtn.addEventListener('click', () => player.corruptions.next.resetCorruptions())
+  zeroBtn.addEventListener('click', () => player.corruptions.next.resetCorruptions(true))
   zeroCell.appendChild(zeroBtn)
   zeroCell.title = i18next.t('corruptions.loadoutTable.zeroTitle')
 

@@ -621,8 +621,6 @@ export interface Player {
 
   blueberryTime: number
   ambrosiaRNG: number // DEPRECIATED, DO NOT USE
-  visitedAmbrosiaSubtab: boolean
-  visitedAmbrosiaSubtabRed: boolean
   spentBlueberries: number
 
   blueberryLoadouts: Record<number, BlueberryOpt>
@@ -641,6 +639,10 @@ export interface Player {
   lastExportedSave: number
 
   seed: number[]
+
+  stats: {
+    totalAddCodesUsed: number
+  }
 }
 
 export interface GlobalVariables {

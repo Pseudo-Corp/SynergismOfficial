@@ -1068,7 +1068,8 @@ const updateAscensionStats = () => {
     t = 1
   }
   const [cubes, tess, hyper, platonic, hepteract] = CalcCorruptionStuff().slice(4)
-  const addedAsterisk = getGQUpgradeEffect('oneMind')
+  const addedAsteriskHalfMind = getGQUpgradeEffect('halfMind')
+  const addedAsteriskOneMind = getGQUpgradeEffect('oneMind')
   const fillers: Record<string, string> = {
     ascLen: formatTimeShort(player.ascStatToggles[6] ? player.ascensionCounter : player.ascensionCounterReal, 0),
     ascCubes: format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2),
@@ -1077,8 +1078,8 @@ const updateAscensionStats = () => {
     ascPlatonic: format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
     ascHepteract: format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
     ascC10: `${format(player.challengecompletions[10])}`,
-    ascTimeAccel: `${format(calculateGlobalSpeedMult(), 3)}x`,
-    ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3)}x${addedAsterisk ? '*' : ''}`,
+    ascTimeAccel: `${format(calculateGlobalSpeedMult(), 3)}x${addedAsteriskHalfMind ? '*' : ''}`,
+    ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3)}x${addedAsteriskOneMind ? '*' : ''}`,
     ascSingularityCount: format(player.singularityCount),
     ascSingLen: formatTimeShort(player.singularityCounter),
     ascSingChallengeLen: formatTimeShort(player.singChallengeTimer)

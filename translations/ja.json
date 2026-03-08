@@ -6616,15 +6616,6 @@
         "subbed": "Thanks for using the \"sub\" code! I've taken away {{x}} Quarks! :)",
         "gave": "I gave you {{x}} Quarks so I could take {{y}} away."
       },
-      "gamble": {
-        "wait": "Wait a little bit. We'll get back to you when you're ready to lose again.",
-        "prompt": "Are you sure? The house always wins!",
-        "cancelled": "Scared? You should be!",
-        "betPrompt": "How many Quarks are you putting up?",
-        "cheaters": "Due to cheaters, you can only bet 10k max.",
-        "won": "You won. The Syncasino offers you a grand total of 25% of the pot! [+{{x}} Quarks]",
-        "lost": "Try again... you can do it! [-{{x}} quarks]"
-      },
       "time": {
         "wait": "If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.\n\nRegardless, you must wait at least 15 minutes between each use.",
         "confirm": "Click the button within the next 15 seconds to test your luck! If you click within {{x}} ms of a randomly generated time, you will win a prize! This particular instance has a {{y}}x multiplier due to elapsed time between uses.",

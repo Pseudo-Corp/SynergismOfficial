@@ -208,23 +208,6 @@ import {
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
 
-/* STYLE GUIDE */
-/*
-    1) When adding event handlers please put it in respective tabs, in the correct subcategory.
-    Generally it would be preferred to put it in the lowest spot.
-    2) Please put any Mouseover events before Click events, if two event handlers are needed for an element.
-    3) Do *NOT* add event handlers to index.html. You may only add them in js/ts files!
-    4) Using for loops: be careful about passing arguments. If necessary, please use a currying function (See: Line 80-90)
-    5) If you are documenting a new tab or subtab, please comment out the order in which you add event handlers.
-    6) It is strongly recommended you only add event handlers in the generateEventHandlers() function, but if you are
-    creating new elements through js/ts you may do so outside of this file (E.g. corruptions)
-
-    Platonic and/or Khafra have the right to close PRs that do not conform to this style guide
-
-    If you are editing this script, please update the below time:
-    Last Edited: June 10, 2021 3:04 AM UTC-8
-*/
-
 export const generateEventHandlers = () => {
   const ordinals = [
     'first',
@@ -371,7 +354,7 @@ export const generateEventHandlers = () => {
     for (let index2 = 1; index2 <= 5; index2++) {
       DOMCacheGetOrSet(
         `buy${buildingTypesAlternate2[index]}${index2}`
-      ).addEventListener('click', () =>
+      ).addEventListener('pointerdown', () =>
         buyProducer(
           ordinals[index2 - 1] as FirstToFifth,
           buildingTypesAlternate3[index],
@@ -399,7 +382,7 @@ export const generateEventHandlers = () => {
   // Tesseract Buildings
   for (let index = 0; index < 5; index++) {
     DOMCacheGetOrSet(`buyTesseracts${index + 1}`).addEventListener(
-      'click',
+      'pointerdown',
       () => buyTesseractBuilding((index + 1) as OneToFive)
     )
     DOMCacheGetOrSet(`tesseractAutoToggle${index + 1}`).addEventListener(
@@ -1218,7 +1201,7 @@ TODO: Fix this entire tab it's utter shit
       DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
       DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
       // DOMCacheGetOrSet(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
-      DOMCacheGetOrSet(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
+      DOMCacheGetOrSet(`${key}Button`).addEventListener('pointerdown', () => buyShopUpgrades(key))
     }
   }
   DOMCacheGetOrSet('buySingularityQuarksButton').addEventListener('click', () => buyGoldenQuarks())

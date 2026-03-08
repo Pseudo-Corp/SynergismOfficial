@@ -33,6 +33,7 @@ import {
   calculateCookieUpgrade29Luck,
   calculateCubeMultFromPowder,
   calculateCubeMultiplier,
+  calculateCubeMultiplierWithTau,
   calculateDilatedFiveLeafBonus,
   calculateEventBuff,
   calculateExalt6Penalty,
@@ -265,7 +266,7 @@ export const allCubeStats: NumberStatLine[] = [
   {
     i18n: 'PassZ',
     stat: () => 1 + (player.shopUpgrades.seasonPassZ * player.singularityCount) / 100,
-    displayCriterion: () => Boolean(getGQUpgradeEffect('wowPass2'))
+    displayCriterion: () => Boolean(getGQUpgradeEffect('wowPass'))
   },
   {
     i18n: 'PassINF',
@@ -383,6 +384,15 @@ export const allCubeStats: NumberStatLine[] = [
     }
   },
   {
+    i18n: 'OneMind',
+    stat: () => {
+      return getGQUpgradeEffect('oneMind')
+        ? calculateAscensionSpeedMult() / 10
+        : 1
+    },
+    color: 'magenta'
+  },
+  {
     i18n: 'Event',
     stat: () => 1 + calculateEventBuff(BuffType.Cubes),
     color: 'lime'
@@ -472,6 +482,13 @@ export const allWowCubeStats: NumberStatLine[] = [
     stat: () =>
       1 + Math.pow(1.03, Math.log10(Math.max(1, player.wowAbyssals))) * player.cubeUpgrades[63]
       - player.cubeUpgrades[63]
+  }
+]
+
+export const allWowCubePowerStats: NumberStatLine[] = [
+  {
+    i18n: 'Tau',
+    stat: () => getGQUpgradeEffect('platonicTau') ? 1.01 : 1
   }
 ]
 
@@ -1332,7 +1349,7 @@ export const allQuarkStats: NumberStatLine[] = [
     stat: () =>
       1 + 0.02 * getGQUpgradeEffect('intermediatePack')
       + 0.04 * getGQUpgradeEffect('advancedPack') + 0.06 * getGQUpgradeEffect('expertPack')
-      + 0.08 * getGQUpgradeEffect('expertPack') + 0.1 * goldenQuarkUpgrades.divinePack.level
+      + 0.08 * getGQUpgradeEffect('masterPack') + 0.1 * goldenQuarkUpgrades.divinePack.level
   },
   {
     i18n: 'SingQuarkImprover1',
@@ -2214,8 +2231,8 @@ export const allAmbrosiaBlueberryStats: NumberStatLine[] = [
 
 export const allAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   {
-    i18n: 'VisitedTab',
-    stat: () => +(player.visitedAmbrosiaSubtab) // Visited Ambrosia Tab
+    i18n: 'Default',
+    stat: () => player.singularityChallenges.noSingularityUpgrades.completions > 0 ? 1 : 0
   },
   {
     i18n: 'PseudoCoins',
@@ -2645,7 +2662,7 @@ export const allRedAmbrosiaLuckStats: NumberStatLine[] = [
 export const allRedAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   {
     i18n: 'Base',
-    stat: () => 1 // Base value of 1.00
+    stat: () => player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? 1 : 0
   },
   {
     i18n: 'PseudoCoins',
@@ -3742,6 +3759,14 @@ export const loadGlobalCubeMultiplierStats = () => {
 
 export const loadWowCubeMultiplierStats = () => {
   loadStatistics(allWowCubeStats, 'cubeMultiplierStats', 'statCM', 'WowCubeStat', calculateCubeMultiplier)
+  loadStatistics(
+    allWowCubePowerStats,
+    'cubeMultiplierStats',
+    'statCM2',
+    'WowCubeStat2',
+    calculateCubeMultiplierWithTau,
+    'Total2'
+  )
 }
 
 export const loadTesseractMultiplierStats = () => {
@@ -4185,7 +4210,7 @@ export const c15RewardUpdate = () => {
   updateDisplayC15Rewards()
 }
 
-const updateDisplayC15Rewards = () => {
+export const updateDisplayC15Rewards = () => {
   DOMCacheGetOrSet('c15Reward0').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.0', {
     exponent: format(player.challenge15Exponent, 3, true)
   })

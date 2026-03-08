@@ -1,5 +1,6 @@
 import { type FUNDING_SOURCE, loadScript } from '@paypal/paypal-js'
-import { platform, prod } from '../Config'
+import i18next from 'i18next'
+import { isSynergismCC, platform, prod } from '../Config'
 import { getSubMetadata, type SubscriptionMetadata, type SubscriptionProvider } from '../Login'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { assert, memoize } from '../Utility'
@@ -13,7 +14,7 @@ const manageSubscriptionHolder = subscriptionsContainer.querySelector<HTMLElemen
 type Actions = 'manage' | 'upgrade' | 'downgrade' | 'cancel'
 type RouteLinks = Record<Actions, string>
 
-const prodRouteLinks: Record<'stripe' | 'paypal', RouteLinks> = {
+const prodRouteLinks: Record<'stripe' | 'paypal' | 'steam', RouteLinks> = {
   stripe: {
     manage: 'https://synergism.cc/stripe/manage-subscription',
     upgrade: 'https://synergism.cc/stripe/subscription/upgrade',
@@ -25,10 +26,16 @@ const prodRouteLinks: Record<'stripe' | 'paypal', RouteLinks> = {
     upgrade: 'https://synergism.cc/paypal/subscriptions/revise',
     downgrade: 'https://synergism.cc/paypal/subscriptions/revise',
     cancel: 'https://synergism.cc/paypal/subscriptions/cancel'
+  },
+  steam: {
+    manage: 'https://store.steampowered.com/account/',
+    upgrade: 'https://store.steampowered.com/account/',
+    downgrade: 'https://store.steampowered.com/account/',
+    cancel: 'https://store.steampowered.com/account/'
   }
 }
 
-const devRouteLinks: Record<'stripe' | 'paypal', RouteLinks> = {
+const devRouteLinks: typeof prodRouteLinks = {
   stripe: {
     manage: 'https://synergism.cc/stripe/test/manage-subscription',
     upgrade: 'https://synergism.cc/stripe/test/subscription/upgrade',
@@ -40,7 +47,8 @@ const devRouteLinks: Record<'stripe' | 'paypal', RouteLinks> = {
     upgrade: 'https://synergism.cc/paypal/subscriptions/revise',
     downgrade: 'https://synergism.cc/paypal/subscriptions/revise',
     cancel: 'https://synergism.cc/paypal/subscriptions/cancel'
-  }
+  },
+  steam: prodRouteLinks.steam
 }
 
 const formatter = Intl.NumberFormat('en-US', {
@@ -249,13 +257,11 @@ const upgradeButton = (product: SubscriptionProduct, currentSubTier: number) => 
 const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentSubTier: number) => {
   const sub = getSubMetadata()
   const notSubbed = sub === null
-  const patreonSub = sub?.provider === 'patreon'
+  const subManageable = sub?.provider !== 'patreon' && sub?.provider !== 'steam'
   const nameHTML = createSubscriptionTierName(product)
 
   if (product.tier < currentSubTier) {
-    const downgradeBtn = patreonSub
-      ? '' // No downgrade button for Patreon subs
-      : downgradeButton(product)
+    const downgradeBtn = subManageable ? downgradeButton(product) : ''
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>
@@ -284,13 +290,8 @@ const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentS
       </section>
     `
   } else if (product.tier > currentSubTier) {
-    const noSubscription = notSubbed
-      ? noSubscriptionButton(product)
-      : ''
-
-    const upgradeBtn = notSubbed || patreonSub
-      ? ''
-      : upgradeButton(product, currentSubTier)
+    const noSubscription = notSubbed ? noSubscriptionButton(product) : ''
+    const upgradeBtn = notSubbed || !subManageable ? '' : upgradeButton(product, currentSubTier)
 
     return `
       <section class="subscriptionContainer" key="${product.id}">
@@ -461,7 +462,11 @@ export const initializePayPal_Subscription = async () => {
       },
 
       onError (error) {
-        Notification('An error with PayPal happened. More info in console.')
+        if (isSynergismCC) {
+          Notification(i18next.t('pseudoCoins.error.paypalGeneric'))
+        } else {
+          Notification(i18next.t('pseudoCoins.error.pseudoCoins.error.paypalNotSynergismCC'))
+        }
         console.log(error)
       }
     }).render(element)

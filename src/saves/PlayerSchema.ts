@@ -1003,8 +1003,8 @@ export const playerSchema = z.object({
   lifetimeAmbrosia: z.number().default(() => blankSave.lifetimeAmbrosia),
   ambrosiaRNG: z.number().default(() => blankSave.ambrosiaRNG),
   blueberryTime: z.number().default(() => blankSave.blueberryTime),
-  visitedAmbrosiaSubtab: z.boolean().default(() => blankSave.visitedAmbrosiaSubtab),
-  visitedAmbrosiaSubtabRed: z.boolean().default(() => blankSave.visitedAmbrosiaSubtabRed),
+  visitedAmbrosiaSubtab: z.boolean().optional(),
+  visitedAmbrosiaSubtabRed: z.boolean().optional(),
   spentBlueberries: z.number().default(() => blankSave.spentBlueberries),
   // TODO: is this right?
   blueberryUpgrades: z.record(z.string(), singularityUpgradeSchema('blueberriesInvested', 'ambrosiaInvested'))
@@ -1039,5 +1039,9 @@ export const playerSchema = z.object({
 
   seed: z.number().array().default(() => blankSave.seed)
     .transform((value) => arrayExtend(value, 'seed'))
-    .refine((value) => value.every((seed) => seed > Date.parse('2020-01-01T00:00:00Z') && seed < Date.now() + 1000))
+    .refine((value) => value.every((seed) => seed > Date.parse('2020-01-01T00:00:00Z') && seed < Date.now() + 1000)),
+
+  stats: z.object({
+    totalAddCodesUsed: z.number()
+  }).default(() => deepClone()(blankSave.stats))
 })

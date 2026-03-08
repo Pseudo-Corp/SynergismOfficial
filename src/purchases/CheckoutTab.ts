@@ -1,6 +1,7 @@
 import { type FUNDING_SOURCE, loadScript } from '@paypal/paypal-js'
-import { platform, prod } from '../Config'
-import { Alert, Confirm, Notification } from '../UpdateHTML'
+import i18next from 'i18next'
+import { isSynergismCC, platform, prod } from '../Config'
+import { Alert, Notification } from '../UpdateHTML'
 import { assert, memoize } from '../Utility'
 import { products, subscriptionProducts } from './CartTab'
 import {
@@ -76,15 +77,6 @@ export const initializeCheckoutTab = memoize(() => {
         : 'https://synergism.cc/stripe/create-checkout-session'
     } else if (e.target === checkoutNowPayments) {
       url = 'https://synergism.cc/now-payments/checkout'
-
-      const confirmed = await Confirm(
-        'NowPayments is experimental and may have issues. The minimum amount depends on the crypto you choose to pay with. Do you want to continue?'
-      )
-
-      if (!confirmed) {
-        reset()
-        return
-      }
     } else {
       Notification('You clicked on something that I don\'t know.')
       reset()
@@ -100,6 +92,15 @@ export const initializeCheckoutTab = memoize(() => {
           window.location.href = json.redirect
         } else {
           Notification(json.error)
+        }
+      })
+      .catch((e: Error) => {
+        console.error(`Error checking out (${url})`, e)
+
+        if (isSynergismCC) {
+          Alert(i18next.t('pseudoCoins.error.checkoutGeneric', { error: e.message }))
+        } else {
+          Alert(i18next.t('pseudoCoins.error.checkoutNotSynergismCC'))
         }
       })
       .finally(reset)
@@ -351,7 +352,12 @@ async function initializePayPal_OneTime (selector: string | HTMLElement) {
         message.push(`${key}: ${value}`)
       }
 
-      Notification(`An error with PayPal happened. More info in console. ${message.join(', ')}`)
+      if (isSynergismCC) {
+        Notification(`${i18next.t('pseudoCoins.error.paypalGeneric')} - ${message.join(', ')}`)
+      } else {
+        Notification(i18next.t('pseudoCoins.error.pseudoCoins.error.paypalNotSynergismCC'))
+      }
+
       console.log({ error })
     },
 

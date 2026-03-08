@@ -1170,7 +1170,11 @@ export const singularity = (setSingNumber = -1) => {
         player.singularityCount++
       } else { // Go up as many as we can, including highestSingularity if relevant
         const maxPotentialSing = player.singularityCount + lookahead
-        player.singularityCount = Math.max(player.highestSingularityCount, maxPotentialSing)
+        // We also need to consider the target singularity (which is always at most (highest sing + lookadhead))
+        player.singularityCount = Math.min(
+          Math.max(player.highestSingularityCount, maxPotentialSing),
+          player.singularityElevatorTarget
+        )
       }
     }
 
@@ -1325,7 +1329,6 @@ export const singularity = (setSingNumber = -1) => {
   hold.lifetimeRedAmbrosia = player.lifetimeRedAmbrosia
   hold.redAmbrosiaTime = player.redAmbrosiaTime
   hold.redAmbrosiaUpgrades = player.redAmbrosiaUpgrades
-  hold.visitedAmbrosiaSubtabRed = player.visitedAmbrosiaSubtabRed
   hold.singularityChallenges = Object.fromEntries(
     Object.entries(player.singularityChallenges).map(([key, value]) => {
       return [key, {
@@ -1343,10 +1346,11 @@ export const singularity = (setSingNumber = -1) => {
 
   hold.ambrosia = player.ambrosia
   hold.lifetimeAmbrosia = player.lifetimeAmbrosia
-  hold.visitedAmbrosiaSubtab = player.visitedAmbrosiaSubtab
   hold.blueberryTime = player.blueberryTime
   hold.blueberryLoadouts = player.blueberryLoadouts
   hold.blueberryLoadoutMode = player.blueberryLoadoutMode as BlueberryLoadoutMode
+
+  hold.stats = player.stats
 
   const saveCode42 = player.codes.get(42) ?? false
   const saveCode43 = player.codes.get(43) ?? false
