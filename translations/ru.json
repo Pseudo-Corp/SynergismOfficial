@@ -837,7 +837,22 @@
       "490": "Просто страдать?: Принесите в жертву свой муравейник 1000000 раз.",
       "491": "Выжженная земля: Принесите в жертву свой муравейник 3000000 раз.",
       "492": "Так ясно, что все, что у нас есть сейчас: Принесите в жертву ваш муравейник 10000000 раз.",
-      "493": "Наши мысли вчерашнего дня: Принесите в жертву ваш муравейник 100000000 раз."
+      "493": "Наши мысли вчерашнего дня: Принесите в жертву ваш муравейник 100000000 раз.",
+      "494": "Elementary Math: Use Code 'add' 10 times.",
+      "495": "It adds up: Use Code 'add' 20 times.",
+      "496": "The power of addition: Use Code 'add' 50 times.",
+      "497": "The Successor Function: Use Code 'add' 100 times.",
+      "498": "Succ(100)... 100 times: Use Code 'add' 200 times.",
+      "499": "Triplet act: Use Code 'add' 300 times.",
+      "500": "Half a thousand Achievements!: Use Code 'add' 500 times.",
+      "501": "A Numerical Calculation: Use Code 'add' 750 times.",
+      "502": "Succ it in, succ it in, succ it in: Use Code 'add' 1,000 times.",
+      "503": "If you're Rin Tin Tin, or Anne Boleyn: Use Code 'add' 2,000 times.",
+      "504": "It's so PC it's killing me: Use Code 'add' 3,000 times.",
+      "505": "V bar: Use Code 'add' 5,000 times.",
+      "506": "Make a Desperate Move: Use Code 'add' 6,000 times.",
+      "507": "Or Else You'll Win: Use Code 'add' 7,500 times.",
+      "508": "The Hook Brings Me Back: Use Code 'add' 10,000 times."
     },
     "achievementRewards": {
       "3": {
@@ -1773,7 +1788,8 @@
       "transcensionCount": "Выходов за рамки",
       "reincarnationCount": "Кол-во реинкарнаций",
       "sacCount": "Принесено в жертву муравейников",
-      "ungrouped": "Разное"
+      "ungrouped": "Разное",
+      "addCodesUsed": "Add Code User"
     },
     "rewardTypes": {
       "title": "Бонусы за достижения дают вам следующее!",
@@ -1952,27 +1968,27 @@
       },
       "tier1CrystalAutobuy": {
         "name": "Автопокупщик первого уровня кристаллов",
-        "description": "Теперь вы можете автоматически покупать алмазные переработчики! Также автоматически покупает первое улучшение кристаллов, если вы можете себе его позволить.",
+        "description": "You can now automatically buy Diamond Refineries! Also automagically buys the first Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "tier2CrystalAutobuy": {
         "name": "Автопокупщик втого уровня кристаллов",
-        "description": "Теперь вы можете автоматически покупать алмазные угольные переработчики! Также автоматически покупает втогое улучшение кристаллов, если вы можете себе его позволить.",
+        "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier3CrystalAutobuy": {
         "name": "Автопокупщик третьего уровня кристаллов",
-        "description": "Теперь вы можете автоматически покупать алмазные угольные карьеры! Также автоматически покупает третье улучшение кристаллов, если вы можете себе его позволить.",
+        "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier4CrystalAutobuy": {
         "name": "Автопокупщик четвёртого уровня кристаллов",
-        "description": "Теперь вы можете автоматически покупать алмазные кирки! Также автоматически покупает четвёртое улучшение кристаллов, если вы можете себе его позволить.",
+        "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier5CrystalAutobuy": {
         "name": "Автопокупщик пятого уровня кристаллов",
-        "description": "Теперь вы можете автоматически покупать алмазные ящики Пандоры! Также автоматически покупает пятое улучшение кристаллов, если вы можете себе его позволить.",
+        "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "achievementTalismanUnlock": {
@@ -2081,7 +2097,7 @@
     "alerts": {
       "36": "Поздравляем вас с первым престижем. Первым из многих. Теперь вы получаете подношения, которые вы можете использовать в новой вкладке \"Руны!\" [Разблокированы: Руны, Достижения, Алмазные строения и ещё немного улучшений!]",
       "38": "Хм-м, кажется вы становитесь богаче, имея возможность получить 1 Гугол алмазов за один престиж. Как насчёт того, что мы дадим тебе ещё одну руну? [Разблокирована руна Размножения во вкладке \"Руны\"]",
-      "255": "Вау! Вы достигли счёта 1e17 (100 квадриллионов) за одно вознесение. В качестве награды, теперь, если ваш счёт будет выше 1.66e17 (166.6 Квадриллионов), вы сможете генерировать Гептеракты. Удачи!"
+      "255": "Wow! You gained 1e15 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!"
     },
     "hover": "Наведите на достижение, чтобы просмотреть его информацию.",
     "tieredExtraRewards": "Это уровневое достижение имеет дополнительные награды!",
@@ -3298,7 +3314,7 @@
       "powderAuto": "Вашим бабушке и дедушке пришлось целый день ждать порошок, но не вам! За каждый уровень прибавляется +1% от преобразования сфер в порошок в зависимости от коэффициента конверсии.",
       "seasonPassLost": "Я бы посоветовал не прикасаться к этому. +0.1% Октерактов за каждый уровень, чем бы они ни были...",
       "challenge15Auto": "Ваши предки должны были сгибать измерения ради рейтинга Испытания 15, но это в прошлом! Обновляет Экспоненту Испытания 15 каждый такт нахождения в испытании 15!",
-      "extraWarp": "\"Эй, чувак, заходи в этот портал, который я соорудил прошлой ночью в своём сарае!\" - сказал Торговец Кварков",
+      "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant. <<crimson | With this, you can use the Daily Warp twice a day... however, it might require waiting for the next day to activate.>>",
       "autoWarp": "Благодаря мощи Кварков, Варп машина теперь сможет перейти в режим перегрузки",
       "improveQuarkHept": "That exponent on your Quark Hepteracts is nice, but what if it was better? Gain +0.01 power per level to the Quark Hept Exponent!",
       "improveQuarkHept2": "Want even stronger Quark Hepts? Gain +0.01 power per level to the Quark Hept Exponent!",
@@ -3411,7 +3427,7 @@
       "powderAuto": "Каждые <<red|{{amount}}>> купленных сфер дают 1 порошок.",
       "seasonPassLost": "Вы генерируете на <<lightgoldenrodyellow|{{amount}}%>> больше Вау! Октерактов в секунду.",
       "challenge15Auto": "Даже для премиум магазина это довольно очевидно, не так ли?",
-      "extraWarp": "Варп доступен <<red|+{{amount}}>> дополнительных раз.",
+      "extraWarp": "You can warp <<red|+{{amount}}>> extra time.",
       "autoWarp": "При покупке улучшения, вы можете переключать <<red|авто варп>> в Кузнице Гептерактов. Разумеется, только если купите это.",
       "improveQuarkHept": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
       "improveQuarkHept2": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
@@ -3523,10 +3539,10 @@
       },
       "antGodsCornucopia": {
         "name": "Рог изобилия Муравьиного Бога",
-        "hasLevel3": "У Скорости Муравьёв теперь есть чистый множитель х4.44, а также истинно чистый множитель х1e12!",
-        "hasLevel2": "У Скорости Муравьёв теперь есть чистый множитель х4.44, а также истинно чистый множитель х1e6!",
-        "hasLevel1": "У Скорости Муравьёв теперь есть чистый множитель х4.44, а также истинно чистый множитель х1,000!",
-        "default": "У Скорости Муравьёв теперь есть чистый множитель х4.44."
+        "hasLevel3": "Ant God gives you <<crimson | 1,000,000,000,000x Ant Speed>>!",
+        "hasLevel2": "Ant God gives you <<crimson | 1,000,000x Ant Speed>>!",
+        "hasLevel1": "Ant God gives you <<crimson | 1,000x Ant Speed>>!",
+        "default": "Ant God gives you <<crimson | 4.44x Ant Speed>>!"
       },
       "bringToLife": {
         "name": "Bring to Life",
@@ -3749,7 +3765,7 @@
       },
       "starterPack": {
         "name": "Стартовый Набор",
-        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Immaculate Obtainium and Offerings from all sources.",
+        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources.",
         "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Immaculate Obtainium and Offerings.",
         "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Immaculate Obtainium and Offerings."
       },
@@ -3897,7 +3913,7 @@
       },
       "masterPack": {
         "name": "Набор Мастера",
-        "description": "A tad insane. Gain +8% Quarks, additive with other packs, for every level 14 Corruption, Ascension Score is multiplied by 1.1.",
+        "description": "A tad insane. Gain +8% Quarks, additive with other packs. Multiply your overall Ascension Score by 1.5. Wow!",
         "effectHave": "Вы овладели своими внутренними чакрами.",
         "effectHaveNot": "Вы не овладели своими внутренними чакрами."
       },
@@ -3952,7 +3968,7 @@
       "singQuarkImprover1": {
         "name": "Штука, Предельно Улучшающая Получение Кварков",
         "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
-        "effect": "Увеличивает Кварки на {{n}}%!"
+        "effect": "You gain {{n}} more Quarks!"
       },
       "singQuarkHepteract": {
         "name": "Я бы хотел, чтобы мой Гептеракт Кварков был хоть немного лучше.",
@@ -6113,9 +6129,10 @@
       "ModuleCubes3": "Модуль Амброзии: Кубы III:",
       "ModuleHyperflux": "Амброзия - Гиперзаряженный Модуль:",
       "RedAmbrosiaTutorial": "Красная Амброзия - Тренировочное Улучшение:",
-      "RedAmbrosia": "Кубы \"из\" Красной Амброзии",
+      "RedAmbrosia": "Cubes \"made\" of Red Ambrosia:",
       "Exalt6": "Великий Спидран Сингулярности - Слишком Медленно:",
       "Event": "Бонус События:",
+      "OneMind": "One Mind Modifier:",
       "Total": "Общий Универсальный Множитель Кубов:"
     },
     "cubeMultiplierStats": {
@@ -6140,7 +6157,9 @@
       "PlatonicOpening": "Платоновы Кубы:",
       "Platonic1x1": "Платоново 1x1:",
       "CookieUpgrade13": "Улучшение Печенек 13:",
-      "Total": "Общий Множитель Вау! Кубов:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Общий Множитель Вау! Кубов:",
+      "Total2": "Final Wow! Cube Multiplier:"
     },
     "tesseractMultiplierStats": {
       "title": "Множитель Вау! Тессерактов",
@@ -6555,7 +6574,7 @@
       "ChronosTalisman": "Бонус Талисмана Хронос:",
       "Challenge15": "Награда Испытания 15:",
       "CubeUpgradeCx2": "Улучшение Кубов 6x2 (Cx2):",
-      "SpacialDilation": "Порча: Пространственное Расширение:",
+      "SpacialDilation": "Corruption: Time Dilation:",
       "FastSpeedDR": "Степень Верхнего Предела Глобальной Скорости (>100):",
       "SlowSpeedDR": "Степень Нижнего Предела Глобальной Скорости (<1):",
       "ImmaculateSpeedMult": "УП-Игнорирование Чистой Глобальной Скорости:",
@@ -6648,7 +6667,7 @@
     },
     "ambrosiaGenerationStats": {
       "title": "Очки Шкалы Амброзии",
-      "VisitedTab": "Посещение Окна Амброзии:",
+      "Default": "Default Per Second:",
       "PseudoCoins": "Улучшения ПсевдоМонет:",
       "Campaign": "Бонус Кампании:",
       "ShopUpgrades": "Улучшения Магазина (I-IV):",
@@ -6791,7 +6810,7 @@
     "redAmbrosiaGenerationStats": {
       "title": "Red Bar Points",
       "PseudoCoins": "Улучшения ПсевдоМонет:",
-      "Base": "Посещение Под-окна Амброзии после зачистки ВОЗВЫШЕНИЯ 5x1:",
+      "Base": "Default Per Second:",
       "BlueberrySpeed": "Скорость от Амброзии (0.5 УП после 1000):",
       "RedAmbrosia": "Millennium-Aged Red Ambrosia:",
       "Exalt5": "Награда ВОЗВЫШЕНИЯ - Без Улучшений Амброзии:",
@@ -7276,7 +7295,7 @@
     "wrongAnswer": "Ответ неверный, сброс отменён!",
     "unableImport": "Не удалось импортировать этот файл!",
     "loadTestInLive": "Вы пытаетесь загрузить тестовый файл в не тестовую версию!",
-    "promocodePrompt": "У вас есть код? Отлично! Введите его (РеГиСтР ВаЖеН). \n [Примечание: это для событий и некоторый всегда активных кодов. \nМогу ли я посоветовать вам ввести \"synergism2021\" или \"Khafra\"?]",
+    "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism{{year}}\" or \"Khafra\" perchance?]",
     "comeBackSoon": "Ладно, до скорой встречи!",
     "noAddCodes": "У вас нет попыток кода 'Add'! Вы получите 1 через {{x}} секунд.",
     "useXAdds": "Вы можете использовать до {{x}} попыток сразу. Как много вы бы хотели использовать? Вы можете начать ввод с \"-\" (ввести отрицательное значение), чтобы сохранить заданное количество попыток, и использовать все остальные.",
@@ -7312,15 +7331,6 @@
       "sub": {
         "subbed": "Спасибо что использовали код \"sub\"! Я забрал {{x}} Кварков! :)",
         "gave": "Я дал вам {{x}} Кварков дабы я мог забрать {{y}}."
-      },
-      "gamble": {
-        "wait": "Подождите немного. Мы вернёмся к вам, когда вы будете готовы снова проиграть.",
-        "prompt": "Вы уверены? Казино всегда выигрывает!",
-        "cancelled": "Напуганы? А должны быть!",
-        "betPrompt": "Как много Кварков вы ставите?",
-        "cheaters": "Из-за жуликов, вы можете поставить не больше 10к.",
-        "won": "Вы выиграли. Syncasino предлагает вам целые 25% от общей суммы! [+{{x}} Кварков]",
-        "lost": "Попробуйте снова... вы сможете сделать это! [-{{x}} кварков]"
       },
       "time": {
         "wait": "Если вы импортировали сохранение, вы не можете использовать этот код в течение 15 минут чтобы предотвратить читеров.\n\nВ любом случае, вы обязаны подождать хотя бы 15 минут между каждым использованием.",
@@ -7537,6 +7547,12 @@
       "noLotus": "You do not currently possess a Lotus. Buy some at the PseudoCoins shop!",
       "status": "Время лотоса: {{time}}",
       "lotusActive": "Вы использовали Лотос! Следующие 5 минут вы будете получить ELO возрождения из ваших бессмертных ELO без ожиданий!"
+    },
+    "error": {
+      "paypalGeneric": "An error with PayPal happened. More info is available in the console (CTRL+SHIFT+I). {{error}}",
+      "paypalNotSynergismCC": "Please migrate to https://synergism.cc to make a purchase! Thank you for supporting the game!",
+      "checkoutGeneric": "There was an error checking out: {{error}}",
+      "checkoutNotSynergismCC": "Please migrate to https://synergism.cc to checkout! Thank you for supporting the game!"
     }
   },
   "hotkeys": {
