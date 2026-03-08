@@ -837,7 +837,22 @@
       "490": "只为受苦吗？：献祭1000000次蚁丘。",
       "491": "焦土：献祭3000000次蚁丘。",
       "492": "往昔如梦，唯余当下：献祭10000000次蚁丘。",
-      "493": "昨日所思，皆成执念：献祭100000000次蚁丘。"
+      "493": "昨日所思，皆成执念：献祭100000000次蚁丘。",
+      "494": "Elementary Math: Use Code 'add' 10 times.",
+      "495": "It adds up: Use Code 'add' 20 times.",
+      "496": "The power of addition: Use Code 'add' 50 times.",
+      "497": "The Successor Function: Use Code 'add' 100 times.",
+      "498": "Succ(100)... 100 times: Use Code 'add' 200 times.",
+      "499": "Triplet act: Use Code 'add' 300 times.",
+      "500": "Half a thousand Achievements!: Use Code 'add' 500 times.",
+      "501": "A Numerical Calculation: Use Code 'add' 750 times.",
+      "502": "Succ it in, succ it in, succ it in: Use Code 'add' 1,000 times.",
+      "503": "If you're Rin Tin Tin, or Anne Boleyn: Use Code 'add' 2,000 times.",
+      "504": "It's so PC it's killing me: Use Code 'add' 3,000 times.",
+      "505": "V bar: Use Code 'add' 5,000 times.",
+      "506": "Make a Desperate Move: Use Code 'add' 6,000 times.",
+      "507": "Or Else You'll Win: Use Code 'add' 7,500 times.",
+      "508": "The Hook Brings Me Back: Use Code 'add' 10,000 times."
     },
     "achievementRewards": {
       "3": {
@@ -1773,7 +1788,8 @@
       "transcensionCount": "超越次数",
       "reincarnationCount": "转世次数",
       "sacCount": "蚁丘献祭次数",
-      "ungrouped": "杂项"
+      "ungrouped": "杂项",
+      "addCodesUsed": "Add Code User"
     },
     "rewardTypes": {
       "title": "特定成就奖励使您获得了以下东西！",
@@ -1952,27 +1968,27 @@
       },
       "tier1CrystalAutobuy": {
         "name": "1阶水晶自动购买",
-        "description": "您可以自动购买炼油厂了！且只要资源充足，可以自动购买第一个水晶升级。",
+        "description": "You can now automatically buy Diamond Refineries! Also automagically buys the first Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "当前效果：见上方！"
       },
       "tier2CrystalAutobuy": {
         "name": "2阶水晶自动购买",
-        "description": "您可以自动购买煤电厂了！且只要资源充足，可以自动购买第二个水晶升级。",
+        "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "当前效果：见上方！"
       },
       "tier3CrystalAutobuy": {
         "name": "3阶水晶自动购买",
-        "description": "您可以自动购买煤钻机了！且只要资源充足，可以自动购买第三个水晶升级。",
+        "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "当前效果：见上方！"
       },
       "tier4CrystalAutobuy": {
         "name": "4阶水晶自动购买",
-        "description": "您可以自动购买十字镐了！且只要资源充足，可以自动购买第四个水晶升级。",
+        "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "当前效果：见上方！"
       },
       "tier5CrystalAutobuy": {
         "name": "5阶水晶自动购买",
-        "description": "您可以自动购买潘多拉魔盒了！且只要资源充足，可以自动购买第五个水晶升级。",
+        "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "当前效果：见上方！"
       },
       "achievementTalismanUnlock": {
@@ -2081,7 +2097,7 @@
     "alerts": {
       "36": "恭喜您完成了第一次转生。当然，有一次，就会有无数次。您获得了祭品，您可以在新解锁的符文选项卡中使用它们！[解锁了符文，成就，钻石建筑和一些其他升级！]",
       "38": "嗯，您越来越有钱了，一次转生中就能获得1e100的钻石了。不如，我们再给您一个符文吧？[解锁重叠符文！]",
-      "255": "哇哦！您在这一次飞升中获得了1e17的飞升分数。因此从现在起，只要您的飞升分数大于1.66e17，您就可以获得惊奇七阶立方了。祝您好运！"
+      "255": "Wow! You gained 1e15 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!"
     },
     "hover": "鼠标停在成就上可以查看详细信息。",
     "tieredExtraRewards": "这个分阶层的成就拥有额外奖励！",
@@ -3298,7 +3314,7 @@
       "powderAuto": "您的爷爷奶奶可能还在等着一天结束获得超通量粉，而您可以直接获得了！每级可以将1%的超通量珠直接转换为超通量粉，且不减少超通量珠数量。",
       "seasonPassLost": "触碰它可不是什么明智之举。每级使八阶方块获取数量增加0.1%，但这些是……",
       "challenge15Auto": "您的爷爷奶奶可能还要退出挑战才能获得挑战15指数，但您已经可以直接获得了！在挑战15中，每个时刻可以自动更新挑战15指数！",
-      "extraWarp": "“喂，老兄，快进来，这是我昨天在棚子里鼓捣出的传送门！”夸克商人如是说",
+      "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant. <<crimson | With this, you can use the Daily Warp twice a day... however, it might require waiting for the next day to activate.>>",
       "autoWarp": "依靠夸克的力量，使跃迁机器可以进行过载工作",
       "improveQuarkHept": "惊奇七阶立方·夸克的指数很好，但更强一些岂不更好？每级使惊奇七阶立方·夸克的指数增加0.01！",
       "improveQuarkHept2": "想让惊奇七阶立方·夸克变得更强吗？每级可以使惊奇七阶立方·夸克的指数增加0.01！",
@@ -3411,7 +3427,7 @@
       "powderAuto": "每锻造<<red|{{amount}}>>超通量珠就可以获得1超通量粉。",
       "seasonPassLost": "八阶方块获取数量增加<<lightgoldenrodyellow|{{amount}}%>>。",
       "challenge15Auto": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
-      "extraWarp": "您可以额外进行<<red|{{amount}}>>次时空跃迁。",
+      "extraWarp": "You can warp <<red|+{{amount}}>> extra time.",
       "autoWarp": "购买后您就可以在七阶立方的锻炉选项卡下开启<<red|自动跃迁>>了。",
       "improveQuarkHept": "惊奇七阶立方·夸克的指数增加<<cyan|{{amount}}>>。",
       "improveQuarkHept2": "惊奇七阶立方·夸克的指数增加<<cyan|{{amount}}>>。",
@@ -3523,10 +3539,10 @@
       },
       "antGodsCornucopia": {
         "name": "蚁神的聚宝盆",
-        "hasLevel3": "使蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1e12倍！",
-        "hasLevel2": "使蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1e6倍！",
-        "hasLevel1": "使蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1000倍！",
-        "default": "使蚂蚁速度变为无瑕的4.44倍。"
+        "hasLevel3": "Ant God gives you <<crimson | 1,000,000,000,000x Ant Speed>>!",
+        "hasLevel2": "Ant God gives you <<crimson | 1,000,000x Ant Speed>>!",
+        "hasLevel1": "Ant God gives you <<crimson | 1,000x Ant Speed>>!",
+        "default": "Ant God gives you <<crimson | 4.44x Ant Speed>>!"
       },
       "bringToLife": {
         "name": "赋予生命",
@@ -3749,7 +3765,7 @@
       },
       "starterPack": {
         "name": "新手大礼包",
-        "description": "买这个就对了！使所有类型的方盒、立方和方块获取数量变为原来的5倍，并使无瑕难得素获取数量和无瑕祭品获取数量变为原来的6倍。",
+        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources.",
         "effectHave": "您已使所有类型的方盒、立方和方块获取数量变为原来的5倍，无瑕难得素获取数量和无瑕祭品获取数量变为原来的6倍。",
         "effectHaveNot": "您未使所有类型的方盒、立方和方块获取数量变为原来的5倍，无瑕难得素获取数量和无瑕祭品获取数量变为原来的6倍。"
       },
@@ -3897,7 +3913,7 @@
       },
       "masterPack": {
         "name": "大师礼包",
-        "description": "有点疯狂了。使夸克获取数量增加8%(可以与其他礼包叠加)，每有一个腐化等级达到14，就使飞升分数变为原来的1.1倍。",
+        "description": "A tad insane. Gain +8% Quarks, additive with other packs. Multiply your overall Ascension Score by 1.5. Wow!",
         "effectHave": "您已能开宗立派。",
         "effectHaveNot": "您未能开宗立派。"
       },
@@ -3952,7 +3968,7 @@
       "singQuarkImprover1": {
         "name": "略微增加夸克获取数量的小装置",
         "description": "我忘记长什么样的小装置。每级可以使夸克获取数量增加0.5%，效果与其他效果叠乘！不过它的花费增长比其他任何升级都快。另外，您知道描述文本可以这么长的吗？",
-        "effect": "夸克获取数量增加{{n}}%！"
+        "effect": "You gain {{n}} more Quarks!"
       },
       "singQuarkHepteract": {
         "name": "我希望惊奇七阶立方·夸克的效果略微增加。",
@@ -6113,9 +6129,10 @@
       "ModuleCubes3": "神肴 - 方盒模块 III：",
       "ModuleHyperflux": "神肴 - 惊奇方盒终极工业生产模块：",
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
-      "RedAmbrosia": "由红神肴“制取”的方盒升级：",
+      "RedAmbrosia": "Cubes \"made\" of Red Ambrosia:",
       "Exalt6": "奇点速通大赛 - 超时惩罚：",
       "Event": "活动加成：",
+      "OneMind": "One Mind Modifier:",
       "Total": "所有类型的方盒、立方和方块获取数量总倍率："
     },
     "cubeMultiplierStats": {
@@ -6140,7 +6157,9 @@
       "PlatonicOpening": "PLATONIC方盒：",
       "Platonic1x1": "PLATONIC方盒升级1x1：",
       "CookieUpgrade13": "饼干升级13[Cx13]：",
-      "Total": "惊奇方盒总倍率："
+      "Tau": "Platonic TAU Power:",
+      "Total": "惊奇方盒总倍率：",
+      "Total2": "Final Wow! Cube Multiplier:"
     },
     "tesseractMultiplierStats": {
       "title": "惊奇超立方倍率",
@@ -6555,7 +6574,7 @@
       "ChronosTalisman": "时光护身符加成：",
       "Challenge15": "挑战15奖励：",
       "CubeUpgradeCx2": "饼干升级2[Cx2]：",
-      "SpacialDilation": "[时间膨胀]腐化的惩罚：",
+      "SpacialDilation": "Corruption: Time Dilation:",
       "FastSpeedDR": "全局速度超过100倍时的软上限指数：",
       "SlowSpeedDR": "全局速度低于1倍时的软上限指数：",
       "ImmaculateSpeedMult": "无瑕全局速度倍率：",
@@ -6648,7 +6667,7 @@
     },
     "ambrosiaGenerationStats": {
       "title": "神肴进度条点数",
-      "VisitedTab": "点击过神肴选项卡：",
+      "Default": "Default Per Second:",
       "PseudoCoins": "伪币升级：",
       "Campaign": "战役加成：",
       "ShopUpgrades": "商店升级(I-IV)：",
@@ -6791,7 +6810,7 @@
     "redAmbrosiaGenerationStats": {
       "title": "红进度条点数",
       "PseudoCoins": "伪币升级：",
-      "Base": "首次完成拔擢 - 无神肴升级后点击过神肴选项卡：",
+      "Base": "Default Per Second:",
       "BlueberrySpeed": "神肴提供的获取速度(超过1000后受到0.5次方的惩罚)：",
       "RedAmbrosia": "千年之红神肴：",
       "Exalt5": "无神肴升级奖励：",
@@ -7276,7 +7295,7 @@
     "wrongAnswer": "回答错误，不会删除存档！",
     "unableImport": "无法导入该文件！",
     "loadTestInLive": "您尝试导入的存档来自测试版的游戏。",
-    "promocodePrompt": "有奖励代码吗？很好！在这里输入就可以了(注意大小写)。\n[注意：此处可以输入活动代码或者一些常时代码。\n您可以考虑输入“synergism2021”或者“Khafra”。]",
+    "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism{{year}}\" or \"Khafra\" perchance?]",
     "comeBackSoon": "好吧，下次再说！",
     "noAddCodes": "您暂时还没有使用“增加”代码的次数！{{x}}秒后可以获得1次。",
     "useXAdds": "您想要使用多少次？您目前剩余{{x}}次！您还可以输入以-开头的数字，意味着保留相应数量的次数不使用，并使用剩下的所有次数。",
@@ -7312,15 +7331,6 @@
       "sub": {
         "subbed": "感谢您使用“减少”代码！那我就拿走{{x}}夸克了！:)",
         "gave": "我得先给您{{x}}夸克，这样我才能拿走{{y}}夸克。"
-      },
-      "gamble": {
-        "wait": "稍等片刻，等您准备好再输一次的时候再来吧。",
-        "prompt": "您确定吗？要知道，庄家总是赢家！",
-        "cancelled": "怂了吗？也不失为明智之举！",
-        "betPrompt": "您要下注多少夸克？",
-        "cheaters": "由于过多玩家滥用此代码，因此下注上限现在限制为10000。",
-        "won": "您赢了。协同赌场额外返还了下注额的25%给您！[增加{{x}}夸克]",
-        "lost": "不要灰心……下次，一定能赢！[减少{{x}}夸克]"
       },
       "time": {
         "wait": "导入存档后，您在15分钟内是无法使用此代码的，这是为了防止作弊。\n其他情况下，您需要等待15分钟后才能再度使用。",
@@ -7537,6 +7547,12 @@
       "noLotus": "您目前没有莲花。请在伪币商店进行购买！",
       "status": "莲花时间：{{time}}",
       "lotusActive": "您使用了1朵莲花！接下来的5分钟内，您可以直接通过不朽强度分获得重生强度分，无需等待！"
+    },
+    "error": {
+      "paypalGeneric": "An error with PayPal happened. More info is available in the console (CTRL+SHIFT+I). {{error}}",
+      "paypalNotSynergismCC": "Please migrate to https://synergism.cc to make a purchase! Thank you for supporting the game!",
+      "checkoutGeneric": "There was an error checking out: {{error}}",
+      "checkoutNotSynergismCC": "Please migrate to https://synergism.cc to checkout! Thank you for supporting the game!"
     }
   },
   "hotkeys": {
