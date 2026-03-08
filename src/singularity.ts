@@ -3731,7 +3731,7 @@ export const teleportToSingularity = async (): Promise<void> => {
         const heldSingTime = player.singularityCounter
         const antiquitiesLevel = runes.antiquities.level
         // Reset
-        singularity()
+        singularity(target)
         if (antiquitiesLevel === 0) {
           player.singularityCounter = heldSingTime
         }

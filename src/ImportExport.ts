@@ -852,7 +852,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
           actualQuarkAward = Math.pow(actualQuarkAward, 0.35) * Math.pow(66666, 0.65)
         }
 
-        blueberryTime = 1800 * rewardMult
+        if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
+          blueberryTime = 1800 * rewardMult
+        }
 
         player.worlds.add(actualQuarkAward * rewardMult, false)
         G.ambrosiaTimer += blueberryTime
