@@ -124,7 +124,7 @@
       },
       "ambrosiaPatreon": {
         "name": "Бесстыдная реклама Амброзиевой подписки",
-        "description": "Распрожада от Платоника в каждом измерении. Глобальный бонус подписчиков и бонус персонального аккаунта так же влияют на вашу генерацию очков в шкале амброзии. Подпишитесь, если хотите поддержать разработку и увеличить бонус для себя и всех игроков Synergism!",
+        "description": "Распродажа от Платоника в каждом измерении. Глобальный бонус подписчиков и бонус персонального аккаунта так же влияют на вашу генерацию очков в шкале амброзии. Подпишитесь, если хотите поддержать разработку и увеличить бонус для себя и всех игроков Synergism!",
         "effect": "Щедрые подписчики и ваш персональный бонус дают ват на {{amount}}% больше очков шкалы амброзии!"
       },
       "ambrosiaObtainium1": {
@@ -838,21 +838,21 @@
       "491": "Выжженная земля: Принесите в жертву свой муравейник 3000000 раз.",
       "492": "Так ясно, что все, что у нас есть сейчас: Принесите в жертву ваш муравейник 10000000 раз.",
       "493": "Наши мысли вчерашнего дня: Принесите в жертву ваш муравейник 100000000 раз.",
-      "494": "Elementary Math: Use Code 'add' 10 times.",
-      "495": "It adds up: Use Code 'add' 20 times.",
-      "496": "The power of addition: Use Code 'add' 50 times.",
-      "497": "The Successor Function: Use Code 'add' 100 times.",
-      "498": "Succ(100)... 100 times: Use Code 'add' 200 times.",
-      "499": "Triplet act: Use Code 'add' 300 times.",
-      "500": "Half a thousand Achievements!: Use Code 'add' 500 times.",
-      "501": "A Numerical Calculation: Use Code 'add' 750 times.",
-      "502": "Succ it in, succ it in, succ it in: Use Code 'add' 1,000 times.",
-      "503": "If you're Rin Tin Tin, or Anne Boleyn: Use Code 'add' 2,000 times.",
-      "504": "It's so PC it's killing me: Use Code 'add' 3,000 times.",
-      "505": "V bar: Use Code 'add' 5,000 times.",
-      "506": "Make a Desperate Move: Use Code 'add' 6,000 times.",
-      "507": "Or Else You'll Win: Use Code 'add' 7,500 times.",
-      "508": "The Hook Brings Me Back: Use Code 'add' 10,000 times."
+      "494": "Элементарная математика: Используйте 'добавить' 10 раз.",
+      "495": "Оно добавляется: Используйте 'добавить' 20 раз.",
+      "496": "Сила добавления: Используйте 'добавить' 50 раз.",
+      "497": "Функция следования: Используйте 'добавить' 100 раз.",
+      "498": "Succ(100)... 100 раз: Используйте 'добавить' 200 раз.",
+      "499": "Триплетный акт: Используйте 'добавить' 300 раз.",
+      "500": "Половина тысячи достижений!: Используйте 'добавить' 500 раз.",
+      "501": "Численный расчёт: Используйте 'добавить' 750 раз.",
+      "502": "Продолжай, продолжай, продолжай: Используйте 'добавить' 1000 раз.",
+      "503": "Будь ты хоть Рин Тин Тином, хоть Анной Болейн: Используйте 'добавить' 2000 раз.",
+      "504": "Так много, что мой компьютер умирает: Используйте 'добавить' 3000 раз.",
+      "505": "Среднее арифметическое: Используйте 'добавить' 5000 раз.",
+      "506": "Сделай отчаянный шаг: Используйте 'добавить' 6000 раз.",
+      "507": "А не то победишь: Используйте 'добавить' 7500 раз.",
+      "508": "Крючок меня возвращает: Используйте 'добавить' 10000 раз."
     },
     "achievementRewards": {
       "3": {
@@ -1789,7 +1789,7 @@
       "reincarnationCount": "Кол-во реинкарнаций",
       "sacCount": "Принесено в жертву муравейников",
       "ungrouped": "Разное",
-      "addCodesUsed": "Add Code User"
+      "addCodesUsed": "Пользователь добавления"
     },
     "rewardTypes": {
       "title": "Бонусы за достижения дают вам следующее!",
@@ -1968,27 +1968,27 @@
       },
       "tier1CrystalAutobuy": {
         "name": "Автопокупщик первого уровня кристаллов",
-        "description": "You can now automatically buy Diamond Refineries! Also automagically buys the first Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
+        "description": "Теперь вы можете автоматически покупать алмазные переработчики! Так же автомагически покупаете первое улучшение кристаллов при возможности. <br> <<gold | автопокупщики <b>не</b> тратят кристаллы на покупку улучшений!>>",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "tier2CrystalAutobuy": {
         "name": "Автопокупщик втого уровня кристаллов",
-        "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
+        "description": "Теперь вы можете автоматически покупать угольные генераторы! Так же автомагически покупаете второе улучшение кристаллов при возможности. <br> <<gold | автопокупщики <b>не</b> тратят кристаллы на покупку улучшений!>>",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier3CrystalAutobuy": {
         "name": "Автопокупщик третьего уровня кристаллов",
-        "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
+        "description": "Теперь вы можете автоматически покупать угольные карьеры! Так же автомагически покупаете третье улучшение кристаллов при возможности. <br> <<gold | автопокупщики <b>не</b> тратят кристаллы на покупку улучшений!>>",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier4CrystalAutobuy": {
         "name": "Автопокупщик четвёртого уровня кристаллов",
-        "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
+        "description": "Теперь вы можете автоматически покупать алмазные кирки! Так же автомагически покупаете четвёртое улучшение кристаллов при возможности. <br> <<gold | автопокупщики <b>не</b> тратят кристаллы на покупку улучшений!>>",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier5CrystalAutobuy": {
         "name": "Автопокупщик пятого уровня кристаллов",
-        "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
+        "description": "Теперь вы можете автоматически покупать ящики Пандоры! Так же автомагически покупаете пятое улучшение кристаллов при возможности. <br> <<gold | автопокупщики <b>не</b> тратят кристаллы на покупку улучшений!>>",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "achievementTalismanUnlock": {
@@ -2013,22 +2013,22 @@
       },
       "antSpeed2Autobuyer": {
         "name": "Автопокупщик Impia Reproducta",
-        "description": "Автоматически покупает Impia Reproducta Formicidae если у вам включена автопокупка!",
+        "description": "Автоматически покупает Impia Reproducta Formicidae если у вас включен автопокупщик!",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "wowCubesAutobuyer": {
         "name": "Автопокупщик Cubus Admirabilis",
-        "description": "Автоматически покупает Cubus Admirabilis Formicidae, если у вас куплен автопокупщик!",
+        "description": "Автоматически покупает Cubus Admirabilis Formicidae, если у вас включен автопокупщик!",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "ascensionScoreAutobuyer": {
         "name": "Ascendens Autobuyer",
-        "description": "Автоматически покупает Ascendens Formicidae, если у вас куплен автопокупщик!",
+        "description": "Автоматически покупает Ascendens Formicidae, если у вас включен автопокупщик!",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "mortuus2Autobuyer": {
         "name": "Автопокупщик Mortuus Iterum",
-        "description": "Автоматически покупает Mortuus Iterum Formicidae, если у вас куплен автопокупщик!",
+        "description": "Автоматически покупает Mortuus Iterum Formicidae, если у вас включен автопокупщик!",
         "effect": "Текущий эффект: смотрите выше!"
       }
     },
@@ -2097,7 +2097,7 @@
     "alerts": {
       "36": "Поздравляем вас с первым престижем. Первым из многих. Теперь вы получаете подношения, которые вы можете использовать в новой вкладке \"Руны!\" [Разблокированы: Руны, Достижения, Алмазные строения и ещё немного улучшений!]",
       "38": "Хм-м, кажется вы становитесь богаче, имея возможность получить 1 Гугол алмазов за один престиж. Как насчёт того, что мы дадим тебе ещё одну руну? [Разблокирована руна Размножения во вкладке \"Руны\"]",
-      "255": "Wow! You gained 1e15 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!"
+      "255": "Вау! Вы получили 1e15 (100 квадриллионов) счёта за одно вознесение. В качестве награды, вы теперь можете генерировать гептеракты, если наберёте выше 1.66e17 (166 квадриллионов) очков в вознесении. Удачи!"
     },
     "hover": "Наведите на достижение, чтобы просмотреть его информацию.",
     "tieredExtraRewards": "Это уровневое достижение имеет дополнительные награды!",
@@ -6917,15 +6917,15 @@
       "AntWorkers": "Ant Workers Purchased:",
       "AchievementBonus": "Achievement Ant ELO Bonus:",
       "SynergismLevel": "Synergism Level Reward - More Ant Fodder for your Ant Diety:",
-      "ReincarnationUpgrade20": "Reincarnation Upgrade 20:",
-      "Challenge10": "Challenge 10 Reward:",
-      "ShopUpgrade": "Shop Upgrade - Ant ELO:",
-      "Research5x8": "Research 5x8:",
-      "Research5x9": "Research 5x9:",
-      "Research5x20": "Research 5x20",
-      "Research5x23": "Research 5x23:",
-      "Research7x19": "Research 7x19:",
-      "Research8x3": "Research 8x3:",
+      "ReincarnationUpgrade20": "Улучшение реинкарнации 20:",
+      "Challenge10": "Награда за 10 испытание:",
+      "ShopUpgrade": "Улучшение магазина - Муравьиный ELO:",
+      "Research5x8": "Исследование 5x8:",
+      "Research5x9": "Исследование 5x9:",
+      "Research5x20": "Исследование 5x20:",
+      "Research5x23": "Исследование 5x23:",
+      "Research7x19": "Исследование 7x19:",
+      "Research8x3": "Исследование 8x3:",
       "AntUpgrade": "Ants - Phylacterium Formicidae:",
       "AntUpgrade13": "Ants - Impia Reproducta Formicidate:",
       "SingularityPerk": "Singularity Perk - Invigorated Spirits!:",
@@ -6976,7 +6976,7 @@
       "title": "Ascension Count Multiplier",
       "Base": "Base Multiplier + Achievement Additive Bonus:",
       "AchievementMultiplier": "Achievement Ascension Count Multiplier:",
-      "Challenge15": "Challenge 15 Reward:",
+      "Challenge15": "Награда за 15 испытание:",
       "PlatonicOMEGA": "Platonic OMEGA:",
       "PlatonicUpgrade16": "Platonic Upgrade 4x1:",
       "SingularityCount": "Singularity Perk - Unlimited Growth:",
