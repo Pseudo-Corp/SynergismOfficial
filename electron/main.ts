@@ -1,4 +1,5 @@
 import { app, BrowserWindow, net, session, shell } from 'electron'
+import windowStateKeeper from 'electron-window-state'
 import mimeTypes from 'mime-types'
 import fsp from 'node:fs/promises'
 import path from 'node:path'
@@ -63,7 +64,16 @@ async function handleProtocolUrl (raw: string): Promise<void> {
 }
 
 function createWindow (): void {
+  const windowState = windowStateKeeper({
+    defaultWidth: 1920,
+    defaultHeight: 1080
+  })
+
   mainWindow = new BrowserWindow({
+    x: windowState.x,
+    y: windowState.y,
+    width: windowState.width,
+    height: windowState.height,
     maximizable: true,
     webPreferences: {
       nodeIntegration: false,
@@ -77,7 +87,9 @@ function createWindow (): void {
     autoHideMenuBar: true
   })
 
-  if (mainWindow.maximizable) {
+  windowState.manage(mainWindow)
+
+  if (windowState.isMaximized === undefined) {
     mainWindow.maximize()
   }
 
