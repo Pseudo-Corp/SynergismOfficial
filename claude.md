@@ -21,32 +21,16 @@
 ## File Structure Rules
 ```
 src/                       # Core game logic
-├── mock/                  # Mock API responses  
-├── steam/                 # Steam (Electron) features
-├── Purchases/             # Purchase-related logic
-├── saves/                 # Save system logic
-├── types/                 # TypeScript definitions
-└── [FeatureName].ts       # Individual game features
-
-index.html                 # Single HTML file - add new divs in body
-Synergism.css             # Single CSS file
+index.html
+Synergism.css
 translations/en.json       # Required for all new text strings
 ```
 
 ## Development Patterns
 
-### Adding New Features
-1. **File Location**: 
-   - Use existing subfolders if feature fits
-   - Otherwise place directly in `src/`
-2. **HTML**: Add new `<div>` elements one level into `<body>`
-3. **CSS**: Add styles to `Synergism.css`
-
 ### String Internationalization
-- **Required**: Add all user-facing text to `translations/en.json`
-- **Format**: `i18n` library usage
-- **Variables**: `{{variableName}}` for dynamic content
-- **Styling**: `<<color|text>>` for colored text
+- i18next: Add all user-facing text to `translations/en.json`
+- **Styling**: `<<color|{{text}}>>` for colored text
 
 ### Save System Variables
 **CRITICAL**: Before adding to `player` object:
@@ -61,8 +45,6 @@ translations/en.json       # Required for all new text strings
 - **DOM Access**: ALWAYS use `DOMCacheGetOrSet('elementId')` instead of `document.getElementById`
   - Import: `import { DOMCacheGetOrSet } from './Cache/DOM'`
   - Reason: Performance optimization through caching
-- **Import Organization**: Alphabetical ordering within import groups
-- **Destructured Imports**: Use for specific functions/variables from modules
 
 ### General Patterns
 - Follow existing TypeScript patterns in codebase
@@ -92,4 +74,24 @@ async function myFunction () {
 
 - The platform variable comes from esbuild define hooks. These act as macros essentially, which removes the
   `else` block on Steam and vice-versa on browser builds.
-- **Wrong**: `import { steamOnlyFeature } from './steam/steam'`
+- **Wrong**: `import { steamOnlyFeature } from './steam/steam'`W
+
+### Recommended Patterns
+- Objects and arrays that are constant should be hoisted to the module scope when possible.
+
+Example (wrong):
+```ts
+function myFunction () {
+  const arr = [1, 2, 3, 4, 5]
+  return arr
+}
+```
+
+Example (correct):
+```ts
+const arr = [1, 2, 3, 4, 5]
+
+function myFunction () {
+  return arr
+}
+```

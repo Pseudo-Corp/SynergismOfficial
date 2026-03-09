@@ -5353,6 +5353,42 @@ window.addEventListener('load', async () => {
     })
 
     deleteBtn.after(toggleBtn)
+
+    // Window size preset dropdown
+    const { setWindowSize, getWindowSize } = await import('./steam/steam')
+
+    const presets = [
+      { label: 'Window Size...', width: 0, height: 0 },
+      { label: '1280 x 720', width: 1280, height: 720 },
+      { label: '1366 x 768', width: 1366, height: 768 },
+      { label: '1600 x 900', width: 1600, height: 900 },
+      { label: '1920 x 1080', width: 1920, height: 1080 },
+      { label: '2560 x 1440', width: 2560, height: 1440 }
+    ]
+
+    const sizeSelect = document.createElement('select')
+    sizeSelect.style.border = '2px solid cyan'
+    sizeSelect.style.margin = '4px'
+
+    for (const preset of presets) {
+      const option = document.createElement('option')
+      option.textContent = preset.label
+      option.value = `${preset.width}x${preset.height}`
+      sizeSelect.appendChild(option)
+    }
+
+    getWindowSize().then((size) => {
+      if (!size) return
+      const match = presets.find((p) => p.width === size.width && p.height === size.height)
+      if (match) sizeSelect.value = `${match.width}x${match.height}`
+    })
+
+    sizeSelect.addEventListener('change', () => {
+      const [w, h] = sizeSelect.value.split('x').map(Number)
+      if (w && h) setWindowSize(w, h)
+    })
+
+    toggleBtn.after(sizeSelect)
   }
 }, { once: true })
 

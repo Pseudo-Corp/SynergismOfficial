@@ -41,6 +41,16 @@ contextBridge.exposeInMainWorld('steam', {
   getAchievement: (achievementId) => ipcRenderer.invoke('steam:getAchievement', achievementId)
 })
 
+contextBridge.exposeInMainWorld('windowControls', {
+  /**
+   * @param {number} width
+   * @param {number} height
+   */
+  setSize: (width, height) => ipcRenderer.invoke('window:setSize', width, height),
+  /** @returns {Promise<{ width: number, height: number } | null>} */
+  getSize: () => ipcRenderer.invoke('window:getSize')
+})
+
 contextBridge.exposeInMainWorld('discord', {
   /**
    * @param {import('./lib/discord').PresenceOptions} options

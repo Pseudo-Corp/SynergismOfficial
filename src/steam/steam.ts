@@ -27,9 +27,15 @@ interface Steam {
   getAchievement: (achievementId: string) => Promise<boolean>
 }
 
+interface WindowControls {
+  setSize: (width: number, height: number) => Promise<void>
+  getSize: () => Promise<{ width: number; height: number } | null>
+}
+
 declare global {
   interface Window {
     steam?: Steam
+    windowControls?: WindowControls
   }
 }
 
@@ -60,6 +66,13 @@ export const cloudWriteFile: Steam['cloudWriteFile'] = (name, content) =>
 
 export const cloudDeleteFile: Steam['cloudDeleteFile'] = (name) =>
   window.steam?.cloudDeleteFile(name) ?? Promise.resolve(false)
+
+// Window Controls
+export const setWindowSize = (width: number, height: number): Promise<void> =>
+  window.windowControls?.setSize(width, height) ?? Promise.resolve()
+
+export const getWindowSize = (): Promise<{ width: number; height: number } | null> =>
+  window.windowControls?.getSize() ?? Promise.resolve(null)
 
 // Steam Achievements
 export const unlockAchievement: Steam['unlockAchievement'] = (achievementId) =>

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, net, session, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, net, session, shell } from 'electron'
 import windowStateKeeper from 'electron-window-state'
 import mimeTypes from 'mime-types'
 import fsp from 'node:fs/promises'
@@ -192,3 +192,17 @@ app.on('window-all-closed', () => {
 if (initializeSteam()) {
   enableSteamOverlay()
 }
+
+// Window control IPC handlers
+ipcMain.handle('window:setSize', (_, width: number, height: number) => {
+  if (!mainWindow) return
+  if (mainWindow.isMaximized()) mainWindow.unmaximize()
+  mainWindow.setSize(width, height)
+  mainWindow.center()
+})
+
+ipcMain.handle('window:getSize', () => {
+  if (!mainWindow) return null
+  const [width, height] = mainWindow.getSize()
+  return { width, height }
+})
