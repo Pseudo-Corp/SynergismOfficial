@@ -5389,6 +5389,56 @@ window.addEventListener('load', async () => {
     })
 
     toggleBtn.after(sizeSelect)
+
+    // UI zoom controls
+    const { setZoomFactor, getZoomFactor } = await import('./steam/steam')
+
+    const zoomContainer = document.createElement('div')
+    zoomContainer.style.display = 'inline-flex'
+    zoomContainer.style.flexDirection = 'column'
+    zoomContainer.style.alignItems = 'center'
+    zoomContainer.style.margin = '4px'
+
+    const zoomLabel = document.createElement('span')
+    zoomLabel.style.color = 'white'
+    zoomLabel.style.marginBottom = '4px'
+
+    const updateZoomLabel = (factor: number) => {
+      zoomLabel.textContent = `UI Scale: ${Math.round(factor * 100)}%`
+    }
+
+    const clampZoom = (factor: number) => Math.min(3, Math.max(0.5, factor))
+
+    const changeZoom = async (delta: number) => {
+      const current = await getZoomFactor()
+      const next = clampZoom(Math.round((current + delta) * 20) / 20)
+      await setZoomFactor(next)
+      updateZoomLabel(next)
+    }
+
+    const btnRow = document.createElement('div')
+    btnRow.style.display = 'flex'
+    btnRow.style.gap = '4px'
+
+    const zoomDown = document.createElement('button')
+    zoomDown.textContent = '\u2212'
+    zoomDown.style.border = '2px solid cyan'
+    zoomDown.style.width = '32px'
+    zoomDown.style.height = '32px'
+    zoomDown.addEventListener('click', () => changeZoom(-0.05))
+
+    const zoomUp = document.createElement('button')
+    zoomUp.textContent = '+'
+    zoomUp.style.border = '2px solid cyan'
+    zoomUp.style.width = '32px'
+    zoomUp.style.height = '32px'
+    zoomUp.addEventListener('click', () => changeZoom(0.05))
+
+    getZoomFactor().then(updateZoomLabel)
+
+    btnRow.append(zoomDown, zoomUp)
+    zoomContainer.append(zoomLabel, btnRow)
+    sizeSelect.after(zoomContainer)
   }
 }, { once: true })
 

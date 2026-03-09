@@ -48,7 +48,11 @@ contextBridge.exposeInMainWorld('windowControls', {
    */
   setSize: (width, height) => ipcRenderer.invoke('window:setSize', width, height),
   /** @returns {Promise<{ width: number, height: number } | null>} */
-  getSize: () => ipcRenderer.invoke('window:getSize')
+  getSize: () => ipcRenderer.invoke('window:getSize'),
+  /** @param {number} factor */
+  setZoomFactor: (factor) => ipcRenderer.invoke('window:setZoomFactor', factor),
+  /** @returns {Promise<number>} */
+  getZoomFactor: () => ipcRenderer.invoke('window:getZoomFactor')
 })
 
 contextBridge.exposeInMainWorld('discord', {

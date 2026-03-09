@@ -30,6 +30,8 @@ interface Steam {
 interface WindowControls {
   setSize: (width: number, height: number) => Promise<void>
   getSize: () => Promise<{ width: number; height: number } | null>
+  setZoomFactor: (factor: number) => Promise<void>
+  getZoomFactor: () => Promise<number>
 }
 
 declare global {
@@ -73,6 +75,11 @@ export const setWindowSize = (width: number, height: number): Promise<void> =>
 
 export const getWindowSize = (): Promise<{ width: number; height: number } | null> =>
   window.windowControls?.getSize() ?? Promise.resolve(null)
+
+export const setZoomFactor = (factor: number): Promise<void> =>
+  window.windowControls?.setZoomFactor(factor) ?? Promise.resolve()
+
+export const getZoomFactor = (): Promise<number> => window.windowControls?.getZoomFactor() ?? Promise.resolve(1)
 
 // Steam Achievements
 export const unlockAchievement: Steam['unlockAchievement'] = (achievementId) =>

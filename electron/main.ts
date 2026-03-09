@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain, net, session, shell } from 'electron'
+import Store from 'electron-store'
 import windowStateKeeper from 'electron-window-state'
 import mimeTypes from 'mime-types'
 import fsp from 'node:fs/promises'
@@ -25,6 +26,11 @@ if (!gotTheLock) {
 }
 
 app.setAsDefaultProtocolClient('synergism')
+
+const settingsStore = new Store<{ zoomFactor: number }>({
+  name: 'settings',
+  defaults: { zoomFactor: 1 }
+})
 
 let mainWindow: BrowserWindow | null = null
 
@@ -94,6 +100,10 @@ function createWindow (): void {
   }
 
   mainWindow.loadURL('https://synergism.cc/')
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow?.webContents.setZoomFactor(settingsStore.get('zoomFactor'))
+  })
 
   if (!app.isPackaged) {
     mainWindow.webContents.openDevTools()
@@ -205,4 +215,14 @@ ipcMain.handle('window:getSize', () => {
   if (!mainWindow) return null
   const [width, height] = mainWindow.getSize()
   return { width, height }
+})
+
+ipcMain.handle('window:setZoomFactor', (_, factor: number) => {
+  if (!mainWindow) return
+  mainWindow.webContents.setZoomFactor(factor)
+  settingsStore.set('zoomFactor', factor)
+})
+
+ipcMain.handle('window:getZoomFactor', () => {
+  return settingsStore.get('zoomFactor')
 })
