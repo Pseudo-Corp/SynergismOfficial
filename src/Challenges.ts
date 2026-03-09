@@ -54,6 +54,11 @@ export type Challenge15RewardsInformation = {
 
 export type Challenge15RewardObject = Record<Challenge15Rewards, Challenge15RewardsInformation>
 
+const challengeScoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
+const challengeScoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
+const challengeScoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750]
+const challengeScoreArray4 = [0, 10000, 10000, 10000, 10000, 10000, 2000, 3000, 4000, 5000, 7500]
+
 export const getMaxChallenges = (i: number) => {
   let maxChallenge = 0
   // Transcension Challenges
@@ -313,29 +318,25 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     d.textContent = i18next.t('challenges.15.noGoal')
   }
 
-  const scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
-  const scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
-  const scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750]
-  const scoreArray4 = [0, 10000, 10000, 10000, 10000, 10000, 2000, 3000, 4000, 5000, 7500]
   let scoreDisplay = 0
   if (i <= 5) {
     if (player.highestchallengecompletions[i] >= 9000) {
-      scoreDisplay = scoreArray4[i]
+      scoreDisplay = challengeScoreArray4[i]
     } else if (player.highestchallengecompletions[i] >= 750) {
-      scoreDisplay = scoreArray3[i]
+      scoreDisplay = challengeScoreArray3[i]
     } else if (player.highestchallengecompletions[i] >= 75) {
-      scoreDisplay = scoreArray2[i]
+      scoreDisplay = challengeScoreArray2[i]
     } else {
-      scoreDisplay = scoreArray1[i]
+      scoreDisplay = challengeScoreArray1[i]
     }
   }
   if (i > 5 && i <= 10) {
     if (player.highestchallengecompletions[i] >= 60) {
-      scoreDisplay = scoreArray3[i]
+      scoreDisplay = challengeScoreArray3[i]
     } else if (player.highestchallengecompletions[i] >= 25) {
-      scoreDisplay = scoreArray2[i]
+      scoreDisplay = challengeScoreArray2[i]
     } else {
-      scoreDisplay = scoreArray1[i]
+      scoreDisplay = challengeScoreArray1[i]
     }
   }
   if (changefocus) {

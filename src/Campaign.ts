@@ -113,6 +113,9 @@ export interface ICampaignData {
   cardinal: number
 }
 
+const timeThresholdReqs = [20, 100, 250, 500, 1000, 2000, 3500, 5000]
+const bonusRune6ThresholdReqs = [500, 750, 1000, 1250, 1500, 1750, 2000, 3000, 4000, 6000, 8000, 10000]
+
 export class CampaignManager {
   #currentCampaign: CampaignKeys | undefined
   #campaigns: Record<CampaignKeys, Campaign>
@@ -398,9 +401,8 @@ export class CampaignManager {
    * the penalty is *(time/10)^2, reducing the threshold to 5 seconds would make the penalty *(time/5)^2
    */
   get timeThresholdReduction () {
-    const thresholdReqs = [20, 100, 250, 500, 1000, 2000, 3500, 5000]
-    for (let i = 0; i < thresholdReqs.length; i++) {
-      if (campaignTokens < thresholdReqs[i]) {
+    for (let i = 0; i < timeThresholdReqs.length; i++) {
+      if (campaignTokens < timeThresholdReqs[i]) {
         return i / 4
       }
     }
@@ -438,9 +440,8 @@ export class CampaignManager {
   }
 
   get bonusRune6 () {
-    const thresholdReqs = [500, 750, 1000, 1250, 1500, 1750, 2000, 3000, 4000, 6000, 8000, 10000]
-    for (let i = 0; i < thresholdReqs.length; i++) {
-      if (campaignTokens < thresholdReqs[i]) {
+    for (let i = 0; i < bonusRune6ThresholdReqs.length; i++) {
+      if (campaignTokens < bonusRune6ThresholdReqs[i]) {
         return i
       }
     }

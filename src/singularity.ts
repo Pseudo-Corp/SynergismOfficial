@@ -94,6 +94,10 @@ export type SingularityDataKeys =
   | 'singTalismanBonusRunes4'
   | 'favoriteUpgrade'
 
+const overclockPerks = [50, 60, 75, 100, 125, 150, 175, 200, 225, 250]
+const tokenInheritanceTokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
+const singularityPenaltyThresholds = [11, 26, 37, 51, 101, 151, 201, 216, 230, 270]
+
 export const updateSingularityPenalties = (): void => {
   const singularityCount = player.singularityCount
   const platonic = singularityCount > 36
@@ -2278,7 +2282,6 @@ export function computeGQUpgradeMaxLevel (upgradeKey: SingularityDataKeys): numb
     return upgrade.maxLevel
   } else {
     let cap = upgrade.maxLevel
-    const overclockPerks = [50, 60, 75, 100, 125, 150, 175, 200, 225, 250]
     for (const perk of overclockPerks) {
       if (player.highestSingularityCount >= perk) {
         cap += 1
@@ -2519,12 +2522,10 @@ export const singularityPerks: SingularityPerk[] = [
     },
     levels: [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277],
     description: (n: number, levels: number[]) => {
-      const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
-
       for (let i = 15; i > 0; i--) {
         if (n >= levels[i]) {
           return i18next.t('singularity.perks.tokenInheritance.default', {
-            amount: tokens[i]
+            amount: tokenInheritanceTokens[i]
           })
         }
       }
@@ -3537,10 +3538,9 @@ export const calculateEffectiveSingularities = (
 export const calculateNextSpike = (
   singularityCount: number = player.singularityCount
 ): number => {
-  const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 230, 270]
   const penaltyDebuff = calculateSingularityReductions()
 
-  for (const sing of singularityPenaltyThreshold) {
+  for (const sing of singularityPenaltyThresholds) {
     if (sing + penaltyDebuff > singularityCount) {
       return sing + penaltyDebuff
     }

@@ -66,6 +66,27 @@ import {
 import { createDeferredPromise, updateClassList } from './Utility'
 import { Globals as G } from './Variables'
 
+const htmlInsertPlayerRequirements = [
+  'coins',
+  'offerings',
+  'prestigePoints',
+  'transcendPoints',
+  'transcendShards',
+  'reincarnationPoints',
+  'worlds',
+  'obtainium'
+] as const
+const htmlInsertDomRequirements = [
+  'coinDisplay',
+  'offeringDisplay',
+  'diamondDisplay',
+  'mythosDisplay',
+  'mythosshardDisplay',
+  'particlesDisplay',
+  'quarkDisplay',
+  'obtainiumDisplay'
+] as const
+
 export const revealStuff = () => {
   document.documentElement.dataset.coinOne = player.unlocks.coinone ? 'true' : 'false'
   document.documentElement.dataset.coinTwo = player.unlocks.cointwo ? 'true' : 'false'
@@ -664,30 +685,10 @@ const visualTab: Record<Tabs, () => void> = {
 
 export const htmlInserts = () => {
   // ALWAYS Update these, for they are the most important resources
-  const playerRequirements = [
-    'coins',
-    'offerings',
-    'prestigePoints',
-    'transcendPoints',
-    'transcendShards',
-    'reincarnationPoints',
-    'worlds',
-    'obtainium'
-  ] as const
-  const domRequirements = [
-    'coinDisplay',
-    'offeringDisplay',
-    'diamondDisplay',
-    'mythosDisplay',
-    'mythosshardDisplay',
-    'particlesDisplay',
-    'quarkDisplay',
-    'obtainiumDisplay'
-  ] as const
-  for (let i = 0; i < playerRequirements.length; i++) {
-    const value = player[`${playerRequirements[i]}` as const]
+  for (let i = 0; i < htmlInsertPlayerRequirements.length; i++) {
+    const value = player[`${htmlInsertPlayerRequirements[i]}` as const]
     const text = format(value instanceof Decimal ? value : value.valueOf())
-    const dom = DOMCacheGetOrSet(`${domRequirements[i]}` as const)
+    const dom = DOMCacheGetOrSet(`${htmlInsertDomRequirements[i]}` as const)
     if (dom.textContent !== text) {
       dom.textContent = text
     }

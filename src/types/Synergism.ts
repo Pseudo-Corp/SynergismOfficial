@@ -9,7 +9,6 @@ import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type { HepteractKeys, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractDataKeys } from '../Octeracts'
-import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
 import type { RuneBlessingKeys } from '../RuneBlessings'
@@ -646,9 +645,6 @@ export interface Player {
 }
 
 export interface GlobalVariables {
-  runediv: number[]
-  runeexpbase: number[]
-  runeMaxLvl: number
   upgradeCosts: number[]
 
   // Mega list of Variables to be used elsewhere
@@ -687,14 +683,11 @@ export interface GlobalVariables {
   globalMythosMultiplier: Decimal
   grandmasterMultiplier: Decimal
 
-  atomsMultiplier: Decimal
-
   mythosBuildingPower: number
   challengeThreeMultiplier: Decimal
   totalMythosOwned: number
 
   prestigePointGain: Decimal
-  challengeFivePower: number
 
   transcendPointGain: Decimal
   reincarnationPointGain: Decimal
@@ -748,20 +741,11 @@ export interface GlobalVariables {
     'eighth',
     ...string[]
   ]
-  cardinals: string[]
 
   challengeBaseRequirements: number[]
 
-  prestigeamount: number
   taxdivisor: Decimal
   taxdivisorcheck: Decimal
-  runemultiplierincrease: {
-    one: number
-    two: number
-    three: number
-    four: number
-    five: number
-  }
 
   mythosupgrade13: Decimal
   mythosupgrade14: Decimal
@@ -772,28 +756,8 @@ export interface GlobalVariables {
 
   antMultiplier: Decimal
 
-  settingscreen: string
-
   talismanResourceObtainiumCosts: number[]
   talismanResourceOfferingCosts: number[]
-
-  talismanLevelCostMultiplier: number[]
-
-  talismanPositiveModifier: ArrayStartingWithNull<number>
-  talismanNegativeModifier: ArrayStartingWithNull<number>
-
-  commonTalismanEnhanceCost: ArrayStartingWithNull<number>
-  uncommonTalismanEnchanceCost: ArrayStartingWithNull<number>
-  rareTalismanEnchanceCost: ArrayStartingWithNull<number>
-  epicTalismanEnhanceCost: ArrayStartingWithNull<number>
-  legendaryTalismanEnchanceCost: ArrayStartingWithNull<number>
-  mythicalTalismanEnchanceCost: ArrayStartingWithNull<number>
-
-  talismanRespec: number
-
-  obtainiumGain: number
-
-  mirrorTalismanStats: ArrayStartingWithNull<number>
 
   timeWarp: boolean
 
@@ -814,8 +778,6 @@ export interface GlobalVariables {
   droughtSalvage: number[]
   recessionPower: number[]
 
-  corruptionPointMultipliers: number[]
-
   ascendBuildingProduction: {
     first: Decimal
     second: Decimal
@@ -827,12 +789,10 @@ export interface GlobalVariables {
   freeUpgradeMultiplier: number
 
   acceleratorMultiplier: number
-  multiplierMultiplier: number
 
   constUpgradeCosts: ArrayStartingWithNull<number>
 
   globalConstantMult: Decimal
-  autoTalismanTimer: number
 
   autoChallengeTimerIncrement: number
   corruptionTrigger: keyof Corruptions
@@ -848,7 +808,6 @@ export interface GlobalVariables {
   }
 
   timeMultiplier: number
-  upgradeMultiplier: number
 
   historyCountMax: number
 
@@ -865,14 +824,6 @@ export interface GlobalVariables {
   coinVanityThresholds: number[]
 }
 
-export interface SynergismEvents {
-  achievement: [number]
-  historyAdd: [Category, ResetHistoryEntryUnion]
-  promocode: [string]
-  boughtPlatonicUpgrade: [IPlatBaseCost]
-  openPlatonic: [number]
-}
-
 // If changing these, make reset tiers on top, then challenge types, then specific actions
 export type resetNames =
   | 'prestige'
@@ -884,14 +835,6 @@ export type resetNames =
   | 'reincarnationChallenge'
   | 'ascensionChallenge'
   | 'acceleratorBoost'
-
-// If adding new cube types add them below the last listed type. Thank you
-export type cubeNames =
-  | 'cubes'
-  | 'tesseracts'
-  | 'hypercubes'
-  | 'platonics'
-  | 'hepteracts'
 
 export type BuildingSubtab =
   | 'coin'
@@ -909,21 +852,3 @@ export type ZeroToSeven = ZeroToFour | 5 | 6 | 7
 export type FirstToFifth = GlobalVariables['ordinals'][ZeroToFour]
 
 export type FirstToEighth = GlobalVariables['ordinals'][ZeroToSeven]
-
-export type SaveSupplier<K extends keyof Player = keyof Player> = Map<K, (value: unknown) => Player[K]>
-
-export type PseudoCoinUpgradeNames =
-  | 'INSTANT_UNLOCK_1'
-  | 'INSTANT_UNLOCK_2'
-  | 'CUBE_BUFF'
-  | 'AMBROSIA_LUCK_BUFF'
-  | 'AMBROSIA_GENERATION_BUFF'
-  | 'GOLDEN_QUARK_BUFF'
-  | 'FREE_UPGRADE_PROMOCODE_BUFF'
-  | 'CORRUPTION_LOADOUT_SLOT_QOL'
-  | 'AMBROSIA_LOADOUT_SLOT_QOL'
-  | 'AUTO_POTION_FREE_POTIONS_QOL'
-  | 'OFFLINE_TIMER_CAP_BUFF'
-  | 'ADD_CODE_CAP_BUFF'
-
-export type PseudoCoinUpgrades = Record<PseudoCoinUpgradeNames, number>

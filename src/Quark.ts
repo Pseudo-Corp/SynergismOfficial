@@ -4,6 +4,8 @@ import { calculateCubeQuarkMultiplier, calculateQuarkMultiplier } from './Calcul
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { format, player } from './Synergism'
 
+const quarkResearches = [99, 100, 125, 180, 195]
+
 export const quarkHandler = () => {
   let maxTime = 90000 // In Seconds
   if (player.researches[195] > 0) {
@@ -13,7 +15,6 @@ export const quarkHandler = () => {
   // Part 2: Calculate quark gain per hour
   let baseQuarkPerHour = 5
 
-  const quarkResearches = [99, 100, 125, 180, 195]
   for (const el of quarkResearches) {
     baseQuarkPerHour += player.researches[el]
   }

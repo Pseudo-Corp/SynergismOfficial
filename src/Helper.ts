@@ -42,6 +42,8 @@ type TimerInput =
   | 'ambrosia'
   | 'redAmbrosia'
 
+const octeractGiveawayLevels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249]
+
 /**
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
  * @param input
@@ -132,10 +134,9 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.totalWowOcteracts += amountOfGiveaways * perSecond
 
         if (player.highestSingularityCount >= 160) {
-          const levels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249]
           const frac = 1e-6
           let actualLevel = 0
-          for (const sing of levels) {
+          for (const sing of octeractGiveawayLevels) {
             if (player.highestSingularityCount >= sing) {
               actualLevel += 1
             }

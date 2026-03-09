@@ -12,19 +12,11 @@ import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-eff
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { resetTiers } from './Reset'
 import { firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
 import { assert } from './Utility'
-
-export enum resetTiers {
-  prestige = 1,
-  transcension = 2,
-  reincarnation = 3,
-  ascension = 4,
-  singularity = 5,
-  never = 6
-}
 
 export const indexToRune: Record<number, RuneKeys> = {
   1: 'speed',
@@ -113,6 +105,8 @@ export interface RuneData<K extends RuneKeys> {
   valueText: () => string
   runeHTMLStyle: RuneHTMLStyle
 }
+
+const salvagePerkLevels = [30, 40, 61, 81, 111, 131, 161, 191, 236, 260]
 
 export const firstFiveFreeLevels = () => {
   return (
@@ -548,7 +542,6 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
       const quarkMult = 1 + level / 500 + (level > 0 ? 0.1 : 0)
       const cubeMult = 1 + level / 100
 
-      const salvagePerkLevels = [30, 40, 61, 81, 111, 131, 161, 191, 236, 260]
       const salvageCoefficient = 0.025 * salvagePerkLevels.filter((x) => x <= player.highestSingularityCount).length
       const salvage = salvageCoefficient * level
 
@@ -567,7 +560,6 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
         val: formatAsPercentIncrease(effectValues.cubeMult, 2)
       })
       if (player.highestSingularityCount >= 30) {
-        const salvagePerkLevels = [30, 40, 61, 81, 111, 131, 161, 191, 236, 260]
         const salvageCoefficient = 0.025 * salvagePerkLevels.filter((x) => x <= player.highestSingularityCount).length
         const salvageText = `<span style="color: lightgoldenrodyellow">${
           i18next.t('runes.infiniteAscent.salvage', {

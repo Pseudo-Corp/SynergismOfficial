@@ -22,6 +22,12 @@ import { Alert, CloseModal, Modal, Notification, revealStuff } from './UpdateHTM
 import { isMobile, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
+const achievementProgressSelectors = [
+  '.tieredAchievementType',
+  '.ungroupedAchievementType',
+  '.progressiveAchievementType'
+]
+
 export const resetAchievementCheck = (reset: resetNames) => {
   if (reset === 'prestige') {
     awardUngroupedAchievement('prestigeNoAccelerator')
@@ -509,11 +515,6 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
 }
 
 export const progressiveAchievementKeys = Object.keys(progressiveAchievements) as ProgressiveAchievements[]
-
-export const emptyProgressiveAchievements = Object
-  .fromEntries(
-    (Object.keys(progressiveAchievements)).map((key) => [key, { cached: 0, rewardedAP: 0 }])
-  ) as Record<ProgressiveAchievements, ProgressiveAchievementsObject>
 
 export const achievements: Achievement[] = [
   { pointValue: 5, unlockCondition: () => true, group: 'ungrouped' }, // Free Achievement Perhaps?
@@ -2738,15 +2739,6 @@ export interface AchievementDisplayInfo {
   displayCondition: () => boolean
 }
 
-export enum resetTiers {
-  prestige = 1,
-  transcension = 2,
-  reincarnation = 3,
-  ascension = 4,
-  singularity = 5,
-  never = 6
-}
-
 export const hasResetAtOrAboveLevel = (reset: resetTiers) => {
   if (reset <= 5 && player.singularityCount > 0) return true
   if (reset <= 4 && player.ascensionCount > 0) return true
@@ -3525,6 +3517,7 @@ export const updateAchievementPoints = (sourcedFromUpdate = false) => {
 }
 
 import { platform } from './Config'
+import { resetTiers } from './Reset'
 
 const unlockedSteamAchievements = new Set<string>()
 
@@ -4332,14 +4325,7 @@ export const displayAchievementProgress = () => {
 }
 
 export const resetAchievementProgressDisplay = () => {
-  // Reset all achievement types
-  const selectors = [
-    '.tieredAchievementType',
-    '.ungroupedAchievementType',
-    '.progressiveAchievementType'
-  ]
-
-  selectors.forEach((selector) => {
+  achievementProgressSelectors.forEach((selector) => {
     const elements = document.querySelectorAll(selector)
     elements.forEach((element) => {
       const img = element.querySelector('img')

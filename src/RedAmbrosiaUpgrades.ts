@@ -45,6 +45,8 @@ export interface RedAmbrosiaUpgrade<T extends RedAmbrosiaNames> {
   effectsDescription: (n: number) => string
 }
 
+const blueberryCostValues = [100_000, 1_400_000, 3_000_000]
+
 export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<K> } = {
   tutorial: {
     level: 0,
@@ -524,8 +526,7 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
     level: 0,
     redAmbrosiaInvested: 0,
     costFormula: (level: number, _baseCost: number) => {
-      const costValue = [100_000, 1_400_000, 3_000_000]
-      return costValue[level] ?? 0
+      return blueberryCostValues[level] ?? 0
     },
     effects: (n: number) => {
       return {

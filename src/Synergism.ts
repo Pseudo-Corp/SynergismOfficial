@@ -249,6 +249,17 @@ import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
 import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 
+const buyAmountTypes = [
+  'coin',
+  'crystal',
+  'mythos',
+  'particle',
+  'offering',
+  'tesseract'
+] as const
+const buildingResources = ['Coin', 'Diamonds', 'Mythos'] as const
+const particleOriginalCosts = [1, 1e2, 1e4, 1e8, 1e16]
+
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
   worlds: new QuarkHandler(0),
@@ -1446,16 +1457,6 @@ const loadSynergy = () => {
       updatePlatonicUpgradeBG(j)
     }
 
-    // WHY
-    const q = [
-      'coin',
-      'crystal',
-      'mythos',
-      'particle',
-      'offering',
-      'tesseract'
-    ] as const
-
     for (let j = 0; j <= 5; j++) {
       for (let k = 0; k < 6; k++) {
         let d = ''
@@ -1477,11 +1478,11 @@ const loadSynergy = () => {
         if (k === 5) {
           d = '100k'
         }
-        const e = `${q[j]}${d}`
+        const e = `${buyAmountTypes[j]}${d}`
         DOMCacheGetOrSet(e).style.backgroundColor = ''
       }
       let c = ''
-      const curBuyAmount = player[`${q[j]}buyamount` as const]
+      const curBuyAmount = player[`${buyAmountTypes[j]}buyamount` as const]
       if (curBuyAmount === 1) {
         c = 'one'
       }
@@ -1501,7 +1502,7 @@ const loadSynergy = () => {
         c = '100k'
       }
 
-      const b = `${q[j]}${c}`
+      const b = `${buyAmountTypes[j]}${c}`
       DOMCacheGetOrSet(b).style.backgroundColor = 'green'
     }
 
@@ -4602,10 +4603,8 @@ export const updateAll = (): void => {
   const reductionValue = getReductionValue()
   if (reductionValue !== G.prevReductionValue) {
     G.prevReductionValue = reductionValue
-    const resources = ['Coin', 'Diamonds', 'Mythos'] as const
-
-    for (let res = 0; res < resources.length; ++res) {
-      const resource = resources[res]
+    for (let res = 0; res < buildingResources.length; ++res) {
+      const resource = buildingResources[res]
       for (let ord = 0; ord < 5; ++ord) {
         const num = G.ordinals[ord as ZeroToFour]
         player[`${num}Cost${resource}` as const] = getCost(
@@ -4618,7 +4617,6 @@ export const updateAll = (): void => {
     }
 
     for (let i = 0; i <= 4; i++) {
-      const particleOriginalCost = [1, 1e2, 1e4, 1e8, 1e16]
       const num = G.ordinals[i as ZeroToFour]
       const buyTo = player[`${num}OwnedParticles` as const] + 1
       player[`${num}CostParticles` as const] = new Decimal(
@@ -4628,7 +4626,7 @@ export const updateAll = (): void => {
             (Math.max(0, buyTo - 325000) * Math.max(0, buyTo - 325000 + 1)) / 2
           )
         )
-      ).times(particleOriginalCost[i])
+      ).times(particleOriginalCosts[i])
     }
   }
 

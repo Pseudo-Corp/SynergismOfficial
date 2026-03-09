@@ -17,6 +17,25 @@ export interface IPlatBaseCost {
   priceMult?: number
 }
 
+const platonicResources = [
+  'obtainium',
+  'offerings',
+  'cubes',
+  'tesseracts',
+  'hypercubes',
+  'platonics',
+  'abyssals'
+] as const
+const platonicResourceNames = [
+  'obtainium',
+  'offerings',
+  'wowCubes',
+  'wowTesseracts',
+  'wowHypercubes',
+  'wowPlatonicCubes',
+  'wowAbyssals'
+] as const
+
 export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   1: {
     // obtainium: 1e70,
@@ -253,16 +272,6 @@ const checkPlatonicUpgrade = (
   auto = false
 ): Record<keyof (IPlatBaseCost & { canBuy: boolean }), boolean> => {
   let checksum = 0
-  const resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals'] as const
-  const resourceNames = [
-    'obtainium',
-    'offerings',
-    'wowCubes',
-    'wowTesseracts',
-    'wowHypercubes',
-    'wowPlatonicCubes',
-    'wowAbyssals'
-  ] as const
   const checks: Record<string, boolean> = {
     obtainium: false,
     offerings: false,
@@ -282,15 +291,16 @@ const checkPlatonicUpgrade = (
   }
   priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
 
-  for (let i = 0; i < resources.length - 1; i++) {
-    if (auto && (resources[i] === 'obtainium' || resources[i] === 'offerings')) {
+  for (let i = 0; i < platonicResources.length - 1; i++) {
+    if (auto && (platonicResources[i] === 'obtainium' || platonicResources[i] === 'offerings')) {
       checksum++
-      checks[resources[i]] = true
+      checks[platonicResources[i]] = true
     } else if (
-      Math.floor(platUpgradeBaseCosts[index][resources[i]] * priceMultiplier) <= (player[resourceNames[i]] as number)
+      Math.floor(platUpgradeBaseCosts[index][platonicResources[i]] * priceMultiplier)
+        <= (player[platonicResourceNames[i]] as number)
     ) {
       checksum++
-      checks[resources[i]] = true
+      checks[platonicResources[i]] = true
     }
   }
 
@@ -302,7 +312,7 @@ const checkPlatonicUpgrade = (
     checks.abyssals = true
   }
 
-  if (checksum === resources.length && player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
+  if (checksum === platonicResources.length && player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
     checks.canBuy = true
   }
   return checks

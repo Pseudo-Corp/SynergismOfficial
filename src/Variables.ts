@@ -11,10 +11,6 @@ export enum Upgrade {
 }
 
 export const Globals: GlobalVariables = {
-  runediv: [1.5, 2, 3, 5, 8, 1, 1],
-  runeexpbase: [1, 4, 9, 16, 1000, 1e75, 1e256],
-  runeMaxLvl: 40000,
-
   // this shows the logarithm of costs. ex: upgrade one will cost 1e+6 coins, upgrade 2 1e+7, etc.
   // dprint-ignore
   upgradeCosts: [
@@ -63,14 +59,11 @@ export const Globals: GlobalVariables = {
   globalMythosMultiplier: new Decimal(0.01),
   grandmasterMultiplier: new Decimal(1),
 
-  atomsMultiplier: new Decimal(1),
-
   mythosBuildingPower: 1,
   challengeThreeMultiplier: new Decimal(1),
   totalMythosOwned: 0,
 
   prestigePointGain: new Decimal(0),
-  challengeFivePower: 1 / 3,
 
   transcendPointGain: new Decimal(0),
   reincarnationPointGain: new Decimal(0),
@@ -115,21 +108,11 @@ export const Globals: GlobalVariables = {
 
   // dprint-ignore
   ordinals: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth'] as const,
-  // dprint-ignore
-  cardinals: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'twentyone', 'twentytwo', 'twentythree', 'twentyfour', 'twentyfive', 'twentysix', 'twentyseven', 'twentyeight', 'twentynine', 'thirty', 'thirtyone', 'thirtytwo', 'thirtythree', 'thirtyfour'],
 
   challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 7500, 2.0e8, 2.5e9],
 
-  prestigeamount: 1,
   taxdivisor: new Decimal('1'),
   taxdivisorcheck: new Decimal('1'),
-  runemultiplierincrease: {
-    one: 1,
-    two: 1,
-    three: 1,
-    four: 1,
-    five: 1
-  },
 
   mythosupgrade13: new Decimal('1'),
   mythosupgrade14: new Decimal('1'),
@@ -140,28 +123,8 @@ export const Globals: GlobalVariables = {
 
   antMultiplier: new Decimal('1'),
 
-  settingscreen: 'settings',
-
   talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],
   talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
-
-  talismanLevelCostMultiplier: [1, 4, 1e4, 1e8, 1e13, 10, 100],
-
-  talismanPositiveModifier: [null, 0.75, 1.5, 2.25, 3, 3.75, 4.5],
-  talismanNegativeModifier: [null, 0, 0, 0, 0, 0, 0],
-
-  commonTalismanEnhanceCost: [null, 0, 3000, 1000, 0, 0, 0, 0],
-  uncommonTalismanEnchanceCost: [null, 0, 10000, 3000, 1000, 0, 0, 0],
-  rareTalismanEnchanceCost: [null, 0, 100000, 20000, 2000, 500, 0, 0],
-  epicTalismanEnhanceCost: [null, 0, 2e6, 2e5, 2e4, 2000, 1000, 0],
-  legendaryTalismanEnchanceCost: [null, 0, 4e7, 2e6, 1e5, 20000, 2500, 200],
-  mythicalTalismanEnchanceCost: [null, 0, 0, 0, 0, 0, 0, 0],
-
-  talismanRespec: 1,
-
-  obtainiumGain: 0,
-
-  mirrorTalismanStats: [null, 1, 1, 1, 1, 1],
 
   timeWarp: false,
 
@@ -277,7 +240,6 @@ export const Globals: GlobalVariables = {
     0.00007
   ],
 
-  corruptionPointMultipliers: [1, 3, 4, 5, 6, 7, 7.75, 8.5, 9.25, 10, 10.75, 11.5, 12.25, 13, 16, 20, 25, 33, 35],
   ascendBuildingProduction: {
     first: new Decimal('0'),
     second: new Decimal('0'),
@@ -289,12 +251,10 @@ export const Globals: GlobalVariables = {
   freeUpgradeMultiplier: 0,
 
   acceleratorMultiplier: 1,
-  multiplierMultiplier: 1,
 
   constUpgradeCosts: [null, 1, 13, 17, 237, 316, 4216, 5623, 74989, 1e10, 1e24],
 
   globalConstantMult: new Decimal('1'),
-  autoTalismanTimer: 0,
 
   autoChallengeTimerIncrement: 0,
   corruptionTrigger: 'illiteracy',
@@ -540,7 +500,6 @@ export const Globals: GlobalVariables = {
   },
 
   timeMultiplier: 1,
-  upgradeMultiplier: 1,
 
   historyCountMax: 20,
 

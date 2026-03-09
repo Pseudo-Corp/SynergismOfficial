@@ -125,10 +125,82 @@ import {
   calculateSalvageTesseractBlessing
 } from './Tesseracts'
 import { AutoAscensionModes, AutoResetModes } from './Toggles'
-import type { Player, ZeroToFour } from './types/Synergism'
+import type { OneToFive, Player, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { sumContents, timeRemainingHours } from './Utility'
 import { Globals as G } from './Variables'
+
+const coinUpper = [
+  'produceFirst',
+  'produceSecond',
+  'produceThird',
+  'produceFourth',
+  'produceFifth'
+] as const
+const coinNames = [
+  'workers',
+  'investments',
+  'printers',
+  'coinMints',
+  'alchemies'
+]
+
+const diamondUpper = [
+  'produceFirstDiamonds',
+  'produceSecondDiamonds',
+  'produceThirdDiamonds',
+  'produceFourthDiamonds',
+  'produceFifthDiamonds'
+] as const
+const diamondNames = [
+  'refineries',
+  'coalPlants',
+  'coalRigs',
+  'pickaxes',
+  'pandorasBoxes'
+]
+const diamondPerSecNames = ['crystal', 'ref', 'plants', 'rigs', 'pickaxes']
+
+const mythosUpper = [
+  'produceFirstMythos',
+  'produceSecondMythos',
+  'produceThirdMythos',
+  'produceFourthMythos',
+  'produceFifthMythos'
+] as const
+const mythosNames = [
+  'augments',
+  'enchantments',
+  'wizards',
+  'oracles',
+  'grandmasters'
+]
+const mythosPerSecNames = [
+  'shards',
+  'augments',
+  'enchantments',
+  'wizards',
+  'oracles'
+]
+
+const particleUpper = [
+  'FirstParticles',
+  'SecondParticles',
+  'ThirdParticles',
+  'FourthParticles',
+  'FifthParticles'
+] as const
+const particleNames = [
+  'protons',
+  'elements',
+  'pulsars',
+  'quasars',
+  'galacticNuclei'
+]
+const particlePerSecNames = ['atoms', 'protons', 'elements', 'pulsars', 'quasars']
+
+const tesseractNames = ['dot', 'vector', 'threeSpace', 'bentTime', 'hilbertSpace']
+const tesseractPerSecNames = ['constant', 'dot', 'vector', 'threeSpace', 'bentTime']
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -137,23 +209,6 @@ export const visualUpdateBuildings = () => {
 
   // When you're in Building --> Coin, update these.
   if (G.buildingSubTab === 'coin') {
-    // For the display of Coin Buildings
-    const upper = [
-      'produceFirst',
-      'produceSecond',
-      'produceThird',
-      'produceFourth',
-      'produceFifth'
-    ] as const
-    const names = [
-      null,
-      'workers',
-      'investments',
-      'printers',
-      'coinMints',
-      'alchemies'
-    ]
-
     let totalProductionDivisor = new Decimal(G.produceTotal)
     if (totalProductionDivisor.equals(0)) {
       totalProductionDivisor = new Decimal(1)
@@ -185,11 +240,11 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('coinVanity').innerHTML = `<i>${i18next.t(`buildings.coinFlavorTexts.${vanityIndex}`)}</i>`
 
     for (let i = 1; i <= 5; i++) {
-      const place = G[upper[i - 1]]
+      const place = G[coinUpper[i - 1]]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       DOMCacheGetOrSet(`buildtext${2 * i - 1}`).textContent = i18next.t(
-        `buildings.names.${names[i]}`,
+        `buildings.names.${coinNames[i - 1]}`,
         {
           amount: format(player[`${ith}OwnedCoin` as const], 0, true),
           gain: format(player[`${ith}GeneratedCoin` as const])
@@ -312,23 +367,6 @@ export const visualUpdateBuildings = () => {
       }
     )
   } else if (G.buildingSubTab === 'diamond') {
-    // For the display of Diamond Buildings
-    const upper = [
-      'produceFirstDiamonds',
-      'produceSecondDiamonds',
-      'produceThirdDiamonds',
-      'produceFourthDiamonds',
-      'produceFifthDiamonds'
-    ] as const
-    const names = [
-      'refineries',
-      'coalPlants',
-      'coalRigs',
-      'pickaxes',
-      'pandorasBoxes'
-    ]
-    const perSecNames = ['crystal', 'ref', 'plants', 'rigs', 'pickaxes']
-
     const crystalExponent = calculateCrystalExponent()
     const crystalCoinMult = calculateCrystalCoinMultiplier(crystalExponent)
     DOMCacheGetOrSet('prestigeshardinfo').innerHTML = i18next.t(
@@ -341,11 +379,11 @@ export const visualUpdateBuildings = () => {
     )
 
     for (let i = 1; i <= 5; i++) {
-      const place = G[upper[i - 1]]
+      const place = G[diamondUpper[i - 1]]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       DOMCacheGetOrSet(`prestigetext${2 * i - 1}`).textContent = i18next.t(
-        `buildings.names.${names[i - 1]}`,
+        `buildings.names.${diamondNames[i - 1]}`,
         {
           amount: format(player[`${ith}OwnedDiamonds` as const], 0, true),
           gain: format(player[`${ith}GeneratedDiamonds` as const], 2)
@@ -353,7 +391,7 @@ export const visualUpdateBuildings = () => {
       )
 
       DOMCacheGetOrSet(`prestigetext${2 * i}`).textContent = i18next.t(
-        `buildings.per.${perSecNames[i - 1]}`,
+        `buildings.per.${diamondPerSecNames[i - 1]}`,
         {
           amount: format(place.times(40), 2)
         }
@@ -393,29 +431,6 @@ export const visualUpdateBuildings = () => {
       )
     }
   } else if (G.buildingSubTab === 'mythos') {
-    // For the display of Mythos Buildings
-    const upper = [
-      'produceFirstMythos',
-      'produceSecondMythos',
-      'produceThirdMythos',
-      'produceFourthMythos',
-      'produceFifthMythos'
-    ] as const
-    const names = [
-      'augments',
-      'enchantments',
-      'wizards',
-      'oracles',
-      'grandmasters'
-    ]
-    const perSecNames = [
-      'shards',
-      'augments',
-      'enchantments',
-      'wizards',
-      'oracles'
-    ]
-
     DOMCacheGetOrSet('transcendshardinfo').textContent = i18next.t(
       'buildings.mythosYouHave',
       {
@@ -425,11 +440,11 @@ export const visualUpdateBuildings = () => {
     )
 
     for (let i = 1; i <= 5; i++) {
-      const place = G[upper[i - 1]]
+      const place = G[mythosUpper[i - 1]]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       DOMCacheGetOrSet(`transcendtext${2 * i - 1}`).textContent = i18next.t(
-        `buildings.names.${names[i - 1]}`,
+        `buildings.names.${mythosNames[i - 1]}`,
         {
           amount: format(player[`${ith}OwnedMythos` as const], 0, true),
           gain: format(player[`${ith}GeneratedMythos` as const], 2)
@@ -437,7 +452,7 @@ export const visualUpdateBuildings = () => {
       )
 
       DOMCacheGetOrSet(`transcendtext${2 * i}`).textContent = i18next.t(
-        `buildings.per.${perSecNames[i - 1]}`,
+        `buildings.per.${mythosPerSecNames[i - 1]}`,
         {
           amount: format(place.times(40), 2)
         }
@@ -482,36 +497,19 @@ export const visualUpdateBuildings = () => {
         }s.`
     }
   } else if (G.buildingSubTab === 'particle') {
-    // For the display of Particle Buildings
-    const upper = [
-      'FirstParticles',
-      'SecondParticles',
-      'ThirdParticles',
-      'FourthParticles',
-      'FifthParticles'
-    ] as const
-    const names = [
-      'protons',
-      'elements',
-      'pulsars',
-      'quasars',
-      'galacticNuclei'
-    ]
-    const perSecNames = ['atoms', 'protons', 'elements', 'pulsars', 'quasars']
-
     for (let i = 1; i <= 5; i++) {
       const ith = G.ordinals[(i - 1) as ZeroToFour]
-      const place = G[`produce${upper[i - 1]}` as const]
+      const place = G[`produce${particleUpper[i - 1]}` as const]
 
       DOMCacheGetOrSet(`reincarnationtext${i}`).textContent = i18next.t(
-        `buildings.names.${names[i - 1]}`,
+        `buildings.names.${particleNames[i - 1]}`,
         {
           amount: format(player[`${ith}OwnedParticles` as const], 0, true),
           gain: format(player[`${ith}GeneratedParticles` as const], 2)
         }
       )
       DOMCacheGetOrSet(`reincarnationtext${i + 5}`).textContent = i18next.t(
-        `buildings.per.${perSecNames[i - 1]}`,
+        `buildings.per.${particlePerSecNames[i - 1]}`,
         {
           amount: format(place.times(40), 2)
         }
@@ -578,14 +576,11 @@ export const visualUpdateBuildings = () => {
       )
     }
   } else if (G.buildingSubTab === 'tesseract') {
-    const names = ['dot', 'vector', 'threeSpace', 'bentTime', 'hilbertSpace']
-    const perSecNames = ['constant', 'dot', 'vector', 'threeSpace', 'bentTime']
-
     for (let i = 1; i <= 5; i++) {
-      const ascendBuildingI = `ascendBuilding${i as 1 | 2 | 3 | 4 | 5}` as const
+      const ascendBuildingI = `ascendBuilding${i as OneToFive}` as const
 
       DOMCacheGetOrSet(`ascendText${i}`).textContent = i18next.t(
-        `buildings.names.${names[i - 1]}`,
+        `buildings.names.${tesseractNames[i - 1]}`,
         {
           amount: format(player[ascendBuildingI].owned, 0, true),
           gain: format(player[ascendBuildingI].generated, 2)
@@ -593,7 +588,7 @@ export const visualUpdateBuildings = () => {
       )
 
       DOMCacheGetOrSet(`ascendText${5 + i}`).textContent = i18next.t(
-        `buildings.per.${perSecNames[i - 1]}`,
+        `buildings.per.${tesseractPerSecNames[i - 1]}`,
         {
           amount: format(
             (G.ascendBuildingProduction as Record<string, Decimal>)[
