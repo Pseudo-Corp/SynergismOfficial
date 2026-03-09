@@ -419,6 +419,21 @@ export async function handleLogin () {
           ${i18next.t('account.lastButNotLeast')}
           ${createLineHTML('yourself', 1, true, ['rainbowText'])}
         `.trim()
+
+        // Add event listener for event bonuses dropdown toggle
+        const eventBonusesHeader = DOMCacheGetOrSet('eventBonusesHeader')
+        const eventBonusesContent = DOMCacheGetOrSet('eventBonusesContent')
+        const eventBonusesChevron = DOMCacheGetOrSet('eventBonusesChevron')
+
+        eventBonusesContent.style.display = 'none'
+        eventBonusesChevron.style.transform = 'rotate(-90deg)'
+
+        eventBonusesHeader.style.cursor = 'pointer'
+        eventBonusesHeader.addEventListener('click', () => {
+          const isCollapsed = eventBonusesContent.style.display === 'none'
+          eventBonusesContent.style.display = isCollapsed ? 'block' : 'none'
+          eventBonusesChevron.style.transform = isCollapsed ? 'rotate(0deg)' : 'rotate(-90deg)'
+        })
       } else {
         subtabElement.innerHTML += `
           <div class="event-bonuses-content" id="eventBonusesContent">
@@ -546,21 +561,6 @@ export async function handleLogin () {
         linkAccountsSection.appendChild(buttonContainer)
         subtabElement.appendChild(linkAccountsSection)
       }
-
-      // Add event listener for event bonuses dropdown toggle
-      const eventBonusesHeader = DOMCacheGetOrSet('eventBonusesHeader')
-      const eventBonusesContent = DOMCacheGetOrSet('eventBonusesContent')
-      const eventBonusesChevron = DOMCacheGetOrSet('eventBonusesChevron')
-
-      eventBonusesContent.style.display = 'none'
-      eventBonusesChevron.style.transform = 'rotate(-90deg)'
-
-      eventBonusesHeader.style.cursor = 'pointer'
-      eventBonusesHeader.addEventListener('click', () => {
-        const isCollapsed = eventBonusesContent.style.display === 'none'
-        eventBonusesContent.style.display = isCollapsed ? 'block' : 'none'
-        eventBonusesChevron.style.transform = isCollapsed ? 'rotate(0deg)' : 'rotate(-90deg)'
-      })
     } else if (!hasAccount(account)) {
       // User is not logged in
       subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
