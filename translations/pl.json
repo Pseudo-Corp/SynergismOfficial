@@ -837,7 +837,22 @@
       "490": "Just to suffer?: Sacrifice your Anthill 1,000,000 times.",
       "491": "Scorched Earth: Sacrifice your Anthill 3,000,000 times.",
       "492": "It's so clear that all we have now: Sacrifice your Anthill 10,000,000 times.",
-      "493": "Are our thoughts of yesterday: Sacrifice your Anthill 100,000,000 times."
+      "493": "Are our thoughts of yesterday: Sacrifice your Anthill 100,000,000 times.",
+      "494": "Elementary Math: Use Code 'add' 10 times.",
+      "495": "It adds up: Use Code 'add' 20 times.",
+      "496": "The power of addition: Use Code 'add' 50 times.",
+      "497": "The Successor Function: Use Code 'add' 100 times.",
+      "498": "Succ(100)... 100 times: Use Code 'add' 200 times.",
+      "499": "Triplet act: Use Code 'add' 300 times.",
+      "500": "Half a thousand Achievements!: Use Code 'add' 500 times.",
+      "501": "A Numerical Calculation: Use Code 'add' 750 times.",
+      "502": "Succ it in, succ it in, succ it in: Use Code 'add' 1,000 times.",
+      "503": "If you're Rin Tin Tin, or Anne Boleyn: Use Code 'add' 2,000 times.",
+      "504": "It's so PC it's killing me: Use Code 'add' 3,000 times.",
+      "505": "V bar: Use Code 'add' 5,000 times.",
+      "506": "Make a Desperate Move: Use Code 'add' 6,000 times.",
+      "507": "Or Else You'll Win: Use Code 'add' 7,500 times.",
+      "508": "The Hook Brings Me Back: Use Code 'add' 10,000 times."
     },
     "achievementRewards": {
       "3": {
@@ -1773,7 +1788,8 @@
       "transcensionCount": "Times Transcended",
       "reincarnationCount": "Times Reincarnated",
       "sacCount": "Anthills Sacrificed",
-      "ungrouped": "Miscellaneous"
+      "ungrouped": "Miscellaneous",
+      "addCodesUsed": "Add Code User"
     },
     "rewardTypes": {
       "title": "Achievement-specific bonuses grant you the following!",
@@ -1952,27 +1968,27 @@
       },
       "tier1CrystalAutobuy": {
         "name": "Tier 1 Crystal Autobuy",
-        "description": "You can now automatically buy Diamond Refineries! Also automagically buys the first Crystal upgrade if you can afford it.",
+        "description": "You can now automatically buy Diamond Refineries! Also automagically buys the first Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Current Effect: See Above!"
       },
       "tier2CrystalAutobuy": {
         "name": "Tier 2 Crystal Autobuy",
-        "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it.",
+        "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Current Effect: See Above!"
       },
       "tier3CrystalAutobuy": {
         "name": "Tier 3 Crystal Autobuy",
-        "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it.",
+        "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Current Effect: See Above!"
       },
       "tier4CrystalAutobuy": {
         "name": "Tier 4 Crystal Autobuy",
-        "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it.",
+        "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Current Effect: See Above!"
       },
       "tier5CrystalAutobuy": {
         "name": "Tier 5 Crystal Autobuy",
-        "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it.",
+        "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
         "effect": "Current Effect: See Above!"
       },
       "achievementTalismanUnlock": {
@@ -2081,7 +2097,7 @@
     "alerts": {
       "36": "Congratulations on your first Prestige. The first of many. You obtain Offerings. You can use them in the new Runes tab! [Unlocked Runes, Achievements, Diamond Buildings and some Upgrades!]",
       "38": "Hmm, it seems you are getting richer, being able to get 1 Googol diamonds in a single Prestige. How about we give you another Rune? [Unlocked Duplication Rune in Runes tab!]",
-      "255": "Wow! You gained 1e17 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!"
+      "255": "Wow! You gained 1e15 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!"
     },
     "hover": "Hover over an achievement to view information.",
     "tieredExtraRewards": "This Tiered Achievement has extra rewards!",
@@ -3298,7 +3314,7 @@
       "powderAuto": "Your grandparents had to wait a full day for powder, but not you! Per level gain +1% of orbs to powder based on the conversion rate.",
       "seasonPassLost": "One would be advised not to touch this. +0.1% Octeracts per level, whatever those are...",
       "challenge15Auto": "Your grandparents had to bend dimensions to gain Challenge 15 score, but not you! Updates Challenge 15 Exponent every tick while in challenge 15!",
-      "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant",
+      "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant. <<crimson | With this, you can use the Daily Warp twice a day... however, it might require waiting for the next day to activate.>>",
       "autoWarp": "With the power of Quacks Warp machine will now be able to go into overdrive",
       "improveQuarkHept": "That exponent on your Quark Hepteracts is nice, but what if it was better? Gain +0.01 power per level to the Quark Hept Exponent!",
       "improveQuarkHept2": "Want even stronger Quark Hepts? Gain +0.01 power per level to the Quark Hept Exponent!",
@@ -3411,7 +3427,7 @@
       "powderAuto": "Every <<red|{{amount}}>> purchased orbs grants 1 powder.",
       "seasonPassLost": "You generate <<lightgoldenrodyellow|{{amount}}%>> more Wow! Octeracts per second.",
       "challenge15Auto": "Even in a premium shop it's kinda obvious, right?",
-      "extraWarp": "You can warp <<red|+{{amount}}>> extra times.",
+      "extraWarp": "You can warp <<red|+{{amount}}>> extra time.",
       "autoWarp": "If you buy this upgrade, you can toggle <<red|auto warp>> in the Hepteract Forge tab. Only if you buy this, though.",
       "improveQuarkHept": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
       "improveQuarkHept2": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
@@ -3523,10 +3539,10 @@
       },
       "antGodsCornucopia": {
         "name": "Ant God's Cornucopia",
-        "hasLevel3": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e12 multiplier!",
-        "hasLevel2": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent immaculate x4.44 multiplier."
+        "hasLevel3": "Ant God gives you <<crimson | 1,000,000,000,000x Ant Speed>>!",
+        "hasLevel2": "Ant God gives you <<crimson | 1,000,000x Ant Speed>>!",
+        "hasLevel1": "Ant God gives you <<crimson | 1,000x Ant Speed>>!",
+        "default": "Ant God gives you <<crimson | 4.44x Ant Speed>>!"
       },
       "bringToLife": {
         "name": "Bring to Life",
@@ -3749,7 +3765,7 @@
       },
       "starterPack": {
         "name": "Pakiet Startowy",
-        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Immaculate Obtainium and Offerings from all sources.",
+        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources.",
         "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Immaculate Obtainium and Offerings.",
         "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Immaculate Obtainium and Offerings."
       },
@@ -3897,7 +3913,7 @@
       },
       "masterPack": {
         "name": "Pakiet Mistrzowski",
-        "description": "A tad insane. Gain +8% Quarks, additive with other packs, for every level 14 Corruption, Ascension Score is multiplied by 1.1.",
+        "description": "A tad insane. Gain +8% Quarks, additive with other packs. Multiply your overall Ascension Score by 1.5. Wow!",
         "effectHave": "You have mastered your inner chakras.",
         "effectHaveNot": "You have not mastered your inner chakras."
       },
@@ -3952,7 +3968,7 @@
       "singQuarkImprover1": {
         "name": "Marginal Quark Gain Improver Thingy",
         "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
-        "effect": "otrzymujesz {{n}}% więcej kwarków!"
+        "effect": "You gain {{n}} more Quarks!"
       },
       "singQuarkHepteract": {
         "name": "I wish my Quark Hepteract was marginally better.",
@@ -5010,7 +5026,7 @@
     "intro": "The most rewarding ventures are those few would dare to embark.",
     "traitInfo": "Select the trait levels you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
     "spiritBonus": "However, it also multiplies Spirit Power by <<wheat|{{multiplier}}>>.",
-    "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
+    "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Total Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
     "corruptionScore": "Your Ascension Score is <<goldenrod|{{ascScore}}>></span> (base) * <<var(--crimson-text-color)|{{corrMult}}>> (Corruption mult) * <<var(--orchid-text-color)|{{bonusMult}}>> (Bonus mult) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
     "corruptionScoreDR": "Past 1e23 Ascension Score, further gains are square rooted! You are currently under this penalty.",
     "ascensionCount": "If you Ascend now, <<darkorange|{{ascCount}}>> will be added to your ascension count.",
@@ -6113,13 +6129,15 @@
       "ModuleCubes3": "Ambrosia - Cube Module III:",
       "ModuleHyperflux": "Ambrosia - Hyperflux Module:",
       "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
-      "RedAmbrosia": "Cubes \"made\" of Red Ambrosia",
+      "RedAmbrosia": "Cubes \"made\" of Red Ambrosia:",
       "Exalt6": "The Grand Singularity Speedrun - Too Slow:",
       "Event": "Event Bonus:",
+      "OneMind": "One Mind Modifier:",
       "Total": "Total Universal Cube Multiplier:"
     },
     "cubeMultiplierStats": {
       "title": "Wow! Cube Multiplier",
+      "CubeBank": "Wow! Cubes Banked This Ascension:",
       "AchievementBonus": "Achievement Wow! Cubes Bonus:",
       "SynergismLevel": "Synergism Level Reward:",
       "AscensionScore": "Ascension Score Multiplier:",
@@ -6140,7 +6158,9 @@
       "PlatonicOpening": "Platonic Cubes:",
       "Platonic1x1": "Platonic 1x1:",
       "CookieUpgrade13": "Cookie Upgrade 13:",
-      "Total": "Total Wow! Cube Multiplier:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Total Wow! Cube Multiplier:",
+      "Total2": "Final Wow! Cube Multiplier:"
     },
     "tesseractMultiplierStats": {
       "title": "Wow! Tesseract Multiplier",
@@ -6555,7 +6575,7 @@
       "ChronosTalisman": "Chronos Talisman Bonus:",
       "Challenge15": "Challenge 15 Reward:",
       "CubeUpgradeCx2": "Cube Upgrade 6x2 (Cx2):",
-      "SpacialDilation": "Corruption: Spacial Dilation:",
+      "SpacialDilation": "Corruption: Time Dilation:",
       "FastSpeedDR": "Global Speed Fast Softcap Power (>100):",
       "SlowSpeedDR": "Global Speed Slow Softcap Power (<1):",
       "ImmaculateSpeedMult": "Immaculate Global Speed DR-Ignore:",
@@ -6648,7 +6668,7 @@
     },
     "ambrosiaGenerationStats": {
       "title": "Ambrosia Bar Points",
-      "VisitedTab": "Visited Ambrosia Tab:",
+      "Default": "Default Per Second:",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Campaign": "Campaign Bonus:",
       "ShopUpgrades": "Shop Upgrades (I-IV):",
@@ -6791,7 +6811,7 @@
     "redAmbrosiaGenerationStats": {
       "title": "Red Bar Points",
       "PseudoCoins": "PseudoCoin Upgrade:",
-      "Base": "Visited Ambrosia Subtab after clearing EXALT 5x1:",
+      "Base": "Default Per Second:",
       "BlueberrySpeed": "Speed from Ambrosia (0.5 DR after 1,000):",
       "RedAmbrosia": "Millennium-Aged Red Ambrosia:",
       "Exalt5": "EXALT Reward - No Ambrosia Upgrades:",
@@ -7276,7 +7296,7 @@
     "wrongAnswer": "Answer was wrong, not resetting!",
     "unableImport": "Unable to import this file!",
     "loadTestInLive": "You are attempting to load a testing file in a non-testing version!",
-    "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism2021\" or \"Khafra\" perchance?]",
+    "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism{{year}}\" or \"Khafra\" perchance?]",
     "comeBackSoon": "Alright, come back soon!",
     "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
     "useXAdds": "Możesz na raz wykorzystać następującą liczbę akcji: {{x}}. Ile chcesz użyć? Możesz również podać minusową liczbę, wtedy zostaną użyte wszystkie próby oprócz podanej liczby prób.",
@@ -7528,6 +7548,12 @@
       "noLotus": "You do not currently possess a Lotus. Buy some at the PseudoCoins shop!",
       "status": "Lotus Time: {{time}}",
       "lotusActive": "You've used a Lotus! For the next 5 minutes, you will gain Reborn ELO from your Immortal ELO without having to wait!"
+    },
+    "error": {
+      "paypalGeneric": "An error with PayPal happened. More info is available in the console (CTRL+SHIFT+I). {{error}}",
+      "paypalNotSynergismCC": "Please migrate to https://synergism.cc to make a purchase! Thank you for supporting the game!",
+      "checkoutGeneric": "There was an error checking out: {{error}}",
+      "checkoutNotSynergismCC": "Please migrate to https://synergism.cc to checkout! Thank you for supporting the game!"
     }
   },
   "hotkeys": {
