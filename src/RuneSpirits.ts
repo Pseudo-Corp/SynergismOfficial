@@ -22,7 +22,7 @@ type RuneSpiritTypeMap = {
 
 export type RuneSpiritKeys = keyof RuneSpiritTypeMap
 
-export interface RuneSpiritData<K extends RuneSpiritKeys> {
+interface RuneSpiritData<K extends RuneSpiritKeys> {
   level: number
   runeEXP: Decimal
   costCoefficient: Decimal
@@ -181,7 +181,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
 
 export const runeSpiritKeys = Object.keys(runeSpirits) as RuneSpiritKeys[]
 
-export const getRuneSpiritPower = (spirit: RuneSpiritKeys): number => {
+const getRuneSpiritPower = (spirit: RuneSpiritKeys): number => {
   const spiritpowerMult = runeSpirits[spirit].effectiveLevelMult()
   return runeSpirits[spirit].level * spiritpowerMult
 }
@@ -190,7 +190,7 @@ export const getRuneSpiritEffect = <T extends RuneSpiritKeys>(spirit: T): RuneSp
   return runeSpirits[spirit].effects(getRuneSpiritPower(spirit))
 }
 
-export const getRuneSpiritEXPPerOffering = (spirit: RuneSpiritKeys): Decimal => {
+const getRuneSpiritEXPPerOffering = (spirit: RuneSpiritKeys): Decimal => {
   return runeSpirits[spirit].runeEXPPerOffering()
 }
 
@@ -201,10 +201,6 @@ const computeEXPToLevel = (spirit: RuneSpiritKeys, level: number) => {
 
 const computeEXPLeftToLevel = (spirit: RuneSpiritKeys, level: number) => {
   return Decimal.max(0, computeEXPToLevel(spirit, level).minus(runeSpirits[spirit].runeEXP))
-}
-
-export const getRuneSpiritTNL = (spirit: RuneSpiritKeys) => {
-  return computeEXPLeftToLevel(spirit, runeSpirits[spirit].level + 1)
 }
 
 export const buySpiritLevels = (spirit: RuneSpiritKeys, budget: Decimal) => {
@@ -230,7 +226,7 @@ export const buyAllSpiritLevels = (budget: Decimal) => {
   }
 }
 
-export const levelSpirit = (spirit: RuneSpiritKeys, timesLeveled: number, budget: Decimal) => {
+const levelSpirit = (spirit: RuneSpiritKeys, timesLeveled: number, budget: Decimal) => {
   let budgetUsed: Decimal
 
   const expRequired = computeEXPLeftToLevel(spirit, runeSpirits[spirit].level + timesLeveled)
@@ -246,12 +242,6 @@ export const levelSpirit = (spirit: RuneSpiritKeys, timesLeveled: number, budget
   }
 
   player.offerings = player.offerings.sub(budgetUsed)
-}
-
-export const setSpiritLevel = (spirit: RuneSpiritKeys, level: number) => {
-  const exp = computeEXPToLevel(spirit, level)
-  runeSpirits[spirit].level = level
-  runeSpirits[spirit].runeEXP = exp
 }
 
 const updateLevelsFromEXP = (spirit: RuneSpiritKeys) => {
@@ -278,7 +268,7 @@ export const updateAllSpiritLevelsFromEXP = () => {
 }
 
 // Gives levels to buy, total EXP to that level, and offerings required to reach that level
-export const maxSpiritLevelPurchaseInformation = (spirit: RuneSpiritKeys, budget: Decimal) => {
+const maxSpiritLevelPurchaseInformation = (spirit: RuneSpiritKeys, budget: Decimal) => {
   if (budget.lt(0)) {
     return { levels: 0, expRequired: new Decimal(0), offerings: new Decimal(0) }
   }

@@ -272,7 +272,7 @@ const ambrosiaUpgradeSchema = z.object({
   blueberriesInvested: z.number().default(0)
 })
 
-export const playerCorruptionSchema = z.object({
+const playerCorruptionSchema = z.object({
   used: optionalCorruptionSchema.transform((value) => {
     return new CorruptionLoadout(value)
   }),
@@ -285,12 +285,12 @@ export const playerCorruptionSchema = z.object({
   showStats: z.boolean()
 }).default(() => JSON.parse(JSON.stringify(blankSave.corruptions)))
 
-export const campaignSchema = z.object({
+const campaignSchema = z.object({
   currentCampaign: z.string().optional(),
   campaigns: z.record(z.string(), z.number()).optional()
 })
 
-export const playerCampaignSchema = campaignSchema.transform((campaignData) => {
+const playerCampaignSchema = campaignSchema.transform((campaignData) => {
   return new CampaignManager(campaignData as ICampaignManagerData)
 }).default(() => JSON.parse(JSON.stringify(blankSave.campaigns)))
 

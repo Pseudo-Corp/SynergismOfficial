@@ -8,7 +8,7 @@ import { Alert, Confirm } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 import { Globals as G } from './Variables'
 
-export interface ISingularityChallengeData {
+interface ISingularityChallengeData {
   baseReq: number
   maxCompletions: number
   unlockSingularity: number

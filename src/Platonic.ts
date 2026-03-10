@@ -5,7 +5,7 @@ import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { Alert, revealStuff } from './UpdateHTML'
 
-export interface IPlatBaseCost {
+interface IPlatBaseCost {
   obtainium: number
   offerings: number
   cubes: number
@@ -36,7 +36,7 @@ const platonicResourceNames = [
   'wowAbyssals'
 ] as const
 
-export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
+const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   1: {
     // obtainium: 1e70,
     obtainium: 1,

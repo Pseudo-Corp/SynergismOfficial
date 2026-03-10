@@ -103,7 +103,7 @@ export const updateSaveString = (input: HTMLInputElement) => {
   ;(DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = player.saveString
 }
 
-export const getVer = () => /[\d?=.]+/.exec(version)?.[0] ?? version
+const getVer = () => /[\d?=.]+/.exec(version)?.[0] ?? version
 
 export const saveFilename = () => {
   const s = player.saveString
@@ -1110,7 +1110,7 @@ const dailyCodeReward = () => {
   }
 }
 
-export const handleLastModified = (lastModified: number) => {
+const handleLastModified = (lastModified: number) => {
   const localStorageFirstPlayed = localStorage.getItem('firstPlayed')
   const lastModifiedDate = new Date(lastModified)
 

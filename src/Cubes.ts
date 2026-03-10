@@ -56,7 +56,7 @@ const cubeBaseCost = [
 ]
 
 // dprint-ignore
-export const cubeMaxLevel = [
+const cubeMaxLevel = [
   3, 10, 5, 1, 1, 1, 1, 1, 1, 1,
   3, 10, 1, 10, 10, 10, 5, 1, 1, 1,
   5, 10, 1, 10, 10, 10, 1, 1, 5, 1,

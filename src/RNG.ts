@@ -17,4 +17,4 @@ export const Seed = {
   RedAmbrosia: 2
 } as const
 
-export type SeedValues = typeof Seed[keyof typeof Seed]
+type SeedValues = typeof Seed[keyof typeof Seed]

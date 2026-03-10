@@ -440,7 +440,7 @@ export const highestChallengeRewards = (chalNum: number, highestValue: number) =
 }
 
 // Works to mitigate the difficulty of calculating challenge multipliers when considering softcapping
-export const calculateChallengeRequirementMultiplier = (
+const calculateChallengeRequirementMultiplier = (
   type: 'transcend' | 'reincarnation' | 'ascension',
   completions: number,
   special = 0
@@ -698,7 +698,7 @@ export const autoAscensionChallengeSweepUnlock = () => {
     && player.shopUpgrades.instantChallenge2 > 0
 }
 
-export const challenge15AutoExponentCheck = () => {
+const challenge15AutoExponentCheck = () => {
   return autoAscensionChallengeSweepUnlock()
     && player.currentChallenge.ascension === 15
     && player.shopUpgrades.challenge15Auto === 0

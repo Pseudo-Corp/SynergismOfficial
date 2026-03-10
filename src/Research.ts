@@ -8,7 +8,7 @@ import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { sortDecimalWithIndices, updateClassList } from './Utility'
 
-export interface IResearchData {
+interface IResearchData {
   baseCost: Decimal
   maxLevel: number
   // Some research (e.g. 200) can have custom growth (i.e. nonconstant)
@@ -111,7 +111,7 @@ const researchMaxLevels: DecimalSource[] = [
   25, 25, 25, 15, 100000
 ]
 
-export interface IResearchData {
+interface IResearchData {
   baseCost: Decimal
   maxLevel: number
   // Some research (e.g. 200) can have custom growth (i.e. nonconstant)
@@ -231,7 +231,7 @@ export const isResearchUnlocked = (index: number): boolean => {
   return unlockFunction ? unlockFunction() : false
 }
 
-export const getBuyableResearchLevel = (index: number): number => {
+const getBuyableResearchLevel = (index: number): number => {
   const buyToLevelFunc = researchData[index].buyToLevel
   const baseCost = researchData[index].baseCost
   const currLevel = player.researches[index]
@@ -243,7 +243,7 @@ export const getBuyableResearchLevel = (index: number): number => {
   return buyToLevelFunc(budget, baseCost.times(researchCostMulti), currLevel, maxLevel)
 }
 
-export const getCostForResearchLevels = (index: number, buyTo: number): Decimal => {
+const getCostForResearchLevels = (index: number, buyTo: number): Decimal => {
   const costForLevelsFunc = researchData[index].costForLevels
   const baseCost = researchData[index].baseCost
   const currLevel = player.researches[index]

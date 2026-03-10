@@ -658,7 +658,7 @@ export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
   }
 }
 
-export const calculateCrystalBuy = (i: number) => {
+const calculateCrystalBuy = (i: number) => {
   const u = i - 1
   const exponent = Decimal.log(player.prestigeShards.add(1), 10)
   const exponentCostReduction = getRuneEffects('prism').costDivisorLog10
@@ -952,7 +952,7 @@ export const buyParticleBuilding = (
   }
 }
 
-export const tesseractBuildingCosts = [1, 10, 100, 1000, 10000] as const
+const tesseractBuildingCosts = [1, 10, 100, 1000, 10000] as const
 
 // The nth tesseract building of tier i costs
 //   tesseractBuildingCosts[i-1] * n^3.
@@ -1144,7 +1144,7 @@ export const calculateTessBuildingsInBudget = (
  * @param checkCanAfford Whether to limit the purchase amount to the number of buildings the player can afford.
  * @returns A pair of [number of buildings after purchase, cost of purchase].
  */
-export const getTesseractCost = (
+const getTesseractCost = (
   index: OneToFive,
   amount?: number,
   checkCanAfford = true,

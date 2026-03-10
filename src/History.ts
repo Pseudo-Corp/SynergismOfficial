@@ -13,7 +13,7 @@ import { Globals as G } from './Variables'
 // The categories are the different tables & storages for each type.
 export type Category = 'ants' | 'reset' | 'ascend' | 'singularity'
 // The kinds are the different contents.
-export type Kind = 'antsacrifice' | 'prestige' | 'transcend' | 'reincarnate' | 'ascend' | 'singularity'
+type Kind = 'antsacrifice' | 'prestige' | 'transcend' | 'reincarnate' | 'ascend' | 'singularity'
 
 // Common to every kind
 interface ResetHistoryEntryBase {
@@ -107,7 +107,7 @@ type ResetHistoryEntryIntersect =
   & Partial<RemoveKindField<ResetHistoryEntrySingularity>>
 
 // The subset of keys that we'll directly print out using generic code.
-export type ResetHistoryGainType = keyof Pick<
+type ResetHistoryGainType = keyof Pick<
   ResetHistoryEntryIntersect,
   | 'offerings'
   | 'obtainium'

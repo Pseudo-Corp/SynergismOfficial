@@ -62,12 +62,6 @@ const updateQuarkUI = (personalBonus: number, globalBonus: number) => {
   }
 }
 
-export const setQuarkBonus = (personalBonus: number, globalBonus: number) => {
-  globalQuarkBonus = globalBonus
-  personalQuarkBonus = personalBonus
-  recalculateBonus()
-}
-
 export const getQuarkBonus = () => bonus
 
 export const getGlobalBonus = () => globalQuarkBonus
@@ -80,7 +74,7 @@ export const setPersonalQuarkBonus = (personalBonus: number) => {
   updateQuarkUI(personalBonus, globalQuarkBonus)
 }
 
-export const setGlobalQuarkBonus = (globalBonus: number) => {
+const setGlobalQuarkBonus = (globalBonus: number) => {
   globalQuarkBonus = globalBonus
   recalculateBonus()
 

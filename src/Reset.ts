@@ -122,7 +122,7 @@ export const resetrepeat = (input: resetNames) => {
   repeatreset = +setInterval(() => resetdetails(input), 50)
 }
 
-export const resetdetails = (input: resetNames) => {
+const resetdetails = (input: resetNames) => {
   DOMCacheGetOrSet('resetofferings1').style.display = 'block'
 
   const transcensionChallenge = player.currentChallenge.transcension
@@ -967,7 +967,7 @@ export const updateSingularityAchievements = (): void => {
   awardAchievementGroup('singularityCount')
 }
 
-export const updateSingularityMilestoneAwards = (singularityReset = true): void => {
+const updateSingularityMilestoneAwards = (singularityReset = true): void => {
   if (player.highestSingularityCount >= 2) { // Singularity 2
     player.transcendPoints = new Decimal('1001')
     player.firstOwnedCoin = 1

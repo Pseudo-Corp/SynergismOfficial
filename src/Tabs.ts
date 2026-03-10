@@ -836,7 +836,3 @@ export function subTabsInMainTab (name: Tabs) {
 export function getActiveSubTab () {
   return subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex
 }
-
-export function getActiveTab () {
-  return tabRow.getCurrentTab().getType()
-}

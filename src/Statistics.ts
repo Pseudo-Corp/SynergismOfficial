@@ -164,7 +164,7 @@ import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
-export interface StatLine<T = number | Exclude<DecimalSource, string>> {
+interface StatLine<T = number | Exclude<DecimalSource, string>> {
   i18n: string
   stat: () => T
   color?: string
@@ -172,20 +172,8 @@ export interface StatLine<T = number | Exclude<DecimalSource, string>> {
   displayCriterion?: () => boolean
 }
 
-export type NumberStatLine = StatLine<number>
-export type DecimalSourceLine = StatLine<Exclude<DecimalSource, string>>
-
-export const statLineNumberAddition = (lines: NumberStatLine[]): number => {
-  return lines.reduce((acc, line) => acc + line.stat(), 0)
-}
-
-export const statLineDecimalAddition = (lines: DecimalSourceLine[]): Decimal => {
-  return lines.reduce((acc, line) => acc.add(line.stat()), new Decimal(0))
-}
-
-export const statLineNumberMultiplication = (lines: NumberStatLine[]): number => {
-  return lines.reduce((acc, line) => acc * line.stat(), 1)
-}
+type NumberStatLine = StatLine<number>
+type DecimalSourceLine = StatLine<Exclude<DecimalSource, string>>
 
 export const statLineDecimalMultiplication = (lines: DecimalSourceLine[]): Decimal => {
   return lines.reduce((acc, line) => acc.times(line.stat()), new Decimal(1))
@@ -500,7 +488,7 @@ export const allWowCubeStats: NumberStatLine[] = [
   }
 ]
 
-export const allWowCubePowerStats: NumberStatLine[] = [
+const allWowCubePowerStats: NumberStatLine[] = [
   {
     i18n: 'Tau',
     stat: () => getGQUpgradeEffect('platonicTau') ? 1.01 : 1
@@ -1738,7 +1726,7 @@ export const allObtainiumStats: DecimalSourceLine[] = [
 ]
 
 // For use in displaying the second half of Obtainium Multiplier Stats
-export const obtainiumDR: NumberStatLine[] = [
+const obtainiumDR: NumberStatLine[] = [
   {
     i18n: 'ObtainiumDR',
     stat: () => player.corruptions.used.corruptionEffects('illiteracy'),
@@ -1820,24 +1808,6 @@ export const antSacrificeRewardStats: DecimalSourceLine[] = [
     color: 'lime'
   }
 ]
-
-export const antSacrificeTimeStats = (time: number, timeMultCheck: boolean): NumberStatLine[] => {
-  return [
-    {
-      i18n: 'ThresholdPenalty',
-      stat: () => Math.min(1, Math.pow(time / resetTimeThreshold(), 2)),
-      color: 'red'
-    },
-    {
-      i18n: 'TimeMultiplier',
-      stat: () => timeMultCheck ? Math.max(1, time / resetTimeThreshold()) : 1
-    },
-    {
-      i18n: 'HalfMind',
-      stat: () => getGQUpgradeEffect('halfMind') ? calculateGlobalSpeedMult() / 10 : 1
-    }
-  ]
-}
 
 // Add a stat to this if you do not want the multiplier to be affected by >100 or <1 Diminishing Returns
 export const allGlobalSpeedIgnoreDRStats: NumberStatLine[] = [
@@ -1947,7 +1917,7 @@ export const allGlobalSpeedStats: NumberStatLine[] = [
 ]
 
 // Use in the second part of the Stats for Nerds for Global Speed
-export const allGlobalSpeedDRStats: NumberStatLine[] = [
+const allGlobalSpeedDRStats: NumberStatLine[] = [
   {
     i18n: 'FastSpeedDR',
     stat: () => 0.5
@@ -2052,7 +2022,7 @@ export const allAscensionSpeedStats: NumberStatLine[] = [
   }
 ]
 
-export const allAscensionSpeedPowerStats: NumberStatLine[] = [
+const allAscensionSpeedPowerStats: NumberStatLine[] = [
   {
     i18n: 'ExponentialScalingSlow',
     stat: () => 1 - calculateAscensionSpeedExponentSpread(),
@@ -2210,7 +2180,7 @@ export const allAmbrosiaLuckStats: NumberStatLine[] = [
 ]
 
 // Attach to the end of allAmbrosiaLuckStats when displaying.
-export const ambrosiaLuckModifiers: NumberStatLine[] = [
+const ambrosiaLuckModifiers: NumberStatLine[] = [
   {
     i18n: 'AdditiveLuckMult',
     stat: () => calculateAmbrosiaAdditiveLuckMult() // Ambrosia Additive Luck Multiplier
@@ -2305,7 +2275,7 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   }
 ]
 
-export const ambrosiaGenerationSpeedModifiers: NumberStatLine[] = [
+const ambrosiaGenerationSpeedModifiers: NumberStatLine[] = [
   {
     i18n: 'BlueberryCount',
     stat: () => calculateBlueberryInventory()
@@ -2456,7 +2426,7 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLine[] = [
   }
 ]
 
-export const allAddCodeEffectStats: NumberStatLine[] = [
+const allAddCodeEffectStats: NumberStatLine[] = [
   {
     i18n: 'Quarks',
     stat: () => {
@@ -2701,7 +2671,7 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   }
 ]
 
-export const infinityShopUpgrades: NumberStatLine[] = [
+const infinityShopUpgrades: NumberStatLine[] = [
   {
     i18n: 'Offerings',
     stat: () => player.shopUpgrades.offeringEX3
@@ -2798,7 +2768,7 @@ export const allTalismanRuneBonusStatsSum = () => {
 /**
  * Do NOT add anything here without adding it to @see {allTalismanRuneBonusStatsSum}
  */
-export const allTalismanRuneBonusStats: NumberStatLine[] = [
+const allTalismanRuneBonusStats: NumberStatLine[] = [
   {
     i18n: 'Base',
     stat: () => 1,
@@ -3422,7 +3392,7 @@ export const ascensionCountMultStats: NumberStatLine[] = [
   }
 ]
 
-export const allMiscStats: DecimalSourceLine[] = [
+const allMiscStats: DecimalSourceLine[] = [
   {
     i18n: 'PrestigeCount',
     stat: () => player.prestigeCount,
@@ -3675,7 +3645,7 @@ export const loadStatisticsUpdate = () => {
   }
 }
 
-export const loadStatistics = (
+const loadStatistics = (
   statsObj: StatLine[],
   parentDiv: string,
   statLinePrefix: string,
@@ -3764,15 +3734,15 @@ export const loadStatistics = (
   }
 }
 
-export const loadQuarkMultiplier = () => {
+const loadQuarkMultiplier = () => {
   loadStatistics(allQuarkStats, 'globalQuarkMultiplierStats', 'sGQM', 'quarkStats', calculateQuarkMultiplier)
 }
 
-export const loadGlobalCubeMultiplierStats = () => {
+const loadGlobalCubeMultiplierStats = () => {
   loadStatistics(allCubeStats, 'globalCubeMultiplierStats', 'statGCM', 'GlobalCubeStat', calculateAllCubeMultiplier)
 }
 
-export const loadWowCubeMultiplierStats = () => {
+const loadWowCubeMultiplierStats = () => {
   loadStatistics(allWowCubeStats, 'cubeMultiplierStats', 'statCM', 'WowCubeStat', calculateCubeMultiplier)
   loadStatistics(
     allWowCubePowerStats,
@@ -3784,7 +3754,7 @@ export const loadWowCubeMultiplierStats = () => {
   )
 }
 
-export const loadTesseractMultiplierStats = () => {
+const loadTesseractMultiplierStats = () => {
   loadStatistics(
     allTesseractStats,
     'tesseractMultiplierStats',
@@ -3794,7 +3764,7 @@ export const loadTesseractMultiplierStats = () => {
   )
 }
 
-export const loadHypercubeMultiplierStats = () => {
+const loadHypercubeMultiplierStats = () => {
   loadStatistics(
     allHypercubeStats,
     'hypercubeMultiplierStats',
@@ -3804,7 +3774,7 @@ export const loadHypercubeMultiplierStats = () => {
   )
 }
 
-export const loadPlatonicMultiplierStats = () => {
+const loadPlatonicMultiplierStats = () => {
   loadStatistics(
     allPlatonicCubeStats,
     'platonicMultiplierStats',
@@ -3814,7 +3784,7 @@ export const loadPlatonicMultiplierStats = () => {
   )
 }
 
-export const loadHepteractMultiplierStats = () => {
+const loadHepteractMultiplierStats = () => {
   loadStatistics(
     allHepteractCubeStats,
     'hepteractMultiplierStats',
@@ -3824,7 +3794,7 @@ export const loadHepteractMultiplierStats = () => {
   )
 }
 
-export const loadOcteractMultiplierStats = () => {
+const loadOcteractMultiplierStats = () => {
   loadStatistics(
     allOcteractCubeStats,
     'octeractMultiplierStats',
@@ -3834,11 +3804,11 @@ export const loadOcteractMultiplierStats = () => {
   )
 }
 
-export const loadStatisticsOfferingBase = () => {
+const loadStatisticsOfferingBase = () => {
   loadStatistics(allBaseOfferingStats, 'baseOfferingStats', 'statOffB', 'OfferingBaseStat', calculateBaseOfferings)
 }
 
-export const loadStatisticsOfferingMultipliers = () => {
+const loadStatisticsOfferingMultipliers = () => {
   loadStatistics(allOfferingStats, 'offeringMultiplierStats', 'statOff', 'OfferingStat', calculateOfferingsDecimal)
   loadStatistics(
     offeringObtainiumTimeModifiers(player.prestigecounter, player.prestigeCount > 0),
@@ -3850,7 +3820,7 @@ export const loadStatisticsOfferingMultipliers = () => {
   )
 }
 
-export const loadStatisticsRuneEffectMultFirstFive = () => {
+const loadStatisticsRuneEffectMultFirstFive = () => {
   loadStatistics(
     firstFiveRuneEffectivenessStats,
     'runeEffectFirstFive',
@@ -3860,7 +3830,7 @@ export const loadStatisticsRuneEffectMultFirstFive = () => {
   )
 }
 
-export const loadStatisticsRuneEffectMultSI = () => {
+const loadStatisticsRuneEffectMultSI = () => {
   loadStatistics(
     runeEffectivenessStatsSI,
     'runeEffectSI',
@@ -3870,11 +3840,11 @@ export const loadStatisticsRuneEffectMultSI = () => {
   )
 }
 
-export const loadStatisticsObtainiumBase = () => {
+const loadStatisticsObtainiumBase = () => {
   loadStatistics(allBaseObtainiumStats, 'baseObtainiumStats', 'statObtB', 'ObtainiumBaseStat', calculateBaseObtainium)
 }
 
-export const loadStatisticsObtainiumIgnoreDR = () => {
+const loadStatisticsObtainiumIgnoreDR = () => {
   loadStatistics(
     allObtainiumIgnoreDRStats,
     'obtainiumIgnoreDRStats',
@@ -3884,7 +3854,7 @@ export const loadStatisticsObtainiumIgnoreDR = () => {
   )
 }
 
-export const loadStatisticsObtainiumMultipliers = () => {
+const loadStatisticsObtainiumMultipliers = () => {
   loadStatistics(allObtainiumStats, 'obtainiumMultiplierStats', 'statObt', 'ObtainiumStat', calculateObtainiumDecimal)
   loadStatistics(
     obtainiumDR.concat(offeringObtainiumTimeModifiers(player.reincarnationcounter, player.reincarnationCount >= 5)),
@@ -3896,11 +3866,11 @@ export const loadStatisticsObtainiumMultipliers = () => {
   )
 }
 
-export const loadStatisticsAntSpeedMult = () => {
+const loadStatisticsAntSpeedMult = () => {
   loadStatistics(antSpeedStats, 'antSpeedMultStats', 'statASpM', 'AntSpeedStat', calculateRawAntSpeedMult)
 }
 
-export const loadStatisticsAntSacrificeMult = () => {
+const loadStatisticsAntSacrificeMult = () => {
   loadStatistics(
     antSacrificeRewardStats,
     'antSacrificeMultStats',
@@ -3910,11 +3880,11 @@ export const loadStatisticsAntSacrificeMult = () => {
   )
 }
 
-export const loadStatisticsAntELO = () => {
+const loadStatisticsAntELO = () => {
   loadStatistics(antELOStats, 'antELOStats', 'statAELo', 'AntELOStat', calculateBaseAntELO)
 }
 
-export const loadStatisticsEffectiveAntELO = () => {
+const loadStatisticsEffectiveAntELO = () => {
   loadStatistics(
     effectiveAntELOStats,
     'effectiveAntELOStats',
@@ -3924,7 +3894,7 @@ export const loadStatisticsEffectiveAntELO = () => {
   )
 }
 
-export const loadStatisticsAdditiveAntELOMult = () => {
+const loadStatisticsAdditiveAntELOMult = () => {
   loadStatistics(
     additiveAntELOMultStats,
     'additiveAntELOMultStats',
@@ -3934,7 +3904,7 @@ export const loadStatisticsAdditiveAntELOMult = () => {
   )
 }
 
-export const loadStatisticsRebornELOCreationSpeedMult = () => {
+const loadStatisticsRebornELOCreationSpeedMult = () => {
   loadStatistics(
     rebornELOCreationSpeedMultStats,
     'rebornELOCreationSpeedMultStats',
@@ -3946,7 +3916,7 @@ export const loadStatisticsRebornELOCreationSpeedMult = () => {
   DOMCacheGetOrSet('rebornELOExtra').innerHTML = i18next.t('statistics.rebornELOCreationSpeedMultStats.extraInfo')
 }
 
-export const loadStatisticsGlobalSpeedIgnoreDR = () => {
+const loadStatisticsGlobalSpeedIgnoreDR = () => {
   loadStatistics(
     allGlobalSpeedIgnoreDRStats,
     'globalSpeedIgnoreDRStats',
@@ -3956,7 +3926,7 @@ export const loadStatisticsGlobalSpeedIgnoreDR = () => {
   )
 }
 
-export const loadStatisticsGlobalSpeed = () => {
+const loadStatisticsGlobalSpeed = () => {
   loadStatistics(
     allGlobalSpeedStats,
     'globalSpeedMultiplierStats',
@@ -3974,7 +3944,7 @@ export const loadStatisticsGlobalSpeed = () => {
   )
 }
 
-export const loadStatisticsAscensionSpeed = () => {
+const loadStatisticsAscensionSpeed = () => {
   loadStatistics(
     allAscensionSpeedStats,
     'ascensionSpeedMultiplierStats',
@@ -3992,7 +3962,7 @@ export const loadStatisticsAscensionSpeed = () => {
   )
 }
 
-export const loadStatisticsAdditiveLuckMult = () => {
+const loadStatisticsAdditiveLuckMult = () => {
   loadStatistics(
     allAdditiveLuckMultStats,
     'ambrosiaAdditiveLuckMultStats',
@@ -4002,7 +3972,7 @@ export const loadStatisticsAdditiveLuckMult = () => {
   )
 }
 
-export const loadStatisticsAmbrosiaLuck = () => {
+const loadStatisticsAmbrosiaLuck = () => {
   loadStatistics(allAmbrosiaLuckStats, 'ambrosiaLuckStats', 'statAL', 'AmbrosiaLuckStat', calculateAmbrosiaLuckRaw)
   loadStatistics(
     ambrosiaLuckModifiers,
@@ -4014,7 +3984,7 @@ export const loadStatisticsAmbrosiaLuck = () => {
   )
 }
 
-export const loadStatisticsBlueberryInventory = () => {
+const loadStatisticsBlueberryInventory = () => {
   loadStatistics(
     allAmbrosiaBlueberryStats,
     'ambrosiaBlueberryStats',
@@ -4024,7 +3994,7 @@ export const loadStatisticsBlueberryInventory = () => {
   )
 }
 
-export const loadStatisticsAmbrosiaGeneration = () => {
+const loadStatisticsAmbrosiaGeneration = () => {
   loadStatistics(
     allAmbrosiaGenerationSpeedStats,
     'ambrosiaGenerationStats',
@@ -4042,11 +4012,11 @@ export const loadStatisticsAmbrosiaGeneration = () => {
   )
 }
 
-export const loadStatisticsPowderMultiplier = () => {
+const loadStatisticsPowderMultiplier = () => {
   loadStatistics(allPowderMultiplierStats, 'powderMultiplierStats', 'statPoM', 'PowderStat', calculatePowderConversion)
 }
 
-export const loadStatisticsGoldenQuarkMultipliers = () => {
+const loadStatisticsGoldenQuarkMultipliers = () => {
   loadStatistics(
     allGoldenQuarkMultiplierStats,
     'goldenQuarkMultiplierStats',
@@ -4056,7 +4026,7 @@ export const loadStatisticsGoldenQuarkMultipliers = () => {
   )
 }
 
-export const loadStatisticsGoldenQuarkCost = () => {
+const loadStatisticsGoldenQuarkCost = () => {
   loadStatistics(
     allGoldenQuarkPurchaseCostStats,
     'goldenQuarkPurchaseCostStats',
@@ -4066,15 +4036,15 @@ export const loadStatisticsGoldenQuarkCost = () => {
   )
 }
 
-export const loadAddCodeEffects = () => {
+const loadAddCodeEffects = () => {
   loadStatistics(allAddCodeEffectStats, 'addCodeEffects', 'statACEf', 'addCodeEffectStat', () => 0, '', false)
 }
 
-export const loadAddCodeTimeStats = () => {
+const loadAddCodeTimeStats = () => {
   loadStatistics(allAddCodeTimerStats, 'addCodeTimer', 'statACTi', 'addCodeTimerStat', addCodeInterval)
 }
 
-export const loadAddCodeCapacityStats = () => {
+const loadAddCodeCapacityStats = () => {
   loadStatistics(allAddCodeCapacityStats, 'addCodeCapacity', 'statACC', 'addCodeCapacityStat', addCodeMaxUsesAdditive)
   loadStatistics(
     allAddCodeCapacityMultiplierStats,
@@ -4089,11 +4059,11 @@ export const loadAddCodeCapacityStats = () => {
   })
 }
 
-export const loadLuckConversionStats = () => {
+const loadLuckConversionStats = () => {
   loadStatistics(allLuckConversionStats, 'luckConversionStats', 'statLC', 'LuckConversionStat', calculateLuckConversion)
 }
 
-export const loadRedAmbrosiaLuckStats = () => {
+const loadRedAmbrosiaLuckStats = () => {
   loadStatistics(
     allRedAmbrosiaLuckStats,
     'redAmbrosiaLuckStats',
@@ -4103,7 +4073,7 @@ export const loadRedAmbrosiaLuckStats = () => {
   )
 }
 
-export const loadRedAmbrosiaGenerationStats = () => {
+const loadRedAmbrosiaGenerationStats = () => {
   loadStatistics(
     allRedAmbrosiaGenerationSpeedStats,
     'redAmbrosiaGenerationStats',
@@ -4113,7 +4083,7 @@ export const loadRedAmbrosiaGenerationStats = () => {
   )
 }
 
-export const loadShopVoucherStats = () => {
+const loadShopVoucherStats = () => {
   loadStatistics(
     infinityShopUpgrades,
     'shopVoucherStats',
@@ -4132,12 +4102,12 @@ export const loadShopVoucherStats = () => {
   )
 }
 
-export const loadMiscellaneousStats = () => {
+const loadMiscellaneousStats = () => {
   loadStatistics(allMiscStats, 'miscStats', 'sMisc', 'miscStat', () => 0, '', false)
   DOMCacheGetOrSet('gameStageStatistic').innerHTML = i18next.t('statistics.gameStage', { stage: synergismStage(0) })
 }
 
-export const loadTalismanRuneBonusMultiplierStats = () => {
+const loadTalismanRuneBonusMultiplierStats = () => {
   loadStatistics(
     allTalismanRuneBonusStats,
     'talismanRuneBonusMultiplierStats',
@@ -4147,7 +4117,7 @@ export const loadTalismanRuneBonusMultiplierStats = () => {
   )
 }
 
-export const loadSalvageStats = () => {
+const loadSalvageStats = () => {
   loadPositiveSalvageStats()
   loadNegativeSalvageStats()
 
@@ -4162,7 +4132,7 @@ export const loadSalvageStats = () => {
   DOMCacheGetOrSet('salvageExtra').innerHTML = i18next.t('statistics.salvageStats.extraInfo')
 }
 
-export const loadPositiveSalvageStats = () => {
+const loadPositiveSalvageStats = () => {
   loadStatistics(
     positiveSalvageStats,
     'salvagePositive',
@@ -4180,7 +4150,7 @@ export const loadPositiveSalvageStats = () => {
   )
 }
 
-export const loadNegativeSalvageStats = () => {
+const loadNegativeSalvageStats = () => {
   loadStatistics(
     negativeSalvageStats,
     'salvageNegative',
@@ -4198,7 +4168,7 @@ export const loadNegativeSalvageStats = () => {
   )
 }
 
-export const loadStatisticsAscensionCountMultiplierStats = () => {
+const loadStatisticsAscensionCountMultiplierStats = () => {
   loadStatistics(
     ascensionCountMultStats,
     'ascensionCountMultiplierStats',
@@ -4293,7 +4263,7 @@ interface Stage {
   reset: boolean
 }
 
-export const gameStages = (): Stage[] => {
+const gameStages = (): Stage[] => {
   const stages: Stage[] = [
     { stage: 0, tier: 1, name: 'start', unlocked: true, reset: true },
     {

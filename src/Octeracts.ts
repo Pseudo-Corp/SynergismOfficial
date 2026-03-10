@@ -55,7 +55,7 @@ export type OcteractDataKeys =
   | 'octeractTalismanLevelCap3'
   | 'octeractTalismanLevelCap4'
 
-export interface OcteractUpgrade {
+interface OcteractUpgrade {
   level: number
   freeLevel: number
   octeractsInvested: number

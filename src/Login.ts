@@ -81,7 +81,7 @@ let lotusTimeExpiresAt: number | undefined = undefined
 
 const cloudSaves: Save[] = []
 
-export const isLoggedIn = () => loggedIn
+const isLoggedIn = () => loggedIn
 
 export const getTips = () => tips
 export const setTips = (newTips: number) => tips = newTips

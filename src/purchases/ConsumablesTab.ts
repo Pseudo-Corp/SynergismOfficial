@@ -101,7 +101,7 @@ const initializeConsumablesTab = memoize(() => {
     })
 })
 
-export const createTimeskipHTML = (timeSkips: ConsumableListItems[], filter: TimeSkipCategories) => {
+const createTimeskipHTML = (timeSkips: ConsumableListItems[], filter: TimeSkipCategories) => {
   // Safe because we check for if length is a numeric string earlier
   const relevantTimeSkips = timeSkips.filter((u) => u.internalName.includes(filter)).sort((a, b) =>
     +a.length - +b.length
@@ -132,7 +132,7 @@ export const createTimeskipHTML = (timeSkips: ConsumableListItems[], filter: Tim
   `
 }
 
-export const createLotusHTML = (lotusItems: ConsumableListItems[]) => {
+const createLotusHTML = (lotusItems: ConsumableListItems[]) => {
   const orderedLotus = lotusItems.sort((a, b) => +a.length - +b.length)
   const html = `
     <div class="lotusContainer purchaseConsumableContainer" style="">
