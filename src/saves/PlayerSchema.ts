@@ -819,7 +819,14 @@ export const playerSchema = z.object({
 
   ascendShards: decimalSchema.default(() => deepClone()(blankSave.ascendShards)),
   autoAscend: z.boolean().default(() => blankSave.autoAscend),
-  autoAscendMode: z.string().default(() => blankSave.autoAscendMode),
+  autoAscendMode: z.union([
+    z.string().transform((str) => {
+      if (str === 'c10Completions') return 0
+      else if (str === 'realAscensionTime') return 1
+      else return 0
+    }),
+    z.number()
+  ]).default(() => blankSave.autoAscendMode),
   autoAscendThreshold: z.number().default(() => blankSave.autoAscendThreshold),
   autoOpenCubes: z.boolean().default(() => blankSave.autoOpenCubes),
   openCubes: z.number().default(() => blankSave.openCubes),

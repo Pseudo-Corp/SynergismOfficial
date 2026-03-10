@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { getChallengeConditions } from './Challenges'
+import { type AutoChallengeStates, getChallengeConditions } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } from './Corruptions'
 import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
@@ -779,50 +779,67 @@ export const toggleAutoChallengesIgnore = (i: number) => {
   }
 }
 
+const autoChallengeStateTexts: Record<AutoChallengeStates, () => string> = {
+  OFF: () => i18next.t('challenges.modeOff'),
+  START: () => i18next.t('challenges.modeStart'),
+  CHALLENGE: () => i18next.t('challenges.modeChallenge'),
+  ENTER: () => i18next.t('challenges.modeEnter'),
+  WAIT: () => i18next.t('challenges.modeWait')
+}
+
 export const toggleAutoChallengeRun = () => {
   const el = DOMCacheGetOrSet('toggleAutoChallengeStart')
   if (player.autoChallengeRunning) {
     el.style.border = '2px solid red'
     el.textContent = i18next.t('challenges.autoChallengeSweepOff')
     G.autoChallengeTimerIncrement = 0
-    toggleAutoChallengeModeText('OFF')
   } else {
     el.style.border = '2px solid gold'
     el.textContent = i18next.t('challenges.autoChallengeSweepOn')
-    toggleAutoChallengeModeText('START')
     G.autoChallengeTimerIncrement = 0
   }
 
   player.autoChallengeRunning = !player.autoChallengeRunning
 }
 
-export const toggleAutoChallengeModeText = (i: string) => {
-  const a = DOMCacheGetOrSet('autoChallengeType')
-
-  a.textContent = i18next.t(`challenges.mode${i[0] + i.slice(1).toLowerCase()}`)
+export const toggleAutoChallengeModeText = (mode: AutoChallengeStates) => {
+  DOMCacheGetOrSet('autoChallengeType').textContent = autoChallengeStateTexts[mode]()
 }
 
-export const toggleAutoAscend = (mode = 0) => {
-  if (mode === 0) {
-    const a = DOMCacheGetOrSet('ascensionAutoEnable')
-    if (player.autoAscend) {
-      a.style.border = '2px solid red'
-      a.textContent = i18next.t('corruptions.autoAscend.off')
-    } else {
-      a.style.border = '2px solid green'
-      a.textContent = i18next.t('corruptions.autoAscend.on')
-    }
+export enum AutoAscensionResetModes {
+  c10Completions = 0,
+  realAscensionTime = 1
+}
 
-    player.autoAscend = !player.autoAscend
-  } else if (mode === 1 && player.highestSingularityCount >= 25) {
-    const a = DOMCacheGetOrSet('ascensionAutoToggle')
-    if (player.autoAscendMode === 'c10Completions') {
-      player.autoAscendMode = 'realAscensionTime'
-      a.textContent = i18next.t('corruptions.autoAscend.modeRealTime')
-    } else {
-      player.autoAscendMode = 'c10Completions'
-      a.textContent = i18next.t('corruptions.autoAscend.modeCompletions')
-    }
+export const autoAscensionResetTogglei18n: Record<AutoAscensionResetModes, () => string> = {
+  [AutoAscensionResetModes.c10Completions]: () => i18next.t('corruptions.autoAscend.modeCompletions'),
+  [AutoAscensionResetModes.realAscensionTime]: () => i18next.t('corruptions.autoAscend.modeRealTime')
+}
+
+const NUM_ASCENSION_RESET_MODES = 2
+
+export const setAutoAscendResetActiveText = () => {
+  const a = DOMCacheGetOrSet('ascensionAutoEnable')
+  a.style.border = `2px solid ${player.autoAscend ? 'green' : 'red'}`
+  a.textContent = player.autoAscend
+    ? i18next.t('corruptions.autoAscend.on')
+    : i18next.t('corruptions.autoAscend.off')
+}
+
+export const toggleAutoAscendResetActive = () => {
+  player.autoAscend = !player.autoAscend
+  setAutoAscendResetActiveText()
+}
+
+export const setAutoAscendResetModeText = () => {
+  DOMCacheGetOrSet('ascensionAutoToggle').textContent = autoAscensionResetTogglei18n[player.autoAscendMode]()
+}
+
+export const toggleAutoAscendResetMode = () => {
+  if (player.highestSingularityCount >= 25) {
+    const nextEnum = (player.autoAscendMode + 1) % NUM_ASCENSION_RESET_MODES
+    player.autoAscendMode = nextEnum as AutoAscensionResetModes
+    setAutoAscendResetModeText()
   }
 }
 

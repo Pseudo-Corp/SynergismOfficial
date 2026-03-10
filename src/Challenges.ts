@@ -4,7 +4,8 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { hepteractEffective } from './Hepteracts'
 import { getGQUpgradeEffect } from './singularity'
 import { format, player, resetCheck } from './Synergism'
-import { toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
+import { AutoAscensionResetModes, toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
+import { Notification } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
 export type Challenge15Rewards =
@@ -586,118 +587,133 @@ export const challengeRequirement = (challenge: number, completion: number, spec
   }
 }
 
-type actionValues = 'none' | 'start' | 'enter' | 'exit' | 'wait'
+export type AutoChallengeStates = 'OFF' | 'START' | 'CHALLENGE' | 'ENTER' | 'WAIT'
 
-/**
- * Function that handles the autochallenge feature.
- * Currently includes ability to enter a challenge, leave a challenge
- * and start a challenge loop with specified challenges from index 1 to 10.
- * @param dt
- * @returns none
- */
-export const runChallengeSweep = (dt: number) => {
-  // Do not run if any of these conditions hold
-  if (
-    player.researches[150] === 0 // Research 6x25 is 0
-    || !player.autoChallengeRunning // Auto challenge is toggled off
-  ) {
-    return
-  }
+// If player disables sweep partway through it running, we should terminate it early
+const checkSweepStillEnabled = () => {
+  return player.autoChallengeRunning
+}
 
-  // Increment auto challenge timer
-  G.autoChallengeTimerIncrement += dt
+const sleep = (m: number) => new Promise((r) => setTimeout(r, m))
 
-  // Determine what Action you can take with the current state of the savefile
-  let action: actionValues = 'none'
-  if (
-    player.currentChallenge.reincarnation !== 0
-    || player.currentChallenge.transcension !== 0
-  ) {
-    // If you are in a challenge, you'd only want the automation to exit the challenge
-    action = 'exit'
-  } else if (player.autoChallengeIndex === 1) {
-    // If the index is set to 1, then you are at the start of a loop
-    action = 'start'
-  } else {
-    // If neither of the above are true, automation will want to enter a challenge
-    action = 'enter'
-  }
+const interruptibleSleep = async (
+  getThresholdSeconds: () => number,
+  checkInterval = 20
+): Promise<void> => {
+  challengeTimeElapsed = 0
+  let challengeTimeThreshold = getThresholdSeconds()
 
-  // In order to earn C15 Exponent, stop runChallengeSweep() 5 seconds before the auto ascension
-  // runs during the C15, Auto Challenge Sweep, Autcension and Mode: Real Time.
-  if (
-    autoAscensionChallengeSweepUnlock() && player.currentChallenge.ascension === 15
-    && player.shopUpgrades.challenge15Auto === 0
-    && (action === 'start' || action === 'enter') && player.autoAscend && player.highestchallengecompletions[11] > 0
-    && player.cubeUpgrades[10] > 0
-    && player.autoAscendMode === 'realAscensionTime'
-    && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold - 5)
-  ) {
-    action = 'wait'
-    toggleAutoChallengeModeText('WAIT')
-    return
-  }
-
-  // Action: Exit challenge
-  if (G.autoChallengeTimerIncrement >= player.autoChallengeTimer.exit && action === 'exit') {
-    // Determine if you're in a reincarnation or transcension challenge
-    const challengeType = player.currentChallenge.reincarnation !== 0 ? 'reincarnation' : 'transcension'
-
-    // Reset our autochallenge timer
-    G.autoChallengeTimerIncrement = 0
-
-    // Increment our challenge index for when we enter (or start) next challenge
-    const nowChallenge = player.autoChallengeIndex
-    const nextChallenge = getNextChallenge(nowChallenge + 1)
-
-    // Reset based on challenge type
-    if (challengeType === 'transcension') {
-      void resetCheck('transcensionChallenge', undefined, true)
-    } else if (challengeType === 'reincarnation') {
-      void resetCheck('reincarnationChallenge', undefined, true)
+  while (challengeTimeElapsed < challengeTimeThreshold) {
+    // Check if sweep was disabled
+    if (!checkSweepStillEnabled()) {
+      throw new Error('Challenge sweep was disabled')
     }
 
-    // If you don't need to start all the challenges, the challenges will end.
-    if (nextChallenge <= 10) {
-      /* If the next challenge is before the current challenge,
-               it will be in 'START' mode, otherwise it will be in 'ENTER' mode. */
-      if (nextChallenge < nowChallenge) {
-        player.autoChallengeIndex = 1
+    await sleep(checkInterval)
+    challengeTimeElapsed += checkInterval / 1000
+
+    // Player can update the target
+    challengeTimeThreshold = getThresholdSeconds()
+  }
+
+  return
+}
+
+// Time (in seconds) that have been spent since the last state shift.
+export let challengeTimeElapsed = 0
+// Guarantees that only one Sweep instance is active at a time
+let challengeSweepLock = false
+// This is true for the first Challenge in the Sweep only
+let ignoreEnterTime = true
+
+export const challengeSweep = async () => {
+  // We only want this to run once at a time, and we must have Research 6x25 purchased.
+  if (challengeSweepLock) {
+    return
+  }
+  // We need to explicitly tell the user the sweep is in an OFF state on top of returning
+  // Which is why this is a separate check
+  if (player.researches[150] === 0 || !checkSweepStillEnabled()) {
+    toggleAutoChallengeModeText('OFF')
+    challengeTimeElapsed = 0
+    return
+  }
+  challengeSweepLock = true
+
+  try {
+    for (let i = 0; i <= 10; i++) {
+      // i = 0 corresponds to the 'start' period before we enter the first challenge in the sweep.
+      // In the player object, challenges are 1-indexed, so reserving i = 0 for this purpose works.
+      if (i === 0) {
         toggleAutoChallengeModeText('START')
+        await interruptibleSleep(() => player.autoChallengeTimer.start)
       } else {
-        player.autoChallengeIndex = nextChallenge
-        toggleAutoChallengeModeText('ENTER')
+        if (
+          player.challengecompletions[i] >= getMaxChallenges(i)
+          || !player.autoChallengeToggles[i]
+        ) {
+          continue
+        }
+
+        // Avoid waiting (START + ENTER) time to enter first valid Challenge
+        if (ignoreEnterTime) {
+          ignoreEnterTime = false
+        } else {
+          toggleAutoChallengeModeText('ENTER')
+          await interruptibleSleep(() => player.autoChallengeTimer.enter)
+        }
+
+        // Enters Challenge i
+        toggleChallenges(i, true)
+        toggleAutoChallengeModeText('CHALLENGE')
+        await interruptibleSleep(() => player.autoChallengeTimer.exit)
+
+        // Leave based on challenge type
+        // 1-5 are Transcension Challenges, and 6-10 are Reincarnation Challenges.
+        if (i <= 5) {
+          void resetCheck('transcensionChallenge', undefined, true)
+        } else {
+          void resetCheck('reincarnationChallenge', undefined, true)
+        }
       }
     }
-    return
-  }
 
-  // Action: Enter a challenge (not inside one)
-  if (
-    (G.autoChallengeTimerIncrement >= player.autoChallengeTimer.start && action === 'start')
-    || (G.autoChallengeTimerIncrement >= player.autoChallengeTimer.enter && action === 'enter')
-  ) {
-    // Reset our autochallenge timer
-    G.autoChallengeTimerIncrement = 0
-
-    // This calculates which challenge this algorithm will run first, based on
-    // the first challenge which has automation toggled ON
-    const nowChallenge = player.autoChallengeIndex
-    const nextChallenge = getNextChallenge(nowChallenge)
-
-    // Do not start the challenge if all the challenges have been completed.
-    if (nextChallenge === 11) {
-      return
+    // In order to earn C15 Exponent, wait another 5 seconds after the sweep before starting over again.
+    // Only runs if you're in Challenge 15, with Auto-Ascension on Ascension Time: Real Mode.
+    if (challenge15AutoExponentCheck()) {
+      toggleAutoChallengeModeText('WAIT')
+      await interruptibleSleep(() => 5)
     }
-
-    // Set our index to calculated starting challenge and run the challenge
-    player.autoChallengeIndex = nextChallenge
-    toggleChallenges(player.autoChallengeIndex, true)
-
-    // Sets Mode to "EXIT" as displayed in the challenge tab
-    toggleAutoChallengeModeText('EXIT')
-    return
+  } catch (e) {
+    // If we catch an error, it is from sweep being disabled while the sweep was running.
+    void Notification(i18next.t('challenges.exitSweep'))
+  } finally {
+    challengeSweepLock = false
+    ignoreEnterTime = true
   }
+}
+
+export const autoAscensionChallengeSweepUnlock = () => {
+  return player.highestSingularityCount >= 101 // I believe this is a perk...
+    && player.shopUpgrades.instantChallenge2 > 0
+}
+
+export const challenge15AutoExponentCheck = () => {
+  return autoAscensionChallengeSweepUnlock()
+    && player.currentChallenge.ascension === 15
+    && player.shopUpgrades.challenge15Auto === 0
+    && player.autoAscend
+    && player.cubeUpgrades[10] > 0
+    && player.autoAscendMode === AutoAscensionResetModes.realAscensionTime
+    && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold - 5)
+}
+
+export const challenge15ScoreMultiplier = () => {
+  return (
+    player.campaigns.c15Bonus // Campaign Bonus to c15
+    * (1 + 5 / 10000 * hepteractEffective('challenge')) // Challenge Hepteract
+    * (1 + 0.25 * player.platonicUpgrades[15]) // Omega Upgrade
+  )
 }
 
 // Look for the next uncompleted challenge.
@@ -735,16 +751,4 @@ export const getNextChallenge = (startChallenge: number, maxSkip = false, min = 
     }
   }
   return nextChallenge
-}
-
-export const autoAscensionChallengeSweepUnlock = () => {
-  return player.highestSingularityCount >= 101 && player.shopUpgrades.instantChallenge2 > 0
-}
-
-export const challenge15ScoreMultiplier = () => {
-  return (
-    player.campaigns.c15Bonus // Campaign Bonus to c15
-    * (1 + 5 / 10000 * hepteractEffective('challenge')) // Challenge Hepteract
-    * (1 + 0.25 * player.platonicUpgrades[15]) // Omega Upgrade
-  )
 }

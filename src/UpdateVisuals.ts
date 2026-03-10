@@ -34,7 +34,7 @@ import {
   calculateTotalOcteractQuarkBonus,
   calculateTotalSalvage
 } from './Calculate'
-import { CalcECC, challengeDisplay } from './Challenges'
+import { CalcECC, challengeDisplay, challengeTimeElapsed } from './Challenges'
 import { version } from './Config'
 import {
   calculateAcceleratorCubeBlessing,
@@ -124,7 +124,7 @@ import {
   calculateRuneEffectivenessTesseractBlessing,
   calculateSalvageTesseractBlessing
 } from './Tesseracts'
-import { AutoAscensionModes, AutoResetModes } from './Toggles'
+import { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from './Toggles'
 import type { OneToFive, Player, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { sumContents, timeRemainingHours } from './Utility'
@@ -755,7 +755,7 @@ export const visualUpdateChallenges = () => {
     DOMCacheGetOrSet('autoIncrementerAmount').innerHTML = i18next.t(
       'challenges.autoTimer',
       {
-        time: format(G.autoChallengeTimerIncrement, 2)
+        time: format(challengeTimeElapsed, 2)
       }
     )
   }
@@ -1420,19 +1420,20 @@ export const visualUpdateCorruptions = () => {
 
   const metaData = CalcCorruptionStuff()
   const ascCount = calculateAscensionCount()
-  DOMCacheGetOrSet('autoAscend').innerHTML = player.autoAscendMode === 'c10Completions'
-    ? i18next.t('corruptions.autoAscend.c10Completions', {
+
+  const autoAscendDOM = DOMCacheGetOrSet('autoAscend')
+  if (player.autoAscendMode === AutoAscensionResetModes.c10Completions) {
+    autoAscendDOM.innerHTML = i18next.t('corruptions.autoAscend.c10Completions', {
       input: format(player.autoAscendThreshold),
       completions: format(player.challengecompletions[10])
     })
-    : i18next.t('corruptions.autoAscend.realTime', {
+  } else if (player.autoAscendMode === AutoAscensionResetModes.realAscensionTime) {
+    autoAscendDOM.innerHTML = i18next.t('corruptions.autoAscend.realTime', {
       input: format(player.autoAscendThreshold),
       time: format(player.ascensionCounterRealReal)
     })
-  /*DOMCacheGetOrSet('autoAscendText').textContent = player.autoAscendMode === 'c10Completions' ? ' you\'ve completed Sadistic Challenge I a total of ' : ' the timer is at least ';
-    DOMCacheGetOrSet('autoAscendMetric').textContent = format(player.autoAscendThreshold);
-    DOMCacheGetOrSet('autoAscendText2').textContent = player.autoAscendMode === 'c10Completions' ? ' times, Currently ' : ' seconds (Real-time), Currently ';
-    DOMCacheGetOrSet('autoAscendMetric2').textContent = player.autoAscendMode === 'c10Completions' ? String(player.challengecompletions[10]) : format(player.ascensionCounterRealReal);*/
+  }
+
   DOMCacheGetOrSet('corruptionBank').innerHTML = i18next.t(
     'corruptions.corruptionBank',
     {

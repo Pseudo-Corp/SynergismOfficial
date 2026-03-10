@@ -64,7 +64,7 @@ import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
 import { clearInterval, setInterval } from './Timers'
-import { AutoAscensionModes, toggleAutoChallengeModeText } from './Toggles'
+import { AutoAscensionModes } from './Toggles'
 import type { OneToFive, Player, resetNames } from './types/Synergism'
 import { Alert, revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
@@ -655,7 +655,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     } else {
       player.autoChallengeIndex = 1
     }
-    toggleAutoChallengeModeText('START')
 
     G.autoChallengeTimerIncrement = 0
     // reset rest

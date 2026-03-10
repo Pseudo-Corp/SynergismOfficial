@@ -154,7 +154,8 @@ import {
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
   toggleAscStatPerSecond,
-  toggleAutoAscend,
+  toggleAutoAscendResetActive,
+  toggleAutoAscendResetMode,
   toggleAutoAscensionMode,
   toggleAutoBuyFragment,
   toggleautobuytesseract,
@@ -708,15 +709,21 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('toggleAutoChallengeStart').addEventListener('click', () => toggleAutoChallengeRun())
   DOMCacheGetOrSet('startAutoChallengeTimerInput').addEventListener(
     'input',
-    () => updateAutoChallenge(1)
+    () => {
+      updateAutoChallenge(1)
+    }
   )
   DOMCacheGetOrSet('exitAutoChallengeTimerInput').addEventListener(
     'input',
-    () => updateAutoChallenge(2)
+    () => {
+      updateAutoChallenge(2)
+    }
   )
   DOMCacheGetOrSet('enterAutoChallengeTimerInput').addEventListener(
     'input',
-    () => updateAutoChallenge(3)
+    () => {
+      updateAutoChallenge(3)
+    }
   )
 
   for (let index = 0; index < 2; index++) {
@@ -1064,8 +1071,8 @@ export const generateEventHandlers = () => {
   })
 
   // Extra toggle
-  DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscend(0))
-  DOMCacheGetOrSet('ascensionAutoToggle').addEventListener('click', () => toggleAutoAscend(1))
+  DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscendResetActive())
+  DOMCacheGetOrSet('ascensionAutoToggle').addEventListener('click', () => toggleAutoAscendResetMode())
 
   // SETTNGS TAB
   // Part 0: Subtabs

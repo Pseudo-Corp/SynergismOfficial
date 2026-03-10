@@ -18,7 +18,7 @@ import type { SingularityDataKeys } from '../singularity'
 import type { SingularityChallenge, SingularityChallengeDataKeys } from '../SingularityChallenges'
 import type { Tabs } from '../Tabs'
 import type { TalismanCraftItems, TalismanKeys } from '../Talismans'
-import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
+import type { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from '../Toggles'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
@@ -500,7 +500,7 @@ export interface Player {
   }
   ascendShards: Decimal
   autoAscend: boolean
-  autoAscendMode: string
+  autoAscendMode: AutoAscensionResetModes
   autoAscendThreshold: number
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>

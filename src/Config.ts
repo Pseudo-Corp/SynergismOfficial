@@ -2,7 +2,7 @@ declare const PROD: boolean | undefined
 declare const DEV: boolean | undefined
 declare const PLATFORM: 'steam' | undefined
 
-export const version = '4.1.6 March 8, 2026: Steam!!!'
+export const version = '4.1.7 March 9, 2026: Steam!!!'
 
 export const isSynergismCC = location.hostname === 'synergism.cc'
 
@@ -16,3 +16,5 @@ export const prod = typeof PROD === 'undefined' ? false : PROD
 export const dev = typeof DEV === 'undefined' ? false : DEV
 
 export const platform = typeof PLATFORM === 'undefined' ? 'browser' : PLATFORM
+
+export const ticksPerSecond = 200

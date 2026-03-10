@@ -8,11 +8,11 @@ import {
   challenge15ScoreMultiplier,
   challengeDisplay,
   challengeRequirement,
+  challengeSweep,
   getChallengeConditions,
   getMaxChallenges,
   getNextChallenge,
-  highestChallengeRewards,
-  runChallengeSweep
+  highestChallengeRewards
 } from './Challenges'
 import { btoa } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
@@ -125,15 +125,16 @@ import {
 import { calculatetax } from './Tax'
 import {
   AutoAscensionModes,
+  AutoAscensionResetModes,
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
   AutoResetModes,
+  setAutoAscendResetActiveText,
+  setAutoAscendResetModeText,
   setAutoResetModeTexts,
   toggleAntsSubtab,
   toggleAscStatPerSecond,
   toggleauto,
-  toggleAutoAscend,
-  toggleAutoChallengeModeText,
   toggleChallenges,
   toggleShops,
   updateAutoChallenge,
@@ -180,7 +181,7 @@ import {
   updateMaxTokens,
   updateTokens
 } from './Campaign'
-import { dev, lastUpdated, platform, prod, testing, version } from './Config'
+import { dev, lastUpdated, platform, prod, testing, ticksPerSecond, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
 import { autobuyAnts } from './Features/Ants'
@@ -960,7 +961,7 @@ export const player: Player = {
 
   ascendShards: new Decimal('0'),
   autoAscend: false,
-  autoAscendMode: 'c10Completions',
+  autoAscendMode: AutoAscensionResetModes.c10Completions,
   autoAscendThreshold: 1,
   autoOpenCubes: false,
   openCubes: 0,
@@ -1943,10 +1944,8 @@ const loadSynergy = () => {
 
     loadSynergyAntHTMLUpdates()
 
-    for (let i = 1; i <= 2; i++) {
-      toggleAutoAscend(0)
-      toggleAutoAscend(1)
-    }
+    setAutoAscendResetActiveText()
+    setAutoAscendResetModeText()
 
     DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = player.historyShowPerSecond
       ? i18next.t('history.perSecondOn')
@@ -3720,7 +3719,6 @@ export const resetCheck = async (
       || (player.autoChallengeRunning
         && player.challengecompletions[q] >= maxCompletions)
     ) {
-      toggleAutoChallengeModeText('ENTER')
       player.currentChallenge.transcension = 0
       updateChallengeDisplay()
     }
@@ -3811,7 +3809,6 @@ export const resetCheck = async (
       || (player.autoChallengeRunning
         && player.challengecompletions[q] >= maxCompletions)
     ) {
-      toggleAutoChallengeModeText('ENTER')
       player.currentChallenge.reincarnation = 0
       if (player.shopUpgrades.instantChallenge > 0) {
         for (let i = 1; i <= 5; i++) {
@@ -4534,13 +4531,13 @@ export const updateAll = (): void => {
   ) {
     let ascension = false
     if (
-      player.autoAscendMode === 'c10Completions'
+      player.autoAscendMode === AutoAscensionResetModes.c10Completions
       && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)
     ) {
       ascension = true
     }
     if (
-      player.autoAscendMode === 'realAscensionTime'
+      player.autoAscendMode === AutoAscensionResetModes.realAscensionTime
       && player.ascensionCounterRealReal
         >= Math.max(0.1, player.autoAscendThreshold)
     ) {
@@ -4677,7 +4674,7 @@ let lastUpdate = 0
 
 export const createTimer = (): void => {
   lastUpdate = performance.now()
-  setInterval(tick, 5)
+  setInterval(tick, 1000 / ticksPerSecond)
 }
 
 const dt = 5
@@ -4698,6 +4695,7 @@ export const getTimePinnedToLoadDate = () => {
 const tick = () => {
   const now = performance.now()
   let delta = now - lastUpdate
+  // TODO: We need discrete tick tracking, but it's way too inaccurate as a measure of time to do so right now.
   // compute pseudo-average delta cf. https://stackoverflow.com/a/5111475/343834
   deltaMean += (delta - deltaMean) / filterStrength
   let dtEffective: number
@@ -4794,7 +4792,11 @@ const tack = (dt: number) => {
     automaticTools('addOfferings', dt / 2)
   }
 
-  runChallengeSweep(dt)
+  try {
+    challengeSweep()
+  } catch (e) {
+    void Notification('Exited Challenge Sweep successfully!')
+  }
 
   // Check for automatic resets
   // Auto Prestige.
