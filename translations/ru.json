@@ -124,7 +124,7 @@
       },
       "ambrosiaPatreon": {
         "name": "Бесстыдная реклама Амброзиевой подписки",
-        "description": "Распрожада от Платоника в каждом измерении. Глобальный бонус подписчиков и бонус персонального аккаунта так же влияют на вашу генерацию очков в шкале амброзии. Подпишитесь, если хотите поддержать разработку и увеличить бонус для себя и всех игроков Synergism!",
+        "description": "Распродажа от Платоника в каждом измерении. Глобальный бонус подписчиков и бонус персонального аккаунта так же влияют на вашу генерацию очков в шкале амброзии. Подпишитесь, если хотите поддержать разработку и увеличить бонус для себя и всех игроков Synergism!",
         "effect": "Щедрые подписчики и ваш персональный бонус дают ват на {{amount}}% больше очков шкалы амброзии!"
       },
       "ambrosiaObtainium1": {
@@ -838,21 +838,21 @@
       "491": "Выжженная земля: Принесите в жертву свой муравейник 3000000 раз.",
       "492": "Так ясно, что все, что у нас есть сейчас: Принесите в жертву ваш муравейник 10000000 раз.",
       "493": "Наши мысли вчерашнего дня: Принесите в жертву ваш муравейник 100000000 раз.",
-      "494": "Elementary Math: Use Code 'add' 10 times.",
-      "495": "It adds up: Use Code 'add' 20 times.",
-      "496": "The power of addition: Use Code 'add' 50 times.",
-      "497": "The Successor Function: Use Code 'add' 100 times.",
-      "498": "Succ(100)... 100 times: Use Code 'add' 200 times.",
-      "499": "Triplet act: Use Code 'add' 300 times.",
-      "500": "Half a thousand Achievements!: Use Code 'add' 500 times.",
-      "501": "A Numerical Calculation: Use Code 'add' 750 times.",
-      "502": "Succ it in, succ it in, succ it in: Use Code 'add' 1,000 times.",
-      "503": "If you're Rin Tin Tin, or Anne Boleyn: Use Code 'add' 2,000 times.",
-      "504": "It's so PC it's killing me: Use Code 'add' 3,000 times.",
-      "505": "V bar: Use Code 'add' 5,000 times.",
-      "506": "Make a Desperate Move: Use Code 'add' 6,000 times.",
-      "507": "Or Else You'll Win: Use Code 'add' 7,500 times.",
-      "508": "The Hook Brings Me Back: Use Code 'add' 10,000 times."
+      "494": "Элементарная математика: Используйте 'добавить' 10 раз.",
+      "495": "Оно добавляется: Используйте 'добавить' 20 раз.",
+      "496": "Сила добавления: Используйте 'добавить' 50 раз.",
+      "497": "Функция следования: Используйте 'добавить' 100 раз.",
+      "498": "Succ(100)... 100 раз: Используйте 'добавить' 200 раз.",
+      "499": "Триплетный акт: Используйте 'добавить' 300 раз.",
+      "500": "Половина тысячи достижений!: Используйте 'добавить' 500 раз.",
+      "501": "Численный расчёт: Используйте 'добавить' 750 раз.",
+      "502": "Продолжай, продолжай, продолжай: Используйте 'добавить' 1000 раз.",
+      "503": "Будь ты хоть Рин Тин Тином, хоть Анной Болейн: Используйте 'добавить' 2000 раз.",
+      "504": "Так много, что мой компьютер умирает: Используйте 'добавить' 3000 раз.",
+      "505": "Среднее арифметическое: Используйте 'добавить' 5000 раз.",
+      "506": "Сделай отчаянный шаг: Используйте 'добавить' 6000 раз.",
+      "507": "А не то победишь: Используйте 'добавить' 7500 раз.",
+      "508": "Крючок меня возвращает: Используйте 'добавить' 10000 раз."
     },
     "achievementRewards": {
       "3": {
@@ -1789,7 +1789,7 @@
       "reincarnationCount": "Кол-во реинкарнаций",
       "sacCount": "Принесено в жертву муравейников",
       "ungrouped": "Разное",
-      "addCodesUsed": "Add Code User"
+      "addCodesUsed": "Пользователь добавления"
     },
     "rewardTypes": {
       "title": "Бонусы за достижения дают вам следующее!",
@@ -1968,27 +1968,27 @@
       },
       "tier1CrystalAutobuy": {
         "name": "Автопокупщик первого уровня кристаллов",
-        "description": "You can now automatically buy Diamond Refineries! Also automagically buys the first Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
+        "description": "Теперь вы можете автоматически покупать алмазные переработчики! Так же автомагически покупаете первое улучшение кристаллов при возможности. <br> <<gold | автопокупщики <b>не</b> тратят кристаллы на покупку улучшений!>>",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "tier2CrystalAutobuy": {
         "name": "Автопокупщик втого уровня кристаллов",
-        "description": "You can now automatically buy Coal Plants! Also automagically buys the second Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
+        "description": "Теперь вы можете автоматически покупать угольные генераторы! Так же автомагически покупаете второе улучшение кристаллов при возможности. <br> <<gold | автопокупщики <b>не</b> тратят кристаллы на покупку улучшений!>>",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier3CrystalAutobuy": {
         "name": "Автопокупщик третьего уровня кристаллов",
-        "description": "You can now automatically buy Coal Rigs! Also automagically buys the third Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
+        "description": "Теперь вы можете автоматически покупать угольные карьеры! Так же автомагически покупаете третье улучшение кристаллов при возможности. <br> <<gold | автопокупщики <b>не</b> тратят кристаллы на покупку улучшений!>>",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier4CrystalAutobuy": {
         "name": "Автопокупщик четвёртого уровня кристаллов",
-        "description": "You can now automatically buy Diamond Pickaxes! Also automagically buys the fourth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
+        "description": "Теперь вы можете автоматически покупать алмазные кирки! Так же автомагически покупаете четвёртое улучшение кристаллов при возможности. <br> <<gold | автопокупщики <b>не</b> тратят кристаллы на покупку улучшений!>>",
         "effect": "Текущий эффект: Смотрите выше!"
       },
       "tier5CrystalAutobuy": {
         "name": "Автопокупщик пятого уровня кристаллов",
-        "description": "You can now automatically buy Pandora's Boxes! Also automagically buys the fifth Crystal upgrade if you can afford it. <br> <<gold | Autobuyers do <b>not</b> spend Crystals to buy the upgrades!>>",
+        "description": "Теперь вы можете автоматически покупать ящики Пандоры! Так же автомагически покупаете пятое улучшение кристаллов при возможности. <br> <<gold | автопокупщики <b>не</b> тратят кристаллы на покупку улучшений!>>",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "achievementTalismanUnlock": {
@@ -2013,22 +2013,22 @@
       },
       "antSpeed2Autobuyer": {
         "name": "Автопокупщик Impia Reproducta",
-        "description": "Автоматически покупает Impia Reproducta Formicidae если у вам включена автопокупка!",
+        "description": "Автоматически покупает Impia Reproducta Formicidae если у вас включен автопокупщик!",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "wowCubesAutobuyer": {
         "name": "Автопокупщик Cubus Admirabilis",
-        "description": "Автоматически покупает Cubus Admirabilis Formicidae, если у вас куплен автопокупщик!",
+        "description": "Автоматически покупает Cubus Admirabilis Formicidae, если у вас включен автопокупщик!",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "ascensionScoreAutobuyer": {
         "name": "Ascendens Autobuyer",
-        "description": "Автоматически покупает Ascendens Formicidae, если у вас куплен автопокупщик!",
+        "description": "Автоматически покупает Ascendens Formicidae, если у вас включен автопокупщик!",
         "effect": "Текущий эффект: смотрите выше!"
       },
       "mortuus2Autobuyer": {
         "name": "Автопокупщик Mortuus Iterum",
-        "description": "Автоматически покупает Mortuus Iterum Formicidae, если у вас куплен автопокупщик!",
+        "description": "Автоматически покупает Mortuus Iterum Formicidae, если у вас включен автопокупщик!",
         "effect": "Текущий эффект: смотрите выше!"
       }
     },
@@ -2097,7 +2097,7 @@
     "alerts": {
       "36": "Поздравляем вас с первым престижем. Первым из многих. Теперь вы получаете подношения, которые вы можете использовать в новой вкладке \"Руны!\" [Разблокированы: Руны, Достижения, Алмазные строения и ещё немного улучшений!]",
       "38": "Хм-м, кажется вы становитесь богаче, имея возможность получить 1 Гугол алмазов за один престиж. Как насчёт того, что мы дадим тебе ещё одну руну? [Разблокирована руна Размножения во вкладке \"Руны\"]",
-      "255": "Wow! You gained 1e15 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!"
+      "255": "Вау! Вы получили 1e15 (100 квадриллионов) счёта за одно вознесение. В качестве награды, вы теперь можете генерировать гептеракты, если наберёте выше 1.66e17 (166 квадриллионов) очков в вознесении. Удачи!"
     },
     "hover": "Наведите на достижение, чтобы просмотреть его информацию.",
     "tieredExtraRewards": "Это уровневое достижение имеет дополнительные награды!",
@@ -2482,140 +2482,140 @@
     "autoSacrifice": {
       "inGameTimer": {
         "name": "Режим: внутреигровое время",
-        "info": "Sacrifice when the in-game Ant Timer reaches <<gold|{{req}}>> seconds <br><<gold|{{curr}}/{{req}}>>"
+        "info": "Приносить в жертву когда внутреигровой таймер муравьёв достигает <<gold|{{req}}>> секунд <br><<gold|{{curr}}/{{req}}>>"
       },
       "realLifeTimer": {
-        "name": "Mode: Real time",
-        "info": "Sacrifice after <<gold|{{req}}>> real-life seconds <br><<gold|{{curr}}/{{req}}>>"
+        "name": "Режим: Реальное время",
+        "info": "Приносить в жертву после <<gold|{{req}}>> реальных секунд <br><<gold|{{curr}}/{{req}}>>"
       },
       "immortalELOGain": {
-        "name": "Mode: Immortal ELO",
-        "info": "Sacrifice when you can gain at least <<gold|{{req}}>> <<crimson|Immortal ELO>> <br><<gold|{{curr}}/{{req}}>>"
+        "name": "Режим: Бессмертные ELO",
+        "info": "Приносить в жертву когда вы можете получить хотя бы <<gold|{{req}}>> <<crimson|бессмертных ELO>> <br><<gold|{{curr}}/{{req}}>>"
       },
       "maxRebornELO": {
-        "name": "Mode: Reborn ELO",
-        "info": "Sacrifice when your maximum <<#00DDFF|Reborn ELO>> is reached <br><<gold|{{curr}} Available>>"
+        "name": "Режим: ELO возрождения",
+        "info": "Приносить в жертву при максимально достигнутом <<#00DDFF|ELO перерождения>> <br><<gold|{{curr}} доступно>> "
       }
     },
     "header": "Муравьи приглашают вас в свой дом.",
     "hover": "Наведите на иконки, чтобы посмотреть их описание. Нажмите, чтобы купить!",
-    "challenge8Lock": "You need to beat <<limegreen | Challenge 8>> in your current Ascension to generate Crumbs!",
-    "altarHeader": "Ant God... <<crimson | It Hungers.>>",
-    "altarDetails": "Sacrifice your Ants to her for some <<crimson | Immortal ELO>>, and a bunch of other worldly things.",
-    "compendiumHeader": "Ant God appreciates your donations.",
-    "compendiumDetails": "She offers you some Quarks in exchange for your best Sacrifices each day.",
-    "anthillAlive": "Your Anthill has been alive for",
-    "currentAnthill": "(This is your <<gold|{{ord}}>> Anthill)",
-    "galacticCrumbCount": "You have {{x}} Galactic Crumbs.",
-    "crumbsPerSecond": "+{{x}} per second",
-    "crumbsCoinMultiplier": "↳ Coin production is multiplied by {{x}} (Fortunae Formicidae)",
-    "crumbsCoinTaxExempt": "Coin Multiplier also increases your Tax Cap, and is further exempt from taxation",
-    "producerCount": "<<crimson| {{x}} Purchased>> + <<orange | {{y}} Generated>>",
-    "level": "Level {{x}} <<orange | [+{{y}}]>>",
-    "challenge11Modifier": "Challenge 11 - Only free Ant Upgrade Levels count for Effective Levels",
-    "corruptionDivisor": "Extinction lv{{x}} - Effective Levels are divided by <b>{{y}}</b>",
-    "effectiveLevel": "Effective Level: {{level}}",
-    "costSingleLevel": "Cost: {{x}} Galactic Crumbs",
-    "costMaxLevels": "Cost for +{{x}}: {{y}} Galactic Crumbs",
-    "costGalacticCrumbs": "Cost TNL: {{x}} Galactic Crumbs",
+    "challenge8Lock": "Чтобы генерировать крошки, вам нужно пройти <<limegreen | 8 испытание>> в данном вознесении!",
+    "altarHeader": "Муравьиный Бог... <<crimson |Он голоден.>>",
+    "altarDetails": "Принесите ей в жертву ваших муравьёв, чтобы получить немного <<crimson | бессмертных ELO>>,  и парочку других мирских вещей.",
+    "compendiumHeader": "Муравьиный Бог ценит ваши пожертвования.",
+    "compendiumDetails": "Она приносит вам немного кварков взамен на ваше лучшее жертвоприношение каждый день.",
+    "anthillAlive": "Ваш муравейник живёт",
+    "currentAnthill": "(Это ваш <<gold|{{ord}}>> муравейник)",
+    "galacticCrumbCount": "У вас имеется {{x}} галактических крошек.",
+    "crumbsPerSecond": "+{{x}} в секунду",
+    "crumbsCoinMultiplier": "↳ Производство монет умножена на {{x}}(Fortunae Formicidae)",
+    "crumbsCoinTaxExempt": "Множитель монет также увеличивает ваш лимит налога, и дополнительно освобождает от налогообложения",
+    "producerCount": "<<crimson| {{x}} куплено>> + <<orange | {{y}} создано>>",
+    "level": "Уровень {{x}} <<orange | [+{{y}}]>>",
+    "challenge11Modifier": "Испытание 11 - В качестве эффективных уровней учитываются только бесплатные уровни улучшений муравьёв",
+    "corruptionDivisor": "Вымирание урв{{x}} - Эффективные уровни поделены на <b>{{y}}</b>",
+    "effectiveLevel": "Эффективный уровень: {{level}}",
+    "costSingleLevel": "Стоимость: {{x}} галактических крошек",
+    "costMaxLevels": "Стоимость за +{{x}}: {{y}} галактических крошек",
+    "costGalacticCrumbs": "Стоимость TNL: {{x}} галактических крошек",
     "costParticles": "Стоимость: {{x}} Частиц",
     "autoSacrificeOn": "Авто Пожертвование: ВКЛ",
     "autoSacrificeOff": "Авто Пожертвование: ВЫКЛ",
     "modeRealTime": "Режим: В реальном времени",
     "modeInGameTime": "Режим: В игровом времени",
     "sacrificeWhenTimer": "Совершить пожертвование, когда таймер достигнет {{x}} секунд ({{y}}), Время сейчас: {{z}}",
-    "yourAntELO": "<<plum|Current Ant ELO:>> <<gold|{{x}}>>",
-    "upgradeMultiplier": "Upgrade Reward Multiplier: <<gold|{{x}}x>>",
-    "timeMultiplier": "Time Reward Multiplier: <<var(--lightseagreen-text-color);|{{x}}x>>",
-    "immortalELO": "<<crimson | Immortal ELO:>> <<gold|{{x}}>>",
-    "activatedImmortalELO": "<<#00DDFF| Reborn ELO>>: <<gold|{{x}}>> (<<gold|{{y}}>> Available)",
-    "eloStage": "<<turquoise | Stage>> <<gold|{{x}}>>",
-    "immortalELOAntSpeed": "<<#00DDFF|↳>> <<crimson | Ant Speed>> <<gold|x{{x}}>>",
-    "rebornObtainiumMult": "<<turquoise|↳>> <<pink | Obtainium>> <<gold|x{{x}}>>",
-    "rebornOfferingMult": "<<turquoise|↳>> <<orange | Offerings>> <<gold|x{{x}}>>",
-    "rebornTalismanShardMult": "<<turquoise|↳>> <<lightgray | Talisman Fragments>> <<gold|x{{x}}>>",
-    "rebornELOGainSpeed": "<<turquoise|↳>> <<#00DDFF|Reborn ELO creation speed>> <<gold|x{{x}}>>",
-    "rebornELOPerSecond": "<<#00DDFF|{{x}}>> per second",
-    "rebornELOPerSecondWithLotus": "<<#00DDFF|∞>> per second (Lotus Active)",
-    "rebornELOTimeToMax": "Estimated time until max: <<gold|{{x}}>> seconds",
-    "immortalELOUntilGain": "Get <<gold | {{x}}>> more <<orchid | Ant ELO>> to gain <<crimson | Immortal ELO>>",
-    "immortalELOGain": "Gain <<gold | +{{x}}>> <<crimson | Immortal ELO>>",
-    "antSacMultiplier": "↳ Ant Speed x{{x}}",
-    "rebornELOInfo": "Gain <<#00DDFF|Reborn ELO>> over time by reaching a higher ELO!",
-    "rebornELOInfo2": "• Limited by your <<crimson|Immortal ELO>>. <<orchid | Ant ELO>> speeds up generation!",
-    "rebornELOInfo3": "• The more <<#00DDFF|Reborn ELO>> you have, the slower it generates.",
-    "stageInfo": "<<#00DDFF|Reborn ELO>> gives you a <<turquoise | Stage>>.",
-    "stageInfo2": "Each <<turquoise|Stage>> gives you <<gold|1.05x>> <<orange|Offerings>>, <<gold|1.05x>> <<pink|Obtainium>>, and <<gold|1.20x>> <<lightgray|Talisman Fragments>>! <<#00DDFF|Reborn ELO>> generates <<gold|{{percentage}}%>> slower per <<turquoise|Stage>>.",
-    "stageTranche1": "Stages 1-100: 100 <<#00DDFF|Reborn ELO>> Each",
-    "stageTranche2": "Stages 101-200: 1,000 <<#00DDFF|Reborn ELO>> Each",
-    "stageTranche3": "Stages 201-300: 3,000 <<#00DDFF|Reborn ELO>> Each",
-    "stageTranche4": "Stages 301-1,000: 20,000 <<#00DDFF|Reborn ELO>> Each",
-    "stageTranche5": "Stages 1,001+: 100,000 <<#00DDFF|Reborn ELO>> Each",
-    "autoReset": "This resets your Crumbs, Ant Producers and Ant Upgrades in exchange for Immortal ELO and some worldly items. Continue?",
+    "yourAntELO": "<<plum|Текущий муравьиный ELO:>> <<gold|{{x}}>>",
+    "upgradeMultiplier": "Улучшение множителя наград: <<gold|{{x}}x>>",
+    "timeMultiplier": "Время множителя наград: <<var(--lightseagreen-text-color);|{{x}}x>>",
+    "immortalELO": "<<crimson | Бессмертных ELO:>> <<gold|{{x}}>>",
+    "activatedImmortalELO": "<<#00DDFF| ELO возрождения>>: <<gold|{{x}}>> (<<gold|{{y}}>> доступно)",
+    "eloStage": "<<turquoise | Стадия>> <<gold|{{x}}>>",
+    "immortalELOAntSpeed": "<<#00DDFF|↳>> <<crimson | Скорость муравьёв>> <<gold|x{{x}}>>",
+    "rebornObtainiumMult": "<<turquoise|↳>> <<pink | Обтаиниум>> <<gold|x{{x}}>>",
+    "rebornOfferingMult": "<<turquoise|↳>> <<orange | Подношения>> <<gold|x{{x}}>>",
+    "rebornTalismanShardMult": "<<turquoise|↳>> <<lightgray | Фрагменты талисманов>> <<gold|x{{x}}>>",
+    "rebornELOGainSpeed": "<<turquoise|↳>> <<#00DDFF|Скорость создания ELO возрождения>> <<gold|x{{x}}>>",
+    "rebornELOPerSecond": "<#00DDFF|{{x}}>> в секунду",
+    "rebornELOPerSecondWithLotus": "<<#00DDFF|∞>> в секунду (активирован лотос)",
+    "rebornELOTimeToMax": "Примерное время до максимума: <<gold|{{x}}>> секунд",
+    "immortalELOUntilGain": "Получите ещё <<gold | {{x}}>> <<orchid | муравьиного ELO>>, чтобы получить <<crimson | бессмертных ELO>>",
+    "immortalELOGain": "Получите <<gold | +{{x}}>> <<crimson | бессмертных ELO>>",
+    "antSacMultiplier": "Скорость муравьёв x{{x}}",
+    "rebornELOInfo": "Получайте <<#00DDFF|ELO возрождения>> со временем, достигая больше ELO!",
+    "rebornELOInfo2": "• Ограничены вашим <<crimson|Бессмертным ELO>>. <<orchid | Муравьиный ELO>> ускоряет создание!",
+    "rebornELOInfo3": "• Чем больше у вас <<#00DDFF|ELO возрождения>, тем медленнее они создаются.",
+    "stageInfo": "<<#00DDFF|ELO возрождения>> дают вам <<turquoise | стадии>>.",
+    "stageInfo2": "Каждая <<turquoise|стадия>> даёт вам <<gold|1.05x>> <<orange|подношений>>, <<gold|1.05x>> <<pink|обтаиниума>>, и <<gold|1.20x>> <<lightgray|фрагментов талисманов>>! <<#00DDFF|ELO возрождения>> создаются на <<gold|{{percentage}}%>> медленнее за <<turquoise|стадию>>.",
+    "stageTranche1": "Стадии с 1 по 100: 100 <<#00DDFF|ELO возрождения>> каждая",
+    "stageTranche2": "Стадии с 101 по 200: 1000 <<#00DDFF|ELO возрождения>> каждая",
+    "stageTranche3": "Стадии с 201 по 300: 3000 <<#00DDFF|ELO возрождения>> каждая",
+    "stageTranche4": "Стадии с 301 по 1000: 20000 <<#00DDFF|ELO возрождения>> каждая",
+    "stageTranche5": "Стадии с 1001+: 100000 <<#00DDFF|ELO возрождения>> каждая",
+    "autoReset": "Это сбрасывает ваши крошки, производители муравьёв и улучшения муравьёв взамен на бессмертные ELO и некоторых мирских вещей. Продолжить?",
     "itemReward": "+{{x}}",
     "eloRequirement": "{{x}} ELO",
-    "antSacrifice": "Пожертвовать Муравьёв",
-    "minimumTimeToSacrifice": "Minimum interval between Sacrifices: <<gold|0.05>> real-life seconds",
-    "timeElapsed": "Time elapsed: <<gold|{{x}}>> real-life seconds",
-    "buyAllUpgrades": "Buy All Upgrades",
-    "buyAllProducers": "Buy All Producers and Masteries",
-    "clickBuyAllIntro": "This button will purchase the following:",
-    "clickBuyAllProducersListItem": "{{name}} <br> <<gold|+{{level}} Producers>> &nbsp;&nbsp; <<lime | +{{masteries}} Masteries>>",
-    "clickBuyAllUpgradesListItem": "{{name}} <br> <<gold|+{{level}} Levels>>",
-    "clickBuyAllNothing": "<<lime | Nothing to buy, for now.>>",
-    "clickBuyAllDisclaimer": "<<gray|This tooltip does not display anything for which Automation is unlocked, if Automation is enabled.>>"
+    "antSacrifice": "Пожертвовать муравьёв",
+    "minimumTimeToSacrifice": "Минимальный интервал между жертвоприношениями: <<gold|0.05>> реальных секунд",
+    "timeElapsed": "Времени проведено: <<gold|{{x}}>> реальных секунд",
+    "buyAllUpgrades": "Купить все улучшения",
+    "buyAllProducers": "Купить все производителт и мастерства",
+    "clickBuyAllIntro": "Эта кнопка покупает следующее: ",
+    "clickBuyAllProducersListItem": "{{name}} <br> <<gold|+{{level}} производителей>> &nbsp;&nbsp; <<lime | +{{masteries}} мастерства>>",
+    "clickBuyAllUpgradesListItem": "{{name}} <br> <<gold|+{{level}} уровней>>",
+    "clickBuyAllNothing": "<<lime | Пока нечего покупать.>>",
+    "clickBuyAllDisclaimer": "<<gray|Это описание ничего не отображает тому, у чего открыта автоматизация, если она включена.>>"
   },
   "challenges": {
     "1": {
-      "name": "Испытание Без Множителей || {{- value}} Выполнений",
+      "name": "Испытание Без множителей || {{- value}} выполнений",
       "flavor": "Множители чересчур ускоряют игру. Давайте мы их уберем!",
-      "restrictions": "Transcend and reach the goal except Multipliers count as Accelerators. <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Accelerator Power is reduced. Each completion reduces it more! <br> ☆ Each Multiplier gives a Coin Producer production multiplier equal to Accelerator Power.",
-      "goal": "Цель: Заработать {{value}} Монет в испытании.",
+      "restrictions": "Выйдите за пределы и достигните цели, учитывая что множители считаются как ускорители. <br> ☆ Сила множителей = <<gold|1>> всё время! <br> ☆ Сила ускорителей уменьшена. Каждое завершение уменьшает ещё сильнее! <br> ☆ Каждый множитель даёт множитель производству создателю монет равных силе ускорителей.",
+      "goal": "Цель: Заработать {{value}} монет в испытании.",
       "per": {
-        "1": "+2 base Multiplier Boosts! [+0.02 to power!] Current: ",
-        "2": "Duplication Rune level scaling coefficient is increased by 0.75! Current: ",
-        "3": "+0.04 к базовому опыту Руны за каждое Подношение! Текущий: "
+        "1": "+2 базовых усилителей множителей! [+0,02 к силе!] Текущее: ",
+        "2": "Коэффициент масштабирования уровня руны умножения увеличен на 0,75! Текущее: ",
+        "3": "+0.04 к базовому опыту рун за каждое подношение! Текущий: "
       },
-      "first": "+1 бесплатный Множитель! +1 к базовому опыту за каждое использование Подношения!",
-      "start": "Запустить [Без Множителей]",
+      "first": "+1 бесплатный множитель! +1 к базовому опыту за каждое использование подношения!",
+      "start": "Запустить [Без множителей]",
       "current": {
-        "1": "+{{value}} Усилителей",
-        "2": "+{{value}} Duplication Rune level scaling coefficient",
-        "3": "+{{value}} опыта Рун [Наибольшее выполнение]"
+        "1": "+{{value}} усилителей",
+        "2": "+{{value}} коэффициента масштабирования уровня руны умножения",
+        "3": "+{{value}} опыта рун [Наибольшее выполнение]"
       }
     },
     "2": {
-      "name": "Испытание Без Ускорителей || {{- value}} Выполнений",
-      "flavor": "Кому нужны это ускорители? Теперь они вообще ничего не делают.",
-      "restrictions": "Transcend and reach the goal except Accelerators do nothing! <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power is reduced to be <<gold|1.25, +0.0012>> per Multiplier Boost",
-      "goal": "Цель: Заработать {{value}} Монет в испытании.",
+      "name": "Испытание Без ускорителей || {{- value}} выполнений",
+      "flavor": "Кому нужны эти ускорители? Теперь они вообще ничего не делают.",
+      "restrictions": "Выйдите за пределы и достигните цели, учитывая что ускорители ничего не делают! <br> ☆ Сила ускорителей = <<gold|1>> всё время! <br> ☆ Сила множителей уменьшена до <<gold|1.25, +0.0012>> за усилитель множителей",
+      "goal": "Цель: Заработать {{value}} монет в испытании.",
       "per": {
         "1": "+5 Бесплатных Ускорителей! Текущий эффект: ",
-        "2": "+5% к силе Усилителя Ускорителя! Текущий: ",
-        "3": "+0.25% к силе Ускорителя! Текущий: "
+        "2": "+5% к силе усилителя ускорителя! Текущий: ",
+        "3": "+0.25% к силе ускорителя! Текущий: "
       },
-      "first": "+1 базовое подношение за Престиж и Выход за пределы.",
+      "first": "+1 базовое подношение за престиж и выход за пределы.",
       "start": "Запустить [Без Ускорителей]",
       "current": {
-        "1": "+{{value}} Ускорителей",
-        "2": "+{{value}}% к силе У.Ускорителя",
-        "3": "+{{value}}% Силе Ускорителей"
+        "1": "+{{value}} ускорителей",
+        "2": "+{{value}}% к силе у.ускорителя",
+        "3": "+{{value}}% силе ускорителей"
       }
     },
     "3": {
-      "name": "Испытание Без Осколков || {{- value}} Выполнений",
+      "name": "Испытание Без осколков || {{- value}} Выполнений",
       "flavor": "Итак. Теперь вы задумались: \"А как же я могу сделать игру ещё сложнее\"?",
-      "restrictions": "Transcend and reach the goal except you do not produce Crystals or Mythos Shards. <br> ☆ Refineries do not produce Crystals <br> ☆ Augments do not produce Mythos Shards. <br> ☆ Accelerator Power above 1 is reduced by <<gold|50%>> ",
+      "restrictions": "Выйдите за пределы и достигните цели, учитывая что вы не производите кристаллы и осколки мифов. <br> ☆ Переработчики не производят кристаллы <br> ☆ Улучшения не производят осколки мифов. <br> ☆ Сила ускорителей выше 1 уменьшена на <<gold|50%>> ",
       "goal": "Цель: Заработать {{value}} Монет в испытании.",
       "per": {
-        "1": "+0.04 к степени конвертации Кристаллы --> Монеты! Текущая: ",
-        "2": "+0.5% к производству Грандмастеров за каждого купленного производителя Мифов. Текущий: ",
-        "3": "Когда вы используете руну, все другие руны получают +0.01 ОПЫТ. Текущий: "
+        "1": "+0.04 к степени конвертации кристаллы --> монеты! Текущая: ",
+        "2": "+0.5% к производству грандмастеров за каждого купленного производителя мифов. Текущий: ",
+        "3": "Когда вы используете руну, все другие руны получают +0,01 ОПЫТ. Текущий: "
       },
       "first": "Автоматически получаете подношение каждые 2 секунды!",
       "start": "Запустить [Без Осколков]",
       "current": {
-        "1": "+{{value}} к Степени",
+        "1": "+{{value}} к степени",
         "2": "+{{value}}%",
         "3": "+{{value}} ОПЫТ"
       }
@@ -2623,50 +2623,50 @@
     "4": {
       "name": "Испытание Стоимость+ || {{- value}} Выполнений",
       "flavor": "Вы богатеете, но инфляция ещё не стукнула? Тогда мы идём к вам!",
-      "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Prices grow super-exponentially after <<gold|1,000>> of each Building. <br> ☆ Each completion lowers the above number by <<gold|10>> <br> ☆ Accelerator and Multiplier prices <<gold|immediately>> grow super-exponentially!",
-      "goal": "Цель: Заработать {{value}} Монет в испытании.",
+      "restrictions": "Выйдите за пределы и достигните цели, учитывая что строения монет и алмазов, ускорители, и множители стоят дороже. <br> ☆ Цены растут супер-экспоненциально после покупки <<gold|1,000>> каждого строения. <br> ☆ Каждое завершение понижает цифру выше на <<gold|10>> <br> ☆ Цены ускорителей и множителей <<gold|мгновенно>> растут супер-экспоненциально!",
+      "goal": "Цель: Заработать {{value}} монет в испытании.",
       "per": {
-        "1": "Рост Стоимости Ускорителей замедляется на +5 покупок. Текущий: ",
-        "2": "Рост Стоимости Множителей замедляется на +2 покупки. Текущий: ",
-        "3": "Отсрочка Стоимости Строений +0.5%. Текущая: "
+        "1": "Рост стоимости ускорителей замедляется на +5 покупок. Текущий: ",
+        "2": "Рост стоимости множителей замедляется на +2 покупки. Текущий: ",
+        "3": "Отсрочка стоимости строений +0.5%. Текущая: "
       },
       "first": "Отсутствует",
       "start": "Начать [Стоимость+]",
       "current": {
-        "1": "Отсрочка Ускорителей +{{value}}",
+        "1": "Отсрочка ускорителей +{{value}}",
         "2": "Отсрочка Множителей +{{value}}",
-        "3": "Отсрочка Стоимости Строений +{{value}}%"
+        "3": "Отсрочка стоимости строений +{{value}}%"
       }
     },
     "5": {
-      "name": "Испытание Меньше Алмазов || {{- value}} Выполнений",
+      "name": "Испытание Меньше алмазов || {{- value}} Выполнений",
       "flavor": "Вы когда-нибудь задумывались откуда у вас столько алмазов?",
       "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.01 / (1 + completions)]>>",
-      "goal": "Цель: Заработать {{value}} Монет в испытании.",
+      "goal": "Цель: Заработать {{value}} монет в испытании.",
       "per": {
-        "1": "После Престижа, +0.01 к степени конвертации Монеты --> Алмазы! Текущая: ",
-        "2": "Умножает производство Кристаллов в 10 раз! Эффект: ",
+        "1": "После престижа, +0.01 к степени конвертации монеты --> алмазы! Текущая: ",
+        "2": "Умножает производство кристаллов в 10 раз! Эффект: ",
         "3": "+5% Prestige Count when Prestiging! Current: "
       },
       "first": "Отсутствует",
-      "start": "Начать [Меньше Алмазов]",
+      "start": "Начать [Меньше алмазов]",
       "current": {
         "1": "Степень = ^{{value}}",
-        "2": "x{{value}} К производству кристаллов",
+        "2": "x{{value}} к производству кристаллов",
         "3": "Prestige Count +{{value}}%"
       }
     },
     "6": {
       "name": "Испытание Налоги+ || {{- value}} Выполнений",
-      "flavor": "Птичка нашептала налоговику, что вы недавно Реинкарнировали...",
+      "flavor": "Птичка нашептала налоговику, что вы недавно реинкарнировали...",
       "restrictions": "Reincarnate and reach the goal except you pay more Tax! <br> ☆ Your Tax burden is multiplied by <<gold|3 * (1 + completions / 25)^2>> <br> ☆ Your Coin production is divided by <<gold | 1e250>>",
-      "goal": "Цель: Заработать {{value}} Осколков Мифов в испытании.",
+      "goal": "Цель: Заработать {{value}} осколков мифов в испытании.",
       "per": {
-        "1": "-3.5% Налогов [Перемножаемо]! Текущий: ",
+        "1": "-3.5% налогов [перемножаемо]! Текущий: ",
         "2": "+0.3 Salvage! Current: ",
-        "3": "+2% Подношений! Текущий: "
+        "3": "+2% подношений! Текущий: "
       },
-      "first": "-7.5% Налогов!",
+      "first": "-7.5% налогов!",
       "start": "Начать <Налоги+>",
       "current": {
         "1": "Множитель налогов x{{value}}",
@@ -2675,17 +2675,17 @@
       }
     },
     "7": {
-      "name": "Испытание Без Множителей/Ускорителей || {{- value}} Выполнений",
+      "name": "Испытание Без множителей/ускорителей || {{- value}} Выполнений",
       "flavor": "Это испытание вы ещё долго будете проклинать.",
       "restrictions": "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Power above 1 is reduced by <<gold|95%>> <br> ☆ Your Coin production is divided by <<gold | 1e1,250>>",
-      "goal": "Цель: Получить {{value}} Осколков Мифов в испытании.",
+      "goal": "Цель: Получить {{value}} осколков мифов в испытании.",
       "per": {
-        "1": "Степень силы Усил. Ускорителей/Множителей +0.04! Текущий: ",
+        "1": "Степень силы усил. ускорителей/множителей +0.04! Текущий: ",
         "2": "+0.3 Salvage! Current: ",
         "3": "+15% more Transcension Count when Transcending! Current: "
       },
-      "first": "Сила Усилителей Множителей +25%! Первое Глобальное Улучшение Алмазов от Дискорд Бустеров.",
-      "start": "Начать <Без Множителей/Ускорителей>",
+      "first": "Сила усилителей множителей +25%! Первое глобальное улучшение алмазов от Дискорд бустеров.",
+      "start": "Начать <Без множителей/ускорителей>",
       "current": {
         "1": "Степень = ^{{value}}",
         "2": "Salvage +{{value}}",
@@ -2694,15 +2694,15 @@
     },
     "8": {
       "name": "Испытание Стоимость++ || {{- value}} Выполнений",
-      "flavor": "Вы и правда подумали, что Реинкарнация спасёт от инфляции?",
+      "flavor": "Вы и правда подумали, что реинкарнация спасёт от инфляции?",
       "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices increase <<gold|50x>> faster than in Cost+ <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building costs start growing super-exponentially after <<gold|1000 + 1000 per completion>> purchased. <br> ",
-      "goal": "Цель: Получить {{value}} Осколков Мифов в испытании.",
+      "goal": "Цель: Получить {{value}} осколков мифов в испытании.",
       "per": {
-        "1": "Базовая Сила Строений +0.25! Текущий: ",
+        "1": "Базовая сила строений +0.25! Текущий: ",
         "2": "+0.4 Salvage! Current: ",
         "3": "Offerings +4% (additive with other Challenge bonuses) ! Current: "
       },
-      "first": "Открывает Муравейник! Также включены 20 новых Исследований, и Глобальное Улучшение Алмазов.",
+      "first": "Открывает муравейник! Также включает 20 новых исследований, и глобальное улучшение алмазов.",
       "start": "Начать <Стоимость++>",
       "current": {
         "1": "+{{value}}",
@@ -2711,20 +2711,20 @@
       }
     },
     "9": {
-      "name": "Испытание Без Рун || {{- value}} Выполнений",
+      "name": "Испытание Без рун || {{- value}} Выполнений",
       "flavor": "Bet you won't even notice Prism Rune's disappearance.",
       "restrictions": "Reincarnate and reach the goal except Runes always have level 1 effects. <br> ☆ Your Coin production is divided by <<gold | 1e2,000,000>>. You may want a few Galactic Crumbs. <br> ☆ Your Tax burden is reduced by <<pink|99.5%>> to compensate",
-      "goal": "Цель: Заработать {{value}} Монет в испытании.",
+      "goal": "Цель: Заработать {{value}} монет в испытании.",
       "per": {
-        "1": "+1 бесплатный уровень Муравьёв! Текущий: ",
-        "2": "+10% к скорости Муравьёв [Перемножаемо!] Текущая: ",
+        "1": "+1 бесплатный уровень муравьёв! Текущий: ",
+        "2": "+10% к скорости муравьёв [перемножаемо!] Текущая: ",
         "3": "+0.5 Salvage! Current: "
       },
       "first": "Unlock Talismans and Blessings, in the rune Tab. A Global Diamond Upgrade.",
-      "start": "Запустить <Без Рун>",
+      "start": "Запустить <Без рун>",
       "current": {
         "1": "+{{value}} бесплатных уровней",
-        "2": "x{{value}} Скорости Муравьёв",
+        "2": "x{{value}} скорости муравьёв",
         "3": "+{{value}} Salvage"
       }
     },
@@ -2732,13 +2732,13 @@
       "name": "Испытание Садизм I || {{- value}} Выполнений",
       "flavor": "I'm sorry for what I've unleashed onto the world. You read a note on the floor: \"You probably want about 1e300 Galactic Crumbs before you fully embrace the challenge. Try to Sacrifice some more Anthills, master your Ants and become one with the Ant God to achieve this.\"",
       "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|25,000>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.0001 / (1 + completions)]>> <br> ☆ Mythos gain is reduced to <<gold | Coins^0.001>>",
-      "goal": "Цель: Заработать {{value}} Монет в испытании.",
+      "goal": "Цель: Заработать {{value}} монет в испытании.",
       "per": {
-        "1": "+100 к базовому ЭЛО за пожертвование муравьёв! Текущий: ",
-        "2": "+2% к Награде за Жертвоприношение Муравьёв! Текущий: ",
+        "1": "+100 к базовому ELO за жертвоприношение муравьёв! Текущий: ",
+        "2": "+2% к награде за жертвоприношение муравьёв! Текущий: ",
         "3": "+10% Подношений (суммируется с другими бонусами Испытаний)! Текущий: "
       },
-      "first": "Открывает Уровень Сброса - Вознесение!",
+      "first": "Открывает уровень сброса - вознесение",
       "start": "Начать <Садизм I>",
       "current": {
         "1": "+{{value}} к Муравьиному ЭЛО",
@@ -2964,7 +2964,7 @@
       "14": "[2x4] Радуга светит на вас. Каждый уровень увеличивает количество утилизации, которое она даёт, на 1%!",
       "15": "[2x5] Арес обучил вас искусству войны. Эффект дани Ареса возведён в степень (1 + уровень / 100).",
       "16": "[2x6] Ты смог дружище! Добавляет руне Скорости и Призмы по +1 коэффициента рун за уровень!",
-      "17": "[2x7] Yep. +8 exponent per level to crystals.",
+      "17": "[2x7] Да. +8 к стемени кристалла за уровень.",
       "18": "[2x8] Квантовое туннелирование ради победы. +20% к глобальной скорости.",
       "19": "[2x9] На протяжении от старта вознесения до после 10 испытания и далее открывает новые улучшения монет.",
       "20": "[2x10] Автоматизатор рун в магазине теперь автоматически тратит все подношения, разделяя их по всех открытым рунам. Так что работает в 20 раз быстрее. Веселитесь!",
@@ -3056,7 +3056,7 @@
       "1": "[1x1] Увеличивает количество полученных бесплатно Ускорителей на 20% от всех источников.",
       "2": "[1x2] Увеличивает количество полученных бесплатно Множителей на 20% от всех источников.",
       "3": "[1x3] Увеличивает количество полученных бесплатно Усилителей Ускорителей на 20% от всех источников.",
-      "4": "[1x4] +10% Rune Power to the first five Runes! (Yes, there are more than five runes)",
+      "4": "[1x4] +10% к силе первых пяти рун! (да, есть больше пяти рун)",
       "5": "[1x5] Умножает производство всех производителей Кристаллов на 1e4.",
       "6": "[1x6] +5% бесплатных Ускорителей за уровень.",
       "7": "[1x7] +4% бесплатных Ускорителей за уровень.",
@@ -3073,16 +3073,16 @@
       "18": "[1x18] +2 Бесплатных Ускорителя за каждый Усил. Ускорителей.",
       "19": "[1x19] +2 Бесплатных Ускорителя за каждый Усил. Ускорителей.",
       "20": "[1x20] +3 Бесплатных Ускорителя за каждый Усил. Ускорителей!",
-      "21": "[1x21] +1% Rune Power to the first five Runes per level.",
+      "21": "[1x21] +1% к силе первых пяти рун за уровень.",
       "22": "[1x22] Каждое использованное Подношение увеличивает ОПЫТ Руны на 0.6 за уровень.",
       "23": "[1x23] Каждое использованное Подношение увеличивает ОПЫТ Руны на дополнительные 0.3 за уровень!",
-      "24": "[1x24] Increase your Base Offerings by 0.4 per level.",
-      "25": "[1x25] Increase your Base Offerings by 0.6 per level.",
+      "24": "[1x24] Увеличивает базовое подношение на 0.4 за уровень.",
+      "25": "[1x25] Увеличивает базовое подношение на 0.6 за уровень.",
       "26": "[2x1] Умножает производство всех производителей Кристаллов на 150% за уровень (Перемножаемо).",
       "27": "[2x2] Умножает производство всех производителей Кристаллов на 150% за уровень (Перемножаемо).",
-      "28": "[2x3] You know the formula for the Crystal multiplier to Coins? Add 0.08 to its Exponent per level!",
-      "29": "[2x4] Same as [2x3]. Add 0.08 to its Exponent per level!",
-      "30": "[2x5] Half of [2x3]. Add 0.04 to its Exponent per level!",
+      "28": "[2x3] Знаете формулу множителя кристаллов к монетам? Добавьте к её степени 0.08 за уровень!",
+      "29": "[2x4] То же что и [2x3]. Добавьте к её степени 0.08 за уровень!",
+      "30": "[2x5] Половина от [2x3]. Добавьте к её степени 0.04 за уровень!",
       "31": "[2x6] Хотите вместо этого печь печеньки? Время оффлайна увеличено на 4 часа за уровень (Начальное - 72ч).",
       "32": "[2x7] Хотите вместо этого испечь много печенек? Время оффлайна увеличено ещё на 4 часа за уровень!",
       "33": "[2x8] +11% Усилителей Множителей от Осколков Мифов за уровень.",
@@ -6917,15 +6917,15 @@
       "AntWorkers": "Ant Workers Purchased:",
       "AchievementBonus": "Achievement Ant ELO Bonus:",
       "SynergismLevel": "Synergism Level Reward - More Ant Fodder for your Ant Diety:",
-      "ReincarnationUpgrade20": "Reincarnation Upgrade 20:",
-      "Challenge10": "Challenge 10 Reward:",
-      "ShopUpgrade": "Shop Upgrade - Ant ELO:",
-      "Research5x8": "Research 5x8:",
-      "Research5x9": "Research 5x9:",
-      "Research5x20": "Research 5x20",
-      "Research5x23": "Research 5x23:",
-      "Research7x19": "Research 7x19:",
-      "Research8x3": "Research 8x3:",
+      "ReincarnationUpgrade20": "Улучшение реинкарнации 20:",
+      "Challenge10": "Награда за 10 испытание:",
+      "ShopUpgrade": "Улучшение магазина - Муравьиный ELO:",
+      "Research5x8": "Исследование 5x8:",
+      "Research5x9": "Исследование 5x9:",
+      "Research5x20": "Исследование 5x20:",
+      "Research5x23": "Исследование 5x23:",
+      "Research7x19": "Исследование 7x19:",
+      "Research8x3": "Исследование 8x3:",
       "AntUpgrade": "Ants - Phylacterium Formicidae:",
       "AntUpgrade13": "Ants - Impia Reproducta Formicidate:",
       "SingularityPerk": "Singularity Perk - Invigorated Spirits!:",
@@ -6976,7 +6976,7 @@
       "title": "Ascension Count Multiplier",
       "Base": "Base Multiplier + Achievement Additive Bonus:",
       "AchievementMultiplier": "Achievement Ascension Count Multiplier:",
-      "Challenge15": "Challenge 15 Reward:",
+      "Challenge15": "Награда за 15 испытание:",
       "PlatonicOMEGA": "Platonic OMEGA:",
       "PlatonicUpgrade16": "Platonic Upgrade 4x1:",
       "SingularityCount": "Singularity Perk - Unlimited Growth:",
