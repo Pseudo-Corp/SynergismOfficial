@@ -587,109 +587,177 @@ export const challengeRequirement = (challenge: number, completion: number, spec
   }
 }
 
-export type AutoChallengeStates = 'OFF' | 'START' | 'CHALLENGE' | 'ENTER' | 'WAIT'
+// Challenge State Machine
+type SweepStates =
+  | { kind: 'idle' }
+  | { kind: 'initial_wait' }
+  | { kind: 'enter_wait'; toIndex: number }
+  | { kind: 'active'; index: number }
+  | { kind: 'c15_wait' } // Happens when you can autoGain c15 Exponent
+  | { kind: 'finished' } // Challenges 1-10 are all completely maxed
 
-// If player disables sweep partway through it running, we should terminate it early
-const checkSweepStillEnabled = () => {
-  return player.autoChallengeRunning
+// 1-5 are transcension, 6-10 reincarnation
+const NUM_ELIGIBLE_CHALLENGES = 10
+
+let currentSweepState: SweepStates = { kind: 'idle' }
+
+function sweepTransitionFunc (
+  state: SweepStates,
+  elapsedTime: number,
+  timers = player.autoChallengeTimer
+): SweepStates {
+  switch (state.kind) {
+    case 'idle':
+      // Will be transitioned externally when sweep is enabled
+      return state
+
+    case 'initial_wait':
+      if (elapsedTime >= timers.start) {
+        // Find first valid challenge, which skips the enter time.
+        const firstChallenge = getNextChallenge(1, false, 1, NUM_ELIGIBLE_CHALLENGES)
+        if (firstChallenge > NUM_ELIGIBLE_CHALLENGES) {
+          // If we max all the challenges, just don't change the state!
+          return { kind: 'finished' }
+        }
+        return { kind: 'active', index: firstChallenge }
+      }
+      return state
+
+    case 'active':
+      if (elapsedTime >= timers.exit) {
+        // Find next challenge
+        const nextChallenge = getNextChallenge(state.index + 1, false, 1, NUM_ELIGIBLE_CHALLENGES)
+
+        // Check if we've wrapped around or exhausted all challenges
+        if (nextChallenge > NUM_ELIGIBLE_CHALLENGES || nextChallenge <= state.index) {
+          // Completed a full cycle, check if we need C15 wait
+          if (challenge15AutoExponentCheck()) {
+            return { kind: 'c15_wait' }
+          }
+          // Restart the sweep (wait 'start' seconds before first challenge)
+          return { kind: 'initial_wait' }
+        }
+
+        // Go to enter_wait before next challenge
+        return { kind: 'enter_wait', toIndex: nextChallenge }
+      }
+      return state
+
+    case 'enter_wait':
+      if (elapsedTime >= timers.enter) {
+        return { kind: 'active', index: state.toIndex }
+      }
+      return state
+
+    case 'c15_wait':
+      if (elapsedTime >= 5) {
+        // After 5 seconds, restart the sweep
+        return { kind: 'initial_wait' }
+      }
+      return state
+
+    case 'finished':
+      // Check to ensure that the max challenges did not change since we entered this state
+      // We check challenge 1 and 6 to represent Transcension and Reincarnation challenges respectively
+      if (
+        player.highestchallengecompletions[1] === getMaxChallenges(1)
+        && player.highestchallengecompletions[6] === getMaxChallenges(6)
+      ) {
+        return state
+      } else {
+        return { kind: 'initial_wait' }
+      }
+  }
 }
 
-const sleep = (m: number) => new Promise((r) => setTimeout(r, m))
-
-const interruptibleSleep = async (
-  getThresholdSeconds: () => number,
-  checkInterval = 20
-): Promise<void> => {
-  challengeTimeElapsed = 0
-  let challengeTimeThreshold = getThresholdSeconds()
-
-  while (challengeTimeElapsed < challengeTimeThreshold) {
-    // Check if sweep was disabled
-    if (!checkSweepStillEnabled()) {
-      throw new Error('Challenge sweep was disabled')
+function handleStateTransition (oldState: SweepStates, newState: SweepStates): void {
+  if (oldState.kind === 'active') {
+    const challengeIndex = oldState.index
+    if (challengeIndex <= 5) {
+      void resetCheck('transcensionChallenge', undefined, true)
+    } else {
+      void resetCheck('reincarnationChallenge', undefined, true)
     }
-
-    await sleep(checkInterval)
-    challengeTimeElapsed += checkInterval / 1000
-
-    // Player can update the target
-    challengeTimeThreshold = getThresholdSeconds()
   }
 
-  return
+  switch (newState.kind) {
+    case 'idle':
+      toggleAutoChallengeModeText('OFF')
+      break
+
+    case 'initial_wait':
+      toggleAutoChallengeModeText('START')
+      break
+
+    case 'enter_wait':
+      toggleAutoChallengeModeText('ENTER')
+      break
+
+    case 'active':
+      toggleChallenges(newState.index, true)
+      toggleAutoChallengeModeText('CHALLENGE')
+      break
+
+    case 'c15_wait':
+      toggleAutoChallengeModeText('WAIT')
+      break
+
+    case 'finished':
+      toggleAutoChallengeModeText('COMPLETE')
+      break
+  }
 }
+
+export type AutoChallengeStates = 'OFF' | 'START' | 'CHALLENGE' | 'ENTER' | 'WAIT' | 'COMPLETE'
 
 // Time (in seconds) that have been spent since the last state shift.
-export let challengeTimeElapsed = 0
-// Guarantees that only one Sweep instance is active at a time
-let challengeSweepLock = false
-// This is true for the first Challenge in the Sweep only
-let ignoreEnterTime = true
+export let timeSinceLastStateChange = 0
 
-export const challengeSweep = async () => {
-  // We only want this to run once at a time, and we must have Research 6x25 purchased.
-  if (challengeSweepLock) {
-    return
-  }
-  // We need to explicitly tell the user the sweep is in an OFF state on top of returning
-  // Which is why this is a separate check
-  if (player.researches[150] === 0 || !checkSweepStillEnabled()) {
+function shouldRunSweep (): boolean {
+  return player.researches[150] > 0 && player.autoChallengeRunning
+}
+
+export function resetChallengeSweep (): void {
+  if (currentSweepState.kind !== 'idle') {
+    currentSweepState = { kind: 'idle' }
+    timeSinceLastStateChange = 0
     toggleAutoChallengeModeText('OFF')
-    challengeTimeElapsed = 0
+  }
+}
+
+export function tickChallengeSweep (dt: number): void {
+  const wasEnabled = currentSweepState.kind !== 'idle'
+  const isEnabled = shouldRunSweep()
+
+  if (!wasEnabled && isEnabled) {
+    currentSweepState = { kind: 'initial_wait' }
+    timeSinceLastStateChange = 0
+    handleStateTransition({ kind: 'idle' }, currentSweepState)
     return
   }
-  challengeSweepLock = true
 
-  try {
-    for (let i = 0; i <= 10; i++) {
-      // i = 0 corresponds to the 'start' period before we enter the first challenge in the sweep.
-      // In the player object, challenges are 1-indexed, so reserving i = 0 for this purpose works.
-      if (i === 0) {
-        toggleAutoChallengeModeText('START')
-        await interruptibleSleep(() => player.autoChallengeTimer.start)
-      } else {
-        if (
-          player.challengecompletions[i] >= getMaxChallenges(i)
-          || !player.autoChallengeToggles[i]
-        ) {
-          continue
-        }
-
-        // Avoid waiting (START + ENTER) time to enter first valid Challenge
-        if (ignoreEnterTime) {
-          ignoreEnterTime = false
-        } else {
-          toggleAutoChallengeModeText('ENTER')
-          await interruptibleSleep(() => player.autoChallengeTimer.enter)
-        }
-
-        // Enters Challenge i
-        toggleChallenges(i, true)
-        toggleAutoChallengeModeText('CHALLENGE')
-        await interruptibleSleep(() => player.autoChallengeTimer.exit)
-
-        // Leave based on challenge type
-        // 1-5 are Transcension Challenges, and 6-10 are Reincarnation Challenges.
-        if (i <= 5) {
-          void resetCheck('transcensionChallenge', undefined, true)
-        } else {
-          void resetCheck('reincarnationChallenge', undefined, true)
-        }
-      }
-    }
-
-    // In order to earn C15 Exponent, wait another 5 seconds after the sweep before starting over again.
-    // Only runs if you're in Challenge 15, with Auto-Ascension on Ascension Time: Real Mode.
-    if (challenge15AutoExponentCheck()) {
-      toggleAutoChallengeModeText('WAIT')
-      await interruptibleSleep(() => 5)
-    }
-  } catch (e) {
-    // If we catch an error, it is from sweep being disabled while the sweep was running.
+  if (wasEnabled && !isEnabled) {
+    const oldState = currentSweepState
+    currentSweepState = { kind: 'idle' }
+    timeSinceLastStateChange = 0
+    handleStateTransition(oldState, currentSweepState)
     void Notification(i18next.t('challenges.exitSweep'))
-  } finally {
-    challengeSweepLock = false
-    ignoreEnterTime = true
+    return
+  }
+
+  if (!isEnabled) {
+    return
+  }
+
+  timeSinceLastStateChange += dt
+  const newState = sweepTransitionFunc(currentSweepState, timeSinceLastStateChange)
+
+  if (newState !== currentSweepState) {
+    // State changed, reset timer and handle side effects
+    const oldState = currentSweepState
+    currentSweepState = newState
+    timeSinceLastStateChange = 0
+    handleStateTransition(oldState, newState)
   }
 }
 

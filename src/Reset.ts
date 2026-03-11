@@ -28,7 +28,7 @@ import {
   updateMaxTokens,
   updateTokens
 } from './Campaign'
-import { CalcECC, challengeRequirement } from './Challenges'
+import { CalcECC, challengeRequirement, resetChallengeSweep } from './Challenges'
 import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate, type SavedCorruption } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
@@ -645,6 +645,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     // reset auto challenges
     player.currentChallenge.transcension = 0
     player.currentChallenge.reincarnation = 0
+    // reset challenge sweep state machine
+    resetChallengeSweep()
 
     // The start of the auto challenge to improve QoL starts with C10
     if (

@@ -34,7 +34,7 @@ import {
   calculateTotalOcteractQuarkBonus,
   calculateTotalSalvage
 } from './Calculate'
-import { CalcECC, challengeDisplay, challengeTimeElapsed } from './Challenges'
+import { CalcECC, challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
 import {
   calculateAcceleratorCubeBlessing,
@@ -755,7 +755,7 @@ export const visualUpdateChallenges = () => {
     DOMCacheGetOrSet('autoIncrementerAmount').innerHTML = i18next.t(
       'challenges.autoTimer',
       {
-        time: format(challengeTimeElapsed, 2)
+        time: format(timeSinceLastStateChange, 2)
       }
     )
   }

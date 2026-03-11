@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { type AutoChallengeStates, getChallengeConditions } from './Challenges'
+import { type AutoChallengeStates, getChallengeConditions, resetChallengeSweep } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } from './Corruptions'
 import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
@@ -777,6 +777,8 @@ export const toggleAutoChallengesIgnore = (i: number) => {
       }
     }
   }
+  // We can be stuck in the 'finished!' state if we don't reset it here
+  resetChallengeSweep()
 }
 
 const autoChallengeStateTexts: Record<AutoChallengeStates, () => string> = {
@@ -784,7 +786,8 @@ const autoChallengeStateTexts: Record<AutoChallengeStates, () => string> = {
   START: () => i18next.t('challenges.modeStart'),
   CHALLENGE: () => i18next.t('challenges.modeChallenge'),
   ENTER: () => i18next.t('challenges.modeEnter'),
-  WAIT: () => i18next.t('challenges.modeWait')
+  WAIT: () => i18next.t('challenges.modeWait'),
+  COMPLETE: () => i18next.t('challenges.modeComplete')
 }
 
 export const toggleAutoChallengeRun = () => {

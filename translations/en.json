@@ -2852,6 +2852,7 @@
     "modeOff": "MODE: OFF",
     "modeEnter": "MODE: ENTER",
     "modeChallenge": "MODE: CHALLENGE",
+    "modeComplete": "MODE: ✰ COMPLETE!",
     "exitSweep": "Exited Challenge Sweep successfully!",
     "bonusFirstCompletion": "Bonus/Unlock for First Completion",
     "timeStartSweep": "Time for start of sweep: <<var(--orchid-text-color)|{{time}}>>/s",

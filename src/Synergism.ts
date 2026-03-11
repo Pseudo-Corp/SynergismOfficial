@@ -8,11 +8,11 @@ import {
   challenge15ScoreMultiplier,
   challengeDisplay,
   challengeRequirement,
-  challengeSweep,
   getChallengeConditions,
   getMaxChallenges,
   getNextChallenge,
-  highestChallengeRewards
+  highestChallengeRewards,
+  tickChallengeSweep
 } from './Challenges'
 import { btoa } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
@@ -4792,11 +4792,8 @@ const tack = (dt: number) => {
     automaticTools('addOfferings', dt / 2)
   }
 
-  try {
-    challengeSweep()
-  } catch (e) {
-    void Notification('Exited Challenge Sweep successfully!')
-  }
+  // Challenge Sweep State Machine
+  tickChallengeSweep(dt)
 
   // Check for automatic resets
   // Auto Prestige.
