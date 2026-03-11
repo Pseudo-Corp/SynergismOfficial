@@ -3579,11 +3579,10 @@ export const resetCurrency = (): void => {
 
   // Calculates the conversion exponent for resets (Challenges 5 and 10 reduce the exponent accordingly).
   if (player.currentChallenge.transcension === 5) {
-    prestigePow = 0.01 / (1 + player.challengecompletions[5])
-    transcendPow = 0.001
+    prestigePow = 0.01
   }
   if (player.currentChallenge.reincarnation === 10) {
-    prestigePow = 1e-4 / (1 + player.challengecompletions[10])
+    prestigePow = 1e-4
     transcendPow = 0.001
   }
   prestigePow *= G.deflationMultiplier[player.corruptions.used.deflation]

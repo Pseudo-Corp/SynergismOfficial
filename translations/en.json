@@ -2374,7 +2374,7 @@
       "mortuus2": {
         "name": "Mortuus Iterum Formicidae",
         "intro": "The cyan glow... it's... Reborn?",
-        "description": "Improve your Mortuus Talisman! Up to +100% Effect, +1,200 Max Level, and gain some Ascension Speed on the side.",
+        "description": "Improve your Mortuus Talisman! Up to +75% Effect, +1,200 Max Level, and gain some Ascension Speed on the side.",
         "lockedAutomation": "Unlock the <i>Mortuus Iterum Formicidae</i> autobuyer from reaching Synergism Level <<gold|225>>",
         "effect": "Mortuus Talisman Max Level: <<royalblue | +{{x}}>>",
         "effect2": "Mortuus Talisman Effect: <<royalblue | +{{x}}>>",
@@ -2641,7 +2641,7 @@
     "5": {
       "name": "Reduced Diamonds Challenge || {{- value}} Completions",
       "flavor": "You ever wonder how you get so many diamonds?",
-      "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.01 / (1 + completions)]>>",
+      "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^0.01>>",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+0.01 Coin --> Diamond conversion exponent on Prestige! Current: ",
@@ -2731,7 +2731,7 @@
     "10": {
       "name": "Sadistic Challenge I || {{- value}} Completions",
       "flavor": "I'm sorry for what I've unleashed onto the world. You read a note on the floor: \"You probably want about 1e300 Galactic Crumbs before you fully embrace the challenge. Try to Sacrifice some more Anthills, master your Ants and become one with the Ant God to achieve this.\"",
-      "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|25,000>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.0001 / (1 + completions)]>> <br> ☆ Mythos gain is reduced to <<gold | Coins^0.001>>",
+      "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|25,000>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^0.0001>> <br> ☆ Mythos gain is reduced to <<gold | Coins^0.001>>",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+100 base ELO for sacrificing ants! Current: ",

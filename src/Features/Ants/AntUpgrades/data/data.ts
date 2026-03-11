@@ -373,8 +373,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     description: () => i18next.t('ants.upgrades.mortuus2.description'),
     effect: (n: number) => {
       const talismanMaxLevels = Math.min(1200, Math.floor(n / 2))
-      const talismanEffectBuff = 1 + 0.9 * (1 - Math.pow(0.999, n)) + 0.005 * Math.min(20, n)
-      const ascensionSpeed = 2 - Math.pow(0.996, n)
+      const talismanEffectBuff = 1 + 0.65 * (1 - Math.pow(0.999, n)) + 0.005 * Math.min(20, n)
+      const ascensionSpeed = 1 + 0.5 * (1 - Math.pow(0.996, n))
       return {
         talismanLevelIncreaser: talismanMaxLevels,
         talismanEffectBuff: talismanEffectBuff,
@@ -408,7 +408,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     description: () => i18next.t('ants.upgrades.ascensionScore.description'),
     effect: (n: number) => {
       const ascensionScoreBase = 100000 * (1 - Math.pow(0.999, n))
-      const bankedCubes = 4 * Math.min(200, n) + n
+      const bankedCubes = 3 * Math.min(200, n) + 2500 * (1 - Math.pow(1 - 1 / 2500, n))
       return {
         cubesBanked: bankedCubes,
         ascensionScoreBase: ascensionScoreBase
@@ -419,7 +419,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
       const effect1 = i18next.t('ants.upgrades.ascensionScore.effect', {
         x: format(effects.ascensionScoreBase, 0, true)
       })
-      const effect2 = i18next.t('ants.upgrades.ascensionScore.effect2', { x: format(effects.cubesBanked, 0, true) })
+      const effect2 = i18next.t('ants.upgrades.ascensionScore.effect2', { x: format(effects.cubesBanked, 2, true) })
       return `${effect1}<br>${effect2}`
     },
     lockedAutoDescription: () => i18next.t('ants.upgrades.ascensionScore.lockedAutomation')
