@@ -10,7 +10,7 @@ import { confirmReply, toggleAutoChallengeRun } from './Toggles'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
-export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide during notification */ boolean]>([
+const defaultHotkeys = new Map<string, [string, () => unknown, /* hide during notification */ boolean]>([
   ['A', ['hotkeys.names.buyAccelerators', () => buyAccelerator(), false]],
   ['B', ['hotkeys.names.boostAccelerator', () => boostAccelerator(), false]],
   ['C', ['autoChallenge', () => {
@@ -47,9 +47,9 @@ export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide du
   ['CTRL+B', ['hotkeys.names.unhideTabs', () => tabRow.reappend(), false]]
 ])
 
-export let hotkeysEnabled = false
+let hotkeysEnabled = false
 
-export let hotkeys = new Map<string, [string, () => unknown, boolean]>(defaultHotkeys)
+let hotkeys = new Map<string, [string, () => unknown, boolean]>(defaultHotkeys)
 
 const toggleChallengeSweep = (): void => {
   if (player.researches[150] > 0) {
@@ -212,7 +212,7 @@ export const enableHotkeys = () => {
   hotkeysEnabled = true
 }
 
-export const changeHotkeys = () => {
+const changeHotkeys = () => {
   hotkeys = new Map(defaultHotkeys)
 
   for (const key in player.hotkeys) {

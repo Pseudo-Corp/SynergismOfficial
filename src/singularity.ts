@@ -236,7 +236,7 @@ type SingularitySpecialCostFormulae =
   | 'Cubic'
   | 'Exponential2'
 
-export interface GoldenQuarkUpgrade {
+interface GoldenQuarkUpgrade {
   level: number
   freeLevel: number
   goldenQuarksInvested: number
@@ -2262,7 +2262,7 @@ export async function buyGQUpgradeLevel (
   revealStuff()
 }
 
-export function computeFreeLevelMultiplier (): number {
+function computeFreeLevelMultiplier (): number {
   return (player.shopUpgrades.shopSingularityPotency > 0 ? 3.66 : 1) + 0.3 / 100 * player.cubeUpgrades[75]
 }
 
@@ -2337,15 +2337,10 @@ export function getGQUpgradeEffect (upgradeKey: SingularityDataKeys): number {
   return upgrade.effect(totalLevels)
 }
 
-export function getGQUpgradeDescription (upgradeKey: SingularityDataKeys): string {
+function getGQUpgradeDescription (upgradeKey: SingularityDataKeys): string {
   const upgrade = goldenQuarkUpgrades[upgradeKey]
   const totalLevels = actualGQUpgradeTotalLevels(upgradeKey)
   return upgrade.effectDescription(totalLevels)
-}
-
-export function resetGQUpgrade (upgradeKey: SingularityDataKeys): void {
-  const upgrade = goldenQuarkUpgrades[upgradeKey]
-  upgrade.level = 0
 }
 
 const currentSingularityText = () => i18next.t('singularity.perks.usesCurrentSing')
@@ -2354,18 +2349,11 @@ const currentSingularityText = () => i18next.t('singularity.perks.usesCurrentSin
  * Singularity Perks are automatically obtained and upgraded, based on player.singularityCount
  * They can have one or several levels with a description for each level
  */
-export class SingularityPerk {
-  public readonly name: () => string
-  public readonly levels: number[]
-  public readonly description: (n: number, levels: number[]) => string
-  public readonly ID: string
-
-  public constructor (perk: SingularityPerk) {
-    this.name = perk.name
-    this.levels = perk.levels
-    this.description = perk.description
-    this.ID = perk.ID
-  }
+interface SingularityPerk {
+  readonly name: () => string
+  readonly levels: number[]
+  readonly description: (n: number, levels: number[]) => string
+  readonly ID: string
 }
 
 // List of Singularity Perks based on player.highestSingularityCount
@@ -3255,7 +3243,7 @@ export const updateSingularityPerks = (): void => {
   handlePerks(singularityCount)
 }
 
-export interface ISingularityPerkDisplayInfo {
+interface ISingularityPerkDisplayInfo {
   name: string
   lastUpgraded: number
   acquired: number
@@ -3435,7 +3423,7 @@ export async function buyGoldenQuarks (): Promise<void> {
   )
 }
 
-export type SingularityDebuffs =
+type SingularityDebuffs =
   | 'Offering'
   | 'Obtainium'
   | 'Salvage'
@@ -3448,7 +3436,7 @@ export type SingularityDebuffs =
   | 'Platonic Costs'
   | 'Hepteract Costs'
 
-export const calculateSingularityReductions = () => {
+const calculateSingularityReductions = () => {
   return (
     player.shopUpgrades.shopSingularityPenaltyDebuff
     + (player.insideSingularityChallenge
@@ -3535,7 +3523,7 @@ export const calculateEffectiveSingularities = (
   return effectiveSingularities
 }
 
-export const calculateNextSpike = (
+const calculateNextSpike = (
   singularityCount: number = player.singularityCount
 ): number => {
   const penaltyDebuff = calculateSingularityReductions()
@@ -3745,19 +3733,5 @@ export const teleportToSingularity = async (): Promise<void> => {
     // Update display
     updateSingularityElevator()
     Alert(i18next.t('singularity.elevator.teleportSuccess', { target }))
-  }
-}
-
-export const calculateSingularityMatterCap = (sing: number) => {
-  return Math.pow(100 + sing, 2)
-}
-
-export const calculateEarnableSingularityMatter = (sing: number) => {
-  const currentMatter = player.singularityMatter
-  const cap = calculateSingularityMatterCap(sing)
-  if (currentMatter >= cap) {
-    return 0
-  } else {
-    return Math.ceil(0.01 * (cap - currentMatter))
   }
 }

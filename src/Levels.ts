@@ -4,7 +4,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { resetTimeThreshold } from './Calculate'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 
-export type SynergismLevelReward =
+type SynergismLevelReward =
   | 'quarks'
   | 'salvage'
   | 'obtainium'
@@ -19,7 +19,7 @@ export type SynergismLevelReward =
   | 'ambrosiaLuck'
   | 'redAmbrosiaLuck'
 
-export interface SynergismLevelRewardData {
+interface SynergismLevelRewardData {
   name: () => string
   description: () => string
   effect: (lv: number) => number
@@ -230,7 +230,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
   }
 }
 
-export const synergismLevelReward = Object.keys(synergismLevelRewards) as SynergismLevelReward[]
+const synergismLevelReward = Object.keys(synergismLevelRewards) as SynergismLevelReward[]
 
 export const getLevelReward = (reward: SynergismLevelReward): number => {
   if (achievementLevel >= synergismLevelRewards[reward].minLevel) {
@@ -240,7 +240,7 @@ export const getLevelReward = (reward: SynergismLevelReward): number => {
   }
 }
 
-export const getLevelRewardDescription = (reward: SynergismLevelReward) => {
+const getLevelRewardDescription = (reward: SynergismLevelReward) => {
   const name = synergismLevelRewards[reward].name()
   const description = synergismLevelRewards[reward].description()
   const effectDesc = synergismLevelRewards[reward].effectDescription()
@@ -292,7 +292,7 @@ export const generateLevelRewardHTMLs = () => {
   }
 }
 
-export type SynergismLevelMilestones =
+type SynergismLevelMilestones =
   | 'offeringTimerScaling'
   | 'speedRune'
   | 'duplicationRune'
@@ -324,7 +324,7 @@ interface SynergismLevelMilestoneData {
   displayOrder: number
 }
 
-export const synergismLevelMilestones: Record<SynergismLevelMilestones, SynergismLevelMilestoneData> = {
+const synergismLevelMilestones: Record<SynergismLevelMilestones, SynergismLevelMilestoneData> = {
   offeringTimerScaling: {
     name: () => i18next.t('achievements.levelMilestones.offeringTimerScaling.name'),
     description: () => i18next.t('achievements.levelMilestones.offeringTimerScaling.description'),
@@ -647,7 +647,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
   }
 }
 
-export const synergismLevelMilestone = Object.keys(synergismLevelMilestones) as SynergismLevelMilestones[]
+const synergismLevelMilestone = Object.keys(synergismLevelMilestones) as SynergismLevelMilestones[]
 
 export const getLevelMilestone = (milestone: SynergismLevelMilestones): number => {
   if (achievementLevel >= synergismLevelMilestones[milestone].levelReq) {
@@ -657,7 +657,7 @@ export const getLevelMilestone = (milestone: SynergismLevelMilestones): number =
   }
 }
 
-export const getLevelMilestoneDescription = (milestone: SynergismLevelMilestones) => {
+const getLevelMilestoneDescription = (milestone: SynergismLevelMilestones) => {
   const name = synergismLevelMilestones[milestone].name()
   const description = synergismLevelMilestones[milestone].description()
   const effectDesc = synergismLevelMilestones[milestone].effectDescription()

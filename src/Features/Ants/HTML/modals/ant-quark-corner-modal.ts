@@ -51,7 +51,7 @@ export const antCornerStageHTML = () => {
 /**
  * "Daily" Leaderboard Quark Text Modal... NOT ALL-TIME.
  */
-export const antCornerDailyQuarkHTML = () => {
+const antCornerDailyQuarkHTML = () => {
   const quarksGained = player.ants.quarksGainedFromAnts
   const introHTML = `<span style="font-weight: bold; font-size: 1.2em;">${
     i18next.t('ants.leaderboard.dailyQuarkModal.intro', {
@@ -95,7 +95,7 @@ export const antCornerDailyQuarkHTML = () => {
   return `${introHTML}<br><br>${tranchHTML}<br>${bonusHTML}<br>${lifetimeMultHTML}<br>${globalQuarkMultHTML}`
 }
 
-export const antCornerAllTimeQuarkHTML = () => {
+const antCornerAllTimeQuarkHTML = () => {
   const lifetimeTotalELOValue = calculateLeaderboardValue(player.ants.highestRebornELOEver)
   const lifetimeStages = calculateRebornELOThresholds(lifetimeTotalELOValue)
   const quarkMult = quarksFromELOMult()

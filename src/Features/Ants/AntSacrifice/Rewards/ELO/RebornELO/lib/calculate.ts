@@ -19,7 +19,7 @@ export const rebornELOCreationSpeedMult = () => {
   return rebornELOCreationSpeedMultStats.reduce((a, b) => a * b.stat(), 1)
 }
 
-export const calculateTotalProductionForRebornELO = (rebornELO: number) => {
+const calculateTotalProductionForRebornELO = (rebornELO: number) => {
   const stage = calculateRebornELOThresholds(rebornELO)
   const leftover = calculateLeftoverELO(rebornELO, stage)
 

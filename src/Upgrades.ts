@@ -393,7 +393,7 @@ export const upgradeRequirements = [
   () => player.cubeUpgrades[19] > 0
 ]
 
-export const upgradeeffects = (i: number) => {
+const upgradeeffects = (i: number) => {
   const effect = upgradetexts[i - 1]?.()
   const type = typeof effect
   const element = DOMCacheGetOrSet('upgradeeffect')

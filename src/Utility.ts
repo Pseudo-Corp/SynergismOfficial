@@ -86,15 +86,9 @@ export const productContents = (array: number[]) => {
   return total
 }
 
-export const sortWithIndices = (toSort: number[]) => {
-  return Array
-    .from([...toSort.keys()])
-    .sort((a, b) => toSort[a] < toSort[b] ? -1 : +(toSort[b] < toSort[a]))
-}
-
 export const sortDecimalWithIndices = (toSort: DecimalSource[]) => {
   return Array
-    .from([...toSort.keys()])
+    .from(toSort.keys())
     .sort((a, b) =>
       new Decimal(toSort[a]).lt(new Decimal(toSort[b])) ? -1 : +(new Decimal(toSort[b]).lt(new Decimal(toSort[a])))
     )
@@ -105,17 +99,6 @@ export const sortDecimalWithIndices = (toSort: DecimalSource[]) => {
  * @param id {string}
  */
 export const getElementById = <T extends HTMLElement>(id: string) => DOMCacheGetOrSet(id) as T
-
-/**
- * Remove leading indents at the beginning of new lines in a template literal.
- */
-export const stripIndents = (raw: TemplateStringsArray, ...args: unknown[]): string => {
-  const r = String.raw({ raw }, ...args)
-
-  return r
-    .replace(/^[^\S\r\n]+/gm, '')
-    .trim()
-}
 
 /**
  * Pads an array (a) with param (b) (c) times
@@ -174,7 +157,7 @@ export const toOrdinal = (int: number): string => {
   return format(int, 0, true) + suffix
 }
 
-export const formatMS = (ms: number) =>
+const formatMS = (ms: number) =>
   Object.entries({
     d: Math.floor(ms / 86400000),
     h: Math.floor(ms / 3600000) % 24,
@@ -189,7 +172,7 @@ export const formatS = (s: number) => {
   return formatMS(1000 * s)
 }
 
-export const addLeadingZero = (n: number): string => {
+const addLeadingZero = (n: number): string => {
   return n < 10 ? `0${n}` : String(n)
 }
 
@@ -364,7 +347,7 @@ interface RetryOptions {
   multiplier?: number // default: 2
 }
 
-export const sleep = (delay: number) => new Promise((r) => setTimeout(r, delay))
+const sleep = (delay: number) => new Promise((r) => setTimeout(r, delay))
 
 /**
  * Retry a promise {@param times} times
@@ -404,13 +387,6 @@ export const geometricSeries = (startIndex: number, endIndex: number, ratio: num
   } else {
     return (ratio ** (endIndex + 1) - ratio ** startIndex) / (ratio - 1)
   }
-}
-
-export const infiniteGeometricSeries = (startIndex: number, ratio: number): number => {
-  if (Math.abs(ratio) >= 1) {
-    throw new Error('Ratio must be less than 1 for an infinite geometric series to converge.')
-  }
-  return ratio ** startIndex / (1 - ratio)
 }
 
 export const displayHTMLError = async (response: Response) => {

@@ -6,18 +6,6 @@ const cartMap = new Map<string, { quantity: number; price: number; rest: Omit<Pr
 /** Total number of items in the cart */
 let inCart = 0
 
-export const decrementInCart = () => {
-  inCart = Math.max(0, inCart - 1)
-  updateInCartCount()
-}
-
-export const incrementInCart = () => {
-  inCart++
-  updateInCartCount()
-}
-
-export const getInCartTotal = () => inCart
-
 const updateInCartCount = () => {
   const counter = document.getElementById('notification-count')!
 

@@ -57,7 +57,7 @@ type shopResetTier =
   | 'Exalt7x30'
   | 'Exalt8x5'
 
-export interface IShopData {
+interface IShopData {
   price: number
   priceIncrease: number
   maxLevel: number
@@ -1734,28 +1734,6 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   }
 }
 
-export const autoBuyConsumable = (input: ShopUpgradeNames) => {
-  const maxBuyablePotions = Math.floor(
-    Math.min(
-      Number(player.worlds) / 100,
-      Math.min(
-        shopData[input].maxLevel - player.shopUpgrades[input],
-        Math.pow(player.highestSingularityCount, 2) * 100
-      )
-    )
-  )
-
-  if (shopData[input].maxLevel <= player.shopUpgrades[input]) {
-    return
-  }
-  if (maxBuyablePotions <= 0) {
-    return
-  }
-
-  player.worlds.sub(100 * maxBuyablePotions)
-  player.shopUpgrades[input] += maxBuyablePotions
-}
-
 export const useConsumablePrompt = async (
   input: ShopUpgradeNames,
   used = 1,
@@ -1891,20 +1869,6 @@ export const forceResetShopUpgrades = () => {
     void Alert('Nothing to Refund!')
   }
   player.quarksThisSingularity = singularityQuarks
-}
-
-export const getQuarkInvestment = (upgrade: ShopUpgradeNames) => {
-  if (!(upgrade in shopData) || !(upgrade in player.shopUpgrades)) {
-    return 0
-  }
-
-  const val = shopData[upgrade].price * player.shopUpgrades[upgrade]
-    + (shopData[upgrade].priceIncrease
-        * (player.shopUpgrades[upgrade] - 1)
-        * player.shopUpgrades[upgrade])
-      / 2
-
-  return val
 }
 
 export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {

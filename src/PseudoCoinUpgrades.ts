@@ -22,8 +22,8 @@ export type PseudoCoinUpgradeNames =
   | 'RED_GENERATION_BUFF'
   | 'RED_LUCK_BUFF'
 
-export type PseudoCoinUpgrades = Record<PseudoCoinUpgradeNames, number>
-export type PseudoCoinUpgradeEffects = Record<PseudoCoinUpgradeNames, number>
+type PseudoCoinUpgrades = Record<PseudoCoinUpgradeNames, number>
+type PseudoCoinUpgradeEffects = Record<PseudoCoinUpgradeNames, number>
 
 // TODO?: Something more robust to injections?
 
@@ -86,7 +86,7 @@ export const updatePCoinCache = async (name: PseudoCoinUpgradeNames, level: numb
   updatePCoinEffects(name, level)
 }
 
-export const updatePCoinEffects = (name: PseudoCoinUpgradeNames, level: number) => {
+const updatePCoinEffects = (name: PseudoCoinUpgradeNames, level: number) => {
   switch (name) {
     case 'INSTANT_UNLOCK_1':
       PCoinUpgradeEffects.INSTANT_UNLOCK_1 = level > 0 ? 1 : 0

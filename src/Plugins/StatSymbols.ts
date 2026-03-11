@@ -1,6 +1,6 @@
 import type { PostProcessorModule } from 'i18next'
 
-export let showStatSymbol = false
+let showStatSymbol = false
 
 export const enableStatSymbols = (): void => {
   showStatSymbol = true

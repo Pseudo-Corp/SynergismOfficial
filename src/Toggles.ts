@@ -187,12 +187,12 @@ export enum AutoAscensionModes {
   percentage = 1
 }
 
-export const autoResetTogglei18n: Record<AutoResetModes, () => string> = {
+const autoResetTogglei18n: Record<AutoResetModes, () => string> = {
   [AutoResetModes.amount]: () => i18next.t('toggles.modeAmount'),
   [AutoResetModes.time]: () => i18next.t('toggles.modeTime')
 }
 
-export const autoAscensionTogglei18n: Record<AutoAscensionModes, () => string> = {
+const autoAscensionTogglei18n: Record<AutoAscensionModes, () => string> = {
   [AutoAscensionModes.amount]: () => i18next.t('toggles.modeAmount'),
   [AutoAscensionModes.percentage]: () => i18next.t('toggles.modePercentage')
 }
@@ -474,19 +474,6 @@ export const toggleautofortify = () => {
   }
 
   player.autoFortifyToggle = !player.autoFortifyToggle
-}
-
-export const toggleautoenhance = () => {
-  const el = DOMCacheGetOrSet('toggleautoenhance')
-  if (player.autoEnhanceToggle) {
-    el.textContent = i18next.t('runes.autoEnhanceOff')
-    el.style.border = '2px solid red'
-  } else {
-    el.textContent = i18next.t('runes.autoEnhanceOn')
-    el.style.border = '2px solid green'
-  }
-
-  player.autoEnhanceToggle = !player.autoEnhanceToggle
 }
 
 export const toggleMaxPlat = () => {
@@ -814,7 +801,7 @@ export enum AutoAscensionResetModes {
   realAscensionTime = 1
 }
 
-export const autoAscensionResetTogglei18n: Record<AutoAscensionResetModes, () => string> = {
+const autoAscensionResetTogglei18n: Record<AutoAscensionResetModes, () => string> = {
   [AutoAscensionResetModes.c10Completions]: () => i18next.t('corruptions.autoAscend.modeCompletions'),
   [AutoAscensionResetModes.realAscensionTime]: () => i18next.t('corruptions.autoAscend.modeRealTime')
 }

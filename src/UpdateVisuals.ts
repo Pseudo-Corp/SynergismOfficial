@@ -2063,7 +2063,7 @@ export const visualUpdateShop = () => {
   })
 }
 
-export const constructConsumableTimes = (p: PseudoCoinConsumableNames) => {
+const constructConsumableTimes = (p: PseudoCoinConsumableNames) => {
   const msg: string[] = []
   for (const time of allDurableConsumables[p].ends) {
     msg.push(timeRemainingHours(new Date(time)))

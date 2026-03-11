@@ -33,7 +33,7 @@ type RedAmbrosiaUpgradeRewards = {
 
 export type RedAmbrosiaNames = keyof RedAmbrosiaUpgradeRewards
 
-export interface RedAmbrosiaUpgrade<T extends RedAmbrosiaNames> {
+interface RedAmbrosiaUpgrade<T extends RedAmbrosiaNames> {
   name: () => string
   description: () => string
   level: number
@@ -596,26 +596,17 @@ export const getRedAmbrosiaUpgradeEffects = <T extends RedAmbrosiaNames>(
   return redAmbrosiaUpgrades[upgradeKey].effects(currentLevel)
 }
 
-export const getRedAmbrosiaUpgradeEffectsDescription = (upgradeKey: RedAmbrosiaNames): string => {
+const getRedAmbrosiaUpgradeEffectsDescription = (upgradeKey: RedAmbrosiaNames): string => {
   const currentLevel = redAmbrosiaUpgrades[upgradeKey].level
   return redAmbrosiaUpgrades[upgradeKey].effectsDescription(currentLevel)
 }
 
-export const getRedAmbrosiaUpgradeCostTNL = (upgradeKey: RedAmbrosiaNames): number => {
+const getRedAmbrosiaUpgradeCostTNL = (upgradeKey: RedAmbrosiaNames): number => {
   const upgrade = redAmbrosiaUpgrades[upgradeKey]
   if (upgrade.level === upgrade.maxLevel) {
     return 0
   }
   return upgrade.costFormula(upgrade.level, upgrade.costPerLevel)
-}
-
-export const refundRedAmbrosiaUpgrade = (upgradeKey: RedAmbrosiaNames): void => {
-  const upgrade = redAmbrosiaUpgrades[upgradeKey]
-
-  player.redAmbrosia += upgrade.redAmbrosiaInvested
-  player.redAmbrosiaUpgrades[upgradeKey] = 0
-  upgrade.redAmbrosiaInvested = 0
-  upgrade.level = 0
 }
 
 export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string => {

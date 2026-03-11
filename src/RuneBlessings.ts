@@ -22,7 +22,7 @@ type RuneBlessingTypeMap = {
 
 export type RuneBlessingKeys = keyof RuneBlessingTypeMap
 
-export interface RuneBlessingData<K extends RuneBlessingKeys> {
+interface RuneBlessingData<K extends RuneBlessingKeys> {
   level: number
   runeEXP: Decimal
   costCoefficient: Decimal
@@ -194,7 +194,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
 
 export const runeBlessingKeys = Object.keys(runeBlessings) as RuneBlessingKeys[]
 
-export const getRuneBlessingPower = (bless: RuneBlessingKeys): number => {
+const getRuneBlessingPower = (bless: RuneBlessingKeys): number => {
   const blessingPowerMult = runeBlessings[bless].effectiveLevelMult()
   return runeBlessings[bless].level * blessingPowerMult
 }
@@ -203,7 +203,7 @@ export const getRuneBlessingEffect = <T extends RuneBlessingKeys>(bless: T): Run
   return runeBlessings[bless].effects(getRuneBlessingPower(bless))
 }
 
-export const getRuneBlessingEXPPerOffering = (bless: RuneBlessingKeys): Decimal => {
+const getRuneBlessingEXPPerOffering = (bless: RuneBlessingKeys): Decimal => {
   return runeBlessings[bless].runeEXPPerOffering()
 }
 
@@ -214,10 +214,6 @@ const computeEXPToLevel = (bless: RuneBlessingKeys, level: number) => {
 
 const computeEXPLeftToLevel = (bless: RuneBlessingKeys, level: number) => {
   return Decimal.max(0, computeEXPToLevel(bless, level).minus(runeBlessings[bless].runeEXP))
-}
-
-export const getRuneBlessingTNL = (bless: RuneBlessingKeys) => {
-  return computeEXPLeftToLevel(bless, runeBlessings[bless].level + 1)
 }
 
 export const buyBlessingLevels = (blessing: RuneBlessingKeys, budget: Decimal) => {
@@ -244,7 +240,7 @@ export const buyAllBlessingLevels = (budget: Decimal) => {
   }
 }
 
-export const levelBlessing = (bless: RuneBlessingKeys, timesLeveled: number, budget: Decimal) => {
+const levelBlessing = (bless: RuneBlessingKeys, timesLeveled: number, budget: Decimal) => {
   let budgetUsed: Decimal
 
   const expRequired = computeEXPLeftToLevel(bless, runeBlessings[bless].level + timesLeveled)
@@ -263,12 +259,6 @@ export const levelBlessing = (bless: RuneBlessingKeys, timesLeveled: number, bud
 
   // this.updatePlayerEXP()
   // this.updateRuneEffectHTML()
-}
-
-export const setBlessingLevel = (bless: RuneBlessingKeys, level: number) => {
-  const exp = computeEXPToLevel(bless, level)
-  runeBlessings[bless].level = level
-  runeBlessings[bless].runeEXP = exp
 }
 
 const updateLevelsFromEXP = (bless: RuneBlessingKeys) => {
@@ -296,7 +286,7 @@ export const updateAllBlessingLevelsFromEXP = () => {
 }
 
 // Gives levels to buy, total EXP to that level, and offerings required to reach that level
-export const maxBlessingLevelPurchaseInformation = (bless: RuneBlessingKeys, budget: Decimal) => {
+const maxBlessingLevelPurchaseInformation = (bless: RuneBlessingKeys, budget: Decimal) => {
   if (budget.lt(0)) {
     return { levels: 0, expRequired: new Decimal(0), offerings: new Decimal(0) }
   }

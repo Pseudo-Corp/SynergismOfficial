@@ -275,7 +275,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
   }
 }
 
-export enum Notations {
+enum Notations {
   PURE_SCIENTIFIC = 'Pure Scientific',
   PURE_ENGINEERING = 'Pure Engineering',
   DEFAULT = 'Default'
@@ -338,7 +338,7 @@ export const IconSets: [string, number][] = [
   ['Simplified', 1],
   ['Monotonous', 1]
 ]
-export const IconSetsRegex = /Default|Simplified|Monotonous|Legacy/
+const IconSetsRegex = /Default|Simplified|Monotonous|Legacy/
 
 export const toggleIconSet = (changeTo = player.iconSet) => {
   if ((changeTo > (IconSets.length - 1)) || (changeTo < 0)) {

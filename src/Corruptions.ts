@@ -14,7 +14,7 @@ import { Alert, Notification, Prompt } from './UpdateHTML'
 import { getElementById, productContents, sumContents, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
 
-export enum CorruptionIndices {
+enum CorruptionIndices {
   'viscosity' = 0,
   'dilation' = 1,
   'hyperchallenge' = 2,
@@ -679,7 +679,7 @@ export const corruptionLoadoutTableUpdate = (updateNext = false, updateRow = 0) 
   }
 }
 
-export const corruptionSaveLoadout = (loadoutNum: number) => {
+const corruptionSaveLoadout = (loadoutNum: number) => {
   const buildToSave = player.corruptions.next.loadout
   player.corruptions.saves.saves[loadoutNum].loadout.setCorruptionLevelsWithChallengeRequirement(buildToSave)
   corruptionLoadoutTableUpdate(false, loadoutNum + 1)
@@ -810,7 +810,7 @@ export const revealCorruptions = () => {
   }
 }
 
-export function corrChallengeMinimum (corr: keyof Corruptions): number {
+function corrChallengeMinimum (corr: keyof Corruptions): number {
   switch (corr) {
     case 'viscosity':
       return 11

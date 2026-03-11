@@ -31,7 +31,7 @@ const formatter = Intl.NumberFormat('en-US', {
   currency: 'USD'
 })
 
-export const initializeCheckoutTab = memoize(() => {
+const initializeCheckoutTab = memoize(() => {
   itemList.insertAdjacentHTML(
     'afterend',
     products.map((product) => (`

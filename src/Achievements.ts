@@ -14,11 +14,11 @@ import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
 import { runeSpirits } from './RuneSpirits'
 import { getGQUpgradeEffect, goldenQuarkUpgrades, maxGoldenQuarkUpgradeAP } from './singularity'
 import { maxAPFromChallenges, type SingularityChallengeDataKeys } from './SingularityChallenges'
-import { format, formatAsPercentIncrease, player } from './Synergism'
+import { format, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { maxTalismansRarityAP, talismans } from './Talismans'
 import type { resetNames } from './types/Synergism'
-import { Alert, CloseModal, Modal, Notification, revealStuff } from './UpdateHTML'
+import { CloseModal, Modal, Notification, revealStuff } from './UpdateHTML'
 import { isMobile, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -118,7 +118,7 @@ export const buildingAchievementCheck = () => {
   awardAchievementGroup('fifthOwnedCoin')
 }
 
-export const getAchievementQuarks = () => {
+const getAchievementQuarks = () => {
   const globalQuarkMultiplier = player.worlds.applyBonus(1)
   let actualMultiplier = globalQuarkMultiplier
   if (actualMultiplier > 100) {
@@ -173,7 +173,7 @@ export type AchievementGroups =
   | 'ungrouped'
   | 'addCodesUsed'
 
-export type AchievementRewards =
+type AchievementRewards =
   | 'acceleratorPower'
   | 'accelerators'
   | 'multipliers'
@@ -242,9 +242,9 @@ export type AchievementRewards =
   | 'antSpeed2UpgradeImprover'
   | 'antSacrificeToReincarnation'
 
-export type AchievementReward = Partial<Record<AchievementRewards, () => number>>
+type AchievementReward = Partial<Record<AchievementRewards, () => number>>
 
-export interface Achievement {
+interface Achievement {
   pointValue: number
   unlockCondition: () => boolean
   group: AchievementGroups
@@ -253,12 +253,7 @@ export interface Achievement {
   steamAchievementId?: string
 }
 
-export interface ProgressiveAchievementsObject {
-  cached: number
-  rewardedAP: number
-}
-
-export interface ProgressiveAchievement {
+interface ProgressiveAchievement {
   maxPointValue: number
   pointsAwarded: (cached: number) => number
   updateValue: () => number // Number to compare to existing caches
@@ -514,9 +509,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
   }
 }
 
-export const progressiveAchievementKeys = Object.keys(progressiveAchievements) as ProgressiveAchievements[]
+const progressiveAchievementKeys = Object.keys(progressiveAchievements) as ProgressiveAchievements[]
 
-export const achievements: Achievement[] = [
+const achievements: Achievement[] = [
   { pointValue: 5, unlockCondition: () => true, group: 'ungrouped' }, // Free Achievement Perhaps?
   {
     pointValue: 5,
@@ -2734,12 +2729,12 @@ export const achievements: Achievement[] = [
   }
 ]
 
-export interface AchievementDisplayInfo {
+interface AchievementDisplayInfo {
   order: number // Display achs in certain order
   displayCondition: () => boolean
 }
 
-export const hasResetAtOrAboveLevel = (reset: resetTiers) => {
+const hasResetAtOrAboveLevel = (reset: resetTiers) => {
   if (reset <= 5 && player.singularityCount > 0) return true
   if (reset <= 4 && player.ascensionCount > 0) return true
   if (reset <= 3 && player.reincarnationCount > 0) return true
@@ -3146,14 +3141,14 @@ export const ungroupedAchievementData: Record<UngroupedAchievementNames, Ungroup
   }
 }
 
-export const ungroupedAchievementKeys = Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]
+const ungroupedAchievementKeys = Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]
 
 export const numAchievements = Object.keys(achievements).length
 export const maxAchievementPoints = Object.values(achievements).reduce((sum, ach) => sum + ach.pointValue, 0)
   + Object.values(progressiveAchievements)
     .reduce((sum, ach) => sum + (ach.maxPointValue !== -1 ? ach.maxPointValue : 0), 0)
 
-export const achievementsByGroup: Record<AchievementGroups, number[]> = achievements
+const achievementsByGroup: Record<AchievementGroups, number[]> = achievements
   .reduce((groups, achievement, index) => {
     if (achievement.group) {
       if (!groups[achievement.group]) {
@@ -3164,9 +3159,9 @@ export const achievementsByGroup: Record<AchievementGroups, number[]> = achievem
     return groups
   }, {} as Record<AchievementGroups, number[]>)
 
-export const achievementGroupKeys = Object.keys(achievementsByGroup) as AchievementGroups[]
+const achievementGroupKeys = Object.keys(achievementsByGroup) as AchievementGroups[]
 
-export const achievementsByReward: Record<AchievementRewards, number[]> = achievements
+const achievementsByReward: Record<AchievementRewards, number[]> = achievements
   .reduce((rewards, achievement, index) => {
     if (achievement.reward) {
       for (const rewardType of Object.keys(achievement.reward) as AchievementRewards[]) {
@@ -3179,7 +3174,7 @@ export const achievementsByReward: Record<AchievementRewards, number[]> = achiev
     return rewards
   }, {} as Record<AchievementRewards, number[]>)
 
-export const achRewards: Record<AchievementRewards, () => number | boolean> = {
+const achRewards: Record<AchievementRewards, () => number | boolean> = {
   acceleratorPower: (): number => {
     return achievementsByReward.acceleratorPower.reduce(
       (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.acceleratorPower!() : 0),
@@ -3521,7 +3516,7 @@ import { resetTiers } from './Reset'
 
 const unlockedSteamAchievements = new Set<string>()
 
-export const unlockSteamAchievement = async (steamAchievementId: string): Promise<void> => {
+const unlockSteamAchievement = async (steamAchievementId: string): Promise<void> => {
   if (platform === 'steam') {
     if (unlockedSteamAchievements.has(steamAchievementId)) {
       return // Prevent unnecessary calls to Steam
@@ -3553,7 +3548,7 @@ export const syncSteamAchievements = async (): Promise<void> => {
   }
 }
 
-export const awardAchievement = (index: number) => {
+const awardAchievement = (index: number) => {
   if (player.achievements[index] === 1) {
     return false
   }
@@ -3600,7 +3595,7 @@ export const awardAchievementGroup = (group: AchievementGroups) => {
   }
 }
 
-export const updateProgressiveAP = (ach: ProgressiveAchievements, sourcedFromUpdate = false) => {
+const updateProgressiveAP = (ach: ProgressiveAchievements, sourcedFromUpdate = false) => {
   const oldPoints = progressiveAchievements[ach].rewardedAP
   const pointsAwarded = progressiveAchievements[ach].pointsAwarded(player.progressiveAchievements[ach])
   achievementPoints += pointsAwarded - progressiveAchievements[ach].rewardedAP
@@ -3626,7 +3621,7 @@ export const updateProgressiveCache = (ach: ProgressiveAchievements, sourcedFrom
   }
 }
 
-export const updateAchievementLevel = (fromUpdatePoints = false) => {
+const updateAchievementLevel = (fromUpdatePoints = false) => {
   const oldLevel = achievementLevel
   if (achievementPoints < 2500) {
     achievementLevel = Math.floor(achievementPoints / 50)
@@ -3668,50 +3663,7 @@ export const getAchievementReward = (rewardType: AchievementRewards): number | b
   return achRewards[rewardType]()
 }
 
-export const generateAchievementRewardSummary = () => {
-  const intro = i18next.t('achievements.rewardTypes.title')
-  let numericalTexts = ''
-  let booleanTexts = ''
-
-  for (const [rewardType, rewardFunction] of Object.entries(achRewards)) {
-    const typeKey = rewardType as AchievementRewards
-    const reward = rewardFunction()
-    if (typeof reward === 'number') {
-      if (typeKey === 'acceleratorPower') {
-        numericalTexts += `${
-          i18next.t(`achievements.rewardTypes.${rewardType}`, { val: formatAsPercentIncrease(1 + reward, 2) })
-        }\n`
-      } else if (typeKey === 'taxReduction') {
-        // Formatted such that it has negative displayed value
-        numericalTexts += `${
-          i18next.t(`achievements.rewardTypes.${rewardType}`, { val: formatAsPercentIncrease(reward, 2) })
-        }\n`
-      } else if (typeKey === 'talismanPower') {
-        numericalTexts += `${
-          i18next.t(`achievements.rewardTypes.${rewardType}`, { val: formatAsPercentIncrease(1 + reward, 2) })
-        }\n`
-      } else if (typeKey === 'conversionExponent') {
-        numericalTexts += `${
-          i18next.t(`achievements.rewardTypes.${rewardType}`, { val: formatAsPercentIncrease(1 + reward, 0) })
-        }\n`
-      } else {
-        numericalTexts += `${i18next.t(`achievements.rewardTypes.${rewardType}`, { val: format(reward, 2, false) })}\n`
-      }
-    } else if (typeof reward === 'boolean') {
-      if (reward) {
-        booleanTexts += `${
-          i18next.t(`achievements.rewardTypes.${rewardType}`, {
-            unlock: i18next.t('achievements.rewardTypes.unlocked')
-          })
-        }\n`
-      }
-    }
-  }
-
-  return Alert(`${intro}\n${numericalTexts}\n${booleanTexts}`)
-}
-
-export const createGroupedAchievementDescription = (group: AchievementGroups) => {
+const createGroupedAchievementDescription = (group: AchievementGroups) => {
   if (group === 'ungrouped') {
     throw new Error('Cannot create description for ungrouped achievements')
   }
@@ -3812,7 +3764,7 @@ export const createGroupedAchievementDescription = (group: AchievementGroups) =>
   // DOMCacheGetOrSet('achievementMultiLine').innerHTML = finalText
 }
 
-export const generateUngroupedDescription = (name: UngroupedAchievementNames) => {
+const generateUngroupedDescription = (name: UngroupedAchievementNames) => {
   const index = ungroupedAchievementData[name].achievementID
   const ach = achievements[index]
   const achText = i18next.t(`achievements.descriptions.${index}`)
@@ -3863,7 +3815,7 @@ export const generateUngroupedDescription = (name: UngroupedAchievementNames) =>
   return finalText
 }
 
-export const generateProgressiveAchievementDescription = (name: ProgressiveAchievements) => {
+const generateProgressiveAchievementDescription = (name: ProgressiveAchievements) => {
   const ach = progressiveAchievements[name]
   let achTitle = i18next.t(`achievements.progressiveAchievements.${name}.name`)
   const achText = i18next.t(`achievements.progressiveAchievements.${name}.description`, {
@@ -4071,7 +4023,7 @@ export const generateAchievementHTMLs = () => {
   }
 }
 
-export const updateGroupedAchievementProgress = (group: AchievementGroups) => {
+const updateGroupedAchievementProgress = (group: AchievementGroups) => {
   if (group === 'ungrouped') {
     throw new Error('Cannot update progress for ungrouped achievements in updateGroupedAchievementProgress')
   }
@@ -4104,7 +4056,7 @@ export const updateAllGroupedAchievementProgress = () => {
   }
 }
 
-export const updateUngroupedAchievementProgress = (id: number) => {
+const updateUngroupedAchievementProgress = (id: number) => {
   const capitalizedName = Object.keys(ungroupedAchievementData).find((k) =>
     ungroupedAchievementData[k as UngroupedAchievementNames].achievementID === id
   )
@@ -4132,7 +4084,7 @@ export const updateAllUngroupedAchievementProgress = () => {
   }
 }
 
-export const updateProgressiveAchievementProgress = (progAch: ProgressiveAchievements) => {
+const updateProgressiveAchievementProgress = (progAch: ProgressiveAchievements) => {
   const capitalizedName = progAch.charAt(0).toUpperCase() + progAch.slice(1)
   const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`) as HTMLElement
 

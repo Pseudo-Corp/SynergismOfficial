@@ -301,7 +301,7 @@ export const calculateObtainium = (timeMultUsed = true) => {
   return Decimal.max(base, total)
 }
 
-export const calculateFastForwardResourcesGlobal = (
+const calculateFastForwardResourcesGlobal = (
   resetTime: number,
   fastForwardAmount: Decimal,
   resourceMult: Decimal,
@@ -1010,47 +1010,6 @@ export const calculateSingularityQuarkMilestoneMultiplier = () => {
   return multiplier
 }
 
-// If you want to sum from a baseline level i to the maximum buyable level n, what would the cost be and how many levels would you get?
-export const calculateSummationLinear = (
-  baseLevel: number,
-  baseCost: number,
-  resourceAvailable: number,
-  differenceCap = 1e9
-): [number, number] => {
-  const subtractCost = (baseCost * baseLevel * (1 + baseLevel)) / 2
-  const buyToLevel = Math.min(
-    baseLevel + differenceCap,
-    Math.floor(
-      -1 / 2
-        + Math.sqrt(1 / 4 + (2 * (resourceAvailable + subtractCost)) / baseCost)
-    )
-  )
-  const realCost = (baseCost * buyToLevel * (1 + buyToLevel)) / 2 - subtractCost
-
-  return [buyToLevel, realCost]
-}
-
-// If you want to sum from a baseline level i to the maximum buyable level n, what would the cost be and how many levels would you get?
-export const calculateSummationLinearDecimal = (
-  baseLevel: Decimal,
-  baseCost: Decimal,
-  resourceAvailable: Decimal,
-  differenceCap = new Decimal(1e9)
-): [Decimal, Decimal] => {
-  const subtractCost = baseCost.times(baseLevel).times(baseLevel.plus(1)).div(2)
-  const buyToLevel = Decimal.min(
-    baseLevel.plus(differenceCap),
-    Decimal.floor(
-      Decimal.sqrt((resourceAvailable.plus(subtractCost)).times(2).div(baseCost).plus(1 / 4)).minus(1 / 2)
-    )
-  )
-
-  const realCost = baseCost.times(buyToLevel).times(buyToLevel.plus(1)).div(2).minus(subtractCost)
-  // const realCost = (baseCost * buyToLevel * (1 + buyToLevel)) / 2 - subtractCost
-
-  return [buyToLevel, realCost]
-}
-
 // If you want to sum from a baseline level baseLevel to some level where the cost per level is base * (1 + level * diffPerLevel), this finds out how many total levels you can buy.
 export const calculateSummationNonLinear = (
   baseLevel: number,
@@ -1091,7 +1050,7 @@ export const calculateSummationNonLinear = (
  * @param n A nonnegative integer
  * @returns The sum of the first n positive cubes, 0 if n = 0, or -1 otherwise.
  */
-export const calculateSummationCubic = (n: number) => {
+const calculateSummationCubic = (n: number) => {
   if (n < 0) {
     return -1
   }
@@ -1110,7 +1069,7 @@ export const calculateSummationCubic = (n: number) => {
  * @param positive Boolean which if true makes solution use positive discriminant.
  * @returns Positive root of the quadratic, if it exists, and positive is true, otherwise false
  */
-export const solveQuadratic = (
+const solveQuadratic = (
   a: number,
   b: number,
   c: number,
@@ -1190,7 +1149,7 @@ export const calculateCubicSumData = (
     own function (specifically: calc of effective score and other global multipliers) to make it easy.
 */
 
-export const computeAscensionScoreBonusMultiplier = () => {
+const computeAscensionScoreBonusMultiplier = () => {
   let multiplier = 1
   multiplier *= G.challenge15Rewards.score.value
   multiplier *= calculateAscensionScorePlatonicBlessing()
@@ -1606,7 +1565,7 @@ export const calculateAmbrosiaQuarkMult = () => {
   return multiplier
 }
 
-export const calculateCashGrabBonus = (extra: number) => {
+const calculateCashGrabBonus = (extra: number) => {
   return 1 + player.shopUpgrades.shopCashGrabUltra * extra * Math.min(1, Math.pow(player.lifetimeAmbrosia / 1e7, 1 / 3))
 }
 
@@ -1622,7 +1581,7 @@ export const calculateCashGrabQuarkBonus = () => {
   return calculateCashGrabBonus(CASH_GRAB_ULTRA_QUARK)
 }
 
-export const calculateEXUltraBonus = (extra: number) => {
+const calculateEXUltraBonus = (extra: number) => {
   return 1 + extra * Math.min(player.shopUpgrades.shopEXUltra, Math.floor(player.lifetimeAmbrosia / 1000) / 125)
 }
 
@@ -1642,7 +1601,7 @@ export const calculateExalt6TimeLimit = (comps: number) => {
   return 600 - 20 * Math.min(24, comps) - 5 * Math.max(0, comps - 24)
 }
 
-export const calculateExalt6PenaltyPerMinute = (comps: number) => {
+const calculateExalt6PenaltyPerMinute = (comps: number) => {
   let penaltyPerMinute = 10 + comps
   if (comps >= 25) {
     penaltyPerMinute *= Math.pow(comps - 23, 2)
@@ -1764,14 +1723,6 @@ export const isShopTalismanUnlocked = () => {
   return Boolean(player.shopUpgrades.shopTalisman > 0 || PCoinUpgradeEffects.INSTANT_UNLOCK_1 > 0)
 }
 
-export const sing6Mult = () => {
-  if (player.singularityCount <= 200) {
-    return 1
-  } else {
-    return Math.pow(1.01, player.singularityCount - 200)
-  }
-}
-
 export const sumOfExaltCompletions = () => {
   let sum = 0
   for (const challenge of Object.values(player.singularityChallenges)) {
@@ -1809,7 +1760,7 @@ export const resetTimeThreshold = () => {
   return base - reduction
 }
 
-export const calculatePlatonic7UpgradePower = () => {
+const calculatePlatonic7UpgradePower = () => {
   return 1 - player.platonicUpgrades[7] / 30
 }
 

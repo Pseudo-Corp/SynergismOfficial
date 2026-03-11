@@ -1353,14 +1353,12 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
   return p.promise
 }
 
-export type OptionalHTMLStyle = Partial<CSSStyleDeclaration>
+type OptionalHTMLStyle = Partial<CSSStyleDeclaration>
 
 let id: number | null = null
 
-export const SLOW_MODAL_UPDATE_TICK = 1000
 export const MEDIUM_MODAL_UPDATE_TICK = 250
-export const FAST_MODAL_UPDATE_TICK = 100
-export const VERY_FAST_MODAL_UPDATE_TICK = 20
+const VERY_FAST_MODAL_UPDATE_TICK = 20
 
 const updateModal = (HTML: () => string) => {
   const modalContent = DOMCacheGetOrSet('modalContent')
