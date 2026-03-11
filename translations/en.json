@@ -2960,7 +2960,7 @@
       "7": "[1x7] Automatically buy each Particle building whenever possible.",
       "8": "[1x8] Automatically buy Particle upgrades.",
       "9": "[1x9] The Research automator in shop now automatically buys cheapest when enabled. It's like a roomba kinda!",
-      "10": "[1x10] Unlock some tools to automate Ascensions or whatever. Kinda expensive but cool.",
+      "10": "[1x10] Unlock some tools to automate Ascensions or whatever. Kinda expensive but cool. <br> <<gold|⚠>> You must clear Challenge 11 for this mechanic to be useful!",
       "11": "[2x1] You got it again! +9.09% 3D Cubes from Ascending per level.",
       "12": "[2x2] Raise Building Power to the power of (1 + level * 0.09).",
       "13": "[2x3] For each 20 Cubes opened at once, you get 1 additional Tribute at random.",
