@@ -599,7 +599,6 @@ type SweepStates =
   | { kind: 'active'; index: number; explored: Set<number> }
   | { kind: 'c15_wait' } // Happens when you can autoGain c15 Exponent
   | { kind: 'finished' } // Challenges 1-10 are all completely maxed
-  | { kind: 'c10_detour'; explored: Set<number> } // S101+: You start with Challenge 10 instead of Challenge 1...
 
 // 1-5 are transcension, 6-10 reincarnation
 const NUM_ELIGIBLE_CHALLENGES = 10
@@ -618,17 +617,15 @@ function sweepTransitionFunc (
 
     case 'initial_wait':
       if (elapsedTime >= timers.start) {
+        let initialIndex = 1
+        if (player.highestSingularityCount >= 2 && player.currentChallenge.ascension !== 0) {
+          initialIndex = 10
+        }
         // Find first valid challenge, which skips the enter time.
-        const firstChallenge = getNextRegularChallenge(1, new Set())
+        const firstChallenge = getNextRegularChallenge(initialIndex, new Set())
         if (firstChallenge === -1) {
           // If we max all the challenges, just don't change the state!
           return { kind: 'finished' }
-        }
-        if (
-          player.highestSingularityCount >= 2
-          && player.currentChallenge.ascension !== 0
-        ) {
-          return { kind: 'c10_detour', explored: new Set([10]) }
         }
         return { kind: 'active', index: firstChallenge, explored: new Set([firstChallenge]) }
       }
@@ -678,13 +675,6 @@ function sweepTransitionFunc (
       } else {
         return { kind: 'initial_wait' }
       }
-
-    case 'c10_detour':
-      if (elapsedTime >= timers.exit) {
-        const firstChallenge = getNextRegularChallenge(10, state.explored)
-        return { kind: 'enter_wait', toIndex: firstChallenge, explored: state.explored }
-      }
-      return state
   }
 }
 
@@ -696,10 +686,6 @@ function handleStateTransition (oldState: SweepStates, newState: SweepStates): v
     } else {
       void resetCheck('reincarnationChallenge', undefined, true)
     }
-  }
-
-  if (oldState.kind === 'c10_detour') {
-    void resetCheck('reincarnationChallenge', undefined, true)
   }
 
   switch (newState.kind) {
@@ -727,10 +713,6 @@ function handleStateTransition (oldState: SweepStates, newState: SweepStates): v
     case 'finished':
       toggleAutoChallengeModeText('COMPLETE')
       break
-
-    case 'c10_detour':
-      toggleChallenges(10, true)
-      toggleAutoChallengeModeText('CHALLENGE')
   }
 }
 
@@ -822,7 +804,7 @@ export const getNextRegularChallenge = (startIndex: number, explored: Set<number
     || player.highestchallengecompletions[challenge] >= getMaxChallenges(challenge)
     || !player.autoChallengeToggles[challenge]
   ) {
-    challenge += 1
+    challenge++
     if (challenge > NUM_ELIGIBLE_CHALLENGES) {
       challenge = 1
     }
