@@ -798,22 +798,20 @@ export const challenge15ScoreMultiplier = () => {
 // "Regular" just means not ascension challenge
 export const getNextRegularChallenge = (startIndex: number, explored: Set<number>) => {
   let challenge = startIndex
-  // Loop around all the first 10 challenges, trying to find an unexplored, maxed one
-  while (
-    explored.has(challenge)
-    || player.highestchallengecompletions[challenge] >= getMaxChallenges(challenge)
-    || !player.autoChallengeToggles[challenge]
-  ) {
+  for (let i = 0; i < NUM_ELIGIBLE_CHALLENGES; i++) {
+    if (!explored.has(challenge)
+      && player.highestchallengecompletions[challenge] < getMaxChallenges(challenge)
+      && player.autoChallengeToggles[challenge]) {
+      return challenge
+    }
     challenge++
     if (challenge > NUM_ELIGIBLE_CHALLENGES) {
       challenge = 1
     }
-    // By returning -1 we explicitly say that no challenges have been found...
-    if (challenge === startIndex) {
-      return -1
-    }
   }
-  return challenge
+
+  // No challenge found!
+  return -1
 }
 
 // Ascension Challenge 'next' Check. We don't have access to explored so we can't just use the same logic again. Sad!
