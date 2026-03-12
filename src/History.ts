@@ -4,7 +4,6 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { applyCorruptions, convertInputToCorruption, type Corruptions } from './Corruptions'
 import { calculateAntSpeedMultFromELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
-import { getGQUpgradeEffect } from './singularity'
 import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
 import { Notification } from './UpdateHTML'
@@ -263,7 +262,7 @@ const historyGains: Record<
     img: 'TinyWow8.png',
     formatter: formatDecimalSource,
     imgTitle: 'Octeracts',
-    onlyif: () => getGQUpgradeEffect('octeractUnlock') > 0
+    onlyif: () => player.highestSingularityCount >= 8
   },
   c15Score: {
     img: 'TinyChallenge15.png',
