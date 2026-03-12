@@ -284,7 +284,7 @@ enum Notations {
 export const toggleAnnotation = (setting = true) => {
   const notationButton = DOMCacheGetOrSet('notation')
   const current = player.notation
-  let newNotation: string
+  let newNotation: Notations
 
   switch (current) {
     case Notations.PURE_SCIENTIFIC:
@@ -315,6 +315,7 @@ export const settingAnnotation = () => {
     case Notations.PURE_ENGINEERING:
       notationButton.textContent = i18next.t('settings.notation.pureEngineering')
       break
+    case Notations.DEFAULT:
     default:
       notationButton.textContent = i18next.t('settings.notation.default')
   }

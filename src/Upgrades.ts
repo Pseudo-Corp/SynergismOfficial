@@ -454,7 +454,7 @@ export const clickUpgrades = (i: number, auto: boolean) => {
     || (i <= 60 && i >= 41 && !player.unlocks.transcend)
     || (i <= 80 && i >= 61 && !player.unlocks.reincarnate)
     || (i <= 120 && i >= 81 && !player.unlocks.prestige)
-    || DOMCacheGetOrSet(`upg${i}`)!.style.display === 'none'
+    || DOMCacheGetOrSet(`upg${i}`).style.display === 'none'
   ) {
     return
   }
@@ -501,8 +501,8 @@ export const categoryUpgrades = (i: number, auto: boolean) => {
   if (i === 1) {
     min = 121
     max = 125
-    for (let i = 1; i <= 20; i++) {
-      clickUpgrades(i, auto)
+    for (let j = 1; j <= 20; j++) {
+      clickUpgrades(j, auto)
     }
   }
   if (i === 2) {
@@ -525,8 +525,8 @@ export const categoryUpgrades = (i: number, auto: boolean) => {
     min = 61
     max = 80
   }
-  for (let i = min; i <= max; i++) {
-    clickUpgrades(i, auto)
+  for (let j = min; j <= max; j++) {
+    clickUpgrades(j, auto)
   }
 }
 

@@ -586,7 +586,7 @@ export interface Player {
   hotkeys: Record<number, string[]>
   theme: string
   iconSet: number
-  notation: string
+  notation: 'Pure Scientific' | 'Pure Engineering' | 'Default'
 
   goldenQuarkUpgrades: Record<SingularityDataKeys, {
     level: number

@@ -310,9 +310,10 @@ export const findInsertionIndex = (target: number, array: number[]): number => {
  * I'm stealing my own code, fuck off
  */
 export function isomorphicDecode (input: Uint8Array) {
-  function fromCharCode (input: Iterable<number>) {
+  // eslint-disable-next-line unicorn/consistent-function-scoping
+  function fromCharCode (arr: Iterable<number>) {
     // https://tc39.es/ecma262/#sec-string.fromcharcode
-    return String.fromCharCode.apply(null, input as number[])
+    return String.fromCharCode.apply(null, arr as number[])
   }
 
   const length = input.length
@@ -359,6 +360,7 @@ export async function retry<T> (
 ) {
   const reject: unknown[] = []
 
+  /* eslint-disable no-await-in-loop */
   for (let i = 0; i < times; i++) {
     try {
       return await operation()
@@ -377,6 +379,7 @@ export async function retry<T> (
       }
     }
   }
+  /* eslint-enable no-await-in-loop */
 
   throw new AggregateError(reject, `Failed after ${times} retries`)
 }

@@ -135,7 +135,7 @@ const makeSlot = (key: string, descr: string) => {
   button.textContent = key
   button.addEventListener('click', async (e) => {
     const target = e.target as HTMLElement
-    const oldKey = target.textContent!.toUpperCase()
+    const oldKey = target.textContent.toUpperCase()
     const name = hotkeys.get(oldKey)?.[0]
       ?? target.nextSibling?.textContent
 

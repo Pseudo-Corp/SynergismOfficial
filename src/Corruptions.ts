@@ -517,8 +517,8 @@ export const corruptionButtonsAdd = () => {
     const row = rows[i]
     const key = keys[i] as keyof Corruptions
     // Delete rows that already exist
-    for (let i = row.children.length - 1; i >= 1; i--) {
-      row.children[i].remove()
+    for (let j = row.children.length - 1; j >= 1; j--) {
+      row.children[j].remove()
     }
 
     const icon = document.createElement('img')
@@ -526,7 +526,7 @@ export const corruptionButtonsAdd = () => {
     icon.src = `Pictures/${IconSets[player.iconSet][0]}${corrIcons[key]}`
     icon.addEventListener('click', () => corruptionDisplay(key))
     icon.loading = 'lazy'
-    icon.title = `${i18next.t(`corruptions.names.${key}`)}`
+    icon.title = i18next.t(`corruptions.names.${key}`)
     row.appendChild(icon)
 
     const p = document.createElement('p')
@@ -591,7 +591,7 @@ export const corruptionLoadoutTableCreate = () => {
 
   // Use the default name 'next'
   const nextCell = nextRow.insertCell()
-  nextCell.className = `test${'Title'}`
+  nextCell.className = `testTitle`
   nextCell.textContent = i18next.t('corruptions.loadoutTable.next')
   nextCell.addEventListener('click', () => void corruptionLoadoutGetExport())
   nextCell.classList.add('corrLoadoutName')
@@ -632,7 +632,7 @@ export const corruptionLoadoutTableCreate = () => {
     const row = table.insertRow()
     // Title Cell
     const titleCell = row.insertCell()
-    titleCell.className = `test${'Title'}`
+    titleCell.className = `testTitle`
     titleCell.title = i18next.t('corruptions.loadoutTable.otherRowTitle', { value: i + 1 })
     for (const corr in corrLoadout) {
       const corrKey = corr as keyof Corruptions
@@ -753,7 +753,7 @@ export const updateCorruptionLoadoutNames = () => {
   const totalSlots = 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
   for (let i = 0; i < totalSlots; i++) {
     const cells = rows[i + 2].cells // start changes on 2nd row
-    if (cells[0].textContent!.length === 0) { // first time setup
+    if (cells[0].textContent.length === 0) { // first time setup
       cells[0].addEventListener('click', () => void corruptionLoadoutGetNewName(i)) // get name function handles -1 for array
       cells[0].classList.add('corrLoadoutName')
     }

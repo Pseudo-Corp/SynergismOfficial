@@ -131,6 +131,7 @@ export class QuarkHandler {
 
 export const refreshQuarkBonus = async () => {
   const response = await fetch('https://synergism.cc/api/v1/quark-bonus')
+  // eslint-disable-next-line no-shadow
   const { bonus } = await response.json() as { bonus: number }
 
   setGlobalQuarkBonus(bonus)

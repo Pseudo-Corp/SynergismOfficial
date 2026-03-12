@@ -1594,32 +1594,32 @@ const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
   const campaignButton = document.createElement('button')
   if (player.campaigns.current === key) {
     campaignButton.textContent = i18next.t('campaigns.corruptionStats.resetCampaign')
-    campaignButton.onclick = async () => {
+    campaignButton.addEventListener('click', async () => {
       if (player.challengecompletions[10] === 0) {
         const p = await Confirm(i18next.t('campaigns.noChallengeCompletionConfirm'))
         if (!p) return
       }
       reset('ascension')
-    }
+    })
   } else {
     campaignButton.textContent = i18next.t('campaigns.corruptionStats.startCampaign')
-    campaignButton.onclick = () => {
+    campaignButton.addEventListener('click', () => {
       if (player.currentChallenge.ascension !== 0) {
         return Alert(i18next.t('campaigns.errorMessages.ascensionChallenge'))
       }
       reset('ascension')
       player.campaigns.campaign = key
-    }
+    })
   }
 
   const saveLoadoutButton = document.createElement('button')
   saveLoadoutButton.classList.add('chal14')
   saveLoadoutButton.textContent = i18next.t('campaigns.saveLoadout')
-  saveLoadoutButton.onclick = () => {
+  saveLoadoutButton.addEventListener('click', () => {
     player.corruptions.next = new CorruptionLoadout(usableCorruption.loadout)
     corruptionStatsUpdate()
     Notification(i18next.t('campaigns.saveLoadoutNotification', { name: i18next.t(`campaigns.data.${key}.name`) }))
-  }
+  })
 
   corruptionStats.appendChild(corruptionScoreMultiplierText)
   corruptionStats.appendChild(totalCorruptionDifficultyScoreText)
@@ -1645,9 +1645,7 @@ export const createCampaignIconHTMLS = () => {
 
     campaignIconDiv.appendChild(campaignIcon)
 
-    campaignIcon.onclick = () => {
-      campaignCorruptionStatHTMLUpdate(key)
-    }
+    campaignIcon.addEventListener('click', campaignCorruptionStatHTMLUpdate.bind(null, key))
   }
 }
 
@@ -1672,19 +1670,19 @@ export const campaignTokenRewardHTMLUpdate = () => {
       tokenIcon.classList.add('campaignTokenRewardIcon')
 
       if (typeof value.reward() === 'string') {
-        tokenIcon.onclick = () => {
+        tokenIcon.addEventListener('click', () => {
           DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(`campaigns.tokens.rewardTexts.${key}`, {
             reward: value.reward()
           })
-        }
+        })
       } else {
-        tokenIcon.onclick = () => {
+        tokenIcon.addEventListener('click', () => {
           const reward = value.reward() as Partial<Record<CampaignTokenRewardNames, string>>
           DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(
             `campaigns.tokens.rewardTexts.${key}`,
             reward
           )
-        }
+        })
       }
 
       DOMCacheGetOrSet('campaignTokenRewardIcons').appendChild(tokenIcon)
@@ -1711,9 +1709,7 @@ export const campaignTokenRewardHTMLUpdate = () => {
       }
     }
 
-    totalRewardIcon.onclick = () => {
-      return Alert(popupText)
-    }
+    totalRewardIcon.addEventListener('click', Alert.bind(null, popupText))
     DOMCacheGetOrSet('campaignTokenRewardIcons').appendChild(totalRewardIcon)
   }
 }

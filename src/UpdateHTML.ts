@@ -556,7 +556,7 @@ export const hideStuff = () => {
   document.getElementById('pseudoCoins')?.style.setProperty('display', 'none')
   DOMCacheGetOrSet('pseudoCoinstab').style.backgroundColor = ''
 
-  const tab = DOMCacheGetOrSet('settingstab')!
+  const tab = DOMCacheGetOrSet('settingstab')
   tab.style.backgroundColor = ''
   tab.style.borderColor = 'white'
 
@@ -571,9 +571,9 @@ export const hideStuff = () => {
   }
   if (G.currentTab === Tabs.Settings) {
     DOMCacheGetOrSet('settings').style.display = 'block'
-    const tab = DOMCacheGetOrSet('settingstab')!
-    tab.style.backgroundColor = 'orange'
-    tab.style.borderColor = 'gold'
+    const settingsTab = DOMCacheGetOrSet('settingstab')
+    settingsTab.style.backgroundColor = 'orange'
+    settingsTab.style.borderColor = 'gold'
   }
   if (G.currentTab === Tabs.Achievements) {
     DOMCacheGetOrSet('statistics').style.display = 'block'
@@ -673,9 +673,9 @@ const visualTab: Record<Tabs, () => void> = {
 export const htmlInserts = () => {
   // ALWAYS Update these, for they are the most important resources
   for (let i = 0; i < htmlInsertPlayerRequirements.length; i++) {
-    const value = player[`${htmlInsertPlayerRequirements[i]}` as const]
+    const value = player[htmlInsertPlayerRequirements[i]]
     const text = format(value instanceof Decimal ? value : value.valueOf())
-    const dom = DOMCacheGetOrSet(`${htmlInsertDomRequirements[i]}` as const)
+    const dom = DOMCacheGetOrSet(htmlInsertDomRequirements[i])
     if (dom.textContent !== text) {
       dom.textContent = text
     }
@@ -1114,7 +1114,7 @@ const updateAscensionStats = () => {
     ascHyper: format(hyper * (player.ascStatToggles[3] ? 1 : 1 / t), 4),
     ascPlatonic: format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
     ascHepteract: format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
-    ascC10: `${format(player.challengecompletions[10])}`,
+    ascC10: format(player.challengecompletions[10]),
     ascTimeAccel: `${format(calculateGlobalSpeedMult(), 3)}x${addedAsteriskHalfMind ? '*' : ''}`,
     ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3)}x${addedAsteriskOneMind ? '*' : ''}`,
     ascSingularityCount: format(player.singularityCount),

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unassigned-import
 import '@ungap/custom-elements'
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import LZString from 'lz-string'
@@ -2273,10 +2274,7 @@ export const format = (
     const powerOver = power % 3 < 0 ? 3 + (power % 3) : power % 3
     power = power - powerOver
     mantissa = mantissa * Math.pow(10, powerOver)
-  } else if (
-    player.notation === 'Pure Scientific'
-    || player.notation === 'Pure Engineering'
-  ) {
+  } else if (player.notation === 'Pure Scientific') {
     if (power >= 1e6) {
       if (!Number.isFinite(power)) {
         return 'Infinity'
@@ -2298,13 +2296,13 @@ export const format = (
     if (mantissa - Math.floor(mantissa) > 0.9999999) {
       mantissa = Math.ceil(mantissa)
     }
-    const mantissaLook = (
+
+    return (
       Math.floor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)
     ).toLocaleString(undefined, {
       minimumFractionDigits: accuracy,
       maximumFractionDigits: accuracy
     })
-    return `${mantissaLook}`
   }
   // If the power is negative, then we will want to address that separately.
   if (power < 0 && inputType === 'number' && fractional) {
@@ -3812,8 +3810,8 @@ export const resetCheck = async (
     ) {
       player.currentChallenge.reincarnation = 0
       if (player.shopUpgrades.instantChallenge > 0) {
-        for (let i = 1; i <= 5; i++) {
-          player.challengecompletions[i] = player.highestchallengecompletions[i]
+        for (let j = 1; j <= 5; j++) {
+          player.challengecompletions[j] = player.highestchallengecompletions[j]
         }
       }
       updateChallengeDisplay()
@@ -4699,6 +4697,7 @@ const tick = () => {
   }
 }
 
+// eslint-disable-next-line no-shadow
 const tack = (dt: number) => {
   if (!G.timeWarp) {
     // Adds Resources (coins, ants, etc)
@@ -5024,9 +5023,9 @@ export const showExitOffline = () => {
 
 /**
  * Reloads shit.
- * @param reset if this param is passed, offline progression will not be calculated.
+ * @param ignoreOfflineProgress if this param is true, offline progression will not be calculated.
  */
-export const reloadShit = (reset = false) => {
+export const reloadShit = (ignoreOfflineProgress = false) => {
   clearTimers()
 
   // Shows a reset button when page loading seems to stop or cause an error
@@ -5040,15 +5039,15 @@ export const reloadShit = (reset = false) => {
   const saveObject = localStorage.getItem('Synergysave2')
 
   if (saveObject) {
-    const dec = LZString.decompressFromBase64(saveObject)
-    const isLZString = dec !== ''
+    const decompress = LZString.decompressFromBase64(saveObject)
+    const isLZString = decompress !== ''
 
     if (isLZString) {
-      if (!dec) {
+      if (!decompress) {
         return Alert(i18next.t('save.loadFailed'))
       }
 
-      const saveString = btoa(dec)
+      const saveString = btoa(decompress)
 
       if (saveString === null) {
         return Alert(i18next.t('save.loadFailed'))
@@ -5151,7 +5150,7 @@ export const reloadShit = (reset = false) => {
   refundOvercapResearches()
   updateShopLevels()
 
-  if (!reset) {
+  if (!ignoreOfflineProgress) {
     calculateOffline()
   } else {
     if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
@@ -5263,6 +5262,7 @@ window.addEventListener('load', async () => {
   }
 
   const ver = DOMCacheGetOrSet('versionnumber')
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   const addZero = (n: number) => `${n}`.padStart(2, '0')
   if (ver instanceof HTMLElement) {
     const textUpdate = !isNaN(lastUpdated.getTime())
@@ -5392,11 +5392,9 @@ window.addEventListener('load', async () => {
       zoomLabel.textContent = `UI Scale: ${Math.round(factor * 100)}%`
     }
 
-    const clampZoom = (factor: number) => Math.min(3, Math.max(0.5, factor))
-
     const changeZoom = async (delta: number) => {
       const current = await getZoomFactor()
-      const next = clampZoom(Math.round((current + delta) * 20) / 20)
+      const next = Math.min(3, Math.max(0.5, Math.round((current + delta) * 20) / 20))
       await setZoomFactor(next)
       updateZoomLabel(next)
     }

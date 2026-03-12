@@ -31,7 +31,7 @@ const initializeConsumablesTab = memoize(() => {
       // Update coin count just in case
       updatePseudoCoins()
 
-      const grid = tab!.querySelector('#consumablesGrid')!
+      const grid = tab.querySelector('#consumablesGrid')!
       grid.innerHTML = `
       <div id="topRowConsumables">
         ${
@@ -63,10 +63,10 @@ const initializeConsumablesTab = memoize(() => {
         const key = element.parentElement!.getAttribute('data-key')!
         const cost = element.parentElement!.getAttribute('data-cost')!
         const name = element.parentElement!.getAttribute('data-name')!
-        const lotus = element.parentElement?.getAttribute('data-lotus') === 'true'
+        const isLotus = element.parentElement?.getAttribute('data-lotus') === 'true'
         // TODO (for a future time): Lotus has different verbage since we don't actually
         // "activate" them right away. Also, Platonic needs to i18n this like yesterday
-        if (!lotus) {
+        if (!isLotus) {
           element.addEventListener('click', async () => {
             const alert = await Confirm(i18next.t('pseudoCoins.consumables.confirmActivation', {
               name,

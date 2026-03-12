@@ -2735,11 +2735,11 @@ interface AchievementDisplayInfo {
 }
 
 const hasResetAtOrAboveLevel = (reset: resetTiers) => {
-  if (reset <= 5 && player.singularityCount > 0) return true
-  if (reset <= 4 && player.ascensionCount > 0) return true
-  if (reset <= 3 && player.reincarnationCount > 0) return true
-  if (reset <= 2 && player.transcendCount > 0) return true
-  if (reset <= 1 && player.prestigeCount > 0) return true
+  if (reset <= resetTiers.singularity && player.singularityCount > 0) return true
+  if (reset <= resetTiers.ascension && player.ascensionCount > 0) return true
+  if (reset <= resetTiers.reincarnation && player.reincarnationCount > 0) return true
+  if (reset <= resetTiers.transcension && player.transcendCount > 0) return true
+  if (reset <= resetTiers.prestige && player.prestigeCount > 0) return true
   return false
 }
 
@@ -3539,12 +3539,17 @@ const unlockSteamAchievement = async (steamAchievementId: string): Promise<void>
 export const syncSteamAchievements = async (): Promise<void> => {
   if (platform === 'steam') {
     unlockedSteamAchievements.clear()
+
+    const unlockPromises: Promise<unknown>[] = []
+
     for (let i = 0; i < achievements.length; i++) {
       const steamId = achievements[i].steamAchievementId
       if (steamId && player.achievements[i] === 1) {
-        await unlockSteamAchievement(steamId)
+        unlockPromises.push(unlockSteamAchievement(steamId))
       }
     }
+
+    await Promise.all(unlockPromises)
   }
 }
 
@@ -3858,9 +3863,9 @@ export const generateAchievementHTMLs = () => {
     const sortedGroups = (Object.keys(achievementsByGroup) as AchievementGroups[])
       .filter((k) => k !== 'ungrouped')
       .sort((a, b) => {
-        const orderA = groupedAchievementData[a as Exclude<AchievementGroups, 'ungrouped'>]?.order
+        const orderA = groupedAchievementData[a]?.order
           ?? Number.POSITIVE_INFINITY
-        const orderB = groupedAchievementData[b as Exclude<AchievementGroups, 'ungrouped'>]?.order
+        const orderB = groupedAchievementData[b]?.order
           ?? Number.POSITIVE_INFINITY
         return orderA - orderB
       })
@@ -3880,26 +3885,21 @@ export const generateAchievementHTMLs = () => {
       img.tabIndex = 0
 
       if (!isMobile) {
-        img.onmousemove = (e: MouseEvent) => {
+        img.addEventListener('mousemove', (e: MouseEvent) => {
           Modal(() => createGroupedAchievementDescription(k), e.clientX, e.clientY, { borderColor: 'cyan' })
-        }
-        img.onfocus = () => {
+        })
+        img.addEventListener('focus', () => {
           const elm = img.getBoundingClientRect()
           // Get x, y current based on the element's position
           Modal(() => createGroupedAchievementDescription(k), elm.x, elm.y + elm.height / 2, { borderColor: 'cyan' })
-        }
+        })
 
-        img.onmouseout = () => {
-          CloseModal()
-        }
-
-        img.onblur = () => {
-          CloseModal()
-        }
+        img.addEventListener('mouseout', CloseModal)
+        img.addEventListener('blur', CloseModal)
       } else {
-        img.onclick = () => {
+        img.addEventListener('click', () => {
           DOMCacheGetOrSet('achievementMultiLine').innerHTML = createGroupedAchievementDescription(k)
-        }
+        })
       }
 
       // attach to the table
@@ -3929,32 +3929,26 @@ export const generateAchievementHTMLs = () => {
       img.tabIndex = 0
 
       if (!isMobile) {
-        img.onmousemove = (e: MouseEvent) => {
-          Modal(() => generateUngroupedDescription(k as UngroupedAchievementNames), e.clientX, e.clientY, {
+        img.addEventListener('mousemove', (e: MouseEvent) => {
+          Modal(() => generateUngroupedDescription(k), e.clientX, e.clientY, {
             borderColor: 'white'
           })
-        }
+        })
 
-        img.onfocus = () => {
+        img.addEventListener('focus', () => {
           const elm = img.getBoundingClientRect()
           // Get x, y current based on the element's position
-          Modal(() => generateUngroupedDescription(k as UngroupedAchievementNames), elm.x, elm.y + elm.height / 2, {
+          Modal(() => generateUngroupedDescription(k), elm.x, elm.y + elm.height / 2, {
             borderColor: 'white'
           })
-        }
+        })
 
-        img.onmouseout = () => {
-          CloseModal()
-        }
-        img.onblur = () => {
-          CloseModal()
-        }
+        img.addEventListener('mouseout', CloseModal)
+        img.addEventListener('blur', CloseModal)
       } else {
-        img.onclick = () => {
-          DOMCacheGetOrSet('achievementMultiLine').innerHTML = generateUngroupedDescription(
-            k as UngroupedAchievementNames
-          )
-        }
+        img.addEventListener('click', () => {
+          DOMCacheGetOrSet('achievementMultiLine').innerHTML = generateUngroupedDescription(k)
+        })
       }
 
       // attach to the table
@@ -3984,36 +3978,29 @@ export const generateAchievementHTMLs = () => {
       img.tabIndex = 0
 
       if (!isMobile) {
-        img.onmousemove = (e: MouseEvent) => {
-          Modal(() => generateProgressiveAchievementDescription(k as ProgressiveAchievements), e.clientX, e.clientY, {
+        img.addEventListener('mousemove', (e: MouseEvent) => {
+          Modal(() => generateProgressiveAchievementDescription(k), e.clientX, e.clientY, {
             borderColor: 'turquoise'
           })
-        }
+        })
 
-        img.onfocus = () => {
+        img.addEventListener('focus', () => {
           const elm = img.getBoundingClientRect()
           // Get x, y current based on the element's position
           Modal(
-            () => generateProgressiveAchievementDescription(k as ProgressiveAchievements),
+            () => generateProgressiveAchievementDescription(k),
             elm.x,
             elm.y + elm.height / 2,
             { borderColor: 'turquoise' }
           )
-        }
+        })
 
-        img.onmouseout = () => {
-          CloseModal()
-        }
-
-        img.onblur = () => {
-          CloseModal()
-        }
+        img.addEventListener('mouseout', CloseModal)
+        img.addEventListener('blur', CloseModal)
       } else {
-        img.onclick = () => {
-          DOMCacheGetOrSet('achievementMultiLine').innerHTML = generateProgressiveAchievementDescription(
-            k as ProgressiveAchievements
-          )
-        }
+        img.addEventListener('click', () => {
+          DOMCacheGetOrSet('achievementMultiLine').innerHTML = generateProgressiveAchievementDescription(k)
+        })
       }
 
       // attach to the table
@@ -4029,22 +4016,20 @@ const updateGroupedAchievementProgress = (group: AchievementGroups) => {
   }
 
   const capitalizedName = group.charAt(0).toUpperCase() + group.slice(1)
-  const img = DOMCacheGetOrSet(`achievementGroup${capitalizedName}`) as HTMLElement
+  const img = DOMCacheGetOrSet(`achievementGroup${capitalizedName}`)
 
-  if (img) {
-    const totalAchievements = achievementsByGroup[group].length
-    const completedAchievements = achievementsByGroup[group].filter((id) => player.achievements[id] === 1).length
-    img.classList.remove('green-background', 'purple-background')
-    img.style.setProperty('border', 'none')
+  const totalAchievements = achievementsByGroup[group].length
+  const completedAchievements = achievementsByGroup[group].filter((id) => player.achievements[id] === 1).length
+  img.classList.remove('green-background', 'purple-background')
+  img.style.setProperty('border', 'none')
 
-    // Optional: Add visual styling based on completion
-    img.classList.remove('green-background')
-    if (completedAchievements === totalAchievements) {
-      img.classList.add('green-background')
-    }
-
-    img.style.setProperty('--pct', `${completedAchievements}/${totalAchievements}`)
+  // Optional: Add visual styling based on completion
+  img.classList.remove('green-background')
+  if (completedAchievements === totalAchievements) {
+    img.classList.add('green-background')
   }
+
+  img.style.setProperty('--pct', `${completedAchievements}/${totalAchievements}`)
 }
 
 export const updateAllGroupedAchievementProgress = () => {
@@ -4066,15 +4051,13 @@ const updateUngroupedAchievementProgress = (id: number) => {
 
   const img = DOMCacheGetOrSet(
     `ungroupedAchievement${capitalizedName.charAt(0).toUpperCase() + capitalizedName.slice(1)}`
-  ) as HTMLElement
+  )
 
-  if (img) {
-    const isCompleted = player.achievements[id] === 1
-    img.classList.remove('green-background')
+  const isCompleted = player.achievements[id] === 1
+  img.classList.remove('green-background')
 
-    if (isCompleted) {
-      img.classList.add('green-background')
-    }
+  if (isCompleted) {
+    img.classList.add('green-background')
   }
 }
 
@@ -4086,29 +4069,27 @@ export const updateAllUngroupedAchievementProgress = () => {
 
 const updateProgressiveAchievementProgress = (progAch: ProgressiveAchievements) => {
   const capitalizedName = progAch.charAt(0).toUpperCase() + progAch.slice(1)
-  const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`) as HTMLElement
+  const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`)
 
-  if (img) {
-    const achData = progressiveAchievements[progAch]
+  const achData = progressiveAchievements[progAch]
 
-    // Infinite progression implies we cannot define a percentage
-    if (achData.maxPointValue === -1) {
-      return
-    }
-
-    const currentAP = progressiveAchievements[progAch].rewardedAP
-    const maxAP = achData.maxPointValue
-
-    img.classList.remove('green-background')
-
-    // Add green background if fully completed
-    if (currentAP >= maxAP) {
-      img.classList.add('green-background')
-    }
-
-    // Set progress percentage
-    img.style.setProperty('--pct', `${currentAP}/${maxAP}`)
+  // Infinite progression implies we cannot define a percentage
+  if (achData.maxPointValue === -1) {
+    return
   }
+
+  const currentAP = progressiveAchievements[progAch].rewardedAP
+  const maxAP = achData.maxPointValue
+
+  img.classList.remove('green-background')
+
+  // Add green background if fully completed
+  if (currentAP >= maxAP) {
+    img.classList.add('green-background')
+  }
+
+  // Set progress percentage
+  img.style.setProperty('--pct', `${currentAP}/${maxAP}`)
 }
 
 export const updateAllProgressiveAchievementProgress = () => {
@@ -4130,53 +4111,51 @@ export const displayAchievementProgress = () => {
     }
 
     const capitalizedName = k.charAt(0).toUpperCase() + k.slice(1)
-    const img = DOMCacheGetOrSet(`achievementGroup${capitalizedName}`) as HTMLElement
+    const img = DOMCacheGetOrSet(`achievementGroup${capitalizedName}`)
     const parent = img.parentElement!
 
-    if (img) {
-      // Calculate earned and total AP for this group
-      let earnedAP = 0
-      let totalAP = 0
+    // Calculate earned and total AP for this group
+    let earnedAP = 0
+    let totalAP = 0
 
-      for (const achievementId of achievementsByGroup[k]) {
-        const pointValue = achievements[achievementId].pointValue
-        totalAP += pointValue
-        if (player.achievements[achievementId]) {
-          earnedAP += pointValue
-        }
+    for (const achievementId of achievementsByGroup[k]) {
+      const pointValue = achievements[achievementId].pointValue
+      totalAP += pointValue
+      if (player.achievements[achievementId]) {
+        earnedAP += pointValue
       }
-
-      img.classList.add('dimmed')
-
-      // Remove any existing overlay first
-      const existingOverlay = parent.querySelector('.achievement-ap-overlay')
-      if (existingOverlay) {
-        existingOverlay.remove()
-      }
-
-      // Create new AP overlay with fraction format
-      const apOverlay = document.createElement('div')
-      apOverlay.classList.add('achievement-ap-overlay')
-
-      // Add gold text if AP is maxed
-      if (earnedAP === totalAP) {
-        apOverlay.classList.add('gold-text')
-      }
-
-      const numerator = document.createElement('div')
-      numerator.classList.add('achievement-fraction-numerator')
-      numerator.textContent = earnedAP.toString()
-
-      const denominator = document.createElement('div')
-      denominator.classList.add('achievement-fraction-denominator')
-      denominator.textContent = totalAP.toString()
-
-      apOverlay.appendChild(numerator)
-      apOverlay.appendChild(denominator)
-
-      parent.classList.add('relative-container')
-      parent.appendChild(apOverlay)
     }
+
+    img.classList.add('dimmed')
+
+    // Remove any existing overlay first
+    const existingOverlay = parent.querySelector('.achievement-ap-overlay')
+    if (existingOverlay) {
+      existingOverlay.remove()
+    }
+
+    // Create new AP overlay with fraction format
+    const apOverlay = document.createElement('div')
+    apOverlay.classList.add('achievement-ap-overlay')
+
+    // Add gold text if AP is maxed
+    if (earnedAP === totalAP) {
+      apOverlay.classList.add('gold-text')
+    }
+
+    const numerator = document.createElement('div')
+    numerator.classList.add('achievement-fraction-numerator')
+    numerator.textContent = earnedAP.toString()
+
+    const denominator = document.createElement('div')
+    denominator.classList.add('achievement-fraction-denominator')
+    denominator.textContent = totalAP.toString()
+
+    apOverlay.appendChild(numerator)
+    apOverlay.appendChild(denominator)
+
+    parent.classList.add('relative-container')
+    parent.appendChild(apOverlay)
   }
 
   // Display Ungrouped Achievements AP
@@ -4187,37 +4166,35 @@ export const displayAchievementProgress = () => {
     }
 
     const capitalizedName = k.charAt(0).toUpperCase() + k.slice(1)
-    const img = DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`) as HTMLElement
+    const img = DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`)
     const parent = img.parentElement!
 
-    if (img) {
-      const achievementId = ungroupedAchievementData[k as UngroupedAchievementNames].achievementID
-      const isCompleted = player.achievements[achievementId] === 1
-      const pointValue = achievements[achievementId].pointValue
-      const earnedAP = isCompleted ? pointValue : 0
+    const achievementId = ungroupedAchievementData[k].achievementID
+    const isCompleted = player.achievements[achievementId] === 1
+    const pointValue = achievements[achievementId].pointValue
+    const earnedAP = isCompleted ? pointValue : 0
 
-      img.classList.add('dimmed')
+    img.classList.add('dimmed')
 
-      // Remove any existing overlay first
-      const existingOverlay = parent.querySelector('.achievement-ap-overlay')
-      if (existingOverlay) {
-        existingOverlay.remove()
-      }
-
-      // Create new AP overlay with simple number
-      const apOverlay = document.createElement('div')
-      apOverlay.classList.add('achievement-ap-overlay')
-
-      // Add gold text if achievement is completed
-      if (isCompleted) {
-        apOverlay.classList.add('gold-text')
-      }
-
-      apOverlay.textContent = earnedAP.toString()
-
-      parent.classList.add('relative-container')
-      parent.appendChild(apOverlay)
+    // Remove any existing overlay first
+    const existingOverlay = parent.querySelector('.achievement-ap-overlay')
+    if (existingOverlay) {
+      existingOverlay.remove()
     }
+
+    // Create new AP overlay with simple number
+    const apOverlay = document.createElement('div')
+    apOverlay.classList.add('achievement-ap-overlay')
+
+    // Add gold text if achievement is completed
+    if (isCompleted) {
+      apOverlay.classList.add('gold-text')
+    }
+
+    apOverlay.textContent = earnedAP.toString()
+
+    parent.classList.add('relative-container')
+    parent.appendChild(apOverlay)
   }
 
   // Display Progressive Achievements AP
@@ -4228,51 +4205,49 @@ export const displayAchievementProgress = () => {
     }
 
     const capitalizedName = k.charAt(0).toUpperCase() + k.slice(1)
-    const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`) as HTMLElement
+    const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`)
     const parent = img.parentElement!
 
-    if (img) {
-      const achData = progressiveAchievements[k]
-      const currentAP = achData.rewardedAP
-      const maxAP = achData.maxPointValue
+    const achData = progressiveAchievements[k]
+    const currentAP = achData.rewardedAP
+    const maxAP = achData.maxPointValue
 
-      img.classList.add('dimmed')
+    img.classList.add('dimmed')
 
-      // Remove any existing overlay first
-      const existingOverlay = parent.querySelector('.achievement-ap-overlay')
-      if (existingOverlay) {
-        existingOverlay.remove()
-      }
-
-      // Create new AP overlay
-      const apOverlay = document.createElement('div')
-      apOverlay.classList.add('achievement-ap-overlay')
-
-      if (maxAP === -1) {
-        // Simple number for infinite progression (no gold text possible)
-        apOverlay.textContent = currentAP.toString()
-      } else {
-        // Fraction format for finite progression
-        // Add gold text if AP is maxed
-        if (currentAP >= maxAP) {
-          apOverlay.classList.add('gold-text')
-        }
-
-        const numerator = document.createElement('div')
-        numerator.classList.add('achievement-fraction-numerator')
-        numerator.textContent = currentAP.toString()
-
-        const denominator = document.createElement('div')
-        denominator.classList.add('achievement-fraction-denominator')
-        denominator.textContent = maxAP.toString()
-
-        apOverlay.appendChild(numerator)
-        apOverlay.appendChild(denominator)
-      }
-
-      parent.classList.add('relative-container')
-      parent.appendChild(apOverlay)
+    // Remove any existing overlay first
+    const existingOverlay = parent.querySelector('.achievement-ap-overlay')
+    if (existingOverlay) {
+      existingOverlay.remove()
     }
+
+    // Create new AP overlay
+    const apOverlay = document.createElement('div')
+    apOverlay.classList.add('achievement-ap-overlay')
+
+    if (maxAP === -1) {
+      // Simple number for infinite progression (no gold text possible)
+      apOverlay.textContent = currentAP.toString()
+    } else {
+      // Fraction format for finite progression
+      // Add gold text if AP is maxed
+      if (currentAP >= maxAP) {
+        apOverlay.classList.add('gold-text')
+      }
+
+      const numerator = document.createElement('div')
+      numerator.classList.add('achievement-fraction-numerator')
+      numerator.textContent = currentAP.toString()
+
+      const denominator = document.createElement('div')
+      denominator.classList.add('achievement-fraction-denominator')
+      denominator.textContent = maxAP.toString()
+
+      apOverlay.appendChild(numerator)
+      apOverlay.appendChild(denominator)
+    }
+
+    parent.classList.add('relative-container')
+    parent.appendChild(apOverlay)
   }
 }
 

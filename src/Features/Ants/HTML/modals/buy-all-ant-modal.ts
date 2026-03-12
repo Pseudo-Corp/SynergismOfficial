@@ -18,11 +18,13 @@ export const allAntProducerHTML = () => {
     const nameText = i18next.t(`ants.producers.${antProducer}.name`)
     const amountPurchasable = getMaxPurchasableAnts(antProducer, player.ants.crumbs)
       - player.ants.producers[antProducer].purchased
-    const isNotAutobuyProducer = !player.ants.toggles.autobuyProducers || antProducer > (autobuyersUnlocked - 1)
+    const isNotAutobuyProducer = !player.ants.toggles.autobuyProducers
+      || antProducer > (autobuyersUnlocked - 1 as AntProducers)
     const producerDisplayCheck = isNotAutobuyProducer && amountPurchasable > 0
 
     const masteriesPurchasable = getBuyableMasteryLevels(antProducer)
-    const isNotAutobuyMastery = !player.ants.toggles.autobuyMasteries || antProducer > (autobuyersUnlocked - 1)
+    const isNotAutobuyMastery = !player.ants.toggles.autobuyMasteries
+      || antProducer > (autobuyersUnlocked - 1 as AntProducers)
     const masteryDisplayCheck = isNotAutobuyMastery && masteriesPurchasable > 0
 
     if (producerDisplayCheck || masteryDisplayCheck) {
@@ -37,9 +39,8 @@ export const allAntProducerHTML = () => {
       }
     }
   }
-  if (list === '') {
-    list = `${i18next.t('ants.clickBuyAllNothing')}`
-  }
+
+  list ||= i18next.t('ants.clickBuyAllNothing')
   const disclaimerText = `<span style="font-size:0.8em">${i18next.t('ants.clickBuyAllDisclaimer')}</span>`
   return `${purchasableHTMLIntro}${list}<br>${disclaimerText}`
 }
@@ -66,7 +67,7 @@ export const allAntUpgradeHTML = () => {
     }
   }
   if (list === '') {
-    list = `${i18next.t('ants.clickBuyAllNothing')}`
+    list = i18next.t('ants.clickBuyAllNothing')
   }
   const disclaimerText = `<span style="font-size:0.8em">${i18next.t('ants.clickBuyAllDisclaimer')}</span>`
   return `${purchasableHTMLIntro}${list}<br>${disclaimerText}`

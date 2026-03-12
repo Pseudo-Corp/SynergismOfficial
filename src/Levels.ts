@@ -278,15 +278,11 @@ export const generateLevelRewardHTMLs = () => {
     img.alt = synergismLevelRewards[reward].name()
     img.style.cursor = 'pointer'
 
-    img.onclick = () => {
-      getLevelRewardDescription(reward)
-    }
-    img.onmouseover = () => {
-      getLevelRewardDescription(reward)
-    }
-    img.focus = () => {
-      getLevelRewardDescription(reward)
-    }
+    const boundGetLevelRewardDescription = getLevelRewardDescription.bind(null, reward)
+
+    img.addEventListener('click', boundGetLevelRewardDescription)
+    img.addEventListener('mouseover', boundGetLevelRewardDescription)
+    img.addEventListener('focus', boundGetLevelRewardDescription)
     div.appendChild(img)
     rewardTable.appendChild(div)
   }
@@ -691,15 +687,11 @@ export const generateLevelMilestoneHTMLS = () => {
     img.alt = synergismLevelMilestones[milestone].name()
     img.style.cursor = 'pointer'
 
-    img.onclick = () => {
-      getLevelMilestoneDescription(milestone)
-    }
-    img.onmouseover = () => {
-      getLevelMilestoneDescription(milestone)
-    }
-    img.focus = () => {
-      getLevelMilestoneDescription(milestone)
-    }
+    const boundGetLevelMilestoneDescription = getLevelMilestoneDescription.bind(null, milestone)
+
+    img.addEventListener('click', boundGetLevelMilestoneDescription)
+    img.addEventListener('mouseover', boundGetLevelMilestoneDescription)
+    img.addEventListener('focus', boundGetLevelMilestoneDescription)
     div.appendChild(img)
     rewardTable.appendChild(div)
   }

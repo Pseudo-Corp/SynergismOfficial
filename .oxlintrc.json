@@ -22,7 +22,13 @@
     "typescript/no-unsafe-type-assertion": "off",
     "typescript/no-floating-promises": "off",
     "typescript/no-base-to-string": "off",
-    "typescript/restrict-template-expressions": "off"
+    "typescript/restrict-template-expressions": "off",
+
+    // This triggers for i18next.t()
+    "import/no-named-as-default-member": "off",
+
+    // Too new
+    "unicorn/no-array-sort": "off"
   },
   "settings": {},
   "env": {

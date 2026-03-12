@@ -916,9 +916,9 @@ export const getShopCosts = (input: ShopUpgradeNames) => {
 }
 
 export const shopDescriptions = (input: ShopUpgradeNames) => {
-  const rofl = DOMCacheGetOrSet('quarkdescription')!
-  const lol = DOMCacheGetOrSet('quarkeffect')!
-  const refundable = DOMCacheGetOrSet('quarkRefundable')!
+  const rofl = DOMCacheGetOrSet('quarkdescription')
+  const lol = DOMCacheGetOrSet('quarkeffect')
+  const refundable = DOMCacheGetOrSet('quarkRefundable')
 
   rofl.innerHTML = i18next.t(`shop.upgradeDescriptions.${input}`)
 

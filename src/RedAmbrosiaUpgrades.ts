@@ -623,17 +623,13 @@ export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string
   const descriptionSpan = `<span style="color: lightblue">${upgrade.description()}</span>`
   const rewardDescSpan = `<span style="color: gold">${getRedAmbrosiaUpgradeEffectsDescription(upgradeKey)}</span>`
 
-  const costNextLevelSpan = `${
-    i18next.t('redAmbrosia.redAmbrosiaCost', {
-      amount: format(costNextLevel, 0, true)
-    })
-  }`
+  const costNextLevelSpan = i18next.t('redAmbrosia.redAmbrosiaCost', {
+    amount: format(costNextLevel, 0, true)
+  })
 
-  const spentSpan = `${
-    i18next.t('redAmbrosia.redAmbrosiaSpent', {
-      amount: format(upgrade.redAmbrosiaInvested, 0, true)
-    })
-  }`
+  const spentSpan = i18next.t('redAmbrosia.redAmbrosiaSpent', {
+    amount: format(upgrade.redAmbrosiaInvested, 0, true)
+  })
 
   const purchaseWarningSpan = `<span>${i18next.t('redAmbrosia.purchaseWarning')}</span>`
 
@@ -736,9 +732,7 @@ export const buyRedAmbrosiaUpgradeLevel = async (
     return Alert(i18next.t('octeract.buyLevel.cannotAfford'))
   }
   if (purchased > 1) {
-    return Alert(
-      `${i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) })}`
-    )
+    return Alert(i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) }))
   }
 }
 

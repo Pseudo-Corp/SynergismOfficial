@@ -465,6 +465,7 @@ class TabRow extends HTMLDivElement {
       e.dataTransfer!.effectAllowed = 'move'
     }
 
+    /* eslint-disable unicorn/consistent-function-scoping */
     const handleDragEnter = (e: DragEvent) => {
       if (e.target instanceof HTMLElement) {
         e.target.classList.add('over')
@@ -476,6 +477,7 @@ class TabRow extends HTMLDivElement {
         e.target.classList.remove('over')
       }
     }
+    /* eslint-enable unicorn/consistent-function-scoping */
 
     const handleDrop = (e: DragEvent) => {
       e.stopPropagation()
@@ -571,7 +573,7 @@ class $Tab extends HTMLButtonElement {
   }
 
   getType () {
-    return this.#type!
+    return this.#type
   }
 
   getSubTabs () {

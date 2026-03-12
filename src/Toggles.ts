@@ -27,6 +27,8 @@ export const toggleSettings = (toggle: HTMLElement) => {
   } else {
     player.toggles[+toggleId] = true
   }
+
+  // eslint-disable-next-line no-shadow
   const format = toggle.getAttribute('format')
 
   if (format === '$' || format === '[$]') {
@@ -241,6 +243,7 @@ export const toggleautobuytesseract = () => {
 export const toggleauto = () => {
   const toggles = Array.from<HTMLElement>(document.querySelectorAll('.auto[toggleid]'))
   for (const toggle of toggles) {
+    // eslint-disable-next-line no-shadow
     const format = toggle.getAttribute('format')
     const toggleId = toggle.getAttribute('toggleId') ?? 1
 
@@ -328,7 +331,7 @@ export const toggleAutoResearchMode = () => {
   }
 }
 
-export const toggleAutoSacrifice = (index: number) => {
+export const toggleAutoSacrifice = (index: string) => {
   const el = DOMCacheGetOrSet('toggleautosacrifice')
   const numIndex = Number(index)
   if (numIndex === 0) {
@@ -536,7 +539,7 @@ export const setActiveSettingScreen = async (subtab: string) => {
   }
 
   // subtabActive class displays the element; it is invisible by default
-  subtabEl.parentNode!.querySelectorAll('.subtabActive').forEach((subtab) => subtab.classList.remove('subtabActive'))
+  subtabEl.parentNode!.querySelectorAll('.subtabActive').forEach((s) => s.classList.remove('subtabActive'))
   subtabEl.classList.add('subtabActive')
 
   if (subtab === 'creditssubtab') {

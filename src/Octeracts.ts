@@ -1056,7 +1056,7 @@ export const upgradeOcteractToString = (upgradeKey: OcteractDataKeys): string =>
     const octPerSecond = calculateOcteractMultiplier()
     affordTime = octPerSecond > 0
       ? formatTimeShort((costNextLevel - player.wowOcteracts) / octPerSecond)
-      : `${i18next.t('general.infinity')}`
+      : i18next.t('general.infinity')
   }
 
   const affordableInfo = isMaxLevel
@@ -1135,7 +1135,7 @@ export const buyOcteractUpgradeLevel = async (
   if (event.shiftKey || buyMax) {
     maxPurchasable = 100000000
     const buy = Number(
-      await Prompt(`${i18next.t('octeract.buyLevel.buyPrompt', { n: format(player.wowOcteracts, 0, true) })}`)
+      await Prompt(i18next.t('octeract.buyLevel.buyPrompt', { n: format(player.wowOcteracts, 0, true) }))
     )
 
     if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) {
@@ -1179,7 +1179,7 @@ export const buyOcteractUpgradeLevel = async (
   }
 
   if (purchased > 1) {
-    Alert(`${i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) })}`)
+    Alert(i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) }))
   }
 
   updateTokens()

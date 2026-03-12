@@ -816,14 +816,16 @@ export const boostAccelerator = (automated?: boolean) => {
   awardAchievementGroup('acceleratorBoosts')
 }
 
+const linSum = (n: number) => n * (n + 1) / 2
+const sqrSum = (n: number) => n * (n + 1) * (2 * n + 1) / 6
+
 const getAcceleratorBoostCost = (level = 1): Decimal => {
   // formula starts at 0 but buying starts at 1
   level--
   const buymax = Math.pow(10, 15)
   const base = new Decimal(1e3)
   const eff = getRuneBlessingEffect('thrift').accelBoostCostDelay
-  const linSum = (n: number) => n * (n + 1) / 2
-  const sqrSum = (n: number) => n * (n + 1) * (2 * n + 1) / 6
+
   let cost = base
   if (level > 1000 * eff) {
     cost = base.times(Decimal.pow(
