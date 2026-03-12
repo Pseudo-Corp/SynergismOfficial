@@ -2385,7 +2385,7 @@ const achievements: Achievement[] = [
     pointValue: 18,
     unlockCondition: () => player.prestigeCount >= 100_000_000,
     group: 'prestigeCount',
-    reward: { transcensionCountMultiplier: () => Math.min(4, 1.25 + 2.75 * Math.floor(player.prestigecounter / 10)) }
+    reward: { transcensionCountMultiplier: () => Math.min(4, 1.25 + 2.75 * player.prestigecounter / 10) }
   },
   {
     pointValue: 20,
@@ -2465,7 +2465,7 @@ const achievements: Achievement[] = [
     pointValue: 27,
     unlockCondition: () => player.transcendCount >= 100_000_000,
     group: 'transcensionCount',
-    reward: { reincarnationCountMultiplier: () => Math.min(4, 1.25 + 2.75 * Math.floor(player.prestigecounter / 1000)) }
+    reward: { reincarnationCountMultiplier: () => Math.min(4, 1.25 + 2.75 * player.prestigecounter / 1000) }
   },
   {
     pointValue: 30,
@@ -2545,8 +2545,8 @@ const achievements: Achievement[] = [
     unlockCondition: () => player.reincarnationCount >= 100_000_000,
     group: 'reincarnationCount',
     reward: {
-      prestigeCountMultiplier: () => Math.min(4, 1.25 + 2.75 * Math.floor(player.prestigecounter / 1e6)),
-      ascensionCountMultiplier: () => Math.min(1.25, 1 + 0.25 * Math.floor(player.ascensionCounter / 1e6))
+      prestigeCountMultiplier: () => Math.min(4, 1.25 + 2.75 * player.prestigecounter / 1e6),
+      ascensionCountMultiplier: () => Math.min(1.25, 1 + 0.25 * player.ascensionCounter / 1e6)
     }
   },
   {
