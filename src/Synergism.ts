@@ -4520,6 +4520,7 @@ export const updateAll = (): void => {
   if (player.cubeUpgrades[49] > 0) {
     const eloGain = calculateImmortalELOGain()
     player.ants.immortalELO += eloGain
+    awardAchievementGroup('sacMult')
   }
 
   if (
