@@ -6238,7 +6238,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     cursor: pointer;
 }
 
-#changelogWrapper {
+#iframeOverlayWrapper {
     width: 50%;
     height: 100%;
     z-index: 10000;
@@ -6251,7 +6251,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     display: none;
 }
 
-#changelogBlur {
+#iframeOverlayBlur {
     position: fixed;
     top: 0;
     left: 0;
@@ -6745,7 +6745,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         font-size: 0.9em;
     }
 
-    #changelogWrapper {
+    #iframeOverlayWrapper {
         width: 90%;
     }
 

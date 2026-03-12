@@ -63,7 +63,7 @@ import {
   visualUpdateSingularity,
   visualUpdateUpgrades
 } from './UpdateVisuals'
-import { createDeferredPromise, updateClassList } from './Utility'
+import { createDeferredPromise, memoize, updateClassList } from './Utility'
 import { Globals as G } from './Variables'
 
 const htmlInsertPlayerRequirements = [
@@ -1484,29 +1484,49 @@ export const CloseModal = () => {
   modal.style.display = 'none'
 }
 
-export const openChangelog = () => {
-  const wrapper = document.getElementById('changelogWrapper')!
-  const wrapperBlur = document.getElementById('changelogBlur')!
+const getIframeOverlayElements = memoize(() => {
+  const wrapper = document.createElement('div')
+  wrapper.id = 'iframeOverlayWrapper'
+  document.body.appendChild(wrapper)
 
-  if (!wrapper.querySelector('iframe')) {
-    const iframe = document.createElement('iframe')
-    iframe.src = 'https://changelog.synergism.cc/latest'
-    iframe.width = '100%'
-    iframe.height = '100%'
+  const blur = document.createElement('div')
+  blur.id = 'iframeOverlayBlur'
+  blur.addEventListener('click', closeIframeOverlay)
+  document.body.appendChild(blur)
 
-    wrapper.appendChild(iframe)
+  return { wrapper, blur }
+})
+
+let currentOverlayIframe: HTMLIFrameElement | null = null
+
+export const openIframeOverlay = (url: string) => {
+  const { wrapper, blur } = getIframeOverlayElements()
+
+  if (currentOverlayIframe) {
+    wrapper.removeChild(currentOverlayIframe)
   }
 
+  const iframe = document.createElement('iframe')
+  iframe.src = url
+  iframe.width = '100%'
+  iframe.height = '100%'
+  wrapper.appendChild(iframe)
+  currentOverlayIframe = iframe
+
   wrapper.style.display = 'block'
-  wrapperBlur.style.display = 'block'
+  blur.style.display = 'block'
 }
 
-export const closeChangelog = () => {
-  const wrapper = document.getElementById('changelogWrapper')!
-  const wrapperBlur = document.getElementById('changelogBlur')!
+export const closeIframeOverlay = () => {
+  const { wrapper, blur } = getIframeOverlayElements()
 
   wrapper.style.display = 'none'
-  wrapperBlur.style.display = 'none'
+  blur.style.display = 'none'
+
+  if (currentOverlayIframe) {
+    wrapper.removeChild(currentOverlayIframe)
+    currentOverlayIframe = null
+  }
 }
 
 /**
