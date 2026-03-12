@@ -187,16 +187,7 @@ import {
   updateRuneBlessingBuyAmount
 } from './Toggles'
 import type { FirstToEighth, FirstToFifth, OneToFive, Player } from './types/Synergism'
-import {
-  Alert,
-  closeChangelog,
-  CloseModal,
-  Confirm,
-  MEDIUM_MODAL_UPDATE_TICK,
-  Modal,
-  openChangelog,
-  Prompt
-} from './UpdateHTML'
+import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframeOverlay, Prompt } from './UpdateHTML'
 import { shopMouseover } from './UpdateVisuals'
 import {
   buyConstantUpgrades,
@@ -1691,8 +1682,14 @@ TODO: Fix this entire tab it's utter shit
     }
   })
 
-  document.getElementById('patchnotes')?.addEventListener('click', () => openChangelog())
-  document.getElementById('changelogBlur')?.addEventListener('click', () => closeChangelog())
+  document.getElementById('patchnotes')?.addEventListener(
+    'click',
+    openIframeOverlay.bind(null, 'https://changelog.synergism.cc/latest')
+  )
+  document.getElementById('tosLink')?.addEventListener(
+    'click',
+    openIframeOverlay.bind(null, 'https://synergism.cc/terms-of-service')
+  )
 
   if (isMobile) {
     DOMCacheGetOrSet('modalContent').addEventListener('click', CloseModal)

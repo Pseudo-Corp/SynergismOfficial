@@ -64,8 +64,6 @@
         <img id="logo" src="Pictures/logo.png" alt="The Synergism Logo">
         <button id="preloadDeleteGame" style="display: none;">Delete savefile</button>
     </div>
-    <div id="changelogWrapper"></div>
-    <div id="changelogBlur"></div>
     <div id="offlineContainer" style="display: none;">
         <p id="offlineTimer" class="offlineText" style="color: plum"></p>
         <p id="progressbardescription" class="offlineText" style="color: yellow" i18n="offlineProgress.loading"></p>
@@ -4765,7 +4763,7 @@
           <section id="tosSection" style="display:flex;margin:0 auto">
             <input type="radio" id="tosAgree" name="tosAgree" style="margin-right:2px">
             <label for="tosAgree">
-              I agree to the <a href="https://synergism.cc/terms-of-service" style="color:cyan">Terms of Service</a>
+              I agree to the <a id="tosLink" href="javascript:void(0)" style="color:cyan">Terms of Service</a>
             </label>
           </section>
 
