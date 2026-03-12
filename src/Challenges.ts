@@ -5,7 +5,6 @@ import { hepteractEffective } from './Hepteracts'
 import { getGQUpgradeEffect } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { AutoAscensionResetModes, toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
-import { Notification } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
 export type Challenge15Rewards =
@@ -595,10 +594,12 @@ export const challengeRequirement = (challenge: number, completion: number, spec
 type SweepStates =
   | { kind: 'idle' }
   | { kind: 'initial_wait' }
-  | { kind: 'enter_wait'; toIndex: number }
-  | { kind: 'active'; index: number }
+  // Keep explored set in case we have to use c10_detour (don't run it twice)
+  | { kind: 'enter_wait'; toIndex: number; explored: Set<number> }
+  | { kind: 'active'; index: number; explored: Set<number> }
   | { kind: 'c15_wait' } // Happens when you can autoGain c15 Exponent
   | { kind: 'finished' } // Challenges 1-10 are all completely maxed
+  | { kind: 'c10_detour'; explored: Set<number> } // S101+: You start with Challenge 10 instead of Challenge 1...
 
 // 1-5 are transcension, 6-10 reincarnation
 const NUM_ELIGIBLE_CHALLENGES = 10
@@ -623,7 +624,13 @@ function sweepTransitionFunc (
           // If we max all the challenges, just don't change the state!
           return { kind: 'finished' }
         }
-        return { kind: 'active', index: firstChallenge }
+        if (
+          player.highestSingularityCount >= 101
+          && player.currentChallenge.ascension !== 0
+        ) {
+          return { kind: 'c10_detour', explored: new Set([10]) }
+        }
+        return { kind: 'active', index: firstChallenge, explored: new Set([firstChallenge]) }
       }
       return state
 
@@ -633,7 +640,9 @@ function sweepTransitionFunc (
         const nextChallenge = getNextChallenge(state.index + 1, false, 1, NUM_ELIGIBLE_CHALLENGES)
 
         // Check if we've wrapped around or exhausted all challenges
-        if (nextChallenge > NUM_ELIGIBLE_CHALLENGES || nextChallenge <= state.index) {
+        if (
+          nextChallenge > NUM_ELIGIBLE_CHALLENGES || nextChallenge <= state.index || state.explored.has(nextChallenge)
+        ) {
           // Completed a full cycle, check if we need C15 wait
           if (challenge15AutoExponentCheck()) {
             return { kind: 'c15_wait' }
@@ -643,13 +652,13 @@ function sweepTransitionFunc (
         }
 
         // Go to enter_wait before next challenge
-        return { kind: 'enter_wait', toIndex: nextChallenge }
+        return { kind: 'enter_wait', toIndex: nextChallenge, explored: state.explored }
       }
       return state
 
     case 'enter_wait':
       if (elapsedTime >= timers.enter) {
-        return { kind: 'active', index: state.toIndex }
+        return { kind: 'active', index: state.toIndex, explored: new Set([...state.explored, state.toIndex]) }
       }
       return state
 
@@ -671,6 +680,13 @@ function sweepTransitionFunc (
       } else {
         return { kind: 'initial_wait' }
       }
+
+    case 'c10_detour':
+      if (elapsedTime >= timers.exit) {
+        const firstChallenge = getNextChallenge(1, false, 1, NUM_ELIGIBLE_CHALLENGES)
+        return { kind: 'enter_wait', toIndex: firstChallenge, explored: state.explored }
+      }
+      return state
   }
 }
 
@@ -682,6 +698,10 @@ function handleStateTransition (oldState: SweepStates, newState: SweepStates): v
     } else {
       void resetCheck('reincarnationChallenge', undefined, true)
     }
+  }
+
+  if (oldState.kind === 'c10_detour') {
+    void resetCheck('reincarnationChallenge', undefined, true)
   }
 
   switch (newState.kind) {
@@ -709,6 +729,10 @@ function handleStateTransition (oldState: SweepStates, newState: SweepStates): v
     case 'finished':
       toggleAutoChallengeModeText('COMPLETE')
       break
+
+    case 'c10_detour':
+      toggleChallenges(10, true)
+      toggleAutoChallengeModeText('CHALLENGE')
   }
 }
 
@@ -719,6 +743,10 @@ export let timeSinceLastStateChange = 0
 
 function shouldRunSweep (): boolean {
   return player.researches[150] > 0 && player.autoChallengeRunning
+}
+
+export function clearStateChangeTimer (): void {
+  timeSinceLastStateChange = 0
 }
 
 export function resetChallengeSweep (): void {
@@ -745,7 +773,6 @@ export function tickChallengeSweep (dt: number): void {
     currentSweepState = { kind: 'idle' }
     timeSinceLastStateChange = 0
     handleStateTransition(oldState, currentSweepState)
-    void Notification(i18next.t('challenges.exitSweep'))
     return
   }
 

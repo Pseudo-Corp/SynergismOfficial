@@ -256,7 +256,6 @@ export const Globals: GlobalVariables = {
 
   globalConstantMult: new Decimal('1'),
 
-  autoChallengeTimerIncrement: 0,
   corruptionTrigger: 'illiteracy',
 
   c15RewardFormulae: {

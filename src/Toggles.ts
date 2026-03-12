@@ -782,11 +782,9 @@ export const toggleAutoChallengeRun = () => {
   if (player.autoChallengeRunning) {
     el.style.border = '2px solid red'
     el.textContent = i18next.t('challenges.autoChallengeSweepOff')
-    G.autoChallengeTimerIncrement = 0
   } else {
     el.style.border = '2px solid gold'
     el.textContent = i18next.t('challenges.autoChallengeSweepOn')
-    G.autoChallengeTimerIncrement = 0
   }
 
   player.autoChallengeRunning = !player.autoChallengeRunning

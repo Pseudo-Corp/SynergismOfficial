@@ -8,6 +8,7 @@ import {
   challenge15ScoreMultiplier,
   challengeDisplay,
   challengeRequirement,
+  clearStateChangeTimer,
   getChallengeConditions,
   getMaxChallenges,
   getNextChallenge,
@@ -3528,7 +3529,7 @@ export const resourceGain = (dt: number): void => {
       )
     ) {
       void resetCheck('transcensionChallenge', false)
-      G.autoChallengeTimerIncrement = 0
+      clearStateChangeTimer()
     }
   }
   if (reinchal < 9 && reinchal !== 0) {
@@ -3542,7 +3543,7 @@ export const resourceGain = (dt: number): void => {
       )
     ) {
       void resetCheck('reincarnationChallenge', false)
-      G.autoChallengeTimerIncrement = 0
+      clearStateChangeTimer()
     }
   }
   if (reinchal >= 9) {
@@ -3556,7 +3557,7 @@ export const resourceGain = (dt: number): void => {
       )
     ) {
       void resetCheck('reincarnationChallenge', false)
-      G.autoChallengeTimerIncrement = 0
+      clearStateChangeTimer()
     }
   }
   if (ascendchal !== 0 && ascendchal < 15) {

@@ -660,7 +660,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       player.autoChallengeIndex = 1
     }
 
-    G.autoChallengeTimerIncrement = 0
     // reset rest
     resetResearches()
     resetAnts(AntSacrificeTiers.ascension)

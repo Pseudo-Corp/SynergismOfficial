@@ -794,7 +794,6 @@ export interface GlobalVariables {
 
   globalConstantMult: Decimal
 
-  autoChallengeTimerIncrement: number
   corruptionTrigger: keyof Corruptions
 
   c15RewardFormulae: Record<Challenge15Rewards, (e: number) => number>
