@@ -467,7 +467,7 @@ export const generateEventHandlers = () => {
   // RUNES TAB [And all corresponding subtabs]
   // Part 0: Upper UI portion
   // Auto sacrifice toggle button
-  DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice(0))
+  DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice('0'))
   // Toggle subtabs of Runes tab
   for (let index = 0; index < 4; index++) {
     DOMCacheGetOrSet(`toggleRuneSubTab${index + 1}`).addEventListener(
@@ -805,10 +805,7 @@ export const generateEventHandlers = () => {
 
   for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
     const antTier = DOMCacheGetOrSet(`anttier${ant + 1}`)
-    antTier.style.setProperty(
-      '--glow-color',
-      `${antProducerData[ant].color}`
-    )
+    antTier.style.setProperty('--glow-color', antProducerData[ant].color)
     antTier.addEventListener(
       'mousemove',
       (e: MouseEvent) =>
@@ -920,7 +917,7 @@ export const generateEventHandlers = () => {
     const lotusTime = getLotusTimeExpiresAt()
     let extraHTML = ''
     if (lotusTime !== undefined && timeNow < lotusTime) {
-      extraHTML = `${i18next.t('pseudoCoins.lotus.useConfirmMulti')}`
+      extraHTML = i18next.t('pseudoCoins.lotus.useConfirmMulti')
     }
     Confirm(`${i18next.t('pseudoCoins.lotus.useConfirm')} ${extraHTML}`)
       .then((bool) => {
@@ -1230,9 +1227,10 @@ TODO: Fix this entire tab it's utter shit
   for (const key of shopKeys) {
     const shopItem = shopData[key]
     if (shopItem.type === shopUpgradeTypes.UPGRADE) {
-      DOMCacheGetOrSet(`${key}`).addEventListener('mouseover', () => shopDescriptions(key))
-      DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
-      DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
+      const boundShopDescriptions = shopDescriptions.bind(null, key)
+      DOMCacheGetOrSet(key).addEventListener('mouseover', boundShopDescriptions)
+      DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', boundShopDescriptions)
+      DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', boundShopDescriptions)
       // DOMCacheGetOrSet(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
       DOMCacheGetOrSet(`${key}Button`).addEventListener('pointerdown', () => buyShopUpgrades(key))
     }

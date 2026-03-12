@@ -285,7 +285,7 @@ const checkPlatonicUpgrade = (
   let priceMultiplier = 1
   if (platUpgradeBaseCosts[index].priceMult) {
     priceMultiplier = Math.pow(
-      platUpgradeBaseCosts[index].priceMult!,
+      platUpgradeBaseCosts[index].priceMult,
       Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
     )
   }
@@ -328,7 +328,7 @@ export const createPlatonicDescription = (index: number) => {
   let priceMultiplier = 1
   if (platUpgradeBaseCosts[index].priceMult) {
     priceMultiplier = Math.pow(
-      platUpgradeBaseCosts[index].priceMult!,
+      platUpgradeBaseCosts[index].priceMult,
       Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
     )
   }
@@ -439,12 +439,15 @@ export const updatePlatonicUpgradeBG = (i: number) => {
 }
 
 export const buyPlatonicUpgrades = (index: number, auto = false) => {
-  while (index > 0) {
+  if (index <= 0) return
+
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
     const resourceCheck = checkPlatonicUpgrade(index, auto)
     let priceMultiplier = 1
     if (platUpgradeBaseCosts[index].priceMult) {
       priceMultiplier = Math.pow(
-        platUpgradeBaseCosts[index].priceMult!,
+        platUpgradeBaseCosts[index].priceMult,
         Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
       )
     }

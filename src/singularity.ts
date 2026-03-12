@@ -3626,7 +3626,7 @@ export const updateSingularityElevator = (): void => {
   const lockStatus = DOMCacheGetOrSet('elevatorLockStatus')
 
   const highestSingularity = DOMCacheGetOrSet('highestSingularity')
-  const lookahead = DOMCacheGetOrSet('lookahead')
+  const lookaheadDisplay = DOMCacheGetOrSet('lookahead')
   const maxLookahead = DOMCacheGetOrSet('maxLookahead')
   const extraLookahead = DOMCacheGetOrSet('extraLookahead')
 
@@ -3645,7 +3645,7 @@ export const updateSingularityElevator = (): void => {
 
   const theoreticalLookahead = calculateMaxSingularityLookahead(true)
 
-  lookahead.innerHTML = i18next.t('singularity.elevator.lookahead')
+  lookaheadDisplay.innerHTML = i18next.t('singularity.elevator.lookahead')
   maxLookahead.innerHTML = i18next.t('singularity.elevator.maxLookahead', { num: theoreticalLookahead })
   extraLookahead.innerHTML = i18next.t('singularity.elevator.lookaheadExtra')
 
@@ -3678,9 +3678,9 @@ export const updateSingularityElevator = (): void => {
         i18next.t('singularity.elevator.lockDisabledSing', { target: player.singularityCount + 1 })
       }`
     } else {
-      const maxTarget = Math.max(player.singularityCount + theoreticalLookahead, player.highestSingularityCount)
+      const maxTarget2 = Math.max(player.singularityCount + theoreticalLookahead, player.highestSingularityCount)
       lockStatus.innerHTML = `${introText}<br>${
-        i18next.t('singularity.elevator.lockDisabledSing', { target: maxTarget })
+        i18next.t('singularity.elevator.lockDisabledSing', { target: maxTarget2 })
       }`
     }
   }

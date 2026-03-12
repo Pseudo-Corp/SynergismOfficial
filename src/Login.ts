@@ -448,8 +448,8 @@ export async function handleLogin () {
       ]
 
       const unlinkedPlatforms = platform === 'steam'
-        ? allPlatforms.filter((platform) => platform.direct && !linkedAccounts.includes(platform.name))
-        : allPlatforms.filter((platform) => !linkedAccounts.includes(platform.name))
+        ? allPlatforms.filter((p) => p.direct && !linkedAccounts.includes(p.name))
+        : allPlatforms.filter((p) => !linkedAccounts.includes(p.name))
 
       if (unlinkedPlatforms.length > 0) {
         const linkAccountsSection = document.createElement('div')
@@ -524,7 +524,7 @@ export async function handleLogin () {
                   return
                 }
 
-                const response = await fetch(`https://synergism.cc/login/link-direct/${unlinked.name}`, {
+                const directLoginResponse = await fetch(`https://synergism.cc/login/link-direct/${unlinked.name}`, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
@@ -535,10 +535,10 @@ export async function handleLogin () {
                   button.dataset.loading = ''
                 })
 
-                if (response.redirected || response.ok) {
+                if (directLoginResponse.redirected || directLoginResponse.ok) {
                   location.reload()
                 } else {
-                  await displayHTMLError(response)
+                  await displayHTMLError(directLoginResponse)
                 }
               }
             } else {
@@ -772,6 +772,7 @@ function handleWebSocket () {
 
       Notification(i18next.t('pseudoCoins.lotus.lotusActive'))
     } else {
+      // eslint-disable-next-line unicorn/consistent-function-scoping
       const assertNever = (_x: never) => {
         throw new Error()
       }
@@ -1193,7 +1194,7 @@ function handleCloudSaves () {
         }
 
         async function handleDownload (saveId: number) {
-          const save = cloudSaves.find((save) => saveId === save.id)
+          const save = cloudSaves.find((s) => saveId === s.id)
 
           if (!save) {
             Alert(i18next.t('account.noSaveFound'))
@@ -1212,7 +1213,7 @@ function handleCloudSaves () {
         }
 
         async function handleLoadSave (saveId: number) {
-          const save = cloudSaves.find((save) => saveId === save.id)
+          const save = cloudSaves.find((s) => saveId === s.id)
 
           if (!save) {
             Alert(i18next.t('account.noSaveFound'))
@@ -1224,7 +1225,7 @@ function handleCloudSaves () {
         }
 
         async function handleDeleteSave (saveId: number) {
-          const save = cloudSaves.find((save) => saveId === save.id)
+          const save = cloudSaves.find((s) => saveId === s.id)
 
           if (!save) {
             Alert(i18next.t('account.noSaveFound'))
@@ -1296,9 +1297,9 @@ function handleCloudSaves () {
       uploadButton.textContent = i18next.t('settings.cloud.uploadFailed')
     }).finally(() => {
       setTimeout(
-        (uploadButton: HTMLButtonElement) => {
-          uploadButton.disabled = false
-          uploadButton.textContent = originalText
+        (uploadButton_) => {
+          uploadButton_.disabled = false
+          uploadButton_.textContent = originalText
         },
         5000,
         uploadButton
@@ -1323,9 +1324,9 @@ function handleCloudSaves () {
       transferButton.textContent = i18next.t('settings.cloud.transferFailed')
     }).finally(() => {
       setTimeout(
-        (transferButton: HTMLButtonElement) => {
-          transferButton.disabled = false
-          transferButton.textContent = originalText
+        (transferButton_) => {
+          transferButton_.disabled = false
+          transferButton_.textContent = originalText
         },
         5000,
         transferButton

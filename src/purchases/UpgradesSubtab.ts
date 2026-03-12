@@ -56,8 +56,8 @@ function setActiveUpgrade (upgrade: UpgradesList) {
 
   const name = i18next.t(`pseudoCoins.upgradeNames.${upgrade.internalName}`)
 
-  DOMCacheGetOrSet('pCoinUpgradeName').textContent = `${name ?? '???'}`
-  DOMCacheGetOrSet('description').textContent = `${upgrade.description ?? '???'}`
+  DOMCacheGetOrSet('pCoinUpgradeName').textContent = name
+  DOMCacheGetOrSet('description').textContent = upgrade.description
   DOMCacheGetOrSet('pCoinUpgradeIcon').setAttribute(
     'src',
     `Pictures/PseudoShop/${upgrade.internalName ?? 'PseudoCoins'}.png`
@@ -68,7 +68,7 @@ function setActiveUpgrade (upgrade: UpgradesList) {
     levelCostMap[level] = upgrade.cost[index]
   })
 
-  const buy = DOMCacheGetOrSet('buy')!
+  const buy = DOMCacheGetOrSet('buy')
   const currEffect = DOMCacheGetOrSet('pCoinEffectCurr')
   const nextEffect = DOMCacheGetOrSet('pCoinEffectNext')
 
@@ -209,14 +209,14 @@ export const updatePseudoCoins = async () => {
   const response = await fetch('https://synergism.cc/stripe/coins')
   const coins = await response.json() as CoinsResponse
 
-  tab!.querySelector('#pseudoCoinAmounts > #currentCoinBalance')!.innerHTML = `${
-    i18next.t('pseudoCoins.coinCount', { amount: Intl.NumberFormat().format(coins.coins) })
-  }`
+  tab.querySelector('#pseudoCoinAmounts > #currentCoinBalance')!.innerHTML = i18next.t('pseudoCoins.coinCount', {
+    amount: Intl.NumberFormat().format(coins.coins)
+  })
 
   // WOW this is so hacky and shit but It's the best I can do in a pinch -Platonic
-  DOMCacheGetOrSet('currentCoinBalance2')!.innerHTML = `${
-    i18next.t('pseudoCoins.coinCount', { amount: Intl.NumberFormat().format(coins.coins) })
-  }`
+  DOMCacheGetOrSet('currentCoinBalance2').innerHTML = i18next.t('pseudoCoins.coinCount', {
+    amount: Intl.NumberFormat().format(coins.coins)
+  })
 
   return coins.coins
 }

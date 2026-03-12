@@ -185,5 +185,7 @@ const onInit = memoize(() => {
 export const initializeCart = () => {
   onInit()
 
+  // TODO(@KhafraDev):
+  // eslint-disable-next-line no-new:
   new CartTab()
 }

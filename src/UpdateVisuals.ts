@@ -1647,7 +1647,7 @@ export const visualUpdateSingularity = () => {
 
     for (const key of keys) {
       const octItem = octeractUpgrades[key]
-      const el = DOMCacheGetOrSet(`${String(key)}`)
+      const el = DOMCacheGetOrSet(key)
       if (octItem.maxLevel !== -1 && octItem.level >= octItem.maxLevel) {
         el.style.filter = val ? 'brightness(.9)' : 'none'
       } else if (getOcteractUpgradeCostTNL(key) > player.wowOcteracts) {

@@ -6,7 +6,6 @@ import {
   challengeAchievementCheck,
   getAchievementReward
 } from './Achievements'
-import type { BlueberryLoadoutMode } from './BlueberryUpgrades'
 import { buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy'
 import type { TesseractBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -75,14 +74,14 @@ import { Globals as G } from './Variables'
 
 let repeatreset: number
 
-const resetTypes = [
+const resetTypes = new Set([
   'transcension',
   'transcensionChallenge',
   'reincarnation',
   'reincarnationChallenge',
   'ascension',
   'ascensionChallenge'
-]
+])
 const shopItemPerk_5 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const
 const shopItemPerk_20 = [
   'offeringAuto',
@@ -499,7 +498,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
   G.generatorPower = new Decimal(1)
 
-  if (resetTypes.includes(input)) {
+  if (resetTypes.has(input)) {
     resetUpgrades(2)
     player.coinsThisTranscension = new Decimal('100')
     player.firstOwnedDiamonds = 0
@@ -1338,7 +1337,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.lifetimeAmbrosia = player.lifetimeAmbrosia
   hold.blueberryTime = player.blueberryTime
   hold.blueberryLoadouts = player.blueberryLoadouts
-  hold.blueberryLoadoutMode = player.blueberryLoadoutMode as BlueberryLoadoutMode
+  hold.blueberryLoadoutMode = player.blueberryLoadoutMode
 
   hold.stats = player.stats
 
@@ -1380,9 +1379,9 @@ export const singularity = (setSingNumber = -1) => {
 
 const resetUpgrades = (i: number) => {
   if (i > 2.5) {
-    for (let i = 41; i < 61; i++) {
-      if (i !== 46) {
-        player.upgrades[i] = 0
+    for (let j = 41; j < 61; j++) {
+      if (j !== 46) {
+        player.upgrades[j] = 0
       }
     }
 

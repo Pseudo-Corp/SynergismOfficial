@@ -276,7 +276,7 @@ export class SingularityChallenge {
 
   public updateIconHTML (): void {
     const color = this.enabled ? 'orchid' : ''
-    DOMCacheGetOrSet(`${String(this.HTMLTag)}`).style.backgroundColor = color
+    DOMCacheGetOrSet(this.HTMLTag).style.backgroundColor = color
   }
 
   public get rewards () {

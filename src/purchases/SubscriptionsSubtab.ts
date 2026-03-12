@@ -89,8 +89,8 @@ async function changeSubscription (
     return
   }
 
-  const link = prod ? prodRouteLinks[sub.provider][type] : devRouteLinks[sub.provider][type]
-  const url = new URL(link)
+  const apiLink = prod ? prodRouteLinks[sub.provider][type] : devRouteLinks[sub.provider][type]
+  const url = new URL(apiLink)
   url.searchParams.set('product', productId)
 
   const response = await fetch(url, {
@@ -203,7 +203,7 @@ const constructFeatureList = ({ features }: SubscriptionProduct) => {
 
     const li = document.createElement('li')
     li.style.color = color
-    li.textContent = `${feature}`
+    li.textContent = feature
 
     ul.appendChild(li)
   }
@@ -365,7 +365,7 @@ const initializeSubscriptionPage = memoize(() => {
     createIndividualSubscriptionHTML(product, tier)
   ).join('')
 
-  subscriptionSectionHolder!.style.display = 'grid'
+  subscriptionSectionHolder.style.display = 'grid'
 
   document.querySelectorAll<HTMLButtonElement>('.subscriptionContainer > button[data-id]:not(.steamSubscribeButton)')
     .forEach(
