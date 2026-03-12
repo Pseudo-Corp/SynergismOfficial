@@ -819,13 +819,13 @@ export const getNextAscensionChallenge = (startIndex: number) => {
   let nextChallenge = startIndex
 
   for (let i = 0; i < 5; i ++) {
-    if (player.autoChallengeToggles[nextChallenge]
-      && player.highestchallengecompletions[nextChallenge] < getMaxChallenges(nextChallenge)) {
-      return nextChallenge
-    }
     nextChallenge++
     if (nextChallenge > 15) {
       nextChallenge = 11
+    }
+    if (player.autoChallengeToggles[nextChallenge]
+      && player.highestchallengecompletions[nextChallenge] < getMaxChallenges(nextChallenge)) {
+      return nextChallenge
     }
   }
   
