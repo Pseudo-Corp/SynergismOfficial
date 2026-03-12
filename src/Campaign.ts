@@ -1467,12 +1467,12 @@ const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRe
   ambrosiaLuck: {
     tokenRequirement: 2000,
     reward: () => format(player.campaigns.ambrosiaLuckBonus, 2, true),
-    otherUnlockRequirement: () => (player.highestSingularityCount > 8)
+    otherUnlockRequirement: () => (player.singularityChallenges.noSingularityUpgrades.completions > 0)
   },
   blueberrySpeed: {
     tokenRequirement: 2000,
     reward: () => formatAsPercentIncrease(player.campaigns.blueberrySpeedBonus),
-    otherUnlockRequirement: () => (player.highestSingularityCount > 9)
+    otherUnlockRequirement: () => (player.singularityChallenges.noSingularityUpgrades.completions > 0)
   }
 }
 
