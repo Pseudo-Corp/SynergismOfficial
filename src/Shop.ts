@@ -618,9 +618,9 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaGeneration1: {
-    tier: 'SingularityVol2',
-    price: 50000000,
-    priceIncrease: 50000000,
+    tier: 'SingularityVol3',
+    price: 5e11,
+    priceIncrease: 5e11,
     maxLevel: 25,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -628,8 +628,8 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   shopAmbrosiaGeneration2: {
     tier: 'SingularityVol3',
-    price: 5e11,
-    priceIncrease: 5e11,
+    price: 5e12,
+    priceIncrease: 5e12,
     maxLevel: 30,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -654,9 +654,9 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuck1: {
-    tier: 'SingularityVol2',
-    price: 20000000,
-    priceIncrease: 20000000,
+    tier: 'SingularityVol3',
+    price: 2e11,
+    priceIncrease: 2e11,
     maxLevel: 40,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -664,8 +664,8 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   shopAmbrosiaLuck2: {
     tier: 'SingularityVol3',
-    price: 2e11,
-    priceIncrease: 2e11,
+    price: 2e12,
+    priceIncrease: 2e12,
     maxLevel: 50,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -2068,7 +2068,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
         player.singularityChallenges.noOcteracts.rewards.shopUpgrade
       )
     case 'shopAmbrosiaGeneration1':
-      return Boolean(getGQUpgradeEffect('wowPass2'))
+      return Boolean(getGQUpgradeEffect('wowPass3'))
     case 'shopAmbrosiaGeneration2':
       return Boolean(getGQUpgradeEffect('wowPass3'))
     case 'shopAmbrosiaGeneration3':
@@ -2076,7 +2076,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
     case 'shopAmbrosiaGeneration4':
       return Boolean(getGQUpgradeEffect('wowPass4'))
     case 'shopAmbrosiaLuck1':
-      return Boolean(getGQUpgradeEffect('wowPass2'))
+      return Boolean(getGQUpgradeEffect('wowPass3'))
     case 'shopAmbrosiaLuck2':
       return Boolean(getGQUpgradeEffect('wowPass3'))
     case 'shopAmbrosiaLuck3':
