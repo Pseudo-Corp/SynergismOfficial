@@ -1371,7 +1371,8 @@ export const Modal = (
   currX: number,
   currY: number,
   styleMods: OptionalHTMLStyle = {},
-  updateInterval = VERY_FAST_MODAL_UPDATE_TICK
+  updateInterval = VERY_FAST_MODAL_UPDATE_TICK,
+  targetElement?: HTMLElement
 ) => {
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
@@ -1397,18 +1398,35 @@ export const Modal = (
     const viewportWidth = window.innerWidth
     const viewportHeight = window.innerHeight
 
+    // If coordinates are at (0,0) or near it, likely a keyboard event
+    // Use the target element's position instead
+    let baseX = currX
+    let baseY = currY
+
+    if ((currX === 0 && currY === 0) || (currX < 5 && currY < 5)) {
+      if (targetElement) {
+        const targetRect = targetElement.getBoundingClientRect()
+        baseX = targetRect.left + targetRect.width / 2
+        baseY = targetRect.top + targetRect.height / 2
+      } else {
+        // Not sure if this would ever happen, if it does, just use center of screen
+        baseX = viewportWidth / 2
+        baseY = viewportHeight / 2
+      }
+    }
+
     // Base positioning
-    let modalX = currX + 20
-    let modalY = currY + 20
+    let modalX = baseX + 20
+    let modalY = baseY + 20
 
     // Check right edge boundary
     if (modalX + modalRect.width > viewportWidth) {
-      modalX = currX - modalRect.width - -20
+      modalX = baseX - modalRect.width - 20
     }
 
     // Check bottom edge boundary
     if (modalY + modalRect.height > viewportHeight) {
-      modalY = currY - modalRect.height - 20
+      modalY = baseY - modalRect.height - 20
     }
 
     modalX = Math.max(0, modalX)
