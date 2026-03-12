@@ -110,7 +110,7 @@ export const getMaxChallenges = (i: number) => {
   }
   // Ascension Challenge
   if (i <= 15 && i > 10) {
-    // Challenge 15 has no formal cap, so return 9001.
+    // Challenge 15 does not have 'completions'
     if (i === 15) {
       return 0
     }
@@ -619,13 +619,13 @@ function sweepTransitionFunc (
     case 'initial_wait':
       if (elapsedTime >= timers.start) {
         // Find first valid challenge, which skips the enter time.
-        const firstChallenge = getNextChallenge(1, false, 1, NUM_ELIGIBLE_CHALLENGES)
-        if (firstChallenge > NUM_ELIGIBLE_CHALLENGES) {
+        const firstChallenge = getNextRegularChallenge(1, new Set())
+        if (firstChallenge === -1) {
           // If we max all the challenges, just don't change the state!
           return { kind: 'finished' }
         }
         if (
-          player.highestSingularityCount >= 101
+          player.highestSingularityCount >= 2
           && player.currentChallenge.ascension !== 0
         ) {
           return { kind: 'c10_detour', explored: new Set([10]) }
@@ -637,12 +637,10 @@ function sweepTransitionFunc (
     case 'active':
       if (elapsedTime >= timers.exit) {
         // Find next challenge
-        const nextChallenge = getNextChallenge(state.index + 1, false, 1, NUM_ELIGIBLE_CHALLENGES)
+        const nextChallenge = getNextRegularChallenge(state.index, state.explored)
 
         // Check if we've wrapped around or exhausted all challenges
-        if (
-          nextChallenge > NUM_ELIGIBLE_CHALLENGES || nextChallenge <= state.index || state.explored.has(nextChallenge)
-        ) {
+        if (nextChallenge === -1) {
           // Completed a full cycle, check if we need C15 wait
           if (challenge15AutoExponentCheck()) {
             return { kind: 'c15_wait' }
@@ -683,7 +681,7 @@ function sweepTransitionFunc (
 
     case 'c10_detour':
       if (elapsedTime >= timers.exit) {
-        const firstChallenge = getNextChallenge(1, false, 1, NUM_ELIGIBLE_CHALLENGES)
+        const firstChallenge = getNextRegularChallenge(10, state.explored)
         return { kind: 'enter_wait', toIndex: firstChallenge, explored: state.explored }
       }
       return state
@@ -815,39 +813,53 @@ export const challenge15ScoreMultiplier = () => {
   )
 }
 
-// Look for the next uncompleted challenge.
-export const getNextChallenge = (startChallenge: number, maxSkip = false, min = 1, max = 10) => {
-  let nextChallenge = startChallenge
-  /* Calculate the smallest challenge index we want to enter.
-       Our minimum is the current index, but if that challenge is fully completed
-       or toggled off we shouldn't run it, so we increment upwards in these cases. */
-  for (let index = nextChallenge; index <= max; index++) {
+// "Regular" just means not ascension challenge
+export const getNextRegularChallenge = (startIndex: number, explored: Set<number>) => {
+  let challenge = startIndex
+  // Loop around all the first 10 challenges, trying to find an unexplored, maxed one
+  while (
+    explored.has(challenge)
+    || player.highestchallengecompletions[challenge] >= getMaxChallenges(challenge)
+    || !player.autoChallengeToggles[challenge]
+  ) {
+    challenge += 1
+    if (challenge > NUM_ELIGIBLE_CHALLENGES) {
+      challenge = 1
+    }
+    // By returning -1 we explicitly say that no challenges have been found...
+    if (challenge === startIndex) {
+      return -1
+    }
+  }
+  return challenge
+}
+
+// Ascension Challenge 'next' Check. We don't have access to explored so we can't just use the same logic again. Sad!
+export const getNextAscensionChallenge = (startIndex: number) => {
+  let nextChallenge = startIndex
+
+  while (true) {
+    nextChallenge += 1
+    if (nextChallenge > 15) {
+      nextChallenge = 11
+    }
+    if (nextChallenge === startIndex) {
+      // Loop returned itself... just restart itself I guess?
+      // That's what it does in 4.1.6.
+      return startIndex
+    }
     if (
-      !player.autoChallengeToggles[index]
-      || (!maxSkip && index !== 15 && player.highestchallengecompletions[index] >= getMaxChallenges(index))
+      !player.autoChallengeToggles[nextChallenge]
+      || (player.highestchallengecompletions[nextChallenge] >= getMaxChallenges(nextChallenge)
+        && nextChallenge !== 15)
     ) {
-      nextChallenge += 1
+      // Not our challenge...
+      continue
     } else {
+      // This is the next one!
       break
     }
   }
 
-  /* If the above algorithm sets the index above 10, the loop is complete
-       and thus do not need to enter more challenges. This sets our index to 1
-       so in the next iteration it knows we want to start a loop. */
-  if (nextChallenge > max) {
-    // If the challenge reaches 11 or higher, return it to 1 and check again.
-    nextChallenge = min
-    for (let index = nextChallenge; index <= max; index++) {
-      if (
-        !player.autoChallengeToggles[index]
-        || (!maxSkip && index !== 15 && player.highestchallengecompletions[index] >= getMaxChallenges(index))
-      ) {
-        nextChallenge += 1
-      } else {
-        break
-      }
-    }
-  }
   return nextChallenge
 }

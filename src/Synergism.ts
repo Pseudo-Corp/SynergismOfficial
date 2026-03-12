@@ -11,7 +11,7 @@ import {
   clearStateChangeTimer,
   getChallengeConditions,
   getMaxChallenges,
-  getNextChallenge,
+  getNextAscensionChallenge,
   highestChallengeRewards,
   tickChallengeSweep
 } from './Challenges'
@@ -4554,28 +4554,12 @@ export const updateAll = (): void => {
         && player.researches[150] === 1
         && player.autoChallengeRunning
       ) {
-        let nextChallenge = getNextChallenge(
-          player.currentChallenge.ascension + 1,
-          false,
-          11,
-          15
-        )
+        let nextChallenge = getNextAscensionChallenge(player.currentChallenge.ascension)
         if (
-          nextChallenge <= 15
-          && player.currentChallenge.ascension !== nextChallenge
+          player.currentChallenge.ascension !== nextChallenge
         ) {
           void resetCheck('ascensionChallenge', false, true)
           player.currentChallenge.ascension = nextChallenge
-          reset('ascensionChallenge', false)
-        } else {
-          nextChallenge = getNextChallenge(
-            player.currentChallenge.ascension + 1,
-            true,
-            11,
-            15
-          )
-          void resetCheck('ascensionChallenge', false, true)
-          player.currentChallenge.ascension = nextChallenge <= 15 ? nextChallenge : 0
           reset('ascensionChallenge', false)
         }
       } else {
