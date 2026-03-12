@@ -818,28 +818,17 @@ export const getNextRegularChallenge = (startIndex: number, explored: Set<number
 export const getNextAscensionChallenge = (startIndex: number) => {
   let nextChallenge = startIndex
 
-  while (true) {
-    nextChallenge += 1
+  for (let i = 0; i < 5; i ++) {
+    if (player.autoChallengeToggles[nextChallenge]
+      && player.highestchallengecompletions[nextChallenge] < getMaxChallenges(nextChallenge)) {
+      return nextChallenge
+    }
+    nextChallenge++
     if (nextChallenge > 15) {
       nextChallenge = 11
     }
-    if (nextChallenge === startIndex) {
-      // Loop returned itself... just restart itself I guess?
-      // That's what it does in 4.1.6.
-      return startIndex
-    }
-    if (
-      !player.autoChallengeToggles[nextChallenge]
-      || (player.highestchallengecompletions[nextChallenge] >= getMaxChallenges(nextChallenge)
-        && nextChallenge !== 15)
-    ) {
-      // Not our challenge...
-      continue
-    } else {
-      // This is the next one!
-      break
-    }
   }
-
+  
+  // This returns the same as startIndex if no valid Challenges are found.
   return nextChallenge
 }
