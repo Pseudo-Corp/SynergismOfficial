@@ -824,7 +824,7 @@ export const getNextAscensionChallenge = (startIndex: number) => {
       nextChallenge = 11
     }
     if (player.autoChallengeToggles[nextChallenge]
-      && player.highestchallengecompletions[nextChallenge] < getMaxChallenges(nextChallenge)) {
+      && (player.highestchallengecompletions[nextChallenge] < getMaxChallenges(nextChallenge) || nextChallenge === 15)) {
       return nextChallenge
     }
   }
