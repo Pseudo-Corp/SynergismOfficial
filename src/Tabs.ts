@@ -730,7 +730,6 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   }
 
   G.currentTab = tabRow.getCurrentTab().getType()
-  subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex
 
   if (G.currentTab === Tabs.Achievements) {
     awardUngroupedAchievement('participationTrophy')

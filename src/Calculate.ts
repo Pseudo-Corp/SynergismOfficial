@@ -1178,8 +1178,8 @@ export const calculateAscensionScore = () => {
   const corruptionMultiplier = player.corruptions.used.totalCorruptionAscensionMultiplier
   let effectiveScore = 0
 
-  let bonusLevel = getGQUpgradeEffect('corruptionFifteen')
-  bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
+  // let bonusLevel = getGQUpgradeEffect('corruptionFifteen')
+  // bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
 
   // Init Arrays with challenge values :)
   const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
@@ -1228,11 +1228,11 @@ export const calculateAscensionScore = () => {
     player.highestchallengecompletions[10]
   )
   // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
-  let bonusVal = getGQUpgradeEffect('advancedPack')
-    ? 0.33
-    : 0
-  bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
-  bonusVal += 0.3 * player.cubeUpgrades[74]
+  // let bonusVal = getGQUpgradeEffect('advancedPack')
+  //   ? 0.33
+  //   : 0
+  // bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
+  // bonusVal += 0.3 * player.cubeUpgrades[74]
 
   const bonusMultiplier = computeAscensionScoreBonusMultiplier()
 
@@ -1241,9 +1241,9 @@ export const calculateAscensionScore = () => {
     effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5)
   }
 
-  getGQUpgradeEffect('expertPack')
-    ? (effectiveScore *= 1.5)
-    : (effectiveScore *= 1)
+  if (getGQUpgradeEffect('expertPack')) {
+    effectiveScore *= 1.5
+  }
 
   return {
     baseScore,

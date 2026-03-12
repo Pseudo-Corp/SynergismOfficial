@@ -843,11 +843,11 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
     octeractsInvested: 0,
     maxLevel: 6,
     costPerLevel: 1,
-    costFormula: (level: number, baseCost: number) => {
+    costFormula: (level: number) => {
       if (level === 6) {
         return 0
       } else {
-        return octeractBlueberryCostArr[level] + 0 * baseCost // Base cost is not used here.
+        return octeractBlueberryCostArr[level] // Base cost is not used here.
       }
     },
     effect: (n: number) => {

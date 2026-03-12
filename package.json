@@ -26,7 +26,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
     "@types/cloudflare-turnstile": "^0.2.2",
     "@types/conf": "^2.1.0",
     "@types/discord-rpc": "^4.0.10",
@@ -54,7 +53,6 @@
     "dev": "concurrently \"npm run watch:esbuild\" \"npm run live-server\"",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "lint:fix-unsafe": "npx @biomejs/biome lint --write --unsafe .",
     "fmt": "npx dprint fmt",
     "format": "npx dprint fmt",
     "csslint": "npx stylelint Synergism.css",

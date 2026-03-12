@@ -420,7 +420,7 @@ const resetHistoryRenderRow = (
       if (gainInfo.onlyif && !gainInfo.onlyif(data)) {
         return
       }
-      const formatter = gainInfo.formatter ?? (() => {/* If no formatter is specified, don't display. */})
+      const formatter = gainInfo.formatter ?? (() => '')
       const str = `<img alt="${gainInfo.imgTitle}" src="Pictures/${
         IconSets[player.iconSet][0]
       }/${gainInfo.img}" title="${gainInfo.imgTitle}">${formatter(dataIntersection[listable]!, data)}`

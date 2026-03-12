@@ -3317,9 +3317,11 @@ const handlePerks = (singularityCount: number) => {
     const perkId = DOMCacheGetOrSet(availablePerk.htmlID)
     perkId.style.display = ''
     DOMCacheGetOrSet('singularityPerksGrid').append(perkId)
-    singularityCount - availablePerk.lastUpgraded <= singTolerance // Is new?
-      ? perkId.classList.replace('oldPerk', 'newPerk')
-      : perkId.classList.replace('newPerk', 'oldPerk')
+    if (singularityCount - availablePerk.lastUpgraded <= singTolerance) { // Is new?
+      perkId.classList.replace('oldPerk', 'newPerk')
+    } else {
+      perkId.classList.replace('newPerk', 'oldPerk')
+    }
   }
   const nextUnlockedId = DOMCacheGetOrSet('singualrityUnlockNext')
   if (singularityCountForNextPerk) {

@@ -51,8 +51,8 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
   tutorial: {
     level: 0,
     redAmbrosiaInvested: 0,
-    costFormula: (level: number, baseCost: number) => {
-      return baseCost + 0 * level // Level has no effect.
+    costFormula: (_level: number, baseCost: number) => {
+      return baseCost // Level has no effect.
     },
     effects: (n: number) => {
       const val = Math.pow(1.01, n)
@@ -435,8 +435,8 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
   redAmbrosiaAccelerator: {
     level: 0,
     redAmbrosiaInvested: 0,
-    costFormula: (level: number, baseCost: number) => {
-      return baseCost + level * 0
+    costFormula: (_level: number, baseCost: number) => {
+      return baseCost
     },
     effects: (n: number) => {
       const val = 0.02 * n + ((n > 0) ? 1 : 0)
@@ -456,8 +456,8 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
   regularLuck2: {
     level: 0,
     redAmbrosiaInvested: 0,
-    costFormula: (level: number, baseCost: number) => {
-      return baseCost + 0 * level
+    costFormula: (_level: number, baseCost: number) => {
+      return baseCost
     },
     effects: (n: number) => {
       const val = 2 * n
@@ -477,8 +477,8 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
   blueberryGenerationSpeed2: {
     level: 0,
     redAmbrosiaInvested: 0,
-    costFormula: (level: number, baseCost: number) => {
-      return baseCost + 0 * level
+    costFormula: (_level: number, baseCost: number) => {
+      return baseCost
     },
     effects: (n: number) => {
       const val = 1 + n / 1000

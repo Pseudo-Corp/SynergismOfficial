@@ -603,8 +603,8 @@ export const ambrosiaUpgrades: {
       ambrosiaLuck1: 90,
       ambrosiaLuck2: 50
     },
-    costFormula: (level: number, baseCost: number): number => {
-      return baseCost + 0 * level // Level has no effect
+    costFormula: (_level: number, baseCost: number): number => {
+      return baseCost // Level has no effect
     },
     effects: (n: number) => {
       const perLevel = calculateBlueberryInventory()
@@ -939,8 +939,8 @@ export const ambrosiaUpgrades: {
       ambrosiaBaseOffering1: 20,
       ambrosiaBaseObtainium1: 10
     },
-    costFormula: (level: number, baseCost: number): number => {
-      return baseCost + 0 * level
+    costFormula: (_level: number, baseCost: number): number => {
+      return baseCost
     },
     effects: (n: number) => {
       const val = n
@@ -973,8 +973,8 @@ export const ambrosiaUpgrades: {
       ambrosiaBaseOffering2: 20,
       ambrosiaBaseObtainium2: 10
     },
-    costFormula: (level: number, baseCost: number): number => {
-      return baseCost + 0 * level
+    costFormula: (_level: number, baseCost: number): number => {
+      return baseCost
     },
     effects: (n: number) => {
       const val = n
@@ -1514,7 +1514,7 @@ export const importBlueberryTree = (input: string | null) => {
       const modules = JSON.parse(input) as BlueberryOpt
       createBlueberryTree(modules)
       createLoadoutDescription(0, modules)
-    } catch (err) {
+    } catch {
       return Alert(i18next.t('ambrosia.importTree.error'))
     }
   }

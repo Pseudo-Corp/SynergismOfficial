@@ -185,7 +185,7 @@ const resetToggleModesSchema = z.object({
 })
 
 const singularityUpgradeSchema = (...keys: string[]) => {
-  return z.object<Record<'level' | 'freeLevels' | typeof keys[number], ZodNumber>>({
+  return z.object<Record<typeof keys[number], ZodNumber>>({
     level: z.number(),
     freeLevels: z.number(),
     ...keys.reduce((accum, value) => {

@@ -10,7 +10,6 @@
     "perf": "warn"
   },
   "rules": {
-    // Match existing biome config: turn off rules that were disabled there
     "no-non-null-assertion": "off",
     "no-param-reassign": "off",
 
@@ -21,7 +20,9 @@
     "typescript/no-unnecessary-type-constraint": "off",
     "typescript/consistent-type-imports": "warn",
     "typescript/no-unsafe-type-assertion": "off",
-    "typescript/no-floating-promises": "off"
+    "typescript/no-floating-promises": "off",
+    "typescript/no-base-to-string": "off",
+    "typescript/restrict-template-expressions": "off"
   },
   "settings": {},
   "env": {

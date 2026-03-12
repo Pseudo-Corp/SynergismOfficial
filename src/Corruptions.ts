@@ -725,7 +725,7 @@ async function importCorruptionsPrompt () {
 
 async function corruptionLoadoutGetNewName (loadout = 0) {
   const maxChars = 9
-  // biome-ignore lint/suspicious/noControlCharactersInRegex: I use control characters in my regex for fun!
+  // eslint-disable-next-line no-control-regex
   const regex = /^[\x00-\xFF]*$/
   const renamePrompt = await Prompt(
     i18next.t('corruptions.corruptionLoadoutName.loadoutPrompt', { loadNum: loadout + 1, maxChars })

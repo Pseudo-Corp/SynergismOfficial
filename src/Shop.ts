@@ -922,9 +922,9 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
   rofl.innerHTML = i18next.t(`shop.upgradeDescriptions.${input}`)
 
-  shopData[input].refundable
-    ? (refundable.textContent = i18next.t('shop.refundable', { level: shopData[input].refundMinimumLevel }))
-    : (refundable.textContent = i18next.t('shop.cannotRefund'))
+  refundable.textContent = shopData[input].refundable
+    ? i18next.t('shop.refundable', { level: shopData[input].refundMinimumLevel })
+    : i18next.t('shop.cannotRefund')
 
   switch (input) {
     case 'offeringPotion':

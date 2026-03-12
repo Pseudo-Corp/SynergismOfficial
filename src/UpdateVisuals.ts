@@ -1542,6 +1542,7 @@ export const visualUpdateSettings = () => {
             - (player.quarkstimer % (3600.00001 / quarkData.perHour)),
           2
         ),
+        // eslint-disable-next-line number-arg-out-of-range
         y: player.worlds.toString(1)
       }
     )

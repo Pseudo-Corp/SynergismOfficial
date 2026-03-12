@@ -388,33 +388,17 @@ export const createPlatonicDescription = (index: number) => {
     }
   )
 
-  resourceCheck.offerings
-    ? DOMCacheGetOrSet('platonicOfferingCost').style.color = 'lime'
-    : DOMCacheGetOrSet('platonicOfferingCost').style.color = 'var(--crimson-text-color)'
-
-  resourceCheck.obtainium
-    ? DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'lime'
-    : DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'var(--crimson-text-color)'
-
-  resourceCheck.cubes
-    ? DOMCacheGetOrSet('platonicCubeCost').style.color = 'lime'
-    : DOMCacheGetOrSet('platonicCubeCost').style.color = 'var(--crimson-text-color)'
-
-  resourceCheck.tesseracts
-    ? DOMCacheGetOrSet('platonicTesseractCost').style.color = 'lime'
-    : DOMCacheGetOrSet('platonicTesseractCost').style.color = 'var(--crimson-text-color)'
-
-  resourceCheck.hypercubes
-    ? DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'lime'
-    : DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'var(--crimson-text-color)'
-
-  resourceCheck.platonics
-    ? DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'lime'
-    : DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'var(--crimson-text-color)'
-
-  resourceCheck.abyssals
-    ? DOMCacheGetOrSet('platonicHepteractCost').style.color = 'lime'
-    : DOMCacheGetOrSet('platonicHepteractCost').style.color = 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicOfferingCost').style.color = resourceCheck.offerings ? 'lime' : 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicObtainiumCost').style.color = resourceCheck.obtainium ? 'lime' : 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicCubeCost').style.color = resourceCheck.cubes ? 'lime' : 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicTesseractCost').style.color = resourceCheck.tesseracts
+    ? 'lime'
+    : 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicHypercubeCost').style.color = resourceCheck.hypercubes
+    ? 'lime'
+    : 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicPlatonicCost').style.color = resourceCheck.platonics ? 'lime' : 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicHepteractCost').style.color = resourceCheck.abyssals ? 'lime' : 'var(--crimson-text-color)'
 
   if (player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
     DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'cyan'

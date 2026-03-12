@@ -100,7 +100,6 @@ async function disconnect () {
   isReady = false
 }
 
-// biome-ignore lint/complexity/noUselessLoneBlockStatements: organization
 {
   ipcMain.handle('discord:setRichPresence', (_, presence: PresenceOptions) => {
     options = presence

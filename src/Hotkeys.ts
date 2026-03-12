@@ -44,7 +44,7 @@ const defaultHotkeys = new Map<string, [string, () => unknown, /* hide during no
   ['SHIFT+O', ['hotkeys.names.useOffPotion', () => useConsumablePrompt('offeringPotion'), false]],
   ['SHIFT+P', ['hotkeys.names.useObtPotion', () => useConsumablePrompt('obtainiumPotion'), false]],
   ['SHIFT+S', ['hotkeys.names.resetSingularity', () => resetCheck('singularity'), false]],
-  ['CTRL+B', ['hotkeys.names.unhideTabs', () => tabRow.reappend(), false]],
+  ['CTRL+B', ['hotkeys.names.unhideTabs', () => tabRow.reappend(), false]]
 ])
 
 let hotkeysEnabled = false
@@ -203,7 +203,7 @@ export const enableHotkeys = () => {
     hotkey.removeChild(child)
   }
 
-  for (const [key, [descr]] of [...hotkeys.entries()]) {
+  for (const [key, [descr]] of hotkeys.entries()) {
     const div = makeSlot(key, i18next.t(descr))
 
     hotkey.appendChild(div)

@@ -2176,8 +2176,10 @@ const padEvery = (str: string, places = 3) => {
   if (strParts[1] !== undefined) {
     newStr += dec + strParts[1]
   } // see https://www.npmjs.com/package/flatstr
+  /* eslint-disable */
 
   ;(newStr as unknown as number) | 0
+  /* eslint-enable */
   return newStr
 }
 
@@ -2206,7 +2208,6 @@ export const format = (
   }
 
   // NaN check
-  // biome-ignore lint/suspicious/noSelfCompare: NaN !== NaN
   if (input !== input) {
     return '0 [NaN]'
   }
@@ -2227,14 +2228,14 @@ export const format = (
     && -(input as number) < (!fractional ? 1e-3 : 1e-15) // arbitrary number, don't change 1e-3
     && -(input as number) > 0
   ) {
-    return `-${(-input).toExponential(accuracy)}`
+    return `-${(-(input as number)).toExponential(accuracy)}`
   }
 
   let power!: number
   let mantissa!: number
   if (inputType === 'number') {
     if ((input as number) < 0) {
-      return `-${format(-input, accuracy, long, truncate, fractional)}`
+      return `-${format(-(input as number), accuracy, long, truncate, fractional)}`
     }
     if (input === 0) {
       return '0'

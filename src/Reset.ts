@@ -144,9 +144,11 @@ const resetdetails = (input: resetNames) => {
     resetObtainiumText.textContent = ''
   }
 
-  ;(input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity')
-    ? offeringImage.style.display = offeringText.style.display = 'none'
-    : offeringImage.style.display = offeringText.style.display = 'block'
+  if (input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity') {
+    offeringImage.style.display = offeringText.style.display = 'none'
+  } else {
+    offeringImage.style.display = offeringText.style.display = 'block'
+  }
 
   switch (input) {
     case 'prestige':
@@ -725,7 +727,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     for (let j = 1; j <= (200); j++) {
       const id = `res${j}`
-      if (player.researches[j] > 0 && isResearchMaxed(j)) {
+      if (player.researches[j] > 0 && !isResearchMaxed(j)) {
         updateClassList(id, ['researchPurchased'], [
           'researchAvailable',
           'researchMaxed',

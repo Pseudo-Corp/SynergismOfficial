@@ -300,64 +300,49 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('additionalAutoSacOptions').style.display = 'none'
   }
 
-  player.researches[39] > 0 // 3x9 Research [Crystal Building Power]
-    ? DOMCacheGetOrSet('reincarnationCrystalInfo').style.display = 'block'
-    : DOMCacheGetOrSet('reincarnationCrystalInfo').style.display = 'none'
+  DOMCacheGetOrSet('reincarnationCrystalInfo').style.display = // 3x9 Research [Crystal Building Power]
+    player.researches[39] > 0 ? 'block' : 'none'
 
-  player.researches[40] > 0 // 3x10 Research [Mythos Shard Building Power]
-    ? DOMCacheGetOrSet('reincarnationMythosInfo').style.display = 'block'
-    : DOMCacheGetOrSet('reincarnationMythosInfo').style.display = 'none'
+  DOMCacheGetOrSet('reincarnationMythosInfo').style.display = // 3x10 Research [Mythos Shard Building Power]
+    player.researches[40] > 0 ? 'block' : 'none'
 
-  player.researches[46] > 0 // 5x6 Research [Auto R.]
-    ? DOMCacheGetOrSet('reincarnateautomation').style.display = 'block'
-    : DOMCacheGetOrSet('reincarnateautomation').style.display = 'none'
+  DOMCacheGetOrSet('reincarnateautomation').style.display = // 5x6 Research [Auto R.]
+    player.researches[46] > 0 ? 'block' : 'none'
 
-  player.researches[130] > 0 // 6x5 Research [Talisman Auto Fortify]
-    ? DOMCacheGetOrSet('toggleautofortify').style.display = 'block'
-    : DOMCacheGetOrSet('toggleautofortify').style.display = 'none'
+  DOMCacheGetOrSet('toggleautofortify').style.display = // 6x5 Research [Talisman Auto Fortify]
+    player.researches[130] > 0 ? 'block' : 'none'
 
   for (let z = 1; z <= 5; z++) {
-    ;(player.researches[190] > 0) // 8x15 Research [Auto Tesseracts]
-      ? DOMCacheGetOrSet(`tesseractAutoToggle${z}`).style.display = 'block'
-      : DOMCacheGetOrSet(`tesseractAutoToggle${z}`).style.display = 'none'
+    DOMCacheGetOrSet(`tesseractAutoToggle${z}`).style.display = // 8x15 Research [Auto Tesseracts]
+      player.researches[190] > 0 ? 'block' : 'none'
   }
-  player.researches[190] > 0 // 8x15 Research [Auto Tesseracts]
-    ? DOMCacheGetOrSet('tesseractautobuytoggle').style.display = 'block'
-    : DOMCacheGetOrSet('tesseractautobuytoggle').style.display = 'none'
-  player.researches[190] > 0 // 8x15 Research [Auto Tesseracts]
-    ? DOMCacheGetOrSet('tesseractautobuymode').style.display = 'block'
-    : DOMCacheGetOrSet('tesseractautobuymode').style.display = 'none'
-  player.researches[190] > 0 // 8x15 Research [Auto Tesseracts]
-    ? DOMCacheGetOrSet('tesseractAmount').style.display = 'block'
-    : DOMCacheGetOrSet('tesseractAmount').style.display = 'none'
-  player.researches[190] > 0 // 8x15 Research [Auto Tesseracts]
-    ? DOMCacheGetOrSet('autotessbuyeramount').style.display = 'block'
-    : DOMCacheGetOrSet('autotessbuyeramount').style.display = 'none'
+  DOMCacheGetOrSet('tesseractautobuytoggle').style.display = // 8x15 Research [Auto Tesseracts]
+    player.researches[190] > 0 ? 'block' : 'none'
+  DOMCacheGetOrSet('tesseractautobuymode').style.display = // 8x15 Research [Auto Tesseracts]
+    player.researches[190] > 0 ? 'block' : 'none'
+  DOMCacheGetOrSet('tesseractAmount').style.display = // 8x15 Research [Auto Tesseracts]
+    player.researches[190] > 0 ? 'block' : 'none'
+  DOMCacheGetOrSet('autotessbuyeramount').style.display = // 8x15 Research [Auto Tesseracts]
+    player.researches[190] > 0 ? 'block' : 'none'
 
-  player.shopUpgrades.offeringAuto > 0 // Auto Offering Shop Purchase
-    ? DOMCacheGetOrSet('toggleautosacrifice').style.display = 'block'
-    : DOMCacheGetOrSet('toggleautosacrifice').style.display = 'none'
+  DOMCacheGetOrSet('toggleautosacrifice').style.display = // Auto Offering Shop Purchase
+    player.shopUpgrades.offeringAuto > 0 ? 'block' : 'none'
 
-  player.cubeUpgrades[51] > 0 && player.highestSingularityCount >= 40 // Auto Fragments Buy (After Cx1)
-    ? DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'block'
-    : DOMCacheGetOrSet('toggleautoBuyFragments').style.display = 'none'
+  DOMCacheGetOrSet('toggleautoBuyFragments').style.display = // Auto Fragments Buy (After Cx1)
+    player.cubeUpgrades[51] > 0 && player.highestSingularityCount >= 40 ? 'block' : 'none'
 
-  player.shopUpgrades.obtainiumAuto > 0 // Auto Research Shop Purchase
-    ? DOMCacheGetOrSet('toggleautoresearch').style.display = 'block'
-    : DOMCacheGetOrSet('toggleautoresearch').style.display = 'none'
+  DOMCacheGetOrSet('toggleautoresearch').style.display = // Auto Research Shop Purchase
+    player.shopUpgrades.obtainiumAuto > 0 ? 'block' : 'none'
 
   DOMCacheGetOrSet('toggleautoresearchmode').style.display =
     player.shopUpgrades.obtainiumAuto > 0 && roombaResearchEnabled() // Auto Research Shop Purchase Mode
       ? 'block'
       : 'none'
 
-  player.cubeUpgrades[8] > 0
-    ? DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = 'block'
-    : DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = 'none'
+  DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = player.cubeUpgrades[8] > 0 ? 'block' : 'none'
 
-  player.highestSingularityCount > 0 // Save Offerings
-    ? DOMCacheGetOrSet('maxPlatToggle').style.display = 'block'
-    : DOMCacheGetOrSet('maxPlatToggle').style.display = 'none'
+  DOMCacheGetOrSet('maxPlatToggle').style.display = // Save Offerings
+    player.highestSingularityCount > 0 ? 'block' : 'none'
 
   // Auto Open Cubes toggle
   if (player.highestSingularityCount >= 35) {
@@ -380,25 +365,27 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'none'
   }
 
-  ;(player.highestSingularityCount >= 50 && player.singularityCount < player.highestSingularityCount)
-      || player.highestSingularityCount >= 150 // Auto Cube Upgrades
-    ? DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = 'block'
-    : DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = 'none'
-  ;(player.highestSingularityCount >= 100 && player.singularityCount < player.highestSingularityCount)
-      || player.highestSingularityCount >= 200 // Auto Platonic Upgrades
-    ? DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = 'block'
-    : DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = 'none'
+  DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = // Auto Cube Upgrades
+    (player.highestSingularityCount >= 50 && player.singularityCount < player.highestSingularityCount)
+      || player.highestSingularityCount >= 150
+      ? 'block'
+      : 'none'
+  DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = // Auto Platonic Upgrades
+    (player.highestSingularityCount >= 100 && player.singularityCount < player.highestSingularityCount)
+      || player.highestSingularityCount >= 200
+      ? 'block'
+      : 'none'
 
   // Singularity confirmation toggle pic
-  player.highestSingularityCount > 0 && player.ascensionCount > 0
-    ? (DOMCacheGetOrSet('settingpic6').style.display = 'block')
-    : (DOMCacheGetOrSet('settingpic6').style.display = 'none')
+  DOMCacheGetOrSet('settingpic6').style.display = player.highestSingularityCount > 0 && player.ascensionCount > 0
+    ? 'block'
+    : 'none'
 
   // Hepteract Confirmations toggle
-  player.highestSingularityCount > 0
-    && player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
-    ? (DOMCacheGetOrSet('heptnotificationpic').style.display = 'block')
-    : (DOMCacheGetOrSet('heptnotificationpic').style.display = 'none')
+  DOMCacheGetOrSet('heptnotificationpic').style.display = player.highestSingularityCount > 0
+      && player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
+    ? 'block'
+    : 'none'
 
   DOMCacheGetOrSet('warpAuto').style.display = player.shopUpgrades.autoWarp > 0 ? '' : 'none'
 
@@ -451,9 +438,9 @@ export const revealStuff = () => {
     ? 'flex'
     : 'none'
 
-  runes.antiquities.level > 0 || player.highestSingularityCount > 0
-    ? (DOMCacheGetOrSet('singularitybtn').style.display = 'block')
-    : (DOMCacheGetOrSet('singularitybtn').style.display = 'none')
+  DOMCacheGetOrSet('singularitybtn').style.display = runes.antiquities.level > 0 || player.highestSingularityCount > 0
+    ? 'block'
+    : 'none'
 
   DOMCacheGetOrSet('ascSingChallengeTimeTakenStats').style.display = player.insideSingularityChallenge ? '' : 'none'
 
@@ -765,30 +752,38 @@ export const buttoncolorchange = () => {
     const f = DOMCacheGetOrSet('buyaccelerator')
     const g = DOMCacheGetOrSet('buymultiplier')
     const h = DOMCacheGetOrSet('buyacceleratorboost')
-    ;((!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(player.firstCostCoin))
-      ? a.classList.add('buildingPurchaseBtnAvailable')
-      : a.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[2] || player.upgrades[82] === 0) && player.coins.gte(player.secondCostCoin))
-      ? b.classList.add('buildingPurchaseBtnAvailable')
-      : b.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[3] || player.upgrades[83] === 0) && player.coins.gte(player.thirdCostCoin))
-      ? c.classList.add('buildingPurchaseBtnAvailable')
-      : c.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[4] || player.upgrades[84] === 0) && player.coins.gte(player.fourthCostCoin))
-      ? d.classList.add('buildingPurchaseBtnAvailable')
-      : d.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[5] || player.upgrades[85] === 0) && player.coins.gte(player.fifthCostCoin))
-      ? e.classList.add('buildingPurchaseBtnAvailable')
-      : e.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[6] || player.upgrades[86] === 0) && player.coins.gte(player.acceleratorCost))
-      ? f.classList.add('buildingPurchaseBtnAvailable')
-      : f.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[7] || player.upgrades[87] === 0) && player.coins.gte(player.multiplierCost))
-      ? g.classList.add('buildingPurchaseBtnAvailable')
-      : g.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[8] || player.upgrades[88] === 0) && player.prestigePoints.gte(player.acceleratorBoostCost))
-      ? h.classList.add('buildingPurchaseBtnAvailable')
-      : h.classList.remove('buildingPurchaseBtnAvailable')
+    a.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(player.firstCostCoin)
+    )
+    b.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[2] || player.upgrades[82] === 0) && player.coins.gte(player.secondCostCoin)
+    )
+    c.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[3] || player.upgrades[83] === 0) && player.coins.gte(player.thirdCostCoin)
+    )
+    d.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[4] || player.upgrades[84] === 0) && player.coins.gte(player.fourthCostCoin)
+    )
+    e.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[5] || player.upgrades[85] === 0) && player.coins.gte(player.fifthCostCoin)
+    )
+    f.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[6] || player.upgrades[86] === 0) && player.coins.gte(player.acceleratorCost)
+    )
+    g.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[7] || player.upgrades[87] === 0) && player.coins.gte(player.multiplierCost)
+    )
+    h.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[8] || player.upgrades[88] === 0) && player.prestigePoints.gte(player.acceleratorBoostCost)
+    )
   }
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
@@ -802,86 +797,109 @@ export const buttoncolorchange = () => {
     const h = DOMCacheGetOrSet('buycrystalupgrade3')
     const i = DOMCacheGetOrSet('buycrystalupgrade4')
     const j = DOMCacheGetOrSet('buycrystalupgrade5')
-    ;((!player.toggles[10] || getLevelMilestone('tier1CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.firstCostDiamonds))
-      ? a.classList.add('buildingPurchaseBtnAvailable')
-      : a.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[11] || getLevelMilestone('tier2CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.secondCostDiamonds))
-      ? b.classList.add('buildingPurchaseBtnAvailable')
-      : b.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[12] || getLevelMilestone('tier3CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.thirdCostDiamonds))
-      ? c.classList.add('buildingPurchaseBtnAvailable')
-      : c.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[13] || getLevelMilestone('tier4CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.fourthCostDiamonds))
-      ? d.classList.add('buildingPurchaseBtnAvailable')
-      : d.classList.remove('buildingPurchaseBtnAvailable')
-    ;((!player.toggles[14] || getLevelMilestone('tier5CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.fifthCostDiamonds))
-      ? e.classList.add('buildingPurchaseBtnAvailable')
-      : e.classList.remove('buildingPurchaseBtnAvailable')
+    a.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[10] || getLevelMilestone('tier1CrystalAutobuy') === 0)
+        && player.prestigePoints.gte(player.firstCostDiamonds)
+    )
+    b.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[11] || getLevelMilestone('tier2CrystalAutobuy') === 0)
+        && player.prestigePoints.gte(player.secondCostDiamonds)
+    )
+    c.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[12] || getLevelMilestone('tier3CrystalAutobuy') === 0)
+        && player.prestigePoints.gte(player.thirdCostDiamonds)
+    )
+    d.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[13] || getLevelMilestone('tier4CrystalAutobuy') === 0)
+        && player.prestigePoints.gte(player.fourthCostDiamonds)
+    )
+    e.classList.toggle(
+      'buildingPurchaseBtnAvailable',
+      (!player.toggles[14] || getLevelMilestone('tier5CrystalAutobuy') === 0)
+        && player.prestigePoints.gte(player.fifthCostDiamonds)
+    )
     let k = 0
     if (player.upgrades[73] === 1 && player.currentChallenge.reincarnation !== 0) {
       k += 10
     }
 
-    getLevelMilestone('tier1CrystalAutobuy') === 0
-      ? (player.prestigeShards.gte(
+    if (getLevelMilestone('tier1CrystalAutobuy') === 0) {
+      f.style.backgroundColor = player.prestigeShards.gte(
           Decimal.pow(
             10,
             G.crystalUpgradesCost[0] - getRuneEffects('prism').costDivisorLog10
               + G.crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2)
           )
         )
-        ? f.style.backgroundColor = 'purple'
-        : f.style.backgroundColor = '')
-      : f.style.backgroundColor = 'green'
-    getLevelMilestone('tier2CrystalAutobuy') === 0
-      ? (player.prestigeShards.gte(
+        ? 'purple'
+        : ''
+    } else {
+      f.style.backgroundColor = 'green'
+    }
+    if (getLevelMilestone('tier2CrystalAutobuy') === 0) {
+      g.style.backgroundColor = player.prestigeShards.gte(
           Decimal.pow(
             10,
             G.crystalUpgradesCost[1] - getRuneEffects('prism').costDivisorLog10
               + G.crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2)
           )
         )
-        ? g.style.backgroundColor = 'purple'
-        : g.style.backgroundColor = '')
-      : g.style.backgroundColor = 'green'
-    getLevelMilestone('tier3CrystalAutobuy') === 0
-      ? (player.prestigeShards.gte(
+        ? 'purple'
+        : ''
+    } else {
+      g.style.backgroundColor = 'green'
+    }
+    if (getLevelMilestone('tier3CrystalAutobuy') === 0) {
+      h.style.backgroundColor = player.prestigeShards.gte(
           Decimal.pow(
             10,
             G.crystalUpgradesCost[2] - getRuneEffects('prism').costDivisorLog10
               + G.crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2)
           )
         )
-        ? h.style.backgroundColor = 'purple'
-        : h.style.backgroundColor = '')
-      : h.style.backgroundColor = 'green'
-    getLevelMilestone('tier4CrystalAutobuy') === 0
-      ? (player.prestigeShards.gte(
+        ? 'purple'
+        : ''
+    } else {
+      h.style.backgroundColor = 'green'
+    }
+    if (getLevelMilestone('tier4CrystalAutobuy') === 0) {
+      if (
+        player.prestigeShards.gte(
           Decimal.pow(
             10,
             G.crystalUpgradesCost[3] - getRuneEffects('prism').costDivisorLog10
               + G.crystalUpgradeCostIncrement[3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2)
           )
         )
-        ? i.style.backgroundColor = 'purple'
-        : i.style.backgroundColor = '')
-      : i.style.backgroundColor = 'green'
-    getLevelMilestone('tier5CrystalAutobuy') === 0
-      ? (player.prestigeShards.gte(
+      ) {
+        i.style.backgroundColor = 'purple'
+      } else {
+        i.style.backgroundColor = ''
+      }
+    } else {
+      i.style.backgroundColor = 'green'
+    }
+    if (getLevelMilestone('tier5CrystalAutobuy') === 0) {
+      if (
+        player.prestigeShards.gte(
           Decimal.pow(
             10,
             G.crystalUpgradesCost[4] - getRuneEffects('prism').costDivisorLog10
               + G.crystalUpgradeCostIncrement[4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2)
           )
         )
-        ? j.style.backgroundColor = 'purple'
-        : j.style.backgroundColor = '')
-      : j.style.backgroundColor = 'green'
+      ) {
+        j.style.backgroundColor = 'purple'
+      } else {
+        j.style.backgroundColor = ''
+      }
+    } else {
+      j.style.backgroundColor = 'green'
+    }
   }
 
   if (G.currentTab === Tabs.Runes) {
@@ -904,10 +922,14 @@ export const buttoncolorchange = () => {
       const g = DOMCacheGetOrSet('buyTalismanItem7')
       const arr = [a, b, c, d, e, f, g]
       for (let i = 0; i < arr.length; i++) {
-        ;(player.obtainium.gte(G.talismanResourceObtainiumCosts[i])
-            && player.offerings.gte(G.talismanResourceOfferingCosts[i]))
-          ? arr[i].classList.add('talisminBtnAvailable')
-          : arr[i].classList.remove('talisminBtnAvailable')
+        if (
+          player.obtainium.gte(G.talismanResourceObtainiumCosts[i])
+          && player.offerings.gte(G.talismanResourceOfferingCosts[i])
+        ) {
+          arr[i].classList.add('talisminBtnAvailable')
+        } else {
+          arr[i].classList.remove('talisminBtnAvailable')
+        }
       }
     }
   }
@@ -916,27 +938,33 @@ export const buttoncolorchange = () => {
     for (let i = 1; i <= 5; i++) {
       const toggle = player.toggles[i + 15]
       const mythos = player[`${G.ordinals[i - 1 as ZeroToFour]}CostMythos` as const]
-      ;(!toggle || !player.upgrades[93 + i]) && player.transcendPoints.gte(mythos)
-        ? DOMCacheGetOrSet(`buymythos${i}`).classList.add('buildingPurchaseBtnAvailable')
-        : DOMCacheGetOrSet(`buymythos${i}`).classList.remove('buildingPurchaseBtnAvailable')
+      if (!toggle || !player.upgrades[93 + i] && player.transcendPoints.gte(mythos)) {
+        DOMCacheGetOrSet(`buymythos${i}`).classList.add('buildingPurchaseBtnAvailable')
+      } else {
+        DOMCacheGetOrSet(`buymythos${i}`).classList.remove('buildingPurchaseBtnAvailable')
+      }
     }
   }
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'particle') {
     for (let i = 1; i <= 5; i++) {
       const costParticles = player[`${G.ordinals[i - 1 as ZeroToFour]}CostParticles` as const]
-      player.reincarnationPoints.gte(costParticles)
-        ? DOMCacheGetOrSet(`buyparticles${i}`).classList.add('buildingPurchaseBtnAvailable')
-        : DOMCacheGetOrSet(`buyparticles${i}`).classList.remove('buildingPurchaseBtnAvailable')
+      if (player.reincarnationPoints.gte(costParticles)) {
+        DOMCacheGetOrSet(`buyparticles${i}`).classList.add('buildingPurchaseBtnAvailable')
+      } else {
+        DOMCacheGetOrSet(`buyparticles${i}`).classList.remove('buildingPurchaseBtnAvailable')
+      }
     }
   }
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'tesseract') {
     for (let i = 1; i <= 5; i++) {
       const ascendBuilding = player[`ascendBuilding${i as OneToFive}` as const].cost
-      Number(player.wowTesseracts) >= ascendBuilding
-        ? DOMCacheGetOrSet(`buyTesseracts${i}`).classList.add('buildingPurchaseBtnAvailable')
-        : DOMCacheGetOrSet(`buyTesseracts${i}`).classList.remove('buildingPurchaseBtnAvailable')
+      if (Number(player.wowTesseracts) >= ascendBuilding) {
+        DOMCacheGetOrSet(`buyTesseracts${i}`).classList.add('buildingPurchaseBtnAvailable')
+      } else {
+        DOMCacheGetOrSet(`buyTesseracts${i}`).classList.remove('buildingPurchaseBtnAvailable')
+      }
     }
     for (let i = 1; i <= 8; i++) {
       if (player.researches[175] >= 1) {
@@ -944,9 +972,11 @@ export const buttoncolorchange = () => {
         DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAuto')
       } else {
         DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAuto')
-        ;(player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!)))
-          ? DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAvailable')
-          : DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
+        if (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!))) {
+          DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAvailable')
+        } else {
+          DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
+        }
       }
     }
 
@@ -956,9 +986,11 @@ export const buttoncolorchange = () => {
         DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAuto')
       } else {
         DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAuto')
-        ;(player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!)))
-          ? DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAvailable')
-          : DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
+        if (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!))) {
+          DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAvailable')
+        } else {
+          DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
+        }
       }
     }
   }
@@ -966,15 +998,19 @@ export const buttoncolorchange = () => {
   if (G.currentTab === Tabs.AntHill) {
     for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
       const antCost = getCostNextAnt(ant)
-      player.ants.crumbs.gte(antCost)
-        ? DOMCacheGetOrSet(`anttier${ant + 1}`).classList.add('antTierBtnAvailable')
-        : DOMCacheGetOrSet(`anttier${ant + 1}`).classList.remove('antTierBtnAvailable')
+      if (player.ants.crumbs.gte(antCost)) {
+        DOMCacheGetOrSet(`anttier${ant + 1}`).classList.add('antTierBtnAvailable')
+      } else {
+        DOMCacheGetOrSet(`anttier${ant + 1}`).classList.remove('antTierBtnAvailable')
+      }
 
       const antMasteryBuyable = canBuyAntMastery(ant)
       const antMasteryElement = DOMCacheGetOrSet(`antMastery${ant + 1}`)
-      antMasteryBuyable
-        ? antMasteryElement.classList.add('antMasteryBtnAvailable')
-        : antMasteryElement.classList.remove('antMasteryBtnAvailable')
+      if (antMasteryBuyable) {
+        antMasteryElement.classList.add('antMasteryBtnAvailable')
+      } else {
+        antMasteryElement.classList.remove('antMasteryBtnAvailable')
+      }
     }
     for (let upgrade = AntUpgrades.AntSpeed; upgrade <= LAST_ANT_UPGRADE; upgrade++) {
       const element = DOMCacheGetOrSet(`antUpgrade${upgrade + 1}`)

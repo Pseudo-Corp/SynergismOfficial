@@ -190,7 +190,7 @@ export const exportData = async (text: string, fileName: string) => {
       DOMCacheGetOrSet('exportinfo').textContent = i18next.t(
         'importexport.copiedSave'
       )
-    } catch (err) {
+    } catch {
       // So we fallback to the deprecated way of doing it,
       // which isn't limited by any browser.
 
@@ -340,7 +340,7 @@ export const importData = async (
     const reader = new FileReader()
     reader.readAsText(file)
     const text = await new Promise<string>((res) => {
-      reader.addEventListener('load', () => res(reader.result!.toString()))
+      reader.addEventListener('load', () => res(reader.result as string))
     })
 
     save = text
@@ -567,26 +567,34 @@ export const promocodes = async (input: string | null, amount?: number) => {
         for (const key of keys) {
           if (upgradeDistribution[key].pdf(num)) {
             goldenQuarkUpgrades[key].freeLevel += upgradeDistribution[key].value
-            freeLevels[key]
-              ? (freeLevels[key] += upgradeDistribution[key].value)
-              : (freeLevels[key] = upgradeDistribution[key].value)
+            if (freeLevels[key]) {
+              freeLevels[key] += upgradeDistribution[key].value
+            } else {
+              freeLevels[key] = upgradeDistribution[key].value
+            }
           }
         }
       }
 
       if (player.highestSingularityCount >= 20) {
         goldenQuarkUpgrades.goldenQuarks1.freeLevel += 0.2
-        freeLevels.goldenQuarks1
-          ? (freeLevels.goldenQuarks1 += 0.2)
-          : (freeLevels.goldenQuarks1 = 0.2)
+        if (freeLevels.goldenQuarks1) {
+          freeLevels.goldenQuarks1 += 0.2
+        } else {
+          freeLevels.goldenQuarks1 = 0.2
+        }
         goldenQuarkUpgrades.goldenQuarks2.freeLevel += 0.2
-        freeLevels.goldenQuarks2
-          ? (freeLevels.goldenQuarks2 += 0.2)
-          : (freeLevels.goldenQuarks2 = 0.2)
+        if (freeLevels.goldenQuarks2) {
+          freeLevels.goldenQuarks2 += 0.2
+        } else {
+          freeLevels.goldenQuarks2 = 0.2
+        }
         goldenQuarkUpgrades.goldenQuarks3.freeLevel += 1
-        freeLevels.goldenQuarks3
-          ? (freeLevels.goldenQuarks3 += 1)
-          : (freeLevels.goldenQuarks3 = 1)
+        if (freeLevels.goldenQuarks3) {
+          freeLevels.goldenQuarks3 += 1
+        } else {
+          freeLevels.goldenQuarks3 = 1
+        }
       }
 
       if (player.highestSingularityCount >= 200 && player.highestSingularityCount < 205) {

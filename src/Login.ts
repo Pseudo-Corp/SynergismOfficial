@@ -298,7 +298,6 @@ async function fetchMeRoute () {
 }
 
 export async function handleLogin () {
-  // biome-ignore lint/suspicious/noConfusingLabels: it's not confusing or suspicious
   generateSubtabBrowser: {
     const subtabElement = document.querySelector('#accountSubTab div#left.scrollbarX')!
 
@@ -354,10 +353,10 @@ export async function handleLogin () {
       const boosted = discord && (Boolean(account.member?.premium_since) || account.member?.roles.includes(BOOSTER))
       // It is possible for someone to have the roles through the Patreon integration with Discord, yet not have their
       // patreon linked to their Synergism (Discord/email) account.
-      const hasTier1 = sub?.tier! >= 1 || (discord && account.member.roles?.includes(TRANSCENDED_BALLER))
-      const hasTier2 = sub?.tier! >= 2 || (discord && account.member.roles?.includes(REINCARNATED_BALLER))
-      const hasTier3 = sub?.tier! >= 3 || (discord && account.member.roles?.includes(ASCENDED_BALLER))
-      const hasTier4 = sub?.tier! >= 4 || (discord && account.member.roles?.includes(OMEGA_BALLER))
+      const hasTier1 = (sub?.tier ?? 0) >= 1 || (discord && account.member.roles?.includes(TRANSCENDED_BALLER))
+      const hasTier2 = (sub?.tier ?? 0) >= 2 || (discord && account.member.roles?.includes(REINCARNATED_BALLER))
+      const hasTier3 = (sub?.tier ?? 0) >= 3 || (discord && account.member.roles?.includes(ASCENDED_BALLER))
+      const hasTier4 = (sub?.tier ?? 0) >= 4 || (discord && account.member.roles?.includes(OMEGA_BALLER))
 
       const checkMark = '<span style="color: lime">[✔]</span>'
       const exMark = '<span style="color: crimson">[✖]</span>'
@@ -858,7 +857,6 @@ export const renderCaptcha = platform === 'steam'
     const visible = captchaElements.find((el) => el.offsetParent !== null)
 
     if (visible && !hasCaptcha.has(visible)) {
-      // biome-ignore lint/correctness/noUndeclaredVariables: declared in types as a global
       turnstile.render(visible, {
         sitekey: visible.getAttribute('data-sitekey')!,
         'error-callback' () {},
