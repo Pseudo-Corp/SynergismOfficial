@@ -15,6 +15,7 @@
     "discord-rpc": "^4.0.1",
     "dompurify": "^3.2.7",
     "electron-store": "^11.0.2",
+    "electron-window-state": "^5.0.3",
     "fast-mersenne-twister": "^1.0.3",
     "i18next": "^22.4.9",
     "lz-string": "^1.4.4",
@@ -25,7 +26,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
     "@types/cloudflare-turnstile": "^0.2.2",
     "@types/conf": "^2.1.0",
     "@types/discord-rpc": "^4.0.10",
@@ -41,6 +41,8 @@
     "htmlhint": "^1.1.4",
     "husky": "^8.0.3",
     "msw": "2.7.5",
+    "oxlint": "^1.53.0",
+    "oxlint-tsgolint": "^0.16.0",
     "shx": "^0.4.0",
     "stylelint": "^14.8.2",
     "stylelint-config-standard": "^25.0.0",
@@ -49,9 +51,8 @@
   "scripts": {
     "live-server": "npx live-server --port=3000 -q",
     "dev": "concurrently \"npm run watch:esbuild\" \"npm run live-server\"",
-    "lint": "npx @biomejs/biome lint .",
-    "lint:fix": "npx @biomejs/biome lint --write .",
-    "lint:fix-unsafe": "npx @biomejs/biome lint --write --unsafe .",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
     "fmt": "npx dprint fmt",
     "format": "npx dprint fmt",
     "csslint": "npx stylelint Synergism.css",
