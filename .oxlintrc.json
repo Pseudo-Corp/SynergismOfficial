@@ -1,0 +1,37 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import"],
+  "options": {
+    "typeAware": true
+  },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
+  "rules": {
+    // Match existing biome config: turn off rules that were disabled there
+    "no-non-null-assertion": "off",
+    "no-param-reassign": "off",
+
+    // Type-aware rules
+    "typescript/no-misused-promises": "off",
+    "typescript/await-thenable": "error",
+    "typescript/no-unnecessary-type-assertion": "warn",
+    "typescript/no-unnecessary-type-constraint": "off",
+    "typescript/consistent-type-imports": "warn",
+    "typescript/no-unsafe-type-assertion": "off",
+    "typescript/no-floating-promises": "off"
+  },
+  "settings": {},
+  "env": {
+    "builtin": true,
+    "browser": true
+  },
+  "globals": {
+    "PROD": "readonly",
+    "DEV": "readonly",
+    "PLATFORM": "readonly"
+  },
+  "ignorePatterns": ["dist/**", "node_modules/**", "mockServiceWorker.js", "electron/**"]
+}
