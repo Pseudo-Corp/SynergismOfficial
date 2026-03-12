@@ -481,6 +481,10 @@ export const allWowCubeStats: NumberStatLine[] = [
         * player.platonicUpgrades[1]
   },
   {
+    i18n: 'Antiquities',
+    stat: () => getRuneEffects('antiquities').cubeBonus
+  },
+  {
     i18n: 'CookieUpgrade13',
     stat: () =>
       1 + Math.pow(1.03, Math.log10(Math.max(1, player.wowAbyssals))) * player.cubeUpgrades[63]

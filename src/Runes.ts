@@ -66,6 +66,7 @@ type RuneTypeMap = {
     addCodeCooldownReduction: number
     offeringLog10: number
     obtainiumLog10: number
+    cubeBonus: number
   }
   horseShoe: {
     ambrosiaLuck: number
@@ -596,10 +597,12 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
       const addCodeCooldownReduction = level > 0 ? 0.8 - 0.3 * (level - 1) / (level + 10) : 1
       const offeringLog10 = level
       const obtainiumLog10 = level
+      const cubeBonus = level > 0 ? Math.pow(1.01, Math.min(5, level) * player.singularityCount) : 1
       return {
         addCodeCooldownReduction: addCodeCooldownReduction,
         offeringLog10: offeringLog10,
-        obtainiumLog10: obtainiumLog10
+        obtainiumLog10: obtainiumLog10,
+        cubeBonus
       }
     },
     effectsDescription: () => {
@@ -616,7 +619,10 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
       const addCodeCooldownReductionText = i18next.t('runes.antiquities.addCode', {
         val: formatAsPercentIncrease(effect.addCodeCooldownReduction, 2)
       })
-      return `${singularText}<br>${offeringText}<br>${obtainiumText}<br>${addCodeCooldownReductionText}`
+      const cubeBonusText = i18next.t('runes.antiquities.cubeBonus', {
+        val: formatAsPercentIncrease(effect.cubeBonus, 2)
+      })
+      return `${singularText}<br>${offeringText}<br>${obtainiumText}<br>${addCodeCooldownReductionText}<br>${cubeBonusText}`
     },
     effectiveLevelMult: () => 1,
     freeLevels: () => bonusRuneLevelsAntiquities(),
