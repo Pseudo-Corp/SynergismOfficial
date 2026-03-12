@@ -2374,7 +2374,7 @@
       "mortuus2": {
         "name": "Mortuus Iterum Formicidae",
         "intro": "The cyan glow... it's... Reborn?",
-        "description": "Improve your Mortuus Talisman! Up to +100% Effect, +1,200 Max Level, and gain some Ascension Speed on the side.",
+        "description": "Improve your Mortuus Talisman! Up to +75% Effect, +1,200 Max Level, and gain some Ascension Speed on the side.",
         "lockedAutomation": "Unlock the <i>Mortuus Iterum Formicidae</i> autobuyer from reaching Synergism Level <<gold|225>>",
         "effect": "Mortuus Talisman Max Level: <<royalblue | +{{x}}>>",
         "effect2": "Mortuus Talisman Effect: <<royalblue | +{{x}}>>",
@@ -2641,7 +2641,7 @@
     "5": {
       "name": "Reduzierte Diamanten Herausforderung || {{- value}} Abschlüsse",
       "flavor": "Hast du dich schonmal gefragt wie du so viele Diamanten bekommst?",
-      "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.01 / (1 + completions)]>>",
+      "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^0.01>>",
       "goal": "Ziel: Erhalte {{value}} Münzen in der Herausforderung.",
       "per": {
         "1": "+0.01 Münze → Diamantumwandlungsexponent bei Prestige! Aktuell: ",
@@ -2731,7 +2731,7 @@
     "10": {
       "name": "Sadistische Herausforderung I || {{- value}} Abschlüsse",
       "flavor": "I'm sorry for what I've unleashed onto the world. You read a note on the floor: \"You probably want about 1e300 Galactic Crumbs before you fully embrace the challenge. Try to Sacrifice some more Anthills, master your Ants and become one with the Ant God to achieve this.\"",
-      "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|25,000>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^[0.0001 / (1 + completions)]>> <br> ☆ Mythos gain is reduced to <<gold | Coins^0.001>>",
+      "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|25,000>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^0.0001>> <br> ☆ Mythos gain is reduced to <<gold | Coins^0.001>>",
       "goal": "Ziel: Erhalte {{value}} Münzen in der Herausforderung.",
       "per": {
         "1": "+100 Basis ELO zum Opfern von Ameisen! Aktuell: ",
@@ -2851,6 +2851,9 @@
     "modeWait": "MODUS: WARTEN",
     "modeOff": "MODUS: AUS",
     "modeEnter": "MODUS: STARTEN",
+    "modeChallenge": "MODE: CHALLENGE",
+    "modeComplete": "MODE: ✰ COMPLETE!",
+    "exitSweep": "Exited Challenge Sweep successfully!",
     "bonusFirstCompletion": "Bonus/Freischaltung beim erstem Abschluss",
     "timeStartSweep": "Zeit vor Beginn: <<var(--orchid-text-color)|{{time}}>>/s",
     "timeExitChallenge": "Zeit bis zum Verlassen: <<var(--orchid-text-color)|{{time}}>>/s",
@@ -2957,7 +2960,7 @@
       "7": "[1x7] Automatically buy each Particle building whenever possible.",
       "8": "[1x8] Automatically buy Particle upgrades.",
       "9": "[1x9] The Research automator in shop now automatically buys cheapest when enabled. It's like a roomba kinda!",
-      "10": "[1x10] Schalte einige Werkzeuge frei um Aufstiege zu automatisieren oder so. Ziemlich teuer aber cool.",
+      "10": "[1x10] Unlock some tools to automate Ascensions or whatever. Kinda expensive but cool. <br> <<gold|⚠>> You must clear Challenge 11 for this mechanic to be useful!",
       "11": "[2x1] Du hast es schon wieder! +9,09% 3D Würfel durchs Aufsteigen pro Level.",
       "12": "[2x2] Raise Building Power to the power of (1 + level * 0.09).",
       "13": "[2x3] For each 20 Cubes opened at once, you get 1 additional Tribute at random.",
@@ -3331,11 +3334,11 @@
       "shopSingularityPenaltyDebuff": "Derpsmith war so stolz auf deine Leistung in der ersten EXALT, dass er deine Singularitätsdebuffs abschwächt. Für einen Preis. Einen großen Preis.",
       "obtainiumEX2": "Erhalte+1% Obtainium pro Level pro Singularität!!!",
       "improveQuarkHept5": "[NOT Supplied by - Infinity CO.] Adds +0.01 Quark Hept Exponent per level. Platonic claims this is not from Infinity CO., but that might just be a cover.",
-      "shopAmbrosiaGeneration1": "Buying this charm grants +1% more Ambrosia Bar Points per level, for more Ambrosia! Don't know what that means? You soon will.",
+      "shopAmbrosiaGeneration1": "Buying this charm grants +1% more Ambrosia Bar Points per level, for more Ambrosia!",
       "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% more Ambrosia Bar Points per level, stacking multiplicatively.",
       "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% more Ambrosia Bar Points per level, stacking multiplicatively.",
       "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% more Ambrosia Bar Points per level, stacking multiplicatively.",
-      "shopAmbrosiaLuck1": "Buying this charm grants +2 Ambrosia luck per level, for more Ambrosia! Don't know what that means? You soon will.",
+      "shopAmbrosiaLuck1": "Buying this charm grants +2 Ambrosia luck per level, for more Ambrosia!",
       "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +2 Ambrosia luck per level, stacking additively.",
       "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 Ambrosia luck per level, stacking additively.",
       "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 Ambrosia luck per level, stacking additively.",
@@ -5519,6 +5522,7 @@
       "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power)",
       "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power)",
       "addCode": "<<lightgray | 'Add' Code Refresh Interval {{val}}>> (-20% at 1 Power, up to -50%)",
+      "cubeBonus": "<<white | Wow! Cube Gain +{{val}}>> (1.01x per level (max 5), times your current... Singularity?)",
       "values": "Level 1 unlocks something <span class=\"rainbowText\">special</span>! Each level gives 10x Offerings, 10x <<cyan | Immaculate>> Obtainium and makes code 'Add' regenerate faster.",
       "effect": "Offerings x{{val}}, <<cyan | Immaculate>> Obtainium x{{val2}}, 'Add' code regeneration interval is {{val3}}% as long."
     },
@@ -6158,6 +6162,7 @@
       "PlatonicOpening": "Platonic Cubes:",
       "Platonic1x1": "Platonic 1x1:",
       "CookieUpgrade13": "Cookie Upgrade 13:",
+      "Antiquities": "Antiquities of Ant God Bonus:",
       "Tau": "Platonic TAU Power:",
       "Total": "Total Wow! Cube Multiplier:",
       "Total2": "Final Wow! Cube Multiplier:"
