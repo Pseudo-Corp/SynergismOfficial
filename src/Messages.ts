@@ -12,37 +12,20 @@ export interface Message {
   expires_at?: string
 }
 
-export interface MessageReadStatus {
-  id: number
-  user_id: string
-  message_id: number
-  read_at: string
-}
-
-export interface ApiResponse<T> {
+interface ApiResponse<T> {
   success: boolean
   data?: T
   error?: string
   id?: number
 }
 
-export interface MessageListResponse extends ApiResponse<Message[]> {
+interface MessageListResponse extends ApiResponse<Message[]> {
   success: true
   data: Message[]
 }
 
-export interface MessageResponse extends ApiResponse<Message> {
+interface SuccessResponse extends ApiResponse<never> {
   success: true
-  data: Message
-}
-
-export interface SuccessResponse extends ApiResponse<never> {
-  success: true
-}
-
-export interface ErrorResponse extends ApiResponse<never> {
-  success: false
-  error: string
 }
 
 let unreadMessages: Message[] = []
@@ -73,7 +56,7 @@ export const fetchUnreadMessages = async (): Promise<Message[]> => {
   }
 }
 
-export const markMessageAsRead = async (messageId: number): Promise<boolean> => {
+const markMessageAsRead = async (messageId: number): Promise<boolean> => {
   try {
     const response = await fetch(`https://synergism.cc/messages/${messageId}/mark-read`, {
       method: 'POST',
@@ -100,10 +83,6 @@ export const markMessageAsRead = async (messageId: number): Promise<boolean> => 
     console.error('Error marking message as read:', error)
     return false
   }
-}
-
-export const getUnreadMessages = (): Message[] => {
-  return unreadMessages
 }
 
 export const hasUnreadMessages = (): boolean => {
@@ -174,7 +153,7 @@ const updateMessagesNotificationBadge = () => {
   }
 }
 
-export const updateMessagesUI = () => {
+const updateMessagesUI = () => {
   const messagesContainer = DOMCacheGetOrSet('messagesContainer')
 
   if (unreadMessages.length === 0) {

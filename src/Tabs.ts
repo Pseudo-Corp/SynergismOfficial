@@ -337,6 +337,8 @@ const subtabInfo: Record<Tabs, SubTab> = {
   }
 }
 
+const TAB_ORDER_KEY = 'synergism-tab-order'
+
 class TabRow extends HTMLDivElement {
   #list: $Tab[] = []
   #currentTab!: $Tab
@@ -370,6 +372,7 @@ class TabRow extends HTMLDivElement {
       this.appendChild(element)
     }
 
+    this.#restoreOrder()
     this.#currentTab = this.#list[0]
     this.#createDrag()
   }
@@ -416,6 +419,39 @@ class TabRow extends HTMLDivElement {
     this.#list.forEach((el) => el.resetHidden())
   }
 
+  #saveOrder () {
+    localStorage.setItem(TAB_ORDER_KEY, JSON.stringify(this.#list.map((tab) => tab.id)))
+  }
+
+  #restoreOrder () {
+    const saved = localStorage.getItem(TAB_ORDER_KEY)
+    if (!saved) return
+
+    try {
+      const order: string[] = JSON.parse(saved)
+      const tabMap = new Map(this.#list.map((tab) => [tab.id, tab]))
+
+      const sorted: $Tab[] = []
+      for (const id of order) {
+        const tab = tabMap.get(id)
+        if (tab) {
+          sorted.push(tab)
+          tabMap.delete(id)
+        }
+      }
+
+      // Append any new tabs not in saved order
+      for (const tab of tabMap.values()) {
+        sorted.push(tab)
+      }
+
+      this.#list = sorted
+      this.replaceChildren(...this.#list)
+    } catch {
+      // Corrupted data — ignore
+    }
+  }
+
   #createDrag () {
     let dragSrcEl: HTMLElement | null = null
 
@@ -452,6 +488,8 @@ class TabRow extends HTMLDivElement {
 
         this.#list.splice(targetIndex, 0, this.#list[dragIndex])
         this.#list.splice(this.#list.indexOf(dragSrcEl as $Tab, dragIndex), 1)
+
+        this.#saveOrder()
       }
 
       return false
@@ -692,7 +730,6 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   }
 
   G.currentTab = tabRow.getCurrentTab().getType()
-  subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex
 
   if (G.currentTab === Tabs.Achievements) {
     awardUngroupedAchievement('participationTrophy')
@@ -797,8 +834,4 @@ export function subTabsInMainTab (name: Tabs) {
 
 export function getActiveSubTab () {
   return subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex
-}
-
-export function getActiveTab () {
-  return tabRow.getCurrentTab().getType()
 }

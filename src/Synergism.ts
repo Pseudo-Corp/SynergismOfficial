@@ -12,7 +12,7 @@ import {
   getMaxChallenges,
   getNextChallenge,
   highestChallengeRewards,
-  runChallengeSweep
+  tickChallengeSweep
 } from './Challenges'
 import { btoa } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
@@ -125,15 +125,16 @@ import {
 import { calculatetax } from './Tax'
 import {
   AutoAscensionModes,
+  AutoAscensionResetModes,
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
   AutoResetModes,
+  setAutoAscendResetActiveText,
+  setAutoAscendResetModeText,
   setAutoResetModeTexts,
   toggleAntsSubtab,
   toggleAscStatPerSecond,
   toggleauto,
-  toggleAutoAscend,
-  toggleAutoChallengeModeText,
   toggleChallenges,
   toggleShops,
   updateAutoChallenge,
@@ -180,7 +181,7 @@ import {
   updateMaxTokens,
   updateTokens
 } from './Campaign'
-import { dev, lastUpdated, platform, prod, testing, version } from './Config'
+import { dev, lastUpdated, platform, prod, testing, ticksPerSecond, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
 import { autobuyAnts } from './Features/Ants'
@@ -960,7 +961,7 @@ export const player: Player = {
 
   ascendShards: new Decimal('0'),
   autoAscend: false,
-  autoAscendMode: 'c10Completions',
+  autoAscendMode: AutoAscensionResetModes.c10Completions,
   autoAscendThreshold: 1,
   autoOpenCubes: false,
   openCubes: 0,
@@ -1943,10 +1944,8 @@ const loadSynergy = () => {
 
     loadSynergyAntHTMLUpdates()
 
-    for (let i = 1; i <= 2; i++) {
-      toggleAutoAscend(0)
-      toggleAutoAscend(1)
-    }
+    setAutoAscendResetActiveText()
+    setAutoAscendResetModeText()
 
     DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = player.historyShowPerSecond
       ? i18next.t('history.perSecondOn')
@@ -2177,8 +2176,10 @@ const padEvery = (str: string, places = 3) => {
   if (strParts[1] !== undefined) {
     newStr += dec + strParts[1]
   } // see https://www.npmjs.com/package/flatstr
+  /* eslint-disable */
 
   ;(newStr as unknown as number) | 0
+  /* eslint-enable */
   return newStr
 }
 
@@ -2207,7 +2208,6 @@ export const format = (
   }
 
   // NaN check
-  // biome-ignore lint/suspicious/noSelfCompare: NaN !== NaN
   if (input !== input) {
     return '0 [NaN]'
   }
@@ -2228,14 +2228,14 @@ export const format = (
     && -(input as number) < (!fractional ? 1e-3 : 1e-15) // arbitrary number, don't change 1e-3
     && -(input as number) > 0
   ) {
-    return `-${(-input).toExponential(accuracy)}`
+    return `-${(-(input as number)).toExponential(accuracy)}`
   }
 
   let power!: number
   let mantissa!: number
   if (inputType === 'number') {
     if ((input as number) < 0) {
-      return `-${format(-input, accuracy, long, truncate, fractional)}`
+      return `-${format(-(input as number), accuracy, long, truncate, fractional)}`
     }
     if (input === 0) {
       return '0'
@@ -3580,11 +3580,10 @@ export const resetCurrency = (): void => {
 
   // Calculates the conversion exponent for resets (Challenges 5 and 10 reduce the exponent accordingly).
   if (player.currentChallenge.transcension === 5) {
-    prestigePow = 0.01 / (1 + player.challengecompletions[5])
-    transcendPow = 0.001
+    prestigePow = 0.01
   }
   if (player.currentChallenge.reincarnation === 10) {
-    prestigePow = 1e-4 / (1 + player.challengecompletions[10])
+    prestigePow = 1e-4
     transcendPow = 0.001
   }
   prestigePow *= G.deflationMultiplier[player.corruptions.used.deflation]
@@ -3720,7 +3719,6 @@ export const resetCheck = async (
       || (player.autoChallengeRunning
         && player.challengecompletions[q] >= maxCompletions)
     ) {
-      toggleAutoChallengeModeText('ENTER')
       player.currentChallenge.transcension = 0
       updateChallengeDisplay()
     }
@@ -3811,7 +3809,6 @@ export const resetCheck = async (
       || (player.autoChallengeRunning
         && player.challengecompletions[q] >= maxCompletions)
     ) {
-      toggleAutoChallengeModeText('ENTER')
       player.currentChallenge.reincarnation = 0
       if (player.shopUpgrades.instantChallenge > 0) {
         for (let i = 1; i <= 5; i++) {
@@ -4524,6 +4521,7 @@ export const updateAll = (): void => {
   if (player.cubeUpgrades[49] > 0) {
     const eloGain = calculateImmortalELOGain()
     player.ants.immortalELO += eloGain
+    awardAchievementGroup('sacMult')
   }
 
   if (
@@ -4534,13 +4532,13 @@ export const updateAll = (): void => {
   ) {
     let ascension = false
     if (
-      player.autoAscendMode === 'c10Completions'
+      player.autoAscendMode === AutoAscensionResetModes.c10Completions
       && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)
     ) {
       ascension = true
     }
     if (
-      player.autoAscendMode === 'realAscensionTime'
+      player.autoAscendMode === AutoAscensionResetModes.realAscensionTime
       && player.ascensionCounterRealReal
         >= Math.max(0.1, player.autoAscendThreshold)
     ) {
@@ -4677,7 +4675,7 @@ let lastUpdate = 0
 
 export const createTimer = (): void => {
   lastUpdate = performance.now()
-  setInterval(tick, 5)
+  setInterval(tick, 1000 / ticksPerSecond)
 }
 
 const dt = 5
@@ -4698,6 +4696,7 @@ export const getTimePinnedToLoadDate = () => {
 const tick = () => {
   const now = performance.now()
   let delta = now - lastUpdate
+  // TODO: We need discrete tick tracking, but it's way too inaccurate as a measure of time to do so right now.
   // compute pseudo-average delta cf. https://stackoverflow.com/a/5111475/343834
   deltaMean += (delta - deltaMean) / filterStrength
   let dtEffective: number
@@ -4794,7 +4793,8 @@ const tack = (dt: number) => {
     automaticTools('addOfferings', dt / 2)
   }
 
-  runChallengeSweep(dt)
+  // Challenge Sweep State Machine
+  tickChallengeSweep(dt)
 
   // Check for automatic resets
   // Auto Prestige.
@@ -5353,6 +5353,92 @@ window.addEventListener('load', async () => {
     })
 
     deleteBtn.after(toggleBtn)
+
+    // Window size preset dropdown
+    const { setWindowSize, getWindowSize } = await import('./steam/steam')
+
+    const presets = [
+      { label: 'Window Size...', width: 0, height: 0 },
+      { label: '1280 x 720', width: 1280, height: 720 },
+      { label: '1366 x 768', width: 1366, height: 768 },
+      { label: '1600 x 900', width: 1600, height: 900 },
+      { label: '1920 x 1080', width: 1920, height: 1080 },
+      { label: '2560 x 1440', width: 2560, height: 1440 }
+    ]
+
+    const sizeSelect = document.createElement('select')
+    sizeSelect.style.border = '2px solid cyan'
+    sizeSelect.style.margin = '4px'
+
+    for (const preset of presets) {
+      const option = document.createElement('option')
+      option.textContent = preset.label
+      option.value = `${preset.width}x${preset.height}`
+      sizeSelect.appendChild(option)
+    }
+
+    getWindowSize().then((size) => {
+      if (!size) return
+      const match = presets.find((p) => p.width === size.width && p.height === size.height)
+      if (match) sizeSelect.value = `${match.width}x${match.height}`
+    })
+
+    sizeSelect.addEventListener('change', () => {
+      const [w, h] = sizeSelect.value.split('x').map(Number)
+      if (w && h) setWindowSize(w, h)
+    })
+
+    toggleBtn.after(sizeSelect)
+
+    // UI zoom controls
+    const { setZoomFactor, getZoomFactor } = await import('./steam/steam')
+
+    const zoomContainer = document.createElement('div')
+    zoomContainer.style.display = 'inline-flex'
+    zoomContainer.style.flexDirection = 'column'
+    zoomContainer.style.alignItems = 'center'
+    zoomContainer.style.margin = '4px'
+
+    const zoomLabel = document.createElement('span')
+    zoomLabel.style.color = 'white'
+    zoomLabel.style.marginBottom = '4px'
+
+    const updateZoomLabel = (factor: number) => {
+      zoomLabel.textContent = `UI Scale: ${Math.round(factor * 100)}%`
+    }
+
+    const clampZoom = (factor: number) => Math.min(3, Math.max(0.5, factor))
+
+    const changeZoom = async (delta: number) => {
+      const current = await getZoomFactor()
+      const next = clampZoom(Math.round((current + delta) * 20) / 20)
+      await setZoomFactor(next)
+      updateZoomLabel(next)
+    }
+
+    const btnRow = document.createElement('div')
+    btnRow.style.display = 'flex'
+    btnRow.style.gap = '4px'
+
+    const zoomDown = document.createElement('button')
+    zoomDown.textContent = '\u2212'
+    zoomDown.style.border = '2px solid cyan'
+    zoomDown.style.width = '32px'
+    zoomDown.style.height = '32px'
+    zoomDown.addEventListener('click', () => changeZoom(-0.05))
+
+    const zoomUp = document.createElement('button')
+    zoomUp.textContent = '+'
+    zoomUp.style.border = '2px solid cyan'
+    zoomUp.style.width = '32px'
+    zoomUp.style.height = '32px'
+    zoomUp.addEventListener('click', () => changeZoom(0.05))
+
+    getZoomFactor().then(updateZoomLabel)
+
+    btnRow.append(zoomDown, zoomUp)
+    zoomContainer.append(zoomLabel, btnRow)
+    sizeSelect.after(zoomContainer)
   }
 }, { once: true })
 

@@ -24,7 +24,7 @@ const clickHandler = (e: HTMLElementEventMap['click']) => {
   Notification(`Added ${productName} to the cart!`)
 }
 
-export const initializeProductPage = memoize(() => {
+const initializeProductPage = memoize(() => {
   productContainer!.innerHTML = coinProducts.map((product) => (`
     <section class="pseudoCoinContainer" key="${product.id}">
       <div>

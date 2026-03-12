@@ -86,7 +86,7 @@ interface RuneHTMLStyle {
   nameColor: string
 }
 
-export interface RuneData<K extends RuneKeys> {
+interface RuneData<K extends RuneKeys> {
   level: number
   runeEXP: Decimal
   costCoefficient: Decimal
@@ -108,14 +108,14 @@ export interface RuneData<K extends RuneKeys> {
 
 const salvagePerkLevels = [30, 40, 61, 81, 111, 131, 161, 191, 236, 260]
 
-export const firstFiveFreeLevels = () => {
+const firstFiveFreeLevels = () => {
   return (
     getAntUpgradeEffect(AntUpgrades.FreeRunes).freeRuneLevel
     + 7 * Math.min(player.constantUpgrades[7], 1000)
   )
 }
 
-export const bonusRuneLevelsSpeed = () => {
+const bonusRuneLevelsSpeed = () => {
   return (
     getRuneBonusFromAllTalismans('speed')
     + (
@@ -132,7 +132,7 @@ export const bonusRuneLevelsSpeed = () => {
   )
 }
 
-export const bonusRuneLevelsDuplication = () => {
+const bonusRuneLevelsDuplication = () => {
   return (
     getRuneBonusFromAllTalismans('duplication')
     + player.upgrades[28] * Math.min(
@@ -149,25 +149,25 @@ export const bonusRuneLevelsDuplication = () => {
   )
 }
 
-export const bonusRuneLevelsPrism = () => {
+const bonusRuneLevelsPrism = () => {
   return (
     getRuneBonusFromAllTalismans('prism')
   )
 }
 
-export const bonusRuneLevelsThrift = () => {
+const bonusRuneLevelsThrift = () => {
   return (
     getRuneBonusFromAllTalismans('thrift')
   )
 }
 
-export const bonusRuneLevelsSI = () => {
+const bonusRuneLevelsSI = () => {
   return (
     getRuneBonusFromAllTalismans('superiorIntellect')
   )
 }
 
-export const bonusRuneLevelsIA = () => {
+const bonusRuneLevelsIA = () => {
   return (
     (PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0)
     + player.cubeUpgrades[73]
@@ -177,16 +177,16 @@ export const bonusRuneLevelsIA = () => {
   )
 }
 
-export const bonusRuneLevelsAntiquities = () => {
+const bonusRuneLevelsAntiquities = () => {
   return getRuneBonusFromAllTalismans('antiquities')
 }
 
-export const bonusRuneLevelsHorseShoe = () => {
+const bonusRuneLevelsHorseShoe = () => {
   return getRuneBonusFromAllTalismans('horseShoe')
     + (player.shopUpgrades.shopHorseShoe > 0 ? 3 : 0)
 }
 
-export const speedRuneOOMIncrease = () => {
+const speedRuneOOMIncrease = () => {
   return (
     player.upgrades[66] * 2
     + player.researches[78]
@@ -200,7 +200,7 @@ export const speedRuneOOMIncrease = () => {
   )
 }
 
-export const duplicationRuneOOMIncrease = () => {
+const duplicationRuneOOMIncrease = () => {
   return (
     0.75 * CalcECC('transcend', player.challengecompletions[1])
     + player.upgrades[66] * 2
@@ -214,7 +214,7 @@ export const duplicationRuneOOMIncrease = () => {
   )
 }
 
-export const prismRuneOOMIncrease = () => {
+const prismRuneOOMIncrease = () => {
   return (
     player.upgrades[66] * 2
     + player.researches[79]
@@ -228,7 +228,7 @@ export const prismRuneOOMIncrease = () => {
   )
 }
 
-export const thriftRuneOOMIncrease = () => {
+const thriftRuneOOMIncrease = () => {
   return (
     player.upgrades[66] * 2
     + player.researches[77]
@@ -242,7 +242,7 @@ export const thriftRuneOOMIncrease = () => {
   )
 }
 
-export const superiorIntellectOOMIncrease = () => {
+const superiorIntellectOOMIncrease = () => {
   return (
     player.upgrades[66] * 2
     + player.researches[115]
@@ -255,19 +255,19 @@ export const superiorIntellectOOMIncrease = () => {
   )
 }
 
-export const infiniteAscentOOMIncrease = () => {
+const infiniteAscentOOMIncrease = () => {
   return (
     getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').infiniteAscentOOMBonus
   )
 }
 
-export const antiquitiesOOMIncrease = () => {
+const antiquitiesOOMIncrease = () => {
   return (
     +player.singularityChallenges.taxmanLastStand.rewards.antiquityOOM
   )
 }
 
-export const horseShoeOOMIncrease = () => {
+const horseShoeOOMIncrease = () => {
   return (
     +player.singularityChallenges.taxmanLastStand.rewards.horseShoeOOM
   )
@@ -281,7 +281,7 @@ export const SIEffectiveRuneLevelMult = () => {
   return runeEffectivenessStatsSI.reduce((x, y) => x * y.stat(), 1)
 }
 
-export const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
+const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
   // recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
   const recycleMultiplier = calculateSalvageRuneEXPMultiplier()
 
@@ -733,33 +733,29 @@ export const getRuneEffects = <T extends RuneKeys>(rune: T): RuneTypeMap[T] => {
   return runes[rune].effects(getRuneEffectiveLevel(rune))
 }
 
-export const getLevelsPerOOM = (rune: RuneKeys): number => {
+const getLevelsPerOOM = (rune: RuneKeys): number => {
   return runes[rune].levelsPerOOM + runes[rune].levelsPerOOMIncrease()
 }
 
-export const getRuneEXPPerOffering = (rune: RuneKeys): Decimal => {
+const getRuneEXPPerOffering = (rune: RuneKeys): Decimal => {
   return runes[rune].runeEXPPerOffering(runes[rune].level)
 }
 
-export const computeEXPToLevel = (rune: RuneKeys, level: number) => {
+const computeEXPToLevel = (rune: RuneKeys, level: number) => {
   const levelPerOOM = getLevelsPerOOM(rune)
   return runes[rune].costCoefficient.times(Decimal.pow(10, level / levelPerOOM).minus(1))
 }
 
-export const computeEXPLeftToLevel = (rune: RuneKeys, level: number) => {
+const computeEXPLeftToLevel = (rune: RuneKeys, level: number) => {
   return Decimal.max(0, computeEXPToLevel(rune, level).minus(runes[rune].runeEXP))
 }
 
-export const computeOfferingsToLevel = (rune: RuneKeys, level: number) => {
+const computeOfferingsToLevel = (rune: RuneKeys, level: number) => {
   return Decimal.max(1, computeEXPLeftToLevel(rune, level).div(getRuneEXPPerOffering(rune)).ceil())
 }
 
-export const getRuneTNL = (rune: RuneKeys) => {
-  return computeEXPLeftToLevel(rune, runes[rune].level + 1)
-}
-
 // Gives levels to buy, total EXP to that level, and offerings required to reach that level
-export const maxRuneLevelPurchaseInformation = (rune: RuneKeys, budget: Decimal) => {
+const maxRuneLevelPurchaseInformation = (rune: RuneKeys, budget: Decimal) => {
   if (!runes[rune].isUnlocked() || budget.lt(0)) {
     return { levels: 0, expRequired: new Decimal(0), offerings: new Decimal(0) }
   }
@@ -789,7 +785,7 @@ export const maxRuneLevelPurchaseInformation = (rune: RuneKeys, budget: Decimal)
   return { levels: levelsGained, expRequired: expRequired, offerings: offeringsRequired }
 }
 
-export const levelRune = (rune: RuneKeys, timesLeveled: number, budget: Decimal) => {
+const levelRune = (rune: RuneKeys, timesLeveled: number, budget: Decimal) => {
   let budgetUsed: Decimal
 
   const expRequired = computeEXPLeftToLevel(rune, runes[rune].level + timesLeveled)
@@ -810,13 +806,13 @@ export const levelRune = (rune: RuneKeys, timesLeveled: number, budget: Decimal)
   // this.updateRuneEffectHTML()
 }
 
-export const setRuneLevel = (rune: RuneKeys, level: number) => {
+const setRuneLevel = (rune: RuneKeys, level: number) => {
   const exp = computeEXPToLevel(rune, level)
   runes[rune].level = level
   runes[rune].runeEXP = exp
 }
 
-export const updateLevelsFromEXP = (rune: RuneKeys) => {
+const updateLevelsFromEXP = (rune: RuneKeys) => {
   const levelsPerOOM = getLevelsPerOOM(rune)
   const levels = Math.floor(levelsPerOOM * Decimal.log10(runes[rune].runeEXP.div(runes[rune].costCoefficient).plus(1)))
   // Floating point imprecision fix
@@ -921,24 +917,6 @@ export const focusedRuneLockedHTML = (rune: RuneKeys) => {
   const lockedDescriptionHTML = `<span style="color: lightcoral">${lockedDescription}</span>`
 
   return `${nameHTML}<br>${lockedDescriptionHTML}`
-}
-
-export const focusedRuneHTMLMobile = (rune: RuneKeys) => {
-  assert(G.currentTab === Tabs.Runes, 'current tab is not Runes')
-
-  DOMCacheGetOrSet('focusedRuneName').textContent = runes[rune].name()
-  DOMCacheGetOrSet('focusedRuneDescription').innerHTML = runes[rune].description()
-  DOMCacheGetOrSet('focusedRuneValues').innerHTML = runes[rune].valueText()
-  DOMCacheGetOrSet('focusedRuneCoefficient').textContent = i18next.t('runes.runeCoefficientText', {
-    x: format(runes[rune].levelsPerOOM, 2, true),
-    y: format(runes[rune].levelsPerOOMIncrease(), 2, true),
-    z: format(getLevelsPerOOM(rune), 2, true)
-  })
-  DOMCacheGetOrSet('focusedRuneLevelInfo').textContent = i18next.t('runes.offeringText', {
-    exp: format(getRuneEXPPerOffering(rune), 2, true),
-    offeringReq: format(computeOfferingsToLevel(rune, runes[rune].level + player.offeringbuyamount), 0, true),
-    levels: format(player.offeringbuyamount, 0, true)
-  })
 }
 
 /*export const updateRuneEffectHTML = (rune: RuneKeys) => {

@@ -4,7 +4,6 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { applyCorruptions, convertInputToCorruption, type Corruptions } from './Corruptions'
 import { calculateAntSpeedMultFromELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
-import { getGQUpgradeEffect } from './singularity'
 import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
 import { Notification } from './UpdateHTML'
@@ -13,7 +12,7 @@ import { Globals as G } from './Variables'
 // The categories are the different tables & storages for each type.
 export type Category = 'ants' | 'reset' | 'ascend' | 'singularity'
 // The kinds are the different contents.
-export type Kind = 'antsacrifice' | 'prestige' | 'transcend' | 'reincarnate' | 'ascend' | 'singularity'
+type Kind = 'antsacrifice' | 'prestige' | 'transcend' | 'reincarnate' | 'ascend' | 'singularity'
 
 // Common to every kind
 interface ResetHistoryEntryBase {
@@ -107,7 +106,7 @@ type ResetHistoryEntryIntersect =
   & Partial<RemoveKindField<ResetHistoryEntrySingularity>>
 
 // The subset of keys that we'll directly print out using generic code.
-export type ResetHistoryGainType = keyof Pick<
+type ResetHistoryGainType = keyof Pick<
   ResetHistoryEntryIntersect,
   | 'offerings'
   | 'obtainium'
@@ -263,7 +262,7 @@ const historyGains: Record<
     img: 'TinyWow8.png',
     formatter: formatDecimalSource,
     imgTitle: 'Octeracts',
-    onlyif: () => getGQUpgradeEffect('octeractUnlock') > 0
+    onlyif: () => player.highestSingularityCount >= 8
   },
   c15Score: {
     img: 'TinyChallenge15.png',
@@ -421,7 +420,7 @@ const resetHistoryRenderRow = (
       if (gainInfo.onlyif && !gainInfo.onlyif(data)) {
         return
       }
-      const formatter = gainInfo.formatter ?? (() => {/* If no formatter is specified, don't display. */})
+      const formatter = gainInfo.formatter ?? (() => '')
       const str = `<img alt="${gainInfo.imgTitle}" src="Pictures/${
         IconSets[player.iconSet][0]
       }/${gainInfo.img}" title="${gainInfo.imgTitle}">${formatter(dataIntersection[listable]!, data)}`

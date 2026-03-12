@@ -185,7 +185,7 @@ const resetToggleModesSchema = z.object({
 })
 
 const singularityUpgradeSchema = (...keys: string[]) => {
-  return z.object<Record<'level' | 'freeLevels' | typeof keys[number], ZodNumber>>({
+  return z.object<Record<typeof keys[number], ZodNumber>>({
     level: z.number(),
     freeLevels: z.number(),
     ...keys.reduce((accum, value) => {
@@ -272,7 +272,7 @@ const ambrosiaUpgradeSchema = z.object({
   blueberriesInvested: z.number().default(0)
 })
 
-export const playerCorruptionSchema = z.object({
+const playerCorruptionSchema = z.object({
   used: optionalCorruptionSchema.transform((value) => {
     return new CorruptionLoadout(value)
   }),
@@ -285,12 +285,12 @@ export const playerCorruptionSchema = z.object({
   showStats: z.boolean()
 }).default(() => JSON.parse(JSON.stringify(blankSave.corruptions)))
 
-export const campaignSchema = z.object({
+const campaignSchema = z.object({
   currentCampaign: z.string().optional(),
   campaigns: z.record(z.string(), z.number()).optional()
 })
 
-export const playerCampaignSchema = campaignSchema.transform((campaignData) => {
+const playerCampaignSchema = campaignSchema.transform((campaignData) => {
   return new CampaignManager(campaignData as ICampaignManagerData)
 }).default(() => JSON.parse(JSON.stringify(blankSave.campaigns)))
 
@@ -819,7 +819,14 @@ export const playerSchema = z.object({
 
   ascendShards: decimalSchema.default(() => deepClone()(blankSave.ascendShards)),
   autoAscend: z.boolean().default(() => blankSave.autoAscend),
-  autoAscendMode: z.string().default(() => blankSave.autoAscendMode),
+  autoAscendMode: z.union([
+    z.string().transform((str) => {
+      if (str === 'c10Completions') return 0
+      else if (str === 'realAscensionTime') return 1
+      else return 0
+    }),
+    z.number()
+  ]).default(() => blankSave.autoAscendMode),
   autoAscendThreshold: z.number().default(() => blankSave.autoAscendThreshold),
   autoOpenCubes: z.boolean().default(() => blankSave.autoOpenCubes),
   openCubes: z.number().default(() => blankSave.openCubes),

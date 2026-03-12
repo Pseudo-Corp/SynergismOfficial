@@ -48,9 +48,9 @@ type AmbrosiaUpgradeRewards = {
 
 export type AmbrosiaUpgradeNames = keyof AmbrosiaUpgradeRewards
 
-export type AmbrosiaUpgradeUnlockCriterion = 'Exalt1x1' | 'Exalt5x1'
+type AmbrosiaUpgradeUnlockCriterion = 'Exalt1x1' | 'Exalt5x1'
 
-export interface AmbrosiaUpgrade<T extends AmbrosiaUpgradeNames> {
+interface AmbrosiaUpgrade<T extends AmbrosiaUpgradeNames> {
   name: () => string
   description: () => string
   level: number
@@ -603,8 +603,8 @@ export const ambrosiaUpgrades: {
       ambrosiaLuck1: 90,
       ambrosiaLuck2: 50
     },
-    costFormula: (level: number, baseCost: number): number => {
-      return baseCost + 0 * level // Level has no effect
+    costFormula: (_level: number, baseCost: number): number => {
+      return baseCost // Level has no effect
     },
     effects: (n: number) => {
       const perLevel = calculateBlueberryInventory()
@@ -939,8 +939,8 @@ export const ambrosiaUpgrades: {
       ambrosiaBaseOffering1: 20,
       ambrosiaBaseObtainium1: 10
     },
-    costFormula: (level: number, baseCost: number): number => {
-      return baseCost + 0 * level
+    costFormula: (_level: number, baseCost: number): number => {
+      return baseCost
     },
     effects: (n: number) => {
       const val = n
@@ -973,8 +973,8 @@ export const ambrosiaUpgrades: {
       ambrosiaBaseOffering2: 20,
       ambrosiaBaseObtainium2: 10
     },
-    costFormula: (level: number, baseCost: number): number => {
-      return baseCost + 0 * level
+    costFormula: (_level: number, baseCost: number): number => {
+      return baseCost
     },
     effects: (n: number) => {
       const val = n
@@ -1085,8 +1085,6 @@ export const ambrosiaUpgrades: {
   }
 }
 
-export const ambrosiaUpgradeNames = Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]
-
 export const blankAmbrosiaUpgradeObject: Record<
   AmbrosiaUpgradeNames,
   { ambrosiaInvested: number; blueberriesInvested: number }
@@ -1133,7 +1131,7 @@ export const setAmbrosiaUpgradeLevels = () => {
   }
 }
 
-export const getAmbrosiaUpgradeEffectiveLevels = (upgradeKey: AmbrosiaUpgradeNames): number => {
+const getAmbrosiaUpgradeEffectiveLevels = (upgradeKey: AmbrosiaUpgradeNames): number => {
   const upgrade = ambrosiaUpgrades[upgradeKey]
   return ((player.singularityChallenges.noAmbrosiaUpgrades.enabled
       || player.singularityChallenges.sadisticPrequel.enabled) && !upgrade.ignoreEXALT)
@@ -1148,12 +1146,12 @@ export const getAmbrosiaUpgradeEffects = <T extends AmbrosiaUpgradeNames>(
   return ambrosiaUpgrades[upgradeKey].effects(effectiveLevels)
 }
 
-export const getAmbrosiaUpgradeEffectsDescription = (upgradeKey: AmbrosiaUpgradeNames): string => {
+const getAmbrosiaUpgradeEffectsDescription = (upgradeKey: AmbrosiaUpgradeNames): string => {
   const effectiveLevels = getAmbrosiaUpgradeEffectiveLevels(upgradeKey)
   return ambrosiaUpgrades[upgradeKey].effectsDescription(effectiveLevels)
 }
 
-export const getAmbrosiaUpgradeCostTNL = (upgradeKey: AmbrosiaUpgradeNames): number => {
+const getAmbrosiaUpgradeCostTNL = (upgradeKey: AmbrosiaUpgradeNames): number => {
   const upgrade = ambrosiaUpgrades[upgradeKey]
   if (upgrade.level === upgrade.maxLevel) {
     return 0
@@ -1161,7 +1159,7 @@ export const getAmbrosiaUpgradeCostTNL = (upgradeKey: AmbrosiaUpgradeNames): num
   return upgrade.costFormula(upgrade.level, upgrade.costPerLevel)
 }
 
-export const checkAmbrosiaUpgradePrerequisites = (upgradeKey: AmbrosiaUpgradeNames): boolean => {
+const checkAmbrosiaUpgradePrerequisites = (upgradeKey: AmbrosiaUpgradeNames): boolean => {
   const upgrade = ambrosiaUpgrades[upgradeKey]
   const prerequisites = upgrade.prerequisites
 
@@ -1366,7 +1364,7 @@ export const resetBlueberryTree = (giveAlert = true) => {
   if (giveAlert) return Alert(i18next.t('ambrosia.refund'))
 }
 
-export const validateBlueberryTree = (modules: BlueberryOpt) => {
+const validateBlueberryTree = (modules: BlueberryOpt) => {
   // Check for empty object (perhaps from the loadouts?)
   if (Object.keys(modules).length === 0) {
     return false
@@ -1450,7 +1448,7 @@ export const validateBlueberryTree = (modules: BlueberryOpt) => {
   return meetsPrerequisites && meetsAmbrosia && meetsBlueberries && meetsUnlockConditions
 }
 
-export const getBlueberryTree = () => {
+const getBlueberryTree = () => {
   return Object.fromEntries(
     Object.entries(ambrosiaUpgrades).map(([key, value]) => {
       return [key, value.level]
@@ -1458,7 +1456,7 @@ export const getBlueberryTree = () => {
   ) as BlueberryOpt
 }
 
-export const fixBlueberryLevel = (modules: BlueberryOpt) => {
+const fixBlueberryLevel = (modules: BlueberryOpt) => {
   return Object.fromEntries(
     Object.entries(modules).map(([key, value]) => {
       const k = key as AmbrosiaUpgradeNames
@@ -1474,7 +1472,7 @@ export const exportBlueberryTree = () => {
   void exportData(save, name)
 }
 
-export const createBlueberryTree = (modules: BlueberryOpt) => {
+const createBlueberryTree = (modules: BlueberryOpt) => {
   // Check to see if tree being created is valid.
   const isPossible = validateBlueberryTree(modules)
   if (!isPossible) {
@@ -1516,7 +1514,7 @@ export const importBlueberryTree = (input: string | null) => {
       const modules = JSON.parse(input) as BlueberryOpt
       createBlueberryTree(modules)
       createLoadoutDescription(0, modules)
-    } catch (err) {
+    } catch {
       return Alert(i18next.t('ambrosia.importTree.error'))
     }
   }
@@ -1531,7 +1529,7 @@ export const loadoutHandler = (n: number, modules: BlueberryOpt) => {
   }
 }
 
-export const saveBlueberryTree = async (
+const saveBlueberryTree = async (
   input: number,
   previous: BlueberryOpt
 ) => {

@@ -37,7 +37,7 @@ export interface HepteractValues {
   AUTO: boolean
 }
 
-export interface HepteractData<K extends HepteractKeys> extends HepteractValues {
+interface HepteractData<K extends HepteractKeys> extends HepteractValues {
   BASE_CAP: number
   HEPTERACT_CONVERSION: number
   OTHER_CONVERSIONS: Record<string, number>
@@ -304,7 +304,7 @@ export const getHepteractEffects = <K extends HepteractKeys>(hept: K): Hepteract
   return hepteracts[hept].EFFECTS(heptAmount)
 }
 
-export const getHepteractCap = (hept: HepteractKeys): number => {
+const getHepteractCap = (hept: HepteractKeys): number => {
   return Math.pow(2, hepteracts[hept].TIMES_CAP_EXTENDED) * hepteracts[hept].BASE_CAP
 }
 
@@ -313,7 +313,7 @@ export const getFinalHepteractCap = (hept: HepteractKeys): number => {
   return getHepteractCap(hept) * specialMultiplier
 }
 
-export const getCraftableHepteractAmount = (hept: HepteractKeys) => {
+const getCraftableHepteractAmount = (hept: HepteractKeys) => {
   const craftCostMulti = calculateSingularityDebuff('Hepteract Costs')
   const hepteractLimit = Math.floor(
     player.wowAbyssals / (hepteracts[hept].HEPTERACT_CONVERSION * craftCostMulti)

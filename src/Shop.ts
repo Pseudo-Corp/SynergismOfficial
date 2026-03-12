@@ -57,7 +57,7 @@ type shopResetTier =
   | 'Exalt7x30'
   | 'Exalt8x5'
 
-export interface IShopData {
+interface IShopData {
   price: number
   priceIncrease: number
   maxLevel: number
@@ -618,9 +618,9 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaGeneration1: {
-    tier: 'SingularityVol2',
-    price: 50000000,
-    priceIncrease: 50000000,
+    tier: 'SingularityVol3',
+    price: 5e11,
+    priceIncrease: 5e11,
     maxLevel: 25,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -628,8 +628,8 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   shopAmbrosiaGeneration2: {
     tier: 'SingularityVol3',
-    price: 5e11,
-    priceIncrease: 5e11,
+    price: 5e12,
+    priceIncrease: 5e12,
     maxLevel: 30,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -654,9 +654,9 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuck1: {
-    tier: 'SingularityVol2',
-    price: 20000000,
-    priceIncrease: 20000000,
+    tier: 'SingularityVol3',
+    price: 2e11,
+    priceIncrease: 2e11,
     maxLevel: 40,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -664,8 +664,8 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   shopAmbrosiaLuck2: {
     tier: 'SingularityVol3',
-    price: 2e11,
-    priceIncrease: 2e11,
+    price: 2e12,
+    priceIncrease: 2e12,
     maxLevel: 50,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -922,9 +922,9 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
   rofl.innerHTML = i18next.t(`shop.upgradeDescriptions.${input}`)
 
-  shopData[input].refundable
-    ? (refundable.textContent = i18next.t('shop.refundable', { level: shopData[input].refundMinimumLevel }))
-    : (refundable.textContent = i18next.t('shop.cannotRefund'))
+  refundable.textContent = shopData[input].refundable
+    ? i18next.t('shop.refundable', { level: shopData[input].refundMinimumLevel })
+    : i18next.t('shop.cannotRefund')
 
   switch (input) {
     case 'offeringPotion':
@@ -1734,28 +1734,6 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   }
 }
 
-export const autoBuyConsumable = (input: ShopUpgradeNames) => {
-  const maxBuyablePotions = Math.floor(
-    Math.min(
-      Number(player.worlds) / 100,
-      Math.min(
-        shopData[input].maxLevel - player.shopUpgrades[input],
-        Math.pow(player.highestSingularityCount, 2) * 100
-      )
-    )
-  )
-
-  if (shopData[input].maxLevel <= player.shopUpgrades[input]) {
-    return
-  }
-  if (maxBuyablePotions <= 0) {
-    return
-  }
-
-  player.worlds.sub(100 * maxBuyablePotions)
-  player.shopUpgrades[input] += maxBuyablePotions
-}
-
 export const useConsumablePrompt = async (
   input: ShopUpgradeNames,
   used = 1,
@@ -1891,20 +1869,6 @@ export const forceResetShopUpgrades = () => {
     void Alert('Nothing to Refund!')
   }
   player.quarksThisSingularity = singularityQuarks
-}
-
-export const getQuarkInvestment = (upgrade: ShopUpgradeNames) => {
-  if (!(upgrade in shopData) || !(upgrade in player.shopUpgrades)) {
-    return 0
-  }
-
-  const val = shopData[upgrade].price * player.shopUpgrades[upgrade]
-    + (shopData[upgrade].priceIncrease
-        * (player.shopUpgrades[upgrade] - 1)
-        * player.shopUpgrades[upgrade])
-      / 2
-
-  return val
 }
 
 export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
@@ -2104,7 +2068,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
         player.singularityChallenges.noOcteracts.rewards.shopUpgrade
       )
     case 'shopAmbrosiaGeneration1':
-      return Boolean(getGQUpgradeEffect('wowPass2'))
+      return Boolean(getGQUpgradeEffect('wowPass3'))
     case 'shopAmbrosiaGeneration2':
       return Boolean(getGQUpgradeEffect('wowPass3'))
     case 'shopAmbrosiaGeneration3':
@@ -2112,7 +2076,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
     case 'shopAmbrosiaGeneration4':
       return Boolean(getGQUpgradeEffect('wowPass4'))
     case 'shopAmbrosiaLuck1':
-      return Boolean(getGQUpgradeEffect('wowPass2'))
+      return Boolean(getGQUpgradeEffect('wowPass3'))
     case 'shopAmbrosiaLuck2':
       return Boolean(getGQUpgradeEffect('wowPass3'))
     case 'shopAmbrosiaLuck3':

@@ -18,7 +18,7 @@ import { IconSets } from './Themes'
 import { Alert, Confirm, Notification } from './UpdateHTML'
 
 export let campaignTokens = 0
-export let maxCampaignTokens = 0
+let maxCampaignTokens = 0
 
 export type CampaignKeys =
   | 'first'
@@ -72,7 +72,7 @@ export type CampaignKeys =
   | 'fortyNinth'
   | 'fiftieth'
 
-export type CampaignTokenRewardNames =
+type CampaignTokenRewardNames =
   | 'tutorial'
   | 'cube'
   | 'obtainium'
@@ -105,7 +105,7 @@ export interface ICampaignManagerData {
   campaigns?: Record<CampaignKeys, number>
 }
 
-export interface ICampaignData {
+interface ICampaignData {
   campaignCorruptions: Partial<Corruptions>
   unlockRequirement: () => boolean
   limit: number
@@ -512,7 +512,7 @@ export const updateMaxTokens = () => {
   maxCampaignTokens = sum
 }
 
-export class Campaign {
+class Campaign {
   #name: string
   #description: string
   #campaignCorruptions: Corruptions
@@ -1406,7 +1406,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
 
 // For icons, display them only if the player has enough tokens and fits the other requirements
 // This is more of a display thing, the actual reward is computed in the CampaignManager
-export const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRewardDisplay> = {
+const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRewardDisplay> = {
   tutorial: {
     tokenRequirement: 0,
     reward: () => ({
@@ -1467,16 +1467,16 @@ export const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, Campaign
   ambrosiaLuck: {
     tokenRequirement: 2000,
     reward: () => format(player.campaigns.ambrosiaLuckBonus, 2, true),
-    otherUnlockRequirement: () => (player.highestSingularityCount > 8)
+    otherUnlockRequirement: () => (player.singularityChallenges.noSingularityUpgrades.completions > 0)
   },
   blueberrySpeed: {
     tokenRequirement: 2000,
     reward: () => formatAsPercentIncrease(player.campaigns.blueberrySpeedBonus),
-    otherUnlockRequirement: () => (player.highestSingularityCount > 9)
+    otherUnlockRequirement: () => (player.singularityChallenges.noSingularityUpgrades.completions > 0)
   }
 }
 
-export const activeCampaignTextHTML = () => {
+const activeCampaignTextHTML = () => {
   const campaignName = player.campaigns.current
     ? i18next.t(`campaigns.data.${player.campaigns.current}.name`)
     : i18next.t('campaigns.emptyCampaignName')
@@ -1528,7 +1528,7 @@ export const campaignCorruptionStatsHTMLReset = () => {
   DOMCacheGetOrSet('campaignDesc').textContent = ''
 }
 
-export const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
+const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
   // Clear existing HTMLS
   campaignCorruptionStatsHTMLReset()
   DOMCacheGetOrSet('campaignName').textContent = `${

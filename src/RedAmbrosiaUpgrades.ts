@@ -33,7 +33,7 @@ type RedAmbrosiaUpgradeRewards = {
 
 export type RedAmbrosiaNames = keyof RedAmbrosiaUpgradeRewards
 
-export interface RedAmbrosiaUpgrade<T extends RedAmbrosiaNames> {
+interface RedAmbrosiaUpgrade<T extends RedAmbrosiaNames> {
   name: () => string
   description: () => string
   level: number
@@ -51,8 +51,8 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
   tutorial: {
     level: 0,
     redAmbrosiaInvested: 0,
-    costFormula: (level: number, baseCost: number) => {
-      return baseCost + 0 * level // Level has no effect.
+    costFormula: (_level: number, baseCost: number) => {
+      return baseCost // Level has no effect.
     },
     effects: (n: number) => {
       const val = Math.pow(1.01, n)
@@ -435,8 +435,8 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
   redAmbrosiaAccelerator: {
     level: 0,
     redAmbrosiaInvested: 0,
-    costFormula: (level: number, baseCost: number) => {
-      return baseCost + level * 0
+    costFormula: (_level: number, baseCost: number) => {
+      return baseCost
     },
     effects: (n: number) => {
       const val = 0.02 * n + ((n > 0) ? 1 : 0)
@@ -456,8 +456,8 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
   regularLuck2: {
     level: 0,
     redAmbrosiaInvested: 0,
-    costFormula: (level: number, baseCost: number) => {
-      return baseCost + 0 * level
+    costFormula: (_level: number, baseCost: number) => {
+      return baseCost
     },
     effects: (n: number) => {
       const val = 2 * n
@@ -477,8 +477,8 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
   blueberryGenerationSpeed2: {
     level: 0,
     redAmbrosiaInvested: 0,
-    costFormula: (level: number, baseCost: number) => {
-      return baseCost + 0 * level
+    costFormula: (_level: number, baseCost: number) => {
+      return baseCost
     },
     effects: (n: number) => {
       const val = 1 + n / 1000
@@ -596,26 +596,17 @@ export const getRedAmbrosiaUpgradeEffects = <T extends RedAmbrosiaNames>(
   return redAmbrosiaUpgrades[upgradeKey].effects(currentLevel)
 }
 
-export const getRedAmbrosiaUpgradeEffectsDescription = (upgradeKey: RedAmbrosiaNames): string => {
+const getRedAmbrosiaUpgradeEffectsDescription = (upgradeKey: RedAmbrosiaNames): string => {
   const currentLevel = redAmbrosiaUpgrades[upgradeKey].level
   return redAmbrosiaUpgrades[upgradeKey].effectsDescription(currentLevel)
 }
 
-export const getRedAmbrosiaUpgradeCostTNL = (upgradeKey: RedAmbrosiaNames): number => {
+const getRedAmbrosiaUpgradeCostTNL = (upgradeKey: RedAmbrosiaNames): number => {
   const upgrade = redAmbrosiaUpgrades[upgradeKey]
   if (upgrade.level === upgrade.maxLevel) {
     return 0
   }
   return upgrade.costFormula(upgrade.level, upgrade.costPerLevel)
-}
-
-export const refundRedAmbrosiaUpgrade = (upgradeKey: RedAmbrosiaNames): void => {
-  const upgrade = redAmbrosiaUpgrades[upgradeKey]
-
-  player.redAmbrosia += upgrade.redAmbrosiaInvested
-  player.redAmbrosiaUpgrades[upgradeKey] = 0
-  upgrade.redAmbrosiaInvested = 0
-  upgrade.level = 0
 }
 
 export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string => {

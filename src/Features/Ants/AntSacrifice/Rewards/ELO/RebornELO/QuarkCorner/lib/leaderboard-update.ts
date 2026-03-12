@@ -1,7 +1,7 @@
 import { player } from '../../../../../../../../Synergism'
 
 export const LEADERBOARD_WEIGHTS = [1, 0.8, 0.6, 0.4, 0.2]
-export const NUM_LEADERBOARD_ENTRIES = LEADERBOARD_WEIGHTS.length
+const NUM_LEADERBOARD_ENTRIES = LEADERBOARD_WEIGHTS.length
 
 export const updateAntLeaderboards = () => {
   const currentELO = player.ants.rebornELO

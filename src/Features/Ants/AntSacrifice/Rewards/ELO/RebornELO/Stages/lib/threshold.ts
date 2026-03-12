@@ -11,7 +11,7 @@ export const thresholdTranches = [
 
 export const quarkMultiplierPerThreshold = 1.002
 
-export const perThresholdModifiers = {
+const perThresholdModifiers = {
   rebornSpeedMult: 0.98,
   antSacrificeObtainiumMult: 1.05,
   antSacrificeOfferingMult: 1.05,
@@ -20,7 +20,7 @@ export const perThresholdModifiers = {
 
 const rebornSpeedPerkLevels = [1, 9, 25, 49, 81, 121, 169, 196, 225, 256, 289]
 
-export const singularityPerkRebornSpeedMultModifier = () => {
+const singularityPerkRebornSpeedMultModifier = () => {
   const singCount = player.singularityCount
   for (let i = rebornSpeedPerkLevels.length - 1; i >= 0; i--) {
     if (singCount >= rebornSpeedPerkLevels[i]) {

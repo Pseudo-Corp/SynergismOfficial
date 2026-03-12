@@ -28,7 +28,7 @@ import {
   updateMaxTokens,
   updateTokens
 } from './Campaign'
-import { CalcECC, challengeRequirement } from './Challenges'
+import { CalcECC, challengeRequirement, resetChallengeSweep } from './Challenges'
 import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate, type SavedCorruption } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
@@ -64,7 +64,7 @@ import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
 import { clearInterval, setInterval } from './Timers'
-import { AutoAscensionModes, toggleAutoChallengeModeText } from './Toggles'
+import { AutoAscensionModes } from './Toggles'
 import type { OneToFive, Player, resetNames } from './types/Synergism'
 import { Alert, revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
@@ -122,7 +122,7 @@ export const resetrepeat = (input: resetNames) => {
   repeatreset = +setInterval(() => resetdetails(input), 50)
 }
 
-export const resetdetails = (input: resetNames) => {
+const resetdetails = (input: resetNames) => {
   DOMCacheGetOrSet('resetofferings1').style.display = 'block'
 
   const transcensionChallenge = player.currentChallenge.transcension
@@ -144,9 +144,11 @@ export const resetdetails = (input: resetNames) => {
     resetObtainiumText.textContent = ''
   }
 
-  ;(input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity')
-    ? offeringImage.style.display = offeringText.style.display = 'none'
-    : offeringImage.style.display = offeringText.style.display = 'block'
+  if (input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity') {
+    offeringImage.style.display = offeringText.style.display = 'none'
+  } else {
+    offeringImage.style.display = offeringText.style.display = 'block'
+  }
 
   switch (input) {
     case 'prestige':
@@ -645,6 +647,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     // reset auto challenges
     player.currentChallenge.transcension = 0
     player.currentChallenge.reincarnation = 0
+    // reset challenge sweep state machine
+    resetChallengeSweep()
 
     // The start of the auto challenge to improve QoL starts with C10
     if (
@@ -655,7 +659,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     } else {
       player.autoChallengeIndex = 1
     }
-    toggleAutoChallengeModeText('START')
 
     G.autoChallengeTimerIncrement = 0
     // reset rest
@@ -724,7 +727,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     for (let j = 1; j <= (200); j++) {
       const id = `res${j}`
-      if (player.researches[j] > 0 && isResearchMaxed(j)) {
+      if (player.researches[j] > 0 && !isResearchMaxed(j)) {
         updateClassList(id, ['researchPurchased'], [
           'researchAvailable',
           'researchMaxed',
@@ -968,7 +971,7 @@ export const updateSingularityAchievements = (): void => {
   awardAchievementGroup('singularityCount')
 }
 
-export const updateSingularityMilestoneAwards = (singularityReset = true): void => {
+const updateSingularityMilestoneAwards = (singularityReset = true): void => {
   if (player.highestSingularityCount >= 2) { // Singularity 2
     player.transcendPoints = new Decimal('1001')
     player.firstOwnedCoin = 1

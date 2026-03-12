@@ -25,7 +25,7 @@ export const cloudSaveHandlers: HttpHandler[] = [
     await delay(500)
 
     return HttpResponse.json(saves.map((s) => {
-      const { save, ...rest } = s
+      const { save: _, ...rest } = s
       return rest
     }))
   }),

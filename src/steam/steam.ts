@@ -27,21 +27,24 @@ interface Steam {
   getAchievement: (achievementId: string) => Promise<boolean>
 }
 
+interface WindowControls {
+  setSize: (width: number, height: number) => Promise<void>
+  getSize: () => Promise<{ width: number; height: number } | null>
+  setZoomFactor: (factor: number) => Promise<void>
+  getZoomFactor: () => Promise<number>
+}
+
 declare global {
   interface Window {
     steam?: Steam
+    windowControls?: WindowControls
   }
 }
 
 export const getSteamId = (): Promise<string | null> => window.steam?.getSteamId() ?? Promise.resolve(null)
 
-export const getUsername = (): Promise<string | null> => window.steam?.getUsername() ?? Promise.resolve(null)
-
 export const getCurrentGameLanguage: Steam['getCurrentGameLanguage'] = () =>
   window.steam?.getCurrentGameLanguage() ?? Promise.resolve(null)
-
-export const setRichPresenceSteam: Steam['setRichPresence'] = (...args) =>
-  window.steam?.setRichPresence(...args) ?? Promise.resolve()
 
 export const getSessionTicket = () => window.steam?.getSessionTicket() ?? Promise.resolve(null)
 
@@ -58,12 +61,18 @@ export const cloudReadFile: Steam['cloudReadFile'] = (name) =>
 export const cloudWriteFile: Steam['cloudWriteFile'] = (name, content) =>
   window.steam?.cloudWriteFile(name, content) ?? Promise.resolve(false)
 
-export const cloudDeleteFile: Steam['cloudDeleteFile'] = (name) =>
-  window.steam?.cloudDeleteFile(name) ?? Promise.resolve(false)
+// Window Controls
+export const setWindowSize = (width: number, height: number): Promise<void> =>
+  window.windowControls?.setSize(width, height) ?? Promise.resolve()
+
+export const getWindowSize = (): Promise<{ width: number; height: number } | null> =>
+  window.windowControls?.getSize() ?? Promise.resolve(null)
+
+export const setZoomFactor = (factor: number): Promise<void> =>
+  window.windowControls?.setZoomFactor(factor) ?? Promise.resolve()
+
+export const getZoomFactor = (): Promise<number> => window.windowControls?.getZoomFactor() ?? Promise.resolve(1)
 
 // Steam Achievements
 export const unlockAchievement: Steam['unlockAchievement'] = (achievementId) =>
   window.steam?.unlockAchievement(achievementId) ?? Promise.resolve()
-
-export const getAchievement: Steam['getAchievement'] = (achievementId) =>
-  window.steam?.getAchievement(achievementId) ?? Promise.resolve(false)

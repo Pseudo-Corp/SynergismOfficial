@@ -62,7 +62,7 @@ const talismanResourceCosts: Record<TalismanCraftItems, TalismanFragmentCost> = 
   }
 }
 
-export type TalismanRuneBonus = Record<RuneKeys, number>
+type TalismanRuneBonus = Record<RuneKeys, number>
 
 type TalismanTypeMap = {
   exemption: { taxReduction: number; duplicationOOMBonus: number }
@@ -197,7 +197,7 @@ const exponentialCostProgression = (
   }
 }
 
-export const universalTalismanMaxLevelIncreasers = () => {
+const universalTalismanMaxLevelIncreasers = () => {
   return (
     6 * CalcECC('ascension', player.challengecompletions[13])
     + Math.floor(player.researches[200] / 400)
@@ -209,15 +209,15 @@ export const universalTalismanMaxLevelIncreasers = () => {
   )
 }
 
-export const metaphysicsTalismanMaxLevelIncreasers = () => {
+const metaphysicsTalismanMaxLevelIncreasers = () => {
   return player.cubeUpgrades[67] > 0 ? 1337 : 0
 }
 
-export const mortuusTalismanMaxLevelIncreasers = () => {
+const mortuusTalismanMaxLevelIncreasers = () => {
   return getAntUpgradeEffect(AntUpgrades.Mortuus2).talismanLevelIncreaser
 }
 
-export const plasticTalismanMaxLevelIncreasers = () => {
+const plasticTalismanMaxLevelIncreasers = () => {
   return PCoinUpgradeEffects.INSTANT_UNLOCK_1 ? 10 : 0
 }
 
@@ -712,7 +712,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
 
 export const maxTalismansRarityAP = 50 * Object.keys(talismans).length
 
-export const getTalismanCostTNL = (t: TalismanKeys) => {
+const getTalismanCostTNL = (t: TalismanKeys) => {
   return talismans[t].costs(talismans[t].baseMult, talismans[t].level)
 }
 
@@ -720,7 +720,7 @@ export const getTalismanLevelCap = (t: TalismanKeys) => {
   return talismans[t].maxLevel + talismans[t].levelCapIncrease()
 }
 
-export const setTalismanRarity = (t: TalismanKeys) => {
+const setTalismanRarity = (t: TalismanKeys) => {
   if (!talismans[t].isUnlocked()) {
     talismans[t].rarity = 0
     return
@@ -746,7 +746,7 @@ export const setTalismanRarity = (t: TalismanKeys) => {
   talismans[t].rarity = 1 + Math.min(6, Math.floor(6 * levelRatio)) + extraRarity
 }
 
-export const levelsUntilRarityIncrease = (t: TalismanKeys) => {
+const levelsUntilRarityIncrease = (t: TalismanKeys) => {
   const level = talismans[t].level
   const maxLevel = talismans[t].maxLevel
   if (level >= maxLevel) {
@@ -760,7 +760,7 @@ export const levelsUntilRarityIncrease = (t: TalismanKeys) => {
   }
 }
 
-export const affordableNextLevel = (
+const affordableNextLevel = (
   t: TalismanKeys,
   budget: Record<TalismanCraftItems, Decimal>,
   level: number,
@@ -818,7 +818,7 @@ export const updateTalismanRarities = (): void => {
   }
 }
 
-export const getPlayerTalismanBudget = (): Record<TalismanCraftItems, Decimal> => {
+const getPlayerTalismanBudget = (): Record<TalismanCraftItems, Decimal> => {
   return {
     shard: player.talismanShards,
     commonFragment: player.commonFragments,
@@ -904,7 +904,7 @@ export const buyTalismanLevelToMax = (t: TalismanKeys): void => {
   setTalismanRarity(t)
 }
 
-export const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneKeys): number => {
+const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneKeys): number => {
   const talisman = talismans[t]
   if (!talisman.isUnlocked()) {
     return 0
@@ -1141,7 +1141,7 @@ export const updateTalismanCostHTML = (t: TalismanKeys) => {
   g.textContent = format(nextCost.mythicalFragment, 0, false)
 }
 
-export const updateTalismanDisplay = (t: TalismanKeys) => {
+const updateTalismanDisplay = (t: TalismanKeys) => {
   assert(G.currentTab === Tabs.Runes, 'Talisman updateTalismanDisplay called outside of Runes tab')
   const talisman = talismans[t]
   const el = DOMCacheGetOrSet(`${t}TalismanIconWrapper`)
@@ -1200,7 +1200,7 @@ export const updateTalismanDisplay = (t: TalismanKeys) => {
   }
 }
 
-export const resetSingleTalisman = (t: TalismanKeys) => {
+const resetSingleTalisman = (t: TalismanKeys) => {
   talismans[t].level = 0
   talismans[t].fragmentsInvested = { ...noTalismanFragments }
   player.talismans[t] = { ...noTalismanFragments }

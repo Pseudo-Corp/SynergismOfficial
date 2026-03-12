@@ -14,7 +14,7 @@ import { Alert, Notification, Prompt } from './UpdateHTML'
 import { getElementById, productContents, sumContents, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
 
-export enum CorruptionIndices {
+enum CorruptionIndices {
   'viscosity' = 0,
   'dilation' = 1,
   'hyperchallenge' = 2,
@@ -679,7 +679,7 @@ export const corruptionLoadoutTableUpdate = (updateNext = false, updateRow = 0) 
   }
 }
 
-export const corruptionSaveLoadout = (loadoutNum: number) => {
+const corruptionSaveLoadout = (loadoutNum: number) => {
   const buildToSave = player.corruptions.next.loadout
   player.corruptions.saves.saves[loadoutNum].loadout.setCorruptionLevelsWithChallengeRequirement(buildToSave)
   corruptionLoadoutTableUpdate(false, loadoutNum + 1)
@@ -725,7 +725,7 @@ async function importCorruptionsPrompt () {
 
 async function corruptionLoadoutGetNewName (loadout = 0) {
   const maxChars = 9
-  // biome-ignore lint/suspicious/noControlCharactersInRegex: I use control characters in my regex for fun!
+  // eslint-disable-next-line no-control-regex
   const regex = /^[\x00-\xFF]*$/
   const renamePrompt = await Prompt(
     i18next.t('corruptions.corruptionLoadoutName.loadoutPrompt', { loadNum: loadout + 1, maxChars })
@@ -810,7 +810,7 @@ export const revealCorruptions = () => {
   }
 }
 
-export function corrChallengeMinimum (corr: keyof Corruptions): number {
+function corrChallengeMinimum (corr: keyof Corruptions): number {
   switch (corr) {
     case 'viscosity':
       return 11

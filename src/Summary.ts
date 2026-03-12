@@ -569,7 +569,7 @@ export const generateExportSummary = async (): Promise<void> => {
 
   try {
     await navigator.clipboard.writeText(returnString)
-  } catch (err) {
+  } catch {
     // So we fallback to the deprecated way of doing it,
     // which isn't limited by any browser other than Safari
     // because Apple is ran by a monkey in a human skin suit.

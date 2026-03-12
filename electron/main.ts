@@ -1,4 +1,6 @@
-import { app, BrowserWindow, net, session, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, net, session, shell } from 'electron'
+import Store from 'electron-store'
+import windowStateKeeper from 'electron-window-state'
 import mimeTypes from 'mime-types'
 import fsp from 'node:fs/promises'
 import path from 'node:path'
@@ -24,6 +26,11 @@ if (!gotTheLock) {
 }
 
 app.setAsDefaultProtocolClient('synergism')
+
+const settingsStore = new Store<{ zoomFactor: number }>({
+  name: 'settings',
+  defaults: { zoomFactor: 1 }
+})
 
 let mainWindow: BrowserWindow | null = null
 
@@ -63,7 +70,16 @@ async function handleProtocolUrl (raw: string): Promise<void> {
 }
 
 function createWindow (): void {
+  const windowState = windowStateKeeper({
+    defaultWidth: 1920,
+    defaultHeight: 1080
+  })
+
   mainWindow = new BrowserWindow({
+    x: windowState.x,
+    y: windowState.y,
+    width: windowState.width,
+    height: windowState.height,
     maximizable: true,
     webPreferences: {
       nodeIntegration: false,
@@ -77,11 +93,17 @@ function createWindow (): void {
     autoHideMenuBar: true
   })
 
-  if (mainWindow.maximizable) {
+  windowState.manage(mainWindow)
+
+  if (windowState.isMaximized === undefined) {
     mainWindow.maximize()
   }
 
   mainWindow.loadURL('https://synergism.cc/')
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow?.webContents.setZoomFactor(settingsStore.get('zoomFactor'))
+  })
 
   if (!app.isPackaged) {
     mainWindow.webContents.openDevTools()
@@ -180,3 +202,27 @@ app.on('window-all-closed', () => {
 if (initializeSteam()) {
   enableSteamOverlay()
 }
+
+// Window control IPC handlers
+ipcMain.handle('window:setSize', (_, width: number, height: number) => {
+  if (!mainWindow) return
+  if (mainWindow.isMaximized()) mainWindow.unmaximize()
+  mainWindow.setSize(width, height)
+  mainWindow.center()
+})
+
+ipcMain.handle('window:getSize', () => {
+  if (!mainWindow) return null
+  const [width, height] = mainWindow.getSize()
+  return { width, height }
+})
+
+ipcMain.handle('window:setZoomFactor', (_, factor: number) => {
+  if (!mainWindow) return
+  mainWindow.webContents.setZoomFactor(factor)
+  settingsStore.set('zoomFactor', factor)
+})
+
+ipcMain.handle('window:getZoomFactor', () => {
+  return settingsStore.get('zoomFactor')
+})
