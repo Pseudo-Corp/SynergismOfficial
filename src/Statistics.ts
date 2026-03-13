@@ -3181,7 +3181,7 @@ export const antELOStats: NumberStatLine[] = [
   },
   {
     i18n: 'Research7x19',
-    stat: () => 0.2 * player.researches[169],
+    stat: () => 0.02 * player.researches[169],
     displayCriterion: () => isResearchUnlocked(169)
   },
   {

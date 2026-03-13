@@ -2,7 +2,7 @@ declare const PROD: boolean | undefined
 declare const DEV: boolean | undefined
 declare const PLATFORM: 'steam' | undefined
 
-export const version = '4.1.7 March 12, 2026 (3): Steam!!!'
+export const version = '4.1.8 March 12, 2026 (3): Steam!!!'
 
 export const isSynergismCC = location.hostname === 'synergism.cc'
 
