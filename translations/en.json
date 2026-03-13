@@ -4845,7 +4845,7 @@
       },
       "fortieth": {
         "name": "Campaign XL",
-        "description": "Before proceeding in this Campaign, you have to have the Thousand Moons upgrade maxxed. Congratulations!"
+        "description": "Before proceeding in this Campaign, you have to have the Thousand Suns upgrade maxxed. Congratulations!"
       },
       "fortyFirst": {
         "name": "Campaign XLI",
@@ -7112,7 +7112,7 @@
         "reincarnationChallengeReduction": "• Challenge 6-10 Requirement Scaling: {{amount}}",
         "antSpeed": "• Ant Speed: +{{amount}} [Immaculate!]",
         "bonusAntLevel": "• Bonus Ant Levels: +{{amount}}",
-        "achievementUnlock": "• Achievement Unlocked! [[252]]",
+        "achievementUnlock": "• Achievement Unlocked! \"Ultimate\"",
         "cube3": "• All Cube Types III: +{{amount}}",
         "talismanBonus": "• Talisman Bonus Free Levels: +{{amount}}",
         "globalSpeed": "• Global Speed: +{{amount}}",
