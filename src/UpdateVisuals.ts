@@ -1418,7 +1418,7 @@ export const visualUpdateCorruptions = () => {
     return
   }
 
-  const metaData = CalcCorruptionStuff()
+  const ascensionRewards = CalcCorruptionStuff()
   const ascCount = calculateAscensionCount()
 
   const autoAscendDOM = DOMCacheGetOrSet('autoAscend')
@@ -1437,20 +1437,20 @@ export const visualUpdateCorruptions = () => {
   DOMCacheGetOrSet('corruptionBank').innerHTML = i18next.t(
     'corruptions.corruptionBank',
     {
-      number: format(metaData[0], 0, true)
+      number: format(ascensionRewards.wowCubes, 0, true)
     }
   )
   DOMCacheGetOrSet('corruptionScore').innerHTML = i18next.t(
     'corruptions.corruptionScore',
     {
-      ascScore: format(metaData[1], 1, true),
-      corrMult: format(metaData[2], 1, true),
-      bonusMult: format(metaData[9], 2, true),
-      totalScore: format(metaData[3], 1, true)
+      ascScore: format(ascensionRewards.baseScore, 1, true),
+      corrMult: format(ascensionRewards.corruptionMultiplier, 1, true),
+      bonusMult: format(ascensionRewards.bonusMultiplier, 2, true),
+      totalScore: format(ascensionRewards.effectiveScore, 1, true)
     }
   )
 
-  if (metaData[3] > 1e23) {
+  if (ascensionRewards.effectiveScore > 1e23) {
     DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'visible'
   } else {
     DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'hidden'
@@ -1459,31 +1459,31 @@ export const visualUpdateCorruptions = () => {
   DOMCacheGetOrSet('corruptionCubes').innerHTML = i18next.t(
     'corruptions.corruptionCubes',
     {
-      cubeAmount: format(metaData[4], 0, true)
+      cubeAmount: format(ascensionRewards.wowCubes, 0, true)
     }
   )
   DOMCacheGetOrSet('corruptionTesseracts').innerHTML = i18next.t(
     'corruptions.corruptionTesseracts',
     {
-      tesseractAmount: format(metaData[5], 0, true)
+      tesseractAmount: format(ascensionRewards.wowTesseracts, 0, true)
     }
   )
   DOMCacheGetOrSet('corruptionHypercubes').innerHTML = i18next.t(
     'corruptions.corruptionHypercubes',
     {
-      hypercubeAmount: format(metaData[6], 0, true)
+      hypercubeAmount: format(ascensionRewards.wowHypercubes, 0, true)
     }
   )
   DOMCacheGetOrSet('corruptionPlatonicCubes').innerHTML = i18next.t(
     'corruptions.corruptionPlatonics',
     {
-      platonicAmount: format(metaData[7], 0, true)
+      platonicAmount: format(ascensionRewards.wowPlatonicCubes, 0, true)
     }
   )
   DOMCacheGetOrSet('corruptionHepteracts').innerHTML = i18next.t(
     'corruptions.corruptionHepteracts',
     {
-      hepteractAmount: format(metaData[8], 0, true)
+      hepteractAmount: format(ascensionRewards.wowHepteracts, 0, true)
     }
   )
   DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {

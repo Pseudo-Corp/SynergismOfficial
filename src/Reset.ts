@@ -249,10 +249,11 @@ const resetdetails = (input: resetNames) => {
       resetInfo.style.color = 'gold'
       break
     case 'ascension':
+      const ascensionRewards = CalcCorruptionStuff()
       currencyImage1.style.display = 'none'
       resetCurrencyGain.textContent = ''
       resetInfo.textContent = i18next.t('reset.details.ascension', {
-        cubeAmount: format(CalcCorruptionStuff()[4], 0, true),
+        cubeAmount: format(ascensionRewards.wowCubes, 0, true),
         timeSpent: format(player.ascensionCounter, 0, false),
         realTimeSpent: format(player.ascensionCounterRealReal, 0, false)
       })
@@ -363,12 +364,12 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         date: Date.now(),
         c10Completions: player.challengecompletions[10],
         usedCorruptions: player.corruptions.used.loadout,
-        corruptionScore: corruptionMetaData[3],
-        wowCubes: corruptionMetaData[4],
-        wowTesseracts: corruptionMetaData[5],
-        wowHypercubes: corruptionMetaData[6],
-        wowPlatonicCubes: corruptionMetaData[7],
-        wowHepteracts: corruptionMetaData[8],
+        corruptionScore: corruptionMetaData.effectiveScore,
+        wowCubes: corruptionMetaData.wowCubes,
+        wowTesseracts: corruptionMetaData.wowTesseracts,
+        wowHypercubes: corruptionMetaData.wowHypercubes,
+        wowPlatonicCubes: corruptionMetaData.wowPlatonicCubes,
+        wowHepteracts: corruptionMetaData.wowHepteracts,
         kind: 'ascend'
       }
 
@@ -431,6 +432,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   const transcensionCheck = player.coinsThisTranscension.gte(1e100)
   const reincarnationCheck = player.transcendShards.gte(1e300)
   const obtainiumToGain = calculateObtainium()
+  const ascensionRewards = CalcCorruptionStuff()
 
   resetOfferings()
   resetUpgrades(1)
@@ -639,7 +641,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   }
 
   if (input === 'ascension' || input === 'ascensionChallenge' || input === 'singularity') {
-    const metaData = CalcCorruptionStuff()
     if (player.challengecompletions[10] > 0) {
       awardAchievementGroup('ascensionScore')
     }
@@ -697,21 +698,14 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     const c10Completions = player.challengecompletions[10]
 
-    // If challenge 10 is incomplete, you won't get a cube no matter what
-    if (player.challengecompletions[10] > 0 && player.ascensionCounter > 0) {
+    // Only reward Ascension-level rewards if we have a Challenge 10 completion (the requirement for Ascension)
+    if (player.challengecompletions[10] > 0) {
       player.ascensionCount += calculateAscensionCount()
-      // Metadata is defined up in the top of the (i > 3.5) case
-      // Protect the cube from developer mistakes
-      if (
-        isFinite(metaData[4]) && isFinite(metaData[5]) && isFinite(metaData[6]) && isFinite(metaData[7])
-        && isFinite(metaData[8])
-      ) {
-        player.wowCubes.add(metaData[4])
-        player.wowTesseracts.add(metaData[5])
-        player.wowHypercubes.add(metaData[6])
-        player.wowPlatonicCubes.add(metaData[7])
-        player.wowAbyssals = Math.min(1e300, player.wowAbyssals + metaData[8])
-      }
+      player.wowCubes.add(ascensionRewards.wowCubes)
+      player.wowTesseracts.add(ascensionRewards.wowTesseracts)
+      player.wowHypercubes.add(ascensionRewards.wowHypercubes)
+      player.wowPlatonicCubes.add(ascensionRewards.wowPlatonicCubes)
+      player.wowAbyssals = Math.min(1e300, player.wowAbyssals + ascensionRewards.wowHepteracts)
     }
 
     for (let j = 1; j <= 10; j++) {

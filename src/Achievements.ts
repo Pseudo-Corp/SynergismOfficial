@@ -1677,16 +1677,16 @@ const achievements: Achievement[] = [
   { pointValue: 70, unlockCondition: () => player.challengecompletions[14] >= 30, group: 'challenge14' },
   {
     pointValue: 5,
-    unlockCondition: () => CalcCorruptionStuff()[3] >= 1e5,
+    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e5,
     group: 'ascensionScore',
     steamAchievementId: 'GROUPED_ASCENSIONSCORE_1'
   },
-  { pointValue: 10, unlockCondition: () => CalcCorruptionStuff()[3] >= 1e6, group: 'ascensionScore' },
-  { pointValue: 15, unlockCondition: () => CalcCorruptionStuff()[3] >= 1e7, group: 'ascensionScore' },
-  { pointValue: 20, unlockCondition: () => CalcCorruptionStuff()[3] >= 1e8, group: 'ascensionScore' },
-  { pointValue: 25, unlockCondition: () => CalcCorruptionStuff()[3] >= 1e9, group: 'ascensionScore' },
-  { pointValue: 30, unlockCondition: () => CalcCorruptionStuff()[3] >= 5e9, group: 'ascensionScore' },
-  { pointValue: 35, unlockCondition: () => CalcCorruptionStuff()[3] >= 2.5e10, group: 'ascensionScore' },
+  { pointValue: 10, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e6, group: 'ascensionScore' },
+  { pointValue: 15, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e7, group: 'ascensionScore' },
+  { pointValue: 20, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e8, group: 'ascensionScore' },
+  { pointValue: 25, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e9, group: 'ascensionScore' },
+  { pointValue: 30, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 5e9, group: 'ascensionScore' },
+  { pointValue: 35, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 2.5e10, group: 'ascensionScore' },
   { pointValue: 10, unlockCondition: () => runeBlessings.speed.level >= 20, group: 'speedBlessing' },
   {
     pointValue: 20,
@@ -1768,43 +1768,43 @@ const achievements: Achievement[] = [
   },
   {
     pointValue: 40,
-    unlockCondition: () => CalcCorruptionStuff()[3] >= 1e12,
+    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e12,
     group: 'ascensionScore',
     reward: { wowHypercubeGain: () => 1.1 }
   },
   {
     pointValue: 45,
-    unlockCondition: () => CalcCorruptionStuff()[3] >= 1e14,
+    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e14,
     group: 'ascensionScore',
     reward: { wowCubeGain: () => 1.1 }
   },
   {
     pointValue: 50,
-    unlockCondition: () => CalcCorruptionStuff()[3] >= 1e17,
+    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e17,
     group: 'ascensionScore',
     reward: { wowTesseractGain: () => 1.1 }
   },
   {
     pointValue: 55,
-    unlockCondition: () => CalcCorruptionStuff()[3] >= 2e18,
+    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 2e18,
     group: 'ascensionScore',
     reward: { wowPlatonicGain: () => 1.1, overfluxConversionRate: () => 1.05 }
   },
   {
     pointValue: 60,
-    unlockCondition: () => CalcCorruptionStuff()[3] >= 4e19,
+    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 4e19,
     group: 'ascensionScore',
     reward: { overfluxConversionRate: () => 1.05 }
   },
   {
     pointValue: 65,
-    unlockCondition: () => CalcCorruptionStuff()[3] >= 1e21,
+    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e21,
     group: 'ascensionScore',
     reward: { wowHepteractGain: () => 1.1 }
   },
   {
     pointValue: 70,
-    unlockCondition: () => CalcCorruptionStuff()[3] >= 1e23,
+    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e23,
     group: 'ascensionScore',
     reward: { ascensionScore: () => Math.pow(1.01, hepteracts.abyss.TIMES_CAP_EXTENDED) },
     steamAchievementId: 'GROUPED_ASCENSIONSCORE_2'
