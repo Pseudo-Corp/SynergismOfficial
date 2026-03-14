@@ -37,12 +37,6 @@ export const updateIconsFromSprites = (folderUsed: String) => {
     for (const sheet of spriteSheets) {
         for (const icon of sheet.icons) {
             const element = DOMCacheGetOrSet(icon.elementName)
-            if (!element) {
-                throw new Error(`Element with id ${icon.elementName} not found - sprite sheet ${sheet.name}`)
-            }
-            if (!(element instanceof HTMLImageElement)) {
-                throw new Error(`Element with id ${icon.elementName} is not an HTMLElement - sprite sheet ${sheet.name}`)
-            }
             element.style.backgroundImage = `url('Pictures/${folderUsed}/Sprite Sheets/${sheet.name}.png')`
             const backgroundX = -icon.x * sheet.iconSize
             const backgroundY = -icon.y * sheet.iconSize
