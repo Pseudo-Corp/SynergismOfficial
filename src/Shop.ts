@@ -62,10 +62,14 @@ interface IShopData {
   priceIncrease: number
   maxLevel: number
   type: shopUpgradeTypes
-  refundable: boolean
+  refundable: () => boolean
   refundMinimumLevel: number
   tier: shopResetTier
 }
+
+const refundableUntilSingularity20 = () => player.highestSingularityCount < 20
+const refundableUntilSingularity51 = () => player.highestSingularityCount < 51
+const refundableNever = () => false
 
 export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   offeringPotion: {
@@ -73,7 +77,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: Math.pow(10, 15),
     type: shopUpgradeTypes.CONSUMABLE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0,
     tier: 'Reincarnation'
   },
@@ -83,7 +87,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: Math.pow(10, 15),
     type: shopUpgradeTypes.CONSUMABLE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   offeringEX: {
@@ -92,7 +96,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 10,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity20,
     refundMinimumLevel: 0
   },
   offeringAuto: {
@@ -101,7 +105,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 10,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity20,
     refundMinimumLevel: 1
   },
   obtainiumEX: {
@@ -110,7 +114,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 10,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity20,
     refundMinimumLevel: 0
   },
   obtainiumAuto: {
@@ -119,7 +123,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 10,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity20,
     refundMinimumLevel: 1
   },
   instantChallenge: {
@@ -128,7 +132,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 99999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   antSpeed: {
@@ -137,7 +141,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 25,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity20,
     refundMinimumLevel: 0
   },
   cashGrab: {
@@ -146,7 +150,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 40,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity20,
     refundMinimumLevel: 0
   },
   shopTalisman: {
@@ -155,7 +159,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 99999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   seasonPass: {
@@ -164,7 +168,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 75,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity51,
     refundMinimumLevel: 0
   },
   challengeExtension: {
@@ -173,7 +177,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 250,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   challengeTome: {
@@ -182,7 +186,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 250,
     maxLevel: 15,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   cubeToQuark: {
@@ -191,7 +195,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 99999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   tesseractToQuark: {
@@ -200,7 +204,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 99999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   hypercubeToQuark: {
@@ -209,7 +213,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 99999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   seasonPass2: {
@@ -218,7 +222,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 250,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity51,
     refundMinimumLevel: 0
   },
   seasonPass3: {
@@ -227,7 +231,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 500,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity51,
     refundMinimumLevel: 0
   },
   chronometer: {
@@ -236,7 +240,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 400,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity51,
     refundMinimumLevel: 0
   },
   infiniteAscent: {
@@ -245,7 +249,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 9999999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   calculator: {
@@ -254,7 +258,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 300,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 1
   },
   calculator2: {
@@ -263,7 +267,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 800,
     maxLevel: 12,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   calculator3: {
@@ -272,7 +276,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 1500,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   calculator4: {
@@ -281,7 +285,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 1e6,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   calculator5: {
@@ -290,7 +294,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 1e8,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   calculator6: {
@@ -299,7 +303,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2e10,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   constantEX: {
@@ -308,7 +312,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 899999,
     maxLevel: 2,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   powderEX: {
@@ -317,7 +321,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 750,
     maxLevel: 50,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   chronometer2: {
@@ -326,7 +330,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 1500,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity51,
     refundMinimumLevel: 0
   },
   chronometer3: {
@@ -335,7 +339,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 250,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   seasonPassY: {
@@ -344,7 +348,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 1500,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
+    refundable: refundableUntilSingularity51,
     refundMinimumLevel: 0
   },
   seasonPassZ: {
@@ -353,7 +357,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 250,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   challengeTome2: {
@@ -362,7 +366,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 1000000,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   instantChallenge2: {
@@ -371,7 +375,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   cubeToQuarkAll: {
@@ -380,7 +384,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   cashGrab2: {
@@ -389,7 +393,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 5000,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   chronometerZ: {
@@ -398,7 +402,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 12500,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   offeringEX2: {
@@ -407,7 +411,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 10000,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   obtainiumEX2: {
@@ -416,7 +420,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 10000,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   powderAuto: {
@@ -425,7 +429,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   seasonPassLost: {
@@ -434,7 +438,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 25000,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   challenge15Auto: {
@@ -443,7 +447,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   extraWarp: {
@@ -452,7 +456,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   autoWarp: {
@@ -461,7 +465,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   improveQuarkHept: {
@@ -470,7 +474,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 19999,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   improveQuarkHept2: {
@@ -479,7 +483,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2e6 - 1,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   improveQuarkHept3: {
@@ -488,7 +492,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2e9 - 1,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   improveQuarkHept4: {
@@ -497,7 +501,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2e11 - 1,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopImprovedDaily: {
@@ -506,7 +510,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2500,
     maxLevel: 20,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopImprovedDaily2: {
@@ -515,7 +519,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 500000,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopImprovedDaily3: {
@@ -524,7 +528,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 12500000,
     maxLevel: 15,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopImprovedDaily4: {
@@ -533,7 +537,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 5e9,
     maxLevel: 25,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   offeringEX3: {
@@ -542,7 +546,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 1.25e12,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   obtainiumEX3: {
@@ -551,7 +555,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 1.25e12,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   improveQuarkHept5: {
@@ -560,7 +564,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2.5e13,
     maxLevel: 80,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   chronometerInfinity: {
@@ -569,7 +573,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2.5e12,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   seasonPassInfinity: {
@@ -578,7 +582,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 3.75e12,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopSingularityPenaltyDebuff: {
@@ -587,7 +591,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 9.99e19,
     maxLevel: 4,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuckMultiplier4: {
@@ -596,7 +600,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 3e20,
     maxLevel: 4,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   calculator7: {
@@ -605,7 +609,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 1e19,
     maxLevel: 50,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopOcteractAmbrosiaLuck: {
@@ -614,7 +618,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 9e21,
     maxLevel: 2,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopAmbrosiaGeneration1: {
@@ -623,7 +627,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 5e11,
     maxLevel: 25,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopAmbrosiaGeneration2: {
@@ -632,7 +636,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 5e12,
     maxLevel: 30,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopAmbrosiaGeneration3: {
@@ -641,7 +645,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 5e13,
     maxLevel: 35,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopAmbrosiaGeneration4: {
@@ -650,7 +654,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 4 * 1e16,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuck1: {
@@ -659,7 +663,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2e11,
     maxLevel: 40,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuck2: {
@@ -668,7 +672,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2e12,
     maxLevel: 50,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuck3: {
@@ -677,7 +681,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2e13,
     maxLevel: 60,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuck4: {
@@ -686,7 +690,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 4 * 1e16,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopRedLuck1: {
@@ -695,7 +699,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 5e13,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopRedLuck2: {
@@ -704,7 +708,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 1e17,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopRedLuck3: {
@@ -713,7 +717,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 3e19,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopCashGrabUltra: {
@@ -722,7 +726,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 1e22,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopAmbrosiaAccelerator: {
@@ -731,7 +735,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2e21,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopEXUltra: {
@@ -740,7 +744,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 80,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopChronometerS: {
@@ -749,7 +753,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopAmbrosiaUltra: {
@@ -758,7 +762,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 2e23,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopSingularitySpeedup: {
@@ -767,7 +771,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopSingularityPotency: {
@@ -776,7 +780,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopSadisticRune: {
@@ -785,7 +789,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopInfiniteShopUpgrades: {
@@ -794,7 +798,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   },
   shopHorseShoe: {
@@ -803,7 +807,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
+    refundable: refundableNever,
     refundMinimumLevel: 0
   }
 }
@@ -815,22 +819,6 @@ const singularity5PreservedUpgrades: Set<ShopUpgradeNames> = new Set([
   'obtainiumEX',
   'antSpeed',
   'cashGrab'
-])
-const singularity20PreservedUpgrades: Set<ShopUpgradeNames> = new Set([
-  'offeringAuto',
-  'offeringEX',
-  'obtainiumAuto',
-  'obtainiumEX',
-  'antSpeed',
-  'cashGrab'
-])
-const singularity51PreservedUpgrades: Set<ShopUpgradeNames> = new Set([
-  'seasonPass',
-  'seasonPass2',
-  'seasonPass3',
-  'seasonPassY',
-  'chronometer',
-  'chronometer2'
 ])
 
 export const updateShopLevels = () => {
@@ -947,7 +935,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
   rofl.innerHTML = i18next.t(`shop.upgradeDescriptions.${input}`)
 
-  refundable.textContent = shopData[input].refundable
+  refundable.textContent = shopData[input].refundable()
     ? i18next.t('shop.refundable', { level: shopData[input].refundMinimumLevel })
     : i18next.t('shop.cannotRefund')
 
@@ -1679,7 +1667,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   const merch = buyAmount.toLocaleString()
     + (shopItem.type === shopUpgradeTypes.UPGRADE ? ' level' : ' vial')
     + (buyAmount === 1 ? '' : 's')
-  const noRefunds = shopItem.refundable
+  const noRefunds = shopItem.refundable()
     ? ''
     : '\n\n\u26A0\uFE0F !! No Refunds !! \u26A0\uFE0F'
   const maxPots = shopItem.type === shopUpgradeTypes.CONSUMABLE
@@ -1741,7 +1729,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   let p = true
   if (
     player.shopConfirmationToggle
-    || (!shopItem.refundable && player.shopBuyMaxToggle !== false)
+    || (!shopItem.refundable() && player.shopBuyMaxToggle !== false)
   ) {
     p = await Confirm(
       `You are about to ${singular ? 'unlock' : `purchase ${merch} of`} ${
@@ -1845,10 +1833,8 @@ export const useConsumable = (
 }
 
 export const calculateMinimumShopRefundableLevel = (upgrade: ShopUpgradeNames): number => {
-  let isRefundable = shopData[upgrade].refundable
+  const isRefundable = shopData[upgrade].refundable()
   let refundableUpgradeMinimum = shopData[upgrade].refundMinimumLevel
-  if (player.highestSingularityCount >= 20 && singularity20PreservedUpgrades.has(upgrade)) isRefundable = false
-  else if (player.highestSingularityCount >= 51 && singularity51PreservedUpgrades.has(upgrade)) isRefundable = false
 
   // Return max level because the refund function only considers an upgrade refundable if refundMinimum is less than maxLevel
   if (!isRefundable) return shopData[upgrade].maxLevel

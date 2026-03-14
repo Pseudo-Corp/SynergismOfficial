@@ -1959,7 +1959,7 @@ export const visualUpdateShop = () => {
       if (
         player.shopHideToggle
         && player.shopUpgrades[key] >= shopItem.maxLevel
-        && !shopItem.refundable
+        && !shopItem.refundable()
       ) {
         DOMCacheGetOrSet(`${key}Hide`).style.display = 'none'
         continue
