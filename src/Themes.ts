@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { player } from './Synergism'
 import { updateIconsFromSprites } from './SpriteSheets'
+import { player } from './Synergism'
 
 export const toggleTheme = (initial = false, themeNumber = 1, change = false) => {
   const themeButton = DOMCacheGetOrSet('theme')
