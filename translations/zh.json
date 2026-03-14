@@ -3224,7 +3224,7 @@
       "166": "[7x16]《时 间》：每级使全局速度增加0.9%。",
       "167": "[7x17]由于赞助的缘故，惊奇公司使飞升的惊奇方盒获取数量每级增加0.8%。",
       "168": "[7x18]每级使惊奇方盒的贡品获取数量增加0.08%。您到这个时候应该预料的到。",
-      "169": "[7x19]强大的蚂蚁强度分浪潮！每级使强度分增加0.2。嗯……该研究的花费似乎随着等级增加，应该不止是<b>我</b>才这样吧？",
+      "169": "[7x19] A great wave of Ant ELO! +0.02 per level. Wow! that's a lot of levels.",
       "170": "[7x20]四部曲的第三部：如何完全搞定挑战10。挑战10的基础目标再次减少1e100M！",
       "171": "[7x21]您应该知道这个趋势了。每级增加0.4%加速器数量",
       "172": "[7x22]每级增加0.4%加速器加成，就这样",
@@ -4845,7 +4845,7 @@
       },
       "fortieth": {
         "name": "战役 XL",
-        "description": "开始战役前，您必须先完成静月千阴的购买。恭喜！"
+        "description": "Before proceeding in this Campaign, you have to have the Thousand Suns upgrade maxxed. Congratulations!"
       },
       "fortyFirst": {
         "name": "战役 XLI",
@@ -7112,7 +7112,7 @@
         "reincarnationChallengeReduction": "• 挑战6至挑战10目标增长速度：{{amount}}",
         "antSpeed": "• 蚂蚁速度：+{{amount}} [无瑕！]",
         "bonusAntLevel": "• 蚂蚁额外等级：+{{amount}}",
-        "achievementUnlock": "• 解锁成就！[[252]]",
+        "achievementUnlock": "• Achievement Unlocked! \"Ultimate\"",
         "cube3": "• 所有类型的方盒、立方和方块获取数量 III：+{{amount}}",
         "talismanBonus": "• 护身符免费符文等级加成：+{{amount}}",
         "globalSpeed": "• 全局速度：+{{amount}}",
