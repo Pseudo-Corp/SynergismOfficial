@@ -173,9 +173,8 @@ interface StatLine<T = number | Exclude<DecimalSource, string>> {
 }
 
 type NumberStatLine = StatLine<number>
-type DecimalSourceLine = StatLine<Exclude<DecimalSource, string>>
 
-export const statLineDecimalMultiplication = (lines: DecimalSourceLine[]): Decimal => {
+export const statLineDecimalMultiplication = (lines: StatLine[]): Decimal => {
   return lines.reduce((acc, line) => acc.times(line.stat()), new Decimal(1))
 }
 
@@ -907,7 +906,7 @@ export const allBaseOfferingStats: NumberStatLine[] = [
   }
 ]
 
-export const allOfferingStats: DecimalSourceLine[] = [
+export const allOfferingStats: StatLine[] = [
   {
     i18n: 'Base',
     stat: () => calculateBaseOfferings()
@@ -1557,7 +1556,7 @@ export const allObtainiumIgnoreDRStats: NumberStatLine[] = [
   }
 ]
 
-export const allObtainiumStats: DecimalSourceLine[] = [
+export const allObtainiumStats: StatLine[] = [
   {
     i18n: 'TranscendShards',
     stat: () => Math.max(1, Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2)) // Transcend Shards
@@ -1761,7 +1760,7 @@ export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: bool
   ]
 }
 
-export const antSacrificeRewardStats: DecimalSourceLine[] = [
+export const antSacrificeRewardStats: StatLine[] = [
   {
     i18n: 'AchievementBonus',
     stat: () => +getAchievementReward('sacrificeMult')
@@ -2963,7 +2962,7 @@ export const negativeSalvageStats: NumberStatLine[] = [
   }
 ]
 
-export const antSpeedStats: DecimalSourceLine[] = [
+export const antSpeedStats: StatLine[] = [
   {
     i18n: 'Base',
     stat: () => {
@@ -3182,7 +3181,7 @@ export const antELOStats: NumberStatLine[] = [
   },
   {
     i18n: 'Research7x19',
-    stat: () => 0.2 * player.researches[169],
+    stat: () => 0.02 * player.researches[169],
     displayCriterion: () => isResearchUnlocked(169)
   },
   {
@@ -3396,7 +3395,7 @@ export const ascensionCountMultStats: NumberStatLine[] = [
   }
 ]
 
-const allMiscStats: DecimalSourceLine[] = [
+const allMiscStats: StatLine[] = [
   {
     i18n: 'PrestigeCount',
     stat: () => player.prestigeCount,
@@ -3706,7 +3705,7 @@ const loadStatistics = (
     const accuracy = obj.acc ?? 2
     const num = obj.stat()
 
-    statNumber.textContent = `${format(num, accuracy, true)}`
+    statNumber.textContent = format(num, accuracy, true)
   }
 
   const statTotalHTMLName = `${statLinePrefix}T`
@@ -3734,7 +3733,7 @@ const loadStatistics = (
   if (hasSummative) {
     const statTotalNumber = DOMCacheGetOrSet(statNumTotalHTMLName)
     const total = calcTotalFunc()
-    statTotalNumber.textContent = `${format(total, 3, true)}`
+    statTotalNumber.textContent = format(total, 3, true)
   }
 }
 

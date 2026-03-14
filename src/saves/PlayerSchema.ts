@@ -24,6 +24,7 @@ import { padArray, sumContents } from '../Utility'
 
 const decimalSchema = z.custom<DecimalSource>((value) => {
   try {
+    // eslint-disable-next-line no-new
     new Decimal(value)
     return true
   } catch {
@@ -77,16 +78,14 @@ const antsSchema = z.object({
 
       for (const key of Object.keys(record)) {
         const value = record[key]
-        const numKey = Number(key)
-        if (numKey >= 0 && numKey <= LAST_ANT_PRODUCER) {
+        const numKey = Number(key) as AntProducers
+        if (numKey >= AntProducers.Workers && numKey <= LAST_ANT_PRODUCER) {
           result[numKey] = value
         }
       }
 
       for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
-        if (!(ant in result)) {
-          result[ant] = emptyAntProducer()
-        }
+        result[ant] ??= emptyAntProducer()
       }
 
       return result
@@ -99,16 +98,14 @@ const antsSchema = z.object({
 
       for (const key of Object.keys(record)) {
         const value = record[key]
-        const numKey = Number(key)
-        if (numKey >= 0 && numKey <= LAST_ANT_PRODUCER) {
+        const numKey = Number(key) as AntProducers
+        if (numKey >= AntProducers.Workers && numKey <= LAST_ANT_PRODUCER) {
           result[numKey] = value
         }
       }
 
       for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
-        if (!(ant in result)) {
-          result[ant] = { ...defaultAntMasteries[ant] }
-        }
+        result[ant] ??= { ...defaultAntMasteries[ant] }
       }
 
       return result
@@ -120,8 +117,8 @@ const antsSchema = z.object({
       const result: Record<number, number> = {}
 
       for (const [key, value] of Object.entries(record)) {
-        const numKey = Number(key)
-        if (numKey >= 0 && numKey <= LAST_ANT_UPGRADE) {
+        const numKey = Number(key) as AntUpgrades
+        if (numKey >= AntUpgrades.AntSpeed && numKey <= LAST_ANT_UPGRADE) {
           result[numKey] = value
         }
       }
@@ -773,7 +770,7 @@ export const playerSchema = z.object({
   cubeBlessings: z.record(z.string(), z.number()).transform((obj) => {
     const sum = sumContents(Object.values(obj))
     if (!isFinite(sum) || sum > 1e300) {
-      const obj: typeof blankSave.cubeBlessings = {
+      return {
         accelerator: 2e299,
         multiplier: 2e299,
         offering: 1e299,
@@ -784,8 +781,7 @@ export const playerSchema = z.object({
         antELO: 5e298,
         talismanBonus: 5e298,
         globalSpeed: 5e298
-      }
-      return obj
+      } satisfies typeof blankSave.cubeBlessings
     }
     return obj
   }).default(() => ({ ...blankSave.cubeBlessings })),

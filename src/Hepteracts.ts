@@ -332,7 +332,7 @@ const getCraftableHepteractAmount = (hept: HepteractKeys) => {
       itemLimits.push(
         Decimal.min(
           Decimal.floor(
-            (player[indexableItem] as Decimal).div(craftCostMulti * hepteracts[hept].OTHER_CONVERSIONS[indexableItem]!)
+            (player[indexableItem] as Decimal).div(craftCostMulti * hepteracts[hept].OTHER_CONVERSIONS[indexableItem])
           ),
           1e300
         ).toNumber()
@@ -435,21 +435,22 @@ export const craftHepteracts = async (hept: HepteractKeys, max = false) => {
 
   for (const item of (Object.keys(hepteracts[hept].OTHER_CONVERSIONS) as (keyof Player)[])) {
     if (typeof player[item] === 'number') {
+      // eslint-disable-next-line typescript/no-unnecessary-type-assertion: false positive
       ;(player[item] as number) -= amountToCraft * craftCostMulti
-        * hepteracts[hept].OTHER_CONVERSIONS[item]!
+        * hepteracts[hept].OTHER_CONVERSIONS[item]
     }
 
     if ((player[item] as number) < 0) {
       ;(player[item] as number) = 0
     } else if (player[item] instanceof Cube) {
       ;(player[item] as Cube).sub(
-        amountToCraft * craftCostMulti * hepteracts[hept].OTHER_CONVERSIONS[item]!
+        amountToCraft * craftCostMulti * hepteracts[hept].OTHER_CONVERSIONS[item]
       )
     } else if (item === 'worlds') {
-      player.worlds.sub(amountToCraft * hepteracts[hept].OTHER_CONVERSIONS[item]!)
+      player.worlds.sub(amountToCraft * hepteracts[hept].OTHER_CONVERSIONS[item])
     } else if (player[item] instanceof Decimal) {
       ;(player[item] as Decimal) = (player[item] as Decimal).sub(
-        new Decimal(amountToCraft).times(craftCostMulti).times(hepteracts[hept].OTHER_CONVERSIONS[item]!)
+        new Decimal(amountToCraft).times(craftCostMulti).times(hepteracts[hept].OTHER_CONVERSIONS[item])
       )
     }
   }

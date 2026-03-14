@@ -59,8 +59,8 @@ const format12 = new Intl.DateTimeFormat('EN-GB', {
 })
 
 const getRealTime = (type = 'default', use12 = false) => {
-  const format = use12 ? format12 : format24
-  const datePartsArr = format
+  const formatFn = use12 ? format12 : format24
+  const datePartsArr = formatFn
     .formatToParts(new Date())
     .filter((x) => x.type !== 'literal')
     .map((p) => ({ [p.type]: p.value }))
@@ -77,21 +77,21 @@ const getRealTime = (type = 'default', use12 = false) => {
     case 'short':
       return `${dateParts.year}${dateParts.month}${dateParts.day}${dateParts.hour}${dateParts.minute}${dateParts.second}`
     case 'year':
-      return `${dateParts.year}`
+      return dateParts.year
     case 'month':
-      return `${dateParts.month}`
+      return dateParts.month
     case 'day':
-      return `${dateParts.day}`
+      return dateParts.day
     case 'hour':
-      return `${dateParts.hour}`
+      return dateParts.hour
     case 'minute':
-      return `${dateParts.minute}`
+      return dateParts.minute
     case 'second':
-      return `${dateParts.second}`
+      return dateParts.second
     case 'period':
-      return `${dateParts.dayPeriod.toUpperCase()}`
+      return dateParts.dayPeriod.toUpperCase()
     case 'weekday':
-      return `${weekdays[new Date().getUTCDay()]}`
+      return weekdays[new Date().getUTCDay()]
     default:
       return type
   }
@@ -815,20 +815,20 @@ export const promocodes = async (input: string | null, amount?: number) => {
       )
     }
   } else if (input === 'sub') {
-    const amount = 1 + (window.crypto.getRandomValues(new Uint16Array(1))[0] % 16) // [1, 16]
+    const quarksToLose = 1 + (window.crypto.getRandomValues(new Uint16Array(1))[0] % 16) // [1, 16]
     const quarks = Number(player.worlds)
-    await Alert(i18next.t('importexport.promocodes.sub.subbed', { x: amount }))
+    await Alert(i18next.t('importexport.promocodes.sub.subbed', { x: quarksToLose }))
 
-    if (quarks < amount) {
+    if (quarks < quarksToLose) {
       await Alert(
         i18next.t('importexport.promocodes.sub.gave', {
-          x: amount - quarks,
-          y: amount
+          x: quarksToLose - quarks,
+          y: quarksToLose
         })
       )
     }
 
-    player.worlds.sub(quarks < amount ? amount - quarks : amount)
+    player.worlds.sub(quarks < quarksToLose ? quarksToLose - quarks : quarksToLose)
   } else if (input === 'time') {
     const availableUses = timeCodeAvailableUses()
     if (availableUses === 0) {
@@ -903,7 +903,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     return
   }
 
-  setTimeout((el: HTMLElement) => el.textContent = '', 15000, el)
+  setTimeout((e) => e.textContent = '', 15000, el)
 }
 
 export const addCodeSingularityPerkBonus = (): number => {

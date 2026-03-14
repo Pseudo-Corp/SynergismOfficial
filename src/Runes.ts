@@ -29,8 +29,8 @@ export const indexToRune: Record<number, RuneKeys> = {
 }
 
 export const runeToIndex = Object.fromEntries(
-  Object.entries(indexToRune).map(([key, value]) => [value as RuneKeys, key as unknown])
-) as Record<RuneKeys, number>
+  Object.entries(indexToRune).map(([key, value]) => [value, key])
+) as Record<RuneKeys, string>
 
 type RuneTypeMap = {
   speed: {

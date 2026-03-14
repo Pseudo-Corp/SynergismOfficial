@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { updateIconsFromSprites } from './SpriteSheets'
 import { player } from './Synergism'
 
 export const toggleTheme = (initial = false, themeNumber = 1, change = false) => {
@@ -284,7 +285,7 @@ enum Notations {
 export const toggleAnnotation = (setting = true) => {
   const notationButton = DOMCacheGetOrSet('notation')
   const current = player.notation
-  let newNotation: string
+  let newNotation: Notations
 
   switch (current) {
     case Notations.PURE_SCIENTIFIC:
@@ -315,6 +316,7 @@ export const settingAnnotation = () => {
     case Notations.PURE_ENGINEERING:
       notationButton.textContent = i18next.t('settings.notation.pureEngineering')
       break
+    case Notations.DEFAULT:
     default:
       notationButton.textContent = i18next.t('settings.notation.default')
   }
@@ -351,6 +353,7 @@ export const toggleIconSet = (changeTo = player.iconSet) => {
     }
   )
   DOMCacheGetOrSet('iconSet').textContent = i18next.t(`settings.iconSets.${IconSets[player.iconSet][0].toLowerCase()}`)
+  updateIconsFromSprites(IconSets[player.iconSet][0])
 }
 
 // If no image is found falls back to designated fallback, then Legacy, then MISSINGIMAGE.png

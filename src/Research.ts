@@ -58,7 +58,7 @@ const researchBaseCosts: DecimalSource[] = [
   2e30, 4e30, 8e30, 1e31, 2e31,
   5e31, 1e32, 2e32, 4e32, 8e32, /*challenge 12 tier */
   1e33, 2e33, 4e33, 8e33, 1e34,
-  3e34, 1e35, 3e35, 6e35, 1e36,
+  3e34, 1e35, 3e35, 6e37, 1e36,
   3e36, 1e37, 3e37, 1e38, 3e38, /*challenge 13 tier */
   1e39, 3e39, 1e40, 3e40, 1e50,
   3e41, 1e42, 3e42, 6e42, 1e43,
@@ -102,7 +102,7 @@ const researchMaxLevels: DecimalSource[] = [
   25, 25, 1, 15, 1,
   10, 10, 10, 1, 1,
   10, 10, 10, 10, 1,
-  25, 25, 25, 10000, 1,
+  25, 25, 25, 100000, 1,
   10, 10, 10, 1, 1,
   10, 3, 6, 10, 5,
   25, 25, 1, 15, 1,
@@ -152,9 +152,7 @@ type RangeLevelAndCost = {
 
 // polyCostForLevels(1) implies constant cost per level, polyCostForLevels(2) implies linear growth in cost per level, etc.
 const researchLevelCostRanges: RangeLevelAndCost[] = [
-  { range: [0, 168], level: polyBuyToLevel(1), cost: polyCostForLevels(1) },
-  { range: [169, 169], level: polyBuyToLevel(2), cost: polyCostForLevels(2) },
-  { range: [170, 199], level: polyBuyToLevel(1), cost: polyCostForLevels(1) },
+  { range: [0, 199], level: polyBuyToLevel(1), cost: polyCostForLevels(1) },
   { range: [200, 200], level: polyBuyToLevel(2), cost: polyCostForLevels(2) }
 ]
 

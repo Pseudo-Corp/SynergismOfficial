@@ -1165,7 +1165,7 @@ const checkAmbrosiaUpgradePrerequisites = (upgradeKey: AmbrosiaUpgradeNames): bo
 
   for (const [prereq, val] of Object.entries(prerequisites)) {
     const k = prereq as AmbrosiaUpgradeNames
-    if (ambrosiaUpgrades[k].level < val!) {
+    if (ambrosiaUpgrades[k].level < val) {
       return false
     }
   }
@@ -1190,11 +1190,13 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
     preReqText = String(i18next.t('ambrosia.prerequisite'))
     for (const [prereq, val] of Object.entries(upgrade.prerequisites)) {
       const k = prereq as AmbrosiaUpgradeNames
-      const color = ambrosiaUpgrades[k].level >= val! ? 'green' : 'red'
-      const met = ambrosiaUpgrades[k].level >= val!
+      const ambrosiaNameColor = ambrosiaUpgrades[k].level >= val ? 'green' : 'red'
+      const met = ambrosiaUpgrades[k].level >= val
         ? ''
         : i18next.t('ambrosia.prereqNotMet')
-      preReqText = `${preReqText}<span style="color:${color}"> ${ambrosiaUpgrades[k].name()} lv.${val} ${met}</span> |`
+      preReqText = `${preReqText}<span style="color:${ambrosiaNameColor}"> ${
+        ambrosiaUpgrades[k].name()
+      } lv.${val} ${met}</span> |`
     }
 
     preReqText = preReqText.slice(0, -1)
@@ -1209,11 +1211,9 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
   const preReqHTML = preReqText ? `${preReqText}<br>` : ''
   const descriptionHTML = `<span style="color: lightblue">${upgrade.description()}</span>`
   const effectsHTML = `<span style="color: gold">${effectsDescription}</span>`
-  const costNextLevelHTML = `${
-    i18next.t('ambrosia.ambrosiaCost', {
-      amount: format(costNextLevel, 0, true)
-    })
-  }`
+  const costNextLevelHTML = i18next.t('ambrosia.ambrosiaCost', {
+    amount: format(costNextLevel, 0, true)
+  })
   const blueberryCostHTML = `${
     i18next.t('ambrosia.blueberryCost')
   } <span style="color:blue">${upgrade.blueberryCost}</span>`
@@ -1332,7 +1332,7 @@ export const buyAmbrosiaUpgradeLevel = async (
   }
   if (purchased > 1) {
     return Alert(
-      `${i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) })}`
+      i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) })
     )
   }
 }
@@ -1386,7 +1386,7 @@ const validateBlueberryTree = (modules: BlueberryOpt) => {
 
     // Nix malicious or bad values
     if (
-      val! < 0
+      val < 0
       || !Number.isFinite(val)
       || !Number.isInteger(val)
       || Number.isNaN(val)
@@ -1397,7 +1397,7 @@ const validateBlueberryTree = (modules: BlueberryOpt) => {
     if (ambrosiaUpgrades[k] === undefined) return false
 
     // Set val to max if it exceeds it, since it is possible module caps change over time.
-    const effectiveVal = Math.min(ambrosiaUpgrades[k].maxLevel, val!)
+    const effectiveVal = Math.min(ambrosiaUpgrades[k].maxLevel, val)
 
     // Check if you have the module unlocked.
     if (effectiveVal > 0) {
@@ -1412,14 +1412,14 @@ const validateBlueberryTree = (modules: BlueberryOpt) => {
 
     // Check prereq for this specific module
     const prereqs = ambrosiaUpgrades[k].prerequisites
-    if (prereqs !== undefined && val! > 0) {
+    if (prereqs !== undefined && val > 0) {
       for (const [key2, val2] of Object.entries(prereqs)) {
         const k2 = key2 as keyof BlueberryOpt
         const level = modules[k2]
           ?? -1 /* If undefined, this is saying 'We need to have module
         set to level val2 but it isn't even in our module loadout, so it cannot possibly satisfy prereqs'*/
 
-        if (level < val2!) {
+        if (level < val2) {
           meetsPrerequisites = false
         }
       }
@@ -1435,7 +1435,7 @@ const validateBlueberryTree = (modules: BlueberryOpt) => {
       const valFunc = ambrosiaUpgrades[k].costFormula
       const baseCost = ambrosiaUpgrades[k].costPerLevel
       let tempCost = 0
-      for (let i = 0; i < val!; i++) {
+      for (let i = 0; i < val; i++) {
         tempCost += valFunc(i, baseCost)
       }
       spentAmbrosia += tempCost
@@ -1460,7 +1460,7 @@ const fixBlueberryLevel = (modules: BlueberryOpt) => {
   return Object.fromEntries(
     Object.entries(modules).map(([key, value]) => {
       const k = key as AmbrosiaUpgradeNames
-      return [k, Math.min(value!, ambrosiaUpgrades[k].maxLevel)]
+      return [k, Math.min(value, ambrosiaUpgrades[k].maxLevel)]
     })
   )
 }
@@ -1634,7 +1634,7 @@ export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
       }
     } else {
       img.classList.add('superDimmed')
-      levelOverlay!.textContent = ''
+      levelOverlay.textContent = ''
     }
   }
 }

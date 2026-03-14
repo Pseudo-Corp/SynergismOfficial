@@ -63,7 +63,7 @@ import {
   visualUpdateSingularity,
   visualUpdateUpgrades
 } from './UpdateVisuals'
-import { createDeferredPromise, updateClassList } from './Utility'
+import { createDeferredPromise, memoize, updateClassList } from './Utility'
 import { Globals as G } from './Variables'
 
 const htmlInsertPlayerRequirements = [
@@ -556,7 +556,7 @@ export const hideStuff = () => {
   document.getElementById('pseudoCoins')?.style.setProperty('display', 'none')
   DOMCacheGetOrSet('pseudoCoinstab').style.backgroundColor = ''
 
-  const tab = DOMCacheGetOrSet('settingstab')!
+  const tab = DOMCacheGetOrSet('settingstab')
   tab.style.backgroundColor = ''
   tab.style.borderColor = 'white'
 
@@ -571,9 +571,9 @@ export const hideStuff = () => {
   }
   if (G.currentTab === Tabs.Settings) {
     DOMCacheGetOrSet('settings').style.display = 'block'
-    const tab = DOMCacheGetOrSet('settingstab')!
-    tab.style.backgroundColor = 'orange'
-    tab.style.borderColor = 'gold'
+    const settingsTab = DOMCacheGetOrSet('settingstab')
+    settingsTab.style.backgroundColor = 'orange'
+    settingsTab.style.borderColor = 'gold'
   }
   if (G.currentTab === Tabs.Achievements) {
     DOMCacheGetOrSet('statistics').style.display = 'block'
@@ -673,9 +673,9 @@ const visualTab: Record<Tabs, () => void> = {
 export const htmlInserts = () => {
   // ALWAYS Update these, for they are the most important resources
   for (let i = 0; i < htmlInsertPlayerRequirements.length; i++) {
-    const value = player[`${htmlInsertPlayerRequirements[i]}` as const]
+    const value = player[htmlInsertPlayerRequirements[i]]
     const text = format(value instanceof Decimal ? value : value.valueOf())
-    const dom = DOMCacheGetOrSet(`${htmlInsertDomRequirements[i]}` as const)
+    const dom = DOMCacheGetOrSet(htmlInsertDomRequirements[i])
     if (dom.textContent !== text) {
       dom.textContent = text
     }
@@ -1104,17 +1104,17 @@ const updateAscensionStats = () => {
   if (t === 0) {
     t = 1
   }
-  const [cubes, tess, hyper, platonic, hepteract] = CalcCorruptionStuff().slice(4)
+  const ascensionRewards = CalcCorruptionStuff()
   const addedAsteriskHalfMind = getGQUpgradeEffect('halfMind')
   const addedAsteriskOneMind = getGQUpgradeEffect('oneMind')
   const fillers: Record<string, string> = {
     ascLen: formatTimeShort(player.ascStatToggles[6] ? player.ascensionCounter : player.ascensionCounterReal, 0),
-    ascCubes: format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2),
-    ascTess: format(tess * (player.ascStatToggles[2] ? 1 : 1 / t), 3),
-    ascHyper: format(hyper * (player.ascStatToggles[3] ? 1 : 1 / t), 4),
-    ascPlatonic: format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
-    ascHepteract: format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
-    ascC10: `${format(player.challengecompletions[10])}`,
+    ascCubes: format(ascensionRewards.wowCubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2),
+    ascTess: format(ascensionRewards.wowTesseracts * (player.ascStatToggles[2] ? 1 : 1 / t), 3),
+    ascHyper: format(ascensionRewards.wowHypercubes * (player.ascStatToggles[3] ? 1 : 1 / t), 4),
+    ascPlatonic: format(ascensionRewards.wowPlatonicCubes * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
+    ascHepteract: format(ascensionRewards.wowHepteracts * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
+    ascC10: format(player.challengecompletions[10]),
     ascTimeAccel: `${format(calculateGlobalSpeedMult(), 3)}x${addedAsteriskHalfMind ? '*' : ''}`,
     ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3)}x${addedAsteriskOneMind ? '*' : ''}`,
     ascSingularityCount: format(player.singularityCount),
@@ -1484,29 +1484,49 @@ export const CloseModal = () => {
   modal.style.display = 'none'
 }
 
-export const openChangelog = () => {
-  const wrapper = document.getElementById('changelogWrapper')!
-  const wrapperBlur = document.getElementById('changelogBlur')!
+const getIframeOverlayElements = memoize(() => {
+  const wrapper = document.createElement('div')
+  wrapper.id = 'iframeOverlayWrapper'
+  document.body.appendChild(wrapper)
 
-  if (!wrapper.querySelector('iframe')) {
-    const iframe = document.createElement('iframe')
-    iframe.src = 'https://changelog.synergism.cc/latest'
-    iframe.width = '100%'
-    iframe.height = '100%'
+  const blur = document.createElement('div')
+  blur.id = 'iframeOverlayBlur'
+  blur.addEventListener('click', closeIframeOverlay)
+  document.body.appendChild(blur)
 
-    wrapper.appendChild(iframe)
+  return { wrapper, blur }
+})
+
+let currentOverlayIframe: HTMLIFrameElement | null = null
+
+export const openIframeOverlay = (url: string) => {
+  const { wrapper, blur } = getIframeOverlayElements()
+
+  if (currentOverlayIframe) {
+    wrapper.removeChild(currentOverlayIframe)
   }
 
+  const iframe = document.createElement('iframe')
+  iframe.src = url
+  iframe.width = '100%'
+  iframe.height = '100%'
+  wrapper.appendChild(iframe)
+  currentOverlayIframe = iframe
+
   wrapper.style.display = 'block'
-  wrapperBlur.style.display = 'block'
+  blur.style.display = 'block'
 }
 
-export const closeChangelog = () => {
-  const wrapper = document.getElementById('changelogWrapper')!
-  const wrapperBlur = document.getElementById('changelogBlur')!
+export const closeIframeOverlay = () => {
+  const { wrapper, blur } = getIframeOverlayElements()
 
   wrapper.style.display = 'none'
-  wrapperBlur.style.display = 'none'
+  blur.style.display = 'none'
+
+  if (currentOverlayIframe) {
+    wrapper.removeChild(currentOverlayIframe)
+    currentOverlayIframe = null
+  }
 }
 
 /**

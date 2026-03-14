@@ -799,9 +799,11 @@ export const challenge15ScoreMultiplier = () => {
 export const getNextRegularChallenge = (startIndex: number, explored: Set<number>) => {
   let challenge = startIndex
   for (let i = 0; i < NUM_ELIGIBLE_CHALLENGES; i++) {
-    if (!explored.has(challenge)
+    if (
+      !explored.has(challenge)
       && player.highestchallengecompletions[challenge] < getMaxChallenges(challenge)
-      && player.autoChallengeToggles[challenge]) {
+      && player.autoChallengeToggles[challenge]
+    ) {
       return challenge
     }
     challenge++
@@ -818,17 +820,19 @@ export const getNextRegularChallenge = (startIndex: number, explored: Set<number
 export const getNextAscensionChallenge = (startIndex: number) => {
   let nextChallenge = startIndex
 
-  for (let i = 0; i < 5; i ++) {
+  for (let i = 0; i < 5; i++) {
     nextChallenge++
     if (nextChallenge > 15) {
       nextChallenge = 11
     }
-    if (player.autoChallengeToggles[nextChallenge]
-      && (player.highestchallengecompletions[nextChallenge] < getMaxChallenges(nextChallenge) || nextChallenge === 15)) {
+    if (
+      player.autoChallengeToggles[nextChallenge]
+      && (player.highestchallengecompletions[nextChallenge] < getMaxChallenges(nextChallenge) || nextChallenge === 15)
+    ) {
       return nextChallenge
     }
   }
-  
+
   // This returns the same as startIndex if no valid Challenges are found.
   return nextChallenge
 }

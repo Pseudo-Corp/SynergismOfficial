@@ -1286,7 +1286,18 @@ export const CalcCorruptionStuff = () => {
     : 0
   hepteractGain *= calculateHepteractMultiplier()
 
-  return [
+  return {
+    wowCubes: Math.min(1e300, Math.floor(cubeGain)),
+    wowTesseracts: Math.min(1e300, Math.max(player.singularityCount, Math.floor(tesseractGain))),
+    wowHypercubes: Math.min(1e300, Math.floor(hypercubeGain)),
+    wowPlatonicCubes: Math.min(1e300, Math.floor(platonicGain)),
+    wowHepteracts: Math.min(1e300, Math.floor(hepteractGain)),
+    baseScore: Math.floor(baseScore),
+    bonusMultiplier: bonusMultiplier,
+    corruptionMultiplier: corruptionMultiplier,
+    effectiveScore: Math.floor(effectiveScore)
+  }
+  /*return [
     // WTF IS THIS...
     // Also, I don't think the first element of this array is used anywhere. So stupid
     cubeGain,
@@ -1302,7 +1313,7 @@ export const CalcCorruptionStuff = () => {
     Math.min(1e300, Math.floor(platonicGain)),
     Math.min(1e300, Math.floor(hepteractGain)),
     bonusMultiplier
-  ]
+  ]*/
 }
 
 export const calculateAscensionCount = () => {

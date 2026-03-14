@@ -33,12 +33,12 @@ export const init = async (): Promise<void> => {
 
   if (language !== 'en') {
     // We always need to load English, to use as a fallback
-    const response = await fetch('./translations/en.json')
+    const englishResponse = await fetch('./translations/en.json')
       .catch(() => fetch('https://synergism.cc/translations/en.json'))
-    const file = await response.json() as Resource
+    const englishTranslations = await englishResponse.json() as Resource
 
-    languageCache.set('en', { translation: file })
-    resources.en = { translation: file }
+    languageCache.set('en', { translation: englishTranslations })
+    resources.en = { translation: englishTranslations }
   }
 
   await i18next.use(StatSymbolsPlugin).use(ColorTextPlugin).init({
