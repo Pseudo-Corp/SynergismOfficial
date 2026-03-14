@@ -29,7 +29,7 @@ export const spriteSheets: SpriteSheet[] = [
   }
 ]
 
-export const updateIconsFromSprites = (folderUsed: String) => {
+export const updateIconsFromSprites = (folderUsed: string) => {
   for (const sheet of spriteSheets) {
     let currRow = 0
     let currCol = 0
