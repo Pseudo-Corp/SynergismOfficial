@@ -808,6 +808,31 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   }
 }
 
+const singularity5PreservedUpgrades: Set<ShopUpgradeNames> = new Set([
+  'offeringAuto',
+  'offeringEX',
+  'obtainiumAuto',
+  'obtainiumEX',
+  'antSpeed',
+  'cashGrab'
+])
+const singularity20PreservedUpgrades: Set<ShopUpgradeNames> = new Set([
+  'offeringAuto',
+  'offeringEX',
+  'obtainiumAuto',
+  'obtainiumEX',
+  'antSpeed',
+  'cashGrab'
+])
+const singularity51PreservedUpgrades: Set<ShopUpgradeNames> = new Set([
+  'seasonPass',
+  'seasonPass2',
+  'seasonPass3',
+  'seasonPassY',
+  'chronometer',
+  'chronometer2'
+])
+
 export const updateShopLevels = () => {
   for (const upgrade in player.shopUpgrades) {
     const k = upgrade as keyof Player['shopUpgrades']
@@ -1819,56 +1844,69 @@ export const useConsumable = (
   }
 }
 
-export const resetShopUpgrades = async () => {
-  const p = player.shopConfirmationToggle
-    ? await Confirm(
-      'This will fully refund most of your permanent upgrades for an upfront cost of 15 Quarks. Would you like to do this?'
-    )
-    : true
+export const calculateMinimumShopRefundableLevel = (upgrade: ShopUpgradeNames): number => {
+  let isRefundable = shopData[upgrade].refundable
+  let refundableUpgradeMinimum = shopData[upgrade].refundMinimumLevel
+  if (player.highestSingularityCount >= 20 && singularity20PreservedUpgrades.has(upgrade)) isRefundable = false
+  else if (player.highestSingularityCount >= 51 && singularity51PreservedUpgrades.has(upgrade)) isRefundable = false
 
-  if (p) {
-    return forceResetShopUpgrades()
+  // Return max level because the refund function only considers an upgrade refundable if refundMinimum is less than maxLevel
+  if (!isRefundable) return shopData[upgrade].maxLevel
+  else {
+    // Singularity 5's perk only sets the minimum to 10... why?
+    if (player.highestSingularityCount >= 5 && singularity5PreservedUpgrades.has(upgrade)) {
+      refundableUpgradeMinimum = Math.max(refundableUpgradeMinimum, 10)
+    }
+    return refundableUpgradeMinimum
   }
 }
 
-export const forceResetShopUpgrades = () => {
-  const singularityQuarks = player.quarksThisSingularity
-  let refunds = false
-  for (const shopItem in shopData) {
-    const key = shopItem as keyof typeof shopData
-    const item = shopData[key]
+export const resetShopUpgrades = async () => {
+  const p = player.shopConfirmationToggle
+    ? await Confirm(i18next.t('shop.refundConfirmation'))
+    : true
+
+  if (p) {
+    const fromBtn = true
+    return forceResetShopUpgrades(fromBtn)
+  }
+}
+
+export const forceResetShopUpgrades = (fromBtn = false) => {
+  let totalRefundAmt = 0
+  for (const shopKey of Object.keys(shopData) as ShopUpgradeNames[]) {
+    const item = shopData[shopKey]
+    const refundMinimumLevel = calculateMinimumShopRefundableLevel(shopKey)
+    const isRefundable = refundMinimumLevel < item.maxLevel
     if (
-      item.refundable
-      && player.shopUpgrades[key] > item.refundMinimumLevel
+      isRefundable
+      && player.shopUpgrades[shopKey] > refundMinimumLevel
     ) {
-      refunds = true
-      // Determines how many quarks one would not be refunded, based on minimum refund level
-      const doNotRefund = item.price * item.refundMinimumLevel
+      // How many quarks it costs to get to level `refundMinimumLevel`
+      // We do not want to refund this portion of the quarks spent.
+      const doNotRefund = item.price * refundMinimumLevel
         + (item.priceIncrease
-            * item.refundMinimumLevel
-            * (item.refundMinimumLevel - 1))
+            * refundMinimumLevel
+            * (refundMinimumLevel - 1))
           / 2
 
-      // Refunds Quarks based on the shop level and price vals
-      player.worlds.add(
-        item.price * player.shopUpgrades[key]
-          + (item.priceIncrease
-              * player.shopUpgrades[key]
-              * (player.shopUpgrades[key] - 1))
-            / 2
-          - doNotRefund,
-        false
-      )
+      // How many quarks the player spent on this upgrade in total
+      const quarksSpentOnUpgrade = item.price * player.shopUpgrades[shopKey]
+        + (item.priceIncrease
+            * player.shopUpgrades[shopKey]
+            * (player.shopUpgrades[shopKey] - 1))
+          / 2
 
-      player.shopUpgrades[key] = item.refundMinimumLevel
+      totalRefundAmt += quarksSpentOnUpgrade - doNotRefund
+      player.worlds.add(quarksSpentOnUpgrade - doNotRefund, false)
+      player.shopUpgrades[shopKey] = refundMinimumLevel
     }
   }
-  if (refunds) {
-    player.worlds.sub(15)
-  } else if (player.shopConfirmationToggle) {
-    void Alert('Nothing to Refund!')
+  if (fromBtn) {
+    void Alert(i18next.t('shop.refundSuccessful', {
+      amount: format(totalRefundAmt, 0, false)
+    }))
   }
-  player.quarksThisSingularity = singularityQuarks
 }
 
 export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {

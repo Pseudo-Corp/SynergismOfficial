@@ -98,7 +98,6 @@ import {
   updateAutoCubesOpens,
   updateAutoReset,
   updateSingularityAchievements,
-  updateSingularityGlobalPerks,
   updateTesseractAutoBuyAmount
 } from './Reset'
 import {
@@ -2009,7 +2008,6 @@ const loadSynergy = () => {
     calculateObtainium()
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
-    updateSingularityGlobalPerks()
 
     // Update the Sing requirements on reload for a challenge if applicable
     if (G.currentSingChallenge !== undefined) {
@@ -2018,7 +2016,6 @@ const loadSynergy = () => {
     }
   }
 
-  // updateAchievementBG()
   if (player.currentChallenge.reincarnation) {
     resetrepeat('reincarnationChallenge')
   } else if (player.currentChallenge.transcension) {
