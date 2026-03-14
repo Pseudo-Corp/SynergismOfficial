@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { player } from './Synergism'
+import { updateIconsFromSprites } from './SpriteSheets'
 
 export const toggleTheme = (initial = false, themeNumber = 1, change = false) => {
   const themeButton = DOMCacheGetOrSet('theme')
@@ -352,6 +353,7 @@ export const toggleIconSet = (changeTo = player.iconSet) => {
     }
   )
   DOMCacheGetOrSet('iconSet').textContent = i18next.t(`settings.iconSets.${IconSets[player.iconSet][0].toLowerCase()}`)
+  updateIconsFromSprites(IconSets[player.iconSet][0])
 }
 
 // If no image is found falls back to designated fallback, then Legacy, then MISSINGIMAGE.png
