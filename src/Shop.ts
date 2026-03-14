@@ -1597,12 +1597,12 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
       buyAny = Math.floor(Number(buyInput))
       if (buyAny === 0) {
         return
-      } else if (
-        Number.isNaN(buyAny)
-        || !Number.isFinite(buyAny)
-        || buyAny < 0
-      ) {
-        return Alert('Amount must be a finite, positive integer.')
+      } else if (Number.isNaN(buyAny) || !Number.isFinite(buyAny)) {
+        Alert(i18next.t('general.validation.finite'))
+        return
+      } else if (buyAny < 0) {
+        Alert(i18next.t('general.validation.zeroOrLess'))
+        return
       }
     }
     const anyData: IMultiBuy = calculateSummationNonLinear(
