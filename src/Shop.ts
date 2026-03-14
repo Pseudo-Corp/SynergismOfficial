@@ -22,7 +22,6 @@ import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getRuneEffectiveLevel } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import { format, formatAsPercentIncrease, player } from './Synergism'
-import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
@@ -47,7 +46,7 @@ const refundableUntilSingularity20 = () => player.highestSingularityCount < 20
 const refundableUntilSingularity51 = () => player.highestSingularityCount < 51
 const refundableNever = () => false
 
-export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
+export const shopData: Record<ShopUpgradeNames, IShopData> = {
   offeringPotion: {
     price: 100,
     priceIncrease: 0,
@@ -717,14 +716,14 @@ const singularity5PreservedUpgrades: Set<ShopUpgradeNames> = new Set([
 
 export const updateShopLevels = () => {
   for (const upgrade in player.shopUpgrades) {
-    const k = upgrade as keyof Player['shopUpgrades']
+    const k = upgrade as ShopUpgradeNames
     player.shopUpgrades[k] = Math.min(player.shopUpgrades[k], shopData[k].maxLevel)
   }
 }
 
 // Names of shop upgrades || Top row indicates potions, and all other upgrades are labeled in order.
 // If you are adding more upgrades please make sure the order of labelled upgrades is correct!
-type ShopUpgradeNames =
+export type ShopUpgradeNames =
   | 'offeringPotion'
   | 'obtainiumPotion'
   | 'offeringEX'

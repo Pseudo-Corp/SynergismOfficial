@@ -14,6 +14,7 @@ import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
 import type { RuneBlessingKeys } from '../RuneBlessings'
 import type { RuneKeys } from '../Runes'
 import type { RuneSpiritKeys } from '../RuneSpirits'
+import type { ShopUpgradeNames } from '../Shop'
 import type { SingularityDataKeys } from '../singularity'
 import type { SingularityChallenge, SingularityChallengeDataKeys } from '../SingularityChallenges'
 import type { Tabs } from '../Tabs'
@@ -303,90 +304,7 @@ export interface Player {
   // create a Map with keys defaulting to boolean
   codes: Map<number, boolean>
 
-  shopUpgrades: {
-    offeringPotion: number
-    obtainiumPotion: number
-    offeringEX: number
-    offeringAuto: number
-    obtainiumEX: number
-    obtainiumAuto: number
-    instantChallenge: number
-    antSpeed: number
-    cashGrab: number
-    shopTalisman: number
-    seasonPass: number
-    challengeExtension: number
-    challengeTome: number
-    cubeToQuark: number
-    tesseractToQuark: number
-    hypercubeToQuark: number
-    seasonPass2: number
-    seasonPass3: number
-    chronometer: number
-    infiniteAscent: number
-    calculator: number
-    calculator2: number
-    calculator3: number
-    calculator4: number
-    calculator5: number
-    calculator6: number
-    calculator7: number
-    constantEX: number
-    powderEX: number
-    chronometer2: number
-    chronometer3: number
-    seasonPassY: number
-    seasonPassZ: number
-    challengeTome2: number
-    instantChallenge2: number
-    cubeToQuarkAll: number
-    cashGrab2: number
-    seasonPassLost: number
-    chronometerZ: number
-    powderAuto: number
-    offeringEX2: number
-    obtainiumEX2: number
-    challenge15Auto: number
-    extraWarp: number
-    autoWarp: number
-    improveQuarkHept: number
-    improveQuarkHept2: number
-    improveQuarkHept3: number
-    improveQuarkHept4: number
-    shopImprovedDaily: number
-    shopImprovedDaily2: number
-    shopImprovedDaily3: number
-    shopImprovedDaily4: number
-    offeringEX3: number
-    obtainiumEX3: number
-    improveQuarkHept5: number
-    seasonPassInfinity: number
-    chronometerInfinity: number
-    shopSingularityPenaltyDebuff: number
-    shopAmbrosiaLuckMultiplier4: number
-    shopOcteractAmbrosiaLuck: number
-    shopAmbrosiaGeneration1: number
-    shopAmbrosiaGeneration2: number
-    shopAmbrosiaGeneration3: number
-    shopAmbrosiaGeneration4: number
-    shopAmbrosiaLuck1: number
-    shopAmbrosiaLuck2: number
-    shopAmbrosiaLuck3: number
-    shopAmbrosiaLuck4: number
-    shopCashGrabUltra: number
-    shopAmbrosiaAccelerator: number
-    shopEXUltra: number
-    shopChronometerS: number
-    shopAmbrosiaUltra: number
-    shopSingularitySpeedup: number
-    shopSingularityPotency: number
-    shopSadisticRune: number
-    shopRedLuck1: number
-    shopRedLuck2: number
-    shopRedLuck3: number
-    shopInfiniteShopUpgrades: number
-    shopHorseShoe: number
-  }
+  shopUpgrades: Record<ShopUpgradeNames, number>
 
   shopPotionsConsumed: {
     offering: number

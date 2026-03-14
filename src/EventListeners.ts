@@ -114,6 +114,7 @@ import {
   resetShopUpgrades,
   shopData,
   shopDescriptions,
+  type ShopUpgradeNames,
   shopUpgradeTypes,
   useConsumablePrompt
 } from './Shop'
@@ -1221,9 +1222,7 @@ TODO: Fix this entire tab it's utter shit
     player.autoPotionTimerObtainium = 0
   })
   /* Permanent Upgrade Images */
-  const shopKeys = Object.keys(
-    player.shopUpgrades
-  ) as (keyof Player['shopUpgrades'])[]
+  const shopKeys = Object.keys(player.shopUpgrades) as ShopUpgradeNames[]
   for (const key of shopKeys) {
     const shopItem = shopData[key]
     if (shopItem.type === shopUpgradeTypes.UPGRADE) {

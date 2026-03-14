@@ -88,7 +88,7 @@ import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
 import { runeSpiritKeys, updateRuneSpiritHTML } from './RuneSpirits'
-import { getShopCosts, isShopUpgradeUnlocked, shopData, shopUpgradeTypes } from './Shop'
+import { getShopCosts, isShopUpgradeUnlocked, shopData, type ShopUpgradeNames, shopUpgradeTypes } from './Shop'
 import {
   computeGQUpgradeFreeLevelSoftcap,
   computeGQUpgradeMaxLevel,
@@ -125,7 +125,7 @@ import {
   calculateSalvageTesseractBlessing
 } from './Tesseracts'
 import { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from './Toggles'
-import type { OneToFive, Player, ZeroToFour } from './types/Synergism'
+import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { sumContents, timeRemainingHours } from './Utility'
 import { Globals as G } from './Variables'
@@ -1920,9 +1920,7 @@ export const visualUpdateShop = () => {
   )
 
   // Create Keys with the correct type
-  const keys = Object.keys(
-    player.shopUpgrades
-  ) as (keyof Player['shopUpgrades'])[]
+  const keys = Object.keys(player.shopUpgrades) as ShopUpgradeNames[]
   for (const key of keys) {
     // Create a copy of shopItem instead of accessing many times
     const shopItem = shopData[key]
