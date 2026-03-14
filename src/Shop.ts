@@ -34,29 +34,6 @@ export enum shopUpgradeTypes {
   UPGRADE = 'upgrade'
 }
 
-type shopResetTier =
-  | 'Reincarnation'
-  | 'Ascension'
-  | 'Singularity'
-  | 'SingularityVol2'
-  | 'SingularityVol3'
-  | 'SingularityVol4'
-  | 'SingularityVol5'
-  | 'Exalt1'
-  | 'Exalt2'
-  | 'Exalt3'
-  | 'Exalt4'
-  | 'Exalt2x20'
-  | 'Exalt1x30'
-  | 'Exalt5'
-  | 'Exalt5x20'
-  | 'Exalt6x15'
-  | 'Exalt6x25'
-  | 'Exalt7x10'
-  | 'Exalt7x20'
-  | 'Exalt7x30'
-  | 'Exalt8x5'
-
 interface IShopData {
   price: number
   priceIncrease: number
@@ -64,7 +41,6 @@ interface IShopData {
   type: shopUpgradeTypes
   refundable: () => boolean
   refundMinimumLevel: number
-  tier: shopResetTier
 }
 
 const refundableUntilSingularity20 = () => player.highestSingularityCount < 20
@@ -78,11 +54,9 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     maxLevel: Math.pow(10, 15),
     type: shopUpgradeTypes.CONSUMABLE,
     refundable: refundableNever,
-    refundMinimumLevel: 0,
-    tier: 'Reincarnation'
+    refundMinimumLevel: 0
   },
   obtainiumPotion: {
-    tier: 'Reincarnation',
     price: 100,
     priceIncrease: 0,
     maxLevel: Math.pow(10, 15),
@@ -91,7 +65,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   offeringEX: {
-    tier: 'Reincarnation',
     price: 150,
     priceIncrease: 10,
     maxLevel: 100,
@@ -100,7 +73,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   offeringAuto: {
-    tier: 'Reincarnation',
     price: 150,
     priceIncrease: 10,
     maxLevel: 100,
@@ -109,7 +81,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 1
   },
   obtainiumEX: {
-    tier: 'Reincarnation',
     price: 150,
     priceIncrease: 10,
     maxLevel: 100,
@@ -118,7 +89,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   obtainiumAuto: {
-    tier: 'Reincarnation',
     price: 150,
     priceIncrease: 10,
     maxLevel: 100,
@@ -127,7 +97,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 1
   },
   instantChallenge: {
-    tier: 'Reincarnation',
     price: 300,
     priceIncrease: 99999,
     maxLevel: 1,
@@ -136,7 +105,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   antSpeed: {
-    tier: 'Reincarnation',
     price: 200,
     priceIncrease: 25,
     maxLevel: 100,
@@ -145,7 +113,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   cashGrab: {
-    tier: 'Reincarnation',
     price: 100,
     priceIncrease: 40,
     maxLevel: 100,
@@ -154,7 +121,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopTalisman: {
-    tier: 'Reincarnation',
     price: 1500,
     priceIncrease: 99999,
     maxLevel: 1,
@@ -163,7 +129,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   seasonPass: {
-    tier: 'Ascension',
     price: 500,
     priceIncrease: 75,
     maxLevel: 100,
@@ -172,7 +137,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   challengeExtension: {
-    tier: 'Ascension',
     price: 500,
     priceIncrease: 250,
     maxLevel: 5,
@@ -181,7 +145,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   challengeTome: {
-    tier: 'Ascension',
     price: 500,
     priceIncrease: 250,
     maxLevel: 15,
@@ -190,7 +153,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   cubeToQuark: {
-    tier: 'Ascension',
     price: 2000,
     priceIncrease: 99999,
     maxLevel: 1,
@@ -199,7 +161,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   tesseractToQuark: {
-    tier: 'Ascension',
     price: 3500,
     priceIncrease: 99999,
     maxLevel: 1,
@@ -208,7 +169,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   hypercubeToQuark: {
-    tier: 'Ascension',
     price: 5000,
     priceIncrease: 99999,
     maxLevel: 1,
@@ -217,7 +177,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   seasonPass2: {
-    tier: 'Ascension',
     price: 2500,
     priceIncrease: 250,
     maxLevel: 100,
@@ -226,7 +185,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   seasonPass3: {
-    tier: 'Ascension',
     price: 5000,
     priceIncrease: 500,
     maxLevel: 100,
@@ -235,7 +193,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   chronometer: {
-    tier: 'Ascension',
     price: 1600,
     priceIncrease: 400,
     maxLevel: 100,
@@ -244,7 +201,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   infiniteAscent: {
-    tier: 'Ascension',
     price: 25000,
     priceIncrease: 9999999,
     maxLevel: 1,
@@ -253,7 +209,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   calculator: {
-    tier: 'Reincarnation',
     price: 500,
     priceIncrease: 300,
     maxLevel: 5,
@@ -262,7 +217,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 1
   },
   calculator2: {
-    tier: 'Ascension',
     price: 2500,
     priceIncrease: 800,
     maxLevel: 12,
@@ -271,7 +225,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   calculator3: {
-    tier: 'Ascension',
     price: 7500,
     priceIncrease: 1500,
     maxLevel: 10,
@@ -280,7 +233,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   calculator4: {
-    tier: 'Singularity',
     price: 1e7,
     priceIncrease: 1e6,
     maxLevel: 10,
@@ -289,7 +241,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   calculator5: {
-    tier: 'SingularityVol2',
     price: 1e8,
     priceIncrease: 1e8,
     maxLevel: 100,
@@ -298,7 +249,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   calculator6: {
-    tier: 'SingularityVol3',
     price: 1e11,
     priceIncrease: 2e10,
     maxLevel: 100,
@@ -307,7 +257,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   constantEX: {
-    tier: 'Ascension',
     price: 100000,
     priceIncrease: 899999,
     maxLevel: 2,
@@ -316,7 +265,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   powderEX: {
-    tier: 'Ascension',
     price: 1000,
     priceIncrease: 750,
     maxLevel: 50,
@@ -325,7 +273,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   chronometer2: {
-    tier: 'Ascension',
     price: 5000,
     priceIncrease: 1500,
     maxLevel: 100,
@@ -334,7 +281,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   chronometer3: {
-    tier: 'Singularity',
     price: 250,
     priceIncrease: 250,
     maxLevel: 1000,
@@ -343,7 +289,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   seasonPassY: {
-    tier: 'Ascension',
     price: 10000,
     priceIncrease: 1500,
     maxLevel: 100,
@@ -352,7 +297,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   seasonPassZ: {
-    tier: 'Singularity',
     price: 250,
     priceIncrease: 250,
     maxLevel: 1000,
@@ -361,7 +305,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   challengeTome2: {
-    tier: 'Singularity',
     price: 1000000,
     priceIncrease: 1000000,
     maxLevel: 5,
@@ -370,7 +313,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   instantChallenge2: {
-    tier: 'Singularity',
     price: 20000000,
     priceIncrease: 0,
     maxLevel: 1,
@@ -379,7 +321,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   cubeToQuarkAll: {
-    tier: 'SingularityVol2',
     price: 2222222,
     priceIncrease: 0,
     maxLevel: 100,
@@ -388,7 +329,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   cashGrab2: {
-    tier: 'SingularityVol2',
     price: 5000,
     priceIncrease: 5000,
     maxLevel: 1000,
@@ -397,7 +337,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   chronometerZ: {
-    tier: 'SingularityVol2',
     price: 12500,
     priceIncrease: 12500,
     maxLevel: 1000,
@@ -406,7 +345,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   offeringEX2: {
-    tier: 'SingularityVol2',
     price: 10000,
     priceIncrease: 10000,
     maxLevel: 1000,
@@ -415,7 +353,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   obtainiumEX2: {
-    tier: 'SingularityVol2',
     price: 10000,
     priceIncrease: 10000,
     maxLevel: 1000,
@@ -424,7 +361,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   powderAuto: {
-    tier: 'SingularityVol2',
     price: 5e6,
     priceIncrease: 0,
     maxLevel: 100,
@@ -433,7 +369,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   seasonPassLost: {
-    tier: 'SingularityVol2',
     price: 1000000,
     priceIncrease: 25000,
     maxLevel: 1000,
@@ -442,7 +377,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   challenge15Auto: {
-    tier: 'SingularityVol3',
     price: 5e11,
     priceIncrease: 0,
     maxLevel: 1,
@@ -451,7 +385,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   extraWarp: {
-    tier: 'SingularityVol3',
     price: 1.25e11,
     priceIncrease: 0,
     maxLevel: 1,
@@ -460,7 +393,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   autoWarp: {
-    tier: 'SingularityVol3',
     price: 5e11,
     priceIncrease: 0,
     maxLevel: 1,
@@ -469,7 +401,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   improveQuarkHept: {
-    tier: 'Ascension',
     price: 2e5 - 1,
     priceIncrease: 19999,
     maxLevel: 10,
@@ -478,7 +409,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   improveQuarkHept2: {
-    tier: 'Singularity',
     price: 2e7 - 1,
     priceIncrease: 2e6 - 1,
     maxLevel: 10,
@@ -487,7 +417,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   improveQuarkHept3: {
-    tier: 'SingularityVol2',
     price: 2e9 - 1,
     priceIncrease: 2e9 - 1,
     maxLevel: 10,
@@ -496,7 +425,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   improveQuarkHept4: {
-    tier: 'SingularityVol3',
     price: 2e11 - 1,
     priceIncrease: 2e11 - 1,
     maxLevel: 10,
@@ -505,7 +433,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopImprovedDaily: {
-    tier: 'Ascension',
     price: 5000,
     priceIncrease: 2500,
     maxLevel: 20,
@@ -514,7 +441,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopImprovedDaily2: {
-    tier: 'Singularity',
     price: 500000,
     priceIncrease: 500000,
     maxLevel: 10,
@@ -523,7 +449,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopImprovedDaily3: {
-    tier: 'SingularityVol2',
     price: 5000000,
     priceIncrease: 12500000,
     maxLevel: 15,
@@ -532,7 +457,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopImprovedDaily4: {
-    tier: 'SingularityVol3',
     price: 5e9,
     priceIncrease: 5e9,
     maxLevel: 25,
@@ -541,7 +465,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   offeringEX3: {
-    tier: 'SingularityVol4',
     price: 1,
     priceIncrease: 1.25e12,
     maxLevel: 1000,
@@ -550,7 +473,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   obtainiumEX3: {
-    tier: 'SingularityVol4',
     price: 1,
     priceIncrease: 1.25e12,
     maxLevel: 1000,
@@ -559,7 +481,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   improveQuarkHept5: {
-    tier: 'SingularityVol4',
     price: 1,
     priceIncrease: 2.5e13,
     maxLevel: 80,
@@ -568,7 +489,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   chronometerInfinity: {
-    tier: 'SingularityVol4',
     price: 1,
     priceIncrease: 2.5e12,
     maxLevel: 1000,
@@ -577,7 +497,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   seasonPassInfinity: {
-    tier: 'SingularityVol4',
     price: 1,
     priceIncrease: 3.75e12,
     maxLevel: 1000,
@@ -586,7 +505,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopSingularityPenaltyDebuff: {
-    tier: 'Exalt1',
     price: 1e17,
     priceIncrease: 9.99e19,
     maxLevel: 4,
@@ -595,7 +513,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuckMultiplier4: {
-    tier: 'Exalt2',
     price: 1e20,
     priceIncrease: 3e20,
     maxLevel: 4,
@@ -604,7 +521,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   calculator7: {
-    tier: 'Exalt3',
     price: 1e20,
     priceIncrease: 1e19,
     maxLevel: 50,
@@ -613,7 +529,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopOcteractAmbrosiaLuck: {
-    tier: 'Exalt4',
     price: 1e21,
     priceIncrease: 9e21,
     maxLevel: 2,
@@ -622,7 +537,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaGeneration1: {
-    tier: 'SingularityVol3',
     price: 5e11,
     priceIncrease: 5e11,
     maxLevel: 25,
@@ -631,7 +545,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaGeneration2: {
-    tier: 'SingularityVol3',
     price: 5e12,
     priceIncrease: 5e12,
     maxLevel: 30,
@@ -640,7 +553,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaGeneration3: {
-    tier: 'SingularityVol4',
     price: 5e13,
     priceIncrease: 5e13,
     maxLevel: 35,
@@ -649,7 +561,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaGeneration4: {
-    tier: 'SingularityVol4',
     price: 1e17,
     priceIncrease: 4 * 1e16,
     maxLevel: 1000,
@@ -658,7 +569,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuck1: {
-    tier: 'SingularityVol3',
     price: 2e11,
     priceIncrease: 2e11,
     maxLevel: 40,
@@ -667,7 +577,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuck2: {
-    tier: 'SingularityVol3',
     price: 2e12,
     priceIncrease: 2e12,
     maxLevel: 50,
@@ -676,7 +585,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuck3: {
-    tier: 'SingularityVol4',
     price: 2e13,
     priceIncrease: 2e13,
     maxLevel: 60,
@@ -685,7 +593,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaLuck4: {
-    tier: 'SingularityVol4',
     price: 1e17,
     priceIncrease: 4 * 1e16,
     maxLevel: 1000,
@@ -694,7 +601,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopRedLuck1: {
-    tier: 'SingularityVol4',
     price: 5e13,
     priceIncrease: 5e13,
     maxLevel: 1000,
@@ -703,7 +609,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopRedLuck2: {
-    tier: 'SingularityVol4',
     price: 1e17,
     priceIncrease: 1e17,
     maxLevel: 1000,
@@ -712,7 +617,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopRedLuck3: {
-    tier: 'SingularityVol4',
     price: 1e21,
     priceIncrease: 3e19,
     maxLevel: 1000,
@@ -721,7 +625,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopCashGrabUltra: {
-    tier: 'Exalt1x30',
     price: 1,
     priceIncrease: 1e22,
     maxLevel: 5,
@@ -730,7 +633,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaAccelerator: {
-    tier: 'Exalt5',
     price: 1e21,
     priceIncrease: 2e21,
     maxLevel: 5,
@@ -739,7 +641,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopEXUltra: {
-    tier: 'Exalt5x20',
     price: 5e21,
     priceIncrease: 0,
     maxLevel: 80,
@@ -748,7 +649,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopChronometerS: {
-    tier: 'Exalt6x15',
     price: 5e21,
     priceIncrease: 0,
     maxLevel: 1,
@@ -757,7 +657,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopAmbrosiaUltra: {
-    tier: 'Exalt6x25',
     price: 8e23,
     priceIncrease: 2e23,
     maxLevel: 5,
@@ -766,7 +665,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopSingularitySpeedup: {
-    tier: 'Exalt7x10',
     price: 2e22,
     priceIncrease: 0,
     maxLevel: 1,
@@ -775,7 +673,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopSingularityPotency: {
-    tier: 'Exalt7x20',
     price: 2e23,
     priceIncrease: 0,
     maxLevel: 1,
@@ -784,7 +681,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopSadisticRune: {
-    tier: 'Exalt7x30',
     price: 2e27,
     priceIncrease: 0,
     maxLevel: 1,
@@ -793,7 +689,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopInfiniteShopUpgrades: {
-    tier: 'Exalt2x20',
     price: 1e20,
     priceIncrease: 0,
     maxLevel: 100,
@@ -802,7 +697,6 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   shopHorseShoe: {
-    tier: 'Exalt8x5',
     price: 5e26,
     priceIncrease: 0,
     maxLevel: 1,
