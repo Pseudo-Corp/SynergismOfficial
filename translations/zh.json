@@ -7112,7 +7112,7 @@
         "reincarnationChallengeReduction": "• 挑战6至挑战10目标增长速度：{{amount}}",
         "antSpeed": "• 蚂蚁速度：+{{amount}} [无瑕！]",
         "bonusAntLevel": "• 蚂蚁额外等级：+{{amount}}",
-        "achievementUnlock": "• Achievement Unlocked! \"Ultimate\"",
+        "achievementUnlock": "• 解锁成就！\"最终\"",
         "cube3": "• 所有类型的方盒、立方和方块获取数量 III：+{{amount}}",
         "talismanBonus": "• 护身符免费符文等级加成：+{{amount}}",
         "globalSpeed": "• 全局速度：+{{amount}}",
