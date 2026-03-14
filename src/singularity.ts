@@ -3419,7 +3419,7 @@ export async function buyGoldenQuarks (): Promise<void> {
 
   return Alert(
     i18next.t('singularity.goldenQuarks.transaction', {
-      spent: format(maxBuy, 0, true),
+      spent: format(buyAmount, 0, true),
       cost: format(cost, 0, true)
     })
   )
