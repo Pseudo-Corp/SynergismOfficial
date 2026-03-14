@@ -3224,7 +3224,7 @@
       "166": "[7x16] < T I M E >: +0.9% Global Speed per level.",
       "167": "[7x17] Because of sponsorships, Wow! Industries is increasing Cubes gained in Ascension by 0.8% per level.",
       "168": "[7x18] Gain +0.08% Tributes from Cubes per level. You know, you should expect it at this point.",
-      "169": "[7x19] A great wave of Ant ELO! +0.2 per level. Hmmm. Does the cost of this Research increase per level, or is it just <b>me</b>?",
+      "169": "[7x19] A great wave of Ant ELO! +0.02 per level. Wow! that's a lot of levels.",
       "170": "[7x20] Tome 3 of 4: How to totally ROCK Challenge 10. e100m divisor!",
       "171": "[7x21] You should know how this goes. +0.4% Accelerators per level",
       "172": "[7x22] Accelerator Boosts += 0.004 * Accelerator Boosts * player.researches[172]",
@@ -4845,7 +4845,7 @@
       },
       "fortieth": {
         "name": "Campaign XL",
-        "description": "Before proceeding in this Campaign, you have to have the Thousand Moons upgrade maxxed. Congratulations!"
+        "description": "Before proceeding in this Campaign, you have to have the Thousand Suns upgrade maxxed. Congratulations!"
       },
       "fortyFirst": {
         "name": "Campaign XLI",
@@ -7112,7 +7112,7 @@
         "reincarnationChallengeReduction": "• Challenge 6-10 Requirement Scaling: {{amount}}",
         "antSpeed": "• Ant Speed: +{{amount}} [Immaculate!]",
         "bonusAntLevel": "• Bonus Ant Levels: +{{amount}}",
-        "achievementUnlock": "• Achievement Unlocked! [[252]]",
+        "achievementUnlock": "• Achievement Unlocked! \"Ultimate\"",
         "cube3": "• All Cube Types III: +{{amount}}",
         "talismanBonus": "• Talisman Bonus Free Levels: +{{amount}}",
         "globalSpeed": "• Global Speed: +{{amount}}",
