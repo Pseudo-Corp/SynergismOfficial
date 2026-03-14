@@ -3408,6 +3408,7 @@ export async function buyGoldenQuarks (): Promise<void> {
   let cost: number
 
   if (buyAmount === -1) {
+    buyAmount = maxBuy
     cost = maxBuy * goldenQuarkCost.cost
     player.worlds.sub(cost)
     player.goldenQuarks += maxBuy
