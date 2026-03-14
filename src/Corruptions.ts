@@ -443,7 +443,7 @@ export const corrIcons: Record<keyof Corruptions, string> = {
   hyperchallenge: '/CorruptHyperchallenge.png'
 }
 
-export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
+export const corruptionDisplay = (corr: keyof Corruptions | 'exit' | 'none') => {
   // Always hide selected table first (safe reset)
   DOMCacheGetOrSet('selectedCorruptionSection').style.display = 'none'
 
@@ -452,6 +452,27 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
   }
   if (DOMCacheGetOrSet('corruptionSelectedPic').style.visibility !== 'visible') {
     DOMCacheGetOrSet('corruptionSelectedPic').style.visibility = 'visible'
+  }
+
+  if (corr === 'none') {
+    const corruptionIcons = document.querySelectorAll<HTMLImageElement>('#corruptionStats img')
+    corruptionIcons.forEach((img) => {
+      img.classList.remove('active')
+    })
+
+    DOMCacheGetOrSet('selectedCorruptionSection').style.display = 'none'
+    DOMCacheGetOrSet('corruptionLevelCurrent').style.display = 'none'
+    DOMCacheGetOrSet('corruptionLevelPlanned').style.display = 'none'
+    DOMCacheGetOrSet('corruptionMultiplierContribution').style.display = 'none'
+    DOMCacheGetOrSet('corruptionDifficultyContribution').style.display = 'none'
+    DOMCacheGetOrSet('corruptionFreeLevels').innerHTML = ''
+    DOMCacheGetOrSet('corruptionName').innerHTML = ''
+    DOMCacheGetOrSet('corruptionDescription').innerHTML = ''
+    DOMCacheGetOrSet('corruptionSelectedPic').style.visibility = 'hidden'
+    DOMCacheGetOrSet('corruptionDetails').style.visibility = 'hidden'
+    DOMCacheGetOrSet('corruptionHeaderRow').classList.add('corruptionHeaderCollapsed')
+    DOMCacheGetOrSet('corruptionEmptyState').style.display = 'block'
+    return
   }
 
   let text = {
@@ -491,19 +512,17 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
       image: `Pictures/${IconSets[player.iconSet][0]}${corrIcons[corr]}`
     }
 
-    DOMCacheGetOrSet(`corrCurrent${corr}`).textContent =
-      format(player.corruptions.used.getLevel(corr))
-    DOMCacheGetOrSet(`corrNext${corr}`).textContent =
-      format(player.corruptions.next.getLevel(corr))
+    DOMCacheGetOrSet(`corrCurrent${corr}`).textContent = format(player.corruptions.used.getLevel(corr))
+    DOMCacheGetOrSet(`corrNext${corr}`).textContent = format(player.corruptions.next.getLevel(corr))
   }
 
-  DOMCacheGetOrSet('corruptionName').textContent = text.name
+  DOMCacheGetOrSet('corruptionName').innerHTML = text.name
   DOMCacheGetOrSet('corruptionDescription').innerHTML = text.description
-  DOMCacheGetOrSet('corruptionLevelCurrent').textContent = text.current
-  DOMCacheGetOrSet('corruptionLevelPlanned').textContent = text.planned
-  DOMCacheGetOrSet('corruptionMultiplierContribution').textContent = text.multiplier
+  DOMCacheGetOrSet('corruptionLevelCurrent').innerHTML = text.current
+  DOMCacheGetOrSet('corruptionLevelPlanned').innerHTML = text.planned
+  DOMCacheGetOrSet('corruptionMultiplierContribution').innerHTML = text.multiplier
   DOMCacheGetOrSet('corruptionDifficultyContribution').textContent = text.difficulty
-  DOMCacheGetOrSet('corruptionFreeLevels').textContent = text.freeLevels
+  DOMCacheGetOrSet('corruptionFreeLevels').innerHTML = text.freeLevels
   DOMCacheGetOrSet('corruptionSelectedPic').setAttribute('src', text.image)
 
   // -------------------------------
@@ -511,6 +530,22 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
   // -------------------------------
 
   if (corr !== 'exit') {
+    DOMCacheGetOrSet('corruptionHeaderRow').classList.remove('corruptionHeaderCollapsed')
+    DOMCacheGetOrSet('corruptionEmptyState').style.display = 'none'
+
+    const corruptionIcons = document.querySelectorAll<HTMLImageElement>('#corruptionStats img')
+    corruptionIcons.forEach((img) => {
+      img.classList.remove('active')
+    })
+
+    const selectedIcon = document.querySelector<HTMLImageElement>(
+      `#corruptionStats img[src*="Corrupt${corr.charAt(0).toUpperCase() + corr.slice(1)}"]`
+    )
+
+    if (selectedIcon !== null) {
+      selectedIcon.classList.add('active')
+    }
+
     // Hide text stats
     DOMCacheGetOrSet('corruptionLevelCurrent').style.display = 'none'
     DOMCacheGetOrSet('corruptionLevelPlanned').style.display = 'none'
@@ -521,37 +556,52 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
     DOMCacheGetOrSet('selectedCorruptionSection').style.display = 'block'
 
     // Populate table
-    DOMCacheGetOrSet('selectedLevelCurr').textContent =
-      format(player.corruptions.used.getLevel(corr))
+    DOMCacheGetOrSet('selectedLevelCurr').textContent = format(player.corruptions.used.getLevel(corr))
 
-    DOMCacheGetOrSet('selectedLevelNext').textContent =
-      format(player.corruptions.next.getLevel(corr))
+    DOMCacheGetOrSet('selectedLevelNext').textContent = format(player.corruptions.next.getLevel(corr))
 
-    DOMCacheGetOrSet('selectedEffectCurr').textContent =
-  i18next.t(`corruptions.currentLevel.${corr}`, {
-    level: player.corruptions.used.getLevel(corr),
-    effect: format(player.corruptions.used.corruptionEffects(corr), 3, true)
-  })
+    DOMCacheGetOrSet('selectedEffectCurr').innerHTML = i18next.t(`corruptions.currentLevel.${corr}`, {
+      level: player.corruptions.used.getLevel(corr),
+      effect: format(player.corruptions.used.corruptionEffects(corr), 3, true)
+    })
 
-DOMCacheGetOrSet('selectedEffectNext').textContent =
-  i18next.t(`corruptions.prototypeLevel.${corr}`, {
-    level: player.corruptions.next.getLevel(corr),
-    effect: format(player.corruptions.next.corruptionEffects(corr), 3, true)
-  })
+    DOMCacheGetOrSet('selectedEffectNext').innerHTML = i18next.t(`corruptions.prototypeLevel.${corr}`, {
+      level: player.corruptions.next.getLevel(corr),
+      effect: format(player.corruptions.next.corruptionEffects(corr), 3, true)
+    })
 
-    DOMCacheGetOrSet('selectedMultiplierCurr').textContent =
+    DOMCacheGetOrSet('selectedMultiplierCurr').textContent = `x${
       format(player.corruptions.used.scoreMult(corr), 2, true)
+    }`
 
-    DOMCacheGetOrSet('selectedMultiplierNext').textContent =
+    DOMCacheGetOrSet('selectedMultiplierNext').textContent = `x${
       format(player.corruptions.next.scoreMult(corr), 2, true)
+    }`
 
-    DOMCacheGetOrSet('selectedDifficultyCurr').textContent =
-      format(16 * Math.pow(player.corruptions.used.getTotalLevel(corr), 2), 0, false)
+    DOMCacheGetOrSet('selectedDifficultyCurr').textContent = format(
+      16 * Math.pow(player.corruptions.used.getTotalLevel(corr), 2),
+      0,
+      false
+    )
 
-    DOMCacheGetOrSet('selectedDifficultyNext').textContent =
-      format(16 * Math.pow(player.corruptions.next.getTotalLevel(corr), 2), 0, false)
-
+    DOMCacheGetOrSet('selectedDifficultyNext').textContent = format(
+      16 * Math.pow(player.corruptions.next.getTotalLevel(corr), 2),
+      0,
+      false
+    )
   } else {
+    DOMCacheGetOrSet('corruptionHeaderRow').classList.remove('corruptionHeaderCollapsed')
+    DOMCacheGetOrSet('corruptionEmptyState').style.display = 'none'
+    DOMCacheGetOrSet('corruptionSelectedPic').style.display = 'block'
+    DOMCacheGetOrSet('corruptionDetails').style.display = 'block'
+    DOMCacheGetOrSet('corruptionSelectedPic').style.visibility = 'visible'
+    DOMCacheGetOrSet('corruptionDetails').style.visibility = 'visible'
+
+    const corruptionIcons = document.querySelectorAll<HTMLImageElement>('#corruptionStats img')
+    corruptionIcons.forEach((img) => {
+      img.classList.remove('active')
+    })
+
     // Restore text stats for cleanse mode
     DOMCacheGetOrSet('corruptionLevelCurrent').style.display = 'block'
     DOMCacheGetOrSet('corruptionLevelPlanned').style.display = 'block'
@@ -586,9 +636,19 @@ export const corruptionButtonsAdd = () => {
     const icon = document.createElement('img')
     icon.className = 'corruptionImg'
     icon.src = `Pictures/${IconSets[player.iconSet][0]}${corrIcons[key]}`
-    icon.addEventListener('click', () => corruptionDisplay(key))
+    icon.addEventListener('click', (event) => {
+      event.stopPropagation()
+
+      const isActive = icon.classList.contains('active')
+
+      if (isActive) {
+        corruptionDisplay('none')
+        return
+      }
+
+      corruptionDisplay(key)
+    })
     icon.loading = 'lazy'
-    icon.title = `${i18next.t(`corruptions.names.${key}`)}`
     row.appendChild(icon)
 
     const p = document.createElement('p')
@@ -635,6 +695,8 @@ export const corruptionButtonsAdd = () => {
     row.appendChild(btn)
     row.addEventListener('click', () => corruptionDisplay(key))
   }
+
+  corruptionDisplay('none')
 }
 
 export const corruptionLoadoutTableCreate = () => {

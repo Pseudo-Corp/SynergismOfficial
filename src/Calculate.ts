@@ -1211,19 +1211,23 @@ export const calculateAscensionScore = () => {
 
   const bonusMultiplier = computeAscensionScoreBonusMultiplier()
 
-  effectiveScore = baseScore * corruptionMultiplier * bonusMultiplier
+  const rawScore = baseScore * corruptionMultiplier * bonusMultiplier
+  effectiveScore = rawScore
   if (effectiveScore > 1e23) {
     effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5)
   }
 
-  getGQUpgradeEffect('expertPack')
-    ? (effectiveScore *= 1.5)
-    : (effectiveScore *= 1)
+  const expertPackActive = getGQUpgradeEffect('expertPack')
+  if (expertPackActive) {
+    effectiveScore *= 1.5
+  }
 
   return {
     baseScore,
     corruptionMultiplier,
     bonusMultiplier,
+    rawScore,
+    expertPackActive,
     effectiveScore
   }
 }
@@ -1236,7 +1240,34 @@ export const CalcCorruptionStuff = () => {
   const baseScore = scores.baseScore
   const corruptionMultiplier = scores.corruptionMultiplier
   const bonusMultiplier = scores.bonusMultiplier
+  const rawScore = scores.rawScore
+  const expertPackActive = scores.expertPackActive
   const effectiveScore = scores.effectiveScore
+
+  DOMCacheGetOrSet('ascensionScoreBreakdown').innerHTML = `<span style="color:#7fd6ff">
+    Base: ${format(baseScore)} × Corruption Score: ${format(corruptionMultiplier)} × Bonus: ${format(bonusMultiplier)}
+    </span>
+    <span style="color:white">
+    = ${format(rawScore)}
+    </span>`
+
+  if (rawScore > 1e23) {
+    const softcappedScore = expertPackActive ? effectiveScore / 1.5 : effectiveScore
+    DOMCacheGetOrSet('ascensionScoreSoftcap').textContent = `Square Root Softcap (past 1e23): ${format(rawScore)} → ${
+      format(softcappedScore)
+    }`
+  } else {
+    DOMCacheGetOrSet('ascensionScoreSoftcap').textContent = ''
+  }
+
+  if (expertPackActive) {
+    const preExpertScore = rawScore > 1e23 ? effectiveScore / 1.5 : rawScore
+    DOMCacheGetOrSet('ascensionScoreExpertPack').textContent = `Expert Pack ×1.5: ${format(preExpertScore)} → ${
+      format(effectiveScore)
+    }`
+  } else {
+    DOMCacheGetOrSet('ascensionScoreExpertPack').textContent = ''
+  }
 
   for (let i = 1; i <= 10; i++) {
     challengeModifier = i >= 6 ? 2 : 1

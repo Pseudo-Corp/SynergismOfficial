@@ -3609,12 +3609,16 @@ p#ascendHotKeys {
 }
 
 #corruptionIntroduction {
-    font-size: 1.2em;
+    font-size: 22px;
+    font-weight: 700;
     color: var(--darkorchid-text-color);
+    text-align: center;
 }
 
 #corruptionInfo1 {
     color: yellow;
+    font-size: 16px;
+    text-align: center;
 }
 
 #corruptionHeaderRow {
@@ -3623,13 +3627,13 @@ p#ascendHotKeys {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 11px;
 }
 
 #corruptionSelected {
     width: 70px;
     height: 70px;
-    margin-left: 35px;
+    margin-left: 25px;
     margin-right: 5px;
 }
 
@@ -3645,16 +3649,116 @@ p#ascendHotKeys {
     text-align: center;
 }
 
+/* Gives the icons a hover color */
+#corruptionStats img[src*="CorruptViscosity"]:hover { box-shadow: 0 0 8px cyan; }
+#corruptionStats img[src*="CorruptDrought"]:hover { box-shadow: 0 0 8px peru; }
+#corruptionStats img[src*="CorruptDeflation"]:hover { box-shadow: 0 0 8px red; }
+#corruptionStats img[src*="CorruptExtinction"]:hover { box-shadow: 0 0 8px deepskyblue; }
+#corruptionStats img[src*="CorruptIlliteracy"]:hover { box-shadow: 0 0 8px limegreen; }
+#corruptionStats img[src*="CorruptRecession"]:hover { box-shadow: 0 0 8px olivedrab; }
+#corruptionStats img[src*="CorruptDilation"]:hover { box-shadow: 0 0 8px lightsteelblue; }
+#corruptionStats img[src*="CorruptHyperchallenge"]:hover { box-shadow: 0 0 8px violet; }
+
+#corruptionStats img.active[src*="CorruptViscosity"] { box-shadow: 0 0 8px cyan; }
+#corruptionStats img.active[src*="CorruptDrought"] { box-shadow: 0 0 8px peru; }
+#corruptionStats img.active[src*="CorruptDeflation"] { box-shadow: 0 0 8px red; }
+#corruptionStats img.active[src*="CorruptExtinction"] { box-shadow: 0 0 8px deepskyblue; }
+#corruptionStats img.active[src*="CorruptIlliteracy"] { box-shadow: 0 0 8px limegreen; }
+#corruptionStats img.active[src*="CorruptRecession"] { box-shadow: 0 0 8px olivedrab; }
+#corruptionStats img.active[src*="CorruptDilation"] { box-shadow: 0 0 8px lightsteelblue; }
+#corruptionStats img.active[src*="CorruptHyperchallenge"] { box-shadow: 0 0 8px violet; }
+
+#corruptionStatsLoadouts img {
+    cursor: pointer;
+}
+
+/* Animates the viscosity title */
+@keyframes viscosity-rainbow {
+    0% {
+        color: #ff4df0;
+    }
+
+    20% {
+        color: #7a5cff;
+    }
+
+    40% {
+        color: #00e5ff;
+    }
+
+    60% {
+        color: #6f9;
+    }
+
+    80% {
+        color: #ffd966;
+    }
+
+    100% {
+        color: #ff4df0;
+    }
+}
+
+.viscosityRainbow {
+    animation: viscosity-rainbow 4s linear infinite;
+}
+
+/* Animates HyperChallenge */
+@keyframes hyper-pulse-title {
+    0% {
+        color: fuchsia;
+        text-shadow: 0 0 3px rgb(255 0 255 / 40%);
+    }
+
+    40% {
+        color: mediumorchid;
+        text-shadow: 0 0 4px rgb(186 85 211 / 45%);
+    }
+
+    70% {
+        color: deeppink;
+        text-shadow: 0 0 4px rgb(255 20 147 / 45%);
+    }
+
+    100% {
+        color: fuchsia;
+        text-shadow: 0 0 3px rgb(255 0 255 / 40%);
+    }
+}
+
+.hyperPulseTitle {
+    animation: hyper-pulse-title 3.8s ease-in-out infinite;
+}
+
+@keyframes hyper-pulse-desc {
+    0% {
+        color: violet;
+    }
+
+    50% {
+        color: mediumorchid;
+    }
+
+    100% {
+        color: violet;
+    }
+}
+
+.hyperPulseDesc {
+    animation: hyper-pulse-desc 4s ease-in-out infinite;
+}
+
 #corruptionName {
     text-align: left;
     width: 100%;
-    font-size: 1.2em;
+    font-size: 1.29em;
+    margin-bottom: 3px;
+    text-shadow: 0 0 3px rgb(255 255 255 / 25%);
 }
 
 #corruptionDescription {
     text-align: left;
     width: 100%;
-    color: darkviolet;
 }
 
 #corruptionLevelCurrent {
@@ -3692,6 +3796,21 @@ p#ascendHotKeys {
   SELECTED AND TOTAL CORRUPTIONS TABLE (Corruptions Redesign)
    ========================================= */
 
+#corruptionEmptyState {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: orange;
+    margin: 14px 0 12px;
+}
+
+.corruptionHeaderCollapsed {
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
 .allCorruptionEffectsHeader {
     margin-top: 2px;
     margin-bottom: 0;
@@ -3704,14 +3823,14 @@ p#ascendHotKeys {
     margin: 6px auto;
     width: 540px;
     font-size: 15px;
-    background: #141414;
+    background-color: var(--bg-color);
     border: 1px solid orange;
     border-collapse: separate;
     border-spacing: 0;
 }
 
 .corruptionTable th {
-    background: #1f1f1f;
+    background: #1a1a1a;
     color: orange;
     border: 1px solid #2a2a2a;
     padding: 5px 8px;
@@ -3722,15 +3841,19 @@ p#ascendHotKeys {
 .corruptionTable td {
     border: 1px solid #2a2a2a;
     padding: 4px 8px;
-    color: #dcdcdc;
+    color: white;
     word-break: break-word;
+}
+
+.corruptionTable td:first-child {
+    font-weight: 500;
 }
 
 .corruptionTable td:first-child,
 .corruptionTable th:first-child {
     width: 175px;
     text-align: left;
-    color: #bfbfbf;
+    color: white;
 }
 
 .corruptionTable td:nth-child(2),
@@ -3747,6 +3870,18 @@ p#ascendHotKeys {
     padding-bottom: 8px;
 }
 
+#selectedDifficultyCurr,
+#selectedDifficultyNext,
+#corruptionDifficultyTotalCurr,
+#corruptionDifficultyTotalNext {
+    color: #ff4d4d;
+}
+
+#corruptionSpiritTotalCurr,
+#corruptionSpiritTotalNext {
+    color: gold;
+}
+
 /* =========================================
    ASCEND REWARDS GRID (Corruptions Redesign)
    ========================================= */
@@ -3758,6 +3893,7 @@ p#ascendHotKeys {
     font-size: 1.18em;
     font-weight: 600;
     color: #ffd700;
+    margin: 0;
 }
 
 #corruptionScoreDR {
@@ -3770,10 +3906,64 @@ p#ascendHotKeys {
     margin-top: 4px;
 }
 
+#ascensionScoreRow {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+}
+
+#ascensionScoreInfoIcon {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: help;
+    width: 15px;
+    height: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    border: 1px solid #ffd700;
+    border-radius: 50%;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+#ascensionScoreInfoIcon:hover {
+    background-color: #ffd700;
+    color: black;
+}
+
+#ascensionScoreTooltip {
+    display: none;
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 420px;
+    max-width: 560px;
+    padding: 10px 14px;
+    background: #111;
+    border: 1px solid gold;
+    text-align: center;
+    z-index: 50;
+}
+
+#ascensionScoreTooltip p {
+    margin: 4px 0;
+}
+
+#ascensionScoreInfoIcon:hover + #ascensionScoreTooltip,
+#ascensionScoreTooltip:hover {
+    display: block;
+}
+
 /* To make Ascension rewards closer up */
 #corruptionMain #ascensionRewardsTitle {
-    margin-top: 6px !important;
-    margin-bottom: 4px !important;
+    margin-top: 3px !important;
+    margin-bottom: 2px !important;
 }
 
 #ascendRewardsGrid {
@@ -3836,15 +4026,30 @@ p#ascendHotKeys {
 /* Req line styling */
 .ascendRewardTile p {
     margin: 0;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.15;
 }
 
 .reqLine {
     display: block;
     font-size: 12px;
-    opacity: 0.75;
+    opacity: 0.9;
     margin-top: 6px;
+}
+
+#ascendRewardsGrid .reqLine {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.reqCheck {
+    color: limegreen;
+}
+
+.reqX {
+    color: red;
 }
 
 .ascendRewardTile p span,

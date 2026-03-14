@@ -4914,48 +4914,48 @@
   },
   "corruptions": {
     "names": {
-      "viscosity": "Viscous Multiplier and Accelerators (Viscosity)",
-      "drought": "Less Fruitful Harvests (Drought)",
-      "deflation": "Crystal Mine Collapse (Deflation)",
-      "extinction": "The Second Meteor (Extinction)",
-      "illiteracy": "Defunded Education (Illiteracy)",
-      "recession": "Great Depression II (Recession)",
-      "dilation": "Time Dilation (Dilation)",
-      "hyperchallenge": "The Hyperchallenge Cube (Hyperchallenge)"
+      "viscosity": "<span class='viscosityRainbow'>Viscous Multiplier and Accelerators (Viscosity)</span>",
+      "drought": "<<peru|Less Fruitful Harvests (Drought)>>",
+      "deflation": "<<red|Crystal Mine Collapse (Deflation)>>",
+      "extinction": "<<deepskyblue|The Second Meteor (Extinction)>>",
+      "illiteracy": "<<limegreen|Defunded Education (Illiteracy)>>",
+      "recession": "<<olivedrab|Great Depression II (Recession)>>",
+      "dilation": "<<cornflowerblue|Time Dilation (Dilation)>>",
+      "hyperchallenge": "<span class='hyperPulseTitle'>The Hyperchallenge Cube (Hyperchallenge)</span>"
     },
     "descriptions": {
-      "viscosity": "You feel lethargic across the universe...",
-      "dilation": "Way to go, Albert.",
-      "hyperchallenge": "What's in a challenge?",
-      "illiteracy": "Maybe Albert wouldn't have theorized Dilation after all.",
-      "deflation": "Diamond Mine destroyed... no more monopolies!",
-      "extinction": "It killed the dinosaurs too, ya Dingus.",
-      "drought": "Your farmland is <i>unsalvagable!</i>",
-      "recession": "Yet another 2025 catastrophe."
+      "viscosity": "<span class='viscosityRainbow'>You feel lethargic across the universe...</span>",
+      "drought": "<<burlywood|Your farmland is <i>unsalvagable!</i>>",
+      "deflation": "<<#FF4D4D|Diamond Mine destroyed... no more monopolies!>>",
+      "extinction": "<<lightskyblue|It killed the dinosaurs too, ya Dingus.>>",
+      "illiteracy": "<<mediumseagreen|Maybe Albert wouldn't have theorized Dilation after all.>>",
+      "recession": "<<darkseagreen|Yet another 2025 catastrophe.>>",
+      "dilation": "<<lightsteelblue|Way to go, Albert.>>",
+      "hyperchallenge": "<span class='hyperPulseDesc'>What's in a challenge?</span>"
     },
     "currentLevel": {
-      "viscosity": "Free Accel. and Multiplier Exp ^{{ effect }}",
-      "dilation": "Time Speed multiplied by {{ effect }}",
-      "hyperchallenge": "Challenge Exponent Reqs. x{{ effect }}",
-      "illiteracy": "Obtainium gain ^{{ effect }}",
-      "deflation": "Diamond gain ^{{ effect }}",
-      "extinction": "Ant Upgrade Level Effect /{{ effect }}",
-      "drought": "Salvage {{ effect }}",
-      "recession": "Coin Gain ^{{ effect }}"
+      "viscosity": "<<yellow|Free Accel. and Multiplier Exp ^{{ effect }}>>",
+      "drought": "<<limegreen|Salvage {{ effect }}>>",
+      "deflation": "<<cyan|Diamond Gain ^{{ effect }}>>",
+      "extinction": "<<crimson|Ant Upgrade Level Effect /{{ effect }}>>",
+      "illiteracy": "<<pink|Obtainium Gain ^{{ effect }}>>",
+      "recession": "<<gold|Coin Gain ^{{ effect }}>>",
+      "dilation": "<<royalblue|Time Speed x{{ effect }}>>",
+      "hyperchallenge": "<<violet|Challenge Exponent Reqs. x{{ effect }}>>"
     },
     "prototypeLevel": {
-      "viscosity": "Free Accel. and Multiplier Exp ^{{ effect }}",
-      "dilation": "Time Speed multiplied by {{ effect }}",
-      "hyperchallenge": "Challenge Exponent Reqs. x{{ effect }}",
-      "illiteracy": "Obtainium gain ^{{ effect }}",
-      "deflation": "Diamond gain ^{{ effect }}",
-      "extinction": "Ant Upgrade Level Effect /{{ effect }}",
-      "drought": "Salvage {{ effect }}",
-      "recession": "Coin Gain ^{{ effect }}"
+      "viscosity": "<<yellow|Free Accel. and Multiplier Exp ^{{ effect }}>>",
+      "drought": "<<limegreen|Salvage {{ effect }}>>",
+      "deflation": "<<cyan|Diamond Gain ^{{ effect }}>>",
+      "extinction": "<<crimson|Ant Upgrade Level Effect /{{ effect }}>>",
+      "illiteracy": "<<pink|Obtainium Gain ^{{ effect }}>>",
+      "recession": "<<gold|Coin Gain ^{{ effect }}>>",
+      "dilation": "<<royalblue|Time Speed x{{ effect }}>>",
+      "hyperchallenge": "<<violet|Challenge Exponent Reqs. x{{ effect }}>>"
     },
     "scoreMultiplier": "Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
     "difficultyEffect": "This corruption adds {{ curr }} difficulty rating / Next Ascension +{{next}}",
-    "freeLevels": "Free Corruption Levels: {{ curr }} (Does not increase Corruption difficulty!)",
+    "freeLevels": "Free Corruption Levels: <<gold|{{ curr }}>> (Does not increase Corruption difficulty!)",
     "totalScoreMultiplier": "Total Score Multiplier: x{{ curr }} / Next Ascension: x{{ next }}",
     "totalDifficulty": "Total Difficulty Score: {{ curr }} / Next Ascension: {{ next }} (Base 400 difficulty)",
     "totalSpiritContribution": "Spirit Power Bonus: +{{ curr }} / Next Ascension: +{{ next }} (+1% per 4 extra difficulty)",
@@ -4964,7 +4964,7 @@
       "description": "Free this world of sin.",
       "current": "Reset all Corruptions to level 0. Does not reset your current ascension.",
       "planned": "Push that big 'Confirm' button to confirm your decision.",
-      "multiplier": "Note: If you need to do this, you may have bitten off more than you can chew."
+      "multiplier": "Note: If you need to do this, <span style='color:red; font-style: italic;'>you may have bitten off more than you can chew.</span>"
     },
     "max": "MAX",
     "current": "Current: ",
@@ -4982,7 +4982,7 @@
       "load": "Load"
     },
     "importCorruptionsPrompt": {
-      "import": "Enter a Corruption Loadout to import for next Ascension. You can have it in the following format: \n {\"corr1Name\": num1, \"corr2Name\": num2, ...} \n It can also be in the following text format: num1/num2/.../num8 [Legacy] \n Possible corrNames: \"viscosity\", \"drought\", \"deflation\", \"extinction\", \"illiteracy\", \"recession\", \"dilation\". \"hyperchallenge\"",
+      "import": "Enter a Corruption Loadout to import for next Ascension.\n\nLegacy Fromat\nnum1/num2/.../num8 \n\nJSON Fromat (Recommended)\n{\"viscosity\": 4, \"drought\": 1, ...}\n\n List of Corruption names:\n\"viscosity\", \"drought\", \"deflation\", \"extinction\", \"illiteracy\", \"recession\", \"dilation\", \"hyperchallenge\"",
       "importError": "Your input was not in the correct format, try again."
     },
     "corruptionLoadoutName": {
@@ -5009,12 +5009,12 @@
     "corruptionBank": "You have <<yellow|{{number}}>> Wow! Cubes in the Ascension bank. Ascend to claim.",
     "corruptionScore": "Your Ascension Score = <<goldenrod|{{totalScore}}>>",
     "corruptionScoreDR": "Ascension gains are square-rooted past 1e23! You are under this penalty.",
-    "ascensionCount": "<<darkorange|+{{ascCount}}>> to Ascension Count",
-    "corruptionCubes": "<<yellow|+{{cubeAmount}}>><span class='reqLine'><<yellow|Req Score > 0>></span>",
-    "corruptionTesseracts": "<<orange|+{{tesseractAmount}}>> <span class='reqLine'><<orange|Req Score >100,000>></span>",
-    "corruptionHypercubes": "<<crimson|+{{hypercubeAmount}}>> <span class='reqLine'><<red|Req Score > 1e9>></span>",
-    "corruptionPlatonics": "<<orchid|+{{platonicAmount}}>> <span class='reqLine'><<orchid|Req Score > 2.67e12>></span>",
-    "corruptionHepteracts": "<<mediumpurple|+{{hepteractAmount}}>> <span class='reqLine'><<mediumpurple|Req Score > 1.67e17>></span>",
+    "ascensionCount": "<<darkorange|+{{ascCount}}>> <<darkorange|to Ascension Count>>",
+    "corruptionCubes": "<<yellow|+{{cubeAmount}}>><span class='reqLine'>{{mark}} <<yellow|Score > 0>></span>",
+    "corruptionTesseracts": "<<orange|+{{tesseractAmount}}>> <span class='reqLine'>{{mark}} <<orange|Score > 100,000>></span>",
+    "corruptionHypercubes": "<<crimson|+{{hypercubeAmount}}>> <span class='reqLine'>{{mark}} <<red|Score > 1e9>></span>",
+    "corruptionPlatonics": "<<orchid|+{{platonicAmount}}>> <span class='reqLine'>{{mark}} <<orchid|Score > 2.67e12>></span>",
+    "corruptionHepteracts": "<<mediumpurple|+{{hepteractAmount}}>> <span class='reqLine'>{{mark}} <<mediumpurple|Score > 1.67e17>></span>",
     "autoAscend": {
       "c10Completions": "Ascend when you've completed Sadistic Challenge I a total of <<var(--violet-text-color)|{{input}}>> times.\n Currently: <<gold|{{completions}}>>",
       "realTime": "Ascend when the timer is at least <<var(--violet-text-color)|{{input}}>> seconds (Real-time).\nCurrently: <<gold|{{time}}>>",

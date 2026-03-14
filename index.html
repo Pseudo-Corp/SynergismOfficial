@@ -2799,8 +2799,9 @@
                 <div id="corruptionTablesWrap">
                 <!-- SELECTED CORRUPTION EFFECTS TABLE -->
                 <div id="selectedCorruptionSection" style="display:none;">
+                    
                     <p class="allCorruptionEffectsHeader">Selected Corruption Effects</p>
-                    <p id="corruptionFreeLevels" class="tightText" style="color: orchid"></p>
+                    <p id="corruptionFreeLevels" class="tightText" style="color: #FFE08A"></p>
 
                     <table id="selectedCorruptionTable" class="corruptionTable">
                     <colgroup>
@@ -2840,6 +2841,10 @@
                     </tr>
                     </table>
                 </div>
+
+                <p id="corruptionEmptyState" style="display:none;">
+                    Select a corruption icon to view its effects
+                </p>
 
                 <div id="allCorruptionSection">
                     <p class="allCorruptionEffectsHeader">All Corruption Effects</p>
@@ -2882,13 +2887,21 @@
                 <p id="ascensionRewardsTitle" style="font-size: 1.3em;" i18n="corruptions.ascensionRewards">
                 Ascension Rewards
                 </p>
+                <div id="ascensionScoreRow">
+                    <p id="corruptionScore" class="tightText" style="color: white"></p>
+                    <span id="ascensionScoreInfoIcon">i</span>
 
-                <p id="corruptionScore" class="tightText" style="color: white"></p>
+                    <div id="ascensionScoreTooltip">
+                    <p id="ascensionScoreBreakdown" class="tightText"></p>
+                    <p id="ascensionScoreSoftcap" class="tightText" style="color: red;"></p>
+                    <p id="ascensionScoreExpertPack" class="tightText" style="color: gold;"></p>
+                    </div>
+                </div>
 
                 <div id="ascendOutcomeBox">
                     <div id="ascendRewardsGrid">
                         <div class="ascendRewardTile">
-                            <img class="openImage" src="Pictures/Default/OcteractAscensionCount2.png" loading="lazy">
+                            <img class="openImage" src="Pictures/Default/AscensionCount.png" loading="lazy">
                             <p id="corruptionAscensionCount" class="tightText" style="color: white"></p>
                         </div>
                         <div class="ascendRewardTile">
@@ -2901,15 +2914,15 @@
                         </div>
                         <div class="ascendRewardTile">
                             <img class="openImage" src="Pictures/Default/WowHypercube.png" loading="lazy">
-                            <p id="corruptionHypercubes" class="chal13 tightText" style="color: white"></p>
+                            <p id="corruptionHypercubes" class="tightText" style="color: white"></p>
                         </div>
                         <div class="ascendRewardTile">
                             <img class="openImage" src="Pictures/Default/PlatonicCube.png" loading="lazy">
-                            <p id="corruptionPlatonicCubes" class="chal14 tightText" style="color: white"></p>
+                            <p id="corruptionPlatonicCubes" class="tightText" style="color: white"></p>
                         </div>
                         <div class="ascendRewardTile">
                             <img class="openImage" src="Pictures/Default/Hepteract.png" loading="lazy">
-                            <p id="corruptionHepteracts" class="chal15 tightText" style="color: white"></p>
+                            <p id="corruptionHepteracts" class="tightText" style="color: white"></p>
                         </div>
                     </div>
                 </div>

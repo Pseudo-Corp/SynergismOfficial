@@ -1423,6 +1423,26 @@ export const visualUpdateCorruptions = () => {
 
   const metaData = CalcCorruptionStuff()
   const ascCount = calculateAscensionCount()
+  const cubeMark = metaData[4] > 0
+    ? '<span class=\'reqCheck\'>✔</span>'
+    : '<span class=\'reqX\'>✖</span>'
+
+  const tesseractMark = metaData[3] >= 100000
+    ? '<span class=\'reqCheck\'>✔</span>'
+    : '<span class=\'reqX\'>✖</span>'
+
+  const hypercubeMark = metaData[3] >= 1e9
+    ? '<span class=\'reqCheck\'>✔</span>'
+    : '<span class=\'reqX\'>✖</span>'
+
+  const platonicMark = metaData[3] >= 2.666e12
+    ? '<span class=\'reqCheck\'>✔</span>'
+    : '<span class=\'reqX\'>✖</span>'
+
+  const hepteractMark = G.challenge15Rewards.hepteractsUnlocked.value && metaData[3] >= 1.666e17
+    ? '<span class=\'reqCheck\'>✔</span>'
+    : '<span class=\'reqX\'>✖</span>'
+
   DOMCacheGetOrSet('autoAscend').innerHTML = player.autoAscendMode === 'c10Completions'
     ? i18next.t('corruptions.autoAscend.c10Completions', {
       input: format(player.autoAscendThreshold),
@@ -1461,55 +1481,72 @@ export const visualUpdateCorruptions = () => {
   DOMCacheGetOrSet('corruptionCubes').innerHTML = i18next.t(
     'corruptions.corruptionCubes',
     {
-      cubeAmount: format(metaData[4], 0, true)
+      cubeAmount: format(metaData[4], 0, true),
+      mark: cubeMark
     }
   )
+
   DOMCacheGetOrSet('corruptionTesseracts').innerHTML = i18next.t(
     'corruptions.corruptionTesseracts',
     {
-      tesseractAmount: format(metaData[5], 0, true)
+      tesseractAmount: format(metaData[5], 0, true),
+      mark: tesseractMark
     }
   )
+
   DOMCacheGetOrSet('corruptionHypercubes').innerHTML = i18next.t(
     'corruptions.corruptionHypercubes',
     {
-      hypercubeAmount: format(metaData[6], 0, true)
+      hypercubeAmount: format(metaData[6], 0, true),
+      mark: hypercubeMark
     }
   )
+
   DOMCacheGetOrSet('corruptionPlatonicCubes').innerHTML = i18next.t(
     'corruptions.corruptionPlatonics',
     {
-      platonicAmount: format(metaData[7], 0, true)
+      platonicAmount: format(metaData[7], 0, true),
+      mark: platonicMark
     }
   )
+
   DOMCacheGetOrSet('corruptionHepteracts').innerHTML = i18next.t(
     'corruptions.corruptionHepteracts',
     {
-      hepteractAmount: format(metaData[8], 0, true)
+      hepteractAmount: format(metaData[8], 0, true),
+      mark: hepteractMark
     }
   )
   // Split these into two seperate curr and next variables for table
-  DOMCacheGetOrSet('corruptionMultiplierTotalCurr').textContent =
-    `x${format(player.corruptions.used.totalCorruptionAscensionMultiplier, 2, true)}`;
+  DOMCacheGetOrSet('corruptionMultiplierTotalCurr').textContent = `x${
+    format(player.corruptions.used.totalCorruptionAscensionMultiplier, 2, true)
+  }`
 
-  DOMCacheGetOrSet('corruptionMultiplierTotalNext').textContent =
-    `x${format(player.corruptions.next.totalCorruptionAscensionMultiplier, 2, true)}`;
-
-
-  // Split these into two seperate curr and next variables for table
-  DOMCacheGetOrSet('corruptionDifficultyTotalCurr').textContent =
-    format(player.corruptions.used.totalCorruptionDifficultyScore, 2, true);
-
-  DOMCacheGetOrSet('corruptionDifficultyTotalNext').textContent =
-    format(player.corruptions.next.totalCorruptionDifficultyScore, 2, true);
-
+  DOMCacheGetOrSet('corruptionMultiplierTotalNext').textContent = `x${
+    format(player.corruptions.next.totalCorruptionAscensionMultiplier, 2, true)
+  }`
 
   // Split these into two seperate curr and next variables for table
-  DOMCacheGetOrSet('corruptionSpiritTotalCurr').textContent =
-    `+${formatAsPercentIncrease(player.corruptions.used.totalCorruptionDifficultyMultiplier)}`;
+  DOMCacheGetOrSet('corruptionDifficultyTotalCurr').textContent = format(
+    player.corruptions.used.totalCorruptionDifficultyScore,
+    2,
+    true
+  )
 
-  DOMCacheGetOrSet('corruptionSpiritTotalNext').textContent =
-    `+${formatAsPercentIncrease(player.corruptions.next.totalCorruptionDifficultyMultiplier)}`;
+  DOMCacheGetOrSet('corruptionDifficultyTotalNext').textContent = format(
+    player.corruptions.next.totalCorruptionDifficultyScore,
+    2,
+    true
+  )
+
+  // Split these into two seperate curr and next variables for table
+  DOMCacheGetOrSet('corruptionSpiritTotalCurr').textContent = `+${
+    formatAsPercentIncrease(player.corruptions.used.totalCorruptionDifficultyMultiplier)
+  }`
+
+  DOMCacheGetOrSet('corruptionSpiritTotalNext').textContent = `+${
+    formatAsPercentIncrease(player.corruptions.next.totalCorruptionDifficultyMultiplier)
+  }`
 
   DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'block' : 'none'
 
