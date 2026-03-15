@@ -513,13 +513,13 @@
       "166": "Breaking the laws of Physics: Purchase 1,000 Accelerator Boosts.",
       "167": "Decayed Realism: Purchase 5,000 Accelerator Boosts.",
       "168": "Kinda fast: Purchase 15,000 Accelerator Boosts.",
-      "169": "The Galactic Feast: Obtain 3 Galactic Crumbs.",
-      "170": "Only the finest: Obtain 100,000 Galactic Crumbs.",
-      "171": "Six-Course Meal: Obtain 666,666,666 Galactic Crumbs.",
-      "172": "Accumulation of Food: Obtain 1e20 Galactic Crumbs.",
-      "173": "Cookie Clicking: Obtain 1e40 Galactic Crumbs.",
-      "174": "Unlimited Bread Sticks!: Obtain 1e250 Galactic Crumbs.",
-      "175": "Restaurant at the end of the Universe: Obtain 1e2500 Galactic Crumbs.",
+      "169": "Le Festin Galactique : Obtenez 3 Miettes Galactiques.",
+      "170": "Uniquement le premier choix : Obtenez 100 000 Miettes Galactiques.",
+      "171": "Repas 6 étoiles : Obtenez 666 666 666 Miettes Galactiques.",
+      "172": "Accumulation de Nourriture : Obtenez 1e20 Miettes Galactiques.",
+      "173": "Cookie Clicking : Obtenez 1e40 Miettes Galactiques.",
+      "174": "Bâtonnets de pain infinis ! : Obtenez 1e250 Miettes Galactiques.",
+      "175": "Le Dernier Restaurant avant la fin du monde : Obtenez 1e2500 Miettes Galactiques.",
       "176": "Ant-icipation!: Reach 50 Immortal ELO and own a Tier 2 Ant.",
       "177": "Ant-ecedent: Reach 200 Immortal ELO and own a Tier 3 Ant.",
       "178": "Ants are friends, not food!: Reach 500 Immortal ELO and own a Tier 4 Ant.",
@@ -619,7 +619,7 @@
       "272": "LARGER BOY: Achieve a constant of 1e300,000.",
       "273": "LARGEST BOY: Achieve a constant of 1e1,000,000.",
       "274": "Power Creep: Singularity 1 time.",
-      "275": "Have you enough cubes?: Singularity 2 times.",
+      "275": "Vous avez assez de cubes ? : SIngularisez 2 fois.",
       "276": "Singularity: Singularity 3 times.",
       "277": "SingularRity: Singularity 4 times.",
       "278": "SiINguLaRrRity: Singularity 5 times.",
@@ -836,7 +836,7 @@
       "489": "Why are we here?: Sacrifice your Anthill 250,000 times.",
       "490": "Just to suffer?: Sacrifice your Anthill 1,000,000 times.",
       "491": "Scorched Earth: Sacrifice your Anthill 3,000,000 times.",
-      "492": "It's so clear that all we have now: Sacrifice your Anthill 10,000,000 times.",
+      "492": "Il est si clair que tout ce que nous avons à présent : Sacrifiez votre fourmilière 10 000 000 fois.",
       "493": "Are our thoughts of yesterday: Sacrifice your Anthill 100,000,000 times.",
       "494": "Elementary Math: Use Code 'add' 10 times.",
       "495": "It adds up: Use Code 'add' 20 times.",
@@ -2013,22 +2013,22 @@
       },
       "antSpeed2Autobuyer": {
         "name": "Impia Reproducta Autobuyer",
-        "description": "Autobuy Impia Reproducta Formicidae if you have autobuy enabled!",
+        "description": "Auto-achète Impia Reproducta Formicidae si vous avez activé l'auto-achat !",
         "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "wowCubesAutobuyer": {
         "name": "Cubus Admirabilis Autobuyer",
-        "description": "Autobuy Cubus Admirabilis Formicidae if you have autobuy enabled!",
+        "description": "Auto-achète Cubus Admirabilis Formicidae si vous avez activé l'auto-achat !",
         "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "ascensionScoreAutobuyer": {
         "name": "Ascendens Autobuyer",
-        "description": "Autobuy Ascendens Formicidae if you have autobuy enabled!",
+        "description": "Auto-achète Ascendens Formicidae si vous avez activé l'auto-achat !",
         "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "mortuus2Autobuyer": {
         "name": "Mortuus Iterum Autobuyer",
-        "description": "Autobuy Mortuus Iterum Formicidae if you have autobuy enabled!",
+        "description": "Auto-achète Mortuus Iterum Formicidae si vous avez activé l'auto-achat !",
         "effect": "Effet Actuel : Regardez au-dessus !"
       }
     },
@@ -2055,7 +2055,7 @@
       },
       "singularityCount": {
         "name": "Progressive Achievement - Singularity Count",
-        "description": "Gain AP based on the highest Singularity you have reached! <br> Highest Reached: <<gold|{{x}}>>",
+        "description": "Gagnez des PA en fonction de la Singularité la plus haute que vous ayez atteint ! <br> Plus haute atteinte : <<gold|{{x}}>>",
         "apSource": "Gain +9 AP for Singularities 1-100 <br> Gain +12 AP for Singularities 101-200 <br> Gain +15 AP for Singularities 201-300"
       },
       "ambrosiaCount": {
@@ -2070,7 +2070,7 @@
       },
       "exalts": {
         "name": "Progressive Achievement - EXALT Completions",
-        "description": "Gain AP for each EXALT you have completed!",
+        "description": "Gagnez des PA pour chaque EXALT que vous avez accompli !",
         "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Twenty Ascensions: {{num3}}/{{cap3}} AP <br> No Octeract Effects: {{num4}}/{{cap4}} AP <br> No Ambrosia Upgrades: {{num5}}/{{cap5}} AP <br> Grand Singularity Speedrun: {{num6}}/{{cap6}} AP <br> Sadistic III: {{num7}}/{{cap7}} AP <br> Taxman's Last Stand: {{num8}}/{{cap8}} AP"
       },
       "singularityUpgrades": {
@@ -2102,8 +2102,8 @@
     "hover": "Survolez un succès pour afficher des informations.",
     "tieredExtraRewards": "This Tiered Achievement has extra rewards!",
     "ungroupedExtraRewards": "This Achievement has an additional reward!",
-    "totalPoints": "Points de Succès : {{x}}/{{y}} [{{z}}%]",
-    "achievementPoints": "You have {{x}} Achievement Points (AP)!",
+    "totalPoints": "Points d'accomplissement : {{x}}/{{y}} [{{z}}%]",
+    "achievementPoints": "Vous avez {{x}} Points d'Accomplissement (AP) !",
     "rewardGainMessage": "Récompense : {{x}} PS. {{y}} Quarks ! {{z}}",
     "completed": " OBTENU !",
     "notification": "Vous avez obtenu un succès : {{m}}",
