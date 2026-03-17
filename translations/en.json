@@ -5359,7 +5359,7 @@
       },
       "octeractImprovedAscensionSpeed2": {
         "name": "Abstract Exokinetics",
-        "description": "Gain +0.02% Ascension Speed per level per singularity!",
+        "description": "Gain +0.05% Ascension Speed per level per singularity!",
         "effect": "Ascension Speed per singularity +{{n}}%"
       },
       "octeractImprovedFree": {
