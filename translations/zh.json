@@ -3544,20 +3544,20 @@
       "shopAmbrosiaLuck1": "神肴之运增加器",
       "shopAmbrosiaLuck2": "又一个神肴之运增加器",
       "shopAmbrosiaLuck3": "更好的神肴之运增加器",
-      "shopAmbrosiaLuck4": "A FINAL Ambrosia Luck Increaser",
-      "shopRedLuck1": "Low Class Dice of Asmodeus",
-      "shopRedLuck2": "Dice of Asmodeus",
-      "shopRedLuck3": "High Class Dice of Asmodeus",
-      "shopCashGrabUltra": "It's the FINAL CASHGRAB!",
-      "shopAmbrosiaAccelerator": "An Ambrosial Accelerator!",
-      "shopEXUltra": "It's the FINAL E X!",
-      "shopChronometerS": "The FINAL Chronometer",
-      "shopAmbrosiaUltra": "The FINAL Ambrosia Exaltation... I don't flippin know!",
-      "shopSingularitySpeedup": "Singularity Timed-Perks Speedup",
-      "shopSingularityPotency": "Singularity Passives Potency",
-      "shopSadisticRune": "Sadistic Rune Unlock! Or does it?",
-      "shopInfiniteShopUpgrades": "Blue Infinity Shop Voucher",
-      "shopHorseShoe": "A Horse Shoe Singularity Debuff"
+      "shopAmbrosiaLuck4": "最终神肴之运增加器",
+      "shopRedLuck1": "赌博魔神的低阶骰子",
+      "shopRedLuck2": "赌博魔神的骰子",
+      "shopRedLuck3": "赌博魔神的高阶骰子",
+      "shopCashGrabUltra": "终极昂贵物品",
+      "shopAmbrosiaAccelerator": "神肴加速器！",
+      "shopEXUltra": "额外·终",
+      "shopChronometerS": "真·时计·终",
+      "shopAmbrosiaUltra": "神肴拔擢·终……我他喵的哪知道啦！",
+      "shopSingularitySpeedup": "与时间相关的奇点特权加速",
+      "shopSingularityPotency": "奇点被动效果强度",
+      "shopSadisticRune": "解锁虐待狂符文！……吗？",
+      "shopInfiniteShopUpgrades": "蓝色无限商店代金券",
+      "shopHorseShoe": "马蹄铁奇点惩罚"
     }
   },
   "singularity": {
@@ -3687,9 +3687,9 @@
       },
       "shopSpecialOffer": {
         "name": "商店特惠",
-        "hasLevel2": "All Quark Shop Upgrades are kept on Singularity!",
-        "hasLevel1": "Certain Reincarnation-level Quark Shop Upgrades no longer reset on Singularity!",
-        "default": "This level of the perk has been deprecated."
+        "hasLevel2": "进入奇点时保留所有夸克商店升级！",
+        "hasLevel1": "进入奇点时，部分跟转世有关的夸克商店升级不再重置！",
+        "default": "已弃用该等级的特权。"
       },
       "potionAutogenerator": {
         "name": "自动使用药剂",
@@ -3743,7 +3743,7 @@
       },
       "wowCubeAutomatedShipping": {
         "name": "惊奇方盒自动运输",
-        "default": "Automatically buy Cube Upgrades with each Ascension!"
+        "default": "每次飞升自动购买方盒升级！"
       },
       "congealedblueberries": {
         "name": "凝结蓝莓",
@@ -3763,7 +3763,7 @@
       },
       "platonicClones": {
         "name": "PLATONIC桌面点击之克隆",
-        "default": "Automatically buy Platonic Upgrades with each Ascension, without spending Obtainium or Offerings!"
+        "default": "每次飞升自动购买PLATONIC升级，且不花费难得素和祭品！"
       },
       "platSigma": {
         "name": "PL-AT Σ",
@@ -4472,7 +4472,7 @@
       "85": "自动购买炼金术。",
       "86": "自动购买加速器。",
       "87": "自动购买加倍器。",
-      "88": "Automatically buy Accelerator Boosts if affordable. (For now, this does not work unless you also have the 6th Mythos upgrade purchased)",
+      "88": "自动购买加速器加成。必须购买第6个神话升级才能生效。",
       "89": "解锁自动超越。",
       "90": "自动购买发生器升级。",
       "91": "自动购买金币升级。",
@@ -5357,7 +5357,7 @@
       },
       "octeractImprovedAscensionSpeed2": {
         "name": "抽象外动力",
-        "description": "Gain +0.05% Ascension Speed per level per singularity!",
+        "description": "对于每次奇点，每级使飞升的速度增加0.05%！",
         "effect": "每次奇点使飞升的速度增加{{n}}%"
       },
       "octeractImprovedFree": {
@@ -7359,8 +7359,8 @@
     "hepteractInput": "您要购买多少超通量珠？\n现有的七阶立方最多可以购买{{x}}。",
     "gainedPowder": "由于商店升级的效果，您还立即获得了{{x}}超通量粉。",
     "purchasedOrbs": "您购买了{{x}}超通量珠[效果增加{{y}}%]。{{z}}祝您开心！",
-    "powderEffect": "Powder effect: ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative]",
-    "powderEffectExtended": "Powder effect: ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative], Ascension Count +{{z}}%, Tesseract Building Production x{{a}} [From Platonic Upgrade 4x1]",
+    "powderEffect": "超通量粉效果：所有类型的方盒、立方和方块获取数量增加{{x}}%[叠乘]，夸克获取数量增加{{y}}%[叠乘]",
+    "powderEffectExtended": "超通量粉效果：所有类型的方盒、立方和方块获取数量增加{{x}}%[叠乘]，夸克获取数量增加{{y}}%[叠乘]，飞升次数增加{{z}}%，超立方建筑产量变为{{a}}倍[Platonic升级4x1的效果]",
     "powderLumps": "您拥有{{x}}超通量粉。",
     "expiredOrbs": "粉碎的超通量珠可以转换为超通量粉，比率为：每超通量粉需要{{x}}超通量珠！",
     "dayWarpsRemaining": "今日剩余的时空跃迁次数：{{x}}",
@@ -7516,10 +7516,10 @@
     "lastButNotLeast": "最后还有……",
     "helloNoUser": "您好！",
     "helloUser": "您好，<<gold|{{username}}>>！",
-    "logoutLabel": "Logout",
-    "loggedInBut": "You are logged in, but your profile couldn't be retrieved.",
-    "loggedInButError": "You are logged in, but retrieving your profile yielded the following error: {{error}}",
-    "loginNotAvailable": "Login is not available here, go to <a href=\"https://synergism.cc\">https://synergism.cc</a> instead!",
+    "logoutLabel": "注销",
+    "loggedInBut": "您已登录，但无法获取您的个人资料。",
+    "loggedInButError": "您已登录，但获取您的个人资料时出错：{{error}}",
+    "loginNotAvailable": "这里无法登录，请前往<a href=\"https://synergism.cc\">https://synergism.cc</a>！",
     "bonuses": {
       "transcendedBaller": "Transcended Baller<<gold|(或更高)>>",
       "reincarnatedBaller": "Reincarnated Baller<<gold|(或更高)>>",
@@ -7555,19 +7555,19 @@
       "confirmOverwrite": "这将覆盖您现有的Steam云存档。您确定要继续吗？"
     },
     "steam": {
-      "failedToVerify": "Failed to validate with Steam. Is Steam open?"
+      "failedToVerify": "无法通过Steam验证。您确定Steam打开了吗？"
     },
     "consumables": {
-      "connectionEstablished": "Connection was established!",
-      "connectionFailed": "Could not re-establish your connection. Consumables and events related to Consumables will not work.",
-      "ended": "{{consumable}} ended!",
-      "redeemed": "A {{consumable}} has started!",
-      "joined": "The following consumables are active:"
+      "connectionEstablished": "连接成功！",
+      "connectionFailed": "无法重新建立连接。消耗品和消耗品相关的活动无法生效。",
+      "ended": "{{consumable}}已经结束！",
+      "redeemed": "{{consumable}}开始了！",
+      "joined": "以下消耗品生效中："
     },
     "link": {
-      "discord": "Link Discord",
-      "patreon": "Link Patreon",
-      "steam": "Link Steam"
+      "discord": "连接到Discord",
+      "patreon": "连接到Patreon",
+      "steam": "连接到Steam"
     }
   },
   "pseudoCoins": {
@@ -7624,14 +7624,14 @@
       "applyTipsPrompt": "您想要使用多少打赏？每个打赏价值1分钟离线时间。您拥有{{tips}}个打赏。您最多可以使用1440个打赏。",
       "confirmActivation": "您将花费{{cost}}伪币启用{{name}}。您确定要继续吗？",
       "cancelled": "已取消购买。",
-      "currentAmountNone": "Current Amount: <<#8f8|No active consumable>>",
-      "currentAmountSome": "Current Amount: <<#8f8|{{amount}}>>",
-      "currentTimersNone": "Ends At: <<#8f8|--:--:-->>",
-      "currentTimersSome": "Ends At: <<#8f8|{{timers}}>>",
-      "globalEvent": "Global Event",
-      "globalEventActive": "Global Event: {{events}}",
-      "globalEventNone": "Timer Remaining: <<#8f8|--:--:-->>",
-      "globalEventSome": "Timer Remaining: <<#8f8|{{time}}>>"
+      "currentAmountNone": "当前数量： <<#8f8|无生效的消耗品>>",
+      "currentAmountSome": "当前数量：<<#8f8|{{amount}}>>",
+      "currentTimersNone": "结束时间：<<#8f8|--:--:-->>",
+      "currentTimersSome": "结束时间：<<#8f8|{{timers}}>>",
+      "globalEvent": "全局活动",
+      "globalEventActive": "全局活动：{{events}}",
+      "globalEventNone": "剩余时间：<<#8f8|--:--:-->>",
+      "globalEventSome": "剩余时间：<<#8f8|{{time}}>>"
     },
     "timeSkips": {
       "GLOBAL": {
