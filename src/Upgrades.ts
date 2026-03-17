@@ -79,7 +79,14 @@ const upgradetexts = [
     ),
   () => format(Decimal.pow(1.15, G.freeAccelerator).times(1e5), 2),
   () => format(Decimal.pow(1.15, G.freeAccelerator).times(1e5), 2),
-  () => format(Decimal.pow(G.acceleratorEffect, 1 / 3), 2),
+  () =>
+    format(
+      Decimal.min(
+        Decimal.pow(10, 1e33),
+        Decimal.pow(G.acceleratorEffect, G.deflationMultiplier[player.corruptions.used.deflation] / 3)
+      ),
+      2
+    ),
   () =>
     format(
       Decimal.min(1e125, player.transcendShards.add(1)),

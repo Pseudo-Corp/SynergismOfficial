@@ -481,7 +481,8 @@ export const Globals: GlobalVariables = {
       value: 0,
       baseValue: 0,
       requirement: 2e17,
-      HTMLColor: 'pink'
+      HTMLColor: 'pink',
+      doNotUsePercentage: true
     },
     ascensionSpeed: {
       value: 1,

@@ -50,6 +50,7 @@ export type Challenge15RewardsInformation = {
   baseValue: number
   requirement: number
   HTMLColor?: string
+  doNotUsePercentage?: boolean
 }
 
 export type Challenge15RewardObject = Record<Challenge15Rewards, Challenge15RewardsInformation>
