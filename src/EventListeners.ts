@@ -1228,13 +1228,14 @@ TODO: Fix this entire tab it's utter shit
     const shopItem = shopUpgrades[key]
     if (shopItem.type === shopUpgradeTypes.UPGRADE) {
       const boundShopDescriptions = shopDescriptions.bind(null, key)
+      const boundCreateShopHTML = createShopHTML.bind(null, key)
       DOMCacheGetOrSet(key).addEventListener(
         'mousemove',
-        (e) => Modal(() => createShopHTML(key), e.clientX, e.clientY, { borderColor: 'cyan' })
+        (e) => Modal(boundCreateShopHTML, e.clientX, e.clientY, { borderColor: 'cyan' })
       )
       DOMCacheGetOrSet(key).addEventListener('focus', function (this: HTMLElement) {
         const elmRect = this.getBoundingClientRect()
-        Modal(() => createShopHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'cyan' })
+        Modal(boundCreateShopHTML, elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'cyan' })
       })
       DOMCacheGetOrSet(key).addEventListener('mouseout', CloseModal)
       DOMCacheGetOrSet(key).addEventListener('blur', CloseModal)
