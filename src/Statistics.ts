@@ -936,7 +936,7 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'DiamondUpgrade4x3',
-    stat: () => 1 + (20 * player.upgrades[38]) / 100 // Diamond Upgrade 4x3
+    stat: () => 1 + 0.2 * player.upgrades[38] // Diamond Upgrade 4x3
   },
   {
     i18n: 'ParticleUpgrade3x5',
@@ -4294,7 +4294,7 @@ const gameStages = (): Stage[] => {
       stage: 4,
       tier: 4,
       name: 'reincarnate-ant',
-      unlocked: player.ants.producers[AntProducers.Workers].purchased !== 0,
+      unlocked: player.ants.producers[AntProducers.Workers].purchased !== 0 || player.ants.antSacrificeCount > 0,
       reset: player.unlocks.reincarnate
     },
     {
