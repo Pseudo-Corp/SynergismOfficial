@@ -256,7 +256,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     EFFECTSDESCRIPTION: (hept) => {
       const effects = hepteracts.acceleratorBoost.EFFECTS(hept)
       return i18next.t('wowCubes.hepteractForge.descriptions.acceleratorBoost.currentEffect', {
-        x: format(effects.acceleratorBoostMultiplier, 2, true)
+        x: formatAsPercentIncrease(effects.acceleratorBoostMultiplier, 2)
       })
     },
     DESCRIPTION: () => i18next.t('wowCubes.hepteractForge.descriptions.acceleratorBoost.effect'),
@@ -804,22 +804,20 @@ export const toggleAutoBuyOrbs = (newValue?: boolean, firstLoad = false) => {
 export const overfluxPowderDescription = () => {
   let powderEffectText: string
   if (player.platonicUpgrades[16] > 0) {
-    powderEffectText = i18next.t('hepteracts.allCubeGainExtended', {
+    powderEffectText = i18next.t('hepteracts.powderEffectExtended', {
       x: format(100 * (calculateCubeMultFromPowder() - 1), 2, true),
       y: format(100 * (calculateQuarkMultFromPowder() - 1), 3, true),
       z: format(2 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 1e5), 2, true),
       a: format(Decimal.pow(player.overfluxPowder + 1, 10 * player.platonicUpgrades[16]))
     })
   } else {
-    powderEffectText = i18next.t('hepteracts.allCubeGain', {
+    powderEffectText = i18next.t('hepteracts.powderEffect', {
       x: format(100 * (calculateCubeMultFromPowder() - 1), 2, true),
       y: format(100 * (calculateQuarkMultFromPowder() - 1), 3, true)
     })
   }
   DOMCacheGetOrSet('hepteractUnlockedText').style.display = 'none'
-  DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = i18next.t('hepteracts.powderEffect', {
-    x: powderEffectText
-  })
+  DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = powderEffectText
   DOMCacheGetOrSet('hepteractBalanceText').textContent = i18next.t('hepteracts.powderLumps', {
     x: format(player.overfluxPowder, 2, true)
   })

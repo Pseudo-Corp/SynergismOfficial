@@ -151,7 +151,7 @@ import {
   sumOfRuneLevels
 } from './Runes'
 import { getRuneSpiritEffect } from './RuneSpirits'
-import { shopData } from './Shop'
+import { shopUpgrades } from './Shop'
 import {
   calculateMaxSingularityLookahead,
   calculateSingularityDebuff,
@@ -936,7 +936,7 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'DiamondUpgrade4x3',
-    stat: () => 1 + (20 * player.upgrades[38]) / 100 // Diamond Upgrade 4x3
+    stat: () => 1 + 0.2 * player.upgrades[38] // Diamond Upgrade 4x3
   },
   {
     i18n: 'ParticleUpgrade3x5',
@@ -2520,14 +2520,14 @@ export const allAddCodeCapacityStats: NumberStatLine[] = [
   },
   {
     i18n: 'Calculator4Max',
-    stat: () => player.shopUpgrades.calculator4 === shopData.calculator4.maxLevel ? 32 : 0, // PL-AT δ Maxed (32 codes)
+    stat: () => player.shopUpgrades.calculator4 === shopUpgrades.calculator4.maxLevel ? 32 : 0, // PL-AT δ Maxed (32 codes)
     color: 'lime'
   },
   {
     i18n: 'Calculator5',
     stat: () => {
       let calc5uses = Math.floor(player.shopUpgrades.calculator5 / 10)
-      if (player.shopUpgrades.calculator5 === shopData.calculator5.maxLevel) {
+      if (player.shopUpgrades.calculator5 === shopUpgrades.calculator5.maxLevel) {
         calc5uses += 6
       }
       return calc5uses
@@ -2536,12 +2536,12 @@ export const allAddCodeCapacityStats: NumberStatLine[] = [
   },
   {
     i18n: 'Calculator6Max',
-    stat: () => player.shopUpgrades.calculator6 === shopData.calculator6.maxLevel ? 24 : 0, // PL-AT _ Maxed (24 codes)
+    stat: () => player.shopUpgrades.calculator6 === shopUpgrades.calculator6.maxLevel ? 24 : 0, // PL-AT _ Maxed (24 codes)
     color: 'lime'
   },
   {
     i18n: 'Calculator7Max',
-    stat: () => player.shopUpgrades.calculator7 === shopData.calculator7.maxLevel ? 48 : 0, // PL-AT ΩΩ Maxed (48 codes)
+    stat: () => player.shopUpgrades.calculator7 === shopUpgrades.calculator7.maxLevel ? 48 : 0, // PL-AT ΩΩ Maxed (48 codes)
     color: 'lime'
   }
 ]
@@ -4294,7 +4294,7 @@ const gameStages = (): Stage[] => {
       stage: 4,
       tier: 4,
       name: 'reincarnate-ant',
-      unlocked: player.ants.producers[AntProducers.Workers].purchased !== 0,
+      unlocked: player.ants.producers[AntProducers.Workers].purchased !== 0 || player.ants.antSacrificeCount > 0,
       reset: player.unlocks.reincarnate
     },
     {

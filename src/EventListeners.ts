@@ -109,11 +109,13 @@ import { resetrepeat, updateAutoCubesOpens, updateAutoReset, updateTesseractAuto
 import { buyAllBlessingLevels, buyBlessingLevels, focusedRuneBlessingHTML, runeBlessingKeys } from './RuneBlessings'
 import { focusedRuneHTML, focusedRuneLockedHTML, type RuneKeys, runes, runeToIndex, sacrificeOfferings } from './Runes'
 import { buyAllSpiritLevels, buySpiritLevels, focusedRuneSpiritHTML, runeSpiritKeys } from './RuneSpirits'
+import type { ShopUpgradeNames } from './Shop'
 import {
   buyShopUpgrades,
+  createShopHTML,
   resetShopUpgrades,
-  shopData,
   shopDescriptions,
+  shopUpgrades,
   shopUpgradeTypes,
   useConsumablePrompt
 } from './Shop'
@@ -1221,13 +1223,22 @@ TODO: Fix this entire tab it's utter shit
     player.autoPotionTimerObtainium = 0
   })
   /* Permanent Upgrade Images */
-  const shopKeys = Object.keys(
-    player.shopUpgrades
-  ) as (keyof Player['shopUpgrades'])[]
+  const shopKeys = Object.keys(player.shopUpgrades) as ShopUpgradeNames[]
   for (const key of shopKeys) {
-    const shopItem = shopData[key]
+    const shopItem = shopUpgrades[key]
     if (shopItem.type === shopUpgradeTypes.UPGRADE) {
       const boundShopDescriptions = shopDescriptions.bind(null, key)
+      const boundCreateShopHTML = createShopHTML.bind(null, key)
+      DOMCacheGetOrSet(key).addEventListener(
+        'mousemove',
+        (e) => Modal(boundCreateShopHTML, e.clientX, e.clientY, { borderColor: 'cyan' })
+      )
+      DOMCacheGetOrSet(key).addEventListener('focus', function(this: HTMLElement) {
+        const elmRect = this.getBoundingClientRect()
+        Modal(boundCreateShopHTML, elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'cyan' })
+      })
+      DOMCacheGetOrSet(key).addEventListener('mouseout', CloseModal)
+      DOMCacheGetOrSet(key).addEventListener('blur', CloseModal)
       DOMCacheGetOrSet(key).addEventListener('mouseover', boundShopDescriptions)
       DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', boundShopDescriptions)
       DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', boundShopDescriptions)

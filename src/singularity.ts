@@ -2674,22 +2674,6 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
-      return i18next.t('singularity.perks.shopSpecialOffer.name')
-    },
-    levels: [5, 20, 51],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[2]) {
-        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel2')
-      } else if (n >= levels[1]) {
-        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel1')
-      } else {
-        return i18next.t('singularity.perks.shopSpecialOffer.default')
-      }
-    },
-    ID: 'shopSpecialOffer'
-  },
-  {
-    name: () => {
       return i18next.t('singularity.perks.potionAutogenerator.name')
     },
     levels: [6],
@@ -2707,6 +2691,22 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t('singularity.perks.persistentGlobalResets.default')
     },
     ID: 'persistentGlobalResets'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.shopSpecialOffer.name')
+    },
+    levels: [10, 50],
+    description: (n: number, levels: number[]) => {
+      if (n >= levels[1]) {
+        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel2')
+      } else if (n >= levels[0]) {
+        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel1')
+      } else {
+        return i18next.t('singularity.perks.shopSpecialOffer.default')
+      }
+    },
+    ID: 'shopSpecialOffer'
   },
   {
     name: () => {
@@ -2943,17 +2943,23 @@ export const singularityPerks: SingularityPerk[] = [
     name: () => {
       return i18next.t('singularity.perks.wowCubeAutomatedShipping.name')
     },
-    levels: [50, 150],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[1]) {
-        return i18next.t(
-          'singularity.perks.wowCubeAutomatedShipping.hasLevel1'
-        )
-      } else {
-        return i18next.t('singularity.perks.wowCubeAutomatedShipping.default')
-      }
+    levels: [50],
+    description: () => {
+      return i18next.t(
+        'singularity.perks.wowCubeAutomatedShipping.default'
+      )
     },
     ID: 'wowCubeAutomatedShipping'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.platonicClones.name')
+    },
+    levels: [50],
+    description: () => {
+      return i18next.t('singularity.perks.platonicClones.default')
+    },
+    ID: 'platonicClones'
   },
   {
     name: () => {
@@ -3035,20 +3041,6 @@ export const singularityPerks: SingularityPerk[] = [
       })
     },
     ID: 'goldenRevolution3'
-  },
-  {
-    name: () => {
-      return i18next.t('singularity.perks.platonicClones.name')
-    },
-    levels: [100, 200],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[1]) {
-        return i18next.t('singularity.perks.platonicClones.hasLevel1')
-      } else {
-        return i18next.t('singularity.perks.platonicClones.default')
-      }
-    },
-    ID: 'platonicClones'
   },
   {
     name: () => {
@@ -3408,6 +3400,7 @@ export async function buyGoldenQuarks (): Promise<void> {
   let cost: number
 
   if (buyAmount === -1) {
+    buyAmount = maxBuy
     cost = maxBuy * goldenQuarkCost.cost
     player.worlds.sub(cost)
     player.goldenQuarks += maxBuy
@@ -3419,7 +3412,7 @@ export async function buyGoldenQuarks (): Promise<void> {
 
   return Alert(
     i18next.t('singularity.goldenQuarks.transaction', {
-      spent: format(maxBuy, 0, true),
+      spent: format(buyAmount, 0, true),
       cost: format(cost, 0, true)
     })
   )

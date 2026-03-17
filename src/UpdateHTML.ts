@@ -366,13 +366,11 @@ export const revealStuff = () => {
   }
 
   DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = // Auto Cube Upgrades
-    (player.highestSingularityCount >= 50 && player.singularityCount < player.highestSingularityCount)
-      || player.highestSingularityCount >= 150
+    player.highestSingularityCount >= 50
       ? 'block'
       : 'none'
   DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = // Auto Platonic Upgrades
-    (player.highestSingularityCount >= 100 && player.singularityCount < player.highestSingularityCount)
-      || player.highestSingularityCount >= 200
+    player.highestSingularityCount >= 50
       ? 'block'
       : 'none'
 

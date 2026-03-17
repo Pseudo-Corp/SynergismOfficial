@@ -3286,8 +3286,7 @@
               </div>
             </div>
           </div>
-          <!-- TODO: i18n (not done because of potential conflicts with pixel-update) -->
-          <button id="logoutButton">Logout</button>
+          <button id="logoutButton" i18n="account.logoutLabel"></button>
         </div>
         <div class="subtabContent subtabDisplayFlex" id="messagesSubTab">
             <div style="width: 100%; max-width: 800px; margin: 0 auto;">
@@ -4516,7 +4515,7 @@
 
     <div id="event">
         <div id="globalFreeEvents" class="event-container">
-            <h4 class="event-title">Global Event <span id="globalEventName"></span></h4>
+            <h4 id="globalEventName" class="event-title" i18n="pseudoCoins.consumables.globalEvent"></h4>
             <div id="eventBuffContainer">
                 <div class="eventBuffVal" id="eventBuffQuark">
                     <img src="Pictures/Default/Quark.png" i18n="general.resources.quarks">
@@ -4575,13 +4574,13 @@
                     <p id="eventBuffOneMindValue">+10%</p>
                 </div>
             </div>            
-            <div class="event-timer">Time Remaining: <span id="globalEventTimer">--:--:--</span></div>
+            <div id="globalEventTimer" class="event-timer"></div>
         </div>
     
         <div id="consumableEvents" class="event-container">
             <h4 class="event-title" i18n="pseudoCoins.consumables.eventTitle"></h4>
-            <div class="event-bonus">Current Amount: <span id="consumableEventBonus"></span></div>
-            <div class="event-timer">Ends At: <span id="consumableEventTimer">--:--:--</span></div>
+            <div id="event-bonus" i18n="pseudoCoins.consumables.currentAmountNone"></div>
+            <div id="event-timer"></div>
             <div id="consumableBuffContainer">
                 <div class="consumableBuffVal" id="consumableBuffQuark">
                     <img src="Pictures/Default/Quark.png">

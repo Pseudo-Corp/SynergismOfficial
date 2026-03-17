@@ -319,17 +319,15 @@ export async function handleLogin () {
     subscription = sub
 
     if (!isSynergismCC && platform === 'browser') {
-      subtabElement.innerHTML =
-        'Login is not available here, go to <a href="https://synergism.cc">https://synergism.cc</a> instead!'
+      subtabElement.innerHTML = i18next.t('account.loginNotAvailable')
     } else if (hasAccount(account)) {
       if (Object.keys(account.member).length === 0) {
-        subtabElement.innerHTML = `You are logged in, but your profile couldn't be retrieved from Discord or Patreon.`
+        subtabElement.innerHTML = i18next.t('account.loggedInBut')
         break generateSubtabBrowser
       }
 
       if (account.error) {
-        subtabElement.innerHTML =
-          `You are logged in, but retrieving your profile yielded the following error: ${account.error}`
+        subtabElement.innerHTML = i18next.t('account.loggedInButError', { error: account.error })
         break generateSubtabBrowser
       }
 
@@ -463,7 +461,6 @@ export async function handleLogin () {
 
         const platformConfig = {
           discord: {
-            label: 'Link Discord',
             color: '#5865F2',
             logo:
               `<svg width="20" height="20" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
@@ -471,7 +468,6 @@ export async function handleLogin () {
               </svg>`
           },
           patreon: {
-            label: 'Link Patreon',
             color: '#FF424D',
             logo:
               `<svg width="20" height="20" viewBox="0 0 436 476" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
@@ -479,7 +475,6 @@ export async function handleLogin () {
               </svg>`
           },
           steam: {
-            label: 'Link Steam',
             color: '#1b2838',
             logo:
               `<svg width="20" height="20" viewBox="0 0 256 259" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
@@ -492,7 +487,7 @@ export async function handleLogin () {
         for (const unlinked of unlinkedPlatforms) {
           const config = platformConfig[unlinked.name as keyof typeof platformConfig]
           const button = document.createElement('button')
-          button.innerHTML = `${config.logo}${config.label}`
+          button.innerHTML = `${config.logo}${i18next.t(`account.link.${unlinked.name}`)}`
           button.style.padding = '10px 20px'
           button.style.cursor = 'pointer'
           button.style.backgroundColor = config.color
@@ -520,7 +515,7 @@ export async function handleLogin () {
                 const sessionTicket = await getSessionTicket()
 
                 if (!sessionTicket) {
-                  await Alert('Failed to validate with Steam. Is Steam open?')
+                  await Alert(i18next.t('account.steam.failedToVerify'))
                   return
                 }
 
@@ -643,9 +638,7 @@ function handleWebSocket () {
     if (delay !== undefined) {
       setTimeout(handleWebSocket, delay)
     } else {
-      Notification(
-        'Could not re-establish your connection. Consumables and events related to Consumables will not work.'
-      )
+      Notification(i18next.t('account.consumables.connectionFailed'))
       resetWebSocket()
     }
   })
@@ -673,8 +666,7 @@ function handleWebSocket () {
       consumable.ends.push(data.startedAt + 3600 * 1000)
       consumable.amount++
 
-      const article = /^[AEIOU]/i.test(data.displayName) ? 'an' : 'a'
-      Notification(`Someone redeemed ${article} ${data.displayName}!`)
+      Notification(i18next.t('account.consumables.redeemed', { consumable: data.displayName }))
       setFavicon('./Pictures/favicon-notification.ico')
     } else if (data.type === 'consumable-ended') {
       // Because of the invariant that the timestamps are sorted, we can just remove the first element
@@ -682,18 +674,17 @@ function handleWebSocket () {
       consumable.ends.shift()
       consumable.amount--
 
-      const article = /^[AEIOU]/i.test(data.name) ? 'An' : 'A'
-      Notification(`${article} ${data.name} ended!`)
+      Notification(i18next.t('account.consumables.ended', { consumable: data.name }))
 
       if (consumable.amount === 0) {
         setFavicon('./favicon.ico')
       }
     } else if (data.type === 'join') {
-      Notification('Connection was established!')
+      Notification(i18next.t('account.consumables.connectionEstablished'))
     } else if (data.type === 'info-all') {
       resetWebSocket() // So that we can get an accurate count each time
       if (data.active.length !== 0) {
-        let message = 'The following consumables are active:\n'
+        let message = `${i18next.t('account.consumables.joined')}\n`
 
         for (const { internalName, endsAt, name } of data.active) {
           const consumable = allDurableConsumables[internalName as PseudoCoinConsumableNames]

@@ -3,6 +3,7 @@ import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getResetResearches } from './Reset'
+import { runes } from './Runes'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
@@ -163,7 +164,11 @@ type RangeCondition = {
 
 const researchUnlockRanges: RangeCondition[] = [
   { range: [0, 0], condition: () => true }, // Not sure if needed!
-  { range: [1, 80], condition: () => player.unlocks.reincarnate },
+  { range: [1, 76], condition: () => player.unlocks.reincarnate },
+  { range: [77, 77], condition: () => runes.thrift.isUnlocked() },
+  { range: [78, 78], condition: () => player.unlocks.reincarnate },
+  { range: [79, 79], condition: () => runes.prism.isUnlocked() },
+  { range: [80, 80], condition: () => runes.duplication.isUnlocked() },
   { range: [81, 100], condition: () => player.unlocks.anthill },
   { range: [101, 118], condition: () => player.unlocks.talismans },
   { range: [119, 123], condition: () => player.unlocks.ascensions },
@@ -274,10 +279,10 @@ export const updateResearchAuto = (index: number) => {
 // For mode 'cheapest' and assumes you have Cube Upgrade 9 (1x9) purchased
 export const updateResearchRoomba = () => {
   if (isResearchMaxed(player.autoResearch) || !isResearchUnlocked(player.autoResearch)) {
-    DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
     player.roombaResearchIndex = Math.min(researchOrderByCost.length - 1, player.roombaResearchIndex + 1)
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
+
   // Edge Case? If we reach end of the list, but there is still unlockable research,
   // we can loop around again. This should not affect performance that much, and stops
   // a few of the more annoying bugs
@@ -285,8 +290,11 @@ export const updateResearchRoomba = () => {
     player.roombaResearchIndex = 0 // Reset to the start if we reach the end
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
+}
 
-  DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.add('researchRoomba')
+export const resetResearchRoomba = () => {
+  player.roombaResearchIndex = 0
+  player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
 }
 
 /**

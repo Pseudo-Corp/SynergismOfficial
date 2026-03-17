@@ -4730,15 +4730,14 @@ img#singularityPerksIcon {
     color: #ffd700;
 }
 
-.event-bonus,
+#event-bonus,
+#event-timer,
 .event-timer {
     margin: 5px 0;
 }
 
 #globalEventBonus,
-#consumableEventBonus,
-#globalEventTimer,
-#consumableEventTimer {
+#globalEventTimer {
     color: #8f8;
 }
 

@@ -88,7 +88,7 @@ import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
 import { runeSpiritKeys, updateRuneSpiritHTML } from './RuneSpirits'
-import { getShopCosts, isShopUpgradeUnlocked, shopData, shopUpgradeTypes } from './Shop'
+import { getShopCosts, type ShopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
 import {
   computeGQUpgradeFreeLevelSoftcap,
   computeGQUpgradeMaxLevel,
@@ -125,7 +125,7 @@ import {
   calculateSalvageTesseractBlessing
 } from './Tesseracts'
 import { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from './Toggles'
-import type { OneToFive, Player, ZeroToFour } from './types/Synergism'
+import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { sumContents, timeRemainingHours } from './Utility'
 import { Globals as G } from './Variables'
@@ -1920,12 +1920,10 @@ export const visualUpdateShop = () => {
   )
 
   // Create Keys with the correct type
-  const keys = Object.keys(
-    player.shopUpgrades
-  ) as (keyof Player['shopUpgrades'])[]
+  const keys = Object.keys(player.shopUpgrades) as ShopUpgradeNames[]
   for (const key of keys) {
     // Create a copy of shopItem instead of accessing many times
-    const shopItem = shopData[key]
+    const shopItem = shopUpgrades[key]
 
     if (shopItem.type === shopUpgradeTypes.CONSUMABLE) {
       const maxBuyablePotions = Math.min(
@@ -1964,9 +1962,7 @@ export const visualUpdateShop = () => {
         DOMCacheGetOrSet(`${key}Hide`).style.display = 'none'
         continue
       } else {
-        DOMCacheGetOrSet(`${key}Hide`).style.display = isShopUpgradeUnlocked(
-            key
-          )
+        DOMCacheGetOrSet(`${key}Hide`).style.display = shopItem.isUnlocked()
           ? 'block'
           : 'none'
       }
@@ -2076,8 +2072,12 @@ export const visualUpdateEvent = () => {
   const event = getEvent()
   if (event !== null) {
     const eventEnd = new Date(event.end)
-    DOMCacheGetOrSet('globalEventTimer').textContent = timeRemainingHours(eventEnd)
-    DOMCacheGetOrSet('globalEventName').textContent = `(${event.name.length}) - ${event.name.join(', ')}`
+    DOMCacheGetOrSet('globalEventTimer').textContent = i18next.t('pseudoCoins.consumables.globalEventSome', {
+      time: timeRemainingHours(eventEnd)
+    })
+    DOMCacheGetOrSet('globalEventName').textContent = i18next.t('pseudoCoins.consumables.globalEventActive', {
+      events: `(${event.name.length}) - ${event.name.join(', ')}`
+    })
 
     for (let i = 0; i < eventBuffType.length; i++) {
       const eventBuff = getEventBuff(BuffType[eventBuffType[i]])
@@ -2090,16 +2090,20 @@ export const visualUpdateEvent = () => {
       }
     }
   } else {
-    DOMCacheGetOrSet('globalEventTimer').textContent = '--:--:--'
-    DOMCacheGetOrSet('globalEventName').textContent = ''
+    DOMCacheGetOrSet('globalEventTimer').innerHTML = i18next.t('pseudoCoins.consumables.globalEventNone')
+    DOMCacheGetOrSet('globalEventName').textContent = i18next.t('pseudoCoins.consumables.globalEvent')
     for (let i = 0; i < eventBuffType.length; i++) {
       DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'none'
     }
   }
   const { HAPPY_HOUR_BELL } = allDurableConsumables
   if (HAPPY_HOUR_BELL.amount > 0) {
-    DOMCacheGetOrSet('consumableEventTimer').textContent = constructConsumableTimes('HAPPY_HOUR_BELL')
-    DOMCacheGetOrSet('consumableEventBonus').textContent = `${HAPPY_HOUR_BELL.amount}`
+    DOMCacheGetOrSet('event-timer').innerHTML = i18next.t('pseudoCoins.consumables.currentTimersSome', {
+      timers: constructConsumableTimes('HAPPY_HOUR_BELL')
+    })
+    DOMCacheGetOrSet('event-bonus').innerHTML = i18next.t('pseudoCoins.consumables.currentAmountSome', {
+      amount: HAPPY_HOUR_BELL.amount
+    })
 
     for (let i = 0; i < eventBuffType.length; i++) {
       const eventBuff = consumableEventBuff(BuffType[eventBuffType[i]])
@@ -2112,8 +2116,9 @@ export const visualUpdateEvent = () => {
       }
     }
   } else {
-    DOMCacheGetOrSet('consumableEventBonus').textContent = 'No active consumable'
-    DOMCacheGetOrSet('consumableEventTimer').textContent = '--:--:--'
+    DOMCacheGetOrSet('event-bonus').innerHTML = i18next.t('pseudoCoins.consumables.currentAmountNone')
+    DOMCacheGetOrSet('event-timer').innerHTML = i18next.t('pseudoCoins.consumables.currentTimersNone')
+
     for (let i = 0; i < eventBuffType.length; i++) {
       DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
     }

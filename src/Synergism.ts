@@ -86,6 +86,7 @@ import {
   refundOvercapResearches,
   researchData,
   researchOrderByCost,
+  resetResearchRoomba,
   roombaResearchEnabled,
   updateResearchAuto,
   updateResearchBG,
@@ -98,7 +99,6 @@ import {
   updateAutoCubesOpens,
   updateAutoReset,
   updateSingularityAchievements,
-  updateSingularityGlobalPerks,
   updateTesseractAutoBuyAmount
 } from './Reset'
 import {
@@ -2009,7 +2009,6 @@ const loadSynergy = () => {
     calculateObtainium()
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
-    updateSingularityGlobalPerks()
 
     // Update the Sing requirements on reload for a challenge if applicable
     if (G.currentSingChallenge !== undefined) {
@@ -2018,7 +2017,6 @@ const loadSynergy = () => {
     }
   }
 
-  // updateAchievementBG()
   if (player.currentChallenge.reincarnation) {
     resetrepeat('reincarnationChallenge')
   } else if (player.currentChallenge.transcension) {
@@ -4152,6 +4150,7 @@ export const updateAll = (): void => {
   if (
     player.toggles[8]
     && player.upgrades[88] === 1
+    && player.upgrades[46] === 1
     && player.prestigePoints.gte(player.acceleratorBoostCost)
   ) {
     boostAccelerator(true)
@@ -4765,6 +4764,7 @@ const tack = (dt: number) => {
         updateResearchRoomba()
         // If not max level, you could not afford the research, so do not run more times
         if (player.researches[currIndex] < researchData[currIndex].maxLevel) {
+          resetResearchRoomba()
           break
         }
         counter++
