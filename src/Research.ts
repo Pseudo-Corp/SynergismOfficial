@@ -3,11 +3,11 @@ import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getResetResearches } from './Reset'
+import { runes } from './Runes'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { sortDecimalWithIndices, updateClassList } from './Utility'
-import { runes } from './Runes'
 
 interface IResearchData {
   baseCost: Decimal
