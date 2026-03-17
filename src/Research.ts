@@ -279,10 +279,10 @@ export const updateResearchAuto = (index: number) => {
 // For mode 'cheapest' and assumes you have Cube Upgrade 9 (1x9) purchased
 export const updateResearchRoomba = () => {
   if (isResearchMaxed(player.autoResearch) || !isResearchUnlocked(player.autoResearch)) {
-    DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
     player.roombaResearchIndex = Math.min(researchOrderByCost.length - 1, player.roombaResearchIndex + 1)
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
+
   // Edge Case? If we reach end of the list, but there is still unlockable research,
   // we can loop around again. This should not affect performance that much, and stops
   // a few of the more annoying bugs
@@ -290,8 +290,11 @@ export const updateResearchRoomba = () => {
     player.roombaResearchIndex = 0 // Reset to the start if we reach the end
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
+}
 
-  DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.add('researchRoomba')
+export const resetResearchRoomba = () => {
+  player.roombaResearchIndex = 0
+  player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
 }
 
 /**
