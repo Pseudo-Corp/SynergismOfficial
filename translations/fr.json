@@ -513,13 +513,13 @@
       "166": "Breaking the laws of Physics: Purchase 1,000 Accelerator Boosts.",
       "167": "Decayed Realism: Purchase 5,000 Accelerator Boosts.",
       "168": "Kinda fast: Purchase 15,000 Accelerator Boosts.",
-      "169": "The Galactic Feast: Obtain 3 Galactic Crumbs.",
-      "170": "Only the finest: Obtain 100,000 Galactic Crumbs.",
-      "171": "Six-Course Meal: Obtain 666,666,666 Galactic Crumbs.",
-      "172": "Accumulation of Food: Obtain 1e20 Galactic Crumbs.",
-      "173": "Cookie Clicking: Obtain 1e40 Galactic Crumbs.",
-      "174": "Unlimited Bread Sticks!: Obtain 1e250 Galactic Crumbs.",
-      "175": "Restaurant at the end of the Universe: Obtain 1e2500 Galactic Crumbs.",
+      "169": "Le Festin Galactique : Obtenez 3 Miettes Galactiques.",
+      "170": "Uniquement le premier choix : Obtenez 100 000 Miettes Galactiques.",
+      "171": "Repas 6 étoiles : Obtenez 666 666 666 Miettes Galactiques.",
+      "172": "Accumulation de Nourriture : Obtenez 1e20 Miettes Galactiques.",
+      "173": "Cookie Clicking : Obtenez 1e40 Miettes Galactiques.",
+      "174": "Bâtonnets de pain infinis ! : Obtenez 1e250 Miettes Galactiques.",
+      "175": "Le Dernier Restaurant avant la fin du monde : Obtenez 1e2500 Miettes Galactiques.",
       "176": "Ant-icipation!: Reach 50 Immortal ELO and own a Tier 2 Ant.",
       "177": "Ant-ecedent: Reach 200 Immortal ELO and own a Tier 3 Ant.",
       "178": "Ants are friends, not food!: Reach 500 Immortal ELO and own a Tier 4 Ant.",
@@ -605,9 +605,9 @@
       "258": "Khafra's Personal Best: Clear an Ascension with 1e21 score.",
       "259": "100 million million million!: Clear an Ascension with 1e23 score.",
       "260": "Highly Dimensional Being: Ascend a total of 10 million times.",
-      "261": "Ant God's upheaval: Ascend a total of 100 million times.",
-      "262": "Did you forget about Ant God?: Ascend a total of 2 billion times.",
-      "263": "Ant God is unemployed thanks to you: Ascend a total of 40 billion times.",
+      "261": "Le bouleversement de la Déesse Fourmi : Ascendez un total de 100 millions de fois.",
+      "262": "Auriez-vous oublié la Déesse Fourmi ? Ascendez un total de 2 milliards de fois.",
+      "263": "La Déesse Fourmi se retrouve au chômage par votre faute : Ascendez un total de 40 Millions de fois.",
       "264": "I hope you're happy with yourself: Ascend a total of 800 billion times.",
       "265": "Oh well: Ascend a total of 16 trillion times.",
       "266": "Keep up the gradual numerical increase: Ascend a total of 100 trillion times.",
@@ -619,7 +619,7 @@
       "272": "LARGER BOY: Achieve a constant of 1e300,000.",
       "273": "LARGEST BOY: Achieve a constant of 1e1,000,000.",
       "274": "Power Creep: Singularity 1 time.",
-      "275": "Have you enough cubes?: Singularity 2 times.",
+      "275": "Vous avez assez de cubes ? : SIngularisez 2 fois.",
       "276": "Singularity: Singularity 3 times.",
       "277": "SingularRity: Singularity 4 times.",
       "278": "SiINguLaRrRity: Singularity 5 times.",
@@ -688,9 +688,9 @@
       "341": "Booster Seats: Purchase 100,000 Accelerator Boosts",
       "342": "A brief history of time: Purchase 1,000,000 Accelerator Boosts",
       "343": "Vivace: Purchase 10,000,000 Accelerator Boosts",
-      "344": "A crumby achievement: Obtain 1e25,000 Galactic Crumbs.",
-      "345": "Get it? Crumbs?: Obtain 1e125,000 Galactic Crumbs.",
-      "346": "You clearly do: Obtain 1e1,000,000 Galactic Crumbs.",
+      "344": "Un Accomplissement mietteux : Obtenez 1e25000 Miettes Galactiques.",
+      "345": "T'a capté ? Mietteux ? : Obtenez 1e125000 Miettes Galactiques.",
+      "346": "T'a clairement capté : Obtenez 1e1000000 Miettes Galactiques.",
       "347": "Gordon Ramses: Reach 400,000 Immortal ELO.",
       "348": "Wolfgang Pluck: Reach 1,500,000 Immortal ELO.",
       "349": "Marco Pierre Blanco: Reach 5,000,000 Immortal ELO, and purchase a Tier IX Ant.",
@@ -827,7 +827,7 @@
       "480": "M2: Reincarnate 2e14 times.",
       "481": "The Sacrificial Ant: Sacrifice your Anthill once.",
       "482": "Building back better: Sacrifice your Anthill 10 times.",
-      "483": "A feast for a god: Sacrifice your Anthill 50 times.",
+      "483": "Un festin divin : Sacrifiez votre Fourmilière 50 fois.",
       "484": "Quartering: Sacrifice your Anthill 250 times.",
       "485": "Blemished Altar: Sacrifice your Anthill 1,250 times.",
       "486": "Formicae Caedem: Sacrifice your Anthill 5,000 times.",
@@ -836,7 +836,7 @@
       "489": "Why are we here?: Sacrifice your Anthill 250,000 times.",
       "490": "Just to suffer?: Sacrifice your Anthill 1,000,000 times.",
       "491": "Scorched Earth: Sacrifice your Anthill 3,000,000 times.",
-      "492": "It's so clear that all we have now: Sacrifice your Anthill 10,000,000 times.",
+      "492": "Il est si clair que tout ce que nous avons à présent : Sacrifiez votre fourmilière 10 000 000 fois.",
       "493": "Are our thoughts of yesterday: Sacrifice your Anthill 100,000,000 times.",
       "494": "Elementary Math: Use Code 'add' 10 times.",
       "495": "It adds up: Use Code 'add' 20 times.",
@@ -1193,7 +1193,7 @@
         "multipliers": "Gain +10 free Multipliers. <span class='rainbowText'>Wow!</span>"
       },
       "169": {
-        "antSpeed": "Ant Speed is multiplied by logarithm of Galactic Crumbs"
+        "antSpeed": "La Vitesse de Fourmi est multipliée par le logarithme des Miettes Galactiques"
       },
       "171": {
         "antSpeed": "Ant Speed x1.2"
@@ -1235,7 +1235,7 @@
         "antAutobuyers": "Unlock the ALMIGHTY ANT Autobuyer!"
       },
       "182": {
-        "antAutobuyers": "Unlock the DISCIPLE OF ANT GOD Autobuyer!"
+        "antAutobuyers": "Débloquez l'auto-acheteur du DISCIPLE DE LA DÉESSE FOURMI !"
       },
       "183": {
         "freeAntUpgrades": "Gain 2 free Ant Upgrade Levels!"
@@ -1438,7 +1438,7 @@
         "platonicToHypercubes": "Platonic Cubes grant Hypercubes when opened [up to +1 at 1e1,000,000 Constant]"
       },
       "349": {
-        "antAutobuyers": "Automatically buy HOLY SPIRIT OF ANT GOD Ants!"
+        "antAutobuyers": "Achetez automatiquement des fourmis SAINT ESPRIT DE LA DÉESSE FOURMI !"
       },
       "382": {
         "salvage": "+3 Salvage"
@@ -1773,7 +1773,7 @@
       "accelerators": "Accelerators",
       "acceleratorBoosts": "Accelerator Boosts",
       "multipliers": "Multipliers",
-      "antCrumbs": "Galactic Crumbs",
+      "antCrumbs": "Miettes Galactiques",
       "sacMult": "Ant Sacrifice",
       "ascensionCount": "Ascensions",
       "constant": "Constants",
@@ -1886,7 +1886,7 @@
       },
       "ants": {
         "name": "More Ant Fodder for your Ant Diety",
-        "description": "Oh! Your Ant God takes note of your Synergism Level. Gain base Ant ELO for each level above 59. +25 per level until Level 100, +50 per level until level 200, and +100 for each additional level.",
+        "description": "Oh ! Votre Déesse Fourmi prend note de votre Niveau Synergism. Gagnez des ELO de Fourmi de base pour chaque niveau supérieur à 59. +25 par niveau jusqu'au Niveau 100, +50 par niveau jusqu'au Niveau 200 et +100 pour chaque niveau additionnel.",
         "effect": "Effet Actuel : +{{elo}} ELO de Fourmi"
       },
       "wowCubes": {
@@ -2013,22 +2013,22 @@
       },
       "antSpeed2Autobuyer": {
         "name": "Impia Reproducta Autobuyer",
-        "description": "Autobuy Impia Reproducta Formicidae if you have autobuy enabled!",
+        "description": "Auto-achète Impia Reproducta Formicidae si vous avez activé l'auto-achat !",
         "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "wowCubesAutobuyer": {
         "name": "Cubus Admirabilis Autobuyer",
-        "description": "Autobuy Cubus Admirabilis Formicidae if you have autobuy enabled!",
+        "description": "Auto-achète Cubus Admirabilis Formicidae si vous avez activé l'auto-achat !",
         "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "ascensionScoreAutobuyer": {
         "name": "Ascendens Autobuyer",
-        "description": "Autobuy Ascendens Formicidae if you have autobuy enabled!",
+        "description": "Auto-achète Ascendens Formicidae si vous avez activé l'auto-achat !",
         "effect": "Effet Actuel : Regardez au-dessus !"
       },
       "mortuus2Autobuyer": {
         "name": "Mortuus Iterum Autobuyer",
-        "description": "Autobuy Mortuus Iterum Formicidae if you have autobuy enabled!",
+        "description": "Auto-achète Mortuus Iterum Formicidae si vous avez activé l'auto-achat !",
         "effect": "Effet Actuel : Regardez au-dessus !"
       }
     },
@@ -2055,7 +2055,7 @@
       },
       "singularityCount": {
         "name": "Progressive Achievement - Singularity Count",
-        "description": "Gain AP based on the highest Singularity you have reached! <br> Highest Reached: <<gold|{{x}}>>",
+        "description": "Gagnez des PA en fonction de la Singularité la plus haute que vous ayez atteint ! <br> Plus haute atteinte : <<gold|{{x}}>>",
         "apSource": "Gain +9 AP for Singularities 1-100 <br> Gain +12 AP for Singularities 101-200 <br> Gain +15 AP for Singularities 201-300"
       },
       "ambrosiaCount": {
@@ -2070,7 +2070,7 @@
       },
       "exalts": {
         "name": "Progressive Achievement - EXALT Completions",
-        "description": "Gain AP for each EXALT you have completed!",
+        "description": "Gagnez des PA pour chaque EXALT que vous avez accompli !",
         "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Twenty Ascensions: {{num3}}/{{cap3}} AP <br> No Octeract Effects: {{num4}}/{{cap4}} AP <br> No Ambrosia Upgrades: {{num5}}/{{cap5}} AP <br> Grand Singularity Speedrun: {{num6}}/{{cap6}} AP <br> Sadistic III: {{num7}}/{{cap7}} AP <br> Taxman's Last Stand: {{num8}}/{{cap8}} AP"
       },
       "singularityUpgrades": {
@@ -2102,8 +2102,8 @@
     "hover": "Survolez un succès pour afficher des informations.",
     "tieredExtraRewards": "This Tiered Achievement has extra rewards!",
     "ungroupedExtraRewards": "This Achievement has an additional reward!",
-    "totalPoints": "Points de Succès : {{x}}/{{y}} [{{z}}%]",
-    "achievementPoints": "You have {{x}} Achievement Points (AP)!",
+    "totalPoints": "Points d'accomplissement : {{x}}/{{y}} [{{z}}%]",
+    "achievementPoints": "Vous avez {{x}} Points d'Accomplissement (AP) !",
     "rewardGainMessage": "Récompense : {{x}} PS. {{y}} Quarks ! {{z}}",
     "completed": " OBTENU !",
     "notification": "Vous avez obtenu un succès : {{m}}",
@@ -2140,7 +2140,7 @@
     "producers": {
       "0": {
         "name": "Worker Ants - Tier I",
-        "flavor": "The backbone of any colony. Gathers Galactic Crumbs.",
+        "flavor": "Les piliers de n'importe quelle colonie. Ils rassemblent les Miettes Galactiques.",
         "generates": "Generates {{x}} Crumbs per second",
         "eloInformation": "<<gold | ⤬>> Each Worker Ant you buy grants you <<orchid | +{{x}} Ant ELO>> for Ant Sacrifice.",
         "reincarnationUpgrade17": "Ant Speed from Reincarnation Upgrade 4x2: <<gold | {{x}}x>>",
@@ -2184,14 +2184,14 @@
         "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first ALMIGHTY Ant this Sacrifice creates <<#00DDFF|Reborn ELO>> 1.4x as fast!"
       },
       "7": {
-        "name": "DISCIPLE OF ANT GOD - Tier VIII",
+        "name": "DISCIPLE DE LA DÉESSE FOURMI - Tier VIII",
         "flavor": "Some call this the Primordial One. Produces ALMIGHTY ANTS.",
         "generates": "Generates {{x}} ALMIGHTY Ants per second",
         "eloMult": "<<orchid | ☇>> Buying your first DISCIPLE this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 2%",
         "eloSpeedup": "<<#00DDFF | 🝘>> Buying your first DISCIPLE this Sacrifice creates <<#00DDFF|Reborn ELO>> 2x as fast!"
       },
       "8": {
-        "name": "THE HOLY SPIRIT OF ANT GOD - Tier IX",
+        "name": "LE SAINT ESPRIT DE LA DÉESSE FOURMI - Tier IX",
         "flavor": "The child is the mother of the woman. Produces DISCIPLES.",
         "generates": "Generates {{x}} DISCIPLES per second",
         "eloMult": "<<orchid | ☇>> Buying your first HOLY SPIRIT this Sacrifice increases your <<orchid|Ant ELO>> this Sacrifice by 2%",
@@ -2337,7 +2337,7 @@
         "name": "Scientia Formicidae",
         "intro": "A rather... resourceful ant.",
         "description": "Gain up to +120 Salvage!",
-        "lockedAutomation": "Unlock the <i>Scientia Formicidae</i> autobuyer from the <<gold|<i>Galactic Crumbs</i> >> Achievement Group",
+        "lockedAutomation": "Débloquez l'auto-acheteur de <i>Scientia Formicidae</i> du Groupe d'Accomplissements <<gold|<i>Miettes Galactiques</i> >> ",
         "effect": "Grants <<green | +{{x}} Salvage>>!"
       },
       "freeRunes": {
@@ -2404,7 +2404,7 @@
         "compendium": "Ants to Quark Corner"
       },
       "locked": {
-        "crumbsMade": "You have made <<gold|{{x}}>> Galactic Crumbs.",
+        "crumbsMade": "Vous avez fait <<gold|{{x}}>> Miettes Galactiques.",
         "altarRequirements": "This Altar will open when you have made <<gold|1e40>>."
       },
       "autoSacrificeLocked": {
@@ -2418,7 +2418,7 @@
       },
       "sacrificeReady": {
         "unlocked": "<<gold|Sacrifice Ready!>> Click the icon to Sacrifice your Ants!",
-        "locked": "Galactic Crumbs this sacrifice: <<gold|{{x}}/{{y}}>>"
+        "locked": "Miettes Galactiques reçues en récompense du sacrifice : <<gold|{{x}}/{{y}}>>"
       }
     },
     "compendium": {
@@ -2500,13 +2500,13 @@
     "header": "Les Fourmis vous souhaitent la bienvenue chez elles.",
     "hover": "Survolez les icônes pour plus d'information. Cliquez les icônes pour acheter !",
     "challenge8Lock": "You need to beat <<limegreen | Challenge 8>> in your current Ascension to generate Crumbs!",
-    "altarHeader": "Ant God... <<crimson | It Hungers.>>",
+    "altarHeader": "La Déesse Fourmi... <<crimson | Elle a Faim.>>",
     "altarDetails": "Sacrifice your Ants to her for some <<crimson | Immortal ELO>>, and a bunch of other worldly things.",
-    "compendiumHeader": "Ant God appreciates your donations.",
+    "compendiumHeader": "La Déesse Fourmi apprécie vos donations.",
     "compendiumDetails": "She offers you some Quarks in exchange for your best Sacrifices each day.",
     "anthillAlive": "Your Anthill has been alive for",
     "currentAnthill": "(This is your <<gold|{{ord}}>> Anthill)",
-    "galacticCrumbCount": "You have {{x}} Galactic Crumbs.",
+    "galacticCrumbCount": "Vous avez {{x}} Miettes Galactiques.",
     "crumbsPerSecond": "+{{x}} per second",
     "crumbsCoinMultiplier": "↳ Coin production is multiplied by {{x}} (Fortunae Formicidae)",
     "crumbsCoinTaxExempt": "Coin Multiplier also increases your Tax Cap, and is further exempt from taxation",
@@ -2515,9 +2515,9 @@
     "challenge11Modifier": "Challenge 11 - Only free Ant Upgrade Levels count for Effective Levels",
     "corruptionDivisor": "Extinction lv{{x}} - Effective Levels are divided by <b>{{y}}</b>",
     "effectiveLevel": "Effective Level: {{level}}",
-    "costSingleLevel": "Cost: {{x}} Galactic Crumbs",
-    "costMaxLevels": "Cost for +{{x}}: {{y}} Galactic Crumbs",
-    "costGalacticCrumbs": "Cost TNL: {{x}} Galactic Crumbs",
+    "costSingleLevel": "Coût : {{x}} Miettes Galactiques",
+    "costMaxLevels": "Coût pour +{{x}} : {{y}} Miettes Galactiques",
+    "costGalacticCrumbs": "Coût jusqu'au prochain niveau : {{x}} Miettes Galactiques",
     "costParticles": "Coût : {{x}} Particules",
     "autoSacrificeOn": "Sacrifice auto : ACTIF",
     "autoSacrificeOff": "Sacrifice auto : INACTIF",
@@ -2713,7 +2713,7 @@
     "9": {
       "name": "Défi 'Pas de Runes' || {{- value}} Complétions",
       "flavor": "Bet you won't even notice Prism Rune's disappearance.",
-      "restrictions": "Reincarnate and reach the goal except Runes always have level 1 effects. <br> ☆ Your Coin production is divided by <<gold | 1e2,000,000>>. You may want a few Galactic Crumbs. <br> ☆ Your Tax burden is reduced by <<pink|99.5%>> to compensate",
+      "restrictions": "Réincarner et atteindre l'objectif sauf les runes ont toujours des effets de niveau 1. <br> ☆ Votre production de Pièces est divisée par <<gold | 1e2,000,000>>. Vous aurez besoin de quelques Miettes, croyez-moi. <br> ☆ Votre charge fiscale est réduite de <<pink|99.5%>> pour compenser",
       "goal": "Objectif : obtenir {{value}} Pièces dans le Défi.",
       "per": {
         "1": "+1 niveau gratuit de Fourmi ! Actuellement : ",
@@ -2730,7 +2730,7 @@
     },
     "10": {
       "name": "Défi 'Sadique I' || {{- value}} Complétions",
-      "flavor": "I'm sorry for what I've unleashed onto the world. You read a note on the floor: \"You probably want about 1e300 Galactic Crumbs before you fully embrace the challenge. Try to Sacrifice some more Anthills, master your Ants and become one with the Ant God to achieve this.\"",
+      "flavor": "Toutes mes excuses pour ce que j'ai déversé sur le monde. Vous lisez une note sur le sol : \"vous devriez viser les 1e300 Miettes Galactiques avant d'affronter pleinement le défi. Sacrifiez quelques Fourmilières de plus, Maîtrisez vos Fourmis et ne faites qu'un avec la Déesse Fourmi pour en être capable.\"",
       "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|25,000>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^0.0001>> <br> ☆ Mythos gain is reduced to <<gold | Coins^0.001>>",
       "goal": "Objectif : obtenez {{value}} Pièces dans le Défi.",
       "per": {
@@ -2916,7 +2916,7 @@
       "45": "Wow! I want Hermes Tribute bonus to scale better.",
       "46": "Wow! Je veux encore PLUS d’Offrandes !",
       "47": "Wow! I want Auto Obtainium to mean something again!",
-      "48": "Wow! I want to ALWAYS generate Galactic Crumbs.",
+      "48": "Wow ! Je veux TOUJOURS générer des Miettes Galactiques.",
       "49": "Wow! I want to ALWAYS have as much Immortal ELO as I can.",
       "50": "Wow! Je veux être illuminé par la puissance de mille soleils.",
       "51": "Wow! Un tas de cookies aux pépites de chocolat.",
@@ -2975,7 +2975,7 @@
       "22": "[3x2] The effect of Artemis Tributes is raised to the power of (1 + level / 100).",
       "23": "[3x3] For each 20 Cubes opened at once, you get 1 additional Tribute at random.",
       "24": "[3x4] Plutus teaches you the Art of the Deal. The effect of his Tributes is raised to the power of (1 + level / 100).",
-      "25": "[3x5] Moloch lends you a hand in communicating with Ant God. The effect of his Tributes is raised to the power of (1 + level / 100).",
+      "25": "[3x5] Moloch vous tend la main pour communiquer avec la Déesse Fourmi. Les effets de ses Tributs sont élevés à la puissance de (1 + niveau / 100).",
       "26": "[3x6] Start Ascensions with enough EXP for 3 Rune Levels per level (may actually be more or less depending on Rune Coefficient). Only affects the first five Runes.",
       "27": "[3x7] À chaque Ascension, vous commencerez avec 1 bâtiment de Réincarnation de chaque type, pour accélérer les Ascensions.",
       "28": "[3x8] Bon, je crois que vous l'avez ? Obtenez +1% des Particules obtenues à la Réincarnation par seconde.",
@@ -3158,7 +3158,7 @@
       "100": "[4x25] Alright, Platonic is off his rocker. +1 MORE Quark per hour from Exporting for each level!",
       "101": "[5x1] Let's add +.001 to Inceptus Ant efficiency per level?",
       "102": "[5x2] Gain +1 free level to ALL Ants per level! A rainbow attack!",
-      "103": "[5x3] Pray to Ant God for +5% Ant Sacrifice rewards per level!",
+      "103": "[5x3] Priez à la Déesse Fourmi pour +5% de récompenses de Sacrifice de Fourmis par niveau !",
       "104": "[5x4] You're beginning to feel like an Ant God (Ant God): +5% Ant Sacrifice reward per level!",
       "105": "[5x5] Buy this and be able to run the first five Challenges up to 9,001 times! (Note that requirements scale a LOT faster after 75, and again after 1,000)",
       "106": "[5x6] Engrave your talismans with Obtainium to get +0.1% Talisman Power per level (increases the amount of free levels you get for Runes)!",
