@@ -83,6 +83,7 @@ import { addTimers, automaticTools } from './Helper'
 import { resetHistoryRenderAllTables } from './History'
 import {
   buyResearch,
+  isResearchUnlocked,
   refundOvercapResearches,
   researchData,
   researchOrderByCost,
@@ -4695,6 +4696,7 @@ const tick = () => {
   }
 }
 
+let resetRoombaInProgress = false
 // eslint-disable-next-line no-shadow
 const tack = (dt: number) => {
   if (!G.timeWarp) {
@@ -4748,23 +4750,39 @@ const tack = (dt: number) => {
       && player.autoResearch > 0
       && roombaResearchEnabled()
       && player.autoResearchMode === 'cheapest'
+      && !resetRoombaInProgress
     ) {
       let counter = 0
       const maxCount = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
       while (counter < maxCount) {
         const currIndex = player.autoResearch
-        if (currIndex > 0) {
-          const auto = true
-          const hover = false
-          buyResearch(currIndex, auto, hover)
-        } else {
-          break
+        if (isResearchUnlocked(currIndex)) {
+          if (currIndex > 0) {
+            const auto = true
+            const hover = false
+            buyResearch(currIndex, auto, hover)
+          } else {
+            break
+          }
+          /* Why do we need to do this?
+             If a new research is unlocked in the interim, that is
+             Less expensive than the research we currently autobuy,
+             We want to go back to that one... Also, we don't want to
+             keep iterating over the research list if we can't afford the least
+             expensive one. */
+          if (player.researches[currIndex] < researchData[currIndex].maxLevel) {
+            if (!resetRoombaInProgress) {
+              resetRoombaInProgress = true
+              setTimeout(() => {
+                player.roombaResearchIndex = 0
+                player.autoResearch = 1
+                resetRoombaInProgress = false
+              }, 250)
+            }
+            break
+          }
         }
         updateResearchRoomba()
-        // If not max level, you could not afford the research, so do not run more times
-        if (player.researches[currIndex] < researchData[currIndex].maxLevel) {
-          break
-        }
         counter++
       }
     }
