@@ -21,7 +21,7 @@ import { resetRuneBlessings } from './RuneBlessings'
 import { resetRunes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
-import { shopData } from './Shop'
+import { shopUpgrades } from './Shop'
 import { getGQUpgradeEffect, goldenQuarkUpgrades } from './singularity'
 import {
   allAddCodeCapacityMultiplierStats,
@@ -731,7 +731,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     player.stats.totalAddCodesUsed += realAttemptsUsed
     awardAchievementGroup('addCodesUsed')
     // Calculator Maxed: you don't need to insert anything!
-    if (player.shopUpgrades.calculator === shopData.calculator.maxLevel) {
+    if (player.shopUpgrades.calculator === shopUpgrades.calculator.maxLevel) {
       player.worlds.add(actualQuarks)
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
@@ -978,7 +978,7 @@ export const addCodeBonuses = () => {
   const perkRewardDivisor = addCodeSingularityPerkBonus()
 
   let commonQuarkMult = 1 + 0.14 * player.shopUpgrades.calculator // Calculator Shop Upgrade (+14% / level)
-  commonQuarkMult *= player.shopUpgrades.calculator2 === shopData.calculator2.maxLevel
+  commonQuarkMult *= player.shopUpgrades.calculator2 === shopUpgrades.calculator2.maxLevel
     ? 1.25
     : 1 // Calculator 2 Max Level (+25%)
   commonQuarkMult /= perkRewardDivisor

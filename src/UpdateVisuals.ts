@@ -88,7 +88,7 @@ import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
 import { runeSpiritKeys, updateRuneSpiritHTML } from './RuneSpirits'
-import { getShopCosts, isShopUpgradeUnlocked, shopData, type ShopUpgradeNames, shopUpgradeTypes } from './Shop'
+import { getShopCosts, type ShopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
 import {
   computeGQUpgradeFreeLevelSoftcap,
   computeGQUpgradeMaxLevel,
@@ -1923,7 +1923,7 @@ export const visualUpdateShop = () => {
   const keys = Object.keys(player.shopUpgrades) as ShopUpgradeNames[]
   for (const key of keys) {
     // Create a copy of shopItem instead of accessing many times
-    const shopItem = shopData[key]
+    const shopItem = shopUpgrades[key]
 
     if (shopItem.type === shopUpgradeTypes.CONSUMABLE) {
       const maxBuyablePotions = Math.min(
@@ -1957,14 +1957,12 @@ export const visualUpdateShop = () => {
       if (
         player.shopHideToggle
         && player.shopUpgrades[key] >= shopItem.maxLevel
-        && !shopItem.refundable()
+        && !shopItem.refundable
       ) {
         DOMCacheGetOrSet(`${key}Hide`).style.display = 'none'
         continue
       } else {
-        DOMCacheGetOrSet(`${key}Hide`).style.display = isShopUpgradeUnlocked(
-            key
-          )
+        DOMCacheGetOrSet(`${key}Hide`).style.display = shopItem.isUnlocked()
           ? 'block'
           : 'none'
       }

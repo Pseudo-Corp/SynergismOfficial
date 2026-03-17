@@ -51,7 +51,7 @@ import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, runes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
-import { forceResetShopUpgrades } from './Shop'
+import { resetShopUpgradesOnSingularity } from './Shop'
 import {
   calculateMaxSingularityLookahead,
   calculateSingularityDebuff,
@@ -1137,7 +1137,7 @@ export const singularity = (setSingNumber = -1) => {
   }
 
   player.totalQuarksEver += player.quarksThisSingularity
-  forceResetShopUpgrades()
+  resetShopUpgradesOnSingularity()
 
   const hold = playerJsonSchema.parse(deepClone()(blankSave))
 
