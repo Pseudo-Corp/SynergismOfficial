@@ -256,7 +256,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     EFFECTSDESCRIPTION: (hept) => {
       const effects = hepteracts.acceleratorBoost.EFFECTS(hept)
       return i18next.t('wowCubes.hepteractForge.descriptions.acceleratorBoost.currentEffect', {
-        x: format(effects.acceleratorBoostMultiplier, 2, true)
+        x: formatAsPercentIncrease(effects.acceleratorBoostMultiplier, 2)
       })
     },
     DESCRIPTION: () => i18next.t('wowCubes.hepteractForge.descriptions.acceleratorBoost.effect'),
@@ -817,9 +817,7 @@ export const overfluxPowderDescription = () => {
     })
   }
   DOMCacheGetOrSet('hepteractUnlockedText').style.display = 'none'
-  DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = i18next.t('hepteracts.powderEffect', {
-    x: powderEffectText
-  })
+  DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = `${i18next.t('hepteracts.powderEffect')} ${powderEffectText}`
   DOMCacheGetOrSet('hepteractBalanceText').textContent = i18next.t('hepteracts.powderLumps', {
     x: format(player.overfluxPowder, 2, true)
   })
