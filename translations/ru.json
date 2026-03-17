@@ -3324,9 +3324,9 @@
       "improveQuarkHept3": "You are probably asking why I would sell this to you instead of using it for myself. Well... here's +0.01 power per level!",
       "improveQuarkHept4": "+0.01 power per level... You know that 10^0.01 is about 1.023, right?",
       "shopImprovedDaily": "Эй ты. Да, ты! Кварки делают тюленя-торговца счастливым. +5% кварков от кода \"daily\" за каждый уровень.",
-      "shopImprovedDaily2": "Получите 1 дополнительное бесплатное улучшение Сингулярности и 20% больше Золотых Кварков за использование \"daily\" за каждый уровень!",
-      "shopImprovedDaily3": "Получите 1 дополнительное бесплатное улучшение Сингулярности и 15% больше Золотых Кварков за использование \"daily\" за каждый уровень!",
-      "shopImprovedDaily4": "Получите 1 дополнительное бесплатное улучшение Сингулярности и 100% больше Золотых Кварков за использование \"daily\" за каждый уровень!",
+      "shopImprovedDaily2": "Gain 1 additional free Golden Quark Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
+      "shopImprovedDaily3": "Gain 1 additional free Golden Quark Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
+      "shopImprovedDaily4": "Gain 1 additional free Golden Quark Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
       "offeringEX3": "[Поставка от Компании \"Бесконечность\"] Увеличивает Подношения на 1.2% за уровень, перемножаемо! (Множитель - 1.012^уровень). Каждые 25 уровней даёт +1 Базовое Подношение!",
       "obtainiumEX3": "[Поставка от Компании \"Бесконечность\"] Увеличивает Обтаниум на 1.2% за уровень, перемножаемо! (Множитель - 1.012^уровень). Каждые 25 уровней даёт на 6% больший Множитель Чистого Обтаниума! (1.06^[уровень/25])",
       "chronometerInfinity": "[Поставка от Компании \"Бесконечность\"] Увеличивает Скорость Вознесения на 0.6% за уровень, перемножаемо! (Множитель - 1.006^уровень). Каждые 40 уровней даёт +0.001 разброса на модификаторах экспоненты Скорости Вознесения, которые больше или меньше 1 (Советуем проверить Статистику для Ботаников для уточнения)!",
@@ -3346,7 +3346,7 @@
       "shopRedLuck2": "This one seems to have a heavy side. I wonder what that is about. +0.075 Red Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.01.",
       "shopRedLuck3": "When you pick up this dice, it phases out of existence, then returns, the six face-up. +0.1 Red Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.01.",
       "shopAmbrosiaLuckMultiplier4": "Gain +1% Ambrosia Luck per level! Simple as that.",
-      "shopOcteractAmbrosiaLuck": "Gain +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that.",
+      "shopOcteractAmbrosiaLuck": "Gain +1 Ambrosia Luck per level, multiplied by the number of digits in your lifetime produced Octeracts!",
       "shopCashGrabUltra": "For a nominal price, gain up to +15% Ambrosia Bar Points, +120% Cubes and +8% Quarks per level based on Ambrosia, scaling nonlinearly until 10,000,000 lifetime earned.",
       "shopAmbrosiaAccelerator": "For each level of this Accelerator, reduce Ambrosia Bar Point requirements for Ambrosia generation by 0.4% per completion of EXALT 5 - No Ambrosia Upgrades.",
       "shopEXUltra": "С этим EX Улучшением, каждая 1 000 имеющейся Амброзии даёт +0.1% <<orchid|Обтаниума>>, <<orange|Подношений>> и <<white|Кубов>>! Лимит этого эффекта - 125 000 * (уровень этого улучшения)!",
@@ -3473,7 +3473,7 @@
       "shopSingularityPotency": "Эффективный уровень Бесплатных Улучшений Сингулярности установлен на <<gray|{{amount}}>>.",
       "shopSadisticRune": "Я даже не уверен, на что эта руна способна. Ты купил её? Я же не вижу тебя, если что.",
       "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark Shop upgrades are increased by <<white|{{amount}}>>.",
-      "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty effects <<pink|{{amount2}}>>"
+      "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty reductions <<pink|{{amount2}}>> (Excludes Salvage)"
     },
     "names": {
       "offeringPotion": "Offering Potion",
@@ -3535,7 +3535,7 @@
       "chronometerInfinity": "The final Chronometer",
       "seasonPassInfinity": "The final Season pass",
       "shopSingularityPenaltyDebuff": "A Singularity Tenderizer",
-      "shopAmbrosiaLuckMultiplier4": "The Fourth Multiplicative Ambrosia Luck Multiplier",
+      "shopAmbrosiaLuckMultiplier4": "An Additive Ambrosia Luck Multiplier Adder!",
       "shopOcteractAmbrosiaLuck": "Octeract-Based Ambrosia Luck Amplifier",
       "shopAmbrosiaGeneration1": "Ambrosia Generation Speedup",
       "shopAmbrosiaGeneration2": "Another Ambrosia Generation Speedup",
@@ -7250,7 +7250,7 @@
         "9": "Даёт 2.5x Чистого Обтаниума и умножает экспоненту Упразднённого Образования на 1+log10(Обтаниум+1)/100, достигая лимита при 1e100 Обтаниума.",
         "10": "Экспонента И1.1.0: 1.0375 --> 1.04, экспонента налогов от Константы +0.20, скорость производства Константы 10х, Кварки 1.10x, +10 к Лимиту выполнений Испытаний Реинкарнации, +5 к Лимиту выполнений Испытаний Вознесения, 3.5x Чистого Обтаниума и Подношений, Все Кубы 2x, экспонента муравьёв в И15 ^1.25, и вновь +1 к Лимиту Уровней Порч!",
         "11": "Если Обрушение Кристальной Шахты установлено на 11 или выше, Реинкарнации также будут приносить Алмазы в зависимости от производства Частиц!",
-        "12": "For each level of Extinction, gain +0.5% more Ant ELO, per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level!",
+        "12": "For each level of Extinction, gain +0.5% more Ant ELO, per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
         "13": "'Less Fruitful Harvests' reduces your <<green|Salvage>> by 50% less!",
         "14": "Умножает экспоненту монет Великой Депрессии II на 1.55, но только в Испытании 15.",
         "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), 1.15x Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
@@ -7405,7 +7405,9 @@
       "khafra": "Khafra благословил вас {{x}} Кварками!",
       "daily": {
         "message": "Спасибо, что играли сегодня! \nМуравьиный Бог дарует вам подарок:",
-        "message2": "Ощущая себя особенно щедрым, Муравьиный Бог также даёт вам бесплатные уровни следующих улучшений Сингулярности:"
+        "message2": "Ощущая себя особенно щедрым, Муравьиный Бог также даёт вам бесплатные уровни следующих улучшений Сингулярности:",
+        "reward1": "{{quarks}} Quarks",
+        "reward2": "{{gq}} Golden Quarks"
       },
       "add": {
         "calculator3": "Благодаря ПЛ-АТ Ω вы также получаете {{x}} реальных секунд к вашему Таймеру Вознесения!",
