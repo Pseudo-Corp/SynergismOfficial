@@ -241,7 +241,7 @@ export const toggleautobuytesseract = () => {
 }
 
 export const toggleauto = () => {
-  const toggles = Array.from<HTMLElement>(document.querySelectorAll('.auto[toggleid]'))
+  const toggles = document.querySelectorAll<HTMLElement>('.auto[toggleid]')
   for (const toggle of toggles) {
     // eslint-disable-next-line no-shadow
     const format = toggle.getAttribute('format')
@@ -273,7 +273,7 @@ export const toggleauto = () => {
     toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
   }
 
-  const tesseractAutos = Array.from<HTMLElement>(document.querySelectorAll('*[id^="tesseractAutoToggle"]'))
+  const tesseractAutos = document.querySelectorAll<HTMLElement>('*[id^="tesseractAutoToggle"]')
 
   for (let j = 0; j < tesseractAutos.length; j++) {
     const auto = tesseractAutos[j]

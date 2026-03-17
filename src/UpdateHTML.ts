@@ -388,7 +388,7 @@ export const revealStuff = () => {
   DOMCacheGetOrSet('warpAuto').style.display = player.shopUpgrades.autoWarp > 0 ? '' : 'none'
 
   const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>
-  for (const item of Array.from(octeractUnlocks)) { // Stuff that you need octeracts to access
+  for (const item of octeractUnlocks) { // Stuff that you need octeracts to access
     const parent = item.parentElement!
     if (parent.classList.contains('offlineStats')) {
       item.style.display = getGQUpgradeEffect('octeractUnlock') ? 'flex' : 'none'
@@ -400,12 +400,12 @@ export const revealStuff = () => {
   }
 
   const singChallengeUnlocks = document.getElementsByClassName('singChallenges') as HTMLCollectionOf<HTMLElement>
-  for (const item of Array.from(singChallengeUnlocks)) {
+  for (const item of singChallengeUnlocks) {
     item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none'
   }
 
   const exalt1x1Unlocks = document.getElementsByClassName('Exalt1x1') as HTMLCollectionOf<HTMLElement>
-  for (const item of Array.from(exalt1x1Unlocks)) {
+  for (const item of exalt1x1Unlocks) {
     const parent = item.parentElement!
     if (parent.classList.contains('offlineStats')) {
       item.style.display = player.singularityChallenges.noSingularityUpgrades.completions >= 1 ? 'flex' : 'none'
@@ -417,7 +417,7 @@ export const revealStuff = () => {
   }
 
   const exalt5x1Unlocks = document.getElementsByClassName('Exalt5x1') as HTMLCollectionOf<HTMLElement>
-  for (const item of Array.from(exalt5x1Unlocks)) {
+  for (const item of exalt5x1Unlocks) {
     const parent = item.parentElement!
     if (parent.classList.contains('offlineStats')) {
       item.style.display = player.singularityChallenges.noAmbrosiaUpgrades.completions >= 1 ? 'flex' : 'none'

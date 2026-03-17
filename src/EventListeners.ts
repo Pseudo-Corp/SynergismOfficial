@@ -265,11 +265,7 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('ascendbtn').addEventListener('mouseover', () => resetrepeat('ascension'))
   DOMCacheGetOrSet('singularitybtn').addEventListener('mouseover', () => resetrepeat('singularity'))
 
-  for (
-    const resetButton of Array.from(
-      document.getElementsByClassName('resetbtn')
-    )
-  ) {
+  for (const resetButton of document.getElementsByClassName('resetbtn')) {
     function onFocusMouseover () {
       resetButton.classList.add('hover')
     }
@@ -1101,16 +1097,16 @@ export const generateEventHandlers = () => {
 
   // SETTNGS TAB
   // Part 0: Subtabs
-  const settingSubTabs = Array.from<HTMLElement>(
-    document.querySelectorAll('[id^="switchSettingSubTab"]')
-  )
-  for (const subtab of settingSubTabs) {
-    subtab.addEventListener('click', () => changeSubTab(Tabs.Settings, { page: settingSubTabs.indexOf(subtab) }))
+  const settingSubTabs = document.querySelectorAll('[id^="switchSettingSubTab"]')
+
+  for (let subTabIndex = 0; subTabIndex < settingSubTabs.length; subTabIndex++) {
+    settingSubTabs.item(subTabIndex).addEventListener(
+      'click',
+      changeSubTab.bind(null, Tabs.Settings, { page: subTabIndex })
+    )
   }
 
-  const t = Array.from(
-    document.querySelectorAll<HTMLElement>('button.statsNerds')
-  )
+  const t = document.querySelectorAll<HTMLElement>('button.statsNerds')
   for (const s of t) {
     s.addEventListener('click', (e) => displayStats(e.target as HTMLElement))
   }
@@ -1523,9 +1519,7 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // BLUEBERRY LOADOUTS
-  const blueberryLoadouts = Array.from(
-    document.querySelectorAll('[id^="blueberryLoadout"]')
-  )
+  const blueberryLoadouts = document.querySelectorAll('[id^="blueberryLoadout"]')
 
   const loadoutContainer = DOMCacheGetOrSet('blueberryUpgradeContainer')
 
