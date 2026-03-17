@@ -2945,9 +2945,9 @@ export const singularityPerks: SingularityPerk[] = [
     },
     levels: [50],
     description: () => {
-        return i18next.t(
-          'singularity.perks.wowCubeAutomatedShipping.default'
-        )
+      return i18next.t(
+        'singularity.perks.wowCubeAutomatedShipping.default'
+      )
     },
     ID: 'wowCubeAutomatedShipping'
   },
@@ -2957,7 +2957,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     levels: [50],
     description: () => {
-        return i18next.t('singularity.perks.platonicClones.default')
+      return i18next.t('singularity.perks.platonicClones.default')
     },
     ID: 'platonicClones'
   },
