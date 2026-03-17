@@ -1232,9 +1232,8 @@ TODO: Fix this entire tab it's utter shit
         'mousemove',
         (e) => Modal(() => createShopHTML(key), e.clientX, e.clientY, { borderColor: 'cyan' })
       )
-      DOMCacheGetOrSet(key).addEventListener('focus', () => {
-        const element = DOMCacheGetOrSet(key)
-        const elmRect = element.getBoundingClientRect()
+      DOMCacheGetOrSet(key).addEventListener('focus', function (this: HTMLElement) {
+        const elmRect = this.getBoundingClientRect()
         Modal(() => createShopHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'cyan' })
       })
       DOMCacheGetOrSet(key).addEventListener('mouseout', CloseModal)
