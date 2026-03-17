@@ -3324,9 +3324,9 @@
       "improveQuarkHept3": "您可能会疑惑我为什么不自用，而是选择向您出售。好吧……每级使惊奇七阶立方·夸克的指数增加0.01！",
       "improveQuarkHept4": "每级使惊奇七阶立方·夸克的指数增加0.01……您应该知道10的0.01次方是1.023吧？",
       "shopImprovedDaily": "嘿，那边的那位，对，就是你！夸克让印记商人们很高兴。每级使“每日”代码的夸克获取数量增加5%。",
-      "shopImprovedDaily2": "每级使“每日”代码获得的免费奇点升级增加1级，获得的金夸克数量增加20%！",
-      "shopImprovedDaily3": "每级使“每日”代码获得的免费奇点升级增加1级，获得的金夸克数量增加15%！",
-      "shopImprovedDaily4": "每级使“每日”代码获得的免费奇点升级增加1级，获得的金夸克数量增加100%！",
+      "shopImprovedDaily2": "Gain 1 additional free Golden Quark Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
+      "shopImprovedDaily3": "Gain 1 additional free Golden Quark Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
+      "shopImprovedDaily4": "Gain 1 additional free Golden Quark Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
       "offeringEX3": "[由无限公司提供]每级使祭品获取数量增加1.2%，效果叠乘！(倍率为1.012^等级)。每25级还会使基础祭品获取数量增加1！",
       "obtainiumEX3": "[由无限公司提供]每级使难得素获取数量增加1.2%，效果叠乘！(倍率为1.012^等级)。每25级还可以使无瑕难得素倍率增加6%！(1.06^[等级/25])",
       "chronometerInfinity": "[由无限公司提供]每级使飞升的速度增加0.6%，效果叠乘！(倍率为1.006^等级)。每40级还可以使飞升的速度指数发生变化，如果它超过1，则增加0.001，反之减少0.001(具体请查看高玩特供统计)！",
@@ -3346,7 +3346,7 @@
       "shopRedLuck2": "这个看起来似乎重心偏移了，不知道发生了什么。每级使红运增加0.075。每20级还会使神肴之运转换成红运的比率减少0.01。",
       "shopRedLuck3": "拾取时，该骰子暂时从现实中消失，然后以六点朝上的状态重新出现。每级使红运增加0.1。每20级还会使神肴之运转换成红运的比率减少0.01。",
       "shopAmbrosiaLuckMultiplier4": "每级使神肴之运增加1%！就这么简单。",
-      "shopOcteractAmbrosiaLuck": "惊奇八阶方块每有一个数量级，每级就使神肴之运增加1！就这么简单。",
+      "shopOcteractAmbrosiaLuck": "Gain +1 Ambrosia Luck per level, multiplied by the number of digits in your lifetime produced Octeracts!",
       "shopCashGrabUltra": "象征性地支付一点费用，根据神肴数量，每级至多使神肴进度条点数获取速度增加15%，方盒获取数量增加120%，夸克获取数量增加8%。效果增长非线性，直到一共获得10000000神肴为止。",
       "shopAmbrosiaAccelerator": "每完成一次拔擢 - 无神肴升级，每级该升级就可以使神肴进度条点数需求减少0.4%。",
       "shopEXUltra": "拥有该额外升级后，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！",
@@ -3473,7 +3473,7 @@
       "shopSingularityPotency": "免费奇点升级的效果变为原来的<<gray|{{amount}}>>倍。",
       "shopSadisticRune": "我也不知道这个符文有什么用。您已经买了吗？总之您知道的，我看不见。",
       "shopInfiniteShopUpgrades": "使“无限公司”相关商店升级的有效等级增加<<white|{{amount}}>>。",
-      "shopHorseShoe": "使马蹄铁符文的免费等级<<burlywood|增加{{amount1}}>>，奇点惩罚<<pink|{{amount2}}>>"
+      "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty reductions <<pink|{{amount2}}>> (Excludes Salvage)"
     },
     "names": {
       "offeringPotion": "祭品药剂",
@@ -3535,7 +3535,7 @@
       "chronometerInfinity": "时计·终",
       "seasonPassInfinity": "季票·终",
       "shopSingularityPenaltyDebuff": "奇点弱化器",
-      "shopAmbrosiaLuckMultiplier4": "第四个叠乘的神肴之运倍率",
+      "shopAmbrosiaLuckMultiplier4": "An Additive Ambrosia Luck Multiplier Adder!",
       "shopOcteractAmbrosiaLuck": "基于八阶方块的神肴之运倍率",
       "shopAmbrosiaGeneration1": "加速神肴产生",
       "shopAmbrosiaGeneration2": "又一个加速神肴产生",
@@ -7250,7 +7250,7 @@
         "9": "使无瑕难得素倍率变为原来的2.5倍，且削减教育经费的指数乘以 (1 + log10(难得素当前数量 + 1) / 100)，最高到1e100难得素。",
         "10": "C10的分数倍率的指数从1.0375变为1.04，数学常数减缓税收的指数增加0.20，数学常数产量变为10倍，夸克获取数量变为原来的1.1倍，转世挑战次数上限增加10次，飞升挑战次数上限增加5次，无瑕难得素倍率和无瑕祭品倍率变为原来的3.5倍，所有类型的方盒及立方获取数量翻倍，腐化等级上限增加1，在挑战15中蚂蚁产量变为蚂蚁产量^1.25！",
         "11": "在11级及以上的水晶矿难中，转世时也可以获取钻石，数值为粒子获取数量！",
-        "12": "每有1级腐化：灭绝，每级该升级就使蚂蚁强度分增加0.5%！(与其他同类效果叠加)。每级该升级还可以使重生强度分的产生速度增加10%！",
+        "12": "For each level of Extinction, gain +0.5% more Ant ELO, per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
         "13": "“欠收”减少的<<green|回收>>数值降低50%！",
         "14": "挑战15中大萧条 II金币获取数量的指数乘以1.55。",
         "15": "您开始找寻深渊的起始了。在挑战15中金币指数增加0.10。挑战15的分数增加25%。每级腐化使飞升的速度增加0.2%(上限：20%)。每次完成挑战9就使所有类型的方盒及立方获取数量增加1%(相互叠乘)。夸克获取数量变为原来的1.15倍。超立方建筑产量变为1e250倍。飞升次数获取数量翻倍。转世挑战次数上限增加30，飞升挑战次数上限增加20。无瑕难得素倍率和无瑕祭品倍率变为原来的6倍！聊聊继续深入的事吧。",
@@ -7405,7 +7405,9 @@
       "khafra": "Khafra祝福了您，您获得了{{x}}夸克！",
       "daily": {
         "message": "感谢您今日也继续游玩本游戏！\n蚁神奖励了您这些东西：",
-        "message2": "大方的蚁神还给予了您以下奇点升级的免费等级："
+        "message2": "大方的蚁神还给予了您以下奇点升级的免费等级：",
+        "reward1": "{{quarks}} Quarks",
+        "reward2": "{{gq}} Golden Quarks"
       },
       "add": {
         "calculator3": "由于PL-AT Ω的效果，您同时获得了现实时间{{x}}秒的飞升时间！",
