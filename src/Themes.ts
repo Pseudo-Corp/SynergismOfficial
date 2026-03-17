@@ -347,11 +347,9 @@ export const toggleIconSet = (changeTo = player.iconSet) => {
     changeTo = 0
   }
   player.iconSet = changeTo
-  Array.from(document.getElementsByTagName('img')).forEach(
-    (img) => {
-      img.src = img.src.replace(IconSetsRegex, IconSets[player.iconSet][0])
-    }
-  )
+  for (const img of document.getElementsByTagName('img')) {
+    img.src = img.src.replace(IconSetsRegex, IconSets[player.iconSet][0])
+  }
   DOMCacheGetOrSet('iconSet').textContent = i18next.t(`settings.iconSets.${IconSets[player.iconSet][0].toLowerCase()}`)
   updateIconsFromSprites(IconSets[player.iconSet][0])
 }

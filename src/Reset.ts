@@ -697,6 +697,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       player.highestchallengecompletions[j] = 0
     }
 
+    DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
     player.roombaResearchIndex = 0
     player.autoResearch = 1
 

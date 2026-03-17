@@ -83,10 +83,10 @@ import { addTimers, automaticTools } from './Helper'
 import { resetHistoryRenderAllTables } from './History'
 import {
   buyResearch,
+  isResearchUnlocked,
   refundOvercapResearches,
   researchData,
   researchOrderByCost,
-  resetResearchRoomba,
   roombaResearchEnabled,
   updateResearchAuto,
   updateResearchBG,
@@ -4754,19 +4754,27 @@ const tack = (dt: number) => {
       const maxCount = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
       while (counter < maxCount) {
         const currIndex = player.autoResearch
-        if (currIndex > 0) {
-          const auto = true
-          const hover = false
-          buyResearch(currIndex, auto, hover)
-        } else {
-          break
+        if (isResearchUnlocked(currIndex)) {
+          if (currIndex > 0) {
+            const auto = true
+            const hover = false
+            buyResearch(currIndex, auto, hover)
+          } else {
+            break
+          }
+          /* Why do we need to do this?
+             If a new research is unlocked in the interim, that is
+             Less expensive than the research we currently autobuy,
+             We want to go back to that one... Also, we don't want to
+             keep iterating over the research list if we can't afford the least
+             expensive one. */
+          if (player.researches[currIndex] < researchData[currIndex].maxLevel) {
+            player.roombaResearchIndex = 0
+            player.autoResearch = 1
+            break
+          }
         }
         updateResearchRoomba()
-        // If not max level, you could not afford the research, so do not run more times
-        if (player.researches[currIndex] < researchData[currIndex].maxLevel) {
-          resetResearchRoomba()
-          break
-        }
         counter++
       }
     }

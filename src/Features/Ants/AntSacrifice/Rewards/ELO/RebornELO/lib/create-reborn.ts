@@ -35,7 +35,7 @@ export const activateELO = (dt: number) => {
   updateAntLeaderboards()
   const quarksToBeGained = availableQuarksFromELO()
   if (quarksToBeGained > 0) {
-    player.worlds.add(quarksToBeGained, false)
+    player.worlds.add(quarksToBeGained, false, true)
     player.ants.quarksGainedFromAnts += quarksToBeGained
   }
 }

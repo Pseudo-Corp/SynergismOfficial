@@ -50,6 +50,7 @@ export type Challenge15RewardsInformation = {
   baseValue: number
   requirement: number
   HTMLColor?: string
+  doNotUsePercentage?: boolean
 }
 
 export type Challenge15RewardObject = Record<Challenge15Rewards, Challenge15RewardsInformation>
@@ -434,7 +435,7 @@ export const highestChallengeRewards = (chalNum: number, highestValue: number) =
     multiplier = 1
   }
   if (player.ascensionCount === 0) {
-    player.worlds.add(1 + Math.floor(highestValue * multiplier) * 100 / 100)
+    player.worlds.add(1 + Math.floor(highestValue * multiplier) * 100 / 100, true, true)
   }
 }
 

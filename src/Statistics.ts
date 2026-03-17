@@ -3504,9 +3504,9 @@ const associated = new Map<string, string>([
 ])
 
 export const displayStats = (btn: HTMLElement) => {
-  const children = btn.parentElement ? Array.from(btn.parentElement.querySelectorAll('.statsNerds')) : []
+  const children = btn.parentElement ? btn.parentElement.querySelectorAll<HTMLElement>('.statsNerds') : []
 
-  for (const e of children as HTMLElement[]) {
+  for (const e of children) {
     const statsEl = DOMCacheGetOrSet(associated.get(e.id)!)
     if (e.id !== btn.id) {
       e.style.backgroundColor = ''
@@ -4215,6 +4215,7 @@ export const updateDisplayC15Rewards = () => {
     const key = k as Challenge15Rewards
     const value = v.value
     const requirement = v.requirement
+    const doNotUsePercentage = v.doNotUsePercentage ?? false
 
     if (!LOADED_STATS_HTMLS.challenge15) {
       const elm = document.createElement('p')
@@ -4232,9 +4233,15 @@ export const updateDisplayC15Rewards = () => {
     if (player.challenge15Exponent >= requirement) {
       elm.style.display = player.challenge15Exponent >= requirement ? 'block' : 'none'
       if (typeof value === 'number') {
-        elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
-          amount: formatAsPercentIncrease(value, 2)
-        })
+        if (doNotUsePercentage) {
+          elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
+            amount: format(value, 0, true)
+          })
+        } else {
+          elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
+            amount: formatAsPercentIncrease(value, 2)
+          })
+        }
       } else {
         // Do not pass boolean value (all texts will say 'Unlocked' as you cannot see rewards not yet earned)
         elm.textContent = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`)

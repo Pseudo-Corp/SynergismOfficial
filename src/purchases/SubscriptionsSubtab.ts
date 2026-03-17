@@ -429,9 +429,7 @@ export const initializePayPal_Subscription = async () => {
     intent: 'subscription'
   })
 
-  const checkoutButtons = Array.from<HTMLElement>(
-    document.querySelectorAll('.subscriptionContainer > div.checkout-paypal')
-  )
+  const checkoutButtons = document.querySelectorAll<HTMLElement>('.subscriptionContainer > div.checkout-paypal')
 
   for (const element of checkoutButtons) {
     element.innerHTML = ''

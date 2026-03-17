@@ -199,7 +199,7 @@ export const enableHotkeys = () => {
 
   const hotkey = document.querySelector('.hotkeys')!
 
-  for (const child of Array.from(hotkey.children)) {
+  for (const child of hotkey.children) {
     hotkey.removeChild(child)
   }
 

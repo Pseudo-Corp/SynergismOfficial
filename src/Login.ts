@@ -579,11 +579,7 @@ export async function handleLogin () {
       })
 
       if (platform === 'steam') {
-        for (
-          const link of Array.from(
-            subtabElement.querySelectorAll<HTMLAnchorElement>('a[href*="synergism.cc/login?with="]')
-          )
-        ) {
+        for (const link of subtabElement.querySelectorAll<HTMLAnchorElement>('a[href*="synergism.cc/login?with="]')) {
           const url = new URL(link.href)
           url.searchParams.set('platform', 'steam')
           link.href = url.toString()
@@ -797,7 +793,7 @@ const hasCaptcha = new WeakSet<HTMLElement>()
 
 export const renderCaptcha = platform === 'steam'
   ? memoize(() => {
-    const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
+    const captchaElements = document.querySelectorAll('.turnstile')
 
     for (const element of captchaElements) {
       if (element.parentElement instanceof HTMLFormElement) {
