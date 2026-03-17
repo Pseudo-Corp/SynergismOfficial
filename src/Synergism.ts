@@ -86,7 +86,6 @@ import {
   refundOvercapResearches,
   researchData,
   researchOrderByCost,
-  resetResearchRoomba,
   roombaResearchEnabled,
   updateResearchAuto,
   updateResearchBG,
@@ -4764,7 +4763,6 @@ const tack = (dt: number) => {
         updateResearchRoomba()
         // If not max level, you could not afford the research, so do not run more times
         if (player.researches[currIndex] < researchData[currIndex].maxLevel) {
-          resetResearchRoomba()
           break
         }
         counter++
