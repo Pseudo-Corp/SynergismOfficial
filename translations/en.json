@@ -3743,8 +3743,7 @@
       },
       "wowCubeAutomatedShipping": {
         "name": "Wow! Cube Automated Shipping",
-        "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
-        "default": "Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge."
+        "default": "Automatically buy Cube Upgrades with each Ascension!"
       },
       "congealedblueberries": {
         "name": "Congealed Blueberries",
@@ -3764,8 +3763,7 @@
       },
       "platonicClones": {
         "name": "Clones of Platonic Clicking at Your Desktop",
-        "hasLevel1": "Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, anywhere!",
-        "default": "Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, but only in a Singularity Challenge."
+        "default": "Automatically buy Platonic Upgrades with each Ascension, without spending Obtainium or Offerings!"
       },
       "platSigma": {
         "name": "PL-AT Σ",

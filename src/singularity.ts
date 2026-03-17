@@ -2943,17 +2943,23 @@ export const singularityPerks: SingularityPerk[] = [
     name: () => {
       return i18next.t('singularity.perks.wowCubeAutomatedShipping.name')
     },
-    levels: [50, 150],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[1]) {
+    levels: [50],
+    description: () => {
         return i18next.t(
-          'singularity.perks.wowCubeAutomatedShipping.hasLevel1'
+          'singularity.perks.wowCubeAutomatedShipping.default'
         )
-      } else {
-        return i18next.t('singularity.perks.wowCubeAutomatedShipping.default')
-      }
     },
     ID: 'wowCubeAutomatedShipping'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.platonicClones.name')
+    },
+    levels: [50],
+    description: () => {
+        return i18next.t('singularity.perks.platonicClones.default')
+    },
+    ID: 'platonicClones'
   },
   {
     name: () => {
@@ -3035,20 +3041,6 @@ export const singularityPerks: SingularityPerk[] = [
       })
     },
     ID: 'goldenRevolution3'
-  },
-  {
-    name: () => {
-      return i18next.t('singularity.perks.platonicClones.name')
-    },
-    levels: [100, 200],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[1]) {
-        return i18next.t('singularity.perks.platonicClones.hasLevel1')
-      } else {
-        return i18next.t('singularity.perks.platonicClones.default')
-      }
-    },
-    ID: 'platonicClones'
   },
   {
     name: () => {
