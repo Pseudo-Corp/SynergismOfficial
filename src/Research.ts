@@ -7,6 +7,7 @@ import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { sortDecimalWithIndices, updateClassList } from './Utility'
+import { runes } from './Runes'
 
 interface IResearchData {
   baseCost: Decimal
@@ -163,6 +164,9 @@ type RangeCondition = {
 
 const researchUnlockRanges: RangeCondition[] = [
   { range: [0, 0], condition: () => true }, // Not sure if needed!
+  { range: [77, 77], condition: () => runes.thrift.isUnlocked() },
+  { range: [79, 79], condition: () => runes.prism.isUnlocked() },
+  { range: [80, 80], condition: () => runes.duplication.isUnlocked() },
   { range: [1, 80], condition: () => player.unlocks.reincarnate },
   { range: [81, 100], condition: () => player.unlocks.anthill },
   { range: [101, 118], condition: () => player.unlocks.talismans },
