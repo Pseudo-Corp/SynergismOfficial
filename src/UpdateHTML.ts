@@ -1394,10 +1394,82 @@ let id: number | null = null
 export const MEDIUM_MODAL_UPDATE_TICK = 250
 const VERY_FAST_MODAL_UPDATE_TICK = 20
 
+const modalTemplate = document.createElement('template')
+
+const patchNodes = (parent: Element, newParent: DocumentFragment | Element) => {
+  if (parent.childNodes.length !== newParent.childNodes.length) {
+    parent.replaceChildren(...newParent.cloneNode(true).childNodes)
+    return
+  }
+
+  const oldNodes = parent.childNodes
+  const newNodes = newParent.childNodes
+
+  for (let i = 0; i < newNodes.length; i++) {
+    const oldNode = oldNodes[i]
+    const newNode = newNodes[i]
+
+    if (
+      oldNode.nodeType !== newNode.nodeType
+      || (oldNode as Element).tagName !== (newNode as Element).tagName
+    ) {
+      parent.replaceChildren(...newParent.cloneNode(true).childNodes)
+      return
+    }
+
+    if (oldNode.nodeType === Node.TEXT_NODE) {
+      if (oldNode.textContent !== newNode.textContent) {
+        oldNode.textContent = newNode.textContent
+      }
+      continue
+    }
+
+    if (oldNode.nodeType === Node.ELEMENT_NODE) {
+      const oldEl = oldNode as HTMLElement
+      const newEl = newNode as HTMLElement
+
+      if (oldEl.outerHTML === newEl.outerHTML) {
+        continue
+      }
+
+      // If this element or any descendant has a running animation, recurse
+      // into children to preserve the animated DOM nodes
+      const hasAnimation = oldEl.getAnimations({ subtree: true }).length > 0
+
+      if (hasAnimation) {
+        // Update attributes that changed
+        const oldAttrs = oldEl.attributes
+        const newAttrs = newEl.attributes
+        for (let a = oldAttrs.length - 1; a >= 0; a--) {
+          if (!newEl.hasAttribute(oldAttrs[a].name)) {
+            oldEl.removeAttribute(oldAttrs[a].name)
+          }
+        }
+        for (let a = 0; a < newAttrs.length; a++) {
+          if (oldEl.getAttribute(newAttrs[a].name) !== newAttrs[a].value) {
+            oldEl.setAttribute(newAttrs[a].name, newAttrs[a].value)
+          }
+        }
+
+        patchNodes(oldEl, newEl)
+      } else {
+        oldEl.replaceWith(newEl.cloneNode(true))
+      }
+    }
+  }
+}
+
 const updateModal = (HTML: () => string) => {
   const modalContent = DOMCacheGetOrSet('modalContent')
   const htmlContent = HTML()
-  modalContent.innerHTML = htmlContent
+
+  if (modalContent.childNodes.length === 0) {
+    modalContent.innerHTML = htmlContent
+    return
+  }
+
+  modalTemplate.innerHTML = htmlContent
+  patchNodes(modalContent, modalTemplate.content)
 }
 
 export const Modal = (
