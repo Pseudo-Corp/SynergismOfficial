@@ -4696,7 +4696,6 @@ const tick = () => {
   }
 }
 
-let resetRoombaInProgress = false
 // eslint-disable-next-line no-shadow
 const tack = (dt: number) => {
   if (!G.timeWarp) {
@@ -4750,7 +4749,6 @@ const tack = (dt: number) => {
       && player.autoResearch > 0
       && roombaResearchEnabled()
       && player.autoResearchMode === 'cheapest'
-      && !resetRoombaInProgress
     ) {
       let counter = 0
       const maxCount = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
@@ -4771,14 +4769,8 @@ const tack = (dt: number) => {
              keep iterating over the research list if we can't afford the least
              expensive one. */
           if (player.researches[currIndex] < researchData[currIndex].maxLevel) {
-            if (!resetRoombaInProgress) {
-              resetRoombaInProgress = true
-              setTimeout(() => {
-                player.roombaResearchIndex = 0
-                player.autoResearch = 1
-                resetRoombaInProgress = false
-              }, 250)
-            }
+            player.roombaResearchIndex = 0
+            player.autoResearch = 1
             break
           }
         }
