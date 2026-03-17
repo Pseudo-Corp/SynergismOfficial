@@ -7405,7 +7405,9 @@
       "khafra": "Khafra has blessed you with {{x}} Quarks!",
       "daily": {
         "message": "Thank you for playing today!\nThe Ant God rewards you with this gift:",
-        "message2": "Feeling especially generous, the Ant God has also given you free levels of the following Singularity upgrades:"
+        "message2": "Feeling especially generous, the Ant God has also given you free levels of the following Singularity upgrades:",
+        "reward1": "{{quarks}} Quarks",
+        "reward2": "{{gq}} Golden Quarks"
       },
       "add": {
         "calculator3": "Thanks to PL-AT Ω you have also gained {{x}} real-life seconds to your Ascension Timer!",
