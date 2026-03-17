@@ -227,24 +227,24 @@ export const autoBuyCubeUpgrades = () => {
     player.autoCubeUpgradesToggle
     && player.highestSingularityCount >= 50
   ) {
-    const cheapet = []
+    const cheapest = []
 
     for (let i = 1; i < player.cubeUpgrades.length; i++) {
       const maxLevel = getCubeMax(i)
       if (player.cubeUpgrades[i]! < maxLevel) {
         const metaData = getCubeCost(i, true)
-        cheapet.push([i, metaData.cost, metaData.levelCanBuy])
+        cheapest.push([i, metaData.cost, metaData.levelCanBuy])
       }
     }
 
-    if (cheapet.length > 0) {
+    if (cheapest.length > 0) {
       let update = false
 
-      cheapet.sort((a, b) => {
+      cheapest.sort((a, b) => {
         return a[1] - b[1]
       })
 
-      for (const value of cheapet) {
+      for (const value of cheapest) {
         const maxLevel = getCubeMax(value[0])
         const metaData = getCubeCost(value[0], true)
         if (
