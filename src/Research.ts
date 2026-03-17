@@ -164,10 +164,11 @@ type RangeCondition = {
 
 const researchUnlockRanges: RangeCondition[] = [
   { range: [0, 0], condition: () => true }, // Not sure if needed!
+  { range: [1, 76], condition: () => player.unlocks.reincarnate },
   { range: [77, 77], condition: () => runes.thrift.isUnlocked() },
+  { range: [78, 78], condition: () => player.unlocks.reincarnate },
   { range: [79, 79], condition: () => runes.prism.isUnlocked() },
   { range: [80, 80], condition: () => runes.duplication.isUnlocked() },
-  { range: [1, 80], condition: () => player.unlocks.reincarnate },
   { range: [81, 100], condition: () => player.unlocks.anthill },
   { range: [101, 118], condition: () => player.unlocks.talismans },
   { range: [119, 123], condition: () => player.unlocks.ascensions },
