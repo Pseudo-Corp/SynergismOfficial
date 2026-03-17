@@ -817,7 +817,7 @@ export const overfluxPowderDescription = () => {
     })
   }
   DOMCacheGetOrSet('hepteractUnlockedText').style.display = 'none'
-  DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = `${i18next.t('hepteracts.powderEffect')} ${powderEffectText}`
+  DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = i18next.t('hepteracts.powderEffect', { x: powderEffectText })
   DOMCacheGetOrSet('hepteractBalanceText').textContent = i18next.t('hepteracts.powderLumps', {
     x: format(player.overfluxPowder, 2, true)
   })
