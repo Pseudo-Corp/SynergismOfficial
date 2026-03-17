@@ -3565,7 +3565,7 @@ const awardAchievement = (index: number) => {
       const description = i18next.t(`achievements.descriptions.${index}`)
       void Notification(i18next.t('achievements.notification', { m: description }))
     }
-    player.worlds.add(getAchievementQuarks(), false)
+    player.worlds.add(getAchievementQuarks(), false, true)
     revealStuff()
 
     // Unlock Steam achievement if configured

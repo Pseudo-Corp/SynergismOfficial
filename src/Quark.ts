@@ -95,9 +95,11 @@ export class QuarkHandler {
   }
 
   /** Subtracts quarks, as the name suggests. */
-  add (amount: number, useBonus = true) {
+  add (amount: number, useBonus: boolean, addToQuarksThisSingularity: boolean) {
     this.QUARKS += useBonus ? this.applyBonus(amount) : amount
-    player.quarksThisSingularity += useBonus ? this.applyBonus(amount) : amount
+    if (addToQuarksThisSingularity) {
+      player.quarksThisSingularity += useBonus ? this.applyBonus(amount) : amount
+    }
     return this
   }
 

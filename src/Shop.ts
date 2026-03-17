@@ -2065,7 +2065,7 @@ export const forceResetShopUpgrades = () => {
           / 2
 
       totalRefundAmt += quarksSpentOnUpgrade - doNotRefund
-      player.worlds.add(quarksSpentOnUpgrade - doNotRefund, false)
+      player.worlds.add(quarksSpentOnUpgrade - doNotRefund, false, false)
       player.shopUpgrades[shopKey] = refundableLevel
     }
   }
