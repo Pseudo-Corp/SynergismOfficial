@@ -7519,6 +7519,10 @@
     "lastButNotLeast": "Last but not least...",
     "helloNoUser": "Hello!",
     "helloUser": "Hello, <<gold|{{username}}>>!",
+    "logoutLabel": "Logout",
+    "loggedInBut": "You are logged in, but your profile couldn't be retrieved.",
+    "loggedInButError": "You are logged in, but retrieving your profile yielded the following error: {{error}}",
+    "loginNotAvailable": "Login is not available here, go to <a href=\"https://synergism.cc\">https://synergism.cc</a> instead!",
     "bonuses": {
       "transcendedBaller": "Transcended Baller <<gold|(or higher)>>",
       "reincarnatedBaller": "Reincarnated Baller <<gold|(or higher)>>",
@@ -7552,6 +7556,21 @@
       "readFailed": "Failed to read Steam Cloud save.",
       "noLocalSave": "No local save found.",
       "confirmOverwrite": "This will overwrite your existing Steam Cloud save. Continue?"
+    },
+    "steam": {
+      "failedToVerify": "Failed to validate with Steam. Is Steam open?"
+    },
+    "consumables": {
+      "connectionEstablished": "Connection was established!",
+      "connectionFailed": "Could not re-establish your connection. Consumables and events related to Consumables will not work.",
+      "ended": "{{consumable}} ended!",
+      "redeemed": "A {{consumable}} has started!",
+      "joined": "The following consumables are active:"
+    },
+    "link": {
+      "discord": "Link Discord",
+      "patreon": "Link Patreon",
+      "steam": "Link Steam"
     }
   },
   "pseudoCoins": {
@@ -7607,7 +7626,15 @@
       "applyTips": "Use Tips!",
       "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s). You may only use up to 1,440 tips per ",
       "confirmActivation": "You are about to activate a {{name}} for {{cost}} PseudoCoins. Continue?",
-      "cancelled": "Puchase has been cancelled."
+      "cancelled": "Puchase has been cancelled.",
+      "currentAmountNone": "Current Amount: <<#8f8|No active consumable>>",
+      "currentAmountSome": "Current Amount: <<#8f8|{{amount}}>>",
+      "currentTimersNone": "Ends At: <<#8f8|--:--:-->>",
+      "currentTimersSome": "Ends At: <<#8f8|{{timers}}>>",
+      "globalEvent": "Global Event",
+      "globalEventActive": "Global Event: {{events}}",
+      "globalEventNone": "Timer Remaining: <<#8f8|--:--:-->>",
+      "globalEventSome": "Timer Remaining: <<#8f8|{{time}}>>"
     },
     "timeSkips": {
       "GLOBAL": {
