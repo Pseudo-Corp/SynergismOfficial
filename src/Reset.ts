@@ -416,6 +416,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   const reincarnationCheck = player.transcendShards.gte(1e300)
   const obtainiumToGain = calculateObtainium()
   const ascensionRewards = CalcCorruptionStuff()
+  const ascensionCountToBeGained = calculateAscensionCount()
 
   resetOfferings()
   resetUpgrades(1)
@@ -683,7 +684,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     // Only reward Ascension-level rewards if we have a Challenge 10 completion (the requirement for Ascension)
     if (player.challengecompletions[10] > 0) {
-      player.ascensionCount += calculateAscensionCount()
+      player.ascensionCount += ascensionCountToBeGained
       player.wowCubes.add(ascensionRewards.wowCubes)
       player.wowTesseracts.add(ascensionRewards.wowTesseracts)
       player.wowHypercubes.add(ascensionRewards.wowHypercubes)
