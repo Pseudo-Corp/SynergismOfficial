@@ -277,7 +277,6 @@ export const updateResearchAuto = (index: number) => {
 }
 
 export const updateResearchRoomba = () => {
-
   if (isResearchMaxed(player.autoResearch) || !isResearchUnlocked(player.autoResearch)) {
     DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
     player.roombaResearchIndex = Math.min(researchOrderByCost.length - 1, player.roombaResearchIndex + 1)
@@ -286,7 +285,7 @@ export const updateResearchRoomba = () => {
 
   // Loops us back to the start
   if (player.roombaResearchIndex === 200 && !isResearchUnlocked(200)) {
-    player.roombaResearchIndex = 0 
+    player.roombaResearchIndex = 0
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
   DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.add('researchRoomba')
