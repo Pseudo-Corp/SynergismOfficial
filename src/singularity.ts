@@ -2674,22 +2674,6 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
-      return i18next.t('singularity.perks.shopSpecialOffer.name')
-    },
-    levels: [5, 20, 51],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[2]) {
-        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel2')
-      } else if (n >= levels[1]) {
-        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel1')
-      } else {
-        return i18next.t('singularity.perks.shopSpecialOffer.default')
-      }
-    },
-    ID: 'shopSpecialOffer'
-  },
-  {
-    name: () => {
       return i18next.t('singularity.perks.potionAutogenerator.name')
     },
     levels: [6],
@@ -2707,6 +2691,22 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t('singularity.perks.persistentGlobalResets.default')
     },
     ID: 'persistentGlobalResets'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.shopSpecialOffer.name')
+    },
+    levels: [10, 50],
+    description: (n: number, levels: number[]) => {
+      if (n >= levels[1]) {
+        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel2')
+      } else if (n >= levels[0]) {
+        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel1')
+      } else {
+        return i18next.t('singularity.perks.shopSpecialOffer.default')
+      }
+    },
+    ID: 'shopSpecialOffer'
   },
   {
     name: () => {

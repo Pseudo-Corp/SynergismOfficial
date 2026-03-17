@@ -130,8 +130,8 @@ interface IShopData<T extends ShopUpgradeNames> {
 }
 
 const resetNever = () => false
-const resetUntilSingularity20 = () => player.highestSingularityCount < 20
-const resetUntilSingularity51 = () => player.highestSingularityCount < 51
+const resetUntilSingularity10 = () => player.highestSingularityCount < 10
+const resetUntilSingularity50 = () => player.highestSingularityCount < 50
 
 export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
   offeringPotion: {
@@ -201,7 +201,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity20,
+    resetOnSingularity: resetUntilSingularity10,
     refundMinimumLevel: 0
   },
   offeringAuto: {
@@ -221,7 +221,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity20,
+    resetOnSingularity: resetUntilSingularity10,
     refundMinimumLevel: 1
   },
   obtainiumEX: {
@@ -238,7 +238,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity20,
+    resetOnSingularity: resetUntilSingularity10,
     refundMinimumLevel: 0
   },
   obtainiumAuto: {
@@ -255,7 +255,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity20,
+    resetOnSingularity: resetUntilSingularity10,
     refundMinimumLevel: 1
   },
   instantChallenge: {
@@ -289,7 +289,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity20,
+    resetOnSingularity: resetUntilSingularity10,
     refundMinimumLevel: 0
   },
   cashGrab: {
@@ -307,7 +307,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity20,
+    resetOnSingularity: resetUntilSingularity10,
     refundMinimumLevel: 0
   },
   shopTalisman: {
@@ -342,7 +342,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity51,
+    resetOnSingularity: resetUntilSingularity50,
     refundMinimumLevel: 0
   },
   challengeExtension: {
@@ -444,7 +444,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity51,
+    resetOnSingularity: resetUntilSingularity50,
     refundMinimumLevel: 0
   },
   seasonPass3: {
@@ -461,7 +461,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity51,
+    resetOnSingularity: resetUntilSingularity50,
     refundMinimumLevel: 0
   },
   chronometer: {
@@ -478,7 +478,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity51,
+    resetOnSingularity: resetUntilSingularity50,
     refundMinimumLevel: 0
   },
   infiniteAscent: {
@@ -672,7 +672,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity51,
+    resetOnSingularity: resetUntilSingularity50,
     refundMinimumLevel: 0
   },
   chronometer3: {
@@ -708,7 +708,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
-    resetOnSingularity: resetUntilSingularity51,
+    resetOnSingularity: resetUntilSingularity50,
     refundMinimumLevel: 0
   },
   seasonPassZ: {

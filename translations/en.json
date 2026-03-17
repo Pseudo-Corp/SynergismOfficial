@@ -3687,9 +3687,9 @@
       },
       "shopSpecialOffer": {
         "name": "Shop Special Offer",
-        "hasLevel2": "Reincarnation and Ascension tier Shop upgrades are kept permanently!",
-        "hasLevel1": "You permanently keep 100 free levels of each Shop upgrade in the first row",
-        "default": "You start each Singularity with 10 free levels of each Shop upgrade in the first row"
+        "hasLevel2": "All Quark Shop Upgrades are kept on Singularity!",
+        "hasLevel1": "Certain Reincarnation-level Quark Shop Upgrades no longer reset on Singularity!",
+        "default": "This level of the perk has been deprecated."
       },
       "potionAutogenerator": {
         "name": "Potion Autogenerator",
