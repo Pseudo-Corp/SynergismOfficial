@@ -2263,9 +2263,12 @@ export const format = (
     mantissa = 1
   }
 
-  // If the power is less than 15 it's effectively 0
+  // If the power is less than 100 it's effectively 0
+  // To my knowledge the only number that goes as low as e-100 is TD16. Strangely it causes a new bug
+  // For pure scientific, where it says "1.00e-,100". I think this is an acceptable side effect
+  // Considering that it fixes an issue that quite a few people (including myself) had with this notation || 6030
 
-  if (power < -15) {
+  if (power < -100) {
     return '0'
   }
   if (player.notation === 'Pure Engineering') {

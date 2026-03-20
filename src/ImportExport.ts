@@ -454,9 +454,14 @@ export const promocodes = async (input: string | null, amount?: number) => {
   }
   if (input === `synergism${new Date().getFullYear()}` && !player.codes.get(1)) {
     player.codes.set(1, true)
+    const year = new Date().getFullYear()
+    const quarks = 50
     player.offerings = player.offerings.add(25)
-    player.worlds.add(50, true, true)
-    el.textContent = i18next.t('importexport.promocodes.synergism2021')
+    player.worlds.add(quarks, true, true)
+    el.textContent = i18next.t('importexport.promocodes.synergism2021', {
+      year: year,
+      quarks: format(player.worlds.applyBonus(quarks), 2, true)
+    })
   } else if (input === ':unsmith:' || input === 'unsmith') {
     awardUngroupedAchievement('unsmith')
     el.textContent = i18next.t('importexport.promocodes.unsmith')
@@ -468,23 +473,27 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const quarks = Math.floor(seededRandom(Seed.PromoCodes) * (400 - 100 + 1) + 100)
     player.worlds.add(quarks, true, true)
     el.textContent = i18next.t('importexport.promocodes.khafra', {
-      x: player.worlds.applyBonus(quarks)
+      x: format(player.worlds.applyBonus(quarks), 2, true)
     })
   } else if (input === 'alonso bribe' && !player.codes.get(47)) {
+
+    const cap = getFinalHepteractCap('quark')
+
+    if (cap < 1e300 && hepteracts.quark.UNLOCKED()) {
+      hepteracts.quark.TIMES_CAP_EXTENDED += 1
+      player.codes.set(47, true)
+      return Alert(i18next.t('importexport.promocodes.bribe.thanks'))
+    }
+
     if (!hepteracts.quark.UNLOCKED()) {
       return Alert(i18next.t('importexport.promocodes.bribe.notUnlocked'))
     }
-
-    const cap = getFinalHepteractCap('quark')
 
     if (cap >= 1e300) {
       return Alert(i18next.t('importexport.promocodes.bribe.overCapacity'))
     }
 
-    player.codes.set(47, true)
-    hepteracts.quark.TIMES_CAP_EXTENDED += 1
-
-    return Alert(i18next.t('importexport.promocodes.bribe.thanks'))
+    return Alert(i18next.t('importexport.promocodes.bribe.notUnlocked'))
   } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
     player.dailyCodeUsed = true
     let rewardMessage = i18next.t('importexport.promocodes.daily.message')

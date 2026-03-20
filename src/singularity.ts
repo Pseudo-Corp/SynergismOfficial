@@ -2712,7 +2712,7 @@ export const singularityPerks: SingularityPerk[] = [
     name: () => {
       return i18next.t('singularity.perks.forTheLoveOfTheAntGod.name')
     },
-    levels: [10, 15, 25],
+    levels: [10, 15, 20],
     description: (n: number, levels: number[]) => {
       if (n >= levels[2]) {
         return i18next.t('singularity.perks.forTheLoveOfTheAntGod.hasLevel2')
@@ -3145,7 +3145,7 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [200],
     description: () => {
       const amt = (player.singularityCount >= 200)
-        ? format(Math.pow(1 + (player.singularityCount - 199) / 25, 2), 4)
+        ? format(Math.pow(1 + (player.singularityCount - 199) / 20, 2), 4)
         : format(1, 4)
       return i18next.t('singularity.perks.skrauQ.default', { amt })
     },

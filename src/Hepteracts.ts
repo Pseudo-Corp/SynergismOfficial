@@ -65,7 +65,10 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: { obtainium: 1e115 },
-    UNLOCKED: () => true,
+    UNLOCKED: () => {
+      const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
+      return Boolean(condition)
+    },
     EFFECTS: (hept) => {
       return {
         ascensionSpeed: 1 + 6 * hept / 10000
@@ -90,7 +93,10 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: { offerings: 1e80 },
-    UNLOCKED: () => true,
+    UNLOCKED: () => {
+      const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
+      return Boolean(condition)
+    },
     EFFECTS: (hept) => {
       return {
         hypercubeMultiplier: 1 + 6 * hept / 10000
@@ -115,7 +121,13 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: { worlds: 100 },
-    UNLOCKED: () => true,
+    UNLOCKED: () => {
+      const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
+      return Boolean(condition)
+    },
+    // Setting an actual condition (not just "true") here seems unnecessary since you can't get hepteracts
+    // Without having 1e15 C15 exponent in the first place, but this is necessary (at least for Quark) in order
+    // For the code "alonso bribe" to not be used up before you even have hepteracts unlocked || 6030
     EFFECTS: (hept) => {
       const exponent = hepteracts.quark.DR + hepteracts.quark.DR_INCREASE()
       return {
