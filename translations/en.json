@@ -3352,8 +3352,8 @@
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent Ambrosia Luck, per level.",
-      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
-      "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity Perks and Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularityPotency": "You know all those free Golden Quark Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +0.005 effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by 0.1% per level additive (Max -30%)!"
@@ -3443,9 +3443,9 @@
       "improveQuarkHept4": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
       "improveQuarkHept5": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
       "shopImprovedDaily": "Code 'daily' gives <<cyan|+{{amount}}>> more quarks.",
-      "shopImprovedDaily2": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<gold|+{{amount2}}>> more Golden Quarks.",
-      "shopImprovedDaily3": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<gold|+{{amount2}}>> more Golden Quarks.",
-      "shopImprovedDaily4": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<gold|+{{amount2}}>> more Golden Quarks.",
+      "shopImprovedDaily2": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Golden Quark Upgrades and <<gold|+{{amount2}}>> more Golden Quarks.",
+      "shopImprovedDaily3": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Golden Quark Upgrades and <<gold|+{{amount2}}>> more Golden Quarks.",
+      "shopImprovedDaily4": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Golden Quark Upgrades and <<gold|+{{amount2}}>> more Golden Quarks.",
       "offeringEX3": "Gain <<goldenrod|{{amount}}>> more Offerings! Also, gain <<goldenrod|+{{amount2}}>> more Base Offerings!",
       "obtainiumEX3": "Gain <<pink|{{amount}}>> more Obtainium, and an additional <<cyan|{{amount2}}>> more Immaculate Obtainium!",
       "chronometerInfinity": "Ascension timer increases <<orange|{{amount}}>> faster. Exponent spread is increased by <<orange|{{amount2}}>>.",
@@ -3469,8 +3469,8 @@
       "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}>>.",
       "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}>>",
       "shopAmbrosiaUltra": "Gain <<lime|+{{amount}} Ambrosia Luck>> from your EXALT completions!",
-      "shopSingularitySpeedup": "Singularity Perks and Upgrades accumulate <<gray|{{amount}}>> times faster!",
-      "shopSingularityPotency": "Free Singularity Upgrades are as if you had <<gray|{{amount}}>> of them.",
+      "shopSingularitySpeedup": "Singularity Perks and Upgrades that are based on Singularity timer grow in strength <<gray|{{amount}}>> times faster!",
+      "shopSingularityPotency": "Free Golden Quark Upgrades are as if you had <<gray|{{amount}}>> of them.",
       "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
       "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark Shop upgrades are increased by <<white|{{amount}}>>.",
       "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty reductions <<pink|{{amount2}}>> (Excludes Salvage)"
@@ -3594,7 +3594,7 @@
         "name": "XYZ: Xtra dailY rewardZ",
         "hasLevel2": "In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!",
         "hasLevel1": "In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.",
-        "default": "The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades, both scaling with your singularity count!"
+        "default": "The Daily Special Action now rewards you with Golden Quarks and free levels for random Golden Quark upgrades, both scaling with your singularity count!"
       },
       "generousOrbs": {
         "name": "Generous Orbs",
@@ -3739,7 +3739,7 @@
       },
       "overclocked": {
         "name": "Overclocked",
-        "default": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!"
+        "default": "Level Caps on Certain Golden Quark Upgrades are increased by {{i}}!"
       },
       "wowCubeAutomatedShipping": {
         "name": "Wow! Cube Automated Shipping",
@@ -4120,7 +4120,7 @@
       },
       "platonicPhi": {
         "name": "Platonic PHI",
-        "description": "Time follows you toward the past as well. Gain 5 additional free Singularity Upgrades per day in your singularity from code 'daily', up to +50 after 10 days.",
+        "description": "Time follows you toward the past as well. Gain 5 additional free Golden Quark Upgrades per day in your singularity from code 'daily', up to +50 after 10 days.",
         "effectHave": "This upgrade has been purchased",
         "effectHaveNot": "This upgrade has not been purchased"
       },
@@ -5963,7 +5963,7 @@
     "data": {
       "noSingularityUpgrades": {
         "name": "No Golden Quark Upgrades",
-        "description": "Simply put, you have to beat the target Singularity without (most) Golden Quark Upgrades.<br/>Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
+        "description": "Simply put, you have to beat the target Singularity without (most) Golden Quark Upgrades.<br/>Octeracts, Perks and <b>Quality of Life</b> Golden Quark Upgrades are preserved.",
         "ScalingReward1": "+50% increase to <<yellow|ALL Cube>> gain",
         "UniqueReward1": "1st - +12% <<gold|Golden Quarks>>!",
         "UniqueReward2": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
@@ -6726,7 +6726,7 @@
       "Campaign": "Campaign Bonus:",
       "SingularityMilestones": "Singularity Milestones:",
       "ShopUpgrades": "Shop Upgrades (I-IV):",
-      "SingularityUpgrades": "Singularity Upgrades (I-IV):",
+      "SingularityUpgrades": "Golden Quark Upgrades (I-IV):",
       "OcteractUpgrades": "Octeract Upgrades (I-IV):",
       "AmbrosiaLuck1": "Ambrosia - Luck Module I:",
       "AmbrosiaLuck2": "Ambrosia - Luck Module II:",
@@ -6764,7 +6764,7 @@
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Campaign": "Campaign Bonus:",
       "ShopUpgrades": "Shop Upgrades (I-IV):",
-      "SingularityUpgrades": "Singularity Upgrades (I-IV):",
+      "SingularityUpgrades": "Golden Quark Upgrades (I-IV):",
       "OcteractUpgrades": "Octeract Upgrades (I-IV):",
       "PatreonBonus": "Ambrosia Module - Shameless, Ambrosial Subscriber Advertisement:",
       "OneChallengeCap": "One Challenge Cap Reward:",
