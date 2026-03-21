@@ -716,7 +716,8 @@ export const player: Player = {
     shopRedLuck2: 0,
     shopRedLuck3: 0,
     shopInfiniteShopUpgrades: 0,
-    shopHorseShoe: 0
+    shopHorseShoe: 0,
+    shopPanthema: 0
   },
 
   shopPotionsConsumed: {

@@ -3277,10 +3277,10 @@
     "upgradeDescriptions": {
       "offeringPotion": "Instantly gain 2 real life hours of Offerings, based on your all time best Offerings/sec and speed acceleration!",
       "obtainiumPotion": "Instantly gain 2 real life hours of Obtainium, based on your all time best Obtainium/sec and speed acceleration!",
-      "offeringEX": "Gain +4% more Offerings from all sources!",
-      "offeringAuto": "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) Offerings are spent.",
-      "obtainiumEX": "Gain +4% more Obtainium from all sources!",
-      "obtainiumAuto": "Automatically pour Obtainium into a Research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every Reincarnation, dump all Obtainium into Research until maxed.",
+      "offeringEX": "Each level, get +6% more Offerings! Every 10th level multiplies the effect of this upgrade by 1.08.",
+      "offeringAuto": "Automatically pour Offerings into a Rune. Unlock the mechanic with the first level, and make it 1% faster per level!",
+      "obtainiumEX": "Each level, get +6% more Obtainium! Every 10th level multiplies the effect of this upgrade by 1.08.",
+      "obtainiumAuto": "Automatically pour Obtainium into a Research. Unlock the mechanic with the first level. Each level also reduces the cost of Researches by 0.1% per level! (Cost is rounded up)",
       "instantChallenge": "T and R Challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Additionally, instantly gain T Challenge completions up to highest completed when exiting R Challenges.",
       "antSpeed": "Each level grants +4 Ant ELO per level. Don't ask where it comes from.",
       "cashGrab": "This is a cash grab but it gives a couple cool stats. +1% production per level to Offerings and Obtainium.",
@@ -3352,11 +3352,12 @@
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent Ambrosia Luck, per level.",
-      "shopSingularitySpeedup": "You know all those time-gated Golden Quark and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity Perks and Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "You know all those free Golden Quark Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +0.005 effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
-      "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by 0.1% per level additive (Max -30%)!"
+      "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by 0.1% per level additive (Max -30%)!",
+      "shopPanthema": "Ace from space!"
     },
     "maxed": "Maxed!",
     "bought": "Bought!",
@@ -3395,9 +3396,9 @@
       "offeringPotion": "Immediately, gain <<orange|{{amount}}>> Offerings. Since you've drank <<gold|{{amount2}}>> of these potions, you permanently gain <<orange|+{{amount3}}>> Base Offerings. Drink <<gold|{{amount4}}>> more to increase by 1.",
       "obtainiumPotion": "Gain <<pink|{{amount}}>> Obtainium. Since you've drank <<gold|{{amount2}}>> of these potions, you permanently gain <<pink|+{{amount3}}>> Base Obtainium. Drink <<gold|{{amount4}}>> more to increase by 1.",
       "offeringEX": "You will gain <<goldenrod|{{amount}}>> more Offerings!",
-      "offeringAuto": "Autospends your Offerings on Runes! +<<goldenrod|{{amount2}}>> Offerings.",
+      "offeringAuto": "Auto Rune: {{amount}}. Auto Rune Speed +{{amount2}}",
       "obtainiumEX": "You will gain <<pink|{{amount}}>> more Obtainium!",
-      "obtainiumAuto": "Try to upgrade Research each Reincarnation, and gain <<pink|{{amount}}>> more Obtainium.",
+      "obtainiumAuto": "Try to upgrade Research each Reincarnation, with <<pink|{{amount}}>> Research Costs.",
       "instantChallenge": "Even in a premium shop it's kinda obvious, right?",
       "antSpeed": "Ant ELO is increased by <<orchid|{{amount}}>>.",
       "cashGrab": "You will gain <<gold|{{amount}}>> more Obtainium and Offerings!",
@@ -3469,11 +3470,18 @@
       "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}>>.",
       "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}>>",
       "shopAmbrosiaUltra": "Gain <<lime|+{{amount}} Ambrosia Luck>> from your EXALT completions!",
-      "shopSingularitySpeedup": "Singularity Perks and Golden Quark Upgrades accumulate <<gray|{{amount}}>> times faster!",
+      "shopSingularitySpeedup": "Singularity Perks and Upgrades that are based on Singularity timer grow in strength <<gray|{{amount}}>> times faster!",
       "shopSingularityPotency": "Free Golden Quark Upgrades are as if you had <<gray|{{amount}}>> of them.",
       "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
       "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark Shop upgrades are increased by <<white|{{amount}}>>.",
-      "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty reductions <<pink|{{amount2}}>> (Excludes Salvage)"
+      "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty reductions <<pink|{{amount2}}>> (Excludes Salvage)",
+      "shopPanthema": "Gain bonuses from all free Quark Upgrade levels, depending on their type!",
+      "shopPanthemaOffering": "+{{amount}} Offerings! (+{{amount2}} per Offering level)",
+      "shopPanthemaObtainium": "+{{amount}} Obtainium! (+{{amount2}} per Obtainium level)",
+      "shopPanthemaCubes": "+{{amount}} Cubes! (+{{amount2}} per Cube level)",
+      "shopPanthemaAscensionSpeed": "+{{amount}} Ascension Speed! (+{{amount2}} per Speed level)",
+      "shopPanthemaQuarks": "+{{amount}} Quarks! (+{{amount2}} per Quark level)",
+      "shopPanthemaInfinityMeta": "+{{amount}} bonuses for all other Upgrade Levels! (+1% per Infinity level)"
     },
     "names": {
       "offeringPotion": "Offering Potion",
@@ -3557,7 +3565,8 @@
       "shopSingularityPotency": "Singularity Passives Potency",
       "shopSadisticRune": "Sadistic Rune Unlock! Or does it?",
       "shopInfiniteShopUpgrades": "Blue Infinity Shop Voucher",
-      "shopHorseShoe": "A Horse Shoe Singularity Debuff"
+      "shopHorseShoe": "A Horse Shoe Singularity Debuff",
+      "shopPanthema": "The Jack of All Trades"
     }
   },
   "singularity": {
@@ -3739,7 +3748,7 @@
       },
       "overclocked": {
         "name": "Overclocked",
-        "default": "Level caps on certain Golden Quark Upgrades are increased by {{i}}!"
+        "default": "Level Caps on Certain Golden Quark Upgrades are increased by {{i}}!"
       },
       "wowCubeAutomatedShipping": {
         "name": "Wow! Cube Automated Shipping",
@@ -5963,7 +5972,7 @@
     "data": {
       "noSingularityUpgrades": {
         "name": "No Golden Quark Upgrades",
-        "description": "Simply put, you have to beat the target Singularity without (most) Golden Quark Upgrades.<br/>Octeracts, Perks and Quality of Life Golden Quark Upgrades are preserved.",
+        "description": "Simply put, you have to beat the target Singularity without (most) Golden Quark Upgrades.<br/>Octeracts, Perks and <b>Quality of Life</b> Golden Quark Upgrades are preserved.",
         "ScalingReward1": "+50% increase to <<yellow|ALL Cube>> gain",
         "UniqueReward1": "1st - +12% <<gold|Golden Quarks>>!",
         "UniqueReward2": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",

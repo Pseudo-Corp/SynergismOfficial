@@ -5533,6 +5533,7 @@ form input:hover {
     padding: 5px;
     box-sizing: border-box;
     width: 50%;
+    display: flex;
 }
 
 .consumablePurchaseBtn {
