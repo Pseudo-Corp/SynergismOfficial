@@ -3356,7 +3356,8 @@
       "shopSingularityPotency": "You know all those free Golden Quark Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +0.005 effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
-      "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by 0.1% per level additive (Max -30%)!"
+      "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by 0.1% per level additive (Max -30%)!",
+      "shopPanthema": "Ace from space!"
     },
     "maxed": "Maxed!",
     "bought": "Bought!",
@@ -3473,7 +3474,14 @@
       "shopSingularityPotency": "Free Golden Quark Upgrades are as if you had <<gray|{{amount}}>> of them.",
       "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
       "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark Shop upgrades are increased by <<white|{{amount}}>>.",
-      "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty reductions <<pink|{{amount2}}>> (Excludes Salvage)"
+      "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty reductions <<pink|{{amount2}}>> (Excludes Salvage)",
+      "shopPanthema": "Gain bonuses from all free Quark Upgrade levels, depending on their type!",
+      "shopPanthemaOffering": "+{{amount}} Offerings! (+{{amount2}} per Offering level)",
+      "shopPanthemaObtainium": "+{{amount}} Obtainium! (+{{amount2}} per Obtainium level)",
+      "shopPanthemaCubes": "+{{amount}} Cubes! (+{{amount2}} per Cube level)",
+      "shopPanthemaAscensionSpeed": "+{{amount}} Ascension Speed! (+{{amount2}} per Speed level)",
+      "shopPanthemaQuarks": "+{{amount}} Quarks! (+{{amount2}} per Quark level)",
+      "shopPanthemaInfinityMeta": "+{{amount}} bonuses for all other Upgrade Levels! (+1% per Infinity level)"
     },
     "names": {
       "offeringPotion": "Offering Potion",
@@ -3557,7 +3565,8 @@
       "shopSingularityPotency": "Singularity Passives Potency",
       "shopSadisticRune": "Sadistic Rune Unlock! Or does it?",
       "shopInfiniteShopUpgrades": "Blue Infinity Shop Voucher",
-      "shopHorseShoe": "A Horse Shoe Singularity Debuff"
+      "shopHorseShoe": "A Horse Shoe Singularity Debuff",
+      "shopPanthema": "The Jack of All Trades"
     }
   },
   "singularity": {
