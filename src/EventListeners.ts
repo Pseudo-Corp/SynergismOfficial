@@ -1625,7 +1625,7 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // EVENT TAB
-  document.querySelector('.consumableButton')?.addEventListener('click', () => {
+  document.querySelector('#consumableEvents > .consumableButton')?.addEventListener('click', () => {
     changeTab(Tabs.Purchase)
     changeSubTab(Tabs.Purchase, { page: 3 })
   })
