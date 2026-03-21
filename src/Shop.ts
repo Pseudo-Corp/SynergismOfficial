@@ -35,8 +35,8 @@ type QuarkShopUpgradeRewards = {
   obtainiumEX: { obtainiumMult: number }
   obtainiumEX2: { obtainiumMult: number }
   obtainiumEX3: { obtainiumMult: number; immaculateObtainiuMult: number }
-  offeringAuto: { offeringMult: number; automaticSpending: boolean }
-  obtainiumAuto: { obtainiumMult: number; automaticSpending: boolean }
+  offeringAuto: { autoRune: boolean; autoRuneSpeedMult: number }
+  obtainiumAuto: { autoResearch: boolean; researchCostMult: number }
   cashGrab: { obtainiumMult: number; offeringMult: number }
   cashGrab2: { obtainiumMult: number; offeringMult: number }
   shopTalisman: { talismanUnlocked: boolean }
@@ -257,14 +257,18 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
   offeringEX: {
     name: () => i18next.t('shop.names.offeringEX'),
     description: () => i18next.t('shop.upgradeDescriptions.offeringEX'),
-    effects: (n: number) => ({ offeringMult: 1 + 0.04 * n }),
+    effects: (n: number) => {
+      const offeringMult = 1 + 0.06 * n
+      const extraMult = Math.pow(1.08, Math.floor(n / 10))
+      return { offeringMult: offeringMult * extraMult }
+    },
     effectDescription () {
       const effect = getShopUpgradeEffects('offeringEX').offeringMult
-      return i18next.t('shop.upgradeEffects.offeringEX', { amount: formatAsPercentIncrease(effect, 0) })
+      return i18next.t('shop.upgradeEffects.offeringEX', { amount: formatAsPercentIncrease(effect) })
     },
     isUnlocked: () => player.unlocks.reincarnate || player.highestSingularityCount > 0,
-    price: 150,
-    priceIncrease: 10,
+    price: 225,
+    priceIncrease: 15,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
@@ -275,12 +279,12 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
   offeringAuto: {
     name: () => i18next.t('shop.names.offeringAuto'),
     description: () => i18next.t('shop.upgradeDescriptions.offeringAuto'),
-    effects: (n: number) => ({ offeringMult: 1 + 0.02 * n, automaticSpending: n > 0 }),
+    effects: (n: number) => ({ autoRune: n > 0, autoRuneSpeedMult: 1 + 0.01 * n }),
     effectDescription () {
       const effects = getShopUpgradeEffects('offeringAuto')
       return i18next.t('shop.upgradeEffects.offeringAuto', {
-        amount: effects.automaticSpending ? 1 : 0,
-        amount2: formatAsPercentIncrease(effects.offeringMult, 0)
+        amount: effects.autoRune,
+        amount2: formatAsPercentIncrease(effects.autoRuneSpeedMult, 0)
       })
     },
     isUnlocked: () => player.unlocks.reincarnate || player.highestSingularityCount > 0,
@@ -288,22 +292,26 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     priceIncrease: 10,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
-    resetOnSingularity: resetUntilSingularity10,
-    refundMinimumLevel: 1,
+    refundable: false,
+    resetOnSingularity: resetNever,
+    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Offering, ShopUpgradeGroups.Utility]
   },
   obtainiumEX: {
     name: () => i18next.t('shop.names.obtainiumEX'),
     description: () => i18next.t('shop.upgradeDescriptions.obtainiumEX'),
-    effects: (n: number) => ({ obtainiumMult: 1 + 0.04 * n }),
+    effects: (n: number) => {
+      const obtainiumMult = 1 + 0.06 * n
+      const extraMult = Math.pow(1.08, Math.floor(n / 10))
+      return { obtainiumMult: obtainiumMult * extraMult }
+    },
     effectDescription () {
       const effect = getShopUpgradeEffects('obtainiumEX').obtainiumMult
       return i18next.t('shop.upgradeEffects.obtainiumEX', { amount: formatAsPercentIncrease(effect, 0) })
     },
     isUnlocked: () => player.unlocks.reincarnate || player.highestSingularityCount > 0,
-    price: 150,
-    priceIncrease: 10,
+    price: 225,
+    priceIncrease: 15,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
@@ -314,11 +322,11 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
   obtainiumAuto: {
     name: () => i18next.t('shop.names.obtainiumAuto'),
     description: () => i18next.t('shop.upgradeDescriptions.obtainiumAuto'),
-    effects: (n: number) => ({ obtainiumMult: 1 + 0.02 * n, automaticSpending: n > 0 }),
+    effects: (n: number) => ({ autoResearch: n > 0, researchCostMult: 1 - 0.001 * n }),
     effectDescription () {
       const effects = getShopUpgradeEffects('obtainiumAuto')
       return i18next.t('shop.upgradeEffects.obtainiumAuto', {
-        amount: formatAsPercentIncrease(effects.obtainiumMult, 0)
+        amount: formatAsPercentIncrease(effects.researchCostMult, 1)
       })
     },
     isUnlocked: () => player.unlocks.reincarnate || player.highestSingularityCount > 0,
@@ -326,9 +334,9 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     priceIncrease: 10,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
-    resetOnSingularity: resetUntilSingularity10,
-    refundMinimumLevel: 1,
+    refundable: false,
+    resetOnSingularity: resetNever,
+    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Obtainium, ShopUpgradeGroups.Utility]
   },
   instantChallenge: {
