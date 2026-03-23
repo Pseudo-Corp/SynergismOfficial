@@ -3374,11 +3374,11 @@
     "youHaveQuarks": "您有{{x}}夸克！",
     "refundable": "您可以重置此项购买！重置后将变为{{level}}级。",
     "cannotRefund": "请注意！您无法重置此项购买！",
-    "resetPermShop": "重置升级",
-    "refundConfirmation": "这么做将重置所有可以重置的升级，返还所有花费的夸克。您确定要继续吗？",
+    "resetPermShop": "重置商店升级",
+    "refundConfirmation": "这么做将重置所有可以重置的商店升级，并返还所有花费的夸克。您确定要继续吗？",
     "refundSuccessful": "您重置了所有可以重置的夸克商店升级！返还了{{amount}}夸克。",
     "noResetOnSingularity": "该升级进入奇点时不会重置！换句话说，您可以<b>永久</b>保留它！",
-    "resetOnSingularity": "该升级进入奇点时会重置！如果超过{{x}}级，则会变为该数值的级别。",
+    "resetOnSingularity": "该升级进入奇点时会重置！进入奇点时该商店升级如果超过{{x}}级，则会变为{{x}}级。",
     "shopConfirmationOn": "商店确认框：开",
     "shopConfirmationOff": "商店确认框：关",
     "hideMaxedOn": "隐藏满级物品：开",
@@ -3401,7 +3401,7 @@
       "instantChallenge": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
       "antSpeed": "使蚂蚁强度分增加<<orchid|{{amount}}>>。",
       "cashGrab": "难得素和祭品的获取数量增加<<gold|{{amount}}>>！",
-      "shopTalisman": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
+      "shopTalisman": "这个护身符的 <<gold | ✏>> 铭文可以增加夸克获取！",
       "seasonPass": "飞升的方盒和超立方获取数量增加<<lightgoldenrodyellow|{{amount}}>>。",
       "challengeExtension": "转世挑战完成次数上限额外增加<<lime|{{amount}}>>次。",
       "challengeTome": "挑战10的基础目标减少<<lightgoldenrodyellow|1e{{amount1}}>>。超过60次以后的挑战9或挑战10的挑战目标增长因子变为[挑战次数×<<lightgoldenrodyellow|{{amount2}}>>]",
@@ -3485,7 +3485,7 @@
       "instantChallenge": "立即完成挑战",
       "antSpeed": "提升蚂蚁强度分",
       "cashGrab": "昂贵物品",
-      "shopTalisman": "塑胶护身符",
+      "shopTalisman": "氪金信用卡​​护身符",
       "seasonPass": "季票",
       "challengeExtension": "额外转世挑战",
       "challengeTome": "减少挑战10的目标",
@@ -4892,7 +4892,7 @@
       },
       "thirtieth": {
         "name": "战役30",
-        "description": "需要获得静月千阴方盒升级时，可以考虑这个配置。"
+        "description": "需要获得烈日千阳方盒升级时，可以考虑这个配置。"
       },
       "thirtyFirst": {
         "name": "战役 XXXI",
@@ -4900,7 +4900,7 @@
       },
       "thirtySecond": {
         "name": "战役 XXXII",
-        "description": "如果您购买完最后一项研究，这个配置应该就有足够收益了。或许您还可以开始获得PLATONIC方盒呢。"
+        "description": "如果您购买完最后的静月千阴研究，这个配置应该就有足够收益了。或许您还可以开始获得PLATONIC方盒呢。"
       },
       "thirtyThird": {
         "name": "战役 XXXIII",
@@ -4908,23 +4908,23 @@
       },
       "thirtyFourth": {
         "name": "战役 XXXIV",
-        "description": "您开始购买静月千阴方盒升级了吗？"
+        "description": "您开始购买烈日千阳方盒升级了吗？"
       },
       "thirtyFifth": {
         "name": "战役 XXXV",
-        "description": "您恐怕 真的 需要先购买那个方盒升级！"
+        "description": "您恐怕 真的 需要先购买那个烈日千阳方盒升级！"
       },
       "thirtySixth": {
         "name": "战役 XXXVI",
-        "description": "升级静月千阴后，您就可以增加更多腐化等级了！"
+        "description": "升级烈日千阳后，您就可以增加更多腐化等级了！"
       },
       "thirtySeventh": {
         "name": "战役 XXXVII",
-        "description": "您也该增加贡品了。"
+        "description": "您也该增加方盒的贡品了。"
       },
       "thirtyEighth": {
         "name": "战役 XXXVIII",
-        "description": "静月千阴方盒升级购买到多少了？"
+        "description": "烈日千阳方盒升级购买到多少了？"
       },
       "thirtyNinth": {
         "name": "战役 XXXIX",
@@ -5609,7 +5609,7 @@
       "offeringBonus": "<<orange|使祭品获取数量变为原来的{{val}}倍>> (每有1符文强度就变为原来的10倍)",
       "obtainiumBonus": "<<pink|使难得素获取数量变为原来的{{val}}倍>> (每有1符文强度就变为原来的10倍)",
       "addCode": "<<lightgray|使“增加”代码的使用时间间隔{{val}}>> (1符文强度时-20%，上限为-50%)",
-      "cubeBonus": "<<white | 惊奇方盒获取数量 +{{val}}>> (每级变为原来的1.01倍(最高5倍)，并乘以当前...奇点次数？)",
+      "cubeBonus": "<<white | 使惊奇方盒获取数量+{{val}}>> (每级使惊奇方盒获取数量变为原来的1.01倍（至多计入5级），这个效果会重复S次，其中S为当前...奇点次数？)",
       "values": "1级时解锁某种<span class=\"rainbowText\">特殊</span>的东西！每级使祭品获取数量和<<cyan|无瑕>>的难得素获取数量变为原来的10倍，并使“增加”代码更快恢复使用次数。",
       "effect": "使祭品获取数量变为原来的{{val}}倍，<<cyan|无瑕>>难得素获取数量变为原来的{{val2}}倍，“增加”代码的使用时间间隔变为原来的{{val3}}%。"
     },
@@ -7416,7 +7416,7 @@
         "calculator7": "最后，由于PL-AT Ω的效果，您还获得了相当于现实时间{{x}}秒产量的神肴进度条点数！",
         "calculatorSolution": "答对可以获得{{w}}夸克，答错则一无所有：{{x}}+{{y}}等于多少？根据计算器，答案应该为{{z}}。",
         "calculatorPrompt": "答对可以获得{{w}}夸克，答错则一无所有：{{x}}+{{y}}等于多少？",
-        "calculatorMaxed": "您的计算器自动算出了{{a}}+{{b}}={{c}}，因此您直接获得了{{d}}夸克！{{e}}{{f}}{{g}}{{h}}您还有{{i}}次“增加”代码的使用机会。{{j}}秒后可以获得1次。",
+        "calculatorMaxed": "您的计算器自动算出了{{a}}+{{b}}={{c}}，因此您直接获得了{{d}}夸克！{{e}}{{f}}{{g}}{{h}}{{i}}您还有{{j}}次“增加”代码的使用机会。{{k}}秒后可以获得1次。",
         "freeLevel": "最后的最后，您还获得了{{x}}级的免费金夸克 I升级和{{y}}级的免费金夸克 III升级！！！",
         "cancelled": "您没有消耗任何代码次数，不必担心！下次再说吧！",
         "reward": "您获得了{{a}}夸克！{{b}}{{c}}{{d}}您还有{{e}}次“增加”代码的使用机会。{{f}}秒后可以获得1次。",
