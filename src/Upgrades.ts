@@ -48,7 +48,7 @@ const constantUpgDesc: Record<number, () => Record<string, string>> = {
   }),
   2: () => ({
     max: format(
-      10 + 100 * +getAchievementReward('constUpgrade2Buff') + getShopUpgradeEffects('constantEX').maxPercentIncrease
+      10 + 100 * +getAchievementReward('constUpgrade2Buff') + getShopUpgradeEffects('constantEX', 'maxPercentIncrease')
         + 100
           * (G.challenge15Rewards.exponent.value - 1)
         + 0.3 * player.platonicUpgrades[18],
@@ -666,7 +666,7 @@ const constUpgEffect: Record<number, () => Record<string, string>> = {
           + 0.001
             * Math.min(
               100 + 1000 * +getAchievementReward('constUpgrade2Buff')
-                + 10 * getShopUpgradeEffects('constantEX').maxPercentIncrease
+                + 10 * getShopUpgradeEffects('constantEX', 'maxPercentIncrease')
                 + 3 * player.platonicUpgrades[18] + 1000 * (G.challenge15Rewards.exponent.value - 1),
               player.constantUpgrades[2]
             ),

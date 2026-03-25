@@ -535,13 +535,13 @@ export const promocodes = async (input: string | null, amount?: number) => {
       }
       let rolls = 3 * Math.sqrt(player.highestSingularityCount)
       rolls += getOcteractUpgradeEffect('octeractImprovedDaily')
-      rolls += getShopUpgradeEffects('shopImprovedDaily2').freeSingularityUpgrades
-      rolls += getShopUpgradeEffects('shopImprovedDaily3').freeSingularityUpgrades
-      rolls += getShopUpgradeEffects('shopImprovedDaily4').freeSingularityUpgrades
+      rolls += getShopUpgradeEffects('shopImprovedDaily2', 'freeSingularityUpgrades')
+      rolls += getShopUpgradeEffects('shopImprovedDaily3', 'freeSingularityUpgrades')
+      rolls += getShopUpgradeEffects('shopImprovedDaily4', 'freeSingularityUpgrades')
       rolls += getGQUpgradeEffect('platonicPhi')
         * Math.min(
           50,
-          getShopUpgradeEffects('shopSingularitySpeedup').singularityUpgradeSpeedMult * 5 * player.singularityCounter
+          getShopUpgradeEffects('shopSingularitySpeedup', 'singularityUpgradeSpeedMult') * 5 * player.singularityCounter
             / (3600 * 24)
         )
       rolls += getOcteractUpgradeEffect('octeractImprovedDaily3')
@@ -734,7 +734,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     player.stats.totalAddCodesUsed += realAttemptsUsed
     awardAchievementGroup('addCodesUsed')
     // Calculator Maxed: you don't need to insert anything!
-    if (getShopUpgradeEffects('calculator').autoFill) {
+    if (getShopUpgradeEffects('calculator', 'autoFill')) {
       player.worlds.add(actualQuarks, true, true)
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
@@ -778,7 +778,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       z: first + second
     }
 
-    const promptText = getShopUpgradeEffects('calculator').autoAnswer
+    const promptText = getShopUpgradeEffects('calculator', 'autoAnswer')
       ? i18next.t('importexport.promocodes.add.calculatorSolution', options)
       : i18next.t('importexport.promocodes.add.calculatorPrompt', options)
 
@@ -980,11 +980,11 @@ export const addCodeTimeToNextUse = (): number => {
 export const addCodeBonuses = () => {
   const perkRewardDivisor = addCodeSingularityPerkBonus()
 
-  let commonQuarkMult = getShopUpgradeEffects('calculator').addQuarkMult // Calculator Shop Upgrade (+14% / level)
-  commonQuarkMult *= getShopUpgradeEffects('calculator2').addQuarkMult // Calculator 2 Shop Upgrade (+25% if maxed)
+  let commonQuarkMult = getShopUpgradeEffects('calculator', 'addQuarkMult') // Calculator Shop Upgrade (+14% / level)
+  commonQuarkMult *= getShopUpgradeEffects('calculator2', 'addQuarkMult') // Calculator 2 Shop Upgrade (+25% if maxed)
   commonQuarkMult /= perkRewardDivisor
 
-  const varianceMult = getShopUpgradeEffects('calculator3').addRewardVarianceMultiplier
+  const varianceMult = getShopUpgradeEffects('calculator3', 'addRewardVarianceMultiplier')
   let randomBaseMult = 0.6
   let sampledNoiseMult = -0.2
     * seededBetween(Seed.PromoCodes, 0, 1000) / 1000
@@ -999,16 +999,16 @@ export const addCodeBonuses = () => {
 
   // Calculator 3: Adds ascension timer.  Also includes Expert Pack multiplier.
   const ascMult = getGQUpgradeEffect('expertPack') ? 1.2 : 1
-  const ascensionTimer = getShopUpgradeEffects('calculator3').ascensionTimerAdd * ascMult / perkRewardDivisor
+  const ascensionTimer = getShopUpgradeEffects('calculator3', 'ascensionTimerAdd') * ascMult / perkRewardDivisor
 
   // Calculator 5: Adds GQ export timer.
-  const gqTimer = getShopUpgradeEffects('calculator5').importGQTimerAdd / perkRewardDivisor
+  const gqTimer = getShopUpgradeEffects('calculator5', 'importGQTimerAdd') / perkRewardDivisor
 
   // Calculator 6: Octeract Generation
-  const octeractTime = getShopUpgradeEffects('calculator6').octeractTimerAdd / perkRewardDivisor
+  const octeractTime = getShopUpgradeEffects('calculator6', 'octeractTimerAdd') / perkRewardDivisor
 
   // Calculator 7: Blueberry Timer Generation
-  const blueberryTime = getShopUpgradeEffects('calculator7').blueberryTimerAdd / perkRewardDivisor
+  const blueberryTime = getShopUpgradeEffects('calculator7', 'blueberryTimerAdd') / perkRewardDivisor
 
   return {
     quarks: sampledMult * quarkBase, // The quarks to actually reward (if not for stats)
@@ -1107,14 +1107,14 @@ const dailyCodeReward = () => {
     quarks += 500
   }
 
-  quarks *= getShopUpgradeEffects('shopImprovedDaily').dailyCodeQuarkMult
+  quarks *= getShopUpgradeEffects('shopImprovedDaily', 'dailyCodeQuarkMult')
   quarks = Math.floor(quarks)
 
   if (singularity) {
     goldenQuarks += 2 + 3 * player.highestSingularityCount
-    goldenQuarks *= getShopUpgradeEffects('shopImprovedDaily2').dailyCodeGoldenQuarkMult
-    goldenQuarks *= getShopUpgradeEffects('shopImprovedDaily3').dailyCodeGoldenQuarkMult
-    goldenQuarks *= getShopUpgradeEffects('shopImprovedDaily4').dailyCodeGoldenQuarkMult
+    goldenQuarks *= getShopUpgradeEffects('shopImprovedDaily2', 'dailyCodeGoldenQuarkMult')
+    goldenQuarks *= getShopUpgradeEffects('shopImprovedDaily3', 'dailyCodeGoldenQuarkMult')
+    goldenQuarks *= getShopUpgradeEffects('shopImprovedDaily4', 'dailyCodeGoldenQuarkMult')
   }
 
   return {

@@ -542,7 +542,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return getShopUpgradeEffects('shopTalisman').talismanUnlocked
+      return getShopUpgradeEffects('shopTalisman', 'talismanUnlocked')
     },
     name: () => i18next.t('runes.talismans.plastic.name'),
     description: () => i18next.t('runes.talismans.plastic.description')
