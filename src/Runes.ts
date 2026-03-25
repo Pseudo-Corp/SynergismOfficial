@@ -1,4 +1,4 @@
-import { calculateOfferings, calculateSalvageRuneEXPMultiplier, isIARuneUnlocked } from './Calculate'
+import { calculateOfferings, calculateSalvageRuneEXPMultiplier } from './Calculate'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Globals as G } from './Variables'
 
@@ -13,6 +13,7 @@ import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { resetTiers } from './Reset'
+import { getShopUpgradeEffects } from './Shop'
 import { firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
@@ -184,7 +185,7 @@ const bonusRuneLevelsAntiquities = () => {
 
 const bonusRuneLevelsHorseShoe = () => {
   return getRuneBonusFromAllTalismans('horseShoe')
-    + (player.shopUpgrades.shopHorseShoe > 0 ? 3 : 0)
+    + getShopUpgradeEffects('shopHorseShoe').bonusHorseLevels
 }
 
 const speedRuneOOMIncrease = () => {
@@ -576,7 +577,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effectiveLevelMult: () => 1,
     freeLevels: () => bonusRuneLevelsIA(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
-    isUnlocked: () => isIARuneUnlocked(),
+    isUnlocked: () => getShopUpgradeEffects('infiniteAscent').runeUnlocked,
     minimalResetTier: 'singularity',
     name: () => i18next.t('runes.infiniteAscent.name'),
     description: () => i18next.t('runes.infiniteAscent.description'),
@@ -712,7 +713,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effectiveLevelMult: () => 1,
     freeLevels: () => 0,
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
-    isUnlocked: () => player.shopUpgrades.shopSadisticRune > 0,
+    isUnlocked: () => getShopUpgradeEffects('shopSadisticRune').runeUnlocked,
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.finiteDescent.name'),
     description: () => i18next.t('runes.finiteDescent.description'),
@@ -980,15 +981,8 @@ export const sacrificeOfferings = (rune: RuneKeys, budget: Decimal, auto = false
   }
 
   let levelsToAdd = player.offeringbuyamount as number
-  if (auto) {
-    levelsToAdd = 20 * player.shopUpgrades.offeringAuto
-    levelsToAdd *= getLevelMilestone('runeAutobuyImprover')
-    if (player.cubeUpgrades[20] > 0) {
-      levelsToAdd *= 20
-    }
-  }
 
-  if (player.offeringbuyamount !== 100000 || auto) {
+  if (player.offeringbuyamount !== 100000 && !auto) {
     levelRune(rune, levelsToAdd, budget)
   } // If we have offeringbuyamount === 100000, try to buy max! Fuck you, old Platonic.
   else {

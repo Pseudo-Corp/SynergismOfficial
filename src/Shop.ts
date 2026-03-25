@@ -46,8 +46,8 @@ type QuarkShopUpgradeRewards = {
   instantChallenge: { unlocked: boolean; extraCompPerTick: number }
   instantChallenge2: { unlocked: boolean; extraCompPerTick: number }
   challengeExtension: { reincarnationChallengeCap: number }
-  challengeTome: { c10RequirementReduction: number; c9c10ScalingMultiplier: number }
-  challengeTome2: { c10RequirementReduction: number; c9c10ScalingMultiplier: number }
+  challengeTome: { c10RequirementReduction: number; c9c10ScalingReduction: number }
+  challengeTome2: { c10RequirementReduction: number; c9c10ScalingReduction: number }
   challenge15Auto: { unlocked: boolean }
   seasonPass: { wowCubeMult: number; wowTesseractMult: number }
   seasonPass2: { wowHypercubeMult: number; wowPlatonicMult: number }
@@ -78,7 +78,7 @@ type QuarkShopUpgradeRewards = {
   cubeToQuark: { cubeQuarkMult: number }
   tesseractToQuark: { tesseractQuarkMult: number }
   hypercubeToQuark: { hypercubeQuarkMult: number }
-  cubeToQuarkAll: { cubeQuarkMult: number; tesseractQuarkMult: number; hypercubeQuarkMult: number }
+  cubeToQuarkAll: { quarkMult: number }
   shopImprovedDaily: { dailyCodeQuarkMult: number }
   shopImprovedDaily2: { freeSingularityUpgrades: number; dailyCodeGoldenQuarkMult: number }
   shopImprovedDaily3: { freeSingularityUpgrades: number; dailyCodeGoldenQuarkMult: number }
@@ -142,12 +142,12 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
   [ShopUpgradeGroups.Offering]: {
     HTMLColor: 'orange',
     symbol: '☤',
-    bonusLevels: () => 0
+    bonusLevels: () => +player.singularityChallenges.noQuarkUpgrades.rewards.freeOfferingLevels
   },
   [ShopUpgradeGroups.Obtainium]: {
     HTMLColor: 'pink',
     symbol: '❍',
-    bonusLevels: () => 0
+    bonusLevels: () => +player.singularityChallenges.noQuarkUpgrades.rewards.freeObtainiumLevels
   },
   [ShopUpgradeGroups.Utility]: {
     HTMLColor: 'white',
@@ -157,22 +157,23 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
   [ShopUpgradeGroups.Cubes]: {
     HTMLColor: 'magenta',
     symbol: '⬢',
-    bonusLevels: () => 0
+    bonusLevels: () => +player.singularityChallenges.noQuarkUpgrades.rewards.freeCubeLevels
   },
   [ShopUpgradeGroups.Speed]: {
     HTMLColor: 'yellow',
     symbol: '⧗',
-    bonusLevels: () => 0
+    bonusLevels: () => +player.singularityChallenges.noQuarkUpgrades.rewards.freeSpeedLevels
   },
   [ShopUpgradeGroups.Quark]: {
     HTMLColor: 'cyan',
     symbol: '❂',
-    bonusLevels: () => 0
+    bonusLevels: () => +player.singularityChallenges.noQuarkUpgrades.rewards.freeQuarkLevel
   },
   [ShopUpgradeGroups.InfinityUpgrades]: {
     HTMLColor: 'lightgoldenrodyellow',
     symbol: '\u221E',
-    bonusLevels: () => calculateFreeShopInfinityUpgrades()
+    bonusLevels: () =>
+      calculateFreeShopInfinityUpgrades() + +player.singularityChallenges.noQuarkUpgrades.rewards.freeInfinityLevels
   }
 }
 
@@ -452,12 +453,12 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
   challengeTome: {
     name: () => i18next.t('shop.names.challengeTome'),
     description: () => i18next.t('shop.upgradeDescriptions.challengeTome'),
-    effects: (n: number) => ({ c10RequirementReduction: 2e7 * n, c9c10ScalingMultiplier: 1 - 0.2 * n / 15 }),
+    effects: (n: number) => ({ c10RequirementReduction: 2e7 * n, c9c10ScalingReduction: -n / 100 }),
     effectDescription () {
       const effects = getShopUpgradeEffects('challengeTome')
       return i18next.t('shop.upgradeEffects.challengeTome', {
         amount1: format(effects.c10RequirementReduction, 0, true),
-        amount2: format(effects.c9c10ScalingMultiplier, 3, true)
+        amount2: format(effects.c9c10ScalingReduction, 2, true)
       })
     },
     isUnlocked: () => player.ascensionCount > 0 || player.highestSingularityCount > 0,
@@ -728,10 +729,10 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
   constantEX: {
     name: () => i18next.t('shop.names.constantEX'),
     description: () => i18next.t('shop.upgradeDescriptions.constantEX'),
-    effects: (n: number) => ({ maxPercentIncrease: 0.01 * n }),
+    effects: (n: number) => ({ maxPercentIncrease: n }),
     effectDescription () {
       const effect = getShopUpgradeEffects('constantEX').maxPercentIncrease
-      return i18next.t('shop.upgradeEffects.constantEX', { amount: formatAsPercentIncrease(1 + effect, 0) })
+      return i18next.t('shop.upgradeEffects.constantEX', { amount: format(effect, 0, true) })
     },
     isUnlocked: () => player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0,
     price: 100000,
@@ -849,12 +850,12 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
   challengeTome2: {
     name: () => i18next.t('shop.names.challengeTome2'),
     description: () => i18next.t('shop.upgradeDescriptions.challengeTome2'),
-    effects: (n: number) => ({ c10RequirementReduction: 2e7 * n, c9c10ScalingMultiplier: 1 - 0.04 * n }),
+    effects: (n: number) => ({ c10RequirementReduction: 2e7 * n, c9c10ScalingReduction: -n / 100 }),
     effectDescription () {
       const effects = getShopUpgradeEffects('challengeTome2')
       return i18next.t('shop.upgradeEffects.challengeTome2', {
         amount1: format(effects.c10RequirementReduction, 0, true),
-        amount2: format(effects.c9c10ScalingMultiplier, 2, true)
+        amount2: format(effects.c9c10ScalingReduction, 3, true)
       })
     },
     isUnlocked: () => Boolean(getGQUpgradeEffect('wowPass')),
@@ -889,14 +890,12 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     name: () => i18next.t('shop.names.cubeToQuarkAll'),
     description: () => i18next.t('shop.upgradeDescriptions.cubeToQuarkAll'),
     effects: (n: number) => ({
-      cubeQuarkMult: 1 + 0.002 * n,
-      tesseractQuarkMult: 1 + 0.002 * n,
-      hypercubeQuarkMult: 1 + 0.002 * n
+      quarkMult: 1 + 0.002 * n
     }),
     effectDescription () {
       const effects = getShopUpgradeEffects('cubeToQuarkAll')
       return i18next.t('shop.upgradeEffects.cubeToQuarkAll', {
-        amount: formatAsPercentIncrease(effects.cubeQuarkMult, 1)
+        amount: formatAsPercentIncrease(effects.quarkMult, 1)
       })
     },
     isUnlocked: () => Boolean(getGQUpgradeEffect('wowPass2')),
@@ -1817,7 +1816,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K> } = {
     effects: (n: number) => {
       const totalExaltChallengeCompletions = sumOfExaltCompletions()
       return {
-        infiniteVouchers: Math.floor(0.005 * n * totalExaltChallengeCompletions)
+        infiniteVouchers: Math.floor(0.01 * n * totalExaltChallengeCompletions)
       }
     },
     effectDescription () {
@@ -1965,16 +1964,25 @@ const getBonusLevels = (upgradeKey: ShopUpgradeNames) => {
   return bonusLevels
 }
 
-const getShopUpgradeEffects = <T extends ShopUpgradeNames>(upgradeKey: T): QuarkShopUpgradeRewards[T] => {
-  // By design, bonusLevels cannot exceed your actual purchased levels (avoids situations where
-  // you get a bonus level in an endgame upgrade without having it unlocked)
-  if (upgradeKey === 'shopPanthema') {
-    return shopUpgrades[upgradeKey].effects(player.shopUpgrades[upgradeKey])
-  } else {
-    const bonusLevels = getBonusLevels(upgradeKey)
-    const actualBonus = Math.min(bonusLevels, player.shopUpgrades[upgradeKey])
-    return shopUpgrades[upgradeKey].effects(player.shopUpgrades[upgradeKey] + actualBonus)
+const getShopLevel = (upgradeKey: ShopUpgradeNames) => {
+  if (
+    (player.singularityChallenges.noQuarkUpgrades.enabled
+      && !shopUpgrades[upgradeKey].upgradeTypes.includes(ShopUpgradeGroups.Utility))
+    || !shopUpgrades[upgradeKey].isUnlocked()
+  ) {
+    return 0
   }
+
+  if (upgradeKey === 'shopPanthema') {
+    return player.shopUpgrades[upgradeKey]
+  } else {
+    return player.shopUpgrades[upgradeKey] + getBonusLevels(upgradeKey)
+  }
+}
+
+export const getShopUpgradeEffects = <T extends ShopUpgradeNames>(upgradeKey: T): QuarkShopUpgradeRewards[T] => {
+  const shopLevel = getShopLevel(upgradeKey)
+  return shopUpgrades[upgradeKey].effects(shopLevel)
 }
 
 export const updateShopLevels = () => {

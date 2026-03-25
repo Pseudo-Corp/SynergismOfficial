@@ -30,6 +30,7 @@ export type SingularityChallengeDataKeys =
   | 'oneChallengeCap'
   | 'noOcteracts'
   | 'limitedAscensions'
+  | 'noQuarkUpgrades'
   | 'noAmbrosiaUpgrades'
   | 'limitedTime'
   | 'sadisticPrequel'
@@ -320,50 +321,50 @@ export const singularityChallengeData: Record<
 > = {
   noSingularityUpgrades: {
     baseReq: 1,
-    maxCompletions: 30,
+    maxCompletions: 15,
     unlockSingularity: 25,
     HTMLTag: 'noSingularityUpgrades',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 8 * completions
+      return baseReq + 16 * completions + 8 * (completions >= 9 ? 1 : 0)
     },
     achievementPointValue: (n) => {
-      return 5 * n + 5 * Math.max(0, n - 15)
+      return 15 * n
     },
     scalingrewardcount: 1,
     uniquerewardcount: 5,
     effect: (n: number) => {
       return {
-        cubes: 1 + 0.5 * n,
+        cubes: 1 + n,
         goldenQuarks: 1 + 0.12 * +(n > 0),
         blueberries: +(n > 0),
-        shopUpgrade: n >= 20,
-        luckBonus: n >= 30 ? 0.05 : 0,
-        shopUpgrade2: n >= 30
+        shopUpgrade: n >= 10,
+        luckBonus: n >= 15 ? 0.05 : 0,
+        shopUpgrade2: n >= 15
       }
     }
   },
   oneChallengeCap: {
     baseReq: 10,
-    maxCompletions: 25,
+    maxCompletions: 15,
     unlockSingularity: 40,
     HTMLTag: 'oneChallengeCap',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 11 * completions
+      return baseReq + 19 * completions - 2 * (completions >= 14 ? 1 : 0)
     },
     achievementPointValue: (n) => {
-      return 5 * n + 5 * Math.max(0, n - 12)
+      return 15 * n
     },
     scalingrewardcount: 2,
     uniquerewardcount: 4,
     effect: (n: number) => {
       return {
-        corrScoreIncrease: 0.03 * n,
-        blueberrySpeedMult: (1 + n / 100),
+        corrScoreIncrease: 0.05 * n,
+        blueberrySpeedMult: (1 + n / 60),
         capIncrease: 3 * +(n > 0),
-        freeCorruptionLevel: n >= 20,
-        shopUpgrade: n >= 20,
-        reinCapIncrease2: 7 * +(n >= 25),
-        ascCapIncrease2: 2 * +(n >= 25)
+        freeCorruptionLevel: n >= 12,
+        shopUpgrade: n >= 12,
+        reinCapIncrease2: 7 * +(n >= 15),
+        ascCapIncrease2: 2 * +(n >= 15)
       }
     }
   },
@@ -372,7 +373,7 @@ export const singularityChallengeData: Record<
     maxCompletions: 15,
     unlockSingularity: 100,
     achievementPointValue: (n) => {
-      return 10 * n + 5 * Math.max(0, n - 7)
+      return 20 * n
     },
     HTMLTag: 'noOcteracts',
     singularityRequirement: (baseReq: number, completions: number) => {
@@ -394,80 +395,116 @@ export const singularityChallengeData: Record<
     }
   },
   limitedAscensions: {
-    baseReq: 10,
-    maxCompletions: 25,
+    baseReq: 7,
+    maxCompletions: 10,
     unlockSingularity: 50,
     achievementPointValue: (n) => {
-      return 5 * n + 5 * Math.max(0, n - 10)
+      return 30 * n
     },
     HTMLTag: 'limitedAscensions',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 10 * completions
+      return baseReq + 27 * completions
     },
     scalingrewardcount: 1,
     uniquerewardcount: 3,
     effect: (n: number) => {
       return {
-        ascensionSpeedMult: (0.1 * n) / 100,
+        ascensionSpeedMult: (0.25 * n) / 100,
         hepteractCap: n > 0,
-        shopUpgrade0: n >= 20,
-        shopUpgrade: n >= 25
+        shopUpgrade0: n >= 8,
+        shopUpgrade: n >= 10
       }
     }
   },
   noAmbrosiaUpgrades: {
     baseReq: 150,
-    maxCompletions: 25,
+    maxCompletions: 15,
     unlockSingularity: 166,
     achievementPointValue: (n) => {
-      return 10 * n + 5 * Math.max(0, n - 10)
+      return 25 * n
     },
     HTMLTag: 'noAmbrosiaUpgrades',
     singularityRequirement: (baseReq: number, completions: number) => {
-      if (completions < 20) {
-        return baseReq + 6 * completions
+      if (completions < 10) {
+        return baseReq + 12 * completions
       } else {
-        return baseReq + 6 * 19 + 3 * (completions - 19)
+        return baseReq + 12 * 9 + 4 * (completions - 9)
       }
     },
     scalingrewardcount: 4,
-    uniquerewardcount: 7,
+    uniquerewardcount: 8,
     effect: (n: number) => {
       return {
         bonusAmbrosia: +(n > 0),
-        blueberries: Math.floor(n / 10) + +(n > 0),
+        blueberries: Math.floor(n / 5) + +(n > 0),
         luckBonus: n / 200,
-        additiveLuck: 15 * n,
+        additiveLuck: 20 * n,
         redLuck: 4 * n,
-        blueberrySpeedMult: (1 + n / 50),
-        redSpeedMult: 1 + n / 100,
-        shopUpgrade: n >= 15,
-        shopUpgrade2: n >= 20
+        blueberrySpeedMult: 1 + n / 25,
+        redSpeedMult: 1 + 2 * n / 100,
+        shopUpgrade: n >= 8,
+        shopUpgrade2: n >= 10
       }
+    }
+  },
+  noQuarkUpgrades: {
+    baseReq: 20,
+    maxCompletions: 10,
+    unlockSingularity: 66,
+    achievementPointValue: (n) => {
+      return 40 * n
+    },
+    HTMLTag: 'noQuarkUpgrades',
+    singularityRequirement: (baseReq: number, completions: number) => {
+      if (completions > 5) {
+        return baseReq + 180 + 8 * (completions - 6)
+      } else if (completions > 2) {
+        return baseReq + 60 + 9 * (completions - 6)
+      } else {
+        return baseReq + 10 * completions
+      }
+    },
+    scalingrewardcount: 3,
+    uniquerewardcount: 2,
+    effect: (n: number) => {
+      return {
+        freeObtainiumLevels: n,
+        freeOfferingLevels: n,
+        freeSpeedLevels: n >= 4 ? n : 0,
+        freeCubeLevels: n >= 4 ? n : 0,
+        freeQuarkLevel: n >= 5 ? 1 : 0,
+        freeInfinityLevels: n >= 7 ? n : 0,
+        topHatUnlock: n >= 10
+      }
+    },
+    alternateDescription: () => {
+      const introText = i18next.t('singularityChallenge.data.noQuarkUpgrades.description')
+      const chalText = i18next.t('singularityChallenge.data.noQuarkUpgrades.challengeDesc')
+      return `${introText}<br>${chalText}`
     }
   },
   limitedTime: {
     baseReq: 203,
-    maxCompletions: 30,
+    maxCompletions: 10,
     unlockSingularity: 216,
     achievementPointValue: (n) => {
-      return 10 * n + 5 * Math.max(0, n - 10) + 5 * Math.max(0, n - 20) + 10 * Math.max(0, n - 25)
+      return 50 * n
     },
     HTMLTag: 'limitedTime',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 3 * Math.min(24, completions) + 2 * Math.max(0, completions - 24)
+      return baseReq + 9 * completions
     },
     scalingrewardcount: 4,
     uniquerewardcount: 3,
     effect: (n: number) => {
       return {
         preserveQuarks: +(n > 0),
-        quarkMult: 1 + 0.01 * n,
-        globalSpeed: 0.06 * n,
-        ascensionSpeed: 0.06 * n,
-        barRequirementMultiplier: 1 - 0.01 * n,
-        tier1Upgrade: n >= 15,
-        tier2Upgrade: n >= 25
+        quarkMult: 1 + 0.03 * n,
+        globalSpeed: 0.15 * n,
+        ascensionSpeed: 0.15 * n,
+        barRequirementMultiplier: 1 - 0.03 * n,
+        tier1Upgrade: n >= 5,
+        tier2Upgrade: n >= 9
       }
     },
     alternateDescription: () => {
@@ -489,25 +526,25 @@ export const singularityChallengeData: Record<
   },
   sadisticPrequel: {
     baseReq: 120,
-    maxCompletions: 30,
+    maxCompletions: 15,
     unlockSingularity: 256,
     achievementPointValue: (n) => {
-      return 10 * n + 5 * Math.max(0, n - 10) + 5 * Math.max(0, n - 20) + 5 * Math.max(0, n - 25)
+      return 40 * n
     },
     HTMLTag: 'sadisticPrequel',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 4 * completions
+      return baseReq + 8 * completions
     },
     scalingrewardcount: 2,
     uniquerewardcount: 4,
     effect: (n: number) => {
       return {
         extraFree: 50 * +(n > 0),
-        quarkMult: 1 + 0.03 * n,
-        freeUpgradeMult: 0.03 * n,
-        shopUpgrade: n >= 10,
-        shopUpgrade2: n >= 20,
-        shopUpgrade3: n >= 30
+        quarkMult: 1 + 0.06 * n,
+        freeUpgradeMult: 0.06 * n,
+        shopUpgrade: n >= 5,
+        shopUpgrade2: n >= 10,
+        shopUpgrade3: n >= 15
       }
     }
   },

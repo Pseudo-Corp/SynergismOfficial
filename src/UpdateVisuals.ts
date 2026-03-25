@@ -88,7 +88,7 @@ import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
 import { runeSpiritKeys, updateRuneSpiritHTML } from './RuneSpirits'
-import { getShopCosts, type ShopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
+import { getShopCosts, getShopUpgradeEffects, type ShopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
 import {
   computeGQUpgradeFreeLevelSoftcap,
   computeGQUpgradeMaxLevel,
@@ -851,9 +851,9 @@ export const visualUpdateCubes = () => {
     return
   }
 
-  const cubeMult = player.shopUpgrades.cubeToQuark ? 1.5 : 1
-  const tesseractMult = player.shopUpgrades.tesseractToQuark ? 1.5 : 1
-  const hypercubeMult = player.shopUpgrades.hypercubeToQuark ? 1.5 : 1
+  const cubeMult = getShopUpgradeEffects('cubeToQuark').cubeQuarkMult
+  const tesseractMult = getShopUpgradeEffects('tesseractToQuark').tesseractQuarkMult
+  const hypercubeMult = getShopUpgradeEffects('hypercubeToQuark').hypercubeQuarkMult
   const platonicMult = 1.5
 
   const toNextQuark: cubeNames = {
@@ -1911,12 +1911,12 @@ export const visualUpdateShop = () => {
   DOMCacheGetOrSet('offeringpotionowned').textContent = format(
     player.shopUpgrades.offeringPotion,
     0,
-    true
+    false
   )
   DOMCacheGetOrSet('obtainiumpotionowned').textContent = format(
     player.shopUpgrades.obtainiumPotion,
     0,
-    true
+    false
   )
 
   // Create Keys with the correct type
@@ -1945,7 +1945,7 @@ export const visualUpdateShop = () => {
           } Quarks`
           break
         default:
-          el.textContent = `+${maxBuyablePotions} for ${
+          el.textContent = `+${format(maxBuyablePotions, 0)} for ${
             format(
               getShopCosts(key) * maxBuyablePotions
             )

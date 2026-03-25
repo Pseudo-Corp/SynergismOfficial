@@ -22,6 +22,7 @@ import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { getRuneEffects, sumOfRuneLevels } from './Runes'
+import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import {
   allAdditiveLuckMultStats,
@@ -65,14 +66,6 @@ import { clearInterval, setInterval } from './Timers'
 import { Alert, Prompt } from './UpdateHTML'
 import { findInsertionIndex } from './Utility'
 import { Globals as G } from './Variables'
-
-const CASH_GRAB_ULTRA_QUARK = 0.08
-const CASH_GRAB_ULTRA_CUBE = 1.2
-const CASH_GRAB_ULTRA_BLUEBERRY = 0.15
-
-const EX_ULTRA_OFFERING = 0.125
-const EX_ULTRA_OBTAINIUM = 0.125
-const EX_ULTRA_CUBES = 0.125
 
 const posSalvagePerkSings = [230, 245, 260, 275, 290]
 const negSalvagePerkSings = [75, 85, 105, 125, 155, 185, 215, 245, 260, 275]
@@ -793,7 +786,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
     // Auto Offerings
     automaticTools('addOfferings', timeTick)
     // Auto Rune Sacrifice Stuff
-    if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {
+    if (getShopUpgradeEffects('offeringAuto').autoRune && player.autoSacrificeToggle) {
       automaticTools('runeSacrifice', timeTick)
     }
 
@@ -992,7 +985,7 @@ export const calculateLimitedAscensionsDebuff = () => {
     let exponent = player.ascensionCount
       - Math.max(
         0,
-        20 - player.singularityChallenges.limitedAscensions.completions
+        15 - 2 * player.singularityChallenges.limitedAscensions.completions
       )
     exponent = Math.max(0, exponent)
     return Math.pow(2, exponent)
@@ -1386,7 +1379,7 @@ export const calculateCubeQuarkMultiplier = () => {
         1e8
       )
       - 11)
-    * (1 + (1 / 500) * player.shopUpgrades.cubeToQuarkAll)
+    * getShopUpgradeEffects('cubeToQuarkAll').quarkMult
     * (player.autoWarpCheck ? 1 + player.dailyPowderResetUses : 1)
   )
 }
@@ -1426,24 +1419,6 @@ export const calculateSingularityAmbrosiaLuckMilestoneBonus = () => {
   }
 
   return bonus
-}
-
-export const calculateAmbrosiaGenerationShopUpgrade = () => {
-  return (
-    (1 + player.shopUpgrades.shopAmbrosiaGeneration1 / 100)
-    * (1 + player.shopUpgrades.shopAmbrosiaGeneration2 / 100)
-    * (1 + player.shopUpgrades.shopAmbrosiaGeneration3 / 100)
-    * (1 + player.shopUpgrades.shopAmbrosiaGeneration4 / 1000)
-  )
-}
-
-export const calculateAmbrosiaLuckShopUpgrade = () => {
-  return (
-    2 * player.shopUpgrades.shopAmbrosiaLuck1
-    + 2 * player.shopUpgrades.shopAmbrosiaLuck2
-    + 2 * player.shopUpgrades.shopAmbrosiaLuck3
-    + 0.6 * player.shopUpgrades.shopAmbrosiaLuck4
-  )
 }
 
 export const calculateAmbrosiaGenerationSingularityUpgrade = () => {
@@ -1510,8 +1485,7 @@ export const calculateRequiredBlueberryTime = () => {
   let val = G.TIME_PER_AMBROSIA // Currently 30
   val += Math.floor(player.lifetimeAmbrosia / 500)
 
-  const exalt5Comps = player.singularityChallenges.noAmbrosiaUpgrades.completions
-  const acceleratorMult = 1 - 0.004 * exalt5Comps * player.shopUpgrades.shopAmbrosiaAccelerator
+  const acceleratorMult = getShopUpgradeEffects('shopAmbrosiaAccelerator').ambrosiaPointRequirementMult
 
   val *= acceleratorMult
   val = Math.ceil(val)
@@ -1576,46 +1550,14 @@ export const calculateAmbrosiaQuarkMult = () => {
   return multiplier
 }
 
-const calculateCashGrabBonus = (extra: number) => {
-  return 1 + player.shopUpgrades.shopCashGrabUltra * extra * Math.min(1, Math.pow(player.lifetimeAmbrosia / 1e7, 1 / 3))
-}
-
-export const calculateCashGrabBlueberryBonus = () => {
-  return calculateCashGrabBonus(CASH_GRAB_ULTRA_BLUEBERRY)
-}
-
-export const calculateCashGrabCubeBonus = () => {
-  return calculateCashGrabBonus(CASH_GRAB_ULTRA_CUBE)
-}
-
-export const calculateCashGrabQuarkBonus = () => {
-  return calculateCashGrabBonus(CASH_GRAB_ULTRA_QUARK)
-}
-
-const calculateEXUltraBonus = (extra: number) => {
-  return 1 + extra * Math.min(player.shopUpgrades.shopEXUltra, Math.floor(player.lifetimeAmbrosia / 1000) / 125)
-}
-
-export const calculateEXUltraOfferingBonus = () => {
-  return calculateEXUltraBonus(EX_ULTRA_OFFERING)
-}
-
-export const calculateEXUltraObtainiumBonus = () => {
-  return calculateEXUltraBonus(EX_ULTRA_OBTAINIUM)
-}
-
-export const calculateEXUltraCubeBonus = () => {
-  return calculateEXUltraBonus(EX_ULTRA_CUBES)
-}
-
 export const calculateExalt6TimeLimit = (comps: number) => {
-  return 600 - 20 * Math.min(24, comps) - 5 * Math.max(0, comps - 24)
+  return 600 - 60 * comps
 }
 
 const calculateExalt6PenaltyPerMinute = (comps: number) => {
-  let penaltyPerMinute = 10 + comps
-  if (comps >= 25) {
-    penaltyPerMinute *= Math.pow(comps - 23, 2)
+  let penaltyPerMinute = 10 + 3 * comps
+  if (comps >= 9) {
+    penaltyPerMinute = 100
   }
   return penaltyPerMinute
 }
@@ -1662,7 +1604,7 @@ export const dailyResetCheck = () => {
     player.dayCheck = day
 
     forcedDailyReset(true)
-    player.dailyPowderResetUses = 1 + player.shopUpgrades.extraWarp
+    player.dailyPowderResetUses = 1 + getShopUpgradeEffects('extraWarp').additionalWarps
     player.dailyCodeUsed = false
 
     DOMCacheGetOrSet('cubeQuarksOpenRequirement').style.display = 'block'
@@ -1724,14 +1666,6 @@ export const calculateImmaculateAlchemyBonus = () => {
     }
   }
   return bonus
-}
-
-export const isIARuneUnlocked = () => {
-  return player.shopUpgrades.infiniteAscent > 0 || Boolean(PCoinUpgradeEffects.INSTANT_UNLOCK_2)
-}
-
-export const isShopTalismanUnlocked = () => {
-  return Boolean(player.shopUpgrades.shopTalisman > 0 || PCoinUpgradeEffects.INSTANT_UNLOCK_1 > 0)
 }
 
 export const sumOfExaltCompletions = () => {
@@ -1800,7 +1734,7 @@ export const calculateObtainiumPotionBaseObtainium = () => {
 export const calculateAscensionSpeedExponentSpread = () => {
   return getGQUpgradeEffect('singAscensionSpeed')
     + getGQUpgradeEffect('singAscensionSpeed2')
-    + 0.001 * Math.floor((player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) / 40)
+    + getShopUpgradeEffects('chronometerInfinity').exponentSpread
 }
 
 export const calculateCookieUpgrade29Luck = () => {

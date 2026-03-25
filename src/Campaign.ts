@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { awardAchievementGroup } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { inheritanceTokens, isIARuneUnlocked, singularityBonusTokenMult } from './Calculate'
+import { inheritanceTokens, singularityBonusTokenMult } from './Calculate'
 import {
   corrIcons,
   CorruptionLoadout,
@@ -12,6 +12,7 @@ import {
 } from './Corruptions'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { reset } from './Reset'
+import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { IconSets } from './Themes'
@@ -1452,7 +1453,7 @@ const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRe
   rune6: {
     tokenRequirement: 500,
     reward: () => String(player.campaigns.bonusRune6),
-    otherUnlockRequirement: () => (isIARuneUnlocked())
+    otherUnlockRequirement: () => (getShopUpgradeEffects('infiniteAscent').runeUnlocked)
   },
   goldenQuark: {
     tokenRequirement: 500,

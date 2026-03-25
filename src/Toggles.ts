@@ -8,6 +8,7 @@ import { initializeMessages } from './Messages'
 import { researchOrderByCost, roombaResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { indexToRune } from './Runes'
+import { getShopUpgradeEffects } from './Shop'
 import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
@@ -300,7 +301,7 @@ export const toggleResearchBuy = () => {
 
 export const toggleAutoResearch = () => {
   const el = DOMCacheGetOrSet('toggleautoresearch')
-  if (player.autoResearchToggle || player.shopUpgrades.obtainiumAuto < 1) {
+  if (player.autoResearchToggle || !getShopUpgradeEffects('obtainiumAuto').autoResearch) {
     player.autoResearchToggle = false
     el.textContent = i18next.t('researches.automaticOff')
     DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
@@ -345,7 +346,7 @@ export const toggleAutoSacrifice = (index: string) => {
       el.textContent = i18next.t('runes.blessings.autoRuneOn')
       el.style.border = '2px solid green'
     }
-  } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5) {
+  } else if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto').autoRune) {
     if (player.autoSacrifice === numIndex) {
       player.autoSacrifice = 0
     } else {

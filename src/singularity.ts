@@ -7,7 +7,8 @@ import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { getGlobalBonus, getPersonalBonus, getQuarkBonus } from './Quark'
 import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { singularity } from './Reset'
-import { getRuneEffectiveLevel, runes } from './Runes'
+import { runes } from './Runes'
+import { getShopUpgradeEffects } from './Shop'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { isMobile, toOrdinal } from './Utility'
@@ -2263,7 +2264,7 @@ export async function buyGQUpgradeLevel (
 }
 
 function computeFreeLevelMultiplier (): number {
-  return (player.shopUpgrades.shopSingularityPotency > 0 ? 3.66 : 1) + 0.3 / 100 * player.cubeUpgrades[75]
+  return getShopUpgradeEffects('shopSingularityPotency').freeUpgradeMult + 0.3 / 100 * player.cubeUpgrades[75]
 }
 
 export function computeGQUpgradeFreeLevelSoftcap (upgradeKey: SingularityDataKeys): number {
@@ -3433,7 +3434,7 @@ type SingularityDebuffs =
 
 const calculateSingularityReductions = () => {
   return (
-    player.shopUpgrades.shopSingularityPenaltyDebuff
+    getShopUpgradeEffects('shopSingularityPenaltyDebuff').singularityPenaltyReducers
     + (player.insideSingularityChallenge
       ? getAmbrosiaUpgradeEffects('ambrosiaSingReduction2').singularityReduction
       : getAmbrosiaUpgradeEffects('ambrosiaSingReduction1').singularityReduction)
@@ -3548,8 +3549,7 @@ export const calculateSingularityDebuff = (
   )
 
   let baseDebuffMultiplier = 1
-  baseDebuffMultiplier *= 1
-    - Math.min(300, player.shopUpgrades.shopHorseShoe * getRuneEffectiveLevel('horseShoe')) / 1000
+  baseDebuffMultiplier *= getShopUpgradeEffects('shopHorseShoe').singularityPenaltyMult
 
   if (debuff === 'Offering') {
     const extraMult = Math.pow(1.02, constitutiveSingularityCount)

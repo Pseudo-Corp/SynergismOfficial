@@ -2,7 +2,6 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementPoints, awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { isShopTalismanUnlocked } from './Calculate'
 import { CalcECC } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
@@ -11,6 +10,7 @@ import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { resetTiers } from './Reset'
 import { type RuneKeys, runes } from './Runes'
+import { getShopUpgradeEffects } from './Shop'
 import { allTalismanRuneBonusStatsSum } from './Statistics'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
@@ -535,7 +535,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return isShopTalismanUnlocked()
+      return getShopUpgradeEffects('shopTalisman').talismanUnlocked
     },
     name: () => i18next.t('runes.talismans.plastic.name'),
     description: () => i18next.t('runes.talismans.plastic.description')
