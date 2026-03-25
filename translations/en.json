@@ -2003,8 +2003,8 @@
       },
       "runeAutobuyImprover": {
         "name": "Rune Autobuyer DX",
-        "description": "Permanently hasten the Rune Autobuyer! 2x as fast, +10% speed per Synergism Level above 130.",
-        "effect": "Current Effect: Rune Autobuyer is {{mult}}x faster"
+        "description": "The Auto Rune feature now works 10% faster, plus 1% per Synergism level above 130. Woah!",
+        "effect": "Current Effect: Rune Autobuyer is {{mult}} faster"
       },
       "salvageChallengeBuff": {
         "name": "Salvage Challenge Buff",
@@ -2071,7 +2071,7 @@
       "exalts": {
         "name": "Progressive Achievement - EXALT Completions",
         "description": "Gain AP for each EXALT you have completed!",
-        "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Twenty Ascensions: {{num3}}/{{cap3}} AP <br> No Octeract Effects: {{num4}}/{{cap4}} AP <br> No Ambrosia Upgrades: {{num5}}/{{cap5}} AP <br> Grand Singularity Speedrun: {{num6}}/{{cap6}} AP <br> Sadistic III: {{num7}}/{{cap7}} AP <br> Taxman's Last Stand: {{num8}}/{{cap8}} AP"
+        "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Limited Ascensions: {{num3}}/{{cap3}} AP <br> No Octeract Effects: {{num4}}/{{cap4}} AP <br> No Ambrosia Upgrades: {{num5}}/{{cap5}} AP <br> Grand Singularity Speedrun: {{num6}}/{{cap6}} AP <br> Sadistic III: {{num7}}/{{cap7}} AP <br> Taxman's Last Stand: {{num8}}/{{cap8}} AP"
       },
       "singularityUpgrades": {
         "name": "Progressive Achievement - Golden Quark Upgrades",
@@ -3420,7 +3420,7 @@
       "calculator5": "Code 'add' generates <<orchid|{{amount1}}>> seconds of GQ export timer. Capacity is increased by <<orchid|+{{amount2}}>>.",
       "calculator6": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Octeracts. Capacity is increased by <<orchid|+{{amount2}}>>.",
       "calculator7": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Ambrosia Bar Points. Capacity is increased by <<orchid|+{{amount2}}>>.",
-      "constantEX": "<<orange|+{{amount}}>> max on Constant Upgrade 2",
+      "constantEX": "<<orange|+{{amount}}%>> max on Constant Upgrade 2",
       "powderEX": "Gain <<red|+{{amount}}>> Overflux Powder when Overflux Orbs expire (midnight, daily).",
       "chronometer2": "Ascension timer increases <<orange|{{amount}}>> faster!",
       "chronometer3": "Ascension timer increases <<orange|{{amount}}>> faster! This one <<red|never>> resets!",
@@ -5642,6 +5642,12 @@
       "values": "Gain up to 2x more Ascension Score for your current Ascension, increase your free Corruption levels up to 0.15, and tack on +1 free Infinite Ascent level every two levels. Shweet!",
       "effect": "This Ascension, gain +{{val}} Ascension Score, {{val2}} free Corruption levels, and +{{val3}} Infinite Ascent levels."
     },
+    "topHat": {
+      "name": "<i>Mysterious</i> Top Hat",
+      "description": "Hip, hip, a cheerie-o! And other British incantations.",
+      "lockedDescription": "This rune is locked! To unlock it, you might need to help out a friendly Seal Merchant.",
+      "freeLevelTemplate": "{{typeIcon}} Quark Upgrades get +{{val}} free levels! [MAX: {{max}}]"
+    },
     "levelup": {
       "1": "+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!",
       "2": "+(Level/10) Multipliers every 10th level, +0.25% Multipliers per level. Tax growth is delayed more for each level!",
@@ -5973,22 +5979,22 @@
       "noSingularityUpgrades": {
         "name": "No Golden Quark Upgrades",
         "description": "Simply put, you have to beat the target Singularity without (most) Golden Quark Upgrades.<br/>Octeracts, Perks and <b>Quality of Life</b> Golden Quark Upgrades are preserved.",
-        "ScalingReward1": "+50% increase to <<yellow|ALL Cube>> gain",
+        "ScalingReward1": "+100% increase to <<yellow|ALL Cube>> gain",
         "UniqueReward1": "1st - +12% <<gold|Golden Quarks>>!",
         "UniqueReward2": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
-        "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward4": "30th - +5% <<lime|Ambrosia Luck>> for free!",
-        "UniqueReward5": "30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
+        "UniqueReward3": "10th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward4": "15th - +5% <<lime|Ambrosia Luck>> for free!",
+        "UniqueReward5": "15th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
       },
       "oneChallengeCap": {
         "name": "One Challenge Caps",
         "description": "Beat the target Singularity, but the first 14 Challenges have cap of only 1!",
-        "ScalingReward1": "+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
-        "ScalingReward2": "+1% <<var(--blueberry-box-color)|Ambrosia Bar Points>> gained",
+        "ScalingReward1": "+0.05 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
+        "ScalingReward2": "+1.66% <<var(--blueberry-box-color)|Ambrosia Bar Points>> gained",
         "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> Cap!",
-        "UniqueReward2": "20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
-        "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward4": "25th - +7 <<green|Reincarnation Challenge>> Cap! And +2 to Ascension Challenge caps."
+        "UniqueReward2": "12th - +1 Free <<var(--red-text-color)|Corruption Level>>",
+        "UniqueReward3": "12th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward4": "15th - +7 <<green|Reincarnation Challenge>> Cap! And +2 to Ascension Challenge caps."
       },
       "noOcteracts": {
         "name": "No Octeract Effects",
@@ -5999,27 +6005,28 @@
         "UniqueReward3": "10th - A new <<orchid|Quark Shop>> upgrade!"
       },
       "limitedAscensions": {
-        "name": "Twenty Ascensions Challenge",
-        "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs!<br/>Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
-        "ScalingReward1": "<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
+        "name": "Limited Ascensions Challenge",
+        "description": "Derpsmith put an embargo on Ascensions. Only (15 - 2 * Completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs!<br/>Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
+        "ScalingReward1": "<<orange|+0.25% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
         "UniqueReward1": "1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
-        "UniqueReward2": "20th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward3": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+        "UniqueReward2": "8th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward3": "10th - A new <<orchid|Quark Shop>> Calculator, amazing!"
       },
       "noAmbrosiaUpgrades": {
         "name": "No Ambrosia Upgrades",
         "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
-        "ScalingReward1": "+15 & +0.5% <<lime| Ambrosia Luck>>",
-        "ScalingReward2": "+2% <<var(--blueberry-box-color)|Ambrosia Bar Point>> gain",
+        "ScalingReward1": "+20 & +0.5% <<lime| Ambrosia Luck>>",
+        "ScalingReward2": "+4% <<var(--blueberry-box-color)|Ambrosia Bar Point>> gain",
         "ScalingReward3": "+4 <<red|Red Luck>>",
-        "ScalingReward4": "+1% <<red|Red Bar Point>> gain",
+        "ScalingReward4": "+2% <<red|Red Bar Point>> gain",
         "UniqueReward1": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
         "UniqueReward2": "1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
         "UniqueReward3": "1st - Unlock <<red|Red Ambrosia>>! It's like Ambrosia, but <<red|red>>.",
-        "UniqueReward4": "10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
-        "UniqueReward5": "15th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward6": "20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
-        "UniqueReward7": "20th - An <<gold|ULTRA Quark Shop>> upgrade!"
+        "UniqueReward4": "5th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
+        "UniqueReward5": "8th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward6": "10th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
+        "UniqueReward7": "10th - An <<gold|ULTRA Quark Shop>> upgrade!",
+        "UniqueReward8": "15th - You guessed it! A fourth free <<var(--blueberry-box-color)|berry that is blue>>!"
       },
       "limitedTime": {
         "name": "The Grand Singularity Speedrun!",
@@ -6027,19 +6034,19 @@
         "timeMod1": "<<red|⏱ Time Limit: {{time}} seconds>>",
         "timeMod2": "<<gold|⚠>> After the time limit, your Obtainium, Offering, and Cube production is divided by <<red|{{perSecondDivisor}}>> per second.",
         "timeMod3": "Derpsmith gives you a slight boost: <<#00DDFF | 5x faster Reborn ELO Creation Speed!>> Until you buy Antiquities, at least.",
-        "ScalingReward1": "+6% <<orange|Global Speed>>!",
-        "ScalingReward2": "+6% <<orange|Ascension Speed>>!",
-        "ScalingReward3": "+1% <<cyan|Quarks>>!",
-        "ScalingReward4": "-1% <<red|Red Bar Fill Requirements>>!",
+        "ScalingReward1": "+15% <<orange|Global Speed>>!",
+        "ScalingReward2": "+15% <<orange|Ascension Speed>>!",
+        "ScalingReward3": "+3% <<cyan|Quarks>>!",
+        "ScalingReward4": "-3% <<red|Red Bar Fill Requirements>>!",
         "UniqueReward1": "1st - Your quarks no longer reset on Singularity!",
-        "UniqueReward2": "15th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward3": "25th - A very expensive, not good, pretty bad <<orange|Quark Shop>> upgrade!"
+        "UniqueReward2": "5th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward3": "9th - A very expensive, not good, pretty bad <<orange|Quark Shop>> upgrade!"
       },
       "sadisticPrequel": {
         "name": "SADISTIC EXALT III - The Prequel",
         "description": "How much more will Platonic misuse the word 'Sadistic'? [No Sing Upgrade, Oct Upgrades OR Ambrosia Upgrades]",
-        "ScalingReward1": "+3% <<cyan|Quarks>> per completion!",
-        "ScalingReward2": "+3% more <<orange|Free Upgrades>> from code 'Daily' per completion!",
+        "ScalingReward1": "+6% <<cyan|Quarks>> per completion!",
+        "ScalingReward2": "+6% more <<orange|Free Upgrades>> from code 'Daily' per completion!",
         "UniqueReward1": "1st - +50 Free Upgrades from code 'Daily'!",
         "UniqueReward2": "10th - A first-tier <<pink|Exalt Upgrade>>",
         "UniqueReward3": "20th - A second-tier <<pink|Exalt Upgrade>>",
@@ -6062,6 +6069,16 @@
         "UniqueReward1": "1st - Unlock <<burlywood | Something Cool... and Runelike>>",
         "UniqueReward2": "5th - Unlock <<pink | a new Shop Upgrade!>>",
         "UniqueReward3": "10th - Unlock <<burlywood | Something even Cooler... and Fashionable...>>"
+      },
+      "noQuarkUpgrades": {
+        "name": "Disappearance of a Salesman",
+        "description": "Uh. Where did the Quark Shop Seal Merchant go? All you see is this guy with a mysterious <i>top hat</i>...",
+        "challengeDesc": "Beat the target Singularity, but Quark Shop upgrades do nothing! Unless they have the Utility Tag [⚙]. Then they work as normal.",
+        "ScalingReward1": "+1 Free 'Obtainium' and 'Offering' Shop Upgrade Level!",
+        "ScalingReward2": "+1 Free 'Cube' and 'Speed' Shop Upgrade Level! (4+ Completions)",
+        "ScalingReward3": "+1 Free 'Infinity' Shop Upgrade Level! (7+ Completions)",
+        "UniqueReward1": "5th - +1 Quark Shop Upgrade Level!",
+        "UniqueReward2": "10th - The guy's mysterious <i>top hat</i>..."
       }
     },
     "intro": "Do you have what it takes to earn EXALT from Ant God?",
@@ -6410,7 +6427,6 @@
       "AlchemyAchievement7": "Alchemy Achievement 7:",
       "DiamondUpgrade4x3": "Diamond Upgrade 4x3:",
       "ParticleUpgrade3x5": "Particle Upgrade 3x5:",
-      "AutoOfferingShop": "Auto Offering Shop Upgrade:",
       "OfferingEXShop": "Offering EX Shop Upgrade:",
       "CashGrab": "Cash Grab Shop Upgrade:",
       "Research4x10": "Research 4x10:",
@@ -6577,7 +6593,6 @@
       "Research4x1": "Research 4x1:",
       "Research4x6": "Research 4x6:",
       "Research5x19": "Research 5x19:",
-      "ShopObtainiumAuto": "Shop - Auto Obtainium:",
       "ShopCashGrab": "Shop - Cash Grab:",
       "ShopObtainiumEX": "Shop - Obtainium EX:",
       "Rune5": "Superior Intellect Rune:",
@@ -6734,7 +6749,10 @@
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Campaign": "Campaign Bonus:",
       "SingularityMilestones": "Singularity Milestones:",
-      "ShopUpgrades": "Shop Upgrades (I-IV):",
+      "ShopUpgrade1": "Quark Upgrade - Ambrosia Luck I:",
+      "ShopUpgrade2": "Quark Upgrade - Ambrosia Luck II:",
+      "ShopUpgrade3": "Quark Upgrade - Ambrosia Luck III:",
+      "ShopUpgrade4": "Quark Upgrade - Ambrosia Luck IV:",
       "SingularityUpgrades": "Golden Quark Upgrades (I-IV):",
       "OcteractUpgrades": "Octeract Upgrades (I-IV):",
       "AmbrosiaLuck1": "Ambrosia - Luck Module I:",
@@ -6772,7 +6790,10 @@
       "Default": "Default Per Second:",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Campaign": "Campaign Bonus:",
-      "ShopUpgrades": "Shop Upgrades (I-IV):",
+      "ShopUpgrade1": "Quark Upgrade - Ambrosia Generation I:",
+      "ShopUpgrade2": "Quark Upgrade - Ambrosia Generation II:",
+      "ShopUpgrade3": "Quark Upgrade - Ambrosia Generation III:",
+      "ShopUpgrade4": "Quark Upgrade - Ambrosia Generation IV:",
       "SingularityUpgrades": "Golden Quark Upgrades (I-IV):",
       "OcteractUpgrades": "Octeract Upgrades (I-IV):",
       "PatreonBonus": "Ambrosia - Shameless, Ambrosial Subscriber Advertisement:",

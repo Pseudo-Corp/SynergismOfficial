@@ -11,6 +11,7 @@ import {
 import { Cube } from './CubeExperimental'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { resetTiers } from './Reset'
+import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import type { Player } from './types/Synergism'
@@ -156,11 +157,11 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
         + getGQUpgradeEffect('singQuarkHepteract2')
         + getGQUpgradeEffect('singQuarkHepteract3')
         + getOcteractUpgradeEffect('octeractImprovedQuarkHept')
-        + player.shopUpgrades.improveQuarkHept / 100
-        + player.shopUpgrades.improveQuarkHept2 / 100
-        + player.shopUpgrades.improveQuarkHept3 / 100
-        + player.shopUpgrades.improveQuarkHept4 / 100
-        + player.shopUpgrades.improveQuarkHept5 / 100
+        + getShopUpgradeEffects('improveQuarkHept').quarkHeptExponent
+        + getShopUpgradeEffects('improveQuarkHept2').quarkHeptExponent
+        + getShopUpgradeEffects('improveQuarkHept3').quarkHeptExponent
+        + getShopUpgradeEffects('improveQuarkHept4').quarkHeptExponent
+        + getShopUpgradeEffects('improveQuarkHept5').quarkHeptExponent
     }
   },
   challenge: {
@@ -785,7 +786,8 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?: boolean) => {
     player.wowAbyssals = 0
   }
 
-  const powderGain = player.shopUpgrades.powderAuto * calculatePowderConversion() * buyAmount / 100
+  const powderGain = getShopUpgradeEffects('powderAuto').automaticPowderFraction * calculatePowderConversion()
+    * buyAmount
   player.overfluxPowder += powderGain
 
   const powderText = (powderGain > 0) ? i18next.t('hepteracts.gainedPowder', { x: format(powderGain, 2, true) }) : ''
