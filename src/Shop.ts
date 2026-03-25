@@ -15,7 +15,7 @@ import {
 } from './Calculate'
 import type { IMultiBuy } from './Cubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { getRuneEffectiveLevel } from './Runes'
+import { getRuneEffectiveLevel, getRuneEffects } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
@@ -122,7 +122,7 @@ type QuarkShopUpgradeRewards = {
 
 export type ShopUpgradeNames = keyof QuarkShopUpgradeRewards
 
-enum ShopUpgradeGroups {
+export enum ShopUpgradeGroups {
   Offering = 0,
   Obtainium,
   Cubes,
@@ -142,12 +142,16 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
   [ShopUpgradeGroups.Offering]: {
     HTMLColor: 'orange',
     symbol: '☤',
-    bonusLevels: () => +player.singularityChallenges.noQuarkUpgrades.rewards.freeOfferingLevels
+    bonusLevels: () =>
+      +player.singularityChallenges.noQuarkUpgrades.rewards.freeOfferingLevels
+      + getRuneEffects('topHat').freeOfferingLevels
   },
   [ShopUpgradeGroups.Obtainium]: {
     HTMLColor: 'pink',
     symbol: '❍',
-    bonusLevels: () => +player.singularityChallenges.noQuarkUpgrades.rewards.freeObtainiumLevels
+    bonusLevels: () =>
+      +player.singularityChallenges.noQuarkUpgrades.rewards.freeObtainiumLevels
+      + getRuneEffects('topHat').freeObtainiumLevels
   },
   [ShopUpgradeGroups.Utility]: {
     HTMLColor: 'white',
@@ -157,12 +161,16 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
   [ShopUpgradeGroups.Cubes]: {
     HTMLColor: 'magenta',
     symbol: '⬢',
-    bonusLevels: () => +player.singularityChallenges.noQuarkUpgrades.rewards.freeCubeLevels
+    bonusLevels: () =>
+      +player.singularityChallenges.noQuarkUpgrades.rewards.freeCubeLevels
+      + getRuneEffects('topHat').freeCubeLevels
   },
   [ShopUpgradeGroups.Speed]: {
     HTMLColor: 'yellow',
     symbol: '⧗',
-    bonusLevels: () => +player.singularityChallenges.noQuarkUpgrades.rewards.freeSpeedLevels
+    bonusLevels: () =>
+      +player.singularityChallenges.noQuarkUpgrades.rewards.freeSpeedLevels
+      + getRuneEffects('topHat').freeSpeedLevels
   },
   [ShopUpgradeGroups.Quark]: {
     HTMLColor: 'cyan',
@@ -174,7 +182,13 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     symbol: '\u221E',
     bonusLevels: () =>
       calculateFreeShopInfinityUpgrades() + +player.singularityChallenges.noQuarkUpgrades.rewards.freeInfinityLevels
+      + getRuneEffects('topHat').freeInfinityLevels
   }
+}
+
+export const createShopUpgradeTypeIcon = (type: ShopUpgradeGroups) => {
+  const info = shopUpgradeTypeInfo[type]
+  return `<span style="color: ${info.HTMLColor}">[${info.symbol}]</span>`
 }
 
 const LAST_GROUP = ShopUpgradeGroups.InfinityUpgrades

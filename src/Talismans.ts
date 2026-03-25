@@ -270,7 +270,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       infiniteAscent: 0,
       antiquities: 0,
       horseShoe: 0,
-      finiteDescent: 0
+      finiteDescent: 0,
+      topHat: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -314,7 +315,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       infiniteAscent: 0,
       antiquities: 0,
       horseShoe: 0,
-      finiteDescent: 0
+      finiteDescent: 0,
+      topHat: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -358,7 +360,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       infiniteAscent: 0,
       antiquities: 0,
       horseShoe: 0,
-      finiteDescent: 0
+      finiteDescent: 0,
+      topHat: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -404,7 +407,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       infiniteAscent: 0,
       antiquities: 0,
       horseShoe: 0,
-      finiteDescent: 0
+      finiteDescent: 0,
+      topHat: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -448,7 +452,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       infiniteAscent: 0,
       antiquities: 0,
       horseShoe: 0,
-      finiteDescent: 0
+      finiteDescent: 0,
+      topHat: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -492,7 +497,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       infiniteAscent: 0,
       antiquities: 0,
       horseShoe: 0,
-      finiteDescent: 0
+      finiteDescent: 0,
+      topHat: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -531,7 +537,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       infiniteAscent: 0.005,
       antiquities: 0,
       horseShoe: 0,
-      finiteDescent: 0
+      finiteDescent: 0,
+      topHat: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -569,7 +576,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       infiniteAscent: 0,
       antiquities: 0,
       horseShoe: 0,
-      finiteDescent: 0
+      finiteDescent: 0,
+      topHat: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -613,7 +621,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       infiniteAscent: 0.01,
       antiquities: 0,
       horseShoe: 0,
-      finiteDescent: 0
+      finiteDescent: 0,
+      topHat: 0
     },
     minimalResetTier: 'singularity',
     isUnlocked: () => {
@@ -655,7 +664,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       infiniteAscent: 0.01,
       antiquities: 0,
       horseShoe: 0,
-      finiteDescent: 0
+      finiteDescent: 0,
+      topHat: 0
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
@@ -699,7 +709,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       infiniteAscent: 0,
       antiquities: 0,
       horseShoe: 0.01,
-      finiteDescent: 0
+      finiteDescent: 0,
+      topHat: 0
     },
     minimalResetTier: 'never',
     isUnlocked: () => {

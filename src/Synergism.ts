@@ -571,7 +571,8 @@ export const player: Player = {
     infiniteAscent: new Decimal(0),
     antiquities: new Decimal(0),
     horseShoe: new Decimal(0),
-    finiteDescent: new Decimal(0)
+    finiteDescent: new Decimal(0),
+    topHat: new Decimal(0)
   },
 
   runeBlessings: {

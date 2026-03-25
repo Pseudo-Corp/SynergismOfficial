@@ -5642,6 +5642,12 @@
       "values": "Gain up to 2x more Ascension Score for your current Ascension, increase your free Corruption levels up to 0.15, and tack on +1 free Infinite Ascent level every two levels. Shweet!",
       "effect": "This Ascension, gain +{{val}} Ascension Score, {{val2}} free Corruption levels, and +{{val3}} Infinite Ascent levels."
     },
+    "topHat": {
+      "name": "<i>Mysterious</i> Top Hat",
+      "description": "Hip, hip, a cheerie-o! And other British incantations.",
+      "lockedDescription": "This rune is locked! To unlock it, you might need to help out a friendly Seal Merchant.",
+      "freeLevelTemplate": "{{typeIcon}} Quark Upgrades get +{{val}} free levels! [MAX: {{max}}]"
+    },
     "levelup": {
       "1": "+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!",
       "2": "+(Level/10) Multipliers every 10th level, +0.25% Multipliers per level. Tax growth is delayed more for each level!",

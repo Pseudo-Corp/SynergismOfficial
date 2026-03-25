@@ -13,7 +13,7 @@ import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { resetTiers } from './Reset'
-import { getShopUpgradeEffects } from './Shop'
+import { createShopUpgradeTypeIcon, getShopUpgradeEffects, ShopUpgradeGroups } from './Shop'
 import { firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
@@ -78,6 +78,13 @@ type RuneTypeMap = {
     ascensionScore: number
     corruptionFreeLevels: number
     infiniteAscentFreeLevel: number
+  }
+  topHat: {
+    freeOfferingLevels: number
+    freeObtainiumLevels: number
+    freeCubeLevels: number
+    freeSpeedLevels: number
+    freeInfinityLevels: number
   }
 }
 
@@ -722,6 +729,69 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
       borderColor: 'black',
       nameColor: 'dimgray'
     }
+  },
+  topHat: {
+    level: 0,
+    runeEXP: new Decimal('0'),
+    costCoefficient: new Decimal('1'),
+    levelsPerOOM: 1,
+    ignoreChal9: false,
+    levelsPerOOMIncrease: () => 0,
+    effects: (level) => {
+      const freeOfferingLevels = Math.round(200 * (1 - Math.pow(0.995, level))) / 10
+      const freeObtainiumLevels = Math.round(200 * (1 - Math.pow(0.995, level))) / 10
+      const freeCubeLevels = Math.round(150 * (1 - Math.pow(0.997, level))) / 10
+      const freeSpeedLevels = Math.round(150 * (1 - Math.pow(0.997, level))) / 10
+      const freeInfinityLevels = Math.round(100 * (1 - Math.pow(0.999, level))) / 10
+      return {
+        freeOfferingLevels,
+        freeObtainiumLevels,
+        freeCubeLevels,
+        freeSpeedLevels,
+        freeInfinityLevels
+      }
+    },
+    effectsDescription: () => {
+      const effect = getRuneEffects('topHat')
+      const offeringLevelsText = i18next.t('runes.topHat.freeLevelTemplate', {
+        typeIcon: createShopUpgradeTypeIcon(ShopUpgradeGroups.Offering),
+        val: format(effect.freeOfferingLevels, 1, true),
+        max: 20
+      })
+      const obtainiumLevelsText = i18next.t('runes.topHat.freeLevelTemplate', {
+        typeIcon: createShopUpgradeTypeIcon(ShopUpgradeGroups.Obtainium),
+        val: format(effect.freeObtainiumLevels, 1, true),
+        max: 20
+      })
+      const cubeLevelsText = i18next.t('runes.topHat.freeLevelTemplate', {
+        typeIcon: createShopUpgradeTypeIcon(ShopUpgradeGroups.Cubes),
+        val: format(effect.freeCubeLevels, 1, true),
+        max: 15
+      })
+      const speedLevelsText = i18next.t('runes.topHat.freeLevelTemplate', {
+        typeIcon: createShopUpgradeTypeIcon(ShopUpgradeGroups.Speed),
+        val: format(effect.freeSpeedLevels, 1, true),
+        max: 15
+      })
+      const infinityLevelsText = i18next.t('runes.topHat.freeLevelTemplate', {
+        typeIcon: createShopUpgradeTypeIcon(ShopUpgradeGroups.InfinityUpgrades),
+        val: format(effect.freeInfinityLevels, 1, true),
+        max: 10
+      })
+      return `${offeringLevelsText}<br>${obtainiumLevelsText}<br>${cubeLevelsText}<br>${speedLevelsText}<br>${infinityLevelsText}`
+    },
+    effectiveLevelMult: () => 1,
+    freeLevels: () => 0,
+    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
+    isUnlocked: () => Boolean(player.singularityChallenges.noQuarkUpgrades.rewards.topHatUnlock),
+    minimalResetTier: 'singularity',
+    name: () => i18next.t('runes.topHat.name'),
+    description: () => i18next.t('runes.topHat.description'),
+    valueText: () => i18next.t('runes.topHat.values'),
+    runeHTMLStyle: {
+      borderColor: 'white',
+      nameColor: 'gainsboro'
+    }
   }
 }
 
@@ -1014,7 +1084,7 @@ export const generateRunesHTML = () => {
     const runeName = document.createElement('p')
     runeName.className = 'runeTypeElement'
     runeName.setAttribute('i18n', `runes.${key}.name`)
-    runeName.textContent = i18next.t(`runes.${key}.name`)
+    runeName.innerHTML = i18next.t(`runes.${key}.name`)
 
     runesDiv.appendChild(runeName)
 
