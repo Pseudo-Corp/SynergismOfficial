@@ -851,9 +851,9 @@ export const visualUpdateCubes = () => {
     return
   }
 
-  const cubeMult = getShopUpgradeEffects('cubeToQuark').cubeQuarkMult
-  const tesseractMult = getShopUpgradeEffects('tesseractToQuark').tesseractQuarkMult
-  const hypercubeMult = getShopUpgradeEffects('hypercubeToQuark').hypercubeQuarkMult
+  const cubeMult = getShopUpgradeEffects('cubeToQuark', 'cubeQuarkMult')
+  const tesseractMult = getShopUpgradeEffects('tesseractToQuark', 'tesseractQuarkMult')
+  const hypercubeMult = getShopUpgradeEffects('hypercubeToQuark', 'hypercubeQuarkMult')
   const platonicMult = 1.5
 
   const toNextQuark: cubeNames = {

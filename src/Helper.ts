@@ -289,7 +289,7 @@ type AutoToolInput =
 
 const calculateAutoSacrificeInterval = () => {
   let interval = 1
-  interval /= getShopUpgradeEffects('offeringAuto').autoRuneSpeedMult
+  interval /= getShopUpgradeEffects('offeringAuto', 'autoRuneSpeedMult')
   if (player.cubeUpgrades[20] > 0) {
     interval /= 2
   }

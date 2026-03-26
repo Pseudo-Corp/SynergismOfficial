@@ -786,7 +786,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
     // Auto Offerings
     automaticTools('addOfferings', timeTick)
     // Auto Rune Sacrifice Stuff
-    if (getShopUpgradeEffects('offeringAuto').autoRune && player.autoSacrificeToggle) {
+    if (getShopUpgradeEffects('offeringAuto', 'autoRune') && player.autoSacrificeToggle) {
       automaticTools('runeSacrifice', timeTick)
     }
 
@@ -1379,7 +1379,7 @@ export const calculateCubeQuarkMultiplier = () => {
         1e8
       )
       - 11)
-    * getShopUpgradeEffects('cubeToQuarkAll').quarkMult
+    * getShopUpgradeEffects('cubeToQuarkAll', 'quarkMult')
     * (player.autoWarpCheck ? 1 + player.dailyPowderResetUses : 1)
   )
 }
@@ -1485,7 +1485,7 @@ export const calculateRequiredBlueberryTime = () => {
   let val = G.TIME_PER_AMBROSIA // Currently 30
   val += Math.floor(player.lifetimeAmbrosia / 500)
 
-  const acceleratorMult = getShopUpgradeEffects('shopAmbrosiaAccelerator').ambrosiaPointRequirementMult
+  const acceleratorMult = getShopUpgradeEffects('shopAmbrosiaAccelerator', 'ambrosiaPointRequirementMult')
 
   val *= acceleratorMult
   val = Math.ceil(val)
@@ -1604,7 +1604,7 @@ export const dailyResetCheck = () => {
     player.dayCheck = day
 
     forcedDailyReset(true)
-    player.dailyPowderResetUses = 1 + getShopUpgradeEffects('extraWarp').additionalWarps
+    player.dailyPowderResetUses = 1 + getShopUpgradeEffects('extraWarp', 'additionalWarps')
     player.dailyCodeUsed = false
 
     DOMCacheGetOrSet('cubeQuarksOpenRequirement').style.display = 'block'
@@ -1734,7 +1734,7 @@ export const calculateObtainiumPotionBaseObtainium = () => {
 export const calculateAscensionSpeedExponentSpread = () => {
   return getGQUpgradeEffect('singAscensionSpeed')
     + getGQUpgradeEffect('singAscensionSpeed2')
-    + getShopUpgradeEffects('chronometerInfinity').exponentSpread
+    + getShopUpgradeEffects('chronometerInfinity', 'exponentSpread')
 }
 
 export const calculateCookieUpgrade29Luck = () => {

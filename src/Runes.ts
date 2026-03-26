@@ -192,7 +192,7 @@ const bonusRuneLevelsAntiquities = () => {
 
 const bonusRuneLevelsHorseShoe = () => {
   return getRuneBonusFromAllTalismans('horseShoe')
-    + getShopUpgradeEffects('shopHorseShoe').bonusHorseLevels
+    + getShopUpgradeEffects('shopHorseShoe', 'bonusHorseLevels')
 }
 
 const speedRuneOOMIncrease = () => {
@@ -584,7 +584,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effectiveLevelMult: () => 1,
     freeLevels: () => bonusRuneLevelsIA(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
-    isUnlocked: () => getShopUpgradeEffects('infiniteAscent').runeUnlocked,
+    isUnlocked: () => getShopUpgradeEffects('infiniteAscent', 'runeUnlocked'),
     minimalResetTier: 'singularity',
     name: () => i18next.t('runes.infiniteAscent.name'),
     description: () => i18next.t('runes.infiniteAscent.description'),
@@ -720,7 +720,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effectiveLevelMult: () => 1,
     freeLevels: () => 0,
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
-    isUnlocked: () => getShopUpgradeEffects('shopSadisticRune').runeUnlocked,
+    isUnlocked: () => getShopUpgradeEffects('shopSadisticRune', 'runeUnlocked'),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.finiteDescent.name'),
     description: () => i18next.t('runes.finiteDescent.description'),
