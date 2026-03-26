@@ -2000,11 +2000,11 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     name: () => i18next.t('shop.names.shopHorseShoe'),
     description: () => i18next.t('shop.upgradeDescriptions.shopHorseShoe'),
     effects: (n, key) => {
-      const horseShoeLevel = getRuneEffectiveLevel('horseShoe')
       if (key === 'bonusHorseLevels') {
         return 3 * n
       }
 
+      const horseShoeLevel = getRuneEffectiveLevel('horseShoe')
       return 1 - Math.min(300, horseShoeLevel * n) / 1000 // singularityPenaltyMult
     },
     effectDescription () {
