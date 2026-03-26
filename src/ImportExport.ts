@@ -479,7 +479,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     const cap = getFinalHepteractCap('quark')
 
-    if (cap < 1e300 && hepteracts.quark.UNLOCKED()) {
+    if (cap < 1e300 && (hepteracts.quark.UNLOCKED() || player.highestSingularityCount > 0)) {
       hepteracts.quark.TIMES_CAP_EXTENDED += 1
       player.codes.set(47, true)
       return Alert(i18next.t('importexport.promocodes.bribe.thanks'))

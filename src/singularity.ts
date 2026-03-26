@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateGoldenQuarkCost, calculateImmaculateAlchemyBonus } from './Calculate'
+import { calculateExalt4EffectiveSingularityMultiplier, calculateGoldenQuarkCost, calculateImmaculateAlchemyBonus } from './Calculate'
 import { updateMaxTokens, updateTokens } from './Campaign'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { getGlobalBonus, getPersonalBonus, getQuarkBonus } from './Quark'
@@ -3447,14 +3447,7 @@ export const calculateEffectiveSingularities = (
   let effectiveSingularities = singularityCount
   effectiveSingularities *= Math.min(4.75, (0.75 * singularityCount) / 10 + 1)
 
-  if (player.insideSingularityChallenge) {
-    if (player.singularityChallenges.noOcteracts.enabled) {
-      effectiveSingularities *= Math.pow(
-        player.singularityChallenges.noOcteracts.completions + 1,
-        3
-      )
-    }
-  }
+  effectiveSingularities *= calculateExalt4EffectiveSingularityMultiplier(player.singularityChallenges.noOcteracts.completions, false)
 
   if (singularityCount > 10) {
     effectiveSingularities *= 1.5

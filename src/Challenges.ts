@@ -362,6 +362,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
   if (
     player.challengecompletions[i] >= player.highestchallengecompletions[i]
     && player.highestchallengecompletions[i] < maxChallenges && changefocus && player.ascensionCount >= 1
+    && i <= 10
   ) {
     j.textContent = i18next.t('challenges.ascensionBankAdd', {
       x: i > 5 ? 2 : 1,

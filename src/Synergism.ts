@@ -1992,12 +1992,14 @@ const loadSynergy = () => {
       )
       DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
     }
-    DOMCacheGetOrSet('autoHepteractPercentage').textContent = i18next.t(
-      'wowCubes.hepteractForge.autoSetting',
-      {
-        x: `${player.hepteractAutoCraftPercentage}`
-      }
-    )
+    if (player.highestSingularityCount > 0) {
+      DOMCacheGetOrSet('autoHepteractPercentage').textContent = i18next.t(
+        'wowCubes.hepteractForge.autoSetting',
+        {
+          x: `${player.hepteractAutoCraftPercentage}`
+        }
+      )
+    }
     DOMCacheGetOrSet('hepteractToQuarkTradeAuto').textContent = player.overfluxOrbsAutoBuy
       ? i18next.t('general.autoOnColon')
       : i18next.t('general.autoOffColon')

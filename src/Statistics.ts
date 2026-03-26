@@ -31,6 +31,7 @@ import {
   calculateCubeMultiplierWithTau,
   calculateDilatedFiveLeafBonus,
   calculateEventBuff,
+  calculateExalt3Penalty,
   calculateExalt6Penalty,
   calculateFreeShopInfinityUpgrades,
   calculateGlobalSpeedDREnabledMult,
@@ -41,7 +42,6 @@ import {
   calculateHepteractMultiplier,
   calculateHypercubeMultiplier,
   calculateImmaculateAlchemyBonus,
-  calculateLimitedAscensionsDebuff,
   calculateLuckConversion,
   calculateNegativeSalvage,
   calculateNegativeSalvageMultiplier,
@@ -233,12 +233,13 @@ export const allCubeStats: NumberStatLine[] = [
   {
     i18n: 'SingDebuff',
     stat: () => 1 / calculateSingularityDebuff('Cubes'),
-    displayCriterion: () => player.highestSingularityCount > 0
+    displayCriterion: () => player.highestSingularityCount > 0,
+    color: 'red'
   },
   {
     i18n: 'PassY',
     stat: () => getShopUpgradeEffects('seasonPassY').globalCubeMult,
-    displayCriterion: () => player.highestSingularityCount > 0
+    displayCriterion: () => G.challenge15Rewards.hepteractsUnlocked.value > 0 || player.highestSingularityCount > 0
   },
   {
     i18n: 'PassZ',
@@ -357,7 +358,8 @@ export const allCubeStats: NumberStatLine[] = [
         exaltPenalty = calculateExalt6Penalty(comps, time)
       }
       return exaltPenalty
-    }
+    },
+    color: 'red'
   },
   {
     i18n: 'OneMind',
@@ -1989,7 +1991,7 @@ export const allAscensionSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'LimitedAscensionsDebuff',
-    stat: () => 1 / calculateLimitedAscensionsDebuff(), // EXALT Debuff
+    stat: () => 1 / calculateExalt3Penalty(), // EXALT Debuff
     color: 'red'
   },
   {

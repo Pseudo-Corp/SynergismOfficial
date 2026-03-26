@@ -184,8 +184,11 @@ export const revealStuff = () => {
 
   visualUpdateShop()
 
-  const hepts = DOMCacheGetOrSet('corruptionHepteracts')
-  hepts.style.display = 'block'
+  if (G.challenge15Rewards.hepteractsUnlocked.value > 0) {
+    DOMCacheGetOrSet('corruptionHepteracts').style.display = 'block'
+  } else {
+    DOMCacheGetOrSet('corruptionHepteracts').style.display = 'none'
+  }
 
   document.documentElement.dataset.cookies1 = getGQUpgradeEffect('cookies') ? 'true' : 'false'
   document.documentElement.dataset.cookies2 = getGQUpgradeEffect('cookies2') ? 'true' : 'false'

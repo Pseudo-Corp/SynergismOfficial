@@ -8,6 +8,7 @@ import {
   calculateQuarkMultFromPowder,
   forcedDailyReset
 } from './Calculate'
+import { testing } from './Config'
 import { Cube } from './CubeExperimental'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { resetTiers } from './Reset'
@@ -475,10 +476,12 @@ export const craftHepteracts = async (hept: HepteractKeys, max = false) => {
     const lessText = (actualCraftableAmount < 0.9999 * requestedCraftAmount)
       ? i18next.t('hepteracts.craftedHepteractLower')
       : ''
-
-    console.log(
-      `Crafted ${amountToCraft} Hepteracts. Actual craftable amount was ${actualCraftableAmount}, and requested craft amount was ${requestedCraftAmount}.`
-    )
+    
+    if (testing) {
+      console.log(
+        `Crafted ${amountToCraft} Hepteracts. Actual craftable amount was ${actualCraftableAmount}, and requested craft amount was ${requestedCraftAmount}.`
+      )
+    }
 
     return Alert(`${craftText} ${lessText}`)
   }
