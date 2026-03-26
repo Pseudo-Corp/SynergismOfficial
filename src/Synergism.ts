@@ -3168,7 +3168,7 @@ export const multipliers = (): void => {
           * Math.min(
             100
               + 1000 * +getAchievementReward('constUpgrade2Buff')
-              + 10 * getShopUpgradeEffects('constantEX').maxPercentIncrease
+              + 10 * getShopUpgradeEffects('constantEX', 'maxPercentIncrease')
               + 1000 * (G.challenge15Rewards.exponent.value - 1)
               + 3 * player.platonicUpgrades[18],
             player.constantUpgrades[2]
@@ -3689,8 +3689,8 @@ export const resetCheck = async (
       && player.challengecompletions[q] < maxCompletions
     ) {
       let maxInc = 1
-      maxInc += getShopUpgradeEffects('instantChallenge').extraCompPerTick
-      maxInc += getShopUpgradeEffects('instantChallenge2').extraCompPerTick
+      maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+      maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
       if (player.currentChallenge.ascension === 13) {
         maxInc = 1
       }
@@ -3726,7 +3726,7 @@ export const resetCheck = async (
       player.currentChallenge.transcension = 0
       updateChallengeDisplay()
     }
-    if (!getShopUpgradeEffects('instantChallenge').unlocked || leaving) {
+    if (leaving || !getShopUpgradeEffects('instantChallenge', 'unlocked')) {
       reset('transcensionChallenge', false, 'leaveChallenge')
     }
   }
@@ -3765,8 +3765,8 @@ export const resetCheck = async (
       && player.challengecompletions[q] < maxCompletions
     ) {
       let maxInc = 1
-      maxInc += getShopUpgradeEffects('instantChallenge').extraCompPerTick
-      maxInc += getShopUpgradeEffects('instantChallenge2').extraCompPerTick
+      maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+      maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
       if (player.currentChallenge.ascension === 13) {
         maxInc = 1
       }
@@ -3810,14 +3810,14 @@ export const resetCheck = async (
         && player.challengecompletions[q] >= maxCompletions)
     ) {
       player.currentChallenge.reincarnation = 0
-      if (getShopUpgradeEffects('instantChallenge').unlocked) {
+      if (getShopUpgradeEffects('instantChallenge', 'unlocked')) {
         for (let j = 1; j <= 5; j++) {
           player.challengecompletions[j] = player.highestchallengecompletions[j]
         }
       }
       updateChallengeDisplay()
     }
-    if (!getShopUpgradeEffects('instantChallenge').unlocked || leaving) {
+    if (leaving || !getShopUpgradeEffects('instantChallenge', 'unlocked')) {
       reset('reincarnationChallenge', false, 'leaveChallenge')
     }
   }
@@ -3874,9 +3874,7 @@ export const resetCheck = async (
         updateChallengeLevel(a)
         challengeDisplay(a, false)
       }
-      if (
-        (manual || leaving || getShopUpgradeEffects('challenge15Auto').unlocked)
-      ) {
+      if (manual || leaving || getShopUpgradeEffects('challenge15Auto', 'unlocked')) {
         if (
           player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))
         ) {
@@ -3929,7 +3927,7 @@ export const resetCheck = async (
       }
     }
 
-    if ((!getShopUpgradeEffects('instantChallenge2').unlocked && a !== 15) || manual) {
+    if (manual || (a !== 15 && !getShopUpgradeEffects('instantChallenge2', 'unlocked'))) {
       reset('ascensionChallenge', false)
     }
   }
@@ -4615,8 +4613,8 @@ export const updateAll = (): void => {
 
   // Challenge 15 autoupdate
   if (
-    getShopUpgradeEffects('challenge15Auto').unlocked
-    && player.currentChallenge.ascension === 15
+    player.currentChallenge.ascension === 15
+    && getShopUpgradeEffects('challenge15Auto', 'unlocked')
   ) {
     const c15SM = challenge15ScoreMultiplier()
     if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
@@ -4721,7 +4719,7 @@ const tack = (dt: number) => {
     addTimers('redAmbrosia', dt)
 
     // Triggers automatic rune sacrifice (adds milliseconds to payload timer)
-    if (getShopUpgradeEffects('offeringAuto').autoRune && player.autoSacrificeToggle) {
+    if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto', 'autoRune')) {
       automaticTools('runeSacrifice', dt)
     }
 

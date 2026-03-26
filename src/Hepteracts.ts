@@ -158,11 +158,11 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
         + getGQUpgradeEffect('singQuarkHepteract2')
         + getGQUpgradeEffect('singQuarkHepteract3')
         + getOcteractUpgradeEffect('octeractImprovedQuarkHept')
-        + getShopUpgradeEffects('improveQuarkHept').quarkHeptExponent
-        + getShopUpgradeEffects('improveQuarkHept2').quarkHeptExponent
-        + getShopUpgradeEffects('improveQuarkHept3').quarkHeptExponent
-        + getShopUpgradeEffects('improveQuarkHept4').quarkHeptExponent
-        + getShopUpgradeEffects('improveQuarkHept5').quarkHeptExponent
+        + getShopUpgradeEffects('improveQuarkHept', 'quarkHeptExponent')
+        + getShopUpgradeEffects('improveQuarkHept2', 'quarkHeptExponent')
+        + getShopUpgradeEffects('improveQuarkHept3', 'quarkHeptExponent')
+        + getShopUpgradeEffects('improveQuarkHept4', 'quarkHeptExponent')
+        + getShopUpgradeEffects('improveQuarkHept5', 'quarkHeptExponent')
     }
   },
   challenge: {
@@ -789,7 +789,7 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?: boolean) => {
     player.wowAbyssals = 0
   }
 
-  const powderGain = getShopUpgradeEffects('powderAuto').automaticPowderFraction * calculatePowderConversion()
+  const powderGain = getShopUpgradeEffects('powderAuto', 'automaticPowderFraction') * calculatePowderConversion()
     * buyAmount
   player.overfluxPowder += powderGain
 

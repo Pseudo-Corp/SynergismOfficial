@@ -301,7 +301,7 @@ export const toggleResearchBuy = () => {
 
 export const toggleAutoResearch = () => {
   const el = DOMCacheGetOrSet('toggleautoresearch')
-  if (player.autoResearchToggle || !getShopUpgradeEffects('obtainiumAuto').autoResearch) {
+  if (player.autoResearchToggle || !getShopUpgradeEffects('obtainiumAuto', 'autoResearch')) {
     player.autoResearchToggle = false
     el.textContent = i18next.t('researches.automaticOff')
     DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
@@ -346,7 +346,7 @@ export const toggleAutoSacrifice = (index: string) => {
       el.textContent = i18next.t('runes.blessings.autoRuneOn')
       el.style.border = '2px solid green'
     }
-  } else if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto').autoRune) {
+  } else if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto', 'autoRune')) {
     if (player.autoSacrifice === numIndex) {
       player.autoSacrifice = 0
     } else {

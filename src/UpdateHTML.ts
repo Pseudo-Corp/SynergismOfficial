@@ -330,18 +330,19 @@ export const revealStuff = () => {
     player.researches[190] > 0 ? 'block' : 'none'
 
   DOMCacheGetOrSet('toggleautosacrifice').style.display = // Auto Offering Shop Purchase
-    getShopUpgradeEffects('offeringAuto').autoRune ? 'block' : 'none'
+    getShopUpgradeEffects('offeringAuto', 'autoRune') ? 'block' : 'none'
 
   DOMCacheGetOrSet('toggleautoBuyFragments').style.display = // Auto Fragments Buy (After Cx1)
     player.cubeUpgrades[51] > 0 && player.highestSingularityCount >= 40 ? 'block' : 'none'
 
-  DOMCacheGetOrSet('toggleautoresearch').style.display = // Auto Research Shop Purchase
-    getShopUpgradeEffects('obtainiumAuto').autoResearch ? 'block' : 'none'
+  const autoResearch = getShopUpgradeEffects('obtainiumAuto', 'autoResearch')
 
-  DOMCacheGetOrSet('toggleautoresearchmode').style.display =
-    getShopUpgradeEffects('obtainiumAuto').autoResearch && roombaResearchEnabled() // Auto Research Shop Purchase Mode
-      ? 'block'
-      : 'none'
+  DOMCacheGetOrSet('toggleautoresearch').style.display = // Auto Research Shop Purchase
+    autoResearch ? 'block' : 'none'
+
+  DOMCacheGetOrSet('toggleautoresearchmode').style.display = autoResearch && roombaResearchEnabled() // Auto Research Shop Purchase Mode
+    ? 'block'
+    : 'none'
 
   DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = player.cubeUpgrades[8] > 0 ? 'block' : 'none'
 
@@ -389,7 +390,7 @@ export const revealStuff = () => {
     ? 'block'
     : 'none'
 
-  DOMCacheGetOrSet('warpAuto').style.display = getShopUpgradeEffects('autoWarp').unlocked ? '' : 'none'
+  DOMCacheGetOrSet('warpAuto').style.display = getShopUpgradeEffects('autoWarp', 'unlocked') ? '' : 'none'
 
   const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>
   for (const item of octeractUnlocks) { // Stuff that you need octeracts to access

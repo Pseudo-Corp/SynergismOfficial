@@ -1453,7 +1453,7 @@ const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRe
   rune6: {
     tokenRequirement: 500,
     reward: () => String(player.campaigns.bonusRune6),
-    otherUnlockRequirement: () => (getShopUpgradeEffects('infiniteAscent').runeUnlocked)
+    otherUnlockRequirement: () => (getShopUpgradeEffects('infiniteAscent', 'runeUnlocked'))
   },
   goldenQuark: {
     tokenRequirement: 500,

@@ -2264,7 +2264,7 @@ export async function buyGQUpgradeLevel (
 }
 
 function computeFreeLevelMultiplier (): number {
-  return getShopUpgradeEffects('shopSingularityPotency').freeUpgradeMult + 0.3 / 100 * player.cubeUpgrades[75]
+  return getShopUpgradeEffects('shopSingularityPotency', 'freeUpgradeMult') + 0.3 / 100 * player.cubeUpgrades[75]
 }
 
 export function computeGQUpgradeFreeLevelSoftcap (upgradeKey: SingularityDataKeys): number {
@@ -3434,7 +3434,7 @@ type SingularityDebuffs =
 
 const calculateSingularityReductions = () => {
   return (
-    getShopUpgradeEffects('shopSingularityPenaltyDebuff').singularityPenaltyReducers
+    getShopUpgradeEffects('shopSingularityPenaltyDebuff', 'singularityPenaltyReducers')
     + (player.insideSingularityChallenge
       ? getAmbrosiaUpgradeEffects('ambrosiaSingReduction2').singularityReduction
       : getAmbrosiaUpgradeEffects('ambrosiaSingReduction1').singularityReduction)
@@ -3542,7 +3542,7 @@ export const calculateSingularityDebuff = (
   )
 
   let baseDebuffMultiplier = 1
-  baseDebuffMultiplier *= getShopUpgradeEffects('shopHorseShoe').singularityPenaltyMult
+  baseDebuffMultiplier *= getShopUpgradeEffects('shopHorseShoe', 'singularityPenaltyMult')
 
   if (debuff === 'Offering') {
     const extraMult = Math.pow(1.02, constitutiveSingularityCount)
