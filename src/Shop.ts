@@ -2529,7 +2529,7 @@ export const forceResetShopUpgrades = () => {
   }
   if (player.shopConfirmationToggle) {
     void Alert(i18next.t('shop.refundSuccessful', {
-    amount: format(totalRefundAmt, 0, false)
-  }))
+      amount: format(totalRefundAmt, 0, false)
+    }))
   }
 }
