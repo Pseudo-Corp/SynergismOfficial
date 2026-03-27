@@ -127,9 +127,6 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
       const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
       return Boolean(condition)
     },
-    // Setting an actual condition (not just "true") here seems unnecessary since you can't get hepteracts
-    // Without having 1e15 C15 exponent in the first place, but this is necessary (at least for Quark) in order
-    // For the code "alonso bribe" to not be used up before you even have hepteracts unlocked || 6030
     EFFECTS: (hept) => {
       const exponent = hepteracts.quark.DR + hepteracts.quark.DR_INCREASE()
       return {
