@@ -395,9 +395,9 @@ export const singularityChallengeData: Record<
     },
     alternateDescription: () => {
       const completions = player.singularityChallenges.noOcteracts.completions
-      const effectiveSingMult = calculateExalt4EffectiveSingularityMultiplier(completions, true)
       let stringText = i18next.t('singularityChallenge.data.noOcteracts.description')
       if (completions > 0) {
+        const effectiveSingMult = calculateExalt4EffectiveSingularityMultiplier(completions, true)
         const effectMod1 = i18next.t('singularityChallenge.data.noOcteracts.effectMod1', {
           sing: format(effectiveSingMult, 0, true)
         })
