@@ -84,7 +84,7 @@ const upgradetexts = [
   () =>
     format(
       Decimal.min(
-        Decimal.pow(10, 1.000000000001e33), // Stupid and (probably) temporary fix for a stupid problem (it displaying as 1.00e1,000.0Dcx) || 6030
+        Decimal.pow(10, 1e33),
         Decimal.pow(G.acceleratorEffect, G.deflationMultiplier[player.corruptions.used.deflation] / 3)
       ),
       2
