@@ -8,6 +8,7 @@ import {
   calculateQuarkMultFromPowder,
   forcedDailyReset
 } from './Calculate'
+import { testing } from './Config'
 import { Cube } from './CubeExperimental'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { resetTiers } from './Reset'
@@ -66,7 +67,10 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: { obtainium: 1e115 },
-    UNLOCKED: () => true,
+    UNLOCKED: () => {
+      const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
+      return Boolean(condition)
+    },
     EFFECTS: (hept) => {
       return {
         ascensionSpeed: 1 + 6 * hept / 10000
@@ -91,7 +95,10 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: { offerings: 1e80 },
-    UNLOCKED: () => true,
+    UNLOCKED: () => {
+      const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
+      return Boolean(condition)
+    },
     EFFECTS: (hept) => {
       return {
         hypercubeMultiplier: 1 + 6 * hept / 10000
@@ -116,7 +123,10 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: { worlds: 100 },
-    UNLOCKED: () => true,
+    UNLOCKED: () => {
+      const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
+      return Boolean(condition)
+    },
     EFFECTS: (hept) => {
       const exponent = hepteracts.quark.DR + hepteracts.quark.DR_INCREASE()
       return {
@@ -463,10 +473,12 @@ export const craftHepteracts = async (hept: HepteractKeys, max = false) => {
     const lessText = (actualCraftableAmount < 0.9999 * requestedCraftAmount)
       ? i18next.t('hepteracts.craftedHepteractLower')
       : ''
-
-    console.log(
-      `Crafted ${amountToCraft} Hepteracts. Actual craftable amount was ${actualCraftableAmount}, and requested craft amount was ${requestedCraftAmount}.`
-    )
+    
+    if (testing) {
+      console.log(
+        `Crafted ${amountToCraft} Hepteracts. Actual craftable amount was ${actualCraftableAmount}, and requested craft amount was ${requestedCraftAmount}.`
+      )
+    }
 
     return Alert(`${craftText} ${lessText}`)
   }

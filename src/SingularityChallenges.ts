@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateExalt6PenaltyPerSecond, calculateExalt6TimeLimit, calculateGoldenQuarks } from './Calculate'
+import { calculateExalt3AscensionLimit, calculateExalt4EffectiveSingularityMultiplier, calculateExalt6PenaltyPerSecond, calculateExalt6TimeLimit, calculateGoldenQuarks } from './Calculate'
 import { singularity } from './Reset'
 import { runes } from './Runes'
 import { format, player } from './Synergism'
@@ -392,6 +392,18 @@ export const singularityChallengeData: Record<
         obtainiumBonus: n >= 10,
         shopUpgrade: n >= 10
       }
+    },
+    alternateDescription: () => {
+      const completions = player.singularityChallenges.noOcteracts.completions
+      let stringText = i18next.t('singularityChallenge.data.noOcteracts.description')
+      if (completions > 0) {
+        const effectiveSingMult = calculateExalt4EffectiveSingularityMultiplier(completions, true)
+        const effectMod1 = i18next.t('singularityChallenge.data.noOcteracts.effectMod1', {
+          sing: format(effectiveSingMult, 0, true)
+        })
+        stringText += `<br>${effectMod1}`
+      }
+      return stringText
     }
   },
   limitedAscensions: {
@@ -414,6 +426,18 @@ export const singularityChallengeData: Record<
         shopUpgrade0: n >= 8,
         shopUpgrade: n >= 10
       }
+    },
+    alternateDescription: () => {
+      const ascensionLimit = calculateExalt3AscensionLimit(player.singularityChallenges.limitedAscensions.completions)
+      const baseDesc = i18next.t('singularityChallenge.data.limitedAscensions.description')
+      const effectMod1 = i18next.t('singularityChallenge.data.limitedAscensions.effectMod1', {
+        ascensions: format(ascensionLimit, 0, true)
+      })
+      const effectMod2 = i18next.t('singularityChallenge.data.limitedAscensions.effectMod2', {
+        ascensions: format(ascensionLimit, 0, true)
+      })
+      const effectMod3 = i18next.t('singularityChallenge.data.limitedAscensions.effectMod3')
+      return `${baseDesc}<br>${effectMod1}<br>${effectMod2}<br>${effectMod3}`
     }
   },
   noAmbrosiaUpgrades: {

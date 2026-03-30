@@ -1434,12 +1434,6 @@ export const visualUpdateCorruptions = () => {
     })
   }
 
-  DOMCacheGetOrSet('corruptionBank').innerHTML = i18next.t(
-    'corruptions.corruptionBank',
-    {
-      number: format(ascensionRewards.wowCubes, 0, true)
-    }
-  )
   DOMCacheGetOrSet('corruptionScore').innerHTML = i18next.t(
     'corruptions.corruptionScore',
     {

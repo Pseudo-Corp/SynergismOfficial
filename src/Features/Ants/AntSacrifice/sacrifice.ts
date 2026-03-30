@@ -72,6 +72,9 @@ export const sacrificeAnts = () => {
   updateTalismanInventory()
   resetHistoryAdd('ants', historyEntry)
 
+  if (player.mythicalFragments.gte(1e25)) {
+    awardUngroupedAchievement('seeingRed')
+  }
   if (player.mythicalFragments.gte(1e11) && player.currentChallenge.ascension === 14) {
     awardUngroupedAchievement('seeingRedNoBlue')
   }
