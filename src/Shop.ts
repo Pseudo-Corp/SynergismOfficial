@@ -183,7 +183,7 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     HTMLColor: 'white',
     symbol: '⚙',
     bonusLevels: () => 0
-  },
+  }
 }
 
 export const createShopUpgradeTypeIcon = (type: ShopUpgradeGroups) => {

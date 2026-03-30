@@ -237,7 +237,7 @@ export const allCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'Jack',
-    stat: () => getShopUpgradeEffects('shopPanthema', 'cubeMult'),
+    stat: () => getShopUpgradeEffects('shopPanthema', 'cubeMult')
   },
   {
     i18n: 'PassY',
@@ -1270,7 +1270,7 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'Jack',
-    stat: () => getShopUpgradeEffects('shopPanthema', 'quarkMult'),
+    stat: () => getShopUpgradeEffects('shopPanthema', 'quarkMult')
   },
   {
     i18n: 'Challenge15',

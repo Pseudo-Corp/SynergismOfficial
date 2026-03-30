@@ -98,6 +98,8 @@ const initializeConsumablesTab = memoize(() => {
           })
         }
       })
+
+      updateLotusDisplay()
     })
 })
 

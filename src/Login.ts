@@ -709,7 +709,11 @@ function handleWebSocket () {
       if (lotusInventory) {
         ownedLotus = lotusInventory.amount
         usedLotus = lotusInventory.used
-        updateLotusDisplay()
+        try {
+          updateLotusDisplay()
+        } catch {
+          // This can throw if /consumables/list has not returned a response by the time this runs
+        }
       }
     } else if (data.type === 'thanks') {
       Alert(i18next.t('pseudoCoins.consumables.thanks'))
