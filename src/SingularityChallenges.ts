@@ -330,7 +330,7 @@ export const singularityChallengeData: Record<
     achievementPointValue: (n) => {
       return 15 * n
     },
-    scalingrewardcount: 1,
+    scalingrewardcount: 2,
     uniquerewardcount: 5,
     effect: (n: number) => {
       return {
@@ -354,7 +354,7 @@ export const singularityChallengeData: Record<
     achievementPointValue: (n) => {
       return 15 * n
     },
-    scalingrewardcount: 2,
+    scalingrewardcount: 3,
     uniquerewardcount: 4,
     effect: (n: number) => {
       return {
@@ -383,7 +383,7 @@ export const singularityChallengeData: Record<
         return baseReq + 13 * 9 + 10 * (completions - 9)
       }
     },
-    scalingrewardcount: 1,
+    scalingrewardcount: 2,
     uniquerewardcount: 3,
     effect: (n: number) => {
       return {
@@ -417,7 +417,7 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 27 * completions
     },
-    scalingrewardcount: 1,
+    scalingrewardcount: 2,
     uniquerewardcount: 3,
     effect: (n: number) => {
       return {
@@ -455,7 +455,7 @@ export const singularityChallengeData: Record<
         return baseReq + 12 * 9 + 4 * (completions - 9)
       }
     },
-    scalingrewardcount: 4,
+    scalingrewardcount: 5,
     uniquerewardcount: 8,
     effect: (n: number) => {
       return {
@@ -476,28 +476,29 @@ export const singularityChallengeData: Record<
     maxCompletions: 10,
     unlockSingularity: 66,
     achievementPointValue: (n) => {
-      return 40 * n
+      return 20 * n
     },
     HTMLTag: 'noQuarkUpgrades',
     singularityRequirement: (baseReq: number, completions: number) => {
       if (completions > 5) {
-        return baseReq + 180 + 8 * (completions - 6)
+        return baseReq + 185 + 8 * (completions - 6)
       } else if (completions > 2) {
-        return baseReq + 60 + 9 * (completions - 6)
+        return baseReq + 70 + 9 * (completions - 6)
       } else {
-        return baseReq + 10 * completions
+        return baseReq + 15 * completions
       }
     },
-    scalingrewardcount: 3,
-    uniquerewardcount: 2,
+    scalingrewardcount: 6,
+    uniquerewardcount: 3,
     effect: (n: number) => {
       return {
         freeObtainiumLevels: n,
         freeOfferingLevels: n,
-        freeSpeedLevels: n >= 4 ? n : 0,
-        freeCubeLevels: n >= 4 ? n : 0,
-        freeQuarkLevel: n >= 5 ? 1 : 0,
-        freeInfinityLevels: n >= 7 ? n : 0,
+        freeSpeedLevels: n,
+        freeCubeLevels: n,
+        freeQuarkLevel: n,
+        freeInfinityLevels: n,
+        shopUpgrade: n >= 1,
         topHatUnlock: n >= 10
       }
     },
@@ -509,26 +510,31 @@ export const singularityChallengeData: Record<
   },
   limitedTime: {
     baseReq: 203,
-    maxCompletions: 10,
+    maxCompletions: 15,
     unlockSingularity: 216,
     achievementPointValue: (n) => {
-      return 50 * n
+      return 30 * n
     },
     HTMLTag: 'limitedTime',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 9 * completions
+      if (completions > 10) {
+        return 277 + 2 * (completions - 10)
+      }
+      else {
+        return baseReq + 8 * completions
+      }
     },
-    scalingrewardcount: 4,
+    scalingrewardcount: 5,
     uniquerewardcount: 3,
     effect: (n: number) => {
       return {
         preserveQuarks: +(n > 0),
-        quarkMult: 1 + 0.03 * n,
-        globalSpeed: 0.15 * n,
-        ascensionSpeed: 0.15 * n,
-        barRequirementMultiplier: 1 - 0.03 * n,
+        quarkMult: 1 + 0.02 * n,
+        globalSpeed: 0.12 * n,
+        ascensionSpeed: 0.12 * n,
+        barRequirementMultiplier: 1 - 0.02 * n,
         tier1Upgrade: n >= 5,
-        tier2Upgrade: n >= 9
+        tier2Upgrade: n >= 10
       }
     },
     alternateDescription: () => {
@@ -559,7 +565,7 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 8 * completions
     },
-    scalingrewardcount: 2,
+    scalingrewardcount: 3,
     uniquerewardcount: 4,
     effect: (n: number) => {
       return {
@@ -583,7 +589,7 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 4 * completions
     },
-    scalingrewardcount: 4,
+    scalingrewardcount: 5,
     uniquerewardcount: 3,
     effect: (n: number) => {
       return {

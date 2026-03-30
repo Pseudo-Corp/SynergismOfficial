@@ -128,8 +128,8 @@ export enum ShopUpgradeGroups {
   Cubes,
   Speed,
   Quark,
-  Utility,
-  InfinityUpgrades
+  InfinityUpgrades,
+  Utility
 }
 
 interface UpgradeTypeInfo {
@@ -152,11 +152,6 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     bonusLevels: () =>
       +player.singularityChallenges.noQuarkUpgrades.rewards.freeObtainiumLevels
       + getRuneEffects('topHat').freeObtainiumLevels
-  },
-  [ShopUpgradeGroups.Utility]: {
-    HTMLColor: 'white',
-    symbol: '⚙',
-    bonusLevels: () => 0
   },
   [ShopUpgradeGroups.Cubes]: {
     HTMLColor: 'magenta',
@@ -183,7 +178,12 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     bonusLevels: () =>
       calculateFreeShopInfinityUpgrades() + +player.singularityChallenges.noQuarkUpgrades.rewards.freeInfinityLevels
       + getRuneEffects('topHat').freeInfinityLevels
-  }
+  },
+  [ShopUpgradeGroups.Utility]: {
+    HTMLColor: 'white',
+    symbol: '⚙',
+    bonusLevels: () => 0
+  },
 }
 
 export const createShopUpgradeTypeIcon = (type: ShopUpgradeGroups) => {
@@ -191,7 +191,7 @@ export const createShopUpgradeTypeIcon = (type: ShopUpgradeGroups) => {
   return `<span style="color: ${info.HTMLColor}">[${info.symbol}]</span>`
 }
 
-const LAST_GROUP = ShopUpgradeGroups.InfinityUpgrades
+const LAST_GROUP = ShopUpgradeGroups.Utility
 
 interface IShopData<T extends ShopUpgradeNames, K extends keyof QuarkShopUpgradeRewards[T]> {
   name: () => string
@@ -1400,20 +1400,20 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   improveQuarkHept5: {
     name: () => i18next.t('shop.names.improveQuarkHept5'),
     description: () => i18next.t('shop.upgradeDescriptions.improveQuarkHept5'),
-    effects: (n) => 0.01 * n, // quarkHeptExponent
+    effects: (n) => 0.0001 * n, // quarkHeptExponent
     effectDescription () {
       const effects = getShopUpgradeEffects('improveQuarkHept5', 'quarkHeptExponent')
-      return i18next.t('shop.upgradeEffects.improveQuarkHept5', { amount: format(effects, 2, true) })
+      return i18next.t('shop.upgradeEffects.improveQuarkHept5', { amount: format(effects, 4, true) })
     },
     isUnlocked: () => Boolean(getGQUpgradeEffect('wowPass4')),
     price: 1,
-    priceIncrease: 2.5e13,
-    maxLevel: 80,
+    priceIncrease: 2.5e9,
+    maxLevel: 7777,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: [ShopUpgradeGroups.Quark, ShopUpgradeGroups.Utility]
+    upgradeTypes: [ShopUpgradeGroups.Quark, ShopUpgradeGroups.InfinityUpgrades, ShopUpgradeGroups.Utility]
   },
   chronometerInfinity: {
     name: () => i18next.t('shop.names.chronometerInfinity'),
@@ -1834,7 +1834,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.shopAmbrosiaAccelerator'),
     effects: (n) => {
       const ex5Comps = player.singularityChallenges.noAmbrosiaUpgrades.completions
-      return 1 - 0.004 * n * ex5Comps // ambrosiaPointRequirementMult
+      return 1 - 0.008 * n * ex5Comps // ambrosiaPointRequirementMult
     },
     effectDescription () {
       const effects = getShopUpgradeEffects('shopAmbrosiaAccelerator', 'ambrosiaPointRequirementMult')
@@ -2000,11 +2000,11 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     name: () => i18next.t('shop.names.shopHorseShoe'),
     description: () => i18next.t('shop.upgradeDescriptions.shopHorseShoe'),
     effects: (n, key) => {
-      const horseShoeLevel = getRuneEffectiveLevel('horseShoe')
       if (key === 'bonusHorseLevels') {
         return 3 * n
       }
 
+      const horseShoeLevel = getRuneEffectiveLevel('horseShoe')
       return 1 - Math.min(300, horseShoeLevel * n) / 1000 // singularityPenaltyMult
     },
     effectDescription () {
@@ -2106,7 +2106,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
 
       return effectHTML
     },
-    isUnlocked: () => player.highestSingularityCount >= 1,
+    isUnlocked: () => Boolean(player.singularityChallenges.noQuarkUpgrades.rewards.shopUpgrade),
     price: 125000,
     priceIncrease: 0,
     maxLevel: 1,

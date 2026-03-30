@@ -237,6 +237,10 @@ export const allCubeStats: NumberStatLine[] = [
     color: 'red'
   },
   {
+    i18n: 'Jack',
+    stat: () => getShopUpgradeEffects('shopPanthema', 'cubeMult'),
+  },
+  {
     i18n: 'PassY',
     stat: () => getShopUpgradeEffects('seasonPassY').globalCubeMult,
     displayCriterion: () => G.challenge15Rewards.hepteractsUnlocked.value > 0 || player.highestSingularityCount > 0
@@ -1019,6 +1023,10 @@ export const allOfferingStats: StatLine[] = [
     stat: () => Math.pow(10, getRuneEffects('antiquities').offeringLog10) // Antiquities Rune
   },
   {
+    i18n: 'Jack',
+    stat: () => getShopUpgradeEffects('shopPanthema', 'offeringMult')
+  },
+  {
     i18n: 'SingularityDebuff',
     stat: () => 1 / calculateSingularityDebuff('Offering'), // Singularity Debuff
     color: 'red'
@@ -1261,6 +1269,10 @@ export const allQuarkStats: NumberStatLine[] = [
   {
     i18n: 'PlatonicOMEGA',
     stat: () => player.platonicUpgrades[15] > 0 ? 1.15 : 1
+  },
+  {
+    i18n: 'Jack',
+    stat: () => getShopUpgradeEffects('shopPanthema', 'quarkMult'),
   },
   {
     i18n: 'Challenge15',
@@ -1635,6 +1647,10 @@ export const allObtainiumStats: StatLine[] = [
     stat: () => 1 + 0.0002 * player.cubeUpgrades[50] // Cube Upgrade 5x10
   },
   {
+    i18n: 'Jack',
+    stat: () => getShopUpgradeEffects('shopPanthema', 'obtainiumMult') // Jack
+  },
+  {
     i18n: 'StarterPack',
     stat: () => 1 + 5 * getGQUpgradeEffect('starterPack') // Starter Pack
   },
@@ -1980,6 +1996,10 @@ export const allAscensionSpeedStats: NumberStatLine[] = [
         1 + +player.singularityChallenges.limitedAscensions.rewards.ascensionSpeedMult,
         1 + Math.max(0, Math.floor(Math.log10(player.ascensionCount)))
       ) // EXALT Buff
+  },
+  {
+    i18n: 'Jack',
+    stat: () => getShopUpgradeEffects('shopPanthema', 'ascensionSpeedMult') // Jack
   },
   {
     i18n: 'LimitedTimeChallenge',

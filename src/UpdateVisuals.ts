@@ -35,7 +35,7 @@ import {
   calculateTotalSalvage
 } from './Calculate'
 import { CalcECC, challengeDisplay, timeSinceLastStateChange } from './Challenges'
-import { version } from './Config'
+import { testing, version } from './Config'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -1955,9 +1955,13 @@ export const visualUpdateShop = () => {
         DOMCacheGetOrSet(`${key}Hide`).style.display = 'none'
         continue
       } else {
-        DOMCacheGetOrSet(`${key}Hide`).style.display = shopItem.isUnlocked()
+        DOMCacheGetOrSet(`${key}Hide`).style.display = shopItem.isUnlocked() || testing
           ? 'block'
           : 'none'
+
+        if (!shopItem.isUnlocked() && testing) {
+          DOMCacheGetOrSet(`${key}Hide`).style.backgroundColor = 'red'
+        }
       }
       // Case: If max level is 1, then it can be considered a boolean "bought" or "not bought" item
       if (shopItem.maxLevel === 1) {
