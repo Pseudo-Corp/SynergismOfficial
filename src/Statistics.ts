@@ -242,7 +242,7 @@ export const allCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'PassY',
-    stat: () => getShopUpgradeEffects('seasonPassY').globalCubeMult,
+    stat: () => getShopUpgradeEffects('seasonPassY', 'globalCubeMult'),
     displayCriterion: () => G.challenge15Rewards.hepteractsUnlocked.value > 0 || player.highestSingularityCount > 0
   },
   {

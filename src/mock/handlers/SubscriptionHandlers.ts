@@ -25,9 +25,13 @@ export const subscriptionHandlers: HttpHandler[] = [
       return HttpResponse.json({ error: 'User already has an active subscription' }, { status: 409 })
     }
 
+    const end = new Date() 
+    end.setMonth(end.getMonth() + 1)
+
     setSubMetadata({
       provider: 'paypal',
-      tier
+      tier,
+      endDate: end.toISOString()
     })
 
     return HttpResponse.json({ id: 'paypal-id' })
@@ -54,9 +58,13 @@ export const subscriptionHandlers: HttpHandler[] = [
       return HttpResponse.json({ error: 'No active subscription found' }, { status: 404 })
     }
 
+    const end = new Date() 
+    end.setMonth(end.getMonth() + 1)
+
     setSubMetadata({
       provider: 'paypal',
-      tier: newTier
+      tier: newTier,
+      endDate: end.toISOString()
     })
 
     return HttpResponse.json({
