@@ -349,7 +349,7 @@ export const octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade> = {
       return n / 2000
     },
     effectDescription: (n: number) =>
-      i18next.t('octeract.data.octeractImprovedAscensionSpeed2.effect', { n: format(n / 50, 2, true) }),
+      i18next.t('octeract.data.octeractImprovedAscensionSpeed2.effect', { n: format(n / 20, 2, true) }),
     name: () => i18next.t('octeract.data.octeractImprovedAscensionSpeed2.name'),
     description: () => i18next.t('octeract.data.octeractImprovedAscensionSpeed2.description'),
     qualityOfLife: false

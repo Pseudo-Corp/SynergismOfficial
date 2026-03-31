@@ -522,12 +522,12 @@ const synergismLevelMilestones: Record<SynergismLevelMilestones, SynergismLevelM
   runeAutobuyImprover: {
     name: () => i18next.t('achievements.levelMilestones.runeAutobuyImprover.name'),
     description: () => i18next.t('achievements.levelMilestones.runeAutobuyImprover.description'),
-    effect: () => 2 + (achievementLevel - 130) / 10,
+    effect: () => 1.1 + 0.01 * (achievementLevel - 130),
     defaultValue: 1,
     effectDescription: () => {
       const mult = getLevelMilestone('runeAutobuyImprover')
       return i18next.t('achievements.levelMilestones.runeAutobuyImprover.effect', {
-        mult: format(mult, 1, true)
+        mult: formatAsPercentIncrease(mult, 0)
       })
     },
     levelReq: 130,

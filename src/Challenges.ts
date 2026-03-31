@@ -2,6 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { hepteractEffective } from './Hepteracts'
+import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { AutoAscensionResetModes, toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
@@ -87,7 +88,7 @@ export const getMaxChallenges = (i: number) => {
     // Cube Upgrade 2x9: +4/level
     maxChallenge += 4 * player.cubeUpgrades[29]
     // Shop Upgrade "Challenge Extension": +2/level
-    maxChallenge += 2 * player.shopUpgrades.challengeExtension
+    maxChallenge += getShopUpgradeEffects('challengeExtension', 'reincarnationChallengeCap')
     // Platonic Upgrade 5 (ALPHA): +10
     if (player.platonicUpgrades[5] > 0) {
       maxChallenge += 10
@@ -224,7 +225,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         break
       }
       case 3: {
-        current1 = format(0.04 * player.challengecompletions[3], 2, true)
+        current1 = format(0.04 * CalcECC('transcend', player.challengecompletions[3]), 2, true)
         current2 = format(0.5 * CalcECC('transcend', player.challengecompletions[3]), 2, true)
         current3 = format(0.01 * CalcECC('transcend', player.challengecompletions[3]), 2, true)
         break
@@ -361,6 +362,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
   if (
     player.challengecompletions[i] >= player.highestchallengecompletions[i]
     && player.highestchallengecompletions[i] < maxChallenges && changefocus && player.ascensionCount >= 1
+    && i <= 10
   ) {
     j.textContent = i18next.t('challenges.ascensionBankAdd', {
       x: i > 5 ? 2 : 1,
@@ -515,7 +517,9 @@ const calculateChallengeRequirementMultiplier = (
           requirementMultiplier *= Math.pow(
             1000,
             (completions - 60)
-              * (1 - 0.01 * player.shopUpgrades.challengeTome - 0.01 * player.shopUpgrades.challengeTome2) / 10
+              * (1 + getShopUpgradeEffects('challengeTome', 'c9c10ScalingReduction')
+                + getShopUpgradeEffects('challengeTome2', 'c9c10ScalingReduction'))
+              / 10
           )
         }
       }
@@ -573,7 +577,8 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     if (challenge === 10) {
       c10Reduction =
         1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185])
-        + 2e7 * (player.shopUpgrades.challengeTome + player.shopUpgrades.challengeTome2)
+        + getShopUpgradeEffects('challengeTome', 'c10RequirementReduction')
+        + getShopUpgradeEffects('challengeTome2', 'c10RequirementReduction')
     }
     return Decimal.pow(
       10,
@@ -775,13 +780,13 @@ export function tickChallengeSweep (dt: number): void {
 
 export const autoAscensionChallengeSweepUnlock = () => {
   return player.highestSingularityCount >= 101 // I believe this is a perk...
-    && player.shopUpgrades.instantChallenge2 > 0
+    && getShopUpgradeEffects('instantChallenge2', 'unlocked')
 }
 
 const challenge15AutoExponentCheck = () => {
   return autoAscensionChallengeSweepUnlock()
     && player.currentChallenge.ascension === 15
-    && player.shopUpgrades.challenge15Auto === 0
+    && !getShopUpgradeEffects('challenge15Auto', 'unlocked')
     && player.autoAscend
     && player.cubeUpgrades[10] > 0
     && player.autoAscendMode === AutoAscensionResetModes.realAscensionTime

@@ -236,7 +236,7 @@ import {
 } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
-import { updateShopLevels } from './Shop'
+import { getShopUpgradeEffects, updateShopLevels } from './Shop'
 import {
   blankGQLevelObject,
   calculateMaxSingularityLookahead,
@@ -571,7 +571,8 @@ export const player: Player = {
     infiniteAscent: new Decimal(0),
     antiquities: new Decimal(0),
     horseShoe: new Decimal(0),
-    finiteDescent: new Decimal(0)
+    finiteDescent: new Decimal(0),
+    topHat: new Decimal(0)
   },
 
   runeBlessings: {
@@ -716,7 +717,8 @@ export const player: Player = {
     shopRedLuck2: 0,
     shopRedLuck3: 0,
     shopInfiniteShopUpgrades: 0,
-    shopHorseShoe: 0
+    shopHorseShoe: 0,
+    shopPanthema: 0
   },
 
   shopPotionsConsumed: {
@@ -1124,6 +1126,10 @@ export const player: Player = {
     taxmanLastStand: new SingularityChallenge(
       singularityChallengeData.taxmanLastStand,
       'taxmanLastStand'
+    ),
+    noQuarkUpgrades: new SingularityChallenge(
+      singularityChallengeData.noQuarkUpgrades,
+      'noQuarkUpgrades'
     )
   },
 
@@ -1986,12 +1992,14 @@ const loadSynergy = () => {
       )
       DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
     }
-    DOMCacheGetOrSet('autoHepteractPercentage').textContent = i18next.t(
-      'wowCubes.hepteractForge.autoSetting',
-      {
-        x: `${player.hepteractAutoCraftPercentage}`
-      }
-    )
+    if (player.highestSingularityCount > 0) {
+      DOMCacheGetOrSet('autoHepteractPercentage').textContent = i18next.t(
+        'wowCubes.hepteractForge.autoSetting',
+        {
+          x: `${player.hepteractAutoCraftPercentage}`
+        }
+      )
+    }
     DOMCacheGetOrSet('hepteractToQuarkTradeAuto').textContent = player.overfluxOrbsAutoBuy
       ? i18next.t('general.autoOnColon')
       : i18next.t('general.autoOffColon')
@@ -2263,9 +2271,12 @@ export const format = (
     mantissa = 1
   }
 
-  // If the power is less than 15 it's effectively 0
+  // If the power is less than 100 it's effectively 0
+  // To my knowledge the only number that goes as low as e-100 is TD16. Strangely it causes a new bug
+  // For pure scientific, where it says "1.00e-,100". I think this is an acceptable side effect
+  // Considering that it fixes an issue that quite a few people (including myself) had with this notation || 6030
 
-  if (power < -15) {
+  if (power < -100) {
     return '0'
   }
   if (player.notation === 'Pure Engineering') {
@@ -3157,7 +3168,7 @@ export const multipliers = (): void => {
           * Math.min(
             100
               + 1000 * +getAchievementReward('constUpgrade2Buff')
-              + 10 * player.shopUpgrades.constantEX
+              + 10 * getShopUpgradeEffects('constantEX', 'maxPercentIncrease')
               + 1000 * (G.challenge15Rewards.exponent.value - 1)
               + 3 * player.platonicUpgrades[18],
             player.constantUpgrades[2]
@@ -3678,12 +3689,8 @@ export const resetCheck = async (
       && player.challengecompletions[q] < maxCompletions
     ) {
       let maxInc = 1
-      if (player.shopUpgrades.instantChallenge > 0) {
-        maxInc = 10
-      }
-      if (player.shopUpgrades.instantChallenge2 > 0) {
-        maxInc += player.highestSingularityCount
-      }
+      maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+      maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
       if (player.currentChallenge.ascension === 13) {
         maxInc = 1
       }
@@ -3719,7 +3726,7 @@ export const resetCheck = async (
       player.currentChallenge.transcension = 0
       updateChallengeDisplay()
     }
-    if (player.shopUpgrades.instantChallenge === 0 || leaving) {
+    if (leaving || !getShopUpgradeEffects('instantChallenge', 'unlocked')) {
       reset('transcensionChallenge', false, 'leaveChallenge')
     }
   }
@@ -3758,12 +3765,8 @@ export const resetCheck = async (
       && player.challengecompletions[q] < maxCompletions
     ) {
       let maxInc = 1
-      if (player.shopUpgrades.instantChallenge > 0) {
-        maxInc = 10
-      }
-      if (player.shopUpgrades.instantChallenge2 > 0) {
-        maxInc += player.highestSingularityCount
-      }
+      maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+      maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
       if (player.currentChallenge.ascension === 13) {
         maxInc = 1
       }
@@ -3807,14 +3810,14 @@ export const resetCheck = async (
         && player.challengecompletions[q] >= maxCompletions)
     ) {
       player.currentChallenge.reincarnation = 0
-      if (player.shopUpgrades.instantChallenge > 0) {
+      if (getShopUpgradeEffects('instantChallenge', 'unlocked')) {
         for (let j = 1; j <= 5; j++) {
           player.challengecompletions[j] = player.highestchallengecompletions[j]
         }
       }
       updateChallengeDisplay()
     }
-    if (player.shopUpgrades.instantChallenge === 0 || leaving) {
+    if (leaving || !getShopUpgradeEffects('instantChallenge', 'unlocked')) {
       reset('reincarnationChallenge', false, 'leaveChallenge')
     }
   }
@@ -3871,9 +3874,7 @@ export const resetCheck = async (
         updateChallengeLevel(a)
         challengeDisplay(a, false)
       }
-      if (
-        (manual || leaving || player.shopUpgrades.challenge15Auto > 0) // removed a check that ensures always all lv11.. did not seem necessary
-      ) {
+      if (manual || leaving || getShopUpgradeEffects('challenge15Auto', 'unlocked')) {
         if (
           player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))
         ) {
@@ -3926,7 +3927,7 @@ export const resetCheck = async (
       }
     }
 
-    if ((player.shopUpgrades.instantChallenge2 === 0 && a !== 15) || manual) {
+    if (manual || (a !== 15 && !getShopUpgradeEffects('instantChallenge2', 'unlocked'))) {
       reset('ascensionChallenge', false)
     }
   }
@@ -4612,8 +4613,8 @@ export const updateAll = (): void => {
 
   // Challenge 15 autoupdate
   if (
-    player.shopUpgrades.challenge15Auto > 0
-    && player.currentChallenge.ascension === 15
+    player.currentChallenge.ascension === 15
+    && getShopUpgradeEffects('challenge15Auto', 'unlocked')
   ) {
     const c15SM = challenge15ScoreMultiplier()
     if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
@@ -4718,7 +4719,7 @@ const tack = (dt: number) => {
     addTimers('redAmbrosia', dt)
 
     // Triggers automatic rune sacrifice (adds milliseconds to payload timer)
-    if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {
+    if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto', 'autoRune')) {
       automaticTools('runeSacrifice', dt)
     }
 

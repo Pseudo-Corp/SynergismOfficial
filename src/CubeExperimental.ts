@@ -9,6 +9,7 @@ Thank you! */
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { quarkHandler } from './Quark'
+import { getShopUpgradeEffects } from './Shop'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
@@ -185,7 +186,7 @@ export class WowCubes extends Cube {
     }
     player.cubeOpenedDaily += toSpend
 
-    const quarkMult = (player.shopUpgrades.cubeToQuark) ? 1.5 : 1
+    const quarkMult = getShopUpgradeEffects('cubeToQuark', 'cubeQuarkMult')
     const gainQuarks = Number(this.checkQuarkGain(5, quarkMult, player.cubeOpenedDaily))
     const actualQuarksGain = Math.max(0, gainQuarks - player.cubeQuarkDaily)
     player.cubeQuarkDaily += actualQuarksGain
@@ -260,7 +261,7 @@ export class WowTesseracts extends Cube {
     }
     player.tesseractOpenedDaily += toSpend
 
-    const quarkMult = (player.shopUpgrades.tesseractToQuark) ? 1.5 : 1
+    const quarkMult = getShopUpgradeEffects('tesseractToQuark', 'tesseractQuarkMult')
     const gainQuarks = Number(this.checkQuarkGain(7, quarkMult, player.tesseractOpenedDaily))
     const actualQuarksGain = Math.max(0, gainQuarks - player.tesseractQuarkDaily)
     player.tesseractQuarkDaily += actualQuarksGain
@@ -301,7 +302,7 @@ export class WowHypercubes extends Cube {
     }
     player.hypercubeOpenedDaily += toSpend
 
-    const quarkMult = (player.shopUpgrades.hypercubeToQuark) ? 1.5 : 1
+    const quarkMult = getShopUpgradeEffects('hypercubeToQuark', 'hypercubeQuarkMult')
     const gainQuarks = this.checkQuarkGain(10, quarkMult, player.hypercubeOpenedDaily)
     const actualQuarksGain = Math.max(0, gainQuarks - player.hypercubeQuarkDaily)
     player.hypercubeQuarkDaily += actualQuarksGain

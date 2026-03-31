@@ -7,6 +7,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateGlobalSpeedMult, calculateTotalCoinOwned } from './Calculate'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getRuneEffects } from './Runes'
+import { getShopUpgradeEffects } from './Shop'
 import {
   calculateBuildingPower,
   crystalUpgrade3Base,
@@ -47,7 +48,8 @@ const constantUpgDesc: Record<number, () => Record<string, string>> = {
   }),
   2: () => ({
     max: format(
-      10 + 100 * +getAchievementReward('constUpgrade2Buff') + player.shopUpgrades.constantEX + 100
+      10 + 100 * +getAchievementReward('constUpgrade2Buff') + getShopUpgradeEffects('constantEX', 'maxPercentIncrease')
+        + 100
           * (G.challenge15Rewards.exponent.value - 1)
         + 0.3 * player.platonicUpgrades[18],
       2,
@@ -663,7 +665,8 @@ const constUpgEffect: Record<number, () => Record<string, string>> = {
         1
           + 0.001
             * Math.min(
-              100 + 1000 * +getAchievementReward('constUpgrade2Buff') + 10 * player.shopUpgrades.constantEX
+              100 + 1000 * +getAchievementReward('constUpgrade2Buff')
+                + 10 * getShopUpgradeEffects('constantEX', 'maxPercentIncrease')
                 + 3 * player.platonicUpgrades[18] + 1000 * (G.challenge15Rewards.exponent.value - 1),
               player.constantUpgrades[2]
             ),

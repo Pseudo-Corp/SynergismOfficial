@@ -98,6 +98,8 @@ const initializeConsumablesTab = memoize(() => {
           })
         }
       })
+
+      updateLotusDisplay()
     })
 })
 
@@ -140,11 +142,13 @@ const createLotusHTML = (lotusItems: ConsumableListItems[]) => {
         <img src='Pictures/PseudoShop/LOTUS.png' alt='Lotus Box' />
         <p class="gradientText lotusGradient">${i18next.t('pseudoCoins.lotus.nameSingular')}</p>
       </div>
-      <div class="lotusHeaderText">
-        <p id="lotusOwned">${i18next.t('pseudoCoins.lotus.owned', { x: format(getOwnedLotus(), 0, true) })}</p>
-        <p id="lotusUsed">${i18next.t('pseudoCoins.lotus.lifetimeUsed', { x: format(getUsedLotus(), 0, true) })}</p>
+      <div style="padding:5px;">
+        <div class="lotusHeaderText">
+          <p id="lotusOwned">${i18next.t('pseudoCoins.lotus.owned', { x: format(getOwnedLotus(), 0, true) })}</p>
+          <p id="lotusUsed">${i18next.t('pseudoCoins.lotus.lifetimeUsed', { x: format(getUsedLotus(), 0, true) })}</p>
+        </div>
+        <p style="text-align: center; min-height: 55px">${i18next.t('pseudoCoins.lotus.intro')}</p>
       </div>
-      <p style="text-align: center; min-height: 55px">${i18next.t('pseudoCoins.lotus.intro')}</p>
       <div class="lotusOptions">
         ${
     orderedLotus.map((u) => `

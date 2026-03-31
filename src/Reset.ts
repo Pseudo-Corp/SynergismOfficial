@@ -51,7 +51,7 @@ import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, runes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
-import { resetShopUpgradesOnSingularity } from './Shop'
+import { getShopUpgradeEffects, resetShopUpgradesOnSingularity } from './Shop'
 import {
   calculateMaxSingularityLookahead,
   calculateSingularityDebuff,
@@ -601,7 +601,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     G.reincarnationPointGain = new Decimal('0')
 
-    if (player.shopUpgrades.instantChallenge > 0 && player.currentChallenge.reincarnation === 0) {
+    if (getShopUpgradeEffects('instantChallenge', 'unlocked') && player.currentChallenge.reincarnation === 0) {
       player.challengecompletions[1] = player.highestchallengecompletions[1]
       player.challengecompletions[2] = player.highestchallengecompletions[2]
       player.challengecompletions[3] = player.highestchallengecompletions[3]
@@ -812,7 +812,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         const orbsAmount = Math.floor(heptAutoSpend / 250000)
         if (player.wowAbyssals - (250000 * orbsAmount) >= 0) {
           player.overfluxOrbs += orbsAmount
-          player.overfluxPowder += player.shopUpgrades.powderAuto * calculatePowderConversion() * orbsAmount / 100
+          player.overfluxPowder += getShopUpgradeEffects('powderAuto', 'automaticPowderFraction')
+            * calculatePowderConversion() * orbsAmount
           player.wowAbyssals -= 250000 * orbsAmount
         }
         if (player.wowAbyssals < 0) {

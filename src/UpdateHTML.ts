@@ -36,6 +36,7 @@ import { PCoinUpgrades } from './PseudoCoinUpgrades'
 import { initializeCart } from './purchases/CartTab'
 import { isResearchUnlocked, roombaResearchEnabled } from './Research'
 import { getRuneEffects, type RuneKeys, runes, updateRuneHTML } from './Runes'
+import { getShopUpgradeEffects } from './Shop'
 import {
   getGQUpgradeEffect,
   updateSingularityElevator,
@@ -183,8 +184,11 @@ export const revealStuff = () => {
 
   visualUpdateShop()
 
-  const hepts = DOMCacheGetOrSet('corruptionHepteracts')
-  hepts.style.display = 'block'
+  if (G.challenge15Rewards.hepteractsUnlocked.value > 0) {
+    DOMCacheGetOrSet('corruptionHepteracts').style.display = 'block'
+  } else {
+    DOMCacheGetOrSet('corruptionHepteracts').style.display = 'none'
+  }
 
   document.documentElement.dataset.cookies1 = getGQUpgradeEffect('cookies') ? 'true' : 'false'
   document.documentElement.dataset.cookies2 = getGQUpgradeEffect('cookies2') ? 'true' : 'false'
@@ -326,18 +330,19 @@ export const revealStuff = () => {
     player.researches[190] > 0 ? 'block' : 'none'
 
   DOMCacheGetOrSet('toggleautosacrifice').style.display = // Auto Offering Shop Purchase
-    player.shopUpgrades.offeringAuto > 0 ? 'block' : 'none'
+    getShopUpgradeEffects('offeringAuto', 'autoRune') ? 'block' : 'none'
 
   DOMCacheGetOrSet('toggleautoBuyFragments').style.display = // Auto Fragments Buy (After Cx1)
     player.cubeUpgrades[51] > 0 && player.highestSingularityCount >= 40 ? 'block' : 'none'
 
-  DOMCacheGetOrSet('toggleautoresearch').style.display = // Auto Research Shop Purchase
-    player.shopUpgrades.obtainiumAuto > 0 ? 'block' : 'none'
+  const autoResearch = getShopUpgradeEffects('obtainiumAuto', 'autoResearch')
 
-  DOMCacheGetOrSet('toggleautoresearchmode').style.display =
-    player.shopUpgrades.obtainiumAuto > 0 && roombaResearchEnabled() // Auto Research Shop Purchase Mode
-      ? 'block'
-      : 'none'
+  DOMCacheGetOrSet('toggleautoresearch').style.display = // Auto Research Shop Purchase
+    autoResearch ? 'block' : 'none'
+
+  DOMCacheGetOrSet('toggleautoresearchmode').style.display = autoResearch && roombaResearchEnabled() // Auto Research Shop Purchase Mode
+    ? 'block'
+    : 'none'
 
   DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = player.cubeUpgrades[8] > 0 ? 'block' : 'none'
 
@@ -385,7 +390,7 @@ export const revealStuff = () => {
     ? 'block'
     : 'none'
 
-  DOMCacheGetOrSet('warpAuto').style.display = player.shopUpgrades.autoWarp > 0 ? '' : 'none'
+  DOMCacheGetOrSet('warpAuto').style.display = getShopUpgradeEffects('autoWarp', 'unlocked') ? '' : 'none'
 
   const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>
   for (const item of octeractUnlocks) { // Stuff that you need octeracts to access

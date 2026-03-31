@@ -1,13 +1,14 @@
 import i18next from 'i18next'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateGoldenQuarkCost, calculateImmaculateAlchemyBonus } from './Calculate'
+import { calculateExalt4EffectiveSingularityMultiplier, calculateGoldenQuarkCost, calculateImmaculateAlchemyBonus } from './Calculate'
 import { updateMaxTokens, updateTokens } from './Campaign'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { getGlobalBonus, getPersonalBonus, getQuarkBonus } from './Quark'
 import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { singularity } from './Reset'
-import { getRuneEffectiveLevel, runes } from './Runes'
+import { runes } from './Runes'
+import { getShopUpgradeEffects } from './Shop'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { isMobile, toOrdinal } from './Utility'
@@ -2263,7 +2264,7 @@ export async function buyGQUpgradeLevel (
 }
 
 function computeFreeLevelMultiplier (): number {
-  return (player.shopUpgrades.shopSingularityPotency > 0 ? 3.66 : 1) + 0.3 / 100 * player.cubeUpgrades[75]
+  return getShopUpgradeEffects('shopSingularityPotency', 'freeUpgradeMult') + 0.3 / 100 * player.cubeUpgrades[75]
 }
 
 export function computeGQUpgradeFreeLevelSoftcap (upgradeKey: SingularityDataKeys): number {
@@ -2712,7 +2713,7 @@ export const singularityPerks: SingularityPerk[] = [
     name: () => {
       return i18next.t('singularity.perks.forTheLoveOfTheAntGod.name')
     },
-    levels: [10, 15, 25],
+    levels: [10, 15, 20],
     description: (n: number, levels: number[]) => {
       if (n >= levels[2]) {
         return i18next.t('singularity.perks.forTheLoveOfTheAntGod.hasLevel2')
@@ -3145,7 +3146,7 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [200],
     description: () => {
       const amt = (player.singularityCount >= 200)
-        ? format(Math.pow(1 + (player.singularityCount - 199) / 25, 2), 4)
+        ? format(Math.pow(1 + (player.singularityCount - 199) / 20, 2), 4)
         : format(1, 4)
       return i18next.t('singularity.perks.skrauQ.default', { amt })
     },
@@ -3433,7 +3434,7 @@ type SingularityDebuffs =
 
 const calculateSingularityReductions = () => {
   return (
-    player.shopUpgrades.shopSingularityPenaltyDebuff
+    getShopUpgradeEffects('shopSingularityPenaltyDebuff', 'singularityPenaltyReducers')
     + (player.insideSingularityChallenge
       ? getAmbrosiaUpgradeEffects('ambrosiaSingReduction2').singularityReduction
       : getAmbrosiaUpgradeEffects('ambrosiaSingReduction1').singularityReduction)
@@ -3446,14 +3447,7 @@ export const calculateEffectiveSingularities = (
   let effectiveSingularities = singularityCount
   effectiveSingularities *= Math.min(4.75, (0.75 * singularityCount) / 10 + 1)
 
-  if (player.insideSingularityChallenge) {
-    if (player.singularityChallenges.noOcteracts.enabled) {
-      effectiveSingularities *= Math.pow(
-        player.singularityChallenges.noOcteracts.completions + 1,
-        3
-      )
-    }
-  }
+  effectiveSingularities *= calculateExalt4EffectiveSingularityMultiplier(player.singularityChallenges.noOcteracts.completions, false)
 
   if (singularityCount > 10) {
     effectiveSingularities *= 1.5
@@ -3548,8 +3542,7 @@ export const calculateSingularityDebuff = (
   )
 
   let baseDebuffMultiplier = 1
-  baseDebuffMultiplier *= 1
-    - Math.min(300, player.shopUpgrades.shopHorseShoe * getRuneEffectiveLevel('horseShoe')) / 1000
+  baseDebuffMultiplier *= getShopUpgradeEffects('shopHorseShoe', 'singularityPenaltyMult')
 
   if (debuff === 'Offering') {
     const extraMult = Math.pow(1.02, constitutiveSingularityCount)

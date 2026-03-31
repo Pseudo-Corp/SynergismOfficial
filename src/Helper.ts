@@ -14,6 +14,7 @@ import {
 } from './Calculate'
 import { sacrificeAnts } from './Features/Ants/AntSacrifice/sacrifice'
 import { canAutoSacrifice } from './Features/Ants/Automation/sacrifice'
+import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
@@ -21,7 +22,7 @@ import { Seed, seededRandom } from './RNG'
 import { buyAllBlessingLevels } from './RuneBlessings'
 import { getNumberUnlockedRunes, indexToRune, type RuneKeys, runes, sacrificeOfferings } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
-import { useConsumable } from './Shop'
+import { getShopUpgradeEffects, useConsumable } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { player } from './Synergism'
 import { Tabs } from './Tabs'
@@ -286,6 +287,17 @@ type AutoToolInput =
   | 'runeSacrifice'
   | 'antSacrifice'
 
+const calculateAutoSacrificeInterval = () => {
+  let interval = 1
+  interval /= getShopUpgradeEffects('offeringAuto', 'autoRuneSpeedMult')
+  if (player.cubeUpgrades[20] > 0) {
+    interval /= 2
+  }
+  interval /= getLevelMilestone('runeAutobuyImprover')
+  return interval
+}
+let autoSacrificeInterval = 1
+
 /**
  * Assortment of tools which are used when actions are automated.
  * @param input
@@ -330,7 +342,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       // Every real life second this will trigger
       player.sacrificeTimer += time
       if (
-        player.sacrificeTimer >= 1
+        player.sacrificeTimer >= autoSacrificeInterval
         && player.offerings.gt(0)
       ) {
         // Automatic purchase of Blessings
@@ -377,8 +389,8 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
             sacrificeOfferings(indexToRune[rune], player.offerings, true)
           }
         }
-        // Modulo used in event of a large delta time (this could happen for a number of reasons)
-        player.sacrificeTimer %= 1
+        autoSacrificeInterval = calculateAutoSacrificeInterval()
+        player.sacrificeTimer = 0
       }
       break
     case 'antSacrifice': {

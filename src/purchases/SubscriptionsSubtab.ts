@@ -241,9 +241,14 @@ const downgradeButton = (product: SubscriptionProduct) => {
     </button>`
 }
 
-const currentSubscriptionBox = () => {
+const currentSubscriptionBox = (sub: Exclude<SubscriptionMetadata, null>) => {
+  const endDateText = sub.endDate
+    ? `<br><span style="font-size: 0.85em">${
+      i18next.t('pseudoCoins.subscriptionRenews', { date: new Date(sub.endDate).toLocaleDateString() })
+    }</span>`
+    : ''
   return `<button data-name="current-subscription" class="pseudoCoinButton" style="background-color: #b59410">
-    You are here!
+    ${i18next.t('pseudoCoins.subscriptionYouAreHere')}${endDateText}
   </button>`
 }
 
@@ -275,7 +280,7 @@ const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentS
         ${downgradeBtn}
       </section>`
   } else if (product.tier === currentSubTier) {
-    const currentSub = currentSubscriptionBox()
+    const currentSub = currentSubscriptionBox(sub!)
     return `
       <section class="subscriptionContainer" key="${product.id}">
         <div>

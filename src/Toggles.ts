@@ -8,6 +8,7 @@ import { initializeMessages } from './Messages'
 import { researchOrderByCost, roombaResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { indexToRune } from './Runes'
+import { getShopUpgradeEffects } from './Shop'
 import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
@@ -300,7 +301,7 @@ export const toggleResearchBuy = () => {
 
 export const toggleAutoResearch = () => {
   const el = DOMCacheGetOrSet('toggleautoresearch')
-  if (player.autoResearchToggle || player.shopUpgrades.obtainiumAuto < 1) {
+  if (player.autoResearchToggle || !getShopUpgradeEffects('obtainiumAuto', 'autoResearch')) {
     player.autoResearchToggle = false
     el.textContent = i18next.t('researches.automaticOff')
     DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
@@ -345,7 +346,7 @@ export const toggleAutoSacrifice = (index: string) => {
       el.textContent = i18next.t('runes.blessings.autoRuneOn')
       el.style.border = '2px solid green'
     }
-  } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5) {
+  } else if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto', 'autoRune')) {
     if (player.autoSacrifice === numIndex) {
       player.autoSacrifice = 0
     } else {
@@ -511,25 +512,11 @@ export const toggleSingularityScreen = (indexStr: string) => {
 }
 
 interface ChadContributor {
-  login: string
-  id: number
-  node_id: string
-  avatar_url: string
-  gravatar_id: string
-  url: string
-  html_url: string
-  followers_url: string
-  following_url: string
-  gists_url: string
-  starred_url: string
-  subscriptions_url: string
-  organizations_url: string
-  repos_url: string
-  events_url: string
-  received_events_url: string
-  type: string
-  site_admin: boolean
-  contributions: number
+  contributors: {
+    login: string /* username */
+    avatar_url: string
+  }[]
+  artists: string[]
 }
 
 export const setActiveSettingScreen = async (subtab: string) => {
@@ -548,19 +535,13 @@ export const setActiveSettingScreen = async (subtab: string) => {
 
     if (credits.childElementCount > 0 || artists.childElementCount > 0) {
       return
-    } else if (!navigator.onLine || document.hidden) {
-      return
     }
 
     try {
-      const r = await fetch('https://api.github.com/repos/pseudo-corp/SynergismOfficial/contributors', {
-        headers: {
-          Accept: 'application/vnd.github.v3+json'
-        }
-      })
-      const j = await r.json() as ChadContributor[]
+      const r = await fetch('https://synergism.cc/contributors')
+      const j = await r.json() as ChadContributor
 
-      for (const contributor of j) {
+      for (const contributor of j.contributors) {
         const div = document.createElement('div')
         div.classList.add('credit')
 
@@ -579,23 +560,10 @@ export const setActiveSettingScreen = async (subtab: string) => {
 
         credits.appendChild(div)
       }
-    } catch (e) {
-      const err = e as Error
-      credits.appendChild(document.createTextNode(err.toString()))
-    }
 
-    try {
-      const r = await fetch('https://api.github.com/gists/01917ff476d25a141c5bad38340cd756', {
-        headers: {
-          Accept: 'application/vnd.github.v3+json'
-        }
-      })
-
-      const j = await r.json() as { files: Record<string, { content: string }> }
-      const f = JSON.parse(j.files['synergism_artists.json'].content) as string[]
-
-      for (const user of f) {
+      for (const user of j.artists) {
         const p = document.createElement('p')
+        p.classList.add('rainbowText')
         p.textContent = user
 
         artists.appendChild(p)

@@ -8,9 +8,11 @@ import {
   calculateQuarkMultFromPowder,
   forcedDailyReset
 } from './Calculate'
+import { testing } from './Config'
 import { Cube } from './CubeExperimental'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { resetTiers } from './Reset'
+import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import type { Player } from './types/Synergism'
@@ -65,7 +67,10 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: { obtainium: 1e115 },
-    UNLOCKED: () => true,
+    UNLOCKED: () => {
+      const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
+      return Boolean(condition)
+    },
     EFFECTS: (hept) => {
       return {
         ascensionSpeed: 1 + 6 * hept / 10000
@@ -90,7 +95,10 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: { offerings: 1e80 },
-    UNLOCKED: () => true,
+    UNLOCKED: () => {
+      const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
+      return Boolean(condition)
+    },
     EFFECTS: (hept) => {
       return {
         hypercubeMultiplier: 1 + 6 * hept / 10000
@@ -115,7 +123,10 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
     OTHER_CONVERSIONS: { worlds: 100 },
-    UNLOCKED: () => true,
+    UNLOCKED: () => {
+      const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
+      return Boolean(condition)
+    },
     EFFECTS: (hept) => {
       const exponent = hepteracts.quark.DR + hepteracts.quark.DR_INCREASE()
       return {
@@ -144,11 +155,11 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
         + getGQUpgradeEffect('singQuarkHepteract2')
         + getGQUpgradeEffect('singQuarkHepteract3')
         + getOcteractUpgradeEffect('octeractImprovedQuarkHept')
-        + player.shopUpgrades.improveQuarkHept / 100
-        + player.shopUpgrades.improveQuarkHept2 / 100
-        + player.shopUpgrades.improveQuarkHept3 / 100
-        + player.shopUpgrades.improveQuarkHept4 / 100
-        + player.shopUpgrades.improveQuarkHept5 / 100
+        + getShopUpgradeEffects('improveQuarkHept', 'quarkHeptExponent')
+        + getShopUpgradeEffects('improveQuarkHept2', 'quarkHeptExponent')
+        + getShopUpgradeEffects('improveQuarkHept3', 'quarkHeptExponent')
+        + getShopUpgradeEffects('improveQuarkHept4', 'quarkHeptExponent')
+        + getShopUpgradeEffects('improveQuarkHept5', 'quarkHeptExponent')
     }
   },
   challenge: {
@@ -462,10 +473,12 @@ export const craftHepteracts = async (hept: HepteractKeys, max = false) => {
     const lessText = (actualCraftableAmount < 0.9999 * requestedCraftAmount)
       ? i18next.t('hepteracts.craftedHepteractLower')
       : ''
-
-    console.log(
-      `Crafted ${amountToCraft} Hepteracts. Actual craftable amount was ${actualCraftableAmount}, and requested craft amount was ${requestedCraftAmount}.`
-    )
+    
+    if (testing) {
+      console.log(
+        `Crafted ${amountToCraft} Hepteracts. Actual craftable amount was ${actualCraftableAmount}, and requested craft amount was ${requestedCraftAmount}.`
+      )
+    }
 
     return Alert(`${craftText} ${lessText}`)
   }
@@ -773,7 +786,8 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?: boolean) => {
     player.wowAbyssals = 0
   }
 
-  const powderGain = player.shopUpgrades.powderAuto * calculatePowderConversion() * buyAmount / 100
+  const powderGain = getShopUpgradeEffects('powderAuto', 'automaticPowderFraction') * calculatePowderConversion()
+    * buyAmount
   player.overfluxPowder += powderGain
 
   const powderText = (powderGain > 0) ? i18next.t('hepteracts.gainedPowder', { x: format(powderGain, 2, true) }) : ''
