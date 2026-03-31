@@ -7627,6 +7627,8 @@
     "currEffect": "Current Level:",
     "nextEffect": "Next Level:",
     "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
+    "subscriptionRenews": "Renews: {{date}}",
+    "subscriptionYouAreHere": "You are here!",
     "upgradeNames": {
       "INSTANT_UNLOCK_1": "The Talisman Activator-inator",
       "INSTANT_UNLOCK_2": "The Rune Discoverer-inator",

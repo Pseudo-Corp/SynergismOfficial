@@ -253,6 +253,7 @@ export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon' | 'steam'
 export type SubscriptionMetadata = {
   provider: SubscriptionProvider
   tier: number
+  endDate: string
 } | null
 
 interface SynergismUserAPIResponse<T extends keyof AccountMetadata> {
@@ -321,7 +322,7 @@ export async function handleLogin () {
     if (!isSynergismCC && platform === 'browser') {
       subtabElement.innerHTML = i18next.t('account.loginNotAvailable')
     } else if (hasAccount(account)) {
-      if (Object.keys(account.member).length === 0) {
+      if (account.member == null || Object.keys(account.member).length === 0) {
         subtabElement.innerHTML = i18next.t('account.loggedInBut')
         break generateSubtabBrowser
       }
