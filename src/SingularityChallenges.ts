@@ -517,7 +517,7 @@ export const singularityChallengeData: Record<
     },
     HTMLTag: 'limitedTime',
     singularityRequirement: (baseReq: number, completions: number) => {
-      if (completions > 10) {
+      if (completions > 9) {
         return 277 + 2 * (completions - 10)
       } else {
         return baseReq + 8 * completions
