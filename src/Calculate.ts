@@ -1551,13 +1551,17 @@ export const calculateAmbrosiaQuarkMult = () => {
 }
 
 export const calculateExalt6TimeLimit = (comps: number) => {
-  return 600 - 60 * comps
+  if (comps >= 10) {
+    return 115 - 5 * (comps - 10)
+  } else {
+    return 600 - 60 * comps
+  }
 }
 
 const calculateExalt6PenaltyPerMinute = (comps: number) => {
   let penaltyPerMinute = 10 + 3 * comps
-  if (comps >= 9) {
-    penaltyPerMinute = 100
+  if (comps >= 10) {
+    penaltyPerMinute = 60 + 10 * (comps - 10)
   }
   return penaltyPerMinute
 }

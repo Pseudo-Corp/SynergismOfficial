@@ -1834,7 +1834,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.shopAmbrosiaAccelerator'),
     effects: (n) => {
       const ex5Comps = player.singularityChallenges.noAmbrosiaUpgrades.completions
-      return 1 - 0.008 * n * ex5Comps // ambrosiaPointRequirementMult
+      return 1 - 0.006 * n * ex5Comps // ambrosiaPointRequirementMult
     },
     effectDescription () {
       const effects = getShopUpgradeEffects('shopAmbrosiaAccelerator', 'ambrosiaPointRequirementMult')
@@ -1900,7 +1900,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.shopAmbrosiaUltra'),
     effects: (n) => {
       const totalExaltChallengeCompletions = sumOfExaltCompletions()
-      return n * totalExaltChallengeCompletions // ambrosiaLuck
+      return 2 * n * totalExaltChallengeCompletions // ambrosiaLuck
     },
     effectDescription () {
       const effects = getShopUpgradeEffects('shopAmbrosiaUltra', 'ambrosiaLuck')
