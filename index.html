@@ -1111,6 +1111,7 @@
                 <p id="superiorIntellectRunePower" style="color: tomato"></p>
                 <p id="infiniteAscentRunePower" style="color: lightgoldenrodyellow"></p>
                 <p id="antiquitiesRunePower" class="orchidText"></p>
+                <p id="topHatRunePower" style="color: gainsboro"></p>
                 <p id="horseShoeRunePower" style="color: burlywood"></p>
                 <p id="finiteDescentRunePower" style="color: lightgray"></p>
                 <p id="runehotkeys" style="color: lightgray;" i18n="footnotes.runes"></p>
@@ -1181,6 +1182,7 @@
                         <p id="talismanAntiquitiesEffect" style="color: orchid"></p>
                         <p id="talismanHorseShoeEffect" style="color: burlywood"></p>
                         <p id="talismanFiniteDescentEffect" style="color: lightgray"></p>
+                        <p id="talismanTopHatEffect" style="color: gainsboro"></p>
                         <p id="talismanNoResetText" style="color: pink"></p>
                     </div>
 
@@ -1386,6 +1388,9 @@
                     </div>
                     <div id="limitedAscensionsDiv" class="rainbowBorder">
                         <img id="limitedAscensions" class="challenge" src="Pictures/Default/ExaltChalLimitedAscensions.png">
+                    </div>
+                    <div id="noQuarkUpgradesDiv" class="rainbowBorder">
+                        <img id="noQuarkUpgrades" class="challenge" src="Pictures/Default/ExaltChalNoQuarkUpgrades.png">
                     </div>
                     <div id="noOcteractsDiv" class="rainbowBorder">
                         <img id="noOcteracts" class="challenge" src="Pictures/Default/ExaltChalNoOcteracts.png">
@@ -2775,7 +2780,6 @@
             <p id="corruptionMultiplierTotal" class="tightText"></p>
             <p id="corruptionDifficultyTotal" class="tightText"></p>
             <p id="corruptionSpiritTotal" class="chal12 tightText" style="color: gold"></p>
-            <p id="corruptionBank" class="tightText" style="color: white"></p>
             <p id="corruptionScore" class="tightText" style="color: white"></p>
             <p id="corruptionScoreDR" class="tightText" style="color: red" i18n="corruptions.corruptionScoreDR"></p>
             <p id="corruptionAscensionCount" class="tightText" style="color: white"></p>
@@ -2783,7 +2787,7 @@
             <p id="corruptionTesseracts" class="tightText" style="color: white"></p>
             <p id="corruptionHypercubes" class="chal13 tightText" style="color: white"></p>
             <p id="corruptionPlatonicCubes" class="chal14 tightText" style="color: white"></p>
-            <p id="corruptionHepteracts" class="chal15 tightText" style="color: white"></p>
+            <p id="corruptionHepteracts" class="hepteracts tightText" style="color: white"></p>
             <div id="ascensionAutomation" class="cubeUpgrade10 vAlign">
                 <button id="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green"></button>
                 <button id="ascensionAutoToggle" class="hCenter tight" style="border:2px solid orchid;"></button>
@@ -3607,11 +3611,6 @@
                             <p id="autoWarpLevel"></p>
                             <button class="permshopbutton" id="autoWarpButton" style="border: 2px solid red"></button>
                         </div>
-                        <div class="singularity">
-                            <img id="buySingularityQuarks" alt="buySingularityQuarks" src="Pictures/Default/ShopGoldenQuarks.png" loading="lazy">
-                            <p id="buySingularityQuarksAmount" title="Amount of Golden Quarks you have"></p>
-                            <button class="permshopbutton" id="buySingularityQuarksButton" style="border: 2px solid gold;"></button>
-                        </div>
                         <div class="exalt1Unlock" id="shopSingularityPenaltyDebuffHide">
                             <img id="shopSingularityPenaltyDebuff" alt="Singularity Penalty Debuffer" src="Pictures/Default/ShopSingularityPenaltyDebuff.png" loading="lazy">
                             <p id="shopSingularityPenaltyDebuffLevel"></p>
@@ -3736,6 +3735,16 @@
                             <img id="shopHorseShoe" alt="Horse Shoe" src="Pictures/Default/ShopHorseShoe.png" loading="lazy">
                             <p id="shopHorseShoeLevel"></p>
                             <button class="permshopbutton" id="shopHorseShoeButton" style="border: 2px solid burlywood"></button>
+                        </div>
+                        <div class="singularity" id="shopPanthemaHide">
+                            <img id="shopPanthema" alt="Panthema" src="Pictures/Default/ShopPanthema.png" loading="lazy">
+                            <p id="shopPanthemaLevel"></p>
+                            <button class="permshopbutton" id="shopPanthemaButton" style="border: 2px solid cyan"></button>
+                        </div>
+                        <div class="singularity">
+                            <img id="buySingularityQuarks" alt="buySingularityQuarks" src="Pictures/Default/ShopGoldenQuarks.png" loading="lazy">
+                            <p id="buySingularityQuarksAmount" title="Amount of Golden Quarks you have"></p>
+                            <button class="permshopbutton" id="buySingularityQuarksButton" style="border: 2px solid gold;"></button>
                         </div>
                     </div>
                     <div id="shopButtons">
@@ -4762,7 +4771,7 @@
           <section id="tosSection" style="display:flex;margin:0 auto">
             <input type="radio" id="tosAgree" name="tosAgree" style="margin-right:2px">
             <label for="tosAgree">
-              I agree to the <a id="tosLink" href="javascript:void(0)" style="color:cyan">Terms of Service</a>
+              I agree to the <a id="tosLink" style="color:cyan">Terms of Service</a>
             </label>
           </section>
 
