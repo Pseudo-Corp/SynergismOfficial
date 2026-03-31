@@ -473,7 +473,7 @@ export const craftHepteracts = async (hept: HepteractKeys, max = false) => {
     const lessText = (actualCraftableAmount < 0.9999 * requestedCraftAmount)
       ? i18next.t('hepteracts.craftedHepteractLower')
       : ''
-    
+
     if (testing) {
       console.log(
         `Crafted ${amountToCraft} Hepteracts. Actual craftable amount was ${actualCraftableAmount}, and requested craft amount was ${requestedCraftAmount}.`

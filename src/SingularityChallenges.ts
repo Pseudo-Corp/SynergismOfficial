@@ -1,6 +1,12 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateExalt3AscensionLimit, calculateExalt4EffectiveSingularityMultiplier, calculateExalt6PenaltyPerSecond, calculateExalt6TimeLimit, calculateGoldenQuarks } from './Calculate'
+import {
+  calculateExalt3AscensionLimit,
+  calculateExalt4EffectiveSingularityMultiplier,
+  calculateExalt6PenaltyPerSecond,
+  calculateExalt6TimeLimit,
+  calculateGoldenQuarks
+} from './Calculate'
 import { singularity } from './Reset'
 import { runes } from './Runes'
 import { format, player } from './Synergism'

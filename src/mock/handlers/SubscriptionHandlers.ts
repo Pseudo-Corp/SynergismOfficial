@@ -25,7 +25,7 @@ export const subscriptionHandlers: HttpHandler[] = [
       return HttpResponse.json({ error: 'User already has an active subscription' }, { status: 409 })
     }
 
-    const end = new Date() 
+    const end = new Date()
     end.setMonth(end.getMonth() + 1)
 
     setSubMetadata({
@@ -58,7 +58,7 @@ export const subscriptionHandlers: HttpHandler[] = [
       return HttpResponse.json({ error: 'No active subscription found' }, { status: 404 })
     }
 
-    const end = new Date() 
+    const end = new Date()
     end.setMonth(end.getMonth() + 1)
 
     setSubMetadata({

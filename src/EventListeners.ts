@@ -1625,10 +1625,13 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // EVENT TAB
-  document.querySelector('#consumableEvents > .consumableButton')?.addEventListener('click', () => {
+  function visitConsumableTab () {
     changeTab(Tabs.Purchase)
     changeSubTab(Tabs.Purchase, { page: 3 })
-  })
+  }
+
+  document.querySelector('#consumableEvents > .consumableButton')?.addEventListener('click', visitConsumableTab)
+  document.querySelector('#lotusButtons > .consumableButton')?.addEventListener('click', visitConsumableTab)
 
   document.getElementById('apply-tips')?.addEventListener('click', () => {
     Prompt(i18next.t('pseudoCoins.consumables.applyTipsPrompt', { tips: getTips() }))

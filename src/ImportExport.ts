@@ -476,7 +476,6 @@ export const promocodes = async (input: string | null, amount?: number) => {
       x: format(player.worlds.applyBonus(quarks), 2, true)
     })
   } else if (input === 'alonso bribe' && !player.codes.get(47)) {
-
     const cap = getFinalHepteractCap('quark')
 
     if (cap < 1e300 && (hepteracts.quark.UNLOCKED() || player.highestSingularityCount > 0)) {
