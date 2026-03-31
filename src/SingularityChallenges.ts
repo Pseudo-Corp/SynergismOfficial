@@ -496,7 +496,7 @@ export const singularityChallengeData: Record<
         freeOfferingLevels: n,
         freeSpeedLevels: n,
         freeCubeLevels: n,
-        freeQuarkLevel: n,
+        freeQuarkLevel: n >= 5 ? 1 : 0,
         freeInfinityLevels: n,
         shopUpgrade: n >= 1,
         topHatUnlock: n >= 10
