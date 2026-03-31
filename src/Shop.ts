@@ -2527,7 +2527,9 @@ export const forceResetShopUpgrades = () => {
       player.shopUpgrades[shopKey] = refundableLevel
     }
   }
-  void Alert(i18next.t('shop.refundSuccessful', {
-    amount: format(totalRefundAmt, 0, false)
-  }))
+  if (player.shopConfirmationToggle) {
+    void Alert(i18next.t('shop.refundSuccessful', {
+      amount: format(totalRefundAmt, 0, false)
+    }))
+  }
 }

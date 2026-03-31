@@ -13,7 +13,7 @@ import { Globals as G } from './Variables'
 const defaultHotkeys = new Map<string, [string, () => unknown, /* hide during notification */ boolean]>([
   ['A', ['hotkeys.names.buyAccelerators', () => buyAccelerator(), false]],
   ['B', ['hotkeys.names.boostAccelerator', () => boostAccelerator(), false]],
-  ['C', ['autoChallenge', () => {
+  ['C', ['hotkeys.names.autoChallenge', () => {
     toggleChallengeSweep()
   }, false]],
   ['E', ['hotkeys.names.exitTRChallenge', () => {

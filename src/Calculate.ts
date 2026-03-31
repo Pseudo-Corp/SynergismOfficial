@@ -978,20 +978,6 @@ export const calculateTotalOcteractObtainiumBonus = () => {
   return Math.pow(calculateTotalOcteractCubeBonus(), 1.25)
 }
 
-export const calculateLimitedAscensionsDebuff = () => {
-  if (!player.singularityChallenges.limitedAscensions.enabled) {
-    return 1
-  } else {
-    let exponent = player.ascensionCount
-      - Math.max(
-        0,
-        15 - 2 * player.singularityChallenges.limitedAscensions.completions
-      )
-    exponent = Math.max(0, exponent)
-    return Math.pow(2, exponent)
-  }
-}
-
 export const calculateSingularityQuarkMilestoneMultiplier = () => {
   let multiplier = 1
   for (const sing of singQuarkMilestoneThresholds) {
@@ -1548,6 +1534,25 @@ export const calculateAmbrosiaQuarkMult = () => {
   }
 
   return multiplier
+}
+
+export const calculateExalt3AscensionLimit = (comps: number) => {
+  return Math.max(15 - comps * 2, 0)
+}
+
+export const calculateExalt3Penalty = () => {
+  const ascensionLimit = calculateExalt3AscensionLimit(player.singularityChallenges.limitedAscensions.completions)
+  const ascensions = player.ascensionCount
+  if (!player.singularityChallenges.limitedAscensions.enabled) {
+    return 1
+  } else {
+    return Math.pow(2, Math.max(ascensions - ascensionLimit, 0))
+  }
+}
+
+export const calculateExalt4EffectiveSingularityMultiplier = (comps: number, force: boolean) => {
+  const inExalt4 = player.singularityChallenges.noOcteracts.enabled
+  return inExalt4 || force ? Math.pow(comps + 1, 3) : 1
 }
 
 export const calculateExalt6TimeLimit = (comps: number) => {
