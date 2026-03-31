@@ -246,7 +246,7 @@ export class CorruptionLoadout {
     let bonusLevel = getGQUpgradeEffect('corruptionFifteen')
     bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
     bonusLevel += getTalismanEffects('cookieGrandma').freeCorruptionLevel
-    bonusLevel += getRuneEffects('finiteDescent').corruptionFreeLevels
+    bonusLevel += getRuneEffects('finiteDescent', 'corruptionFreeLevels')
     return bonusLevel
   }
 

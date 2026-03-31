@@ -834,7 +834,7 @@ export const buttoncolorchange = () => {
       f.style.backgroundColor = player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[0] - getRuneEffects('prism').costDivisorLog10
+            G.crystalUpgradesCost[0] - getRuneEffects('prism', 'costDivisorLog10')
               + G.crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2)
           )
         )
@@ -847,7 +847,7 @@ export const buttoncolorchange = () => {
       g.style.backgroundColor = player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[1] - getRuneEffects('prism').costDivisorLog10
+            G.crystalUpgradesCost[1] - getRuneEffects('prism', 'costDivisorLog10')
               + G.crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2)
           )
         )
@@ -860,7 +860,7 @@ export const buttoncolorchange = () => {
       h.style.backgroundColor = player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[2] - getRuneEffects('prism').costDivisorLog10
+            G.crystalUpgradesCost[2] - getRuneEffects('prism', 'costDivisorLog10')
               + G.crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2)
           )
         )
@@ -874,7 +874,7 @@ export const buttoncolorchange = () => {
         player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[3] - getRuneEffects('prism').costDivisorLog10
+            G.crystalUpgradesCost[3] - getRuneEffects('prism', 'costDivisorLog10')
               + G.crystalUpgradeCostIncrement[3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2)
           )
         )
@@ -891,7 +891,7 @@ export const buttoncolorchange = () => {
         player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[4] - getRuneEffects('prism').costDivisorLog10
+            G.crystalUpgradesCost[4] - getRuneEffects('prism', 'costDivisorLog10')
               + G.crystalUpgradeCostIncrement[4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2)
           )
         )

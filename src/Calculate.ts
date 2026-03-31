@@ -1133,7 +1133,7 @@ const computeAscensionScoreBonusMultiplier = () => {
   multiplier *= G.challenge15Rewards.score.value
   multiplier *= calculateAscensionScorePlatonicBlessing()
   multiplier *= player.campaigns.ascensionScoreMultiplier
-  multiplier *= getRuneEffects('finiteDescent').ascensionScore
+  multiplier *= getRuneEffects('finiteDescent', 'ascensionScore')
   if (player.cubeUpgrades[21] > 0) {
     multiplier *= 1 + 0.05 * player.cubeUpgrades[21]
   }

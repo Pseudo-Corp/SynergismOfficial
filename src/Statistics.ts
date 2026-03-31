@@ -213,7 +213,7 @@ export const allCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'InfiniteAscent',
-    stat: () => getRuneEffects('infiniteAscent').cubeMult
+    stat: () => getRuneEffects('infiniteAscent', 'cubeMult')
   },
   {
     i18n: 'Beta',
@@ -476,7 +476,7 @@ export const allWowCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'Antiquities',
-    stat: () => getRuneEffects('antiquities').cubeBonus
+    stat: () => getRuneEffects('antiquities', 'cubeBonus')
   },
   {
     i18n: 'CookieUpgrade13',
@@ -919,7 +919,7 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'SuperiorIntellect',
-    stat: () => getRuneEffects('superiorIntellect').offeringMult // Superior Intellect Rune
+    stat: () => getRuneEffects('superiorIntellect', 'offeringMult') // Superior Intellect Rune
   },
   {
     i18n: 'ReincarnationChallenge',
@@ -1020,7 +1020,7 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'Antiquities',
-    stat: () => Math.pow(10, getRuneEffects('antiquities').offeringLog10) // Antiquities Rune
+    stat: () => Math.pow(10, getRuneEffects('antiquities', 'offeringLog10')) // Antiquities Rune
   },
   {
     i18n: 'Jack',
@@ -1285,7 +1285,8 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'InfiniteAscent',
-    stat: () => getShopUpgradeEffects('infiniteAscent', 'runeUnlocked') ? getRuneEffects('infiniteAscent').quarkMult : 1
+    stat: () =>
+      getShopUpgradeEffects('infiniteAscent', 'runeUnlocked') ? getRuneEffects('infiniteAscent', 'quarkMult') : 1
   },
   {
     i18n: 'QuarkHepteract',
@@ -1511,7 +1512,7 @@ export const allObtainiumIgnoreDRStats: NumberStatLine[] = [
   },
   {
     i18n: 'Antiquities',
-    stat: () => Math.pow(10, getRuneEffects('antiquities').obtainiumLog10) // Antiquities Rune
+    stat: () => Math.pow(10, getRuneEffects('antiquities', 'obtainiumLog10')) // Antiquities Rune
   },
   {
     i18n: 'CubeUpgradeCx5',
@@ -1612,7 +1613,7 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'Rune5',
-    stat: () => getRuneEffects('superiorIntellect').obtainiumMult
+    stat: () => getRuneEffects('superiorIntellect', 'obtainiumMult')
   },
   {
     i18n: 'Ant10',
@@ -1846,7 +1847,7 @@ export const allGlobalSpeedIgnoreDRStats: NumberStatLine[] = [
 export const allGlobalSpeedStats: NumberStatLine[] = [
   {
     i18n: 'SpeedRune',
-    stat: () => getRuneEffects('speed').globalSpeed // Speed Rune
+    stat: () => getRuneEffects('speed', 'globalSpeed') // Speed Rune
   },
   {
     i18n: 'ObtainiumLog',
@@ -2190,7 +2191,7 @@ export const allAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'HorseShoeRune',
-    stat: () => getRuneEffects('horseShoe').ambrosiaLuck // Horseshoe Rune
+    stat: () => getRuneEffects('horseShoe', 'ambrosiaLuck') // Horseshoe Rune
   }
 ]
 
@@ -2522,7 +2523,7 @@ export const allAddCodeTimerStats: NumberStatLine[] = [
   },
   {
     i18n: 'Antiquities',
-    stat: () => getRuneEffects('antiquities').addCodeCooldownReduction, // Antiquities rune reduction (20%)
+    stat: () => getRuneEffects('antiquities', 'addCodeCooldownReduction'), // Antiquities rune reduction (20%)
     color: 'lime'
   },
   {
@@ -2607,7 +2608,7 @@ export const allLuckConversionStats: NumberStatLine[] = [
   },
   {
     i18n: 'HorseShoeRune',
-    stat: () => getRuneEffects('horseShoe').redLuckConversion // Horseshoe Rune
+    stat: () => getRuneEffects('horseShoe', 'redLuckConversion') // Horseshoe Rune
   }
 ]
 
@@ -2657,7 +2658,7 @@ export const allRedAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'HorseShoeRune',
-    stat: () => getRuneEffects('horseShoe').redLuck // Horseshoe Rune
+    stat: () => getRuneEffects('horseShoe', 'redLuck') // Horseshoe Rune
   },
   {
     i18n: 'HorseShoeTalisman',
@@ -2902,7 +2903,7 @@ export const positiveSalvageStats: NumberStatLine[] = [
   },
   {
     i18n: 'RuneBonus',
-    stat: () => getRuneEffects('thrift').salvage // Thrift Rune
+    stat: () => getRuneEffects('thrift', 'salvage') // Thrift Rune
   },
   {
     i18n: 'ReincarnationChallenge',
@@ -2935,7 +2936,7 @@ export const positiveSalvageStats: NumberStatLine[] = [
   },
   {
     i18n: 'InfiniteAscentRune',
-    stat: () => getRuneEffects('infiniteAscent').salvage, // Infinite Ascent Rune
+    stat: () => getRuneEffects('infiniteAscent', 'salvage'), // Infinite Ascent Rune
     displayCriterion: () => {
       return player.highestSingularityCount >= 30
     }
@@ -3045,7 +3046,7 @@ export const antSpeedStats: StatLine[] = [
   },
   {
     i18n: 'SuperiorIntellect',
-    stat: () => getRuneEffects('superiorIntellect').antSpeed, // Superior Intellect Rune
+    stat: () => getRuneEffects('superiorIntellect', 'antSpeed'), // Superior Intellect Rune
     displayCriterion: () => runes.superiorIntellect.isUnlocked(),
     acc: 3
   },
