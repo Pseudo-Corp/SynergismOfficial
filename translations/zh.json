@@ -2003,7 +2003,7 @@
       },
       "runeAutobuyImprover": {
         "name": "符文自动购买DX",
-        "description": "The Auto Rune feature now works 10% faster, plus 1% per Synergism level above 130. Woah!",
+        "description": "自动符文的速度增加10%，且当协同效应等级超过130级以后，每级再增加1%。哇哦！",
         "effect": "当前效果：符文自动购买的速度变为原来的{{mult}}倍"
       },
       "salvageChallengeBuff": {
@@ -2071,7 +2071,7 @@
       "exalts": {
         "name": "递进式成就 - 拔擢阶层完成数",
         "description": "每次完成拔擢都可以获得成就点数！",
-        "apSource": "无金夸克升级：{{num1}}/{{cap1}}成就点数<br>挑战上限恒为一：{{num2}}/{{cap2}}成就点数<br>二十飞升挑战：{{num3}}/{{cap3}}成就点数<br>无夸克升级：{{num4}}/{{cap4}}成就点数<br>无八阶方块效果：{{num5}}/{{cap5}}成就点数<br>无神肴升级：{{num6}}/{{cap6}}成就点数<br>奇点大竞速赛：{{num7}}/{{cap7}}成就点数<br>虐待狂拔擢 III：{{num8}}/{{cap8}}成就点数<br>税务官的最后阵地：{{num9}}/{{cap9}}成就点数"
+        "apSource": "无金夸克升级：{{num1}}/{{cap1}}成就点数<br>挑战上限恒为一：{{num2}}/{{cap2}}成就点数<br>有限飞升挑战：{{num3}}/{{cap3}}成就点数<br>无夸克升级：{{num4}}/{{cap4}}成就点数<br>无八阶方块效果：{{num5}}/{{cap5}}成就点数<br>无神肴升级：{{num6}}/{{cap6}}成就点数<br>奇点大竞速赛：{{num7}}/{{cap7}}成就点数<br>虐待狂拔擢 III：{{num8}}/{{cap8}}成就点数<br>税务官的最后阵地：{{num9}}/{{cap9}}成就点数"
       },
       "singularityUpgrades": {
         "name": "递进式成就 - 金夸克升级",
@@ -2960,7 +2960,7 @@
       "7": "[1x7]自动购买每个粒子建筑。",
       "8": "[1x8]自动购买粒子升级。",
       "9": "[1x9]商店中出售的自动研究现在会自动购买最便宜的升级了。就像扫地机器人一样！<br>像扫地机器人一样，之后解锁更便宜的研究时也会购买它们！",
-      "10": "[1x10]解锁自动飞升。很贵，也很酷。 <br> <<gold|⚠>> 你需要通过挑战11才能让这个机制变得有用！",
+      "10": "[1x10]解锁自动飞升。很贵，也很酷。 <br> <<gold|⚠>> 您需要通过挑战11才能让这个机制变得有用！",
       "11": "[2x1]好好！每级使飞升时惊奇方盒获取数量增加9.09%。",
       "12": "[2x2]将建筑能量变为原来的 (1 + 等级 * 0.09) 次方。",
       "13": "[2x3]每开启20个方盒，就额外获得1个随机贡品。",
@@ -3154,7 +3154,7 @@
       "96": "[4x21]蚂蚁很慢吗？每购买1只工蚁，就使蚂蚁速度变为原来的 (1 + 0.0002 * 等级) 倍。",
       "97": "[4x22]每级使蚂蚁升级的免费等级增加2！免费等级需要有相应数量的购买等级才能生效！",
       "98": "[4x23]每级使蚂蚁升级的免费等级再增加2！",
-      "99": "[4x24]夸克商店的诱惑太强无法自制了？每级使每小时导出奖励增加1夸克！",
+      "99": "[4x24]夸克升级的诱惑太强无法自制了？每级使每小时导出奖励增加1夸克！",
       "100": "[4x25]好吧，Platonic彻底疯了。每级使每小时导出奖励再增加1夸克！",
       "101": "[5x1]要不，每级使创始蚁的效果增加0.001？",
       "102": "[5x2]每级使所有蚂蚁增加1级免费等级！这就是彩虹攻击！",
@@ -3277,10 +3277,10 @@
     "upgradeDescriptions": {
       "offeringPotion": "立刻获得相当于现实时间2小时产量的祭品，数量基于您的最佳每秒祭品和加速效果！",
       "obtainiumPotion": "立刻获得相当于现实时间2小时产量的难得素，数量基于您的最佳每秒难得素和加速效果！",
-      "offeringEX": "Each level, get +6% more Offerings! Every 10th level multiplies the effect of this upgrade by 1.08.",
-      "offeringAuto": "Automatically pour Offerings into a Rune. Unlock the mechanic with the first level, and make it 1% faster per level!",
-      "obtainiumEX": "Each level, get +6% more Obtainium! Every 10th level multiplies the effect of this upgrade by 1.08.",
-      "obtainiumAuto": "Automatically pour Obtainium into a Research. Unlock the mechanic with the first level. Each level also reduces the cost of Researches by 0.1% per level! (Cost is rounded up)",
+      "offeringEX": "每级使祭品获取数量增加6%！每10级还可以使该升级效果变为原来的1.08倍。",
+      "offeringAuto": "自动将祭品注入符文。第1级解锁机制，且每级使自动符文的速度增加1%！",
+      "obtainiumEX": "每级使难得素获取数量增加6%！每10级还可以使该升级效果变为原来的1.08倍。",
+      "obtainiumAuto": "自动将难得素注入研究。第1级解锁机制。每级还可以使研究花费减少0.1%！(向上取整)",
       "instantChallenge": "只要开启重新尝试挑战，超越和转世挑战将不再重置资源，且每个时刻可以完成10次超越和转世挑战。另外，在退出转世挑战时，立刻使超越挑战的完成次数达到之前的完成次数上限。",
       "antSpeed": "每级使蚂蚁强度分增加4。不要问它从哪里来。",
       "cashGrab": "这玩意非常贵，但是效果拔群。每级使祭品和难得素的获取数量增加1%。",
@@ -3333,7 +3333,7 @@
       "seasonPassInfinity": "[由无限公司提供]每级使所有类型的方盒、立方和方块获取数量增加1.2%，效果叠乘！(倍率为1.012^等级)。计算八阶方块时，效果为原来的1.25次方。",
       "shopSingularityPenaltyDebuff": "Derpsmith对您在第一个拔擢里的表现感到很骄傲，他决定让奇点的惩罚弱化一些。但是花费，您懂的。",
       "obtainiumEX2": "对于每次奇点，每级使难得素获取数量增加1%！！！",
-      "improveQuarkHept5": "[Supplied by - Infinity CO.] Adds +0.0001 Quark Hept Exponent per level. The effect is 1% of the originals... for balancing reasons. Yes.",
+      "improveQuarkHept5": "[由无限公司提供]每级使惊奇七阶立方·夸克的指数增加0.0001。它的效果只有原始数值的1%……这是为了平衡，嗯。",
       "shopAmbrosiaGeneration1": "购买该小符饰后，每级可以使神肴进度条点数获取速度增加1%，以此获得更多神肴！",
       "shopAmbrosiaGeneration2": "新加强的难度素粉可以使小符饰变得更强大，每级可以使神肴进度条点数获取速度增加1%，效果相互叠乘。",
       "shopAmbrosiaGeneration3": "看来难度素粉越多，小符饰就越强大，多奇怪。每级可以使神肴进度条点数获取速度增加1%，效果相互叠乘。",
@@ -3348,14 +3348,14 @@
       "shopAmbrosiaLuckMultiplier4": "每级使神肴之运增加1%！就这么简单。",
       "shopOcteractAmbrosiaLuck": "每级使神肴之运增加1，且该效果乘以您的惊奇八阶方块的数量级！",
       "shopCashGrabUltra": "象征性地支付一点费用，根据神肴数量，每级至多使神肴进度条点数获取速度增加15%，方盒获取数量增加120%，夸克获取数量增加8%。效果增长非线性，直到一共获得10000000神肴为止。",
-      "shopAmbrosiaAccelerator": "For each level of this Accelerator, reduce Ambrosia Bar Point requirements for Ambrosia generation by 0.6% per completion of EXALT 5 - No Ambrosia Upgrades.",
+      "shopAmbrosiaAccelerator": "每完成一次拔擢 - 无神肴升级，每级该升级就可以使神肴进度条点数需求减少0.6%。",
       "shopEXUltra": "拥有该额外升级后，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！",
       "shopChronometerS": "200次进入奇点后，每有1次奇点次数，该升级就使飞升的速度和全局速度增加1%！",
-      "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +2 permanent Ambrosia Luck, per level.",
-      "shopSingularitySpeedup": "You know all those time-gated Singularity Perks and Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
-      "shopSingularityPotency": "You know all those free Golden Quark Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
+      "shopAmbrosiaUltra": "拥有该额外升级(价格高到离谱)后，每完成1阶层拔擢，每级该升级就可以使神肴之运增加2。",
+      "shopSingularitySpeedup": "您知道那些由时间控制的奇点特权和升级吧？它们增长的速度将变为原来的50倍！多亏了这个甚至能改变<<gray|奇点时长>>的奇怪时钟……",
+      "shopSingularityPotency": "您知道那些免费金夸克升级吧？它们的效果将增加266%(换句话说，不计算软上限的话，每级都将是之前3.66级的效果)。原因？是这个有点奇怪的<<gray|奇点传输仪式装置>>！别多问了。",
       "shopSadisticRune": "多奇怪的符文。店主(您永远也无法再见的那位)通过心灵感应说道，这是浸入某种<<gray|奇点物质>>的无限晋升符文。难道还有其他晋升符文？又或者是<<gray|降阶​​>>符文？",
-      "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +0.01 effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
+      "shopInfiniteShopUpgrades": "印在蓝色铭牌‌上的商店代金券。每完成1阶层拔擢，每级该升级就使“无限公司”相关商店升级的有效等级增加0.01，向下取整。",
       "shopHorseShoe": "马蹄铁的保护效果很好！使马蹄铁符文增加3级免费等级，且每级马蹄铁符文都可以使奇点惩罚(除了回收以外)减少0.1%，效果相互叠加，上限：减少30%！",
       "shopPanthema": "Ace from space!"
     },
@@ -5552,7 +5552,7 @@
     "runeEffectiveLevelCalc": "[(<<lightgray |{{purchased}}>> + <<orange | {{free}}>>) * <<cyan|{{mult}} (加成倍率)>>]",
     "speed": {
       "name": "加速",
-      "description": "这块石头散发出一种能量。你感觉自己被迫用祭品赋予它力量。",
+      "description": "这块石头散发出一种能量。您感觉自己被迫用祭品赋予它力量。",
       "lockedDescription": "呃。这应该要解锁才对。如果您看到这个，请联系我们。",
       "acceleratorPower": "<<cyan|使加速器效果增加{{val}}%>> (每有1符文强度就增加0.02%)",
       "freeAccelerators": "<<cyan|使免费加速器数量增加{{val}}>> (每有1符文强度就增加0.25%)",
