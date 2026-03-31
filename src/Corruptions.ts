@@ -6,6 +6,7 @@ import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getRuneEffects } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, player } from './Synergism'
 import { getTalismanEffects } from './Talismans'
 import { IconSets } from './Themes'
@@ -133,7 +134,7 @@ export class CorruptionLoadout {
     let bonusVal = getGQUpgradeEffect('advancedPack')
       ? 0.33
       : 0
-    bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
+    bonusVal += getSingularityChallengeEffect('oneChallengeCap', 'corrScoreIncrease')
     bonusVal += 0.3 * player.cubeUpgrades[74]
 
     const bonusMult = 1
@@ -244,7 +245,7 @@ export class CorruptionLoadout {
 
   get bonusLevels () {
     let bonusLevel = getGQUpgradeEffect('corruptionFifteen')
-    bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
+    bonusLevel += getSingularityChallengeEffect('oneChallengeCap', 'freeCorruptionLevel')
     bonusLevel += getTalismanEffects('cookieGrandma').freeCorruptionLevel
     bonusLevel += getRuneEffects('finiteDescent', 'corruptionFreeLevels')
     return bonusLevel

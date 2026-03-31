@@ -23,6 +23,7 @@ import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect, goldenQuarkUpgrades } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import {
   allAddCodeCapacityMultiplierStats,
   allAddCodeCapacityStats,
@@ -553,11 +554,11 @@ export const promocodes = async (input: string | null, amount?: number) => {
             / (3600 * 24)
         )
       rolls += getOcteractUpgradeEffect('octeractImprovedDaily3')
-      rolls += +player.singularityChallenges.sadisticPrequel.rewards.extraFree
+      rolls += getSingularityChallengeEffect('sadisticPrequel', 'extraFree')
       rolls *= getOcteractUpgradeEffect('octeractImprovedDaily2')
       rolls *= 1
         + getOcteractUpgradeEffect('octeractImprovedDaily3') / 200
-      rolls *= 1 + +player.singularityChallenges.sadisticPrequel.rewards.freeUpgradeMult
+      rolls *= getSingularityChallengeEffect('sadisticPrequel', 'freeUpgradeMult')
       if (player.highestSingularityCount >= 200) {
         rolls *= 2
       }

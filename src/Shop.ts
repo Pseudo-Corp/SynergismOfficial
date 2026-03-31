@@ -17,6 +17,7 @@ import type { IMultiBuy } from './Cubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getRuneEffectiveLevel, getRuneEffects } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
@@ -143,40 +144,41 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     HTMLColor: 'orange',
     symbol: '☤',
     bonusLevels: () =>
-      +player.singularityChallenges.noQuarkUpgrades.rewards.freeOfferingLevels
+      +getSingularityChallengeEffect('noQuarkUpgrades', 'freeOfferingLevels')
       + getRuneEffects('topHat', 'freeOfferingLevels')
   },
   [ShopUpgradeGroups.Obtainium]: {
     HTMLColor: 'pink',
     symbol: '❍',
     bonusLevels: () =>
-      +player.singularityChallenges.noQuarkUpgrades.rewards.freeObtainiumLevels
+      +getSingularityChallengeEffect('noQuarkUpgrades', 'freeObtainiumLevels')
       + getRuneEffects('topHat', 'freeObtainiumLevels')
   },
   [ShopUpgradeGroups.Cubes]: {
     HTMLColor: 'magenta',
     symbol: '⬢',
     bonusLevels: () =>
-      +player.singularityChallenges.noQuarkUpgrades.rewards.freeCubeLevels
+      +getSingularityChallengeEffect('noQuarkUpgrades', 'freeCubeLevels')
       + getRuneEffects('topHat', 'freeCubeLevels')
   },
   [ShopUpgradeGroups.Speed]: {
     HTMLColor: 'yellow',
     symbol: '⧗',
     bonusLevels: () =>
-      +player.singularityChallenges.noQuarkUpgrades.rewards.freeSpeedLevels
+      +getSingularityChallengeEffect('noQuarkUpgrades', 'freeSpeedLevels')
       + getRuneEffects('topHat', 'freeSpeedLevels')
   },
   [ShopUpgradeGroups.Quark]: {
     HTMLColor: 'cyan',
     symbol: '❂',
-    bonusLevels: () => +player.singularityChallenges.noQuarkUpgrades.rewards.freeQuarkLevel
+    bonusLevels: () => getSingularityChallengeEffect('noQuarkUpgrades', 'freeQuarkLevel')
   },
   [ShopUpgradeGroups.InfinityUpgrades]: {
     HTMLColor: 'lightgoldenrodyellow',
     symbol: '\u221E',
     bonusLevels: () =>
-      calculateFreeShopInfinityUpgrades() + +player.singularityChallenges.noQuarkUpgrades.rewards.freeInfinityLevels
+      calculateFreeShopInfinityUpgrades()
+      + getSingularityChallengeEffect('noQuarkUpgrades', 'freeInfinityLevels')
       + getRuneEffects('topHat', 'freeInfinityLevels')
   },
   [ShopUpgradeGroups.Utility]: {
@@ -1482,10 +1484,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount2: player.singularityCount - effects
       })
     },
-    isUnlocked: () =>
-      Boolean(
-        player.singularityChallenges.noSingularityUpgrades.rewards.shopUpgrade
-      ),
+    isUnlocked: () => getSingularityChallengeEffect('noSingularityUpgrades', 'shopUpgrade'),
     price: 1e17,
     priceIncrease: 9.99e19,
     maxLevel: 4,
@@ -1505,10 +1504,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount: formatAsPercentIncrease(1 + effects, 0)
       })
     },
-    isUnlocked: () =>
-      Boolean(
-        player.singularityChallenges.oneChallengeCap.rewards.shopUpgrade
-      ),
+    isUnlocked: () => getSingularityChallengeEffect('oneChallengeCap', 'shopUpgrade'),
     price: 1e20,
     priceIncrease: 3e20,
     maxLevel: 4,
@@ -1536,10 +1532,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount2: format(addCodeCapacity)
       })
     },
-    isUnlocked: () =>
-      Boolean(
-        player.singularityChallenges.limitedAscensions.rewards.shopUpgrade
-      ),
+    isUnlocked: () => getSingularityChallengeEffect('limitedAscensions', 'shopUpgrade'),
     price: 1e20,
     priceIncrease: 1e19,
     maxLevel: 50,
@@ -1557,7 +1550,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       const effects = getShopUpgradeEffects('shopOcteractAmbrosiaLuck', 'ambrosiaLuck')
       return i18next.t('shop.upgradeEffects.shopOcteractAmbrosiaLuck', { amount: format(effects) })
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.noOcteracts.rewards.shopUpgrade),
+    isUnlocked: () => getSingularityChallengeEffect('noOcteracts', 'shopUpgrade'),
     price: 1e21,
     priceIncrease: 9e21,
     maxLevel: 2,
@@ -1819,7 +1812,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount3: formatAsPercentIncrease(quarkMult)
       })
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.noSingularityUpgrades.rewards.shopUpgrade2),
+    isUnlocked: () => getSingularityChallengeEffect('noSingularityUpgrades', 'shopUpgrade2'),
     price: 1,
     priceIncrease: 1e22,
     maxLevel: 5,
@@ -1842,7 +1835,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount: formatAsPercentIncrease(2 - effects, 1)
       })
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.noAmbrosiaUpgrades.rewards.shopUpgrade),
+    isUnlocked: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'shopUpgrade'),
     price: 1e21,
     priceIncrease: 2e21,
     maxLevel: 5,
@@ -1863,7 +1856,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       const effects = getShopUpgradeEffects('shopEXUltra', 'offeringMult')
       return i18next.t('shop.upgradeEffects.shopEXUltra', { amount: formatAsPercentIncrease(effects) })
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.noAmbrosiaUpgrades.rewards.shopUpgrade2),
+    isUnlocked: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'shopUpgrade2'),
     price: 5e21,
     priceIncrease: 0,
     maxLevel: 80,
@@ -1885,7 +1878,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount: formatAsPercentIncrease(effects)
       })
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.limitedTime.rewards.tier1Upgrade),
+    isUnlocked: () => getSingularityChallengeEffect('limitedTime', 'shopUpgrade'),
     price: 5e21,
     priceIncrease: 0,
     maxLevel: 1,
@@ -1906,7 +1899,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       const effects = getShopUpgradeEffects('shopAmbrosiaUltra', 'ambrosiaLuck')
       return i18next.t('shop.upgradeEffects.shopAmbrosiaUltra', { amount: format(effects) })
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.limitedTime.rewards.tier2Upgrade),
+    isUnlocked: () => getSingularityChallengeEffect('limitedTime', 'shopUpgrade2'),
     price: 8e23,
     priceIncrease: 2e23,
     maxLevel: 5,
@@ -1926,7 +1919,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount: format(effects)
       })
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.sadisticPrequel.rewards.shopUpgrade),
+    isUnlocked: () => getSingularityChallengeEffect('sadisticPrequel', 'shopUpgrade'),
     price: 2e22,
     priceIncrease: 0,
     maxLevel: 1,
@@ -1946,7 +1939,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount: format(effects, 2, true)
       })
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.sadisticPrequel.rewards.shopUpgrade2),
+    isUnlocked: () => getSingularityChallengeEffect('sadisticPrequel', 'shopUpgrade2'),
     price: 2e23,
     priceIncrease: 0,
     maxLevel: 1,
@@ -1963,7 +1956,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     effectDescription () {
       return i18next.t('shop.upgradeEffects.shopSadisticRune')
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.sadisticPrequel.rewards.shopUpgrade3),
+    isUnlocked: () => getSingularityChallengeEffect('sadisticPrequel', 'shopUpgrade3'),
     price: 2e27,
     priceIncrease: 0,
     maxLevel: 1,
@@ -1986,7 +1979,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount: format(effects, 0)
       })
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.limitedAscensions.rewards.shopUpgrade0),
+    isUnlocked: () => getSingularityChallengeEffect('limitedAscensions', 'shopUpgrade'),
     price: 1e20,
     priceIncrease: 0,
     maxLevel: 100,
@@ -2015,7 +2008,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount2: formatAsPercentIncrease(singularityPenaltyMult)
       })
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.taxmanLastStand.rewards.shopUpgrade),
+    isUnlocked: () => getSingularityChallengeEffect('taxmanLastStand', 'shopUpgrade'),
     price: 5e26,
     priceIncrease: 0,
     maxLevel: 1,
@@ -2106,7 +2099,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
 
       return effectHTML
     },
-    isUnlocked: () => Boolean(player.singularityChallenges.noQuarkUpgrades.rewards.shopUpgrade),
+    isUnlocked: () => getSingularityChallengeEffect('noQuarkUpgrades', 'shopUpgrade'),
     price: 125000,
     priceIncrease: 0,
     maxLevel: 1,

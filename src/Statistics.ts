@@ -148,6 +148,7 @@ import {
   getGQUpgradeEffect,
   goldenQuarkUpgrades
 } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talismans'
 import type { GlobalVariables } from './types/Synergism'
@@ -310,7 +311,7 @@ export const allCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoSing',
-    stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.cubes
+    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'cubes')
   },
   {
     i18n: 'Ambrosia',
@@ -776,7 +777,7 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoSingUpgrades',
-    stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.cubes
+    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'cubes')
   },
   {
     i18n: 'PassINF',
@@ -1399,11 +1400,11 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'LimitedTimeChallenge',
-    stat: () => +player.singularityChallenges.limitedTime.rewards.quarkMult
+    stat: () => getSingularityChallengeEffect('limitedTime', 'quarkMult')
   },
   {
     i18n: 'SadisticPrequel',
-    stat: () => +player.singularityChallenges.sadisticPrequel.rewards.quarkMult
+    stat: () => getSingularityChallengeEffect('sadisticPrequel', 'quarkMult')
   },
   {
     i18n: 'FirstSingularityBonus',
@@ -1831,7 +1832,7 @@ export const allGlobalSpeedIgnoreDRStats: NumberStatLine[] = [
   },
   {
     i18n: 'LimitedTimeChallenge',
-    stat: () => 1 + +player.singularityChallenges.limitedTime.rewards.globalSpeed // Limited Time Challenge
+    stat: () => getSingularityChallengeEffect('limitedTime', 'ascensionSpeed') // Limited Time Challenge
   },
   {
     i18n: 'ChronometerShop',
@@ -1994,7 +1995,7 @@ export const allAscensionSpeedStats: NumberStatLine[] = [
     i18n: 'LimitedAscensionsBuff',
     stat: () =>
       Math.pow(
-        1 + +player.singularityChallenges.limitedAscensions.rewards.ascensionSpeedMult,
+        getSingularityChallengeEffect('limitedAscensions', 'ascensionSpeedMult'),
         1 + Math.max(0, Math.floor(Math.log10(player.ascensionCount)))
       ) // EXALT Buff
   },
@@ -2004,7 +2005,7 @@ export const allAscensionSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'LimitedTimeChallenge',
-    stat: () => 1 + +player.singularityChallenges.limitedTime.rewards.ascensionSpeed // Limited Time Challenge
+    stat: () => getSingularityChallengeEffect('limitedTime', 'ascensionSpeed') // Limited Time Challenge
   },
   {
     i18n: 'ChronometerS',
@@ -2047,7 +2048,7 @@ export const allAdditiveLuckMultStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoSingularityUpgrades',
-    stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus // No Singularity Upgrade 1x30
+    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'additiveLuckMult') // No Singularity Upgrade 1x15
   },
   {
     i18n: 'DilatedFiveLeaf',
@@ -2059,7 +2060,7 @@ export const allAdditiveLuckMultStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoAmbrosiaUpgrades',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.luckBonus // No Ambrosia Challenge Reward
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'additiveLuckMult') // No Ambrosia Challenge Reward
   },
   {
     i18n: 'Cookie5',
@@ -2162,7 +2163,7 @@ export const allAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoAmbrosiaUpgrades',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.additiveLuck // No Ambrosia Challenge Reward
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'ambrosiaLuck') // No Ambrosia Challenge Reward
   },
   {
     i18n: 'RedAmbrosiaUpgrade',
@@ -2226,7 +2227,7 @@ export const allAmbrosiaBlueberryStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoAmbrosiaUpgrades',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberries // No Ambrosia Challenge Reward
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberries') // No Ambrosia Challenge Reward
   }
 ]
 
@@ -2274,11 +2275,11 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'OneChallengeCap',
-    stat: () => +player.singularityChallenges.oneChallengeCap.rewards.blueberrySpeedMult // One Challenge Cap Reward
+    stat: () => getSingularityChallengeEffect('oneChallengeCap', 'blueberrySpeedMult') // One Challenge Cap Reward
   },
   {
     i18n: 'NoAmbrosiaUpgradesReward',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberrySpeedMult // No Ambrosia Upgrades Reward
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberrySpeedMult') // No Ambrosia Upgrades Reward
   },
   {
     i18n: 'RedAmbrosiaUpgrade',
@@ -2366,7 +2367,7 @@ export const allGoldenQuarkMultiplierStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoSingularityUpgrades',
-    stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.goldenQuarks // No Singularity Upgrades
+    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'goldenQuarks') // No Singularity Upgrades
   },
   {
     i18n: 'GoldenRevolution2',
@@ -2637,7 +2638,7 @@ export const allRedAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'Exalt5',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.redLuck
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'redLuck') // No Ambrosia Upgrades
   },
   {
     i18n: 'ShopRedLuck1',
@@ -2689,7 +2690,7 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'Exalt5',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.redSpeedMult
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'redSpeedMult') // No Ambrosia Upgrades
   }
 ]
 
@@ -2766,7 +2767,7 @@ export const allTalismanRuneBonusStatsSum = () => {
     + getGQUpgradeEffect('singTalismanBonusRunes3')
     + getGQUpgradeEffect('singTalismanBonusRunes4')
     + getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel').talismanBonusRuneLevel
-    + +player.singularityChallenges.taxmanLastStand.rewards.talismanRuneEffect
+    + getSingularityChallengeEffect('taxmanLastStand', 'talismanRuneEffect')
   )
 }
 
@@ -2876,7 +2877,7 @@ const allTalismanRuneBonusStats: NumberStatLine[] = [
   },
   {
     i18n: 'TaxmanLastStand',
-    stat: () => +player.singularityChallenges.taxmanLastStand.rewards.talismanRuneEffect,
+    stat: () => getSingularityChallengeEffect('taxmanLastStand', 'talismanRuneEffect'),
     displayCriterion: () => {
       const singStuff = player.highestSingularityCount >= 270
       return singStuff

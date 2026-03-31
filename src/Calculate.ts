@@ -24,6 +24,7 @@ import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount 
 import { getRuneEffects, sumOfRuneLevels } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import {
   allAdditiveLuckMultStats,
   allAmbrosiaBlueberryStats,
@@ -947,7 +948,7 @@ export const calculateTotalOcteractCubeBonus = () => {
     const bonus = 1 + (2 / 1000) * player.totalWowOcteracts // At 1,000 returns 3
     return bonus > 1.00001 ? bonus : 1
   } else {
-    const power = 2 + +player.singularityChallenges.noOcteracts.rewards.octeractPow
+    const power = 2 + getSingularityChallengeEffect('noOcteracts', 'octeractPow')
     return 3 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, power) // At 1,000 returns 3
   }
 }
@@ -965,14 +966,14 @@ export const calculateTotalOcteractQuarkBonus = () => {
 }
 
 export const calculateTotalOcteractOfferingBonus = () => {
-  if (!player.singularityChallenges.noOcteracts.rewards.offeringBonus) {
+  if (!getSingularityChallengeEffect('noOcteracts', 'offeringBonus')) {
     return 1
   }
   return Math.pow(calculateTotalOcteractCubeBonus(), 1.25)
 }
 
 export const calculateTotalOcteractObtainiumBonus = () => {
-  if (!player.singularityChallenges.noOcteracts.rewards.obtainiumBonus) {
+  if (!getSingularityChallengeEffect('noOcteracts', 'obtainiumBonus')) {
     return 1
   }
   return Math.pow(calculateTotalOcteractCubeBonus(), 1.25)
@@ -1485,8 +1486,8 @@ export const calculateRequiredRedAmbrosiaTime = () => {
   let val = G.TIME_PER_RED_AMBROSIA // Currently 100,000
   val += 200 * player.lifetimeRedAmbrosia
 
-  const max = 1e6 * +player.singularityChallenges.limitedTime.rewards.barRequirementMultiplier
-  val *= +player.singularityChallenges.limitedTime.rewards.barRequirementMultiplier
+  const max = 1e6 * getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
+  val *= getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
 
   return Math.min(max, val)
 }

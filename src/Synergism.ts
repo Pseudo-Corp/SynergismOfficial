@@ -244,6 +244,7 @@ import {
   type SingularityDataKeys
 } from './singularity'
 import {
+  getSingularityChallengeEffect,
   SingularityChallenge,
   singularityChallengeData,
   type SingularityChallengeDataKeys
@@ -5162,7 +5163,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   if (!ignoreOfflineProgress) {
     calculateOffline()
   } else {
-    if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
+    if (!getSingularityChallengeEffect('limitedTime', 'preserveQuarks')) {
       player.worlds.reset()
     }
 

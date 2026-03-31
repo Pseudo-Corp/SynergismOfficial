@@ -4,6 +4,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { hepteractEffective } from './Hepteracts'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, player, resetCheck } from './Synergism'
 import { AutoAscensionResetModes, toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
 import { Globals as G } from './Variables'
@@ -106,8 +107,8 @@ export const getMaxChallenges = (i: number) => {
     maxChallenge += 2 * getGQUpgradeEffect('singChallengeExtension2')
     maxChallenge += 2 * getGQUpgradeEffect('singChallengeExtension3')
 
-    maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.capIncrease
-    maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.reinCapIncrease2
+    maxChallenge += getSingularityChallengeEffect('oneChallengeCap', 'capIncrease')
+    maxChallenge += getSingularityChallengeEffect('oneChallengeCap', 'reinCapIncrease2')
     return maxChallenge
   }
   // Ascension Challenge
@@ -137,7 +138,7 @@ export const getMaxChallenges = (i: number) => {
     maxChallenge += getGQUpgradeEffect('singChallengeExtension')
     maxChallenge += getGQUpgradeEffect('singChallengeExtension2')
     maxChallenge += getGQUpgradeEffect('singChallengeExtension3')
-    maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.ascCapIncrease2
+    maxChallenge += getSingularityChallengeEffect('oneChallengeCap', 'ascCapIncrease2')
     return maxChallenge
   }
 

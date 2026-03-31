@@ -58,6 +58,7 @@ import {
   getGQUpgradeEffect,
   goldenQuarkUpgrades
 } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { blankSave, deepClone, format, player, saveSynergy, updateAll } from './Synergism'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
@@ -1186,7 +1187,7 @@ export const singularity = (setSingNumber = -1) => {
     hold.ants.masteries[ant].highestMastery = player.ants.masteries[ant].highestMastery
   }
 
-  if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
+  if (!getSingularityChallengeEffect('limitedTime', 'preserveQuarks')) {
     player.worlds.reset()
     hold.worlds = Number(hold.worlds)
   } else {

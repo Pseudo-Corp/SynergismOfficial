@@ -24,6 +24,7 @@ import { getNumberUnlockedRunes, indexToRune, type RuneKeys, runes, sacrificeOff
 import { buyAllSpiritLevels } from './RuneSpirits'
 import { getShopUpgradeEffects, useConsumable } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { player } from './Synergism'
 import { Tabs } from './Tabs'
 import { buyAllTalismanResources } from './Talismans'
@@ -228,7 +229,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
           const RNG = seededRandom(Seed.Ambrosia)
           const ambrosiaMult = Math.floor(ambrosiaLuck / 100)
           const luckMult = RNG < ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100) ? 1 : 0
-          const bonusAmbrosia = (player.singularityChallenges.noAmbrosiaUpgrades.rewards.bonusAmbrosia) ? 1 : 0
+          const bonusAmbrosia = getSingularityChallengeEffect('noAmbrosiaUpgrades', 'bonusAmbrosia')
           const ambrosiaToGain = (ambrosiaMult + luckMult) + bonusAmbrosia
 
           player.ambrosia += ambrosiaToGain

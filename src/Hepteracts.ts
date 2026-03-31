@@ -14,6 +14,7 @@ import { getOcteractUpgradeEffect } from './Octeracts'
 import { resetTiers } from './Reset'
 import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
@@ -320,7 +321,7 @@ const getHepteractCap = (hept: HepteractKeys): number => {
 }
 
 export const getFinalHepteractCap = (hept: HepteractKeys): number => {
-  const specialMultiplier = player.singularityChallenges.limitedAscensions.rewards.hepteractCap ? 2 : 1
+  const specialMultiplier = getSingularityChallengeEffect('limitedAscensions', 'hepteractCap') ? 2 : 1
   return getHepteractCap(hept) * specialMultiplier
 }
 

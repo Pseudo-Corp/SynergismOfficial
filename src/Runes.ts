@@ -14,6 +14,7 @@ import { getLevelMilestone } from './Levels'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { resetTiers } from './Reset'
 import { createShopUpgradeTypeIcon, getShopUpgradeEffects, ShopUpgradeGroups } from './Shop'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
@@ -272,13 +273,13 @@ const infiniteAscentOOMIncrease = () => {
 
 const antiquitiesOOMIncrease = () => {
   return (
-    +player.singularityChallenges.taxmanLastStand.rewards.antiquityOOM
+    getSingularityChallengeEffect('taxmanLastStand', 'antiquityOOM')
   )
 }
 
 const horseShoeOOMIncrease = () => {
   return (
-    +player.singularityChallenges.taxmanLastStand.rewards.horseShoeOOM
+    getSingularityChallengeEffect('taxmanLastStand', 'horseShoeOOM')
   )
 }
 
@@ -680,8 +681,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     freeLevels: () => bonusRuneLevelsHorseShoe(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => {
-      const condition = Boolean(player.singularityChallenges.taxmanLastStand.rewards.horseShoeUnlock)
-      return condition
+      return getSingularityChallengeEffect('taxmanLastStand', 'horseShoeUnlock')
     },
     minimalResetTier: 'never',
     name: () => i18next.t('runes.horseShoe.name'),
@@ -792,7 +792,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     effectiveLevelMult: () => 1,
     freeLevels: () => 0,
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
-    isUnlocked: () => Boolean(player.singularityChallenges.noQuarkUpgrades.rewards.topHatUnlock),
+    isUnlocked: () => getSingularityChallengeEffect('noQuarkUpgrades', 'topHatUnlock'),
     minimalResetTier: 'singularity',
     name: () => i18next.t('runes.topHat.name'),
     description: () => i18next.t('runes.topHat.description'),
