@@ -169,12 +169,12 @@
       },
       "ambrosiaInfiniteShopUpgrades1": {
         "name": "靛蓝无限商店代金券",
-        "description": "A Shop Voucher, printed on an indigo tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Upgrades.",
+        "description": "印在靛蓝铭牌‌上的商店代金券。每级使“无限公司”夸克升级的有效等级增加1。",
         "effect": "您有{{amount}}张靛蓝无限商店代金券！"
       },
       "ambrosiaInfiniteShopUpgrades2": {
         "name": "紫罗兰无限商店代金券",
-        "description": "A Shop Voucher, printed on a violet tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Upgrades.",
+        "description": "印在紫罗兰铭牌‌上的商店代金券。每级使“无限公司”夸克升级的有效等级增加1。",
         "effect": "您有{{amount}}张紫罗兰无限商店代金券！"
       },
       "ambrosiaSingReduction2": {
@@ -312,7 +312,7 @@
       },
       "infiniteShopUpgrades": {
         "name": "红色无限商店代金券",
-        "description": "A Shop Voucher, printed on a red tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Upgrades.",
+        "description": "印在红色铭牌‌上的商店代金券。每级使“无限公司”夸克升级的有效等级增加1。",
         "effect": "您有{{amount}}张红色无限商店代金券！"
       },
       "redAmbrosiaAccelerator": {
@@ -2004,7 +2004,7 @@
       "runeAutobuyImprover": {
         "name": "符文自动购买DX",
         "description": "The Auto Rune feature now works 10% faster, plus 1% per Synergism level above 130. Woah!",
-        "effect": "Current Effect: Rune Autobuyer is {{mult}} faster"
+        "effect": "当前效果：符文自动购买的速度变为原来的{{mult}}倍"
       },
       "salvageChallengeBuff": {
         "name": "回收挑战强化",
@@ -2071,7 +2071,7 @@
       "exalts": {
         "name": "递进式成就 - 拔擢阶层完成数",
         "description": "每次完成拔擢都可以获得成就点数！",
-        "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Limited Ascensions: {{num3}}/{{cap3}} AP <br> No Quark Upgrades: {{num4}}/{{cap4}} AP <br> No Octeract Effects: {{num5}}/{{cap5}} AP <br> No Ambrosia Upgrades: {{num6}}/{{cap6}} AP <br> Grand Singularity Speedrun: {{num7}}/{{cap7}} AP <br> Sadistic III: {{num8}}/{{cap8}} AP <br> Taxman's Last Stand: {{num9}}/{{cap9}} AP"
+        "apSource": "无金夸克升级：{{num1}}/{{cap1}}成就点数<br>挑战上限恒为一：{{num2}}/{{cap2}}成就点数<br>二十飞升挑战：{{num3}}/{{cap3}}成就点数<br>无夸克升级：{{num4}}/{{cap4}}成就点数<br>无八阶方块效果：{{num5}}/{{cap5}}成就点数<br>无神肴升级：{{num6}}/{{cap6}}成就点数<br>奇点大竞速赛：{{num7}}/{{cap7}}成就点数<br>虐待狂拔擢 III：{{num8}}/{{cap8}}成就点数<br>税务官的最后阵地：{{num9}}/{{cap9}}成就点数"
       },
       "singularityUpgrades": {
         "name": "递进式成就 - 金夸克升级",
@@ -3154,7 +3154,7 @@
       "96": "[4x21]蚂蚁很慢吗？每购买1只工蚁，就使蚂蚁速度变为原来的 (1 + 0.0002 * 等级) 倍。",
       "97": "[4x22]每级使蚂蚁升级的免费等级增加2！免费等级需要有相应数量的购买等级才能生效！",
       "98": "[4x23]每级使蚂蚁升级的免费等级再增加2！",
-      "99": "[4x24] Are the Quark Upgrades too hot to resist? Get +1 Quark per hour from Exporting for each level!",
+      "99": "[4x24]夸克商店的诱惑太强无法自制了？每级使每小时导出奖励增加1夸克！",
       "100": "[4x25]好吧，Platonic彻底疯了。每级使每小时导出奖励再增加1夸克！",
       "101": "[5x1]要不，每级使创始蚁的效果增加0.001？",
       "102": "[5x2]每级使所有蚂蚁增加1级免费等级！这就是彩虹攻击！",
@@ -4245,7 +4245,7 @@
       },
       "singInfiniteShopUpgrades": {
         "name": "黄色无限商店代金券",
-        "description": "A Shop Voucher, printed on a yellow tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Upgrades.",
+        "description": "印在黄色铭牌‌上的商店代金券。每级使“无限公司”夸克升级的有效等级增加1。",
         "effect": "您有{{n}}张黄色无限商店代金券！"
       },
       "singTalismanBonusRunes1": {
@@ -5979,7 +5979,7 @@
       "noSingularityUpgrades": {
         "name": "无金夸克升级",
         "description": "Simply put, you have to beat the target Singularity without (most) Golden Quark Upgrades.<br/>Octeracts, Perks and <b>Quality of Life</b> Golden Quark Upgrades are preserved.",
-        "ScalingReward1": "+100% increase to <<yellow|ALL Cube>> gain",
+        "ScalingReward1": "使<<yellow|所有类型的方盒、立方和方块获取数量>>增加100%",
         "ScalingReward2": "15 Achievement Points!",
         "UniqueReward1": "第1次 - 使<<gold|金夸克>>获取数量增加12%！",
         "UniqueReward2": "1st - A free <<var(--blueberry-box-color)|Blueberry>>! Also, unlock <<var(--amber-text-color)|Ambrosia>>!",
@@ -6006,10 +6006,10 @@
         "ScalingReward2": "20 Achievement Points!",
         "UniqueReward1": "第1次 - 根据<<var(--lightseagreen-text-color)|八阶方块>>数量，增加<<Gold|祭品>>获取数量！",
         "UniqueReward2": "第10次 - 根据<<var(--lightseagreen-text-color)|八阶方块>>数量，增加<<steelblue|难得素>>获取数量！",
-        "UniqueReward3": "10th - A new <<orchid|Quark>> upgrade!"
+        "UniqueReward3": "第10次 - 新的<<orchid|夸克商店>>升级！"
       },
       "limitedAscensions": {
-        "name": "Limited Ascensions Challenge",
+        "name": "二十飞升挑战",
         "description": "Derpsmith put an embargo on Ascensions. Clear the target Singularity, but don't Ascend too much!",
         "effectMod1": "<<red|Ascension Limit: {{ascensions}}>>",
         "effectMod2": "<<gold|⚠>> Each Ascension above {{ascensions}} divides Ascension Speed by 2.",
