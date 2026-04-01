@@ -762,7 +762,8 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'Event',
-    stat: () => 1 + calculateEventBuff(BuffType.Octeract)
+    stat: () => 1 + calculateEventBuff(BuffType.Octeract),
+    color: 'lime'
   },
   {
     i18n: 'PlatonicDelta',
@@ -915,7 +916,8 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'SynergismLevel',
-    stat: () => getLevelReward('offerings') // Synergism Level
+    stat: () => getLevelReward('offerings'), // Synergism Level
+    color: 'green'
   },
   {
     i18n: 'SuperiorIntellect',
@@ -1061,7 +1063,8 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'CubeUpgradeCx12',
-    stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1 // Cube upgrade 7x2 (Cx12)
+    stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1, // Cube upgrade 7x2 (Cx12)
+    color: 'cyan'
   },
   {
     i18n: 'OcteractElectrolosis',
@@ -1252,7 +1255,8 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'SynergismLevel',
-    stat: () => getLevelReward('quarks')
+    stat: () => getLevelReward('quarks'),
+    color: 'green'
   },
   {
     i18n: 'PlasticTalisman',
@@ -1564,7 +1568,8 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'SynergismLevel',
-    stat: () => getLevelReward('obtainium') // Synergism Level
+    stat: () => getLevelReward('obtainium'), // Synergism Level
+    color: 'green'
   },
   {
     i18n: 'ReincarnationUpgrade9',
@@ -1752,7 +1757,8 @@ export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: bool
     },
     {
       i18n: 'HalfMind',
-      stat: () => getGQUpgradeEffect('halfMind') ? calculateGlobalSpeedMult() / 10 : 1
+      stat: () => getGQUpgradeEffect('halfMind') ? calculateGlobalSpeedMult() / 10 : 1,
+      color: 'magenta'
     }
   ]
 }
@@ -2890,7 +2896,8 @@ export const positiveSalvageStats: NumberStatLine[] = [
   },
   {
     i18n: 'SynergismLevel',
-    stat: () => getLevelReward('salvage')
+    stat: () => getLevelReward('salvage'),
+    color: 'green'
   },
   {
     i18n: 'SynergismLevelMilestone',
@@ -3133,7 +3140,8 @@ export const antELOStats: NumberStatLine[] = [
   {
     i18n: 'SynergismLevel',
     stat: () => getLevelReward('ants'),
-    displayCriterion: () => achievementLevel >= synergismLevelRewards.ants.minLevel
+    displayCriterion: () => achievementLevel >= synergismLevelRewards.ants.minLevel,
+    color: 'green'
   },
   {
     i18n: 'ReincarnationUpgrade20',
@@ -4420,28 +4428,28 @@ const gameStages = (): Stage[] => {
     {
       stage: 21,
       tier: 6,
-      name: 'exalt1x1-exalt5x1',
+      name: 'exalt1x1-exalt6x1',
       unlocked: player.singularityChallenges.noAmbrosiaUpgrades.completions > 0,
       reset: player.highestSingularityCount > 0
     },
     {
       stage: 22,
       tier: 6,
-      name: 'exalt5x1-s256',
+      name: 'exalt6x1-s256',
       unlocked: player.highestSingularityCount > 256,
       reset: player.highestSingularityCount > 0
     },
     {
       stage: 23,
       tier: 6,
-      name: 's256-exalt6x25',
-      unlocked: player.singularityChallenges.limitedTime.completions >= 25,
+      name: 's256-exalt7x10',
+      unlocked: player.singularityChallenges.limitedTime.completions >= 10,
       reset: player.highestSingularityCount > 0
     },
     {
       stage: 24,
       tier: 6,
-      name: 'exalt6x25-pen',
+      name: 'exalt7x10-pen',
       unlocked: goldenQuarkUpgrades.ultimatePen.level > 0,
       reset: player.highestSingularityCount > 0
     },

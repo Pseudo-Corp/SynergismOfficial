@@ -8,6 +8,7 @@ import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { sortDecimalWithIndices, updateClassList } from './Utility'
+import { getShopUpgradeEffects } from './Shop'
 
 interface IResearchData {
   baseCost: Decimal
@@ -241,7 +242,8 @@ const getBuyableResearchLevel = (index: number): number => {
   const maxLevel = researchData[index].maxLevel
   const budget = player.obtainium
 
-  const researchCostMulti = calculateSingularityDebuff('Researches')
+  let researchCostMulti = getShopUpgradeEffects('obtainiumAuto', 'researchCostMult')
+  researchCostMulti *= calculateSingularityDebuff('Researches')
 
   return buyToLevelFunc(budget, baseCost.times(researchCostMulti), currLevel, maxLevel)
 }
@@ -251,7 +253,8 @@ const getCostForResearchLevels = (index: number, buyTo: number): Decimal => {
   const baseCost = researchData[index].baseCost
   const currLevel = player.researches[index]
 
-  const researchCostMulti = calculateSingularityDebuff('Researches')
+  let researchCostMulti = getShopUpgradeEffects('obtainiumAuto', 'researchCostMult')
+  researchCostMulti *= calculateSingularityDebuff('Researches')
 
   return costForLevelsFunc(baseCost.times(researchCostMulti), currLevel, buyTo)
 }
@@ -374,7 +377,7 @@ export const researchDescriptions = (index: number, auto = false) => {
   }
 
   let z = i18next.t('researches.cost', {
-    x: format(obtainiumCost, 0, false),
+    x: format(Decimal.max(obtainiumCost, 1), 0, false),
     y: format(levelToBuy - player.researches[index], 0, true)
   })
 

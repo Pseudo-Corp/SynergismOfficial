@@ -230,7 +230,7 @@ const mortuusInscriptValues = [1, 1.05, 1.1, 1.15, 1.2, 1.3, 1.4, 1.5, 1.65, 1.8
 const plasticInscriptValues = [1, 1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.04, 1.045, 1.05, 1.0666]
 const wowSquareInscriptValues = [1, 1.025, 1.05, 1.075, 1.1, 1.125, 1.15, 1.2, 1.225, 1.25, 1.30]
 const achievementEffectInscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.006, 0.008, .01, .015, .02, .03]
-const achievementDescInscriptValues = [1, 1, 1, 1, 1, 1, 1, 1.01, 1.015, 1.02, 1.03]
+const achievementDescInscriptValues = [1, 1.001, 1.002, 1.003, 1.004, 1.006, 1.008, 1.01, 1.015, 1.02, 1.03]
 const cookieGrandmaInscriptValues = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10]
 const horseShoeInscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.005, 0.007, 0.01, 0.012, 0.015, 0.02]
 

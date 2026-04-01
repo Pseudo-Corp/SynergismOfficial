@@ -1042,8 +1042,8 @@ export const player: Player = {
     enter: 2
   },
 
-  runeBlessingBuyAmount: 0,
-  runeSpiritBuyAmount: 0,
+  runeBlessingBuyAmount: 10,
+  runeSpiritBuyAmount: 10,
 
   autoTesseracts: [false, false, false, false, false, false],
 
