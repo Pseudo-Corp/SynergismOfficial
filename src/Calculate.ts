@@ -171,9 +171,7 @@ export const calculateCubeMultiplier = () => {
 
 export const calculateCubeMultiplierWithTau = () => {
   const base = calculateCubeMultiplier()
-  const tauBonus = getGQUpgradeEffect('platonicTau')
-    ? 1.01
-    : 1
+  const tauBonus = getGQUpgradeEffect('platonicTau', 'tauPower')
   return Math.pow(base, tauBonus)
 }
 
@@ -310,7 +308,7 @@ const calculateFastForwardResourcesGlobal = (
   let timeMultiplier: Decimal = new Decimal('1')
 
   const deltaTime = fastForwardAmount.times(
-    getGQUpgradeEffect('halfMind') ? 10 : calculateGlobalSpeedMult()
+    getGQUpgradeEffect('halfMind', 'unlocked') ? 10 : calculateGlobalSpeedMult()
   )
 
   // Build approximations through direct computation of the derivative of time multiplier
@@ -327,7 +325,7 @@ const calculateFastForwardResourcesGlobal = (
   )
 
   // Correct multiplier if half mind is purchased
-  timeMultiplier.times(getGQUpgradeEffect('halfMind') ? calculateGlobalSpeedMult() / 10 : 1)
+  timeMultiplier.times(getGQUpgradeEffect('halfMind', 'unlocked') ? calculateGlobalSpeedMult() / 10 : 1)
 
   return Decimal.max(fastForwardAmount.times(baseResource), resourceMult.times(timeMultiplier))
 }
@@ -335,9 +333,9 @@ const calculateFastForwardResourcesGlobal = (
 export const calculatePotionValue = (resetTime: number, resourceMult: Decimal, baseResource: number) => {
   const potionTimeValue = new Decimal(7200)
   const fastForwardMult = calculateFastForwardResourcesGlobal(resetTime, potionTimeValue, resourceMult, baseResource)
-  const potionMultipliers = getGQUpgradeEffect('potionBuff')
-    * getGQUpgradeEffect('potionBuff2')
-    * getGQUpgradeEffect('potionBuff3')
+  const potionMultipliers = getGQUpgradeEffect('potionBuff', 'potionPowerMult')
+    * getGQUpgradeEffect('potionBuff2', 'potionPowerMult')
+    * getGQUpgradeEffect('potionBuff3', 'potionPowerMult')
     * getOcteractUpgradeEffect('octeractAutoPotionEfficiency')
 
   return fastForwardMult.times(potionMultipliers)
@@ -1145,7 +1143,7 @@ const computeAscensionScoreBonusMultiplier = () => {
     multiplier *= 1 + 0.05 * player.cubeUpgrades[41]
   }
   multiplier *= +getAchievementReward('ascensionScore')
-  multiplier *= 1 + 0.5 * getGQUpgradeEffect('masterPack')
+  multiplier *= getGQUpgradeEffect('masterPack', 'ascensionScoreMult')
   if (G.isEvent) {
     multiplier *= 1 + calculateEventBuff(BuffType.AscensionScore)
   }
@@ -1221,9 +1219,7 @@ export const calculateAscensionScore = () => {
     effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5)
   }
 
-  if (getGQUpgradeEffect('expertPack')) {
-    effectiveScore *= 1.5
-  }
+  effectiveScore *= getGQUpgradeEffect('expertPack', 'ascensionScoreMult')
 
   return {
     baseScore,
@@ -1409,17 +1405,17 @@ export const calculateSingularityAmbrosiaLuckMilestoneBonus = () => {
 }
 
 export const calculateAmbrosiaGenerationSingularityUpgrade = () => {
-  return getGQUpgradeEffect('singAmbrosiaGeneration')
-    * getGQUpgradeEffect('singAmbrosiaGeneration2')
-    * getGQUpgradeEffect('singAmbrosiaGeneration3')
-    * getGQUpgradeEffect('singAmbrosiaGeneration4')
+  return getGQUpgradeEffect('singAmbrosiaGeneration', 'ambrosiaBarSpeedMult')
+    * getGQUpgradeEffect('singAmbrosiaGeneration2', 'ambrosiaBarSpeedMult')
+    * getGQUpgradeEffect('singAmbrosiaGeneration3', 'ambrosiaBarSpeedMult')
+    * getGQUpgradeEffect('singAmbrosiaGeneration4', 'ambrosiaBarSpeedMult')
 }
 
 export const calculateAmbrosiaLuckSingularityUpgrade = () => {
-  return getGQUpgradeEffect('singAmbrosiaLuck')
-    + getGQUpgradeEffect('singAmbrosiaLuck2')
-    + getGQUpgradeEffect('singAmbrosiaLuck3')
-    + getGQUpgradeEffect('singAmbrosiaLuck4')
+  return getGQUpgradeEffect('singAmbrosiaLuck', 'ambrosiaLuck')
+    + getGQUpgradeEffect('singAmbrosiaLuck2', 'ambrosiaLuck')
+    + getGQUpgradeEffect('singAmbrosiaLuck3', 'ambrosiaLuck')
+    + getGQUpgradeEffect('singAmbrosiaLuck4', 'ambrosiaLuck')
 }
 
 export const calculateAmbrosiaGenerationOcteractUpgrade = () => {
@@ -1742,8 +1738,8 @@ export const calculateObtainiumPotionBaseObtainium = () => {
 }
 
 export const calculateAscensionSpeedExponentSpread = () => {
-  return getGQUpgradeEffect('singAscensionSpeed')
-    + getGQUpgradeEffect('singAscensionSpeed2')
+  return getGQUpgradeEffect('singAscensionSpeed', 'exponentSpread')
+    + getGQUpgradeEffect('singAscensionSpeed2', 'exponentSpread')
     + getShopUpgradeEffects('chronometerInfinity', 'exponentSpread')
 }
 

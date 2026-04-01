@@ -190,13 +190,15 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('corruptionHepteracts').style.display = 'none'
   }
 
-  document.documentElement.dataset.cookies1 = getGQUpgradeEffect('cookies') ? 'true' : 'false'
-  document.documentElement.dataset.cookies2 = getGQUpgradeEffect('cookies2') ? 'true' : 'false'
-  document.documentElement.dataset.cookies3 = getGQUpgradeEffect('cookies3') ? 'true' : 'false'
-  document.documentElement.dataset.cookies4 = getGQUpgradeEffect('cookies4') ? 'true' : 'false'
-  document.documentElement.dataset.cookies5 = getGQUpgradeEffect('cookies5') ? 'true' : 'false'
+  document.documentElement.dataset.cookies1 = getGQUpgradeEffect('cookies', 'unlocked') ? 'true' : 'false'
+  document.documentElement.dataset.cookies2 = getGQUpgradeEffect('cookies2', 'unlocked') ? 'true' : 'false'
+  document.documentElement.dataset.cookies3 = getGQUpgradeEffect('cookies3', 'unlocked') ? 'true' : 'false'
+  document.documentElement.dataset.cookies4 = getGQUpgradeEffect('cookies4', 'unlocked') ? 'true' : 'false'
+  document.documentElement.dataset.cookies5 = getGQUpgradeEffect('cookies5', 'unlocked') ? 'true' : 'false'
 
-  document.documentElement.dataset.goldenQuark3Upg = getGQUpgradeEffect('goldenQuarks3') > 0 ? 'true' : 'false'
+  document.documentElement.dataset.goldenQuark3Upg = getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour') > 0
+    ? 'true'
+    : 'false'
 
   if (player.upgrades[89] === 1) {
     DOMCacheGetOrSet('transcendautotoggle').style.display = 'block'
@@ -396,11 +398,11 @@ export const revealStuff = () => {
   for (const item of octeractUnlocks) { // Stuff that you need octeracts to access
     const parent = item.parentElement!
     if (parent.classList.contains('offlineStats')) {
-      item.style.display = getGQUpgradeEffect('octeractUnlock') ? 'flex' : 'none'
-      item.setAttribute('aria-disabled', `${!getGQUpgradeEffect('octeractUnlock')}`)
+      item.style.display = getGQUpgradeEffect('octeractUnlock', 'unlocked') ? 'flex' : 'none'
+      item.setAttribute('aria-disabled', `${!getGQUpgradeEffect('octeractUnlock', 'unlocked')}`)
     } else {
-      item.style.display = getGQUpgradeEffect('octeractUnlock') ? 'block' : 'none'
-      item.setAttribute('aria-disabled', `${!getGQUpgradeEffect('octeractUnlock')}`)
+      item.style.display = getGQUpgradeEffect('octeractUnlock', 'unlocked') ? 'block' : 'none'
+      item.setAttribute('aria-disabled', `${!getGQUpgradeEffect('octeractUnlock', 'unlocked')}`)
     }
   }
 
@@ -1108,8 +1110,8 @@ const updateAscensionStats = () => {
     t = 1
   }
   const ascensionRewards = CalcCorruptionStuff()
-  const addedAsteriskHalfMind = getGQUpgradeEffect('halfMind')
-  const addedAsteriskOneMind = getGQUpgradeEffect('oneMind')
+  const addedAsteriskHalfMind = getGQUpgradeEffect('halfMind', 'unlocked')
+  const addedAsteriskOneMind = getGQUpgradeEffect('oneMind', 'unlocked')
   const fillers: Record<string, string> = {
     ascLen: formatTimeShort(player.ascStatToggles[6] ? player.ascensionCounter : player.ascensionCounterReal, 0),
     ascCubes: format(ascensionRewards.wowCubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2),

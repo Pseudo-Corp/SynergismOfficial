@@ -1036,7 +1036,7 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
     player.cubeUpgrades[72] = 1
   }
 
-  if (getGQUpgradeEffect('platonicAlpha') && player.platonicUpgrades[5] === 0) {
+  if (getGQUpgradeEffect('platonicAlpha', 'unlocked') && player.platonicUpgrades[5] === 0) {
     player.platonicUpgrades[5] = 1
     updatePlatonicUpgradeBG(5)
   }

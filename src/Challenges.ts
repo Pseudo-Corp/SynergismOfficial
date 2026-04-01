@@ -103,9 +103,9 @@ export const getMaxChallenges = (i: number) => {
       maxChallenge += 30
     }
 
-    maxChallenge += 2 * getGQUpgradeEffect('singChallengeExtension')
-    maxChallenge += 2 * getGQUpgradeEffect('singChallengeExtension2')
-    maxChallenge += 2 * getGQUpgradeEffect('singChallengeExtension3')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension', 'reincarnationCapIncrease')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension2', 'reincarnationCapIncrease')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension3', 'reincarnationCapIncrease')
 
     maxChallenge += getSingularityChallengeEffect('oneChallengeCap', 'capIncrease')
     maxChallenge += getSingularityChallengeEffect('oneChallengeCap', 'reinCapIncrease2')
@@ -135,9 +135,9 @@ export const getMaxChallenges = (i: number) => {
       maxChallenge += 20
     }
 
-    maxChallenge += getGQUpgradeEffect('singChallengeExtension')
-    maxChallenge += getGQUpgradeEffect('singChallengeExtension2')
-    maxChallenge += getGQUpgradeEffect('singChallengeExtension3')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension', 'ascensionCapIncrease')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension2', 'ascensionCapIncrease')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension3', 'ascensionCapIncrease')
     maxChallenge += getSingularityChallengeEffect('oneChallengeCap', 'ascCapIncrease2')
     return maxChallenge
   }

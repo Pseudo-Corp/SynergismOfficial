@@ -1555,13 +1555,13 @@ export const visualUpdateSettings = () => {
           3600
               / Math.max(
                 1,
-                getGQUpgradeEffect('goldenQuarks3')
+                getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
               )
             - (player.goldenQuarksTimer
               % (3600.00001
                 / Math.max(
                   1,
-                  getGQUpgradeEffect('goldenQuarks3')
+                  getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
                 )))
         ),
         y: format(goldenQuarkMultiplier, 2, true)
@@ -1574,7 +1574,7 @@ export const visualUpdateSettings = () => {
         x: format(
           Math.floor(
             (player.goldenQuarksTimer
-              * getGQUpgradeEffect('goldenQuarks3'))
+              * getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour'))
               / 3600
           ) * goldenQuarkMultiplier,
           2
@@ -1582,7 +1582,7 @@ export const visualUpdateSettings = () => {
         y: format(
           Math.floor(
             168
-              * getGQUpgradeEffect('goldenQuarks3')
+              * getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
               * goldenQuarkMultiplier
           )
         )

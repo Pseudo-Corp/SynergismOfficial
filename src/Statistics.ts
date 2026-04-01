@@ -129,7 +129,7 @@ import {
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { getGlobalBonus, getPersonalBonus, getQuarkBonus } from './Quark'
+import { getGlobalBonus, getPersonalBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { isResearchUnlocked } from './Research'
 import { getRuneBlessingEffect } from './RuneBlessings'
@@ -249,7 +249,7 @@ export const allCubeStats: NumberStatLine[] = [
   {
     i18n: 'PassZ',
     stat: () => getShopUpgradeEffects('seasonPassZ', 'globalCubeMult'),
-    displayCriterion: () => Boolean(getGQUpgradeEffect('wowPass'))
+    displayCriterion: () => getGQUpgradeEffect('wowPass', 'unlocked')
   },
   {
     i18n: 'PassINF',
@@ -265,37 +265,31 @@ export const allCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'StarterPack',
-    stat: () => 1 + 4 * (getGQUpgradeEffect('starterPack') ? 1 : 0)
+    stat: () => getGQUpgradeEffect('starterPack', 'cubeMult')
   },
   {
     i18n: 'SingCubes1',
-    stat: () => getGQUpgradeEffect('singCubes1')
+    stat: () => getGQUpgradeEffect('singCubes1', 'cubeMult')
   },
   {
     i18n: 'SingCubes2',
-    stat: () => getGQUpgradeEffect('singCubes2')
+    stat: () => getGQUpgradeEffect('singCubes2', 'cubeMult')
   },
   {
     i18n: 'SingCubes3',
-    stat: () => getGQUpgradeEffect('singCubes3')
+    stat: () => getGQUpgradeEffect('singCubes3', 'cubeMult')
   },
   {
     i18n: 'SingCitadel',
-    stat: () => getGQUpgradeEffect('singCitadel')
+    stat: () => getGQUpgradeEffect('singCitadel', 'cubeMult')
   },
   {
     i18n: 'SingCitadel2',
-    stat: () => getGQUpgradeEffect('singCitadel2')
+    stat: () => getGQUpgradeEffect('singCitadel2', 'cubeMult')
   },
   {
     i18n: 'Delta',
-    stat: () =>
-      1 + getGQUpgradeEffect('platonicDelta')
-        * Math.min(
-          9,
-          player.singularityCounter * getShopUpgradeEffects('shopSingularitySpeedup', 'singularityUpgradeSpeedMult')
-            / (3600 * 24)
-        )
+    stat: () => getGQUpgradeEffect('platonicDelta', 'cubeMult')
   },
   {
     i18n: 'CookieUpgrade8',
@@ -369,7 +363,7 @@ export const allCubeStats: NumberStatLine[] = [
   {
     i18n: 'OneMind',
     stat: () => {
-      return getGQUpgradeEffect('oneMind')
+      return getGQUpgradeEffect('oneMind', 'unlocked')
         ? calculateAscensionSpeedMult() / 10
         : 1
     },
@@ -490,7 +484,7 @@ export const allWowCubeStats: NumberStatLine[] = [
 const allWowCubePowerStats: NumberStatLine[] = [
   {
     i18n: 'Tau',
-    stat: () => getGQUpgradeEffect('platonicTau') ? 1.01 : 1
+    stat: () => getGQUpgradeEffect('platonicTau', 'tauPower')
   }
 ]
 
@@ -699,43 +693,43 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'DivinePack',
-    stat: () => getGQUpgradeEffect('divinePack')
+    stat: () => getGQUpgradeEffect('divinePack', 'octeractMult')
   },
   {
     i18n: 'SingCubes1',
-    stat: () => getGQUpgradeEffect('singCubes1')
+    stat: () => getGQUpgradeEffect('singCubes1', 'cubeMult')
   },
   {
     i18n: 'SingCubes2',
-    stat: () => getGQUpgradeEffect('singCubes2')
+    stat: () => getGQUpgradeEffect('singCubes2', 'cubeMult')
   },
   {
     i18n: 'SingCubes3',
-    stat: () => getGQUpgradeEffect('singCubes3')
+    stat: () => getGQUpgradeEffect('singCubes3', 'cubeMult')
   },
   {
     i18n: 'SingOcteractGain',
-    stat: () => getGQUpgradeEffect('singOcteractGain')
+    stat: () => getGQUpgradeEffect('singOcteractGain', 'octeractMult')
   },
   {
     i18n: 'SingOcteractGain2',
-    stat: () => getGQUpgradeEffect('singOcteractGain2')
+    stat: () => getGQUpgradeEffect('singOcteractGain2', 'octeractMult')
   },
   {
     i18n: 'SingOcteractGain3',
-    stat: () => getGQUpgradeEffect('singOcteractGain3')
+    stat: () => getGQUpgradeEffect('singOcteractGain3', 'octeractMult')
   },
   {
     i18n: 'SingOcteractGain4',
-    stat: () => getGQUpgradeEffect('singOcteractGain4')
+    stat: () => getGQUpgradeEffect('singOcteractGain4', 'octeractMult')
   },
   {
     i18n: 'SingOcteractGain5',
-    stat: () => getGQUpgradeEffect('singOcteractGain5')
+    stat: () => getGQUpgradeEffect('singOcteractGain5', 'octeractMult')
   },
   {
     i18n: 'PatreonBonus',
-    stat: () => 1 + (getQuarkBonus() / 100) * getGQUpgradeEffect('singOcteractPatreonBonus')
+    stat: () => getGQUpgradeEffect('singOcteractPatreonBonus', 'octeractMult')
   },
   {
     i18n: 'OcteractStarter',
@@ -767,13 +761,7 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'PlatonicDelta',
-    stat: () =>
-      1 + getGQUpgradeEffect('platonicDelta')
-        * Math.min(
-          9,
-          player.singularityCounter * getShopUpgradeEffects('shopSingularitySpeedup', 'singularityUpgradeSpeedMult')
-            / (3600 * 24)
-        )
+    stat: () => getGQUpgradeEffect('platonicDelta', 'cubeMult')
   },
   {
     i18n: 'NoSingUpgrades',
@@ -830,7 +818,7 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   {
     i18n: 'AscensionSpeed',
     stat: () => {
-      const ascensionSpeed = getGQUpgradeEffect('oneMind')
+      const ascensionSpeed = getGQUpgradeEffect('oneMind', 'unlocked')
         ? Math.pow(10, 1 / 2) * Math.pow(
           calculateAscensionSpeedMult() / 10,
           getOcteractUpgradeEffect('octeractOneMindImprover')
@@ -1034,27 +1022,27 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'StarterPack',
-    stat: () => 1 + 5 * getGQUpgradeEffect('starterPack') // Starter Pack Upgrade
+    stat: () => getGQUpgradeEffect('starterPack', 'offeringMult') // Starter Pack Upgrade
   },
   {
     i18n: 'OfferingCharge',
-    stat: () => getGQUpgradeEffect('singOfferings1') // Offering Charge GQ Upgrade
+    stat: () => getGQUpgradeEffect('singOfferings1', 'offeringMult') // Offering Charge GQ Upgrade
   },
   {
     i18n: 'OfferingStorm',
-    stat: () => getGQUpgradeEffect('singOfferings2') // Offering Storm GQ Upgrade
+    stat: () => getGQUpgradeEffect('singOfferings2', 'offeringMult') // Offering Storm GQ Upgrade
   },
   {
     i18n: 'OfferingTempest',
-    stat: () => getGQUpgradeEffect('singOfferings3') // Offering Tempest GQ Upgrade
+    stat: () => getGQUpgradeEffect('singOfferings3', 'offeringMult') // Offering Tempest GQ Upgrade
   },
   {
     i18n: 'Citadel',
-    stat: () => getGQUpgradeEffect('singCitadel') // Citadel GQ Upgrade
+    stat: () => getGQUpgradeEffect('singCitadel', 'offeringMult') // Citadel GQ Upgrade
   },
   {
     i18n: 'Citadel2',
-    stat: () => getGQUpgradeEffect('singCitadel2') // Citadel 2 GQ Upgrade
+    stat: () => getGQUpgradeEffect('singCitadel2', 'offeringMult') // Citadel 2 GQ Upgrade
   },
   {
     i18n: 'CubeUpgradeCx4',
@@ -1306,7 +1294,7 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'FavoriteUpgrade',
-    stat: () => getGQUpgradeEffect('favoriteUpgrade')
+    stat: () => getGQUpgradeEffect('favoriteUpgrade', 'quarkMult')
   },
   {
     i18n: 'CookieUpgrade3',
@@ -1353,13 +1341,16 @@ export const allQuarkStats: NumberStatLine[] = [
   {
     i18n: 'SingularityPacks',
     stat: () =>
-      1 + 0.02 * getGQUpgradeEffect('intermediatePack')
-      + 0.04 * getGQUpgradeEffect('advancedPack') + 0.06 * getGQUpgradeEffect('expertPack')
-      + 0.08 * getGQUpgradeEffect('masterPack') + 0.1 * goldenQuarkUpgrades.divinePack.level
+      1
+      + getGQUpgradeEffect('intermediatePack', 'packQuarkAdd')
+      + getGQUpgradeEffect('advancedPack', 'packQuarkAdd')
+      + getGQUpgradeEffect('expertPack', 'packQuarkAdd')
+      + getGQUpgradeEffect('masterPack', 'packQuarkAdd')
+      + getGQUpgradeEffect('divinePack', 'packQuarkAdd')
   },
   {
     i18n: 'SingQuarkImprover1',
-    stat: () => getGQUpgradeEffect('singQuarkImprover1')
+    stat: () => getGQUpgradeEffect('singQuarkImprover1', 'quarkMult')
   },
   {
     i18n: 'AmbrosiaQuarkMult',
@@ -1654,27 +1645,27 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'StarterPack',
-    stat: () => 1 + 5 * getGQUpgradeEffect('starterPack') // Starter Pack
+    stat: () => getGQUpgradeEffect('starterPack', 'obtainiumMult') // Starter Pack
   },
   {
     i18n: 'SingObtainium1',
-    stat: () => getGQUpgradeEffect('singObtainium1') // Obtainium GQ Upgrade 1
+    stat: () => getGQUpgradeEffect('singObtainium1', 'obtainiumMult') // Obtainium GQ Upgrade 1
   },
   {
     i18n: 'SingObtainium2',
-    stat: () => getGQUpgradeEffect('singObtainium2') // Obtainium GQ Upgrade 2
+    stat: () => getGQUpgradeEffect('singObtainium2', 'obtainiumMult') // Obtainium GQ Upgrade 2
   },
   {
     i18n: 'SingObtainium3',
-    stat: () => getGQUpgradeEffect('singObtainium3') // Obtainium GQ Upgrade 3
+    stat: () => getGQUpgradeEffect('singObtainium3', 'obtainiumMult') // Obtainium GQ Upgrade 3
   },
   {
     i18n: 'SingCitadel',
-    stat: () => getGQUpgradeEffect('singCitadel') // Singularity Citadel 1
+    stat: () => getGQUpgradeEffect('singCitadel', 'obtainiumMult') // Singularity Citadel 1
   },
   {
     i18n: 'SingCitadel2',
-    stat: () => getGQUpgradeEffect('singCitadel2') // Singularity Citadel 2
+    stat: () => getGQUpgradeEffect('singCitadel2', 'obtainiumMult') // Singularity Citadel 2
   },
   {
     i18n: 'ShopCashGrab2',
@@ -1754,7 +1745,7 @@ export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: bool
     },
     {
       i18n: 'HalfMind',
-      stat: () => getGQUpgradeEffect('halfMind') ? calculateGlobalSpeedMult() / 10 : 1
+      stat: () => getGQUpgradeEffect('halfMind', 'unlocked') ? calculateGlobalSpeedMult() / 10 : 1
     }
   ]
 }
@@ -1824,7 +1815,7 @@ export const allGlobalSpeedIgnoreDRStats: NumberStatLine[] = [
   },
   {
     i18n: 'IntermediatePack',
-    stat: () => 1 + getGQUpgradeEffect('intermediatePack') // Intermediate Pack
+    stat: () => getGQUpgradeEffect('intermediatePack', 'globalSpeedMult') // Intermediate Pack
   },
   {
     i18n: 'OcteractGlobalSpeed',
@@ -1973,7 +1964,7 @@ export const allAscensionSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'IntermediatePack',
-    stat: () => 1 + 0.5 * getGQUpgradeEffect('intermediatePack') // Intermediate Pack, Sing Shop
+    stat: () => getGQUpgradeEffect('intermediatePack', 'ascensionSpeedMult') // Intermediate Pack, GQ Shop
   },
   {
     i18n: 'ChronometerZ',
@@ -2211,7 +2202,7 @@ export const allAmbrosiaBlueberryStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingBlueberries',
-    stat: () => getGQUpgradeEffect('blueberries') // Singularity Blueberry Upgrade
+    stat: () => getGQUpgradeEffect('blueberries', 'blueberries') // Singularity Blueberry Upgrade
   },
   {
     i18n: 'OcteractBlueberries',
@@ -2359,7 +2350,7 @@ export const allGoldenQuarkMultiplierStats: NumberStatLine[] = [
   },
   {
     i18n: 'GoldenQuarks1',
-    stat: () => getGQUpgradeEffect('goldenQuarks1') // Golden Quarks I
+    stat: () => getGQUpgradeEffect('goldenQuarks1', 'goldenQuarkMult') // Golden Quarks I
   },
   {
     i18n: 'CookieUpgrade19',
@@ -2419,7 +2410,7 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLine[] = [
   },
   {
     i18n: 'GoldenQuarks2',
-    stat: () => getGQUpgradeEffect('goldenQuarks2')
+    stat: () => getGQUpgradeEffect('goldenQuarks2', 'goldenQuarkCostMult')
   },
   {
     i18n: 'OcteractCostReduce',
@@ -2719,7 +2710,7 @@ export const allShopTablets: NumberStatLine[] = [
   },
   {
     i18n: 'Yellow',
-    stat: () => getGQUpgradeEffect('singInfiniteShopUpgrades'), // Singularity Upgrade
+    stat: () => getGQUpgradeEffect('singInfiniteShopUpgrades', 'infinityVouchers'), // Singularity Upgrade
     acc: 0,
     color: 'yellow'
   },
@@ -2762,10 +2753,10 @@ export const allTalismanRuneBonusStatsSum = () => {
     + (0.004 * Math.floor(player.researches[200] / 10000))
     + (0.006 * Math.floor(player.cubeUpgrades[50] / 10000))
     + (G.challenge15Rewards.talismanBonus.value - 1)
-    + getGQUpgradeEffect('singTalismanBonusRunes1')
-    + getGQUpgradeEffect('singTalismanBonusRunes2')
-    + getGQUpgradeEffect('singTalismanBonusRunes3')
-    + getGQUpgradeEffect('singTalismanBonusRunes4')
+    + getGQUpgradeEffect('singTalismanBonusRunes1', 'talismanRuneEffect')
+    + getGQUpgradeEffect('singTalismanBonusRunes2', 'talismanRuneEffect')
+    + getGQUpgradeEffect('singTalismanBonusRunes3', 'talismanRuneEffect')
+    + getGQUpgradeEffect('singTalismanBonusRunes4', 'talismanRuneEffect')
     + getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel').talismanBonusRuneLevel
     + getSingularityChallengeEffect('taxmanLastStand', 'talismanRuneEffect')
   )
@@ -2841,7 +2832,7 @@ const allTalismanRuneBonusStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingularityUpgrade1',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes1'), // Singularity Upgrade 1
+    stat: () => getGQUpgradeEffect('singTalismanBonusRunes1', 'talismanRuneEffect'), // Singularity Upgrade 1
     displayCriterion: () => {
       const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes1.minimumSingularity
       return singStuff
@@ -2849,7 +2840,7 @@ const allTalismanRuneBonusStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingularityUpgrade2',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes2'),
+    stat: () => getGQUpgradeEffect('singTalismanBonusRunes2', 'talismanRuneEffect'),
     displayCriterion: () => {
       const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes2.minimumSingularity
       return singStuff
@@ -2857,7 +2848,7 @@ const allTalismanRuneBonusStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingularityUpgrade3',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes3'),
+    stat: () => getGQUpgradeEffect('singTalismanBonusRunes3', 'talismanRuneEffect'),
     displayCriterion: () => {
       const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes3.minimumSingularity
       return singStuff
@@ -2865,7 +2856,7 @@ const allTalismanRuneBonusStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingularityUpgrade4',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes4'),
+    stat: () => getGQUpgradeEffect('singTalismanBonusRunes4', 'talismanRuneEffect'),
     displayCriterion: () => {
       const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes4.minimumSingularity
       return singStuff
@@ -3378,7 +3369,7 @@ export const ascensionCountMultStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingularityUpgrade',
-    stat: () => getGQUpgradeEffect('ascensions'),
+    stat: () => getGQUpgradeEffect('ascensions', 'ascensionCountMult'),
     displayCriterion: () => player.highestSingularityCount > 0
   },
   {
@@ -3393,7 +3384,7 @@ export const ascensionCountMultStats: NumberStatLine[] = [
   },
   {
     i18n: 'OneMind',
-    stat: () => getGQUpgradeEffect('oneMind') ? calculateAscensionSpeedMult() / 10 : 1,
+    stat: () => getGQUpgradeEffect('oneMind', 'unlocked') ? calculateAscensionSpeedMult() / 10 : 1,
     displayCriterion: () => player.highestSingularityCount >= 8
   }
 ]

@@ -152,9 +152,9 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     LIMIT: 1000,
     DR: 2,
     DR_INCREASE: () => {
-      return getGQUpgradeEffect('singQuarkHepteract')
-        + getGQUpgradeEffect('singQuarkHepteract2')
-        + getGQUpgradeEffect('singQuarkHepteract3')
+      return getGQUpgradeEffect('singQuarkHepteract', 'quarkHeptExponent')
+        + getGQUpgradeEffect('singQuarkHepteract2', 'quarkHeptExponent')
+        + getGQUpgradeEffect('singQuarkHepteract3', 'quarkHeptExponent')
         + getOcteractUpgradeEffect('octeractImprovedQuarkHept')
         + getShopUpgradeEffects('improveQuarkHept', 'quarkHeptExponent')
         + getShopUpgradeEffects('improveQuarkHept2', 'quarkHeptExponent')

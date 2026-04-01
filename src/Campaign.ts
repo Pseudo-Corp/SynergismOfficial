@@ -277,7 +277,7 @@ export class CampaignManager {
     }
 
     sum += inheritanceTokens()
-    sum += getGQUpgradeEffect('singBonusTokens4')
+    sum += getGQUpgradeEffect('singBonusTokens4', 'initialTokenBonus')
     sum += getOcteractUpgradeEffect('octeractBonusTokens4')
 
     return sum
@@ -493,7 +493,7 @@ export const updateTokens = () => {
   }
 
   sum += inheritanceTokens()
-  sum += getGQUpgradeEffect('singBonusTokens4')
+  sum += getGQUpgradeEffect('singBonusTokens4', 'initialTokenBonus')
   sum += getOcteractUpgradeEffect('octeractBonusTokens4')
   campaignTokens = sum
 
@@ -507,7 +507,7 @@ export const updateMaxTokens = () => {
   }
 
   sum += inheritanceTokens()
-  sum += getGQUpgradeEffect('singBonusTokens4')
+  sum += getGQUpgradeEffect('singBonusTokens4', 'initialTokenBonus')
   sum += getOcteractUpgradeEffect('octeractBonusTokens4')
 
   maxCampaignTokens = sum
@@ -545,7 +545,7 @@ class Campaign {
       if (player.highestSingularityCount >= 16) {
         additiveTotal += 5
       }
-      additiveTotal += getGQUpgradeEffect('singBonusTokens1')
+      additiveTotal += getGQUpgradeEffect('singBonusTokens1', 'firstCompletionBonusTokens')
       additiveTotal += getOcteractUpgradeEffect('octeractBonusTokens3')
     }
 
@@ -553,7 +553,7 @@ class Campaign {
       if (player.highestSingularityCount >= 69) {
         additiveTotal += 10
       }
-      additiveTotal += getGQUpgradeEffect('singBonusTokens3')
+      additiveTotal += getGQUpgradeEffect('singBonusTokens3', 'lastCompletionBonusTokens')
       additiveTotal += getOcteractUpgradeEffect('octeractBonusTokens1')
     }
 
@@ -561,7 +561,7 @@ class Campaign {
 
     multiplier *= this.#isMeta ? 2 : 1
     multiplier *= singularityBonusTokenMult()
-    multiplier *= getGQUpgradeEffect('singBonusTokens2')
+    multiplier *= getGQUpgradeEffect('singBonusTokens2', 'tokenMultiplier')
     multiplier *= getOcteractUpgradeEffect('octeractBonusTokens2')
     return Math.floor(additiveTotal * multiplier)
   }

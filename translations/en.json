@@ -4206,22 +4206,22 @@
       "singAmbrosiaGeneration2": {
         "name": "Hourglass of Importance",
         "description": "A somewhat important hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singAmbrosiaGeneration3": {
         "name": "Hourglass of Significance",
         "description": "An hourglass which is still important, perhaps even more so. +1% faster Ambrosia Bar Point creation per level.",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singAmbrosiaGeneration": {
         "name": "Hourglass of Limitlessness",
         "description": "Remember- this hourglass is really important. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singAmbrosiaGeneration4": {
         "name": "Hourglass of Fantasy",
         "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singBonusTokens1": {
         "name": "Spare Change on the Sofa Cushion",
@@ -4231,7 +4231,7 @@
       "singBonusTokens2": {
         "name": "Spare Change in the creases of the Sofa Cushions",
         "description": "Thanks to your more perceptive eyes, you find even more Tokens in Campaigns! +1% more Tokens per level from Campaigns.",
-        "effect": "You find +{{n}}% more Tokens from Campaigns!"
+        "effect": "You find +{{n}} more Tokens from Campaigns!"
       },
       "singBonusTokens3": {
         "name": "Spare Change under the Sofa",
@@ -4251,22 +4251,22 @@
       "singTalismanBonusRunes1": {
         "name": "Talisman Buff!",
         "description": "Gain +1% Talisman Power per level, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes2": {
         "name": "Talisman Buff! The second",
         "description": "Gain +1% more Talisman Power per level, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes3": {
         "name": "Talisman Buff! The third",
         "description": "Gain +1% more Talisman Power per level again, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes4": {
         "name": "Talisman Buff! The fourth",
         "description": "Gain +1% more Talisman Power per level again, AGAIN, additive to other bonuses. Instead of adding five upgrades, Platonic gave this one twice as many levels. Game design!",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "favoriteUpgrade": {
         "name": "Your Favorite Upgrades' Favorite Upgrade",

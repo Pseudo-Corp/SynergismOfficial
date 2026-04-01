@@ -139,14 +139,14 @@ export const generateExportSummary = async (): Promise<void> => {
       format(Number(player.wowPlatonicCubes), 0, true)
     } -+- Total Plats Opened: ${platonicSum}\n`
     resources = `${resources}Wow! Hepteracts: ${format(player.wowAbyssals, 0, true)}\n`
-    if (getGQUpgradeEffect('octeractUnlock')) {
+    if (getGQUpgradeEffect('octeractUnlock', 'unlocked')) {
       resources = `${resources}Wow! Octeracts: ${format(player.wowOcteracts, 0, true)}\n`
     }
   }
 
   // Octeract Subportion!
   let octeract = ''
-  if (getGQUpgradeEffect('octeractUnlock')) {
+  if (getGQUpgradeEffect('octeractUnlock', 'unlocked')) {
     octeract = '===== OCTERACTS =====\n'
     octeract = `${octeract}Current Octeracts: ${format(player.wowOcteracts, 2, true)}\n`
     octeract = `${octeract}Current Per Second: ${format(calculateOcteractMultiplier(), 2, true)}\n`
@@ -396,7 +396,7 @@ export const generateExportSummary = async (): Promise<void> => {
 
   // Create Octeract Stuff
   let octeractUpgradeStats = '\n'
-  if (getGQUpgradeEffect('octeractUnlock')) {
+  if (getGQUpgradeEffect('octeractUnlock', 'unlocked')) {
     octeractUpgradeStats =
       '===== OCTERACT UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [ ]: Upgrade INCOMPLETE - \n'
     const octUpgrade = Object.keys(octeractUpgrades) as OcteractDataKeys[]

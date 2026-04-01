@@ -52,7 +52,7 @@ const octeractGiveawayLevels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249
  * @param time
  */
 export const addTimers = (input: TimerInput, time = 0) => {
-  const globalTimeMultiplier = getGQUpgradeEffect('halfMind')
+  const globalTimeMultiplier = getGQUpgradeEffect('halfMind', 'unlocked')
     ? 10
     : calculateGlobalSpeedMult()
 
@@ -82,7 +82,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
     }
     case 'ascension': {
       // Anything in here is affected by add code
-      const ascensionSpeedMulti = getGQUpgradeEffect('oneMind')
+      const ascensionSpeedMulti = getGQUpgradeEffect('oneMind', 'unlocked')
         ? 10
         : calculateAscensionSpeedMult()
       player.ascensionCounter += time * timeMultiplier * ascensionSpeedMulti
@@ -111,7 +111,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       break
     }
     case 'goldenQuarks': {
-      if (getGQUpgradeEffect('goldenQuarks3') === 0) {
+      if (getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour') === 0) {
         return
       } else {
         player.goldenQuarksTimer += time * timeMultiplier
@@ -122,7 +122,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       break
     }
     case 'octeracts': {
-      if (!getGQUpgradeEffect('octeractUnlock')) {
+      if (!getGQUpgradeEffect('octeractUnlock', 'unlocked')) {
         return
       } else {
         player.octeractTimer += time * timeMultiplier
@@ -395,7 +395,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       }
       break
     case 'antSacrifice': {
-      const globalDelta = getGQUpgradeEffect('halfMind') ? 10 : calculateGlobalSpeedMult()
+      const globalDelta = getGQUpgradeEffect('halfMind', 'unlocked') ? 10 : calculateGlobalSpeedMult()
 
       player.antSacrificeTimer += time * globalDelta
       player.antSacrificeTimerReal += time

@@ -172,11 +172,11 @@ export const awardAutosCookieUpgrade = () => {
 export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxToggle, auto = false) => {
   // Actually lock for HTML exploit
   if (
-    (i > 50 && i <= 55 && !getGQUpgradeEffect('cookies'))
-    || (i > 55 && i <= 60 && !getGQUpgradeEffect('cookies2'))
-    || (i > 60 && i <= 65 && !getGQUpgradeEffect('cookies3'))
-    || (i > 65 && i <= 70 && !getGQUpgradeEffect('cookies4'))
-    || (i > 70 && !getGQUpgradeEffect('cookies5'))
+    (i > 50 && i <= 55 && !getGQUpgradeEffect('cookies', 'unlocked'))
+    || (i > 55 && i <= 60 && !getGQUpgradeEffect('cookies2', 'unlocked'))
+    || (i > 60 && i <= 65 && !getGQUpgradeEffect('cookies3', 'unlocked'))
+    || (i > 65 && i <= 70 && !getGQUpgradeEffect('cookies4', 'unlocked'))
+    || (i > 70 && !getGQUpgradeEffect('cookies5', 'unlocked'))
   ) {
     return
   }
