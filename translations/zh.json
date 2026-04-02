@@ -3481,7 +3481,7 @@
       "shopPanthemaCubes": "方盒获取数量增加{{amount}}！(每级方盒增加{{amount2}})",
       "shopPanthemaAscensionSpeed": "飞升的速度增加{{amount}}！(每级速度增加{{amount2}})",
       "shopPanthemaQuarks": "夸克获取数量增加{{amount}}！(每级夸克增加{{amount2}})",
-      "shopPanthemaInfinityMeta": "所有其他升级等级增加{{amount}}！(每级无限增加1%)"
+      "shopPanthemaInfinityMeta": "所有其他类型加成增加{{amount}}！(每级无限增加1%)"
     },
     "names": {
       "offeringPotion": "祭品药剂",
