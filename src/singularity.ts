@@ -2666,10 +2666,11 @@ export const singularityPerks: SingularityPerk[] = [
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
         if (n >= levels[i]) {
-          return i18next.t('singularity.perks.evenMoreQuarks.default', {
+          const effectText = i18next.t('singularity.perks.evenMoreQuarks.default', {
             stack: i + 1,
             inc: format(100 * (Math.pow(1.05, i + 1) - 1), 2)
           })
+          return `${effectText}<br><b>${currentSingularityText()}</b>`
         }
       }
 

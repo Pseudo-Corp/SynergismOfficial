@@ -760,10 +760,12 @@ const setTalismanRarity = (t: TalismanKeys) => {
 const levelsUntilRarityIncrease = (t: TalismanKeys) => {
   const level = talismans[t].level
   const maxLevel = talismans[t].maxLevel
-  if (level >= maxLevel) {
-    // This ignores rarity above 7...
-    // And just tries to level to cap
+  if (level >= maxLevel * 8) {
     return getTalismanLevelCap(t) - level
+  } else if (level >= maxLevel) {
+    const currentRarity = talismans[t].rarity
+    const levelReq = Math.ceil(maxLevel * Math.pow(2, currentRarity - 6))
+    return levelReq - level
   } else {
     const currentRarity = talismans[t].rarity
     const levelReq = Math.ceil(maxLevel * currentRarity / 6)

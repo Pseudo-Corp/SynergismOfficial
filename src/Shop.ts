@@ -516,7 +516,10 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.cubeToQuark'),
     effects: (n) => 1 + 0.5 * n, // cubeQuarkMult
     effectDescription () {
-      return i18next.t('shop.upgradeEffects.cubeToQuark')
+      const effects = getShopUpgradeEffects('cubeToQuark', 'cubeQuarkMult')
+      return i18next.t('shop.upgradeEffects.cubeToQuark', {
+        amount: formatAsPercentIncrease(effects, 0)
+      })
     },
     isUnlocked: () => player.ascensionCount > 0 || player.highestSingularityCount > 0,
     price: 2000,
@@ -533,7 +536,10 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.tesseractToQuark'),
     effects: (n) => 1 + 0.5 * n, // tesseractQuarkMult
     effectDescription () {
-      return i18next.t('shop.upgradeEffects.tesseractToQuark')
+      const effects = getShopUpgradeEffects('tesseractToQuark', 'tesseractQuarkMult')
+      return i18next.t('shop.upgradeEffects.tesseractToQuark', {
+        amount: formatAsPercentIncrease(effects, 0)
+      })
     },
     isUnlocked: () => player.highestchallengecompletions[11] > 0 || player.highestSingularityCount > 0,
     price: 3500,
@@ -550,7 +556,10 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.hypercubeToQuark'),
     effects: (n) => 1 + 0.5 * n, // hypercubeQuarkMult
     effectDescription () {
-      return i18next.t('shop.upgradeEffects.hypercubeToQuark')
+      const effects = getShopUpgradeEffects('hypercubeToQuark', 'hypercubeQuarkMult')
+      return i18next.t('shop.upgradeEffects.hypercubeToQuark', {
+        amount: formatAsPercentIncrease(effects, 0)
+      })
     },
     isUnlocked: () => player.highestchallengecompletions[13] > 0 || player.highestSingularityCount > 0,
     price: 5000,
