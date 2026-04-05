@@ -256,7 +256,7 @@ const getCostForResearchLevels = (index: number, buyTo: number): Decimal => {
   let researchCostMulti = getShopUpgradeEffects('obtainiumAuto', 'researchCostMult')
   researchCostMulti *= calculateSingularityDebuff('Researches')
 
-  return costForLevelsFunc(baseCost.times(researchCostMulti), currLevel, buyTo)
+  return costForLevelsFunc(baseCost.times(researchCostMulti).ceil(), currLevel, buyTo)
 }
 
 export const researchOrderByCost: number[] = sortDecimalWithIndices(researchBaseCosts)
@@ -377,7 +377,7 @@ export const researchDescriptions = (index: number, auto = false) => {
   }
 
   let z = i18next.t('researches.cost', {
-    x: format(Decimal.max(obtainiumCost, 1), 0, false),
+    x: format(obtainiumCost, 0, false),
     y: format(levelToBuy - player.researches[index], 0, true)
   })
 

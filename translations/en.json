@@ -1257,7 +1257,7 @@
       },
       "189": {
         "ascensionCountAdditive": "Ascension Count multiplier based on excess time",
-        "wowCubeGain": "Gain more Wow! Cubes based on your Ascension Count [up to x3 at 500 million Ascension Count]"
+        "wowCubeGain": "Gain more Wow! Cubes based on your Ascension Count [up to x3 at 5e8 Ascension Count]"
       },
       "193": {
         "wowCubeGain": "Gain more Wow! Cubes based on your Constant [+0.25% per digit of Constant]"
@@ -2008,7 +2008,7 @@
       },
       "salvageChallengeBuff": {
         "name": "Salvage Challenge Buff",
-        "description": "Gain +25 Salvage. <br> If you are in any Challenge, this value is doubled. <br> If you are in Challenge 15, this value is doubled. <br> If you are in EXALT, this value is tripled! <br> Effects may stack.",
+        "description": "Gain +25 Salvage. <br> If you are in any Challenge, this value is doubled. <br> If you are in Challenge 15, this value is doubled. <br> If you are in an EXALT, this value is tripled! <br> Effects may stack.",
         "effect": "Current Effect: +{{salvage}} Salvage"
       },
       "antSpeed2Autobuyer": {
@@ -2700,7 +2700,7 @@
       "per": {
         "1": "Base Building Power +0.25! Current: ",
         "2": "+0.4 Salvage! Current: ",
-        "3": "Offerings +4% (additive with other Challenge bonuses) ! Current: "
+        "3": "Offerings +4% (additive with other Challenge bonuses)! Current: "
       },
       "first": "Unlock the Anthill feature! Includes 20 new Researches. A Global Diamond Upgrade.",
       "start": "Start <Cost++>",
@@ -2723,7 +2723,7 @@
       "first": "Unlock Talismans and Blessings, in the rune Tab. A Global Diamond Upgrade.",
       "start": "Start <No Runes>",
       "current": {
-        "1": "+{{value}} free levels",
+        "1": "+{{value}} free ant levels",
         "2": "x{{value}} Ant Speed",
         "3": "+{{value}} Salvage"
       }
@@ -2734,7 +2734,7 @@
       "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|25,000>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^0.0001>> <br> ☆ Mythos gain is reduced to <<gold | Coins^0.001>>",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
-        "1": "+100 base ELO for sacrificing ants! Current: ",
+        "1": "+100 Ant ELO! Current: ",
         "2": "+2% Ant Sacrifice Reward! Current: ",
         "3": "Offerings +10% (additive with other Challenge bonuses)! Current: "
       },
@@ -2753,14 +2753,14 @@
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
       "per": {
         "1": "+12 free Ant Levels! Current: ",
-        "2": "Ant Speed x(1e5)^completions! Current: ",
+        "2": "x1e5 Ant Speed [Multiplicative!] Current: ",
         "3": "+1 to the Rune Level Coefficient of the first five runes! Current: "
       },
       "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to 'Corrupt' your game... and explore this in the Campaigns feature.",
       "start": "Start <[(Reduced Ants)]>",
       "current": {
         "1": "+{{value}} free ant levels",
-        "2": "Ant Speed x{{value}}",
+        "2": "x{{value}} Ant Speed",
         "3": "+{{value}}"
       }
     },
@@ -3163,8 +3163,8 @@
       "105": "[5x5] Buy this and be able to run the first five Challenges up to 9,001 times! (Note that requirements scale a LOT faster after 75, and again after 1,000)",
       "106": "[5x6] Engrave your talismans with Obtainium to get +0.1% Talisman Power per level (increases the amount of free levels you get for Runes)!",
       "107": "[5x7] Refine your talismans with the powder of Obtainium to get +0.1% Talisman Power per level, again!",
-      "108": "[5x8] A simple trick makes your base Ant ELO increase by 25 per level!",
-      "109": "[5x9] A more convoluted trick makes your base Ant ELO increase by 25 per level again!",
+      "108": "[5x8] A simple trick makes your Ant ELO increase by 25 per level!",
+      "109": "[5x9] A more convoluted trick makes your Ant ELO increase by 25 per level again!",
       "110": "[5x10] Each Reborn ELO multiplies Ant Speed by 1.02. Woah! You should create these 2% faster per level.",
       "111": "[5x11] Here's another +1 Rune Coefficient to Speed Rune, per level!",
       "112": "[5x12] Here's another +1 Rune Coefficient to Duplication Rune, per level!",
@@ -3175,7 +3175,7 @@
       "117": "[5x17] Past lives couldn't ever hold your Ants down. Gain +0.01% Ant Speed per Anthill Count, per level!",
       "118": "[5x18] Try this for size: gain +0.2% Talisman Power per level! It's like <b>twice as good</b> as the other upgrades.",
       "119": "[5x19] Gain +0.10% Wow! Cubes per level. These are earned on Ascension.<br>Also, gain +0.5% Offerings per level.<br>ALSO! Gain +0.5% Obtainium per level.",
-      "120": "[5x20] Gain +0.50% Wow! Cubes per level.<br>Also, create Reborn ELO 0.4% faster per level.<br>ALSO! Gain +2 ELO per level.",
+      "120": "[5x20] Gain +0.50% Wow! Cubes per level.<br>Also, create Reborn ELO 0.4% faster per level.<br>ALSO! Gain +2 Ant ELO per level.",
       "121": "[5x21] Bend (global) time to your will, gaining +2% Global Speed per level.",
       "122": "[5x22] +2% Ant Sacrifice rewards per level.",
       "123": "[5x23] +40 Ant ELO per level.",
@@ -3233,7 +3233,7 @@
       "175": "[7x25] Automatically buy Constant Upgrades, if they are affordable! They also no longer subtract from your Constant.",
       "176": "[8x1] Row 8 baby! +0.2% Rune Power per level.",
       "177": "[8x2] +Log10(Crumbs)% to Ant Speed per level. Pretty cool buff ain't it?",
-      "178": "[8x3] +666 Base ELO per level! Spooky number of the devil.",
+      "178": "[8x3] +666 Ant ELO per level! Spooky number of the devil.",
       "179": "[8x4] +0.04% more Offerings per level per Midas Talisman level!",
       "180": "[8x5] +1 Export Quark per hour per level, yet again.",
       "181": "[8x6] +0.6% Global Speed per level because why not? You're already the speed of light.",
@@ -3398,7 +3398,7 @@
       "offeringEX": "You will gain <<goldenrod|{{amount}}>> more Offerings!",
       "offeringAuto": "Auto Rune: {{amount}}. Auto Rune Speed +{{amount2}}",
       "obtainiumEX": "You will gain <<pink|{{amount}}>> more Obtainium!",
-      "obtainiumAuto": "Try to upgrade Research each Reincarnation, with <<pink|{{amount}}>> Research Costs.",
+      "obtainiumAuto": "Try to automatically upgrade a selected Research. Research Costs <<pink|{{amount}}>>",
       "instantChallenge": "Even here it's kinda obvious, right?",
       "antSpeed": "Ant ELO is increased by <<orchid|{{amount}}>>.",
       "cashGrab": "You will gain <<gold|{{amount}}>> more Obtainium and Offerings!",
@@ -4439,7 +4439,7 @@
       "43": "Multiply Coin production by 1.01 per Transcension (Max: 1e30x).",
       "44": "Multiply Mythos gain on Transcend by 1.01 per Transcension (Max: 1e6x).",
       "45": "Gain free Accelerators based on Mythos Shards.",
-      "46": "Accelerator Boosts are 5% stronger and do not reset Prestige features.",
+      "46": "Accelerator Boosts are 5% stronger and do not reset anything.",
       "47": "Multiply Mythos Shard production based on your AP.",
       "48": "Multiply production based on owned Accelerators and Multipliers.",
       "49": "Gain free Multipliers based on unspent Mythos.",
@@ -4552,10 +4552,10 @@
     "constantUpgrades": {
       "1": "Make all Tesseract buildings {{level}}% more productive per level.",
       "2": "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max {{max}}%].",
-      "3": "Increase Offering gain +2% per level.",
-      "4": "Increase Obtainium gain +4% per level.",
+      "3": "Increase Offering gain by +2% per level.",
+      "4": "Increase Obtainium gain by +4% per level.",
       "5": "Multiply Ant speed by (1 + 0.1 * level * log10(Constant + 1))",
-      "6": "Add up to 1,000 free Ant Levels! (Each level gives slightly less than the last)",
+      "6": "Add up to 2,000 free Ant Levels! (Each level gives slightly less than the last)",
       "7": "Provides 7 free rune levels per level, up to +7,000.",
       "8": "Increase the rune EXP given by Offerings by 10% per level [Additive]",
       "9": "When bought, Rune Power is increased by Log4(Talisman Shards +1) %",
@@ -4645,9 +4645,9 @@
       "81": "Effect: All you need is right above this message.",
       "120": "Effect: All you need to know is right above this message!",
       "121": "Effect: -50% Taxes duh!",
-      "122": "Effect: +88% cap to Crystal Upgrade 3, duh!",
+      "122": "Effect: +100% cap to Crystal Upgrade 3, duh!",
       "123": "Effect: Coin Production ^1.025, duh!",
-      "124": "Effect: 10% faster Reborn ELO creation!",
+      "124": "Effect: 10% faster Reborn ELO creation, duh!",
       "125": "+{{x}}% Constant Divisor power."
     },
     "shopTitles": {
@@ -5616,7 +5616,7 @@
       "lockedDescription": "This rune is locked! To unlock it, you might need to buy something that should be left unbought.",
       "singularityUnlock": "Something <span class=\"rainbowText\">singular</span> that's unlocked at Level 1: {{symbol}}",
       "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power)",
-      "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power)",
+      "obtainiumBonus": "<<pink | Immaculate Obtainium Gain x{{val}}>> (x10 per Power)",
       "addCode": "<<lightgray | 'Add' Code Refresh Interval {{val}}>> (-20% at 1 Power, up to -50%)",
       "cubeBonus": "<<white | Wow! Cube Gain +{{val}}>> (1.01x per level (max 5), times your current... Singularity?)",
       "values": "Level 1 unlocks something <span class=\"rainbowText\">special</span>! Each level gives 10x Offerings, 10x <<cyan | Immaculate>> Obtainium and makes code 'Add' regenerate faster.",
@@ -5626,8 +5626,8 @@
       "name": "The Horse's Shoe",
       "description": "I never realized the world was so easily won, just by realizing you got someone to say you won't be lonely anymore.",
       "lockedDescription": "This rune is locked! To unlock it, you might need to tussle with the <<lightgray|Taxman>> himself.",
-      "ambrosiaLuck": "<<limegreen | {{val}} Ambrosia Luck>> (+1 per Power)",
-      "redLuck": "<<red | {{val}} Red Luck>> (+0.2 per Power)",
+      "ambrosiaLuck": "<<limegreen | +{{val}} Ambrosia Luck>> (+1 per Power)",
+      "redLuck": "<<red | +{{val}} Red Luck>> (+0.2 per Power)",
       "luckConversion": "<<crimson | Luck Conversion Ratio {{val}}>> (Up to -0.5)",
       "values": "Each level gives you +1 Ambrosia Luck, +0.2 Red Luck. You also reduce the Luck Conversion Ratio between the two by up to 0.5, depending on level (-0.5 * level / (level + 50))",
       "effect": "Horseshoe Rune Bonus: +{{val}} Ambrosia Luck, +{{val2}} Red Luck, {{val3}} Luck Conversion Ratio."
@@ -6280,7 +6280,7 @@
       "WowSquare": "Wow! Square - Signature Bonus:",
       "Researches": "Researches (Except 8x25):",
       "Research8x25": "Research 8x25:",
-      "AntUpgrade": "Ants - Cubus Admirabilis:",
+      "AntUpgrade": "Ants - Cubus Admirabilis Formicidae:",
       "CubeUpgrades": "Cube Upgrades:",
       "ConstantUpgrade10": "Constant Upgrade 10:",
       "Achievement189": "Achievement 189 Bonus:",
@@ -6288,7 +6288,7 @@
       "Achievement195": "Achievement 195 Bonus:",
       "Achievement198-201": "Achievement 198-201 Bonus:",
       "Achievement254": "Achievement 254 Bonus:",
-      "SpiritPower": "Duplication Spirit Bonus:",
+      "SpiritPower": "Duplication Spirit:",
       "PlatonicOpening": "Platonic Cubes:",
       "Platonic1x1": "Platonic 1x1:",
       "CookieUpgrade13": "Cookie Upgrade 13:",
@@ -7515,24 +7515,24 @@
     "allCorruptionsZero": "All Corruptions have been set to Zero. This will take effect on the next Ascension.",
     "corruptionLoadoutApplied": "Corruption Loadout {{x}} \"{{y}}\" has been applied. This will take effect on the next Ascension.",
     "ascendPrompt": "Ascending will reset your Buildings, (some) Runes and Talismans, Upgrades, most Researches, Anthill Count, Immortal ELO, and your Transcension/Reincarnation Challenges, in exchange for industrial Wow! Cubes. Quark Upgrades are preserved. Continue?",
-    "reincarnatePrompt": "Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]",
-    "transcendPrompt": "Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]",
-    "prestigePrompt": "Prestige will reset coin upgrades, coin producers AND crystals. The first Prestige unlocks new features. Would you like to Prestige? [Toggle this message in settings.]",
+    "reincarnatePrompt": "Reincarnating will reset what Transcending does, along with Challenges, Mythos Upgrades/Buildings, all Generator and some Automation Upgrades. The first Reincarnation unlocks new features. Would you like to Reincarnate? [Toggle this message in settings.]",
+    "transcendPrompt": "Transcending will reset what Prestiging does, along with Diamond Upgrades/Buildings, Accelerator Boosts and some Generator Upgrades. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]",
+    "prestigePrompt": "Prestiging will reset Coin Upgrades/Buildings, Accelerators, Multipliers and Crystals. The first Prestige unlocks new features. Would you like to Prestige? [Toggle this message in settings.]",
     "welcomeToSingularity": "Welcome to Singularity #{{x}}. You're back to familiar territory, but something doesn't seem right.",
     "singularityCancelled": "If you decide to change your mind, let me know. -Ant God",
     "singularityMessage1": "You have reached the end of the game, on Singularity #{{x}}. Platonic and the Ant God are proud of you.",
     "singularityMessage2": "You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.",
     "singularityMessage3": "You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.",
-    "singularityMessage4": "Start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by {{z}}% due to patreon bonus!].",
+    "singularityMessage4": "You may start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but you will unlock permanent bonuses and gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by {{z}}% thanks to generous subscribers!].",
     "singularityMessage5": "However, all your past accomplishments are gone! EVERYTHING except for Achievements, the all-time Ant leaderboard, permanent Quark Upgrades, and Quark Hepteracts will be wiped clean.",
     "singularityConfirm0": "Do you wish to start singularity #{{x}}? Your next universe is harder but you will gain {{y}} Golden Quarks.",
     "singularityConfirm1": "So, what do you say? Do you wish to enter the Singularity?",
     "singularityConfirm2": "Are you sure you wish to enter the Singularity?",
     "singularityConfirm3": "Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.",
     "noAntiquity": "Hmph. Please return with an Antiquity. Thank you. -Ant God",
-    "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Exalt tab.",
+    "insideSingularityChallenge": "Derpsmith thinks you are in an EXALT. You may exit it by clicking on the challenge icon in the EXALT tab.",
     "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
-    "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
+    "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will lose any progress in your current Ascension!",
     "buyResearch3x11": "[LOCKED - Buy Research 3x11]",
     "statSymbolConfirm": "Would you like to toggle Stat Symbols? This will refresh the page! [If you see a symbol next to the word 'Quark' then they are currently on. Otherwise they are currently off]"
   },

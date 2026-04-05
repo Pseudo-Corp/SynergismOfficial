@@ -741,7 +741,7 @@ async function corruptionLoadoutGetNewName (loadout = 0) {
     player.corruptions.saves.saves[loadout].name = renamePrompt
     updateCorruptionLoadoutNames()
     if (renamePrompt === 'crazy') {
-      return Alert(i18next.t('corruptions.loadoutPrompt.errors.crazyJoke'))
+      return Alert(i18next.t('corruptions.corruptionLoadoutName.errors.crazyJoke'))
     }
   }
 }
