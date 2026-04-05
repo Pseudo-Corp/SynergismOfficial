@@ -245,7 +245,7 @@ const getBuyableResearchLevel = (index: number): number => {
   let researchCostMulti = getShopUpgradeEffects('obtainiumAuto', 'researchCostMult')
   researchCostMulti *= calculateSingularityDebuff('Researches')
 
-  return buyToLevelFunc(budget, baseCost.times(researchCostMulti), currLevel, maxLevel)
+  return buyToLevelFunc(budget, baseCost.times(researchCostMulti).ceil(), currLevel, maxLevel)
 }
 
 const getCostForResearchLevels = (index: number, buyTo: number): Decimal => {
