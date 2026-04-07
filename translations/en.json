@@ -5297,7 +5297,8 @@
       "octeractStarter": {
         "name": "Octeracts for Dummies",
         "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 25% More Quarks, 40% More Octeracts, And 100,000x Ant Speed...",
-        "effect": "You have {{n}} paid your respects to Derpsmith."
+        "effectDisabled": "You have not yet paid your respects to Derpsmith. No rewards for you!",
+        "effectEnabled": "You have paid respects to Derpsmith. {{amount}} Quarks, {{amount2}} Octeracts and {{amount3}}x Ant Speed as promised!"
       },
       "octeractGain": {
         "name": "Octeract Cogenesis",
@@ -5317,7 +5318,8 @@
       "octeractQuarkGain2": {
         "name": "Octo-Hepteract Primality Synergism",
         "description": "For every 111 levels of Quark Octeract, you gain 0.01% more Quarks per digit in your Quark Hepteract count per level!",
-        "effect": "Octo-Hepteract Primality Synergism is {{n}} active. Gain {{amount}} more Quarks!"
+        "effectDisabled": "Octo-Hepteract Primality Synergism is not currently occuring.",
+        "effectEnabled": "Octo-Hepteract Primality Synergism is granting you {{amount}} more Quarks! <br> +{{amount2}} per digit in your Quark Hepteract count <br> Total digits: {{amount3}}"
       },
       "octeractCorruption": {
         "name": "EXTRA CHONKY Corruptions",
@@ -5371,8 +5373,9 @@
       },
       "octeractImprovedFree": {
         "name": "Wow! I want free upgrades to be better.",
-        "description": "Makes the effective level of Golden Quark upgrades equal to <<gold | (Paid Levels * Free Levels)^0.6>> instead of <<gold | (Paid Levels + Free Levels)>>. But, if the second formula is greater then you still get that value!",
-        "effect": "Golden Quark upgrade free levels are {{n}} being powered!"
+        "description": "Instead of the effective level of Golden Quark upgrades being equal to the sum of Paid and Free Levels, it is the maximum of the following: <br> 1) <<gold | (Paid Levels + Free Levels)>> <br> 2) <<orchid | (Paid Levels * Free Levels)^{{power}}>>",
+        "effectDisabled": "Golden Quark upgrade free levels are not being powered. Only the first option applies.",
+        "effectEnabled": "Golden Quark upgrade free levels are being powered!"
       },
       "octeractImprovedFree2": {
         "name": "Wow! Free upgrades still suck.",
