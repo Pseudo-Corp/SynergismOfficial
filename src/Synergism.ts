@@ -207,7 +207,7 @@ import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
 import { fetchUnreadMessages } from './Messages'
-import { blankOcteractLevelObject, type OcteractDataKeys, octeractUpgrades } from './Octeracts'
+import { blankOcteractLevelObject, type OcteractUpgrades, octeractUpgrades } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -1212,11 +1212,11 @@ export const saveSynergy = (button?: boolean) => {
 
   player.octUpgrades = Object.fromEntries(
     Object.keys(player.octUpgrades).map((key) => {
-      const k = key as OcteractDataKeys
+      const k = key as OcteractUpgrades
       const ou = octeractUpgrades[k]
       return [key, { level: ou.level, freeLevel: ou.freeLevel, octeractsInvested: ou.octeractsInvested }]
     })
-  ) as Record<OcteractDataKeys, { level: number; freeLevel: number; octeractsInvested: number }>
+  ) as Record<OcteractUpgrades, { level: number; freeLevel: number; octeractsInvested: number }>
 
   player.ambrosiaUpgrades = Object.fromEntries(
     Object.keys(player.ambrosiaUpgrades).map((key) => {
@@ -5084,7 +5084,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   // Recover Oct Upgrades level from Player Obj
   if (player.octUpgrades !== undefined) {
     for (const [key, value] of Object.entries(player.octUpgrades)) {
-      const k = key as OcteractDataKeys
+      const k = key as OcteractUpgrades
 
       octeractUpgrades[k].level = value.level
       octeractUpgrades[k].freeLevel = value.freeLevel

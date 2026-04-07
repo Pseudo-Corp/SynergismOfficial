@@ -72,7 +72,8 @@ import {
   calculateSalvageHypercubeBlessing
 } from './Hypercubes'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
-import { getOcteractUpgradeCostTNL, type OcteractDataKeys, octeractUpgrades } from './Octeracts'
+import type { OcteractUpgrades } from './Octeracts'
+import { getOcteractUpgradeCostTNL, octeractUpgrades } from './Octeracts'
 import {
   calculateAscensionScorePlatonicBlessing,
   calculateCubeMultiplierPlatonicBlessing,
@@ -1636,7 +1637,7 @@ export const visualUpdateSingularity = () => {
       }
     }
   } else if (getActiveSubTab() === 3) {
-    const keys = Object.keys(octeractUpgrades) as OcteractDataKeys[]
+    const keys = Object.keys(octeractUpgrades) as OcteractUpgrades[]
     const val = G.shopEnhanceVision
 
     for (const key of keys) {

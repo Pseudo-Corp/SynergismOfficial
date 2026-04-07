@@ -4,7 +4,8 @@ import { CorruptionLoadout, type Corruptions, CorruptionSaves } from '../Corrupt
 import { AntProducers } from '../Features/Ants/structs/structs'
 import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
-import { type OcteractDataKeys, octeractUpgrades } from '../Octeracts'
+import type { OcteractUpgrades } from '../Octeracts'
+import { octeractUpgrades } from '../Octeracts'
 import { goldenQuarkUpgrades, type SingularityDataKeys } from '../singularity'
 import { updateResourcePredefinedLevel } from '../Talismans'
 import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
@@ -163,7 +164,7 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
 
   if (player.octeractUpgrades !== undefined) {
     for (const key of Object.keys(player.octeractUpgrades)) {
-      const k = key as OcteractDataKeys
+      const k = key as OcteractUpgrades
 
       const level = player.octeractUpgrades[k].level ?? 0
       const freeLevel = player.octeractUpgrades[k].freeLevels ?? 0

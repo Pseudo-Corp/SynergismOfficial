@@ -423,7 +423,7 @@ export const maxCorruptionLevel = () => {
   if (getGQUpgradeEffect('corruptionFourteen', 'unlocked')) {
     max += 1
   }
-  max += getOcteractUpgradeEffect('octeractCorruption')
+  max += getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease')
 
   return max
 }

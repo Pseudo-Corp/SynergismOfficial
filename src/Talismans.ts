@@ -203,10 +203,10 @@ const universalTalismanMaxLevelIncreasers = () => {
     6 * CalcECC('ascension', player.challengecompletions[13])
     + Math.floor(player.researches[200] / 400)
     + getSingularityChallengeEffect('taxmanLastStand', 'talismanFreeLevel')
-    + getOcteractUpgradeEffect('octeractTalismanLevelCap1')
-    + getOcteractUpgradeEffect('octeractTalismanLevelCap2')
-    + getOcteractUpgradeEffect('octeractTalismanLevelCap3')
-    + getOcteractUpgradeEffect('octeractTalismanLevelCap4')
+    + getOcteractUpgradeEffect('octeractTalismanLevelCap1', 'talismanLevelCapIncrease')
+    + getOcteractUpgradeEffect('octeractTalismanLevelCap2', 'talismanLevelCapIncrease')
+    + getOcteractUpgradeEffect('octeractTalismanLevelCap3', 'talismanLevelCapIncrease')
+    + getOcteractUpgradeEffect('octeractTalismanLevelCap4', 'talismanLevelCapIncrease')
   )
 }
 

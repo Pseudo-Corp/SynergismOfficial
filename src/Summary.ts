@@ -20,7 +20,7 @@ import { saveFilename } from './ImportExport'
 import {
   actualOcteractUpgradeTotalLevels,
   computeOcteractFreeLevelSoftcap,
-  type OcteractDataKeys,
+  type OcteractUpgrades,
   octeractUpgrades
 } from './Octeracts'
 import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
@@ -399,7 +399,7 @@ export const generateExportSummary = async (): Promise<void> => {
   if (getGQUpgradeEffect('octeractUnlock', 'unlocked')) {
     octeractUpgradeStats =
       '===== OCTERACT UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [ ]: Upgrade INCOMPLETE - \n'
-    const octUpgrade = Object.keys(octeractUpgrades) as OcteractDataKeys[]
+    const octUpgrade = Object.keys(octeractUpgrades) as OcteractUpgrades[]
     let totalOctUpgradeCount = 0
     let totalOctUpgradeMax = 0
 

@@ -336,7 +336,7 @@ export const calculatePotionValue = (resetTime: number, resourceMult: Decimal, b
   const potionMultipliers = getGQUpgradeEffect('potionBuff', 'potionPowerMult')
     * getGQUpgradeEffect('potionBuff2', 'potionPowerMult')
     * getGQUpgradeEffect('potionBuff3', 'potionPowerMult')
-    * getOcteractUpgradeEffect('octeractAutoPotionEfficiency')
+    * getOcteractUpgradeEffect('octeractAutoPotionEfficiency', 'potionPowerMult')
 
   return fastForwardMult.times(potionMultipliers)
 }
@@ -1420,19 +1420,19 @@ export const calculateAmbrosiaLuckSingularityUpgrade = () => {
 
 export const calculateAmbrosiaGenerationOcteractUpgrade = () => {
   return (
-    getOcteractUpgradeEffect('octeractAmbrosiaGeneration')
-    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration2')
-    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration3')
-    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration4')
+    getOcteractUpgradeEffect('octeractAmbrosiaGeneration', 'ambrosiaBarSpeedMult')
+    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration2', 'ambrosiaBarSpeedMult')
+    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration3', 'ambrosiaBarSpeedMult')
+    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration4', 'ambrosiaBarSpeedMult')
   )
 }
 
 export const calculateAmbrosiaLuckOcteractUpgrade = () => {
   return (
-    getOcteractUpgradeEffect('octeractAmbrosiaLuck')
-    + getOcteractUpgradeEffect('octeractAmbrosiaLuck2')
-    + getOcteractUpgradeEffect('octeractAmbrosiaLuck3')
-    + getOcteractUpgradeEffect('octeractAmbrosiaLuck4')
+    getOcteractUpgradeEffect('octeractAmbrosiaLuck', 'ambrosiaLuck')
+    + getOcteractUpgradeEffect('octeractAmbrosiaLuck2', 'ambrosiaLuck')
+    + getOcteractUpgradeEffect('octeractAmbrosiaLuck3', 'ambrosiaLuck')
+    + getOcteractUpgradeEffect('octeractAmbrosiaLuck4', 'ambrosiaLuck')
   )
 }
 

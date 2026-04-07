@@ -168,7 +168,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.autoPotionTimerObtainium += time * timeMultiplier
 
         const timerThreshold = (180 * Math.pow(1.03, -player.highestSingularityCount))
-          / getOcteractUpgradeEffect('octeractAutoPotionSpeed')
+          / getOcteractUpgradeEffect('octeractAutoPotionSpeed', 'autoPotionSpeedMult')
 
         const effectiveOfferingThreshold = toggleOfferingOn
           ? Math.min(1, timerThreshold) / 20

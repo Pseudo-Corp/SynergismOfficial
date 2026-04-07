@@ -5317,7 +5317,7 @@
       "octeractQuarkGain2": {
         "name": "Octo-Hepteract Primality Synergism",
         "description": "For every 111 levels of Quark Octeract, you gain 0.01% more Quarks per digit in your Quark Hepteract count per level!",
-        "effect": "Octo-Hepteract Primality Synergism is {{n}} active."
+        "effect": "Octo-Hepteract Primality Synergism is {{n}} active. Gain {{amount}} more Quarks!"
       },
       "octeractCorruption": {
         "name": "EXTRA CHONKY Corruptions",
@@ -5342,7 +5342,7 @@
       "octeractImprovedDaily2": {
         "name": "CHONKERER Daily Code",
         "description": "Derpsmith implemented hyperspeed multiplication. +1% more free Golden Quark upgrades per day from Daily!",
-        "effect": "Code 'daily' gives +{{n}}% more free Golden Quark upgrades per use."
+        "effect": "Code 'daily' gives +{{n}} more free Golden Quark upgrades per use."
       },
       "octeractImprovedDaily3": {
         "name": "CHONKEREREST Daily Code",
@@ -5357,17 +5357,17 @@
       "octeractImprovedGlobalSpeed": {
         "name": "The Forbidden Clock of Time",
         "description": "Hypothesized to be locked in a hyperbolic time chamber. +1% Global Speed per level per singularity!",
-        "effect": "Global Speed per singularity +{{n}}%"
+        "effect": "Global Speed per singularity +{{n}}% <br> Total Global Speed increase: +{{mult}}"
       },
       "octeractImprovedAscensionSpeed": {
         "name": "Abstract Photokinetics",
         "description": "Gain +0.05% Ascension Speed per level per singularity!",
-        "effect": "Ascension Speed per singularity +{{n}}%"
+        "effect": "Ascension Speed per singularity +{{n}}% <br> Total Ascension Speed increase: +{{mult}}"
       },
       "octeractImprovedAscensionSpeed2": {
         "name": "Abstract Exokinetics",
         "description": "Gain +0.05% Ascension Speed per level per singularity!",
-        "effect": "Ascension Speed per singularity +{{n}}%"
+        "effect": "Ascension Speed per singularity +{{n}}% <br> Total Ascension Speed increase: +{{mult}}"
       },
       "octeractImprovedFree": {
         "name": "Wow! I want free upgrades to be better.",
@@ -5437,7 +5437,7 @@
       "octeractAscensionsOcteractGain": {
         "name": "Digital Octeract Accumulator",
         "description": "Octeract gain is 1% faster for every digit in your Ascension count!",
-        "effect": "Octeract Gain per order of magnitude Ascension count increase +{{n}}%"
+        "effect": "Octeract Gain per order of magnitude Ascension count increase +{{n}}% <br> Total Octeract increase: +{{mult}}"
       },
       "octeractFastForward": {
         "name": "Derpsmith's Singularity Discombobulator",

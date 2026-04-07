@@ -110,7 +110,7 @@ import { calculateTrueAntLevel } from './Features/Ants/AntUpgrades/lib/total-lev
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers } from './Features/Ants/structs/structs'
-import { getHepteractEffects, hepteracts } from './Hepteracts'
+import { getHepteractEffects } from './Hepteracts'
 import {
   addCodeBonuses,
   addCodeInterval,
@@ -733,15 +733,15 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'OcteractStarter',
-    stat: () => getOcteractUpgradeEffect('octeractStarter')
+    stat: () => getOcteractUpgradeEffect('octeractStarter', 'octeractMult')
   },
   {
     i18n: 'OcteractGain',
-    stat: () => getOcteractUpgradeEffect('octeractGain')
+    stat: () => getOcteractUpgradeEffect('octeractGain', 'octeractMult')
   },
   {
     i18n: 'OcteractGain2',
-    stat: () => getOcteractUpgradeEffect('octeractGain2')
+    stat: () => getOcteractUpgradeEffect('octeractGain2', 'octeractMult')
   },
   {
     i18n: 'DerpsmithCornucopia',
@@ -749,11 +749,7 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'DigitalOcteractAccumulator',
-    stat: () =>
-      Math.pow(
-        1 + getOcteractUpgradeEffect('octeractAscensionsOcteractGain'),
-        1 + Math.floor(Math.log10(1 + player.ascensionCount))
-      )
+    stat: () => getOcteractUpgradeEffect('octeractAscensionsOcteractGain', 'octeractMult')
   },
   {
     i18n: 'Event',
@@ -821,7 +817,7 @@ export const allOcteractCubeStats: NumberStatLine[] = [
       const ascensionSpeed = getGQUpgradeEffect('oneMind', 'unlocked')
         ? Math.pow(10, 1 / 2) * Math.pow(
           calculateAscensionSpeedMult() / 10,
-          getOcteractUpgradeEffect('octeractOneMindImprover')
+          getOcteractUpgradeEffect('octeractOneMindImprover', 'ascendSpeedExponent')
         )
         : Math.pow(calculateAscensionSpeedMult(), 1 / 2)
       return ascensionSpeed
@@ -1054,7 +1050,7 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'OcteractElectrolosis',
-    stat: () => getOcteractUpgradeEffect('octeractOfferings1') // Offering Electrolosis OC Upgrade
+    stat: () => getOcteractUpgradeEffect('octeractOfferings1', 'offeringMult') // Offering Electrolosis OC Upgrade
   },
   {
     i18n: 'OcteractBonus',
@@ -1324,19 +1320,15 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'OcteractStarter',
-    stat: () => 1 + (octeractUpgrades.octeractStarter.level > 0 ? 0.25 : 0)
+    stat: () => getOcteractUpgradeEffect('octeractStarter', 'quarkMult')
   },
   {
     i18n: 'OcteractQuarkGain',
-    stat: () => getOcteractUpgradeEffect('octeractQuarkGain')
+    stat: () => getOcteractUpgradeEffect('octeractQuarkGain', 'quarkMult')
   },
   {
     i18n: 'OcteractQuarkGain2',
-    stat: () =>
-      1
-      + (1 / 10000) * Math.floor(octeractUpgrades.octeractQuarkGain.level / 111)
-        * octeractUpgrades.octeractQuarkGain2.level
-        * Math.floor(1 + Math.log10(Math.max(1, hepteracts.quark.BAL)))
+    stat: () => getOcteractUpgradeEffect('octeractQuarkGain2', 'quarkMult')
   },
   {
     i18n: 'SingularityPacks',
@@ -1685,7 +1677,7 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'OcteractObtainium1',
-    stat: () => getOcteractUpgradeEffect('octeractObtainium1') // Octeract Obtainium 1
+    stat: () => getOcteractUpgradeEffect('octeractObtainium1', 'obtainiumMult') // Octeract Obtainium 1
   },
   {
     i18n: 'AmbrosiaObtainium1',
@@ -1819,7 +1811,7 @@ export const allGlobalSpeedIgnoreDRStats: NumberStatLine[] = [
   },
   {
     i18n: 'OcteractGlobalSpeed',
-    stat: () => 1 + getOcteractUpgradeEffect('octeractImprovedGlobalSpeed') * player.singularityCount // Oct Improved Global Speed
+    stat: () => getOcteractUpgradeEffect('octeractImprovedGlobalSpeed', 'globalSpeedMult') // Oct Improved Global Speed
   },
   {
     i18n: 'LimitedTimeChallenge',
@@ -1972,11 +1964,11 @@ export const allAscensionSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'AbstractPhotokinetics',
-    stat: () => 1 + getOcteractUpgradeEffect('octeractImprovedAscensionSpeed') * player.singularityCount // Abstract Photokinetics, Oct Upg
+    stat: () => getOcteractUpgradeEffect('octeractImprovedAscensionSpeed', 'ascensionSpeedMult') // Abstract Photokinetics, Oct Upg
   },
   {
     i18n: 'AbstractExokinetics',
-    stat: () => 1 + getOcteractUpgradeEffect('octeractImprovedAscensionSpeed2') * player.singularityCount // Abstract Exokinetics, Oct Upg
+    stat: () => getOcteractUpgradeEffect('octeractImprovedAscensionSpeed2', 'ascensionSpeedMult') // Abstract Exokinetics, Oct Upg
   },
   {
     i18n: 'ChronometerINF',
@@ -2206,7 +2198,7 @@ export const allAmbrosiaBlueberryStats: NumberStatLine[] = [
   },
   {
     i18n: 'OcteractBlueberries',
-    stat: () => getOcteractUpgradeEffect('octeractBlueberries') // Octeract Blueberry Upgrade
+    stat: () => getOcteractUpgradeEffect('octeractBlueberries', 'blueberries') // Octeract Blueberry Upgrade
   },
   {
     i18n: 'RedAmbrosiaBlueberries',
@@ -2414,7 +2406,7 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLine[] = [
   },
   {
     i18n: 'OcteractCostReduce',
-    stat: () => getOcteractUpgradeEffect('octeractGQCostReduce')
+    stat: () => getOcteractUpgradeEffect('octeractGQCostReduce', 'goldenQuarkCostMult')
   },
   {
     i18n: 'GoldenRevolution2',
@@ -2716,7 +2708,7 @@ export const allShopTablets: NumberStatLine[] = [
   },
   {
     i18n: 'Green',
-    stat: () => getOcteractUpgradeEffect('octeractInfiniteShopUpgrades'), // Octeract Upgrade
+    stat: () => getOcteractUpgradeEffect('octeractInfiniteShopUpgrades', 'infinityVouchers'), // Octeract Upgrade
     acc: 0,
     color: 'green'
   },
@@ -3108,7 +3100,7 @@ export const antSpeedStats: StatLine[] = [
   {
     i18n: 'OcteractUpgrade',
     stat: () => {
-      return octeractUpgrades.octeractStarter.level > 0 ? 100000 : 1
+      return getOcteractUpgradeEffect('octeractStarter', 'antSpeedMult')
     },
     displayCriterion: () => octeractUpgrades.octeractStarter.level > 0
   }
@@ -3374,12 +3366,12 @@ export const ascensionCountMultStats: NumberStatLine[] = [
   },
   {
     i18n: 'OcteractUpgrade1',
-    stat: () => getOcteractUpgradeEffect('octeractAscensions'),
+    stat: () => getOcteractUpgradeEffect('octeractAscensions', 'ascensionCountMult'),
     displayCriterion: () => player.highestSingularityCount >= 8
   },
   {
     i18n: 'OcteractUpgrade2',
-    stat: () => getOcteractUpgradeEffect('octeractAscensions2'),
+    stat: () => getOcteractUpgradeEffect('octeractAscensions2', 'ascensionCountMult'),
     displayCriterion: () => player.highestSingularityCount >= 8
   },
   {

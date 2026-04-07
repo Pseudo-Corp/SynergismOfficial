@@ -278,7 +278,7 @@ export class CampaignManager {
 
     sum += inheritanceTokens()
     sum += getGQUpgradeEffect('singBonusTokens4', 'initialTokenBonus')
-    sum += getOcteractUpgradeEffect('octeractBonusTokens4')
+    sum += getOcteractUpgradeEffect('octeractBonusTokens4', 'initialTokenBonus')
 
     return sum
   }
@@ -494,7 +494,7 @@ export const updateTokens = () => {
 
   sum += inheritanceTokens()
   sum += getGQUpgradeEffect('singBonusTokens4', 'initialTokenBonus')
-  sum += getOcteractUpgradeEffect('octeractBonusTokens4')
+  sum += getOcteractUpgradeEffect('octeractBonusTokens4', 'initialTokenBonus')
   campaignTokens = sum
 
   awardAchievementGroup('campaignTokens')
@@ -508,7 +508,7 @@ export const updateMaxTokens = () => {
 
   sum += inheritanceTokens()
   sum += getGQUpgradeEffect('singBonusTokens4', 'initialTokenBonus')
-  sum += getOcteractUpgradeEffect('octeractBonusTokens4')
+  sum += getOcteractUpgradeEffect('octeractBonusTokens4', 'initialTokenBonus')
 
   maxCampaignTokens = sum
 }
@@ -546,7 +546,7 @@ class Campaign {
         additiveTotal += 5
       }
       additiveTotal += getGQUpgradeEffect('singBonusTokens1', 'firstCompletionBonusTokens')
-      additiveTotal += getOcteractUpgradeEffect('octeractBonusTokens3')
+      additiveTotal += getOcteractUpgradeEffect('octeractBonusTokens3', 'firstCompletionBonusTokens')
     }
 
     if (completed === this.#limit) {
@@ -554,7 +554,7 @@ class Campaign {
         additiveTotal += 10
       }
       additiveTotal += getGQUpgradeEffect('singBonusTokens3', 'lastCompletionBonusTokens')
-      additiveTotal += getOcteractUpgradeEffect('octeractBonusTokens1')
+      additiveTotal += getOcteractUpgradeEffect('octeractBonusTokens1', 'lastCompletionBonusTokens')
     }
 
     let multiplier = 1
@@ -562,7 +562,7 @@ class Campaign {
     multiplier *= this.#isMeta ? 2 : 1
     multiplier *= singularityBonusTokenMult()
     multiplier *= getGQUpgradeEffect('singBonusTokens2', 'tokenMultiplier')
-    multiplier *= getOcteractUpgradeEffect('octeractBonusTokens2')
+    multiplier *= getOcteractUpgradeEffect('octeractBonusTokens2', 'tokenMultiplier')
     return Math.floor(additiveTotal * multiplier)
   }
 

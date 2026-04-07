@@ -2513,7 +2513,7 @@ export function computeGQUpgradeMaxLevel (upgradeKey: SingularityDataKeys): numb
         break
       }
     }
-    cap += getOcteractUpgradeEffect('octeractSingUpgradeCap')
+    cap += getOcteractUpgradeEffect('octeractSingUpgradeCap', 'goldenQuarkUpgradeCapIncrease')
     return cap
   }
 }
@@ -2541,11 +2541,11 @@ export function actualGQUpgradeTotalLevels (upgradeKey: SingularityDataKeys): nu
   const linearLevels = upgrade.level + actualFreeLevels
   let polynomialLevels = 0
 
-  if (getOcteractUpgradeEffect('octeractImprovedFree')) {
-    let exponent = 0.6
-    exponent += getOcteractUpgradeEffect('octeractImprovedFree2')
-    exponent += getOcteractUpgradeEffect('octeractImprovedFree3')
-    exponent += getOcteractUpgradeEffect('octeractImprovedFree4')
+  if (getOcteractUpgradeEffect('octeractImprovedFree', 'unlocked')) {
+    let exponent = getOcteractUpgradeEffect('octeractImprovedFree', 'freeLevelPower')
+    exponent += getOcteractUpgradeEffect('octeractImprovedFree2', 'freeLevelPowerIncrease')
+    exponent += getOcteractUpgradeEffect('octeractImprovedFree3', 'freeLevelPowerIncrease')
+    exponent += getOcteractUpgradeEffect('octeractImprovedFree4', 'freeLevelPowerIncrease')
     polynomialLevels = Math.pow(upgrade.level * actualFreeLevels, exponent)
   }
 
@@ -3563,7 +3563,7 @@ export const calculateMaxSingularityLookahead = (nonZero: boolean): number => {
     let maxLookahead = 1
     maxLookahead += getGQUpgradeEffect('singFastForward', 'lookahead')
     maxLookahead += getGQUpgradeEffect('singFastForward2', 'lookahead')
-    maxLookahead += getOcteractUpgradeEffect('octeractFastForward')
+    maxLookahead += getOcteractUpgradeEffect('octeractFastForward', 'lookahead')
     return maxLookahead
   }
 }

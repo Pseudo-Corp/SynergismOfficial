@@ -155,7 +155,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
       return getGQUpgradeEffect('singQuarkHepteract', 'quarkHeptExponent')
         + getGQUpgradeEffect('singQuarkHepteract2', 'quarkHeptExponent')
         + getGQUpgradeEffect('singQuarkHepteract3', 'quarkHeptExponent')
-        + getOcteractUpgradeEffect('octeractImprovedQuarkHept')
+        + getOcteractUpgradeEffect('octeractImprovedQuarkHept', 'quarkHeptExponent')
         + getShopUpgradeEffects('improveQuarkHept', 'quarkHeptExponent')
         + getShopUpgradeEffects('improveQuarkHept2', 'quarkHeptExponent')
         + getShopUpgradeEffects('improveQuarkHept3', 'quarkHeptExponent')

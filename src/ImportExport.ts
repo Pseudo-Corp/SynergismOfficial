@@ -545,16 +545,15 @@ export const promocodes = async (input: string | null, amount?: number) => {
         ascensions: { value: 1, pdf: (x: number) => 800 < x && x <= 1000 }
       }
       let rolls = 3 * Math.sqrt(player.highestSingularityCount)
-      rolls += getOcteractUpgradeEffect('octeractImprovedDaily')
+      rolls += getOcteractUpgradeEffect('octeractImprovedDaily', 'extraGoldenQuarks')
       rolls += getShopUpgradeEffects('shopImprovedDaily2', 'freeSingularityUpgrades')
       rolls += getShopUpgradeEffects('shopImprovedDaily3', 'freeSingularityUpgrades')
       rolls += getShopUpgradeEffects('shopImprovedDaily4', 'freeSingularityUpgrades')
       rolls += getGQUpgradeEffect('platonicPhi', 'dailyCodes')
-      rolls += getOcteractUpgradeEffect('octeractImprovedDaily3')
+      rolls += getOcteractUpgradeEffect('octeractImprovedDaily3', 'extraGoldenQuarks')
       rolls += getSingularityChallengeEffect('sadisticPrequel', 'extraFree')
-      rolls *= getOcteractUpgradeEffect('octeractImprovedDaily2')
-      rolls *= 1
-        + getOcteractUpgradeEffect('octeractImprovedDaily3') / 200
+      rolls *= getOcteractUpgradeEffect('octeractImprovedDaily2', 'goldenQuarkMult')
+      rolls *= getOcteractUpgradeEffect('octeractImprovedDaily3', 'goldenQuarkMult')
       rolls *= getSingularityChallengeEffect('sadisticPrequel', 'freeUpgradeMult')
       if (player.highestSingularityCount >= 200) {
         rolls *= 2
