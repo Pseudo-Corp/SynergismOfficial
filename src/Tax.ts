@@ -88,8 +88,8 @@ export const calculatetax = () => {
   exponent *= 1 - 0.05 * player.researches[55]
   exponent *= +getAchievementReward('taxReduction')
   exponent *= Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6]))
-  exponent *= getRuneEffects('duplication').taxReduction
-  exponent *= getRuneEffects('thrift').taxReduction
+  exponent *= getRuneEffects('duplication', 'taxReduction')
+  exponent *= getRuneEffects('thrift', 'taxReduction')
   exponent *= getAntUpgradeEffect(AntUpgrades.Taxes).taxReduction
   exponent *= 1
     / Math.pow(

@@ -14,6 +14,7 @@ import { getLevelMilestone } from './Levels'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { resetTiers } from './Reset'
 import { createShopUpgradeTypeIcon, getShopUpgradeEffects, ShopUpgradeGroups } from './Shop'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
@@ -95,7 +96,7 @@ interface RuneHTMLStyle {
   nameColor: string
 }
 
-interface RuneData<K extends RuneKeys> {
+interface RuneData<T extends RuneKeys, K extends keyof RuneTypeMap[T]> {
   level: number
   runeEXP: Decimal
   costCoefficient: Decimal
@@ -107,7 +108,7 @@ interface RuneData<K extends RuneKeys> {
   runeEXPPerOffering: (purchasedLevels: number) => Decimal
   isUnlocked: () => boolean
   minimalResetTier: keyof typeof resetTiers
-  effects: (n: number) => RuneTypeMap[K]
+  effects: (n: number, key: K) => RuneTypeMap[T][K]
   effectsDescription: () => string
   name: () => string
   description: () => string
@@ -182,7 +183,7 @@ const bonusRuneLevelsIA = () => {
     + player.cubeUpgrades[73]
     + player.campaigns.bonusRune6
     + getRuneBonusFromAllTalismans('infiniteAscent')
-    + getRuneEffects('finiteDescent').infiniteAscentFreeLevel
+    + getRuneEffects('finiteDescent', 'infiniteAscentFreeLevel')
   )
 }
 
@@ -204,7 +205,7 @@ const speedRuneOOMIncrease = () => {
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
     + player.cubeUpgrades[16]
     + getTalismanEffects('chronos').speedOOMBonus
-    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
     + getLevelMilestone('speedRune')
   )
 }
@@ -218,7 +219,7 @@ const duplicationRuneOOMIncrease = () => {
     + CalcECC('ascension', player.challengecompletions[11])
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
     + getTalismanEffects('exemption').duplicationOOMBonus
-    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
     + getLevelMilestone('duplicationRune')
   )
 }
@@ -232,7 +233,7 @@ const prismRuneOOMIncrease = () => {
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
     + player.cubeUpgrades[16]
     + getTalismanEffects('mortuus').prismOOMBonus
-    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
     + getLevelMilestone('prismRune')
   )
 }
@@ -246,7 +247,7 @@ const thriftRuneOOMIncrease = () => {
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
     + player.cubeUpgrades[37]
     + getTalismanEffects('midas').thriftOOMBonus
-    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
     + getLevelMilestone('thriftRune')
   )
 }
@@ -259,26 +260,26 @@ const superiorIntellectOOMIncrease = () => {
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
     + player.cubeUpgrades[37]
     + getTalismanEffects('polymath').SIOOMBonus
-    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
     + getLevelMilestone('SIRune')
   )
 }
 
 const infiniteAscentOOMIncrease = () => {
   return (
-    getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').infiniteAscentOOMBonus
+    getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
   )
 }
 
 const antiquitiesOOMIncrease = () => {
   return (
-    +player.singularityChallenges.taxmanLastStand.rewards.antiquityOOM
+    getSingularityChallengeEffect('taxmanLastStand', 'antiquityOOM')
   )
 }
 
 const horseShoeOOMIncrease = () => {
   return (
-    +player.singularityChallenges.taxmanLastStand.rewards.horseShoeOOM
+    getSingularityChallengeEffect('taxmanLastStand', 'horseShoeOOM')
   )
 }
 
@@ -335,7 +336,7 @@ const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
   return allRuneExpMultiplier.times(allRuneExpAdditiveMultiplier).times(recycleMultiplier)
 }
 
-export const runes: { [K in RuneKeys]: RuneData<K> } = {
+export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   speed: {
     level: 0,
     runeEXP: new Decimal('0'),
@@ -343,26 +344,27 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     levelsPerOOM: 150,
     ignoreChal9: false,
     levelsPerOOMIncrease: () => speedRuneOOMIncrease(),
-    effects: (n) => {
-      const acceleratorPower = 0.0002 * n
-      const multiplicativeAccelerators = 1 + n / 400
-      const globalSpeed = 2 - Math.exp(-Math.cbrt(n) / 100)
-      return {
-        acceleratorPower: acceleratorPower,
-        multiplicativeAccelerators: multiplicativeAccelerators,
-        globalSpeed: globalSpeed
+    effects: (n, key) => {
+      if (key === 'acceleratorPower') {
+        return 0.0002 * n
+      } else if (key === 'multiplicativeAccelerators') {
+        return 1 + n / 400
+      } else {
+        return 2 - Math.exp(-Math.cbrt(n) / 100) // globalSpeed
       }
     },
     effectsDescription: () => {
-      const effects = getRuneEffects('speed')
+      const acceleratorPower = getRuneEffects('speed', 'acceleratorPower')
+      const multiplicativeAccelerators = getRuneEffects('speed', 'multiplicativeAccelerators')
+      const globalSpeed = getRuneEffects('speed', 'globalSpeed')
       const acceleratorPowerText = i18next.t('runes.speed.acceleratorPower', {
-        val: format(100 * effects.acceleratorPower, 2)
+        val: format(100 * acceleratorPower, 2)
       })
       const multiplicativeAcceleratorsText = i18next.t('runes.speed.freeAccelerators', {
-        val: formatAsPercentIncrease(effects.multiplicativeAccelerators, 2)
+        val: formatAsPercentIncrease(multiplicativeAccelerators, 2)
       })
       const globalSpeedText = i18next.t('runes.speed.globalSpeed', {
-        val: formatAsPercentIncrease(effects.globalSpeed, 3)
+        val: formatAsPercentIncrease(globalSpeed, 3)
       })
       return `${acceleratorPowerText}<br>${multiplicativeAcceleratorsText}<br>${globalSpeedText}`
     },
@@ -386,26 +388,27 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     levelsPerOOM: 120,
     ignoreChal9: false,
     levelsPerOOMIncrease: () => duplicationRuneOOMIncrease(),
-    effects: (n) => {
-      const multiplierBoosts = n / 5
-      const multiplicativeMultipliers = 1 + n / 400
-      const taxReduction = 0.001 + .999 * Math.exp(-Math.cbrt(n) / 5)
-      return {
-        multiplierBoosts: multiplierBoosts,
-        multiplicativeMultipliers: multiplicativeMultipliers,
-        taxReduction: taxReduction
+    effects: (n, key) => {
+      if (key === 'multiplierBoosts') {
+        return n / 5
+      } else if (key === 'multiplicativeMultipliers') {
+        return 1 + n / 400
+      } else {
+        return 0.001 + .999 * Math.exp(-Math.cbrt(n) / 5) // taxReduction
       }
     },
     effectsDescription: () => {
-      const effect = getRuneEffects('duplication')
+      const multiplierBoosts = getRuneEffects('duplication', 'multiplierBoosts')
+      const multiplicativeMultipliers = getRuneEffects('duplication', 'multiplicativeMultipliers')
+      const taxReduction = getRuneEffects('duplication', 'taxReduction')
       const multiplierPowerBoostsText = i18next.t('runes.duplication.multiplierPower', {
-        val: format(effect.multiplierBoosts, 2, true)
+        val: format(multiplierBoosts, 2, true)
       })
       const multiplicativeMultipliersText = i18next.t('runes.duplication.freeMultipliers', {
-        val: formatAsPercentIncrease(effect.multiplicativeMultipliers, 2)
+        val: formatAsPercentIncrease(multiplicativeMultipliers, 2)
       })
       const taxReductionText = i18next.t('runes.duplication.taxReduction', {
-        val: format(100 * (1 - effect.taxReduction), 3, true)
+        val: format(100 * (1 - taxReduction), 3, true)
       })
       return `${multiplierPowerBoostsText}<br>${multiplicativeMultipliersText}<br>${taxReductionText}`
     },
@@ -429,21 +432,21 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     levelsPerOOM: 90,
     ignoreChal9: false,
     levelsPerOOMIncrease: () => prismRuneOOMIncrease(),
-    effects: (level) => {
-      const productionLog10 = Math.max(0, 2 * Math.log10(1 + level / 2) + (level / 2) * Math.log10(2) - Math.log10(256))
-      const costDivisorLog10 = Math.floor(level / 10)
-      return {
-        productionLog10: productionLog10,
-        costDivisorLog10: costDivisorLog10
+    effects: (n, key) => {
+      if (key === 'productionLog10') {
+        return Math.max(0, 2 * Math.log10(1 + n / 2) + (n / 2) * Math.log10(2) - Math.log10(256))
+      } else {
+        return Math.floor(n / 10) // costDivisorLog10
       }
     },
     effectsDescription: () => {
-      const effect = getRuneEffects('prism')
+      const productionLog10 = getRuneEffects('prism', 'productionLog10')
+      const costDivisorLog10 = getRuneEffects('prism', 'costDivisorLog10')
       const productionText = i18next.t('runes.prism.crystalProduction', {
-        val: format(Decimal.pow(10, effect.productionLog10), 2, true)
+        val: format(Decimal.pow(10, productionLog10), 2, true)
       })
       const costReductionText = i18next.t('runes.prism.costDivisor', {
-        val: format(Decimal.pow(10, effect.costDivisorLog10), 0, true)
+        val: format(Decimal.pow(10, costDivisorLog10), 0, true)
       })
       return `${productionText}<br>${costReductionText}`
     },
@@ -467,22 +470,23 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     levelsPerOOM: 60,
     ignoreChal9: false,
     levelsPerOOMIncrease: () => thriftRuneOOMIncrease(),
-    effects: (level) => {
-      const costDelay = Math.min(1e15, level / 125)
-      const salvage = 2.5 * Math.log(1 + level / 10)
-      const taxReduction = 0.01 + 0.99 * Math.exp(-Math.cbrt(level) / 10)
-      return {
-        costDelay: costDelay,
-        salvage: salvage,
-        taxReduction: taxReduction
+    effects: (n, key) => {
+      if (key === 'costDelay') {
+        return Math.min(1e15, n / 125)
+      } else if (key === 'salvage') {
+        return 2.5 * Math.log(1 + n / 10)
+      } else {
+        return 0.01 + 0.99 * Math.exp(-Math.cbrt(n) / 10) // taxReduction
       }
     },
     effectsDescription: () => {
-      const effect = getRuneEffects('thrift')
-      const costDelayText = i18next.t('runes.thrift.costDelay', { val: format(effect.costDelay, 0, true) })
-      const salvageText = i18next.t('runes.thrift.salvage', { val: format(effect.salvage, 2, true) })
+      const costDelay = getRuneEffects('thrift', 'costDelay')
+      const salvage = getRuneEffects('thrift', 'salvage')
+      const taxReduction = getRuneEffects('thrift', 'taxReduction')
+      const costDelayText = i18next.t('runes.thrift.costDelay', { val: format(costDelay, 0, true) })
+      const salvageText = i18next.t('runes.thrift.salvage', { val: format(salvage, 2, true) })
       const taxReductionText = i18next.t('runes.thrift.taxReduction', {
-        val: format(100 * (1 - effect.taxReduction), 3, true)
+        val: format(100 * (1 - taxReduction), 3, true)
       })
       return `${costDelayText}<br>${salvageText}<br>${taxReductionText}`
     },
@@ -506,25 +510,26 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     levelsPerOOM: 30,
     ignoreChal9: false,
     levelsPerOOMIncrease: () => superiorIntellectOOMIncrease(),
-    effects: (level) => {
-      const offeringMult = 1 + level / 2000
-      const obtainiumMult = 1 + level / 200
-      const antSpeed = Math.pow(1 + level / 500, 2)
-      return {
-        offeringMult: offeringMult,
-        obtainiumMult: obtainiumMult,
-        antSpeed: antSpeed
+    effects: (n, key) => {
+      if (key === 'offeringMult') {
+        return 1 + n / 2000
+      } else if (key === 'obtainiumMult') {
+        return 1 + n / 200
+      } else {
+        return Math.pow(1 + n / 500, 2) // antSpeed
       }
     },
     effectsDescription: () => {
-      const effect = getRuneEffects('superiorIntellect')
+      const offeringMult = getRuneEffects('superiorIntellect', 'offeringMult')
+      const obtainiumMult = getRuneEffects('superiorIntellect', 'obtainiumMult')
+      const antSpeed = getRuneEffects('superiorIntellect', 'antSpeed')
       const offeringMultText = i18next.t('runes.superiorIntellect.offeringMult', {
-        val: formatAsPercentIncrease(effect.offeringMult, 2)
+        val: formatAsPercentIncrease(offeringMult, 2)
       })
       const obtainiumMultText = i18next.t('runes.superiorIntellect.obtainiumMult', {
-        val: formatAsPercentIncrease(effect.obtainiumMult, 2)
+        val: formatAsPercentIncrease(obtainiumMult, 2)
       })
-      const antSpeedText = i18next.t('runes.superiorIntellect.antSpeed', { val: format(effect.antSpeed, 2) })
+      const antSpeedText = i18next.t('runes.superiorIntellect.antSpeed', { val: format(antSpeed, 2) })
       return `${offeringMultText}<br>${obtainiumMultText}<br>${antSpeedText}`
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult() * SIEffectiveRuneLevelMult(),
@@ -547,32 +552,30 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     levelsPerOOM: 1 / 2,
     ignoreChal9: true,
     levelsPerOOMIncrease: () => infiniteAscentOOMIncrease(),
-    effects: (level) => {
-      const quarkMult = 1 + level / 500 + (level > 0 ? 0.1 : 0)
-      const cubeMult = 1 + level / 100
-
-      const salvageCoefficient = 0.025 * salvagePerkLevels.filter((x) => x <= player.highestSingularityCount).length
-      const salvage = salvageCoefficient * level
-
-      return {
-        quarkMult: quarkMult,
-        cubeMult: cubeMult,
-        salvage: salvage
+    effects: (n, key) => {
+      if (key === 'quarkMult') {
+        return 1 + n / 500 + (n > 0 ? 0.1 : 0)
+      } else if (key === 'cubeMult') {
+        return 1 + n / 100
+      } else {
+        return n * 0.025 * salvagePerkLevels.filter((x) => x <= player.highestSingularityCount).length // salvage
       }
     },
     effectsDescription: () => {
-      const effectValues = getRuneEffects('infiniteAscent')
+      const quarkMult = getRuneEffects('infiniteAscent', 'quarkMult')
+      const cubeMult = getRuneEffects('infiniteAscent', 'cubeMult')
+      const salvage = getRuneEffects('infiniteAscent', 'salvage')
       const quarkText = i18next.t('runes.infiniteAscent.quarkBonus', {
-        val: formatAsPercentIncrease(effectValues.quarkMult, 2)
+        val: formatAsPercentIncrease(quarkMult, 2)
       })
       const cubeText = i18next.t('runes.infiniteAscent.cubeBonus', {
-        val: formatAsPercentIncrease(effectValues.cubeMult, 2)
+        val: formatAsPercentIncrease(cubeMult, 2)
       })
       if (player.highestSingularityCount >= 30) {
         const salvageCoefficient = 0.025 * salvagePerkLevels.filter((x) => x <= player.highestSingularityCount).length
         const salvageText = `<span style="color: lightgoldenrodyellow">${
           i18next.t('runes.infiniteAscent.salvage', {
-            val: format(effectValues.salvage, 2, true),
+            val: format(salvage, 2, true),
             val2: format(salvageCoefficient, 3, true)
           })
         }</span>`
@@ -601,34 +604,36 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     levelsPerOOM: 1 / 50,
     ignoreChal9: true,
     levelsPerOOMIncrease: () => antiquitiesOOMIncrease(),
-    effects: (level) => {
-      const addCodeCooldownReduction = level > 0 ? 0.8 - 0.3 * (level - 1) / (level + 10) : 1
-      const offeringLog10 = level
-      const obtainiumLog10 = level
-      const cubeBonus = level > 0 ? Math.pow(1.01, Math.min(5, level) * player.singularityCount) : 1
-      return {
-        addCodeCooldownReduction: addCodeCooldownReduction,
-        offeringLog10: offeringLog10,
-        obtainiumLog10: obtainiumLog10,
-        cubeBonus
+    effects: (n, key) => {
+      if (key === 'addCodeCooldownReduction') {
+        return n > 0 ? 0.8 - 0.3 * (n - 1) / (n + 10) : 1
+      } else if (key === 'offeringLog10') {
+        return n
+      } else if (key === 'obtainiumLog10') {
+        return n
+      } else {
+        return (n > 0) ? Math.pow(1.01, Math.min(5, n) * player.singularityCount) : 1 // cubeBonus
       }
     },
     effectsDescription: () => {
-      const effect = getRuneEffects('antiquities')
+      const offeringLog10 = getRuneEffects('antiquities', 'offeringLog10')
+      const obtainiumLog10 = getRuneEffects('antiquities', 'obtainiumLog10')
+      const addCodeCooldownReduction = getRuneEffects('antiquities', 'addCodeCooldownReduction')
+      const cubeBonus = getRuneEffects('antiquities', 'cubeBonus')
       const singularText = i18next.t('runes.antiquities.singularityUnlock', {
         symbol: runes.antiquities.level >= 1 ? '<span class="rainbowText">✔</span>' : '<span class="red">✗</span>'
       })
       const offeringText = i18next.t('runes.antiquities.offeringBonus', {
-        val: format(Decimal.pow(10, effect.offeringLog10), 2, true)
+        val: format(Decimal.pow(10, offeringLog10), 2, true)
       })
       const obtainiumText = i18next.t('runes.antiquities.obtainiumBonus', {
-        val: format(Decimal.pow(10, effect.obtainiumLog10), 2, true)
+        val: format(Decimal.pow(10, obtainiumLog10), 2, true)
       })
       const addCodeCooldownReductionText = i18next.t('runes.antiquities.addCode', {
-        val: formatAsPercentIncrease(effect.addCodeCooldownReduction, 2)
+        val: formatAsPercentIncrease(addCodeCooldownReduction, 2)
       })
       const cubeBonusText = i18next.t('runes.antiquities.cubeBonus', {
-        val: formatAsPercentIncrease(effect.cubeBonus, 2)
+        val: formatAsPercentIncrease(cubeBonus, 2)
       })
       return `${singularText}<br>${offeringText}<br>${obtainiumText}<br>${addCodeCooldownReductionText}<br>${cubeBonusText}`
     },
@@ -652,22 +657,23 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     levelsPerOOM: 1 / 20,
     ignoreChal9: true,
     levelsPerOOMIncrease: () => horseShoeOOMIncrease(),
-    effects: (level) => {
-      const ambrosiaLuck = level
-      const redLuck = level / 5
-      const redLuckConversion = -0.5 * level / (level + 50)
-      return {
-        ambrosiaLuck: ambrosiaLuck,
-        redLuck: redLuck,
-        redLuckConversion: redLuckConversion
+    effects: (n, key) => {
+      if (key === 'ambrosiaLuck') {
+        return n
+      } else if (key === 'redLuck') {
+        return n / 5
+      } else {
+        return -0.5 * n / (n + 50) // redLuckConversion
       }
     },
     effectsDescription: () => {
-      const effect = getRuneEffects('horseShoe')
-      const ambrosiaLuckText = i18next.t('runes.horseShoe.ambrosiaLuck', { val: format(effect.ambrosiaLuck, 2, true) })
-      const redLuckText = i18next.t('runes.horseShoe.redLuck', { val: format(effect.redLuck, 2, true) })
+      const ambrosiaLuck = getRuneEffects('horseShoe', 'ambrosiaLuck')
+      const redLuck = getRuneEffects('horseShoe', 'redLuck')
+      const redLuckConversion = getRuneEffects('horseShoe', 'redLuckConversion')
+      const ambrosiaLuckText = i18next.t('runes.horseShoe.ambrosiaLuck', { val: format(ambrosiaLuck, 2, true) })
+      const redLuckText = i18next.t('runes.horseShoe.redLuck', { val: format(redLuck, 2, true) })
       const redLuckConversionText = i18next.t('runes.horseShoe.luckConversion', {
-        val: format(effect.redLuckConversion, 3, true)
+        val: format(redLuckConversion, 3, true)
       })
       return `${ambrosiaLuckText}<br>${redLuckText}<br>${redLuckConversionText}`
     },
@@ -675,8 +681,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     freeLevels: () => bonusRuneLevelsHorseShoe(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => {
-      const condition = Boolean(player.singularityChallenges.taxmanLastStand.rewards.horseShoeUnlock)
-      return condition
+      return getSingularityChallengeEffect('taxmanLastStand', 'horseShoeUnlock')
     },
     minimalResetTier: 'never',
     name: () => i18next.t('runes.horseShoe.name'),
@@ -694,26 +699,27 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     levelsPerOOM: 0.1,
     ignoreChal9: true,
     levelsPerOOMIncrease: () => 0,
-    effects: (level) => {
-      const ascensionScore = level >= 1 ? 1.04 + 0.96 * (level - 1) / (level + 25) : 1
-      const corruptionFreeLevels = level >= 1 ? 0.01 + 0.14 * (level - 1) / (level + 16) : 0
-      const infiniteAscentFreeLevel = Math.floor(level / 2)
-      return {
-        ascensionScore: ascensionScore,
-        corruptionFreeLevels: corruptionFreeLevels,
-        infiniteAscentFreeLevel: infiniteAscentFreeLevel
+    effects: (n, key) => {
+      if (key === 'ascensionScore') {
+        return n >= 1 ? 1.04 + 0.96 * (n - 1) / (n + 25) : 1
+      } else if (key === 'corruptionFreeLevels') {
+        return n >= 1 ? 0.01 + 0.14 * (n - 1) / (n + 16) : 0
+      } else {
+        return Math.floor(n / 2) // infiniteAscentFreeLevel
       }
     },
     effectsDescription: () => {
-      const effect = getRuneEffects('finiteDescent')
+      const corruptionFreeLevels = getRuneEffects('finiteDescent', 'corruptionFreeLevels')
+      const ascensionScore = getRuneEffects('finiteDescent', 'ascensionScore')
+      const infiniteAscentFreeLevel = getRuneEffects('finiteDescent', 'infiniteAscentFreeLevel')
       const corruptionFreeLevelsText = i18next.t('runes.finiteDescent.corruptionLevels', {
-        val: format(effect.corruptionFreeLevels, 3, true)
+        val: format(corruptionFreeLevels, 3, true)
       })
       const ascensionScoreText = i18next.t('runes.finiteDescent.ascensionScore', {
-        val: formatAsPercentIncrease(effect.ascensionScore, 3)
+        val: formatAsPercentIncrease(ascensionScore, 3)
       })
       const infiniteAscentFreeLevelText = i18next.t('runes.finiteDescent.infiniteAscentLevels', {
-        val: format(effect.infiniteAscentFreeLevel, 0, true)
+        val: format(infiniteAscentFreeLevel, 0, true)
       })
       return `${corruptionFreeLevelsText}<br>${ascensionScoreText}<br>${infiniteAscentFreeLevelText}`
     },
@@ -737,45 +743,48 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     levelsPerOOM: 1,
     ignoreChal9: false,
     levelsPerOOMIncrease: () => 0,
-    effects: (level) => {
-      const freeOfferingLevels = Math.round(200 * (1 - Math.pow(0.995, level))) / 10
-      const freeObtainiumLevels = Math.round(200 * (1 - Math.pow(0.995, level))) / 10
-      const freeCubeLevels = Math.round(150 * (1 - Math.pow(0.997, level))) / 10
-      const freeSpeedLevels = Math.round(150 * (1 - Math.pow(0.997, level))) / 10
-      const freeInfinityLevels = Math.round(100 * (1 - Math.pow(0.999, level))) / 10
-      return {
-        freeOfferingLevels,
-        freeObtainiumLevels,
-        freeCubeLevels,
-        freeSpeedLevels,
-        freeInfinityLevels
+    effects: (n, key) => {
+      if (key === 'freeOfferingLevels') {
+        return Math.round(200 * (1 - Math.pow(0.995, n))) / 10
+      } else if (key === 'freeObtainiumLevels') {
+        return Math.round(200 * (1 - Math.pow(0.995, n))) / 10
+      } else if (key === 'freeCubeLevels') {
+        return Math.round(150 * (1 - Math.pow(0.997, n))) / 10
+      } else if (key === 'freeSpeedLevels') {
+        return Math.round(150 * (1 - Math.pow(0.997, n))) / 10
+      } else {
+        return Math.round(100 * (1 - Math.pow(0.999, n))) / 10 // freeInfinityLevels
       }
     },
     effectsDescription: () => {
-      const effect = getRuneEffects('topHat')
+      const freeOfferingLevels = getRuneEffects('topHat', 'freeOfferingLevels')
+      const freeObtainiumLevels = getRuneEffects('topHat', 'freeObtainiumLevels')
+      const freeCubeLevels = getRuneEffects('topHat', 'freeCubeLevels')
+      const freeSpeedLevels = getRuneEffects('topHat', 'freeSpeedLevels')
+      const freeInfinityLevels = getRuneEffects('topHat', 'freeInfinityLevels')
       const offeringLevelsText = i18next.t('runes.topHat.freeLevelTemplate', {
         typeIcon: createShopUpgradeTypeIcon(ShopUpgradeGroups.Offering),
-        val: format(effect.freeOfferingLevels, 1, true),
+        val: format(freeOfferingLevels, 1, true),
         max: 20
       })
       const obtainiumLevelsText = i18next.t('runes.topHat.freeLevelTemplate', {
         typeIcon: createShopUpgradeTypeIcon(ShopUpgradeGroups.Obtainium),
-        val: format(effect.freeObtainiumLevels, 1, true),
+        val: format(freeObtainiumLevels, 1, true),
         max: 20
       })
       const cubeLevelsText = i18next.t('runes.topHat.freeLevelTemplate', {
         typeIcon: createShopUpgradeTypeIcon(ShopUpgradeGroups.Cubes),
-        val: format(effect.freeCubeLevels, 1, true),
+        val: format(freeCubeLevels, 1, true),
         max: 15
       })
       const speedLevelsText = i18next.t('runes.topHat.freeLevelTemplate', {
         typeIcon: createShopUpgradeTypeIcon(ShopUpgradeGroups.Speed),
-        val: format(effect.freeSpeedLevels, 1, true),
+        val: format(freeSpeedLevels, 1, true),
         max: 15
       })
       const infinityLevelsText = i18next.t('runes.topHat.freeLevelTemplate', {
         typeIcon: createShopUpgradeTypeIcon(ShopUpgradeGroups.InfinityUpgrades),
-        val: format(effect.freeInfinityLevels, 1, true),
+        val: format(freeInfinityLevels, 1, true),
         max: 10
       })
       return `${offeringLevelsText}<br>${obtainiumLevelsText}<br>${cubeLevelsText}<br>${speedLevelsText}<br>${infinityLevelsText}`
@@ -783,7 +792,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effectiveLevelMult: () => 1,
     freeLevels: () => 0,
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
-    isUnlocked: () => Boolean(player.singularityChallenges.noQuarkUpgrades.rewards.topHatUnlock),
+    isUnlocked: () => getSingularityChallengeEffect('noQuarkUpgrades', 'topHatUnlock'),
     minimalResetTier: 'singularity',
     name: () => i18next.t('runes.topHat.name'),
     description: () => i18next.t('runes.topHat.description'),
@@ -806,8 +815,11 @@ export const getRuneEffectiveLevel = (rune: RuneKeys): number => {
   return (runes[rune].level + runes[rune].freeLevels()) * effectiveMult
 }
 
-export const getRuneEffects = <T extends RuneKeys>(rune: T): RuneTypeMap[T] => {
-  return runes[rune].effects(getRuneEffectiveLevel(rune))
+export const getRuneEffects = <T extends RuneKeys, K extends keyof RuneTypeMap[T]>(
+  rune: T,
+  key: K
+): RuneTypeMap[T][K] => {
+  return runes[rune].effects(getRuneEffectiveLevel(rune), key) as RuneTypeMap[T][K]
 }
 
 const getLevelsPerOOM = (rune: RuneKeys): number => {

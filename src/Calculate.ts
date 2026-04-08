@@ -24,6 +24,7 @@ import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount 
 import { getRuneEffects, sumOfRuneLevels } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import {
   allAdditiveLuckMultStats,
   allAmbrosiaBlueberryStats,
@@ -170,9 +171,7 @@ export const calculateCubeMultiplier = () => {
 
 export const calculateCubeMultiplierWithTau = () => {
   const base = calculateCubeMultiplier()
-  const tauBonus = getGQUpgradeEffect('platonicTau')
-    ? 1.01
-    : 1
+  const tauBonus = getGQUpgradeEffect('platonicTau', 'tauPower')
   return Math.pow(base, tauBonus)
 }
 
@@ -309,7 +308,7 @@ const calculateFastForwardResourcesGlobal = (
   let timeMultiplier: Decimal = new Decimal('1')
 
   const deltaTime = fastForwardAmount.times(
-    getGQUpgradeEffect('halfMind') ? 10 : calculateGlobalSpeedMult()
+    getGQUpgradeEffect('halfMind', 'unlocked') ? 10 : calculateGlobalSpeedMult()
   )
 
   // Build approximations through direct computation of the derivative of time multiplier
@@ -326,7 +325,7 @@ const calculateFastForwardResourcesGlobal = (
   )
 
   // Correct multiplier if half mind is purchased
-  timeMultiplier.times(getGQUpgradeEffect('halfMind') ? calculateGlobalSpeedMult() / 10 : 1)
+  timeMultiplier.times(getGQUpgradeEffect('halfMind', 'unlocked') ? calculateGlobalSpeedMult() / 10 : 1)
 
   return Decimal.max(fastForwardAmount.times(baseResource), resourceMult.times(timeMultiplier))
 }
@@ -334,10 +333,10 @@ const calculateFastForwardResourcesGlobal = (
 export const calculatePotionValue = (resetTime: number, resourceMult: Decimal, baseResource: number) => {
   const potionTimeValue = new Decimal(7200)
   const fastForwardMult = calculateFastForwardResourcesGlobal(resetTime, potionTimeValue, resourceMult, baseResource)
-  const potionMultipliers = getGQUpgradeEffect('potionBuff')
-    * getGQUpgradeEffect('potionBuff2')
-    * getGQUpgradeEffect('potionBuff3')
-    * getOcteractUpgradeEffect('octeractAutoPotionEfficiency')
+  const potionMultipliers = getGQUpgradeEffect('potionBuff', 'potionPowerMult')
+    * getGQUpgradeEffect('potionBuff2', 'potionPowerMult')
+    * getGQUpgradeEffect('potionBuff3', 'potionPowerMult')
+    * getOcteractUpgradeEffect('octeractAutoPotionEfficiency', 'potionPowerMult')
 
   return fastForwardMult.times(potionMultipliers)
 }
@@ -947,7 +946,7 @@ export const calculateTotalOcteractCubeBonus = () => {
     const bonus = 1 + (2 / 1000) * player.totalWowOcteracts // At 1,000 returns 3
     return bonus > 1.00001 ? bonus : 1
   } else {
-    const power = 2 + +player.singularityChallenges.noOcteracts.rewards.octeractPow
+    const power = 2 + getSingularityChallengeEffect('noOcteracts', 'octeractPow')
     return 3 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, power) // At 1,000 returns 3
   }
 }
@@ -965,14 +964,14 @@ export const calculateTotalOcteractQuarkBonus = () => {
 }
 
 export const calculateTotalOcteractOfferingBonus = () => {
-  if (!player.singularityChallenges.noOcteracts.rewards.offeringBonus) {
+  if (!getSingularityChallengeEffect('noOcteracts', 'offeringBonus')) {
     return 1
   }
   return Math.pow(calculateTotalOcteractCubeBonus(), 1.25)
 }
 
 export const calculateTotalOcteractObtainiumBonus = () => {
-  if (!player.singularityChallenges.noOcteracts.rewards.obtainiumBonus) {
+  if (!getSingularityChallengeEffect('noOcteracts', 'obtainiumBonus')) {
     return 1
   }
   return Math.pow(calculateTotalOcteractCubeBonus(), 1.25)
@@ -1133,7 +1132,7 @@ const computeAscensionScoreBonusMultiplier = () => {
   multiplier *= G.challenge15Rewards.score.value
   multiplier *= calculateAscensionScorePlatonicBlessing()
   multiplier *= player.campaigns.ascensionScoreMultiplier
-  multiplier *= getRuneEffects('finiteDescent').ascensionScore
+  multiplier *= getRuneEffects('finiteDescent', 'ascensionScore')
   if (player.cubeUpgrades[21] > 0) {
     multiplier *= 1 + 0.05 * player.cubeUpgrades[21]
   }
@@ -1144,7 +1143,7 @@ const computeAscensionScoreBonusMultiplier = () => {
     multiplier *= 1 + 0.05 * player.cubeUpgrades[41]
   }
   multiplier *= +getAchievementReward('ascensionScore')
-  multiplier *= 1 + 0.5 * getGQUpgradeEffect('masterPack')
+  multiplier *= getGQUpgradeEffect('masterPack', 'ascensionScoreMult')
   if (G.isEvent) {
     multiplier *= 1 + calculateEventBuff(BuffType.AscensionScore)
   }
@@ -1220,9 +1219,7 @@ export const calculateAscensionScore = () => {
     effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5)
   }
 
-  if (getGQUpgradeEffect('expertPack')) {
-    effectiveScore *= 1.5
-  }
+  effectiveScore *= getGQUpgradeEffect('expertPack', 'ascensionScoreMult')
 
   return {
     baseScore,
@@ -1408,34 +1405,34 @@ export const calculateSingularityAmbrosiaLuckMilestoneBonus = () => {
 }
 
 export const calculateAmbrosiaGenerationSingularityUpgrade = () => {
-  return getGQUpgradeEffect('singAmbrosiaGeneration')
-    * getGQUpgradeEffect('singAmbrosiaGeneration2')
-    * getGQUpgradeEffect('singAmbrosiaGeneration3')
-    * getGQUpgradeEffect('singAmbrosiaGeneration4')
+  return getGQUpgradeEffect('singAmbrosiaGeneration', 'ambrosiaBarSpeedMult')
+    * getGQUpgradeEffect('singAmbrosiaGeneration2', 'ambrosiaBarSpeedMult')
+    * getGQUpgradeEffect('singAmbrosiaGeneration3', 'ambrosiaBarSpeedMult')
+    * getGQUpgradeEffect('singAmbrosiaGeneration4', 'ambrosiaBarSpeedMult')
 }
 
 export const calculateAmbrosiaLuckSingularityUpgrade = () => {
-  return getGQUpgradeEffect('singAmbrosiaLuck')
-    + getGQUpgradeEffect('singAmbrosiaLuck2')
-    + getGQUpgradeEffect('singAmbrosiaLuck3')
-    + getGQUpgradeEffect('singAmbrosiaLuck4')
+  return getGQUpgradeEffect('singAmbrosiaLuck', 'ambrosiaLuck')
+    + getGQUpgradeEffect('singAmbrosiaLuck2', 'ambrosiaLuck')
+    + getGQUpgradeEffect('singAmbrosiaLuck3', 'ambrosiaLuck')
+    + getGQUpgradeEffect('singAmbrosiaLuck4', 'ambrosiaLuck')
 }
 
 export const calculateAmbrosiaGenerationOcteractUpgrade = () => {
   return (
-    getOcteractUpgradeEffect('octeractAmbrosiaGeneration')
-    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration2')
-    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration3')
-    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration4')
+    getOcteractUpgradeEffect('octeractAmbrosiaGeneration', 'ambrosiaBarSpeedMult')
+    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration2', 'ambrosiaBarSpeedMult')
+    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration3', 'ambrosiaBarSpeedMult')
+    * getOcteractUpgradeEffect('octeractAmbrosiaGeneration4', 'ambrosiaBarSpeedMult')
   )
 }
 
 export const calculateAmbrosiaLuckOcteractUpgrade = () => {
   return (
-    getOcteractUpgradeEffect('octeractAmbrosiaLuck')
-    + getOcteractUpgradeEffect('octeractAmbrosiaLuck2')
-    + getOcteractUpgradeEffect('octeractAmbrosiaLuck3')
-    + getOcteractUpgradeEffect('octeractAmbrosiaLuck4')
+    getOcteractUpgradeEffect('octeractAmbrosiaLuck', 'ambrosiaLuck')
+    + getOcteractUpgradeEffect('octeractAmbrosiaLuck2', 'ambrosiaLuck')
+    + getOcteractUpgradeEffect('octeractAmbrosiaLuck3', 'ambrosiaLuck')
+    + getOcteractUpgradeEffect('octeractAmbrosiaLuck4', 'ambrosiaLuck')
   )
 }
 
@@ -1485,8 +1482,8 @@ export const calculateRequiredRedAmbrosiaTime = () => {
   let val = G.TIME_PER_RED_AMBROSIA // Currently 100,000
   val += 200 * player.lifetimeRedAmbrosia
 
-  const max = 1e6 * +player.singularityChallenges.limitedTime.rewards.barRequirementMultiplier
-  val *= +player.singularityChallenges.limitedTime.rewards.barRequirementMultiplier
+  const max = 1e6 * getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
+  val *= getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
 
   return Math.min(max, val)
 }
@@ -1741,8 +1738,8 @@ export const calculateObtainiumPotionBaseObtainium = () => {
 }
 
 export const calculateAscensionSpeedExponentSpread = () => {
-  return getGQUpgradeEffect('singAscensionSpeed')
-    + getGQUpgradeEffect('singAscensionSpeed2')
+  return getGQUpgradeEffect('singAscensionSpeed', 'exponentSpread')
+    + getGQUpgradeEffect('singAscensionSpeed2', 'exponentSpread')
     + getShopUpgradeEffects('chronometerInfinity', 'exponentSpread')
 }
 
@@ -1755,8 +1752,8 @@ export const calculateCookieUpgrade29Luck = () => {
 }
 
 export const calculateRedAmbrosiaCubes = () => {
-  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaCube').unlockedRedAmbrosiaCube) {
-    const exponent = 0.4 + getRedAmbrosiaUpgradeEffects('redAmbrosiaCubeImprover').extraExponent
+  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaCube', 'unlockedRedAmbrosiaCube')) {
+    const exponent = 0.4 + getRedAmbrosiaUpgradeEffects('redAmbrosiaCubeImprover', 'extraExponent')
     return 1 + Math.pow(player.lifetimeRedAmbrosia, exponent) / 100
   } else {
     return 1
@@ -1764,7 +1761,7 @@ export const calculateRedAmbrosiaCubes = () => {
 }
 
 export const calculateRedAmbrosiaObtainium = () => {
-  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaObtainium').unlockRedAmbrosiaObtainium) {
+  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaObtainium', 'unlockRedAmbrosiaObtainium')) {
     return 1 + Math.pow(player.lifetimeRedAmbrosia, 0.6) / 100
   } else {
     return 1
@@ -1772,7 +1769,7 @@ export const calculateRedAmbrosiaObtainium = () => {
 }
 
 export const calculateRedAmbrosiaOffering = () => {
-  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaOffering').unlockRedAmbrosiaOffering) {
+  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaOffering', 'unlockRedAmbrosiaOffering')) {
     return 1 + Math.pow(player.lifetimeRedAmbrosia, 0.6) / 100
   } else {
     return 1

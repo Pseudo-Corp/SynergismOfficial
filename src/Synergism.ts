@@ -207,7 +207,7 @@ import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
 import { fetchUnreadMessages } from './Messages'
-import { blankOcteractLevelObject, type OcteractDataKeys, octeractUpgrades } from './Octeracts'
+import { blankOcteractLevelObject, type OcteractUpgrades, octeractUpgrades } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -244,6 +244,7 @@ import {
   type SingularityDataKeys
 } from './singularity'
 import {
+  getSingularityChallengeEffect,
   SingularityChallenge,
   singularityChallengeData,
   type SingularityChallengeDataKeys
@@ -1211,11 +1212,11 @@ export const saveSynergy = (button?: boolean) => {
 
   player.octUpgrades = Object.fromEntries(
     Object.keys(player.octUpgrades).map((key) => {
-      const k = key as OcteractDataKeys
+      const k = key as OcteractUpgrades
       const ou = octeractUpgrades[k]
       return [key, { level: ou.level, freeLevel: ou.freeLevel, octeractsInvested: ou.octeractsInvested }]
     })
-  ) as Record<OcteractDataKeys, { level: number; freeLevel: number; octeractsInvested: number }>
+  ) as Record<OcteractUpgrades, { level: number; freeLevel: number; octeractsInvested: number }>
 
   player.ambrosiaUpgrades = Object.fromEntries(
     Object.keys(player.ambrosiaUpgrades).map((key) => {
@@ -2509,7 +2510,7 @@ export const updateAllTick = (): void => {
       + calculateAcceleratorCubeBlessing())
 
   if (player.unlocks.prestige) {
-    a *= getRuneEffects('speed').multiplicativeAccelerators
+    a *= getRuneEffects('speed', 'multiplicativeAccelerators')
   }
 
   calculateAcceleratorMultiplier()
@@ -2547,7 +2548,7 @@ export const updateAllTick = (): void => {
 
   G.acceleratorPower = Math.pow(
     1.1
-      + getRuneEffects('speed').acceleratorPower
+      + getRuneEffects('speed', 'acceleratorPower')
       + 1 / 400 * CalcECC('transcend', player.challengecompletions[2])
       + achievementBonus
       + G.tuSevenMulti
@@ -2672,7 +2673,7 @@ export const updateAllMultiplier = (): void => {
     + (1 / 40) * player.researches[13]
     + (3 / 200) * player.researches[14]
     + (1 / 200) * player.researches[15]
-  a *= getRuneEffects('duplication').multiplicativeMultipliers
+  a *= getRuneEffects('duplication', 'multiplicativeMultipliers')
   a *= 1 + (1 / 20) * player.researches[87]
   a *= 1 + (1 / 100) * player.researches[128]
   a *= 1 + (0.8 / 100) * player.researches[143]
@@ -2717,7 +2718,7 @@ export const updateAllMultiplier = (): void => {
 
   let b = 0
   b += Decimal.log(player.transcendShards.add(1), 3)
-  b += getRuneEffects('duplication').multiplierBoosts
+  b += getRuneEffects('duplication', 'multiplierBoosts')
   b += 2 * CalcECC('transcend', player.challengecompletions[1])
   b *= 1 + (11 * player.researches[33]) / 100
   b *= 1 + (11 * player.researches[34]) / 100
@@ -3017,7 +3018,7 @@ export const multipliers = (): void => {
     +getAchievementReward('crystalMultiplier')
   )
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
-    Decimal.pow(10, getRuneEffects('prism').productionLog10)
+    Decimal.pow(10, getRuneEffects('prism', 'productionLog10'))
   )
   if (player.upgrades[36] > 0.5) {
     G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
@@ -4202,7 +4203,7 @@ export const updateAll = (): void => {
   ) {
     c += 10
   }
-  const logDiscount = getRuneEffects('prism').costDivisorLog10
+  const logDiscount = getRuneEffects('prism', 'costDivisorLog10')
   if (
     getLevelMilestone('tier1CrystalAutobuy') === 1
     && player.prestigeShards.gte(
@@ -5083,7 +5084,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   // Recover Oct Upgrades level from Player Obj
   if (player.octUpgrades !== undefined) {
     for (const [key, value] of Object.entries(player.octUpgrades)) {
-      const k = key as OcteractDataKeys
+      const k = key as OcteractUpgrades
 
       octeractUpgrades[k].level = value.level
       octeractUpgrades[k].freeLevel = value.freeLevel
@@ -5162,7 +5163,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   if (!ignoreOfflineProgress) {
     calculateOffline()
   } else {
-    if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
+    if (!getSingularityChallengeEffect('limitedTime', 'preserveQuarks')) {
       player.worlds.reset()
     }
 

@@ -4,6 +4,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { hepteractEffective } from './Hepteracts'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, player, resetCheck } from './Synergism'
 import { AutoAscensionResetModes, toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
 import { Globals as G } from './Variables'
@@ -102,12 +103,12 @@ export const getMaxChallenges = (i: number) => {
       maxChallenge += 30
     }
 
-    maxChallenge += 2 * getGQUpgradeEffect('singChallengeExtension')
-    maxChallenge += 2 * getGQUpgradeEffect('singChallengeExtension2')
-    maxChallenge += 2 * getGQUpgradeEffect('singChallengeExtension3')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension', 'reincarnationCapIncrease')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension2', 'reincarnationCapIncrease')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension3', 'reincarnationCapIncrease')
 
-    maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.capIncrease
-    maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.reinCapIncrease2
+    maxChallenge += getSingularityChallengeEffect('oneChallengeCap', 'capIncrease')
+    maxChallenge += getSingularityChallengeEffect('oneChallengeCap', 'reinCapIncrease2')
     return maxChallenge
   }
   // Ascension Challenge
@@ -134,10 +135,10 @@ export const getMaxChallenges = (i: number) => {
       maxChallenge += 20
     }
 
-    maxChallenge += getGQUpgradeEffect('singChallengeExtension')
-    maxChallenge += getGQUpgradeEffect('singChallengeExtension2')
-    maxChallenge += getGQUpgradeEffect('singChallengeExtension3')
-    maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.ascCapIncrease2
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension', 'ascensionCapIncrease')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension2', 'ascensionCapIncrease')
+    maxChallenge += getGQUpgradeEffect('singChallengeExtension3', 'ascensionCapIncrease')
+    maxChallenge += getSingularityChallengeEffect('oneChallengeCap', 'ascCapIncrease2')
     return maxChallenge
   }
 
