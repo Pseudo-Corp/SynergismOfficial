@@ -223,7 +223,7 @@
       "tutorial": {
         "name": "A beginners guide to Red Ambrosia",
         "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul. But you don't really care about that... 1.01x Cubes, Obtainium and Offerings per level!",
-        "effect": "Cubes, Obtainium and Offerings are increased by {{amount}}!"
+        "effect": "Cubes, Obtainium and Offerings are increased by <<lime | {{amount}}>>!"
       },
       "conversionImprovement1": {
         "name": "Ambrosia Luck Converter Improvement",
@@ -243,70 +243,70 @@
       "freeTutorialLevels": {
         "name": "More Blueberry Tutorial Module Levels!",
         "description": "A meta-tutorial of sorts. A powerful ability of Red Ambrosia is to power your Blueberry tree! Increase the effective level of Blueberry Tutorial Module by 1 per level.",
-        "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by {{amount}}!"
+        "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow2": {
         "name": "More Row 2 Blueberry Upgrade Levels!",
         "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the second row, per level.",
-        "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by {{amount}}!"
+        "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow3": {
         "name": "More Row 3 Blueberry Upgrade Levels!",
         "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the third row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 3 Blueberry Modules by {{amount}}!"
+        "effect": "This upgrade increases the effective level of ALL row 3 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow4": {
         "name": "More Row 4 Blueberry Upgrade Levels!",
         "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fourth row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 4 Blueberry Modules by {{amount}}!"
+        "effect": "This upgrade increases the effective level of ALL row 4 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow5": {
         "name": "More Row 5 Blueberry Upgrade Levels!",
         "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the fifth row, per level.",
-        "effect": "This upgrade increases the effective level of (most) row 5 Blueberry Modules by {{amount}}!"
+        "effect": "This upgrade increases the effective level of (most) row 5 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "blueberryGenerationSpeed": {
         "name": "The Sands of Time",
         "description": "+0.2% Ambrosia Bar Point gain per level. They say this hourglass has the benediction of Chronos himself.",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
+        "effect": "This upgrade increases Ambrosia Bar Point gain by <<lightblue|{{amount}}>>!"
       },
       "regularLuck": {
         "name": "Ossified Blueberry Tactics",
         "description": "Most strange. Adding this gold-colored wax on your blueberries makes you slightly more likely to get Ambrosia! +2 Ambrosia Luck per level.",
-        "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
+        "effect": "This upgrade increases Ambrosia Luck by <<green|{{amount}}>>!"
       },
       "redGenerationSpeed": {
         "name": "Millennium-Aged Red Ambrosia",
         "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +0.3% more Red Bar Points per level.",
-        "effect": "This upgrade increases Red Bar Point gain by {{amount}}!"
+        "effect": "This upgrade increases Red Bar Point gain by <<red|{{amount}}>>!"
       },
       "redLuck": {
         "name": "The Dice that Decide Your Fate",
         "description": "A life on every face, until you're finally left with an eight. +1 Red Luck per level!",
-        "effect": "This upgrade increases Red Luck by {{amount}}!"
+        "effect": "This upgrade increases Red Luck by <<red|{{amount}}>>!"
       },
       "redAmbrosiaCube": {
         "name": "Cubes \"made\" of Red Ambrosia",
         "description": "Hey, Ambrosia gives cubes! Why not Red Ambrosia as well?",
         "effect": "When purchased, multiply your cubes by 1 + (Lifetime)^{{exponent}} / 100.",
-        "effectEnabled": "Multiplies your Cube gain by 1 + (Lifetime)^{{exponent}} / 100. [Currently: +{{amount}}]"
+        "effectEnabled": "Multiplies your Cube gain by 1 + (Lifetime)^{{exponent}} / 100. <br> [Currently: <<white|+{{amount}}>>]"
       },
       "redAmbrosiaObtainium": {
         "name": "Obtainium \"\"made\"\" of Red Ambrosia",
         "description": "I don't know why you can make a blue object from a red object. But you can.",
         "effect": "When purchased, multiply your Obtainium by 1 + (Lifetime)^0.6 / 100.",
-        "effectEnabled": "Multiplies your Obtainium gain by 1 + (Lifetime)^0.6 / 100. [Currently: +{{amount}}]"
+        "effectEnabled": "Multiplies your Obtainium gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<pink|+{{amount}}>>]"
       },
       "redAmbrosiaOffering": {
         "name": "Offerings \"\"\"made\"\"\" of Red Ambrosia",
         "description": "Wait, this one kinda makes sense.",
         "effect": "When purchased, multiply your Offerings by 1 + (Lifetime)^0.6 / 100.",
-        "effectEnabled": "Multiplies your Offerings gain by 1 + (Lifetime)^0.6 / 100. [Currently: +{{amount}}]"
+        "effectEnabled": "Multiplies your Offerings gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<orange|+{{amount}}>>]"
       },
       "redAmbrosiaCubeImprover": {
         "name": "Hire Red Ambrosia Artisans",
         "description": "They are better at making cubes out of Red Ambrosia for you, depending on how many you have. +0.01 exponent to \"Cubes 'made' of Red Ambrosia\" per level.",
-        "effect": "Exponent for that Red Ambrosia Upgrade: 0.40 → {{newExponent}}"
+        "effect": "Exponent for that Red Ambrosia Upgrade: <<white|0.40 → {{newExponent}}>>"
       },
       "viscount": {
         "name": "Viscount of Ruby Guy",
@@ -316,32 +316,32 @@
       "infiniteShopUpgrades": {
         "name": "Red Infinity Shop Voucher",
         "description": "A Shop Voucher, printed on a red tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Upgrades.",
-        "effect": "You own {{amount}} Red Infinity Shop Vouchers!"
+        "effect": "You own <<white|{{amount}}>> Red Infinity Shop Vouchers!"
       },
       "redAmbrosiaAccelerator": {
         "name": "Red-Blue Ultrafusion",
         "description": "When you gain a Red Ambrosia, you gain a bit of progress toward regular Ambrosia! +0.02 real-life seconds of Ambrosia Bar Points per level, per Red Ambrosia generated, with the first level giving +1!",
-        "effect": "Each Red Ambrosia generated grants {{amount}} real-life seconds of Ambrosia Bar Points."
+        "effect": "Each Red Ambrosia generated grants <<white|{{amount}}>> real-life seconds of Ambrosia Bar Points."
       },
       "regularLuck2": {
         "name": "Ossified Blueberry Tactics II",
         "description": "This also gives +2 Ambrosia Luck / level, but you can purchase a ton of levels of this!",
-        "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
+        "effect": "This upgrade increases Ambrosia Luck by <<green|{{amount}}>>!"
       },
       "blueberryGenerationSpeed2": {
         "name": "The Sands of Time II",
         "description": "This gives +0.1% Ambrosia Bar Point gain per level, but you can purchase a ton of levels of this!",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
+        "effect": "This upgrade increases Ambrosia Bar Point gain by <<lightblue|{{amount}}>>!"
       },
       "salvageYinYang": {
         "name": "Yin and Yang: Salvage Edition",
         "description": "This upgrade, oddly enough, increases both your Positive and Negative Salvage by 10 per level! <<orange|Disabled in 'Taxman's last stand'>>",
-        "effect": "Your Positive and Negative Salvage are both increased by {{amount}}."
+        "effect": "Your Positive and Negative Salvage are both increased by <<cactusgreen|{{amount}}>>."
       },
       "blueberries": {
         "name": "Berries that are... blue?",
         "description": "They look like Blueberries. They act like Blueberries. You're not really sure if they're Blueberries.",
-        "effect": "Your Blueberry inventory is increased by {{amount}}"
+        "effect": "Your Blueberry inventory is increased by <<lightblue|{{amount}}>>"
       }
     }
   },
