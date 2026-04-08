@@ -11,6 +11,7 @@ import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { resetTiers } from './Reset'
 import { type RuneKeys, runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { allTalismanRuneBonusStatsSum } from './Statistics'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
@@ -201,11 +202,11 @@ const universalTalismanMaxLevelIncreasers = () => {
   return (
     6 * CalcECC('ascension', player.challengecompletions[13])
     + Math.floor(player.researches[200] / 400)
-    + +player.singularityChallenges.taxmanLastStand.rewards.talismanFreeLevel
-    + getOcteractUpgradeEffect('octeractTalismanLevelCap1')
-    + getOcteractUpgradeEffect('octeractTalismanLevelCap2')
-    + getOcteractUpgradeEffect('octeractTalismanLevelCap3')
-    + getOcteractUpgradeEffect('octeractTalismanLevelCap4')
+    + getSingularityChallengeEffect('taxmanLastStand', 'talismanFreeLevel')
+    + getOcteractUpgradeEffect('octeractTalismanLevelCap1', 'talismanLevelCapIncrease')
+    + getOcteractUpgradeEffect('octeractTalismanLevelCap2', 'talismanLevelCapIncrease')
+    + getOcteractUpgradeEffect('octeractTalismanLevelCap3', 'talismanLevelCapIncrease')
+    + getOcteractUpgradeEffect('octeractTalismanLevelCap4', 'talismanLevelCapIncrease')
   )
 }
 
@@ -714,7 +715,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
-      return Boolean(player.singularityChallenges.taxmanLastStand.rewards.talismanUnlock)
+      return getSingularityChallengeEffect('taxmanLastStand', 'talismanUnlock')
     },
     name: () => i18next.t('runes.talismans.horseShoe.name'),
     description: () => i18next.t('runes.talismans.horseShoe.description')

@@ -472,7 +472,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     useCachedValue: false,
     rewardedAP: 0,
     displayOrder: 8,
-    displayCondition: () => Boolean(getGQUpgradeEffect('octeractUnlock'))
+    displayCondition: () => getGQUpgradeEffect('octeractUnlock', 'unlocked')
   },
   redAmbrosiaUpgrades: {
     maxPointValue: maxRedAmbrosiaUpgradeAP,
