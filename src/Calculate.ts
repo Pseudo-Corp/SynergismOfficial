@@ -1752,8 +1752,8 @@ export const calculateCookieUpgrade29Luck = () => {
 }
 
 export const calculateRedAmbrosiaCubes = () => {
-  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaCube').unlockedRedAmbrosiaCube) {
-    const exponent = 0.4 + getRedAmbrosiaUpgradeEffects('redAmbrosiaCubeImprover').extraExponent
+  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaCube', 'unlockedRedAmbrosiaCube')) {
+    const exponent = 0.4 + getRedAmbrosiaUpgradeEffects('redAmbrosiaCubeImprover', 'extraExponent')
     return 1 + Math.pow(player.lifetimeRedAmbrosia, exponent) / 100
   } else {
     return 1
@@ -1761,7 +1761,7 @@ export const calculateRedAmbrosiaCubes = () => {
 }
 
 export const calculateRedAmbrosiaObtainium = () => {
-  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaObtainium').unlockRedAmbrosiaObtainium) {
+  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaObtainium', 'unlockRedAmbrosiaObtainium')) {
     return 1 + Math.pow(player.lifetimeRedAmbrosia, 0.6) / 100
   } else {
     return 1
@@ -1769,7 +1769,7 @@ export const calculateRedAmbrosiaObtainium = () => {
 }
 
 export const calculateRedAmbrosiaOffering = () => {
-  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaOffering').unlockRedAmbrosiaOffering) {
+  if (getRedAmbrosiaUpgradeEffects('redAmbrosiaOffering', 'unlockRedAmbrosiaOffering')) {
     return 1 + Math.pow(player.lifetimeRedAmbrosia, 0.6) / 100
   } else {
     return 1

@@ -288,17 +288,20 @@
       "redAmbrosiaCube": {
         "name": "Cubes \"made\" of Red Ambrosia",
         "description": "Hey, Ambrosia gives cubes! Why not Red Ambrosia as well?",
-        "effect": "If purchased, multiply your cubes by 1 + (Lifetime)^{{exponent}} / 100."
+        "effect": "When purchased, multiply your cubes by 1 + (Lifetime)^{{exponent}} / 100.",
+        "effectEnabled": "Multiplies your Cube gain by 1 + (Lifetime)^{{exponent}} / 100. [Currently: +{{amount}}]"
       },
       "redAmbrosiaObtainium": {
         "name": "Obtainium \"\"made\"\" of Red Ambrosia",
         "description": "I don't know why you can make a blue object from a red object. But you can.",
-        "effect": "If purchased, multiply your Obtainium by 1 + (Lifetime)^0.6 / 100."
+        "effect": "When purchased, multiply your Obtainium by 1 + (Lifetime)^0.6 / 100.",
+        "effectEnabled": "Multiplies your Obtainium gain by 1 + (Lifetime)^0.6 / 100. [Currently: +{{amount}}]"
       },
       "redAmbrosiaOffering": {
         "name": "Offerings \"\"\"made\"\"\" of Red Ambrosia",
         "description": "Wait, this one kinda makes sense.",
-        "effect": "If purchased, multiply your Offerings by 1 + (Lifetime)^0.6 / 100."
+        "effect": "When purchased, multiply your Offerings by 1 + (Lifetime)^0.6 / 100.",
+        "effectEnabled": "Multiplies your Offerings gain by 1 + (Lifetime)^0.6 / 100. [Currently: +{{amount}}]"
       },
       "redAmbrosiaCubeImprover": {
         "name": "Hire Red Ambrosia Artisans",

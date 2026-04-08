@@ -115,10 +115,9 @@ export const octeractUpgrades: {
         return i18next.t('octeract.data.octeractStarter.effectEnabled', {
           amount: formatAsPercentIncrease(quarkMult, 0),
           amount2: formatAsPercentIncrease(octeractMult, 0),
-          amount3: format(antSpeedMult, 0, true), 
+          amount3: format(antSpeedMult, 0, true)
         })
-      }
-      else {
+      } else {
         return i18next.t('octeract.data.octeractStarter.effectDisabled')
       }
     },
@@ -218,8 +217,7 @@ export const octeractUpgrades: {
           amount2: formatAsPercentIncrease(1 + n / 10000 * Math.floor(quarkGain1Levels / 111), 2),
           amount3: format(digits, 0, true)
         })
-      }
-      else {
+      } else {
         return i18next.t('octeract.data.octeractQuarkGain2.effectDisabled')
       }
     },

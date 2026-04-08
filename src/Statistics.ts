@@ -341,7 +341,7 @@ export const allCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial').cubeMult
+    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'cubeMult')
   },
   {
     i18n: 'RedAmbrosia',
@@ -797,7 +797,7 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial').cubeMult
+    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'cubeMult')
   },
   {
     i18n: 'RedAmbrosia',
@@ -1062,7 +1062,7 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial').offeringMult // Red Ambrosia Tutorial
+    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'offeringMult') // Red Ambrosia Tutorial
   },
   {
     i18n: 'RedAmbrosia',
@@ -1374,7 +1374,7 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'Viscount',
-    stat: () => getRedAmbrosiaUpgradeEffects('viscount').quarkBonus,
+    stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'quarkBonus'),
     color: 'red'
   },
   {
@@ -1509,7 +1509,7 @@ export const allObtainiumIgnoreDRStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial').obtainiumMult // Red Ambrosia Tutorial
+    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'obtainiumMult') // Red Ambrosia Tutorial
   },
   {
     i18n: 'RedAmbrosia',
@@ -2150,15 +2150,15 @@ export const allAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaUpgrade',
-    stat: () => getRedAmbrosiaUpgradeEffects('regularLuck').ambrosiaLuck // Red Ambrosia Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('regularLuck', 'ambrosiaLuck') // Red Ambrosia Upgrade
   },
   {
     i18n: 'RedAmbrosiaUpgrade2',
-    stat: () => getRedAmbrosiaUpgradeEffects('regularLuck2').ambrosiaLuck // Red Ambrosia Upgrade 2
+    stat: () => getRedAmbrosiaUpgradeEffects('regularLuck2', 'ambrosiaLuck') // Red Ambrosia Upgrade 2
   },
   {
     i18n: 'Viscount',
-    stat: () => getRedAmbrosiaUpgradeEffects('viscount').luckBonus, // Viscount Red Ambrosia Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'luckBonus'), // Viscount Red Ambrosia Upgrade
     color: 'red'
   },
   {
@@ -2202,7 +2202,7 @@ export const allAmbrosiaBlueberryStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaBlueberries',
-    stat: () => getRedAmbrosiaUpgradeEffects('blueberries').blueberries // Red Ambrosia Blueberry Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('blueberries', 'blueberries') // Red Ambrosia Blueberry Upgrade
   },
   {
     i18n: 'ConglomerateBerries',
@@ -2266,11 +2266,11 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaUpgrade',
-    stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed').blueberryGenerationSpeed // Red Ambrosia Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed', 'blueberryGenerationSpeed') // Red Ambrosia Upgrade
   },
   {
     i18n: 'RedAmbrosiaUpgrade2',
-    stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed2').blueberryGenerationSpeed // Red Ambrosia Upgrade 2
+    stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed2', 'blueberryGenerationSpeed') // Red Ambrosia Upgrade 2
   },
   {
     i18n: 'CookieUpgrade26',
@@ -2568,15 +2568,15 @@ export const allLuckConversionStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaUpgrade1',
-    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement1').conversionImprovement // Conversion Improvement I
+    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement1', 'conversionImprovement') // Conversion Improvement I
   },
   {
     i18n: 'RedAmbrosiaUpgrade2',
-    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement2').conversionImprovement // Conversion Improvement II
+    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement2', 'conversionImprovement') // Conversion Improvement II
   },
   {
     i18n: 'RedAmbrosiaUpgrade3',
-    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement3').conversionImprovement // Conversion Improvement III
+    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement3', 'conversionImprovement') // Conversion Improvement III
   },
   {
     i18n: 'ShopRedLuck1',
@@ -2617,7 +2617,7 @@ export const allRedAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosia',
-    stat: () => getRedAmbrosiaUpgradeEffects('redLuck').redAmbrosiaLuck // The Dice That Decide Your Fate
+    stat: () => getRedAmbrosiaUpgradeEffects('redLuck', 'redAmbrosiaLuck') // The Dice That Decide Your Fate
   },
   {
     i18n: 'Exalt5',
@@ -2637,7 +2637,7 @@ export const allRedAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'Viscount',
-    stat: () => getRedAmbrosiaUpgradeEffects('viscount').redLuckBonus, // Viscount Red Ambrosia Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'redLuckBonus'), // Viscount Red Ambrosia Upgrade
     color: 'red'
   },
   {
@@ -2669,7 +2669,7 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosia',
-    stat: () => getRedAmbrosiaUpgradeEffects('redGenerationSpeed').redAmbrosiaGenerationSpeed
+    stat: () => getRedAmbrosiaUpgradeEffects('redGenerationSpeed', 'redAmbrosiaGenerationSpeed')
   },
   {
     i18n: 'Exalt5',
@@ -2682,7 +2682,7 @@ const infinityShopUpgrades: NumberStatLine[] = []
 export const allShopTablets: NumberStatLine[] = [
   {
     i18n: 'Red',
-    stat: () => getRedAmbrosiaUpgradeEffects('infiniteShopUpgrades').freeLevels, // Red Ambrosia Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('infiniteShopUpgrades', 'freeLevels'), // Red Ambrosia Upgrade
     acc: 0,
     color: 'red'
   },
@@ -2927,7 +2927,7 @@ export const positiveSalvageStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaYinYang',
-    stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang').positiveSalvage // Red Ambrosia Upgrade: Yin Yang
+    stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'positiveSalvage') // Red Ambrosia Upgrade: Yin Yang
   }
 ]
 
@@ -2944,7 +2944,7 @@ export const negativeSalvageStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaYinYang',
-    stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang').negativeSalvage // Red Ambrosia Upgrade: Yin Yang
+    stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'negativeSalvage') // Red Ambrosia Upgrade: Yin Yang
   }
 ]
 

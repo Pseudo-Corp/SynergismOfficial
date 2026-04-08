@@ -256,7 +256,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         let timeToRedAmbrosia = calculateRequiredRedAmbrosiaTime()
 
         let ambrosiaTimeToGrant = 0
-        const timeCoeff = getRedAmbrosiaUpgradeEffects('redAmbrosiaAccelerator').ambrosiaTimePerRedAmbrosia
+        const timeCoeff = getRedAmbrosiaUpgradeEffects('redAmbrosiaAccelerator', 'ambrosiaTimePerRedAmbrosia')
 
         while (player.redAmbrosiaTime >= timeToRedAmbrosia) {
           const redAmbrosiaLuck = calculateRedAmbrosiaLuck()
