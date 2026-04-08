@@ -223,7 +223,7 @@
       "tutorial": {
         "name": "Красная Амброзия: руководство для новичков",
         "description": "Если Амброзия - это жизненная сила Богов, Красная Амброзия - это жизненная сила вашей души. Но вам это не особо интересно... 1.01х к Кубами, Обтаниуму и Подношениям!",
-        "effect": "Кубы, Обтаниум и Подношения увеличены на {{amount}}!"
+        "effect": "Cubes, Obtainium and Offerings are increased by <<lime | {{amount}}>>!"
       },
       "conversionImprovement1": {
         "name": "Улучшение Конвертации Удачи Амброзии",
@@ -243,67 +243,70 @@
       "freeTutorialLevels": {
         "name": "Больше Уровней Тренировочного Модуля Голубики!",
         "description": "Эдакое мета-руководство. Мощная способность Красной Амброзии позволяет питать ваше дерево Голубики! Увеличивает эффективный уровень Тренировочного Модуля Голубики на 1 за уровень.",
-        "effect": "Это улучшение увеличивает эффективный уровень Тренировочного Модуля Голубики на {{amount}}!"
+        "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow2": {
         "name": "Больше Уровней Улучшений Голубики 2-го Ряда!",
         "description": "За исключением Стабилизатора Сингулярности, добавляет один эффективный уровень ко всем Модулям Голубики, находящимся во 2-ом ряду, за уровень.",
-        "effect": "Это улучшение увеличивает эффективный уровень (большинства) Модулей Голубики во 2-ом ряду на {{amount}}!"
+        "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow3": {
         "name": "Больше Уровней Улучшений Голубики 3-го Ряда!",
         "description": "Добавляет один эффективный уровень ко всем Модулям Голубики, находящимся в третьем ряду, за уровень. Без исключений.",
-        "effect": "Это улучшение увеличивает эффективный уровень ВСЕХ Модулей Голубики в 3-ем ряду на {{amount}}!"
+        "effect": "This upgrade increases the effective level of ALL row 3 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow4": {
         "name": "Больше Уровней Улучшений Голубики 4-го Ряда!",
         "description": "Добавляет один эффективный уровень ко всем Модулям Голубики, находящимся в четвёртом ряду, за уровень. Без исключений.",
-        "effect": "Это улучшение увеличивает эффективный уровень ВСЕХ Модулей Голубики в 4-ом ряду на {{amount}}!"
+        "effect": "This upgrade increases the effective level of ALL row 4 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow5": {
         "name": "Больше Уровней Улучшений Голубики 5-го Ряда!",
         "description": "За исключением Стабилизатора Сингулярности, добавляет один эффективный уровень ко всем Модулям Голубики, находящимся в пятом ряду, за уровень.",
-        "effect": "Это улучшение увеличивает эффективный уровень (большинства) Модулей Голубики в 5-ом ряду на {{amount}}!"
+        "effect": "This upgrade increases the effective level of (most) row 5 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "blueberryGenerationSpeed": {
         "name": "Пески Времени",
         "description": "+0.2% Очков Шкалы Амброзии за уровень. Поговаривают, эти песочные часы благословил сам Хронос.",
-        "effect": "Это улучшение увеличивает Очки Шкалы Амброзии на {{amount}}!"
+        "effect": "This upgrade increases Ambrosia Bar Point gain by <<lightblue|{{amount}}>>!"
       },
       "regularLuck": {
         "name": "Тактика Окостеневшей Голубики",
         "description": "Интересный феномен. Добавление золотого воска на ваши ягоды увеличивает ваши шансы на получение Амброзии! +2 Удачи Амброзии за уровень.",
-        "effect": "Это улучшение увеличивает Удачу Амброзии на {{amount}}!"
+        "effect": "This upgrade increases Ambrosia Luck by <<green|{{amount}}>>!"
       },
       "redGenerationSpeed": {
         "name": "Красная Амброзия Тысячелетней Выдержки",
         "description": "Учитывая, насколько эту Амброзию здесь оставили, она, несомненно, что-нибудь да знает о времени. +0.3% Очков Красной Шкалы за уровень.",
-        "effect": "Это улучшение увеличивает Очки Красной Шкалы на {{amount}}!"
+        "effect": "This upgrade increases Red Bar Point gain by <<red|{{amount}}>>!"
       },
       "redLuck": {
         "name": "Кости Решат Вашу Участь",
         "description": "Всякая грань сверкает жизнью, пока вы не останетесь с бесконечностью. +1 Красной Удачи за уровень!",
-        "effect": "Это улучшение увеличивает Красную Удачу на {{amount}}!"
+        "effect": "This upgrade increases Red Luck by <<red|{{amount}}>>!"
       },
       "redAmbrosiaCube": {
         "name": "Кубы \"из\" Красной Амброзии",
         "description": "Хэй, Амброзия даёт кубы! Значит, и Красная Амброзия может?",
-        "effect": "Если куплено, умножает ваши кубы на 1 + (За всё время)^{{exponent}} / 100."
+        "effect": "When purchased, multiply your cubes by 1 + (Lifetime)^{{exponent}} / 100.",
+        "effectEnabled": "Multiplies your Cube gain by 1 + (Lifetime)^{{exponent}} / 100. <br> [Currently: <<white|+{{amount}}>>]"
       },
       "redAmbrosiaObtainium": {
         "name": "Обтаниума \"\"из\"\" Красной Амброзии",
         "description": "Я не знаю каким образом вы можете сделать из красного синее, но вы можете.",
-        "effect": "Если куплено, умножает ваш Обтаниум на 1 + (За всё время)^0.6 / 100."
+        "effect": "When purchased, multiply your Obtainium by 1 + (Lifetime)^0.6 / 100.",
+        "effectEnabled": "Multiplies your Obtainium gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<pink|+{{amount}}>>]"
       },
       "redAmbrosiaOffering": {
         "name": "Подношения \"\"\"из\"\"\" Красной Амброзии",
         "description": "Ну, в принципе звучит логично.",
-        "effect": "Если куплено, умножает ваши Подношения на 1 + (За всё время)^0.6 / 100."
+        "effect": "When purchased, multiply your Offerings by 1 + (Lifetime)^0.6 / 100.",
+        "effectEnabled": "Multiplies your Offerings gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<orange|+{{amount}}>>]"
       },
       "redAmbrosiaCubeImprover": {
         "name": "Найм Ремесленников Красной Амброзии",
         "description": "В зависимости от количества, они пригодятся в производстве кубов из Красной Амброзии для вас. +0.01 к экспоненте \"Кубы 'из' Красной Амброзии\" за уровень.",
-        "effect": "Экспонента для этого Улучшения Красной Амброзии: 0.40 → {{newExponent}}"
+        "effect": "Exponent for that Red Ambrosia Upgrade: <<white|0.40 → {{newExponent}}>>"
       },
       "viscount": {
         "name": "Титул Висконта Рубинов",
@@ -313,32 +316,32 @@
       "infiniteShopUpgrades": {
         "name": "Купоны Магазина Бесконечностей Красного цвета",
         "description": "A Shop Voucher, printed on a red tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Upgrades.",
-        "effect": "У вас {{amount}} Красных Купонов Магазина Бесконечности!"
+        "effect": "You own <<white|{{amount}}>> Red Infinity Shop Vouchers!"
       },
       "redAmbrosiaAccelerator": {
         "name": "Красно-Синее Ультраслияние",
         "description": "Когда вы получаете Красную Амброзию, вы также получаете немного прогресса для обычной Амброзии! +0.02 реальных секунд Очков Шкалы Амброзии за уровень, за сгенерированную Красную Амброзию; первый уровень даёт +1!",
-        "effect": "Каждая сгенерированная Красная Амброзия даёт {{amount}} реальных секунд Очков Шкалы Амброзии."
+        "effect": "Each Red Ambrosia generated grants <<white|{{amount}}>> real-life seconds of Ambrosia Bar Points."
       },
       "regularLuck2": {
         "name": "Тактика Окостеневшей Голубики II",
         "description": "Это также даёт +2 Удачи Амброзии / уровень, но имеет очень много уровней!",
-        "effect": "Это улучшение увеличивает Удачу Амброзии на {{amount}}!"
+        "effect": "This upgrade increases Ambrosia Luck by <<green|{{amount}}>>!"
       },
       "blueberryGenerationSpeed2": {
         "name": "Пески Времени II",
         "description": "Это даёт +0.1% Очков Шкалы Амброзии за уровень, но имеет очень много уровней!",
-        "effect": "Это улучшение увеличивает Очки Шкалы Амброзии на {{amount}}!"
+        "effect": "This upgrade increases Ambrosia Bar Point gain by <<lightblue|{{amount}}>>!"
       },
       "salvageYinYang": {
         "name": "Инь и Янь: Издание \"Утилизация\"",
         "description": "Как это ни странно, это улучшение увеличивает и Позитивный, и Негативный Утиль на 10 за уровень! <<orange|Отключено в 'Последний рубеж Сборщика налогов'>>",
-        "effect": "Позитивный и Негативный Утиль увеличены на {{amount}}."
+        "effect": "Your Positive and Negative Salvage are both increased by <<cactusgreen|{{amount}}>>."
       },
       "blueberries": {
         "name": "Ягоды которые... синие?",
         "description": "Они выглядят как черника. Они ведут себя как черника. Вы не уверены, что это черника.",
-        "effect": "Ваш инвентарь черники увеличен на {{amount}}"
+        "effect": "Your Blueberry inventory is increased by <<lightblue|{{amount}}>>"
       }
     }
   },
@@ -4206,22 +4209,22 @@
       "singAmbrosiaGeneration2": {
         "name": "Часы Важности",
         "description": "A somewhat important hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singAmbrosiaGeneration3": {
         "name": "Часы Значимости",
         "description": "An hourglass which is still important, perhaps even more so. +1% faster Ambrosia Bar Point creation per level.",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singAmbrosiaGeneration": {
         "name": "Часы Безграничности",
         "description": "Remember- this hourglass is really important. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singAmbrosiaGeneration4": {
         "name": "Часы Фантазии",
         "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singBonusTokens1": {
         "name": "Мелочь на Диванной Подушке",
@@ -4231,7 +4234,7 @@
       "singBonusTokens2": {
         "name": "Мелочь в складках Диванных Подушек",
         "description": "Благодаря вашему более острому зрению, вы находите больше Жетонов в Кампаниях! +1% Жетонов от Кампаний за уровень.",
-        "effect": "Вы находите на +{{n}}% Жетонов в Кампаниях!"
+        "effect": "You find +{{n}} more Tokens from Campaigns!"
       },
       "singBonusTokens3": {
         "name": "Мелочь под Диваном",
@@ -4251,22 +4254,22 @@
       "singTalismanBonusRunes1": {
         "name": "Talisman Buff!",
         "description": "Gain +1% Talisman Power per level, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes2": {
         "name": "Talisman Buff! The second",
         "description": "Gain +1% more Talisman Power per level, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes3": {
         "name": "Talisman Buff! The third",
         "description": "Gain +1% more Talisman Power per level again, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes4": {
         "name": "Talisman Buff! The fourth",
         "description": "Gain +1% more Talisman Power per level again, AGAIN, additive to other bonuses. Instead of adding five upgrades, Platonic gave this one twice as many levels. Game design!",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "favoriteUpgrade": {
         "name": "Your Favorite Upgrades' Favorite Upgrade",
@@ -5297,7 +5300,8 @@
       "octeractStarter": {
         "name": "Октеракты для Чайников",
         "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 25% More Quarks, 40% More Octeracts, And 100,000x Ant Speed...",
-        "effect": "Вы {{n}} выразили своё почтение Кукузнецу."
+        "effectDisabled": "You have not yet paid your respects to Derpsmith. No rewards for you!",
+        "effectEnabled": "You have paid respects to Derpsmith. {{amount}} Quarks, {{amount2}} Octeracts and {{amount3}}x Ant Speed as promised!"
       },
       "octeractGain": {
         "name": "Когенезис Октерактов",
@@ -5317,7 +5321,8 @@
       "octeractQuarkGain2": {
         "name": "Синергизм Примитивных Окто-Гептерактов",
         "description": "For every 111 levels of Quark Octeract, you gain 0.01% more Quarks per digit in your Quark Hepteract count per level!",
-        "effect": "Синергизм Примитивных Окто-Гептерактов {{n}} активен."
+        "effectDisabled": "Octo-Hepteract Primality Synergism is not currently occuring.",
+        "effectEnabled": "Octo-Hepteract Primality Synergism is granting you {{amount}} more Quarks! <br> +{{amount2}} per digit in your Quark Hepteract count <br> Total digits: {{amount3}}"
       },
       "octeractCorruption": {
         "name": "ЭКСТРА ПЛОТНЫЕ Порчи",
@@ -5342,7 +5347,7 @@
       "octeractImprovedDaily2": {
         "name": "ЕЩЁ БОЛЕЕ УПИТАННЫЙ Код Daily",
         "description": "Derpsmith implemented hyperspeed multiplication. +1% more free Golden Quark upgrades per day from Daily!",
-        "effect": "Code 'daily' gives +{{n}}% more free Golden Quark upgrades per use."
+        "effect": "Code 'daily' gives +{{n}} more free Golden Quark upgrades per use."
       },
       "octeractImprovedDaily3": {
         "name": "ПУХЛЕЙШИЙ Код Daily",
@@ -5357,22 +5362,23 @@
       "octeractImprovedGlobalSpeed": {
         "name": "The Forbidden Clock of Time",
         "description": "Предположительно заперты в гиперболической камере времени. +1% к Глобальной Скорости за уровень за сингулярность!",
-        "effect": "Глобальная Скорость за сингулярность +{{n}}%"
+        "effect": "Global Speed per singularity +{{n}}% <br> Total Global Speed increase: +{{mult}}"
       },
       "octeractImprovedAscensionSpeed": {
         "name": "Абстрактная Фотокинетика",
         "description": "+0.05% Скорости Вознесения за каждый уровень за каждую сингулярность!",
-        "effect": "Скорость Вознесения за сингулярность +{{n}}%"
+        "effect": "Ascension Speed per singularity +{{n}}% <br> Total Ascension Speed increase: +{{mult}}"
       },
       "octeractImprovedAscensionSpeed2": {
         "name": "Абстрактная Экзокинетика",
         "description": "Gain +0.05% Ascension Speed per level per singularity!",
-        "effect": "Скорость Вознесения за сингулярность +{{n}}%"
+        "effect": "Ascension Speed per singularity +{{n}}% <br> Total Ascension Speed increase: +{{mult}}"
       },
       "octeractImprovedFree": {
         "name": "Вау! Я хочу, чтобы бесплатные улучшения стали лучше.",
-        "description": "Makes the effective level of Golden Quark upgrades equal to <<gold | (Paid Levels * Free Levels)^0.6>> instead of <<gold | (Paid Levels + Free Levels)>>. But, if the second formula is greater then you still get that value!",
-        "effect": "Golden Quark upgrade free levels are {{n}} being powered!"
+        "description": "Instead of the effective level of Golden Quark upgrades being equal to the sum of Paid and Free Levels, it is the maximum of the following: <br> 1) <<gold | (Paid Levels + Free Levels)>> <br> 2) <<orchid | (Paid Levels * Free Levels)^{{power}}>>",
+        "effectDisabled": "Golden Quark upgrade free levels are not being powered. Only the first option applies.",
+        "effectEnabled": "Golden Quark upgrade free levels are being powered!"
       },
       "octeractImprovedFree2": {
         "name": "Вау! Бесплатные улучшения всё ещё отстой.",
@@ -5437,7 +5443,7 @@
       "octeractAscensionsOcteractGain": {
         "name": "Цифровой Накопитель Октерактов",
         "description": "Получение Октерактов на 1% быстрее за каждую цифру в счётчике Вознесений!",
-        "effect": "Octeract Gain per order of magnitude Ascension count increase +{{n}}%"
+        "effect": "Octeract Gain per order of magnitude Ascension count increase +{{n}}% <br> Total Octeract increase: +{{mult}}"
       },
       "octeractFastForward": {
         "name": "Сумбуратор Сингулярности Кукузнеца",
@@ -5615,8 +5621,8 @@
       "description": "The piece of eight, long thought lost, no longer. It went there and back again.",
       "lockedDescription": "Эта руна ещё не открыта! Чтобы её открыть, вам необходимо купить что-то, что вы должны оставить не купленным.",
       "singularityUnlock": "Something <span class=\"rainbowText\">singular</span> that's unlocked at Level 1: {{symbol}}",
-      "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power)",
-      "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power)",
+      "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power, diminishing)",
+      "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power, diminishing)",
       "addCode": "<<lightgray | 'Add' Code Refresh Interval {{val}}>> (-20% at 1 Power, up to -50%)",
       "cubeBonus": "<<white | Wow! Cube Gain +{{val}}>> (1.01x per level (max 5), times your current... Singularity?)",
       "values": "Level 1 unlocks something <span class=\"rainbowText\">special</span>! Each level gives 10x Offerings, 10x <<cyan | Immaculate>> Obtainium and makes code 'Add' regenerate faster.",
