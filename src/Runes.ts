@@ -267,7 +267,7 @@ const superiorIntellectOOMIncrease = () => {
 
 const infiniteAscentOOMIncrease = () => {
   return (
-    getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
+    getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'infiniteAscentOOMBonus')
   )
 }
 
@@ -608,9 +608,9 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       if (key === 'addCodeCooldownReduction') {
         return n > 0 ? 0.8 - 0.3 * (n - 1) / (n + 10) : 1
       } else if (key === 'offeringLog10') {
-        return n
+        return Math.round(300 * (1 - Math.pow(1 - 1/300, n)))
       } else if (key === 'obtainiumLog10') {
-        return n
+        return Math.round(300 * (1 - Math.pow(1 - 1/300, n)))
       } else {
         return (n > 0) ? Math.pow(1.01, Math.min(5, n) * player.singularityCount) : 1 // cubeBonus
       }
