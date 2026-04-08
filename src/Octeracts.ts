@@ -108,16 +108,19 @@ export const octeractUpgrades: {
       }
     },
     effectDescription: (n: number) => {
-      const quarkMult = getOcteractUpgradeEffect('octeractStarter', 'quarkMult')
-      const octeractMult = getOcteractUpgradeEffect('octeractStarter', 'octeractMult')
-      const antSpeedMult = getOcteractUpgradeEffect('octeractStarter', 'antSpeedMult')
-      return n > 0 ?
-      i18next.t('octeract.data.octeractStarter.effectEnabled', {
-        amount: formatAsPercentIncrease(quarkMult, 0),
-        amount2: formatAsPercentIncrease(octeractMult, 0),
-        amount3: format(antSpeedMult, 0, true), 
-      }) :
-      i18next.t('octeract.data.octeractStarter.effectDisabled')
+      if (n > 0) {
+        const quarkMult = getOcteractUpgradeEffect('octeractStarter', 'quarkMult')
+        const octeractMult = getOcteractUpgradeEffect('octeractStarter', 'octeractMult')
+        const antSpeedMult = getOcteractUpgradeEffect('octeractStarter', 'antSpeedMult')
+        return i18next.t('octeract.data.octeractStarter.effectEnabled', {
+          amount: formatAsPercentIncrease(quarkMult, 0),
+          amount2: formatAsPercentIncrease(octeractMult, 0),
+          amount3: format(antSpeedMult, 0, true), 
+        })
+      }
+      else {
+        return i18next.t('octeract.data.octeractStarter.effectDisabled')
+      }
     },
     name: () => i18next.t('octeract.data.octeractStarter.name'),
     description: () => i18next.t('octeract.data.octeractStarter.description')
@@ -206,16 +209,19 @@ export const octeractUpgrades: {
           * Math.floor(1 + Math.log10(Math.max(1, hepteracts.quark.BAL))) // quarkMult
     },
     effectDescription: (n: number) => {
-      const quarkMult = getOcteractUpgradeEffect('octeractQuarkGain2', 'quarkMult')
-      const quarkGain1Levels = octeractUpgrades.octeractQuarkGain.level
-      const digits = Math.floor(1 + Math.log10(Math.max(1, hepteracts.quark.BAL)))
-      return n > 0 ?
-      i18next.t('octeract.data.octeractQuarkGain2.effectEnabled', {
-        amount: formatAsPercentIncrease(quarkMult, 2),
-        amount2: formatAsPercentIncrease(1 + n / 10000 * Math.floor(quarkGain1Levels / 111), 2),
-        amount3: format(digits, 0, true)
-      }) :
-      i18next.t('octeract.data.octeractQuarkGain2.effectDisabled')
+      if (n > 0) {
+        const quarkMult = getOcteractUpgradeEffect('octeractQuarkGain2', 'quarkMult')
+        const quarkGain1Levels = octeractUpgrades.octeractQuarkGain.level
+        const digits = Math.floor(1 + Math.log10(Math.max(1, hepteracts.quark.BAL)))
+        return i18next.t('octeract.data.octeractQuarkGain2.effectEnabled', {
+          amount: formatAsPercentIncrease(quarkMult, 2),
+          amount2: formatAsPercentIncrease(1 + n / 10000 * Math.floor(quarkGain1Levels / 111), 2),
+          amount3: format(digits, 0, true)
+        })
+      }
+      else {
+        return i18next.t('octeract.data.octeractQuarkGain2.effectDisabled')
+      }
     },
     name: () => i18next.t('octeract.data.octeractQuarkGain2.name'),
     description: () => i18next.t('octeract.data.octeractQuarkGain2.description')
@@ -435,13 +441,15 @@ export const octeractUpgrades: {
       if (key === 'unlocked') {
         return n > 0
       } else {
-        return n > 0 ? 0.6 : 0 // freeLevelPower
+        return 0.6 * n // freeLevelPower
       }
     },
     effectDescription: (n: number) => {
-      return n > 0 ?
-        i18next.t('octeract.data.octeractImprovedFree.effectEnabled') :
-        i18next.t('octeract.data.octeractImprovedFree.effectDisabled')
+      if (n > 0) {
+        return i18next.t('octeract.data.octeractImprovedFree.effectEnabled')
+      } else {
+        return i18next.t('octeract.data.octeractImprovedFree.effectDisabled')
+      }
     },
     name: () => i18next.t('octeract.data.octeractImprovedFree.name'),
     description: () => {

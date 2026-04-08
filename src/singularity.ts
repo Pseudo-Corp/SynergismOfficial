@@ -3656,8 +3656,8 @@ const calculateSingularityReductions = () => {
   return (
     getShopUpgradeEffects('shopSingularityPenaltyDebuff', 'singularityPenaltyReducers')
     + (player.insideSingularityChallenge
-      ? getAmbrosiaUpgradeEffects('ambrosiaSingReduction2').singularityReduction
-      : getAmbrosiaUpgradeEffects('ambrosiaSingReduction1').singularityReduction)
+      ? getAmbrosiaUpgradeEffects('ambrosiaSingReduction2', 'singularityReduction')
+      : getAmbrosiaUpgradeEffects('ambrosiaSingReduction1', 'singularityReduction'))
   )
 }
 

@@ -313,31 +313,31 @@ export const allCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'ModuleTutorial',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'cubes')
   },
   {
     i18n: 'ModuleCubes1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1', 'cubes')
   },
   {
     i18n: 'ModuleLuckCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1', 'cubes')
   },
   {
     i18n: 'ModuleQuarkCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
   },
   {
     i18n: 'ModuleCubes2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2', 'cubes')
   },
   {
     i18n: 'ModuleHyperflux',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaHyperflux').hyperFlux
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaHyperflux', 'hyperFlux')
   },
   {
     i18n: 'ModuleCubes3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3', 'cubes')
   },
   {
     i18n: 'RedAmbrosiaTutorial',
@@ -773,27 +773,27 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'ModuleTutorial',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'cubes')
   },
   {
     i18n: 'ModuleCubes1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1', 'cubes')
   },
   {
     i18n: 'ModuleLuckCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1', 'cubes')
   },
   {
     i18n: 'ModuleQuarkCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
   },
   {
     i18n: 'ModuleCubes2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2', 'cubes')
   },
   {
     i18n: 'ModuleCubes3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3', 'cubes')
   },
   {
     i18n: 'RedAmbrosiaTutorial',
@@ -873,11 +873,11 @@ export const allBaseOfferingStats: NumberStatLine[] = [
   },
   {
     i18n: 'AmbrosiaBaseOffering1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering1').offering // Ambrosia Base Offering 1
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering1', 'offering') // Ambrosia Base Offering 1
   },
   {
     i18n: 'AmbrosiaBaseOffering2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering2').offering // Ambrosia Base Offering 2
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering2', 'offering') // Ambrosia Base Offering 2
   },
   {
     i18n: 'OfferingEX3',
@@ -1058,7 +1058,7 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'Ambrosia',
-    stat: () => 1 + 0.001 * getAmbrosiaUpgradeEffects('ambrosiaOffering1').offeringMult // Ambrosia!!
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaOffering1', 'offeringMult') // Ambrosia!!
   },
   {
     i18n: 'RedAmbrosiaTutorial',
@@ -1350,27 +1350,27 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'AmbrosiaTutorial',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'quarks')
   },
   {
     i18n: 'AmbrosiaQuarks1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks1').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks1', 'quarks')
   },
   {
     i18n: 'AmbrosiaCubeQuark1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeQuark1').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeQuark1', 'quarks')
   },
   {
     i18n: 'AmbrosiaLuckQuark1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckQuark1').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckQuark1', 'quarks')
   },
   {
     i18n: 'AmbrosiaQuarks2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks2').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks2', 'quarks')
   },
   {
     i18n: 'AmbrosiaQuarks3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks3').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks3', 'quarks')
   },
   {
     i18n: 'Viscount',
@@ -1445,11 +1445,11 @@ export const allBaseObtainiumStats: NumberStatLine[] = [
   },
   {
     i18n: 'AmbrosiaBaseObtainium1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium1').obtainium // Ambrosia Base Obtainium 1
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium1', 'obtainium') // Ambrosia Base Obtainium 1
   },
   {
     i18n: 'AmbrosiaBaseObtainium2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium2').obtainium // Ambrosia Base Obtainium 2
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium2', 'obtainium') // Ambrosia Base Obtainium 2
   }
 ]
 
@@ -1681,7 +1681,7 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'AmbrosiaObtainium1',
-    stat: () => 1 + 0.001 * getAmbrosiaUpgradeEffects('ambrosiaObtainium1').obtainiumMult // Ambrosia Obtainium 1
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaObtainium1', 'obtainiumMult') // Ambrosia Obtainium 1
   },
   {
     i18n: 'EXUltraObtainium',
@@ -2052,7 +2052,7 @@ export const allAdditiveLuckMultStats: NumberStatLine[] = [
   },
   {
     i18n: 'BlueberryUpgrade',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck4').ambrosiaLuckPercentage // Blueberry Upgrade 4
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck4', 'ambrosiaLuckPercentage') // Blueberry Upgrade 4
   },
   {
     i18n: 'HorseShoeTalisman',
@@ -2114,23 +2114,23 @@ export const allAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'AmbrosiaLuck1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck1').ambrosiaLuck // Ambrosia Luck from Luck Module I
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck1', 'ambrosiaLuck') // Ambrosia Luck from Luck Module I
   },
   {
     i18n: 'AmbrosiaLuck2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck2').ambrosiaLuck // Ambrosia Luck from Luck Module II
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck2', 'ambrosiaLuck') // Ambrosia Luck from Luck Module II
   },
   {
     i18n: 'AmbrosiaLuck3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck3').ambrosiaLuck // Ambrosia Luck from Luck Module III
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck3', 'ambrosiaLuck') // Ambrosia Luck from Luck Module III
   },
   {
     i18n: 'AmbrosiaCubeLuck1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeLuck1').ambrosiaLuck // Ambrosia Luck from Cube-Luck Synergy Module
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeLuck1', 'ambrosiaLuck') // Ambrosia Luck from Cube-Luck Synergy Module
   },
   {
     i18n: 'AmbrosiaQuarkLuck1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkLuck1').ambrosiaLuck // Ambrosia Luck from Quark-Luck Synergy Module
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkLuck1', 'ambrosiaLuck') // Ambrosia Luck from Quark-Luck Synergy Module
   },
   {
     i18n: 'Singularity131',
@@ -2254,7 +2254,7 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'PatreonBonus',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaPatreon').blueberryGeneration // Patreon Bonus
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaPatreon', 'blueberryGeneration') // Patreon Bonus
   },
   {
     i18n: 'OneChallengeCap',
@@ -2720,13 +2720,13 @@ export const allShopTablets: NumberStatLine[] = [
   },
   {
     i18n: 'Indigo',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades1').freeLevels, // Blueberry Upgrade
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades1', 'freeLevels'), // Blueberry Upgrade
     acc: 0,
     color: 'orchid'
   },
   {
     i18n: 'Violet',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades2').freeLevels, // Blueberry Upgrade 2
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades2', 'freeLevels'), // Blueberry Upgrade 2
     acc: 0,
     color: 'violet'
   }
@@ -2749,7 +2749,7 @@ export const allTalismanRuneBonusStatsSum = () => {
     + getGQUpgradeEffect('singTalismanBonusRunes2', 'talismanRuneEffect')
     + getGQUpgradeEffect('singTalismanBonusRunes3', 'talismanRuneEffect')
     + getGQUpgradeEffect('singTalismanBonusRunes4', 'talismanRuneEffect')
-    + getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel').talismanBonusRuneLevel
+    + getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel', 'talismanBonusRuneLevel')
     + getSingularityChallengeEffect('taxmanLastStand', 'talismanRuneEffect')
   )
 }
@@ -2856,7 +2856,7 @@ const allTalismanRuneBonusStats: NumberStatLine[] = [
   },
   {
     i18n: 'BlueberryUpgrade',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel').talismanBonusRuneLevel
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel', 'talismanBonusRuneLevel')
   },
   {
     i18n: 'TaxmanLastStand',

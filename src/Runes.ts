@@ -205,7 +205,7 @@ const speedRuneOOMIncrease = () => {
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
     + player.cubeUpgrades[16]
     + getTalismanEffects('chronos').speedOOMBonus
-    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
     + getLevelMilestone('speedRune')
   )
 }
@@ -219,7 +219,7 @@ const duplicationRuneOOMIncrease = () => {
     + CalcECC('ascension', player.challengecompletions[11])
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
     + getTalismanEffects('exemption').duplicationOOMBonus
-    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
     + getLevelMilestone('duplicationRune')
   )
 }
@@ -233,7 +233,7 @@ const prismRuneOOMIncrease = () => {
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
     + player.cubeUpgrades[16]
     + getTalismanEffects('mortuus').prismOOMBonus
-    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
     + getLevelMilestone('prismRune')
   )
 }
@@ -247,7 +247,7 @@ const thriftRuneOOMIncrease = () => {
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
     + player.cubeUpgrades[37]
     + getTalismanEffects('midas').thriftOOMBonus
-    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
     + getLevelMilestone('thriftRune')
   )
 }
@@ -260,14 +260,14 @@ const superiorIntellectOOMIncrease = () => {
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
     + player.cubeUpgrades[37]
     + getTalismanEffects('polymath').SIOOMBonus
-    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
     + getLevelMilestone('SIRune')
   )
 }
 
 const infiniteAscentOOMIncrease = () => {
   return (
-    getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').infiniteAscentOOMBonus
+    getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
   )
 }
 
