@@ -326,12 +326,12 @@
       "regularLuck2": {
         "name": "固化蓝莓战术 II",
         "description": "每级同样使神肴之运增加2，但您可以多购买很多次升级！",
-        "effect": "This upgrade increases Ambrosia Luck by <<green|{{amount}}>>!"
+        "effect": "该升级使神肴之运增加了<<green|{{amount}}>>！"
       },
       "blueberryGenerationSpeed2": {
         "name": "时之沙 II",
         "description": "每级使神肴进度条点数获取速度增加0.1%，但您可以多购买很多次升级！",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by <<lightblue|{{amount}}>>!"
+        "effect": "该升级使神肴进度条点数获取速度增加<<lightblue|{{amount}}>>！"
       },
       "salvageYinYang": {
         "name": "阴阳：回收版",
@@ -5362,17 +5362,17 @@
       "octeractImprovedGlobalSpeed": {
         "name": "禁忌时钟",
         "description": "就像是时间与精神之屋那样。对于每次奇点，每级使全局速度增加1%！",
-        "effect": "Global Speed per singularity +{{n}}% <br> Total Global Speed increase: +{{mult}}"
+        "effect": "每次奇点使全局速度增加{{n}}%，总计加成为{{mult}}"
       },
       "octeractImprovedAscensionSpeed": {
         "name": "抽象趋光性",
         "description": "对于每次奇点，每级使飞升的速度增加0.05%！",
-        "effect": "Ascension Speed per singularity +{{n}}% <br> Total Ascension Speed increase: +{{mult}}"
+        "effect": "每次奇点使飞升的速度增加{{n}}%，总计加成为{{mult}}"
       },
       "octeractImprovedAscensionSpeed2": {
         "name": "抽象外动力",
         "description": "对于每次奇点，每级使飞升的速度增加0.05%！",
-        "effect": "Ascension Speed per singularity +{{n}}% <br> Total Ascension Speed increase: +{{mult}}"
+        "effect": "每次奇点使飞升的速度增加{{n}}%，总计加成为{{mult}}"
       },
       "octeractImprovedFree": {
         "name": "真惊奇！我希望免费升级效果变得更好。",
@@ -5621,8 +5621,8 @@
       "description": "那八块碎片，都以为丢了，其实还在。它去而复返了。",
       "lockedDescription": "该符文未解锁！想要解锁，您可能得买一些不买为妙的东西。",
       "singularityUnlock": "某种<span class=\"rainbowText\">奇特</span>的东西在1级时解锁：{{symbol}}",
-      "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power, diminishing)",
-      "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power, diminishing)",
+      "offeringBonus": "<<orange|使祭品获取数量变为原来的{{val}}倍>> (每有1符文强度就变为原来的10倍，该加成会随着符文强度增加而减少，最多为1e300)",
+      "obtainiumBonus": "<<pink|使难得素获取数量变为原来的{{val}}倍>> (每有1符文强度就变为原来的10倍，该加成会随着符文强度增加而减少，最多为1e300)",
       "addCode": "<<lightgray|使“增加”代码的使用时间间隔{{val}}>> (1符文强度时-20%，上限为-50%)",
       "cubeBonus": "<<white | 使惊奇方盒获取数量+{{val}}>> (每级使惊奇方盒获取数量变为原来的1.01倍（至多计入5级），这个效果会重复S次，其中S为当前...奇点次数？)",
       "values": "1级时解锁某种<span class=\"rainbowText\">特殊</span>的东西！每级使祭品获取数量和<<cyan|无瑕>>的难得素获取数量变为原来的10倍，并使“增加”代码更快恢复使用次数。",
