@@ -289,19 +289,19 @@
         "name": "由红神肴“制取”的方盒",
         "description": "嘿，神肴能提供方盒，红神肴没道理不行！",
         "effect": "购买后，使所有类型的方盒、立方和方块获取数量变为原来的 1 + (获取总数)^{{exponent}} / 100 倍。",
-        "effectEnabled": "Multiplies your Cube gain by 1 + (Lifetime)^{{exponent}} / 100. <br> [Currently: <<white|+{{amount}}>>]"
+        "effectEnabled": "使所有类型的方盒、立方和方块获取数量变为原来的 1 + (获取总数)^{{exponent}} / 100 倍。<br>[当前效果：<<white|增加{{amount}}>>]"
       },
       "redAmbrosiaObtainium": {
         "name": "由红神肴“制取”的难得素",
         "description": "我不太懂红色物体是怎么制成蓝色物体的，但确实可行。",
         "effect": "购买后，使难得素获取数量变为原来的 1 + (红神肴获取总数)^0.6 / 100 倍。",
-        "effectEnabled": "Multiplies your Obtainium gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<pink|+{{amount}}>>]"
+        "effectEnabled": "使难得素获取数量变为原来的 1 + (红神肴获取总数)^0.6 / 100 倍。<br>[当前效果：<<pink|增加{{amount}}>>]"
       },
       "redAmbrosiaOffering": {
         "name": "由红神肴“制取”的祭品",
         "description": "等等，这个好像有点道理。",
         "effect": "购买后，使祭品获取数量变为原来的 1 + (红神肴获取总数)^0.6 / 100 倍。",
-        "effectEnabled": "Multiplies your Offerings gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<orange|+{{amount}}>>]"
+        "effectEnabled": "使祭品获取数量变为原来的 1 + (红神肴获取总数)^0.6 / 100 倍。<br>[当前效果：<<orange|增加{{amount}}>>]"
       },
       "redAmbrosiaCubeImprover": {
         "name": "雇佣红神肴工匠",
@@ -5321,8 +5321,8 @@
       "octeractQuarkGain2": {
         "name": "七-八阶原始协同",
         "description": "惊奇八阶方块·夸克每有111级，惊奇七阶立方·夸克每有一个数量级，每级该升级就可以使夸克获取数量增加0.01%。",
-        "effectDisabled": "七-八阶原始协同效果没有生效。",
-        "effectEnabled": "七-八阶原始协同效果已生效，您获得了+{{amount}}的夸克！<br> 惊奇七阶立方·夸克每数量级+{{amount2}}夸克<br>当前数量级：{{amount3}}"
+        "effectDisabled": "七-八阶原始协同效果未生效。",
+        "effectEnabled": "七-八阶原始协同效果已生效，夸克获取数量增加{{amount}}！<br> 惊奇七阶立方·夸克每有一个数量级，夸克获取数量就增加{{amount2}}<br>当前数量级：{{amount3}}"
       },
       "octeractCorruption": {
         "name": "更多腐化",
@@ -5443,7 +5443,7 @@
       "octeractAscensionsOcteractGain": {
         "name": "八进制数码累加器",
         "description": "飞升次数每个数量级可以使惊奇八阶方块的获取数量增加1%！",
-        "effect": "飞升次数每个数量级可以使惊奇八阶方块的获取数量增加{{n}}%！总计惊奇八阶方块加成为{{mult}}。"
+        "effect": "飞升次数每有一个数量级，惊奇八阶方块的获取数量就增加{{n}}%！<br>总加成：{{mult}}"
       },
       "octeractFastForward": {
         "name": "Derpsmith的奇点小玩意",
