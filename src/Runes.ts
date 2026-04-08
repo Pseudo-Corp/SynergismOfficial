@@ -267,7 +267,7 @@ const superiorIntellectOOMIncrease = () => {
 
 const infiniteAscentOOMIncrease = () => {
   return (
-    getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
+    getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'infiniteAscentOOMBonus')
   )
 }
 
