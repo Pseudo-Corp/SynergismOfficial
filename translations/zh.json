@@ -5813,7 +5813,7 @@
         "metaphysics": "=-=-=-= 玄学护身符效果 =-=-=-=",
         "polymath": "=-=-=-= 博识护身符效果 =-=-=-=",
         "mortuus": "=-=-=-= 虔蚁护身符效果 =-=-=-=",
-        "plastic": "=-=-=-= 一块塑胶效果 =-=-=-="
+        "plastic": "=-=-=-= 信卡护身符效果 =-=-=-="
       },
       "effects": {
         "exemption": "税收减少{{x}}%",
@@ -7658,7 +7658,7 @@
       "RED_GENERATION_BUFF": "世纪之红神肴"
     },
     "upgradeEffects": {
-      "INSTANT_UNLOCK_1": "使一块塑胶<<gold|{{descriptor}}>>常时解锁！<<orange|等级上限增加{{amount}}>>",
+      "INSTANT_UNLOCK_1": "使信卡护身符<<gold|{{descriptor}}>>常时解锁！<<orange|等级上限增加{{amount}}>>",
       "INSTANT_UNLOCK_2": "使无限晋升符文<<gold|{{descriptor}}>>常时解锁！<<orange|额外等级增加{{amount}}>>",
       "CUBE_BUFF": "使方盒获取数量增加<<gold|{{amount}}>>",
       "AMBROSIA_LUCK_BUFF": "使神肴之运增加<<gold|{{amount}}>>",
