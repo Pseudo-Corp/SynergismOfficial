@@ -3604,8 +3604,8 @@
       },
       "xyz": {
         "name": "“每日”代码额外奖励",
-        "hasLevel2": "输入“每日”代码后可以获得金夸克和随机奇点升级的免费等级，额外获得0.2级金夸克 I，0.2级金夸克 II和1级金夸克 III，另外再使获得的免费等级数量翻倍！",
-        "hasLevel1": "输入“每日”代码后可以获得金夸克和随机奇点升级的免费等级，还可以额外获得0.2级金夸克 I，0.2级金夸克 II和1级金夸克 III。",
+        "hasLevel2": "输入“每日”代码后可以获得金夸克和随机金夸克升级的免费等级，额外获得0.2级金夸克 I，0.2级金夸克 II和1级金夸克 III，另外再使获得的免费等级数量翻倍！",
+        "hasLevel1": "输入“每日”代码后可以获得金夸克和随机金夸克升级的免费等级，还可以额外获得0.2级金夸克 I，0.2级金夸克 II和1级金夸克 III。",
         "default": "输入“每日”代码后可以获得金夸克和随机金夸克升级的免费等级，且效果随着奇点次数而增长！"
       },
       "generousOrbs": {
@@ -6062,9 +6062,9 @@
         "name": "虐待狂拔擢 III - 前传",
         "description": "Platonic还要滥用多少次“虐待狂”？[无金夸克升级、八阶方块升级和神肴升级。但红神肴升级仍然有效。]",
         "ScalingReward1": "使<<cyan|夸克获取数量>>增加6%！",
-        "ScalingReward2": "使“每日”代码获得的<<orange|免费奇点升级>>增加6%！",
+        "ScalingReward2": "使“每日”代码获得的<<orange|免费金夸克升级>>增加6%！",
         "ScalingReward3": "40成就点数！",
-        "UniqueReward1": "第1次 - 使“每日”代码可以多提供50级免费奇点升级！",
+        "UniqueReward1": "第1次 - 使“每日”代码可以多提供50级免费金夸克升级！",
         "UniqueReward2": "第5次 - 新的<<orchid|夸克升级>>！",
         "UniqueReward3": "第10次 - 另一个新的<<orchid|夸克升级>>！",
         "UniqueReward4": "第15次 - 特别虐待的<<gray|夸克升级>>！"
@@ -7664,7 +7664,7 @@
       "AMBROSIA_LUCK_BUFF": "使神肴之运增加<<gold|{{amount}}>>",
       "AMBROSIA_GENERATION_BUFF": "使神肴进度条点数获取速度变为原来的<<gold|{{amount}}>>倍",
       "GOLDEN_QUARK_BUFF": "使金夸克获取数量变为原来的<<gold|{{amount}}>>倍",
-      "FREE_UPGRADE_PROMOCODE_BUFF": "使“每日”代码获得的免费奇点升级变为原来的<<gold|{{amount}}倍>>！",
+      "FREE_UPGRADE_PROMOCODE_BUFF": "使“每日”代码获得的免费金夸克升级变为原来的<<gold|{{amount}}倍>>！",
       "CORRUPTION_LOADOUT_SLOT_QOL": "您额外获得<<gold|{{amount}}>>个腐化预设槽位！",
       "AMBROSIA_LOADOUT_SLOT_QOL": "您额外获得<<gold|{{amount}}>>个神肴预设槽位！",
       "AUTO_POTION_FREE_POTIONS_QOL": "自动使用药剂时并非<<gold|{{descriptor}}>>消耗药剂！",
