@@ -4323,138 +4323,68 @@ const gameStages = (): Stage[] => {
     {
       stage: 6,
       tier: 4,
-      name: 'sacrifice-ascension',
+      name: 'sacrifice-ascend',
       unlocked: player.ascensionCount > 0,
       reset: player.unlocks.reincarnate
     },
     {
       stage: 7,
       tier: 5,
-      name: 'ascension-challenge10',
-      unlocked: player.ascensionCount > 1,
+      name: 'challenge10-w5x10max',
+      unlocked: player.cubeUpgrades[50] >= 100000,
       reset: player.ascensionCount > 0
     },
     {
       stage: 8,
       tier: 5,
-      name: 'challenge10-challenge11',
-      unlocked: player.challengecompletions[11] > 0,
+      name: 'w5x10max-1e15-expo',
+      unlocked: player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement,
       reset: player.ascensionCount > 0
     },
     {
       stage: 9,
       tier: 5,
-      name: 'challenge11-challenge12',
-      unlocked: player.challengecompletions[12] > 0,
-      reset: player.ascensionCount > 0
-    },
-    {
-      stage: 10,
-      tier: 5,
-      name: 'challenge12-challenge13',
-      unlocked: player.challengecompletions[13] > 0,
-      reset: player.ascensionCount > 0
-    },
-    {
-      stage: 11,
-      tier: 5,
-      name: 'challenge13-challenge14',
-      unlocked: player.challengecompletions[14] > 0,
-      reset: player.ascensionCount > 0
-    },
-    {
-      stage: 12,
-      tier: 5,
-      name: 'challenge14-w5x10max',
-      unlocked: player.cubeUpgrades[50] >= 100000,
-      reset: player.ascensionCount > 0
-    },
-    {
-      stage: 13,
-      tier: 5,
-      name: 'w5x10max-alpha',
-      unlocked: player.platonicUpgrades[5] > 0,
-      reset: player.ascensionCount > 0
-    },
-    {
-      stage: 14,
-      tier: 5,
-      name: 'alpha-p2x1x10',
-      unlocked: player.platonicUpgrades[6] >= 10,
-      reset: player.ascensionCount > 0
-    },
-    {
-      stage: 15,
-      tier: 5,
-      name: 'p2x1x10-p3x1',
-      unlocked: player.platonicUpgrades[11] > 0,
-      reset: player.ascensionCount > 0
-    },
-    {
-      stage: 16,
-      tier: 5,
-      name: 'p3x1-beta',
-      unlocked: player.platonicUpgrades[10] > 0,
-      reset: player.ascensionCount > 0
-    },
-    {
-      stage: 17,
-      tier: 5,
-      name: 'beta-1e15-expo',
-      unlocked: player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement,
-      reset: player.ascensionCount > 0
-    },
-    {
-      stage: 18,
-      tier: 5,
-      name: '1e15-expo-omega',
-      unlocked: player.platonicUpgrades[15] > 0,
-      reset: player.ascensionCount > 0
-    },
-    {
-      stage: 19,
-      tier: 5,
-      name: 'omega-singularity',
+      name: '1e15-expo-singularity',
       unlocked: player.singularityCount > 0 && runes.antiquities.level > 0,
       reset: player.ascensionCount > 0
     },
     {
-      stage: 20,
+      stage: 10,
       tier: 6,
       name: 'singularity-exalt1x1',
       unlocked: player.singularityChallenges.noSingularityUpgrades.completions > 0,
       reset: player.highestSingularityCount > 0
     },
     {
-      stage: 21,
+      stage: 11,
       tier: 6,
       name: 'exalt1x1-exalt6x1',
       unlocked: player.singularityChallenges.noAmbrosiaUpgrades.completions > 0,
       reset: player.highestSingularityCount > 0
     },
     {
-      stage: 22,
+      stage: 12,
       tier: 6,
       name: 'exalt6x1-s256',
       unlocked: player.highestSingularityCount > 256,
       reset: player.highestSingularityCount > 0
     },
     {
-      stage: 23,
+      stage: 13,
       tier: 6,
       name: 's256-exalt7x10',
       unlocked: player.singularityChallenges.limitedTime.completions >= 10,
       reset: player.highestSingularityCount > 0
     },
     {
-      stage: 24,
+      stage: 14,
       tier: 6,
       name: 'exalt7x10-pen',
       unlocked: goldenQuarkUpgrades.ultimatePen.level > 0,
       reset: player.highestSingularityCount > 0
     },
     {
-      stage: 25,
+      stage: 15,
       tier: 6,
       name: 'pen',
       unlocked: false,
