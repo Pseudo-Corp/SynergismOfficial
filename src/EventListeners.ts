@@ -89,9 +89,9 @@ import {
   updateSaveString
 } from './ImportExport'
 import { exitFastForward, getLotusTimeExpiresAt, getOwnedLotus, getTips, sendToWebsocket, setTips } from './Login'
+import type { OcteractUpgrades } from './Octeracts'
 import {
   buyOcteractUpgradeLevel,
-  type OcteractDataKeys,
   octeractUpgrades,
   updateMobileOcteractHTML,
   upgradeOcteractToString
@@ -1388,7 +1388,7 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // Octeract Upgrades
-  const octUpgrade = Object.keys(octeractUpgrades) as OcteractDataKeys[]
+  const octUpgrade = Object.keys(octeractUpgrades) as OcteractUpgrades[]
   for (const key of octUpgrade) {
     if (!isMobile) {
       DOMCacheGetOrSet(key).addEventListener(

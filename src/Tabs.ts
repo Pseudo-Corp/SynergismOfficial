@@ -285,7 +285,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: '4',
-        unlocked: () => Boolean(getGQUpgradeEffect('octeractUnlock')),
+        unlocked: () => getGQUpgradeEffect('octeractUnlock', 'unlocked'),
         buttonID: 'toggleSingularitySubTab4'
       },
       {

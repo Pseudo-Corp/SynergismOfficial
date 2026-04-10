@@ -8,7 +8,7 @@ import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '.
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type { HepteractKeys, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
-import type { OcteractDataKeys } from '../Octeracts'
+import type { OcteractUpgrades } from '../Octeracts'
 import type { QuarkHandler } from '../Quark'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
 import type { RuneBlessingKeys } from '../RuneBlessings'
@@ -512,7 +512,7 @@ export interface Player {
     goldenQuarksInvested: number
   }>
 
-  octUpgrades: Record<OcteractDataKeys, {
+  octUpgrades: Record<OcteractUpgrades, {
     level: number
     freeLevel: number
     octeractsInvested: number

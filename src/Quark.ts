@@ -19,7 +19,7 @@ export const quarkHandler = () => {
     baseQuarkPerHour += player.researches[el]
   }
 
-  baseQuarkPerHour *= getOcteractUpgradeEffect('octeractExportQuarks')
+  baseQuarkPerHour *= getOcteractUpgradeEffect('octeractExportQuarks', 'exportQuarkMult')
 
   const quarkPerHour = baseQuarkPerHour
 

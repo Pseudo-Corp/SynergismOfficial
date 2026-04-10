@@ -993,7 +993,6 @@ export const playerSchema = z.object({
               singularityRequirement: singularityChallengeData[k].singularityRequirement,
               scalingrewardcount: singularityChallengeData[k].scalingrewardcount,
               uniquerewardcount: singularityChallengeData[k].uniquerewardcount,
-              effect: singularityChallengeData[k].effect,
               alternateDescription: singularityChallengeData[k].alternateDescription
             }, k)
           ]

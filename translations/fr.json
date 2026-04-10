@@ -223,7 +223,7 @@
       "tutorial": {
         "name": "L'Ambroisie Rouge pour les Nuls",
         "description": "Tout comme l'Ambroisie est la force vitale des Dieux, l'Ambroisie Rouge est la force vitale de votre âme. Mais ça ne vous intéresse pas vraiment… 1,01x Cubes, Obtainium et Offrandes par niveau !",
-        "effect": "Cubes, Obtainium et Offrandes augmentés de {{amount}} !"
+        "effect": "Cubes, Obtainium and Offerings are increased by <<lime | {{amount}}>>!"
       },
       "conversionImprovement1": {
         "name": "Bonificateur de la Conversion de Chance d'Ambroisie",
@@ -243,67 +243,70 @@
       "freeTutorialLevels": {
         "name": "Plus de niveaux du module tutoriel de Myrtilles !",
         "description": "Une sorte de méta-tutoriel. Une puissante capacité de l'Ambroisie Rouge est d'enrichir votre arbre de Myrtilles ! Augmente le niveau effectif du module tutoriel de Myrtille de 1 par niveau.",
-        "effect": "Cette amélioration augmente le niveau effectif du module tutoriel de Myrtille de {{amount}} !"
+        "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow2": {
         "name": "Plus de niveaux pour la ligne 2 de l'arbre de Myrtilles !",
         "description": "À l'exception du Stabilisateur de Singularité, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la seconde ligne, par niveau.",
-        "effect": "Cette amélioration augmente le niveau effectif (de la plupart) des modules de Myrtilles de la ligne 2 de {{amount}} !"
+        "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow3": {
         "name": "Plus de niveaux pour la ligne 3 de l'arbre de Myrtilles !",
         "description": "Sans exceptions, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la troisième ligne, par niveau.",
-        "effect": "Cette amélioration augmente le niveau effectif de TOUS les modules de Myrtilles de la ligne 3 de {{amount}} !"
+        "effect": "This upgrade increases the effective level of ALL row 3 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow4": {
         "name": "Plus de niveaux pour la ligne 4 de l'arbre de Myrtilles !",
         "description": "Sans exceptions, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la quatrième ligne, par niveau.",
-        "effect": "Cette amélioration augmente le niveau effectif de TOUS les modules de Myrtilles de la ligne 4 de {{amount}} !"
+        "effect": "This upgrade increases the effective level of ALL row 4 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow5": {
         "name": "Plus de niveaux pour la ligne 5 de l'arbre de Myrtilles !",
         "description": "À l'exception du Stabilisateur de Singularité, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la cinquième ligne, par niveau.",
-        "effect": "Cette amélioration augmente le niveau effectif (de la plupart) des modules de Myrtilles de la ligne 5 de {{amount}} !"
+        "effect": "This upgrade increases the effective level of (most) row 5 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "blueberryGenerationSpeed": {
         "name": "Les Sables du Temps",
         "description": "+0,2% de gain de points de la barre d'Ambroisie par niveau. On dit que ce sablier a la bénédiction de Chronos lui-même.",
-        "effect": "Cette amélioration augmente les gains de points de la barre d'Ambroisie de {{amount}} !"
+        "effect": "This upgrade increases Ambrosia Bar Point gain by <<lightblue|{{amount}}>>!"
       },
       "regularLuck": {
         "name": "Tactiques de Myrtilles Ossifiées",
         "description": "Plutôt déconcertant. Ajouter cette cire de couleur dorée sur vos Myrtilles augmente légèrement vos chances d'obtenir de l'Ambroisie ! +2 chance d'Ambroisie / niveau.",
-        "effect": "Cette amélioration augmente la chance d'Ambroisie de {{amount}} !"
+        "effect": "This upgrade increases Ambrosia Luck by <<green|{{amount}}>>!"
       },
       "redGenerationSpeed": {
         "name": "Ambroisie Rouge Millénaire",
         "description": "Assurément, avec la longue attente vécue par cette Ambroisie, elle en connait un rayon sur le temps. +0,3% de points de la barre d'Ambroisie Rouge par niveau.",
-        "effect": "Cette amélioration augmente le gain de points de la barre d'Ambroisie Rouge de {{amount}} !"
+        "effect": "This upgrade increases Red Bar Point gain by <<red|{{amount}}>>!"
       },
       "redLuck": {
         "name": "Le Dé qui Décide de votre Destin",
         "description": "Une vie sur chaque face, jusqu'à que vous obteniez finalement un huit. +1 chance d'Ambroisie Rouge par niveau !",
-        "effect": "Cette amélioration augmente la chance d'Ambroisie de {{amount}} !"
+        "effect": "This upgrade increases Red Luck by <<red|{{amount}}>>!"
       },
       "redAmbrosiaCube": {
         "name": "Des Cubes \"fabriqués\" à partir d'Ambroisie Rouge",
         "description": "Hey, l'Ambroisie donne des Cubes ! Pourquoi pas l'Ambroisie Rouge également ?",
-        "effect": "Si acheté, multiplie vos Cubes par 1 + (Total)^{{exponent}} / 100."
+        "effect": "When purchased, multiply your cubes by 1 + (Lifetime)^{{exponent}} / 100.",
+        "effectEnabled": "Multiplies your Cube gain by 1 + (Lifetime)^{{exponent}} / 100. <br> [Currently: <<white|+{{amount}}>>]"
       },
       "redAmbrosiaObtainium": {
         "name": "Obtainium \"fabriqué\" à partir d'Ambroisie Rouge",
         "description": "Je ne sais pas pourquoi vous pouvez fabriquer un objet bleu à partir d'un objet rouge. Mais vous pouvez.",
-        "effect": "Si acheté, multiplie votre Obtainium par 1 + (Total)^0,6 / 100."
+        "effect": "When purchased, multiply your Obtainium by 1 + (Lifetime)^0.6 / 100.",
+        "effectEnabled": "Multiplies your Obtainium gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<pink|+{{amount}}>>]"
       },
       "redAmbrosiaOffering": {
         "name": "Offrandes \"fabriqués\" à partir d'Ambroisie Rouge",
         "description": "Attendez, celui-ci est plutôt logique.",
-        "effect": "Si acheté, multiplie vos Offrandes par 1 + (Total)^0,6 / 100."
+        "effect": "When purchased, multiply your Offerings by 1 + (Lifetime)^0.6 / 100.",
+        "effectEnabled": "Multiplies your Offerings gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<orange|+{{amount}}>>]"
       },
       "redAmbrosiaCubeImprover": {
         "name": "Embauchez des Artisans d'Ambroisie Rouge",
         "description": "Ils sont meilleurs pour fabriquer des Cubes à partir d'Ambroisie Rouge pour vour, selon la quantité que vous détenez. +0,01 à l'exposant de \"Des Cubes \"fabriqués\" à partir d'Ambroisie Rouge\" par niveau.",
-        "effect": "Exposant de cette amélioration d'Ambroisie Rouge : 0,40 → {{newExponent}}"
+        "effect": "Exponent for that Red Ambrosia Upgrade: <<white|0.40 → {{newExponent}}>>"
       },
       "viscount": {
         "name": "Vicomte du Gars Rubis",
@@ -313,32 +316,32 @@
       "infiniteShopUpgrades": {
         "name": "Bon de Réduction Rouge de la Boutique Infinie",
         "description": "A Shop Voucher, printed on a red tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Upgrades.",
-        "effect": "You own {{amount}} Red Infinity Shop Vouchers!"
+        "effect": "You own <<white|{{amount}}>> Red Infinity Shop Vouchers!"
       },
       "redAmbrosiaAccelerator": {
         "name": "Ultrafusion Bleue-Rouge",
         "description": "Quand vous obtenez de l'Ambroisie Rouge, vous obtenez un peu de progression vers de l'Ambroisie normale ! +0,02 seconde réelle de points de la barre d'Ambroisie par niveau, par Ambroisie Rouge générée, avec le premier niveau donnant +1 !",
-        "effect": "Chaque Ambroisie Rouge générée octroie {{amount}} secondes réelles de points de la barre d'Ambroisie."
+        "effect": "Each Red Ambrosia generated grants <<white|{{amount}}>> real-life seconds of Ambrosia Bar Points."
       },
       "regularLuck2": {
         "name": "Tactiques de Myrtilles Ossifiées II",
         "description": "Celui-ci donne aussi +2 chance d'Ambroisie / niveau, mais vous pouvez en acheter à foison !",
-        "effect": "Cette amélioration augmente la chance d'Ambroisie de {{amount}} !"
+        "effect": "This upgrade increases Ambrosia Luck by <<green|{{amount}}>>!"
       },
       "blueberryGenerationSpeed2": {
         "name": "Les Sables du Temps II",
         "description": "Obtenez +0,1% de points de la barre d'Ambroisie par niveau, mais vous pouvez en acheter à foison !",
-        "effect": "Cette amélioration augmente les gains de points de la barre d'Ambroisie de {{amount}} !"
+        "effect": "This upgrade increases Ambrosia Bar Point gain by <<lightblue|{{amount}}>>!"
       },
       "salvageYinYang": {
         "name": "Yin et Yang : Édition de récupération",
         "description": "This upgrade, oddly enough, increases both your Positive and Negative Salvage by 10 per level! <<orange|Disabled in 'Taxman's last stand'>>",
-        "effect": "Votre Récupération positive et négative sont augmentées de {{amount}}."
+        "effect": "Your Positive and Negative Salvage are both increased by <<cactusgreen|{{amount}}>>."
       },
       "blueberries": {
         "name": "Berries that are... blue?",
         "description": "They look like Blueberries. They act like Blueberries. You're not really sure if they're Blueberries.",
-        "effect": "Your Blueberry inventory is increased by {{amount}}"
+        "effect": "Your Blueberry inventory is increased by <<lightblue|{{amount}}>>"
       }
     }
   },
@@ -4206,22 +4209,22 @@
       "singAmbrosiaGeneration2": {
         "name": "Sablier Important",
         "description": "A somewhat important hourglass which somehow grants +1% faster Ambrosia Bar Point creation per level...",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singAmbrosiaGeneration3": {
         "name": "Sablier Significatif",
         "description": "An hourglass which is still important, perhaps even more so. +1% faster Ambrosia Bar Point creation per level.",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singAmbrosiaGeneration": {
         "name": "Sablier Illimité",
         "description": "Remember- this hourglass is really important. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singAmbrosiaGeneration4": {
         "name": "Sablier Fantaisie",
         "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% faster Ambrosia Bar Point creation per level.",
-        "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
+        "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singBonusTokens1": {
         "name": "Spare Change on the Sofa Cushion",
@@ -4231,7 +4234,7 @@
       "singBonusTokens2": {
         "name": "Spare Change in the creases of the Sofa Cushions",
         "description": "Thanks to your more perceptive eyes, you find even more Tokens in Campaigns! +1% more Tokens per level from Campaigns.",
-        "effect": "You find +{{n}}% more Tokens from Campaigns!"
+        "effect": "You find +{{n}} more Tokens from Campaigns!"
       },
       "singBonusTokens3": {
         "name": "Spare Change under the Sofa",
@@ -4251,22 +4254,22 @@
       "singTalismanBonusRunes1": {
         "name": "Talisman Buff!",
         "description": "Gain +1% Talisman Power per level, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes2": {
         "name": "Talisman Buff! The second",
         "description": "Gain +1% more Talisman Power per level, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes3": {
         "name": "Talisman Buff! The third",
         "description": "Gain +1% more Talisman Power per level again, additive to other bonuses.",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes4": {
         "name": "Talisman Buff! The fourth",
         "description": "Gain +1% more Talisman Power per level again, AGAIN, additive to other bonuses. Instead of adding five upgrades, Platonic gave this one twice as many levels. Game design!",
-        "effect": "{{n}}% more bonus Rune Levels from Talismans!"
+        "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "favoriteUpgrade": {
         "name": "Your Favorite Upgrades' Favorite Upgrade",
@@ -5297,7 +5300,8 @@
       "octeractStarter": {
         "name": "Octeracts for Dummies",
         "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 25% More Quarks, 40% More Octeracts, And 100,000x Ant Speed...",
-        "effect": "You have {{n}} paid your respects to Derpsmith."
+        "effectDisabled": "You have not yet paid your respects to Derpsmith. No rewards for you!",
+        "effectEnabled": "You have paid respects to Derpsmith. {{amount}} Quarks, {{amount2}} Octeracts and {{amount3}}x Ant Speed as promised!"
       },
       "octeractGain": {
         "name": "Octeract Cogenesis",
@@ -5317,7 +5321,8 @@
       "octeractQuarkGain2": {
         "name": "Octo-Hepteract Primality Synergism",
         "description": "For every 111 levels of Quark Octeract, you gain 0.01% more Quarks per digit in your Quark Hepteract count per level!",
-        "effect": "Octo-Hepteract Primality Synergism is {{n}} active."
+        "effectDisabled": "Octo-Hepteract Primality Synergism is not currently occuring.",
+        "effectEnabled": "Octo-Hepteract Primality Synergism is granting you {{amount}} more Quarks! <br> +{{amount2}} per digit in your Quark Hepteract count <br> Total digits: {{amount3}}"
       },
       "octeractCorruption": {
         "name": "EXTRA CHONKY Corruptions",
@@ -5342,7 +5347,7 @@
       "octeractImprovedDaily2": {
         "name": "CHONKERER Daily Code",
         "description": "Derpsmith implemented hyperspeed multiplication. +1% more free Golden Quark upgrades per day from Daily!",
-        "effect": "Code 'daily' gives +{{n}}% more free Golden Quark upgrades per use."
+        "effect": "Code 'daily' gives +{{n}} more free Golden Quark upgrades per use."
       },
       "octeractImprovedDaily3": {
         "name": "CHONKEREREST Daily Code",
@@ -5357,22 +5362,23 @@
       "octeractImprovedGlobalSpeed": {
         "name": "The Forbidden Clock of Time",
         "description": "Hypothesized to be locked in a hyperbolic time chamber. +1% Global Speed per level per singularity!",
-        "effect": "Global Speed per singularity +{{n}}%"
+        "effect": "Global Speed per singularity +{{n}}% <br> Total Global Speed increase: +{{mult}}"
       },
       "octeractImprovedAscensionSpeed": {
         "name": "Abstract Photokinetics",
         "description": "Gain +0.05% Ascension Speed per level per singularity!",
-        "effect": "Ascension Speed per singularity +{{n}}%"
+        "effect": "Ascension Speed per singularity +{{n}}% <br> Total Ascension Speed increase: +{{mult}}"
       },
       "octeractImprovedAscensionSpeed2": {
         "name": "Abstract Exokinetics",
         "description": "Gain +0.05% Ascension Speed per level per singularity!",
-        "effect": "Ascension Speed per singularity +{{n}}%"
+        "effect": "Ascension Speed per singularity +{{n}}% <br> Total Ascension Speed increase: +{{mult}}"
       },
       "octeractImprovedFree": {
         "name": "Wow! I want free upgrades to be better.",
-        "description": "Makes the effective level of Golden Quark upgrades equal to <<gold | (Paid Levels * Free Levels)^0.6>> instead of <<gold | (Paid Levels + Free Levels)>>. But, if the second formula is greater then you still get that value!",
-        "effect": "Golden Quark upgrade free levels are {{n}} being powered!"
+        "description": "Instead of the effective level of Golden Quark upgrades being equal to the sum of Paid and Free Levels, it is the maximum of the following: <br> 1) <<gold | (Paid Levels + Free Levels)>> <br> 2) <<orchid | (Paid Levels * Free Levels)^{{power}}>>",
+        "effectDisabled": "Golden Quark upgrade free levels are not being powered. Only the first option applies.",
+        "effectEnabled": "Golden Quark upgrade free levels are being powered!"
       },
       "octeractImprovedFree2": {
         "name": "Wow! Free upgrades still suck.",
@@ -5437,7 +5443,7 @@
       "octeractAscensionsOcteractGain": {
         "name": "Digital Octeract Accumulator",
         "description": "Octeract gain is 1% faster for every digit in your Ascension count!",
-        "effect": "Octeract Gain per order of magnitude Ascension count increase +{{n}}%"
+        "effect": "Octeract Gain per order of magnitude Ascension count increase +{{n}}% <br> Total Octeract increase: +{{mult}}"
       },
       "octeractFastForward": {
         "name": "Derpsmith's Singularity Discombobulator",
@@ -5615,8 +5621,8 @@
       "description": "The piece of eight, long thought lost, no longer. It went there and back again.",
       "lockedDescription": "This rune is locked! To unlock it, you might need to buy something that should be left unbought.",
       "singularityUnlock": "Something <span class=\"rainbowText\">singular</span> that's unlocked at Level 1: {{symbol}}",
-      "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power)",
-      "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power)",
+      "offeringBonus": "<<orange | Offering Gain x{{val}}>> (x10 per Power, diminishing)",
+      "obtainiumBonus": "<<pink | Obtainium Gain x{{val}}>> (x10 per Power, diminishing)",
       "addCode": "<<lightgray | 'Add' Code Refresh Interval {{val}}>> (-20% at 1 Power, up to -50%)",
       "cubeBonus": "<<white | Wow! Cube Gain +{{val}}>> (1.01x per level (max 5), times your current... Singularity?)",
       "values": "Level 1 unlocks something <span class=\"rainbowText\">special</span>! Each level gives 10x Offerings, 10x <<cyan | Immaculate>> Obtainium and makes code 'Add' regenerate faster.",

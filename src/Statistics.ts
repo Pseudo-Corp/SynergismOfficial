@@ -110,7 +110,7 @@ import { calculateTrueAntLevel } from './Features/Ants/AntUpgrades/lib/total-lev
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers } from './Features/Ants/structs/structs'
-import { getHepteractEffects, hepteracts } from './Hepteracts'
+import { getHepteractEffects } from './Hepteracts'
 import {
   addCodeBonuses,
   addCodeInterval,
@@ -129,7 +129,7 @@ import {
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { getGlobalBonus, getPersonalBonus, getQuarkBonus } from './Quark'
+import { getGlobalBonus, getPersonalBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { isResearchUnlocked } from './Research'
 import { getRuneBlessingEffect } from './RuneBlessings'
@@ -148,6 +148,7 @@ import {
   getGQUpgradeEffect,
   goldenQuarkUpgrades
 } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talismans'
 import type { GlobalVariables } from './types/Synergism'
@@ -213,7 +214,7 @@ export const allCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'InfiniteAscent',
-    stat: () => getRuneEffects('infiniteAscent').cubeMult
+    stat: () => getRuneEffects('infiniteAscent', 'cubeMult')
   },
   {
     i18n: 'Beta',
@@ -248,7 +249,7 @@ export const allCubeStats: NumberStatLine[] = [
   {
     i18n: 'PassZ',
     stat: () => getShopUpgradeEffects('seasonPassZ', 'globalCubeMult'),
-    displayCriterion: () => Boolean(getGQUpgradeEffect('wowPass'))
+    displayCriterion: () => getGQUpgradeEffect('wowPass', 'unlocked')
   },
   {
     i18n: 'PassINF',
@@ -264,37 +265,31 @@ export const allCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'StarterPack',
-    stat: () => 1 + 4 * (getGQUpgradeEffect('starterPack') ? 1 : 0)
+    stat: () => getGQUpgradeEffect('starterPack', 'cubeMult')
   },
   {
     i18n: 'SingCubes1',
-    stat: () => getGQUpgradeEffect('singCubes1')
+    stat: () => getGQUpgradeEffect('singCubes1', 'cubeMult')
   },
   {
     i18n: 'SingCubes2',
-    stat: () => getGQUpgradeEffect('singCubes2')
+    stat: () => getGQUpgradeEffect('singCubes2', 'cubeMult')
   },
   {
     i18n: 'SingCubes3',
-    stat: () => getGQUpgradeEffect('singCubes3')
+    stat: () => getGQUpgradeEffect('singCubes3', 'cubeMult')
   },
   {
     i18n: 'SingCitadel',
-    stat: () => getGQUpgradeEffect('singCitadel')
+    stat: () => getGQUpgradeEffect('singCitadel', 'cubeMult')
   },
   {
     i18n: 'SingCitadel2',
-    stat: () => getGQUpgradeEffect('singCitadel2')
+    stat: () => getGQUpgradeEffect('singCitadel2', 'cubeMult')
   },
   {
     i18n: 'Delta',
-    stat: () =>
-      1 + getGQUpgradeEffect('platonicDelta')
-        * Math.min(
-          9,
-          player.singularityCounter * getShopUpgradeEffects('shopSingularitySpeedup', 'singularityUpgradeSpeedMult')
-            / (3600 * 24)
-        )
+    stat: () => getGQUpgradeEffect('platonicDelta', 'cubeMult')
   },
   {
     i18n: 'CookieUpgrade8',
@@ -310,7 +305,7 @@ export const allCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoSing',
-    stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.cubes
+    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'cubes')
   },
   {
     i18n: 'Ambrosia',
@@ -318,35 +313,35 @@ export const allCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'ModuleTutorial',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'cubes')
   },
   {
     i18n: 'ModuleCubes1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1', 'cubes')
   },
   {
     i18n: 'ModuleLuckCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1', 'cubes')
   },
   {
     i18n: 'ModuleQuarkCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
   },
   {
     i18n: 'ModuleCubes2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2', 'cubes')
   },
   {
     i18n: 'ModuleHyperflux',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaHyperflux').hyperFlux
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaHyperflux', 'hyperFlux')
   },
   {
     i18n: 'ModuleCubes3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3', 'cubes')
   },
   {
     i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial').cubeMult
+    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'cubeMult')
   },
   {
     i18n: 'RedAmbrosia',
@@ -368,7 +363,7 @@ export const allCubeStats: NumberStatLine[] = [
   {
     i18n: 'OneMind',
     stat: () => {
-      return getGQUpgradeEffect('oneMind')
+      return getGQUpgradeEffect('oneMind', 'unlocked')
         ? calculateAscensionSpeedMult() / 10
         : 1
     },
@@ -476,7 +471,7 @@ export const allWowCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'Antiquities',
-    stat: () => getRuneEffects('antiquities').cubeBonus
+    stat: () => getRuneEffects('antiquities', 'cubeBonus')
   },
   {
     i18n: 'CookieUpgrade13',
@@ -489,7 +484,7 @@ export const allWowCubeStats: NumberStatLine[] = [
 const allWowCubePowerStats: NumberStatLine[] = [
   {
     i18n: 'Tau',
-    stat: () => getGQUpgradeEffect('platonicTau') ? 1.01 : 1
+    stat: () => getGQUpgradeEffect('platonicTau', 'tauPower')
   }
 ]
 
@@ -698,55 +693,55 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'DivinePack',
-    stat: () => getGQUpgradeEffect('divinePack')
+    stat: () => getGQUpgradeEffect('divinePack', 'octeractMult')
   },
   {
     i18n: 'SingCubes1',
-    stat: () => getGQUpgradeEffect('singCubes1')
+    stat: () => getGQUpgradeEffect('singCubes1', 'cubeMult')
   },
   {
     i18n: 'SingCubes2',
-    stat: () => getGQUpgradeEffect('singCubes2')
+    stat: () => getGQUpgradeEffect('singCubes2', 'cubeMult')
   },
   {
     i18n: 'SingCubes3',
-    stat: () => getGQUpgradeEffect('singCubes3')
+    stat: () => getGQUpgradeEffect('singCubes3', 'cubeMult')
   },
   {
     i18n: 'SingOcteractGain',
-    stat: () => getGQUpgradeEffect('singOcteractGain')
+    stat: () => getGQUpgradeEffect('singOcteractGain', 'octeractMult')
   },
   {
     i18n: 'SingOcteractGain2',
-    stat: () => getGQUpgradeEffect('singOcteractGain2')
+    stat: () => getGQUpgradeEffect('singOcteractGain2', 'octeractMult')
   },
   {
     i18n: 'SingOcteractGain3',
-    stat: () => getGQUpgradeEffect('singOcteractGain3')
+    stat: () => getGQUpgradeEffect('singOcteractGain3', 'octeractMult')
   },
   {
     i18n: 'SingOcteractGain4',
-    stat: () => getGQUpgradeEffect('singOcteractGain4')
+    stat: () => getGQUpgradeEffect('singOcteractGain4', 'octeractMult')
   },
   {
     i18n: 'SingOcteractGain5',
-    stat: () => getGQUpgradeEffect('singOcteractGain5')
+    stat: () => getGQUpgradeEffect('singOcteractGain5', 'octeractMult')
   },
   {
     i18n: 'PatreonBonus',
-    stat: () => 1 + (getQuarkBonus() / 100) * getGQUpgradeEffect('singOcteractPatreonBonus')
+    stat: () => getGQUpgradeEffect('singOcteractPatreonBonus', 'octeractMult')
   },
   {
     i18n: 'OcteractStarter',
-    stat: () => getOcteractUpgradeEffect('octeractStarter')
+    stat: () => getOcteractUpgradeEffect('octeractStarter', 'octeractMult')
   },
   {
     i18n: 'OcteractGain',
-    stat: () => getOcteractUpgradeEffect('octeractGain')
+    stat: () => getOcteractUpgradeEffect('octeractGain', 'octeractMult')
   },
   {
     i18n: 'OcteractGain2',
-    stat: () => getOcteractUpgradeEffect('octeractGain2')
+    stat: () => getOcteractUpgradeEffect('octeractGain2', 'octeractMult')
   },
   {
     i18n: 'DerpsmithCornucopia',
@@ -754,11 +749,7 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'DigitalOcteractAccumulator',
-    stat: () =>
-      Math.pow(
-        1 + getOcteractUpgradeEffect('octeractAscensionsOcteractGain'),
-        1 + Math.floor(Math.log10(1 + player.ascensionCount))
-      )
+    stat: () => getOcteractUpgradeEffect('octeractAscensionsOcteractGain', 'octeractMult')
   },
   {
     i18n: 'Event',
@@ -767,17 +758,11 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'PlatonicDelta',
-    stat: () =>
-      1 + getGQUpgradeEffect('platonicDelta')
-        * Math.min(
-          9,
-          player.singularityCounter * getShopUpgradeEffects('shopSingularitySpeedup', 'singularityUpgradeSpeedMult')
-            / (3600 * 24)
-        )
+    stat: () => getGQUpgradeEffect('platonicDelta', 'cubeMult')
   },
   {
     i18n: 'NoSingUpgrades',
-    stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.cubes
+    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'cubes')
   },
   {
     i18n: 'PassINF',
@@ -789,31 +774,31 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   },
   {
     i18n: 'ModuleTutorial',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'cubes')
   },
   {
     i18n: 'ModuleCubes1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1', 'cubes')
   },
   {
     i18n: 'ModuleLuckCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1', 'cubes')
   },
   {
     i18n: 'ModuleQuarkCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
   },
   {
     i18n: 'ModuleCubes2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2', 'cubes')
   },
   {
     i18n: 'ModuleCubes3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3').cubes
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3', 'cubes')
   },
   {
     i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial').cubeMult
+    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'cubeMult')
   },
   {
     i18n: 'RedAmbrosia',
@@ -830,10 +815,10 @@ export const allOcteractCubeStats: NumberStatLine[] = [
   {
     i18n: 'AscensionSpeed',
     stat: () => {
-      const ascensionSpeed = getGQUpgradeEffect('oneMind')
+      const ascensionSpeed = getGQUpgradeEffect('oneMind', 'unlocked')
         ? Math.pow(10, 1 / 2) * Math.pow(
           calculateAscensionSpeedMult() / 10,
-          getOcteractUpgradeEffect('octeractOneMindImprover')
+          getOcteractUpgradeEffect('octeractOneMindImprover', 'ascendSpeedExponent')
         )
         : Math.pow(calculateAscensionSpeedMult(), 1 / 2)
       return ascensionSpeed
@@ -889,11 +874,11 @@ export const allBaseOfferingStats: NumberStatLine[] = [
   },
   {
     i18n: 'AmbrosiaBaseOffering1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering1').offering // Ambrosia Base Offering 1
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering1', 'offering') // Ambrosia Base Offering 1
   },
   {
     i18n: 'AmbrosiaBaseOffering2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering2').offering // Ambrosia Base Offering 2
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering2', 'offering') // Ambrosia Base Offering 2
   },
   {
     i18n: 'OfferingEX3',
@@ -921,7 +906,7 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'SuperiorIntellect',
-    stat: () => getRuneEffects('superiorIntellect').offeringMult // Superior Intellect Rune
+    stat: () => getRuneEffects('superiorIntellect', 'offeringMult') // Superior Intellect Rune
   },
   {
     i18n: 'ReincarnationChallenge',
@@ -1022,7 +1007,7 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'Antiquities',
-    stat: () => Math.pow(10, getRuneEffects('antiquities').offeringLog10) // Antiquities Rune
+    stat: () => Math.pow(10, getRuneEffects('antiquities', 'offeringLog10')) // Antiquities Rune
   },
   {
     i18n: 'Jack',
@@ -1035,27 +1020,27 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'StarterPack',
-    stat: () => 1 + 5 * getGQUpgradeEffect('starterPack') // Starter Pack Upgrade
+    stat: () => getGQUpgradeEffect('starterPack', 'offeringMult') // Starter Pack Upgrade
   },
   {
     i18n: 'OfferingCharge',
-    stat: () => getGQUpgradeEffect('singOfferings1') // Offering Charge GQ Upgrade
+    stat: () => getGQUpgradeEffect('singOfferings1', 'offeringMult') // Offering Charge GQ Upgrade
   },
   {
     i18n: 'OfferingStorm',
-    stat: () => getGQUpgradeEffect('singOfferings2') // Offering Storm GQ Upgrade
+    stat: () => getGQUpgradeEffect('singOfferings2', 'offeringMult') // Offering Storm GQ Upgrade
   },
   {
     i18n: 'OfferingTempest',
-    stat: () => getGQUpgradeEffect('singOfferings3') // Offering Tempest GQ Upgrade
+    stat: () => getGQUpgradeEffect('singOfferings3', 'offeringMult') // Offering Tempest GQ Upgrade
   },
   {
     i18n: 'Citadel',
-    stat: () => getGQUpgradeEffect('singCitadel') // Citadel GQ Upgrade
+    stat: () => getGQUpgradeEffect('singCitadel', 'offeringMult') // Citadel GQ Upgrade
   },
   {
     i18n: 'Citadel2',
-    stat: () => getGQUpgradeEffect('singCitadel2') // Citadel 2 GQ Upgrade
+    stat: () => getGQUpgradeEffect('singCitadel2', 'offeringMult') // Citadel 2 GQ Upgrade
   },
   {
     i18n: 'CubeUpgradeCx4',
@@ -1068,7 +1053,7 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'OcteractElectrolosis',
-    stat: () => getOcteractUpgradeEffect('octeractOfferings1') // Offering Electrolosis OC Upgrade
+    stat: () => getOcteractUpgradeEffect('octeractOfferings1', 'offeringMult') // Offering Electrolosis OC Upgrade
   },
   {
     i18n: 'OcteractBonus',
@@ -1076,11 +1061,11 @@ export const allOfferingStats: StatLine[] = [
   },
   {
     i18n: 'Ambrosia',
-    stat: () => 1 + 0.001 * getAmbrosiaUpgradeEffects('ambrosiaOffering1').offeringMult // Ambrosia!!
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaOffering1', 'offeringMult') // Ambrosia!!
   },
   {
     i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial').offeringMult // Red Ambrosia Tutorial
+    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'offeringMult') // Red Ambrosia Tutorial
   },
   {
     i18n: 'RedAmbrosia',
@@ -1289,7 +1274,8 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'InfiniteAscent',
-    stat: () => getShopUpgradeEffects('infiniteAscent', 'runeUnlocked') ? getRuneEffects('infiniteAscent').quarkMult : 1
+    stat: () =>
+      getShopUpgradeEffects('infiniteAscent', 'runeUnlocked') ? getRuneEffects('infiniteAscent', 'quarkMult') : 1
   },
   {
     i18n: 'QuarkHepteract',
@@ -1308,7 +1294,7 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'FavoriteUpgrade',
-    stat: () => getGQUpgradeEffect('favoriteUpgrade')
+    stat: () => getGQUpgradeEffect('favoriteUpgrade', 'quarkMult')
   },
   {
     i18n: 'CookieUpgrade3',
@@ -1338,30 +1324,29 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'OcteractStarter',
-    stat: () => 1 + (octeractUpgrades.octeractStarter.level > 0 ? 0.25 : 0)
+    stat: () => getOcteractUpgradeEffect('octeractStarter', 'quarkMult')
   },
   {
     i18n: 'OcteractQuarkGain',
-    stat: () => getOcteractUpgradeEffect('octeractQuarkGain')
+    stat: () => getOcteractUpgradeEffect('octeractQuarkGain', 'quarkMult')
   },
   {
     i18n: 'OcteractQuarkGain2',
-    stat: () =>
-      1
-      + (1 / 10000) * Math.floor(octeractUpgrades.octeractQuarkGain.level / 111)
-        * octeractUpgrades.octeractQuarkGain2.level
-        * Math.floor(1 + Math.log10(Math.max(1, hepteracts.quark.BAL)))
+    stat: () => getOcteractUpgradeEffect('octeractQuarkGain2', 'quarkMult')
   },
   {
     i18n: 'SingularityPacks',
     stat: () =>
-      1 + 0.02 * getGQUpgradeEffect('intermediatePack')
-      + 0.04 * getGQUpgradeEffect('advancedPack') + 0.06 * getGQUpgradeEffect('expertPack')
-      + 0.08 * getGQUpgradeEffect('masterPack') + 0.1 * goldenQuarkUpgrades.divinePack.level
+      1
+      + getGQUpgradeEffect('intermediatePack', 'packQuarkAdd')
+      + getGQUpgradeEffect('advancedPack', 'packQuarkAdd')
+      + getGQUpgradeEffect('expertPack', 'packQuarkAdd')
+      + getGQUpgradeEffect('masterPack', 'packQuarkAdd')
+      + getGQUpgradeEffect('divinePack', 'packQuarkAdd')
   },
   {
     i18n: 'SingQuarkImprover1',
-    stat: () => getGQUpgradeEffect('singQuarkImprover1')
+    stat: () => getGQUpgradeEffect('singQuarkImprover1', 'quarkMult')
   },
   {
     i18n: 'AmbrosiaQuarkMult',
@@ -1369,31 +1354,31 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'AmbrosiaTutorial',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'quarks')
   },
   {
     i18n: 'AmbrosiaQuarks1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks1').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks1', 'quarks')
   },
   {
     i18n: 'AmbrosiaCubeQuark1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeQuark1').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeQuark1', 'quarks')
   },
   {
     i18n: 'AmbrosiaLuckQuark1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckQuark1').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckQuark1', 'quarks')
   },
   {
     i18n: 'AmbrosiaQuarks2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks2').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks2', 'quarks')
   },
   {
     i18n: 'AmbrosiaQuarks3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks3').quarks
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks3', 'quarks')
   },
   {
     i18n: 'Viscount',
-    stat: () => getRedAmbrosiaUpgradeEffects('viscount').quarkBonus,
+    stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'quarkBonus'),
     color: 'red'
   },
   {
@@ -1402,11 +1387,11 @@ export const allQuarkStats: NumberStatLine[] = [
   },
   {
     i18n: 'LimitedTimeChallenge',
-    stat: () => +player.singularityChallenges.limitedTime.rewards.quarkMult
+    stat: () => getSingularityChallengeEffect('limitedTime', 'quarkMult')
   },
   {
     i18n: 'SadisticPrequel',
-    stat: () => +player.singularityChallenges.sadisticPrequel.rewards.quarkMult
+    stat: () => getSingularityChallengeEffect('sadisticPrequel', 'quarkMult')
   },
   {
     i18n: 'FirstSingularityBonus',
@@ -1464,11 +1449,11 @@ export const allBaseObtainiumStats: NumberStatLine[] = [
   },
   {
     i18n: 'AmbrosiaBaseObtainium1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium1').obtainium // Ambrosia Base Obtainium 1
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium1', 'obtainium') // Ambrosia Base Obtainium 1
   },
   {
     i18n: 'AmbrosiaBaseObtainium2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium2').obtainium // Ambrosia Base Obtainium 2
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium2', 'obtainium') // Ambrosia Base Obtainium 2
   }
 ]
 
@@ -1515,7 +1500,7 @@ export const allObtainiumIgnoreDRStats: NumberStatLine[] = [
   },
   {
     i18n: 'Antiquities',
-    stat: () => Math.pow(10, getRuneEffects('antiquities').obtainiumLog10) // Antiquities Rune
+    stat: () => Math.pow(10, getRuneEffects('antiquities', 'obtainiumLog10')) // Antiquities Rune
   },
   {
     i18n: 'CubeUpgradeCx5',
@@ -1528,7 +1513,7 @@ export const allObtainiumIgnoreDRStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial').obtainiumMult // Red Ambrosia Tutorial
+    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'obtainiumMult') // Red Ambrosia Tutorial
   },
   {
     i18n: 'RedAmbrosia',
@@ -1617,7 +1602,7 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'Rune5',
-    stat: () => getRuneEffects('superiorIntellect').obtainiumMult
+    stat: () => getRuneEffects('superiorIntellect', 'obtainiumMult')
   },
   {
     i18n: 'Ant10',
@@ -1657,27 +1642,27 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'StarterPack',
-    stat: () => 1 + 5 * getGQUpgradeEffect('starterPack') // Starter Pack
+    stat: () => getGQUpgradeEffect('starterPack', 'obtainiumMult') // Starter Pack
   },
   {
     i18n: 'SingObtainium1',
-    stat: () => getGQUpgradeEffect('singObtainium1') // Obtainium GQ Upgrade 1
+    stat: () => getGQUpgradeEffect('singObtainium1', 'obtainiumMult') // Obtainium GQ Upgrade 1
   },
   {
     i18n: 'SingObtainium2',
-    stat: () => getGQUpgradeEffect('singObtainium2') // Obtainium GQ Upgrade 2
+    stat: () => getGQUpgradeEffect('singObtainium2', 'obtainiumMult') // Obtainium GQ Upgrade 2
   },
   {
     i18n: 'SingObtainium3',
-    stat: () => getGQUpgradeEffect('singObtainium3') // Obtainium GQ Upgrade 3
+    stat: () => getGQUpgradeEffect('singObtainium3', 'obtainiumMult') // Obtainium GQ Upgrade 3
   },
   {
     i18n: 'SingCitadel',
-    stat: () => getGQUpgradeEffect('singCitadel') // Singularity Citadel 1
+    stat: () => getGQUpgradeEffect('singCitadel', 'obtainiumMult') // Singularity Citadel 1
   },
   {
     i18n: 'SingCitadel2',
-    stat: () => getGQUpgradeEffect('singCitadel2') // Singularity Citadel 2
+    stat: () => getGQUpgradeEffect('singCitadel2', 'obtainiumMult') // Singularity Citadel 2
   },
   {
     i18n: 'ShopCashGrab2',
@@ -1697,11 +1682,11 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'OcteractObtainium1',
-    stat: () => getOcteractUpgradeEffect('octeractObtainium1') // Octeract Obtainium 1
+    stat: () => getOcteractUpgradeEffect('octeractObtainium1', 'obtainiumMult') // Octeract Obtainium 1
   },
   {
     i18n: 'AmbrosiaObtainium1',
-    stat: () => 1 + 0.001 * getAmbrosiaUpgradeEffects('ambrosiaObtainium1').obtainiumMult // Ambrosia Obtainium 1
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaObtainium1', 'obtainiumMult') // Ambrosia Obtainium 1
   },
   {
     i18n: 'EXUltraObtainium',
@@ -1757,7 +1742,7 @@ export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: bool
     },
     {
       i18n: 'HalfMind',
-      stat: () => getGQUpgradeEffect('halfMind') ? calculateGlobalSpeedMult() / 10 : 1,
+      stat: () => getGQUpgradeEffect('halfMind', 'unlocked') ? calculateGlobalSpeedMult() / 10 : 1,
       color: 'magenta'
     }
   ]
@@ -1828,15 +1813,15 @@ export const allGlobalSpeedIgnoreDRStats: NumberStatLine[] = [
   },
   {
     i18n: 'IntermediatePack',
-    stat: () => 1 + getGQUpgradeEffect('intermediatePack') // Intermediate Pack
+    stat: () => getGQUpgradeEffect('intermediatePack', 'globalSpeedMult') // Intermediate Pack
   },
   {
     i18n: 'OcteractGlobalSpeed',
-    stat: () => 1 + getOcteractUpgradeEffect('octeractImprovedGlobalSpeed') * player.singularityCount // Oct Improved Global Speed
+    stat: () => getOcteractUpgradeEffect('octeractImprovedGlobalSpeed', 'globalSpeedMult') // Oct Improved Global Speed
   },
   {
     i18n: 'LimitedTimeChallenge',
-    stat: () => 1 + +player.singularityChallenges.limitedTime.rewards.globalSpeed // Limited Time Challenge
+    stat: () => getSingularityChallengeEffect('limitedTime', 'ascensionSpeed') // Limited Time Challenge
   },
   {
     i18n: 'ChronometerShop',
@@ -1852,7 +1837,7 @@ export const allGlobalSpeedIgnoreDRStats: NumberStatLine[] = [
 export const allGlobalSpeedStats: NumberStatLine[] = [
   {
     i18n: 'SpeedRune',
-    stat: () => getRuneEffects('speed').globalSpeed // Speed Rune
+    stat: () => getRuneEffects('speed', 'globalSpeed') // Speed Rune
   },
   {
     i18n: 'ObtainiumLog',
@@ -1977,7 +1962,7 @@ export const allAscensionSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'IntermediatePack',
-    stat: () => 1 + 0.5 * getGQUpgradeEffect('intermediatePack') // Intermediate Pack, Sing Shop
+    stat: () => getGQUpgradeEffect('intermediatePack', 'ascensionSpeedMult') // Intermediate Pack, GQ Shop
   },
   {
     i18n: 'ChronometerZ',
@@ -1985,11 +1970,11 @@ export const allAscensionSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'AbstractPhotokinetics',
-    stat: () => 1 + getOcteractUpgradeEffect('octeractImprovedAscensionSpeed') * player.singularityCount // Abstract Photokinetics, Oct Upg
+    stat: () => getOcteractUpgradeEffect('octeractImprovedAscensionSpeed', 'ascensionSpeedMult') // Abstract Photokinetics, Oct Upg
   },
   {
     i18n: 'AbstractExokinetics',
-    stat: () => 1 + getOcteractUpgradeEffect('octeractImprovedAscensionSpeed2') * player.singularityCount // Abstract Exokinetics, Oct Upg
+    stat: () => getOcteractUpgradeEffect('octeractImprovedAscensionSpeed2', 'ascensionSpeedMult') // Abstract Exokinetics, Oct Upg
   },
   {
     i18n: 'ChronometerINF',
@@ -1999,7 +1984,7 @@ export const allAscensionSpeedStats: NumberStatLine[] = [
     i18n: 'LimitedAscensionsBuff',
     stat: () =>
       Math.pow(
-        1 + +player.singularityChallenges.limitedAscensions.rewards.ascensionSpeedMult,
+        getSingularityChallengeEffect('limitedAscensions', 'ascensionSpeedMult'),
         1 + Math.max(0, Math.floor(Math.log10(player.ascensionCount)))
       ) // EXALT Buff
   },
@@ -2009,7 +1994,7 @@ export const allAscensionSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'LimitedTimeChallenge',
-    stat: () => 1 + +player.singularityChallenges.limitedTime.rewards.ascensionSpeed // Limited Time Challenge
+    stat: () => getSingularityChallengeEffect('limitedTime', 'ascensionSpeed') // Limited Time Challenge
   },
   {
     i18n: 'ChronometerS',
@@ -2052,7 +2037,7 @@ export const allAdditiveLuckMultStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoSingularityUpgrades',
-    stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus // No Singularity Upgrade 1x30
+    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'additiveLuckMult') // No Singularity Upgrade 1x15
   },
   {
     i18n: 'DilatedFiveLeaf',
@@ -2064,7 +2049,7 @@ export const allAdditiveLuckMultStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoAmbrosiaUpgrades',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.luckBonus // No Ambrosia Challenge Reward
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'additiveLuckMult') // No Ambrosia Challenge Reward
   },
   {
     i18n: 'Cookie5',
@@ -2073,7 +2058,7 @@ export const allAdditiveLuckMultStats: NumberStatLine[] = [
   },
   {
     i18n: 'BlueberryUpgrade',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck4').ambrosiaLuckPercentage // Blueberry Upgrade 4
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck4', 'ambrosiaLuckPercentage') // Blueberry Upgrade 4
   },
   {
     i18n: 'HorseShoeTalisman',
@@ -2135,23 +2120,23 @@ export const allAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'AmbrosiaLuck1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck1').ambrosiaLuck // Ambrosia Luck from Luck Module I
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck1', 'ambrosiaLuck') // Ambrosia Luck from Luck Module I
   },
   {
     i18n: 'AmbrosiaLuck2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck2').ambrosiaLuck // Ambrosia Luck from Luck Module II
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck2', 'ambrosiaLuck') // Ambrosia Luck from Luck Module II
   },
   {
     i18n: 'AmbrosiaLuck3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck3').ambrosiaLuck // Ambrosia Luck from Luck Module III
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck3', 'ambrosiaLuck') // Ambrosia Luck from Luck Module III
   },
   {
     i18n: 'AmbrosiaCubeLuck1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeLuck1').ambrosiaLuck // Ambrosia Luck from Cube-Luck Synergy Module
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeLuck1', 'ambrosiaLuck') // Ambrosia Luck from Cube-Luck Synergy Module
   },
   {
     i18n: 'AmbrosiaQuarkLuck1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkLuck1').ambrosiaLuck // Ambrosia Luck from Quark-Luck Synergy Module
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkLuck1', 'ambrosiaLuck') // Ambrosia Luck from Quark-Luck Synergy Module
   },
   {
     i18n: 'Singularity131',
@@ -2167,19 +2152,19 @@ export const allAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoAmbrosiaUpgrades',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.additiveLuck // No Ambrosia Challenge Reward
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'ambrosiaLuck') // No Ambrosia Challenge Reward
   },
   {
     i18n: 'RedAmbrosiaUpgrade',
-    stat: () => getRedAmbrosiaUpgradeEffects('regularLuck').ambrosiaLuck // Red Ambrosia Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('regularLuck', 'ambrosiaLuck') // Red Ambrosia Upgrade
   },
   {
     i18n: 'RedAmbrosiaUpgrade2',
-    stat: () => getRedAmbrosiaUpgradeEffects('regularLuck2').ambrosiaLuck // Red Ambrosia Upgrade 2
+    stat: () => getRedAmbrosiaUpgradeEffects('regularLuck2', 'ambrosiaLuck') // Red Ambrosia Upgrade 2
   },
   {
     i18n: 'Viscount',
-    stat: () => getRedAmbrosiaUpgradeEffects('viscount').luckBonus, // Viscount Red Ambrosia Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'luckBonus'), // Viscount Red Ambrosia Upgrade
     color: 'red'
   },
   {
@@ -2196,7 +2181,7 @@ export const allAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'HorseShoeRune',
-    stat: () => getRuneEffects('horseShoe').ambrosiaLuck // Horseshoe Rune
+    stat: () => getRuneEffects('horseShoe', 'ambrosiaLuck') // Horseshoe Rune
   }
 ]
 
@@ -2215,15 +2200,15 @@ export const allAmbrosiaBlueberryStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingBlueberries',
-    stat: () => getGQUpgradeEffect('blueberries') // Singularity Blueberry Upgrade
+    stat: () => getGQUpgradeEffect('blueberries', 'blueberries') // Singularity Blueberry Upgrade
   },
   {
     i18n: 'OcteractBlueberries',
-    stat: () => getOcteractUpgradeEffect('octeractBlueberries') // Octeract Blueberry Upgrade
+    stat: () => getOcteractUpgradeEffect('octeractBlueberries', 'blueberries') // Octeract Blueberry Upgrade
   },
   {
     i18n: 'RedAmbrosiaBlueberries',
-    stat: () => getRedAmbrosiaUpgradeEffects('blueberries').blueberries // Red Ambrosia Blueberry Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('blueberries', 'blueberries') // Red Ambrosia Blueberry Upgrade
   },
   {
     i18n: 'ConglomerateBerries',
@@ -2231,7 +2216,7 @@ export const allAmbrosiaBlueberryStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoAmbrosiaUpgrades',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberries // No Ambrosia Challenge Reward
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberries') // No Ambrosia Challenge Reward
   }
 ]
 
@@ -2275,23 +2260,23 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'PatreonBonus',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaPatreon').blueberryGeneration // Patreon Bonus
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaPatreon', 'blueberryGeneration') // Patreon Bonus
   },
   {
     i18n: 'OneChallengeCap',
-    stat: () => +player.singularityChallenges.oneChallengeCap.rewards.blueberrySpeedMult // One Challenge Cap Reward
+    stat: () => getSingularityChallengeEffect('oneChallengeCap', 'blueberrySpeedMult') // One Challenge Cap Reward
   },
   {
     i18n: 'NoAmbrosiaUpgradesReward',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberrySpeedMult // No Ambrosia Upgrades Reward
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberrySpeedMult') // No Ambrosia Upgrades Reward
   },
   {
     i18n: 'RedAmbrosiaUpgrade',
-    stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed').blueberryGenerationSpeed // Red Ambrosia Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed', 'blueberryGenerationSpeed') // Red Ambrosia Upgrade
   },
   {
     i18n: 'RedAmbrosiaUpgrade2',
-    stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed2').blueberryGenerationSpeed // Red Ambrosia Upgrade 2
+    stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed2', 'blueberryGenerationSpeed') // Red Ambrosia Upgrade 2
   },
   {
     i18n: 'CookieUpgrade26',
@@ -2363,7 +2348,7 @@ export const allGoldenQuarkMultiplierStats: NumberStatLine[] = [
   },
   {
     i18n: 'GoldenQuarks1',
-    stat: () => getGQUpgradeEffect('goldenQuarks1') // Golden Quarks I
+    stat: () => getGQUpgradeEffect('goldenQuarks1', 'goldenQuarkMult') // Golden Quarks I
   },
   {
     i18n: 'CookieUpgrade19',
@@ -2371,7 +2356,7 @@ export const allGoldenQuarkMultiplierStats: NumberStatLine[] = [
   },
   {
     i18n: 'NoSingularityUpgrades',
-    stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.goldenQuarks // No Singularity Upgrades
+    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'goldenQuarks') // No Singularity Upgrades
   },
   {
     i18n: 'GoldenRevolution2',
@@ -2423,11 +2408,11 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLine[] = [
   },
   {
     i18n: 'GoldenQuarks2',
-    stat: () => getGQUpgradeEffect('goldenQuarks2')
+    stat: () => getGQUpgradeEffect('goldenQuarks2', 'goldenQuarkCostMult')
   },
   {
     i18n: 'OcteractCostReduce',
-    stat: () => getOcteractUpgradeEffect('octeractGQCostReduce')
+    stat: () => getOcteractUpgradeEffect('octeractGQCostReduce', 'goldenQuarkCostMult')
   },
   {
     i18n: 'GoldenRevolution2',
@@ -2528,7 +2513,7 @@ export const allAddCodeTimerStats: NumberStatLine[] = [
   },
   {
     i18n: 'Antiquities',
-    stat: () => getRuneEffects('antiquities').addCodeCooldownReduction, // Antiquities rune reduction (20%)
+    stat: () => getRuneEffects('antiquities', 'addCodeCooldownReduction'), // Antiquities rune reduction (20%)
     color: 'lime'
   },
   {
@@ -2589,15 +2574,15 @@ export const allLuckConversionStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaUpgrade1',
-    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement1').conversionImprovement // Conversion Improvement I
+    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement1', 'conversionImprovement') // Conversion Improvement I
   },
   {
     i18n: 'RedAmbrosiaUpgrade2',
-    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement2').conversionImprovement // Conversion Improvement II
+    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement2', 'conversionImprovement') // Conversion Improvement II
   },
   {
     i18n: 'RedAmbrosiaUpgrade3',
-    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement3').conversionImprovement // Conversion Improvement III
+    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement3', 'conversionImprovement') // Conversion Improvement III
   },
   {
     i18n: 'ShopRedLuck1',
@@ -2613,7 +2598,7 @@ export const allLuckConversionStats: NumberStatLine[] = [
   },
   {
     i18n: 'HorseShoeRune',
-    stat: () => getRuneEffects('horseShoe').redLuckConversion // Horseshoe Rune
+    stat: () => getRuneEffects('horseShoe', 'redLuckConversion') // Horseshoe Rune
   }
 ]
 
@@ -2638,11 +2623,11 @@ export const allRedAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosia',
-    stat: () => getRedAmbrosiaUpgradeEffects('redLuck').redAmbrosiaLuck // The Dice That Decide Your Fate
+    stat: () => getRedAmbrosiaUpgradeEffects('redLuck', 'redAmbrosiaLuck') // The Dice That Decide Your Fate
   },
   {
     i18n: 'Exalt5',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.redLuck
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'redLuck') // No Ambrosia Upgrades
   },
   {
     i18n: 'ShopRedLuck1',
@@ -2658,12 +2643,12 @@ export const allRedAmbrosiaLuckStats: NumberStatLine[] = [
   },
   {
     i18n: 'Viscount',
-    stat: () => getRedAmbrosiaUpgradeEffects('viscount').redLuckBonus, // Viscount Red Ambrosia Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'redLuckBonus'), // Viscount Red Ambrosia Upgrade
     color: 'red'
   },
   {
     i18n: 'HorseShoeRune',
-    stat: () => getRuneEffects('horseShoe').redLuck // Horseshoe Rune
+    stat: () => getRuneEffects('horseShoe', 'redLuck') // Horseshoe Rune
   },
   {
     i18n: 'HorseShoeTalisman',
@@ -2690,11 +2675,11 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosia',
-    stat: () => getRedAmbrosiaUpgradeEffects('redGenerationSpeed').redAmbrosiaGenerationSpeed
+    stat: () => getRedAmbrosiaUpgradeEffects('redGenerationSpeed', 'redAmbrosiaGenerationSpeed')
   },
   {
     i18n: 'Exalt5',
-    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.redSpeedMult
+    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'redSpeedMult') // No Ambrosia Upgrades
   }
 ]
 
@@ -2703,7 +2688,7 @@ const infinityShopUpgrades: NumberStatLine[] = []
 export const allShopTablets: NumberStatLine[] = [
   {
     i18n: 'Red',
-    stat: () => getRedAmbrosiaUpgradeEffects('infiniteShopUpgrades').freeLevels, // Red Ambrosia Upgrade
+    stat: () => getRedAmbrosiaUpgradeEffects('infiniteShopUpgrades', 'freeLevels'), // Red Ambrosia Upgrade
     acc: 0,
     color: 'red'
   },
@@ -2723,13 +2708,13 @@ export const allShopTablets: NumberStatLine[] = [
   },
   {
     i18n: 'Yellow',
-    stat: () => getGQUpgradeEffect('singInfiniteShopUpgrades'), // Singularity Upgrade
+    stat: () => getGQUpgradeEffect('singInfiniteShopUpgrades', 'infinityVouchers'), // Singularity Upgrade
     acc: 0,
     color: 'yellow'
   },
   {
     i18n: 'Green',
-    stat: () => getOcteractUpgradeEffect('octeractInfiniteShopUpgrades'), // Octeract Upgrade
+    stat: () => getOcteractUpgradeEffect('octeractInfiniteShopUpgrades', 'infinityVouchers'), // Octeract Upgrade
     acc: 0,
     color: 'green'
   },
@@ -2741,13 +2726,13 @@ export const allShopTablets: NumberStatLine[] = [
   },
   {
     i18n: 'Indigo',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades1').freeLevels, // Blueberry Upgrade
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades1', 'freeLevels'), // Blueberry Upgrade
     acc: 0,
     color: 'orchid'
   },
   {
     i18n: 'Violet',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades2').freeLevels, // Blueberry Upgrade 2
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades2', 'freeLevels'), // Blueberry Upgrade 2
     acc: 0,
     color: 'violet'
   }
@@ -2766,12 +2751,12 @@ export const allTalismanRuneBonusStatsSum = () => {
     + (0.004 * Math.floor(player.researches[200] / 10000))
     + (0.006 * Math.floor(player.cubeUpgrades[50] / 10000))
     + (G.challenge15Rewards.talismanBonus.value - 1)
-    + getGQUpgradeEffect('singTalismanBonusRunes1')
-    + getGQUpgradeEffect('singTalismanBonusRunes2')
-    + getGQUpgradeEffect('singTalismanBonusRunes3')
-    + getGQUpgradeEffect('singTalismanBonusRunes4')
-    + getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel').talismanBonusRuneLevel
-    + +player.singularityChallenges.taxmanLastStand.rewards.talismanRuneEffect
+    + getGQUpgradeEffect('singTalismanBonusRunes1', 'talismanRuneEffect')
+    + getGQUpgradeEffect('singTalismanBonusRunes2', 'talismanRuneEffect')
+    + getGQUpgradeEffect('singTalismanBonusRunes3', 'talismanRuneEffect')
+    + getGQUpgradeEffect('singTalismanBonusRunes4', 'talismanRuneEffect')
+    + getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel', 'talismanBonusRuneLevel')
+    + getSingularityChallengeEffect('taxmanLastStand', 'talismanRuneEffect')
   )
 }
 
@@ -2845,7 +2830,7 @@ const allTalismanRuneBonusStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingularityUpgrade1',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes1'), // Singularity Upgrade 1
+    stat: () => getGQUpgradeEffect('singTalismanBonusRunes1', 'talismanRuneEffect'), // Singularity Upgrade 1
     displayCriterion: () => {
       const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes1.minimumSingularity
       return singStuff
@@ -2853,7 +2838,7 @@ const allTalismanRuneBonusStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingularityUpgrade2',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes2'),
+    stat: () => getGQUpgradeEffect('singTalismanBonusRunes2', 'talismanRuneEffect'),
     displayCriterion: () => {
       const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes2.minimumSingularity
       return singStuff
@@ -2861,7 +2846,7 @@ const allTalismanRuneBonusStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingularityUpgrade3',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes3'),
+    stat: () => getGQUpgradeEffect('singTalismanBonusRunes3', 'talismanRuneEffect'),
     displayCriterion: () => {
       const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes3.minimumSingularity
       return singStuff
@@ -2869,7 +2854,7 @@ const allTalismanRuneBonusStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingularityUpgrade4',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes4'),
+    stat: () => getGQUpgradeEffect('singTalismanBonusRunes4', 'talismanRuneEffect'),
     displayCriterion: () => {
       const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes4.minimumSingularity
       return singStuff
@@ -2877,11 +2862,11 @@ const allTalismanRuneBonusStats: NumberStatLine[] = [
   },
   {
     i18n: 'BlueberryUpgrade',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel').talismanBonusRuneLevel
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel', 'talismanBonusRuneLevel')
   },
   {
     i18n: 'TaxmanLastStand',
-    stat: () => +player.singularityChallenges.taxmanLastStand.rewards.talismanRuneEffect,
+    stat: () => getSingularityChallengeEffect('taxmanLastStand', 'talismanRuneEffect'),
     displayCriterion: () => {
       const singStuff = player.highestSingularityCount >= 270
       return singStuff
@@ -2909,7 +2894,7 @@ export const positiveSalvageStats: NumberStatLine[] = [
   },
   {
     i18n: 'RuneBonus',
-    stat: () => getRuneEffects('thrift').salvage // Thrift Rune
+    stat: () => getRuneEffects('thrift', 'salvage') // Thrift Rune
   },
   {
     i18n: 'ReincarnationChallenge',
@@ -2942,14 +2927,14 @@ export const positiveSalvageStats: NumberStatLine[] = [
   },
   {
     i18n: 'InfiniteAscentRune',
-    stat: () => getRuneEffects('infiniteAscent').salvage, // Infinite Ascent Rune
+    stat: () => getRuneEffects('infiniteAscent', 'salvage'), // Infinite Ascent Rune
     displayCriterion: () => {
       return player.highestSingularityCount >= 30
     }
   },
   {
     i18n: 'RedAmbrosiaYinYang',
-    stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang').positiveSalvage // Red Ambrosia Upgrade: Yin Yang
+    stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'positiveSalvage') // Red Ambrosia Upgrade: Yin Yang
   }
 ]
 
@@ -2966,7 +2951,7 @@ export const negativeSalvageStats: NumberStatLine[] = [
   },
   {
     i18n: 'RedAmbrosiaYinYang',
-    stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang').negativeSalvage // Red Ambrosia Upgrade: Yin Yang
+    stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'negativeSalvage') // Red Ambrosia Upgrade: Yin Yang
   }
 ]
 
@@ -3052,7 +3037,7 @@ export const antSpeedStats: StatLine[] = [
   },
   {
     i18n: 'SuperiorIntellect',
-    stat: () => getRuneEffects('superiorIntellect').antSpeed, // Superior Intellect Rune
+    stat: () => getRuneEffects('superiorIntellect', 'antSpeed'), // Superior Intellect Rune
     displayCriterion: () => runes.superiorIntellect.isUnlocked(),
     acc: 3
   },
@@ -3122,7 +3107,7 @@ export const antSpeedStats: StatLine[] = [
   {
     i18n: 'OcteractUpgrade',
     stat: () => {
-      return octeractUpgrades.octeractStarter.level > 0 ? 100000 : 1
+      return getOcteractUpgradeEffect('octeractStarter', 'antSpeedMult')
     },
     displayCriterion: () => octeractUpgrades.octeractStarter.level > 0
   }
@@ -3384,22 +3369,22 @@ export const ascensionCountMultStats: NumberStatLine[] = [
   },
   {
     i18n: 'SingularityUpgrade',
-    stat: () => getGQUpgradeEffect('ascensions'),
+    stat: () => getGQUpgradeEffect('ascensions', 'ascensionCountMult'),
     displayCriterion: () => player.highestSingularityCount > 0
   },
   {
     i18n: 'OcteractUpgrade1',
-    stat: () => getOcteractUpgradeEffect('octeractAscensions'),
+    stat: () => getOcteractUpgradeEffect('octeractAscensions', 'ascensionCountMult'),
     displayCriterion: () => player.highestSingularityCount >= 8
   },
   {
     i18n: 'OcteractUpgrade2',
-    stat: () => getOcteractUpgradeEffect('octeractAscensions2'),
+    stat: () => getOcteractUpgradeEffect('octeractAscensions2', 'ascensionCountMult'),
     displayCriterion: () => player.highestSingularityCount >= 8
   },
   {
     i18n: 'OneMind',
-    stat: () => getGQUpgradeEffect('oneMind') ? calculateAscensionSpeedMult() / 10 : 1,
+    stat: () => getGQUpgradeEffect('oneMind', 'unlocked') ? calculateAscensionSpeedMult() / 10 : 1,
     displayCriterion: () => player.highestSingularityCount >= 8
   }
 ]

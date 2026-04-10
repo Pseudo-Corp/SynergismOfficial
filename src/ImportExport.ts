@@ -23,6 +23,7 @@ import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect, goldenQuarkUpgrades } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import {
   allAddCodeCapacityMultiplierStats,
   allAddCodeCapacityStats,
@@ -259,12 +260,14 @@ export const exportSynergism = async (
     bonusGQMultiplier *= player.highestSingularityCount >= 100
       ? 1 + player.highestSingularityCount / 50
       : 1
-    if (getGQUpgradeEffect('goldenQuarks3')) {
+
+    const gqPerHour = getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
+    if (gqPerHour > 0) {
       player.goldenQuarks += Math.floor(
-        player.goldenQuarksTimer / (3600 / getGQUpgradeEffect('goldenQuarks3'))
+        player.goldenQuarksTimer / (3600 / gqPerHour)
       ) * bonusGQMultiplier
       player.goldenQuarksTimer = player.goldenQuarksTimer
-        % (3600 / getGQUpgradeEffect('goldenQuarks3'))
+        % (3600 / gqPerHour)
     }
     if (quarkData.gain >= 1) {
       player.worlds.add(quarkData.gain, true, true)
@@ -542,22 +545,16 @@ export const promocodes = async (input: string | null, amount?: number) => {
         ascensions: { value: 1, pdf: (x: number) => 800 < x && x <= 1000 }
       }
       let rolls = 3 * Math.sqrt(player.highestSingularityCount)
-      rolls += getOcteractUpgradeEffect('octeractImprovedDaily')
+      rolls += getOcteractUpgradeEffect('octeractImprovedDaily', 'extraGoldenQuarks')
       rolls += getShopUpgradeEffects('shopImprovedDaily2', 'freeSingularityUpgrades')
       rolls += getShopUpgradeEffects('shopImprovedDaily3', 'freeSingularityUpgrades')
       rolls += getShopUpgradeEffects('shopImprovedDaily4', 'freeSingularityUpgrades')
-      rolls += getGQUpgradeEffect('platonicPhi')
-        * Math.min(
-          50,
-          getShopUpgradeEffects('shopSingularitySpeedup', 'singularityUpgradeSpeedMult') * 5 * player.singularityCounter
-            / (3600 * 24)
-        )
-      rolls += getOcteractUpgradeEffect('octeractImprovedDaily3')
-      rolls += +player.singularityChallenges.sadisticPrequel.rewards.extraFree
-      rolls *= getOcteractUpgradeEffect('octeractImprovedDaily2')
-      rolls *= 1
-        + getOcteractUpgradeEffect('octeractImprovedDaily3') / 200
-      rolls *= 1 + +player.singularityChallenges.sadisticPrequel.rewards.freeUpgradeMult
+      rolls += getGQUpgradeEffect('platonicPhi', 'dailyCodes')
+      rolls += getOcteractUpgradeEffect('octeractImprovedDaily3', 'extraGoldenQuarks')
+      rolls += getSingularityChallengeEffect('sadisticPrequel', 'extraFree')
+      rolls *= getOcteractUpgradeEffect('octeractImprovedDaily2', 'goldenQuarkMult')
+      rolls *= getOcteractUpgradeEffect('octeractImprovedDaily3', 'goldenQuarkMult')
+      rolls *= getSingularityChallengeEffect('sadisticPrequel', 'freeUpgradeMult')
       if (player.highestSingularityCount >= 200) {
         rolls *= 2
       }
@@ -1006,7 +1003,7 @@ export const addCodeBonuses = () => {
   const quarkBase = commonQuarkMult * quarkHandler().perHour
 
   // Calculator 3: Adds ascension timer.  Also includes Expert Pack multiplier.
-  const ascMult = getGQUpgradeEffect('expertPack') ? 1.2 : 1
+  const ascMult = getGQUpgradeEffect('expertPack', 'addCodeAscensionTimeMult')
   const ascensionTimer = getShopUpgradeEffects('calculator3', 'ascensionTimerAdd') * ascMult / perkRewardDivisor
 
   // Calculator 5: Adds GQ export timer.

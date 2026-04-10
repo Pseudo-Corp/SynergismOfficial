@@ -72,7 +72,8 @@ import {
   calculateSalvageHypercubeBlessing
 } from './Hypercubes'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
-import { getOcteractUpgradeCostTNL, type OcteractDataKeys, octeractUpgrades } from './Octeracts'
+import type { OcteractUpgrades } from './Octeracts'
+import { getOcteractUpgradeCostTNL, octeractUpgrades } from './Octeracts'
 import {
   calculateAscensionScorePlatonicBlessing,
   calculateCubeMultiplierPlatonicBlessing,
@@ -1555,13 +1556,13 @@ export const visualUpdateSettings = () => {
           3600
               / Math.max(
                 1,
-                getGQUpgradeEffect('goldenQuarks3')
+                getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
               )
             - (player.goldenQuarksTimer
               % (3600.00001
                 / Math.max(
                   1,
-                  getGQUpgradeEffect('goldenQuarks3')
+                  getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
                 )))
         ),
         y: format(goldenQuarkMultiplier, 2, true)
@@ -1574,7 +1575,7 @@ export const visualUpdateSettings = () => {
         x: format(
           Math.floor(
             (player.goldenQuarksTimer
-              * getGQUpgradeEffect('goldenQuarks3'))
+              * getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour'))
               / 3600
           ) * goldenQuarkMultiplier,
           2
@@ -1582,7 +1583,7 @@ export const visualUpdateSettings = () => {
         y: format(
           Math.floor(
             168
-              * getGQUpgradeEffect('goldenQuarks3')
+              * getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
               * goldenQuarkMultiplier
           )
         )
@@ -1636,7 +1637,7 @@ export const visualUpdateSingularity = () => {
       }
     }
   } else if (getActiveSubTab() === 3) {
-    const keys = Object.keys(octeractUpgrades) as OcteractDataKeys[]
+    const keys = Object.keys(octeractUpgrades) as OcteractUpgrades[]
     const val = G.shopEnhanceVision
 
     for (const key of keys) {

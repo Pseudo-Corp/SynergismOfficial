@@ -199,8 +199,8 @@ export const enableHotkeys = () => {
 
   const hotkey = document.querySelector('.hotkeys')!
 
-  for (const child of hotkey.children) {
-    hotkey.removeChild(child)
+  while (hotkey.firstChild) {
+    hotkey.removeChild(hotkey.firstChild)
   }
 
   for (const [key, [descr]] of hotkeys.entries()) {
