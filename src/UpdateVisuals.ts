@@ -2070,10 +2070,10 @@ export const visualUpdateEvent = () => {
   const event = getEvent()
   if (event !== null) {
     const eventEnd = new Date(event.end)
-    DOMCacheGetOrSet('globalEventTimer').textContent = i18next.t('pseudoCoins.consumables.globalEventSome', {
+    DOMCacheGetOrSet('globalEventTimer').innerHTML = i18next.t('pseudoCoins.consumables.globalEventSome', {
       time: timeRemainingHours(eventEnd)
     })
-    DOMCacheGetOrSet('globalEventName').textContent = i18next.t('pseudoCoins.consumables.globalEventActive', {
+    DOMCacheGetOrSet('globalEventName').innerHTML = i18next.t('pseudoCoins.consumables.globalEventActive', {
       events: `(${event.name.length}) - ${event.name.join(', ')}`
     })
 
