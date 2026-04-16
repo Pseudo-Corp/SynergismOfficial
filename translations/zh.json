@@ -7691,8 +7691,8 @@
       "currentTimersSome": "结束时间：<<#8f8|{{timers}}>>",
       "globalEvent": "全局活动",
       "globalEventActive": "全局活动：{{events}}",
-      "globalEventNone": "剩余时间：<<#8f8|--:--:-->>",
-      "globalEventSome": "剩余时间：<<#8f8|{{time}}>>"
+      "globalEventNone": "剩余时间: <<#8f8|--:--:-->>",
+      "globalEventSome": "剩余时间: <<#8f8|{{time}}>>"
     },
     "timeSkips": {
       "GLOBAL": {
