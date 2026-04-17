@@ -21,6 +21,8 @@ import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
+import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
+import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 
 export enum shopUpgradeTypes {
   CONSUMABLE = 'consume',
@@ -117,6 +119,9 @@ type QuarkShopUpgradeRewards = {
     cubeMult: number
     quarkMult: number
     ascensionSpeedMult: number
+    ambrosiaGenerationMult: number
+    ambrosiaLuck: number
+    redLuck: number
     infinityMetaBoost: number
   }
 }
@@ -129,6 +134,9 @@ export enum ShopUpgradeGroups {
   Cubes,
   Speed,
   Quark,
+  AmbrosiaLuck,
+  RedAmbrosiaLuck,
+  AmbrosiaGeneration,
   InfinityUpgrades,
   Utility
 }
@@ -144,34 +152,54 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     HTMLColor: 'orange',
     symbol: '☤',
     bonusLevels: () =>
-      +getSingularityChallengeEffect('noQuarkUpgrades', 'freeOfferingLevels')
+      getSingularityChallengeEffect('noQuarkUpgrades', 'freeOfferingLevels')
       + getRuneEffects('topHat', 'freeOfferingLevels')
+      + getRedAmbrosiaUpgradeEffects('freeOfferingUpgrades', 'levels')
   },
   [ShopUpgradeGroups.Obtainium]: {
     HTMLColor: 'pink',
     symbol: '❍',
     bonusLevels: () =>
-      +getSingularityChallengeEffect('noQuarkUpgrades', 'freeObtainiumLevels')
+      getSingularityChallengeEffect('noQuarkUpgrades', 'freeObtainiumLevels')
       + getRuneEffects('topHat', 'freeObtainiumLevels')
+      + getRedAmbrosiaUpgradeEffects('freeObtainiumUpgrades', 'levels')
   },
   [ShopUpgradeGroups.Cubes]: {
     HTMLColor: 'magenta',
     symbol: '⬢',
     bonusLevels: () =>
-      +getSingularityChallengeEffect('noQuarkUpgrades', 'freeCubeLevels')
+      getSingularityChallengeEffect('noQuarkUpgrades', 'freeCubeLevels')
       + getRuneEffects('topHat', 'freeCubeLevels')
+      + getRedAmbrosiaUpgradeEffects('freeCubeUpgrades', 'levels')
   },
   [ShopUpgradeGroups.Speed]: {
     HTMLColor: 'yellow',
     symbol: '⧗',
     bonusLevels: () =>
-      +getSingularityChallengeEffect('noQuarkUpgrades', 'freeSpeedLevels')
+      getSingularityChallengeEffect('noQuarkUpgrades', 'freeSpeedLevels')
       + getRuneEffects('topHat', 'freeSpeedLevels')
+      + getRedAmbrosiaUpgradeEffects('freeSpeedUpgrades', 'levels')
   },
   [ShopUpgradeGroups.Quark]: {
     HTMLColor: 'cyan',
     symbol: '❂',
     bonusLevels: () => getSingularityChallengeEffect('noQuarkUpgrades', 'freeQuarkLevel')
+                        + getAmbrosiaUpgradeEffects('ambrosiaFreeQuarkUpgrades', 'freeQuarkUpgrades')
+  },
+  [ShopUpgradeGroups.AmbrosiaLuck]: {
+    HTMLColor: 'lime',
+    symbol: '☘',
+    bonusLevels: () => getAmbrosiaUpgradeEffects('ambrosiaFreeLuckUpgrades', 'freeLuckUpgrades')
+  },
+  [ShopUpgradeGroups.RedAmbrosiaLuck]: {
+    HTMLColor: 'red',
+    symbol: '⚅',
+    bonusLevels: () => getAmbrosiaUpgradeEffects('ambrosiaFreeRedLuckUpgrades', 'freeRedLuckUpgrades')
+  },
+  [ShopUpgradeGroups.AmbrosiaGeneration]: {
+    HTMLColor: 'lightblue',
+    symbol: '◊',
+    bonusLevels: () => getAmbrosiaUpgradeEffects('ambrosiaFreeGenerationUpgrades', 'freeGenerationUpgrades')
   },
   [ShopUpgradeGroups.InfinityUpgrades]: {
     HTMLColor: 'lightgoldenrodyellow',
@@ -1576,7 +1604,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: []
+    upgradeTypes: [ShopUpgradeGroups.AmbrosiaGeneration]
   },
   shopAmbrosiaGeneration2: {
     name: () => i18next.t('shop.names.shopAmbrosiaGeneration2'),
@@ -1594,7 +1622,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: []
+    upgradeTypes: [ShopUpgradeGroups.AmbrosiaGeneration]
   },
   shopAmbrosiaGeneration3: {
     name: () => i18next.t('shop.names.shopAmbrosiaGeneration3'),
@@ -1612,7 +1640,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: []
+    upgradeTypes: [ShopUpgradeGroups.AmbrosiaGeneration]
   },
   shopAmbrosiaGeneration4: {
     name: () => i18next.t('shop.names.shopAmbrosiaGeneration4'),
@@ -1630,7 +1658,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: []
+    upgradeTypes: [ShopUpgradeGroups.AmbrosiaGeneration]
   },
   shopAmbrosiaLuck1: {
     name: () => i18next.t('shop.names.shopAmbrosiaLuck1'),
@@ -1648,7 +1676,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: []
+    upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
   },
   shopAmbrosiaLuck2: {
     name: () => i18next.t('shop.names.shopAmbrosiaLuck2'),
@@ -1666,7 +1694,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: []
+    upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
   },
   shopAmbrosiaLuck3: {
     name: () => i18next.t('shop.names.shopAmbrosiaLuck3'),
@@ -1684,7 +1712,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: []
+    upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
   },
   shopAmbrosiaLuck4: {
     name: () => i18next.t('shop.names.shopAmbrosiaLuck4'),
@@ -1702,7 +1730,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: []
+    upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
   },
   shopRedLuck1: {
     name: () => i18next.t('shop.names.shopRedLuck1'),
@@ -1730,7 +1758,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: []
+    upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck]
   },
   shopRedLuck2: {
     name: () => i18next.t('shop.names.shopRedLuck2'),
@@ -1758,7 +1786,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: []
+    upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
   },
   shopRedLuck3: {
     name: () => i18next.t('shop.names.shopRedLuck3'),
@@ -1786,7 +1814,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: []
+    upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
   },
   shopCashGrabUltra: {
     name: () => i18next.t('shop.names.shopCashGrabUltra'),
@@ -2036,6 +2064,12 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         return 1 + 0.005 * n * shopUpgradeTypeInfo[ShopUpgradeGroups.Speed].bonusLevels() * infinityBoost
       } else if (key === 'quarkMult') {
         return 1 + 0.001 * n * shopUpgradeTypeInfo[ShopUpgradeGroups.Quark].bonusLevels() * infinityBoost
+      } else if (key === 'ambrosiaGenerationMult') {
+        return 1 + 0.001 * n * shopUpgradeTypeInfo[ShopUpgradeGroups.AmbrosiaGeneration].bonusLevels() * infinityBoost
+      } else if (key === 'ambrosiaLuck') {
+        return 0.2 * n * shopUpgradeTypeInfo[ShopUpgradeGroups.AmbrosiaLuck].bonusLevels() * infinityBoost
+      } else if (key === 'redLuck') {
+        return 0.05 * n * shopUpgradeTypeInfo[ShopUpgradeGroups.RedAmbrosiaLuck].bonusLevels() * infinityBoost
       }
 
       throw new TypeError(`unknown effect ${key}`)
@@ -2047,6 +2081,9 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       const cubeMult = getShopUpgradeEffects('shopPanthema', 'cubeMult')
       const ascensionSpeedMult = getShopUpgradeEffects('shopPanthema', 'ascensionSpeedMult')
       const quarkMult = getShopUpgradeEffects('shopPanthema', 'quarkMult')
+      const ambrosiaGenerationMult = getShopUpgradeEffects('shopPanthema', 'ambrosiaGenerationMult')
+      const ambrosiaLuck = getShopUpgradeEffects('shopPanthema', 'ambrosiaLuck')
+      const redLuck = getShopUpgradeEffects('shopPanthema', 'redLuck')
 
       let effectHTML = i18next.t('shop.upgradeEffects.shopPanthema')
       if (offeringMult > 1) {
@@ -2096,6 +2133,30 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
           })
         }</span>`
       }
+      if (ambrosiaGenerationMult > 1) {
+        effectHTML += `<br><span style="color:${shopUpgradeTypeInfo[ShopUpgradeGroups.AmbrosiaGeneration].HTMLColor}">${
+          i18next.t('shop.upgradeEffects.shopPanthemaAmbrosiaGeneration', {
+            amount: formatAsPercentIncrease(ambrosiaGenerationMult),
+            amount2: formatAsPercentIncrease(1 + 0.001 * infinityMetaBoost, 3)
+          })
+        }</span>`
+      }
+      if (ambrosiaLuck > 0) {
+        effectHTML += `<br><span style="color:${shopUpgradeTypeInfo[ShopUpgradeGroups.AmbrosiaLuck].HTMLColor}">${
+          i18next.t('shop.upgradeEffects.shopPanthemaAmbrosiaLuck', {
+            amount: format(ambrosiaLuck, 2, true),
+            amount2: format(0.2 * infinityMetaBoost, 2, true)
+          })
+        }</span>`
+      }
+      if (redLuck > 0) {
+        effectHTML += `<br><span style="color:${shopUpgradeTypeInfo[ShopUpgradeGroups.RedAmbrosiaLuck].HTMLColor}">${
+          i18next.t('shop.upgradeEffects.shopPanthemaRedLuck', {
+            amount: format(redLuck, 3, true),
+            amount2: format(0.05 * infinityMetaBoost, 3, true)
+          })
+        }</span>`
+      }
 
       return effectHTML
     },
@@ -2113,7 +2174,10 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       ShopUpgradeGroups.Cubes,
       ShopUpgradeGroups.Speed,
       ShopUpgradeGroups.InfinityUpgrades,
-      ShopUpgradeGroups.Quark
+      ShopUpgradeGroups.Quark,
+      ShopUpgradeGroups.AmbrosiaGeneration,
+      ShopUpgradeGroups.AmbrosiaLuck,
+      ShopUpgradeGroups.RedAmbrosiaLuck
     ]
   }
 }

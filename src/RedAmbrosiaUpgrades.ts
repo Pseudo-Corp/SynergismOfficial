@@ -30,6 +30,11 @@ type RedAmbrosiaUpgradeRewards = {
   blueberryGenerationSpeed2: { blueberryGenerationSpeed: number }
   salvageYinYang: { positiveSalvage: number; negativeSalvage: number }
   blueberries: { blueberries: number }
+  redAmbrosiaFreeAccumulator: { freeAccumulatorLevels: number; freeAccumulatorLevelCapIncrease: number }
+  freeOfferingUpgrades: { levels: number }
+  freeObtainiumUpgrades: { levels: number }
+  freeCubeUpgrades: { levels: number }
+  freeSpeedUpgrades: { levels: number }
 }
 
 export type RedAmbrosiaNames = keyof RedAmbrosiaUpgradeRewards
@@ -46,7 +51,12 @@ interface RedAmbrosiaUpgrade<T extends RedAmbrosiaNames, K extends keyof RedAmbr
   effectsDescription: (n: number) => string
 }
 
-const blueberryCostValues = [100_000, 1_400_000, 3_000_000]
+const blueberryCostValues = [100_000, 1_400_000, 3_000_000, 3_250_000, 3_500_000]
+const redAmbrosiaFreeAccumulatorValues = [100, 400, 1_000, 3_000, 10_000, 25_000, 75_000, 150_000, 400_000, 1_000_000]
+const freeOfferingUpgradesValues = [1_000, 3_000, 9_000, 27_000, 81_000]
+const freeObtainiumUpgradesValues = [1_500, 4_500, 13_500, 40_500, 121_500]
+const freeCubeUpgradesValues = [10_000, 30_000, 90_000, 270_000, 810_000]
+const freeSpeedUpgradesValues = [15_000, 45_000, 135_000, 405_000, 1_215_000]
 
 export const redAmbrosiaUpgrades: {
   [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<K, keyof RedAmbrosiaUpgradeRewards[K]>
@@ -517,10 +527,105 @@ export const redAmbrosiaUpgrades: {
     effectsDescription: (n: number) => {
       return i18next.t('redAmbrosia.data.blueberries.effect', { amount: n })
     },
-    maxLevel: 3,
+    maxLevel: 5,
     costPerLevel: 1e5,
     name: () => i18next.t('redAmbrosia.data.blueberries.name'),
     description: () => i18next.t('redAmbrosia.data.blueberries.description')
+  },
+  redAmbrosiaFreeAccumulator: {
+    level: 0,
+    redAmbrosiaInvested: 0,
+    costFormula: (level: number, _baseCost: number) => {
+      return redAmbrosiaFreeAccumulatorValues[level] ?? 0
+    },
+    effects: (n, key) => {
+      if (key === 'freeAccumulatorLevels') {
+        return n / 1000 + 0.01 * +(n > 0)
+      }
+      else {
+        return 0.1 * n // freeAccumulatorLevelCapIncrease
+      }
+    },
+    effectsDescription: (_n: number) => {
+      const freeLevels = getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevels')
+      const capIncrease = getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevelCapIncrease')
+      return i18next.t('redAmbrosia.data.redAmbrosiaFreeAccumulator.effect', {
+        levels: format(freeLevels, 3, true),
+        cap: format(capIncrease + 1, 1, true)
+      })
+    },
+    maxLevel: 10,
+    costPerLevel: 1,
+    name: () => i18next.t('redAmbrosia.data.redAmbrosiaFreeAccumulator.name'),
+    description: () => i18next.t('redAmbrosia.data.redAmbrosiaFreeAccumulator.description')
+  },
+  freeOfferingUpgrades: {
+    level: 0,
+    redAmbrosiaInvested: 0,
+    costFormula: (level: number, _baseCost: number) => {
+      return freeOfferingUpgradesValues[level] ?? 0
+    },
+    effects: (n: number) => {
+      return n // levels
+    },
+    effectsDescription: (n: number) => {
+      return i18next.t('redAmbrosia.data.freeOfferingUpgrades.effect', { amount: n })
+    },
+    maxLevel: 5,
+    costPerLevel: 1,
+    name: () => i18next.t('redAmbrosia.data.freeOfferingUpgrades.name'),
+    description: () => i18next.t('redAmbrosia.data.freeOfferingUpgrades.description')
+  },
+  freeObtainiumUpgrades: {
+    level: 0,
+    redAmbrosiaInvested: 0,
+    costFormula: (level: number, _baseCost: number) => {
+      return freeObtainiumUpgradesValues[level] ?? 0
+    },
+    effects: (n: number) => {
+      return n // levels
+    },
+    effectsDescription: (n: number) => {
+      return i18next.t('redAmbrosia.data.freeObtainiumUpgrades.effect', { amount: n })
+    },
+    maxLevel: 5,
+    costPerLevel: 1,
+    name: () => i18next.t('redAmbrosia.data.freeObtainiumUpgrades.name'),
+    description: () => i18next.t('redAmbrosia.data.freeObtainiumUpgrades.description')
+  },
+  freeCubeUpgrades: {
+    level: 0,
+    redAmbrosiaInvested: 0,
+    costFormula: (level: number, _baseCost: number) => {
+      return freeCubeUpgradesValues[level] ?? 0
+    },
+    effects: (n: number) => {
+      return n // levels
+    },
+    effectsDescription: (n: number) => {
+      return i18next.t('redAmbrosia.data.freeCubeUpgrades.effect', { amount: n })
+    },
+    maxLevel: 5,
+    costPerLevel: 1,
+    name: () => i18next.t('redAmbrosia.data.freeCubeUpgrades.name'),
+    description: () => i18next.t('redAmbrosia.data.freeCubeUpgrades.description')
+  },
+  freeSpeedUpgrades: {
+    level: 0,
+    redAmbrosiaInvested: 0,
+    costFormula: (level: number, _baseCost: number) => {
+      return freeSpeedUpgradesValues[level] ?? 0
+    },
+    effects: (n: number) => {
+      return n // levels
+    },
+    effectsDescription: (n: number) => {
+      return i18next.t('redAmbrosia.data.freeSpeedUpgrades.effect', { amount: n })
+    },
+    maxLevel: 5,
+    costPerLevel: 1,
+    name: () => i18next.t('redAmbrosia.data.freeSpeedUpgrades.name'),
+    description: () => i18next.t('redAmbrosia.data.freeSpeedUpgrades.description')
   }
 }
 

@@ -67,6 +67,7 @@ import { clearInterval, setInterval } from './Timers'
 import { Alert, Prompt } from './UpdateHTML'
 import { findInsertionIndex } from './Utility'
 import { Globals as G } from './Variables'
+import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 
 const posSalvagePerkSings = [230, 245, 260, 275, 290]
 const negSalvagePerkSings = [75, 85, 105, 125, 155, 185, 215, 245, 260, 275]
@@ -1465,17 +1466,23 @@ export const calculateToNextThreshold = () => {
 }
 
 export const calculateRequiredBlueberryTime = () => {
-  let val = G.TIME_PER_AMBROSIA // Currently 30
-  val += Math.floor(player.lifetimeAmbrosia / 500)
+  let val = G.TIME_PER_AMBROSIA // Currently 45
+  val += Math.floor(player.lifetimeAmbrosia / 300)
 
   const acceleratorMult = getShopUpgradeEffects('shopAmbrosiaAccelerator', 'ambrosiaPointRequirementMult')
+  const brickOfLeadMult = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'barRequirementMult')
 
   val *= acceleratorMult
-  val = Math.ceil(val)
+  val *= brickOfLeadMult
 
-  const thresholds = calculateNumberOfThresholds()
-  const thresholdBase = 2
-  return Math.pow(thresholdBase, thresholds) * val
+  if (player.lifetimeAmbrosia >= 10000) {
+    const extraScalingPower = Math.log10(4)
+    val *= Math.pow(player.lifetimeAmbrosia / 10000, extraScalingPower)
+    return Math.ceil(val)
+  }
+  else {
+    return val
+  }
 }
 
 export const calculateRequiredRedAmbrosiaTime = () => {

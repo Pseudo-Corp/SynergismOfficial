@@ -37,6 +37,7 @@ import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { cleanString, getElementById } from './Utility'
 import { btoa } from './Utility'
 import { Globals as G } from './Variables'
+import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 
 const weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
 
@@ -636,6 +637,17 @@ export const promocodes = async (input: string | null, amount?: number) => {
         octeractUpgrades.octeractGain2.freeLevel += freeLevelOct2
         freeLevels.octeractGain = freeLevelOct1
         freeLevels.octeractGain2 = freeLevelOct2
+      }
+
+      const digitalOcteractAccumulatorCap = 1 + getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevelCapIncrease')
+      const digitalOcteractFreeLevels = getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevels')
+      octeractUpgrades.octeractAscensionsOcteractGain.freeLevel = Math.min(
+        digitalOcteractAccumulatorCap,
+        octeractUpgrades.octeractAscensionsOcteractGain.freeLevel + digitalOcteractFreeLevels
+      )
+
+      if (digitalOcteractFreeLevels > 0) {
+        freeLevels.octeractAscensionsOcteractGain = digitalOcteractFreeLevels
       }
 
       for (const key of Object.keys(freeLevels)) {
