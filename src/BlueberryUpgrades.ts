@@ -1097,7 +1097,7 @@ export const ambrosiaUpgrades: {
         amount: format(levels, 0, true)
       })
     },
-    extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow2', 'freeLevels'),
+    extraLevelCalc: () => 0, // INTENDED
     name: () => i18next.t('ambrosia.data.ambrosiaFreeGenerationUpgrades.name'),
     description: () => i18next.t('ambrosia.data.ambrosiaFreeGenerationUpgrades.description'),
     unlockCriterion: 'Exalt1x1'
@@ -1125,7 +1125,7 @@ export const ambrosiaUpgrades: {
         amount: format(levels, 0, true)
       })
     },
-    extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow5', 'freeLevels'),
+    extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow4', 'freeLevels'),
     name: () => i18next.t('ambrosia.data.ambrosiaFreeRedLuckUpgrades.name'),
     description: () => i18next.t('ambrosia.data.ambrosiaFreeRedLuckUpgrades.description'),
     unlockCriterion: 'Exalt5x1'
