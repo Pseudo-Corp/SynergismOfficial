@@ -212,7 +212,7 @@
   },
   "redAmbrosia": {
     "redAmbrosia": "红神肴",
-    "amount": "神肴：目前有<<red|{{redAmbrosia}}>>，共有<<red|{{lifetimeRedAmbrosia}}>>",
+    "amount": "红神肴：目前有<<red|{{redAmbrosia}}>>，共有<<red|{{lifetimeRedAmbrosia}}>>",
     "purchaseWarning": "<<gold|⚠>>与蓝莓模块不同的是您<<red|无法>>返还相应升级。",
     "perGen": "目前可以获得<<red|{{guaranteed}}>>，并有<<red|{{extraChance}}%>>概率再获得1个。[<<red|红运：{{ambrosiaLuck}}>>]",
     "redAmbrosiaBuyPrompt": "您想要花费多少红神肴？您拥有{{amount}}红神肴。如果想要购买最大数量，请输入-1！",
@@ -7691,8 +7691,8 @@
       "currentTimersSome": "结束时间：<<#8f8|{{timers}}>>",
       "globalEvent": "全局活动",
       "globalEventActive": "全局活动：{{events}}",
-      "globalEventNone": "剩余时间：<<#8f8|--:--:-->>",
-      "globalEventSome": "剩余时间：<<#8f8|{{time}}>>"
+      "globalEventNone": "剩余时间: <<#8f8|--:--:-->>",
+      "globalEventSome": "剩余时间: <<#8f8|{{time}}>>"
     },
     "timeSkips": {
       "GLOBAL": {
