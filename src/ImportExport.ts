@@ -15,6 +15,7 @@ import { getFinalHepteractCap, hepteracts } from './Hepteracts'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
+import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { isResearchMaxed } from './Research'
 import { Seed, seededBetween, seededRandom } from './RNG'
 import { resetRuneBlessings } from './RuneBlessings'
@@ -636,6 +637,21 @@ export const promocodes = async (input: string | null, amount?: number) => {
         octeractUpgrades.octeractGain2.freeLevel += freeLevelOct2
         freeLevels.octeractGain = freeLevelOct1
         freeLevels.octeractGain2 = freeLevelOct2
+      }
+
+      const digitalOcteractAccumulatorCap = 1
+        + getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevelCapIncrease')
+      const digitalOcteractFreeLevels = getRedAmbrosiaUpgradeEffects(
+        'redAmbrosiaFreeAccumulator',
+        'freeAccumulatorLevels'
+      )
+      octeractUpgrades.octeractAscensionsOcteractGain.freeLevel = Math.min(
+        digitalOcteractAccumulatorCap,
+        octeractUpgrades.octeractAscensionsOcteractGain.freeLevel + digitalOcteractFreeLevels
+      )
+
+      if (digitalOcteractFreeLevels > 0) {
+        freeLevels.octeractAscensionsOcteractGain = digitalOcteractFreeLevels
       }
 
       for (const key of Object.keys(freeLevels)) {

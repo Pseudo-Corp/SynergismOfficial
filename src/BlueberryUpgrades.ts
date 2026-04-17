@@ -44,6 +44,11 @@ type AmbrosiaUpgradeRewards = {
   ambrosiaSingReduction2: { singularityReduction: number }
   ambrosiaTalismanBonusRuneLevel: { talismanBonusRuneLevel: number }
   ambrosiaRuneOOMBonus: { runeOOMBonus: number; infiniteAscentOOMBonus: number }
+  ambrosiaBrickOfLead: { barRequirementMult: number; additiveLuckMult: number; singularitySpeedMult: number }
+  ambrosiaFreeQuarkUpgrades: { freeQuarkUpgrades: number }
+  ambrosiaFreeLuckUpgrades: { freeLuckUpgrades: number }
+  ambrosiaFreeGenerationUpgrades: { freeGenerationUpgrades: number }
+  ambrosiaFreeRedLuckUpgrades: { freeRedLuckUpgrades: number }
 }
 
 export type AmbrosiaUpgradeNames = keyof AmbrosiaUpgradeRewards
@@ -1007,6 +1012,148 @@ export const ambrosiaUpgrades: {
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow4', 'freeLevels'),
     name: () => i18next.t('ambrosia.data.ambrosiaRuneOOMBonus.name'),
     description: () => i18next.t('ambrosia.data.ambrosiaRuneOOMBonus.description'),
+    unlockCriterion: 'Exalt5x1'
+  },
+  ambrosiaBrickOfLead: {
+    level: 0,
+    ambrosiaInvested: 0,
+    blueberriesInvested: 0,
+    maxLevel: 25,
+    costPerLevel: 10,
+    blueberryCost: 4,
+    ignoreEXALT: false,
+    prerequisites: {},
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
+    },
+    effects: (n, key) => {
+      if (key === 'barRequirementMult') {
+        return 1 / (1 - n / 50)
+      } else if (key === 'additiveLuckMult') {
+        return n / 50
+      } else {
+        return 1 - n / 100 // singularitySpeedMult
+      }
+    },
+    effectsDescription: function() {
+      const barRequirementMult = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'barRequirementMult')
+      const luckMult = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'additiveLuckMult')
+      const singularitySpeedMult = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'singularitySpeedMult')
+      return i18next.t('ambrosia.data.ambrosiaBrickOfLead.effect', {
+        blueberryGen: format(barRequirementMult, 2, true),
+        luckMult: formatAsPercentIncrease(1 + luckMult, 0),
+        singularitySpeed: format(singularitySpeedMult, 2, true)
+      })
+    },
+    extraLevelCalc: () => 0,
+    name: () => i18next.t('ambrosia.data.ambrosiaBrickOfLead.name'),
+    description: () => i18next.t('ambrosia.data.ambrosiaBrickOfLead.description'),
+    unlockCriterion: 'Exalt1x1'
+  },
+  ambrosiaFreeLuckUpgrades: {
+    level: 0,
+    ambrosiaInvested: 0,
+    blueberriesInvested: 0,
+    maxLevel: 25,
+    costPerLevel: 5000,
+    blueberryCost: 1,
+    ignoreEXALT: false,
+    prerequisites: {},
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
+    },
+    effects: (n: number) => {
+      return n // freeLuckUpgrades
+    },
+    effectsDescription: function() {
+      const levels = getAmbrosiaUpgradeEffects('ambrosiaFreeLuckUpgrades', 'freeLuckUpgrades')
+      return i18next.t('ambrosia.data.ambrosiaFreeLuckUpgrades.effect', {
+        amount: format(levels, 0, true)
+      })
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow2', 'freeLevels'),
+    name: () => i18next.t('ambrosia.data.ambrosiaFreeLuckUpgrades.name'),
+    description: () => i18next.t('ambrosia.data.ambrosiaFreeLuckUpgrades.description'),
+    unlockCriterion: 'Exalt1x1'
+  },
+  ambrosiaFreeGenerationUpgrades: {
+    level: 0,
+    ambrosiaInvested: 0,
+    blueberriesInvested: 0,
+    maxLevel: 3,
+    costPerLevel: 5000,
+    blueberryCost: 1,
+    ignoreEXALT: false,
+    prerequisites: {},
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(10, level + 1) - Math.pow(10, level))
+    },
+    effects: (n: number) => {
+      return n // freeGenerationUpgrades
+    },
+    effectsDescription: function() {
+      const levels = getAmbrosiaUpgradeEffects('ambrosiaFreeGenerationUpgrades', 'freeGenerationUpgrades')
+      return i18next.t('ambrosia.data.ambrosiaFreeGenerationUpgrades.effect', {
+        amount: format(levels, 0, true)
+      })
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow2', 'freeLevels'),
+    name: () => i18next.t('ambrosia.data.ambrosiaFreeGenerationUpgrades.name'),
+    description: () => i18next.t('ambrosia.data.ambrosiaFreeGenerationUpgrades.description'),
+    unlockCriterion: 'Exalt1x1'
+  },
+  ambrosiaFreeRedLuckUpgrades: {
+    level: 0,
+    ambrosiaInvested: 0,
+    blueberriesInvested: 0,
+    maxLevel: 25,
+    costPerLevel: 20000,
+    blueberryCost: 2,
+    ignoreEXALT: false,
+    prerequisites: {
+      ambrosiaFreeLuckUpgrades: 10
+    },
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
+    },
+    effects: (n: number) => {
+      return n // freeRedLuckUpgrades
+    },
+    effectsDescription: function() {
+      const levels = getAmbrosiaUpgradeEffects('ambrosiaFreeRedLuckUpgrades', 'freeRedLuckUpgrades')
+      return i18next.t('ambrosia.data.ambrosiaFreeRedLuckUpgrades.effect', {
+        amount: format(levels, 0, true)
+      })
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow5', 'freeLevels'),
+    name: () => i18next.t('ambrosia.data.ambrosiaFreeRedLuckUpgrades.name'),
+    description: () => i18next.t('ambrosia.data.ambrosiaFreeRedLuckUpgrades.description'),
+    unlockCriterion: 'Exalt5x1'
+  },
+  ambrosiaFreeQuarkUpgrades: {
+    level: 0,
+    ambrosiaInvested: 0,
+    blueberriesInvested: 0,
+    maxLevel: 10,
+    costPerLevel: 25000,
+    blueberryCost: 2,
+    ignoreEXALT: false,
+    prerequisites: {},
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
+    },
+    effects: (n: number) => {
+      return n / 10 // freeQuarkUpgrades
+    },
+    effectsDescription: function() {
+      const levels = getAmbrosiaUpgradeEffects('ambrosiaFreeQuarkUpgrades', 'freeQuarkUpgrades')
+      return i18next.t('ambrosia.data.ambrosiaFreeQuarkUpgrades.effect', {
+        amount: format(levels, 1, true)
+      })
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow5', 'freeLevels'),
+    name: () => i18next.t('ambrosia.data.ambrosiaFreeQuarkUpgrades.name'),
+    description: () => i18next.t('ambrosia.data.ambrosiaFreeQuarkUpgrades.description'),
     unlockCriterion: 'Exalt5x1'
   }
 }

@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js'
+import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import {
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaLuck,
@@ -90,11 +91,12 @@ export const addTimers = (input: TimerInput, time = 0) => {
       break
     }
     case 'singularity': {
+      const singularitySpeedMulti = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'singularitySpeedMult')
       player.ascensionCounterRealReal += time
-      player.singularityCounter += time * timeMultiplier
+      player.singularityCounter += time * timeMultiplier * singularitySpeedMulti
 
       if (player.insideSingularityChallenge) {
-        player.singChallengeTimer += time * timeMultiplier
+        player.singChallengeTimer += time * timeMultiplier * singularitySpeedMulti
       } else {
         player.singChallengeTimer = 0
       }
