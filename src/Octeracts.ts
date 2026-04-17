@@ -953,7 +953,7 @@ export const octeractUpgrades: {
     effectDescription: (n: number) => i18next.t('octeract.data.octeractBlueberries.effect', { n: format(n) }),
     name: () => i18next.t('octeract.data.octeractBlueberries.name'),
     description: () => i18next.t('octeract.data.octeractBlueberries.description'),
-    qualityOfLife: false
+    qualityOfLife: true
   },
   octeractInfiniteShopUpgrades: {
     level: 0,
