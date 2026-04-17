@@ -44,7 +44,7 @@ type AmbrosiaUpgradeRewards = {
   ambrosiaSingReduction2: { singularityReduction: number }
   ambrosiaTalismanBonusRuneLevel: { talismanBonusRuneLevel: number }
   ambrosiaRuneOOMBonus: { runeOOMBonus: number; infiniteAscentOOMBonus: number }
-  ambrosiaBrickOfLead: { barRequirementMult: number, additiveLuckMult: number, singularitySpeedMult: number }
+  ambrosiaBrickOfLead: { barRequirementMult: number; additiveLuckMult: number; singularitySpeedMult: number }
   ambrosiaFreeQuarkUpgrades: { freeQuarkUpgrades: number }
   ambrosiaFreeLuckUpgrades: { freeLuckUpgrades: number }
   ambrosiaFreeGenerationUpgrades: { freeGenerationUpgrades: number }
@@ -1029,11 +1029,9 @@ export const ambrosiaUpgrades: {
     effects: (n, key) => {
       if (key === 'barRequirementMult') {
         return 1 / (1 - n / 50)
-      }
-      else if (key === 'additiveLuckMult') {
-        return n/50
-      }
-      else {
+      } else if (key === 'additiveLuckMult') {
+        return n / 50
+      } else {
         return 1 - n / 100 // singularitySpeedMult
       }
     },
@@ -1103,8 +1101,8 @@ export const ambrosiaUpgrades: {
     name: () => i18next.t('ambrosia.data.ambrosiaFreeGenerationUpgrades.name'),
     description: () => i18next.t('ambrosia.data.ambrosiaFreeGenerationUpgrades.description'),
     unlockCriterion: 'Exalt1x1'
-   },
-   ambrosiaFreeRedLuckUpgrades: {
+  },
+  ambrosiaFreeRedLuckUpgrades: {
     level: 0,
     ambrosiaInvested: 0,
     blueberriesInvested: 0,
@@ -1131,8 +1129,8 @@ export const ambrosiaUpgrades: {
     name: () => i18next.t('ambrosia.data.ambrosiaFreeRedLuckUpgrades.name'),
     description: () => i18next.t('ambrosia.data.ambrosiaFreeRedLuckUpgrades.description'),
     unlockCriterion: 'Exalt5x1'
-   },
-   ambrosiaFreeQuarkUpgrades: {
+  },
+  ambrosiaFreeQuarkUpgrades: {
     level: 0,
     ambrosiaInvested: 0,
     blueberriesInvested: 0,
@@ -1157,7 +1155,7 @@ export const ambrosiaUpgrades: {
     name: () => i18next.t('ambrosia.data.ambrosiaFreeQuarkUpgrades.name'),
     description: () => i18next.t('ambrosia.data.ambrosiaFreeQuarkUpgrades.description'),
     unlockCriterion: 'Exalt5x1'
-   }
+  }
 }
 
 export const blankAmbrosiaUpgradeObject: Record<

@@ -15,6 +15,7 @@ import { getFinalHepteractCap, hepteracts } from './Hepteracts'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
+import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { isResearchMaxed } from './Research'
 import { Seed, seededBetween, seededRandom } from './RNG'
 import { resetRuneBlessings } from './RuneBlessings'
@@ -37,7 +38,6 @@ import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { cleanString, getElementById } from './Utility'
 import { btoa } from './Utility'
 import { Globals as G } from './Variables'
-import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 
 const weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
 
@@ -639,8 +639,12 @@ export const promocodes = async (input: string | null, amount?: number) => {
         freeLevels.octeractGain2 = freeLevelOct2
       }
 
-      const digitalOcteractAccumulatorCap = 1 + getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevelCapIncrease')
-      const digitalOcteractFreeLevels = getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevels')
+      const digitalOcteractAccumulatorCap = 1
+        + getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevelCapIncrease')
+      const digitalOcteractFreeLevels = getRedAmbrosiaUpgradeEffects(
+        'redAmbrosiaFreeAccumulator',
+        'freeAccumulatorLevels'
+      )
       octeractUpgrades.octeractAscensionsOcteractGain.freeLevel = Math.min(
         digitalOcteractAccumulatorCap,
         octeractUpgrades.octeractAscensionsOcteractGain.freeLevel + digitalOcteractFreeLevels

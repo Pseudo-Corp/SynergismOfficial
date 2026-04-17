@@ -1,6 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
+import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
 import { calculateAntSacrificeCubeBlessing, calculateObtainiumCubeBlessing } from './Cubes'
@@ -67,7 +68,6 @@ import { clearInterval, setInterval } from './Timers'
 import { Alert, Prompt } from './UpdateHTML'
 import { findInsertionIndex } from './Utility'
 import { Globals as G } from './Variables'
-import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 
 const posSalvagePerkSings = [230, 245, 260, 275, 290]
 const negSalvagePerkSings = [75, 85, 105, 125, 155, 185, 215, 245, 260, 275]
@@ -1479,8 +1479,7 @@ export const calculateRequiredBlueberryTime = () => {
     const extraScalingPower = Math.log10(4)
     val *= Math.pow(player.lifetimeAmbrosia / 10000, extraScalingPower)
     return Math.ceil(val)
-  }
-  else {
+  } else {
     return val
   }
 }

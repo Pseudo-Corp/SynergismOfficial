@@ -541,8 +541,7 @@ export const redAmbrosiaUpgrades: {
     effects: (n, key) => {
       if (key === 'freeAccumulatorLevels') {
         return n / 1000 + 0.01 * +(n > 0)
-      }
-      else {
+      } else {
         return 0.1 * n // freeAccumulatorLevelCapIncrease
       }
     },

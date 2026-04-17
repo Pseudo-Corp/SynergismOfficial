@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateBaseObtainium,
@@ -15,14 +16,13 @@ import {
 } from './Calculate'
 import type { IMultiBuy } from './Cubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { getRuneEffectiveLevel, getRuneEffects } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
-import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
-import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 
 export enum shopUpgradeTypes {
   CONSUMABLE = 'consume',
@@ -183,8 +183,9 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
   [ShopUpgradeGroups.Quark]: {
     HTMLColor: 'cyan',
     symbol: '❂',
-    bonusLevels: () => getSingularityChallengeEffect('noQuarkUpgrades', 'freeQuarkLevel')
-                        + getAmbrosiaUpgradeEffects('ambrosiaFreeQuarkUpgrades', 'freeQuarkUpgrades')
+    bonusLevels: () =>
+      getSingularityChallengeEffect('noQuarkUpgrades', 'freeQuarkLevel')
+      + getAmbrosiaUpgradeEffects('ambrosiaFreeQuarkUpgrades', 'freeQuarkUpgrades')
   },
   [ShopUpgradeGroups.AmbrosiaLuck]: {
     HTMLColor: 'lime',
