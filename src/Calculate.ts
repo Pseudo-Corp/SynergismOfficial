@@ -1,6 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
+import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
 import { calculateAntSacrificeCubeBlessing, calculateObtainiumCubeBlessing } from './Cubes'
@@ -1465,17 +1466,22 @@ export const calculateToNextThreshold = () => {
 }
 
 export const calculateRequiredBlueberryTime = () => {
-  let val = G.TIME_PER_AMBROSIA // Currently 30
-  val += Math.floor(player.lifetimeAmbrosia / 500)
+  let val = G.TIME_PER_AMBROSIA // Currently 45
+  val += Math.floor(player.lifetimeAmbrosia / 300)
 
   const acceleratorMult = getShopUpgradeEffects('shopAmbrosiaAccelerator', 'ambrosiaPointRequirementMult')
+  const brickOfLeadMult = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'barRequirementMult')
 
   val *= acceleratorMult
-  val = Math.ceil(val)
+  val *= brickOfLeadMult
 
-  const thresholds = calculateNumberOfThresholds()
-  const thresholdBase = 2
-  return Math.pow(thresholdBase, thresholds) * val
+  if (player.lifetimeAmbrosia >= 10000) {
+    const extraScalingPower = Math.log10(4)
+    val *= Math.pow(player.lifetimeAmbrosia / 10000, extraScalingPower)
+    return Math.ceil(val)
+  } else {
+    return val
+  }
 }
 
 export const calculateRequiredRedAmbrosiaTime = () => {

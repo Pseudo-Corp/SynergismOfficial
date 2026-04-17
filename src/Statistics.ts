@@ -2061,6 +2061,10 @@ export const allAdditiveLuckMultStats: NumberStatLine[] = [
     stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck4', 'ambrosiaLuckPercentage') // Blueberry Upgrade 4
   },
   {
+    i18n: 'BrickOfLead',
+    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'additiveLuckMult') // Brick of Lead
+  },
+  {
     i18n: 'HorseShoeTalisman',
     stat: () => getTalismanEffects('horseShoe').luckPercentage // Horseshoe Talisman
   },
@@ -2109,6 +2113,10 @@ export const allAmbrosiaLuckStats: NumberStatLine[] = [
   {
     i18n: 'ShopUpgrade4',
     stat: () => getShopUpgradeEffects('shopAmbrosiaLuck4', 'ambrosiaLuck')
+  },
+  {
+    i18n: 'Jack',
+    stat: () => getShopUpgradeEffects('shopPanthema', 'ambrosiaLuck') // Jack
   },
   {
     i18n: 'SingularityUpgrades',
@@ -2196,7 +2204,7 @@ const ambrosiaLuckModifiers: NumberStatLine[] = [
 export const allAmbrosiaBlueberryStats: NumberStatLine[] = [
   {
     i18n: 'E1x1Clear',
-    stat: () => +(player.singularityChallenges.noSingularityUpgrades.completions > 0) // E1x1 Clear!
+    stat: () => +(player.singularityChallenges.noSingularityUpgrades.completions > 0) * 3 // E1x1 Clear!
   },
   {
     i18n: 'SingBlueberries',
@@ -2249,6 +2257,10 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
   {
     i18n: 'ShopUpgrade4',
     stat: () => getShopUpgradeEffects('shopAmbrosiaGeneration4', 'ambrosiaGenerationMult')
+  },
+  {
+    i18n: 'Jack',
+    stat: () => getShopUpgradeEffects('shopPanthema', 'ambrosiaGenerationMult') // Jack of all trades
   },
   {
     i18n: 'SingularityUpgrades',
@@ -2640,6 +2652,10 @@ export const allRedAmbrosiaLuckStats: NumberStatLine[] = [
   {
     i18n: 'ShopRedLuck3',
     stat: () => getShopUpgradeEffects('shopRedLuck3', 'redLuck') // Shop Red Luck III
+  },
+  {
+    i18n: 'Jack',
+    stat: () => getShopUpgradeEffects('shopPanthema', 'redLuck') // Jack
   },
   {
     i18n: 'Viscount',

@@ -511,7 +511,7 @@ export const Globals: GlobalVariables = {
 
   ambrosiaTimer: 0,
   redAmbrosiaTimer: 0,
-  TIME_PER_AMBROSIA: 30,
+  TIME_PER_AMBROSIA: 45,
   TIME_PER_RED_AMBROSIA: 100000,
   currentSingChallenge: undefined,
 
