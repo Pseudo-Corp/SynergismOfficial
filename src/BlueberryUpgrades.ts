@@ -1420,6 +1420,38 @@ export const displayProperLoadoutCount = () => {
   }
 }
 
+export const refundOneAmbrosiaUpgradeLevel = async (upgradeKey: AmbrosiaUpgradeNames): Promise<void> => {
+  const upgrade = ambrosiaUpgrades[upgradeKey]
+
+  if (upgrade.level <= 0) {
+    return Alert(i18next.t('ambrosia.refundOneLevelZero'))
+  }
+
+  const newLevel = upgrade.level - 1
+  for (const key of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+    if (key === upgradeKey) continue
+    const prereqLevel = ambrosiaUpgrades[key].prerequisites[upgradeKey]
+    if (prereqLevel !== undefined && newLevel < prereqLevel && ambrosiaUpgrades[key].level > 0) {
+      return Alert(
+        i18next.t('ambrosia.refundOneLevelPrereq', { name: ambrosiaUpgrades[key].name() })
+      )
+    }
+  }
+
+  const refundAmount = upgrade.costFormula(upgrade.level - 1, upgrade.costPerLevel)
+
+  player.ambrosia += refundAmount
+  upgrade.ambrosiaInvested -= refundAmount
+  player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested -= refundAmount
+  upgrade.level -= 1
+
+  if (upgrade.level === 0 && upgrade.blueberriesInvested > 0) {
+    player.spentBlueberries -= upgrade.blueberriesInvested
+    player.ambrosiaUpgrades[upgradeKey].blueberriesInvested = 0
+    upgrade.blueberriesInvested = 0
+  }
+}
+
 export const resetBlueberryTree = (giveAlert = true) => {
   for (const k of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
     ambrosiaUpgrades[k].level = 0
