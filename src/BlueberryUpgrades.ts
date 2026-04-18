@@ -1305,6 +1305,7 @@ export const updateMobileAmbrosiaHTML = (k: AmbrosiaUpgradeNames) => {
 
     const buyOne = document.createElement('button')
     const buyMax = document.createElement('button')
+    const refundOne = document.createElement('button')
 
     buyOne.classList.add('modalBtnBuy')
     buyOne.textContent = i18next.t('general.buyOne')
@@ -1320,8 +1321,16 @@ export const updateMobileAmbrosiaHTML = (k: AmbrosiaUpgradeNames) => {
       updateMobileAmbrosiaHTML(k)
     })
 
+    refundOne.classList.add('modalBtnBuy')
+    refundOne.textContent = i18next.t('ambrosia.refundOneLevelBtn')
+    refundOne.addEventListener('click', () => {
+      refundOneAmbrosiaUpgradeLevel(k)
+      updateMobileAmbrosiaHTML(k)
+    })
+
     buttonDiv.appendChild(buyOne)
     buttonDiv.appendChild(buyMax)
+    buttonDiv.appendChild(refundOne)
     elm.appendChild(buttonDiv)
   }
 }

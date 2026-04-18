@@ -34,6 +34,7 @@
     "refund": "You have refunded all spent Blueberries and Ambrosia.",
     "refundOneLevelZero": "This upgrade is already at level 0.",
     "refundOneLevelPrereq": "Cannot refund: <<orange|{{name}}>> depends on this upgrade.",
+    "refundOneLevelBtn": "Refund x1",
     "refundWord": "Refund",
     "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
     "notUnlocked": "Clear No Golden Quark Upgrades, Tier 1!",
