@@ -27,7 +27,7 @@
     "blueberryCost": "启用花费蓝莓：",
     "prereqNotMetAlert": "您未满足前提条件，无法购买该升级。",
     "notEnoughBlueberries": "您的蓝莓不足，无法激活该模块。",
-    "timeThresholds": "由于神肴总数，神肴进度条点数需求翻倍了<<cyan|{{threshold}}>>次。神肴总数再增加<<orange|{{toNext}}>>后将再度翻倍。",
+    "timeThresholds": "由于神肴总数，神肴进度条点数需求到达了<<cyan | {{threshold}}>>次阈值。神肴总数再增加<<orange|{{toNext}}>>后达到下次阈值。",
     "cubeUpgradeThresholds": "由于神肴总数，神肴进度条点数需求翻倍了<<cyan|{{threshold}}>>次。神肴总数再增加<<orange|{{toNext}}>>后将再度翻倍。<<cyan|神肴进度条点数获取速度+{{percent}}%>>！",
     "cubeUpgradeRedBarFills": "购买饼干升级29以后，您的红色进度条填充了<<maroon|{{amount}}>>次，所以<<green|神肴之运增加{{luck}}>>！",
     "ambrosiaBuyPrompt": "您想要花费多少神肴？您拥有{{amount}}神肴。如果想要购买最大数量，请输入-1！",
@@ -191,6 +191,31 @@
         "name": "符文系数模块",
         "description": "对前五个符文来说，每级使它们的符文系数增加1！对无限晋升符文来说，每级使它的符文系数增加0.001。",
         "effect": "前五个符文的符文系数增加{{amount}}，无限晋升的符文系数增加{{amount2}}。"
+      },
+      "ambrosiaBrickOfLead": {
+        "name": "铅砖",
+        "description": "我总将它藏在帽子里。每级使神肴进度条获取速度减少2%，但作为补偿可以获得神肴之运！每级还会使奇点时长减少1%。",
+        "effect": "神肴进度条获取速度x{{blueberryGen}}。神肴之运增加{{luckMult}}。奇点时长x{{singularitySpeed}}"
+      },
+      "ambrosiaFreeLuckUpgrades": {
+        "name": "绿而再绿的神肴绿草",
+        "description": "每级使“神肴之运”类型的夸克升级免费等级增加1！这些升级有相应的图标。",
+        "effect": "使“神肴之运”类型的夸克升级免费等级增加{{amount}}"
+      },
+      "ambrosiaFreeGenerationUpgrades": {
+        "name": "时间之瓶",
+        "description": "每级使“神肴进度条获取速度”类型的夸克升级免费等级增加1！这些升级有相应的图标。",
+        "effect": "使“神肴进度条获取速度”类型的夸克升级免费等级增加{{amount}}"
+      },
+      "ambrosiaFreeRedLuckUpgrades": {
+        "name": "赌徒",
+        "description": "每级使“红运”类型的夸克升级免费等级增加1！这些升级有相应的图标。",
+        "effect": "使“红运”类型的夸克升级免费等级增加{{amount}}"
+      },
+      "ambrosiaFreeQuarkUpgrades": {
+        "name": "机械纪元 - 1981剪辑版",
+        "description": "每级使“夸克”类型的夸克升级免费等级增加0.1！这些升级有相应的图标。",
+        "effect": "使“夸克”类型的夸克升级免费等级增加{{amount}}"
       }
     },
     "loadouts": {
@@ -342,6 +367,31 @@
         "name": "蓝色的……莓？",
         "description": "看起来像蓝莓。用着也像蓝莓。您还是不确定到底是不是蓝莓。",
         "effect": "蓝莓增加<<lightblue|{{amount}}>>个"
+      },
+      "redAmbrosiaFreeAccumulator": {
+        "name": "红色“八进制数码累加器”累加器",
+        "description": "八进制数码累加器非常强大。您知道以前可以通过活动来获取免费等级吗？现在您也可以获得它了！",
+        "effect": "每次使用“每日”代码，使八进制数码累加器的免费等级增加<<white|{{levels}}>><br>最多增加<<white|{{cap}}>>级。"
+      },
+      "freeOfferingUpgrades": {
+        "name": "盛宴与饥荒",
+        "description": "每级使“祭品”类型的夸克升级免费等级增加1！",
+        "effect": "使“祭品”类型的夸克升级免费等级增加<<orange|{{amount}}>>"
+      },
+      "freeObtainiumUpgrades": {
+        "name": "怪异科学",
+        "description": "每级使“难得素”类型的夸克升级免费等级增加1！",
+        "effect": "使“难得素”类型的夸克升级免费等级增加<<pink|{{amount}}>>"
+      },
+      "freeCubeUpgrades": {
+        "name": "盒中生活",
+        "description": "每级使“方盒”类型的夸克升级免费等级增加1！",
+        "effect": "使“方盒”类型的夸克升级免费等级增加<<white|{{amount}}>>"
+      },
+      "freeSpeedUpgrades": {
+        "name": "距离",
+        "description": "每级使“速度”类型的夸克升级免费等级增加1！",
+        "effect": "使“速度”类型的夸克升级免费等级增加<<yellow|{{amount}}>>"
       }
     }
   },
@@ -3484,7 +3534,10 @@
       "shopPanthemaCubes": "方盒获取数量增加{{amount}}！(每级方盒增加{{amount2}})",
       "shopPanthemaAscensionSpeed": "飞升的速度增加{{amount}}！(每级速度增加{{amount2}})",
       "shopPanthemaQuarks": "夸克获取数量增加{{amount}}！(每级夸克增加{{amount2}})",
-      "shopPanthemaInfinityMeta": "所有其他类型加成增加{{amount}}！(每级无限增加1%)"
+      "shopPanthemaInfinityMeta": "所有其他类型加成增加{{amount}}！(每级“无限公司”免费等级增加1%)",
+      "shopPanthemaAmbrosiaGeneration": "神肴进度条点数增加{{amount}}！(每点神肴进度条获取速度增加{{amount2}})",
+      "shopPanthemaAmbrosiaLuck": "神肴之运增加{{amount}}！(每级神肴之运增加{{amount2}})",
+      "shopPanthemaRedLuck": "红运增加{{amount}}！(每级红运增加{{amount2}})"
     },
     "names": {
       "offeringPotion": "祭品药剂",
@@ -5988,7 +6041,7 @@
         "ScalingReward1": "使<<yellow|所有类型的方盒、立方和方块获取数量>>增加100%",
         "ScalingReward2": "15成就点数！",
         "UniqueReward1": "第1次 - 使<<gold|金夸克>>获取数量增加12%！",
-        "UniqueReward2": "第1次 - 免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！并且解锁<<var(--amber-text-color)|神肴>>！",
+        "UniqueReward2": "第1次 - 免费获得3颗<<var(--blueberry-box-color)|蓝莓>>！并且解锁<<var(--amber-text-color)|神肴>>！",
         "UniqueReward3": "第10次 - 新的<<orchid|夸克商店>>升级！",
         "UniqueReward4": "第15次 - 使<<lime|神肴之运>>免费增加5%！",
         "UniqueReward5": "第15次 - 新的<<orange|夸克商店>>升级！当然，不免费。"
@@ -6765,6 +6818,7 @@
       "NoAmbrosiaUpgrades": "拔擢 - 无神肴升级：",
       "Cookie5": "饼干升级27[Cx27]加成：",
       "BlueberryUpgrade": "神肴 - 八叶草：",
+      "BrickOfLead": "神肴 - 铅砖：",
       "HorseShoeTalisman": "马蹄铁护身符 - 铭文的加成：",
       "Event": "活动加成：",
       "Total": "神肴之运总倍率(效果叠加)："
@@ -6780,6 +6834,7 @@
       "ShopUpgrade2": "夸克升级 - 神肴之运 II：",
       "ShopUpgrade3": "夸克升级 - 神肴之运 III：",
       "ShopUpgrade4": "夸克升级 - 神肴之运 IV：",
+      "Jack": "全能高手：",
       "SingularityUpgrades": "金夸克升级(I-IV)：",
       "OcteractUpgrades": "八阶方块升级(I-IV)：",
       "AmbrosiaLuck1": "神肴 - 神肴之运模块 I：",
@@ -6821,6 +6876,7 @@
       "ShopUpgrade2": "夸克升级 - 神肴产生 II：",
       "ShopUpgrade3": "夸克升级 - 神肴产生 III：",
       "ShopUpgrade4": "夸克升级 - 神肴产生 IV：",
+      "Jack": "全能高手：",
       "SingularityUpgrades": "金夸克升级(I-IV)：",
       "OcteractUpgrades": "八阶方块升级(I-IV)：",
       "PatreonBonus": "神肴 - 厚颜的神肴订阅广告：",
@@ -6952,6 +7008,7 @@
       "ShopRedLuck1": "赌博魔神的低阶骰子：",
       "ShopRedLuck2": "赌博魔神的骰子：",
       "ShopRedLuck3": "赌博魔神的高阶骰子：",
+      "Jack": "全能高手：",
       "Viscount": "成为子爵的加成：",
       "HorseShoeRune": "马蹄铁符文加成：",
       "HorseShoeTalisman": "马蹄铁护身符加成：",

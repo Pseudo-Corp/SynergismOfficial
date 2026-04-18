@@ -27,7 +27,7 @@
     "blueberryCost": "Голубики (Для Активации):",
     "prereqNotMetAlert": "Вы не выполнили необходимые требования для покупки этого улучшения.",
     "notEnoughBlueberries": "У вас недостаточно Голубики для активации этого модуля.",
-    "timeThresholds": "Из-за Амброзии за всё время, требования Очков Шкалы Амброзии были удвоены <<cyan | {{threshold}}>> раз. Следующее удвоение при достижении <<orange|{{toNext}}>> Амброзии.",
+    "timeThresholds": "You've reached <<cyan | {{threshold}}>> thresholds due to lifetime Ambrosia. Next in <<orange|{{toNext}}>> lifetime Ambrosia.",
     "cubeUpgradeThresholds": "Из-за Амброзии за всё время, требования Очков Шкалы Амброзии были удвоены <<cyan | {{threshold}}>> раз. Следующее удвоение при достижении <<orange|{{toNext}}>> Амброзии. <<cyan | Очки Шкалы Амброзии +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Пока Улучшение Печенек 29 было куплено, ваша Красная Шкала была заполнена <<maroon | {{amount}}>> раз, что даёт вам <<green | +{{luck}} Удачи Амброзии>>!",
     "ambrosiaBuyPrompt": "Сколько Амброзии вы хотели бы потратить? У вас {{amount}} Амброзии. Введите -1, чтобы использовать максимум!",
@@ -191,6 +191,31 @@
         "name": "Модуль Коэффициента Рун",
         "description": "Для каждой из первых пяти рун, добавляет 1 к их Коэффициенту Руны за уровень! Для Бесконечного Восхождения, добавляет +0.001 к Коэффициенту Руны за уровень.",
         "effect": "Коэффициент Рун 1-5: +{{amount}}; Руна БВ: +{{amount2}}"
+      },
+      "ambrosiaBrickOfLead": {
+        "name": "The Brick of Lead",
+        "description": "I always keep this under my hat. This reduces your Ambrosia Bar Point generation speed by 2% per level, but grants Ambrosia Luck to compensate! It also slows down the Singularity timer by 1% per level.",
+        "effect": "Ambrosia Bar Point Requirement x{{blueberryGen}}, Ambrosia Luck +{{luckMult}}, Singularity timer speed x{{singularitySpeed}}"
+      },
+      "ambrosiaFreeLuckUpgrades": {
+        "name": "The Green, Green Grass of Ambrosia",
+        "description": "For all 'Luck' type Quark Upgrades, gain +1 free level per level! These will have a corresponding icon.",
+        "effect": "+{{amount}} free levels for 'Luck' type Quark Upgrades"
+      },
+      "ambrosiaFreeGenerationUpgrades": {
+        "name": "Time in a Bottle",
+        "description": "For all 'Generation' type Quark Upgrades, gain +1 free level per level! These will have a corresponding icon.",
+        "effect": "+{{amount}} free levels for 'Generation' type Quark Upgrades"
+      },
+      "ambrosiaFreeRedLuckUpgrades": {
+        "name": "The Gambler",
+        "description": "For all 'Red Luck' type Quark Upgrades, gain +1 free level per level! These will have a corresponding icon.",
+        "effect": "+{{amount}} free levels for 'Red Luck' type Quark Upgrades"
+      },
+      "ambrosiaFreeQuarkUpgrades": {
+        "name": "Mechanical - the 1981 Cut",
+        "description": "For all 'Quark' type Quark Upgrades, gain +0.1 free levels per level! These will have a corresponding icon.",
+        "effect": "+{{amount}} free levels for 'Quark' type Quark Upgrades"
       }
     },
     "loadouts": {
@@ -342,6 +367,31 @@
         "name": "Ягоды которые... синие?",
         "description": "Они выглядят как черника. Они ведут себя как черника. Вы не уверены, что это черника.",
         "effect": "Your Blueberry inventory is increased by <<lightblue|{{amount}}>>"
+      },
+      "redAmbrosiaFreeAccumulator": {
+        "name": "Red Digital Octeract Accumulator Accumulator",
+        "description": "The Digital Octeract Accumulator (DOA) is mighty powerful. Did you know you used to be able to get free levels from events? Now you can get it whenever!",
+        "effect": "The Digital Octeract Accumulator gains <<white|{{levels}}>> free levels per usage of code 'daily' <br> This upgrade can get up to <<white|{{cap}}>> free levels until fully saturated."
+      },
+      "freeOfferingUpgrades": {
+        "name": "The Feast and the Famine",
+        "description": "Gain +1 free Offering level for Quark Upgrades per level!",
+        "effect": "+<<orange|{{amount}}>> free Offering levels"
+      },
+      "freeObtainiumUpgrades": {
+        "name": "Weird Science",
+        "description": "Gain +1 free Obtainium level for Quark Upgrades per level!",
+        "effect": "+<<pink|{{amount}}>> free Obtainium levels"
+      },
+      "freeCubeUpgrades": {
+        "name": "Livin' in a Box",
+        "description": "Gain +1 free Cube level for Quark Upgrades per level!",
+        "effect": "+<<white|{{amount}}>> free Cube levels"
+      },
+      "freeSpeedUpgrades": {
+        "name": "The Distance",
+        "description": "Gain +1 free Speed level for Quark Upgrades per level!",
+        "effect": "+<<yellow|{{amount}}>> free Speed levels"
       }
     }
   },
@@ -372,7 +422,7 @@
       "22": "Национальное достояние: Учредите 1 Монетный Двор.",
       "23": "Добавим конкуренции!: Учредите 10 Монетных Дворов.",
       "24": "Стильная Подделка!: Учредите 100 Монетных Дворов.",
-      "25": "Куда нам столько?: Учредите 250 Монетных Дворов.",
+      "25": "Why do we need all these?: Establish 333 Coin Mints.",
       "26": "Нет, правда, куда??: Учредите 5000 Монетных Дворов.",
       "27": "Никто не остановит нас???: Учредите 10,000 Монетных Дворов.",
       "28": "Ну что ж, время чеканить: Учредите 20,000 Монетных Дворов.",
@@ -636,13 +686,13 @@
       "286": "... когда ТЫ и есть рынок: Купите 1 Миллиард инвестиций.",
       "287": "Офисная зона: Купите 10 000 000 принтеров.",
       "288": "Чтоб лежало у меня на столе к субботе: Купите 100 000 000 принтеров.",
-      "289": "Было бы слааавно, если бы ты это сделал: Купите 5 Миллиардов принтеров",
+      "289": "If you could do that, it'd be greaaaat: Purchase 5 Billion Printers.",
       "290": "Состояние: Только с чеканки: Купите 100 000 000 Монетных Дворов.",
       "291": "Шоколадных монеток не желаете? Купите 1 Миллиард монетных дворов.",
-      "292": "Чистый и сильный звон, неважно от чего: Купите 20 Миллиардов монетных дворов",
-      "293": "Альфа Регенерация: Создайте 1 миллиард алхимий.",
-      "294": "Синтезис Цитринитас: Создайте 20 миллиардов алхимий.",
-      "295": "Философский Камень: Создайте 1 триллион алхимий.",
+      "292": "A good clean feeling, no matter what: Purchase 20 Billion Coin Mints.",
+      "293": "Alpha Regeneration: Create 1 Billion Alchemies.",
+      "294": "Citrinitas Synthesis: Create 20 Billion Alchemies.",
+      "295": "The Philosopher's Stone: Create 1 Trillion Alchemies.",
       "296": "Престиж...?: Престиж хотя бы ради 1e10 000 000 Алмазов.",
       "297": "Блести ярко как...: Престиж хотя бы ради 1e10 000 000 000 [1e1e10] алмазов.",
       "298": "Алмазы вечны: Престиж хотя бы ради 1e10 000 000 000 000 [1e1e13] алмазов.",
@@ -3484,7 +3534,10 @@
       "shopPanthemaCubes": "+{{amount}} Cubes! (+{{amount2}} per Cube level)",
       "shopPanthemaAscensionSpeed": "+{{amount}} Ascension Speed! (+{{amount2}} per Speed level)",
       "shopPanthemaQuarks": "+{{amount}} Quarks! (+{{amount2}} per Quark level)",
-      "shopPanthemaInfinityMeta": "+{{amount}} bonuses for all other Upgrade Levels! (+1% per Infinity level)"
+      "shopPanthemaInfinityMeta": "+{{amount}} bonuses for all other Upgrade Levels! (+1% per Infinity level)",
+      "shopPanthemaAmbrosiaGeneration": "+{{amount}} Ambrosia Bar Points! (+{{amount2}} per Ambrosia Generation level)",
+      "shopPanthemaAmbrosiaLuck": "+{{amount}} Ambrosia Luck! (+{{amount2}} per Ambrosia Luck level)",
+      "shopPanthemaRedLuck": "+{{amount}} Red Luck! (+{{amount2}} per Red Luck level)"
     },
     "names": {
       "offeringPotion": "Offering Potion",
@@ -5988,7 +6041,7 @@
         "ScalingReward1": "+100% increase to <<yellow|ALL Cube>> gain",
         "ScalingReward2": "15 Achievement Points!",
         "UniqueReward1": "1-ое - +12% <<gold|Золотых Кварков>>!",
-        "UniqueReward2": "1st - A free <<var(--blueberry-box-color)|Blueberry>>! Also, unlock <<var(--amber-text-color)|Ambrosia>>!",
+        "UniqueReward2": "1st - Three free <<var(--blueberry-box-color)|Blueberries>>! Also, unlock <<var(--amber-text-color)|Ambrosia>>!",
         "UniqueReward3": "10th - A new <<orchid|Quark>> upgrade!",
         "UniqueReward4": "15th - +5% <<lime|Ambrosia Luck>> for free!",
         "UniqueReward5": "15th - A new <<orange|Quark Shop>> upgrade for NOT FREE!"
@@ -6765,6 +6818,7 @@
       "NoAmbrosiaUpgrades": "EXALT - No Ambrosia Effects:",
       "Cookie5": "Улучшение Печенек 5 (Cx27):",
       "BlueberryUpgrade": "Ambrosia - The Eight Leaf Clover:",
+      "BrickOfLead": "Ambrosia - Brick of Lead:",
       "HorseShoeTalisman": "Horse Shoe Talisman Inscription Bonus:",
       "Event": "Бонус События:",
       "Total": "Общий Множитель Добавляемой Удачи Амброзии:"
@@ -6780,6 +6834,7 @@
       "ShopUpgrade2": "Quark Upgrade - Ambrosia Luck II:",
       "ShopUpgrade3": "Quark Upgrade - Ambrosia Luck III:",
       "ShopUpgrade4": "Quark Upgrade - Ambrosia Luck IV:",
+      "Jack": "The Jack of all Trades:",
       "SingularityUpgrades": "Golden Quark Upgrades (I-IV):",
       "OcteractUpgrades": "Улучшения Октерактов (I-IV):",
       "AmbrosiaLuck1": "Модуль Амброзии: Удача I:",
@@ -6821,6 +6876,7 @@
       "ShopUpgrade2": "Quark Upgrade - Ambrosia Generation II:",
       "ShopUpgrade3": "Quark Upgrade - Ambrosia Generation III:",
       "ShopUpgrade4": "Quark Upgrade - Ambrosia Generation IV:",
+      "Jack": "The Jack of all Trades:",
       "SingularityUpgrades": "Golden Quark Upgrades (I-IV):",
       "OcteractUpgrades": "Улучшения Октерактов (I-IV):",
       "PatreonBonus": "Ambrosia - Shameless, Ambrosial Subscriber Advertisement:",
@@ -6952,6 +7008,7 @@
       "ShopRedLuck1": "Игральная Кость Асмодеуса Низкого Класса:",
       "ShopRedLuck2": "Игральная Кость Асмодеуса:",
       "ShopRedLuck3": "Игральная Кость Асмодеуса Высокого Класса:",
+      "Jack": "The Jack of all Trades:",
       "Viscount": "Привилегии Висконта:",
       "HorseShoeRune": "Horse Shoe Rune Bonus:",
       "HorseShoeTalisman": "Horse Shoe Talisman Bonus:",
