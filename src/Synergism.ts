@@ -2292,23 +2292,23 @@ export const format = (
       return `E${format(power, 3)}`
     }
     accuracy = power === 2 && accuracy > 2 ? 2 : accuracy
+
+    const safeFloor = (f: number) => Math.floor(f + 1e-7)
+
     if (power >= 6 || power < 0) {
       accuracy = accuracy < 2 ? 2 : accuracy
       // Makes the power group 3 with commas
       const mantissaLook = (
-        Math.floor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)
+        safeFloor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)
       ).toLocaleString(undefined, locOpts)
       const powerLook = padEvery(power.toString())
       // returns format (1.23e456,789)
       return `${mantissaLook}e${powerLook}`
     }
     mantissa = mantissa * Math.pow(10, power)
-    if (mantissa - Math.floor(mantissa) > 0.9999999) {
-      mantissa = Math.ceil(mantissa)
-    }
 
     return (
-      Math.floor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)
+      safeFloor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)
     ).toLocaleString(undefined, {
       minimumFractionDigits: accuracy,
       maximumFractionDigits: accuracy
