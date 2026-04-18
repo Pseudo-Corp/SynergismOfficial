@@ -199,23 +199,23 @@
       },
       "ambrosiaFreeLuckUpgrades": {
         "name": "The Green, Green Grass of Ambrosia",
-        "description": "For all 'Luck' type Quark Upgrades, gain +1 free level per level! These will have a corresponding icon.",
-        "effect": "+{{amount}} free levels for 'Luck' type Quark Upgrades"
+        "description": "每级增加1级“神肴之运”类型的夸克升级免费等级！这些升级将会有一个相应的图标。",
+        "effect": "“神肴之运”类型的夸克升级免费等级增加{{amount}}。"
       },
       "ambrosiaFreeGenerationUpgrades": {
         "name": "Time in a Bottle",
-        "description": "For all 'Generation' type Quark Upgrades, gain +1 free level per level! These will have a corresponding icon.",
-        "effect": "+{{amount}} free levels for 'Generation' type Quark Upgrades"
+        "description": "每级增加1级“神肴进度条产生”类型的夸克升级免费等级！这些升级将会有一个相应的图标。",
+        "effect": "“神肴进度条产生”类型的夸克升级免费等级增加{{amount}}。"
       },
       "ambrosiaFreeRedLuckUpgrades": {
         "name": "The Gambler",
-        "description": "For all 'Red Luck' type Quark Upgrades, gain +1 free level per level! These will have a corresponding icon.",
-        "effect": "+{{amount}} free levels for 'Red Luck' type Quark Upgrades"
+        "description": "每级增加1级“红运”类型的夸克升级免费等级！这些升级将会有一个相应的图标。",
+        "effect": "“红运”类型的夸克升级免费等级增加{{amount}}。"
       },
       "ambrosiaFreeQuarkUpgrades": {
         "name": "Mechanical - the 1981 Cut",
-        "description": "For all 'Quark' type Quark Upgrades, gain +0.1 free levels per level! These will have a corresponding icon.",
-        "effect": "+{{amount}} free levels for 'Quark' type Quark Upgrades"
+        "description": "每级增加0.1级“夸克”类型的夸克升级免费等级！这些升级将会有一个相应的图标。",
+        "effect": "“夸克”类型的夸克升级免费等级增加{{amount}}。"
       }
     },
     "loadouts": {
@@ -369,29 +369,29 @@
         "effect": "蓝莓增加<<lightblue|{{amount}}>>个"
       },
       "redAmbrosiaFreeAccumulator": {
-        "name": "Red Digital Octeract Accumulator Accumulator",
-        "description": "The Digital Octeract Accumulator (DOA) is mighty powerful. Did you know you used to be able to get free levels from events? Now you can get it whenever!",
-        "effect": "The Digital Octeract Accumulator gains <<white|{{levels}}>> free levels per usage of code 'daily' <br> This upgrade can get up to <<white|{{cap}}>> free levels until fully saturated."
+        "name": "红色“八进制数码累加器”累加器",
+        "description": "八进制数码累加器非常强大。你知道以前可以通过活动来获取免费等级吗？现在你可以直接获得它了！",
+        "effect": "每次使用“每日”代码，使八进制数码累加器的免费等级增加<<white|{{levels}}>>，最多增加<<white|{{cap}}>>级。"
       },
       "freeOfferingUpgrades": {
         "name": "The Feast and the Famine",
-        "description": "Gain +1 free Offering level for Quark Upgrades per level!",
-        "effect": "+<<orange|{{amount}}>> free Offering levels"
+        "description": "每级增加1级“祭品”类型的夸克升级免费等级！",
+        "effect": "“祭品”类型的夸克升级免费等级增加<<orange|{{amount}}>>。"
       },
       "freeObtainiumUpgrades": {
         "name": "Weird Science",
-        "description": "Gain +1 free Obtainium level for Quark Upgrades per level!",
-        "effect": "+<<pink|{{amount}}>> free Obtainium levels"
+        "description": "每级增加1级“难得素”类型的夸克升级免费等级！",
+        "effect": "“难得素”类型的夸克升级免费等级增加<<pink|{{amount}}>>。"
       },
       "freeCubeUpgrades": {
         "name": "Livin' in a Box",
-        "description": "Gain +1 free Cube level for Quark Upgrades per level!",
-        "effect": "+<<white|{{amount}}>> free Cube levels"
+        "description": "每级增加1级“方盒”类型的夸克升级免费等级！",
+        "effect": "“方盒”类型的夸克升级免费等级增加<<white|{{amount}}>>。"
       },
       "freeSpeedUpgrades": {
         "name": "The Distance",
-        "description": "Gain +1 free Speed level for Quark Upgrades per level!",
-        "effect": "+<<yellow|{{amount}}>> free Speed levels"
+        "description": "每级增加1级“速度”类型的夸克升级免费等级！",
+        "effect": "“速度”类型的夸克升级免费等级增加<<yellow|{{amount}}>>。"
       }
     }
   },
@@ -422,7 +422,7 @@
       "22": "国家宝藏：建立1个铸币厂。",
       "23": "有竞争了！：建立10个铸币厂。",
       "24": "山寨货而已！：建立100个铸币厂。",
-      "25": "Why do we need all these?: Establish 333 Coin Mints.",
+      "25": "我们要这么多做什么？：建立333个铸币厂。",
       "26": "不是，说真的，为什么？？：建立5000个铸币厂。",
       "27": "就没人能阻止我们吗？？？：建立10000个铸币厂。",
       "28": "好吧，该铸币了：建立20000个铸币厂。",
@@ -686,13 +686,13 @@
       "286": "……毕竟您已经是股市本尊了：购买十亿(1e9)个投资。",
       "287": "办公空间：购买10000000(1e7)台打印机。",
       "288": "周六前要到货：购买100000000(1e8)台打印机。",
-      "289": "If you could do that, it'd be greaaaat: Purchase 5 Billion Printers.",
+      "289": "能做到的话就太棒棒啦：购买五十亿(5e9)台打印机。",
       "290": "铸就完美：建立100000000(1e8)个铸币厂。",
       "291": "一家之铸：建立十亿(1e9)个铸币厂。",
-      "292": "A good clean feeling, no matter what: Purchase 20 Billion Coin Mints.",
-      "293": "Alpha Regeneration: Create 1 Billion Alchemies.",
-      "294": "Citrinitas Synthesis: Create 20 Billion Alchemies.",
-      "295": "The Philosopher's Stone: Create 1 Trillion Alchemies.",
+      "292": "心无挂碍：建立二百亿(2e10)个铸币厂。",
+      "293": "源始再造：创造十亿(1e9)个炼金术。",
+      "294": "黄金炼成术：创造二百亿(2e10)个炼金术。",
+      "295": "点金石：创造一万亿(1e12)个炼金术。",
       "296": "转生……？：转生获得至少1e10000000个钻石。",
       "297": "跟它一样亮：转生获得至少1e10000000000[1e1e10]个钻石。",
       "298": "永恒钻石：转生获得至少1e10000000000000[1e1e13]个钻石。",
@@ -3534,10 +3534,10 @@
       "shopPanthemaCubes": "方盒获取数量增加{{amount}}！(每级方盒增加{{amount2}})",
       "shopPanthemaAscensionSpeed": "飞升的速度增加{{amount}}！(每级速度增加{{amount2}})",
       "shopPanthemaQuarks": "夸克获取数量增加{{amount}}！(每级夸克增加{{amount2}})",
-      "shopPanthemaInfinityMeta": "所有其他类型加成增加{{amount}}！(每级无限增加1%)",
-      "shopPanthemaAmbrosiaGeneration": "+{{amount}} Ambrosia Bar Points! (+{{amount2}} per Ambrosia Generation level)",
-      "shopPanthemaAmbrosiaLuck": "+{{amount}} Ambrosia Luck! (+{{amount2}} per Ambrosia Luck level)",
-      "shopPanthemaRedLuck": "+{{amount}} Red Luck! (+{{amount2}} per Red Luck level)"
+      "shopPanthemaInfinityMeta": "所有其他类型加成增加{{amount}}！(每级“无限公司”免费等级增加1%)",
+      "shopPanthemaAmbrosiaGeneration": "神肴进度条点数增加{{amount}}！(每级神肴进度条产生增加{{amount2}})",
+      "shopPanthemaAmbrosiaLuck": "神肴之运增加{{amount}}！(每级神肴之运增加{{amount2}})",
+      "shopPanthemaRedLuck": "红运增加{{amount}}！(每级红运增加{{amount2}})"
     },
     "names": {
       "offeringPotion": "祭品药剂",
@@ -6041,7 +6041,7 @@
         "ScalingReward1": "使<<yellow|所有类型的方盒、立方和方块获取数量>>增加100%",
         "ScalingReward2": "15成就点数！",
         "UniqueReward1": "第1次 - 使<<gold|金夸克>>获取数量增加12%！",
-        "UniqueReward2": "1st - Three free <<var(--blueberry-box-color)|Blueberries>>! Also, unlock <<var(--amber-text-color)|Ambrosia>>!",
+        "UniqueReward2": "第1次 - 免费获得3颗<<var(--blueberry-box-color)|蓝莓>>！并且解锁<<var(--amber-text-color)|神肴>>！",
         "UniqueReward3": "第10次 - 新的<<orchid|夸克商店>>升级！",
         "UniqueReward4": "第15次 - 使<<lime|神肴之运>>免费增加5%！",
         "UniqueReward5": "第15次 - 新的<<orange|夸克商店>>升级！当然，不免费。"
@@ -6834,7 +6834,7 @@
       "ShopUpgrade2": "夸克升级 - 神肴之运 II：",
       "ShopUpgrade3": "夸克升级 - 神肴之运 III：",
       "ShopUpgrade4": "夸克升级 - 神肴之运 IV：",
-      "Jack": "The Jack of all Trades:",
+      "Jack": "全能高手：",
       "SingularityUpgrades": "金夸克升级(I-IV)：",
       "OcteractUpgrades": "八阶方块升级(I-IV)：",
       "AmbrosiaLuck1": "神肴 - 神肴之运模块 I：",
@@ -6876,7 +6876,7 @@
       "ShopUpgrade2": "夸克升级 - 神肴产生 II：",
       "ShopUpgrade3": "夸克升级 - 神肴产生 III：",
       "ShopUpgrade4": "夸克升级 - 神肴产生 IV：",
-      "Jack": "The Jack of all Trades:",
+      "Jack": "全能高手：",
       "SingularityUpgrades": "金夸克升级(I-IV)：",
       "OcteractUpgrades": "八阶方块升级(I-IV)：",
       "PatreonBonus": "神肴 - 厚颜的神肴订阅广告：",
@@ -7008,7 +7008,7 @@
       "ShopRedLuck1": "赌博魔神的低阶骰子：",
       "ShopRedLuck2": "赌博魔神的骰子：",
       "ShopRedLuck3": "赌博魔神的高阶骰子：",
-      "Jack": "The Jack of all Trades:",
+      "Jack": "全能高手：",
       "Viscount": "成为子爵的加成：",
       "HorseShoeRune": "马蹄铁符文加成：",
       "HorseShoeTalisman": "马蹄铁护身符加成：",
