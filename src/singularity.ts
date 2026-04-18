@@ -146,7 +146,7 @@ export type SingularityDataKeys = keyof GoldenQuarkUpgradeRewards
 
 const overclockPerks = [50, 60, 75, 100, 125, 150, 175, 200, 225, 250]
 const tokenInheritanceTokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
-const singularityPenaltyThresholds = [11, 26, 37, 51, 101, 151, 201, 216, 230, 270]
+const singularityPenaltyThresholds = [11, 26, 37, 51, 101, 151, 201, 216, 231, 270]
 
 export const updateSingularityPenalties = (): void => {
   const singularityCount = player.singularityCount
@@ -255,7 +255,7 @@ export const updateSingularityPenalties = (): void => {
         ${platonic}
         ${hepteract}
         ${
-    singularityCount >= 270
+    singularityCount >= 270 + calculateSingularityReductions()
       ? i18next.t('singularity.penalties.penaltySmooth')
       : i18next.t('singularity.penalties.penaltyRough', {
         num: format(
@@ -2713,7 +2713,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     levels: [1, 9, 25, 49, 81, 121, 169, 196, 225, 256, 289],
     description: (n: number, levels: number[]) => {
-      for (let i = levels.length - 1; i > 0; i--) {
+      for (let i = levels.length - 1; i >= 0; i--) {
         if (n >= levels[i]) {
           const effectText = i18next.t('singularity.perks.bringToLife.default', {
             amount: format(2 - 0.01 - i * 0.009, 3, true)
@@ -2731,7 +2731,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     levels: [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277],
     description: (n: number, levels: number[]) => {
-      for (let i = 15; i > 0; i--) {
+      for (let i = 15; i >= 0; i--) {
         if (n >= levels[i]) {
           return i18next.t('singularity.perks.tokenInheritance.default', {
             amount: tokenInheritanceTokens[i]
@@ -2882,10 +2882,11 @@ export const singularityPerks: SingularityPerk[] = [
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
         if (n >= levels[i]) {
-          return i18next.t('singularity.perks.evenMoreQuarks.default', {
+          const effectText = i18next.t('singularity.perks.evenMoreQuarks.default', {
             stack: i + 1,
             inc: format(100 * (Math.pow(1.05, i + 1) - 1), 2)
           })
+          return `${effectText}<br><b>${currentSingularityText()}</b>`
         }
       }
 

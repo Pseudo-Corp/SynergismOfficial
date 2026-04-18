@@ -1358,7 +1358,7 @@ export const buyAmbrosiaUpgradeLevel = async (
     if (buy === -1) {
       ambrosiaBudget = player.ambrosia
     } else if (buy <= 0) {
-      return Alert(i18next.t('octeract.buyLevel.cancelPurchase'))
+      return Alert(i18next.t('ambrosia.cancelPurchase'))
     } else {
       ambrosiaBudget = buy
     }
@@ -1370,7 +1370,7 @@ export const buyAmbrosiaUpgradeLevel = async (
   }
 
   if (maxPurchasable === 0) {
-    return Alert(i18next.t('octeract.buyLevel.alreadyMax'))
+    return Alert(i18next.t('ambrosia.moduleAlreadyMaxed'))
   }
 
   while (maxPurchasable > 0) {
@@ -1397,11 +1397,11 @@ export const buyAmbrosiaUpgradeLevel = async (
   }
 
   if (purchased === 0) {
-    return Alert(i18next.t('octeract.buyLevel.cannotAfford'))
+    return Alert(i18next.t('ambrosia.notEnoughAmbrosia'))
   }
   if (purchased > 1) {
     return Alert(
-      i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) })
+      i18next.t('ambrosia.multiBuy', { n: format(purchased) })
     )
   }
 }
