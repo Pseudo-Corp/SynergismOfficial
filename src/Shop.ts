@@ -1787,7 +1787,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
+    upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck]
   },
   shopRedLuck3: {
     name: () => i18next.t('shop.names.shopRedLuck3'),
@@ -1815,7 +1815,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
+    upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck]
   },
   shopCashGrabUltra: {
     name: () => i18next.t('shop.names.shopCashGrabUltra'),
