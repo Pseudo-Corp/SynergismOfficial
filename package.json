@@ -77,7 +77,9 @@
     "electron:build": "npm run electron:build:assets && electron-builder --win --mac --linux",
     "electron:build:win": "npm run electron:build:assets && electron-builder --win",
     "electron:build:mac": "npm run electron:build:assets && electron-builder --mac",
-    "electron:build:linux": "npm run electron:build:assets && electron-builder --linux"
+    "electron:build:linux": "npm run electron:build:assets && electron-builder --linux",
+    "cap:build": "npm run build:esbuild -- --define:PLATFORM=\\\"mobile\\\" --outfile=\"./dist/dist/out.js\"",
+    "cap:sync": "npm run electron:cp && npm run cap:build && npx cap sync"
   },
   "repository": {
     "type": "git",

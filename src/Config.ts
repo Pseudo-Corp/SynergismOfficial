@@ -1,6 +1,6 @@
 declare const PROD: boolean | undefined
 declare const DEV: boolean | undefined
-declare const PLATFORM: 'steam' | undefined
+declare const PLATFORM: 'steam' | 'mobile' | undefined
 
 export const version = '4.2.1 April 8, 2026: Steam!!!'
 
