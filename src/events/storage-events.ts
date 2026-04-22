@@ -15,6 +15,10 @@ export const storageGetItem = (key: string) => {
   return event.value
 }
 
+export const storageSetItem = (key: string, value: string) => {
+  bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key, value } }))
+}
+
 export const initMobileStorage = async () => {
   const { Preferences } = await import('@capacitor/preferences')
   const { keys } = await Preferences.keys()

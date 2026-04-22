@@ -1,8 +1,7 @@
 import i18next, { type Resource } from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { prod } from './Config'
-import { bus } from './events/bus'
-import { storageGetItem } from './events/storage-events'
+import { storageGetItem, storageSetItem } from './events/storage-events'
 import ColorTextPlugin from './Plugins/ColorText'
 import StatSymbolsPlugin from './Plugins/StatSymbols'
 import { Confirm } from './UpdateHTML'
@@ -76,7 +75,7 @@ function buildLanguageButton (langID: string, name: string, flag: string) {
 
     // i18next.addResourceBundle
     await i18next.changeLanguage(langID)
-    bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'language', value: langID } }))
+    storageSetItem('language', langID)
 
     const shouldReload = await Confirm(i18next.t('general.languageChange'))
 

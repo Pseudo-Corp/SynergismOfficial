@@ -1,7 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { bus } from './events/bus'
-import { storageGetItem } from './events/storage-events'
+import { storageGetItem, storageSetItem } from './events/storage-events'
 import { updateIconsFromSprites } from './SpriteSheets'
 import { player } from './Synergism'
 
@@ -10,7 +9,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
   const body = document.body
 
   if (change) {
-    bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'theme', value: `${themeNumber}` } }))
+    storageSetItem('theme', `${themeNumber}`)
     body.style.setProperty('--transition', '750ms')
     body.style.setProperty('--transition-extra', '600ms')
   } else {

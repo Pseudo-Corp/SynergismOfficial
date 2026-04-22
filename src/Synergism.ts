@@ -186,8 +186,7 @@ import {
 import { dev, lastUpdated, platform, prod, testing, ticksPerSecond, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
-import { bus } from './events/bus'
-import { initMobileStorage, storageGetItem } from './events/storage-events'
+import { initMobileStorage, storageGetItem, storageSetItem } from './events/storage-events'
 import { autobuyAnts } from './Features/Ants'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { calculateImmortalELOGain } from './Features/Ants/AntSacrifice/Rewards/ELO/ImmortalELO/lib/calculate'
@@ -1277,7 +1276,7 @@ export const saveSynergy = (button?: boolean) => {
   const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
   if (save !== null) {
-    bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'Synergysave2', value: save } }))
+    storageSetItem('Synergysave2', save)
   } else {
     void Alert(i18next.t('testing.errorSaving'))
     return false
@@ -5066,7 +5065,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
       }
 
       localStorage.clear()
-      bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'Synergysave2', value: saveString } }))
+      storageSetItem('Synergysave2', saveString)
       Alert(i18next.t('main.transferredFromLZ'))
     }
 
@@ -5252,7 +5251,7 @@ window.addEventListener('load', async () => {
 
   const symbolsEnabled = storageGetItem('statSymbols')
   if (!symbolsEnabled) {
-    bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'statSymbols', value: 'true' } }))
+    storageSetItem('statSymbols', 'true')
     enableStatSymbols()
   } else if (symbolsEnabled === 'true') {
     enableStatSymbols()
