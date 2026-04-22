@@ -29,6 +29,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^8.3.1",
     "@types/cloudflare-turnstile": "^0.2.2",
     "@types/conf": "^2.1.0",
