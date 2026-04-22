@@ -195,7 +195,7 @@
       "ambrosiaBrickOfLead": {
         "name": "铅砖",
         "description": "我总将它藏在帽子里。每级使神肴进度条获取速度减少2%，但作为补偿可以获得神肴之运！每级还会使奇点时长减少1%。",
-        "effect": "神肴进度条获取速度x{{blueberryGen}}。神肴之运增加{{luckMult}}。奇点时长x{{singularitySpeed}}"
+        "effect": "神肴进度条点数需求x{{blueberryGen}}。神肴之运增加{{luckMult}}。奇点时长x{{singularitySpeed}}"
       },
       "ambrosiaFreeLuckUpgrades": {
         "name": "绿而再绿的神肴绿草",
