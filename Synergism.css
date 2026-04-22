@@ -3,9 +3,17 @@ body {
     transition: background-color var(--transition), border-color var(--transition);
 }
 
+button, a, input, select {
+    touch-action: manipulation;
+}
+
 html {
     min-width: 1250px;
     position: relative;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
     font-family:
         -apple-system,
         BlinkMacSystemFont,

@@ -3,6 +3,8 @@ import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { type AutoChallengeStates, getChallengeConditions, resetChallengeSweep } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } from './Corruptions'
+import { bus } from './events/bus'
+import { storageGetItem } from './events/storage-events'
 import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
 import { researchOrderByCost, roombaResearchEnabled } from './Research'
@@ -984,10 +986,10 @@ export const toggleStatSymbol = async () => {
   if (!confirmation) {
     return
   } else {
-    if (localStorage.getItem('statSymbols') === 'true') {
-      localStorage.setItem('statSymbols', 'false')
+    if (storageGetItem('statSymbols') === 'true') {
+      bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'statSymbols', value: 'false' } }))
     } else {
-      localStorage.setItem('statSymbols', 'true')
+      bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'statSymbols', value: 'true' } }))
     }
   }
   location.reload()

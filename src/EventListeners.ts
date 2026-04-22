@@ -32,6 +32,7 @@ import { challengeDisplay, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
+import { bus } from './events/bus'
 import { buyAllAntMasteries, buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
 import { antProducerData } from './Features/Ants/AntProducers/data/data'
 import { buyAllAntProducers, buyAntProducers } from './Features/Ants/AntProducers/lib/buy-producer'
@@ -1682,7 +1683,7 @@ TODO: Fix this entire tab it's utter shit
 
     if (confirmed) {
       element.checked = !element.checked
-      localStorage.setItem('copyToClipboard', '')
+      bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'copyToClipboard', value: '' } }))
     } else {
       localStorage.removeItem('copyToClipboard')
     }

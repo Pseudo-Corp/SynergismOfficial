@@ -10,6 +10,8 @@ import {
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
 import { testing, version } from './Config'
+import { bus } from './events/bus'
+import { storageGetItem } from './events/storage-events'
 import { addTimers } from './Helper'
 import { getFinalHepteractCap, hepteracts } from './Hepteracts'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
@@ -279,7 +281,7 @@ export const exportSynergism = async (
     return
   }
 
-  const saveString = localStorage.getItem('Synergysave2')
+  const saveString = storageGetItem('Synergysave2')
 
   if (!saveString) {
     return Alert('How?')
@@ -385,7 +387,7 @@ export const importSynergism = (input: string | null, reset = false) => {
       return
     }
 
-    localStorage.setItem('Synergysave2', saveString)
+    bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'Synergysave2', value: saveString } }))
     reloadShit(reset)
     syncSteamAchievements()
     return
@@ -1129,11 +1131,13 @@ const dailyCodeReward = () => {
 }
 
 const handleLastModified = (lastModified: number) => {
-  const localStorageFirstPlayed = localStorage.getItem('firstPlayed')
+  const localStorageFirstPlayed = storageGetItem('firstPlayed')
   const lastModifiedDate = new Date(lastModified)
 
   if (localStorageFirstPlayed === null) {
-    localStorage.setItem('firstPlayed', lastModifiedDate.toISOString())
+    bus.dispatchEvent(
+      new CustomEvent('storage:save', { detail: { key: 'firstPlayed', value: lastModifiedDate.toISOString() } })
+    )
     return
   }
 
@@ -1144,6 +1148,6 @@ const handleLastModified = (lastModified: number) => {
   // for the new file, set the oldest date to the last modified.
   if (localFirstPlayedDate.getTime() > lastModifiedDate.getTime()) {
     player.firstPlayed = lastModifiedDate.toISOString()
-    localStorage.setItem('firstPlayed', player.firstPlayed)
+    bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'firstPlayed', value: player.firstPlayed } }))
   }
 }

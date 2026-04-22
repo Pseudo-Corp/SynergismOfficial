@@ -2,6 +2,8 @@ import i18next from 'i18next'
 import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { platform } from './Config'
+import { bus } from './events/bus'
+import { storageGetItem } from './events/storage-events'
 import { pressedKeys } from './Hotkeys'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
@@ -420,11 +422,18 @@ class TabRow extends HTMLDivElement {
   }
 
   #saveOrder () {
-    localStorage.setItem(TAB_ORDER_KEY, JSON.stringify(this.#list.map((tab) => tab.id)))
+    bus.dispatchEvent(
+      new CustomEvent('storage:save', {
+        detail: {
+          key: TAB_ORDER_KEY,
+          value: JSON.stringify(this.#list.map((tab) => tab.id))
+        }
+      })
+    )
   }
 
   #restoreOrder () {
-    const saved = localStorage.getItem(TAB_ORDER_KEY)
+    const saved = storageGetItem(TAB_ORDER_KEY)
     if (!saved) return
 
     try {

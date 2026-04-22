@@ -1,6 +1,8 @@
 import i18next, { type Resource } from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { prod } from './Config'
+import { bus } from './events/bus'
+import { storageGetItem } from './events/storage-events'
 import ColorTextPlugin from './Plugins/ColorText'
 import StatSymbolsPlugin from './Plugins/StatSymbols'
 import { Confirm } from './UpdateHTML'
@@ -22,7 +24,7 @@ const languageCache = new Map<string, { translation: Resource }>()
 
 export const init = async (): Promise<void> => {
   const resources: Record<string, Resource> = {}
-  const language = localStorage.getItem('language') ?? 'en'
+  const language = storageGetItem('language') ?? 'en'
 
   const response = await fetch(`./translations/${language}.json`)
     .catch(() => fetch(`https://synergism.cc/translations/${language}.json`))
@@ -74,7 +76,7 @@ function buildLanguageButton (langID: string, name: string, flag: string) {
 
     // i18next.addResourceBundle
     await i18next.changeLanguage(langID)
-    localStorage.setItem('language', langID)
+    bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'language', value: langID } }))
 
     const shouldReload = await Confirm(i18next.t('general.languageChange'))
 

@@ -7,6 +7,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
 import { isSynergismCC, platform } from './Config'
 import { updateGlobalsIsEvent } from './Event'
+import { storageGetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
 import { updateLotusDisplay } from './purchases/ConsumablesTab'
@@ -1265,7 +1266,7 @@ function handleCloudSaves () {
     uploadButton.innerHTML = '<span class="spinner"></span> Uploading...'
 
     const name = saveFilename()
-    const save = localStorage.getItem('Synergysave2')
+    const save = storageGetItem('Synergysave2')
     assert(save !== null, 'no save')
 
     const fd = new FormData()
@@ -1432,7 +1433,7 @@ async function handleSteamCloudSave () {
     uploadBtn.disabled = true
     uploadBtn.textContent = i18next.t('account.steamCloud.uploading')
 
-    const localSave = localStorage.getItem('Synergysave2')
+    const localSave = storageGetItem('Synergysave2')
     if (!localSave) {
       Alert(i18next.t('account.steamCloud.noLocalSave'))
       uploadBtn.disabled = false

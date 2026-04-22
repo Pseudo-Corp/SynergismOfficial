@@ -1,5 +1,7 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { bus } from './events/bus'
+import { storageGetItem } from './events/storage-events'
 import { updateIconsFromSprites } from './SpriteSheets'
 import { player } from './Synergism'
 
@@ -8,11 +10,11 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
   const body = document.body
 
   if (change) {
-    localStorage.setItem('theme', `${themeNumber}`)
+    bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'theme', value: `${themeNumber}` } }))
     body.style.setProperty('--transition', '750ms')
     body.style.setProperty('--transition-extra', '600ms')
   } else {
-    themeNumber = Number(localStorage.getItem('theme') ?? 1)
+    themeNumber = Number(storageGetItem('theme') ?? 1)
   }
 
   /* Full reset for easy out of order change */
@@ -324,7 +326,7 @@ export const settingAnnotation = () => {
 
 export const settingSymbols = () => {
   const symbolButton = DOMCacheGetOrSet('statSymbols')
-  const setting = localStorage.getItem('statSymbols')
+  const setting = storageGetItem('statSymbols')
   if (setting === 'true') {
     symbolButton.textContent = i18next.t('settings.statSymbols.enabled')
   } else {

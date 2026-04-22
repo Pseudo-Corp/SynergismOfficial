@@ -1,8 +1,12 @@
+import type { StorageRetrieveEvent } from './storage-events'
+
 interface GameEvents {
-  'my:placeholder:event:khafra:remove:this': CustomEvent
+  'storage:save': SynEvent<{ key: string; value: string }>
+  'storage:get': StorageRetrieveEvent
 }
 
-type TypedBus = Omit<EventTarget, 'addEventListener' | 'removeEventListener'> & {
+type TypedBus = Omit<EventTarget, 'addEventListener' | 'removeEventListener' | 'dispatchEvent'> & {
+  dispatchEvent(event: GameEvents[keyof GameEvents]): boolean
   addEventListener<K extends keyof GameEvents>(
     type: K,
     listener: (this: EventTarget, event: GameEvents[K]) => void,
@@ -16,3 +20,9 @@ type TypedBus = Omit<EventTarget, 'addEventListener' | 'removeEventListener'> & 
 }
 
 export const bus = new EventTarget() as TypedBus
+
+export class SynEvent<T> extends CustomEvent<T> {
+  constructor (type: string, details?: T) {
+    super(type, { detail: details })
+  }
+}

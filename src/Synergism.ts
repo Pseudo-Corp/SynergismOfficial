@@ -186,6 +186,8 @@ import {
 import { dev, lastUpdated, platform, prod, testing, ticksPerSecond, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
+import { bus } from './events/bus'
+import { initMobileStorage, storageGetItem } from './events/storage-events'
 import { autobuyAnts } from './Features/Ants'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { calculateImmortalELOGain } from './Features/Ants/AntSacrifice/Rewards/ELO/ImmortalELO/lib/calculate'
@@ -1275,7 +1277,7 @@ export const saveSynergy = (button?: boolean) => {
   const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
   if (save !== null) {
-    localStorage.setItem('Synergysave2', save)
+    bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'Synergysave2', value: save } }))
   } else {
     void Alert(i18next.t('testing.errorSaving'))
     return false
@@ -1335,7 +1337,7 @@ async function syncToSteamCloud (saveData: string) {
 }
 
 const loadSynergy = () => {
-  const saveString = localStorage.getItem('Synergysave2')
+  const saveString = storageGetItem('Synergysave2')
   const data = saveString ? JSON.parse(atob(saveString)) : null
   if (data && testing) {
     data.exporttest = false
@@ -5046,7 +5048,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
 
   disableHotkeys()
 
-  const saveObject = localStorage.getItem('Synergysave2')
+  const saveObject = storageGetItem('Synergysave2')
 
   if (saveObject) {
     const decompress = LZString.decompressFromBase64(saveObject)
@@ -5064,7 +5066,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
       }
 
       localStorage.clear()
-      localStorage.setItem('Synergysave2', saveString)
+      bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'Synergysave2', value: saveString } }))
       Alert(i18next.t('main.transferredFromLZ'))
     }
 
@@ -5231,7 +5233,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   }
 
   const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
-  saveType.checked = localStorage.getItem('copyToClipboard') !== null
+  saveType.checked = storageGetItem('copyToClipboard') !== null
 }
 
 window.addEventListener('load', async () => {
@@ -5244,9 +5246,13 @@ window.addEventListener('load', async () => {
     })
   }
 
-  const symbolsEnabled = localStorage.getItem('statSymbols')
+  if (platform === 'mobile') {
+    await initMobileStorage()
+  }
+
+  const symbolsEnabled = storageGetItem('statSymbols')
   if (!symbolsEnabled) {
-    localStorage.setItem('statSymbols', 'true')
+    bus.dispatchEvent(new CustomEvent('storage:save', { detail: { key: 'statSymbols', value: 'true' } }))
     enableStatSymbols()
   } else if (symbolsEnabled === 'true') {
     enableStatSymbols()
