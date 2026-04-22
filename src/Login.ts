@@ -1289,7 +1289,7 @@ function handleCloudSaves () {
       uploadButton.textContent = i18next.t('settings.cloud.uploadFailed')
     }).finally(() => {
       setTimeout(
-        (uploadButton_) => {
+        (uploadButton_: HTMLButtonElement) => {
           uploadButton_.disabled = false
           uploadButton_.textContent = originalText
         },
@@ -1316,7 +1316,7 @@ function handleCloudSaves () {
       transferButton.textContent = i18next.t('settings.cloud.transferFailed')
     }).finally(() => {
       setTimeout(
-        (transferButton_) => {
+        (transferButton_: HTMLButtonElement) => {
           transferButton_.disabled = false
           transferButton_.textContent = originalText
         },

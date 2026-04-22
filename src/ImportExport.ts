@@ -911,7 +911,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     return
   }
 
-  setTimeout((e) => e.textContent = '', 15000, el)
+  setTimeout((e: HTMLElement) => e.textContent = '', 15000, el)
 }
 
 export const addCodeSingularityPerkBonus = (): number => {
