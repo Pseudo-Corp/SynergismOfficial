@@ -1139,6 +1139,7 @@ export const player: Player = {
   ambrosiaRNG: 0,
   blueberryTime: 0,
   spentBlueberries: 0,
+  brickOfLeadStrength: 0,
 
   blueberryLoadouts: {
     1: {},

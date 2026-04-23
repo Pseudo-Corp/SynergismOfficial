@@ -1015,6 +1015,8 @@ export const playerSchema = z.object({
   // TODO: what type?
   blueberryLoadouts: z.record(integerStringSchema, z.any()).default(() => blankSave.blueberryLoadouts),
   blueberryLoadoutMode: z.string().default(() => blankSave.blueberryLoadoutMode),
+  
+  brickOfLeadStrength: z.number().default(() => blankSave.brickOfLeadStrength),
 
   ultimateProgress: z.number().optional(),
   ultimatePixels: z.number().optional(),

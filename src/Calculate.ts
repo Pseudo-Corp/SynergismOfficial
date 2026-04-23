@@ -1781,3 +1781,35 @@ export const calculateRedAmbrosiaOffering = () => {
     return 1
   }
 }
+
+export const calculateStrengthAmbrosiaBarPointSpeed = () => {
+  return Math.max(1, 1 + 0.005 * Math.log2(player.brickOfLeadStrength)**1.2)
+}
+
+export const calculateStrengthRedAmbrosiaBarPointSpeed = () => {
+  return Math.max(1, 1 + 0.0025 * Math.log2(player.brickOfLeadStrength)**1.2)
+}
+
+export const calculateStrengthBlueberries = () => {
+  if (player.brickOfLeadStrength >= 10_000_000) {
+    return 2
+  }
+  else if (player.brickOfLeadStrength >= 1_000) {
+    return 1
+  }
+  else {
+    return 0
+  }
+}
+
+export const calculateRequiredStrengthForBlueberry = () => {
+  if (player.brickOfLeadStrength >= 10_000_000) {
+    return Number.POSITIVE_INFINITY
+  }
+  if (player.brickOfLeadStrength >= 1_000) {
+    return 10_000_000 - player.brickOfLeadStrength
+  }
+  else {
+    return 1_000 - player.brickOfLeadStrength
+  }
+}

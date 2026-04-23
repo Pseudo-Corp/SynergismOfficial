@@ -539,6 +539,7 @@ export interface Player {
   blueberryTime: number
   ambrosiaRNG: number // DEPRECIATED, DO NOT USE
   spentBlueberries: number
+  brickOfLeadStrength: number
 
   blueberryLoadouts: Record<number, BlueberryOpt>
   blueberryLoadoutMode: BlueberryLoadoutMode

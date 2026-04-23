@@ -223,6 +223,8 @@ export const addTimers = (input: TimerInput, time = 0) => {
         const ambrosiaLuck = calculateAmbrosiaLuck()
         const baseBlueberryTime = calculateAmbrosiaGenerationSpeed()
         player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
+        player.brickOfLeadStrength += Math.floor(8 * G.ambrosiaTimer) / 8 * getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'strengthPerSecond')
+        
         G.ambrosiaTimer %= 0.125
 
         let timeToAmbrosia = calculateRequiredBlueberryTime()
