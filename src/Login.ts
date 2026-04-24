@@ -846,6 +846,8 @@ export const renderCaptcha = platform === 'steam'
       }
     }
   })
+  : platform === 'mobile'
+  ? () => {}
   : () => {
     const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
     const visible = captchaElements.find((el) => el.offsetParent !== null)

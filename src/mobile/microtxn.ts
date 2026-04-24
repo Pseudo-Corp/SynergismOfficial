@@ -53,44 +53,8 @@ function waitForDeviceReady () {
   })
 }
 
-function appStoreIdToLookupKey (appStoreId: string): string | null {
-  const product = coinProducts.find((p) => toAppStoreProductId(p.id) === appStoreId)
-  return product?.id ?? null
-}
-
 async function onTransactionApproved (transaction: CdvPurchase.Transaction): Promise<void> {
   if (transaction.platform !== CdvPurchase.Platform.APPLE_APPSTORE) {
-    return
-  }
-
-  const appleTxn = transaction as CdvPurchase.AppleAppStore.SKTransaction
-  const jws = appleTxn.jwsRepresentation
-  const productId = appleTxn.products[0]?.id
-
-  if (!jws || !productId) {
-    console.error('Apple transaction missing jwsRepresentation or productId', appleTxn)
-    return
-  }
-
-  const lookupKey = appStoreIdToLookupKey(productId)
-  if (!lookupKey) {
-    console.error(`No Stripe lookup key maps to ${productId}`)
-    return
-  }
-
-  const response = await fetch('https://synergism.cc/api/v1/apple/verify-transaction', {
-    method: 'POST',
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      lookupKey,
-      signedTransaction: jws
-    })
-  })
-
-  if (!response.ok) {
-    const { error } = await response.json().catch(() => ({ error: `HTTP ${response.status}` })) as { error: string }
-    Notification(i18next.t('mobile.purchases.verifyFailed', { error }))
     return
   }
 
