@@ -1,4 +1,5 @@
 import { platform } from '../Config'
+import { rewardVideo } from '../mobile/ads'
 import { format } from '../Synergism'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
@@ -32,6 +33,22 @@ const clickHandler = async (e: HTMLElementEventMap['click']) => {
 }
 
 const initializeProductPage = memoize(() => {
+
+  let advertSection = ''
+  if (platform === 'mobile') {
+    advertSection = `<section class="pseudoCoinAdvert">
+    <div>
+      <img class="pseudoCoinImage alt="Advert for PseudoCoins" src="./Pictures/AdvertCoins.png />
+      <p class="pseudoCoinText">
+        Watch an advert for 5 free PseudoCoins!
+      </p>
+      <button data-id="advert" data-name="rewarded advertisement" class="pseudoCoinButton">
+        WATCH AD
+      </button>
+    </div>
+    </section>`
+  }
+
   productContainer!.innerHTML = coinProducts.map((product) => (`
     <section class="pseudoCoinContainer" key="${product.id}">
       <div>
@@ -44,13 +61,18 @@ const initializeProductPage = memoize(() => {
         </button>
       </div>
     </section>
-  `)).join('')
+  `)).join('') + advertSection
 
   productContainer!.style.display = 'grid'
 
   document.querySelectorAll<HTMLButtonElement>('.pseudoCoinContainer > div > button[data-id]').forEach((element) => {
     element.addEventListener('click', clickHandler)
   })
+
+  if (platform === 'mobile') {
+    document.querySelector<HTMLButtonElement>('.pseudoCoinAdvert > div > button[data-id="advert"]')!.addEventListener('click', rewardVideo)
+  }
+
 })
 
 export const clearProductPage = () => {

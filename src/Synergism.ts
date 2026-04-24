@@ -5249,7 +5249,7 @@ window.addEventListener('load', async () => {
     await initMobileStorage()
     const [{ bindMobileFormHandlers }, { initMobilePurchases }] = await Promise.all([
       import('./mobile/auth'),
-      import('./mobile/microtxn')
+      import('./mobile/microtxn'),
     ])
     bindMobileFormHandlers()
     initMobilePurchases()
