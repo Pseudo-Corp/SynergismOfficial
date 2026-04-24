@@ -5247,6 +5247,12 @@ window.addEventListener('load', async () => {
 
   if (platform === 'mobile') {
     await initMobileStorage()
+    const [{ bindMobileFormHandlers }, { initMobilePurchases }] = await Promise.all([
+      import('./mobile/auth'),
+      import('./mobile/microtxn')
+    ])
+    bindMobileFormHandlers()
+    initMobilePurchases()
   }
 
   const symbolsEnabled = storageGetItem('statSymbols')

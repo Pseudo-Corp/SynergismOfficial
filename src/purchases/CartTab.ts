@@ -1,4 +1,4 @@
-import { prod } from '../Config'
+import { platform, prod } from '../Config'
 import { changeSubTab, getActiveSubTab, Tabs } from '../Tabs'
 import { assert, createDeferredPromise, type DeferredPromise, memoize, retry } from '../Utility'
 import { setEmptyProductMap } from './CartUtil'
@@ -117,6 +117,19 @@ export class CartTab {
   static applySubtabListeners () {
     for (const [page, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
       element.addEventListener('click', changeSubTab.bind(null, Tabs.Purchase, { page }))
+
+      // On mobile, App Store policy forbids bundling multiple IAPs into a cart
+      // and we only ship one-time coin purchases + on-device upgrades for now.
+      if (platform === 'mobile' && page !== cartSubTabs.Coins && page !== cartSubTabs.Upgrades) {
+        const button = element as HTMLElement
+        const parent = button.parentElement
+        // cartSubTab5 (Checkout) is wrapped in a <span> with a notification badge
+        if (parent instanceof HTMLSpanElement && parent.parentElement?.classList.contains('subtabSwitcher')) {
+          parent.style.display = 'none'
+        } else {
+          button.style.display = 'none'
+        }
+      }
     }
   }
 

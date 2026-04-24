@@ -7,6 +7,7 @@
     "node": ">=22.21.0"
   },
   "dependencies": {
+    "@capacitor-community/apple-sign-in": "^7.1.0",
     "@capacitor/android": "^8.3.1",
     "@capacitor/core": "^8.3.1",
     "@capacitor/ios": "^8.3.1",
@@ -16,6 +17,7 @@
     "break_infinity.js": "^2.0.0",
     "clipboard": "^2.0.11",
     "cookie": "^1.1.1",
+    "cordova-plugin-purchase": "^13.15.3",
     "discord-rpc": "^4.0.1",
     "dompurify": "^3.2.7",
     "electron-store": "^11.0.2",
@@ -49,6 +51,7 @@
     "msw": "2.7.5",
     "oxlint": "^1.53.0",
     "oxlint-tsgolint": "^0.16.0",
+    "patch-package": "^8.0.1",
     "shx": "^0.4.0",
     "stylelint": "^14.8.2",
     "stylelint-config-standard": "^25.0.0",
@@ -69,6 +72,7 @@
     "check:tsc": "npx -p typescript tsc",
     "watch:tsc": "npx -p typescript tsc --watch",
     "prepare": "husky install",
+    "postinstall": "patch-package",
     "cloudflare:build": "node scripts/needsBundling.js || npm run build:esbuild",
     "msw:init": "npx -y msw init . --save",
     "check-circular": "madge --circular src/",

@@ -7629,6 +7629,17 @@
       "steam": "Link Steam"
     }
   },
+  "mobile": {
+    "auth": {
+      "signInFailed": "Sign in with Apple was cancelled or failed. Please try again."
+    },
+    "purchases": {
+      "productUnavailable": "This product isn't available right now. Please try again later.",
+      "orderFailed": "Could not start the purchase: {{error}}",
+      "verifyFailed": "Could not verify your purchase: {{error}}",
+      "success": "Purchase successful! Your PseudoCoins have been credited."
+    }
+  },
   "pseudoCoins": {
     "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",
     "cost": "Cost: <<gold|{{amount}} PseudoCoins>>",
