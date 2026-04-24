@@ -1106,8 +1106,8 @@ export const ambrosiaUpgrades: {
     level: 0,
     ambrosiaInvested: 0,
     blueberriesInvested: 0,
-    maxLevel: 25,
-    costPerLevel: 20000,
+    maxLevel: 40,
+    costPerLevel: 10000,
     blueberryCost: 2,
     ignoreEXALT: false,
     prerequisites: {

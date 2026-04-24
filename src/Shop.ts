@@ -237,7 +237,8 @@ interface IShopData<T extends ShopUpgradeNames, K extends keyof QuarkShopUpgrade
   maxLevel: number
   type: shopUpgradeTypes
   refundMinimumLevel: number
-  upgradeTypes: ShopUpgradeGroups[]
+  upgradeTypes: ShopUpgradeGroups[],
+  freeUpgradeMultiplier?: number
 }
 
 const resetNever = () => false
@@ -545,9 +546,16 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   cubeToQuark: {
     name: () => i18next.t('shop.names.cubeToQuark'),
     description: () => i18next.t('shop.upgradeDescriptions.cubeToQuark'),
-    effects: (n) => 1 + 0.5 * n, // cubeQuarkMult
+    effects: (n) => {
+      if (n >= 1) {
+        return 1.5 + 0.5 * (1 - Math.pow(0.9, n - 1)) 
+      } else {
+        return 1 // cubeQuarkMult
+      }
+    },
     effectDescription () {
-      return i18next.t('shop.upgradeEffects.cubeToQuark')
+      const cubeQuarkMult = getShopUpgradeEffects('cubeToQuark', 'cubeQuarkMult')
+      return i18next.t('shop.upgradeEffects.cubeToQuark', { amount: formatAsPercentIncrease(cubeQuarkMult, 1) })
     },
     isUnlocked: () => player.ascensionCount > 0 || player.highestSingularityCount > 0,
     price: 2000,
@@ -562,9 +570,16 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   tesseractToQuark: {
     name: () => i18next.t('shop.names.tesseractToQuark'),
     description: () => i18next.t('shop.upgradeDescriptions.tesseractToQuark'),
-    effects: (n) => 1 + 0.5 * n, // tesseractQuarkMult
+    effects: (n) => {
+      if (n >= 1) {
+        return 1.5 + 0.5 * (1 - Math.pow(0.9, n - 1)) 
+      } else {
+        return 1 // tesseractQuarkMult
+      }
+    },
     effectDescription () {
-      return i18next.t('shop.upgradeEffects.tesseractToQuark')
+      const tesseractQuarkMult = getShopUpgradeEffects('tesseractToQuark', 'tesseractQuarkMult')
+      return i18next.t('shop.upgradeEffects.tesseractToQuark', { amount: formatAsPercentIncrease(tesseractQuarkMult, 1) })
     },
     isUnlocked: () => player.highestchallengecompletions[11] > 0 || player.highestSingularityCount > 0,
     price: 3500,
@@ -579,9 +594,16 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   hypercubeToQuark: {
     name: () => i18next.t('shop.names.hypercubeToQuark'),
     description: () => i18next.t('shop.upgradeDescriptions.hypercubeToQuark'),
-    effects: (n) => 1 + 0.5 * n, // hypercubeQuarkMult
+    effects: (n) => {
+      if (n >= 1) {
+        return 1.5 + 0.5 * (1 - Math.pow(0.9, n - 1)) 
+      } else {
+        return 1 // hypercubeQuarkMult
+      }
+    },
     effectDescription () {
-      return i18next.t('shop.upgradeEffects.hypercubeToQuark')
+      const hypercubeQuarkMult = getShopUpgradeEffects('hypercubeToQuark', 'hypercubeQuarkMult')
+      return i18next.t('shop.upgradeEffects.hypercubeToQuark', { amount: formatAsPercentIncrease(hypercubeQuarkMult, 1) })
     },
     isUnlocked: () => player.highestchallengecompletions[13] > 0 || player.highestSingularityCount > 0,
     price: 5000,
@@ -1787,7 +1809,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
+    upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck]
   },
   shopRedLuck3: {
     name: () => i18next.t('shop.names.shopRedLuck3'),
@@ -1815,7 +1837,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     refundable: false,
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
-    upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
+    upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck],
+    freeUpgradeMultiplier: 2,
   },
   shopCashGrabUltra: {
     name: () => i18next.t('shop.names.shopCashGrabUltra'),
@@ -2186,9 +2209,12 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
 export const shopUpgradeNames: ShopUpgradeNames[] = Object.keys(shopUpgrades) as ShopUpgradeNames[]
 
 const getBonusLevels = (upgradeKey: ShopUpgradeNames) => {
+  if (player.shopUpgrades[upgradeKey] === 0) {
+    return 0
+  }
   let bonusLevels = 0
   for (const type of shopUpgrades[upgradeKey].upgradeTypes) {
-    bonusLevels += shopUpgradeTypeInfo[type].bonusLevels()
+    bonusLevels += shopUpgradeTypeInfo[type].bonusLevels() * (shopUpgrades[upgradeKey].freeUpgradeMultiplier ?? 1)
   }
   return bonusLevels
 }
@@ -2244,16 +2270,22 @@ export const createShopHTML = (input: ShopUpgradeNames) => {
   let symbolHTML = ''
   let bonusLevelHTML = ''
 
+  const bonusLevelMult = shopUpgrades[input].freeUpgradeMultiplier ?? 1
+
   // This is done in order for consistent formatting
   for (let i = ShopUpgradeGroups.Offering; i <= LAST_GROUP; i++) {
     if (shopUpgrades[input].upgradeTypes.includes(i)) {
       const bonusLevels = shopUpgradeTypeInfo[i].bonusLevels()
+      let bonusMultText = ''
+      if (bonusLevelMult > 1) {
+        bonusMultText = ` x${bonusLevelMult}`
+      }
       symbolHTML += `<span style="color: ${shopUpgradeTypeInfo[i].HTMLColor}"> [${
         shopUpgradeTypeInfo[i].symbol
-      }]</span>`
+      }${bonusMultText}]</span>`
       if (bonusLevels > 0) {
         bonusLevelHTML += `<span style="color: ${shopUpgradeTypeInfo[i].HTMLColor}"> [+${
-          shopUpgradeTypeInfo[i].bonusLevels()
+          shopUpgradeTypeInfo[i].bonusLevels() * bonusLevelMult
         }]</span>`
       }
     }
