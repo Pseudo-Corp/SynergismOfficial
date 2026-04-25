@@ -1,5 +1,4 @@
-/// <reference types="cordova-plugin-purchase" />
-
+import { Platform, ProductType, store, type Transaction } from 'capacitor-plugin-cdv-purchase'
 import i18next from 'i18next'
 import { platform } from '../Config'
 import { CartTab, coinProducts } from '../purchases/CartTab'
@@ -9,15 +8,10 @@ import { memoize } from '../Utility'
 
 const APPLE_BUNDLE_ID = 'cc.pseudocorp.synergism'
 
-type Store = typeof CdvPurchase.store
-
 const toAppStoreProductId = (lookupKey: string) => `${APPLE_BUNDLE_ID}.${lookupKey.replaceAll('-', '_')}`
 
-const initStore = memoize(async (): Promise<Store> => {
-  await waitForDeviceReady()
+const initStore = memoize(async (): Promise<void> => {
   await CartTab.fetchProducts()
-
-  const { store, ProductType, Platform } = CdvPurchase
 
   const products = coinProducts.map((product) => ({
     type: ProductType.CONSUMABLE,
@@ -39,22 +33,10 @@ const initStore = memoize(async (): Promise<Store> => {
   if (errors.length > 0) {
     console.error('CdvPurchase init errors', errors)
   }
-
-  return store
 })
 
-function waitForDeviceReady () {
-  return new Promise<void>((resolve) => {
-    if (typeof window !== 'undefined' && 'CdvPurchase' in window) {
-      resolve()
-      return
-    }
-    document.addEventListener('deviceready', () => resolve(), { once: true })
-  })
-}
-
-async function onTransactionApproved (transaction: CdvPurchase.Transaction): Promise<void> {
-  if (transaction.platform !== CdvPurchase.Platform.APPLE_APPSTORE) {
+async function onTransactionApproved (transaction: Transaction): Promise<void> {
+  if (transaction.platform !== Platform.APPLE_APPSTORE) {
     return
   }
 
@@ -72,8 +54,8 @@ async function getAppleUuid (): Promise<string | null> {
 
 export async function orderProduct (lookupKey: string): Promise<void> {
   if (platform !== 'mobile') return
-  const store = await initStore()
-  const product = store.get(toAppStoreProductId(lookupKey), CdvPurchase.Platform.APPLE_APPSTORE)
+  await initStore()
+  const product = store.get(toAppStoreProductId(lookupKey), Platform.APPLE_APPSTORE)
 
   if (!product) {
     await Alert(i18next.t('mobile.purchases.productUnavailable'))

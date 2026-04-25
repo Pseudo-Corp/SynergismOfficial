@@ -1,4 +1,11 @@
-import { AdLoadInfo, AdMob, AdmobConsentStatus, AdMobRewardItem, RewardAdOptions, RewardAdPluginEvents } from '@capacitor-community/admob'
+import {
+  AdLoadInfo,
+  AdMob,
+  AdmobConsentStatus,
+  AdMobRewardItem,
+  RewardAdOptions,
+  RewardAdPluginEvents
+} from '@capacitor-community/admob'
 import { Alert } from '../UpdateHTML'
 
 let adMobInitialized = false
@@ -34,10 +41,10 @@ export async function initAdMob (): Promise<void> {
   })
 }
 
-export async function ensureAdMobReady(): Promise<void> {
-    if (adMobInitialized) return
-    await initAdMob()
-    adMobInitialized = true
+export async function ensureAdMobReady (): Promise<void> {
+  if (adMobInitialized) return
+  await initAdMob()
+  adMobInitialized = true
 }
 
 export async function rewardVideo (): Promise<void> {
@@ -57,7 +64,7 @@ export async function rewardVideo (): Promise<void> {
     } catch (err: any) {
       console.error(`Reward ad attempt ${attempt} failed:`, err)
       if (attempt === 1) {
-        await new Promise(r => setTimeout(r, 2000))
+        await new Promise((r) => setTimeout(r, 2000))
       } else {
         throw err
       }
