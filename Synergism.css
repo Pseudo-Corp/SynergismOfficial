@@ -6726,6 +6726,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     #exportButtons,
     #thirdParty {
         max-width: 95%;
+        width: 95%;
     }
 
     /* Modals and dialogs */
