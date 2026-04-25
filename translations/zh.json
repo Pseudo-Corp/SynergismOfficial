@@ -5354,7 +5354,7 @@
         "name": "萌新的惊奇八阶方块",
         "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加25%，惊奇八阶方块获取数量增加40%，蚂蚁速度变为100000倍……",
         "effectDisabled": "您未向Derpsmith致敬。没有奖励！",
-        "effectEnabled": "您已向Derpsmith致敬。获得了{{amount}}夸克，{{amount2}}八阶方块和{{amount3}}倍蚂蚁速度！"
+        "effectEnabled": "您已向Derpsmith致敬。获得了+{{amount}}夸克，+{{amount2}}八阶方块和{{amount3}}倍蚂蚁速度！"
       },
       "octeractGain": {
         "name": "惊奇八阶方块同生",
