@@ -63,5 +63,4 @@ export async function rewardVideo (): Promise<void> {
       }
     }
   }
-
 }

@@ -33,7 +33,6 @@ const clickHandler = async (e: HTMLElementEventMap['click']) => {
 }
 
 const initializeProductPage = memoize(() => {
-
   let advertSection = ''
   if (platform === 'mobile') {
     advertSection = `<section class="pseudoCoinAdvert">
@@ -70,9 +69,11 @@ const initializeProductPage = memoize(() => {
   })
 
   if (platform === 'mobile') {
-    document.querySelector<HTMLButtonElement>('.pseudoCoinAdvert > div > button[data-id="advert"]')!.addEventListener('click', rewardVideo)
+    document.querySelector<HTMLButtonElement>('.pseudoCoinAdvert > div > button[data-id="advert"]')!.addEventListener(
+      'click',
+      rewardVideo
+    )
   }
-
 })
 
 export const clearProductPage = () => {

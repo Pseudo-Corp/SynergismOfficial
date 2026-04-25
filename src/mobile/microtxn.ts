@@ -63,6 +63,13 @@ async function onTransactionApproved (transaction: CdvPurchase.Transaction): Pro
   Notification(i18next.t('mobile.purchases.success'))
 }
 
+async function getAppleUuid (): Promise<string | null> {
+  const response = await fetch('https://synergism.cc/api/v1/apple/uuid', { credentials: 'include' })
+  if (!response.ok) return null
+  const { uuid } = await response.json() as { uuid: string }
+  return uuid
+}
+
 export async function orderProduct (lookupKey: string): Promise<void> {
   if (platform !== 'mobile') return
   const store = await initStore()
@@ -79,7 +86,13 @@ export async function orderProduct (lookupKey: string): Promise<void> {
     return
   }
 
-  const result = await store.order(offer)
+  const applicationUsername = await getAppleUuid()
+  if (!applicationUsername) {
+    Notification(i18next.t('mobile.purchases.orderFailed', { error: 'Not signed in' }))
+    return
+  }
+
+  const result = await store.order(offer, { applicationUsername })
   if (result && 'code' in result) {
     Notification(i18next.t('mobile.purchases.orderFailed', { error: result.message }))
   }
