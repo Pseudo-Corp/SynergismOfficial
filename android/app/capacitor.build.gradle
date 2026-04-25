@@ -12,7 +12,8 @@ dependencies {
     implementation project(':capacitor-community-admob')
     implementation project(':capacitor-community-apple-sign-in')
     implementation project(':capacitor-preferences')
-    implementation "com.android.billingclient:billing:8.3.0"
+    implementation project(':capacitor-plugin-cdv-purchase')
+
 }
 
 

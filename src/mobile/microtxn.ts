@@ -74,6 +74,9 @@ export async function orderProduct (lookupKey: string): Promise<void> {
     return
   }
 
+  // The Apple adapter reads from store.applicationUsername (global), not from
+  // additionalData — passing it via order() options is silently dropped.
+  store.applicationUsername = applicationUsername
   const result = await store.order(offer, { applicationUsername })
   if (result && 'code' in result) {
     Notification(i18next.t('mobile.purchases.orderFailed', { error: result.message }))

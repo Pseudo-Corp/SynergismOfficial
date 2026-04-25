@@ -10,3 +10,6 @@ project(':capacitor-community-apple-sign-in').projectDir = new File('../node_mod
 
 include ':capacitor-preferences'
 project(':capacitor-preferences').projectDir = new File('../node_modules/@capacitor/preferences/android')
+
+include ':capacitor-plugin-cdv-purchase'
+project(':capacitor-plugin-cdv-purchase').projectDir = new File('../node_modules/capacitor-plugin-cdv-purchase/android')
