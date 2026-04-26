@@ -321,12 +321,12 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'consumablesSection',
-        unlocked: () => true,
+        unlocked: () => platform !== 'mobile',
         buttonID: 'cartSubTab4'
       },
       {
         subTabID: 'cartContainer',
-        unlocked: () => true,
+        unlocked: () => platform !== 'mobile',
         buttonID: 'cartSubTab5'
       },
       {
