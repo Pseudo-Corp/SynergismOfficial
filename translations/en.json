@@ -7637,7 +7637,8 @@
       "productUnavailable": "This product isn't available right now. Please try again later.",
       "orderFailed": "Could not start the purchase: {{error}}",
       "verifyFailed": "Could not verify your purchase: {{error}}",
-      "success": "Purchase successful! Your PseudoCoins have been credited."
+      "success": "Purchase successful! Your PseudoCoins have been credited.",
+      "subscriptionSuccess": "Subscription successful! Please refresh the page to receive your perks."
     }
   },
   "pseudoCoins": {

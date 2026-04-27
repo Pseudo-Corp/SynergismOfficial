@@ -1,6 +1,7 @@
 import { type FUNDING_SOURCE, loadScript } from '@paypal/paypal-js'
 import i18next from 'i18next'
 import { isSynergismCC, platform, prod } from '../Config'
+import { bus, SynEvent } from '../events/bus'
 import { getSubMetadata, type SubscriptionMetadata, type SubscriptionProvider } from '../Login'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { assert, memoize } from '../Utility'
@@ -73,6 +74,11 @@ async function changeSubscription (
     )
   }
 
+  if (sub.provider === 'apple') {
+    bus.dispatchEvent(new SynEvent<undefined>('subscription:manage'))
+    return
+  }
+
   const confirm = (type === 'downgrade')
     ? await Confirm(
       `You are downgrading to ${newSubName}, which costs ${
@@ -115,13 +121,18 @@ async function manageSubscription (provider: SubscriptionProvider) {
     return Alert('You should not see this alert! Let Platonic know immediately.')
   }
 
+  if (provider === 'apple') {
+    bus.dispatchEvent(new SynEvent<undefined>('subscription:manage'))
+    return
+  }
+
   const link = prod ? prodRouteLinks[provider].manage : devRouteLinks[provider].manage
 
   location.href = link
 }
 
 async function cancelSubscription (provider: SubscriptionProvider) {
-  if (provider === 'patreon') {
+  if (provider === 'patreon' || provider === 'apple') {
     return Alert('You should not see this alert! Let Platonic know immediately.')
   }
 
@@ -186,6 +197,11 @@ function clickHandler (this: HTMLButtonElement) {
     }
   }
 
+  if (platform === 'mobile') {
+    bus.dispatchEvent(new SynEvent('subscription:order', { lookupKey: productId }))
+    return
+  }
+
   addToCart(productId)
   Notification(`Added ${productName} to the cart!`)
 }
@@ -229,6 +245,12 @@ const noSubscriptionButton = (product: SubscriptionProduct) => {
     </button>`
   }
 
+  if (platform === 'mobile') {
+    return `<button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton">
+      Subscribe with App Store - ${formatter.format(product.price / 100)} USD / mo
+    </button>`
+  }
+
   return `<div class="checkout-paypal" data-id="${product.id}"></div>
   <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton">
     ${formatter.format(product.price / 100)} USD / mo
@@ -262,7 +284,9 @@ const upgradeButton = (product: SubscriptionProduct, currentSubTier: number) => 
 const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentSubTier: number) => {
   const sub = getSubMetadata()
   const notSubbed = sub === null
-  const subManageable = sub?.provider !== 'patreon' && sub?.provider !== 'steam'
+  const subManageable = platform === 'mobile'
+    ? sub?.provider === 'apple'
+    : sub?.provider === 'stripe' || sub?.provider === 'paypal'
   const nameHTML = createSubscriptionTierName(product)
 
   if (product.tier < currentSubTier) {
@@ -319,6 +343,7 @@ const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
   const patreonManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-patreon-sub')!
   const stripeManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-stripe-sub')!
   const paypalManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-paypal-sub')!
+  const appleManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-apple-sub')!
 
   const subscriptionCancelButtons = manageSubscriptionHolder.querySelectorAll<HTMLElement>('.subscriptionCancel')
 
@@ -327,9 +352,17 @@ const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
     return
   }
 
-  patreonManageForm.style.display = sub === null || sub.provider === 'patreon' ? 'flex' : 'none'
-  stripeManageForm.style.display = sub === null || sub.provider === 'stripe' ? 'flex' : 'none'
-  paypalManageForm.style.display = sub === null || sub.provider === 'paypal' ? 'flex' : 'none'
+  if (platform === 'mobile') {
+    patreonManageForm.style.display = 'none'
+    stripeManageForm.style.display = 'none'
+    paypalManageForm.style.display = 'none'
+    appleManageForm.style.display = sub?.provider === 'apple' ? 'flex' : 'none'
+  } else {
+    patreonManageForm.style.display = sub === null || sub.provider === 'patreon' ? 'flex' : 'none'
+    stripeManageForm.style.display = sub === null || sub.provider === 'stripe' ? 'flex' : 'none'
+    paypalManageForm.style.display = sub === null || sub.provider === 'paypal' ? 'flex' : 'none'
+    appleManageForm.style.display = 'none'
+  }
 
   subscriptionCancelButtons.forEach((btn) => btn.style.display = sub === null ? 'none' : 'block')
 }
@@ -387,7 +420,7 @@ const initializeSubscriptionPage = memoize(() => {
 
   if (platform === 'steam') {
     initializeSteamSubscriptionButtons()
-  } else {
+  } else if (platform === 'browser') {
     initializePayPal_Subscription()
   }
 })
@@ -414,7 +447,7 @@ const updateSubscriptionPage = () => {
 
   if (platform === 'steam') {
     initializeSteamSubscriptionButtons()
-  } else {
+  } else if (platform === 'browser') {
     initializePayPal_Subscription()
   }
 }

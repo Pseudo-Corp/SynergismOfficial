@@ -1,25 +1,37 @@
 import { Platform, ProductType, store, type Transaction } from 'capacitor-plugin-cdv-purchase'
 import i18next from 'i18next'
 import { platform } from '../Config'
-import { CartTab, coinProducts } from '../purchases/CartTab'
+import { bus } from '../events/bus'
+import { CartTab, coinProducts, subscriptionProducts } from '../purchases/CartTab'
 import { updatePseudoCoins } from '../purchases/UpgradesSubtab'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 
 const APPLE_BUNDLE_ID = 'cc.pseudocorp.synergism'
 
-const toAppStoreProductId = (lookupKey: string) => `${APPLE_BUNDLE_ID}.${lookupKey.replaceAll('-', '_')}`
+const toAppStoreProductId = (lookupKey: string) => {
+  const prefix = subscriptionProducts.some((p) => p.id === lookupKey)
+    ? `${APPLE_BUNDLE_ID}.sub`
+    : APPLE_BUNDLE_ID
+  return `${prefix}.${lookupKey.replaceAll('-', '_')}`
+}
 
 const initStore = memoize(async (): Promise<void> => {
   await CartTab.fetchProducts()
 
-  const products = coinProducts.map((product) => ({
+  const consumables = coinProducts.map((product) => ({
     type: ProductType.CONSUMABLE,
     id: toAppStoreProductId(product.id),
     platform: Platform.APPLE_APPSTORE
   }))
 
-  store.register(products)
+  const subscriptions = subscriptionProducts.map((product) => ({
+    type: ProductType.PAID_SUBSCRIPTION,
+    id: toAppStoreProductId(product.id),
+    platform: Platform.APPLE_APPSTORE
+  }))
+
+  store.register([...consumables, ...subscriptions])
 
   store.when()
     .approved((transaction) => {
@@ -41,6 +53,16 @@ async function onTransactionApproved (transaction: Transaction): Promise<void> {
   }
 
   await transaction.finish()
+
+  const isSubscription = transaction.products.some((p) =>
+    subscriptionProducts.some((sub) => toAppStoreProductId(sub.id) === p.id)
+  )
+
+  if (isSubscription) {
+    Notification(i18next.t('mobile.purchases.subscriptionSuccess'))
+    return
+  }
+
   updatePseudoCoins().catch(console.error)
   Notification(i18next.t('mobile.purchases.success'))
 }
@@ -81,6 +103,19 @@ export async function orderProduct (lookupKey: string): Promise<void> {
   if (result && 'code' in result) {
     Notification(i18next.t('mobile.purchases.orderFailed', { error: result.message }))
   }
+}
+
+if (platform === 'mobile') {
+  bus.addEventListener('subscription:order', (event) => {
+    orderProduct(event.detail.lookupKey).catch((e) => {
+      console.error('Failed to order subscription', e)
+      Notification(i18next.t('mobile.purchases.orderFailed', { error: `${e}` }))
+    })
+  })
+
+  bus.addEventListener('subscription:manage', () => {
+    store.manageSubscriptions(Platform.APPLE_APPSTORE)
+  })
 }
 
 export const initMobilePurchases = () => {
