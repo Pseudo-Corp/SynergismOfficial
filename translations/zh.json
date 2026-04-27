@@ -6012,7 +6012,7 @@
     "freeLevels": "[<<orange|+{{x}}>>]",
     "offeringText": "每个祭品增加{{exp}}经验值 - 增加{{levels}}级需要{{offeringReq}}祭品。",
     "maxLevel": "已满级！",
-    "TNL": "<<orange|{{offerings}} ☤>>升1级"
+    "TNL": "<<orange|{{offerings}} ☤>>升{{levelAmount}}级"
   },
   "singularityChallenge": {
     "enterChallenge": {
