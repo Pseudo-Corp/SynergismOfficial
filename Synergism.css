@@ -4749,10 +4749,10 @@ img#singularityPerksIcon {
     color: #8f8;
 }
 
-#eventBuffContainer,
-#consumableBuffContainer {
+.temporaryBuffContainer {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -4790,6 +4790,12 @@ img#singularityPerksIcon {
 #apply-tips:not(:hover) {
     border: 2px solid var(--hovershop-color);
     background-color: var(--hovershop-color);
+}
+
+.watchAdClickable {
+    border: 2px solid rgb(255, 248, 148);
+    cursor: pointer;
+    width: calc(100vw / 3);
 }
 
 @keyframes rotation {

@@ -1,12 +1,12 @@
 import {
-  AdLoadInfo,
   AdMob,
   AdmobConsentStatus,
-  AdMobRewardItem,
   RewardAdOptions,
   RewardAdPluginEvents
 } from '@capacitor-community/admob'
-import { Alert } from '../UpdateHTML'
+import { Notification } from '../UpdateHTML'
+import { isAdEventEnabled, setNewAdExpiry } from '../Event'
+import i18next from 'i18next'
 
 let adMobInitialized = false
 
@@ -26,22 +26,29 @@ export async function initAdMob (): Promise<void> {
 
   await AdMob.initialize()
 
-  AdMob.addListener(RewardAdPluginEvents.Loaded, (info: AdLoadInfo) => {
+  AdMob.addListener(RewardAdPluginEvents.Loaded, () => {
     // TODO: Figure out if this is even needed for ios? I know AdLoadInfo seems to be inconsistent between the two
     // Also, if it is needed, what needs to be done here?
   })
 
-  AdMob.addListener(RewardAdPluginEvents.Rewarded, (rewardItem: AdMobRewardItem) => {
-    // TODO: Implement backend features.
-    Alert('Thanks for watching the ad! You earned 5 PseudoCoins!')
+  AdMob.addListener(RewardAdPluginEvents.Rewarded, () => {
+    const alreadyActive = isAdEventEnabled()
+    setNewAdExpiry()
+    if (alreadyActive) {
+      void Notification(i18next.t('advertisements.repeatWatch'))
+    }
+    else {
+      void Notification(i18next.t('advertisements.successfulWatch'))
+    }
   })
 
-  AdMob.addListener(RewardAdPluginEvents.FailedToLoad, (error) => {
-    console.error('Rewarded ad FailedToLoad:', JSON.stringify(error, null, 2))
+  AdMob.addListener(RewardAdPluginEvents.FailedToLoad, () => {
+    void Notification(i18next.t('advertisements.failedToLoad'))
   })
 }
 
 export async function ensureAdMobReady (): Promise<void> {
+  void Notification(i18next.t('advertisements.loadingAd'))
   if (adMobInitialized) return
   await initAdMob()
   adMobInitialized = true

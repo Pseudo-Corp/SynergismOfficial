@@ -49,7 +49,7 @@ import {
   calculateSalvageCubeBlessing,
   type IMultiBuy
 } from './Cubes'
-import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
+import { BuffType, consumableEventBuff, eventBuffType, getAdTimeExpiry, getEvent, getEventBuff, isAdEventEnabled } from './Event'
 import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib/calculate-production'
 import { hasEnoughCrumbsForSacrifice, MINIMUM_CRUMBS_FOR_SACRIFICE } from './Features/Ants/AntSacrifice/constants'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
@@ -128,7 +128,7 @@ import {
 import { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from './Toggles'
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
-import { sumContents, timeRemainingHours } from './Utility'
+import { sumContents, timeRemainingHours, timeRemainingMinutes } from './Utility'
 import { Globals as G } from './Variables'
 
 const coinUpper = [
@@ -2120,6 +2120,14 @@ export const visualUpdateEvent = () => {
     for (let i = 0; i < eventBuffType.length; i++) {
       DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
     }
+  }
+
+  if (isAdEventEnabled()) {
+    DOMCacheGetOrSet('adEventTimer').innerHTML = i18next.t('advertisements.adEventSome', {
+      time: timeRemainingMinutes(getAdTimeExpiry())
+    })
+  } else {
+    DOMCacheGetOrSet('adEventTimer').innerHTML = i18next.t('advertisements.adEventNone')
   }
 }
 

@@ -5247,12 +5247,16 @@ window.addEventListener('load', async () => {
 
   if (platform === 'mobile') {
     await initMobileStorage()
-    const [{ bindMobileFormHandlers }, { initMobilePurchases }] = await Promise.all([
+    const [{ bindMobileFormHandlers }, { initMobilePurchases }, { rewardVideo }] = await Promise.all([
       import('./mobile/auth'),
-      import('./mobile/microtxn')
+      import('./mobile/microtxn'),
+      import('./mobile/ads')
     ])
     bindMobileFormHandlers()
     initMobilePurchases()
+
+    DOMCacheGetOrSet('adEvents').style.display = 'block'
+    DOMCacheGetOrSet('watchAdBtn').addEventListener('click', rewardVideo)
   }
 
   const symbolsEnabled = storageGetItem('statSymbols')

@@ -1,5 +1,4 @@
 import { platform } from '../Config'
-import { rewardVideo } from '../mobile/ads'
 import { format } from '../Synergism'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
@@ -67,13 +66,6 @@ const initializeProductPage = memoize(() => {
   document.querySelectorAll<HTMLButtonElement>('.pseudoCoinContainer > div > button[data-id]').forEach((element) => {
     element.addEventListener('click', clickHandler)
   })
-
-  if (platform === 'mobile') {
-    document.querySelector<HTMLButtonElement>('.pseudoCoinAdvert > div > button[data-id="advert"]')!.addEventListener(
-      'click',
-      rewardVideo
-    )
-  }
 })
 
 export const clearProductPage = () => {

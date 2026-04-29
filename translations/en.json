@@ -7781,5 +7781,16 @@
   },
   "versionChangeAnnouncements": {
     "ants": "Ants have been significantly reworked/rebalanced. Your Anthill progress has been set accordingly!"
+  },
+  "advertisements": {
+    "title": "Advertisement Bonuses!",
+    "description": "Watching an ad will give you the following bonuses for the next 10 minutes:",
+    "loadingAd": "Preparing ad... this may take a few seconds!",
+    "loadingAdFailure": "Sorry, but the ad failed to load. Please try again later.",
+    "successfulWatch": "Thanks for watching the ad! Your bonuses are now active for 10 minutes.",
+    "repeatWatch": "Thanks for watching the ad! Your bonuses were extended for 10 minutes.",
+    "adEventNone": "Timer Remaining: <<#8f8|--:-->>",
+    "adEventSome": "Timer Remaining: <<#8f8|{{time}}>>",
+    "watchAd": "Watch Ad!"
   }
 }

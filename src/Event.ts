@@ -98,7 +98,7 @@ export const eventBuffType: (keyof typeof BuffType)[] = [
 ]
 
 export const calculateEventSourceBuff = (buff: BuffType): number => {
-  return getEventBuff(buff) + consumableEventBuff(buff)
+  return getEventBuff(buff) + consumableEventBuff(buff) + adEventBuff(buff)
 }
 
 export const getEventBuff = (buff: BuffType): number => {
@@ -182,6 +182,62 @@ export const consumableEventBuff = (buff: BuffType) => {
   }
 }
 
+let adTimeExpires = 0
+const TIME_10_MINS_MS = 60 * 1000 * 10
+export const setNewAdExpiry = () => {
+  const timeRef = Date.now()
+  if (adTimeExpires > timeRef) {
+    // If not expired, we want to add 10 mins to expiry time instead of reset
+    adTimeExpires += TIME_10_MINS_MS
+  }
+  else {
+    adTimeExpires = timeRef + TIME_10_MINS_MS
+  }
+}
+
+export const isAdEventEnabled = () => {
+  return adTimeExpires > Date.now()
+}
+
+export const getAdTimeExpiry = () => adTimeExpires
+
+export const adEventBuff = (buff: BuffType) => {
+  if (!isAdEventEnabled()) {
+    return 0
+  } else {
+    switch (buff) {
+      case BuffType.Quark:
+          return 0.1
+      case BuffType.GoldenQuark:
+        return 0
+      case BuffType.Cubes:
+        return 0
+      case BuffType.PowderConversion:
+        return 0
+      case BuffType.AscensionSpeed:
+        return 0.25
+      case BuffType.GlobalSpeed:
+        return 0.25
+      case BuffType.AscensionScore:
+        return 0
+      case BuffType.AntSacrifice:
+        return 0
+      case BuffType.Offering:
+        return 0
+      case BuffType.Obtainium:
+        return 0
+      case BuffType.Octeract:
+        return 0
+      case BuffType.OneMind:
+        return 0
+      case BuffType.BlueberryTime:
+        return 0.05
+      case BuffType.AmbrosiaLuck:
+        return 0.05
+    }
+  }
+}
+
 const isConsumableActive = (name?: PseudoCoinConsumableNames) => {
   if (typeof name === 'string') {
     return allDurableConsumables[name].amount > 0
@@ -191,5 +247,5 @@ const isConsumableActive = (name?: PseudoCoinConsumableNames) => {
 }
 
 export const updateGlobalsIsEvent = () => {
-  return G.isEvent = getEvent() !== null || isConsumableActive()
+  return G.isEvent = getEvent() !== null || isConsumableActive() || isAdEventEnabled()
 }
