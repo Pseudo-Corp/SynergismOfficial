@@ -62,7 +62,7 @@ const antCornerDailyQuarkHTML = () => {
   const leaderboard = player.ants.highestRebornELODaily
   const leaderboardELO = calculateLeaderboardValue(leaderboard)
   let leaderboardStages = calculateRebornELOThresholds(leaderboardELO)
-  const stageQuarkMult = Math.pow(quarkMultiplierPerThreshold, leaderboardStages)
+  const stageQuarkMult = Math.pow(quarkMultiplierPerThreshold, Math.min(leaderboardStages, 1000))
 
   let tranchHTML = ''
   for (const tranch of thresholdTranches) {

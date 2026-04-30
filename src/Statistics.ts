@@ -4367,7 +4367,7 @@ const gameStages = (): Stage[] => {
       stage: 12,
       tier: 6,
       name: 'exalt6x1-s256',
-      unlocked: player.highestSingularityCount > 256,
+      unlocked: player.highestSingularityCount >= 256,
       reset: player.highestSingularityCount > 0
     },
     {

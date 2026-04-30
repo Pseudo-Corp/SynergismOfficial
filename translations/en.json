@@ -256,7 +256,7 @@
       "tutorial": {
         "name": "A beginners guide to Red Ambrosia",
         "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul. But you don't really care about that... 1.01x all Cubes, Offerings and Immaculate Obtainium per level!",
-        "effect": "All Cubes, Obtainium and Offerings are increased by <<lime | {{amount}}>>!"
+        "effect": "All Cubes, Offerings and Immaculate Obtainium are increased by <<lime | {{amount}}>>!"
       },
       "conversionImprovement1": {
         "name": "Ambrosia Luck Converter Improvement",
@@ -285,8 +285,8 @@
       },
       "freeLevelsRow3": {
         "name": "More Row 3 Ambrosia Module Levels!",
-        "description": "With no exceptions, add one effective level to all Ambrosia Modules that reside on the third row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 3 Ambrosia Modules by <<pink | {{amount}}>>!"
+        "description": "With the exception of Time in a Bottle, add one effective level to all Ambrosia Modules that reside on the third row, per level.",
+        "effect": "This upgrade increases the effective level of MOST row 3 Ambrosia Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow4": {
         "name": "More Row 4 Ambrosia Module Levels!",
@@ -2932,49 +2932,49 @@
     "upgradeNames": {
       "1": "Wow! I want more Cubes.",
       "2": "Wow! I want me some Salvage.",
-      "3": "Wow! I want better passive Obtainium",
-      "4": "Wow! I want to keep Mythos building autobuyers.",
-      "5": "Wow! I want to keep Mythos upgrade autobuyer.",
-      "6": "Wow! I want to keep auto Mythos gain.",
-      "7": "Wow! I want the Particle building automators.",
-      "8": "Wow! I want to automate Particle upgrades.",
-      "9": "Wow! I want to automate Researches better please.",
+      "3": "Wow! I want better passive Obtainium.",
+      "4": "Wow! I want to keep Mythos Building autobuyers.",
+      "5": "Wow! I want to keep the Mythos Upgrade autobuyer.",
+      "6": "Wow! I want to keep automatic Mythos gain.",
+      "7": "Wow! I want the Particle Building autobuyers.",
+      "8": "Wow! I want the Particle Upgrade autobuyer.",
+      "9": "Wow! I want to upgrade Auto Research.",
       "10": "Wow! This is pretty good but expensive.",
       "11": "Wow! I want more Cubes 2, the sequel.",
-      "12": "Wow! I want building power to be useful 1, the current.",
-      "13": "Wow! I want opened Cubes to give more Tributes 1.",
-      "14": "Wow! I want Iris Tribute bonuses to scale better.",
-      "15": "Wow! I want Ares Tribute bonuses to scale better.",
-      "16": "Wow! I want more Rune levels 1.",
+      "12": "Wow! I want Building Power to be useful.",
+      "13": "Wow! I want to get more Cube Tributes.",
+      "14": "Wow! I want Iris Tributes to scale better.",
+      "15": "Wow! I want Ares Tributes to scale better.",
+      "16": "Wow! I want more Rune Coefficient.",
       "17": "Wow! I want just a little bit more Crystal power.",
       "18": "Wow! I want to accelerate time!",
-      "19": "Wow! I want to unlock a couple more Coin upgrades.",
-      "20": "Wow! I want to improve automatic Rune tools.",
-      "21": "Wow! I want to hack in more Ascension Score 1.",
-      "22": "Wow! I wish my Artemis was a little better 1",
-      "23": "Wow! I want opened Cubes to give more Tributes 2.",
-      "24": "Wow! I want Plutus Tribute bonuses to scale better.",
-      "25": "Wow! I want Moloch Tribute bonuses to scale better.",
+      "19": "Wow! I want to unlock a couple more Coin Upgrades.",
+      "20": "Wow! I want to upgrade Auto Rune.",
+      "21": "Wow! I want to hack in more Ascension Score.",
+      "22": "Wow! I want Artemis Tributes to scale better.",
+      "23": "Wow! I want to get even more Cube Tributes.",
+      "24": "Wow! I want Plutus Tributes to scale better.",
+      "25": "Wow! I want Moloch Tributes to scale better.",
       "26": "Wow! I want to start Ascensions with Rune levels.",
       "27": "Wow! I want to start Ascensions with one of each Particle Building.",
-      "28": "Wow! I want to render Reincarnating even MORE obsolete.",
+      "28": "Wow! I want to automatically gain Particles.",
       "29": "Wow! I want to increase maximum Reincarnation Challenge completions.",
       "30": "Wow! I want to arbitrarily increase my Cube and Tesseract gain.",
-      "31": "Wow! I want to hack in more score 2.",
+      "31": "Wow! I want to hack in some more Ascension Score.",
       "32": "Wow! I want Runes to be easier to level up over time.",
-      "33": "Wow! I want opened Cubes to give more tributes 3.",
-      "34": "Wow! I want Chronos Tribute bonuses to scale better.",
-      "35": "Wow! I want Aphrodite Tribute bonuses to scale better.",
-      "36": "Wow! I want building power to be useful 2.",
-      "37": "Wow! I want more Rune levels 2.",
-      "38": "Wow! I want more Tesseracts while corrupted!",
+      "33": "Wow! I want to get even more Cube Tributes once again.",
+      "34": "Wow! I want Chronos Tributes to scale better.",
+      "35": "Wow! I want Aphrodite Tributes to scale better.",
+      "36": "Wow! I want Building Power to be even more useful.",
+      "37": "Wow! I want more Rune Coefficient again.",
+      "38": "Wow! I want more Tesseracts based on my Corruptions!",
       "39": "Wow! I want more score from Challenge 10 completions.",
-      "40": "Wow! I want Athena Tribute bonuses to scale better.",
-      "41": "Wow! I want to hack in more score 3.",
+      "40": "Wow! I want Athena Tributes to scale better.",
+      "41": "Wow! I want to hack in even more Ascension Score.",
       "42": "Wow! I want some Immaculate Obtainium.",
       "43": "Wow! I want even more Immaculate Obtainium!",
-      "44": "Wow! I want Midas Tribute bonus to scale better.",
-      "45": "Wow! I want Hermes Tribute bonus to scale better.",
+      "44": "Wow! I want Midas Tributes to scale better.",
+      "45": "Wow! I want Hermes Tributes to scale better.",
       "46": "Wow! I want even MORE Offerings!",
       "47": "Wow! I want Auto Obtainium to mean something again!",
       "48": "Wow! I want to ALWAYS generate Galactic Crumbs.",
@@ -3015,9 +3015,9 @@
       "1": "[1x1] You got it! +16.666% Wow! Cubes per level.",
       "2": "[1x2] Plutus grants you +3 Salvage per level!",
       "3": "[1x3] Athena grants you +10% more Obtainium, and +80% Auto Obtainium per level.",
-      "4": "[1x4] You keep those 5 useful automation upgrades in the upgrades tab!",
-      "5": "[1x5] You keep the Mythos upgrade automation upgrade in the upgrades tab!",
-      "6": "[1x6] You keep the automatic \"Mythos gain\" upgrade in the upgrades tab!",
+      "4": "[1x4] You keep the 5 Mythos Building autobuyers!",
+      "5": "[1x5] You keep the Mythos Upgrade autobuyer!",
+      "6": "[1x6] You keep the automatic \"Mythos gain\" upgrade!",
       "7": "[1x7] Automatically buy each Particle building whenever possible.",
       "8": "[1x8] Automatically buy Particle upgrades.",
       "9": "[1x9] Auto Research (from a Quark Upgrade) now automatically buys the cheapest Research when enabled. It's like a roomba kinda! <br> Like a roomba, it may backtrack in order to find cheaper Researches if they are unlocked later!",
@@ -3078,19 +3078,19 @@
       "64": "[Cx14] Some say the Ant God itself penned these fortunes. When you gain a statue from Platonic Cubes, you gain two instead.",
       "65": "[Cx15] That's amore, but is quite a crumbful! Multiply Ant Speed by 1.004 per purchased Worker Ant.",
       "66": "[Cx16] You just wish you could have one more cookie baked by her. Gain 2x 3-7D Cubes until you purchase OMEGA.",
-      "67": "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
+      "67": "[Cx17] What the hell are in these??? Anyway, this increases the Metaphysical Gem's level cap by 1,337.",
       "68": "[Cx18] What the heck! These aren't even cookies. +0.01% Quarks per level purchased of this upgrade. +5% more at level 1,000!",
       "69": "[Cx19] Cookies that you'll never remember again. +12% Golden Quarks this Singularity.",
-      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts per level on Ascension if the average level of your Corruptions is at least 14.",
+      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts per level if the average level of your Corruptions is at least 14.",
       "71": "[Cx21] For each Talisman Rarity, multiply Immaculate Obtainium gain by 1.04.",
       "72": "[Cx22] For each Talisman Rarity, multiply Offering gain by 1.04.",
       "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
       "74": "[Cx24] Add +0.30 to all Corruption Multiplier values.",
       "75": "[Cx25] Each level adds +0.3% effectiveness to free Golden Quark upgrades per level! (additive with all other boosts)",
-      "76": "[Cx26] Each level gives <<lightblue | +1% Ambrosia Bar Points >> for every time your Ambrosia Bar Point threshold has doubled!",
+      "76": "[Cx26] Each level gives <<lightblue | +1% Ambrosia Bar Points >> for every Ambrosia Bar Point threshold you've reached!",
       "77": "[Cx27] Each level adds <<green | +2 +0.1% Ambrosia Luck>>!",
       "78": "[Cx28] Each level adds +0.3% effectiveness to free Octeract Upgrades per level!",
-      "79": "[Cx29] Gain Ambrosia Luck when this upgrade is purchased, based on your Lifetime Red Ambrosia! [Formula is 10 * (Log_10(x))^2]",
+      "79": "[Cx29] Gain some Ambrosia Luck based on your Lifetime Red Ambrosia! [The formula is 10 * (log_10(Lifetime))^2]",
       "80": "[Cx30] You intercept a singular message: <<gray|'Why don't you visit more often?'>>..."
     },
     "cubeMetadata": {
@@ -3391,7 +3391,7 @@
       "offeringEX3": "[Supplied by - Infinity CO.] Gain 1.2% more Offerings per level, multiplicative! (Multiplier is 1.012^level). Every 25 levels, gain +1 Base Offering!",
       "obtainiumEX3": "[Supplied by - Infinity CO.] Gain 1.2% more Obtainium per level, multiplicative! (Multiplier is 1.012^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (1.06^[level/25])",
       "chronometerInfinity": "[Supplied by - Infinity CO.] Gain 0.6% more Ascension Speed per level, multiplicative! (Multiplier is 1.006^level). Every 40 levels, gain +0.001 spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
-      "seasonPassInfinity": "[Supplied by - Infinity CO.] Gain 1.2% more cubes per level, multiplicative! (Multiplier is 1.012^level). This effect is raised to the power of 1.25 for Octeract calculations!",
+      "seasonPassInfinity": "[Supplied by - Infinity CO.] Gain 1.2% more cubes per level, multiplicative! (Multiplier is 1.012^level). For Octeracts, this effect is raised to ^1.25!",
       "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
       "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
       "improveQuarkHept5": "[Supplied by - Infinity CO.] Adds +0.0001 Quark Hept Exponent per level. The effect is 1% of the originals... for balancing reasons. Yes.",
@@ -3511,7 +3511,7 @@
       "offeringEX3": "Gain <<goldenrod|{{amount}}>> more Offerings! Also, gain <<goldenrod|+{{amount2}}>> more Base Offerings!",
       "obtainiumEX3": "Gain <<pink|{{amount}}>> more Obtainium, and an additional <<cyan|{{amount2}}>> more Immaculate Obtainium!",
       "chronometerInfinity": "The Ascension Timer increases <<orange|{{amount}}>> faster. Exponent spread is increased by <<orange|{{amount2}}>>.",
-      "seasonPassInfinity": "Gain <<lightgoldenrodyellow|{{amount}}>> more Cubes of <<orchid|all>> types. Octeract Gain is instead increased by <<green | {{amount2}}>>!",
+      "seasonPassInfinity": "Gain <<lightgoldenrodyellow|{{amount}}>> more Cubes of <<orchid|all>> types. Octeract gain is instead increased by <<green | {{amount2}}>>!",
       "shopSingularityPenaltyDebuff": "At Singularity <<pink|{{amount1}}>>, your debuffs act as if you were in Singularity <<pink|{{amount2}}>>.",
       "shopAmbrosiaLuckMultiplier4": "Gain <<green|+{{amount}}>> Ambrosia Luck!",
       "shopOcteractAmbrosiaLuck": "Octeracts grant <<green|+{{amount}}>> Ambrosia Luck!",
@@ -3661,7 +3661,7 @@
       },
       "goldenCoins": {
         "name": "Golden Coins",
-        "default": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity. Currently: x{{amount}}"
+        "default": "Unspent Golden Quarks and highest Singularity boost Coin gain. Currently: x{{amount}}"
       },
       "xyz": {
         "name": "XYZ: Xtra dailY rewardZ",
@@ -3760,8 +3760,8 @@
       },
       "shopSpecialOffer": {
         "name": "Shop Special Offer",
-        "hasLevel2": "All Quark Upgrades are kept on Singularity!",
-        "hasLevel1": "Certain Reincarnation-level Quark Upgrades no longer reset on Singularity!",
+        "hasLevel2": "All refundable Quark Upgrades are kept on Singularity!",
+        "hasLevel1": "Refundable Quark Upgrades up to Cash Grab 1 no longer reset on Singularity!",
         "default": "This level of the perk has been deprecated."
       },
       "potionAutogenerator": {
@@ -3770,8 +3770,8 @@
       },
       "forTheLoveOfTheAntGod": {
         "name": "For the love of (the Ant) God!",
-        "hasLevel2": "You permanently keep Ants unlocked and start Anthills with 40 Worker Ants, 20 Breeder Ants, 25 Meta-Breeder Ants, 25 Inceptus Formicidae levels, 1 Mortuus Est Formicidae level, and 1e50 Galactic Crumbs",
-        "hasLevel1": "You permanently keep Ants unlocked and start Anthills with 40 Worker Ants, 20 Breeder Ants, and 10 Inceptus Formicidae levels",
+        "hasLevel2": "You permanently keep Ants unlocked and start Anthills with 40 Worker Ants, 20 Breeder Ants, 25 Meta-Breeder Ants, 25 Inceptus Formicidae levels, 1 Mortuus Est Formicidae level and 1e50 Galactic Crumbs",
+        "hasLevel1": "You permanently keep Ants unlocked and start Anthills with 40 Worker Ants, 20 Breeder Ants and 10 Inceptus Formicidae levels",
         "default": "You permanently keep Ants unlocked and start Anthills with 20 Worker Ants and 10 Inceptus Formicidae levels"
       },
       "itAllAddsUp": {
@@ -5538,12 +5538,12 @@
       },
       "octeractAmbrosiaLuck": {
         "name": "Berries of an Eight Leaf Clover",
-        "description": "Totally not a reskin of the blueberry! Adds +4 Ambrosial Luck per level, and it is infinitely levelable!",
+        "description": "Totally not a reskin of the blueberry! Adds +4 Ambrosia Luck per level, and it is infinitely levelable!",
         "effect": "+{{n}} Ambrosia Luck!"
       },
       "octeractAmbrosiaLuck4": {
         "name": "Berries of a Ten Leaf Clover",
-        "description": "Totally not a reskin of the blueberry! Adds +5 Ambrosial Luck. And it's mega expensive somehow.",
+        "description": "Totally not a reskin of the blueberry! Adds +5 Ambrosia Luck. And it's mega expensive somehow.",
         "effect": "+{{n}} Ambrosia Luck!"
       },
       "octeractAmbrosiaGeneration2": {
@@ -6050,9 +6050,9 @@
         "ScalingReward2": "15 Achievement Points!",
         "UniqueReward1": "1st - +12% <<gold|Golden Quarks>>!",
         "UniqueReward2": "1st - Three free <<var(--blueberry-box-color)|Blueberries>>! Also, unlock <<var(--amber-text-color)|Ambrosia>>!",
-        "UniqueReward3": "10th - A new <<orchid|Quark>> upgrade!",
+        "UniqueReward3": "10th - A new <<orchid|Quark Upgrade>>!",
         "UniqueReward4": "15th - +5% <<lime|Ambrosia Luck>> for free!",
-        "UniqueReward5": "15th - A new <<orange|Quark>> upgrade for NOT FREE!"
+        "UniqueReward5": "15th - A new <<orange|Quark Upgrade>> for NOT FREE!"
       },
       "oneChallengeCap": {
         "name": "One Challenge Caps",
@@ -6060,10 +6060,10 @@
         "ScalingReward1": "+0.05 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
         "ScalingReward2": "+1.66% <<var(--blueberry-box-color)|Ambrosia Bar Points>> gained",
         "ScalingReward3": "15 Achievement Points!",
-        "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> Cap!",
-        "UniqueReward2": "12th - +1 Free <<var(--red-text-color)|Corruption Level>>",
-        "UniqueReward3": "12th - A new <<orchid|Quark>> upgrade!",
-        "UniqueReward4": "15th - +7 <<green|Reincarnation Challenge>> Cap! And +2 to Ascension Challenge caps."
+        "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> cap!",
+        "UniqueReward2": "12th - +1 free <<var(--red-text-color)|Corruption Level>>!",
+        "UniqueReward3": "12th - A new <<orchid|Quark Upgrade>>!",
+        "UniqueReward4": "15th - +7 <<green|Reincarnation Challenge>> cap and +2 Ascension Challenge cap!"
       },
       "noOcteracts": {
         "name": "No Octeract Effects",
@@ -6073,7 +6073,7 @@
         "ScalingReward2": "20 Achievement Points!",
         "UniqueReward1": "1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward2": "10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
-        "UniqueReward3": "10th - A new <<orchid|Quark>> upgrade!"
+        "UniqueReward3": "10th - A new <<orchid|Quark Upgrade>>!"
       },
       "limitedAscensions": {
         "name": "Limited Ascensions Challenge",
@@ -6084,8 +6084,8 @@
         "ScalingReward1": "<<orange|+0.25% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
         "ScalingReward2": "30 Achievement Points!",
         "UniqueReward1": "1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
-        "UniqueReward2": "8th - A new <<orchid|Quark>> upgrade!",
-        "UniqueReward3": "10th - A new <<orchid|Quark>> Calculator, amazing!"
+        "UniqueReward2": "8th - A new <<orchid|Quark Upgrade>>!",
+        "UniqueReward3": "10th - A new <<orchid|Quark Calculator>>, amazing!"
       },
       "noAmbrosiaUpgrades": {
         "name": "No Ambrosia Effects",
@@ -6099,9 +6099,9 @@
         "UniqueReward2": "1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
         "UniqueReward3": "1st - Unlock <<red|Red Ambrosia>>! It's like Ambrosia, but <<red|red>>.",
         "UniqueReward4": "5th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
-        "UniqueReward5": "8th - A new <<orchid|Quark>> upgrade!",
+        "UniqueReward5": "8th - A new <<orchid|Quark Upgrade>>!",
         "UniqueReward6": "10th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
-        "UniqueReward7": "10th - An <<gold|ULTRA Quark>> upgrade!",
+        "UniqueReward7": "10th - An <<gold|ULTRA Quark Upgrade>>!",
         "UniqueReward8": "15th - You guessed it! A fourth free <<var(--blueberry-box-color)|berry that is blue>>!"
       },
       "limitedTime": {
@@ -6116,15 +6116,15 @@
         "ScalingReward3": "+2% <<cyan|Quarks>>!",
         "ScalingReward4": "-2% <<red|Red Bar Fill Requirements>>!",
         "ScalingReward5": "30 Achievement Points!",
-        "UniqueReward1": "1st - Your quarks no longer reset on Singularity!",
+        "UniqueReward1": "1st - Your Quarks no longer reset on Singularity!",
         "UniqueReward2": "5th - A new <<orchid|Quark Upgrade>>!",
         "UniqueReward3": "10th - A very expensive, not good, pretty bad <<orange|Quark Upgrade>>!"
       },
       "sadisticPrequel": {
         "name": "SADISTIC EXALT III - The Prequel",
         "description": "How much more will Platonic misuse the word 'Sadistic'? [No Golden Quark, Octeract, OR Ambrosia Upgrades. Red Ambrosia Upgrades are still permissible.]",
-        "ScalingReward1": "+6% <<cyan|Quarks>> per completion!",
-        "ScalingReward2": "+6% more <<orange|Free Upgrades>> from code 'Daily' per completion!",
+        "ScalingReward1": "+6% <<cyan|Quarks>>!",
+        "ScalingReward2": "+6% more <<orange|Free Upgrades>> from code 'Daily'!",
         "ScalingReward3": "40 Achievement Points!",
         "UniqueReward1": "1st - +50 Free Upgrades from code 'Daily'!",
         "UniqueReward2": "5th - A new <<orchid|Quark Upgrade>>!",

@@ -656,7 +656,7 @@ export const ambrosiaUpgrades: {
     effectsDescription: function() {
       const obtainiumMult = getAmbrosiaUpgradeEffects('ambrosiaObtainium1', 'obtainiumMult')
       return i18next.t('ambrosia.data.ambrosiaObtainium1.effect', {
-        amount: format(obtainiumMult / 10, 1, true)
+        amount: format((obtainiumMult - 1) * 10, 1, true)
       })
     },
     extraLevelCalc: () => 0,
@@ -683,7 +683,7 @@ export const ambrosiaUpgrades: {
     effectsDescription: function() {
       const offeringMult = getAmbrosiaUpgradeEffects('ambrosiaOffering1', 'offeringMult')
       return i18next.t('ambrosia.data.ambrosiaOffering1.effect', {
-        amount: format(offeringMult / 10, 1, true)
+        amount: format((offeringMult - 1) * 10, 1, true)
       })
     },
     extraLevelCalc: () => 0,

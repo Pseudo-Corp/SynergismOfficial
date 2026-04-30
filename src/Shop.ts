@@ -1583,7 +1583,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount2: format(addCodeCapacity)
       })
     },
-    isUnlocked: () => getSingularityChallengeEffect('limitedAscensions', 'shopUpgrade'),
+    isUnlocked: () => getSingularityChallengeEffect('limitedAscensions', 'shopUpgrade2'),
     price: 1e20,
     priceIncrease: 1e19,
     maxLevel: 50,
