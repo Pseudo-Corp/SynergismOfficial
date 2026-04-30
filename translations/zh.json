@@ -3341,9 +3341,9 @@
       "seasonPass": "惊奇方盒提出交易：购买这个完全公平的季票以后，每级使您飞升的方盒和超立方获取数量增加2.25%！",
       "challengeExtension": "耍点漂亮的小把戏，每级使转世挑战次数上限增加2次！",
       "challengeTome": "后传来了：第五部后传虽然有点被遗忘了，但每级还是可以使挑战10的基础目标再次减少1e20M。如果挑战9或挑战10的完成次数超过了60次，则每级还可以使挑战目标增长因子减少1%。",
-      "cubeToQuark": "是不是觉得开启惊奇方盒获得的夸克太少了？此项升级可以使开启惊奇方盒获得的夸克永久增加50%！",
-      "tesseractToQuark": "是不是觉得开启惊奇超立方获得的夸克太少了？此项升级可以使开启惊奇超立方获得的夸克永久增加50%！",
-      "hypercubeToQuark": "是不是觉得开启惊奇五阶立方获得的夸克太少了？此项升级可以使开启惊奇五阶立方获得的夸克永久增加50%！",
+      "cubeToQuark": "开启惊奇方盒获得的夸克太少了吗？那就购买这个吧，它可以使开启惊奇方盒获得的夸克永久增加50%！之后每级的效果指数衰减，最多能再提供50%的加成。",
+      "tesseractToQuark": "开启惊奇超立方获得的夸克太少了吗？那就购买这个吧，它可以使开启惊奇超立方获得的夸克永久增加50%！之后每级的效果指数衰减，最多能再提供50%的加成。",
+      "hypercubeToQuark": "开启惊奇五阶立方获得的夸克太少了吗？那就购买这个吧，它可以使开启惊奇五阶立方获得的夸克永久增加50%！之后每级的效果指数衰减，最多能再提供50%的加成。",
       "seasonPass2": "价格五倍，欢乐成对！每级使五阶立方和PLATONIC方盒获取数量增加1.5%！",
       "seasonPass3": "好吧，越来离谱了。每级使七阶立方和八阶方块获取数量增加1.5%！",
       "chronometer": "您知道的，飞升慢的很。不如，每级使飞升的速度增加1.2%？",
@@ -3459,9 +3459,9 @@
       "seasonPass": "飞升的方盒和超立方获取数量增加<<lightgoldenrodyellow|{{amount}}>>。",
       "challengeExtension": "转世挑战完成次数上限额外增加<<lime|{{amount}}>>次。",
       "challengeTome": "挑战10的基础目标减少<<lightgoldenrodyellow|1e{{amount1}}>>。超过60次以后的挑战9或挑战10的挑战目标增长因子变为[挑战次数×<<lightgoldenrodyellow|{{amount2}}>>]",
-      "cubeToQuark": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
-      "tesseractToQuark": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
-      "hypercubeToQuark": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
+      "cubeToQuark": "开启惊奇方盒获得的夸克<<cyan|增加{{amount}}>>！",
+      "tesseractToQuark": "开启惊奇超立方获得的夸克<<cyan|增加{{amount}}>>！",
+      "hypercubeToQuark": "开启惊奇五阶立方获得的夸克<<cyan|增加{{amount}}>>！",
       "seasonPass2": "飞升的五阶立方和PLATONIC方盒获取数量增加<<lightgoldenrodyellow|{{amount}}>>。",
       "seasonPass3": "飞升的七阶立方和八阶方块获取数量增加<<lightgoldenrodyellow|{{amount}}>>。",
       "chronometer": "飞升的速度增加<<orange|{{amount}}>>。",
@@ -3553,9 +3553,9 @@
       "seasonPass": "季票",
       "challengeExtension": "额外转世挑战",
       "challengeTome": "减少挑战10的目标",
-      "cubeToQuark": "使开启方盒的夸克获取数量增加50%",
-      "tesseractToQuark": "使开启超立方的夸克获取数量增加50%",
-      "hypercubeToQuark": "使开启五阶立方的夸克获取数量增加50%",
+      "cubeToQuark": "富含夸克的惊奇方盒",
+      "tesseractToQuark": "富含夸克的惊奇超立方",
+      "hypercubeToQuark": "富含夸克的惊奇五阶立方",
       "seasonPass2": "季票2",
       "seasonPass3": "季票3",
       "chronometer": "时计1",
@@ -5354,7 +5354,7 @@
         "name": "萌新的惊奇八阶方块",
         "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加25%，惊奇八阶方块获取数量增加40%，蚂蚁速度变为100000倍……",
         "effectDisabled": "您未向Derpsmith致敬。没有奖励！",
-        "effectEnabled": "您已向Derpsmith致敬。获得了{{amount}}夸克，{{amount2}}八阶方块和{{amount3}}倍蚂蚁速度！"
+        "effectEnabled": "您已向Derpsmith致敬。获得了+{{amount}}夸克，+{{amount2}}八阶方块和{{amount3}}倍蚂蚁速度！"
       },
       "octeractGain": {
         "name": "惊奇八阶方块同生",
@@ -6012,7 +6012,7 @@
     "freeLevels": "[<<orange|+{{x}}>>]",
     "offeringText": "每个祭品增加{{exp}}经验值 - 增加{{levels}}级需要{{offeringReq}}祭品。",
     "maxLevel": "已满级！",
-    "TNL": "<<orange|{{offerings}} ☤>>升1级"
+    "TNL": "<<orange|{{offerings}} ☤>>升{{levelAmount}}级"
   },
   "singularityChallenge": {
     "enterChallenge": {

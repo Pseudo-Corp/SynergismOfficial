@@ -752,10 +752,10 @@ export const promocodes = async (input: string | null, amount?: number) => {
       })
       : ''
 
-    player.stats.totalAddCodesUsed += realAttemptsUsed
-    awardAchievementGroup('addCodesUsed')
     // Calculator Maxed: you don't need to insert anything!
     if (getShopUpgradeEffects('calculator', 'autoFill')) {
+      player.stats.totalAddCodesUsed += realAttemptsUsed
+      awardAchievementGroup('addCodesUsed')
       player.worlds.add(actualQuarks, true, true)
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
@@ -809,6 +809,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
       return Alert(i18next.t('importexport.promocodes.add.cancelled'))
     }
 
+    player.stats.totalAddCodesUsed += realAttemptsUsed
+    awardAchievementGroup('addCodesUsed')
     player.rngCode = v
 
     if (first + second === +addPrompt) {
