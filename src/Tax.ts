@@ -65,12 +65,19 @@ export const calculatetax = () => {
     exp = 0.000005
   }
   // im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236
+  // Sings 4, 7, 10, 15, and 20 give extra challenge completions. To maintain old behavior (i.e. free
+  // Challenge completions not increasing taxes), we take away a few effective challenge completions
+  // Based on your highest singularity count || 6030
+  const singularity4 = player.highestSingularityCount >= 4 ? 1 : 0
+  const singularity7 = player.highestSingularityCount >= 7 ? 1 : 0
+  const singularity10 = player.highestSingularityCount >= 10 ? 1 : 0
+  const singularity15 = player.highestSingularityCount >= 15 ? 4 : 0
+  const singularity20 = player.highestSingularityCount >= 20 ? 1 : 0
   const c13effcompletions = Math.max(
     0,
     sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12]
       - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15]
-      - ((player.singularityCount >= 15) ? 4 : 0)
-      - ((player.singularityCount >= 20) ? 1 : 0)
+      - singularity4 - singularity7 - singularity10 - singularity15 - singularity20
   )
   if (player.currentChallenge.ascension === 13) {
     exp *= 400 * (1 + 1 / 6 * player.challengecompletions[13])

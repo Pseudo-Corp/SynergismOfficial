@@ -661,8 +661,9 @@ export const singularityChallengeData: {
         perSecondDivisor: format(perSecondPenalty, 3, true)
       })
       const timeMod3 = i18next.t('singularityChallenge.data.limitedTime.timeMod3')
+      const timeMod4 = i18next.t('singularityChallenge.data.limitedTime.timeMod4')
 
-      return `${baseDesc}<br>${timeMod1}<br>${timeMod2}<br>${timeMod3}`
+      return `${baseDesc}<br>${timeMod1}<br>${timeMod2}<br>${timeMod3}<br>${timeMod4}`
     }
   },
   sadisticPrequel: {
