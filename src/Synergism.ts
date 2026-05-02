@@ -2147,51 +2147,6 @@ const FormatList = [
   "Ce",
 ];
 
-// Bad browsers (like Safari) only recently implemented this.
-const supportsFormatToParts = typeof Intl.NumberFormat.prototype.formatToParts === 'function'
-
-// In some browsers, this will return an empty-1 length array (?), causing a "TypeError: Cannot read property 'value' of undefined"
-// if we destructure it... To reproduce: ` const [ { value } ] = []; `
-// https://discord.com/channels/677271830838640680/730669616870981674/830218436201283584
-const IntlFormatter = !supportsFormatToParts
-  ? null
-  : Intl.NumberFormat()
-    .formatToParts(1000.1)
-    .filter((part) => part.type === 'decimal' || part.type === 'group')
-
-// gets the system number delimiter and decimal values, defaults to en-US
-const [{ value: group }, { value: dec }] = IntlFormatter?.length !== 2
-  ? [{ value: ',' }, { value: '.' }]
-  : IntlFormatter
-
-// Number.toLocaleString opts for 2 decimal places
-const locOpts = { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-
-const padEvery = (str: string, places = 3) => {
-  let step = 1
-  let newStr = ''
-  const strParts = str.split('.')
-  // don't take any decimal places
-  for (let i = strParts[0].length - 1; i >= 0; i--) {
-    // pad every [places] places if we aren't at the beginning of the string
-    if (step++ === places && i !== 0) {
-      step = 1
-      newStr = group + str[i] + newStr
-    } else {
-      newStr = str[i] + newStr
-    }
-  }
-  // re-add decimal places
-  if (strParts[1] !== undefined) {
-    newStr += dec + strParts[1]
-  } // see https://www.npmjs.com/package/flatstr
-  /* eslint-disable */
-
-  ;(newStr as unknown as number) | 0
-  /* eslint-enable */
-  return newStr
-}
-
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
  * @param input value to format
@@ -2216,29 +2171,11 @@ export const format = (
     return '0 [null]'
   }
 
-  // NaN check
-  if (input !== input) {
+  if (Number.isNaN(input)) {
     return '0 [NaN]'
   }
 
   const inputType = typeof input
-
-  if (
-    // this case handles numbers less than 1e-6 and greater than 0
-    inputType === 'number'
-    && player.notation === 'Default'
-    && (input as number) < (!fractional ? 1e-3 : 1e-15) // arbitrary number, don't change 1e-3
-    && (input as number) > 0 // don't handle negative numbers, probably could be removed
-  ) {
-    return input.toExponential(accuracy)
-  } else if (
-    inputType === 'number'
-    && player.notation === 'Default'
-    && -(input as number) < (!fractional ? 1e-3 : 1e-15) // arbitrary number, don't change 1e-3
-    && -(input as number) > 0
-  ) {
-    return `-${(-(input as number)).toExponential(accuracy)}`
-  }
 
   let power!: number
   let mantissa!: number
@@ -2251,7 +2188,7 @@ export const format = (
     }
 
     // Gets power and mantissa if input is of type number and isn't 0
-    power = Math.floor(Math.log10(Math.abs(input as number)))
+    power = Math.floor(Math.log10(input as number))
     mantissa = (input as number) / Math.pow(10, power)
   } else if (input instanceof Decimal) {
     if (input.lessThan(0)) {
@@ -2280,40 +2217,24 @@ export const format = (
   if (power < -100) {
     return '0'
   }
-  if (player.notation === 'Pure Engineering') {
-    const powerOver = power % 3 < 0 ? 3 + (power % 3) : power % 3
-    power = power - powerOver
-    mantissa = mantissa * Math.pow(10, powerOver)
-  } else if (player.notation === 'Pure Scientific') {
-    if (power >= 1e6) {
-      if (!Number.isFinite(power)) {
-        return 'Infinity'
-      }
-      return `E${format(power, 3)}`
-    }
-    accuracy = power === 2 && accuracy > 2 ? 2 : accuracy
-    if (power >= 6 || power < 0) {
-      accuracy = accuracy < 2 ? 2 : accuracy
-      // Makes the power group 3 with commas
-      const mantissaLook = (
-        Math.floor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)
-      ).toLocaleString(undefined, locOpts)
-      const powerLook = padEvery(power.toString())
-      // returns format (1.23e456,789)
-      return `${mantissaLook}e${powerLook}`
-    }
-    mantissa = mantissa * Math.pow(10, power)
-    if (mantissa - Math.floor(mantissa) > 0.9999999) {
-      mantissa = Math.ceil(mantissa)
-    }
 
-    return (
-      Math.floor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)
-    ).toLocaleString(undefined, {
-      minimumFractionDigits: accuracy,
-      maximumFractionDigits: accuracy
-    })
+  if (!Number.isFinite(power)) {
+    return 'Infinity'
   }
+
+  // Make the above code apply to Default notation as well
+  // Also make the block below apply to Pure Scientific and Pure Engineering notations || rus9384
+  // This case handles numbers less than 1e-3 and greater than -1e-3
+  if (inputType === 'number' && Math.abs(input as number) < (!fractional ? 1e-3 : 1e-15)) {// Arbitrary number, don't change 1e-3
+    const formatOpts = {
+      minimumSignificantDigits: 1 + accuracy,
+      maximumSignificantDigits: 1 + accuracy,
+      roundingMode: 'trunc' as const,
+      notation: player.notation === 'Pure Engineering' ? 'engineering' as const : 'scientific' as const
+    }
+    return input.toLocaleString(undefined, formatOpts)
+  }
+
   // If the power is negative, then we will want to address that separately.
   if (power < 0 && inputType === 'number' && fractional) {
     if (power <= -15) {
@@ -2362,48 +2283,67 @@ export const format = (
     // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 12
     let standard = mantissa * Math.pow(10, power)
     let standardString: string
+    let digits = accuracy
+    if (power >= 2 + (long ? 1 : 0)) {
+      digits = 0
+    } else if (power === 2 && accuracy > 2) {
+      digits = 2
+    }
+    
+    Math.max(0, Math.min(accuracy, accuracy + 2 - power))
     // Rounds up if the number experiences a rounding error
     if (standard - Math.floor(standard) > 0.9999999) {
       standard = Math.ceil(standard)
     }
-    // If the power is less than 1 or format long and less than 3 apply toFixed(accuracy) to get decimal places
-    if ((power < 2 || (long && power < 3)) && accuracy > 0) {
-      standardString = standard.toFixed(
-        power === 2 && accuracy > 2 ? 2 : accuracy
-      )
-    } else {
-      // If it doesn't fit those criteria drop the decimal places
-      standard = Math.floor(standard)
-      standardString = standard.toString()
-    }
 
-    // Split it on the decimal place
-    return padEvery(standardString)
-  } else if (power < 1e6) {
-    // If the power is less than 1e6 then apply standard scientific notation
-    // Makes mantissa be rounded down to 2 decimal places
-    const mantissaLook = (Math.floor(mantissa * 100) / 100).toLocaleString(
-      undefined,
-      locOpts
-    )
-    // Makes the power group 3 with commas
-    const powerLook = padEvery(power.toString())
-    // returns format (1.23e456,789)
-    return `${mantissaLook}e${powerLook}`
+    const formatOpts = {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+      roundingMode: 'trunc' as const
+    }
+    standardString = standard.toLocaleString(undefined, formatOpts)
+    //return padEvery(standardString) // Split it on the decimal place
+    return standardString
+  }
+
+  accuracy = Math.max(3, accuracy + 1)
+  // Only apply Engineering notation if we can see all digits of the exponent || rus9384
+  if (player.notation === 'Pure Engineering' && (power < 1e6 || longExponent && power < 1e12)) {
+    const powerOver = (power % 3 + 3) % 3
+    power -= powerOver
+    mantissa *= Math.pow(10, powerOver)
+  }
+
+  // Number.toLocaleString opts for 'accuracy' decimal places
+  const locOpts = { 
+    minimumSignificantDigits: accuracy,
+    maximumSignificantDigits: accuracy,
+    roundingMode: 'trunc' as const
+  }
+
+  if (power < 1e6) {
+    // If the power is less than 1e6 then apply standard scientific/engineering notation
+    // Makes mantissa be rounded down to 'accuracy' decimal places
+    const mantissaLook = mantissa.toLocaleString(undefined, locOpts)
+    //const powerLook = padEvery(power.toString()) // Makes the power group 3 with commas
+    const powerLook = power.toLocaleString()
+    return `${mantissaLook}e${powerLook}` // Returns format (1.23e456,789)
   } else if (power >= 1e6) {
-    if (!Number.isFinite(power)) {
-      return 'Infinity'
+    // The only difference between Default and Pure Scientific is how it handles numbers larger than 1e1M / E1e6 || rus9384
+    if (player.notation === 'Pure Scientific') {
+      return `E${format(power, 3)}`
     }
 
     if (longExponent) {
-      const mantissaLook = (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts)
+      const mantissaLook = mantissa.toLocaleString(undefined, locOpts)
       return `${mantissaLook}e${format(power, 0, true)}`
     }
+
     // if the power is greater than 1e6 apply notation scientific notation
     // Makes mantissa be rounded down to 2 decimal places
     const mantissaLook = testing && truncate
       ? ''
-      : (Math.floor(mantissa * 100) / 100).toLocaleString(undefined, locOpts)
+      : mantissa.toLocaleString(undefined, locOpts)
 
     // Drops the power down to 4 digits total but never greater than 1000 in increments that equate to notations, (1234000 -> 1.234) ( 12340000 -> 12.34) (123400000 -> 123.4) (1234000000 -> 1.234)
     const powerDigits = Math.ceil(Math.log10(power))
