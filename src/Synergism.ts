@@ -2199,10 +2199,11 @@ export const format = (
     mantissa = input.mantissa
   }
 
+  const threshold = 10 - Math.pow(10, long ? -13 : -7)
   // This prevents numbers from jittering between two different powers by rounding errors
-  if (mantissa > 9.9999999) {
+  if (mantissa > threshold) {
     mantissa = 1
-    ;++power
+    ++power
   }
 
   if (mantissa < 1 && mantissa > 0.9999999) {
@@ -2210,9 +2211,8 @@ export const format = (
   }
 
   // If the power is less than 100 it's effectively 0
-  // To my knowledge the only number that goes as low as e-100 is TD16. Strangely it causes a new bug
-  // For pure scientific, where it says "1.00e-,100". I think this is an acceptable side effect
-  // Considering that it fixes an issue that quite a few people (including myself) had with this notation || 6030
+  // To my knowledge the only number that goes as low as e-100 is TD16. || 6030
+  // A bug with 1e-100 being shown as "1.00e-,100" is fixed || rus9384
 
   if (power < -100) {
     return '0'
@@ -2232,7 +2232,7 @@ export const format = (
       roundingMode: 'trunc' as const,
       notation: player.notation === 'Pure Engineering' ? 'engineering' as const : 'scientific' as const
     }
-    return input.toLocaleString(undefined, formatOpts)
+    return input.toLocaleString(undefined, formatOpts).toLowerCase() // We want 'e' to be in lower case
   }
 
   // If the power is negative, then we will want to address that separately.
@@ -2281,7 +2281,7 @@ export const format = (
   } else if (power < 6 || (long && power < 12)) {
     // If the power is less than 6 or format long and less than 12 use standard formatting (1,234,567)
     // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 12
-    let standard = mantissa * Math.pow(10, power)
+    let standard = input as number // Avoid rounding errors introduced by multiplying mantissa with 10 ** exponent
     let standardString: string
     let digits = accuracy
     if (power >= 2 + (long ? 1 : 0)) {
@@ -2290,7 +2290,6 @@ export const format = (
       digits = 2
     }
     
-    Math.max(0, Math.min(accuracy, accuracy + 2 - power))
     // Rounds up if the number experiences a rounding error
     if (standard - Math.floor(standard) > 0.9999999) {
       standard = Math.ceil(standard)
@@ -2321,22 +2320,16 @@ export const format = (
     roundingMode: 'trunc' as const
   }
 
-  if (power < 1e6) {
+  if (power < 1e6 || (longExponent && power < 1e12)) {
     // If the power is less than 1e6 then apply standard scientific/engineering notation
     // Makes mantissa be rounded down to 'accuracy' decimal places
     const mantissaLook = mantissa.toLocaleString(undefined, locOpts)
-    //const powerLook = padEvery(power.toString()) // Makes the power group 3 with commas
-    const powerLook = power.toLocaleString()
+    const powerLook = format(power, 0, longExponent)
     return `${mantissaLook}e${powerLook}` // Returns format (1.23e456,789)
   } else if (power >= 1e6) {
     // The only difference between Default and Pure Scientific is how it handles numbers larger than 1e1M / E1e6 || rus9384
     if (player.notation === 'Pure Scientific') {
       return `E${format(power, 3)}`
-    }
-
-    if (longExponent) {
-      const mantissaLook = mantissa.toLocaleString(undefined, locOpts)
-      return `${mantissaLook}e${format(power, 0, true)}`
     }
 
     // if the power is greater than 1e6 apply notation scientific notation
