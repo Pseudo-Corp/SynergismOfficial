@@ -2301,7 +2301,6 @@ export const format = (
       roundingMode: 'trunc' as const
     }
     standardString = standard.toLocaleString(undefined, formatOpts)
-    //return padEvery(standardString) // Split it on the decimal place
     return standardString
   }
 
