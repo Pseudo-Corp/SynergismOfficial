@@ -1305,6 +1305,7 @@ export const updateMobileAmbrosiaHTML = (k: AmbrosiaUpgradeNames) => {
 
     const buyOne = document.createElement('button')
     const buyMax = document.createElement('button')
+    const refundOne = document.createElement('button')
 
     buyOne.classList.add('modalBtnBuy')
     buyOne.textContent = i18next.t('general.buyOne')
@@ -1320,8 +1321,16 @@ export const updateMobileAmbrosiaHTML = (k: AmbrosiaUpgradeNames) => {
       updateMobileAmbrosiaHTML(k)
     })
 
+    refundOne.classList.add('modalBtnBuy')
+    refundOne.textContent = i18next.t('ambrosia.refundOneLevelBtn')
+    refundOne.addEventListener('click', () => {
+      refundOneAmbrosiaUpgradeLevel(k)
+      updateMobileAmbrosiaHTML(k)
+    })
+
     buttonDiv.appendChild(buyOne)
     buttonDiv.appendChild(buyMax)
+    buttonDiv.appendChild(refundOne)
     elm.appendChild(buttonDiv)
   }
 }
@@ -1417,6 +1426,38 @@ export const displayProperLoadoutCount = () => {
     } else {
       elm.style.display = 'none'
     }
+  }
+}
+
+export const refundOneAmbrosiaUpgradeLevel = async (upgradeKey: AmbrosiaUpgradeNames): Promise<void> => {
+  const upgrade = ambrosiaUpgrades[upgradeKey]
+
+  if (upgrade.level <= 0) {
+    return Alert(i18next.t('ambrosia.refundOneLevelZero'))
+  }
+
+  const newLevel = upgrade.level - 1
+  for (const key of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+    if (key === upgradeKey) continue
+    const prereqLevel = ambrosiaUpgrades[key].prerequisites[upgradeKey]
+    if (prereqLevel !== undefined && newLevel < prereqLevel && ambrosiaUpgrades[key].level > 0) {
+      return Alert(
+        i18next.t('ambrosia.refundOneLevelPrereq', { name: ambrosiaUpgrades[key].name() })
+      )
+    }
+  }
+
+  const refundAmount = upgrade.costFormula(upgrade.level - 1, upgrade.costPerLevel)
+
+  player.ambrosia += refundAmount
+  upgrade.ambrosiaInvested -= refundAmount
+  player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested -= refundAmount
+  upgrade.level -= 1
+
+  if (upgrade.level === 0 && upgrade.blueberriesInvested > 0) {
+    player.spentBlueberries -= upgrade.blueberriesInvested
+    player.ambrosiaUpgrades[upgradeKey].blueberriesInvested = 0
+    upgrade.blueberriesInvested = 0
   }
 }
 
