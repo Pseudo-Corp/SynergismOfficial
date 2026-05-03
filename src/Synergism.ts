@@ -2226,13 +2226,12 @@ export const format = (
   // Also make the block below apply to Pure Scientific and Pure Engineering notations || rus9384
   // This case handles numbers less than 1e-3 and greater than -1e-3
   if (inputType === 'number' && Math.abs(input as number) < (!fractional ? 1e-3 : 1e-15)) {// Arbitrary number, don't change 1e-3
-    const formatOpts = {
+    return input.toLocaleString(undefined, {
       minimumSignificantDigits: 1 + accuracy,
       maximumSignificantDigits: 1 + accuracy,
       roundingMode: 'trunc' as const,
       notation: player.notation === 'Pure Engineering' ? 'engineering' as const : 'scientific' as const
-    }
-    return input.toLocaleString(undefined, formatOpts).toLowerCase() // We want 'e' to be in lower case
+    }).toLowerCase() // We want 'e' to be in lower case
   }
 
   // If the power is negative, then we will want to address that separately.
@@ -2281,7 +2280,12 @@ export const format = (
   } else if (power < 6 || (long && power < 12)) {
     // If the power is less than 6 or format long and less than 12 use standard formatting (1,234,567)
     // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 12
-    let standard = input as number // Avoid rounding errors introduced by multiplying mantissa with 10 ** exponent
+    let standard: number
+    if (inputType === 'number') {
+      standard = input as number // Avoid rounding errors introduced by multiplying mantissa with 10 ** exponent
+    } else {
+      standard = mantissa * Math.pow(10, power)
+    }
     let standardString: string
     let digits = accuracy
     if (power >= 2 + (long ? 1 : 0)) {
@@ -2289,18 +2293,17 @@ export const format = (
     } else if (power === 2 && accuracy > 2) {
       digits = 2
     }
-    
+
     // Rounds up if the number experiences a rounding error
     if (standard - Math.floor(standard) > 0.9999999) {
       standard = Math.ceil(standard)
     }
 
-    const formatOpts = {
+    standardString = standard.toLocaleString(undefined, {
       minimumFractionDigits: digits,
       maximumFractionDigits: digits,
       roundingMode: 'trunc' as const
-    }
-    standardString = standard.toLocaleString(undefined, formatOpts)
+    })
     return standardString
   }
 
@@ -2313,7 +2316,7 @@ export const format = (
   }
 
   // Number.toLocaleString opts for 'accuracy' decimal places
-  const locOpts = { 
+  const locOpts: Intl.NumberFormatOptions = { 
     minimumSignificantDigits: accuracy,
     maximumSignificantDigits: accuracy,
     roundingMode: 'trunc' as const
