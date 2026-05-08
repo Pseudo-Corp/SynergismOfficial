@@ -17,9 +17,13 @@ android {
         }
     }
     buildTypes {
+        debug {
+            manifestPlaceholders = [admobAppId: "ca-app-pub-3940256099942544~1458002511"]
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [admobAppId: "YOUR_PROD_ADMOB_APP_ID"]
         }
     }
 }
