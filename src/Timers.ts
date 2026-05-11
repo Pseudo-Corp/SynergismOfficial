@@ -43,7 +43,9 @@ export const clearTimeout: typeof workerTimers['clearTimeout'] = (timerId) => {
 }
 
 export const clearTimers = (): void => {
-  for (const { id, type } of activeTimers) {
+  // create shallow copy to avoid mutation bug
+  const timersCopy = [...activeTimers]
+  for (const { id, type } of timersCopy) {
     if (type === 'interval') {
       clearInterval(id)
     } else {
