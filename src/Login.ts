@@ -446,9 +446,7 @@ export async function handleLogin () {
         { name: 'steam', direct: true }
       ]
 
-      const unlinkedPlatforms = platform === 'steam'
-        ? allPlatforms.filter((p) => p.direct && !linkedAccounts.includes(p.name))
-        : allPlatforms.filter((p) => !linkedAccounts.includes(p.name))
+      const unlinkedPlatforms = allPlatforms.filter((p) => !linkedAccounts.includes(p.name))
 
       if (unlinkedPlatforms.length > 0) {
         const linkAccountsSection = document.createElement('div')
@@ -789,6 +787,11 @@ export function sendToWebsocket (message: string) {
 
 async function logout () {
   await fetch('https://synergism.cc/api/v1/users/logout')
+
+  if (platform === 'steam') {
+    const { clearAuthCookie } = await import('./steam/steam')
+    await clearAuthCookie()
+  }
 
   await Alert(i18next.t('account.logout'))
   location.reload()

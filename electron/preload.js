@@ -55,6 +55,11 @@ contextBridge.exposeInMainWorld('windowControls', {
   getZoomFactor: () => ipcRenderer.invoke('window:getZoomFactor')
 })
 
+contextBridge.exposeInMainWorld('auth', {
+  /** @returns {Promise<void>} */
+  clearCookie: () => ipcRenderer.invoke('auth:clearCookie')
+})
+
 contextBridge.exposeInMainWorld('discord', {
   /**
    * @param {import('./lib/discord').PresenceOptions} options

@@ -34,10 +34,15 @@ interface WindowControls {
   getZoomFactor: () => Promise<number>
 }
 
+interface Auth {
+  clearCookie: () => Promise<void>
+}
+
 declare global {
   interface Window {
     steam?: Steam
     windowControls?: WindowControls
+    auth?: Auth
   }
 }
 
@@ -76,3 +81,5 @@ export const getZoomFactor = (): Promise<number> => window.windowControls?.getZo
 // Steam Achievements
 export const unlockAchievement: Steam['unlockAchievement'] = (achievementId) =>
   window.steam?.unlockAchievement(achievementId) ?? Promise.resolve()
+
+export const clearAuthCookie = (): Promise<void> => window.auth?.clearCookie() ?? Promise.resolve()

@@ -226,3 +226,7 @@ ipcMain.handle('window:setZoomFactor', (_, factor: number) => {
 ipcMain.handle('window:getZoomFactor', () => {
   return settingsStore.get('zoomFactor')
 })
+
+ipcMain.handle('auth:clearCookie', async () => {
+  await session.defaultSession.cookies.remove('https://synergism.cc', 'token')
+})
