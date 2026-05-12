@@ -3,7 +3,10 @@ body {
     transition: background-color var(--transition), border-color var(--transition);
 }
 
-button, a, input, select {
+button,
+a,
+input,
+select {
     touch-action: manipulation;
 }
 
@@ -281,17 +284,21 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 
 @keyframes slide-in {
     from {
-        transform: translate(-100%, 10%);
+        transform: translateX(-100%);
     }
 
     to {
-        transform: translate(5%, 10%);
+        transform: translateX(5%);
     }
 }
 
 @keyframes slide-out {
+    from {
+        transform: translateX(5%);
+    }
+
     to {
-        transform: translate(-100%, 10%);
+        transform: translateX(-100%);
     }
 }
 
@@ -306,12 +313,27 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     z-index: 6968;
 }
 
-#notification {
+#notificationStack {
     position: fixed;
-    display: none;
-    transform: translateY(10%);
+    top: 12px;
+    left: 0;
     z-index: 6969;
-    width: 15%;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+}
+
+.notification-wrap {
+    margin-bottom: 10px;
+    overflow: visible;
+    transition: max-height 1000ms ease, margin-bottom 1000ms ease;
+}
+
+.notification-item {
+    position: relative;
+    transform: translateX(-100%);
+    pointer-events: auto;
+    width: 15vw;
     min-width: calc(140px + 10em);
     min-height: calc(40px + 5em);
     overflow: hidden;
@@ -364,8 +386,8 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     padding: 10px;
 }
 
-#notification > p {
-    position: fixed;
+.notification-item > p {
+    position: absolute;
     top: 50%;
     left: 50%;
     width: 90%;
@@ -375,22 +397,47 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     white-space: pre-line;
 }
 
-#notifx {
-    position: fixed;
+.notification-item > .notifx {
+    position: absolute;
     top: 2px;
     right: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
     padding: 3px;
+    margin: 0;
+    border: 1px solid transparent;
     border-radius: 2px;
+    font-family: inherit;
     font-size: 0;
+    line-height: 0;
     z-index: 1;
     color: white;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
+    appearance: none;
 }
 
-#notifx:hover {
+.notification-item > .notifx:hover {
     background-color: var(--hover-color);
+}
+
+.notification-item > .notifx:focus-visible {
+    outline: 2px solid gold;
+    outline-offset: 2px;
+    border-color: gold;
+}
+
+.notification-item > .notifx:active {
+    background-color: var(--hover-color);
+    transform: translateY(1px);
+}
+
+.notification-item > .notifx > img {
+    pointer-events: none;
 }
 
 #confirmationBox,
@@ -4793,7 +4840,7 @@ img#singularityPerksIcon {
 }
 
 .watchAdClickable {
-    border: 2px solid rgb(255, 248, 148);
+    border: 2px solid #fff894;
     cursor: pointer;
     width: calc(100vw / 3);
 }
@@ -6748,8 +6795,8 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         max-width: 95vw;
     }
 
-    #notification {
-        width: 80%;
+    .notification-item {
+        width: 80vw;
         min-width: unset;
     }
 

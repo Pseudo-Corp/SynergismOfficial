@@ -1351,45 +1351,67 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
     return p.promise
   })
 
-let closeNotification: number
-let closedNotification: number
-
 export const Notification = (text: string, time = 30000): Promise<void> => {
-  const notification = DOMCacheGetOrSet('notification')
-  const textNode = document.querySelector<HTMLElement>('#notification > p')!
-  const x = DOMCacheGetOrSet('notifx')
+  const stack = DOMCacheGetOrSet('notificationStack')
 
+  const wrap = document.createElement('div')
+  wrap.className = 'notification-wrap'
+
+  const notification = document.createElement('div')
+  notification.className = 'notification-item'
+  notification.setAttribute('role', 'alert')
+
+  const x = document.createElement('button')
+  x.className = 'notifx'
+  x.type = 'button'
+  x.setAttribute('aria-label', i18next.t('general.closeNotification'))
+
+  const img = document.createElement('img')
+  img.src = 'Pictures/Default/X.png'
+  img.height = 16
+  img.width = 16
+  img.alt = ''
+  x.appendChild(img)
+
+  const textNode = document.createElement('p')
   textNode.textContent = text
-  notification.style.display = 'block'
-  notification.classList.remove('slide-out')
+
+  notification.appendChild(x)
+  notification.appendChild(textNode)
+  wrap.appendChild(notification)
+  stack.appendChild(wrap)
   notification.classList.add('slide-in')
 
   const p = createDeferredPromise<void>()
 
+  let closeTimer = 0
+  let closedTimer = 0
+
   const closed = () => {
-    notification.style.display = 'none'
-    textNode.textContent = ''
-    closedNotification = 0
+    wrap.remove()
+    closedTimer = 0
   }
 
   const close = () => {
+    if (closeTimer === 0 && closedTimer !== 0) return
+
+    wrap.style.maxHeight = `${wrap.offsetHeight}px`
+    void wrap.offsetHeight
+    wrap.style.maxHeight = '0'
+    wrap.style.marginBottom = '0'
+
     notification.classList.add('slide-out')
     notification.classList.remove('slide-in')
 
-    closeNotification = 0
+    clearTimeout(closeTimer)
+    closeTimer = 0
     x.removeEventListener('click', close)
-    closedNotification = +setTimeout(closed, 1000)
+    closedTimer = +setTimeout(closed, 1000)
     p.resolve()
   }
 
   x.addEventListener('click', close)
-
-  // Reset the close timer if reopened before closed
-  clearTimeout(closeNotification)
-  clearTimeout(closedNotification)
-
-  // automatically close out after <time> ms
-  closeNotification = +setTimeout(close, time)
+  closeTimer = +setTimeout(close, time)
 
   return p.promise
 }

@@ -902,9 +902,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
 
   // allow aesthetic offline progress
   if (offlineDialog) {
-    const el = DOMCacheGetOrSet('notification')
-    el.classList.add('slide-out')
-    el.classList.remove('slide-in')
+    DOMCacheGetOrSet('notificationStack').style.display = 'none'
     document.body.classList.remove('scrollbar')
     document.body.classList.add('loading')
     DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
@@ -920,6 +918,7 @@ export const exitOffline = () => {
   DOMCacheGetOrSet('transparentBG').style.display = 'none'
   DOMCacheGetOrSet('offlineContainer').style.display = 'none'
   DOMCacheGetOrSet('offlineBlur').style.display = 'none'
+  DOMCacheGetOrSet('notificationStack').style.display = ''
   enableHotkeys()
 }
 

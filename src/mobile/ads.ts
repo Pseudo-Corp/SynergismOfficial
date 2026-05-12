@@ -1,12 +1,7 @@
-import {
-  AdMob,
-  AdmobConsentStatus,
-  RewardAdOptions,
-  RewardAdPluginEvents
-} from '@capacitor-community/admob'
-import { Notification } from '../UpdateHTML'
-import { isAdEventEnabled, setNewAdExpiry } from '../Event'
+import { AdMob, AdmobConsentStatus, type RewardAdOptions, RewardAdPluginEvents } from '@capacitor-community/admob'
 import i18next from 'i18next'
+import { isAdEventEnabled, setNewAdExpiry } from '../Event'
+import { Notification } from '../UpdateHTML'
 
 let adMobInitialized = false
 
@@ -36,8 +31,7 @@ export async function initAdMob (): Promise<void> {
     setNewAdExpiry()
     if (alreadyActive) {
       void Notification(i18next.t('advertisements.repeatWatch'))
-    }
-    else {
+    } else {
       void Notification(i18next.t('advertisements.successfulWatch'))
     }
   })

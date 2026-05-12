@@ -189,8 +189,7 @@ export const setNewAdExpiry = () => {
   if (adTimeExpires > timeRef) {
     // If not expired, we want to add 10 mins to expiry time instead of reset
     adTimeExpires += TIME_10_MINS_MS
-  }
-  else {
+  } else {
     adTimeExpires = timeRef + TIME_10_MINS_MS
   }
 }
@@ -207,7 +206,7 @@ export const adEventBuff = (buff: BuffType) => {
   } else {
     switch (buff) {
       case BuffType.Quark:
-          return 0.1
+        return 0.1
       case BuffType.GoldenQuark:
         return 0
       case BuffType.Cubes:
