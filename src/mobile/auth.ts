@@ -188,7 +188,7 @@ export const bindMobileFormHandlers = memoize(() => {
           await displayHTMLError(res)
         }
       } finally {
-        form.dataset.submitting = undefined
+        delete form.dataset.submitting
       }
     })
   }
