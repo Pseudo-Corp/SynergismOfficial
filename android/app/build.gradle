@@ -16,11 +16,24 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            def keystorePath = project.findProperty('SYNERGISM_KEYSTORE') ?: System.getenv('SYNERGISM_KEYSTORE')
+            if (keystorePath) {
+                storeFile file(keystorePath)
+                storePassword project.findProperty('SYNERGISM_KEYSTORE_PASSWORD') ?: System.getenv('SYNERGISM_KEYSTORE_PASSWORD')
+                keyAlias project.findProperty('SYNERGISM_KEY_ALIAS') ?: System.getenv('SYNERGISM_KEY_ALIAS')
+                keyPassword project.findProperty('SYNERGISM_KEY_PASSWORD') ?: System.getenv('SYNERGISM_KEY_PASSWORD')
+            }
+        }
+    }
     buildTypes {
         debug {
+            signingConfig signingConfigs.release
             manifestPlaceholders = [admobAppId: "ca-app-pub-3940256099942544~1458002511"]
         }
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [admobAppId: "YOUR_PROD_ADMOB_APP_ID"]

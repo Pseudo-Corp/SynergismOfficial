@@ -7632,7 +7632,7 @@
   },
   "mobile": {
     "auth": {
-      "signInFailed": "Sign in with Apple was cancelled or failed. Please try again."
+      "signInFailed": "Sign-in was cancelled or failed. Please try again."
     },
     "purchases": {
       "productUnavailable": "This product isn't available right now. Please try again later.",
