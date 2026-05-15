@@ -7,11 +7,19 @@ const rule = {
         if (!firstArg) return
 
         if (firstArg.type === 'Literal' && typeof firstArg.value === 'string' && /^\.?\//.test(firstArg.value)) {
-          context.report({ node: firstArg, message: 'Use an absolute URL (https://synergism.cc/...) in fetch(). Relative URLs resolve against capacitor://localhost on mobile.' })
+          context.report({
+            node: firstArg,
+            message:
+              'Use an absolute URL (https://synergism.cc/...) in fetch(). Relative URLs resolve against capacitor://localhost on mobile.'
+          })
         }
 
         if (firstArg.type === 'TemplateLiteral' && /^\.?\//.test(firstArg.quasis[0]?.value.raw ?? '')) {
-          context.report({ node: firstArg, message: 'Use an absolute URL (https://synergism.cc/...) in fetch(). Relative URLs resolve against capacitor://localhost on mobile.' })
+          context.report({
+            node: firstArg,
+            message:
+              'Use an absolute URL (https://synergism.cc/...) in fetch(). Relative URLs resolve against capacitor://localhost on mobile.'
+          })
         }
       }
     }

@@ -7,8 +7,8 @@ android {
         applicationId "cc.pseudocorp.synergism"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "0.0.1-alpha0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -36,7 +36,7 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [admobAppId: "YOUR_PROD_ADMOB_APP_ID"]
+            manifestPlaceholders = [admobAppId: "ca-app-pub-8767571504273469~8229403447"]
         }
     }
 }

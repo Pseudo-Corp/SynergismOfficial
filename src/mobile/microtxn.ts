@@ -105,7 +105,12 @@ export async function orderProduct (lookupKey: string): Promise<void> {
   // adapter reads from additionalData.applicationUsername. Set both so the
   // user identifier reaches whichever store is active.
   store.applicationUsername = applicationUsername
-  const result = await store.order(offer, { applicationUsername })
+  const result = await store.order(offer, {
+    applicationUsername,
+    googlePlay: {
+      accountId: applicationUsername
+    }
+  })
   if (result && 'code' in result) {
     Notification(i18next.t('mobile.purchases.orderFailed', { error: result.message }))
   }
