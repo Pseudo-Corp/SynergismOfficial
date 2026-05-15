@@ -1052,7 +1052,7 @@ function handleCloudSaves () {
   const transferButton = subtabElement.querySelector<HTMLButtonElement>('button#transfer')
 
   function populateTable () {
-    fetch('/saves/retrieve/all')
+    fetch('https://synergism.cc/saves/retrieve/all')
       .then((response) => response.json())
       .then(($saves: Save[]) => {
         cloudSaves.length = 0
@@ -1235,7 +1235,7 @@ function handleCloudSaves () {
             save.actionButtons.delete.textContent = 'Deleting...'
           }
 
-          const response = await fetch('/saves/delete', {
+          const response = await fetch('https://synergism.cc/saves/delete', {
             method: 'DELETE',
             body: JSON.stringify({ name: save.name })
           })
@@ -1275,7 +1275,7 @@ function handleCloudSaves () {
     fd.set('file', new File([save], name))
     fd.set('name', name)
 
-    fetch('/saves/upload', {
+    fetch('https://synergism.cc/saves/upload', {
       method: 'POST',
       body: fd
     }).then((response) => {
@@ -1307,7 +1307,7 @@ function handleCloudSaves () {
     const originalText = transferButton.textContent
     transferButton.innerHTML = '<span class="spinner"></span> Transferring...'
 
-    fetch('/saves/transfer').then((response) => {
+    fetch('https://synergism.cc/saves/transfer').then((response) => {
       if (!response.ok) {
         throw new TypeError(`Received status ${response.status}`)
       }
