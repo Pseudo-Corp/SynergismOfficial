@@ -1,6 +1,7 @@
 node_modules/
 *.js
 !scripts/*.js
+!eslint-rules/*.js
 dist
 !.eslintrc.js
 .idea
