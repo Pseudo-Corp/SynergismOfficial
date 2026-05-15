@@ -1,6 +1,6 @@
-import Decimal, { type DecimalSource } from 'break_infinity.js'
+import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { achievementLevel, getAchievementReward } from './Achievements'
+import { getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -44,7 +44,6 @@ import {
   calculateImmaculateAlchemyBonus,
   calculateLuckConversion,
   calculateNegativeSalvage,
-  calculateNegativeSalvageMultiplier,
   calculateNumberOfThresholds,
   calculateObtainium,
   calculateObtainiumDecimal,
@@ -56,7 +55,6 @@ import {
   calculateOfferingsDecimal,
   calculatePlatonicMultiplier,
   calculatePositiveSalvage,
-  calculatePositiveSalvageMultiplier,
   calculatePowderConversion,
   calculateQuarkMultFromPowder,
   calculateQuarkMultiplier,
@@ -119,8 +117,8 @@ import {
   addCodeSingularityPerkBonus,
   addCodeTimeToNextUse
 } from './ImportExport'
-import { getLevelMilestone, getLevelReward, synergismLevelRewards } from './Levels'
-import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
+import { getLevelMilestone, getLevelReward } from './Levels'
+import { getOcteractUpgradeEffect } from './Octeracts'
 import {
   calculateCubeMultiplierPlatonicBlessing,
   calculateGlobalSpeedPlatonicBlessing,
@@ -131,7 +129,6 @@ import {
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getGlobalBonus, getPersonalBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
-import { isResearchUnlocked } from './Research'
 import { getRuneBlessingEffect } from './RuneBlessings'
 import {
   firstFiveEffectiveRuneLevelMult,
@@ -155,7 +152,13 @@ import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
-interface StatLine<T = number | Exclude<DecimalSource, string>> {
+enum StatLineTypes {
+  Misc,
+  Addition,
+  Multiplication
+}
+
+interface StatLine<T> {
   i18n: string
   stat: () => T
   color?: string
@@ -163,2590 +166,2750 @@ interface StatLine<T = number | Exclude<DecimalSource, string>> {
   displayCriterion?: () => boolean
 }
 
-type NumberStatLine = StatLine<number>
-
-export const statLineDecimalMultiplication = (lines: StatLine[]): Decimal => {
-  return lines.reduce((acc, line) => acc.times(line.stat()), new Decimal(1))
+interface NumberStatLineCategory {
+  kind: 'number'
+  type: StatLineTypes
+  lines: StatLine<number>[]
 }
 
-export const allCubeStats: NumberStatLine[] = [
-  {
-    i18n: 'PseudoCoins',
-    stat: () => PCoinUpgradeEffects.CUBE_BUFF,
-    color: 'gold',
-    displayCriterion: () => true
-  },
-  {
-    i18n: 'AscensionTime',
-    stat: () => {
-      const ascensionCounter = player.ascensionCounter
-      const resetThreshold = resetTimeThreshold()
-      const scale = getAchievementReward('ascensionRewardScaling')
+interface DecimalStatLineCategory {
+  kind: 'decimal'
+  type: StatLineTypes
+  lines: StatLine<number | Decimal>[]
+}
 
-      if (scale) {
-        return Math.pow(Math.min(1, ascensionCounter / resetThreshold), 2)
-          * (1 + Math.max(0, ascensionCounter / resetThreshold - 1))
-      } else {
-        return Math.pow(Math.min(1, ascensionCounter / resetThreshold), 2)
-      }
-    },
-    displayCriterion: () => true
-  },
-  {
-    i18n: 'CampaignTutorial',
-    stat: () => player.campaigns.tutorialBonus.cubeBonus,
-    displayCriterion: () => player.challengecompletions[11] > 0
-  },
-  {
-    i18n: 'Campaign',
-    stat: () => player.campaigns.cubeBonus,
-    displayCriterion: () => player.challengecompletions[11] > 0
-  },
-  {
-    i18n: 'Challenge15',
-    stat: () =>
-      G.challenge15Rewards.cube1.value
-      * G.challenge15Rewards.cube2.value
-      * G.challenge15Rewards.cube3.value
-      * G.challenge15Rewards.cube4.value
-      * G.challenge15Rewards.cube5.value,
-    displayCriterion: () => player.challengecompletions[14] > 0
-  },
-  {
-    i18n: 'InfiniteAscent',
-    stat: () => getRuneEffects('infiniteAscent', 'cubeMult')
-  },
-  {
-    i18n: 'Beta',
-    stat: () => 1 + player.platonicUpgrades[10],
-    displayCriterion: () => player.challengecompletions[14] > 0
-  },
-  {
-    i18n: 'Omega',
-    stat: () => Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9]),
-    displayCriterion: () => player.challengecompletions[14] > 0
-  },
-  {
-    i18n: 'Powder',
-    stat: () => calculateCubeMultFromPowder(),
-    displayCriterion: () => G.challenge15Rewards.hepteractsUnlocked.value > 0
-  },
-  {
-    i18n: 'SingDebuff',
-    stat: () => 1 / calculateSingularityDebuff('Cubes'),
-    displayCriterion: () => player.highestSingularityCount > 0,
-    color: 'red'
-  },
-  {
-    i18n: 'Jack',
-    stat: () => getShopUpgradeEffects('shopPanthema', 'cubeMult')
-  },
-  {
-    i18n: 'PassY',
-    stat: () => getShopUpgradeEffects('seasonPassY', 'globalCubeMult'),
-    displayCriterion: () => G.challenge15Rewards.hepteractsUnlocked.value > 0 || player.highestSingularityCount > 0
-  },
-  {
-    i18n: 'PassZ',
-    stat: () => getShopUpgradeEffects('seasonPassZ', 'globalCubeMult'),
-    displayCriterion: () => getGQUpgradeEffect('wowPass', 'unlocked')
-  },
-  {
-    i18n: 'PassINF',
-    stat: () => getShopUpgradeEffects('seasonPassInfinity', 'globalCubeMult')
-  },
-  {
-    i18n: 'CashGrabUltra',
-    stat: () => getShopUpgradeEffects('shopCashGrabUltra', 'cubesMult')
-  },
-  {
-    i18n: 'EXUltra',
-    stat: () => getShopUpgradeEffects('shopEXUltra', 'cubeMult')
-  },
-  {
-    i18n: 'StarterPack',
-    stat: () => getGQUpgradeEffect('starterPack', 'cubeMult')
-  },
-  {
-    i18n: 'SingCubes1',
-    stat: () => getGQUpgradeEffect('singCubes1', 'cubeMult')
-  },
-  {
-    i18n: 'SingCubes2',
-    stat: () => getGQUpgradeEffect('singCubes2', 'cubeMult')
-  },
-  {
-    i18n: 'SingCubes3',
-    stat: () => getGQUpgradeEffect('singCubes3', 'cubeMult')
-  },
-  {
-    i18n: 'SingCitadel',
-    stat: () => getGQUpgradeEffect('singCitadel', 'cubeMult')
-  },
-  {
-    i18n: 'SingCitadel2',
-    stat: () => getGQUpgradeEffect('singCitadel2', 'cubeMult')
-  },
-  {
-    i18n: 'Delta',
-    stat: () => getGQUpgradeEffect('platonicDelta', 'cubeMult')
-  },
-  {
-    i18n: 'CookieUpgrade8',
-    stat: () => 1 + 0.25 * +G.isEvent * player.cubeUpgrades[58]
-  },
-  {
-    i18n: 'CookieUpgrade16',
-    stat: () => 1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15])
-  },
-  {
-    i18n: 'WowOcteract',
-    stat: () => calculateTotalOcteractCubeBonus()
-  },
-  {
-    i18n: 'NoSing',
-    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'cubes')
-  },
-  {
-    i18n: 'Ambrosia',
-    stat: () => calculateAmbrosiaCubeMult()
-  },
-  {
-    i18n: 'ModuleTutorial',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'cubes')
-  },
-  {
-    i18n: 'ModuleCubes1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1', 'cubes')
-  },
-  {
-    i18n: 'ModuleLuckCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1', 'cubes')
-  },
-  {
-    i18n: 'ModuleQuarkCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
-  },
-  {
-    i18n: 'ModuleCubes2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2', 'cubes')
-  },
-  {
-    i18n: 'ModuleHyperflux',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaHyperflux', 'hyperFlux')
-  },
-  {
-    i18n: 'ModuleCubes3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3', 'cubes')
-  },
-  {
-    i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'cubeMult')
-  },
-  {
-    i18n: 'RedAmbrosia',
-    stat: () => calculateRedAmbrosiaCubes()
-  },
-  {
-    i18n: 'Exalt6',
-    stat: () => {
-      let exaltPenalty = 1
-      if (player.singularityChallenges.limitedTime.enabled) {
-        const comps = player.singularityChallenges.limitedTime.completions
-        const time = player.singChallengeTimer
-        exaltPenalty = calculateExalt6Penalty(comps, time)
-      }
-      return exaltPenalty
-    },
-    color: 'red'
-  },
-  {
-    i18n: 'OneMind',
-    stat: () => {
-      return getGQUpgradeEffect('oneMind', 'unlocked')
-        ? calculateAscensionSpeedMult() / 10
-        : 1
-    },
-    color: 'magenta'
-  },
-  {
-    i18n: 'Event',
-    stat: () => 1 + calculateEventBuff(BuffType.Cubes),
-    color: 'lime'
+export const calculateTotalStatNumber = (category: NumberStatLineCategory): number => {
+  if (category.type === StatLineTypes.Addition) {
+    return Math.min(
+      1e300,
+      category.lines.reduce((total, line) => total + line.stat(), 0)
+    )
+  } else if (category.type === StatLineTypes.Multiplication) {
+    return Math.min(
+      1e300,
+      category.lines.reduce((total, line) => total * line.stat(), 1)
+    )
+  } else {
+    throw new Error('Please do not compute Statlines of type Misc!')
   }
-]
+}
 
-export const allWowCubeStats: NumberStatLine[] = [
-  {
-    i18n: 'CubeBank',
-    stat: () => {
-      let cubeBank = 0
-      // Award Cubes for Challenges
-      for (let i = 1; i <= 10; i++) {
-        // Reward more for Reincarnation Challenges (c6-10)
-        const valuePerChallenge = i >= 6 ? 2 : 1
-        cubeBank += valuePerChallenge * player.challengecompletions[i]
-      }
-      // Award Cubes for Ant Upgrade
-      cubeBank += getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked
-      return cubeBank
-    }
-  },
-  {
-    i18n: 'AscensionScore',
-    stat: () => Math.pow(calculateAscensionScore().effectiveScore / 3000, 1 / 4.1)
-  },
-  {
-    i18n: 'GlobalCube',
-    stat: () => calculateAllCubeMultiplier()
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('wowCubes'),
-    color: 'green'
-  },
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('wowCubeGain')
-  },
-  {
-    i18n: 'SeasonPass1',
-    stat: () => getShopUpgradeEffects('seasonPass', 'wowCubeMult')
-  },
-  {
-    i18n: 'WowSquare',
-    stat: () => getTalismanEffects('wowSquare').oddDimBonus
-  },
-  {
-    i18n: 'Researches',
-    stat: () =>
-      (1 + player.researches[119] / 1000) // 5x19
-      * (1 + player.researches[120] / 200) // 5x20
-      * (1 + player.researches[137] / 100) // 6x12
-      * (1 + (0.9 * player.researches[152]) / 100) // 7x2
-      * (1 + (0.8 * player.researches[167]) / 100) // 7x17
-      * (1 + (0.7 * player.researches[182]) / 100) // 8x7
-      * (1
-        + (1 / 500) * player.researches[192] * calculateTrueAntLevel(AntUpgrades.Mortuus)) // 8x17
-      * (1 + (0.6 * player.researches[197]) / 100) // 8x22
-  },
-  {
-    i18n: 'Research8x25',
-    stat: () => 1 + (0.004 / 100) * player.researches[200]
-  },
-  {
-    i18n: 'AntUpgrade',
-    stat: () => getAntUpgradeEffect(AntUpgrades.WowCubes).wowCubes
-  },
-  {
-    i18n: 'CubeUpgrades',
-    stat: () =>
-      (1 + player.cubeUpgrades[1] / 6) // 1x1
-      * (1 + player.cubeUpgrades[11] / 11) // 2x1
-      * (1 + 0.4 * player.cubeUpgrades[30]) // 3x10
-  },
-  {
-    i18n: 'ConstantUpgrade10',
-    stat: () =>
-      1
-      + 0.01
-        * Decimal.log(player.ascendShards.add(1), 4)
-        * Math.min(1, player.constantUpgrades[10])
-  },
-  {
-    i18n: 'SpiritPower',
-    stat: () => getRuneSpiritEffect('duplication').wowCubes
-  },
-  {
-    i18n: 'PlatonicOpening',
-    stat: () => calculateCubeMultiplierPlatonicBlessing()
-  },
-  {
-    i18n: 'Platonic1x1',
-    stat: () =>
-      1
-      + 0.00009
-        * player.corruptions.used.totalLevels
-        * player.platonicUpgrades[1]
-  },
-  {
-    i18n: 'Antiquities',
-    stat: () => getRuneEffects('antiquities', 'cubeBonus')
-  },
-  {
-    i18n: 'CookieUpgrade13',
-    stat: () =>
-      1 + Math.pow(1.03, Math.log10(Math.max(1, player.wowAbyssals))) * player.cubeUpgrades[63]
-      - player.cubeUpgrades[63]
+export const calculateTotalStatDecimal = (category: DecimalStatLineCategory): Decimal => {
+  if (category.type === StatLineTypes.Addition) {
+    return category.lines.reduce((total, line) => total.add(line.stat()), new Decimal(0))
+  } else if (category.type === StatLineTypes.Multiplication) {
+    return category.lines.reduce((total, line) => total.mul(line.stat()), new Decimal(1))
+  } else {
+    throw new Error('Please do not compute Statlines of type Misc!')
   }
-]
+}
 
-const allWowCubePowerStats: NumberStatLine[] = [
-  {
-    i18n: 'Tau',
-    stat: () => getGQUpgradeEffect('platonicTau', 'tauPower')
+// Overload is intentional -Plat
+export function calculateTotalStat (category: NumberStatLineCategory): number
+export function calculateTotalStat (category: DecimalStatLineCategory): Decimal
+export function calculateTotalStat (category: NumberStatLineCategory | DecimalStatLineCategory): number | Decimal {
+  if (category.kind === 'number') {
+    return calculateTotalStatNumber(category)
+  } else {
+    return calculateTotalStatDecimal(category)
   }
-]
+}
 
-export const allTesseractStats: NumberStatLine[] = [
-  {
-    i18n: 'AscensionScore',
-    stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1e5) / 1e4, 0.35)
-  },
-  {
-    i18n: 'GlobalCube',
-    stat: () => calculateAllCubeMultiplier()
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('wowTesseracts'),
-    color: 'green'
-  },
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('wowTesseractGain')
-  },
-  {
-    i18n: 'SeasonPass1',
-    stat: () => getShopUpgradeEffects('seasonPass', 'wowTesseractMult')
-  },
-  {
-    i18n: 'WowSquare',
-    stat: () => getTalismanEffects('wowSquare').evenDimBonus
-  },
-  {
-    i18n: 'ConstantUpgrade10',
-    stat: () => 1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10])
-  },
-  {
-    i18n: 'CubeUpgrade3x10',
-    stat: () => 1 + 0.4 * player.cubeUpgrades[30]
-  },
-  {
-    i18n: 'CubeUpgrade4x8',
-    stat: () => 1 + (1 / 200) * player.cubeUpgrades[38] * player.corruptions.used.totalLevels
-  },
-  {
-    i18n: 'PlatonicCube',
-    stat: () => calculateTesseractMultiplierPlatonicBlessing()
-  },
-  {
-    i18n: 'Platonic1x2',
-    stat: () => 1 + 0.00018 * player.corruptions.used.totalLevels * player.platonicUpgrades[2]
+export const displayStatLine = (type: StatLineTypes, num: number | Decimal, altDisplay?: () => boolean): boolean => {
+  if (altDisplay) {
+    return altDisplay()
+  } // As a rule, don't show statlines whose value does not affect final result. Decimals used for generalizability
+  else if (type === StatLineTypes.Addition) {
+    return !Decimal.fromValue(num).equals(0)
+  } else if (type === StatLineTypes.Multiplication) {
+    return !Decimal.fromValue(num).equals(1)
+  } else {
+    return true // Always return a misc type unless specified under `displayCriterion.`
   }
-]
+}
 
-export const allHypercubeStats: NumberStatLine[] = [
-  {
-    i18n: 'AscensionScore',
-    stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1e9) / 1e8, 0.5)
-  },
-  {
-    i18n: 'GlobalCube',
-    stat: () => calculateAllCubeMultiplier()
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('wowHyperCubes'),
-    color: 'green'
-  },
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('wowHypercubeGain')
-  },
-  {
-    i18n: 'SeasonPass2',
-    stat: () => getShopUpgradeEffects('seasonPass2', 'wowHypercubeMult')
-  },
-  {
-    i18n: 'WowSquare',
-    stat: () => getTalismanEffects('wowSquare').oddDimBonus
-  },
-  {
-    i18n: 'PlatonicCube',
-    stat: () => calculateHypercubeMultiplierPlatonicBlessing()
-  },
-  {
-    i18n: 'Platonic1x3',
-    stat: () => 1 + 0.00054 * player.corruptions.used.totalLevels * player.platonicUpgrades[3]
-  },
-  {
-    i18n: 'HyperrealHepteract',
-    stat: () => getHepteractEffects('hyperrealism').hypercubeMultiplier
-  }
-]
-
-export const allPlatonicCubeStats: NumberStatLine[] = [
-  {
-    i18n: 'AscensionScore',
-    stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 2.666e12) / 2.666e11, 0.75)
-  },
-  {
-    i18n: 'GlobalCube',
-    stat: () => calculateAllCubeMultiplier()
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('wowPlatonicCubes'),
-    color: 'green'
-  },
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('wowPlatonicGain')
-  },
-  {
-    i18n: 'SeasonPass2',
-    stat: () => getShopUpgradeEffects('seasonPass2', 'wowPlatonicMult')
-  },
-  {
-    i18n: 'WowSquare',
-    stat: () => getTalismanEffects('wowSquare').evenDimBonus
-  },
-  {
-    i18n: 'PlatonicCube',
-    stat: () => calculatePlatonicMultiplierPlatonicBlessing()
-  },
-  {
-    i18n: 'Platonic1x4',
-    stat: () => 1 + (1.2 * player.platonicUpgrades[4]) / 50
-  }
-]
-
-export const allHepteractCubeStats: NumberStatLine[] = [
-  {
-    i18n: 'AscensionScore',
-    stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1.666e16) / 3.33e16, 0.85)
-  },
-  {
-    i18n: 'GlobalCube',
-    stat: () => calculateAllCubeMultiplier()
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('wowHepteractCubes'),
-    color: 'green'
-  },
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('wowHepteractGain')
-  },
-  {
-    i18n: 'SeasonPass3',
-    stat: () => getShopUpgradeEffects('seasonPass3', 'wowHepteractMult')
-  },
-  {
-    i18n: 'WowSquare',
-    stat: () => getTalismanEffects('wowSquare').oddDimBonus
-  }
-]
-
-export const allOcteractCubeStats: NumberStatLine[] = [
-  {
-    i18n: 'BasePerSecond',
-    stat: () => 1 / (24 * 3600 * 365 * 1e15)
-  },
-  {
-    i18n: 'AscensionScore',
-    stat: () => {
-      const SCOREREQ = 1e23
-      const currentScore = calculateAscensionScore().effectiveScore
-      return currentScore >= SCOREREQ ? currentScore / SCOREREQ : 0
-    }
-  },
-  {
-    i18n: 'PseudoCoins',
-    stat: () => PCoinUpgradeEffects.CUBE_BUFF,
-    color: 'gold'
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('wowOcteracts'),
-    color: 'green'
-  },
-  {
-    i18n: 'Campaign',
-    stat: () => player.campaigns.octeractBonus
-  },
-  {
-    i18n: 'SeasonPass3',
-    stat: () => getShopUpgradeEffects('seasonPass3', 'wowOcteractMult')
-  },
-  {
-    i18n: 'SeasonPassY',
-    stat: () => getShopUpgradeEffects('seasonPassY', 'wowOcteractMult')
-  },
-  {
-    i18n: 'SeasonPassZ',
-    stat: () => getShopUpgradeEffects('seasonPassZ', 'wowOcteractMult')
-  },
-  {
-    i18n: 'SeasonPassLost',
-    stat: () => getShopUpgradeEffects('seasonPassLost', 'wowOcteractMult')
-  },
-  {
-    i18n: 'WowSquare',
-    stat: () => getTalismanEffects('wowSquare').evenDimBonus
-  },
-  {
-    i18n: 'CookieUpgrade20',
-    stat: () => 1 + (+(player.corruptions.used.totalLevels >= 14 * 8) * player.cubeUpgrades[70]) / 10000
-  },
-  {
-    i18n: 'DivinePack',
-    stat: () => getGQUpgradeEffect('divinePack', 'octeractMult')
-  },
-  {
-    i18n: 'SingCubes1',
-    stat: () => getGQUpgradeEffect('singCubes1', 'cubeMult')
-  },
-  {
-    i18n: 'SingCubes2',
-    stat: () => getGQUpgradeEffect('singCubes2', 'cubeMult')
-  },
-  {
-    i18n: 'SingCubes3',
-    stat: () => getGQUpgradeEffect('singCubes3', 'cubeMult')
-  },
-  {
-    i18n: 'SingOcteractGain',
-    stat: () => getGQUpgradeEffect('singOcteractGain', 'octeractMult')
-  },
-  {
-    i18n: 'SingOcteractGain2',
-    stat: () => getGQUpgradeEffect('singOcteractGain2', 'octeractMult')
-  },
-  {
-    i18n: 'SingOcteractGain3',
-    stat: () => getGQUpgradeEffect('singOcteractGain3', 'octeractMult')
-  },
-  {
-    i18n: 'SingOcteractGain4',
-    stat: () => getGQUpgradeEffect('singOcteractGain4', 'octeractMult')
-  },
-  {
-    i18n: 'SingOcteractGain5',
-    stat: () => getGQUpgradeEffect('singOcteractGain5', 'octeractMult')
-  },
-  {
-    i18n: 'PatreonBonus',
-    stat: () => getGQUpgradeEffect('singOcteractPatreonBonus', 'octeractMult')
-  },
-  {
-    i18n: 'OcteractStarter',
-    stat: () => getOcteractUpgradeEffect('octeractStarter', 'octeractMult')
-  },
-  {
-    i18n: 'OcteractGain',
-    stat: () => getOcteractUpgradeEffect('octeractGain', 'octeractMult')
-  },
-  {
-    i18n: 'OcteractGain2',
-    stat: () => getOcteractUpgradeEffect('octeractGain2', 'octeractMult')
-  },
-  {
-    i18n: 'DerpsmithCornucopia',
-    stat: () => derpsmithCornucopiaBonus()
-  },
-  {
-    i18n: 'DigitalOcteractAccumulator',
-    stat: () => getOcteractUpgradeEffect('octeractAscensionsOcteractGain', 'octeractMult')
-  },
-  {
-    i18n: 'Event',
-    stat: () => 1 + calculateEventBuff(BuffType.Octeract)
-  },
-  {
-    i18n: 'PlatonicDelta',
-    stat: () => getGQUpgradeEffect('platonicDelta', 'cubeMult')
-  },
-  {
-    i18n: 'NoSingUpgrades',
-    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'cubes')
-  },
-  {
-    i18n: 'PassINF',
-    stat: () => getShopUpgradeEffects('seasonPassInfinity', 'wowOcteractMult')
-  },
-  {
-    i18n: 'Ambrosia',
-    stat: () => calculateAmbrosiaCubeMult()
-  },
-  {
-    i18n: 'ModuleTutorial',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'cubes')
-  },
-  {
-    i18n: 'ModuleCubes1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1', 'cubes')
-  },
-  {
-    i18n: 'ModuleLuckCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1', 'cubes')
-  },
-  {
-    i18n: 'ModuleQuarkCube1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
-  },
-  {
-    i18n: 'ModuleCubes2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2', 'cubes')
-  },
-  {
-    i18n: 'ModuleCubes3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3', 'cubes')
-  },
-  {
-    i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'cubeMult')
-  },
-  {
-    i18n: 'RedAmbrosia',
-    stat: () => calculateRedAmbrosiaCubes()
-  },
-  {
-    i18n: 'CashGrabUltra',
-    stat: () => getShopUpgradeEffects('shopCashGrabUltra', 'cubesMult')
-  },
-  {
-    i18n: 'EXUltra',
-    stat: () => getShopUpgradeEffects('shopEXUltra', 'cubeMult')
-  },
-  {
-    i18n: 'AscensionSpeed',
-    stat: () => {
-      const ascensionSpeed = getGQUpgradeEffect('oneMind', 'unlocked')
-        ? Math.pow(10, 1 / 2) * Math.pow(
-          calculateAscensionSpeedMult() / 10,
-          getOcteractUpgradeEffect('octeractOneMindImprover', 'ascendSpeedExponent')
-        )
-        : Math.pow(calculateAscensionSpeedMult(), 1 / 2)
-      return ascensionSpeed
-    }
-  }
-]
-
-export const allBaseOfferingStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 1 // Absolute Base
-  },
-  {
-    i18n: 'PseudoCoins',
-    stat: () => PCoinUpgradeEffects.BASE_OFFERING_BUFF, // PseudoCoin Upgrade
-    color: 'gold'
-  },
-  {
-    i18n: 'Prestige',
-    stat: () => player.prestigeCount > 0 ? 1 : 0 // Prestiged
-  },
-  {
-    i18n: 'Transcend',
-    stat: () => player.transcendCount > 0 ? 3 : 0 // Transcended
-  },
-  {
-    i18n: 'Reincarnate',
-    stat: () => player.reincarnationCount > 0 ? 5 : 0 // Reincarnated
-  },
-  {
-    i18n: 'Challenge1',
-    stat: () => (player.challengecompletions[2] > 0) ? 2 : 0 // Challenge 2x1
-  },
-  {
-    i18n: 'ShopPotionBonus',
-    stat: () => calculateOfferingPotionBaseOfferings().amount // Potion Permanent Bonus
-  },
-  {
-    i18n: 'ReincarnationUpgrade2',
-    stat: () => (player.upgrades[62] > 0) ? Math.min(12, (1 / 50) * sumContents(player.challengecompletions)) : 0 // Reincarnation Upgrade 2
-  },
-  {
-    i18n: 'Research1x24',
-    stat: () => 0.4 * player.researches[24] // Research 1x24
-  },
-  {
-    i18n: 'Research1x25',
-    stat: () => 0.6 * player.researches[25] // Research 1x25
-  },
-  {
-    i18n: 'Research4x20',
-    stat: () => (player.researches[95] > 0) ? 15 : 0 // Research 4x20
-  },
-  {
-    i18n: 'AmbrosiaBaseOffering1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering1', 'offering') // Ambrosia Base Offering 1
-  },
-  {
-    i18n: 'AmbrosiaBaseOffering2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering2', 'offering') // Ambrosia Base Offering 2
-  },
-  {
-    i18n: 'OfferingEX3',
-    stat: () => getShopUpgradeEffects('offeringEX3', 'baseOfferings') // Offering EX3 Shop Upgrade
-  }
-]
-
-export const allOfferingStats: StatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => calculateBaseOfferings()
-  },
-  {
-    i18n: 'PrestigeShards',
-    stat: () => 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5
-  },
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('offeringBonus')
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('offerings') // Synergism Level
-  },
-  {
-    i18n: 'SuperiorIntellect',
-    stat: () => getRuneEffects('superiorIntellect', 'offeringMult') // Superior Intellect Rune
-  },
-  {
-    i18n: 'ReincarnationChallenge',
-    stat: () =>
-      1 + 1 / 50 * CalcECC('reincarnation', player.challengecompletions[6])
-      + 1 / 25 * CalcECC('reincarnation', player.challengecompletions[8])
-      + 1 / 25 * CalcECC('reincarnation', player.challengecompletions[10]) // Reincarnation Challenges
-  },
-  {
-    i18n: 'DiamondUpgrade4x3',
-    stat: () => 1 + 0.2 * player.upgrades[38] // Diamond Upgrade 4x3
-  },
-  {
-    i18n: 'ParticleUpgrade3x5',
-    stat: () =>
-      1
-      + player.upgrades[75] * 2
-        * Math.min(1, Math.pow(Decimal.min(player.maxObtainium, 1e10).toNumber() / 30000000, 0.5)) // Particle Upgrade 3x5
-  },
-  {
-    i18n: 'Research5x19',
-    stat: () => 1 + player.researches[119] / 200, // Research 5x19
-    displayCriterion: () => isResearchUnlocked(119)
-  },
-  {
-    i18n: 'OfferingEXShop',
-    stat: () => getShopUpgradeEffects('offeringEX', 'offeringMult') // Offering EX Shop
-  },
-  {
-    i18n: 'CashGrab',
-    stat: () => getShopUpgradeEffects('cashGrab', 'offeringMult') // Cash Grab
-  },
-  {
-    i18n: 'Research4x10',
-    stat: () => 1 + (1 / 10000) * sumContents(player.challengecompletions) * player.researches[85] // Research 4x10
-  },
-  {
-    i18n: 'AntUpgrade',
-    stat: () => getAntUpgradeEffect(AntUpgrades.Offerings).offeringMult // Ant Upgrade
-  },
-  {
-    i18n: 'Brutus',
-    stat: () => calculateOfferingCubeBlessing() // Cube Blessing
-  },
-  {
-    i18n: 'ConstantUpgrade3',
-    stat: () => 1 + 0.02 * player.constantUpgrades[3] // Constant Upgrade 3
-  },
-  {
-    i18n: 'ResearchTalismans',
-    stat: () =>
-      1 + 0.0003 * talismans.midas.level * player.researches[149]
-      + 0.0004 * talismans.midas.level * player.researches[179] // Research 6x24,8x4
-  },
-  {
-    i18n: 'TutorialBonus',
-    stat: () => player.campaigns.tutorialBonus.offeringBonus // Tutorial Offering Bonus
-  },
-  {
-    i18n: 'CampaignBonus',
-    stat: () => player.campaigns.offeringBonus // Campaign Offering Bonus
-  },
-  {
-    i18n: 'Challenge12',
-    stat: () => 1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]) // Challenge 12
-  },
-  {
-    i18n: 'ThriftSpirit',
-    stat: () => getRuneSpiritEffect('thrift').offerings // Thrift
-  },
-  {
-    i18n: 'Research8x25',
-    stat: () => 1 + (0.01 / 100) * player.researches[200] // Research 8x25
-  },
-  {
-    i18n: 'CubeUpgrade5x6',
-    stat: () => 1 + 0.05 * player.cubeUpgrades[46] // Cube Upgrade 5x6
-  },
-  {
-    i18n: 'CubeUpgrade5x10',
-    stat: () => 1 + (0.02 / 100) * player.cubeUpgrades[50] // Cube Upgrade 5x10
-  },
-  {
-    i18n: 'PlatonicALPHA',
-    stat: () => 1 + player.platonicUpgrades[5] // Platonic ALPHA
-  },
-  {
-    i18n: 'PlatonicBETA',
-    stat: () => 1 + 2.5 * player.platonicUpgrades[10] // Platonic BETA
-  },
-  {
-    i18n: 'PlatonicOMEGA',
-    stat: () => 1 + 5 * player.platonicUpgrades[15] // Platonic OMEGA
-  },
-  {
-    i18n: 'Challenge15',
-    stat: () => G.challenge15Rewards.offering.value // C15 Reward
-  },
-  {
-    i18n: 'Antiquities',
-    stat: () => Math.pow(10, getRuneEffects('antiquities', 'offeringLog10')) // Antiquities Rune
-  },
-  {
-    i18n: 'Jack',
-    stat: () => getShopUpgradeEffects('shopPanthema', 'offeringMult')
-  },
-  {
-    i18n: 'SingularityDebuff',
-    stat: () => 1 / calculateSingularityDebuff('Offering'), // Singularity Debuff
-    color: 'red'
-  },
-  {
-    i18n: 'StarterPack',
-    stat: () => getGQUpgradeEffect('starterPack', 'offeringMult') // Starter Pack Upgrade
-  },
-  {
-    i18n: 'OfferingCharge',
-    stat: () => getGQUpgradeEffect('singOfferings1', 'offeringMult') // Offering Charge GQ Upgrade
-  },
-  {
-    i18n: 'OfferingStorm',
-    stat: () => getGQUpgradeEffect('singOfferings2', 'offeringMult') // Offering Storm GQ Upgrade
-  },
-  {
-    i18n: 'OfferingTempest',
-    stat: () => getGQUpgradeEffect('singOfferings3', 'offeringMult') // Offering Tempest GQ Upgrade
-  },
-  {
-    i18n: 'Citadel',
-    stat: () => getGQUpgradeEffect('singCitadel', 'offeringMult') // Citadel GQ Upgrade
-  },
-  {
-    i18n: 'Citadel2',
-    stat: () => getGQUpgradeEffect('singCitadel2', 'offeringMult') // Citadel 2 GQ Upgrade
-  },
-  {
-    i18n: 'CubeUpgradeCx4',
-    stat: () => 1 + player.cubeUpgrades[54] / 100 // Cube upgrade 6x4 (Cx4)
-  },
-  {
-    i18n: 'CubeUpgradeCx12',
-    stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1 // Cube upgrade 7x2 (Cx12)
-  },
-  {
-    i18n: 'OcteractElectrolosis',
-    stat: () => getOcteractUpgradeEffect('octeractOfferings1', 'offeringMult') // Offering Electrolosis OC Upgrade
-  },
-  {
-    i18n: 'OcteractBonus',
-    stat: () => calculateTotalOcteractOfferingBonus() // Octeract Bonus
-  },
-  {
-    i18n: 'Ambrosia',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaOffering1', 'offeringMult') // Ambrosia!!
-  },
-  {
-    i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'offeringMult') // Red Ambrosia Tutorial
-  },
-  {
-    i18n: 'RedAmbrosia',
-    stat: () => calculateRedAmbrosiaOffering() // Red Ambrosia
-  },
-  {
-    i18n: 'CubeUpgradeCx22',
-    stat: () => Math.pow(1.04, player.cubeUpgrades[72] * sumOfTalismanRarities()) // Cube upgrade 8x2 (Cx22)
-  },
-  {
-    i18n: 'CashGrab2',
-    stat: () => getShopUpgradeEffects('cashGrab2', 'offeringMult') // Cash Grab 2
-  },
-  {
-    i18n: 'OfferingEX2',
-    stat: () => getShopUpgradeEffects('offeringEX2', 'offeringMult') // Offering EX 2
-  },
-  {
-    i18n: 'OfferingINF',
-    stat: () => getShopUpgradeEffects('offeringEX3', 'offeringMult') // Offering INF
-  },
-  {
-    i18n: 'EXUltra',
-    stat: () => getShopUpgradeEffects('shopEXUltra', 'offeringMult') // EX Ultra Shop Upgrade
-  },
-  {
-    i18n: 'Exalt6Penalty',
-    stat: () =>
-      (player.singularityChallenges.limitedTime.enabled)
-        ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
-        : 1, // Singularity Speedrun Penalty
-    color: 'red'
-  },
-  {
-    i18n: 'TaxmanDebuff',
-    stat: () => {
-      if (!player.singularityChallenges.taxmanLastStand.enabled) {
-        return 1
-      }
-      const obtainiumDigits = Math.floor(1 + Math.max(0, Decimal.log(player.obtainium, 10)))
-      return Math.pow(2.5, -Math.min(500, obtainiumDigits)) // Taxman Debuff
-    },
-    color: 'red'
-  },
-  {
-    i18n: 'Event',
-    stat: () => 1 + calculateEventBuff(BuffType.Offering), // Event
-    color: 'lime'
-  }
-]
-
-export const firstFiveRuneEffectivenessStats: NumberStatLine[] = [
-  {
-    i18n: 'Research1x4',
-    stat: () => 1 + player.researches[4] / 10 * (1 + CalcECC('ascension', player.challengecompletions[14])),
-    displayCriterion: () => {
-      const reincarnationCount = player.reincarnationCount
-      const singularity = player.highestSingularityCount
-      return reincarnationCount >= 1 || singularity >= 1
-    }
-  },
-  {
-    i18n: 'Research1x21',
-    stat: () => 1 + player.researches[21] / 100,
-    displayCriterion: () => {
-      const reincarnationCount = player.reincarnationCount
-      const singularity = player.highestSingularityCount
-      return reincarnationCount >= 1 || singularity >= 1
-    }
-  },
-  {
-    i18n: 'Research4x15',
-    stat: () => 1 + player.researches[90] / 100,
-    displayCriterion: () => {
-      const chal8 = player.highestchallengecompletions[8]
-      const singularity = player.highestSingularityCount
-      return chal8 >= 1 || singularity >= 1
-    }
-  },
-  {
-    i18n: 'Research6x6',
-    stat: () => 1 + player.researches[131] / 200,
-    displayCriterion: () => {
-      const ascCount = player.ascensionCount
-      const singularity = player.highestSingularityCount
-      return ascCount >= 1 || singularity >= 1
-    }
-  },
-  {
-    i18n: 'Research6x21',
-    stat: () => 1 + ((player.researches[146] / 200) * 4) / 5,
-    displayCriterion: () => {
-      const chal11 = player.highestchallengecompletions[11]
-      const singularity = player.highestSingularityCount
-      return chal11 >= 1 || singularity >= 1
-    }
-  },
-  {
-    i18n: 'Research7x11',
-    stat: () => 1 + ((player.researches[161] / 200) * 3) / 5,
-    displayCriterion: () => {
-      const chal12 = player.highestchallengecompletions[12]
-      const singularity = player.highestSingularityCount
-      return chal12 >= 1 || singularity >= 1
-    }
-  },
-  {
-    i18n: 'Research8x1',
-    stat: () => 1 + ((player.researches[176] / 200) * 2) / 5,
-    displayCriterion: () => {
-      const chal13 = player.highestchallengecompletions[13]
-      const singularity = player.highestSingularityCount
-      return chal13 >= 1 || singularity >= 1
-    }
-  },
-  {
-    i18n: 'Research8x16',
-    stat: () => 1 + ((player.researches[191] / 200) * 1) / 5,
-    displayCriterion: () => {
-      const chal14 = player.highestchallengecompletions[14]
-      const singularity = player.highestSingularityCount
-      return chal14 >= 1 || singularity >= 1
-    }
-  },
-  {
-    i18n: 'ConstantUpgrade9',
-    stat: () =>
-      1 + 0.01 * Decimal.log(player.talismanShards.add(1), 4)
-        * Math.min(1, player.constantUpgrades[9]),
-    displayCriterion: () => {
-      const ascCount = player.ascensionCount
-      const singularity = player.highestSingularityCount
-      return ascCount >= 1 || singularity >= 1
-    }
-  },
-  {
-    i18n: 'Challenge15',
-    stat: () => G.challenge15Rewards.runeBonus.value,
-    displayCriterion: () => {
-      const chal14 = player.highestchallengecompletions[14]
-      const singularity = player.highestSingularityCount
-      return chal14 >= 1 || singularity >= 1
-    }
-  },
-  {
-    i18n: 'MidasTribute',
-    stat: () => calculateRuneEffectivenessCubeBlessing(),
-    displayCriterion: () => {
-      const ascCount = player.ascensionCount
-      const singularity = player.highestSingularityCount
-      return ascCount >= 1 || singularity >= 1
-    }
-  }
-]
-
-export const runeEffectivenessStatsSI: NumberStatLine[] = [
-  {
-    i18n: 'Research4x9',
-    stat: () => 1 + player.researches[84] / 200,
-    displayCriterion: () => {
-      const chal8 = player.highestchallengecompletions[8]
-      const singularity = player.highestSingularityCount
-      return chal8 >= 1 || singularity >= 1
-    }
-  }
-]
-
-export const allQuarkStats: NumberStatLine[] = [
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('quarkGain')
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('quarks')
-  },
-  {
-    i18n: 'PlasticTalisman',
-    stat: () => getTalismanEffects('plastic').quarkBonus
-  },
-  {
-    i18n: 'PlatonicALPHA',
-    stat: () => player.platonicUpgrades[5] > 0 ? 1.05 : 1
-  },
-  {
-    i18n: 'PlatonicBETA',
-    stat: () => player.platonicUpgrades[10] > 0 ? 1.1 : 1
-  },
-  {
-    i18n: 'PlatonicOMEGA',
-    stat: () => player.platonicUpgrades[15] > 0 ? 1.15 : 1
-  },
-  {
-    i18n: 'Jack',
-    stat: () => getShopUpgradeEffects('shopPanthema', 'quarkMult')
-  },
-  {
-    i18n: 'Challenge15',
-    stat: () =>
-      player.challenge15Exponent >= G.challenge15Rewards.quarks.requirement ? G.challenge15Rewards.quarks.value : 1
-  },
-  {
-    i18n: 'CampaignBonus',
-    stat: () => player.campaigns.quarkBonus
-  },
-  {
-    i18n: 'InfiniteAscent',
-    stat: () =>
-      getShopUpgradeEffects('infiniteAscent', 'runeUnlocked') ? getRuneEffects('infiniteAscent', 'quarkMult') : 1
-  },
-  {
-    i18n: 'QuarkHepteract',
-    stat: () =>
-      player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
-        ? getHepteractEffects('quark').quarkMultiplier
-        : 1
-  },
-  {
-    i18n: 'Powder',
-    stat: () => calculateQuarkMultFromPowder()
-  },
-  {
-    i18n: 'SingularityCount',
-    stat: () => 1 + player.singularityCount / 10
-  },
-  {
-    i18n: 'FavoriteUpgrade',
-    stat: () => getGQUpgradeEffect('favoriteUpgrade', 'quarkMult')
-  },
-  {
-    i18n: 'CookieUpgrade3',
-    stat: () => 1 + 0.001 * player.cubeUpgrades[53]
-  },
-  {
-    i18n: 'CookieUpgrade18',
-    stat: () => 1 + (1 / 10000) * player.cubeUpgrades[68] + 0.05 * Math.floor(player.cubeUpgrades[68] / 1000)
-  },
-  {
-    i18n: 'SingularityMilestones',
-    stat: () => calculateSingularityQuarkMilestoneMultiplier()
-  },
-  {
-    i18n: 'skrauQ',
-    stat: () => {
-      if (player.singularityCount >= 200) {
-        return Math.pow(1 + (player.singularityCount - 199) / 20, 2)
-      } else {
-        return 1
-      }
-    }
-  },
-  {
-    i18n: 'OcteractQuarkBonus',
-    stat: () => calculateTotalOcteractQuarkBonus()
-  },
-  {
-    i18n: 'OcteractStarter',
-    stat: () => getOcteractUpgradeEffect('octeractStarter', 'quarkMult')
-  },
-  {
-    i18n: 'OcteractQuarkGain',
-    stat: () => getOcteractUpgradeEffect('octeractQuarkGain', 'quarkMult')
-  },
-  {
-    i18n: 'OcteractQuarkGain2',
-    stat: () => getOcteractUpgradeEffect('octeractQuarkGain2', 'quarkMult')
-  },
-  {
-    i18n: 'SingularityPacks',
-    stat: () =>
-      1
-      + getGQUpgradeEffect('intermediatePack', 'packQuarkAdd')
-      + getGQUpgradeEffect('advancedPack', 'packQuarkAdd')
-      + getGQUpgradeEffect('expertPack', 'packQuarkAdd')
-      + getGQUpgradeEffect('masterPack', 'packQuarkAdd')
-      + getGQUpgradeEffect('divinePack', 'packQuarkAdd')
-  },
-  {
-    i18n: 'SingQuarkImprover1',
-    stat: () => getGQUpgradeEffect('singQuarkImprover1', 'quarkMult')
-  },
-  {
-    i18n: 'AmbrosiaQuarkMult',
-    stat: () => calculateAmbrosiaQuarkMult()
-  },
-  {
-    i18n: 'AmbrosiaTutorial',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'quarks')
-  },
-  {
-    i18n: 'AmbrosiaQuarks1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks1', 'quarks')
-  },
-  {
-    i18n: 'AmbrosiaCubeQuark1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeQuark1', 'quarks')
-  },
-  {
-    i18n: 'AmbrosiaLuckQuark1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckQuark1', 'quarks')
-  },
-  {
-    i18n: 'AmbrosiaQuarks2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks2', 'quarks')
-  },
-  {
-    i18n: 'AmbrosiaQuarks3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks3', 'quarks')
-  },
-  {
-    i18n: 'Viscount',
-    stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'quarkBonus'),
-    color: 'red'
-  },
-  {
-    i18n: 'CashGrabQuarkBonus',
-    stat: () => getShopUpgradeEffects('shopCashGrabUltra', 'quarkMult')
-  },
-  {
-    i18n: 'LimitedTimeChallenge',
-    stat: () => getSingularityChallengeEffect('limitedTime', 'quarkMult')
-  },
-  {
-    i18n: 'SadisticPrequel',
-    stat: () => getSingularityChallengeEffect('sadisticPrequel', 'quarkMult')
-  },
-  {
-    i18n: 'FirstSingularityBonus',
-    stat: () => player.highestSingularityCount === 0 ? 1.25 : 1,
-    color: 'cyan'
-  },
-  {
-    i18n: 'Event',
-    stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.Quark) + calculateEventBuff(BuffType.OneMind) : 1,
-    color: 'lime'
-  },
-  {
-    i18n: 'GlobalSubscriber',
-    stat: () => 1 + getGlobalBonus() / 100,
-    acc: 3,
-    color: 'gold'
-  },
-  {
-    i18n: 'AccountBonus',
-    stat: () => 1 + getPersonalBonus() / 100,
-    acc: 3,
-    color: 'gold'
-  }
-]
-
-export const allBaseObtainiumStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 1 // Absolute base value
-  },
-  {
-    i18n: 'PseudoCoins',
-    stat: () => PCoinUpgradeEffects.BASE_OBTAINIUM_BUFF, // PseudoCoin Upgrade
-    color: 'gold'
-  },
-  {
-    i18n: 'ShopPotionBonus',
-    stat: () => calculateObtainiumPotionBaseObtainium().amount // Potion Permanent Bonus
-  },
-  {
-    i18n: 'Research3x13',
-    stat: () => (player.reincarnationcounter >= 2) ? player.researches[63] : 0 // Research 3x13
-  },
-  {
-    i18n: 'Research3x14',
-    stat: () => (player.reincarnationcounter >= 5) ? 2 * player.researches[64] : 0 // Research 3x14
-  },
-  {
-    i18n: 'FirstSingularity',
-    stat: () => (player.highestSingularityCount > 0) ? 3 : 0 // First Singularity Perk
-  },
-  {
-    i18n: 'SingularityCount',
-    stat: () => Math.floor(player.singularityCount / 10) // Singularity Count
-  },
-  {
-    i18n: 'AmbrosiaBaseObtainium1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium1', 'obtainium') // Ambrosia Base Obtainium 1
-  },
-  {
-    i18n: 'AmbrosiaBaseObtainium2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium2', 'obtainium') // Ambrosia Base Obtainium 2
-  }
-]
-
-export const allObtainiumIgnoreDRStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => calculateBaseObtainium() // Absolute Base
-  },
-  {
-    i18n: 'CubeUpgrade4x2',
-    stat: () => 1 + (4 / 100) * player.cubeUpgrades[42] // Cube Upgrade 4x2
-  },
-  {
-    i18n: 'CubeUpgrade4x3',
-    stat: () => 1 + (3 / 100) * player.cubeUpgrades[43] // Cube Upgrade 4x3
-  },
-  {
-    i18n: 'TutorialBonus',
-    stat: () => player.campaigns.tutorialBonus.obtainiumBonus // Campaign Tutorial Bonus
-  },
-  {
-    i18n: 'CampaignBonus',
-    stat: () => player.campaigns.obtainiumBonus // Campaign Obtainium Bonus
-  },
-  {
-    i18n: 'ChallengeBonus',
-    stat: () => G.challenge15Rewards.obtainium.value // Challenge 15 Reward
-  },
-  {
-    i18n: 'PlatonicALPHA',
-    stat: () => 1 + player.platonicUpgrades[5] // Platonic ALPHA
-  },
-  {
-    i18n: 'PlatonicUpgrade9',
-    stat: () => 1 + 1.5 * player.platonicUpgrades[9] // 9th Platonic Upgrade
-  },
-  {
-    i18n: 'PlatonicBETA',
-    stat: () => 1 + 2.5 * player.platonicUpgrades[10] // Platonic BETA
-  },
-  {
-    i18n: 'PlatonicOMEGA',
-    stat: () => 1 + 5 * player.platonicUpgrades[15] // Platonic OMEGA
-  },
-  {
-    i18n: 'Antiquities',
-    stat: () => Math.pow(10, getRuneEffects('antiquities', 'obtainiumLog10')) // Antiquities Rune
-  },
-  {
-    i18n: 'CubeUpgradeCx5',
-    stat: () => 1 + player.cubeUpgrades[55] / 100 // Cube Upgrade 6x5 (Cx5)
-  },
-  {
-    i18n: 'CubeUpgradeCx12',
-    stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1, // Cube Upgrade 7x2 (Cx12)
-    color: 'cyan'
-  },
-  {
-    i18n: 'RedAmbrosiaTutorial',
-    stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'obtainiumMult') // Red Ambrosia Tutorial
-  },
-  {
-    i18n: 'RedAmbrosia',
-    stat: () => calculateRedAmbrosiaObtainium() // Red Ambrosia
-  },
-  {
-    i18n: 'CubeUpgradeCx21',
-    stat: () => Math.pow(1.04, player.cubeUpgrades[71] * sumOfTalismanRarities()) // Cube Upgrade 8x1
-  },
-  {
-    i18n: 'ObtainiumEX3',
-    stat: () => getShopUpgradeEffects('obtainiumEX3', 'immaculateObtainiuMult') // Obtainium EX 3
-  },
-  {
-    i18n: 'Exalt6Penalty',
-    stat: () =>
-      (player.singularityChallenges.limitedTime.enabled)
-        ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
-        : 1, // Singularity Challenge 6 Penalty
-    color: 'red'
-  },
-  {
-    i18n: 'Event',
-    stat: () => 1 + calculateEventBuff(BuffType.Obtainium), // Event Buff
-    color: 'lime'
-  }
-]
-
-export const allObtainiumStats: StatLine[] = [
-  {
-    i18n: 'TranscendShards',
-    stat: () => Math.max(1, Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2)) // Transcend Shards
-  },
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('obtainiumBonus') // Achievement Bonus
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('obtainium') // Synergism Level
-  },
-  {
-    i18n: 'ReincarnationUpgrade9',
-    stat: () =>
-      (player.upgrades[69] > 0)
-        ? Math.min(10, Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5).toNumber())
-        : 1 // Reincarnation Upgrade 9
-  },
-  {
-    i18n: 'ReincarnationUpgrade12',
-    stat: () =>
-      (player.upgrades[72] > 0) ? Math.min(50, 1 + 2 * sumContents(player.challengecompletions.slice(6, 11))) : 1 // Reincarnation Upgrade 12
-  },
-  {
-    i18n: 'ReincarnationUpgrade14',
-    stat: () =>
-      (player.upgrades[74] > 0)
-        ? 1 + 4 * Math.min(1, Math.pow(Decimal.min(player.maxOfferings, 1e10).toNumber() / 100000, 0.5))
-        : 1 // Reincarnation Upgrade 14
-  },
-  {
-    i18n: 'Research3x15',
-    stat: () => 1 + player.researches[65] / 5 // Research 3x15
-  },
-  {
-    i18n: 'Research4x1',
-    stat: () => 1 + player.researches[76] / 10 // Research 4x1
-  },
-  {
-    i18n: 'Research4x6',
-    stat: () => 1 + player.researches[81] / 10 // Research 4x6
-  },
-  {
-    i18n: 'Research5x19',
-    stat: () => 1 + player.researches[119] / 200,
-    displayCriterion: () => isResearchUnlocked(119)
-  },
-  {
-    i18n: 'ShopCashGrab',
-    stat: () => getShopUpgradeEffects('cashGrab', 'obtainiumMult') // Shop Upgrade Cash Grab
-  },
-  {
-    i18n: 'ShopObtainiumEX',
-    stat: () => getShopUpgradeEffects('obtainiumEX', 'obtainiumMult') // Shop Upgrade Obtainium EX
-  },
-  {
-    i18n: 'Rune5',
-    stat: () => getRuneEffects('superiorIntellect', 'obtainiumMult')
-  },
-  {
-    i18n: 'Ant10',
-    stat: () => getAntUpgradeEffect(AntUpgrades.Obtainium).obtainiumMult // Ant 10
-  },
-  {
-    i18n: 'CubeBonus',
-    stat: () => calculateObtainiumCubeBlessing() // Cube Blessing
-  },
-  {
-    i18n: 'ConstantUpgrade4',
-    stat: () => 1 + 0.04 * player.constantUpgrades[4] // Constant Upgrade
-  },
-  {
-    i18n: 'CubeUpgrade1x3',
-    stat: () => 1 + 0.1 * player.cubeUpgrades[3] // Cube Upgrade 1x3
-  },
-  {
-    i18n: 'Challenge12',
-    stat: () => 1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]) // Challenge 12
-  },
-  {
-    i18n: 'SpiritPower',
-    stat: () => getRuneSpiritEffect('superiorIntellect').obtainium // Spirit Power
-  },
-  {
-    i18n: 'Research6x19',
-    stat: () => 1 + (0.03 * Decimal.log(player.uncommonFragments.add(1), 4)) * player.researches[144] // Research 6x19
-  },
-  {
-    i18n: 'CubeUpgrade5x10',
-    stat: () => 1 + 0.0002 * player.cubeUpgrades[50] // Cube Upgrade 5x10
-  },
-  {
-    i18n: 'Jack',
-    stat: () => getShopUpgradeEffects('shopPanthema', 'obtainiumMult') // Jack
-  },
-  {
-    i18n: 'StarterPack',
-    stat: () => getGQUpgradeEffect('starterPack', 'obtainiumMult') // Starter Pack
-  },
-  {
-    i18n: 'SingObtainium1',
-    stat: () => getGQUpgradeEffect('singObtainium1', 'obtainiumMult') // Obtainium GQ Upgrade 1
-  },
-  {
-    i18n: 'SingObtainium2',
-    stat: () => getGQUpgradeEffect('singObtainium2', 'obtainiumMult') // Obtainium GQ Upgrade 2
-  },
-  {
-    i18n: 'SingObtainium3',
-    stat: () => getGQUpgradeEffect('singObtainium3', 'obtainiumMult') // Obtainium GQ Upgrade 3
-  },
-  {
-    i18n: 'SingCitadel',
-    stat: () => getGQUpgradeEffect('singCitadel', 'obtainiumMult') // Singularity Citadel 1
-  },
-  {
-    i18n: 'SingCitadel2',
-    stat: () => getGQUpgradeEffect('singCitadel2', 'obtainiumMult') // Singularity Citadel 2
-  },
-  {
-    i18n: 'ShopCashGrab2',
-    stat: () => getShopUpgradeEffects('cashGrab2', 'obtainiumMult') // Cash Grab 2 Shop Upgrade
-  },
-  {
-    i18n: 'ShopObtainiumEX2',
-    stat: () => getShopUpgradeEffects('obtainiumEX2', 'obtainiumMult') // Obtainium EX 2 Shop Upgrade
-  },
-  {
-    i18n: 'ShopObtainiumEX3',
-    stat: () => getShopUpgradeEffects('obtainiumEX3', 'obtainiumMult') // Obtainium EX 3 Shop Upgrade
-  },
-  {
-    i18n: 'OcteractBonus',
-    stat: () => calculateTotalOcteractObtainiumBonus() // Octeract Obtainium Bonus
-  },
-  {
-    i18n: 'OcteractObtainium1',
-    stat: () => getOcteractUpgradeEffect('octeractObtainium1', 'obtainiumMult') // Octeract Obtainium 1
-  },
-  {
-    i18n: 'AmbrosiaObtainium1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaObtainium1', 'obtainiumMult') // Ambrosia Obtainium 1
-  },
-  {
-    i18n: 'EXUltraObtainium',
-    stat: () => getShopUpgradeEffects('shopEXUltra', 'obtainiumMult') // EX Ultra Obtainium Bonus
-  },
-  {
-    i18n: 'Challenge14',
-    stat: () => (player.currentChallenge.ascension === 14) ? 0 : 1, // Challenge 14: No Obtainium
-    color: 'red'
-  },
-  {
-    i18n: 'SingularityDebuff',
-    stat: () => 1 / calculateSingularityDebuff('Obtainium'), // Singularity Debuff
-    color: 'red'
-  },
-  {
-    i18n: 'TaxmanDebuff',
-    stat: () => {
-      if (!player.singularityChallenges.taxmanLastStand.enabled) {
-        return 1
-      }
-      const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
-      return Math.pow(2.5, -Math.min(500, offeringDigits)) // Taxman Debuff
-    },
-    color: 'red'
-  }
-]
-
-// For use in displaying the second half of Obtainium Multiplier Stats
-const obtainiumDR: NumberStatLine[] = [
-  {
-    i18n: 'ObtainiumDR',
-    stat: () => player.corruptions.used.corruptionEffects('illiteracy'),
-    color: 'orange'
-  },
-  {
-    i18n: 'ImmaculateObtainium',
-    stat: () => calculateObtainiumDRIgnoreMult()
-  }
-]
-
-// Ditto (This is used in the display as well as the calculation for total Obtainium / Offerings. Append this to the end of obtainiumDR in displays)
-export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: boolean): NumberStatLine[] => {
-  return [
+export const allCubeStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
     {
-      i18n: 'ThresholdPenalty',
-      stat: () => Math.min(1, Math.pow(time / resetTimeThreshold(), 2)),
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.CUBE_BUFF,
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'AscensionTime',
+      stat: () => {
+        const ascensionCounter = player.ascensionCounter
+        const resetThreshold = resetTimeThreshold()
+        const scale = getAchievementReward('ascensionRewardScaling')
+
+        if (scale) {
+          return Math.pow(Math.min(1, ascensionCounter / resetThreshold), 2)
+            * (1 + Math.max(0, ascensionCounter / resetThreshold - 1))
+        } else {
+          return Math.pow(Math.min(1, ascensionCounter / resetThreshold), 2)
+        }
+      }
+    },
+    {
+      i18n: 'CampaignTutorial',
+      stat: () => player.campaigns.tutorialBonus.cubeBonus
+    },
+    {
+      i18n: 'Campaign',
+      stat: () => player.campaigns.cubeBonus
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () =>
+        G.challenge15Rewards.cube1.value
+        * G.challenge15Rewards.cube2.value
+        * G.challenge15Rewards.cube3.value
+        * G.challenge15Rewards.cube4.value
+        * G.challenge15Rewards.cube5.value
+    },
+    {
+      i18n: 'InfiniteAscent',
+      stat: () => getRuneEffects('infiniteAscent', 'cubeMult')
+    },
+    {
+      i18n: 'Beta',
+      stat: () => 1 + player.platonicUpgrades[10]
+    },
+    {
+      i18n: 'Omega',
+      stat: () => Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9])
+    },
+    {
+      i18n: 'Powder',
+      stat: () => calculateCubeMultFromPowder()
+    },
+    {
+      i18n: 'SingDebuff',
+      stat: () => 1 / calculateSingularityDebuff('Cubes'),
       color: 'red'
     },
     {
-      i18n: 'TimeMultiplier',
-      stat: () => timeMultCheck ? Math.max(1, time / resetTimeThreshold()) : 1
+      i18n: 'Jack',
+      stat: () => getShopUpgradeEffects('shopPanthema', 'cubeMult')
     },
     {
-      i18n: 'HalfMind',
-      stat: () => getGQUpgradeEffect('halfMind', 'unlocked') ? calculateGlobalSpeedMult() / 10 : 1
+      i18n: 'PassY',
+      stat: () => getShopUpgradeEffects('seasonPassY', 'globalCubeMult')
+    },
+    {
+      i18n: 'PassZ',
+      stat: () => getShopUpgradeEffects('seasonPassZ', 'globalCubeMult')
+    },
+    {
+      i18n: 'PassINF',
+      stat: () => getShopUpgradeEffects('seasonPassInfinity', 'globalCubeMult')
+    },
+    {
+      i18n: 'CashGrabUltra',
+      stat: () => getShopUpgradeEffects('shopCashGrabUltra', 'cubesMult')
+    },
+    {
+      i18n: 'EXUltra',
+      stat: () => getShopUpgradeEffects('shopEXUltra', 'cubeMult')
+    },
+    {
+      i18n: 'StarterPack',
+      stat: () => getGQUpgradeEffect('starterPack', 'cubeMult')
+    },
+    {
+      i18n: 'SingCubes1',
+      stat: () => getGQUpgradeEffect('singCubes1', 'cubeMult')
+    },
+    {
+      i18n: 'SingCubes2',
+      stat: () => getGQUpgradeEffect('singCubes2', 'cubeMult')
+    },
+    {
+      i18n: 'SingCubes3',
+      stat: () => getGQUpgradeEffect('singCubes3', 'cubeMult')
+    },
+    {
+      i18n: 'SingCitadel',
+      stat: () => getGQUpgradeEffect('singCitadel', 'cubeMult')
+    },
+    {
+      i18n: 'SingCitadel2',
+      stat: () => getGQUpgradeEffect('singCitadel2', 'cubeMult')
+    },
+    {
+      i18n: 'Delta',
+      stat: () => getGQUpgradeEffect('platonicDelta', 'cubeMult')
+    },
+    {
+      i18n: 'CookieUpgrade8',
+      stat: () => 1 + 0.25 * +G.isEvent * player.cubeUpgrades[58]
+    },
+    {
+      i18n: 'CookieUpgrade16',
+      stat: () => 1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15])
+    },
+    {
+      i18n: 'WowOcteract',
+      stat: () => calculateTotalOcteractCubeBonus()
+    },
+    {
+      i18n: 'NoSing',
+      stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'cubes')
+    },
+    {
+      i18n: 'Ambrosia',
+      stat: () => calculateAmbrosiaCubeMult()
+    },
+    {
+      i18n: 'ModuleTutorial',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'cubes')
+    },
+    {
+      i18n: 'ModuleCubes1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1', 'cubes')
+    },
+    {
+      i18n: 'ModuleLuckCube1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1', 'cubes')
+    },
+    {
+      i18n: 'ModuleQuarkCube1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
+    },
+    {
+      i18n: 'ModuleCubes2',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2', 'cubes')
+    },
+    {
+      i18n: 'ModuleHyperflux',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaHyperflux', 'hyperFlux')
+    },
+    {
+      i18n: 'ModuleCubes3',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3', 'cubes')
+    },
+    {
+      i18n: 'RedAmbrosiaTutorial',
+      stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'cubeMult')
+    },
+    {
+      i18n: 'RedAmbrosia',
+      stat: () => calculateRedAmbrosiaCubes()
+    },
+    {
+      i18n: 'Exalt6',
+      stat: () => {
+        let exaltPenalty = 1
+        if (player.singularityChallenges.limitedTime.enabled) {
+          const comps = player.singularityChallenges.limitedTime.completions
+          const time = player.singChallengeTimer
+          exaltPenalty = calculateExalt6Penalty(comps, time)
+        }
+        return exaltPenalty
+      },
+      color: 'red'
+    },
+    {
+      i18n: 'OneMind',
+      stat: () => {
+        return getGQUpgradeEffect('oneMind', 'unlocked')
+          ? calculateAscensionSpeedMult() / 10
+          : 1
+      },
+      color: 'magenta'
+    },
+    {
+      i18n: 'Event',
+      stat: () => 1 + calculateEventBuff(BuffType.Cubes),
+      color: 'lime'
     }
   ]
 }
 
-export const antSacrificeRewardStats: StatLine[] = [
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('sacrificeMult')
-  },
-  {
-    i18n: 'AntUpgrade11',
-    stat: () => getAntUpgradeEffect(AntUpgrades.AntSacrifice).antSacrificeMultiplier
-  },
-  {
-    i18n: 'Research103',
-    stat: () => 1 + player.researches[103] / 20
-  },
-  {
-    i18n: 'Research104',
-    stat: () => 1 + player.researches[104] / 20
-  },
-  {
-    i18n: 'RuneBlessing',
-    stat: () => getRuneBlessingEffect('prism').antSacrificeMult // Rune Blessing
-  },
-  {
-    i18n: 'Challenge10',
-    stat: () => 1 + (1 / 50) * CalcECC('reincarnation', player.challengecompletions[10])
-  },
-  {
-    i18n: 'Research122',
-    stat: () => 1 + (1 / 50) * player.researches[122]
-  },
-  {
-    i18n: 'Research133',
-    stat: () => 1 + (3 / 100) * player.researches[133]
-  },
-  {
-    i18n: 'Research163',
-    stat: () => 1 + (2 / 100) * player.researches[163]
-  },
-  {
-    i18n: 'Research193',
-    stat: () => 1 + (1 / 100) * player.researches[193]
-  },
-  {
-    i18n: 'AcceleratorBoostUpgrade',
-    stat: () => 1 + (1 / 4) * player.upgrades[40]
-  },
-  {
-    i18n: 'Event',
-    stat: () => 1 + calculateEventBuff(BuffType.AntSacrifice),
-    color: 'lime'
+export const allWowCubeStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'CubeBank',
+      stat: () => {
+        let cubeBank = 0
+        // Award Cubes for Challenges
+        for (let i = 1; i <= 10; i++) {
+          // Reward more for Reincarnation Challenges (c6-10)
+          const valuePerChallenge = i >= 6 ? 2 : 1
+          cubeBank += valuePerChallenge * player.challengecompletions[i]
+        }
+        // Award Cubes for Ant Upgrade
+        cubeBank += getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked
+        return cubeBank
+      }
+    },
+    {
+      i18n: 'AscensionScore',
+      stat: () => Math.pow(calculateAscensionScore().effectiveScore / 3000, 1 / 4.1)
+    },
+    {
+      i18n: 'GlobalCube',
+      stat: () => calculateAllCubeMultiplier()
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('wowCubes'),
+      color: 'green'
+    },
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('wowCubeGain')
+    },
+    {
+      i18n: 'SeasonPass1',
+      stat: () => getShopUpgradeEffects('seasonPass', 'wowCubeMult')
+    },
+    {
+      i18n: 'WowSquare',
+      stat: () => getTalismanEffects('wowSquare').oddDimBonus
+    },
+    {
+      i18n: 'Researches',
+      stat: () =>
+        (1 + player.researches[119] / 1000) // 5x19
+        * (1 + player.researches[120] / 200) // 5x20
+        * (1 + player.researches[137] / 100) // 6x12
+        * (1 + (0.9 * player.researches[152]) / 100) // 7x2
+        * (1 + (0.8 * player.researches[167]) / 100) // 7x17
+        * (1 + (0.7 * player.researches[182]) / 100) // 8x7
+        * (1
+          + (1 / 500) * player.researches[192] * calculateTrueAntLevel(AntUpgrades.Mortuus)) // 8x17
+        * (1 + (0.6 * player.researches[197]) / 100) // 8x22
+    },
+    {
+      i18n: 'Research8x25',
+      stat: () => 1 + (0.004 / 100) * player.researches[200]
+    },
+    {
+      i18n: 'AntUpgrade',
+      stat: () => getAntUpgradeEffect(AntUpgrades.WowCubes).wowCubes
+    },
+    {
+      i18n: 'CubeUpgrades',
+      stat: () =>
+        (1 + player.cubeUpgrades[1] / 6) // 1x1
+        * (1 + player.cubeUpgrades[11] / 11) // 2x1
+        * (1 + 0.4 * player.cubeUpgrades[30]) // 3x10
+    },
+    {
+      i18n: 'ConstantUpgrade10',
+      stat: () =>
+        1
+        + 0.01
+          * Decimal.log(player.ascendShards.add(1), 4)
+          * Math.min(1, player.constantUpgrades[10])
+    },
+    {
+      i18n: 'SpiritPower',
+      stat: () => getRuneSpiritEffect('duplication').wowCubes
+    },
+    {
+      i18n: 'PlatonicOpening',
+      stat: () => calculateCubeMultiplierPlatonicBlessing()
+    },
+    {
+      i18n: 'Platonic1x1',
+      stat: () =>
+        1
+        + 0.00009
+          * player.corruptions.used.totalLevels
+          * player.platonicUpgrades[1]
+    },
+    {
+      i18n: 'Antiquities',
+      stat: () => getRuneEffects('antiquities', 'cubeBonus')
+    },
+    {
+      i18n: 'CookieUpgrade13',
+      stat: () =>
+        1 + Math.pow(1.03, Math.log10(Math.max(1, player.wowAbyssals))) * player.cubeUpgrades[63]
+        - player.cubeUpgrades[63]
+    }
+  ]
+}
+
+const allWowCubePowerStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Misc,
+  lines: [
+    {
+      i18n: 'Tau',
+      stat: () => getGQUpgradeEffect('platonicTau', 'tauPower')
+    }
+  ]
+}
+
+export const allTesseractStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'AscensionScore',
+      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1e5) / 1e4, 0.35)
+    },
+    {
+      i18n: 'GlobalCube',
+      stat: () => calculateAllCubeMultiplier()
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('wowTesseracts'),
+      color: 'green'
+    },
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('wowTesseractGain')
+    },
+    {
+      i18n: 'SeasonPass1',
+      stat: () => getShopUpgradeEffects('seasonPass', 'wowTesseractMult')
+    },
+    {
+      i18n: 'WowSquare',
+      stat: () => getTalismanEffects('wowSquare').evenDimBonus
+    },
+    {
+      i18n: 'ConstantUpgrade10',
+      stat: () => 1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10])
+    },
+    {
+      i18n: 'CubeUpgrade3x10',
+      stat: () => 1 + 0.4 * player.cubeUpgrades[30]
+    },
+    {
+      i18n: 'CubeUpgrade4x8',
+      stat: () => 1 + (1 / 200) * player.cubeUpgrades[38] * player.corruptions.used.totalLevels
+    },
+    {
+      i18n: 'PlatonicCube',
+      stat: () => calculateTesseractMultiplierPlatonicBlessing()
+    },
+    {
+      i18n: 'Platonic1x2',
+      stat: () => 1 + 0.00018 * player.corruptions.used.totalLevels * player.platonicUpgrades[2]
+    }
+  ]
+}
+
+export const allHypercubeStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'AscensionScore',
+      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1e9) / 1e8, 0.5)
+    },
+    {
+      i18n: 'GlobalCube',
+      stat: () => calculateAllCubeMultiplier()
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('wowHyperCubes'),
+      color: 'green'
+    },
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('wowHypercubeGain')
+    },
+    {
+      i18n: 'SeasonPass2',
+      stat: () => getShopUpgradeEffects('seasonPass2', 'wowHypercubeMult')
+    },
+    {
+      i18n: 'WowSquare',
+      stat: () => getTalismanEffects('wowSquare').oddDimBonus
+    },
+    {
+      i18n: 'PlatonicCube',
+      stat: () => calculateHypercubeMultiplierPlatonicBlessing()
+    },
+    {
+      i18n: 'Platonic1x3',
+      stat: () => 1 + 0.00054 * player.corruptions.used.totalLevels * player.platonicUpgrades[3]
+    },
+    {
+      i18n: 'HyperrealHepteract',
+      stat: () => getHepteractEffects('hyperrealism').hypercubeMultiplier
+    }
+  ]
+}
+
+export const allPlatonicCubeStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'AscensionScore',
+      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 2.666e12) / 2.666e11, 0.75)
+    },
+    {
+      i18n: 'GlobalCube',
+      stat: () => calculateAllCubeMultiplier()
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('wowPlatonicCubes'),
+      color: 'green'
+    },
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('wowPlatonicGain')
+    },
+    {
+      i18n: 'SeasonPass2',
+      stat: () => getShopUpgradeEffects('seasonPass2', 'wowPlatonicMult')
+    },
+    {
+      i18n: 'WowSquare',
+      stat: () => getTalismanEffects('wowSquare').evenDimBonus
+    },
+    {
+      i18n: 'PlatonicCube',
+      stat: () => calculatePlatonicMultiplierPlatonicBlessing()
+    },
+    {
+      i18n: 'Platonic1x4',
+      stat: () => 1 + (1.2 * player.platonicUpgrades[4]) / 50
+    }
+  ]
+}
+
+export const allHepteractCubeStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'AscensionScore',
+      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1.666e16) / 3.33e16, 0.85)
+    },
+    {
+      i18n: 'GlobalCube',
+      stat: () => calculateAllCubeMultiplier()
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('wowHepteractCubes'),
+      color: 'green'
+    },
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('wowHepteractGain')
+    },
+    {
+      i18n: 'SeasonPass3',
+      stat: () => getShopUpgradeEffects('seasonPass3', 'wowHepteractMult')
+    },
+    {
+      i18n: 'WowSquare',
+      stat: () => getTalismanEffects('wowSquare').oddDimBonus
+    }
+  ]
+}
+
+export const allOcteractCubeStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'BasePerSecond',
+      stat: () => 1 / (24 * 3600 * 365 * 1e15)
+    },
+    {
+      i18n: 'AscensionScore',
+      stat: () => {
+        const SCOREREQ = 1e23
+        const currentScore = calculateAscensionScore().effectiveScore
+        return currentScore >= SCOREREQ ? currentScore / SCOREREQ : 0
+      }
+    },
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.CUBE_BUFF,
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('wowOcteracts'),
+      color: 'green'
+    },
+    {
+      i18n: 'Campaign',
+      stat: () => player.campaigns.octeractBonus
+    },
+    {
+      i18n: 'SeasonPass3',
+      stat: () => getShopUpgradeEffects('seasonPass3', 'wowOcteractMult')
+    },
+    {
+      i18n: 'SeasonPassY',
+      stat: () => getShopUpgradeEffects('seasonPassY', 'wowOcteractMult')
+    },
+    {
+      i18n: 'SeasonPassZ',
+      stat: () => getShopUpgradeEffects('seasonPassZ', 'wowOcteractMult')
+    },
+    {
+      i18n: 'SeasonPassLost',
+      stat: () => getShopUpgradeEffects('seasonPassLost', 'wowOcteractMult')
+    },
+    {
+      i18n: 'WowSquare',
+      stat: () => getTalismanEffects('wowSquare').evenDimBonus
+    },
+    {
+      i18n: 'CookieUpgrade20',
+      stat: () => 1 + (+(player.corruptions.used.totalLevels >= 14 * 8) * player.cubeUpgrades[70]) / 10000
+    },
+    {
+      i18n: 'DivinePack',
+      stat: () => getGQUpgradeEffect('divinePack', 'octeractMult')
+    },
+    {
+      i18n: 'SingCubes1',
+      stat: () => getGQUpgradeEffect('singCubes1', 'cubeMult')
+    },
+    {
+      i18n: 'SingCubes2',
+      stat: () => getGQUpgradeEffect('singCubes2', 'cubeMult')
+    },
+    {
+      i18n: 'SingCubes3',
+      stat: () => getGQUpgradeEffect('singCubes3', 'cubeMult')
+    },
+    {
+      i18n: 'SingOcteractGain',
+      stat: () => getGQUpgradeEffect('singOcteractGain', 'octeractMult')
+    },
+    {
+      i18n: 'SingOcteractGain2',
+      stat: () => getGQUpgradeEffect('singOcteractGain2', 'octeractMult')
+    },
+    {
+      i18n: 'SingOcteractGain3',
+      stat: () => getGQUpgradeEffect('singOcteractGain3', 'octeractMult')
+    },
+    {
+      i18n: 'SingOcteractGain4',
+      stat: () => getGQUpgradeEffect('singOcteractGain4', 'octeractMult')
+    },
+    {
+      i18n: 'SingOcteractGain5',
+      stat: () => getGQUpgradeEffect('singOcteractGain5', 'octeractMult')
+    },
+    {
+      i18n: 'PatreonBonus',
+      stat: () => getGQUpgradeEffect('singOcteractPatreonBonus', 'octeractMult')
+    },
+    {
+      i18n: 'OcteractStarter',
+      stat: () => getOcteractUpgradeEffect('octeractStarter', 'octeractMult')
+    },
+    {
+      i18n: 'OcteractGain',
+      stat: () => getOcteractUpgradeEffect('octeractGain', 'octeractMult')
+    },
+    {
+      i18n: 'OcteractGain2',
+      stat: () => getOcteractUpgradeEffect('octeractGain2', 'octeractMult')
+    },
+    {
+      i18n: 'DerpsmithCornucopia',
+      stat: () => derpsmithCornucopiaBonus()
+    },
+    {
+      i18n: 'DigitalOcteractAccumulator',
+      stat: () => getOcteractUpgradeEffect('octeractAscensionsOcteractGain', 'octeractMult')
+    },
+    {
+      i18n: 'Event',
+      stat: () => 1 + calculateEventBuff(BuffType.Octeract)
+    },
+    {
+      i18n: 'PlatonicDelta',
+      stat: () => getGQUpgradeEffect('platonicDelta', 'cubeMult')
+    },
+    {
+      i18n: 'NoSingUpgrades',
+      stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'cubes')
+    },
+    {
+      i18n: 'PassINF',
+      stat: () => getShopUpgradeEffects('seasonPassInfinity', 'wowOcteractMult')
+    },
+    {
+      i18n: 'Ambrosia',
+      stat: () => calculateAmbrosiaCubeMult()
+    },
+    {
+      i18n: 'ModuleTutorial',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'cubes')
+    },
+    {
+      i18n: 'ModuleCubes1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes1', 'cubes')
+    },
+    {
+      i18n: 'ModuleLuckCube1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckCube1', 'cubes')
+    },
+    {
+      i18n: 'ModuleQuarkCube1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
+    },
+    {
+      i18n: 'ModuleCubes2',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes2', 'cubes')
+    },
+    {
+      i18n: 'ModuleCubes3',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3', 'cubes')
+    },
+    {
+      i18n: 'RedAmbrosiaTutorial',
+      stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'cubeMult')
+    },
+    {
+      i18n: 'RedAmbrosia',
+      stat: () => calculateRedAmbrosiaCubes()
+    },
+    {
+      i18n: 'CashGrabUltra',
+      stat: () => getShopUpgradeEffects('shopCashGrabUltra', 'cubesMult')
+    },
+    {
+      i18n: 'EXUltra',
+      stat: () => getShopUpgradeEffects('shopEXUltra', 'cubeMult')
+    },
+    {
+      i18n: 'AscensionSpeed',
+      stat: () => {
+        const ascensionSpeed = getGQUpgradeEffect('oneMind', 'unlocked')
+          ? Math.pow(10, 1 / 2) * Math.pow(
+            calculateAscensionSpeedMult() / 10,
+            getOcteractUpgradeEffect('octeractOneMindImprover', 'ascendSpeedExponent')
+          )
+          : Math.pow(calculateAscensionSpeedMult(), 1 / 2)
+        return ascensionSpeed
+      }
+    }
+  ]
+}
+
+export const allBaseOfferingStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 1 // Absolute Base
+    },
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.BASE_OFFERING_BUFF, // PseudoCoin Upgrade
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'Prestige',
+      stat: () => player.prestigeCount > 0 ? 1 : 0 // Prestiged
+    },
+    {
+      i18n: 'Transcend',
+      stat: () => player.transcendCount > 0 ? 3 : 0 // Transcended
+    },
+    {
+      i18n: 'Reincarnate',
+      stat: () => player.reincarnationCount > 0 ? 5 : 0 // Reincarnated
+    },
+    {
+      i18n: 'Challenge1',
+      stat: () => (player.challengecompletions[2] > 0) ? 2 : 0 // Challenge 2x1
+    },
+    {
+      i18n: 'ShopPotionBonus',
+      stat: () => calculateOfferingPotionBaseOfferings().amount // Potion Permanent Bonus
+    },
+    {
+      i18n: 'ReincarnationUpgrade2',
+      stat: () => (player.upgrades[62] > 0) ? Math.min(12, (1 / 50) * sumContents(player.challengecompletions)) : 0 // Reincarnation Upgrade 2
+    },
+    {
+      i18n: 'Research1x24',
+      stat: () => 0.4 * player.researches[24] // Research 1x24
+    },
+    {
+      i18n: 'Research1x25',
+      stat: () => 0.6 * player.researches[25] // Research 1x25
+    },
+    {
+      i18n: 'Research4x20',
+      stat: () => (player.researches[95] > 0) ? 15 : 0 // Research 4x20
+    },
+    {
+      i18n: 'AmbrosiaBaseOffering1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering1', 'offering') // Ambrosia Base Offering 1
+    },
+    {
+      i18n: 'AmbrosiaBaseOffering2',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering2', 'offering') // Ambrosia Base Offering 2
+    },
+    {
+      i18n: 'OfferingEX3',
+      stat: () => getShopUpgradeEffects('offeringEX3', 'baseOfferings') // Offering EX3 Shop Upgrade
+    }
+  ]
+}
+
+export const allOfferingStats: DecimalStatLineCategory = {
+  kind: 'decimal',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => calculateBaseOfferings()
+    },
+    {
+      i18n: 'PrestigeShards',
+      stat: () => 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5
+    },
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('offeringBonus')
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('offerings') // Synergism Level
+    },
+    {
+      i18n: 'SuperiorIntellect',
+      stat: () => getRuneEffects('superiorIntellect', 'offeringMult') // Superior Intellect Rune
+    },
+    {
+      i18n: 'ReincarnationChallenge',
+      stat: () =>
+        1 + 1 / 50 * CalcECC('reincarnation', player.challengecompletions[6])
+        + 1 / 25 * CalcECC('reincarnation', player.challengecompletions[8])
+        + 1 / 25 * CalcECC('reincarnation', player.challengecompletions[10]) // Reincarnation Challenges
+    },
+    {
+      i18n: 'DiamondUpgrade4x3',
+      stat: () => 1 + 0.2 * player.upgrades[38] // Diamond Upgrade 4x3
+    },
+    {
+      i18n: 'ParticleUpgrade3x5',
+      stat: () =>
+        1
+        + player.upgrades[75] * 2
+          * Math.min(1, Math.pow(Decimal.min(player.maxObtainium, 1e10).toNumber() / 30000000, 0.5)) // Particle Upgrade 3x5
+    },
+    {
+      i18n: 'Research5x19',
+      stat: () => 1 + player.researches[119] / 200 // Research 5x19
+    },
+    {
+      i18n: 'OfferingEXShop',
+      stat: () => getShopUpgradeEffects('offeringEX', 'offeringMult') // Offering EX Shop
+    },
+    {
+      i18n: 'CashGrab',
+      stat: () => getShopUpgradeEffects('cashGrab', 'offeringMult') // Cash Grab
+    },
+    {
+      i18n: 'Research4x10',
+      stat: () => 1 + (1 / 10000) * sumContents(player.challengecompletions) * player.researches[85] // Research 4x10
+    },
+    {
+      i18n: 'AntUpgrade',
+      stat: () => getAntUpgradeEffect(AntUpgrades.Offerings).offeringMult // Ant Upgrade
+    },
+    {
+      i18n: 'Brutus',
+      stat: () => calculateOfferingCubeBlessing() // Cube Blessing
+    },
+    {
+      i18n: 'ConstantUpgrade3',
+      stat: () => 1 + 0.02 * player.constantUpgrades[3] // Constant Upgrade 3
+    },
+    {
+      i18n: 'ResearchTalismans',
+      stat: () =>
+        1 + 0.0003 * talismans.midas.level * player.researches[149]
+        + 0.0004 * talismans.midas.level * player.researches[179] // Research 6x24,8x4
+    },
+    {
+      i18n: 'TutorialBonus',
+      stat: () => player.campaigns.tutorialBonus.offeringBonus // Tutorial Offering Bonus
+    },
+    {
+      i18n: 'CampaignBonus',
+      stat: () => player.campaigns.offeringBonus // Campaign Offering Bonus
+    },
+    {
+      i18n: 'Challenge12',
+      stat: () => 1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]) // Challenge 12
+    },
+    {
+      i18n: 'ThriftSpirit',
+      stat: () => getRuneSpiritEffect('thrift').offerings // Thrift
+    },
+    {
+      i18n: 'Research8x25',
+      stat: () => 1 + (0.01 / 100) * player.researches[200] // Research 8x25
+    },
+    {
+      i18n: 'CubeUpgrade5x6',
+      stat: () => 1 + 0.05 * player.cubeUpgrades[46] // Cube Upgrade 5x6
+    },
+    {
+      i18n: 'CubeUpgrade5x10',
+      stat: () => 1 + (0.02 / 100) * player.cubeUpgrades[50] // Cube Upgrade 5x10
+    },
+    {
+      i18n: 'PlatonicALPHA',
+      stat: () => 1 + player.platonicUpgrades[5] // Platonic ALPHA
+    },
+    {
+      i18n: 'PlatonicBETA',
+      stat: () => 1 + 2.5 * player.platonicUpgrades[10] // Platonic BETA
+    },
+    {
+      i18n: 'PlatonicOMEGA',
+      stat: () => 1 + 5 * player.platonicUpgrades[15] // Platonic OMEGA
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () => G.challenge15Rewards.offering.value // C15 Reward
+    },
+    {
+      i18n: 'Antiquities',
+      stat: () => Math.pow(10, getRuneEffects('antiquities', 'offeringLog10')) // Antiquities Rune
+    },
+    {
+      i18n: 'Jack',
+      stat: () => getShopUpgradeEffects('shopPanthema', 'offeringMult')
+    },
+    {
+      i18n: 'SingularityDebuff',
+      stat: () => 1 / calculateSingularityDebuff('Offering'), // Singularity Debuff
+      color: 'red'
+    },
+    {
+      i18n: 'StarterPack',
+      stat: () => getGQUpgradeEffect('starterPack', 'offeringMult') // Starter Pack Upgrade
+    },
+    {
+      i18n: 'OfferingCharge',
+      stat: () => getGQUpgradeEffect('singOfferings1', 'offeringMult') // Offering Charge GQ Upgrade
+    },
+    {
+      i18n: 'OfferingStorm',
+      stat: () => getGQUpgradeEffect('singOfferings2', 'offeringMult') // Offering Storm GQ Upgrade
+    },
+    {
+      i18n: 'OfferingTempest',
+      stat: () => getGQUpgradeEffect('singOfferings3', 'offeringMult') // Offering Tempest GQ Upgrade
+    },
+    {
+      i18n: 'Citadel',
+      stat: () => getGQUpgradeEffect('singCitadel', 'offeringMult') // Citadel GQ Upgrade
+    },
+    {
+      i18n: 'Citadel2',
+      stat: () => getGQUpgradeEffect('singCitadel2', 'offeringMult') // Citadel 2 GQ Upgrade
+    },
+    {
+      i18n: 'CubeUpgradeCx4',
+      stat: () => 1 + player.cubeUpgrades[54] / 100 // Cube upgrade 6x4 (Cx4)
+    },
+    {
+      i18n: 'CubeUpgradeCx12',
+      stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1 // Cube upgrade 7x2 (Cx12)
+    },
+    {
+      i18n: 'OcteractElectrolosis',
+      stat: () => getOcteractUpgradeEffect('octeractOfferings1', 'offeringMult') // Offering Electrolosis OC Upgrade
+    },
+    {
+      i18n: 'OcteractBonus',
+      stat: () => calculateTotalOcteractOfferingBonus() // Octeract Bonus
+    },
+    {
+      i18n: 'Ambrosia',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaOffering1', 'offeringMult') // Ambrosia!!
+    },
+    {
+      i18n: 'RedAmbrosiaTutorial',
+      stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'offeringMult') // Red Ambrosia Tutorial
+    },
+    {
+      i18n: 'RedAmbrosia',
+      stat: () => calculateRedAmbrosiaOffering() // Red Ambrosia
+    },
+    {
+      i18n: 'CubeUpgradeCx22',
+      stat: () => Math.pow(1.04, player.cubeUpgrades[72] * sumOfTalismanRarities()) // Cube upgrade 8x2 (Cx22)
+    },
+    {
+      i18n: 'CashGrab2',
+      stat: () => getShopUpgradeEffects('cashGrab2', 'offeringMult') // Cash Grab 2
+    },
+    {
+      i18n: 'OfferingEX2',
+      stat: () => getShopUpgradeEffects('offeringEX2', 'offeringMult') // Offering EX 2
+    },
+    {
+      i18n: 'OfferingINF',
+      stat: () => getShopUpgradeEffects('offeringEX3', 'offeringMult') // Offering INF
+    },
+    {
+      i18n: 'EXUltra',
+      stat: () => getShopUpgradeEffects('shopEXUltra', 'offeringMult') // EX Ultra Shop Upgrade
+    },
+    {
+      i18n: 'Exalt6Penalty',
+      stat: () =>
+        (player.singularityChallenges.limitedTime.enabled)
+          ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
+          : 1, // Singularity Speedrun Penalty
+      color: 'red'
+    },
+    {
+      i18n: 'TaxmanDebuff',
+      stat: () => {
+        if (!player.singularityChallenges.taxmanLastStand.enabled) {
+          return 1
+        }
+        const obtainiumDigits = Math.floor(1 + Math.max(0, Decimal.log(player.obtainium, 10)))
+        return Math.pow(2.5, -Math.min(500, obtainiumDigits)) // Taxman Debuff
+      },
+      color: 'red'
+    },
+    {
+      i18n: 'Event',
+      stat: () => 1 + calculateEventBuff(BuffType.Offering), // Event
+      color: 'lime'
+    }
+  ]
+}
+
+export const firstFiveRuneEffectivenessStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Research1x4',
+      stat: () => 1 + player.researches[4] / 10 * (1 + CalcECC('ascension', player.challengecompletions[14]))
+    },
+    {
+      i18n: 'Research1x21',
+      stat: () => 1 + player.researches[21] / 100
+    },
+    {
+      i18n: 'Research4x15',
+      stat: () => 1 + player.researches[90] / 100
+    },
+    {
+      i18n: 'Research6x6',
+      stat: () => 1 + player.researches[131] / 200
+    },
+    {
+      i18n: 'Research6x21',
+      stat: () => 1 + ((player.researches[146] / 200) * 4) / 5
+    },
+    {
+      i18n: 'Research7x11',
+      stat: () => 1 + ((player.researches[161] / 200) * 3) / 5
+    },
+    {
+      i18n: 'Research8x1',
+      stat: () => 1 + ((player.researches[176] / 200) * 2) / 5
+    },
+    {
+      i18n: 'Research8x16',
+      stat: () => 1 + ((player.researches[191] / 200) * 1) / 5
+    },
+    {
+      i18n: 'ConstantUpgrade9',
+      stat: () =>
+        1 + 0.01 * Decimal.log(player.talismanShards.add(1), 4)
+          * Math.min(1, player.constantUpgrades[9])
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () => G.challenge15Rewards.runeBonus.value
+    },
+    {
+      i18n: 'MidasTribute',
+      stat: () => calculateRuneEffectivenessCubeBlessing()
+    }
+  ]
+}
+
+export const runeEffectivenessStatsSI: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Research4x9',
+      stat: () => 1 + player.researches[84] / 200
+    }
+  ]
+}
+
+export const allQuarkStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('quarkGain')
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('quarks')
+    },
+    {
+      i18n: 'PlasticTalisman',
+      stat: () => getTalismanEffects('plastic').quarkBonus
+    },
+    {
+      i18n: 'PlatonicALPHA',
+      stat: () => player.platonicUpgrades[5] > 0 ? 1.05 : 1
+    },
+    {
+      i18n: 'PlatonicBETA',
+      stat: () => player.platonicUpgrades[10] > 0 ? 1.1 : 1
+    },
+    {
+      i18n: 'PlatonicOMEGA',
+      stat: () => player.platonicUpgrades[15] > 0 ? 1.15 : 1
+    },
+    {
+      i18n: 'Jack',
+      stat: () => getShopUpgradeEffects('shopPanthema', 'quarkMult')
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () =>
+        player.challenge15Exponent >= G.challenge15Rewards.quarks.requirement ? G.challenge15Rewards.quarks.value : 1
+    },
+    {
+      i18n: 'CampaignBonus',
+      stat: () => player.campaigns.quarkBonus
+    },
+    {
+      i18n: 'InfiniteAscent',
+      stat: () =>
+        getShopUpgradeEffects('infiniteAscent', 'runeUnlocked') ? getRuneEffects('infiniteAscent', 'quarkMult') : 1
+    },
+    {
+      i18n: 'QuarkHepteract',
+      stat: () =>
+        player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
+          ? getHepteractEffects('quark').quarkMultiplier
+          : 1
+    },
+    {
+      i18n: 'Powder',
+      stat: () => calculateQuarkMultFromPowder()
+    },
+    {
+      i18n: 'SingularityCount',
+      stat: () => 1 + player.singularityCount / 10
+    },
+    {
+      i18n: 'FavoriteUpgrade',
+      stat: () => getGQUpgradeEffect('favoriteUpgrade', 'quarkMult')
+    },
+    {
+      i18n: 'CookieUpgrade3',
+      stat: () => 1 + 0.001 * player.cubeUpgrades[53]
+    },
+    {
+      i18n: 'CookieUpgrade18',
+      stat: () => 1 + (1 / 10000) * player.cubeUpgrades[68] + 0.05 * Math.floor(player.cubeUpgrades[68] / 1000)
+    },
+    {
+      i18n: 'SingularityMilestones',
+      stat: () => calculateSingularityQuarkMilestoneMultiplier()
+    },
+    {
+      i18n: 'skrauQ',
+      stat: () => {
+        if (player.singularityCount >= 200) {
+          return Math.pow(1 + (player.singularityCount - 199) / 20, 2)
+        } else {
+          return 1
+        }
+      }
+    },
+    {
+      i18n: 'OcteractQuarkBonus',
+      stat: () => calculateTotalOcteractQuarkBonus()
+    },
+    {
+      i18n: 'OcteractStarter',
+      stat: () => getOcteractUpgradeEffect('octeractStarter', 'quarkMult')
+    },
+    {
+      i18n: 'OcteractQuarkGain',
+      stat: () => getOcteractUpgradeEffect('octeractQuarkGain', 'quarkMult')
+    },
+    {
+      i18n: 'OcteractQuarkGain2',
+      stat: () => getOcteractUpgradeEffect('octeractQuarkGain2', 'quarkMult')
+    },
+    {
+      i18n: 'SingularityPacks',
+      stat: () =>
+        1
+        + getGQUpgradeEffect('intermediatePack', 'packQuarkAdd')
+        + getGQUpgradeEffect('advancedPack', 'packQuarkAdd')
+        + getGQUpgradeEffect('expertPack', 'packQuarkAdd')
+        + getGQUpgradeEffect('masterPack', 'packQuarkAdd')
+        + getGQUpgradeEffect('divinePack', 'packQuarkAdd')
+    },
+    {
+      i18n: 'SingQuarkImprover1',
+      stat: () => getGQUpgradeEffect('singQuarkImprover1', 'quarkMult')
+    },
+    {
+      i18n: 'AmbrosiaQuarkMult',
+      stat: () => calculateAmbrosiaQuarkMult()
+    },
+    {
+      i18n: 'AmbrosiaTutorial',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'quarks')
+    },
+    {
+      i18n: 'AmbrosiaQuarks1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks1', 'quarks')
+    },
+    {
+      i18n: 'AmbrosiaCubeQuark1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeQuark1', 'quarks')
+    },
+    {
+      i18n: 'AmbrosiaLuckQuark1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuckQuark1', 'quarks')
+    },
+    {
+      i18n: 'AmbrosiaQuarks2',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks2', 'quarks')
+    },
+    {
+      i18n: 'AmbrosiaQuarks3',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarks3', 'quarks')
+    },
+    {
+      i18n: 'Viscount',
+      stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'quarkBonus'),
+      color: 'red'
+    },
+    {
+      i18n: 'CashGrabQuarkBonus',
+      stat: () => getShopUpgradeEffects('shopCashGrabUltra', 'quarkMult')
+    },
+    {
+      i18n: 'LimitedTimeChallenge',
+      stat: () => getSingularityChallengeEffect('limitedTime', 'quarkMult')
+    },
+    {
+      i18n: 'SadisticPrequel',
+      stat: () => getSingularityChallengeEffect('sadisticPrequel', 'quarkMult')
+    },
+    {
+      i18n: 'FirstSingularityBonus',
+      stat: () => player.highestSingularityCount === 0 ? 1.25 : 1,
+      color: 'cyan'
+    },
+    {
+      i18n: 'Event',
+      stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.Quark) + calculateEventBuff(BuffType.OneMind) : 1,
+      color: 'lime'
+    },
+    {
+      i18n: 'GlobalSubscriber',
+      stat: () => 1 + getGlobalBonus() / 100,
+      acc: 3,
+      color: 'gold'
+    },
+    {
+      i18n: 'AccountBonus',
+      stat: () => 1 + getPersonalBonus() / 100,
+      acc: 3,
+      color: 'gold'
+    }
+  ]
+}
+
+export const allBaseObtainiumStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 1 // Absolute base value
+    },
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.BASE_OBTAINIUM_BUFF, // PseudoCoin Upgrade
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'ShopPotionBonus',
+      stat: () => calculateObtainiumPotionBaseObtainium().amount // Potion Permanent Bonus
+    },
+    {
+      i18n: 'Research3x13',
+      stat: () => (player.reincarnationcounter >= 2) ? player.researches[63] : 0 // Research 3x13
+    },
+    {
+      i18n: 'Research3x14',
+      stat: () => (player.reincarnationcounter >= 5) ? 2 * player.researches[64] : 0 // Research 3x14
+    },
+    {
+      i18n: 'FirstSingularity',
+      stat: () => (player.highestSingularityCount > 0) ? 3 : 0 // First Singularity Perk
+    },
+    {
+      i18n: 'SingularityCount',
+      stat: () => Math.floor(player.singularityCount / 10) // Singularity Count
+    },
+    {
+      i18n: 'AmbrosiaBaseObtainium1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium1', 'obtainium') // Ambrosia Base Obtainium 1
+    },
+    {
+      i18n: 'AmbrosiaBaseObtainium2',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium2', 'obtainium') // Ambrosia Base Obtainium 2
+    }
+  ]
+}
+
+export const allObtainiumIgnoreDRStats: DecimalStatLineCategory = {
+  kind: 'decimal',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => calculateBaseObtainium() // Absolute Base
+    },
+    {
+      i18n: 'CubeUpgrade4x2',
+      stat: () => 1 + (4 / 100) * player.cubeUpgrades[42] // Cube Upgrade 4x2
+    },
+    {
+      i18n: 'CubeUpgrade4x3',
+      stat: () => 1 + (3 / 100) * player.cubeUpgrades[43] // Cube Upgrade 4x3
+    },
+    {
+      i18n: 'TutorialBonus',
+      stat: () => player.campaigns.tutorialBonus.obtainiumBonus // Campaign Tutorial Bonus
+    },
+    {
+      i18n: 'CampaignBonus',
+      stat: () => player.campaigns.obtainiumBonus // Campaign Obtainium Bonus
+    },
+    {
+      i18n: 'ChallengeBonus',
+      stat: () => G.challenge15Rewards.obtainium.value // Challenge 15 Reward
+    },
+    {
+      i18n: 'PlatonicALPHA',
+      stat: () => 1 + player.platonicUpgrades[5] // Platonic ALPHA
+    },
+    {
+      i18n: 'PlatonicUpgrade9',
+      stat: () => 1 + 1.5 * player.platonicUpgrades[9] // 9th Platonic Upgrade
+    },
+    {
+      i18n: 'PlatonicBETA',
+      stat: () => 1 + 2.5 * player.platonicUpgrades[10] // Platonic BETA
+    },
+    {
+      i18n: 'PlatonicOMEGA',
+      stat: () => 1 + 5 * player.platonicUpgrades[15] // Platonic OMEGA
+    },
+    {
+      i18n: 'Antiquities',
+      stat: () => Math.pow(10, getRuneEffects('antiquities', 'obtainiumLog10')) // Antiquities Rune
+    },
+    {
+      i18n: 'CubeUpgradeCx5',
+      stat: () => 1 + player.cubeUpgrades[55] / 100 // Cube Upgrade 6x5 (Cx5)
+    },
+    {
+      i18n: 'CubeUpgradeCx12',
+      stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1, // Cube Upgrade 7x2 (Cx12)
+      color: 'cyan'
+    },
+    {
+      i18n: 'RedAmbrosiaTutorial',
+      stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'obtainiumMult') // Red Ambrosia Tutorial
+    },
+    {
+      i18n: 'RedAmbrosia',
+      stat: () => calculateRedAmbrosiaObtainium() // Red Ambrosia
+    },
+    {
+      i18n: 'CubeUpgradeCx21',
+      stat: () => Math.pow(1.04, player.cubeUpgrades[71] * sumOfTalismanRarities()) // Cube Upgrade 8x1
+    },
+    {
+      i18n: 'ObtainiumEX3',
+      stat: () => getShopUpgradeEffects('obtainiumEX3', 'immaculateObtainiuMult') // Obtainium EX 3
+    },
+    {
+      i18n: 'Exalt6Penalty',
+      stat: () =>
+        (player.singularityChallenges.limitedTime.enabled)
+          ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
+          : 1, // Singularity Challenge 6 Penalty
+      color: 'red'
+    },
+    {
+      i18n: 'Event',
+      stat: () => 1 + calculateEventBuff(BuffType.Obtainium), // Event Buff
+      color: 'lime'
+    }
+  ]
+}
+
+export const allObtainiumStats: DecimalStatLineCategory = {
+  kind: 'decimal',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'TranscendShards',
+      stat: () => Math.max(1, Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2)) // Transcend Shards
+    },
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('obtainiumBonus') // Achievement Bonus
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('obtainium') // Synergism Level
+    },
+    {
+      i18n: 'ReincarnationUpgrade9',
+      stat: () =>
+        (player.upgrades[69] > 0)
+          ? Math.min(10, Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5).toNumber())
+          : 1 // Reincarnation Upgrade 9
+    },
+    {
+      i18n: 'ReincarnationUpgrade12',
+      stat: () =>
+        (player.upgrades[72] > 0) ? Math.min(50, 1 + 2 * sumContents(player.challengecompletions.slice(6, 11))) : 1 // Reincarnation Upgrade 12
+    },
+    {
+      i18n: 'ReincarnationUpgrade14',
+      stat: () =>
+        (player.upgrades[74] > 0)
+          ? 1 + 4 * Math.min(1, Math.pow(Decimal.min(player.maxOfferings, 1e10).toNumber() / 100000, 0.5))
+          : 1 // Reincarnation Upgrade 14
+    },
+    {
+      i18n: 'Research3x15',
+      stat: () => 1 + player.researches[65] / 5 // Research 3x15
+    },
+    {
+      i18n: 'Research4x1',
+      stat: () => 1 + player.researches[76] / 10 // Research 4x1
+    },
+    {
+      i18n: 'Research4x6',
+      stat: () => 1 + player.researches[81] / 10 // Research 4x6
+    },
+    {
+      i18n: 'Research5x19',
+      stat: () => 1 + player.researches[119] / 200
+    },
+    {
+      i18n: 'ShopCashGrab',
+      stat: () => getShopUpgradeEffects('cashGrab', 'obtainiumMult') // Shop Upgrade Cash Grab
+    },
+    {
+      i18n: 'ShopObtainiumEX',
+      stat: () => getShopUpgradeEffects('obtainiumEX', 'obtainiumMult') // Shop Upgrade Obtainium EX
+    },
+    {
+      i18n: 'Rune5',
+      stat: () => getRuneEffects('superiorIntellect', 'obtainiumMult')
+    },
+    {
+      i18n: 'Ant10',
+      stat: () => getAntUpgradeEffect(AntUpgrades.Obtainium).obtainiumMult // Ant 10
+    },
+    {
+      i18n: 'CubeBonus',
+      stat: () => calculateObtainiumCubeBlessing() // Cube Blessing
+    },
+    {
+      i18n: 'ConstantUpgrade4',
+      stat: () => 1 + 0.04 * player.constantUpgrades[4] // Constant Upgrade
+    },
+    {
+      i18n: 'CubeUpgrade1x3',
+      stat: () => 1 + 0.1 * player.cubeUpgrades[3] // Cube Upgrade 1x3
+    },
+    {
+      i18n: 'Challenge12',
+      stat: () => 1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]) // Challenge 12
+    },
+    {
+      i18n: 'SpiritPower',
+      stat: () => getRuneSpiritEffect('superiorIntellect').obtainium // Spirit Power
+    },
+    {
+      i18n: 'Research6x19',
+      stat: () => 1 + (0.03 * Decimal.log(player.uncommonFragments.add(1), 4)) * player.researches[144] // Research 6x19
+    },
+    {
+      i18n: 'CubeUpgrade5x10',
+      stat: () => 1 + 0.0002 * player.cubeUpgrades[50] // Cube Upgrade 5x10
+    },
+    {
+      i18n: 'Jack',
+      stat: () => getShopUpgradeEffects('shopPanthema', 'obtainiumMult') // Jack
+    },
+    {
+      i18n: 'StarterPack',
+      stat: () => getGQUpgradeEffect('starterPack', 'obtainiumMult') // Starter Pack
+    },
+    {
+      i18n: 'SingObtainium1',
+      stat: () => getGQUpgradeEffect('singObtainium1', 'obtainiumMult') // Obtainium GQ Upgrade 1
+    },
+    {
+      i18n: 'SingObtainium2',
+      stat: () => getGQUpgradeEffect('singObtainium2', 'obtainiumMult') // Obtainium GQ Upgrade 2
+    },
+    {
+      i18n: 'SingObtainium3',
+      stat: () => getGQUpgradeEffect('singObtainium3', 'obtainiumMult') // Obtainium GQ Upgrade 3
+    },
+    {
+      i18n: 'SingCitadel',
+      stat: () => getGQUpgradeEffect('singCitadel', 'obtainiumMult') // Singularity Citadel 1
+    },
+    {
+      i18n: 'SingCitadel2',
+      stat: () => getGQUpgradeEffect('singCitadel2', 'obtainiumMult') // Singularity Citadel 2
+    },
+    {
+      i18n: 'ShopCashGrab2',
+      stat: () => getShopUpgradeEffects('cashGrab2', 'obtainiumMult') // Cash Grab 2 Shop Upgrade
+    },
+    {
+      i18n: 'ShopObtainiumEX2',
+      stat: () => getShopUpgradeEffects('obtainiumEX2', 'obtainiumMult') // Obtainium EX 2 Shop Upgrade
+    },
+    {
+      i18n: 'ShopObtainiumEX3',
+      stat: () => getShopUpgradeEffects('obtainiumEX3', 'obtainiumMult') // Obtainium EX 3 Shop Upgrade
+    },
+    {
+      i18n: 'OcteractBonus',
+      stat: () => calculateTotalOcteractObtainiumBonus() // Octeract Obtainium Bonus
+    },
+    {
+      i18n: 'OcteractObtainium1',
+      stat: () => getOcteractUpgradeEffect('octeractObtainium1', 'obtainiumMult') // Octeract Obtainium 1
+    },
+    {
+      i18n: 'AmbrosiaObtainium1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaObtainium1', 'obtainiumMult') // Ambrosia Obtainium 1
+    },
+    {
+      i18n: 'EXUltraObtainium',
+      stat: () => getShopUpgradeEffects('shopEXUltra', 'obtainiumMult') // EX Ultra Obtainium Bonus
+    },
+    {
+      i18n: 'Challenge14',
+      stat: () => (player.currentChallenge.ascension === 14) ? 0 : 1, // Challenge 14: No Obtainium
+      color: 'red'
+    },
+    {
+      i18n: 'SingularityDebuff',
+      stat: () => 1 / calculateSingularityDebuff('Obtainium'), // Singularity Debuff
+      color: 'red'
+    },
+    {
+      i18n: 'TaxmanDebuff',
+      stat: () => {
+        if (!player.singularityChallenges.taxmanLastStand.enabled) {
+          return 1
+        }
+        const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
+        return Math.pow(2.5, -Math.min(500, offeringDigits)) // Taxman Debuff
+      },
+      color: 'red'
+    }
+  ]
+}
+
+// For use in displaying the second half of Obtainium Multiplier Stats
+const obtainiumDR: DecimalStatLineCategory = {
+  kind: 'decimal',
+  type: StatLineTypes.Misc,
+  lines: [
+    {
+      i18n: 'ObtainiumDR',
+      stat: () => player.corruptions.used.corruptionEffects('illiteracy'),
+      color: 'orange'
+    },
+    {
+      i18n: 'ImmaculateObtainium',
+      stat: () => calculateObtainiumDRIgnoreMult()
+    }
+  ]
+}
+
+// Ditto (This is used in the display as well as the calculation for total Obtainium / Offerings. Append this to the end of obtainiumDR in displays)
+export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: boolean): NumberStatLineCategory => {
+  return {
+    kind: 'number',
+    type: StatLineTypes.Multiplication,
+    lines: [
+      {
+        i18n: 'ThresholdPenalty',
+        stat: () => Math.min(1, Math.pow(time / resetTimeThreshold(), 2)),
+        color: 'red'
+      },
+      {
+        i18n: 'TimeMultiplier',
+        stat: () => timeMultCheck ? Math.max(1, time / resetTimeThreshold()) : 1
+      },
+      {
+        i18n: 'HalfMind',
+        stat: () => getGQUpgradeEffect('halfMind', 'unlocked') ? calculateGlobalSpeedMult() / 10 : 1
+      }
+    ]
   }
-]
+}
+
+const combinedObtainiumDRTimeModifiers = (time: number, timeMultCheck: boolean): DecimalStatLineCategory => {
+  return {
+    kind: 'decimal',
+    type: StatLineTypes.Multiplication,
+    lines: obtainiumDR.lines.concat(offeringObtainiumTimeModifiers(time, timeMultCheck).lines)
+  }
+}
+
+export const antSacrificeRewardStats: DecimalStatLineCategory = {
+  kind: 'decimal',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('sacrificeMult')
+    },
+    {
+      i18n: 'AntUpgrade11',
+      stat: () => getAntUpgradeEffect(AntUpgrades.AntSacrifice).antSacrificeMultiplier
+    },
+    {
+      i18n: 'Research103',
+      stat: () => 1 + player.researches[103] / 20
+    },
+    {
+      i18n: 'Research104',
+      stat: () => 1 + player.researches[104] / 20
+    },
+    {
+      i18n: 'RuneBlessing',
+      stat: () => getRuneBlessingEffect('prism').antSacrificeMult // Rune Blessing
+    },
+    {
+      i18n: 'Challenge10',
+      stat: () => 1 + (1 / 50) * CalcECC('reincarnation', player.challengecompletions[10])
+    },
+    {
+      i18n: 'Research122',
+      stat: () => 1 + (1 / 50) * player.researches[122]
+    },
+    {
+      i18n: 'Research133',
+      stat: () => 1 + (3 / 100) * player.researches[133]
+    },
+    {
+      i18n: 'Research163',
+      stat: () => 1 + (2 / 100) * player.researches[163]
+    },
+    {
+      i18n: 'Research193',
+      stat: () => 1 + (1 / 100) * player.researches[193]
+    },
+    {
+      i18n: 'AcceleratorBoostUpgrade',
+      stat: () => 1 + (1 / 4) * player.upgrades[40]
+    },
+    {
+      i18n: 'Event',
+      stat: () => 1 + calculateEventBuff(BuffType.AntSacrifice),
+      color: 'lime'
+    }
+  ]
+}
 
 // Add a stat to this if you do not want the multiplier to be affected by >100 or <1 Diminishing Returns
-export const allGlobalSpeedIgnoreDRStats: NumberStatLine[] = [
-  {
-    i18n: 'ChronosStatue',
-    stat: () => calculateGlobalSpeedPlatonicBlessing() // Chronos statue
-  },
-  {
-    i18n: 'SingularityDebuff',
-    stat: () => 1.0 / calculateSingularityDebuff('Global Speed'),
-    color: 'red'
-  },
-  {
-    i18n: 'IntermediatePack',
-    stat: () => getGQUpgradeEffect('intermediatePack', 'globalSpeedMult') // Intermediate Pack
-  },
-  {
-    i18n: 'OcteractGlobalSpeed',
-    stat: () => getOcteractUpgradeEffect('octeractImprovedGlobalSpeed', 'globalSpeedMult') // Oct Improved Global Speed
-  },
-  {
-    i18n: 'LimitedTimeChallenge',
-    stat: () => getSingularityChallengeEffect('limitedTime', 'ascensionSpeed') // Limited Time Challenge
-  },
-  {
-    i18n: 'ChronometerShop',
-    stat: () => getShopUpgradeEffects('shopChronometerS', 'globalSpeedMult') // Limited Time Upg Accels
-  },
-  {
-    i18n: 'Event',
-    stat: () => 1 + calculateEventBuff(BuffType.GlobalSpeed), // Event
-    color: 'lime'
-  }
-]
+export const allGlobalSpeedIgnoreDRStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'ChronosStatue',
+      stat: () => calculateGlobalSpeedPlatonicBlessing() // Chronos statue
+    },
+    {
+      i18n: 'SingularityDebuff',
+      stat: () => 1.0 / calculateSingularityDebuff('Global Speed'),
+      color: 'red'
+    },
+    {
+      i18n: 'IntermediatePack',
+      stat: () => getGQUpgradeEffect('intermediatePack', 'globalSpeedMult') // Intermediate Pack
+    },
+    {
+      i18n: 'OcteractGlobalSpeed',
+      stat: () => getOcteractUpgradeEffect('octeractImprovedGlobalSpeed', 'globalSpeedMult') // Oct Improved Global Speed
+    },
+    {
+      i18n: 'LimitedTimeChallenge',
+      stat: () => getSingularityChallengeEffect('limitedTime', 'ascensionSpeed') // Limited Time Challenge
+    },
+    {
+      i18n: 'ChronometerShop',
+      stat: () => getShopUpgradeEffects('shopChronometerS', 'globalSpeedMult') // Limited Time Upg Accels
+    },
+    {
+      i18n: 'Event',
+      stat: () => 1 + calculateEventBuff(BuffType.GlobalSpeed), // Event
+      color: 'lime'
+    }
+  ]
+}
 
-export const allGlobalSpeedStats: NumberStatLine[] = [
-  {
-    i18n: 'SpeedRune',
-    stat: () => getRuneEffects('speed', 'globalSpeed') // Speed Rune
-  },
-  {
-    i18n: 'ObtainiumLog',
-    stat: () => 1 + (1 / 300) * Decimal.log10(player.maxObtainium.plus(1)) * player.upgrades[70] // Particle upgrade 2x5
-  },
-  {
-    i18n: 'Research5x21',
-    stat: () => 1 + player.researches[121] / 50 // research 5x21
-  },
-  {
-    i18n: 'Research6x11',
-    stat: () => 1 + 0.015 * player.researches[136] // research 6x11
-  },
-  {
-    i18n: 'Research7x1',
-    stat: () => 1 + 0.012 * player.researches[151] // research 7x1
-  },
-  {
-    i18n: 'Research7x16',
-    stat: () => 1 + 0.009 * player.researches[166] // research 7x16
-  },
-  {
-    i18n: 'Research8x6',
-    stat: () => 1 + 0.006 * player.researches[181] // research 8x6
-  },
-  {
-    i18n: 'Research8x21',
-    stat: () => 1 + 0.003 * player.researches[196] // research 8x21
-  },
-  {
-    i18n: 'SpeedBlessing',
-    // stat: () => 1 + 8 * G.effectiveRuneBlessingPower[1] // speed blessing
-    stat: () => getRuneBlessingEffect('speed').globalSpeed // speed blessing
-  },
-  {
-    i18n: 'SpeedSpirit',
-    stat: () => getRuneSpiritEffect('speed').globalSpeed // speed spirit
-  },
-  {
-    i18n: 'ChronosCube',
-    stat: () => calculateGlobalSpeedCubeBlessing() // Chronos cube blessing
-  },
-  {
-    i18n: 'CubeUpgrade2x8',
-    stat: () => 1 + player.cubeUpgrades[18] / 5 // cube upgrade 2x8
-  },
-  {
-    i18n: 'Ant12',
-    stat: () => getAntUpgradeEffect(AntUpgrades.Mortuus).globalSpeed // ant 12
-  },
-  {
-    i18n: 'ChronosTalisman',
-    stat: () => getTalismanEffects('chronos').globalSpeed // Chronos Talisman bonus
-  },
-  {
-    i18n: 'Challenge15',
-    stat: () => G.challenge15Rewards.globalSpeed.value // Challenge 15 reward
-  },
-  {
-    i18n: 'CubeUpgradeCx2',
-    stat: () => 1 + 0.01 * player.cubeUpgrades[52] // cube upgrade 6x2 (Cx2)
-  },
-  {
-    i18n: 'SpacialDilation',
-    stat: () => player.corruptions.used.corruptionEffects('dilation'), // Spacial Dilation
-    color: 'red'
-  }
-]
+export const allGlobalSpeedStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'SpeedRune',
+      stat: () => getRuneEffects('speed', 'globalSpeed') // Speed Rune
+    },
+    {
+      i18n: 'ObtainiumLog',
+      stat: () => 1 + (1 / 300) * Decimal.log10(player.maxObtainium.plus(1)) * player.upgrades[70] // Particle upgrade 2x5
+    },
+    {
+      i18n: 'Research5x21',
+      stat: () => 1 + player.researches[121] / 50 // research 5x21
+    },
+    {
+      i18n: 'Research6x11',
+      stat: () => 1 + 0.015 * player.researches[136] // research 6x11
+    },
+    {
+      i18n: 'Research7x1',
+      stat: () => 1 + 0.012 * player.researches[151] // research 7x1
+    },
+    {
+      i18n: 'Research7x16',
+      stat: () => 1 + 0.009 * player.researches[166] // research 7x16
+    },
+    {
+      i18n: 'Research8x6',
+      stat: () => 1 + 0.006 * player.researches[181] // research 8x6
+    },
+    {
+      i18n: 'Research8x21',
+      stat: () => 1 + 0.003 * player.researches[196] // research 8x21
+    },
+    {
+      i18n: 'SpeedBlessing',
+      // stat: () => 1 + 8 * G.effectiveRuneBlessingPower[1] // speed blessing
+      stat: () => getRuneBlessingEffect('speed').globalSpeed // speed blessing
+    },
+    {
+      i18n: 'SpeedSpirit',
+      stat: () => getRuneSpiritEffect('speed').globalSpeed // speed spirit
+    },
+    {
+      i18n: 'ChronosCube',
+      stat: () => calculateGlobalSpeedCubeBlessing() // Chronos cube blessing
+    },
+    {
+      i18n: 'CubeUpgrade2x8',
+      stat: () => 1 + player.cubeUpgrades[18] / 5 // cube upgrade 2x8
+    },
+    {
+      i18n: 'Ant12',
+      stat: () => getAntUpgradeEffect(AntUpgrades.Mortuus).globalSpeed // ant 12
+    },
+    {
+      i18n: 'ChronosTalisman',
+      stat: () => getTalismanEffects('chronos').globalSpeed // Chronos Talisman bonus
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () => G.challenge15Rewards.globalSpeed.value // Challenge 15 reward
+    },
+    {
+      i18n: 'CubeUpgradeCx2',
+      stat: () => 1 + 0.01 * player.cubeUpgrades[52] // cube upgrade 6x2 (Cx2)
+    },
+    {
+      i18n: 'SpacialDilation',
+      stat: () => player.corruptions.used.corruptionEffects('dilation'), // Spacial Dilation
+      color: 'red'
+    }
+  ]
+}
 
 // Use in the second part of the Stats for Nerds for Global Speed
-const allGlobalSpeedDRStats: NumberStatLine[] = [
-  {
-    i18n: 'FastSpeedDR',
-    stat: () => 0.5
-  },
-  {
-    i18n: 'SlowSpeedDR',
-    stat: () => 1 - player.platonicUpgrades[7] / 30
-  },
-  {
-    i18n: 'ImmaculateSpeedMult',
-    stat: () => calculateGlobalSpeedDRIgnoreMult()
-  }
-]
+const allGlobalSpeedDRStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Misc,
+  lines: [
+    {
+      i18n: 'FastSpeedDR',
+      stat: () => 0.5
+    },
+    {
+      i18n: 'SlowSpeedDR',
+      stat: () => 1 - player.platonicUpgrades[7] / 30
+    },
+    {
+      i18n: 'ImmaculateSpeedMult',
+      stat: () => calculateGlobalSpeedDRIgnoreMult()
+    }
+  ]
+}
 
-export const allAscensionSpeedStats: NumberStatLine[] = [
-  {
-    i18n: 'AntUpgrade',
-    stat: () => getAntUpgradeEffect(AntUpgrades.Mortuus2).ascensionSpeed // Ant Upgrade Mortuus 2
-  },
-  {
-    i18n: 'PolymathTalisman',
-    stat: () => getTalismanEffects('polymath').ascensionSpeedBonus // Polymath Talisman
-  },
-  {
-    i18n: 'Chronometer',
-    stat: () => getShopUpgradeEffects('chronometer', 'ascensionSpeedMult') // Chronometer
-  },
-  {
-    i18n: 'Chronometer2',
-    stat: () => getShopUpgradeEffects('chronometer2', 'ascensionSpeedMult') // Chronometer 2
-  },
-  {
-    i18n: 'Chronometer3',
-    stat: () => getShopUpgradeEffects('chronometer3', 'ascensionSpeedMult') // Chronometer 3
-  },
-  {
-    i18n: 'ChronosHepteract',
-    stat: () => getHepteractEffects('chronos').ascensionSpeed // Chronos Hepteract
-  },
-  {
-    i18n: 'PlatonicOMEGA',
-    stat: () => 1 + 0.002 * player.corruptions.used.totalLevels * player.platonicUpgrades[15] // Platonic Omega
-  },
-  {
-    i18n: 'Challenge15',
-    stat: () => G.challenge15Rewards.ascensionSpeed.value // Challenge 15 Reward
-  },
-  {
-    i18n: 'CookieUpgrade9',
-    stat: () => 1 + (1 / 400) * player.cubeUpgrades[59] // Cookie Upgrade 9
-  },
-  {
-    i18n: 'IntermediatePack',
-    stat: () => getGQUpgradeEffect('intermediatePack', 'ascensionSpeedMult') // Intermediate Pack, GQ Shop
-  },
-  {
-    i18n: 'ChronometerZ',
-    stat: () => getShopUpgradeEffects('chronometerZ', 'ascensionSpeedMult') // Chronometer Z
-  },
-  {
-    i18n: 'AbstractPhotokinetics',
-    stat: () => getOcteractUpgradeEffect('octeractImprovedAscensionSpeed', 'ascensionSpeedMult') // Abstract Photokinetics, Oct Upg
-  },
-  {
-    i18n: 'AbstractExokinetics',
-    stat: () => getOcteractUpgradeEffect('octeractImprovedAscensionSpeed2', 'ascensionSpeedMult') // Abstract Exokinetics, Oct Upg
-  },
-  {
-    i18n: 'ChronometerINF',
-    stat: () => getShopUpgradeEffects('chronometerInfinity', 'ascensionSpeedMult') // Chronometer INF
-  },
-  {
-    i18n: 'LimitedAscensionsBuff',
-    stat: () =>
-      Math.pow(
-        getSingularityChallengeEffect('limitedAscensions', 'ascensionSpeedMult'),
-        1 + Math.max(0, Math.floor(Math.log10(player.ascensionCount)))
-      ) // EXALT Buff
-  },
-  {
-    i18n: 'Jack',
-    stat: () => getShopUpgradeEffects('shopPanthema', 'ascensionSpeedMult') // Jack
-  },
-  {
-    i18n: 'LimitedTimeChallenge',
-    stat: () => getSingularityChallengeEffect('limitedTime', 'ascensionSpeed') // Limited Time Challenge
-  },
-  {
-    i18n: 'ChronometerS',
-    stat: () => getShopUpgradeEffects('shopChronometerS', 'ascensionSpeedMult') // Limited Time Upg Accels
-  },
-  {
-    i18n: 'LimitedAscensionsDebuff',
-    stat: () => 1 / calculateExalt3Penalty(), // EXALT Debuff
-    color: 'red'
-  },
-  {
-    i18n: 'SingularityDebuff',
-    stat: () => 1 / calculateSingularityDebuff('Ascension Speed'),
-    color: 'red'
-  },
-  {
-    i18n: 'Event',
-    stat: () => 1 + calculateEventBuff(BuffType.AscensionSpeed), // Event
-    color: 'lime'
-  }
-]
+export const allAscensionSpeedStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'AntUpgrade',
+      stat: () => getAntUpgradeEffect(AntUpgrades.Mortuus2).ascensionSpeed // Ant Upgrade Mortuus 2
+    },
+    {
+      i18n: 'PolymathTalisman',
+      stat: () => getTalismanEffects('polymath').ascensionSpeedBonus // Polymath Talisman
+    },
+    {
+      i18n: 'Chronometer',
+      stat: () => getShopUpgradeEffects('chronometer', 'ascensionSpeedMult') // Chronometer
+    },
+    {
+      i18n: 'Chronometer2',
+      stat: () => getShopUpgradeEffects('chronometer2', 'ascensionSpeedMult') // Chronometer 2
+    },
+    {
+      i18n: 'Chronometer3',
+      stat: () => getShopUpgradeEffects('chronometer3', 'ascensionSpeedMult') // Chronometer 3
+    },
+    {
+      i18n: 'ChronosHepteract',
+      stat: () => getHepteractEffects('chronos').ascensionSpeed // Chronos Hepteract
+    },
+    {
+      i18n: 'PlatonicOMEGA',
+      stat: () => 1 + 0.002 * player.corruptions.used.totalLevels * player.platonicUpgrades[15] // Platonic Omega
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () => G.challenge15Rewards.ascensionSpeed.value // Challenge 15 Reward
+    },
+    {
+      i18n: 'CookieUpgrade9',
+      stat: () => 1 + (1 / 400) * player.cubeUpgrades[59] // Cookie Upgrade 9
+    },
+    {
+      i18n: 'IntermediatePack',
+      stat: () => getGQUpgradeEffect('intermediatePack', 'ascensionSpeedMult') // Intermediate Pack, GQ Shop
+    },
+    {
+      i18n: 'ChronometerZ',
+      stat: () => getShopUpgradeEffects('chronometerZ', 'ascensionSpeedMult') // Chronometer Z
+    },
+    {
+      i18n: 'AbstractPhotokinetics',
+      stat: () => getOcteractUpgradeEffect('octeractImprovedAscensionSpeed', 'ascensionSpeedMult') // Abstract Photokinetics, Oct Upg
+    },
+    {
+      i18n: 'AbstractExokinetics',
+      stat: () => getOcteractUpgradeEffect('octeractImprovedAscensionSpeed2', 'ascensionSpeedMult') // Abstract Exokinetics, Oct Upg
+    },
+    {
+      i18n: 'ChronometerINF',
+      stat: () => getShopUpgradeEffects('chronometerInfinity', 'ascensionSpeedMult') // Chronometer INF
+    },
+    {
+      i18n: 'LimitedAscensionsBuff',
+      stat: () =>
+        Math.pow(
+          getSingularityChallengeEffect('limitedAscensions', 'ascensionSpeedMult'),
+          1 + Math.max(0, Math.floor(Math.log10(player.ascensionCount)))
+        ) // EXALT Buff
+    },
+    {
+      i18n: 'Jack',
+      stat: () => getShopUpgradeEffects('shopPanthema', 'ascensionSpeedMult') // Jack
+    },
+    {
+      i18n: 'LimitedTimeChallenge',
+      stat: () => getSingularityChallengeEffect('limitedTime', 'ascensionSpeed') // Limited Time Challenge
+    },
+    {
+      i18n: 'ChronometerS',
+      stat: () => getShopUpgradeEffects('shopChronometerS', 'ascensionSpeedMult') // Limited Time Upg Accels
+    },
+    {
+      i18n: 'LimitedAscensionsDebuff',
+      stat: () => 1 / calculateExalt3Penalty(), // EXALT Debuff
+      color: 'red'
+    },
+    {
+      i18n: 'SingularityDebuff',
+      stat: () => 1 / calculateSingularityDebuff('Ascension Speed'),
+      color: 'red'
+    },
+    {
+      i18n: 'Event',
+      stat: () => 1 + calculateEventBuff(BuffType.AscensionSpeed), // Event
+      color: 'lime'
+    }
+  ]
+}
 
-const allAscensionSpeedPowerStats: NumberStatLine[] = [
-  {
-    i18n: 'ExponentialScalingSlow',
-    stat: () => 1 - calculateAscensionSpeedExponentSpread(),
-    acc: 3
-  },
-  {
-    i18n: 'ExponentialScalingFast',
-    stat: () => 1 + calculateAscensionSpeedExponentSpread(),
-    acc: 3
-  }
-]
+const allAscensionSpeedPowerStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Misc,
+  lines: [
+    {
+      i18n: 'ExponentialScalingSlow',
+      stat: () => 1 - calculateAscensionSpeedExponentSpread(),
+      acc: 3
+    },
+    {
+      i18n: 'ExponentialScalingFast',
+      stat: () => 1 + calculateAscensionSpeedExponentSpread(),
+      acc: 3
+    }
+  ]
+}
 
-export const allAdditiveLuckMultStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 1 // Base value of 1.00
-  },
-  {
-    i18n: 'NoSingularityUpgrades',
-    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'additiveLuckMult') // No Singularity Upgrade 1x15
-  },
-  {
-    i18n: 'DilatedFiveLeaf',
-    stat: () => calculateDilatedFiveLeafBonus() // Dilated Five Leaf Clover Perk
-  },
-  {
-    i18n: 'ShopUpgrade',
-    stat: () => getShopUpgradeEffects('shopAmbrosiaLuckMultiplier4', 'additiveAmbrosiaLuckMult') // EXALT-unlocked shop upgrade
-  },
-  {
-    i18n: 'NoAmbrosiaUpgrades',
-    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'additiveLuckMult') // No Ambrosia Challenge Reward
-  },
-  {
-    i18n: 'Cookie5',
-    stat: () => 0.001 * player.cubeUpgrades[77], // Cookie 5 (Cx27)
-    acc: 3
-  },
-  {
-    i18n: 'BlueberryUpgrade',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck4', 'ambrosiaLuckPercentage') // Blueberry Upgrade 4
-  },
-  {
-    i18n: 'BrickOfLead',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'additiveLuckMult') // Brick of Lead
-  },
-  {
-    i18n: 'HorseShoeTalisman',
-    stat: () => getTalismanEffects('horseShoe').luckPercentage // Horseshoe Talisman
-  },
-  {
-    i18n: 'Event',
-    stat: () => G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0, // Event
-    color: 'lime'
-  }
-]
+export const allAdditiveLuckMultStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 1 // Base value of 1.00
+    },
+    {
+      i18n: 'NoSingularityUpgrades',
+      stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'additiveLuckMult') // No Singularity Upgrade 1x15
+    },
+    {
+      i18n: 'DilatedFiveLeaf',
+      stat: () => calculateDilatedFiveLeafBonus() // Dilated Five Leaf Clover Perk
+    },
+    {
+      i18n: 'ShopUpgrade',
+      stat: () => getShopUpgradeEffects('shopAmbrosiaLuckMultiplier4', 'additiveAmbrosiaLuckMult') // EXALT-unlocked shop upgrade
+    },
+    {
+      i18n: 'NoAmbrosiaUpgrades',
+      stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'additiveLuckMult') // No Ambrosia Challenge Reward
+    },
+    {
+      i18n: 'Cookie5',
+      stat: () => 0.001 * player.cubeUpgrades[77], // Cookie 5 (Cx27)
+      acc: 3
+    },
+    {
+      i18n: 'BlueberryUpgrade',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck4', 'ambrosiaLuckPercentage') // Blueberry Upgrade 4
+    },
+    {
+      i18n: 'BrickOfLead',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'additiveLuckMult') // Brick of Lead
+    },
+    {
+      i18n: 'HorseShoeTalisman',
+      stat: () => getTalismanEffects('horseShoe').luckPercentage // Horseshoe Talisman
+    },
+    {
+      i18n: 'Event',
+      stat: () => G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0, // Event
+      color: 'lime'
+    }
+  ]
+}
 
-export const allAmbrosiaLuckStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 100 // Base value of 100
-  },
-  {
-    i18n: 'PseudoCoins',
-    stat: () => PCoinUpgradeEffects.AMBROSIA_LUCK_BUFF, // Platonic Coin Upgrade
-    color: 'gold'
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('ambrosiaLuck'), // Synergism Level
-    color: 'green'
-  },
-  {
-    i18n: 'Campaign',
-    stat: () => player.campaigns.ambrosiaLuckBonus // Campaign Bonus
-  },
-  {
-    i18n: 'SingularityMilestones',
-    stat: () => calculateSingularityAmbrosiaLuckMilestoneBonus() // Ambrosia Luck Milestones
-  },
-  {
-    i18n: 'ShopUpgrade1',
-    stat: () => getShopUpgradeEffects('shopAmbrosiaLuck1', 'ambrosiaLuck')
-  },
-  {
-    i18n: 'ShopUpgrade2',
-    stat: () => getShopUpgradeEffects('shopAmbrosiaLuck2', 'ambrosiaLuck')
-  },
-  {
-    i18n: 'ShopUpgrade3',
-    stat: () => getShopUpgradeEffects('shopAmbrosiaLuck3', 'ambrosiaLuck')
-  },
-  {
-    i18n: 'ShopUpgrade4',
-    stat: () => getShopUpgradeEffects('shopAmbrosiaLuck4', 'ambrosiaLuck')
-  },
-  {
-    i18n: 'Jack',
-    stat: () => getShopUpgradeEffects('shopPanthema', 'ambrosiaLuck') // Jack
-  },
-  {
-    i18n: 'SingularityUpgrades',
-    stat: () => calculateAmbrosiaLuckSingularityUpgrade() // Ambrosia Luck from Singularity Upgrades (I-IV)
-  },
-  {
-    i18n: 'OcteractUpgrades',
-    stat: () => calculateAmbrosiaLuckOcteractUpgrade() // Ambrosia Luck from Octeract Upgrades (I-IV)
-  },
-  {
-    i18n: 'AmbrosiaLuck1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck1', 'ambrosiaLuck') // Ambrosia Luck from Luck Module I
-  },
-  {
-    i18n: 'AmbrosiaLuck2',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck2', 'ambrosiaLuck') // Ambrosia Luck from Luck Module II
-  },
-  {
-    i18n: 'AmbrosiaLuck3',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck3', 'ambrosiaLuck') // Ambrosia Luck from Luck Module III
-  },
-  {
-    i18n: 'AmbrosiaCubeLuck1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeLuck1', 'ambrosiaLuck') // Ambrosia Luck from Cube-Luck Synergy Module
-  },
-  {
-    i18n: 'AmbrosiaQuarkLuck1',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkLuck1', 'ambrosiaLuck') // Ambrosia Luck from Quark-Luck Synergy Module
-  },
-  {
-    i18n: 'Singularity131',
-    stat: () => player.highestSingularityCount >= 131 ? 131 : 0 // Singularity Perk "One Hundred Thirty One!"
-  },
-  {
-    i18n: 'Singularity269',
-    stat: () => player.highestSingularityCount >= 269 ? 269 : 0 // Singularity Perk "Two Hundred Sixty Nine!"
-  },
-  {
-    i18n: 'OcteractShop',
-    stat: () => getShopUpgradeEffects('shopOcteractAmbrosiaLuck', 'ambrosiaLuck') // Octeract -> Ambrosia Shop Upgrade
-  },
-  {
-    i18n: 'NoAmbrosiaUpgrades',
-    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'ambrosiaLuck') // No Ambrosia Challenge Reward
-  },
-  {
-    i18n: 'RedAmbrosiaUpgrade',
-    stat: () => getRedAmbrosiaUpgradeEffects('regularLuck', 'ambrosiaLuck') // Red Ambrosia Upgrade
-  },
-  {
-    i18n: 'RedAmbrosiaUpgrade2',
-    stat: () => getRedAmbrosiaUpgradeEffects('regularLuck2', 'ambrosiaLuck') // Red Ambrosia Upgrade 2
-  },
-  {
-    i18n: 'Viscount',
-    stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'luckBonus'), // Viscount Red Ambrosia Upgrade
-    color: 'red'
-  },
-  {
-    i18n: 'Cookie5',
-    stat: () => 2 * player.cubeUpgrades[77] // Cookie 5 (Cx27)
-  },
-  {
-    i18n: 'RedBars',
-    stat: () => calculateCookieUpgrade29Luck() // Cookie Upgrade 29 (Cx29)
-  },
-  {
-    i18n: 'AmbrosiaUltra',
-    stat: () => getShopUpgradeEffects('shopAmbrosiaUltra', 'ambrosiaLuck') // Ambrosia Ultra Shop Upgrade
-  },
-  {
-    i18n: 'HorseShoeRune',
-    stat: () => getRuneEffects('horseShoe', 'ambrosiaLuck') // Horseshoe Rune
-  }
-]
+export const allAmbrosiaLuckStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 100 // Base value of 100
+    },
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.AMBROSIA_LUCK_BUFF, // Platonic Coin Upgrade
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('ambrosiaLuck'), // Synergism Level
+      color: 'green'
+    },
+    {
+      i18n: 'Campaign',
+      stat: () => player.campaigns.ambrosiaLuckBonus // Campaign Bonus
+    },
+    {
+      i18n: 'SingularityMilestones',
+      stat: () => calculateSingularityAmbrosiaLuckMilestoneBonus() // Ambrosia Luck Milestones
+    },
+    {
+      i18n: 'ShopUpgrade1',
+      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck1', 'ambrosiaLuck')
+    },
+    {
+      i18n: 'ShopUpgrade2',
+      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck2', 'ambrosiaLuck')
+    },
+    {
+      i18n: 'ShopUpgrade3',
+      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck3', 'ambrosiaLuck')
+    },
+    {
+      i18n: 'ShopUpgrade4',
+      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck4', 'ambrosiaLuck')
+    },
+    {
+      i18n: 'Jack',
+      stat: () => getShopUpgradeEffects('shopPanthema', 'ambrosiaLuck') // Jack
+    },
+    {
+      i18n: 'SingularityUpgrades',
+      stat: () => calculateAmbrosiaLuckSingularityUpgrade() // Ambrosia Luck from Singularity Upgrades (I-IV)
+    },
+    {
+      i18n: 'OcteractUpgrades',
+      stat: () => calculateAmbrosiaLuckOcteractUpgrade() // Ambrosia Luck from Octeract Upgrades (I-IV)
+    },
+    {
+      i18n: 'AmbrosiaLuck1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck1', 'ambrosiaLuck') // Ambrosia Luck from Luck Module I
+    },
+    {
+      i18n: 'AmbrosiaLuck2',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck2', 'ambrosiaLuck') // Ambrosia Luck from Luck Module II
+    },
+    {
+      i18n: 'AmbrosiaLuck3',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck3', 'ambrosiaLuck') // Ambrosia Luck from Luck Module III
+    },
+    {
+      i18n: 'AmbrosiaCubeLuck1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubeLuck1', 'ambrosiaLuck') // Ambrosia Luck from Cube-Luck Synergy Module
+    },
+    {
+      i18n: 'AmbrosiaQuarkLuck1',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaQuarkLuck1', 'ambrosiaLuck') // Ambrosia Luck from Quark-Luck Synergy Module
+    },
+    {
+      i18n: 'Singularity131',
+      stat: () => player.highestSingularityCount >= 131 ? 131 : 0 // Singularity Perk "One Hundred Thirty One!"
+    },
+    {
+      i18n: 'Singularity269',
+      stat: () => player.highestSingularityCount >= 269 ? 269 : 0 // Singularity Perk "Two Hundred Sixty Nine!"
+    },
+    {
+      i18n: 'OcteractShop',
+      stat: () => getShopUpgradeEffects('shopOcteractAmbrosiaLuck', 'ambrosiaLuck') // Octeract -> Ambrosia Shop Upgrade
+    },
+    {
+      i18n: 'NoAmbrosiaUpgrades',
+      stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'ambrosiaLuck') // No Ambrosia Challenge Reward
+    },
+    {
+      i18n: 'RedAmbrosiaUpgrade',
+      stat: () => getRedAmbrosiaUpgradeEffects('regularLuck', 'ambrosiaLuck') // Red Ambrosia Upgrade
+    },
+    {
+      i18n: 'RedAmbrosiaUpgrade2',
+      stat: () => getRedAmbrosiaUpgradeEffects('regularLuck2', 'ambrosiaLuck') // Red Ambrosia Upgrade 2
+    },
+    {
+      i18n: 'Viscount',
+      stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'luckBonus'), // Viscount Red Ambrosia Upgrade
+      color: 'red'
+    },
+    {
+      i18n: 'Cookie5',
+      stat: () => 2 * player.cubeUpgrades[77] // Cookie 5 (Cx27)
+    },
+    {
+      i18n: 'RedBars',
+      stat: () => calculateCookieUpgrade29Luck() // Cookie Upgrade 29 (Cx29)
+    },
+    {
+      i18n: 'AmbrosiaUltra',
+      stat: () => getShopUpgradeEffects('shopAmbrosiaUltra', 'ambrosiaLuck') // Ambrosia Ultra Shop Upgrade
+    },
+    {
+      i18n: 'HorseShoeRune',
+      stat: () => getRuneEffects('horseShoe', 'ambrosiaLuck') // Horseshoe Rune
+    }
+  ]
+}
 
 // Attach to the end of allAmbrosiaLuckStats when displaying.
-const ambrosiaLuckModifiers: NumberStatLine[] = [
-  {
+const ambrosiaLuckModifiers: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Misc,
+  lines: [{
     i18n: 'AdditiveLuckMult',
     stat: () => calculateAmbrosiaAdditiveLuckMult() // Ambrosia Additive Luck Multiplier
-  }
-]
+  }]
+}
 
-export const allAmbrosiaBlueberryStats: NumberStatLine[] = [
-  {
-    i18n: 'E1x1Clear',
-    stat: () => +(player.singularityChallenges.noSingularityUpgrades.completions > 0) * 3 // E1x1 Clear!
-  },
-  {
-    i18n: 'SingBlueberries',
-    stat: () => getGQUpgradeEffect('blueberries', 'blueberries') // Singularity Blueberry Upgrade
-  },
-  {
-    i18n: 'OcteractBlueberries',
-    stat: () => getOcteractUpgradeEffect('octeractBlueberries', 'blueberries') // Octeract Blueberry Upgrade
-  },
-  {
-    i18n: 'RedAmbrosiaBlueberries',
-    stat: () => getRedAmbrosiaUpgradeEffects('blueberries', 'blueberries') // Red Ambrosia Blueberry Upgrade
-  },
-  {
-    i18n: 'ConglomerateBerries',
-    stat: () => calculateSingularityMilestoneBlueberries() // Singularity Milestones (Congealed Blueberries)
-  },
-  {
-    i18n: 'NoAmbrosiaUpgrades',
-    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberries') // No Ambrosia Challenge Reward
-  }
-]
+export const allAmbrosiaBlueberryStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'E1x1Clear',
+      stat: () => +(player.singularityChallenges.noSingularityUpgrades.completions > 0) * 3 // E1x1 Clear!
+    },
+    {
+      i18n: 'SingBlueberries',
+      stat: () => getGQUpgradeEffect('blueberries', 'blueberries') // Singularity Blueberry Upgrade
+    },
+    {
+      i18n: 'OcteractBlueberries',
+      stat: () => getOcteractUpgradeEffect('octeractBlueberries', 'blueberries') // Octeract Blueberry Upgrade
+    },
+    {
+      i18n: 'RedAmbrosiaBlueberries',
+      stat: () => getRedAmbrosiaUpgradeEffects('blueberries', 'blueberries') // Red Ambrosia Blueberry Upgrade
+    },
+    {
+      i18n: 'ConglomerateBerries',
+      stat: () => calculateSingularityMilestoneBlueberries() // Singularity Milestones (Congealed Blueberries)
+    },
+    {
+      i18n: 'NoAmbrosiaUpgrades',
+      stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberries') // No Ambrosia Challenge Reward
+    }
+  ]
+}
 
-export const allAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
-  {
-    i18n: 'Default',
-    stat: () => player.singularityChallenges.noSingularityUpgrades.completions > 0 ? 1 : 0
-  },
-  {
-    i18n: 'PseudoCoins',
-    stat: () => PCoinUpgradeEffects.AMBROSIA_GENERATION_BUFF, // Platonic Coin Upgrade
-    color: 'gold'
-  },
-  {
-    i18n: 'Campaign',
-    stat: () => player.campaigns.blueberrySpeedBonus // Campaign Bonus
-  },
-  {
-    i18n: 'ShopUpgrade1',
-    stat: () => getShopUpgradeEffects('shopAmbrosiaGeneration1', 'ambrosiaGenerationMult')
-  },
-  {
-    i18n: 'ShopUpgrade2',
-    stat: () => getShopUpgradeEffects('shopAmbrosiaGeneration2', 'ambrosiaGenerationMult')
-  },
-  {
-    i18n: 'ShopUpgrade3',
-    stat: () => getShopUpgradeEffects('shopAmbrosiaGeneration3', 'ambrosiaGenerationMult')
-  },
-  {
-    i18n: 'ShopUpgrade4',
-    stat: () => getShopUpgradeEffects('shopAmbrosiaGeneration4', 'ambrosiaGenerationMult')
-  },
-  {
-    i18n: 'Jack',
-    stat: () => getShopUpgradeEffects('shopPanthema', 'ambrosiaGenerationMult') // Jack of all trades
-  },
-  {
-    i18n: 'SingularityUpgrades',
-    stat: () => calculateAmbrosiaGenerationSingularityUpgrade() // Singularity Upgrades (I-IV)
-  },
-  {
-    i18n: 'OcteractUpgrades',
-    stat: () => calculateAmbrosiaGenerationOcteractUpgrade() // Octeract Upgrades (I-IV)
-  },
-  {
-    i18n: 'PatreonBonus',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaPatreon', 'blueberryGeneration') // Patreon Bonus
-  },
-  {
-    i18n: 'OneChallengeCap',
-    stat: () => getSingularityChallengeEffect('oneChallengeCap', 'blueberrySpeedMult') // One Challenge Cap Reward
-  },
-  {
-    i18n: 'NoAmbrosiaUpgradesReward',
-    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberrySpeedMult') // No Ambrosia Upgrades Reward
-  },
-  {
-    i18n: 'RedAmbrosiaUpgrade',
-    stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed', 'blueberryGenerationSpeed') // Red Ambrosia Upgrade
-  },
-  {
-    i18n: 'RedAmbrosiaUpgrade2',
-    stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed2', 'blueberryGenerationSpeed') // Red Ambrosia Upgrade 2
-  },
-  {
-    i18n: 'CookieUpgrade26',
-    stat: () => 1 + 0.01 * player.cubeUpgrades[76] * calculateNumberOfThresholds() // Cookie Upgrade 26 (Cx26)
-  },
-  {
-    i18n: 'CashGrabUltra',
-    stat: () => getShopUpgradeEffects('shopCashGrabUltra', 'ambrosiaGenerationMult') // Cash Grab ULTRA Blueberry Bonus
-  },
-  {
-    i18n: 'Event',
-    stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1, // Event Bonus
-    color: 'lime'
-  }
-]
+export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Default',
+      stat: () => player.singularityChallenges.noSingularityUpgrades.completions > 0 ? 1 : 0
+    },
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.AMBROSIA_GENERATION_BUFF, // Platonic Coin Upgrade
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'Campaign',
+      stat: () => player.campaigns.blueberrySpeedBonus // Campaign Bonus
+    },
+    {
+      i18n: 'ShopUpgrade1',
+      stat: () => getShopUpgradeEffects('shopAmbrosiaGeneration1', 'ambrosiaGenerationMult')
+    },
+    {
+      i18n: 'ShopUpgrade2',
+      stat: () => getShopUpgradeEffects('shopAmbrosiaGeneration2', 'ambrosiaGenerationMult')
+    },
+    {
+      i18n: 'ShopUpgrade3',
+      stat: () => getShopUpgradeEffects('shopAmbrosiaGeneration3', 'ambrosiaGenerationMult')
+    },
+    {
+      i18n: 'ShopUpgrade4',
+      stat: () => getShopUpgradeEffects('shopAmbrosiaGeneration4', 'ambrosiaGenerationMult')
+    },
+    {
+      i18n: 'Jack',
+      stat: () => getShopUpgradeEffects('shopPanthema', 'ambrosiaGenerationMult') // Jack of all trades
+    },
+    {
+      i18n: 'SingularityUpgrades',
+      stat: () => calculateAmbrosiaGenerationSingularityUpgrade() // Singularity Upgrades (I-IV)
+    },
+    {
+      i18n: 'OcteractUpgrades',
+      stat: () => calculateAmbrosiaGenerationOcteractUpgrade() // Octeract Upgrades (I-IV)
+    },
+    {
+      i18n: 'PatreonBonus',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaPatreon', 'blueberryGeneration') // Patreon Bonus
+    },
+    {
+      i18n: 'OneChallengeCap',
+      stat: () => getSingularityChallengeEffect('oneChallengeCap', 'blueberrySpeedMult') // One Challenge Cap Reward
+    },
+    {
+      i18n: 'NoAmbrosiaUpgradesReward',
+      stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberrySpeedMult') // No Ambrosia Upgrades Reward
+    },
+    {
+      i18n: 'RedAmbrosiaUpgrade',
+      stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed', 'blueberryGenerationSpeed') // Red Ambrosia Upgrade
+    },
+    {
+      i18n: 'RedAmbrosiaUpgrade2',
+      stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed2', 'blueberryGenerationSpeed') // Red Ambrosia Upgrade 2
+    },
+    {
+      i18n: 'CookieUpgrade26',
+      stat: () => 1 + 0.01 * player.cubeUpgrades[76] * calculateNumberOfThresholds() // Cookie Upgrade 26 (Cx26)
+    },
+    {
+      i18n: 'CashGrabUltra',
+      stat: () => getShopUpgradeEffects('shopCashGrabUltra', 'ambrosiaGenerationMult') // Cash Grab ULTRA Blueberry Bonus
+    },
+    {
+      i18n: 'Event',
+      stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1, // Event Bonus
+      color: 'lime'
+    }
+  ]
+}
 
-const ambrosiaGenerationSpeedModifiers: NumberStatLine[] = [
-  {
+const ambrosiaGenerationSpeedModifiers: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [{
     i18n: 'BlueberryCount',
     stat: () => calculateBlueberryInventory()
-  }
-]
+  }]
+}
 
-export const allPowderMultiplierStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 1 / 100 // Base value of 0.01 (1%)
-  },
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('overfluxConversionRate') // Achievement Bonus
-  },
-  {
-    i18n: 'Challenge15',
-    stat: () => G.challenge15Rewards.powder.value // Challenge 15 Reward
-  },
-  {
-    i18n: 'ShopPowderEX',
-    stat: () => getShopUpgradeEffects('powderEX', 'orbToPowderConversionMult') // powderEX shop upgrade (2% per level, max 20%)
-  },
-  {
-    i18n: 'PlatonicUpgrade4x1',
-    stat: () => 1 + 0.01 * player.platonicUpgrades[16] // Platonic Upgrade 4x1
-  },
-  {
-    i18n: 'Event',
-    stat: () => 1 + calculateEventBuff(BuffType.PowderConversion), // Event bonus
-    color: 'lime'
-  }
-]
-
-export const allGoldenQuarkMultiplierStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => calculateBaseGoldenQuarks(player.singularityCount) // Base Golden Quarks based on Quarks and Sing Count
-  },
-  {
-    i18n: 'PseudoCoins',
-    stat: () => PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
-    color: 'gold'
-  },
-  {
-    i18n: 'Campaign',
-    stat: () => player.campaigns.goldenQuarkBonus // Golden Quark Bonus from Campaigns
-  },
-  {
-    i18n: 'Challenge15',
-    stat: () => 1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2 // Challenge 15 Exponent
-  },
-  {
-    i18n: 'GoldenQuarks1',
-    stat: () => getGQUpgradeEffect('goldenQuarks1', 'goldenQuarkMult') // Golden Quarks I
-  },
-  {
-    i18n: 'CookieUpgrade19',
-    stat: () => 1 + 0.12 * player.cubeUpgrades[69] // Cookie Upgrade 19
-  },
-  {
-    i18n: 'NoSingularityUpgrades',
-    stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'goldenQuarks') // No Singularity Upgrades
-  },
-  {
-    i18n: 'GoldenRevolution2',
-    stat: () =>
-      player.highestSingularityCount >= 100
-        ? 1 + Math.min(1, player.highestSingularityCount / 250)
-        : 1 // Golden Revolution II
-  },
-  {
-    i18n: 'FastForwards',
-    stat: () => 1 + 0.025 * (calculateMaxSingularityLookahead(true) - 1) // Singularity Fast Forwards
-  },
-  {
-    i18n: 'ImmaculateAlchemy',
-    stat: () => calculateImmaculateAlchemyBonus() // Immaculate Alchemy
-  },
-  {
-    i18n: 'GlobalSubscriber',
-    stat: () => 1 + getGlobalBonus() / 100,
-    acc: 3,
-    color: 'gold'
-  },
-  {
-    i18n: 'AccountBonus',
-    stat: () => 1 + getPersonalBonus() / 100,
-    acc: 3,
-    color: 'gold'
-  },
-  {
-    i18n: 'Event',
-    stat: () => 1 + calculateEventBuff(BuffType.GoldenQuark), // Event
-    color: 'lime'
-  }
-]
-
-export const allGoldenQuarkPurchaseCostStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 10000 // Base cost of 10,000
-  },
-  {
-    i18n: 'PseudoCoins',
-    stat: () => 1 / PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
-    color: 'gold'
-  },
-  {
-    i18n: 'CubeUpgrade6x10',
-    stat: () => 1 - (0.3 * player.cubeUpgrades[60]) / 10000
-  },
-  {
-    i18n: 'GoldenQuarks2',
-    stat: () => getGQUpgradeEffect('goldenQuarks2', 'goldenQuarkCostMult')
-  },
-  {
-    i18n: 'OcteractCostReduce',
-    stat: () => getOcteractUpgradeEffect('octeractGQCostReduce', 'goldenQuarkCostMult')
-  },
-  {
-    i18n: 'GoldenRevolution2',
-    stat: () =>
-      player.highestSingularityCount >= 100
-        ? Math.max(0.5, 1 - (0.5 * player.highestSingularityCount) / 250)
-        : 1
-  },
-  {
-    i18n: 'ImmaculateAlchemy',
-    stat: () => 1 / calculateImmaculateAlchemyBonus() // Immaculate Alchemy
-  },
-  {
-    i18n: 'GlobalSubscriber',
-    stat: () => 1 / (1 + getGlobalBonus() / 100),
-    acc: 3,
-    color: 'gold'
-  },
-  {
-    i18n: 'AccountBonus',
-    stat: () => 1 / (1 + getPersonalBonus() / 100),
-    acc: 3,
-    color: 'gold'
-  },
-  {
-    i18n: 'Event',
-    stat: () => 1 / (1 + calculateEventBuff(BuffType.GoldenQuark)),
-    color: 'lime'
-  }
-]
-
-const allAddCodeEffectStats: NumberStatLine[] = [
-  {
-    i18n: 'Quarks',
-    stat: () => {
-      const addCodeStuff = addCodeBonuses()
-      if (Math.abs(addCodeStuff.maxQuarks - addCodeStuff.minQuarks) >= 0.5) {
-        return 1 / 2 * (addCodeStuff.minQuarks + addCodeStuff.maxQuarks)
-      } else {
-        return addCodeStuff.maxQuarks
-      }
+export const allPowderMultiplierStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 1 / 100 // Base value of 0.01 (1%)
     },
-    color: 'cyan'
-  },
-  {
-    i18n: 'AscensionTime',
-    stat: () => {
-      const addCodeStuff = addCodeBonuses()
-      return addCodeStuff.ascensionTimer
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('overfluxConversionRate') // Achievement Bonus
     },
-    color: 'orange'
-  },
-  {
-    i18n: 'GoldenQuarks',
-    stat: () => {
-      const addCodeStuff = addCodeBonuses()
-      return addCodeStuff.gqTimer
+    {
+      i18n: 'Challenge15',
+      stat: () => G.challenge15Rewards.powder.value // Challenge 15 Reward
     },
-    color: 'lightgoldenrodyellow'
-  },
-  {
-    i18n: 'Octeracts',
-    stat: () => {
-      const addCodeStuff = addCodeBonuses()
-      return addCodeStuff.octeractTime
+    {
+      i18n: 'ShopPowderEX',
+      stat: () => getShopUpgradeEffects('powderEX', 'orbToPowderConversionMult') // powderEX shop upgrade (2% per level, max 20%)
     },
-    color: 'lightseagreen'
-  },
-  {
-    i18n: 'Ambrosia',
-    stat: () => {
-      const addCodeStuff = addCodeBonuses()
-      return addCodeStuff.blueberryTime
+    {
+      i18n: 'PlatonicUpgrade4x1',
+      stat: () => 1 + 0.01 * player.platonicUpgrades[16] // Platonic Upgrade 4x1
     },
-    color: 'lightblue'
-  }
-]
-
-export const allAddCodeTimerStats: NumberStatLine[] = [
-  {
-    i18n: 'BaseTimer',
-    stat: () => 3600 * 1000 // Base timer value (3600000ms = 1 hour)
-  },
-  {
-    i18n: 'Calculator4',
-    stat: () => getShopUpgradeEffects('calculator4', 'addCodeIntervalMult'), // PL-AT δ discount (4% per level)
-    color: 'lime'
-  },
-  {
-    i18n: 'SingularityCount',
-    stat: () =>
-      1 - Math.min(
-        0.6,
-        (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 800 : 0)
-          + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 800 : 0)
-      ), // Singularity Count reduction (max 60%)
-    color: 'lime'
-  },
-  {
-    i18n: 'Antiquities',
-    stat: () => getRuneEffects('antiquities', 'addCodeCooldownReduction'), // Antiquities rune reduction (20%)
-    color: 'lime'
-  },
-  {
-    i18n: 'SingularityPerkBonus',
-    stat: () => 1 / addCodeSingularityPerkBonus(), // Singularity Perk bonus (increases with higher singularity milestones)
-    color: 'lime'
-  }
-]
-
-export const allAddCodeCapacityStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 24 // Base capacity (24 codes)
-  },
-  {
-    i18n: 'Calculator2',
-    stat: () => getShopUpgradeEffects('calculator2', 'addCodeCapacity'), // PL-AT X (2 codes per level)
-    color: 'lime'
-  },
-  {
-    i18n: 'Calculator4Max',
-    stat: () => getShopUpgradeEffects('calculator4', 'addCodeCapacity'), // PL-AT δ Maxed (32 codes)
-    color: 'lime'
-  },
-  {
-    i18n: 'Calculator5',
-    stat: () => getShopUpgradeEffects('calculator5', 'addCodeCapacity'), // PL-AT Γ (1 code per 10 levels, +6 at max)
-    color: 'lime'
-  },
-  {
-    i18n: 'Calculator6Max',
-    stat: () => getShopUpgradeEffects('calculator6', 'addCodeCapacity'), // PL-AT _ Maxed (24 codes)
-    color: 'lime'
-  },
-  {
-    i18n: 'Calculator7Max',
-    stat: () => getShopUpgradeEffects('calculator7', 'addCodeCapacity'), // PL-AT ΩΩ Maxed (48 codes)
-    color: 'lime'
-  }
-]
-
-export const allAddCodeCapacityMultiplierStats: NumberStatLine[] = [
-  {
-    i18n: 'PseudoCoins',
-    stat: () => PCoinUpgradeEffects.ADD_CODE_CAP_BUFF, // PseudoCoin Upgrade
-    color: 'gold'
-  },
-  {
-    i18n: 'SingularityPerk',
-    stat: () => addCodeSingularityPerkBonus() // Singularity Perk bonus
-  }
-]
-
-export const allLuckConversionStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 20 // Base value of 20.00
-  },
-  {
-    i18n: 'RedAmbrosiaUpgrade1',
-    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement1', 'conversionImprovement') // Conversion Improvement I
-  },
-  {
-    i18n: 'RedAmbrosiaUpgrade2',
-    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement2', 'conversionImprovement') // Conversion Improvement II
-  },
-  {
-    i18n: 'RedAmbrosiaUpgrade3',
-    stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement3', 'conversionImprovement') // Conversion Improvement III
-  },
-  {
-    i18n: 'ShopRedLuck1',
-    stat: () => getShopUpgradeEffects('shopRedLuck1', 'luckConversionRatio') // Shop Red Luck I
-  },
-  {
-    i18n: 'ShopRedLuck2',
-    stat: () => getShopUpgradeEffects('shopRedLuck2', 'luckConversionRatio') // Shop Red Luck II
-  },
-  {
-    i18n: 'ShopRedLuck3',
-    stat: () => getShopUpgradeEffects('shopRedLuck3', 'luckConversionRatio') // Shop Red Luck III
-  },
-  {
-    i18n: 'HorseShoeRune',
-    stat: () => getRuneEffects('horseShoe', 'redLuckConversion') // Horseshoe Rune
-  }
-]
-
-export const allRedAmbrosiaLuckStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 100 // Base value of 100
-  },
-  {
-    i18n: 'PseudoCoins',
-    stat: () => PCoinUpgradeEffects.RED_LUCK_BUFF, // PseudoCoin Upgrade
-    color: 'gold'
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('redAmbrosiaLuck'), // Synergism Level
-    color: 'green'
-  },
-  {
-    i18n: 'LuckConversion',
-    stat: () => Math.floor((calculateAmbrosiaLuck() - 100) / calculateLuckConversion()) // Luck Conversion
-  },
-  {
-    i18n: 'RedAmbrosia',
-    stat: () => getRedAmbrosiaUpgradeEffects('redLuck', 'redAmbrosiaLuck') // The Dice That Decide Your Fate
-  },
-  {
-    i18n: 'Exalt5',
-    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'redLuck') // No Ambrosia Upgrades
-  },
-  {
-    i18n: 'ShopRedLuck1',
-    stat: () => getShopUpgradeEffects('shopRedLuck1', 'redLuck') // Shop Red Luck I
-  },
-  {
-    i18n: 'ShopRedLuck2',
-    stat: () => getShopUpgradeEffects('shopRedLuck2', 'redLuck') // Shop Red Luck II
-  },
-  {
-    i18n: 'ShopRedLuck3',
-    stat: () => getShopUpgradeEffects('shopRedLuck3', 'redLuck') // Shop Red Luck III
-  },
-  {
-    i18n: 'Jack',
-    stat: () => getShopUpgradeEffects('shopPanthema', 'redLuck') // Jack
-  },
-  {
-    i18n: 'Viscount',
-    stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'redLuckBonus'), // Viscount Red Ambrosia Upgrade
-    color: 'red'
-  },
-  {
-    i18n: 'HorseShoeRune',
-    stat: () => getRuneEffects('horseShoe', 'redLuck') // Horseshoe Rune
-  },
-  {
-    i18n: 'HorseShoeTalisman',
-    stat: () => getTalismanEffects('horseShoe').redLuck // Horseshoe Talisman
-  }
-]
-
-export const allRedAmbrosiaGenerationSpeedStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? 1 : 0
-  },
-  {
-    i18n: 'PseudoCoins',
-    stat: () => PCoinUpgradeEffects.RED_GENERATION_BUFF, // PseudoCoin Upgrade
-    color: 'gold'
-  },
-  {
-    i18n: 'BlueberrySpeed',
-    stat: () => {
-      const bSpeed = calculateAmbrosiaGenerationSpeed()
-      return bSpeed > 1000 ? Math.pow(bSpeed * 1000, 1 / 2) : bSpeed // Blueberry Speed
+    {
+      i18n: 'Event',
+      stat: () => 1 + calculateEventBuff(BuffType.PowderConversion), // Event bonus
+      color: 'lime'
     }
-  },
-  {
-    i18n: 'RedAmbrosia',
-    stat: () => getRedAmbrosiaUpgradeEffects('redGenerationSpeed', 'redAmbrosiaGenerationSpeed')
-  },
-  {
-    i18n: 'Exalt5',
-    stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'redSpeedMult') // No Ambrosia Upgrades
-  }
-]
+  ]
+}
 
-const infinityShopUpgrades: NumberStatLine[] = []
+export const allGoldenQuarkMultiplierStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => calculateBaseGoldenQuarks(player.singularityCount) // Base Golden Quarks based on Quarks and Sing Count
+    },
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'Campaign',
+      stat: () => player.campaigns.goldenQuarkBonus // Golden Quark Bonus from Campaigns
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () => 1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2 // Challenge 15 Exponent
+    },
+    {
+      i18n: 'GoldenQuarks1',
+      stat: () => getGQUpgradeEffect('goldenQuarks1', 'goldenQuarkMult') // Golden Quarks I
+    },
+    {
+      i18n: 'CookieUpgrade19',
+      stat: () => 1 + 0.12 * player.cubeUpgrades[69] // Cookie Upgrade 19
+    },
+    {
+      i18n: 'NoSingularityUpgrades',
+      stat: () => getSingularityChallengeEffect('noSingularityUpgrades', 'goldenQuarks') // No Singularity Upgrades
+    },
+    {
+      i18n: 'GoldenRevolution2',
+      stat: () =>
+        player.highestSingularityCount >= 100
+          ? 1 + Math.min(1, player.highestSingularityCount / 250)
+          : 1 // Golden Revolution II
+    },
+    {
+      i18n: 'FastForwards',
+      stat: () => 1 + 0.025 * (calculateMaxSingularityLookahead(true) - 1) // Singularity Fast Forwards
+    },
+    {
+      i18n: 'ImmaculateAlchemy',
+      stat: () => calculateImmaculateAlchemyBonus() // Immaculate Alchemy
+    },
+    {
+      i18n: 'GlobalSubscriber',
+      stat: () => 1 + getGlobalBonus() / 100,
+      acc: 3,
+      color: 'gold'
+    },
+    {
+      i18n: 'AccountBonus',
+      stat: () => 1 + getPersonalBonus() / 100,
+      acc: 3,
+      color: 'gold'
+    },
+    {
+      i18n: 'Event',
+      stat: () => 1 + calculateEventBuff(BuffType.GoldenQuark), // Event
+      color: 'lime'
+    }
+  ]
+}
 
-export const allShopTablets: NumberStatLine[] = [
-  {
-    i18n: 'Red',
-    stat: () => getRedAmbrosiaUpgradeEffects('infiniteShopUpgrades', 'freeLevels'), // Red Ambrosia Upgrade
-    acc: 0,
-    color: 'red'
-  },
-  {
-    i18n: 'Orange',
-    stat: () => {
-      if (player.highestSingularityCount >= 280) {
-        return Math.floor(0.8 * (player.highestSingularityCount - 200))
-      } else if (player.highestSingularityCount >= 250) {
-        return Math.floor(0.5 * (player.highestSingularityCount - 200))
-      } else {
-        return 0
+export const allGoldenQuarkPurchaseCostStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 10000 // Base cost of 10,000
+    },
+    {
+      i18n: 'PseudoCoins',
+      stat: () => 1 / PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'CubeUpgrade6x10',
+      stat: () => 1 - (0.3 * player.cubeUpgrades[60]) / 10000
+    },
+    {
+      i18n: 'GoldenQuarks2',
+      stat: () => getGQUpgradeEffect('goldenQuarks2', 'goldenQuarkCostMult')
+    },
+    {
+      i18n: 'OcteractCostReduce',
+      stat: () => getOcteractUpgradeEffect('octeractGQCostReduce', 'goldenQuarkCostMult')
+    },
+    {
+      i18n: 'GoldenRevolution2',
+      stat: () =>
+        player.highestSingularityCount >= 100
+          ? Math.max(0.5, 1 - (0.5 * player.highestSingularityCount) / 250)
+          : 1
+    },
+    {
+      i18n: 'ImmaculateAlchemy',
+      stat: () => 1 / calculateImmaculateAlchemyBonus() // Immaculate Alchemy
+    },
+    {
+      i18n: 'GlobalSubscriber',
+      stat: () => 1 / (1 + getGlobalBonus() / 100),
+      acc: 3,
+      color: 'gold'
+    },
+    {
+      i18n: 'AccountBonus',
+      stat: () => 1 / (1 + getPersonalBonus() / 100),
+      acc: 3,
+      color: 'gold'
+    },
+    {
+      i18n: 'Event',
+      stat: () => 1 / (1 + calculateEventBuff(BuffType.GoldenQuark)),
+      color: 'lime'
+    }
+  ]
+}
+
+const allAddCodeEffectStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Misc,
+  lines: [
+    {
+      i18n: 'Quarks',
+      stat: () => {
+        const addCodeStuff = addCodeBonuses()
+        if (Math.abs(addCodeStuff.maxQuarks - addCodeStuff.minQuarks) >= 0.5) {
+          return 1 / 2 * (addCodeStuff.minQuarks + addCodeStuff.maxQuarks)
+        } else {
+          return addCodeStuff.maxQuarks
+        }
+      },
+      color: 'cyan'
+    },
+    {
+      i18n: 'AscensionTime',
+      stat: () => {
+        const addCodeStuff = addCodeBonuses()
+        return addCodeStuff.ascensionTimer
+      },
+      color: 'orange'
+    },
+    {
+      i18n: 'GoldenQuarks',
+      stat: () => {
+        const addCodeStuff = addCodeBonuses()
+        return addCodeStuff.gqTimer
+      },
+      color: 'lightgoldenrodyellow'
+    },
+    {
+      i18n: 'Octeracts',
+      stat: () => {
+        const addCodeStuff = addCodeBonuses()
+        return addCodeStuff.octeractTime
+      },
+      color: 'lightseagreen'
+    },
+    {
+      i18n: 'Ambrosia',
+      stat: () => {
+        const addCodeStuff = addCodeBonuses()
+        return addCodeStuff.blueberryTime
+      },
+      color: 'lightblue'
+    }
+  ]
+}
+
+export const allAddCodeTimerStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'BaseTimer',
+      stat: () => 3600 * 1000 // Base timer value (3600000ms = 1 hour)
+    },
+    {
+      i18n: 'Calculator4',
+      stat: () => getShopUpgradeEffects('calculator4', 'addCodeIntervalMult'), // PL-AT δ discount (4% per level)
+      color: 'lime'
+    },
+    {
+      i18n: 'SingularityCount',
+      stat: () =>
+        1 - Math.min(
+          0.6,
+          (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 800 : 0)
+            + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 800 : 0)
+        ), // Singularity Count reduction (max 60%)
+      color: 'lime'
+    },
+    {
+      i18n: 'Antiquities',
+      stat: () => getRuneEffects('antiquities', 'addCodeCooldownReduction'), // Antiquities rune reduction (20%)
+      color: 'lime'
+    },
+    {
+      i18n: 'SingularityPerkBonus',
+      stat: () => 1 / addCodeSingularityPerkBonus(), // Singularity Perk bonus (increases with higher singularity milestones)
+      color: 'lime'
+    }
+  ]
+}
+
+export const allAddCodeCapacityStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 24 // Base capacity (24 codes)
+    },
+    {
+      i18n: 'Calculator2',
+      stat: () => getShopUpgradeEffects('calculator2', 'addCodeCapacity'), // PL-AT X (2 codes per level)
+      color: 'lime'
+    },
+    {
+      i18n: 'Calculator4Max',
+      stat: () => getShopUpgradeEffects('calculator4', 'addCodeCapacity'), // PL-AT δ Maxed (32 codes)
+      color: 'lime'
+    },
+    {
+      i18n: 'Calculator5',
+      stat: () => getShopUpgradeEffects('calculator5', 'addCodeCapacity'), // PL-AT Γ (1 code per 10 levels, +6 at max)
+      color: 'lime'
+    },
+    {
+      i18n: 'Calculator6Max',
+      stat: () => getShopUpgradeEffects('calculator6', 'addCodeCapacity'), // PL-AT _ Maxed (24 codes)
+      color: 'lime'
+    },
+    {
+      i18n: 'Calculator7Max',
+      stat: () => getShopUpgradeEffects('calculator7', 'addCodeCapacity'), // PL-AT ΩΩ Maxed (48 codes)
+      color: 'lime'
+    }
+  ]
+}
+
+export const allAddCodeCapacityMultiplierStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.ADD_CODE_CAP_BUFF, // PseudoCoin Upgrade
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'SingularityPerk',
+      stat: () => addCodeSingularityPerkBonus() // Singularity Perk bonus
+    }
+  ]
+}
+
+export const allLuckConversionStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 20 // Base value of 20.00
+    },
+    {
+      i18n: 'RedAmbrosiaUpgrade1',
+      stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement1', 'conversionImprovement') // Conversion Improvement I
+    },
+    {
+      i18n: 'RedAmbrosiaUpgrade2',
+      stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement2', 'conversionImprovement') // Conversion Improvement II
+    },
+    {
+      i18n: 'RedAmbrosiaUpgrade3',
+      stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement3', 'conversionImprovement') // Conversion Improvement III
+    },
+    {
+      i18n: 'ShopRedLuck1',
+      stat: () => getShopUpgradeEffects('shopRedLuck1', 'luckConversionRatio') // Shop Red Luck I
+    },
+    {
+      i18n: 'ShopRedLuck2',
+      stat: () => getShopUpgradeEffects('shopRedLuck2', 'luckConversionRatio') // Shop Red Luck II
+    },
+    {
+      i18n: 'ShopRedLuck3',
+      stat: () => getShopUpgradeEffects('shopRedLuck3', 'luckConversionRatio') // Shop Red Luck III
+    },
+    {
+      i18n: 'HorseShoeRune',
+      stat: () => getRuneEffects('horseShoe', 'redLuckConversion') // Horseshoe Rune
+    }
+  ]
+}
+
+export const allRedAmbrosiaLuckStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 100 // Base value of 100
+    },
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.RED_LUCK_BUFF, // PseudoCoin Upgrade
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('redAmbrosiaLuck'), // Synergism Level
+      color: 'green'
+    },
+    {
+      i18n: 'LuckConversion',
+      stat: () => Math.floor((calculateAmbrosiaLuck() - 100) / calculateLuckConversion()) // Luck Conversion
+    },
+    {
+      i18n: 'RedAmbrosia',
+      stat: () => getRedAmbrosiaUpgradeEffects('redLuck', 'redAmbrosiaLuck') // The Dice That Decide Your Fate
+    },
+    {
+      i18n: 'Exalt5',
+      stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'redLuck') // No Ambrosia Upgrades
+    },
+    {
+      i18n: 'ShopRedLuck1',
+      stat: () => getShopUpgradeEffects('shopRedLuck1', 'redLuck') // Shop Red Luck I
+    },
+    {
+      i18n: 'ShopRedLuck2',
+      stat: () => getShopUpgradeEffects('shopRedLuck2', 'redLuck') // Shop Red Luck II
+    },
+    {
+      i18n: 'ShopRedLuck3',
+      stat: () => getShopUpgradeEffects('shopRedLuck3', 'redLuck') // Shop Red Luck III
+    },
+    {
+      i18n: 'Jack',
+      stat: () => getShopUpgradeEffects('shopPanthema', 'redLuck') // Jack
+    },
+    {
+      i18n: 'Viscount',
+      stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'redLuckBonus'), // Viscount Red Ambrosia Upgrade
+      color: 'red'
+    },
+    {
+      i18n: 'HorseShoeRune',
+      stat: () => getRuneEffects('horseShoe', 'redLuck') // Horseshoe Rune
+    },
+    {
+      i18n: 'HorseShoeTalisman',
+      stat: () => getTalismanEffects('horseShoe').redLuck // Horseshoe Talisman
+    }
+  ]
+}
+
+export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? 1 : 0
+    },
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.RED_GENERATION_BUFF, // PseudoCoin Upgrade
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'BlueberrySpeed',
+      stat: () => {
+        const bSpeed = calculateAmbrosiaGenerationSpeed()
+        return bSpeed > 1000 ? Math.pow(bSpeed * 1000, 1 / 2) : bSpeed // Blueberry Speed
       }
     },
-    acc: 0,
-    color: 'orange'
-  },
-  {
-    i18n: 'Yellow',
-    stat: () => getGQUpgradeEffect('singInfiniteShopUpgrades', 'infinityVouchers'), // Singularity Upgrade
-    acc: 0,
-    color: 'yellow'
-  },
-  {
-    i18n: 'Green',
-    stat: () => getOcteractUpgradeEffect('octeractInfiniteShopUpgrades', 'infinityVouchers'), // Octeract Upgrade
-    acc: 0,
-    color: 'green'
-  },
-  {
-    i18n: 'Blue',
-    stat: () => getShopUpgradeEffects('shopInfiniteShopUpgrades', 'infiniteVouchers'), // Shop Upgrade
-    acc: 0,
-    color: 'lightblue'
-  },
-  {
-    i18n: 'Indigo',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades1', 'freeLevels'), // Blueberry Upgrade
-    acc: 0,
-    color: 'orchid'
-  },
-  {
-    i18n: 'Violet',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades2', 'freeLevels'), // Blueberry Upgrade 2
-    acc: 0,
-    color: 'violet'
-  }
-]
+    {
+      i18n: 'RedAmbrosia',
+      stat: () => getRedAmbrosiaUpgradeEffects('redGenerationSpeed', 'redAmbrosiaGenerationSpeed')
+    },
+    {
+      i18n: 'Exalt5',
+      stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'redSpeedMult') // No Ambrosia Upgrades
+    }
+  ]
+}
+
+export const allShopTablets: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Red',
+      stat: () => getRedAmbrosiaUpgradeEffects('infiniteShopUpgrades', 'freeLevels'), // Red Ambrosia Upgrade
+      acc: 0,
+      color: 'red'
+    },
+    {
+      i18n: 'Orange',
+      stat: () => {
+        if (player.highestSingularityCount >= 280) {
+          return Math.floor(0.8 * (player.highestSingularityCount - 200))
+        } else if (player.highestSingularityCount >= 250) {
+          return Math.floor(0.5 * (player.highestSingularityCount - 200))
+        } else {
+          return 0
+        }
+      },
+      acc: 0,
+      color: 'orange'
+    },
+    {
+      i18n: 'Yellow',
+      stat: () => getGQUpgradeEffect('singInfiniteShopUpgrades', 'infinityVouchers'), // Singularity Upgrade
+      acc: 0,
+      color: 'yellow'
+    },
+    {
+      i18n: 'Green',
+      stat: () => getOcteractUpgradeEffect('octeractInfiniteShopUpgrades', 'infinityVouchers'), // Octeract Upgrade
+      acc: 0,
+      color: 'green'
+    },
+    {
+      i18n: 'Blue',
+      stat: () => getShopUpgradeEffects('shopInfiniteShopUpgrades', 'infiniteVouchers'), // Shop Upgrade
+      acc: 0,
+      color: 'lightblue'
+    },
+    {
+      i18n: 'Indigo',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades1', 'freeLevels'), // Blueberry Upgrade
+      acc: 0,
+      color: 'orchid'
+    },
+    {
+      i18n: 'Violet',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades2', 'freeLevels'), // Blueberry Upgrade 2
+      acc: 0,
+      color: 'violet'
+    }
+  ]
+}
 
 /**
  * Do NOT add anything here without adding it to @see {allTalismanRuneBonusStats}
@@ -2773,692 +2936,666 @@ export const allTalismanRuneBonusStatsSum = () => {
 /**
  * Do NOT add anything here without adding it to @see {allTalismanRuneBonusStatsSum}
  */
-const allTalismanRuneBonusStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 1,
-    displayCriterion: () => {
-      const chal9 = player.highestchallengecompletions[9] >= 1
-      return chal9
+const allTalismanRuneBonusStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 1
+    },
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('talismanPower')
+    },
+    {
+      i18n: 'Research106',
+      stat: () => player.researches[106] / 1000
+    },
+    {
+      i18n: 'Research107',
+      stat: () => player.researches[107] / 1000
+    },
+    {
+      i18n: 'Research118',
+      stat: () => 2 * player.researches[118] / 1000
+    },
+    {
+      i18n: 'Research200',
+      stat: () => 0.004 * Math.floor(player.researches[200] / 10000)
+    },
+    {
+      i18n: 'CubeUpgrade50',
+      stat: () => 0.006 * Math.floor(player.cubeUpgrades[50] / 10000)
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () => G.challenge15Rewards.talismanBonus.value - 1
+    },
+    {
+      i18n: 'SingularityUpgrade1',
+      stat: () => getGQUpgradeEffect('singTalismanBonusRunes1', 'talismanRuneEffect') // Singularity Upgrade 1
+    },
+    {
+      i18n: 'SingularityUpgrade2',
+      stat: () => getGQUpgradeEffect('singTalismanBonusRunes2', 'talismanRuneEffect')
+    },
+    {
+      i18n: 'SingularityUpgrade3',
+      stat: () => getGQUpgradeEffect('singTalismanBonusRunes3', 'talismanRuneEffect')
+    },
+    {
+      i18n: 'SingularityUpgrade4',
+      stat: () => getGQUpgradeEffect('singTalismanBonusRunes4', 'talismanRuneEffect')
+    },
+    {
+      i18n: 'BlueberryUpgrade',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel', 'talismanBonusRuneLevel')
+    },
+    {
+      i18n: 'TaxmanLastStand',
+      stat: () => getSingularityChallengeEffect('taxmanLastStand', 'talismanRuneEffect')
     }
-  },
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('talismanPower'),
-    displayCriterion: () => {
-      const chal9 = player.highestchallengecompletions[9] >= 1
-      return chal9
-    }
-  },
-  {
-    i18n: 'Research106',
-    stat: () => player.researches[106] / 1000,
-    displayCriterion: () => {
-      const chal9 = player.highestchallengecompletions[9] >= 1
-      return chal9
-    }
-  },
-  {
-    i18n: 'Research107',
-    stat: () => player.researches[107] / 1000,
-    displayCriterion: () => {
-      const chal9 = player.highestchallengecompletions[9] >= 1
-      return chal9
-    }
-  },
-  {
-    i18n: 'Research118',
-    stat: () => 2 * player.researches[118] / 1000,
-    displayCriterion: () => {
-      const chal10 = player.highestchallengecompletions[9] >= 1
-      return chal10
-    }
-  },
-  {
-    i18n: 'Research200',
-    stat: () => 0.004 * Math.floor(player.researches[200] / 10000),
-    displayCriterion: () => {
-      const chal14 = player.highestchallengecompletions[14] >= 1
-      return chal14
-    }
-  },
-  {
-    i18n: 'CubeUpgrade50',
-    stat: () => 0.006 * Math.floor(player.cubeUpgrades[50] / 10000),
-    displayCriterion: () => {
-      const chal14 = player.highestchallengecompletions[14] >= 1
-      return chal14
-    }
-  },
-  {
-    i18n: 'Challenge15',
-    stat: () => G.challenge15Rewards.talismanBonus.value - 1,
-    displayCriterion: () => {
-      const chal15 = G.challenge15Rewards.talismanBonus.value > 1
-      return chal15
-    }
-  },
-  {
-    i18n: 'SingularityUpgrade1',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes1', 'talismanRuneEffect'), // Singularity Upgrade 1
-    displayCriterion: () => {
-      const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes1.minimumSingularity
-      return singStuff
-    }
-  },
-  {
-    i18n: 'SingularityUpgrade2',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes2', 'talismanRuneEffect'),
-    displayCriterion: () => {
-      const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes2.minimumSingularity
-      return singStuff
-    }
-  },
-  {
-    i18n: 'SingularityUpgrade3',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes3', 'talismanRuneEffect'),
-    displayCriterion: () => {
-      const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes3.minimumSingularity
-      return singStuff
-    }
-  },
-  {
-    i18n: 'SingularityUpgrade4',
-    stat: () => getGQUpgradeEffect('singTalismanBonusRunes4', 'talismanRuneEffect'),
-    displayCriterion: () => {
-      const singStuff = player.highestSingularityCount >= goldenQuarkUpgrades.singTalismanBonusRunes4.minimumSingularity
-      return singStuff
-    }
-  },
-  {
-    i18n: 'BlueberryUpgrade',
-    stat: () => getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel', 'talismanBonusRuneLevel')
-  },
-  {
-    i18n: 'TaxmanLastStand',
-    stat: () => getSingularityChallengeEffect('taxmanLastStand', 'talismanRuneEffect'),
-    displayCriterion: () => {
-      const singStuff = player.highestSingularityCount >= 270
-      return singStuff
-    }
-  }
-]
+  ]
+}
 
-export const positiveSalvageStats: NumberStatLine[] = [
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('salvage')
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('salvage')
-  },
-  {
-    i18n: 'SynergismLevelMilestone',
-    stat: () => getLevelMilestone('salvageChallengeBuff')
-  },
-  {
-    i18n: 'UpgradeBonus',
-    stat: () => 7 * player.upgrades[61] // Upgrade 61
-  },
-  {
-    i18n: 'RuneBonus',
-    stat: () => getRuneEffects('thrift', 'salvage') // Thrift Rune
-  },
-  {
-    i18n: 'ReincarnationChallenge',
-    stat: () => {
-      return 0.3 * CalcECC('reincarnation', player.challengecompletions[6])
-        + 0.3 * CalcECC('reincarnation', player.challengecompletions[7])
-        + 0.4 * CalcECC('reincarnation', player.challengecompletions[8])
-        + 0.5 * CalcECC('reincarnation', player.challengecompletions[9])
-    }
-  },
-  {
-    i18n: 'AntUpgrade',
-    stat: () => getAntUpgradeEffect(AntUpgrades.Salvage).salvage // Ant Upgrade
-  },
-  {
-    i18n: 'CubeBlessing',
-    stat: () => calculateSalvageCubeBlessing() // Cube Blessing
-  },
-  {
-    i18n: 'CubeUpgrade2',
-    stat: () => 3 * player.cubeUpgrades[2] // Cube Upgrade 2
-  },
-  {
-    i18n: 'AbyssHepteract',
-    stat: () => getHepteractEffects('abyss').salvage // Abyss Hepteract
-  },
-  {
-    i18n: 'SingularityPerk',
-    stat: () => Math.min(50, 5 * player.highestSingularityCount)
-  },
-  {
-    i18n: 'InfiniteAscentRune',
-    stat: () => getRuneEffects('infiniteAscent', 'salvage'), // Infinite Ascent Rune
-    displayCriterion: () => {
-      return player.highestSingularityCount >= 30
-    }
-  },
-  {
-    i18n: 'RedAmbrosiaYinYang',
-    stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'positiveSalvage') // Red Ambrosia Upgrade: Yin Yang
-  }
-]
+const posSalvagePerkSings = [230, 245, 260, 275, 290]
+const negSalvagePerkSings = [75, 85, 105, 125, 155, 185, 215, 245, 260, 275]
 
-export const negativeSalvageStats: NumberStatLine[] = [
-  {
-    i18n: 'DroughtCorruption',
-    stat: () => player.corruptions.used.corruptionEffects('drought'),
-    color: 'red'
-  },
-  {
-    i18n: 'SingularityDebuff',
-    stat: () => calculateSingularityDebuff('Salvage'), // Singularity Debuff
-    color: 'red'
-  },
-  {
-    i18n: 'RedAmbrosiaYinYang',
-    stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'negativeSalvage') // Red Ambrosia Upgrade: Yin Yang
-  }
-]
-
-export const antSpeedStats: StatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => {
-      return canGenerateAntCrumbs()
-        ? 1
-        : 0
+export const positiveSalvageStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('salvage')
+    },
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('salvage')
+    },
+    {
+      i18n: 'SynergismLevelMilestone',
+      stat: () => getLevelMilestone('salvageChallengeBuff')
+    },
+    {
+      i18n: 'UpgradeBonus',
+      stat: () => 7 * player.upgrades[61] // Upgrade 61
+    },
+    {
+      i18n: 'RuneBonus',
+      stat: () => getRuneEffects('thrift', 'salvage') // Thrift Rune
+    },
+    {
+      i18n: 'ReincarnationChallenge',
+      stat: () => {
+        return 0.3 * CalcECC('reincarnation', player.challengecompletions[6])
+          + 0.3 * CalcECC('reincarnation', player.challengecompletions[7])
+          + 0.4 * CalcECC('reincarnation', player.challengecompletions[8])
+          + 0.5 * CalcECC('reincarnation', player.challengecompletions[9])
+      }
+    },
+    {
+      i18n: 'AntUpgrade',
+      stat: () => getAntUpgradeEffect(AntUpgrades.Salvage).salvage // Ant Upgrade
+    },
+    {
+      i18n: 'CubeBlessing',
+      stat: () => calculateSalvageCubeBlessing() // Cube Blessing
+    },
+    {
+      i18n: 'CubeUpgrade2',
+      stat: () => 3 * player.cubeUpgrades[2] // Cube Upgrade 2
+    },
+    {
+      i18n: 'AbyssHepteract',
+      stat: () => getHepteractEffects('abyss').salvage // Abyss Hepteract
+    },
+    {
+      i18n: 'SingularityPerk',
+      stat: () => Math.min(50, 5 * player.highestSingularityCount)
+    },
+    {
+      i18n: 'InfiniteAscentRune',
+      stat: () => getRuneEffects('infiniteAscent', 'salvage') // Infinite Ascent Rune
+    },
+    {
+      i18n: 'RedAmbrosiaYinYang',
+      stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'positiveSalvage') // Red Ambrosia Upgrade: Yin Yang
     }
-  },
-  {
-    i18n: 'GlobalSpeed',
-    stat: () => {
-      const exponent = 1 + 3 * player.upgrades[79]
-      const speedMult = calculateGlobalSpeedMult()
-      if (speedMult > 1) {
-        return Decimal.pow(speedMult, exponent)
-      } else {
-        return speedMult
+  ]
+}
+
+export const positiveSalvageStatMultiplier: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 1
+    },
+    {
+      i18n: 'SingularityPerk',
+      stat: () => posSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
+    },
+    {
+      i18n: 'AchievementTalisman',
+      stat: () => getTalismanEffects('achievement').positiveSalvageMult
+    }
+  ]
+}
+
+export const negativeSalvageStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'DroughtCorruption',
+      stat: () => player.corruptions.used.corruptionEffects('drought'),
+      color: 'red'
+    },
+    {
+      i18n: 'SingularityDebuff',
+      stat: () => calculateSingularityDebuff('Salvage'), // Singularity Debuff
+      color: 'red'
+    },
+    {
+      i18n: 'RedAmbrosiaYinYang',
+      stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'negativeSalvage') // Red Ambrosia Upgrade: Yin Yang
+    }
+  ]
+}
+
+export const negativeSalvageStatMultiplier: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 1
+    },
+    {
+      i18n: 'SingularityPerk',
+      stat: () => negSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
+    },
+    {
+      i18n: 'AchievementTalisman',
+      stat: () => getTalismanEffects('achievement').negativeSalvageMult
+    }
+  ]
+}
+
+export const antSpeedStats: DecimalStatLineCategory = {
+  kind: 'decimal',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => {
+        return canGenerateAntCrumbs()
+          ? 1
+          : 0
+      }
+    },
+    {
+      i18n: 'GlobalSpeed',
+      stat: () => {
+        const exponent = 1 + 3 * player.upgrades[79]
+        const speedMult = calculateGlobalSpeedMult()
+        if (speedMult > 1) {
+          return Decimal.pow(speedMult, exponent)
+        } else {
+          return speedMult
+        }
+      }
+    },
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('antSpeed') // Achievement Bonus
+    },
+    {
+      i18n: 'ImmortalELO',
+      stat: () => calculateAntSpeedMultFromELO() // Immortal ELO
+    },
+    {
+      i18n: 'AntUpgrade1',
+      stat: () => getAntUpgradeEffect(AntUpgrades.AntSpeed).antSpeed // Ant Upgrade 1
+    },
+    {
+      i18n: 'DiamondUpgrade19',
+      stat: () => 1 + 0.6 * player.upgrades[39] // Diamond Upgrade 19
+    },
+    {
+      i18n: 'ReincarnationUpgrade16',
+      stat: () => 1 + 4 * player.upgrades[76] // Reincarnation Upgrade 16
+    },
+    {
+      i18n: 'ReincarnationUpgrade17',
+      stat: () =>
+        (player.upgrades[77] > 0)
+          ? Decimal.pow(1 + player.upgrades[77] / 250, player.ants.producers[AntProducers.Workers].purchased)
+          : 1 // Reincarnation Upgrade 17
+    },
+    {
+      i18n: 'ReincarnationUpgrade18',
+      stat: () => (player.upgrades[78] > 0) ? 1 + 0.005 * Math.pow(Decimal.log10(player.maxOfferings.add(1)), 2) : 1 // Reincarnation Upgrade 18
+    },
+    {
+      i18n: 'Research4x21',
+      stat: () => Decimal.pow(1 + player.researches[96] / 5000, player.ants.producers[AntProducers.Workers].purchased)
+    },
+    {
+      i18n: 'Research5x17',
+      stat: () => {
+        const sacCount = player.ants.antSacrificeCount
+        return 1 + player.researches[117] * sacCount / 10000
+      }
+    },
+    {
+      i18n: 'Research6x22',
+      stat: () => 1 + player.researches[147] * Decimal.log10(player.ants.crumbs.add(10))
+    },
+    {
+      i18n: 'Research8x2',
+      stat: () => 1 + player.researches[177] * Decimal.log10(player.ants.crumbs.add(10))
+    },
+    {
+      i18n: 'SuperiorIntellect',
+      stat: () => getRuneEffects('superiorIntellect', 'antSpeed'), // Superior Intellect Rune
+      acc: 3
+    },
+    {
+      i18n: 'RuneBlessingBonus',
+      stat: () => {
+        const exponent = getRuneBlessingEffect('superiorIntellect').obtToAntExponent
+        return Decimal.pow(Decimal.max(1, player.obtainium), exponent)
+      }
+    },
+    {
+      i18n: 'Challenge9Bonus',
+      stat: () => Decimal.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])) // Challenge 9 Bonus
+    },
+    {
+      i18n: 'Challenge11Bonus',
+      stat: () => Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11])) // Challenge 11 Bonus
+    },
+    {
+      i18n: 'CubeTribute',
+      stat: () => calculateAntSpeedCubeBlessing() // Cube Blessing
+    },
+    {
+      i18n: 'ConstantUpgrade',
+      stat: () => 1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10) * player.constantUpgrades[5]
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () => G.challenge15Rewards.antSpeed.value // Challenge 15 Reward
+    },
+    {
+      i18n: 'PlatonicUpgrade',
+      stat: () =>
+        Decimal.pow(
+          1 + (1 / 100) * player.platonicUpgrades[12],
+          sumContents(player.highestchallengecompletions)
+        )
+    },
+    {
+      i18n: 'SingularityPerk',
+      stat: () => {
+        if (player.highestSingularityCount >= 100) {
+          return 1e12
+        } else if (player.highestSingularityCount >= 70) {
+          return 1e6
+        } else if (player.highestSingularityCount >= 40) {
+          return 1e3
+        } else if (player.highestSingularityCount >= 1) {
+          return 4.44
+        }
+        return 1
+      }
+    },
+    {
+      i18n: 'CookieUpgrade',
+      stat: () => Decimal.pow(1 + player.cubeUpgrades[65] / 250, player.ants.producers[AntProducers.Workers].purchased) // 65th Cube Upgrade, 15th Cookie Upgrade
+    },
+    {
+      i18n: 'OcteractUpgrade',
+      stat: () => {
+        return getOcteractUpgradeEffect('octeractStarter', 'antSpeedMult')
       }
     }
-  },
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('antSpeed') // Achievement Bonus
-  },
-  {
-    i18n: 'ImmortalELO',
-    stat: () => calculateAntSpeedMultFromELO(), // Immortal ELO
-    displayCriterion: () => player.ants.immortalELO > 0 // Has sacrificed ants this Singularity
-  },
-  {
-    i18n: 'AntUpgrade1',
-    stat: () => getAntUpgradeEffect(AntUpgrades.AntSpeed).antSpeed // Ant Upgrade 1
-  },
-  {
-    i18n: 'DiamondUpgrade19',
-    stat: () => 1 + 0.6 * player.upgrades[39], // Diamond Upgrade 19
-    displayCriterion: () => Boolean(getAchievementReward('diamondUpgrade19'))
-  },
-  {
-    i18n: 'ReincarnationUpgrade16',
-    stat: () => 1 + 4 * player.upgrades[76], // Reincarnation Upgrade 16
-    displayCriterion: () => player.researches[50] > 0 // Research 2x25
-  },
-  {
-    i18n: 'ReincarnationUpgrade17',
-    stat: () =>
-      (player.upgrades[77] > 0)
-        ? Decimal.pow(1 + player.upgrades[77] / 250, player.ants.producers[AntProducers.Workers].purchased)
-        : 1, // Reincarnation Upgrade 17
-    displayCriterion: () => player.researches[50] > 0
-  },
-  {
-    i18n: 'ReincarnationUpgrade18',
-    stat: () => (player.upgrades[78] > 0) ? 1 + 0.005 * Math.pow(Decimal.log10(player.maxOfferings.add(1)), 2) : 1, // Reincarnation Upgrade 18
-    displayCriterion: () => player.researches[50] > 0
-  },
-  {
-    i18n: 'Research4x21',
-    stat: () => Decimal.pow(1 + player.researches[96] / 5000, player.ants.producers[AntProducers.Workers].purchased),
-    displayCriterion: () => isResearchUnlocked(96)
-  },
-  {
-    i18n: 'Research5x17',
-    stat: () => {
-      const sacCount = player.ants.antSacrificeCount
-      return 1 + player.researches[117] * sacCount / 10000
+  ]
+}
+
+export const antELOStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'AntWorkers',
+      stat: () => player.ants.producers[AntProducers.Workers].purchased
     },
-    displayCriterion: () => isResearchUnlocked(117)
-  },
-  {
-    i18n: 'Research6x22',
-    stat: () => 1 + player.researches[147] * Decimal.log10(player.ants.crumbs.add(10)),
-    displayCriterion: () => isResearchUnlocked(147)
-  },
-  {
-    i18n: 'Research8x2',
-    stat: () => 1 + player.researches[177] * Decimal.log10(player.ants.crumbs.add(10)),
-    displayCriterion: () => isResearchUnlocked(177)
-  },
-  {
-    i18n: 'SuperiorIntellect',
-    stat: () => getRuneEffects('superiorIntellect', 'antSpeed'), // Superior Intellect Rune
-    displayCriterion: () => runes.superiorIntellect.isUnlocked(),
-    acc: 3
-  },
-  {
-    i18n: 'RuneBlessingBonus',
-    stat: () => {
-      const exponent = getRuneBlessingEffect('superiorIntellect').obtToAntExponent
-      return Decimal.pow(Decimal.max(1, player.obtainium), exponent)
+    {
+      i18n: 'AchievementBonus',
+      stat: () => +getAchievementReward('antELOAdditive')
     },
-    displayCriterion: () => player.unlocks.blessings
-  },
-  {
-    i18n: 'Challenge9Bonus',
-    stat: () => Decimal.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])), // Challenge 9 Bonus
-    displayCriterion: () => player.challengecompletions[8] > 0 || player.ascensionCount > 0
-  },
-  {
-    i18n: 'Challenge11Bonus',
-    stat: () => Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11])), // Challenge 11 Bonus
-    displayCriterion: () => player.ascensionCount > 0
-  },
-  {
-    i18n: 'CubeTribute',
-    stat: () => calculateAntSpeedCubeBlessing(), // Cube Blessing
-    displayCriterion: () => player.ascensionCount > 0
-  },
-  {
-    i18n: 'ConstantUpgrade',
-    stat: () => 1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10) * player.constantUpgrades[5],
-    displayCriterion: () => player.ascensionCount > 0
-  },
-  {
-    i18n: 'Challenge15',
-    stat: () => G.challenge15Rewards.antSpeed.value, // Challenge 15 Reward
-    displayCriterion: () => player.highestchallengecompletions[14] > 0
-  },
-  {
-    i18n: 'PlatonicUpgrade',
-    stat: () =>
-      Decimal.pow(
-        1 + (1 / 100) * player.platonicUpgrades[12],
-        sumContents(player.highestchallengecompletions)
-      ),
-    displayCriterion: () => player.highestchallengecompletions[14] > 0
-  },
-  {
-    i18n: 'SingularityPerk',
-    stat: () => {
-      if (player.highestSingularityCount >= 100) {
-        return 1e12
-      } else if (player.highestSingularityCount >= 70) {
-        return 1e6
-      } else if (player.highestSingularityCount >= 40) {
-        return 1e3
-      } else if (player.highestSingularityCount >= 1) {
-        return 4.44
+    {
+      i18n: 'SynergismLevel',
+      stat: () => getLevelReward('ants')
+    },
+    {
+      i18n: 'ReincarnationUpgrade20',
+      stat: () => {
+        if (player.upgrades[80] === 0) {
+          return 0
+        }
+        let ELO = 0
+        ELO += 10 * Math.min(50, player.ants.antSacrificeCount)
+        ELO += 5 * Math.min(50, Math.max(player.ants.antSacrificeCount - 50, 0))
+        ELO += Math.min(250, Math.max(0, player.ants.antSacrificeCount - 100))
+        return ELO
       }
-      return 1
     },
-    displayCriterion: () => player.highestSingularityCount >= 1
-  },
-  {
-    i18n: 'CookieUpgrade',
-    stat: () => Decimal.pow(1 + player.cubeUpgrades[65] / 250, player.ants.producers[AntProducers.Workers].purchased), // 65th Cube Upgrade, 15th Cookie Upgrade
-    displayCriterion: () => goldenQuarkUpgrades.cookies3.level > 0
-  },
-  {
-    i18n: 'OcteractUpgrade',
-    stat: () => {
-      return getOcteractUpgradeEffect('octeractStarter', 'antSpeedMult')
+    {
+      i18n: 'Challenge10',
+      stat: () => 100 * CalcECC('reincarnation', player.challengecompletions[10])
     },
-    displayCriterion: () => octeractUpgrades.octeractStarter.level > 0
-  }
-]
-
-export const antELOStats: NumberStatLine[] = [
-  {
-    i18n: 'AntWorkers',
-    stat: () => player.ants.producers[AntProducers.Workers].purchased
-  },
-  {
-    i18n: 'AchievementBonus',
-    stat: () => +getAchievementReward('antELOAdditive')
-  },
-  {
-    i18n: 'SynergismLevel',
-    stat: () => getLevelReward('ants'),
-    displayCriterion: () => achievementLevel >= synergismLevelRewards.ants.minLevel
-  },
-  {
-    i18n: 'ReincarnationUpgrade20',
-    stat: () => {
-      if (player.upgrades[80] === 0) {
-        return 0
-      }
-      let ELO = 0
-      ELO += 10 * Math.min(50, player.ants.antSacrificeCount)
-      ELO += 5 * Math.min(50, Math.max(player.ants.antSacrificeCount - 50, 0))
-      ELO += Math.min(250, Math.max(0, player.ants.antSacrificeCount - 100))
-      return ELO
+    {
+      i18n: 'ShopUpgrade',
+      stat: () => getShopUpgradeEffects('antSpeed', 'antELO')
     },
-    displayCriterion: () => player.researches[50] > 0 // Research 2x25
-  },
-  {
-    i18n: 'Challenge10',
-    stat: () => 100 * CalcECC('reincarnation', player.challengecompletions[10]),
-    displayCriterion: () => player.challengecompletions[9] > 0 || player.ascensionCount > 0
-  },
-  {
-    i18n: 'ShopUpgrade',
-    stat: () => getShopUpgradeEffects('antSpeed', 'antELO'),
-    displayCriterion: () =>
-      player.highestchallengecompletions[10] > 0 || player.ascensionCount > 0 || player.shopUpgrades.antSpeed > 0
-  },
-  {
-    i18n: 'Research5x8',
-    stat: () => 25 * player.researches[108],
-    displayCriterion: () => isResearchUnlocked(108)
-  },
-  {
-    i18n: 'Research5x9',
-    stat: () => 25 * player.researches[109],
-    displayCriterion: () => isResearchUnlocked(109)
-  },
-  {
-    i18n: 'Research5x20',
-    stat: () => 2 * player.researches[120],
-    displayCriterion: () => isResearchUnlocked(120)
-  },
-  {
-    i18n: 'Research5x23',
-    stat: () => 50 * player.researches[123],
-    displayCriterion: () => isResearchUnlocked(123)
-  },
-  {
-    i18n: 'Research7x19',
-    stat: () => 0.02 * player.researches[169],
-    displayCriterion: () => isResearchUnlocked(169)
-  },
-  {
-    i18n: 'Research8x3',
-    stat: () => 666 * player.researches[178],
-    displayCriterion: () => isResearchUnlocked(178)
-  },
-  {
-    i18n: 'AntUpgrade',
-    stat: () => getAntUpgradeEffect(AntUpgrades.AntSacrifice).elo,
-    displayCriterion: () => player.unlocks.anthill
-  },
-  {
-    i18n: 'AntUpgrade13',
-    stat: () => getAntUpgradeEffect(AntUpgrades.AntELO).antELO,
-    displayCriterion: () => player.unlocks.anthill
-  },
-  {
-    i18n: 'SingularityPerk',
-    stat: () => calculateSingularityPerkELO(),
-    displayCriterion: () => player.highestSingularityCount >= 2
-  }
-]
+    {
+      i18n: 'Research5x8',
+      stat: () => 25 * player.researches[108]
+    },
+    {
+      i18n: 'Research5x9',
+      stat: () => 25 * player.researches[109]
+    },
+    {
+      i18n: 'Research5x20',
+      stat: () => 2 * player.researches[120]
+    },
+    {
+      i18n: 'Research5x23',
+      stat: () => 50 * player.researches[123]
+    },
+    {
+      i18n: 'Research7x19',
+      stat: () => 0.02 * player.researches[169]
+    },
+    {
+      i18n: 'Research8x3',
+      stat: () => 666 * player.researches[178]
+    },
+    {
+      i18n: 'AntUpgrade',
+      stat: () => getAntUpgradeEffect(AntUpgrades.AntSacrifice).elo
+    },
+    {
+      i18n: 'AntUpgrade13',
+      stat: () => getAntUpgradeEffect(AntUpgrades.AntELO).antELO
+    },
+    {
+      i18n: 'SingularityPerk',
+      stat: () => calculateSingularityPerkELO()
+    }
+  ]
+}
 
-export const additiveAntELOMultStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 1
-  },
-  {
-    i18n: 'AchievementMultiplier',
-    stat: () => +getAchievementReward('antELOAdditiveMultiplier')
-  },
-  {
-    i18n: 'AntQueens',
-    stat: () => player.ants.producers[AntProducers.Queens].purchased > 0 ? 0.01 : 0
-  },
-  {
-    i18n: 'AntLordRoyals',
-    stat: () => player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 0.01 : 0
-  },
-  {
-    i18n: 'AntAlmighties',
-    stat: () => player.ants.producers[AntProducers.Almighties].purchased > 0 ? 0.01 : 0
-  },
-  {
-    i18n: 'AntDisciples',
-    stat: () => player.ants.producers[AntProducers.Disciples].purchased > 0 ? 0.02 : 0
-  },
-  {
-    i18n: 'AntHolySpirit',
-    stat: () => player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 0.02 : 0
-  },
-  {
-    i18n: 'PlatonicUpgrade12',
-    stat: () => (1 / 200) * player.platonicUpgrades[12] * player.corruptions.used.extinction,
-    displayCriterion: () => player.challengecompletions[14] > 0
-  },
-  {
-    i18n: 'SingularityDebuff',
-    stat: () => calculateSingularityDebuff('Ant ELO'),
-    displayCriterion: () => player.highestSingularityCount >= 1,
-    color: 'red',
-    acc: 3
-  },
-  {
-    i18n: 'SingularityPerk',
-    stat: () => singularityELOBonusMult(),
-    displayCriterion: () => player.highestSingularityCount >= 3,
-    acc: 4
-  }
-]
+export const additiveAntELOMultStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 1
+    },
+    {
+      i18n: 'AchievementMultiplier',
+      stat: () => +getAchievementReward('antELOAdditiveMultiplier')
+    },
+    {
+      i18n: 'AntQueens',
+      stat: () => player.ants.producers[AntProducers.Queens].purchased > 0 ? 0.01 : 0
+    },
+    {
+      i18n: 'AntLordRoyals',
+      stat: () => player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 0.01 : 0
+    },
+    {
+      i18n: 'AntAlmighties',
+      stat: () => player.ants.producers[AntProducers.Almighties].purchased > 0 ? 0.01 : 0
+    },
+    {
+      i18n: 'AntDisciples',
+      stat: () => player.ants.producers[AntProducers.Disciples].purchased > 0 ? 0.02 : 0
+    },
+    {
+      i18n: 'AntHolySpirit',
+      stat: () => player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 0.02 : 0
+    },
+    {
+      i18n: 'PlatonicUpgrade12',
+      stat: () => (1 / 200) * player.platonicUpgrades[12] * player.corruptions.used.extinction
+    },
+    {
+      i18n: 'SingularityDebuff',
+      stat: () => calculateSingularityDebuff('Ant ELO'),
+      color: 'red',
+      acc: 3
+    },
+    {
+      i18n: 'SingularityPerk',
+      stat: () => singularityELOBonusMult(),
+      acc: 4
+    }
+  ]
+}
 
-const effectiveAntELOStats: NumberStatLine[] = [
-  {
-    i18n: 'BaseELO',
-    stat: () => calculateBaseAntELO(),
-    color: 'gold'
-  },
-  {
-    i18n: 'AdditiveMultiplier',
-    stat: () => calculateELOMult()
-  }
-]
+const effectiveAntELOStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'BaseELO',
+      stat: () => calculateBaseAntELO(),
+      color: 'gold'
+    },
+    {
+      i18n: 'AdditiveMultiplier',
+      stat: () => calculateELOMult()
+    }
+  ]
+}
 
-export const rebornELOCreationSpeedMultStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 0.01,
-    acc: 3
-  },
-  {
-    i18n: 'EffectiveELO',
-    stat: () => calculateEffectiveAntELO()
-  },
-  {
-    i18n: 'CoinUpgrade24',
-    stat: () => 1 + 0.1 * player.upgrades[124]
-  },
-  {
-    i18n: 'Research5x10',
-    stat: () => 1 + player.researches[110] / 50,
-    displayCriterion: () => isResearchUnlocked(110)
-  },
-  {
-    i18n: 'Research5x20',
-    stat: () => 1 + player.researches[120] / 250,
-    displayCriterion: () => isResearchUnlocked(120)
-  },
-  {
-    i18n: 'Research6x23',
-    stat: () => 1 + player.researches[148] / 50,
-    displayCriterion: () => isResearchUnlocked(148)
-  },
-  {
-    i18n: 'AntQueens',
-    stat: () => player.ants.producers[AntProducers.Queens].purchased > 0 ? 1.15 : 1
-  },
-  {
-    i18n: 'AntLordRoyals',
-    stat: () => player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 1.25 : 1
-  },
-  {
-    i18n: 'AntAlmighties',
-    stat: () => player.ants.producers[AntProducers.Almighties].purchased > 0 ? 1.4 : 1
-  },
-  {
-    i18n: 'AntDisciples',
-    stat: () => player.ants.producers[AntProducers.Disciples].purchased > 0 ? 2 : 1
-  },
-  {
-    i18n: 'AntHolySpirit',
-    stat: () => player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 3 : 1
-  },
-  {
-    i18n: 'ThresholdModifiers',
-    stat: () => thresholdModifiers().rebornSpeedMult,
-    acc: 5
-  },
-  {
-    i18n: 'MortuusTalisman',
-    stat: () => getTalismanEffects('mortuus').antBonus,
-    displayCriterion: () => talismans.mortuus.isUnlocked()
-  },
-  {
-    i18n: 'CubeBlessing',
-    stat: () => calculateAntELOCubeBlessing(),
-    displayCriterion: () => player.ascensionCount > 0
-  },
-  {
-    i18n: 'PlatonicUpgrade12',
-    stat: () => 1 + player.platonicUpgrades[12] / 10,
-    displayCriterion: () => player.challengecompletions[14] > 0
-  },
-  {
-    i18n: 'Exalt6',
-    stat: () => (player.singularityChallenges.limitedTime.enabled && runes.antiquities.level === 0) ? 5 : 1,
-    displayCriterion: () => player.highestSingularityCount >= 216,
-    color: 'orchid'
-  }
-]
+export const rebornELOCreationSpeedMultStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 0.01,
+      acc: 3
+    },
+    {
+      i18n: 'EffectiveELO',
+      stat: () => calculateEffectiveAntELO()
+    },
+    {
+      i18n: 'CoinUpgrade24',
+      stat: () => 1 + 0.1 * player.upgrades[124]
+    },
+    {
+      i18n: 'Research5x10',
+      stat: () => 1 + player.researches[110] / 50
+    },
+    {
+      i18n: 'Research5x20',
+      stat: () => 1 + player.researches[120] / 250
+    },
+    {
+      i18n: 'Research6x23',
+      stat: () => 1 + player.researches[148] / 50
+    },
+    {
+      i18n: 'AntQueens',
+      stat: () => player.ants.producers[AntProducers.Queens].purchased > 0 ? 1.15 : 1
+    },
+    {
+      i18n: 'AntLordRoyals',
+      stat: () => player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 1.25 : 1
+    },
+    {
+      i18n: 'AntAlmighties',
+      stat: () => player.ants.producers[AntProducers.Almighties].purchased > 0 ? 1.4 : 1
+    },
+    {
+      i18n: 'AntDisciples',
+      stat: () => player.ants.producers[AntProducers.Disciples].purchased > 0 ? 2 : 1
+    },
+    {
+      i18n: 'AntHolySpirit',
+      stat: () => player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 3 : 1
+    },
+    {
+      i18n: 'ThresholdModifiers',
+      stat: () => thresholdModifiers().rebornSpeedMult,
+      acc: 5
+    },
+    {
+      i18n: 'MortuusTalisman',
+      stat: () => getTalismanEffects('mortuus').antBonus
+    },
+    {
+      i18n: 'CubeBlessing',
+      stat: () => calculateAntELOCubeBlessing()
+    },
+    {
+      i18n: 'PlatonicUpgrade12',
+      stat: () => 1 + player.platonicUpgrades[12] / 10
+    },
+    {
+      i18n: 'Exalt6',
+      stat: () => (player.singularityChallenges.limitedTime.enabled && runes.antiquities.level === 0) ? 5 : 1,
+      color: 'orchid'
+    }
+  ]
+}
 
-export const ascensionCountMultStats: NumberStatLine[] = [
-  {
-    i18n: 'Base',
-    stat: () => 1 + +getAchievementReward('ascensionCountAdditive')
-  },
-  {
-    i18n: 'AchievementMultiplier',
-    stat: () => +getAchievementReward('ascensionCountMultiplier')
-  },
-  {
-    i18n: 'Challenge15',
-    stat: () => G.challenge15Rewards.ascensions.value,
-    displayCriterion: () => G.challenge15Rewards.ascensions.value > 1
-  },
-  {
-    i18n: 'PlatonicOMEGA',
-    stat: () => player.platonicUpgrades[15] > 0 ? 2 : 1,
-    displayCriterion: () => player.challengecompletions[14] > 0
-  },
-  {
-    i18n: 'PlatonicUpgrade16',
-    stat: () => 1 + player.platonicUpgrades[16] * 0.02 * (1 + Math.min(1, player.overfluxPowder / 100000)),
-    displayCriterion: () => player.challengecompletions[14] > 0
-  },
-  {
-    i18n: 'SingularityCount',
-    stat: () => 1 + player.singularityCount / 10,
-    displayCriterion: () => player.highestSingularityCount > 0
-  },
-  {
-    i18n: 'SingularityUpgrade',
-    stat: () => getGQUpgradeEffect('ascensions', 'ascensionCountMult'),
-    displayCriterion: () => player.highestSingularityCount > 0
-  },
-  {
-    i18n: 'OcteractUpgrade1',
-    stat: () => getOcteractUpgradeEffect('octeractAscensions', 'ascensionCountMult'),
-    displayCriterion: () => player.highestSingularityCount >= 8
-  },
-  {
-    i18n: 'OcteractUpgrade2',
-    stat: () => getOcteractUpgradeEffect('octeractAscensions2', 'ascensionCountMult'),
-    displayCriterion: () => player.highestSingularityCount >= 8
-  },
-  {
-    i18n: 'OneMind',
-    stat: () => getGQUpgradeEffect('oneMind', 'unlocked') ? calculateAscensionSpeedMult() / 10 : 1,
-    displayCriterion: () => player.highestSingularityCount >= 8
-  }
-]
+export const ascensionCountMultStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 1 + +getAchievementReward('ascensionCountAdditive')
+    },
+    {
+      i18n: 'AchievementMultiplier',
+      stat: () => +getAchievementReward('ascensionCountMultiplier')
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () => G.challenge15Rewards.ascensions.value
+    },
+    {
+      i18n: 'PlatonicOMEGA',
+      stat: () => player.platonicUpgrades[15] > 0 ? 2 : 1
+    },
+    {
+      i18n: 'PlatonicUpgrade16',
+      stat: () => 1 + player.platonicUpgrades[16] * 0.02 * (1 + Math.min(1, player.overfluxPowder / 100000))
+    },
+    {
+      i18n: 'SingularityCount',
+      stat: () => 1 + player.singularityCount / 10
+    },
+    {
+      i18n: 'SingularityUpgrade',
+      stat: () => getGQUpgradeEffect('ascensions', 'ascensionCountMult')
+    },
+    {
+      i18n: 'OcteractUpgrade1',
+      stat: () => getOcteractUpgradeEffect('octeractAscensions', 'ascensionCountMult')
+    },
+    {
+      i18n: 'OcteractUpgrade2',
+      stat: () => getOcteractUpgradeEffect('octeractAscensions2', 'ascensionCountMult')
+    },
+    {
+      i18n: 'OneMind',
+      stat: () => getGQUpgradeEffect('oneMind', 'unlocked') ? calculateAscensionSpeedMult() / 10 : 1
+    }
+  ]
+}
 
-const allMiscStats: StatLine[] = [
-  {
-    i18n: 'PrestigeCount',
-    stat: () => player.prestigeCount,
-    color: 'cyan'
-  },
-  {
-    i18n: 'FastestPrestige',
-    stat: () => 1000 * player.fastestprestige,
-    color: 'cyan'
-  },
-  {
-    i18n: 'RuneSum',
-    stat: () => sumOfRuneLevels(),
-    color: 'orange'
-  },
-  {
-    i18n: 'TranscendCount',
-    stat: () => player.transcendCount,
-    color: 'orchid'
-  },
-  {
-    i18n: 'FastestTranscend',
-    stat: () => 1000 * player.fastesttranscend,
-    color: 'orchid'
-  },
-  {
-    i18n: 'ReincarnationCount',
-    stat: () => player.reincarnationCount,
-    color: 'green'
-  },
-  {
-    i18n: 'FastestReincarnation',
-    stat: () => 1000 * player.fastestreincarnate,
-    color: 'green'
-  },
-  {
-    i18n: 'AscensionCount',
-    stat: () => player.ascensionCount,
-    color: 'orange'
-  },
-  {
-    i18n: 'QuarksThisSingularity',
-    stat: () => player.quarksThisSingularity,
-    color: 'cyan'
-  },
-  {
-    i18n: 'TotalQuarks',
-    stat: () => player.totalQuarksEver + player.quarksThisSingularity,
-    color: 'cyan'
-  },
-  {
-    i18n: 'QuarkTimer',
-    stat: () => player.quarkstimer,
-    color: 'yellow'
-  },
-  {
-    i18n: 'QuarkTimerMax',
-    stat: () => 90000 + 18000 * player.researches[195],
-    color: 'yellow'
-  }
-]
+const allMiscStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Misc,
+  lines: [
+    {
+      i18n: 'PrestigeCount',
+      stat: () => player.prestigeCount,
+      color: 'cyan'
+    },
+    {
+      i18n: 'FastestPrestige',
+      stat: () => 1000 * player.fastestprestige,
+      color: 'cyan'
+    },
+    {
+      i18n: 'RuneSum',
+      stat: () => sumOfRuneLevels(),
+      color: 'orange'
+    },
+    {
+      i18n: 'TranscendCount',
+      stat: () => player.transcendCount,
+      color: 'orchid'
+    },
+    {
+      i18n: 'FastestTranscend',
+      stat: () => 1000 * player.fastesttranscend,
+      color: 'orchid'
+    },
+    {
+      i18n: 'ReincarnationCount',
+      stat: () => player.reincarnationCount,
+      color: 'green'
+    },
+    {
+      i18n: 'FastestReincarnation',
+      stat: () => 1000 * player.fastestreincarnate,
+      color: 'green'
+    },
+    {
+      i18n: 'AscensionCount',
+      stat: () => player.ascensionCount,
+      color: 'orange'
+    },
+    {
+      i18n: 'QuarksThisSingularity',
+      stat: () => player.quarksThisSingularity,
+      color: 'cyan'
+    },
+    {
+      i18n: 'TotalQuarks',
+      stat: () => player.totalQuarksEver + player.quarksThisSingularity,
+      color: 'cyan'
+    },
+    {
+      i18n: 'QuarkTimer',
+      stat: () => player.quarkstimer,
+      color: 'yellow'
+    },
+    {
+      i18n: 'QuarkTimerMax',
+      stat: () => 90000 + 18000 * player.researches[195],
+      color: 'yellow'
+    }
+  ]
+}
 
 const LOADED_STATS_HTMLS = {
   challenge15: false
@@ -3650,8 +3787,10 @@ export const loadStatisticsUpdate = () => {
   }
 }
 
+const backgroundColors = ['#1f1f1f', '']
+
 const loadStatistics = (
-  statsObj: StatLine[],
+  statsObj: NumberStatLineCategory | DecimalStatLineCategory,
   parentDiv: string,
   statLinePrefix: string,
   specificClass: string,
@@ -3661,10 +3800,10 @@ const loadStatistics = (
 ) => {
   const parent = DOMCacheGetOrSet(parentDiv)
   const numStatLines = document.getElementsByClassName(specificClass).length
-  let createdStatLines = 0
+  let numberDisplayedLines = 0
 
-  for (const obj of statsObj) {
-    const key = obj.i18n
+  for (const line of statsObj.lines) {
+    const key = line.i18n
     const statHTMLName = statLinePrefix + key
     const statNumHTMLName = `${statLinePrefix}N${key}`
     if (numStatLines === 0) {
@@ -3672,8 +3811,8 @@ const loadStatistics = (
       statLine.id = statHTMLName
       statLine.className = 'statPortion'
       statLine.classList.add(specificClass)
-      statLine.style.color = obj.color ?? 'white'
-      statLine.style.backgroundColor = createdStatLines % 2 === 0 ? '#1f1f1f' : ''
+      statLine.style.color = line.color ?? 'white'
+      // statLine.style.backgroundColor = createdStatLines % 2 === 0 ? '#1f1f1f' : ''
       statLine.textContent = i18next.t(`statistics.${parentDiv}.${key}`)
 
       const statNum = document.createElement('span')
@@ -3682,32 +3821,25 @@ const loadStatistics = (
 
       statLine.appendChild(statNum)
       parent.appendChild(statLine)
-
-      createdStatLines += 1
     }
 
     const statLine = DOMCacheGetOrSet(statHTMLName)
     const statNumber = DOMCacheGetOrSet(statNumHTMLName)
+    const num = line.stat()
 
-    if (obj.displayCriterion) {
-      if (!prod) {
-        // Testing purposes: ALWAYS show statlines
-        statLine.style.display = 'block'
-        if (!obj.displayCriterion()) {
-          // Distinguish between shown via testing and shown via criterion
-          statLine.style.backgroundColor = 'crimson'
-        } else {
-          statLine.style.backgroundColor = ''
-        }
-      } else {
-        statLine.style.display = obj.displayCriterion() ? 'block' : 'none'
+    const displayLine = displayStatLine(statsObj.type, num, line.displayCriterion)
+    if (displayLine || !prod) {
+      statLine.style.display = 'block'
+      statLine.style.backgroundColor = backgroundColors[numberDisplayedLines % backgroundColors.length]
+      if (!displayLine) {
+        statLine.style.border = '1px solid red'
       }
+      numberDisplayedLines++
+      const accuracy = line.acc ?? 2
+      statNumber.textContent = format(num, accuracy, true)
+    } else {
+      statLine.style.display = 'none'
     }
-
-    const accuracy = obj.acc ?? 2
-    const num = obj.stat()
-
-    statNumber.textContent = format(num, accuracy, true)
   }
 
   const statTotalHTMLName = `${statLinePrefix}T`
@@ -3862,7 +3994,7 @@ const loadStatisticsObtainiumIgnoreDR = () => {
 const loadStatisticsObtainiumMultipliers = () => {
   loadStatistics(allObtainiumStats, 'obtainiumMultiplierStats', 'statObt', 'ObtainiumStat', calculateObtainiumDecimal)
   loadStatistics(
-    obtainiumDR.concat(offeringObtainiumTimeModifiers(player.reincarnationcounter, player.reincarnationCount >= 5)),
+    combinedObtainiumDRTimeModifiers(player.reincarnationcounter, player.reincarnationCount >= 5),
     'obtainiumMultiplierStats',
     'statObt2',
     'ObtainiumStat2',
@@ -4090,15 +4222,6 @@ const loadRedAmbrosiaGenerationStats = () => {
 
 const loadShopVoucherStats = () => {
   loadStatistics(
-    infinityShopUpgrades,
-    'shopVoucherStats',
-    'statSV',
-    'ShopVoucherStat',
-    () => 0,
-    '',
-    false
-  )
-  loadStatistics(
     allShopTablets,
     'shopVoucherStats',
     'statSV2',
@@ -4127,7 +4250,8 @@ const loadSalvageStats = () => {
   loadNegativeSalvageStats()
 
   loadStatistics(
-    [],
+    // Erm??
+    { kind: 'number', type: StatLineTypes.Misc, lines: [] },
     'salvageStats',
     'statSalv',
     'SalvageStat',
@@ -4146,7 +4270,7 @@ const loadPositiveSalvageStats = () => {
     calculateRawPositiveSalvage
   )
   loadStatistics(
-    [{ i18n: 'PositiveMultiplier', stat: () => calculatePositiveSalvageMultiplier() }],
+    positiveSalvageStatMultiplier,
     'salvagePositive',
     'statSalvPos2',
     'SalvageStatPositive2',
@@ -4164,7 +4288,7 @@ const loadNegativeSalvageStats = () => {
     calculateRawNegativeSalvage
   )
   loadStatistics(
-    [{ i18n: 'NegativeMultiplier', stat: () => calculateNegativeSalvageMultiplier() }],
+    negativeSalvageStatMultiplier,
     'salvageNegative',
     'statSalvNeg2',
     'SalvageStatNegative2',

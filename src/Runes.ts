@@ -15,7 +15,7 @@ import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { resetTiers } from './Reset'
 import { createShopUpgradeTypeIcon, getShopUpgradeEffects, ShopUpgradeGroups } from './Shop'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
+import { calculateTotalStat, firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
 import { assert } from './Utility'
@@ -284,11 +284,11 @@ const horseShoeOOMIncrease = () => {
 }
 
 export const firstFiveEffectiveRuneLevelMult = () => {
-  return firstFiveRuneEffectivenessStats.reduce((x, y) => x * y.stat(), 1)
+  return calculateTotalStat(firstFiveRuneEffectivenessStats)
 }
 
 export const SIEffectiveRuneLevelMult = () => {
-  return runeEffectivenessStatsSI.reduce((x, y) => x * y.stat(), 1)
+  return calculateTotalStat(runeEffectivenessStatsSI)
 }
 
 const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
