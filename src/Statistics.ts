@@ -76,8 +76,7 @@ import {
   calculateTotalOcteractOfferingBonus,
   calculateTotalOcteractQuarkBonus,
   calculateTotalSalvage,
-  derpsmithCornucopiaBonus,
-  resetTimeThreshold
+  derpsmithCornucopiaBonus
 } from './Calculate'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
 import { prod } from './Config'
@@ -242,14 +241,15 @@ export const allCubeStats: NumberStatLineCategory = {
       i18n: 'AscensionTime',
       stat: () => {
         const ascensionCounter = player.ascensionCounter
-        const resetThreshold = resetTimeThreshold()
+        const resetThreshold = G.ASCENSION_RESET_THRESHOLD
         const scale = getAchievementReward('ascensionRewardScaling')
 
+        const penalty = Math.min(1, ascensionCounter / resetThreshold)
+        const extraReward = Math.max(1, ascensionCounter / resetThreshold)
         if (scale) {
-          return Math.pow(Math.min(1, ascensionCounter / resetThreshold), 2)
-            * (1 + Math.max(0, ascensionCounter / resetThreshold - 1))
+          return penalty * extraReward
         } else {
-          return Math.pow(Math.min(1, ascensionCounter / resetThreshold), 2)
+          return penalty
         }
       }
     },
@@ -416,7 +416,7 @@ export const allCubeStats: NumberStatLineCategory = {
       i18n: 'OneMind',
       stat: () => {
         return getGQUpgradeEffect('oneMind', 'unlocked')
-          ? calculateAscensionSpeedMult() / 10
+          ? calculateAscensionSpeedMult() / G.MIND_DIVISOR
           : 1
       },
       color: 'magenta'
@@ -424,7 +424,8 @@ export const allCubeStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.Cubes),
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     }
   ]
 }
@@ -834,7 +835,9 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Event',
-      stat: () => 1 + calculateEventBuff(BuffType.Octeract)
+      stat: () => 1 + calculateEventBuff(BuffType.Octeract),
+      color: 'lime',
+      displayCriterion: () => true
     },
     {
       i18n: 'PlatonicDelta',
@@ -895,13 +898,14 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
     {
       i18n: 'AscensionSpeed',
       stat: () => {
-        const ascensionSpeed = getGQUpgradeEffect('oneMind', 'unlocked')
-          ? Math.pow(10, 1 / 2) * Math.pow(
-            calculateAscensionSpeedMult() / 10,
-            getOcteractUpgradeEffect('octeractOneMindImprover', 'ascendSpeedExponent')
-          )
-          : Math.pow(calculateAscensionSpeedMult(), 1 / 2)
-        return ascensionSpeed
+        const rawSpeedMult = calculateAscensionSpeedMult()
+        if (rawSpeedMult < 1 || !getGQUpgradeEffect('oneMind', 'unlocked')) {
+          return Math.pow(rawSpeedMult, 1 / 2)
+        } else {
+          // 1/2 <= exponent, meaning if rawSpeedMult > 1 we expect this to be larger by monotonicity
+          const exponent = getOcteractUpgradeEffect('octeractOneMindImprover', 'ascendSpeedExponent')
+          return Math.pow(rawSpeedMult, exponent)
+        }
       }
     }
   ]
@@ -1199,7 +1203,8 @@ export const allOfferingStats: DecimalStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.Offering), // Event
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     }
   ]
 }
@@ -1438,7 +1443,8 @@ export const allQuarkStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.Quark) + calculateEventBuff(BuffType.OneMind) : 1,
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     },
     {
       i18n: 'GlobalSubscriber',
@@ -1584,7 +1590,8 @@ export const allObtainiumIgnoreDRStats: DecimalStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.Obtainium), // Event Buff
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     }
   ]
 }
@@ -1789,16 +1796,16 @@ export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: bool
     lines: [
       {
         i18n: 'ThresholdPenalty',
-        stat: () => Math.min(1, Math.pow(time / resetTimeThreshold(), 2)),
+        stat: () => Math.min(1, time / 10),
         color: 'red'
       },
       {
         i18n: 'TimeMultiplier',
-        stat: () => timeMultCheck ? Math.max(1, time / resetTimeThreshold()) : 1
+        stat: () => timeMultCheck ? Math.max(1, time / 10) : 1
       },
       {
         i18n: 'HalfMind',
-        stat: () => getGQUpgradeEffect('halfMind', 'unlocked') ? calculateGlobalSpeedMult() / 10 : 1
+        stat: () => getGQUpgradeEffect('halfMind', 'unlocked') ? calculateGlobalSpeedMult() / G.MIND_DIVISOR : 1
       }
     ]
   }
@@ -1863,7 +1870,8 @@ export const antSacrificeRewardStats: DecimalStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.AntSacrifice),
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     }
   ]
 }
@@ -1901,7 +1909,8 @@ export const allGlobalSpeedIgnoreDRStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.GlobalSpeed), // Event
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     }
   ]
 }
@@ -2096,7 +2105,8 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.AscensionSpeed), // Event
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     }
   ]
 }
@@ -2162,7 +2172,8 @@ export const allAdditiveLuckMultStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0, // Event
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     }
   ]
 }
@@ -2408,7 +2419,8 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1, // Event Bonus
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     }
   ]
 }
@@ -2449,7 +2461,8 @@ export const allPowderMultiplierStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.PowderConversion), // Event bonus
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     }
   ]
 }
@@ -2518,7 +2531,8 @@ export const allGoldenQuarkMultiplierStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.GoldenQuark), // Event
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     }
   ]
 }
@@ -2575,7 +2589,8 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 / (1 + calculateEventBuff(BuffType.GoldenQuark)),
-      color: 'lime'
+      color: 'lime',
+      displayCriterion: () => true
     }
   ]
 }
@@ -3525,7 +3540,7 @@ export const ascensionCountMultStats: NumberStatLineCategory = {
     },
     {
       i18n: 'OneMind',
-      stat: () => getGQUpgradeEffect('oneMind', 'unlocked') ? calculateAscensionSpeedMult() / 10 : 1
+      stat: () => getGQUpgradeEffect('oneMind', 'unlocked') ? calculateAscensionSpeedMult() / G.MIND_DIVISOR : 1
     }
   ]
 }

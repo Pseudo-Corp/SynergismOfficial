@@ -131,8 +131,19 @@ export const getEventBuff = (buff: BuffType): number => {
       return event.obtainium
     case BuffType.Octeract:
       return event.octeract
-    case BuffType.OneMind:
-      return getGQUpgradeEffect('oneMind', 'unlocked') ? event.oneMind : 0
+    case BuffType.OneMind: {
+      const full = getGQUpgradeEffect('oneMind', 'unlocked')
+      if (full) {
+        return event.oneMind
+      }
+
+      const half = getGQUpgradeEffect('halfMind', 'unlocked')
+      if (half) {
+        return event.oneMind / 2
+      }
+
+      return 0
+    }
     case BuffType.BlueberryTime:
       return event.blueberryTime
     case BuffType.AmbrosiaLuck:

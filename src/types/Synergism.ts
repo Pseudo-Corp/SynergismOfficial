@@ -739,6 +739,10 @@ export interface GlobalVariables {
   currentSingChallenge: SingularityChallengeDataKeys | undefined
 
   coinVanityThresholds: number[]
+
+  MIND_DIVISOR: number
+  GLOBAL_RESET_THRESHOLD: number
+  ASCENSION_RESET_THRESHOLD: number
 }
 
 // If changing these, make reset tiers on top, then challenge types, then specific actions

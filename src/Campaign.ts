@@ -79,7 +79,6 @@ type CampaignTokenRewardNames =
   | 'obtainium'
   | 'offering'
   | 'ascensionScore'
-  | 'timeThreshold'
   | 'quark'
   | 'tax'
   | 'c15'
@@ -114,7 +113,6 @@ interface ICampaignData {
   cardinal: number
 }
 
-const timeThresholdReqs = [20, 100, 250, 500, 1000, 2000, 3500, 5000]
 const bonusRune6ThresholdReqs = [500, 750, 1000, 1250, 1500, 1750, 2000, 3000, 4000, 6000, 8000, 10000]
 
 export class CampaignManager {
@@ -394,20 +392,6 @@ export class CampaignManager {
       + 0.2 * 1 / 100 * Math.min(campaignTokens, 100)
       + 0.3 * (1 - Math.exp(-Math.max(campaignTokens - 100, 0) / 1000))
       + 0.5 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 5000))
-  }
-  /**
-   * Returns the time threshold reduction for Prestige, Reincarnation and Ascension
-   * Threshold is defined as having quadratic penalty if your reset lasts less than X seconds
-   * Reducing the threshold reduces the denominator of the penalty, e.g. if the base is 10 seconds,
-   * the penalty is *(time/10)^2, reducing the threshold to 5 seconds would make the penalty *(time/5)^2
-   */
-  get timeThresholdReduction () {
-    for (let i = 0; i < timeThresholdReqs.length; i++) {
-      if (campaignTokens < timeThresholdReqs[i]) {
-        return i / 4
-      }
-    }
-    return 2
   }
 
   get quarkBonus () {
@@ -1431,10 +1415,6 @@ const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRe
   ascensionScore: {
     tokenRequirement: 0,
     reward: () => formatAsPercentIncrease(player.campaigns.ascensionScoreMultiplier)
-  },
-  timeThreshold: {
-    tokenRequirement: 20,
-    reward: () => String(player.campaigns.timeThresholdReduction)
   },
   quark: {
     tokenRequirement: 100,

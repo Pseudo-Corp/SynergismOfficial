@@ -8,7 +8,6 @@ import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
 import { thresholdModifiers } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
-import { calculateAntSacrificeObtainium } from './Features/Ants/AntSacrifice/Rewards/Obtainium/calculate-obtainium'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { addTimers, automaticTools } from './Helper'
@@ -258,45 +257,19 @@ export const calculateObtainium = (timeMultUsed = true) => {
 }
 
 const calculateFastForwardResourcesGlobal = (
-  resetTime: number,
-  fastForwardAmount: Decimal,
+  fastForwardAmount: number,
   resourceMult: Decimal,
-  baseResource: number
+  baseResource: number,
+  speedMult?: number
 ) => {
-  // We're going to use the log trick to account for the fact that resourceMult * timeMult can still be >1e300
-  // Even if timeMult is very small.
-
-  // Math to compute the change in multiplier based on time
-  // The amount of offerings to give is proportional to the difference in
-  // Time Multipliers.
-  let timeMultiplier: Decimal = new Decimal('1')
-
-  const deltaTime = fastForwardAmount.times(
-    getGQUpgradeEffect('halfMind', 'unlocked') ? 10 : calculateGlobalSpeedMult()
-  )
-
-  // Build approximations through direct computation of the derivative of time multiplier
-  // And then multiplying by deltaTime, so basically a linear approximation (See: Calculus)
-
-  // In order for the time multiplier to not decrease as your resetTime increases, while accurately portraying
-  //  take the min of
-  // two approximations: one with quadratic penalty (if less than threshold) and that of linear penalty
-  // Use the derivative of the quadratic part
-
-  timeMultiplier = Decimal.min(
-    deltaTime.times(2 * resetTime).div(resetTimeThreshold() ** 2),
-    deltaTime.div(resetTimeThreshold())
-  )
-
-  // Correct multiplier if half mind is purchased
-  timeMultiplier.times(getGQUpgradeEffect('halfMind', 'unlocked') ? calculateGlobalSpeedMult() / 10 : 1)
-
-  return Decimal.max(fastForwardAmount.times(baseResource), resourceMult.times(timeMultiplier))
+  const globalSpeedMult = speedMult ?? calculateGlobalSpeedMult()
+  const deltaTime = Decimal.fromNumber(fastForwardAmount).times(globalSpeedMult).div(G.GLOBAL_RESET_THRESHOLD)
+  return Decimal.max(baseResource * fastForwardAmount, resourceMult.times(deltaTime))
 }
 
-export const calculatePotionValue = (resetTime: number, resourceMult: Decimal, baseResource: number) => {
-  const potionTimeValue = new Decimal(7200)
-  const fastForwardMult = calculateFastForwardResourcesGlobal(resetTime, potionTimeValue, resourceMult, baseResource)
+export const calculatePotionValue = (resourceMult: Decimal, baseResource: number) => {
+  const potionTimeValue = 7_200
+  const fastForwardMult = calculateFastForwardResourcesGlobal(potionTimeValue, resourceMult, baseResource)
   const potionMultipliers = getGQUpgradeEffect('potionBuff', 'potionPowerMult')
     * getGQUpgradeEffect('potionBuff2', 'potionPowerMult')
     * getGQUpgradeEffect('potionBuff3', 'potionPowerMult')
@@ -307,7 +280,7 @@ export const calculatePotionValue = (resetTime: number, resourceMult: Decimal, b
 
 export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
   if (player.currentChallenge.ascension === 14) {
-    return new Decimal('0')
+    return Decimal.fromString('0')
   }
 
   const multiplier = 0.5 * player.researches[61]
@@ -315,27 +288,30 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
     + 0.8 * player.cubeUpgrades[3]
 
   if (multiplier === 0) {
-    return new Decimal('0')
+    return Decimal.fromString('0')
   }
 
   const useTimer = false
   const resourceMult = calculateObtainium(useTimer)
   const globalSpeedMult = calculateGlobalSpeedMult()
-  const resetTimeDivisor = resetTimeThreshold()
-  const timePenaltyMult = Math.min(1, player.reincarnationcounter / resetTimeDivisor)
-
   const baseObtainium = calculateBaseObtainium()
-  const nonBaseValue = resourceMult.times(globalSpeedMult).times(timePenaltyMult)
-  let nonBaseAntValue = new Decimal(0)
+
+  const researchVal = calculateFastForwardResourcesGlobal(deltaTime, resourceMult, baseObtainium, globalSpeedMult)
+
+  let antVal = new Decimal(0)
   if (player.cubeUpgrades[47] > 0) {
     const stageMod = thresholdModifiers().antSacrificeObtainiumMult
-    const antMult = calculateAntSacrificeObtainium(stageMod, useTimer)
-    const antTimePenaltyMult = Math.min(1, player.antSacrificeTimer / resetTimeDivisor)
-    nonBaseAntValue = antMult.times(globalSpeedMult).times(antTimePenaltyMult)
+    const antSacMult = calculateAntSacrificeMultiplier().times(stageMod)
+    antVal = calculateFastForwardResourcesGlobal(
+      deltaTime,
+      resourceMult.times(antSacMult),
+      baseObtainium,
+      globalSpeedMult
+    )
   }
 
-  return Decimal.max(baseObtainium, Decimal.max(nonBaseValue, nonBaseAntValue)).times(deltaTime).div(resetTimeDivisor)
-    .times(multiplier)
+  // Decimal.max only supports two arguments, so nesting is necessary
+  return Decimal.max(researchVal, antVal).times(multiplier)
 }
 
 export const calculateQuarkMultiplier = () => calculateTotalStat(allQuarkStats)
@@ -1607,15 +1583,6 @@ export const singularityBonusTokenMult = () => {
   }
 
   return 1
-}
-
-export const resetTimeThreshold = () => {
-  const base = 10
-  let reduction = 0
-
-  reduction += player.campaigns.timeThresholdReduction
-
-  return base - reduction
 }
 
 const calculatePlatonic7UpgradePower = () => {

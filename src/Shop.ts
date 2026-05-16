@@ -252,7 +252,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     effects: () => 7200, // skipSeconds
     effectDescription: () => {
       const amount = format(
-        calculatePotionValue(player.prestigecounter, calculateOfferingsDecimal(), calculateBaseOfferings()),
+        calculatePotionValue(calculateOfferingsDecimal(), calculateBaseOfferings()),
         2,
         true
       )
@@ -277,7 +277,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     effects: () => 7200, // skipSeconds
     effectDescription: () => {
       const amount = format(
-        calculatePotionValue(player.reincarnationcounter, calculateObtainium(), calculateBaseObtainium()),
+        calculatePotionValue(calculateObtainium(false), calculateBaseObtainium()),
         2,
         true
       )
@@ -2507,7 +2507,6 @@ export const useConsumable = (
 
   if (input === 'offeringPotion') {
     let offeringPotionValue = calculatePotionValue(
-      player.prestigecounter,
       calculateOfferingsDecimal(),
       calculateBaseOfferings()
     )
@@ -2540,8 +2539,7 @@ export const useConsumable = (
     }
 
     let obtainiumPotionValue = calculatePotionValue(
-      player.reincarnationcounter,
-      calculateObtainium(),
+      calculateObtainium(false),
       calculateBaseObtainium()
     )
 
