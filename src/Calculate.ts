@@ -310,7 +310,6 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
     )
   }
 
-  // Decimal.max only supports two arguments, so nesting is necessary
   return Decimal.max(researchVal, antVal).times(multiplier)
 }
 

@@ -2,6 +2,7 @@ import i18next from 'i18next'
 import { achievementLevel } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format, formatAsPercentIncrease, player } from './Synergism'
+import { Globals as G } from './Variables'
 
 type SynergismLevelReward =
   | 'quarks'
@@ -327,7 +328,7 @@ const synergismLevelMilestones: Record<SynergismLevelMilestones, SynergismLevelM
     defaultValue: 0,
     effectDescription: () => {
       const mult = getLevelMilestone('offeringTimerScaling') === 1
-        ? Math.max(1, player.prestigecounter / 10)
+        ? Math.max(1, player.prestigecounter / G.GLOBAL_RESET_THRESHOLD)
         : 1
       return i18next.t('achievements.levelMilestones.offeringTimerScaling.effect', {
         mult: formatAsPercentIncrease(mult, 2)

@@ -1796,12 +1796,12 @@ export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: bool
     lines: [
       {
         i18n: 'ThresholdPenalty',
-        stat: () => Math.min(1, time / 10),
+        stat: () => Math.min(1, time / G.GLOBAL_RESET_THRESHOLD),
         color: 'red'
       },
       {
         i18n: 'TimeMultiplier',
-        stat: () => timeMultCheck ? Math.max(1, time / 10) : 1
+        stat: () => timeMultCheck ? Math.max(1, time / G.GLOBAL_RESET_THRESHOLD) : 1
       },
       {
         i18n: 'HalfMind',
