@@ -6,8 +6,13 @@ import { Notification } from '../UpdateHTML'
 let adMobInitialized = false
 
 export async function initAdMob (): Promise<void> {
-  const consentInfo = await AdMob.requestConsentInfo()
-  const trackingInfo = await AdMob.trackingAuthorizationStatus()
+  await AdMob.initialize()
+
+  const [trackingInfo, consentInfo] = await Promise.all([
+    AdMob.trackingAuthorizationStatus(),
+    AdMob.requestConsentInfo()
+  ])
+
   if (trackingInfo.status === 'notDetermined') {
     await AdMob.requestTrackingAuthorization()
   }
@@ -18,13 +23,6 @@ export async function initAdMob (): Promise<void> {
   ) {
     await AdMob.showConsentForm()
   }
-
-  await AdMob.initialize()
-
-  AdMob.addListener(RewardAdPluginEvents.Loaded, () => {
-    // TODO: Figure out if this is even needed for ios? I know AdLoadInfo seems to be inconsistent between the two
-    // Also, if it is needed, what needs to be done here?
-  })
 
   AdMob.addListener(RewardAdPluginEvents.Rewarded, () => {
     const alreadyActive = isAdEventEnabled()
@@ -37,6 +35,10 @@ export async function initAdMob (): Promise<void> {
   })
 
   AdMob.addListener(RewardAdPluginEvents.FailedToLoad, () => {
+    void Notification(i18next.t('advertisements.failedToLoad'))
+  })
+
+  AdMob.addListener(RewardAdPluginEvents.FailedToShow, () => {
     void Notification(i18next.t('advertisements.failedToLoad'))
   })
 }

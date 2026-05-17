@@ -791,6 +791,11 @@ export function sendToWebsocket (message: string) {
 async function logout () {
   await fetch('https://synergism.cc/api/v1/users/logout')
 
+  if (platform === 'mobile') {
+    const { CapacitorCookies } = await import('@capacitor/core')
+    await CapacitorCookies.clearAllCookies()
+  }
+
   await Alert(i18next.t('account.logout'))
   location.reload()
 }
