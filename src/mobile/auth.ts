@@ -76,12 +76,13 @@ const applyAppleButtonStyles = (btn: HTMLInputElement | HTMLButtonElement, label
   btn.style.padding = '10px 16px'
   btn.style.fontWeight = '600'
   btn.style.cursor = 'pointer'
-  btn.style.display = 'inline-flex'
+  btn.style.display = 'flex'
   btn.style.alignItems = 'center'
   btn.style.justifyContent = 'center'
   btn.style.gap = '8px'
+  btn.style.boxSizing = 'border-box'
   btn.style.width = '100%'
-  btn.style.marginTop = '6px'
+  btn.style.margin = '6px 0 0'
 
   if (btn instanceof HTMLInputElement) {
     btn.value = label
@@ -100,12 +101,13 @@ const applyGoogleButtonStyles = (btn: HTMLInputElement | HTMLButtonElement, labe
   btn.style.padding = '10px 16px'
   btn.style.fontWeight = '500'
   btn.style.cursor = 'pointer'
-  btn.style.display = 'inline-flex'
+  btn.style.display = 'flex'
   btn.style.alignItems = 'center'
   btn.style.justifyContent = 'center'
   btn.style.gap = '8px'
+  btn.style.boxSizing = 'border-box'
   btn.style.width = '100%'
-  btn.style.marginTop = '6px'
+  btn.style.margin = '6px 0 0'
 
   if (btn instanceof HTMLInputElement) {
     btn.value = label

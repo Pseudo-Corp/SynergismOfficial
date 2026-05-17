@@ -4959,6 +4959,7 @@ img#singularityPerksIcon {
 #accountSubTab div#left.scrollbarX > div[id="button-holder"] {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -7457,5 +7458,10 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     #challengesAutoToggles > button {
         min-height: 44px;
         padding: 8px 12px;
+    }
+
+    #accountSubTab div#left.scrollbarX > div:is(#register, #login, #forgotpassword) {
+        width: 100%;
+        box-sizing: border-box;
     }
 }
