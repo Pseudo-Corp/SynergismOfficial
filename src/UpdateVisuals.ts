@@ -35,7 +35,7 @@ import {
   calculateTotalSalvage
 } from './Calculate'
 import { CalcECC, challengeDisplay, timeSinceLastStateChange } from './Challenges'
-import { testing, version } from './Config'
+import { platform, testing, version } from './Config'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -138,6 +138,7 @@ import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { sumContents, timeRemainingHours, timeRemainingMinutes } from './Utility'
 import { Globals as G } from './Variables'
+import { updateMobileUpgradeDescription } from './Upgrades'
 
 const coinUpper = [
   'produceFirst',
@@ -662,7 +663,13 @@ export const visualUpdateBuildings = () => {
   }
 }
 
-export const visualUpdateUpgrades = () => {}
+export const visualUpdateUpgrades = () => {
+  if (platform === 'mobile') {
+    for (let upgId = 1; upgId <= 125; upgId++) {
+      updateMobileUpgradeDescription(upgId)
+    }
+  }
+}
 
 export const visualUpdateAchievements = () => {
   if (G.currentTab !== Tabs.Achievements) {

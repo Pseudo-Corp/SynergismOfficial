@@ -159,7 +159,7 @@ import {
   ascendBuildingDR,
   buyConstantUpgrades,
   buyUpgradeByCategory,
-  generateWebUpgradesTab,
+  generateUpgradesTab,
   getConstUpgradeMetadata,
   upgradeupdate
 } from './Upgrades'
@@ -5309,7 +5309,7 @@ window.addEventListener('load', async () => {
   }
   document.title = `Synergism v${version}`
 
-  generateWebUpgradesTab()
+  generateUpgradesTab()
   generateRunesHTML()
   generateTalismansHTML()
   generateBlessingsHTML()

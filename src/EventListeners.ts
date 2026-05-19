@@ -196,7 +196,6 @@ import {
   buyConstantUpgrades,
   constantUpgradeDescriptions,
   crystalupgradedescriptions,
-  upgradeDescriptionHTML
 } from './Upgrades'
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
@@ -419,18 +418,6 @@ export const generateEventHandlers = () => {
   // UPGRADES TAB
   // For all upgrades in the Upgrades Tab (125) count, we have the same mouseover event. So we'll work on those first.
   DOMCacheGetOrSet('buyAllUpgrades').addEventListener('click', () => buyAllUpgrades(false))
-
-  for (let index = 1; index <= 125; index++) {
-    const upgrade = DOMCacheGetOrSet(`upg${index}`)
-    upgrade.addEventListener('mousemove', (e: MouseEvent) =>
-      Modal(
-        () => upgradeDescriptionHTML(index),
-        e.clientX,
-        e.clientY,
-        { borderColor: 'gold' }
-      ))
-    upgrade.addEventListener('mouseout', CloseModal)
-  }
 
   // ACHIEVEMENTS TAB
   // TODO: Remove 1 indexing

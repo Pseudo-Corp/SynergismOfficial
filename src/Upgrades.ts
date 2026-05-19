@@ -20,9 +20,10 @@ import {
 } from './Synergism'
 import type { upgradeAutos } from './Toggles'
 import { toggleShops } from './Toggles'
-import { revealStuff } from './UpdateHTML'
+import { CloseModal, Modal, revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
+import { platform } from './Config'
 
 const crystalupgdesc: Record<number, () => Record<string, string>> = {
   3: () => ({
@@ -121,7 +122,7 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
     mainIconName: 'Particle',
     listIconName: 'Particle',
     i18n: 'particles',
-    unlockHTMLClass: 'reincarnateunlock',
+    unlockHTMLClass: 'reincarnationunlock',
     autoToggle: 'reincarnate',
     color: 'limegreen',
     ariaLabelledBy: 'reincarnationtext'
@@ -515,12 +516,10 @@ export const upgradeDescriptionHTML = (i: number) => {
     clickUpgrades(i, false)
   }
 
-  const y = i18next.t(`upgrades.descriptions.${i}`)
-  const z = player.upgrades[i] > 0.5 ? ' BOUGHT!' : ''
-
-  const descriptionText = y + z
+  let descriptionText = i18next.t(`upgrades.descriptions.${i}`)
   let descColor = 'white'
-  if (player.upgrades[i]) {
+  if (player.upgrades[i]) { 
+    descriptionText += ` ${i18next.t('upgrades.bought')}`
     descColor = 'gold'
   }
 
@@ -550,6 +549,43 @@ export const upgradeDescriptionHTML = (i: number) => {
   const effectText = upgradeeffects(i)
   const effectHTML = `<span style="color:gold">${effectText}</span>`
   return `${descHTML}<br>${costHTML}<br>${effectHTML}`
+}
+
+export const updateMobileUpgradeDescription = (i: number) => {
+  let currency = ''
+  let costColor = ''
+  if ((i <= 20 && i >= 1) || (i <= 110 && i >= 106) || (i <= 125 && i >= 121)) {
+    currency = 'Coins'
+    costColor = 'yellow'
+  }
+  if ((i <= 40 && i >= 21) || (i <= 105 && i >= 101) || (i <= 115 && i >= 111) || (i <= 87 && i >= 81)) {
+    currency = 'Diamonds'
+    costColor = 'cyan'
+  }
+  if ((i <= 60 && i >= 41) || (i <= 120 && i >= 116) || (i <= 93 && i >= 88)) {
+    currency = 'Mythos'
+    costColor = 'plum'
+  }
+  if ((i <= 80 && i >= 61) || (i <= 100 && i >= 94)) {
+    currency = 'Particles'
+    costColor = 'limegreen'
+  }
+
+  if (!player.upgrades[i]) {
+    const costText = `Cost: ${format(Decimal.pow(10, G.upgradeCosts[i]))} ${currency}`
+    DOMCacheGetOrSet(`upg${i}Cost`).innerHTML = `<span style="color:${costColor}">${costText}</span>`
+  }
+  else {
+    const boughtText = i18next.t('upgrades.bought')
+    DOMCacheGetOrSet(`upg${i}Cost`).innerHTML = `<span style="color: gold">${boughtText}</span>`
+  }
+
+  let descText = i18next.t(`upgrades.descriptions.${i}`)
+  DOMCacheGetOrSet(`upg${i}Description`).innerHTML = descText
+
+  const effectText = `<span style="color: gold">${upgradeeffects(i)}</span>`
+  DOMCacheGetOrSet(`upg${i}Effect`).innerHTML = effectText
+
 }
 
 export const clickUpgrades = (i: number, auto: boolean) => {
@@ -873,9 +909,8 @@ const upgradeUnlockMap: Record<number, string> = Object.fromEntries(
 
 let createdHTMLThisSession = false
 
-const createUpgradeSectionHeader = (category: UpgradeCategories) => {
+const createUpgradeSectionIcon = (category: UpgradeCategories) => {
   const data = categoryData[category]
-  const header = document.createElement('header')
 
   const img = document.createElement('img')
   img.classList.add('currency-icon')
@@ -883,9 +918,8 @@ const createUpgradeSectionHeader = (category: UpgradeCategories) => {
   img.src = `Pictures/Default/${data.mainIconName}.png`
   img.id = `upgrades${category}`
   img.loading = 'lazy'
-  header.appendChild(img)
 
-  return header
+  return img
 }
 
 const createUpgradeSectionText = (category: UpgradeCategories) => {
@@ -935,6 +969,7 @@ const createUpgradeSectionButtons = (category: UpgradeCategories) => {
 const createWebUpgradesTable = (category: UpgradeCategories) => {
   const data = categoryData[category]
   const table = document.createElement('table')
+  table.style.border = `2px solid ${data.color}`
   const numRows = Math.ceil(data.upgradeIds.length / 5)
   for (let row = 0; row < numRows; row++) {
     const rowElm = document.createElement('tr')
@@ -951,6 +986,15 @@ const createWebUpgradesTable = (category: UpgradeCategories) => {
       btn.setAttribute('i18n-aria-label', i18next.t(`upgrades.descriptions.${id}`))
       btn.addEventListener('click', () => clickUpgrades(id, false))
 
+      btn.addEventListener('mousemove', (e: MouseEvent) =>
+            Modal(
+              () => upgradeDescriptionHTML(id),
+              e.clientX,
+              e.clientY,
+              { borderColor: 'gold' }
+            ))
+      btn.addEventListener('mouseout', CloseModal)
+
       const img = document.createElement('img')
       img.src = `Pictures/Default/${data.listIconName}${orderedIndex + 1}.png`
 
@@ -964,7 +1008,67 @@ const createWebUpgradesTable = (category: UpgradeCategories) => {
   return table
 }
 
-const createWebUpgradeSection = (category: UpgradeCategories) => {
+const createMobileUpgradesDiv = (category: UpgradeCategories) => {
+  const data = categoryData[category]
+  const div = document.createElement('div')
+
+  // Contains 2 elements per row. Need to show all info.
+  div.classList.add('mobileUpgradeTabContainer')
+  div.style.border = `2px solid ${data.color}`
+
+  let picIndex = 0
+  data.upgradeIds.forEach((id) => {
+    picIndex++
+    const elm = document.createElement('div')
+    elm.id = `upg${id}`
+    elm.classList.add('mobileUpgradeBox')
+    if (upgradeUnlockMap[id] !== '') {
+      elm.classList.add(upgradeUnlockMap[id])
+    }
+    elm.setAttribute('i18n-aria-label', i18next.t(`upgrades.descriptions.${id}`))
+    elm.addEventListener('click', () => {
+      clickUpgrades(id, false)
+      updateMobileUpgradeDescription(id)
+    })
+
+    // Need to insert icon, description, cost and effect info...
+    const iconAndCostDiv = document.createElement('div')
+    iconAndCostDiv.classList.add('mobileUpgradeIconAndCost')
+
+    const img = document.createElement('img')
+    img.src = `Pictures/Default/${data.listIconName}${picIndex}.png`
+    iconAndCostDiv.appendChild(img)
+
+    const costButton = document.createElement('button')
+    costButton.id = `upg${id}Cost`
+
+    costButton.addEventListener('click', () => {
+      clickUpgrades(id, false)
+      updateMobileUpgradeDescription(id)
+    })
+
+    iconAndCostDiv.appendChild(costButton)
+
+    elm.appendChild(iconAndCostDiv)
+
+    const descriptionP = document.createElement('p')
+    descriptionP.id = `upg${id}Description`
+    descriptionP.style.color = 'lightblue'
+
+    elm.appendChild(descriptionP)
+    
+    const effectP = document.createElement('p')
+    effectP.id = `upg${id}Effect`
+    
+    elm.appendChild(effectP)
+
+    div.appendChild(elm)
+  })
+
+  return div
+}
+
+const createUpgradeSection = (category: UpgradeCategories) => {
   const data = categoryData[category]
   const section = document.createElement('section')
   section.setAttribute('aria-labelledby', categoryData[category].ariaLabelledBy)
@@ -973,20 +1077,27 @@ const createWebUpgradeSection = (category: UpgradeCategories) => {
     section.classList.add(data.unlockHTMLClass)
   }
 
-  section.appendChild(createUpgradeSectionHeader(category))
+  section.appendChild(createUpgradeSectionIcon(category))
   section.appendChild(createUpgradeSectionText(category))
   section.appendChild(createUpgradeSectionButtons(category))
-  section.appendChild(createWebUpgradesTable(category))
+
+  if (platform === 'mobile') {
+    section.appendChild(createMobileUpgradesDiv(category))
+  }
+  else {
+    section.appendChild(createWebUpgradesTable(category))
+  }
   return section
 }
 
-export const generateWebUpgradesTab = () => {
+
+export const generateUpgradesTab = () => {
   if (createdHTMLThisSession) {
     return
   }
   const flexTab = DOMCacheGetOrSet('upgradesFlex')
   for (let i = UpgradeCategories.Coin; i <= UpgradeCategories.Particle; i++) {
-    flexTab.appendChild(createWebUpgradeSection(i))
+    flexTab.appendChild(createUpgradeSection(i))
   }
   createdHTMLThisSession = true
 }

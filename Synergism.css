@@ -892,7 +892,6 @@ p#buildinghotkeys2 {
 }
 
 #upgradesFlex > section {
-    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -6133,6 +6132,10 @@ html[data-prestige-unlock="true"] .offlineStats > .prestigeunlock {
     display: flex;
 }
 
+html[data-prestige-unlock="true"] .shopSection > .prestigeunlock {
+    display: flex;
+}
+
 html[data-transcend-unlock="true"] .transcendunlock {
     display: block;
 }
@@ -6490,7 +6493,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     /* Upgrades flex container */
     #upgradesFlex {
         display: grid;
-        grid-template-columns: repeat(3, 33%);
+        grid-template-columns: repeat(6, 16%);
         margin: 2% auto;
         width: unset;
     }
@@ -6503,8 +6506,40 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         margin-top: 10px;
     }
 
-    .shop-section.mobile-flex {
+    /* Upgrade box */
+    .mobileUpgradeTabContainer {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .mobileUpgradeBox {
         display: flex;
+        flex-direction: column;
+        border: 2px solid white;
+        gap: 1%;
+    }
+
+    .mobileUpgradeBox > p {
+        margin: 0;
+        padding: 5px;
+    }
+
+    .mobileUpgradeIconAndCost {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 1%;
+    }
+
+    .mobileUpgradeIconAndCost img {
+        flex-shrink: 0;
+    }
+
+    .mobileUpgradeIconAndCost button {
+        flex: 1;
+        min-width: 0;
+        border: 2px solid white;
+        margin-left: 1%;
     }
 
     /* Prestige/Transcension containers */
@@ -7111,7 +7146,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
 
     /* Upgrades */
     #upgradesFlex {
-        grid-template-columns: repeat(2, 50%);
+        grid-template-columns: repeat(1, 100%);
     }
 
     /* Runes */

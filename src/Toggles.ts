@@ -153,7 +153,6 @@ export type upgradeAutos = 'coin' | 'prestige' | 'transcend' | 'generators' | 'r
 export const toggleShops = (toggle?: upgradeAutos) => {
   // toggle provided: we do not want to update every button
   if (toggle) {
-    console.log(`Toggling ${toggle} auto upgrade`)
     player.shoptoggles[toggle] = !player.shoptoggles[toggle]
     DOMCacheGetOrSet(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle] ? 'green' : 'red'
 
