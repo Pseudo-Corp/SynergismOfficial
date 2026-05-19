@@ -15,10 +15,15 @@ const storePlatform = Capacitor.getPlatform() === 'android'
   : Platform.APPLE_APPSTORE
 
 const toStoreProductId = (lookupKey: string) => {
-  const prefix = subscriptionProducts.some((p) => p.id === lookupKey)
-    ? `${BUNDLE_ID}.sub`
-    : BUNDLE_ID
-  return `${prefix}.${lookupKey.replaceAll('-', '_')}`
+  const isSubscription = subscriptionProducts.some((p) => p.id === lookupKey)
+  const formattedKey = lookupKey.replaceAll('-', '_')
+
+  if (isSubscription && storePlatform === Platform.GOOGLE_PLAY) {
+    return `sub.${formattedKey}`
+  }
+
+  const prefix = isSubscription ? `${BUNDLE_ID}.sub` : BUNDLE_ID
+  return `${prefix}.${formattedKey}`
 }
 
 const initStore = memoize(async (): Promise<void> => {

@@ -247,7 +247,7 @@ const noSubscriptionButton = (product: SubscriptionProduct) => {
 
   if (platform === 'mobile') {
     return `<button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton">
-      Subscribe with App Store - ${formatter.format(product.price / 100)} USD / mo
+      Subscribe - ${formatter.format(product.price / 100)} USD / mo
     </button>`
   }
 
