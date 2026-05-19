@@ -4662,6 +4662,7 @@
       "automation": "Automation Shop",
       "particles": "Particles Upgrades"
     },
+    "buyAll": "Buy All",
     "hover": "Hover over an upgrade icon to see details!",
     "hoverOverUpgrade": "Hover over an upgrade to view details!",
     "bought": "BOUGHT!"

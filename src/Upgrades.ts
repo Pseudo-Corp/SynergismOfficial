@@ -18,6 +18,8 @@ import {
   formatAsPercentIncrease,
   player
 } from './Synergism'
+import type { upgradeAutos } from './Toggles'
+import { toggleShops } from './Toggles'
 import { revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
@@ -56,6 +58,94 @@ const constantUpgDesc: Record<number, () => Record<string, string>> = {
       true
     )
   })
+}
+
+export enum UpgradeCategories {
+  Coin,
+  Diamond,
+  Mythos,
+  Generator,
+  Autobuyer,
+  Particle
+}
+
+type Interval = [number, number]
+
+const intervalToArray = (interval: Interval) =>
+  Array.from({ length: interval[1] - interval[0] + 1 }, (_, i) => i + interval[0])
+
+interface CategoryData {
+  upgradeIds: number[]
+  mainIconName: string
+  listIconName: string
+  i18n: string
+  unlockHTMLClass: string
+  autoToggle: upgradeAutos | ''
+  color: string
+  ariaLabelledBy: string
+}
+
+const categoryData: Record<UpgradeCategories, CategoryData> = {
+  [UpgradeCategories.Coin]: {
+    upgradeIds: intervalToArray([1, 20]).concat(intervalToArray([121, 125])),
+    mainIconName: 'Coin',
+    listIconName: 'Coin',
+    i18n: 'coin',
+    unlockHTMLClass: '',
+    autoToggle: 'coin',
+    color: 'gold',
+    ariaLabelledBy: 'cointext'
+  },
+  [UpgradeCategories.Diamond]: {
+    upgradeIds: intervalToArray([21, 40]),
+    mainIconName: 'Diamond',
+    listIconName: 'Diamond',
+    i18n: 'diamond',
+    unlockHTMLClass: 'prestigeunlock',
+    autoToggle: 'prestige',
+    color: 'cyan',
+    ariaLabelledBy: 'prestigetext'
+  },
+  [UpgradeCategories.Mythos]: {
+    upgradeIds: intervalToArray([41, 60]),
+    mainIconName: 'Mythos',
+    listIconName: 'Mythos',
+    i18n: 'mythos',
+    unlockHTMLClass: 'transcendunlock',
+    autoToggle: 'transcend',
+    color: 'plum',
+    ariaLabelledBy: 'transcendtext'
+  },
+  [UpgradeCategories.Particle]: {
+    upgradeIds: intervalToArray([61, 80]),
+    mainIconName: 'Particle',
+    listIconName: 'Particle',
+    i18n: 'particles',
+    unlockHTMLClass: 'reincarnateunlock',
+    autoToggle: 'reincarnate',
+    color: 'limegreen',
+    ariaLabelledBy: 'reincarnationtext'
+  },
+  [UpgradeCategories.Autobuyer]: {
+    upgradeIds: intervalToArray([81, 100]),
+    mainIconName: 'Automation',
+    listIconName: 'Automation',
+    i18n: 'automation',
+    unlockHTMLClass: 'prestigeunlock',
+    autoToggle: '',
+    color: 'crimson',
+    ariaLabelledBy: 'autobuyertext'
+  },
+  [UpgradeCategories.Generator]: {
+    upgradeIds: intervalToArray([101, 120]),
+    mainIconName: 'Generators',
+    listIconName: 'Generator',
+    i18n: 'generator',
+    unlockHTMLClass: 'prestigeunlock',
+    autoToggle: 'generators',
+    color: 'lightgray',
+    ariaLabelledBy: 'generatortext'
+  }
 }
 
 const upgradetexts = [
@@ -402,57 +492,64 @@ export const upgradeRequirements = [
   () => player.cubeUpgrades[19] > 0
 ]
 
-const upgradeeffects = (i: number) => {
+// WHAT THE FUCK.
+const upgradeeffects = (i: number): string => {
   const effect = upgradetexts[i - 1]?.()
   const type = typeof effect
-  const element = DOMCacheGetOrSet('upgradeeffect')
 
   if (i >= 81 && i <= 119) {
-    element.textContent = i18next.t('upgrades.effects.81')
+    return i18next.t('upgrades.effects.81')
   } else if (effect == null) {
-    element.textContent = i18next.t(`upgrades.effects.${i}`)
+    return i18next.t(`upgrades.effects.${i}`)
   } else if (type === 'string' || type === 'number') {
-    element.textContent = i18next.t(`upgrades.effects.${i}`, { x: effect })
+    return i18next.t(`upgrades.effects.${i}`, { x: effect })
   } else {
-    element.textContent = i18next.t(`upgrades.effects.${i}`, effect as Exclude<typeof effect, string | number>)
+    return i18next.t(`upgrades.effects.${i}`, effect as Exclude<typeof effect, string | number>)
   }
 }
 
-export const upgradedescriptions = (i: number) => {
-  const y = i18next.t(`upgrades.descriptions.${i}`)
-  const z = player.upgrades[i] > 0.5 ? ' BOUGHT!' : ''
-
-  const el = DOMCacheGetOrSet('upgradedescription')
-  el.textContent = y + z
-  el.style.color = player.upgrades[i] > 0.5 ? 'gold' : 'white'
-
+// TODO: How the fuck do you i18n this
+export const upgradeDescriptionHTML = (i: number) => {
+  // Hover-to-buy toggle.
   if (player.toggles[9]) {
     clickUpgrades(i, false)
   }
 
+  const y = i18next.t(`upgrades.descriptions.${i}`)
+  const z = player.upgrades[i] > 0.5 ? ' BOUGHT!' : ''
+
+  const descriptionText = y + z
+  let descColor = 'white'
+  if (player.upgrades[i]) {
+    descColor = 'gold'
+  }
+
+  const descHTML = `<span style="color:${descColor}">${descriptionText}</span>`
+
   let currency = ''
-  let color = ''
+  let costColor = ''
   if ((i <= 20 && i >= 1) || (i <= 110 && i >= 106) || (i <= 125 && i >= 121)) {
     currency = 'Coins'
-    color = 'yellow'
+    costColor = 'yellow'
   }
   if ((i <= 40 && i >= 21) || (i <= 105 && i >= 101) || (i <= 115 && i >= 111) || (i <= 87 && i >= 81)) {
     currency = 'Diamonds'
-    color = 'cyan'
+    costColor = 'cyan'
   }
   if ((i <= 60 && i >= 41) || (i <= 120 && i >= 116) || (i <= 93 && i >= 88)) {
     currency = 'Mythos'
-    color = 'plum'
+    costColor = 'plum'
   }
   if ((i <= 80 && i >= 61) || (i <= 100 && i >= 94)) {
     currency = 'Particles'
-    color = 'limegreen'
+    costColor = 'limegreen'
   }
 
-  const upgradeCost = DOMCacheGetOrSet('upgradecost')
-  upgradeCost.textContent = `Cost: ${format(Decimal.pow(10, G.upgradeCosts[i]))} ${currency}`
-  upgradeCost.style.color = color
-  upgradeeffects(i)
+  const costText = `Cost: ${format(Decimal.pow(10, G.upgradeCosts[i]))} ${currency}`
+  const costHTML = `<span style="color:${costColor}">${costText}</span>`
+  const effectText = upgradeeffects(i)
+  const effectHTML = `<span style="color:gold">${effectText}</span>`
+  return `${descHTML}<br>${costHTML}<br>${effectHTML}`
 }
 
 export const clickUpgrades = (i: number, auto: boolean) => {
@@ -504,38 +601,15 @@ export const clickUpgrades = (i: number, auto: boolean) => {
   }
 }
 
-export const categoryUpgrades = (i: number, auto: boolean) => {
-  let min = 0
-  let max = 0
-  if (i === 1) {
-    min = 121
-    max = 125
-    for (let j = 1; j <= 20; j++) {
-      clickUpgrades(j, auto)
-    }
+export const buyUpgradeByCategory = (category: UpgradeCategories, auto: boolean) => {
+  for (const id of categoryData[category].upgradeIds) {
+    clickUpgrades(id, auto)
   }
-  if (i === 2) {
-    min = 21
-    max = 40
-  }
-  if (i === 3) {
-    min = 41
-    max = 60
-  }
-  if (i === 4) {
-    min = 101
-    max = 120
-  }
-  if (i === 5) {
-    min = 81
-    max = 100
-  }
-  if (i === 6) {
-    min = 61
-    max = 80
-  }
-  for (let j = min; j <= max; j++) {
-    clickUpgrades(j, auto)
+}
+
+export const buyAllUpgrades = (auto: boolean) => {
+  for (let i = UpgradeCategories.Coin; i <= UpgradeCategories.Particle; i++) {
+    buyUpgradeByCategory(i, auto)
   }
 }
 
@@ -619,17 +693,6 @@ export const upgradeupdate = (num: number, fast?: boolean) => {
     el.classList.add('green-background')
   } else {
     el.classList.remove('green-background')
-  }
-
-  if (player.upgrades[num] > 0.5) {
-    if (!fast) {
-      const b = i18next.t(`upgrades.descriptions.${num}`)
-      const c = player.upgrades[num] > 0.5 ? i18next.t('upgrades.bought') : ''
-
-      const upgradeDescription = DOMCacheGetOrSet('upgradedescription')
-      upgradeDescription.textContent = `${b} ${c}`
-      upgradeDescription.style.color = 'gold'
-    }
   }
 
   if (!fast) {
@@ -771,4 +834,159 @@ export const buyConstantUpgrades = (i: number, fast = false) => {
       }
     }
   }
+}
+
+const upgradeUnlockConditions: { int: Interval; unlockHTMLClass: string }[] = [
+  { int: [1, 5], unlockHTMLClass: '' },
+  { int: [6, 10], unlockHTMLClass: 'prestigeunlock' },
+  { int: [11, 15], unlockHTMLClass: 'generationunlock' },
+  { int: [16, 20], unlockHTMLClass: 'transcendunlock' },
+  { int: [21, 30], unlockHTMLClass: 'prestigeunlock' },
+  { int: [31, 35], unlockHTMLClass: 'transcendunlock' },
+  { int: [36, 37], unlockHTMLClass: 'reincarnationunlock' },
+  { int: [38, 38], unlockHTMLClass: 'chal7' },
+  { int: [39, 39], unlockHTMLClass: 'chal8' },
+  { int: [40, 40], unlockHTMLClass: 'chal9' },
+  { int: [41, 50], unlockHTMLClass: 'transcendunlock' },
+  { int: [51, 60], unlockHTMLClass: 'reincarnationunlock' },
+  { int: [61, 65], unlockHTMLClass: 'reinrow1' },
+  { int: [66, 70], unlockHTMLClass: 'reinrow2' },
+  { int: [71, 75], unlockHTMLClass: 'reinrow3' },
+  { int: [76, 80], unlockHTMLClass: 'reinrow4' },
+  { int: [81, 87], unlockHTMLClass: 'prestigeunlock' },
+  { int: [88, 93], unlockHTMLClass: 'transcendunlock' },
+  { int: [94, 100], unlockHTMLClass: 'reincarnationunlock' },
+  { int: [101, 101], unlockHTMLClass: 'prestigeunlock' },
+  { int: [102, 105], unlockHTMLClass: 'generationunlock' },
+  { int: [106, 110], unlockHTMLClass: 'transcendunlock' },
+  { int: [111, 115], unlockHTMLClass: 'transcendunlock' },
+  { int: [116, 120], unlockHTMLClass: 'transcendunlock' },
+  { int: [121, 125], unlockHTMLClass: 'cubeUpgrade19' }
+]
+
+// Convert upgradeunlockconditions into a map of upgradeID to unlockHTMLClass for easier access when creating the upgrade elements
+const upgradeUnlockMap: Record<number, string> = Object.fromEntries(
+  upgradeUnlockConditions.flatMap(({ int: [start, end], unlockHTMLClass }) =>
+    Array.from({ length: end - start + 1 }, (_, i) => [start + i, unlockHTMLClass])
+  )
+)
+
+let createdHTMLThisSession = false
+
+const createUpgradeSectionHeader = (category: UpgradeCategories) => {
+  const data = categoryData[category]
+  const header = document.createElement('header')
+
+  const img = document.createElement('img')
+  img.classList.add('currency-icon')
+  img.setAttribute('aria-label', `${data.i18n} Upgrade Information`)
+  img.src = `Pictures/Default/${data.mainIconName}.png`
+  img.id = `upgrades${category}`
+  img.loading = 'lazy'
+  header.appendChild(img)
+
+  return header
+}
+
+const createUpgradeSectionText = (category: UpgradeCategories) => {
+  const data = categoryData[category]
+  const text = document.createElement('h3')
+  text.id = data.ariaLabelledBy
+  text.style.color = data.color
+  text.textContent = i18next.t(`upgrades.shopTitles.${data.i18n}`)
+  text.setAttribute('i18n', `upgrades.shopTitles.${data.i18n}`)
+
+  return text
+}
+
+const createUpgradeSectionButtons = (category: UpgradeCategories) => {
+  const data = categoryData[category]
+
+  const buttonRow = document.createElement('div')
+  buttonRow.classList.add('upgradeCategoryBtnRow')
+
+  const buyAllBtn = document.createElement('button')
+  buyAllBtn.classList.add('buyAllUpgradeButton')
+  buyAllBtn.setAttribute('i18n-label', `Buy all affordable upgrades in ${data.i18n} section`)
+  buyAllBtn.style.border = '2px solid green'
+  buyAllBtn.textContent = i18next.t('upgrades.buyAll')
+
+  buyAllBtn.addEventListener('click', () => buyUpgradeByCategory(category, false))
+  buttonRow.appendChild(buyAllBtn)
+
+  // Automator category doesn't have automation. Don't know why.
+  if (category !== UpgradeCategories.Autobuyer) {
+    const toggleAutoBtn = document.createElement('button')
+    toggleAutoBtn.id = `${data.autoToggle}AutoUpgrade`
+    toggleAutoBtn.classList.add('autobuyerToggleButton')
+    toggleAutoBtn.ariaPressed = 'true'
+    toggleAutoBtn.setAttribute('aria-label', `Toggle ${data.autoToggle} auto-upgrader`)
+    toggleAutoBtn.style.border = '2px solid green'
+
+    toggleAutoBtn.addEventListener('click', () => {
+      toggleShops(data.autoToggle as upgradeAutos)
+    })
+    buttonRow.appendChild(toggleAutoBtn)
+  }
+
+  return buttonRow
+}
+
+const createWebUpgradesTable = (category: UpgradeCategories) => {
+  const data = categoryData[category]
+  const table = document.createElement('table')
+  const numRows = Math.ceil(data.upgradeIds.length / 5)
+  for (let row = 0; row < numRows; row++) {
+    const rowElm = document.createElement('tr')
+    for (let column = 0; column < 5; column++) {
+      const orderedIndex = 5 * row + column
+      const columnElm = document.createElement('td')
+      const id = data.upgradeIds[orderedIndex]
+      const btn = document.createElement('button')
+      btn.classList.add('upgrade-button')
+      if (upgradeUnlockMap[id] !== '') {
+        btn.classList.add(upgradeUnlockMap[id])
+      }
+      btn.id = `upg${id}`
+      btn.setAttribute('i18n-aria-label', i18next.t(`upgrades.descriptions.${id}`))
+      btn.addEventListener('click', () => clickUpgrades(id, false))
+
+      const img = document.createElement('img')
+      img.src = `Pictures/Default/${data.listIconName}${orderedIndex + 1}.png`
+
+      btn.appendChild(img)
+      columnElm.appendChild(btn)
+      rowElm.appendChild(columnElm)
+    }
+    table.appendChild(rowElm)
+  }
+
+  return table
+}
+
+const createWebUpgradeSection = (category: UpgradeCategories) => {
+  const data = categoryData[category]
+  const section = document.createElement('section')
+  section.setAttribute('aria-labelledby', categoryData[category].ariaLabelledBy)
+  section.classList.add('shop-section')
+  if (data.unlockHTMLClass !== '') {
+    section.classList.add(data.unlockHTMLClass)
+  }
+
+  section.appendChild(createUpgradeSectionHeader(category))
+  section.appendChild(createUpgradeSectionText(category))
+  section.appendChild(createUpgradeSectionButtons(category))
+  section.appendChild(createWebUpgradesTable(category))
+  return section
+}
+
+export const generateWebUpgradesTab = () => {
+  if (createdHTMLThisSession) {
+    return
+  }
+  const flexTab = DOMCacheGetOrSet('upgradesFlex')
+  for (let i = UpgradeCategories.Coin; i <= UpgradeCategories.Particle; i++) {
+    flexTab.appendChild(createWebUpgradeSection(i))
+  }
+  createdHTMLThisSession = true
 }

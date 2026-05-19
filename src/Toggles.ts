@@ -144,7 +144,7 @@ export const toggleBuyAmount = (quantity: BuyAmount, type: ToggleBuy) => {
   }
 }
 
-type upgradeAutos = 'coin' | 'prestige' | 'transcend' | 'generators' | 'reincarnate'
+export type upgradeAutos = 'coin' | 'prestige' | 'transcend' | 'generators' | 'reincarnate'
 
 /**
  * Updates Auto Upgrade Border Colors if applicable, or updates the status of an upgrade toggle as optional.
@@ -153,6 +153,7 @@ type upgradeAutos = 'coin' | 'prestige' | 'transcend' | 'generators' | 'reincarn
 export const toggleShops = (toggle?: upgradeAutos) => {
   // toggle provided: we do not want to update every button
   if (toggle) {
+    console.log(`Toggling ${toggle} auto upgrade`)
     player.shoptoggles[toggle] = !player.shoptoggles[toggle]
     DOMCacheGetOrSet(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle] ? 'green' : 'red'
 

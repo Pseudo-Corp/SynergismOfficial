@@ -184,7 +184,6 @@ import {
   toggleResearchBuy,
   toggleSettings,
   toggleShopConfirmation,
-  toggleShops,
   toggleStatSymbol,
   updateAutoChallenge,
   updateRuneBlessingBuyAmount
@@ -193,12 +192,11 @@ import type { FirstToEighth, FirstToFifth, OneToFive, Player } from './types/Syn
 import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframeOverlay, Prompt } from './UpdateHTML'
 import { shopMouseover } from './UpdateVisuals'
 import {
+  buyAllUpgrades,
   buyConstantUpgrades,
-  categoryUpgrades,
-  clickUpgrades,
   constantUpgradeDescriptions,
   crystalupgradedescriptions,
-  upgradedescriptions
+  upgradeDescriptionHTML
 } from './Upgrades'
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
@@ -420,28 +418,19 @@ export const generateEventHandlers = () => {
 
   // UPGRADES TAB
   // For all upgrades in the Upgrades Tab (125) count, we have the same mouseover event. So we'll work on those first.
+  DOMCacheGetOrSet('buyAllUpgrades').addEventListener('click', () => buyAllUpgrades(false))
+
   for (let index = 1; index <= 125; index++) {
-    // Onmouseover events ()
     const upgrade = DOMCacheGetOrSet(`upg${index}`)
-    upgrade.addEventListener('mouseover', () => upgradedescriptions(index))
-    upgrade.addEventListener('focus', () => upgradedescriptions(index))
+    upgrade.addEventListener('mousemove', (e: MouseEvent) =>
+      Modal(
+        () => upgradeDescriptionHTML(index),
+        e.clientX,
+        e.clientY,
+        { borderColor: 'gold' }
+      ))
+    upgrade.addEventListener('mouseout', CloseModal)
   }
-
-  // Generates all upgrade button events
-  for (let index = 1; index <= 125; index++) {
-    DOMCacheGetOrSet(`upg${index}`).addEventListener('click', () => clickUpgrades(index, false))
-  }
-
-  for (let index = 1; index <= 6; index++) {
-    DOMCacheGetOrSet(`upgrades${index}`).addEventListener('click', () => categoryUpgrades(index, false))
-  }
-
-  // Next part: Shop-specific toggles
-  DOMCacheGetOrSet('coinAutoUpgrade').addEventListener('click', () => toggleShops('coin'))
-  DOMCacheGetOrSet('prestigeAutoUpgrade').addEventListener('click', () => toggleShops('prestige'))
-  DOMCacheGetOrSet('transcendAutoUpgrade').addEventListener('click', () => toggleShops('transcend'))
-  DOMCacheGetOrSet('generatorsAutoUpgrade').addEventListener('click', () => toggleShops('generators'))
-  DOMCacheGetOrSet('reincarnateAutoUpgrade').addEventListener('click', () => toggleShops('reincarnate'))
 
   // ACHIEVEMENTS TAB
   // TODO: Remove 1 indexing

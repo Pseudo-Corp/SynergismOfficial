@@ -887,7 +887,7 @@ p#buildinghotkeys2 {
 #upgradesFlex {
     display: flex;
     width: 90%;
-    margin: 4% 5% 0;
+    margin: 2% 5% 6%;
     justify-content: space-around;
 }
 
@@ -927,22 +927,17 @@ p#buildinghotkeys2 {
 #shoptogglegenerator { grid-column-start: 4; }
 #particleAutoUpgrade { grid-column-start: 6; }
 
-#upgradesrow3 {
+#upgradesAppendix {
     text-align: center;
     margin-top: 8px;
 }
 
-#upgradesrow3 > p {
+#upgradesAppendix > p {
     padding-top: 0;
     margin: 0;
 }
 
 #upgradeeffect { color: pink; }
-
-#toggle9 {
-    min-width: 130px;
-    margin: 25px auto;
-}
 
 #settings {
     position: relative;
@@ -1209,10 +1204,30 @@ p#promocodeinfo {
     min-width: 80px;
 }
 
-.autobuyerToggleButton {
+#upgradeTopBtns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0 10px;
+    gap: 10px 15px;
+}
+
+#upgradeTopBtns > button {
+    min-width: 130px;
+    text-align: center;
+}
+
+.upgradeCategoryBtnRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.autobuyerToggleButton,
+.buyAllUpgradeButton {
     background-color: var(--button-color);
     margin: 0 auto;
-    min-width: 80px;
+    min-width: 70px;
 }
 
 .buttonRow > div > .stats {

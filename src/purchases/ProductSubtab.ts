@@ -32,21 +32,6 @@ const clickHandler = async (e: HTMLElementEventMap['click']) => {
 }
 
 const initializeProductPage = memoize(() => {
-  let advertSection = ''
-  if (platform === 'mobile') {
-    advertSection = `<section class="pseudoCoinAdvert">
-    <div>
-      <img class="pseudoCoinImage alt="Advert for PseudoCoins" src="./Pictures/AdvertCoins.png />
-      <p class="pseudoCoinText">
-        Watch an advert for 5 free PseudoCoins!
-      </p>
-      <button data-id="advert" data-name="rewarded advertisement" class="pseudoCoinButton">
-        WATCH AD
-      </button>
-    </div>
-    </section>`
-  }
-
   productContainer!.innerHTML = coinProducts.map((product) => (`
     <section class="pseudoCoinContainer" key="${product.id}">
       <div>
@@ -59,7 +44,7 @@ const initializeProductPage = memoize(() => {
         </button>
       </div>
     </section>
-  `)).join('') + advertSection
+  `)).join('')
 
   productContainer!.style.display = 'grid'
 

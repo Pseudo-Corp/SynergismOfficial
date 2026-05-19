@@ -158,7 +158,8 @@ import {
 import {
   ascendBuildingDR,
   buyConstantUpgrades,
-  categoryUpgrades,
+  buyUpgradeByCategory,
+  generateWebUpgradesTab,
   getConstUpgradeMetadata,
   upgradeupdate
 } from './Upgrades'
@@ -4947,7 +4948,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         }
       }
       if (G.currentTab === Tabs.Upgrades) {
-        categoryUpgrades(num, false)
+        buyUpgradeByCategory(num - 1, false)
       }
       if (G.currentTab === Tabs.Runes) {
         if (getActiveSubTab() === 0) {
@@ -4967,7 +4968,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
 
     case '6':
       if (G.currentTab === Tabs.Upgrades) {
-        categoryUpgrades(6, false)
+        buyUpgradeByCategory(5, false)
       }
       if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(1)
@@ -5308,6 +5309,7 @@ window.addEventListener('load', async () => {
   }
   document.title = `Synergism v${version}`
 
+  generateWebUpgradesTab()
   generateRunesHTML()
   generateTalismansHTML()
   generateBlessingsHTML()
