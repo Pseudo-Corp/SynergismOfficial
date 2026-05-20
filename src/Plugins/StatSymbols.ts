@@ -1,8 +1,14 @@
 import type { PostProcessorModule } from 'i18next'
+import { platform } from '../Config'
 
 let showStatSymbol = false
 
 export const enableStatSymbols = (): void => {
+  // Symbols inconsistently (oftentimes don't) show up properly on mobile devices
+  if (platform === 'mobile') {
+    showStatSymbol = false
+    return
+  }
   showStatSymbol = true
 }
 

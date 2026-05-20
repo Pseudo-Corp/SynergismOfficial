@@ -4655,12 +4655,12 @@
       "125": "+{{x}}% Constant Divisor power."
     },
     "shopTitles": {
-      "coin": "Coin Upgrades",
-      "diamond": "Diamond Upgrades",
-      "mythos": "Mythos Upgrades",
-      "generator": "Generator Shop",
-      "automation": "Automation Shop",
-      "particles": "Particles Upgrades"
+      "coin": "Coins",
+      "diamond": "Diamonds",
+      "mythos": "Mythos",
+      "generator": "Generators",
+      "automation": "Automation",
+      "particles": "Particles"
     },
     "buyAll": "Buy All",
     "hover": "Hover over an upgrade icon to see details!",
@@ -4681,7 +4681,7 @@
       "corruption": "Corruption",
       "singularity": "Singularity",
       "settings": "Settings",
-      "shop": "Shop",
+      "shop": "Quarks",
       "unsmith": "Events",
       "purchase": "PseudoCoins"
     },

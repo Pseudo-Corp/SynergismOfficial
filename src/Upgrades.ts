@@ -65,9 +65,9 @@ export enum UpgradeCategories {
   Coin,
   Diamond,
   Mythos,
-  Generator,
+  Particle,
   Autobuyer,
-  Particle
+  Generator
 }
 
 type Interval = [number, number]
@@ -909,28 +909,46 @@ const upgradeUnlockMap: Record<number, string> = Object.fromEntries(
 
 let createdHTMLThisSession = false
 
-const createUpgradeSectionIcon = (category: UpgradeCategories) => {
+const addUpgradeReferenceHeaderIcon = (category: UpgradeCategories) => {
   const data = categoryData[category]
+  const div = DOMCacheGetOrSet('upgradeReferenceHeader')
+  const btn = document.createElement('button')
+  btn.style.border = `2px solid ${data.color}`
+  btn.classList.add('upgradeReferenceHeaderIcon')
+  btn.addEventListener('click', () => {
+    DOMCacheGetOrSet(`upgrades${category}`).scrollIntoView({ behavior: 'smooth', block: 'center' })
+  })
 
   const img = document.createElement('img')
+  img.src = `Pictures/Default/${data.mainIconName}.png`
+  img.loading = 'lazy'
+  btn.appendChild(img)
+
+  div.appendChild(btn)
+}
+
+const createUpgradeSectionTop = (category: UpgradeCategories) => {
+  const data = categoryData[category]
+
+  const div = document.createElement('div')
+  div.classList.add('upgradeSectionTop')
+  const img = document.createElement('img')
+  img.style.border = `2px solid ${data.color}`
   img.classList.add('currency-icon')
   img.setAttribute('aria-label', `${data.i18n} Upgrade Information`)
   img.src = `Pictures/Default/${data.mainIconName}.png`
   img.id = `upgrades${category}`
   img.loading = 'lazy'
+  div.appendChild(img)
 
-  return img
-}
-
-const createUpgradeSectionText = (category: UpgradeCategories) => {
-  const data = categoryData[category]
   const text = document.createElement('h3')
   text.id = data.ariaLabelledBy
   text.style.color = data.color
   text.textContent = i18next.t(`upgrades.shopTitles.${data.i18n}`)
   text.setAttribute('i18n', `upgrades.shopTitles.${data.i18n}`)
+  div.appendChild(text)
 
-  return text
+  return div
 }
 
 const createUpgradeSectionButtons = (category: UpgradeCategories) => {
@@ -1037,6 +1055,7 @@ const createMobileUpgradesDiv = (category: UpgradeCategories) => {
 
     const img = document.createElement('img')
     img.src = `Pictures/Default/${data.listIconName}${picIndex}.png`
+    img.style.backgroundColor = 'black'
     iconAndCostDiv.appendChild(img)
 
     const costButton = document.createElement('button')
@@ -1077,8 +1096,7 @@ const createUpgradeSection = (category: UpgradeCategories) => {
     section.classList.add(data.unlockHTMLClass)
   }
 
-  section.appendChild(createUpgradeSectionIcon(category))
-  section.appendChild(createUpgradeSectionText(category))
+  section.appendChild(createUpgradeSectionTop(category))
   section.appendChild(createUpgradeSectionButtons(category))
 
   if (platform === 'mobile') {
@@ -1096,7 +1114,8 @@ export const generateUpgradesTab = () => {
     return
   }
   const flexTab = DOMCacheGetOrSet('upgradesFlex')
-  for (let i = UpgradeCategories.Coin; i <= UpgradeCategories.Particle; i++) {
+  for (let i = UpgradeCategories.Coin; i <= UpgradeCategories.Generator; i++) {
+    addUpgradeReferenceHeaderIcon(i)
     flexTab.appendChild(createUpgradeSection(i))
   }
   createdHTMLThisSession = true

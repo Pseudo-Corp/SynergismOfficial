@@ -5246,6 +5246,7 @@ window.addEventListener('load', async () => {
     })
   }
 
+  document.documentElement.dataset.mobile = 'false'
   if (platform === 'mobile') {
     await initMobileStorage()
     const [{ bindMobileFormHandlers }, { initMobilePurchases }, { rewardVideo }] = await Promise.all([
@@ -5258,6 +5259,7 @@ window.addEventListener('load', async () => {
 
     DOMCacheGetOrSet('adEvents').style.display = 'block'
     DOMCacheGetOrSet('watchAdBtn').addEventListener('click', rewardVideo)
+    document.documentElement.dataset.mobile = 'true'
   }
 
   const symbolsEnabled = storageGetItem('statSymbols')

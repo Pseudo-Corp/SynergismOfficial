@@ -12,6 +12,7 @@ select {
 
 html {
     min-width: 1250px;
+    height: 100%;
     position: relative;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
@@ -69,6 +70,9 @@ body::-webkit-scrollbar:horizontal {
 body {
     margin: 0;
     box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
     /* Custom colors that are used for themes */
     --text-color: white;
@@ -723,6 +727,16 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     margin: auto 5px auto 2px;
 }
 
+#mainHeader {
+    flex-shrink: 0;
+}
+
+main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.25rem;
+}
+
 #tabrow {
     text-align: center;
     width: 100%;
@@ -790,13 +804,11 @@ nav button {
 
 #shoptab {
     border-color: white;
-    background-color: var(--shoptab-color);
 }
 
 #singularitytab {
     border-color: lightgoldenrodyellow;
     background-color: var(--singtab-color);
-    color: red;
 }
 
 #singularitytab:hover {
@@ -817,17 +829,14 @@ button.isEvent:hover {
 
 #cubetab {
     border-color: var(--wowcube-color);
-    color: var(--hypercube-color);
 }
 
 #campaigntab {
     border-color: red;
-    color: orange;
 }
 
 #traitstab {
     border-color: orange;
-    color: red;
 }
 
 .subTabWrapper {
@@ -884,6 +893,18 @@ p#buildinghotkeys2 {
     max-width: 1500px;
 }
 
+#upgradeReferenceHeader {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--header-color);
+    border: 2px solid gold;
+}
+
+.upgradeReferenceHeaderIcon {
+    margin: 0 0.25rem;
+}
+
 #upgradesFlex {
     display: flex;
     width: 90%;
@@ -918,6 +939,51 @@ p#buildinghotkeys2 {
 
 #upgradesFlex > section > button {
     min-width: 80px;
+}
+
+.upgradeSectionTop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    white-space: pre-line;
+    margin: 0.25rem 0;
+}
+
+/* Upgrade box */
+.mobileUpgradeTabContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.mobileUpgradeBox {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid white;
+    gap: 1%;
+}
+
+.mobileUpgradeBox > p {
+    margin: 0;
+    padding: 5px;
+}
+
+.mobileUpgradeIconAndCost {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1%;
+}
+
+.mobileUpgradeIconAndCost img {
+    flex-shrink: 0;
+}
+
+.mobileUpgradeIconAndCost button {
+    flex: 1;
+    min-width: 0;
+    border: 2px solid white;
+    margin-left: 1%;
 }
 
 #shoptogglecoin { grid-column-start: 1; }
@@ -1218,14 +1284,15 @@ p#promocodeinfo {
 
 .upgradeCategoryBtnRow {
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    align-items: center;
+    margin: 0.25rem 0;
 }
 
 .autobuyerToggleButton,
 .buyAllUpgradeButton {
     background-color: var(--button-color);
-    margin: 0 auto;
+    margin: 0 0.25em;
     min-width: 70px;
 }
 
@@ -4006,6 +4073,7 @@ header #obtainiumDisplay { color: pink; }
 #tabBorder {
     height: 2px;
     position: relative;
+    min-width: 100%;
     z-index: 0;
 }
 
@@ -4781,7 +4849,6 @@ img#singularityPerksIcon {
 
 #event {
     position: relative;
-    padding: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -6306,6 +6373,18 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     pointer-events: auto;
 }
 
+html[data-mobile="true"] .showOnMobile {
+    display: block !important;
+}
+
+html[data-mobile="false"] .showOnMobile {
+    display: none !important;
+}
+
+html[data-mobile="true"] .hideOnMobile {
+    display: none !important;
+}
+
 .modalBtnBuy {
     width: 60px;
     height: 30px;
@@ -6384,6 +6463,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     html {
         min-width: unset;
         width: 100%;
+        position: fixed
     }
 
     body {
@@ -6504,42 +6584,6 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
 
     #upgradesFlex > section {
         margin-top: 10px;
-    }
-
-    /* Upgrade box */
-    .mobileUpgradeTabContainer {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-
-    .mobileUpgradeBox {
-        display: flex;
-        flex-direction: column;
-        border: 2px solid white;
-        gap: 1%;
-    }
-
-    .mobileUpgradeBox > p {
-        margin: 0;
-        padding: 5px;
-    }
-
-    .mobileUpgradeIconAndCost {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin: 1%;
-    }
-
-    .mobileUpgradeIconAndCost img {
-        flex-shrink: 0;
-    }
-
-    .mobileUpgradeIconAndCost button {
-        flex: 1;
-        min-width: 0;
-        border: 2px solid white;
-        margin-left: 1%;
     }
 
     /* Prestige/Transcension containers */
