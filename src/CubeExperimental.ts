@@ -365,6 +365,7 @@ export class WowPlatonicCubes extends Cube {
       const num = Math.random()
       if (toSpendModulo / 40000 >= num && toSpendModulo !== 0) {
         player.platonicBlessings[platonicRNGesus[i] as keyof Player['platonicBlessings']] += 1
+        if (player.cubeUpgrades[64] > 0) player.platonicBlessings[platonicRNGesus[i] as keyof Player['platonicBlessings']] += 1 // Doubled!
         toSpendModulo -= 1
       }
     }
@@ -384,6 +385,9 @@ export class WowPlatonicCubes extends Cube {
       for (const key in player.platonicBlessings) {
         if (platonicBlessings[key as keyof typeof platonicBlessings].pdf(num)) {
           player.platonicBlessings[key as keyof Player['platonicBlessings']] += 1
+          if (platonicBlessings[key as keyof typeof platonicBlessings].weight === 1 && player.cubeUpgrades[64] > 0) {
+            player.platonicBlessings[key as keyof Player['platonicBlessings']] += 1 // Doubled!
+          }
         }
       }
     }
