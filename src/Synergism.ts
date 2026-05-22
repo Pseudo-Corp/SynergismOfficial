@@ -252,6 +252,7 @@ import {
   type SingularityChallengeDataKeys
 } from './SingularityChallenges'
 import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
+import { populateBuildingButtonRows } from './tabs/buildings'
 import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 
@@ -5311,6 +5312,7 @@ window.addEventListener('load', async () => {
   }
   document.title = `Synergism v${version}`
 
+  populateBuildingButtonRows()
   generateUpgradesTab()
   generateRunesHTML()
   generateTalismansHTML()

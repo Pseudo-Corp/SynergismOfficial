@@ -195,7 +195,7 @@ import {
   buyAllUpgrades,
   buyConstantUpgrades,
   constantUpgradeDescriptions,
-  crystalupgradedescriptions,
+  crystalupgradedescriptions
 } from './Upgrades'
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
