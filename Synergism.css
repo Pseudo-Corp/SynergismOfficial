@@ -1307,6 +1307,76 @@ p#promocodeinfo {
     min-height: 2em;
 }
 
+.buttonRow.mobile {
+    width: 100%;
+    gap: 6px;
+    font-size: 1em;
+}
+
+.buttonRow.mobile > div:not(.buildingSpacer) {
+    gap: 6px;
+    padding: 8px 0;
+    border: 2px solid white;
+    border-radius: 6px;
+    padding-right: 6px;
+}
+
+.buttonRow.mobile > div > .buildingPurchaseBtn:not(.buildingPurchaseBtnAvailable) {
+    filter: grayscale(1);
+    opacity: 0.55;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--buttonbuy-color) !important;
+    }
+}
+
+.buttonRow.mobile > div > .image {
+    height: 32px;
+    width: 32px;
+}
+
+.buttonRow.mobile > div > .textStack {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    > .desc,
+    > .cost,
+    > .stats {
+        width: auto;
+        font-size: 1em;
+        line-height: 1.2;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+}
+
+.buttonRow.mobile > div > .buildingPurchaseBtn {
+    width: auto;
+    padding: 6px 8px;
+    font-size: 0.9em;
+    flex-shrink: 0;
+}
+
+.buttonRow.mobile > div > .auto {
+    width: 5em;
+    height: 5em;
+    min-width: 0;
+    margin: 0;
+    padding: 6px;
+    border-radius: 6px;
+    background-color: #0a2a0a;
+    color: lightblue;
+    font-size: 0.8em;
+    line-height: 1.1;
+    white-space: normal;
+    text-align: center;
+}
+
 #taxinfo {
     text-align: center;
     font-size: 1em;
@@ -6224,6 +6294,10 @@ html[data-prestige-unlock="true"] .prestigeunlockib {
     display: inline-block;
 }
 
+html[data-prestige-unlock="true"] .buttonRow > div.prestigeunlock {
+    display: flex;
+}
+
 html[data-prestige-unlock="false"] .prestigeunlockib {
     display: none;
 }
@@ -6500,7 +6574,7 @@ html[data-mobile="true"] .hideOnMobile {
     html {
         min-width: unset;
         width: 100%;
-        position: fixed
+        position: fixed;
     }
 
     body {
@@ -6599,7 +6673,6 @@ html[data-mobile="true"] .hideOnMobile {
     /* Coin buildings */
     #coinBuildings {
         max-width: 100%;
-        padding: 0 10px;
     }
 
     #coinInformation {
@@ -6627,7 +6700,6 @@ html[data-mobile="true"] .hideOnMobile {
     #prestige,
     #transcension {
         max-width: 100%;
-        padding: 0 10px;
     }
 
     #crystalupgrades {

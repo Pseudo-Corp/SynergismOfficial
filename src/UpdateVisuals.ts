@@ -120,6 +120,7 @@ import {
   player
 } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
+import { getBuildingCostElement } from './tabs/buildings'
 import { getTalismanLevelCap, type TalismanKeys, talismans, updateAllTalismanHTML } from './Talismans'
 import {
   calculateAcceleratorTesseractBlessing,
@@ -261,7 +262,7 @@ export const visualUpdateBuildings = () => {
         }
       )
 
-      DOMCacheGetOrSet(`buycoin${i}`).textContent = i18next.t(
+      getBuildingCostElement(`buycoin${i}`).textContent = i18next.t(
         'buildings.costCoins',
         {
           coins: format(player[`${ith}CostCoin` as const])
@@ -341,19 +342,19 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    DOMCacheGetOrSet('buyaccelerator').textContent = i18next.t(
+    getBuildingCostElement('buyaccelerator').textContent = i18next.t(
       'buildings.costCoins',
       {
         coins: format(player.acceleratorCost)
       }
     )
-    DOMCacheGetOrSet('buymultiplier').textContent = i18next.t(
+    getBuildingCostElement('buymultiplier').textContent = i18next.t(
       'buildings.costCoins',
       {
         coins: format(player.multiplierCost)
       }
     )
-    DOMCacheGetOrSet('buyacceleratorboost').textContent = i18next.t(
+    getBuildingCostElement('buyacceleratorboost').textContent = i18next.t(
       'buildings.costDiamonds',
       {
         diamonds: format(player.acceleratorBoostCost)
@@ -407,7 +408,7 @@ export const visualUpdateBuildings = () => {
         }
       )
 
-      DOMCacheGetOrSet(`buydiamond${i}`).textContent = i18next.t(
+      getBuildingCostElement(`buydiamond${i}`).textContent = i18next.t(
         'buildings.costDiamonds',
         {
           diamonds: format(player[`${ith}CostDiamonds` as const], 2)
@@ -468,7 +469,7 @@ export const visualUpdateBuildings = () => {
         }
       )
 
-      DOMCacheGetOrSet(`buymythos${i}`).textContent = i18next.t(
+      getBuildingCostElement(`buymythos${i}`).textContent = i18next.t(
         'buildings.costMythos',
         {
           mythos: format(player[`${ith}CostMythos` as const], 2)
@@ -524,7 +525,7 @@ export const visualUpdateBuildings = () => {
           amount: format(place.times(40), 2)
         }
       )
-      DOMCacheGetOrSet(`buyparticles${i}`).textContent = i18next.t(
+      getBuildingCostElement(`buyparticles${i}`).textContent = i18next.t(
         'buildings.costParticles',
         {
           particles: format(player[`${ith}CostParticles` as const], 2)
@@ -609,7 +610,7 @@ export const visualUpdateBuildings = () => {
         }
       )
 
-      DOMCacheGetOrSet(`buyTesseracts${i}`).textContent = i18next.t(
+      getBuildingCostElement(`buyTesseracts${i}`).textContent = i18next.t(
         'buildings.costTesseracts',
         {
           tesseracts: format(player[ascendBuildingI].cost, 0)
