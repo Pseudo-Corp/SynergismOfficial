@@ -136,9 +136,9 @@ import {
 import { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from './Toggles'
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
+import { updateMobileUpgradeDescription } from './Upgrades'
 import { sumContents, timeRemainingHours, timeRemainingMinutes } from './Utility'
 import { Globals as G } from './Variables'
-import { updateMobileUpgradeDescription } from './Upgrades'
 
 const coinUpper = [
   'produceFirst',

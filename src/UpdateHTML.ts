@@ -241,11 +241,9 @@ export const revealStuff = () => {
     if (runes[rune].isUnlocked()) {
       DOMCacheGetOrSet(`${rune}RuneContainer`).style.display = 'flex'
       DOMCacheGetOrSet(`${rune}RuneLockedContainer`).style.display = 'none'
-      DOMCacheGetOrSet(`${rune}RunePower`).style.display = 'block'
     } else {
       DOMCacheGetOrSet(`${rune}RuneContainer`).style.display = 'none'
       DOMCacheGetOrSet(`${rune}RuneLockedContainer`).style.display = 'flex'
-      DOMCacheGetOrSet(`${rune}RunePower`).style.display = 'none'
     }
   }
 
@@ -600,7 +598,6 @@ export const hideStuff = () => {
   } else if (G.currentTab === Tabs.Runes) {
     DOMCacheGetOrSet('runes').style.display = 'block'
     DOMCacheGetOrSet('runestab').style.backgroundColor = tabColors[Tabs.Runes]!
-    DOMCacheGetOrSet('focusedRuneLevelInfo').textContent = i18next.t('runes.hover')
 
     for (const rune of Object.keys(player.runes)) {
       const runeKey = rune as RuneKeys

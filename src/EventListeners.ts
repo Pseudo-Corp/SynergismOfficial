@@ -107,9 +107,9 @@ import {
 } from './RedAmbrosiaUpgrades'
 import { buyResearch, researchDescriptions, updateResearchAuto } from './Research'
 import { resetrepeat, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
-import { buyAllBlessingLevels, buyBlessingLevels, focusedRuneBlessingHTML, runeBlessingKeys } from './RuneBlessings'
-import { focusedRuneHTML, focusedRuneLockedHTML, type RuneKeys, runes, runeToIndex, sacrificeOfferings } from './Runes'
-import { buyAllSpiritLevels, buySpiritLevels, focusedRuneSpiritHTML, runeSpiritKeys } from './RuneSpirits'
+import { buyAllBlessingLevels } from './RuneBlessings'
+import { runes } from './Runes'
+import { buyAllSpiritLevels } from './RuneSpirits'
 import type { ShopUpgradeNames } from './Shop'
 import {
   buyShopUpgrades,
@@ -138,20 +138,6 @@ import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
-import {
-  buyAllTalismanResources,
-  buyTalismanLevel,
-  buyTalismanLevelToMax,
-  buyTalismanLevelToRarityIncrease,
-  buyTalismanResources,
-  type TalismanKeys,
-  talismanRarityInfo,
-  talismans,
-  talismanToStringHTML,
-  toggleTalismanBuy,
-  updateTalismanCostDisplay,
-  updateTalismanCostHTML
-} from './Talismans'
 import { IconSets, imgErrorHandler, toggleAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import {
   autoCubeUpgradesToggle,
@@ -160,11 +146,9 @@ import {
   toggleAutoAscendResetActive,
   toggleAutoAscendResetMode,
   toggleAutoAscensionMode,
-  toggleAutoBuyFragment,
   toggleautobuytesseract,
   toggleAutoChallengeRun,
   toggleAutoChallengesIgnore,
-  toggleautofortify,
   toggleautoopensCubes,
   toggleAutoPrestigeMode,
   toggleAutoReincarnateMode,
@@ -195,7 +179,7 @@ import {
   buyAllUpgrades,
   buyConstantUpgrades,
   constantUpgradeDescriptions,
-  crystalupgradedescriptions,
+  crystalupgradedescriptions
 } from './Upgrades'
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
@@ -451,198 +435,7 @@ export const generateEventHandlers = () => {
     )
   }
 
-  // Part 1: Runes Subtab
-
-  const runeStats = Object.keys(
-    runes
-  ) as RuneKeys[]
-  for (const key of runeStats) {
-    const rune = DOMCacheGetOrSet(`${key}RuneContainer`)
-    rune.addEventListener(
-      'mousemove',
-      (e) => {
-        Modal(() => focusedRuneHTML(key), e.clientX, e.clientY, { borderColor: runes[key].runeHTMLStyle.borderColor })
-      }
-    )
-    rune.addEventListener('focus', () => {
-      const element = DOMCacheGetOrSet(`${key}Rune`)
-      const elmRect = element.getBoundingClientRect()
-      Modal(() => focusedRuneHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
-        borderColor: runes[key].runeHTMLStyle.borderColor
-      })
-    })
-    rune.addEventListener('mouseout', CloseModal)
-
-    const runeIcon = DOMCacheGetOrSet(`${key}Rune`)
-    runeIcon.addEventListener('click', () => toggleAutoSacrifice(runeToIndex[key]))
-
-    const activateRune = DOMCacheGetOrSet(`${key}RuneSacrifice`)
-    /*activateRune.addEventListener('mouseover', () => updateFocusedRuneHTML(key))
-    activateRune.addEventListener('focus', () => updateFocusedRuneHTML(key))*/
-    activateRune.addEventListener('click', () => sacrificeOfferings(key, player.offerings, false))
-
-    // Add event listeners for locked rune containers
-    const lockedRune = DOMCacheGetOrSet(`${key}RuneLocked`)
-    lockedRune.addEventListener(
-      'mousemove',
-      (e) => {
-        Modal(() => focusedRuneLockedHTML(key), e.clientX, e.clientY, { borderColor: 'gray' })
-      }
-    )
-    lockedRune.addEventListener('focus', () => {
-      const element = DOMCacheGetOrSet(`${key}RuneLockedContainer`)
-      const elmRect = element.getBoundingClientRect()
-      Modal(() => focusedRuneLockedHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
-        borderColor: 'gray'
-      })
-    })
-    lockedRune.addEventListener('mouseout', CloseModal)
-  }
-
-  // Part 2: Talismans Subtab
-  const talismanBuyPercents = [10, 25, 50, 100]
-  const talismanBuyPercentsOrd = ['Ten', 'TwentyFive', 'Fifty', 'Hundred']
-
-  for (let index = 0; index < talismanBuyPercents.length; index++) {
-    DOMCacheGetOrSet(
-      `talisman${talismanBuyPercentsOrd[index]}`
-    ).addEventListener('click', () => toggleTalismanBuy(talismanBuyPercents[index]))
-  }
-
-  DOMCacheGetOrSet('toggleautoBuyFragments').addEventListener('click', () => toggleAutoBuyFragment())
-  DOMCacheGetOrSet('toggleautofortify').addEventListener('click', () => toggleautofortify())
-
-  // Talisman Fragments/Shards
-  const talismanItemNames = [
-    'shard',
-    'commonFragment',
-    'uncommonFragment',
-    'rareFragment',
-    'epicFragment',
-    'legendaryFragment',
-    'mythicalFragment'
-  ] as const
-  for (let index = 0; index < talismanItemNames.length; index++) {
-    const buyTalisman = DOMCacheGetOrSet(`buyTalismanItem${index + 1}`)
-    buyTalisman.addEventListener('mouseover', () => {
-      const obtainiumBudget = player.obtainium.mul(player.buyTalismanShardPercent / 100)
-      const offeringBudget = player.offerings.mul(player.buyTalismanShardPercent / 100)
-      updateTalismanCostDisplay(talismanItemNames[index], obtainiumBudget, offeringBudget)
-    })
-    buyTalisman.addEventListener('focus', () => {
-      const obtainiumBudget = player.obtainium.mul(player.buyTalismanShardPercent / 100)
-      const offeringBudget = player.offerings.mul(player.buyTalismanShardPercent / 100)
-      updateTalismanCostDisplay(talismanItemNames[index], obtainiumBudget, offeringBudget)
-    })
-    buyTalisman.addEventListener('click', () => {
-      const obtainiumBudget = player.obtainium.mul(player.buyTalismanShardPercent / 100)
-      const offeringBudget = player.offerings.mul(player.buyTalismanShardPercent / 100)
-      buyTalismanResources(talismanItemNames[index], obtainiumBudget, offeringBudget)
-    })
-  }
-
-  const buyTalismanAll = DOMCacheGetOrSet('buyTalismanAll')
-  buyTalismanAll.addEventListener('mouseover', () => {
-    const obtainiumBudget = player.obtainium.mul(player.buyTalismanShardPercent / 100)
-    const offeringBudget = player.offerings.mul(player.buyTalismanShardPercent / 100)
-    updateTalismanCostDisplay(null, obtainiumBudget, offeringBudget)
-  })
-  buyTalismanAll.addEventListener('focus', () => {
-    const obtainiumBudget = player.obtainium.mul(player.buyTalismanShardPercent / 100)
-    const offeringBudget = player.offerings.mul(player.buyTalismanShardPercent / 100)
-    updateTalismanCostDisplay(null, obtainiumBudget, offeringBudget)
-  })
-  buyTalismanAll.addEventListener('click', () => buyAllTalismanResources())
-
-  const talismanStats = Object.keys(
-    talismans
-  ) as TalismanKeys[]
-  for (const key of talismanStats) {
-    DOMCacheGetOrSet(`${key}Talisman`).addEventListener(
-      'mouseover',
-      () => {
-        talismanToStringHTML(key)
-        talismanRarityInfo(key)
-      }
-    )
-    DOMCacheGetOrSet(`level${key}Once`).addEventListener(
-      'click',
-      () => buyTalismanLevel(key)
-    )
-    DOMCacheGetOrSet(`level${key}Once`).addEventListener(
-      'mouseover',
-      () => updateTalismanCostHTML(key)
-    )
-    DOMCacheGetOrSet(`level${key}ToRarityIncrease`).addEventListener(
-      'click',
-      () => buyTalismanLevelToRarityIncrease(key)
-    )
-    DOMCacheGetOrSet(`level${key}ToRarityIncrease`).addEventListener(
-      'mouseover',
-      () => updateTalismanCostHTML(key)
-    )
-    DOMCacheGetOrSet(`level${key}ToMax`).addEventListener(
-      'click',
-      () => buyTalismanLevelToMax(key)
-    )
-    DOMCacheGetOrSet(`level${key}ToMax`).addEventListener(
-      'mouseover',
-      () => updateTalismanCostHTML(key)
-    )
-  }
-
-  // Part 3: Blessings and Spirits
-
-  for (const key of runeBlessingKeys) {
-    const runeBlessing = DOMCacheGetOrSet(`${key}RuneBlessingContainer`)
-    runeBlessing.addEventListener(
-      'mousemove',
-      (e) => {
-        Modal(() => focusedRuneBlessingHTML(key), e.clientX, e.clientY, {
-          borderColor: runes[key].runeHTMLStyle.borderColor
-        })
-      }
-    )
-    runeBlessing.addEventListener('focus', () => {
-      const element = DOMCacheGetOrSet(`${key}RuneBlessing`)
-      const elmRect = element.getBoundingClientRect()
-      Modal(() => focusedRuneBlessingHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
-        borderColor: runes[key].runeHTMLStyle.borderColor
-      })
-    })
-    runeBlessing.addEventListener('mouseout', CloseModal)
-
-    DOMCacheGetOrSet(`${key}RuneBlessingPurchase`).addEventListener(
-      'click',
-      () => buyBlessingLevels(key, player.offerings)
-    )
-  }
-
-  for (const key of runeSpiritKeys) {
-    const runeSpirit = DOMCacheGetOrSet(`${key}RuneSpiritContainer`)
-    runeSpirit.addEventListener(
-      'mousemove',
-      (e) => {
-        Modal(() => focusedRuneSpiritHTML(key), e.clientX, e.clientY, {
-          borderColor: runes[key].runeHTMLStyle.borderColor
-        })
-      }
-    )
-    runeSpirit.addEventListener('focus', () => {
-      const element = DOMCacheGetOrSet(`${key}RuneSpirit`)
-      const elmRect = element.getBoundingClientRect()
-      Modal(() => focusedRuneSpiritHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
-        borderColor: runes[key].runeHTMLStyle.borderColor
-      })
-    })
-
-    runeSpirit.addEventListener('mouseout', CloseModal)
-
-    DOMCacheGetOrSet(`${key}RuneSpiritPurchase`).addEventListener(
-      'click',
-      () => buySpiritLevels(key, player.offerings)
-    )
-  }
+  // RUNES TAB
 
   DOMCacheGetOrSet('buyRuneBlessingInput').addEventListener('blur', () => updateRuneBlessingBuyAmount(1))
   DOMCacheGetOrSet('buyRuneSpiritInput').addEventListener('blur', () => updateRuneBlessingBuyAmount(2))

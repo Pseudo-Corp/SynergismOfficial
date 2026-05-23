@@ -1673,7 +1673,7 @@ p#prestigehotkeys {
 }
 
 #offeringDetails,
-#runeEffectDisplays {
+#runeFooter {
     max-width: 1200px;
     display: flex;
     text-align: center;
@@ -1681,7 +1681,7 @@ p#prestigehotkeys {
 }
 
 #offeringDetails > p,
-#runeEffectDisplays > p {
+#runeFooter > p {
     margin: 0;
 }
 
@@ -1705,6 +1705,30 @@ p#prestigehotkeys {
     transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
+.runeTypeMobile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2px;
+}
+
+.runeIconAndName {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1%;
+}
+
+.runeIconAndName img {
+    flex-shrink: 0;
+    margin-right: 5px;
+}
+
+.runeIconAndName p {
+    margin: 0;
+    font-size: 1.2em;
+}
+
 .runeType:hover {
     box-shadow:
         0 0 15px var(--glow-color),
@@ -1713,14 +1737,20 @@ p#prestigehotkeys {
     background-color: var(--box-color);
 }
 
-.runeType > button {
+.runeType > button,
+.runeTypeMobile > button {
     min-width: 100px;
     text-align: center;
     border: 2px solid gold;
     cursor: default;
 }
 
-.runeType > button:hover {
+.runeTypeMobile > button {
+    font-size: 1.5em;
+}
+
+.runeType > button:hover,
+.runeTypeMobile > button:hover {
     background-color: var(--button-color);
 }
 
@@ -1728,6 +1758,11 @@ p#prestigehotkeys {
     margin: 0;
     text-align: center;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
+}
+
+.runeTypeElementMobile {
+    margin: 0;
+    text-align: left;
 }
 
 img.runeTypeElement {
@@ -1739,12 +1774,14 @@ img.runeTypeElement:hover {
     background-color: var(--hover-color);
 }
 
-.runeType > .runeButtonAvailable {
+.runeType > .runeButtonAvailable,
+.runeTypeMobile > .runeButtonAvailable {
     background-color: var(--purplebtn-color);
     cursor: pointer;
 }
 
-.runeType > .runeButtonAvailable:hover {
+.runeType > .runeButtonAvailable:hover,
+.runeTypeMobile > .runeButtonAvailable:hover {
     background-color: var(--purplehover-color);
 }
 

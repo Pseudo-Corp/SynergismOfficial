@@ -5961,7 +5961,7 @@
     "freeLevels": "[<<orange|+{{x}}>>]",
     "offeringText": "+{{exp}} EXP per Offering - {{offeringReq}} Offerings for +{{levels}}.",
     "maxLevel": "Maxed Level!",
-    "TNL": "+{{levelAmount}} in <<orange | {{offerings}} ☤>>"
+    "TNL": "+{{levelAmount}} in <<orange | {{offerings}} Offerings>>"
   },
   "singularityChallenge": {
     "enterChallenge": {

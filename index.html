@@ -818,138 +818,18 @@
 
                 </div>
 
-                <div id="runeEffectDisplays" aria-live="polite">
-                    <p id="focusedRuneName" style="color: white"></p>
-                    <p id="focusedRuneDescription" style="color: lightgrey"></p>
-                    <p id="focusedRuneValues" style="color: gold"></p>
-                    <p id="focusedRuneCoefficient" style="color: lightcoral"></p>
-                    <p id="focusedRuneLevelInfo" style="color: orchid"></p>
-                    <p id="speedRunePower" style="color: orange"></p>
-                    <p id="duplicationRunePower" style="color: plum"></p>
-                    <p id="prismRunePower" style="color: lightblue"></p>
-                    <p id="thriftRunePower" style="color: lightgreen"></p>
-                    <p id="superiorIntellectRunePower" style="color: tomato"></p>
-                    <p id="infiniteAscentRunePower" style="color: lightgoldenrodyellow"></p>
-                    <p id="antiquitiesRunePower" class="orchidText"></p>
-                    <p id="topHatRunePower" style="color: gainsboro"></p>
-                    <p id="horseShoeRunePower" style="color: burlywood"></p>
-                    <p id="finiteDescentRunePower" style="color: lightgray"></p>
-                    <p id="runehotkeys" style="color: lightgray;" i18n="footnotes.runes"></p>
+                <div id="runeFooter" aria-live="polite" class="hideOnMobile">
+                    <p id="focusedRuneLevelInfo" style="color: orchid" i18n="runes.hover"></p>
+                    <p id="runeHotkeys" class="grayText" i18n="footnotes.runes"></p>
                 </div>
             </div>
 
             <div id="runeContainer2" style="display: none;">
-                <div class="talismanShardSection">
-                    <div class="talismanShardContainers">
-                        <div class="talismanShardHeader">
-                            <button id="toggleautoBuyFragments" style="border: 2px solid white"></button>
-                            <button id="buyTalismanAll" style="border: 2px solid white" i18n="runes.talismans.buyAll"></button>
-                        </div>
-                        <div class="talismanShardContainer">
-                            <img class="talismanShardIcon" src="Pictures/Default/TalismanShard.png" i18n="general.resources.talismanShard" title="Talisman Shard" loading="lazy">
-                            <span class="talismanShardAmount" id="talismanShardInventory" style="color: yellow">0</span>
-                            <button class="fragmentBtn" id="buyTalismanItem1" style="border: 2px solid gold" i18n="runes.talismans.buy"></button>
-                        </div>
-                        <div class="talismanShardContainer">
-                            <img class="talismanShardIcon" src="Pictures/Default/TalismanShardCommon.png" i18n="general.resources.talismanShardCommon" title="Common Fragment" loading="lazy">
-                            <span class="talismanShardAmount" id="commonFragmentInventory" style="color: white">0</span>
-                            <button class="fragmentBtn" id="buyTalismanItem2" style="border:2px solid white" i18n="runes.talismans.buy"></button>
-                        </div>
-                        <div class="talismanShardContainer">
-                            <img class="talismanShardIcon" src="Pictures/Default/TalismanShardUncommon.png" i18n="general.resources.talismanShardUncommon" title="Uncommon Fragment" loading="lazy">
-                            <span class="talismanShardAmount" id="uncommonFragmentInventory" style="color: limegreen">0</span>
-                            <button class="fragmentBtn" id="buyTalismanItem3" style="border:2px solid lime" i18n="runes.talismans.buy"></button>
-                        </div>
-                        <div class="talismanShardContainer">
-                            <img class="talismanShardIcon" src="Pictures/Default/TalismanShardRare.png" i18n="general.resources.talismanShardRare" title="Rare Fragment" loading="lazy">
-                            <span class="talismanShardAmount darkcyanText" id="rareFragmentInventory">0</span>
-                            <button class="fragmentBtn" id="buyTalismanItem4" style="border:2px solid aqua" i18n="runes.talismans.buy"></button>
-                        </div>
-                        <div class="talismanShardContainer">
-                            <img class="talismanShardIcon" src="Pictures/Default/TalismanShardEpic.png"  i18n="general.resources.talismanShardEpic" title="Epic Fragment" loading="lazy">
-                            <span class="talismanShardAmount" id="epicFragmentInventory" style="color: plum">0</span>
-                            <button class="fragmentBtn" id="buyTalismanItem5" style="border:2px solid plum" i18n="runes.talismans.buy"></button>
-                        </div>
-                        <div class="talismanShardContainer">
-                            <img class="talismanShardIcon" src="Pictures/Default/TalismanShardLegendary.png"  i18n="general.resources.talismanShardLegendary" title="Legendary Fragment" loading="lazy">
-                            <span class="talismanShardAmount" id="legendaryFragmentInventory" style="color: orange">0</span>
-                            <button class="fragmentBtn" id="buyTalismanItem6" style="border:2px solid orange" i18n="runes.talismans.buy"></button>
-                        </div>
-                        <div class="talismanShardContainer">
-                            <img class="talismanShardIcon" src="Pictures/Default/TalismanShardMythical.png" i18n="general.resources.talismanShardMythic" title="Mythical Fragment" loading="lazy">
-                            <span class="talismanShardAmount crimsonText" id="mythicalFragmentInventory">0</span>
-                            <button class="fragmentBtn" id="buyTalismanItem7" style="border:2px solid red" i18n="runes.talismans.buy"></button>
-                        </div>
-                        <p id="talismanFragmentCost" aria-live="polite">Cost for 1: 1e6 Obtainium</p>
-                    </div>
+                <div class="talismanShardSection" id="talismanShardSect">
                 </div>
-                <div class="talismansCenter">
-                    <div class="talismansContainer" id="talismansContainerDiv">    
-                    </div>
-                    <div class="talismansModify">
-
-                        <div id="talismanEffect" aria-live="polite">
-                            <p id="talismanTitle"></p>
-                            <p id="talismanDescription" style="color: silver"></p>
-                            <p id="talismanInscriptionBonus"></p>
-                            <p id="talismanSignatureBonus"></p>
-                            <p id="talismanSpeedEffect" style="color: cyan"></p>
-                            <p id="talismanDuplicationEffect" style="color: plum"></p>
-                            <p id="talismanPrismEffect" style="color: lightblue"></p>
-                            <p id="talismanThriftEffect" style="color: lightgreen"></p>
-                            <p id="talismanSuperiorIntellectEffect" class="crimsonText"></p>
-                            <p id="talismanInfiniteAscentEffect" style="color: lightgoldenrodyellow"></p>
-                            <p id="talismanAntiquitiesEffect" style="color: orchid"></p>
-                            <p id="talismanHorseShoeEffect" style="color: burlywood"></p>
-                            <p id="talismanFiniteDescentEffect" style="color: lightgray"></p>
-                            <p id="talismanTopHatEffect" style="color: gainsboro"></p>
-                            <p id="talismanNoResetText" style="color: pink"></p>
-                        </div>
-
-                        <div id="talismanLevelUpCost" aria-live="polite" style="table-layout: fixed; display: none">
-                            <p id="talismanLevelUpSummary" style="color: silver"></p>
-                            <table>
-                                <tr>
-                                    <td><img src="Pictures/Default/TalismanShard.png" i18n="general.resources.talismanShard" loading="lazy"></td>
-                                    <td><p id="talismanShardCost" style="color: yellow"></p></td>
-                                    <td><img src="Pictures/Default/TalismanShardCommon.png" i18n="general.resources.talismanShardCommon" loading="lazy"></td>
-                                    <td><p id="talismanCommonFragmentCost" style="color: white"></p></td>
-                                    <td><img src="Pictures/Default/TalismanShardUncommon.png" i18n="general.resources.talismanShardUncommon" loading="lazy"></td>
-                                    <td><p id="talismanUncommonFragmentCost" style="color: limegreen"></p></td>
-                                    <td><img src="Pictures/Default/TalismanShardRare.png" i18n="general.resources.talismanShardRare" loading="lazy"></td>
-                                    <td><p id="talismanRareFragmentCost" class="darkcyanText"></p></td>
-                                </tr>
-                                <tr>
-                                    <td><img src="Pictures/Default/TalismanShardEpic.png" i18n="general.resources.talismanShardEpic" loading="lazy"></td>
-                                    <td><p id="talismanEpicFragmentCost" style="color: plum"></p></td>
-                                    <td><img src="Pictures/Default/TalismanShardLegendary.png" i18n="general.resources.talismanShardLegendary" loading="lazy"></td>
-                                    <td><p id="talismanLegendaryFragmentCost" style="color: orange"></p></td>
-                                    <td><img src="Pictures/Default/TalismanShardMythical.png" i18n="general.resources.talismanShardMythic" loading="lazy"></td>
-                                    <td><p id="talismanMythicalFragmentCost" class="crimsonText"></p></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+                <div class="talismansCenter" id="talismansCenterDiv">
                 </div>
-                <div class="talismanToggles">
-                    <div class="talismanSettingsContainer">
-                        <div id="buyTalismanLevelAmount">
-                            <table style="font-size: 0;" title="Toggle percent resources used">
-                                <tr>
-                                    <td><img id="talismanTen" alt="Ten Percent" class="buyAmountBtn" src="Pictures/Default/TalismanTen.png" style="background-color: green;" loading="lazy"></td>
-                                    <td><img id="talismanTwentyFive" alt="Twenty Five Percent" class="buyAmountBtn" src="Pictures/Default/TalismanTwentyFive.png" loading="lazy"></td>
-                                    <td><img id="talismanFifty" alt="Fifty Percent" class="buyAmountBtn" src="Pictures/Default/TalismanFifty.png" loading="lazy"></td>
-                                    <td><img id="talismanHundred" alt="Hundred Percent" class="buyAmountBtn" src="Pictures/Default/TalismanHundred.png" loading="lazy"></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <button id="toggleautofortify"></button>
-                        <div id="rarityInfoTexts">
-                            <p id="rarityInfoMultiline"></p>
-                            <p id="rarityInfo" i18n="runes.talismans.rarityInfo.infoText1"></p>
-                            <p id="rarityInfo2" i18n="runes.talismans.rarityInfo.infoText2"></p>
-                        </div>
-                    </div>
+                <div class="talismanToggles" id="talismanTogglesDiv">
                 </div>
             </div>
             <div id="runeContainer3" style="display: none">

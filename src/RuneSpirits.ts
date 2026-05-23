@@ -3,12 +3,14 @@ import i18next from 'i18next'
 import { awardAchievementGroup } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSalvageRuneEXPMultiplier } from './Calculate'
+import { platform } from './Config'
 import { resetTiers } from './Reset'
 import { type RuneBlessingKeys, runeBlessings } from './RuneBlessings'
 import { type RuneKeys, runes } from './Runes'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { IconSets } from './Themes'
+import { CloseModal, Modal } from './UpdateHTML'
 import { assert } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -307,7 +309,7 @@ const maxSpiritLevelPurchaseInformation = (spirit: RuneSpiritKeys, budget: Decim
   return { levels: levelsGained, expRequired: expRequired, offerings: offeringsRequired }
 }
 
-export const updateRuneSpiritHTML = (spirit: RuneSpiritKeys) => {
+export const updateWebRuneSpiritHTML = (spirit: RuneSpiritKeys) => {
   assert(G.currentTab === Tabs.Runes, 'current tab is not Runes')
 
   DOMCacheGetOrSet(`${spirit}RuneSpiritLevel`).innerHTML = i18next.t('runes.spirits.spiritLevel', {
@@ -319,6 +321,44 @@ export const updateRuneSpiritHTML = (spirit: RuneSpiritKeys) => {
     levelAmount: levels,
     offerings: format(offerings, 2, false)
   })
+}
+
+export const updateMobileRuneSpiritHTML = (spirit: RuneSpiritKeys) => {
+  assert(G.currentTab === Tabs.Runes, 'current tab is not Runes')
+
+  // {rune}Rune, {rune}RuneLevel, {rune}RuneCoefficient, {rune}RuneIncreasePerLevel, {rune}RunePower, {rune}RuneEffects, {rune}RuneCost
+  DOMCacheGetOrSet(`${spirit}RuneSpiritLevel`).innerHTML = i18next.t('runes.spirits.spiritLevel', {
+    amount: format(runeSpirits[spirit].level, 0, true)
+  })
+  DOMCacheGetOrSet(`${spirit}RuneSpiritCoefficient`).textContent = i18next.t('runes.spirits.runeCoefficientText', {
+    val: format(runeSpirits[spirit].levelsPerOOM, 0, true)
+  })
+
+  DOMCacheGetOrSet(`${spirit}RuneSpiritIncreasePerLevel`).innerHTML = i18next.t('runes.perLevelIncrease', {
+    x: format(Math.pow(10, 1 / runeSpirits[spirit].levelsPerOOM), 4, false)
+  })
+
+  const spiritPower = getRuneSpiritPower(spirit)
+
+  DOMCacheGetOrSet(`${spirit}RuneSpiritPower`).innerHTML = i18next.t('runes.spirits.effectiveSpiritPower', {
+    power: format(spiritPower, 0, true)
+  })
+
+  DOMCacheGetOrSet(`${spirit}RuneSpiritEffects`).innerHTML = runeSpirits[spirit].effectsDescription(spiritPower)
+
+  const { levels, offerings } = maxSpiritLevelPurchaseInformation(spirit, player.offerings)
+  DOMCacheGetOrSet(`${spirit}RuneSpiritCost`).innerHTML = i18next.t('runes.TNL', {
+    levelAmount: format(levels, 0, true),
+    offerings: format(offerings, 0, true)
+  })
+}
+
+export const updateRuneSpiritHTML = (bless: RuneBlessingKeys) => {
+  if (platform === 'mobile') {
+    updateMobileRuneSpiritHTML(bless)
+  } else {
+    updateWebRuneSpiritHTML(bless)
+  }
 }
 
 export const focusedRuneSpiritHTML = (spirit: RuneSpiritKeys) => {
@@ -383,7 +423,7 @@ export function resetRuneSpirits (tier: keyof typeof resetTiers) {
   }
 }
 
-export const generateSpiritsHTML = () => {
+export const generateWebRuneSpiritsHTML = () => {
   const spiritRow = DOMCacheGetOrSet('runeSpirits')
 
   for (const key of runeSpiritKeys) {
@@ -397,6 +437,24 @@ export const generateSpiritsHTML = () => {
       '--glow-color',
       `color-mix(in srgb, ${runes[key].runeHTMLStyle.borderColor} 50%, lightgoldenrodyellow 50%)`
     )
+
+    runesDiv.addEventListener(
+      'mousemove',
+      (e) => {
+        Modal(() => focusedRuneSpiritHTML(key), e.clientX, e.clientY, {
+          borderColor: runes[key].runeHTMLStyle.borderColor
+        })
+      }
+    )
+    runesDiv.addEventListener('focus', () => {
+      const element = DOMCacheGetOrSet(`${key}RuneSpirit`)
+      const elmRect = element.getBoundingClientRect()
+      Modal(() => focusedRuneSpiritHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
+        borderColor: runes[key].runeHTMLStyle.borderColor
+      })
+    })
+
+    runesDiv.addEventListener('mouseout', CloseModal)
 
     const runeName = document.createElement('p')
     runeName.className = 'runeTypeElement'
@@ -432,9 +490,119 @@ export const generateSpiritsHTML = () => {
     sacrificeButton.id = `${key}RuneSpiritPurchase`
     sacrificeButton.setAttribute('i18n', 'general.spiritCapital')
     sacrificeButton.textContent = i18next.t('general.spiritCapital')
+    sacrificeButton.addEventListener(
+      'click',
+      () => buySpiritLevels(key, player.offerings)
+    )
 
     runesDiv.appendChild(sacrificeButton)
 
     spiritRow.appendChild(runesDiv)
   }
+}
+
+export const generateMobileRuneSpiritsHTML = () => {
+  const spiritRow = DOMCacheGetOrSet('runeSpirits')
+  for (const key of Object.keys(runeBlessings) as RuneSpiritKeys[]) {
+    // Create unlocked rune container
+    const runesDiv = document.createElement('div')
+    runesDiv.className = 'runeTypeMobile'
+    runesDiv.id = `${key}RuneSpiritContainer`
+    runesDiv.style.border = `2px solid ${runes[key].runeHTMLStyle.borderColor}`
+    runesDiv.style.borderRadius = '8px'
+    runesDiv.style.margin = '2px'
+
+    // Top of div lefthand (icon, name)
+    const topRow = document.createElement('div')
+    topRow.classList.add('runeIconAndName')
+
+    const runeIcon = document.createElement('img')
+    runeIcon.className = 'runeImage'
+    runeIcon.height = 32 // make smaller on mobile versions
+    runeIcon.width = 32
+    runeIcon.id = `${key}RuneSpirit`
+    runeIcon.alt = `${key} Rune`
+    runeIcon.src = `Pictures/Runes/${key.charAt(0).toUpperCase() + key.slice(1)}.png`
+    runeIcon.loading = 'lazy'
+
+    topRow.appendChild(runeIcon)
+
+    const runeName = document.createElement('p')
+    runeName.className = 'runeTypeElementMobile'
+    runeName.setAttribute('i18n', `runes.${key}.name`)
+    runeName.innerHTML = i18next.t(`runes.${key}.name`)
+    topRow.appendChild(runeName)
+
+    runesDiv.appendChild(topRow)
+
+    const level = document.createElement('p')
+    level.className = 'runeTypeElementMobile'
+    level.id = `${key}RuneSpiritLevel`
+    level.textContent = '0 [+0]'
+    level.style.color = 'white'
+    runesDiv.appendChild(level)
+
+    const coefficientText = document.createElement('p')
+    coefficientText.className = 'runeTypeElementMobile'
+    coefficientText.id = `${key}RuneSpiritCoefficient`
+    coefficientText.textContent = '1'
+    coefficientText.style.color = 'white'
+    runesDiv.appendChild(coefficientText)
+
+    const increasePerLevelText = document.createElement('p')
+    increasePerLevelText.className = 'runeTypeElementMobile'
+    increasePerLevelText.id = `${key}RuneSpiritIncreasePerLevel`
+    increasePerLevelText.textContent = '1'
+    increasePerLevelText.style.color = 'white'
+    runesDiv.appendChild(increasePerLevelText)
+
+    const runePower = document.createElement('p')
+    runePower.className = 'runeTypeElementMobile'
+    runePower.id = `${key}RuneSpiritPower`
+    runePower.textContent = '1'
+    runePower.style.color = 'white'
+    runesDiv.appendChild(runePower)
+
+    const runeEffects = document.createElement('p')
+    runeEffects.className = 'runeTypeElementMobile'
+    runeEffects.id = `${key}RuneSpiritEffects`
+    runeEffects.textContent = '1'
+    runeEffects.style.color = 'white'
+    runesDiv.appendChild(runeEffects)
+
+    const runeCost = document.createElement('p')
+    runeCost.className = 'runeTypeElementMobile'
+    runeCost.id = `${key}RuneSpiritCost`
+    runeCost.textContent = '1'
+    runeCost.style.color = 'white'
+    runesDiv.appendChild(runeCost)
+
+    const sacrificeButton = document.createElement('button')
+    sacrificeButton.className = 'runeTypeElementMobile'
+    sacrificeButton.id = `${key}RuneSpiritPurchase`
+    sacrificeButton.setAttribute('i18n', 'general.spiritCapital')
+    sacrificeButton.textContent = i18next.t('general.spiritCapital')
+    sacrificeButton.addEventListener(
+      'click',
+      () => buySpiritLevels(key, player.offerings)
+    )
+
+    runesDiv.appendChild(sacrificeButton)
+
+    spiritRow.appendChild(runesDiv)
+  }
+}
+
+let htmlGeneratedThisSession = false
+
+export const generateSpiritsHTML = () => {
+  if (htmlGeneratedThisSession) {
+    return
+  }
+  if (platform === 'mobile') {
+    generateMobileRuneSpiritsHTML()
+  } else {
+    generateWebRuneSpiritsHTML()
+  }
+  htmlGeneratedThisSession = true
 }

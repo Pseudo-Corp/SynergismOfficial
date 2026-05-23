@@ -5,6 +5,7 @@ import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateGlobalSpeedMult, calculateTotalCoinOwned } from './Calculate'
+import { platform } from './Config'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getRuneEffects } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
@@ -23,7 +24,6 @@ import { toggleShops } from './Toggles'
 import { CloseModal, Modal, revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
-import { platform } from './Config'
 
 const crystalupgdesc: Record<number, () => Record<string, string>> = {
   3: () => ({
@@ -518,7 +518,7 @@ export const upgradeDescriptionHTML = (i: number) => {
 
   let descriptionText = i18next.t(`upgrades.descriptions.${i}`)
   let descColor = 'white'
-  if (player.upgrades[i]) { 
+  if (player.upgrades[i]) {
     descriptionText += ` ${i18next.t('upgrades.bought')}`
     descColor = 'gold'
   }
@@ -574,8 +574,7 @@ export const updateMobileUpgradeDescription = (i: number) => {
   if (!player.upgrades[i]) {
     const costText = `Cost: ${format(Decimal.pow(10, G.upgradeCosts[i]))} ${currency}`
     DOMCacheGetOrSet(`upg${i}Cost`).innerHTML = `<span style="color:${costColor}">${costText}</span>`
-  }
-  else {
+  } else {
     const boughtText = i18next.t('upgrades.bought')
     DOMCacheGetOrSet(`upg${i}Cost`).innerHTML = `<span style="color: gold">${boughtText}</span>`
   }
@@ -585,7 +584,6 @@ export const updateMobileUpgradeDescription = (i: number) => {
 
   const effectText = `<span style="color: gold">${upgradeeffects(i)}</span>`
   DOMCacheGetOrSet(`upg${i}Effect`).innerHTML = effectText
-
 }
 
 export const clickUpgrades = (i: number, auto: boolean) => {
@@ -1005,12 +1003,12 @@ const createWebUpgradesTable = (category: UpgradeCategories) => {
       btn.addEventListener('click', () => clickUpgrades(id, false))
 
       btn.addEventListener('mousemove', (e: MouseEvent) =>
-            Modal(
-              () => upgradeDescriptionHTML(id),
-              e.clientX,
-              e.clientY,
-              { borderColor: 'gold' }
-            ))
+        Modal(
+          () => upgradeDescriptionHTML(id),
+          e.clientX,
+          e.clientY,
+          { borderColor: 'gold' }
+        ))
       btn.addEventListener('mouseout', CloseModal)
 
       const img = document.createElement('img')
@@ -1075,10 +1073,10 @@ const createMobileUpgradesDiv = (category: UpgradeCategories) => {
     descriptionP.style.color = 'lightblue'
 
     elm.appendChild(descriptionP)
-    
+
     const effectP = document.createElement('p')
     effectP.id = `upg${id}Effect`
-    
+
     elm.appendChild(effectP)
 
     div.appendChild(elm)
@@ -1101,13 +1099,11 @@ const createUpgradeSection = (category: UpgradeCategories) => {
 
   if (platform === 'mobile') {
     section.appendChild(createMobileUpgradesDiv(category))
-  }
-  else {
+  } else {
     section.appendChild(createWebUpgradesTable(category))
   }
   return section
 }
-
 
 export const generateUpgradesTab = () => {
   if (createdHTMLThisSession) {

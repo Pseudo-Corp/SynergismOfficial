@@ -15,6 +15,7 @@ export const lastUpdated = new Date('##LAST_UPDATED##')
 export const prod = typeof PROD === 'undefined' ? false : PROD
 export const dev = typeof DEV === 'undefined' ? false : DEV
 
-export const platform = typeof PLATFORM === 'undefined' ? 'browser' : PLATFORM
+// export const platform = typeof PLATFORM === 'undefined' ? 'browser' : PLATFORM
+export const platform: 'mobile' | 'browser' | 'steam' = 'mobile'
 
 export const ticksPerSecond = 200
