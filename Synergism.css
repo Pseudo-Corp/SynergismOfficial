@@ -898,7 +898,6 @@ p#buildinghotkeys2 {
     top: 0;
     z-index: 1;
     background-color: var(--header-color);
-    border: 2px solid gold;
 }
 
 .upgradeReferenceHeaderIcon {
@@ -6575,6 +6574,7 @@ html[data-mobile="true"] .hideOnMobile {
         min-width: unset;
         width: 100%;
         position: fixed;
+        box-sizing: border-box;
     }
 
     body {
