@@ -626,6 +626,7 @@ function handleWebSocket () {
   assert(!ws || ws.readyState === WebSocket.CLOSED, 'WebSocket has been set and is not closed')
 
   ws = new WebSocket('wss://synergism.cc/consumables/connect')
+  let interval: number | undefined
 
   ws.addEventListener('close', () => {
     const delay = exponentialBackoff[++tries]
@@ -635,6 +636,11 @@ function handleWebSocket () {
     } else {
       Notification(i18next.t('account.consumables.connectionFailed'))
       resetWebSocket()
+    }
+
+    if (interval) {
+      clearInterval(interval)
+      interval = undefined
     }
   })
 
@@ -646,9 +652,22 @@ function handleWebSocket () {
     }
 
     queue.length = 0
+
+    interval = setInterval((ws: WebSocket) => {
+      ws.send('ping')
+    }, 30_000, ws)
+  })
+
+  ws.addEventListener('error', () => {
+    if (interval) {
+      clearInterval(interval)
+      interval = undefined
+    }
   })
 
   ws.addEventListener('message', (ev) => {
+    if (ev.data === 'pong') return
+
     const data = messageSchema.parse(ev.data)
 
     if (data.type === 'warn') {

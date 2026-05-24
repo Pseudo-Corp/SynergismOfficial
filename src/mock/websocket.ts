@@ -20,6 +20,11 @@ export const consumeHandlers = [
     sleep(1000).then(() => client.send(messages.infoAll([], [], tips)))
 
     client.addEventListener('message', ({ data: body }) => {
+      if (body === 'ping') {
+        client.send('pong')
+        return
+      }
+
       const { success, data } = messageSchema.safeParse(body)
 
       if (!success) {
