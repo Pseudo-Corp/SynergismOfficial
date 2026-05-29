@@ -1554,8 +1554,6 @@ const loadSynergy = () => {
     // For blueberry upgrades!
     displayProperLoadoutCount()
 
-    DOMCacheGetOrSet('talismanLevelUpCost').style.display = 'none'
-
     // This must be initialized at the beginning of the calculation
     c15RewardUpdate()
 

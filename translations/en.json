@@ -4345,6 +4345,7 @@
     },
     "cancelled": "Okay, maybe next time!",
     "level": "Level",
+    "levelWithRatio": "Level {{level}}/{{max}}",
     "minimum": "Minimum",
     "spent": "Spent",
     "OK": "OK",
@@ -4371,6 +4372,8 @@
     "off": "OFF",
     "buyOne": "Buy x1",
     "buyMax": "Buy MAX",
+    "buyCustom": "Buy: {{amount}}",
+    "buyPercentage": "Buy Percentage:",
     "languageChange": "Changing the language requires a reload! Would you like to reload now?",
     "resources": {
       "offering": "Offering",
@@ -4700,7 +4703,7 @@
       "runes": "Runes",
       "talismans": "Talismans",
       "blessings": "Blessings",
-      "spirits": "[=-Spirits-=]"
+      "spirits": "Spirits"
     },
     "challenges": {
       "normal": "Normal",
@@ -5711,68 +5714,68 @@
       "exemption": {
         "name": "The Exemption Talisman",
         "description": "Fake Science Monthly says wearing this trinket lowers your taxes!",
-        "inscription": "<<gold | ✏>> Inscription: Your taxes are multiplied by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Duplication Rune."
+        "inscription": "<<gold|Inscription>>: Your taxes are multiplied by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: Add <<crimson|12>> to the Rune Level Coefficient of the Duplication Rune."
       },
       "chronos": {
         "name": "Talisman of Chronology",
         "description": "<i>Time flows just a little faster when worn</i>, you read on the tag.",
-        "inscription": "<<gold | ✏>> Inscription: Global Speed is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Speed Rune."
+        "inscription": "<<gold|Inscription>>: Global Speed is increased by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: Add <<crimson|12>> to the Rune Level Coefficient of the Speed Rune."
       },
       "midas": {
         "name": "Midas Necklace",
         "description": "If Midas turned all he touched to gold...",
-        "inscription": "<<gold | ✏>> Inscription: Rune Blessing Power is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Thrift Rune."
+        "inscription": "<<gold|Inscription>>: Rune Blessing Power is increased by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: Add <<crimson|12>> to the Rune Level Coefficient of Thrift Rune."
       },
       "metaphysics": {
         "name": "Metaphysical Gem",
         "description": "Do you wear this, or does this wear you?",
-        "inscription": "<<gold | ✏>> Inscription: This Talismans' Bonus Rune Levels are increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: This Talismans' Bonus Rune Levels are further multiplied by <<crimson|1.07>>."
+        "inscription": "<<gold|Inscription>>: This Talismans' Bonus Rune Levels are increased by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: This Talismans' Bonus Rune Levels are further multiplied by <<crimson|1.07>>."
       },
       "polymath": {
         "name": "Trinket of the Polymath",
         "description": "Do you feel like an exiled trickster?",
-        "inscription": "<<gold | ✏>> Inscription: Ascension Speed is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune level Coefficient of Superior Intellect Rune."
+        "inscription": "<<gold|Inscription>>: Ascension Speed is increased by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: Add <<crimson|12>> to the Rune level Coefficient of Superior Intellect Rune."
       },
       "mortuus": {
         "name": "Preserved Ant Talisman",
         "description": "It's said that great sacrifice was made for this Talisman to exist.",
-        "inscription": "<<gold | ✏>> Inscription: Reborn ELO is created <<gold|{{val}}>> faster.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Prism Rune."
+        "inscription": "<<gold|Inscription>>: Reborn ELO is created <<gold|{{val}}>> faster.",
+        "signature": "<<crimson|Signature>>: Add <<crimson|12>> to the Rune Level Coefficient of Prism Rune."
       },
       "plastic": {
         "name": "A hunk of Plastic",
         "description": "Probably purchased on a buy now, pay later app.",
-        "inscription": "<<gold | ✏>> Inscription: Quark Gain is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: None. You cannot seem to sign your name on this hunk of plastic."
+        "inscription": "<<gold|Inscription>>: Quark Gain is increased by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: None. You cannot seem to sign your name on this hunk of plastic."
       },
       "wowSquare": {
         "name": "The Wow! Square",
         "description": "For the average :unsmith:, this is a cube.",
-        "inscription": "<<gold | ✏>> Inscription: Even-Dimensional Cube Gain is increased by <<gold|{{val}}>>",
-        "signature": "<<crimson | ✎>> Signature: Odd-Dimensional Cube Gain is increased by <<crimson|20%>>"
+        "inscription": "<<gold|Inscription>>: Even-Dimensional Cube Gain is increased by <<gold|{{val}}>>",
+        "signature": "<<crimson|Signature>>: Odd-Dimensional Cube Gain is increased by <<crimson|20%>>"
       },
       "achievement": {
         "name": "Medal of Achievement",
         "description": "Has serial number <i>{{num}}</i> on it.",
-        "inscription": "<<gold | ✏>> Inscription: Sources of Positive Salvage give <<gold|{{val}}>> more!",
-        "signature": "<<crimson | ✎>> Signature: Sources of Negative Salvage effect <<crimson|{{val}}>>."
+        "inscription": "<<gold|Inscription>>: Sources of Positive Salvage give <<gold|{{val}}>> more!",
+        "signature": "<<crimson|Signature>>: Sources of Negative Salvage effect <<crimson|{{val}}>>."
       },
       "cookieGrandma": {
         "name": "Freshly-Baked Cookie",
         "description": "Kinda burns your neck. Thanks Grandma!",
-        "inscription": "<<gold | ✏>> Inscription: Gain <<gold|+{{val}}>> free Corruption Levels!",
-        "signature": "<<crimson | ✎>> Signature: Turns out, you cannot write on cookies."
+        "inscription": "<<gold|Inscription>>: Gain <<gold|+{{val}}>> free Corruption Levels!",
+        "signature": "<<crimson|Signature>>: Turns out, you cannot write on cookies."
       },
       "horseShoe": {
         "name": "The Horse's Boot",
         "description": "It's an actual horse shoe!",
-        "inscription": "<<gold | ✏>> Inscription: Gain <<gold|+{{val}}%>> Ambrosia Luck.",
-        "signature": "<<crimson | ✎>> Signature: Gain <<crimson|+{{val}}>> Red Luck."
+        "inscription": "<<gold|Inscription>>: Gain <<gold|+{{val}}%>> Ambrosia Luck.",
+        "signature": "<<crimson|Signature>>: Gain <<crimson|+{{val}}>> Red Luck."
       },
       "shards": {
         "shard": "Talisman Shard",
@@ -5809,24 +5812,6 @@
         "default": "Default!",
         "levelReq": "≥ Level {{level}}"
       },
-      "summaries": {
-        "exemption": "=-=-=-= Exemption Talisman Effects =-=-=-=",
-        "chronos": "=-=-=-= Chronos Talisman Effects =-=-=-=",
-        "midas": "=-=-=-= Midas Talisman Effects =-=-=-=",
-        "metaphysics": "=-=-=-= Metaphysics Talisman Effects =-=-=-=",
-        "polymath": "=-=-=-= Polymath Talisman Effects =-=-=-=",
-        "mortuus": "=-=-=-= Mortuus Est Talisman Effects =-=-=-=",
-        "plastic": "=-=-=-= Plastic Talisman Effects =-=-=-="
-      },
-      "effects": {
-        "exemption": "Taxes -{{x}}%",
-        "chronos": "Gain +{{x}}% Global Speed Acceleration.",
-        "midas": "Rune Blessing bonuses +{{x}}%",
-        "metaphysics": "Talismans' Bonus Rune Levels +{{x}} per level",
-        "polymath": "Rune Spirit Bonuses +{{x}}%",
-        "mortuus": "Bonus Ant Levels: +{{x}}",
-        "plastic": "Gain 1x normal production (Joke)!"
-      },
       "bonusRuneLevels": {
         "speed": "Bonus Speed Rune Levels: <<orange|{{x}}>>",
         "duplication": "Bonus Duplication Rune Levels: <<orange|{{x}}>>",
@@ -5837,16 +5822,14 @@
         "antiquities": "Bonus Antiquities of Ant God Rune Levels: <<orange|{{x}}>>",
         "horseShoe": "Bonus Horse Shoe levels: <<orange|{{x}}>>"
       },
-      "mythicEffects": {
-        "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
-        "chronos": "Mythic Effect: +400 Speed Rune Levels!",
-        "midas": "Mythic Effect: +400 Thrift Rune Levels!",
-        "metaphysics": "Mythic Effect: +400 Prism Rune Levels!",
-        "polymath": "Mythic Effect: +400 SI Rune Levels!",
-        "mortuus": "Mythic Effect: Gain ant speed based on your total rune level!",
-        "plastic": "Mythic Effect: Gain 1x your normal quark values (Joke)!"
-      },
-      "maxEnhance": "Get Max Enhance for a Mythical bonus effect!"
+      "mobile": {
+        "currentRarity": "Current Rarity: {{rarity}} (Tier {{num}})",
+        "nextRarity": "Next Rarity: {{rarity}} at level {{level}}",
+        "maxRarity": "You've reached the highest rarity possible for this Talisman!",
+        "beforeMythical": "Get to Mythical rarity (Tier 6) to unlock the Talisman's Signature!",
+        "freeRuneLevels": "Free Rune Levels",
+        "nextLevelCost": "Next Level Cost"
+      }
     },
     "blessings": {
       "blessingName": "<b><<{{color}}|{{name}}>></b> Rune Blessing",

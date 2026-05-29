@@ -121,7 +121,14 @@ import {
 } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { getBuildingCostElement } from './tabs/buildings'
-import { getTalismanLevelCap, type TalismanKeys, talismans, updateAllTalismanHTML } from './Talismans'
+import {
+  getTalismanLevelCap,
+  talismanCraftItems,
+  type TalismanKeys,
+  talismans,
+  updateAllTalismanHTML,
+  updateMobileTalismanInventoryPurchaseInfo
+} from './Talismans'
 import {
   calculateAcceleratorTesseractBlessing,
   calculateAntELOTesseractBlessing,
@@ -741,10 +748,17 @@ export const visualUpdateRunes = () => {
 
   if (getActiveSubTab() === 1) {
     for (const t of Object.keys(talismans) as TalismanKeys[]) {
-      DOMCacheGetOrSet(`${t}TalismanLevel`).textContent = i18next.t('runes.talismans.level', {
-        x: format(talismans[t].level, 0, true),
-        y: format(getTalismanLevelCap(t), 0, true)
-      })
+      if (platform === 'mobile') {
+        for (const item of talismanCraftItems) {
+          updateMobileTalismanInventoryPurchaseInfo(item)
+        }
+      } else {
+        // We already update this on mobile, no need for additional updates
+        DOMCacheGetOrSet(`${t}TalismanLevel`).textContent = i18next.t('runes.talismans.level', {
+          x: format(talismans[t].level, 0, true),
+          y: format(getTalismanLevelCap(t), 0, true)
+        })
+      }
     }
     updateAllTalismanHTML()
   } else if (getActiveSubTab() === 2) {

@@ -3,6 +3,7 @@ import i18next from 'i18next'
 import { achievementPoints, awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
+import { platform } from './Config'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
@@ -16,6 +17,7 @@ import { allTalismanRuneBonusStatsSum } from './Statistics'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { toggleAutoBuyFragment, toggleautofortify } from './Toggles'
+import type { Player } from './types/Synergism'
 import { assert } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -39,6 +41,7 @@ interface TalismanCraftItemsMetadata {
   i18n: string
   spanId: string
   color: string
+  playerKey: keyof Player
 }
 
 const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadata> = {
@@ -50,7 +53,8 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShard',
     spanId: 'talismanShardInventory',
-    color: 'yellow'
+    color: 'yellow',
+    playerKey: 'talismanShards'
   },
   commonFragment: {
     iconName: 'TalismanShardCommon',
@@ -60,7 +64,8 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardCommon',
     spanId: 'commonFragmentInventory',
-    color: 'white'
+    color: 'white',
+    playerKey: 'commonFragments'
   },
   uncommonFragment: {
     iconName: 'TalismanShardUncommon',
@@ -70,7 +75,8 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardUncommon',
     spanId: 'uncommonFragmentInventory',
-    color: 'lime'
+    color: 'lime',
+    playerKey: 'uncommonFragments'
   },
   rareFragment: {
     iconName: 'TalismanShardRare',
@@ -80,7 +86,8 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardRare',
     spanId: 'rareFragmentInventory',
-    color: 'aqua'
+    color: 'aqua',
+    playerKey: 'rareFragments'
   },
   epicFragment: {
     iconName: 'TalismanShardEpic',
@@ -90,7 +97,8 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardEpic',
     spanId: 'epicFragmentInventory',
-    color: 'plum'
+    color: 'plum',
+    playerKey: 'epicFragments'
   },
   legendaryFragment: {
     iconName: 'TalismanShardLegendary',
@@ -100,7 +108,8 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardLegendary',
     spanId: 'legendaryFragmentInventory',
-    color: 'orange'
+    color: 'orange',
+    playerKey: 'legendaryFragments'
   },
   mythicalFragment: {
     iconName: 'TalismanShardMythical',
@@ -110,11 +119,12 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardMythic',
     spanId: 'mythicalFragmentInventory',
-    color: 'crimson'
+    color: 'crimson',
+    playerKey: 'mythicalFragments'
   }
 }
 
-const talismanCraftItems = Object.keys(talismanResourceData) as TalismanCraftItems[]
+export const talismanCraftItems = Object.keys(talismanResourceData) as TalismanCraftItems[]
 
 type TalismanRuneBonus = Record<RuneKeys, number>
 
@@ -815,9 +825,17 @@ const levelsUntilRarityIncrease = (t: TalismanKeys) => {
   const level = talismans[t].level
   const maxLevel = talismans[t].maxLevel
   if (level >= maxLevel) {
-    // This ignores rarity above 7...
-    // And just tries to level to cap
-    return getTalismanLevelCap(t) - level
+    // Rarities 8-10
+    if (level < maxLevel * 2) {
+      return maxLevel * 2 - level
+    } else if (level < maxLevel * 4) {
+      return maxLevel * 4 - level
+    } else if (level < maxLevel * 8) {
+      return maxLevel * 8 - level
+    } else {
+      // Default state: just tries to level to max
+      return getTalismanLevelCap(t) - level
+    }
   } else {
     const currentRarity = talismans[t].rarity
     const levelReq = Math.ceil(maxLevel * currentRarity / 6)
@@ -1181,7 +1199,7 @@ export const talismanToStringHTML = (t: TalismanKeys): void => {
   }
 }
 
-export const updateTalismanCostHTML = (t: TalismanKeys) => {
+export const updateWebTalismanCostHTML = (t: TalismanKeys) => {
   assert(G.currentTab === Tabs.Runes, 'Talisman updateCostHTML called outside of Runes tab')
   DOMCacheGetOrSet('talismanEffect').style.display = 'none'
   DOMCacheGetOrSet('talismanLevelUpCost').style.display = 'block'
@@ -1206,7 +1224,22 @@ export const updateTalismanCostHTML = (t: TalismanKeys) => {
   g.textContent = format(nextCost.mythicalFragment, 0, false)
 }
 
-const updateTalismanDisplay = (t: TalismanKeys) => {
+export const updateMobileTalismanCostHTML = (t: TalismanKeys) => {
+  const nextCost = getTalismanCostTNL(t)
+  for (const item of talismanCraftItems) {
+    DOMCacheGetOrSet(`mobile${t}Cost${item}Talisman`).textContent = format(nextCost[item], 0, false)
+  }
+}
+
+export const updateTalismanCostHTML = (t: TalismanKeys) => {
+  if (platform === 'mobile') {
+    updateMobileTalismanCostHTML(t)
+  } else {
+    updateWebTalismanCostHTML(t)
+  }
+}
+
+const updateWebTalismanDisplay = (t: TalismanKeys) => {
   assert(G.currentTab === Tabs.Runes, 'Talisman updateTalismanDisplay called outside of Runes tab')
   const talisman = talismans[t]
   const el = DOMCacheGetOrSet(`${t}TalismanIconWrapper`)
@@ -1262,6 +1295,64 @@ const updateTalismanDisplay = (t: TalismanKeys) => {
     la.style.color = ''
     la.classList.add('talismanLevel')
     la.classList.add('rainbowText')
+  }
+}
+
+const updateMobileTalismanDisplay = (t: TalismanKeys) => {
+  const talisman = talismans[t]
+  const itemCosts = getTalismanCostTNL(t)
+  DOMCacheGetOrSet(`${t}TalismanLevel`).textContent = i18next.t('general.levelWithRatio', {
+    level: format(talisman.level),
+    max: format(getTalismanLevelCap(t))
+  })
+  DOMCacheGetOrSet(`${t}TalismanRarity`).innerHTML = i18next.t('runes.talismans.mobile.currentRarity', {
+    rarity: i18next.t(`runes.talismans.rarity.${talisman.rarity}`),
+    num: format(talisman.rarity)
+  })
+
+  if (talisman.rarity < 10) {
+    DOMCacheGetOrSet(`${t}TalismanUpgradeRarity`).innerHTML = i18next.t('runes.talismans.mobile.nextRarity', {
+      rarity: i18next.t(`runes.talismans.rarity.${Math.min(talisman.rarity + 1, 10)}`),
+      level: format(levelsUntilRarityIncrease(t) + talisman.level, 0, true)
+    })
+  } else {
+    DOMCacheGetOrSet(`${t}TalismanUpgradeRarity`).innerHTML = i18next.t('runes.talismans.mobile.maxRarity')
+  }
+  DOMCacheGetOrSet(`${t}TalismanInscription`).innerHTML = talisman.inscriptionDesc(talisman.rarity)
+
+  if (talisman.rarity >= 6) {
+    DOMCacheGetOrSet(`${t}TalismanSignature`).innerHTML = talisman.signatureDesc(talisman.rarity)
+  } else {
+    DOMCacheGetOrSet(`${t}TalismanSignature`).innerHTML = i18next.t('runes.talismans.mobile.beforeMythical')
+  }
+
+  for (const rune of Object.keys(talisman.talismanBaseCoefficient) as RuneKeys[]) {
+    const levels = getRuneBonusFromIndividualTalisman(t, rune)
+    if (talismans[t].talismanBaseCoefficient[rune] > 0) {
+      DOMCacheGetOrSet(`${t}${rune}RuneBonus`).textContent = format(levels, 2, true)
+    }
+  }
+
+  for (const item of talismanCraftItems) {
+    const elm = DOMCacheGetOrSet(`mobile${t}Cost${item}Talisman`)
+    elm.textContent = format(itemCosts[item], 0, false)
+    if ((player[talismanResourceData[item].playerKey] as Decimal).gte(itemCosts[item])) {
+      elm.style.color = 'lightgreen'
+      elm.style.fontWeight = 'bold'
+      elm.style.border = '2px solid limegreen'
+    } else {
+      elm.style.color = ''
+      elm.style.fontWeight = ''
+      elm.style.border = ''
+    }
+  }
+}
+
+export const updateTalismanDisplay = (t: TalismanKeys) => {
+  if (platform === 'mobile') {
+    updateMobileTalismanDisplay(t)
+  } else {
+    updateWebTalismanDisplay(t)
   }
 }
 
@@ -1330,7 +1421,10 @@ let htmlGeneratedThisSession = false
 
 // This was purely transformed from HTML to JS. It's kinda shit.
 export const generateWebLeftTalismanHTML = () => {
-  const talismanShardSect = DOMCacheGetOrSet('talismanShardSect')
+  const talismansDiv = DOMCacheGetOrSet('runeContainer2')
+  const talismanShardSect = document.createElement('div')
+  talismanShardSect.id = 'talismanShardSect'
+  talismanShardSect.className = 'talismanShardSection'
 
   // Internal div
   const talismanShardContainers = document.createElement('div')
@@ -1368,13 +1462,6 @@ export const generateWebLeftTalismanHTML = () => {
 
   talismanShardContainers.appendChild(talismanShardHeader)
 
-  /*
-  <div class="talismanShardContainer">
-                            <img class="talismanShardIcon" src="Pictures/Default/TalismanShard.png" i18n="general.resources.talismanShard" title="Talisman Shard" loading="lazy">
-                            <span class="talismanShardAmount" id="talismanShardInventory" style="color: yellow">0</span>
-                            <button class="fragmentBtn" id="buyTalismanItem1" style="border: 2px solid gold" i18n="runes.talismans.buy"></button>
-                        </div>
-  */
   // The rest of the divs
   let btnNum = 1
   for (const item of talismanCraftItems) {
@@ -1434,24 +1521,28 @@ export const generateWebLeftTalismanHTML = () => {
   talismanShardContainers.appendChild(talismanFragmentCost)
 
   talismanShardSect.appendChild(talismanShardContainers)
+  talismansDiv.appendChild(talismanShardSect)
 }
 
 export const generateWebCenterTalismansHTML = () => {
-  const talismansCenter = DOMCacheGetOrSet('talismansCenterDiv')
+  const talismansDiv = DOMCacheGetOrSet('runeContainer2')
+  const talismansCenter = document.createElement('div')
+  talismansCenter.id = 'talismansCenterDiv'
+  talismansCenter.className = 'talismansCenter'
 
   const talismansContainer = document.createElement('div')
   talismansContainer.className = 'talismansContainer'
 
   for (const key of Object.keys(talismans) as TalismanKeys[]) {
-    const talismansDiv = document.createElement('div')
-    talismansDiv.className = 'talismanContainer'
-    talismansDiv.id = `${key}TalismanContainer`
+    const talismansDivIndividual = document.createElement('div')
+    talismansDivIndividual.className = 'talismanContainer'
+    talismansDivIndividual.id = `${key}TalismanContainer`
 
     const talismansName = document.createElement('span')
     talismansName.className = 'talismanName'
-    talismansName.setAttribute('i18n', `runes.talismans.names.${key}`)
+    talismansName.setAttribute('i18n', `runes.talismans.${key}.name`)
 
-    talismansDiv.appendChild(talismansName)
+    talismansDivIndividual.appendChild(talismansName)
 
     const talismanIconDivWrapper = document.createElement('div')
     talismanIconDivWrapper.id = `${key}TalismanIconWrapper`
@@ -1473,14 +1564,14 @@ export const generateWebCenterTalismansHTML = () => {
 
     talismanIconDivWrapper.appendChild(talismansIcon)
 
-    talismansDiv.appendChild(talismanIconDivWrapper)
+    talismansDivIndividual.appendChild(talismanIconDivWrapper)
 
     const talismansLevel = document.createElement('span')
     talismansLevel.className = 'talismanLevel'
     talismansLevel.id = `${key}TalismanLevel`
     talismansLevel.textContent = 'Level 0/30'
 
-    talismansDiv.appendChild(talismansLevel)
+    talismansDivIndividual.appendChild(talismansLevel)
 
     const talismansLevelUpButton = document.createElement('button')
     talismansLevelUpButton.className = 'talismanBtn'
@@ -1490,7 +1581,16 @@ export const generateWebCenterTalismansHTML = () => {
     talismansLevelUpButton.setAttribute('i18n', 'runes.talismans.fortify')
     talismansLevelUpButton.textContent = i18next.t('runes.talismans.fortify')
 
-    talismansDiv.appendChild(talismansLevelUpButton)
+    talismansLevelUpButton.addEventListener(
+      'click',
+      () => buyTalismanLevel(key)
+    )
+    talismansLevelUpButton.addEventListener(
+      'mouseover',
+      () => updateTalismanCostHTML(key)
+    )
+
+    talismansDivIndividual.appendChild(talismansLevelUpButton)
 
     const talismansLevelUpButton2 = document.createElement('button')
     talismansLevelUpButton2.className = 'talismanBtn'
@@ -1509,7 +1609,7 @@ export const generateWebCenterTalismansHTML = () => {
       () => updateTalismanCostHTML(key)
     )
 
-    talismansDiv.appendChild(talismansLevelUpButton2)
+    talismansDivIndividual.appendChild(talismansLevelUpButton2)
 
     const talismansLevelUpButton3 = document.createElement('button')
     talismansLevelUpButton3.className = 'talismanBtn'
@@ -1528,9 +1628,9 @@ export const generateWebCenterTalismansHTML = () => {
       () => updateTalismanCostHTML(key)
     )
 
-    talismansDiv.appendChild(talismansLevelUpButton3)
+    talismansDivIndividual.appendChild(talismansLevelUpButton3)
 
-    talismansContainer.appendChild(talismansDiv)
+    talismansContainer.appendChild(talismansDivIndividual)
   }
 
   talismansCenter.appendChild(talismansContainer)
@@ -1739,10 +1839,17 @@ export const generateWebCenterTalismansHTML = () => {
 
   talismansModify.appendChild(talismanLevelUpCost)
   talismansCenter.appendChild(talismansModify)
+
+  talismansDiv.appendChild(talismansCenter)
 }
 
 export const generateWebRightTalismansHTML = () => {
-  const talismanToggles = DOMCacheGetOrSet('talismanTogglesDiv')
+  const talismansDiv = DOMCacheGetOrSet('runeContainer2')
+
+  const talismanToggles = document.createElement('div')
+  talismanToggles.id = 'talismanTogglesDiv'
+  talismanToggles.className = 'talismanToggles'
+
   const talismanSettingsContainer = document.createElement('div')
   talismanSettingsContainer.className = 'talismanSettingsContainer'
 
@@ -1799,15 +1906,383 @@ export const generateWebRightTalismansHTML = () => {
 
   talismanSettingsContainer.appendChild(rarityInfoTexts)
   talismanToggles.appendChild(talismanSettingsContainer)
+  talismansDiv.appendChild(talismanToggles)
+}
+
+export const generateMobileTopTalismansHTML = () => {
+  const talismansDiv = DOMCacheGetOrSet('runeContainer2')
+  const mobileTalismanShardSect = document.createElement('div')
+  mobileTalismanShardSect.id = 'mobileTalismanShardSect'
+  mobileTalismanShardSect.className = 'mobileTalismanShardSection'
+
+  // Top Row: Buy All, Auto Toggle, and Buy Percent
+  const mobileTalismanShardHead = document.createElement('div')
+  mobileTalismanShardHead.className = 'mobileTalismanShardHead'
+
+  const toggleautoBuyFragments = document.createElement('button')
+  toggleautoBuyFragments.id = 'toggleautoBuyFragments'
+  toggleautoBuyFragments.style.border = '2px solid white'
+  toggleautoBuyFragments.addEventListener('click', () => toggleAutoBuyFragment())
+  mobileTalismanShardHead.appendChild(toggleautoBuyFragments)
+
+  const buyTalismanAll = document.createElement('button')
+  buyTalismanAll.id = 'buyTalismanAll'
+  buyTalismanAll.style.border = '2px solid white'
+  buyTalismanAll.setAttribute('i18n', 'runes.talismans.buyAll')
+  buyTalismanAll.textContent = i18next.t('runes.talismans.buyAll')
+  buyTalismanAll.addEventListener('click', () => buyAllTalismanResources())
+  mobileTalismanShardHead.appendChild(buyTalismanAll)
+
+  const buyTalismanLevelAmount = document.createElement('div')
+  buyTalismanLevelAmount.id = 'buyTalismanLevelAmount'
+
+  const buyPercentageText = document.createElement('p')
+  buyPercentageText.textContent = i18next.t('general.buyPercentage')
+  buyTalismanLevelAmount.appendChild(buyPercentageText)
+
+  const table = document.createElement('table')
+  table.style.fontSize = '0'
+  table.title = 'Toggle percent resources used'
+  const row = document.createElement('tr')
+  const talismanBuyPercents = [10, 25, 50, 100]
+  const talismanBuyPercentsOrd = ['Ten', 'TwentyFive', 'Fifty', 'Hundred']
+  for (let i = 0; i < talismanBuyPercents.length; i++) {
+    const cell = document.createElement('td')
+    const img = document.createElement('img')
+    img.id = `talisman${talismanBuyPercentsOrd[i]}`
+    img.alt = `${talismanBuyPercents[i]} Percent`
+    img.className = 'buyAmountBtn'
+    img.src = `Pictures/Default/Talisman${talismanBuyPercentsOrd[i]}.png`
+    img.loading = 'lazy'
+    cell.appendChild(img)
+    row.appendChild(cell)
+
+    img.addEventListener('click', () => toggleTalismanBuy(talismanBuyPercents[i]))
+  }
+
+  table.appendChild(row)
+  buyTalismanLevelAmount.appendChild(table)
+  mobileTalismanShardHead.appendChild(buyTalismanLevelAmount)
+
+  // Individual resource buy buttons
+  // Unlike web version, we need to display cost and amount gained by each one.
+  const mobileTalismanShardContainers = document.createElement('div')
+  mobileTalismanShardContainers.className = 'mobileTalismanShardContainers'
+
+  let btnNum = 1
+  for (const item of talismanCraftItems) {
+    const data = talismanResourceData[item]
+
+    const container = document.createElement('div')
+    container.className = 'mobileTalismanShardContainer'
+    container.style.border = `2px solid ${data.color}`
+
+    const iconAndQuantity = document.createElement('div')
+    iconAndQuantity.className = 'mobileTalismanIconAndQuantity'
+
+    const icon = document.createElement('img')
+    icon.className = 'mobileTalismanShardIcon'
+    icon.src = `Pictures/Default/${data.iconName}.png`
+    icon.setAttribute('i18n', `general.resources.${data.i18n}`)
+    icon.title = i18next.t(`general.resources.${data.i18n}`)
+    icon.loading = 'lazy'
+    iconAndQuantity.appendChild(icon)
+
+    const amount = document.createElement('span')
+    amount.className = 'mobileTalismanShardAmount'
+    amount.id = data.spanId
+    amount.style.color = data.color
+    amount.textContent = '0'
+    iconAndQuantity.appendChild(amount)
+
+    container.appendChild(iconAndQuantity)
+
+    const toBuyQuantity = document.createElement('p')
+    toBuyQuantity.id = `mobileTalismanToBuyQuantity${item}`
+    toBuyQuantity.textContent = '0'
+    container.appendChild(toBuyQuantity)
+
+    const toBuyCostOfferingContainer = document.createElement('div')
+    toBuyCostOfferingContainer.className = 'mobileTalismanIconAndQuantity'
+
+    const offeringIcon = document.createElement('img')
+    offeringIcon.src = 'Pictures/Default/Offering.png'
+    offeringIcon.height = 16
+    offeringIcon.width = 16
+    toBuyCostOfferingContainer.appendChild(offeringIcon)
+
+    const toBuyCostOffering = document.createElement('p')
+    toBuyCostOffering.id = `mobileTalismanToBuyCostOffering${item}`
+    toBuyCostOffering.textContent = '0'
+    toBuyCostOffering.style.color = 'orange'
+    toBuyCostOfferingContainer.appendChild(toBuyCostOffering)
+
+    container.appendChild(toBuyCostOfferingContainer)
+
+    const toBuyCostObtainiumContainer = document.createElement('div')
+    toBuyCostObtainiumContainer.className = 'mobileTalismanIconAndQuantity'
+
+    const obtainiumIcon = document.createElement('img')
+    obtainiumIcon.src = 'Pictures/Default/Obtainium.png'
+    obtainiumIcon.height = 16
+    obtainiumIcon.width = 16
+    toBuyCostObtainiumContainer.appendChild(obtainiumIcon)
+
+    const toBuyCostObtainium = document.createElement('p')
+    toBuyCostObtainium.id = `mobileTalismanToBuyCostObtainium${item}`
+    toBuyCostObtainium.textContent = '0'
+    toBuyCostObtainium.style.color = 'pink'
+    toBuyCostObtainiumContainer.appendChild(toBuyCostObtainium)
+
+    container.appendChild(toBuyCostObtainiumContainer)
+
+    const fragmentBtn = document.createElement('button')
+    fragmentBtn.className = 'mobileFragmentBtn'
+    fragmentBtn.id = `buyTalismanItem${btnNum}`
+    fragmentBtn.style.border = `2px solid ${data.color}`
+    fragmentBtn.setAttribute('i18n', 'runes.talismans.buy')
+    fragmentBtn.textContent = i18next.t('runes.talismans.buy')
+
+    fragmentBtn.addEventListener('click', () => {
+      const obtainiumBudget = player.obtainium.mul(player.buyTalismanShardPercent / 100)
+      const offeringBudget = player.offerings.mul(player.buyTalismanShardPercent / 100)
+      buyTalismanResources(item, obtainiumBudget, offeringBudget)
+    })
+
+    container.appendChild(fragmentBtn)
+
+    mobileTalismanShardContainers.appendChild(container)
+    btnNum++
+  }
+
+  mobileTalismanShardSect.appendChild(mobileTalismanShardHead)
+  mobileTalismanShardSect.appendChild(mobileTalismanShardContainers)
+  talismansDiv.appendChild(mobileTalismanShardSect)
+}
+
+// There is no rarity display info on mobile (yet?)
+export const generateMobileMainTalismansHTML = () => {
+  const talismansDiv = DOMCacheGetOrSet('runeContainer2')
+  const mobileMainTalismans = document.createElement('div')
+  mobileMainTalismans.id = 'mobileMainTalismansDiv'
+  mobileMainTalismans.className = 'mobileMainTalismans'
+
+  // Create top with automation toggle.
+  const mobileMainTalismansHead = document.createElement('div')
+  mobileMainTalismansHead.className = 'mobileMainTalismansHead'
+  const toggleAutoFortify = document.createElement('button')
+  toggleAutoFortify.id = 'toggleautofortify'
+  toggleAutoFortify.addEventListener('click', () => toggleautofortify())
+  mobileMainTalismansHead.appendChild(toggleAutoFortify)
+
+  mobileMainTalismans.appendChild(mobileMainTalismansHead)
+
+  const mobileMainTalismansBody = document.createElement('div')
+  mobileMainTalismansBody.id = 'mobileMainTalismansBody'
+
+  // Talismans with info + buy buttons (3)
+  for (const key of Object.keys(talismans) as TalismanKeys[]) {
+    // Top Row, similar to how it's done on runes...
+    const talisman = document.createElement('div')
+    talisman.className = 'mobileTalismanContainer'
+    talisman.id = `${key}TalismanContainer`
+    talisman.style.border = '2px solid white'
+    talisman.style.borderRadius = '8px'
+    talisman.style.margin = '2px'
+
+    const topRow = document.createElement('div')
+    topRow.classList.add('runeIconAndName')
+
+    const talismansIcon = document.createElement('img')
+    talismansIcon.id = `${key}Talisman`
+    talismansIcon.alt = `${key} Talisman`
+    talismansIcon.src = `Pictures/Talismans/${key.charAt(0).toUpperCase() + key.slice(1)}.png`
+    talismansIcon.width = 32
+    talismansIcon.height = 32
+    talismansIcon.loading = 'lazy'
+    topRow.appendChild(talismansIcon)
+
+    const talismansName = document.createElement('span')
+    talismansName.className = 'talismanName'
+    talismansName.setAttribute('i18n', `runes.talismans.${key}.name`)
+    talismansName.textContent = i18next.t(`runes.talismans.${key}.name`)
+    topRow.appendChild(talismansName)
+
+    talisman.appendChild(topRow)
+
+    const talismanInfoSection = document.createElement('div')
+    talismanInfoSection.className = 'mobileTalismanInfoSection'
+
+    // Need to display level / maxlevel, rarity, runeBonuses...
+    const talismanLevelText = document.createElement('p')
+    talismanLevelText.id = `${key}TalismanLevel`
+    talismanLevelText.textContent = 'Level 0/30'
+
+    const talismanRarityText = document.createElement('p')
+    talismanRarityText.id = `${key}TalismanRarity`
+    talismanRarityText.textContent = 'Current Rarity: Common'
+
+    const talismanUpgradeRarityText = document.createElement('p')
+    talismanUpgradeRarityText.id = `${key}TalismanUpgradeRarity`
+    talismanUpgradeRarityText.textContent = 'Next Rarity in 0 Levels'
+
+    talismanInfoSection.appendChild(talismanLevelText)
+    talismanInfoSection.appendChild(talismanRarityText)
+    talismanInfoSection.appendChild(talismanUpgradeRarityText)
+
+    const talismanInscriptionText = document.createElement('p')
+    talismanInscriptionText.id = `${key}TalismanInscription`
+    talismanInscriptionText.textContent = 'Inscription Bonus: None'
+
+    const talismanSignatureText = document.createElement('p')
+    talismanSignatureText.id = `${key}TalismanSignature`
+    talismanSignatureText.textContent = 'Signature Bonus: None'
+
+    talismanInfoSection.appendChild(talismanInscriptionText)
+    talismanInfoSection.appendChild(talismanSignatureText)
+
+    // Rune Bonuses, a bunch of runes + icon stuff
+    const runeBonusesSection = document.createElement('div')
+    runeBonusesSection.className = 'mobileTalismanRuneBonusesSection'
+    runeBonusesSection.id = `${key}RuneBonuses`
+
+    const runebonusTitleText = document.createElement('p')
+    runebonusTitleText.textContent = i18next.t('runes.talismans.mobile.freeRuneLevels')
+    runebonusTitleText.style.color = 'orange'
+    runeBonusesSection.appendChild(runebonusTitleText)
+
+    const runeBonusesContainer = document.createElement('div')
+    runeBonusesContainer.className = 'mobileTalismanRuneBonusesContainer'
+
+    for (const rune of Object.keys(talismans[key].talismanBaseCoefficient) as RuneKeys[]) {
+      if (talismans[key].talismanBaseCoefficient[rune] > 0) {
+        const runeDiv = document.createElement('div')
+        runeDiv.className = 'runeIconAndNameSmall'
+
+        const runeIcon = document.createElement('img')
+        runeIcon.src = `Pictures/Runes/${rune.charAt(0).toUpperCase() + rune.slice(1)}.png`
+        runeIcon.alt = `${rune} Rune`
+        runeIcon.width = 24
+        runeIcon.height = 24
+        runeIcon.loading = 'lazy'
+        runeDiv.appendChild(runeIcon)
+
+        const runeBonus = document.createElement('p')
+        runeBonus.id = `${key}${rune}RuneBonus`
+        runeBonus.textContent = `${talismans[key].talismanBaseCoefficient[rune]}`
+        runeBonus.style.color = runes[rune].runeHTMLStyle.nameColor
+        runeDiv.appendChild(runeBonus)
+
+        runeBonusesContainer.appendChild(runeDiv)
+      }
+    }
+
+    runeBonusesSection.appendChild(runeBonusesContainer)
+    talismanInfoSection.appendChild(runeBonusesSection)
+    talisman.appendChild(talismanInfoSection)
+
+    // Cost section
+    const costSection = document.createElement('div')
+    costSection.className = 'mobileTalismanCostSection'
+
+    const costTitleText = document.createElement('p')
+    costTitleText.textContent = i18next.t('runes.talismans.mobile.nextLevelCost')
+    costTitleText.style.color = 'orchid'
+    costSection.appendChild(costTitleText)
+
+    const costContainer = document.createElement('div')
+    costContainer.className = 'mobileTalismanCostContainer'
+
+    for (const item of talismanCraftItems) {
+      const costDiv = document.createElement('div')
+      costDiv.className = 'runeIconAndNameSmall'
+
+      const icon = document.createElement('img')
+      icon.className = 'mobileTalismanCostIcon'
+      icon.src = `Pictures/Default/${talismanResourceData[item].iconName}.png`
+      icon.setAttribute('i18n', `general.resources.${talismanResourceData[item].i18n}`)
+      icon.title = i18next.t(`general.resources.${talismanResourceData[item].i18n}`)
+      icon.loading = 'lazy'
+      icon.width = 24
+      icon.height = 24
+      costDiv.appendChild(icon)
+
+      const costText = document.createElement('p')
+      costText.id = `mobile${key}Cost${item}Talisman`
+      costText.textContent = '0'
+      costDiv.appendChild(costText)
+
+      costContainer.appendChild(costDiv)
+    }
+
+    costSection.appendChild(costContainer)
+    talisman.appendChild(costSection)
+
+    // Buy buttons
+    const buyButtonsSection = document.createElement('div')
+    buyButtonsSection.className = 'mobileTalismanBuyButtonsSection'
+
+    const fortifyButton = document.createElement('button')
+    fortifyButton.className = 'talismanBtn'
+    fortifyButton.id = `level${key}Once`
+    fortifyButton.style.color = 'silver'
+    fortifyButton.style.border = '2px solid white'
+    fortifyButton.setAttribute('i18n', 'runes.talismans.fortify')
+    fortifyButton.textContent = i18next.t('runes.talismans.fortify')
+    fortifyButton.addEventListener(
+      'click',
+      () => buyTalismanLevel(key)
+    )
+
+    buyButtonsSection.appendChild(fortifyButton)
+
+    const enhanceButton = document.createElement('button')
+    enhanceButton.className = 'talismanBtn'
+    enhanceButton.id = `level${key}ToRarityIncrease`
+    enhanceButton.style.color = 'gold'
+    enhanceButton.style.border = '2px solid orangered'
+    enhanceButton.setAttribute('i18n', 'runes.talismans.enhance')
+    enhanceButton.textContent = i18next.t('runes.talismans.enhance')
+    enhanceButton.addEventListener(
+      'click',
+      () => buyTalismanLevelToRarityIncrease(key)
+    )
+    buyButtonsSection.appendChild(enhanceButton)
+
+    const respecButton = document.createElement('button')
+    respecButton.className = 'talismanBtn'
+    respecButton.id = `level${key}ToMax`
+    respecButton.style.color = 'plum'
+    respecButton.style.border = '2px solid white'
+    respecButton.setAttribute('i18n', 'runes.talismans.respec')
+    respecButton.textContent = i18next.t('runes.talismans.respec')
+    respecButton.addEventListener(
+      'click',
+      () => buyTalismanLevelToMax(key)
+    )
+    buyButtonsSection.appendChild(respecButton)
+
+    talisman.appendChild(buyButtonsSection)
+    mobileMainTalismansBody.appendChild(talisman)
+  }
+
+  mobileMainTalismans.appendChild(mobileMainTalismansBody)
+  talismansDiv.appendChild(mobileMainTalismans)
 }
 
 export const generateTalismansHTML = () => {
-  if (!htmlGeneratedThisSession) {
+  if (htmlGeneratedThisSession) {
+    return
+  }
+  if (platform === 'mobile') {
+    generateMobileTopTalismansHTML()
+    generateMobileMainTalismansHTML()
+  } else {
     generateWebLeftTalismanHTML()
     generateWebCenterTalismansHTML()
     generateWebRightTalismansHTML()
-    htmlGeneratedThisSession = true
   }
+  htmlGeneratedThisSession = true
 }
 
 const getTalismanResourceInfo = (
@@ -1883,13 +2358,20 @@ export const toggleTalismanBuy = (i = player.buyTalismanShardPercent) => {
 }
 
 export const updateTalismanInventory = () => {
-  DOMCacheGetOrSet('talismanShardInventory').textContent = format(player.talismanShards)
-  DOMCacheGetOrSet('commonFragmentInventory').textContent = format(player.commonFragments)
-  DOMCacheGetOrSet('uncommonFragmentInventory').textContent = format(player.uncommonFragments)
-  DOMCacheGetOrSet('rareFragmentInventory').textContent = format(player.rareFragments)
-  DOMCacheGetOrSet('epicFragmentInventory').textContent = format(player.epicFragments)
-  DOMCacheGetOrSet('legendaryFragmentInventory').textContent = format(player.legendaryFragments)
-  DOMCacheGetOrSet('mythicalFragmentInventory').textContent = format(player.mythicalFragments)
+  for (const item of talismanCraftItems) {
+    const spanId = talismanResourceData[item].spanId
+    const playerKey = talismanResourceData[item].playerKey
+    DOMCacheGetOrSet(spanId).textContent = format(player[playerKey] as Decimal, 0, true)
+  }
+}
+
+export const updateMobileTalismanInventoryPurchaseInfo = (type: TalismanCraftItems) => {
+  const talismanCostInfo = getTalismanResourceInfo(type, player.obtainium, player.offerings)
+  DOMCacheGetOrSet(`mobileTalismanToBuyQuantity${type}`).textContent = i18next.t('general.buyCustom', {
+    amount: format(talismanCostInfo.buyAmount, 0, false)
+  })
+  DOMCacheGetOrSet(`mobileTalismanToBuyCostOffering${type}`).textContent = format(talismanCostInfo.offeringCost, 0, false)
+  DOMCacheGetOrSet(`mobileTalismanToBuyCostObtainium${type}`).textContent = format(talismanCostInfo.obtainiumCost, 0, false)
 }
 
 export const buyAllTalismanResources = () => {
@@ -1936,6 +2418,10 @@ export const buyTalismanResources = (
       player.offerings = new Decimal(0)
     }
   }
-  updateTalismanCostDisplay(type, obtainiumBudget, offeringBudget)
+  if (platform !== 'mobile') {
+    updateTalismanCostDisplay(type, obtainiumBudget, offeringBudget)
+  } else {
+    updateMobileTalismanInventoryPurchaseInfo(type)
+  }
   updateTalismanInventory()
 }
