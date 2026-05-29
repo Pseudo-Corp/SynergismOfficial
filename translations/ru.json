@@ -203,7 +203,7 @@
         "effect": "+{{amount}} free levels for 'Luck' type Quark Upgrades"
       },
       "ambrosiaFreeGenerationUpgrades": {
-        "name": "Time in a Bottle",
+        "name": "Время в бутылке",
         "description": "For all 'Generation' type Quark Upgrades, gain +1 free level per level! These will have a corresponding icon.",
         "effect": "+{{amount}} free levels for 'Generation' type Quark Upgrades"
       },
@@ -422,7 +422,7 @@
       "22": "Национальное достояние: Учредите 1 Монетный Двор.",
       "23": "Добавим конкуренции!: Учредите 10 Монетных Дворов.",
       "24": "Стильная Подделка!: Учредите 100 Монетных Дворов.",
-      "25": "Why do we need all these?: Establish 333 Coin Mints.",
+      "25": "Куда нам столько?: Учредите 333 Монетных Дворов.",
       "26": "Нет, правда, куда??: Учредите 5000 Монетных Дворов.",
       "27": "Никто не остановит нас???: Учредите 10,000 Монетных Дворов.",
       "28": "Ну что ж, время чеканить: Учредите 20,000 Монетных Дворов.",
@@ -3234,7 +3234,7 @@
       "123": "[5x23] +40 Ant ELO per level.",
       "124": "[5x24] Unlock enhanced toggles for The Great Automator! Be able to control when you Sacrifice based on your Reborn ELO.",
       "125": "[5x25] Удачи, дружище. [+1 Экспорт Кварк/час за уровень]",
-      "126": "[6x1] 6 rows? That can't be... (+1% Accelerators / level)",
+      "126": "[6x1] 6 строк? Этого не может быть... (+1% Ускорителей / уровень)",
       "127": "[6x2] Another +1% Accelerator Boosts / level!",
       "128": "[6x3] The trifecta! +1% Multipliers / level.",
       "129": "[6x4] Crystal Upgrade 3 has a higher cap (+0.001 per Level * log4(Common Fragments + 1)).<br>Crystal Upgrade 4 also gets a higher cap (+0.05 per Level * log4(Common Fragments + 1)).",
@@ -3242,7 +3242,7 @@
       "131": "[6x6] Turn some Ant Disciples against Ant God, giving +0.5% Rune Power per level. False prophets, or false profits?",
       "132": "[6x7] Recruit a couple other Ants towards your side as well, giving +2 free Ant upgrade levels per level.",
       "133": "[6x8] Using some coalesced Obtainium, you can make Ant Sacrifice +3% more bountiful per level.",
-      "134": "[6x9 lol] The funny number. Gain a +6.9% bonus to Blessing Power.",
+      "134": "[6x9 гыыы))] Смешное число. Даёт +6.9% бонус к Благословению.",
       "135": "[6x10] Makes it so that the Talisman autobuyer automatically buys to Rarity increase!",
       "136": "[6x11] It may be time to look back. Increase your Global Speed by +1.5% per level.",
       "137": "[6x12] Заплатите Корпорации Wow!, и они проспонсируют вам +1% Кубов за уровень в ваш банк Вознесения.",
@@ -3560,10 +3560,10 @@
       "seasonPass3": "Season Pass 3",
       "chronometer": "Chronometer 1",
       "infiniteAscent": "Infinite Ascent",
-      "calculator": "PL-AT calculator",
-      "calculator2": "PL-AT X calculator",
-      "calculator3": "PL-AT Ω calculator",
-      "calculator4": "PL-AT δ calculator",
+      "calculator": "Калькулятор PL-AT",
+      "calculator2": "Калькулятор PL-AT X",
+      "calculator3": "Калькулятор PL-AT Ω",
+      "calculator4": "Калькулятор PL-AT δ",
       "calculator5": "PL-AT Γ calculator",
       "calculator6": "QUAAA-T calculator",
       "calculator7": "PL-AT ΩΩ calculator",
@@ -4137,7 +4137,7 @@
       },
       "singQuarkHepteract3": {
         "name": "Я бы хотел, чтобы мой Гептеракт Кварков был хоть немного лучше III.",
-        "description": "I AM NOT THE GODMOTHER YOU ARE LOOKING FOR! This wish, unlike the others, can be overclocked!",
+        "description": "Я НЕ ТА БОГИНЯ, КОТОРУЮ ТЫ ИЩЕШЬ! Это пожелание, в отличие от других, можно разогнать!",
         "effect": "Quark Hepteract Exponent +{{n}}"
       },
       "singOcteractGain": {
@@ -4360,7 +4360,7 @@
     "elevator": {
       "title": "Лифт Сингулярности",
       "description": "<b><<gold | Используйте лифт чтобы приехать к нужной вам Сингулярности!>></b><br>Вы можете выбрать любую Сингулярность от Сингулярности 1 до <b>{{limit}}</b>",
-      "targetSingularity": "Target Singularity: {{target}}",
+      "targetSingularity": "Целевая сингулярность: {{target}}",
       "selectTarget": "Выберите нужную вам Сингулярность",
       "teleportButtonHigher": "Вверх!",
       "teleportButtonStay": "Reopen!",
@@ -4368,7 +4368,7 @@
       "lockToggle": "Заблокировать Будущие Сингулярности",
       "lockEnabled": "Будущие Сингулярности <<orange|ЗАБЛОКИРОВАНЫ>>. Вы повторите <<gold | Сингулярность {{target}}>>.",
       "lockDisabledIntro": "Будущие Сингулярности <<lime|РАЗБЛОКИРОВАНЫ>>.",
-      "lockDisabledSing": "Your next Singularity will be <<gold | Singularity {{target}}>>",
+      "lockDisabledSing": "Ваша следующая Сингулярность: <<gold | Сингулярность {{target}}>>",
       "invalidTarget": "Please select a valid Singularity between 1 and {{max}}.",
       "noTarget": "Пожалуйста, выберите нужную вам Сингулярность.",
       "confirmTeleport": "Вы уверены, что вы хотите перейти к Сингулярности {{target}}?",
@@ -6098,7 +6098,7 @@
       },
       "limitedTime": {
         "name": "Великий Спидран Сингулярности!",
-        "description": "<i>Time, time is something never meant to last.</i> Beat the target Singularity, but the fabric of your reality quickly collapses.",
+        "description": "<i>Время - это то, что не может существовать вечно.</i> Пройдите целевую Сингулярность, пока материя реальности вокруг вас быстро распадается.",
         "timeMod1": "<<red|⏱ Time Limit: {{time}} seconds>>",
         "timeMod2": "<<gold|⚠>> After the time limit, your Obtainium, Offering, and Cube production is divided by <<red|{{perSecondDivisor}}>> per second.",
         "timeMod3": "Derpsmith gives you a slight boost: <<#00DDFF | 5x faster Reborn ELO Creation Speed!>> Until you buy Antiquities, at least.",
@@ -6143,8 +6143,8 @@
       },
       "noQuarkUpgrades": {
         "name": "Disappearance of a Salesman",
-        "description": "Uh. Where did the Quark Shop Seal Merchant go? All you see is this guy with a mysterious <i>top hat</i>...",
-        "challengeDesc": "Beat the target Singularity, but Quark Shop upgrades do nothing! Unless they have the Utility Tag [⚙]. Then they work as normal.",
+        "description": "Ээ.. А куда подевался торговец Магазина Кварков? Единственное, что вы видите, этот какой-то незнакомец со своей таинственной <i>шляпой</i>...",
+        "challengeDesc": "Пройдите целевую сингулярность, но ваши улучшения из Магазина Кварков не работают. Если на них присутствует Жетон Полезности [⚙], тогда они будут работать.",
         "ScalingReward1": "<<orange|[☤]>> Quark Upgrades get +1 free level!",
         "ScalingReward2": "<<pink|[❍]>> Quark Upgrades get +1 free level!",
         "ScalingReward3": "<<magenta|[⬢]>> Quark Upgrades get +1 free level!",
