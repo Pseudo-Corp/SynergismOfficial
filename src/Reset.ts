@@ -1293,6 +1293,8 @@ export const singularity = (setSingNumber = -1) => {
   hold.blueberryTime = player.blueberryTime
   hold.blueberryLoadouts = player.blueberryLoadouts
   hold.blueberryLoadoutMode = player.blueberryLoadoutMode
+  hold.goldenQuarksTimer = player.goldenQuarksTimer
+  hold.quarkstimer = player.quarkstimer
 
   hold.stats = player.stats
 

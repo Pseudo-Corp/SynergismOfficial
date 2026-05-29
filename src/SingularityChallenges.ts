@@ -205,8 +205,6 @@ export class SingularityChallenge {
     if (!player.insideSingularityChallenge) {
       const setSingularity = this.computeSingularityRquirement()
       const holdSingTimer = player.singularityCounter
-      const holdQuarkExport = player.quarkstimer
-      const holdGoldenQuarkExport = player.goldenQuarksTimer
       const goldenQuarkGain = calculateGoldenQuarks()
       const currentGQ = player.goldenQuarks
       this.enabled = true
@@ -220,8 +218,6 @@ export class SingularityChallenge {
         player.singularityCounter = 0
       }
       player.goldenQuarks = currentGQ + goldenQuarkGain
-      player.quarkstimer = holdQuarkExport
-      player.goldenQuarksTimer = holdGoldenQuarkExport
 
       this.updateChallengeHTML()
       return Alert(
@@ -260,8 +256,6 @@ export class SingularityChallenge {
     player.insideSingularityChallenge = false
     const highestSingularityHold = player.highestSingularityCount
     const holdSingTimer = player.singularityCounter
-    const holdQuarkExport = player.quarkstimer
-    const holdGoldenQuarkExport = player.goldenQuarksTimer
     this.updateIconHTML()
     if (success) {
       this.highestSingularityCompleted = player.singularityCount
@@ -277,8 +271,6 @@ export class SingularityChallenge {
     } else {
       singularity(highestSingularityHold)
       player.singularityCounter = holdSingTimer
-      player.quarkstimer = holdQuarkExport
-      player.goldenQuarksTimer = holdGoldenQuarkExport
       return Alert(
         i18next.t('singularityChallenge.exitChallenge.acceptFailure')
       )
