@@ -3751,13 +3751,9 @@ export const calculateSingularityDebuff = (
   debuff: SingularityDebuffs,
   singularityCount: number = player.singularityCount
 ) => {
-  if (singularityCount === 0 || runes.antiquities.level > 0) {
-    return (debuff === 'Salvage' || debuff === 'Ant ELO') ? 0 : 1
-  }
-
   const constitutiveSingularityCount = singularityCount - calculateSingularityReductions()
-  if (constitutiveSingularityCount < 1) {
-    return 1
+  if (constitutiveSingularityCount < 1 || runes.antiquities.level > 0) {
+    return (debuff === 'Salvage' || debuff === 'Ant ELO') ? 0 : 1
   }
 
   const effectiveSingularities = calculateEffectiveSingularities(
