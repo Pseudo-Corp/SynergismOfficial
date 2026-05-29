@@ -863,48 +863,61 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     const rewardMult = timeCodeRewardMultiplier()
 
-    const random = seededRandom(Seed.PromoCodes) * 15000 // random time within 15 seconds
+    const random = 6000 + seededRandom(Seed.PromoCodes) * 15000 // random time within 15 seconds
+    const tolerance = 500 + 25 * player.cubeUpgrades[61]
+
+    const reward = Math.floor(
+      (20 + 5 * player.highestSingularityCount)
+        * (1 + player.cubeUpgrades[61] / 50)
+    )
+    const actualQuarkAward = player.worlds.applyBonus(reward)
+
+    let cookieText = ''
+    if (player.cubeUpgrades[61] === 100) {
+      cookieText = i18next.t('importexport.promocodes.time.maxedCookie')
+    }
+
+    const startConfirm = await Confirm(`${i18next.t('importexport.promocodes.time.prepare', {
+      start: format(Math.max(0, random - tolerance) / 1000, 2, true),
+      end: format((random + tolerance) / 1000, 2, true),
+      quarks: format(actualQuarkAward * rewardMult, 0, true),
+      y: format(rewardMult, 2, true)
+    })} ${cookieText}`)
+
+    if (!startConfirm) {
+      return Alert(i18next.t('importexport.promocodes.time.cancelled'))
+    }
+
     const start = Date.now()
-    const playerConfirmed = await Confirm(
+    await Alert(
       i18next.t('importexport.promocodes.time.confirm', {
-        x: format(2500 + 125 * player.cubeUpgrades[61], 0, true),
-        y: format(rewardMult, 2, true)
+        start: format(Math.max(0, random - tolerance) / 1000, 2, true),
+        end: format((random + tolerance) / 1000, 2, true)
       })
     )
 
-    if (playerConfirmed) {
-      const diff = Math.abs(Date.now() - (start + random))
-      player.promoCodeTiming.time = Date.now()
+    const diff = Math.abs(Date.now() - (start + random))
+    player.promoCodeTiming.time = Date.now()
 
-      if (diff <= 2500 + 125 * player.cubeUpgrades[61]) {
-        const reward = Math.floor(
-          Math.min(1000, 125 + 25 * player.highestSingularityCount)
-            * (1 + player.cubeUpgrades[61] / 50)
-        )
-        let actualQuarkAward = player.worlds.applyBonus(reward)
-        let blueberryTime = 0
-        if (actualQuarkAward > 66666) {
-          actualQuarkAward = Math.pow(actualQuarkAward, 0.35) * Math.pow(66666, 0.65)
-        }
-
-        if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
-          blueberryTime = 1800 * rewardMult
-        }
-
-        player.worlds.add(actualQuarkAward * rewardMult, false, true)
-        G.ambrosiaTimer += blueberryTime
-        const winText = i18next.t('importexport.promocodes.time.won', {
-          x: format(actualQuarkAward * rewardMult, 0, true)
-        })
-        const ambrosiaText = blueberryTime > 0
-          ? i18next.t('importexport.promocodes.time.ambrosia', {
-            blueberryTime
-          })
-          : ''
-        return Alert(winText + ambrosiaText)
-      } else {
-        return Alert(i18next.t('importexport.promocodes.time.lost'))
+    if (diff <= tolerance || player.cubeUpgrades[61] === 100) {
+      let blueberryTime = 0
+      if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
+        blueberryTime = 1800 * rewardMult
       }
+
+      player.worlds.add(actualQuarkAward * rewardMult, false, true)
+      G.ambrosiaTimer += blueberryTime
+      const winText = i18next.t('importexport.promocodes.time.won', {
+        x: format(actualQuarkAward * rewardMult, 0, true)
+      })
+      const ambrosiaText = blueberryTime > 0
+        ? i18next.t('importexport.promocodes.time.ambrosia', {
+          blueberryTime
+        })
+        : ''
+      return Alert(winText + ambrosiaText)
+    } else {
+      return Alert(i18next.t('importexport.promocodes.time.lost'))
     }
   } else if (input === 'spoiler') {
     const perSecond = calculateOcteractMultiplier()

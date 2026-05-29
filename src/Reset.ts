@@ -410,6 +410,8 @@ export const updateReincarnationCount = (count: number) => {
 }
 
 export const reset = (input: resetNames, fast = false, from = 'unknown') => {
+  console.log(`reset called with input: ${input}, fast: ${fast}, from: ${from}`)
+  console.log(player.challengecompletions[10])
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
   resetAddHistoryEntry(input, from)
 
