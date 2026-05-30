@@ -4421,28 +4421,28 @@ const gameStages = (): Stage[] => {
     {
       stage: 21,
       tier: 6,
-      name: 'exalt1x1-exalt5x1',
+      name: 'exalt1x1-exalt6x1',
       unlocked: player.singularityChallenges.noAmbrosiaUpgrades.completions > 0,
       reset: player.highestSingularityCount > 0
     },
     {
       stage: 22,
       tier: 6,
-      name: 'exalt5x1-s256',
+      name: 'exalt6x1-s256',
       unlocked: player.highestSingularityCount > 256,
       reset: player.highestSingularityCount > 0
     },
     {
       stage: 23,
       tier: 6,
-      name: 's256-exalt6x25',
+      name: 's256-exalt7x10',
       unlocked: player.singularityChallenges.limitedTime.completions >= 25,
       reset: player.highestSingularityCount > 0
     },
     {
       stage: 24,
       tier: 6,
-      name: 'exalt6x25-pen',
+      name: 'exalt7x10-pen',
       unlocked: goldenQuarkUpgrades.ultimatePen.level > 0,
       reset: player.highestSingularityCount > 0
     },
