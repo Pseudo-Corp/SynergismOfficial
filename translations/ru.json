@@ -6069,9 +6069,9 @@
       },
       "limitedAscensions": {
         "name": "Limited Ascensions Challenge",
-        "description": "Derpsmith put an embargo on Ascensions. Clear the target Singularity, but don't Ascend too much!",
+        "description": "Кукузнец поставил эмбарго на Вознесения. Пройдите целевую Сингулярность, не совершая лишних Вознесений!",
         "effectMod1": "<<red|Ascension Limit: {{ascensions}}>>",
-        "effectMod2": "<<gold|⚠>> Each Ascension above {{ascensions}} divides Ascension Speed by 2.",
+        "effectMod2": "<<gold|⚠>> После {{ascensions}}-о Вознесения и выше, Скорость Вознесения сокращается в 2 раза.",
         "effectMod3": "Platonic DELTA is disabled, and Ascensions only grant 1 Ascension Count.",
         "ScalingReward1": "<<orange|+0.25% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
         "ScalingReward2": "30 Achievement Points!",
