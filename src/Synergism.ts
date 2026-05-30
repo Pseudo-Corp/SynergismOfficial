@@ -93,6 +93,7 @@ import {
   updateResearchRoomba
 } from './Research'
 import {
+  applyChallengeInitialModifiers,
   reset,
   resetrepeat,
   singularity,
@@ -4493,8 +4494,9 @@ export const updateAll = (): void => {
           player.currentChallenge.ascension !== nextChallenge
         ) {
           void resetCheck('ascensionChallenge', false, true)
-          player.currentChallenge.ascension = nextChallenge
           reset('ascensionChallenge', false)
+          applyChallengeInitialModifiers('ascensionChallenge', nextChallenge)
+          player.currentChallenge.ascension = nextChallenge
         }
       } else {
         if (player.currentChallenge.ascension !== 0) {

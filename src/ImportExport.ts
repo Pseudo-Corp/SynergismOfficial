@@ -877,12 +877,14 @@ export const promocodes = async (input: string | null, amount?: number) => {
       cookieText = i18next.t('importexport.promocodes.time.maxedCookie')
     }
 
-    const startConfirm = await Confirm(`${i18next.t('importexport.promocodes.time.prepare', {
-      start: format(Math.max(0, random - tolerance) / 1000, 2, true),
-      end: format((random + tolerance) / 1000, 2, true),
-      quarks: format(actualQuarkAward * rewardMult, 0, true),
-      y: format(rewardMult, 2, true)
-    })} ${cookieText}`)
+    const startConfirm = await Confirm(`${
+      i18next.t('importexport.promocodes.time.prepare', {
+        start: format(Math.max(0, random - tolerance) / 1000, 2, true),
+        end: format((random + tolerance) / 1000, 2, true),
+        quarks: format(actualQuarkAward * rewardMult, 0, true),
+        y: format(rewardMult, 2, true)
+      })
+    } ${cookieText}`)
 
     if (!startConfirm) {
       return Alert(i18next.t('importexport.promocodes.time.cancelled'))
