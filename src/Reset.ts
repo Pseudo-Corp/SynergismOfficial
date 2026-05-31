@@ -927,9 +927,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
   }
 
-  if (!fast) {
-    revealStuff()
-  }
+  revealStuff()
   if (input === 'transcensionChallenge' || input === 'reincarnationChallenge' || input === 'ascensionChallenge') {
     updateChallengeDisplay()
   }
