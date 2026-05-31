@@ -5224,7 +5224,7 @@
     "shop": "¡Deslízate por cada porción de la tienda para ver lo que hace cada mejora!"
   },
   "buildings": {
-    "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold | +{{coinsPerSecond}}/s>>] | Total Ever: <<gold | {{totalGenerated}}>>",
+    "coinInformation": "Tienes <<gold | {{coins}} monedas>> [<<gold | +{{coinsPerSecond}}/s>>] | Total acumulado: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "You have nothing but 100 coins. You can hire a worker, conveniently for exactly 100 coins!",
       "2": "Your workers sure are working hard. Let's buy some investments with our coins!",
