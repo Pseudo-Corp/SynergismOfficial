@@ -7674,7 +7674,7 @@
       "failedToVerify": "Failed to validate with Steam. Is Steam open?"
     },
     "consumables": {
-      "connectionEstablished": "Connection was established!",
+      "connectionEstablished": "Соединение установлено!",
       "connectionFailed": "Could not re-establish your connection. Consumables and events related to Consumables will not work.",
       "ended": "{{consumable}} ended!",
       "redeemed": "A {{consumable}} has started!",
