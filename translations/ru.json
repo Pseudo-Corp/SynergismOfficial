@@ -193,8 +193,8 @@
         "effect": "Коэффициент Рун 1-5: +{{amount}}; Руна БВ: +{{amount2}}"
       },
       "ambrosiaBrickOfLead": {
-        "name": "The Brick of Lead",
-        "description": "I always keep this under my hat. This reduces your Ambrosia Bar Point generation speed by 2% per level, but grants Ambrosia Luck to compensate! It also slows down the Singularity timer by 1% per level.",
+        "name": "Кирпич Лидерства",
+        "description": "Он всегда у меня под шляпой. Это уменьшит скорость полоски Амброзии на 2% за уровень, но увеличит её удачу в ответ! Также, он замедляет время Сингулярности на 1% за уровень.",
         "effect": "Ambrosia Bar Point Requirement x{{blueberryGen}}, Ambrosia Luck +{{luckMult}}, Singularity timer speed x{{singularitySpeed}}"
       },
       "ambrosiaFreeLuckUpgrades": {
@@ -379,7 +379,7 @@
         "effect": "+<<orange|{{amount}}>> free Offering levels"
       },
       "freeObtainiumUpgrades": {
-        "name": "Weird Science",
+        "name": "Странная наука",
         "description": "Gain +1 free Obtainium level for Quark Upgrades per level!",
         "effect": "+<<pink|{{amount}}>> free Obtainium levels"
       },
@@ -3235,7 +3235,7 @@
       "124": "[5x24] Unlock enhanced toggles for The Great Automator! Be able to control when you Sacrifice based on your Reborn ELO.",
       "125": "[5x25] Удачи, дружище. [+1 Экспорт Кварк/час за уровень]",
       "126": "[6x1] 6 строк? Этого не может быть... (+1% Ускорителей / уровень)",
-      "127": "[6x2] Another +1% Accelerator Boosts / level!",
+      "127": "[6x2] И ещё +1% к Усил. Ускорителям / уровень!",
       "128": "[6x3] The trifecta! +1% Multipliers / level.",
       "129": "[6x4] Crystal Upgrade 3 has a higher cap (+0.001 per Level * log4(Common Fragments + 1)).<br>Crystal Upgrade 4 also gets a higher cap (+0.05 per Level * log4(Common Fragments + 1)).",
       "130": "[6x5] Unlock automation for leveling Talismans! Activates every 2 real life seconds.",
@@ -3264,7 +3264,7 @@
       "153": "[7x3] Hey, I totally didn't steal this idea. You gain 12 Tributes of Wow! Cube tier for every Tesseract opened.",
       "154": "[7x4] Make all Tesseract buildings produce 3% faster per level. Hey, isn't that more than the last Research tier?",
       "155": "[7x5] Том 2 из 4: Как покорить вселенную Муравьёв. При покупке, базовые требования Испытания 10 снова делятся на e100M.",
-      "156": "[7x6] What, again? Alright. +0.6% Accelerators per level.",
+      "156": "[7x6] Что, опять? Ну ладно. +0.6% Ускорителей за уровень.",
       "157": "[7x7] Gas, gas, gas. +0.6% Accelerator Boosts per level.",
       "158": "[7x8] Dupe DUPE DUPE. +0.6% Multipliers per level.",
       "159": "[7x9] Somehow, I can't explain why, you reduce your Taxes by 2% multiplicative, based on 3/5 * log10(Rare Fragments)!",
@@ -3375,7 +3375,7 @@
       "improveQuarkHept": "That exponent on your Quark Hepteracts is nice, but what if it was better? Gain +0.01 power per level to the Quark Hept Exponent!",
       "improveQuarkHept2": "Want even stronger Quark Hepts? Gain +0.01 power per level to the Quark Hept Exponent!",
       "improveQuarkHept3": "You are probably asking why I would sell this to you instead of using it for myself. Well... here's +0.01 power per level!",
-      "improveQuarkHept4": "+0.01 power per level... You know that 10^0.01 is about 1.023, right?",
+      "improveQuarkHept4": "+0.01 к степени за уровень... А ты знал что 10^0.01 примерно равно 1.023?",
       "shopImprovedDaily": "Эй ты. Да, ты! Кварки делают тюленя-торговца счастливым. +5% кварков от кода \"daily\" за каждый уровень.",
       "shopImprovedDaily2": "Gain 1 additional free Golden Quark Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily3": "Gain 1 additional free Golden Quark Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
@@ -3549,15 +3549,15 @@
       "instantChallenge": "Instant Challenge Completions",
       "antSpeed": "Ant ELO Boost",
       "cashGrab": "Cash Grab",
-      "shopTalisman": "The Plastic talisman",
-      "seasonPass": "Season Pass",
+      "shopTalisman": "Талисман \"Пластик\"",
+      "seasonPass": "Сезонный Пропуск",
       "challengeExtension": "Reincarnation Challenge EX",
       "challengeTome": "Challenge 10 Requirement Reduce",
       "cubeToQuark": "Quark-Enriched Wow! Cubes",
       "tesseractToQuark": "Quark-Enriched Wow! Tesseracts",
       "hypercubeToQuark": "Quark-Enriched Wow! Hypercubes",
-      "seasonPass2": "Season Pass 2",
-      "seasonPass3": "Season Pass 3",
+      "seasonPass2": "Сезонный Пропуск 2",
+      "seasonPass3": "Сезонный Пропуск 3",
       "chronometer": "Chronometer 1",
       "infiniteAscent": "Infinite Ascent",
       "calculator": "Калькулятор PL-AT",
@@ -3565,7 +3565,7 @@
       "calculator3": "Калькулятор PL-AT Ω",
       "calculator4": "Калькулятор PL-AT δ",
       "calculator5": "PL-AT Γ calculator",
-      "calculator6": "QUAAA-T calculator",
+      "calculator6": "Калькулятор КРЯЯЯ-T",
       "calculator7": "PL-AT ΩΩ calculator",
       "constantEX": "Constant EX",
       "powderEX": "Powder EX",
@@ -5585,7 +5585,7 @@
       },
       "octeractTalismanLevelCap4": {
         "name": "Talisman Level Cap Increaser Talisman - MYTHIC Rarity",
-        "description": "I think you can guess what the <<crimson | ✎>> Signature of this Talisman would be...",
+        "description": "Думаю, ты угадаешь какая будет <<crimson | ✎>> Подпись у этого Талисмана...",
         "effect": "Talisman level cap is increased by {{n}}"
       }
     },
@@ -5621,7 +5621,7 @@
     },
     "duplication": {
       "name": "Умножение",
-      "description": "\"<i>Its ability lies in the world inside of the mirror...</i>\" -some bizarre inscription",
+      "description": "\"<i>Его возможность открывается только в зеркале...</i> - какое-то безумное начертание",
       "lockedDescription": "This rune is locked! To unlock it, Prestige 100 times. You even get an Achievement for it!",
       "multiplierPower": "<<pink | Multiplier Power Boosts +{{val}}>> (+0.2 per Power)",
       "freeMultipliers": "<<pink | Free Multipliers +{{val}}>> (+0.25% per Power)",
@@ -5761,13 +5761,13 @@
       "exemption": {
         "name": "The Exemption Talisman",
         "description": "Fake Science Monthly says wearing this trinket lowers your taxes!",
-        "inscription": "<<gold | ✏>> Inscription: Your taxes are multiplied by <<gold|{{val}}>>.",
+        "inscription": "<<gold | ✏>> Начертание: Ваши налоги умножаются на <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Duplication Rune."
       },
       "chronos": {
         "name": "Talisman of Chronology",
         "description": "<i>Time flows just a little faster when worn</i>, you read on the tag.",
-        "inscription": "<<gold | ✏>> Inscription: Global Speed is increased by <<gold|{{val}}>>.",
+        "inscription": "<<gold | ✏>> Начертание: Общая Скорость увеличена на <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Speed Rune."
       },
       "midas": {
@@ -5785,7 +5785,7 @@
       "polymath": {
         "name": "Trinket of the Polymath",
         "description": "Do you feel like an exiled trickster?",
-        "inscription": "<<gold | ✏>> Inscription: Ascension Speed is increased by <<gold|{{val}}>>.",
+        "inscription": "<<gold | ✏>> Начертание: Скорость Вознесения увеличена на <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune level Coefficient of Superior Intellect Rune."
       },
       "mortuus": {
@@ -5809,14 +5809,14 @@
       "achievement": {
         "name": "Medal of Achievement",
         "description": "Has serial number <i>{{num}}</i> on it.",
-        "inscription": "<<gold | ✏>> Inscription: Sources of Positive Salvage give <<gold|{{val}}>> more!",
+        "inscription": "<<gold | ✏>> Начертание: Все положительные источники Добычи дают на <<gold|{{val}}>> больше!",
         "signature": "<<crimson | ✎>> Signature: Sources of Negative Salvage effect <<crimson|{{val}}>>."
       },
       "cookieGrandma": {
         "name": "Freshly-Baked Cookie",
         "description": "Kinda burns your neck. Thanks Grandma!",
-        "inscription": "<<gold | ✏>> Inscription: Gain <<gold|+{{val}}>> free Corruption Levels!",
-        "signature": "<<crimson | ✎>> Signature: Turns out, you cannot write on cookies."
+        "inscription": "<<gold | ✏>> Начертание: <<gold|+{{val}}>> к бесплатным Уровням Порчи!",
+        "signature": "<<crimson | ✎>> Подпись: Оказывается, на этих печеньях писать нельзя."
       },
       "horseShoe": {
         "name": "The Horse's Boot",
