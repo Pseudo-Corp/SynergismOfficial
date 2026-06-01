@@ -44,7 +44,7 @@ export const calculateSalvageHypercubeBlessing = () => {
 }
 
 export const calculateObtainiumHypercubeBlessing = () => {
-  const DR = 1 / 6
+  const DR = 1 / 4
   const effectPerBlessing = calculateHypercubeBlessingMultiplierPlatonicBlessing() / 1000
   const limit = 1000
   if (player.hypercubeBlessings.obtainium < limit) {
