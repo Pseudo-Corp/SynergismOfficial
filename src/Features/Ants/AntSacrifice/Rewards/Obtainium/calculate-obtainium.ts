@@ -1,14 +1,15 @@
 import Decimal from 'break_infinity.js'
-import { calculateAntSacrificeMultiplier, calculateObtainium } from '../../../../../Calculate'
-import { offeringObtainiumTimeModifiers } from '../../../../../Statistics'
+import {
+  calculateAntSacrificeMultiplier,
+  calculateGlobalTimerModifiers,
+  calculateObtainium
+} from '../../../../../Calculate'
 import { player } from '../../../../../Synergism'
 
 export const calculateAntSacrificeObtainium = (stageMult: number, useTime = true) => {
   const antSacMult = calculateAntSacrificeMultiplier()
-  const timeMultiplier = offeringObtainiumTimeModifiers(player.antSacrificeTimer, useTime).reduce(
-    (a, b) => a * b.stat(),
-    1
-  )
+  const timeMultiplier = calculateGlobalTimerModifiers(player.antSacrificeTimer, useTime)
+
   const overallSacrificeMultiplier = Decimal.fromString('1').times(antSacMult).times(stageMult).times(timeMultiplier)
 
   const useTimeMultInCalculateObtainium = false

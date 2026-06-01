@@ -4218,7 +4218,7 @@
       },
       "halfMind": {
         "name": "HALF MIND",
-        "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock your global speed to 10x, and multiply all obtainium and offerings based on the difference.\" Hmm...",
+        "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock your global speed to 1,000,000x, and multiply all obtainium and offerings based on the difference.\" Hmm...",
         "effectHave": "You have joined the cult!",
         "effectHaveNot": "You haven't joined the cult!"
       },

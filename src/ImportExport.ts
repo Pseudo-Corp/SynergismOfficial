@@ -29,6 +29,7 @@ import {
   allAddCodeCapacityMultiplierStats,
   allAddCodeCapacityStats,
   allAddCodeTimerStats,
+  calculateTotalStat,
   synergismStage
 } from './Statistics'
 import { blankSave, deepClone, format, player, reloadShit, saveSynergy } from './Synergism'
@@ -976,20 +977,16 @@ export const addCodeSingularityPerkBonus = (): number => {
   return 1 + count / 5
 }
 
-export const addCodeMaxUsesAdditive = () => {
-  return allAddCodeCapacityStats.reduce((a, b) => a + b.stat(), 0)
-}
+export const addCodeMaxUsesAdditive = () => calculateTotalStat(allAddCodeCapacityStats)
+export const addCodeMaxUsesMultiplicative = () => calculateTotalStat(allAddCodeCapacityMultiplierStats)
 
 export const addCodeMaxUses = () => {
   const additiveValue = addCodeMaxUsesAdditive()
-  const multiplier = allAddCodeCapacityMultiplierStats.reduce((a, b) => a * b.stat(), 1)
-
+  const multiplier = addCodeMaxUsesMultiplicative()
   return Math.floor(additiveValue * multiplier)
 }
 
-export const addCodeInterval = () => {
-  return allAddCodeTimerStats.reduce((a, b) => a * b.stat(), 1)
-}
+export const addCodeInterval = () => calculateTotalStat(allAddCodeTimerStats)
 
 export const addCodeAvailableUses = (): number => {
   const maxUses = addCodeMaxUses()
