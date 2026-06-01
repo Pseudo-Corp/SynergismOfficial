@@ -8,6 +8,7 @@ import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { sortDecimalWithIndices, updateClassList } from './Utility'
+import { getShopUpgradeEffects } from './Shop'
 
 interface IResearchData {
   baseCost: Decimal
@@ -131,7 +132,11 @@ const polyBuyToLevel = (
 ): (budget: Decimal, baseCost: Decimal, currLevel: number, maxLevel: number) => number => {
   return (budget: Decimal, baseCost: Decimal, currLevel: number, maxLevel: number) => {
     const effectiveBudget = budget.add(baseCost.times(Math.pow(currLevel, degree)))
-    return Math.min(maxLevel, Decimal.floor(Decimal.pow(effectiveBudget.div(baseCost), 1 / degree)).toNumber())
+    // Floating point imprecision sometimes causes the floor to return something less than the current level.
+    return Math.max(
+      currLevel,
+      Math.min(maxLevel, Decimal.floor(Decimal.pow(effectiveBudget.div(baseCost), 1 / degree)).toNumber())
+    )
   }
 }
 
@@ -139,7 +144,7 @@ const polyBuyToLevel = (
 const polyCostForLevels = (degree: number): (baseCost: Decimal, currlevel: number, toBuy: number) => Decimal => {
   return (baseCost: Decimal, currLevel: number, buyTo: number) => {
     if (currLevel === buyTo) {
-      return new Decimal(0)
+      return Decimal.fromString('0')
     }
     return baseCost.times(Math.pow(buyTo, degree) - Math.pow(currLevel, degree))
   }
@@ -241,7 +246,8 @@ const getBuyableResearchLevel = (index: number): number => {
   const maxLevel = researchData[index].maxLevel
   const budget = player.obtainium
 
-  const researchCostMulti = calculateSingularityDebuff('Researches')
+  let researchCostMulti = calculateSingularityDebuff('Researches')
+  researchCostMulti *= getShopUpgradeEffects('obtainiumAuto', 'researchCostMult')
 
   return buyToLevelFunc(budget, baseCost.times(researchCostMulti), currLevel, maxLevel)
 }
@@ -251,7 +257,8 @@ const getCostForResearchLevels = (index: number, buyTo: number): Decimal => {
   const baseCost = researchData[index].baseCost
   const currLevel = player.researches[index]
 
-  const researchCostMulti = calculateSingularityDebuff('Researches')
+  let researchCostMulti = calculateSingularityDebuff('Researches')
+  researchCostMulti *= getShopUpgradeEffects('obtainiumAuto', 'researchCostMult')
 
   return costForLevelsFunc(baseCost.times(researchCostMulti), currLevel, buyTo)
 }

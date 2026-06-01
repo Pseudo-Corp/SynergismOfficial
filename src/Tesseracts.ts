@@ -57,7 +57,7 @@ export const calculateSalvageTesseractBlessing = () => {
 }
 
 export const calculateObtainiumTesseractBlessing = () => {
-  const DR = 1 / 2
+  const DR = 1 / 3
   const effectPerBlessing = calculateObtainiumHypercubeBlessing() / 1000
   const limit = 1000
   if (player.tesseractBlessings.obtainium < limit) {

@@ -865,7 +865,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const rewardMult = timeCodeRewardMultiplier()
 
     const random = 6000 + seededRandom(Seed.PromoCodes) * 15000 // random time within 15 seconds
-    const tolerance = 500 + 25 * player.cubeUpgrades[61]
+    const tolerance = 1000 + 25 * player.cubeUpgrades[61]
 
     const reward = Math.floor(
       (20 + 5 * player.highestSingularityCount)
@@ -899,7 +899,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
       })
     )
 
-    const diff = Math.abs(Date.now() - (start + random))
+    const end = Date.now()
+    const diff = Math.abs(end - (start + random))
     player.promoCodeTiming.time = Date.now()
 
     if (diff <= tolerance || player.cubeUpgrades[61] === 100) {
@@ -911,6 +912,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       player.worlds.add(actualQuarkAward * rewardMult, false, true)
       G.ambrosiaTimer += blueberryTime
       const winText = i18next.t('importexport.promocodes.time.won', {
+        time: format((end - start) / 1000, 2, true),
         x: format(actualQuarkAward * rewardMult, 0, true)
       })
       const ambrosiaText = blueberryTime > 0
@@ -918,7 +920,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
           blueberryTime
         })
         : ''
-      return Alert(winText + ambrosiaText)
+      return Alert(`${winText} ${ambrosiaText}`)
     } else {
       return Alert(i18next.t('importexport.promocodes.time.lost'))
     }

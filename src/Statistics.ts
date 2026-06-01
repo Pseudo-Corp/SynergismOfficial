@@ -1105,7 +1105,7 @@ export const allOfferingStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'Antiquities',
-      stat: () => Math.pow(10, getRuneEffects('antiquities', 'offeringLog10')) // Antiquities Rune
+      stat: () => Decimal.pow(10, getRuneEffects('antiquities', 'offeringLog10')) // Antiquities Rune
     },
     {
       i18n: 'Jack',
