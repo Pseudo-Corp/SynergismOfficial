@@ -3,7 +3,6 @@ import i18next from 'i18next'
 import { awardAchievementGroup } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSalvageRuneEXPMultiplier } from './Calculate'
-import { platform } from './Config'
 import { resetTiers } from './Reset'
 import { type RuneBlessingKeys, runeBlessings } from './RuneBlessings'
 import { type RuneKeys, runes } from './Runes'
@@ -11,7 +10,7 @@ import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { IconSets } from './Themes'
 import { CloseModal, Modal } from './UpdateHTML'
-import { assert } from './Utility'
+import { assert, isMobile } from './Utility'
 import { Globals as G } from './Variables'
 
 type RuneSpiritTypeMap = {
@@ -354,7 +353,7 @@ export const updateMobileRuneSpiritHTML = (spirit: RuneSpiritKeys) => {
 }
 
 export const updateRuneSpiritHTML = (bless: RuneBlessingKeys) => {
-  if (platform === 'mobile') {
+  if (isMobile) {
     updateMobileRuneSpiritHTML(bless)
   } else {
     updateWebRuneSpiritHTML(bless)
@@ -599,7 +598,7 @@ export const generateSpiritsHTML = () => {
   if (htmlGeneratedThisSession) {
     return
   }
-  if (platform === 'mobile') {
+  if (isMobile) {
     generateMobileRuneSpiritsHTML()
   } else {
     generateWebRuneSpiritsHTML()

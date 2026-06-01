@@ -5,7 +5,6 @@ import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateGlobalSpeedMult, calculateTotalCoinOwned } from './Calculate'
-import { platform } from './Config'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getRuneEffects } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
@@ -22,7 +21,7 @@ import {
 import type { upgradeAutos } from './Toggles'
 import { toggleShops } from './Toggles'
 import { CloseModal, Modal, revealStuff } from './UpdateHTML'
-import { sumContents } from './Utility'
+import { isMobile, sumContents } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
 
 const crystalupgdesc: Record<number, () => Record<string, string>> = {
@@ -1097,7 +1096,7 @@ const createUpgradeSection = (category: UpgradeCategories) => {
   section.appendChild(createUpgradeSectionTop(category))
   section.appendChild(createUpgradeSectionButtons(category))
 
-  if (platform === 'mobile') {
+  if (isMobile) {
     section.appendChild(createMobileUpgradesDiv(category))
   } else {
     section.appendChild(createWebUpgradesTable(category))

@@ -5,11 +5,7 @@ let showStatSymbol = false
 
 export const enableStatSymbols = (): void => {
   // Symbols inconsistently (oftentimes don't) show up properly on mobile devices
-  if (platform === 'mobile') {
-    showStatSymbol = false
-    return
-  }
-  showStatSymbol = true
+  showStatSymbol = platform !== 'mobile'
 }
 
 const KEYWORD_SYMBOLS: Record<string, string> = {

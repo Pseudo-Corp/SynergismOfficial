@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
-import { platform } from '../Config'
+import { isMobile } from '../Utility'
 
 interface Building {
   imgId: string
@@ -26,7 +26,7 @@ type Entry = Building | { spacer: true }
 const costIdOf = (buyId: string) => `cost${buyId.slice('buy'.length)}`
 
 export const getBuildingCostElement = (buyId: string): HTMLElement =>
-  DOMCacheGetOrSet(platform === 'mobile' ? costIdOf(buyId) : buyId)
+  DOMCacheGetOrSet(isMobile ? costIdOf(buyId) : buyId)
 
 const renderBuildingDesktop = (b: Building): string => {
   const wrapper = b.containerClass ? ` class="${b.containerClass}"` : ''
@@ -77,7 +77,7 @@ const renderBuildingMobile = (b: Building): string => {
     + '</div>'
 }
 
-const renderBuilding = platform === 'mobile' ? renderBuildingMobile : renderBuildingDesktop
+const renderBuilding = isMobile ? renderBuildingMobile : renderBuildingDesktop
 
 const renderRow = (entries: Entry[]): string =>
   entries.map((e) => 'spacer' in e ? '<div class="buildingSpacer"></div>' : renderBuilding(e)).join('')
@@ -205,7 +205,7 @@ export const populateBuildingButtonRows = () => {
   for (const [tabId, entries] of rows) {
     const row = DOMCacheGetOrSet(tabId).querySelector<HTMLDivElement>('.buttonRow')
     if (row) {
-      if (platform === 'mobile') {
+      if (isMobile) {
         row.classList.add('mobile')
       }
       row.innerHTML = renderRow(entries)

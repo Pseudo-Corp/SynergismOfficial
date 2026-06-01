@@ -3,7 +3,6 @@ import i18next from 'i18next'
 import { awardAchievementGroup, awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSalvageRuneEXPMultiplier } from './Calculate'
-import { platform } from './Config'
 import { resetTiers } from './Reset'
 import { type RuneKeys, runes } from './Runes'
 import { format, formatAsPercentIncrease, player } from './Synergism'
@@ -11,7 +10,7 @@ import { Tabs } from './Tabs'
 import { getTalismanEffects } from './Talismans'
 import { IconSets } from './Themes'
 import { CloseModal, Modal } from './UpdateHTML'
-import { assert } from './Utility'
+import { assert, isMobile } from './Utility'
 import { Globals as G } from './Variables'
 
 type RuneBlessingTypeMap = {
@@ -378,7 +377,7 @@ export const updateMobileRuneBlessingHTML = (bless: RuneBlessingKeys) => {
 }
 
 export const updateRuneBlessingHTML = (bless: RuneBlessingKeys) => {
-  if (platform === 'mobile') {
+  if (isMobile) {
     updateMobileRuneBlessingHTML(bless)
   } else {
     updateWebRuneBlessingHTML(bless)
@@ -618,7 +617,7 @@ export const generateBlessingsHTML = () => {
   if (htmlGeneratedThisSession) {
     return
   }
-  if (platform === 'mobile') {
+  if (isMobile) {
     generateMobileRuneBlessingsHTML()
   } else {
     generateWebRuneBlessingsHTML()

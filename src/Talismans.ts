@@ -18,7 +18,7 @@ import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { toggleAutoBuyFragment, toggleautofortify } from './Toggles'
 import type { Player } from './types/Synergism'
-import { assert } from './Utility'
+import { assert, isMobile } from './Utility'
 import { Globals as G } from './Variables'
 
 interface TalismanFragmentCost {
@@ -1232,7 +1232,7 @@ export const updateMobileTalismanCostHTML = (t: TalismanKeys) => {
 }
 
 export const updateTalismanCostHTML = (t: TalismanKeys) => {
-  if (platform === 'mobile') {
+  if (isMobile) {
     updateMobileTalismanCostHTML(t)
   } else {
     updateWebTalismanCostHTML(t)
@@ -1349,7 +1349,7 @@ const updateMobileTalismanDisplay = (t: TalismanKeys) => {
 }
 
 export const updateTalismanDisplay = (t: TalismanKeys) => {
-  if (platform === 'mobile') {
+  if (isMobile) {
     updateMobileTalismanDisplay(t)
   } else {
     updateWebTalismanDisplay(t)
@@ -2274,7 +2274,7 @@ export const generateTalismansHTML = () => {
   if (htmlGeneratedThisSession) {
     return
   }
-  if (platform === 'mobile') {
+  if (isMobile) {
     generateMobileTopTalismansHTML()
     generateMobileMainTalismansHTML()
   } else {

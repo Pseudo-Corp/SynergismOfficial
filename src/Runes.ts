@@ -8,7 +8,6 @@ import { awardAchievementGroup, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
-import { platform } from './Config'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
@@ -21,7 +20,7 @@ import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
 import { toggleAutoSacrifice } from './Toggles'
 import { CloseModal, Modal } from './UpdateHTML'
-import { assert } from './Utility'
+import { assert, isMobile } from './Utility'
 
 export const indexToRune: Record<number, RuneKeys> = {
   1: 'speed',
@@ -982,7 +981,7 @@ export const updateMobileRuneHTML = (rune: RuneKeys) => {
 }
 
 export const updateRuneHTML = (rune: RuneKeys) => {
-  if (platform === 'mobile') {
+  if (isMobile) {
     updateMobileRuneHTML(rune)
   } else {
     updateWebRuneHTML(rune)
@@ -1379,7 +1378,7 @@ let htmlGeneratedThisSession = false
 
 export const generateRunesHTML = () => {
   if (htmlGeneratedThisSession) return
-  if (platform === 'mobile') {
+  if (isMobile) {
     generateMobileRunesHTML()
   } else {
     generateWebRunesHTML()

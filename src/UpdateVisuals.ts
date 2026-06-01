@@ -35,7 +35,7 @@ import {
   calculateTotalSalvage
 } from './Calculate'
 import { CalcECC, challengeDisplay, timeSinceLastStateChange } from './Challenges'
-import { platform, testing, version } from './Config'
+import { testing, version } from './Config'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -145,7 +145,7 @@ import { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from './T
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { updateMobileUpgradeDescription } from './Upgrades'
-import { sumContents, timeRemainingHours, timeRemainingMinutes } from './Utility'
+import { isMobile, sumContents, timeRemainingHours, timeRemainingMinutes } from './Utility'
 import { Globals as G } from './Variables'
 
 const coinUpper = [
@@ -672,7 +672,7 @@ export const visualUpdateBuildings = () => {
 }
 
 export const visualUpdateUpgrades = () => {
-  if (platform === 'mobile') {
+  if (isMobile) {
     for (let upgId = 1; upgId <= 125; upgId++) {
       updateMobileUpgradeDescription(upgId)
     }
@@ -748,7 +748,7 @@ export const visualUpdateRunes = () => {
 
   if (getActiveSubTab() === 1) {
     for (const t of Object.keys(talismans) as TalismanKeys[]) {
-      if (platform === 'mobile') {
+      if (isMobile) {
         for (const item of talismanCraftItems) {
           updateMobileTalismanInventoryPurchaseInfo(item)
         }
