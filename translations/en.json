@@ -3073,7 +3073,7 @@
       "67": "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
       "68": "[Cx18] What the heck! These aren't even cookies. +0.01% Quarks per level purchased of this upgrade. +5% more at level 1,000!",
       "69": "[Cx19] Cookies that you'll never remember again. +12% Golden Quarks this Singularity.",
-      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts per level on Ascension if the average level of your Corruptions is at least 14.",
+      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. For each total Corruption level, including free ones, gain 1.016x the Octeracts per second!",
       "71": "[Cx21] For each Talisman Rarity, multiply Obtainium gain by 1.04.",
       "72": "[Cx22] For each Talisman Rarity, multiply Offering gain by 1.04.",
       "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
@@ -7541,7 +7541,7 @@
         "gave": "I gave you {{x}} Quarks so I could take {{y}} away."
       },
       "time": {
-        "wait": "If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.\n\nRegardless, you must wait at least 15 minutes between each use.",
+        "wait": "You must wait at least 15 minutes between each use.",
         "prepare": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks! Due to how long it has been since your last attempt, the rewards are multiplied by {{y}}.",
         "confirm": "Press the button when you feel the time is right. Between {{start}} and {{end}} seconds, please!",
         "maxedCookie": "Because Cx11 is maxed, you will always get the rewards from this code. Just have some fun!",

@@ -771,7 +771,14 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CookieUpgrade20',
-      stat: () => 1 + (+(player.corruptions.used.totalLevels >= 14 * 8) * player.cubeUpgrades[70]) / 10000
+      stat: () => {
+        if (player.cubeUpgrades[70] > 0) {
+          return Math.pow(1.016, player.corruptions.used.totalLevels + 8 * player.corruptions.used.bonusLevels)
+        }
+        else {
+          return 1
+        }
+      }
     },
     {
       i18n: 'DivinePack',
