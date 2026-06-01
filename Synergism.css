@@ -371,6 +371,33 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     align-items: center;
 }
 
+#modal.modalBottomSheet {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+    border: 0;
+    border-radius: 0;
+    background: rgb(0 0 0 / 45%);
+    backdrop-filter: blur(4px);
+}
+
+#modal.modalBottomSheet #modalContent {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-height: 72vh;
+    padding: 18px 15px calc(18px + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    border-top: 2px solid;
+    border-color: inherit;
+    border-radius: 12px 12px 0 0;
+    background-color: var(--alert-color);
+    box-shadow: 0 -12px 35px rgb(0 0 0 / 60%);
+}
+
 .slide-in {
     animation: slide-in 1000ms;
     animation-fill-mode: forwards;

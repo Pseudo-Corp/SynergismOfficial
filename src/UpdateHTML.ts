@@ -64,7 +64,7 @@ import {
   visualUpdateSingularity,
   visualUpdateUpgrades
 } from './UpdateVisuals'
-import { createDeferredPromise, memoize, updateClassList } from './Utility'
+import { createDeferredPromise, isMobile, memoize, updateClassList } from './Utility'
 import { Globals as G } from './Variables'
 
 const htmlInsertPlayerRequirements = [
@@ -1418,6 +1418,12 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
 }
 
 type OptionalHTMLStyle = Partial<CSSStyleDeclaration>
+type ModalButtonClickCallback = (button: HTMLButtonElement, event: MouseEvent) => void
+
+interface ModalOptions {
+  targetElement?: HTMLElement
+  buttonClick?: ModalButtonClickCallback
+}
 
 let id: number | null = null
 
@@ -1508,10 +1514,31 @@ export const Modal = (
   currY: number,
   styleMods: OptionalHTMLStyle = {},
   updateInterval = VERY_FAST_MODAL_UPDATE_TICK,
-  targetElement?: HTMLElement
+  targetElementOrOptions?: HTMLElement | ModalOptions
 ) => {
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
+  const modalOptions = targetElementOrOptions instanceof HTMLElement
+    ? { targetElement: targetElementOrOptions }
+    : targetElementOrOptions ?? {}
+
+  modalContent.onclick = modalOptions.buttonClick
+    ? (event) => {
+      const button = event.target instanceof Element
+        ? event.target.closest('button')
+        : null
+      if (button && modalContent.contains(button)) {
+        modalOptions.buttonClick?.(button as HTMLButtonElement, event)
+      }
+    }
+    : null
+  modal.onclick = isMobile
+    ? (event) => {
+      if (event.target === modal) {
+        CloseModal()
+      }
+    }
+    : null
 
   const modalId = id = Math.random()
   const interval = setInterval(() => {
@@ -1522,6 +1549,7 @@ export const Modal = (
     updateModal(HTML)
   }, updateInterval)
 
+  modal.classList.toggle('modalBottomSheet', isMobile)
   Object.assign(modal.style, styleMods)
   // Instantly update the modal once
   updateModal(HTML)
@@ -1540,8 +1568,8 @@ export const Modal = (
     let baseY = currY
 
     if ((currX === 0 && currY === 0) || (currX < 5 && currY < 5)) {
-      if (targetElement) {
-        const targetRect = targetElement.getBoundingClientRect()
+      if (modalOptions.targetElement) {
+        const targetRect = modalOptions.targetElement.getBoundingClientRect()
         baseX = targetRect.left + targetRect.width / 2
         baseY = targetRect.top + targetRect.height / 2
       } else {
@@ -1549,6 +1577,13 @@ export const Modal = (
         baseX = viewportWidth / 2
         baseY = viewportHeight / 2
       }
+    }
+
+    if (isMobile) {
+      modal.style.removeProperty('left')
+      modal.style.removeProperty('top')
+      modal.style.visibility = 'visible'
+      return
     }
 
     // Base positioning
@@ -1580,7 +1615,10 @@ export const CloseModal = () => {
   const modalContent = DOMCacheGetOrSet('modalContent')
 
   id = null
+  modal.classList.remove('modalBottomSheet')
   modalContent.innerHTML = ''
+  modalContent.onclick = null
+  modal.onclick = null
   modal.style.display = 'none'
 }
 

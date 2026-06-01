@@ -14,8 +14,7 @@ import {
   loadoutHandler,
   resetBlueberryTree,
   resetHighlights,
-  resetLoadoutOnlyDisplay,
-  updateMobileAmbrosiaHTML
+  resetLoadoutOnlyDisplay
 } from './BlueberryUpgrades'
 import {
   boostAccelerator,
@@ -94,7 +93,6 @@ import type { OcteractUpgrades } from './Octeracts'
 import {
   buyOcteractUpgradeLevel,
   octeractUpgrades,
-  updateMobileOcteractHTML,
   upgradeOcteractToString
 } from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
@@ -103,7 +101,6 @@ import {
   displayRedAmbrosiaLevels,
   redAmbrosiaUpgradeToString,
   resetRedAmbrosiaDisplay,
-  updateMobileRedAmbrosiaHTML
 } from './RedAmbrosiaUpgrades'
 import { buyResearch, researchDescriptions, updateResearchAuto } from './Research'
 import { resetrepeat, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
@@ -129,7 +126,6 @@ import {
   type SingularityDataKeys,
   singularityPerks,
   teleportToSingularity,
-  updateMobileGQHTML,
   updateSingularityElevator,
   upgradeGQToString
 } from './singularity'
@@ -183,6 +179,83 @@ import {
 } from './Upgrades'
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
+
+type PurchasableModalOptions = {
+  element: HTMLElement
+  html: () => string
+  style: Partial<CSSStyleDeclaration>
+  buy: (event: MouseEvent, action?: string) => void | Promise<void>
+  mobileButtons?: Array<{ action: string, label: string }>
+  onOpen?: () => void
+  onClose?: () => void
+}
+
+const defaultModalBuyButtons = () => [
+  { action: 'one', label: i18next.t('general.buyOne') },
+  { action: 'max', label: i18next.t('general.buyMax') }
+]
+
+const modalBuyButtonsHTML = (buttons = defaultModalBuyButtons()) =>
+  `<br><br><div>${
+    buttons.map(({ action, label }) =>
+      `<button class="modalBtnBuy" data-modal-action="${action}">${label}</button>`
+    ).join('')
+  }</div>`
+
+const registerPurchasableModal = ({
+  element,
+  html,
+  style,
+  buy,
+  mobileButtons,
+  onOpen,
+  onClose
+}: PurchasableModalOptions) => {
+  const showDesktopModal = (x: number, y: number) => {
+    onOpen?.()
+    Modal(html, x, y, style, undefined, element)
+  }
+
+  const showMobileModal = (event: MouseEvent) => {
+    onOpen?.()
+    Modal(
+      () => `${html()}${modalBuyButtonsHTML(mobileButtons)}`,
+      event.clientX,
+      event.clientY,
+      style,
+      undefined,
+      {
+        targetElement: element,
+        buttonClick: (button, buttonEvent) => {
+          void buy(buttonEvent, button.dataset.modalAction)
+        }
+      }
+    )
+  }
+
+  if (isMobile) {
+    element.addEventListener('click', showMobileModal)
+    return
+  }
+
+  element.addEventListener('mousemove', (event) => showDesktopModal(event.clientX, event.clientY))
+  element.addEventListener('focus', () => {
+    const elmRect = element.getBoundingClientRect()
+    showDesktopModal(elmRect.x, elmRect.y + elmRect.height / 2)
+  })
+  element.addEventListener('mouseout', () => {
+    CloseModal()
+    onClose?.()
+  })
+  element.addEventListener('blur', () => {
+    CloseModal()
+    onClose?.()
+  })
+  element.addEventListener('click', (event) => {
+    void buy(event)
+    showDesktopModal(event.clientX, event.clientY)
+  })
+}
 
 export const generateEventHandlers = () => {
   const ordinals = [
@@ -641,26 +714,12 @@ export const generateEventHandlers = () => {
       `color-mix(in srgb, ${antUpgradeData[upgrade].antUpgradeHTML.color} 75%, crimson 25%)`
     )
 
-    antUpgrade.addEventListener(
-      'mousemove',
-      (e: MouseEvent) => Modal(() => antUpgradeHTML(upgrade), e.clientX, e.clientY, { borderColor: 'burlywood' })
-    )
-    /*antUpgrade.addEventListener('focus', () => {
-      const elmRect = antUpgrade.getBoundingClientRect()
-      Modal(() => antUpgradeHTML(upgrade), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'burlywood' })
-    })*/
-    antUpgrade.addEventListener('mouseout', () => CloseModal())
-    // antUpgrade.addEventListener('blur', () => CloseModal())
-    antUpgrade.addEventListener('click', (event) => {
-      buyAntUpgrade(upgrade, player.ants.toggles.maxBuyUpgrades)
-      Modal(
-        () => antUpgradeHTML(upgrade),
-        event.clientX,
-        event.clientY,
-        { borderColor: 'burlywood' },
-        undefined,
-        event.currentTarget as HTMLElement
-      )
+    registerPurchasableModal({
+      element: antUpgrade,
+      html: () => antUpgradeHTML(upgrade),
+      style: { borderColor: 'burlywood' },
+      buy: () => buyAntUpgrade(upgrade, player.ants.toggles.maxBuyUpgrades),
+      mobileButtons: [{ action: 'buy', label: i18next.t('ants.buyButton') }]
     })
   }
   // Part 3: Sacrifice
@@ -1071,55 +1130,15 @@ TODO: Fix this entire tab it's utter shit
 
   const GQUpgrades = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
   for (const key of GQUpgrades) {
-    if (!isMobile) {
-      if (key === 'offeringAutomatic') {
-        continue
-      }
-      DOMCacheGetOrSet(key).addEventListener(
-        'mousemove',
-        (e) => Modal(() => upgradeGQToString(key), e.clientX, e.clientY, { borderColor: 'gold' })
-      )
-      DOMCacheGetOrSet(key).addEventListener(
-        'focus',
-        () => {
-          const element = DOMCacheGetOrSet(key)
-          const elmRect = element.getBoundingClientRect()
-          Modal(() => upgradeGQToString(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'gold' })
-        }
-      )
-
-      DOMCacheGetOrSet(key).addEventListener(
-        'mouseout',
-        CloseModal
-      )
-      DOMCacheGetOrSet(key).addEventListener(
-        'blur',
-        CloseModal
-      )
-
-      DOMCacheGetOrSet(key).addEventListener(
-        'click',
-        (event) => {
-          buyGQUpgradeLevel(key, event)
-          Modal(
-            () => upgradeGQToString(key),
-            event.clientX,
-            event.clientY,
-            { borderColor: 'gold' },
-            undefined,
-            event.currentTarget as HTMLElement
-          )
-        }
-      )
-    } else {
-      if (key === 'offeringAutomatic') {
-        continue
-      }
-      DOMCacheGetOrSet(key).addEventListener(
-        'click',
-        () => updateMobileGQHTML(key)
-      )
+    if (key === 'offeringAutomatic') {
+      continue
     }
+    registerPurchasableModal({
+      element: DOMCacheGetOrSet(key),
+      html: () => upgradeGQToString(key),
+      style: { borderColor: 'gold' },
+      buy: (event, action) => buyGQUpgradeLevel(key, event, action === 'max')
+    })
   }
   DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener(
     'mouseover',
@@ -1160,49 +1179,12 @@ TODO: Fix this entire tab it's utter shit
   // Octeract Upgrades
   const octUpgrade = Object.keys(octeractUpgrades) as OcteractUpgrades[]
   for (const key of octUpgrade) {
-    if (!isMobile) {
-      DOMCacheGetOrSet(key).addEventListener(
-        'mousemove',
-        (e) => Modal(() => upgradeOcteractToString(key), e.clientX, e.clientY, { borderColor: 'lightseagreen' })
-      )
-      DOMCacheGetOrSet(key).addEventListener(
-        'focus',
-        () => {
-          const element = DOMCacheGetOrSet(key)
-          const elmRect = element.getBoundingClientRect()
-          Modal(() => upgradeOcteractToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {
-            borderColor: 'lightseagreen'
-          })
-        }
-      )
-      DOMCacheGetOrSet(key).addEventListener(
-        'mouseout',
-        CloseModal
-      )
-      DOMCacheGetOrSet(key).addEventListener(
-        'blur',
-        CloseModal
-      )
-      DOMCacheGetOrSet(key).addEventListener(
-        'click',
-        (event) => {
-          buyOcteractUpgradeLevel(key, event)
-          Modal(
-            () => upgradeOcteractToString(key),
-            event.clientX,
-            event.clientY,
-            { borderColor: 'lightseagreen' },
-            undefined,
-            event.currentTarget as HTMLElement
-          )
-        }
-      )
-    } else {
-      DOMCacheGetOrSet(key).addEventListener(
-        'click',
-        () => updateMobileOcteractHTML(key)
-      )
-    }
+    registerPurchasableModal({
+      element: DOMCacheGetOrSet(key),
+      html: () => upgradeOcteractToString(key),
+      style: { borderColor: 'lightseagreen' },
+      buy: (event, action) => buyOcteractUpgradeLevel(key, event, action === 'max')
+    })
   }
 
   DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener(
@@ -1232,60 +1214,14 @@ TODO: Fix this entire tab it's utter shit
     ambrosiaUpgrades
   ) as AmbrosiaUpgradeNames[]
   for (const key of blueberryUpgrades) {
-    if (!isMobile) {
-      DOMCacheGetOrSet(key).addEventListener(
-        'mousemove',
-        (e) => {
-          Modal(() => ambrosiaUpgradeToString(key), e.clientX, e.clientY, { borderColor: 'blue' })
-          highlightPrerequisites(key)
-        }
-      )
-      DOMCacheGetOrSet(key).addEventListener(
-        'mouseout',
-        () => {
-          CloseModal()
-          resetHighlights()
-        }
-      )
-      DOMCacheGetOrSet(key).addEventListener(
-        'focus',
-        () => {
-          const element = DOMCacheGetOrSet(key)
-          const elmRect = element.getBoundingClientRect()
-          Modal(() => ambrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'blue' })
-          highlightPrerequisites(key)
-        }
-      )
-      DOMCacheGetOrSet(key).addEventListener(
-        'blur',
-        () => {
-          CloseModal()
-          resetHighlights()
-        }
-      )
-      DOMCacheGetOrSet(key).addEventListener(
-        'click',
-        (event) => {
-          buyAmbrosiaUpgradeLevel(key, event)
-          Modal(
-            () => ambrosiaUpgradeToString(key),
-            event.clientX,
-            event.clientY,
-            { borderColor: 'blue' },
-            undefined,
-            event.currentTarget as HTMLElement
-          )
-        }
-      )
-    } else {
-      DOMCacheGetOrSet(key).addEventListener(
-        'click',
-        () => {
-          updateMobileAmbrosiaHTML(key)
-          highlightPrerequisites(key)
-        }
-      )
-    }
+    registerPurchasableModal({
+      element: DOMCacheGetOrSet(key),
+      html: () => ambrosiaUpgradeToString(key),
+      style: { borderColor: 'blue' },
+      buy: (event, action) => buyAmbrosiaUpgradeLevel(key, event, action === 'max'),
+      onOpen: () => highlightPrerequisites(key),
+      onClose: resetHighlights
+    })
   }
 
   // BLUEBERRY LOADOUTS
@@ -1341,49 +1277,12 @@ TODO: Fix this entire tab it's utter shit
   ) as (keyof Player['redAmbrosiaUpgrades'])[]
   for (const key of redAmbrosiaUpgrades) {
     const capitalizedName = key.charAt(0).toUpperCase() + key.slice(1)
-    if (!isMobile) {
-      DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-        'mousemove',
-        (e) => Modal(() => redAmbrosiaUpgradeToString(key), e.clientX, e.clientY, { borderColor: 'red' })
-      )
-      DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-        'mouseout',
-        CloseModal
-      )
-      DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-        'focus',
-        () => {
-          const element = DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`)
-          const elmRect = element.getBoundingClientRect()
-          Modal(() => redAmbrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {
-            borderColor: 'red'
-          })
-        }
-      )
-      DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-        'blur',
-        CloseModal
-      )
-      DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-        'click',
-        (event) => {
-          buyRedAmbrosiaUpgradeLevel(key, event)
-          Modal(
-            () => redAmbrosiaUpgradeToString(key),
-            event.clientX,
-            event.clientY,
-            { borderColor: 'red' },
-            undefined,
-            event.currentTarget as HTMLElement
-          )
-        }
-      )
-    } else {
-      DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-        'click',
-        () => updateMobileRedAmbrosiaHTML(key)
-      )
-    }
+    registerPurchasableModal({
+      element: DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`),
+      html: () => redAmbrosiaUpgradeToString(key),
+      style: { borderColor: 'red' },
+      buy: (event, action) => buyRedAmbrosiaUpgradeLevel(key, event, action === 'max')
+    })
   }
 
   // Toggle subtabs of Singularity tab
@@ -1466,10 +1365,6 @@ TODO: Fix this entire tab it's utter shit
     'click',
     openIframeOverlay.bind(null, 'https://synergism.cc/terms-of-service')
   )
-
-  if (isMobile) {
-    DOMCacheGetOrSet('modalContent').addEventListener('click', CloseModal)
-  }
 
   // Window
   window.addEventListener('error', imgErrorHandler, { capture: true })
