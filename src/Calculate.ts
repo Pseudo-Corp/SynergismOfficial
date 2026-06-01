@@ -1559,10 +1559,10 @@ export const calculateExalt4EffectiveSingularityMultiplier = (comps: number, for
 }
 
 export const calculateExalt6TimeLimit = (comps: number) => {
-  if (comps >= 10) {
-    return 115 - 5 * (comps - 10)
+  if (comps >= 9) {
+    return 120 - 5 * (comps - 9)
   } else {
-    return 600 - 60 * comps
+    return 600 - 55 * comps
   }
 }
 
@@ -1689,9 +1689,9 @@ export const sumOfExaltCompletions = () => {
 }
 
 export const inheritanceTokens = () => {
-  for (let i = 15; i > 0; i--) {
-    if (player.highestSingularityCount >= inheritanceLevels[i]) {
-      return inheritanceTokenValues[i]
+  for (let i = 15; i >= 0; i--) {
+    if (player.highestSingularityCount >= inheritanceLevels[i - 1]) {
+      return inheritanceTokenValues[i - 1]
     }
   }
 
