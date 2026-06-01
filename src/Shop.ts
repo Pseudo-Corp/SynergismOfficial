@@ -2469,7 +2469,6 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   let p = true
   if (
     player.shopConfirmationToggle
-    || (!shopItem.refundable && player.shopBuyMaxToggle !== false)
   ) {
     p = await Confirm(
       `You are about to ${
