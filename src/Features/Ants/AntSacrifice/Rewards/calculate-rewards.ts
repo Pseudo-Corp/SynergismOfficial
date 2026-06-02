@@ -1,5 +1,4 @@
-import { calculateAntSacrificeMultiplier } from '../../../../Calculate'
-import { offeringObtainiumTimeModifiers } from '../../../../Statistics'
+import { calculateAntSacrificeMultiplier, calculateGlobalTimerModifiers } from '../../../../Calculate'
 import { player } from '../../../../Synergism'
 import type { AntSacrificeRewards } from '../structs/structs'
 import { calculateEffectiveAntELO } from './ELO/AntELO/lib/calculate'
@@ -13,10 +12,8 @@ export const antSacrificeRewards = (): AntSacrificeRewards => {
   const effectiveELO = calculateEffectiveAntELO()
 
   const antSacrificeRewardMult = calculateAntSacrificeMultiplier()
-  const timeMultiplier = offeringObtainiumTimeModifiers(player.antSacrificeTimer, true).reduce(
-    (a, b) => a * b.stat(),
-    1
-  )
+  const timeMultiplier = calculateGlobalTimerModifiers(player.antSacrificeTimer, true)
+
   const rewardMultiplier = antSacrificeRewardMult.times(timeMultiplier)
 
   const stageMultipliers = thresholdModifiers()

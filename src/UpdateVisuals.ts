@@ -955,7 +955,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.cubes.items.3',
         {
           amount: format(player.cubeBlessings.offering, 0, true),
-          bonus: formatAsPercentIncrease(calculateOfferingCubeBlessing(), 2)
+          bonus: formatDecimalAsPercentIncrease(calculateOfferingCubeBlessing(), 2)
         }
       )
 
@@ -971,7 +971,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.cubes.items.5',
         {
           amount: format(player.cubeBlessings.obtainium, 0, true),
-          bonus: formatAsPercentIncrease(calculateObtainiumCubeBlessing(), 2)
+          bonus: formatDecimalAsPercentIncrease(calculateObtainiumCubeBlessing(), 2)
         }
       )
 

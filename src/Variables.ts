@@ -542,7 +542,11 @@ export const Globals: GlobalVariables = {
     1e80,
     1e90,
     1e100
-  ]
+  ],
+
+  MIND_DIVISOR: 1_000_000,
+  GLOBAL_RESET_THRESHOLD: 10,
+  ASCENSION_RESET_THRESHOLD: 10
 }
 
 export const blankGlobals = { ...Globals }

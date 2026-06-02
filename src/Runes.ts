@@ -15,7 +15,7 @@ import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { resetTiers } from './Reset'
 import { createShopUpgradeTypeIcon, getShopUpgradeEffects, ShopUpgradeGroups } from './Shop'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
+import { calculateTotalStat, firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
 import { assert } from './Utility'
@@ -284,11 +284,11 @@ const horseShoeOOMIncrease = () => {
 }
 
 export const firstFiveEffectiveRuneLevelMult = () => {
-  return firstFiveRuneEffectivenessStats.reduce((x, y) => x * y.stat(), 1)
+  return calculateTotalStat(firstFiveRuneEffectivenessStats)
 }
 
 export const SIEffectiveRuneLevelMult = () => {
-  return runeEffectivenessStatsSI.reduce((x, y) => x * y.stat(), 1)
+  return calculateTotalStat(runeEffectivenessStatsSI)
 }
 
 const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
@@ -608,9 +608,9 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       if (key === 'addCodeCooldownReduction') {
         return n > 0 ? 0.8 - 0.3 * (n - 1) / (n + 10) : 1
       } else if (key === 'offeringLog10') {
-        return Math.round(300 * (1 - Math.pow(1 - 1 / 300, n)))
+        return n
       } else if (key === 'obtainiumLog10') {
-        return Math.round(300 * (1 - Math.pow(1 - 1 / 300, n)))
+        return n
       } else {
         return (n > 0) ? Math.pow(1.01, Math.min(5, n) * player.singularityCount) : 1 // cubeBonus
       }

@@ -237,7 +237,7 @@ interface IShopData<T extends ShopUpgradeNames, K extends keyof QuarkShopUpgrade
   maxLevel: number
   type: shopUpgradeTypes
   refundMinimumLevel: number
-  upgradeTypes: ShopUpgradeGroups[],
+  upgradeTypes: ShopUpgradeGroups[]
   freeUpgradeMultiplier?: number
 }
 
@@ -252,7 +252,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     effects: () => 7200, // skipSeconds
     effectDescription: () => {
       const amount = format(
-        calculatePotionValue(player.prestigecounter, calculateOfferingsDecimal(), calculateBaseOfferings()),
+        calculatePotionValue(calculateOfferingsDecimal(), calculateBaseOfferings()),
         2,
         true
       )
@@ -277,7 +277,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     effects: () => 7200, // skipSeconds
     effectDescription: () => {
       const amount = format(
-        calculatePotionValue(player.reincarnationcounter, calculateObtainium(), calculateBaseObtainium()),
+        calculatePotionValue(calculateObtainium(false), calculateBaseObtainium()),
         2,
         true
       )
@@ -548,7 +548,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.cubeToQuark'),
     effects: (n) => {
       if (n >= 1) {
-        return 1.5 + 0.5 * (1 - Math.pow(0.9, n - 1)) 
+        return 1.5 + 0.5 * (1 - Math.pow(0.9, n - 1))
       } else {
         return 1 // cubeQuarkMult
       }
@@ -572,14 +572,16 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.tesseractToQuark'),
     effects: (n) => {
       if (n >= 1) {
-        return 1.5 + 0.5 * (1 - Math.pow(0.9, n - 1)) 
+        return 1.5 + 0.5 * (1 - Math.pow(0.9, n - 1))
       } else {
         return 1 // tesseractQuarkMult
       }
     },
     effectDescription () {
       const tesseractQuarkMult = getShopUpgradeEffects('tesseractToQuark', 'tesseractQuarkMult')
-      return i18next.t('shop.upgradeEffects.tesseractToQuark', { amount: formatAsPercentIncrease(tesseractQuarkMult, 1) })
+      return i18next.t('shop.upgradeEffects.tesseractToQuark', {
+        amount: formatAsPercentIncrease(tesseractQuarkMult, 1)
+      })
     },
     isUnlocked: () => player.highestchallengecompletions[11] > 0 || player.highestSingularityCount > 0,
     price: 3500,
@@ -596,14 +598,16 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.hypercubeToQuark'),
     effects: (n) => {
       if (n >= 1) {
-        return 1.5 + 0.5 * (1 - Math.pow(0.9, n - 1)) 
+        return 1.5 + 0.5 * (1 - Math.pow(0.9, n - 1))
       } else {
         return 1 // hypercubeQuarkMult
       }
     },
     effectDescription () {
       const hypercubeQuarkMult = getShopUpgradeEffects('hypercubeToQuark', 'hypercubeQuarkMult')
-      return i18next.t('shop.upgradeEffects.hypercubeToQuark', { amount: formatAsPercentIncrease(hypercubeQuarkMult, 1) })
+      return i18next.t('shop.upgradeEffects.hypercubeToQuark', {
+        amount: formatAsPercentIncrease(hypercubeQuarkMult, 1)
+      })
     },
     isUnlocked: () => player.highestchallengecompletions[13] > 0 || player.highestSingularityCount > 0,
     price: 5000,
@@ -1583,7 +1587,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount2: format(addCodeCapacity)
       })
     },
-    isUnlocked: () => getSingularityChallengeEffect('limitedAscensions', 'shopUpgrade'),
+    isUnlocked: () => getSingularityChallengeEffect('limitedAscensions', 'shopUpgrade2'),
     price: 1e20,
     priceIncrease: 1e19,
     maxLevel: 50,
@@ -1838,7 +1842,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     resetOnSingularity: resetNever,
     refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck],
-    freeUpgradeMultiplier: 2,
+    freeUpgradeMultiplier: 2
   },
   shopCashGrabUltra: {
     name: () => i18next.t('shop.names.shopCashGrabUltra'),
@@ -2465,7 +2469,6 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   let p = true
   if (
     player.shopConfirmationToggle
-    || (!shopItem.refundable && player.shopBuyMaxToggle !== false)
   ) {
     p = await Confirm(
       `You are about to ${
@@ -2503,7 +2506,6 @@ export const useConsumable = (
 
   if (input === 'offeringPotion') {
     let offeringPotionValue = calculatePotionValue(
-      player.prestigecounter,
       calculateOfferingsDecimal(),
       calculateBaseOfferings()
     )
@@ -2536,8 +2538,7 @@ export const useConsumable = (
     }
 
     let obtainiumPotionValue = calculatePotionValue(
-      player.reincarnationcounter,
-      calculateObtainium(),
+      calculateObtainium(false),
       calculateBaseObtainium()
     )
 

@@ -93,6 +93,7 @@ import {
   updateResearchRoomba
 } from './Research'
 import {
+  applyChallengeInitialModifiers,
   reset,
   resetrepeat,
   singularity,
@@ -2203,7 +2204,7 @@ export const format = (
   // This prevents numbers from jittering between two different powers by rounding errors
   if (mantissa > threshold) {
     mantissa = 1
-    ++power
+    ;++power
   }
 
   if (mantissa < 1 && mantissa > 0.9999999) {
@@ -2225,7 +2226,7 @@ export const format = (
   // Make the above code apply to Default notation as well
   // Also make the block below apply to Pure Scientific and Pure Engineering notations || rus9384
   // This case handles numbers less than 1e-3 and greater than -1e-3
-  if (inputType === 'number' && Math.abs(input as number) < (!fractional ? 1e-3 : 1e-15)) {// Arbitrary number, don't change 1e-3
+  if (inputType === 'number' && Math.abs(input as number) < (!fractional ? 1e-3 : 1e-15)) { // Arbitrary number, don't change 1e-3
     return input.toLocaleString(undefined, {
       minimumSignificantDigits: 1 + accuracy,
       maximumSignificantDigits: 1 + accuracy,
@@ -2316,7 +2317,7 @@ export const format = (
   }
 
   // Number.toLocaleString opts for 'accuracy' decimal places
-  const locOpts: Intl.NumberFormatOptions = { 
+  const locOpts: Intl.NumberFormatOptions = {
     minimumSignificantDigits: accuracy,
     maximumSignificantDigits: accuracy,
     roundingMode: 'trunc' as const
@@ -4493,8 +4494,9 @@ export const updateAll = (): void => {
           player.currentChallenge.ascension !== nextChallenge
         ) {
           void resetCheck('ascensionChallenge', false, true)
-          player.currentChallenge.ascension = nextChallenge
           reset('ascensionChallenge', false)
+          applyChallengeInitialModifiers('ascensionChallenge', nextChallenge)
+          player.currentChallenge.ascension = nextChallenge
         }
       } else {
         if (player.currentChallenge.ascension !== 0) {

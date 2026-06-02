@@ -653,9 +653,13 @@ function handleWebSocket () {
 
     queue.length = 0
 
-    interval = setInterval((ws: WebSocket) => {
-      ws.send('ping')
-    }, 30_000, ws)
+    interval = setInterval(
+      (ws: WebSocket) => {
+        ws.send('ping')
+      },
+      30_000,
+      ws
+    )
   })
 
   ws.addEventListener('error', () => {

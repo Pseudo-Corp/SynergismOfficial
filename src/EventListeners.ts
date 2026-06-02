@@ -941,12 +941,12 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('antLeaderboardValueAmount').addEventListener('mousemove', (e: MouseEvent) => {
     Modal(() => antCornerStageHTML(), e.clientX, e.clientY, { borderColor: 'orange' })
   })
-  DOMCacheGetOrSet('antLeaderboardValueAmount').addEventListener('mouseout', () => CloseModal())
+  DOMCacheGetOrSet('antLeaderboardValueAmount').addEventListener('mouseleave', () => CloseModal())
 
   DOMCacheGetOrSet('antLeaderboardQuarkValueAmount').addEventListener('mousemove', (e: MouseEvent) => {
     Modal(() => antCornerQuarkHTML(), e.clientX, e.clientY, { borderColor: 'cyan' })
   })
-  DOMCacheGetOrSet('antLeaderboardQuarkValueAmount').addEventListener('mouseout', () => CloseModal())
+  DOMCacheGetOrSet('antLeaderboardQuarkValueAmount').addEventListener('mouseleave', () => CloseModal())
 
   // Part 4: QoL Buttons
   DOMCacheGetOrSet('toggleBuyAntProducerMax').addEventListener('click', () => toggleMaxBuyAntProducer())

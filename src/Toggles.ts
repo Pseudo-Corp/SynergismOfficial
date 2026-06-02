@@ -6,7 +6,7 @@ import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } fro
 import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
 import { researchOrderByCost, roombaResearchEnabled } from './Research'
-import { reset, resetrepeat } from './Reset'
+import { applyChallengeInitialModifiers, reset, resetrepeat } from './Reset'
 import { indexToRune } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
@@ -60,15 +60,17 @@ export const toggleSettings = (toggle: HTMLElement) => {
 
 export const toggleChallenges = (i: number, auto = false) => {
   if (i >= 0 && i <= 5) {
-    player.currentChallenge.transcension = i
     reset('transcensionChallenge', false, 'enterChallenge')
+    applyChallengeInitialModifiers('transcensionChallenge', i)
+    player.currentChallenge.transcension = i
     if (!player.currentChallenge.reincarnation && !document.querySelector('.resetbtn.hover')) {
       resetrepeat('transcensionChallenge')
     }
   }
   if (i >= 6 && i <= 10) {
-    player.currentChallenge.reincarnation = i
     reset('reincarnationChallenge', false, 'enterChallenge')
+    applyChallengeInitialModifiers('reincarnationChallenge', i)
+    player.currentChallenge.reincarnation = i
     if (!document.querySelector('.resetbtn.hover')) {
       resetrepeat('reincarnationChallenge')
     }
@@ -99,8 +101,9 @@ export const toggleChallenges = (i: number, auto = false) => {
       })
       return
     } else {
-      player.currentChallenge.ascension = i
       reset('ascensionChallenge', false, 'enterChallenge')
+      applyChallengeInitialModifiers('ascensionChallenge', i)
+      player.currentChallenge.ascension = i
     }
   }
   updateChallengeDisplay()
