@@ -3867,7 +3867,8 @@ const loadStatistics = (
   const statNumTotalHTMLName = `${statLinePrefix}NT`
 
   // Query that an element with name statTotalHTMLName Exists
-  const totalElm = DOMCacheGetOrSet(statTotalHTMLName)
+  // use getElementById (using DOMCacheGetOrSet leads to an error)
+  const totalElm = document.getElementById(statTotalHTMLName)
 
   if (totalElm === null && hasSummative) {
     const statTotal = document.createElement('p')
