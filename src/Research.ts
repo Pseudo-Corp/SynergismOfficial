@@ -4,11 +4,11 @@ import { getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getResetResearches } from './Reset'
 import { runes } from './Runes'
+import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { sortDecimalWithIndices, updateClassList } from './Utility'
-import { getShopUpgradeEffects } from './Shop'
 
 interface IResearchData {
   baseCost: Decimal

@@ -54,7 +54,6 @@ const platonicKeys = Object.keys(platonicBlessings) as (keyof Player['platonicBl
 const platonicRNGesus = ['hypercubeBonus', 'taxes', 'scoreBonus', 'globalSpeed'] as const
 const platonicCommonDrops = ['cubes', 'tesseracts', 'hypercubes', 'platonics'] as const
 
-
 /**
  * @description Generic class for handling cube subsets.
  * @example
@@ -275,8 +274,7 @@ export class WowTesseracts extends Cube {
 
     // If you're opening more than 20 Tesseracts, it will consume all Tesseracts until remainder mod 20, giving expected values.
     for (const key of blessingKeys) {
-      player.tesseractBlessings[key] +=
-        blessings[key].weight * toSpendDiv20
+      player.tesseractBlessings[key] += blessings[key].weight * toSpendDiv20
     }
     // Then, the remaining tesseract will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < toSpendModulo; i++) {
@@ -316,8 +314,7 @@ export class WowHypercubes extends Cube {
 
     // If you're opening more than 20 Hypercubes, it will consume all Hypercubes until remainder mod 20, giving expected values.
     for (const key of blessingKeys) {
-      player.hypercubeBlessings[key] +=
-        blessings[key].weight * toSpendDiv20
+      player.hypercubeBlessings[key] += blessings[key].weight * toSpendDiv20
     }
     // Then, the remaining hypercubes will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < toSpendModulo; i++) {
@@ -365,7 +362,8 @@ export class WowPlatonicCubes extends Cube {
 
     // If you're opening more than 40,000 Platonics, it will consume all Platonics until remainder mod 40,000, giving expected values.
     for (const key of platonicKeys) {
-      player.platonicBlessings[key] += individualPlatonicBlessingMultiplier(key) * platonicBlessings[key].weight * toSpendDiv40000
+      player.platonicBlessings[key] += individualPlatonicBlessingMultiplier(key) * platonicBlessings[key].weight
+        * toSpendDiv40000
     }
 
     // Then, the remaining hypercube will be opened, simulating the probability [RNG Element]

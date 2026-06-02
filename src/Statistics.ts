@@ -774,8 +774,7 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
       stat: () => {
         if (player.cubeUpgrades[70] > 0) {
           return Math.pow(1.016, player.corruptions.used.totalLevels + 8 * player.corruptions.used.bonusLevels)
-        }
-        else {
+        } else {
           return 1
         }
       }

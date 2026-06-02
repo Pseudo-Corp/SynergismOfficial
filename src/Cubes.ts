@@ -323,12 +323,15 @@ export const calculateObtainiumCubeBlessing = () => {
   const limit = 1000
   const DRIncrease = player.cubeUpgrades[40] * 2 / 300
 
-  // We square these results because of a serious bug discovered live and 
+  // We square these results because of a serious bug discovered live and
   if (player.cubeBlessings.obtainium < limit) {
     return Decimal.pow(effectPerBlessing.times(player.cubeBlessings.obtainium).plus(1), 2 * (1 + DRIncrease))
   } else {
     const limitMult = Decimal.pow(limit, 1 - DR + DRIncrease)
-    return Decimal.pow(limitMult.times(effectPerBlessing).times(Math.pow(player.cubeBlessings.obtainium, DR + DRIncrease)).plus(1), 2)
+    return Decimal.pow(
+      limitMult.times(effectPerBlessing).times(Math.pow(player.cubeBlessings.obtainium, DR + DRIncrease)).plus(1),
+      2
+    )
   }
 }
 
