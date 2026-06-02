@@ -1201,17 +1201,11 @@ export const updateMobileOcteractHTML = (upgradeKey: OcteractUpgrades): void => 
 
     buyOne.classList.add('modalBtnBuy')
     buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.addEventListener('click', (event: MouseEvent) => {
-      buyOcteractUpgradeLevel(upgradeKey, event, false)
-      updateMobileOcteractHTML(upgradeKey)
-    })
+    buyOne.dataset.modalAction = 'one'
 
     buyMax.classList.add('modalBtnBuy')
     buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.addEventListener('click', (event: MouseEvent) => {
-      buyOcteractUpgradeLevel(upgradeKey, event, true)
-      updateMobileOcteractHTML(upgradeKey)
-    })
+    buyMax.dataset.modalAction = 'max'
 
     buttonDiv.appendChild(buyOne)
     buttonDiv.appendChild(buyMax)

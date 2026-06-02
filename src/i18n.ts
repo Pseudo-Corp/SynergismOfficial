@@ -1,6 +1,7 @@
 import i18next, { type Resource } from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { prod } from './Config'
+import { storageGetItem, storageSetItem } from './events/storage-events'
 import ColorTextPlugin from './Plugins/ColorText'
 import StatSymbolsPlugin from './Plugins/StatSymbols'
 import { Confirm } from './UpdateHTML'
@@ -22,8 +23,9 @@ const languageCache = new Map<string, { translation: Resource }>()
 
 export const init = async (): Promise<void> => {
   const resources: Record<string, Resource> = {}
-  const language = localStorage.getItem('language') ?? 'en'
+  const language = storageGetItem('language') ?? 'en'
 
+  // oxlint-disable-next-line synergism-rules/no-relative-fetch
   const response = await fetch(`./translations/${language}.json`)
     .catch(() => fetch(`https://synergism.cc/translations/${language}.json`))
   const file = await response.json() as Resource
@@ -33,6 +35,7 @@ export const init = async (): Promise<void> => {
 
   if (language !== 'en') {
     // We always need to load English, to use as a fallback
+    // oxlint-disable-next-line synergism-rules/no-relative-fetch
     const englishResponse = await fetch('./translations/en.json')
       .catch(() => fetch('https://synergism.cc/translations/en.json'))
     const englishTranslations = await englishResponse.json() as Resource
@@ -65,6 +68,7 @@ function buildLanguageButton (langID: string, name: string, flag: string) {
   mainButton.className = 'language-select'
   mainButton.addEventListener('click', async () => {
     if (!languageCache.has(langID)) {
+      // oxlint-disable-next-line synergism-rules/no-relative-fetch
       const response = await fetch(`./translations/${langID}.json`)
       const file = await response.json() as Resource
 
@@ -74,7 +78,7 @@ function buildLanguageButton (langID: string, name: string, flag: string) {
 
     // i18next.addResourceBundle
     await i18next.changeLanguage(langID)
-    localStorage.setItem('language', langID)
+    storageSetItem('language', langID)
 
     const shouldReload = await Confirm(i18next.t('general.languageChange'))
 

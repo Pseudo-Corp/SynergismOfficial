@@ -7,6 +7,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
 import { isSynergismCC, platform } from './Config'
 import { updateGlobalsIsEvent } from './Event'
+import { storageGetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
 import { updateLotusDisplay } from './purchases/ConsumablesTab'
@@ -248,7 +249,7 @@ interface BonusTypes {
   quark: number
 }
 
-export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon' | 'steam'
+export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon' | 'steam' | 'apple'
 
 export type SubscriptionMetadata = {
   provider: SubscriptionProvider
@@ -811,7 +812,10 @@ export function sendToWebsocket (message: string) {
 async function logout () {
   await fetch('https://synergism.cc/api/v1/users/logout')
 
-  if (platform === 'steam') {
+  if (platform === 'mobile') {
+    const { CapacitorCookies } = await import('@capacitor/core')
+    await CapacitorCookies.clearAllCookies()
+  } else if (platform === 'steam') {
     const { clearAuthCookie } = await import('./steam/steam')
     await clearAuthCookie()
   }
@@ -871,6 +875,8 @@ export const renderCaptcha = platform === 'steam'
       }
     }
   })
+  : platform === 'mobile'
+  ? () => {}
   : () => {
     const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
     const visible = captchaElements.find((el) => el.offsetParent !== null)
@@ -1075,7 +1081,7 @@ function handleCloudSaves () {
   const transferButton = subtabElement.querySelector<HTMLButtonElement>('button#transfer')
 
   function populateTable () {
-    fetch('/saves/retrieve/all')
+    fetch('https://synergism.cc/saves/retrieve/all')
       .then((response) => response.json())
       .then(($saves: Save[]) => {
         cloudSaves.length = 0
@@ -1258,7 +1264,7 @@ function handleCloudSaves () {
             save.actionButtons.delete.textContent = 'Deleting...'
           }
 
-          const response = await fetch('/saves/delete', {
+          const response = await fetch('https://synergism.cc/saves/delete', {
             method: 'DELETE',
             body: JSON.stringify({ name: save.name })
           })
@@ -1291,14 +1297,14 @@ function handleCloudSaves () {
     uploadButton.innerHTML = '<span class="spinner"></span> Uploading...'
 
     const name = saveFilename()
-    const save = localStorage.getItem('Synergysave2')
+    const save = storageGetItem('Synergysave2')
     assert(save !== null, 'no save')
 
     const fd = new FormData()
     fd.set('file', new File([save], name))
     fd.set('name', name)
 
-    fetch('/saves/upload', {
+    fetch('https://synergism.cc/saves/upload', {
       method: 'POST',
       body: fd
     }).then((response) => {
@@ -1315,7 +1321,7 @@ function handleCloudSaves () {
       uploadButton.textContent = i18next.t('settings.cloud.uploadFailed')
     }).finally(() => {
       setTimeout(
-        (uploadButton_) => {
+        (uploadButton_: HTMLButtonElement) => {
           uploadButton_.disabled = false
           uploadButton_.textContent = originalText
         },
@@ -1330,7 +1336,7 @@ function handleCloudSaves () {
     const originalText = transferButton.textContent
     transferButton.innerHTML = '<span class="spinner"></span> Transferring...'
 
-    fetch('/saves/transfer').then((response) => {
+    fetch('https://synergism.cc/saves/transfer').then((response) => {
       if (!response.ok) {
         throw new TypeError(`Received status ${response.status}`)
       }
@@ -1342,7 +1348,7 @@ function handleCloudSaves () {
       transferButton.textContent = i18next.t('settings.cloud.transferFailed')
     }).finally(() => {
       setTimeout(
-        (transferButton_) => {
+        (transferButton_: HTMLButtonElement) => {
           transferButton_.disabled = false
           transferButton_.textContent = originalText
         },
@@ -1458,7 +1464,7 @@ async function handleSteamCloudSave () {
     uploadBtn.disabled = true
     uploadBtn.textContent = i18next.t('account.steamCloud.uploading')
 
-    const localSave = localStorage.getItem('Synergysave2')
+    const localSave = storageGetItem('Synergysave2')
     if (!localSave) {
       Alert(i18next.t('account.steamCloud.noLocalSave'))
       uploadBtn.disabled = false

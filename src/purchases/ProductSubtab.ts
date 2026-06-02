@@ -1,3 +1,4 @@
+import { platform } from '../Config'
 import { format } from '../Synergism'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
@@ -11,12 +12,18 @@ const formatter = Intl.NumberFormat('en-US', {
   currency: 'USD'
 })
 
-const clickHandler = (e: HTMLElementEventMap['click']) => {
+const clickHandler = async (e: HTMLElementEventMap['click']) => {
   const productId = (e.target as HTMLButtonElement).getAttribute('data-id')
   const productName = (e.target as HTMLButtonElement).getAttribute('data-name')
 
   if (productId === null || !coinProducts.some((product) => product.id === productId)) {
     Alert('Stop fucking touching the html! We do server-side validation!')
+    return
+  }
+
+  if (platform === 'mobile') {
+    const { orderProduct } = await import('../mobile/microtxn')
+    await orderProduct(productId)
     return
   }
 

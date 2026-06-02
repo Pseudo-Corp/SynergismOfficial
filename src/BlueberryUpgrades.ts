@@ -1308,17 +1308,11 @@ export const updateMobileAmbrosiaHTML = (k: AmbrosiaUpgradeNames) => {
 
     buyOne.classList.add('modalBtnBuy')
     buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.addEventListener('click', (event: MouseEvent) => {
-      buyAmbrosiaUpgradeLevel(k, event, false)
-      updateMobileAmbrosiaHTML(k)
-    })
+    buyOne.dataset.modalAction = 'one'
 
     buyMax.classList.add('modalBtnBuy')
     buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.addEventListener('click', (event: MouseEvent) => {
-      buyAmbrosiaUpgradeLevel(k, event, true)
-      updateMobileAmbrosiaHTML(k)
-    })
+    buyMax.dataset.modalAction = 'max'
 
     buttonDiv.appendChild(buyOne)
     buttonDiv.appendChild(buyMax)

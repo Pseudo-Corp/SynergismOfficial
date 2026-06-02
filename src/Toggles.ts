@@ -3,6 +3,7 @@ import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { type AutoChallengeStates, getChallengeConditions, resetChallengeSweep } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } from './Corruptions'
+import { storageGetItem, storageSetItem } from './events/storage-events'
 import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
 import { researchOrderByCost, roombaResearchEnabled } from './Research'
@@ -146,7 +147,7 @@ export const toggleBuyAmount = (quantity: BuyAmount, type: ToggleBuy) => {
   }
 }
 
-type upgradeAutos = 'coin' | 'prestige' | 'transcend' | 'generators' | 'reincarnate'
+export type upgradeAutos = 'coin' | 'prestige' | 'transcend' | 'generators' | 'reincarnate'
 
 /**
  * Updates Auto Upgrade Border Colors if applicable, or updates the status of an upgrade toggle as optional.
@@ -987,10 +988,10 @@ export const toggleStatSymbol = async () => {
   if (!confirmation) {
     return
   } else {
-    if (localStorage.getItem('statSymbols') === 'true') {
-      localStorage.setItem('statSymbols', 'false')
+    if (storageGetItem('statSymbols') === 'true') {
+      storageSetItem('statSymbols', 'false')
     } else {
-      localStorage.setItem('statSymbols', 'true')
+      storageSetItem('statSymbols', 'true')
     }
   }
   location.reload()

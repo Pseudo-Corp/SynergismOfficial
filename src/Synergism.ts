@@ -159,7 +159,8 @@ import {
 import {
   ascendBuildingDR,
   buyConstantUpgrades,
-  categoryUpgrades,
+  buyUpgradeByCategory,
+  generateUpgradesTab,
   getConstUpgradeMetadata,
   upgradeupdate
 } from './Upgrades'
@@ -187,6 +188,7 @@ import {
 import { dev, lastUpdated, platform, prod, testing, ticksPerSecond, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
+import { initMobileStorage, storageGetItem, storageSetItem } from './events/storage-events'
 import { autobuyAnts } from './Features/Ants'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { calculateImmortalELOGain } from './Features/Ants/AntSacrifice/Rewards/ELO/ImmortalELO/lib/calculate'
@@ -251,6 +253,7 @@ import {
   type SingularityChallengeDataKeys
 } from './SingularityChallenges'
 import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
+import { populateBuildingButtonRows } from './tabs/buildings'
 import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 
@@ -1276,7 +1279,7 @@ export const saveSynergy = (button?: boolean) => {
   const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
   if (save !== null) {
-    localStorage.setItem('Synergysave2', save)
+    storageSetItem('Synergysave2', save)
   } else {
     void Alert(i18next.t('testing.errorSaving'))
     return false
@@ -1336,7 +1339,7 @@ async function syncToSteamCloud (saveData: string) {
 }
 
 const loadSynergy = () => {
-  const saveString = localStorage.getItem('Synergysave2')
+  const saveString = storageGetItem('Synergysave2')
   const data = saveString ? JSON.parse(atob(saveString)) : null
   if (data && testing) {
     data.exporttest = false
@@ -1551,8 +1554,6 @@ const loadSynergy = () => {
 
     // For blueberry upgrades!
     displayProperLoadoutCount()
-
-    DOMCacheGetOrSet('talismanLevelUpCost').style.display = 'none'
 
     // This must be initialized at the beginning of the calculation
     c15RewardUpdate()
@@ -4883,7 +4884,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         }
       }
       if (G.currentTab === Tabs.Upgrades) {
-        categoryUpgrades(num, false)
+        buyUpgradeByCategory(num - 1, false)
       }
       if (G.currentTab === Tabs.Runes) {
         if (getActiveSubTab() === 0) {
@@ -4903,7 +4904,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
 
     case '6':
       if (G.currentTab === Tabs.Upgrades) {
-        categoryUpgrades(6, false)
+        buyUpgradeByCategory(5, false)
       }
       if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(1)
@@ -4983,7 +4984,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
 
   disableHotkeys()
 
-  const saveObject = localStorage.getItem('Synergysave2')
+  const saveObject = storageGetItem('Synergysave2')
 
   if (saveObject) {
     const decompress = LZString.decompressFromBase64(saveObject)
@@ -5001,7 +5002,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
       }
 
       localStorage.clear()
-      localStorage.setItem('Synergysave2', saveString)
+      storageSetItem('Synergysave2', saveString)
       Alert(i18next.t('main.transferredFromLZ'))
     }
 
@@ -5168,7 +5169,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   }
 
   const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
-  saveType.checked = localStorage.getItem('copyToClipboard') !== null
+  saveType.checked = storageGetItem('copyToClipboard') !== null
 }
 
 window.addEventListener('load', async () => {
@@ -5181,9 +5182,25 @@ window.addEventListener('load', async () => {
     })
   }
 
-  const symbolsEnabled = localStorage.getItem('statSymbols')
+  document.documentElement.dataset.mobile = 'false'
+  if (platform === 'mobile') {
+    await initMobileStorage()
+    const [{ bindMobileFormHandlers }, { initMobilePurchases }, { rewardVideo }] = await Promise.all([
+      import('./mobile/auth'),
+      import('./mobile/microtxn'),
+      import('./mobile/ads')
+    ])
+    bindMobileFormHandlers()
+    initMobilePurchases()
+
+    DOMCacheGetOrSet('adEvents').style.display = 'block'
+    DOMCacheGetOrSet('watchAdBtn').addEventListener('click', rewardVideo)
+    document.documentElement.dataset.mobile = 'true'
+  }
+
+  const symbolsEnabled = storageGetItem('statSymbols')
   if (!symbolsEnabled) {
-    localStorage.setItem('statSymbols', 'true')
+    storageSetItem('statSymbols', 'true')
     enableStatSymbols()
   } else if (symbolsEnabled === 'true') {
     enableStatSymbols()
@@ -5230,6 +5247,8 @@ window.addEventListener('load', async () => {
   }
   document.title = `Synergism v${version}`
 
+  populateBuildingButtonRows()
+  generateUpgradesTab()
   generateRunesHTML()
   generateTalismansHTML()
   generateBlessingsHTML()

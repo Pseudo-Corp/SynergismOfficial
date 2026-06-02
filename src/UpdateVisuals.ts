@@ -49,7 +49,15 @@ import {
   calculateSalvageCubeBlessing,
   type IMultiBuy
 } from './Cubes'
-import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
+import {
+  BuffType,
+  consumableEventBuff,
+  eventBuffType,
+  getAdTimeExpiry,
+  getEvent,
+  getEventBuff,
+  isAdEventEnabled
+} from './Event'
 import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib/calculate-production'
 import { hasEnoughCrumbsForSacrifice, MINIMUM_CRUMBS_FOR_SACRIFICE } from './Features/Ants/AntSacrifice/constants'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
@@ -112,7 +120,15 @@ import {
   player
 } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
-import { getTalismanLevelCap, type TalismanKeys, talismans, updateAllTalismanHTML } from './Talismans'
+import { getBuildingCostElement } from './tabs/buildings'
+import {
+  getTalismanLevelCap,
+  talismanCraftItems,
+  type TalismanKeys,
+  talismans,
+  updateAllTalismanHTML,
+  updateMobileTalismanInventoryPurchaseInfo
+} from './Talismans'
 import {
   calculateAcceleratorTesseractBlessing,
   calculateAntELOTesseractBlessing,
@@ -128,7 +144,8 @@ import {
 import { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from './Toggles'
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
-import { sumContents, timeRemainingHours } from './Utility'
+import { updateMobileUpgradeDescription } from './Upgrades'
+import { isMobile, sumContents, timeRemainingHours, timeRemainingMinutes } from './Utility'
 import { Globals as G } from './Variables'
 
 const coinUpper = [
@@ -252,7 +269,7 @@ export const visualUpdateBuildings = () => {
         }
       )
 
-      DOMCacheGetOrSet(`buycoin${i}`).textContent = i18next.t(
+      getBuildingCostElement(`buycoin${i}`).textContent = i18next.t(
         'buildings.costCoins',
         {
           coins: format(player[`${ith}CostCoin` as const])
@@ -332,19 +349,19 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    DOMCacheGetOrSet('buyaccelerator').textContent = i18next.t(
+    getBuildingCostElement('buyaccelerator').textContent = i18next.t(
       'buildings.costCoins',
       {
         coins: format(player.acceleratorCost)
       }
     )
-    DOMCacheGetOrSet('buymultiplier').textContent = i18next.t(
+    getBuildingCostElement('buymultiplier').textContent = i18next.t(
       'buildings.costCoins',
       {
         coins: format(player.multiplierCost)
       }
     )
-    DOMCacheGetOrSet('buyacceleratorboost').textContent = i18next.t(
+    getBuildingCostElement('buyacceleratorboost').textContent = i18next.t(
       'buildings.costDiamonds',
       {
         diamonds: format(player.acceleratorBoostCost)
@@ -398,7 +415,7 @@ export const visualUpdateBuildings = () => {
         }
       )
 
-      DOMCacheGetOrSet(`buydiamond${i}`).textContent = i18next.t(
+      getBuildingCostElement(`buydiamond${i}`).textContent = i18next.t(
         'buildings.costDiamonds',
         {
           diamonds: format(player[`${ith}CostDiamonds` as const], 2)
@@ -459,7 +476,7 @@ export const visualUpdateBuildings = () => {
         }
       )
 
-      DOMCacheGetOrSet(`buymythos${i}`).textContent = i18next.t(
+      getBuildingCostElement(`buymythos${i}`).textContent = i18next.t(
         'buildings.costMythos',
         {
           mythos: format(player[`${ith}CostMythos` as const], 2)
@@ -515,7 +532,7 @@ export const visualUpdateBuildings = () => {
           amount: format(place.times(40), 2)
         }
       )
-      DOMCacheGetOrSet(`buyparticles${i}`).textContent = i18next.t(
+      getBuildingCostElement(`buyparticles${i}`).textContent = i18next.t(
         'buildings.costParticles',
         {
           particles: format(player[`${ith}CostParticles` as const], 2)
@@ -600,7 +617,7 @@ export const visualUpdateBuildings = () => {
         }
       )
 
-      DOMCacheGetOrSet(`buyTesseracts${i}`).textContent = i18next.t(
+      getBuildingCostElement(`buyTesseracts${i}`).textContent = i18next.t(
         'buildings.costTesseracts',
         {
           tesseracts: format(player[ascendBuildingI].cost, 0)
@@ -654,7 +671,13 @@ export const visualUpdateBuildings = () => {
   }
 }
 
-export const visualUpdateUpgrades = () => {}
+export const visualUpdateUpgrades = () => {
+  if (isMobile) {
+    for (let upgId = 1; upgId <= 125; upgId++) {
+      updateMobileUpgradeDescription(upgId)
+    }
+  }
+}
 
 export const visualUpdateAchievements = () => {
   if (G.currentTab !== Tabs.Achievements) {
@@ -725,10 +748,17 @@ export const visualUpdateRunes = () => {
 
   if (getActiveSubTab() === 1) {
     for (const t of Object.keys(talismans) as TalismanKeys[]) {
-      DOMCacheGetOrSet(`${t}TalismanLevel`).textContent = i18next.t('runes.talismans.level', {
-        x: format(talismans[t].level, 0, true),
-        y: format(getTalismanLevelCap(t), 0, true)
-      })
+      if (isMobile) {
+        for (const item of talismanCraftItems) {
+          updateMobileTalismanInventoryPurchaseInfo(item)
+        }
+      } else {
+        // We already update this on mobile, no need for additional updates
+        DOMCacheGetOrSet(`${t}TalismanLevel`).textContent = i18next.t('runes.talismans.level', {
+          x: format(talismans[t].level, 0, true),
+          y: format(getTalismanLevelCap(t), 0, true)
+        })
+      }
     }
     updateAllTalismanHTML()
   } else if (getActiveSubTab() === 2) {
@@ -2120,6 +2150,14 @@ export const visualUpdateEvent = () => {
     for (let i = 0; i < eventBuffType.length; i++) {
       DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
     }
+  }
+
+  if (isAdEventEnabled()) {
+    DOMCacheGetOrSet('adEventTimer').innerHTML = i18next.t('advertisements.adEventSome', {
+      time: timeRemainingMinutes(getAdTimeExpiry())
+    })
+  } else {
+    DOMCacheGetOrSet('adEventTimer').innerHTML = i18next.t('advertisements.adEventNone')
   }
 }
 

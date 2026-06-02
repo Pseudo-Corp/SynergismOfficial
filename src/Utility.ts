@@ -2,6 +2,7 @@ import Decimal, { type DecimalSource } from 'break_infinity.js'
 import DOMPurify from 'dompurify'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format } from './Synergism'
+import { platform } from './Config'
 
 export const isDecimal = (o: unknown): o is Decimal =>
   o instanceof Decimal
@@ -337,7 +338,7 @@ export function isomorphicDecode (input: Uint8Array) {
 }
 
 export const isMobile = (function isMobileDevice() {
-  return window.matchMedia('(pointer: coarse)').matches
+  return platform === 'mobile' || window.matchMedia('(pointer: coarse)').matches
     || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 })()
 

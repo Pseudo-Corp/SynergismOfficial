@@ -18,7 +18,9 @@ import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { calculateTotalStat, firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
-import { assert } from './Utility'
+import { toggleAutoSacrifice } from './Toggles'
+import { CloseModal, Modal } from './UpdateHTML'
+import { assert, isMobile } from './Utility'
 
 export const indexToRune: Record<number, RuneKeys> = {
   1: 'speed',
@@ -919,7 +921,7 @@ export const updateAllRuneLevelsFromEXP = () => {
   awardAchievementGroup('runeLevel')
 }
 
-export const updateRuneHTML = (rune: RuneKeys) => {
+export const updateWebRuneHTML = (rune: RuneKeys) => {
   assert(G.currentTab === Tabs.Runes, 'current tab is not Runes')
 
   DOMCacheGetOrSet(`${rune}RuneLevel`).textContent = i18next.t('runes.level', { x: format(runes[rune].level, 0, true) })
@@ -938,6 +940,51 @@ export const updateRuneHTML = (rune: RuneKeys) => {
       levelAmount: format(player.offeringbuyamount, 0, true),
       offerings: format(computeOfferingsToLevel(rune, runes[rune].level + player.offeringbuyamount), 2, false)
     })
+  }
+}
+
+export const updateMobileRuneHTML = (rune: RuneKeys) => {
+  assert(G.currentTab === Tabs.Runes, 'current tab is not Runes')
+
+  // {rune}Rune, {rune}RuneLevel, {rune}RuneCoefficient, {rune}RuneIncreasePerLevel, {rune}RunePower, {rune}RuneEffects, {rune}RuneCost
+  DOMCacheGetOrSet(`${rune}RuneLevel`).innerHTML = `${
+    i18next.t('runes.level', { x: format(runes[rune].level, 0, true) })
+  } ${i18next.t('runes.freeLevels', { x: format(runes[rune].freeLevels(), 0, true) })}`
+  DOMCacheGetOrSet(`${rune}RuneCoefficient`).textContent = i18next.t('runes.runeCoefficientText', {
+    base: format(runes[rune].levelsPerOOM, 2, true),
+    bonus: format(runes[rune].levelsPerOOMIncrease(), 2, true),
+    total: format(getLevelsPerOOM(rune), 2, true)
+  })
+
+  DOMCacheGetOrSet(`${rune}RuneIncreasePerLevel`).innerHTML = i18next.t('runes.perLevelIncrease', {
+    x: format(Math.pow(10, 1 / getLevelsPerOOM(rune)), 4, false)
+  })
+
+  DOMCacheGetOrSet(`${rune}RunePower`).innerHTML = i18next.t('runes.runeEffectiveLevel', {
+    level: format(getRuneEffectiveLevel(rune), 2, false)
+  })
+
+  DOMCacheGetOrSet(`${rune}RuneEffects`).innerHTML = runes[rune].effectsDescription()
+
+  if (player.offeringbuyamount === 100000) {
+    const { levels, offerings } = maxRuneLevelPurchaseInformation(rune, player.offerings)
+    DOMCacheGetOrSet(`${rune}RuneCost`).innerHTML = i18next.t('runes.TNL', {
+      levelAmount: format(levels, 0, true),
+      offerings: format(offerings, 0, true)
+    })
+  } else {
+    DOMCacheGetOrSet(`${rune}RuneCost`).innerHTML = i18next.t('runes.TNL', {
+      levelAmount: format(player.offeringbuyamount, 0, true),
+      offerings: format(computeOfferingsToLevel(rune, runes[rune].level + player.offeringbuyamount), 2, true)
+    })
+  }
+}
+
+export const updateRuneHTML = (rune: RuneKeys) => {
+  if (isMobile) {
+    updateMobileRuneHTML(rune)
+  } else {
+    updateWebRuneHTML(rune)
   }
 }
 
@@ -1008,12 +1055,6 @@ export const focusedRuneLockedHTML = (rune: RuneKeys) => {
   return `${nameHTML}<br>${lockedDescriptionHTML}`
 }
 
-/*export const updateRuneEffectHTML = (rune: RuneKeys) => {
-  if (G.currentTab === Tabs.Runes) {
-    DOMCacheGetOrSet(`${rune}RunePower`).innerHTML = runes[rune].effectsDescription()
-  }
-}*/
-
 export const sumOfRuneLevels = () => {
   return Object.values(runes).reduce((sum, rune) => sum + rune.level, 0)
 }
@@ -1076,7 +1117,7 @@ export const sacrificeOfferings = (rune: RuneKeys, budget: Decimal, auto = false
   player.offerings = Decimal.max(0, player.offerings)
 }
 
-export const generateRunesHTML = () => {
+export const generateWebRunesHTML = () => {
   const runeContainer = DOMCacheGetOrSet('runeDetails')
 
   for (const key of Object.keys(runes) as RuneKeys[]) {
@@ -1093,6 +1134,21 @@ export const generateRunesHTML = () => {
       `color-mix(in srgb, ${runes[key].runeHTMLStyle.borderColor} 50%, orange 50%)`
     )
 
+    runesDiv.addEventListener(
+      'mousemove',
+      (e) => {
+        Modal(() => focusedRuneHTML(key), e.clientX, e.clientY, { borderColor: runes[key].runeHTMLStyle.borderColor })
+      }
+    )
+    runesDiv.addEventListener('focus', () => {
+      const element = DOMCacheGetOrSet(`${key}Rune`)
+      const elmRect = element.getBoundingClientRect()
+      Modal(() => focusedRuneHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
+        borderColor: runes[key].runeHTMLStyle.borderColor
+      })
+    })
+    runesDiv.addEventListener('mouseout', CloseModal)
+
     const runeName = document.createElement('p')
     runeName.className = 'runeTypeElement'
     runeName.setAttribute('i18n', `runes.${key}.name`)
@@ -1106,6 +1162,7 @@ export const generateRunesHTML = () => {
     runeIcon.alt = `${key} Rune`
     runeIcon.src = `Pictures/Runes/${key.charAt(0).toUpperCase() + key.slice(1)}.png`
     runeIcon.loading = 'lazy'
+    runeIcon.addEventListener('click', () => toggleAutoSacrifice(runeToIndex[key]))
 
     runesDiv.appendChild(runeIcon)
 
@@ -1135,6 +1192,7 @@ export const generateRunesHTML = () => {
     sacrificeButton.id = `${key}RuneSacrifice`
     sacrificeButton.setAttribute('i18n', 'general.sacrificeCapital')
     sacrificeButton.textContent = i18next.t('general.sacrificeCapital')
+    sacrificeButton.addEventListener('click', () => sacrificeOfferings(key, player.offerings, false))
 
     runesDiv.appendChild(sacrificeButton)
 
@@ -1147,6 +1205,21 @@ export const generateRunesHTML = () => {
     lockedRunesDiv.style.border = '2px solid lightgray'
     lockedRunesDiv.style.borderRadius = '8px'
     lockedRunesDiv.style.margin = '2px'
+
+    lockedRunesDiv.addEventListener(
+      'mousemove',
+      (e) => {
+        Modal(() => focusedRuneLockedHTML(key), e.clientX, e.clientY, { borderColor: 'gray' })
+      }
+    )
+    lockedRunesDiv.addEventListener('focus', () => {
+      const element = DOMCacheGetOrSet(`${key}RuneLockedContainer`)
+      const elmRect = element.getBoundingClientRect()
+      Modal(() => focusedRuneLockedHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
+        borderColor: 'gray'
+      })
+    })
+    lockedRunesDiv.addEventListener('mouseout', CloseModal)
 
     const lockedRuneName = document.createElement('p')
     lockedRuneName.className = 'runeTypeElement'
@@ -1166,4 +1239,149 @@ export const generateRunesHTML = () => {
 
     runeContainer.appendChild(lockedRunesDiv)
   }
+}
+
+export const generateMobileRunesHTML = () => {
+  const runeContainer = DOMCacheGetOrSet('runeDetails')
+  for (const key of Object.keys(runes) as RuneKeys[]) {
+    // Create unlocked rune container
+    const runesDiv = document.createElement('div')
+    runesDiv.className = 'runeTypeMobile'
+    runesDiv.id = `${key}RuneContainer`
+    runesDiv.style.border = `2px solid ${runes[key].runeHTMLStyle.borderColor}`
+    runesDiv.style.borderRadius = '8px'
+    runesDiv.style.margin = '2px'
+
+    // Top of div lefthand (icon, name)
+    const topRow = document.createElement('div')
+    topRow.classList.add('runeIconAndName')
+
+    const runeIcon = document.createElement('img')
+    runeIcon.className = 'runeImage'
+    runeIcon.height = 32 // make smaller on mobile versions
+    runeIcon.width = 32
+    runeIcon.id = `${key}Rune`
+    runeIcon.alt = `${key} Rune`
+    runeIcon.src = `Pictures/Runes/${key.charAt(0).toUpperCase() + key.slice(1)}.png`
+    runeIcon.loading = 'lazy'
+    runeIcon.addEventListener('click', () => toggleAutoSacrifice(runeToIndex[key]))
+
+    topRow.appendChild(runeIcon)
+
+    const runeName = document.createElement('p')
+    runeName.className = 'runeTypeElementMobile'
+    runeName.setAttribute('i18n', `runes.${key}.name`)
+    runeName.innerHTML = i18next.t(`runes.${key}.name`)
+    topRow.appendChild(runeName)
+
+    runesDiv.appendChild(topRow)
+
+    const level = document.createElement('p')
+    level.className = 'runeTypeElementMobile'
+    level.id = `${key}RuneLevel`
+    level.textContent = '0 [+0]'
+    level.style.color = 'white'
+    runesDiv.appendChild(level)
+
+    const coefficientText = document.createElement('p')
+    coefficientText.className = 'runeTypeElementMobile'
+    coefficientText.id = `${key}RuneCoefficient`
+    coefficientText.textContent = '1'
+    coefficientText.style.color = 'white'
+    runesDiv.appendChild(coefficientText)
+
+    const increasePerLevelText = document.createElement('p')
+    increasePerLevelText.className = 'runeTypeElementMobile'
+    increasePerLevelText.id = `${key}RuneIncreasePerLevel`
+    increasePerLevelText.textContent = '1'
+    increasePerLevelText.style.color = 'white'
+    runesDiv.appendChild(increasePerLevelText)
+
+    const runePower = document.createElement('p')
+    runePower.className = 'runeTypeElementMobile'
+    runePower.id = `${key}RunePower`
+    runePower.textContent = '1'
+    runePower.style.color = 'white'
+    runesDiv.appendChild(runePower)
+
+    const runeEffects = document.createElement('p')
+    runeEffects.className = 'runeTypeElementMobile'
+    runeEffects.id = `${key}RuneEffects`
+    runeEffects.textContent = '1'
+    runeEffects.style.color = 'white'
+    runesDiv.appendChild(runeEffects)
+
+    const runeCost = document.createElement('p')
+    runeCost.className = 'runeTypeElementMobile'
+    runeCost.id = `${key}RuneCost`
+    runeCost.textContent = '1'
+    runeCost.style.color = 'white'
+    runesDiv.appendChild(runeCost)
+
+    // Sacrifice button on the righthand side of the div
+    const sacrificeButton = document.createElement('button')
+    sacrificeButton.className = 'runeTypeElementMobile'
+    sacrificeButton.id = `${key}RuneSacrifice`
+    sacrificeButton.setAttribute('i18n', 'general.sacrificeCapital')
+    sacrificeButton.textContent = i18next.t('general.sacrificeCapital')
+    sacrificeButton.addEventListener('click', () => sacrificeOfferings(key, player.offerings, false))
+    runesDiv.appendChild(sacrificeButton)
+
+    runeContainer.appendChild(runesDiv)
+
+    // Create locked rune container
+    const lockedRunesDiv = document.createElement('div')
+    lockedRunesDiv.className = 'runeTypeMobile runeTypeLocked'
+    lockedRunesDiv.id = `${key}RuneLockedContainer`
+    lockedRunesDiv.style.border = '2px solid lightgray'
+    lockedRunesDiv.style.borderRadius = '8px'
+    lockedRunesDiv.style.margin = '2px'
+
+    const lockedInfoSection = document.createElement('div')
+    lockedInfoSection.className = 'runeInfoSectionMobile'
+
+    const topRowLocked = document.createElement('div')
+    topRowLocked.classList.add('runeIconAndName')
+
+    const lockedRuneIcon = document.createElement('img')
+    lockedRuneIcon.className = 'runeImage runeImageLocked'
+    lockedRuneIcon.id = `${key}RuneLocked`
+    lockedRuneIcon.alt = `${key} Rune - Locked`
+    lockedRuneIcon.src = `Pictures/Runes/${key.charAt(0).toUpperCase() + key.slice(1)}.png`
+    lockedRuneIcon.height = 32
+    lockedRuneIcon.width = 32
+    lockedRuneIcon.loading = 'lazy'
+
+    topRowLocked.appendChild(lockedRuneIcon)
+
+    const lockedRuneName = document.createElement('p')
+    lockedRuneName.className = 'runeTypeElementMobile'
+    lockedRuneName.setAttribute('i18n', 'runes.lockedRune')
+    lockedRuneName.textContent = i18next.t('runes.lockedRune')
+
+    topRowLocked.appendChild(lockedRuneName)
+    lockedInfoSection.appendChild(topRowLocked)
+
+    const lockedDescription = document.createElement('p')
+    lockedDescription.className = 'runeTypeElementMobile'
+    lockedDescription.setAttribute('i18n', `runes.${key}.lockedDescription`)
+    lockedDescription.innerHTML = i18next.t(`runes.${key}.lockedDescription`)
+
+    lockedInfoSection.appendChild(lockedDescription)
+
+    lockedRunesDiv.appendChild(lockedInfoSection)
+    runeContainer.appendChild(lockedRunesDiv)
+  }
+}
+
+let htmlGeneratedThisSession = false
+
+export const generateRunesHTML = () => {
+  if (htmlGeneratedThisSession) return
+  if (isMobile) {
+    generateMobileRunesHTML()
+  } else {
+    generateWebRunesHTML()
+  }
+  htmlGeneratedThisSession = true
 }

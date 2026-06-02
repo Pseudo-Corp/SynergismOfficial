@@ -2326,17 +2326,11 @@ export function updateMobileGQHTML (k: SingularityDataKeys) {
 
     buyOne.classList.add('modalBtnBuy')
     buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.addEventListener('click', (event: MouseEvent) => {
-      buyGQUpgradeLevel(k, event, false)
-      updateMobileGQHTML(k)
-    })
+    buyOne.dataset.modalAction = 'one'
 
     buyMax.classList.add('modalBtnBuy')
     buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.addEventListener('click', (event: MouseEvent) => {
-      buyGQUpgradeLevel(k, event, true)
-      updateMobileGQHTML(k)
-    })
+    buyMax.dataset.modalAction = 'max'
 
     buttonDiv.appendChild(buyOne)
     buttonDiv.appendChild(buyMax)

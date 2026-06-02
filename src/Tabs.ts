@@ -2,6 +2,7 @@ import i18next from 'i18next'
 import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { platform } from './Config'
+import { storageGetItem, storageSetItem } from './events/storage-events'
 import { pressedKeys } from './Hotkeys'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
@@ -320,12 +321,12 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'consumablesSection',
-        unlocked: () => true,
+        unlocked: () => platform !== 'mobile',
         buttonID: 'cartSubTab4'
       },
       {
         subTabID: 'cartContainer',
-        unlocked: () => true,
+        unlocked: () => platform !== 'mobile',
         buttonID: 'cartSubTab5'
       },
       {
@@ -420,11 +421,11 @@ class TabRow extends HTMLDivElement {
   }
 
   #saveOrder () {
-    localStorage.setItem(TAB_ORDER_KEY, JSON.stringify(this.#list.map((tab) => tab.id)))
+    storageSetItem(TAB_ORDER_KEY, JSON.stringify(this.#list.map((tab) => tab.id)))
   }
 
   #restoreOrder () {
-    const saved = localStorage.getItem(TAB_ORDER_KEY)
+    const saved = storageGetItem(TAB_ORDER_KEY)
     if (!saved) return
 
     try {

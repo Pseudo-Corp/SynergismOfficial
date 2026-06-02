@@ -1,11 +1,27 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body *,
 body {
     transition: background-color var(--transition), border-color var(--transition);
 }
 
+button,
+a,
+input,
+select {
+    touch-action: manipulation;
+}
+
 html {
     min-width: 1250px;
+    height: 100%;
     position: relative;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -57,7 +73,9 @@ body::-webkit-scrollbar:horizontal {
 
 body {
     margin: 0;
-    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
     /* Custom colors that are used for themes */
     --text-color: white;
@@ -203,7 +221,6 @@ textarea {
     font-size: 0.75em;
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
     border: 0 solid #ccc;
 }
 
@@ -273,17 +290,21 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 
 @keyframes slide-in {
     from {
-        transform: translate(-100%, 10%);
+        transform: translateX(-100%);
     }
 
     to {
-        transform: translate(5%, 10%);
+        transform: translateX(5%);
     }
 }
 
 @keyframes slide-out {
+    from {
+        transform: translateX(5%);
+    }
+
     to {
-        transform: translate(-100%, 10%);
+        transform: translateX(-100%);
     }
 }
 
@@ -298,18 +319,33 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     z-index: 6968;
 }
 
-#notification {
+#notificationStack {
     position: fixed;
-    display: none;
-    transform: translateY(10%);
+    top: calc(12px + env(safe-area-inset-top));
+    left: env(safe-area-inset-left);
+    right: env(safe-area-inset-right);
     z-index: 6969;
-    width: 15%;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+}
+
+.notification-wrap {
+    margin-bottom: 10px;
+    overflow: visible;
+    transition: max-height 1000ms ease, margin-bottom 1000ms ease;
+}
+
+.notification-item {
+    position: relative;
+    transform: translateX(-100%);
+    pointer-events: auto;
+    width: 15vw;
     min-width: calc(140px + 10em);
     min-height: calc(40px + 5em);
     overflow: hidden;
     border: 1px solid gold;
     border-radius: 5px;
-    box-sizing: border-box;
     font-size: min(1em, 24px);
     color: white;
     background-color: var(--alert-color);
@@ -323,7 +359,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     overflow: hidden;
     border: 2px solid gold;
     border-radius: 5px;
-    box-sizing: border-box;
     font-size: min(1em, 24px);
     color: white;
     background-color: var(--alert-color);
@@ -332,9 +367,35 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 #modalContent {
     width: 100%;
     padding: 15px;
-    box-sizing: border-box;
     justify-content: center;
     align-items: center;
+}
+
+#modal.modalBottomSheet {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+    border: 0;
+    border-radius: 0;
+    background: rgb(0 0 0 / 45%);
+    backdrop-filter: blur(4px);
+}
+
+#modal.modalBottomSheet #modalContent {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-height: 72vh;
+    padding: 18px 15px calc(18px + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    border-top: 2px solid;
+    border-color: inherit;
+    border-radius: 12px 12px 0 0;
+    background-color: var(--alert-color);
+    box-shadow: 0 -12px 35px rgb(0 0 0 / 60%);
 }
 
 .slide-in {
@@ -356,8 +417,8 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     padding: 10px;
 }
 
-#notification > p {
-    position: fixed;
+.notification-item > p {
+    position: absolute;
     top: 50%;
     left: 50%;
     width: 90%;
@@ -367,22 +428,47 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     white-space: pre-line;
 }
 
-#notifx {
-    position: fixed;
+.notification-item > .notifx {
+    position: absolute;
     top: 2px;
     right: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
     padding: 3px;
+    margin: 0;
+    border: 1px solid transparent;
     border-radius: 2px;
+    font-family: inherit;
     font-size: 0;
+    line-height: 0;
     z-index: 1;
     color: white;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
+    appearance: none;
 }
 
-#notifx:hover {
+.notification-item > .notifx:hover {
     background-color: var(--hover-color);
+}
+
+.notification-item > .notifx:focus-visible {
+    outline: 2px solid gold;
+    outline-offset: 2px;
+    border-color: gold;
+}
+
+.notification-item > .notifx:active {
+    background-color: var(--hover-color);
+    transform: translateY(1px);
+}
+
+.notification-item > .notifx > img {
+    pointer-events: none;
 }
 
 #confirmationBox,
@@ -403,7 +489,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--alert-color);
     border: 1px solid gold;
     border-radius: 5px;
-    box-sizing: border-box;
     font-size: min(1em, 24px);
     padding: 15px;
 }
@@ -542,7 +627,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--alert-color);
     border-radius: 5px;
     border: 2px solid gold;
-    box-sizing: border-box;
     padding: 15px;
     margin-top: max(0px, calc(10vh - 15px));
     max-height: 90vh;
@@ -667,6 +751,16 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     margin: auto 5px auto 2px;
 }
 
+#mainHeader {
+    flex-shrink: 0;
+}
+
+main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.25rem;
+}
+
 #tabrow {
     text-align: center;
     width: 100%;
@@ -734,13 +828,11 @@ nav button {
 
 #shoptab {
     border-color: white;
-    background-color: var(--shoptab-color);
 }
 
 #singularitytab {
     border-color: lightgoldenrodyellow;
     background-color: var(--singtab-color);
-    color: red;
 }
 
 #singularitytab:hover {
@@ -761,17 +853,14 @@ button.isEvent:hover {
 
 #cubetab {
     border-color: var(--wowcube-color);
-    color: var(--hypercube-color);
 }
 
 #campaigntab {
     border-color: red;
-    color: orange;
 }
 
 #traitstab {
     border-color: orange;
-    color: red;
 }
 
 .subTabWrapper {
@@ -828,15 +917,25 @@ p#buildinghotkeys2 {
     max-width: 1500px;
 }
 
+#upgradeReferenceHeader {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--header-color);
+}
+
+.upgradeReferenceHeaderIcon {
+    margin: 0 0.25rem;
+}
+
 #upgradesFlex {
     display: flex;
     width: 90%;
-    margin: 4% 5% 0;
+    margin: 2% 5% 6%;
     justify-content: space-around;
 }
 
 #upgradesFlex > section {
-    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -865,28 +964,68 @@ p#buildinghotkeys2 {
     min-width: 80px;
 }
 
+.upgradeSectionTop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    white-space: pre-line;
+    margin: 0.25rem 0;
+}
+
+/* Upgrade box */
+.mobileUpgradeTabContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.mobileUpgradeBox {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid white;
+    gap: 1%;
+}
+
+.mobileUpgradeBox > p {
+    margin: 0;
+    padding: 5px;
+}
+
+.mobileUpgradeIconAndCost {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1%;
+}
+
+.mobileUpgradeIconAndCost img {
+    flex-shrink: 0;
+}
+
+.mobileUpgradeIconAndCost button {
+    flex: 1;
+    min-width: 0;
+    border: 2px solid white;
+    margin-left: 1%;
+}
+
 #shoptogglecoin { grid-column-start: 1; }
 #shoptoggleprestige { grid-column-start: 2; }
 #shoptoggletranscend { grid-column-start: 3; }
 #shoptogglegenerator { grid-column-start: 4; }
 #particleAutoUpgrade { grid-column-start: 6; }
 
-#upgradesrow3 {
+#upgradesAppendix {
     text-align: center;
     margin-top: 8px;
 }
 
-#upgradesrow3 > p {
+#upgradesAppendix > p {
     padding-top: 0;
     margin: 0;
 }
 
 #upgradeeffect { color: pink; }
-
-#toggle9 {
-    min-width: 130px;
-    margin: 25px auto;
-}
 
 #settings {
     position: relative;
@@ -962,7 +1101,6 @@ p#themesTitle {
     min-width: 180px;
     min-height: 20px;
     margin: 2px auto;
-    box-sizing: border-box;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
@@ -1153,10 +1291,31 @@ p#promocodeinfo {
     min-width: 80px;
 }
 
-.autobuyerToggleButton {
+#upgradeTopBtns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0 10px;
+    gap: 10px 15px;
+}
+
+#upgradeTopBtns > button {
+    min-width: 130px;
+    text-align: center;
+}
+
+.upgradeCategoryBtnRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.25rem 0;
+}
+
+.autobuyerToggleButton,
+.buyAllUpgradeButton {
     background-color: var(--button-color);
-    margin: 0 auto;
-    min-width: 80px;
+    margin: 0 0.25em;
+    min-width: 70px;
 }
 
 .buttonRow > div > .stats {
@@ -1168,6 +1327,76 @@ p#promocodeinfo {
 #buildtext14,
 #buildtext16 {
     min-height: 2em;
+}
+
+.buttonRow.mobile {
+    width: 100%;
+    gap: 6px;
+    font-size: 1em;
+}
+
+.buttonRow.mobile > div:not(.buildingSpacer) {
+    gap: 6px;
+    padding: 8px 0;
+    border: 2px solid white;
+    border-radius: 6px;
+    padding-right: 6px;
+}
+
+.buttonRow.mobile > div > .buildingPurchaseBtn:not(.buildingPurchaseBtnAvailable) {
+    filter: grayscale(1);
+    opacity: 0.55;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--buttonbuy-color) !important;
+    }
+}
+
+.buttonRow.mobile > div > .image {
+    height: 32px;
+    width: 32px;
+}
+
+.buttonRow.mobile > div > .textStack {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    > .desc,
+    > .cost,
+    > .stats {
+        width: auto;
+        font-size: 1em;
+        line-height: 1.2;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+}
+
+.buttonRow.mobile > div > .buildingPurchaseBtn {
+    width: auto;
+    padding: 6px 8px;
+    font-size: 0.9em;
+    flex-shrink: 0;
+}
+
+.buttonRow.mobile > div > .auto {
+    width: 5em;
+    height: 5em;
+    min-width: 0;
+    margin: 0;
+    padding: 6px;
+    border-radius: 6px;
+    background-color: #0a2a0a;
+    color: lightblue;
+    font-size: 0.8em;
+    line-height: 1.1;
+    white-space: normal;
+    text-align: center;
 }
 
 #taxinfo {
@@ -1536,7 +1765,7 @@ p#prestigehotkeys {
 }
 
 #offeringDetails,
-#runeEffectDisplays {
+#runeFooter {
     max-width: 1200px;
     display: flex;
     text-align: center;
@@ -1544,7 +1773,7 @@ p#prestigehotkeys {
 }
 
 #offeringDetails > p,
-#runeEffectDisplays > p {
+#runeFooter > p {
     margin: 0;
 }
 
@@ -1568,6 +1797,35 @@ p#prestigehotkeys {
     transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
+.runeTypeMobile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2px;
+}
+
+.runeIconAndName,
+.runeIconAndNameSmall {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.runeIconAndName img,
+.runeIconAndNameSmall img {
+    flex-shrink: 0;
+}
+
+.runeIconAndName p {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.runeIconAndNameSmall p {
+    margin: 0;
+    font-size: 1em;
+}
+
 .runeType:hover {
     box-shadow:
         0 0 15px var(--glow-color),
@@ -1576,14 +1834,20 @@ p#prestigehotkeys {
     background-color: var(--box-color);
 }
 
-.runeType > button {
+.runeType > button,
+.runeTypeMobile > button {
     min-width: 100px;
     text-align: center;
     border: 2px solid gold;
     cursor: default;
 }
 
-.runeType > button:hover {
+.runeTypeMobile > button {
+    font-size: 1.5em;
+}
+
+.runeType > button:hover,
+.runeTypeMobile > button:hover {
     background-color: var(--button-color);
 }
 
@@ -1591,6 +1855,11 @@ p#prestigehotkeys {
     margin: 0;
     text-align: center;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
+}
+
+.runeTypeElementMobile {
+    margin: 0;
+    text-align: left;
 }
 
 img.runeTypeElement {
@@ -1602,12 +1871,14 @@ img.runeTypeElement:hover {
     background-color: var(--hover-color);
 }
 
-.runeType > .runeButtonAvailable {
+.runeType > .runeButtonAvailable,
+.runeTypeMobile > .runeButtonAvailable {
     background-color: var(--purplebtn-color);
     cursor: pointer;
 }
 
-.runeType > .runeButtonAvailable:hover {
+.runeType > .runeButtonAvailable:hover,
+.runeTypeMobile > .runeButtonAvailable:hover {
     background-color: var(--purplehover-color);
 }
 
@@ -1804,6 +2075,120 @@ img.runeTypeElement:hover {
 #talismanlevelup table p {
     font-size: initial;
     width: 5em;
+}
+
+.mobileTalismanShardSection {
+    border: 2px solid gold;
+    width: 90%;
+}
+
+.mobileTalismanShardHead {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid orange;
+}
+
+.mobileTalismanShardHead > button {
+    width: 100px;
+    margin: 2px;
+}
+
+#buyTalismanLevelAmount {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 5px;
+    margin-left: 10%;
+}
+
+.mobileTalismanShardContainers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    border: 2px solid orange
+}
+
+.mobileTalismanShardContainer {
+    display: flex;
+    flex: 0 0 calc(100% / 3);
+    flex-direction: column;
+}
+
+.mobileTalismanShardContainer p {
+    margin: 0;
+}
+
+.mobileTalismanIconAndQuantity {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 5px;
+}
+
+.mobileMainTalismans {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+
+#mobileMainTalismansBody {
+    width: 100%;
+}
+
+.mobileTalismanContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    width: 100%;
+}
+
+.mobileTalismanInfoSection p,
+.mobileTalismanCostSection p {
+    margin: 0;
+}
+
+.mobileTalismanRuneBonusesSection,
+.mobileTalismanCostSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid silver;
+    border-radius: 8px;
+}
+
+.mobileTalismanRuneBonusesContainer,
+.mobileTalismanCostContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.mobileTalismanRuneBonusesContainer > div,
+.mobileTalismanCostContainer > div {
+    flex: 0 0 25%;
+    justify-content: center;
+    padding: 1%;
+}
+
+.mobileTalismanBuyButtonsSection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.mobileTalismanBuyButtonsSection > * {
+    flex: 1;
+    text-align: center;
+    margin: 2px;
 }
 
 #transcension {
@@ -3677,7 +4062,6 @@ p#ascendHotKeys {
     margin: 10px;
     padding: 30px 10px;
     border: 1px solid orange;
-    box-sizing: border-box;
     color: white;
     background-color: var(--box-color);
     text-align: center;
@@ -3763,7 +4147,6 @@ p#ascendHotKeys {
     font-size: min(1em, 20px);
     margin-top: 10px;
     min-height: 350px;
-    box-sizing: border-box;
     z-index: 1;
 }
 
@@ -3936,6 +4319,7 @@ header #obtainiumDisplay { color: pink; }
 #tabBorder {
     height: 2px;
     position: relative;
+    min-width: 100%;
     z-index: 0;
 }
 
@@ -4285,7 +4669,6 @@ header #obtainiumDisplay { color: pink; }
     font-size: 1.1em;
     width: 100px;
     text-align: center;
-    box-sizing: border-box;
     appearance: textfield;
 }
 
@@ -4711,7 +5094,6 @@ img#singularityPerksIcon {
 
 #event {
     position: relative;
-    padding: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -4741,10 +5123,10 @@ img#singularityPerksIcon {
     color: #8f8;
 }
 
-#eventBuffContainer,
-#consumableBuffContainer {
+.temporaryBuffContainer {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -4782,6 +5164,12 @@ img#singularityPerksIcon {
 #apply-tips:not(:hover) {
     border: 2px solid var(--hovershop-color);
     background-color: var(--hovershop-color);
+}
+
+.watchAdClickable {
+    border: 2px solid #fff894;
+    cursor: pointer;
+    width: calc(100vw / 3);
 }
 
 @keyframes rotation {
@@ -4897,6 +5285,7 @@ img#singularityPerksIcon {
 #accountSubTab div#left.scrollbarX > div[id="button-holder"] {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -5408,7 +5797,6 @@ form input:hover {
 .pseudoCoinText {
     width: 90%;
     padding: 10px;
-    box-sizing: border-box;
     text-align: center;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
     border: 1px solid #ccc;
@@ -5418,7 +5806,6 @@ form input:hover {
 .pseudoSubscriptionText {
     width: 100%;
     padding: 10px;
-    box-sizing: border-box;
     text-align: center;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
     margin: 5px auto 0;
@@ -5531,7 +5918,6 @@ form input:hover {
 .purchaseConsumableContainer {
     border: 2px solid var(--amber-text-color);
     padding: 5px;
-    box-sizing: border-box;
     width: 50%;
     display: flex;
 }
@@ -5540,7 +5926,6 @@ form input:hover {
     align-items: center;
     white-space: pre;
     padding: 0 5px;
-    box-sizing: border-box;
     border: 2px solid var(--amber-text-color);
     margin: 5px auto 0;
 }
@@ -6043,6 +6428,10 @@ html[data-prestige-unlock="true"] .prestigeunlockib {
     display: inline-block;
 }
 
+html[data-prestige-unlock="true"] .buttonRow > div.prestigeunlock {
+    display: flex;
+}
+
 html[data-prestige-unlock="false"] .prestigeunlockib {
     display: none;
 }
@@ -6052,6 +6441,10 @@ html[data-prestige-unlock="true"] .prestigeunlock {
 }
 
 html[data-prestige-unlock="true"] .offlineStats > .prestigeunlock {
+    display: flex;
+}
+
+html[data-prestige-unlock="true"] .shopSection > .prestigeunlock {
     display: flex;
 }
 
@@ -6225,6 +6618,18 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     pointer-events: auto;
 }
 
+html[data-mobile="true"] .showOnMobile {
+    display: block !important;
+}
+
+html[data-mobile="false"] .showOnMobile {
+    display: none !important;
+}
+
+html[data-mobile="true"] .hideOnMobile {
+    display: none !important;
+}
+
 .modalBtnBuy {
     width: 60px;
     height: 30px;
@@ -6303,6 +6708,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     html {
         min-width: unset;
         width: 100%;
+        position: fixed;
     }
 
     body {
@@ -6314,7 +6720,6 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         min-width: unset;
         width: 100%;
         padding: 0 10px;
-        box-sizing: border-box;
         flex-wrap: nowrap;
         overflow-x: auto;
         justify-content: flex-start;
@@ -6401,7 +6806,6 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     /* Coin buildings */
     #coinBuildings {
         max-width: 100%;
-        padding: 0 10px;
     }
 
     #coinInformation {
@@ -6412,7 +6816,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     /* Upgrades flex container */
     #upgradesFlex {
         display: grid;
-        grid-template-columns: repeat(3, 33%);
+        grid-template-columns: repeat(6, 16%);
         margin: 2% auto;
         width: unset;
     }
@@ -6425,15 +6829,10 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         margin-top: 10px;
     }
 
-    .shop-section.mobile-flex {
-        display: flex;
-    }
-
     /* Prestige/Transcension containers */
     #prestige,
     #transcension {
         max-width: 100%;
-        padding: 0 10px;
     }
 
     #crystalupgrades {
@@ -6461,6 +6860,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     #runeContainer2 {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 15px;
     }
 
@@ -6718,6 +7118,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     #exportButtons,
     #thirdParty {
         max-width: 95%;
+        width: 95%;
     }
 
     /* Modals and dialogs */
@@ -6733,8 +7134,8 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         max-width: 95vw;
     }
 
-    #notification {
-        width: 80%;
+    .notification-item {
+        width: 80vw;
         min-width: unset;
     }
 
@@ -7032,7 +7433,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
 
     /* Upgrades */
     #upgradesFlex {
-        grid-template-columns: repeat(2, 50%);
+        grid-template-columns: repeat(1, 100%);
     }
 
     /* Runes */
@@ -7394,5 +7795,9 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     #challengesAutoToggles > button {
         min-height: 44px;
         padding: 8px 12px;
+    }
+
+    #accountSubTab div#left.scrollbarX > div:is(#register, #login, #forgotpassword) {
+        width: 100%;
     }
 }

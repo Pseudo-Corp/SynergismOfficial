@@ -10,6 +10,7 @@ import {
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
 import { testing, version } from './Config'
+import { storageGetItem, storageSetItem } from './events/storage-events'
 import { addTimers } from './Helper'
 import { getFinalHepteractCap, hepteracts } from './Hepteracts'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
@@ -281,7 +282,7 @@ export const exportSynergism = async (
     return
   }
 
-  const saveString = localStorage.getItem('Synergysave2')
+  const saveString = storageGetItem('Synergysave2')
 
   if (!saveString) {
     return Alert('How?')
@@ -387,7 +388,7 @@ export const importSynergism = (input: string | null, reset = false) => {
       return
     }
 
-    localStorage.setItem('Synergysave2', saveString)
+    storageSetItem('Synergysave2', saveString)
     reloadShit(reset)
     syncSteamAchievements()
     return
@@ -947,7 +948,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     return
   }
 
-  setTimeout((e) => e.textContent = '', 15000, el)
+  setTimeout((e: HTMLElement) => e.textContent = '', 15000, el)
 }
 
 export const addCodeSingularityPerkBonus = (): number => {
@@ -1161,11 +1162,11 @@ const dailyCodeReward = () => {
 }
 
 const handleLastModified = (lastModified: number) => {
-  const localStorageFirstPlayed = localStorage.getItem('firstPlayed')
+  const localStorageFirstPlayed = storageGetItem('firstPlayed')
   const lastModifiedDate = new Date(lastModified)
 
   if (localStorageFirstPlayed === null) {
-    localStorage.setItem('firstPlayed', lastModifiedDate.toISOString())
+    storageSetItem('firstPlayed', lastModifiedDate.toISOString())
     return
   }
 
@@ -1176,6 +1177,6 @@ const handleLastModified = (lastModified: number) => {
   // for the new file, set the oldest date to the last modified.
   if (localFirstPlayedDate.getTime() > lastModifiedDate.getTime()) {
     player.firstPlayed = lastModifiedDate.toISOString()
-    localStorage.setItem('firstPlayed', player.firstPlayed)
+    storageSetItem('firstPlayed', player.firstPlayed)
   }
 }
