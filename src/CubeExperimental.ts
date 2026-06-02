@@ -33,22 +33,27 @@ const blessings: Record<
   globalSpeed: { weight: 1, pdf: (x: number) => 95 < x && x <= 100 }
 }
 
+const blessingKeys = Object.keys(blessings) as (keyof Player['cubeBlessings'])[]
+
 const platonicBlessings: Record<
   keyof Player['platonicBlessings'],
-  { weight: number; pdf: (x: number) => boolean }
+  { weight: number; pdf: (x: number) => boolean; statue: boolean }
 > = {
-  cubes: { weight: 13200, pdf: (x: number) => 0 <= x && x <= 33.000 },
-  tesseracts: { weight: 13200, pdf: (x: number) => 33.000 < x && x <= 66.000 },
-  hypercubes: { weight: 13200, pdf: (x: number) => 66.000 < x && x <= 99.000 },
-  platonics: { weight: 396, pdf: (x: number) => 99.000 < x && x <= 99.990 },
-  hypercubeBonus: { weight: 1, pdf: (x: number) => 99.990 < x && x <= 99.9925 },
-  taxes: { weight: 1, pdf: (x: number) => 99.9925 < x && x <= 99.995 },
-  scoreBonus: { weight: 1, pdf: (x: number) => 99.995 < x && x <= 99.9975 },
-  globalSpeed: { weight: 1, pdf: (x: number) => 99.9975 < x && x <= 100 }
+  cubes: { weight: 13200, pdf: (x: number) => 0 <= x && x <= 33.000, statue: false },
+  tesseracts: { weight: 13200, pdf: (x: number) => 33.000 < x && x <= 66.000, statue: false },
+  hypercubes: { weight: 13200, pdf: (x: number) => 66.000 < x && x <= 99.000, statue: false },
+  platonics: { weight: 396, pdf: (x: number) => 99.000 < x && x <= 99.990, statue: false },
+  hypercubeBonus: { weight: 1, pdf: (x: number) => 99.990 < x && x <= 99.9925, statue: true },
+  taxes: { weight: 1, pdf: (x: number) => 99.9925 < x && x <= 99.995, statue: true },
+  scoreBonus: { weight: 1, pdf: (x: number) => 99.995 < x && x <= 99.9975, statue: true },
+  globalSpeed: { weight: 1, pdf: (x: number) => 99.9975 < x && x <= 100, statue: true }
 }
 
-const platonicRNGesus = ['hypercubeBonus', 'taxes', 'scoreBonus', 'globalSpeed']
+const platonicKeys = Object.keys(platonicBlessings) as (keyof Player['platonicBlessings'])[]
+
+const platonicRNGesus = ['hypercubeBonus', 'taxes', 'scoreBonus', 'globalSpeed'] as const
 const platonicCommonDrops = ['cubes', 'tesseracts', 'hypercubes', 'platonics'] as const
+
 
 /**
  * @description Generic class for handling cube subsets.
@@ -229,17 +234,15 @@ export class WowCubes extends Cube {
     toSpendDiv20 += 100 / 100 * Math.floor(toSpendModulo / 20)
     toSpendModulo = toSpendModulo % 20
 
-    const keys = Object.keys(player.cubeBlessings) as (keyof Player['cubeBlessings'])[]
-
     // If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
-    for (const key of keys) {
+    for (const key of blessingKeys) {
       player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20
     }
 
     // Then, the remaining cubes will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < toSpendModulo; i++) {
       const num = 100 * Math.random()
-      for (const key of keys) {
+      for (const key of blessingKeys) {
         if (blessings[key].pdf(num)) {
           player.cubeBlessings[key] += 1
         }
@@ -271,16 +274,16 @@ export class WowTesseracts extends Cube {
     const toSpendDiv20 = Math.floor(toSpend / 20)
 
     // If you're opening more than 20 Tesseracts, it will consume all Tesseracts until remainder mod 20, giving expected values.
-    for (const key in player.tesseractBlessings) {
-      player.tesseractBlessings[key as keyof Player['tesseractBlessings']] +=
-        blessings[key as keyof typeof blessings].weight * toSpendDiv20
+    for (const key of blessingKeys) {
+      player.tesseractBlessings[key] +=
+        blessings[key].weight * toSpendDiv20
     }
     // Then, the remaining tesseract will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < toSpendModulo; i++) {
       const num = 100 * Math.random()
-      for (const key in player.tesseractBlessings) {
-        if (blessings[key as keyof typeof blessings].pdf(num)) {
-          player.tesseractBlessings[key as keyof Player['tesseractBlessings']] += 1
+      for (const key of blessingKeys) {
+        if (blessings[key].pdf(num)) {
+          player.tesseractBlessings[key] += 1
         }
       }
     }
@@ -312,22 +315,30 @@ export class WowHypercubes extends Cube {
     const toSpendDiv20 = Math.floor(toSpend / 20)
 
     // If you're opening more than 20 Hypercubes, it will consume all Hypercubes until remainder mod 20, giving expected values.
-    for (const key in player.hypercubeBlessings) {
-      player.hypercubeBlessings[key as keyof Player['hypercubeBlessings']] +=
-        blessings[key as keyof typeof blessings].weight * toSpendDiv20
+    for (const key of blessingKeys) {
+      player.hypercubeBlessings[key] +=
+        blessings[key].weight * toSpendDiv20
     }
     // Then, the remaining hypercubes will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < toSpendModulo; i++) {
       const num = 100 * Math.random()
-      for (const key in player.hypercubeBlessings) {
-        if (blessings[key as keyof typeof blessings].pdf(num)) {
-          player.hypercubeBlessings[key as keyof Player['hypercubeBlessings']] += 1
+      for (const key of blessingKeys) {
+        if (blessings[key].pdf(num)) {
+          player.hypercubeBlessings[key] += 1
         }
       }
     }
     const extraTesseractBlessings = Math.floor(100 * toSpend * player.researches[183])
     player.wowTesseracts.open(extraTesseractBlessings, false, true)
   }
+}
+
+const individualPlatonicBlessingMultiplier = (key: keyof Player['platonicBlessings']) => {
+  let multiplier = 1
+  if (player.cubeUpgrades[64] && platonicBlessings[key].statue) {
+    multiplier = 2
+  }
+  return multiplier
 }
 
 export class WowPlatonicCubes extends Cube {
@@ -353,21 +364,20 @@ export class WowPlatonicCubes extends Cube {
     const toSpendDiv40000 = Math.floor(toSpend / 40000)
 
     // If you're opening more than 40,000 Platonics, it will consume all Platonics until remainder mod 40,000, giving expected values.
-    for (const key in player.platonicBlessings) {
-      player.platonicBlessings[key as keyof Player['platonicBlessings']] +=
-        platonicBlessings[key as keyof typeof platonicBlessings].weight * toSpendDiv40000
-      if (platonicBlessings[key as keyof typeof platonicBlessings].weight === 1 && player.cubeUpgrades[64] > 0) {
-        player.platonicBlessings[key as keyof Player['platonicBlessings']] += toSpendDiv40000 // Doubled!
-      }
+    for (const key of platonicKeys) {
+      player.platonicBlessings[key] += individualPlatonicBlessingMultiplier(key) * platonicBlessings[key].weight * toSpendDiv40000
     }
+
     // Then, the remaining hypercube will be opened, simulating the probability [RNG Element]
     for (let i = 0; i < platonicRNGesus.length; i++) {
       const num = Math.random()
       if (toSpendModulo / 40000 >= num && toSpendModulo !== 0) {
-        player.platonicBlessings[platonicRNGesus[i] as keyof Player['platonicBlessings']] += 1
+        player.platonicBlessings[platonicRNGesus[i]] += individualPlatonicBlessingMultiplier(platonicRNGesus[i])
         toSpendModulo -= 1
       }
     }
+
+    // Common items for the remaining (<40k) are given deterministically
     const gainValues = [
       Math.floor(33 * toSpendModulo / 100),
       Math.floor(33 * toSpendModulo / 100),
@@ -381,9 +391,9 @@ export class WowPlatonicCubes extends Cube {
 
     for (let i = 0; i < toSpendModulo; i++) {
       const num = 100 * Math.random()
-      for (const key in player.platonicBlessings) {
-        if (platonicBlessings[key as keyof typeof platonicBlessings].pdf(num)) {
-          player.platonicBlessings[key as keyof Player['platonicBlessings']] += 1
+      for (const key of platonicKeys) {
+        if (platonicBlessings[key].pdf(num)) {
+          player.platonicBlessings[key] += individualPlatonicBlessingMultiplier(key)
         }
       }
     }
