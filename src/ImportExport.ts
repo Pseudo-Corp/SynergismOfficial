@@ -922,7 +922,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
         : ''
       return Alert(`${winText} ${ambrosiaText}`)
     } else {
-      return Alert(i18next.t('importexport.promocodes.time.lost'))
+      return Alert(i18next.t('importexport.promocodes.time.lost', {
+        time: format((end - start) / 1000, 2, true)
+      }))
     }
   } else if (input === 'spoiler') {
     const perSecond = calculateOcteractMultiplier()

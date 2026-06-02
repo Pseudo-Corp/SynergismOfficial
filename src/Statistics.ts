@@ -1883,7 +1883,7 @@ export const antSacrificeRewardStats: DecimalStatLineCategory = {
       stat: () => 1 + calculateEventBuff(BuffType.AntSacrifice),
       color: 'lime',
       displayCriterion: () => true
-    },
+    }
   ]
 }
 
