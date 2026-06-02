@@ -82,6 +82,7 @@ import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './
 import { prod } from './Config'
 import {
   calculateAntELOCubeBlessing,
+  calculateAntSacrificeCubeBlessing,
   calculateAntSpeedCubeBlessing,
   calculateGlobalSpeedCubeBlessing,
   calculateObtainiumCubeBlessing,
@@ -1874,11 +1875,15 @@ export const antSacrificeRewardStats: DecimalStatLineCategory = {
       stat: () => 1 + (1 / 4) * player.upgrades[40]
     },
     {
+      i18n: 'CubeBlessingAres',
+      stat: () => calculateAntSacrificeCubeBlessing()
+    },
+    {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.AntSacrifice),
       color: 'lime',
       displayCriterion: () => true
-    }
+    },
   ]
 }
 
