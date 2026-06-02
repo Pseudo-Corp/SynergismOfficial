@@ -4582,7 +4582,7 @@ const gameStages = (): Stage[] => {
       stage: 23,
       tier: 6,
       name: 's256-exalt7x10',
-      unlocked: player.singularityChallenges.limitedTime.completions >= 25,
+      unlocked: player.singularityChallenges.limitedTime.completions >= 10,
       reset: player.highestSingularityCount > 0
     },
     {
