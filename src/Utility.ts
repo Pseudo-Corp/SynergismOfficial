@@ -393,17 +393,46 @@ export const geometricSeries = (startIndex: number, endIndex: number, ratio: num
 }
 
 export const displayHTMLError = async (response: Response) => {
-  const html = await response.text()
+  let errorMessage = await response.text()
+
+  try {
+    const { error } = JSON.parse(errorMessage)
+    if (typeof error === 'string') {
+      errorMessage = error
+    }
+  } catch {
+  }
+
   const overlay = document.createElement('div')
   overlay.style.cssText =
     'position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:99999'
   const modal = document.createElement('div')
   modal.style.cssText =
-    'background:var(--alert-color);color:var(--text-color);padding:20px;border:1px solid var(--boxmain-bordercolor);border-radius:8px;max-width:500px;max-height:80vh;overflow:auto'
-  modal.innerHTML = DOMPurify.sanitize(html)
+    'position:relative;background:var(--alert-color);color:var(--text-color);padding:20px;border:1px solid var(--boxmain-bordercolor);border-radius:8px;max-width:500px;max-height:80vh;overflow:auto'
+  modal.innerHTML = DOMPurify.sanitize(errorMessage)
+
+  const closeButton = document.createElement('button')
+  closeButton.textContent = '×'
+  closeButton.setAttribute('aria-label', 'Close')
+  closeButton.style.cssText =
+    'position:absolute;top:8px;right:8px;background:none;border:none;color:var(--text-color);font-size:24px;line-height:1;cursor:pointer;padding:0'
+  modal.appendChild(closeButton)
+
+  const controller = new AbortController()
+  const { signal } = controller
+  const close = () => {
+    overlay.remove()
+    controller.abort()
+  }
+
+  closeButton.addEventListener('click', close, { signal })
   overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.remove()
-  }, { once: true })
+    if (e.target === overlay) close()
+  }, { signal })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close()
+  }, { signal })
+
   overlay.appendChild(modal)
   document.body.appendChild(overlay)
 }
