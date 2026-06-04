@@ -7808,8 +7808,9 @@ html[data-mobile="true"] .hideOnMobile {
         min-height: 44px;
     }
 
-    .antProducerColumn > button {
-        min-height: unset;
+    #antProducers .antProducerColumn > button {
+        min-height: 0;
+        min-width: 0;
     }
 
     #platonicUpgradePics button {
