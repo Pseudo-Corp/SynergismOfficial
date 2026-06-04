@@ -34,7 +34,7 @@ import {
   synergismStage
 } from './Statistics'
 import { blankSave, deepClone, format, player, reloadShit, saveSynergy } from './Synergism'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { changeSubTab, changeTab, resetAllSubTabs, Tabs } from './Tabs'
 import { resetTalismanData } from './Talismans'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { cleanString, getElementById } from './Utility'
@@ -319,14 +319,9 @@ export const resetGame = async (force = true) => {
   const hold = playerJsonSchema.safeParse(deepClone()(blankSave))
 
   // Reset Displays
+  resetAllSubTabs()
   changeTab(Tabs.Buildings)
   changeSubTab(Tabs.Buildings, { page: 0 })
-  changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
-  changeSubTab(Tabs.Challenges, { page: 0 }) // Set 'challenges' subtab back to 'normal' tab
-  changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
-  changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
-  changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
-  changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
   // Import Game
   importSynergism(btoa(JSON.stringify(hold.data)), true)
 }

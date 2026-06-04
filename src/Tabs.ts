@@ -773,6 +773,24 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   }
 }
 
+/**
+ * Resets tab state with no side-effects
+ */
+export const resetAllSubTabs = (page = 0) => {
+  for (const tab of Object.values(Tabs)) {
+    if (typeof tab === 'number') {
+      const subTabs = subtabInfo[tab]
+
+      if (subTabs.subTabList.length === 0) {
+        subTabs.subtabIndex = 0
+        return
+      }
+
+      subTabs.subtabIndex = limitRange(page, 0, subTabs.subTabList.length - 1)
+    }
+  }
+}
+
 export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) => {
   let tab = tabRow.getCurrentTab()
 
