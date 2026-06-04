@@ -90,25 +90,16 @@ import {
 } from './ImportExport'
 import { exitFastForward, getLotusTimeExpiresAt, getOwnedLotus, getTips, sendToWebsocket, setTips } from './Login'
 import type { OcteractUpgrades } from './Octeracts'
-import {
-  buyOcteractUpgradeLevel,
-  octeractUpgrades,
-  upgradeOcteractToString
-} from './Octeracts'
+import { buyOcteractUpgradeLevel, octeractUpgrades, upgradeOcteractToString } from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
   redAmbrosiaUpgradeToString,
-  resetRedAmbrosiaDisplay,
+  resetRedAmbrosiaDisplay
 } from './RedAmbrosiaUpgrades'
 import { buyResearch, researchDescriptions, updateResearchAuto } from './Research'
-import {
-  getResetDetails,
-  updateAutoCubesOpens,
-  updateAutoReset,
-  updateTesseractAutoBuyAmount
-} from './Reset'
+import { getResetDetails, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { buyAllBlessingLevels } from './RuneBlessings'
 import { runes } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
@@ -179,10 +170,10 @@ import { shopMouseover } from './UpdateVisuals'
 import {
   buyAllUpgrades,
   buyConstantUpgrades,
-  constantUpgradeHTML,
   constantUpgradeDescriptions,
-  crystalUpgradeHTML,
-  crystalupgradedescriptions
+  constantUpgradeHTML,
+  crystalupgradedescriptions,
+  crystalUpgradeHTML
 } from './Upgrades'
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
@@ -192,7 +183,8 @@ type PurchasableModalOptions = {
   html: () => string
   style: Partial<CSSStyleDeclaration>
   buy: (event: MouseEvent, action?: string) => void | Promise<void>
-  mobileButtons?: Array<{ action: string, label: string }>
+  mobileButtons?: Array<{ action: string; label: string }>
+  updateInterval?: number
   onOpen?: () => void
   onClose?: () => void
 }
@@ -209,96 +201,32 @@ const modalBuyButtonsHTML = (buttons = defaultModalBuyButtons()) =>
     ).join('')
   }</div>`
 
-const escapeHTML = (value: string) => {
-  const div = document.createElement('div')
-  div.textContent = value
-  return div.innerHTML
-}
-
-const resetButtonLabel = (element: HTMLElement) =>
-  element.getAttribute('alt')?.replace(/\s*Button\s*/u, '').replace('!', '') ?? 'Reset'
-
-const resetDetailsModalHTML = (input: resetNames, element: HTMLElement) => {
+const resetDetailsModalHTML = (input: resetNames, element: HTMLElement, label: string) => {
   const details = getResetDetails(input)
   const rewards = [
     details.offeringVisible
-      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="Pictures/${IconSets[player.iconSet][0]}/Offering.png">${escapeHTML(details.offeringText)}</span>`
+      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="Pictures/${
+        IconSets[player.iconSet][0]
+      }/Offering.png">${details.offeringText}</span>`
       : '',
     details.currencyVisible
-      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="${details.currencySrc}">${escapeHTML(details.currencyText)}</span>`
+      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="${details.currencySrc}">${details.currencyText}</span>`
       : '',
     details.obtainiumVisible
-      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="Pictures/${IconSets[player.iconSet][0]}/Obtainium.png">${escapeHTML(details.obtainiumText)}</span>`
+      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="Pictures/${
+        IconSets[player.iconSet][0]
+      }/Obtainium.png">${details.obtainiumText}</span>`
       : ''
   ].filter(Boolean).join('')
 
   return `<div class="resetModal" data-modal-preserve="children">
     <div class="resetModalTitle" data-modal-preserve="children">
       <img src="${(element as HTMLImageElement).src}" alt="">
-      <span>${escapeHTML(resetButtonLabel(element))}</span>
+      <span>${label}</span>
     </div>
     ${rewards ? `<div class="resetModalRewards" data-modal-preserve="children">${rewards}</div>` : ''}
-    <div class="resetModalInfo" style="color: ${details.infoColor}">${escapeHTML(details.infoText)}</div>
+    <div class="resetModalInfo" style="color: ${details.infoColor}">${details.infoText}</div>
   </div>`
-}
-
-type ResetModalOptions = {
-  id: string
-  input: resetNames
-  action: () => void | Promise<void>
-  borderColor: string
-}
-
-const registerResetButton = ({ id, input, action, borderColor }: ResetModalOptions) => {
-  const element = DOMCacheGetOrSet(id)
-
-  if (isMobile) {
-    element.addEventListener('click', (event) => {
-      Modal(
-        () => `${resetDetailsModalHTML(input, element)}${modalBuyButtonsHTML([
-          { action: 'reset', label: resetButtonLabel(element) }
-        ])}`,
-        event.clientX,
-        event.clientY,
-        { borderColor: borderColor },
-        MEDIUM_MODAL_UPDATE_TICK,
-        {
-          targetElement: element,
-          buttonClick: (button) => {
-            if (button.dataset.modalAction !== 'reset') {
-              return
-            }
-            CloseModal()
-            void action()
-          }
-        }
-      )
-    })
-    return
-  }
-
-  const showDesktopModal = (x: number, y: number) => {
-    Modal(
-      () => resetDetailsModalHTML(input, element),
-      x,
-      y,
-      { borderColor: borderColor },
-      MEDIUM_MODAL_UPDATE_TICK,
-      element
-    )
-  }
-
-  element.addEventListener('mousemove', (event) => showDesktopModal(event.clientX, event.clientY))
-  element.addEventListener('focus', () => {
-    const elmRect = element.getBoundingClientRect()
-    showDesktopModal(elmRect.x, elmRect.y + elmRect.height / 2)
-  })
-  element.addEventListener('mouseout', () => CloseModal())
-  element.addEventListener('blur', () => CloseModal())
-  element.addEventListener('click', (event) => {
-    void action()
-    showDesktopModal(event.clientX, event.clientY)
-  })
 }
 
 const registerPurchasableModal = ({
@@ -307,12 +235,13 @@ const registerPurchasableModal = ({
   style,
   buy,
   mobileButtons,
+  updateInterval,
   onOpen,
   onClose
 }: PurchasableModalOptions) => {
   const showDesktopModal = (x: number, y: number) => {
     onOpen?.()
-    Modal(html, x, y, style, undefined, element)
+    Modal(html, x, y, style, updateInterval, element)
   }
 
   const showMobileModal = (event: MouseEvent) => {
@@ -322,7 +251,7 @@ const registerPurchasableModal = ({
       event.clientX,
       event.clientY,
       style,
-      undefined,
+      updateInterval,
       {
         targetElement: element,
         buttonClick: (button, buttonEvent) => {
@@ -405,30 +334,91 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('ascHepteractStats').addEventListener('click', () => toggleAscStatPerSecond(5))
   DOMCacheGetOrSet('ascTimeTakenStats').addEventListener('click', () => toggleAscStatPerSecond(6))
   // Part 1: Reset Tiers
-  registerResetButton({ id: 'prestigebtn', input: 'prestige', action: () => resetCheck('prestige'), borderColor: 'cyan' })
-  registerResetButton({ id: 'transcendbtn', input: 'transcension', action: () => resetCheck('transcension'), borderColor: 'orchid' })
-  registerResetButton({ id: 'reincarnatebtn', input: 'reincarnation', action: () => resetCheck('reincarnation'), borderColor: 'green' })
-  registerResetButton({ id: 'acceleratorboostbtn', input: 'acceleratorBoost', action: () => boostAccelerator(), borderColor: 'lightblue' })
-  registerResetButton({
-    id: 'challengebtn',
-    input: 'transcensionChallenge',
-    action: () => resetCheck('transcensionChallenge', undefined, true),
-    borderColor: 'orchid'
-  })
-  registerResetButton({
-    id: 'reincarnatechallengebtn',
-    input: 'reincarnationChallenge',
-    action: () => resetCheck('reincarnationChallenge', undefined, true),
-    borderColor: 'green'
-  })
-  registerResetButton({
-    id: 'ascendChallengeBtn',
-    input: 'ascensionChallenge',
-    action: () => resetCheck('ascensionChallenge'),
-    borderColor: 'orange'
-  })
-  registerResetButton({ id: 'ascendbtn', input: 'ascension', action: () => resetCheck('ascension'), borderColor: 'orange' })
-  registerResetButton({ id: 'singularitybtn', input: 'singularity', action: () => resetCheck('singularity'), borderColor: 'lightgoldenrodyellow' })
+  const resetButtons = [
+    {
+      id: 'prestigebtn',
+      input: 'prestige',
+      label: i18next.t('reset.buttonLabels.prestige'),
+      action: () => resetCheck('prestige'),
+      borderColor: 'cyan'
+    },
+    {
+      id: 'transcendbtn',
+      input: 'transcension',
+      label: i18next.t('reset.buttonLabels.transcension'),
+      action: () => resetCheck('transcension'),
+      borderColor: 'orchid'
+    },
+    {
+      id: 'reincarnatebtn',
+      input: 'reincarnation',
+      label: i18next.t('reset.buttonLabels.reincarnation'),
+      action: () => resetCheck('reincarnation'),
+      borderColor: 'green'
+    },
+    {
+      id: 'acceleratorboostbtn',
+      input: 'acceleratorBoost',
+      label: i18next.t('reset.buttonLabels.acceleratorBoost'),
+      action: () => boostAccelerator(),
+      borderColor: 'lightblue'
+    },
+    {
+      id: 'challengebtn',
+      input: 'transcensionChallenge',
+      label: i18next.t('reset.buttonLabels.transcensionChallenge'),
+      action: () => resetCheck('transcensionChallenge', undefined, true),
+      borderColor: 'orchid'
+    },
+    {
+      id: 'reincarnatechallengebtn',
+      input: 'reincarnationChallenge',
+      label: i18next.t('reset.buttonLabels.reincarnationChallenge'),
+      action: () => resetCheck('reincarnationChallenge', undefined, true),
+      borderColor: 'green'
+    },
+    {
+      id: 'ascendChallengeBtn',
+      input: 'ascensionChallenge',
+      label: i18next.t('reset.buttonLabels.ascensionChallenge'),
+      action: () => resetCheck('ascensionChallenge'),
+      borderColor: 'orange'
+    },
+    {
+      id: 'ascendbtn',
+      input: 'ascension',
+      label: i18next.t('reset.buttonLabels.ascension'),
+      action: () => resetCheck('ascension'),
+      borderColor: 'orange'
+    },
+    {
+      id: 'singularitybtn',
+      input: 'singularity',
+      label: i18next.t('reset.buttonLabels.singularity'),
+      action: () => resetCheck('singularity'),
+      borderColor: 'lightgoldenrodyellow'
+    }
+  ] satisfies Array<{ id: string; input: resetNames; label: string; action: () => void | Promise<void>; borderColor: string }>
+
+  for (const reset of resetButtons) {
+    const element = DOMCacheGetOrSet(reset.id)
+    registerPurchasableModal({
+      element,
+      html: () => resetDetailsModalHTML(reset.input, element, reset.label),
+      style: { borderColor: reset.borderColor },
+      buy: (_, modalAction) => {
+        if (isMobile && modalAction !== 'reset') {
+          return
+        }
+        if (isMobile) {
+          CloseModal()
+        }
+        return reset.action()
+      },
+      mobileButtons: [{ action: 'reset', label: reset.label }],
+      updateInterval: MEDIUM_MODAL_UPDATE_TICK
+    })
+  }
 
   for (const resetButton of document.getElementsByClassName('resetbtn')) {
     function onFocusMouseover () {
@@ -760,10 +750,11 @@ export const generateEventHandlers = () => {
       element: antTier,
       html: () => antProducerHTML(ant),
       style: { borderColor: antProducerData[ant].color },
-      buy: (_event, action) => buyAntProducers(
-        ant,
-        action === 'max' || (action === undefined && player.ants.toggles.maxBuyProducers)
-      )
+      buy: (_event, action) =>
+        buyAntProducers(
+          ant,
+          action === 'max' || (action === undefined && player.ants.toggles.maxBuyProducers)
+        )
     })
 
     const antMastery = DOMCacheGetOrSet(`antMastery${ant + 1}`)

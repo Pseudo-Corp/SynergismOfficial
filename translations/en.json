@@ -2168,6 +2168,17 @@
     "tier": " &nbsp;&nbsp; Tier {{tier}}"
   },
   "reset": {
+    "buttonLabels": {
+      "prestige": "Prestige",
+      "transcension": "Transcend",
+      "reincarnation": "Reincarnate",
+      "acceleratorBoost": "Accelerator Boost",
+      "transcensionChallenge": "Exit Challenge",
+      "reincarnationChallenge": "Exit Reincarnation Challenge",
+      "ascensionChallenge": "Exit Ascension Challenge",
+      "ascension": "Ascend",
+      "singularity": "Enter the Singularity"
+    },
     "details": {
       "prestige": "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: {{amount}}/1e16 Coins || TIME SPENT: {{timeSpent}} Seconds.",
       "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/1e100 Coins || TIME SPENT: {{timeSpent}} Seconds.",
