@@ -608,7 +608,10 @@ export const generateEventHandlers = () => {
     )
   }
 
-  DOMCacheGetOrSet('buyAllAntUpgrades').addEventListener('click', (e: MouseEvent) => {
+  const buyAllAntUpgradesButton = DOMCacheGetOrSet('buyAllAntUpgrades')
+  const buyAllAntProducersButton = DOMCacheGetOrSet('buyAllAntProducers')
+
+  buyAllAntUpgradesButton.addEventListener('click', (e: MouseEvent) => {
     buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades)
     Modal(
       allAntUpgradeHTML,
@@ -619,7 +622,7 @@ export const generateEventHandlers = () => {
       e.currentTarget as HTMLElement
     )
   })
-  DOMCacheGetOrSet('buyAllAntProducers').addEventListener('click', (e: MouseEvent) => {
+  buyAllAntProducersButton.addEventListener('click', (e: MouseEvent) => {
     buyAllAntProducers(player.ants.toggles.maxBuyProducers)
     buyAllAntMasteries()
     Modal(
@@ -632,48 +635,30 @@ export const generateEventHandlers = () => {
     )
   })
 
-  DOMCacheGetOrSet('buyAllAntProducers').addEventListener('mousemove', (e: MouseEvent) => {
-    Modal(allAntProducerHTML, e.clientX, e.clientY, { borderColor: 'gold' }, MEDIUM_MODAL_UPDATE_TICK)
-  })
+  if (!isMobile) {
+    buyAllAntProducersButton.addEventListener('mousemove', (e: MouseEvent) => {
+      Modal(allAntProducerHTML, e.clientX, e.clientY, { borderColor: 'gold' }, MEDIUM_MODAL_UPDATE_TICK)
+    })
 
-  DOMCacheGetOrSet('buyAllAntProducers').addEventListener('mouseout', () => CloseModal())
+    buyAllAntProducersButton.addEventListener('mouseout', () => CloseModal())
 
-  DOMCacheGetOrSet('buyAllAntUpgrades').addEventListener('mousemove', (e: MouseEvent) => {
-    Modal(allAntUpgradeHTML, e.clientX, e.clientY, { borderColor: 'crimson' }, MEDIUM_MODAL_UPDATE_TICK)
-  })
+    buyAllAntUpgradesButton.addEventListener('mousemove', (e: MouseEvent) => {
+      Modal(allAntUpgradeHTML, e.clientX, e.clientY, { borderColor: 'crimson' }, MEDIUM_MODAL_UPDATE_TICK)
+    })
 
-  DOMCacheGetOrSet('buyAllAntUpgrades').addEventListener('mouseout', () => CloseModal())
+    buyAllAntUpgradesButton.addEventListener('mouseout', () => CloseModal())
+  }
 
   for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
     const antTier = DOMCacheGetOrSet(`anttier${ant + 1}`)
     antTier.style.setProperty('--glow-color', antProducerData[ant].color)
-    antTier.addEventListener(
-      'mousemove',
-      (e: MouseEvent) =>
-        Modal(() => antProducerHTML(ant), e.clientX, e.clientY, { borderColor: antProducerData[ant].color })
-    )
-
-    // TODO: When we have event listeners for Focus on modals, clicking on the element in question
-    // will set the Modal's positioning to be dependent on the element, which causes a jank
-    // "Teleport" of the modal for a frame until it's set back to the mouse position.
-    // Fix is urgently needed for accessibility.
-    /*antTier.addEventListener('focus', () => {
-      const elmRect = antTier.getBoundingClientRect()
-      Modal(() => antProducerHTML(ant), elmRect.x, elmRect.y + elmRect.height / 2, {
-        borderColor: antProducerData[ant].color
-      })
-    })*/
-    antTier.addEventListener('mouseout', () => CloseModal())
-    // antTier.addEventListener('blur', () => CloseModal())
-    antTier.addEventListener('click', (event) => {
-      buyAntProducers(ant, player.ants.toggles.maxBuyProducers)
-      Modal(
-        () => antProducerHTML(ant),
-        event.clientX,
-        event.clientY,
-        { borderColor: antProducerData[ant].color },
-        undefined,
-        event.currentTarget as HTMLElement
+    registerPurchasableModal({
+      element: antTier,
+      html: () => antProducerHTML(ant),
+      style: { borderColor: antProducerData[ant].color },
+      buy: (_event, action) => buyAntProducers(
+        ant,
+        action === 'max' || (action === undefined && player.ants.toggles.maxBuyProducers)
       )
     })
 
@@ -683,26 +668,12 @@ export const generateEventHandlers = () => {
       '--glow-color',
       blendedColor
     )
-    antMastery.addEventListener(
-      'mousemove',
-      (e: MouseEvent) => Modal(() => antMasteryHTML(ant), e.clientX, e.clientY, { borderColor: blendedColor })
-    )
-    /*antMastery.addEventListener('focus', () => {
-      const elmRect = antMastery.getBoundingClientRect()
-      Modal(() => antMasteryHTML(ant), elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: blendedColor })
-    })*/
-    antMastery.addEventListener('mouseout', () => CloseModal())
-    // antMastery.addEventListener('blur', () => CloseModal())
-    antMastery.addEventListener('click', (event) => {
-      buyAntMastery(ant)
-      Modal(
-        () => antMasteryHTML(ant),
-        event.clientX,
-        event.clientY,
-        { borderColor: blendedColor },
-        undefined,
-        event.currentTarget as HTMLElement
-      )
+    registerPurchasableModal({
+      element: antMastery,
+      html: () => antMasteryHTML(ant),
+      style: { borderColor: blendedColor },
+      buy: () => buyAntMastery(ant),
+      mobileButtons: [{ action: 'buy', label: i18next.t('ants.buyButton') }]
     })
   }
   // Part 2: Ant Upgrades
