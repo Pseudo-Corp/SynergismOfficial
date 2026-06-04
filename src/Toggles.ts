@@ -7,7 +7,7 @@ import { storageGetItem, storageSetItem } from './events/storage-events'
 import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
 import { researchOrderByCost, roombaResearchEnabled } from './Research'
-import { applyChallengeInitialModifiers, reset, resetrepeat } from './Reset'
+import { applyChallengeInitialModifiers, reset } from './Reset'
 import { indexToRune } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
@@ -64,17 +64,11 @@ export const toggleChallenges = (i: number, auto = false) => {
     reset('transcensionChallenge', false, 'enterChallenge')
     applyChallengeInitialModifiers('transcensionChallenge', i)
     player.currentChallenge.transcension = i
-    if (!player.currentChallenge.reincarnation && !document.querySelector('.resetbtn.hover')) {
-      resetrepeat('transcensionChallenge')
-    }
   }
   if (i >= 6 && i <= 10) {
     reset('reincarnationChallenge', false, 'enterChallenge')
     applyChallengeInitialModifiers('reincarnationChallenge', i)
     player.currentChallenge.reincarnation = i
-    if (!document.querySelector('.resetbtn.hover')) {
-      resetrepeat('reincarnationChallenge')
-    }
   }
   if (
     // To be honest I don't want to touch this shit in fear of breaking everything

@@ -103,7 +103,12 @@ import {
   resetRedAmbrosiaDisplay,
 } from './RedAmbrosiaUpgrades'
 import { buyResearch, researchDescriptions, updateResearchAuto } from './Research'
-import { resetrepeat, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
+import {
+  getResetDetails,
+  updateAutoCubesOpens,
+  updateAutoReset,
+  updateTesseractAutoBuyAmount
+} from './Reset'
 import { buyAllBlessingLevels } from './RuneBlessings'
 import { runes } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
@@ -168,7 +173,7 @@ import {
   updateAutoChallenge,
   updateRuneBlessingBuyAmount
 } from './Toggles'
-import type { FirstToEighth, FirstToFifth, OneToFive, Player } from './types/Synergism'
+import type { FirstToEighth, FirstToFifth, OneToFive, Player, resetNames } from './types/Synergism'
 import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframeOverlay, Prompt } from './UpdateHTML'
 import { shopMouseover } from './UpdateVisuals'
 import {
@@ -196,11 +201,103 @@ const defaultModalBuyButtons = () => [
 ]
 
 const modalBuyButtonsHTML = (buttons = defaultModalBuyButtons()) =>
-  `<br><br><div>${
+  `<br><br><div class="modalButtonRow">${
     buttons.map(({ action, label }) =>
       `<button class="modalBtnBuy" data-modal-action="${action}">${label}</button>`
     ).join('')
   }</div>`
+
+const escapeHTML = (value: string) => {
+  const div = document.createElement('div')
+  div.textContent = value
+  return div.innerHTML
+}
+
+const resetButtonLabel = (element: HTMLElement) =>
+  element.getAttribute('alt')?.replace(/\s*Button\s*/u, '').replace('!', '') ?? 'Reset'
+
+const resetDetailsModalHTML = (input: resetNames, element: HTMLElement) => {
+  const details = getResetDetails(input)
+  const rewards = [
+    details.offeringVisible
+      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="Pictures/${IconSets[player.iconSet][0]}/Offering.png">${escapeHTML(details.offeringText)}</span>`
+      : '',
+    details.currencyVisible
+      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="${details.currencySrc}">${escapeHTML(details.currencyText)}</span>`
+      : '',
+    details.obtainiumVisible
+      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="Pictures/${IconSets[player.iconSet][0]}/Obtainium.png">${escapeHTML(details.obtainiumText)}</span>`
+      : ''
+  ].filter(Boolean).join('')
+
+  return `<div class="resetModal" data-modal-preserve="children">
+    <div class="resetModalTitle" data-modal-preserve="children">
+      <img src="${(element as HTMLImageElement).src}" alt="">
+      <span>${escapeHTML(resetButtonLabel(element))}</span>
+    </div>
+    ${rewards ? `<div class="resetModalRewards" data-modal-preserve="children">${rewards}</div>` : ''}
+    <div class="resetModalInfo" style="color: ${details.infoColor}">${escapeHTML(details.infoText)}</div>
+  </div>`
+}
+
+type ResetModalOptions = {
+  id: string
+  input: resetNames
+  action: () => void | Promise<void>
+  borderColor: string
+}
+
+const registerResetButton = ({ id, input, action, borderColor }: ResetModalOptions) => {
+  const element = DOMCacheGetOrSet(id)
+
+  if (isMobile) {
+    element.addEventListener('click', (event) => {
+      Modal(
+        () => `${resetDetailsModalHTML(input, element)}${modalBuyButtonsHTML([
+          { action: 'reset', label: resetButtonLabel(element) }
+        ])}`,
+        event.clientX,
+        event.clientY,
+        { borderColor: borderColor },
+        MEDIUM_MODAL_UPDATE_TICK,
+        {
+          targetElement: element,
+          buttonClick: (button) => {
+            if (button.dataset.modalAction !== 'reset') {
+              return
+            }
+            CloseModal()
+            void action()
+          }
+        }
+      )
+    })
+    return
+  }
+
+  const showDesktopModal = (x: number, y: number) => {
+    Modal(
+      () => resetDetailsModalHTML(input, element),
+      x,
+      y,
+      { borderColor: borderColor },
+      MEDIUM_MODAL_UPDATE_TICK,
+      element
+    )
+  }
+
+  element.addEventListener('mousemove', (event) => showDesktopModal(event.clientX, event.clientY))
+  element.addEventListener('focus', () => {
+    const elmRect = element.getBoundingClientRect()
+    showDesktopModal(elmRect.x, elmRect.y + elmRect.height / 2)
+  })
+  element.addEventListener('mouseout', () => CloseModal())
+  element.addEventListener('blur', () => CloseModal())
+  element.addEventListener('click', (event) => {
+    void action()
+    showDesktopModal(event.clientX, event.clientY)
+  })
+}
 
 const registerPurchasableModal = ({
   element,
@@ -306,19 +403,30 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('ascHepteractStats').addEventListener('click', () => toggleAscStatPerSecond(5))
   DOMCacheGetOrSet('ascTimeTakenStats').addEventListener('click', () => toggleAscStatPerSecond(6))
   // Part 1: Reset Tiers
-  // Onmouseover Events
-  DOMCacheGetOrSet('prestigebtn').addEventListener('mouseover', () => resetrepeat('prestige'))
-  DOMCacheGetOrSet('transcendbtn').addEventListener('mouseover', () => resetrepeat('transcension'))
-  DOMCacheGetOrSet('reincarnatebtn').addEventListener('mouseover', () => resetrepeat('reincarnation'))
-  DOMCacheGetOrSet('acceleratorboostbtn').addEventListener('mouseover', () => resetrepeat('acceleratorBoost'))
-  DOMCacheGetOrSet('challengebtn').addEventListener('mouseover', () => resetrepeat('transcensionChallenge'))
-  DOMCacheGetOrSet('reincarnatechallengebtn').addEventListener(
-    'mouseover',
-    () => resetrepeat('reincarnationChallenge')
-  )
-  DOMCacheGetOrSet('ascendChallengeBtn').addEventListener('mouseover', () => resetrepeat('ascensionChallenge'))
-  DOMCacheGetOrSet('ascendbtn').addEventListener('mouseover', () => resetrepeat('ascension'))
-  DOMCacheGetOrSet('singularitybtn').addEventListener('mouseover', () => resetrepeat('singularity'))
+  registerResetButton({ id: 'prestigebtn', input: 'prestige', action: () => resetCheck('prestige'), borderColor: 'cyan' })
+  registerResetButton({ id: 'transcendbtn', input: 'transcension', action: () => resetCheck('transcension'), borderColor: 'orchid' })
+  registerResetButton({ id: 'reincarnatebtn', input: 'reincarnation', action: () => resetCheck('reincarnation'), borderColor: 'green' })
+  registerResetButton({ id: 'acceleratorboostbtn', input: 'acceleratorBoost', action: () => boostAccelerator(), borderColor: 'lightblue' })
+  registerResetButton({
+    id: 'challengebtn',
+    input: 'transcensionChallenge',
+    action: () => resetCheck('transcensionChallenge', undefined, true),
+    borderColor: 'orchid'
+  })
+  registerResetButton({
+    id: 'reincarnatechallengebtn',
+    input: 'reincarnationChallenge',
+    action: () => resetCheck('reincarnationChallenge', undefined, true),
+    borderColor: 'green'
+  })
+  registerResetButton({
+    id: 'ascendChallengeBtn',
+    input: 'ascensionChallenge',
+    action: () => resetCheck('ascensionChallenge'),
+    borderColor: 'orange'
+  })
+  registerResetButton({ id: 'ascendbtn', input: 'ascension', action: () => resetCheck('ascension'), borderColor: 'orange' })
+  registerResetButton({ id: 'singularitybtn', input: 'singularity', action: () => resetCheck('singularity'), borderColor: 'lightgoldenrodyellow' })
 
   for (const resetButton of document.getElementsByClassName('resetbtn')) {
     function onFocusMouseover () {
@@ -327,12 +435,6 @@ export const generateEventHandlers = () => {
 
     function onBlurMouseout () {
       resetButton.classList.remove('hover')
-
-      if (player.currentChallenge.reincarnation) {
-        resetrepeat('reincarnationChallenge')
-      } else if (player.currentChallenge.transcension) {
-        resetrepeat('transcensionChallenge')
-      }
     }
 
     resetButton.addEventListener('mouseover', onFocusMouseover)
@@ -341,20 +443,6 @@ export const generateEventHandlers = () => {
     resetButton.addEventListener('mouseout', onBlurMouseout)
     resetButton.addEventListener('blur', onBlurMouseout)
   }
-
-  // Onclick Events (this is particularly bad)
-  DOMCacheGetOrSet('prestigebtn').addEventListener('click', () => resetCheck('prestige'))
-  DOMCacheGetOrSet('transcendbtn').addEventListener('click', () => resetCheck('transcension'))
-  DOMCacheGetOrSet('reincarnatebtn').addEventListener('click', () => resetCheck('reincarnation'))
-  DOMCacheGetOrSet('acceleratorboostbtn').addEventListener('click', () => boostAccelerator())
-  DOMCacheGetOrSet('challengebtn').addEventListener('click', () => resetCheck('transcensionChallenge', undefined, true))
-  DOMCacheGetOrSet('reincarnatechallengebtn').addEventListener(
-    'click',
-    () => resetCheck('reincarnationChallenge', undefined, true)
-  )
-  DOMCacheGetOrSet('ascendChallengeBtn').addEventListener('click', () => resetCheck('ascensionChallenge'))
-  DOMCacheGetOrSet('ascendbtn').addEventListener('click', () => resetCheck('ascension'))
-  DOMCacheGetOrSet('singularitybtn').addEventListener('click', () => resetCheck('singularity'))
 
   // BUILDINGS TAB
   // Part 1: Upper portion (Subtab toggle)

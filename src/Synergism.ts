@@ -95,7 +95,6 @@ import {
 import {
   applyChallengeInitialModifiers,
   reset,
-  resetrepeat,
   singularity,
   updateAutoCubesOpens,
   updateAutoReset,
@@ -2026,12 +2025,6 @@ const loadSynergy = () => {
       const sing = player.singularityChallenges[G.currentSingChallenge].computeSingularityRquirement()
       player.singularityCount = sing
     }
-  }
-
-  if (player.currentChallenge.reincarnation) {
-    resetrepeat('reincarnationChallenge')
-  } else if (player.currentChallenge.transcension) {
-    resetrepeat('transcensionChallenge')
   }
 
   syncSteamAchievements()

@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -722,33 +724,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 .resetsButtons {
     display: flex;
     align-items: start;
-}
-
-#resetrow {
-    display: flex;
-    align-items: start;
-}
-
-#resetrow img {
-    height: 32px;
-    width: 32px;
-}
-
-#resetinfo {
-    text-align: left; /* Keeps text from bouncing around */
-    font-variant-numeric: tabular-nums;
-    height: 3.6em;
-    overflow: hidden;
-    white-space: pre-line;
-}
-
-#resetrewards > div {
-    display: flex;
-    align-items: center;
-}
-
-#resetrewards > div > div {
-    margin: auto 5px auto 2px;
 }
 
 #mainHeader {
@@ -2110,7 +2085,7 @@ img.runeTypeElement:hover {
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
-    border: 2px solid orange
+    border: 2px solid orange;
 }
 
 .mobileTalismanShardContainer {
@@ -6639,6 +6614,58 @@ html[data-mobile="true"] .hideOnMobile {
     text-align: center;
 }
 
+.modalButtonRow {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.resetModal {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+}
+
+.resetModalTitle,
+.resetModalRewards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.resetModalTitle {
+    font-size: 1.15em;
+    color: gold;
+}
+
+.resetModalTitle img,
+.resetModalReward img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.resetModalReward {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: gold;
+}
+
+.resetModalInfo {
+    line-height: 1.35;
+}
+
+.resetModal + br + br + .modalButtonRow .modalBtnBuy {
+    width: auto;
+    min-width: 120px;
+    padding: 0 12px;
+}
+
 #patchnotes {
     cursor: pointer;
 }
@@ -7164,11 +7191,6 @@ html[data-mobile="true"] .hideOnMobile {
         margin: 0 auto;
     }
 
-    #resetinfo {
-        text-align: center;
-        height: unset;
-    }
-
     /* Cube upgrades */
     .pseudoUpgradeContainer {
         grid-template-columns: repeat(2, 1fr);
@@ -7594,19 +7616,6 @@ html[data-mobile="true"] .hideOnMobile {
     #exportgame {
         width: 100%;
         min-width: unset;
-    }
-
-    /* Reset row */
-    #resetrow {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-        margin-top: 10px;
-    }
-
-    #resetrow img {
-        height: 24px;
-        width: 24px;
     }
 
     #upgradeGrid {

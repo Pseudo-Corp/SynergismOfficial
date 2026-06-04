@@ -1469,10 +1469,13 @@ const patchNodes = (parent: Element, newParent: DocumentFragment | Element) => {
       }
 
       // If this element or any descendant has a running animation, recurse
-      // into children to preserve the animated DOM nodes
+      // into children to preserve the animated DOM nodes. Some live modals
+      // also opt into child patching to avoid replacing stable media nodes.
       const hasAnimation = oldEl.getAnimations({ subtree: true }).length > 0
+      const shouldPreserveChildren = oldEl.dataset.modalPreserve === 'children'
+        && newEl.dataset.modalPreserve === 'children'
 
-      if (hasAnimation) {
+      if (hasAnimation || shouldPreserveChildren) {
         // Update attributes that changed
         const oldAttrs = oldEl.attributes
         const newAttrs = newEl.attributes
