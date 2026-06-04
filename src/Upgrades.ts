@@ -701,7 +701,7 @@ const returnCrystalUpgEffect = (i: number) =>
     effect: i in crystalupgeffect ? i18next.t(`upgrades.crystalEffects.${i}`, crystalupgeffect[i]()) : ''
   })
 
-export const crystalupgradedescriptions = (i: number) => {
+const crystalUpgradeDescriptionData = (i: number) => {
   const p = player.crystalUpgrades[i - 1]
   const c = player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0 ? 10 : 0
 
@@ -710,14 +710,32 @@ export const crystalupgradedescriptions = (i: number) => {
     G.crystalUpgradesCost[i - 1] - getRuneEffects('prism', 'costDivisorLog10')
       + G.crystalUpgradeCostIncrement[i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)
   )
-  DOMCacheGetOrSet('crystalupgradedescription').innerHTML = returnCrystalUpgDesc(i)
-  DOMCacheGetOrSet('crystalupgradeslevel1').innerHTML = i18next.t('buildings.crystalUpgrades.currentLevel', {
-    amount: format(p, 0, true)
-  })
-  DOMCacheGetOrSet('crystalupgradescost1').innerHTML = i18next.t('buildings.crystalUpgrades.cost', {
-    amount: format(q)
-  })
-  DOMCacheGetOrSet('crystalupgradeseffect1').innerHTML = returnCrystalUpgEffect(i)
+
+  return {
+    description: returnCrystalUpgDesc(i),
+    level: i18next.t('buildings.crystalUpgrades.currentLevel', {
+      amount: format(p, 0, true)
+    }),
+    cost: i18next.t('buildings.crystalUpgrades.cost', {
+      amount: format(q)
+    }),
+    effect: returnCrystalUpgEffect(i)
+  }
+}
+
+export const crystalUpgradeHTML = (i: number) => {
+  const data = crystalUpgradeDescriptionData(i)
+
+  return `${data.description}<br><br>${data.level}<br>${data.cost}<br>${data.effect}`
+}
+
+export const crystalupgradedescriptions = (i: number) => {
+  const data = crystalUpgradeDescriptionData(i)
+
+  DOMCacheGetOrSet('crystalupgradedescription').innerHTML = data.description
+  DOMCacheGetOrSet('crystalupgradeslevel1').innerHTML = data.level
+  DOMCacheGetOrSet('crystalupgradescost1').innerHTML = data.cost
+  DOMCacheGetOrSet('crystalupgradeseffect1').innerHTML = data.effect
 }
 
 export const upgradeupdate = (num: number, fast?: boolean) => {
@@ -844,14 +862,37 @@ export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
   return [Math.max(1, toBuy - player.constantUpgrades[i]!), cost]
 }
 
-export const constantUpgradeDescriptions = (i: number) => {
+const constantUpgradeDescriptionData = (i: number) => {
   const [level, cost] = getConstUpgradeMetadata(i)
-  DOMCacheGetOrSet('constUpgradeDescription').textContent = returnConstUpgDesc(i)
-  if (i >= 9) {
-    DOMCacheGetOrSet('constUpgradeLevel2').textContent = `${format(Math.min(1, player.constantUpgrades[i]!))}/1`
-  } else DOMCacheGetOrSet('constUpgradeLevel2').textContent = format(player.constantUpgrades[i])
-  DOMCacheGetOrSet('constUpgradeCost2').textContent = `${format(cost)} [+${format(level)} LVL]`
-  DOMCacheGetOrSet('constUpgradeEffect2').textContent = returnConstUpgEffect(i)
+  const currentLevel = i >= 9
+    ? `${format(Math.min(1, player.constantUpgrades[i]!))}/1`
+    : format(player.constantUpgrades[i])
+
+  return {
+    description: returnConstUpgDesc(i),
+    level: currentLevel,
+    cost: `${format(cost)} [+${format(level)} LVL]`,
+    effect: returnConstUpgEffect(i)
+  }
+}
+
+export const constantUpgradeHTML = (i: number) => {
+  const data = constantUpgradeDescriptionData(i)
+
+  return `${
+    data.description
+  }<br><br>Current Level: <span class="orchidText">${data.level}</span><br>Cost: <span class="orchidText">${
+    data.cost
+  }</span> from your Constant<br>Current Effect: <span class="orchidText">${data.effect}</span>`
+}
+
+export const constantUpgradeDescriptions = (i: number) => {
+  const data = constantUpgradeDescriptionData(i)
+
+  DOMCacheGetOrSet('constUpgradeDescription').textContent = data.description
+  DOMCacheGetOrSet('constUpgradeLevel2').textContent = data.level
+  DOMCacheGetOrSet('constUpgradeCost2').textContent = data.cost
+  DOMCacheGetOrSet('constUpgradeEffect2').textContent = data.effect
 }
 
 export const buyConstantUpgrades = (i: number, fast = false) => {

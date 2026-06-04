@@ -174,7 +174,9 @@ import { shopMouseover } from './UpdateVisuals'
 import {
   buyAllUpgrades,
   buyConstantUpgrades,
+  constantUpgradeHTML,
   constantUpgradeDescriptions,
+  crystalUpgradeHTML,
   crystalupgradedescriptions
 } from './Upgrades'
 import { isMobile } from './Utility'
@@ -408,12 +410,19 @@ export const generateEventHandlers = () => {
     }
   }
 
-  // Crystal Upgrades (Mouseover and Onclick)
+  // Crystal Upgrades
   for (let index = 1; index <= 5; index++) {
     const buyUpgrade = DOMCacheGetOrSet(`buycrystalupgrade${index}`)
-    buyUpgrade.addEventListener('mouseover', () => crystalupgradedescriptions(index))
-    buyUpgrade.addEventListener('focus', () => crystalupgradedescriptions(index))
-    buyUpgrade.addEventListener('click', () => buyCrystalUpgrades(index))
+    registerPurchasableModal({
+      element: buyUpgrade,
+      html: () => crystalUpgradeHTML(index),
+      style: { borderColor: 'cyan' },
+      buy: () => {
+        buyCrystalUpgrades(index)
+        crystalupgradedescriptions(index)
+      },
+      mobileButtons: [{ action: 'buy', label: i18next.t('general.buyOne') }]
+    })
   }
 
   // Particle Buildings
@@ -439,9 +448,16 @@ export const generateEventHandlers = () => {
   // Constant Upgrades
   for (let index = 0; index < 10; index++) {
     const buyConstantUpgrade = DOMCacheGetOrSet(`buyConstantUpgrade${index + 1}`)
-    buyConstantUpgrade.addEventListener('mouseover', () => constantUpgradeDescriptions(index + 1))
-    buyConstantUpgrade.addEventListener('focus', () => constantUpgradeDescriptions(index + 1))
-    buyConstantUpgrade.addEventListener('click', () => buyConstantUpgrades(index + 1))
+    registerPurchasableModal({
+      element: buyConstantUpgrade,
+      html: () => constantUpgradeHTML(index + 1),
+      style: { borderColor: 'gold' },
+      buy: () => {
+        buyConstantUpgrades(index + 1)
+        constantUpgradeDescriptions(index + 1)
+      },
+      mobileButtons: [{ action: 'buy', label: i18next.t('general.buyOne') }]
+    })
   }
 
   // Part 4: Toggles

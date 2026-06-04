@@ -5297,7 +5297,7 @@
       "hilbertSpace": "Hilbert Space: {{amount}} [+{{gain}}]"
     },
     "crystalMult": "You have <<gold|{{crystals}}>> Crystals, multiplying Coin production by <<gold|{{gain}}>>.<br>Formula: <<orchid|(1 + {{crystals}})^{{exponent}}>> = <<gold|{{gain}}>>",
-    "hoverCrystalUpgrade": "Hover over a crystal upgrade to get information!",
+    "hoverCrystalUpgrade": "Select a crystal upgrade to get information!",
     "autoPrestige": "{{action}} when your {{name}} can increase by a factor {{factor}} [Toggle number above]. Current Multiplier: {{mult}}.",
     "per": {
       "crystal": "Crystal/sec: {{amount}}",
@@ -5340,7 +5340,7 @@
     "autoTesseract": "Auto buyer will save at least {{tesseracts}} tesseracts. [Enter number above].",
     "autoAscensionTesseract": "On Ascension, Auto buyer will save at least {{percent}}% of your current amount of tesseracts. [Enter number above].",
     "excessiveWealth": "Due to your excessive wealth, coin production is divided by {{div}} to pay taxes! {{- warning}}",
-    "constantHover": "Hover over an icon for a description of the upgrade. Click to buy it!"
+    "constantHover": "Select an icon for a description of the upgrade."
   },
   "octeract": {
     "buyLevel": {
