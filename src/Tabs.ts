@@ -20,7 +20,7 @@ import {
   toggleSingularityScreen
 } from './Toggles'
 import { changeTabColor, CloseModal, hideStuff, revealStuff } from './UpdateHTML'
-import { assert, limitRange } from './Utility'
+import { assert, limitRange, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 export enum Tabs {
@@ -842,6 +842,18 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
 
   CloseModal()
 }
+
+export const registerSubTabSwitches = memoize(() => {
+  for (const tab of Object.values(Tabs)) {
+    if (typeof tab !== 'number') {
+      continue
+    }
+
+    for (const [page, subtab] of subtabInfo[tab].subTabList.entries()) {
+      DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => changeSubTab(tab, { page }))
+    }
+  }
+})
 
 export function subTabsInMainTab (name: Tabs) {
   let tab = tabRow.getCurrentTab()

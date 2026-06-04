@@ -3099,7 +3099,8 @@
     "cubeMetadata": {
       "cost": "Cost: {{value1}} Wow! Cubes [+{{value2}} Levels]",
       "level": "Level: {{value1}} / {{value2}}",
-      "maxLevel": "Cost: 0 Wow! Cubes. This upgrade is maxed! wow"
+      "maxLevel": "Cost: 0 Wow! Cubes. This upgrade is maxed! wow",
+      "selectUpgrade": "Hover, focus, or tap a Cube Upgrade to view its details."
     },
     "noCubesOpened": "OK. No cubes opened.",
     "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \nYou can input a percentage of cubes to open, for example: \"50%\" or \"100%\". \nYou can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",

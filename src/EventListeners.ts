@@ -30,7 +30,7 @@ import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import { challengeDisplay, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
-import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
+import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
 import { storageSetItem } from './events/storage-events'
 import { buyAllAntMasteries, buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
 import { antProducerData } from './Features/Ants/AntProducers/data/data'
@@ -129,7 +129,7 @@ import type { SingularityChallengeDataKeys } from './SingularityChallenges'
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { changeSubTab, changeTab, registerSubTabSwitches, Tabs } from './Tabs'
 import { IconSets, imgErrorHandler, toggleAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import {
   autoCubeUpgradesToggle,
@@ -286,6 +286,8 @@ const registerPurchasableModal = ({
 }
 
 export const generateEventHandlers = () => {
+  registerSubTabSwitches()
+
   const ordinals = [
     'first',
     'second',
@@ -437,13 +439,6 @@ export const generateEventHandlers = () => {
   }
 
   // BUILDINGS TAB
-  // Part 1: Upper portion (Subtab toggle)
-  const buildingTypes = ['Coin', 'Diamond', 'Mythos', 'Particle', 'Tesseract']
-  for (let index = 0; index < buildingTypes.length; index++) {
-    DOMCacheGetOrSet(
-      `switchTo${buildingTypes[index]}Building`
-    ).addEventListener('click', () => changeSubTab(Tabs.Buildings, { page: index }))
-  }
   // Part 2: Building Amount Toggles
   const buildingTypesAlternate = [
     'coin',
@@ -583,24 +578,10 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('showAchievementProgress').addEventListener('mouseout', () => resetAchievementProgressDisplay())
   DOMCacheGetOrSet('showAchievementProgress').addEventListener('blur', () => resetAchievementProgressDisplay())
 
-  for (let index = 0; index < 2; index++) {
-    DOMCacheGetOrSet(`toggleAchievementSubTab${index + 1}`).addEventListener(
-      'click',
-      () => changeSubTab(Tabs.Achievements, { page: index })
-    )
-  }
-
   // RUNES TAB [And all corresponding subtabs]
   // Part 0: Upper UI portion
   // Auto sacrifice toggle button
   DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice('0'))
-  // Toggle subtabs of Runes tab
-  for (let index = 0; index < 4; index++) {
-    DOMCacheGetOrSet(`toggleRuneSubTab${index + 1}`).addEventListener(
-      'click',
-      () => changeSubTab(Tabs.Runes, { page: index })
-    )
-  }
 
   // RUNES TAB
 
@@ -651,13 +632,6 @@ export const generateEventHandlers = () => {
       updateAutoChallenge(3)
     }
   )
-
-  for (let index = 0; index < 2; index++) {
-    DOMCacheGetOrSet(`toggleChallengesSubTab${index + 1}`).addEventListener(
-      'click',
-      () => changeSubTab(Tabs.Challenges, { page: index })
-    )
-  }
 
   // RESEARCH TAB
   // Part 1: Researches
@@ -719,13 +693,6 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('toggleresearchbuy').addEventListener('click', () => toggleResearchBuy())
   DOMCacheGetOrSet('toggleautoresearch').addEventListener('click', () => toggleAutoResearch())
   DOMCacheGetOrSet('toggleautoresearchmode').addEventListener('click', () => toggleAutoResearchMode())
-
-  for (let index = 0; index < 3; index++) {
-    DOMCacheGetOrSet(`toggleAntSubtab${index + 1}`).addEventListener(
-      'click',
-      () => changeSubTab(Tabs.AntHill, { page: index })
-    )
-  }
 
   const buyAllAntUpgradesButton = DOMCacheGetOrSet('buyAllAntUpgrades')
   const buyAllAntProducersButton = DOMCacheGetOrSet('buyAllAntProducers')
@@ -878,20 +845,65 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('autoSacrificeAntMode').addEventListener('click', () => toggleAutoAntSacrificeMode())
 
   // WOW! Cubes Tab
-  // Part 0: Subtab UI
-  for (let index = 0; index < 7; index++) {
-    DOMCacheGetOrSet(`switchCubeSubTab${index + 1}`).addEventListener(
-      'click',
-      () => changeSubTab(Tabs.WowCubes, { page: index })
+  // Part 1: Cube Upgrades
+  const cubeUpgradeModalStyle = { borderColor: 'gold' }
+  const desktopCubeUpgradeModal = (index: number, cubeUpgrade: HTMLElement, x: number, y: number) => {
+    cubeUpgradeDesc(index)
+    const image = cubeUpgrade.querySelector('img')
+
+    Modal(
+      () => cubeUpgradeModalHTML(index, player.cubeUpgradesBuyMaxToggle, image?.src),
+      x,
+      y,
+      cubeUpgradeModalStyle,
+      MEDIUM_MODAL_UPDATE_TICK,
+      cubeUpgrade
     )
   }
 
-  // Part 1: Cube Upgrades
+  const mobileCubeUpgradeModal = (index: number, cubeUpgrade: HTMLElement, event: MouseEvent) => {
+    cubeUpgradeDesc(index)
+    let buyMaxOverride = player.cubeUpgradesBuyMaxToggle
+    const image = cubeUpgrade.querySelector('img')
+
+    Modal(
+      () => `${cubeUpgradeModalHTML(index, buyMaxOverride, image?.src)}${modalBuyButtonsHTML()}`,
+      event.clientX,
+      event.clientY,
+      cubeUpgradeModalStyle,
+      MEDIUM_MODAL_UPDATE_TICK,
+      {
+        targetElement: cubeUpgrade,
+        buttonClick: (button) => {
+          buyMaxOverride = button.dataset.modalAction === 'max'
+          buyCubeUpgrades(index, buyMaxOverride)
+        }
+      }
+    )
+  }
+
   for (let index = 1; index < player.cubeUpgrades.length; index++) {
     const cubeUpgrade = DOMCacheGetOrSet(`cubeUpg${index}`)
-    cubeUpgrade.addEventListener('mouseover', () => cubeUpgradeDesc(index))
-    cubeUpgrade.addEventListener('focus', () => cubeUpgradeDesc(index))
-    cubeUpgrade.addEventListener('click', () => buyCubeUpgrades(index))
+    cubeUpgrade.setAttribute('aria-haspopup', 'dialog')
+
+    if (isMobile) {
+      cubeUpgrade.addEventListener('click', (event) => mobileCubeUpgradeModal(index, cubeUpgrade, event))
+      continue
+    }
+
+    cubeUpgrade.addEventListener('mousemove', (event) => {
+      desktopCubeUpgradeModal(index, cubeUpgrade, event.clientX, event.clientY)
+    })
+    cubeUpgrade.addEventListener('focus', () => {
+      const elmRect = cubeUpgrade.getBoundingClientRect()
+      desktopCubeUpgradeModal(index, cubeUpgrade, elmRect.x, elmRect.y + elmRect.height / 2)
+    })
+    cubeUpgrade.addEventListener('mouseout', CloseModal)
+    cubeUpgrade.addEventListener('blur', CloseModal)
+    cubeUpgrade.addEventListener('click', (event) => {
+      buyCubeUpgrades(index)
+      desktopCubeUpgradeModal(index, cubeUpgrade, event.clientX, event.clientY)
+    })
   }
 
   // Toggle
@@ -999,10 +1011,6 @@ export const generateEventHandlers = () => {
   )
 
   // CORRUPTION TAB
-  // Part 0: Subtabs
-  DOMCacheGetOrSet('corrStatsBtn').addEventListener('click', () => changeSubTab(Tabs.Corruption, { page: 0 }))
-  DOMCacheGetOrSet('corrLoadoutsBtn').addEventListener('click', () => changeSubTab(Tabs.Corruption, { page: 1 }))
-
   // Part 1: Displays
   DOMCacheGetOrSet('corruptionDisplays').addEventListener('click', () => corruptionDisplay('exit'))
   DOMCacheGetOrSet('corruptionCleanse').addEventListener('click', () => corruptionCleanseConfirm())
@@ -1016,16 +1024,6 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('ascensionAutoToggle').addEventListener('click', () => toggleAutoAscendResetMode())
 
   // SETTNGS TAB
-  // Part 0: Subtabs
-  const settingSubTabs = document.querySelectorAll('[id^="switchSettingSubTab"]')
-
-  for (let subTabIndex = 0; subTabIndex < settingSubTabs.length; subTabIndex++) {
-    settingSubTabs.item(subTabIndex).addEventListener(
-      'click',
-      changeSubTab.bind(null, Tabs.Settings, { page: subTabIndex })
-    )
-  }
-
   const t = document.querySelectorAll<HTMLElement>('button.statsNerds')
   for (const s of t) {
     s.addEventListener('click', (e) => displayStats(e.target as HTMLElement))
@@ -1412,14 +1410,6 @@ TODO: Fix this entire tab it's utter shit
       style: { borderColor: 'red' },
       buy: (event, action) => buyRedAmbrosiaUpgradeLevel(key, event, action === 'max')
     })
-  }
-
-  // Toggle subtabs of Singularity tab
-  for (let index = 0; index < 5; index++) {
-    DOMCacheGetOrSet(`toggleSingularitySubTab${index + 1}`).addEventListener(
-      'click',
-      () => changeSubTab(Tabs.Singularity, { page: index })
-    )
   }
 
   // EVENT TAB

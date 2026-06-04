@@ -3320,6 +3320,54 @@ p[id$="BlessingsTotal"] {
     min-height: 4em;
 }
 
+.cubeUpgradeModal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.cubeUpgradeModalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: gold;
+    font-size: 1.1em;
+}
+
+.cubeUpgradeModalIcon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    background-color: var(--buttonimg-color);
+}
+
+.cubeUpgradeModalDescription {
+    color: lightblue;
+    line-height: 1.35;
+}
+
+.cubeUpgradeModalCost.affordable {
+    color: var(--green-text-color);
+}
+
+.cubeUpgradeModalCost.unaffordable {
+    color: var(--crimson-text-color);
+}
+
+.cubeUpgradeModalCost.maxed {
+    color: gold;
+}
+
+.cubeUpgradeModalLevel {
+    color: white;
+}
+
+.cubeUpgradeModalLevel.maxed {
+    color: plum;
+}
+
 .cubeUpgradeToggles {
     display: flex;
     justify-content: center;
