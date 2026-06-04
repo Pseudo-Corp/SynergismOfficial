@@ -16,7 +16,7 @@ import {
   highestChallengeRewards,
   tickChallengeSweep
 } from './Challenges'
-import { btoa } from './Utility'
+import { btoa, isMobile } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -5169,7 +5169,8 @@ window.addEventListener('load', async () => {
     })
   }
 
-  document.documentElement.dataset.mobile = 'false'
+  document.documentElement.dataset.mobile = `${isMobile}`
+
   if (platform === 'mobile') {
     await initMobileStorage()
     const [{ bindMobileFormHandlers }, { initMobilePurchases }, { rewardVideo }] = await Promise.all([
@@ -5182,7 +5183,6 @@ window.addEventListener('load', async () => {
 
     DOMCacheGetOrSet('adEvents').style.display = 'block'
     DOMCacheGetOrSet('watchAdBtn').addEventListener('click', rewardVideo)
-    document.documentElement.dataset.mobile = 'true'
   }
 
   const symbolsEnabled = storageGetItem('statSymbols')

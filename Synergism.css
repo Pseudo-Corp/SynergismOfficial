@@ -896,7 +896,6 @@ p#buildinghotkeys2 {
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: var(--header-color);
 }
 
 .upgradeReferenceHeaderIcon {
@@ -2645,13 +2644,23 @@ p#reincarnatehotkeys {
 }
 
 #totalOcteractsDisplay {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    width: min(100%, 860px);
     margin-top: 15px;
     margin-bottom: 15px;
+    gap: 6px;
+    padding: 0 10px;
 }
 
 #octeractsDisplay > p,
 #totalOcteractsDisplay > p {
     margin: 0 0 0 10px;
+}
+
+#totalOcteractsDisplay > p {
+    margin: 0;
+    overflow-wrap: anywhere;
 }
 
 #goldenQuarkamount {
@@ -7774,7 +7783,7 @@ html[data-mobile="true"] .hideOnMobile {
 
 /* Ensure touch-friendly tap targets */
 @media (pointer: coarse) {
-    button:not(.mobile-menu-toggle),
+    button:not(.mobile-menu-toggle):not(.singularityUpgrade):not(.octeractUpgrade),
     .buildingPurchaseBtn,
     nav button:not(.mobile-menu-toggle),
     .subTabWrapper > button {
