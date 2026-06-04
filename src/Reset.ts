@@ -60,7 +60,7 @@ import {
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { blankSave, deepClone, format, player, saveSynergy } from './Synergism'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { changeSubTab, changeTab, resetAllSubTabs, Tabs } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
 import { AutoAscensionModes } from './Toggles'
@@ -1102,14 +1102,9 @@ export const singularity = (setSingNumber = -1) => {
   const hold = playerJsonSchema.parse(deepClone()(blankSave))
 
   // Reset Displays
+  resetAllSubTabs()
   changeTab(Tabs.Buildings)
   changeSubTab(Tabs.Buildings, { page: 0 })
-  changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
-  changeSubTab(Tabs.Challenges, { page: 0 }) // Set 'challenges' subtab back to 'normal' tab
-  changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
-  changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
-  changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
-  changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
 
   hold.achievements = [...player.achievements]
   hold.progressiveAchievements = { ...player.progressiveAchievements }
