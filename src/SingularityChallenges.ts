@@ -119,8 +119,6 @@ interface ISingularityChallengeDataWithEffect<
 }
 
 export class SingularityChallenge {
-  public name
-  public description
   public baseReq
   public completions
   public maxCompletions
@@ -137,12 +135,7 @@ export class SingularityChallenge {
   #key: string
 
   public constructor (data: ISingularityChallengeData, key: string) {
-    const name = i18next.t(`singularityChallenge.data.${key}.name`)
-    const description = i18next.t(
-      `singularityChallenge.data.${key}.description`
-    )
-    this.name = name
-    this.description = description
+    this.#key = key
     this.baseReq = data.baseReq
     this.completions = data.completions ?? 0
     this.maxCompletions = data.maxCompletions
@@ -159,7 +152,14 @@ export class SingularityChallenge {
 
     this.updateIconHTML()
     this.updateChallengeCompletions()
-    this.#key = key
+  }
+
+  public get name () {
+    return i18next.t(`singularityChallenge.data.${this.#key}.name`)
+  }
+
+  public get description () {
+    return i18next.t(`singularityChallenge.data.${this.#key}.description`)
   }
 
   public computeSingularityRquirement () {
@@ -345,6 +345,18 @@ export class SingularityChallenge {
     DOMCacheGetOrSet('singularityChallengesInfo').innerHTML = this.toString()
     DOMCacheGetOrSet('singularityChallengesScalingRewards').innerHTML = this.scaleString()
     DOMCacheGetOrSet('singularityChallengesUniqueRewards').innerHTML = this.uniqueString()
+  }
+
+  public modalHTML (): string {
+    return `<div class="singularityChallengeDetails">
+      <p class="singularityChallengesInfo">${this.toString()}</p>
+      <div class="singularityChallengeAllRewards">
+        <p class="singularityChallengeScalingHeader">${i18next.t('singularityChallenge.ScalingHeader')}</p>
+        <p class="singularityChallengeUniqueHeader">${i18next.t('singularityChallenge.UniqueHeader')}</p>
+        <p class="singularityChallengesScalingRewards">${this.scaleString()}</p>
+        <p class="singularityChallengesUniqueRewards">${this.uniqueString()}</p>
+      </div>
+    </div>`
   }
 
   public updateIconHTML (): void {

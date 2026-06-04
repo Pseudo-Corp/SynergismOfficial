@@ -6012,6 +6012,10 @@
     "TNL": "+{{levelAmount}} in <<orange | {{offerings}} Offerings>>"
   },
   "singularityChallenge": {
+    "modal": {
+      "enter": "Enter EXALT",
+      "exit": "Exit EXALT"
+    },
     "enterChallenge": {
       "lowSingularity": "Derpsmith prohibits you from entering this challenge. Go do some more Singing first.",
       "confirmation": "You are about to enter {{name}}. Your Singularity Timer will not reset but you will be taken back to the beginning of a Singularity. Do you proceed?",

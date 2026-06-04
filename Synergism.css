@@ -4988,17 +4988,23 @@ img#singularityPerksIcon {
 }
 
 #singularityChallengeDetails {
+    display: none;
+}
+
+.singularityChallengeDetails {
     display: block;
 }
 
-#singularityChallengesInfo {
+#singularityChallengesInfo,
+.singularityChallengesInfo {
     white-space: pre-line;
     margin-top: 10px;
     margin-bottom: 5px;
     text-align: center;
 }
 
-#singularityChallengeAllRewards {
+#singularityChallengeAllRewards,
+.singularityChallengeAllRewards {
     display: grid;
     grid-template-rows: repeat(2, auto);
     grid-template-columns: repeat(2, 375px);
@@ -5006,28 +5012,32 @@ img#singularityPerksIcon {
     grid-gap: 10px;
 }
 
-#singularityChallengeScalingHeader {
+#singularityChallengeScalingHeader,
+.singularityChallengeScalingHeader {
     font-weight: bold;
     font-size: 1.2em;
     text-align: center;
     margin: 0;
 }
 
-#singularityChallengeUniqueHeader {
+#singularityChallengeUniqueHeader,
+.singularityChallengeUniqueHeader {
     font-weight: bold;
     font-size: 1.2em;
     text-align: center;
     margin: 0;
 }
 
-#singularityChallengesScalingRewards {
+#singularityChallengesScalingRewards,
+.singularityChallengesScalingRewards {
     display: block;
     white-space: pre-line;
     margin: 0;
     text-align: center;
 }
 
-#singularityChallengesUniqueRewards {
+#singularityChallengesUniqueRewards,
+.singularityChallengesUniqueRewards {
     display: block;
     white-space: pre-line;
     margin: 0;
@@ -7548,7 +7558,8 @@ html[data-mobile="true"] .hideOnMobile {
         flex-wrap: wrap;
     }
 
-    #singularityChallengeAllRewards {
+    #singularityChallengeAllRewards,
+    .singularityChallengeAllRewards {
         grid-template-columns: repeat(2, 50%);
     }
 

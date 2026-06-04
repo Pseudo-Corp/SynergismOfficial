@@ -1265,14 +1265,52 @@ TODO: Fix this entire tab it's utter shit
   // EXALT
   const singularityChallenges = Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]
   for (const key of singularityChallenges) {
-    DOMCacheGetOrSet(key).addEventListener(
-      'mouseover',
-      () => player.singularityChallenges[key].updateChallengeHTML()
-    )
-    DOMCacheGetOrSet(key).addEventListener(
-      'click',
-      () => player.singularityChallenges[key].challengeEntryHandler()
-    )
+    const element = DOMCacheGetOrSet(key)
+    const challenge = player.singularityChallenges[key]
+    const detailsHTML = () => challenge.modalHTML()
+    const style = { borderColor: 'gold' }
+
+    if (isMobile) {
+      element.addEventListener('click', (event) => {
+        Modal(
+          () =>
+            `${detailsHTML()}${modalBuyButtonsHTML([
+              {
+                action: 'toggle',
+                label: challenge.enabled
+                  ? i18next.t('singularityChallenge.modal.exit', { defaultValue: 'Exit EXALT' })
+                  : i18next.t('singularityChallenge.modal.enter', { defaultValue: 'Enter EXALT' })
+              }
+            ])}`,
+          event.clientX,
+          event.clientY,
+          style,
+          MEDIUM_MODAL_UPDATE_TICK,
+          {
+            targetElement: element,
+            buttonClick: () => {
+              CloseModal()
+              void challenge.challengeEntryHandler()
+            }
+          }
+        )
+      })
+      continue
+    }
+
+    element.addEventListener('mousemove', (event) => {
+      Modal(detailsHTML, event.clientX, event.clientY, style, MEDIUM_MODAL_UPDATE_TICK, element)
+    })
+    element.addEventListener('focus', () => {
+      const elmRect = element.getBoundingClientRect()
+      Modal(detailsHTML, elmRect.x, elmRect.y + elmRect.height / 2, style, MEDIUM_MODAL_UPDATE_TICK, element)
+    })
+    element.addEventListener('mouseout', CloseModal)
+    element.addEventListener('blur', CloseModal)
+    element.addEventListener('click', () => {
+      CloseModal()
+      void challenge.challengeEntryHandler()
+    })
   }
 
   // BLUEBERRY UPGRADES
