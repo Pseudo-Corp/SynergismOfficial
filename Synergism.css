@@ -4449,6 +4449,59 @@ header #obtainiumDisplay { color: pink; }
     margin: 0;
 }
 
+.platonicUpgradeModal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.platonicUpgradeModalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: gold;
+    font-size: 1.1em;
+}
+
+.platonicUpgradeModalIcon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    background-color: var(--buttonimg-color);
+}
+
+.platonicUpgradeModalDescription {
+    color: white;
+    line-height: 1.35;
+}
+
+.platonicUpgradeModalLevel {
+    color: cyan;
+}
+
+.platonicUpgradeModalLevel.maxed,
+.platonicUpgradeModalStatus.maxed {
+    color: gold;
+}
+
+.platonicUpgradeModalCosts {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.platonicUpgradeModalCosts .affordable,
+.platonicUpgradeModalStatus.affordable {
+    color: var(--green-text-color);
+}
+
+.platonicUpgradeModalCosts .unaffordable,
+.platonicUpgradeModalStatus.unaffordable {
+    color: var(--crimson-text-color);
+}
+
 .hepteractGrid {
     display: grid;
     grid-template-columns: repeat(4, calc(60px + 3.8em * 2));

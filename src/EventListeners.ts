@@ -91,7 +91,7 @@ import {
 import { exitFastForward, getLotusTimeExpiresAt, getOwnedLotus, getTips, sendToWebsocket, setTips } from './Login'
 import type { OcteractUpgrades } from './Octeracts'
 import { buyOcteractUpgradeLevel, octeractUpgrades, upgradeOcteractToString } from './Octeracts'
-import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
+import { buyPlatonicUpgrades, createPlatonicDescription, platonicUpgradeModalHTML } from './Platonic'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -972,8 +972,29 @@ export const generateEventHandlers = () => {
     'platonicUpgradeImage'
   )
   for (let index = 0; index < platonicUpgrades.length; index++) {
-    platonicUpgrades[index].addEventListener('mouseover', () => createPlatonicDescription(index + 1))
-    platonicUpgrades[index].addEventListener('click', () => buyPlatonicUpgrades(index + 1))
+    const platonicUpgrade = platonicUpgrades[index] as HTMLImageElement
+    const upgradeIndex = index + 1
+
+    if (isMobile) {
+      registerPurchasableModal({
+        element: platonicUpgrade,
+        html: () => platonicUpgradeModalHTML(upgradeIndex, platonicUpgrade.src),
+        style: { borderColor: 'orchid' },
+        buy: () => {
+          buyPlatonicUpgrades(upgradeIndex)
+        },
+        mobileButtons: [
+          {
+            action: 'buy',
+            label: i18next.t('wowCubes.platonicUpgrades.descriptionBox.buyButton')
+          }
+        ],
+        updateInterval: MEDIUM_MODAL_UPDATE_TICK
+      })
+    } else {
+      platonicUpgrade.addEventListener('mouseover', () => createPlatonicDescription(upgradeIndex))
+      platonicUpgrade.addEventListener('click', () => buyPlatonicUpgrades(upgradeIndex))
+    }
   }
   DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').addEventListener('click', () => autoPlatonicUpgradesToggle())
 

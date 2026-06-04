@@ -36,6 +36,18 @@ const platonicResourceNames = [
   'wowAbyssals'
 ] as const
 
+const getPlatonicUpgradePriceMultiplier = (index: number) => {
+  let priceMultiplier = 1
+  if (platUpgradeBaseCosts[index].priceMult) {
+    priceMultiplier = Math.pow(
+      platUpgradeBaseCosts[index].priceMult,
+      Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
+    )
+  }
+
+  return priceMultiplier * calculateSingularityDebuff('Platonic Costs')
+}
+
 const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   1: {
     // obtainium: 1e70,
@@ -282,14 +294,7 @@ const checkPlatonicUpgrade = (
     abyssals: false,
     canBuy: false
   }
-  let priceMultiplier = 1
-  if (platUpgradeBaseCosts[index].priceMult) {
-    priceMultiplier = Math.pow(
-      platUpgradeBaseCosts[index].priceMult,
-      Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
-    )
-  }
-  priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
+  const priceMultiplier = getPlatonicUpgradePriceMultiplier(index)
 
   for (let i = 0; i < platonicResources.length - 1; i++) {
     if (auto && (platonicResources[i] === 'obtainium' || platonicResources[i] === 'offerings')) {
@@ -325,14 +330,7 @@ export const createPlatonicDescription = (index: number) => {
   }
   const resourceCheck = checkPlatonicUpgrade(index)
 
-  let priceMultiplier = 1
-  if (platUpgradeBaseCosts[index].priceMult) {
-    priceMultiplier = Math.pow(
-      platUpgradeBaseCosts[index].priceMult,
-      Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
-    )
-  }
-  priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
+  const priceMultiplier = getPlatonicUpgradePriceMultiplier(index)
 
   DOMCacheGetOrSet('platonicUpgradeDescription').innerHTML = i18next.t(
     `wowCubes.platonicUpgrades.descriptions.${index}`
@@ -425,6 +423,101 @@ export const createPlatonicDescription = (index: number) => {
   }
 }
 
+export const platonicUpgradeModalHTML = (index: number, imageSrc?: string) => {
+  const resourceCheck = checkPlatonicUpgrade(index)
+  const priceMultiplier = getPlatonicUpgradePriceMultiplier(index)
+  const maxed = player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel
+  const levelTranslationKey = maxed
+    ? 'wowCubes.platonicUpgrades.descriptionBox.upgradeLevelMaxed'
+    : 'wowCubes.platonicUpgrades.descriptionBox.upgradeLevel'
+  const statusTranslationKey = maxed
+    ? 'wowCubes.platonicUpgrades.descriptionBox.modalMaxed'
+    : resourceCheck.canBuy
+    ? 'wowCubes.platonicUpgrades.descriptionBox.modalCanBuy'
+    : 'wowCubes.platonicUpgrades.descriptionBox.modalCannotBuy'
+  const statusClass = maxed ? 'maxed' : resourceCheck.canBuy ? 'affordable' : 'unaffordable'
+  const imageHTML = imageSrc
+    ? `<img src="${imageSrc}" alt="" class="platonicUpgradeModalIcon" data-modal-preserve="children">`
+    : ''
+  const resourceCosts = [
+    {
+      text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.offeringCost', {
+        a: format(player.offerings),
+        b: format(platUpgradeBaseCosts[index].offerings * priceMultiplier)
+      }),
+      affordable: resourceCheck.offerings
+    },
+    {
+      text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.obtainiumCost', {
+        a: format(player.obtainium),
+        b: format(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
+      }),
+      affordable: resourceCheck.obtainium
+    },
+    {
+      text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.cubeCost', {
+        a: format(player.wowCubes.valueOf()),
+        b: format(platUpgradeBaseCosts[index].cubes * priceMultiplier)
+      }),
+      affordable: resourceCheck.cubes
+    },
+    {
+      text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.tesseractCost', {
+        a: format(player.wowTesseracts.valueOf()),
+        b: format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier)
+      }),
+      affordable: resourceCheck.tesseracts
+    },
+    {
+      text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.hypercubeCost', {
+        a: format(player.wowHypercubes.valueOf()),
+        b: format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier)
+      }),
+      affordable: resourceCheck.hypercubes
+    },
+    {
+      text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.platonicCost', {
+        a: format(player.wowPlatonicCubes.valueOf()),
+        b: format(platUpgradeBaseCosts[index].platonics * priceMultiplier)
+      }),
+      affordable: resourceCheck.platonics
+    },
+    {
+      text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.hepteractCost', {
+        a: format(hepteracts.abyss.BAL, 0, true),
+        b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true)
+      }),
+      affordable: resourceCheck.abyssals
+    }
+  ]
+
+  return `<div class="platonicUpgradeModal">
+    <div class="platonicUpgradeModalTitle" data-modal-preserve="children">
+      ${imageHTML}
+      <span>${
+    i18next.t('wowCubes.platonicUpgrades.descriptionBox.modalTitle', {
+      index: format(index, 0, true)
+    })
+  }</span>
+    </div>
+    <div class="platonicUpgradeModalDescription">${
+    i18next.t(`wowCubes.platonicUpgrades.descriptions.${index}`)
+  }</div>
+    <div class="platonicUpgradeModalLevel ${maxed ? 'maxed' : ''}">${
+    i18next.t(levelTranslationKey, {
+      a: format(player.platonicUpgrades[index]),
+      b: format(platUpgradeBaseCosts[index].maxLevel)
+    })
+  }</div>
+    <div class="platonicUpgradeModalCosts">${
+    resourceCosts.map(({ text, affordable }) =>
+      `<div class="${affordable ? 'affordable' : 'unaffordable'}">${text}</div>`
+    ).join('')
+  }</div>
+    <div class="platonicUpgradeModalStatus ${statusClass}">${i18next.t(statusTranslationKey)}</div>
+  </div>`
+}
+
 export const updatePlatonicUpgradeBG = (i: number) => {
   const a = DOMCacheGetOrSet(`platUpg${i}`)
 
@@ -444,14 +537,7 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
   // eslint-disable-next-line no-constant-condition
   while (true) {
     const resourceCheck = checkPlatonicUpgrade(index, auto)
-    let priceMultiplier = 1
-    if (platUpgradeBaseCosts[index].priceMult) {
-      priceMultiplier = Math.pow(
-        platUpgradeBaseCosts[index].priceMult,
-        Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
-      )
-    }
-    priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
+    const priceMultiplier = getPlatonicUpgradePriceMultiplier(index)
 
     if (resourceCheck.canBuy) {
       player.platonicUpgrades[index] += 1
