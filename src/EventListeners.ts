@@ -98,7 +98,7 @@ import {
   redAmbrosiaUpgradeToString,
   resetRedAmbrosiaDisplay
 } from './RedAmbrosiaUpgrades'
-import { buyResearch, researchDescriptions, updateResearchAuto } from './Research'
+import { buyResearch, researchDescriptions, researchModalHTML, updateResearchAuto } from './Research'
 import { getResetDetails, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { buyAllBlessingLevels } from './RuneBlessings'
 import { runes } from './Runes'
@@ -664,14 +664,39 @@ export const generateEventHandlers = () => {
   // There are 200 researches, ideally in rewrite 200 would instead be length of research list/array
   for (let index = 1; index <= 200; index++) {
     const research = DOMCacheGetOrSet(`res${index}`)
-    research.addEventListener('click', () => {
-      const auto = false
-      const hover = false
-      buyResearch(index, auto, hover)
+    const buySelectedResearch = (buyMaxOverride?: boolean) => {
+      buyResearch(index, false, false, buyMaxOverride)
       if (player.autoResearchMode === 'manual' && player.autoResearchToggle) {
         updateResearchAuto(index)
       }
-    })
+    }
+
+    if (isMobile) {
+      const updateDescription = researchDescriptions.bind(null, index)
+
+      research.addEventListener('click', (event) => {
+        updateDescription()
+        let buyMaxOverride: boolean | undefined
+
+        Modal(
+          () => `${researchModalHTML(index, false, buyMaxOverride)}${modalBuyButtonsHTML()}`,
+          event.clientX,
+          event.clientY,
+          { borderColor: 'limegreen' },
+          MEDIUM_MODAL_UPDATE_TICK,
+          {
+            targetElement: research,
+            buttonClick: (button) => {
+              buyMaxOverride = button.dataset.modalAction === 'max'
+              buySelectedResearch(buyMaxOverride)
+            }
+          }
+        )
+      })
+      continue
+    }
+
+    research.addEventListener('click', () => buySelectedResearch())
     research.addEventListener('mouseover', () => {
       if (player.toggles[38] && player.highestSingularityCount > 0) {
         const auto = false

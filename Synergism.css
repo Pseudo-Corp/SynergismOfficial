@@ -2508,6 +2508,13 @@ p#reincarnatehotkeys {
     min-height: 3em;
 }
 
+.researchModal {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+}
+
 #researchtable button > img {
     background-color: var(--buttonimg-color);
 }
