@@ -4274,9 +4274,12 @@ p#ascendHotKeys {
 #corruptionStats,
 #corruptionLoadouts {
     font-size: min(1em, 20px);
-    margin-top: 10px;
     min-height: 350px;
     z-index: 1;
+}
+
+#corruptionLoadouts {
+    margin-top: 10px;
 }
 
 #corruptionDisplays {

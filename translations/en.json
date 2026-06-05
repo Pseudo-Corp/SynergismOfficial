@@ -5195,6 +5195,7 @@
     },
     "corrStatsBtn": "Corruption Stats",
     "corrLoadoutsBtn": "Corruption Loadouts",
+    "clickInfo": "<<var(--orchid-text-color)|Click the icons to view Corruption info!>>",
     "cleanse": "Cleanse",
     "confirm": "Confirm",
     "resetCorruptionsError": "You cannot cleanse your Corruptions if you are in a Campaign, or Challenge 15!",
