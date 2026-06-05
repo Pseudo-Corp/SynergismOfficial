@@ -2558,6 +2558,13 @@ p#reincarnatehotkeys {
     min-height: 3em;
 }
 
+.researchModal {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+}
+
 #researchtable button > img {
     background-color: var(--buttonimg-color);
 }
@@ -3361,6 +3368,54 @@ p[id$="BlessingsTotal"] {
 
 .cubeUpgradeInfo {
     min-height: 4em;
+}
+
+.cubeUpgradeModal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.cubeUpgradeModalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: gold;
+    font-size: 1.1em;
+}
+
+.cubeUpgradeModalIcon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    background-color: var(--buttonimg-color);
+}
+
+.cubeUpgradeModalDescription {
+    color: lightblue;
+    line-height: 1.35;
+}
+
+.cubeUpgradeModalCost.affordable {
+    color: var(--green-text-color);
+}
+
+.cubeUpgradeModalCost.unaffordable {
+    color: var(--crimson-text-color);
+}
+
+.cubeUpgradeModalCost.maxed {
+    color: gold;
+}
+
+.cubeUpgradeModalLevel {
+    color: white;
+}
+
+.cubeUpgradeModalLevel.maxed {
+    color: plum;
 }
 
 .cubeUpgradeToggles {
@@ -4442,6 +4497,59 @@ header #obtainiumDisplay { color: pink; }
 .platonicPortion {
     width: 400px;
     margin: 0;
+}
+
+.platonicUpgradeModal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.platonicUpgradeModalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: gold;
+    font-size: 1.1em;
+}
+
+.platonicUpgradeModalIcon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    background-color: var(--buttonimg-color);
+}
+
+.platonicUpgradeModalDescription {
+    color: white;
+    line-height: 1.35;
+}
+
+.platonicUpgradeModalLevel {
+    color: cyan;
+}
+
+.platonicUpgradeModalLevel.maxed,
+.platonicUpgradeModalStatus.maxed {
+    color: gold;
+}
+
+.platonicUpgradeModalCosts {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.platonicUpgradeModalCosts .affordable,
+.platonicUpgradeModalStatus.affordable {
+    color: var(--green-text-color);
+}
+
+.platonicUpgradeModalCosts .unaffordable,
+.platonicUpgradeModalStatus.unaffordable {
+    color: var(--crimson-text-color);
 }
 
 .hepteractGrid {
@@ -7977,8 +8085,9 @@ html[data-mobile="true"] .hideOnMobile {
         min-height: 44px;
     }
 
-    .antProducerColumn > button {
-        min-height: unset;
+    #antProducers .antProducerColumn > button {
+        min-height: 0;
+        min-width: 0;
     }
 
     #platonicUpgradePics button {

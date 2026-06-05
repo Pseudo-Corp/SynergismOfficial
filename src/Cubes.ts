@@ -137,6 +137,43 @@ export const cubeUpgradeDesc = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
   }
 }
 
+export const cubeUpgradeModalHTML = (
+  i: number,
+  buyMax = player.cubeUpgradesBuyMaxToggle,
+  imageSrc?: string
+) => {
+  const metaData = getCubeCost(i, buyMax)
+  const maxLevel = getCubeMax(i)
+  const maxed = player.cubeUpgrades[i] === maxLevel
+  const canAfford = Number(player.wowCubes) >= metaData.cost
+  const costText = maxed
+    ? i18next.t('cubes.cubeMetadata.maxLevel')
+    : i18next.t('cubes.cubeMetadata.cost', {
+      value1: format(metaData.cost, 0, true),
+      value2: format(metaData.levelCanBuy - player.cubeUpgrades[i]!, 0, true)
+    })
+  const costClass = maxed ? 'maxed' : canAfford ? 'affordable' : 'unaffordable'
+  const levelClass = maxed ? 'maxed' : ''
+  const imageHTML = imageSrc
+    ? `<img src="${imageSrc}" alt="" class="cubeUpgradeModalIcon" data-modal-preserve="children">`
+    : ''
+
+  return `<div class="cubeUpgradeModal">
+    <div class="cubeUpgradeModalTitle" data-modal-preserve="children">
+      ${imageHTML}
+      <span>${i18next.t(`cubes.upgradeNames.${i}`)}</span>
+    </div>
+    <div class="cubeUpgradeModalDescription">${i18next.t(`cubes.upgradeDescriptions.${i}`)}</div>
+    <div class="cubeUpgradeModalCost ${costClass}">${costText}</div>
+    <div class="cubeUpgradeModalLevel ${levelClass}">${
+    i18next.t('cubes.cubeMetadata.level', {
+      value1: format(player.cubeUpgrades[i], 0, true),
+      value2: format(maxLevel, 0, true)
+    })
+  }</div>
+  </div>`
+}
+
 export const updateCubeUpgradeBG = (i: number) => {
   const a = DOMCacheGetOrSet(`cubeUpg${i}`)
   const maxCubeLevel = getCubeMax(i)
@@ -216,7 +253,7 @@ export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
   }
 
   if (!auto) {
-    cubeUpgradeDesc(i)
+    cubeUpgradeDesc(i, buyMax)
     revealStuff()
   }
   updateCubeUpgradeBG(i)

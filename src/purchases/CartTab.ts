@@ -114,12 +114,6 @@ export class CartTab {
     return CartTab.#upgradesFetch.promise
   }
 
-  static applySubtabListeners () {
-    for (const [page, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
-      element.addEventListener('click', changeSubTab.bind(null, Tabs.Purchase, { page }))
-    }
-  }
-
   #updateSubtabs () {
     for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
       if (getActiveSubTab() === index) {
@@ -177,7 +171,6 @@ export class CartTab {
 
 const onInit = memoize(() => {
   CartTab.fetchProducts()
-  CartTab.applySubtabListeners()
 
   changeSubTab(Tabs.Purchase, { page: 0 })
 })
