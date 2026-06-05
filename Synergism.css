@@ -4183,6 +4183,46 @@ p#ascendHotKeys {
     height: 40px;
 }
 
+.corruptionDetailsModal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    line-height: 1.35;
+}
+
+.corruptionDetailsModalTitle {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--crimson-text-color);
+    font-size: 1.1em;
+}
+
+.corruptionDetailsModalTitle img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.corruptionDetailsModalDescription {
+    color: var(--corruption-details-color);
+}
+
+.corruptionDetailsModalCurrent {
+    color: var(--green-text-color);
+}
+
+.corruptionDetailsModalPlanned {
+    color: var(--red-text-color);
+}
+
+.corruptionDetailsModalFree {
+    color: orchid;
+}
+
 .corrDesc {
     color: white;
     min-width: 240px;

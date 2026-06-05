@@ -29,7 +29,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import { challengeDisplay, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
-import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
+import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
 import { storageSetItem } from './events/storage-events'
 import { buyAllAntMasteries, buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
@@ -1034,7 +1034,20 @@ export const generateEventHandlers = () => {
 
   // CORRUPTION TAB
   // Part 1: Displays
-  DOMCacheGetOrSet('corruptionDisplays').addEventListener('click', () => corruptionDisplay('exit'))
+  const corruptionDisplays = DOMCacheGetOrSet('corruptionDisplays')
+  corruptionDisplays.addEventListener('click', (event) => {
+    if (isMobile) {
+      const target = event.target instanceof Element ? event.target : null
+      if (target?.closest('button')) {
+        return
+      }
+
+      openCorruptionDetailsModal('exit', event, corruptionDisplays)
+      return
+    }
+
+    corruptionDisplay('exit')
+  })
   DOMCacheGetOrSet('corruptionCleanse').addEventListener('click', () => corruptionCleanseConfirm())
   DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => {
     player.corruptions.used.resetCorruptions()

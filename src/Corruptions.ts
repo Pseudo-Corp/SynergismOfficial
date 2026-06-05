@@ -11,8 +11,8 @@ import { format, player } from './Synergism'
 import { getTalismanEffects } from './Talismans'
 import { IconSets } from './Themes'
 import { toggleCorruptionLevel } from './Toggles'
-import { Alert, Notification, Prompt } from './UpdateHTML'
-import { getElementById, productContents, sumContents, validateNonnegativeInteger } from './Utility'
+import { Alert, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification, Prompt } from './UpdateHTML'
+import { getElementById, isMobile, productContents, sumContents, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
 
 enum CorruptionIndices {
@@ -439,14 +439,7 @@ export const corrIcons: Record<keyof Corruptions, string> = {
   hyperchallenge: '/CorruptHyperchallenge.png'
 }
 
-export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
-  if (DOMCacheGetOrSet('corruptionDetails').style.visibility !== 'visible') {
-    DOMCacheGetOrSet('corruptionDetails').style.visibility = 'visible'
-  }
-  if (DOMCacheGetOrSet('corruptionSelectedPic').style.visibility !== 'visible') {
-    DOMCacheGetOrSet('corruptionSelectedPic').style.visibility = 'visible'
-  }
-
+const corruptionDisplayDetails = (corr: keyof Corruptions | 'exit') => {
   let text = {
     name: i18next.t('corruptions.exitCorruption.name'),
     description: i18next.t('corruptions.exitCorruption.description'),
@@ -487,6 +480,36 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
     DOMCacheGetOrSet(`corrNext${corr}`).textContent = format(player.corruptions.next.getLevel(corr))
   }
 
+  return text
+}
+
+const corruptionDetailsModalHTML = (corr: keyof Corruptions | 'exit') => {
+  const text = corruptionDisplayDetails(corr)
+
+  return `<div class="corruptionDetailsModal" data-modal-preserve="children">
+    <div class="corruptionDetailsModalTitle" data-modal-preserve="children">
+      <img src="${text.image}" alt="" class="corruptionImg" data-modal-preserve="children">
+      <span>${text.name}</span>
+    </div>
+    <div class="corruptionDetailsModalDescription">${text.description}</div>
+    <div class="corruptionDetailsModalCurrent">${text.current}</div>
+    <div class="corruptionDetailsModalPlanned">${text.planned}</div>
+    ${text.freeLevels ? `<div class="corruptionDetailsModalFree">${text.freeLevels}</div>` : ''}
+    <div class="corruptionDetailsModalMultiplier">${text.multiplier}</div>
+    ${text.difficulty ? `<div class="corruptionDetailsModalDifficulty">${text.difficulty}</div>` : ''}
+  </div>`
+}
+
+export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
+  if (DOMCacheGetOrSet('corruptionDetails').style.visibility !== 'visible') {
+    DOMCacheGetOrSet('corruptionDetails').style.visibility = 'visible'
+  }
+  if (DOMCacheGetOrSet('corruptionSelectedPic').style.visibility !== 'visible') {
+    DOMCacheGetOrSet('corruptionSelectedPic').style.visibility = 'visible'
+  }
+
+  const text = corruptionDisplayDetails(corr)
+
   DOMCacheGetOrSet('corruptionName').textContent = text.name
   DOMCacheGetOrSet('corruptionDescription').innerHTML = text.description
   DOMCacheGetOrSet('corruptionLevelCurrent').textContent = text.current
@@ -495,6 +518,22 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
   DOMCacheGetOrSet('corruptionDifficultyContribution').textContent = text.difficulty
   DOMCacheGetOrSet('corruptionFreeLevels').textContent = text.freeLevels
   DOMCacheGetOrSet('corruptionSelectedPic').setAttribute('src', text.image)
+}
+
+export const openCorruptionDetailsModal = (
+  corr: keyof Corruptions | 'exit',
+  event: MouseEvent,
+  targetElement: HTMLElement
+) => {
+  corruptionDisplay(corr)
+  Modal(
+    () => corruptionDetailsModalHTML(corr),
+    event.clientX,
+    event.clientY,
+    { borderColor: 'var(--crimson-text-color)' },
+    MEDIUM_MODAL_UPDATE_TICK,
+    targetElement
+  )
 }
 
 export const corruptionStatsUpdate = () => {
@@ -509,7 +548,7 @@ export const corruptionStatsUpdate = () => {
 }
 
 export const corruptionButtonsAdd = () => {
-  const rows = document.getElementsByClassName('corruptionStatRow')
+  const rows = document.getElementsByClassName('corruptionStatRow') as HTMLCollectionOf<HTMLElement>
   const keys = Object.keys(c15Corruptions)
 
   for (let i = 0; i < rows.length; i++) {
@@ -523,7 +562,6 @@ export const corruptionButtonsAdd = () => {
     const icon = document.createElement('img')
     icon.className = 'corruptionImg'
     icon.src = `Pictures/${IconSets[player.iconSet][0]}${corrIcons[key]}`
-    icon.addEventListener('click', () => corruptionDisplay(key))
     icon.loading = 'lazy'
     icon.title = i18next.t(`corruptions.names.${key}`)
     row.appendChild(icon)
@@ -570,7 +608,19 @@ export const corruptionButtonsAdd = () => {
     btn.textContent = `-${i18next.t('corruptions.max')}`
     btn.addEventListener('click', () => toggleCorruptionLevel(key, -99))
     row.appendChild(btn)
-    row.addEventListener('click', () => corruptionDisplay(key))
+    row.addEventListener('click', (event) => {
+      if (isMobile) {
+        const target = event.target instanceof Element ? event.target : null
+        if (target?.closest('button')) {
+          return
+        }
+
+        openCorruptionDetailsModal(key, event, row)
+        return
+      }
+
+      corruptionDisplay(key)
+    })
   }
 }
 
