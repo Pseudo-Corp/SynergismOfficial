@@ -500,9 +500,7 @@ export const platonicUpgradeModalHTML = (index: number, imageSrc?: string) => {
     })
   }</span>
     </div>
-    <div class="platonicUpgradeModalDescription">${
-    i18next.t(`wowCubes.platonicUpgrades.descriptions.${index}`)
-  }</div>
+    <div class="platonicUpgradeModalDescription">${i18next.t(`wowCubes.platonicUpgrades.descriptions.${index}`)}</div>
     <div class="platonicUpgradeModalLevel ${maxed ? 'maxed' : ''}">${
     i18next.t(levelTranslationKey, {
       a: format(player.platonicUpgrades[index]),

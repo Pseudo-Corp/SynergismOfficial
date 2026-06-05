@@ -284,8 +284,57 @@ const registerPurchasableModal = ({
   })
 }
 
+const updateMobileSubTabLayout = () => {
+  if (!isMobile) {
+    return
+  }
+
+  const main = document.querySelector<HTMLElement>('main')
+  const mainHeader = DOMCacheGetOrSet('mainHeader')
+  if (main === null) {
+    return
+  }
+
+  const activeMainPanel = Array.from(main.children)
+    .find((child): child is HTMLElement => child instanceof HTMLElement && getComputedStyle(child).display !== 'none')
+  const activeSubTabWrapper = activeMainPanel?.querySelector<HTMLElement>('.subTabWrapper')
+  const subTabHeight = activeSubTabWrapper != null && getComputedStyle(activeSubTabWrapper).display !== 'none'
+    ? activeSubTabWrapper.getBoundingClientRect().height
+    : 0
+
+  document.body.style.setProperty('--mobile-subtab-height', `${subTabHeight}px`)
+  document.body.style.setProperty('--mobile-subtab-top', `${mainHeader.getBoundingClientRect().bottom}px`)
+}
+
+const registerMobileSubTabLayout = () => {
+  if (!isMobile) {
+    return
+  }
+
+  const main = document.querySelector<HTMLElement>('main')
+  if (main === null) {
+    return
+  }
+
+  const update = () => requestAnimationFrame(updateMobileSubTabLayout)
+  const resizeObserver = new ResizeObserver(update)
+  resizeObserver.observe(DOMCacheGetOrSet('mainHeader'))
+  document.querySelectorAll<HTMLElement>('.subTabWrapper').forEach((element) => resizeObserver.observe(element))
+
+  const mutationObserver = new MutationObserver(update)
+  mutationObserver.observe(main, {
+    attributes: true,
+    attributeFilter: ['class', 'style'],
+    subtree: true
+  })
+
+  window.addEventListener('resize', update)
+  update()
+}
+
 export const generateEventHandlers = () => {
   registerSubTabSwitches()
+  registerMobileSubTabLayout()
 
   const ordinals = [
     'first',

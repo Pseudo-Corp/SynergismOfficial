@@ -96,6 +96,8 @@ body {
     --amber-text-color: #ffbf00;
     --lightgoldenrodyellow-text-color: lightgoldenrodyellow;
     --header-color: var(--bg-color);
+    --mobile-subtab-height: 0;
+    --mobile-subtab-top: 0;
     --subtab-border-color: yellow;
     --bg-color: #111;
     --alert-color: #141414;
@@ -740,6 +742,7 @@ body button.active-subtab:active:not(:disabled):not(.disable-hover-color) {
 main {
     flex: 1;
     overflow-y: auto;
+    overscroll-behavior-y: contain;
     padding: 0.25rem;
 }
 
@@ -858,6 +861,7 @@ button.isEvent:hover {
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 2px solid var(--subtab-border-color);
+    overscroll-behavior: contain;
 }
 
 .subTabWrapper > * {
@@ -6920,11 +6924,13 @@ html[data-mobile="true"] .hideOnMobile {
 
     body {
         overflow-x: hidden;
+        overscroll-behavior: none;
     }
 
     main {
         overflow-x: hidden;
-        padding-top: 0;
+        overscroll-behavior: contain;
+        padding-top: var(--mobile-subtab-height);
     }
 
     /* Ascension stats - horizontally scrollable on mobile */
@@ -6966,8 +6972,10 @@ html[data-mobile="true"] .hideOnMobile {
 
     /* Sub tab wrappers */
     .subTabWrapper {
-        position: sticky;
-        top: 0;
+        position: fixed;
+        top: var(--mobile-subtab-top);
+        left: 0;
+        right: 0;
         z-index: 20;
         grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
         gap: 5px;
@@ -6976,6 +6984,7 @@ html[data-mobile="true"] .hideOnMobile {
         padding-top: 5px;
         padding-bottom: 5px;
         background-color: var(--bg-color);
+        touch-action: none;
     }
 
     .subTabWrapper > button,
