@@ -57,6 +57,10 @@ interface SubTab {
   }[]
 }
 
+const scrollMainToTop = () => {
+  document.querySelector<HTMLElement>('main')?.scrollTo({ top: 0, left: 0 })
+}
+
 const subtabInfo: Record<Tabs, SubTab> = {
   [Tabs.Settings]: {
     tabSwitcher: () => setActiveSettingScreen,
@@ -838,6 +842,7 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
     }
 
     subTabs.tabSwitcher?.()(subTabList.subTabID)
+    scrollMainToTop()
   }
 
   CloseModal()

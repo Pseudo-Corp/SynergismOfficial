@@ -445,7 +445,7 @@ export const revealStuff = () => {
     : 'none'
   // Hide Challenge Subtabs until Exalts are unlocked
   DOMCacheGetOrSet('challengesTabsToggle').style.display = player.highestSingularityCount >= 25
-    ? 'flex'
+    ? ''
     : 'none'
 
   DOMCacheGetOrSet('singularitybtn').style.display = runes.antiquities.level > 0 || player.highestSingularityCount > 0
@@ -1179,6 +1179,7 @@ export const changeTabColor = () => {
   const color = tabColors[G.currentTab] ?? 'yellow'
 
   tab.style.backgroundColor = color
+  document.body.style.setProperty('--subtab-border-color', color)
 }
 
 class AsyncQueue {

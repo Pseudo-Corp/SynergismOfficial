@@ -519,7 +519,7 @@
         </div> 
 
         <div id="statistics" style="display: none;">
-            <div id="achievementsToggle">
+            <div id="achievementsToggle" class="subTabWrapper">
                 <button id="toggleAchievementSubTab1" class="active-subtab" style="border: 2px solid gold" i18n="tabs.achievements.achievements"></button>
                 <button id="toggleAchievementSubTab2" style="border: 2px solid silver" i18n="tabs.achievements.rewards"></button>
             </div>
@@ -577,15 +577,15 @@
         </div>
 
         <div id="runes" style="display: none;">
+            <div id="runesToggle" class="subTabWrapper">
+                <button id="toggleautosacrifice" style="border: 2px solid orangered"></button>
+                <button id="toggleRuneSubTab1" class="active-subtab" style="border: 2px solid gold" i18n="tabs.runes.runes"></button>
+                <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid silver" i18n="tabs.runes.talismans"></button>
+                <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid silver" i18n="tabs.runes.blessings"></button>
+                <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid silver" i18n="tabs.runes.spirits"></button>
+            </div>
             <div id="runesHeader">
-                <div id="runesToggle">
-                    <button id="toggleautosacrifice" style="border: 2px solid orangered"></button>
-                    <button id="toggleRuneSubTab1" class="active-subtab" style="border: 2px solid gold" i18n="tabs.runes.runes"></button>
-                    <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid silver" i18n="tabs.runes.talismans"></button>
-                    <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid silver" i18n="tabs.runes.blessings"></button>
-                    <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid silver" i18n="tabs.runes.spirits"></button>
-                </div>
-                <div id="offeringDetails">
+                <div id="offeringDetails" class="subTabHeaderDetails">
                     <p id="offeringCount" style="color: yellow; font-size: 1.2em;"></p>
                     <p id="offeringRecycleInfo" style="color: limegreen;"></p>
                 </div>
@@ -644,7 +644,7 @@
         </div>
 
         <div id="challenges" style="display: none;">
-            <div id="challengesTabsToggle">
+            <div id="challengesTabsToggle" class="subTabWrapper">
                 <button id="toggleChallengesSubTab1" class="active-subtab" style="border: 2px solid green; color: white;" i18n="tabs.challenges.normal"></button>
                 <button id="toggleChallengesSubTab2" class="singChallenges" style="border: 2px solid purple; color: gold" i18n="tabs.challenges.exalt"></button>
             </div>
@@ -1049,7 +1049,7 @@
 
         <div id="ants" style="display: none;">
             <div id="antsWrapper">
-                <div id="antSubtabs">
+                <div id="antSubtabs" class="subTabWrapper">
                     <button id="toggleAntSubtab1" class="active-subtab" style="border: 2px solid burlywood" i18n="tabs.ants.anthill"></button>
                     <button id="toggleAntSubtab2" style="border: 2px solid purple" i18n="tabs.ants.altar"></button>
                     <button id="toggleAntSubtab3" class="sacrificeUnlock" style="border: 2px solid cyan" i18n="tabs.ants.quarkCorner"></button>
@@ -1337,17 +1337,17 @@
         </div>
 
         <div id="cubes" style="display: none;">
+            <div id="wowCubeSidebarButtons" class="subTabWrapper">
+                <button id="switchCubeSubTab1" class="cubeSwitchTabBtn active-subtab" style="border: 2px solid var(--wowcube-color);" i18n="tabs.cubes.cubeTributes"></button>
+                <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid var(--tesseract-color);" i18n="tabs.cubes.tesseract"></button>
+                <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid var(--hypercube-color);" i18n="tabs.cubes.hypercube"></button>
+                <button id="switchCubeSubTab4" class="cubeSwitchTabBtn chal14" style="border: 2px solid var(--platonic-color);" i18n="tabs.cubes.platonic"></button>
+                <button id="switchCubeSubTab5" class="cubeSwitchTabBtn" style="border: 2px solid white;" i18n="tabs.cubes.cubeUpgrades"></button>
+                <button id="switchCubeSubTab6" class="cubeSwitchTabBtn chal14" style="border: 2px solid orchid;" i18n="tabs.cubes.challenge15"></button>
+                <button id="switchCubeSubTab7" class="cubeSwitchTabBtn hepteracts" style="border: 2px solid var(--hepteract-color)" i18n="tabs.cubes.hepteract"></button>
+            </div>
             <div id="cubesWrapper">
                 <div id="wowCubeSidebar">
-                    <div id="wowCubeSidebarButtons">
-                        <button id="switchCubeSubTab1" class="cubeSwitchTabBtn active-subtab" style="border: 2px solid var(--wowcube-color);" i18n="tabs.cubes.cubeTributes"></button>
-                        <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid var(--tesseract-color);" i18n="tabs.cubes.tesseract"></button>
-                        <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid var(--hypercube-color);" i18n="tabs.cubes.hypercube"></button>
-                        <button id="switchCubeSubTab4" class="cubeSwitchTabBtn chal14" style="border: 2px solid var(--platonic-color);" i18n="tabs.cubes.platonic"></button>
-                        <button id="switchCubeSubTab5" class="cubeSwitchTabBtn" style="border: 2px solid white;" i18n="tabs.cubes.cubeUpgrades"></button>
-                        <button id="switchCubeSubTab6" class="cubeSwitchTabBtn chal14" style="border: 2px solid orchid;" i18n="tabs.cubes.challenge15"></button>
-                        <button id="switchCubeSubTab7" class="cubeSwitchTabBtn hepteracts" style="border: 2px solid var(--hepteract-color)" i18n="tabs.cubes.hepteract"></button>
-                    </div>
                     <div class="cubesToQuark">
                         <div class="cubeToQuark">
                             <p id="cubeToQuarkTimer" i18n="wowCubes.quarks.quarkTitle"></p>
@@ -3154,7 +3154,7 @@
         </div>
 
         <div id="singularity">
-            <div id="singularityTabsToggle">
+            <div id="singularityTabsToggle" class="subTabWrapper">
                 <button id="toggleSingularitySubTab1" class="active-subtab" style="border: 2px solid silver; color: white;" i18n="tabs.singularity.info"></button>
                 <button id="toggleSingularitySubTab2" style="border: 2px solid gold; color: white;" i18n="tabs.singularity.goldenQuarks"></button>
                 <button id="toggleSingularitySubTab3" style="border: 2px solid orange; color: white" i18n="tabs.singularity.perks-penalties"></button>

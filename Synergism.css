@@ -96,6 +96,7 @@ body {
     --amber-text-color: #ffbf00;
     --lightgoldenrodyellow-text-color: lightgoldenrodyellow;
     --header-color: var(--bg-color);
+    --subtab-border-color: yellow;
     --bg-color: #111;
     --alert-color: #141414;
     --history-lines: #262626;
@@ -252,6 +253,12 @@ button {
 body button:hover:not(:disabled):not(.disable-hover-color),
 body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--hover-color);
+}
+
+body button.active-subtab,
+body button.active-subtab:hover:not(:disabled):not(.disable-hover-color),
+body button.active-subtab:active:not(:disabled):not(.disable-hover-color) {
+    background-color: crimson;
 }
 
 .none {
@@ -839,17 +846,37 @@ button.isEvent:hover {
 }
 
 .subTabWrapper {
+    --subtab-button-width: 160px;
+    --subtab-button-height: 48px;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, 145px);
+    grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
     justify-content: center;
     gap: 10px 15px;
     width: 90%;
     margin: 15px auto 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--subtab-border-color);
 }
 
-.subTabWrapper > button {
-    min-width: 150px;
+.subTabWrapper > * {
+    min-width: 0;
+    width: 100%;
+}
+
+.subTabWrapper > button,
+.subTabWrapper > span > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    width: 100%;
+    min-height: var(--subtab-button-height);
+    padding: 4px 8px;
+    line-height: 1.1;
     text-align: center;
+    overflow-wrap: anywhere;
 }
 
 #coinBuildings {
@@ -1768,24 +1795,9 @@ p#prestigehotkeys {
     position: relative;
 }
 
-#runesToggle,
-#achievementsToggle {
-    display: flex;
-    justify-content: center;
-    flex-flow: wrap;
-    margin: 15px 0 10px;
-    gap: 10px 15px;
-}
-
 .heptNotification {
     height: 20px;
     width: 20px;
-}
-
-#runesToggle > button,
-#achievementsToggle > button {
-    min-width: 100px;
-    text-align: center;
 }
 
 #offeringDetails,
@@ -2266,20 +2278,6 @@ p#transcendhotkeys {
 #challenges {
     position: relative;
     padding: 0;
-}
-
-#challengesTabsToggle {
-    display: flex;
-    justify-content: center;
-    flex-flow: wrap;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    gap: 10px 15px;
-}
-
-#challengesTabsToggle > button {
-    min-width: 100px;
-    text-align: center;
 }
 
 .singularityChallenges {
@@ -2782,20 +2780,6 @@ p#reincarnatehotkeys {
     margin: 0 auto;
 }
 
-#antSubtabs {
-    display: flex;
-    justify-content: center;
-    flex-flow: wrap;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    gap: 10px 15px;
-}
-
-#antSubtabs > button {
-    min-width: 100px;
-    text-align: center;
-}
-
 .antUpgrade:hover,
 .antBtn:hover {
     box-shadow:
@@ -3169,6 +3153,8 @@ p#reincarnatehotkeys {
 
 #cubes {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     position: relative;
 }
@@ -3184,14 +3170,6 @@ p#reincarnatehotkeys {
     align-items: center;
 }
 
-#wowCubeSidebarButtons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px 15px;
-    margin-bottom: 20px;
-}
-
 .cubesToQuark {
     display: flex;
     flex-direction: column;
@@ -3204,11 +3182,6 @@ p#reincarnatehotkeys {
     flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
-}
-
-.cubeSwitchTabBtn {
-    width: 12em;
-    min-width: 250px;
 }
 
 #wowCubeSidebar p {
@@ -4765,19 +4738,6 @@ header #obtainiumDisplay { color: pink; }
 #singularity {
     position: relative;
     padding: 0;
-    text-align: center;
-}
-
-#singularityTabsToggle {
-    display: flex;
-    justify-content: center;
-    flex-flow: wrap;
-    margin: 15px;
-    gap: 10px 15px;
-}
-
-#singularityTabsToggle > button {
-    min-width: 100px;
     text-align: center;
 }
 
@@ -6959,7 +6919,12 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     body {
-        overflow-x: auto;
+        overflow-x: hidden;
+    }
+
+    main {
+        overflow-x: hidden;
+        padding-top: 0;
     }
 
     /* Ascension stats - horizontally scrollable on mobile */
@@ -7001,15 +6966,28 @@ html[data-mobile="true"] .hideOnMobile {
 
     /* Sub tab wrappers */
     .subTabWrapper {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        width: 95%;
-        gap: 8px 10px;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
+        gap: 5px;
+        width: 100%;
+        margin: 0 auto 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background-color: var(--bg-color);
     }
 
-    .subTabWrapper > button {
+    .subTabWrapper > button,
+    .subTabWrapper > span > button {
         min-width: unset;
         width: 100%;
         font-size: 0.85em;
+        text-align: center;
+    }
+
+    .subTabHeaderDetails {
+        margin: 0 auto 10px;
     }
 
     /* Building rows */
@@ -7197,7 +7175,7 @@ html[data-mobile="true"] .hideOnMobile {
 
     #wowCubeSidebar {
         width: unset;
-        flex-direction: row;
+        flex-direction: column;
     }
 
     .cubeTab {
@@ -7484,18 +7462,8 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     /* Toggle buttons */
-    #runesToggle,
-    #achievementsToggle,
-    #challengesTabsToggle,
     #challengesAutoToggles {
         gap: 8px 10px;
-    }
-
-    #runesToggle > button,
-    #achievementsToggle > button,
-    #challengesTabsToggle > button {
-        min-width: 80px;
-        font-size: 0.85em;
     }
 
     /* Reset Subtabs */
@@ -7711,7 +7679,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     .subTabWrapper {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
         gap: 5px;
     }
 
@@ -8123,8 +8091,7 @@ html[data-mobile="true"] .hideOnMobile {
 @media (pointer: coarse) {
     button:not(.mobile-menu-toggle):not(.singularityUpgrade):not(.octeractUpgrade),
     .buildingPurchaseBtn,
-    nav button:not(.mobile-menu-toggle),
-    .subTabWrapper > button {
+    nav button:not(.mobile-menu-toggle) {
         min-height: 44px;
     }
 
@@ -8146,12 +8113,9 @@ html[data-mobile="true"] .hideOnMobile {
         gap: 10px;
     }
 
-    #runesToggle > button,
-    #achievementsToggle > button,
-    #challengesTabsToggle > button,
     #challengesAutoToggles > button {
         min-height: 44px;
-        padding: 8px 12px;
+        padding: 4px 8px;
     }
 
     #accountSubTab div#left.scrollbarX > div:is(#register, #login, #forgotpassword) {

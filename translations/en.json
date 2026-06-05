@@ -7248,7 +7248,7 @@
     "tesseracts": {
       "intro": "You obtain guidance from beings in another dimension!",
       "instructions": "Open up some Lootb-- er, Wow! Tesseracts, to boost tributes from the previous tier.",
-      "inventory": "You possess <<yellow|{{amount}}>> Wow! Tesseracts. Get them from ascending with at least 100,000 score!",
+      "inventory": "You possess <<yellow|{{amount}}>> Wow! Tesseracts.",
       "total": "You have a total of <<yellow|{{amount}}>> Tesseract gifts!",
       "items": {
         "1": "Hermes' Gift x{{amount}}: +{{bonus}} Hermes Accelerators",
@@ -7266,7 +7266,7 @@
     "hypercubes": {
       "intro": "I didn't know that Wow! enterprises made 5-Dimensional Objects.",
       "instructions": "Open up some Lootb-- er, Wow! Hypercubes, to boost gifts from the previous tier.",
-      "inventory": "You possess <<yellow|{{amount}}>> Wow! Hypercubes. Get them from ascending with at least 1e9 score!",
+      "inventory": "You possess <<yellow|{{amount}}>> Wow! Hypercubes.",
       "total": "You have a total of <<yellow|{{amount}}>> Hypercube benedictions!",
       "items": {
         "1": "Hermes' Benediction x{{amount}}: +{{bonus}} Hermes Gift → Hermes Accelerators",
@@ -7284,7 +7284,7 @@
     "platonics": {
       "intro": "This seems very familiar.",
       "instructions": "Open up some Lootb-- er, Platonic! Cubes, for epic perks!.",
-      "inventory": "You possess <<yellow|{{amount}}>> Wow! Platonic Cubes. Get them from ascending with at least 2.666e12 score!",
+      "inventory": "You possess <<yellow|{{amount}}>> Wow! Platonic Cubes.",
       "total": "You have a total of <<yellow|{{amount}}>> Platonic Cubes opened!",
       "items": {
         "1": "Cube Shard: x{{amount}}: +{{bonus}} Bonus Wow! Cubes",
