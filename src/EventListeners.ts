@@ -196,9 +196,8 @@ const defaultModalBuyButtons = () => [
 
 const modalBuyButtonsHTML = (buttons = defaultModalBuyButtons()) =>
   `<br><br><div class="modalButtonRow">${
-    buttons.map(({ action, label }) =>
-      `<button class="modalBtnBuy" data-modal-action="${action}">${label}</button>`
-    ).join('')
+    buttons.map(({ action, label }) => `<button class="modalBtnBuy" data-modal-action="${action}">${label}</button>`)
+      .join('')
   }</div>`
 
 const resetDetailsModalHTML = (input: resetNames, element: HTMLElement, label: string) => {
@@ -398,7 +397,9 @@ export const generateEventHandlers = () => {
       action: () => resetCheck('singularity'),
       borderColor: 'lightgoldenrodyellow'
     }
-  ] satisfies Array<{ id: string; input: resetNames; label: string; action: () => void | Promise<void>; borderColor: string }>
+  ] satisfies Array<
+    { id: string; input: resetNames; label: string; action: () => void | Promise<void>; borderColor: string }
+  >
 
   for (const reset of resetButtons) {
     const element = DOMCacheGetOrSet(reset.id)
@@ -1274,14 +1275,16 @@ TODO: Fix this entire tab it's utter shit
       element.addEventListener('click', (event) => {
         Modal(
           () =>
-            `${detailsHTML()}${modalBuyButtonsHTML([
-              {
-                action: 'toggle',
-                label: challenge.enabled
-                  ? i18next.t('singularityChallenge.modal.exit', { defaultValue: 'Exit EXALT' })
-                  : i18next.t('singularityChallenge.modal.enter', { defaultValue: 'Enter EXALT' })
-              }
-            ])}`,
+            `${detailsHTML()}${
+              modalBuyButtonsHTML([
+                {
+                  action: 'toggle',
+                  label: challenge.enabled
+                    ? i18next.t('singularityChallenge.modal.exit', { defaultValue: 'Exit EXALT' })
+                    : i18next.t('singularityChallenge.modal.enter', { defaultValue: 'Enter EXALT' })
+                }
+              ])
+            }`,
           event.clientX,
           event.clientY,
           style,

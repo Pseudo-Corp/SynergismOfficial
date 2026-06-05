@@ -2370,8 +2370,16 @@ export const updateMobileTalismanInventoryPurchaseInfo = (type: TalismanCraftIte
   DOMCacheGetOrSet(`mobileTalismanToBuyQuantity${type}`).textContent = i18next.t('general.buyCustom', {
     amount: format(talismanCostInfo.buyAmount, 0, false)
   })
-  DOMCacheGetOrSet(`mobileTalismanToBuyCostOffering${type}`).textContent = format(talismanCostInfo.offeringCost, 0, false)
-  DOMCacheGetOrSet(`mobileTalismanToBuyCostObtainium${type}`).textContent = format(talismanCostInfo.obtainiumCost, 0, false)
+  DOMCacheGetOrSet(`mobileTalismanToBuyCostOffering${type}`).textContent = format(
+    talismanCostInfo.offeringCost,
+    0,
+    false
+  )
+  DOMCacheGetOrSet(`mobileTalismanToBuyCostObtainium${type}`).textContent = format(
+    talismanCostInfo.obtainiumCost,
+    0,
+    false
+  )
 }
 
 export const buyAllTalismanResources = () => {

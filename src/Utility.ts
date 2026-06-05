@@ -1,8 +1,8 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import DOMPurify from 'dompurify'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { format } from './Synergism'
 import { platform } from './Config'
+import { format } from './Synergism'
 
 export const isDecimal = (o: unknown): o is Decimal =>
   o instanceof Decimal

@@ -686,12 +686,18 @@ export const visualUpdateAchievements = () => {
 
   const tnl = toNextAchievementLevelEXP()
 
-  DOMCacheGetOrSet('achievementprogress').textContent = i18next.t('achievements.achievementPoints', {
-    x: format(achievementPoints, 0, true)
-  })
-  DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t('achievements.achievementLevel', {
-    level: format(achievementLevel)
-  })
+  DOMCacheGetOrSet('achievementprogress').textContent = i18next.t(
+    isMobile ? 'achievements.achievementPointsMobile' : 'achievements.achievementPoints',
+    {
+      x: format(achievementPoints, 0, true)
+    }
+  )
+  DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t(
+    isMobile ? 'achievements.achievementLevelMobile' : 'achievements.achievementLevel',
+    {
+      level: format(achievementLevel)
+    }
+  )
   DOMCacheGetOrSet('achievementTNLText').innerHTML = i18next.t('achievements.achievementToNextLevel', {
     level: format(achievementLevel + 1),
     AP: format(tnl, 0, true)

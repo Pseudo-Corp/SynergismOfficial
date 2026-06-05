@@ -396,6 +396,7 @@
     }
   },
   "achievements": {
+    "showProgressDetails": "Show achievement progress details",
     "descriptions": {
       "0": "Achievement Hunter: Open the Achievements Screen.",
       "1": "A Loyal Employee: Hire your first Worker.",
@@ -2157,11 +2158,13 @@
     "ungroupedExtraRewards": "This Achievement has an additional reward!",
     "totalPoints": "Achievement Points: {{x}}/{{y}} [{{z}}%]",
     "achievementPoints": "You have {{x}} Achievement Points (AP)!",
+    "achievementPointsMobile": "Achievement Points (AP): {{x}}",
     "rewardGainMessage": "Reward: {{x}} AP. {{y}} Quarks! {{z}}",
     "completed": " COMPLETED!",
     "notification": "You unlocked an achievement: {{m}}",
     "quarkBonus": "Gain .01 Quark Multiplier per 500 AP! Quark Multiplier: <<cyan | x{{multiplier}}>>",
     "achievementLevel": "Based on your Achievement Points, you are at Synergism Level <span class=\"rainbowText\">{{level}}</span>",
+    "achievementLevelMobile": "Synergism Level <span class=\"rainbowText\">{{level}}</span>",
     "achievementToNextLevel": "Level {{level}} in {{AP}} AP",
     "levelUpNotification": "Level Up! Synergism Level {{old}} → {{new}}",
     "complete": " &nbsp;&nbsp; Tier {{tier}} (COMPLETE!)",

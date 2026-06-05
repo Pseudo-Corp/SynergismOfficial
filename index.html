@@ -519,12 +519,21 @@
         </div> 
 
         <div id="statistics" style="display: none;">
+            <div id="achievementsToggle">
+                <button id="toggleAchievementSubTab1" class="active-subtab" style="border: 2px solid gold" i18n="tabs.achievements.achievements"></button>
+                <button id="toggleAchievementSubTab2" style="border: 2px solid silver" i18n="tabs.achievements.rewards"></button>
+            </div>
             <div id="achievementHeader">
                 <div class="NotificationToggle">
                     <p class="mainText" id="achievementprogress" style="font-size: 1.2em;"></p>
                     <img class="achNotification" id="achnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
                     <button class="auto nonSquare" id="toggle34" toggleid="34" format="[$]" style="border: 2px solid green">[ON]</button>
-                    <button id="showAchievementProgress">🔎</button>
+                    <button id="showAchievementProgress" i18n-aria-label="achievements.showProgressDetails">
+                        <svg class="achievementSearchIcon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <circle cx="11" cy="11" r="6"></circle>
+                            <line x1="15.5" y1="15.5" x2="21" y2="21"></line>
+                        </svg>
+                    </button>
                 </div>
                 <p id="achievementQuarkBonus" style="color: goldenrod">-</p>
                 <div id="achievementTNLInfo" style="width: 25%">
@@ -533,10 +542,6 @@
                         <div id="achievementProgressFill" style="height: 100%; background: linear-gradient(45deg, #228B22, #32CD32, #228B22, #32CD32); background-size: 200% 200%; animation: gradientShift 2s ease-in-out infinite; width: 75%; transition: width 0.3s ease;"></div>
                     </div>
                 </div>
-            </div>
-            <div id="achievementsToggle">
-                <button id="toggleAchievementSubTab1" class="active-subtab" style="border: 2px solid gold" i18n="tabs.achievements.achievements"></button>
-                <button id="toggleAchievementSubTab2" style="border: 2px solid silver" i18n="tabs.achievements.rewards"></button>
             </div>
             <div id="achievementContainer1">
                 <div id="achievements">
@@ -3933,7 +3938,7 @@
 
         <div id="event">
             <div id="globalFreeEvents" class="event-container">
-                <h3 id="globalEventName" class="event-title" i18n="pseudoCoins.consumables.globalEvent"></h4>
+                <h3 id="globalEventName" class="event-title" i18n="pseudoCoins.consumables.globalEvent"></h3>
                 <div id="eventBuffContainer" class="temporaryBuffContainer">
                     <div class="eventBuffVal" id="eventBuffQuark">
                         <img src="Pictures/Default/Quark.png" i18n="general.resources.quarks">
@@ -3996,7 +4001,7 @@
             </div>
         
             <div id="consumableEvents" class="event-container">
-                <h3 class="event-title" i18n="pseudoCoins.consumables.eventTitle"></h4>
+                <h3 class="event-title" i18n="pseudoCoins.consumables.eventTitle"></h3>
                 <div id="event-bonus" i18n="pseudoCoins.consumables.currentAmountNone"></div>
                 <div id="event-timer"></div>
                 <div id="consumableBuffContainer" class="temporaryBuffContainer">
@@ -4063,8 +4068,8 @@
             </div>
 
             <div id="adEvents" class="event-container" style="display: none;">
-                <h3 class="event-title" i18n="advertisements.title"></h4>
-                <h4 class="event-title" i18n="advertisements.description"></h3>
+                <h3 class="event-title" i18n="advertisements.title"></h3>
+                <h4 class="event-title" i18n="advertisements.description"></h4>
                 <div id="adEventBuffContainer" class="temporaryBuffContainer">
                     <div class="eventBuffVal" id="adEventBuffQuark">
                         <img src="Pictures/Default/Quark.png" i18n="general.resources.quarks">

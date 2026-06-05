@@ -212,29 +212,36 @@ export const revealStuff = () => {
 
   for (const groupedAch of Object.keys(groupedAchievementData) as (Exclude<AchievementGroups, 'ungrouped'>)[]) {
     const capitalizedName = groupedAch.charAt(0).toUpperCase() + groupedAch.slice(1)
+    const img = DOMCacheGetOrSet(`achievementGroup${capitalizedName}`)
+    const shouldDisplay = groupedAchievementData[groupedAch].displayCondition() || player.highestSingularityCount > 0
 
-    DOMCacheGetOrSet(`achievementGroup${capitalizedName}`).style.display =
-      (groupedAchievementData[groupedAch].displayCondition() || player.highestSingularityCount > 0)
-        ? 'block'
-        : 'none'
+    img.style.display = shouldDisplay ? 'block' : 'none'
+    if (img.parentElement) {
+      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
+    }
   }
 
   for (const ungroupedAch of Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]) {
     const capitalizedName = ungroupedAch.charAt(0).toUpperCase() + ungroupedAch.slice(1)
+    const img = DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`)
+    const shouldDisplay = ungroupedAchievementData[ungroupedAch].displayCondition()
+      || player.highestSingularityCount > 0
 
-    DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`).style.display =
-      (ungroupedAchievementData[ungroupedAch].displayCondition() || player.highestSingularityCount > 0)
-        ? 'block'
-        : 'none'
+    img.style.display = shouldDisplay ? 'block' : 'none'
+    if (img.parentElement) {
+      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
+    }
   }
 
   for (const progAch of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
     const capitalizedName = progAch.charAt(0).toUpperCase() + progAch.slice(1)
+    const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`)
+    const shouldDisplay = progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0
 
-    DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`).style.display =
-      (progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0)
-        ? 'block'
-        : 'none'
+    img.style.display = shouldDisplay ? 'block' : 'none'
+    if (img.parentElement) {
+      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
+    }
   }
 
   for (const rune of Object.keys(player.runes) as RuneKeys[]) {
@@ -582,12 +589,18 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('statistics').style.display = 'block'
     DOMCacheGetOrSet('achievementstab').style.backgroundColor = tabColors[Tabs.Achievements]!
     DOMCacheGetOrSet('achievementstab').style.color = 'black'
-    DOMCacheGetOrSet('achievementprogress').textContent = i18next.t('achievements.achievementPoints', {
-      x: format(achievementPoints)
-    })
-    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t('achievements.achievementLevel', {
-      level: format(achievementLevel)
-    })
+    DOMCacheGetOrSet('achievementprogress').textContent = i18next.t(
+      isMobile ? 'achievements.achievementPointsMobile' : 'achievements.achievementPoints',
+      {
+        x: format(achievementPoints)
+      }
+    )
+    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t(
+      isMobile ? 'achievements.achievementLevelMobile' : 'achievements.achievementLevel',
+      {
+        level: format(achievementLevel)
+      }
+    )
     DOMCacheGetOrSet('achievementTNLText').innerHTML = i18next.t('achievements.achievementToNextLevel', {
       level: format(achievementLevel + 1),
       AP: format(toNextAchievementLevelEXP(), 0, true)
@@ -1531,7 +1544,7 @@ export const Modal = (
         ? event.target.closest('button')
         : null
       if (button && modalContent.contains(button)) {
-        modalOptions.buttonClick?.(button as HTMLButtonElement, event)
+        modalOptions.buttonClick?.(button, event)
       }
     }
     : null

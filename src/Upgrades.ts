@@ -879,11 +879,7 @@ const constantUpgradeDescriptionData = (i: number) => {
 export const constantUpgradeHTML = (i: number) => {
   const data = constantUpgradeDescriptionData(i)
 
-  return `${
-    data.description
-  }<br><br>Current Level: <span class="orchidText">${data.level}</span><br>Cost: <span class="orchidText">${
-    data.cost
-  }</span> from your Constant<br>Current Effect: <span class="orchidText">${data.effect}</span>`
+  return `${data.description}<br><br>Current Level: <span class="orchidText">${data.level}</span><br>Cost: <span class="orchidText">${data.cost}</span> from your Constant<br>Current Effect: <span class="orchidText">${data.effect}</span>`
 }
 
 export const constantUpgradeDescriptions = (i: number) => {

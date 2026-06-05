@@ -2,6 +2,8 @@ import i18next from 'i18next'
 import { achievementLevel } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format, formatAsPercentIncrease, player } from './Synergism'
+import { CloseModal, MEDIUM_MODAL_UPDATE_TICK, Modal } from './UpdateHTML'
+import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
 
 type SynergismLevelReward =
@@ -232,6 +234,52 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
 
 const synergismLevelReward = Object.keys(synergismLevelRewards) as SynergismLevelReward[]
 
+const createLevelDetailsModalHTML = (
+  imgSrc: string,
+  label: string,
+  titleColor: string,
+  detailsHTML: string
+) => {
+  return `<div class="achievementDetailsModal" data-modal-preserve="children">
+    <div class="achievementDetailsModalTitle" data-modal-preserve="children">
+      <img src="${imgSrc}" alt="">
+      <span style="color:${titleColor}">${label}</span>
+    </div>
+    <div class="achievementDetailsModalInfo">${detailsHTML}</div>
+  </div>`
+}
+
+const registerLevelDetailsModal = (
+  img: HTMLImageElement,
+  detailsHTML: () => string,
+  borderColor: string,
+  titleColor: string
+) => {
+  if (!isMobile) {
+    img.addEventListener('mousemove', (event: MouseEvent) => {
+      Modal(detailsHTML, event.clientX, event.clientY, { borderColor })
+    })
+    img.addEventListener('focus', () => {
+      const rect = img.getBoundingClientRect()
+      Modal(detailsHTML, rect.x, rect.y + rect.height / 2, { borderColor })
+    })
+    img.addEventListener('mouseout', CloseModal)
+    img.addEventListener('blur', CloseModal)
+    return
+  }
+
+  img.addEventListener('click', (event: MouseEvent) => {
+    Modal(
+      () => createLevelDetailsModalHTML(img.src, img.alt, titleColor, detailsHTML()),
+      event.clientX,
+      event.clientY,
+      { borderColor },
+      MEDIUM_MODAL_UPDATE_TICK,
+      img
+    )
+  })
+}
+
 export const getLevelReward = (reward: SynergismLevelReward): number => {
   if (achievementLevel >= synergismLevelRewards[reward].minLevel) {
     return synergismLevelRewards[reward].effect(achievementLevel)
@@ -252,12 +300,10 @@ const getLevelRewardDescription = (reward: SynergismLevelReward) => {
 
   const nameColor = synergismLevelRewards[reward].nameColor
 
-  DOMCacheGetOrSet('synergismLevelMultiLine').innerHTML = `
-        <span style="color:${nameColor}">${name}</span><br>
-        ${minimumLevel}<br>
-        ${description}<br>
-        ${effectDesc}
-    `
+  return `<span style="color:${nameColor}">${name}</span><br>
+  ${minimumLevel}<br>
+  ${description}<br>
+  ${effectDesc}`
 }
 
 export const generateLevelRewardHTMLs = () => {
@@ -277,12 +323,14 @@ export const generateLevelRewardHTMLs = () => {
     img.src = `Pictures/Achievements/Rewards/${capitalizedName}.png`
     img.alt = synergismLevelRewards[reward].name()
     img.style.cursor = 'pointer'
+    img.tabIndex = 0
 
-    const boundGetLevelRewardDescription = getLevelRewardDescription.bind(null, reward)
-
-    img.addEventListener('click', boundGetLevelRewardDescription)
-    img.addEventListener('mouseover', boundGetLevelRewardDescription)
-    img.addEventListener('focus', boundGetLevelRewardDescription)
+    registerLevelDetailsModal(
+      img,
+      () => getLevelRewardDescription(reward),
+      synergismLevelRewards[reward].nameColor,
+      synergismLevelRewards[reward].nameColor
+    )
     div.appendChild(img)
     rewardTable.appendChild(div)
   }
@@ -661,12 +709,10 @@ const getLevelMilestoneDescription = (milestone: SynergismLevelMilestones) => {
     level: synergismLevelMilestones[milestone].levelReq
   })
 
-  DOMCacheGetOrSet('synergismLevelMultiLine').innerHTML = `
-        <span style="color:lightblue">${name}</span><br>
-        ${minimumLevel}<br>
-        ${description}<br>
-        ${effectDesc}
-    `
+  return `<span style="color:lightblue">${name}</span><br>
+  ${minimumLevel}<br>
+  ${description}<br>
+  ${effectDesc}`
 }
 
 export const generateLevelMilestoneHTMLS = () => {
@@ -686,12 +732,9 @@ export const generateLevelMilestoneHTMLS = () => {
     img.src = `Pictures/Achievements/Milestones/${capitalizedName}.png`
     img.alt = synergismLevelMilestones[milestone].name()
     img.style.cursor = 'pointer'
+    img.tabIndex = 0
 
-    const boundGetLevelMilestoneDescription = getLevelMilestoneDescription.bind(null, milestone)
-
-    img.addEventListener('click', boundGetLevelMilestoneDescription)
-    img.addEventListener('mouseover', boundGetLevelMilestoneDescription)
-    img.addEventListener('focus', boundGetLevelMilestoneDescription)
+    registerLevelDetailsModal(img, () => getLevelMilestoneDescription(milestone), 'lightblue', 'lightblue')
     div.appendChild(img)
     rewardTable.appendChild(div)
   }
@@ -704,10 +747,10 @@ export const displayLevelStuff = () => {
     const capitalizedName = key.charAt(0).toUpperCase() + key.slice(1)
     const id = `synergismLevelReward${capitalizedName}`
     const element = DOMCacheGetOrSet(id)
-    if (achievementLevel >= synergismLevelRewards[key].minLevel) {
-      element.style.display = 'inline-block'
-    } else {
-      element.style.display = 'none'
+    const shouldDisplay = achievementLevel >= synergismLevelRewards[key].minLevel
+    element.style.display = shouldDisplay ? 'inline-block' : 'none'
+    if (element.parentElement) {
+      element.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
     }
   }
 
@@ -715,10 +758,10 @@ export const displayLevelStuff = () => {
     const capitalizedName = key.charAt(0).toUpperCase() + key.slice(1)
     const id = `synergismLevelMilestone${capitalizedName}`
     const element = DOMCacheGetOrSet(id)
-    if (achievementLevel >= synergismLevelMilestones[key].levelReq) {
-      element.style.display = 'inline-block'
-    } else {
-      element.style.display = 'none'
+    const shouldDisplay = achievementLevel >= synergismLevelMilestones[key].levelReq
+    element.style.display = shouldDisplay ? 'inline-block' : 'none'
+    if (element.parentElement) {
+      element.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
     }
   }
 }
