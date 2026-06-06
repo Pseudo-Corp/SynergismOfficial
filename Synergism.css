@@ -3617,8 +3617,22 @@ p#ascendHotKeys {
     display: none;
 }
 
+html[data-mobile="true"] #statisticsSubTab > .statContainer {
+    display: none !important;
+}
+
 #miscStats {
     display: block;
+}
+
+.statsNerdsModal {
+    width: 100%;
+}
+
+.statsNerdsModal .statPortion {
+    width: 100%;
+    min-width: unset;
+    overflow-wrap: anywhere;
 }
 
 .statPortion {
@@ -8144,17 +8158,18 @@ html[data-mobile="true"] .hideOnMobile {
     /* Stats for nerds */
     #statsForNerds {
         min-width: unset;
-        max-width: 50%;
+        width: 95%;
+        max-width: 500px;
         align-items: stretch;
-        flex-direction: column;
     }
 
     #summaryGeneration {
-        width: unset !important;
+        width: calc(50% - 8px) !important;
     }
 
     #statsForNerds > button {
-        width: 100%;
+        width: calc(50% - 8px);
+        min-width: unset;
     }
 
     #wowCubeSidebar {
