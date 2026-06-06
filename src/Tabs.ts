@@ -1,7 +1,6 @@
 import i18next from 'i18next'
 import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
-import { platform } from './Config'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { pressedKeys } from './Hotkeys'
 import { hasUnreadMessages } from './Messages'
@@ -325,17 +324,17 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'consumablesSection',
-        unlocked: () => platform !== 'mobile',
+        unlocked: () => PLATFORM !== 'mobile',
         buttonID: 'cartSubTab4'
       },
       {
         subTabID: 'cartContainer',
-        unlocked: () => platform !== 'mobile',
+        unlocked: () => PLATFORM !== 'mobile',
         buttonID: 'cartSubTab5'
       },
       {
         subTabID: 'merchContainer',
-        unlocked: () => platform === 'browser', // Steam disallows purchases outside of the Steam ecosystem
+        unlocked: () => PLATFORM === 'browser', // Steam disallows purchases outside of the Steam ecosystem
         buttonID: 'cartSubTab6'
       }
     ]
@@ -765,7 +764,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
     }
   }
 
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     import('./steam/discord').then(({ setRichPresenceDiscord }) => {
       const i18n = tabRow.getCurrentTab().getAttribute('i18n')
       setRichPresenceDiscord({

@@ -1,7 +1,6 @@
 import { Capacitor } from '@capacitor/core'
 import { Platform, ProductType, store, type Transaction } from 'capacitor-plugin-cdv-purchase'
 import i18next from 'i18next'
-import { platform } from '../Config'
 import { bus } from '../events/bus'
 import { CartTab, coinProducts, subscriptionProducts } from '../purchases/CartTab'
 import { updatePseudoCoins } from '../purchases/UpgradesSubtab'
@@ -85,7 +84,7 @@ async function getStoreUuid (): Promise<string | null> {
 }
 
 export async function orderProduct (lookupKey: string): Promise<void> {
-  if (platform !== 'mobile') return
+  if (PLATFORM !== 'mobile') return
   await initStore()
   const product = store.get(toStoreProductId(lookupKey), storePlatform)
 
@@ -121,7 +120,7 @@ export async function orderProduct (lookupKey: string): Promise<void> {
   }
 }
 
-if (platform === 'mobile') {
+if (PLATFORM === 'mobile') {
   bus.addEventListener('subscription:order', (event) => {
     orderProduct(event.detail.lookupKey).catch((e) => {
       console.error('Failed to order subscription', e)

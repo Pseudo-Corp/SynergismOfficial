@@ -79,7 +79,6 @@ import {
   derpsmithCornucopiaBonus
 } from './Calculate'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
-import { prod } from './Config'
 import {
   calculateAntELOCubeBlessing,
   calculateAntSpeedCubeBlessing,
@@ -3849,7 +3848,7 @@ const loadStatistics = (
     const num = line.stat()
 
     const displayLine = displayStatLine(statsObj.type, num, line.displayCriterion)
-    if (displayLine || !prod) {
+    if (displayLine || !PROD) {
       statLine.style.display = 'block'
       statLine.style.backgroundColor = backgroundColors[numberDisplayedLines % backgroundColors.length]
       if (!displayLine) {

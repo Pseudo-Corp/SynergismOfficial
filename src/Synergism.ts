@@ -184,7 +184,7 @@ import {
   updateMaxTokens,
   updateTokens
 } from './Campaign'
-import { dev, lastUpdated, platform, prod, testing, ticksPerSecond, version } from './Config'
+import { lastUpdated, testing, ticksPerSecond, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
 import { initMobileStorage, storageGetItem, storageSetItem } from './events/storage-events'
@@ -1291,7 +1291,7 @@ export const saveSynergy = (button?: boolean) => {
   }
 
   // Auto-sync to Steam Cloud (throttled to every 60 seconds, or immediately on manual save)
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     const now = Date.now()
     if (button || now - lastSteamCloudSync >= 60_000) {
       lastSteamCloudSync = now
@@ -1305,6 +1305,10 @@ export const saveSynergy = (button?: boolean) => {
 let lastSteamCloudSync = 0
 
 async function syncToSteamCloud (saveData: string) {
+  if (PLATFORM !== 'steam') {
+    return
+  }
+
   const { cloudFileExists, cloudReadFile, cloudWriteFile, getSteamId } = await import('./steam/steam')
   const steamId = await getSteamId()
   if (!steamId) return
@@ -5160,7 +5164,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
 }
 
 window.addEventListener('load', async () => {
-  if (dev || testing) {
+  if (DEV || testing) {
     const { worker } = await import('./mock/browser')
     await worker.start({
       serviceWorker: {
@@ -5171,7 +5175,7 @@ window.addEventListener('load', async () => {
 
   document.documentElement.dataset.mobile = `${isMobile}`
 
-  if (platform === 'mobile') {
+  if (PLATFORM === 'mobile') {
     await initMobileStorage()
     const [{ bindMobileFormHandlers }, { initMobilePurchases }, { rewardVideo }] = await Promise.all([
       import('./mobile/auth'),
@@ -5254,7 +5258,7 @@ window.addEventListener('load', async () => {
 
   reloadShit()
 
-  if (testing || !prod) {
+  if (testing || !PROD) {
     Object.defineProperties(window, {
       player: { value: player },
       G: { value: G },
@@ -5263,7 +5267,7 @@ window.addEventListener('load', async () => {
     })
   }
 
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     const { setRichPresenceDiscord, getDiscordRpcEnabled, setDiscordRpcEnabled } = await import('./steam/discord')
 
     setRichPresenceDiscord({

@@ -1,4 +1,3 @@
-import { platform } from '../Config'
 import { bus } from './bus'
 
 export class StorageRetrieveEvent<R = string> extends CustomEvent<{ key: string }> {
@@ -20,6 +19,10 @@ export const storageSetItem = (key: string, value: string) => {
 }
 
 export const initMobileStorage = async () => {
+  if (PLATFORM !== 'mobile') {
+    return
+  }
+
   const { Preferences } = await import('@capacitor/preferences')
   const { keys } = await Preferences.keys()
   await Promise.all(keys.map(async (key: string) => {
@@ -32,7 +35,7 @@ bus.addEventListener('storage:get', (event) => {
   event.value = localStorage.getItem(event.detail.key)
 })
 
-if (platform === 'mobile') {
+if (PLATFORM === 'mobile') {
   bus.addEventListener('storage:save', (event) => {
     localStorage.setItem(event.detail.key, event.detail.value)
     import('@capacitor/preferences').then(({ Preferences }) => {
