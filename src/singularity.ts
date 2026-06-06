@@ -3477,6 +3477,26 @@ export const getLastUpgradeInfo = (
   return { level: 0, singularity: perk.levels[0], next: perk.levels[0] }
 }
 
+export const singularityPerkModalHTML = (perk: SingularityPerk, imageSrc: string): string => {
+  const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
+  const levelInfo = i18next.t('singularity.perks.levelInfo', {
+    level: perkInfo.level,
+    singularity: perkInfo.singularity
+  })
+
+  return `<div class="singularityPerkModal" data-modal-preserve="children">
+    <div class="singularityPerkModalTitle" data-modal-preserve="children">
+      <img src="${imageSrc}" alt="" data-modal-preserve="children">
+      <span>${perk.name()}</span>
+    </div>
+    <div class="singularityPerkModalLevel">${levelInfo}</div>
+    <div class="singularityPerkModalDescription">${perk.description(
+      player.highestSingularityCount,
+      perk.levels
+    )}</div>
+  </div>`
+}
+
 const handlePerks = (singularityCount: number) => {
   const availablePerks: ISingularityPerkDisplayInfo[] = []
   let singularityCountForNextPerk: number | null = null

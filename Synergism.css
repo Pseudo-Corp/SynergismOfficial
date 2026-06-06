@@ -5163,6 +5163,38 @@ img#singularityPerksIcon {
     margin-top: 5px;
 }
 
+.singularityPerkModal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.singularityPerkModalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: gold;
+    font-size: 1.1em;
+    flex-wrap: wrap;
+}
+
+.singularityPerkModalTitle img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.singularityPerkModalLevel {
+    color: lightgoldenrodyellow;
+}
+
+.singularityPerkModalDescription {
+    line-height: 1.35;
+    white-space: pre-line;
+}
+
 #octeractUpgradeValues,
 #ambrosiaUpgradeValues {
     width: 100%;
@@ -7324,6 +7356,11 @@ html[data-mobile="true"] .hideOnMobile {
     #singularityPerksGrid {
         grid-template-columns: repeat(2, 50%);
         grid-gap: unset;
+    }
+
+    #singualrityPerksInfo,
+    #singularityPerksDesc {
+        display: none;
     }
 
     #singularityPerksDesc {

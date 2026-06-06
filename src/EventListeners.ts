@@ -121,6 +121,7 @@ import {
   goldenQuarkUpgrades,
   type SingularityDataKeys,
   singularityPerks,
+  singularityPerkModalHTML,
   teleportToSingularity,
   updateSingularityElevator,
   upgradeGQToString
@@ -1329,18 +1330,34 @@ TODO: Fix this entire tab it's utter shit
   const perksDesc = DOMCacheGetOrSet('singularityPerksDesc')
   for (const perk of singularityPerks) {
     const perkHTML = document.createElement('span')
-    perkHTML.innerHTML = `<img src="Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png">${perk.name()}`
+    const perkIconSrc = () => `Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png`
+    perkHTML.innerHTML = `<img src="${perkIconSrc()}">${perk.name()}`
     perkHTML.id = perk.ID
     perkHTML.classList.add('oldPerk')
     perkHTML.style.display = 'none' // Ensure the perk is hidden if not unlocked as an anti-spoiler failsafe.
     DOMCacheGetOrSet('singularityPerksGrid').append(perkHTML)
-    DOMCacheGetOrSet(perk.ID).addEventListener('mouseover', () => {
+    const singularityPerkElement = DOMCacheGetOrSet(perk.ID)
+    if (isMobile) {
+      singularityPerkElement.addEventListener('click', (event) => {
+        Modal(
+          () => singularityPerkModalHTML(perk, perkIconSrc()),
+          event.clientX,
+          event.clientY,
+          { borderColor: 'gold' },
+          MEDIUM_MODAL_UPDATE_TICK,
+          singularityPerkElement
+        )
+      })
+      continue
+    }
+
+    singularityPerkElement.addEventListener('mouseover', () => {
       const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
       const levelInfo = i18next.t('singularity.perks.levelInfo', {
         level: perkInfo.level,
         singularity: perkInfo.singularity
       })
-      perkImage.src = `Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png`
+      perkImage.src = perkIconSrc()
       perksText.innerHTML = levelInfo
       perksDesc.innerHTML = perk.description(
         player.highestSingularityCount,
