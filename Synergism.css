@@ -4043,6 +4043,39 @@ p#ascendHotKeys {
     margin-bottom: 1px;
 }
 
+.campaignTokenRewardModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    line-height: 1.25;
+}
+
+.campaignTokenRewardModal img {
+    width: 48px;
+    height: 48px;
+}
+
+.campaignTokenRewardModalInfo {
+    width: 100%;
+}
+
+.campaignTokenRewardSumModal {
+    align-items: stretch;
+    gap: 8px;
+}
+
+.campaignTokenRewardSumModal > div {
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgb(255 255 255 / 20%);
+}
+
+.campaignTokenRewardSumModal > div:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
 #traits {
     justify-content: center;
     align-items: start;
