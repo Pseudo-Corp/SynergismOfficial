@@ -2,7 +2,6 @@ import { SignInWithApple } from '@capacitor-community/apple-sign-in'
 import { Capacitor } from '@capacitor/core'
 import { SocialLogin } from '@capgo/capacitor-social-login'
 import i18next from 'i18next'
-import { platform } from '../Config'
 import { Alert } from '../UpdateHTML'
 import { displayHTMLError, memoize } from '../Utility'
 
@@ -141,7 +140,7 @@ const replaceSubmitWithProviderButton = (
 }
 
 export const bindMobileFormHandlers = memoize(() => {
-  if (platform !== 'mobile') return
+  if (PLATFORM !== 'mobile') return
 
   const actionAttr = useGoogle ? 'data-google-action' : 'data-apple-action'
   const applyStyles = useGoogle ? applyGoogleButtonStyles : applyAppleButtonStyles

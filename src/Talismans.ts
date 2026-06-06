@@ -3,7 +3,6 @@ import i18next from 'i18next'
 import { achievementPoints, awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
-import { platform } from './Config'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
@@ -2426,7 +2425,7 @@ export const buyTalismanResources = (
       player.offerings = new Decimal(0)
     }
   }
-  if (platform !== 'mobile') {
+  if (PLATFORM !== 'mobile') {
     updateTalismanCostDisplay(type, obtainiumBudget, offeringBudget)
   } else {
     updateMobileTalismanInventoryPurchaseInfo(type)

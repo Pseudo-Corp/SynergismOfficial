@@ -1,6 +1,5 @@
 import i18next, { type Resource } from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { prod } from './Config'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import ColorTextPlugin from './Plugins/ColorText'
 import StatSymbolsPlugin from './Plugins/StatSymbols'
@@ -47,7 +46,7 @@ export const init = async (): Promise<void> => {
   await i18next.use(StatSymbolsPlugin).use(ColorTextPlugin).init({
     lng: language,
     fallbackLng: 'en',
-    debug: !prod,
+    debug: !PROD,
     resources,
     postProcess: ['StatSymbols', 'ColorText'],
     // crowdin returns an empty string when a translation for

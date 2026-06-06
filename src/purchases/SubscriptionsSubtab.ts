@@ -1,6 +1,6 @@
 import { type FUNDING_SOURCE, loadScript } from '@paypal/paypal-js'
 import i18next from 'i18next'
-import { isSynergismCC, platform, prod } from '../Config'
+import { isSynergismCC } from '../Config'
 import { bus, SynEvent } from '../events/bus'
 import { getSubMetadata, type SubscriptionMetadata, type SubscriptionProvider } from '../Login'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
@@ -95,7 +95,7 @@ async function changeSubscription (
     return
   }
 
-  const apiLink = prod ? prodRouteLinks[sub.provider][type] : devRouteLinks[sub.provider][type]
+  const apiLink = PROD ? prodRouteLinks[sub.provider][type] : devRouteLinks[sub.provider][type]
   const url = new URL(apiLink)
   url.searchParams.set('product', productId)
 
@@ -126,7 +126,7 @@ async function manageSubscription (provider: SubscriptionProvider) {
     return
   }
 
-  const link = prod ? prodRouteLinks[provider].manage : devRouteLinks[provider].manage
+  const link = PROD ? prodRouteLinks[provider].manage : devRouteLinks[provider].manage
 
   location.href = link
 }
@@ -144,7 +144,7 @@ async function cancelSubscription (provider: SubscriptionProvider) {
     return
   }
 
-  const link = prod ? prodRouteLinks[provider].cancel : devRouteLinks[provider].cancel
+  const link = PROD ? prodRouteLinks[provider].cancel : devRouteLinks[provider].cancel
   const url = new URL(link)
 
   const response = await fetch(url, {
@@ -197,7 +197,7 @@ function clickHandler (this: HTMLButtonElement) {
     }
   }
 
-  if (platform === 'mobile') {
+  if (PLATFORM === 'mobile') {
     bus.dispatchEvent(new SynEvent('subscription:order', { lookupKey: productId }))
     return
   }
@@ -239,13 +239,13 @@ const createSubscriptionTierName = (product: SubscriptionProduct) => {
 }
 
 const noSubscriptionButton = (product: SubscriptionProduct) => {
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     return `<button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton steamSubscribeButton">
       Subscribe with Steam - ${formatter.format(product.price / 100)} USD / mo
     </button>`
   }
 
-  if (platform === 'mobile') {
+  if (PLATFORM === 'mobile') {
     return `<button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton">
       Subscribe - ${formatter.format(product.price / 100)} USD / mo
     </button>`
@@ -284,7 +284,7 @@ const upgradeButton = (product: SubscriptionProduct, currentSubTier: number) => 
 const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentSubTier: number) => {
   const sub = getSubMetadata()
   const notSubbed = sub === null
-  const subManageable = platform === 'mobile'
+  const subManageable = PLATFORM === 'mobile'
     ? sub?.provider === 'apple'
     : sub?.provider === 'stripe' || sub?.provider === 'paypal'
   const nameHTML = createSubscriptionTierName(product)
@@ -347,12 +347,12 @@ const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
 
   const subscriptionCancelButtons = manageSubscriptionHolder.querySelectorAll<HTMLElement>('.subscriptionCancel')
 
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     manageSubscriptionHolder.classList.add('none')
     return
   }
 
-  if (platform === 'mobile') {
+  if (PLATFORM === 'mobile') {
     patreonManageForm.style.display = 'none'
     stripeManageForm.style.display = 'none'
     paypalManageForm.style.display = 'none'
@@ -368,7 +368,10 @@ const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
 }
 
 async function submitSubscriptionSteam (productId: string) {
-  assert(platform === 'steam')
+  if (PLATFORM !== 'steam') {
+    return
+  }
+
   const { submitSteamMicroTxn } = await import('../steam/microtxn')
 
   const fd = new FormData()
@@ -384,7 +387,7 @@ async function submitSubscriptionSteam (productId: string) {
 }
 
 function initializeSteamSubscriptionButtons () {
-  assert(platform === 'steam')
+  assert(PLATFORM === 'steam')
   document.querySelectorAll<HTMLButtonElement>('.steamSubscribeButton').forEach((button) => {
     button.addEventListener('click', function(this: HTMLButtonElement) {
       const productId = this.getAttribute('data-id')!
@@ -418,9 +421,9 @@ const initializeSubscriptionPage = memoize(() => {
     }
   )
 
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     initializeSteamSubscriptionButtons()
-  } else if (platform === 'browser') {
+  } else if (PLATFORM === 'browser') {
     initializePayPal_Subscription()
   }
 })
@@ -445,9 +448,9 @@ const updateSubscriptionPage = () => {
       }
     )
 
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     initializeSteamSubscriptionButtons()
-  } else if (platform === 'browser') {
+  } else if (PLATFORM === 'browser') {
     initializePayPal_Subscription()
   }
 }
@@ -456,7 +459,7 @@ const updateSubscriptionPage = () => {
  * https://stackoverflow.com/a/69024269
  */
 export const initializePayPal_Subscription = async () => {
-  assert(platform === 'browser')
+  assert(PLATFORM === 'browser')
 
   const paypal = await loadScript({
     clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',

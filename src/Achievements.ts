@@ -21,6 +21,7 @@ import type { resetNames } from './types/Synergism'
 import { CloseModal, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification, revealStuff } from './UpdateHTML'
 import { isMobile, sumContents } from './Utility'
 import { Globals as G } from './Variables'
+import { resetTiers } from './Reset'
 
 const achievementProgressSelectors = [
   '.tieredAchievementType',
@@ -3554,13 +3555,10 @@ export const updateAchievementPoints = (sourcedFromUpdate = false) => {
   updateAchievementLevel(sourcedFromUpdate)
 }
 
-import { platform } from './Config'
-import { resetTiers } from './Reset'
-
 const unlockedSteamAchievements = new Set<string>()
 
 const unlockSteamAchievement = async (steamAchievementId: string): Promise<void> => {
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     if (unlockedSteamAchievements.has(steamAchievementId)) {
       return // Prevent unnecessary calls to Steam
     }
@@ -3580,7 +3578,7 @@ const unlockSteamAchievement = async (steamAchievementId: string): Promise<void>
  * Call this after loading a save to ensure Steam achievements match game state.
  */
 export const syncSteamAchievements = async (): Promise<void> => {
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     unlockedSteamAchievements.clear()
 
     const unlockPromises: Promise<unknown>[] = []

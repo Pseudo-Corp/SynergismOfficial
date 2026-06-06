@@ -79,7 +79,6 @@ import {
   derpsmithCornucopiaBonus
 } from './Calculate'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
-import { prod } from './Config'
 import {
   calculateAntELOCubeBlessing,
   calculateAntSpeedCubeBlessing,
@@ -148,7 +147,8 @@ import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talismans'
 import type { GlobalVariables } from './types/Synergism'
-import { sumContents } from './Utility'
+import { isMobile, sumContents } from './Utility'
+import { MEDIUM_MODAL_UPDATE_TICK, Modal } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
 enum StatLineTypes {
@@ -3663,8 +3663,20 @@ const associated = new Map<string, string>([
   ['kShopVouchers', 'shopVoucherStats']
 ])
 
+const mobileStatsModalHTML = (statsId: string) => {
+  const statsClone = DOMCacheGetOrSet(statsId).cloneNode(true) as HTMLElement
+  statsClone.removeAttribute('id')
+  statsClone.classList.remove('statContainer', 'activeStats')
+  for (const element of statsClone.querySelectorAll('[id]')) {
+    element.removeAttribute('id')
+  }
+
+  return `<div class="statsNerdsModal">${statsClone.innerHTML}</div>`
+}
+
 export const displayStats = (btn: HTMLElement) => {
   const children = btn.parentElement ? btn.parentElement.querySelectorAll<HTMLElement>('.statsNerds') : []
+  const activeStatsId = associated.get(btn.id)
 
   for (const e of children) {
     const statsEl = DOMCacheGetOrSet(associated.get(e.id)!)
@@ -3677,6 +3689,18 @@ export const displayStats = (btn: HTMLElement) => {
       statsEl.style.display = 'block'
       statsEl.classList.add('activeStats')
     }
+  }
+
+  if (isMobile && activeStatsId) {
+    loadStatisticsUpdate()
+    Modal(
+      () => mobileStatsModalHTML(activeStatsId),
+      0,
+      0,
+      { borderColor: getComputedStyle(btn).borderColor },
+      MEDIUM_MODAL_UPDATE_TICK,
+      btn
+    )
   }
 }
 
@@ -3849,7 +3873,7 @@ const loadStatistics = (
     const num = line.stat()
 
     const displayLine = displayStatLine(statsObj.type, num, line.displayCriterion)
-    if (displayLine || !prod) {
+    if (displayLine || !PROD) {
       statLine.style.display = 'block'
       statLine.style.backgroundColor = backgroundColors[numberDisplayedLines % backgroundColors.length]
       if (!displayLine) {

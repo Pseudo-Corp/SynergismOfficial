@@ -1,4 +1,3 @@
-import { platform } from '../Config'
 import { format } from '../Synergism'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
@@ -21,7 +20,7 @@ const clickHandler = async (e: HTMLElementEventMap['click']) => {
     return
   }
 
-  if (platform === 'mobile') {
+  if (PLATFORM === 'mobile') {
     const { orderProduct } = await import('../mobile/microtxn')
     await orderProduct(productId)
     return

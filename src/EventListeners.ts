@@ -121,6 +121,7 @@ import {
   goldenQuarkUpgrades,
   type SingularityDataKeys,
   singularityPerks,
+  singularityPerkModalHTML,
   teleportToSingularity,
   updateSingularityElevator,
   upgradeGQToString
@@ -1319,19 +1320,37 @@ TODO: Fix this entire tab it's utter shit
     if (shopItem.type === shopUpgradeTypes.UPGRADE) {
       const boundShopDescriptions = shopDescriptions.bind(null, key)
       const boundCreateShopHTML = createShopHTML.bind(null, key)
-      DOMCacheGetOrSet(key).addEventListener(
-        'mousemove',
-        (e) => Modal(boundCreateShopHTML, e.clientX, e.clientY, { borderColor: 'cyan' })
-      )
-      DOMCacheGetOrSet(key).addEventListener('focus', function(this: HTMLElement) {
-        const elmRect = this.getBoundingClientRect()
-        Modal(boundCreateShopHTML, elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'cyan' })
-      })
-      DOMCacheGetOrSet(key).addEventListener('mouseout', CloseModal)
-      DOMCacheGetOrSet(key).addEventListener('blur', CloseModal)
-      DOMCacheGetOrSet(key).addEventListener('mouseover', boundShopDescriptions)
-      DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', boundShopDescriptions)
-      DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', boundShopDescriptions)
+
+      if (isMobile) {
+        const showMobileShopModal = (event: MouseEvent) => {
+          boundShopDescriptions()
+          Modal(
+            boundCreateShopHTML,
+            event.clientX,
+            event.clientY,
+            { borderColor: 'cyan' },
+            MEDIUM_MODAL_UPDATE_TICK,
+            event.currentTarget as HTMLElement
+          )
+        }
+
+        DOMCacheGetOrSet(key).addEventListener('click', showMobileShopModal)
+        DOMCacheGetOrSet(`${key}Level`).addEventListener('click', showMobileShopModal)
+      } else {
+        DOMCacheGetOrSet(key).addEventListener(
+          'mousemove',
+          (e) => Modal(boundCreateShopHTML, e.clientX, e.clientY, { borderColor: 'cyan' })
+        )
+        DOMCacheGetOrSet(key).addEventListener('focus', function(this: HTMLElement) {
+          const elmRect = this.getBoundingClientRect()
+          Modal(boundCreateShopHTML, elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'cyan' })
+        })
+        DOMCacheGetOrSet(key).addEventListener('mouseout', CloseModal)
+        DOMCacheGetOrSet(key).addEventListener('blur', CloseModal)
+        DOMCacheGetOrSet(key).addEventListener('mouseover', boundShopDescriptions)
+        DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', boundShopDescriptions)
+        DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', boundShopDescriptions)
+      }
       // DOMCacheGetOrSet(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
       DOMCacheGetOrSet(`${key}Button`).addEventListener('pointerdown', () => buyShopUpgrades(key))
     }
@@ -1421,18 +1440,34 @@ TODO: Fix this entire tab it's utter shit
   const perksDesc = DOMCacheGetOrSet('singularityPerksDesc')
   for (const perk of singularityPerks) {
     const perkHTML = document.createElement('span')
-    perkHTML.innerHTML = `<img src="Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png">${perk.name()}`
+    const perkIconSrc = () => `Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png`
+    perkHTML.innerHTML = `<img src="${perkIconSrc()}">${perk.name()}`
     perkHTML.id = perk.ID
     perkHTML.classList.add('oldPerk')
     perkHTML.style.display = 'none' // Ensure the perk is hidden if not unlocked as an anti-spoiler failsafe.
     DOMCacheGetOrSet('singularityPerksGrid').append(perkHTML)
-    DOMCacheGetOrSet(perk.ID).addEventListener('mouseover', () => {
+    const singularityPerkElement = DOMCacheGetOrSet(perk.ID)
+    if (isMobile) {
+      singularityPerkElement.addEventListener('click', (event) => {
+        Modal(
+          () => singularityPerkModalHTML(perk, perkIconSrc()),
+          event.clientX,
+          event.clientY,
+          { borderColor: 'gold' },
+          MEDIUM_MODAL_UPDATE_TICK,
+          singularityPerkElement
+        )
+      })
+      continue
+    }
+
+    singularityPerkElement.addEventListener('mouseover', () => {
       const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
       const levelInfo = i18next.t('singularity.perks.levelInfo', {
         level: perkInfo.level,
         singularity: perkInfo.singularity
       })
-      perkImage.src = `Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png`
+      perkImage.src = perkIconSrc()
       perksText.innerHTML = levelInfo
       perksDesc.innerHTML = perk.description(
         player.highestSingularityCount,

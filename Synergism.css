@@ -3643,8 +3643,22 @@ p#ascendHotKeys {
     display: none;
 }
 
+html[data-mobile="true"] #statisticsSubTab > .statContainer {
+    display: none !important;
+}
+
 #miscStats {
     display: block;
+}
+
+.statsNerdsModal {
+    width: 100%;
+}
+
+.statsNerdsModal .statPortion {
+    width: 100%;
+    min-width: unset;
+    overflow-wrap: anywhere;
 }
 
 .statPortion {
@@ -4067,6 +4081,39 @@ p#ascendHotKeys {
 #campaignsTokensInfo h4 {
     margin-top: 1px;
     margin-bottom: 1px;
+}
+
+.campaignTokenRewardModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    line-height: 1.25;
+}
+
+.campaignTokenRewardModal img {
+    width: 48px;
+    height: 48px;
+}
+
+.campaignTokenRewardModalInfo {
+    width: 100%;
+}
+
+.campaignTokenRewardSumModal {
+    align-items: stretch;
+    gap: 8px;
+}
+
+.campaignTokenRewardSumModal > div {
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgb(255 255 255 / 20%);
+}
+
+.campaignTokenRewardSumModal > div:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
 }
 
 #traits {
@@ -5154,6 +5201,38 @@ img#singularityPerksIcon {
     grid-gap: 4px;
     font-size: 1em;
     margin-top: 5px;
+}
+
+.singularityPerkModal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.singularityPerkModalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: gold;
+    font-size: 1.1em;
+    flex-wrap: wrap;
+}
+
+.singularityPerkModalTitle img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.singularityPerkModalLevel {
+    color: lightgoldenrodyellow;
+}
+
+.singularityPerkModalDescription {
+    line-height: 1.35;
+    white-space: pre-line;
 }
 
 #octeractUpgradeValues,
@@ -7328,6 +7407,11 @@ html[data-mobile="true"] .hideOnMobile {
         grid-gap: unset;
     }
 
+    #singualrityPerksInfo,
+    #singularityPerksDesc {
+        display: none;
+    }
+
     #singularityPerksDesc {
         height: unset;
         min-width: unset;
@@ -7630,6 +7714,10 @@ html[data-mobile="true"] .hideOnMobile {
 
     #ascendConstantUpgrades {
         width: unset;
+    }
+
+    #actualPotionShop {
+        flex-wrap: unset;
     }
 }
 
@@ -8113,17 +8201,18 @@ html[data-mobile="true"] .hideOnMobile {
     /* Stats for nerds */
     #statsForNerds {
         min-width: unset;
-        max-width: 50%;
+        width: 95%;
+        max-width: 500px;
         align-items: stretch;
-        flex-direction: column;
     }
 
     #summaryGeneration {
-        width: unset !important;
+        width: calc(50% - 8px) !important;
     }
 
     #statsForNerds > button {
-        width: 100%;
+        width: calc(50% - 8px);
+        min-width: unset;
     }
 
     #wowCubeSidebar {

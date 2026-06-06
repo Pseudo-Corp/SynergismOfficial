@@ -1,7 +1,3 @@
-declare const PROD: boolean | undefined
-declare const DEV: boolean | undefined
-declare const PLATFORM: 'steam' | 'mobile' | undefined
-
 export const version = '4.2.5 June 1, 2026: Just in Time'
 
 export const isSynergismCC = location.hostname === 'synergism.cc'
@@ -11,11 +7,5 @@ export const isSynergismCC = location.hostname === 'synergism.cc'
  */
 export const testing = false
 export const lastUpdated = new Date('##LAST_UPDATED##')
-
-export const prod = typeof PROD === 'undefined' ? false : PROD
-export const dev = typeof DEV === 'undefined' ? false : DEV
-
-export const platform = typeof PLATFORM === 'undefined' ? 'browser' : PLATFORM
-// export const platform: 'mobile' | 'browser' | 'steam' = 'mobile'
 
 export const ticksPerSecond = 200
