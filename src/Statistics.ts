@@ -3142,7 +3142,7 @@ export const negativeSalvageStatMultiplier: NumberStatLineCategory = {
     },
     {
       i18n: 'SingularityPerk',
-      stat: () => negSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
+      stat: () => -negSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
     },
     {
       i18n: 'AchievementTalisman',
