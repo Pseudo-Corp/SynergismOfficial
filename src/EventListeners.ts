@@ -1228,19 +1228,37 @@ TODO: Fix this entire tab it's utter shit
     if (shopItem.type === shopUpgradeTypes.UPGRADE) {
       const boundShopDescriptions = shopDescriptions.bind(null, key)
       const boundCreateShopHTML = createShopHTML.bind(null, key)
-      DOMCacheGetOrSet(key).addEventListener(
-        'mousemove',
-        (e) => Modal(boundCreateShopHTML, e.clientX, e.clientY, { borderColor: 'cyan' })
-      )
-      DOMCacheGetOrSet(key).addEventListener('focus', function(this: HTMLElement) {
-        const elmRect = this.getBoundingClientRect()
-        Modal(boundCreateShopHTML, elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'cyan' })
-      })
-      DOMCacheGetOrSet(key).addEventListener('mouseout', CloseModal)
-      DOMCacheGetOrSet(key).addEventListener('blur', CloseModal)
-      DOMCacheGetOrSet(key).addEventListener('mouseover', boundShopDescriptions)
-      DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', boundShopDescriptions)
-      DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', boundShopDescriptions)
+
+      if (isMobile) {
+        const showMobileShopModal = (event: MouseEvent) => {
+          boundShopDescriptions()
+          Modal(
+            boundCreateShopHTML,
+            event.clientX,
+            event.clientY,
+            { borderColor: 'cyan' },
+            MEDIUM_MODAL_UPDATE_TICK,
+            event.currentTarget as HTMLElement
+          )
+        }
+
+        DOMCacheGetOrSet(key).addEventListener('click', showMobileShopModal)
+        DOMCacheGetOrSet(`${key}Level`).addEventListener('click', showMobileShopModal)
+      } else {
+        DOMCacheGetOrSet(key).addEventListener(
+          'mousemove',
+          (e) => Modal(boundCreateShopHTML, e.clientX, e.clientY, { borderColor: 'cyan' })
+        )
+        DOMCacheGetOrSet(key).addEventListener('focus', function(this: HTMLElement) {
+          const elmRect = this.getBoundingClientRect()
+          Modal(boundCreateShopHTML, elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'cyan' })
+        })
+        DOMCacheGetOrSet(key).addEventListener('mouseout', CloseModal)
+        DOMCacheGetOrSet(key).addEventListener('blur', CloseModal)
+        DOMCacheGetOrSet(key).addEventListener('mouseover', boundShopDescriptions)
+        DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', boundShopDescriptions)
+        DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', boundShopDescriptions)
+      }
       // DOMCacheGetOrSet(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
       DOMCacheGetOrSet(`${key}Button`).addEventListener('pointerdown', () => buyShopUpgrades(key))
     }

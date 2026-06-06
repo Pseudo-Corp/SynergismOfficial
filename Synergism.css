@@ -7680,6 +7680,10 @@ html[data-mobile="true"] .hideOnMobile {
     #ascendConstantUpgrades {
         width: unset;
     }
+
+    #actualPotionShop {
+        flex-wrap: unset;
+    }
 }
 
 @media (max-width: 600px) {
