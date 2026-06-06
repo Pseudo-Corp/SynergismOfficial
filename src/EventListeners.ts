@@ -189,6 +189,33 @@ type PurchasableModalOptions = {
   onClose?: () => void
 }
 
+type MobileSubTabIconConfig = {
+  wrapperSelector: string
+  icons: Record<string, string>
+}
+
+const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
+  {
+    wrapperSelector: '#buildings > .subTabWrapper',
+    icons: {
+      switchToCoinBuilding: 'Pictures/Subtab Icons/Buildings/Coin.png',
+      switchToDiamondBuilding: 'Pictures/Subtab Icons/Buildings/Diamond.png',
+      switchToMythosBuilding: 'Pictures/Subtab Icons/Buildings/Mythos.png',
+      switchToParticleBuilding: 'Pictures/Subtab Icons/Buildings/Particle.png',
+      switchToTesseractBuilding: 'Pictures/Subtab Icons/Buildings/Tesseract.png'
+    }
+  },
+  {
+    wrapperSelector: '#runesToggle',
+    icons: {
+      toggleRuneSubTab1: 'Pictures/Subtab Icons/Runes/Runes.png',
+      toggleRuneSubTab2: 'Pictures/Subtab Icons/Runes/Talismans.png',
+      toggleRuneSubTab3: 'Pictures/Subtab Icons/Runes/Blessings.png',
+      toggleRuneSubTab4: 'Pictures/Subtab Icons/Runes/Spirits.png'
+    }
+  }
+]
+
 const defaultModalBuyButtons = () => [
   { action: 'one', label: i18next.t('general.buyOne') },
   { action: 'max', label: i18next.t('general.buyMax') }
@@ -284,6 +311,70 @@ const registerPurchasableModal = ({
   })
 }
 
+const createMobileSubTabIcon = (sourceButton: HTMLButtonElement, src: string) => {
+  const icon = document.createElement('img')
+
+  for (const attribute of sourceButton.attributes) {
+    icon.setAttribute(attribute.name, attribute.value)
+  }
+
+  icon.classList.add('mobileSubTabIcon')
+  icon.src = src
+  icon.loading = 'lazy'
+  icon.width = 32
+  icon.height = 32
+  icon.role = 'button'
+  icon.tabIndex = 0
+
+  const i18nKey = sourceButton.getAttribute('i18n')
+  if (i18nKey !== null) {
+    const label = i18next.t(i18nKey)
+    icon.alt = label
+    icon.title = label
+    icon.setAttribute('aria-label', label)
+  }
+
+  icon.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return
+    }
+
+    event.preventDefault()
+    icon.click()
+  })
+
+  return icon
+}
+
+const registerMobileSubTabIcons = () => {
+  if (!isMobile) {
+    return
+  }
+
+  for (const { wrapperSelector, icons } of mobileSubTabIconConfigs) {
+    const wrapper = document.querySelector<HTMLElement>(wrapperSelector)
+    if (wrapper === null) {
+      continue
+    }
+
+    wrapper.classList.add('mobileIconSubTabWrapper')
+    wrapper.style.setProperty('--mobile-subtab-icon-count', `${Object.keys(icons).length}`)
+
+    for (const [buttonID, src] of Object.entries(icons)) {
+      const sourceButton = wrapper.querySelector<HTMLButtonElement>(`button#${buttonID}`)
+      if (sourceButton === null) {
+        continue
+      }
+
+      sourceButton.replaceWith(createMobileSubTabIcon(sourceButton, src))
+    }
+
+    if (wrapper.querySelector(':scope > :not(.mobileSubTabIcon)') !== null) {
+      wrapper.classList.add('mobileIconSubTabWrapperWithControl')
+    }
+  }
+}
+
 const updateMobileSubTabLayout = () => {
   if (!isMobile) {
     return
@@ -333,6 +424,7 @@ const registerMobileSubTabLayout = () => {
 }
 
 export const generateEventHandlers = () => {
+  registerMobileSubTabIcons()
   registerSubTabSwitches()
   registerMobileSubTabLayout()
 

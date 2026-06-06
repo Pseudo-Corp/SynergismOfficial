@@ -883,6 +883,32 @@ button.isEvent:hover {
     overflow-wrap: anywhere;
 }
 
+.mobileSubTabIcon {
+    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
+    border: 0 !important;
+    cursor: pointer;
+    background-color: var(--button-color);
+    object-fit: fill;
+}
+
+.mobileSubTabIcon:hover,
+.mobileSubTabIcon:active,
+.mobileSubTabIcon:focus-visible {
+    background-color: var(--hover-color);
+}
+
+.mobileSubTabIcon.active-subtab,
+.mobileSubTabIcon.active-subtab:hover,
+.mobileSubTabIcon.active-subtab:active,
+.mobileSubTabIcon.active-subtab:focus-visible {
+    background-color: crimson;
+}
+
 #coinBuildings {
     display: flex;
     position: relative;
@@ -6987,6 +7013,15 @@ html[data-mobile="true"] .hideOnMobile {
         touch-action: none;
     }
 
+    .mobileIconSubTabWrapper {
+        grid-template-columns: repeat(var(--mobile-subtab-icon-count), 32px);
+        align-items: center;
+    }
+
+    .mobileIconSubTabWrapper.mobileIconSubTabWrapperWithControl {
+        grid-template-columns: minmax(130px, 1fr) repeat(var(--mobile-subtab-icon-count), 32px);
+    }
+
     .subTabWrapper > button,
     .subTabWrapper > span > button {
         min-width: unset;
@@ -7690,6 +7725,10 @@ html[data-mobile="true"] .hideOnMobile {
     .subTabWrapper {
         grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
         gap: 5px;
+    }
+
+    .mobileIconSubTabWrapper {
+        grid-template-columns: repeat(var(--mobile-subtab-icon-count), 32px);
     }
 
     .buttonRow {
