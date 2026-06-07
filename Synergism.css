@@ -409,6 +409,129 @@ body button.active-subtab:active:not(:disabled):not(.disable-hover-color) {
     box-shadow: 0 -12px 35px rgb(0 0 0 / 60%);
 }
 
+#mobileHotkeysOpen,
+#mobileHotkeysOverlay {
+    display: none;
+}
+
+html[data-mobile="true"] #mobileHotkeysOpen {
+    position: fixed;
+    right: calc(12px + env(safe-area-inset-right));
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    z-index: 6967;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    min-width: 52px;
+    min-height: 52px;
+    border: 2px solid gold;
+    border-radius: 8px;
+    color: gold;
+    font-size: 1.65rem;
+    line-height: 1;
+    background-color: var(--alert-color);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 60%);
+}
+
+html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
+    border-color: cyan;
+}
+
+#mobileHotkeysOverlay.mobileHotkeysOverlayOpen {
+    position: fixed;
+    inset: 0;
+    z-index: 6967;
+    display: block;
+    background: rgb(0 0 0 / 45%);
+    backdrop-filter: blur(4px);
+}
+
+#mobileHotkeysCard {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 72vh;
+    padding: 14px 15px calc(16px + env(safe-area-inset-bottom));
+    overflow: hidden;
+    color: white;
+    background-color: var(--alert-color);
+    border-top: 2px solid gold;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -12px 35px rgb(0 0 0 / 60%);
+}
+
+.mobileHotkeysHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#mobileHotkeysTitle {
+    margin: 0;
+    color: gold;
+    font-size: 1.1em;
+    line-height: 1.2;
+}
+
+#mobileHotkeysClose {
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border: 1px solid gold;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+#mobileHotkeysActions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.mobileHotkeyAction {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 54px;
+    padding: 6px;
+    border: 1px solid gold;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.mobileHotkeyKey {
+    flex: 0 0 auto;
+    min-width: 48px;
+    padding: 4px;
+    overflow-wrap: anywhere;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: gold;
+    font-size: 0.8em;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.mobileHotkeyLabel {
+    flex: 1 1 auto;
+    overflow-wrap: anywhere;
+    line-height: 1.15;
+}
+
+.mobileHotkeyAction:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
 .slide-in {
     animation: slide-in 1000ms;
     animation-fill-mode: forwards;
@@ -921,9 +1044,8 @@ button.isEvent:hover {
     justify-content: center;
     gap: 10px 15px;
     width: 90%;
-    margin: 15px auto 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin: 0 auto;
+    padding: 10px;
     border-bottom: 2px solid var(--subtab-border-color);
     overscroll-behavior: contain;
 }

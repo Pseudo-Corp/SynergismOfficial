@@ -75,7 +75,7 @@ import {
   tradeHepteractToOverfluxOrb
 } from './Hepteracts'
 import { resetHistoryTogglePerSecond } from './History'
-import { resetHotkeys } from './Hotkeys'
+import { registerMobileHotkeyPanel, resetHotkeys } from './Hotkeys'
 import {
   addCodeAvailableUses,
   exportSynergism,
@@ -426,6 +426,7 @@ const registerMobileSubTabLayout = () => {
 
 export const generateEventHandlers = () => {
   registerMobileSubTabIcons()
+  registerMobileHotkeyPanel()
   registerSubTabSwitches()
   registerMobileSubTabLayout()
 

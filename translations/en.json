@@ -7823,6 +7823,11 @@
     "note1": "Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!",
     "note2": "Why don't you try clicking on one of the item's <span style=\"color:gold;\">gold</span> text above to get started? You can always cancel!",
     "reset": "Reset Hotkeys",
+    "mobile": {
+      "open": "Open mobile hotkeys",
+      "close": "Close mobile hotkeys",
+      "title": "Hotkeys"
+    },
     "names": {
       "buyAccelerators": "Buy Accelerators",
       "boostAccelerator": "Boost Accelerator",

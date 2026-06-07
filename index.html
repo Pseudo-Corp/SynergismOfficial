@@ -32,6 +32,18 @@
         <div id="modalContent">
         </div>
     </div>
+    <button id="mobileHotkeysOpen" type="button" aria-controls="mobileHotkeysOverlay" aria-expanded="false" i18n-aria-label="hotkeys.mobile.open">
+        &#9000;
+    </button>
+    <div id="mobileHotkeysOverlay" aria-hidden="true">
+        <section id="mobileHotkeysCard" role="dialog" aria-modal="true" aria-labelledby="mobileHotkeysTitle">
+            <div class="mobileHotkeysHeader">
+                <h2 id="mobileHotkeysTitle" i18n="hotkeys.mobile.title"></h2>
+                <button id="mobileHotkeysClose" type="button" i18n-aria-label="hotkeys.mobile.close">&times;</button>
+            </div>
+            <div id="mobileHotkeysActions" class="scrollbar"></div>
+        </section>
+    </div>
     <div id="confirmationBox">
         <div id="confirmWrapper">
             <div id="confirm" tabindex="-1">
