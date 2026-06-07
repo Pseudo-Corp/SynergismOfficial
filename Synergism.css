@@ -782,6 +782,70 @@ nav button {
     white-space: nowrap;
 }
 
+#tabrow.tab-edit-mode > button {
+    position: relative;
+    overflow: visible;
+    cursor: grab;
+    animation: tab-jingle 170ms ease-in-out infinite alternate;
+    user-select: none;
+    touch-action: none;
+}
+
+#tabrow.tab-edit-mode > button:nth-child(even) {
+    animation-direction: alternate-reverse;
+}
+
+#tabrow.tab-edit-mode > button.tab-being-dragged {
+    cursor: grabbing;
+    opacity: 0.75;
+    z-index: 2;
+}
+
+.tabCloseButton {
+    display: none;
+}
+
+#tabrow.tab-edit-mode > button.tabRemoveable > .tabCloseButton {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border: 1px solid white;
+    border-radius: 50%;
+    background-color: #c30000;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    box-shadow: 0 1px 4px #000b;
+    pointer-events: auto;
+}
+
+#tabrow.tab-edit-mode > button.tabRemoveable:hover > .tabCloseButton,
+#tabrow.tab-edit-mode > button.tabRemoveable:focus-visible > .tabCloseButton {
+    background-color: #e00000;
+}
+
+@keyframes tab-jingle {
+    from {
+        transform: rotate(-1.2deg) translateY(-1px);
+    }
+
+    to {
+        transform: rotate(1.2deg) translateY(1px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #tabrow.tab-edit-mode > button {
+        animation: none;
+    }
+}
+
 #buildingstab {
     border-color: orange;
 }

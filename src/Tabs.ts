@@ -2,7 +2,6 @@ import i18next from 'i18next'
 import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { storageGetItem, storageSetItem } from './events/storage-events'
-import { pressedKeys } from './Hotkeys'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
 import { getGQUpgradeEffect } from './singularity'
@@ -342,10 +341,20 @@ const subtabInfo: Record<Tabs, SubTab> = {
 }
 
 const TAB_ORDER_KEY = 'synergism-tab-order'
+const TAB_EDIT_HOLD_MS = 650
+const TAB_HOLD_CANCEL_DISTANCE_PX = 8
 
 class TabRow extends HTMLDivElement {
   #list: $Tab[] = []
   #currentTab!: $Tab
+  #isEditing = false
+  #holdTimer: number | undefined
+  #activePointerId: number | null = null
+  #pointerDownTab: $Tab | null = null
+  #draggedTab: $Tab | null = null
+  #pointerStartX = 0
+  #pointerStartY = 0
+  #dragCreated = false
 
   constructor () {
     super()
@@ -423,6 +432,33 @@ class TabRow extends HTMLDivElement {
     this.#list.forEach((el) => el.resetHidden())
   }
 
+  isEditing () {
+    return this.#isEditing
+  }
+
+  hideTab (tab: $Tab) {
+    if (!tab.canBeRemoved()) {
+      return
+    }
+
+    const wasCurrentTab = tab === this.#currentTab
+
+    tab.hide()
+    tab.classList.remove('tab-being-dragged')
+
+    if (tab.parentElement === this) {
+      this.removeChild(tab)
+    }
+
+    if (wasCurrentTab) {
+      const nextTab = this.#getNextUnlockedTab(tab)
+      if (nextTab !== null) {
+        changeTab(nextTab.getType())
+        changeTabColor()
+      }
+    }
+  }
+
   #saveOrder () {
     storageSetItem(TAB_ORDER_KEY, JSON.stringify(this.#list.map((tab) => tab.id)))
   }
@@ -457,67 +493,222 @@ class TabRow extends HTMLDivElement {
   }
 
   #createDrag () {
-    let dragSrcEl: HTMLElement | null = null
-
-    const handleDragStart = (e: DragEvent) => {
-      assert(e.target instanceof HTMLElement)
-
-      e.target.style.opacity = '0.4'
-
-      dragSrcEl = e.target
-
-      e.dataTransfer!.effectAllowed = 'move'
+    if (this.#dragCreated) {
+      return
     }
 
-    /* eslint-disable unicorn/consistent-function-scoping */
-    const handleDragEnter = (e: DragEvent) => {
-      if (e.target instanceof HTMLElement) {
-        e.target.classList.add('over')
+    this.#dragCreated = true
+    this.addEventListener('pointerdown', (event) => this.#handlePointerDown(event))
+    window.addEventListener('pointermove', (event) => this.#handlePointerMove(event))
+    window.addEventListener('pointerup', (event) => this.#handlePointerUp(event))
+    window.addEventListener('pointercancel', (event) => this.#handlePointerUp(event))
+    document.addEventListener('click', (event) => this.#handleDocumentClick(event), true)
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        this.#exitEditMode()
       }
-    }
-
-    const handleDragLeave = (e: DragEvent) => {
-      if (e.target instanceof HTMLElement) {
-        e.target.classList.remove('over')
-      }
-    }
-    /* eslint-enable unicorn/consistent-function-scoping */
-
-    const handleDrop = (e: DragEvent) => {
-      e.stopPropagation()
-
-      if (dragSrcEl !== e.target && dragSrcEl !== null) {
-        this.insertBefore(dragSrcEl, e.target as HTMLElement)
-
-        const dragIndex = this.#list.indexOf(dragSrcEl as $Tab)
-        const targetIndex = this.#list.indexOf(e.target as $Tab)
-
-        this.#list.splice(targetIndex, 0, this.#list[dragIndex])
-        this.#list.splice(this.#list.indexOf(dragSrcEl as $Tab, dragIndex), 1)
-
-        this.#saveOrder()
-      }
-
-      return false
-    }
-
-    const handleDragEnd = (e: DragEvent) => {
-      assert(e.target instanceof HTMLElement)
-      e.target.style.opacity = '1'
-
-      this.#list.forEach((item) => {
-        item.classList.remove('over')
-      })
-    }
-
-    this.#list.forEach((item) => {
-      item.addEventListener('dragstart', handleDragStart, false)
-      item.addEventListener('dragenter', handleDragEnter, false)
-      item.addEventListener('dragover', handleDrop, false)
-      item.addEventListener('dragleave', handleDragLeave, false)
-      item.addEventListener('drop', handleDrop, false)
-      item.addEventListener('dragend', handleDragEnd, false)
     })
+  }
+
+  #handlePointerDown (event: PointerEvent) {
+    if (event.button !== 0) {
+      return
+    }
+
+    const tab = this.#getTabFromEventTarget(event.target)
+    if (tab === null || !tab.canMove() || !tab.isUnlocked()) {
+      return
+    }
+
+    if (this.#isEditing) {
+      event.preventDefault()
+
+      if (!tab.isCloseButtonHit(event)) {
+        this.#beginDrag(tab, event.pointerId)
+      }
+
+      return
+    }
+
+    this.#clearHoldTimer()
+    this.#activePointerId = event.pointerId
+    this.#pointerDownTab = tab
+    this.#pointerStartX = event.clientX
+    this.#pointerStartY = event.clientY
+    this.#holdTimer = window.setTimeout(() => {
+      this.#holdTimer = undefined
+      this.#enterEditMode()
+
+      if (this.#pointerDownTab !== null && this.#activePointerId !== null) {
+        this.#beginDrag(this.#pointerDownTab, this.#activePointerId)
+      }
+    }, TAB_EDIT_HOLD_MS)
+  }
+
+  #handlePointerMove (event: PointerEvent) {
+    if (this.#activePointerId !== event.pointerId) {
+      return
+    }
+
+    const distanceX = event.clientX - this.#pointerStartX
+    const distanceY = event.clientY - this.#pointerStartY
+    const movedBeyondHoldDistance = Math.hypot(distanceX, distanceY) > TAB_HOLD_CANCEL_DISTANCE_PX
+
+    if (!this.#isEditing) {
+      if (movedBeyondHoldDistance) {
+        this.#clearHoldTimer()
+      }
+
+      return
+    }
+
+    if (this.#draggedTab === null) {
+      return
+    }
+
+    event.preventDefault()
+    this.#moveDraggedTabToPointer(event.clientX, event.clientY)
+  }
+
+  #handlePointerUp (event: PointerEvent) {
+    if (this.#activePointerId !== event.pointerId) {
+      return
+    }
+
+    this.#clearHoldTimer()
+
+    if (this.#draggedTab !== null) {
+      this.#draggedTab.classList.remove('tab-being-dragged')
+      this.#draggedTab = null
+    }
+
+    this.#activePointerId = null
+    this.#pointerDownTab = null
+  }
+
+  #handleDocumentClick (event: MouseEvent) {
+    if (!this.#isEditing || !(event.target instanceof Node) || this.contains(event.target)) {
+      return
+    }
+
+    this.#exitEditMode()
+    event.preventDefault()
+    event.stopPropagation()
+  }
+
+  #enterEditMode () {
+    if (this.#isEditing) {
+      return
+    }
+
+    this.#isEditing = true
+    this.classList.add('tab-edit-mode')
+    this.#list.forEach((tab) => {
+      tab.setAttribute('aria-grabbed', 'false')
+      tab.showCloseButton()
+    })
+  }
+
+  #exitEditMode () {
+    if (!this.#isEditing) {
+      return
+    }
+
+    this.#isEditing = false
+    this.classList.remove('tab-edit-mode')
+    this.#clearHoldTimer()
+
+    if (this.#draggedTab !== null) {
+      this.#draggedTab.classList.remove('tab-being-dragged')
+      this.#draggedTab = null
+    }
+
+    this.#list.forEach((tab) => {
+      tab.removeAttribute('aria-grabbed')
+      tab.hideCloseButton()
+    })
+    this.#activePointerId = null
+    this.#pointerDownTab = null
+  }
+
+  #beginDrag (tab: $Tab, pointerId: number) {
+    this.#draggedTab = tab
+    this.#activePointerId = pointerId
+    tab.classList.add('tab-being-dragged')
+    tab.setAttribute('aria-grabbed', 'true')
+  }
+
+  #moveDraggedTabToPointer (x: number, y: number) {
+    assert(this.#draggedTab !== null)
+
+    const target = this.#getTabFromPoint(x, y)
+    if (target === null || target === this.#draggedTab) {
+      return
+    }
+
+    const targetRect = target.getBoundingClientRect()
+    const isColumn = getComputedStyle(this).flexDirection === 'column'
+    const insertBeforeTarget = isColumn
+      ? y < targetRect.top + targetRect.height / 2
+      : x < targetRect.left + targetRect.width / 2
+    const referenceTab = insertBeforeTarget ? target : this.#getNextVisibleTab(target)
+
+    this.#moveTabBefore(this.#draggedTab, referenceTab)
+  }
+
+  #moveTabBefore (tab: $Tab, referenceTab: $Tab | null) {
+    if (tab === referenceTab) {
+      return
+    }
+
+    this.insertBefore(tab, referenceTab)
+
+    const tabs = this.#list.filter((item) => item !== tab)
+    const referenceIndex = referenceTab === null ? tabs.length : tabs.indexOf(referenceTab)
+    tabs.splice(referenceIndex === -1 ? tabs.length : referenceIndex, 0, tab)
+    this.#list = tabs
+    this.#saveOrder()
+  }
+
+  #clearHoldTimer () {
+    if (this.#holdTimer === undefined) {
+      return
+    }
+
+    window.clearTimeout(this.#holdTimer)
+    this.#holdTimer = undefined
+  }
+
+  #getTabFromEventTarget (target: EventTarget | null) {
+    if (!(target instanceof Element)) {
+      return null
+    }
+
+    const tab = target.closest('#tabrow > button')
+    return tab instanceof $Tab ? tab : null
+  }
+
+  #getTabFromPoint (x: number, y: number) {
+    return this.#getTabFromEventTarget(document.elementFromPoint(x, y))
+  }
+
+  #getNextVisibleTab (tab: $Tab) {
+    const nextSibling = tab.nextElementSibling
+    return nextSibling instanceof $Tab ? nextSibling : null
+  }
+
+  #getNextUnlockedTab (tab: $Tab) {
+    let nextTab = this.getNextTab(tab)
+
+    for (let searched = 0; searched < this.#list.length; searched++) {
+      if (nextTab.isUnlocked()) {
+        return nextTab
+      }
+
+      nextTab = this.getNextTab(nextTab)
+    }
+
+    return null
   }
 }
 
@@ -532,6 +723,7 @@ class $Tab extends HTMLButtonElement {
   #unlocked = () => true
   #type!: Tabs
   #removeable = false
+  #moveable = false
   #hidden = false
 
   constructor (options: kSubTabOptionsBag) {
@@ -548,17 +740,20 @@ class $Tab extends HTMLButtonElement {
       this.style.borderColor = options.borderColor
     }
 
-    this.addEventListener('click', () => {
-      if (this.#removeable && pressedKeys.has('ControlLeft') && pressedKeys.has('KeyX')) {
-        // When clicking on a tab while holding CTRL + X
-        if (G.currentTab !== this.#type) {
-          tabRow.removeChild(this)
-          this.#hidden = true
+    this.addEventListener('click', (event) => {
+      if (tabRow.isEditing()) {
+        event.preventDefault()
+        event.stopPropagation()
+
+        if (this.#removeable && this.isCloseButtonHit(event)) {
+          tabRow.hideTab(this)
         }
-      } else {
-        changeTab(this.#type)
-        changeTabColor()
+
+        return
       }
+
+      changeTab(this.#type)
+      changeTabColor()
     })
   }
 
@@ -585,13 +780,60 @@ class $Tab extends HTMLButtonElement {
   }
 
   makeDraggable () {
-    this.setAttribute('draggable', 'true')
+    this.#moveable = true
+    this.classList.add('tabDraggable')
     return this
   }
 
   makeRemoveable () {
     this.#removeable = true
+    this.classList.add('tabRemoveable')
     return this
+  }
+
+  canMove () {
+    return this.#moveable
+  }
+
+  canBeRemoved () {
+    return this.#removeable
+  }
+
+  hide () {
+    this.#hidden = true
+  }
+
+  showCloseButton () {
+    if (!this.#removeable || this.getElementsByClassName('tabCloseButton').length > 0) {
+      return
+    }
+
+    const closeButton = document.createElement('span')
+    closeButton.classList.add('tabCloseButton')
+    closeButton.textContent = '×'
+    closeButton.setAttribute('role', 'button')
+    closeButton.setAttribute('aria-label', i18next.t('tabs.hideTab'))
+    closeButton.setAttribute('i18n-aria-label', 'tabs.hideTab')
+    this.appendChild(closeButton)
+  }
+
+  hideCloseButton () {
+    this.getElementsByClassName('tabCloseButton').item(0)?.remove()
+  }
+
+  isCloseButtonHit (event: MouseEvent | PointerEvent) {
+    if (!this.#removeable) {
+      return false
+    }
+
+    if (event.target instanceof Element && event.target.closest('.tabCloseButton') !== null) {
+      return true
+    }
+
+    const rect = this.getBoundingClientRect()
+    const hitboxSize = 24
+
+    return event.clientX >= rect.right - hitboxSize && event.clientY <= rect.top + hitboxSize
   }
 
   resetHidden () {
@@ -691,7 +933,7 @@ mobileMenuToggle.addEventListener('click', toggleMobileMenu)
 // Close mobile menu when a tab is clicked
 tabRow.addEventListener('click', (e) => {
   const target = e.target as HTMLElement
-  if (target.tagName === 'BUTTON' && navbar?.classList.contains('menu-open')) {
+  if (!tabRow.isEditing() && target.tagName === 'BUTTON' && navbar?.classList.contains('menu-open')) {
     toggleMobileMenu()
   }
 })
