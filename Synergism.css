@@ -865,6 +865,7 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
 main {
     flex: 1;
     overflow-y: auto;
+    scrollbar-gutter: stable both-edges;
     overscroll-behavior-y: contain;
     padding: 0.25rem;
 }
@@ -2873,7 +2874,6 @@ p#reincarnatehotkeys {
 #actualPotionShop {
     display: flex;
     padding: 5px;
-    width: calc(115px * 2 - 5px);
     border: 3px solid yellow;
     background-color: var(--box-color);
     gap: 5px;
