@@ -572,22 +572,22 @@ export const hideStuff = () => {
   tab.style.borderColor = 'white'
 
   if (G.currentTab === Tabs.Buildings) {
-    DOMCacheGetOrSet('buildingstab').style.backgroundColor = tabColors[Tabs.Buildings]!
+    DOMCacheGetOrSet('buildingstab').style.backgroundColor = tabColors[Tabs.Buildings]
     DOMCacheGetOrSet('buildings').style.display = 'block'
   }
   if (G.currentTab === Tabs.Upgrades) {
     DOMCacheGetOrSet('upgrades').style.display = 'block'
-    DOMCacheGetOrSet('upgradestab').style.backgroundColor = tabColors[Tabs.Upgrades]!
+    DOMCacheGetOrSet('upgradestab').style.backgroundColor = tabColors[Tabs.Upgrades]
   }
   if (G.currentTab === Tabs.Settings) {
     DOMCacheGetOrSet('settings').style.display = 'block'
     const settingsTab = DOMCacheGetOrSet('settingstab')
-    settingsTab.style.backgroundColor = tabColors[Tabs.Settings]!
+    settingsTab.style.backgroundColor = tabColors[Tabs.Settings]
     settingsTab.style.color = 'black'
   }
   if (G.currentTab === Tabs.Achievements) {
     DOMCacheGetOrSet('statistics').style.display = 'block'
-    DOMCacheGetOrSet('achievementstab').style.backgroundColor = tabColors[Tabs.Achievements]!
+    DOMCacheGetOrSet('achievementstab').style.backgroundColor = tabColors[Tabs.Achievements]
     DOMCacheGetOrSet('achievementstab').style.color = 'black'
     DOMCacheGetOrSet('achievementprogress').textContent = i18next.t(
       isMobile ? 'achievements.achievementPointsMobile' : 'achievements.achievementPoints',
@@ -610,7 +610,7 @@ export const hideStuff = () => {
     updateAllProgressiveAchievementProgress()
   } else if (G.currentTab === Tabs.Runes) {
     DOMCacheGetOrSet('runes').style.display = 'block'
-    DOMCacheGetOrSet('runestab').style.backgroundColor = tabColors[Tabs.Runes]!
+    DOMCacheGetOrSet('runestab').style.backgroundColor = tabColors[Tabs.Runes]
 
     for (const rune of Object.keys(player.runes)) {
       const runeKey = rune as RuneKeys
@@ -619,36 +619,36 @@ export const hideStuff = () => {
   }
   if (G.currentTab === Tabs.Challenges) {
     DOMCacheGetOrSet('challenges').style.display = 'block'
-    DOMCacheGetOrSet('challengetab').style.backgroundColor = tabColors[Tabs.Challenges]!
+    DOMCacheGetOrSet('challengetab').style.backgroundColor = tabColors[Tabs.Challenges]
   }
   if (G.currentTab === Tabs.Research) {
     DOMCacheGetOrSet('research').style.display = 'block'
-    DOMCacheGetOrSet('researchtab').style.backgroundColor = tabColors[Tabs.Research]!
+    DOMCacheGetOrSet('researchtab').style.backgroundColor = tabColors[Tabs.Research]
   }
   if (G.currentTab === Tabs.Shop) {
     DOMCacheGetOrSet('shop').style.display = 'block'
-    DOMCacheGetOrSet('shoptab').style.backgroundColor = tabColors[Tabs.Shop]!
+    DOMCacheGetOrSet('shoptab').style.backgroundColor = tabColors[Tabs.Shop]
   }
   if (G.currentTab === Tabs.AntHill) {
     DOMCacheGetOrSet('ants').style.display = 'block'
-    DOMCacheGetOrSet('anttab').style.backgroundColor = tabColors[Tabs.AntHill]!
+    DOMCacheGetOrSet('anttab').style.backgroundColor = tabColors[Tabs.AntHill]
   }
   if (G.currentTab === Tabs.WowCubes) {
     DOMCacheGetOrSet('cubes').style.display = 'flex'
-    DOMCacheGetOrSet('cubetab').style.backgroundColor = tabColors[Tabs.WowCubes]!
+    DOMCacheGetOrSet('cubetab').style.backgroundColor = tabColors[Tabs.WowCubes]
   }
   if (G.currentTab === Tabs.Campaign) {
     DOMCacheGetOrSet('campaigns').style.display = 'block'
-    DOMCacheGetOrSet('campaigntab').style.backgroundColor = tabColors[Tabs.Campaign]!
+    DOMCacheGetOrSet('campaigntab').style.backgroundColor = tabColors[Tabs.Campaign]
   }
   if (G.currentTab === Tabs.Corruption) {
     DOMCacheGetOrSet('traits').style.display = 'flex'
-    DOMCacheGetOrSet('traitstab').style.backgroundColor = tabColors[Tabs.Corruption]!
+    DOMCacheGetOrSet('traitstab').style.backgroundColor = tabColors[Tabs.Corruption]
   }
 
   if (G.currentTab === Tabs.Singularity) {
     DOMCacheGetOrSet('singularity').style.display = 'block'
-    DOMCacheGetOrSet('singularitytab').style.backgroundColor = tabColors[Tabs.Singularity]!
+    DOMCacheGetOrSet('singularitytab').style.backgroundColor = tabColors[Tabs.Singularity]
     updateSingularityPenalties()
     updateSingularityPerks()
     updateSingularityElevator()
@@ -656,14 +656,14 @@ export const hideStuff = () => {
 
   if (G.currentTab === Tabs.Event) {
     DOMCacheGetOrSet('event').style.display = 'block'
-    DOMCacheGetOrSet('eventtab').style.backgroundColor = tabColors[Tabs.Event]!
+    DOMCacheGetOrSet('eventtab').style.backgroundColor = tabColors[Tabs.Event]
   }
 
   if (G.currentTab === Tabs.Purchase) {
     initializeCart()
 
     document.getElementById('pseudoCoins')?.style.setProperty('display', 'unset')
-    DOMCacheGetOrSet('pseudoCoinstab').style.backgroundColor = tabColors[Tabs.Purchase]!
+    DOMCacheGetOrSet('pseudoCoinstab').style.backgroundColor = tabColors[Tabs.Purchase]
   }
 }
 
@@ -1156,16 +1156,16 @@ const updateAscensionStats = () => {
   }
 }
 
-const tabColors: Partial<Record<Tabs, string>> = {
-  [Tabs.Buildings]: 'gold',
-  [Tabs.Upgrades]: 'gold',
+const tabColors: Record<Tabs, string> = {
+  [Tabs.Buildings]: 'orange',
+  [Tabs.Upgrades]: 'orange',
   [Tabs.Achievements]: 'white',
-  [Tabs.Runes]: 'cyan',
-  [Tabs.Challenges]: 'plum',
+  [Tabs.Runes]: 'cornflowerblue',
+  [Tabs.Challenges]: 'purple',
   [Tabs.Research]: 'green',
   [Tabs.AntHill]: 'brown',
   [Tabs.WowCubes]: 'purple',
-  [Tabs.Campaign]: 'orange',
+  [Tabs.Campaign]: 'red',
   [Tabs.Corruption]: 'orange',
   [Tabs.Settings]: 'white',
   [Tabs.Shop]: 'cyan',
@@ -1176,7 +1176,7 @@ const tabColors: Partial<Record<Tabs, string>> = {
 
 export const changeTabColor = () => {
   const tab = DOMCacheGetOrSet('tabBorder')
-  const color = tabColors[G.currentTab] ?? 'yellow'
+  const color = tabColors[G.currentTab]
 
   tab.style.backgroundColor = color
   document.body.style.setProperty('--subtab-border-color', color)
