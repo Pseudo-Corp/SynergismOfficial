@@ -114,7 +114,7 @@ export class CartTab {
   }
 
   #updateSubtabs () {
-    for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
+    for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher [id^="cartSubTab"]')) {
       if (getActiveSubTab() === index) {
         element.classList.add('active-subtab')
       } else {

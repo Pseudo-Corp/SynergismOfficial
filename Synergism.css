@@ -1101,6 +1101,16 @@ button.isEvent:hover {
     background-color: crimson;
 }
 
+.mobileSubTabIconContainer {
+    position: relative;
+    width: 32px !important;
+    height: 32px;
+}
+
+.mobileSubTabIconContainer > .mobileSubTabIcon {
+    display: block;
+}
+
 #coinBuildings {
     display: flex;
     position: relative;
@@ -7288,8 +7298,12 @@ html[data-mobile="true"] .hideOnMobile {
         align-items: center;
     }
 
-    .mobileIconSubTabWrapper.mobileIconSubTabWrapperWithControl {
+    .mobileIconSubTabWrapper.mobileIconSubTabWrapperWithInlineControl {
         grid-template-columns: minmax(130px, 1fr) repeat(var(--mobile-subtab-icon-count), 32px);
+    }
+
+    .mobileIconSubTabWrapper.mobileIconSubTabWrapperWithFullRowControl > :not(.mobileSubTabIcon) {
+        grid-column: 1 / -1;
     }
 
     .subTabWrapper > button,

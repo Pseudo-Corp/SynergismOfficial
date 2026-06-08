@@ -193,6 +193,7 @@ type PurchasableModalOptions = {
 type MobileSubTabIconConfig = {
   wrapperSelector: string
   icons: Record<string, string>
+  remainingControlsLayout?: 'inline' | 'fullRow'
 }
 
 const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
@@ -213,6 +214,76 @@ const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
       toggleRuneSubTab2: 'Pictures/Subtab Icons/Runes/Talismans.png',
       toggleRuneSubTab3: 'Pictures/Subtab Icons/Runes/Blessings.png',
       toggleRuneSubTab4: 'Pictures/Subtab Icons/Runes/Spirits.png'
+    }
+  },
+  {
+    wrapperSelector: '#achievementsToggle',
+    icons: {
+      toggleAchievementSubTab1: 'Pictures/Subtab Icons/Achievements/Achievements.png',
+      toggleAchievementSubTab2: 'Pictures/Subtab Icons/Achievements/Levels.png'
+    }
+  },
+  {
+    wrapperSelector: '#challengesTabsToggle',
+    icons: {
+      toggleChallengesSubTab1: 'Pictures/Subtab Icons/Challenges/Challenge.png',
+      toggleChallengesSubTab2: 'Pictures/Subtab Icons/Challenges/Exalt.png'
+    }
+  },
+  {
+    wrapperSelector: '#antSubtabs',
+    icons: {
+      toggleAntSubtab1: 'Pictures/Subtab Icons/Anthill/Anthill.png',
+      toggleAntSubtab2: 'Pictures/Subtab Icons/Anthill/Altar.png',
+      toggleAntSubtab3: 'Pictures/Subtab Icons/Anthill/QuarkCorner.png'
+    }
+  },
+  {
+    wrapperSelector: '#wowCubeSidebarButtons',
+    icons: {
+      switchCubeSubTab1: 'Pictures/Subtab Icons/Wow! Cubes/CubeTributes.png',
+      switchCubeSubTab2: 'Pictures/Subtab Icons/Wow! Cubes/TesseractGifts.png',
+      switchCubeSubTab3: 'Pictures/Subtab Icons/Wow! Cubes/HypercubeBenedictions.png',
+      switchCubeSubTab4: 'Pictures/Subtab Icons/Wow! Cubes/PlatonicStatues.png',
+      switchCubeSubTab5: 'Pictures/Subtab Icons/Wow! Cubes/CubeUpgrades.png',
+      switchCubeSubTab6: 'Pictures/Subtab Icons/Wow! Cubes/PlatonicUpgrades.png',
+      switchCubeSubTab7: 'Pictures/Subtab Icons/Wow! Cubes/HepteractForge.png'
+    }
+  },
+  {
+    wrapperSelector: '#singularityTabsToggle',
+    icons: {
+      toggleSingularitySubTab1: 'Pictures/Subtab Icons/Singularity/Elevator.png',
+      toggleSingularitySubTab2: 'Pictures/Subtab Icons/Singularity/GoldenQuarkUpgrades.png',
+      toggleSingularitySubTab3: 'Pictures/Subtab Icons/Singularity/SingularityPerks.png',
+      toggleSingularitySubTab4: 'Pictures/Subtab Icons/Singularity/Octeracts.png',
+      toggleSingularitySubTab5: 'Pictures/Subtab Icons/Singularity/Ambrosia.png'
+    }
+  },
+  {
+    wrapperSelector: '#settings > .subtabSwitcher',
+    remainingControlsLayout: 'fullRow',
+    icons: {
+      switchSettingSubTab1: 'Pictures/Subtab Icons/Settings/Settings.png',
+      switchSettingSubTab2: 'Pictures/Subtab Icons/Settings/Languages.png',
+      switchSettingSubTab3: 'Pictures/Subtab Icons/Settings/Credits.png',
+      switchSettingSubTab4: 'Pictures/Subtab Icons/Settings/StatsForNerds.png',
+      switchSettingSubTab5: 'Pictures/Subtab Icons/Settings/ResetHistory.png',
+      switchSettingSubTab6: 'Pictures/Subtab Icons/Settings/AscendHistory.png',
+      switchSettingSubTab7: 'Pictures/Subtab Icons/Settings/SingularityHistory.png',
+      switchSettingSubTab8: 'Pictures/Subtab Icons/Settings/Hotkeys.png',
+      switchSettingSubTab9: 'Pictures/Subtab Icons/Settings/Account.png'
+    }
+  },
+  {
+    wrapperSelector: '#pseudoCoins > .subtabSwitcher',
+    icons: {
+      cartSubTab1: 'Pictures/Subtab Icons/PseudoCoins/PseudoCoins.png',
+      cartSubTab2: 'Pictures/Subtab Icons/PseudoCoins/Subscriptions.png',
+      cartSubTab3: 'Pictures/Subtab Icons/PseudoCoins/Upgrades.png',
+      cartSubTab4: 'Pictures/Subtab Icons/PseudoCoins/Consumables.png',
+      cartSubTab5: 'Pictures/Subtab Icons/PseudoCoins/Checkout.png',
+      cartSubTab6: 'Pictures/Subtab Icons/PseudoCoins/Merch.png'
     }
   }
 ]
@@ -352,7 +423,7 @@ const registerMobileSubTabIcons = () => {
     return
   }
 
-  for (const { wrapperSelector, icons } of mobileSubTabIconConfigs) {
+  for (const { wrapperSelector, icons, remainingControlsLayout = 'inline' } of mobileSubTabIconConfigs) {
     const wrapper = document.querySelector<HTMLElement>(wrapperSelector)
     if (wrapper === null) {
       continue
@@ -368,10 +439,17 @@ const registerMobileSubTabIcons = () => {
       }
 
       sourceButton.replaceWith(createMobileSubTabIcon(sourceButton, src))
+
+      const iconContainer = wrapper.querySelector<HTMLElement>(`:scope > * > #${buttonID}`)?.parentElement
+      iconContainer?.classList.add('mobileSubTabIconContainer')
     }
 
-    if (wrapper.querySelector(':scope > :not(.mobileSubTabIcon)') !== null) {
-      wrapper.classList.add('mobileIconSubTabWrapperWithControl')
+    if (wrapper.querySelector(':scope > :not(.mobileSubTabIcon, .mobileSubTabIconContainer)') !== null) {
+      wrapper.classList.add(
+        remainingControlsLayout === 'inline'
+          ? 'mobileIconSubTabWrapperWithInlineControl'
+          : 'mobileIconSubTabWrapperWithFullRowControl'
+      )
     }
   }
 }
