@@ -50,7 +50,7 @@
 	<key>GADIsAdManagerApp</key>
 	<true/>
 	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-3940256099942544~1458002511</string>
+	<string>ca-app-pub-8767571504273469/2651441034</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 	<dict>
@@ -59,6 +59,6 @@
 	</dict>
 	</array>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>[Why you use NSUserTracking. ex: This identifier will be used to deliver personalized ads to you.]</string>
+	<string>This identifier will be used to deliver personalized ads to you.</string>
 </dict>
 </plist>
