@@ -1436,9 +1436,9 @@ export const calculateExalt4EffectiveSingularityMultiplier = (comps: number, for
 
 export const calculateExalt6TimeLimit = (comps: number) => {
   if (comps >= 10) {
-    return 115 - 5 * (comps - 10)
+    return 114 - 6 * (comps - 10)
   } else {
-    return 600 - 60 * comps
+    return 660 - 60 * comps
   }
 }
 

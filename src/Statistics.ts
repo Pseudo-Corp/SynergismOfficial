@@ -1996,6 +1996,11 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
       stat: () => 1 + 0.01 * player.cubeUpgrades[52] // cube upgrade 6x2 (Cx2)
     },
     {
+      i18n: 'AmbrosiaBrickOfLead',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'globalSpeedMult'), // Ambrosia Brick of Lead
+      color: 'red'
+    },
+    {
       i18n: 'SpacialDilation',
       stat: () => player.corruptions.used.corruptionEffects('dilation'), // Spacial Dilation
       color: 'red'
@@ -2106,6 +2111,11 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'LimitedAscensionsDebuff',
       stat: () => 1 / calculateExalt3Penalty(), // EXALT Debuff
+      color: 'red'
+    },
+    {
+      i18n: 'AmbrosiaBrickOfLead',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'ascensionSpeedMult'), // Ambrosia Brick of Lead
       color: 'red'
     },
     {
@@ -3097,7 +3107,7 @@ export const positiveSalvageStatMultiplier: NumberStatLineCategory = {
   type: StatLineTypes.Addition,
   lines: [
     {
-      i18n: 'Base',
+      i18n: 'BaseMultiplier',
       stat: () => 1
     },
     {
@@ -3137,7 +3147,7 @@ export const negativeSalvageStatMultiplier: NumberStatLineCategory = {
   type: StatLineTypes.Addition,
   lines: [
     {
-      i18n: 'Base',
+      i18n: 'BaseMultiplier',
       stat: () => 1
     },
     {
