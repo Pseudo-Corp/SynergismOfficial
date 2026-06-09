@@ -2,8 +2,10 @@ import { AdMob, AdmobConsentStatus, type RewardAdOptions, RewardAdPluginEvents }
 import i18next from 'i18next'
 import { isAdEventEnabled, setNewAdExpiry } from '../Event'
 import { Notification } from '../UpdateHTML'
+import { isDebug } from '../Utility'
 
 let adMobInitialized = false
+let adAttempt = 0
 
 export async function initAdMob (): Promise<void> {
   await AdMob.initialize()
@@ -35,11 +37,19 @@ export async function initAdMob (): Promise<void> {
   })
 
   AdMob.addListener(RewardAdPluginEvents.FailedToLoad, () => {
-    void Notification(i18next.t('advertisements.failedToLoad'))
+    if (adAttempt === 2) {
+      void Notification(i18next.t('advertisements.failedToLoadTwice'))
+    } else {
+      void Notification(i18next.t('advertisements.failedToLoad'))
+    }
   })
 
   AdMob.addListener(RewardAdPluginEvents.FailedToShow, () => {
-    void Notification(i18next.t('advertisements.failedToLoad'))
+    if (adAttempt === 2) {
+      void Notification(i18next.t('advertisements.failedToLoadTwice'))
+    } else {
+      void Notification(i18next.t('advertisements.failedToLoadTwice'))
+    }
   })
 }
 
@@ -52,13 +62,18 @@ export async function ensureAdMobReady (): Promise<void> {
 
 export async function rewardVideo (): Promise<void> {
   await ensureAdMobReady()
-  const options: RewardAdOptions = {
-    adId: 'ca-app-pub-8767571504273469/2651441034I',
-    isTesting: DEV || !PROD
-  }
+  const options: RewardAdOptions = isDebug
+    ? {
+      adId: 'ca-app-pub-3940256099942544/5354046379',
+      isTesting: true
+    }
+    : {
+      adId: 'ca-app-pub-8767571504273469/2651441034'
+    }
 
   /* eslint-disable no-await-in-loop */
   for (let attempt = 1; attempt <= 2; attempt++) {
+    adAttempt++
     try {
       await AdMob.prepareRewardVideoAd(options)
       await AdMob.showRewardVideoAd()
@@ -68,9 +83,11 @@ export async function rewardVideo (): Promise<void> {
       if (attempt === 1) {
         await new Promise((r) => setTimeout(r, 2000))
       } else {
+        adAttempt = 0
         throw err
       }
     }
+    adAttempt = 0
   }
   /* eslint-enable no-await-in-loop */
 }

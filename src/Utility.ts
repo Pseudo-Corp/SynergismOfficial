@@ -341,6 +341,10 @@ export const isMobile = (function isMobileDevice() {
     || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 })()
 
+export const isDebug = (function isDebugModeActive() {
+  return DEV || !PROD
+})()
+
 interface RetryOptions {
   backoff: 'exponential' | 'linear'
   initialDelay?: number // default: 1000ms
