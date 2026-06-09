@@ -716,8 +716,8 @@ interface kSubTabOptionsBag {
   id: string
   class?: string
   i18n: string
+  mobileIcon: string
   borderColor?: string
-  mobileIcon?: string
 }
 
 class $Tab extends HTMLButtonElement {
@@ -731,26 +731,23 @@ class $Tab extends HTMLButtonElement {
     super()
 
     this.id = options.id
+    this.setAttribute('i18n', options.i18n)
     if (options.class) {
       this.classList.add(options.class)
     }
 
-    if (isMobile && options.mobileIcon !== undefined) {
+    if (isMobile) {
       this.classList.add('mobileTabIconButton')
       this.dataset.i18n = options.i18n
       this.setAttribute('i18n-aria-label', options.i18n)
-
       const icon = document.createElement('img')
       icon.classList.add('mobileTabIcon')
       icon.src = `Pictures/Tab Icons/Tabs/${options.mobileIcon}`
-      icon.setAttribute('i18n', options.i18n)
       icon.loading = 'lazy'
       icon.width = 32
       icon.height = 32
       icon.draggable = false
       this.appendChild(icon)
-    } else {
-      this.setAttribute('i18n', options.i18n)
     }
 
     if (options.borderColor) {
@@ -793,7 +790,7 @@ class $Tab extends HTMLButtonElement {
   }
 
   getI18nKey () {
-    return this.getAttribute('i18n') ?? this.dataset.i18n
+    return this.getAttribute('i18n')
   }
 
   getSubTabs () {

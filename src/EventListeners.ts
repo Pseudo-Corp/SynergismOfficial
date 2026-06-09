@@ -120,8 +120,8 @@ import {
   getLastUpgradeInfo,
   goldenQuarkUpgrades,
   type SingularityDataKeys,
-  singularityPerks,
   singularityPerkModalHTML,
+  singularityPerks,
   teleportToSingularity,
   updateSingularityElevator,
   upgradeGQToString

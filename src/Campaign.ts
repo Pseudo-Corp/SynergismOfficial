@@ -1665,10 +1665,12 @@ export const campaignTokenRewardHTMLUpdate = () => {
     maxCount: maxCampaignTokens
   })
 
-  for (const [key, value] of Object.entries(campaignTokenRewardDatas) as [
-    CampaignTokenRewardNames,
-    CampaignTokenRewardDisplay
-  ][]) {
+  for (
+    const [key, value] of Object.entries(campaignTokenRewardDatas) as [
+      CampaignTokenRewardNames,
+      CampaignTokenRewardDisplay
+    ][]
+  ) {
     // Create a new Icon if the player has enough tokens and extra requirements are met
     if (
       campaignTokens >= value.tokenRequirement
@@ -1705,10 +1707,12 @@ export const campaignTokenRewardHTMLUpdate = () => {
     totalRewardIcon.src = 'Pictures/Campaigns/sum.png'
 
     const popupTexts: string[] = []
-    for (const [key, value] of Object.entries(campaignTokenRewardDatas) as [
-      CampaignTokenRewardNames,
-      CampaignTokenRewardDisplay
-    ][]) {
+    for (
+      const [key, value] of Object.entries(campaignTokenRewardDatas) as [
+        CampaignTokenRewardNames,
+        CampaignTokenRewardDisplay
+      ][]
+    ) {
       if (
         campaignTokens >= value.tokenRequirement
         && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())

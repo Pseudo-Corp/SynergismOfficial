@@ -3490,10 +3490,12 @@ export const singularityPerkModalHTML = (perk: SingularityPerk, imageSrc: string
       <span>${perk.name()}</span>
     </div>
     <div class="singularityPerkModalLevel">${levelInfo}</div>
-    <div class="singularityPerkModalDescription">${perk.description(
+    <div class="singularityPerkModalDescription">${
+    perk.description(
       player.highestSingularityCount,
       perk.levels
-    )}</div>
+    )
+  }</div>
   </div>`
 }
 

@@ -147,8 +147,8 @@ import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talismans'
 import type { GlobalVariables } from './types/Synergism'
-import { isMobile, sumContents } from './Utility'
 import { MEDIUM_MODAL_UPDATE_TICK, Modal } from './UpdateHTML'
+import { isMobile, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
 enum StatLineTypes {

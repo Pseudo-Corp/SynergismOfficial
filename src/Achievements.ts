@@ -9,6 +9,7 @@ import { hepteracts } from './Hepteracts'
 import { displayLevelStuff } from './Levels'
 import { maxOcteractUpgradeAP, octeractUpgrades } from './Octeracts'
 import { maxRedAmbrosiaUpgradeAP, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
+import { resetTiers } from './Reset'
 import { runeBlessings } from './RuneBlessings'
 import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
 import { runeSpirits } from './RuneSpirits'
@@ -21,7 +22,6 @@ import type { resetNames } from './types/Synergism'
 import { CloseModal, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification, revealStuff } from './UpdateHTML'
 import { isMobile, sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { resetTiers } from './Reset'
 
 const achievementProgressSelectors = [
   '.tieredAchievementType',

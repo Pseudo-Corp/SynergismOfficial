@@ -48,7 +48,7 @@ const options = {
   platform: stripQuotes(values.platform),
   outfile: stripQuotes(values.outfile),
   prod: values.prod,
-  dev: values.dev,
+  dev: values.dev
 }
 
 if (options.dev) {
