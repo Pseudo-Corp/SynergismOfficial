@@ -1541,6 +1541,7 @@ export const Modal = (
     ? { targetElement: targetElementOrOptions }
     : targetElementOrOptions ?? {}
 
+  /* eslint-disable unicorn/prefer-add-event-listener */
   modalContent.onclick = modalOptions.buttonClick
     ? (event) => {
       const button = event.target instanceof Element
@@ -1558,6 +1559,7 @@ export const Modal = (
       }
     }
     : null
+  /* eslint-enable unicorn/prefer-add-event-listener */
 
   const modalId = id = Math.random()
   const interval = setInterval(() => {
@@ -1636,8 +1638,10 @@ export const CloseModal = () => {
   id = null
   modal.classList.remove('modalBottomSheet')
   modalContent.innerHTML = ''
+  /* eslint-disable unicorn/prefer-add-event-listener */
   modalContent.onclick = null
   modal.onclick = null
+  /* eslint-enable unicorn/prefer-add-event-listener */
   modal.style.display = 'none'
 }
 
