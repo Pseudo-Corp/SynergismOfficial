@@ -946,19 +946,25 @@ let createdHTMLThisSession = false
 const addUpgradeReferenceHeaderIcon = (category: UpgradeCategories) => {
   const data = categoryData[category]
   const div = DOMCacheGetOrSet('upgradeReferenceHeader')
-  const btn = document.createElement('button')
-  btn.style.border = `2px solid ${data.color}`
-  btn.classList.add('upgradeReferenceHeaderIcon')
-  btn.addEventListener('click', () => {
-    DOMCacheGetOrSet(`upgrades${category}`).scrollIntoView({ behavior: 'smooth', block: 'center' })
+  const label = i18next.t(`upgrades.shopTitles.${data.i18n}`)
+  const icon = document.createElement('img')
+  icon.classList.add('mobileSubTabIcon', 'upgradeReferenceHeaderIcon')
+  if (data.unlockHTMLClass !== '') {
+    icon.classList.add(data.unlockHTMLClass)
+  }
+  icon.style.setProperty('--upgrade-reference-color', data.color)
+  icon.src = `Pictures/Default/${data.mainIconName}.png`
+  icon.loading = 'lazy'
+  icon.width = 32
+  icon.height = 32
+  icon.alt = label
+  icon.title = label
+  icon.setAttribute('aria-label', label)
+  icon.addEventListener('click', () => {
+    DOMCacheGetOrSet(`upgrades${category}`).scrollIntoView({ behavior: 'smooth', block: 'start' })
   })
 
-  const img = document.createElement('img')
-  img.src = `Pictures/Default/${data.mainIconName}.png`
-  img.loading = 'lazy'
-  btn.appendChild(img)
-
-  div.appendChild(btn)
+  div.appendChild(icon)
 }
 
 const createUpgradeSectionTop = (category: UpgradeCategories) => {
