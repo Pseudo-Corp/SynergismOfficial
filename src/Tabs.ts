@@ -791,10 +791,6 @@ class $Tab extends HTMLButtonElement {
     return this.#type
   }
 
-  getI18nKey () {
-    return isMobile ? this.getAttribute('i18n-aria-label') : this.getAttribute('i18n')
-  }
-
   getSubTabs () {
     return subtabInfo[this.#type]
   }
@@ -1058,7 +1054,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
 
   if (PLATFORM === 'steam') {
     import('./steam/discord').then(({ setRichPresenceDiscord }) => {
-      const i18n = tabRow.getCurrentTab().getI18nKey()
+      const i18n = tabRow.getCurrentTab().getAttribute('i18n')
       setRichPresenceDiscord({
         details: 'Playing Synergism',
         state: `Looking at ${i18next.t(i18n!)}...`,
