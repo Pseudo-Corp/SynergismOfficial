@@ -288,6 +288,47 @@ const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
   }
 ]
 
+const mobileStatsIconConfig: Record<string, string> = {
+  kMisc: 'Pictures/Stats for Nerds Icons/Categories/Miscellaneous.png',
+  kBaseOffering: 'Pictures/Stats for Nerds Icons/Categories/BaseOfferings.png',
+  kOfferingMult: 'Pictures/Stats for Nerds Icons/Categories/OfferingMultiplier.png',
+  kRuneEffectMult: 'Pictures/Stats for Nerds Icons/Categories/RunePower.png',
+  kSalvage: 'Pictures/Stats for Nerds Icons/Categories/Salvage.png',
+  kBaseObtainium: 'Pictures/Stats for Nerds Icons/Categories/BaseObtainium.png',
+  kObtIgnoreDR: 'Pictures/Stats for Nerds Icons/Categories/ImmaculateObtainium.png',
+  kObtMult: 'Pictures/Stats for Nerds Icons/Categories/ObtainiumMultiplier.png',
+  kQuarkMult: 'Pictures/Stats for Nerds Icons/Categories/QuarkMultiplier.png',
+  kGSpeedMultIgnoreDR: 'Pictures/Stats for Nerds Icons/Categories/GlobalSpeedImmaculate.png',
+  kGSpeedMult: 'Pictures/Stats for Nerds Icons/Categories/GlobalSpeedMultiplier.png',
+  kAntSpeedMult: 'Pictures/Stats for Nerds Icons/Categories/AntSpeedMultiplier.png',
+  kAntSacrificeMult: 'Pictures/Stats for Nerds Icons/Categories/AntSacrificeMultiplier.png',
+  kAntELO: 'Pictures/Stats for Nerds Icons/Categories/AntELO.png',
+  kAdditiveAntELOMult: 'Pictures/Stats for Nerds Icons/Categories/AntELOMult.png',
+  kRebornELOCreationSpeedMult: 'Pictures/Stats for Nerds Icons/Categories/RebornELOCreation.png',
+  kTalismanRuneBonusMult: 'Pictures/Stats for Nerds Icons/Categories/TalismanPower.png',
+  kASCMult: 'Pictures/Stats for Nerds Icons/Categories/AscensionSpeedMultiplier.png',
+  kACountMult: 'Pictures/Stats for Nerds Icons/Categories/AscensionCountMultiplier.png',
+  kGlobalCubeMult: 'Pictures/Stats for Nerds Icons/Categories/GlobalCubeMultiplier.png',
+  kCubeMult: 'Pictures/Stats for Nerds Icons/Categories/CubeMultiplier.png',
+  kTessMult: 'Pictures/Stats for Nerds Icons/Categories/TesseractMultiplier.png',
+  kHypercubeMult: 'Pictures/Stats for Nerds Icons/Categories/HypercubeMultiplier.png',
+  kPlatMult: 'Pictures/Stats for Nerds Icons/Categories/PlatonicCubeMultiplier.png',
+  kHeptMult: 'Pictures/Stats for Nerds Icons/Categories/HepteractMultiplier.png',
+  kOrbPowderMult: 'Pictures/Default/HepteractOverfluxPowder.png',
+  kGQMult: 'Pictures/Stats for Nerds Icons/Categories/GoldenQuarkMultiplier.png',
+  kGQCost: 'Pictures/Stats for Nerds Icons/Categories/GoldenQuarkCostMultiplier.png',
+  kAddStats: 'Pictures/Stats for Nerds Icons/Categories/AddCodeStats.png',
+  kOctMult: 'Pictures/Stats for Nerds Icons/Categories/OcteractMultiplier.png',
+  kAmbrosiaAdditiveLuckMult: 'Pictures/Stats for Nerds Icons/Categories/AmbrosiaLuckMult.png',
+  kAmbrosiaLuck: 'Pictures/Stats for Nerds Icons/Categories/AmbrosiaLuck.png',
+  kAmbrosiaBlueberries: 'Pictures/Stats for Nerds Icons/Categories/BlueberryInventory.png',
+  kAmbrosiaGenMult: 'Pictures/Stats for Nerds Icons/Categories/AmbrosiaBarPoints.png',
+  kLuckConversion: 'Pictures/Stats for Nerds Icons/Categories/LuckConversion.png',
+  kRedAmbrosiaLuck: 'Pictures/Stats for Nerds Icons/Categories/RedLuck.png',
+  kRedAmbrosiaGenMult: 'Pictures/Stats for Nerds Icons/Categories/RedBarPoints.png',
+  kShopVouchers: 'Pictures/Stats for Nerds Icons/Categories/ShopVouchers.png'
+}
+
 const defaultModalBuyButtons = () => [
   { action: 'one', label: i18next.t('general.buyOne') },
   { action: 'max', label: i18next.t('general.buyMax') }
@@ -383,14 +424,14 @@ const registerPurchasableModal = ({
   })
 }
 
-const createMobileSubTabIcon = (sourceButton: HTMLButtonElement, src: string) => {
+const createMobileIcon = (sourceButton: HTMLButtonElement, src: string, className: string) => {
   const icon = document.createElement('img')
 
   for (const attribute of sourceButton.attributes) {
     icon.setAttribute(attribute.name, attribute.value)
   }
 
-  icon.classList.add('mobileSubTabIcon')
+  icon.classList.add(className)
   icon.src = src
   icon.loading = 'lazy'
   icon.width = 32
@@ -438,7 +479,7 @@ const registerMobileSubTabIcons = () => {
         continue
       }
 
-      sourceButton.replaceWith(createMobileSubTabIcon(sourceButton, src))
+      sourceButton.replaceWith(createMobileIcon(sourceButton, src, 'mobileSubTabIcon'))
 
       const iconContainer = wrapper.querySelector<HTMLElement>(`:scope > * > #${buttonID}`)?.parentElement
       iconContainer?.classList.add('mobileSubTabIconContainer')
@@ -451,6 +492,24 @@ const registerMobileSubTabIcons = () => {
           : 'mobileIconSubTabWrapperWithFullRowControl'
       )
     }
+  }
+}
+
+const registerMobileStatsIcons = () => {
+  if (!isMobile) {
+    return
+  }
+
+  const wrapper = DOMCacheGetOrSet('statsForNerds')
+  for (const [buttonID, src] of Object.entries(mobileStatsIconConfig)) {
+    const sourceButton = wrapper.querySelector<HTMLButtonElement>(`button#${buttonID}`)
+    if (sourceButton === null) {
+      continue
+    }
+
+    const icon = createMobileIcon(sourceButton, src, 'mobileStatsNerdsIcon')
+    icon.style.backgroundColor = ''
+    sourceButton.replaceWith(icon)
   }
 }
 
@@ -504,6 +563,7 @@ const registerMobileSubTabLayout = () => {
 
 export const generateEventHandlers = () => {
   registerMobileSubTabIcons()
+  registerMobileStatsIcons()
   registerMobileHotkeyPanel()
   registerSubTabSwitches()
   registerMobileSubTabLayout()
@@ -1280,7 +1340,7 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('ascensionAutoToggle').addEventListener('click', () => toggleAutoAscendResetMode())
 
   // SETTNGS TAB
-  const t = document.querySelectorAll<HTMLElement>('button.statsNerds')
+  const t = document.querySelectorAll<HTMLElement>('.statsNerds')
   for (const s of t) {
     s.addEventListener('click', (e) => displayStats(e.target as HTMLElement))
   }

@@ -6247,6 +6247,7 @@
     }
   },
   "statistics": {
+    "clickIconInstruction": "Click on an icon to view the Stats Breakdown!",
     "subtabs": {
       "misc": "Miscellaneous Stats",
       "baseOffering": "Base Offerings",

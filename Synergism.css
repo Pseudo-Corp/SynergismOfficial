@@ -8405,19 +8405,36 @@ html[data-mobile="true"] .hideOnMobile {
 
     /* Stats for nerds */
     #statsForNerds {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 32px);
+        gap: 10px;
         min-width: unset;
         width: 95%;
         max-width: 500px;
-        align-items: stretch;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #mobileStatsNerdsInstruction {
+        grid-column: 1 / -1;
+        margin: 0;
+        text-align: center;
     }
 
     #summaryGeneration {
-        width: calc(50% - 8px) !important;
+        grid-column: 1 / -1;
+        width: 250px !important;
+        justify-self: center;
     }
 
-    #statsForNerds > button {
-        width: calc(50% - 8px);
-        min-width: unset;
+    .mobileStatsNerdsIcon {
+        box-sizing: border-box;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        cursor: pointer;
+        background-color: var(--button-color);
+        object-fit: fill;
     }
 
     #wowCubeSidebar {

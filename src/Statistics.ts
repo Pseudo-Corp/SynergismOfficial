@@ -3664,6 +3664,8 @@ const associated = new Map<string, string>([
 ])
 
 const mobileStatsModalHTML = (statsId: string) => {
+  loadStatisticsUpdate(statsId)
+
   const statsClone = DOMCacheGetOrSet(statsId).cloneNode(true) as HTMLElement
   statsClone.removeAttribute('id')
   statsClone.classList.remove('statContainer', 'activeStats')
@@ -3678,6 +3680,18 @@ export const displayStats = (btn: HTMLElement) => {
   const children = btn.parentElement ? btn.parentElement.querySelectorAll<HTMLElement>('.statsNerds') : []
   const activeStatsId = associated.get(btn.id)
 
+  if (isMobile && activeStatsId) {
+    Modal(
+      () => mobileStatsModalHTML(activeStatsId),
+      0,
+      0,
+      { borderColor: getComputedStyle(btn).borderColor },
+      MEDIUM_MODAL_UPDATE_TICK,
+      btn
+    )
+    return
+  }
+
   for (const e of children) {
     const statsEl = DOMCacheGetOrSet(associated.get(e.id)!)
     if (e.id !== btn.id) {
@@ -3690,26 +3704,15 @@ export const displayStats = (btn: HTMLElement) => {
       statsEl.classList.add('activeStats')
     }
   }
-
-  if (isMobile && activeStatsId) {
-    loadStatisticsUpdate()
-    Modal(
-      () => mobileStatsModalHTML(activeStatsId),
-      0,
-      0,
-      { borderColor: getComputedStyle(btn).borderColor },
-      MEDIUM_MODAL_UPDATE_TICK,
-      btn
-    )
-  }
 }
 
-export const loadStatisticsUpdate = () => {
-  const activeStats = document.getElementsByClassName(
-    'activeStats'
-  ) as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < activeStats.length; i++) {
-    switch (activeStats[i].id) {
+export const loadStatisticsUpdate = (statsId?: string) => {
+  const statsIds = statsId === undefined
+    ? Array.from(document.getElementsByClassName('activeStats'), (element) => element.id)
+    : [statsId]
+
+  for (const id of statsIds) {
+    switch (id) {
       case 'miscStats':
         loadMiscellaneousStats()
         break

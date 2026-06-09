@@ -2425,10 +2425,10 @@ export const buyTalismanResources = (
       player.offerings = new Decimal(0)
     }
   }
-  if (PLATFORM !== 'mobile') {
-    updateTalismanCostDisplay(type, obtainiumBudget, offeringBudget)
-  } else {
+  if (PLATFORM === 'mobile') {
     updateMobileTalismanInventoryPurchaseInfo(type)
+  } else {
+    updateTalismanCostDisplay(type, obtainiumBudget, offeringBudget)
   }
   updateTalismanInventory()
 }

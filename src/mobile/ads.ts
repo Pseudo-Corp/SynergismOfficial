@@ -53,9 +53,7 @@ export async function ensureAdMobReady (): Promise<void> {
 export async function rewardVideo (): Promise<void> {
   await ensureAdMobReady()
   const options: RewardAdOptions = {
-    // This is google's testing adId. You should see 'Test Mode' as a banner while the ad plays. Otherwise
-    // you might violate the invalid traffic policy https://support.google.com/admob/answer/3342054?sjid=16946736118430249953-NA
-    adId: 'ca-app-pub-3940256099942544/1712485313',
+    adId: 'ca-app-pub-8767571504273469/2651441034I f',
     isTesting: true
   }
 
