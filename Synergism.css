@@ -7294,16 +7294,25 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     .mobileIconSubTabWrapper {
-        grid-template-columns: repeat(var(--mobile-subtab-icon-count), 32px);
+        display: flex;
+        flex-wrap: wrap;
         align-items: center;
+        justify-content: center;
     }
 
-    .mobileIconSubTabWrapper.mobileIconSubTabWrapperWithInlineControl {
-        grid-template-columns: minmax(130px, 1fr) repeat(var(--mobile-subtab-icon-count), 32px);
+    .mobileIconSubTabWrapper > .mobileSubTabIcon,
+    .mobileIconSubTabWrapper > .mobileSubTabIconContainer {
+        flex: 0 0 32px;
+        width: 32px;
     }
 
-    .mobileIconSubTabWrapper.mobileIconSubTabWrapperWithFullRowControl > :not(.mobileSubTabIcon) {
-        grid-column: 1 / -1;
+    .mobileIconSubTabWrapperWithInlineControl > :not(.mobileSubTabIcon):not(.mobileSubTabIconContainer) {
+        flex: 0 1 160px;
+        width: auto;
+    }
+
+    .mobileIconSubTabWrapperWithFullRowControl > :not(.mobileSubTabIcon):not(.mobileSubTabIconContainer) {
+        flex: 0 0 100%;
     }
 
     .subTabWrapper > button,
@@ -8052,10 +8061,6 @@ html[data-mobile="true"] .hideOnMobile {
     .subTabWrapper {
         grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
         gap: 5px;
-    }
-
-    .mobileIconSubTabWrapper {
-        grid-template-columns: repeat(var(--mobile-subtab-icon-count), 32px);
     }
 
     .buttonRow {

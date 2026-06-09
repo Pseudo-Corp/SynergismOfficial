@@ -731,7 +731,6 @@ class $Tab extends HTMLButtonElement {
     super()
 
     this.id = options.id
-    this.setAttribute('i18n', options.i18n)
     if (options.class) {
       this.classList.add(options.class)
     }
@@ -742,12 +741,18 @@ class $Tab extends HTMLButtonElement {
       this.setAttribute('i18n-aria-label', options.i18n)
       const icon = document.createElement('img')
       icon.classList.add('mobileTabIcon')
+      icon.setAttribute('i18n', options.i18n)
       icon.src = `Pictures/Tab Icons/Tabs/${options.mobileIcon}`
       icon.loading = 'lazy'
       icon.width = 32
       icon.height = 32
       icon.draggable = false
       this.appendChild(icon)
+    } else {
+      /* On mobile, if we have the i18n attribute for the button,
+        the localization will replace each mobile tab image with translated text.
+        See translateHTML in i18n.ts */
+      this.setAttribute('i18n', options.i18n)
     }
 
     if (options.borderColor) {
@@ -790,7 +795,8 @@ class $Tab extends HTMLButtonElement {
   }
 
   getI18nKey () {
-    return this.getAttribute('i18n')
+    // 'i18n' is not an attribute of the tab itself in mobile
+    return this.getAttribute('i18n') ?? this.dataset.i18n
   }
 
   getSubTabs () {
