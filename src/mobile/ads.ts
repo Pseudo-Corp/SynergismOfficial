@@ -2,7 +2,6 @@ import { AdMob, AdmobConsentStatus, type RewardAdOptions, RewardAdPluginEvents }
 import i18next from 'i18next'
 import { isAdEventEnabled, setNewAdExpiry } from '../Event'
 import { Notification } from '../UpdateHTML'
-import { isDebug } from '../Utility'
 
 let adMobInitialized = false
 let adAttempt = 0
@@ -62,7 +61,7 @@ export async function ensureAdMobReady (): Promise<void> {
 
 export async function rewardVideo (): Promise<void> {
   await ensureAdMobReady()
-  const options: RewardAdOptions = isDebug
+  const options: RewardAdOptions = DEV || !PROD
     ? {
       adId: 'ca-app-pub-3940256099942544/5354046379',
       isTesting: true
