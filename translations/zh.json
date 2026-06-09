@@ -69,7 +69,7 @@
       },
       "ambrosiaQuarkCube1": {
         "name": "神肴夸克-方盒混合模块 I",
-        "description": "第一代混合模块。当前夸克数量每有一个数量级，每级该升级就可以使所有类型的方盒、立方和方块获取数量增加0.1%，然后再乘以当前夸克数量的数量级。",
+        "description": "第一代混合模块。每级此升级使所有类型的方盒、立方和方块获取数量增加0.1%，加成倍率再乘以当前夸克位数的平方！",
         "effect": "第一代混合模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaLuckCube1": {
@@ -194,8 +194,8 @@
       },
       "ambrosiaBrickOfLead": {
         "name": "铅砖",
-        "description": "我总将它藏在帽子里。每级使神肴进度条获取速度减少2%，但作为补偿可以获得神肴之运！每级还会使奇点时长减少1%。",
-        "effect": "神肴进度条点数需求x{{blueberryGen}}。神肴之运增加{{luckMult}}。奇点时长x{{singularitySpeed}}"
+        "description": "我总将它藏在帽子里。它每级会降低你 2% 的神肴进度条点数生成速度，但作为补偿，它会赐予你神肴之运！同时，它每级还会使全局速度、拔擢速度和奇点速度减慢 1%。 <<lightgoldenrodyellow| <i>这东西对某个特定的拔擢或许大有裨益…… </i> >>",
+        "effect": "神肴进度条需求x{{blueberryGen}}，神肴之运增加{{luckMult}}。全局、飞升、奇点速度x{{singularitySpeed}}"
       },
       "ambrosiaFreeLuckUpgrades": {
         "name": "绿而再绿的神肴绿草",
@@ -1313,7 +1313,7 @@
         "wowCubeGain": "基于飞升次数的所有类型方盒、立方和方块获取数量倍率"
       },
       "193": {
-        "wowCubeGain": "根据数学常数，增加惊奇方盒获取数量[数学常数每有一个数量级，就增加0.25%]"
+        "wowCubeGain": "根据数学常数，增加惊奇方盒获取数量[数学常数每有一个数量级，就增加0.25%获取数量]"
       },
       "195": {
         "wowCubeGain": "根据数学常数，增加惊奇方盒获取数量[在1e100000数学常数时达到上限250倍]",
@@ -2253,7 +2253,7 @@
     },
     "mastery": {
       "notMaxedSelfAnt": "固定产量倍率：<<gray |{{x}} ⇾>><<gold | {{y}}>>",
-      "maxedSelfAnt": "固定产量倍率：<<gray |{{x}}>>",
+      "maxedSelfAnt": "固定产量倍率：<<gold | {{x}}>>",
       "level": "专精等级<<gold|{{x}}/{{y}}>>",
       "eloRequirement": "购买该等级的专精需要<<#00DDFF|{{x}}重生强度分>> (目前有<<#00DDFF|{{y}}>>)",
       "particleCost": "花费：<<green|{{x}}粒子>>",
@@ -2784,7 +2784,7 @@
     "10": {
       "name": "虐待狂挑战 I || 完成{{- completions}}次，次数上限为{{- max}}",
       "flavor": "生而为人，我很抱歉。您在地上看到一张便条：“您可能需要1e300银河碎屑才能考虑这个挑战。试着献祭蚁丘，掌控蚂蚁，与蚁神合为一体，这样才有机会完成挑战。”",
-      "restrictions": "立即转世，需要达到目标，但前五个挑战的限制将混合起来同时生效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 每种建筑的数量超过<<gold|25000>>以后，价格将以超指数速度增长。该数值受建筑成本增长减缓的影响。<br>☆ 钻石获取数量变为<<gold| 金币数量^0.0001>>。<br>☆ 神话获取数量变为<<gold| 金币数量^0.001>>。",
+      "restrictions": "立即转世，需要达到目标，但前五个挑战的限制将混合起来同时生效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 每种建筑的数量超过<<gold|25,000>>以后，价格将以超指数速度增长。该数值受建筑成本增长减缓的影响。<br>☆ 钻石获取数量变为<<gold| 金币数量^0.0001>>。<br>☆ 神话获取数量变为<<gold| 金币数量^0.001>>。",
       "goal": "目标：在挑战中达到{{value}}金币。",
       "per": {
         "1": "蚂蚁基础强度分增加100！当前效果：",
@@ -3064,7 +3064,7 @@
       "58": "[Cx8]再增添一些节日的气息！如果有活动，则使所有类型的方盒及立方获取数量乘以1.25。",
       "59": "[Cx9]很酸很酸。但它每级可以使飞升的速度增加0.25%，所以估计没什么人会抱怨了。",
       "60": "[Cx10]惊奇烘焙坊在圣诞特卖时有更多东西可以出售了。每级使商店购买金夸克的花费减少0.003%。",
-      "61": "[Cx11] Edible but prone to mistakes. Adds 25 whole milliseconds to the tolerance of code 'time', and increases its reward by +2% per level. When maxxed, code 'time' always gives its reward, even if you fail it!",
+      "61": "[Cx11]吃起来是没啥问题，但容易出错。每级使输入“时间”代码的时间间隔容错增加25毫秒，且奖励增加2%。满级后，输入“时间”代码将永远成功，不会失败！",
       "62": "[Cx12]Platonic很喜欢太妃糖。使挑战15中难得素获取数量和祭品获取数量变为原来的8倍。",
       "63": "[Cx13]布朗尼曲奇，两全其美。使惊奇方盒获取数量基于七阶立方的数量而增加1%(每数量级增加3%)。",
       "64": "[Cx14]有人说这是蚁神的造物。当您开启PLATONIC方盒获得塑像时，使获取量翻倍。",
@@ -3073,7 +3073,7 @@
       "67": "[Cx17]这里面都是什么玩意？？？不管了，总之玄学护身符的等级上限增加1337。",
       "68": "[Cx18]什么情况，这根本就不是饼干！每级使夸克获取数量增加0.01%，达到等级上限1000时可以使夸克获取数量再增加5%！",
       "69": "[Cx19]永远无法再回忆起来的饼干。使本次进入奇点的金夸克获取数量增加12%。",
-      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. For each total Corruption level, including free ones, gain 1.016x the Octeracts per second!",
+      "70": "[Cx20]烘焙之理的具现化。其美味已臻于食物之巅。每有一级腐化等级(包括免费等级)，就使惊奇八阶方块产量变为原来的1.016倍！",
       "71": "[Cx21]护身符每有1个稀有度，就使难得素获取数量变为原来的1.04倍。",
       "72": "[Cx22]护身符每有1个稀有度，就使祭品获取数量变为原来的1.04倍。",
       "73": "[Cx23]每级使无限晋升符文的额外等级增加1！",
@@ -6771,6 +6771,7 @@
       "Challenge15": "挑战15奖励：",
       "CubeUpgradeCx2": "饼干升级2[Cx2]：",
       "SpacialDilation": "[时间膨胀]腐化的惩罚：",
+      "AmbrosiaBrickOfLead": "神肴 - 铅砖：",
       "FastSpeedDR": "全局速度超过100倍时的软上限指数：",
       "SlowSpeedDR": "全局速度低于1倍时的软上限指数：",
       "ImmaculateSpeedMult": "无瑕全局速度倍率：",
@@ -6806,6 +6807,7 @@
       "ExponentialScalingFast": "飞升的速度指数(基础值超过1时)：",
       "ExponentialScalingSlow": "飞升的速度指数(基础值低于1时)：",
       "SingularityDebuff": "奇点惩罚：",
+      "AmbrosiaBrickOfLead": "神肴 - 铅砖：",
       "Total": "飞升的速度基础倍率：",
       "Total2": "飞升的速度最终倍率："
     },
@@ -7063,6 +7065,8 @@
     },
     "salvagePositive": {
       "title": "正数回收",
+      "BaseMultiplier": "基础正数回收倍率",
+      "AchievementTalisman": "成就护身符 - 回收加成：",
       "AchievementBonus": "回收成就：",
       "SynergismLevel": "协同效应等级的奖励：",
       "SynergismLevelMilestone": "等级里程碑 - 回收挑战强化：",
@@ -7082,6 +7086,9 @@
     },
     "salvageNegative": {
       "title": "负数回收",
+      "BaseMultiplier": "基础负数回收倍率",
+      "SingularityPerk": "奇点特权 - 在桌面点击的回收人：",
+      "AchievementTalisman": "成就护身符 - 回收加成：",
       "DroughtCorruption": "“欠收”腐化",
       "SingularityDebuff": "奇点惩罚：",
       "RedAmbrosiaYinYang": "红神肴 - 阴：",
@@ -7367,7 +7374,7 @@
         "12": "腐化：灭绝每有1级，每级该升级就可以使蚂蚁强度分增加0.5%！(效果与其他效果叠加)。每级使重生强度分的产生速度增加10%！另外，每完成1次挑战，每级该升级还可以使蚂蚁速度增加1%。",
         "13": "“欠收”减少的<<green|回收>>数值降低50%！",
         "14": "挑战15中大萧条 II金币获取数量的指数乘以1.55。",
-        "15": "您开始找寻深渊的起始了。在挑战15中金币指数增加0.10。挑战15的分数增加25%。每级腐化使飞升的速度增加0.2%(上限：20%)。每次完成挑战9就使所有类型的方盒及立方获取数量增加1%(相互叠乘)。夸克获取数量变为原来的1.15倍。超立方建筑产量变为1e250倍。飞升次数获取数量翻倍。转世挑战次数上限增加30，飞升挑战次数上限增加20。无瑕难得素倍率和无瑕祭品倍率变为原来的6倍！聊聊继续深入的事吧。",
+        "15": "您开始找寻深渊的起始了。在挑战15中金币指数增加0.10。挑战15的分数增加25%。每级腐化使飞升的速度增加0.2%(上限：20%)。每次完成挑战9就使所有3-7阶方盒和立方获取数量增加1%(相互叠乘)。夸克获取数量变为原来的1.15倍。超立方建筑产量变为1e250倍。飞升次数获取数量翻倍。转世挑战次数上限增加30，飞升挑战次数上限增加20。无瑕难得素倍率和无瑕祭品倍率变为原来的6倍！聊聊继续深入的事吧。",
         "16": "每级该升级使超通量粉转换效率增加1%，使飞升次数获取数量增加2%，并且根据超通量粉的数量(上限100000)最多还可以使飞升次数获取数量再增加2%。另外，超立方建筑产量变为(超通量粉数量+1)^(10*等级)倍，无上限。",
         "17": "如果粘性加倍器和加速器的等级不低于10级，则使它的分数倍率变为原来的 (3 + 该升级等级 * 0.04) 次方。",
         "18": "每级使数学常数升级1的基础效果百分比增加0.1%，并使数学常数升级2的基础上限百分比增加0.3%！",
@@ -7541,13 +7548,13 @@
         "gave": "我得先给您{{x}}夸克，这样我才能拿走{{y}}夸克。"
       },
       "time": {
-        "wait": "You must wait at least 15 minutes between each use.",
-        "prepare": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks! Due to how long it has been since your last attempt, the rewards are multiplied by {{y}}.",
-        "confirm": "Press the button when you feel the time is right. Between {{start}} and {{end}} seconds, please!",
-        "maxedCookie": "Because Cx11 is maxed, you will always get the rewards from this code. Just have some fun!",
-        "cancelled": "No worries! Try again when you feel like it.",
-        "won": "You clicked 'OK' in {{time}} seconds! Congratulations! [+{{x}} Quarkies]",
-        "lost": "You clicked 'OK' in {{time}} seconds! Unfortunately, you did not win this time. Try again soon.",
+        "wait": "您需要等待15分钟后才能再度使用。",
+        "prepare": "您是货真价实的时间掌控者吗？来试试看吧。如果您在按下确定按钮以后的{{start}}到{{end}}秒之间点击按钮，将可以获得{{quarks}}夸克！由于两次使用该代码之间的时间间隔，奖励还将变为原来的{{y}}倍。",
+        "confirm": "在您觉得合适的时机按下按钮。一定要在{{start}}到{{end}}秒之间啊！",
+        "maxedCookie": "因为饼干升级11[Cx11]已经满级，您一定可以获得奖励。不过还是可以玩玩看！",
+        "cancelled": "别担心！您随时可以再次尝试。",
+        "won": "您在{{time}}秒时点击了确定按钮！恭喜！[增加{{x}}夸克]",
+        "lost": "您在{{time}}秒时点击了确定按钮！很不幸，这次没有赢。下次再试试吧。",
         "ambrosia": "您的蓝莓产生了微弱的共鸣，您获得了相当于现实时间{{blueberryTime}}秒的神肴进度条点数。"
       },
       "spoiler": {
@@ -7742,7 +7749,7 @@
       "consumableSpoiler": "使用快乐时光铃，为所有人开启活动！",
       "consumableButton": "消耗品商店",
       "applyTips": "使用打赏！",
-      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s). You may only use up to 1,440 tips at a time.",
+      "applyTipsPrompt": "您想要使用多少打赏？每个打赏价值1分钟离线时间。您拥有{{tips}}个打赏。您一次最多可以使用1440个打赏。",
       "confirmActivation": "您将花费{{cost}}伪币启用{{name}}。您确定要继续吗？",
       "cancelled": "已取消购买。",
       "currentAmountNone": "当前数量： <<#8f8|无生效的消耗品>>",
