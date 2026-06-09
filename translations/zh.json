@@ -2253,7 +2253,7 @@
     },
     "mastery": {
       "notMaxedSelfAnt": "固定产量倍率：<<gray |{{x}} ⇾>><<gold | {{y}}>>",
-      "maxedSelfAnt": "固定产量倍率：<<gray |{{x}}>>",
+      "maxedSelfAnt": "固定产量倍率：<<gold | {{x}}>>",
       "level": "专精等级<<gold|{{x}}/{{y}}>>",
       "eloRequirement": "购买该等级的专精需要<<#00DDFF|{{x}}重生强度分>> (目前有<<#00DDFF|{{y}}>>)",
       "particleCost": "花费：<<green|{{x}}粒子>>",
