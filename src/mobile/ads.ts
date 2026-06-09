@@ -53,10 +53,11 @@ export async function ensureAdMobReady (): Promise<void> {
 export async function rewardVideo (): Promise<void> {
   await ensureAdMobReady()
   const options: RewardAdOptions = {
-    adId: 'ca-app-pub-8767571504273469/2651441034I f',
-    isTesting: true
+    adId: 'ca-app-pub-8767571504273469/2651441034I',
+    isTesting: DEV || !PROD
   }
 
+  /* eslint-disable no-await-in-loop */
   for (let attempt = 1; attempt <= 2; attempt++) {
     try {
       await AdMob.prepareRewardVideoAd(options)
@@ -71,4 +72,5 @@ export async function rewardVideo (): Promise<void> {
       }
     }
   }
+  /* eslint-enable no-await-in-loop */
 }

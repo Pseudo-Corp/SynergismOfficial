@@ -655,8 +655,8 @@ function handleWebSocket () {
     queue.length = 0
 
     interval = setInterval(
-      (ws: WebSocket) => {
-        ws.send('ping')
+      (ws_: WebSocket) => {
+        ws_.send('ping')
       },
       30_000,
       ws
