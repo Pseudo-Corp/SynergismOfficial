@@ -18,7 +18,7 @@ import {
   toggleSingularityScreen
 } from './Toggles'
 import { changeTabColor, CloseModal, hideStuff, revealStuff } from './UpdateHTML'
-import { assert, limitRange, memoize } from './Utility'
+import { assert, isMobile, limitRange, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 export enum Tabs {
@@ -717,6 +717,7 @@ interface kSubTabOptionsBag {
   class?: string
   i18n: string
   borderColor?: string
+  mobileIcon?: string
 }
 
 class $Tab extends HTMLButtonElement {
@@ -734,7 +735,23 @@ class $Tab extends HTMLButtonElement {
       this.classList.add(options.class)
     }
 
-    this.setAttribute('i18n', options.i18n)
+    if (isMobile && options.mobileIcon !== undefined) {
+      this.classList.add('mobileTabIconButton')
+      this.dataset.i18n = options.i18n
+      this.setAttribute('i18n-aria-label', options.i18n)
+
+      const icon = document.createElement('img')
+      icon.classList.add('mobileTabIcon')
+      icon.src = `Pictures/Tab Icons/Tabs/${options.mobileIcon}`
+      icon.setAttribute('i18n', options.i18n)
+      icon.loading = 'lazy'
+      icon.width = 32
+      icon.height = 32
+      icon.draggable = false
+      this.appendChild(icon)
+    } else {
+      this.setAttribute('i18n', options.i18n)
+    }
 
     if (options.borderColor) {
       this.style.borderColor = options.borderColor
@@ -773,6 +790,10 @@ class $Tab extends HTMLButtonElement {
 
   getType () {
     return this.#type
+  }
+
+  getI18nKey () {
+    return this.getAttribute('i18n') ?? this.dataset.i18n
   }
 
   getSubTabs () {
@@ -848,72 +869,92 @@ export const tabRow = new TabRow()
 document.getElementsByClassName('navbar').item(0)?.appendChild(tabRow)
 
 tabRow.appendButton(
-  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' })
+  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings', mobileIcon: 'Buildings.png' })
     .setType(Tabs.Buildings)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades' })
+  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades', mobileIcon: 'Upgrades.png' })
     .setType(Tabs.Upgrades)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ /*class: 'prestigeunlock',*/ id: 'achievementstab', i18n: 'tabs.main.achievements' })
+  new $Tab({
+    /* class: 'prestigeunlock', */
+    id: 'achievementstab',
+    i18n: 'tabs.main.achievements',
+    mobileIcon: 'Achievements.png'
+  })
     // .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Achievements)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'prestigeunlock', id: 'runestab', i18n: 'tabs.main.runes' })
+  new $Tab({ class: 'prestigeunlock', id: 'runestab', i18n: 'tabs.main.runes', mobileIcon: 'Runes.png' })
     .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Runes)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'transcendunlock', id: 'challengetab', i18n: 'tabs.main.challenges' })
+  new $Tab({
+    class: 'transcendunlock',
+    id: 'challengetab',
+    i18n: 'tabs.main.challenges',
+    mobileIcon: 'Challenges.png'
+  })
     .setUnlockedState(() => player.unlocks.transcend)
     .setType(Tabs.Challenges)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'reincarnationunlock', id: 'researchtab', i18n: 'tabs.main.research' })
+  new $Tab({
+    class: 'reincarnationunlock',
+    id: 'researchtab',
+    i18n: 'tabs.main.research',
+    mobileIcon: 'Research.png'
+  })
     .setUnlockedState(() => player.unlocks.reincarnate)
     .setType(Tabs.Research)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal8', id: 'anttab', i18n: 'tabs.main.antHill' })
+  new $Tab({ class: 'chal8', id: 'anttab', i18n: 'tabs.main.antHill', mobileIcon: 'Anthill.png' })
     .setUnlockedState(() => player.unlocks.anthill)
     .setType(Tabs.AntHill)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal10', id: 'cubetab', i18n: 'tabs.main.wowCubes' })
+  new $Tab({ class: 'chal10', id: 'cubetab', i18n: 'tabs.main.wowCubes', mobileIcon: 'WowCubes.png' })
     .setUnlockedState(() => player.unlocks.ascensions)
     .setType(Tabs.WowCubes)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal11', id: 'campaigntab', i18n: 'tabs.main.campaign' })
+  new $Tab({ class: 'chal11', id: 'campaigntab', i18n: 'tabs.main.campaign', mobileIcon: 'Campaigns.png' })
     .setUnlockedState(() => player.challengecompletions[11] > 0)
     .setType(Tabs.Campaign)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
+  new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption', mobileIcon: 'Corruption.png' })
     .setUnlockedState(() => (player.challengecompletions[11] > 0))
     .setType(Tabs.Corruption)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'singularity', id: 'singularitytab', i18n: 'tabs.main.singularity' })
+  new $Tab({
+    class: 'singularity',
+    id: 'singularitytab',
+    i18n: 'tabs.main.singularity',
+    mobileIcon: 'Singularity.png'
+  })
     .setUnlockedState(() => player.highestSingularityCount > 0)
     .setType(Tabs.Singularity)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings' })
+  new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings', mobileIcon: 'Settings.png' })
     .setType(Tabs.Settings)
     .makeDraggable(),
-  new $Tab({ class: 'reincarnationunlock', id: 'shoptab', i18n: 'tabs.main.shop' })
+  new $Tab({ class: 'reincarnationunlock', id: 'shoptab', i18n: 'tabs.main.shop', mobileIcon: 'Shop.png' })
     .setUnlockedState(() => player.unlocks.reincarnate || player.highestSingularityCount > 0)
     .setType(Tabs.Shop)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' })
+  new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith', mobileIcon: 'Events.png' })
     .setType(Tabs.Event)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'pseudoCoinstab', i18n: 'tabs.main.purchase' })
+  new $Tab({ id: 'pseudoCoinstab', i18n: 'tabs.main.purchase', mobileIcon: 'PseudoCoins.png' })
     .setType(Tabs.Purchase)
     .makeDraggable()
 )
@@ -932,8 +973,8 @@ mobileMenuToggle.addEventListener('click', toggleMobileMenu)
 
 // Close mobile menu when a tab is clicked
 tabRow.addEventListener('click', (e) => {
-  const target = e.target as HTMLElement
-  if (!tabRow.isEditing() && target.tagName === 'BUTTON' && navbar?.classList.contains('menu-open')) {
+  const target = e.target instanceof Element ? e.target.closest('#tabrow > button') : null
+  if (!isMobile && !tabRow.isEditing() && target !== null && navbar?.classList.contains('menu-open')) {
     toggleMobileMenu()
   }
 })
@@ -978,6 +1019,16 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   }
 
   G.currentTab = tabRow.getCurrentTab().getType()
+  for (const tab of tabRow.getSubs()) {
+    const isActive = tab === tabRow.getCurrentTab()
+    tab.classList.toggle('active-tab', isActive)
+
+    if (isActive) {
+      tab.setAttribute('aria-current', 'page')
+    } else {
+      tab.removeAttribute('aria-current')
+    }
+  }
 
   if (G.currentTab === Tabs.Achievements) {
     awardUngroupedAchievement('participationTrophy')
@@ -1008,7 +1059,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
 
   if (PLATFORM === 'steam') {
     import('./steam/discord').then(({ setRichPresenceDiscord }) => {
-      const i18n = tabRow.getCurrentTab().getAttribute('i18n')
+      const i18n = tabRow.getCurrentTab().getI18nKey()
       setRichPresenceDiscord({
         details: 'Playing Synergism',
         state: `Looking at ${i18next.t(i18n!)}...`,

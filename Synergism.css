@@ -7999,6 +7999,16 @@ html[data-mobile="true"] .hideOnMobile {
         display: flex !important;
     }
 
+    html[data-mobile="true"] nav.navbar #tabrow {
+        grid-template-columns: repeat(auto-fit, 32px);
+        justify-content: center;
+        gap: 8px !important;
+    }
+
+    html[data-mobile="true"] nav.navbar.menu-open #tabrow {
+        display: grid !important;
+    }
+
     /* Tab buttons in mobile menu */
     nav.navbar #tabrow > button {
         width: 100%;
@@ -8007,6 +8017,30 @@ html[data-mobile="true"] .hideOnMobile {
         font-size: 1em;
         text-align: center;
         border-radius: 6px;
+    }
+
+    html[data-mobile="true"] nav.navbar #tabrow > button.mobileTabIconButton {
+        box-sizing: border-box;
+        width: 32px;
+        height: 32px;
+        min-width: unset;
+        min-height: unset;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        overflow: visible;
+        background-color: var(--button-color) !important;
+    }
+
+    html[data-mobile="true"] nav.navbar #tabrow > button.mobileTabIconButton.active-tab {
+        background-color: red !important;
+    }
+
+    .mobileTabIcon {
+        display: block;
+        width: 32px;
+        height: 32px;
+        object-fit: fill;
     }
 
     nav button {
@@ -8448,9 +8482,9 @@ html[data-mobile="true"] .hideOnMobile {
 
 /* Ensure touch-friendly tap targets */
 @media (pointer: coarse) {
-    button:not(.mobile-menu-toggle):not(.singularityUpgrade):not(.octeractUpgrade),
+    button:not(.mobile-menu-toggle):not(.mobileTabIconButton):not(.singularityUpgrade):not(.octeractUpgrade),
     .buildingPurchaseBtn,
-    nav button:not(.mobile-menu-toggle) {
+    nav button:not(.mobile-menu-toggle):not(.mobileTabIconButton) {
         min-height: 44px;
     }
 
