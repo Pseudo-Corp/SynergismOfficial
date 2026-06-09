@@ -44,7 +44,13 @@ type AmbrosiaUpgradeRewards = {
   ambrosiaSingReduction2: { singularityReduction: number }
   ambrosiaTalismanBonusRuneLevel: { talismanBonusRuneLevel: number }
   ambrosiaRuneOOMBonus: { runeOOMBonus: number; infiniteAscentOOMBonus: number }
-  ambrosiaBrickOfLead: { barRequirementMult: number; additiveLuckMult: number; singularitySpeedMult: number }
+  ambrosiaBrickOfLead: {
+    barRequirementMult: number
+    additiveLuckMult: number
+    singularitySpeedMult: number
+    globalSpeedMult: number
+    ascensionSpeedMult: number
+  }
   ambrosiaFreeQuarkUpgrades: { freeQuarkUpgrades: number }
   ambrosiaFreeLuckUpgrades: { freeLuckUpgrades: number }
   ambrosiaFreeGenerationUpgrades: { freeGenerationUpgrades: number }
@@ -1032,7 +1038,7 @@ export const ambrosiaUpgrades: {
       } else if (key === 'additiveLuckMult') {
         return n / 50
       } else {
-        return 1 - n / 100 // singularitySpeedMult
+        return 1 - n / 100 // singularitySpeedMult, globalSpeedMult, ascensionSpeedMult
       }
     },
     effectsDescription: function() {

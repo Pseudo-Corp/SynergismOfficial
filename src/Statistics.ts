@@ -81,6 +81,7 @@ import {
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
 import {
   calculateAntELOCubeBlessing,
+  calculateAntSacrificeCubeBlessing,
   calculateAntSpeedCubeBlessing,
   calculateGlobalSpeedCubeBlessing,
   calculateObtainiumCubeBlessing,
@@ -1874,6 +1875,10 @@ export const antSacrificeRewardStats: DecimalStatLineCategory = {
       stat: () => 1 + (1 / 4) * player.upgrades[40]
     },
     {
+      i18n: 'CubeBlessingAres',
+      stat: () => calculateAntSacrificeCubeBlessing()
+    },
+    {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.AntSacrifice),
       color: 'lime',
@@ -1991,6 +1996,11 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
       stat: () => 1 + 0.01 * player.cubeUpgrades[52] // cube upgrade 6x2 (Cx2)
     },
     {
+      i18n: 'AmbrosiaBrickOfLead',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'globalSpeedMult'), // Ambrosia Brick of Lead
+      color: 'red'
+    },
+    {
       i18n: 'SpacialDilation',
       stat: () => player.corruptions.used.corruptionEffects('dilation'), // Spacial Dilation
       color: 'red'
@@ -2101,6 +2111,11 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'LimitedAscensionsDebuff',
       stat: () => 1 / calculateExalt3Penalty(), // EXALT Debuff
+      color: 'red'
+    },
+    {
+      i18n: 'AmbrosiaBrickOfLead',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'ascensionSpeedMult'), // Ambrosia Brick of Lead
       color: 'red'
     },
     {
@@ -3092,7 +3107,7 @@ export const positiveSalvageStatMultiplier: NumberStatLineCategory = {
   type: StatLineTypes.Addition,
   lines: [
     {
-      i18n: 'Base',
+      i18n: 'BaseMultiplier',
       stat: () => 1
     },
     {
@@ -3132,12 +3147,12 @@ export const negativeSalvageStatMultiplier: NumberStatLineCategory = {
   type: StatLineTypes.Addition,
   lines: [
     {
-      i18n: 'Base',
+      i18n: 'BaseMultiplier',
       stat: () => 1
     },
     {
       i18n: 'SingularityPerk',
-      stat: () => negSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
+      stat: () => -negSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
     },
     {
       i18n: 'AchievementTalisman',

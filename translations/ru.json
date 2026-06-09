@@ -194,8 +194,8 @@
       },
       "ambrosiaBrickOfLead": {
         "name": "Кирпич Лидерства",
-        "description": "Он всегда у меня под шляпой. Это уменьшит скорость полоски Амброзии на 2% за уровень, но увеличит её удачу в ответ! Также, он замедляет время Сингулярности на 1% за уровень.",
-        "effect": "Ambrosia Bar Point Requirement x{{blueberryGen}}, Ambrosia Luck +{{luckMult}}, Singularity timer speed x{{singularitySpeed}}"
+        "description": "I always keep this under my hat. This reduces your Ambrosia Bar Point generation speed by 2% per level, but grants Ambrosia Luck to compensate! It also slows down Global, Ascension and Singularity speed by 1% per level. <<lightgoldenrodyellow| <i>This might be good for a certain EXALT...</i> >>",
+        "effect": "Ambrosia Bar Point Requirement x{{blueberryGen}}, Ambrosia Luck +{{luckMult}}. Global, Ascension, Singularity Speed x{{singularitySpeed}}"
       },
       "ambrosiaFreeLuckUpgrades": {
         "name": "The Green, Green Grass of Ambrosia",
@@ -6771,6 +6771,7 @@
       "Challenge15": "Награда Испытания 15:",
       "CubeUpgradeCx2": "Улучшение Кубов 6x2 (Cx2):",
       "SpacialDilation": "Corruption: Time Dilation:",
+      "AmbrosiaBrickOfLead": "Ambrosia - The Brick of Lead:",
       "FastSpeedDR": "Степень Верхнего Предела Глобальной Скорости (>100):",
       "SlowSpeedDR": "Степень Нижнего Предела Глобальной Скорости (<1):",
       "ImmaculateSpeedMult": "УП-Игнорирование Чистой Глобальной Скорости:",
@@ -6806,6 +6807,7 @@
       "ExponentialScalingFast": "Экспонента Скорости Вознесения (>1 Базовая):",
       "ExponentialScalingSlow": "Экспонента Скорости Вознесения (<1 Базовая):",
       "SingularityDebuff": "Штраф Сингулярности:",
+      "AmbrosiaBrickOfLead": "Ambrosia - The Brick of Lead:",
       "Total": "Множитель Базовой Скорости Вознесения:",
       "Total2": "Общий Множитель Скорости Вознесения:"
     },
@@ -7063,6 +7065,8 @@
     },
     "salvagePositive": {
       "title": "Positive Salvage",
+      "BaseMultiplier": "Base Positive Salvage Multiplier",
+      "AchievementTalisman": "Achievement Talisman - Salvage Bonus:",
       "AchievementBonus": "Salvage from Achievements:",
       "SynergismLevel": "Synergism Level Reward:",
       "SynergismLevelMilestone": "Level Milestone - Salvage Challenge Buff:",
@@ -7082,6 +7086,9 @@
     },
     "salvageNegative": {
       "title": "Negative Salvage",
+      "BaseMultiplier": "Base Negative Salvage Multiplier",
+      "SingularityPerk": "Singularity Perk - Recyclists Clicking at Your Desktop:",
+      "AchievementTalisman": "Achievement Talisman - Salvage Bonus:",
       "DroughtCorruption": "'Less Fruitful Harvests' Corruption",
       "SingularityDebuff": "Singularity Debuff:",
       "RedAmbrosiaYinYang": "Red Ambrosia - Yin:",
