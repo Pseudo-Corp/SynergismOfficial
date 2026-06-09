@@ -7877,6 +7877,7 @@
     "repeatWatch": "Thanks for watching the ad! Your bonuses were extended for 10 minutes.",
     "adEventNone": "Timer Remaining: <<#8f8|--:-->>",
     "adEventSome": "Timer Remaining: <<#8f8|{{time}}>>",
-    "watchAd": "Watch Ad!"
+    "watchAd": "Watch Ad!",
+    "initFailed": "Ads are not currently available. Please try again later."
   }
 }

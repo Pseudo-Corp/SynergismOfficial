@@ -5,6 +5,12 @@ import { Notification } from '../UpdateHTML'
 
 let adMobInitialized = false
 let adAttempt = 0
+let adClickable = true
+
+function unlockAd(): void {
+  adClickable = true
+  adAttempt = 0
+}
 
 export async function initAdMob (): Promise<void> {
   await AdMob.initialize()
@@ -25,6 +31,8 @@ export async function initAdMob (): Promise<void> {
     await AdMob.showConsentForm()
   }
 
+  AdMob.addListener(RewardAdPluginEvents.Dismissed, unlockAd)
+
   AdMob.addListener(RewardAdPluginEvents.Rewarded, () => {
     const alreadyActive = isAdEventEnabled()
     setNewAdExpiry()
@@ -38,6 +46,7 @@ export async function initAdMob (): Promise<void> {
   AdMob.addListener(RewardAdPluginEvents.FailedToLoad, () => {
     if (adAttempt === 2) {
       void Notification(i18next.t('advertisements.failedToLoadTwice'))
+      unlockAd()
     } else {
       void Notification(i18next.t('advertisements.failedToLoad'))
     }
@@ -46,8 +55,9 @@ export async function initAdMob (): Promise<void> {
   AdMob.addListener(RewardAdPluginEvents.FailedToShow, () => {
     if (adAttempt === 2) {
       void Notification(i18next.t('advertisements.failedToLoadTwice'))
+      unlockAd()
     } else {
-      void Notification(i18next.t('advertisements.failedToLoadTwice'))
+      void Notification(i18next.t('advertisements.failedToLoad'))
     }
   })
 }
@@ -60,7 +70,15 @@ export async function ensureAdMobReady (): Promise<void> {
 }
 
 export async function rewardVideo (): Promise<void> {
-  await ensureAdMobReady()
+  if (!adClickable) { return }
+  adClickable = false
+  try {
+    await ensureAdMobReady()
+  } catch (err) {
+    unlockAd()
+    void Notification(i18next.t('advertisements.initFailed'))
+  }
+
   const options: RewardAdOptions = DEV || !PROD
     ? {
       adId: 'ca-app-pub-3940256099942544/5354046379',
@@ -77,16 +95,13 @@ export async function rewardVideo (): Promise<void> {
       await AdMob.prepareRewardVideoAd(options)
       await AdMob.showRewardVideoAd()
       return
-    } catch (err: any) {
-      console.error(`Reward ad attempt ${attempt} failed:`, err)
+    } catch (err) {
       if (attempt === 1) {
         await new Promise((r) => setTimeout(r, 2000))
       } else {
-        adAttempt = 0
         throw err
       }
     }
-    adAttempt = 0
   }
   /* eslint-enable no-await-in-loop */
 }
