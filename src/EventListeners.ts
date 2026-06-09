@@ -459,25 +459,6 @@ const createMobileIcon = (sourceButton: HTMLButtonElement, src: string, classNam
   return icon
 }
 
-const registerMobileSubTabIconContainer = (icon: HTMLImageElement, wrapper: HTMLElement) => {
-  const container = icon.parentElement
-  if (container === null || container === wrapper) {
-    return
-  }
-
-  container.classList.add('mobileSubTabIconContainer')
-
-  const updateVisibility = () => {
-    container.style.display = getComputedStyle(icon).display === 'none' ? 'none' : ''
-  }
-
-  new MutationObserver(updateVisibility).observe(icon, {
-    attributes: true,
-    attributeFilter: ['class', 'style']
-  })
-  updateVisibility()
-}
-
 const registerMobileSubTabIcons = () => {
   if (!isMobile) {
     return
@@ -499,7 +480,6 @@ const registerMobileSubTabIcons = () => {
 
       const icon = createMobileIcon(sourceButton, src, 'mobileSubTabIcon')
       sourceButton.replaceWith(icon)
-      registerMobileSubTabIconContainer(icon, wrapper)
     }
 
     if (wrapper.querySelector(':scope > :not(.mobileSubTabIcon, .mobileSubTabIconContainer)') !== null) {
