@@ -7710,6 +7710,9 @@
     }
   },
   "mobile": {
+    "header": {
+      "resize": "Resize header"
+    },
     "auth": {
       "signInFailed": "Sign-in was cancelled or failed. Please try again."
     },

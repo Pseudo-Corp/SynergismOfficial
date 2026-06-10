@@ -1103,12 +1103,27 @@ button.isEvent:hover {
 
 .mobileSubTabIconContainer {
     position: relative;
+    display: block;
     width: 32px !important;
     height: 32px;
+    cursor: pointer;
 }
 
 .mobileSubTabIconContainer > .mobileSubTabIcon {
     display: block;
+}
+
+.mobileSubTabIconContainer:hover > .mobileSubTabIcon,
+.mobileSubTabIconContainer:active > .mobileSubTabIcon,
+.mobileSubTabIconContainer:focus-visible > .mobileSubTabIcon {
+    background-color: var(--hover-color);
+}
+
+.mobileSubTabIconContainer.active-subtab > .mobileSubTabIcon,
+.mobileSubTabIconContainer.active-subtab:hover > .mobileSubTabIcon,
+.mobileSubTabIconContainer.active-subtab:active > .mobileSubTabIcon,
+.mobileSubTabIconContainer.active-subtab:focus-visible > .mobileSubTabIcon {
+    background-color: crimson;
 }
 
 #coinBuildings {
@@ -4607,6 +4622,14 @@ header .img {
     width: 32px;
 }
 
+#mobileHeaderContent {
+    display: contents;
+}
+
+#mobileHeaderResizeHandle {
+    display: none;
+}
+
 .subHeader {
     display: flex;
     flex-direction: row;
@@ -7235,6 +7258,44 @@ html[data-mobile="true"] .hideOnMobile {
         overflow-x: hidden;
         overscroll-behavior: contain;
         padding-top: var(--mobile-subtab-height);
+    }
+
+    html[data-mobile="true"] #mobileHeaderContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-height: var(--mobile-header-content-height, none);
+        overflow: hidden;
+    }
+
+    html[data-mobile="true"] #mobileHeaderResizeHandle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 16px;
+        background-color: var(--header-color);
+        cursor: ns-resize;
+        touch-action: none;
+    }
+
+    html[data-mobile="true"] #mobileHeaderResizeHandle::before {
+        content: "";
+        width: 44px;
+        height: 3px;
+        border-radius: 999px;
+        background-color: #777;
+        box-shadow: 0 0 0 1px #0009;
+    }
+
+    html[data-mobile="true"] #mobileHeaderResizeHandle:focus-visible::before,
+    body.mobileHeaderIsResizing #mobileHeaderResizeHandle::before {
+        background-color: white;
+    }
+
+    body.mobileHeaderIsResizing {
+        user-select: none;
     }
 
     /* Ascension stats - horizontally scrollable on mobile */

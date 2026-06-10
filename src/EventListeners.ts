@@ -31,7 +31,7 @@ import { challengeDisplay, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
-import { storageSetItem } from './events/storage-events'
+import { storageGetItem, storageSetItem } from './events/storage-events'
 import { buyAllAntMasteries, buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
 import { antProducerData } from './Features/Ants/AntProducers/data/data'
 import { buyAllAntProducers, buyAntProducers } from './Features/Ants/AntProducers/lib/buy-producer'
@@ -196,6 +196,13 @@ type MobileSubTabIconConfig = {
   remainingControlsLayout?: 'inline' | 'fullRow'
 }
 
+const MOBILE_HEADER_CONTENT_HEIGHT_STORAGE_KEY = 'mobileHeaderContentHeight'
+const MOBILE_HEADER_EXPANDED_STORAGE_VALUE = 'expanded'
+const MOBILE_HEADER_KEYBOARD_STEP = 24
+const MOBILE_HEADER_PAGE_STEP = 96
+const MOBILE_HEADER_MIN_CONTENT_HEIGHT = 0
+const mobileSubTabIconContainerIDs = new Set(['switchSettingSubTab10'])
+
 const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
   {
     wrapperSelector: '#buildings > .subTabWrapper',
@@ -272,7 +279,8 @@ const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
       switchSettingSubTab6: 'Pictures/Subtab Icons/Settings/AscendHistory.png',
       switchSettingSubTab7: 'Pictures/Subtab Icons/Settings/SingularityHistory.png',
       switchSettingSubTab8: 'Pictures/Subtab Icons/Settings/Hotkeys.png',
-      switchSettingSubTab9: 'Pictures/Subtab Icons/Settings/Account.png'
+      switchSettingSubTab9: 'Pictures/Subtab Icons/Settings/Account.png',
+      switchSettingSubTab10: 'Pictures/Default/Notifications.png'
     }
   },
   {
@@ -445,6 +453,13 @@ const createMobileIcon = (sourceButton: HTMLButtonElement, src: string, classNam
     icon.alt = label
     icon.title = label
     icon.setAttribute('aria-label', label)
+  } else {
+    const label = sourceButton.textContent?.trim()
+    if (label !== undefined && label.length > 0) {
+      icon.alt = label
+      icon.title = label
+      icon.setAttribute('aria-label', label)
+    }
   }
 
   icon.addEventListener('keydown', (event) => {
@@ -457,6 +472,47 @@ const createMobileIcon = (sourceButton: HTMLButtonElement, src: string, classNam
   })
 
   return icon
+}
+
+const createMobileIconContainer = (sourceButton: HTMLButtonElement, icon: HTMLImageElement) => {
+  const container = document.createElement('span')
+
+  for (const attribute of sourceButton.attributes) {
+    container.setAttribute(attribute.name, attribute.value)
+  }
+
+  container.removeAttribute('style')
+  container.classList.remove('active-subtab')
+  container.classList.add('mobileSubTabIconContainer')
+  container.role = 'button'
+  container.tabIndex = 0
+
+  const i18nKey = sourceButton.getAttribute('i18n')
+  if (i18nKey !== null) {
+    const label = i18next.t(i18nKey)
+    container.title = label
+    container.setAttribute('aria-label', label)
+  }
+
+  icon.removeAttribute('id')
+  icon.removeAttribute('style')
+  icon.removeAttribute('role')
+  icon.removeAttribute('tabindex')
+  icon.removeAttribute('i18n')
+  icon.removeAttribute('i18n-aria-label')
+  icon.classList.remove('active-subtab')
+
+  container.appendChild(icon)
+  container.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return
+    }
+
+    event.preventDefault()
+    container.click()
+  })
+
+  return container
 }
 
 const registerMobileSubTabIcons = () => {
@@ -479,7 +535,22 @@ const registerMobileSubTabIcons = () => {
       }
 
       const icon = createMobileIcon(sourceButton, src, 'mobileSubTabIcon')
-      sourceButton.replaceWith(icon)
+      const existingIconContainer = sourceButton.parentElement?.parentElement === wrapper
+        ? sourceButton.parentElement
+        : null
+
+      if (existingIconContainer !== null) {
+        icon.removeAttribute('style')
+        existingIconContainer.classList.add('mobileSubTabIconContainer')
+        sourceButton.replaceWith(icon)
+        continue
+      }
+
+      sourceButton.replaceWith(
+        mobileSubTabIconContainerIDs.has(buttonID)
+          ? createMobileIconContainer(sourceButton, icon)
+          : icon
+      )
     }
 
     if (wrapper.querySelector(':scope > :not(.mobileSubTabIcon, .mobileSubTabIconContainer)') !== null) {
@@ -508,6 +579,150 @@ const registerMobileStatsIcons = () => {
     icon.style.backgroundColor = ''
     sourceButton.replaceWith(icon)
   }
+}
+
+const getMobileHeaderContentMaxHeight = (content: HTMLElement) => {
+  return Math.max(MOBILE_HEADER_MIN_CONTENT_HEIGHT, content.scrollHeight)
+}
+
+const clampMobileHeaderContentHeight = (height: number, maxHeight: number) => {
+  return Math.round(Math.max(MOBILE_HEADER_MIN_CONTENT_HEIGHT, Math.min(height, maxHeight)))
+}
+
+const updateMobileHeaderResizeHandleValue = (handle: HTMLElement, height: number, maxHeight: number) => {
+  handle.setAttribute('aria-valuemin', `${MOBILE_HEADER_MIN_CONTENT_HEIGHT}`)
+  handle.setAttribute('aria-valuemax', `${Math.round(maxHeight)}`)
+  handle.setAttribute('aria-valuenow', `${Math.round(height)}`)
+}
+
+const setMobileHeaderContentHeight = (
+  content: HTMLElement,
+  handle: HTMLElement,
+  height: number,
+  persist: boolean
+) => {
+  const maxHeight = getMobileHeaderContentMaxHeight(content)
+  const nextHeight = clampMobileHeaderContentHeight(height, maxHeight)
+
+  if (nextHeight >= maxHeight) {
+    content.style.removeProperty('--mobile-header-content-height')
+  } else {
+    content.style.setProperty('--mobile-header-content-height', `${nextHeight}px`)
+  }
+
+  updateMobileHeaderResizeHandleValue(handle, nextHeight, maxHeight)
+
+  if (persist) {
+    storageSetItem(
+      MOBILE_HEADER_CONTENT_HEIGHT_STORAGE_KEY,
+      nextHeight >= maxHeight ? MOBILE_HEADER_EXPANDED_STORAGE_VALUE : `${nextHeight}`
+    )
+  }
+
+  requestAnimationFrame(updateMobileSubTabLayout)
+}
+
+const registerMobileHeaderResize = () => {
+  if (!isMobile) {
+    return
+  }
+
+  const content = DOMCacheGetOrSet('mobileHeaderContent')
+  const handle = DOMCacheGetOrSet('mobileHeaderResizeHandle')
+  const storedHeight = storageGetItem(MOBILE_HEADER_CONTENT_HEIGHT_STORAGE_KEY)
+  let storedHeightApplied = false
+
+  if (storedHeight !== null && storedHeight !== MOBILE_HEADER_EXPANDED_STORAGE_VALUE) {
+    const parsedHeight = Number.parseInt(storedHeight, 10)
+    if (Number.isFinite(parsedHeight)) {
+      setMobileHeaderContentHeight(content, handle, parsedHeight, false)
+      storedHeightApplied = true
+    }
+  }
+
+  if (!storedHeightApplied) {
+    updateMobileHeaderResizeHandleValue(
+      handle,
+      content.getBoundingClientRect().height,
+      getMobileHeaderContentMaxHeight(content)
+    )
+  }
+
+  let activePointerId: number | null = null
+  let dragStartY = 0
+  let dragStartHeight = 0
+
+  handle.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) {
+      return
+    }
+
+    activePointerId = event.pointerId
+    dragStartY = event.clientY
+    dragStartHeight = content.getBoundingClientRect().height
+    handle.setPointerCapture(event.pointerId)
+    document.body.classList.add('mobileHeaderIsResizing')
+    event.preventDefault()
+  })
+
+  handle.addEventListener('pointermove', (event) => {
+    if (event.pointerId !== activePointerId) {
+      return
+    }
+
+    setMobileHeaderContentHeight(content, handle, dragStartHeight + event.clientY - dragStartY, false)
+    event.preventDefault()
+  })
+
+  const finishDragging = (event: PointerEvent) => {
+    if (event.pointerId !== activePointerId) {
+      return
+    }
+
+    activePointerId = null
+    document.body.classList.remove('mobileHeaderIsResizing')
+
+    if (handle.hasPointerCapture(event.pointerId)) {
+      handle.releasePointerCapture(event.pointerId)
+    }
+
+    setMobileHeaderContentHeight(content, handle, content.getBoundingClientRect().height, true)
+  }
+
+  handle.addEventListener('pointerup', finishDragging)
+  handle.addEventListener('pointercancel', finishDragging)
+
+  handle.addEventListener('keydown', (event) => {
+    const currentHeight = content.getBoundingClientRect().height
+    const maxHeight = getMobileHeaderContentMaxHeight(content)
+    let nextHeight = currentHeight
+
+    switch (event.key) {
+      case 'ArrowUp':
+        nextHeight -= MOBILE_HEADER_KEYBOARD_STEP
+        break
+      case 'ArrowDown':
+        nextHeight += MOBILE_HEADER_KEYBOARD_STEP
+        break
+      case 'PageUp':
+        nextHeight -= MOBILE_HEADER_PAGE_STEP
+        break
+      case 'PageDown':
+        nextHeight += MOBILE_HEADER_PAGE_STEP
+        break
+      case 'Home':
+        nextHeight = MOBILE_HEADER_MIN_CONTENT_HEIGHT
+        break
+      case 'End':
+        nextHeight = maxHeight
+        break
+      default:
+        return
+    }
+
+    event.preventDefault()
+    setMobileHeaderContentHeight(content, handle, nextHeight, true)
+  })
 }
 
 const updateMobileSubTabLayout = () => {
@@ -562,6 +777,7 @@ export const generateEventHandlers = () => {
   registerMobileSubTabIcons()
   registerMobileStatsIcons()
   registerMobileHotkeyPanel()
+  registerMobileHeaderResize()
   registerSubTabSwitches()
   registerMobileSubTabLayout()
 

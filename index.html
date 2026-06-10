@@ -184,103 +184,105 @@
         <button id="exitFastForward">Awesome!</button>
     </div>
     <header id="mainHeader">
-        <div id="ascensionStats">
-            <span id="ascCubeStats">
-                <img src="Pictures/Default/TinyWow3.png" class="corruptionImg" alt="3D Cube" title="Cube Information" loading="lazy">
-                <span id="ascCubes" class="wowcubeText">x</span> C<span id="unit1">/s</span>
-            </span>
-            <span id="ascTessStats">
-                <img src="Pictures/Default/TinyWow4.png" class="corruptionImg" alt="4D Cube" title="Tesseract Information" loading="lazy">
-                <span id="ascTess" class="wowtesseractText">x</span> T<span id="unit2">/s</span>
-            </span>
-            <span id="ascHyperStats">
-                <img src="Pictures/Default/TinyWow5.png" class="corruptionImg" title="Hypercube Information" loading="lazy">
-                <span id="ascHyper" class="wowhypercubeText">x</span> Hy<span id="unit3">/s</span>
-            </span>
-            <span id="ascPlatonicStats">
-                <img src="Pictures/Default/TinyWow6.png" class="corruptionImg" title="Platonic Information" loading="lazy">
-                <span id="ascPlatonic" class="wowplatonicText">x</span> P<span id="unit4">/s</span>
-            </span>
-            <span id="ascHepteractStats">
-                <img src="Pictures/Default/TinyWow7.png" class="corruptionImg" title="Hepteract Information" loading="lazy">
-                <span id="ascHepteract" class="wowhepteractText">x</span> He<span id="unit5">/s</span>
-            </span>
-            <span id="ascTimeTakenStats">
-                <img src="Pictures/Default/TinyA.png" class="corruptionImg" title="Ascension Timer" loading="lazy">
-                <span id="ascLen">x</span> <span id="unit6"></span>
-            </span>
-            <span id="ascC10CompletionsStats">
-                <img src="Pictures/Default/TinyChallenge10.png" class="corruptionImg" title="Challenge 10 Completions" loading="lazy">
-                <span id="ascC10">x</span>
-            </span>
-            <span id="ascTimeFactorStats">
-                <img src="Pictures/Default/TinySpeed.png" class="corruptionImg" title="Global Speed Multiplier" loading="lazy">
-                <span id="ascTimeAccel">x</span>
-            </span>
-            <span id="ascAscensionTimeFactorStats">
-                <img src="Pictures/Default/TinySpeedAscension.png" class="corruptionImg" title="Ascension Speed Multiplier" loading="lazy">
-                <span id="ascAscensionTimeAccel">x</span>
-            </span>
-            <span id="ascSingularityCountStats">
-                <img src="Pictures/Default/TinyS.png" class="corruptionImg singularity" title="Singularity count" loading="lazy">
-                <span id="ascSingularityCount" class="singularity">1</span>
-            </span>
-            <span id="ascSingTimeTakenStats">
-                <img src="Pictures/Default/TinySTime.png" class="corruptionImg singularity" title="Singularity Timer" loading="lazy">
-                <span id="ascSingLen" class="singularity">x</span>
-            </span>
-            <span id="ascSingChallengeTimeTakenStats">
-                <img src="Pictures/Default/TinySChalTime.png" class="corruptionImg singularity" title="Singularity Challenge Timer" loading="lazy">
-                <span id="ascSingChallengeLen" class="singularity">x</span>
-            </span>
-        </div>
-        <div class="subHeader">
-            <div class="currenciesContainer">
-                <div class="currencyContainer">
-                    <img class="img coin" src="Pictures/Default/Coin.png" alt="Coin" title="Coin" loading="lazy">
-                    <div class="statDisplay" id="coinDisplay">1</div>
-                </div>
-                <div class="currencyContainer">
-                    <img class="prestigeunlock img diamond" src="Pictures/Default/Diamond.png" alt="Diamond" title="Diamond" loading="lazy">
-                    <div class="prestigeunlock statDisplay" id="diamondDisplay">1</div>
-                </div>
-                <div class="currencyContainer">
-                    <img class="prestigeunlock img offering" src="Pictures/Default/Offering.png" i18n="general.resources.offering" title="Offering" loading="lazy">
-                    <div class="prestigeunlock statDisplay" id="offeringDisplay">1</div>
-                </div>
-                <div class="currencyContainer">
-                    <img class="reincarnationunlock img quark" src="Pictures/Default/Quark.png" alt="Quark" title="Quark" loading="lazy">
-                    <div class="reincarnationunlock statDisplay" id="quarkDisplay">1</div>
-                </div>
-                <div class="currencyContainer">
-                    <img class="transcendunlock img mythos" src="Pictures/Default/Mythos.png" alt="Mythos" title="Mythos" loading="lazy">
-                    <div class="transcendunlock statDisplay" id="mythosDisplay">1</div>
-                </div>
-                <div class="currencyContainer">
-                    <img class="transcendunlock img mythosshard" src="Pictures/Default/MythosShard.png" alt="Mythos Shard" title="Mythos Shard" loading="lazy">
-                    <div class="transcendunlock statDisplay" id="mythosshardDisplay">1</div>
-                </div>
-                <div class="currencyContainer">
-                    <img class="reincarnationunlock img particle" src="Pictures/Default/Particle.png" alt="Particle" title="Particle"  loading="lazy">
-                    <div class="reincarnationunlock statDisplay" id="particlesDisplay">1</div>
-                </div>
-                <div class="currencyContainer">
-                    <img class="reincarnationunlock img obtanium" src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium" title="Obtainium" loading="lazy">
-                    <div class="reincarnationunlock statDisplay" id="obtainiumDisplay">1</div>
-                </div>
+        <div id="mobileHeaderContent">
+            <div id="ascensionStats">
+                <span id="ascCubeStats">
+                    <img src="Pictures/Default/TinyWow3.png" class="corruptionImg" alt="3D Cube" title="Cube Information" loading="lazy">
+                    <span id="ascCubes" class="wowcubeText">x</span> C<span id="unit1">/s</span>
+                </span>
+                <span id="ascTessStats">
+                    <img src="Pictures/Default/TinyWow4.png" class="corruptionImg" alt="4D Cube" title="Tesseract Information" loading="lazy">
+                    <span id="ascTess" class="wowtesseractText">x</span> T<span id="unit2">/s</span>
+                </span>
+                <span id="ascHyperStats">
+                    <img src="Pictures/Default/TinyWow5.png" class="corruptionImg" title="Hypercube Information" loading="lazy">
+                    <span id="ascHyper" class="wowhypercubeText">x</span> Hy<span id="unit3">/s</span>
+                </span>
+                <span id="ascPlatonicStats">
+                    <img src="Pictures/Default/TinyWow6.png" class="corruptionImg" title="Platonic Information" loading="lazy">
+                    <span id="ascPlatonic" class="wowplatonicText">x</span> P<span id="unit4">/s</span>
+                </span>
+                <span id="ascHepteractStats">
+                    <img src="Pictures/Default/TinyWow7.png" class="corruptionImg" title="Hepteract Information" loading="lazy">
+                    <span id="ascHepteract" class="wowhepteractText">x</span> He<span id="unit5">/s</span>
+                </span>
+                <span id="ascTimeTakenStats">
+                    <img src="Pictures/Default/TinyA.png" class="corruptionImg" title="Ascension Timer" loading="lazy">
+                    <span id="ascLen">x</span> <span id="unit6"></span>
+                </span>
+                <span id="ascC10CompletionsStats">
+                    <img src="Pictures/Default/TinyChallenge10.png" class="corruptionImg" title="Challenge 10 Completions" loading="lazy">
+                    <span id="ascC10">x</span>
+                </span>
+                <span id="ascTimeFactorStats">
+                    <img src="Pictures/Default/TinySpeed.png" class="corruptionImg" title="Global Speed Multiplier" loading="lazy">
+                    <span id="ascTimeAccel">x</span>
+                </span>
+                <span id="ascAscensionTimeFactorStats">
+                    <img src="Pictures/Default/TinySpeedAscension.png" class="corruptionImg" title="Ascension Speed Multiplier" loading="lazy">
+                    <span id="ascAscensionTimeAccel">x</span>
+                </span>
+                <span id="ascSingularityCountStats">
+                    <img src="Pictures/Default/TinyS.png" class="corruptionImg singularity" title="Singularity count" loading="lazy">
+                    <span id="ascSingularityCount" class="singularity">1</span>
+                </span>
+                <span id="ascSingTimeTakenStats">
+                    <img src="Pictures/Default/TinySTime.png" class="corruptionImg singularity" title="Singularity Timer" loading="lazy">
+                    <span id="ascSingLen" class="singularity">x</span>
+                </span>
+                <span id="ascSingChallengeTimeTakenStats">
+                    <img src="Pictures/Default/TinySChalTime.png" class="corruptionImg singularity" title="Singularity Challenge Timer" loading="lazy">
+                    <span id="ascSingChallengeLen" class="singularity">x</span>
+                </span>
             </div>
-            <div class="resetInformationContainer">
-                <div class="resetsContainer">
-                    <div class="resetsButtons">
-                        <img class="resetbtn coinunlock4" id="prestigebtn" i18n-aria-label="reset.buttonLabels.prestige" src="Pictures/Default/Prestige.png" loading="lazy">
-                        <img class="resetbtn prestigeunlock" id="transcendbtn" i18n-aria-label="reset.buttonLabels.transcension" src="Pictures/Default/Transcend.png" loading="lazy">
-                        <img class="resetbtn transcendunlock" id="reincarnatebtn" i18n-aria-label="reset.buttonLabels.reincarnation" src="Pictures/Default/Reincarnate.png" loading="lazy">
-                        <img class="resetbtn transcendunlock" id="acceleratorboostbtn" i18n-aria-label="reset.buttonLabels.acceleratorBoost" src="Pictures/Default/AcceleratorBoostShortcut.png" loading="lazy">
-                        <img class="resetbtn transcendunlock" id="challengebtn" i18n-aria-label="reset.buttonLabels.transcensionChallenge" src="Pictures/Default/Challenge.png" loading="lazy">
-                        <img class="resetbtn reincarnationunlock" id="reincarnatechallengebtn" i18n-aria-label="reset.buttonLabels.reincarnationChallenge" src="Pictures/Default/ChallengeReincarnation.png" loading="lazy">
-                        <img class="resetbtn ascendunlock" id="ascendChallengeBtn" i18n-aria-label="reset.buttonLabels.ascensionChallenge" src="Pictures/Default/ChallengeAscension.png" loading="lazy">
-                        <img class="resetbtn chal10" id="ascendbtn" i18n-aria-label="reset.buttonLabels.ascension" src="Pictures/Default/Ascension.png" loading="lazy">
-                        <img class="resetbtn singularity" id="singularitybtn" i18n-aria-label="reset.buttonLabels.singularity" src="Pictures/Default/Singularity.png" loading="lazy">
+            <div class="subHeader">
+                <div class="currenciesContainer">
+                    <div class="currencyContainer">
+                        <img class="img coin" src="Pictures/Default/Coin.png" alt="Coin" title="Coin" loading="lazy">
+                        <div class="statDisplay" id="coinDisplay">1</div>
+                    </div>
+                    <div class="currencyContainer">
+                        <img class="prestigeunlock img diamond" src="Pictures/Default/Diamond.png" alt="Diamond" title="Diamond" loading="lazy">
+                        <div class="prestigeunlock statDisplay" id="diamondDisplay">1</div>
+                    </div>
+                    <div class="currencyContainer">
+                        <img class="prestigeunlock img offering" src="Pictures/Default/Offering.png" i18n="general.resources.offering" title="Offering" loading="lazy">
+                        <div class="prestigeunlock statDisplay" id="offeringDisplay">1</div>
+                    </div>
+                    <div class="currencyContainer">
+                        <img class="reincarnationunlock img quark" src="Pictures/Default/Quark.png" alt="Quark" title="Quark" loading="lazy">
+                        <div class="reincarnationunlock statDisplay" id="quarkDisplay">1</div>
+                    </div>
+                    <div class="currencyContainer">
+                        <img class="transcendunlock img mythos" src="Pictures/Default/Mythos.png" alt="Mythos" title="Mythos" loading="lazy">
+                        <div class="transcendunlock statDisplay" id="mythosDisplay">1</div>
+                    </div>
+                    <div class="currencyContainer">
+                        <img class="transcendunlock img mythosshard" src="Pictures/Default/MythosShard.png" alt="Mythos Shard" title="Mythos Shard" loading="lazy">
+                        <div class="transcendunlock statDisplay" id="mythosshardDisplay">1</div>
+                    </div>
+                    <div class="currencyContainer">
+                        <img class="reincarnationunlock img particle" src="Pictures/Default/Particle.png" alt="Particle" title="Particle"  loading="lazy">
+                        <div class="reincarnationunlock statDisplay" id="particlesDisplay">1</div>
+                    </div>
+                    <div class="currencyContainer">
+                        <img class="reincarnationunlock img obtanium" src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium" title="Obtainium" loading="lazy">
+                        <div class="reincarnationunlock statDisplay" id="obtainiumDisplay">1</div>
+                    </div>
+                </div>
+                <div class="resetInformationContainer">
+                    <div class="resetsContainer">
+                        <div class="resetsButtons">
+                            <img class="resetbtn coinunlock4" id="prestigebtn" i18n-aria-label="reset.buttonLabels.prestige" src="Pictures/Default/Prestige.png" loading="lazy">
+                            <img class="resetbtn prestigeunlock" id="transcendbtn" i18n-aria-label="reset.buttonLabels.transcension" src="Pictures/Default/Transcend.png" loading="lazy">
+                            <img class="resetbtn transcendunlock" id="reincarnatebtn" i18n-aria-label="reset.buttonLabels.reincarnation" src="Pictures/Default/Reincarnate.png" loading="lazy">
+                            <img class="resetbtn transcendunlock" id="acceleratorboostbtn" i18n-aria-label="reset.buttonLabels.acceleratorBoost" src="Pictures/Default/AcceleratorBoostShortcut.png" loading="lazy">
+                            <img class="resetbtn transcendunlock" id="challengebtn" i18n-aria-label="reset.buttonLabels.transcensionChallenge" src="Pictures/Default/Challenge.png" loading="lazy">
+                            <img class="resetbtn reincarnationunlock" id="reincarnatechallengebtn" i18n-aria-label="reset.buttonLabels.reincarnationChallenge" src="Pictures/Default/ChallengeReincarnation.png" loading="lazy">
+                            <img class="resetbtn ascendunlock" id="ascendChallengeBtn" i18n-aria-label="reset.buttonLabels.ascensionChallenge" src="Pictures/Default/ChallengeAscension.png" loading="lazy">
+                            <img class="resetbtn chal10" id="ascendbtn" i18n-aria-label="reset.buttonLabels.ascension" src="Pictures/Default/Ascension.png" loading="lazy">
+                            <img class="resetbtn singularity" id="singularitybtn" i18n-aria-label="reset.buttonLabels.singularity" src="Pictures/Default/Singularity.png" loading="lazy">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -293,6 +295,7 @@
             </button>
         </nav>
         <div id="tabBorder"></div>
+        <div id="mobileHeaderResizeHandle" role="separator" aria-orientation="horizontal" tabindex="0" i18n-aria-label="mobile.header.resize"></div>
     </header>
     <main>
         <div id="buildings">
