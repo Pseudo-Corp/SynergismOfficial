@@ -385,7 +385,7 @@ export const updateReincarnationCount = (count: number) => {
   }
 }
 
-export const reset = (input: resetNames, fast = false, from = 'unknown') => {
+export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
   resetAddHistoryEntry(input, from)
 

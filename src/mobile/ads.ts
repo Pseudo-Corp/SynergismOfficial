@@ -74,7 +74,7 @@ export async function rewardVideo (): Promise<void> {
   adClickable = false
   try {
     await ensureAdMobReady()
-  } catch (err) {
+  } catch {
     unlockAd()
     void Notification(i18next.t('advertisements.initFailed'))
   }
