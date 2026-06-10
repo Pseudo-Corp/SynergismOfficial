@@ -4377,6 +4377,7 @@
       "description": "<b><<gold | Ride the elevator to your target Singularity!>></b><br>You may choose any Singularity from Singularity 1 to <b>{{limit}}<b>",
       "targetSingularity": "Target Singularity: {{target}}",
       "selectTarget": "Select Target Singularity",
+      "teleportButton": "Teleport!",
       "teleportButtonHigher": "Up!",
       "teleportButtonStay": "Reopen!",
       "teleportButtonLower": "Down!",
@@ -4413,6 +4414,7 @@
     },
     "cancelled": "Okay, maybe next time!",
     "level": "Level",
+    "upgrade": "Upgrade!",
     "levelWithRatio": "Level {{level}}/{{max}}",
     "minimum": "Minimum",
     "spent": "Spent",
@@ -7710,6 +7712,9 @@
     }
   },
   "mobile": {
+    "header": {
+      "resize": "Resize header"
+    },
     "auth": {
       "signInFailed": "Sign-in was cancelled or failed. Please try again."
     },

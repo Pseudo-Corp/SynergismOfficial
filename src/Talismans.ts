@@ -2425,7 +2425,7 @@ export const buyTalismanResources = (
       player.offerings = new Decimal(0)
     }
   }
-  if (PLATFORM === 'mobile') {
+  if (isMobile) {
     updateMobileTalismanInventoryPurchaseInfo(type)
   } else {
     updateTalismanCostDisplay(type, obtainiumBudget, offeringBudget)
