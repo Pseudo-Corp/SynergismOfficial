@@ -1,4 +1,3 @@
-import { prod } from '../Config'
 import { changeSubTab, getActiveSubTab, Tabs } from '../Tabs'
 import { assert, createDeferredPromise, type DeferredPromise, memoize, retry } from '../Utility'
 import { setEmptyProductMap } from './CartUtil'
@@ -69,7 +68,7 @@ export class CartTab {
 
     CartTab.#productsFetch = createDeferredPromise()
 
-    const url = !prod ? 'https://synergism.cc/stripe/test/products' : 'https://synergism.cc/stripe/products'
+    const url = !PROD ? 'https://synergism.cc/stripe/test/products' : 'https://synergism.cc/stripe/products'
 
     // TODO: move this fetch to the products page.
     fetch(url)
@@ -114,14 +113,8 @@ export class CartTab {
     return CartTab.#upgradesFetch.promise
   }
 
-  static applySubtabListeners () {
-    for (const [page, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
-      element.addEventListener('click', changeSubTab.bind(null, Tabs.Purchase, { page }))
-    }
-  }
-
   #updateSubtabs () {
-    for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
+    for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher [id^="cartSubTab"]')) {
       if (getActiveSubTab() === index) {
         element.classList.add('active-subtab')
       } else {
@@ -177,7 +170,6 @@ export class CartTab {
 
 const onInit = memoize(() => {
   CartTab.fetchProducts()
-  CartTab.applySubtabListeners()
 
   changeSubTab(Tabs.Purchase, { page: 0 })
 })

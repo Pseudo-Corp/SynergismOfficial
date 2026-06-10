@@ -2326,17 +2326,11 @@ export function updateMobileGQHTML (k: SingularityDataKeys) {
 
     buyOne.classList.add('modalBtnBuy')
     buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.addEventListener('click', (event: MouseEvent) => {
-      buyGQUpgradeLevel(k, event, false)
-      updateMobileGQHTML(k)
-    })
+    buyOne.dataset.modalAction = 'one'
 
     buyMax.classList.add('modalBtnBuy')
     buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.addEventListener('click', (event: MouseEvent) => {
-      buyGQUpgradeLevel(k, event, true)
-      updateMobileGQHTML(k)
-    })
+    buyMax.dataset.modalAction = 'max'
 
     buttonDiv.appendChild(buyOne)
     buttonDiv.appendChild(buyMax)
@@ -3481,6 +3475,28 @@ export const getLastUpgradeInfo = (
   }
 
   return { level: 0, singularity: perk.levels[0], next: perk.levels[0] }
+}
+
+export const singularityPerkModalHTML = (perk: SingularityPerk, imageSrc: string): string => {
+  const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
+  const levelInfo = i18next.t('singularity.perks.levelInfo', {
+    level: perkInfo.level,
+    singularity: perkInfo.singularity
+  })
+
+  return `<div class="singularityPerkModal" data-modal-preserve="children">
+    <div class="singularityPerkModalTitle" data-modal-preserve="children">
+      <img src="${imageSrc}" alt="" data-modal-preserve="children">
+      <span>${perk.name()}</span>
+    </div>
+    <div class="singularityPerkModalLevel">${levelInfo}</div>
+    <div class="singularityPerkModalDescription">${
+    perk.description(
+      player.highestSingularityCount,
+      perk.levels
+    )
+  }</div>
+  </div>`
 }
 
 const handlePerks = (singularityCount: number) => {

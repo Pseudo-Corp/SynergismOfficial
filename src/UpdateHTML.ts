@@ -64,7 +64,7 @@ import {
   visualUpdateSingularity,
   visualUpdateUpgrades
 } from './UpdateVisuals'
-import { createDeferredPromise, memoize, updateClassList } from './Utility'
+import { createDeferredPromise, isMobile, memoize, updateClassList } from './Utility'
 import { Globals as G } from './Variables'
 
 const htmlInsertPlayerRequirements = [
@@ -212,40 +212,45 @@ export const revealStuff = () => {
 
   for (const groupedAch of Object.keys(groupedAchievementData) as (Exclude<AchievementGroups, 'ungrouped'>)[]) {
     const capitalizedName = groupedAch.charAt(0).toUpperCase() + groupedAch.slice(1)
+    const img = DOMCacheGetOrSet(`achievementGroup${capitalizedName}`)
+    const shouldDisplay = groupedAchievementData[groupedAch].displayCondition() || player.highestSingularityCount > 0
 
-    DOMCacheGetOrSet(`achievementGroup${capitalizedName}`).style.display =
-      (groupedAchievementData[groupedAch].displayCondition() || player.highestSingularityCount > 0)
-        ? 'block'
-        : 'none'
+    img.style.display = shouldDisplay ? 'block' : 'none'
+    if (img.parentElement) {
+      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
+    }
   }
 
   for (const ungroupedAch of Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]) {
     const capitalizedName = ungroupedAch.charAt(0).toUpperCase() + ungroupedAch.slice(1)
+    const img = DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`)
+    const shouldDisplay = ungroupedAchievementData[ungroupedAch].displayCondition()
+      || player.highestSingularityCount > 0
 
-    DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`).style.display =
-      (ungroupedAchievementData[ungroupedAch].displayCondition() || player.highestSingularityCount > 0)
-        ? 'block'
-        : 'none'
+    img.style.display = shouldDisplay ? 'block' : 'none'
+    if (img.parentElement) {
+      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
+    }
   }
 
   for (const progAch of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
     const capitalizedName = progAch.charAt(0).toUpperCase() + progAch.slice(1)
+    const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`)
+    const shouldDisplay = progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0
 
-    DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`).style.display =
-      (progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0)
-        ? 'block'
-        : 'none'
+    img.style.display = shouldDisplay ? 'block' : 'none'
+    if (img.parentElement) {
+      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
+    }
   }
 
   for (const rune of Object.keys(player.runes) as RuneKeys[]) {
     if (runes[rune].isUnlocked()) {
       DOMCacheGetOrSet(`${rune}RuneContainer`).style.display = 'flex'
       DOMCacheGetOrSet(`${rune}RuneLockedContainer`).style.display = 'none'
-      DOMCacheGetOrSet(`${rune}RunePower`).style.display = 'block'
     } else {
       DOMCacheGetOrSet(`${rune}RuneContainer`).style.display = 'none'
       DOMCacheGetOrSet(`${rune}RuneLockedContainer`).style.display = 'flex'
-      DOMCacheGetOrSet(`${rune}RunePower`).style.display = 'none'
     }
   }
 
@@ -440,7 +445,7 @@ export const revealStuff = () => {
     : 'none'
   // Hide Challenge Subtabs until Exalts are unlocked
   DOMCacheGetOrSet('challengesTabsToggle').style.display = player.highestSingularityCount >= 25
-    ? 'flex'
+    ? ''
     : 'none'
 
   DOMCacheGetOrSet('singularitybtn').style.display = runes.antiquities.level > 0 || player.highestSingularityCount > 0
@@ -534,6 +539,7 @@ export const hideStuff = () => {
   DOMCacheGetOrSet('upgrades').style.display = 'none'
   DOMCacheGetOrSet('upgradestab').style.backgroundColor = ''
   DOMCacheGetOrSet('settings').style.display = 'none'
+  DOMCacheGetOrSet('settingstab').style.color = 'white'
 
   DOMCacheGetOrSet('statistics').style.display = 'none'
   DOMCacheGetOrSet('achievementstab').style.backgroundColor = ''
@@ -566,30 +572,35 @@ export const hideStuff = () => {
   tab.style.borderColor = 'white'
 
   if (G.currentTab === Tabs.Buildings) {
-    DOMCacheGetOrSet('buildingstab').style.backgroundColor = 'orange'
+    DOMCacheGetOrSet('buildingstab').style.backgroundColor = tabColors[Tabs.Buildings]
     DOMCacheGetOrSet('buildings').style.display = 'block'
   }
   if (G.currentTab === Tabs.Upgrades) {
     DOMCacheGetOrSet('upgrades').style.display = 'block'
-    DOMCacheGetOrSet('upgradestab').style.backgroundColor = 'orange'
-    DOMCacheGetOrSet('upgradedescription').textContent = i18next.t('upgrades.hoverOverUpgrade')
+    DOMCacheGetOrSet('upgradestab').style.backgroundColor = tabColors[Tabs.Upgrades]
   }
   if (G.currentTab === Tabs.Settings) {
     DOMCacheGetOrSet('settings').style.display = 'block'
     const settingsTab = DOMCacheGetOrSet('settingstab')
-    settingsTab.style.backgroundColor = 'orange'
-    settingsTab.style.borderColor = 'gold'
+    settingsTab.style.backgroundColor = tabColors[Tabs.Settings]
+    settingsTab.style.color = 'black'
   }
   if (G.currentTab === Tabs.Achievements) {
     DOMCacheGetOrSet('statistics').style.display = 'block'
-    DOMCacheGetOrSet('achievementstab').style.backgroundColor = 'white'
+    DOMCacheGetOrSet('achievementstab').style.backgroundColor = tabColors[Tabs.Achievements]
     DOMCacheGetOrSet('achievementstab').style.color = 'black'
-    DOMCacheGetOrSet('achievementprogress').textContent = i18next.t('achievements.achievementPoints', {
-      x: format(achievementPoints)
-    })
-    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t('achievements.achievementLevel', {
-      level: format(achievementLevel)
-    })
+    DOMCacheGetOrSet('achievementprogress').textContent = i18next.t(
+      isMobile ? 'achievements.achievementPointsMobile' : 'achievements.achievementPoints',
+      {
+        x: format(achievementPoints)
+      }
+    )
+    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t(
+      isMobile ? 'achievements.achievementLevelMobile' : 'achievements.achievementLevel',
+      {
+        level: format(achievementLevel)
+      }
+    )
     DOMCacheGetOrSet('achievementTNLText').innerHTML = i18next.t('achievements.achievementToNextLevel', {
       level: format(achievementLevel + 1),
       AP: format(toNextAchievementLevelEXP(), 0, true)
@@ -599,8 +610,7 @@ export const hideStuff = () => {
     updateAllProgressiveAchievementProgress()
   } else if (G.currentTab === Tabs.Runes) {
     DOMCacheGetOrSet('runes').style.display = 'block'
-    DOMCacheGetOrSet('runestab').style.backgroundColor = 'blue'
-    DOMCacheGetOrSet('focusedRuneLevelInfo').textContent = i18next.t('runes.hover')
+    DOMCacheGetOrSet('runestab').style.backgroundColor = tabColors[Tabs.Runes]
 
     for (const rune of Object.keys(player.runes)) {
       const runeKey = rune as RuneKeys
@@ -609,36 +619,36 @@ export const hideStuff = () => {
   }
   if (G.currentTab === Tabs.Challenges) {
     DOMCacheGetOrSet('challenges').style.display = 'block'
-    DOMCacheGetOrSet('challengetab').style.backgroundColor = 'purple'
+    DOMCacheGetOrSet('challengetab').style.backgroundColor = tabColors[Tabs.Challenges]
   }
   if (G.currentTab === Tabs.Research) {
     DOMCacheGetOrSet('research').style.display = 'block'
-    DOMCacheGetOrSet('researchtab').style.backgroundColor = 'green'
+    DOMCacheGetOrSet('researchtab').style.backgroundColor = tabColors[Tabs.Research]
   }
   if (G.currentTab === Tabs.Shop) {
     DOMCacheGetOrSet('shop').style.display = 'block'
-    DOMCacheGetOrSet('shoptab').style.backgroundColor = 'limegreen'
+    DOMCacheGetOrSet('shoptab').style.backgroundColor = tabColors[Tabs.Shop]
   }
   if (G.currentTab === Tabs.AntHill) {
     DOMCacheGetOrSet('ants').style.display = 'block'
-    DOMCacheGetOrSet('anttab').style.backgroundColor = 'brown'
+    DOMCacheGetOrSet('anttab').style.backgroundColor = tabColors[Tabs.AntHill]
   }
   if (G.currentTab === Tabs.WowCubes) {
     DOMCacheGetOrSet('cubes').style.display = 'flex'
-    DOMCacheGetOrSet('cubetab').style.backgroundColor = 'white'
+    DOMCacheGetOrSet('cubetab').style.backgroundColor = tabColors[Tabs.WowCubes]
   }
   if (G.currentTab === Tabs.Campaign) {
     DOMCacheGetOrSet('campaigns').style.display = 'block'
-    DOMCacheGetOrSet('campaigntab').style.backgroundColor = 'red'
+    DOMCacheGetOrSet('campaigntab').style.backgroundColor = tabColors[Tabs.Campaign]
   }
   if (G.currentTab === Tabs.Corruption) {
     DOMCacheGetOrSet('traits').style.display = 'flex'
-    DOMCacheGetOrSet('traitstab').style.backgroundColor = 'white'
+    DOMCacheGetOrSet('traitstab').style.backgroundColor = tabColors[Tabs.Corruption]
   }
 
   if (G.currentTab === Tabs.Singularity) {
     DOMCacheGetOrSet('singularity').style.display = 'block'
-    DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'lightgoldenrodyellow'
+    DOMCacheGetOrSet('singularitytab').style.backgroundColor = tabColors[Tabs.Singularity]
     updateSingularityPenalties()
     updateSingularityPerks()
     updateSingularityElevator()
@@ -646,14 +656,14 @@ export const hideStuff = () => {
 
   if (G.currentTab === Tabs.Event) {
     DOMCacheGetOrSet('event').style.display = 'block'
-    DOMCacheGetOrSet('eventtab').style.backgroundColor = 'gold'
+    DOMCacheGetOrSet('eventtab').style.backgroundColor = tabColors[Tabs.Event]
   }
 
   if (G.currentTab === Tabs.Purchase) {
     initializeCart()
 
     document.getElementById('pseudoCoins')?.style.setProperty('display', 'unset')
-    DOMCacheGetOrSet('pseudoCoinstab').style.backgroundColor = 'orange'
+    DOMCacheGetOrSet('pseudoCoinstab').style.backgroundColor = tabColors[Tabs.Purchase]
   }
 }
 
@@ -1093,11 +1103,13 @@ export const showCorruptionStatsLoadouts = () => {
   if (player.corruptions.showStats) {
     DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
+    DOMCacheGetOrSet('corrClickInfo').style.display = 'block'
     statsButton.classList.add('subtab-active')
     corrLoadoutsButton.classList.remove('subtab-active')
   } else {
     DOMCacheGetOrSet('corruptionStats').style.display = 'none'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
+    DOMCacheGetOrSet('corrClickInfo').style.display = 'none'
     statsButton.classList.remove('subtab-active')
     corrLoadoutsButton.classList.add('subtab-active')
   }
@@ -1144,25 +1156,30 @@ const updateAscensionStats = () => {
   }
 }
 
-const tabColors: Partial<Record<Tabs, string>> = {
-  [Tabs.Buildings]: 'yellow',
-  [Tabs.Upgrades]: 'yellow',
+const tabColors: Record<Tabs, string> = {
+  [Tabs.Buildings]: 'orange',
+  [Tabs.Upgrades]: 'orange',
   [Tabs.Achievements]: 'white',
-  [Tabs.Runes]: 'cyan',
-  [Tabs.Challenges]: 'plum',
+  [Tabs.Runes]: 'cornflowerblue',
+  [Tabs.Challenges]: 'purple',
   [Tabs.Research]: 'green',
   [Tabs.AntHill]: 'brown',
   [Tabs.WowCubes]: 'purple',
+  [Tabs.Campaign]: 'red',
   [Tabs.Corruption]: 'orange',
   [Tabs.Settings]: 'white',
-  [Tabs.Shop]: 'limegreen'
+  [Tabs.Shop]: 'cyan',
+  [Tabs.Singularity]: 'lightgoldenrodyellow',
+  [Tabs.Event]: 'limegreen',
+  [Tabs.Purchase]: 'orchid'
 }
 
 export const changeTabColor = () => {
   const tab = DOMCacheGetOrSet('tabBorder')
-  const color = tabColors[G.currentTab] ?? 'yellow'
+  const color = tabColors[G.currentTab]
 
   tab.style.backgroundColor = color
+  document.body.style.setProperty('--subtab-border-color', color)
 }
 
 class AsyncQueue {
@@ -1351,50 +1368,78 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
     return p.promise
   })
 
-let closeNotification: number
-let closedNotification: number
-
 export const Notification = (text: string, time = 30000): Promise<void> => {
-  const notification = DOMCacheGetOrSet('notification')
-  const textNode = document.querySelector<HTMLElement>('#notification > p')!
-  const x = DOMCacheGetOrSet('notifx')
+  const stack = DOMCacheGetOrSet('notificationStack')
 
+  const wrap = document.createElement('div')
+  wrap.className = 'notification-wrap'
+
+  const notification = document.createElement('div')
+  notification.className = 'notification-item'
+  notification.setAttribute('role', 'alert')
+
+  const x = document.createElement('button')
+  x.className = 'notifx'
+  x.type = 'button'
+  x.setAttribute('aria-label', i18next.t('general.closeNotification'))
+
+  const img = document.createElement('img')
+  img.src = 'Pictures/Default/X.png'
+  img.height = 16
+  img.width = 16
+  img.alt = ''
+  x.appendChild(img)
+
+  const textNode = document.createElement('p')
   textNode.textContent = text
-  notification.style.display = 'block'
-  notification.classList.remove('slide-out')
+
+  notification.appendChild(x)
+  notification.appendChild(textNode)
+  wrap.appendChild(notification)
+  stack.appendChild(wrap)
   notification.classList.add('slide-in')
 
   const p = createDeferredPromise<void>()
 
+  let closeTimer = 0
+  let closedTimer = 0
+
   const closed = () => {
-    notification.style.display = 'none'
-    textNode.textContent = ''
-    closedNotification = 0
+    wrap.remove()
+    closedTimer = 0
   }
 
   const close = () => {
+    if (closeTimer === 0 && closedTimer !== 0) return
+
+    wrap.style.maxHeight = `${wrap.offsetHeight}px`
+    void wrap.offsetHeight
+    wrap.style.maxHeight = '0'
+    wrap.style.marginBottom = '0'
+
     notification.classList.add('slide-out')
     notification.classList.remove('slide-in')
 
-    closeNotification = 0
+    clearTimeout(closeTimer)
+    closeTimer = 0
     x.removeEventListener('click', close)
-    closedNotification = +setTimeout(closed, 1000)
+    closedTimer = +setTimeout(closed, 1000)
     p.resolve()
   }
 
   x.addEventListener('click', close)
-
-  // Reset the close timer if reopened before closed
-  clearTimeout(closeNotification)
-  clearTimeout(closedNotification)
-
-  // automatically close out after <time> ms
-  closeNotification = +setTimeout(close, time)
+  closeTimer = +setTimeout(close, time)
 
   return p.promise
 }
 
 type OptionalHTMLStyle = Partial<CSSStyleDeclaration>
+type ModalButtonClickCallback = (button: HTMLButtonElement, event: MouseEvent) => void
+
+interface ModalOptions {
+  targetElement?: HTMLElement
+  buttonClick?: ModalButtonClickCallback
+}
 
 let id: number | null = null
 
@@ -1440,10 +1485,13 @@ const patchNodes = (parent: Element, newParent: DocumentFragment | Element) => {
       }
 
       // If this element or any descendant has a running animation, recurse
-      // into children to preserve the animated DOM nodes
+      // into children to preserve the animated DOM nodes. Some live modals
+      // also opt into child patching to avoid replacing stable media nodes.
       const hasAnimation = oldEl.getAnimations({ subtree: true }).length > 0
+      const shouldPreserveChildren = oldEl.dataset.modalPreserve === 'children'
+        && newEl.dataset.modalPreserve === 'children'
 
-      if (hasAnimation) {
+      if (hasAnimation || shouldPreserveChildren) {
         // Update attributes that changed
         const oldAttrs = oldEl.attributes
         const newAttrs = newEl.attributes
@@ -1485,10 +1533,33 @@ export const Modal = (
   currY: number,
   styleMods: OptionalHTMLStyle = {},
   updateInterval = VERY_FAST_MODAL_UPDATE_TICK,
-  targetElement?: HTMLElement
+  targetElementOrOptions?: HTMLElement | ModalOptions
 ) => {
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
+  const modalOptions = targetElementOrOptions instanceof HTMLElement
+    ? { targetElement: targetElementOrOptions }
+    : targetElementOrOptions ?? {}
+
+  /* eslint-disable unicorn/prefer-add-event-listener */
+  modalContent.onclick = modalOptions.buttonClick
+    ? (event) => {
+      const button = event.target instanceof Element
+        ? event.target.closest('button')
+        : null
+      if (button && modalContent.contains(button)) {
+        modalOptions.buttonClick?.(button, event)
+      }
+    }
+    : null
+  modal.onclick = isMobile
+    ? (event) => {
+      if (event.target === modal) {
+        CloseModal()
+      }
+    }
+    : null
+  /* eslint-enable unicorn/prefer-add-event-listener */
 
   const modalId = id = Math.random()
   const interval = setInterval(() => {
@@ -1499,6 +1570,7 @@ export const Modal = (
     updateModal(HTML)
   }, updateInterval)
 
+  modal.classList.toggle('modalBottomSheet', isMobile)
   Object.assign(modal.style, styleMods)
   // Instantly update the modal once
   updateModal(HTML)
@@ -1517,8 +1589,8 @@ export const Modal = (
     let baseY = currY
 
     if ((currX === 0 && currY === 0) || (currX < 5 && currY < 5)) {
-      if (targetElement) {
-        const targetRect = targetElement.getBoundingClientRect()
+      if (modalOptions.targetElement) {
+        const targetRect = modalOptions.targetElement.getBoundingClientRect()
         baseX = targetRect.left + targetRect.width / 2
         baseY = targetRect.top + targetRect.height / 2
       } else {
@@ -1526,6 +1598,13 @@ export const Modal = (
         baseX = viewportWidth / 2
         baseY = viewportHeight / 2
       }
+    }
+
+    if (isMobile) {
+      modal.style.removeProperty('left')
+      modal.style.removeProperty('top')
+      modal.style.visibility = 'visible'
+      return
     }
 
     // Base positioning
@@ -1557,7 +1636,12 @@ export const CloseModal = () => {
   const modalContent = DOMCacheGetOrSet('modalContent')
 
   id = null
+  modal.classList.remove('modalBottomSheet')
   modalContent.innerHTML = ''
+  /* eslint-disable unicorn/prefer-add-event-listener */
+  modalContent.onclick = null
+  modal.onclick = null
+  /* eslint-enable unicorn/prefer-add-event-listener */
   modal.style.display = 'none'
 }
 

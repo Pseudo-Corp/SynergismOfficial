@@ -60,20 +60,28 @@ import {
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { blankSave, deepClone, format, player, saveSynergy } from './Synergism'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { changeSubTab, changeTab, resetAllSubTabs, Tabs } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
-import { clearInterval, setInterval } from './Timers'
 import { AutoAscensionModes } from './Toggles'
 import type { OneToFive, Player, resetNames } from './types/Synergism'
 import { Alert, revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
-import { getElementById } from './Utility'
 import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
-let repeatreset: number
+type ResetDetailsView = {
+  offeringVisible: boolean
+  offeringText: string
+  currencyVisible: boolean
+  currencySrc: string
+  currencyText: string
+  obtainiumVisible: boolean
+  obtainiumText: string
+  infoText: string
+  infoColor: string
+}
 
 const resetTypes = new Set([
   'transcension',
@@ -100,95 +108,71 @@ export enum AntSacrificeTiers {
   never = 3
 }
 
-export const resetrepeat = (input: resetNames) => {
-  clearInterval(repeatreset)
-  repeatreset = +setInterval(() => resetdetails(input), 50)
-}
-
-const resetdetails = (input: resetNames) => {
-  DOMCacheGetOrSet('resetofferings1').style.display = 'block'
-
+export const getResetDetails = (input: resetNames): ResetDetailsView => {
   const transcensionChallenge = player.currentChallenge.transcension
   const reincarnationChallenge = player.currentChallenge.reincarnation
 
   const offering = calculateOfferings()
-  const offeringImage = getElementById<HTMLImageElement>('resetofferings1')
-  const offeringText = DOMCacheGetOrSet('resetofferings2')
-  const currencyImage1 = getElementById<HTMLImageElement>('resetcurrency1')
-  const resetObtainiumImage = DOMCacheGetOrSet('resetobtainium')
-  const resetObtainiumText = DOMCacheGetOrSet('resetobtainium2')
-  const resetInfo = DOMCacheGetOrSet('resetinfo')
-  const resetCurrencyGain = DOMCacheGetOrSet('resetcurrency2')
-  if (input === 'reincarnation') {
-    resetObtainiumImage.style.display = 'block'
-    resetObtainiumText.textContent = format(Decimal.floor(calculateObtainium()))
-  } else {
-    resetObtainiumImage.style.display = 'none'
-    resetObtainiumText.textContent = ''
-  }
-
-  if (input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity') {
-    offeringImage.style.display = offeringText.style.display = 'none'
-  } else {
-    offeringImage.style.display = offeringText.style.display = 'block'
+  const iconSet = IconSets[player.iconSet][0]
+  const resetDetails: ResetDetailsView = {
+    offeringVisible: input !== 'ascensionChallenge' && input !== 'ascension' && input !== 'singularity',
+    offeringText: `+${format(offering)}`,
+    currencyVisible: false,
+    currencySrc: `Pictures/${iconSet}/Diamond.png`,
+    currencyText: '',
+    obtainiumVisible: input === 'reincarnation',
+    obtainiumText: input === 'reincarnation'
+      ? format(Decimal.floor(calculateObtainium()))
+      : '',
+    infoText: '',
+    infoColor: 'white'
   }
 
   switch (input) {
     case 'prestige':
-      if (!currencyImage1.src.endsWith(`Pictures/${IconSets[player.iconSet][0]}/Diamond.png`)) {
-        currencyImage1.src = `Pictures/${IconSets[player.iconSet][0]}/Diamond.png`
-      }
-      currencyImage1.style.display = 'block'
-      resetCurrencyGain.textContent = `+${format(G.prestigePointGain)}`
-      resetInfo.textContent = i18next.t('reset.details.prestige', {
+      resetDetails.currencyVisible = true
+      resetDetails.currencySrc = `Pictures/${iconSet}/Diamond.png`
+      resetDetails.currencyText = `+${format(G.prestigePointGain)}`
+      resetDetails.infoText = i18next.t('reset.details.prestige', {
         amount: format(player.coinsThisPrestige),
         timeSpent: format(player.prestigecounter)
       })
-      resetInfo.style.color = 'turquoise'
+      resetDetails.infoColor = 'turquoise'
       break
     case 'transcension':
-      if (!currencyImage1.src.endsWith(`Pictures/${IconSets[player.iconSet][0]}/Mythos.png`)) {
-        currencyImage1.src = `Pictures/${IconSets[player.iconSet][0]}/Mythos.png`
-      }
-      currencyImage1.style.display = 'block'
-      resetCurrencyGain.textContent = `+${format(G.transcendPointGain)}`
-      resetInfo.textContent = i18next.t('reset.details.transcension', {
+      resetDetails.currencyVisible = true
+      resetDetails.currencySrc = `Pictures/${iconSet}/Mythos.png`
+      resetDetails.currencyText = `+${format(G.transcendPointGain)}`
+      resetDetails.infoText = i18next.t('reset.details.transcension', {
         amount: format(player.coinsThisTranscension),
         timeSpent: format(player.transcendcounter)
       })
-      resetInfo.style.color = 'var(--orchid-text-color)'
+      resetDetails.infoColor = 'var(--orchid-text-color)'
       break
     case 'reincarnation':
-      if (!currencyImage1.src.endsWith(`Pictures/${IconSets[player.iconSet][0]}/Particle.png`)) {
-        currencyImage1.src = `Pictures/${IconSets[player.iconSet][0]}/Particle.png`
-      }
-      currencyImage1.style.display = 'block'
-      resetCurrencyGain.textContent = `+${format(G.reincarnationPointGain)}`
-      resetInfo.textContent = i18next.t('reset.details.reincarnation', {
+      resetDetails.currencyVisible = true
+      resetDetails.currencySrc = `Pictures/${iconSet}/Particle.png`
+      resetDetails.currencyText = `+${format(G.reincarnationPointGain)}`
+      resetDetails.infoText = i18next.t('reset.details.reincarnation', {
         amount: format(player.transcendShards),
         timeSpent: format(player.reincarnationcounter)
       })
-      resetInfo.style.color = 'limegreen'
+      resetDetails.infoColor = 'limegreen'
       break
     case 'acceleratorBoost':
-      if (!currencyImage1.src.endsWith(`Pictures/${IconSets[player.iconSet][0]}/Diamond.png`)) {
-        currencyImage1.src = `Pictures/${IconSets[player.iconSet][0]}/Diamond.png`
-      }
-      currencyImage1.style.display = 'block'
-      resetCurrencyGain.textContent = `-${format(player.acceleratorBoostCost)}`
-      resetInfo.textContent = i18next.t('reset.details.acceleratorBoost', {
+      resetDetails.currencyVisible = true
+      resetDetails.currencySrc = `Pictures/${iconSet}/Diamond.png`
+      resetDetails.currencyText = `-${format(player.acceleratorBoostCost)}`
+      resetDetails.infoText = i18next.t('reset.details.acceleratorBoost', {
         amount: format(player.prestigePoints),
         required: format(player.acceleratorBoostCost)
       })
-      resetInfo.style.color = 'cyan'
+      resetDetails.infoColor = 'cyan'
       break
     case 'transcensionChallenge':
-      currencyImage1.style.display = 'none'
-      resetCurrencyGain.textContent = ''
-
       if (transcensionChallenge !== 0) {
-        resetInfo.style.color = 'aquamarine'
-        resetInfo.textContent = i18next.t('reset.details.transcensionChallenge.in', {
+        resetDetails.infoColor = 'aquamarine'
+        resetDetails.infoText = i18next.t('reset.details.transcensionChallenge.in', {
           n: transcensionChallenge,
           amount: format(player.coinsThisTranscension),
           required: format(
@@ -197,19 +181,16 @@ const resetdetails = (input: resetNames) => {
           timeSpent: format(player.transcendcounter)
         })
       } else {
-        resetInfo.style.color = 'var(--crimson-text-color)'
-        resetInfo.textContent = i18next.t('reset.details.transcensionChallenge.out')
+        resetDetails.infoColor = 'var(--crimson-text-color)'
+        resetDetails.infoText = i18next.t('reset.details.transcensionChallenge.out')
       }
       break
     case 'reincarnationChallenge':
-      currencyImage1.style.display = 'none'
-      resetCurrencyGain.textContent = ''
-
       if (reincarnationChallenge !== 0) {
         const goal = reincarnationChallenge >= 9 ? 'coins' : 'transcendShards'
 
-        resetInfo.style.color = 'silver'
-        resetInfo.textContent = i18next.t(`reset.details.reincarnationChallenge.in.${goal}`, {
+        resetDetails.infoColor = 'silver'
+        resetDetails.infoText = i18next.t(`reset.details.reincarnationChallenge.in.${goal}`, {
           n: reincarnationChallenge,
           amount: format(player[goal]),
           required: format(
@@ -222,37 +203,32 @@ const resetdetails = (input: resetNames) => {
           timeSpent: format(player.reincarnationcounter)
         })
       } else {
-        resetInfo.style.color = 'var(--crimson-text-color)'
-        resetInfo.textContent = i18next.t('reset.details.reincarnationChallenge.out')
+        resetDetails.infoColor = 'var(--crimson-text-color)'
+        resetDetails.infoText = i18next.t('reset.details.reincarnationChallenge.out')
       }
       break
     case 'ascensionChallenge':
-      currencyImage1.style.display = 'none'
-      resetCurrencyGain.textContent = ''
-      resetInfo.textContent = i18next.t('reset.details.ascensionChallenge')
-      resetInfo.style.color = 'gold'
+      resetDetails.infoText = i18next.t('reset.details.ascensionChallenge')
+      resetDetails.infoColor = 'gold'
       break
     case 'ascension':
       const ascensionRewards = CalcCorruptionStuff()
-      currencyImage1.style.display = 'none'
-      resetCurrencyGain.textContent = ''
-      resetInfo.textContent = i18next.t('reset.details.ascension', {
+      resetDetails.infoText = i18next.t('reset.details.ascension', {
         cubeAmount: format(ascensionRewards.wowCubes, 0, true),
         timeSpent: format(player.ascensionCounter, 0, false),
         realTimeSpent: format(player.ascensionCounterRealReal, 0, false)
       })
-      resetInfo.style.color = 'gold'
+      resetDetails.infoColor = 'gold'
       break
     case 'singularity':
-      currencyImage1.style.display = 'none'
-      resetCurrencyGain.textContent = ''
-      resetInfo.textContent = i18next.t('reset.details.singularity', {
+      resetDetails.infoText = i18next.t('reset.details.singularity', {
         gqAmount: format(calculateGoldenQuarks(), 2, true),
         timeSpent: format(player.singularityCounter, 0, false)
       })
-      resetInfo.style.color = 'lightgoldenrodyellow'
+      resetDetails.infoColor = 'lightgoldenrodyellow'
   }
-  DOMCacheGetOrSet('resetofferings2').textContent = `+${format(offering)}`
+
+  return resetDetails
 }
 
 export const updateAutoReset = (i: number) => {
@@ -409,9 +385,7 @@ export const updateReincarnationCount = (count: number) => {
   }
 }
 
-export const reset = (input: resetNames, fast = false, from = 'unknown') => {
-  console.log(`reset called with input: ${input}, fast: ${fast}, from: ${from}`)
-  console.log(player.challengecompletions[10])
+export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
   resetAddHistoryEntry(input, from)
 
@@ -1126,14 +1100,9 @@ export const singularity = (setSingNumber = -1) => {
   const hold = playerJsonSchema.parse(deepClone()(blankSave))
 
   // Reset Displays
+  resetAllSubTabs()
   changeTab(Tabs.Buildings)
   changeSubTab(Tabs.Buildings, { page: 0 })
-  changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
-  changeSubTab(Tabs.Challenges, { page: 0 }) // Set 'challenges' subtab back to 'normal' tab
-  changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
-  changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
-  changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
-  changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
 
   hold.achievements = [...player.achievements]
   hold.progressiveAchievements = { ...player.progressiveAchievements }

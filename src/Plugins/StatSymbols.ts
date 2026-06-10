@@ -3,7 +3,8 @@ import type { PostProcessorModule } from 'i18next'
 let showStatSymbol = false
 
 export const enableStatSymbols = (): void => {
-  showStatSymbol = true
+  // Symbols inconsistently (oftentimes don't) show up properly on mobile devices
+  showStatSymbol = PLATFORM !== 'mobile'
 }
 
 const KEYWORD_SYMBOLS: Record<string, string> = {

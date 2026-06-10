@@ -9,6 +9,7 @@ import { hepteracts } from './Hepteracts'
 import { displayLevelStuff } from './Levels'
 import { maxOcteractUpgradeAP, octeractUpgrades } from './Octeracts'
 import { maxRedAmbrosiaUpgradeAP, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
+import { resetTiers } from './Reset'
 import { runeBlessings } from './RuneBlessings'
 import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
 import { runeSpirits } from './RuneSpirits'
@@ -18,7 +19,7 @@ import { format, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { maxTalismansRarityAP, talismans } from './Talismans'
 import type { resetNames } from './types/Synergism'
-import { CloseModal, Modal, Notification, revealStuff } from './UpdateHTML'
+import { CloseModal, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification, revealStuff } from './UpdateHTML'
 import { isMobile, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -27,6 +28,47 @@ const achievementProgressSelectors = [
   '.ungroupedAchievementType',
   '.progressiveAchievementType'
 ]
+
+const createAchievementDetailsModalHTML = (imgSrc: string, label: string | null, detailsHTML: string) => {
+  return `<div class="achievementDetailsModal" data-modal-preserve="children">
+    <div class="achievementDetailsModalTitle" data-modal-preserve="children">
+      <img src="${imgSrc}" alt="">
+      ${label ? `<span>${label}</span>` : ''}
+    </div>
+    <div class="achievementDetailsModalInfo">${detailsHTML}</div>
+  </div>`
+}
+
+const registerAchievementModal = (
+  img: HTMLImageElement,
+  descriptionHTML: () => string,
+  borderColor: string,
+  label: string | null = img.alt
+) => {
+  if (!isMobile) {
+    img.addEventListener('mousemove', (e: MouseEvent) => {
+      Modal(descriptionHTML, e.clientX, e.clientY, { borderColor })
+    })
+    img.addEventListener('focus', () => {
+      const elm = img.getBoundingClientRect()
+      Modal(descriptionHTML, elm.x, elm.y + elm.height / 2, { borderColor })
+    })
+    img.addEventListener('mouseout', CloseModal)
+    img.addEventListener('blur', CloseModal)
+    return
+  }
+
+  img.addEventListener('click', (event: MouseEvent) => {
+    Modal(
+      () => createAchievementDetailsModalHTML(img.src, label, descriptionHTML()),
+      event.clientX,
+      event.clientY,
+      { borderColor },
+      MEDIUM_MODAL_UPDATE_TICK,
+      img
+    )
+  })
+}
 
 export const resetAchievementCheck = (reset: resetNames) => {
   if (reset === 'prestige') {
@@ -3513,13 +3555,10 @@ export const updateAchievementPoints = (sourcedFromUpdate = false) => {
   updateAchievementLevel(sourcedFromUpdate)
 }
 
-import { platform } from './Config'
-import { resetTiers } from './Reset'
-
 const unlockedSteamAchievements = new Set<string>()
 
 const unlockSteamAchievement = async (steamAchievementId: string): Promise<void> => {
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     if (unlockedSteamAchievements.has(steamAchievementId)) {
       return // Prevent unnecessary calls to Steam
     }
@@ -3539,7 +3578,7 @@ const unlockSteamAchievement = async (steamAchievementId: string): Promise<void>
  * Call this after loading a save to ensure Steam achievements match game state.
  */
 export const syncSteamAchievements = async (): Promise<void> => {
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     unlockedSteamAchievements.clear()
 
     const unlockPromises: Promise<unknown>[] = []
@@ -3775,18 +3814,14 @@ const generateUngroupedDescription = (name: UngroupedAchievementNames) => {
   const index = ungroupedAchievementData[name].achievementID
   const ach = achievements[index]
   const achText = i18next.t(`achievements.descriptions.${index}`)
-
-  const colonIndex = achText.indexOf(':')
-  let achName = achText.substring(0, colonIndex)
-  const requirement = achText.substring(colonIndex + 1)
-  let trimmedRequirement = requirement?.trim() || ''
+  let trimmedRequirement = achText
 
   const value = ach.pointValue
   let earnedValue = 0
 
   const hasAch = player.achievements[index] === 1
   if (hasAch) {
-    achName = `<span class='rainbowText'>${achName} - COMPLETE!</span>`
+    trimmedRequirement = `<span class='rainbowText'>COMPLETE!</span><br>${trimmedRequirement}`
     earnedValue = value
   } else {
     trimmedRequirement += ` [+${ach.pointValue} AP]`
@@ -3815,8 +3850,7 @@ const generateUngroupedDescription = (name: UngroupedAchievementNames) => {
     }
   }
 
-  const finalText = `${achName}<br>
-  ${earnedValue}/${value} AP<br>
+  const finalText = `${earnedValue}/${value} AP<br>
   ${trimmedRequirement}<br>
   ${extraText}`
   return finalText
@@ -3886,23 +3920,7 @@ export const generateAchievementHTMLs = () => {
       img.style.cursor = 'pointer'
       img.tabIndex = 0
 
-      if (!isMobile) {
-        img.addEventListener('mousemove', (e: MouseEvent) => {
-          Modal(() => createGroupedAchievementDescription(k), e.clientX, e.clientY, { borderColor: 'cyan' })
-        })
-        img.addEventListener('focus', () => {
-          const elm = img.getBoundingClientRect()
-          // Get x, y current based on the element's position
-          Modal(() => createGroupedAchievementDescription(k), elm.x, elm.y + elm.height / 2, { borderColor: 'cyan' })
-        })
-
-        img.addEventListener('mouseout', CloseModal)
-        img.addEventListener('blur', CloseModal)
-      } else {
-        img.addEventListener('click', () => {
-          DOMCacheGetOrSet('achievementMultiLine').innerHTML = createGroupedAchievementDescription(k)
-        })
-      }
+      registerAchievementModal(img, () => createGroupedAchievementDescription(k), 'cyan')
 
       // attach to the table
       div.appendChild(img)
@@ -3926,32 +3944,11 @@ export const generateAchievementHTMLs = () => {
       const img = document.createElement('img')
       img.id = `ungroupedAchievement${capitalizedName}`
       img.src = `Pictures/Achievements/Ungrouped/${capitalizedName}.png`
-      img.alt = i18next.t(`achievements.ungroupedNames.${k}`)
+      img.alt = ''
       img.style.cursor = 'pointer'
       img.tabIndex = 0
 
-      if (!isMobile) {
-        img.addEventListener('mousemove', (e: MouseEvent) => {
-          Modal(() => generateUngroupedDescription(k), e.clientX, e.clientY, {
-            borderColor: 'white'
-          })
-        })
-
-        img.addEventListener('focus', () => {
-          const elm = img.getBoundingClientRect()
-          // Get x, y current based on the element's position
-          Modal(() => generateUngroupedDescription(k), elm.x, elm.y + elm.height / 2, {
-            borderColor: 'white'
-          })
-        })
-
-        img.addEventListener('mouseout', CloseModal)
-        img.addEventListener('blur', CloseModal)
-      } else {
-        img.addEventListener('click', () => {
-          DOMCacheGetOrSet('achievementMultiLine').innerHTML = generateUngroupedDescription(k)
-        })
-      }
+      registerAchievementModal(img, () => generateUngroupedDescription(k), 'white', null)
 
       // attach to the table
       div.appendChild(img)
@@ -3975,35 +3972,11 @@ export const generateAchievementHTMLs = () => {
       const img = document.createElement('img')
       img.id = `progressiveAchievement${capitalizedName}`
       img.src = `Pictures/Achievements/Progressive/${capitalizedName}.png`
-      img.alt = i18next.t(`achievements.progressiveNames.${k}`)
+      img.alt = i18next.t(`achievements.progressiveAchievements.${k}.name`)
       img.style.cursor = 'pointer'
       img.tabIndex = 0
 
-      if (!isMobile) {
-        img.addEventListener('mousemove', (e: MouseEvent) => {
-          Modal(() => generateProgressiveAchievementDescription(k), e.clientX, e.clientY, {
-            borderColor: 'turquoise'
-          })
-        })
-
-        img.addEventListener('focus', () => {
-          const elm = img.getBoundingClientRect()
-          // Get x, y current based on the element's position
-          Modal(
-            () => generateProgressiveAchievementDescription(k),
-            elm.x,
-            elm.y + elm.height / 2,
-            { borderColor: 'turquoise' }
-          )
-        })
-
-        img.addEventListener('mouseout', CloseModal)
-        img.addEventListener('blur', CloseModal)
-      } else {
-        img.addEventListener('click', () => {
-          DOMCacheGetOrSet('achievementMultiLine').innerHTML = generateProgressiveAchievementDescription(k)
-        })
-      }
+      registerAchievementModal(img, () => generateProgressiveAchievementDescription(k), 'turquoise')
 
       // attach to the table
       div.appendChild(img)

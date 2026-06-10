@@ -11,6 +11,7 @@ export async function submitSteamMicroTxn (fd: FormData): Promise<boolean> {
     return false
   }
 
+  // oxlint-disable-next-line synergism-rules/no-relative-fetch
   const response = await fetch('/api/v1/steam/get-user-info', {
     method: 'POST',
     headers: {
@@ -35,6 +36,7 @@ export async function submitSteamMicroTxn (fd: FormData): Promise<boolean> {
     return false
   }
 
+  // oxlint-disable-next-line synergism-rules/no-relative-fetch
   const initTxnResponse = await fetch('/api/v1/steam/init-txn', {
     method: 'POST',
     body: fd
@@ -70,6 +72,7 @@ export async function submitSteamMicroTxn (fd: FormData): Promise<boolean> {
     return false
   }
 
+  // oxlint-disable-next-line synergism-rules/no-relative-fetch
   const finalizeResponse = await fetch('/api/v1/steam/finalize-txn', {
     method: 'POST',
     headers: {

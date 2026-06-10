@@ -79,7 +79,6 @@ import {
   derpsmithCornucopiaBonus
 } from './Calculate'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
-import { prod } from './Config'
 import {
   calculateAntELOCubeBlessing,
   calculateAntSacrificeCubeBlessing,
@@ -149,7 +148,8 @@ import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talismans'
 import type { GlobalVariables } from './types/Synergism'
-import { sumContents } from './Utility'
+import { MEDIUM_MODAL_UPDATE_TICK, Modal } from './UpdateHTML'
+import { isMobile, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
 enum StatLineTypes {
@@ -3678,8 +3678,34 @@ const associated = new Map<string, string>([
   ['kShopVouchers', 'shopVoucherStats']
 ])
 
+const mobileStatsModalHTML = (statsId: string) => {
+  loadStatisticsUpdate(statsId)
+
+  const statsClone = DOMCacheGetOrSet(statsId).cloneNode(true) as HTMLElement
+  statsClone.removeAttribute('id')
+  statsClone.classList.remove('statContainer', 'activeStats')
+  for (const element of statsClone.querySelectorAll('[id]')) {
+    element.removeAttribute('id')
+  }
+
+  return `<div class="statsNerdsModal">${statsClone.innerHTML}</div>`
+}
+
 export const displayStats = (btn: HTMLElement) => {
   const children = btn.parentElement ? btn.parentElement.querySelectorAll<HTMLElement>('.statsNerds') : []
+  const activeStatsId = associated.get(btn.id)
+
+  if (isMobile && activeStatsId) {
+    Modal(
+      () => mobileStatsModalHTML(activeStatsId),
+      0,
+      0,
+      { borderColor: getComputedStyle(btn).borderColor },
+      MEDIUM_MODAL_UPDATE_TICK,
+      btn
+    )
+    return
+  }
 
   for (const e of children) {
     const statsEl = DOMCacheGetOrSet(associated.get(e.id)!)
@@ -3695,12 +3721,13 @@ export const displayStats = (btn: HTMLElement) => {
   }
 }
 
-export const loadStatisticsUpdate = () => {
-  const activeStats = document.getElementsByClassName(
-    'activeStats'
-  ) as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < activeStats.length; i++) {
-    switch (activeStats[i].id) {
+export const loadStatisticsUpdate = (statsId?: string) => {
+  const statsIds = statsId === undefined
+    ? Array.from(document.getElementsByClassName('activeStats'), (element) => element.id)
+    : [statsId]
+
+  for (const id of statsIds) {
+    switch (id) {
       case 'miscStats':
         loadMiscellaneousStats()
         break
@@ -3864,7 +3891,7 @@ const loadStatistics = (
     const num = line.stat()
 
     const displayLine = displayStatLine(statsObj.type, num, line.displayCriterion)
-    if (displayLine || !prod) {
+    if (displayLine || !PROD) {
       statLine.style.display = 'block'
       statLine.style.backgroundColor = backgroundColors[numberDisplayedLines % backgroundColors.length]
       if (!displayLine) {
