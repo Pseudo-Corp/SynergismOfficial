@@ -1255,7 +1255,7 @@ export const generateEventHandlers = () => {
       html: () => antMasteryHTML(ant),
       style: { borderColor: blendedColor },
       buy: () => buyAntMastery(ant),
-      mobileButtons: [{ action: 'buy', label: i18next.t('ants.buyButton') }]
+      mobileButtons: [{ action: 'buy', label: i18next.t('general.upgrade') }]
     })
   }
   // Part 2: Ant Upgrades
@@ -1272,7 +1272,7 @@ export const generateEventHandlers = () => {
       html: () => antUpgradeHTML(upgrade),
       style: { borderColor: 'burlywood' },
       buy: () => buyAntUpgrade(upgrade, player.ants.toggles.maxBuyUpgrades),
-      mobileButtons: [{ action: 'buy', label: i18next.t('ants.buyButton') }]
+      mobileButtons: [{ action: 'buy', label: i18next.t('general.upgrade') }]
     })
   }
   // Part 3: Sacrifice

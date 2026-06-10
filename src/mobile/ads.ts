@@ -7,7 +7,7 @@ let adMobInitialized = false
 let adAttempt = 0
 let adClickable = true
 
-function unlockAd(): void {
+function unlockAd (): void {
   adClickable = true
   adAttempt = 0
 }
@@ -70,7 +70,7 @@ export async function ensureAdMobReady (): Promise<void> {
 }
 
 export async function rewardVideo (): Promise<void> {
-  if (!adClickable) { return }
+  if (!adClickable) return
   adClickable = false
   try {
     await ensureAdMobReady()
