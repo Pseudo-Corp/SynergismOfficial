@@ -7335,6 +7335,26 @@ html[data-mobile="true"] .hideOnMobile {
         max-width: unset;
     }
 
+    html[data-mobile="true"] .subHeader {
+        display: contents;
+    }
+
+    html[data-mobile="true"] .resetInformationContainer {
+        order: 1;
+        flex: 0 0 auto;
+    }
+
+    html[data-mobile="true"] #ascensionStats {
+        order: 2;
+        flex: 0 0 auto;
+    }
+
+    html[data-mobile="true"] .currenciesContainer {
+        order: 3;
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
     /* Sub tab wrappers */
     .subTabWrapper {
         position: fixed;
