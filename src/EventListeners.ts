@@ -196,11 +196,7 @@ type MobileSubTabIconConfig = {
   remainingControlsLayout?: 'inline' | 'fullRow'
 }
 
-const MOBILE_HEADER_CONTENT_HEIGHT_STORAGE_KEY = 'mobileHeaderContentHeight'
 const MOBILE_HEADER_EXPANDED_STORAGE_VALUE = 'expanded'
-const MOBILE_HEADER_KEYBOARD_STEP = 24
-const MOBILE_HEADER_PAGE_STEP = 96
-const MOBILE_HEADER_MIN_CONTENT_HEIGHT = 0
 const mobileSubTabIconContainerIDs = new Set(['switchSettingSubTab10'])
 
 const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
@@ -582,15 +578,15 @@ const registerMobileStatsIcons = () => {
 }
 
 const getMobileHeaderContentMaxHeight = (content: HTMLElement) => {
-  return Math.max(MOBILE_HEADER_MIN_CONTENT_HEIGHT, content.scrollHeight)
+  return Math.max(0, content.scrollHeight)
 }
 
 const clampMobileHeaderContentHeight = (height: number, maxHeight: number) => {
-  return Math.round(Math.max(MOBILE_HEADER_MIN_CONTENT_HEIGHT, Math.min(height, maxHeight)))
+  return Math.round(Math.max(0, Math.min(height, maxHeight)))
 }
 
 const updateMobileHeaderResizeHandleValue = (handle: HTMLElement, height: number, maxHeight: number) => {
-  handle.setAttribute('aria-valuemin', `${MOBILE_HEADER_MIN_CONTENT_HEIGHT}`)
+  handle.setAttribute('aria-valuemin', '0')
   handle.setAttribute('aria-valuemax', `${Math.round(maxHeight)}`)
   handle.setAttribute('aria-valuenow', `${Math.round(height)}`)
 }
@@ -614,7 +610,7 @@ const setMobileHeaderContentHeight = (
 
   if (persist) {
     storageSetItem(
-      MOBILE_HEADER_CONTENT_HEIGHT_STORAGE_KEY,
+      'mobileHeaderContentHeight',
       nextHeight >= maxHeight ? MOBILE_HEADER_EXPANDED_STORAGE_VALUE : `${nextHeight}`
     )
   }
@@ -629,10 +625,10 @@ const registerMobileHeaderResize = () => {
 
   const content = DOMCacheGetOrSet('mobileHeaderContent')
   const handle = DOMCacheGetOrSet('mobileHeaderResizeHandle')
-  const storedHeight = storageGetItem(MOBILE_HEADER_CONTENT_HEIGHT_STORAGE_KEY)
+  const storedHeight = storageGetItem('mobileHeaderContentHeight')
   let storedHeightApplied = false
 
-  if (storedHeight !== null && storedHeight !== MOBILE_HEADER_EXPANDED_STORAGE_VALUE) {
+  if (storedHeight !== null && storedHeight !== 'mobileHeaderContentHeight') {
     const parsedHeight = Number.parseInt(storedHeight, 10)
     if (Number.isFinite(parsedHeight)) {
       setMobileHeaderContentHeight(content, handle, parsedHeight, false)
@@ -691,38 +687,6 @@ const registerMobileHeaderResize = () => {
 
   handle.addEventListener('pointerup', finishDragging)
   handle.addEventListener('pointercancel', finishDragging)
-
-  handle.addEventListener('keydown', (event) => {
-    const currentHeight = content.getBoundingClientRect().height
-    const maxHeight = getMobileHeaderContentMaxHeight(content)
-    let nextHeight = currentHeight
-
-    switch (event.key) {
-      case 'ArrowUp':
-        nextHeight -= MOBILE_HEADER_KEYBOARD_STEP
-        break
-      case 'ArrowDown':
-        nextHeight += MOBILE_HEADER_KEYBOARD_STEP
-        break
-      case 'PageUp':
-        nextHeight -= MOBILE_HEADER_PAGE_STEP
-        break
-      case 'PageDown':
-        nextHeight += MOBILE_HEADER_PAGE_STEP
-        break
-      case 'Home':
-        nextHeight = MOBILE_HEADER_MIN_CONTENT_HEIGHT
-        break
-      case 'End':
-        nextHeight = maxHeight
-        break
-      default:
-        return
-    }
-
-    event.preventDefault()
-    setMobileHeaderContentHeight(content, handle, nextHeight, true)
-  })
 }
 
 const updateMobileSubTabLayout = () => {
