@@ -7366,7 +7366,7 @@ html[data-mobile="true"] .hideOnMobile {
         gap: 5px;
         width: 100%;
         margin: 0 auto 10px;
-        padding-top: 5px;
+        padding-top: 0;
         padding-bottom: 5px;
         background-color: var(--bg-color);
         touch-action: none;
