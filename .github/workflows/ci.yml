@@ -37,7 +37,7 @@ jobs:
           npm run lint
           npm run csslint
       - name: Check translation files
-        if: false && matrix.os == 'ubuntu-latest' && ${{ github.event_name == 'pull_request' }}
+        if: false && matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request'
         uses: actions/github-script@v7
         id: check-translation-files
         with:
