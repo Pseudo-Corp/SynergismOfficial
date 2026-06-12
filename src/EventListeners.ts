@@ -12,6 +12,7 @@ import {
   highlightPrerequisites,
   importBlueberryTree,
   loadoutHandler,
+  refundOneAmbrosiaUpgradeLevel,
   resetBlueberryTree,
   resetHighlights,
   resetLoadoutOnlyDisplay,
@@ -1505,6 +1506,13 @@ TODO: Fix this entire tab it's utter shit
             undefined,
             event.currentTarget as HTMLElement
           )
+        }
+      )
+      DOMCacheGetOrSet(key).addEventListener(
+        'contextmenu',
+        (event) => {
+          event.preventDefault()
+          refundOneAmbrosiaUpgradeLevel(key)
         }
       )
     } else {
