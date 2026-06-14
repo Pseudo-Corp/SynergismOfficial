@@ -12,6 +12,7 @@ dependencies {
     implementation project(':capacitor-community-admob')
     implementation project(':capacitor-community-apple-sign-in')
     implementation project(':capacitor-preferences')
+    implementation project(':capacitor-push-notifications')
     implementation project(':capgo-capacitor-social-login')
     implementation project(':capacitor-plugin-cdv-purchase')
 

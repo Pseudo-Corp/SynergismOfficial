@@ -4,19 +4,16 @@ import { memoize } from '../Utility'
 
 const REGISTER_ENDPOINT = 'https://synergism.cc/notifications/mobile/register'
 
-// The APNs environment is decided by the native build's push entitlement:
-// debug/development builds talk to the sandbox, release builds to production.
-// We mirror that with the esbuild PROD/DEV defines used elsewhere for mobile.
-const apnsEnvironment = DEV || !PROD ? 'sandbox' : 'production'
-
-type DeviceRegistration =
-  | { token: string; platform: 'ios'; apnsEnvironment: 'production' | 'sandbox' }
-  | { token: string; platform: 'android' }
+interface DeviceRegistration {
+  token: string
+  platform: 'ios' | 'android'
+}
 
 async function sendToken (value: string): Promise<void> {
-  const registration: DeviceRegistration = Capacitor.getPlatform() === 'ios'
-    ? { token: value, platform: 'ios', apnsEnvironment }
-    : { token: value, platform: 'android' }
+  const registration: DeviceRegistration = {
+    token: value,
+    platform: Capacitor.getPlatform() === 'ios' ? 'ios' : 'android'
+  }
 
   const response = await fetch(REGISTER_ENDPOINT, {
     method: 'POST',
