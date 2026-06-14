@@ -917,6 +917,7 @@ export const playerSchema = z.object({
   singularityMatter: z.number().default(() => blankSave.singularityMatter),
   goldenQuarks: z.number().default(() => blankSave.goldenQuarks),
   quarksThisSingularity: z.number().nullable().default(() => blankSave.quarksThisSingularity),
+  goldenQuarksGainedFromConversion: z.number().default(() => blankSave.goldenQuarksGainedFromConversion),
   totalQuarksEver: z.number().default(() => blankSave.totalQuarksEver),
   hotkeys: z.record(integerStringSchema, z.string().array()).default(() => blankSave.hotkeys),
   theme: z.string().default(() => blankSave.theme),

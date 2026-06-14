@@ -379,7 +379,9 @@ export const calculateAmbrosiaGenerationSpeed = () => {
 
 export const calculatePowderConversion = () => calculateTotalStat(allPowderMultiplierStats)
 
-export const calculateGoldenQuarks = () => calculateTotalStat(allGoldenQuarkMultiplierStats)
+export const calculateGoldenQuarksFull = () => calculateTotalStat(allGoldenQuarkMultiplierStats)
+export const calculateGoldenQuarks = () =>
+  Math.max(0, calculateGoldenQuarksFull() - player.goldenQuarksGainedFromConversion)
 export const calculateGoldenQuarkCost = () => calculateTotalStat(allGoldenQuarkPurchaseCostStats)
 
 export const calculateLuckConversion = () => calculateTotalStat(allLuckConversionStats)
