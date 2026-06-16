@@ -7186,6 +7186,20 @@ html[data-mobile="true"] .hideOnMobile {
     padding: 0 12px;
 }
 
+.purchaseAuthModal {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    max-width: 360px;
+}
+
+.purchaseAuthModal .modalBtnBuy {
+    width: auto;
+    min-width: 120px;
+    padding: 0 12px;
+}
+
 #patchnotes {
     cursor: pointer;
 }

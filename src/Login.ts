@@ -593,6 +593,12 @@ export async function handleLogin () {
   if (loggedIn) {
     handleWebSocket()
     handleCloudSaves()
+
+    if (PLATFORM === 'mobile') {
+      import('./mobile/microtxn')
+        .then(({ resumePendingMobilePurchase }) => resumePendingMobilePurchase())
+        .catch(console.error)
+    }
   }
 
   // Steam cloud saves work without login

@@ -6,6 +6,7 @@ import { CartTab, coinProducts, subscriptionProducts } from '../purchases/CartTa
 import { updatePseudoCoins } from '../purchases/UpgradesSubtab'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
+import { consumePendingMobilePurchase, showMobilePurchaseAuthModal } from './purchase-auth'
 
 const BUNDLE_ID = 'cc.pseudocorp.synergism'
 
@@ -76,9 +77,13 @@ async function onTransactionApproved (transaction: Transaction): Promise<void> {
   Notification(i18next.t('mobile.purchases.success'))
 }
 
-async function getStoreUuid (): Promise<string | null> {
+async function getStoreUuid (): Promise<string | null | undefined> {
   const response = await fetch('https://synergism.cc/api/v1/mobile/uuid', { credentials: 'include' })
-  if (!response.ok) return null
+
+  if (response.status === 401 || response.status === 403) return null
+
+  if (!response.ok) return undefined
+
   const { uuid } = await response.json() as { uuid: string }
   return uuid
 }
@@ -100,8 +105,14 @@ export async function orderProduct (lookupKey: string): Promise<void> {
   }
 
   const applicationUsername = await getStoreUuid()
-  if (!applicationUsername) {
-    Notification(i18next.t('mobile.purchases.orderFailed', { error: 'Not signed in' }))
+
+  if (applicationUsername === null) {
+    showMobilePurchaseAuthModal(lookupKey)
+    return
+  }
+
+  if (applicationUsername === undefined) {
+    Notification(i18next.t('mobile.purchases.orderFailed', { error: i18next.t('mobile.purchases.accountUnavailable') }))
     return
   }
 
@@ -118,6 +129,15 @@ export async function orderProduct (lookupKey: string): Promise<void> {
   if (result && 'code' in result) {
     Notification(i18next.t('mobile.purchases.orderFailed', { error: result.message }))
   }
+}
+
+export async function resumePendingMobilePurchase (): Promise<void> {
+  if (PLATFORM !== 'mobile') return
+
+  const pendingLookupKey = consumePendingMobilePurchase()
+  if (pendingLookupKey === null) return
+
+  await orderProduct(pendingLookupKey)
 }
 
 if (PLATFORM === 'mobile') {

@@ -7724,6 +7724,11 @@
     "purchases": {
       "productUnavailable": "This product isn't available right now. Please try again later.",
       "orderFailed": "Could not start the purchase: {{error}}",
+      "accountUnavailable": "Your account could not be verified. Please try again.",
+      "signInRequiredTitle": "Account Required",
+      "signInRequiredBody": "Sign in or create an account to continue with this purchase. After you finish, the purchase will resume automatically.",
+      "createAccount": "Create Account",
+      "login": "Login",
       "verifyFailed": "Could not verify your purchase: {{error}}",
       "success": "Purchase successful! Your PseudoCoins have been credited.",
       "subscriptionSuccess": "Subscription successful! Please refresh the page to receive your perks."
