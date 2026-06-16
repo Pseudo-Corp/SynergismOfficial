@@ -49,7 +49,7 @@ const initializeCheckoutTab = memoize(() => {
   async function submitCheckout (e: MouseEvent) {
     if (!radioTOSAgree.checked) {
       e.preventDefault()
-      Notification('You must accept the terms of service first!')
+      Notification(i18next.t('tabs.pseudocoins.agreeTOS'))
       return
     }
 

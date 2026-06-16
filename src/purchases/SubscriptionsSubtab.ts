@@ -57,6 +57,12 @@ const formatter = Intl.NumberFormat('en-US', {
   currency: 'USD'
 })
 
+const formatSubscriptionPrice = (price: number) => {
+  return i18next.t('pseudoCoins.subscriptionPricePerMonth', {
+    price: formatter.format(price / 100)
+  })
+}
+
 async function changeSubscription (
   sub: Exclude<SubscriptionMetadata, null>,
   productId: string,
@@ -82,13 +88,13 @@ async function changeSubscription (
   const confirm = (type === 'downgrade')
     ? await Confirm(
       `You are downgrading to ${newSubName}, which costs ${
-        formatter.format(newSubPrice / 100)
-      } per month. Downgrading takes effect immediately! Proceed?`
+        formatSubscriptionPrice(newSubPrice)
+      }. Downgrading takes effect immediately! Proceed?`
     )
     : await Confirm(
-      `You are upgrading to ${newSubName}, which costs ${
-        formatter.format(newSubPrice / 100)
-      } per month (an increase of ${formatter.format((newSubPrice - oldSubPrice) / 100)} per month). Proceed?`
+      `You are upgrading to ${newSubName}, which costs ${formatSubscriptionPrice(newSubPrice)} (an increase of ${
+        formatSubscriptionPrice(newSubPrice - oldSubPrice)
+      }). Proceed?`
     )
 
   if (!confirm) {
@@ -241,19 +247,19 @@ const createSubscriptionTierName = (product: SubscriptionProduct) => {
 const noSubscriptionButton = (product: SubscriptionProduct) => {
   if (PLATFORM === 'steam') {
     return `<button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton steamSubscribeButton">
-      Subscribe with Steam - ${formatter.format(product.price / 100)} USD / mo
+      ${i18next.t('pseudoCoins.subscriptionSubscribeSteam', { price: formatSubscriptionPrice(product.price) })}
     </button>`
   }
 
   if (PLATFORM === 'mobile') {
     return `<button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton">
-      Subscribe - ${formatter.format(product.price / 100)} USD / mo
+      ${i18next.t('pseudoCoins.subscriptionSubscribe', { price: formatSubscriptionPrice(product.price) })}
     </button>`
   }
 
   return `<div class="checkout-paypal" data-id="${product.id}"></div>
   <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton">
-    ${formatter.format(product.price / 100)} USD / mo
+    ${formatSubscriptionPrice(product.price)}
   </button>`
 }
 
@@ -277,7 +283,11 @@ const currentSubscriptionBox = (sub: Exclude<SubscriptionMetadata, null>) => {
 const upgradeButton = (product: SubscriptionProduct, currentSubTier: number) => {
   const currentPrice = subscriptionProducts.find((v) => v.tier === currentSubTier)?.price ?? 0
   return `<button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton" style="background-color: green">
-    ↑ (+${formatter.format((product.price - currentPrice) / 100)} USD / mo)
+    ${
+    i18next.t('pseudoCoins.subscriptionUpgradePrice', {
+      price: formatSubscriptionPrice(product.price - currentPrice)
+    })
+  }
   </button>`
 }
 
@@ -299,6 +309,7 @@ const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentS
           ${nameHTML}
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
+          <p class="pseudoSubscriptionDisclosure">${i18next.t('pseudoCoins.subscriptionDisclosure')}</p>
           ${constructFeatureList(product)}
         </div>
         ${downgradeBtn}
@@ -313,6 +324,7 @@ const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentS
           ${nameHTML}
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
+          <p class="pseudoSubscriptionDisclosure">${i18next.t('pseudoCoins.subscriptionDisclosure')}</p>
           ${constructFeatureList(product)}
         </div>
         ${currentSub}
@@ -330,6 +342,7 @@ const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentS
           ${nameHTML}
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
+          <p class="pseudoSubscriptionDisclosure">${i18next.t('pseudoCoins.subscriptionDisclosure')}</p>
           ${constructFeatureList(product)}
         </div>
         ${noSubscription}

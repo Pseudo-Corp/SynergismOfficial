@@ -4830,8 +4830,11 @@
       "checkoutStripe": "Checkout with Stripe",
       "checkoutNowPayments": "Checkout with NowPayments (Crypto)",
       "support": "Need help?",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
       "khafraDiscord": "Message Khafra on Discord",
-      "platonicDiscord": "Message Platonic on Discord"
+      "platonicDiscord": "Message Platonic on Discord",
+      "agreeTOS": "You must accept the terms of service first!"
     }
   },
   "offlineProgress": {
@@ -7734,6 +7737,11 @@
     "currEffect": "Current Level:",
     "nextEffect": "Next Level:",
     "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
+    "subscriptionPricePerMonth": "{{price}} / month",
+    "subscriptionDisclosure": "Auto-renews monthly. Includes the listed PseudoCoins and bonuses each month until canceled.",
+    "subscriptionSubscribe": "Subscribe - {{price}}",
+    "subscriptionSubscribeSteam": "Subscribe with Steam - {{price}}",
+    "subscriptionUpgradePrice": "↑ (+{{price}})",
     "subscriptionRenews": "Renews: {{date}}",
     "subscriptionYouAreHere": "You are here!",
     "upgradeNames": {

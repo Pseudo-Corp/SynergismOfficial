@@ -6297,9 +6297,14 @@ form input:hover {
     margin: 5px auto 0;
 }
 
+.pseudoSubscriptionDisclosure {
+    width: 90%;
+    margin: 4px auto;
+    font-size: 0.9em;
+}
+
 .pseudoCoinButton {
     width: 75%;
-    height: 65px;
     padding: 10px;
     background-color: black;
     color: white;
@@ -6309,6 +6314,10 @@ form input:hover {
     word-wrap: break-word;
     margin-bottom: 5px;
     font-family: Inconsolata, monospace;
+}
+
+html[data-mobile="false"] .pseudoCoinButton {
+    height: 65px;
 }
 
 .pseudoCoinButton:hover {

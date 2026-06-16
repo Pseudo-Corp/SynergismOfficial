@@ -333,6 +333,16 @@ const mobileStatsIconConfig: Record<string, string> = {
   kShopVouchers: 'Pictures/Stats for Nerds Icons/Categories/ShopVouchers.png'
 }
 
+const termsOfServiceUrl = 'https://synergism.cc/terms-of-service'
+const privacyPolicyUrl = 'https://synergism.cc/privacy-policy'
+
+const registerIframeOverlayLink = (id: string, url: string) => {
+  DOMCacheGetOrSet(id).addEventListener('click', (event) => {
+    event.preventDefault()
+    openIframeOverlay(url)
+  })
+}
+
 const defaultModalBuyButtons = () => [
   { action: 'one', label: i18next.t('general.buyOne') },
   { action: 'max', label: i18next.t('general.buyMax') }
@@ -2005,14 +2015,13 @@ TODO: Fix this entire tab it's utter shit
     }
   })
 
-  document.getElementById('patchnotes')?.addEventListener(
+  DOMCacheGetOrSet('patchnotes').addEventListener(
     'click',
     openIframeOverlay.bind(null, 'https://changelog.synergism.cc/latest')
   )
-  document.getElementById('tosLink')?.addEventListener(
-    'click',
-    openIframeOverlay.bind(null, 'https://synergism.cc/terms-of-service')
-  )
+  registerIframeOverlayLink('tosLink', termsOfServiceUrl)
+  registerIframeOverlayLink('supportTermsLink', termsOfServiceUrl)
+  registerIframeOverlayLink('supportPrivacyLink', privacyPolicyUrl)
 
   // Window
   window.addEventListener('error', imgErrorHandler, { capture: true })
