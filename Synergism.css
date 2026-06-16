@@ -5794,17 +5794,28 @@ img#singularityPerksIcon {
     display: none;
 }
 
+/* The mobile purchase modal hosts the real #register/#login form node inline. */
+.purchaseAuthModal > div:is(#register, #login) {
+    flex-direction: column;
+    border: 1px solid gold;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
 /** Remove vertical spacing */
-#accountSubTab div#left.scrollbarX > div > form {
+#accountSubTab div#left.scrollbarX > div > form,
+.purchaseAuthModal > div:is(#register, #login) > form {
     font-size: 0;
 }
 
-#accountSubTab div#left.scrollbarX > div > form > * {
+#accountSubTab div#left.scrollbarX > div > form > *,
+.purchaseAuthModal > div:is(#register, #login) > form > * {
     font-size: medium;
     margin: 2px 10px;
 }
 
-#accountSubTab div#left.scrollbarX > div > form > input[type="submit"] {
+#accountSubTab div#left.scrollbarX > div > form > input[type="submit"],
+.purchaseAuthModal > div:is(#register, #login) > form > input[type="submit"] {
     border: 1px solid gold;
     padding: 3px 5px;
 }

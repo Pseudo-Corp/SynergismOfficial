@@ -64,17 +64,15 @@ async function onTransactionApproved (transaction: Transaction): Promise<void> {
 
   await transaction.finish()
 
+  updatePseudoCoins().catch(console.error)
+
   const isSubscription = transaction.products.some((p) =>
     subscriptionProducts.some((sub) => toStoreProductId(sub.id) === p.id)
   )
 
-  if (isSubscription) {
-    Notification(i18next.t('mobile.purchases.subscriptionSuccess'))
-    return
-  }
-
-  updatePseudoCoins().catch(console.error)
-  Notification(i18next.t('mobile.purchases.success'))
+  Notification(
+    i18next.t(isSubscription ? 'mobile.purchases.subscriptionSuccess' : 'mobile.purchases.success')
+  )
 }
 
 async function getStoreUuid (): Promise<string | null | undefined> {
