@@ -7744,7 +7744,6 @@
     "nextEffect": "Next Level:",
     "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
     "subscriptionPricePerMonth": "{{price}} / month",
-    "subscriptionDisclosure": "Auto-renews monthly. Includes the listed PseudoCoins and bonuses each month until canceled.",
     "subscriptionSubscribe": "Subscribe - {{price}}",
     "subscriptionSubscribeSteam": "Subscribe with Steam - {{price}}",
     "subscriptionUpgradePrice": "↑ (+{{price}})",

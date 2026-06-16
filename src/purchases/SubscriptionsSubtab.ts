@@ -309,7 +309,6 @@ const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentS
           ${nameHTML}
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
-          <p class="pseudoSubscriptionDisclosure">${i18next.t('pseudoCoins.subscriptionDisclosure')}</p>
           ${constructFeatureList(product)}
         </div>
         ${downgradeBtn}
@@ -324,7 +323,6 @@ const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentS
           ${nameHTML}
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
-          <p class="pseudoSubscriptionDisclosure">${i18next.t('pseudoCoins.subscriptionDisclosure')}</p>
           ${constructFeatureList(product)}
         </div>
         ${currentSub}
@@ -342,7 +340,6 @@ const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentS
           ${nameHTML}
           </p>
           <p class="pseudoSubscriptionText">${product.description}</p>
-          <p class="pseudoSubscriptionDisclosure">${i18next.t('pseudoCoins.subscriptionDisclosure')}</p>
           ${constructFeatureList(product)}
         </div>
         ${noSubscription}

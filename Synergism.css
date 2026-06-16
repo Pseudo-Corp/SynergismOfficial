@@ -6308,12 +6308,6 @@ form input:hover {
     margin: 5px auto 0;
 }
 
-.pseudoSubscriptionDisclosure {
-    width: 90%;
-    margin: 4px auto;
-    font-size: 0.9em;
-}
-
 .pseudoCoinButton {
     width: 75%;
     padding: 10px;
