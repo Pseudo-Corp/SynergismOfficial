@@ -584,6 +584,10 @@ export async function handleLogin () {
           url.searchParams.set('platform', 'steam')
           link.href = url.toString()
         }
+      } else if (PLATFORM === 'mobile') {
+        for (const link of subtabElement.querySelectorAll<HTMLAnchorElement>('a[href*="synergism.cc/login?with="]')) {
+          link.style.setProperty('display', 'none')
+        }
       }
     } else {
       assert(false, `unknown account type ${account.accountType}`)

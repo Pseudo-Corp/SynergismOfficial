@@ -323,7 +323,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'consumablesSection',
-        unlocked: () => PLATFORM !== 'mobile',
+        unlocked: () => true,
         buttonID: 'cartSubTab4'
       },
       {
@@ -333,7 +333,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'merchContainer',
-        unlocked: () => PLATFORM === 'browser', // Steam disallows purchases outside of the Steam ecosystem
+        unlocked: () => PLATFORM === 'browser', // Steam/Apple/Google disallow purchases outside of their ecosystems
         buttonID: 'cartSubTab6'
       }
     ]
