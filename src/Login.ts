@@ -449,7 +449,7 @@ export async function handleLogin () {
 
       const unlinkedPlatforms = allPlatforms.filter((p) => !linkedAccounts.includes(p.name))
 
-      if (unlinkedPlatforms.length > 0) {
+      if (PLATFORM !== 'mobile' && unlinkedPlatforms.length > 0) {
         const linkAccountsSection = document.createElement('div')
 
         const buttonContainer = document.createElement('div')

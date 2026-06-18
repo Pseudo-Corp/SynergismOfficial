@@ -7720,7 +7720,8 @@
       "resize": "Resize header"
     },
     "auth": {
-      "signInFailed": "Sign-in was cancelled or failed. Please try again."
+      "signInFailed": "Sign-in was cancelled or failed. Please try again.",
+      "verificationFailed": "We couldn't verify your device. Please try again."
     },
     "purchases": {
       "productUnavailable": "This product isn't available right now. Please try again later.",

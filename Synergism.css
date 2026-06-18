@@ -7197,6 +7197,7 @@ html[data-mobile="true"] .hideOnMobile {
     gap: 12px;
     text-align: center;
     max-width: 360px;
+    margin: 0 auto;
 }
 
 .purchaseAuthModal .modalBtnBuy {
