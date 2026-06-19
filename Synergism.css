@@ -8149,6 +8149,9 @@ html[data-mobile="true"] .hideOnMobile {
         border-radius: 0;
         overflow: visible;
         background-color: var(--button-color) !important;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none; /* stylelint-disable-line property-no-vendor-prefix */
+        user-select: none;
     }
 
     html[data-mobile="true"] nav.navbar #tabrow > button.mobileTabIconButton.active-tab {
@@ -8160,6 +8163,9 @@ html[data-mobile="true"] .hideOnMobile {
         width: 32px;
         height: 32px;
         object-fit: fill;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none; /* stylelint-disable-line property-no-vendor-prefix */
+        user-select: none;
     }
 
     nav button {
