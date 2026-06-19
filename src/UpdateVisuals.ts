@@ -53,10 +53,8 @@ import {
   BuffType,
   consumableEventBuff,
   eventBuffType,
-  getAdTimeExpiry,
   getEvent,
-  getEventBuff,
-  isAdEventEnabled
+  getEventBuff
 } from './Event'
 import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib/calculate-production'
 import { hasEnoughCrumbsForSacrifice, MINIMUM_CRUMBS_FOR_SACRIFICE } from './Features/Ants/AntSacrifice/constants'
@@ -145,7 +143,7 @@ import { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from './T
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { updateMobileUpgradeDescription } from './Upgrades'
-import { isMobile, sumContents, timeRemainingHours, timeRemainingMinutes } from './Utility'
+import { isMobile, sumContents, timeRemainingHours } from './Utility'
 import { Globals as G } from './Variables'
 
 const coinUpper = [
@@ -2156,14 +2154,6 @@ export const visualUpdateEvent = () => {
     for (let i = 0; i < eventBuffType.length; i++) {
       DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
     }
-  }
-
-  if (isAdEventEnabled()) {
-    DOMCacheGetOrSet('adEventTimer').innerHTML = i18next.t('advertisements.adEventSome', {
-      time: timeRemainingMinutes(getAdTimeExpiry())
-    })
-  } else {
-    DOMCacheGetOrSet('adEventTimer').innerHTML = i18next.t('advertisements.adEventNone')
   }
 }
 

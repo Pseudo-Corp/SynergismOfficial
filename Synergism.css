@@ -5652,12 +5652,6 @@ img#singularityPerksIcon {
     background-color: var(--hovershop-color);
 }
 
-.watchAdClickable {
-    border: 2px solid #fff894;
-    cursor: pointer;
-    width: calc(100vw / 3);
-}
-
 @keyframes rotation {
     from {
         transform: rotate(0deg);

@@ -5177,19 +5177,15 @@ window.addEventListener('load', async () => {
 
   if (PLATFORM === 'mobile') {
     await initMobileStorage()
-    const [{ bindMobileFormHandlers }, { initMobilePurchases }, { rewardVideo }, { initPushNotifications }] =
+    const [{ bindMobileFormHandlers }, { initMobilePurchases }, { initPushNotifications }] =
       await Promise.all([
         import('./mobile/auth'),
         import('./mobile/microtxn'),
-        import('./mobile/ads'),
         import('./mobile/notifications')
       ])
     bindMobileFormHandlers()
     initMobilePurchases()
     initPushNotifications().catch((e) => console.error('Failed to initialize push notifications', e))
-
-    DOMCacheGetOrSet('adEvents').style.display = 'block'
-    DOMCacheGetOrSet('watchAdBtn').addEventListener('click', rewardVideo)
   }
 
   const symbolsEnabled = storageGetItem('statSymbols')
