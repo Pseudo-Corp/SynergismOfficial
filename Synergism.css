@@ -2073,7 +2073,6 @@ p#prestigehotkeys {
     flex-direction: column;
     width: 180px;
     align-items: center;
-    white-space: nowrap;
     padding: 2px;
     transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
@@ -2867,7 +2866,8 @@ p#reincarnatehotkeys {
     display: flex;
     padding: 5px;
     margin-top: 10px;
-    width: calc(115px * 8 - 5px);
+    /* TODO: this sucks */
+    width: calc(103px * 8 - 8px);
     border: 3px solid plum;
     gap: 5px;
     flex-wrap: wrap;
@@ -4873,7 +4873,6 @@ header #obtainiumDisplay { color: pink; }
     grid-template-rows: repeat(3, calc(max(28px, 1.1em) * 3));
     margin-top: 10px;
     padding: 8px;
-    width: calc((60px + 3.8em + 3.8em + 10px) * 4 + 8px);
     grid-column: shop 2/4;
     grid-row: 1;
     grid-column-gap: 15px;
@@ -5198,6 +5197,7 @@ header #obtainiumDisplay { color: pink; }
 
 #blueberryUpgradeContainer {
     flex-direction: column;
+    width: unset;
 }
 
 .blueberryUpgradeTier {
