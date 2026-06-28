@@ -1,11 +1,29 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body *,
 body {
     transition: background-color var(--transition), border-color var(--transition);
 }
 
+button,
+a,
+input,
+select {
+    touch-action: manipulation;
+}
+
 html {
     min-width: 1250px;
+    height: 100%;
     position: relative;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -57,7 +75,9 @@ body::-webkit-scrollbar:horizontal {
 
 body {
     margin: 0;
-    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
     /* Custom colors that are used for themes */
     --text-color: white;
@@ -76,6 +96,9 @@ body {
     --amber-text-color: #ffbf00;
     --lightgoldenrodyellow-text-color: lightgoldenrodyellow;
     --header-color: var(--bg-color);
+    --mobile-subtab-height: 0;
+    --mobile-subtab-top: 0;
+    --subtab-border-color: yellow;
     --bg-color: #111;
     --alert-color: #141414;
     --history-lines: #262626;
@@ -203,7 +226,6 @@ textarea {
     font-size: 0.75em;
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
     border: 0 solid #ccc;
 }
 
@@ -233,6 +255,12 @@ button {
 body button:hover:not(:disabled):not(.disable-hover-color),
 body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--hover-color);
+}
+
+body button.active-subtab,
+body button.active-subtab:hover:not(:disabled):not(.disable-hover-color),
+body button.active-subtab:active:not(:disabled):not(.disable-hover-color) {
+    background-color: crimson;
 }
 
 .none {
@@ -273,17 +301,21 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 
 @keyframes slide-in {
     from {
-        transform: translate(-100%, 10%);
+        transform: translateX(-100%);
     }
 
     to {
-        transform: translate(5%, 10%);
+        transform: translateX(5%);
     }
 }
 
 @keyframes slide-out {
+    from {
+        transform: translateX(5%);
+    }
+
     to {
-        transform: translate(-100%, 10%);
+        transform: translateX(-100%);
     }
 }
 
@@ -298,18 +330,33 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     z-index: 6968;
 }
 
-#notification {
+#notificationStack {
     position: fixed;
-    display: none;
-    transform: translateY(10%);
+    top: calc(12px + env(safe-area-inset-top));
+    left: env(safe-area-inset-left);
+    right: env(safe-area-inset-right);
     z-index: 6969;
-    width: 15%;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+}
+
+.notification-wrap {
+    margin-bottom: 10px;
+    overflow: visible;
+    transition: max-height 1000ms ease, margin-bottom 1000ms ease;
+}
+
+.notification-item {
+    position: relative;
+    transform: translateX(-100%);
+    pointer-events: auto;
+    width: 15vw;
     min-width: calc(140px + 10em);
     min-height: calc(40px + 5em);
     overflow: hidden;
     border: 1px solid gold;
     border-radius: 5px;
-    box-sizing: border-box;
     font-size: min(1em, 24px);
     color: white;
     background-color: var(--alert-color);
@@ -323,7 +370,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     overflow: hidden;
     border: 2px solid gold;
     border-radius: 5px;
-    box-sizing: border-box;
     font-size: min(1em, 24px);
     color: white;
     background-color: var(--alert-color);
@@ -332,9 +378,158 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 #modalContent {
     width: 100%;
     padding: 15px;
-    box-sizing: border-box;
     justify-content: center;
     align-items: center;
+}
+
+#modal.modalBottomSheet {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+    border: 0;
+    border-radius: 0;
+    background: rgb(0 0 0 / 45%);
+    backdrop-filter: blur(4px);
+}
+
+#modal.modalBottomSheet #modalContent {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-height: 72vh;
+    padding: 18px 15px calc(18px + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    border-top: 2px solid;
+    border-color: inherit;
+    border-radius: 12px 12px 0 0;
+    background-color: var(--alert-color);
+    box-shadow: 0 -12px 35px rgb(0 0 0 / 60%);
+}
+
+#mobileHotkeysOpen,
+#mobileHotkeysOverlay {
+    display: none;
+}
+
+html[data-mobile="true"] #mobileHotkeysOpen {
+    position: fixed;
+    right: calc(12px + env(safe-area-inset-right));
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    z-index: 6967;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    min-width: 52px;
+    min-height: 52px;
+    border: 2px solid gold;
+    border-radius: 8px;
+    color: gold;
+    font-size: 1.65rem;
+    line-height: 1;
+    background-color: var(--alert-color);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 60%);
+}
+
+html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
+    border-color: cyan;
+}
+
+#mobileHotkeysOverlay.mobileHotkeysOverlayOpen {
+    position: fixed;
+    inset: 0;
+    z-index: 6967;
+    display: block;
+    background: rgb(0 0 0 / 45%);
+    backdrop-filter: blur(4px);
+}
+
+#mobileHotkeysCard {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 72vh;
+    padding: 14px 15px calc(16px + env(safe-area-inset-bottom));
+    overflow: hidden;
+    color: white;
+    background-color: var(--alert-color);
+    border-top: 2px solid gold;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -12px 35px rgb(0 0 0 / 60%);
+}
+
+.mobileHotkeysHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#mobileHotkeysTitle {
+    margin: 0;
+    color: gold;
+    font-size: 1.1em;
+    line-height: 1.2;
+}
+
+#mobileHotkeysClose {
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border: 1px solid gold;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+#mobileHotkeysActions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.mobileHotkeyAction {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 54px;
+    padding: 6px;
+    border: 1px solid gold;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.mobileHotkeyKey {
+    flex: 0 0 auto;
+    min-width: 48px;
+    padding: 4px;
+    overflow-wrap: anywhere;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: gold;
+    font-size: 0.8em;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.mobileHotkeyLabel {
+    flex: 1 1 auto;
+    overflow-wrap: anywhere;
+    line-height: 1.15;
+}
+
+.mobileHotkeyAction:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
 }
 
 .slide-in {
@@ -356,8 +551,8 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     padding: 10px;
 }
 
-#notification > p {
-    position: fixed;
+.notification-item > p {
+    position: absolute;
     top: 50%;
     left: 50%;
     width: 90%;
@@ -367,22 +562,47 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     white-space: pre-line;
 }
 
-#notifx {
-    position: fixed;
+.notification-item > .notifx {
+    position: absolute;
     top: 2px;
     right: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
     padding: 3px;
+    margin: 0;
+    border: 1px solid transparent;
     border-radius: 2px;
+    font-family: inherit;
     font-size: 0;
+    line-height: 0;
     z-index: 1;
     color: white;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
+    appearance: none;
 }
 
-#notifx:hover {
+.notification-item > .notifx:hover {
     background-color: var(--hover-color);
+}
+
+.notification-item > .notifx:focus-visible {
+    outline: 2px solid gold;
+    outline-offset: 2px;
+    border-color: gold;
+}
+
+.notification-item > .notifx:active {
+    background-color: var(--hover-color);
+    transform: translateY(1px);
+}
+
+.notification-item > .notifx > img {
+    pointer-events: none;
 }
 
 #confirmationBox,
@@ -403,7 +623,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--alert-color);
     border: 1px solid gold;
     border-radius: 5px;
-    box-sizing: border-box;
     font-size: min(1em, 24px);
     padding: 15px;
 }
@@ -542,7 +761,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--alert-color);
     border-radius: 5px;
     border: 2px solid gold;
-    box-sizing: border-box;
     padding: 15px;
     margin-top: max(0px, calc(10vh - 15px));
     max-height: 90vh;
@@ -640,31 +858,16 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     align-items: start;
 }
 
-#resetrow {
-    display: flex;
-    align-items: start;
+#mainHeader {
+    flex-shrink: 0;
 }
 
-#resetrow img {
-    height: 32px;
-    width: 32px;
-}
-
-#resetinfo {
-    text-align: left; /* Keeps text from bouncing around */
-    font-variant-numeric: tabular-nums;
-    height: 3.6em;
-    overflow: hidden;
-    white-space: pre-line;
-}
-
-#resetrewards > div {
-    display: flex;
-    align-items: center;
-}
-
-#resetrewards > div > div {
-    margin: auto 5px auto 2px;
+main {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-gutter: stable both-edges;
+    overscroll-behavior-y: contain;
+    padding: 0.25rem;
 }
 
 #tabrow {
@@ -701,6 +904,70 @@ nav button {
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
+}
+
+#tabrow.tab-edit-mode > button {
+    position: relative;
+    overflow: visible;
+    cursor: grab;
+    animation: tab-jingle 170ms ease-in-out infinite alternate;
+    user-select: none;
+    touch-action: none;
+}
+
+#tabrow.tab-edit-mode > button:nth-child(even) {
+    animation-direction: alternate-reverse;
+}
+
+#tabrow.tab-edit-mode > button.tab-being-dragged {
+    cursor: grabbing;
+    opacity: 0.75;
+    z-index: 2;
+}
+
+.tabCloseButton {
+    display: none;
+}
+
+#tabrow.tab-edit-mode > button.tabRemoveable > .tabCloseButton {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border: 1px solid white;
+    border-radius: 50%;
+    background-color: #c30000;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    box-shadow: 0 1px 4px #000b;
+    pointer-events: auto;
+}
+
+#tabrow.tab-edit-mode > button.tabRemoveable:hover > .tabCloseButton,
+#tabrow.tab-edit-mode > button.tabRemoveable:focus-visible > .tabCloseButton {
+    background-color: #e00000;
+}
+
+@keyframes tab-jingle {
+    from {
+        transform: rotate(-1.2deg) translateY(-1px);
+    }
+
+    to {
+        transform: rotate(1.2deg) translateY(1px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #tabrow.tab-edit-mode > button {
+        animation: none;
+    }
 }
 
 #buildingstab {
@@ -775,17 +1042,88 @@ button.isEvent:hover {
 }
 
 .subTabWrapper {
+    --subtab-button-width: 160px;
+    --subtab-button-height: 48px;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, 145px);
+    grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
     justify-content: center;
     gap: 10px 15px;
     width: 90%;
-    margin: 15px auto 0;
+    margin: 0 auto;
+    padding: 10px;
+    border-bottom: 2px solid var(--subtab-border-color);
+    overscroll-behavior: contain;
 }
 
-.subTabWrapper > button {
-    min-width: 150px;
+.subTabWrapper > * {
+    min-width: 0;
+    width: 100%;
+}
+
+.subTabWrapper > button,
+.subTabWrapper > span > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    width: 100%;
+    min-height: var(--subtab-button-height);
+    padding: 4px 8px;
+    line-height: 1.1;
     text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.mobileSubTabIcon {
+    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
+    border: 0 !important;
+    cursor: pointer;
+    background-color: var(--button-color);
+    object-fit: fill;
+}
+
+.mobileSubTabIcon:hover,
+.mobileSubTabIcon:active,
+.mobileSubTabIcon:focus-visible {
+    background-color: var(--hover-color);
+}
+
+.mobileSubTabIcon.active-subtab,
+.mobileSubTabIcon.active-subtab:hover,
+.mobileSubTabIcon.active-subtab:active,
+.mobileSubTabIcon.active-subtab:focus-visible {
+    background-color: crimson;
+}
+
+.mobileSubTabIconContainer {
+    position: relative;
+    display: block;
+    width: 32px !important;
+    height: 32px;
+    cursor: pointer;
+}
+
+.mobileSubTabIconContainer > .mobileSubTabIcon {
+    display: block;
+}
+
+.mobileSubTabIconContainer:hover > .mobileSubTabIcon,
+.mobileSubTabIconContainer:active > .mobileSubTabIcon,
+.mobileSubTabIconContainer:focus-visible > .mobileSubTabIcon {
+    background-color: var(--hover-color);
+}
+
+.mobileSubTabIconContainer.active-subtab > .mobileSubTabIcon,
+.mobileSubTabIconContainer.active-subtab:hover > .mobileSubTabIcon,
+.mobileSubTabIconContainer.active-subtab:active > .mobileSubTabIcon,
+.mobileSubTabIconContainer.active-subtab:focus-visible > .mobileSubTabIcon {
+    background-color: crimson;
 }
 
 #coinBuildings {
@@ -828,15 +1166,22 @@ p#buildinghotkeys2 {
     max-width: 1500px;
 }
 
+#upgradeReferenceHeader {
+    --subtab-border-color: gold;
+}
+
+.upgradeReferenceHeaderIcon {
+    border: 2px solid var(--upgrade-reference-color) !important;
+}
+
 #upgradesFlex {
     display: flex;
     width: 90%;
-    margin: 4% 5% 0;
+    margin: 2% 5% 6%;
     justify-content: space-around;
 }
 
 #upgradesFlex > section {
-    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -865,28 +1210,68 @@ p#buildinghotkeys2 {
     min-width: 80px;
 }
 
+.upgradeSectionTop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    white-space: pre-line;
+    margin: 0.25rem 0;
+}
+
+/* Upgrade box */
+.mobileUpgradeTabContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.mobileUpgradeBox {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid white;
+    gap: 1%;
+}
+
+.mobileUpgradeBox > p {
+    margin: 0;
+    padding: 5px;
+}
+
+.mobileUpgradeIconAndCost {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1%;
+}
+
+.mobileUpgradeIconAndCost img {
+    flex-shrink: 0;
+}
+
+.mobileUpgradeIconAndCost button {
+    flex: 1;
+    min-width: 0;
+    border: 2px solid white;
+    margin-left: 1%;
+}
+
 #shoptogglecoin { grid-column-start: 1; }
 #shoptoggleprestige { grid-column-start: 2; }
 #shoptoggletranscend { grid-column-start: 3; }
 #shoptogglegenerator { grid-column-start: 4; }
 #particleAutoUpgrade { grid-column-start: 6; }
 
-#upgradesrow3 {
+#upgradesAppendix {
     text-align: center;
     margin-top: 8px;
 }
 
-#upgradesrow3 > p {
+#upgradesAppendix > p {
     padding-top: 0;
     margin: 0;
 }
 
 #upgradeeffect { color: pink; }
-
-#toggle9 {
-    min-width: 130px;
-    margin: 25px auto;
-}
 
 #settings {
     position: relative;
@@ -962,7 +1347,6 @@ p#themesTitle {
     min-width: 180px;
     min-height: 20px;
     margin: 2px auto;
-    box-sizing: border-box;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
@@ -1153,10 +1537,31 @@ p#promocodeinfo {
     min-width: 80px;
 }
 
-.autobuyerToggleButton {
+#upgradeTopBtns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0 10px;
+    gap: 10px 15px;
+}
+
+#upgradeTopBtns > button {
+    min-width: 130px;
+    text-align: center;
+}
+
+.upgradeCategoryBtnRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.25rem 0;
+}
+
+.autobuyerToggleButton,
+.buyAllUpgradeButton {
     background-color: var(--button-color);
-    margin: 0 auto;
-    min-width: 80px;
+    margin: 0 0.25em;
+    min-width: 70px;
 }
 
 .buttonRow > div > .stats {
@@ -1168,6 +1573,76 @@ p#promocodeinfo {
 #buildtext14,
 #buildtext16 {
     min-height: 2em;
+}
+
+.buttonRow.mobile {
+    width: 100%;
+    gap: 6px;
+    font-size: 1em;
+}
+
+.buttonRow.mobile > div:not(.buildingSpacer) {
+    gap: 6px;
+    padding: 8px 0;
+    border: 2px solid white;
+    border-radius: 6px;
+    padding-right: 6px;
+}
+
+.buttonRow.mobile > div > .buildingPurchaseBtn:not(.buildingPurchaseBtnAvailable) {
+    filter: grayscale(1);
+    opacity: 0.55;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--buttonbuy-color) !important;
+    }
+}
+
+.buttonRow.mobile > div > .image {
+    height: 32px;
+    width: 32px;
+}
+
+.buttonRow.mobile > div > .textStack {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    > .desc,
+    > .cost,
+    > .stats {
+        width: auto;
+        font-size: 1em;
+        line-height: 1.2;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+}
+
+.buttonRow.mobile > div > .buildingPurchaseBtn {
+    width: auto;
+    padding: 6px 8px;
+    font-size: 0.9em;
+    flex-shrink: 0;
+}
+
+.buttonRow.mobile > div > .auto {
+    width: 5em;
+    height: 5em;
+    min-width: 0;
+    margin: 0;
+    padding: 6px;
+    border-radius: 6px;
+    background-color: #0a2a0a;
+    color: lightblue;
+    font-size: 0.8em;
+    line-height: 1.1;
+    white-space: normal;
+    text-align: center;
 }
 
 #taxinfo {
@@ -1358,9 +1833,49 @@ p#promocodeinfo {
 
 #showAchievementProgress {
     width: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     text-align: center;
     border: 2px solid orange;
+}
+
+.achievementSearchIcon {
+    width: 20px;
+    height: 20px;
+    stroke: currentcolor;
+    fill: none;
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.achievementDetailsModal {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+}
+
+.achievementDetailsModalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: gold;
+    font-size: 1.1em;
+    flex-wrap: wrap;
+}
+
+.achievementDetailsModalTitle img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.achievementDetailsModalInfo {
+    line-height: 1.35;
 }
 
 #achievementContainer1,
@@ -1369,6 +1884,16 @@ p#promocodeinfo {
     flex-direction: column;
     align-items: center;
     position: relative;
+}
+
+#synergismLevelBonuses {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#synergismLevelBonuses > p {
+    text-align: center;
 }
 
 #synergismLevelRewardsTable {
@@ -1515,28 +2040,13 @@ p#prestigehotkeys {
     position: relative;
 }
 
-#runesToggle,
-#achievementsToggle {
-    display: flex;
-    justify-content: center;
-    flex-flow: wrap;
-    margin: 15px 0 10px;
-    gap: 10px 15px;
-}
-
 .heptNotification {
     height: 20px;
     width: 20px;
 }
 
-#runesToggle > button,
-#achievementsToggle > button {
-    min-width: 100px;
-    text-align: center;
-}
-
 #offeringDetails,
-#runeEffectDisplays {
+#runeFooter {
     max-width: 1200px;
     display: flex;
     text-align: center;
@@ -1544,7 +2054,7 @@ p#prestigehotkeys {
 }
 
 #offeringDetails > p,
-#runeEffectDisplays > p {
+#runeFooter > p {
     margin: 0;
 }
 
@@ -1568,6 +2078,35 @@ p#prestigehotkeys {
     transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
+.runeTypeMobile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2px;
+}
+
+.runeIconAndName,
+.runeIconAndNameSmall {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.runeIconAndName img,
+.runeIconAndNameSmall img {
+    flex-shrink: 0;
+}
+
+.runeIconAndName p {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.runeIconAndNameSmall p {
+    margin: 0;
+    font-size: 1em;
+}
+
 .runeType:hover {
     box-shadow:
         0 0 15px var(--glow-color),
@@ -1576,14 +2115,20 @@ p#prestigehotkeys {
     background-color: var(--box-color);
 }
 
-.runeType > button {
+.runeType > button,
+.runeTypeMobile > button {
     min-width: 100px;
     text-align: center;
     border: 2px solid gold;
     cursor: default;
 }
 
-.runeType > button:hover {
+.runeTypeMobile > button {
+    font-size: 1.5em;
+}
+
+.runeType > button:hover,
+.runeTypeMobile > button:hover {
     background-color: var(--button-color);
 }
 
@@ -1591,6 +2136,11 @@ p#prestigehotkeys {
     margin: 0;
     text-align: center;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
+}
+
+.runeTypeElementMobile {
+    margin: 0;
+    text-align: left;
 }
 
 img.runeTypeElement {
@@ -1602,12 +2152,14 @@ img.runeTypeElement:hover {
     background-color: var(--hover-color);
 }
 
-.runeType > .runeButtonAvailable {
+.runeType > .runeButtonAvailable,
+.runeTypeMobile > .runeButtonAvailable {
     background-color: var(--purplebtn-color);
     cursor: pointer;
 }
 
-.runeType > .runeButtonAvailable:hover {
+.runeType > .runeButtonAvailable:hover,
+.runeTypeMobile > .runeButtonAvailable:hover {
     background-color: var(--purplehover-color);
 }
 
@@ -1806,6 +2358,120 @@ img.runeTypeElement:hover {
     width: 5em;
 }
 
+.mobileTalismanShardSection {
+    border: 2px solid gold;
+    width: 90%;
+}
+
+.mobileTalismanShardHead {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid orange;
+}
+
+.mobileTalismanShardHead > button {
+    width: 100px;
+    margin: 2px;
+}
+
+#buyTalismanLevelAmount {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 5px;
+    margin-left: 10%;
+}
+
+.mobileTalismanShardContainers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    border: 2px solid orange;
+}
+
+.mobileTalismanShardContainer {
+    display: flex;
+    flex: 0 0 calc(100% / 3);
+    flex-direction: column;
+}
+
+.mobileTalismanShardContainer p {
+    margin: 0;
+}
+
+.mobileTalismanIconAndQuantity {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 5px;
+}
+
+.mobileMainTalismans {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+
+#mobileMainTalismansBody {
+    width: 100%;
+}
+
+.mobileTalismanContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    width: 100%;
+}
+
+.mobileTalismanInfoSection p,
+.mobileTalismanCostSection p {
+    margin: 0;
+}
+
+.mobileTalismanRuneBonusesSection,
+.mobileTalismanCostSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid silver;
+    border-radius: 8px;
+}
+
+.mobileTalismanRuneBonusesContainer,
+.mobileTalismanCostContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.mobileTalismanRuneBonusesContainer > div,
+.mobileTalismanCostContainer > div {
+    flex: 0 0 25%;
+    justify-content: center;
+    padding: 1%;
+}
+
+.mobileTalismanBuyButtonsSection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.mobileTalismanBuyButtonsSection > * {
+    flex: 1;
+    text-align: center;
+    margin: 2px;
+}
+
 #transcension {
     position: relative;
     padding: 0;
@@ -1857,20 +2523,6 @@ p#transcendhotkeys {
 #challenges {
     position: relative;
     padding: 0;
-}
-
-#challengesTabsToggle {
-    display: flex;
-    justify-content: center;
-    flex-flow: wrap;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    gap: 10px 15px;
-}
-
-#challengesTabsToggle > button {
-    min-width: 100px;
-    text-align: center;
 }
 
 .singularityChallenges {
@@ -2149,6 +2801,13 @@ p#reincarnatehotkeys {
     min-height: 3em;
 }
 
+.researchModal {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+}
+
 #researchtable button > img {
     background-color: var(--buttonimg-color);
 }
@@ -2243,7 +2902,6 @@ p#reincarnatehotkeys {
 #actualPotionShop {
     display: flex;
     padding: 5px;
-    width: calc(115px * 2 - 5px);
     border: 3px solid yellow;
     background-color: var(--box-color);
     gap: 5px;
@@ -2285,13 +2943,23 @@ p#reincarnatehotkeys {
 }
 
 #totalOcteractsDisplay {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    width: min(100%, 860px);
     margin-top: 15px;
     margin-bottom: 15px;
+    gap: 6px;
+    padding: 0 10px;
 }
 
 #octeractsDisplay > p,
 #totalOcteractsDisplay > p {
     margin: 0 0 0 10px;
+}
+
+#totalOcteractsDisplay > p {
+    margin: 0;
+    overflow-wrap: anywhere;
 }
 
 #goldenQuarkamount {
@@ -2354,20 +3022,6 @@ p#reincarnatehotkeys {
     text-align: center;
     max-width: 1500px;
     margin: 0 auto;
-}
-
-#antSubtabs {
-    display: flex;
-    justify-content: center;
-    flex-flow: wrap;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    gap: 10px 15px;
-}
-
-#antSubtabs > button {
-    min-width: 100px;
-    text-align: center;
 }
 
 .antUpgrade:hover,
@@ -2743,6 +3397,8 @@ p#reincarnatehotkeys {
 
 #cubes {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     position: relative;
 }
@@ -2758,14 +3414,6 @@ p#reincarnatehotkeys {
     align-items: center;
 }
 
-#wowCubeSidebarButtons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px 15px;
-    margin-bottom: 20px;
-}
-
 .cubesToQuark {
     display: flex;
     flex-direction: column;
@@ -2778,11 +3426,6 @@ p#reincarnatehotkeys {
     flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
-}
-
-.cubeSwitchTabBtn {
-    width: 12em;
-    min-width: 250px;
 }
 
 #wowCubeSidebar p {
@@ -2942,6 +3585,54 @@ p[id$="BlessingsTotal"] {
 
 .cubeUpgradeInfo {
     min-height: 4em;
+}
+
+.cubeUpgradeModal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.cubeUpgradeModalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: gold;
+    font-size: 1.1em;
+}
+
+.cubeUpgradeModalIcon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    background-color: var(--buttonimg-color);
+}
+
+.cubeUpgradeModalDescription {
+    color: lightblue;
+    line-height: 1.35;
+}
+
+.cubeUpgradeModalCost.affordable {
+    color: var(--green-text-color);
+}
+
+.cubeUpgradeModalCost.unaffordable {
+    color: var(--crimson-text-color);
+}
+
+.cubeUpgradeModalCost.maxed {
+    color: gold;
+}
+
+.cubeUpgradeModalLevel {
+    color: white;
+}
+
+.cubeUpgradeModalLevel.maxed {
+    color: plum;
 }
 
 .cubeUpgradeToggles {
@@ -3166,8 +3857,22 @@ p#ascendHotKeys {
     display: none;
 }
 
+html[data-mobile="true"] #statisticsSubTab > .statContainer {
+    display: none !important;
+}
+
 #miscStats {
     display: block;
+}
+
+.statsNerdsModal {
+    width: 100%;
+}
+
+.statsNerdsModal .statPortion {
+    width: 100%;
+    min-width: unset;
+    overflow-wrap: anywhere;
 }
 
 .statPortion {
@@ -3592,6 +4297,39 @@ p#ascendHotKeys {
     margin-bottom: 1px;
 }
 
+.campaignTokenRewardModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    line-height: 1.25;
+}
+
+.campaignTokenRewardModal img {
+    width: 48px;
+    height: 48px;
+}
+
+.campaignTokenRewardModalInfo {
+    width: 100%;
+}
+
+.campaignTokenRewardSumModal {
+    align-items: stretch;
+    gap: 8px;
+}
+
+.campaignTokenRewardSumModal > div {
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgb(255 255 255 / 20%);
+}
+
+.campaignTokenRewardSumModal > div:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
 #traits {
     justify-content: center;
     align-items: start;
@@ -3677,7 +4415,6 @@ p#ascendHotKeys {
     margin: 10px;
     padding: 30px 10px;
     border: 1px solid orange;
-    box-sizing: border-box;
     color: white;
     background-color: var(--box-color);
     text-align: center;
@@ -3708,6 +4445,46 @@ p#ascendHotKeys {
 
 .corruptionStatRow > img {
     height: 40px;
+}
+
+.corruptionDetailsModal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    line-height: 1.35;
+}
+
+.corruptionDetailsModalTitle {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--crimson-text-color);
+    font-size: 1.1em;
+}
+
+.corruptionDetailsModalTitle img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.corruptionDetailsModalDescription {
+    color: var(--corruption-details-color);
+}
+
+.corruptionDetailsModalCurrent {
+    color: var(--green-text-color);
+}
+
+.corruptionDetailsModalPlanned {
+    color: var(--red-text-color);
+}
+
+.corruptionDetailsModalFree {
+    color: orchid;
 }
 
 .corrDesc {
@@ -3761,10 +4538,12 @@ p#ascendHotKeys {
 #corruptionStats,
 #corruptionLoadouts {
     font-size: min(1em, 20px);
-    margin-top: 10px;
     min-height: 350px;
-    box-sizing: border-box;
     z-index: 1;
+}
+
+#corruptionLoadouts {
+    margin-top: 10px;
 }
 
 #corruptionDisplays {
@@ -3841,6 +4620,14 @@ header {
 header .img {
     height: 32px;
     width: 32px;
+}
+
+#mobileHeaderContent {
+    display: contents;
+}
+
+#mobileHeaderResizeHandle {
+    display: none;
 }
 
 .subHeader {
@@ -3936,6 +4723,7 @@ header #obtainiumDisplay { color: pink; }
 #tabBorder {
     height: 2px;
     position: relative;
+    min-width: 100%;
     z-index: 0;
 }
 
@@ -4024,6 +4812,59 @@ header #obtainiumDisplay { color: pink; }
 .platonicPortion {
     width: 400px;
     margin: 0;
+}
+
+.platonicUpgradeModal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.platonicUpgradeModalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: gold;
+    font-size: 1.1em;
+}
+
+.platonicUpgradeModalIcon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    background-color: var(--buttonimg-color);
+}
+
+.platonicUpgradeModalDescription {
+    color: white;
+    line-height: 1.35;
+}
+
+.platonicUpgradeModalLevel {
+    color: cyan;
+}
+
+.platonicUpgradeModalLevel.maxed,
+.platonicUpgradeModalStatus.maxed {
+    color: gold;
+}
+
+.platonicUpgradeModalCosts {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.platonicUpgradeModalCosts .affordable,
+.platonicUpgradeModalStatus.affordable {
+    color: var(--green-text-color);
+}
+
+.platonicUpgradeModalCosts .unaffordable,
+.platonicUpgradeModalStatus.unaffordable {
+    color: var(--crimson-text-color);
 }
 
 .hepteractGrid {
@@ -4199,19 +5040,6 @@ header #obtainiumDisplay { color: pink; }
     text-align: center;
 }
 
-#singularityTabsToggle {
-    display: flex;
-    justify-content: center;
-    flex-flow: wrap;
-    margin: 15px;
-    gap: 10px 15px;
-}
-
-#singularityTabsToggle > button {
-    min-width: 100px;
-    text-align: center;
-}
-
 #singularityUpgradeContainer,
 #singularityOcteracts,
 #singularityAmbrosia {
@@ -4285,7 +5113,6 @@ header #obtainiumDisplay { color: pink; }
     font-size: 1.1em;
     width: 100px;
     text-align: center;
-    box-sizing: border-box;
     appearance: textfield;
 }
 
@@ -4598,6 +5425,38 @@ img#singularityPerksIcon {
     margin-top: 5px;
 }
 
+.singularityPerkModal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.singularityPerkModalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: gold;
+    font-size: 1.1em;
+    flex-wrap: wrap;
+}
+
+.singularityPerkModalTitle img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.singularityPerkModalLevel {
+    color: lightgoldenrodyellow;
+}
+
+.singularityPerkModalDescription {
+    line-height: 1.35;
+    white-space: pre-line;
+}
+
 #octeractUpgradeValues,
 #ambrosiaUpgradeValues {
     width: 100%;
@@ -4621,17 +5480,23 @@ img#singularityPerksIcon {
 }
 
 #singularityChallengeDetails {
+    display: none;
+}
+
+.singularityChallengeDetails {
     display: block;
 }
 
-#singularityChallengesInfo {
+#singularityChallengesInfo,
+.singularityChallengesInfo {
     white-space: pre-line;
     margin-top: 10px;
     margin-bottom: 5px;
     text-align: center;
 }
 
-#singularityChallengeAllRewards {
+#singularityChallengeAllRewards,
+.singularityChallengeAllRewards {
     display: grid;
     grid-template-rows: repeat(2, auto);
     grid-template-columns: repeat(2, 375px);
@@ -4639,28 +5504,32 @@ img#singularityPerksIcon {
     grid-gap: 10px;
 }
 
-#singularityChallengeScalingHeader {
+#singularityChallengeScalingHeader,
+.singularityChallengeScalingHeader {
     font-weight: bold;
     font-size: 1.2em;
     text-align: center;
     margin: 0;
 }
 
-#singularityChallengeUniqueHeader {
+#singularityChallengeUniqueHeader,
+.singularityChallengeUniqueHeader {
     font-weight: bold;
     font-size: 1.2em;
     text-align: center;
     margin: 0;
 }
 
-#singularityChallengesScalingRewards {
+#singularityChallengesScalingRewards,
+.singularityChallengesScalingRewards {
     display: block;
     white-space: pre-line;
     margin: 0;
     text-align: center;
 }
 
-#singularityChallengesUniqueRewards {
+#singularityChallengesUniqueRewards,
+.singularityChallengesUniqueRewards {
     display: block;
     white-space: pre-line;
     margin: 0;
@@ -4711,7 +5580,6 @@ img#singularityPerksIcon {
 
 #event {
     position: relative;
-    padding: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -4741,10 +5609,10 @@ img#singularityPerksIcon {
     color: #8f8;
 }
 
-#eventBuffContainer,
-#consumableBuffContainer {
+.temporaryBuffContainer {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -4897,6 +5765,7 @@ img#singularityPerksIcon {
 #accountSubTab div#left.scrollbarX > div[id="button-holder"] {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -4919,17 +5788,28 @@ img#singularityPerksIcon {
     display: none;
 }
 
+/* The mobile purchase modal hosts the real #register/#login form node inline. */
+.purchaseAuthModal > div:is(#register, #login) {
+    flex-direction: column;
+    border: 1px solid gold;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
 /** Remove vertical spacing */
-#accountSubTab div#left.scrollbarX > div > form {
+#accountSubTab div#left.scrollbarX > div > form,
+.purchaseAuthModal > div:is(#register, #login) > form {
     font-size: 0;
 }
 
-#accountSubTab div#left.scrollbarX > div > form > * {
+#accountSubTab div#left.scrollbarX > div > form > *,
+.purchaseAuthModal > div:is(#register, #login) > form > * {
     font-size: medium;
     margin: 2px 10px;
 }
 
-#accountSubTab div#left.scrollbarX > div > form > input[type="submit"] {
+#accountSubTab div#left.scrollbarX > div > form > input[type="submit"],
+.purchaseAuthModal > div:is(#register, #login) > form > input[type="submit"] {
     border: 1px solid gold;
     padding: 3px 5px;
 }
@@ -5408,7 +6288,6 @@ form input:hover {
 .pseudoCoinText {
     width: 90%;
     padding: 10px;
-    box-sizing: border-box;
     text-align: center;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
     border: 1px solid #ccc;
@@ -5418,7 +6297,6 @@ form input:hover {
 .pseudoSubscriptionText {
     width: 100%;
     padding: 10px;
-    box-sizing: border-box;
     text-align: center;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
     margin: 5px auto 0;
@@ -5426,7 +6304,6 @@ form input:hover {
 
 .pseudoCoinButton {
     width: 75%;
-    height: 65px;
     padding: 10px;
     background-color: black;
     color: white;
@@ -5436,6 +6313,10 @@ form input:hover {
     word-wrap: break-word;
     margin-bottom: 5px;
     font-family: Inconsolata, monospace;
+}
+
+html[data-mobile="false"] .pseudoCoinButton {
+    height: 65px;
 }
 
 .pseudoCoinButton:hover {
@@ -5531,7 +6412,6 @@ form input:hover {
 .purchaseConsumableContainer {
     border: 2px solid var(--amber-text-color);
     padding: 5px;
-    box-sizing: border-box;
     width: 50%;
     display: flex;
 }
@@ -5540,7 +6420,6 @@ form input:hover {
     align-items: center;
     white-space: pre;
     padding: 0 5px;
-    box-sizing: border-box;
     border: 2px solid var(--amber-text-color);
     margin: 5px auto 0;
 }
@@ -6043,6 +6922,10 @@ html[data-prestige-unlock="true"] .prestigeunlockib {
     display: inline-block;
 }
 
+html[data-prestige-unlock="true"] .buttonRow > div.prestigeunlock {
+    display: flex;
+}
+
 html[data-prestige-unlock="false"] .prestigeunlockib {
     display: none;
 }
@@ -6052,6 +6935,10 @@ html[data-prestige-unlock="true"] .prestigeunlock {
 }
 
 html[data-prestige-unlock="true"] .offlineStats > .prestigeunlock {
+    display: flex;
+}
+
+html[data-prestige-unlock="true"] .shopSection > .prestigeunlock {
     display: flex;
 }
 
@@ -6225,6 +7112,18 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     pointer-events: auto;
 }
 
+html[data-mobile="true"] .showOnMobile {
+    display: block !important;
+}
+
+html[data-mobile="false"] .showOnMobile {
+    display: none !important;
+}
+
+html[data-mobile="true"] .hideOnMobile {
+    display: none !important;
+}
+
 .modalBtnBuy {
     width: 60px;
     height: 30px;
@@ -6232,6 +7131,73 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     border: 2px solid gold;
     margin: 5px auto;
     text-align: center;
+}
+
+.modalButtonRow {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.resetModal {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+}
+
+.resetModalTitle,
+.resetModalRewards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.resetModalTitle {
+    font-size: 1.15em;
+    color: gold;
+}
+
+.resetModalTitle img,
+.resetModalReward img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.resetModalReward {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: gold;
+}
+
+.resetModalInfo {
+    line-height: 1.35;
+}
+
+.resetModal + br + br + .modalButtonRow .modalBtnBuy {
+    width: auto;
+    min-width: 120px;
+    padding: 0 12px;
+}
+
+.purchaseAuthModal {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+.purchaseAuthModal .modalBtnBuy {
+    width: auto;
+    min-width: 120px;
+    padding: 0 12px;
 }
 
 #patchnotes {
@@ -6303,10 +7269,56 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     html {
         min-width: unset;
         width: 100%;
+        position: fixed;
     }
 
     body {
-        overflow-x: auto;
+        overflow-x: hidden;
+        overscroll-behavior: none;
+    }
+
+    main {
+        overflow-x: hidden;
+        overscroll-behavior: contain;
+        padding-top: var(--mobile-subtab-height);
+    }
+
+    html[data-mobile="true"] #mobileHeaderContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-height: var(--mobile-header-content-height, none);
+        overflow: hidden;
+    }
+
+    html[data-mobile="true"] #mobileHeaderResizeHandle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 16px;
+        background-color: var(--header-color);
+        cursor: ns-resize;
+        touch-action: none;
+    }
+
+    html[data-mobile="true"] #mobileHeaderResizeHandle::before {
+        content: "";
+        width: 44px;
+        height: 3px;
+        border-radius: 999px;
+        background-color: #777;
+        box-shadow: 0 0 0 1px #0009;
+    }
+
+    html[data-mobile="true"] #mobileHeaderResizeHandle:focus-visible::before,
+    body.mobileHeaderIsResizing #mobileHeaderResizeHandle::before {
+        background-color: white;
+    }
+
+    body.mobileHeaderIsResizing {
+        user-select: none;
     }
 
     /* Ascension stats - horizontally scrollable on mobile */
@@ -6314,7 +7326,6 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         min-width: unset;
         width: 100%;
         padding: 0 10px;
-        box-sizing: border-box;
         flex-wrap: nowrap;
         overflow-x: auto;
         justify-content: flex-start;
@@ -6347,17 +7358,83 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         max-width: unset;
     }
 
-    /* Sub tab wrappers */
-    .subTabWrapper {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        width: 95%;
-        gap: 8px 10px;
+    html[data-mobile="true"] .subHeader {
+        display: contents;
     }
 
-    .subTabWrapper > button {
+    html[data-mobile="true"] .resetInformationContainer {
+        order: 1;
+        flex: 0 0 auto;
+    }
+
+    html[data-mobile="true"] #ascensionStats {
+        order: 2;
+        flex: 0 0 auto;
+    }
+
+    html[data-mobile="true"] .currenciesContainer {
+        order: 3;
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    /* Sub tab wrappers */
+    .subTabWrapper {
+        position: fixed;
+        top: var(--mobile-subtab-top);
+        left: 0;
+        right: 0;
+        z-index: 20;
+        grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
+        gap: 5px;
+        width: 100%;
+        margin: 0 auto 10px;
+        padding-top: 0;
+        padding-bottom: 5px;
+        background-color: var(--bg-color);
+        touch-action: none;
+    }
+
+    .mobileIconSubTabWrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #upgradeReferenceHeader {
+        display: flex !important;
+    }
+
+    .upgradeSectionTop > img {
+        scroll-margin-top: calc(var(--mobile-subtab-height) + 0.25rem);
+    }
+
+    .mobileIconSubTabWrapper > .mobileSubTabIcon,
+    .mobileIconSubTabWrapper > .mobileSubTabIconContainer {
+        flex: 0 0 32px;
+        width: 32px;
+    }
+
+    .mobileIconSubTabWrapperWithInlineControl > :not(.mobileSubTabIcon):not(.mobileSubTabIconContainer) {
+        flex: 0 1 160px;
+        width: auto;
+    }
+
+    .mobileIconSubTabWrapperWithFullRowControl > :not(.mobileSubTabIcon):not(.mobileSubTabIconContainer) {
+        flex: 0 0 100%;
+    }
+
+    .subTabWrapper > button,
+    .subTabWrapper > span > button {
         min-width: unset;
         width: 100%;
         font-size: 0.85em;
+        text-align: center;
+    }
+
+    .subTabHeaderDetails {
+        margin: 0 auto 10px;
     }
 
     /* Building rows */
@@ -6401,7 +7478,6 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     /* Coin buildings */
     #coinBuildings {
         max-width: 100%;
-        padding: 0 10px;
     }
 
     #coinInformation {
@@ -6412,7 +7488,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     /* Upgrades flex container */
     #upgradesFlex {
         display: grid;
-        grid-template-columns: repeat(3, 33%);
+        grid-template-columns: repeat(6, 16%);
         margin: 2% auto;
         width: unset;
     }
@@ -6425,15 +7501,10 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         margin-top: 10px;
     }
 
-    .shop-section.mobile-flex {
-        display: flex;
-    }
-
     /* Prestige/Transcension containers */
     #prestige,
     #transcension {
         max-width: 100%;
-        padding: 0 10px;
     }
 
     #crystalupgrades {
@@ -6461,6 +7532,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     #runeContainer2 {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 15px;
     }
 
@@ -6550,7 +7622,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
 
     #wowCubeSidebar {
         width: unset;
-        flex-direction: row;
+        flex-direction: column;
     }
 
     .cubeTab {
@@ -6659,6 +7731,11 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         grid-gap: unset;
     }
 
+    #singualrityPerksInfo,
+    #singularityPerksDesc {
+        display: none;
+    }
+
     #singularityPerksDesc {
         height: unset;
         min-width: unset;
@@ -6682,26 +7759,87 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
 
     /* Achievement grids */
     #tieredAchievementsTable {
-        grid-template-columns: repeat(4, 1fr);
+        width: min(100%, 420px);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
         grid-template-rows: auto;
+        order: 2;
+    }
+
+    #tieredAchievementsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     #ungroupedAchievementsTable {
-        grid-template-columns: repeat(6, 1fr);
+        width: min(100%, 420px);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
         grid-template-rows: auto;
+        gap: 2px;
+        order: 3;
+    }
+
+    #ungroupedAchievementsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     #progressiveAchievementsTable {
-        grid-template-columns: repeat(4, 1fr);
+        width: min(100%, 420px);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
         grid-template-rows: auto;
+        order: 1;
+    }
+
+    #progressiveAchievementsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    #achievementHeader {
+        width: 100%;
+        padding: 0 6px;
+    }
+
+    #achievementQuarkBonus {
+        text-align: center;
+        width: auto;
+        margin-inline: auto;
+        line-height: 1;
+    }
+
+    #achievementTNLInfo {
+        width: min(100%, 24rem) !important;
+    }
+
+    #achievementTNLText {
+        white-space: nowrap;
+        text-align: center !important;
     }
 
     #synergismLevelRewardsTable {
-        grid-template-columns: repeat(6, 1fr);
+        width: min(100%, 420px);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
         grid-template-rows: auto;
+        gap: 2px;
     }
 
     #synergismLevelRewardsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    #synergismLevelMilestonesTable {
+        width: min(100%, 420px);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+        grid-template-rows: auto;
+        gap: 2px;
+    }
+
+    #synergismLevelMilestonesTable > div {
         width: 100%;
         height: auto;
         aspect-ratio: 1;
@@ -6718,6 +7856,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     #exportButtons,
     #thirdParty {
         max-width: 95%;
+        width: 95%;
     }
 
     /* Modals and dialogs */
@@ -6733,8 +7872,8 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         max-width: 95vw;
     }
 
-    #notification {
-        width: 80%;
+    .notification-item {
+        width: 80vw;
         min-width: unset;
     }
 
@@ -6763,11 +7902,6 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         margin: 0 auto;
     }
 
-    #resetinfo {
-        text-align: center;
-        height: unset;
-    }
-
     /* Cube upgrades */
     .pseudoUpgradeContainer {
         grid-template-columns: repeat(2, 1fr);
@@ -6780,18 +7914,8 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     }
 
     /* Toggle buttons */
-    #runesToggle,
-    #achievementsToggle,
-    #challengesTabsToggle,
     #challengesAutoToggles {
         gap: 8px 10px;
-    }
-
-    #runesToggle > button,
-    #achievementsToggle > button,
-    #challengesTabsToggle > button {
-        min-width: 80px;
-        font-size: 0.85em;
     }
 
     /* Reset Subtabs */
@@ -6814,7 +7938,9 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     }
 
     #achievements {
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
     }
 
     /* Display values on a new line */
@@ -6913,6 +8039,10 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     #ascendConstantUpgrades {
         width: unset;
     }
+
+    #actualPotionShop {
+        flex-wrap: unset;
+    }
 }
 
 @media (max-width: 600px) {
@@ -6988,6 +8118,16 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         display: flex !important;
     }
 
+    html[data-mobile="true"] nav.navbar #tabrow {
+        grid-template-columns: repeat(auto-fit, 32px);
+        justify-content: center;
+        gap: 8px !important;
+    }
+
+    html[data-mobile="true"] nav.navbar.menu-open #tabrow {
+        display: grid !important;
+    }
+
     /* Tab buttons in mobile menu */
     nav.navbar #tabrow > button {
         width: 100%;
@@ -6998,6 +8138,36 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         border-radius: 6px;
     }
 
+    html[data-mobile="true"] nav.navbar #tabrow > button.mobileTabIconButton {
+        box-sizing: border-box;
+        width: 32px;
+        height: 32px;
+        min-width: unset;
+        min-height: unset;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        overflow: visible;
+        background-color: var(--button-color) !important;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none; /* stylelint-disable-line property-no-vendor-prefix */
+        user-select: none;
+    }
+
+    html[data-mobile="true"] nav.navbar #tabrow > button.mobileTabIconButton.active-tab {
+        background-color: red !important;
+    }
+
+    .mobileTabIcon {
+        display: block;
+        width: 32px;
+        height: 32px;
+        object-fit: fill;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none; /* stylelint-disable-line property-no-vendor-prefix */
+        user-select: none;
+    }
+
     nav button {
         min-width: 70px;
         font-size: 0.75em;
@@ -7005,7 +8175,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     }
 
     .subTabWrapper {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
         gap: 5px;
     }
 
@@ -7032,7 +8202,7 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
 
     /* Upgrades */
     #upgradesFlex {
-        grid-template-columns: repeat(2, 50%);
+        grid-template-columns: repeat(1, 100%);
     }
 
     /* Runes */
@@ -7053,8 +8223,16 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
 
     /* Achievements */
     #tieredAchievementsTable {
-        grid-template-columns: repeat(4, 1fr);
+        width: min(100%, 360px);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
         grid-template-rows: auto;
+        order: 2;
+    }
+
+    #tieredAchievementsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
 
     .tieredAchievementType > img,
@@ -7065,18 +8243,66 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     }
 
     #ungroupedAchievementsTable {
-        grid-template-columns: repeat(4, 1fr);
+        width: min(100%, 360px);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
         grid-template-rows: auto;
+        gap: 2px;
+        order: 3;
+    }
+
+    #ungroupedAchievementsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    .ungroupedAchievementType > img {
+        width: 100%;
+        height: 100%;
     }
 
     #progressiveAchievementsTable {
-        grid-template-columns: repeat(4, 1fr);
+        width: min(100%, 360px);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
         grid-template-rows: auto;
+        order: 1;
+    }
+
+    #progressiveAchievementsTable > div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    #achievements {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    #achievementQuarkBonus {
+        white-space: nowrap;
+        text-align: center;
+        width: auto;
+        margin-inline: auto;
+        line-height: 1;
+    }
+
+    #achievementTNLInfo {
+        width: min(100%, 22rem) !important;
+    }
+
+    #achievementTNLText {
+        white-space: nowrap;
+        text-align: center !important;
+        font-size: 0.95em !important;
     }
 
     #synergismLevelRewardsTable {
-        grid-template-columns: repeat(4, 1fr);
+        width: min(100%, 360px);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
         grid-template-rows: auto;
+        gap: 2px;
     }
 
     #synergismLevelRewardsTable > div {
@@ -7086,14 +8312,21 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     }
 
     #synergismLevelMilestonesTable {
-        grid-template-columns: repeat(6, 1fr);
+        width: min(100%, 360px);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
         grid-template-rows: auto;
+        gap: 2px;
     }
 
     #synergismLevelMilestonesTable > div {
         width: 100%;
         height: auto;
         aspect-ratio: 1;
+    }
+
+    .synergismLevelMilestoneType > img {
+        width: 100%;
+        height: 100%;
     }
 
     /* Challenge icons */
@@ -7116,7 +8349,8 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         flex-wrap: wrap;
     }
 
-    #singularityChallengeAllRewards {
+    #singularityChallengeAllRewards,
+    .singularityChallengeAllRewards {
         grid-template-columns: repeat(2, 50%);
     }
 
@@ -7193,19 +8427,6 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     #exportgame {
         width: 100%;
         min-width: unset;
-    }
-
-    /* Reset row */
-    #resetrow {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-        margin-top: 10px;
-    }
-
-    #resetrow img {
-        height: 24px;
-        width: 24px;
     }
 
     #upgradeGrid {
@@ -7339,18 +8560,36 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
 
     /* Stats for nerds */
     #statsForNerds {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 32px);
+        gap: 10px;
         min-width: unset;
-        max-width: 50%;
-        align-items: stretch;
-        flex-direction: column;
+        width: 95%;
+        max-width: 500px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #mobileStatsNerdsInstruction {
+        grid-column: 1 / -1;
+        margin: 0;
+        text-align: center;
     }
 
     #summaryGeneration {
-        width: unset !important;
+        grid-column: 1 / -1;
+        width: 250px !important;
+        justify-self: center;
     }
 
-    #statsForNerds > button {
-        width: 100%;
+    .mobileStatsNerdsIcon {
+        box-sizing: border-box;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        cursor: pointer;
+        background-color: var(--button-color);
+        object-fit: fill;
     }
 
     #wowCubeSidebar {
@@ -7364,15 +8603,15 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
 
 /* Ensure touch-friendly tap targets */
 @media (pointer: coarse) {
-    button:not(.mobile-menu-toggle),
+    button:not(.mobile-menu-toggle):not(.mobileTabIconButton):not(.singularityUpgrade):not(.octeractUpgrade),
     .buildingPurchaseBtn,
-    nav button:not(.mobile-menu-toggle),
-    .subTabWrapper > button {
+    nav button:not(.mobile-menu-toggle):not(.mobileTabIconButton) {
         min-height: 44px;
     }
 
-    .antProducerColumn > button {
-        min-height: unset;
+    #antProducers .antProducerColumn > button {
+        min-height: 0;
+        min-width: 0;
     }
 
     #platonicUpgradePics button {
@@ -7388,11 +8627,12 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
         gap: 10px;
     }
 
-    #runesToggle > button,
-    #achievementsToggle > button,
-    #challengesTabsToggle > button,
     #challengesAutoToggles > button {
         min-height: 44px;
-        padding: 8px 12px;
+        padding: 4px 8px;
+    }
+
+    #accountSubTab div#left.scrollbarX > div:is(#register, #login, #forgotpassword) {
+        width: 100%;
     }
 }
