@@ -1483,7 +1483,7 @@ export const generateWebLeftTalismanHTML = () => {
     talismanShardAmount.textContent = '0'
 
     const fragmentBtn = document.createElement('button')
-    fragmentBtn.className = 'fragmentBtn'
+    fragmentBtn.className = 'fragmentBtn disable-hover-color'
     fragmentBtn.id = `buyTalismanItem${btnNum}`
     fragmentBtn.style.border = `2px solid ${data.color}`
     fragmentBtn.setAttribute('i18n', 'runes.talismans.buy')

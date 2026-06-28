@@ -1188,7 +1188,7 @@ export const generateWebRunesHTML = () => {
     runesDiv.appendChild(runeTNL)
 
     const sacrificeButton = document.createElement('button')
-    sacrificeButton.className = 'runeTypeElement'
+    sacrificeButton.className = 'runeTypeElement disable-hover-color'
     sacrificeButton.id = `${key}RuneSacrifice`
     sacrificeButton.setAttribute('i18n', 'general.sacrificeCapital')
     sacrificeButton.textContent = i18next.t('general.sacrificeCapital')
@@ -1320,7 +1320,7 @@ export const generateMobileRunesHTML = () => {
 
     // Sacrifice button on the righthand side of the div
     const sacrificeButton = document.createElement('button')
-    sacrificeButton.className = 'runeTypeElementMobile'
+    sacrificeButton.className = 'runeTypeElementMobile disable-hover-color'
     sacrificeButton.id = `${key}RuneSacrifice`
     sacrificeButton.setAttribute('i18n', 'general.sacrificeCapital')
     sacrificeButton.textContent = i18next.t('general.sacrificeCapital')
