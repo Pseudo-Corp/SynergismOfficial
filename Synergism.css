@@ -7773,10 +7773,6 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #ungroupedAchievementsTable {
-        width: min(100%, 420px);
-        grid-template-columns: repeat(8, minmax(0, 1fr));
-        grid-template-rows: auto;
-        gap: 2px;
         order: 3;
     }
 

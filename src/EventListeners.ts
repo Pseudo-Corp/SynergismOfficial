@@ -1826,8 +1826,7 @@ TODO: Fix this entire tab it's utter shit
   const singularityChallenges = Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]
   for (const key of singularityChallenges) {
     const element = DOMCacheGetOrSet(key)
-    const challenge = player.singularityChallenges[key]
-    const detailsHTML = () => challenge.modalHTML()
+    const detailsHTML = () => player.singularityChallenges[key].modalHTML()
     const style = { borderColor: 'gold' }
 
     if (isMobile) {
@@ -1838,7 +1837,7 @@ TODO: Fix this entire tab it's utter shit
               modalBuyButtonsHTML([
                 {
                   action: 'toggle',
-                  label: challenge.enabled
+                  label: player.singularityChallenges[key].enabled
                     ? i18next.t('singularityChallenge.modal.exit', { defaultValue: 'Exit EXALT' })
                     : i18next.t('singularityChallenge.modal.enter', { defaultValue: 'Enter EXALT' })
                 }
@@ -1852,7 +1851,7 @@ TODO: Fix this entire tab it's utter shit
             targetElement: element,
             buttonClick: () => {
               CloseModal()
-              void challenge.challengeEntryHandler()
+              void player.singularityChallenges[key].challengeEntryHandler()
             }
           }
         )
@@ -1871,7 +1870,7 @@ TODO: Fix this entire tab it's utter shit
     element.addEventListener('blur', CloseModal)
     element.addEventListener('click', () => {
       CloseModal()
-      void challenge.challengeEntryHandler()
+      void player.singularityChallenges[key].challengeEntryHandler()
     })
   }
 
