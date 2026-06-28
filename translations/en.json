@@ -396,6 +396,7 @@
     }
   },
   "achievements": {
+    "showProgressDetails": "Show achievement progress details",
     "descriptions": {
       "0": "Achievement Hunter: Open the Achievements Screen.",
       "1": "A Loyal Employee: Hire your first Worker.",
@@ -2157,17 +2158,30 @@
     "ungroupedExtraRewards": "This Achievement has an additional reward!",
     "totalPoints": "Achievement Points: {{x}}/{{y}} [{{z}}%]",
     "achievementPoints": "You have {{x}} Achievement Points (AP)!",
+    "achievementPointsMobile": "Achievement Points (AP): {{x}}",
     "rewardGainMessage": "Reward: {{x}} AP. {{y}} Quarks! {{z}}",
     "completed": " COMPLETED!",
     "notification": "You unlocked an achievement: {{m}}",
     "quarkBonus": "Gain .01 Quark Multiplier per 500 AP! Quark Multiplier: <<cyan | x{{multiplier}}>>",
     "achievementLevel": "Based on your Achievement Points, you are at Synergism Level <span class=\"rainbowText\">{{level}}</span>",
+    "achievementLevelMobile": "Synergism Level <span class=\"rainbowText\">{{level}}</span>",
     "achievementToNextLevel": "Level {{level}} in {{AP}} AP",
     "levelUpNotification": "Level Up! Synergism Level {{old}} → {{new}}",
     "complete": " &nbsp;&nbsp; Tier {{tier}} (COMPLETE!)",
     "tier": " &nbsp;&nbsp; Tier {{tier}}"
   },
   "reset": {
+    "buttonLabels": {
+      "prestige": "Prestige",
+      "transcension": "Transcend",
+      "reincarnation": "Reincarnate",
+      "acceleratorBoost": "Accelerator Boost",
+      "transcensionChallenge": "Exit Challenge",
+      "reincarnationChallenge": "Exit Reincarnation Challenge",
+      "ascensionChallenge": "Exit Ascension Challenge",
+      "ascension": "Ascend",
+      "singularity": "Enter the Singularity"
+    },
     "details": {
       "prestige": "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: {{amount}}/1e16 Coins || TIME SPENT: {{timeSpent}} Seconds.",
       "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/1e100 Coins || TIME SPENT: {{timeSpent}} Seconds.",
@@ -3088,7 +3102,8 @@
     "cubeMetadata": {
       "cost": "Cost: {{value1}} Wow! Cubes [+{{value2}} Levels]",
       "level": "Level: {{value1}} / {{value2}}",
-      "maxLevel": "Cost: 0 Wow! Cubes. This upgrade is maxed! wow"
+      "maxLevel": "Cost: 0 Wow! Cubes. This upgrade is maxed! wow",
+      "selectUpgrade": "Hover, focus, or tap a Cube Upgrade to view its details."
     },
     "noCubesOpened": "OK. No cubes opened.",
     "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \nYou can input a percentage of cubes to open, for example: \"50%\" or \"100%\". \nYou can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",
@@ -4362,6 +4377,7 @@
       "description": "<b><<gold | Ride the elevator to your target Singularity!>></b><br>You may choose any Singularity from Singularity 1 to <b>{{limit}}<b>",
       "targetSingularity": "Target Singularity: {{target}}",
       "selectTarget": "Select Target Singularity",
+      "teleportButton": "Teleport!",
       "teleportButtonHigher": "Up!",
       "teleportButtonStay": "Reopen!",
       "teleportButtonLower": "Down!",
@@ -4398,10 +4414,14 @@
     },
     "cancelled": "Okay, maybe next time!",
     "level": "Level",
+    "upgrade": "Upgrade!",
+    "levelWithRatio": "Level {{level}}/{{max}}",
     "minimum": "Minimum",
     "spent": "Spent",
     "OK": "OK",
     "Cancel": "Cancel",
+    "Back": "Back",
+    "closeNotification": "Close notification",
     "autoOnBracket": "Auto [ON]",
     "autoOffBracket": "Auto [OFF]",
     "softCapped": "(Softcapped)",
@@ -4423,6 +4443,8 @@
     "off": "OFF",
     "buyOne": "Buy x1",
     "buyMax": "Buy MAX",
+    "buyCustom": "Buy: {{amount}}",
+    "buyPercentage": "Buy Percentage:",
     "languageChange": "Changing the language requires a reload! Would you like to reload now?",
     "resources": {
       "offering": "Offering",
@@ -4707,18 +4729,20 @@
       "125": "+{{x}}% Constant Divisor power."
     },
     "shopTitles": {
-      "coin": "Coin Upgrades",
-      "diamond": "Diamond Upgrades",
-      "mythos": "Mythos Upgrades",
-      "generator": "Generator Shop",
-      "automation": "Automation Shop",
-      "particles": "Particles Upgrades"
+      "coin": "Coins",
+      "diamond": "Diamonds",
+      "mythos": "Mythos",
+      "generator": "Generators",
+      "automation": "Automation",
+      "particles": "Particles"
     },
+    "buyAll": "Buy All",
     "hover": "Hover over an upgrade icon to see details!",
     "hoverOverUpgrade": "Hover over an upgrade to view details!",
     "bought": "BOUGHT!"
   },
   "tabs": {
+    "hideTab": "Hide tab",
     "main": {
       "buildings": "Buildings",
       "upgrades": "Upgrades",
@@ -4751,7 +4775,7 @@
       "runes": "Runes",
       "talismans": "Talismans",
       "blessings": "Blessings",
-      "spirits": "[=-Spirits-=]"
+      "spirits": "Spirits"
     },
     "challenges": {
       "normal": "Normal",
@@ -4807,8 +4831,11 @@
       "checkoutStripe": "Checkout with Stripe",
       "checkoutNowPayments": "Checkout with NowPayments (Crypto)",
       "support": "Need help?",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
       "khafraDiscord": "Message Khafra on Discord",
-      "platonicDiscord": "Message Platonic on Discord"
+      "platonicDiscord": "Message Platonic on Discord",
+      "agreeTOS": "You must accept the terms of service first!"
     }
   },
   "offlineProgress": {
@@ -5175,6 +5202,7 @@
     },
     "corrStatsBtn": "Corruption Stats",
     "corrLoadoutsBtn": "Corruption Loadouts",
+    "clickInfo": "<<var(--orchid-text-color)|Click the icons to view Corruption info!>>",
     "cleanse": "Cleanse",
     "confirm": "Confirm",
     "resetCorruptionsError": "You cannot cleanse your Corruptions if you are in a Campaign, or Challenge 15!",
@@ -5258,6 +5286,7 @@
     "multiplierPower": "Multiplier Power: {{power}}x || Multiplier: {{mult}}x",
     "acceleratorBoost": "Reset Diamonds and Diamond Upgrades, but add {{amount}}% Acceleration Power and {{accelsPerBoost}} free Accelerators.",
     "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
+    "buy": "Buy",
     "costCoins": "Cost: {{coins}} coins.",
     "costDiamonds": "Cost: {{diamonds}} Diamonds.",
     "names": {
@@ -5291,7 +5320,7 @@
       "hilbertSpace": "Hilbert Space: {{amount}} [+{{gain}}]"
     },
     "crystalMult": "You have <<gold|{{crystals}}>> Crystals, multiplying Coin production by <<gold|{{gain}}>>.<br>Formula: <<orchid|(1 + {{crystals}})^{{exponent}}>> = <<gold|{{gain}}>>",
-    "hoverCrystalUpgrade": "Hover over a crystal upgrade to get information!",
+    "hoverCrystalUpgrade": "Select a crystal upgrade to get information!",
     "autoPrestige": "{{action}} when your {{name}} can increase by a factor {{factor}} [Toggle number above]. Current Multiplier: {{mult}}.",
     "per": {
       "crystal": "Crystal/sec: {{amount}}",
@@ -5334,7 +5363,7 @@
     "autoTesseract": "Auto buyer will save at least {{tesseracts}} tesseracts. [Enter number above].",
     "autoAscensionTesseract": "On Ascension, Auto buyer will save at least {{percent}}% of your current amount of tesseracts. [Enter number above].",
     "excessiveWealth": "Due to your excessive wealth, coin production is divided by {{div}} to pay taxes! {{- warning}}",
-    "constantHover": "Hover over an icon for a description of the upgrade. Click to buy it!"
+    "constantHover": "Select an icon for a description of the upgrade."
   },
   "octeract": {
     "buyLevel": {
@@ -5761,68 +5790,68 @@
       "exemption": {
         "name": "The Exemption Talisman",
         "description": "Fake Science Monthly says wearing this trinket lowers your taxes!",
-        "inscription": "<<gold | ✏>> Inscription: Your taxes are multiplied by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Duplication Rune."
+        "inscription": "<<gold|Inscription>>: Your taxes are multiplied by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: Add <<crimson|12>> to the Rune Level Coefficient of the Duplication Rune."
       },
       "chronos": {
         "name": "Talisman of Chronology",
         "description": "<i>Time flows just a little faster when worn</i>, you read on the tag.",
-        "inscription": "<<gold | ✏>> Inscription: Global Speed is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Speed Rune."
+        "inscription": "<<gold|Inscription>>: Global Speed is increased by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: Add <<crimson|12>> to the Rune Level Coefficient of the Speed Rune."
       },
       "midas": {
         "name": "Midas Necklace",
         "description": "If Midas turned all he touched to gold...",
-        "inscription": "<<gold | ✏>> Inscription: Rune Blessing Power is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Thrift Rune."
+        "inscription": "<<gold|Inscription>>: Rune Blessing Power is increased by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: Add <<crimson|12>> to the Rune Level Coefficient of Thrift Rune."
       },
       "metaphysics": {
         "name": "Metaphysical Gem",
         "description": "Do you wear this, or does this wear you?",
-        "inscription": "<<gold | ✏>> Inscription: This Talismans' Bonus Rune Levels are increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: This Talismans' Bonus Rune Levels are further multiplied by <<crimson|1.07>>."
+        "inscription": "<<gold|Inscription>>: This Talismans' Bonus Rune Levels are increased by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: This Talismans' Bonus Rune Levels are further multiplied by <<crimson|1.07>>."
       },
       "polymath": {
         "name": "Trinket of the Polymath",
         "description": "Do you feel like an exiled trickster?",
-        "inscription": "<<gold | ✏>> Inscription: Ascension Speed is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune level Coefficient of Superior Intellect Rune."
+        "inscription": "<<gold|Inscription>>: Ascension Speed is increased by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: Add <<crimson|12>> to the Rune level Coefficient of Superior Intellect Rune."
       },
       "mortuus": {
         "name": "Preserved Ant Talisman",
         "description": "It's said that great sacrifice was made for this Talisman to exist.",
-        "inscription": "<<gold | ✏>> Inscription: Reborn ELO is created <<gold|{{val}}>> faster.",
-        "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Prism Rune."
+        "inscription": "<<gold|Inscription>>: Reborn ELO is created <<gold|{{val}}>> faster.",
+        "signature": "<<crimson|Signature>>: Add <<crimson|12>> to the Rune Level Coefficient of Prism Rune."
       },
       "plastic": {
         "name": "A hunk of Plastic",
         "description": "Probably purchased on a buy now, pay later app.",
-        "inscription": "<<gold | ✏>> Inscription: Quark Gain is increased by <<gold|{{val}}>>.",
-        "signature": "<<crimson | ✎>> Signature: None. You cannot seem to sign your name on this hunk of plastic."
+        "inscription": "<<gold|Inscription>>: Quark Gain is increased by <<gold|{{val}}>>.",
+        "signature": "<<crimson|Signature>>: None. You cannot seem to sign your name on this hunk of plastic."
       },
       "wowSquare": {
         "name": "The Wow! Square",
         "description": "For the average :unsmith:, this is a cube.",
-        "inscription": "<<gold | ✏>> Inscription: Even-Dimensional Cube Gain is increased by <<gold|{{val}}>>",
-        "signature": "<<crimson | ✎>> Signature: Odd-Dimensional Cube Gain is increased by <<crimson|20%>>"
+        "inscription": "<<gold|Inscription>>: Even-Dimensional Cube Gain is increased by <<gold|{{val}}>>",
+        "signature": "<<crimson|Signature>>: Odd-Dimensional Cube Gain is increased by <<crimson|20%>>"
       },
       "achievement": {
         "name": "Medal of Achievement",
         "description": "Has serial number <i>{{num}}</i> on it.",
-        "inscription": "<<gold | ✏>> Inscription: Sources of Positive Salvage give <<gold|{{val}}>> more!",
-        "signature": "<<crimson | ✎>> Signature: Sources of Negative Salvage effect <<crimson|{{val}}>>."
+        "inscription": "<<gold|Inscription>>: Sources of Positive Salvage give <<gold|{{val}}>> more!",
+        "signature": "<<crimson|Signature>>: Sources of Negative Salvage effect <<crimson|{{val}}>>."
       },
       "cookieGrandma": {
         "name": "Freshly-Baked Cookie",
         "description": "Kinda burns your neck. Thanks Grandma!",
-        "inscription": "<<gold | ✏>> Inscription: Gain <<gold|+{{val}}>> free Corruption Levels!",
-        "signature": "<<crimson | ✎>> Signature: Turns out, you cannot write on cookies."
+        "inscription": "<<gold|Inscription>>: Gain <<gold|+{{val}}>> free Corruption Levels!",
+        "signature": "<<crimson|Signature>>: Turns out, you cannot write on cookies."
       },
       "horseShoe": {
         "name": "The Horse's Boot",
         "description": "It's an actual horse shoe!",
-        "inscription": "<<gold | ✏>> Inscription: Gain <<gold|+{{val}}%>> Ambrosia Luck.",
-        "signature": "<<crimson | ✎>> Signature: Gain <<crimson|+{{val}}>> Red Luck."
+        "inscription": "<<gold|Inscription>>: Gain <<gold|+{{val}}%>> Ambrosia Luck.",
+        "signature": "<<crimson|Signature>>: Gain <<crimson|+{{val}}>> Red Luck."
       },
       "shards": {
         "shard": "Talisman Shard",
@@ -5859,24 +5888,6 @@
         "default": "Default!",
         "levelReq": "≥ Level {{level}}"
       },
-      "summaries": {
-        "exemption": "=-=-=-= Exemption Talisman Effects =-=-=-=",
-        "chronos": "=-=-=-= Chronos Talisman Effects =-=-=-=",
-        "midas": "=-=-=-= Midas Talisman Effects =-=-=-=",
-        "metaphysics": "=-=-=-= Metaphysics Talisman Effects =-=-=-=",
-        "polymath": "=-=-=-= Polymath Talisman Effects =-=-=-=",
-        "mortuus": "=-=-=-= Mortuus Est Talisman Effects =-=-=-=",
-        "plastic": "=-=-=-= Plastic Talisman Effects =-=-=-="
-      },
-      "effects": {
-        "exemption": "Taxes -{{x}}%",
-        "chronos": "Gain +{{x}}% Global Speed Acceleration.",
-        "midas": "Rune Blessing bonuses +{{x}}%",
-        "metaphysics": "Talismans' Bonus Rune Levels +{{x}} per level",
-        "polymath": "Rune Spirit Bonuses +{{x}}%",
-        "mortuus": "Bonus Ant Levels: +{{x}}",
-        "plastic": "Gain 1x normal production (Joke)!"
-      },
       "bonusRuneLevels": {
         "speed": "Bonus Speed Rune Levels: <<orange|{{x}}>>",
         "duplication": "Bonus Duplication Rune Levels: <<orange|{{x}}>>",
@@ -5887,16 +5898,14 @@
         "antiquities": "Bonus Antiquities of Ant God Rune Levels: <<orange|{{x}}>>",
         "horseShoe": "Bonus Horse Shoe levels: <<orange|{{x}}>>"
       },
-      "mythicEffects": {
-        "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
-        "chronos": "Mythic Effect: +400 Speed Rune Levels!",
-        "midas": "Mythic Effect: +400 Thrift Rune Levels!",
-        "metaphysics": "Mythic Effect: +400 Prism Rune Levels!",
-        "polymath": "Mythic Effect: +400 SI Rune Levels!",
-        "mortuus": "Mythic Effect: Gain ant speed based on your total rune level!",
-        "plastic": "Mythic Effect: Gain 1x your normal quark values (Joke)!"
-      },
-      "maxEnhance": "Get Max Enhance for a Mythical bonus effect!"
+      "mobile": {
+        "currentRarity": "Current Rarity: {{rarity}} (Tier {{num}})",
+        "nextRarity": "Next Rarity: {{rarity}} at level {{level}}",
+        "maxRarity": "You've reached the highest rarity possible for this Talisman!",
+        "beforeMythical": "Get to Mythical rarity (Tier 6) to unlock the Talisman's Signature!",
+        "freeRuneLevels": "Free Rune Levels",
+        "nextLevelCost": "Next Level Cost"
+      }
     },
     "blessings": {
       "blessingName": "<b><<{{color}}|{{name}}>></b> Rune Blessing",
@@ -6012,9 +6021,13 @@
     "freeLevels": "[<<orange|+{{x}}>>]",
     "offeringText": "+{{exp}} EXP per Offering - {{offeringReq}} Offerings for +{{levels}}.",
     "maxLevel": "Maxed Level!",
-    "TNL": "+{{levelAmount}} in <<orange | {{offerings}} ☤>>"
+    "TNL": "+{{levelAmount}} in <<orange | {{offerings}} Offerings>>"
   },
   "singularityChallenge": {
+    "modal": {
+      "enter": "Enter EXALT",
+      "exit": "Exit EXALT"
+    },
     "enterChallenge": {
       "lowSingularity": "Derpsmith prohibits you from entering this challenge. Go do some more Singing first.",
       "confirmation": "You are about to enter {{name}}. Your Singularity Timer will not reset but you will be taken back to the beginning of a Singularity. Do you proceed?",
@@ -6169,7 +6182,7 @@
     "addAll": "xAll",
     "add1": "Add x1",
     "time": "Time",
-    "enterPromoCodeHere": "Enter a promotion code here!",
+    "enterPromoCodeHere": "Enter a community code here!",
     "currentTheme": "Current Theme",
     "themes": {
       "dark": "Dark Mode",
@@ -6240,6 +6253,7 @@
     }
   },
   "statistics": {
+    "clickIconInstruction": "Click on an icon to view the Stats Breakdown!",
     "subtabs": {
       "misc": "Miscellaneous Stats",
       "baseOffering": "Base Offerings",
@@ -7249,7 +7263,7 @@
     "tesseracts": {
       "intro": "You obtain guidance from beings in another dimension!",
       "instructions": "Open up some Lootb-- er, Wow! Tesseracts, to boost tributes from the previous tier.",
-      "inventory": "You possess <<yellow|{{amount}}>> Wow! Tesseracts. Get them from ascending with at least 100,000 score!",
+      "inventory": "You possess <<yellow|{{amount}}>> Wow! Tesseracts.",
       "total": "You have a total of <<yellow|{{amount}}>> Tesseract gifts!",
       "items": {
         "1": "Hermes' Gift x{{amount}}: +{{bonus}} Hermes Accelerators",
@@ -7267,7 +7281,7 @@
     "hypercubes": {
       "intro": "I didn't know that Wow! enterprises made 5-Dimensional Objects.",
       "instructions": "Open up some Lootb-- er, Wow! Hypercubes, to boost gifts from the previous tier.",
-      "inventory": "You possess <<yellow|{{amount}}>> Wow! Hypercubes. Get them from ascending with at least 1e9 score!",
+      "inventory": "You possess <<yellow|{{amount}}>> Wow! Hypercubes.",
       "total": "You have a total of <<yellow|{{amount}}>> Hypercube benedictions!",
       "items": {
         "1": "Hermes' Benediction x{{amount}}: +{{bonus}} Hermes Gift → Hermes Accelerators",
@@ -7285,7 +7299,7 @@
     "platonics": {
       "intro": "This seems very familiar.",
       "instructions": "Open up some Lootb-- er, Platonic! Cubes, for epic perks!.",
-      "inventory": "You possess <<yellow|{{amount}}>> Wow! Platonic Cubes. Get them from ascending with at least 2.666e12 score!",
+      "inventory": "You possess <<yellow|{{amount}}>> Wow! Platonic Cubes.",
       "total": "You have a total of <<yellow|{{amount}}>> Platonic Cubes opened!",
       "items": {
         "1": "Cube Shard: x{{amount}}: +{{bonus}} Bonus Wow! Cubes",
@@ -7346,6 +7360,11 @@
         "descriptionDivisor": "===Upgrade Description===",
         "descriptionDefault": "Click an icon for info!",
         "costDivisor": "===Upgrade Costs===",
+        "modalTitle": "Platonic Upgrade {{index}}",
+        "buyButton": "Buy",
+        "modalCanBuy": "Affordable",
+        "modalCannotBuy": "Not affordable",
+        "modalMaxed": "Maxed",
         "upgradeLevel": "Level: {{a}}/{{b}}",
         "upgradeLevelMaxed": "Level: {{a}}/{{b}} [MAXED]",
         "offeringCost": "{{a}}/{{b}} Offerings",
@@ -7508,7 +7527,7 @@
     "wrongAnswer": "Answer was wrong, not resetting!",
     "unableImport": "Unable to import this file!",
     "loadTestInLive": "You are attempting to load a testing file in a non-testing version!",
-    "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism{{year}}\" or \"Khafra\" perchance?]",
+    "promocodePrompt": "Got a community code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism{{year}}\" or \"Khafra\" perchance?]",
     "comeBackSoon": "Alright, come back soon!",
     "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
     "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use? You can enter a negative value which will use all attempts except the specified number.",
@@ -7696,6 +7715,27 @@
       "steam": "Link Steam"
     }
   },
+  "mobile": {
+    "header": {
+      "resize": "Resize header"
+    },
+    "auth": {
+      "signInFailed": "Sign-in was cancelled or failed. Please try again.",
+      "verificationFailed": "We couldn't verify your device. Please try again."
+    },
+    "purchases": {
+      "productUnavailable": "This product isn't available right now. Please try again later.",
+      "orderFailed": "Could not start the purchase: {{error}}",
+      "accountUnavailable": "Your account could not be verified. Please try again.",
+      "signInRequiredTitle": "Account Required",
+      "signInRequiredBody": "Sign in or create an account to continue with this purchase. After you finish, the purchase will resume automatically.",
+      "createAccount": "Create Account",
+      "login": "Login",
+      "verifyFailed": "Could not verify your purchase: {{error}}",
+      "success": "Purchase successful! Your PseudoCoins have been credited.",
+      "subscriptionSuccess": "Subscription successful! Please refresh the page to receive your perks."
+    }
+  },
   "pseudoCoins": {
     "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",
     "cost": "Cost: <<gold|{{amount}} PseudoCoins>>",
@@ -7704,6 +7744,10 @@
     "currEffect": "Current Level:",
     "nextEffect": "Next Level:",
     "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
+    "subscriptionPricePerMonth": "{{price}} / month",
+    "subscriptionSubscribe": "Subscribe - {{price}}",
+    "subscriptionSubscribeSteam": "Subscribe with Steam - {{price}}",
+    "subscriptionUpgradePrice": "↑ (+{{price}})",
     "subscriptionRenews": "Renews: {{date}}",
     "subscriptionYouAreHere": "You are here!",
     "upgradeNames": {
@@ -7806,6 +7850,11 @@
     "note1": "Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!",
     "note2": "Why don't you try clicking on one of the item's <span style=\"color:gold;\">gold</span> text above to get started? You can always cancel!",
     "reset": "Reset Hotkeys",
+    "mobile": {
+      "open": "Open mobile hotkeys",
+      "close": "Close mobile hotkeys",
+      "title": "Hotkeys"
+    },
     "names": {
       "buyAccelerators": "Buy Accelerators",
       "boostAccelerator": "Boost Accelerator",

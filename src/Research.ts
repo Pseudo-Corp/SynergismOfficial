@@ -305,19 +305,101 @@ export const updateResearchRoomba = () => {
 export const roombaResearchEnabled = (): boolean => {
   return (player.cubeUpgrades[9] === 1 || player.highestSingularityCount > 10)
 }
+
+const getResearchBuyAmount = (auto: boolean, hover: boolean, buyMaxOverride?: boolean) => {
+  const shouldBuyMax = buyMaxOverride ?? (player.researchBuyMaxToggle || auto || hover)
+  return shouldBuyMax ? Number.POSITIVE_INFINITY : 1
+}
+
+const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolean) => {
+  const buyAmount = getResearchBuyAmount(auto, false, buyMaxOverride)
+  const description = i18next.t(`researches.descriptions.${index}`)
+
+  let levelToBuy = getBuyableResearchLevel(index)
+  levelToBuy = Math.min(researchData[index].maxLevel, levelToBuy, player.researches[index] + buyAmount)
+
+  let obtainiumCost = new Decimal(0)
+
+  // If levelToBuy is = current level, either we've already maxxed the upgrade
+  // OR we cannot afford any levels. Check which one.
+  if (levelToBuy === player.researches[index]) {
+    // If max level, we don't actually need to change anything
+    // If not max level, we need to show the cost of the next level
+    if (!isResearchMaxed(index)) {
+      levelToBuy += 1
+      obtainiumCost = getCostForResearchLevels(index, levelToBuy)
+    }
+  } else {
+    obtainiumCost = getCostForResearchLevels(index, levelToBuy)
+  }
+
+  let costText = i18next.t('researches.cost', {
+    x: format(obtainiumCost, 0, false),
+    y: format(levelToBuy - player.researches[index], 0, true)
+  })
+  let costColor = 'limegreen'
+  let levelColor = 'white'
+
+  if (isResearchMaxed(index)) {
+    costColor = 'Gold'
+    levelColor = 'plum'
+    costText += i18next.t('researches.maxed')
+  } else if (player.obtainium.lt(obtainiumCost)) {
+    costColor = 'var(--crimson-text-color)'
+  }
+
+  const levelText = i18next.t('researches.level', {
+    x: player.researches[index],
+    y: researchData[index].maxLevel
+  })
+  const resets = getResetResearches().includes(index)
+
+  return {
+    description,
+    costText,
+    costColor,
+    levelText,
+    levelColor,
+    obtainiumCost,
+    resetText: resets ? i18next.t('researches.resets') : i18next.t('researches.doesNotReset'),
+    resets
+  }
+}
+
+const updateResearchButtonState = (index: number, obtainiumCost: Decimal) => {
+  const p = `res${index}`
+
+  if (isResearchMaxed(index)) {
+    updateClassList(p, ['researchMaxed'], ['researchAvailable', 'researchPurchased', 'researchPurchasedAvailable'])
+  } else {
+    if (player.researches[index] > 0) {
+      updateClassList(p, ['researchPurchased', 'researchPurchasedAvailable'], [
+        'researchAvailable',
+        'researchMaxed'
+      ])
+    } else {
+      updateClassList(p, ['researchAvailable'], ['researchPurchased', 'researchMaxed'])
+    }
+  }
+
+  if (player.obtainium.lt(obtainiumCost) && !isResearchMaxed(index)) {
+    updateClassList(p, [], ['researchMaxed', 'researchAvailable', 'researchPurchasedAvailable'])
+  }
+}
+
 /**
  * Attempts to buy the research of the index selected. This is hopefully an improvement over buyResearch. Fuck
  * @param index
  * @param auto
  * @returns
  */
-export const buyResearch = (index: number, auto: boolean, hover: boolean) => {
+export const buyResearch = (index: number, auto: boolean, hover: boolean, buyMaxOverride?: boolean) => {
   if (isResearchMaxed(index) || !isResearchUnlocked(index)) {
     return
   }
 
   // Get our costs, and determine if anything is purchasable.
-  const buyAmount = (player.researchBuyMaxToggle || auto || hover) ? Number.POSITIVE_INFINITY : 1
+  const buyAmount = getResearchBuyAmount(auto, hover, buyMaxOverride)
   const maxLevel = researchData[index].maxLevel
 
   let levelToBuy = getBuyableResearchLevel(index)
@@ -356,73 +438,35 @@ export const buyResearch = (index: number, auto: boolean, hover: boolean) => {
 
 export const isResearchMaxed = (index: number) => player.researches[index] >= researchData[index].maxLevel
 
-export const researchDescriptions = (index: number, auto = false) => {
-  const buyAmount = (player.researchBuyMaxToggle || auto) ? Number.POSITIVE_INFINITY : 1
+export const researchDescriptions = (index: number, auto = false, buyMaxOverride?: boolean) => {
+  const details = getResearchDetails(index, auto, buyMaxOverride)
+  updateResearchButtonState(index, details.obtainiumCost)
 
-  const y = i18next.t(`researches.descriptions.${index}`)
-  const p = `res${index}`
-
-  let levelToBuy = getBuyableResearchLevel(index)
-  levelToBuy = Math.min(researchData[index].maxLevel, levelToBuy, player.researches[index] + buyAmount)
-
-  let obtainiumCost = new Decimal(0)
-
-  // If levelToBuy is = current level, either we've already maxxed the upgrade
-  // OR we cannot afford any levels. Check which one.
-  if (levelToBuy === player.researches[index]) {
-    // If max level, we don't actually need to change anything
-    // If not max level, we need to show the cost of the next level
-    if (!isResearchMaxed(index)) {
-      levelToBuy += 1
-      obtainiumCost = getCostForResearchLevels(index, levelToBuy)
-    }
-  } else {
-    obtainiumCost = getCostForResearchLevels(index, levelToBuy)
-  }
-
-  let z = i18next.t('researches.cost', {
-    x: format(obtainiumCost, 0, false),
-    y: format(levelToBuy - player.researches[index], 0, true)
-  })
-
-  if (isResearchMaxed(index)) {
-    DOMCacheGetOrSet('researchcost').style.color = 'Gold'
-    DOMCacheGetOrSet('researchinfo3').style.color = 'plum'
-    updateClassList(p, ['researchMaxed'], ['researchAvailable', 'researchPurchased', 'researchPurchasedAvailable'])
-    z += i18next.t('researches.maxed')
-  } else {
-    DOMCacheGetOrSet('researchcost').style.color = 'limegreen'
-    DOMCacheGetOrSet('researchinfo3').style.color = 'white'
-    if (player.researches[index] > 0) {
-      updateClassList(p, ['researchPurchased', 'researchPurchasedAvailable'], [
-        'researchAvailable',
-        'researchMaxed'
-      ])
-    } else {
-      updateClassList(p, ['researchAvailable'], ['researchPurchased', 'researchMaxed'])
-    }
-  }
-
-  if (player.obtainium.lt(obtainiumCost) && !isResearchMaxed(index)) {
-    DOMCacheGetOrSet('researchcost').style.color = 'var(--crimson-text-color)'
-    updateClassList(p, [], ['researchMaxed', 'researchAvailable', 'researchPurchasedAvailable'])
-  }
-
-  DOMCacheGetOrSet('researchinfo2').innerHTML = y
-  DOMCacheGetOrSet('researchcost').textContent = z
-  DOMCacheGetOrSet('researchinfo3').textContent = i18next.t('researches.level', {
-    x: player.researches[index],
-    y: researchData[index].maxLevel
-  })
+  DOMCacheGetOrSet('researchinfo2').innerHTML = details.description
+  DOMCacheGetOrSet('researchcost').style.color = details.costColor
+  DOMCacheGetOrSet('researchcost').textContent = details.costText
+  DOMCacheGetOrSet('researchinfo3').style.color = details.levelColor
+  DOMCacheGetOrSet('researchinfo3').textContent = details.levelText
   const resetInfo = DOMCacheGetOrSet('researchinfo4')
 
-  if (getResetResearches().includes(index)) {
-    resetInfo.textContent = i18next.t('researches.resets')
+  resetInfo.textContent = details.resetText
+  if (details.resets) {
     resetInfo.classList.remove('crimsonText')
   } else {
-    resetInfo.textContent = i18next.t('researches.doesNotReset')
     resetInfo.classList.add('crimsonText')
   }
+}
+
+export const researchModalHTML = (index: number, auto = false, buyMaxOverride?: boolean) => {
+  const details = getResearchDetails(index, auto, buyMaxOverride)
+  const resetClass = details.resets ? '' : ' crimsonText'
+
+  return `<div class="researchModal">
+    <div class="researchModalDescription">${details.description}</div>
+    <div style="color: ${details.costColor}">${details.costText}</div>
+    <div style="color: ${details.levelColor}">${details.levelText}</div>
+    <div class="${resetClass.trim()}">${details.resetText}</div>
+  </div>`
 }
 
 // This should only happen in rare cases, when an update changes max levels

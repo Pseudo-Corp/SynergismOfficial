@@ -10,7 +10,9 @@ import { confirmReply, toggleAutoChallengeRun } from './Toggles'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
-const defaultHotkeys = new Map<string, [string, () => unknown, /* hide during notification */ boolean]>([
+type Hotkey = [string, () => unknown, /* hide during notification */ boolean]
+
+const defaultHotkeys = new Map<string, Hotkey>([
   ['A', ['hotkeys.names.buyAccelerators', () => buyAccelerator(), false]],
   ['B', ['hotkeys.names.boostAccelerator', () => boostAccelerator(), false]],
   ['C', ['hotkeys.names.autoChallenge', () => {
@@ -49,7 +51,7 @@ const defaultHotkeys = new Map<string, [string, () => unknown, /* hide during no
 
 let hotkeysEnabled = false
 
-let hotkeys = new Map<string, [string, () => unknown, boolean]>(defaultHotkeys)
+let hotkeys = new Map<string, Hotkey>(defaultHotkeys)
 
 const toggleChallengeSweep = (): void => {
   if (player.researches[150] > 0) {
@@ -67,6 +69,35 @@ const exitTranscendAndPrestigeChallenge = () => {
   if (player.currentChallenge.transcension !== 0) {
     void resetCheck('transcensionChallenge', undefined, true)
   }
+}
+
+const isHotkeyBlockedByOverlay = (key: string, hotkey: Hotkey) =>
+  key !== 'ENTER' && DOMCacheGetOrSet('transparentBG').style.display === 'block' && !hotkey[2]
+
+const updateLastHotkeyDisplay = (key: string, hotkeyName: string) => {
+  if (G.currentTab !== Tabs.Settings || getActiveSubTab() !== 7) {
+    return
+  }
+
+  DOMCacheGetOrSet('lastHotkey').textContent = key
+  DOMCacheGetOrSet('lastHotkeyName').textContent = hotkeyName
+}
+
+const activateHotkey = (key: string) => {
+  if (!hotkeysEnabled || !player.toggles[39]) {
+    return ''
+  }
+
+  const hotkey = hotkeys.get(key)
+  if (!hotkey || isHotkeyBlockedByOverlay(key, hotkey)) {
+    return ''
+  }
+
+  const hotkeyName = i18next.t(hotkey[0])
+  hotkey[1]()
+  updateLastHotkeyDisplay(key, hotkeyName)
+
+  return hotkeyName
 }
 
 const eventHotkeys = (event: KeyboardEvent): void => {
@@ -99,25 +130,13 @@ const eventHotkeys = (event: KeyboardEvent): void => {
   }
 
   const key = keyPrefix + event.key.toUpperCase()
-  const hotkey = hotkeys.get(key)
-
-  // Disable hotkeys if notifications are occurring
-  if (key !== 'ENTER' && DOMCacheGetOrSet('transparentBG').style.display === 'block') {
-    if (hotkey && !hotkey[2]) {
-      return
-    }
-  }
-
-  let hotkeyName = ''
-  if (hotkey) {
-    hotkeyName = i18next.t(hotkey[0])
-    hotkey[1]()
+  const hotkeyName = activateHotkey(key)
+  if (hotkeyName !== '') {
     event.preventDefault()
   }
 
   if (G.currentTab === Tabs.Settings && getActiveSubTab() === 7) {
-    DOMCacheGetOrSet('lastHotkey').textContent = key
-    DOMCacheGetOrSet('lastHotkeyName').textContent = hotkeyName
+    updateLastHotkeyDisplay(key, hotkeyName)
 
     if (DOMCacheGetOrSet('promptWrapper').style.display === 'block') {
       ;(DOMCacheGetOrSet('prompt_text') as HTMLInputElement).value = key
@@ -192,6 +211,121 @@ const makeSlot = (key: string, descr: string) => {
   return div
 }
 
+const mobileHotkeyKeyLabels: Record<string, string> = {
+  CTRL: 'Ctrl',
+  SHIFT: 'Shift',
+  ALT: 'Alt',
+  ARROWLEFT: 'Left',
+  ARROWRIGHT: 'Right',
+  ARROWUP: 'Up',
+  ARROWDOWN: 'Down'
+}
+
+const formatMobileHotkeyKey = (key: string) =>
+  key.split('+').map((part) => mobileHotkeyKeyLabels[part] ?? part).join(' + ')
+
+const makeMobileHotkeyButton = (key: string, descr: string) => {
+  const button = document.createElement('button')
+  button.type = 'button'
+  button.classList.add('mobileHotkeyAction')
+  button.dataset.mobileHotkey = key
+  button.disabled = !hotkeysEnabled || !player.toggles[39]
+
+  const keyText = document.createElement('span')
+  keyText.classList.add('mobileHotkeyKey')
+  keyText.textContent = formatMobileHotkeyKey(key)
+
+  const label = document.createElement('span')
+  label.classList.add('mobileHotkeyLabel')
+  label.textContent = descr
+
+  button.append(keyText, label)
+
+  return button
+}
+
+let mobileHotkeyPanelRegistered = false
+
+const renderMobileHotkeyButtons = () => {
+  if (!mobileHotkeyPanelRegistered) {
+    return
+  }
+
+  const actions = DOMCacheGetOrSet('mobileHotkeysActions')
+  const fragment = document.createDocumentFragment()
+
+  for (const [key, [descr]] of hotkeys.entries()) {
+    fragment.append(makeMobileHotkeyButton(key, i18next.t(descr)))
+  }
+
+  actions.replaceChildren(fragment)
+}
+
+const setMobileHotkeyPanelOpen = (open: boolean) => {
+  const openButton = DOMCacheGetOrSet('mobileHotkeysOpen')
+  const overlay = DOMCacheGetOrSet('mobileHotkeysOverlay')
+
+  overlay.classList.toggle('mobileHotkeysOverlayOpen', open)
+  overlay.setAttribute('aria-hidden', `${!open}`)
+  openButton.setAttribute('aria-expanded', `${open}`)
+
+  if (open) {
+    DOMCacheGetOrSet('mobileHotkeysClose').focus()
+  } else {
+    openButton.focus()
+  }
+}
+
+const openMobileHotkeyPanel = () => {
+  renderMobileHotkeyButtons()
+  setMobileHotkeyPanelOpen(true)
+}
+
+export const registerMobileHotkeyPanel = () => {
+  if (mobileHotkeyPanelRegistered) {
+    return
+  }
+
+  mobileHotkeyPanelRegistered = true
+
+  const openButton = DOMCacheGetOrSet('mobileHotkeysOpen')
+  const closeButton = DOMCacheGetOrSet('mobileHotkeysClose')
+  const overlay = DOMCacheGetOrSet('mobileHotkeysOverlay')
+  const actions = DOMCacheGetOrSet('mobileHotkeysActions')
+
+  openButton.addEventListener('click', openMobileHotkeyPanel)
+  closeButton.addEventListener('click', () => setMobileHotkeyPanelOpen(false))
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) {
+      setMobileHotkeyPanelOpen(false)
+    }
+  })
+  overlay.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setMobileHotkeyPanelOpen(false)
+    }
+  })
+  actions.addEventListener('click', (event) => {
+    const button = event.target instanceof Element
+      ? event.target.closest<HTMLButtonElement>('button[data-mobile-hotkey]')
+      : null
+
+    if (button === null || !actions.contains(button)) {
+      return
+    }
+
+    const key = button.dataset.mobileHotkey
+    if (key === undefined || activateHotkey(key) === '') {
+      return
+    }
+
+    event.preventDefault()
+    renderMobileHotkeyButtons()
+  })
+
+  renderMobileHotkeyButtons()
+}
+
 export const disableHotkeys = () => hotkeysEnabled = false
 
 export const enableHotkeys = () => {
@@ -210,6 +344,7 @@ export const enableHotkeys = () => {
   }
 
   hotkeysEnabled = true
+  renderMobileHotkeyButtons()
 }
 
 const changeHotkeys = () => {

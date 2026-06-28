@@ -9,7 +9,8 @@ import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { getTalismanEffects } from './Talismans'
 import { IconSets } from './Themes'
-import { assert } from './Utility'
+import { CloseModal, Modal } from './UpdateHTML'
+import { assert, isMobile } from './Utility'
 import { Globals as G } from './Variables'
 
 type RuneBlessingTypeMap = {
@@ -330,7 +331,7 @@ const maxBlessingLevelPurchaseInformation = (bless: RuneBlessingKeys, budget: De
   return { levels: levelsGained, expRequired: expRequired, offerings: offeringsRequired }
 }
 
-export const updateRuneBlessingHTML = (bless: RuneBlessingKeys) => {
+export const updateWebRuneBlessingHTML = (bless: RuneBlessingKeys) => {
   assert(G.currentTab === Tabs.Runes, 'current tab is not Runes')
 
   DOMCacheGetOrSet(`${bless}RuneBlessingLevel`).innerHTML = i18next.t('runes.blessings.blessingLevel', {
@@ -343,6 +344,44 @@ export const updateRuneBlessingHTML = (bless: RuneBlessingKeys) => {
     levelAmount: levels,
     offerings: format(offerings, 2, false)
   })
+}
+
+export const updateMobileRuneBlessingHTML = (bless: RuneBlessingKeys) => {
+  assert(G.currentTab === Tabs.Runes, 'current tab is not Runes')
+
+  // {rune}Rune, {rune}RuneLevel, {rune}RuneCoefficient, {rune}RuneIncreasePerLevel, {rune}RunePower, {rune}RuneEffects, {rune}RuneCost
+  DOMCacheGetOrSet(`${bless}RuneBlessingLevel`).innerHTML = i18next.t('runes.blessings.blessingLevel', {
+    amount: format(runeBlessings[bless].level, 0, true)
+  })
+  DOMCacheGetOrSet(`${bless}RuneBlessingCoefficient`).textContent = i18next.t('runes.blessings.runeCoefficientText', {
+    val: format(runeBlessings[bless].levelsPerOOM, 0, true)
+  })
+
+  DOMCacheGetOrSet(`${bless}RuneBlessingIncreasePerLevel`).innerHTML = i18next.t('runes.perLevelIncrease', {
+    x: format(Math.pow(10, 1 / runeBlessings[bless].levelsPerOOM), 4, false)
+  })
+
+  DOMCacheGetOrSet(`${bless}RuneBlessingPower`).innerHTML = i18next.t('runes.blessings.effectiveBlessingPower', {
+    power: format(getRuneBlessingPower(bless), 0, true)
+  })
+
+  DOMCacheGetOrSet(`${bless}RuneBlessingEffects`).innerHTML = runeBlessings[bless].effectsDescription(
+    getRuneBlessingPower(bless)
+  )
+
+  const { levels, offerings } = maxBlessingLevelPurchaseInformation(bless, player.offerings)
+  DOMCacheGetOrSet(`${bless}RuneBlessingCost`).innerHTML = i18next.t('runes.TNL', {
+    levelAmount: format(levels, 0, true),
+    offerings: format(offerings, 0, true)
+  })
+}
+
+export const updateRuneBlessingHTML = (bless: RuneBlessingKeys) => {
+  if (isMobile) {
+    updateMobileRuneBlessingHTML(bless)
+  } else {
+    updateWebRuneBlessingHTML(bless)
+  }
 }
 
 export const focusedRuneBlessingHTML = (bless: RuneBlessingKeys) => {
@@ -403,7 +442,7 @@ export function resetRuneBlessings (tier: keyof typeof resetTiers) {
   }
 }
 
-export const generateBlessingsHTML = () => {
+export const generateWebRuneBlessingsHTML = () => {
   const blessingRow = DOMCacheGetOrSet('runeBlessings')
 
   for (const key of Object.keys(runeBlessings) as RuneBlessingKeys[]) {
@@ -418,6 +457,22 @@ export const generateBlessingsHTML = () => {
       '--glow-color',
       `color-mix(in srgb, ${runes[key].runeHTMLStyle.borderColor} 50%, orchid 50%)`
     )
+    runesDiv.addEventListener(
+      'mousemove',
+      (e) => {
+        Modal(() => focusedRuneBlessingHTML(key), e.clientX, e.clientY, {
+          borderColor: runes[key].runeHTMLStyle.borderColor
+        })
+      }
+    )
+    runesDiv.addEventListener('focus', () => {
+      const element = DOMCacheGetOrSet(`${key}RuneBlessing`)
+      const elmRect = element.getBoundingClientRect()
+      Modal(() => focusedRuneBlessingHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
+        borderColor: runes[key].runeHTMLStyle.borderColor
+      })
+    })
+    runesDiv.addEventListener('mouseout', CloseModal)
 
     const runeName = document.createElement('p')
     runeName.className = 'runeTypeElement'
@@ -453,9 +508,119 @@ export const generateBlessingsHTML = () => {
     sacrificeButton.id = `${key}RuneBlessingPurchase`
     sacrificeButton.setAttribute('i18n', 'general.blessCapital')
     sacrificeButton.textContent = i18next.t('general.blessCapital')
+    sacrificeButton.addEventListener(
+      'click',
+      () => buyBlessingLevels(key, player.offerings)
+    )
 
     runesDiv.appendChild(sacrificeButton)
 
     blessingRow.appendChild(runesDiv)
   }
+}
+
+export const generateMobileRuneBlessingsHTML = () => {
+  const blessingRow = DOMCacheGetOrSet('runeBlessings')
+  for (const key of Object.keys(runeBlessings) as RuneBlessingKeys[]) {
+    // Create unlocked rune container
+    const runesDiv = document.createElement('div')
+    runesDiv.className = 'runeTypeMobile'
+    runesDiv.id = `${key}RuneBlessingContainer`
+    runesDiv.style.border = `2px solid ${runes[key].runeHTMLStyle.borderColor}`
+    runesDiv.style.borderRadius = '8px'
+    runesDiv.style.margin = '2px'
+
+    // Top of div lefthand (icon, name)
+    const topRow = document.createElement('div')
+    topRow.classList.add('runeIconAndName')
+
+    const runeIcon = document.createElement('img')
+    runeIcon.className = 'runeImage'
+    runeIcon.height = 32 // make smaller on mobile versions
+    runeIcon.width = 32
+    runeIcon.id = `${key}RuneBlessing`
+    runeIcon.alt = `${key} Rune`
+    runeIcon.src = `Pictures/Runes/${key.charAt(0).toUpperCase() + key.slice(1)}.png`
+    runeIcon.loading = 'lazy'
+
+    topRow.appendChild(runeIcon)
+
+    const runeName = document.createElement('p')
+    runeName.className = 'runeTypeElementMobile'
+    runeName.setAttribute('i18n', `runes.${key}.name`)
+    runeName.innerHTML = i18next.t(`runes.${key}.name`)
+    topRow.appendChild(runeName)
+
+    runesDiv.appendChild(topRow)
+
+    const level = document.createElement('p')
+    level.className = 'runeTypeElementMobile'
+    level.id = `${key}RuneBlessingLevel`
+    level.textContent = '0 [+0]'
+    level.style.color = 'white'
+    runesDiv.appendChild(level)
+
+    const coefficientText = document.createElement('p')
+    coefficientText.className = 'runeTypeElementMobile'
+    coefficientText.id = `${key}RuneBlessingCoefficient`
+    coefficientText.textContent = '1'
+    coefficientText.style.color = 'white'
+    runesDiv.appendChild(coefficientText)
+
+    const increasePerLevelText = document.createElement('p')
+    increasePerLevelText.className = 'runeTypeElementMobile'
+    increasePerLevelText.id = `${key}RuneBlessingIncreasePerLevel`
+    increasePerLevelText.textContent = '1'
+    increasePerLevelText.style.color = 'white'
+    runesDiv.appendChild(increasePerLevelText)
+
+    const runePower = document.createElement('p')
+    runePower.className = 'runeTypeElementMobile'
+    runePower.id = `${key}RuneBlessingPower`
+    runePower.textContent = '1'
+    runePower.style.color = 'white'
+    runesDiv.appendChild(runePower)
+
+    const runeEffects = document.createElement('p')
+    runeEffects.className = 'runeTypeElementMobile'
+    runeEffects.id = `${key}RuneBlessingEffects`
+    runeEffects.textContent = '1'
+    runeEffects.style.color = 'white'
+    runesDiv.appendChild(runeEffects)
+
+    const runeCost = document.createElement('p')
+    runeCost.className = 'runeTypeElementMobile'
+    runeCost.id = `${key}RuneBlessingCost`
+    runeCost.textContent = '1'
+    runeCost.style.color = 'white'
+    runesDiv.appendChild(runeCost)
+
+    const sacrificeButton = document.createElement('button')
+    sacrificeButton.className = 'runeTypeElementMobile'
+    sacrificeButton.id = `${key}RuneBlessingPurchase`
+    sacrificeButton.setAttribute('i18n', 'general.blessCapital')
+    sacrificeButton.textContent = i18next.t('general.blessCapital')
+    sacrificeButton.addEventListener(
+      'click',
+      () => buyBlessingLevels(key, player.offerings)
+    )
+
+    runesDiv.appendChild(sacrificeButton)
+
+    blessingRow.appendChild(runesDiv)
+  }
+}
+
+let htmlGeneratedThisSession = false
+
+export const generateBlessingsHTML = () => {
+  if (htmlGeneratedThisSession) {
+    return
+  }
+  if (isMobile) {
+    generateMobileRuneBlessingsHTML()
+  } else {
+    generateWebRuneBlessingsHTML()
+  }
+  htmlGeneratedThisSession = true
 }

@@ -5,8 +5,9 @@ import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
-import { isSynergismCC, platform } from './Config'
+import { isSynergismCC } from './Config'
 import { updateGlobalsIsEvent } from './Event'
+import { storageGetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
 import { updateLotusDisplay } from './purchases/ConsumablesTab'
@@ -248,7 +249,7 @@ interface BonusTypes {
   quark: number
 }
 
-export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon' | 'steam'
+export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon' | 'steam' | 'apple'
 
 export type SubscriptionMetadata = {
   provider: SubscriptionProvider
@@ -319,7 +320,7 @@ export async function handleLogin () {
     loggedIn = hasAccount(account)
     subscription = sub
 
-    if (!isSynergismCC && platform === 'browser') {
+    if (!isSynergismCC && PLATFORM === 'browser') {
       subtabElement.innerHTML = i18next.t('account.loginNotAvailable')
     } else if (hasAccount(account)) {
       if (account.member == null || Object.keys(account.member).length === 0) {
@@ -448,7 +449,7 @@ export async function handleLogin () {
 
       const unlinkedPlatforms = allPlatforms.filter((p) => !linkedAccounts.includes(p.name))
 
-      if (unlinkedPlatforms.length > 0) {
+      if (PLATFORM !== 'mobile' && unlinkedPlatforms.length > 0) {
         const linkAccountsSection = document.createElement('div')
 
         const buttonContainer = document.createElement('div')
@@ -509,7 +510,7 @@ export async function handleLogin () {
               if (button.dataset.loading) return
               button.dataset.loading = 'true'
 
-              if (platform === 'steam') {
+              if (PLATFORM === 'steam') {
                 const { getSessionTicket } = await import('./steam/steam')
                 const sessionTicket = await getSessionTicket()
 
@@ -536,7 +537,7 @@ export async function handleLogin () {
                 }
               }
             } else {
-              if (platform === 'steam') {
+              if (PLATFORM === 'steam') {
                 const res = await fetch('https://synergism.cc/login/link-token', { credentials: 'include' })
                 const { token } = await res.json()
                 window.open(
@@ -577,11 +578,15 @@ export async function handleLogin () {
         renderCaptcha()
       })
 
-      if (platform === 'steam') {
+      if (PLATFORM === 'steam') {
         for (const link of subtabElement.querySelectorAll<HTMLAnchorElement>('a[href*="synergism.cc/login?with="]')) {
           const url = new URL(link.href)
           url.searchParams.set('platform', 'steam')
           link.href = url.toString()
+        }
+      } else if (PLATFORM === 'mobile') {
+        for (const link of subtabElement.querySelectorAll<HTMLAnchorElement>('a[href*="synergism.cc/login?with="]')) {
+          link.style.setProperty('display', 'none')
         }
       }
     } else {
@@ -592,10 +597,16 @@ export async function handleLogin () {
   if (loggedIn) {
     handleWebSocket()
     handleCloudSaves()
+
+    if (PLATFORM === 'mobile') {
+      import('./mobile/microtxn')
+        .then(({ resumePendingMobilePurchase }) => resumePendingMobilePurchase())
+        .catch(console.error)
+    }
   }
 
   // Steam cloud saves work without login
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     handleSteamCloudSave()
   }
 }
@@ -654,8 +665,8 @@ function handleWebSocket () {
     queue.length = 0
 
     interval = setInterval(
-      (ws: WebSocket) => {
-        ws.send('ping')
+      (ws_: WebSocket) => {
+        ws_.send('ping')
       },
       30_000,
       ws
@@ -811,7 +822,10 @@ export function sendToWebsocket (message: string) {
 async function logout () {
   await fetch('https://synergism.cc/api/v1/users/logout')
 
-  if (platform === 'steam') {
+  if (PLATFORM === 'mobile') {
+    const { CapacitorCookies } = await import('@capacitor/core')
+    await CapacitorCookies.clearAllCookies()
+  } else if (PLATFORM === 'steam') {
     const { clearAuthCookie } = await import('./steam/steam')
     await clearAuthCookie()
   }
@@ -822,7 +836,7 @@ async function logout () {
 
 const hasCaptcha = new WeakSet<HTMLElement>()
 
-export const renderCaptcha = platform === 'steam'
+export const renderCaptcha = PLATFORM === 'steam'
   ? memoize(() => {
     const captchaElements = document.querySelectorAll('.turnstile')
 
@@ -871,6 +885,8 @@ export const renderCaptcha = platform === 'steam'
       }
     }
   })
+  : PLATFORM === 'mobile'
+  ? () => {}
   : () => {
     const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
     const visible = captchaElements.find((el) => el.offsetParent !== null)
@@ -1075,7 +1091,7 @@ function handleCloudSaves () {
   const transferButton = subtabElement.querySelector<HTMLButtonElement>('button#transfer')
 
   function populateTable () {
-    fetch('/saves/retrieve/all')
+    fetch('https://synergism.cc/saves/retrieve/all')
       .then((response) => response.json())
       .then(($saves: Save[]) => {
         cloudSaves.length = 0
@@ -1258,7 +1274,7 @@ function handleCloudSaves () {
             save.actionButtons.delete.textContent = 'Deleting...'
           }
 
-          const response = await fetch('/saves/delete', {
+          const response = await fetch('https://synergism.cc/saves/delete', {
             method: 'DELETE',
             body: JSON.stringify({ name: save.name })
           })
@@ -1291,14 +1307,14 @@ function handleCloudSaves () {
     uploadButton.innerHTML = '<span class="spinner"></span> Uploading...'
 
     const name = saveFilename()
-    const save = localStorage.getItem('Synergysave2')
+    const save = storageGetItem('Synergysave2')
     assert(save !== null, 'no save')
 
     const fd = new FormData()
     fd.set('file', new File([save], name))
     fd.set('name', name)
 
-    fetch('/saves/upload', {
+    fetch('https://synergism.cc/saves/upload', {
       method: 'POST',
       body: fd
     }).then((response) => {
@@ -1315,7 +1331,7 @@ function handleCloudSaves () {
       uploadButton.textContent = i18next.t('settings.cloud.uploadFailed')
     }).finally(() => {
       setTimeout(
-        (uploadButton_) => {
+        (uploadButton_: HTMLButtonElement) => {
           uploadButton_.disabled = false
           uploadButton_.textContent = originalText
         },
@@ -1330,7 +1346,7 @@ function handleCloudSaves () {
     const originalText = transferButton.textContent
     transferButton.innerHTML = '<span class="spinner"></span> Transferring...'
 
-    fetch('/saves/transfer').then((response) => {
+    fetch('https://synergism.cc/saves/transfer').then((response) => {
       if (!response.ok) {
         throw new TypeError(`Received status ${response.status}`)
       }
@@ -1342,7 +1358,7 @@ function handleCloudSaves () {
       transferButton.textContent = i18next.t('settings.cloud.transferFailed')
     }).finally(() => {
       setTimeout(
-        (transferButton_) => {
+        (transferButton_: HTMLButtonElement) => {
           transferButton_.disabled = false
           transferButton_.textContent = originalText
         },
@@ -1354,6 +1370,10 @@ function handleCloudSaves () {
 }
 
 async function handleSteamCloudSave () {
+  if (PLATFORM !== 'steam') {
+    return
+  }
+
   const { cloudFileExists, cloudReadFile, cloudWriteFile, getSteamId } = await import('./steam/steam')
 
   const steamId = await getSteamId()
@@ -1458,7 +1478,7 @@ async function handleSteamCloudSave () {
     uploadBtn.disabled = true
     uploadBtn.textContent = i18next.t('account.steamCloud.uploading')
 
-    const localSave = localStorage.getItem('Synergysave2')
+    const localSave = storageGetItem('Synergysave2')
     if (!localSave) {
       Alert(i18next.t('account.steamCloud.noLocalSave'))
       uploadBtn.disabled = false

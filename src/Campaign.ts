@@ -16,7 +16,8 @@ import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { IconSets } from './Themes'
-import { Alert, Confirm, Notification } from './UpdateHTML'
+import { Alert, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification } from './UpdateHTML'
+import { isMobile } from './Utility'
 
 export let campaignTokens = 0
 let maxCampaignTokens = 0
@@ -1457,6 +1458,30 @@ const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRe
   }
 }
 
+const campaignTokenRewardText = (key: CampaignTokenRewardNames, value: CampaignTokenRewardDisplay) => {
+  const reward = value.reward()
+  if (typeof reward === 'string') {
+    return i18next.t(`campaigns.tokens.rewardTexts.${key}`, {
+      reward
+    })
+  }
+
+  return i18next.t(`campaigns.tokens.rewardTexts.${key}`, reward)
+}
+
+const campaignTokenRewardModalHTML = (imgSrc: string, rewardText: string) => {
+  return `<div class="campaignTokenRewardModal" data-modal-preserve="children">
+    <img src="${imgSrc}" alt="" data-modal-preserve="children">
+    <div class="campaignTokenRewardModalInfo">${rewardText}</div>
+  </div>`
+}
+
+const campaignTokenRewardSumModalHTML = (rewardTexts: string[]) => {
+  return `<div class="campaignTokenRewardModal campaignTokenRewardSumModal">
+    ${rewardTexts.map((rewardText) => `<div>${rewardText}</div>`).join('')}
+  </div>`
+}
+
 const activeCampaignTextHTML = () => {
   const campaignName = player.campaigns.current
     ? i18next.t(`campaigns.data.${player.campaigns.current}.name`)
@@ -1640,7 +1665,12 @@ export const campaignTokenRewardHTMLUpdate = () => {
     maxCount: maxCampaignTokens
   })
 
-  for (const [key, value] of Object.entries(campaignTokenRewardDatas)) {
+  for (
+    const [key, value] of Object.entries(campaignTokenRewardDatas) as [
+      CampaignTokenRewardNames,
+      CampaignTokenRewardDisplay
+    ][]
+  ) {
     // Create a new Icon if the player has enough tokens and extra requirements are met
     if (
       campaignTokens >= value.tokenRequirement
@@ -1650,21 +1680,22 @@ export const campaignTokenRewardHTMLUpdate = () => {
       tokenIcon.src = `Pictures/Campaigns/${key}.png`
       tokenIcon.classList.add('campaignTokenRewardIcon')
 
-      if (typeof value.reward() === 'string') {
-        tokenIcon.addEventListener('click', () => {
-          DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(`campaigns.tokens.rewardTexts.${key}`, {
-            reward: value.reward()
-          })
-        })
-      } else {
-        tokenIcon.addEventListener('click', () => {
-          const reward = value.reward() as Partial<Record<CampaignTokenRewardNames, string>>
-          DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(
-            `campaigns.tokens.rewardTexts.${key}`,
-            reward
+      tokenIcon.addEventListener('click', (event) => {
+        const rewardText = campaignTokenRewardText(key, value)
+        if (isMobile) {
+          Modal(
+            () => campaignTokenRewardModalHTML(tokenIcon.src, rewardText),
+            event.clientX,
+            event.clientY,
+            { borderColor: 'gold' },
+            MEDIUM_MODAL_UPDATE_TICK,
+            tokenIcon
           )
-        })
-      }
+          return
+        }
+
+        DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = rewardText
+      })
 
       DOMCacheGetOrSet('campaignTokenRewardIcons').appendChild(tokenIcon)
     }
@@ -1675,22 +1706,36 @@ export const campaignTokenRewardHTMLUpdate = () => {
     const totalRewardIcon = document.createElement('img')
     totalRewardIcon.src = 'Pictures/Campaigns/sum.png'
 
-    let popupText = ''
-    for (const [key, value] of Object.entries(campaignTokenRewardDatas)) {
+    const popupTexts: string[] = []
+    for (
+      const [key, value] of Object.entries(campaignTokenRewardDatas) as [
+        CampaignTokenRewardNames,
+        CampaignTokenRewardDisplay
+      ][]
+    ) {
       if (
         campaignTokens >= value.tokenRequirement
         && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())
       ) {
-        if (typeof value.reward() === 'string') {
-          popupText += `${i18next.t(`campaigns.tokens.rewardTexts.${key}`, { reward: value.reward() })}\n`
-        } else {
-          const reward = value.reward() as Partial<Record<CampaignTokenRewardNames, string>>
-          popupText += `${i18next.t(`campaigns.tokens.rewardTexts.${key}`, reward)}\n`
-        }
+        popupTexts.push(campaignTokenRewardText(key, value))
       }
     }
 
-    totalRewardIcon.addEventListener('click', Alert.bind(null, popupText))
+    totalRewardIcon.addEventListener('click', (event) => {
+      if (isMobile) {
+        Modal(
+          () => campaignTokenRewardSumModalHTML(popupTexts),
+          event.clientX,
+          event.clientY,
+          { borderColor: 'gold' },
+          MEDIUM_MODAL_UPDATE_TICK,
+          totalRewardIcon
+        )
+        return
+      }
+
+      Alert(`${popupTexts.join('\n')}\n`)
+    })
     DOMCacheGetOrSet('campaignTokenRewardIcons').appendChild(totalRewardIcon)
   }
 }

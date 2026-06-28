@@ -11,12 +11,18 @@ const formatter = Intl.NumberFormat('en-US', {
   currency: 'USD'
 })
 
-const clickHandler = (e: HTMLElementEventMap['click']) => {
+const clickHandler = async (e: HTMLElementEventMap['click']) => {
   const productId = (e.target as HTMLButtonElement).getAttribute('data-id')
   const productName = (e.target as HTMLButtonElement).getAttribute('data-name')
 
   if (productId === null || !coinProducts.some((product) => product.id === productId)) {
     Alert('Stop fucking touching the html! We do server-side validation!')
+    return
+  }
+
+  if (PLATFORM === 'mobile') {
+    const { orderProduct } = await import('../mobile/microtxn')
+    await orderProduct(productId)
     return
   }
 

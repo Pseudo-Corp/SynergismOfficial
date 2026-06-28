@@ -1,8 +1,7 @@
 import i18next from 'i18next'
 import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
-import { platform } from './Config'
-import { pressedKeys } from './Hotkeys'
+import { storageGetItem, storageSetItem } from './events/storage-events'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
 import { getGQUpgradeEffect } from './singularity'
@@ -19,7 +18,7 @@ import {
   toggleSingularityScreen
 } from './Toggles'
 import { changeTabColor, CloseModal, hideStuff, revealStuff } from './UpdateHTML'
-import { assert, limitRange } from './Utility'
+import { assert, isMobile, limitRange, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 export enum Tabs {
@@ -54,6 +53,10 @@ interface SubTab {
     unlocked: () => boolean
     buttonID: string
   }[]
+}
+
+const scrollMainToTop = () => {
+  document.querySelector<HTMLElement>('main')?.scrollTo({ top: 0, left: 0 })
 }
 
 const subtabInfo: Record<Tabs, SubTab> = {
@@ -325,12 +328,12 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'cartContainer',
-        unlocked: () => true,
+        unlocked: () => PLATFORM !== 'mobile',
         buttonID: 'cartSubTab5'
       },
       {
         subTabID: 'merchContainer',
-        unlocked: () => platform === 'browser', // Steam disallows purchases outside of the Steam ecosystem
+        unlocked: () => PLATFORM === 'browser', // Steam/Apple/Google disallow purchases outside of their ecosystems
         buttonID: 'cartSubTab6'
       }
     ]
@@ -338,10 +341,20 @@ const subtabInfo: Record<Tabs, SubTab> = {
 }
 
 const TAB_ORDER_KEY = 'synergism-tab-order'
+const TAB_EDIT_HOLD_MS = 650
+const TAB_HOLD_CANCEL_DISTANCE_PX = 8
 
 class TabRow extends HTMLDivElement {
   #list: $Tab[] = []
   #currentTab!: $Tab
+  #isEditing = false
+  #holdTimer: number | undefined
+  #activePointerId: number | null = null
+  #pointerDownTab: $Tab | null = null
+  #draggedTab: $Tab | null = null
+  #pointerStartX = 0
+  #pointerStartY = 0
+  #dragCreated = false
 
   constructor () {
     super()
@@ -419,12 +432,39 @@ class TabRow extends HTMLDivElement {
     this.#list.forEach((el) => el.resetHidden())
   }
 
+  isEditing () {
+    return this.#isEditing
+  }
+
+  hideTab (tab: $Tab) {
+    if (!tab.canBeRemoved()) {
+      return
+    }
+
+    const wasCurrentTab = tab === this.#currentTab
+
+    tab.hide()
+    tab.classList.remove('tab-being-dragged')
+
+    if (tab.parentElement === this) {
+      this.removeChild(tab)
+    }
+
+    if (wasCurrentTab) {
+      const nextTab = this.#getNextUnlockedTab(tab)
+      if (nextTab !== null) {
+        changeTab(nextTab.getType())
+        changeTabColor()
+      }
+    }
+  }
+
   #saveOrder () {
-    localStorage.setItem(TAB_ORDER_KEY, JSON.stringify(this.#list.map((tab) => tab.id)))
+    storageSetItem(TAB_ORDER_KEY, JSON.stringify(this.#list.map((tab) => tab.id)))
   }
 
   #restoreOrder () {
-    const saved = localStorage.getItem(TAB_ORDER_KEY)
+    const saved = storageGetItem(TAB_ORDER_KEY)
     if (!saved) return
 
     try {
@@ -453,67 +493,222 @@ class TabRow extends HTMLDivElement {
   }
 
   #createDrag () {
-    let dragSrcEl: HTMLElement | null = null
-
-    const handleDragStart = (e: DragEvent) => {
-      assert(e.target instanceof HTMLElement)
-
-      e.target.style.opacity = '0.4'
-
-      dragSrcEl = e.target
-
-      e.dataTransfer!.effectAllowed = 'move'
+    if (this.#dragCreated) {
+      return
     }
 
-    /* eslint-disable unicorn/consistent-function-scoping */
-    const handleDragEnter = (e: DragEvent) => {
-      if (e.target instanceof HTMLElement) {
-        e.target.classList.add('over')
+    this.#dragCreated = true
+    this.addEventListener('pointerdown', (event) => this.#handlePointerDown(event))
+    window.addEventListener('pointermove', (event) => this.#handlePointerMove(event))
+    window.addEventListener('pointerup', (event) => this.#handlePointerUp(event))
+    window.addEventListener('pointercancel', (event) => this.#handlePointerUp(event))
+    document.addEventListener('click', (event) => this.#handleDocumentClick(event), true)
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        this.#exitEditMode()
       }
-    }
-
-    const handleDragLeave = (e: DragEvent) => {
-      if (e.target instanceof HTMLElement) {
-        e.target.classList.remove('over')
-      }
-    }
-    /* eslint-enable unicorn/consistent-function-scoping */
-
-    const handleDrop = (e: DragEvent) => {
-      e.stopPropagation()
-
-      if (dragSrcEl !== e.target && dragSrcEl !== null) {
-        this.insertBefore(dragSrcEl, e.target as HTMLElement)
-
-        const dragIndex = this.#list.indexOf(dragSrcEl as $Tab)
-        const targetIndex = this.#list.indexOf(e.target as $Tab)
-
-        this.#list.splice(targetIndex, 0, this.#list[dragIndex])
-        this.#list.splice(this.#list.indexOf(dragSrcEl as $Tab, dragIndex), 1)
-
-        this.#saveOrder()
-      }
-
-      return false
-    }
-
-    const handleDragEnd = (e: DragEvent) => {
-      assert(e.target instanceof HTMLElement)
-      e.target.style.opacity = '1'
-
-      this.#list.forEach((item) => {
-        item.classList.remove('over')
-      })
-    }
-
-    this.#list.forEach((item) => {
-      item.addEventListener('dragstart', handleDragStart, false)
-      item.addEventListener('dragenter', handleDragEnter, false)
-      item.addEventListener('dragover', handleDrop, false)
-      item.addEventListener('dragleave', handleDragLeave, false)
-      item.addEventListener('drop', handleDrop, false)
-      item.addEventListener('dragend', handleDragEnd, false)
     })
+  }
+
+  #handlePointerDown (event: PointerEvent) {
+    if (event.button !== 0) {
+      return
+    }
+
+    const tab = this.#getTabFromEventTarget(event.target)
+    if (tab === null || !tab.canMove() || !tab.isUnlocked()) {
+      return
+    }
+
+    if (this.#isEditing) {
+      event.preventDefault()
+
+      if (!tab.isCloseButtonHit(event)) {
+        this.#beginDrag(tab, event.pointerId)
+      }
+
+      return
+    }
+
+    this.#clearHoldTimer()
+    this.#activePointerId = event.pointerId
+    this.#pointerDownTab = tab
+    this.#pointerStartX = event.clientX
+    this.#pointerStartY = event.clientY
+    this.#holdTimer = window.setTimeout(() => {
+      this.#holdTimer = undefined
+      this.#enterEditMode()
+
+      if (this.#pointerDownTab !== null && this.#activePointerId !== null) {
+        this.#beginDrag(this.#pointerDownTab, this.#activePointerId)
+      }
+    }, TAB_EDIT_HOLD_MS)
+  }
+
+  #handlePointerMove (event: PointerEvent) {
+    if (this.#activePointerId !== event.pointerId) {
+      return
+    }
+
+    const distanceX = event.clientX - this.#pointerStartX
+    const distanceY = event.clientY - this.#pointerStartY
+    const movedBeyondHoldDistance = Math.hypot(distanceX, distanceY) > TAB_HOLD_CANCEL_DISTANCE_PX
+
+    if (!this.#isEditing) {
+      if (movedBeyondHoldDistance) {
+        this.#clearHoldTimer()
+      }
+
+      return
+    }
+
+    if (this.#draggedTab === null) {
+      return
+    }
+
+    event.preventDefault()
+    this.#moveDraggedTabToPointer(event.clientX, event.clientY)
+  }
+
+  #handlePointerUp (event: PointerEvent) {
+    if (this.#activePointerId !== event.pointerId) {
+      return
+    }
+
+    this.#clearHoldTimer()
+
+    if (this.#draggedTab !== null) {
+      this.#draggedTab.classList.remove('tab-being-dragged')
+      this.#draggedTab = null
+    }
+
+    this.#activePointerId = null
+    this.#pointerDownTab = null
+  }
+
+  #handleDocumentClick (event: MouseEvent) {
+    if (!this.#isEditing || !(event.target instanceof Node) || this.contains(event.target)) {
+      return
+    }
+
+    this.#exitEditMode()
+    event.preventDefault()
+    event.stopPropagation()
+  }
+
+  #enterEditMode () {
+    if (this.#isEditing) {
+      return
+    }
+
+    this.#isEditing = true
+    this.classList.add('tab-edit-mode')
+    this.#list.forEach((tab) => {
+      tab.setAttribute('aria-grabbed', 'false')
+      tab.showCloseButton()
+    })
+  }
+
+  #exitEditMode () {
+    if (!this.#isEditing) {
+      return
+    }
+
+    this.#isEditing = false
+    this.classList.remove('tab-edit-mode')
+    this.#clearHoldTimer()
+
+    if (this.#draggedTab !== null) {
+      this.#draggedTab.classList.remove('tab-being-dragged')
+      this.#draggedTab = null
+    }
+
+    this.#list.forEach((tab) => {
+      tab.removeAttribute('aria-grabbed')
+      tab.hideCloseButton()
+    })
+    this.#activePointerId = null
+    this.#pointerDownTab = null
+  }
+
+  #beginDrag (tab: $Tab, pointerId: number) {
+    this.#draggedTab = tab
+    this.#activePointerId = pointerId
+    tab.classList.add('tab-being-dragged')
+    tab.setAttribute('aria-grabbed', 'true')
+  }
+
+  #moveDraggedTabToPointer (x: number, y: number) {
+    assert(this.#draggedTab !== null)
+
+    const target = this.#getTabFromPoint(x, y)
+    if (target === null || target === this.#draggedTab) {
+      return
+    }
+
+    const targetRect = target.getBoundingClientRect()
+    const isColumn = getComputedStyle(this).flexDirection === 'column'
+    const insertBeforeTarget = isColumn
+      ? y < targetRect.top + targetRect.height / 2
+      : x < targetRect.left + targetRect.width / 2
+    const referenceTab = insertBeforeTarget ? target : this.#getNextVisibleTab(target)
+
+    this.#moveTabBefore(this.#draggedTab, referenceTab)
+  }
+
+  #moveTabBefore (tab: $Tab, referenceTab: $Tab | null) {
+    if (tab === referenceTab) {
+      return
+    }
+
+    this.insertBefore(tab, referenceTab)
+
+    const tabs = this.#list.filter((item) => item !== tab)
+    const referenceIndex = referenceTab === null ? tabs.length : tabs.indexOf(referenceTab)
+    tabs.splice(referenceIndex === -1 ? tabs.length : referenceIndex, 0, tab)
+    this.#list = tabs
+    this.#saveOrder()
+  }
+
+  #clearHoldTimer () {
+    if (this.#holdTimer === undefined) {
+      return
+    }
+
+    window.clearTimeout(this.#holdTimer)
+    this.#holdTimer = undefined
+  }
+
+  #getTabFromEventTarget (target: EventTarget | null) {
+    if (!(target instanceof Element)) {
+      return null
+    }
+
+    const tab = target.closest('#tabrow > button')
+    return tab instanceof $Tab ? tab : null
+  }
+
+  #getTabFromPoint (x: number, y: number) {
+    return this.#getTabFromEventTarget(document.elementFromPoint(x, y))
+  }
+
+  #getNextVisibleTab (tab: $Tab) {
+    const nextSibling = tab.nextElementSibling
+    return nextSibling instanceof $Tab ? nextSibling : null
+  }
+
+  #getNextUnlockedTab (tab: $Tab) {
+    let nextTab = this.getNextTab(tab)
+
+    for (let searched = 0; searched < this.#list.length; searched++) {
+      if (nextTab.isUnlocked()) {
+        return nextTab
+      }
+
+      nextTab = this.getNextTab(nextTab)
+    }
+
+    return null
   }
 }
 
@@ -521,6 +716,7 @@ interface kSubTabOptionsBag {
   id: string
   class?: string
   i18n: string
+  mobileIcon: string
   borderColor?: string
 }
 
@@ -528,6 +724,7 @@ class $Tab extends HTMLButtonElement {
   #unlocked = () => true
   #type!: Tabs
   #removeable = false
+  #moveable = false
   #hidden = false
 
   constructor (options: kSubTabOptionsBag) {
@@ -538,23 +735,41 @@ class $Tab extends HTMLButtonElement {
       this.classList.add(options.class)
     }
 
-    this.setAttribute('i18n', options.i18n)
+    if (isMobile) {
+      this.classList.add('mobileTabIconButton')
+      this.dataset.i18n = options.i18n
+      this.setAttribute('i18n-aria-label', options.i18n)
+      const icon = document.createElement('img')
+      icon.classList.add('mobileTabIcon')
+      icon.setAttribute('i18n-aria-label', options.i18n)
+      icon.src = `Pictures/Tab Icons/Tabs/${options.mobileIcon}`
+      icon.loading = 'lazy'
+      icon.width = 32
+      icon.height = 32
+      icon.draggable = false
+      this.appendChild(icon)
+    } else {
+      this.setAttribute('i18n', options.i18n)
+    }
 
     if (options.borderColor) {
       this.style.borderColor = options.borderColor
     }
 
-    this.addEventListener('click', () => {
-      if (this.#removeable && pressedKeys.has('ControlLeft') && pressedKeys.has('KeyX')) {
-        // When clicking on a tab while holding CTRL + X
-        if (G.currentTab !== this.#type) {
-          tabRow.removeChild(this)
-          this.#hidden = true
+    this.addEventListener('click', (event) => {
+      if (tabRow.isEditing()) {
+        event.preventDefault()
+        event.stopPropagation()
+
+        if (this.#removeable && this.isCloseButtonHit(event)) {
+          tabRow.hideTab(this)
         }
-      } else {
-        changeTab(this.#type)
-        changeTabColor()
+
+        return
       }
+
+      changeTab(this.#type)
+      changeTabColor()
     })
   }
 
@@ -581,13 +796,60 @@ class $Tab extends HTMLButtonElement {
   }
 
   makeDraggable () {
-    this.setAttribute('draggable', 'true')
+    this.#moveable = true
+    this.classList.add('tabDraggable')
     return this
   }
 
   makeRemoveable () {
     this.#removeable = true
+    this.classList.add('tabRemoveable')
     return this
+  }
+
+  canMove () {
+    return this.#moveable
+  }
+
+  canBeRemoved () {
+    return this.#removeable
+  }
+
+  hide () {
+    this.#hidden = true
+  }
+
+  showCloseButton () {
+    if (!this.#removeable || this.getElementsByClassName('tabCloseButton').length > 0) {
+      return
+    }
+
+    const closeButton = document.createElement('span')
+    closeButton.classList.add('tabCloseButton')
+    closeButton.textContent = '×'
+    closeButton.setAttribute('role', 'button')
+    closeButton.setAttribute('aria-label', i18next.t('tabs.hideTab'))
+    closeButton.setAttribute('i18n-aria-label', 'tabs.hideTab')
+    this.appendChild(closeButton)
+  }
+
+  hideCloseButton () {
+    this.getElementsByClassName('tabCloseButton').item(0)?.remove()
+  }
+
+  isCloseButtonHit (event: MouseEvent | PointerEvent) {
+    if (!this.#removeable) {
+      return false
+    }
+
+    if (event.target instanceof Element && event.target.closest('.tabCloseButton') !== null) {
+      return true
+    }
+
+    const rect = this.getBoundingClientRect()
+    const hitboxSize = 24
+
+    return event.clientX >= rect.right - hitboxSize && event.clientY <= rect.top + hitboxSize
   }
 
   resetHidden () {
@@ -602,72 +864,92 @@ export const tabRow = new TabRow()
 document.getElementsByClassName('navbar').item(0)?.appendChild(tabRow)
 
 tabRow.appendButton(
-  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' })
+  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings', mobileIcon: 'Buildings.png' })
     .setType(Tabs.Buildings)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades' })
+  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades', mobileIcon: 'Upgrades.png' })
     .setType(Tabs.Upgrades)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ /*class: 'prestigeunlock',*/ id: 'achievementstab', i18n: 'tabs.main.achievements' })
+  new $Tab({
+    /* class: 'prestigeunlock', */
+    id: 'achievementstab',
+    i18n: 'tabs.main.achievements',
+    mobileIcon: 'Achievements.png'
+  })
     // .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Achievements)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'prestigeunlock', id: 'runestab', i18n: 'tabs.main.runes' })
+  new $Tab({ class: 'prestigeunlock', id: 'runestab', i18n: 'tabs.main.runes', mobileIcon: 'Runes.png' })
     .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Runes)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'transcendunlock', id: 'challengetab', i18n: 'tabs.main.challenges' })
+  new $Tab({
+    class: 'transcendunlock',
+    id: 'challengetab',
+    i18n: 'tabs.main.challenges',
+    mobileIcon: 'Challenges.png'
+  })
     .setUnlockedState(() => player.unlocks.transcend)
     .setType(Tabs.Challenges)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'reincarnationunlock', id: 'researchtab', i18n: 'tabs.main.research' })
+  new $Tab({
+    class: 'reincarnationunlock',
+    id: 'researchtab',
+    i18n: 'tabs.main.research',
+    mobileIcon: 'Research.png'
+  })
     .setUnlockedState(() => player.unlocks.reincarnate)
     .setType(Tabs.Research)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal8', id: 'anttab', i18n: 'tabs.main.antHill' })
+  new $Tab({ class: 'chal8', id: 'anttab', i18n: 'tabs.main.antHill', mobileIcon: 'Anthill.png' })
     .setUnlockedState(() => player.unlocks.anthill)
     .setType(Tabs.AntHill)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal10', id: 'cubetab', i18n: 'tabs.main.wowCubes' })
+  new $Tab({ class: 'chal10', id: 'cubetab', i18n: 'tabs.main.wowCubes', mobileIcon: 'WowCubes.png' })
     .setUnlockedState(() => player.unlocks.ascensions)
     .setType(Tabs.WowCubes)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal11', id: 'campaigntab', i18n: 'tabs.main.campaign' })
+  new $Tab({ class: 'chal11', id: 'campaigntab', i18n: 'tabs.main.campaign', mobileIcon: 'Campaigns.png' })
     .setUnlockedState(() => player.challengecompletions[11] > 0)
     .setType(Tabs.Campaign)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
+  new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption', mobileIcon: 'Corruption.png' })
     .setUnlockedState(() => (player.challengecompletions[11] > 0))
     .setType(Tabs.Corruption)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'singularity', id: 'singularitytab', i18n: 'tabs.main.singularity' })
+  new $Tab({
+    class: 'singularity',
+    id: 'singularitytab',
+    i18n: 'tabs.main.singularity',
+    mobileIcon: 'Singularity.png'
+  })
     .setUnlockedState(() => player.highestSingularityCount > 0)
     .setType(Tabs.Singularity)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings' })
+  new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings', mobileIcon: 'Settings.png' })
     .setType(Tabs.Settings)
     .makeDraggable(),
-  new $Tab({ class: 'reincarnationunlock', id: 'shoptab', i18n: 'tabs.main.shop' })
+  new $Tab({ class: 'reincarnationunlock', id: 'shoptab', i18n: 'tabs.main.shop', mobileIcon: 'Shop.png' })
     .setUnlockedState(() => player.unlocks.reincarnate || player.highestSingularityCount > 0)
     .setType(Tabs.Shop)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' })
+  new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith', mobileIcon: 'Events.png' })
     .setType(Tabs.Event)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'pseudoCoinstab', i18n: 'tabs.main.purchase' })
+  new $Tab({ id: 'pseudoCoinstab', i18n: 'tabs.main.purchase', mobileIcon: 'PseudoCoins.png' })
     .setType(Tabs.Purchase)
     .makeDraggable()
 )
@@ -686,8 +968,8 @@ mobileMenuToggle.addEventListener('click', toggleMobileMenu)
 
 // Close mobile menu when a tab is clicked
 tabRow.addEventListener('click', (e) => {
-  const target = e.target as HTMLElement
-  if (target.tagName === 'BUTTON' && navbar?.classList.contains('menu-open')) {
+  const target = e.target instanceof Element ? e.target.closest('#tabrow > button') : null
+  if (!isMobile && !tabRow.isEditing() && target !== null && navbar?.classList.contains('menu-open')) {
     toggleMobileMenu()
   }
 })
@@ -732,6 +1014,16 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   }
 
   G.currentTab = tabRow.getCurrentTab().getType()
+  for (const tab of tabRow.getSubs()) {
+    const isActive = tab === tabRow.getCurrentTab()
+    tab.classList.toggle('active-tab', isActive)
+
+    if (isActive) {
+      tab.setAttribute('aria-current', 'page')
+    } else {
+      tab.removeAttribute('aria-current')
+    }
+  }
 
   if (G.currentTab === Tabs.Achievements) {
     awardUngroupedAchievement('participationTrophy')
@@ -760,7 +1052,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
     }
   }
 
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     import('./steam/discord').then(({ setRichPresenceDiscord }) => {
       const i18n = tabRow.getCurrentTab().getAttribute('i18n')
       setRichPresenceDiscord({
@@ -769,6 +1061,24 @@ export const changeTab = (tabs: Tabs, step?: number) => {
         startTimestamp: new Date()
       })
     })
+  }
+}
+
+/**
+ * Resets tab state with no side-effects
+ */
+export const resetAllSubTabs = (page = 0) => {
+  for (const tab of Object.values(Tabs)) {
+    if (typeof tab === 'number') {
+      const subTabs = subtabInfo[tab]
+
+      if (subTabs.subTabList.length === 0) {
+        subTabs.subtabIndex = 0
+        return
+      }
+
+      subTabs.subtabIndex = limitRange(page, 0, subTabs.subTabList.length - 1)
+    }
   }
 }
 
@@ -819,10 +1129,23 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
     }
 
     subTabs.tabSwitcher?.()(subTabList.subTabID)
+    scrollMainToTop()
   }
 
   CloseModal()
 }
+
+export const registerSubTabSwitches = memoize(() => {
+  for (const tab of Object.values(Tabs)) {
+    if (typeof tab !== 'number') {
+      continue
+    }
+
+    for (const [page, subtab] of subtabInfo[tab].subTabList.entries()) {
+      DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => changeSubTab(tab, { page }))
+    }
+  }
+})
 
 export function subTabsInMainTab (name: Tabs) {
   let tab = tabRow.getCurrentTab()

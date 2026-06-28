@@ -1,6 +1,6 @@
 import { type FUNDING_SOURCE, loadScript } from '@paypal/paypal-js'
 import i18next from 'i18next'
-import { isSynergismCC, platform, prod } from '../Config'
+import { isSynergismCC } from '../Config'
 import { Alert, Notification } from '../UpdateHTML'
 import { assert, memoize } from '../Utility'
 import { products, subscriptionProducts } from './CartTab'
@@ -49,7 +49,7 @@ const initializeCheckoutTab = memoize(() => {
   async function submitCheckout (e: MouseEvent) {
     if (!radioTOSAgree.checked) {
       e.preventDefault()
-      Notification('You must accept the terms of service first!')
+      Notification(i18next.t('tabs.pseudocoins.agreeTOS'))
       return
     }
 
@@ -72,7 +72,7 @@ const initializeCheckoutTab = memoize(() => {
     let url: string
 
     if (e.target === checkoutStripe) {
-      url = !prod
+      url = !PROD
         ? 'https://synergism.cc/stripe/test/create-checkout-session'
         : 'https://synergism.cc/stripe/create-checkout-session'
     } else if (e.target === checkoutNowPayments) {
@@ -107,6 +107,10 @@ const initializeCheckoutTab = memoize(() => {
   }
 
   async function submitCheckoutSteam (_e: MouseEvent) {
+    if (PLATFORM !== 'steam') {
+      return
+    }
+
     const { submitSteamMicroTxn } = await import('../steam/microtxn')
 
     const fd = new FormData()
@@ -133,7 +137,7 @@ const initializeCheckoutTab = memoize(() => {
     tosSection.classList.remove('rainbow-border-highlight')
   })
 
-  if (platform !== 'steam') {
+  if (PLATFORM !== 'steam') {
     checkoutStripe?.addEventListener('click', submitCheckout)
     checkoutNowPayments?.addEventListener('click', submitCheckout)
 
@@ -237,7 +241,7 @@ const updateTotalPriceInCart = () => {
  * https://stackoverflow.com/a/69024269
  */
 async function initializePayPal_OneTime (selector: string | HTMLElement) {
-  assert(platform !== 'steam', 'Cannot use PayPal on steam')
+  assert(PLATFORM !== 'steam', 'Cannot use PayPal on steam')
 
   const paypal = await loadScript({
     clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',

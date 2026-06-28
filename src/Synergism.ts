@@ -16,7 +16,7 @@ import {
   highestChallengeRewards,
   tickChallengeSweep
 } from './Challenges'
-import { btoa } from './Utility'
+import { btoa, isMobile } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -95,7 +95,6 @@ import {
 import {
   applyChallengeInitialModifiers,
   reset,
-  resetrepeat,
   singularity,
   updateAutoCubesOpens,
   updateAutoReset,
@@ -159,7 +158,8 @@ import {
 import {
   ascendBuildingDR,
   buyConstantUpgrades,
-  categoryUpgrades,
+  buyUpgradeByCategory,
+  generateUpgradesTab,
   getConstUpgradeMetadata,
   upgradeupdate
 } from './Upgrades'
@@ -184,9 +184,10 @@ import {
   updateMaxTokens,
   updateTokens
 } from './Campaign'
-import { dev, lastUpdated, platform, prod, testing, ticksPerSecond, version } from './Config'
+import { lastUpdated, testing, ticksPerSecond, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
+import { initMobileStorage, storageGetItem, storageSetItem } from './events/storage-events'
 import { autobuyAnts } from './Features/Ants'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { calculateImmortalELOGain } from './Features/Ants/AntSacrifice/Rewards/ELO/ImmortalELO/lib/calculate'
@@ -250,7 +251,8 @@ import {
   singularityChallengeData,
   type SingularityChallengeDataKeys
 } from './SingularityChallenges'
-import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
+import { changeSubTab, changeTab, getActiveSubTab, resetAllSubTabs, Tabs } from './Tabs'
+import { populateBuildingButtonRows } from './tabs/buildings'
 import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 
@@ -1276,7 +1278,7 @@ export const saveSynergy = (button?: boolean) => {
   const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
   if (save !== null) {
-    localStorage.setItem('Synergysave2', save)
+    storageSetItem('Synergysave2', save)
   } else {
     void Alert(i18next.t('testing.errorSaving'))
     return false
@@ -1289,7 +1291,7 @@ export const saveSynergy = (button?: boolean) => {
   }
 
   // Auto-sync to Steam Cloud (throttled to every 60 seconds, or immediately on manual save)
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     const now = Date.now()
     if (button || now - lastSteamCloudSync >= 60_000) {
       lastSteamCloudSync = now
@@ -1303,6 +1305,10 @@ export const saveSynergy = (button?: boolean) => {
 let lastSteamCloudSync = 0
 
 async function syncToSteamCloud (saveData: string) {
+  if (PLATFORM !== 'steam') {
+    return
+  }
+
   const { cloudFileExists, cloudReadFile, cloudWriteFile, getSteamId } = await import('./steam/steam')
   const steamId = await getSteamId()
   if (!steamId) return
@@ -1336,7 +1342,7 @@ async function syncToSteamCloud (saveData: string) {
 }
 
 const loadSynergy = () => {
-  const saveString = localStorage.getItem('Synergysave2')
+  const saveString = storageGetItem('Synergysave2')
   const data = saveString ? JSON.parse(atob(saveString)) : null
   if (data && testing) {
     data.exporttest = false
@@ -1551,8 +1557,6 @@ const loadSynergy = () => {
 
     // For blueberry upgrades!
     displayProperLoadoutCount()
-
-    DOMCacheGetOrSet('talismanLevelUpCost').style.display = 'none'
 
     // This must be initialized at the beginning of the calculation
     c15RewardUpdate()
@@ -2025,12 +2029,6 @@ const loadSynergy = () => {
       const sing = player.singularityChallenges[G.currentSingChallenge].computeSingularityRquirement()
       player.singularityCount = sing
     }
-  }
-
-  if (player.currentChallenge.reincarnation) {
-    resetrepeat('reincarnationChallenge')
-  } else if (player.currentChallenge.transcension) {
-    resetrepeat('transcensionChallenge')
   }
 
   syncSteamAchievements()
@@ -4883,7 +4881,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         }
       }
       if (G.currentTab === Tabs.Upgrades) {
-        categoryUpgrades(num, false)
+        buyUpgradeByCategory(num - 1, false)
       }
       if (G.currentTab === Tabs.Runes) {
         if (getActiveSubTab() === 0) {
@@ -4903,7 +4901,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
 
     case '6':
       if (G.currentTab === Tabs.Upgrades) {
-        categoryUpgrades(6, false)
+        buyUpgradeByCategory(5, false)
       }
       if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(1)
@@ -4983,7 +4981,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
 
   disableHotkeys()
 
-  const saveObject = localStorage.getItem('Synergysave2')
+  const saveObject = storageGetItem('Synergysave2')
 
   if (saveObject) {
     const decompress = LZString.decompressFromBase64(saveObject)
@@ -5001,7 +4999,7 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
       }
 
       localStorage.clear()
-      localStorage.setItem('Synergysave2', saveString)
+      storageSetItem('Synergysave2', saveString)
       Alert(i18next.t('main.transferredFromLZ'))
     }
 
@@ -5120,15 +5118,9 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   createTimer()
 
   // Reset Displays
+  resetAllSubTabs()
   changeTab(Tabs.Buildings)
-
   changeSubTab(Tabs.Buildings, { page: 0 })
-  changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
-  changeSubTab(Tabs.Challenges, { page: 0 }) // Set 'challenges' subtab back to 'normal' tab
-  changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
-  changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
-  changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
-  changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
 
   dailyResetCheck()
   setInterval(dailyResetCheck, 30000)
@@ -5168,11 +5160,11 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   }
 
   const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
-  saveType.checked = localStorage.getItem('copyToClipboard') !== null
+  saveType.checked = storageGetItem('copyToClipboard') !== null
 }
 
 window.addEventListener('load', async () => {
-  if (dev || testing) {
+  if (DEV || testing) {
     const { worker } = await import('./mock/browser')
     await worker.start({
       serviceWorker: {
@@ -5181,9 +5173,24 @@ window.addEventListener('load', async () => {
     })
   }
 
-  const symbolsEnabled = localStorage.getItem('statSymbols')
+  document.documentElement.dataset.mobile = `${isMobile}`
+
+  if (PLATFORM === 'mobile') {
+    await initMobileStorage()
+    const [{ bindMobileFormHandlers }, { initMobilePurchases }, { initPushNotifications }] =
+      await Promise.all([
+        import('./mobile/auth'),
+        import('./mobile/microtxn'),
+        import('./mobile/notifications')
+      ])
+    bindMobileFormHandlers()
+    initMobilePurchases()
+    initPushNotifications().catch((e) => console.error('Failed to initialize push notifications', e))
+  }
+
+  const symbolsEnabled = storageGetItem('statSymbols')
   if (!symbolsEnabled) {
-    localStorage.setItem('statSymbols', 'true')
+    storageSetItem('statSymbols', 'true')
     enableStatSymbols()
   } else if (symbolsEnabled === 'true') {
     enableStatSymbols()
@@ -5230,6 +5237,8 @@ window.addEventListener('load', async () => {
   }
   document.title = `Synergism v${version}`
 
+  populateBuildingButtonRows()
+  generateUpgradesTab()
   generateRunesHTML()
   generateTalismansHTML()
   generateBlessingsHTML()
@@ -5248,7 +5257,7 @@ window.addEventListener('load', async () => {
 
   reloadShit()
 
-  if (testing || !prod) {
+  if (testing || !PROD) {
     Object.defineProperties(window, {
       player: { value: player },
       G: { value: G },
@@ -5257,7 +5266,7 @@ window.addEventListener('load', async () => {
     })
   }
 
-  if (platform === 'steam') {
+  if (PLATFORM === 'steam') {
     const { setRichPresenceDiscord, getDiscordRpcEnabled, setDiscordRpcEnabled } = await import('./steam/discord')
 
     setRichPresenceDiscord({
