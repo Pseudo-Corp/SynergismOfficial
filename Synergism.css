@@ -7379,7 +7379,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     /* Sub tab wrappers */
-    .subTabWrapper {
+    html[data-mobile="true"] .subTabWrapper {
         position: fixed;
         top: var(--mobile-subtab-top);
         left: 0;
