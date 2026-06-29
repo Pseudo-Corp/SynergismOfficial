@@ -6189,7 +6189,8 @@
       "darker": "Darker Mode",
       "lighterDark": "Lighter Dark Mode",
       "light": "Light Mode",
-      "dracula": "Dracula Mode"
+      "dracula": "Dracula Mode",
+      "oled": "OLED Mode"
     },
     "currentIconSet": "Current Icon Set",
     "notation": {
