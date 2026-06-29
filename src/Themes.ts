@@ -91,7 +91,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('notationTitle').style.color = 'pink'
     DOMCacheGetOrSet('hepteractWelcome').style.color = 'pink'
     DOMCacheGetOrSet('confirmationdisclaimer').style.color = 'plum'
-    DOMCacheGetOrSet('superiorIntellectRunePower').style.color = 'tomato'
     DOMCacheGetOrSet('hypercubeWelcome').style.color = '#ff004c' // Hypercube colors
     DOMCacheGetOrSet('hypercubeQuantity').style.color = '#ff004c'
     DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#ff004c'
@@ -205,7 +204,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('hypercubeWelcome').style.color = '#f58'
     DOMCacheGetOrSet('hypercubeQuantity').style.color = '#f58'
     DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#f58'
-    DOMCacheGetOrSet('superiorIntellectRunePower').style.color = '#ff7158'
 
     themeButton.textContent = i18next.t('settings.themes.light')
   } else if (themeNumber === 5) { // 'Dracula Mode'
