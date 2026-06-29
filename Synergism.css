@@ -2867,8 +2867,7 @@ p#reincarnatehotkeys {
     display: flex;
     padding: 5px;
     margin-top: 10px;
-    /* TODO: this sucks */
-    width: calc(103px * 8 - 8px);
+    width: calc(103px * 8 - 8px); /* TODO: this sucks */
     border: 3px solid plum;
     gap: 5px;
     flex-wrap: wrap;
