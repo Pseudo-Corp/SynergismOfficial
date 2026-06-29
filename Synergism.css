@@ -558,6 +558,7 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
     width: 90%;
     transform: translate(-50%, -50%);
     margin: 0;
+    z-index: 2;
     text-align: center;
     white-space: pre-line;
 }
@@ -8031,6 +8032,11 @@ html[data-mobile="true"] .hideOnMobile {
 
     #themeArea.open > div {
         display: inline-grid;
+    }
+
+    /* On mobile the dropdown is toggled via .open; don't let focus-within force it open */
+    #themeArea:not(.open):focus-within > div {
+        display: none;
     }
 
     #ascendConstantUpgrades {

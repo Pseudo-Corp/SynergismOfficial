@@ -3604,7 +3604,11 @@ const awardAchievement = (index: number) => {
     updateAchievementLevel()
     if (player.toggles[34]) {
       const description = i18next.t(`achievements.descriptions.${index}`)
-      void Notification(i18next.t('achievements.notification', { m: description }))
+      // on mobile, notifications take up a decent amount of space, so show them for a shorter period of time
+      void Notification(
+        i18next.t('achievements.notification', { m: description }),
+        isMobile ? 5000 : undefined
+      )
     }
     player.worlds.add(getAchievementQuarks(), false, true)
     revealStuff()

@@ -131,7 +131,7 @@ import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, registerSubTabSwitches, Tabs } from './Tabs'
-import { IconSets, imgErrorHandler, toggleAnnotation, toggleIconSet, toggleTheme } from './Themes'
+import { IconSets, imgErrorHandler, themeValues, toggleAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import {
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
@@ -1042,10 +1042,24 @@ export const generateEventHandlers = () => {
     achievement.addEventListener('mouseover', () => achievementdescriptions(index))
     achievement.addEventListener('focus', () => achievementdescriptions(index))
   }*/
-  DOMCacheGetOrSet('showAchievementProgress').addEventListener('mouseover', () => displayAchievementProgress())
-  DOMCacheGetOrSet('showAchievementProgress').addEventListener('focus', () => displayAchievementProgress())
-  DOMCacheGetOrSet('showAchievementProgress').addEventListener('mouseout', () => resetAchievementProgressDisplay())
-  DOMCacheGetOrSet('showAchievementProgress').addEventListener('blur', () => resetAchievementProgressDisplay())
+
+  const achievementProgress = DOMCacheGetOrSet('showAchievementProgress')
+
+  if (isMobile) {
+    achievementProgress.addEventListener('click', function (this: HTMLElement) {
+      const toggled = this.toggleAttribute('show-progress')
+      if (!toggled) {
+        resetAchievementProgressDisplay()
+      } else {
+        displayAchievementProgress()
+      }
+    })
+  } else {
+    achievementProgress.addEventListener('mouseover', () => displayAchievementProgress())
+    achievementProgress.addEventListener('focus', () => displayAchievementProgress())
+    achievementProgress.addEventListener('mouseout', () => resetAchievementProgressDisplay())
+    achievementProgress.addEventListener('blur', () => resetAchievementProgressDisplay())
+  }
 
   // RUNES TAB [And all corresponding subtabs]
   // Part 0: Upper UI portion
@@ -1984,9 +1998,9 @@ TODO: Fix this entire tab it's utter shit
     })
   }
 
-  for (let i = 1; i <= 5; i++) {
-    DOMCacheGetOrSet(`switchTheme${i}`).addEventListener('click', () => {
-      toggleTheme(false, i, true)
+  for (const themeNumber of themeValues) {
+    DOMCacheGetOrSet(`switchTheme${themeNumber}`).addEventListener('click', () => {
+      toggleTheme(false, themeNumber, true)
       if (isMobile) {
         DOMCacheGetOrSet('themeArea').classList.remove('open')
       }

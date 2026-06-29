@@ -11,6 +11,9 @@ project(':capacitor-push-notifications').projectDir = new File('../node_modules/
 include ':capgo-capacitor-app-attest'
 project(':capgo-capacitor-app-attest').projectDir = new File('../node_modules/@capgo/capacitor-app-attest/android')
 
+include ':capgo-capacitor-keep-awake'
+project(':capgo-capacitor-keep-awake').projectDir = new File('../node_modules/@capgo/capacitor-keep-awake/android')
+
 include ':capgo-capacitor-social-login'
 project(':capgo-capacitor-social-login').projectDir = new File('../node_modules/@capgo/capacitor-social-login/android')
 
