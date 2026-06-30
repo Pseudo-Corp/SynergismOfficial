@@ -60,7 +60,7 @@ import {
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { blankSave, deepClone, format, player, saveSynergy } from './Synergism'
-import { changeSubTab, changeTab, resetAllSubTabs, Tabs } from './Tabs'
+import { changeSubTab, changeTab, resetAllSubTabs, Tabs, updateSubTabVisibility } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
 import { AutoAscensionModes } from './Toggles'
@@ -902,6 +902,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   }
 
   revealStuff()
+  updateSubTabVisibility()
   if (input === 'transcensionChallenge' || input === 'reincarnationChallenge' || input === 'ascensionChallenge') {
     updateChallengeDisplay()
   }
