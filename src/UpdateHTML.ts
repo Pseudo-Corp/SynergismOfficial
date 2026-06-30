@@ -953,7 +953,7 @@ export const buttoncolorchange = () => {
     for (let i = 1; i <= 5; i++) {
       const toggle = player.toggles[i + 15]
       const mythos = player[`${G.ordinals[i - 1 as ZeroToFour]}CostMythos` as const]
-      if (!toggle || !player.upgrades[93 + i] && player.transcendPoints.gte(mythos)) {
+      if ((!toggle || !player.upgrades[93 + i]) && player.transcendPoints.gte(mythos)) {
         DOMCacheGetOrSet(`buymythos${i}`).classList.add('buildingPurchaseBtnAvailable')
       } else {
         DOMCacheGetOrSet(`buymythos${i}`).classList.remove('buildingPurchaseBtnAvailable')
