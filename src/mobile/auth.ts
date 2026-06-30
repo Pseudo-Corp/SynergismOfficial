@@ -1,5 +1,5 @@
-import { AppAttest } from '@capgo/capacitor-app-attest'
 import { Capacitor } from '@capacitor/core'
+import { AppAttest } from '@capgo/capacitor-app-attest'
 import { SocialLogin } from '@capgo/capacitor-social-login'
 import i18next from 'i18next'
 import { Alert } from '../UpdateHTML'

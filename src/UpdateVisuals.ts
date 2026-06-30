@@ -49,13 +49,7 @@ import {
   calculateSalvageCubeBlessing,
   type IMultiBuy
 } from './Cubes'
-import {
-  BuffType,
-  consumableEventBuff,
-  eventBuffType,
-  getEvent,
-  getEventBuff
-} from './Event'
+import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
 import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib/calculate-production'
 import { hasEnoughCrumbsForSacrifice, MINIMUM_CRUMBS_FOR_SACRIFICE } from './Features/Ants/AntSacrifice/constants'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'

@@ -7112,6 +7112,20 @@ html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
     pointer-events: auto;
 }
 
+html[data-mobile="true"] {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; /* stylelint-disable-line property-no-vendor-prefix */
+    user-select: none;
+}
+
+/* Keep text editable where typing is expected (save import, search fields, etc.) */
+html[data-mobile="true"] input,
+html[data-mobile="true"] textarea,
+html[data-mobile="true"] [contenteditable="true"] {
+    -webkit-user-select: text; /* stylelint-disable-line property-no-vendor-prefix */
+    user-select: text;
+}
+
 html[data-mobile="true"] .showOnMobile {
     display: block !important;
 }

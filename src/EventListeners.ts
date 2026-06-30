@@ -1046,7 +1046,7 @@ export const generateEventHandlers = () => {
   const achievementProgress = DOMCacheGetOrSet('showAchievementProgress')
 
   if (isMobile) {
-    achievementProgress.addEventListener('click', function (this: HTMLElement) {
+    achievementProgress.addEventListener('click', function(this: HTMLElement) {
       const toggled = this.toggleAttribute('show-progress')
       if (!toggled) {
         resetAchievementProgressDisplay()
