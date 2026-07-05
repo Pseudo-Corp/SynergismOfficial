@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import { boostAccelerator, buyAccelerator, buyMultiplier } from './Buy'
+import { buyBuilding, boostAccelerator } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { confirmAntSacrifice } from './Features/Ants/AntSacrifice/sacrifice'
 import { promocodes } from './ImportExport'
@@ -13,7 +13,7 @@ import { Globals as G } from './Variables'
 type Hotkey = [string, () => unknown, /* hide during notification */ boolean]
 
 const defaultHotkeys = new Map<string, Hotkey>([
-  ['A', ['hotkeys.names.buyAccelerators', () => buyAccelerator(), false]],
+  ['A', ['hotkeys.names.buyAccelerators', () => buyBuilding('accelerator'), false]],
   ['B', ['hotkeys.names.boostAccelerator', () => boostAccelerator(), false]],
   ['C', ['hotkeys.names.autoChallenge', () => {
     toggleChallengeSweep()
@@ -25,7 +25,7 @@ const defaultHotkeys = new Map<string, Hotkey>([
       exitTranscendAndPrestigeChallenge()
     }
   }, false]],
-  ['M', ['hotkeys.names.multipliers', () => buyMultiplier(), false]],
+  ['M', ['hotkeys.names.multipliers', () => buyBuilding('multiplier'), false]],
   ['N', ['hotkeys.names.noCancel', () => confirmReply(false), true]],
   ['P', ['hotkeys.names.resetPrestige', () => resetCheck('prestige'), false]],
   ['R', ['hotkeys.names.resetReincarnate', () => resetCheck('reincarnation'), false]],

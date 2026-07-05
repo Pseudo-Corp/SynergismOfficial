@@ -17,12 +17,9 @@ import {
   resetLoadoutOnlyDisplay
 } from './BlueberryUpgrades'
 import {
+  buyBuilding,
   boostAccelerator,
-  buyAccelerator,
   buyCrystalUpgrades,
-  buyMultiplier,
-  buyParticleBuilding,
-  buyProducer,
   buyTesseractBuilding
 } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -165,7 +162,7 @@ import {
   updateAutoChallenge,
   updateRuneBlessingBuyAmount
 } from './Toggles'
-import type { FirstToEighth, FirstToFifth, OneToFive, Player, resetNames } from './types/Synergism'
+import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
 import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframeOverlay, Prompt } from './UpdateHTML'
 import { shopMouseover } from './UpdateVisuals'
 import {
@@ -755,17 +752,6 @@ export const generateEventHandlers = () => {
   registerSubTabSwitches()
   registerMobileSubTabLayout()
 
-  const ordinals = [
-    'first',
-    'second',
-    'third',
-    'fourth',
-    'fifth',
-    'sixth',
-    'seventh',
-    'eighth'
-  ] satisfies FirstToEighth[]
-
   if (testing) {
     const warp = document.createElement('button')
     const dayReset = document.createElement('button')
@@ -932,25 +918,18 @@ export const generateEventHandlers = () => {
   }
   // Part 3: Building Purchasers + Upgrades
   // Accelerator, Multiplier, Accelerator Boost
-  DOMCacheGetOrSet('buyaccelerator').addEventListener('click', () => buyAccelerator())
-  DOMCacheGetOrSet('buymultiplier').addEventListener('click', () => buyMultiplier())
+  DOMCacheGetOrSet('buyaccelerator').addEventListener('click', () => buyBuilding('accelerator'))
+  DOMCacheGetOrSet('buymultiplier').addEventListener('click', () => buyBuilding('multiplier'))
   DOMCacheGetOrSet('buyacceleratorboost').addEventListener('click', () => boostAccelerator())
 
   // Coin, Diamond and Mythos Buildings
-  const buildingTypesAlternate2 = ['coin', 'diamond', 'mythos']
-  const buildingTypesAlternate3 = ['Coin', 'Diamonds', 'Mythos'] as const // TODO: A cleaner way to implement this dumb shit
-  for (let index = 0; index < 3; index++) {
+  const buildingTypesAlternate2 = ['coin', 'diamond', 'mythos'] as const
+  buildingTypesAlternate2.forEach(type => {
     for (let index2 = 1; index2 <= 5; index2++) {
-      DOMCacheGetOrSet(
-        `buy${buildingTypesAlternate2[index]}${index2}`
-      ).addEventListener('pointerdown', () =>
-        buyProducer(
-          ordinals[index2 - 1] as FirstToFifth,
-          buildingTypesAlternate3[index],
-          index === 0 ? index2 : (index2 * (index2 + 1)) / 2
-        ))
+      DOMCacheGetOrSet(`buy${type}${index2}`)
+        .addEventListener('pointerdown', () => buyBuilding(type, undefined, index2 - 1 as ZeroToFour))
     }
-  }
+  })
 
   // Crystal Upgrades
   for (let index = 1; index <= 5; index++) {
@@ -971,7 +950,7 @@ export const generateEventHandlers = () => {
   for (let index = 0; index < 5; index++) {
     DOMCacheGetOrSet(`buyparticles${index + 1}`).addEventListener(
       'click',
-      () => buyParticleBuilding((index + 1) as OneToFive)
+      () => buyBuilding('particle', undefined, index as ZeroToFour)
     )
   }
 
