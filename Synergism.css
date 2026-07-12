@@ -926,6 +926,10 @@ nav button {
     z-index: 2;
 }
 
+#tabrow.tab-edit-mode > button.tab-hidden-in-edit-mode {
+    opacity: 0.55;
+}
+
 .tabCloseButton {
     display: none;
 }
@@ -953,6 +957,15 @@ nav button {
 #tabrow.tab-edit-mode > button.tabRemoveable:hover > .tabCloseButton,
 #tabrow.tab-edit-mode > button.tabRemoveable:focus-visible > .tabCloseButton {
     background-color: #e00000;
+}
+
+#tabrow.tab-edit-mode > button.tabRemoveable > .tabCloseButton.tabCloseButtonToggled {
+    background-color: #147a32;
+}
+
+#tabrow.tab-edit-mode > button.tabRemoveable:hover > .tabCloseButton.tabCloseButtonToggled,
+#tabrow.tab-edit-mode > button.tabRemoveable:focus-visible > .tabCloseButton.tabCloseButtonToggled {
+    background-color: #199a40;
 }
 
 @keyframes tab-jingle {
