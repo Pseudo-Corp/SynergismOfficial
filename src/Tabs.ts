@@ -502,7 +502,11 @@ class TabRow extends HTMLDivElement {
     }
 
     const tab = this.#getTabFromEventTarget(event.target)
-    if (tab === null || !tab.canMove() || !tab.isUnlocked()) {
+    if (
+      tab === null
+      || !tab.canMove()
+      || (this.#isEditing ? !tab.isProgressionUnlocked() : !tab.isUnlocked())
+    ) {
       return
     }
 
@@ -779,6 +783,10 @@ class $Tab extends HTMLButtonElement {
 
   isUnlocked () {
     return this.#unlocked() && !this.#hidden
+  }
+
+  isProgressionUnlocked () {
+    return this.#unlocked()
   }
 
   setType (type: Tabs) {
