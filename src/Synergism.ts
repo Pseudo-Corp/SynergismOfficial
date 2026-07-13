@@ -5177,17 +5177,24 @@ window.addEventListener('load', async () => {
 
   if (PLATFORM === 'mobile') {
     await initMobileStorage()
-    const [{ bindMobileFormHandlers }, { initMobilePurchases }, { initPushNotifications }, { initKeepAwake }] =
-      await Promise.all([
-        import('./mobile/auth'),
-        import('./mobile/microtxn'),
-        import('./mobile/notifications'),
-        import('./mobile/keep-awake')
-      ])
+    const [
+      { bindMobileFormHandlers },
+      { initMobilePurchases },
+      { initPushNotifications },
+      { initKeepAwake },
+      { initLiveUpdates }
+    ] = await Promise.all([
+      import('./mobile/auth'),
+      import('./mobile/microtxn'),
+      import('./mobile/notifications'),
+      import('./mobile/keep-awake'),
+      import('./mobile/updater')
+    ])
     bindMobileFormHandlers()
     initMobilePurchases()
     initPushNotifications().catch((e) => console.error('Failed to initialize push notifications', e))
     initKeepAwake().catch((e) => console.error('Failed to initialize keep awake', e))
+    initLiveUpdates().catch((e) => console.error('Failed to initialize live updates', e))
   }
 
   const symbolsEnabled = storageGetItem('statSymbols')

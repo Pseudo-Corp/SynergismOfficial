@@ -709,7 +709,7 @@ function handleWebSocket () {
         setFavicon('./favicon.ico')
       }
     } else if (data.type === 'join') {
-      Notification(i18next.t('account.consumables.connectionEstablished'))
+      Notification(i18next.t('account.consumables.connectionEstablished'), 1000)
     } else if (data.type === 'info-all') {
       resetWebSocket() // So that we can get an accurate count each time
       if (data.active.length !== 0) {
