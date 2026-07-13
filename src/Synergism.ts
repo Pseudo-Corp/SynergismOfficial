@@ -1977,7 +1977,7 @@ const loadSynergy = () => {
     }
 
     player.autoResearch = Math.min(200, player.autoResearch)
-    player.autoSacrifice = Math.min(5, player.autoSacrifice)
+    player.autoSacrifice = Math.min(G.MAX_AUTO_SACRIFICE_RUNE, player.autoSacrifice)
 
     if (player.researches[61] === 0) {
       DOMCacheGetOrSet('automaticobtainium').textContent = i18next.t(

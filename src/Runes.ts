@@ -22,20 +22,6 @@ import { toggleAutoSacrifice } from './Toggles'
 import { CloseModal, Modal } from './UpdateHTML'
 import { assert, isMobile } from './Utility'
 
-export const indexToRune: Record<number, RuneKeys> = {
-  1: 'speed',
-  2: 'duplication',
-  3: 'prism',
-  4: 'thrift',
-  5: 'superiorIntellect',
-  6: 'infiniteAscent',
-  7: 'antiquities'
-}
-
-export const runeToIndex = Object.fromEntries(
-  Object.entries(indexToRune).map(([key, value]) => [value, key])
-) as Record<RuneKeys, string>
-
 type RuneTypeMap = {
   speed: {
     acceleratorPower: number
@@ -99,6 +85,7 @@ interface RuneHTMLStyle {
 }
 
 interface RuneData<T extends RuneKeys, K extends keyof RuneTypeMap[T]> {
+  index: number
   level: number
   runeEXP: Decimal
   costCoefficient: Decimal
@@ -340,6 +327,7 @@ const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
 
 export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   speed: {
+    index: 1,
     level: 0,
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal(50),
@@ -384,6 +372,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     }
   },
   duplication: {
+    index: 2,
     level: 0,
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal(20000),
@@ -428,6 +417,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     }
   },
   prism: {
+    index: 3,
     level: 0,
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal(5e5),
@@ -466,6 +456,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     }
   },
   thrift: {
+    index: 4,
     level: 0,
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal(2.5e7),
@@ -506,6 +497,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     }
   },
   superiorIntellect: {
+    index: 5,
     level: 0,
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal(1e12),
@@ -548,6 +540,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     }
   },
   infiniteAscent: {
+    index: 6,
     level: 0,
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal(1e75),
@@ -600,6 +593,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     }
   },
   antiquities: {
+    index: 7,
     level: 0,
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal(1e206),
@@ -653,6 +647,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     }
   },
   horseShoe: {
+    index: 8,
     level: 0,
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal('1e500'),
@@ -695,6 +690,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     }
   },
   finiteDescent: {
+    index: 9,
     level: 0,
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal('1e-40'),
@@ -739,6 +735,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     }
   },
   topHat: {
+    index: 10,
     level: 0,
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal('1'),
@@ -805,6 +802,14 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     }
   }
 }
+
+export const indexToRune = Object.fromEntries(
+  Object.entries(runes).map(([key, value]) => [value.index, key])
+) as Record<number, RuneKeys>
+
+export const runeToIndex = Object.fromEntries(
+  Object.entries(runes).map(([key, value]) => [key, value.index])
+) as Record<RuneKeys, number>
 
 export const getRuneEffectiveLevel = (rune: RuneKeys): number => {
   if (!runes[rune].isUnlocked()) {

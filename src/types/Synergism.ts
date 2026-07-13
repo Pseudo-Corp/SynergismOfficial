@@ -686,6 +686,7 @@ export interface GlobalVariables {
   buildingSubTab: BuildingSubtab
 
   autoOfferingCounter: number
+  MAX_AUTO_SACRIFICE_RUNE: number
 
   viscosityPower: number[]
   dilationMultiplier: number[]

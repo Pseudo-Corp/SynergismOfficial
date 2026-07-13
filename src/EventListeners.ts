@@ -1064,7 +1064,7 @@ export const generateEventHandlers = () => {
   // RUNES TAB [And all corresponding subtabs]
   // Part 0: Upper UI portion
   // Auto sacrifice toggle button
-  DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice('0'))
+  DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice(0))
 
   // RUNES TAB
 

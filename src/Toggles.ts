@@ -330,10 +330,9 @@ export const toggleAutoResearchMode = () => {
   }
 }
 
-export const toggleAutoSacrifice = (index: string) => {
+export const toggleAutoSacrifice = (index: number) => {
   const el = DOMCacheGetOrSet('toggleautosacrifice')
-  const numIndex = Number(index)
-  if (numIndex === 0) {
+  if (index === 0) {
     if (player.autoSacrificeToggle) {
       player.autoSacrificeToggle = false
       el.textContent = i18next.t('runes.blessings.autoRuneOff')
@@ -344,14 +343,18 @@ export const toggleAutoSacrifice = (index: string) => {
       el.textContent = i18next.t('runes.blessings.autoRuneOn')
       el.style.border = '2px solid green'
     }
-  } else if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto', 'autoRune')) {
-    if (player.autoSacrifice === numIndex) {
+  } else if (
+    index <= G.MAX_AUTO_SACRIFICE_RUNE
+    && player.autoSacrificeToggle
+    && getShopUpgradeEffects('offeringAuto', 'autoRune')
+  ) {
+    if (player.autoSacrifice === index) {
       player.autoSacrifice = 0
     } else {
-      player.autoSacrifice = numIndex
+      player.autoSacrifice = index
     }
   }
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= G.MAX_AUTO_SACRIFICE_RUNE; i++) {
     DOMCacheGetOrSet(`${indexToRune[i]}Rune`).style.backgroundColor = player.autoSacrifice === i ? 'orange' : ''
   }
 }
