@@ -911,7 +911,6 @@ nav button {
     position: relative;
     overflow: visible;
     cursor: grab;
-    animation: tab-jingle 170ms ease-in-out infinite alternate;
     user-select: none;
     touch-action: none;
 }
@@ -965,9 +964,19 @@ nav button {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@keyframes tab-jingle-mobile {
+    from {
+        transform: rotate(-0.6deg) translateY(-0.5px);
+    }
+
+    to {
+        transform: rotate(0.6deg) translateY(0.5px);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
     #tabrow.tab-edit-mode > button {
-        animation: none;
+        animation: tab-jingle 170ms ease-in-out infinite alternate;
     }
 }
 
@@ -7350,12 +7359,13 @@ html[data-mobile="true"] .hideOnMobile {
         flex-shrink: 0;
     }
 
-    /* Navigation tabs - make scrollable */
+    /* Navigation tabs - make scrollable // i assume remnant from before mobile hamburger was added */
     #tabrow {
         flex-wrap: nowrap;
         overflow-x: auto;
+        overflow-y: hidden;
         justify-content: flex-start;
-        padding: 0 10px;
+        padding: 9px 10px 0;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: thin;
     }
@@ -8142,6 +8152,12 @@ html[data-mobile="true"] .hideOnMobile {
 
     html[data-mobile="true"] nav.navbar.menu-open #tabrow {
         display: grid !important;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        nav.navbar #tabrow.tab-edit-mode > button {
+            animation: tab-jingle-mobile 240ms ease-in-out infinite alternate;
+        }
     }
 
     /* Tab buttons in mobile menu */
