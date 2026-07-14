@@ -136,6 +136,7 @@ export const Globals: GlobalVariables = {
   // 1,000 of each before Diminishing Returns
 
   autoOfferingCounter: 0,
+  MAX_AUTO_SACRIFICE_RUNE: 5,
 
   viscosityPower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0, 0, 0],
   dilationMultiplier: [
