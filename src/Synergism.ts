@@ -63,7 +63,8 @@ import {
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
   dailyResetCheck,
-  exitOffline
+  exitOffline,
+  isOfflineDialogOpen
 } from './Calculate'
 import {
   corruptionButtonsAdd,
@@ -4585,7 +4586,7 @@ export const constantIntervals = (): void => {
     }
   }, 25)
 
-  if (!G.timeWarp) {
+  if (!isOfflineDialogOpen()) {
     exitOffline()
   }
 }
@@ -4715,6 +4716,10 @@ const tack = (dt: number) => {
         counter++
       }
     }
+  }
+
+  if (G.timeWarp) {
+    return
   }
 
   // Adds an offering every 2 seconds

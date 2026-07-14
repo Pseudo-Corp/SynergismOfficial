@@ -53,20 +53,13 @@ const octeractGiveawayLevels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249
  * @param time
  */
 export const addTimers = (input: TimerInput, time = 0) => {
-  const globalTimeMultiplier = getGQUpgradeEffect('halfMind', 'unlocked')
-    ? G.MIND_DIVISOR
-    : calculateGlobalSpeedMult()
-
-  const timeMultiplier = input === 'ascension'
-      || input === 'quarks'
-      || input === 'goldenQuarks'
-      || input === 'singularity'
-      || input === 'octeracts'
-      || input === 'autoPotion'
-      || input === 'ambrosia'
-      || input === 'redAmbrosia'
-    ? 1
-    : globalTimeMultiplier
+  const timeMultiplier = input === 'prestige'
+      || input === 'transcension'
+      || input === 'reincarnation'
+    ? getGQUpgradeEffect('halfMind', 'unlocked')
+      ? G.MIND_DIVISOR
+      : calculateGlobalSpeedMult()
+    : 1
 
   switch (input) {
     case 'prestige': {

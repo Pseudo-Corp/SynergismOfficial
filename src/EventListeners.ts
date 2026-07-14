@@ -726,22 +726,10 @@ const registerMobileSubTabLayout = () => {
     return
   }
 
-  const main = document.querySelector<HTMLElement>('main')
-  if (main === null) {
-    return
-  }
-
   const update = () => requestAnimationFrame(updateMobileSubTabLayout)
   const resizeObserver = new ResizeObserver(update)
   resizeObserver.observe(DOMCacheGetOrSet('mainHeader'))
   document.querySelectorAll<HTMLElement>('.subTabWrapper').forEach((element) => resizeObserver.observe(element))
-
-  const mutationObserver = new MutationObserver(update)
-  mutationObserver.observe(main, {
-    attributes: true,
-    attributeFilter: ['class', 'style'],
-    subtree: true
-  })
 
   window.addEventListener('resize', update)
   update()
