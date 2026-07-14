@@ -424,7 +424,7 @@ export const ambrosiaUpgrades: {
     effectsDescription: function() {
       const quarks = getAmbrosiaUpgradeEffects('ambrosiaQuarks2', 'quarks')
       return i18next.t('ambrosia.data.ambrosiaQuarks2.effect', {
-        amount: format(100 * (quarks - 1), 0, true)
+        amount: format(100 * (quarks - 1), 2, true)
       })
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow4', 'freeLevels'),
@@ -520,7 +520,7 @@ export const ambrosiaUpgrades: {
     effectsDescription: function() {
       const quarks = getAmbrosiaUpgradeEffects('ambrosiaQuarks3', 'quarks')
       return i18next.t('ambrosia.data.ambrosiaQuarks3.effect', {
-        amount: format(100 * (quarks - 1), 0, true)
+        amount: format(100 * (quarks - 1), 2, true)
       })
     },
     extraLevelCalc: () => getRedAmbrosiaUpgradeEffects('freeLevelsRow5', 'freeLevels'),
@@ -635,7 +635,7 @@ export const ambrosiaUpgrades: {
     effectsDescription: function() {
       const blueberryGeneration = getAmbrosiaUpgradeEffects('ambrosiaPatreon', 'blueberryGeneration')
       return i18next.t('ambrosia.data.ambrosiaPatreon.effect', {
-        amount: format(100 * (blueberryGeneration - 1), 0, true)
+        amount: format(100 * (blueberryGeneration - 1), 2, true)
       })
     },
     extraLevelCalc: () => 0,
@@ -662,7 +662,7 @@ export const ambrosiaUpgrades: {
     effectsDescription: function() {
       const obtainiumMult = getAmbrosiaUpgradeEffects('ambrosiaObtainium1', 'obtainiumMult')
       return i18next.t('ambrosia.data.ambrosiaObtainium1.effect', {
-        amount: format(obtainiumMult / 10, 1, true)
+        amount: format((obtainiumMult - 1) * 100, 1, true)
       })
     },
     extraLevelCalc: () => 0,
@@ -689,7 +689,7 @@ export const ambrosiaUpgrades: {
     effectsDescription: function() {
       const offeringMult = getAmbrosiaUpgradeEffects('ambrosiaOffering1', 'offeringMult')
       return i18next.t('ambrosia.data.ambrosiaOffering1.effect', {
-        amount: format(offeringMult / 10, 1, true)
+        amount: format((offeringMult - 1) * 100, 1, true)
       })
     },
     extraLevelCalc: () => 0,
@@ -718,7 +718,7 @@ export const ambrosiaUpgrades: {
     effectsDescription: function() {
       const hyperflux = getAmbrosiaUpgradeEffects('ambrosiaHyperflux', 'hyperFlux')
       return i18next.t('ambrosia.data.ambrosiaHyperflux.effect', {
-        amount: format(100 * (hyperflux - 1))
+        amount: format(100 * (hyperflux - 1), 2, true)
       })
     },
     extraLevelCalc: () => 0,

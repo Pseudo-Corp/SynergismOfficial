@@ -2,6 +2,7 @@ import i18next, { type Resource } from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import ColorTextPlugin from './Plugins/ColorText'
+import NumberLocale from './Plugins/NumberLocale'
 import StatSymbolsPlugin from './Plugins/StatSymbols'
 import { Confirm } from './UpdateHTML'
 
@@ -43,12 +44,12 @@ export const init = async (): Promise<void> => {
     resources.en = { translation: englishTranslations }
   }
 
-  await i18next.use(StatSymbolsPlugin).use(ColorTextPlugin).init({
+  await i18next.use(StatSymbolsPlugin).use(ColorTextPlugin).use(NumberLocale).init({
     lng: language,
     fallbackLng: 'en',
     debug: !PROD,
     resources,
-    postProcess: ['StatSymbols', 'ColorText'],
+    postProcess: ['StatSymbols', 'ColorText', 'NumberLocale'],
     // crowdin returns an empty string when a translation for
     // a language isn't present
     returnEmptyString: false,

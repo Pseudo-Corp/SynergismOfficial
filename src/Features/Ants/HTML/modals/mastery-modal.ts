@@ -52,7 +52,7 @@ export const antMasteryHTML = (ant: AntProducers): string => {
     }</span>`
     effectHTML += `<br><span>${
       i18next.t(`ants.mastery.${ant}.notMaxedSelfPer`, {
-        x: format(1 + selfPowerBase, 3, true),
+        x: format(1 + selfPowerBase, 3),
         y: format(1 + selfPowerBaseNextLevel, 3, true)
       })
     }</span>`
@@ -66,15 +66,15 @@ export const antMasteryHTML = (ant: AntProducers): string => {
     const reqELO = antMasteryData[ant].totalELORequirements[level]
     const reqELOHTML = `<span>${
       i18next.t('ants.mastery.eloRequirement', {
-        x: format(reqELO, 0, true),
-        y: format(player.ants.rebornELO, 0, true)
+        x: format(reqELO),
+        y: format(player.ants.rebornELO)
       })
     }</span>`
 
     const reqParticleCost = antMasteryData[ant].particleCosts[level]
     const reqParticleCostHTML = `<span>${
       i18next.t('ants.mastery.particleCost', {
-        x: format(reqParticleCost, 0, true, undefined, undefined, true)
+        x: format(reqParticleCost)
       })
     }</span>`
 

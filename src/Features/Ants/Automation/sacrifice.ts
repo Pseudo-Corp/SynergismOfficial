@@ -15,8 +15,8 @@ export const autoSacrificeData: Record<AutoSacrificeModes, AutoSacrificeModeData
     modeName: () => i18next.t('ants.autoSacrifice.inGameTimer.name'),
     infoText: () =>
       i18next.t('ants.autoSacrifice.inGameTimer.info', {
-        curr: format(player.antSacrificeTimer, 2, true),
-        req: format(player.ants.toggles.autoSacrificeThreshold, 0, true)
+        curr: format(player.antSacrificeTimer, 2, true, false),
+        req: format(player.ants.toggles.autoSacrificeThreshold, 2, true)
       }),
     modeHTMLcolor: 'var(--lightseagreen-text-color)'
   },
@@ -27,15 +27,15 @@ export const autoSacrificeData: Record<AutoSacrificeModes, AutoSacrificeModeData
     modeName: () => i18next.t('ants.autoSacrifice.realLifeTimer.name'),
     infoText: () =>
       i18next.t('ants.autoSacrifice.realLifeTimer.info', {
-        curr: format(player.antSacrificeTimerReal, 2, true),
-        req: format(player.ants.toggles.autoSacrificeThreshold, 0, true)
+        curr: format(player.antSacrificeTimerReal, 2, true, false),
+        req: format(player.ants.toggles.autoSacrificeThreshold, 2, true)
       }),
     modeHTMLcolor: 'lightgray'
   },
   [AutoSacrificeModes.ImmortalELOGain]: {
     sacrificeCheck: () => {
       const immortalELOToGain = antSacrificeRewards().immortalELO
-      return immortalELOToGain >= player.ants.toggles.autoSacrificeThreshold // Todo: Replace with an actual criterion in Ants
+      return immortalELOToGain >= Math.floor(player.ants.toggles.autoSacrificeThreshold) // Todo: Replace with an actual criterion in Ants
     },
     modeName: () => i18next.t('ants.autoSacrifice.immortalELOGain.name'),
     infoText: () =>

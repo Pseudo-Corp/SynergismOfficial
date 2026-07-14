@@ -225,16 +225,17 @@ export const visualUpdateBuildings = () => {
     }
 
     DOMCacheGetOrSet('coinInformation').innerHTML = i18next.t('buildings.coinInformation', {
-      coins: format(player.coins, 2, false),
+      coins: format(player.coins, 0, false, false),
       coinsPerSecond: format(
         Decimal.min(
           G.producePerSecond.dividedBy(G.taxdivisor),
           Decimal.pow(10, G.maxexponent - Decimal.log(G.taxdivisorcheck, 10))
         ),
-        0,
+        2,
+        false,
         false
       ),
-      totalGenerated: format(player.coinsTotal, 0, true)
+      totalGenerated: format(player.coinsTotal, 0, false, false)
     })
 
     let vanityIndex = 0
@@ -256,15 +257,15 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet(`buildtext${2 * i - 1}`).textContent = i18next.t(
         `buildings.names.${coinNames[i - 1]}`,
         {
-          amount: format(player[`${ith}OwnedCoin` as const], 0, true),
-          gain: format(player[`${ith}GeneratedCoin` as const])
+          amount: format(player[`${ith}OwnedCoin` as const], 0, true, false),
+          gain: format(player[`${ith}GeneratedCoin` as const], 0, false, false)
         }
       )
 
       getBuildingCostElement(`buycoin${i}`).textContent = i18next.t(
         'buildings.costCoins',
         {
-          coins: format(player[`${ith}CostCoin` as const])
+          coins: format(player[`${ith}CostCoin` as const], 0, false, false)
         }
       )
 
@@ -276,8 +277,8 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet(`buildtext${2 * i}`).textContent = i18next.t(
         'buildings.coinsPerSecond',
         {
-          coins: format(place.dividedBy(G.taxdivisor).times(40), 0),
-          percent: format(percentage, 2)
+          coins: format(place.dividedBy(G.taxdivisor).times(40), 2, false, false),
+          percent: format(percentage, 2, true, false)
         }
       )
     }
@@ -285,40 +286,40 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('buildtext11').textContent = i18next.t(
       'buildings.names.accelerators',
       {
-        amount: format(player.acceleratorBought, 0, true),
-        gain: format(G.freeAccelerator, 0, true)
+        amount: format(player.acceleratorBought, 0, true, false),
+        gain: format(G.freeAccelerator, 0, true, false)
       }
     )
 
     DOMCacheGetOrSet('buildtext12').textContent = i18next.t(
       'buildings.acceleratorPower',
       {
-        power: format((G.acceleratorPower - 1) * 100, 2),
-        mult: format(G.acceleratorEffect, 2)
+        power: format((G.acceleratorPower - 1) * 100, 2, false, false),
+        mult: format(G.acceleratorEffect, 2, false, false)
       }
     )
 
     DOMCacheGetOrSet('buildtext13').textContent = i18next.t(
       'buildings.names.multipliers',
       {
-        amount: format(player.multiplierBought, 0, true),
-        gain: format(G.freeMultiplier, 0, true)
+        amount: format(player.multiplierBought, 0, true, false),
+        gain: format(G.freeMultiplier, 0, true, false)
       }
     )
 
     DOMCacheGetOrSet('buildtext14').textContent = i18next.t(
       'buildings.multiplierPower',
       {
-        power: format(G.multiplierPower, 2),
-        mult: format(G.multiplierEffect, 2)
+        power: format(G.multiplierPower, 2, false, false),
+        mult: format(G.multiplierEffect, 2, false, false)
       }
     )
 
     DOMCacheGetOrSet('buildtext15').textContent = i18next.t(
       'buildings.names.acceleratorBoost',
       {
-        amount: format(player.acceleratorBoostBought, 0, true),
-        gain: format(G.freeAcceleratorBoost, 0, false)
+        amount: format(player.acceleratorBoostBought, 0, true, false),
+        gain: format(G.freeAcceleratorBoost, 0, false, false)
       }
     )
 
@@ -327,7 +328,9 @@ export const visualUpdateBuildings = () => {
       {
         amount: format(
           100 * (0.01 * G.tuSevenMulti * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20)),
-          2
+          2,
+          false,
+          false
         ),
         accelsPerBoost: format(
           5
@@ -336,7 +339,8 @@ export const visualUpdateBuildings = () => {
             + 3 * player.researches[20]
             + (calculateAcceleratorCubeBlessing()),
           0,
-          true
+          true,
+          false
         )
       }
     )
@@ -344,19 +348,19 @@ export const visualUpdateBuildings = () => {
     getBuildingCostElement('buyaccelerator').textContent = i18next.t(
       'buildings.costCoins',
       {
-        coins: format(player.acceleratorCost)
+        coins: format(player.acceleratorCost, 0, false, false)
       }
     )
     getBuildingCostElement('buymultiplier').textContent = i18next.t(
       'buildings.costCoins',
       {
-        coins: format(player.multiplierCost)
+        coins: format(player.multiplierCost, 0, false, false)
       }
     )
     getBuildingCostElement('buyacceleratorboost').textContent = i18next.t(
       'buildings.costDiamonds',
       {
-        diamonds: format(player.acceleratorBoostCost)
+        diamonds: format(player.acceleratorBoostCost, 0, false, false)
       }
     )
 
@@ -365,14 +369,17 @@ export const visualUpdateBuildings = () => {
     if (player.reincarnationCount > 0.5) {
       warning = i18next.t('buildings.taxWarning', {
         gain: format(
-          Decimal.pow(10, G.maxexponent - Decimal.log(G.taxdivisorcheck, 10))
+          Decimal.pow(10, G.maxexponent - Decimal.log(G.taxdivisorcheck, 10)),
+          2,
+          false,
+          false
         )
       })
     }
     DOMCacheGetOrSet('taxinfo').textContent = i18next.t(
       'buildings.excessiveWealth',
       {
-        div: format(G.taxdivisor, 2),
+        div: format(G.taxdivisor, 2, false, false),
         warning
       }
     )
@@ -382,9 +389,9 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('prestigeshardinfo').innerHTML = i18next.t(
       'buildings.crystalMult',
       {
-        crystals: format(player.prestigeShards, 2),
-        gain: format(crystalCoinMult, 2),
-        exponent: format(crystalExponent, 2, true)
+        crystals: format(player.prestigeShards, 2, false, false),
+        gain: format(crystalCoinMult, 2, false, false),
+        exponent: format(crystalExponent, 2, true, false)
       }
     )
 
@@ -395,22 +402,22 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet(`prestigetext${2 * i - 1}`).textContent = i18next.t(
         `buildings.names.${diamondNames[i - 1]}`,
         {
-          amount: format(player[`${ith}OwnedDiamonds` as const], 0, true),
-          gain: format(player[`${ith}GeneratedDiamonds` as const], 2)
+          amount: format(player[`${ith}OwnedDiamonds` as const], 0, true, false),
+          gain: format(player[`${ith}GeneratedDiamonds` as const], 2, false, false)
         }
       )
 
       DOMCacheGetOrSet(`prestigetext${2 * i}`).textContent = i18next.t(
         `buildings.per.${diamondPerSecNames[i - 1]}`,
         {
-          amount: format(place.times(40), 2)
+          amount: format(place.times(40), 2, false, false)
         }
       )
 
       getBuildingCostElement(`buydiamond${i}`).textContent = i18next.t(
         'buildings.costDiamonds',
         {
-          diamonds: format(player[`${ith}CostDiamonds` as const], 2)
+          diamonds: format(player[`${ith}CostDiamonds` as const], 2, false, false)
         }
       )
     }
@@ -424,10 +431,11 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet('autoprestige').textContent = i18next.t(
         'buildings.autoPrestige',
         {
+          // TODO: make separate i18n for 'Prestige', 'Transcend', etc.
           name: 'Diamonds',
           action: 'Prestige',
-          factor: format(Decimal.pow(10, player.prestigeamount)),
-          mult: format(p)
+          factor: format(Decimal.pow(10, player.prestigeamount), 0, false, false),
+          mult: format(p, 0, false, false)
         }
       )
     } else if (player.resetToggleModes.prestige === AutoResetModes.time) {
@@ -435,8 +443,8 @@ export const visualUpdateBuildings = () => {
         'buildings.autoReincarnate',
         {
           name: 'Prestige',
-          amount: player.prestigeamount,
-          timer: format(G.autoResetTimers.prestige, 1)
+          amount: format(player.prestigeamount, 0, false, false),
+          timer: format(G.autoResetTimers.prestige, 1, false, false)
         }
       )
     }
@@ -444,8 +452,8 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('transcendshardinfo').textContent = i18next.t(
       'buildings.mythosYouHave',
       {
-        shards: format(player.transcendShards, 2),
-        mult: format(G.totalMultiplierBoost, 0, true)
+        shards: format(player.transcendShards, 2, false, false),
+        mult: format(G.totalMultiplierBoost, 0, true, false)
       }
     )
 
@@ -456,22 +464,22 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet(`transcendtext${2 * i - 1}`).textContent = i18next.t(
         `buildings.names.${mythosNames[i - 1]}`,
         {
-          amount: format(player[`${ith}OwnedMythos` as const], 0, true),
-          gain: format(player[`${ith}GeneratedMythos` as const], 2)
+          amount: format(player[`${ith}OwnedMythos` as const], 0, true, false),
+          gain: format(player[`${ith}GeneratedMythos` as const], 2, false, false)
         }
       )
 
       DOMCacheGetOrSet(`transcendtext${2 * i}`).textContent = i18next.t(
         `buildings.per.${mythosPerSecNames[i - 1]}`,
         {
-          amount: format(place.times(40), 2)
+          amount: format(place.times(40), 2, false, false)
         }
       )
 
       getBuildingCostElement(`buymythos${i}`).textContent = i18next.t(
         'buildings.costMythos',
         {
-          mythos: format(player[`${ith}CostMythos` as const], 2)
+          mythos: format(player[`${ith}CostMythos` as const], 2, false, false)
         }
       )
     }
@@ -481,30 +489,30 @@ export const visualUpdateBuildings = () => {
         'buildings.autoPrestige',
         {
           name: 'Mythos',
-          action: 'Prestige',
-          factor: format(Decimal.pow(10, player.transcendamount)),
+          action: 'Transcend',
+          factor: format(Decimal.pow(10, player.transcendamount), 0, false, false),
           mult: format(
             Decimal.pow(
               10,
               Decimal.log(G.transcendPointGain.add(1), 10)
                 - Decimal.log(player.transcendPoints.add(1), 10)
             ),
-            2
+            2,
+            false,
+            false
           )
         }
       )
     }
     if (player.resetToggleModes.transcend === AutoResetModes.time) {
-      // TODO(@KhafraDev): i18n this
-      DOMCacheGetOrSet(
-        'autotranscend'
-      ).textContent =
-        `Transcend when the autotimer is at least ${player.transcendamount} real-life seconds. [Toggle number above]. Current timer: ${
-          format(
-            G.autoResetTimers.transcension,
-            1
-          )
-        }s.`
+      DOMCacheGetOrSet('autotranscend').textContent = i18next.t(
+        'buildings.autoReincarnate',
+        {
+          name: 'Transcend',
+          amount: format(player.transcendamount, 0, false, false),
+          timer: format(G.autoResetTimers.transcension, 1, false, false)
+        }
+      )
     }
   } else if (G.buildingSubTab === 'particle') {
     for (let i = 1; i <= 5; i++) {
@@ -514,20 +522,20 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet(`reincarnationtext${i}`).textContent = i18next.t(
         `buildings.names.${particleNames[i - 1]}`,
         {
-          amount: format(player[`${ith}OwnedParticles` as const], 0, true),
-          gain: format(player[`${ith}GeneratedParticles` as const], 2)
+          amount: format(player[`${ith}OwnedParticles` as const], 0, true, false),
+          gain: format(player[`${ith}GeneratedParticles` as const], 2, false, false)
         }
       )
       DOMCacheGetOrSet(`reincarnationtext${i + 5}`).textContent = i18next.t(
         `buildings.per.${particlePerSecNames[i - 1]}`,
         {
-          amount: format(place.times(40), 2)
+          amount: format(place.times(40), 2, false, false)
         }
       )
       getBuildingCostElement(`buyparticles${i}`).textContent = i18next.t(
         'buildings.costParticles',
         {
-          particles: format(player[`${ith}CostParticles` as const], 2)
+          particles: format(player[`${ith}CostParticles` as const], 2, false, false)
         }
       )
     }
@@ -538,23 +546,23 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('reincarnationshardinfo').innerHTML = i18next.t(
       'buildings.atomsYouHave',
       {
-        atoms: format(player.reincarnationShards, 2),
-        power: format(buildingPower, 4, true),
-        mult: format(buildingPowerMult, 2, true)
+        atoms: format(player.reincarnationShards, 2, false, false),
+        power: format(buildingPower, 4, true, false),
+        mult: format(buildingPowerMult, 2, true, false)
       }
     )
 
     DOMCacheGetOrSet('reincarnationCrystalInfo').textContent = i18next.t(
       'buildings.thanksR2x14',
       {
-        mult: format(Decimal.pow(buildingPowerMult, 1 / 50), 3, false)
+        mult: format(Decimal.pow(buildingPowerMult, 1 / 50), 3, false, false)
       }
     )
 
     DOMCacheGetOrSet('reincarnationMythosInfo').textContent = i18next.t(
       'buildings.thanksR2x15',
       {
-        mult: format(Decimal.pow(buildingPowerMult, 1 / 250), 3, false)
+        mult: format(Decimal.pow(buildingPowerMult, 1 / 250), 3, false, false)
       }
     )
 
@@ -564,14 +572,16 @@ export const visualUpdateBuildings = () => {
         {
           name: 'Particles',
           action: 'Reincarnate',
-          factor: format(Decimal.pow(10, player.reincarnationamount)),
+          factor: format(Decimal.pow(10, player.reincarnationamount), 0, false, false),
           mult: format(
             Decimal.pow(
               10,
               Decimal.log(G.reincarnationPointGain.add(1), 10)
                 - Decimal.log(player.reincarnationPoints.add(1), 10)
             ),
-            2
+            2,
+            false,
+            false
           )
         }
       )
@@ -580,8 +590,8 @@ export const visualUpdateBuildings = () => {
         'buildings.autoReincarnate',
         {
           name: 'Reincarnate',
-          amount: player.reincarnationamount,
-          timer: format(G.autoResetTimers.reincarnation, 1)
+          amount: format(player.reincarnationamount, 0, false, false),
+          timer: format(G.autoResetTimers.reincarnation, 1, false, false)
         }
       )
     }
@@ -592,8 +602,8 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet(`ascendText${i}`).textContent = i18next.t(
         `buildings.names.${tesseractNames[i - 1]}`,
         {
-          amount: format(player[ascendBuildingI].owned, 0, true),
-          gain: format(player[ascendBuildingI].generated, 2)
+          amount: format(player[ascendBuildingI].owned, 0, true, false),
+          gain: format(player[ascendBuildingI].generated, 2, false, false)
         }
       )
 
@@ -604,7 +614,9 @@ export const visualUpdateBuildings = () => {
             (G.ascendBuildingProduction as Record<string, Decimal>)[
               G.ordinals[i - 1]
             ],
-            2
+            2,
+            false,
+            false
           )
         }
       )
@@ -612,7 +624,7 @@ export const visualUpdateBuildings = () => {
       getBuildingCostElement(`buyTesseracts${i}`).textContent = i18next.t(
         'buildings.costTesseracts',
         {
-          tesseracts: format(player[ascendBuildingI].cost, 0)
+          tesseracts: format(player[ascendBuildingI].cost, 0, false, false)
         }
       )
     }
@@ -620,14 +632,14 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('tesseractInfo').textContent = i18next.t(
       'buildings.tesseractsYouHave',
       {
-        tesseracts: format(player.wowTesseracts.valueOf())
+        tesseracts: format(player.wowTesseracts.valueOf(), 0, false, false)
       }
     )
 
     DOMCacheGetOrSet('ascendShardInfo').textContent = i18next.t(
       'buildings.constantYouHave',
       {
-        const: format(player.ascendShards, 2),
+        const: format(player.ascendShards, 2, false, false),
         amount: format(
           Math.pow(
             Decimal.log(player.ascendShards.add(1), 10) + 1,
@@ -640,7 +652,8 @@ export const visualUpdateBuildings = () => {
               + calculateTaxPlatonicBlessing()
           ),
           4,
-          true
+          true,
+          false
         )
       }
     )
@@ -649,14 +662,14 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet('autotessbuyeramount').textContent = i18next.t(
         'buildings.autoTesseract',
         {
-          tesseracts: format(player.tesseractAutoBuyerAmount)
+          tesseracts: format(player.tesseractAutoBuyerAmount, 0, false, false)
         }
       )
     } else if (player.resetToggleModes.ascension === AutoAscensionModes.percentage) {
       DOMCacheGetOrSet('autotessbuyeramount').textContent = i18next.t(
         'buildings.autoAscensionTesseract',
         {
-          percent: format(Math.min(100, player.tesseractAutoBuyerAmount))
+          percent: format(Math.min(100, player.tesseractAutoBuyerAmount), 0, false, false)
         }
       )
     }
@@ -706,7 +719,7 @@ const updateOfferingAndSalvageText = () => {
   DOMCacheGetOrSet('offeringCount').textContent = i18next.t(
     'runes.offeringsYouHave',
     {
-      offerings: format(player.offerings, 0, true)
+      offerings: format(player.offerings, 0, true, false)
     }
   )
 
@@ -784,7 +797,7 @@ export const visualUpdateChallenges = () => {
     DOMCacheGetOrSet('autoIncrementerAmount').innerHTML = i18next.t(
       'challenges.autoTimer',
       {
-        time: format(timeSinceLastStateChange, 2)
+        time: format(timeSinceLastStateChange, 2, false, false)
       }
     )
   }
@@ -802,7 +815,8 @@ export const visualUpdateResearch = () => {
         x: format(
           calculateResearchAutomaticObtainium(1),
           3,
-          true
+          true,
+          false
         )
       }
     )
@@ -818,14 +832,14 @@ export const visualUpdateAnts = () => {
   DOMCacheGetOrSet('crumbcount').textContent = i18next.t(
     'ants.galacticCrumbCount',
     {
-      x: format(player.ants.crumbs, 2, true, undefined, undefined, true)
+      x: format(player.ants.crumbs, 2, true, false)
     }
   )
 
   DOMCacheGetOrSet('crumbsPerSecond').textContent = i18next.t(
     'ants.crumbsPerSecond',
     {
-      x: format(firstTierProduction, 2, true, undefined, undefined, true)
+      x: format(firstTierProduction, 2, true, false)
     }
   )
   DOMCacheGetOrSet('crumbCoinMultiplier').textContent = i18next.t(
@@ -837,14 +851,14 @@ export const visualUpdateAnts = () => {
 
   autoAntSacrificeModeDescHTML(player.ants.toggles.autoSacrificeMode)
   DOMCacheGetOrSet('sacrificeSecondsElapsed').innerHTML = i18next.t('ants.timeElapsed', {
-    x: format(player.antSacrificeTimerReal, 2, true)
+    x: format(player.antSacrificeTimerReal, 2, true, false)
   })
 
   if (player.ants.crumbsThisSacrifice.gte(MINIMUM_CRUMBS_FOR_SACRIFICE)) {
     DOMCacheGetOrSet('antSacrificeRequired').innerHTML = i18next.t('ants.altar.sacrificeReady.unlocked')
   } else {
     DOMCacheGetOrSet('antSacrificeRequired').innerHTML = i18next.t('ants.altar.sacrificeReady.locked', {
-      x: format(player.ants.crumbsThisSacrifice, 0, true),
+      x: format(player.ants.crumbsThisSacrifice, 0, true, false),
       y: format(MINIMUM_CRUMBS_FOR_SACRIFICE, 0, true)
     })
   }
@@ -1459,7 +1473,7 @@ export const visualUpdateCorruptions = () => {
   } else if (player.autoAscendMode === AutoAscensionResetModes.realAscensionTime) {
     autoAscendDOM.innerHTML = i18next.t('corruptions.autoAscend.realTime', {
       input: format(player.autoAscendThreshold),
-      time: format(player.ascensionCounterRealReal)
+      time: format(player.ascensionCounterRealReal, 2, false, false)
     })
   }
 
@@ -1563,7 +1577,9 @@ export const visualUpdateSettings = () => {
         x: format(
           3600 / quarkData.perHour
             - (player.quarkstimer % (3600.00001 / quarkData.perHour)),
-          2
+          2,
+          false,
+          false
         ),
         // eslint-disable-next-line number-arg-out-of-range
         y: player.worlds.toString(1)
@@ -1591,7 +1607,10 @@ export const visualUpdateSettings = () => {
                 / Math.max(
                   1,
                   getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
-                )))
+                ))),
+          0,
+          false,
+          false
         ),
         y: format(goldenQuarkMultiplier, 2, true)
       }
@@ -1613,7 +1632,8 @@ export const visualUpdateSettings = () => {
             168
               * getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
               * goldenQuarkMultiplier
-          )
+          ),
+          2
         )
       }
     )
@@ -1630,7 +1650,7 @@ export const visualUpdateSingularity = () => {
     DOMCacheGetOrSet('goldenQuarkamount').textContent = i18next.t(
       'singularity.goldenQuarkAmount',
       {
-        goldenQuarks: format(player.goldenQuarks, 0, true)
+        goldenQuarks: format(player.goldenQuarks, 0, true, false)
       }
     )
 
@@ -1695,7 +1715,7 @@ export const visualUpdateOcteracts = () => {
     return
   }
   DOMCacheGetOrSet('octeractAmount').innerHTML = i18next.t('octeract.amount', {
-    octeracts: format(player.wowOcteracts, 2, true, true, true)
+    octeracts: format(player.wowOcteracts, 2, true, false)
   })
 
   const perSecond = calculateOcteractMultiplier()
@@ -1722,7 +1742,7 @@ export const visualUpdateOcteracts = () => {
   DOMCacheGetOrSet('totalOcteractAmount').innerHTML = i18next.t(
     'octeract.totalGenerated',
     {
-      octeracts: format(player.totalWowOcteracts, 2, true, true, true)
+      octeracts: format(player.totalWowOcteracts, 2, true, false)
     }
   )
   DOMCacheGetOrSet('totalOcteractCubeBonus').style.display = cTOCB >= 0.001 ? 'block' : 'none'
@@ -1732,25 +1752,25 @@ export const visualUpdateOcteracts = () => {
   DOMCacheGetOrSet('totalOcteractCubeBonus').innerHTML = i18next.t(
     'octeract.generatedCubeBonus',
     {
-      cubeBonus: format(cTOCB, 3, true)
+      cubeBonus: format(cTOCB, 3, true, false)
     }
   )
   DOMCacheGetOrSet('totalOcteractQuarkBonus').innerHTML = i18next.t(
     'octeract.generatedQuarkBonus',
     {
-      quarkBonus: format(cTOQB, 3, true)
+      quarkBonus: format(cTOQB, 3, true, false)
     }
   )
   DOMCacheGetOrSet('totalOcteractOfferingBonus').innerHTML = i18next.t(
     'octeract.generatedOfferingBonus',
     {
-      offeringBonus: format(cTOOB, 3, true)
+      offeringBonus: format(cTOOB, 3, true, false)
     }
   )
   DOMCacheGetOrSet('totalOcteractObtainiumBonus').innerHTML = i18next.t(
     'octeract.generatedObtainiumBonus',
     {
-      obtainiumBonus: format(cTOOOB, 3, true)
+      obtainiumBonus: format(cTOOOB, 3, true, false)
     }
   )
 }
@@ -1791,7 +1811,7 @@ export const visualUpdateAmbrosia = () => {
   DOMCacheGetOrSet('ambrosiaProgress').style.width = `${barWidth}%`
 
   if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
-    DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true)} / ${
+    DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true, false)} / ${
       format(requiredTime, 0, true)
     } [+${format(totalTimePerSecond, 0, true)}/s]`
   } else {
@@ -1801,7 +1821,7 @@ export const visualUpdateAmbrosia = () => {
   DOMCacheGetOrSet('pixelProgress').style.width = `${pixelBarWidth}%`
 
   if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
-    DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.redAmbrosiaTime, 0, true)} / ${
+    DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.redAmbrosiaTime, 0, true, false)} / ${
       format(requiredTimeRed, 0, true)
     } [+${format(totalTimePerSecondRed, 2, true)}/s]`
   } else {
@@ -1929,7 +1949,7 @@ export const visualUpdateShop = () => {
   }
   DOMCacheGetOrSet('quarkamount').textContent = i18next.t(
     'shop.youHaveQuarks',
-    { x: format(player.worlds.valueOf(), 0, true) }
+    { x: format(player.worlds.valueOf(), 0, true, false) }
   )
   DOMCacheGetOrSet('offeringpotionowned').textContent = format(
     player.shopUpgrades.offeringPotion,
@@ -2079,7 +2099,7 @@ export const visualUpdateShop = () => {
 
   DOMCacheGetOrSet('buySingularityQuarksAmount').textContent = player.goldenQuarks < 1000
     ? i18next.t('shop.singularityQuarkAmount', { amount: format(player.goldenQuarks) })
-    : format(player.goldenQuarks)
+    : format(player.goldenQuarks, 0, false, false)
 
   DOMCacheGetOrSet('buySingularityQuarksButton').textContent = i18next.t('shop.singularityQuarkCost', {
     cost: format(getGoldenQuarkCost().cost)
