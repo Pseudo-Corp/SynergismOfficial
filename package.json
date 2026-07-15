@@ -32,6 +32,7 @@
     "mime-types": "^3.0.2",
     "rfdc": "^1.4.1",
     "steamworks.js": "^0.4.0",
+    "synergism-websocket": "file:./src/mobile/websocket-plugin",
     "worker-timers": "^7.0.53",
     "zod": "^3.23.8"
   },

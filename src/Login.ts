@@ -619,6 +619,17 @@ const queue: string[] = []
  */
 const exponentialBackoff = [5000, 15000, 30000, 60000]
 let tries = 0
+let reconnectTimeout: number | undefined
+
+if (PLATFORM === 'mobile') {
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible' || !isLoggedIn()) return
+    if (ws && ws.readyState !== WebSocket.CLOSED) return
+
+    tries = 0
+    handleWebSocket()
+  })
+}
 
 function resetWebSocket () {
   for (const key of Object.keys(allDurableConsumables)) {
@@ -633,17 +644,39 @@ function resetWebSocket () {
   setFavicon('./favicon.ico')
 }
 
-function handleWebSocket () {
-  assert(!ws || ws.readyState === WebSocket.CLOSED, 'WebSocket has been set and is not closed')
+async function handleWebSocket () {
+  if (reconnectTimeout !== undefined) {
+    clearTimeout(reconnectTimeout)
+    reconnectTimeout = undefined
+  }
 
-  ws = new WebSocket('wss://synergism.cc/consumables/connect')
+  if (ws && ws.readyState !== WebSocket.CLOSED) {
+    return
+  }
+
+  const url = 'wss://synergism.cc/consumables/connect'
+
+  if (PLATFORM === 'mobile') {
+    ws = (await import('./mobile/native-websocket')).createNativeWebSocket(url)
+  } else {
+    ws = new WebSocket(url)
+  }
+
   let interval: number | undefined
 
-  ws.addEventListener('close', () => {
-    const delay = exponentialBackoff[++tries]
+  ws.addEventListener('close', (event) => {
+    tries++
+    const delay = PLATFORM === 'mobile'
+      ? exponentialBackoff[Math.min(tries, exponentialBackoff.length - 1)]
+      : exponentialBackoff[tries]
+
+    console.log(
+      `[Consumables WS] closed: code=${event.code}, reason=${event.reason || '(none)'}, clean=${event.wasClean}; `
+        + (delay !== undefined ? `reconnecting in ${delay}ms` : 'giving up')
+    )
 
     if (delay !== undefined) {
-      setTimeout(handleWebSocket, delay)
+      reconnectTimeout = setTimeout(handleWebSocket, delay)
     } else {
       Notification(i18next.t('account.consumables.connectionFailed'))
       resetWebSocket()
@@ -656,6 +689,7 @@ function handleWebSocket () {
   })
 
   ws.addEventListener('open', () => {
+    console.log('[Consumables WS] connected')
     tries = 0
 
     for (const message of queue) {
