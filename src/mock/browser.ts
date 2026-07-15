@@ -118,7 +118,6 @@ const GETHandlers = [
   }),
   http.get('https://synergism.cc/stripe/upgrades', () => {
     return HttpResponse.json({
-      coins: 49000,
       upgrades: [
         {
           upgradeId: 1,
@@ -732,9 +731,7 @@ const GETHandlers = [
           level: 1,
           cost: 100
         }
-      ],
-      playerUpgrades: [],
-      tier: 0
+      ]
     })
   }),
   http.get('https://synergism.cc/stripe/test/upgrades', () => {
