@@ -2151,7 +2151,7 @@ const formatters: Record<string, Intl.NumberFormat> = {}
 const getFormatter = (
   digits: number,
   truncate = true,
-  notation?: 'standard' | 'scientific' | 'engineering'
+  notation?: 'scientific' | 'engineering'
 ) => {
   let keyString = `${digits}${truncate ? '' : '+'}${notation?.charAt(0) ?? ''}`
   if (formatters[keyString] == undefined) {
@@ -2278,7 +2278,6 @@ export const format = (
     return getFormatter(digits, truncate).format(standard)
   }
 
-  accuracy = Math.max(2, accuracy)
   // Only apply Engineering notation if we can see all digits of the exponent || rus9384
   if (player.notation === 'Pure Engineering' && power < 1e6) {
     const powerOver = (power % 3 + 3) % 3
@@ -2287,7 +2286,7 @@ export const format = (
   }
 
   // Formatter for 'accuracy' decimal places
-  const formatter = getFormatter(accuracy, truncate, 'standard')
+  const formatter = getFormatter(Math.max(2, accuracy), truncate)
 
   if (power < 1e6) {
     // If the power is less than 1e6 then apply standard scientific/engineering notation
