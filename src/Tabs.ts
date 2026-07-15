@@ -436,27 +436,13 @@ class TabRow extends HTMLDivElement {
     return this.#isEditing
   }
 
-  hideTab (tab: $Tab) {
+  toggleTabHidden (tab: $Tab) {
     if (!tab.canBeRemoved()) {
       return
     }
 
-    const wasCurrentTab = tab === this.#currentTab
-
-    tab.hide()
+    tab.toggleHidden()
     tab.classList.remove('tab-being-dragged')
-
-    if (tab.parentElement === this) {
-      this.removeChild(tab)
-    }
-
-    if (wasCurrentTab) {
-      const nextTab = this.#getNextUnlockedTab(tab)
-      if (nextTab !== null) {
-        changeTab(nextTab.getType())
-        changeTabColor()
-      }
-    }
   }
 
   #saveOrder () {
@@ -516,7 +502,11 @@ class TabRow extends HTMLDivElement {
     }
 
     const tab = this.#getTabFromEventTarget(event.target)
-    if (tab === null || !tab.canMove() || !tab.isUnlocked()) {
+    if (
+      tab === null
+      || !tab.canMove()
+      || (this.#isEditing ? !tab.isProgressionUnlocked() : !tab.isUnlocked())
+    ) {
       return
     }
 
@@ -603,6 +593,7 @@ class TabRow extends HTMLDivElement {
 
     this.#isEditing = true
     this.classList.add('tab-edit-mode')
+    this.replaceChildren(...this.#list)
     this.#list.forEach((tab) => {
       tab.setAttribute('aria-grabbed', 'false')
       tab.showCloseButton()
@@ -626,7 +617,19 @@ class TabRow extends HTMLDivElement {
     this.#list.forEach((tab) => {
       tab.removeAttribute('aria-grabbed')
       tab.hideCloseButton()
+
+      if (tab.isHidden()) {
+        tab.remove()
+      }
     })
+
+    if (this.#currentTab.isHidden()) {
+      const nextTab = this.#getNextUnlockedTab(this.#currentTab)
+      if (nextTab !== null) {
+        changeTab(nextTab.getType())
+        changeTabColor()
+      }
+    }
     this.#activePointerId = null
     this.#pointerDownTab = null
   }
@@ -762,7 +765,7 @@ class $Tab extends HTMLButtonElement {
         event.stopPropagation()
 
         if (this.#removeable && this.isCloseButtonHit(event)) {
-          tabRow.hideTab(this)
+          tabRow.toggleTabHidden(this)
         }
 
         return
@@ -780,6 +783,10 @@ class $Tab extends HTMLButtonElement {
 
   isUnlocked () {
     return this.#unlocked() && !this.#hidden
+  }
+
+  isProgressionUnlocked () {
+    return this.#unlocked()
   }
 
   setType (type: Tabs) {
@@ -815,8 +822,14 @@ class $Tab extends HTMLButtonElement {
     return this.#removeable
   }
 
-  hide () {
-    this.#hidden = true
+  toggleHidden () {
+    this.#hidden = !this.#hidden
+    this.classList.toggle('tab-hidden-in-edit-mode', this.#hidden)
+    this.#updateCloseButtonState()
+  }
+
+  isHidden () {
+    return this.#hidden
   }
 
   showCloseButton () {
@@ -828,9 +841,8 @@ class $Tab extends HTMLButtonElement {
     closeButton.classList.add('tabCloseButton')
     closeButton.textContent = '×'
     closeButton.setAttribute('role', 'button')
-    closeButton.setAttribute('aria-label', i18next.t('tabs.hideTab'))
-    closeButton.setAttribute('i18n-aria-label', 'tabs.hideTab')
     this.appendChild(closeButton)
+    this.#updateCloseButtonState()
   }
 
   hideCloseButton () {
@@ -854,6 +866,21 @@ class $Tab extends HTMLButtonElement {
 
   resetHidden () {
     this.#hidden = false
+    this.classList.remove('tab-hidden-in-edit-mode')
+  }
+
+  #updateCloseButtonState () {
+    const closeButton = this.getElementsByClassName('tabCloseButton').item(0)
+    if (!(closeButton instanceof HTMLElement)) {
+      return
+    }
+
+    const translationKey = this.#hidden ? 'tabs.showTab' : 'tabs.hideTab'
+    closeButton.textContent = this.#hidden ? '+' : '×'
+    closeButton.classList.toggle('tabCloseButtonToggled', this.#hidden)
+    closeButton.setAttribute('aria-pressed', String(this.#hidden))
+    closeButton.setAttribute('aria-label', i18next.t(translationKey))
+    closeButton.setAttribute('i18n-aria-label', translationKey)
   }
 }
 
