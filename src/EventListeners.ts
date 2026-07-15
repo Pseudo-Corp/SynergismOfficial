@@ -335,6 +335,7 @@ const mobileStatsIconConfig: Record<string, string> = {
 
 const termsOfServiceUrl = 'https://synergism.cc/terms-of-service'
 const privacyPolicyUrl = 'https://synergism.cc/privacy-policy'
+const sctaUrl = 'https://komoju.com/scta/aosgvpjopdd6aima0eyu3mzac'
 
 const registerIframeOverlayLink = (id: string, url: string) => {
   DOMCacheGetOrSet(id).addEventListener('click', (event) => {
@@ -2023,6 +2024,7 @@ TODO: Fix this entire tab it's utter shit
   registerIframeOverlayLink('tosLink', termsOfServiceUrl)
   registerIframeOverlayLink('supportTermsLink', termsOfServiceUrl)
   registerIframeOverlayLink('supportPrivacyLink', privacyPolicyUrl)
+  registerIframeOverlayLink('sctaLink', sctaUrl)
 
   // Window
   window.addEventListener('error', imgErrorHandler, { capture: true })

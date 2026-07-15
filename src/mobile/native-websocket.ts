@@ -14,10 +14,10 @@ interface NativeWebSocketEvent {
 }
 
 interface NativeWebSocketPlugin {
-  connect (options: { url: string; connectionId: string }): Promise<void>
-  send (options: { connectionId: string; data: string }): Promise<void>
-  close (options: { connectionId: string }): Promise<void>
-  addListener (
+  connect(options: { url: string; connectionId: string }): Promise<void>
+  send(options: { connectionId: string; data: string }): Promise<void>
+  close(options: { connectionId: string }): Promise<void>
+  addListener(
     eventName: 'open' | 'message' | 'close' | 'error',
     listenerFunc: (event: NativeWebSocketEvent) => void
   ): Promise<PluginListenerHandle>
@@ -67,7 +67,11 @@ class NativeWebSocketAdapter extends EventTarget {
         this.readyState = this.CLOSED
         void this.cleanup()
         this.dispatchEvent(
-          new CloseEvent('close', { code: event.code ?? 1006, reason: event.reason ?? '', wasClean: event.code === 1000 })
+          new CloseEvent('close', {
+            code: event.code ?? 1006,
+            reason: event.reason ?? '',
+            wasClean: event.code === 1000
+          })
         )
       }),
       NativeWebSocket.addListener('error', (event) => {
