@@ -3756,7 +3756,7 @@ const createGroupedAchievementDescription = (group: AchievementGroups) => {
             currTier + 1
           } • ${
             i18next.t(`achievements.achievementRewards.${index}.${rewardGroup}`, {
-              val: format(rewardFunction(), 2, false)
+              val: format(rewardFunction(), 3, false)
             })
           }</span><br>`
         }
@@ -3847,7 +3847,7 @@ const generateUngroupedDescription = (name: UngroupedAchievementNames) => {
       } else if (typeof rewardValue === 'number') {
         extraText += `<span style="color:${hasAch ? 'green' : 'maroon'}">${
           i18next.t(`achievements.achievementRewards.${index}.${rewardType}`, {
-            val: format(rewardFunction(), 2, false)
+            val: format(rewardFunction(), 3, false)
           })
         }</span><br>`
       }

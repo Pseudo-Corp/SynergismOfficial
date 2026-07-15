@@ -5268,7 +5268,7 @@
       "12": "Your wealth is equal to the number of atoms in the universe, raised to the power of <<gold | num:((1250000))>>...",
       "13": "You see the ants from down here. However, do you see the ants from <<orange | up there>>?",
       "14": "If you had a dollar for every digit in your wealth, you would be the richest person on this thing one would call <<lightblue|\"Earth\">>...",
-      "15": "10^num:((1000000000000000)) Coins! If the exponent were multiplied by 9, in some alternative <<grey | Realities>> you would overflow the universe with coins.",
+      "15": "10^1,000,000,000,000,000 Coins! If the exponent were multiplied by 9, in some alternative <<grey | Realities>> you would overflow the universe with coins.",
       "16": "An exponent so large, many wouldn't know it by name.",
       "17": "Have you ever questioned why the <<gray | Tax Man>> divides your coins? The ultimate creator of this reality, which you believe to be a <<cyan | Platonic>> (ideal) being, instructed as much.",
       "18": "Octillions of digits in your wealth! What if there were other <<green | Octagonal>> objects in this reality? That would be silly.",
@@ -5276,7 +5276,7 @@
       "20": "I think you are long past the point where the <<gray | Tax Man>> is the only thing holding you back. Right?",
       "21": "Sometimes you wonder if the Ant God is better off just feeding off your Coins. You surely have enough.",
       "22": "Ant God, Derpsmith, the Gold Guy, <<cyan | Platonic>>... who are all of these entities anyway?",
-      "23": "10 to the <<gold|num:((10000000000000000000))>><<orange|,num:((000000000000000000))>><<brown|,num:((000000000000000000))>><<<grey|,num:((000000000000000))>>",
+      "23": "10 to the <<gold|10,000,000,000,000,000,000>><<orange|,000,000,000,000,000,000>><<brown|,000,000,000,000,000,000>><<<grey|,000,000,000,000,000>>",
       "24": "They should write stories about your wealth. It only suffices that an <<grey | Ultimate Pen>> will do.",
       "25": "No one will know my name, but the bards' songs will remain.",
       "26": "That's a lot of coins lol"

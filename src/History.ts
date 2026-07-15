@@ -143,9 +143,8 @@ const conditionalFormatPerSecond = (numOrStr: DecimalSource, data: ResetHistoryE
   }
 
   if (typeof numOrStr === 'number' && player.historyShowPerSecond && data.seconds !== 0) {
-    if (numOrStr === 0) { // work around format(0, 3) return 0 instead of 0.000, for consistency
-      return '0.000/s'
-    }
+    // A workaround is not needed anymore
+    // --
     // Use "long" display for smaller numbers, but once it exceeds 1000, use the "short" display.
     // This'll keep decimals intact until 1000 instead of 10 without creating unwieldy numbers between e6-e13.
     return `${format(numOrStr / data.seconds, 3, numOrStr < 1000)}/s`

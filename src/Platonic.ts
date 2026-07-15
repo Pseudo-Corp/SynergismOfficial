@@ -381,8 +381,8 @@ export const createPlatonicDescription = (index: number) => {
   DOMCacheGetOrSet('platonicHepteractCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.hepteractCost',
     {
-      a: format(hepteracts.abyss.BAL, 0, true),
-      b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true)
+      a: format(hepteracts.abyss.BAL),
+      b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier))
     }
   )
 
@@ -484,8 +484,8 @@ export const platonicUpgradeModalHTML = (index: number, imageSrc?: string) => {
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.hepteractCost', {
-        a: format(hepteracts.abyss.BAL, 0, true),
-        b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true)
+        a: format(hepteracts.abyss.BAL),
+        b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier))
       }),
       affordable: resourceCheck.abyssals
     }
