@@ -48,7 +48,7 @@
         "arch": ["universal"]
       }
     ],
-    "icon": "build/icon.icns",
+    "icon": "Pictures/icon.icns",
     "category": "public.app-category.games",
     "artifactName": "${productName}-${os}-${arch}.${ext}",
     "extraFiles": [

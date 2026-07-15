@@ -7,6 +7,13 @@ const config: CapacitorConfig = {
   plugins: {
     CapacitorHttp: {
       enabled: true
+    },
+    CapacitorUpdater: {
+      autoUpdate: 'atBackground',
+      updateUrl: 'https://synergism.cc/versions/updates',
+      statsUrl: '',
+      periodCheckDelay: 3600,
+      appReadyTimeout: 30000
     }
   }
 }

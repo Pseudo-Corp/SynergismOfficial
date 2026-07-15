@@ -63,7 +63,8 @@ import {
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
   dailyResetCheck,
-  exitOffline
+  exitOffline,
+  isOfflineDialogOpen
 } from './Calculate'
 import {
   corruptionButtonsAdd,
@@ -4585,7 +4586,7 @@ export const constantIntervals = (): void => {
     }
   }, 25)
 
-  if (!G.timeWarp) {
+  if (!isOfflineDialogOpen()) {
     exitOffline()
   }
 }
@@ -4715,6 +4716,10 @@ const tack = (dt: number) => {
         counter++
       }
     }
+  }
+
+  if (G.timeWarp) {
+    return
   }
 
   // Adds an offering every 2 seconds
@@ -5177,17 +5182,24 @@ window.addEventListener('load', async () => {
 
   if (PLATFORM === 'mobile') {
     await initMobileStorage()
-    const [{ bindMobileFormHandlers }, { initMobilePurchases }, { initPushNotifications }, { initKeepAwake }] =
-      await Promise.all([
-        import('./mobile/auth'),
-        import('./mobile/microtxn'),
-        import('./mobile/notifications'),
-        import('./mobile/keep-awake')
-      ])
+    const [
+      { bindMobileFormHandlers },
+      { initMobilePurchases },
+      { initPushNotifications },
+      { initKeepAwake },
+      { initLiveUpdates }
+    ] = await Promise.all([
+      import('./mobile/auth'),
+      import('./mobile/microtxn'),
+      import('./mobile/notifications'),
+      import('./mobile/keep-awake'),
+      import('./mobile/updater')
+    ])
     bindMobileFormHandlers()
     initMobilePurchases()
     initPushNotifications().catch((e) => console.error('Failed to initialize push notifications', e))
     initKeepAwake().catch((e) => console.error('Failed to initialize keep awake', e))
+    initLiveUpdates().catch((e) => console.error('Failed to initialize live updates', e))
   }
 
   const symbolsEnabled = storageGetItem('statSymbols')

@@ -64,7 +64,6 @@ import {
 } from './Statistics'
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
-import { clearInterval, setInterval } from './Timers'
 import { Alert, Prompt } from './UpdateHTML'
 import { findInsertionIndex } from './Utility'
 import { Globals as G } from './Variables'
@@ -548,6 +547,10 @@ export const timeWarp = async () => {
   calculateOffline(timeUse)
 }
 
+let offlineDialogActive = false
+
+export const isOfflineDialogOpen = () => offlineDialogActive
+
 /**
  * @param forceTime The number of SECONDS to warp. Why the fuck is it in seconds?
  */
@@ -639,7 +642,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
   resetAddDisplay.reincarnation = player.reincarnationCount - resetAddDisplay.reincarnation
 
   // 200 simulated all ticks [July 12, 2021]
-  const runOffline = setInterval(() => {
+  while (resourceTicks > 0) {
     G.timeMultiplier = calculateGlobalSpeedMult()
     calculateObtainium()
 
@@ -675,12 +678,9 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
     }
 
     resourceTicks -= 1
-    // Misc functions
-    if (resourceTicks < 1) {
-      clearInterval(runOffline)
-      G.timeWarp = false
-    }
-  }, 0)
+  }
+
+  G.timeWarp = false
 
   DOMCacheGetOrSet('offlinePrestigeCount').innerHTML = i18next.t(
     'offlineProgress.prestigeCount',
@@ -782,6 +782,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
 
   // allow aesthetic offline progress
   if (offlineDialog) {
+    offlineDialogActive = true
     DOMCacheGetOrSet('notificationStack').style.display = 'none'
     document.body.classList.remove('scrollbar')
     document.body.classList.add('loading')
@@ -793,6 +794,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
 }
 
 export const exitOffline = () => {
+  offlineDialogActive = false
   document.body.classList.remove('loading')
   document.body.classList.add('scrollbar')
   DOMCacheGetOrSet('transparentBG').style.display = 'none'
