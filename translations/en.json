@@ -4743,6 +4743,7 @@
   },
   "tabs": {
     "hideTab": "Hide tab",
+    "showTab": "Show tab",
     "main": {
       "buildings": "Buildings",
       "upgrades": "Upgrades",
