@@ -8,4 +8,4 @@ export const isSynergismCC = location.hostname === 'synergism.cc'
 export const testing = false
 export const lastUpdated = new Date('##LAST_UPDATED##')
 
-export const ticksPerSecond = 200
+export const ticksPerSecond = PLATFORM === 'mobile' ? 40 : 200

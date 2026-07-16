@@ -4572,19 +4572,22 @@ export const slowUpdates = (): void => {
   buildingAchievementCheck()
 }
 
+const fastUpdateInterval = PLATFORM === 'mobile' ? 100 : 50
+const sweepInterval = PLATFORM === 'mobile' ? 100 : 25
+
 export const constantIntervals = (): void => {
   setInterval(saveSynergy, 5000)
   setInterval(slowUpdates, 200)
-  setInterval(fastUpdates, 50)
+  setInterval(fastUpdates, fastUpdateInterval)
   setInterval(campaignIconHTMLUpdates, 15000)
-  setInterval(updateAllRuneLevelsFromEXP, 25)
+  setInterval(updateAllRuneLevelsFromEXP, sweepInterval)
   setInterval(updateTalismanRarities, 250)
-  setInterval(() => awardAchievementGroup('runeFreeLevel'), 25)
+  setInterval(() => awardAchievementGroup('runeFreeLevel'), sweepInterval)
   setInterval(() => {
     for (const key of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
       updateProgressiveCache(key)
     }
-  }, 25)
+  }, sweepInterval)
 
   if (!isOfflineDialogOpen()) {
     exitOffline()
@@ -4613,6 +4616,8 @@ export const getTimePinnedToLoadDate = () => {
   return loadingDate.getTime() + (performance.now() - loadingBasePerfTick)
 }
 
+const tickBudgetMs = 30
+
 const tick = () => {
   const now = performance.now()
   let delta = now - lastUpdate
@@ -4631,6 +4636,9 @@ const tick = () => {
     tack(dtEffective / 1000)
     lastUpdate += dtEffective
     delta -= dtEffective
+    if (performance.now() - now > tickBudgetMs) {
+      break
+    }
   }
 }
 
