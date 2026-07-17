@@ -266,6 +266,32 @@ interface SynergismUserAPIResponse<T extends keyof AccountMetadata> {
   linkedAccounts: string[]
 }
 
+/**
+ * Runtime validation for the `/api/v1/users/me` response, replacing a bare `as` type assertion.
+ * Mirrors the validation discipline `messageSchema` (above) applies to the WebSocket path.
+ *
+ * Deliberately does NOT deep-validate `member` - its shape differs per `accountType`, and the
+ * per-provider payloads (Discord/Patreon/Steam) aren't fully observable from this repo alone, so a
+ * strict nested schema risks rejecting legitimate backend responses this PR can't test against.
+ * Instead this validates only the fields `handleLogin` actually reads directly (`accountType`,
+ * `bonus.quark`, `error`, `subscription`, `linkedAccounts`). A response missing/mistyping those
+ * fails closed (falls back to a safe message) instead of being trusted blindly; `member` keeps its
+ * existing level of trust and is cast back to its typed shape below, so all the account-type-specific
+ * rendering logic further down is unchanged.
+ */
+const userAPIResponseSchema = z.object({
+  member: z.unknown(),
+  accountType: z.enum(['discord', 'patreon', 'email', 'steam', 'none']),
+  bonus: z.object({ quark: z.number() }),
+  error: z.unknown().optional(),
+  subscription: z.object({
+    provider: z.enum(['paypal', 'stripe', 'patreon', 'steam', 'apple']),
+    tier: z.number(),
+    endDate: z.string()
+  }).nullable(),
+  linkedAccounts: z.array(z.string())
+})
+
 const isDiscordAccount = (
   account: SynergismUserAPIResponse<keyof AccountMetadata>
 ): account is SynergismUserAPIResponse<'discord'> => account.accountType === 'discord'
@@ -311,7 +337,14 @@ export async function handleLogin () {
 
     const response = await fetchMeRoute()
 
-    const account = await response.json() as SynergismUserAPIResponse<keyof AccountMetadata>
+    const parsedAccount = userAPIResponseSchema.safeParse(await response.json())
+
+    if (!parsedAccount.success) {
+      subtabElement.innerHTML = i18next.t('account.loginNotAvailable')
+      break generateSubtabBrowser
+    }
+
+    const account = parsedAccount.data as SynergismUserAPIResponse<keyof AccountMetadata>
     const { bonus, subscription: sub, linkedAccounts } = account
 
     setPersonalQuarkBonus(bonus.quark)
