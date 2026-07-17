@@ -329,7 +329,8 @@ export async function handleLogin () {
       }
 
       if (account.error) {
-        subtabElement.innerHTML = i18next.t('account.loggedInButError', { error: account.error })
+        const errorText = DOMPurify.sanitize(String(account.error))
+        subtabElement.innerHTML = i18next.t('account.loggedInButError', { error: errorText })
         break generateSubtabBrowser
       }
 
