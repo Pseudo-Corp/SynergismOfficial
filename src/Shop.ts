@@ -2505,6 +2505,10 @@ export const useConsumable = (
   const infiniteAutoBrew = PCoinUpgradeEffects.AUTO_POTION_FREE_POTIONS_QOL
 
   if (input === 'offeringPotion') {
+    if (!player.unlocks.reincarnate && player.highestSingularityCount === 0) {
+      return
+    }
+
     let offeringPotionValue = calculatePotionValue(
       calculateOfferingsDecimal(),
       calculateBaseOfferings()
@@ -2534,6 +2538,10 @@ export const useConsumable = (
     }
   } else if (input === 'obtainiumPotion') {
     if (player.currentChallenge.ascension === 14) {
+      return
+   }
+
+    if (!player.unlocks.reincarnate && player.highestSingularityCount === 0) {
       return
     }
 
