@@ -39,6 +39,7 @@ import {
   calculateGlobalSpeedMult,
   calculateGoldenQuarkCost,
   calculateGoldenQuarks,
+  calculateGoldenQuarksFull,
   calculateHepteractMultiplier,
   calculateHypercubeMultiplier,
   calculateImmaculateAlchemyBonus,
@@ -2558,6 +2559,18 @@ export const allGoldenQuarkMultiplierStats: NumberStatLineCategory = {
   ]
 }
 
+const goldenQuarkRevolutionIVStat: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Misc,
+  lines: [
+    {
+      i18n: 'GoldenRevolution4',
+      stat: () => -player.goldenQuarksGainedFromConversion,
+      displayCriterion: () => player.highestSingularityCount >= 160
+    }
+  ]
+}
+
 export const allGoldenQuarkPurchaseCostStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -4223,8 +4236,19 @@ const loadStatisticsGoldenQuarkMultipliers = () => {
     'goldenQuarkMultiplierStats',
     'statGQMS',
     'GoldenQuarkStat',
-    calculateGoldenQuarks
+    calculateGoldenQuarksFull,
+    'Total'
   )
+  if (player.highestSingularityCount >= 160) {
+    loadStatistics(
+      goldenQuarkRevolutionIVStat,
+      'goldenQuarkMultiplierStats',
+      'statGQMS2',
+      'GoldenQuarkStat2',
+      calculateGoldenQuarks,
+      'Total2'
+    )
+  }
 }
 
 const loadStatisticsGoldenQuarkCost = () => {

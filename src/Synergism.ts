@@ -1084,6 +1084,7 @@ export const player: Player = {
   singularityMatter: 0,
   goldenQuarks: 0,
   quarksThisSingularity: 0,
+  goldenQuarksGainedFromConversion: 0,
   totalQuarksEver: 0,
   hotkeys: {},
   theme: 'Dark Mode',

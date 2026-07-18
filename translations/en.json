@@ -6937,7 +6937,9 @@
       "Event": "Event Bonus:",
       "GlobalSubscriber": "Global Bonus from our Wonderful Subscribers:",
       "AccountBonus": "Synergism Account Personal Quark Bonus:",
-      "Total": "Total Golden Quark Gained:"
+      "Total": "Total Golden Quark Gained:",
+      "GoldenRevolution4": "Converted by Golden Revolution IV:",
+      "Total2": "Actual Golden Quark Gained:"
     },
     "goldenQuarkPurchaseCostStats": {
       "title": "Golden Quark Purchase Cost",
