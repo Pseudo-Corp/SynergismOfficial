@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain, net, session, shell } from 'electron'
 import Store from 'electron-store'
 import windowStateKeeper from 'electron-window-state'
 import mimeTypes from 'mime-types'
+import { randomBytes, timingSafeEqual } from 'node:crypto'
 import fsp from 'node:fs/promises'
 import path from 'node:path'
 import { enableSteamOverlay, initializeSteam } from './lib/steam-ipc.ts'
@@ -35,19 +36,70 @@ const settingsStore = new Store<{ zoomFactor: number }>({
 let mainWindow: BrowserWindow | null = null
 
 /**
+ * Pending nonce for the external auth flow. Generated whenever the app opens a
+ * login URL in the system browser; the backend echoes it back in the
+ * synergism:// callback so we can reject deep links this app did not initiate.
+ */
+let pendingAuthState: { value: string; expiresAt: number } | null = null
+
+const AUTH_STATE_TTL_MS = 15 * 60 * 1000
+
+/** Start a new external auth flow: store a fresh nonce and add it to the login URL. */
+function withAuthState (url: URL): string {
+  const state = randomBytes(32).toString('base64url')
+  pendingAuthState = { value: state, expiresAt: Date.now() + AUTH_STATE_TTL_MS }
+  url.searchParams.set('state', state)
+  return url.toString()
+}
+
+/**
+ * Validate the state echoed in a synergism:// callback against the pending
+ * nonce.
+ */
+function consumeAuthState (provided: string | null): boolean {
+  if (provided === null || pendingAuthState === null) {
+    return false
+  }
+
+  const { value, expiresAt } = pendingAuthState
+  if (Date.now() > expiresAt) {
+    pendingAuthState = null
+    return false
+  }
+
+  const providedBuf = Buffer.from(provided)
+  const expectedBuf = Buffer.from(value)
+  const matches = providedBuf.length === expectedBuf.length && timingSafeEqual(providedBuf, expectedBuf)
+
+  if (matches) {
+    pendingAuthState = null
+  }
+
+  return matches
+}
+
+/**
  * Handle a `synergism://` protocol callback URL.
- * Expected format: synergism://login-callback?token=<session_token>
+ * Expected format: synergism://login-callback?token=<session_token>&state=<nonce>
+ *
+ * The state must match the nonce generated when this app opened the external
+ * auth flow. Callbacks without a valid state are rejected: any website or app
+ * can forge a synergism:// link, so an unvalidated token would let an attacker
+ * fix this client into a session they control.
  */
 async function handleProtocolUrl (raw: string): Promise<void> {
   try {
     const url = new URL(raw)
 
     if (url.hostname === 'link-callback') {
+      if (!consumeAuthState(url.searchParams.get('state'))) return
       mainWindow?.webContents.reload()
       return
     }
 
     if (url.hostname !== 'login-callback') return
+
+    if (!consumeAuthState(url.searchParams.get('state'))) return
 
     const token = url.searchParams.get('token')
     if (!token) return
@@ -121,7 +173,7 @@ function createWindow (): void {
         // OAuth login flows should go through the system browser so the
         // backend can redirect back via synergism:// protocol.
         event.preventDefault()
-        shell.openExternal(u)
+        shell.openExternal(withAuthState(url))
       }
     } catch {
       event.preventDefault()
@@ -129,6 +181,15 @@ function createWindow (): void {
   })
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    try {
+      const parsed = new URL(url)
+      if (parsed.hostname === 'synergism.cc' && parsed.pathname.startsWith('/login')) {
+        shell.openExternal(withAuthState(parsed))
+        return { action: 'deny' }
+      }
+    } catch {
+    }
+
     shell.openExternal(url)
     return { action: 'deny' }
   })
