@@ -148,7 +148,12 @@ async function changeSubscription (
   Notification(error)
 }
 
-async function manageSubscription (provider: SubscriptionProvider) {
+async function manageSubscription (provider: SubscriptionProvider | null) {
+  if (provider === null) {
+    bus.dispatchEvent(new SynEvent<undefined>('subscription:manage'))
+    return
+  }
+
   if (provider === 'patreon') {
     return Alert('You should not see this alert! Let Platonic know immediately.')
   }
@@ -199,8 +204,9 @@ async function cancelSubscription (provider: SubscriptionProvider) {
 }
 
 function manageSubClickHandler (this: HTMLButtonElement) {
-  const provider = this.getAttribute('data-provider') as SubscriptionProvider
+  const provider = this.getAttribute('data-provider') as SubscriptionProvider | null
   if (this.classList.contains('subscriptionCancel')) {
+    if (provider === null) return
     cancelSubscription(provider)
     return
   } else if (this.classList.contains('subscriptionWebsite')) {
@@ -382,8 +388,7 @@ const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
   const patreonManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-patreon-sub')!
   const stripeManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-stripe-sub')!
   const paypalManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-paypal-sub')!
-  const appleManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-apple-sub')!
-  const googleManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-google-sub')!
+  const mobileManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-mobile-sub')!
 
   const subscriptionCancelButtons = manageSubscriptionHolder.querySelectorAll<HTMLElement>('.subscriptionCancel')
 
@@ -396,14 +401,12 @@ const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
     patreonManageForm.style.display = 'none'
     stripeManageForm.style.display = 'none'
     paypalManageForm.style.display = 'none'
-    appleManageForm.style.display = sub?.provider === 'apple' ? 'flex' : 'none'
-    googleManageForm.style.display = sub?.provider === 'google' ? 'flex' : 'none'
+    mobileManageForm.style.display = sub?.provider === 'apple' || sub?.provider === 'google' ? 'flex' : 'none'
   } else {
     patreonManageForm.style.display = sub === null || sub.provider === 'patreon' ? 'flex' : 'none'
     stripeManageForm.style.display = sub === null || sub.provider === 'stripe' ? 'flex' : 'none'
     paypalManageForm.style.display = sub === null || sub.provider === 'paypal' ? 'flex' : 'none'
-    appleManageForm.style.display = 'none'
-    googleManageForm.style.display = 'none'
+    mobileManageForm.style.display = 'none'
   }
 
   subscriptionCancelButtons.forEach((btn) => btn.style.display = sub === null ? 'none' : 'block')

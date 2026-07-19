@@ -7748,7 +7748,7 @@
     "nextEffect": "Next Level:",
     "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
     "subscriptionPricePerMonth": "{{price}} / month",
-    "manageGooglePlaySubscription": "Manage Google Play Subscription",
+    "manageSubscription": "Manage Subscription",
     "subscriptionUpdated": "Your subscription and its bonuses have been updated!",
     "subscriptionSubscribe": "Subscribe - {{price}}",
     "subscriptionSubscribeSteam": "Subscribe with Steam - {{price}}",
