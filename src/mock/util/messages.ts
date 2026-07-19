@@ -57,9 +57,10 @@ export const messages = {
     })
   },
 
-  timeSkip (name: string, amount: number) {
+  timeSkip (name: string, id: string, amount: number) {
     return JSON.stringify({
       type: 'time-skip',
+      id,
       consumableName: name,
       amount
     })
@@ -122,6 +123,11 @@ export const messageSchema = z.preprocess(
   },
   z.union([
     z.object({ type: z.literal('consume'), consumable: z.string() }),
+    z.object({
+      type: z.literal('confirm'),
+      id: z.string().uuid(),
+      consumableId: z.string()
+    }),
     z.object({
       type: z.union([z.literal('applied-tip'), z.literal('use-tips')]),
       amount: z.number().int().nonnegative().safe()

@@ -14,6 +14,8 @@ const lotus = {
 
 export const consumeHandlers = [
   consumable.addEventListener('connection', ({ client }) => {
+    const pendingTimeSkips = new Map<string, string>()
+
     console.log('connected', client.url)
 
     client.send(messages.join())
@@ -36,13 +38,15 @@ export const consumeHandlers = [
       switch (data.type) {
         case 'consume': {
           if (data.consumable.includes('TIMESKIP')) {
+            const id = crypto.randomUUID()
             const length = data.consumable.includes('SMALL')
               ? 360
               : data.consumable.includes('LARGE')
               ? 720
               : 1440 // jumbo
 
-            sleep(2500).then(() => client.send(messages.timeSkip(data.consumable, length)))
+            pendingTimeSkips.set(id, data.consumable)
+            sleep(2500).then(() => client.send(messages.timeSkip(data.consumable, id, length)))
           } else if (data.consumable.includes('LOTUS')) {
             const amount = data.consumable.includes('SINGLE')
               ? 1
@@ -60,6 +64,16 @@ export const consumeHandlers = [
             })
           }
 
+          return
+        }
+        case 'confirm': {
+          if (pendingTimeSkips.get(data.id) !== data.consumableId) {
+            client.send(messages.error('No consumable found with that id'))
+            return
+          }
+
+          pendingTimeSkips.delete(data.id)
+          client.send(messages.thanks())
           return
         }
         case 'applied-tip': {
