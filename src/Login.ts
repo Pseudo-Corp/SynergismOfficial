@@ -4,7 +4,13 @@ import DOMPurify from 'dompurify'
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
+import {
+  afterOfflineProgress,
+  calculateAmbrosiaGenerationSpeed,
+  calculateOffline,
+  calculateRedAmbrosiaGenerationSpeed,
+  isOfflineDialogOpen
+} from './Calculate'
 import { isSynergismCC } from './Config'
 import { updateGlobalsIsEvent } from './Event'
 import { storageGetItem } from './events/storage-events'
@@ -792,20 +798,27 @@ async function handleWebSocket () {
     } else if (data.type === 'applied-tip') {
       tips = data.remaining
       calculateOffline(data.amount * 60, true)
-      DOMCacheGetOrSet('exitOffline').style.visibility = 'unset'
+        .then(() => {
+          if (isOfflineDialogOpen()) {
+            DOMCacheGetOrSet('exitOffline').style.visibility = 'unset'
+          }
+        })
+        .catch(console.error)
     } else if (data.type === 'time-skip') {
       const timeSkipName = data.consumableName as PseudoCoinTimeskipNames
       const minutes = data.amount
 
-      // Do the thing with the timeSkip
-      activateTimeSkip(timeSkipName, minutes)
-      saveSynergy()
+      afterOfflineProgress().then(() => {
+        // Do the thing with the timeSkip
+        activateTimeSkip(timeSkipName, minutes)
+        saveSynergy()
 
-      sendToWebsocket(JSON.stringify({
-        type: 'confirm',
-        id: data.id,
-        consumableId: data.consumableName
-      }))
+        sendToWebsocket(JSON.stringify({
+          type: 'confirm',
+          id: data.id,
+          consumableId: data.consumableName
+        }))
+      }).catch(console.error)
 
       setTimeout(updatePseudoCoins, 4000)
     } else if (data.type === 'lotus') {

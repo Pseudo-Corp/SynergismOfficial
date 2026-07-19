@@ -62,6 +62,7 @@ import {
   calculateOffline,
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
+  cancelOfflineProgress,
   dailyResetCheck,
   exitOffline,
   isOfflineDialogOpen
@@ -1203,6 +1204,10 @@ export const deepClone = () =>
 export const blankSave = deepClone()(player)
 
 export const saveSynergy = (button?: boolean) => {
+  if (G.timeWarp) {
+    return false
+  }
+
   player.offlinetick = Date.now()
 
   // save to player.goldenQuarkUpgrades, taking the level and freeLevel from corresponding goldenQuarkUpgrades from singularity.ts
@@ -4576,14 +4581,42 @@ const fastUpdateInterval = PLATFORM === 'mobile' ? 100 : 50
 const sweepInterval = PLATFORM === 'mobile' ? 100 : 25
 
 export const constantIntervals = (): void => {
-  setInterval(saveSynergy, 5000)
-  setInterval(slowUpdates, 200)
-  setInterval(fastUpdates, fastUpdateInterval)
-  setInterval(campaignIconHTMLUpdates, 15000)
-  setInterval(updateAllRuneLevelsFromEXP, sweepInterval)
-  setInterval(updateTalismanRarities, 250)
-  setInterval(() => awardAchievementGroup('runeFreeLevel'), sweepInterval)
+  // Updates are suspended during offline simulation
   setInterval(() => {
+    if (!G.timeWarp) {
+      saveSynergy()
+    }
+  }, 5000)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      slowUpdates()
+    }
+  }, 200)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      fastUpdates()
+    }
+  }, fastUpdateInterval)
+  setInterval(campaignIconHTMLUpdates, 15000)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      updateAllRuneLevelsFromEXP()
+    }
+  }, sweepInterval)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      updateTalismanRarities()
+    }
+  }, 250)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      awardAchievementGroup('runeFreeLevel')
+    }
+  }, sweepInterval)
+  setInterval(() => {
+    if (G.timeWarp) {
+      return
+    }
     for (const key of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
       updateProgressiveCache(key)
     }
@@ -4595,10 +4628,30 @@ export const constantIntervals = (): void => {
 }
 
 let lastUpdate = 0
+let lastTickWallClock = Date.now()
+let tickGeneration = 0
+
+const tickIntervalMs = 1000 / ticksPerSecond
 
 export const createTimer = (): void => {
   lastUpdate = performance.now()
-  setInterval(tick, 1000 / ticksPerSecond)
+  lastTickWallClock = Date.now()
+  tickGeneration += 1
+  scheduleTick(tickGeneration)
+}
+
+const scheduleTick = (generation: number) => {
+  setTimeout(() => {
+    if (generation !== tickGeneration) {
+      return
+    }
+
+    try {
+      tick()
+    } finally {
+      scheduleTick(generation)
+    }
+  }, tickIntervalMs)
 }
 
 const dt = 5
@@ -4616,10 +4669,37 @@ export const getTimePinnedToLoadDate = () => {
   return loadingDate.getTime() + (performance.now() - loadingBasePerfTick)
 }
 
-const tickBudgetMs = 30
+const tickBudgetMs = PLATFORM === 'mobile' ? 10 : 30
+
+const resumeOfflineGapMs = 60_000
 
 const tick = () => {
   const now = performance.now()
+
+  if (PLATFORM === 'mobile') {
+    const wallNow = Date.now()
+    const wallGap = wallNow - lastTickWallClock
+
+    if (wallGap > resumeOfflineGapMs) {
+      // While a simulation or its results dialog is up, leave the stamp untouched so
+      // the gap stays pending and is granted once they close, rather than being
+      // consumed here and lost to live catch-up
+      if (!G.timeWarp && !isOfflineDialogOpen()) {
+        lastTickWallClock = wallNow
+        lastUpdate = now
+        calculateOffline(wallGap / 1000).catch(console.error)
+        return
+      }
+
+      // The pending gap must be credited exactly once by the eventual offline
+      // progress, so skip live catch-up of it too
+      lastUpdate = now
+      return
+    } else {
+      lastTickWallClock = wallNow
+    }
+  }
+
   let delta = now - lastUpdate
   // TODO: We need discrete tick tracking, but it's way too inaccurate as a measure of time to do so right now.
   // compute pseudo-average delta cf. https://stackoverflow.com/a/5111475/343834
@@ -4983,8 +5063,12 @@ export const showExitOffline = () => {
  * Reloads shit.
  * @param ignoreOfflineProgress if this param is true, offline progression will not be calculated.
  */
-export const reloadShit = (ignoreOfflineProgress = false) => {
+let reloadGeneration = 0
+
+export const reloadShit = async (ignoreOfflineProgress = false) => {
+  const generation = ++reloadGeneration
   clearTimers()
+  cancelOfflineProgress()
 
   // Shows a reset button when page loading seems to stop or cause an error
   const preloadDeleteGame = setTimeout(
@@ -5109,7 +5193,17 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   updateShopLevels()
 
   if (!ignoreOfflineProgress) {
-    calculateOffline()
+    try {
+      await calculateOffline()
+    } catch (e) {
+      // A failed simulation must not abort the load and leave the game without timers
+      console.error(e)
+    }
+
+    // A newer import/reset superseded this reload while offline progress was working
+    if (generation !== reloadGeneration) {
+      return
+    }
   } else {
     if (!getSingularityChallengeEffect('limitedTime', 'preserveQuarks')) {
       player.worlds.reset()
@@ -5136,7 +5230,11 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   changeSubTab(Tabs.Buildings, { page: 0 })
 
   dailyResetCheck()
-  setInterval(dailyResetCheck, 30000)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      dailyResetCheck()
+    }
+  }, 30000)
 
   constantIntervals()
   changeTabColor()
@@ -5277,7 +5375,7 @@ window.addEventListener('load', async () => {
   // Initialize messages on game load
   fetchUnreadMessages().catch(console.error)
 
-  reloadShit()
+  await reloadShit()
 
   if (testing || !PROD) {
     Object.defineProperties(window, {

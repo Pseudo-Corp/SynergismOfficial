@@ -384,8 +384,7 @@ export const importSynergism = (input: string | null, reset = false) => {
     }
 
     storageSetItem('Synergysave2', saveString)
-    reloadShit(reset)
-    syncSteamAchievements()
+    reloadShit(reset).then(() => syncSteamAchievements()).catch(console.error)
     return
   } else {
     Alert(i18next.t('importexport.loadTestInLive'))

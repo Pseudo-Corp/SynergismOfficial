@@ -62,7 +62,7 @@
     "typescript": "^6.0.3"
   },
   "scripts": {
-    "live-server": "npx live-server --port=3000 -q",
+    "live-server": "npx live-server --port=3000 -q --watch=dist,index.html,Synergism.css,translations",
     "dev": "concurrently \"npm run watch:esbuild\" \"npm run live-server\"",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
