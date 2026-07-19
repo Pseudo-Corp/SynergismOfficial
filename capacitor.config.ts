@@ -5,11 +5,15 @@ const config: CapacitorConfig = {
   appName: 'Synergism',
   webDir: 'dist',
   plugins: {
+    AppAttest: {
+      cloudProjectNumber: '537222501218'
+    },
     CapacitorHttp: {
       enabled: true
     },
     CapacitorUpdater: {
       autoUpdate: 'atBackground',
+      resetWhenUpdate: true,
       updateUrl: 'https://synergism.cc/versions/updates',
       statsUrl: '',
       periodCheckDelay: 3600,

@@ -5318,6 +5318,10 @@ window.addEventListener('load', async () => {
 
   await i18nInit()
   handleLogin().catch(console.error)
+  if (PLATFORM === 'steam') {
+    const { onAuthChanged } = await import('./steam/steam')
+    onAuthChanged(() => handleLogin().catch(console.error))
+  }
 
   refreshQuarkBonus()
     .catch(console.error)

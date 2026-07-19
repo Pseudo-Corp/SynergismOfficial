@@ -7,7 +7,7 @@ android {
         applicationId "cc.pseudocorp.synergism"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
+        versionCode 7
         versionName "0.0.1-alpha0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {

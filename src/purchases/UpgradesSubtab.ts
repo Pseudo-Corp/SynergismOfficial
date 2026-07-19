@@ -131,7 +131,7 @@ async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
 
     updatePCoinCache(upgrade.internalName, parsed.data.level)
   } else {
-    Alert('Upgrades did not load. Please refresh the page.')
+    Alert('The purchase succeeded, but the upgrade display could not be updated. It will be synchronized automatically.')
   }
 }
 

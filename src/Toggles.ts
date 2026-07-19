@@ -11,8 +11,9 @@ import { applyChallengeInitialModifiers, reset } from './Reset'
 import { indexToRune } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
-import { format, player, resetCheck } from './Synergism'
+import { format, player, reloadShit, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
+import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
 import { Alert, Confirm, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
@@ -984,14 +985,17 @@ export const toggleStatSymbol = async () => {
   const confirmation = await Confirm(i18next.t('main.statSymbolConfirm'))
   if (!confirmation) {
     return
-  } else {
-    if (storageGetItem('statSymbols') === 'true') {
-      storageSetItem('statSymbols', 'false')
-    } else {
-      storageSetItem('statSymbols', 'true')
-    }
   }
-  location.reload()
+
+  const enabled = storageGetItem('statSymbols') !== 'true'
+  storageSetItem('statSymbols', `${enabled}`)
+
+  const { setStatSymbols } = await import('./Plugins/StatSymbols')
+  const { translateHTML } = await import('./i18n')
+  setStatSymbols(enabled)
+  await reloadShit(true)
+  translateHTML()
+  settingSymbols()
 }
 
 export const toggleAntsSubtab = (indexStr: string) => {

@@ -85,6 +85,8 @@ let ownedLotus = 0
 let usedLotus = 0
 let subscription: SubscriptionMetadata = null
 let lotusTimeExpiresAt: number | undefined = undefined
+let signedOutAccountHTML: string | undefined
+const boundLogoutButtons = new WeakSet<HTMLElement>()
 
 const cloudSaves: Save[] = []
 
@@ -306,14 +308,18 @@ async function fetchMeRoute () {
 }
 
 export async function handleLogin () {
+  const wasLoggedIn = loggedIn
+
   generateSubtabBrowser: {
     const subtabElement = document.querySelector('#accountSubTab div#left.scrollbarX')!
+    signedOutAccountHTML ??= subtabElement.innerHTML
 
-    const logoutElement = document.getElementById('logoutButton')
-    if (logoutElement !== null) {
-      logoutElement.addEventListener('click', logout, { once: true })
-      document.getElementById('accountSubTab')?.appendChild(logoutElement)
+    const logoutElement = DOMCacheGetOrSet('logoutButton')
+    if (!boundLogoutButtons.has(logoutElement)) {
+      boundLogoutButtons.add(logoutElement)
+      logoutElement.addEventListener('click', logout)
     }
+    DOMCacheGetOrSet('accountSubTab').appendChild(logoutElement)
 
     const response = await fetchMeRoute()
 
@@ -325,6 +331,7 @@ export async function handleLogin () {
 
     loggedIn = hasAccount(account)
     subscription = sub
+    logoutElement.style.display = loggedIn ? '' : 'none'
 
     if (!isSynergismCC && PLATFORM === 'browser') {
       subtabElement.innerHTML = i18next.t('account.loginNotAvailable')
@@ -537,7 +544,7 @@ export async function handleLogin () {
                 })
 
                 if (directLoginResponse.redirected || directLoginResponse.ok) {
-                  location.reload()
+                  await handleLogin()
                 } else {
                   await displayHTMLError(directLoginResponse)
                 }
@@ -563,6 +570,13 @@ export async function handleLogin () {
       }
     } else if (!hasAccount(account)) {
       // User is not logged in
+      if (wasLoggedIn) {
+        subtabElement.innerHTML = signedOutAccountHTML
+        if (PLATFORM === 'mobile') {
+          const { bindMobileFormHandlers } = await import('./mobile/auth')
+          bindMobileFormHandlers()
+        }
+      }
       subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
         subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
         subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
@@ -600,7 +614,7 @@ export async function handleLogin () {
     }
   }
 
-  if (loggedIn) {
+  if (loggedIn && !wasLoggedIn) {
     handleWebSocket()
     handleCloudSaves()
 
@@ -671,6 +685,11 @@ async function handleWebSocket () {
   let interval: number | undefined
 
   ws.addEventListener('close', (event) => {
+    if (!loggedIn) {
+      if (interval) clearInterval(interval)
+      return
+    }
+
     tries++
     const delay = PLATFORM === 'mobile'
       ? exponentialBackoff[Math.min(tries, exponentialBackoff.length - 1)]
@@ -877,8 +896,11 @@ async function logout () {
     await clearAuthCookie()
   }
 
+  await handleLogin()
+  ws?.close()
+  ws = undefined
+  resetWebSocket()
   await Alert(i18next.t('account.logout'))
-  location.reload()
 }
 
 const hasCaptcha = new WeakSet<HTMLElement>()
@@ -921,7 +943,7 @@ export const renderCaptcha = PLATFORM === 'steam'
             })
 
             if (response.redirected || response.ok) {
-              location.reload()
+              await handleLogin()
             } else {
               await displayHTMLError(response)
             }
@@ -1278,6 +1300,7 @@ function handleCloudSaves () {
           const save = cloudSaves.find((s) => saveId === s.id)
 
           if (!save) {
+            populateTable()
             Alert(i18next.t('account.noSaveFound'))
             return
           }
@@ -1297,6 +1320,7 @@ function handleCloudSaves () {
           const save = cloudSaves.find((s) => saveId === s.id)
 
           if (!save) {
+            populateTable()
             Alert(i18next.t('account.noSaveFound'))
             return
           }
@@ -1309,6 +1333,7 @@ function handleCloudSaves () {
           const save = cloudSaves.find((s) => saveId === s.id)
 
           if (!save) {
+            populateTable()
             Alert(i18next.t('account.noSaveFound'))
             return
           }
