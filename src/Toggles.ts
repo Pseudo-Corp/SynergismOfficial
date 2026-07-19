@@ -993,7 +993,7 @@ export const toggleStatSymbol = async () => {
   const { setStatSymbols } = await import('./Plugins/StatSymbols')
   const { translateHTML } = await import('./i18n')
   setStatSymbols(enabled)
-  await reloadShit(true)
+  await reloadShit()
   translateHTML()
   settingSymbols()
 }

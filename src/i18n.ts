@@ -79,7 +79,7 @@ function buildLanguageButton (langID: string, name: string, flag: string) {
     storageSetItem('language', langID)
 
     const { reloadShit } = await import('./Synergism')
-    await reloadShit(true)
+    await reloadShit()
     translateHTML()
   })
 
