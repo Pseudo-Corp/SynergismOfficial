@@ -1,0 +1,16 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/matthew/Documents/SynergismOfficial/src/mobile/websocket-plugin/android/src/main/AndroidManifest.xml:2:1-72
+INJECTED from /Users/matthew/Documents/SynergismOfficial/src/mobile/websocket-plugin/android/src/main/AndroidManifest.xml:2:1-72
+	package
+		INJECTED from /Users/matthew/Documents/SynergismOfficial/src/mobile/websocket-plugin/android/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/matthew/Documents/SynergismOfficial/src/mobile/websocket-plugin/android/src/main/AndroidManifest.xml:2:11-69
+uses-sdk
+INJECTED from /Users/matthew/Documents/SynergismOfficial/src/mobile/websocket-plugin/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/matthew/Documents/SynergismOfficial/src/mobile/websocket-plugin/android/src/main/AndroidManifest.xml
+INJECTED from /Users/matthew/Documents/SynergismOfficial/src/mobile/websocket-plugin/android/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/matthew/Documents/SynergismOfficial/src/mobile/websocket-plugin/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/matthew/Documents/SynergismOfficial/src/mobile/websocket-plugin/android/src/main/AndroidManifest.xml

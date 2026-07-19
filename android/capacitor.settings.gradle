@@ -22,3 +22,6 @@ project(':capgo-capacitor-updater').projectDir = new File('../node_modules/@capg
 
 include ':capacitor-plugin-cdv-purchase'
 project(':capacitor-plugin-cdv-purchase').projectDir = new File('../node_modules/capacitor-plugin-cdv-purchase/android')
+
+include ':synergism-websocket'
+project(':synergism-websocket').projectDir = new File('../src/mobile/websocket-plugin/android')
