@@ -38,19 +38,19 @@ export const calculatetax = () => {
     .add(G.produceFifth)
 
   if (G.produceFirst.lte(.0001)) {
-    G.produceFirst = new Decimal(0)
+    G.produceFirst = new Decimal()
   }
   if (G.produceSecond.lte(.0001)) {
-    G.produceSecond = new Decimal(0)
+    G.produceSecond = new Decimal()
   }
   if (G.produceThird.lte(.0001)) {
-    G.produceThird = new Decimal(0)
+    G.produceThird = new Decimal()
   }
   if (G.produceFourth.lte(.0001)) {
-    G.produceFourth = new Decimal(0)
+    G.produceFourth = new Decimal()
   }
   if (G.produceFifth.lte(.0001)) {
-    G.produceFifth = new Decimal(0)
+    G.produceFifth = new Decimal()
   }
 
   G.producePerSecond = G.produceTotal.times(40)

@@ -243,13 +243,13 @@ const optionalCorruptionSchema = z.object({
 })
 
 const talismanFragmentSchema = z.object({
-  shard: decimalSchema.default(() => new Decimal(0)),
-  commonFragment: decimalSchema.default(() => new Decimal(0)),
-  uncommonFragment: decimalSchema.default(() => new Decimal(0)),
-  rareFragment: decimalSchema.default(() => new Decimal(0)),
-  epicFragment: decimalSchema.default(() => new Decimal(0)),
-  legendaryFragment: decimalSchema.default(() => new Decimal(0)),
-  mythicalFragment: decimalSchema.default(() => new Decimal(0))
+  shard: decimalSchema.default(() => new Decimal()),
+  commonFragment: decimalSchema.default(() => new Decimal()),
+  uncommonFragment: decimalSchema.default(() => new Decimal()),
+  rareFragment: decimalSchema.default(() => new Decimal()),
+  epicFragment: decimalSchema.default(() => new Decimal()),
+  legendaryFragment: decimalSchema.default(() => new Decimal()),
+  mythicalFragment: decimalSchema.default(() => new Decimal())
 })
 
 const goldenQuarkUpgradeSchema = z.object({
@@ -572,7 +572,7 @@ export const playerSchema = z.object({
       return Object.fromEntries(
         Object.keys(blankSave.runes).map((key) => {
           const value = object[key] ?? blankSave.runes[key as keyof typeof blankSave['runes']]
-          return value === null ? [key, new Decimal('0')] : [key, new Decimal(value)]
+          return value === null ? [key, new Decimal()] : [key, new Decimal(value)]
         })
       )
     })
@@ -583,7 +583,7 @@ export const playerSchema = z.object({
       return Object.fromEntries(
         Object.keys(blankSave.runeBlessings).map((key) => {
           const value = object[key] ?? blankSave.runeBlessings[key as keyof typeof blankSave['runeBlessings']]
-          return value === null ? [key, new Decimal('0')] : [key, new Decimal(value)]
+          return value === null ? [key, new Decimal()] : [key, new Decimal(value)]
         })
       )
     })
@@ -594,7 +594,7 @@ export const playerSchema = z.object({
       return Object.fromEntries(
         Object.keys(blankSave.runeSpirits).map((key) => {
           const value = object[key] ?? blankSave.runeSpirits[key as keyof typeof blankSave['runeSpirits']]
-          return value === null ? [key, new Decimal('0')] : [key, new Decimal(value)]
+          return value === null ? [key, new Decimal()] : [key, new Decimal(value)]
         })
       )
     })

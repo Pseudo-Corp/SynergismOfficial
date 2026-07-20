@@ -236,7 +236,7 @@ export const calculateObtainium = (timeMultUsed = true) => {
 
   // Why is this a thing? If DR = 0 (which is possible), then the calculation below will not catch chal 14 enabled.
   if (player.currentChallenge.ascension === 14) {
-    return new Decimal('0')
+    return new Decimal()
   }
 
   const total = new Decimal(immaculate).times(Decimal.pow(baseMults, DR)).times(timeMultiplier)
@@ -279,7 +279,7 @@ export const calculatePotionValue = (resourceMult: Decimal, baseResource: number
 
 export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
   if (player.currentChallenge.ascension === 14) {
-    return Decimal.fromString('0')
+    return new Decimal()
   }
 
   const multiplier = 0.5 * player.researches[61]
@@ -287,7 +287,7 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
     + 0.8 * player.cubeUpgrades[3]
 
   if (multiplier === 0) {
-    return Decimal.fromString('0')
+    return new Decimal()
   }
 
   const useTimer = false
@@ -297,7 +297,7 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
 
   const researchVal = calculateFastForwardResourcesGlobal(deltaTime, resourceMult, baseObtainium, globalSpeedMult)
 
-  let antVal = new Decimal(0)
+  let antVal = new Decimal()
   if (player.cubeUpgrades[47] > 0) {
     const stageMod = thresholdModifiers().antSacrificeObtainiumMult
     const antSacMult = calculateAntSacrificeMultiplier().times(stageMod)

@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["typescript", "unicorn", "oxc", "import"],
-  "jsPlugins": ["./eslint-rules/no-relative-fetch.js"],
+  "jsPlugins": ["./eslint-rules/index.mjs"],
   "options": {
     "typeAware": true
   },
@@ -31,7 +31,8 @@
     // Too new
     "unicorn/no-array-sort": "off",
 
-    "synergism-rules/no-relative-fetch": "error"
+    "synergism-rules/no-relative-fetch": "error",
+    "synergism-rules/no-decimal-zero": "error"
   },
   "settings": {},
   "env": {

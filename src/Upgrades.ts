@@ -855,7 +855,7 @@ export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
     cost = Decimal.pow(10, toBuy - 1).times(G.constUpgradeCosts[i]!)
   } else {
     cost = i >= 9 && player.constantUpgrades[i]! >= 1
-      ? new Decimal('0')
+      ? new Decimal()
       : Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!)
   }
 

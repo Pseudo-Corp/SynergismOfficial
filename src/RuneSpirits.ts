@@ -60,7 +60,7 @@ const spiritMultiplier = (key: RuneKeys) => {
 export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   speed: {
     level: 0,
-    runeEXP: new Decimal(0),
+    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e45),
     levelsPerOOM: 2,
     effects: (level) => {
@@ -84,7 +84,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   },
   duplication: {
     level: 0,
-    runeEXP: new Decimal(0),
+    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e52),
     levelsPerOOM: 2,
     effects: (level) => {
@@ -108,7 +108,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   },
   prism: {
     level: 0,
-    runeEXP: new Decimal(0),
+    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e60),
     levelsPerOOM: 2,
     effects: (level) => {
@@ -132,7 +132,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   },
   thrift: {
     level: 0,
-    runeEXP: new Decimal(0),
+    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e72),
     levelsPerOOM: 2,
     effects: (level) => {
@@ -156,7 +156,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   },
   superiorIntellect: {
     level: 0,
-    runeEXP: new Decimal(0),
+    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e85),
     levelsPerOOM: 2,
     effects: (level) => {
@@ -223,7 +223,7 @@ export const buyAllSpiritLevels = (budget: Decimal) => {
 
   if (player.offerings.lt(0)) {
     // TODO: Figure out why this fucking happens so often
-    player.offerings = new Decimal(0)
+    player.offerings = new Decimal()
   }
 }
 
@@ -271,7 +271,7 @@ export const updateAllSpiritLevelsFromEXP = () => {
 // Gives levels to buy, total EXP to that level, and offerings required to reach that level
 const maxSpiritLevelPurchaseInformation = (spirit: RuneSpiritKeys, budget: Decimal) => {
   if (budget.lt(0)) {
-    return { levels: 0, expRequired: new Decimal(0), offerings: new Decimal(0) }
+    return { levels: 0, expRequired: new Decimal(), offerings: new Decimal() }
   }
 
   const runeEXPPerOffering = getRuneSpiritEXPPerOffering(spirit)
@@ -417,7 +417,7 @@ export function resetRuneSpirits (tier: keyof typeof resetTiers) {
   for (const spirit of runeSpiritKeys) {
     if (resetTiers[tier] >= resetTiers[runeSpirits[spirit].minimalResetTier]) {
       runeSpirits[spirit].level = 0
-      runeSpirits[spirit].runeEXP = new Decimal(0)
+      runeSpirits[spirit].runeEXP = new Decimal()
     }
   }
 }

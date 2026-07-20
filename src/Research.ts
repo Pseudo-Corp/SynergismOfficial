@@ -144,7 +144,7 @@ const polyBuyToLevel = (
 const polyCostForLevels = (degree: number): (baseCost: Decimal, currlevel: number, toBuy: number) => Decimal => {
   return (baseCost: Decimal, currLevel: number, buyTo: number) => {
     if (currLevel === buyTo) {
-      return Decimal.fromString('0')
+      return new Decimal()
     }
     return baseCost.times(Math.pow(buyTo, degree) - Math.pow(currLevel, degree))
   }
@@ -318,7 +318,7 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
   let levelToBuy = getBuyableResearchLevel(index)
   levelToBuy = Math.min(researchData[index].maxLevel, levelToBuy, player.researches[index] + buyAmount)
 
-  let obtainiumCost = new Decimal(0)
+  let obtainiumCost = new Decimal()
 
   // If levelToBuy is = current level, either we've already maxxed the upgrade
   // OR we cannot afford any levels. Check which one.

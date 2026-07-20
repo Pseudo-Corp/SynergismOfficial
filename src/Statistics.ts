@@ -196,7 +196,7 @@ export const calculateTotalStatNumber = (category: NumberStatLineCategory): numb
 
 export const calculateTotalStatDecimal = (category: DecimalStatLineCategory): Decimal => {
   if (category.type === StatLineTypes.Addition) {
-    return category.lines.reduce((total, line) => total.add(line.stat()), new Decimal(0))
+    return category.lines.reduce((total, line) => total.add(line.stat()), new Decimal())
   } else if (category.type === StatLineTypes.Multiplication) {
     return category.lines.reduce((total, line) => total.mul(line.stat()), new Decimal(1))
   } else {
