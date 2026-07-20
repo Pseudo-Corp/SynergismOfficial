@@ -6541,18 +6541,44 @@ html[data-mobile="false"] .pseudoCoinButton {
     outline: 2px solid white;
 }
 
-#pseudoCoinAmounts,
-#pseudoCoinAmounts2 {
+#pseudoCoinBalanceDisplay {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 8px 24px;
+    width: fit-content;
+    min-height: 32px;
+    margin: 6px auto 8px;
+    padding: 4px 16px;
+    border: 1px solid var(--darkgold-color);
+    border-radius: 4px;
 }
 
-#pseudoCoinAmounts > img,
-#pseudoCoinAmounts2 > img {
-    max-height: 32px;
-    max-width: 32px;
+.pseudoCoinBalanceResource {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pseudoCoinBalanceResource > img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.pseudoCoinBalanceValue,
+.lotusBalanceValue {
+    min-width: 16px;
+    text-align: center;
+}
+
+.pseudoCoinBalanceValue {
+    color: gold;
+}
+
+.lotusBalanceValue {
+    color: pink;
 }
 
 #upgradeInfo {

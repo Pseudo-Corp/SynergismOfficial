@@ -17,6 +17,7 @@ import { storageGetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
 import { updateLotusDisplay } from './purchases/ConsumablesTab'
+import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases/PseudoCoinBalances'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
@@ -83,6 +84,7 @@ let loggedIn = false
 let tips = 0
 let ownedLotus = 0
 let usedLotus = 0
+let lotusInventoryLoaded = false
 let subscription: SubscriptionMetadata = null
 let lotusTimeExpiresAt: number | undefined = undefined
 let signedOutAccountHTML: string | undefined
@@ -97,6 +99,7 @@ export const setTips = (newTips: number) => tips = newTips
 
 export const getOwnedLotus = () => ownedLotus
 export const getUsedLotus = () => usedLotus
+export const isLotusInventoryLoaded = () => lotusInventoryLoaded
 export const getLotusTimeExpiresAt = () => lotusTimeExpiresAt
 
 export const getSubMetadata = () => subscription
@@ -615,6 +618,8 @@ export async function handleLogin () {
   }
 
   if (loggedIn && !wasLoggedIn) {
+    setLotusBalanceLoading()
+    updatePseudoCoins().catch(console.error)
     handleWebSocket()
     handleCloudSaves()
 
@@ -623,6 +628,9 @@ export async function handleLogin () {
         .then(({ resumePendingMobilePurchase }) => resumePendingMobilePurchase())
         .catch(console.error)
     }
+  } else if (!loggedIn && wasLoggedIn) {
+    setPseudoCoinBalanceLoading()
+    setLotusBalanceLoading()
   }
 
   // Steam cloud saves work without login
@@ -660,7 +668,11 @@ function resetWebSocket () {
     }
   }
 
+  ownedLotus = 0
+  usedLotus = 0
+  lotusInventoryLoaded = false
   lotusTimeExpiresAt = undefined
+  setLotusBalanceLoading()
   setFavicon('./favicon.ico')
 }
 
@@ -690,6 +702,7 @@ async function handleWebSocket () {
       return
     }
 
+    setLotusBalanceLoading()
     tries++
     const delay = PLATFORM === 'mobile'
       ? exponentialBackoff[Math.min(tries, exponentialBackoff.length - 1)]
@@ -798,14 +811,13 @@ async function handleWebSocket () {
 
       const lotusInventory = data.inventory.find((item) => item.type === 'LOTUS')
 
-      if (lotusInventory) {
-        ownedLotus = lotusInventory.amount
-        usedLotus = lotusInventory.used
-        try {
-          updateLotusDisplay()
-        } catch {
-          // This can throw if /consumables/list has not returned a response by the time this runs
-        }
+      ownedLotus = lotusInventory?.amount ?? 0
+      usedLotus = lotusInventory?.used ?? 0
+      lotusInventoryLoaded = true
+      try {
+        updateLotusDisplay()
+      } catch {
+        // This can throw if /consumables/list has not returned a response by the time this runs
       }
     } else if (data.type === 'thanks') {
       Alert(i18next.t('pseudoCoins.consumables.thanks'))

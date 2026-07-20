@@ -7723,7 +7723,6 @@
       "resize": "Resize header"
     },
     "auth": {
-      "signInFailed": "Sign-in was cancelled or failed. Please try again.",
       "verificationFailed": "We couldn't verify your device. Please try again."
     },
     "purchases": {
@@ -7741,6 +7740,12 @@
   },
   "pseudoCoins": {
     "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",
+    "balances": {
+      "pseudoCoins": "PseudoCoins:",
+      "lotus": "Lotus:",
+      "loadingPseudoCoins": "Loading PseudoCoins",
+      "loadingLotus": "Loading Lotus"
+    },
     "cost": "Cost: <<gold|{{amount}} PseudoCoins>>",
     "maxxed": "<<gold|Maxed!>>",
     "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",
