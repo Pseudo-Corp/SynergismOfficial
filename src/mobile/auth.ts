@@ -1,7 +1,7 @@
 import { Capacitor } from '@capacitor/core'
 import { AppAttest } from '@capgo/capacitor-app-attest'
 import i18next from 'i18next'
-import { handleLogin } from '../Login'
+import { finishAuthFormSubmission, handleLogin, startAuthFormSubmission } from '../Login'
 import { Alert } from '../UpdateHTML'
 import { displayHTMLError } from '../Utility'
 
@@ -56,8 +56,7 @@ export const bindMobileFormHandlers = () => {
     form.addEventListener('submit', async (ev) => {
       ev.preventDefault()
 
-      if (form.dataset.submitting) return
-      form.dataset.submitting = 'true'
+      if (!startAuthFormSubmission(form)) return
 
       try {
         const body = new URLSearchParams()
@@ -95,7 +94,7 @@ export const bindMobileFormHandlers = () => {
           await displayHTMLError(res)
         }
       } finally {
-        delete form.dataset.submitting
+        finishAuthFormSubmission(form)
       }
     })
   }

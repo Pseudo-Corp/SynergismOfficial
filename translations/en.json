@@ -7668,6 +7668,11 @@
     "loggedInBut": "You are logged in, but your profile couldn't be retrieved.",
     "loggedInButError": "You are logged in, but retrieving your profile yielded the following error: {{error}}",
     "loginNotAvailable": "Login is not available here, go to <a href=\"https://synergism.cc\">https://synergism.cc</a> instead!",
+    "forms": {
+      "register": "Register",
+      "login": "Login",
+      "sendResetPasswordEmail": "Send Reset Password Email"
+    },
     "bonuses": {
       "transcendedBaller": "Transcended Baller <<gold|(or higher)>>",
       "reincarnatedBaller": "Reincarnated Baller <<gold|(or higher)>>",

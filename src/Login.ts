@@ -23,7 +23,7 @@ import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Confirm, Notification } from './UpdateHTML'
-import { assert, btoa, displayHTMLError, isomorphicDecode, memoize } from './Utility'
+import { assert, btoa, displayHTMLError, isomorphicDecode } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -916,19 +916,69 @@ async function logout () {
 }
 
 const hasCaptcha = new WeakSet<HTMLElement>()
+const boundSteamAuthForms = new WeakSet<HTMLFormElement>()
+const boundBrowserAuthForms = new WeakSet<HTMLFormElement>()
+const authSubmitButtonSelector = 'button[type="submit"]'
+
+const getAuthSubmitButton = (form: HTMLFormElement) => form.querySelector<HTMLButtonElement>(authSubmitButtonSelector)
+
+export const startAuthFormSubmission = (form: HTMLFormElement) => {
+  if (form.dataset.submitting === 'true') return false
+
+  form.dataset.submitting = 'true'
+
+  const submitButton = getAuthSubmitButton(form)
+  if (submitButton) {
+    const spinner = document.createElement('span')
+    spinner.classList.add('authSubmitSpinner', 'spinner')
+    spinner.setAttribute('aria-hidden', 'true')
+
+    submitButton.disabled = true
+    submitButton.setAttribute('aria-busy', 'true')
+    submitButton.appendChild(spinner)
+  }
+
+  return true
+}
+
+export const finishAuthFormSubmission = (form: HTMLFormElement) => {
+  delete form.dataset.submitting
+
+  const submitButton = getAuthSubmitButton(form)
+  if (submitButton) {
+    submitButton.disabled = false
+    submitButton.removeAttribute('aria-busy')
+    submitButton.querySelector(':scope > .authSubmitSpinner')?.remove()
+  }
+}
+
+const bindBrowserAuthFormHandlers = () => {
+  for (const form of document.querySelectorAll<HTMLFormElement>('form[data-apple-action]')) {
+    if (boundBrowserAuthForms.has(form)) continue
+    boundBrowserAuthForms.add(form)
+
+    form.addEventListener('submit', (event) => {
+      if (!startAuthFormSubmission(form)) {
+        event.preventDefault()
+      }
+    })
+  }
+}
 
 export const renderCaptcha = PLATFORM === 'steam'
-  ? memoize(() => {
+  ? () => {
     const captchaElements = document.querySelectorAll('.turnstile')
 
     for (const element of captchaElements) {
       if (element.parentElement instanceof HTMLFormElement) {
         const form = element.parentElement
+        if (boundSteamAuthForms.has(form)) continue
+        boundSteamAuthForms.add(form)
+
         form.addEventListener('submit', async (ev) => {
           ev.preventDefault()
 
-          if (form.dataset.submitting) return
-          form.dataset.submitting = 'true'
+          if (!startAuthFormSubmission(form)) return
 
           try {
             const { getSessionTicket } = await import('./steam/steam')
@@ -960,15 +1010,17 @@ export const renderCaptcha = PLATFORM === 'steam'
               await displayHTMLError(response)
             }
           } finally {
-            form.dataset.submitting = undefined
+            finishAuthFormSubmission(form)
           }
         })
       }
     }
-  })
+  }
   : PLATFORM === 'mobile'
   ? () => {}
   : () => {
+    bindBrowserAuthFormHandlers()
+
     const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
     const visible = captchaElements.find((el) => el.offsetParent !== null)
 
