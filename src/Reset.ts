@@ -6,7 +6,7 @@ import {
   challengeAchievementCheck,
   getAchievementReward
 } from './Achievements'
-import { buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy'
+import { buyTesseractBuilding, calculateTessBuildingsInBudget, getCost } from './Buy'
 import type { TesseractBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -64,7 +64,7 @@ import { changeSubTab, changeTab, resetAllSubTabs, Tabs, updateSubTabVisibility 
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
 import { AutoAscensionModes } from './Toggles'
-import type { OneToFive, Player, resetNames } from './types/Synergism'
+import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
 import { Alert, revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
 import { updateClassList } from './Utility'
@@ -498,20 +498,12 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
 
     G.transcendPointGain = Decimal.fromString('0')
 
-    if (getLevelMilestone('tier1CrystalAutobuy') === 1) {
-      player.firstOwnedDiamonds += 1
-    }
-    if (getLevelMilestone('tier2CrystalAutobuy') === 1) {
-      player.secondOwnedDiamonds += 1
-    }
-    if (getLevelMilestone('tier3CrystalAutobuy') === 1) {
-      player.thirdOwnedDiamonds += 1
-    }
-    if (getLevelMilestone('tier4CrystalAutobuy') === 1) {
-      player.fourthOwnedDiamonds += 1
-    }
-    if (getLevelMilestone('tier5CrystalAutobuy') === 1) {
-      player.fifthOwnedDiamonds += 1
+    for (let i = 1; i <= 5; i++) {
+      if (getLevelMilestone(`tier${i as OneToFive}CrystalAutobuy`) === 1) {
+        const zeroIndex = i - 1 as ZeroToFour
+        player[`${G.ordinals[zeroIndex]}OwnedDiamonds`] = 1
+        player[`${G.ordinals[zeroIndex]}CostDiamonds`] = getCost('diamond', 2, zeroIndex)
+      }
     }
 
     if (player.transcendcounter < player.fastesttranscend && player.currentChallenge.transcension === 0) {
@@ -643,11 +635,11 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     resetRunes('ascension')
 
     if (player.cubeUpgrades[27] === 1) {
-      player.firstOwnedParticles = 1
-      player.secondOwnedParticles = 1
-      player.thirdOwnedParticles = 1
-      player.fourthOwnedParticles = 1
-      player.fifthOwnedParticles = 1
+      for (let i = 1; i <= 5; i++) {
+        const zeroIndex = i - 1 as ZeroToFour
+        player[`${G.ordinals[zeroIndex]}OwnedParticles`] = 1
+        player[`${G.ordinals[zeroIndex]}CostParticles`] = getCost('particle', 2, zeroIndex)
+      }
     }
 
     const c10Completions = player.challengecompletions[10]

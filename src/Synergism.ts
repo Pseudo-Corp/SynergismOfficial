@@ -42,12 +42,9 @@ import {
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
 import {
+  buyBuilding,
   boostAccelerator,
-  buyAccelerator,
   buyCrystalUpgrades,
-  buyMax,
-  buyMultiplier,
-  buyParticleBuilding,
   buyTesseractBuilding,
   calculateTessBuildingsInBudget,
   getCost,
@@ -143,7 +140,7 @@ import {
   updateAutoChallenge,
   updateRuneBlessingBuyAmount
 } from './Toggles'
-import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
+import { type OneToFive, type Player, type resetNames, type ZeroToFour } from './types/Synergism'
 import {
   Alert,
   buttoncolorchange,
@@ -266,7 +263,6 @@ const buyAmountTypes = [
   'tesseract'
 ] as const
 const buildingResources = ['Coin', 'Diamonds', 'Mythos'] as const
-const particleOriginalCosts = [1, 1e2, 1e4, 1e8, 1e16]
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -4034,55 +4030,29 @@ export const updateAll = (): void => {
   autoUpgrades()
 
   // Autobuy "Building" Tab
-
-  if (
-    player.toggles[1]
-    && player.upgrades[81] === 1
-    && player.coins.gte(player.firstCostCoin)
-  ) {
-    buyMax(1, 'Coin')
-  }
-  if (
-    player.toggles[2]
-    && player.upgrades[82] === 1
-    && player.coins.gte(player.secondCostCoin)
-  ) {
-    buyMax(2, 'Coin')
-  }
-  if (
-    player.toggles[3]
-    && player.upgrades[83] === 1
-    && player.coins.gte(player.thirdCostCoin)
-  ) {
-    buyMax(3, 'Coin')
-  }
-  if (
-    player.toggles[4]
-    && player.upgrades[84] === 1
-    && player.coins.gte(player.fourthCostCoin)
-  ) {
-    buyMax(4, 'Coin')
-  }
-  if (
-    player.toggles[5]
-    && player.upgrades[85] === 1
-    && player.coins.gte(player.fifthCostCoin)
-  ) {
-    buyMax(5, 'Coin')
+  for (let i = 1; i <= 5; i++) {
+    const zeroIndex = i - 1 as ZeroToFour
+    if (
+      player.toggles[i]
+      && player.upgrades[80 + i]
+      && player.coins.gte(player[`${G.ordinals[zeroIndex]}CostCoin` as const])
+    ) {
+    buyBuilding('coin', 'max', zeroIndex)
+    }
   }
   if (
     player.toggles[6]
     && player.upgrades[86] === 1
     && player.coins.gte(player.acceleratorCost)
   ) {
-    buyAccelerator(true)
+    buyBuilding('accelerator', 'max')
   }
   if (
     player.toggles[7]
     && player.upgrades[87] === 1
     && player.coins.gte(player.multiplierCost)
   ) {
-    buyMultiplier(true)
+    buyBuilding('multiplier', 'max')
   }
   if (
     player.toggles[8]
@@ -4090,45 +4060,19 @@ export const updateAll = (): void => {
     && player.upgrades[46] === 1
     && player.prestigePoints.gte(player.acceleratorBoostCost)
   ) {
-    boostAccelerator(true)
+    boostAccelerator('max')
   }
 
   // Autobuy "Prestige" Tab
-
-  if (
-    player.toggles[10]
-    && getLevelMilestone('tier1CrystalAutobuy') === 1
-    && player.prestigePoints.gte(player.firstCostDiamonds)
-  ) {
-    buyMax(1, 'Diamonds')
-  }
-  if (
-    player.toggles[11]
-    && getLevelMilestone('tier2CrystalAutobuy') === 1
-    && player.prestigePoints.gte(player.secondCostDiamonds)
-  ) {
-    buyMax(2, 'Diamonds')
-  }
-  if (
-    player.toggles[12]
-    && getLevelMilestone('tier3CrystalAutobuy') === 1
-    && player.prestigePoints.gte(player.thirdCostDiamonds)
-  ) {
-    buyMax(3, 'Diamonds')
-  }
-  if (
-    player.toggles[13]
-    && getLevelMilestone('tier4CrystalAutobuy') === 1
-    && player.prestigePoints.gte(player.fourthCostDiamonds)
-  ) {
-    buyMax(4, 'Diamonds')
-  }
-  if (
-    player.toggles[14]
-    && getLevelMilestone('tier5CrystalAutobuy') === 1
-    && player.prestigePoints.gte(player.fifthCostDiamonds)
-  ) {
-    buyMax(5, 'Diamonds')
+  for (let i = 1; i <= 5; i++) {
+    const zeroIndex = i - 1 as ZeroToFour
+    if (
+      player.toggles[9 + i]
+      && getLevelMilestone(`tier${i as OneToFive}CrystalAutobuy` as const) === 1
+      && player.prestigePoints.gte(player[`${G.ordinals[zeroIndex]}CostDiamonds` as const])
+    ) {
+      buyBuilding('diamond', 'max', zeroIndex)
+    }
   }
 
   let c = 0
@@ -4139,146 +4083,45 @@ export const updateAll = (): void => {
     c += 10
   }
   const logDiscount = getRuneEffects('prism', 'costDivisorLog10')
-  if (
-    getLevelMilestone('tier1CrystalAutobuy') === 1
-    && player.prestigeShards.gte(
-      Decimal.pow(
-        10,
-        G.crystalUpgradesCost[0] - logDiscount
-          + G.crystalUpgradeCostIncrement[0]
-            * Math.floor(Math.pow(player.crystalUpgrades[0] - 0.5 - c, 2) / 2)
+  for (let i = 1; i <= 5; i++) {
+    const zeroIndex = i - 1 as ZeroToFour
+    if (
+      getLevelMilestone(`tier${i as OneToFive}CrystalAutobuy` as const) === 1
+      && player.prestigeShards.gte(
+        Decimal.pow(
+          10,
+          G.crystalUpgradesCost[zeroIndex] - logDiscount
+            + G.crystalUpgradeCostIncrement[zeroIndex]
+              * Math.floor(Math.pow(player.crystalUpgrades[zeroIndex] - 0.5 - c, 2) / 2)
+        )
       )
-    )
-  ) {
-    buyCrystalUpgrades(1, true)
-  }
-  if (
-    getLevelMilestone('tier2CrystalAutobuy') === 1
-    && player.prestigeShards.gte(
-      Decimal.pow(
-        10,
-        G.crystalUpgradesCost[1] - logDiscount
-          + G.crystalUpgradeCostIncrement[1]
-            * Math.floor(Math.pow(player.crystalUpgrades[1] - 0.5 - c, 2) / 2)
-      )
-    )
-  ) {
-    buyCrystalUpgrades(2, true)
-  }
-  if (
-    getLevelMilestone('tier3CrystalAutobuy') === 1
-    && player.prestigeShards.gte(
-      Decimal.pow(
-        10,
-        G.crystalUpgradesCost[2] - logDiscount
-          + G.crystalUpgradeCostIncrement[2]
-            * Math.floor(Math.pow(player.crystalUpgrades[2] - 0.5 - c, 2) / 2)
-      )
-    )
-  ) {
-    buyCrystalUpgrades(3, true)
-  }
-  if (
-    getLevelMilestone('tier4CrystalAutobuy') === 1
-    && player.prestigeShards.gte(
-      Decimal.pow(
-        10,
-        G.crystalUpgradesCost[3] - logDiscount
-          + G.crystalUpgradeCostIncrement[3]
-            * Math.floor(Math.pow(player.crystalUpgrades[3] - 0.5 - c, 2) / 2)
-      )
-    )
-  ) {
-    buyCrystalUpgrades(4, true)
-  }
-  if (
-    getLevelMilestone('tier5CrystalAutobuy') === 1
-    && player.prestigeShards.gte(
-      Decimal.pow(
-        10,
-        G.crystalUpgradesCost[4] - logDiscount
-          + G.crystalUpgradeCostIncrement[4]
-            * Math.floor(Math.pow(player.crystalUpgrades[4] - 0.5 - c, 2) / 2)
-      )
-    )
-  ) {
-    buyCrystalUpgrades(5, true)
+    ) {
+      buyCrystalUpgrades(i, true)
+    }
   }
 
   // Autobuy "Transcension" Tab
-
-  if (
-    player.toggles[16]
-    && player.upgrades[94] === 1
-    && player.transcendPoints.gte(player.firstCostMythos)
-  ) {
-    buyMax(1, 'Mythos')
-  }
-  if (
-    player.toggles[17]
-    && player.upgrades[95] === 1
-    && player.transcendPoints.gte(player.secondCostMythos)
-  ) {
-    buyMax(2, 'Mythos')
-  }
-  if (
-    player.toggles[18]
-    && player.upgrades[96] === 1
-    && player.transcendPoints.gte(player.thirdCostMythos)
-  ) {
-    buyMax(3, 'Mythos')
-  }
-  if (
-    player.toggles[19]
-    && player.upgrades[97] === 1
-    && player.transcendPoints.gte(player.fourthCostMythos)
-  ) {
-    buyMax(4, 'Mythos')
-  }
-  if (
-    player.toggles[20]
-    && player.upgrades[98] === 1
-    && player.transcendPoints.gte(player.fifthCostMythos)
-  ) {
-    buyMax(5, 'Mythos')
+  for (let i = 1; i <= 5; i++) {
+    const zeroIndex = i - 1 as ZeroToFour
+    if (
+      player.toggles[15 + i]
+      && player.upgrades[93 + i] === 1
+      && player.transcendPoints.gte(player[`${G.ordinals[zeroIndex]}CostMythos` as const])
+    ) {
+      buyBuilding('mythos', 'max', zeroIndex)
+    }
   }
 
   // Autobuy "Reincarnation" Tab
-
-  if (
-    player.toggles[22]
-    && player.cubeUpgrades[7] === 1
-    && player.reincarnationPoints.gte(player.firstCostParticles)
-  ) {
-    buyParticleBuilding(1, true)
-  }
-  if (
-    player.toggles[23]
-    && player.cubeUpgrades[7] === 1
-    && player.reincarnationPoints.gte(player.secondCostParticles)
-  ) {
-    buyParticleBuilding(2, true)
-  }
-  if (
-    player.toggles[24]
-    && player.cubeUpgrades[7] === 1
-    && player.reincarnationPoints.gte(player.thirdCostParticles)
-  ) {
-    buyParticleBuilding(3, true)
-  }
-  if (
-    player.toggles[25]
-    && player.cubeUpgrades[7] === 1
-    && player.reincarnationPoints.gte(player.fourthCostParticles)
-  ) {
-    buyParticleBuilding(4, true)
-  }
-  if (
-    player.toggles[26]
-    && player.cubeUpgrades[7] === 1
-    && player.reincarnationPoints.gte(player.fifthCostParticles)
-  ) {
-    buyParticleBuilding(5, true)
+  for (let i = 1; i <= 5; i++) {
+    const zeroIndex = i - 1 as ZeroToFour
+    if (
+      player.toggles[21 + i]
+      && player.cubeUpgrades[7] === 1
+      && player.reincarnationPoints.gte(player[`${G.ordinals[zeroIndex]}CostParticles` as const])
+    ) {
+      buyBuilding('particle', undefined, zeroIndex)
+    }
   }
 
   // Autobuy "ascension" tab
@@ -4523,28 +4366,14 @@ export const updateAll = (): void => {
     G.prevReductionValue = reductionValue
     for (let res = 0; res < buildingResources.length; ++res) {
       const resource = buildingResources[res]
-      for (let ord = 0; ord < 5; ++ord) {
-        const num = G.ordinals[ord as ZeroToFour]
-        player[`${num}Cost${resource}` as const] = getCost(
-          (ord + 1) as OneToFive,
-          resource,
-          player[`${num}Owned${resource}` as const] + 1,
-          reductionValue
+      for (let i = 1; i <= 5; i++) {
+        const zeroIndex = i - 1 as ZeroToFour
+        player[`${G.ordinals[zeroIndex]}Cost${resource}` as const] = getCost(
+          (['coin', 'diamond', 'mythos'] as const)[res],
+          player[`${G.ordinals[zeroIndex]}Owned${resource}` as const] + 1,
+          zeroIndex
         )
       }
-    }
-
-    for (let i = 0; i <= 4; i++) {
-      const num = G.ordinals[i as ZeroToFour]
-      const buyTo = player[`${num}OwnedParticles` as const] + 1
-      player[`${num}CostParticles` as const] = new Decimal(
-        Decimal.pow(2, buyTo - 1).times(
-          Decimal.pow(
-            1.001,
-            (Math.max(0, buyTo - 325000) * Math.max(0, buyTo - 325000 + 1)) / 2
-          )
-        )
-      ).times(particleOriginalCosts[i])
     }
   }
 
@@ -4838,16 +4667,6 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
     return
   }
 
-  const types = {
-    coin: 'Coin',
-    diamond: 'Diamonds',
-    mythos: 'Mythos',
-    particle: 'Particles',
-    tesseract: 'Tesseracts'
-  } as const
-
-  const type = types[G.buildingSubTab]
-
   if (event.shiftKey) {
     let num = Number(key) - 1
     if (key === 'BACKQUOTE') {
@@ -4885,12 +4704,10 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       const num = Number(key) as OneToFive
 
       if (G.currentTab === Tabs.Buildings) {
-        if (type === 'Particles') {
-          buyParticleBuilding(num)
-        } else if (type === 'Tesseracts') {
+        if (G.buildingSubTab === 'tesseract') {
           buyTesseractBuilding(num)
         } else {
-          buyMax(num, type)
+          buyBuilding(G.buildingSubTab, undefined, num - 1 as ZeroToFour)
         }
       }
       if (G.currentTab === Tabs.Upgrades) {
