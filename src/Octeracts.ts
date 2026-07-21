@@ -1126,7 +1126,7 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
     : ''
 
   let freeLevelText = upgrade.freeLevel > 0
-    ? `<span style="color: orange"> [+${format(upgrade.freeLevel, 1, true)}${freeLevelMultText}]</span>`
+    ? `<span style="color: orange"> [+${format(upgrade.freeLevel, 3, true)}${freeLevelMultText}]</span>`
     : ''
 
   if (freeLevelsWithMult > upgrade.level) {
@@ -1138,7 +1138,7 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
   const effectiveLevelText = totalEffectiveLevels !== upgrade.level + upgrade.freeLevel
     ? `<br><b><span style="color: white">${
       i18next.t('general.effectiveLevel', {
-        level: format(totalEffectiveLevels, 2, true)
+        level: format(totalEffectiveLevels, 3, true)
       })
     }</span></b>`
     : ''
@@ -1169,14 +1169,14 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
     ? ''
     : `${
       i18next.t('octeract.toString.costNextLevel', {
-        amount: format(costNextLevel, 2, true, true, true)
+        amount: format(costNextLevel, 2)
       })
     } ${affordableInfo}`
 
   const investedOcteractsHTML = upgrade.octeractsInvested > 0
     ? `<br><span style="color: turquoise">${
       i18next.t('octeract.toString.spentOcteracts', {
-        spent: format(upgrade.octeractsInvested, 2, true, true, true)
+        spent: format(upgrade.octeractsInvested, 2)
       })
     }</span>`
     : ''

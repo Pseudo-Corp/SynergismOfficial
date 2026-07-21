@@ -399,7 +399,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
         val: formatAsPercentIncrease(multiplicativeMultipliers, 2)
       })
       const taxReductionText = i18next.t('runes.duplication.taxReduction', {
-        val: format(100 * (1 - taxReduction), 3, true)
+        val: format(100 * (1 - taxReduction), 4, true)
       })
       return `${multiplierPowerBoostsText}<br>${multiplicativeMultipliersText}<br>${taxReductionText}`
     },
@@ -476,7 +476,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       const costDelay = getRuneEffects('thrift', 'costDelay')
       const salvage = getRuneEffects('thrift', 'salvage')
       const taxReduction = getRuneEffects('thrift', 'taxReduction')
-      const costDelayText = i18next.t('runes.thrift.costDelay', { val: format(costDelay, 0, true) })
+      const costDelayText = i18next.t('runes.thrift.costDelay', { val: format(costDelay, 2, true) })
       const salvageText = i18next.t('runes.thrift.salvage', { val: format(salvage, 2, true) })
       const taxReductionText = i18next.t('runes.thrift.taxReduction', {
         val: format(100 * (1 - taxReduction), 3, true)

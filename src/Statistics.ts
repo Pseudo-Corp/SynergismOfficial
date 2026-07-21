@@ -169,12 +169,14 @@ interface StatLine<T> {
 interface NumberStatLineCategory {
   kind: 'number'
   type: StatLineTypes
+  acc?: number
   lines: StatLine<number>[]
 }
 
 interface DecimalStatLineCategory {
   kind: 'decimal'
   type: StatLineTypes
+  acc?: 0
   lines: StatLine<number | Decimal>[]
 }
 
@@ -924,61 +926,75 @@ export const allBaseOfferingStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 1 // Absolute Base
+      stat: () => 1, // Absolute Base,
+      acc: 0
     },
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.BASE_OFFERING_BUFF, // PseudoCoin Upgrade
       color: 'gold',
-      displayCriterion: () => true
+      displayCriterion: () => true,
+      acc: 0
     },
     {
       i18n: 'Prestige',
-      stat: () => player.prestigeCount > 0 ? 1 : 0 // Prestiged
+      stat: () => player.prestigeCount > 0 ? 1 : 0, // Prestiged
+      acc: 0
     },
     {
       i18n: 'Transcend',
-      stat: () => player.transcendCount > 0 ? 3 : 0 // Transcended
+      stat: () => player.transcendCount > 0 ? 3 : 0, // Transcended
+      acc: 0
     },
     {
       i18n: 'Reincarnate',
-      stat: () => player.reincarnationCount > 0 ? 5 : 0 // Reincarnated
+      stat: () => player.reincarnationCount > 0 ? 5 : 0, // Reincarnated
+      acc: 0
     },
     {
       i18n: 'Challenge1',
-      stat: () => (player.challengecompletions[2] > 0) ? 2 : 0 // Challenge 2x1
+      stat: () => (player.challengecompletions[2] > 0) ? 2 : 0, // Challenge 2x1
+      acc: 0
     },
     {
       i18n: 'ShopPotionBonus',
-      stat: () => calculateOfferingPotionBaseOfferings().amount // Potion Permanent Bonus
+      stat: () => calculateOfferingPotionBaseOfferings().amount, // Potion Permanent Bonus
+      acc: 0
     },
     {
       i18n: 'ReincarnationUpgrade2',
-      stat: () => (player.upgrades[62] > 0) ? Math.min(12, (1 / 50) * sumContents(player.challengecompletions)) : 0 // Reincarnation Upgrade 2
+      stat: () => (player.upgrades[62] > 0) ? Math.min(12, (1 / 50) * sumContents(player.challengecompletions)) : 0, // Reincarnation Upgrade 2
+      acc: 2
     },
     {
       i18n: 'Research1x24',
-      stat: () => 0.4 * player.researches[24] // Research 1x24
+      stat: () => 0.4 * player.researches[24], // Research 1x24
+      acc: 1
     },
     {
       i18n: 'Research1x25',
-      stat: () => 0.6 * player.researches[25] // Research 1x25
+      stat: () => 0.6 * player.researches[25], // Research 1x25
+      acc: 1
     },
     {
       i18n: 'Research4x20',
-      stat: () => (player.researches[95] > 0) ? 15 : 0 // Research 4x20
+      stat: () => (player.researches[95] > 0) ? 15 : 0, // Research 4x20,
+      acc: 0
     },
     {
       i18n: 'AmbrosiaBaseOffering1',
-      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering1', 'offering') // Ambrosia Base Offering 1
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering1', 'offering'), // Ambrosia Base Offering 1
+      acc: 0
     },
     {
       i18n: 'AmbrosiaBaseOffering2',
-      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering2', 'offering') // Ambrosia Base Offering 2
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseOffering2', 'offering'), // Ambrosia Base Offering 2
+      acc: 0
     },
     {
       i18n: 'OfferingEX3',
-      stat: () => getShopUpgradeEffects('offeringEX3', 'baseOfferings') // Offering EX3 Shop Upgrade
+      stat: () => getShopUpgradeEffects('offeringEX3', 'baseOfferings'), // Offering EX3 Shop Upgrade
+      acc: 0
     }
   ]
 }
@@ -1456,13 +1472,11 @@ export const allQuarkStats: NumberStatLineCategory = {
     {
       i18n: 'GlobalSubscriber',
       stat: () => 1 + getGlobalBonus() / 100,
-      acc: 3,
       color: 'gold'
     },
     {
       i18n: 'AccountBonus',
       stat: () => 1 + getPersonalBonus() / 100,
-      acc: 3,
       color: 'gold'
     }
   ]
@@ -1474,41 +1488,50 @@ export const allBaseObtainiumStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 1 // Absolute base value
+      stat: () => 1, // Absolute base value
+      acc: 0
     },
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.BASE_OBTAINIUM_BUFF, // PseudoCoin Upgrade
       color: 'gold',
-      displayCriterion: () => true
+      displayCriterion: () => true,
+      acc: 0
     },
     {
       i18n: 'ShopPotionBonus',
-      stat: () => calculateObtainiumPotionBaseObtainium().amount // Potion Permanent Bonus
+      stat: () => calculateObtainiumPotionBaseObtainium().amount, // Potion Permanent Bonus
+      acc: 0
     },
     {
       i18n: 'Research3x13',
-      stat: () => (player.reincarnationcounter >= 2) ? player.researches[63] : 0 // Research 3x13
+      stat: () => (player.reincarnationcounter >= 2) ? player.researches[63] : 0, // Research 3x13
+      acc: 0
     },
     {
       i18n: 'Research3x14',
-      stat: () => (player.reincarnationcounter >= 5) ? 2 * player.researches[64] : 0 // Research 3x14
+      stat: () => (player.reincarnationcounter >= 5) ? 2 * player.researches[64] : 0, // Research 3x14
+      acc: 0
     },
     {
       i18n: 'FirstSingularity',
-      stat: () => (player.highestSingularityCount > 0) ? 3 : 0 // First Singularity Perk
+      stat: () => (player.highestSingularityCount > 0) ? 3 : 0, // First Singularity Perk
+      acc: 0
     },
     {
       i18n: 'SingularityCount',
-      stat: () => Math.floor(player.singularityCount / 10) // Singularity Count
+      stat: () => Math.floor(player.singularityCount / 10), // Singularity Count
+      acc: 1
     },
     {
       i18n: 'AmbrosiaBaseObtainium1',
-      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium1', 'obtainium') // Ambrosia Base Obtainium 1
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium1', 'obtainium'), // Ambrosia Base Obtainium 1
+      acc: 0
     },
     {
       i18n: 'AmbrosiaBaseObtainium2',
-      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium2', 'obtainium') // Ambrosia Base Obtainium 2
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium2', 'obtainium'), // Ambrosia Base Obtainium 2
+      acc: 0
     }
   ]
 }
@@ -2138,13 +2161,11 @@ const allAscensionSpeedPowerStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'ExponentialScalingSlow',
-      stat: () => 1 - calculateAscensionSpeedExponentSpread(),
-      acc: 3
+      stat: () => 1 - calculateAscensionSpeedExponentSpread()
     },
     {
       i18n: 'ExponentialScalingFast',
-      stat: () => 1 + calculateAscensionSpeedExponentSpread(),
-      acc: 3
+      stat: () => 1 + calculateAscensionSpeedExponentSpread()
     }
   ]
 }
@@ -2175,8 +2196,7 @@ export const allAdditiveLuckMultStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Cookie5',
-      stat: () => 0.001 * player.cubeUpgrades[77], // Cookie 5 (Cx27)
-      acc: 3
+      stat: () => 0.001 * player.cubeUpgrades[77] // Cookie 5 (Cx27)
     },
     {
       i18n: 'BlueberryUpgrade',
@@ -2205,7 +2225,8 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 100 // Base value of 100
+      stat: () => 100, // Base value of 100
+      acc: 0
     },
     {
       i18n: 'PseudoCoins',
@@ -2216,7 +2237,8 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
     {
       i18n: 'SynergismLevel',
       stat: () => getLevelReward('ambrosiaLuck'), // Synergism Level
-      color: 'green'
+      color: 'green',
+      acc: 0
     },
     {
       i18n: 'Campaign',
@@ -2224,23 +2246,28 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
     },
     {
       i18n: 'SingularityMilestones',
-      stat: () => calculateSingularityAmbrosiaLuckMilestoneBonus() // Ambrosia Luck Milestones
+      stat: () => calculateSingularityAmbrosiaLuckMilestoneBonus(), // Ambrosia Luck Milestones
+      acc: 0
     },
     {
       i18n: 'ShopUpgrade1',
-      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck1', 'ambrosiaLuck')
+      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck1', 'ambrosiaLuck'),
+      acc: 0
     },
     {
       i18n: 'ShopUpgrade2',
-      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck2', 'ambrosiaLuck')
+      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck2', 'ambrosiaLuck'),
+      acc: 0
     },
     {
       i18n: 'ShopUpgrade3',
-      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck3', 'ambrosiaLuck')
+      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck3', 'ambrosiaLuck'),
+      acc: 0
     },
     {
       i18n: 'ShopUpgrade4',
-      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck4', 'ambrosiaLuck')
+      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck4', 'ambrosiaLuck'),
+      acc: 1
     },
     {
       i18n: 'Jack',
@@ -2248,23 +2275,28 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
     },
     {
       i18n: 'SingularityUpgrades',
-      stat: () => calculateAmbrosiaLuckSingularityUpgrade() // Ambrosia Luck from Singularity Upgrades (I-IV)
+      stat: () => calculateAmbrosiaLuckSingularityUpgrade(), // Ambrosia Luck from Singularity Upgrades (I-IV)
+      acc: 0
     },
     {
       i18n: 'OcteractUpgrades',
-      stat: () => calculateAmbrosiaLuckOcteractUpgrade() // Ambrosia Luck from Octeract Upgrades (I-IV)
+      stat: () => calculateAmbrosiaLuckOcteractUpgrade(), // Ambrosia Luck from Octeract Upgrades (I-IV)
+      acc: 0
     },
     {
       i18n: 'AmbrosiaLuck1',
-      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck1', 'ambrosiaLuck') // Ambrosia Luck from Luck Module I
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck1', 'ambrosiaLuck'), // Ambrosia Luck from Luck Module I
+      acc: 0
     },
     {
       i18n: 'AmbrosiaLuck2',
-      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck2', 'ambrosiaLuck') // Ambrosia Luck from Luck Module II
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck2', 'ambrosiaLuck'), // Ambrosia Luck from Luck Module II
+      acc: 0
     },
     {
       i18n: 'AmbrosiaLuck3',
-      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck3', 'ambrosiaLuck') // Ambrosia Luck from Luck Module III
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaLuck3', 'ambrosiaLuck'), // Ambrosia Luck from Luck Module III
+      acc: 0
     },
     {
       i18n: 'AmbrosiaCubeLuck1',
@@ -2276,36 +2308,44 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Singularity131',
-      stat: () => player.highestSingularityCount >= 131 ? 131 : 0 // Singularity Perk "One Hundred Thirty One!"
+      stat: () => player.highestSingularityCount >= 131 ? 131 : 0, // Singularity Perk "One Hundred Thirty One!"
+      acc: 0
     },
     {
       i18n: 'Singularity269',
-      stat: () => player.highestSingularityCount >= 269 ? 269 : 0 // Singularity Perk "Two Hundred Sixty Nine!"
+      stat: () => player.highestSingularityCount >= 269 ? 269 : 0, // Singularity Perk "Two Hundred Sixty Nine!"
+      acc: 0
     },
     {
       i18n: 'OcteractShop',
-      stat: () => getShopUpgradeEffects('shopOcteractAmbrosiaLuck', 'ambrosiaLuck') // Octeract -> Ambrosia Shop Upgrade
+      stat: () => getShopUpgradeEffects('shopOcteractAmbrosiaLuck', 'ambrosiaLuck'), // Octeract -> Ambrosia Shop Upgrade
+      acc: 0
     },
     {
       i18n: 'NoAmbrosiaUpgrades',
-      stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'ambrosiaLuck') // No Ambrosia Challenge Reward
+      stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'ambrosiaLuck'), // No Ambrosia Challenge Reward
+      acc: 0
     },
     {
       i18n: 'RedAmbrosiaUpgrade',
-      stat: () => getRedAmbrosiaUpgradeEffects('regularLuck', 'ambrosiaLuck') // Red Ambrosia Upgrade
+      stat: () => getRedAmbrosiaUpgradeEffects('regularLuck', 'ambrosiaLuck'), // Red Ambrosia Upgrade
+      acc: 0
     },
     {
       i18n: 'RedAmbrosiaUpgrade2',
-      stat: () => getRedAmbrosiaUpgradeEffects('regularLuck2', 'ambrosiaLuck') // Red Ambrosia Upgrade 2
+      stat: () => getRedAmbrosiaUpgradeEffects('regularLuck2', 'ambrosiaLuck'), // Red Ambrosia Upgrade 2
+      acc: 0
     },
     {
       i18n: 'Viscount',
       stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'luckBonus'), // Viscount Red Ambrosia Upgrade
-      color: 'red'
+      color: 'red',
+      acc: 0
     },
     {
       i18n: 'Cookie5',
-      stat: () => 2 * player.cubeUpgrades[77] // Cookie 5 (Cx27)
+      stat: () => 2 * player.cubeUpgrades[77], // Cookie 5 (Cx27)
+      acc: 0
     },
     {
       i18n: 'RedBars',
@@ -2313,7 +2353,8 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AmbrosiaUltra',
-      stat: () => getShopUpgradeEffects('shopAmbrosiaUltra', 'ambrosiaLuck') // Ambrosia Ultra Shop Upgrade
+      stat: () => getShopUpgradeEffects('shopAmbrosiaUltra', 'ambrosiaLuck'), // Ambrosia Ultra Shop Upgrade
+      acc: 0
     },
     {
       i18n: 'HorseShoeRune',
@@ -2338,27 +2379,33 @@ export const allAmbrosiaBlueberryStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'E1x1Clear',
-      stat: () => +(player.singularityChallenges.noSingularityUpgrades.completions > 0) * 3 // E1x1 Clear!
+      stat: () => +(player.singularityChallenges.noSingularityUpgrades.completions > 0) * 3, // E1x1 Clear!
+      acc: 0
     },
     {
       i18n: 'SingBlueberries',
-      stat: () => getGQUpgradeEffect('blueberries', 'blueberries') // Singularity Blueberry Upgrade
+      stat: () => getGQUpgradeEffect('blueberries', 'blueberries'), // Singularity Blueberry Upgrade
+      acc: 0
     },
     {
       i18n: 'OcteractBlueberries',
-      stat: () => getOcteractUpgradeEffect('octeractBlueberries', 'blueberries') // Octeract Blueberry Upgrade
+      stat: () => getOcteractUpgradeEffect('octeractBlueberries', 'blueberries'), // Octeract Blueberry Upgrade
+      acc: 0
     },
     {
       i18n: 'RedAmbrosiaBlueberries',
-      stat: () => getRedAmbrosiaUpgradeEffects('blueberries', 'blueberries') // Red Ambrosia Blueberry Upgrade
+      stat: () => getRedAmbrosiaUpgradeEffects('blueberries', 'blueberries'), // Red Ambrosia Blueberry Upgrade
+      acc: 0
     },
     {
       i18n: 'ConglomerateBerries',
-      stat: () => calculateSingularityMilestoneBlueberries() // Singularity Milestones (Congealed Blueberries)
+      stat: () => calculateSingularityMilestoneBlueberries(), // Singularity Milestones (Congealed Blueberries)
+      acc: 0
     },
     {
       i18n: 'NoAmbrosiaUpgrades',
-      stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberries') // No Ambrosia Challenge Reward
+      stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberries'), // No Ambrosia Challenge Reward
+      acc: 0
     }
   ]
 }
@@ -2540,13 +2587,11 @@ export const allGoldenQuarkMultiplierStats: NumberStatLineCategory = {
     {
       i18n: 'GlobalSubscriber',
       stat: () => 1 + getGlobalBonus() / 100,
-      acc: 3,
       color: 'gold'
     },
     {
       i18n: 'AccountBonus',
       stat: () => 1 + getPersonalBonus() / 100,
-      acc: 3,
       color: 'gold'
     },
     {
@@ -2598,13 +2643,11 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLineCategory = {
     {
       i18n: 'GlobalSubscriber',
       stat: () => 1 / (1 + getGlobalBonus() / 100),
-      acc: 3,
       color: 'gold'
     },
     {
       i18n: 'AccountBonus',
       stat: () => 1 / (1 + getPersonalBonus() / 100),
-      acc: 3,
       color: 'gold'
     },
     {
@@ -2706,35 +2749,42 @@ export const allAddCodeTimerStats: NumberStatLineCategory = {
 export const allAddCodeCapacityStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
+  acc: 0,
   lines: [
     {
       i18n: 'Base',
-      stat: () => 24 // Base capacity (24 codes)
+      stat: () => 24, // Base capacity (24 codes)
+      acc: 0
     },
     {
       i18n: 'Calculator2',
       stat: () => getShopUpgradeEffects('calculator2', 'addCodeCapacity'), // PL-AT X (2 codes per level)
-      color: 'lime'
+      color: 'lime',
+      acc: 0
     },
     {
       i18n: 'Calculator4Max',
       stat: () => getShopUpgradeEffects('calculator4', 'addCodeCapacity'), // PL-AT δ Maxed (32 codes)
-      color: 'lime'
+      color: 'lime',
+      acc: 0
     },
     {
       i18n: 'Calculator5',
       stat: () => getShopUpgradeEffects('calculator5', 'addCodeCapacity'), // PL-AT Γ (1 code per 10 levels, +6 at max)
-      color: 'lime'
+      color: 'lime',
+      acc: 0
     },
     {
       i18n: 'Calculator6Max',
       stat: () => getShopUpgradeEffects('calculator6', 'addCodeCapacity'), // PL-AT _ Maxed (24 codes)
-      color: 'lime'
+      color: 'lime',
+      acc: 0
     },
     {
       i18n: 'Calculator7Max',
       stat: () => getShopUpgradeEffects('calculator7', 'addCodeCapacity'), // PL-AT ΩΩ Maxed (48 codes)
-      color: 'lime'
+      color: 'lime',
+      acc: 0
     }
   ]
 }
@@ -2742,16 +2792,19 @@ export const allAddCodeCapacityStats: NumberStatLineCategory = {
 export const allAddCodeCapacityMultiplierStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
+  acc: 0,
   lines: [
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.ADD_CODE_CAP_BUFF, // PseudoCoin Upgrade
       color: 'gold',
-      displayCriterion: () => true
+      displayCriterion: () => true,
+      acc: 0
     },
     {
       i18n: 'SingularityPerk',
-      stat: () => addCodeSingularityPerkBonus() // Singularity Perk bonus
+      stat: () => addCodeSingularityPerkBonus(), // Singularity Perk bonus
+      acc: 1
     }
   ]
 }
@@ -2762,31 +2815,38 @@ export const allLuckConversionStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 20 // Base value of 20.00
+      stat: () => 20, // Base value of 20.00
+      acc: 0
     },
     {
       i18n: 'RedAmbrosiaUpgrade1',
-      stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement1', 'conversionImprovement') // Conversion Improvement I
+      stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement1', 'conversionImprovement'), // Conversion Improvement I
+      acc: 0
     },
     {
       i18n: 'RedAmbrosiaUpgrade2',
-      stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement2', 'conversionImprovement') // Conversion Improvement II
+      stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement2', 'conversionImprovement'), // Conversion Improvement II
+      acc: 0
     },
     {
       i18n: 'RedAmbrosiaUpgrade3',
-      stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement3', 'conversionImprovement') // Conversion Improvement III
+      stat: () => getRedAmbrosiaUpgradeEffects('conversionImprovement3', 'conversionImprovement'), // Conversion Improvement III
+      acc: 0
     },
     {
       i18n: 'ShopRedLuck1',
-      stat: () => getShopUpgradeEffects('shopRedLuck1', 'luckConversionRatio') // Shop Red Luck I
+      stat: () => getShopUpgradeEffects('shopRedLuck1', 'luckConversionRatio'), // Shop Red Luck I
+      acc: 2
     },
     {
       i18n: 'ShopRedLuck2',
-      stat: () => getShopUpgradeEffects('shopRedLuck2', 'luckConversionRatio') // Shop Red Luck II
+      stat: () => getShopUpgradeEffects('shopRedLuck2', 'luckConversionRatio'), // Shop Red Luck II
+      acc: 2
     },
     {
       i18n: 'ShopRedLuck3',
-      stat: () => getShopUpgradeEffects('shopRedLuck3', 'luckConversionRatio') // Shop Red Luck III
+      stat: () => getShopUpgradeEffects('shopRedLuck3', 'luckConversionRatio'), // Shop Red Luck III
+      acc: 2
     },
     {
       i18n: 'HorseShoeRune',
@@ -2893,6 +2953,7 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
 export const allShopTablets: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
+  acc: 0,
   lines: [
     {
       i18n: 'Red',
@@ -3044,19 +3105,23 @@ export const positiveSalvageStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('salvage')
+      stat: () => +getAchievementReward('salvage'),
+      acc: 0
     },
     {
       i18n: 'SynergismLevel',
-      stat: () => getLevelReward('salvage')
+      stat: () => getLevelReward('salvage'),
+      acc: 0
     },
     {
       i18n: 'SynergismLevelMilestone',
-      stat: () => getLevelMilestone('salvageChallengeBuff')
+      stat: () => getLevelMilestone('salvageChallengeBuff'),
+      acc: 0
     },
     {
       i18n: 'UpgradeBonus',
-      stat: () => 7 * player.upgrades[61] // Upgrade 61
+      stat: () => 7 * player.upgrades[61], // Upgrade 61
+      acc: 0
     },
     {
       i18n: 'RuneBonus',
@@ -3069,7 +3134,8 @@ export const positiveSalvageStats: NumberStatLineCategory = {
           + 0.3 * CalcECC('reincarnation', player.challengecompletions[7])
           + 0.4 * CalcECC('reincarnation', player.challengecompletions[8])
           + 0.5 * CalcECC('reincarnation', player.challengecompletions[9])
-      }
+      },
+      acc: 2
     },
     {
       i18n: 'AntUpgrade',
@@ -3081,15 +3147,18 @@ export const positiveSalvageStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CubeUpgrade2',
-      stat: () => 3 * player.cubeUpgrades[2] // Cube Upgrade 2
+      stat: () => 3 * player.cubeUpgrades[2], // Cube Upgrade 2
+      acc: 0
     },
     {
       i18n: 'AbyssHepteract',
-      stat: () => getHepteractEffects('abyss').salvage // Abyss Hepteract
+      stat: () => getHepteractEffects('abyss').salvage, // Abyss Hepteract
+      acc: 1
     },
     {
       i18n: 'SingularityPerk',
-      stat: () => Math.min(50, 5 * player.highestSingularityCount)
+      stat: () => Math.min(50, 5 * player.highestSingularityCount),
+      acc: 0
     },
     {
       i18n: 'InfiniteAscentRune',
@@ -3097,7 +3166,8 @@ export const positiveSalvageStats: NumberStatLineCategory = {
     },
     {
       i18n: 'RedAmbrosiaYinYang',
-      stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'positiveSalvage') // Red Ambrosia Upgrade: Yin Yang
+      stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'positiveSalvage'), // Red Ambrosia Upgrade: Yin Yang
+      acc: 0
     }
   ]
 }
@@ -3108,11 +3178,13 @@ export const positiveSalvageStatMultiplier: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'BaseMultiplier',
-      stat: () => 1
+      stat: () => 1,
+      acc: 0
     },
     {
       i18n: 'SingularityPerk',
-      stat: () => posSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
+      stat: () => posSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100,
+      acc: 2
     },
     {
       i18n: 'AchievementTalisman',
@@ -3128,16 +3200,19 @@ export const negativeSalvageStats: NumberStatLineCategory = {
     {
       i18n: 'DroughtCorruption',
       stat: () => player.corruptions.used.corruptionEffects('drought'),
-      color: 'red'
+      color: 'red',
+      acc: 0
     },
     {
       i18n: 'SingularityDebuff',
       stat: () => calculateSingularityDebuff('Salvage'), // Singularity Debuff
-      color: 'red'
+      color: 'red',
+      acc: 0
     },
     {
       i18n: 'RedAmbrosiaYinYang',
-      stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'negativeSalvage') // Red Ambrosia Upgrade: Yin Yang
+      stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'negativeSalvage'), // Red Ambrosia Upgrade: Yin Yang
+      acc: 0
     }
   ]
 }
@@ -3148,11 +3223,13 @@ export const negativeSalvageStatMultiplier: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'BaseMultiplier',
-      stat: () => 1
+      stat: () => 1,
+      acc: 0
     },
     {
       i18n: 'SingularityPerk',
-      stat: () => -negSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
+      stat: () => -negSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100,
+      acc: 2
     },
     {
       i18n: 'AchievementTalisman',
@@ -3237,8 +3314,7 @@ export const antSpeedStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'SuperiorIntellect',
-      stat: () => getRuneEffects('superiorIntellect', 'antSpeed'), // Superior Intellect Rune
-      acc: 3
+      stat: () => getRuneEffects('superiorIntellect', 'antSpeed') // Superior Intellect Rune
     },
     {
       i18n: 'RuneBlessingBonus',
@@ -3385,7 +3461,8 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 1
+      stat: () => 1,
+      acc: 0
     },
     {
       i18n: 'AchievementMultiplier',
@@ -3393,23 +3470,28 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AntQueens',
-      stat: () => player.ants.producers[AntProducers.Queens].purchased > 0 ? 0.01 : 0
+      stat: () => player.ants.producers[AntProducers.Queens].purchased > 0 ? 0.01 : 0,
+      acc: 2
     },
     {
       i18n: 'AntLordRoyals',
-      stat: () => player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 0.01 : 0
+      stat: () => player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 0.01 : 0,
+      acc: 2
     },
     {
       i18n: 'AntAlmighties',
-      stat: () => player.ants.producers[AntProducers.Almighties].purchased > 0 ? 0.01 : 0
+      stat: () => player.ants.producers[AntProducers.Almighties].purchased > 0 ? 0.01 : 0,
+      acc: 2
     },
     {
       i18n: 'AntDisciples',
-      stat: () => player.ants.producers[AntProducers.Disciples].purchased > 0 ? 0.02 : 0
+      stat: () => player.ants.producers[AntProducers.Disciples].purchased > 0 ? 0.02 : 0,
+      acc: 2
     },
     {
       i18n: 'AntHolySpirit',
-      stat: () => player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 0.02 : 0
+      stat: () => player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 0.02 : 0,
+      acc: 2
     },
     {
       i18n: 'PlatonicUpgrade12',
@@ -3418,8 +3500,7 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
     {
       i18n: 'SingularityDebuff',
       stat: () => calculateSingularityDebuff('Ant ELO'),
-      color: 'red',
-      acc: 3
+      color: 'red'
     },
     {
       i18n: 'SingularityPerk',
@@ -3451,8 +3532,7 @@ export const rebornELOCreationSpeedMultStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 0.01,
-      acc: 3
+      stat: () => 0.01
     },
     {
       i18n: 'EffectiveELO',
@@ -3898,7 +3978,7 @@ const loadStatistics = (
         statLine.style.border = '1px solid red'
       }
       numberDisplayedLines++
-      const accuracy = line.acc ?? 2
+      const accuracy = line.acc ?? 3
       statNumber.textContent = format(num, accuracy, true)
     } else {
       statLine.style.display = 'none'
@@ -3931,7 +4011,8 @@ const loadStatistics = (
   if (hasSummative) {
     const statTotalNumber = DOMCacheGetOrSet(statNumTotalHTMLName)
     const total = calcTotalFunc()
-    statTotalNumber.textContent = format(total, 3, true)
+    const accuracy = statsObj.acc ?? 3
+    statTotalNumber.textContent = format(total, accuracy, true)
   }
 }
 

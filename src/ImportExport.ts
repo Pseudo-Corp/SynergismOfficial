@@ -1078,7 +1078,7 @@ const dailyCodeFormatFreeLevelMessage = (
   const upgradeNiceName = upgradeKey in goldenQuarkUpgrades
     ? i18next.t(`singularity.data.${upgradeKey}.name`)
     : i18next.t(`octeract.data.${upgradeKey}.name`)
-  return `\n+${format(freeLevelAmount, 0, true)} extra levels of '${upgradeNiceName}'`
+  return `\n+${format(freeLevelAmount, 3, true)} extra levels of '${upgradeNiceName}'`
 }
 
 const dailyCodeReward = () => {

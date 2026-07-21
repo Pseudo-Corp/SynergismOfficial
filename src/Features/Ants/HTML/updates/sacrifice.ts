@@ -23,7 +23,7 @@ import { talismanItemRequiredELO } from '../../AntSacrifice/Rewards/TalismanCraf
 export const showLockedSacrifice = () => {
   const crumbs = player.ants.crumbsThisSacrifice
   DOMCacheGetOrSet('sacrificeLockedText').innerHTML = i18next.t('ants.altar.locked.crumbsMade', {
-    x: format(crumbs, 2, true, undefined, undefined, true)
+    x: format(crumbs, 2, true, false)
   })
 }
 
@@ -101,8 +101,8 @@ export const showSacrifice = () => {
     percentage: format((1 - calculateStageRebornSpeedMult()) * 100, 3, true)
   })
 
-  DOMCacheGetOrSet('antSacrificeOffering').textContent = `+${format(sacRewards.offerings)}`
-  DOMCacheGetOrSet('antSacrificeObtainium').textContent = `+${format(sacRewards.obtainium)}`
+  DOMCacheGetOrSet('antSacrificeOffering').textContent = `+${format(sacRewards.offerings, 0, false, false)}`
+  DOMCacheGetOrSet('antSacrificeObtainium').textContent = `+${format(sacRewards.obtainium, 0, false, false)}`
 
   DOMCacheGetOrSet('lotusStatus').innerHTML = i18next.t('pseudoCoins.lotus.status', {
     time: timeRemainingMinutes(getLotusTimeExpiresAt())
@@ -124,7 +124,7 @@ export const showSacrifice = () => {
 
       if (effectiveELO >= requirement) {
         // Unlocked: show reward amount, remove locked styling
-        element.textContent = i18next.t('ants.itemReward', { x: format(reward) })
+        element.textContent = i18next.t('ants.itemReward', { x: format(reward, 0, false, false) })
         parentElement?.classList.remove('antSacrificeRewardLocked')
         const img = parentElement?.querySelector('img')
         img?.classList.remove('antSacrificeRewardImageLocked')
