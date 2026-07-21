@@ -413,13 +413,13 @@ export const getChallengeConditions = (i?: number) => {
   if (player.currentChallenge.reincarnation === 9) {
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
   }
-  G.prestigePointGain = new Decimal('0')
+  G.prestigePointGain = new Decimal()
   if (typeof i === 'number') {
     if (i >= 6) {
-      G.transcendPointGain = new Decimal('0')
+      G.transcendPointGain = new Decimal()
     }
     if (i >= 11) {
-      G.reincarnationPointGain = new Decimal('0')
+      G.reincarnationPointGain = new Decimal()
     }
   }
 }

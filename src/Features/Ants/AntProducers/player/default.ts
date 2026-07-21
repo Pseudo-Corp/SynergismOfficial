@@ -4,7 +4,7 @@ import type { PlayerAntProducers } from '../structs/structs'
 
 export const emptyAntProducer = (): PlayerAntProducers => ({
   purchased: 0,
-  generated: Decimal.fromString('0')
+  generated: new Decimal()
 })
 
 export const createDefaultAntProducers = (): Record<AntProducers, PlayerAntProducers> => ({

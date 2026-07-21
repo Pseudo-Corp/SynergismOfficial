@@ -202,32 +202,32 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   if (player.antPoints !== undefined) {
     player.ants.producers[AntProducers.Workers] = {
       purchased: Math.min(2000, player.firstOwnedAnts ?? 0),
-      generated: Decimal.min(new Decimal(1e200), player.firstGeneratedAnts ?? new Decimal(0))
+      generated: Decimal.min(new Decimal(1e200), player.firstGeneratedAnts ?? new Decimal())
     }
 
     player.ants.producers[AntProducers.Breeders] = {
       purchased: Math.min(1000, player.secondOwnedAnts ?? 0),
-      generated: Decimal.min(new Decimal(1e200), player.secondGeneratedAnts ?? new Decimal(0))
+      generated: Decimal.min(new Decimal(1e200), player.secondGeneratedAnts ?? new Decimal())
     }
 
     player.ants.producers[AntProducers.MetaBreeders] = {
       purchased: Math.min(500, player.thirdOwnedAnts ?? 0),
-      generated: Decimal.min(new Decimal(1e200), player.thirdGeneratedAnts ?? new Decimal(0))
+      generated: Decimal.min(new Decimal(1e200), player.thirdGeneratedAnts ?? new Decimal())
     }
 
     player.ants.producers[AntProducers.MegaBreeders] = {
       purchased: Math.min(250, player.fourthOwnedAnts ?? 0),
-      generated: Decimal.min(new Decimal(1e200), player.fourthGeneratedAnts ?? new Decimal(0))
+      generated: Decimal.min(new Decimal(1e200), player.fourthGeneratedAnts ?? new Decimal())
     }
 
     player.ants.producers[AntProducers.Queens] = {
       purchased: Math.min(87, player.fifthOwnedAnts ?? 0),
-      generated: Decimal.min(new Decimal(10), player.fifthGeneratedAnts ?? new Decimal(0))
+      generated: Decimal.min(new Decimal(10), player.fifthGeneratedAnts ?? new Decimal())
     }
 
     player.ants.producers[AntProducers.LordRoyals] = {
       purchased: Math.min(1, player.sixthOwnedAnts ?? 0),
-      generated: new Decimal(0)
+      generated: new Decimal()
     }
 
     // The rest cost more than 1e1000 crumbs, so we can ignore

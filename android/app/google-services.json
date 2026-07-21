@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1012219695919",
+    "project_id": "synergism-4ec8f",
+    "storage_bucket": "synergism-4ec8f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012219695919:android:9ee67bbc7ec59c07ab47da",
+        "android_client_info": {
+          "package_name": "cc.pseudocorp.synergism"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkiPeRIDgOwn-GBdk-lMSDgHVAZ0c0Zt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

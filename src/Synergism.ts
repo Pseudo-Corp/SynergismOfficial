@@ -62,6 +62,7 @@ import {
   calculateOffline,
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
+  cancelOfflineProgress,
   dailyResetCheck,
   exitOffline,
   isOfflineDialogOpen
@@ -278,102 +279,102 @@ export const player: Player = {
   coinsTotal: new Decimal('100'),
 
   firstOwnedCoin: 0,
-  firstGeneratedCoin: new Decimal('0'),
+  firstGeneratedCoin: new Decimal(),
   firstCostCoin: new Decimal('100'),
   firstProduceCoin: 0.25,
 
   secondOwnedCoin: 0,
-  secondGeneratedCoin: new Decimal('0'),
+  secondGeneratedCoin: new Decimal(),
   secondCostCoin: new Decimal('1e3'),
   secondProduceCoin: 2.5,
 
   thirdOwnedCoin: 0,
-  thirdGeneratedCoin: new Decimal('0'),
+  thirdGeneratedCoin: new Decimal(),
   thirdCostCoin: new Decimal('2e4'),
   thirdProduceCoin: 25,
 
   fourthOwnedCoin: 0,
-  fourthGeneratedCoin: new Decimal('0'),
+  fourthGeneratedCoin: new Decimal(),
   fourthCostCoin: new Decimal('4e5'),
   fourthProduceCoin: 250,
 
   fifthOwnedCoin: 0,
-  fifthGeneratedCoin: new Decimal('0'),
+  fifthGeneratedCoin: new Decimal(),
   fifthCostCoin: new Decimal('8e6'),
   fifthProduceCoin: 2500,
 
   firstOwnedDiamonds: 0,
-  firstGeneratedDiamonds: new Decimal('0'),
+  firstGeneratedDiamonds: new Decimal(),
   firstCostDiamonds: new Decimal('100'),
   firstProduceDiamonds: 0.05,
 
   secondOwnedDiamonds: 0,
-  secondGeneratedDiamonds: new Decimal('0'),
+  secondGeneratedDiamonds: new Decimal(),
   secondCostDiamonds: new Decimal('1e5'),
   secondProduceDiamonds: 0.0005,
 
   thirdOwnedDiamonds: 0,
-  thirdGeneratedDiamonds: new Decimal('0'),
+  thirdGeneratedDiamonds: new Decimal(),
   thirdCostDiamonds: new Decimal('1e15'),
   thirdProduceDiamonds: 0.00005,
 
   fourthOwnedDiamonds: 0,
-  fourthGeneratedDiamonds: new Decimal('0'),
+  fourthGeneratedDiamonds: new Decimal(),
   fourthCostDiamonds: new Decimal('1e40'),
   fourthProduceDiamonds: 0.000005,
 
   fifthOwnedDiamonds: 0,
-  fifthGeneratedDiamonds: new Decimal('0'),
+  fifthGeneratedDiamonds: new Decimal(),
   fifthCostDiamonds: new Decimal('1e100'),
   fifthProduceDiamonds: 0.000005,
 
   firstOwnedMythos: 0,
-  firstGeneratedMythos: new Decimal('0'),
+  firstGeneratedMythos: new Decimal(),
   firstCostMythos: new Decimal('1'),
   firstProduceMythos: 1,
 
   secondOwnedMythos: 0,
-  secondGeneratedMythos: new Decimal('0'),
+  secondGeneratedMythos: new Decimal(),
   secondCostMythos: new Decimal('100'),
   secondProduceMythos: 0.01,
 
   thirdOwnedMythos: 0,
-  thirdGeneratedMythos: new Decimal('0'),
+  thirdGeneratedMythos: new Decimal(),
   thirdCostMythos: new Decimal('1e4'),
   thirdProduceMythos: 0.001,
 
   fourthOwnedMythos: 0,
-  fourthGeneratedMythos: new Decimal('0'),
+  fourthGeneratedMythos: new Decimal(),
   fourthCostMythos: new Decimal('1e8'),
   fourthProduceMythos: 0.0002,
 
   fifthOwnedMythos: 0,
-  fifthGeneratedMythos: new Decimal('0'),
+  fifthGeneratedMythos: new Decimal(),
   fifthCostMythos: new Decimal('1e16'),
   fifthProduceMythos: 0.00004,
 
   firstOwnedParticles: 0,
-  firstGeneratedParticles: new Decimal('0'),
+  firstGeneratedParticles: new Decimal(),
   firstCostParticles: new Decimal('1'),
   firstProduceParticles: 0.25,
 
   secondOwnedParticles: 0,
-  secondGeneratedParticles: new Decimal('0'),
+  secondGeneratedParticles: new Decimal(),
   secondCostParticles: new Decimal('100'),
   secondProduceParticles: 0.2,
 
   thirdOwnedParticles: 0,
-  thirdGeneratedParticles: new Decimal('0'),
+  thirdGeneratedParticles: new Decimal(),
   thirdCostParticles: new Decimal('1e4'),
   thirdProduceParticles: 0.15,
 
   fourthOwnedParticles: 0,
-  fourthGeneratedParticles: new Decimal('0'),
+  fourthGeneratedParticles: new Decimal(),
   fourthCostParticles: new Decimal('1e8'),
   fourthProduceParticles: 0.1,
 
   fifthOwnedParticles: 0,
-  fifthGeneratedParticles: new Decimal('0'),
+  fifthGeneratedParticles: new Decimal(),
   fifthCostParticles: new Decimal('1e16'),
   fifthProduceParticles: 0.5,
 
@@ -382,31 +383,31 @@ export const player: Player = {
   ascendBuilding1: {
     cost: 1,
     owned: 0,
-    generated: new Decimal('0'),
+    generated: new Decimal(),
     multiplier: 0.01
   },
   ascendBuilding2: {
     cost: 10,
     owned: 0,
-    generated: new Decimal('0'),
+    generated: new Decimal(),
     multiplier: 0.01
   },
   ascendBuilding3: {
     cost: 100,
     owned: 0,
-    generated: new Decimal('0'),
+    generated: new Decimal(),
     multiplier: 0.01
   },
   ascendBuilding4: {
     cost: 1000,
     owned: 0,
-    generated: new Decimal('0'),
+    generated: new Decimal(),
     multiplier: 0.01
   },
   ascendBuilding5: {
     cost: 10000,
     owned: 0,
-    generated: new Decimal('0'),
+    generated: new Decimal(),
     multiplier: 0.01
   },
 
@@ -425,13 +426,13 @@ export const player: Player = {
   transcendCount: 0,
   reincarnationCount: 0,
 
-  prestigePoints: new Decimal('0'),
-  transcendPoints: new Decimal('0'),
-  reincarnationPoints: new Decimal('0'),
+  prestigePoints: new Decimal(),
+  transcendPoints: new Decimal(),
+  reincarnationPoints: new Decimal(),
 
-  prestigeShards: new Decimal('0'),
-  transcendShards: new Decimal('0'),
-  reincarnationShards: new Decimal('0'),
+  prestigeShards: new Decimal(),
+  transcendShards: new Decimal(),
+  reincarnationShards: new Decimal(),
 
   toggles: {
     1: false,
@@ -491,8 +492,8 @@ export const player: Player = {
     ascension: 0
   },
 
-  obtainium: new Decimal('0'),
-  maxObtainium: new Decimal('0'),
+  obtainium: new Decimal(),
+  maxObtainium: new Decimal(),
 
   obtainiumtimer: 0,
   // Ignore the first index. The other 25 are shaped in a 5x5 grid similar to the production appearance
@@ -568,36 +569,36 @@ export const player: Player = {
   crystalUpgradesCost: [7, 15, 20, 40, 100, 200, 500, 1000],
 
   runes: {
-    speed: new Decimal(0),
-    duplication: new Decimal(0),
-    prism: new Decimal(0),
-    thrift: new Decimal(0),
-    superiorIntellect: new Decimal(0),
-    infiniteAscent: new Decimal(0),
-    antiquities: new Decimal(0),
-    horseShoe: new Decimal(0),
-    finiteDescent: new Decimal(0),
-    topHat: new Decimal(0)
+    speed: new Decimal(),
+    duplication: new Decimal(),
+    prism: new Decimal(),
+    thrift: new Decimal(),
+    superiorIntellect: new Decimal(),
+    infiniteAscent: new Decimal(),
+    antiquities: new Decimal(),
+    horseShoe: new Decimal(),
+    finiteDescent: new Decimal(),
+    topHat: new Decimal()
   },
 
   runeBlessings: {
-    speed: new Decimal(0),
-    duplication: new Decimal(0),
-    prism: new Decimal(0),
-    thrift: new Decimal(0),
-    superiorIntellect: new Decimal(0)
+    speed: new Decimal(),
+    duplication: new Decimal(),
+    prism: new Decimal(),
+    thrift: new Decimal(),
+    superiorIntellect: new Decimal()
   },
 
   runeSpirits: {
-    speed: new Decimal(0),
-    duplication: new Decimal(0),
-    prism: new Decimal(0),
-    thrift: new Decimal(0),
-    superiorIntellect: new Decimal(0)
+    speed: new Decimal(),
+    duplication: new Decimal(),
+    prism: new Decimal(),
+    thrift: new Decimal(),
+    superiorIntellect: new Decimal()
   },
 
-  offerings: new Decimal('0'),
-  maxOfferings: new Decimal('0'),
+  offerings: new Decimal(),
+  maxOfferings: new Decimal(),
 
   prestigecounter: 0,
   transcendcounter: 0,
@@ -767,13 +768,13 @@ export const player: Player = {
     horseShoe: noTalismanFragments
   },
 
-  talismanShards: new Decimal(0),
-  commonFragments: new Decimal(0),
-  uncommonFragments: new Decimal(0),
-  rareFragments: new Decimal(0),
-  epicFragments: new Decimal(0),
-  legendaryFragments: new Decimal(0),
-  mythicalFragments: new Decimal(0),
+  talismanShards: new Decimal(),
+  commonFragments: new Decimal(),
+  uncommonFragments: new Decimal(),
+  rareFragments: new Decimal(),
+  epicFragments: new Decimal(),
+  legendaryFragments: new Decimal(),
+  mythicalFragments: new Decimal(),
 
   buyTalismanShardPercent: 10,
 
@@ -968,7 +969,7 @@ export const player: Player = {
     multiplier: MultiplierHepteract
   },*/
 
-  ascendShards: new Decimal('0'),
+  ascendShards: new Decimal(),
   autoAscend: false,
   autoAscendMode: AutoAscensionResetModes.c10Completions,
   autoAscendThreshold: 1,
@@ -1203,6 +1204,10 @@ export const deepClone = () =>
 export const blankSave = deepClone()(player)
 
 export const saveSynergy = (button?: boolean) => {
+  if (G.timeWarp) {
+    return false
+  }
+
   player.offlinetick = Date.now()
 
   // save to player.goldenQuarkUpgrades, taking the level and freeLevel from corresponding goldenQuarkUpgrades from singularity.ts
@@ -1423,10 +1428,10 @@ const loadSynergy = () => {
       player.reincarnationCount = 0
     }
     if (player.offerings.lte(0)) {
-      player.offerings = new Decimal(0)
+      player.offerings = new Decimal()
     }
     if (player.obtainium.lte(0)) {
-      player.obtainium = new Decimal(0)
+      player.obtainium = new Decimal()
     }
 
     if (!player.dayCheck) {
@@ -3257,7 +3262,7 @@ export const resourceGain = (dt: number): void => {
     G.produceSecondMythos.times(dt / 0.025)
   )
 
-  G.produceMythos = new Decimal('0')
+  G.produceMythos = new Decimal()
   G.produceMythos = player.firstGeneratedMythos
     .add(player.firstOwnedMythos)
     .times(player.firstProduceMythos)
@@ -3307,7 +3312,7 @@ export const resourceGain = (dt: number): void => {
     G.produceSecondParticles.times(dt / 0.025)
   )
 
-  G.produceParticles = new Decimal('0')
+  G.produceParticles = new Decimal()
   G.produceParticles = player.firstGeneratedParticles
     .add(player.firstOwnedParticles)
     .times(player.firstProduceParticles)
@@ -3579,7 +3584,7 @@ export const resetCurrency = (): void => {
     G.reincarnationPointGain = G.reincarnationPointGain.times(5)
   }
   if (player.currentChallenge.ascension === 12) {
-    G.reincarnationPointGain = new Decimal('0')
+    G.reincarnationPointGain = new Decimal()
   }
 }
 
@@ -4576,14 +4581,42 @@ const fastUpdateInterval = PLATFORM === 'mobile' ? 100 : 50
 const sweepInterval = PLATFORM === 'mobile' ? 100 : 25
 
 export const constantIntervals = (): void => {
-  setInterval(saveSynergy, 5000)
-  setInterval(slowUpdates, 200)
-  setInterval(fastUpdates, fastUpdateInterval)
-  setInterval(campaignIconHTMLUpdates, 15000)
-  setInterval(updateAllRuneLevelsFromEXP, sweepInterval)
-  setInterval(updateTalismanRarities, 250)
-  setInterval(() => awardAchievementGroup('runeFreeLevel'), sweepInterval)
+  // Updates are suspended during offline simulation
   setInterval(() => {
+    if (!G.timeWarp) {
+      saveSynergy()
+    }
+  }, 5000)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      slowUpdates()
+    }
+  }, 200)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      fastUpdates()
+    }
+  }, fastUpdateInterval)
+  setInterval(campaignIconHTMLUpdates, 15000)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      updateAllRuneLevelsFromEXP()
+    }
+  }, sweepInterval)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      updateTalismanRarities()
+    }
+  }, 250)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      awardAchievementGroup('runeFreeLevel')
+    }
+  }, sweepInterval)
+  setInterval(() => {
+    if (G.timeWarp) {
+      return
+    }
     for (const key of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
       updateProgressiveCache(key)
     }
@@ -4595,10 +4628,30 @@ export const constantIntervals = (): void => {
 }
 
 let lastUpdate = 0
+let lastTickWallClock = Date.now()
+let tickGeneration = 0
+
+const tickIntervalMs = 1000 / ticksPerSecond
 
 export const createTimer = (): void => {
   lastUpdate = performance.now()
-  setInterval(tick, 1000 / ticksPerSecond)
+  lastTickWallClock = Date.now()
+  tickGeneration += 1
+  scheduleTick(tickGeneration)
+}
+
+const scheduleTick = (generation: number) => {
+  setTimeout(() => {
+    if (generation !== tickGeneration) {
+      return
+    }
+
+    try {
+      tick()
+    } finally {
+      scheduleTick(generation)
+    }
+  }, tickIntervalMs)
 }
 
 const dt = 5
@@ -4616,10 +4669,37 @@ export const getTimePinnedToLoadDate = () => {
   return loadingDate.getTime() + (performance.now() - loadingBasePerfTick)
 }
 
-const tickBudgetMs = 30
+const tickBudgetMs = PLATFORM === 'mobile' ? 10 : 30
+
+const resumeOfflineGapMs = 60_000
 
 const tick = () => {
   const now = performance.now()
+
+  if (PLATFORM === 'mobile') {
+    const wallNow = Date.now()
+    const wallGap = wallNow - lastTickWallClock
+
+    if (wallGap > resumeOfflineGapMs) {
+      // While a simulation or its results dialog is up, leave the stamp untouched so
+      // the gap stays pending and is granted once they close, rather than being
+      // consumed here and lost to live catch-up
+      if (!G.timeWarp && !isOfflineDialogOpen()) {
+        lastTickWallClock = wallNow
+        lastUpdate = now
+        calculateOffline(wallGap / 1000).catch(console.error)
+        return
+      }
+
+      // The pending gap must be credited exactly once by the eventual offline
+      // progress, so skip live catch-up of it too
+      lastUpdate = now
+      return
+    } else {
+      lastTickWallClock = wallNow
+    }
+  }
+
   let delta = now - lastUpdate
   // TODO: We need discrete tick tracking, but it's way too inaccurate as a measure of time to do so right now.
   // compute pseudo-average delta cf. https://stackoverflow.com/a/5111475/343834
@@ -4983,8 +5063,12 @@ export const showExitOffline = () => {
  * Reloads shit.
  * @param ignoreOfflineProgress if this param is true, offline progression will not be calculated.
  */
-export const reloadShit = (ignoreOfflineProgress = false) => {
+let reloadGeneration = 0
+
+export const reloadShit = async (ignoreOfflineProgress = false) => {
+  const generation = ++reloadGeneration
   clearTimers()
+  cancelOfflineProgress()
 
   // Shows a reset button when page loading seems to stop or cause an error
   const preloadDeleteGame = setTimeout(
@@ -5109,7 +5193,17 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   updateShopLevels()
 
   if (!ignoreOfflineProgress) {
-    calculateOffline()
+    try {
+      await calculateOffline()
+    } catch (e) {
+      // A failed simulation must not abort the load and leave the game without timers
+      console.error(e)
+    }
+
+    // A newer import/reset superseded this reload while offline progress was working
+    if (generation !== reloadGeneration) {
+      return
+    }
   } else {
     if (!getSingularityChallengeEffect('limitedTime', 'preserveQuarks')) {
       player.worlds.reset()
@@ -5136,7 +5230,11 @@ export const reloadShit = (ignoreOfflineProgress = false) => {
   changeSubTab(Tabs.Buildings, { page: 0 })
 
   dailyResetCheck()
-  setInterval(dailyResetCheck, 30000)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      dailyResetCheck()
+    }
+  }, 30000)
 
   constantIntervals()
   changeTabColor()
@@ -5220,6 +5318,10 @@ window.addEventListener('load', async () => {
 
   await i18nInit()
   handleLogin().catch(console.error)
+  if (PLATFORM === 'steam') {
+    const { onAuthChanged } = await import('./steam/steam')
+    onAuthChanged(() => handleLogin().catch(console.error))
+  }
 
   refreshQuarkBonus()
     .catch(console.error)
@@ -5277,7 +5379,7 @@ window.addEventListener('load', async () => {
   // Initialize messages on game load
   fetchUnreadMessages().catch(console.error)
 
-  reloadShit()
+  await reloadShit()
 
   if (testing || !PROD) {
     Object.defineProperties(window, {

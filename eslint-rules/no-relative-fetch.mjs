@@ -1,4 +1,4 @@
-const rule = {
+export default {
   create (context) {
     return {
       CallExpression (node) {
@@ -24,9 +24,4 @@ const rule = {
       }
     }
   }
-}
-
-export default {
-  meta: { name: 'synergism-rules' },
-  rules: { 'no-relative-fetch': rule }
 }

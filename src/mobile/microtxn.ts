@@ -70,6 +70,14 @@ async function onTransactionApproved (transaction: Transaction): Promise<void> {
     subscriptionProducts.some((sub) => toStoreProductId(sub.id) === p.id)
   )
 
+  if (isSubscription) {
+    const { getSubMetadata, handleLogin } = await import('../Login')
+    const { exponentialSubscriptionCheck } = await import('../purchases/SubscriptionsSubtab')
+    const previousSubscription = getSubMetadata()
+    await handleLogin()
+    exponentialSubscriptionCheck(previousSubscription)
+  }
+
   Notification(
     i18next.t(isSubscription ? 'mobile.purchases.subscriptionSuccess' : 'mobile.purchases.success')
   )

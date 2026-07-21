@@ -4445,7 +4445,7 @@
     "buyMax": "Buy MAX",
     "buyCustom": "Buy: {{amount}}",
     "buyPercentage": "Buy Percentage:",
-    "languageChange": "Changing the language requires a reload! Would you like to reload now?",
+    "languageChange": "Language changed.",
     "resources": {
       "offering": "Offering",
       "obtainium": "Obtainium",
@@ -7629,7 +7629,7 @@
     "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
     "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
     "buyResearch3x11": "[LOCKED - Buy Research 3x11]",
-    "statSymbolConfirm": "Would you like to toggle Stat Symbols? This will refresh the page! [If you see a symbol next to the word 'Quark' then they are currently on. Otherwise they are currently off]"
+    "statSymbolConfirm": "Would you like to toggle Stat Symbols?"
   },
   "history": {
     "perSecondOn": "Per second: ON",
@@ -7647,12 +7647,12 @@
     }
   },
   "account": {
-    "logout": "The page will now reload. You are logged out! Goodbye!!",
+    "logout": "You are logged out! Goodbye!!",
     "download": "Download",
     "loadSave": "Load Save",
     "delete": "Delete",
     "noSaves": "No saves available",
-    "noSaveFound": "No save found with that ID. Try reloading the page.",
+    "noSaveFound": "No save found with that ID. The cloud save list has been refreshed.",
     "downloadComplete": "Download complete",
     "deletedSave": "\"{{name}}\" was deleted",
     "notDeleted": "Your save wasn't deleted. Check the console for more information.",
@@ -7668,6 +7668,11 @@
     "loggedInBut": "You are logged in, but your profile couldn't be retrieved.",
     "loggedInButError": "You are logged in, but retrieving your profile yielded the following error: {{error}}",
     "loginNotAvailable": "Login is not available here, go to <a href=\"https://synergism.cc\">https://synergism.cc</a> instead!",
+    "forms": {
+      "register": "Register",
+      "login": "Login",
+      "sendResetPasswordEmail": "Send Reset Password Email"
+    },
     "bonuses": {
       "transcendedBaller": "Transcended Baller <<gold|(or higher)>>",
       "reincarnatedBaller": "Reincarnated Baller <<gold|(or higher)>>",
@@ -7723,7 +7728,6 @@
       "resize": "Resize header"
     },
     "auth": {
-      "signInFailed": "Sign-in was cancelled or failed. Please try again.",
       "verificationFailed": "We couldn't verify your device. Please try again."
     },
     "purchases": {
@@ -7736,11 +7740,17 @@
       "login": "Login",
       "verifyFailed": "Could not verify your purchase: {{error}}",
       "success": "Purchase successful! Your PseudoCoins have been credited.",
-      "subscriptionSuccess": "Subscription successful! Please refresh the page to receive your perks."
+      "subscriptionSuccess": "Subscription successful! Your perks have been applied."
     }
   },
   "pseudoCoins": {
     "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",
+    "balances": {
+      "pseudoCoins": "PseudoCoins:",
+      "lotus": "Lotus:",
+      "loadingPseudoCoins": "Loading PseudoCoins",
+      "loadingLotus": "Loading Lotus"
+    },
     "cost": "Cost: <<gold|{{amount}} PseudoCoins>>",
     "maxxed": "<<gold|Maxed!>>",
     "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",
@@ -7748,6 +7758,8 @@
     "nextEffect": "Next Level:",
     "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
     "subscriptionPricePerMonth": "{{price}} / month",
+    "manageSubscription": "Manage Subscription",
+    "subscriptionUpdated": "Your subscription and its bonuses have been updated!",
     "subscriptionSubscribe": "Subscribe - {{price}}",
     "subscriptionSubscribeSteam": "Subscribe with Steam - {{price}}",
     "subscriptionUpgradePrice": "↑ (+{{price}})",

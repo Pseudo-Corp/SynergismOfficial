@@ -400,25 +400,25 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   player.coins = Decimal.fromString('100')
   player.coinsThisPrestige = Decimal.fromString('100')
   player.firstOwnedCoin = 0
-  player.firstGeneratedCoin = Decimal.fromString('0')
+  player.firstGeneratedCoin = new Decimal()
   player.firstCostCoin = Decimal.fromString('100')
   player.secondOwnedCoin = 0
-  player.secondGeneratedCoin = Decimal.fromString('0')
+  player.secondGeneratedCoin = new Decimal()
   player.secondCostCoin = Decimal.fromString('1e3')
   player.thirdOwnedCoin = 0
-  player.thirdGeneratedCoin = Decimal.fromString('0')
+  player.thirdGeneratedCoin = new Decimal()
   player.thirdCostCoin = Decimal.fromString('2e4')
   player.fourthOwnedCoin = 0
-  player.fourthGeneratedCoin = Decimal.fromString('0')
+  player.fourthGeneratedCoin = new Decimal()
   player.fourthCostCoin = Decimal.fromString('4e5')
   player.fifthOwnedCoin = 0
-  player.fifthGeneratedCoin = Decimal.fromString('0')
+  player.fifthGeneratedCoin = new Decimal()
   player.fifthCostCoin = Decimal.fromString('8e6')
-  player.firstGeneratedDiamonds = Decimal.fromString('0')
-  player.secondGeneratedDiamonds = Decimal.fromString('0')
-  player.thirdGeneratedDiamonds = Decimal.fromString('0')
-  player.fourthGeneratedDiamonds = Decimal.fromString('0')
-  player.fifthGeneratedDiamonds = Decimal.fromString('0')
+  player.firstGeneratedDiamonds = new Decimal()
+  player.secondGeneratedDiamonds = new Decimal()
+  player.thirdGeneratedDiamonds = new Decimal()
+  player.fourthGeneratedDiamonds = new Decimal()
+  player.fifthGeneratedDiamonds = new Decimal()
   player.multiplierCost = Decimal.fromString('1e4')
   player.multiplierBought = 0
   player.acceleratorCost = Decimal.fromString('500')
@@ -427,7 +427,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   updatePrestigeCount(1)
 
   player.prestigePoints = player.prestigePoints.add(G.prestigePointGain)
-  player.prestigeShards = Decimal.fromString('0')
+  player.prestigeShards = new Decimal()
   player.prestigenoaccelerator = true
   player.prestigenomultiplier = true
   player.prestigenocoinupgrades = true
@@ -454,7 +454,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.fastestprestige = player.prestigecounter
   }
 
-  G.prestigePointGain = Decimal.fromString('0')
+  G.prestigePointGain = new Decimal()
 
   player.prestigecounter = 0
   G.autoResetTimers.prestige = 0
@@ -474,11 +474,11 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.fourthCostDiamonds = Decimal.fromString('1e40')
     player.fifthOwnedDiamonds = 0
     player.fifthCostDiamonds = Decimal.fromString('1e100')
-    player.firstGeneratedMythos = Decimal.fromString('0')
-    player.secondGeneratedMythos = Decimal.fromString('0')
-    player.thirdGeneratedMythos = Decimal.fromString('0')
-    player.fourthGeneratedMythos = Decimal.fromString('0')
-    player.fifthGeneratedMythos = Decimal.fromString('0')
+    player.firstGeneratedMythos = new Decimal()
+    player.secondGeneratedMythos = new Decimal()
+    player.thirdGeneratedMythos = new Decimal()
+    player.fourthGeneratedMythos = new Decimal()
+    player.fifthGeneratedMythos = new Decimal()
     player.acceleratorBoostBought = 0
     player.acceleratorBoostCost = Decimal.fromString('1e3')
 
@@ -488,15 +488,15 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
 
     awardAchievementGroup('transcensionCount')
 
-    player.prestigePoints = Decimal.fromString('0')
+    player.prestigePoints = new Decimal()
     player.transcendPoints = player.transcendPoints.add(G.transcendPointGain)
-    player.transcendShards = Decimal.fromString('0')
+    player.transcendShards = new Decimal()
     player.transcendnocoinupgrades = true
     player.transcendnocoinorprestigeupgrades = true
     player.transcendnoaccelerator = true
     player.transcendnomultiplier = true
 
-    G.transcendPointGain = Decimal.fromString('0')
+    G.transcendPointGain = new Decimal()
 
     if (getLevelMilestone('tier1CrystalAutobuy') === 1) {
       player.firstOwnedDiamonds += 1
@@ -559,24 +559,24 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.fourthCostMythos = Decimal.fromString('1e8')
     player.fifthOwnedMythos = 0
     player.fifthCostMythos = Decimal.fromString('1e16')
-    player.firstGeneratedParticles = Decimal.fromString('0')
-    player.secondGeneratedParticles = Decimal.fromString('0')
-    player.thirdGeneratedParticles = Decimal.fromString('0')
-    player.fourthGeneratedParticles = Decimal.fromString('0')
-    player.fifthGeneratedParticles = Decimal.fromString('0')
+    player.firstGeneratedParticles = new Decimal()
+    player.secondGeneratedParticles = new Decimal()
+    player.thirdGeneratedParticles = new Decimal()
+    player.fourthGeneratedParticles = new Decimal()
+    player.fifthGeneratedParticles = new Decimal()
 
     awardAchievementGroup('reincarnationCount')
 
-    player.transcendPoints = Decimal.fromString('0')
+    player.transcendPoints = new Decimal()
     player.reincarnationPoints = player.reincarnationPoints.add(G.reincarnationPointGain)
-    player.reincarnationShards = Decimal.fromString('0')
+    player.reincarnationShards = new Decimal()
     player.challengecompletions[1] = 0
     player.challengecompletions[2] = 0
     player.challengecompletions[3] = 0
     player.challengecompletions[4] = 0
     player.challengecompletions[5] = 0
 
-    G.reincarnationPointGain = Decimal.fromString('0')
+    G.reincarnationPointGain = new Decimal()
 
     if (getShopUpgradeEffects('instantChallenge', 'unlocked')) {
       player.challengecompletions[1] = player.highestchallengecompletions[1]
@@ -618,8 +618,8 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     resetResearches()
     resetAnts(AntSacrificeTiers.ascension)
     resetTalismanData('ascension')
-    player.reincarnationPoints = Decimal.fromString('0')
-    player.reincarnationShards = Decimal.fromString('0')
+    player.reincarnationPoints = new Decimal()
+    player.reincarnationShards = new Decimal()
 
     for (let j = 61; j <= 80; j++) {
       player.upgrades[j] = 0
@@ -637,7 +637,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.thirdCostParticles = Decimal.fromString('1e4')
     player.fourthCostParticles = Decimal.fromString('1e8')
     player.fifthCostParticles = Decimal.fromString('1e16')
-    player.offerings = Decimal.fromString('0')
+    player.offerings = new Decimal()
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
 
     resetRunes('ascension')
@@ -878,15 +878,15 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.unlocks.platonics = false
 
     player.ascendBuilding1.owned = 0
-    player.ascendBuilding1.generated = Decimal.fromString('0')
+    player.ascendBuilding1.generated = new Decimal()
     player.ascendBuilding2.owned = 0
-    player.ascendBuilding2.generated = Decimal.fromString('0')
+    player.ascendBuilding2.generated = new Decimal()
     player.ascendBuilding3.owned = 0
-    player.ascendBuilding3.generated = Decimal.fromString('0')
+    player.ascendBuilding3.generated = new Decimal()
     player.ascendBuilding4.owned = 0
-    player.ascendBuilding4.generated = Decimal.fromString('0')
+    player.ascendBuilding4.generated = new Decimal()
     player.ascendBuilding5.owned = 0
-    player.ascendBuilding5.generated = Decimal.fromString('0')
+    player.ascendBuilding5.generated = new Decimal()
 
     player.constantUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -1387,7 +1387,7 @@ export const getResetResearches = () => {
 }
 
 const resetResearches = () => {
-  player.obtainium = Decimal.fromString('0')
+  player.obtainium = new Decimal()
 
   for (const item of getResetResearches()) {
     player.researches[item] = 0
@@ -1414,10 +1414,10 @@ export const applyChallengeInitialModifiers = (
         player.autoChallengeIndex = 10
       }
       if (chalNum === 12) {
-        player.reincarnationPoints = Decimal.fromString('0')
+        player.reincarnationPoints = new Decimal()
       }
       if (chalNum === 14) {
-        player.obtainium = Decimal.fromString('0')
+        player.obtainium = new Decimal()
       }
       if (chalNum === 15) {
         player.corruptions.used = new CorruptionLoadout(c15Corruptions)

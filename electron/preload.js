@@ -57,7 +57,9 @@ contextBridge.exposeInMainWorld('windowControls', {
 
 contextBridge.exposeInMainWorld('auth', {
   /** @returns {Promise<void>} */
-  clearCookie: () => ipcRenderer.invoke('auth:clearCookie')
+  clearCookie: () => ipcRenderer.invoke('auth:clearCookie'),
+  /** @param {() => void} callback */
+  onChanged: (callback) => ipcRenderer.on('auth:changed', () => callback())
 })
 
 contextBridge.exposeInMainWorld('discord', {

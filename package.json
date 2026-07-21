@@ -14,11 +14,10 @@
     "@capacitor/push-notifications": "^8.1.1",
     "@capgo/capacitor-app-attest": "^8.1.14",
     "@capgo/capacitor-keep-awake": "^8.1.15",
-    "@capgo/capacitor-social-login": "^8.3.22",
     "@capgo/capacitor-updater": "^8.50.2",
     "@paypal/paypal-js": "^8.2.0",
     "@ungap/custom-elements": "^1.3.0",
-    "break_infinity.js": "^2.0.0",
+    "break_infinity.js": "^2.2.0",
     "capacitor-plugin-cdv-purchase": "^13.15.3",
     "clipboard": "^2.0.11",
     "cookie": "^1.1.1",
@@ -62,7 +61,7 @@
     "typescript": "^6.0.3"
   },
   "scripts": {
-    "live-server": "npx live-server --port=3000 -q",
+    "live-server": "npx live-server --port=3000 -q --watch=dist,index.html,Synergism.css,translations",
     "dev": "concurrently \"npm run watch:esbuild\" \"npm run live-server\"",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",

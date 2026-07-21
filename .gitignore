@@ -15,3 +15,10 @@ Pictures/TransparentPics/Thumbs.db
 **/.DS_Store
 release
 !electron/**/*.js
+
+# Android/Gradle build artifacts
+android/.gradle/
+android/build/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+src/mobile/websocket-plugin/android/build/

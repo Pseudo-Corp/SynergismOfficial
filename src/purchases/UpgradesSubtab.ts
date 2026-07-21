@@ -10,6 +10,7 @@ import {
 import { Alert } from '../UpdateHTML'
 import { isMobile, memoize } from '../Utility'
 import { upgradeResponse } from './CartTab'
+import { setPseudoCoinBalance, setPseudoCoinBalanceLoading } from './PseudoCoinBalances'
 
 interface Upgrades {
   upgradeId: number
@@ -44,6 +45,7 @@ interface CoinsResponse {
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #upgradesContainer')!
 let activeUpgrade: UpgradesList | undefined
+let pseudoCoinBalanceRequest = 0
 
 const buyUpgradeSchema = z.object({
   upgradeId: z.number(),
@@ -131,7 +133,9 @@ async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
 
     updatePCoinCache(upgrade.internalName, parsed.data.level)
   } else {
-    Alert('Upgrades did not load. Please refresh the page.')
+    Alert(
+      'The purchase succeeded, but the upgrade display could not be updated. It will be synchronized automatically.'
+    )
   }
 }
 
@@ -205,17 +209,15 @@ export const clearUpgradeSubtab = () => {
 }
 
 export const updatePseudoCoins = async () => {
+  const request = ++pseudoCoinBalanceRequest
+  setPseudoCoinBalanceLoading()
+
   const response = await fetch('https://synergism.cc/stripe/coins')
   const coins = await response.json() as CoinsResponse
 
-  tab.querySelector('#pseudoCoinAmounts > #currentCoinBalance')!.innerHTML = i18next.t('pseudoCoins.coinCount', {
-    amount: Intl.NumberFormat().format(coins.coins)
-  })
-
-  // WOW this is so hacky and shit but It's the best I can do in a pinch -Platonic
-  DOMCacheGetOrSet('currentCoinBalance2').innerHTML = i18next.t('pseudoCoins.coinCount', {
-    amount: Intl.NumberFormat().format(coins.coins)
-  })
+  if (request === pseudoCoinBalanceRequest) {
+    setPseudoCoinBalance(coins.coins)
+  }
 
   return coins.coins
 }
