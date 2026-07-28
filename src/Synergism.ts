@@ -5053,12 +5053,6 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
   }
 }
 
-export const showExitOffline = () => {
-  const el = DOMCacheGetOrSet('exitOffline')
-  el.style.visibility = 'visible'
-  setTimeout(() => el.focus(), 100)
-}
-
 /**
  * Reloads shit.
  * @param ignoreOfflineProgress if this param is true, offline progression will not be calculated.
@@ -5250,7 +5244,6 @@ export const reloadShit = async (ignoreOfflineProgress = false) => {
         1000 * 60 * 5
       )
     })
-  showExitOffline()
   campaignIconHTMLUpdates()
   campaignTokenRewardHTMLUpdate()
   updateAllUngroupedAchievementProgress()

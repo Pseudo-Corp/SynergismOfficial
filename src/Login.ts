@@ -8,8 +8,7 @@ import {
   afterOfflineProgress,
   calculateAmbrosiaGenerationSpeed,
   calculateOffline,
-  calculateRedAmbrosiaGenerationSpeed,
-  isOfflineDialogOpen
+  calculateRedAmbrosiaGenerationSpeed
 } from './Calculate'
 import { isSynergismCC } from './Config'
 import { updateGlobalsIsEvent } from './Event'
@@ -828,13 +827,7 @@ async function handleWebSocket () {
       Notification(i18next.t('pseudoCoins.consumables.tipReceived', { offlineTime: data.tips }))
     } else if (data.type === 'applied-tip') {
       tips = data.remaining
-      calculateOffline(data.amount * 60, true)
-        .then(() => {
-          if (isOfflineDialogOpen()) {
-            DOMCacheGetOrSet('exitOffline').style.visibility = 'unset'
-          }
-        })
-        .catch(console.error)
+      calculateOffline(data.amount * 60, true).catch(console.error)
     } else if (data.type === 'time-skip') {
       const timeSkipName = data.consumableName as PseudoCoinTimeskipNames
       const minutes = data.amount

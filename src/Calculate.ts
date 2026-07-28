@@ -551,6 +551,22 @@ let offlineDialogActive = false
 
 export const isOfflineDialogOpen = () => offlineDialogActive
 
+const setExitOfflineVisible = (visible: boolean) => {
+  const el = DOMCacheGetOrSet('exitOffline')
+  el.style.visibility = visible ? 'visible' : 'hidden'
+
+  if (!visible) {
+    return
+  }
+
+  setTimeout(() => {
+    // The dialog may already have been dismissed in the meantime
+    if (offlineDialogActive) {
+      el.focus()
+    }
+  }, 100)
+}
+
 let offlineQueue: Promise<void> = Promise.resolve()
 let offlineRunGeneration = 0
 
@@ -568,6 +584,7 @@ export const cancelOfflineProgress = () => {
   // screen up instead of using exitOffline(), which exposes the unfinished page
   // and enables hotkeys before offline progress starts.
   offlineDialogActive = false
+  setExitOfflineVisible(false)
   document.body.classList.remove('scrollbar')
   document.body.classList.add('loading')
   DOMCacheGetOrSet('notificationStack').style.display = 'none'
@@ -606,6 +623,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   G.timeWarp = true
 
   // Block input for the entire simulation, not just while the results dialog is up
+  setExitOfflineVisible(false)
   document.body.classList.remove('scrollbar')
   document.body.classList.add('loading')
   DOMCacheGetOrSet('transparentBG').style.display = 'block'
@@ -848,6 +866,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   // allow aesthetic offline progress
   if (offlineDialog) {
     offlineDialogActive = true
+    setExitOfflineVisible(true)
     DOMCacheGetOrSet('notificationStack').style.display = 'none'
     document.body.classList.remove('scrollbar')
     document.body.classList.add('loading')
@@ -864,6 +883,7 @@ export const exitOffline = () => {
   }
 
   offlineDialogActive = false
+  setExitOfflineVisible(false)
   document.body.classList.remove('loading')
   document.body.classList.add('scrollbar')
   DOMCacheGetOrSet('transparentBG').style.display = 'none'
