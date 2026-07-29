@@ -907,12 +907,34 @@ nav button {
     white-space: nowrap;
 }
 
-#tabrow.tab-edit-mode > button {
+#tabrow.tab-edit-mode > button:not(#tabEditDone) {
     position: relative;
     overflow: visible;
     cursor: grab;
     user-select: none;
     touch-action: none;
+}
+
+/* Motion-independent cue that the tab row is in edit mode */
+#tabrow.tab-edit-mode {
+    outline: 2px dashed gold;
+    outline-offset: 2px;
+}
+
+#tabEditDone {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 120px;
+    margin: 4px 0;
+    padding: 6px 12px;
+    border: 1px solid gold;
+    border-radius: 5px;
+    background-color: var(--purplebtn-color);
+    color: white;
+}
+
+#tabEditDone:hover {
+    background-color: var(--purplehover-color);
 }
 
 #tabrow.tab-edit-mode > button:nth-child(even) {
@@ -988,7 +1010,7 @@ nav button {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    #tabrow.tab-edit-mode > button {
+    #tabrow.tab-edit-mode > button:not(#tabEditDone) {
         animation: tab-jingle 170ms ease-in-out infinite alternate;
     }
 }
@@ -8219,7 +8241,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     @media (prefers-reduced-motion: no-preference) {
-        nav.navbar #tabrow.tab-edit-mode > button {
+        nav.navbar #tabrow.tab-edit-mode > button:not(#tabEditDone) {
             animation: tab-jingle-mobile 240ms ease-in-out infinite alternate;
         }
     }

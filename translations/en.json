@@ -4744,6 +4744,7 @@
   "tabs": {
     "hideTab": "Hide tab",
     "showTab": "Show tab",
+    "doneEditing": "Done",
     "main": {
       "buildings": "Buildings",
       "upgrades": "Upgrades",
