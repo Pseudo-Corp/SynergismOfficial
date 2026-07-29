@@ -7347,7 +7347,9 @@ html[data-mobile="true"] .hideOnMobile {
     html {
         min-width: unset;
         width: 100%;
-        position: fixed;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
     }
 
     body {
@@ -7355,8 +7357,15 @@ html[data-mobile="true"] .hideOnMobile {
         overscroll-behavior: none;
     }
 
+    html[data-mobile="true"] body {
+        height: 100%;
+        overflow: hidden;
+    }
+
     main {
+        min-height: 0;
         overflow-x: hidden;
+        overflow-y: auto;
         overscroll-behavior: contain;
         padding-top: var(--mobile-subtab-height);
     }
@@ -7471,7 +7480,7 @@ html[data-mobile="true"] .hideOnMobile {
         padding-top: 0;
         padding-bottom: 5px;
         background-color: var(--bg-color);
-        touch-action: none;
+        touch-action: manipulation;
     }
 
     .mobileIconSubTabWrapper {
