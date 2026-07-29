@@ -101,8 +101,6 @@ export const Globals: GlobalVariables = {
   producePerSecondMythos: new Decimal(),
   producePerSecondParticles: new Decimal(),
 
-  uFourteenMulti: new Decimal(1),
-  uFifteenMulti: new Decimal(1),
   tuSevenMulti: 1,
   currentTab: Tabs.Buildings,
 

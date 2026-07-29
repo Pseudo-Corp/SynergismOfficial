@@ -6,11 +6,11 @@ import {
   achievementPoints,
   getAchievementReward,
   groupedAchievementData,
-  type ProgressiveAchievements,
+  progressiveAchievementKeys,
   progressiveAchievements,
   toNextAchievementLevelEXP,
   ungroupedAchievementData,
-  type UngroupedAchievementNames,
+  ungroupedAchievementKeys,
   updateAllGroupedAchievementProgress,
   updateAllProgressiveAchievementProgress,
   updateAllUngroupedAchievementProgress
@@ -221,7 +221,7 @@ export const revealStuff = () => {
     }
   }
 
-  for (const ungroupedAch of Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]) {
+  for (const ungroupedAch of ungroupedAchievementKeys) {
     const capitalizedName = ungroupedAch.charAt(0).toUpperCase() + ungroupedAch.slice(1)
     const img = DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`)
     const shouldDisplay = ungroupedAchievementData[ungroupedAch].displayCondition()
@@ -233,7 +233,7 @@ export const revealStuff = () => {
     }
   }
 
-  for (const progAch of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
+  for (const progAch of progressiveAchievementKeys) {
     const capitalizedName = progAch.charAt(0).toUpperCase() + progAch.slice(1)
     const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`)
     const shouldDisplay = progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0

@@ -643,8 +643,6 @@ export interface GlobalVariables {
   producePerSecondMythos: Decimal
   producePerSecondParticles: Decimal
 
-  uFourteenMulti: Decimal
-  uFifteenMulti: Decimal
   tuSevenMulti: number
   currentTab: Tabs
 

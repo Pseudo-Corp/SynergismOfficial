@@ -949,7 +949,16 @@ export const buyTalismanLevel = (t: TalismanKeys, fromMultibuy = false): void =>
   }
 }
 
-export const buyTalismanLevelToRarityIncrease = (t: TalismanKeys, auto = false): void => {
+interface BuyTalismanLevelToRarityIncreaseOptions {
+  auto?: boolean
+  refreshVisuals?: boolean
+}
+
+export const buyTalismanLevelToRarityIncrease = (
+  t: TalismanKeys,
+  { auto = false, refreshVisuals = true }: BuyTalismanLevelToRarityIncreaseOptions = {}
+): boolean => {
+  const previousLevel = talismans[t].level
   const levelsToBuy = levelsUntilRarityIncrease(t)
   if (levelsToBuy > 0) {
     for (let i = 0; i < levelsToBuy; i++) {
@@ -961,11 +970,14 @@ export const buyTalismanLevelToRarityIncrease = (t: TalismanKeys, auto = false):
     }
   }
 
-  if (!auto) {
-    updateTalismanCostHTML(t)
+  if (refreshVisuals) {
+    if (!auto) {
+      updateTalismanCostHTML(t)
+    }
+    updateTalismanInventory()
   }
-  updateTalismanInventory()
   setTalismanRarity(t)
+  return talismans[t].level !== previousLevel
 }
 
 export const buyTalismanLevelToMax = (t: TalismanKeys): void => {

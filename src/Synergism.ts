@@ -29,8 +29,7 @@ import {
   generateAchievementHTMLs,
   getAchievementReward,
   numAchievements,
-  type ProgressiveAchievements,
-  progressiveAchievements,
+  progressiveAchievementKeys,
   resetAchievementCheck,
   syncSteamAchievements,
   updateAchievementPoints,
@@ -3996,7 +3995,9 @@ export const resetConfirmation = async (i: string): Promise<void> => {
   }
 }
 
-export const updateAll = (): void => {
+type UpdateAllMode = 'live' | 'offline'
+
+export const updateAll = (mode: UpdateAllMode = 'live'): void => {
   if (runes.antiquities.level > 0) {
     player.highestSingularityCount = Math.max(
       player.highestSingularityCount,
@@ -4004,30 +4005,33 @@ export const updateAll = (): void => {
     )
   }
 
-  G.uFourteenMulti = new Decimal(1)
-  G.uFifteenMulti = new Decimal(1)
+  const upgradeFourteenMultiplier = player.upgrades[14] > 0.5
+    ? Decimal.pow(1.15, G.freeAccelerator).times(1e5)
+    : 1
+  const upgradeFifteenMultiplier = player.upgrades[15] > 0.5
+    ? Decimal.pow(1.15, G.freeAccelerator).times(1e5)
+    : 1
 
-  if (player.upgrades[14] > 0.5) {
-    G.uFourteenMulti = Decimal.pow(1.15, G.freeAccelerator).times(1e5)
-  }
-  if (player.upgrades[15] > 0.5) {
-    G.uFifteenMulti = Decimal.pow(1.15, G.freeAccelerator).times(1e5)
-  }
+  let shouldReveal = false
 
   if (!player.unlocks.coinone && player.coins.gte(500)) {
     player.unlocks.coinone = true
-    revealStuff()
+    shouldReveal = true
   }
   if (!player.unlocks.cointwo && player.coins.gte(10000)) {
     player.unlocks.cointwo = true
-    revealStuff()
+    shouldReveal = true
   }
   if (!player.unlocks.cointhree && player.coins.gte(100000)) {
     player.unlocks.cointhree = true
-    revealStuff()
+    shouldReveal = true
   }
   if (!player.unlocks.coinfour && player.coins.gte(4e6)) {
     player.unlocks.coinfour = true
+    shouldReveal = true
+  }
+
+  if (shouldReveal) {
     revealStuff()
   }
 
@@ -4326,8 +4330,16 @@ export const updateAll = (): void => {
   // Talismans
 
   if ((player.researches[130] > 0 || player.researches[135] > 0) && player.autoFortifyToggle) {
+    let inventoryChanged = false
     for (const key of Object.keys(talismans) as TalismanKeys[]) {
-      buyTalismanLevelToRarityIncrease(key, true)
+      const changed = buyTalismanLevelToRarityIncrease(key, {
+        auto: true,
+        refreshVisuals: false
+      })
+      inventoryChanged ||= changed
+    }
+    if (mode === 'live' && inventoryChanged) {
+      updateTalismanInventory()
     }
   }
 
@@ -4336,7 +4348,7 @@ export const updateAll = (): void => {
     player.fourthGeneratedCoin = player.fourthGeneratedCoin.add(
       player.fifthGeneratedCoin
         .add(player.fifthOwnedCoin)
-        .times(G.uFifteenMulti)
+        .times(upgradeFifteenMultiplier)
         .times(G.generatorPower)
     )
   }
@@ -4344,7 +4356,7 @@ export const updateAll = (): void => {
     player.thirdGeneratedCoin = player.thirdGeneratedCoin.add(
       player.fourthGeneratedCoin
         .add(player.fourthOwnedCoin)
-        .times(G.uFourteenMulti)
+        .times(upgradeFourteenMultiplier)
         .times(G.generatorPower)
     )
   }
@@ -4513,11 +4525,10 @@ export const updateAll = (): void => {
     }
   }
 
-  let metaData = null
   if (player.researches[175] > 0) {
     for (let i = 1; i <= 10; i++) {
-      metaData = getConstUpgradeMetadata(i)
-      if (player.ascendShards.gte(metaData[1])) {
+      const [, cost] = getConstUpgradeMetadata(i)
+      if (player.ascendShards.gte(cost)) {
         buyConstantUpgrades(i, true)
       }
     }
@@ -4617,7 +4628,7 @@ export const constantIntervals = (): void => {
     if (G.timeWarp) {
       return
     }
-    for (const key of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
+    for (const key of progressiveAchievementKeys) {
       updateProgressiveCache(key)
     }
   }, sweepInterval)

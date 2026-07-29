@@ -553,7 +553,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
   }
 }
 
-const progressiveAchievementKeys = Object.keys(progressiveAchievements) as ProgressiveAchievements[]
+export const progressiveAchievementKeys = Object.keys(progressiveAchievements) as ProgressiveAchievements[]
 
 const achievements: Achievement[] = [
   { pointValue: 5, unlockCondition: () => true, group: 'ungrouped' }, // Free Achievement Perhaps?
@@ -3185,7 +3185,7 @@ export const ungroupedAchievementData: Record<UngroupedAchievementNames, Ungroup
   }
 }
 
-const ungroupedAchievementKeys = Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]
+export const ungroupedAchievementKeys = Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]
 
 export const numAchievements = Object.keys(achievements).length
 export const maxAchievementPoints = Object.values(achievements).reduce((sum, ach) => sum + ach.pointValue, 0)
@@ -3545,7 +3545,7 @@ export const updateAchievementPoints = (sourcedFromUpdate = false) => {
     return sum + (player.achievements[index] ? ach.pointValue : 0)
   }, 0)
 
-  for (const k of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
+  for (const k of progressiveAchievementKeys) {
     const pointsAwarded = progressiveAchievements[k].pointsAwarded(player.progressiveAchievements[k])
     achievementPoints += pointsAwarded
     progressiveAchievements[k].rewardedAP = pointsAwarded
@@ -3694,7 +3694,7 @@ export function computeAchievementPoints (
     return sum + (savedAchievements[index] ? ach.pointValue : 0)
   }, 0)
 
-  for (const k of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
+  for (const k of progressiveAchievementKeys) {
     points += progressiveAchievements[k].pointsAwarded(savedProgressiveAchievements[k] ?? 0)
   }
 
@@ -3931,7 +3931,7 @@ export const generateAchievementHTMLs = () => {
       table.appendChild(div)
     }
 
-    const sortedUngrouped = (Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[])
+    const sortedUngrouped = [...ungroupedAchievementKeys]
       .sort((a, b) => {
         const orderA = ungroupedAchievementData[a]?.order ?? Number.POSITIVE_INFINITY
         const orderB = ungroupedAchievementData[b]?.order ?? Number.POSITIVE_INFINITY
@@ -3959,10 +3959,11 @@ export const generateAchievementHTMLs = () => {
       ungroupedTable.appendChild(div)
     }
 
-    const sortedProgressive = (Object.keys(progressiveAchievements) as ProgressiveAchievements[])
+    // TODO: use toSorted
+    const sortedProgressive = [...progressiveAchievementKeys]
       .sort((a, b) => {
-        const orderA = progressiveAchievements[a]?.displayOrder ?? Number.POSITIVE_INFINITY
-        const orderB = progressiveAchievements[b]?.displayOrder ?? Number.POSITIVE_INFINITY
+        const orderA = progressiveAchievements[a].displayOrder
+        const orderB = progressiveAchievements[b].displayOrder
         return orderA - orderB
       })
 
@@ -4021,9 +4022,7 @@ export const updateAllGroupedAchievementProgress = () => {
 }
 
 const updateUngroupedAchievementProgress = (id: number) => {
-  const capitalizedName = Object.keys(ungroupedAchievementData).find((k) =>
-    ungroupedAchievementData[k as UngroupedAchievementNames].achievementID === id
-  )
+  const capitalizedName = ungroupedAchievementKeys.find((k) => ungroupedAchievementData[k].achievementID === id)
   if (!capitalizedName) {
     throw new Error(`Ungrouped achievement with ID ${id} not found`)
   }
@@ -4072,7 +4071,7 @@ const updateProgressiveAchievementProgress = (progAch: ProgressiveAchievements) 
 }
 
 export const updateAllProgressiveAchievementProgress = () => {
-  for (const k of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
+  for (const k of progressiveAchievementKeys) {
     updateProgressiveAchievementProgress(k)
   }
 }
@@ -4252,7 +4251,7 @@ export const resetAchievementProgressDisplay = () => {
 // You should really only use this when the game is reset.
 export const resetAchievements = () => {
   player.achievements.fill(0)
-  for (const k of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
+  for (const k of progressiveAchievementKeys) {
     player.progressiveAchievements[k] = 0
     progressiveAchievements[k].rewardedAP = 0
   }
