@@ -173,5 +173,5 @@ if (PLATFORM === 'mobile') {
 }
 
 export const initMobilePurchases = () => {
-  initStore().catch((e) => console.error('Failed to initialize mobile purchases', e))
+  initStore().catch((e) => console.error('Failed to initialize mobile purchases', e instanceof Error ? `${e.message}: ${e.stack}` : `${e}`))
 }
