@@ -1,5 +1,5 @@
 import { Capacitor } from '@capacitor/core'
-import { Platform, ProductType, store, type Transaction } from 'capacitor-plugin-cdv-purchase'
+import { ErrorCode, Platform, ProductType, store, type Transaction } from 'capacitor-plugin-cdv-purchase'
 import i18next from 'i18next'
 import { bus } from '../events/bus'
 import { CartTab, coinProducts, subscriptionProducts } from '../purchases/CartTab'
@@ -55,7 +55,10 @@ const initStore = memoize(async (): Promise<void> => {
 
   const errors = await store.initialize([storePlatform])
   if (errors.length > 0) {
-    console.error('CdvPurchase init errors', errors)
+    const details = errors
+      .map((e) => `${ErrorCode[e.code]}(${e.code})${e.productId ? ` [${e.productId}]` : ''}: ${e.message}`)
+      .join(' | ')
+    console.error(`CdvPurchase init errors: ${details}`)
   }
 })
 
