@@ -10,6 +10,8 @@ import { consumePendingMobilePurchase, showMobilePurchaseAuthModal } from './pur
 
 const BUNDLE_ID = 'cc.pseudocorp.synergism'
 
+let orderInProgress = false
+
 const storePlatform = Capacitor.getPlatform() === 'android'
   ? Platform.GOOGLE_PLAY
   : Platform.APPLE_APPSTORE
@@ -63,6 +65,12 @@ async function onTransactionApproved (transaction: Transaction): Promise<void> {
   }
 
   await transaction.finish()
+
+  if (!orderInProgress) {
+    return
+  }
+
+  orderInProgress = false
 
   updatePseudoCoins().catch(console.error)
 
@@ -126,13 +134,15 @@ export async function orderProduct (lookupKey: string): Promise<void> {
   // adapter reads from additionalData.applicationUsername. Set both so the
   // user identifier reaches whichever store is active.
   store.applicationUsername = applicationUsername
+  orderInProgress = true
   const result = await store.order(offer, {
     applicationUsername,
     googlePlay: {
       accountId: applicationUsername
     }
   })
-  if (result && 'code' in result) {
+  if (result) {
+    orderInProgress = false
     Notification(i18next.t('mobile.purchases.orderFailed', { error: result.message }))
   }
 }
