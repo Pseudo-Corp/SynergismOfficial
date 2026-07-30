@@ -5291,6 +5291,9 @@ window.addEventListener('load', async () => {
   document.documentElement.dataset.mobile = `${isMobile}`
 
   if (PLATFORM === 'mobile') {
+    const { initSentry } = await import('./mobile/sentry')
+    initSentry()
+
     await initMobileStorage()
     const [
       { bindMobileFormHandlers },
