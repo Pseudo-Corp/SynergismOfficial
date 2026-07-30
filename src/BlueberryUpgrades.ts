@@ -1695,7 +1695,7 @@ export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
       elm.appendChild(levelOverlay) // Append to the element
     }
 
-    if (loadoutKeys.includes(k) && level > 0) {
+    if (level > 0 && loadoutKeys.includes(k)) {
       img.classList.add('dimmed') // Apply the dimmed class
       levelOverlay.textContent = String(level) // Set the level text
       if (level === ambrosiaUpgrades[k].maxLevel) {

@@ -2416,7 +2416,7 @@ export const buyTalismanResources = (
     } else {
       player[`${type}s` as const] = player[`${type}s` as const].add(talismanResourcesData.buyAmount)
     }
-    if (type === 'mythicalFragment' && player.mythicalFragments.gte(1e25)) {
+    if (type === 'mythicalFragment' && player.mythicalFragments.gte(G.d1e25)) {
       awardUngroupedAchievement('seeingRed')
     }
 

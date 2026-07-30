@@ -32,7 +32,8 @@
     "unicorn/no-array-sort": "off",
 
     "synergism-rules/no-relative-fetch": "error",
-    "synergism-rules/no-decimal-zero": "error"
+    "synergism-rules/no-decimal-zero": "error",
+    "synergism-rules/no-decimal-string-literal": ["error", { "ignoreReceiverRoots": ["z", "collator", "Intl"] }]
   },
   "settings": {},
   "env": {

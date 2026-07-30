@@ -222,7 +222,7 @@ export const displayStatLine = (type: StatLineTypes, num: number | Decimal, altD
   else if (type === StatLineTypes.Addition) {
     return !Decimal.fromValue(num).equals(0)
   } else if (type === StatLineTypes.Multiplication) {
-    return !Decimal.fromValue(num).equals(1)
+    return !Decimal.fromValue(num).equals(G.dOne)
   } else {
     return true // Always return a misc type unless specified under `displayCriterion.`
   }

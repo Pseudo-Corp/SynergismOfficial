@@ -3152,7 +3152,7 @@ export const resourceGain = (dt: number): void => {
   updateAllMultiplier()
   multipliers()
   calculatetax()
-  if (G.produceTotal.gte(0.001)) {
+  if (G.produceTotal.gte(G.d0_001)) {
     const addcoin = Decimal.min(
       G.produceTotal.dividedBy(G.taxdivisor),
       Decimal.pow(10, G.maxexponent - Decimal.log(G.taxdivisorcheck, 10))
@@ -3165,17 +3165,17 @@ export const resourceGain = (dt: number): void => {
   }
 
   resetCurrency()
-  if (player.upgrades[93] === 1 && player.coinsThisPrestige.gte(1e16)) {
+  if (player.upgrades[93] === 1 && player.coinsThisPrestige.gte(G.d1e16)) {
     player.prestigePoints = player.prestigePoints.add(
       Decimal.floor(G.prestigePointGain.dividedBy(4000).times(dt / 0.025))
     )
   }
-  if (player.upgrades[100] === 1 && player.coinsThisTranscension.gte(1e100)) {
+  if (player.upgrades[100] === 1 && player.coinsThisTranscension.gte(G.d1e100)) {
     player.transcendPoints = player.transcendPoints.add(
       Decimal.floor(G.transcendPointGain.dividedBy(4000).times(dt / 0.025))
     )
   }
-  if (player.cubeUpgrades[28] > 0 && player.transcendShards.gte(1e300)) {
+  if (player.cubeUpgrades[28] > 0 && player.transcendShards.gte(G.d1e300)) {
     player.reincarnationPoints = player.reincarnationPoints.add(
       Decimal.floor(G.reincarnationPointGain.dividedBy(4000).times(dt / 0.025))
     )
@@ -3593,7 +3593,7 @@ export const resetCheck = async (
   leaving = false
 ): Promise<void> => {
   if (i === 'prestige') {
-    if (player.coinsThisPrestige.gte(1e16) || G.prestigePointGain.gte(100)) {
+    if (player.coinsThisPrestige.gte(G.d1e16) || G.prestigePointGain.gte(G.d100)) {
       if (manual) {
         void resetConfirmation('prestige')
       } else {
@@ -3604,8 +3604,8 @@ export const resetCheck = async (
   }
   if (i === 'transcension') {
     if (
-      (player.coinsThisTranscension.gte(1e100)
-        || G.transcendPointGain.gte(0.5))
+      (player.coinsThisTranscension.gte(G.d1e100)
+        || G.transcendPointGain.gte(G.d0_5))
       && player.currentChallenge.transcension === 0
     ) {
       if (manual) {
@@ -3625,8 +3625,8 @@ export const resetCheck = async (
     const maxCompletions = getMaxChallenges(q)
     const reqCheck = (comp: number) => player.coinsThisTranscension.gte(challengeRequirement(q, comp, q))
     if (
-      reqCheck(player.challengecompletions[q])
-      && player.challengecompletions[q] < maxCompletions
+      player.challengecompletions[q] < maxCompletions
+      && reqCheck(player.challengecompletions[q])
     ) {
       let maxInc = 1
       maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
@@ -3637,7 +3637,7 @@ export const resetCheck = async (
       let counter = 0
       let comp = player.challengecompletions[q]
       while (counter < maxInc) {
-        if (reqCheck(comp) && comp < maxCompletions) {
+        if (comp < maxCompletions && reqCheck(comp)) {
           comp++
         }
         counter++
@@ -3673,7 +3673,7 @@ export const resetCheck = async (
 
   if (i === 'reincarnation') {
     if (
-      G.reincarnationPointGain.gt(0.5)
+      G.reincarnationPointGain.gt(G.d0_5)
       && player.currentChallenge.transcension === 0
       && player.currentChallenge.reincarnation === 0
     ) {
@@ -4014,19 +4014,19 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
 
   let shouldReveal = false
 
-  if (!player.unlocks.coinone && player.coins.gte(500)) {
+  if (!player.unlocks.coinone && player.coins.gte(G.d500)) {
     player.unlocks.coinone = true
     shouldReveal = true
   }
-  if (!player.unlocks.cointwo && player.coins.gte(10000)) {
+  if (!player.unlocks.cointwo && player.coins.gte(G.d10000)) {
     player.unlocks.cointwo = true
     shouldReveal = true
   }
-  if (!player.unlocks.cointhree && player.coins.gte(100000)) {
+  if (!player.unlocks.cointhree && player.coins.gte(G.d100000)) {
     player.unlocks.cointhree = true
     shouldReveal = true
   }
-  if (!player.unlocks.coinfour && player.coins.gte(4e6)) {
+  if (!player.unlocks.coinfour && player.coins.gte(G.d4e6)) {
     player.unlocks.coinfour = true
     shouldReveal = true
   }
@@ -4293,7 +4293,8 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
   // Autobuy "ascension" tab
   if (player.researches[175] > 0) {
     for (let i = 1; i <= 10; i++) {
-      if (player.ascendShards.gte(getConstUpgradeMetadata(i).pop()!)) {
+      const [, dec] = getConstUpgradeMetadata(i)
+      if (player.ascendShards.gte(dec)) {
         buyConstantUpgrades(i, true)
       }
     }
@@ -4835,10 +4836,10 @@ const tack = (dt: number) => {
     if (
       player.toggles[15]
       && getLevelMilestone('autoPrestige') === 1
+      && player.coinsThisPrestige.gte(G.d1e16)
       && G.prestigePointGain.gte(
         player.prestigePoints.times(Decimal.pow(10, player.prestigeamount))
       )
-      && player.coinsThisPrestige.gte(1e16)
     ) {
       resetAchievementCheck('prestige')
       reset('prestige', true)
@@ -4849,9 +4850,9 @@ const tack = (dt: number) => {
     const time = Math.max(0.01, player.prestigeamount)
     if (
       player.toggles[15]
-      && getLevelMilestone('autoPrestige') === 1
       && G.autoResetTimers.prestige >= time
-      && player.coinsThisPrestige.gte(1e16)
+      && getLevelMilestone('autoPrestige') === 1
+      && player.coinsThisPrestige.gte(G.d1e16)
     ) {
       resetAchievementCheck('transcension')
       reset('prestige', true)
@@ -4862,11 +4863,11 @@ const tack = (dt: number) => {
     if (
       player.toggles[21]
       && player.upgrades[89] === 1
+      && player.currentChallenge.transcension === 0
+      && player.coinsThisTranscension.gte(G.d1e100)
       && G.transcendPointGain.gte(
         player.transcendPoints.times(Decimal.pow(10, player.transcendamount))
       )
-      && player.coinsThisTranscension.gte(1e100)
-      && player.currentChallenge.transcension === 0
     ) {
       resetAchievementCheck('transcension')
       reset('transcension', true)
@@ -4879,8 +4880,8 @@ const tack = (dt: number) => {
       player.toggles[21]
       && player.upgrades[89] === 1
       && G.autoResetTimers.transcension >= time
-      && player.coinsThisTranscension.gte(1e100)
       && player.currentChallenge.transcension === 0
+      && player.coinsThisTranscension.gte(G.d1e100)
     ) {
       resetAchievementCheck('transcension')
       reset('transcension', true)
@@ -4894,10 +4895,10 @@ const tack = (dt: number) => {
       if (
         player.toggles[27]
         && player.researches[46] > 0.5
-        && player.transcendShards.gte('1e300')
         && G.autoResetTimers.reincarnation >= time
         && player.currentChallenge.transcension === 0
         && player.currentChallenge.reincarnation === 0
+        && player.transcendShards.gte(G.d1e300)
       ) {
         resetAchievementCheck('reincarnation')
         reset('reincarnation', true)
@@ -4907,14 +4908,14 @@ const tack = (dt: number) => {
       if (
         player.toggles[27]
         && player.researches[46] > 0.5
+        && player.currentChallenge.transcension === 0
+        && player.currentChallenge.reincarnation === 0
+        && player.transcendShards.gte(G.d1e300)
         && G.reincarnationPointGain.gte(
           player.reincarnationPoints
             .add(1)
             .times(Decimal.pow(10, player.reincarnationamount))
         )
-        && player.transcendShards.gte(1e300)
-        && player.currentChallenge.transcension === 0
-        && player.currentChallenge.reincarnation === 0
       ) {
         resetAchievementCheck('reincarnation')
         reset('reincarnation', true)

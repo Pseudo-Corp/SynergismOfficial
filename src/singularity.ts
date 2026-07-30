@@ -2350,7 +2350,7 @@ export function getGQUpgradeCostTNL (upgradeKey: SingularityDataKeys): number {
   }
 
   // Overcap
-  if (computeGQUpgradeMaxLevel(upgradeKey) > upgrade.maxLevel && upgrade.level >= upgrade.maxLevel) {
+  if (upgrade.level >= upgrade.maxLevel && computeGQUpgradeMaxLevel(upgradeKey) > upgrade.maxLevel) {
     costMultiplier *= Math.pow(4, upgrade.level - upgrade.maxLevel + 1)
   }
 

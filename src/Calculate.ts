@@ -751,7 +751,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     // Auto Offerings
     automaticTools('addOfferings', timeTick)
     // Auto Rune Sacrifice Stuff
-    if (getShopUpgradeEffects('offeringAuto', 'autoRune') && player.autoSacrificeToggle) {
+    if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto', 'autoRune')) {
       automaticTools('runeSacrifice', timeTick)
     }
 

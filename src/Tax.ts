@@ -37,19 +37,19 @@ export const calculatetax = () => {
   G.produceTotal = G.produceFirst.add(G.produceSecond).add(G.produceThird).add(G.produceFourth)
     .add(G.produceFifth)
 
-  if (G.produceFirst.lte(.0001)) {
+  if (G.produceFirst.lte(G.d0_0001)) {
     G.produceFirst = new Decimal()
   }
-  if (G.produceSecond.lte(.0001)) {
+  if (G.produceSecond.lte(G.d0_0001)) {
     G.produceSecond = new Decimal()
   }
-  if (G.produceThird.lte(.0001)) {
+  if (G.produceThird.lte(G.d0_0001)) {
     G.produceThird = new Decimal()
   }
-  if (G.produceFourth.lte(.0001)) {
+  if (G.produceFourth.lte(G.d0_0001)) {
     G.produceFourth = new Decimal()
   }
-  if (G.produceFifth.lte(.0001)) {
+  if (G.produceFifth.lte(G.d0_0001)) {
     G.produceFifth = new Decimal()
   }
 

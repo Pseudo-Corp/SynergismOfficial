@@ -1649,8 +1649,8 @@ export const visualUpdateSingularity = () => {
       ) {
         el.style.filter = val ? 'brightness(.9)' : 'none'
       } else if (
-        getGQUpgradeCostTNL(key) > player.goldenQuarks
-        || player.highestSingularityCount < singItem.minimumSingularity
+        player.highestSingularityCount < singItem.minimumSingularity
+        || getGQUpgradeCostTNL(key) > player.goldenQuarks
       ) {
         el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
       } else if (

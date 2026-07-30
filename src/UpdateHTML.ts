@@ -737,17 +737,17 @@ export const buttoncolorchange = () => {
   // Notify new players the reset
   if (player.toggles[33] && player.highestSingularityCount === 0) {
     if (player.toggles[28] && !player.unlocks.prestige) {
-      DOMCacheGetOrSet('prestigebtn').style.boxShadow = player.coinsThisPrestige.gte(1e16)
+      DOMCacheGetOrSet('prestigebtn').style.boxShadow = player.coinsThisPrestige.gte(G.d1e16)
         ? 'cyan 0px 0px 10px 2px'
         : ''
     }
     if (player.toggles[29] && !player.unlocks.transcend) {
-      DOMCacheGetOrSet('transcendbtn').style.boxShadow = player.coinsThisTranscension.gte(1e100)
+      DOMCacheGetOrSet('transcendbtn').style.boxShadow = player.coinsThisTranscension.gte(G.d1e100)
         ? 'plum 0px 0px 10px 2px'
         : ''
     }
     if (player.toggles[30] && !player.unlocks.reincarnate) {
-      DOMCacheGetOrSet('reincarnatebtn').style.boxShadow = player.transcendShards.gte(1e300)
+      DOMCacheGetOrSet('reincarnatebtn').style.boxShadow = player.transcendShards.gte(G.d1e300)
         ? 'greenyellow 0px 0px 10px 2px'
         : ''
     }

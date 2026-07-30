@@ -5,6 +5,7 @@ import { AntSacrificeTiers } from '../../../Reset'
 import { player } from '../../../Synergism'
 import { updateTalismanInventory } from '../../../Talismans'
 import { Confirm } from '../../../UpdateHTML'
+import { Globals as G } from '../../../Variables'
 import { resetAnts } from '../player/reset'
 import { hasEnoughCrumbsForSacrifice, sacrificeOffCooldown } from './constants'
 import { antSacrificeRewards } from './Rewards/calculate-rewards'
@@ -72,10 +73,10 @@ export const sacrificeAnts = () => {
   updateTalismanInventory()
   resetHistoryAdd('ants', historyEntry)
 
-  if (player.mythicalFragments.gte(1e25)) {
+  if (player.mythicalFragments.gte(G.d1e25)) {
     awardUngroupedAchievement('seeingRed')
   }
-  if (player.mythicalFragments.gte(1e11) && player.currentChallenge.ascension === 14) {
+  if (player.currentChallenge.ascension === 14 && player.mythicalFragments.gte(G.d1e11)) {
     awardUngroupedAchievement('seeingRedNoBlue')
   }
 }

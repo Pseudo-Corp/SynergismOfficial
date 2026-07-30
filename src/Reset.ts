@@ -389,8 +389,8 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
   resetAddHistoryEntry(input, from)
 
-  const transcensionCheck = player.coinsThisTranscension.gte(1e100)
-  const reincarnationCheck = player.transcendShards.gte(1e300)
+  const transcensionCheck = player.coinsThisTranscension.gte(G.d1e100)
+  const reincarnationCheck = player.transcendShards.gte(G.d1e300)
   const obtainiumToGain = calculateObtainium()
   const ascensionRewards = CalcCorruptionStuff()
   const ascensionCountToBeGained = calculateAscensionCount()
@@ -981,7 +981,7 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
     player.researches[135] = 1
     player.researches[145] = 1
   }
-  if (player.highestSingularityCount >= 100 && singularityReset) {
+  if (singularityReset && player.highestSingularityCount >= 100) {
     player.cubeUpgrades[51] = 1
     awardAutosCookieUpgrade()
   }
@@ -991,7 +991,7 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
     player.cubeUpgrades[72] = 1
   }
 
-  if (getGQUpgradeEffect('platonicAlpha', 'unlocked') && player.platonicUpgrades[5] === 0) {
+  if (player.platonicUpgrades[5] === 0 && getGQUpgradeEffect('platonicAlpha', 'unlocked')) {
     player.platonicUpgrades[5] = 1
     updatePlatonicUpgradeBG(5)
   }

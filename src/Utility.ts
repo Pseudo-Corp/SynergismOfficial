@@ -269,7 +269,7 @@ export function memoize<Args extends unknown[], Ret> (fn: (...args: Args) => Ret
   }
 }
 
-export const validateNonnegativeInteger = (n: number | string): boolean => {
+export const validateNonnegativeInteger = (n: number) => {
   return Number.isFinite(n) && !Number.isNaN(n) && Number.isInteger(n)
 }
 /**
