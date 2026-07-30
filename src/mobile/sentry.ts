@@ -9,6 +9,7 @@ export const initSentry = () => {
     tracesSampleRate: 0, // Bugsink is error tracking only; it discards tracing data
     release: version,
     sendClientReports: false, // Errors only
+    ignoreErrors: [/^🔴\s+✨\s+CapgoUpdater/],
     integrations: (integrations) => [
       ...integrations.filter((integration) => integration.name !== 'BrowserSession'),
       Sentry.captureConsoleIntegration({ levels: ['error'] })
