@@ -1,6 +1,7 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import DOMPurify from 'dompurify'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { bus, SynEvent } from './events/bus'
 import { format } from './Synergism'
 
 export const isDecimal = (o: unknown): o is Decimal =>
@@ -130,6 +131,7 @@ export const btoa = (s: string) => {
   try {
     return window.btoa(s)
   } catch (err) {
+    bus.dispatchEvent(new SynEvent('error:report', { extra: { save: s } }))
     console.error('An error occurred:', err)
     // e.code = 5
     return null

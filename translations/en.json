@@ -7897,7 +7897,8 @@
       "unhideTabs": "Un-hide Tabs"
     },
     "hotkeysON": "Hotkeys: ON",
-    "hotkeysOFF": "Hotkeys: OFF"
+    "hotkeysOFF": "Hotkeys: OFF",
+    "invalidKey": "That key can't be used as a hotkey! Try a standard keyboard key instead."
   },
   "versionChangeAnnouncements": {
     "ants": "Ants have been significantly reworked/rebalanced. Your Anthill progress has been set accordingly!"

@@ -5,6 +5,7 @@ interface GameEvents {
   'storage:get': StorageRetrieveEvent
   'subscription:order': SynEvent<{ lookupKey: string }>
   'subscription:manage': SynEvent<undefined>
+  'error:report': SynEvent<{ error?: unknown; extra?: Record<string, unknown> }>
 }
 
 type TypedBus = Omit<EventTarget, 'addEventListener' | 'removeEventListener' | 'dispatchEvent'> & {

@@ -2,6 +2,7 @@ import { Capacitor } from '@capacitor/core'
 import { CapacitorUpdater } from '@capgo/capacitor-updater'
 import * as Sentry from '@sentry/browser'
 import { version } from '../Config'
+import { bus } from '../events/bus'
 
 export const initSentry = () => {
   Sentry.init({
@@ -24,4 +25,16 @@ export const initSentry = () => {
       Sentry.setTag('native', native)
     })
     .catch((e) => console.error('Failed to tag Sentry with the current bundle', e))
+
+  bus.addEventListener('error:report', ({ detail }) => {
+    const scope = Sentry.getCurrentScope()
+
+    for (const [key, value] of Object.entries(detail.extra ?? {})) {
+      scope.setExtra(key, value)
+    }
+
+    if (detail.error !== undefined) {
+      Sentry.captureException(detail.error)
+    }
+  })
 }
