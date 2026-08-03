@@ -5048,7 +5048,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(4)
       }
-      if (G.currentTab === Tabs.Challenges && player.achievements[127] === 1) {
+      if (G.currentTab === Tabs.Challenges && player.unlocks.anthill) {
         toggleChallenges(9)
         challengeDisplay(9)
       }
@@ -5057,7 +5057,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(5)
       }
-      if (G.currentTab === Tabs.Challenges && player.achievements[134] === 1) {
+      if (G.currentTab === Tabs.Challenges && player.unlocks.talismans) {
         toggleChallenges(10)
         challengeDisplay(10)
       }
