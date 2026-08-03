@@ -626,7 +626,7 @@ export const buyProducer = (
 }
 
 export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
-  if (!upgradeRequirements[pos]) {
+  if (!upgradeRequirements[pos]()) {
     return
   }
 
