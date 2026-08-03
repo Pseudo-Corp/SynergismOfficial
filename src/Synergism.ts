@@ -5178,8 +5178,11 @@ export const reloadShit = async (ignoreOfflineProgress = false) => {
     }
   }
 
-  const sourcedFromUpdate = true
-  updateAchievementPoints(sourcedFromUpdate)
+  // Must run before updateAchievementPoints
+  setAmbrosiaUpgradeLevels()
+  setRedAmbrosiaUpgradeLevels()
+
+  updateAchievementPoints(true)
   if (player.talismans !== undefined) {
     for (const key of Object.keys(player.talismans) as TalismanKeys[]) {
       updateTalismanLevelAndSpentFromInvested(key)
@@ -5193,8 +5196,6 @@ export const reloadShit = async (ignoreOfflineProgress = false) => {
 
   updateTokens()
   updateMaxTokens()
-  setAmbrosiaUpgradeLevels()
-  setRedAmbrosiaUpgradeLevels()
   refundOvercapResearches()
   updateShopLevels()
 
