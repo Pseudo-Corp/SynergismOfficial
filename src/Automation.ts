@@ -2,14 +2,18 @@ import Decimal from 'break_infinity.js'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { buyUpgrades } from './Buy'
 import { player } from './Synergism'
-import { clickUpgrades, upgradeupdate } from './Upgrades'
+import { clickUpgrades, upgradeRequirements, upgradeupdate } from './Upgrades'
 import { Globals as G, Upgrade } from './Variables'
 
 export const buyGenerator = (i: number, state: boolean) => {
+  const q = 100 + i
+  if (!upgradeRequirements[q]()) {
+    return
+  }
+
   if (i === 1 && player.prestigePoints.gte(G.d1e12) && !player.unlocks.generation) {
     player.unlocks.generation = true
   }
-  const q = 100 + i
   let type: 'transcendPoints' | 'coins' | 'prestigePoints' = 'transcendPoints'
   if (q <= 110 && q >= 106) {
     type = 'coins'
@@ -32,6 +36,10 @@ export const buyGenerator = (i: number, state: boolean) => {
 
 export const buyAutobuyers = (i: number, state?: boolean) => {
   const q = i + 80
+  if (!upgradeRequirements[q]()) {
+    return
+  }
+
   let type: 'prestigePoints' | 'transcendPoints' | 'reincarnationPoints' = 'reincarnationPoints'
   if (q <= 87) {
     type = 'prestigePoints'

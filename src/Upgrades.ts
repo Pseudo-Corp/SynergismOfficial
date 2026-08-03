@@ -495,16 +495,15 @@ export const upgradeRequirements = [
 // WHAT THE FUCK.
 const upgradeeffects = (i: number): string => {
   const effect = upgradetexts[i - 1]?.()
-  const type = typeof effect
 
   if (i >= 81 && i <= 119) {
     return i18next.t('upgrades.effects.81')
   } else if (effect == null) {
     return i18next.t(`upgrades.effects.${i}`)
-  } else if (type === 'string' || type === 'number') {
+  } else if (typeof effect === 'string' || typeof effect === 'number') {
     return i18next.t(`upgrades.effects.${i}`, { x: effect })
   } else {
-    return i18next.t(`upgrades.effects.${i}`, effect as Exclude<typeof effect, string | number>)
+    return i18next.t(`upgrades.effects.${i}`, effect)
   }
 }
 
@@ -593,7 +592,7 @@ export const clickUpgrades = (i: number, auto: boolean) => {
     || (i <= 60 && i >= 41 && !player.unlocks.transcend)
     || (i <= 80 && i >= 61 && !player.unlocks.reincarnate)
     || (i <= 120 && i >= 81 && !player.unlocks.prestige)
-    || DOMCacheGetOrSet(`upg${i}`).style.display === 'none'
+    || !upgradeRequirements[i]()
   ) {
     return
   }
