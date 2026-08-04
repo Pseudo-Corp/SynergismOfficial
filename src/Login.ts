@@ -1082,13 +1082,13 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
       time: format(seconds, 0, true)
     })
     DOMCacheGetOrSet('fastForwardPrestigeCount').innerHTML = i18next.t('offlineProgress.prestigeCount', {
-      value: Math.floor(addedStats.prestigeCount)
+      value: format(addedStats.prestigeCount, 0, true)
     })
     DOMCacheGetOrSet('fastForwardPrestigeTimer').innerHTML = i18next.t('offlineProgress.currentPrestigeTimer', {
       value: format(addedStats.prestigeTime, 2, true)
     })
     DOMCacheGetOrSet('fastForwardTranscensionCount').innerHTML = i18next.t('offlineProgress.transcensionCount', {
-      value: Math.floor(addedStats.transcensionCount)
+      value: format(addedStats.transcensionCount, 0, true)
     })
     DOMCacheGetOrSet('fastForwardTranscensionTimer').innerHTML = i18next.t(
       'offlineProgress.currentTranscensionCounter',
@@ -1097,7 +1097,7 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
       }
     )
     DOMCacheGetOrSet('fastForwardReincarnationCount').innerHTML = i18next.t('offlineProgress.reincarnationCount', {
-      value: Math.floor(addedStats.reincarnationCount)
+      value: format(addedStats.reincarnationCount, 0, true)
     })
     DOMCacheGetOrSet('fastForwardReincarnationTimer').innerHTML = i18next.t(
       'offlineProgress.currentReincarnationTimer',
