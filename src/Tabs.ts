@@ -330,11 +330,6 @@ const subtabInfo: Record<Tabs, SubTab> = {
         subTabID: 'cartContainer',
         unlocked: () => PLATFORM !== 'mobile',
         buttonID: 'cartSubTab5'
-      },
-      {
-        subTabID: 'merchContainer',
-        unlocked: () => PLATFORM === 'browser', // Steam/Apple/Google disallow purchases outside of their ecosystems
-        buttonID: 'cartSubTab6'
       }
     ]
   }

@@ -11,6 +11,7 @@ dist
 Pictures/Thumbs.db
 Pictures/Splash/Thumbs.db
 Pictures/TransparentPics/Thumbs.db
+.gradle/*
 
 **/.DS_Store
 release
