@@ -287,7 +287,6 @@ const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
       cartSubTab3: 'Pictures/Subtab Icons/PseudoCoins/Upgrades.png',
       cartSubTab4: 'Pictures/Subtab Icons/PseudoCoins/Consumables.png',
       cartSubTab5: 'Pictures/Subtab Icons/PseudoCoins/Checkout.png',
-      cartSubTab6: 'Pictures/Subtab Icons/PseudoCoins/Merch.png'
     }
   }
 ]
