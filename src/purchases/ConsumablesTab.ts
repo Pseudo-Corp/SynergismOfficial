@@ -1,9 +1,10 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
-import { getOwnedLotus, getUsedLotus, sendToWebsocket } from '../Login'
+import { getOwnedLotus, getUsedLotus, isLotusInventoryLoaded, sendToWebsocket } from '../Login'
 import { format } from '../Synergism'
 import { Alert, Confirm } from '../UpdateHTML'
 import { memoize } from '../Utility'
+import { setLotusBalance, setLotusBalanceLoading } from './PseudoCoinBalances'
 import { updatePseudoCoins } from './UpgradesSubtab'
 
 interface ConsumableListItems {
@@ -182,6 +183,12 @@ export const clearConsumablesTab = () => {
 }
 
 export const updateLotusDisplay = () => {
+  if (isLotusInventoryLoaded()) {
+    setLotusBalance(getOwnedLotus())
+  } else {
+    setLotusBalanceLoading()
+  }
+
   DOMCacheGetOrSet('lotusOwned').textContent = i18next.t('pseudoCoins.lotus.owned', {
     x: format(getOwnedLotus(), 0, true)
   })

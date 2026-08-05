@@ -2,10 +2,12 @@ import type { PostProcessorModule } from 'i18next'
 
 let showStatSymbol = false
 
-export const enableStatSymbols = (): void => {
+export const setStatSymbols = (enabled: boolean): void => {
   // Symbols inconsistently (oftentimes don't) show up properly on mobile devices
-  showStatSymbol = PLATFORM !== 'mobile'
+  showStatSymbol = enabled && PLATFORM !== 'mobile'
 }
+
+export const enableStatSymbols = (): void => setStatSymbols(true)
 
 const KEYWORD_SYMBOLS: Record<string, string> = {
   'Offering': '☤',

@@ -310,8 +310,8 @@ const checkPlatonicUpgrade = (
   }
 
   if (
-    hepteracts.abyss.BAL >= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier)
-    || platUpgradeBaseCosts[index].abyssals === 0
+    platUpgradeBaseCosts[index].abyssals === 0
+    || hepteracts.abyss.BAL >= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier)
   ) {
     checksum++
     checks.abyssals = true

@@ -352,6 +352,7 @@ class TabRow extends HTMLDivElement {
   #activePointerId: number | null = null
   #pointerDownTab: $Tab | null = null
   #draggedTab: $Tab | null = null
+  #editDoneButton: HTMLButtonElement | null = null
   #pointerStartX = 0
   #pointerStartY = 0
   #dragCreated = false
@@ -423,6 +424,7 @@ class TabRow extends HTMLDivElement {
   }
 
   reappend () {
+    this.#exitEditMode()
     this.replaceChildren()
 
     for (const item of this.#list) {
@@ -511,8 +513,6 @@ class TabRow extends HTMLDivElement {
     }
 
     if (this.#isEditing) {
-      event.preventDefault()
-
       if (!tab.isCloseButtonHit(event)) {
         this.#beginDrag(tab, event.pointerId)
       }
@@ -581,9 +581,9 @@ class TabRow extends HTMLDivElement {
       return
     }
 
+    // Exit edit mode, but let the click through: swallowing it makes the first
+    // tap on any other control (e.g. the mobile menu button) silently fail
     this.#exitEditMode()
-    event.preventDefault()
-    event.stopPropagation()
   }
 
   #enterEditMode () {
@@ -598,6 +598,23 @@ class TabRow extends HTMLDivElement {
       tab.setAttribute('aria-grabbed', 'false')
       tab.showCloseButton()
     })
+
+    this.#showEditDoneButton()
+  }
+
+  #showEditDoneButton () {
+    const button = document.createElement('button')
+    button.type = 'button'
+    button.id = 'tabEditDone'
+    button.setAttribute('i18n', 'tabs.doneEditing')
+    button.textContent = i18next.t('tabs.doneEditing')
+    button.addEventListener('click', (event) => {
+      event.stopPropagation()
+      this.#exitEditMode()
+    })
+
+    this.#editDoneButton = button
+    this.appendChild(button)
   }
 
   #exitEditMode () {
@@ -607,6 +624,8 @@ class TabRow extends HTMLDivElement {
 
     this.#isEditing = false
     this.classList.remove('tab-edit-mode')
+    this.#editDoneButton?.remove()
+    this.#editDoneButton = null
     this.#clearHoldTimer()
 
     if (this.#draggedTab !== null) {
@@ -665,6 +684,11 @@ class TabRow extends HTMLDivElement {
     }
 
     this.insertBefore(tab, referenceTab)
+
+    // Keep the Done button at the end of the row while editing
+    if (this.#editDoneButton !== null) {
+      this.appendChild(this.#editDoneButton)
+    }
 
     const tabs = this.#list.filter((item) => item !== tab)
     const referenceIndex = referenceTab === null ? tabs.length : tabs.indexOf(referenceTab)

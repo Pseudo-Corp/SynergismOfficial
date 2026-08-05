@@ -4,19 +4,25 @@ import DOMPurify from 'dompurify'
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
+import {
+  afterOfflineProgress,
+  calculateAmbrosiaGenerationSpeed,
+  calculateOffline,
+  calculateRedAmbrosiaGenerationSpeed
+} from './Calculate'
 import { isSynergismCC } from './Config'
 import { updateGlobalsIsEvent } from './Event'
 import { storageGetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
 import { updateLotusDisplay } from './purchases/ConsumablesTab'
+import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases/PseudoCoinBalances'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Confirm, Notification } from './UpdateHTML'
-import { assert, btoa, displayHTMLError, isomorphicDecode, memoize } from './Utility'
+import { assert, btoa, displayHTMLError, isomorphicDecode } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -77,8 +83,11 @@ let loggedIn = false
 let tips = 0
 let ownedLotus = 0
 let usedLotus = 0
+let lotusInventoryLoaded = false
 let subscription: SubscriptionMetadata = null
 let lotusTimeExpiresAt: number | undefined = undefined
+let signedOutAccountHTML: string | undefined
+const boundLogoutButtons = new WeakSet<HTMLElement>()
 
 const cloudSaves: Save[] = []
 
@@ -89,6 +98,7 @@ export const setTips = (newTips: number) => tips = newTips
 
 export const getOwnedLotus = () => ownedLotus
 export const getUsedLotus = () => usedLotus
+export const isLotusInventoryLoaded = () => lotusInventoryLoaded
 export const getLotusTimeExpiresAt = () => lotusTimeExpiresAt
 
 export const getSubMetadata = () => subscription
@@ -249,7 +259,7 @@ interface BonusTypes {
   quark: number
 }
 
-export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon' | 'steam' | 'apple'
+export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon' | 'steam' | 'apple' | 'google'
 
 export type SubscriptionMetadata = {
   provider: SubscriptionProvider
@@ -300,14 +310,18 @@ async function fetchMeRoute () {
 }
 
 export async function handleLogin () {
+  const wasLoggedIn = loggedIn
+
   generateSubtabBrowser: {
     const subtabElement = document.querySelector('#accountSubTab div#left.scrollbarX')!
+    signedOutAccountHTML ??= subtabElement.innerHTML
 
-    const logoutElement = document.getElementById('logoutButton')
-    if (logoutElement !== null) {
-      logoutElement.addEventListener('click', logout, { once: true })
-      document.getElementById('accountSubTab')?.appendChild(logoutElement)
+    const logoutElement = DOMCacheGetOrSet('logoutButton')
+    if (!boundLogoutButtons.has(logoutElement)) {
+      boundLogoutButtons.add(logoutElement)
+      logoutElement.addEventListener('click', logout)
     }
+    DOMCacheGetOrSet('accountSubTab').appendChild(logoutElement)
 
     const response = await fetchMeRoute()
 
@@ -319,6 +333,7 @@ export async function handleLogin () {
 
     loggedIn = hasAccount(account)
     subscription = sub
+    logoutElement.style.display = loggedIn ? '' : 'none'
 
     if (!isSynergismCC && PLATFORM === 'browser') {
       subtabElement.innerHTML = i18next.t('account.loginNotAvailable')
@@ -531,7 +546,7 @@ export async function handleLogin () {
                 })
 
                 if (directLoginResponse.redirected || directLoginResponse.ok) {
-                  location.reload()
+                  await handleLogin()
                 } else {
                   await displayHTMLError(directLoginResponse)
                 }
@@ -557,6 +572,13 @@ export async function handleLogin () {
       }
     } else if (!hasAccount(account)) {
       // User is not logged in
+      if (wasLoggedIn) {
+        subtabElement.innerHTML = signedOutAccountHTML
+        if (PLATFORM === 'mobile') {
+          const { bindMobileFormHandlers } = await import('./mobile/auth')
+          bindMobileFormHandlers()
+        }
+      }
       subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
         subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
         subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
@@ -594,7 +616,9 @@ export async function handleLogin () {
     }
   }
 
-  if (loggedIn) {
+  if (loggedIn && !wasLoggedIn) {
+    setLotusBalanceLoading()
+    updatePseudoCoins().catch(console.error)
     handleWebSocket()
     handleCloudSaves()
 
@@ -603,6 +627,9 @@ export async function handleLogin () {
         .then(({ resumePendingMobilePurchase }) => resumePendingMobilePurchase())
         .catch(console.error)
     }
+  } else if (!loggedIn && wasLoggedIn) {
+    setPseudoCoinBalanceLoading()
+    setLotusBalanceLoading()
   }
 
   // Steam cloud saves work without login
@@ -640,7 +667,11 @@ function resetWebSocket () {
     }
   }
 
+  ownedLotus = 0
+  usedLotus = 0
+  lotusInventoryLoaded = false
   lotusTimeExpiresAt = undefined
+  setLotusBalanceLoading()
   setFavicon('./favicon.ico')
 }
 
@@ -665,6 +696,12 @@ async function handleWebSocket () {
   let interval: number | undefined
 
   ws.addEventListener('close', (event) => {
+    if (!loggedIn) {
+      if (interval) clearInterval(interval)
+      return
+    }
+
+    setLotusBalanceLoading()
     tries++
     const delay = PLATFORM === 'mobile'
       ? exponentialBackoff[Math.min(tries, exponentialBackoff.length - 1)]
@@ -773,14 +810,13 @@ async function handleWebSocket () {
 
       const lotusInventory = data.inventory.find((item) => item.type === 'LOTUS')
 
-      if (lotusInventory) {
-        ownedLotus = lotusInventory.amount
-        usedLotus = lotusInventory.used
-        try {
-          updateLotusDisplay()
-        } catch {
-          // This can throw if /consumables/list has not returned a response by the time this runs
-        }
+      ownedLotus = lotusInventory?.amount ?? 0
+      usedLotus = lotusInventory?.used ?? 0
+      lotusInventoryLoaded = true
+      try {
+        updateLotusDisplay()
+      } catch {
+        // This can throw if /consumables/list has not returned a response by the time this runs
       }
     } else if (data.type === 'thanks') {
       Alert(i18next.t('pseudoCoins.consumables.thanks'))
@@ -791,21 +827,22 @@ async function handleWebSocket () {
       Notification(i18next.t('pseudoCoins.consumables.tipReceived', { offlineTime: data.tips }))
     } else if (data.type === 'applied-tip') {
       tips = data.remaining
-      calculateOffline(data.amount * 60, true)
-      DOMCacheGetOrSet('exitOffline').style.visibility = 'unset'
+      calculateOffline(data.amount * 60, true).catch(console.error)
     } else if (data.type === 'time-skip') {
       const timeSkipName = data.consumableName as PseudoCoinTimeskipNames
       const minutes = data.amount
 
-      // Do the thing with the timeSkip
-      activateTimeSkip(timeSkipName, minutes)
-      saveSynergy()
+      afterOfflineProgress().then(() => {
+        // Do the thing with the timeSkip
+        activateTimeSkip(timeSkipName, minutes)
+        saveSynergy()
 
-      sendToWebsocket(JSON.stringify({
-        type: 'confirm',
-        id: data.id,
-        consumableId: data.consumableName
-      }))
+        sendToWebsocket(JSON.stringify({
+          type: 'confirm',
+          id: data.id,
+          consumableId: data.consumableName
+        }))
+      }).catch(console.error)
 
       setTimeout(updatePseudoCoins, 4000)
     } else if (data.type === 'lotus') {
@@ -864,24 +901,77 @@ async function logout () {
     await clearAuthCookie()
   }
 
+  await handleLogin()
+  ws?.close()
+  ws = undefined
+  resetWebSocket()
   await Alert(i18next.t('account.logout'))
-  location.reload()
 }
 
 const hasCaptcha = new WeakSet<HTMLElement>()
+const boundSteamAuthForms = new WeakSet<HTMLFormElement>()
+const boundBrowserAuthForms = new WeakSet<HTMLFormElement>()
+const authSubmitButtonSelector = 'button[type="submit"]'
+
+const getAuthSubmitButton = (form: HTMLFormElement) => form.querySelector<HTMLButtonElement>(authSubmitButtonSelector)
+
+export const startAuthFormSubmission = (form: HTMLFormElement) => {
+  if (form.dataset.submitting === 'true') return false
+
+  form.dataset.submitting = 'true'
+
+  const submitButton = getAuthSubmitButton(form)
+  if (submitButton) {
+    const spinner = document.createElement('span')
+    spinner.classList.add('authSubmitSpinner', 'spinner')
+    spinner.setAttribute('aria-hidden', 'true')
+
+    submitButton.disabled = true
+    submitButton.setAttribute('aria-busy', 'true')
+    submitButton.appendChild(spinner)
+  }
+
+  return true
+}
+
+export const finishAuthFormSubmission = (form: HTMLFormElement) => {
+  delete form.dataset.submitting
+
+  const submitButton = getAuthSubmitButton(form)
+  if (submitButton) {
+    submitButton.disabled = false
+    submitButton.removeAttribute('aria-busy')
+    submitButton.querySelector(':scope > .authSubmitSpinner')?.remove()
+  }
+}
+
+const bindBrowserAuthFormHandlers = () => {
+  for (const form of document.querySelectorAll<HTMLFormElement>('form[data-apple-action]')) {
+    if (boundBrowserAuthForms.has(form)) continue
+    boundBrowserAuthForms.add(form)
+
+    form.addEventListener('submit', (event) => {
+      if (!startAuthFormSubmission(form)) {
+        event.preventDefault()
+      }
+    })
+  }
+}
 
 export const renderCaptcha = PLATFORM === 'steam'
-  ? memoize(() => {
+  ? () => {
     const captchaElements = document.querySelectorAll('.turnstile')
 
     for (const element of captchaElements) {
       if (element.parentElement instanceof HTMLFormElement) {
         const form = element.parentElement
+        if (boundSteamAuthForms.has(form)) continue
+        boundSteamAuthForms.add(form)
+
         form.addEventListener('submit', async (ev) => {
           ev.preventDefault()
 
-          if (form.dataset.submitting) return
-          form.dataset.submitting = 'true'
+          if (!startAuthFormSubmission(form)) return
 
           try {
             const { getSessionTicket } = await import('./steam/steam')
@@ -908,20 +998,22 @@ export const renderCaptcha = PLATFORM === 'steam'
             })
 
             if (response.redirected || response.ok) {
-              location.reload()
+              await handleLogin()
             } else {
               await displayHTMLError(response)
             }
           } finally {
-            form.dataset.submitting = undefined
+            finishAuthFormSubmission(form)
           }
         })
       }
     }
-  })
+  }
   : PLATFORM === 'mobile'
   ? () => {}
   : () => {
+    bindBrowserAuthFormHandlers()
+
     const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
     const visible = captchaElements.find((el) => el.offsetParent !== null)
 
@@ -990,13 +1082,13 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
       time: format(seconds, 0, true)
     })
     DOMCacheGetOrSet('fastForwardPrestigeCount').innerHTML = i18next.t('offlineProgress.prestigeCount', {
-      value: Math.floor(addedStats.prestigeCount)
+      value: format(addedStats.prestigeCount, 0, true)
     })
     DOMCacheGetOrSet('fastForwardPrestigeTimer').innerHTML = i18next.t('offlineProgress.currentPrestigeTimer', {
       value: format(addedStats.prestigeTime, 2, true)
     })
     DOMCacheGetOrSet('fastForwardTranscensionCount').innerHTML = i18next.t('offlineProgress.transcensionCount', {
-      value: Math.floor(addedStats.transcensionCount)
+      value: format(addedStats.transcensionCount, 0, true)
     })
     DOMCacheGetOrSet('fastForwardTranscensionTimer').innerHTML = i18next.t(
       'offlineProgress.currentTranscensionCounter',
@@ -1005,7 +1097,7 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
       }
     )
     DOMCacheGetOrSet('fastForwardReincarnationCount').innerHTML = i18next.t('offlineProgress.reincarnationCount', {
-      value: Math.floor(addedStats.reincarnationCount)
+      value: format(addedStats.reincarnationCount, 0, true)
     })
     DOMCacheGetOrSet('fastForwardReincarnationTimer').innerHTML = i18next.t(
       'offlineProgress.currentReincarnationTimer',
@@ -1265,6 +1357,7 @@ function handleCloudSaves () {
           const save = cloudSaves.find((s) => saveId === s.id)
 
           if (!save) {
+            populateTable()
             Alert(i18next.t('account.noSaveFound'))
             return
           }
@@ -1284,6 +1377,7 @@ function handleCloudSaves () {
           const save = cloudSaves.find((s) => saveId === s.id)
 
           if (!save) {
+            populateTable()
             Alert(i18next.t('account.noSaveFound'))
             return
           }
@@ -1296,6 +1390,7 @@ function handleCloudSaves () {
           const save = cloudSaves.find((s) => saveId === s.id)
 
           if (!save) {
+            populateTable()
             Alert(i18next.t('account.noSaveFound'))
             return
           }

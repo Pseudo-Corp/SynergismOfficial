@@ -71,9 +71,9 @@ export const canAutoSacrifice = (crumbs: Decimal, sacMode: AutoSacrificeModes, t
     return false
   }
 
-  const universalChecks = hasEnoughCrumbsForSacrifice(crumbs)
+  const universalChecks = player.ants.toggles.autoSacrificeEnabled
+    && hasEnoughCrumbsForSacrifice(crumbs)
     && sacrificeOffCooldown(time)
-    && player.ants.toggles.autoSacrificeEnabled
   const specificCheck = autoSacrificeData[sacMode].sacrificeCheck()
   const alwaysSacrificeMaxReborn = player.ants.toggles.alwaysSacrificeMaxRebornELO
   if (alwaysSacrificeMaxReborn) {

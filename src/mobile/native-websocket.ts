@@ -2,8 +2,8 @@ import { registerPlugin } from '@capacitor/core'
 import type { PluginListenerHandle } from '@capacitor/core'
 
 /**
- * Bridge to the native `URLSessionWebSocketTask` plugin (iOS), whose handshake shares `HTTPCookieStorage.shared` with
- * CapacitorHttp and therefore carries the HttpOnly auth cookie the WKWebView `WebSocket` cannot. See NativeWebSocket.swift.
+ * Bridge to a native WebSocket plugin whose handshake reads from the same native cookie store as CapacitorHttp and
+ * therefore carries the HttpOnly auth cookie the WebView `WebSocket` cannot reliably access.
  */
 interface NativeWebSocketEvent {
   connectionId: string

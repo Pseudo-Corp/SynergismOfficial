@@ -6,7 +6,7 @@ import { clearConsumablesTab, toggleConsumablesTab } from './ConsumablesTab'
 import { clearMerchSubtab, toggleMerchSubtab } from './MerchTab'
 import { clearProductPage, toggleProductPage } from './ProductSubtab'
 import { clearSubscriptionPage, toggleSubscriptionPage } from './SubscriptionsSubtab'
-import { clearUpgradeSubtab, toggleUpgradeSubtab, type UpgradesResponse } from './UpgradesSubtab'
+import { clearUpgradeSubtab, toggleUpgradeSubtab, updatePseudoCoins, type UpgradesResponse } from './UpgradesSubtab'
 
 interface BaseProduct {
   name: string
@@ -170,6 +170,7 @@ export class CartTab {
 
 const onInit = memoize(() => {
   CartTab.fetchProducts()
+  updatePseudoCoins().catch(console.error)
 
   changeSubTab(Tabs.Purchase, { page: 0 })
 })

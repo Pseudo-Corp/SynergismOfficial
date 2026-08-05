@@ -93,7 +93,7 @@ async function handleProtocolUrl (raw: string): Promise<void> {
 
     if (url.hostname === 'link-callback') {
       if (!consumeAuthState(url.searchParams.get('state'))) return
-      mainWindow?.webContents.reload()
+      mainWindow?.webContents.send('auth:changed')
       return
     }
 
@@ -115,7 +115,7 @@ async function handleProtocolUrl (raw: string): Promise<void> {
       expirationDate: Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60
     })
 
-    mainWindow?.webContents.reload()
+    mainWindow?.webContents.send('auth:changed')
   } catch {
     // Malformed URL — ignore silently
   }

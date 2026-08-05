@@ -3,7 +3,6 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import ColorTextPlugin from './Plugins/ColorText'
 import StatSymbolsPlugin from './Plugins/StatSymbols'
-import { Confirm } from './UpdateHTML'
 
 // For 'flag': https://emojipedia.org/emoji-flag-sequence/
 // Searching "flag <country>" in their search bar will help verify the code.
@@ -79,11 +78,9 @@ function buildLanguageButton (langID: string, name: string, flag: string) {
     await i18next.changeLanguage(langID)
     storageSetItem('language', langID)
 
-    const shouldReload = await Confirm(i18next.t('general.languageChange'))
-
-    if (shouldReload) {
-      location.reload()
-    }
+    const { reloadShit } = await import('./Synergism')
+    await reloadShit()
+    translateHTML()
   })
 
   const flagSpan = document.createElement('span')
@@ -107,7 +104,7 @@ function buildLanguageTab () {
   }
 }
 
-function translateHTML () {
+export function translateHTML () {
   document.querySelectorAll('[i18n]').forEach((element) => {
     const key = element.getAttribute('i18n')!
     const value = i18next.t(key)

@@ -16,7 +16,6 @@ let package = Package(
         .package(name: "CapacitorPushNotifications", path: "../../../node_modules/@capacitor/push-notifications"),
         .package(name: "CapgoCapacitorAppAttest", path: "../../../node_modules/@capgo/capacitor-app-attest"),
         .package(name: "CapgoCapacitorKeepAwake", path: "../../../node_modules/@capgo/capacitor-keep-awake"),
-        .package(name: "CapgoCapacitorSocialLogin", path: "../../../node_modules/@capgo/capacitor-social-login"),
         .package(name: "CapgoCapacitorUpdater", path: "../../../node_modules/@capgo/capacitor-updater"),
         .package(name: "CapacitorPluginCdvPurchase", path: "../../../node_modules/capacitor-plugin-cdv-purchase"),
         .package(name: "SynergismWebsocket", path: "../../../src/mobile/websocket-plugin")
@@ -31,7 +30,6 @@ let package = Package(
                 .product(name: "CapacitorPushNotifications", package: "CapacitorPushNotifications"),
                 .product(name: "CapgoCapacitorAppAttest", package: "CapgoCapacitorAppAttest"),
                 .product(name: "CapgoCapacitorKeepAwake", package: "CapgoCapacitorKeepAwake"),
-                .product(name: "CapgoCapacitorSocialLogin", package: "CapgoCapacitorSocialLogin"),
                 .product(name: "CapgoCapacitorUpdater", package: "CapgoCapacitorUpdater"),
                 .product(name: "CapacitorPluginCdvPurchase", package: "CapacitorPluginCdvPurchase"),
                 .product(name: "SynergismWebsocket", package: "SynergismWebsocket")

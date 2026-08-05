@@ -36,6 +36,7 @@ interface WindowControls {
 
 interface Auth {
   clearCookie: () => Promise<void>
+  onChanged: (callback: () => void) => void
 }
 
 declare global {
@@ -83,3 +84,5 @@ export const unlockAchievement: Steam['unlockAchievement'] = (achievementId) =>
   window.steam?.unlockAchievement(achievementId) ?? Promise.resolve()
 
 export const clearAuthCookie = (): Promise<void> => window.auth?.clearCookie() ?? Promise.resolve()
+
+export const onAuthChanged = (callback: () => void): void => window.auth?.onChanged(callback)

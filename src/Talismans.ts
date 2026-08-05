@@ -144,13 +144,13 @@ type TalismanTypeMap = {
 export type TalismanKeys = keyof TalismanTypeMap
 
 export const noTalismanFragments: Record<TalismanCraftItems, Decimal> = {
-  shard: new Decimal(0),
-  commonFragment: new Decimal(0),
-  uncommonFragment: new Decimal(0),
-  rareFragment: new Decimal(0),
-  epicFragment: new Decimal(0),
-  legendaryFragment: new Decimal(0),
-  mythicalFragment: new Decimal(0)
+  shard: new Decimal(),
+  commonFragment: new Decimal(),
+  uncommonFragment: new Decimal(),
+  rareFragment: new Decimal(),
+  epicFragment: new Decimal(),
+  legendaryFragment: new Decimal(),
+  mythicalFragment: new Decimal()
 }
 
 const rarityValues: Record<number, number> = {
@@ -202,22 +202,22 @@ const regularCostProgression = (baseMult: Decimal, level: number): Record<Talism
   const shardCost = Decimal.pow(level, 3).times(1 / 8).plus(1).floor().times(priceMult)
   const commonCost = level >= 30
     ? Decimal.pow(level - 30, 3).times(1 / 32).plus(1).floor().times(priceMult)
-    : new Decimal(0)
+    : new Decimal()
   const uncommonCost = level >= 60
     ? Decimal.pow(level - 60, 3).times(1 / 384).plus(1).floor().times(priceMult)
-    : new Decimal(0)
+    : new Decimal()
   const rareCost = level >= 90
     ? Decimal.pow(level - 90, 3).times(1 / 500).plus(1).floor().times(priceMult)
-    : new Decimal(0)
+    : new Decimal()
   const epicCost = level >= 120
     ? Decimal.pow(level - 120, 3).times(1 / 375).plus(1).floor().times(priceMult)
-    : new Decimal(0)
+    : new Decimal()
   const legendaryCost = level >= 150
     ? Decimal.pow(level - 150, 3).times(1 / 192).plus(1).floor().times(priceMult)
-    : new Decimal(0)
+    : new Decimal()
   const mythicalCost = level >= 150
     ? Decimal.pow(level - 150, 3).times(1 / 1280).plus(1).floor().times(priceMult)
-    : new Decimal(0)
+    : new Decimal()
 
   return {
     'shard': Decimal.max(0, shardCost),
@@ -241,22 +241,22 @@ const exponentialCostProgression = (
     shard: Decimal.pow(ratio, level).times(baseMultDecimal).times(100).floor(),
     commonFragment: level >= 30
       ? Decimal.pow(ratio, level - 30).times(baseMultDecimal).times(50).floor()
-      : new Decimal(0),
+      : new Decimal(),
     uncommonFragment: level >= 60
       ? Decimal.pow(ratio, level - 60).times(baseMultDecimal).times(25).floor()
-      : new Decimal(0),
+      : new Decimal(),
     rareFragment: level >= 90
       ? Decimal.pow(ratio, level - 90).times(baseMultDecimal).times(20).floor()
-      : new Decimal(0),
+      : new Decimal(),
     epicFragment: level >= 120
       ? Decimal.pow(ratio, level - 120).times(baseMultDecimal).times(15).floor()
-      : new Decimal(0),
+      : new Decimal(),
     legendaryFragment: level >= 150
       ? Decimal.pow(ratio, level - 150).times(baseMultDecimal).times(10).floor()
-      : new Decimal(0),
+      : new Decimal(),
     mythicalFragment: level >= 150
       ? Decimal.pow(ratio, level - 150).times(baseMultDecimal).times(5).floor()
-      : new Decimal(0)
+      : new Decimal()
   }
 }
 
@@ -949,7 +949,16 @@ export const buyTalismanLevel = (t: TalismanKeys, fromMultibuy = false): void =>
   }
 }
 
-export const buyTalismanLevelToRarityIncrease = (t: TalismanKeys, auto = false): void => {
+interface BuyTalismanLevelToRarityIncreaseOptions {
+  auto?: boolean
+  refreshVisuals?: boolean
+}
+
+export const buyTalismanLevelToRarityIncrease = (
+  t: TalismanKeys,
+  { auto = false, refreshVisuals = true }: BuyTalismanLevelToRarityIncreaseOptions = {}
+): boolean => {
+  const previousLevel = talismans[t].level
   const levelsToBuy = levelsUntilRarityIncrease(t)
   if (levelsToBuy > 0) {
     for (let i = 0; i < levelsToBuy; i++) {
@@ -961,11 +970,14 @@ export const buyTalismanLevelToRarityIncrease = (t: TalismanKeys, auto = false):
     }
   }
 
-  if (!auto) {
-    updateTalismanCostHTML(t)
+  if (refreshVisuals) {
+    if (!auto) {
+      updateTalismanCostHTML(t)
+    }
+    updateTalismanInventory()
   }
-  updateTalismanInventory()
   setTalismanRarity(t)
+  return talismans[t].level !== previousLevel
 }
 
 export const buyTalismanLevelToMax = (t: TalismanKeys): void => {
@@ -1374,13 +1386,13 @@ export const resetTalismanData = (tier: keyof typeof resetTiers) => {
     }
   }
 
-  player.talismanShards = new Decimal(0)
-  player.commonFragments = new Decimal(0)
-  player.uncommonFragments = new Decimal(0)
-  player.rareFragments = new Decimal(0)
-  player.epicFragments = new Decimal(0)
-  player.legendaryFragments = new Decimal(0)
-  player.mythicalFragments = new Decimal(0)
+  player.talismanShards = new Decimal()
+  player.commonFragments = new Decimal()
+  player.uncommonFragments = new Decimal()
+  player.rareFragments = new Decimal()
+  player.epicFragments = new Decimal()
+  player.legendaryFragments = new Decimal()
+  player.mythicalFragments = new Decimal()
 }
 
 export const sumOfTalismanRarities = (): number => {
@@ -2404,7 +2416,7 @@ export const buyTalismanResources = (
     } else {
       player[`${type}s` as const] = player[`${type}s` as const].add(talismanResourcesData.buyAmount)
     }
-    if (type === 'mythicalFragment' && player.mythicalFragments.gte(1e25)) {
+    if (type === 'mythicalFragment' && player.mythicalFragments.gte(G.d1e25)) {
       awardUngroupedAchievement('seeingRed')
     }
 
@@ -2419,10 +2431,10 @@ export const buyTalismanResources = (
     // 2.9992198253874083e47 - (Math.floor(2.9992198253874083e47 / 1e20) * 1e20)
     // which, for most values, returns 0, but values like this example will return a negative number instead.
     if (player.obtainium.lt(0)) {
-      player.obtainium = new Decimal(0)
+      player.obtainium = new Decimal()
     }
     if (player.offerings.lt(0)) {
-      player.offerings = new Decimal(0)
+      player.offerings = new Decimal()
     }
   }
   if (isMobile) {

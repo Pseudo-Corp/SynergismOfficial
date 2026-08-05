@@ -2,14 +2,18 @@ import Decimal from 'break_infinity.js'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { buyUpgrades } from './Buy'
 import { player } from './Synergism'
-import { clickUpgrades, upgradeupdate } from './Upgrades'
+import { clickUpgrades, upgradeRequirements, upgradeupdate } from './Upgrades'
 import { Globals as G, Upgrade } from './Variables'
 
 export const buyGenerator = (i: number, state: boolean) => {
-  if (i === 1 && player.prestigePoints.gte(1e12) && !player.unlocks.generation) {
+  const q = 100 + i
+  if (!upgradeRequirements[q]()) {
+    return
+  }
+
+  if (i === 1 && player.prestigePoints.gte(G.d1e12) && !player.unlocks.generation) {
     player.unlocks.generation = true
   }
-  const q = 100 + i
   let type: 'transcendPoints' | 'coins' | 'prestigePoints' = 'transcendPoints'
   if (q <= 110 && q >= 106) {
     type = 'coins'
@@ -32,6 +36,10 @@ export const buyGenerator = (i: number, state: boolean) => {
 
 export const buyAutobuyers = (i: number, state?: boolean) => {
   const q = i + 80
+  if (!upgradeRequirements[q]()) {
+    return
+  }
+
   let type: 'prestigePoints' | 'transcendPoints' | 'reincarnationPoints' = 'reincarnationPoints'
   if (q <= 87) {
     type = 'prestigePoints'
@@ -72,14 +80,14 @@ export const autoUpgrades = () => {
   }
   if (player.upgrades[91] > 0.5) {
     for (let i = 1; i < 21; i++) {
-      if (player.upgrades[i] === 0 && player.coins.gte(Decimal.pow(10, G.upgradeCosts[i])) && player.shoptoggles.coin) {
+      if (player.upgrades[i] === 0 && player.shoptoggles.coin && player.coins.gte(Decimal.pow(10, G.upgradeCosts[i]))) {
         buyUpgrades(Upgrade.coin, i, true)
       }
     }
     for (let i = 121; i <= 125; i++) {
       if (
-        player.upgrades[i] === 0 && player.coins.gte(Decimal.pow(10, G.upgradeCosts[i])) && player.shoptoggles.coin
-        && player.cubeUpgrades[19] > 0
+        player.upgrades[i] === 0 && player.shoptoggles.coin && player.cubeUpgrades[19] > 0
+        && player.coins.gte(Decimal.pow(10, G.upgradeCosts[i]))
       ) {
         buyUpgrades(Upgrade.coin, i, true)
       }
@@ -88,8 +96,8 @@ export const autoUpgrades = () => {
   if (player.upgrades[92] > 0.5) {
     for (let i = 21; i < 38; i++) {
       if (
-        player.upgrades[i] === 0 && player.prestigePoints.gte(Decimal.pow(10, G.upgradeCosts[i]))
-        && player.shoptoggles.prestige
+        player.upgrades[i] === 0 && player.shoptoggles.prestige
+        && player.prestigePoints.gte(Decimal.pow(10, G.upgradeCosts[i]))
       ) {
         buyUpgrades(Upgrade.prestige, i, true)
       }
@@ -116,8 +124,8 @@ export const autoUpgrades = () => {
   if (player.upgrades[99] > 0.5) {
     for (let i = 41; i < 61; i++) {
       if (
-        player.upgrades[i] === 0 && player.transcendPoints.gte(Decimal.pow(10, G.upgradeCosts[i]))
-        && player.shoptoggles.transcend
+        player.upgrades[i] === 0 && player.shoptoggles.transcend
+        && player.transcendPoints.gte(Decimal.pow(10, G.upgradeCosts[i]))
       ) {
         buyUpgrades(Upgrade.transcend, i, true)
       }
@@ -127,8 +135,8 @@ export const autoUpgrades = () => {
   if (player.cubeUpgrades[8] > 0) {
     for (let i = 61; i <= 80; i++) {
       if (
-        player.upgrades[i] === 0 && player.reincarnationPoints.gte(Decimal.pow(10, G.upgradeCosts[i]))
-        && player.shoptoggles.reincarnate
+        player.upgrades[i] === 0 && player.shoptoggles.reincarnate
+        && player.reincarnationPoints.gte(Decimal.pow(10, G.upgradeCosts[i]))
       ) {
         buyUpgrades(Upgrade.reincarnation, i, true)
       }

@@ -14,11 +14,11 @@ project(':capgo-capacitor-app-attest').projectDir = new File('../node_modules/@c
 include ':capgo-capacitor-keep-awake'
 project(':capgo-capacitor-keep-awake').projectDir = new File('../node_modules/@capgo/capacitor-keep-awake/android')
 
-include ':capgo-capacitor-social-login'
-project(':capgo-capacitor-social-login').projectDir = new File('../node_modules/@capgo/capacitor-social-login/android')
-
 include ':capgo-capacitor-updater'
 project(':capgo-capacitor-updater').projectDir = new File('../node_modules/@capgo/capacitor-updater/android')
 
 include ':capacitor-plugin-cdv-purchase'
 project(':capacitor-plugin-cdv-purchase').projectDir = new File('../node_modules/capacitor-plugin-cdv-purchase/android')
+
+include ':synergism-websocket'
+project(':synergism-websocket').projectDir = new File('../src/mobile/websocket-plugin/android')
