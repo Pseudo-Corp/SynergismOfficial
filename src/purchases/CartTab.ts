@@ -38,7 +38,7 @@ const cartSubTabs = {
   Subscriptions: 1,
   Upgrades: 2,
   Consumables: 3,
-  Checkout: 4,
+  Checkout: 4
 } as const
 
 const tab = document.getElementById('pseudoCoins')!

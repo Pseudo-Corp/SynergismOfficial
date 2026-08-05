@@ -330,7 +330,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
         subTabID: 'cartContainer',
         unlocked: () => PLATFORM !== 'mobile',
         buttonID: 'cartSubTab5'
-      },
+      }
     ]
   }
 }
