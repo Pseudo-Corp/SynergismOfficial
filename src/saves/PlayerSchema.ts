@@ -1,5 +1,5 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
-import { z, type ZodNumber, type ZodType } from 'zod'
+import { z, type ZodType } from 'zod'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
@@ -182,9 +182,10 @@ const resetToggleModesSchema = z.object({
 })
 
 const singularityUpgradeSchema = (...keys: string[]) => {
-  return z.object<Record<typeof keys[number], ZodNumber>>({
+  return z.object<Record<typeof keys[number], ZodType>>({
     level: z.number(),
-    freeLevels: z.number(),
+    // Saves from before free levels existed don't have this field at all
+    freeLevels: z.number().default(0),
     ...keys.reduce((accum, value) => {
       accum[value] = z.number()
       return accum
