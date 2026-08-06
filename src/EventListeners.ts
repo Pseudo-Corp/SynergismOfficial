@@ -283,8 +283,7 @@ const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
       cartSubTab2: 'Pictures/Subtab Icons/PseudoCoins/Subscriptions.png',
       cartSubTab3: 'Pictures/Subtab Icons/PseudoCoins/Upgrades.png',
       cartSubTab4: 'Pictures/Subtab Icons/PseudoCoins/Consumables.png',
-      cartSubTab5: 'Pictures/Subtab Icons/PseudoCoins/Checkout.png',
-      cartSubTab6: 'Pictures/Subtab Icons/PseudoCoins/Merch.png'
+      cartSubTab5: 'Pictures/Subtab Icons/PseudoCoins/Checkout.png'
     }
   }
 ]
@@ -723,22 +722,10 @@ const registerMobileSubTabLayout = () => {
     return
   }
 
-  const main = document.querySelector<HTMLElement>('main')
-  if (main === null) {
-    return
-  }
-
   const update = () => requestAnimationFrame(updateMobileSubTabLayout)
   const resizeObserver = new ResizeObserver(update)
   resizeObserver.observe(DOMCacheGetOrSet('mainHeader'))
   document.querySelectorAll<HTMLElement>('.subTabWrapper').forEach((element) => resizeObserver.observe(element))
-
-  const mutationObserver = new MutationObserver(update)
-  mutationObserver.observe(main, {
-    attributes: true,
-    attributeFilter: ['class', 'style'],
-    subtree: true
-  })
 
   window.addEventListener('resize', update)
   update()
@@ -1043,7 +1030,7 @@ export const generateEventHandlers = () => {
   // RUNES TAB [And all corresponding subtabs]
   // Part 0: Upper UI portion
   // Auto sacrifice toggle button
-  DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice('0'))
+  DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice(0))
 
   // RUNES TAB
 

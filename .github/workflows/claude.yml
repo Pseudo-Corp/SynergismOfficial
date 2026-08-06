@@ -18,6 +18,7 @@ jobs:
       (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
       (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     permissions:
       contents: read
       pull-requests: read
@@ -30,18 +31,12 @@ jobs:
           fetch-depth: 1
 
       - name: Run Claude PR Action
-        uses: anthropics/claude-code-action@beta
+        uses: anthropics/claude-code-action@v1
         with:
           # anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # Or use OAuth token instead:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          timeout_minutes: "60"
-          # mode: tag  # Default: responds to @claude mentions
-          # Optional: Restrict network access to specific domains only
-          # experimental_allowed_domains: |
-          #   .anthropic.com
-          #   .github.com
-          #   api.github.com
-          #   .githubusercontent.com
-          #   registry.npmjs.org
-          #   .blob.core.windows.net
+          # No prompt: interactive mode, responds to @claude mentions
+          # Optional: pass CLI flags, e.g.
+          # claude_args: |
+          #   --max-turns 10

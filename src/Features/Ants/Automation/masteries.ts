@@ -9,7 +9,7 @@ export const autobuyAntMasteries = (): void => {
   for (let ant = LAST_ANT_PRODUCER; ant >= AntProducers.Workers; ant--) {
     // eslint-disable-next-line typescript/no-unsafe-enum-comparison
     if (ant <= highestUnlockedTier) {
-      while (canBuyAntMastery(ant) && player.ants.masteries[ant].mastery < player.ants.masteries[ant].highestMastery) {
+      while (player.ants.masteries[ant].mastery < player.ants.masteries[ant].highestMastery && canBuyAntMastery(ant)) {
         buyAntMastery(ant)
       }
     }

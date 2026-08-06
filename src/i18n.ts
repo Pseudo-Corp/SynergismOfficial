@@ -3,7 +3,6 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import ColorTextPlugin from './Plugins/ColorText'
 import StatSymbolsPlugin from './Plugins/StatSymbols'
-import { Confirm } from './UpdateHTML'
 
 // For 'flag': https://emojipedia.org/emoji-flag-sequence/
 // Searching "flag <country>" in their search bar will help verify the code.
@@ -19,6 +18,8 @@ const supported: Record<string, { name: string; flag: string }> = {
 }
 
 const languageCache = new Map<string, { translation: Resource }>()
+
+const htmlTag = /<[a-z][^>]*>/i
 
 export const init = async (): Promise<void> => {
   const resources: Record<string, Resource> = {}
@@ -79,11 +80,7 @@ function buildLanguageButton (langID: string, name: string, flag: string) {
     await i18next.changeLanguage(langID)
     storageSetItem('language', langID)
 
-    const shouldReload = await Confirm(i18next.t('general.languageChange'))
-
-    if (shouldReload) {
-      location.reload()
-    }
+    translateHTML()
   })
 
   const flagSpan = document.createElement('span')
@@ -107,14 +104,14 @@ function buildLanguageTab () {
   }
 }
 
-function translateHTML () {
+export function translateHTML () {
   document.querySelectorAll('[i18n]').forEach((element) => {
     const key = element.getAttribute('i18n')!
     const value = i18next.t(key)
 
     if (element instanceof HTMLImageElement) {
       element.setAttribute('alt', value)
-    } else if (value.includes('<span')) {
+    } else if (htmlTag.test(value)) {
       element.innerHTML = value
     } else {
       element.textContent = value

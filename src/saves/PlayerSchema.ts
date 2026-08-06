@@ -1,5 +1,5 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
-import { z, type ZodNumber, type ZodType } from 'zod'
+import { z, type ZodType } from 'zod'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
@@ -182,9 +182,10 @@ const resetToggleModesSchema = z.object({
 })
 
 const singularityUpgradeSchema = (...keys: string[]) => {
-  return z.object<Record<typeof keys[number], ZodNumber>>({
+  return z.object<Record<typeof keys[number], ZodType>>({
     level: z.number(),
-    freeLevels: z.number(),
+    // Saves from before free levels existed don't have this field at all
+    freeLevels: z.number().default(0),
     ...keys.reduce((accum, value) => {
       accum[value] = z.number()
       return accum
@@ -243,13 +244,13 @@ const optionalCorruptionSchema = z.object({
 })
 
 const talismanFragmentSchema = z.object({
-  shard: decimalSchema.default(() => new Decimal(0)),
-  commonFragment: decimalSchema.default(() => new Decimal(0)),
-  uncommonFragment: decimalSchema.default(() => new Decimal(0)),
-  rareFragment: decimalSchema.default(() => new Decimal(0)),
-  epicFragment: decimalSchema.default(() => new Decimal(0)),
-  legendaryFragment: decimalSchema.default(() => new Decimal(0)),
-  mythicalFragment: decimalSchema.default(() => new Decimal(0))
+  shard: decimalSchema.default(() => new Decimal()),
+  commonFragment: decimalSchema.default(() => new Decimal()),
+  uncommonFragment: decimalSchema.default(() => new Decimal()),
+  rareFragment: decimalSchema.default(() => new Decimal()),
+  epicFragment: decimalSchema.default(() => new Decimal()),
+  legendaryFragment: decimalSchema.default(() => new Decimal()),
+  mythicalFragment: decimalSchema.default(() => new Decimal())
 })
 
 const goldenQuarkUpgradeSchema = z.object({
@@ -572,7 +573,7 @@ export const playerSchema = z.object({
       return Object.fromEntries(
         Object.keys(blankSave.runes).map((key) => {
           const value = object[key] ?? blankSave.runes[key as keyof typeof blankSave['runes']]
-          return value === null ? [key, new Decimal('0')] : [key, new Decimal(value)]
+          return value === null ? [key, new Decimal()] : [key, new Decimal(value)]
         })
       )
     })
@@ -583,7 +584,7 @@ export const playerSchema = z.object({
       return Object.fromEntries(
         Object.keys(blankSave.runeBlessings).map((key) => {
           const value = object[key] ?? blankSave.runeBlessings[key as keyof typeof blankSave['runeBlessings']]
-          return value === null ? [key, new Decimal('0')] : [key, new Decimal(value)]
+          return value === null ? [key, new Decimal()] : [key, new Decimal(value)]
         })
       )
     })
@@ -594,7 +595,7 @@ export const playerSchema = z.object({
       return Object.fromEntries(
         Object.keys(blankSave.runeSpirits).map((key) => {
           const value = object[key] ?? blankSave.runeSpirits[key as keyof typeof blankSave['runeSpirits']]
-          return value === null ? [key, new Decimal('0')] : [key, new Decimal(value)]
+          return value === null ? [key, new Decimal()] : [key, new Decimal(value)]
         })
       )
     })

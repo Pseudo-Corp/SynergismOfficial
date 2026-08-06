@@ -1,5 +1,6 @@
 import { delay, http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
+import { getSubMetadata, setSubMetadata } from '../Login'
 import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
 import { messageHandlers } from './handlers/MessageHandlers'
 import { paymentHandlers } from './handlers/PaymentHandlers'
@@ -118,7 +119,6 @@ const GETHandlers = [
   }),
   http.get('https://synergism.cc/stripe/upgrades', () => {
     return HttpResponse.json({
-      coins: 49000,
       upgrades: [
         {
           upgradeId: 1,
@@ -733,8 +733,88 @@ const GETHandlers = [
           cost: 100
         }
       ],
-      playerUpgrades: [],
-      tier: 0
+      playerUpgrades: [
+        {
+          upgradeId: 15,
+          level: 2,
+          internalName: 'ADD_CODE_CAP_BUFF'
+        },
+        {
+          upgradeId: 5,
+          level: 5,
+          internalName: 'AMBROSIA_GENERATION_BUFF'
+        },
+        {
+          upgradeId: 11,
+          level: 8,
+          internalName: 'AMBROSIA_LOADOUT_SLOT_QOL'
+        },
+        {
+          upgradeId: 4,
+          level: 5,
+          internalName: 'AMBROSIA_LUCK_BUFF'
+        },
+        {
+          upgradeId: 12,
+          level: 1,
+          internalName: 'AUTO_POTION_FREE_POTIONS_QOL'
+        },
+        {
+          upgradeId: 10,
+          level: 8,
+          internalName: 'CORRUPTION_LOADOUT_SLOT_QOL'
+        },
+        {
+          upgradeId: 3,
+          level: 5,
+          internalName: 'CUBE_BUFF'
+        },
+        {
+          upgradeId: 9,
+          level: 5,
+          internalName: 'FREE_UPGRADE_PROMOCODE_BUFF'
+        },
+        {
+          upgradeId: 8,
+          level: 5,
+          internalName: 'GOLDEN_QUARK_BUFF'
+        },
+        {
+          upgradeId: 1,
+          level: 1,
+          internalName: 'INSTANT_UNLOCK_1'
+        },
+        {
+          upgradeId: 2,
+          level: 1,
+          internalName: 'INSTANT_UNLOCK_2'
+        },
+        {
+          upgradeId: 13,
+          level: 2,
+          internalName: 'OFFLINE_TIMER_CAP_BUFF'
+        },
+        {
+          upgradeId: 17,
+          level: 5,
+          internalName: 'BASE_OFFERING_BUFF'
+        },
+        {
+          upgradeId: 18,
+          level: 5,
+          internalName: 'BASE_OBTAINIUM_BUFF'
+        },
+        {
+          upgradeId: 19,
+          level: 5,
+          internalName: 'RED_LUCK_BUFF'
+        },
+        {
+          upgradeId: 20,
+          level: 5,
+          internalName: 'RED_GENERATION_BUFF'
+        }
+      ]
     })
   }),
   http.get('https://synergism.cc/stripe/test/upgrades', () => {
@@ -1372,6 +1452,15 @@ const PUTHandlers = [
   })
 ]
 
+const seedEndDate = new Date()
+seedEndDate.setMonth(seedEndDate.getMonth() + 1)
+
+setSubMetadata({
+  provider: 'stripe',
+  tier: 3,
+  endDate: seedEndDate.toISOString()
+})
+
 export const worker = setupWorker(
   http.get('https://synergism.cc/api/v1/users/me', () => {
     return HttpResponse.json({
@@ -1413,7 +1502,7 @@ export const worker = setupWorker(
       bonus: {
         quark: 0
       },
-      subscription: null,
+      subscription: getSubMetadata(),
       linkedAccounts: ['email']
     })
   }),

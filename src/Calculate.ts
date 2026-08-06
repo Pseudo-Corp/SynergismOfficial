@@ -64,7 +64,6 @@ import {
 } from './Statistics'
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
-import { clearInterval, setInterval } from './Timers'
 import { Alert, Prompt } from './UpdateHTML'
 import { findInsertionIndex } from './Utility'
 import { Globals as G } from './Variables'
@@ -237,7 +236,7 @@ export const calculateObtainium = (timeMultUsed = true) => {
 
   // Why is this a thing? If DR = 0 (which is possible), then the calculation below will not catch chal 14 enabled.
   if (player.currentChallenge.ascension === 14) {
-    return new Decimal('0')
+    return new Decimal()
   }
 
   const total = new Decimal(immaculate).times(Decimal.pow(baseMults, DR)).times(timeMultiplier)
@@ -280,7 +279,7 @@ export const calculatePotionValue = (resourceMult: Decimal, baseResource: number
 
 export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
   if (player.currentChallenge.ascension === 14) {
-    return Decimal.fromString('0')
+    return new Decimal()
   }
 
   const multiplier = 0.5 * player.researches[61]
@@ -288,7 +287,7 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
     + 0.8 * player.cubeUpgrades[3]
 
   if (multiplier === 0) {
-    return Decimal.fromString('0')
+    return new Decimal()
   }
 
   const useTimer = false
@@ -298,7 +297,7 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
 
   const researchVal = calculateFastForwardResourcesGlobal(deltaTime, resourceMult, baseObtainium, globalSpeedMult)
 
-  let antVal = new Decimal(0)
+  let antVal = new Decimal()
   if (player.cubeUpgrades[47] > 0) {
     const stageMod = thresholdModifiers().antSacrificeObtainiumMult
     const antSacMult = calculateAntSacrificeMultiplier().times(stageMod)
@@ -545,16 +544,89 @@ export const timeWarp = async () => {
 
   DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
   DOMCacheGetOrSet('offlineBlur').style.display = ''
-  calculateOffline(timeUse)
+  await calculateOffline(timeUse)
+}
+
+let offlineDialogActive = false
+
+export const isOfflineDialogOpen = () => offlineDialogActive
+
+const setExitOfflineVisible = (visible: boolean) => {
+  const el = DOMCacheGetOrSet('exitOffline')
+  el.style.visibility = visible ? 'visible' : 'hidden'
+
+  if (!visible) {
+    return
+  }
+
+  setTimeout(() => {
+    // The dialog may already have been dismissed in the meantime
+    if (offlineDialogActive) {
+      el.focus()
+    }
+  }, 100)
+}
+
+let offlineQueue: Promise<void> = Promise.resolve()
+let offlineRunGeneration = 0
+
+// Resolves once every currently pending offline simulation has finished (or
+// immediately when none is running)
+export const afterOfflineProgress = () => offlineQueue
+
+export const cancelOfflineProgress = () => {
+  offlineRunGeneration += 1
+  // A cancelled run does no further work before observing the new generation and
+  // aborting, so the warp flag can be cleared now
+  G.timeWarp = false
+
+  // reloadShit is about to replace and rebuild the game state. Keep its loading
+  // screen up instead of using exitOffline(), which exposes the unfinished page
+  // and enables hotkeys before offline progress starts.
+  offlineDialogActive = false
+  setExitOfflineVisible(false)
+  document.body.classList.remove('scrollbar')
+  document.body.classList.add('loading')
+  DOMCacheGetOrSet('notificationStack').style.display = 'none'
+  DOMCacheGetOrSet('offlineContainer').style.display = 'none'
+  DOMCacheGetOrSet('transparentBG').style.display = 'block'
+  DOMCacheGetOrSet('offlineBlur').style.display = ''
 }
 
 /**
  * @param forceTime The number of SECONDS to warp. Why the fuck is it in seconds?
  */
 export const calculateOffline = (forceTime = 0, fromTips = false) => {
+  const generation = offlineRunGeneration
+  const run = offlineQueue.then(async () => {
+    if (generation !== offlineRunGeneration) {
+      return
+    }
+
+    try {
+      await runOfflineProgress(forceTime, fromTips, generation)
+    } catch (e) {
+      G.timeWarp = false
+      exitOffline()
+      throw e
+    }
+  })
+  offlineQueue = run.catch(() => {})
+  return run
+}
+
+const offlineSliceBudgetMs = 10
+
+const runOfflineProgress = async (forceTime: number, fromTips: boolean, generation: number) => {
   disableHotkeys()
 
   G.timeWarp = true
+
+  // Block input for the entire simulation, not just while the results dialog is up
+  setExitOfflineVisible(false)
+  document.body.classList.remove('scrollbar')
+  document.body.classList.add('loading')
+  DOMCacheGetOrSet('transparentBG').style.display = 'block'
 
   // Variable Declarations i guess
   const maximumTimer = !fromTips
@@ -639,7 +711,21 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
   resetAddDisplay.reincarnation = player.reincarnationCount - resetAddDisplay.reincarnation
 
   // 200 simulated all ticks [July 12, 2021]
-  const runOffline = setInterval(() => {
+  let sliceStart = performance.now()
+  while (resourceTicks > 0) {
+    if (performance.now() - sliceStart > offlineSliceBudgetMs) {
+      // eslint-disable-next-line no-await-in-loop
+      await new Promise((resolve) => setTimeout(resolve, 0))
+
+      // A reload/import may have replaced the save while we yielded
+      if (generation !== offlineRunGeneration) {
+        G.timeWarp = false
+        return
+      }
+
+      sliceStart = performance.now()
+    }
+
     G.timeMultiplier = calculateGlobalSpeedMult()
     calculateObtainium()
 
@@ -665,22 +751,19 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
     // Auto Offerings
     automaticTools('addOfferings', timeTick)
     // Auto Rune Sacrifice Stuff
-    if (getShopUpgradeEffects('offeringAuto', 'autoRune') && player.autoSacrificeToggle) {
+    if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto', 'autoRune')) {
       automaticTools('runeSacrifice', timeTick)
     }
 
     if (resourceTicks % 5 === 1) {
       // 196, 191, ... , 6, 1 ticks remaining
-      updateAll()
+      updateAll('offline')
     }
 
     resourceTicks -= 1
-    // Misc functions
-    if (resourceTicks < 1) {
-      clearInterval(runOffline)
-      G.timeWarp = false
-    }
-  }, 0)
+  }
+
+  G.timeWarp = false
 
   DOMCacheGetOrSet('offlinePrestigeCount').innerHTML = i18next.t(
     'offlineProgress.prestigeCount',
@@ -782,6 +865,8 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
 
   // allow aesthetic offline progress
   if (offlineDialog) {
+    offlineDialogActive = true
+    setExitOfflineVisible(true)
     DOMCacheGetOrSet('notificationStack').style.display = 'none'
     document.body.classList.remove('scrollbar')
     document.body.classList.add('loading')
@@ -793,6 +878,12 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
 }
 
 export const exitOffline = () => {
+  if (G.timeWarp) {
+    return
+  }
+
+  offlineDialogActive = false
+  setExitOfflineVisible(false)
   document.body.classList.remove('loading')
   document.body.classList.add('scrollbar')
   DOMCacheGetOrSet('transparentBG').style.display = 'none'

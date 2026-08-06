@@ -1,4 +1,4 @@
-export const version = '4.2.5 (3) June 8, 2026: Just in Time'
+export const version = '4.2.6 July 14, 2026: A Little Late'
 
 export const isSynergismCC = location.hostname === 'synergism.cc'
 
@@ -8,4 +8,4 @@ export const isSynergismCC = location.hostname === 'synergism.cc'
 export const testing = false
 export const lastUpdated = new Date('##LAST_UPDATED##')
 
-export const ticksPerSecond = 200
+export const ticksPerSecond = PLATFORM === 'mobile' ? 40 : 200

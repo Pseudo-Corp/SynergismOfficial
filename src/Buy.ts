@@ -419,13 +419,14 @@ export const buyBuilding = (
 }
 
 export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
-  if (!upgradeRequirements[pos]) {
+  if (!upgradeRequirements[pos]()) {
     return
   }
 
   const currency = type
-  if (player[currency].gte(Decimal.pow(10, G.upgradeCosts[pos])) && player.upgrades[pos] === 0) {
-    player[currency] = player[currency].sub(Decimal.pow(10, G.upgradeCosts[pos]))
+  let sub: Decimal
+  if (player.upgrades[pos] === 0 && player[currency].gte(sub = Decimal.pow(10, G.upgradeCosts[pos]))) {
+    player[currency] = player[currency].sub(sub)
     player.upgrades[pos] = 1
     upgradeupdate(pos, state)
   }
@@ -516,7 +517,7 @@ export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamoun
             player.upgrades[j] = 0
           }
           reset('prestige')
-          player.prestigePoints = new Decimal(0)
+          player.prestigePoints = new Decimal()
         }
       }
     }

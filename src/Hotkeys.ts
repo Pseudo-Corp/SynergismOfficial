@@ -10,7 +10,7 @@ import { confirmReply, toggleAutoChallengeRun } from './Toggles'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
-type Hotkey = [string, () => unknown, /* hide during notification */ boolean]
+type Hotkey = [string, () => void, /* hide during notification */ boolean]
 
 const defaultHotkeys = new Map<string, Hotkey>([
   ['A', ['hotkeys.names.buyAccelerators', () => buyBuilding('accelerator'), false]],
@@ -145,6 +145,9 @@ const eventHotkeys = (event: KeyboardEvent): void => {
   }
 }
 
+// eslint-disable-next-line no-control-regex
+const latin1Regex = /^[\x00-\xFF]*$/
+
 const makeSlot = (key: string, descr: string) => {
   const div = document.createElement('div')
   div.classList.add('hotkeyItem')
@@ -180,6 +183,10 @@ const makeSlot = (key: string, descr: string) => {
 
     if (!isNaN(Number(newKey))) {
       return void Alert('Number keys are currently unavailable!')
+    }
+
+    if (!latin1Regex.test(toSet)) {
+      return void Alert(i18next.t('hotkeys.invalidKey'))
     }
 
     if (hotkeys.has(toSet) || oldKey === toSet) {

@@ -13,6 +13,7 @@ import { getShopUpgradeEffects } from './Shop'
 import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
+import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
 import { Alert, Confirm, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
@@ -330,10 +331,9 @@ export const toggleAutoResearchMode = () => {
   }
 }
 
-export const toggleAutoSacrifice = (index: string) => {
+export const toggleAutoSacrifice = (index: number) => {
   const el = DOMCacheGetOrSet('toggleautosacrifice')
-  const numIndex = Number(index)
-  if (numIndex === 0) {
+  if (index === 0) {
     if (player.autoSacrificeToggle) {
       player.autoSacrificeToggle = false
       el.textContent = i18next.t('runes.blessings.autoRuneOff')
@@ -344,14 +344,18 @@ export const toggleAutoSacrifice = (index: string) => {
       el.textContent = i18next.t('runes.blessings.autoRuneOn')
       el.style.border = '2px solid green'
     }
-  } else if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto', 'autoRune')) {
-    if (player.autoSacrifice === numIndex) {
+  } else if (
+    index <= G.MAX_AUTO_SACRIFICE_RUNE
+    && player.autoSacrificeToggle
+    && getShopUpgradeEffects('offeringAuto', 'autoRune')
+  ) {
+    if (player.autoSacrifice === index) {
       player.autoSacrifice = 0
     } else {
-      player.autoSacrifice = numIndex
+      player.autoSacrifice = index
     }
   }
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= G.MAX_AUTO_SACRIFICE_RUNE; i++) {
     DOMCacheGetOrSet(`${indexToRune[i]}Rune`).style.backgroundColor = player.autoSacrifice === i ? 'orange' : ''
   }
 }
@@ -981,14 +985,16 @@ export const toggleStatSymbol = async () => {
   const confirmation = await Confirm(i18next.t('main.statSymbolConfirm'))
   if (!confirmation) {
     return
-  } else {
-    if (storageGetItem('statSymbols') === 'true') {
-      storageSetItem('statSymbols', 'false')
-    } else {
-      storageSetItem('statSymbols', 'true')
-    }
   }
-  location.reload()
+
+  const enabled = storageGetItem('statSymbols') !== 'true'
+  storageSetItem('statSymbols', `${enabled}`)
+
+  const { setStatSymbols } = await import('./Plugins/StatSymbols')
+  const { translateHTML } = await import('./i18n')
+  setStatSymbols(enabled)
+  translateHTML()
+  settingSymbols()
 }
 
 export const toggleAntsSubtab = (indexStr: string) => {

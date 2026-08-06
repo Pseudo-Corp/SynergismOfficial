@@ -3,10 +3,9 @@ import { assert, createDeferredPromise, type DeferredPromise, memoize, retry } f
 import { setEmptyProductMap } from './CartUtil'
 import { clearCheckoutTab, toggleCheckoutTab } from './CheckoutTab'
 import { clearConsumablesTab, toggleConsumablesTab } from './ConsumablesTab'
-import { clearMerchSubtab, toggleMerchSubtab } from './MerchTab'
 import { clearProductPage, toggleProductPage } from './ProductSubtab'
 import { clearSubscriptionPage, toggleSubscriptionPage } from './SubscriptionsSubtab'
-import { clearUpgradeSubtab, toggleUpgradeSubtab, type UpgradesResponse } from './UpgradesSubtab'
+import { clearUpgradeSubtab, toggleUpgradeSubtab, updatePseudoCoins, type UpgradesResponse } from './UpgradesSubtab'
 
 interface BaseProduct {
   name: string
@@ -39,8 +38,7 @@ const cartSubTabs = {
   Subscriptions: 1,
   Upgrades: 2,
   Consumables: 3,
-  Checkout: 4,
-  Merch: 5
+  Checkout: 4
 } as const
 
 const tab = document.getElementById('pseudoCoins')!
@@ -126,7 +124,6 @@ export class CartTab {
     clearSubscriptionPage()
     clearUpgradeSubtab()
     clearCheckoutTab()
-    clearMerchSubtab()
     clearConsumablesTab()
 
     switch (getActiveSubTab()) {
@@ -161,15 +158,13 @@ export class CartTab {
           }
         })
         break
-      case cartSubTabs.Merch:
-        toggleMerchSubtab()
-        break
     }
   }
 }
 
 const onInit = memoize(() => {
   CartTab.fetchProducts()
+  updatePseudoCoins().catch(console.error)
 
   changeSubTab(Tabs.Purchase, { page: 0 })
 })

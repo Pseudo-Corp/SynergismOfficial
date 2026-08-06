@@ -1,5 +1,5 @@
 import { Capacitor } from '@capacitor/core'
-import { Platform, ProductType, store, type Transaction } from 'capacitor-plugin-cdv-purchase'
+import { ErrorCode, Platform, ProductType, store, type Transaction } from 'capacitor-plugin-cdv-purchase'
 import i18next from 'i18next'
 import { bus } from '../events/bus'
 import { CartTab, coinProducts, subscriptionProducts } from '../purchases/CartTab'
@@ -9,6 +9,8 @@ import { memoize } from '../Utility'
 import { consumePendingMobilePurchase, showMobilePurchaseAuthModal } from './purchase-auth'
 
 const BUNDLE_ID = 'cc.pseudocorp.synergism'
+
+let orderInProgress = false
 
 const storePlatform = Capacitor.getPlatform() === 'android'
   ? Platform.GOOGLE_PLAY
@@ -53,7 +55,10 @@ const initStore = memoize(async (): Promise<void> => {
 
   const errors = await store.initialize([storePlatform])
   if (errors.length > 0) {
-    console.error('CdvPurchase init errors', errors)
+    const details = errors
+      .map((e) => `${ErrorCode[e.code]}(${e.code})${e.productId ? ` [${e.productId}]` : ''}: ${e.message}`)
+      .join(' | ')
+    console.error(`CdvPurchase init errors: ${details}`)
   }
 })
 
@@ -64,11 +69,25 @@ async function onTransactionApproved (transaction: Transaction): Promise<void> {
 
   await transaction.finish()
 
+  if (!orderInProgress) {
+    return
+  }
+
+  orderInProgress = false
+
   updatePseudoCoins().catch(console.error)
 
   const isSubscription = transaction.products.some((p) =>
     subscriptionProducts.some((sub) => toStoreProductId(sub.id) === p.id)
   )
+
+  if (isSubscription) {
+    const { getSubMetadata, handleLogin } = await import('../Login')
+    const { exponentialSubscriptionCheck } = await import('../purchases/SubscriptionsSubtab')
+    const previousSubscription = getSubMetadata()
+    await handleLogin()
+    exponentialSubscriptionCheck(previousSubscription)
+  }
 
   Notification(
     i18next.t(isSubscription ? 'mobile.purchases.subscriptionSuccess' : 'mobile.purchases.success')
@@ -118,13 +137,15 @@ export async function orderProduct (lookupKey: string): Promise<void> {
   // adapter reads from additionalData.applicationUsername. Set both so the
   // user identifier reaches whichever store is active.
   store.applicationUsername = applicationUsername
+  orderInProgress = true
   const result = await store.order(offer, {
     applicationUsername,
     googlePlay: {
       accountId: applicationUsername
     }
   })
-  if (result && 'code' in result) {
+  if (result) {
+    orderInProgress = false
     Notification(i18next.t('mobile.purchases.orderFailed', { error: result.message }))
   }
 }

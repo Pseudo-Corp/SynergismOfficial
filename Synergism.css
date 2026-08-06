@@ -907,13 +907,34 @@ nav button {
     white-space: nowrap;
 }
 
-#tabrow.tab-edit-mode > button {
+#tabrow.tab-edit-mode > button:not(#tabEditDone) {
     position: relative;
     overflow: visible;
     cursor: grab;
-    animation: tab-jingle 170ms ease-in-out infinite alternate;
     user-select: none;
     touch-action: none;
+}
+
+/* Motion-independent cue that the tab row is in edit mode */
+#tabrow.tab-edit-mode {
+    outline: 2px dashed gold;
+    outline-offset: 2px;
+}
+
+#tabEditDone {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 120px;
+    margin: 4px 0;
+    padding: 6px 12px;
+    border: 1px solid gold;
+    border-radius: 5px;
+    background-color: var(--purplebtn-color);
+    color: white;
+}
+
+#tabEditDone:hover {
+    background-color: var(--purplehover-color);
 }
 
 #tabrow.tab-edit-mode > button:nth-child(even) {
@@ -924,6 +945,10 @@ nav button {
     cursor: grabbing;
     opacity: 0.75;
     z-index: 2;
+}
+
+#tabrow.tab-edit-mode > button.tab-hidden-in-edit-mode {
+    opacity: 0.55;
 }
 
 .tabCloseButton {
@@ -955,6 +980,15 @@ nav button {
     background-color: #e00000;
 }
 
+#tabrow.tab-edit-mode > button.tabRemoveable > .tabCloseButton.tabCloseButtonToggled {
+    background-color: #147a32;
+}
+
+#tabrow.tab-edit-mode > button.tabRemoveable:hover > .tabCloseButton.tabCloseButtonToggled,
+#tabrow.tab-edit-mode > button.tabRemoveable:focus-visible > .tabCloseButton.tabCloseButtonToggled {
+    background-color: #199a40;
+}
+
 @keyframes tab-jingle {
     from {
         transform: rotate(-1.2deg) translateY(-1px);
@@ -965,9 +999,19 @@ nav button {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    #tabrow.tab-edit-mode > button {
-        animation: none;
+@keyframes tab-jingle-mobile {
+    from {
+        transform: rotate(-0.6deg) translateY(-0.5px);
+    }
+
+    to {
+        transform: rotate(0.6deg) translateY(0.5px);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    #tabrow.tab-edit-mode > button:not(#tabEditDone) {
+        animation: tab-jingle 170ms ease-in-out infinite alternate;
     }
 }
 
@@ -5808,10 +5852,26 @@ img#singularityPerksIcon {
     margin: 2px 10px;
 }
 
-#accountSubTab div#left.scrollbarX > div > form > input[type="submit"],
-.purchaseAuthModal > div:is(#register, #login) > form > input[type="submit"] {
+#accountSubTab div#left.scrollbarX > div > form > button[type="submit"],
+.purchaseAuthModal > div:is(#register, #login) > form > button[type="submit"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    min-height: 28px;
+    margin: 2px auto;
     border: 1px solid gold;
     padding: 3px 5px;
+}
+
+#accountSubTab div#left.scrollbarX > div > form > button[type="submit"]:disabled,
+.purchaseAuthModal > div:is(#register, #login) > form > button[type="submit"]:disabled {
+    cursor: wait;
+}
+
+.authSubmitSpinner.spinner {
+    width: 12px;
+    height: 12px;
 }
 
 .splitContainer {
@@ -6519,18 +6579,44 @@ html[data-mobile="false"] .pseudoCoinButton {
     outline: 2px solid white;
 }
 
-#pseudoCoinAmounts,
-#pseudoCoinAmounts2 {
+#pseudoCoinBalanceDisplay {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 8px 24px;
+    width: fit-content;
+    min-height: 32px;
+    margin: 6px auto 8px;
+    padding: 4px 16px;
+    border: 1px solid var(--darkgold-color);
+    border-radius: 4px;
 }
 
-#pseudoCoinAmounts > img,
-#pseudoCoinAmounts2 > img {
-    max-height: 32px;
-    max-width: 32px;
+.pseudoCoinBalanceResource {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pseudoCoinBalanceResource > img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.pseudoCoinBalanceValue,
+.lotusBalanceValue {
+    min-width: 16px;
+    text-align: center;
+}
+
+.pseudoCoinBalanceValue {
+    color: gold;
+}
+
+.lotusBalanceValue {
+    color: pink;
 }
 
 #upgradeInfo {
@@ -6600,104 +6686,6 @@ html[data-mobile="false"] .pseudoCoinButton {
     max-width: fit-content;
     max-height: fit-content;
     margin: auto;
-}
-
-#merchContainer {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#merchContainer > a {
-    text-decoration: none;
-    margin-top: 10px;
-    border: 2px solid purple;
-    min-width: 150px;
-    text-align: center;
-}
-
-#merchContainer > a:hover {
-    background-color: var(--hover-color);
-}
-
-#merchContainer > #slideshows {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
-    flex-wrap: wrap;
-}
-
-.slideshow-container {
-    max-width: 1000px;
-    position: relative;
-}
-
-.slideshow-container .slide {
-    display: none;
-}
-
-.slideshow-container .prev,
-.slideshow-container .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    margin-top: -22px;
-    padding: 16px;
-    color: black;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-}
-
-.slideshow-container .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-.slideshow-container .prev:hover,
-.slideshow-container .next:hover {
-    background-color: rgba(0 0 0 / 80%);
-}
-
-.slideshow-container .text {
-    color: black;
-    background-color: #e3e3e3;
-    width: max-content;
-    font-weight: bold;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-}
-
-.slideshow-container .pageNumber {
-    color: black;
-    font-size: 12px;
-    padding: 8px 12px;
-    position: absolute;
-    top: 0;
-}
-
-.slideshow-container .active {
-    background-color: #717171;
-    display: block;
-}
-
-.slideshow-container .fade {
-    animation-name: fade;
-    animation-duration: 1.5s;
-}
-
-@keyframes fade {
-    from { opacity: 0.4; }
-    to { opacity: 1; }
 }
 
 .sr-only {
@@ -7283,7 +7271,9 @@ html[data-mobile="true"] .hideOnMobile {
     html {
         min-width: unset;
         width: 100%;
-        position: fixed;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
     }
 
     body {
@@ -7291,8 +7281,15 @@ html[data-mobile="true"] .hideOnMobile {
         overscroll-behavior: none;
     }
 
+    html[data-mobile="true"] body {
+        height: 100%;
+        overflow: hidden;
+    }
+
     main {
+        min-height: 0;
         overflow-x: hidden;
+        overflow-y: auto;
         overscroll-behavior: contain;
         padding-top: var(--mobile-subtab-height);
     }
@@ -7350,12 +7347,13 @@ html[data-mobile="true"] .hideOnMobile {
         flex-shrink: 0;
     }
 
-    /* Navigation tabs - make scrollable */
+    /* Navigation tabs - make scrollable // i assume remnant from before mobile hamburger was added */
     #tabrow {
         flex-wrap: nowrap;
         overflow-x: auto;
+        overflow-y: hidden;
         justify-content: flex-start;
-        padding: 0 10px;
+        padding: 9px 10px 0;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: thin;
     }
@@ -7406,7 +7404,7 @@ html[data-mobile="true"] .hideOnMobile {
         padding-top: 0;
         padding-bottom: 5px;
         background-color: var(--bg-color);
-        touch-action: none;
+        touch-action: manipulation;
     }
 
     .mobileIconSubTabWrapper {
@@ -8142,6 +8140,12 @@ html[data-mobile="true"] .hideOnMobile {
 
     html[data-mobile="true"] nav.navbar.menu-open #tabrow {
         display: grid !important;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        nav.navbar #tabrow.tab-edit-mode > button:not(#tabEditDone) {
+            animation: tab-jingle-mobile 240ms ease-in-out infinite alternate;
+        }
     }
 
     /* Tab buttons in mobile menu */

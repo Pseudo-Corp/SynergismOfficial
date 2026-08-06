@@ -59,7 +59,7 @@ const blessingMultiplier = (key: RuneKeys) => {
 export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   speed: {
     level: 0,
-    runeEXP: new Decimal(0),
+    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e6),
     levelsPerOOM: 4,
     effects: (level) => {
@@ -85,7 +85,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   },
   duplication: {
     level: 0,
-    runeEXP: new Decimal(0),
+    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e7),
     levelsPerOOM: 4,
     effects: (level) => {
@@ -111,7 +111,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   },
   prism: {
     level: 0,
-    runeEXP: new Decimal(0),
+    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e9),
     levelsPerOOM: 4,
     effects: (level) => {
@@ -137,7 +137,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   },
   thrift: {
     level: 0,
-    runeEXP: new Decimal(0),
+    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e12),
     levelsPerOOM: 4,
     effects: (level) => {
@@ -163,7 +163,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   },
   superiorIntellect: {
     level: 0,
-    runeEXP: new Decimal(0),
+    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e15),
     levelsPerOOM: 4,
     effects: (level) => {
@@ -237,7 +237,7 @@ export const buyAllBlessingLevels = (budget: Decimal) => {
 
   if (player.offerings.lt(0)) {
     // TODO: Figure out why this fucking happens so often
-    player.offerings = new Decimal(0)
+    player.offerings = new Decimal()
   }
 }
 
@@ -289,7 +289,7 @@ export const updateAllBlessingLevelsFromEXP = () => {
 // Gives levels to buy, total EXP to that level, and offerings required to reach that level
 const maxBlessingLevelPurchaseInformation = (bless: RuneBlessingKeys, budget: Decimal) => {
   if (budget.lt(0)) {
-    return { levels: 0, expRequired: new Decimal(0), offerings: new Decimal(0) }
+    return { levels: 0, expRequired: new Decimal(), offerings: new Decimal() }
   }
 
   const runeEXPPerOffering = getRuneBlessingEXPPerOffering(bless)
@@ -437,7 +437,7 @@ export function resetRuneBlessings (tier: keyof typeof resetTiers) {
   for (const bless of runeBlessingKeys) {
     if (resetTiers[tier] >= resetTiers[runeBlessings[bless].minimalResetTier]) {
       runeBlessings[bless].level = 0
-      runeBlessings[bless].runeEXP = new Decimal(0)
+      runeBlessings[bless].runeEXP = new Decimal()
     }
   }
 }

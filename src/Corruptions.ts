@@ -187,7 +187,7 @@ export class CorruptionLoadout {
 
   #illiteracyEffect () {
     const base = G.illiteracyPower[this.#levels.illiteracy]
-    const multiplier = (player.obtainium.gte(1))
+    const multiplier = (player.obtainium.gte(G.dOne))
       ? 1 + (1 / 100) * player.platonicUpgrades[9] * Math.min(100, Decimal.log10(player.obtainium))
       : 1
     return Math.min(base * multiplier, 1)

@@ -315,7 +315,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.5;
+				MARKETING_VERSION = 4.2.6;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = cc.pseudocorp.synergism;
 				PRODUCT_NAME = "Synergism-Debug";
@@ -339,7 +339,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.5;
+				MARKETING_VERSION = 4.2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = cc.pseudocorp.synergism;
 				PRODUCT_NAME = Synergism;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";

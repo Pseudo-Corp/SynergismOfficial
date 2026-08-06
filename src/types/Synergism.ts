@@ -643,8 +643,6 @@ export interface GlobalVariables {
   producePerSecondMythos: Decimal
   producePerSecondParticles: Decimal
 
-  uFourteenMulti: Decimal
-  uFifteenMulti: Decimal
   tuSevenMulti: number
   currentTab: Tabs
 
@@ -686,6 +684,7 @@ export interface GlobalVariables {
   buildingSubTab: BuildingSubtab
 
   autoOfferingCounter: number
+  MAX_AUTO_SACRIFICE_RUNE: number
 
   viscosityPower: number[]
   dilationMultiplier: number[]
@@ -739,6 +738,68 @@ export interface GlobalVariables {
   currentSingChallenge: SingularityChallengeDataKeys | undefined
 
   coinVanityThresholds: number[]
+
+  dOne: Decimal
+  d3: Decimal
+  d3_14: Decimal
+  d0_5: Decimal
+  d0_001: Decimal
+  d0_0001: Decimal
+  d100: Decimal
+  d500: Decimal
+  d10000: Decimal
+  d100000: Decimal
+  d1e5: Decimal
+  d1e6: Decimal
+  d4e6: Decimal
+  d666666666: Decimal
+  d4_32e10: Decimal
+  d1e11: Decimal
+  d1e12: Decimal
+  d1e16: Decimal
+  d1e20: Decimal
+  d6_9e21: Decimal
+  d1e25: Decimal
+  d1e30: Decimal
+  d1_509e33: Decimal
+  d1e40: Decimal
+  d1e50: Decimal
+  d1e66: Decimal
+  d1e100: Decimal
+  d1e200: Decimal
+  d1e300: Decimal
+  d1e308: Decimal
+  d1e250: Decimal
+  d1_8e308: Decimal
+  d1e1000: Decimal
+  d1e1500: Decimal
+  d1e2500: Decimal
+  d1e5000: Decimal
+  d1e7777: Decimal
+  d1e10000: Decimal
+  d1e15000: Decimal
+  d1e25000: Decimal
+  d1e50000: Decimal
+  d1e77777: Decimal
+  d1e99999: Decimal
+  d1e100000: Decimal
+  d1e120000: Decimal
+  d1e125000: Decimal
+  d1e250000: Decimal
+  d1e300000: Decimal
+  d1e1000000: Decimal
+  d1e2000000: Decimal
+  d1e2500000: Decimal
+  d1e5000000: Decimal
+  d1e10000000: Decimal
+  d1e25000000: Decimal
+  d1e50000000: Decimal
+  d1e100000000: Decimal
+  d1e2500000000: Decimal
+  d1e10000000000: Decimal
+  d1e100000000000: Decimal
+  d1e2500000000000: Decimal
+  d1e10000000000000: Decimal
 
   MIND_DIVISOR: number
   GLOBAL_RESET_THRESHOLD: number

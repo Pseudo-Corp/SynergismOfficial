@@ -413,13 +413,13 @@ export const getChallengeConditions = (i?: number) => {
   if (player.currentChallenge.reincarnation === 9) {
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
   }
-  G.prestigePointGain = new Decimal('0')
+  G.prestigePointGain = new Decimal()
   if (typeof i === 'number') {
     if (i >= 6) {
-      G.transcendPointGain = new Decimal('0')
+      G.transcendPointGain = new Decimal()
     }
     if (i >= 11) {
-      G.reincarnationPointGain = new Decimal('0')
+      G.reincarnationPointGain = new Decimal()
     }
   }
 }
@@ -785,12 +785,12 @@ export const autoAscensionChallengeSweepUnlock = () => {
 }
 
 const challenge15AutoExponentCheck = () => {
-  return autoAscensionChallengeSweepUnlock()
-    && player.currentChallenge.ascension === 15
-    && !getShopUpgradeEffects('challenge15Auto', 'unlocked')
+  return player.currentChallenge.ascension === 15
     && player.autoAscend
     && player.cubeUpgrades[10] > 0
     && player.autoAscendMode === AutoAscensionResetModes.realAscensionTime
+    && !getShopUpgradeEffects('challenge15Auto', 'unlocked')
+    && autoAscensionChallengeSweepUnlock()
     && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold - 5)
 }
 
@@ -807,9 +807,9 @@ export const getNextRegularChallenge = (startIndex: number, explored: Set<number
   let challenge = startIndex
   for (let i = 0; i < NUM_ELIGIBLE_CHALLENGES; i++) {
     if (
-      !explored.has(challenge)
+      player.autoChallengeToggles[challenge]
+      && !explored.has(challenge)
       && player.highestchallengecompletions[challenge] < getMaxChallenges(challenge)
-      && player.autoChallengeToggles[challenge]
     ) {
       return challenge
     }
@@ -834,7 +834,7 @@ export const getNextAscensionChallenge = (startIndex: number) => {
     }
     if (
       player.autoChallengeToggles[nextChallenge]
-      && (player.highestchallengecompletions[nextChallenge] < getMaxChallenges(nextChallenge) || nextChallenge === 15)
+      && (nextChallenge === 15 || player.highestchallengecompletions[nextChallenge] < getMaxChallenges(nextChallenge))
     ) {
       return nextChallenge
     }

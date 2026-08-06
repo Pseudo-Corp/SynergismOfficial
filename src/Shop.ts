@@ -2315,7 +2315,7 @@ export const createShopHTML = (input: ShopUpgradeNames) => {
     : `<span style="color: crimson">⚠ ${i18next.t('shop.cannotRefund')}</span><br>`
 
   let resetHTML = ''
-  if (getRuneEffectiveLevel('antiquities') > 0 || player.highestSingularityCount > 0) {
+  if (player.highestSingularityCount > 0 || getRuneEffectiveLevel('antiquities') > 0) {
     resetHTML = shopUpgrades[input].resetOnSingularity()
       ? `<span style="color: crimson">⚠ ${
         i18next.t('shop.resetOnSingularity', { x: shopUpgrades[input].refundMinimumLevel })

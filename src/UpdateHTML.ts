@@ -6,11 +6,11 @@ import {
   achievementPoints,
   getAchievementReward,
   groupedAchievementData,
-  type ProgressiveAchievements,
+  progressiveAchievementKeys,
   progressiveAchievements,
   toNextAchievementLevelEXP,
   ungroupedAchievementData,
-  type UngroupedAchievementNames,
+  ungroupedAchievementKeys,
   updateAllGroupedAchievementProgress,
   updateAllProgressiveAchievementProgress,
   updateAllUngroupedAchievementProgress
@@ -221,7 +221,7 @@ export const revealStuff = () => {
     }
   }
 
-  for (const ungroupedAch of Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]) {
+  for (const ungroupedAch of ungroupedAchievementKeys) {
     const capitalizedName = ungroupedAch.charAt(0).toUpperCase() + ungroupedAch.slice(1)
     const img = DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`)
     const shouldDisplay = ungroupedAchievementData[ungroupedAch].displayCondition()
@@ -233,7 +233,7 @@ export const revealStuff = () => {
     }
   }
 
-  for (const progAch of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
+  for (const progAch of progressiveAchievementKeys) {
     const capitalizedName = progAch.charAt(0).toUpperCase() + progAch.slice(1)
     const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`)
     const shouldDisplay = progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0
@@ -737,17 +737,17 @@ export const buttoncolorchange = () => {
   // Notify new players the reset
   if (player.toggles[33] && player.highestSingularityCount === 0) {
     if (player.toggles[28] && !player.unlocks.prestige) {
-      DOMCacheGetOrSet('prestigebtn').style.boxShadow = player.coinsThisPrestige.gte(1e16)
+      DOMCacheGetOrSet('prestigebtn').style.boxShadow = player.coinsThisPrestige.gte(G.d1e16)
         ? 'cyan 0px 0px 10px 2px'
         : ''
     }
     if (player.toggles[29] && !player.unlocks.transcend) {
-      DOMCacheGetOrSet('transcendbtn').style.boxShadow = player.coinsThisTranscension.gte(1e100)
+      DOMCacheGetOrSet('transcendbtn').style.boxShadow = player.coinsThisTranscension.gte(G.d1e100)
         ? 'plum 0px 0px 10px 2px'
         : ''
     }
     if (player.toggles[30] && !player.unlocks.reincarnate) {
-      DOMCacheGetOrSet('reincarnatebtn').style.boxShadow = player.transcendShards.gte(1e300)
+      DOMCacheGetOrSet('reincarnatebtn').style.boxShadow = player.transcendShards.gte(G.d1e300)
         ? 'greenyellow 0px 0px 10px 2px'
         : ''
     }

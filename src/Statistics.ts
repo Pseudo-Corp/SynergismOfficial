@@ -196,7 +196,7 @@ export const calculateTotalStatNumber = (category: NumberStatLineCategory): numb
 
 export const calculateTotalStatDecimal = (category: DecimalStatLineCategory): Decimal => {
   if (category.type === StatLineTypes.Addition) {
-    return category.lines.reduce((total, line) => total.add(line.stat()), new Decimal(0))
+    return category.lines.reduce((total, line) => total.add(line.stat()), new Decimal())
   } else if (category.type === StatLineTypes.Multiplication) {
     return category.lines.reduce((total, line) => total.mul(line.stat()), new Decimal(1))
   } else {
@@ -222,7 +222,7 @@ export const displayStatLine = (type: StatLineTypes, num: number | Decimal, altD
   else if (type === StatLineTypes.Addition) {
     return !Decimal.fromValue(num).equals(0)
   } else if (type === StatLineTypes.Multiplication) {
-    return !Decimal.fromValue(num).equals(1)
+    return !Decimal.fromValue(num).equals(G.dOne)
   } else {
     return true // Always return a misc type unless specified under `displayCriterion.`
   }
