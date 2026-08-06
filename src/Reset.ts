@@ -529,6 +529,14 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     awardAchievementGroup('ascensionCount')
     awardUngroupedAchievement('ascended')
 
+    const awardReincarnationPoints = !(
+      input === 'reincarnationChallenge'
+      && from === 'enterChallenge'
+      && player.currentChallenge.transcension !== 0 /* It is acceptable to award Particles
+       outside of T. Challenge when entering R. Challenge. In a Transcension Challenge it is possible
+       in some situations to get *more* Particles than you would outside of the challenge. (report: rus9384) */
+    )
+
     /* When entering a Reincarnation Challenge, we "force" a Reincarnation. This is to ensure that
        we only credit Obtainium and Reincarnation Count from a Reincarnation when the threshold
        to Reincarnate normally is reached (1e300 Transcension Shards).
@@ -560,7 +568,9 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     awardAchievementGroup('reincarnationCount')
 
     player.transcendPoints = new Decimal()
-    player.reincarnationPoints = player.reincarnationPoints.add(G.reincarnationPointGain)
+    if (awardReincarnationPoints) {
+      player.reincarnationPoints = player.reincarnationPoints.add(G.reincarnationPointGain)
+    }
     player.reincarnationShards = new Decimal()
     player.challengecompletions[1] = 0
     player.challengecompletions[2] = 0
