@@ -19,6 +19,8 @@ const supported: Record<string, { name: string; flag: string }> = {
 
 const languageCache = new Map<string, { translation: Resource }>()
 
+const htmlTag = /<[a-z][^>]*>/i
+
 export const init = async (): Promise<void> => {
   const resources: Record<string, Resource> = {}
   const language = storageGetItem('language') ?? 'en'
@@ -78,8 +80,6 @@ function buildLanguageButton (langID: string, name: string, flag: string) {
     await i18next.changeLanguage(langID)
     storageSetItem('language', langID)
 
-    const { reloadShit } = await import('./Synergism')
-    await reloadShit()
     translateHTML()
   })
 
@@ -111,7 +111,7 @@ export function translateHTML () {
 
     if (element instanceof HTMLImageElement) {
       element.setAttribute('alt', value)
-    } else if (value.includes('<span')) {
+    } else if (htmlTag.test(value)) {
       element.innerHTML = value
     } else {
       element.textContent = value

@@ -11,7 +11,7 @@ import { applyChallengeInitialModifiers, reset } from './Reset'
 import { indexToRune } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
-import { format, player, reloadShit, resetCheck } from './Synergism'
+import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
@@ -993,7 +993,6 @@ export const toggleStatSymbol = async () => {
   const { setStatSymbols } = await import('./Plugins/StatSymbols')
   const { translateHTML } = await import('./i18n')
   setStatSymbols(enabled)
-  await reloadShit()
   translateHTML()
   settingSymbols()
 }

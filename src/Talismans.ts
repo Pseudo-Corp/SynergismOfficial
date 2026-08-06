@@ -1549,12 +1549,6 @@ export const generateWebCenterTalismansHTML = () => {
     talismansDivIndividual.className = 'talismanContainer'
     talismansDivIndividual.id = `${key}TalismanContainer`
 
-    const talismansName = document.createElement('span')
-    talismansName.className = 'talismanName'
-    talismansName.setAttribute('i18n', `runes.talismans.${key}.name`)
-
-    talismansDivIndividual.appendChild(talismansName)
-
     const talismanIconDivWrapper = document.createElement('div')
     talismanIconDivWrapper.id = `${key}TalismanIconWrapper`
     talismanIconDivWrapper.className = 'talismanIcon'
