@@ -38,27 +38,26 @@ export const exponentialSubscriptionCheck = (
   }, subscriptionPollDelays[attempt])
 }
 
-type Actions = 'manage' | 'upgrade' | 'downgrade' | 'cancel'
+type Actions = 'manage' | 'upgrade' | 'downgrade'
 type RouteLinks = Record<Actions, string>
+
+const cancelSubscriptionLink = 'https://synergism.cc/api/v1/subscriptions/cancel'
 
 const prodRouteLinks: Record<'stripe' | 'paypal' | 'steam', RouteLinks> = {
   stripe: {
     manage: 'https://synergism.cc/stripe/manage-subscription',
     upgrade: 'https://synergism.cc/stripe/subscription/upgrade',
-    downgrade: 'https://synergism.cc/stripe/subscription/downgrade',
-    cancel: 'https://synergism.cc/stripe/subscription/cancel'
+    downgrade: 'https://synergism.cc/stripe/subscription/downgrade'
   },
   paypal: {
     manage: 'https://www.paypal.com/myaccount/autopay/',
     upgrade: 'https://synergism.cc/paypal/subscriptions/revise',
-    downgrade: 'https://synergism.cc/paypal/subscriptions/revise',
-    cancel: 'https://synergism.cc/paypal/subscriptions/cancel'
+    downgrade: 'https://synergism.cc/paypal/subscriptions/revise'
   },
   steam: {
     manage: 'https://store.steampowered.com/account/',
     upgrade: 'https://store.steampowered.com/account/',
-    downgrade: 'https://store.steampowered.com/account/',
-    cancel: 'https://store.steampowered.com/account/'
+    downgrade: 'https://store.steampowered.com/account/'
   }
 }
 
@@ -66,14 +65,12 @@ const devRouteLinks: typeof prodRouteLinks = {
   stripe: {
     manage: 'https://synergism.cc/stripe/test/manage-subscription',
     upgrade: 'https://synergism.cc/stripe/test/subscription/upgrade',
-    downgrade: 'https://synergism.cc/stripe/test/subscription/downgrade',
-    cancel: 'https://synergism.cc/stripe/test/subscription/cancel'
+    downgrade: 'https://synergism.cc/stripe/test/subscription/downgrade'
   },
   paypal: {
     manage: 'https://www.paypal.com/myaccount/autopay/',
     upgrade: 'https://synergism.cc/paypal/subscriptions/revise',
-    downgrade: 'https://synergism.cc/paypal/subscriptions/revise',
-    cancel: 'https://synergism.cc/paypal/subscriptions/cancel'
+    downgrade: 'https://synergism.cc/paypal/subscriptions/revise'
   },
   steam: prodRouteLinks.steam
 }
@@ -169,10 +166,6 @@ async function manageSubscription (provider: SubscriptionProvider | null) {
 }
 
 async function cancelSubscription (provider: SubscriptionProvider) {
-  if (provider === 'patreon' || provider === 'apple' || provider === 'google') {
-    return Alert('You should not see this alert! Let Platonic know immediately.')
-  }
-
   const confirm = await Confirm(
     'Are you sure you want to cancel your subscription? You will keep the associated perks until your current Subscription expires.'
   )
@@ -181,8 +174,8 @@ async function cancelSubscription (provider: SubscriptionProvider) {
     return
   }
 
-  const link = PROD ? prodRouteLinks[provider].cancel : devRouteLinks[provider].cancel
-  const url = new URL(link)
+  const url = new URL(cancelSubscriptionLink)
+  url.searchParams.set('provider', provider)
 
   const previousSubscription = getSubMetadata()
   const response = await fetch(url, {

@@ -1,5 +1,6 @@
 import { delay, http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
+import { getSubMetadata, setSubMetadata } from '../Login'
 import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
 import { messageHandlers } from './handlers/MessageHandlers'
 import { paymentHandlers } from './handlers/PaymentHandlers'
@@ -1451,6 +1452,15 @@ const PUTHandlers = [
   })
 ]
 
+const seedEndDate = new Date()
+seedEndDate.setMonth(seedEndDate.getMonth() + 1)
+
+setSubMetadata({
+  provider: 'stripe',
+  tier: 3,
+  endDate: seedEndDate.toISOString()
+})
+
 export const worker = setupWorker(
   http.get('https://synergism.cc/api/v1/users/me', () => {
     return HttpResponse.json({
@@ -1492,7 +1502,7 @@ export const worker = setupWorker(
       bonus: {
         quark: 0
       },
-      subscription: null,
+      subscription: getSubMetadata(),
       linkedAccounts: ['email']
     })
   }),
