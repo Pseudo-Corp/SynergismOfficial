@@ -92,6 +92,7 @@ import { exitFastForward, getLotusTimeExpiresAt, getOwnedLotus, getTips, sendToW
 import type { OcteractUpgrades } from './Octeracts'
 import { buyOcteractUpgradeLevel, octeractUpgrades, upgradeOcteractToString } from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription, platonicUpgradeModalHTML } from './Platonic'
+import { openBellSchedule } from './purchases/ConsumablesTab'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -1972,6 +1973,10 @@ TODO: Fix this entire tab it's utter shit
         sendToWebsocket(JSON.stringify({ type: 'applied-tip', amount: n }))
         setTips(getTips() - n)
       })
+  })
+
+  DOMCacheGetOrSet('view-scheduled-bells').addEventListener('click', () => {
+    openBellSchedule().catch(console.error)
   })
 
   // Import button

@@ -5681,7 +5681,8 @@ img#singularityPerksIcon {
 }
 
 .consumableButton,
-#apply-tips {
+#apply-tips,
+#view-scheduled-bells {
     border: 2px solid #ffd700;
     background-color: #ffd700;
     color: black;
@@ -5691,7 +5692,8 @@ img#singularityPerksIcon {
     width: 150px;
 }
 
-#apply-tips:not(:hover) {
+#apply-tips:not(:hover),
+#view-scheduled-bells:not(:hover) {
     border: 2px solid var(--hovershop-color);
     background-color: var(--hovershop-color);
 }
@@ -6484,6 +6486,16 @@ html[data-mobile="false"] .pseudoCoinButton {
     margin: 5px auto 0;
 }
 
+.consumableButtonColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Share the card's height between the buttons */
+.consumableButtonColumn > .consumablePurchaseBtn {
+    flex: 1;
+}
+
 .timeSkipSet {
     display: flex;
     flex-direction: row;
@@ -6531,6 +6543,195 @@ html[data-mobile="false"] .pseudoCoinButton {
 /* Cost text */
 #consumablesGrid > div > button > :nth-child(2) {
     color: var(--amber-text-color);
+}
+
+/* Happy Hour Bell scheduling calendar */
+
+#bellScheduleOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 6970;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgb(0 0 0 / 60%);
+}
+
+#bellScheduleContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    border: 2px solid var(--amber-text-color);
+    border-radius: 5px;
+    padding: 15px;
+    width: 100%;
+    max-width: 480px;
+    max-height: 100%;
+    overflow-y: auto;
+    color: var(--text-color);
+    background-color: var(--alert-color);
+}
+
+#bellScheduleClose {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: none;
+    background: none;
+    color: var(--amber-text-color);
+    font-size: 1.5em;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+#bellScheduleIntro {
+    text-align: center;
+    margin: 0 0 10px;
+}
+
+#bellCalendar {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+#bellCalendarNav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#bellCalendarNav > p {
+    margin: 0;
+    text-align: center;
+    flex: 1 1 auto;
+    color: var(--amber-text-color);
+}
+
+#bellCalendarNav > button {
+    border: 2px solid var(--amber-text-color);
+    background-color: var(--button-color);
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0 10px;
+    line-height: 1.6;
+}
+
+#bellCalendarNav > button:disabled {
+    border-color: var(--gray-text-color);
+    color: var(--gray-text-color);
+    cursor: not-allowed;
+}
+
+#bellCalendarWeekdays,
+#bellCalendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+#bellCalendarWeekdays > span {
+    text-align: center;
+    color: var(--amber-text-color);
+}
+
+.bellCalendarDay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    border: 1px solid var(--hover-color);
+    background-color: var(--button-color);
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0;
+}
+
+.bellCalendarDay:hover:not(:disabled) {
+    background-color: var(--hover-color);
+}
+
+.bellCalendarDay:disabled {
+    color: var(--gray-text-color);
+    cursor: not-allowed;
+}
+
+.bellCalendarDay.otherMonth:not(:disabled) {
+    color: var(--gray-text-color);
+}
+
+.bellCalendarDay.hasBells {
+    background-color: var(--blessings-canbuy-color);
+}
+
+.bellCalendarDay.today {
+    border-color: var(--amber-text-color);
+}
+
+.bellCalendarDay.selected {
+    border-color: var(--lime-text-color);
+    background-color: var(--hover-color);
+}
+
+.bellCalendarDayCount {
+    color: var(--amber-text-color);
+    /* Reserve the row so day numbers don't shift when a bell appears */
+    min-height: 1em;
+    line-height: 1;
+}
+
+#bellScheduleDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#bellScheduleDay {
+    margin: 0;
+    color: var(--amber-text-color);
+}
+
+#bellScheduleList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#bellScheduleList > p {
+    margin: 0;
+}
+
+#bellScheduleControls {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+#bellScheduleTime {
+    border: 2px solid var(--amber-text-color);
+    background-color: var(--button-color);
+    color: var(--text-color);
+    padding: 4px 8px;
+}
+
+/* Overrides the mobile `.consumablePurchaseBtn` width so the button sits inline with the time input */
+#bellScheduleControls > .consumablePurchaseBtn {
+    width: auto;
+    margin: 0;
 }
 
 #upgradeGrid {

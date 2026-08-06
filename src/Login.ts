@@ -15,7 +15,7 @@ import { updateGlobalsIsEvent } from './Event'
 import { storageGetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
-import { updateLotusDisplay } from './purchases/ConsumablesTab'
+import { updateBellScheduleDisplay, updateLotusDisplay } from './purchases/ConsumablesTab'
 import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases/PseudoCoinBalances'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
@@ -42,6 +42,13 @@ interface Consumable {
   ends: number[]
   amount: number
   displayName: string
+}
+
+/** An upcoming Happy Hour Bell, scheduled by any player. */
+export interface ScheduledBell {
+  id: number
+  /** unix timestamp of when the bell will ring */
+  scheduledFor: number
 }
 
 interface Save {
@@ -86,6 +93,7 @@ let usedLotus = 0
 let lotusInventoryLoaded = false
 let subscription: SubscriptionMetadata = null
 let lotusTimeExpiresAt: number | undefined = undefined
+let scheduledBells: ScheduledBell[] = []
 let signedOutAccountHTML: string | undefined
 const boundLogoutButtons = new WeakSet<HTMLElement>()
 
@@ -100,6 +108,8 @@ export const getOwnedLotus = () => ownedLotus
 export const getUsedLotus = () => usedLotus
 export const isLotusInventoryLoaded = () => lotusInventoryLoaded
 export const getLotusTimeExpiresAt = () => lotusTimeExpiresAt
+
+export const getScheduledBells = () => scheduledBells.filter((bell) => bell.scheduledFor > Date.now())
 
 export const getSubMetadata = () => subscription
 // For testing purposes only
@@ -155,8 +165,20 @@ const messageSchema = z.preprocess(
         type: z.literal('LOTUS'),
         amount: z.number().int().gte(0),
         used: z.number().int().gte(0)
+      }).array(),
+      scheduledBells: z.object({
+        id: z.number().int(),
+        scheduledFor: z.number().int()
       }).array()
     }),
+    /** Received when any player schedules a Happy Hour Bell (broadcasted to everyone) */
+    z.object({
+      type: z.literal('bell-scheduled'),
+      id: z.number().int(),
+      scheduledFor: z.number().int()
+    }),
+    /** Received by the *user* who scheduled a bell, once their PseudoCoins have been spent */
+    z.object({ type: z.literal('bell-schedule-confirmed') }),
     /** Received after the *user* successfully redeems a consumable. */
     z.object({ type: z.literal('thanks') }),
     /** Received when a user is tipped */
@@ -671,6 +693,7 @@ function resetWebSocket () {
   usedLotus = 0
   lotusInventoryLoaded = false
   lotusTimeExpiresAt = undefined
+  scheduledBells = []
   setLotusBalanceLoading()
   setFavicon('./favicon.ico')
 }
@@ -754,7 +777,12 @@ async function handleWebSocket () {
   ws.addEventListener('message', (ev) => {
     if (ev.data === 'pong') return
 
-    const data = messageSchema.parse(ev.data)
+    const { success, data, error } = messageSchema.safeParse(ev.data)
+
+    if (!success) {
+      console.warn('[Consumables WS] ignoring unhandled message', ev.data, error)
+      return
+    }
 
     if (data.type === 'warn') {
       Notification(data.message, 5_000)
@@ -813,11 +841,23 @@ async function handleWebSocket () {
       ownedLotus = lotusInventory?.amount ?? 0
       usedLotus = lotusInventory?.used ?? 0
       lotusInventoryLoaded = true
+
+      scheduledBells = data.scheduledBells.sort((a, b) => a.scheduledFor - b.scheduledFor)
+      updateBellScheduleDisplay()
+
       try {
         updateLotusDisplay()
       } catch {
         // This can throw if /consumables/list has not returned a response by the time this runs
       }
+    } else if (data.type === 'bell-scheduled') {
+      scheduledBells.push({ id: data.id, scheduledFor: data.scheduledFor })
+      scheduledBells.sort((a, b) => a.scheduledFor - b.scheduledFor)
+
+      updateBellScheduleDisplay()
+    } else if (data.type === 'bell-schedule-confirmed') {
+      Notification(i18next.t('pseudoCoins.bellSchedule.scheduled'))
+      updatePseudoCoins()
     } else if (data.type === 'thanks') {
       Alert(i18next.t('pseudoCoins.consumables.thanks'))
       updatePseudoCoins()
