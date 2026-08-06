@@ -1,6 +1,6 @@
+import Decimal from 'break_infinity.js'
 import type { PostProcessorModule } from 'i18next'
 import { format } from '../Synergism'
-import Decimal from 'break_infinity.js'
 
 export default {
   type: 'postProcessor',

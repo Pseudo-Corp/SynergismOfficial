@@ -41,8 +41,8 @@ import {
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
 import {
-  buyBuilding,
   boostAccelerator,
+  buyBuilding,
   buyCrystalUpgrades,
   buyTesseractBuilding,
   calculateTessBuildingsInBudget,
@@ -236,6 +236,8 @@ import {
 } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
+// eslint-disable-next-line no-unassigned-import
+import './saves/verify'
 import { getShopUpgradeEffects, updateShopLevels } from './Shop'
 import {
   blankGQLevelObject,
@@ -2263,7 +2265,7 @@ export const format = (
     }
 
     // Rounds up if the number experiences a rounding error
-    const powerDelta = (power < -3 ? power : 0)
+    const powerDelta = power < -3 ? power : 0
     const delta = Math.pow(10, powerDelta - accuracy)
     if (delta - standard % delta < 1e-7) {
       standard += 1e-7 * Math.pow(10, powerDelta)
@@ -2351,7 +2353,7 @@ export const formatTimeShort = (
   )
 }
 
-export const formatAsPercentIncrease = (n: number, accuracy = 2, truncate = true) : string => {
+export const formatAsPercentIncrease = (n: number, accuracy = 2, truncate = true): string => {
   return `${format((n - 1) * 100, accuracy, true, truncate)}%`
 }
 
@@ -4008,7 +4010,7 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
       && player.upgrades[80 + i]
       && player.coins.gte(player[`${G.ordinals[zeroIndex]}CostCoin` as const])
     ) {
-    buyBuilding('coin', 'max', zeroIndex)
+      buyBuilding('coin', 'max', zeroIndex)
     }
   }
   if (

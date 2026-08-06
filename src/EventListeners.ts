@@ -16,12 +16,7 @@ import {
   resetHighlights,
   resetLoadoutOnlyDisplay
 } from './BlueberryUpgrades'
-import {
-  buyBuilding,
-  boostAccelerator,
-  buyCrystalUpgrades,
-  buyTesseractBuilding
-} from './Buy'
+import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import { challengeDisplay, toggleRetryChallenges } from './Challenges'
@@ -911,7 +906,7 @@ export const generateEventHandlers = () => {
 
   // Coin, Diamond and Mythos Buildings
   const buildingTypesAlternate2 = ['coin', 'diamond', 'mythos'] as const
-  buildingTypesAlternate2.forEach(type => {
+  buildingTypesAlternate2.forEach((type) => {
     for (let index2 = 1; index2 <= 5; index2++) {
       DOMCacheGetOrSet(`buy${type}${index2}`)
         .addEventListener('pointerdown', () => buyBuilding(type, undefined, index2 - 1 as ZeroToFour))

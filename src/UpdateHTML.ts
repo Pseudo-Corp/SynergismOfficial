@@ -1133,7 +1133,9 @@ const updateAscensionStats = () => {
     ascHepteract: format(ascensionRewards.wowHepteracts * (player.ascStatToggles[5] ? 1 : 1 / t), 2, false, false),
     ascC10: format(player.challengecompletions[10]),
     ascTimeAccel: `${format(calculateGlobalSpeedMult(), 3, false, false)}x${addedAsteriskHalfMind ? '*' : ''}`,
-    ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3, false, false)}x${addedAsteriskOneMind ? '*' : ''}`,
+    ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3, false, false)}x${
+      addedAsteriskOneMind ? '*' : ''
+    }`,
     ascSingularityCount: format(player.singularityCount),
     ascSingLen: formatTimeShort(player.singularityCounter),
     ascSingChallengeLen: formatTimeShort(player.singChallengeTimer)
