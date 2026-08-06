@@ -94,7 +94,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     },
     effectDescription: () => {
       const taxReduction = getAntUpgradeEffect(AntUpgrades.Taxes).taxReduction
-      return i18next.t('ants.upgrades.taxes.effect', { x: formatAsPercentIncrease(taxReduction, 4) })
+      return i18next.t('ants.upgrades.taxes.effect', { x: formatAsPercentIncrease(2 - taxReduction, 4) })
     },
     lockedAutoDescription: () => i18next.t('ants.upgrades.taxes.lockedAutomation')
   },

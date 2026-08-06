@@ -2147,13 +2147,36 @@ const FormatList = [
   "Ce",
 ];
 
+// Caching different formatters to not initialize them every time
+const formatters: Record<string, Intl.NumberFormat> = {}
+const getFormatter = (
+  digits: number,
+  truncate = true,
+  notation?: 'scientific' | 'engineering'
+) => {
+  let keyString = `${digits}${truncate ? '' : '+'}${notation?.charAt(0) ?? ''}`
+  if (formatters[keyString] == undefined) {
+    formatters[keyString] = new Intl.NumberFormat(undefined, {
+      minimumFractionDigits: notation === undefined ? (truncate ? 0 : digits) : undefined,
+      maximumFractionDigits: notation === undefined ? digits : undefined,
+      minimumSignificantDigits: notation !== undefined ? 1 + (truncate ? 0 : digits) : undefined,
+      maximumSignificantDigits: notation !== undefined ? 1 + digits : undefined,
+      notation: notation,
+      roundingMode: 'trunc',
+      signDisplay: 'never' // A fix for '-0'
+    })
+  }
+  return formatters[keyString]
+}
+
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
  * @param input value to format
  * @param accuracy
- * how many decimal points that are to be displayed (Values <10 if !long, <1000 if long).
+ * how many decimal points that are to be displayed (Past 100 if !long, or 1000 if long starts reducing accuracy).
  * only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
- * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e7
+ * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e6
+ * @param truncate truncates insignificant digits if true
  */
 export const format = (
   input:
@@ -2163,9 +2186,7 @@ export const format = (
     | undefined,
   accuracy = 0,
   long = false,
-  truncate = true,
-  fractional = false,
-  longExponent = false
+  truncate = true
 ): string => {
   if (input == null) {
     return '0 [null]'
@@ -2177,26 +2198,32 @@ export const format = (
 
   const inputType = typeof input
 
-  let power!: number
-  let mantissa!: number
+  let power = 0
+  let mantissa = 0
   if (inputType === 'number') {
-    if ((input as number) < 0) {
-      return `-${format(-(input as number), accuracy, long, truncate, fractional)}`
+    const num = input as number
+    if (num < 0) {
+      return `-${format(-num, accuracy, long, truncate)}`
+    } else if (num > 0) {
+      // Gets power and mantissa if input is of type number and isn't 0
+      power = Math.floor(Math.log10(num))
+      mantissa = num / Math.pow(10, power)
     }
-    if (input === 0) {
-      return '0'
-    }
-
-    // Gets power and mantissa if input is of type number and isn't 0
-    power = Math.floor(Math.log10(input as number))
-    mantissa = (input as number) / Math.pow(10, power)
   } else if (input instanceof Decimal) {
     if (input.lessThan(0)) {
-      return `-${format(input.negated(), accuracy, long, truncate, fractional)}`
+      return `-${format(input.negated(), accuracy, long, truncate)}`
     }
     // Gets power and mantissa if input is of type decimal
     power = input.e
     mantissa = input.mantissa
+  } else { // Neither number nor Decimal
+    return '0 [und.]'
+  }
+
+  if (power < -100) {
+    input = 0
+    mantissa = 0
+    power = 0
   }
 
   const threshold = 10 - Math.pow(10, long ? -13 : -7)
@@ -2206,6 +2233,7 @@ export const format = (
     ;++power
   }
 
+  // Rounds up if the number experiences a rounding error
   if (mantissa < 1 && mantissa > 0.9999999) {
     mantissa = 1
   }
@@ -2224,60 +2252,7 @@ export const format = (
 
   // Make the above code apply to Default notation as well
   // Also make the block below apply to Pure Scientific and Pure Engineering notations || rus9384
-  // This case handles numbers less than 1e-3 and greater than -1e-3
-  if (inputType === 'number' && Math.abs(input as number) < (!fractional ? 1e-3 : 1e-15)) { // Arbitrary number, don't change 1e-3
-    return input.toLocaleString(undefined, {
-      minimumSignificantDigits: 1 + accuracy,
-      maximumSignificantDigits: 1 + accuracy,
-      roundingMode: 'trunc' as const,
-      notation: player.notation === 'Pure Engineering' ? 'engineering' as const : 'scientific' as const
-    }).toLowerCase() // We want 'e' to be in lower case
-  }
-
-  // If the power is negative, then we will want to address that separately.
-  if (power < 0 && inputType === 'number' && fractional) {
-    if (power <= -15) {
-      return `${format(mantissa, accuracy, long)} / ${
-        Math.pow(
-          10,
-          -power - 15
-        )
-      }Qa`
-    }
-    if (power <= -12) {
-      return `${format(mantissa, accuracy, long)} / ${
-        Math.pow(
-          10,
-          -power - 12
-        )
-      }T`
-    }
-    if (power <= -9) {
-      return `${format(mantissa, accuracy, long)} / ${
-        Math.pow(
-          10,
-          -power - 9
-        )
-      }B`
-    }
-    if (power <= -6) {
-      return `${format(mantissa, accuracy, long)} / ${
-        Math.pow(
-          10,
-          -power - 6
-        )
-      }M`
-    }
-    if (power <= -3) {
-      return `${format(mantissa, accuracy, long)} / ${
-        Math.pow(
-          10,
-          -power - 3
-        )
-      }K`
-    }
-    return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
-  } else if (power < 6 || (long && power < 12)) {
+  if (power < 6 || (long && power < 12)) {
     // If the power is less than 6 or format long and less than 12 use standard formatting (1,234,567)
     // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 12
     let standard: number
@@ -2286,59 +2261,49 @@ export const format = (
     } else {
       standard = mantissa * Math.pow(10, power)
     }
-    let standardString: string
-    let digits = accuracy
-    if (power >= 2 + (long ? 1 : 0)) {
-      digits = 0
-    } else if (power === 2 && accuracy > 2) {
-      digits = 2
-    }
 
     // Rounds up if the number experiences a rounding error
-    if (standard - Math.floor(standard) > 0.9999999) {
-      standard = Math.ceil(standard)
+    const powerDelta = (power < -3 ? power : 0)
+    const delta = Math.pow(10, powerDelta - accuracy)
+    if (delta - standard % delta < 1e-7) {
+      standard += 1e-7 * Math.pow(10, powerDelta)
     }
 
-    standardString = standard.toLocaleString(undefined, {
-      minimumFractionDigits: digits,
-      maximumFractionDigits: digits,
-      roundingMode: 'trunc' as const
-    })
-    return standardString
+    // This case handles non-zero numbers less than 1e-3 and greater than -1e-3
+    if (power < -3) {
+      const notation = player.notation === 'Pure Engineering' ? 'engineering' as const : 'scientific' as const
+      return getFormatter(accuracy, truncate, notation).format(standard).toLowerCase() // We want 'e' to be in lower case
+    }
+
+    const digits = Math.max(0, Math.min(accuracy, accuracy + (long ? 2 : 1) - power))
+    return getFormatter(digits, truncate).format(standard)
   }
 
-  accuracy = Math.max(3, accuracy + 1)
   // Only apply Engineering notation if we can see all digits of the exponent || rus9384
-  if (player.notation === 'Pure Engineering' && (power < 1e6 || longExponent && power < 1e12)) {
+  if (player.notation === 'Pure Engineering' && power < 1e6) {
     const powerOver = (power % 3 + 3) % 3
     power -= powerOver
     mantissa *= Math.pow(10, powerOver)
   }
 
-  // Number.toLocaleString opts for 'accuracy' decimal places
-  const locOpts: Intl.NumberFormatOptions = {
-    minimumSignificantDigits: accuracy,
-    maximumSignificantDigits: accuracy,
-    roundingMode: 'trunc' as const
-  }
+  // Formatter for 'accuracy' decimal places
+  const formatter = getFormatter(Math.max(2, accuracy), truncate)
 
-  if (power < 1e6 || (longExponent && power < 1e12)) {
+  if (power < 1e6) {
     // If the power is less than 1e6 then apply standard scientific/engineering notation
     // Makes mantissa be rounded down to 'accuracy' decimal places
-    const mantissaLook = mantissa.toLocaleString(undefined, locOpts)
-    const powerLook = format(power, 0, longExponent)
+    const mantissaLook = formatter.format(mantissa)
+    const powerLook = format(power, 0)
     return `${mantissaLook}e${powerLook}` // Returns format (1.23e456,789)
   } else if (power >= 1e6) {
     // The only difference between Default and Pure Scientific is how it handles numbers larger than 1e1M / E1e6 || rus9384
     if (player.notation === 'Pure Scientific') {
-      return `E${format(power, 3)}`
+      return `E${format(power, 3, false, truncate)}`
     }
 
     // if the power is greater than 1e6 apply notation scientific notation
     // Makes mantissa be rounded down to 2 decimal places
-    const mantissaLook = testing && truncate
-      ? ''
-      : mantissa.toLocaleString(undefined, locOpts)
+    const mantissaLook = formatter.format(mantissa)
 
     // Drops the power down to 4 digits total but never greater than 1000 in increments that equate to notations, (1234000 -> 1.234) ( 12340000 -> 12.34) (123400000 -> 123.4) (1234000000 -> 1.234)
     const powerDigits = Math.ceil(Math.log10(power))
@@ -2349,10 +2314,7 @@ export const format = (
       powerFront = 1
     }
 
-    const powerLookF = powerLook.toLocaleString(undefined, {
-      minimumFractionDigits: 4 - powerFront,
-      maximumFractionDigits: 4 - powerFront
-    })
+    const powerLookF = getFormatter(4 - powerFront, false).format(powerLook)
     const powerLodge = Math.floor(Math.log10(power) / 3)
     // Return relevant notations alongside the "look" power based on what the power actually is
     if (typeof FormatList[powerLodge] === 'string') {
@@ -2389,8 +2351,8 @@ export const formatTimeShort = (
   )
 }
 
-export const formatAsPercentIncrease = (n: number, accuracy = 2) => {
-  return `${format((n - 1) * 100, accuracy, true)}%`
+export const formatAsPercentIncrease = (n: number, accuracy = 2, truncate = true) : string => {
+  return `${format((n - 1) * 100, accuracy, true, truncate)}%`
 }
 
 export const formatDecimalAsPercentIncrease = (n: Decimal, accuracy = 2) => {

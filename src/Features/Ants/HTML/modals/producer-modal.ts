@@ -21,7 +21,7 @@ export const antProducerHTML = (ant: AntProducers) => {
   const producerCountHTML = `<span>${
     i18next.t('ants.producerCount', {
       x: format(player.ants.producers[ant].purchased, 0, true),
-      y: format(player.ants.producers[ant].generated, 2)
+      y: format(player.ants.producers[ant].generated, 2, false, false)
     })
   }</span>`
 
@@ -29,7 +29,7 @@ export const antProducerHTML = (ant: AntProducers) => {
   const antsToBeGenerated = calculateBaseAntsToBeGenerated(ant, antSpeedMult)
   const generationHTML = `<span>${
     i18next.t(`ants.producers.${ant}.generates`, {
-      x: format(antsToBeGenerated, 5, true)
+      x: format(antsToBeGenerated, 2, true, false)
     })
   }</span>`
 
@@ -38,8 +38,8 @@ export const antProducerHTML = (ant: AntProducers) => {
   if (player.ants.toggles.maxBuyProducers && maxBuy > player.ants.producers[ant].purchased) {
     const cost = getCostMaxAnts(ant)
     costHTML = i18next.t('ants.costMaxLevels', {
-      x: format(maxBuy - player.ants.producers[ant].purchased, 0, true),
-      y: format(cost, 2, true)
+      x: format(maxBuy - player.ants.producers[ant].purchased, 0, true, false),
+      y: format(cost, 2, true, false)
     })
   } else {
     const cost = getCostNextAnt(ant)

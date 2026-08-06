@@ -689,7 +689,7 @@ export const htmlInserts = () => {
   // ALWAYS Update these, for they are the most important resources
   for (let i = 0; i < htmlInsertPlayerRequirements.length; i++) {
     const value = player[htmlInsertPlayerRequirements[i]]
-    const text = format(value instanceof Decimal ? value : value.valueOf())
+    const text = format(value instanceof Decimal ? value : value.valueOf(), 0, false, false)
     const dom = DOMCacheGetOrSet(htmlInsertDomRequirements[i])
     if (dom.textContent !== text) {
       dom.textContent = text
@@ -1070,7 +1070,7 @@ export const updateChallengeLevel = (k: number) => {
   const maxChallenges = getMaxChallenges(k)
 
   if (k === 15) {
-    el.textContent = format(player.challenge15Exponent, 0, false)
+    el.textContent = format(player.challenge15Exponent, 0, false, false)
   } else {
     el.textContent = `${player.challengecompletions[k]}/${maxChallenges}`
   }
@@ -1126,14 +1126,14 @@ const updateAscensionStats = () => {
   const addedAsteriskOneMind = getGQUpgradeEffect('oneMind', 'unlocked')
   const fillers: Record<string, string> = {
     ascLen: formatTimeShort(player.ascStatToggles[6] ? player.ascensionCounter : player.ascensionCounterReal, 0),
-    ascCubes: format(ascensionRewards.wowCubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2),
-    ascTess: format(ascensionRewards.wowTesseracts * (player.ascStatToggles[2] ? 1 : 1 / t), 2),
-    ascHyper: format(ascensionRewards.wowHypercubes * (player.ascStatToggles[3] ? 1 : 1 / t), 2),
-    ascPlatonic: format(ascensionRewards.wowPlatonicCubes * (player.ascStatToggles[4] ? 1 : 1 / t), 2),
-    ascHepteract: format(ascensionRewards.wowHepteracts * (player.ascStatToggles[5] ? 1 : 1 / t), 2),
+    ascCubes: format(ascensionRewards.wowCubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2, false, false),
+    ascTess: format(ascensionRewards.wowTesseracts * (player.ascStatToggles[2] ? 1 : 1 / t), 2, false, false),
+    ascHyper: format(ascensionRewards.wowHypercubes * (player.ascStatToggles[3] ? 1 : 1 / t), 2, false, false),
+    ascPlatonic: format(ascensionRewards.wowPlatonicCubes * (player.ascStatToggles[4] ? 1 : 1 / t), 2, false, false),
+    ascHepteract: format(ascensionRewards.wowHepteracts * (player.ascStatToggles[5] ? 1 : 1 / t), 2, false, false),
     ascC10: format(player.challengecompletions[10]),
-    ascTimeAccel: `${format(calculateGlobalSpeedMult(), 3)}x${addedAsteriskHalfMind ? '*' : ''}`,
-    ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3)}x${addedAsteriskOneMind ? '*' : ''}`,
+    ascTimeAccel: `${format(calculateGlobalSpeedMult(), 3, false, false)}x${addedAsteriskHalfMind ? '*' : ''}`,
+    ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3, false, false)}x${addedAsteriskOneMind ? '*' : ''}`,
     ascSingularityCount: format(player.singularityCount),
     ascSingLen: formatTimeShort(player.singularityCounter),
     ascSingChallengeLen: formatTimeShort(player.singChallengeTimer)
