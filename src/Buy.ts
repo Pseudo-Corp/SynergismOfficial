@@ -404,6 +404,10 @@ const getCostInternal = (
       // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
       mlog10125 += buyingTo * (buyingTo + 1) / 2
     }
+    // Applies the factorial w/ formula from earlier n times to avoid multiple computations
+    cost.exponent += fastFactMultBuyTo100
+      * ((factorialByExponent(buyingTo + 100) - fact100exponent + (2 * buyingTo))
+        * (1.25 + (player.challengecompletions[4] / 4)))
   }
   if ((player.currentChallenge.reincarnation === 10) && (type === 'Coin' || type === 'Diamonds')) {
     // you would not fucking believe how long it took me to figure this out
@@ -414,10 +418,6 @@ const getCostInternal = (
       mlog10125 += buyingTo * (buyingTo + 1) / 2
     }
   }
-  // Applies the factorial w/ formula from earlier n times to avoid multiple computations
-  cost.exponent += fastFactMultBuyTo100
-    * ((factorialByExponent(buyingTo + 100) - fact100exponent + (2 * buyingTo))
-      * (1.25 + (player.challengecompletions[4] / 4)))
   // Applies all the Math.log10(1.25)s from earlier n times to avoid multiple computations
   // log10(1.25)
   cost.exponent += known_log10s[1.25] * mlog10125
