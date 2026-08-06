@@ -4854,7 +4854,7 @@ const tack = (dt: number) => {
       && getLevelMilestone('autoPrestige') === 1
       && player.coinsThisPrestige.gte(G.d1e16)
     ) {
-      resetAchievementCheck('transcension')
+      resetAchievementCheck('prestige')
       reset('prestige', true)
     }
   }
