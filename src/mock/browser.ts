@@ -5,7 +5,7 @@ import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
 import { messageHandlers } from './handlers/MessageHandlers'
 import { paymentHandlers } from './handlers/PaymentHandlers'
 import { subscriptionHandlers } from './handlers/SubscriptionHandlers'
-import { consumeHandlers } from './websocket'
+import { consumeHandlers, getMockPseudoCoins } from './websocket'
 
 const GETHandlers = [
   http.get('https://synergism.cc/api/v1/quark-bonus', async () => {
@@ -17,7 +17,7 @@ const GETHandlers = [
   }),
   http.get('https://synergism.cc/stripe/coins', () => {
     return HttpResponse.json({
-      coins: 49001
+      coins: getMockPseudoCoins()
     })
   }),
   http.get('https://synergism.cc/consumables/list', () => {

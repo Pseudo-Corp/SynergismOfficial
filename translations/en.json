@@ -7819,6 +7819,24 @@
       "globalEventNone": "Timer Remaining: <<#8f8|--:--:-->>",
       "globalEventSome": "Timer Remaining: <<#8f8|{{time}}>>"
     },
+    "bellSchedule": {
+      "openBtn": "SCHEDULE: ",
+      "viewBtn": "Scheduled Bells",
+      "close": "Close",
+      "title": "Schedule a Happy Hour Bell",
+      "intro": "Pick a day and time up to {{days}} days ahead and your bell will ring automatically, even if you are offline. PseudoCoins are spent the moment you schedule it. Times are shown in <<gold|your local time>>, and the calendar shows bells scheduled by <<gold|every player>>.",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "noDaySelected": "Select a day to see its bells and schedule your own.",
+      "noBellsThisDay": "No bells scheduled on this day yet.",
+      "bellAt": "🔔 Bell at <<gold|{{time}}>>",
+      "scheduleBtn": "Schedule Bell [<<gold|{{cost}} PseudoCoins>>]",
+      "scheduled": "Your Happy Hour Bell has been scheduled!",
+      "pickDayAndTime": "Please pick both a day and a time first!",
+      "mustBeFuture": "Bells can only be scheduled in the future!",
+      "tooFarAhead": "Bells can only be scheduled up to {{days}} days ahead!",
+      "confirm": "You are about to schedule a {{name}} for {{date}} at {{time}}, your local time, for {{cost}} PseudoCoins. The coins are spent now, not when the bell rings. Continue?"
+    },
     "timeSkips": {
       "GLOBAL": {
         "title": "P/T/R/Ant Time Skips",

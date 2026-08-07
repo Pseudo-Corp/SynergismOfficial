@@ -35,12 +35,29 @@ export const messages = {
     })
   },
 
-  infoAll (active: unknown, inventory: unknown, tips: number) {
+  infoAll (active: unknown, inventory: unknown, tips: number, scheduledBells: unknown) {
     return JSON.stringify({
       type: 'info-all',
       active,
       tips,
-      inventory
+      inventory,
+      scheduledBells
+    })
+  },
+
+  /* Broadcast when any player schedules a Happy Hour Bell */
+  bellScheduled (id: number, scheduledFor: number) {
+    return JSON.stringify({
+      type: 'bell-scheduled',
+      id,
+      scheduledFor
+    })
+  },
+
+  /* Received only by the player who scheduled the bell, after their PseudoCoins are spent */
+  bellScheduleConfirmed () {
+    return JSON.stringify({
+      type: 'bell-schedule-confirmed'
     })
   },
 
@@ -135,6 +152,10 @@ export const messageSchema = z.preprocess(
     z.object({
       type: z.literal('applied-lotus'),
       amount: z.number().int().min(0).safe()
+    }),
+    z.object({
+      type: z.literal('schedule-bell'),
+      scheduledFor: z.number().int().min(0).safe()
     })
   ])
 )
