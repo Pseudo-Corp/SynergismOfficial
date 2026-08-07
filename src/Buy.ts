@@ -234,9 +234,8 @@ const getCostAccelMult = (type: keyof typeof accelMultData, n: number): Decimal 
 
 }
 
-const getAcceleratorBoostCost = (n = 1): Decimal => {
+const getAcceleratorBoostCost = (owned = 1): Decimal => {
 
-  const owned = n - 1
   const base = new Decimal(1000)
   const r = getRuneBlessingEffect('thrift').accelBoostCostDelay
 
@@ -248,7 +247,7 @@ const getAcceleratorBoostCost = (n = 1): Decimal => {
   const cost = base.times(Decimal.pow(10, exponent))
 
   if (owned > softcap) {
-    const QuadrillionCost = getAcceleratorBoostCost(softcap)
+    const QuadrillionCost = getAcceleratorBoostCost(softcap - 1)
     const newCost = QuadrillionCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
     // No need for normalization, Decimal.prototype.pow() already normalizes the number
     return Decimal.max(cost, newCost)
