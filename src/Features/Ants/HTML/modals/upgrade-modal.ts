@@ -53,8 +53,8 @@ export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
   if (player.ants.toggles.maxBuyUpgrades && maxBuy > player.ants.upgrades[antUpgrade]) {
     const cost = getCostMaxAntUpgrades(antUpgrade)
     costHTML = i18next.t('ants.costMaxLevels', {
-      x: format(maxBuy - player.ants.upgrades[antUpgrade], 0, true),
-      y: format(cost, 2, true)
+      x: format(maxBuy - player.ants.upgrades[antUpgrade], 0, true, false),
+      y: format(cost, 2, true, false)
     })
   } else {
     const cost = getCostNextAntUpgrade(antUpgrade)
