@@ -2251,24 +2251,39 @@
                         <button id="timeCode" class="promocodeButton" style="border:2px solid green" i18n="settings.time"></button>
                         <button id="promocodes" class="promocodeButton" style="border:2px solid goldenrod" i18n="settings.enterPromoCodeHere"></button>
                         <p id="promocodeinfo" style="color: goldenrod"></p>
-                        <p id="themesTitle" style="color: pink" aria-hidden="true" i18n="settings.currentTheme"></p>
-                        <div id="themeArea" class="promocodeButton" aria-hidden="true">
-                            <button id="theme" tabindex="-1" style="border: 2px solid white" i18n="settings.themes.dark"></button>
-                            <div id="themeBox">
-                                <button id="switchTheme1" style="border: 2px solid gray"  i18n="settings.themes.dark"></button>
-                                <button id="switchTheme2" style="border: 2px solid darkslategray" i18n="settings.themes.darker"></button>
-                                <button id="switchTheme3" style="border: 2px solid lightslategray" i18n="settings.themes.lighterDark"></button>
-                                <button id="switchTheme4" style="border: 2px solid cyan" i18n="settings.themes.light"></button>
-                                <button id="switchTheme5" style="border: 2px solid purple" i18n="settings.themes.dracula"></button>
-                                <button id="switchTheme6" style="border: 2px solid black" i18n="settings.themes.oled"></button>
+                        <p id="appearanceSettingsTitle" style="color: pink" i18n="settings.appearance"></p>
+                        <div class="appearanceSettings">
+                            <div class="appearanceSetting appearanceSettingWide">
+                                <p id="themesTitle" aria-hidden="true" i18n="settings.currentTheme"></p>
+                                <div id="themeArea" class="promocodeButton" aria-hidden="true">
+                                    <button id="theme" tabindex="-1" style="border: 2px solid white" i18n="settings.themes.dark"></button>
+                                    <div id="themeBox">
+                                        <button id="switchTheme1" style="border: 2px solid gray"  i18n="settings.themes.dark"></button>
+                                        <button id="switchTheme2" style="border: 2px solid darkslategray" i18n="settings.themes.darker"></button>
+                                        <button id="switchTheme3" style="border: 2px solid lightslategray" i18n="settings.themes.lighterDark"></button>
+                                        <button id="switchTheme4" style="border: 2px solid cyan" i18n="settings.themes.light"></button>
+                                        <button id="switchTheme5" style="border: 2px solid purple" i18n="settings.themes.dracula"></button>
+                                        <button id="switchTheme6" style="border: 2px solid black" i18n="settings.themes.oled"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="appearanceSetting">
+                                <p id="iconSetTitle" i18n="settings.currentIconSet"></p>
+                                <button id="iconSet" class="promocodeButton" style="border: 2px solid white"></button>
+                            </div>
+                            <div class="appearanceSetting">
+                                <p id="notationTitle" i18n="settings.currentNotation"></p>
+                                <button id="notation" class="promocodeButton" style="border: 2px solid white"></button>
+                            </div>
+                            <div class="appearanceSetting hideOnMobile">
+                                <p id="monospaceFontTitle" i18n="settings.font"></p>
+                                <button id="monospaceFont" class="promocodeButton" style="border: 2px solid white"></button>
+                            </div>
+                            <div class="appearanceSetting hideOnMobile">
+                                <p id="statSymbolTitle" i18n="settings.statSymbol"></p>
+                                <button id="statSymbols" class="promocodeButton" style="border: 2px solid white"></button>
                             </div>
                         </div>
-                        <p id="iconSetTitle" style="color: pink" i18n="settings.currentIconSet"></p>
-                        <button id="iconSet" class="promocodeButton" style="border: 2px solid white"></button>
-                        <p id="notationTitle" style="color: pink" i18n="settings.currentNotation"></p>
-                        <button id="notation" class="promocodeButton" style="border: 2px solid white"></button>
-                        <p id="statSymbolTitle" class="hideOnMobile" style="color: pink" i18n="settings.statSymbol"></p>
-                        <button id="statSymbols" class="promocodeButton hideOnMobile" style="border: 2px solid white"></button>
                     </div>
                     <div id="exportButtons">
                         <div id="versionnumber"></div>

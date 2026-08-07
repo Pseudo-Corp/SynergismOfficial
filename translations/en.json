@@ -5253,7 +5253,7 @@
     "shop": "Hover over each portion of the shop to see what each upgrade does!"
   },
   "buildings": {
-    "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold | +{{coinsPerSecond}}/s>>] | Total Ever: <<gold | {{totalGenerated}}>>",
+    "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold |+{{coinsPerSecond}}/s>>] <br> Total Ever: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "You have nothing but 100 coins. You can hire a worker, conveniently for exactly 100 coins!",
       "2": "Your workers sure are working hard. Let's buy some investments with our coins!",
@@ -5282,9 +5282,9 @@
       "25": "No one will know my name, but the bards' songs will remain.",
       "26": "That's a lot of coins lol"
     },
-    "taxWarning": "Your tax also caps your Coin gain at {{gain}}/s.",
-    "acceleratorPower": "Acceleration Power: {{power}}% || Acceleration Multiplier: {{mult}}x",
-    "multiplierPower": "Multiplier Power: {{power}}x || Multiplier: {{mult}}x",
+    "taxWarning": "Your tax also caps your Coin gain at <<gold|{{gain}}/s>>.",
+    "acceleratorPower": "Acceleration Power: {{power}}% <br> Acceleration Multiplier: {{mult}}x",
+    "multiplierPower": "Multiplier Power: {{power}}x <br> Multiplier: {{mult}}x",
     "acceleratorBoost": "Reset Diamonds and Diamond Upgrades, but add {{amount}}% Acceleration Power and {{accelsPerBoost}} free Accelerators.",
     "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
     "buy": "Buy",
@@ -5363,7 +5363,7 @@
     "costTesseracts": "Cost: {{tesseracts}} Tesseracts",
     "autoTesseract": "Auto buyer will save at least {{tesseracts}} tesseracts. [Enter number above].",
     "autoAscensionTesseract": "On Ascension, Auto buyer will save at least {{percent}}% of your current amount of tesseracts. [Enter number above].",
-    "excessiveWealth": "Due to your excessive wealth, coin production is divided by {{div}} to pay taxes! {{- warning}}",
+    "excessiveWealth": "Due to your excessive wealth, coin production is divided by <<gold|{{div}}>> to pay taxes! <br> {{- warning}}",
     "constantHover": "Select an icon for a description of the upgrade."
   },
   "octeract": {
@@ -6200,6 +6200,12 @@
       "pureEngineering": "Pure Engineering"
     },
     "currentNotation": "Current Annotation",
+    "appearance": "Appearance",
+    "font": "Game Font",
+    "fonts": {
+      "default": "Default",
+      "monospace": "Monospace"
+    },
     "iconSets": {
       "default": "Default",
       "legacy": "Legacy",
@@ -7628,7 +7634,8 @@
     "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
     "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
     "buyResearch3x11": "[LOCKED - Buy Research 3x11]",
-    "statSymbolConfirm": "Would you like to toggle Stat Symbols?"
+    "statSymbolConfirm": "Would you like to toggle Stat Symbols?",
+    "monospaceFontConfirm": "Would you like to toggle the game font?"
   },
   "history": {
     "perSecondOn": "Per second: ON",

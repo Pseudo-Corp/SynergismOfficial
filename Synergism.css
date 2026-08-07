@@ -38,6 +38,19 @@ html {
     scrollbar-width: none;
 }
 
+html[data-monospace-font="true"] {
+    font-family:
+        Inconsolata,
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        "Courier New",
+        monospace;
+}
+
 img {
     image-rendering: pixelated;
 }
@@ -223,6 +236,7 @@ input,
 button,
 select,
 textarea {
+    font-family: inherit;
     font-size: 0.75em;
     padding: 0;
     margin: 0;
@@ -1362,8 +1376,40 @@ p#buildinghotkeys2 {
 }
 
 p#specialActionsTitle,
-p#themesTitle {
+p#appearanceSettingsTitle {
     margin-top: 15px;
+}
+
+.appearanceSettings {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    width: 100%;
+}
+
+.appearanceSetting {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    padding: 6px;
+    border: 1px solid var(--boxmain-bordercolor);
+    background-color: var(--box-color);
+}
+
+.appearanceSettingWide {
+    grid-column: 1 / -1;
+}
+
+.appearanceSetting > p {
+    margin: 0;
+    color: pink;
+}
+
+.appearanceSetting > .promocodeButton {
+    width: 100%;
+    min-width: 0;
+    margin: auto 0 0;
 }
 
 #exportButtons > * { margin: 2px auto; }
@@ -1471,17 +1517,24 @@ p#promocodeinfo {
     width: 100%;
 }
 
+#themeArea {
+    position: relative;
+}
+
 #themeArea > button { width: 100%; }
 #themeArea:focus-within > div { display: inline-grid; }
 
 #themeArea > div {
     position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
     display: none;
     grid-template-columns: repeat(2, 150px);
     border: 3px solid var(--boxmain-bordercolor);
     background-color: var(--box-color);
     padding: 2px;
-    margin-left: 8px;
+    transform: translateX(-50%);
 }
 
 #themeArea > div button {
@@ -1660,6 +1713,7 @@ p#promocodeinfo {
     > .cost,
     > .stats {
         width: auto;
+        min-width: 0;
         font-size: 1em;
         line-height: 1.2;
         white-space: normal;
@@ -8039,6 +8093,7 @@ html[data-mobile="true"] .hideOnMobile {
 
     #themeArea > div {
         position: unset;
+        transform: unset;
     }
 
     #themeArea.open > div {

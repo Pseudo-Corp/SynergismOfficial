@@ -291,7 +291,7 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    DOMCacheGetOrSet('buildtext12').textContent = i18next.t(
+    DOMCacheGetOrSet('buildtext12').innerHTML = i18next.t(
       'buildings.acceleratorPower',
       {
         power: format((G.acceleratorPower - 1) * 100, 2, false, false),
@@ -299,7 +299,7 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    DOMCacheGetOrSet('buildtext13').textContent = i18next.t(
+    DOMCacheGetOrSet('buildtext13').innerHTML = i18next.t(
       'buildings.names.multipliers',
       {
         amount: format(player.multiplierBought, 0, true, false),
@@ -307,7 +307,7 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    DOMCacheGetOrSet('buildtext14').textContent = i18next.t(
+    DOMCacheGetOrSet('buildtext14').innerHTML = i18next.t(
       'buildings.multiplierPower',
       {
         power: format(G.multiplierPower, 2, false, false),
@@ -376,7 +376,7 @@ export const visualUpdateBuildings = () => {
         )
       })
     }
-    DOMCacheGetOrSet('taxinfo').textContent = i18next.t(
+    DOMCacheGetOrSet('taxinfo').innerHTML = i18next.t(
       'buildings.excessiveWealth',
       {
         div: format(G.taxdivisor, 2, false, false),

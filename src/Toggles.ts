@@ -22,6 +22,41 @@ import { Globals as G } from './Variables'
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract'
 
 const buyAmountNames = ['one', 'ten', 'hundred', 'thousand', '10k', '100k']
+const MONOSPACE_FONT_STORAGE_KEY = 'monospaceFont'
+
+const applyMonospaceFont = (enabled: boolean) => {
+  document.documentElement.dataset.monospaceFont = `${enabled}`
+}
+
+export const initializeMonospaceFont = (enabledByDefault: boolean) => {
+  const storedSetting = storageGetItem(MONOSPACE_FONT_STORAGE_KEY)
+  const enabled = storedSetting === null ? enabledByDefault : storedSetting === 'true'
+
+  if (storedSetting === null) {
+    storageSetItem(MONOSPACE_FONT_STORAGE_KEY, `${enabled}`)
+  }
+
+  applyMonospaceFont(enabled)
+}
+
+export const settingMonospaceFont = () => {
+  const enabled = storageGetItem(MONOSPACE_FONT_STORAGE_KEY) === 'true'
+  DOMCacheGetOrSet('monospaceFont').textContent = enabled
+    ? i18next.t('settings.fonts.monospace')
+    : i18next.t('settings.fonts.default')
+}
+
+export const toggleMonospaceFont = async () => {
+  const confirmation = await Confirm(i18next.t('main.monospaceFontConfirm'))
+  if (!confirmation) {
+    return
+  }
+
+  const enabled = storageGetItem(MONOSPACE_FONT_STORAGE_KEY) !== 'true'
+  storageSetItem(MONOSPACE_FONT_STORAGE_KEY, `${enabled}`)
+  applyMonospaceFont(enabled)
+  settingMonospaceFont()
+}
 
 export const toggleSettings = (toggle: HTMLElement) => {
   const toggleId = toggle.getAttribute('toggleId') ?? 1

@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import { buyBuilding, boostAccelerator } from './Buy'
+import { boostAccelerator, buyBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { confirmAntSacrifice } from './Features/Ants/AntSacrifice/sacrifice'
 import { promocodes } from './ImportExport'

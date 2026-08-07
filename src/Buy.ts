@@ -80,7 +80,6 @@ const getCostBuilding = (
   index: ZeroToFour,
   r: number
 ): Decimal => {
-
   const owned = n - 1
 
   const originalCost = producerData[type].costs[index]
@@ -100,7 +99,7 @@ const getCostBuilding = (
   if (owned >= fr) {
     // This code is such a mess at this point, just know that this is equivalent to what it was before
     ;++fastFactMultBuyTo
-    //const fr = Math.floor(r * 1000) // floored r value gets used a lot in removing calculations
+    // const fr = Math.floor(r * 1000) // floored r value gets used a lot in removing calculations
     cost = cost.dividedBy(Decimal.fromNumber(fr - 1).factorial())
     cost = cost.times(Decimal.pow((1 + growth / 2) / 1000, n - fr))
   }
@@ -186,11 +185,9 @@ const getCostBuilding = (
     return Decimal.max(cost, newCost)
   }
   return cost
-
 }
 
 const getCostAccelMult = (type: keyof typeof accelMultData, n: number): Decimal => {
-
   const owned = n - 1
   let steps = owned
   let cost = Decimal.fromNumber(accelMultData[type].cost)
@@ -231,11 +228,9 @@ const getCostAccelMult = (type: keyof typeof accelMultData, n: number): Decimal 
   }
 
   return cost
-
 }
 
 const getAcceleratorBoostCost = (n = 1): Decimal => {
-
   const owned = n - 1
   const base = new Decimal(1000)
   const r = getRuneBlessingEffect('thrift').accelBoostCostDelay
@@ -254,11 +249,9 @@ const getAcceleratorBoostCost = (n = 1): Decimal => {
     return Decimal.max(cost, newCost)
   }
   return cost
-
 }
 
 const getCostParticle = (n: number, index: ZeroToFour): Decimal => {
-
   const owned = n - 1
   const originalCost = producerData.particle.costs[index]
   let cost = Decimal.fromValue(originalCost).times(Decimal.pow(2, owned))
@@ -275,7 +268,6 @@ const getCostParticle = (n: number, index: ZeroToFour): Decimal => {
     return Decimal.max(cost, newCost)
   }
   return cost
-
 }
 
 export const getCost = (
@@ -284,7 +276,7 @@ export const getCost = (
   index: ZeroToFour = 0,
   r?: number
 ) => {
-  switch(type) {
+  switch (type) {
     case 'accelerator':
     case 'multiplier':
       return getCostAccelMult(type, n)
@@ -302,7 +294,6 @@ export const buyBuilding = (
   amount?: BuyAmount | 'max',
   index: ZeroToFour = 0
 ) => {
-
   const isAccelMult = type === 'accelerator' || type === 'multiplier'
   const isProducer = !isAccelMult && type !== 'acceleratorBoost'
   const pos = G.ordinals[index]
@@ -324,7 +315,6 @@ export const buyBuilding = (
   const buyStart = player[posOwnedType]
   // If at least softcap, we will use a different formulae
   if (buyStart >= softcap) {
-
     const log10Resource = Decimal.log10(player[tag])
     const log10QuadrillionCost = Decimal.log10(getCost(type, softcap, index, r))
 
@@ -415,7 +405,6 @@ export const buyBuilding = (
     player.transcendnoaccelerator = false
     player.reincarnatenoaccelerator = false
   }
-
 }
 
 export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
@@ -504,7 +493,6 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
 }
 
 export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount) => {
-
   if (player.upgrades[46] < 1) {
     while (player.prestigePoints.gte(player.acceleratorBoostCost) && G.ticker < 1) {
       if (player.prestigePoints.gte(player.acceleratorBoostCost)) {
@@ -527,7 +515,6 @@ export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamoun
 
   G.ticker = 0
   awardAchievementGroup('acceleratorBoosts')
-
 }
 
 const tesseractBuildingCosts = [1, 10, 100, 1000, 10000] as const
