@@ -709,6 +709,116 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
         ". . . . .";
 }
 
+/* Announcements. The overlay and every card are built by Announcement() in UpdateHTML.ts. */
+
+#announcementOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+
+    /* Below the offline progress screen, so a load-time announcement waits behind it */
+    z-index: 6967;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* Falls back to the top rather than clipping when enough announcements stack up to overflow */
+    justify-content: safe center;
+    gap: 15px;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: rgb(0 0 0 / 50%);
+}
+
+.announcement {
+    flex: none;
+    display: grid;
+
+    /* The two fr columns stay equal, so the header sits dead centre even though only the right one
+       holds the close button */
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-areas:
+        ". header close"
+        "title title title"
+        "content content content";
+    gap: 10px;
+    width: 30vw;
+    min-width: min(min(30em, 800px), 100%);
+    max-width: 100%;
+    padding: 15px;
+    color: white;
+    background-color: var(--alert-color);
+    border: 1px solid gold;
+    border-radius: 5px;
+    font-size: min(1em, 24px);
+}
+
+.announcement-header {
+    grid-area: header;
+    margin: 0;
+    text-align: center;
+    color: #ff6b6b;
+}
+
+.announcement-title {
+    grid-area: title;
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.announcement-content {
+    grid-area: content;
+    max-height: 50vh;
+    overflow-y: auto;
+    text-align: center;
+    white-space: pre-line;
+}
+
+.announcement-content a {
+    color: cyan;
+    text-decoration: underline;
+
+    /* Bare URLs are unbreakable words and would otherwise widen the card */
+    overflow-wrap: anywhere;
+}
+
+.announcement-close {
+    grid-area: close;
+    justify-self: end;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    margin: 0;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 0;
+    line-height: 0;
+    color: white;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    cursor: pointer;
+    background-color: var(--button-color);
+    appearance: none;
+}
+
+.announcement-close:hover,
+.announcement-close:active {
+    background-color: var(--hover-color);
+}
+
+.announcement-close:focus-visible {
+    outline: 2px solid gold;
+    outline-offset: 2px;
+    border-color: gold;
+}
+
+.announcement-close > img {
+    pointer-events: none;
+}
+
 .confirmBox {
     display: flex;
     align-items: center;
@@ -7870,7 +7980,8 @@ html[data-mobile="true"] .hideOnMobile {
 
     /* Modals and dialogs */
     #confirmationBox,
-    #captchaHolder {
+    #captchaHolder,
+    .announcement {
         width: 90vw;
         min-width: unset;
         max-width: 95vw;
@@ -8394,7 +8505,8 @@ html[data-mobile="true"] .hideOnMobile {
 
     /* Dialogs */
     #confirmationBox,
-    #captchaHolder {
+    #captchaHolder,
+    .announcement {
         min-height: unset;
         padding: 10px;
     }

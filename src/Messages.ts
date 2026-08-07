@@ -1,4 +1,8 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { storageGetItem, storageSetItem } from './events/storage-events'
+import { isLoggedIn } from './Login'
+import { Announcement } from './UpdateHTML'
+import { memoize } from './Utility'
 
 export interface Message {
   id: number
@@ -6,10 +10,9 @@ export interface Message {
   content: string
   type: 'info' | 'warning' | 'error' | 'success'
   priority: number
-  is_active: boolean
+  announcement: number
   created_at: string
-  updated_at: string
-  expires_at?: string
+  expires_at: string | null
 }
 
 interface ApiResponse<T> {
@@ -28,11 +31,14 @@ interface SuccessResponse extends ApiResponse<never> {
   success: true
 }
 
+const DISMISSED_ANNOUNCEMENTS_KEY = 'dismissedAnnouncements'
+const ANNOUNCEMENT_POLL_INTERVAL = 1000 * 60 * 30
+
 let unreadMessages: Message[] = []
 
-export const fetchUnreadMessages = async (): Promise<Message[]> => {
+const fetchMessages = async (url: string): Promise<Message[]> => {
   try {
-    const response = await fetch('https://synergism.cc/messages/unread', {
+    const response = await fetch(url, {
       credentials: 'include'
     })
 
@@ -44,16 +50,23 @@ export const fetchUnreadMessages = async (): Promise<Message[]> => {
     const result = await response.json() as MessageListResponse
 
     if (result.success && result.data) {
-      unreadMessages = result.data.sort((a, b) => b.priority - a.priority)
-      updateMessagesNotificationBadge()
-      return unreadMessages
+      return result.data.sort((a, b) => b.priority - a.priority)
     }
 
     return []
   } catch (error) {
-    console.error('Error fetching unread messages:', error)
+    console.error('Error fetching messages:', error)
     return []
   }
+}
+
+const fetchUnreadMessages = async (): Promise<Message[]> => {
+  const messages = await fetchMessages('https://synergism.cc/messages/unread')
+
+  unreadMessages = messages.filter((message) => !message.announcement)
+  updateMessagesNotificationBadge()
+
+  return messages
 }
 
 const markMessageAsRead = async (messageId: number): Promise<boolean> => {
@@ -243,3 +256,67 @@ export const initializeMessages = async () => {
   updateMessagesUI()
   updateMessagesNotificationBadge()
 }
+
+const handledAnnouncements = new Set<number>()
+
+const getDismissedAnnouncements = () => {
+  const stored = storageGetItem(DISMISSED_ANNOUNCEMENTS_KEY)
+
+  if (stored === null) {
+    return new Set<number>()
+  }
+
+  try {
+    const parsed = JSON.parse(stored) as unknown
+
+    if (!Array.isArray(parsed)) {
+      return new Set<number>()
+    }
+
+    return new Set(parsed.filter((id): id is number => typeof id === 'number'))
+  } catch {
+    return new Set<number>()
+  }
+}
+
+/**
+ * Logged out players have no server-side read status, so dismissals live in storage instead.
+ */
+const dismissAnnouncementLocally = (id: number, liveIds: Set<number>) => {
+  const dismissed = getDismissedAnnouncements()
+  dismissed.add(id)
+
+  storageSetItem(DISMISSED_ANNOUNCEMENTS_KEY, JSON.stringify([...dismissed].filter((kept) => liveIds.has(kept))))
+}
+
+const checkAnnouncements = async () => {
+  const loggedIn = isLoggedIn()
+  const messages = loggedIn
+    ? await fetchUnreadMessages()
+    : await fetchMessages('https://synergism.cc/messages')
+
+  const announcements = messages.filter((message) => message.announcement)
+  const liveIds = new Set(announcements.map((announcement) => announcement.id))
+  const dismissed = getDismissedAnnouncements()
+
+  for (const announcement of announcements) {
+    if (handledAnnouncements.has(announcement.id) || dismissed.has(announcement.id)) {
+      continue
+    }
+
+    handledAnnouncements.add(announcement.id)
+
+    Announcement(announcement.title, announcement.content).then(() => {
+      if (loggedIn) {
+        return markMessageAsRead(announcement.id)
+      }
+
+      dismissAnnouncementLocally(announcement.id, liveIds)
+    }).catch(console.error)
+  }
+}
+
+export const initializeAnnouncements = memoize(() => {
+  checkAnnouncements().catch(console.error)
+  setInterval(() => checkAnnouncements().catch(console.error), ANNOUNCEMENT_POLL_INTERVAL)
+})
