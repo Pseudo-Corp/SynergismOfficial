@@ -6683,8 +6683,7 @@ html[data-mobile="false"] .pseudoCoinButton {
 
 .bellCalendarDayCount {
     color: var(--amber-text-color);
-    /* Reserve the row so day numbers don't shift when a bell appears */
-    min-height: 1em;
+    min-height: 1em; /* Reserve the row so day numbers don't shift when a bell appears */
     line-height: 1;
 }
 
