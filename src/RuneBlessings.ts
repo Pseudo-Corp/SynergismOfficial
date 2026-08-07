@@ -12,6 +12,7 @@ import { IconSets } from './Themes'
 import { CloseModal, Modal } from './UpdateHTML'
 import { assert, isMobile } from './Utility'
 import { Globals as G } from './Variables'
+import { getAcceleratorBoostCost } from './Buy'
 
 type RuneBlessingTypeMap = {
   speed: { globalSpeed: number }
@@ -226,6 +227,10 @@ export const buyBlessingLevels = (blessing: RuneBlessingKeys, budget: Decimal) =
 
   levelBlessing(blessing, levelsToAdd, budget)
   updateLevelsFromEXP(blessing)
+
+  if (blessing === 'thrift') {
+    player.acceleratorBoostCost = getAcceleratorBoostCost(player.acceleratorBoostBought + 1)
+  }
 }
 
 export const buyAllBlessingLevels = (budget: Decimal) => {

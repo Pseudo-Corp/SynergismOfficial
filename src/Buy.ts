@@ -230,7 +230,7 @@ const getCostAccelMult = (type: keyof typeof accelMultData, n: number): Decimal 
   return cost
 }
 
-const getAcceleratorBoostCost = (n = 1): Decimal => {
+export const getAcceleratorBoostCost = (n = 1): Decimal => {
   const owned = n - 1
   const base = new Decimal(1000)
   const r = getRuneBlessingEffect('thrift').accelBoostCostDelay
