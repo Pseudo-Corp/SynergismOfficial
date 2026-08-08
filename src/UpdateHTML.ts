@@ -1435,6 +1435,131 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
   return p.promise
 }
 
+const bareURL = /https?:\/\/[^\s<>"']+/g
+// Trailing punctuation almost always belongs to the sentence, not the URL
+const trailingPunctuation = /[.,;:!?)\]}]+$/
+
+/**
+ * Turns bare URLs inside already-rendered markup into anchors. Text nodes are collected up front
+ * because replacing them mutates the tree the walker is iterating over, and anything already inside
+ * an <a> is skipped so hand-written links keep their own text.
+ */
+const linkify = (root: HTMLElement) => {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+  const textNodes: Text[] = []
+
+  while (walker.nextNode() !== null) {
+    const node = walker.currentNode as Text
+
+    if (!node.parentElement?.closest('a')) {
+      textNodes.push(node)
+    }
+  }
+
+  for (const node of textNodes) {
+    const text = node.data
+    const fragment = document.createDocumentFragment()
+    let index = 0
+
+    bareURL.lastIndex = 0
+
+    for (let match = bareURL.exec(text); match !== null; match = bareURL.exec(text)) {
+      const url = match[0].replace(trailingPunctuation, '')
+
+      const anchor = document.createElement('a')
+      anchor.href = url
+      anchor.textContent = url
+      anchor.target = '_blank'
+      anchor.rel = 'noopener noreferrer'
+
+      fragment.append(text.slice(index, match.index), anchor)
+
+      index = match.index + url.length
+      bareURL.lastIndex = index
+    }
+
+    if (index === 0) continue
+
+    fragment.append(text.slice(index))
+    node.replaceWith(fragment)
+  }
+}
+
+let announcementOverlay: HTMLDivElement | undefined
+
+const getAnnouncementOverlay = () => {
+  if (announcementOverlay === undefined) {
+    announcementOverlay = document.createElement('div')
+    announcementOverlay.id = 'announcementOverlay'
+    document.body.appendChild(announcementOverlay)
+  }
+
+  return announcementOverlay
+}
+
+/**
+ * Unlike Alert and friends this is not queued: several announcements may be open at the same time,
+ * stacked inside a shared overlay. The returned promise resolves when this specific one is closed.
+ */
+export const Announcement = (title: string, content: string) => {
+  const overlay = getAnnouncementOverlay()
+
+  const card = document.createElement('div')
+  card.className = 'announcement'
+  card.setAttribute('role', 'dialog')
+  card.tabIndex = -1
+
+  const close = document.createElement('button')
+  close.className = 'announcement-close'
+  close.type = 'button'
+  close.setAttribute('aria-label', i18next.t('general.closeAnnouncement'))
+
+  const x = document.createElement('img')
+  x.src = 'Pictures/Default/X.png'
+  x.height = 16
+  x.width = 16
+  x.alt = ''
+  close.appendChild(x)
+
+  const header = document.createElement('h2')
+  header.className = 'announcement-header'
+  header.textContent = i18next.t('general.announcement')
+
+  const titleNode = document.createElement('p')
+  titleNode.className = 'announcement-title'
+  titleNode.textContent = title
+
+  const body = document.createElement('div')
+  body.className = 'announcement-content scrollbar'
+  body.innerHTML = content
+  linkify(body)
+
+  card.append(close, header, titleNode, body)
+  overlay.appendChild(card)
+  overlay.style.display = 'flex'
+  card.focus()
+
+  const p = createDeferredPromise<void>()
+
+  const listener = () => {
+    card.removeEventListener('keyup', kbListener)
+    card.remove()
+
+    if (overlay.childElementCount === 0) {
+      overlay.style.display = 'none'
+    }
+
+    p.resolve()
+  }
+
+  const kbListener = (e: KeyboardEvent) => e.key === 'Escape' && listener()
+
+  close.addEventListener('click', listener, { once: true })
+  card.addEventListener('keyup', kbListener)
+
+  return p.promise
+}
+
 type OptionalHTMLStyle = Partial<CSSStyleDeclaration>
 type ModalButtonClickCallback = (button: HTMLButtonElement, event: MouseEvent) => void
 

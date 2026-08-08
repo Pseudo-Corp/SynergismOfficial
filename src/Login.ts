@@ -91,7 +91,7 @@ const boundLogoutButtons = new WeakSet<HTMLElement>()
 
 const cloudSaves: Save[] = []
 
-const isLoggedIn = () => loggedIn
+export const isLoggedIn = () => loggedIn
 
 export const getTips = () => tips
 export const setTips = (newTips: number) => tips = newTips

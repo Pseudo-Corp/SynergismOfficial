@@ -206,7 +206,7 @@ import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
-import { fetchUnreadMessages } from './Messages'
+import { initializeAnnouncements } from './Messages'
 import { blankOcteractLevelObject, type OcteractUpgrades, octeractUpgrades } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
@@ -5107,7 +5107,7 @@ window.addEventListener('load', async () => {
   }
 
   await i18nInit()
-  handleLogin().catch(console.error)
+  const loginResolved = handleLogin().catch(console.error)
   if (PLATFORM === 'steam') {
     const { onAuthChanged } = await import('./steam/steam')
     onAuthChanged(() => handleLogin().catch(console.error))
@@ -5166,10 +5166,10 @@ window.addEventListener('load', async () => {
   generateLevelMilestoneHTMLS()
   toggleAntsSubtab('1')
 
-  // Initialize messages on game load
-  fetchUnreadMessages().catch(console.error)
-
   await reloadShit()
+
+  // Which endpoint announcements come from depends on the login state, so wait for it to settle
+  loginResolved.then(initializeAnnouncements).catch(console.error)
 
   if (testing || !PROD) {
     Object.defineProperties(window, {
