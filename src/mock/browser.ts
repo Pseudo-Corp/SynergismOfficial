@@ -5,6 +5,7 @@ import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
 import { messageHandlers } from './handlers/MessageHandlers'
 import { paymentHandlers } from './handlers/PaymentHandlers'
 import { subscriptionHandlers } from './handlers/SubscriptionHandlers'
+import { xsollaHandlers } from './handlers/XsollaHandlers'
 import { consumeHandlers } from './websocket'
 
 const GETHandlers = [
@@ -1512,5 +1513,6 @@ export const worker = setupWorker(
   ...cloudSaveHandlers,
   ...messageHandlers,
   ...paymentHandlers,
-  ...subscriptionHandlers
+  ...subscriptionHandlers,
+  ...xsollaHandlers
 )

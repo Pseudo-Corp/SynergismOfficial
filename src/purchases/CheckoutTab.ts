@@ -20,7 +20,7 @@ const tab = document.querySelector<HTMLElement>('#pseudoCoins > #cartContainer')
 const form = tab.querySelector('div.cartList')!
 
 const checkoutStripe = form.querySelector<HTMLElement>('button#checkout')
-const checkoutNowPayments = form.querySelector<HTMLElement>('button#checkout-nowpayments')
+const checkoutXsolla = form.querySelector<HTMLElement>('button#checkout-xsolla')
 const tosSection = form.querySelector('section#tosSection')!
 const radioTOSAgree = form.querySelector<HTMLInputElement>('section > input[type="radio"]')!
 const totalCost = form.querySelector('p#totalCost')
@@ -62,11 +62,11 @@ const initializeCheckoutTab = memoize(() => {
     fd.set('tosAgree', radioTOSAgree.checked ? 'on' : 'off')
 
     checkoutStripe?.setAttribute('disabled', '')
-    checkoutNowPayments?.setAttribute('disabled', '')
+    checkoutXsolla?.setAttribute('disabled', '')
 
     function reset () {
       checkoutStripe?.removeAttribute('disabled')
-      checkoutNowPayments?.removeAttribute('disabled')
+      checkoutXsolla?.removeAttribute('disabled')
     }
 
     let url: string
@@ -75,8 +75,8 @@ const initializeCheckoutTab = memoize(() => {
       url = !PROD
         ? 'https://synergism.cc/stripe/test/create-checkout-session'
         : 'https://synergism.cc/stripe/create-checkout-session'
-    } else if (e.target === checkoutNowPayments) {
-      url = 'https://synergism.cc/now-payments/checkout'
+    } else if (e.target === checkoutXsolla) {
+      url = 'https://synergism.cc/xsolla/create-token'
     } else {
       Notification('You clicked on something that I don\'t know.')
       reset()
@@ -139,13 +139,13 @@ const initializeCheckoutTab = memoize(() => {
 
   if (PLATFORM !== 'steam') {
     checkoutStripe?.addEventListener('click', submitCheckout)
-    checkoutNowPayments?.addEventListener('click', submitCheckout)
+    checkoutXsolla?.addEventListener('click', submitCheckout)
 
     initializePayPal_OneTime('#checkout-paypal')
   } else {
     const checkoutButtonsContainer = tab.querySelector('#checkout-buttons')!
 
-    // Hide Stripe/PayPal/NowPayments checkout buttons
+    // Hide Stripe/PayPal/Xsolla checkout buttons
     checkoutButtonsContainer.querySelectorAll('*').forEach((el) => el.classList.add('none'))
 
     // Add Steam checkout button
