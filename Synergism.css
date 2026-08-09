@@ -5440,6 +5440,21 @@ header #obtainiumDisplay { color: pink; }
     to { transform: rotate(360deg); }
 }
 
+@keyframes rainbow-border {
+    0% { border-color: #f00; }
+    16.67% { border-color: #ff7f00; }
+    33.33% { border-color: #ff0; }
+    50% { border-color: #0f0; }
+    66.67% { border-color: #00f; }
+    83.33% { border-color: #8b00ff; }
+    100% { border-color: #f00; }
+}
+
+.talismanRarityRainbowBorder {
+    border: 2px solid #f00;
+    animation: rainbow-border 2s linear infinite;
+}
+
 .rainbowText {
     color: transparent;
     background-image: linear-gradient(90deg, #ca001f, #ffb17f, #fff200, #22b14c, #767dda, #a349a4, #ca001f, #ffb17f);
@@ -7340,16 +7355,6 @@ html[data-mobile="true"] .hideOnMobile {
     background-color: rgb(0 0 0 / 30%);
     pointer-events: all;
     display: none;
-}
-
-@keyframes rainbow-border {
-    0% { border-color: #f00; }
-    16.67% { border-color: #ff7f00; }
-    33.33% { border-color: #ff0; }
-    50% { border-color: #0f0; }
-    66.67% { border-color: #00f; }
-    83.33% { border-color: #8b00ff; }
-    100% { border-color: #f00; }
 }
 
 .rainbow-border-highlight {

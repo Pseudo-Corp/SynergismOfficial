@@ -1249,6 +1249,18 @@ export const updateTalismanCostHTML = (t: TalismanKeys) => {
   }
 }
 
+const talismanRarityColors = [
+  { border: 'white', level: 'white' },
+  { border: 'limegreen', level: 'limegreen' },
+  { border: 'lightblue', level: 'lightblue' },
+  { border: 'plum', level: 'plum' },
+  { border: 'orange', level: 'darkorange' },
+  { border: 'crimson', level: 'var(--crimson-text-color)' },
+  { border: 'cyan', level: 'cyan' },
+  { border: 'lightgoldenrodyellow', level: 'lightgoldenrodyellow' },
+  { border: 'gold', level: 'gold' }
+]
+
 const updateWebTalismanDisplay = (t: TalismanKeys) => {
   assert(G.currentTab === Tabs.Runes, 'Talisman updateTalismanDisplay called outside of Runes tab')
   const talisman = talismans[t]
@@ -1311,10 +1323,27 @@ const updateWebTalismanDisplay = (t: TalismanKeys) => {
 const updateMobileTalismanDisplay = (t: TalismanKeys) => {
   const talisman = talismans[t]
   const itemCosts = getTalismanCostTNL(t)
-  DOMCacheGetOrSet(`${t}TalismanLevel`).textContent = i18next.t('general.levelWithRatio', {
+  const container = DOMCacheGetOrSet(`${t}TalismanContainer`)
+  const level = DOMCacheGetOrSet(`${t}TalismanLevel`)
+
+  level.textContent = i18next.t('general.levelWithRatio', {
     level: format(talisman.level),
     max: format(getTalismanLevelCap(t))
   })
+
+  const colors = talismanRarityColors[talisman.rarity - 1]
+
+  container.classList.toggle('talismanRarityRainbowBorder', talisman.rarity === 10)
+  level.classList.toggle('rainbowText', talisman.rarity === 10)
+
+  if (talisman.rarity === 10) {
+    container.style.border = ''
+    level.style.color = ''
+  } else if (colors !== undefined) {
+    container.style.border = `2px solid ${colors.border}`
+    level.style.color = colors.level
+  }
+
   DOMCacheGetOrSet(`${t}TalismanRarity`).innerHTML = i18next.t('runes.talismans.mobile.currentRarity', {
     rarity: i18next.t(`runes.talismans.rarity.${talisman.rarity}`),
     num: format(talisman.rarity)
