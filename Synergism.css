@@ -1279,9 +1279,19 @@ p#buildinghotkeys2 {
 }
 
 /* Upgrade box */
+.mobileUpgradeSection,
+.mobileUpgradeTabContainer,
+.mobileUpgradeBox {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
 .mobileUpgradeTabContainer {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: hidden;
 }
 
 .mobileUpgradeBox {
@@ -1289,6 +1299,7 @@ p#buildinghotkeys2 {
     flex-direction: column;
     border: 2px solid white;
     gap: 1%;
+    overflow: hidden;
 }
 
 .mobileUpgradeBox > p {
@@ -1705,6 +1716,8 @@ p#promocodeinfo {
 
 .buttonRow.mobile > div > .textStack {
     flex: 1;
+    min-width: 0;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 3px;
@@ -1730,6 +1743,7 @@ p#promocodeinfo {
 }
 
 .buttonRow.mobile > div > .auto {
+    flex: 0 0 5em;
     width: 5em;
     height: 5em;
     min-width: 0;
@@ -2808,6 +2822,11 @@ p#transcendhotkeys {
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
     text-align: center;
 }
 

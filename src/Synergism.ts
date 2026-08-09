@@ -148,6 +148,7 @@ import {
   buttoncolorchange,
   changeTabColor,
   Confirm,
+  createFitties,
   htmlInserts,
   Notification,
   revealStuff,
@@ -5171,6 +5172,9 @@ window.addEventListener('load', async () => {
 
   // Initialize messages on game load
   fetchUnreadMessages().catch(console.error)
+
+  // Dynamic Fit certain lines
+  createFitties()
 
   await reloadShit()
 

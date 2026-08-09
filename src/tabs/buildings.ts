@@ -19,11 +19,13 @@ interface Building {
   toggleIdAttr?: string
   statsExtraClass?: string
   statsStyle?: string
+  fitStats?: boolean
 }
 
 type Entry = Building | { spacer: true }
 
 const costIdOf = (buyId: string) => `cost${buyId.slice('buy'.length)}`
+const joinClasses = (...classes: Array<string | undefined>) => classes.filter(Boolean).join(' ')
 
 export const getBuildingCostElement = (buyId: string): HTMLElement =>
   DOMCacheGetOrSet(isMobile ? costIdOf(buyId) : buyId)
@@ -34,11 +36,11 @@ const renderBuildingDesktop = (b: Building): string => {
   if (b.imgExtraClass) imgClasses.push(b.imgExtraClass)
   if (!b.noImageClass) imgClasses.push('image')
   const imgClass = imgClasses.length ? ` class="${imgClasses.join(' ')}"` : ''
-  const descClass = b.descExtraClass ? `${b.descExtraClass} desc` : 'desc'
+  const descClass = joinClasses(b.descExtraClass, 'desc', 'fitText')
   const descStyle = b.descStyle ? ` style="${b.descStyle}"` : ''
-  const buyClass = b.buyExtraClass ? `${b.buyExtraClass} buildingPurchaseBtn` : 'buildingPurchaseBtn'
+  const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn', 'fitText')
   const toggleIdAttr = b.toggleIdAttr !== undefined ? ` toggleid="${b.toggleIdAttr}"` : ''
-  const statsClass = b.statsExtraClass ? `${b.statsExtraClass} stats` : 'stats'
+  const statsClass = joinClasses(b.statsExtraClass, 'stats', b.fitStats === false ? undefined : 'fitText')
   const statsStyle = b.statsStyle ? ` style="${b.statsStyle}"` : ''
 
   return `<div${wrapper}>`
@@ -56,13 +58,13 @@ const renderBuildingMobile = (b: Building): string => {
   if (b.imgExtraClass) imgClasses.push(b.imgExtraClass)
   if (!b.noImageClass) imgClasses.push('image')
   const imgClass = imgClasses.length ? ` class="${imgClasses.join(' ')}"` : ''
-  const descClass = b.descExtraClass ? `${b.descExtraClass} desc` : 'desc'
+  const descClass = joinClasses(b.descExtraClass, 'desc', 'fitText')
   const descStyle = b.descStyle ? ` style="${b.descStyle}"` : ''
-  const buyClass = b.buyExtraClass ? `${b.buyExtraClass} buildingPurchaseBtn` : 'buildingPurchaseBtn'
+  const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn', 'fitText')
   const toggleIdAttr = b.toggleIdAttr !== undefined ? ` toggleid="${b.toggleIdAttr}"` : ''
-  const statsClass = b.statsExtraClass ? `${b.statsExtraClass} stats` : 'stats'
+  const statsClass = joinClasses(b.statsExtraClass, 'stats', b.fitStats === false ? undefined : 'fitText')
   const statsStyle = b.statsStyle ? ` style="${b.statsStyle}"` : ''
-  const costClass = b.buyExtraClass ? `${b.buyExtraClass} cost` : 'cost'
+  const costClass = joinClasses(b.buyExtraClass, 'cost', 'fitText')
   const buyLabel = i18next.t('buildings.buy')
 
   return `<div${wrapper}>`
@@ -145,7 +147,8 @@ const coinRow: Entry[] = [
     descExtraClass: 'prestigeunlock',
     descStyle: 'color: cyan',
     buyExtraClass: 'prestigeunlock',
-    statsExtraClass: 'prestigeunlock crimsonText'
+    statsExtraClass: 'prestigeunlock crimsonText',
+    fitStats: false
   }
 ]
 

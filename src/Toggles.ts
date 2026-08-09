@@ -15,7 +15,7 @@ import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
-import { Alert, Confirm, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
+import { Alert, Confirm, createFitties, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
@@ -444,6 +444,7 @@ export const toggleBuildingScreen = (input: string) => {
     DOMCacheGetOrSet(screenKey).style.display = 'none'
   }
   DOMCacheGetOrSet(screen[G.buildingSubTab].screen).style.display = 'flex'
+  createFitties()
   // player.subtabNumber = screen[G.buildingSubTab].subtabNumber
 }
 

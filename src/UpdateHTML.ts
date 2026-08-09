@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js'
+import fitty, { type FittyInstance } from 'fitty'
 import i18next from 'i18next'
 import {
   type AchievementGroups,
@@ -1689,6 +1690,34 @@ export const closeIframeOverlay = () => {
   if (currentOverlayIframe) {
     wrapper.removeChild(currentOverlayIframe)
     currentOverlayIframe = null
+  }
+}
+
+const fittyInstances = new WeakMap<HTMLElement, FittyInstance>()
+
+export const createFitties = () => {
+  const fittyElements = document.getElementsByClassName('fitText') as HTMLCollectionOf<HTMLElement>
+  for (const element of fittyElements) {
+    const existingInstance = fittyInstances.get(element)
+
+    // Fitty cannot measure elements inside a hidden building tab. Unsubscribe
+    // hidden instances so they can be initialized from a valid width when shown.
+    if (element.getClientRects().length === 0 || element.parentElement?.clientWidth === 0) {
+      existingInstance?.unsubscribe()
+      fittyInstances.delete(element)
+      continue
+    }
+
+    if (!existingInstance) {
+      const fittyOptions = {
+        minSize: 0,
+        maxSize: Number.parseFloat(getComputedStyle(element).fontSize),
+        multiLine: false
+      }
+      fittyInstances.set(element, fitty(element, fittyOptions))
+    } else {
+      existingInstance.fit()
+    }
   }
 }
 

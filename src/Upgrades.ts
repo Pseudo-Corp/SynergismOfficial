@@ -1112,11 +1112,13 @@ const createMobileUpgradesDiv = (category: UpgradeCategories) => {
     const descriptionP = document.createElement('p')
     descriptionP.id = `upg${id}Description`
     descriptionP.style.color = 'lightblue'
+    descriptionP.classList.add('fitText')
 
     elm.appendChild(descriptionP)
 
     const effectP = document.createElement('p')
     effectP.id = `upg${id}Effect`
+    effectP.classList.add('fitText')
 
     elm.appendChild(effectP)
 
@@ -1139,6 +1141,7 @@ const createUpgradeSection = (category: UpgradeCategories) => {
   section.appendChild(createUpgradeSectionButtons(category))
 
   if (isMobile) {
+    section.classList.add('mobileUpgradeSection')
     section.appendChild(createMobileUpgradesDiv(category))
   } else {
     section.appendChild(createWebUpgradesTable(category))

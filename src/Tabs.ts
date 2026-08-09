@@ -17,7 +17,7 @@ import {
   toggleRuneScreen,
   toggleSingularityScreen
 } from './Toggles'
-import { changeTabColor, CloseModal, hideStuff, revealStuff } from './UpdateHTML'
+import { changeTabColor, CloseModal, createFitties, hideStuff, revealStuff } from './UpdateHTML'
 import { assert, isMobile, limitRange, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -1081,6 +1081,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   ;(document.activeElement as HTMLElement | null)?.blur()
 
   updateSubTabVisibility()
+  createFitties()
 
   if (PLATFORM === 'steam') {
     import('./steam/discord').then(({ setRichPresenceDiscord }) => {
