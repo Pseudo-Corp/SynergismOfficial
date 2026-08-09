@@ -80,15 +80,16 @@ import { generateEventHandlers } from './EventListeners'
 import { addTimers, automaticTools } from './Helper'
 import { resetHistoryRenderAllTables } from './History'
 import {
+  advanceResearchRoomba,
   buyResearch,
   isResearchUnlocked,
   refundOvercapResearches,
   researchData,
   researchOrderByCost,
   roombaResearchEnabled,
+  syncResearchRoombaHighlight,
   updateResearchAuto,
-  updateResearchBG,
-  updateResearchRoomba
+  updateResearchBG
 } from './Research'
 import {
   applyChallengeInitialModifiers,
@@ -4581,6 +4582,7 @@ const tack = (dt: number) => {
       && roombaResearchEnabled()
       && player.autoResearchMode === 'cheapest'
     ) {
+      const previousRoombaResearch = player.autoResearch || 1
       let counter = 0
       const maxCount = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
       while (counter < maxCount) {
@@ -4605,9 +4607,13 @@ const tack = (dt: number) => {
             break
           }
         }
-        updateResearchRoomba()
+        advanceResearchRoomba()
+        if (player.autoResearch === currIndex) {
+          break
+        }
         counter++
       }
+      syncResearchRoombaHighlight(previousRoombaResearch)
     }
   }
 
@@ -5295,11 +5301,13 @@ window.addEventListener('load', async () => {
   }
 }, { once: true })
 
-window.addEventListener('unload', () => {
-  // This fixes a bug in Chrome (who would have guessed?) that
-  // wouldn't properly load elements if the user scrolled down
-  // and reloaded a page. Why is this a bug, Chrome? Why would
-  // a page that is reloaded be affected by what the user did
-  // beforehand? How does anyone use this buggy browser???????
-  window.scrollTo(0, 0)
-})
+if (PLATFORM !== 'mobile') {
+  window.addEventListener('unload', () => {
+    // This fixes a bug in Chrome (who would have guessed?) that
+    // wouldn't properly load elements if the user scrolled down
+    // and reloaded a page. Why is this a bug, Chrome? Why would
+    // a page that is reloaded be affected by what the user did
+    // beforehand? How does anyone use this buggy browser???????
+    window.scrollTo(0, 0)
+  })
+}

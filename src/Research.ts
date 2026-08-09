@@ -283,9 +283,8 @@ export const updateResearchAuto = (index: number) => {
   }
 }
 
-export const updateResearchRoomba = () => {
+export const advanceResearchRoomba = () => {
   if (isResearchMaxed(player.autoResearch) || !isResearchUnlocked(player.autoResearch)) {
-    DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
     player.roombaResearchIndex = Math.min(researchOrderByCost.length - 1, player.roombaResearchIndex + 1)
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
@@ -295,7 +294,16 @@ export const updateResearchRoomba = () => {
     player.roombaResearchIndex = 0
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
-  DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.add('researchRoomba')
+}
+
+export const syncResearchRoombaHighlight = (previous: number) => {
+  const current = player.autoResearch || 1
+
+  if (previous !== current) {
+    DOMCacheGetOrSet(`res${previous}`).classList.remove('researchRoomba')
+  }
+
+  DOMCacheGetOrSet(`res${current}`).classList.add('researchRoomba')
 }
 
 /**
