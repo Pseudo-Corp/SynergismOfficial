@@ -5615,10 +5615,7 @@ img#singularityPerksIcon {
     flex-direction: column;
 }
 
-#singularityChallengeDetails {
-    display: none;
-}
-
+#singularityChallengeDetails,
 .singularityChallengeDetails {
     display: block;
 }
