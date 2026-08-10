@@ -229,6 +229,23 @@
       "quickSaveEmpty": "SAVE TO LOADOUT: -",
       "quickSaveNone": "Load or save a loadout slot first, then this button will overwrite that same slot!"
     },
+    "edit": {
+      "enter": "EDIT LEVELS",
+      "exit": "EXIT EDIT MODE",
+      "level": "Level <<white|{{level}}>> / {{max}}",
+      "levelChange": "Level <<white|{{from}}>> → <<gold|{{to}}>> / {{max}}",
+      "cost": "Cost: <<orange|{{amount}}>> Ambrosia",
+      "refund": "Refund: <<lime|{{amount}}>> Ambrosia",
+      "noChange": "No pending changes.",
+      "blueberryCharge": "Activating this module spends <<blue|{{amount}}>> Blueberries.",
+      "blueberryRefund": "Deactivating this module refunds <<blue|{{amount}}>> Blueberries.",
+      "lockedBy": "Cannot drop below level <<red|{{level}}>>: required by <<orange|{{name}}>>.",
+      "prereqBlocked": "<<red|Prerequisites are not met, so levels cannot be added.>>",
+      "invalid": "Those levels are no longer valid. No changes were made.",
+      "max": "MAX",
+      "save": "SAVE",
+      "discard": "DISCARD"
+    },
     "importTree": {
       "success": "Tree successfully imported!",
       "failure": "Could not import tree as it is invalid!",
