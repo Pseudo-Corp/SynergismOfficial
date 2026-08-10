@@ -4757,6 +4757,8 @@
       "particles": "Particles"
     },
     "buyAll": "Buy All",
+    "showPurchased": "Purchased Upgrades: SHOW",
+    "hidePurchased": "Purchased Upgrades: HIDE",
     "hover": "Hover over an upgrade icon to see details!",
     "hoverOverUpgrade": "Hover over an upgrade to view details!",
     "bought": "BOUGHT!"
@@ -5310,8 +5312,8 @@
     "buy": "Buy",
     "enableAllAutomation": "Enable all autobuyers",
     "disableAllAutomation": "Disable all autobuyers",
-    "hideAutomated": "Hide automated buildings",
-    "showAutomated": "Show automated buildings",
+    "hideAutomated": "Automated Buildings: HIDE",
+    "showAutomated": "Automated Buildings: SHOW",
     "costCoins": "Cost: {{coins}} coins.",
     "costDiamonds": "Cost: {{diamonds}} Diamonds.",
     "names": {

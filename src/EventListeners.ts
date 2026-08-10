@@ -176,7 +176,8 @@ import {
   constantUpgradeDescriptions,
   constantUpgradeHTML,
   crystalupgradedescriptions,
-  crystalUpgradeHTML
+  crystalUpgradeHTML,
+  togglePurchasedUpgrades
 } from './Upgrades'
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
@@ -1031,6 +1032,7 @@ export const generateEventHandlers = () => {
   // UPGRADES TAB
   // For all upgrades in the Upgrades Tab (125) count, we have the same mouseover event. So we'll work on those first.
   DOMCacheGetOrSet('buyAllUpgrades').addEventListener('click', () => buyAllUpgrades(false))
+  DOMCacheGetOrSet('togglePurchasedUpgrades').addEventListener('click', togglePurchasedUpgrades)
 
   // ACHIEVEMENTS TAB
   // TODO: Remove 1 indexing

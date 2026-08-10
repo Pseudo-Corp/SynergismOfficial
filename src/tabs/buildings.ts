@@ -301,9 +301,9 @@ const updateBuildingVisibility = (row: HTMLElement, autobuyers: HTMLElement[]) =
 
   visibilityControl.style.display = autobuyers.length > 0 ? '' : 'none'
   visibilityControl.textContent = i18next.t(
-    hideAutomated ? 'buildings.showAutomated' : 'buildings.hideAutomated'
+    hideAutomated ? 'buildings.hideAutomated' : 'buildings.showAutomated'
   )
-  visibilityControl.style.border = `2px solid ${hideAutomated ? 'green' : 'red'}`
+  visibilityControl.style.border = `2px solid ${hideAutomated ? 'red' : 'green'}`
 }
 
 export const updateBuildingAutomationButtons = () => {
