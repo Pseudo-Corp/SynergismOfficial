@@ -3347,7 +3347,6 @@ export const resourceGain = (dt: number): void => {
       const challengeNum = i + 1
       const maxChallenges = getMaxChallenges(challengeNum)
       const challengeRequirementMult = researchAutoChallengeReqMulti[i]
-      let updateHTML = false
       for (let j = 0; j < autoChallengeCompLimit; j++) {
         const hasCoinRequirement = player.coinsThisTranscension.gte(
           Decimal.pow(challengeRequirement(challengeNum, player.challengecompletions[challengeNum], challengeNum), challengeRequirementMult)
@@ -3357,13 +3356,9 @@ export const resourceGain = (dt: number): void => {
           && hasCoinRequirement
         ) {
           player.challengecompletions[challengeNum] += 1
-          updateHTML = true
           // Due to the min(..., player.highestchallengecompletions[n]) check, we don't need to award achievements
         }
         else {
-          if (updateHTML) {
-            updateChallengeLevel(challengeNum)
-          }
           break
         }
       }
