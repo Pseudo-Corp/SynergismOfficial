@@ -1142,43 +1142,25 @@ export const generateEventHandlers = () => {
   const buyAllAntUpgradesButton = DOMCacheGetOrSet('buyAllAntUpgrades')
   const buyAllAntProducersButton = DOMCacheGetOrSet('buyAllAntProducers')
 
-  buyAllAntUpgradesButton.addEventListener('click', (e: MouseEvent) => {
-    buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades)
-    Modal(
-      allAntUpgradeHTML,
-      e.clientX,
-      e.clientY,
-      { borderColor: 'crimson' },
-      MEDIUM_MODAL_UPDATE_TICK,
-      e.currentTarget as HTMLElement
-    )
+  registerPurchasableModal({
+    element: buyAllAntUpgradesButton,
+    html: allAntUpgradeHTML,
+    style: { borderColor: 'crimson' },
+    buy: () => buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades),
+    mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllUpgrades') }],
+    updateInterval: MEDIUM_MODAL_UPDATE_TICK
   })
-  buyAllAntProducersButton.addEventListener('click', (e: MouseEvent) => {
-    buyAllAntProducers(player.ants.toggles.maxBuyProducers)
-    buyAllAntMasteries()
-    Modal(
-      allAntProducerHTML,
-      e.clientX,
-      e.clientY,
-      { borderColor: 'gold' },
-      MEDIUM_MODAL_UPDATE_TICK,
-      e.currentTarget as HTMLElement
-    )
+  registerPurchasableModal({
+    element: buyAllAntProducersButton,
+    html: allAntProducerHTML,
+    style: { borderColor: 'gold' },
+    buy: () => {
+      buyAllAntProducers(player.ants.toggles.maxBuyProducers)
+      buyAllAntMasteries()
+    },
+    mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllProducers') }],
+    updateInterval: MEDIUM_MODAL_UPDATE_TICK
   })
-
-  if (!isMobile) {
-    buyAllAntProducersButton.addEventListener('mousemove', (e: MouseEvent) => {
-      Modal(allAntProducerHTML, e.clientX, e.clientY, { borderColor: 'gold' }, MEDIUM_MODAL_UPDATE_TICK)
-    })
-
-    buyAllAntProducersButton.addEventListener('mouseout', () => CloseModal())
-
-    buyAllAntUpgradesButton.addEventListener('mousemove', (e: MouseEvent) => {
-      Modal(allAntUpgradeHTML, e.clientX, e.clientY, { borderColor: 'crimson' }, MEDIUM_MODAL_UPDATE_TICK)
-    })
-
-    buyAllAntUpgradesButton.addEventListener('mouseout', () => CloseModal())
-  }
 
   for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
     const antTier = DOMCacheGetOrSet(`anttier${ant + 1}`)

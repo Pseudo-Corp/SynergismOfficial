@@ -7208,6 +7208,16 @@ html[data-mobile="true"] .hideOnMobile {
     text-align: center;
 }
 
+#modal.modalBottomSheet .modalBtnBuy[data-modal-action="buyAll"] {
+    width: auto;
+    min-width: min(240px, 100%);
+    max-width: 100%;
+    height: auto;
+    min-height: 30px;
+    padding: 6px 12px;
+    white-space: normal;
+}
+
 .modalButtonRow {
     display: flex;
     justify-content: center;
