@@ -409,7 +409,7 @@ export const buyResearch = (index: number, auto: boolean, hover: boolean, buyMax
 
   // If the cost is 0, then we are only able to buy up to currentLevel, which is true
   // when the cost to the next level is too prohibitive (getCost is cumulative)
-  const canBuy = researchCost.gt(0)
+  const canBuy = researchCost.gt(new Decimal())
 
   if (canBuy) {
     player.researches[index] = levelToBuy

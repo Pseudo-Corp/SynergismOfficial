@@ -222,7 +222,7 @@ export const displayStatLine = (type: StatLineTypes, num: number | Decimal, altD
     return altDisplay()
   } // As a rule, don't show statlines whose value does not affect final result. Decimals used for generalizability
   else if (type === StatLineTypes.Addition) {
-    return !Decimal.fromValue(num).equals(0)
+    return !Decimal.fromValue(num).equals(new Decimal())
   } else if (type === StatLineTypes.Multiplication) {
     return !Decimal.fromValue(num).equals(G.dOne)
   } else {

@@ -221,9 +221,10 @@ export const buyAllSpiritLevels = (budget: Decimal) => {
     buySpiritLevels(key, Decimal.floor(budget.div(ratio)))
   }
 
-  if (player.offerings.lt(0)) {
+  const zero = new Decimal()
+  if (player.offerings.lt(zero)) {
     // TODO: Figure out why this fucking happens so often
-    player.offerings = new Decimal()
+    player.offerings = zero
   }
 }
 
@@ -251,7 +252,7 @@ const updateLevelsFromEXP = (spirit: RuneSpiritKeys) => {
     levelsPerOOM * Decimal.log10(runeSpirits[spirit].runeEXP.div(runeSpirits[spirit].costCoefficient).plus(1))
   )
   // Floating point imprecision fix
-  if (computeEXPLeftToLevel(spirit, levels + 1).eq(0)) {
+  if (computeEXPLeftToLevel(spirit, levels + 1).eq(new Decimal())) {
     runeSpirits[spirit].level = levels + 1
   } else {
     runeSpirits[spirit].level = levels
@@ -270,7 +271,7 @@ export const updateAllSpiritLevelsFromEXP = () => {
 
 // Gives levels to buy, total EXP to that level, and offerings required to reach that level
 const maxSpiritLevelPurchaseInformation = (spirit: RuneSpiritKeys, budget: Decimal) => {
-  if (budget.lt(0)) {
+  if (budget.lt(new Decimal())) {
     return { levels: 0, expRequired: new Decimal(), offerings: new Decimal() }
   }
 

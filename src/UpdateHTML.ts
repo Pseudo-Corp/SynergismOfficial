@@ -923,8 +923,9 @@ export const buttoncolorchange = () => {
 
   if (G.currentTab === Tabs.Runes) {
     if (getActiveSubTab() === 0) {
+      const zero = new Decimal()
       for (const rune of Object.keys(player.runes)) {
-        if (player.offerings.gt(0)) {
+        if (player.offerings.gt(zero)) {
           DOMCacheGetOrSet(`${rune}RuneSacrifice`).classList.add('runeButtonAvailable')
         } else {
           DOMCacheGetOrSet(`${rune}RuneSacrifice`).classList.remove('runeButtonAvailable')

@@ -339,7 +339,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       player.sacrificeTimer += time
       if (
         player.sacrificeTimer >= autoSacrificeInterval
-        && player.offerings.gt(0)
+        && player.offerings.gt(new Decimal())
       ) {
         // Automatic purchase of Blessings
         if (player.highestSingularityCount >= 15) {

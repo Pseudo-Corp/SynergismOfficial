@@ -219,9 +219,11 @@ export const visualUpdateBuildings = () => {
 
   // When you're in Building --> Coin, update these.
   if (G.buildingSubTab === 'coin') {
-    let totalProductionDivisor = new Decimal(G.produceTotal)
-    if (totalProductionDivisor.equals(0)) {
-      totalProductionDivisor = new Decimal(1)
+    let totalProductionDivisor: Decimal
+    if (G.produceTotal.equals(new Decimal())) {
+      totalProductionDivisor = new Decimal(G.dOne)
+    } else {
+      totalProductionDivisor = new Decimal(G.produceTotal)
     }
 
     DOMCacheGetOrSet('coinInformation').innerHTML = i18next.t('buildings.coinInformation', {

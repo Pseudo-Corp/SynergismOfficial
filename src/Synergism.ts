@@ -1430,10 +1430,11 @@ const loadSynergy = () => {
     if (player.reincarnationCount < 0) {
       player.reincarnationCount = 0
     }
-    if (player.offerings.lte(0)) {
-      player.offerings = new Decimal()
+    const zero = new Decimal()
+    if (player.offerings.lte(zero)) {
+      player.offerings = zero
     }
-    if (player.obtainium.lte(0)) {
+    if (player.obtainium.lte(zero)) {
       player.obtainium = new Decimal()
     }
 
@@ -2177,6 +2178,8 @@ const getFormatter = (
   return formatters[keyString]
 }
 
+const zeroDecimalForFormatting = new Decimal()
+
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
  * @param input value to format
@@ -2218,7 +2221,7 @@ export const format = (
       mantissa = num / Math.pow(10, power)
     }
   } else if (input instanceof Decimal) {
-    if (input.lessThan(0)) {
+    if (input.lessThan(zeroDecimalForFormatting)) {
       return `-${format(input.negated(), accuracy, long, truncate)}`
     }
     // Gets power and mantissa if input is of type decimal
