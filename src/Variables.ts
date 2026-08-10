@@ -607,7 +607,7 @@ export const Globals: GlobalVariables = {
 
   MIND_DIVISOR: 1_000_000,
   GLOBAL_RESET_THRESHOLD: 10,
-  ASCENSION_RESET_THRESHOLD: 10,
+  ASCENSION_RESET_THRESHOLD: 10
 }
 
 export const blankGlobals = { ...Globals }

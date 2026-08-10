@@ -123,11 +123,13 @@ import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, registerSubTabSwitches, Tabs } from './Tabs'
+import { toggleAllBuildingAutomation, toggleAutomatedBuildingVisibility } from './tabs/buildings'
 import { IconSets, imgErrorHandler, themeValues, toggleAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import {
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
   toggleAscStatPerSecond,
+  toggleauto,
   toggleAutoAscendResetActive,
   toggleAutoAscendResetMode,
   toggleAutoAscensionMode,
@@ -968,6 +970,21 @@ export const generateEventHandlers = () => {
   // I'm just addressing all global toggles here
   const toggles = document.querySelectorAll<HTMLElement>('.auto[toggleid]')
   toggles.forEach((b) => b.addEventListener('click', () => toggleSettings(b)))
+  const buildingAutomationToggles = document.querySelectorAll<HTMLButtonElement>('.buildingAutomationToggle')
+  buildingAutomationToggles.forEach((button) =>
+    button.addEventListener('click', () => {
+      toggleAllBuildingAutomation(button)
+      toggleauto()
+    })
+  )
+  const automatedBuildingVisibilityToggles = document.querySelectorAll<HTMLButtonElement>(
+    '.automatedBuildingVisibilityToggle'
+  )
+  automatedBuildingVisibilityToggles.forEach((button) =>
+    button.addEventListener('click', () => {
+      toggleAutomatedBuildingVisibility(button)
+    })
+  )
   // Toggles auto reset type (between TIME and AMOUNT for 3 first Tiers, and between PERCENTAGE and AMOUNT for Tesseracts)
   DOMCacheGetOrSet('prestigeautotoggle').addEventListener('click', () => toggleAutoPrestigeMode())
   DOMCacheGetOrSet('transcendautotoggle').addEventListener('click', () => toggleAutoTranscendMode())

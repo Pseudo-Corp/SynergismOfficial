@@ -1575,8 +1575,7 @@ p#promocodeinfo {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 35px;
-    margin-left: 7.5%;
+    margin-top: 10px;
     margin-bottom: 20px;
     z-index: 1;
     font-size: min(1em, 20px);
@@ -1601,6 +1600,26 @@ p#promocodeinfo {
     align-items: center;
     gap: 10px;
     min-height: 35px;
+}
+
+.buttonRow > div:not(.buildingAutomationControls) {
+    margin-left: 7.5%;
+}
+
+.buttonRow > .buildingAutomationControls {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.buildingAutomationToggle,
+.automatedBuildingVisibilityToggle {
+    min-width: 14em;
+    background-color: var(--button-color);
+}
+
+.buttonRow > .buildingHiddenByAutomation {
+    display: none !important;
 }
 
 .buildingSpacer {
@@ -1690,7 +1709,7 @@ p#promocodeinfo {
     font-size: 1em;
 }
 
-.buttonRow.mobile > div:not(.buildingSpacer) {
+.buttonRow.mobile > div:not(.buildingSpacer):not(.buildingAutomationControls) {
     gap: 6px;
     padding: 8px 0;
     border: 2px solid white;
@@ -7542,6 +7561,10 @@ html[data-mobile="true"] .hideOnMobile {
 
     .buttonRow > div {
         gap: 5px;
+    }
+
+    .buttonRow > div:not(.buildingAutomationControls) {
+        margin-left: 0;
     }
 
     .buttonRow > div > .desc {

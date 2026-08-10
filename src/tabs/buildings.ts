@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
+import { player } from '../Synergism'
 import { isMobile } from '../Utility'
 
 interface Building {
@@ -81,8 +82,15 @@ const renderBuildingMobile = (b: Building): string => {
 
 const renderBuilding = isMobile ? renderBuildingMobile : renderBuildingDesktop
 
+const renderAutomationControl = (): string =>
+  '<div class="buildingAutomationControls">'
+  + '<button class="buildingAutomationToggle" type="button" style="display: none"></button>'
+  + '<button class="automatedBuildingVisibilityToggle" type="button" style="display: none" aria-pressed="false"></button>'
+  + '</div>'
+
 const renderRow = (entries: Entry[]): string =>
-  entries.map((e) => 'spacer' in e ? '<div class="buildingSpacer"></div>' : renderBuilding(e)).join('')
+  renderAutomationControl()
+  + entries.map((e) => 'spacer' in e ? '<div class="buildingSpacer"></div>' : renderBuilding(e)).join('')
 
 const goldStyle = 'color: gold'
 
@@ -214,4 +222,122 @@ export const populateBuildingButtonRows = () => {
       row.innerHTML = renderRow(entries)
     }
   }
+}
+
+const getAutobuyers = (control: HTMLButtonElement): HTMLElement[] => {
+  const row = control.closest('.buttonRow')
+  if (!row) {
+    return []
+  }
+
+  return Array.from(row.querySelectorAll<HTMLElement>('.autobuyerToggleButton'))
+    .filter((toggle) => toggle.style.display !== 'none')
+}
+
+const getVisibilityControl = (row: HTMLElement): HTMLButtonElement | null =>
+  row.querySelector<HTMLButtonElement>('.automatedBuildingVisibilityToggle')
+
+const hasVisibleBuildings = (elements: Element[]) =>
+  elements.some((element) => !element.classList.contains('buildingHiddenByAutomation'))
+
+const getTesseractIndex = (toggle: HTMLElement): number => Number(toggle.id.slice('tesseractAutoToggle'.length))
+
+const autobuyerIsEnabled = (toggle: HTMLElement): boolean => {
+  const toggleId = toggle.getAttribute('toggleid')
+  return toggleId === null
+    ? player.autoTesseracts[getTesseractIndex(toggle)]
+    : player.toggles[Number(toggleId)]
+}
+
+const setAutobuyer = (toggle: HTMLElement, enabled: boolean) => {
+  const toggleId = toggle.getAttribute('toggleid')
+  if (toggleId === null) {
+    player.autoTesseracts[getTesseractIndex(toggle)] = enabled
+  } else {
+    player.toggles[Number(toggleId)] = enabled
+  }
+}
+
+const updateBuildingVisibility = (row: HTMLElement, autobuyers: HTMLElement[]) => {
+  const visibilityControl = getVisibilityControl(row)
+  if (!visibilityControl) {
+    return
+  }
+
+  const hideAutomated = visibilityControl.getAttribute('aria-pressed') === 'true'
+
+  for (const toggle of row.querySelectorAll<HTMLElement>('.autobuyerToggleButton')) {
+    toggle.parentElement?.classList.remove('buildingHiddenByAutomation')
+  }
+
+  if (hideAutomated) {
+    for (const toggle of autobuyers.filter(autobuyerIsEnabled)) {
+      toggle.parentElement?.classList.add('buildingHiddenByAutomation')
+    }
+  }
+
+  const rowChildren = Array.from(row.children)
+
+  for (const [index, child] of rowChildren.entries()) {
+    if (!child.classList.contains('buildingSpacer')) {
+      continue
+    }
+
+    const buildingsBefore = rowChildren.slice(0, index)
+      .filter((element) =>
+        !element.classList.contains('buildingAutomationControls')
+        && !element.classList.contains('buildingSpacer')
+      )
+    const buildingsAfter = rowChildren.slice(index + 1)
+      .filter((element) =>
+        !element.classList.contains('buildingAutomationControls')
+        && !element.classList.contains('buildingSpacer')
+      )
+    child.classList.toggle(
+      'buildingHiddenByAutomation',
+      hideAutomated && (!hasVisibleBuildings(buildingsBefore) || !hasVisibleBuildings(buildingsAfter))
+    )
+  }
+
+  visibilityControl.style.display = autobuyers.length > 0 ? '' : 'none'
+  visibilityControl.textContent = i18next.t(
+    hideAutomated ? 'buildings.showAutomated' : 'buildings.hideAutomated'
+  )
+  visibilityControl.style.border = `2px solid ${hideAutomated ? 'green' : 'red'}`
+}
+
+export const updateBuildingAutomationButtons = () => {
+  const controls = document.querySelectorAll<HTMLButtonElement>('.buildingAutomationToggle')
+
+  for (const control of controls) {
+    const autobuyers = getAutobuyers(control)
+    const allEnabled = autobuyers.length > 0 && autobuyers.every(autobuyerIsEnabled)
+    const row = control.closest<HTMLElement>('.buttonRow')
+
+    control.style.display = autobuyers.length > 0 ? '' : 'none'
+    control.textContent = i18next.t(
+      allEnabled ? 'buildings.disableAllAutomation' : 'buildings.enableAllAutomation'
+    )
+    control.style.border = `2px solid ${allEnabled ? 'green' : 'red'}`
+    control.setAttribute('aria-pressed', `${allEnabled}`)
+
+    if (row) {
+      updateBuildingVisibility(row, autobuyers)
+    }
+  }
+}
+
+export const toggleAllBuildingAutomation = (control: HTMLButtonElement) => {
+  const autobuyers = getAutobuyers(control)
+  const enable = !autobuyers.every(autobuyerIsEnabled)
+
+  for (const autobuyer of autobuyers) {
+    setAutobuyer(autobuyer, enable)
+  }
+}
+
+export const toggleAutomatedBuildingVisibility = (control: HTMLButtonElement) => {
+  const hideAutomated = control.getAttribute('aria-pressed') !== 'true'
+  control.setAttribute('aria-pressed', `${hideAutomated}`)
+  updateBuildingAutomationButtons()
 }

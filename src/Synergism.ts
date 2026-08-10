@@ -3349,15 +3349,18 @@ export const resourceGain = (dt: number): void => {
       const challengeRequirementMult = researchAutoChallengeReqMulti[i]
       for (let j = 0; j < autoChallengeCompLimit; j++) {
         if (
-          player.challengecompletions[challengeNum] < Math.min(maxChallenges, player.highestchallengecompletions[challengeNum])
+          player.challengecompletions[challengeNum]
+            < Math.min(maxChallenges, player.highestchallengecompletions[challengeNum])
           && player.coinsThisTranscension.gte(
-            Decimal.pow(challengeRequirement(challengeNum, player.challengecompletions[challengeNum], challengeNum), challengeRequirementMult)
+            Decimal.pow(
+              challengeRequirement(challengeNum, player.challengecompletions[challengeNum], challengeNum),
+              challengeRequirementMult
+            )
           )
         ) {
           player.challengecompletions[challengeNum] += 1
           // Due to the min(..., player.highestchallengecompletions[n]) check, we don't need to award achievements
-        }
-        else {
+        } else {
           break
         }
       }

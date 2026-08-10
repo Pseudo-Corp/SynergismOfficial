@@ -13,9 +13,17 @@ import { getShopUpgradeEffects } from './Shop'
 import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
+import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
-import { Alert, Confirm, createFitties, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
+import {
+  Alert,
+  Confirm,
+  createFitties,
+  Prompt,
+  showCorruptionStatsLoadouts,
+  updateChallengeDisplay
+} from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
@@ -93,6 +101,7 @@ export const toggleSettings = (toggle: HTMLElement) => {
   }
 
   toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+  updateBuildingAutomationButtons()
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
@@ -321,6 +330,8 @@ export const toggleauto = () => {
       auto.style.border = '2px solid red'
     }
   }
+
+  updateBuildingAutomationButtons()
 }
 
 export const toggleResearchBuy = () => {
@@ -930,6 +941,7 @@ export const toggleAutoTesseracts = (i: number) => {
   }
 
   player.autoTesseracts[i] = !player.autoTesseracts[i]
+  updateBuildingAutomationButtons()
 }
 
 export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number) => {

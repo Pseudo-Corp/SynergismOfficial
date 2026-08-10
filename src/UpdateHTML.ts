@@ -46,6 +46,7 @@ import {
 } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
+import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { type TalismanKeys, talismans } from './Talismans'
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import {
@@ -527,6 +528,8 @@ export const revealStuff = () => {
 
     el.style.display = automationUnlocks[key] ? 'block' : 'none'
   })
+
+  updateBuildingAutomationButtons()
 
   // Messages subtab visibility - only show when there are unread messages
   DOMCacheGetOrSet('switchSettingSubTab10').style.display = hasUnreadMessages() ? 'block' : 'none'

@@ -5288,6 +5288,10 @@
     "acceleratorBoost": "Reset Diamonds and Diamond Upgrades, but add {{amount}}% Acceleration Power and {{accelsPerBoost}} free Accelerators.",
     "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
     "buy": "Buy",
+    "enableAllAutomation": "Enable all autobuyers",
+    "disableAllAutomation": "Disable all autobuyers",
+    "hideAutomated": "Hide automated buildings",
+    "showAutomated": "Show automated buildings",
     "costCoins": "Cost: {{coins}} coins.",
     "costDiamonds": "Cost: {{diamonds}} Diamonds.",
     "names": {
