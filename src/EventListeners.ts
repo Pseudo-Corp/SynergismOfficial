@@ -12,6 +12,7 @@ import {
   highlightPrerequisites,
   importBlueberryTree,
   loadoutHandler,
+  quickSaveBlueberryTree,
   resetBlueberryTree,
   resetHighlights,
   resetLoadoutOnlyDisplay
@@ -1882,6 +1883,7 @@ TODO: Fix this entire tab it's utter shit
   }
 
   DOMCacheGetOrSet('blueberryToggleMode').addEventListener('click', () => toggleBlueberryLoadoutmode())
+  DOMCacheGetOrSet('blueberryQuickSave').addEventListener('click', () => quickSaveBlueberryTree())
 
   DOMCacheGetOrSet('getBlueberries').addEventListener('click', () => exportBlueberryTree())
   DOMCacheGetOrSet('refundBlueberries').addEventListener('click', () => resetBlueberryTree())
@@ -1892,14 +1894,29 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('importBlueberries').click()
   })
 
-  DOMCacheGetOrSet('showCurrAmbrosiaUpgrades').addEventListener('mouseover', () => {
-    displayLevelsBlueberry()
-    displayRedAmbrosiaLevels()
-  })
-  DOMCacheGetOrSet('showCurrAmbrosiaUpgrades').addEventListener('mouseout', () => {
-    resetLoadoutOnlyDisplay()
-    resetRedAmbrosiaDisplay()
-  })
+  const currAmbrosiaUpgrades = DOMCacheGetOrSet('showCurrAmbrosiaUpgrades')
+
+  if (isMobile) {
+    currAmbrosiaUpgrades.addEventListener('click', function(this: HTMLElement) {
+      const toggled = this.toggleAttribute('show-levels')
+      if (!toggled) {
+        resetLoadoutOnlyDisplay()
+        resetRedAmbrosiaDisplay()
+      } else {
+        displayLevelsBlueberry()
+        displayRedAmbrosiaLevels()
+      }
+    })
+  } else {
+    currAmbrosiaUpgrades.addEventListener('mouseover', () => {
+      displayLevelsBlueberry()
+      displayRedAmbrosiaLevels()
+    })
+    currAmbrosiaUpgrades.addEventListener('mouseout', () => {
+      resetLoadoutOnlyDisplay()
+      resetRedAmbrosiaDisplay()
+    })
+  }
 
   // RED AMBROSIA
   const redAmbrosiaUpgrades = Object.keys(

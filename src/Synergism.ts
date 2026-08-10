@@ -174,6 +174,7 @@ import {
   blankAmbrosiaUpgradeObject,
   displayProperLoadoutCount,
   setAmbrosiaUpgradeLevels,
+  setLastBlueberryLoadout,
   updateBlueberryLoadoutCount
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -2027,6 +2028,7 @@ const loadSynergy = () => {
     DOMCacheGetOrSet('blueberryToggleMode').innerHTML = player.blueberryLoadoutMode === 'saveTree'
       ? i18next.t('ambrosia.loadouts.save')
       : i18next.t('ambrosia.loadouts.load')
+    setLastBlueberryLoadout(0)
 
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()

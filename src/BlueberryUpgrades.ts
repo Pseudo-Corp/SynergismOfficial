@@ -1546,7 +1546,7 @@ const createBlueberryTree = (modules: BlueberryOpt) => {
   const isPossible = validateBlueberryTree(modules)
   if (!isPossible) {
     void Alert(i18next.t('ambrosia.importTree.failure'))
-    return
+    return false
   }
 
   // If valid, we will create the tree.
@@ -1573,6 +1573,7 @@ const createBlueberryTree = (modules: BlueberryOpt) => {
     }
   }
   void Alert(i18next.t('ambrosia.importTree.success'))
+  return true
 }
 
 export const importBlueberryTree = (input: string | null) => {
@@ -1589,12 +1590,34 @@ export const importBlueberryTree = (input: string | null) => {
   }
 }
 
+let lastBlueberryLoadout = 0
+
+export const setLastBlueberryLoadout = (n: number) => {
+  lastBlueberryLoadout = n
+  DOMCacheGetOrSet('blueberryQuickSave').innerHTML = n === 0
+    ? i18next.t('ambrosia.loadouts.quickSaveEmpty')
+    : i18next.t('ambrosia.loadouts.quickSave', { n })
+}
+
+export const quickSaveBlueberryTree = async () => {
+  if (lastBlueberryLoadout === 0) {
+    return Alert(i18next.t('ambrosia.loadouts.quickSaveNone'))
+  }
+
+  await saveBlueberryTree(
+    lastBlueberryLoadout,
+    player.blueberryLoadouts[lastBlueberryLoadout] ?? {}
+  )
+}
+
 export const loadoutHandler = (n: number, modules: BlueberryOpt) => {
   if (player.blueberryLoadoutMode === 'saveTree') {
     saveBlueberryTree(n, modules)
   }
   if (player.blueberryLoadoutMode === 'loadTree') {
-    createBlueberryTree(modules)
+    if (createBlueberryTree(modules)) {
+      setLastBlueberryLoadout(n)
+    }
   }
 }
 
@@ -1609,6 +1632,7 @@ const saveBlueberryTree = async (
 
   player.blueberryLoadouts[input] = getBlueberryTree()
   createLoadoutDescription(input, player.blueberryLoadouts[input])
+  setLastBlueberryLoadout(input)
 }
 
 export const createLoadoutDescription = (
@@ -1616,7 +1640,10 @@ export const createLoadoutDescription = (
   modules: BlueberryOpt
 ) => {
   let str = ''
+  let modulesEmpty = true
   for (const [key, val] of Object.entries(modules)) {
+    modulesEmpty = false
+
     /*
      * If the entry (saved purchase level) for an upgrade is 0, undefined, or null, we skip it.
      * If 0 - it existed when the loadout was saved; it's just unpurchased
@@ -1630,7 +1657,7 @@ export const createLoadoutDescription = (
     str = `${str}<span style="color:orange">${name}</span> <span style="color:yellow">lv${val}</span> | `
   }
 
-  if (Object.keys(modules).length === 0) {
+  if (modulesEmpty) {
     str = i18next.t('ambrosia.loadouts.none')
   }
 
