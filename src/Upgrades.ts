@@ -640,7 +640,7 @@ export const buyUpgradeByCategory = (category: UpgradeCategories, auto: boolean)
 }
 
 export const buyAllUpgrades = (auto: boolean) => {
-  for (let i = UpgradeCategories.Coin; i <= UpgradeCategories.Particle; i++) {
+  for (let i = UpgradeCategories.Coin; i <= UpgradeCategories.Generator; i++) {
     buyUpgradeByCategory(i, auto)
   }
 }
