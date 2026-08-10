@@ -2273,15 +2273,16 @@ export const format = (
       standard = mantissa * Math.pow(10, power)
     }
 
+    const tooSmallForStandard = power < -3 || (accuracy > 0 && power < -accuracy)
+
     // Rounds up if the number experiences a rounding error
-    const powerDelta = power < -3 ? power : 0
+    const powerDelta = tooSmallForStandard ? power : 0
     const delta = Math.pow(10, powerDelta - accuracy)
     if (delta - standard % delta < 1e-7) {
       standard += 1e-7 * Math.pow(10, powerDelta)
     }
 
-    // This case handles non-zero numbers less than 1e-3 and greater than -1e-3
-    if (power < -3) {
+    if (tooSmallForStandard) {
       const notation = player.notation === 'Pure Engineering' ? 'engineering' as const : 'scientific' as const
       return getFormatter(accuracy, truncate, notation).format(standard).toLowerCase() // We want 'e' to be in lower case
     }
