@@ -267,6 +267,11 @@ const buyAmountTypes = [
 ] as const
 const buildingResources = ['Coin', 'Diamonds', 'Mythos'] as const
 
+const researchAutoChallengeIndices = [71, 72, 73, 74, 75]
+// 2020 Platonic... Why the FUCK did you settle on this?
+// Preserved so that the balancing is unaffected
+const researchAutoChallengeReqMulti = [1.25, 1.6, 1.7, 1.45, 2]
+
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
   worlds: new QuarkHandler(0),
@@ -3326,105 +3331,43 @@ export const resourceGain = (dt: number): void => {
     awardAchievementGroup('constant')
   }
 
-  if (
-    player.researches[71] > 0.5
-    && player.challengecompletions[1]
-      < Math.min(
-        player.highestchallengecompletions[1],
-        25 + 5 * player.researches[66] + 925 * player.researches[105]
-      )
-    && player.coins.gte(
-      Decimal.pow(
-        10,
-        1.25
-          * G.challengeBaseRequirements[0]
-          * Math.pow(1 + player.challengecompletions[1], 2)
-      )
-    )
-  ) {
-    player.challengecompletions[1] += 1
-    challengeAchievementCheck(1)
-    updateChallengeLevel(1)
-  }
-  if (
-    player.researches[72] > 0.5
-    && player.challengecompletions[2]
-      < Math.min(
-        player.highestchallengecompletions[2],
-        25 + 5 * player.researches[67] + 925 * player.researches[105]
-      )
-    && player.coins.gte(
-      Decimal.pow(
-        10,
-        1.6
-          * G.challengeBaseRequirements[1]
-          * Math.pow(1 + player.challengecompletions[2], 2)
-      )
-    )
-  ) {
-    player.challengecompletions[2] += 1
-    challengeAchievementCheck(2)
-    updateChallengeLevel(2)
-  }
-  if (
-    player.researches[73] > 0.5
-    && player.challengecompletions[3]
-      < Math.min(
-        player.highestchallengecompletions[3],
-        25 + 5 * player.researches[68] + 925 * player.researches[105]
-      )
-    && player.coins.gte(
-      Decimal.pow(
-        10,
-        1.7
-          * G.challengeBaseRequirements[2]
-          * Math.pow(1 + player.challengecompletions[3], 2)
-      )
-    )
-  ) {
-    player.challengecompletions[3] += 1
-    challengeAchievementCheck(3)
-    updateChallengeLevel(3)
-  }
-  if (
-    player.researches[74] > 0.5
-    && player.challengecompletions[4]
-      < Math.min(
-        player.highestchallengecompletions[4],
-        25 + 5 * player.researches[69] + 925 * player.researches[105]
-      )
-    && player.coins.gte(
-      Decimal.pow(
-        10,
-        1.45
-          * G.challengeBaseRequirements[3]
-          * Math.pow(1 + player.challengecompletions[4], 2)
-      )
-    )
-  ) {
-    player.challengecompletions[4] += 1
-    challengeAchievementCheck(4)
-    updateChallengeLevel(4)
-  }
-  if (
-    player.researches[75] > 0.5
-    && player.challengecompletions[5]
-      < Math.min(
-        player.highestchallengecompletions[5],
-        25 + 5 * player.researches[70] + 925 * player.researches[105]
-      )
-    && player.coins.gte(
-      Decimal.pow(
-        10,
-        2
-          * G.challengeBaseRequirements[4]
-          * Math.pow(1 + player.challengecompletions[5], 2)
-      )
-    )
-  ) {
-    player.challengecompletions[5] += 1
-    challengeAchievementCheck(5)
-    updateChallengeLevel(5)
+  let autoChallengeCompLimit = 1
+  autoChallengeCompLimit += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+  autoChallengeCompLimit += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+
+  /* Researches 3x21 to 3x25 deal with autogaining Transcension Challenges in
+  Reincarnation Challenges (71-75 in index).
+  */
+  for (let i = 0; i < 5; i++) {
+    const researchIndex = researchAutoChallengeIndices[i]
+    if (
+      player.researches[researchIndex]
+      && player.currentChallenge.reincarnation !== 0
+    ) {
+      const challengeNum = i + 1
+      const maxChallenges = getMaxChallenges(challengeNum)
+      const challengeRequirementMult = researchAutoChallengeReqMulti[i]
+      let updateHTML = false
+      for (let j = 0; j < autoChallengeCompLimit; j++) {
+        const hasCoinRequirement = player.coinsThisTranscension.gte(
+          Decimal.pow(challengeRequirement(challengeNum, player.challengecompletions[challengeNum], challengeNum), challengeRequirementMult)
+        )
+        if (
+          player.challengecompletions[challengeNum] < Math.min(maxChallenges, player.highestchallengecompletions[challengeNum])
+          && hasCoinRequirement
+        ) {
+          player.challengecompletions[challengeNum] += 1
+          updateHTML = true
+          // Due to the min(..., player.highestchallengecompletions[n]) check, we don't need to award achievements
+        }
+        else {
+          if (updateHTML) {
+            updateChallengeLevel(challengeNum)
+          }
+          break
+        }
+      }
+    }
   }
 
   const chal = player.currentChallenge.transcension
