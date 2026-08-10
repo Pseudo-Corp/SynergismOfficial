@@ -121,7 +121,7 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
     mainIconName: 'Particle',
     listIconName: 'Particle',
     i18n: 'particles',
-    unlockHTMLClass: 'reincarnationunlock',
+    unlockHTMLClass: 'particleUpgradeResearch',
     autoToggle: 'reincarnate',
     color: 'limegreen',
     ariaLabelledBy: 'reincarnationtext'
@@ -385,9 +385,9 @@ export const upgradeRequirements = [
   // Diamond Upgrades 16-20
   () => player.unlocks.reincarnate,
   () => player.unlocks.reincarnate,
-  () => getAchievementReward('diamondUpgrade18'),
-  () => getAchievementReward('diamondUpgrade19'),
-  () => getAchievementReward('diamondUpgrade20'),
+  () => Boolean(getAchievementReward('diamondUpgrade18')),
+  () => Boolean(getAchievementReward('diamondUpgrade19')),
+  () => Boolean(getAchievementReward('diamondUpgrade20')),
   // Mythos Upgrade 1-5
   () => player.unlocks.transcend,
   () => player.unlocks.transcend,
@@ -585,18 +585,12 @@ export const updateMobileUpgradeDescription = (i: number) => {
 }
 
 export const clickUpgrades = (i: number, auto: boolean) => {
-  // Make sure the upgrade is locked
   if (
-    player.upgrades[i] !== 0
-    || (i <= 40 && i >= 21 && !player.unlocks.prestige)
-    || (i <= 60 && i >= 41 && !player.unlocks.transcend)
-    || (i <= 80 && i >= 61 && !player.unlocks.reincarnate)
-    || (i <= 120 && i >= 81 && !player.unlocks.prestige)
+    player.upgrades[i]
     || !upgradeRequirements[i]()
   ) {
     return
   }
-
   let type: Upgrade | undefined
   if (i <= 20 && i >= 1) {
     type = Upgrade.coin
