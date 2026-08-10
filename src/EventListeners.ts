@@ -12,6 +12,7 @@ import {
   highlightPrerequisites,
   importBlueberryTree,
   loadoutHandler,
+  quickSaveBlueberryTree,
   resetBlueberryTree,
   resetHighlights,
   resetLoadoutOnlyDisplay
@@ -1804,14 +1805,12 @@ TODO: Fix this entire tab it's utter shit
   const singularityChallenges = Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]
   for (const key of singularityChallenges) {
     const element = DOMCacheGetOrSet(key)
-    const detailsHTML = () => player.singularityChallenges[key].modalHTML()
-    const style = { borderColor: 'gold' }
 
     if (isMobile) {
       element.addEventListener('click', (event) => {
         Modal(
           () =>
-            `${detailsHTML()}${
+            `${player.singularityChallenges[key].modalHTML()}${
               modalBuyButtonsHTML([
                 {
                   action: 'toggle',
@@ -1823,7 +1822,7 @@ TODO: Fix this entire tab it's utter shit
             }`,
           event.clientX,
           event.clientY,
-          style,
+          { borderColor: 'gold' },
           MEDIUM_MODAL_UPDATE_TICK,
           {
             targetElement: element,
@@ -1837,17 +1836,8 @@ TODO: Fix this entire tab it's utter shit
       continue
     }
 
-    element.addEventListener('mousemove', (event) => {
-      Modal(detailsHTML, event.clientX, event.clientY, style, MEDIUM_MODAL_UPDATE_TICK, element)
-    })
-    element.addEventListener('focus', () => {
-      const elmRect = element.getBoundingClientRect()
-      Modal(detailsHTML, elmRect.x, elmRect.y + elmRect.height / 2, style, MEDIUM_MODAL_UPDATE_TICK, element)
-    })
-    element.addEventListener('mouseout', CloseModal)
-    element.addEventListener('blur', CloseModal)
+    element.addEventListener('mouseover', () => player.singularityChallenges[key].updateChallengeHTML())
     element.addEventListener('click', () => {
-      CloseModal()
       void player.singularityChallenges[key].challengeEntryHandler()
     })
   }
@@ -1895,6 +1885,7 @@ TODO: Fix this entire tab it's utter shit
   }
 
   DOMCacheGetOrSet('blueberryToggleMode').addEventListener('click', () => toggleBlueberryLoadoutmode())
+  DOMCacheGetOrSet('blueberryQuickSave').addEventListener('click', () => quickSaveBlueberryTree())
 
   DOMCacheGetOrSet('getBlueberries').addEventListener('click', () => exportBlueberryTree())
   DOMCacheGetOrSet('refundBlueberries').addEventListener('click', () => resetBlueberryTree())
@@ -1905,14 +1896,29 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('importBlueberries').click()
   })
 
-  DOMCacheGetOrSet('showCurrAmbrosiaUpgrades').addEventListener('mouseover', () => {
-    displayLevelsBlueberry()
-    displayRedAmbrosiaLevels()
-  })
-  DOMCacheGetOrSet('showCurrAmbrosiaUpgrades').addEventListener('mouseout', () => {
-    resetLoadoutOnlyDisplay()
-    resetRedAmbrosiaDisplay()
-  })
+  const currAmbrosiaUpgrades = DOMCacheGetOrSet('showCurrAmbrosiaUpgrades')
+
+  if (isMobile) {
+    currAmbrosiaUpgrades.addEventListener('click', function(this: HTMLElement) {
+      const toggled = this.toggleAttribute('show-levels')
+      if (!toggled) {
+        resetLoadoutOnlyDisplay()
+        resetRedAmbrosiaDisplay()
+      } else {
+        displayLevelsBlueberry()
+        displayRedAmbrosiaLevels()
+      }
+    })
+  } else {
+    currAmbrosiaUpgrades.addEventListener('mouseover', () => {
+      displayLevelsBlueberry()
+      displayRedAmbrosiaLevels()
+    })
+    currAmbrosiaUpgrades.addEventListener('mouseout', () => {
+      resetLoadoutOnlyDisplay()
+      resetRedAmbrosiaDisplay()
+    })
+  }
 
   // RED AMBROSIA
   const redAmbrosiaUpgrades = Object.keys(

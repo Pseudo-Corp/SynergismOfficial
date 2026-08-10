@@ -5625,10 +5625,7 @@ img#singularityPerksIcon {
     flex-direction: column;
 }
 
-#singularityChallengeDetails {
-    display: none;
-}
-
+#singularityChallengeDetails,
 .singularityChallengeDetails {
     display: block;
 }
@@ -6220,7 +6217,9 @@ img#singularityPerksIcon {
 #bbLoadoutContainer {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     margin-top: 10px;
 }
 
@@ -7872,10 +7871,6 @@ html[data-mobile="true"] .hideOnMobile {
 
     #ambrosiaTexts {
         line-height: unset;
-    }
-
-    #bbLoadoutContainer {
-        flex-wrap: wrap;
     }
 
     .blueberryUpgradeTier {

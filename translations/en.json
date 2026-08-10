@@ -224,7 +224,10 @@
       "none": "No loadout saved in this slot!",
       "loadout": "Loadout",
       "confirmation": "Saving to this slot will override its build. Are you sure?",
-      "imported": "Imported loadout"
+      "imported": "Imported loadout",
+      "quickSave": "SAVE TO LOADOUT {{n}}",
+      "quickSaveEmpty": "SAVE TO LOADOUT: -",
+      "quickSaveNone": "Load or save a loadout slot first, then this button will overwrite that same slot!"
     },
     "importTree": {
       "success": "Tree successfully imported!",
