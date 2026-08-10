@@ -1667,6 +1667,7 @@ p#promocodeinfo {
 
 #upgradeTopBtns {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin: 15px 0 10px;
@@ -1676,6 +1677,15 @@ p#promocodeinfo {
 #upgradeTopBtns > button {
     min-width: 130px;
     text-align: center;
+}
+
+#togglePurchasedUpgrades {
+    flex-shrink: 0;
+    width: 15em;
+}
+
+.upgradeHiddenByPurchase {
+    display: none !important;
 }
 
 .upgradeCategoryBtnRow {

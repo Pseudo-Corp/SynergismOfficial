@@ -739,8 +739,29 @@ export const upgradeupdate = (num: number, fast?: boolean) => {
     el.classList.remove('green-background')
   }
 
+  const hidePurchased = DOMCacheGetOrSet('togglePurchasedUpgrades').getAttribute('aria-pressed') === 'true'
+  const upgradeContainer = isMobile ? el : el.closest('td') ?? el
+  upgradeContainer.classList.toggle('upgradeHiddenByPurchase', hidePurchased && player.upgrades[num] === 1)
+
   if (!fast) {
     revealStuff()
+  }
+}
+
+export const togglePurchasedUpgrades = () => {
+  const toggle = DOMCacheGetOrSet('togglePurchasedUpgrades')
+  const hidePurchased = toggle.getAttribute('aria-pressed') !== 'true'
+  const i18nKey = hidePurchased ? 'upgrades.hidePurchased' : 'upgrades.showPurchased'
+
+  toggle.setAttribute('aria-pressed', `${hidePurchased}`)
+  toggle.setAttribute('i18n', i18nKey)
+  toggle.textContent = i18next.t(i18nKey)
+  toggle.style.border = `2px solid ${hidePurchased ? 'red' : 'green'}`
+
+  for (const data of Object.values(categoryData)) {
+    for (const id of data.upgradeIds) {
+      upgradeupdate(id, true)
+    }
   }
 }
 
