@@ -3780,15 +3780,19 @@ export const resetCheck = async (
   }
 
   if (i === 'singularity') {
+    if (player.insideSingularityChallenge) {
+      if (G.currentSingChallenge === undefined) {
+        return Alert(i18next.t('main.insideSingularityChallenge'))
+      }
+
+      return player.singularityChallenges[G.currentSingChallenge].challengeEntryHandler()
+    }
+
     if (runes.antiquities.level === 0) {
       return Alert(i18next.t('main.noAntiquity'))
     }
 
     const thankSing = 300
-
-    if (player.insideSingularityChallenge) {
-      return Alert(i18next.t('main.insideSingularityChallenge'))
-    }
 
     if (player.singularityCount >= thankSing) {
       return Alert(i18next.t('main.gameBeat'))
