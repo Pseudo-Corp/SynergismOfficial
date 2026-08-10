@@ -4318,11 +4318,17 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
 
 export const fastUpdates = (): void => {
   updateAll()
-  htmlInserts()
+
+  if (!isOfflineDialogOpen()) {
+    htmlInserts()
+  }
 }
 
 export const slowUpdates = (): void => {
-  buttoncolorchange()
+  if (!isOfflineDialogOpen()) {
+    buttoncolorchange()
+  }
+
   buildingAchievementCheck()
 }
 
