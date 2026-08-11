@@ -18,8 +18,8 @@ export const getCostNextAnt = (ant: AntProducers) => {
         player.ants.producers[ant].purchased - 1
       )
     )
-    : new Decimal()
-  return nextCost.sub(lastCost)
+    : null
+  return lastCost ? nextCost.sub(lastCost) : nextCost
 }
 
 export const getCostMaxAnts = (ant: AntProducers) => {
@@ -28,11 +28,11 @@ export const getCostMaxAnts = (ant: AntProducers) => {
 
   const spent = player.ants.producers[ant].purchased > 0
     ? Decimal.pow(data.costIncrease, player.ants.producers[ant].purchased - 1).times(data.baseCost)
-    : new Decimal()
+    : null
 
   const maxAntCost = Decimal.pow(data.costIncrease, maxBuyable - 1).times(data.baseCost)
 
-  return maxAntCost.sub(spent)
+  return spent ? maxAntCost.sub(spent) : maxAntCost
 }
 
 export const getMaxPurchasableAnts = (ant: AntProducers, budget: Decimal): number => {
@@ -44,8 +44,8 @@ export const getMaxPurchasableAnts = (ant: AntProducers, budget: Decimal): numbe
         player.ants.producers[ant].purchased - 1
       )
     )
-    : new Decimal()
-  const realBudget = budget.add(sunkCost)
+    : null
+  const realBudget = sunkCost ? budget.add(sunkCost) : budget
 
   return Math.max(0, 1 + Math.floor(Decimal.log(realBudget.div(data.baseCost), data.costIncrease)))
 }

@@ -2381,7 +2381,6 @@ export const updateAllTick = (): void => {
   let a = 0
 
   G.totalAccelerator = player.acceleratorBought
-  G.costDivisor = 1
 
   if (player.upgrades[8] !== 0) {
     a += Math.floor(player.multiplierBought / 7)
@@ -2416,7 +2415,6 @@ export const updateAllTick = (): void => {
   a += +getAchievementReward('accelerators')
 
   a += 5 * CalcECC('transcend', player.challengecompletions[2])
-  G.freeUpgradeAccelerator = a
   a += G.totalAcceleratorBoost
     * (5
       + 2 * player.researches[18]
@@ -2507,7 +2505,6 @@ export const updateAllTick = (): void => {
       G.totalAccelerator + G.totalMultiplier
     )
   }
-  G.acceleratorEffectDisplay = new Decimal(G.acceleratorPower * 100 - 100)
   if (player.currentChallenge.reincarnation === 10) {
     G.acceleratorEffect = new Decimal(1)
   }
@@ -2568,7 +2565,6 @@ export const updateAllMultiplier = (): void => {
     * player.researches[94]
     * Math.floor(sumOfRuneLevels() / 8)
 
-  G.freeUpgradeMultiplier = Math.min(1e100, a)
   a *= Math.pow(
     1.01,
     player.upgrades[21]
@@ -2764,21 +2760,16 @@ export const crystalUpgrade3CrystalMultiplier = (base?: number): Decimal => {
 }
 
 export const multipliers = (): void => {
-  let s = new Decimal(1)
-  let c = new Decimal(1)
-
   const crystalMult = calculateCrystalCoinMultiplier()
 
   const buildingPower = calculateBuildingPower()
   const buildingPowerMult = calculateBuildingPowerCoinMultiplier(buildingPower)
 
-  G.antMultiplier = getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier
-
-  s = s.times(G.multiplierEffect)
+  let s = new Decimal(G.multiplierEffect)
   s = s.times(G.acceleratorEffect)
   s = s.times(crystalMult)
   s = s.times(buildingPowerMult)
-  s = s.times(G.antMultiplier)
+  s = s.times(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier)
 
   const totalCoinOwned = calculateTotalCoinOwned()
   const first6CoinUp = new Decimal(totalCoinOwned + 1).times(
@@ -2823,7 +2814,7 @@ export const multipliers = (): void => {
   if (player.currentChallenge.reincarnation === 9) {
     s = s.dividedBy('1e2000000')
   }
-  c = Decimal.pow(s, 1 + 0.001 * player.researches[17])
+  let c = Decimal.pow(s, 1 + 0.001 * player.researches[17])
   let lol = Decimal.pow(c, 1 + 0.025 * player.upgrades[123])
   if (
     player.currentChallenge.ascension === 15
@@ -2857,9 +2848,10 @@ export const multipliers = (): void => {
     G.recessionPower[player.corruptions.used.recession]
   )
 
-  G.coinOneMulti = new Decimal(1)
   if (player.upgrades[1] > 0.5) {
-    G.coinOneMulti = G.coinOneMulti.times(first6CoinUp)
+    G.coinOneMulti = Decimal.fromDecimal(first6CoinUp)
+  } else {
+    G.coinOneMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[10] > 0.5) {
     G.coinOneMulti = G.coinOneMulti.times(
@@ -2870,9 +2862,10 @@ export const multipliers = (): void => {
     G.coinOneMulti = G.coinOneMulti.times('1e5000')
   }
 
-  G.coinTwoMulti = new Decimal(1)
   if (player.upgrades[2] > 0.5) {
-    G.coinTwoMulti = G.coinTwoMulti.times(first6CoinUp)
+    G.coinTwoMulti = Decimal.fromDecimal(first6CoinUp)
+  } else {
+    G.coinTwoMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[13] > 0.5) {
     G.coinTwoMulti = G.coinTwoMulti.times(
@@ -2894,9 +2887,10 @@ export const multipliers = (): void => {
     G.coinTwoMulti = G.coinTwoMulti.times('1e7500')
   }
 
-  G.coinThreeMulti = new Decimal(1)
   if (player.upgrades[3] > 0.5) {
-    G.coinThreeMulti = G.coinThreeMulti.times(first6CoinUp)
+    G.coinThreeMulti = Decimal.fromDecimal(first6CoinUp)
+  } else {
+    G.coinThreeMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[18] > 0.5) {
     G.coinThreeMulti = G.coinThreeMulti.times(
@@ -2907,9 +2901,10 @@ export const multipliers = (): void => {
     G.coinThreeMulti = G.coinThreeMulti.times('1e15000')
   }
 
-  G.coinFourMulti = new Decimal(1)
   if (player.upgrades[4] > 0.5) {
-    G.coinFourMulti = G.coinFourMulti.times(first6CoinUp)
+    G.coinFourMulti = Decimal.fromDecimal(first6CoinUp)
+  } else {
+    G.coinFourMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[17] > 0.5) {
     G.coinFourMulti = G.coinFourMulti.times(1e100)
@@ -2918,9 +2913,10 @@ export const multipliers = (): void => {
     G.coinFourMulti = G.coinFourMulti.times('1e25000')
   }
 
-  G.coinFiveMulti = new Decimal(1)
   if (player.upgrades[5] > 0.5) {
-    G.coinFiveMulti = G.coinFiveMulti.times(first6CoinUp)
+    G.coinFiveMulti = Decimal.fromDecimal(first6CoinUp)
+  } else {
+    G.coinFiveMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[60] > 0.5) {
     G.coinFiveMulti = G.coinFiveMulti.times('1e35000')
@@ -2928,10 +2924,7 @@ export const multipliers = (): void => {
 
   const upgrade3Multiplier = crystalUpgrade3CrystalMultiplier()
 
-  G.globalCrystalMultiplier = new Decimal(1)
-  G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
-    +getAchievementReward('crystalMultiplier')
-  )
+  G.globalCrystalMultiplier = Decimal.fromNumber(+getAchievementReward('crystalMultiplier'))
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
     Decimal.pow(10, getRuneEffects('prism', 'productionLog10'))
   )
@@ -3032,21 +3025,14 @@ export const multipliers = (): void => {
       Decimal.pow(buildingPowerMult, 1 / 250)
     )
   }
-  G.grandmasterMultiplier = new Decimal(1)
-  G.totalMythosOwned = player.firstOwnedMythos
-    + player.secondOwnedMythos
-    + player.thirdOwnedMythos
-    + player.fourthOwnedMythos
-    + player.fifthOwnedMythos
 
-  G.mythosBuildingPower = 1 + CalcECC('transcend', player.challengecompletions[3]) / 200
   G.challengeThreeMultiplier = Decimal.pow(
-    G.mythosBuildingPower,
-    G.totalMythosOwned
-  )
-
-  G.grandmasterMultiplier = G.grandmasterMultiplier.times(
-    G.challengeThreeMultiplier
+    1 + CalcECC('transcend', player.challengecompletions[3]) / 200,
+    player.firstOwnedMythos
+      + player.secondOwnedMythos
+      + player.thirdOwnedMythos
+      + player.fourthOwnedMythos
+      + player.fifthOwnedMythos
   )
 
   G.mythosupgrade13 = new Decimal(1)
@@ -3068,14 +3054,11 @@ export const multipliers = (): void => {
     )
   }
 
-  G.globalConstantMult = new Decimal('1')
-  G.globalConstantMult = G.globalConstantMult.times(
-    Decimal.pow(
-      1.05
-        + +getAchievementReward('constUpgrade1Buff')
-        + 0.001 * player.platonicUpgrades[18],
-      player.constantUpgrades[1]
-    )
+  G.globalConstantMult = Decimal.pow(
+    1.05
+      + +getAchievementReward('constUpgrade1Buff')
+      + 0.001 * player.platonicUpgrades[18],
+    player.constantUpgrades[1]
   )
   G.globalConstantMult = G.globalConstantMult.times(
     Decimal.pow(
@@ -3204,7 +3187,7 @@ export const resourceGain = (dt: number): void => {
     .add(player.fifthOwnedMythos)
     .times(player.fifthProduceMythos)
     .times(G.globalMythosMultiplier)
-    .times(G.grandmasterMultiplier)
+    .times(G.challengeThreeMultiplier)
     .times(G.mythosupgrade15)
   G.produceFourthMythos = player.fourthGeneratedMythos
     .add(player.fourthOwnedMythos)
@@ -3237,7 +3220,6 @@ export const resourceGain = (dt: number): void => {
     G.produceSecondMythos.times(dt / 0.025)
   )
 
-  G.produceMythos = new Decimal()
   G.produceMythos = player.firstGeneratedMythos
     .add(player.firstOwnedMythos)
     .times(player.firstProduceMythos)
@@ -3245,18 +3227,18 @@ export const resourceGain = (dt: number): void => {
     .times(G.mythosupgrade13)
   G.producePerSecondMythos = G.produceMythos.times(40)
 
-  let pm = new Decimal('1')
+  let pm: Decimal
   if (player.upgrades[67] > 0.5) {
-    pm = pm.times(
-      Decimal.pow(
-        1.03,
-        player.firstOwnedParticles
-          + player.secondOwnedParticles
-          + player.thirdOwnedParticles
-          + player.fourthOwnedParticles
-          + player.fifthOwnedParticles
-      )
+    pm = Decimal.pow(
+      1.03,
+      player.firstOwnedParticles
+        + player.secondOwnedParticles
+        + player.thirdOwnedParticles
+        + player.fourthOwnedParticles
+        + player.fifthOwnedParticles
     )
+  } else {
+    pm = Decimal.fromNumber(1)
   }
   G.produceFifthParticles = player.fifthGeneratedParticles
     .add(player.fifthOwnedParticles)
@@ -3287,7 +3269,6 @@ export const resourceGain = (dt: number): void => {
     G.produceSecondParticles.times(dt / 0.025)
   )
 
-  G.produceParticles = new Decimal()
   G.produceParticles = player.firstGeneratedParticles
     .add(player.firstOwnedParticles)
     .times(player.firstProduceParticles)

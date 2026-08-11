@@ -275,13 +275,14 @@ const registerLevelDetailsModal = (
 
   img.addEventListener('click', (event: MouseEvent) => {
     Modal(
-      () => createLevelDetailsModalHTML(
-        img.src,
-        img.alt,
-        titleColor,
-        detailsHTML(),
-        img.classList.contains('synergismLevelPreview')
-      ),
+      () =>
+        createLevelDetailsModalHTML(
+          img.src,
+          img.alt,
+          titleColor,
+          detailsHTML(),
+          img.classList.contains('synergismLevelPreview')
+        ),
       event.clientX,
       event.clientY,
       { borderColor },

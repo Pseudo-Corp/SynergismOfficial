@@ -334,7 +334,7 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
   let levelToBuy = getBuyableResearchLevel(index)
   levelToBuy = Math.min(researchData[index].maxLevel, levelToBuy, player.researches[index] + buyAmount)
 
-  let obtainiumCost = new Decimal()
+  let obtainiumCost: Decimal
 
   // If levelToBuy is = current level, either we've already maxxed the upgrade
   // OR we cannot afford any levels. Check which one.
@@ -344,6 +344,8 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
     if (!isResearchMaxed(index)) {
       levelToBuy += 1
       obtainiumCost = getCostForResearchLevels(index, levelToBuy)
+    } else {
+      obtainiumCost = new Decimal()
     }
   } else {
     obtainiumCost = getCostForResearchLevels(index, levelToBuy)
