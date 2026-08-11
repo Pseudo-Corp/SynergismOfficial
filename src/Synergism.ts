@@ -47,6 +47,7 @@ import {
   buyCrystalUpgrades,
   buyTesseractBuilding,
   calculateTessBuildingsInBudget,
+  getAcceleratorBoostCost,
   getCost,
   getReductionValue
 } from './Buy'
@@ -424,7 +425,6 @@ export const player: Player = {
   acceleratorBought: 0,
 
   acceleratorBoostBought: 0,
-  acceleratorBoostCost: new Decimal('1e3'),
 
   upgrades: Array(141).fill(0) as number[],
 
@@ -3990,7 +3990,7 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
     player.toggles[8]
     && player.upgrades[88] === 1
     && player.upgrades[46] === 1
-    && player.prestigePoints.gte(player.acceleratorBoostCost)
+    && player.prestigePoints.gte(getAcceleratorBoostCost())
   ) {
     boostAccelerator('max')
   }

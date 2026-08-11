@@ -1,6 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
+import { getAcceleratorBoostCost } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   CalcCorruptionStuff,
@@ -362,7 +363,7 @@ export const visualUpdateBuildings = () => {
     getBuildingCostElement('buyacceleratorboost').textContent = i18next.t(
       'buildings.costDiamonds',
       {
-        diamonds: format(player.acceleratorBoostCost, 0, false, false)
+        diamonds: format(getAcceleratorBoostCost(), 0, false, false)
       }
     )
 

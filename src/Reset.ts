@@ -6,7 +6,7 @@ import {
   challengeAchievementCheck,
   getAchievementReward
 } from './Achievements'
-import { buyTesseractBuilding, calculateTessBuildingsInBudget, getCost } from './Buy'
+import { buyTesseractBuilding, calculateTessBuildingsInBudget, getAcceleratorBoostCost, getCost } from './Buy'
 import type { TesseractBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -162,10 +162,10 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
     case 'acceleratorBoost':
       resetDetails.currencyVisible = true
       resetDetails.currencySrc = `Pictures/${iconSet}/Diamond.png`
-      resetDetails.currencyText = `-${format(player.acceleratorBoostCost)}`
+      resetDetails.currencyText = `-${format(getAcceleratorBoostCost())}`
       resetDetails.infoText = i18next.t('reset.details.acceleratorBoost', {
         amount: format(player.prestigePoints),
-        required: format(player.acceleratorBoostCost)
+        required: format(getAcceleratorBoostCost())
       })
       resetDetails.infoColor = 'cyan'
       break
@@ -480,7 +480,6 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.fourthGeneratedMythos = new Decimal()
     player.fifthGeneratedMythos = new Decimal()
     player.acceleratorBoostBought = 0
-    player.acceleratorBoostCost = Decimal.fromString('1e3')
 
     if (transcensionCheck) {
       updateTranscensionCount(1)

@@ -174,7 +174,6 @@ export interface Player {
   acceleratorBought: number
 
   acceleratorBoostBought: number
-  acceleratorBoostCost: Decimal
 
   upgrades: number[]
 
@@ -568,8 +567,6 @@ export interface GlobalVariables {
   // Mega list of Variables to be used elsewhere
   crystalUpgradesCost: number[]
   crystalUpgradeCostIncrement: number[]
-
-  ticker: number
 
   costDivisor: number
 

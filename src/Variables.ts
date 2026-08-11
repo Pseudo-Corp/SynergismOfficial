@@ -27,8 +27,6 @@ export const Globals: GlobalVariables = {
   crystalUpgradesCost: [6, 15, 20, 40, 100, 200, 500, 1000],
   crystalUpgradeCostIncrement: [8, 15, 20, 40, 100, 200, 500, 1000],
 
-  ticker: 0,
-
   costDivisor: 1,
 
   freeAccelerator: 0,
