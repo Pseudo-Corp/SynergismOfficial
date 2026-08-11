@@ -16,6 +16,7 @@ import {
   updateAllProgressiveAchievementProgress,
   updateAllUngroupedAchievementProgress
 } from './Achievements'
+import { getAcceleratorBoostCost } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   CalcCorruptionStuff,
@@ -920,7 +921,7 @@ export const buttoncolorchange = () => {
     )
     h.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[8] || player.upgrades[88] === 0) && player.prestigePoints.gte(player.acceleratorBoostCost)
+      (!player.toggles[8] || player.upgrades[88] === 0) && player.prestigePoints.gte(getAcceleratorBoostCost())
     )
   }
 

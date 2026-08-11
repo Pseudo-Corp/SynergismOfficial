@@ -456,7 +456,6 @@ export const playerSchema = z.object({
   acceleratorBought: z.number(),
 
   acceleratorBoostBought: z.number(),
-  acceleratorBoostCost: decimalSchema,
 
   upgrades: z.number().array().transform((array) => {
     if (array.length < blankSave.upgrades.length) {

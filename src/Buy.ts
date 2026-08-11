@@ -230,7 +230,9 @@ const getCostAccelMult = (type: keyof typeof accelMultData, n: number): Decimal 
   return cost
 }
 
-const getAcceleratorBoostCost = (n = 1): Decimal => {
+export const getAcceleratorBoostCost = (
+  n = player.acceleratorBoostBought + smallestInc(player.acceleratorBoostBought)
+): Decimal => {
   const owned = n - 1
   const base = new Decimal(1000)
   const r = getRuneBlessingEffect('thrift').accelBoostCostDelay
@@ -302,7 +304,11 @@ export const buyBuilding = (
   const r = getReductionValue()
   const tag = isAccelMult ? 'coins' : isProducer ? producerData[type].currency : 'prestigePoints'
   const posOwnedType = isProducer ? `${pos}Owned${producerData[type].name}` as const : `${type}Bought` as const
-  const posCostType = isProducer ? `${pos}Cost${producerData[type].name}` as const : `${type}Cost` as const
+  const posCostType = isProducer
+    ? `${pos}Cost${producerData[type].name}` as const
+    : type === 'acceleratorBoost'
+    ? null
+    : `${type}Cost` as const
 
   if (amount === undefined) {
     if (isProducer) {
@@ -335,7 +341,9 @@ export const buyBuilding = (
     const thisCost = getCost(type, buyable, index, r)
 
     player[posOwnedType] = buyable
-    player[posCostType] = thisCost
+    if (posCostType !== null) {
+      player[posCostType] = thisCost
+    }
 
     if (isAccelMult) {
       awardAchievementGroup(`${type}s` as const)
@@ -379,7 +387,9 @@ export const buyBuilding = (
   // meaning that the code below this cannot run if this ever runs.
   if (buyStart + buyInc >= softcap) {
     player[posOwnedType] = softcap
-    player[posCostType] = getCost(type, softcap, index, r)
+    if (posCostType !== null) {
+      player[posCostType] = getCost(type, softcap, index, r)
+    }
     return
   }
 
@@ -391,7 +401,9 @@ export const buyBuilding = (
     player[posOwnedType] = buyFrom
     buyFrom = buyFrom + smallestInc(buyFrom)
     thisCost = getCost(type, buyFrom, index, r)
-    player[posCostType] = thisCost
+    if (posCostType !== null) {
+      player[posCostType] = thisCost
+    }
   }
 
   if (isAccelMult) {
@@ -494,26 +506,22 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
 
 export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount) => {
   if (player.upgrades[46] < 1) {
-    while (player.prestigePoints.gte(player.acceleratorBoostCost) && G.ticker < 1) {
-      if (player.prestigePoints.gte(player.acceleratorBoostCost)) {
-        player.acceleratorBoostBought += 1
-        player.acceleratorBoostCost = getAcceleratorBoostCost(player.acceleratorBoostBought)
-        player.transcendnoaccelerator = false
-        player.reincarnatenoaccelerator = false
-        if (player.upgrades[46] < 0.5) {
-          for (let j = 21; j < 41; j++) {
-            player.upgrades[j] = 0
-          }
-          reset('prestige')
-          player.prestigePoints = new Decimal()
+    while (player.prestigePoints.gte(getAcceleratorBoostCost())) {
+      player.acceleratorBoostBought += 1
+      player.transcendnoaccelerator = false
+      player.reincarnatenoaccelerator = false
+      if (player.upgrades[46] < 0.5) {
+        for (let j = 21; j < 41; j++) {
+          player.upgrades[j] = 0
         }
+        reset('prestige')
+        player.prestigePoints = new Decimal()
       }
     }
   } else {
     buyBuilding('acceleratorBoost', amount)
   }
 
-  G.ticker = 0
   awardAchievementGroup('acceleratorBoosts')
 }
 
