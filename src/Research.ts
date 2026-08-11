@@ -265,10 +265,27 @@ const getCostForResearchLevels = (index: number, buyTo: number): Decimal => {
 
 export const researchOrderByCost: number[] = sortDecimalWithIndices(researchBaseCosts)
 
+let roombaHighlightIndex = 0
+
+export const setResearchRoombaHighlight = (index: number) => {
+  if (roombaHighlightIndex === index) {
+    return
+  }
+
+  if (roombaHighlightIndex > 0) {
+    DOMCacheGetOrSet(`res${roombaHighlightIndex}`).classList.remove('researchRoomba')
+  }
+
+  if (index > 0) {
+    DOMCacheGetOrSet(`res${index}`).classList.add('researchRoomba')
+  }
+
+  roombaHighlightIndex = index
+}
+
 // For mode 'manual'
 export const updateResearchAuto = (index: number) => {
-  DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
-  DOMCacheGetOrSet(`res${index}`).classList.add('researchRoomba')
+  setResearchRoombaHighlight(index)
   player.autoResearch = index
 
   // Research is maxed
@@ -285,7 +302,6 @@ export const updateResearchAuto = (index: number) => {
 
 export const updateResearchRoomba = () => {
   if (isResearchMaxed(player.autoResearch) || !isResearchUnlocked(player.autoResearch)) {
-    DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
     player.roombaResearchIndex = Math.min(researchOrderByCost.length - 1, player.roombaResearchIndex + 1)
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
@@ -295,7 +311,7 @@ export const updateResearchRoomba = () => {
     player.roombaResearchIndex = 0
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
-  DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.add('researchRoomba')
+  setResearchRoombaHighlight(player.autoResearch)
 }
 
 /**
@@ -415,8 +431,8 @@ export const buyResearch = (index: number, auto: boolean, hover: boolean, buyMax
     player.researches[index] = levelToBuy
     player.obtainium = player.obtainium.sub(researchCost)
     // Quick check after upgrading for max. This is to update any automation regardless of auto state
-    if (isResearchMaxed(index)) {
-      DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
+    if (isResearchMaxed(index) && roombaHighlightIndex === index) {
+      setResearchRoombaHighlight(0)
     }
 
     researchDescriptions(index, auto)

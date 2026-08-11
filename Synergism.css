@@ -5393,6 +5393,51 @@ header #obtainiumDisplay { color: pink; }
     border: 2px solid blue;
 }
 
+.blueberryLoadoutSlot.activeBlueberryLoadout {
+    background-color: #1d4ed8;
+    border-color: deepskyblue;
+    color: white;
+    font-weight: bold;
+}
+
+#ambrosiaEditLevels.ambrosiaEditingToggled {
+    background-color: #4a2c00;
+    border-color: gold;
+    color: gold;
+}
+
+#blueberryUpgradeContainer.ambrosiaEditing .blueberryUpgrade {
+    outline: 1px dashed orange;
+    outline-offset: -1px;
+}
+
+.ambrosiaEditModal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.ambrosiaEditModal .modalBtnBuy {
+    width: auto;
+    min-width: 60px;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.ambrosiaEditModal .modalBtnBuy:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.ambrosiaEditModal .ambrosiaEditSave {
+    border-color: lime;
+}
+
+.ambrosiaEditModal .ambrosiaEditDiscard {
+    border-color: crimson;
+}
+
 .blueberryLoadoutSetting {
     height: 32px;
     width: 192px;

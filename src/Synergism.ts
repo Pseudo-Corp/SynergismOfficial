@@ -86,6 +86,7 @@ import {
   researchData,
   researchOrderByCost,
   roombaResearchEnabled,
+  setResearchRoombaHighlight,
   updateResearchAuto,
   updateResearchBG,
   updateResearchRoomba
@@ -1990,6 +1991,8 @@ const loadSynergy = () => {
     player.autoResearch = Math.min(200, player.autoResearch)
     player.autoSacrifice = Math.min(G.MAX_AUTO_SACRIFICE_RUNE, player.autoSacrifice)
 
+    setResearchRoombaHighlight(player.autoResearchToggle ? player.autoResearch : 0)
+
     if (player.researches[61] === 0) {
       DOMCacheGetOrSet('automaticobtainium').textContent = i18next.t(
         'main.buyResearch3x11'
@@ -3536,8 +3539,10 @@ export const resetCheck = async (
       && reqCheck(player.challengecompletions[q])
     ) {
       let maxInc = 1
-      maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-      maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      if (player.retrychallenges && !manual && !leaving) {
+        maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+        maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      }
       if (player.currentChallenge.ascension === 13) {
         maxInc = 1
       }
@@ -3612,8 +3617,10 @@ export const resetCheck = async (
       && player.challengecompletions[q] < maxCompletions
     ) {
       let maxInc = 1
-      maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-      maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      if (player.retrychallenges && !manual && !leaving) {
+        maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+        maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      }
       if (player.currentChallenge.ascension === 13) {
         maxInc = 1
       }
@@ -3780,15 +3787,19 @@ export const resetCheck = async (
   }
 
   if (i === 'singularity') {
+    if (player.insideSingularityChallenge) {
+      if (G.currentSingChallenge === undefined) {
+        return Alert(i18next.t('main.insideSingularityChallenge'))
+      }
+
+      return player.singularityChallenges[G.currentSingChallenge].challengeEntryHandler()
+    }
+
     if (runes.antiquities.level === 0) {
       return Alert(i18next.t('main.noAntiquity'))
     }
 
     const thankSing = 300
-
-    if (player.insideSingularityChallenge) {
-      return Alert(i18next.t('main.insideSingularityChallenge'))
-    }
 
     if (player.singularityCount >= thankSing) {
       return Alert(i18next.t('main.gameBeat'))

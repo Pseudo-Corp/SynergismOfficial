@@ -46,7 +46,7 @@ import {
 import { importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
-import { isResearchMaxed, updateResearchBG } from './Research'
+import { isResearchMaxed, setResearchRoombaHighlight, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, runes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
@@ -669,7 +669,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
       player.highestchallengecompletions[j] = 0
     }
 
-    DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
+    setResearchRoombaHighlight(0)
     player.roombaResearchIndex = 0
     player.autoResearch = 1
 

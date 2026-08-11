@@ -1,9 +1,12 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
 import {
+  ambrosiaEditAction,
+  ambrosiaEditToString,
   type AmbrosiaUpgradeNames,
   ambrosiaUpgrades,
   ambrosiaUpgradeToString,
+  beginAmbrosiaEdit,
   buyAmbrosiaUpgradeLevel,
   createLoadoutDescription,
   displayLevelsBlueberry,
@@ -11,11 +14,14 @@ import {
   exportBlueberryTree,
   highlightPrerequisites,
   importBlueberryTree,
+  isAmbrosiaEditMode,
   loadoutHandler,
   quickSaveBlueberryTree,
   resetBlueberryTree,
   resetHighlights,
-  resetLoadoutOnlyDisplay
+  resetLoadoutOnlyDisplay,
+  setAmbrosiaEditMode,
+  toggleAmbrosiaEditMode
 } from './BlueberryUpgrades'
 import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -185,6 +191,7 @@ type PurchasableModalOptions = {
   updateInterval?: number
   onOpen?: () => void
   onClose?: () => void
+  disabled?: () => boolean
 }
 
 type MobileSubTabIconConfig = {
@@ -386,7 +393,8 @@ const registerPurchasableModal = ({
   mobileButtons,
   updateInterval,
   onOpen,
-  onClose
+  onClose,
+  disabled
 }: PurchasableModalOptions) => {
   const showDesktopModal = (x: number, y: number) => {
     onOpen?.()
@@ -411,24 +419,34 @@ const registerPurchasableModal = ({
   }
 
   if (isMobile) {
-    element.addEventListener('click', showMobileModal)
+    element.addEventListener('click', (event) => {
+      if (disabled?.()) return
+      showMobileModal(event)
+    })
     return
   }
 
-  element.addEventListener('mousemove', (event) => showDesktopModal(event.clientX, event.clientY))
+  element.addEventListener('mousemove', (event) => {
+    if (disabled?.()) return
+    showDesktopModal(event.clientX, event.clientY)
+  })
   element.addEventListener('focus', () => {
+    if (disabled?.()) return
     const elmRect = element.getBoundingClientRect()
     showDesktopModal(elmRect.x, elmRect.y + elmRect.height / 2)
   })
   element.addEventListener('mouseout', () => {
+    if (disabled?.()) return
     CloseModal()
     onClose?.()
   })
   element.addEventListener('blur', () => {
+    if (disabled?.()) return
     CloseModal()
     onClose?.()
   })
   element.addEventListener('click', (event) => {
+    if (disabled?.()) return
     void buy(event)
     showDesktopModal(event.clientX, event.clientY)
   })
@@ -1847,13 +1865,41 @@ TODO: Fix this entire tab it's utter shit
     ambrosiaUpgrades
   ) as AmbrosiaUpgradeNames[]
   for (const key of blueberryUpgrades) {
+    const element = DOMCacheGetOrSet(key)
+
     registerPurchasableModal({
-      element: DOMCacheGetOrSet(key),
+      element,
       html: () => ambrosiaUpgradeToString(key),
       style: { borderColor: 'blue' },
       buy: (event, action) => buyAmbrosiaUpgradeLevel(key, event, action === 'max'),
       onOpen: () => highlightPrerequisites(key),
-      onClose: resetHighlights
+      onClose: resetHighlights,
+      disabled: isAmbrosiaEditMode
+    })
+
+    element.addEventListener('click', (event) => {
+      if (!isAmbrosiaEditMode()) return
+
+      resetHighlights()
+      beginAmbrosiaEdit(key)
+      highlightPrerequisites(key)
+
+      Modal(
+        () => ambrosiaEditToString(key),
+        event.clientX,
+        event.clientY,
+        { borderColor: 'orange' },
+        MEDIUM_MODAL_UPDATE_TICK,
+        {
+          targetElement: element,
+          buttonClick: (button) => {
+            if (ambrosiaEditAction(key, button.dataset.modalAction)) {
+              CloseModal()
+              resetHighlights()
+            }
+          }
+        }
+      )
     })
   }
 
@@ -1886,6 +1932,13 @@ TODO: Fix this entire tab it's utter shit
 
   DOMCacheGetOrSet('blueberryToggleMode').addEventListener('click', () => toggleBlueberryLoadoutmode())
   DOMCacheGetOrSet('blueberryQuickSave').addEventListener('click', () => quickSaveBlueberryTree())
+
+  setAmbrosiaEditMode(false)
+  DOMCacheGetOrSet('ambrosiaEditLevels').addEventListener('click', () => {
+    CloseModal()
+    resetHighlights()
+    toggleAmbrosiaEditMode()
+  })
 
   DOMCacheGetOrSet('getBlueberries').addEventListener('click', () => exportBlueberryTree())
   DOMCacheGetOrSet('refundBlueberries').addEventListener('click', () => resetBlueberryTree())

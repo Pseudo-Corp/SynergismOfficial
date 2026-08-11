@@ -6,7 +6,7 @@ import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } fro
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
-import { researchOrderByCost, roombaResearchEnabled } from './Research'
+import { researchOrderByCost, roombaResearchEnabled, setResearchRoombaHighlight } from './Research'
 import { applyChallengeInitialModifiers, reset } from './Reset'
 import { indexToRune } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
@@ -349,7 +349,7 @@ export const toggleAutoResearch = () => {
   if (player.autoResearchToggle || !getShopUpgradeEffects('obtainiumAuto', 'autoResearch')) {
     player.autoResearchToggle = false
     el.textContent = i18next.t('researches.automaticOff')
-    DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
+    setResearchRoombaHighlight(0)
     player.autoResearch = 0
   } else {
     player.autoResearchToggle = true
@@ -370,7 +370,7 @@ export const toggleAutoResearchMode = () => {
     player.autoResearchMode = 'cheapest'
     el.textContent = i18next.t('researches.autoModeCheapest')
   }
-  DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
+  setResearchRoombaHighlight(0)
 
   if (player.autoResearchToggle && roombaResearchEnabled() && player.autoResearchMode === 'cheapest') {
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
