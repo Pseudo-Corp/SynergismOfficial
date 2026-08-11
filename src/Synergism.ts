@@ -3536,8 +3536,10 @@ export const resetCheck = async (
       && reqCheck(player.challengecompletions[q])
     ) {
       let maxInc = 1
-      maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-      maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      if (player.retrychallenges && !manual && !leaving) {
+        maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+        maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      }
       if (player.currentChallenge.ascension === 13) {
         maxInc = 1
       }
@@ -3612,8 +3614,10 @@ export const resetCheck = async (
       && player.challengecompletions[q] < maxCompletions
     ) {
       let maxInc = 1
-      maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-      maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      if (player.retrychallenges && !manual && !leaving) {
+        maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+        maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      }
       if (player.currentChallenge.ascension === 13) {
         maxInc = 1
       }
