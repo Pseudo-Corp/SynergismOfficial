@@ -1922,6 +1922,11 @@ p#promocodeinfo {
     height: 32px;
 }
 
+.synergismLevelPreview {
+    filter: grayscale(1) brightness(0.35) blur(1px);
+    opacity: 0.75;
+}
+
 .tieredAchievementType img.dimmed,
 .ungroupedAchievementType img.dimmed,
 .progressiveAchievementType img.dimmed {

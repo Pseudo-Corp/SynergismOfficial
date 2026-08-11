@@ -1918,6 +1918,9 @@
       "diamondUpgrade20": "• Diamond Upgrade 4x5 {{unlock}}",
       "overfluxConversionRate": "• Overflux Powder Conversion Rate x{{val}}"
     },
+    "levelPreview": {
+      "levelsUntilUnlock": "Unlocks in <<gold|{{count}}>> more Synergism Levels."
+    },
     "levelRewards": {
       "minLevel": "Minimum Level Required: {{level}}",
       "noLevelReq": "Unlocked by Default!",
