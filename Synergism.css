@@ -857,6 +857,7 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
 
 .resetsContainer {
     display: flex;
+    flex-direction: column;
     line-height: 1em;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
@@ -871,6 +872,21 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
 .resetsButtons {
     display: flex;
     align-items: start;
+}
+
+.challengeProgress {
+    display: grid;
+    grid-template-rows: repeat(3, 1.2em);
+    margin-top: 0.25em;
+    line-height: 1.2em;
+}
+
+#transcensionChallengeProgress { color: var(--orchid-text-color); }
+#reincarnationChallengeProgress { color: limegreen; }
+#ascensionChallengeProgress { color: orange; }
+
+html[data-mobile="true"] .challengeProgress {
+    display: none;
 }
 
 #mainHeader {

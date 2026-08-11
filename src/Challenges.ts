@@ -802,6 +802,10 @@ export const challenge15ScoreMultiplier = () => {
   )
 }
 
+export const calculateChallenge15Score = () => {
+  return Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier()
+}
+
 // "Regular" just means not ascension challenge
 export const getNextRegularChallenge = (startIndex: number, explored: Set<number>) => {
   let challenge = startIndex

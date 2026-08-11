@@ -2224,6 +2224,17 @@
       "ascensionChallenge": "Click this if you're in an Ascension Challenge and want to leave. You get it already!",
       "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
       "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
+    },
+    "challengeProgress": {
+      "line": "{{check}} {{name}} ({{comps}}/{{maxComps}}): <<gold|{{amount}}>> / <<gold|{{required}}>> {{resource}}",
+      "challenge15Line": "{{name}}: <<gold|{{score}}>> Score (<<gold|{{current}}>>/<<gold|{{required}}>> Coins)",
+      "challenge15ProjectedLine": "{{name}}: <<gold|{{score}}>> → <<gold|{{projectedScore}}>> Score",
+      "challenge15AutoLine": "{{name}}: <<gold|{{score}}>> Score",
+      "resources": {
+        "coins": "Coins",
+        "transcendShards": "Mythos Shards",
+        "challenge10Completions": "Challenge 10 Completions"
+      }
     }
   },
   "ants": {
@@ -2658,6 +2669,7 @@
   "challenges": {
     "1": {
       "name": "No Multipliers Challenge || {{- value}} Completions",
+      "progressName": "No Multipliers Challenge",
       "flavor": "Multipliers make the game a little too fast. Let's take them out!",
       "restrictions": "Transcend and reach the goal except Multipliers count as Accelerators. <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Accelerator Power is reduced. Each completion reduces it more! <br> ☆ Each Multiplier gives a Coin Producer production multiplier equal to Accelerator Power.",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2676,6 +2688,7 @@
     },
     "2": {
       "name": "No Accelerators Challenge || {{- value}} Completions",
+      "progressName": "No Accelerators Challenge",
       "flavor": "Who needs accelerators? They do basically nothing now.",
       "restrictions": "Transcend and reach the goal except Accelerators do nothing! <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power is reduced to be <<gold|num:((1.25)), +num:((0.0012))>> per Multiplier Boost",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2694,6 +2707,7 @@
     },
     "3": {
       "name": "No Shards Challenge || {{- value}} Completions",
+      "progressName": "No Shards Challenge",
       "flavor": "Alright, now you're thinking, how else can I make the game harder?",
       "restrictions": "Transcend and reach the goal except you do not produce Crystals or Mythos Shards. <br> ☆ Refineries do not produce Crystals <br> ☆ Augments do not produce Mythos Shards. <br> ☆ Accelerator Power above 1 is reduced by <<gold|50%>> ",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2712,6 +2726,7 @@
     },
     "4": {
       "name": "Cost+ Challenge || {{- value}} Completions",
+      "progressName": "Cost+ Challenge",
       "flavor": "You're getting rich now, but inflation hasn't happened yet? I don't think so!",
       "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Prices grow super-exponentially after <<gold|num:((1000))>> of each Building. <br> ☆ Each completion lowers the above number by <<gold|10>> <br> ☆ Accelerator and Multiplier prices <<gold|immediately>> grow super-exponentially!",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2730,6 +2745,7 @@
     },
     "5": {
       "name": "Reduced Diamonds Challenge || {{- value}} Completions",
+      "progressName": "Reduced Diamonds Challenge",
       "flavor": "You ever wonder how you get so many diamonds?",
       "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^num:((0.01))>>",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2748,6 +2764,7 @@
     },
     "6": {
       "name": "Higher Tax Challenge || {{- value}} Completions",
+      "progressName": "Higher Tax Challenge",
       "flavor": "The tax man caught wind that you reincarnated recently...",
       "restrictions": "Reincarnate and reach the goal except you pay more Tax! <br> ☆ Your Tax burden is multiplied by <<gold|3 * (1 + completions / 25)^2>> <br> ☆ Your Coin production is divided by <<gold | num:((1e250))>>",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
@@ -2766,6 +2783,7 @@
     },
     "7": {
       "name": "No Multipliers/Accelerators Challenge || {{- value}} Completions",
+      "progressName": "No Multipliers/Accelerators Challenge",
       "flavor": "You're really going to hate this one.",
       "restrictions": "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Power above 1 is reduced by <<gold|95%>> <br> ☆ Your Coin production is divided by <<gold | num:((1e1250))>>",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
@@ -2784,6 +2802,7 @@
     },
     "8": {
       "name": "Cost++ Challenge || {{- value}} Completions",
+      "progressName": "Cost++ Challenge",
       "flavor": "You thought you could outgrow inflation by Reincarnating?",
       "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices increase <<gold|50x>> faster than in Cost+ <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building costs start growing super-exponentially after <<gold|1000 + 1000 per completion>> purchased. <br> ",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
@@ -2802,6 +2821,7 @@
     },
     "9": {
       "name": "No Runes Challenge || {{- value}} Completions",
+      "progressName": "No Runes Challenge",
       "flavor": "Bet you won't even notice Prism Rune's disappearance.",
       "restrictions": "Reincarnate and reach the goal except Runes always have level 1 effects. <br> ☆ Your Coin production is divided by <<gold | num:((1e2000000))>>. You may want a few Galactic Crumbs. <br> ☆ Your Tax burden is reduced by <<pink|num:((99.5))%>> to compensate",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2820,6 +2840,7 @@
     },
     "10": {
       "name": "Sadistic Challenge I || {{- value}} Completions",
+      "progressName": "Sadistic Challenge I",
       "flavor": "I'm sorry for what I've unleashed onto the world. You read a note on the floor: \"You probably want about num:((1e300)) Galactic Crumbs before you fully embrace the challenge. Try to Sacrifice some more Anthills, master your Ants and become one with the Ant God to achieve this.\"",
       "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|num:((25000))>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^num:((0.0001))>> <br> ☆ Mythos gain is reduced to <<gold | Coins^num:((0.001))>>",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2838,6 +2859,7 @@
     },
     "11": {
       "name": "Reduced Ants Challenge || {{- value}} Completions",
+      "progressName": "Reduced Ants Challenge",
       "flavor": "The great Ant War of '21 wiped off all of the skilled ants.",
       "restrictions": "Reach the Goal, but only free Ant Upgrade levels do anything. <br> ☆ In Challenge, each Challenge 8 completion gives <<gold|+3>> free Ant Upgrade Levels. <br> ☆ Each Challenge 9 completion gives <<gold|+5>> free Ant Upgrade levels!",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
@@ -2856,6 +2878,7 @@
     },
     "12": {
       "name": "No Reincarnation Challenge || {{- value}} Completions",
+      "progressName": "No Reincarnation Challenge",
       "flavor": "For some reason, you just can't do it.",
       "restrictions": "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! <br> ☆ Ant Speed <<gold|^num:((0.75))>>",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
@@ -2874,6 +2897,7 @@
     },
     "13": {
       "name": "Tax+++ Challenge || {{- value}} Completions",
+      "progressName": "Tax+++ Challenge",
       "flavor": "Good luck with the IRS, buddy.",
       "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. <br> ☆ Ant Speed <<gold|^num:((0.23))>> <br> ☆ Each Transcension and Reincarnation Challenge completed multiplies your tax burden by <<gold|num:((1.05))>>",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
@@ -2892,6 +2916,7 @@
     },
     "14": {
       "name": "No Research Challenge || {{- value}} Completions",
+      "progressName": "No Research Challenge",
       "flavor": "The dimension that never progressed past the dark ages. Many fear to even step foot.",
       "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any Researches purchasable. <br> ☆ Ant Speed <<gold|^num:((0.2))>>",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
@@ -2910,6 +2935,7 @@
     },
     "15": {
       "name": "SADISTIC CHALLENGE II || {{- value}} Completions",
+      "progressName": "SADISTIC CHALLENGE II",
       "flavor": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
       "restrictions": "Ascend and reach the goal but you're stuck in all Corruptions at level 11. <br> ☆ Ant Speed <<gold|^num:((0.5))>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|num:((0.0001))>> <br> ☆ Your Tax burden is reduced by <<pink|num:((99.9995))%>>",
       "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",

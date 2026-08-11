@@ -6,6 +6,7 @@ import LZString from 'lz-string'
 import {
   autoAscensionChallengeSweepUnlock,
   CalcECC,
+  calculateChallenge15Score,
   challenge15ScoreMultiplier,
   challengeDisplay,
   challengeRequirement,
@@ -3732,7 +3733,7 @@ export const resetCheck = async (
         if (
           player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))
         ) {
-          player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM
+          player.challenge15Exponent = calculateChallenge15Score()
           c15RewardUpdate()
         }
       }
@@ -4323,7 +4324,7 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
   ) {
     const c15SM = challenge15ScoreMultiplier()
     if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
-      player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM
+      player.challenge15Exponent = calculateChallenge15Score()
       c15RewardUpdate()
       updateChallengeLevel(15)
     }
