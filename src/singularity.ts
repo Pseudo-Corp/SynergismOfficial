@@ -2964,7 +2964,8 @@ export const singularityPerks: SingularityPerk[] = [
       for (let i = levels.length - 1; i >= 0; i--) {
         if (n >= levels[i]) {
           return i18next.t('singularity.perks.itAllAddsUp.default', {
-            div: format(1 + (i + 1) / 5, 2, true)
+            div: format(1 + (i + 1) / 5, 2, true),
+            seconds: format(1440 * (i + 1), 0)
           })
         }
       }

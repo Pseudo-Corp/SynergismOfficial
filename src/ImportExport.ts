@@ -660,7 +660,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const availableUses = addCodeAvailableUses()
     const maxUses = addCodeMaxUses()
     const timeToNextUse = format(addCodeTimeToNextUse(), 0)
-    const timeInterval = addCodeInterval()
+    const timeInterval = addCodeInterval() * 1000 // ms
 
     if (availableUses < 1) {
       el.textContent = i18next.t('importexport.noAddCodes', {
@@ -698,14 +698,18 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const actualQuarks = Math.floor(addEffects.quarks * realAttemptsUsed)
     const [first, second] = window.crypto.getRandomValues(new Uint8Array(2))
 
-    // Allows storage of up to (24 + 2 * calc2 levels) Add Codes, lol!
+    const now = Date.now()
+
+    // Normalize both timestamps to whole milliseconds on the earned side of the
+    // boundary. Fractional intervals can otherwise make Math.floor report one fewer
+    // available use when the intended quotient is just below an integer.
     const v = Math.max(
-      Date.now() - (maxUses - realAttemptsUsed) * timeInterval,
-      player.rngCode + timeInterval * realAttemptsUsed
+      now - Math.ceil((maxUses - realAttemptsUsed) * timeInterval),
+      Math.floor(player.rngCode + timeInterval * realAttemptsUsed)
     )
-    const remaining = Math.floor((Date.now() - v) / timeInterval)
+    const remaining = Math.floor((now - v) / timeInterval)
     const timeToNext = Math.floor(
-      (timeInterval - (Date.now() - v - timeInterval * remaining)) / 1000
+      (timeInterval - (now - v - timeInterval * remaining)) / 1000
     )
 
     // Calculator 3: Adds ascension timer.
@@ -947,7 +951,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
   setTimeout((e: HTMLElement) => e.textContent = '', 15000, el)
 }
 
-export const addCodeSingularityPerkBonus = (): number => {
+export const addCodeSingularityPerkBonus = (): { intervalDivisor: number, addCodeCapacity: number } => {
   const levels = [
     10,
     16,
@@ -973,46 +977,61 @@ export const addCodeSingularityPerkBonus = (): number => {
       break
     }
   }
-  return 1 + count / 5
+  return {
+    intervalDivisor: 1 + 0.2 * count,
+    addCodeCapacity: 1_440 * count
+  }
 }
 
-export const addCodeMaxUsesAdditive = () => calculateTotalStat(allAddCodeCapacityStats)
-export const addCodeMaxUsesMultiplicative = () => calculateTotalStat(allAddCodeCapacityMultiplierStats)
+export const addCodeMaxCapacityAdditive = () => calculateTotalStat(allAddCodeCapacityStats)
+export const addCodeMaxCapacityMultiplicative = () => calculateTotalStat(allAddCodeCapacityMultiplierStats)
 
-export const addCodeMaxUses = () => {
-  const additiveValue = addCodeMaxUsesAdditive()
-  const multiplier = addCodeMaxUsesMultiplicative()
+export const addCodeMaxCapacity = () => {
+  const additiveValue = addCodeMaxCapacityAdditive()
+  const multiplier = addCodeMaxCapacityMultiplicative()
   return Math.floor(additiveValue * multiplier)
 }
 
 export const addCodeInterval = () => calculateTotalStat(allAddCodeTimerStats)
 
-export const addCodeAvailableUses = (): number => {
-  const maxUses = addCodeMaxUses()
-  const timeInterval = addCodeInterval()
+export const addCodeMaxUses = (): number => {
+  const maxTime = addCodeMaxCapacity() // in seconds
+  const timeInterval = addCodeInterval() // in seconds
 
-  return Math.floor(
-    Math.min(maxUses, (Date.now() - player.rngCode) / timeInterval)
-  )
+  return Math.floor(maxTime / timeInterval)
+}
+
+export const addCodeAvailableUses = (): number => {
+  const timeInterval = addCodeInterval()
+  const maxUses = addCodeMaxUses()
+  // rngCode is in milliseconds
+  const currentUses = Math.floor((Date.now() - player.rngCode) / (1000 * timeInterval))
+
+  return Math.min(maxUses, currentUses)
 }
 
 export const addCodeTimeToNextUse = (): number => {
-  const timeToFirst = Math.floor(addCodeInterval() + player.rngCode - Date.now()) / 1000
+  const interval = addCodeInterval() * 1000 // ms
+  const timeToFirst = Math.floor(interval + player.rngCode - Date.now()) / 1000
 
   if (timeToFirst > 0) {
     return timeToFirst
-  } else if (addCodeAvailableUses() === addCodeMaxUses()) {
-    return 0
   } else {
-    const addTimerElapsedTime = Date.now() - player.rngCode
-    const remainder = addTimerElapsedTime - addCodeInterval() * addCodeAvailableUses()
+    const availableUses = addCodeAvailableUses()
+    const maxUses = addCodeMaxUses()
+    if (availableUses === maxUses) {
+      return 0
+    } else {
+      const addTimerElapsedTime = Date.now() - player.rngCode
+      const remainder = addTimerElapsedTime - interval * availableUses
 
-    return Math.floor(addCodeInterval() - remainder) / 1000
+      return Math.floor(interval - remainder) / 1000
+    }
   }
 }
 
 export const addCodeBonuses = () => {
-  const perkRewardDivisor = addCodeSingularityPerkBonus()
+  const perkRewardDivisor = addCodeSingularityPerkBonus().intervalDivisor
 
   let commonQuarkMult = getShopUpgradeEffects('calculator', 'addQuarkMult') // Calculator Shop Upgrade (+14% / level)
   commonQuarkMult *= getShopUpgradeEffects('calculator2', 'addQuarkMult') // Calculator 2 Shop Upgrade (+25% if maxed)

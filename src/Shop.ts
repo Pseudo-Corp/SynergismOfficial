@@ -733,7 +733,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.calculator2'),
     effects: (n, key) => {
       if (key === 'addCodeCapacity') {
-        return 2 * n
+        return 1_800 * n
       }
 
       return n === 12 ? 1.25 : 1 // addQuarkMult
@@ -742,7 +742,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       const addCodeCapacity = getShopUpgradeEffects('calculator2', 'addCodeCapacity')
       const addQuarkMult = getShopUpgradeEffects('calculator2', 'addQuarkMult')
       return i18next.t('shop.upgradeEffects.calculator2', {
-        amount1: addCodeCapacity,
+        amount1: format(addCodeCapacity, 0),
         amount2: formatAsPercentIncrease(addQuarkMult, 0)
       })
     },
@@ -792,14 +792,14 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         return 1 - n / 25
       }
 
-      return n === 10 ? 32 : 0 // addCodeCapacity
+      return n === 10 ? 10_800 : 0 // addCodeCapacity
     },
     effectDescription () {
       const addCodeIntervalMult = getShopUpgradeEffects('calculator4', 'addCodeIntervalMult')
       const addCodeCapacity = getShopUpgradeEffects('calculator4', 'addCodeCapacity')
       return i18next.t('shop.upgradeEffects.calculator4', {
         amount1: formatAsPercentIncrease(2 - addCodeIntervalMult, 0),
-        amount2: addCodeCapacity
+        amount2: format(addCodeCapacity, 0)
       })
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass', 'unlocked'),
@@ -820,7 +820,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         return 6 * n
       }
 
-      return Math.floor(n / 10) + (n === 100 ? 6 : 0) // addCodeCapacity
+      return 60 * n + (n === 100 ? 4_800 : 0) // addCodeCapacity
     },
     effectDescription () {
       const importGQTimerAdd = getShopUpgradeEffects('calculator5', 'importGQTimerAdd')
@@ -848,7 +848,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         return n
       }
 
-      return n === 100 ? 24 : 0
+      return n === 100 ? 10_800 : 0 // addCodeCapacity
     },
     effectDescription () {
       const octeractTimerAdd = getShopUpgradeEffects('calculator6', 'octeractTimerAdd')
@@ -1577,7 +1577,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         return n
       }
 
-      return n === 50 ? 48 : 0 // addCodeCapacity
+      return n === 50 ? 10_800 : 0 // addCodeCapacity
     },
     effectDescription () {
       const blueberryTimerAdd = getShopUpgradeEffects('calculator7', 'blueberryTimerAdd')
