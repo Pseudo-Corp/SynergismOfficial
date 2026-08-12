@@ -532,33 +532,32 @@ const buyTessBuildingsToCheapestPrice = (
   ownedBuildings: TesseractBuildings,
   cheapestPrice: number
 ): [number, TesseractBuildings] => {
-  const buyToBuildings = ownedBuildings.map((currentlyOwned, index) => {
+  const buyToBuildings = []
+  let price = 0
+
+  for (let i = 0; i < ownedBuildings.length; i++) {
+    const currentlyOwned = ownedBuildings[i]
     if (currentlyOwned === null) {
-      return null
+      buyToBuildings.push(null)
+      continue
     }
-    // thisPrice >= cheapestPrice = tesseractBuildingCosts[index] * (buyTo+1)^3
-    // buyTo = cuberoot(cheapestPrice / tesseractBuildingCosts[index]) - 1
+    // thisPrice >= cheapestPrice = tesseractBuildingCosts[i] * (buyTo+1)^3
+    // buyTo = cuberoot(cheapestPrice / tesseractBuildingCosts[i]) - 1
     // If buyTo has a fractional part, we want to round UP so that this
     // price costs more than the cheapest price.
     // If buyTo doesn't have a fractional part, thisPrice = cheapestPrice.
-    const buyTo = Math.ceil(Math.pow(cheapestPrice / tesseractBuildingCosts[index], 1 / 3) - 1)
     // It could be possible that cheapestPrice is less than the CURRENT
     // price of this building, so take the max of the number of buildings
     // we currently have.
-    return Math.max(currentlyOwned, buyTo)
-  }) as TesseractBuildings
-
-  let price = 0
-  for (let i = 0; i < ownedBuildings.length; i++) {
-    const buyFrom = ownedBuildings[i]
-    const buyTo = buyToBuildings[i]
-    if (buyFrom === null || buyTo === null) {
-      continue
-    }
-    price += tesseractBuildingCosts[i] * (Math.pow(linSum(buyTo), 2) - Math.pow(linSum(buyFrom), 2))
+    const buyTo = Math.max(
+      currentlyOwned,
+      Math.ceil(Math.pow(cheapestPrice / tesseractBuildingCosts[i], 1 / 3) - 1)
+    )
+    buyToBuildings.push(buyTo)
+    price += tesseractBuildingCosts[i] * (Math.pow(linSum(buyTo), 2) - Math.pow(linSum(currentlyOwned), 2))
   }
 
-  return [price, buyToBuildings]
+  return [price, buyToBuildings as TesseractBuildings]
 }
 
 /**
