@@ -300,7 +300,7 @@ export const updateResearchAuto = (index: number) => {
   }
 }
 
-export const updateResearchRoomba = () => {
+export const advanceResearchRoomba = () => {
   if (isResearchMaxed(player.autoResearch) || !isResearchUnlocked(player.autoResearch)) {
     player.roombaResearchIndex = Math.min(researchOrderByCost.length - 1, player.roombaResearchIndex + 1)
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]

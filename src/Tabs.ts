@@ -504,15 +504,10 @@ class TabRow extends HTMLDivElement {
 
     this.#dragCreated = true
     this.addEventListener('pointerdown', (event) => this.#handlePointerDown(event))
-    window.addEventListener('pointermove', (event) => this.#handlePointerMove(event))
-    window.addEventListener('pointerup', (event) => this.#handlePointerUp(event))
-    window.addEventListener('pointercancel', (event) => this.#handlePointerUp(event))
-    document.addEventListener('click', (event) => this.#handleDocumentClick(event), true)
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        this.#exitEditMode()
-      }
-    })
+    this.addEventListener('pointermove', (event) => this.#handlePointerMove(event))
+    this.addEventListener('pointerup', (event) => this.#handlePointerUp(event))
+    this.addEventListener('pointercancel', (event) => this.#handlePointerUp(event))
+    this.addEventListener('pointerleave', (event) => this.#handlePointerLeave(event))
   }
 
   #handlePointerDown (event: PointerEvent) {
@@ -589,18 +584,25 @@ class TabRow extends HTMLDivElement {
       this.#draggedTab = null
     }
 
+    this.#releasePointerCapture(event.pointerId)
     this.#activePointerId = null
     this.#pointerDownTab = null
   }
 
-  #handleDocumentClick (event: MouseEvent) {
-    if (!this.#isEditing || !(event.target instanceof Node) || this.contains(event.target)) {
+  #handlePointerLeave (event: PointerEvent) {
+    if (this.#isEditing || this.#draggedTab !== null || this.#activePointerId !== event.pointerId) {
       return
     }
 
-    // Exit edit mode, but let the click through: swallowing it makes the first
-    // tap on any other control (e.g. the mobile menu button) silently fail
-    this.#exitEditMode()
+    this.#clearHoldTimer()
+    this.#activePointerId = null
+    this.#pointerDownTab = null
+  }
+
+  #releasePointerCapture (pointerId: number) {
+    if (this.hasPointerCapture(pointerId)) {
+      this.releasePointerCapture(pointerId)
+    }
   }
 
   #enterEditMode () {
@@ -666,6 +668,11 @@ class TabRow extends HTMLDivElement {
         changeTabColor()
       }
     }
+
+    if (this.#activePointerId !== null) {
+      this.#releasePointerCapture(this.#activePointerId)
+    }
+
     this.#activePointerId = null
     this.#pointerDownTab = null
   }
@@ -675,6 +682,7 @@ class TabRow extends HTMLDivElement {
     this.#activePointerId = pointerId
     tab.classList.add('tab-being-dragged')
     tab.setAttribute('aria-grabbed', 'true')
+    this.setPointerCapture(pointerId)
   }
 
   #moveDraggedTabToPointer (x: number, y: number) {

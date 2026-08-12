@@ -81,6 +81,7 @@ import { generateEventHandlers } from './EventListeners'
 import { addTimers, automaticTools } from './Helper'
 import { resetHistoryRenderAllTables } from './History'
 import {
+  advanceResearchRoomba,
   buyResearch,
   isResearchUnlocked,
   refundOvercapResearches,
@@ -89,8 +90,7 @@ import {
   roombaResearchEnabled,
   setResearchRoombaHighlight,
   updateResearchAuto,
-  updateResearchBG,
-  updateResearchRoomba
+  updateResearchBG
 } from './Research'
 import {
   applyChallengeInitialModifiers,
@@ -212,7 +212,7 @@ import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
-import { fetchUnreadMessages } from './Messages'
+import { initializeAnnouncements } from './Messages'
 import { blankOcteractLevelObject, type OcteractUpgrades, octeractUpgrades } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
@@ -242,6 +242,8 @@ import {
 } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
+// eslint-disable-next-line no-unassigned-import
+import './saves/verify'
 import { getShopUpgradeEffects, updateShopLevels } from './Shop'
 import {
   blankGQLevelObject,
@@ -4527,6 +4529,7 @@ const tack = (dt: number) => {
       && roombaResearchEnabled()
       && player.autoResearchMode === 'cheapest'
     ) {
+      const previousRoombaResearch = player.autoResearch || 1
       let counter = 0
       const maxCount = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
       while (counter < maxCount) {
@@ -4551,9 +4554,13 @@ const tack = (dt: number) => {
             break
           }
         }
-        updateResearchRoomba()
+        advanceResearchRoomba()
+        if (player.autoResearch === currIndex) {
+          break
+        }
         counter++
       }
+      syncResearchRoombaHighlight(previousRoombaResearch)
     }
   }
 
@@ -5056,7 +5063,7 @@ window.addEventListener('load', async () => {
   }
 
   await i18nInit()
-  handleLogin().catch(console.error)
+  const loginResolved = handleLogin().catch(console.error)
   if (PLATFORM === 'steam') {
     const { onAuthChanged } = await import('./steam/steam')
     onAuthChanged(() => handleLogin().catch(console.error))
@@ -5122,6 +5129,9 @@ window.addEventListener('load', async () => {
   createFitties()
 
   await reloadShit()
+
+  // Which endpoint announcements come from depends on the login state, so wait for it to settle
+  loginResolved.then(initializeAnnouncements).catch(console.error)
 
   if (testing || !PROD) {
     Object.defineProperties(window, {
@@ -5247,11 +5257,13 @@ window.addEventListener('load', async () => {
   }
 }, { once: true })
 
-window.addEventListener('unload', () => {
-  // This fixes a bug in Chrome (who would have guessed?) that
-  // wouldn't properly load elements if the user scrolled down
-  // and reloaded a page. Why is this a bug, Chrome? Why would
-  // a page that is reloaded be affected by what the user did
-  // beforehand? How does anyone use this buggy browser???????
-  window.scrollTo(0, 0)
-})
+if (PLATFORM !== 'mobile') {
+  window.addEventListener('unload', () => {
+    // This fixes a bug in Chrome (who would have guessed?) that
+    // wouldn't properly load elements if the user scrolled down
+    // and reloaded a page. Why is this a bug, Chrome? Why would
+    // a page that is reloaded be affected by what the user did
+    // beforehand? How does anyone use this buggy browser???????
+    window.scrollTo(0, 0)
+  })
+}

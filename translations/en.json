@@ -4471,6 +4471,8 @@
     "Cancel": "Cancel",
     "Back": "Back",
     "closeNotification": "Close notification",
+    "announcement": "Announcement",
+    "closeAnnouncement": "Close announcement",
     "autoOnBracket": "Auto [ON]",
     "autoOffBracket": "Auto [OFF]",
     "softCapped": "(Softcapped)",

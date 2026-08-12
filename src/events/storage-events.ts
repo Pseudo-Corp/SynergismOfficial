@@ -35,12 +35,47 @@ bus.addEventListener('storage:get', (event) => {
   event.value = localStorage.getItem(event.detail.key)
 })
 
+const PREFERENCES_SYNC_INTERVAL = 60_000
+
+const pendingPreferences = new Map<string, string>()
+const lastPreferencesWrite = new Map<string, number>()
+
+const flushPreferences = async () => {
+  if (pendingPreferences.size === 0) {
+    return
+  }
+
+  const entries = [...pendingPreferences]
+  pendingPreferences.clear()
+
+  const { Preferences } = await import('@capacitor/preferences')
+  const now = Date.now()
+
+  await Promise.all(entries.map(async ([key, value]) => {
+    lastPreferencesWrite.set(key, now)
+    await Preferences.set({ key, value })
+  }))
+}
+
 if (PLATFORM === 'mobile') {
   bus.addEventListener('storage:save', (event) => {
-    localStorage.setItem(event.detail.key, event.detail.value)
-    import('@capacitor/preferences').then(({ Preferences }) => {
-      Preferences.set({ key: event.detail.key, value: event.detail.value })
-    })
+    const { key, value } = event.detail
+    localStorage.setItem(key, value)
+    pendingPreferences.set(key, value)
+
+    if (Date.now() - (lastPreferencesWrite.get(key) ?? 0) >= PREFERENCES_SYNC_INTERVAL) {
+      flushPreferences().catch(console.error)
+    }
+  })
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      flushPreferences().catch(console.error)
+    }
+  })
+
+  window.addEventListener('pagehide', () => {
+    flushPreferences().catch(console.error)
   })
 } else {
   bus.addEventListener('storage:save', (event) => {
