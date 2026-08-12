@@ -2593,6 +2593,7 @@ img.runeTypeElement:hover {
 }
 
 .talismanContainer {
+    box-sizing: content-box;
     flex-direction: column;
     width: 80px;
     align-items: center;
