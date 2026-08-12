@@ -393,7 +393,30 @@ export const toggleIconSet = (changeTo = player.iconSet) => {
   updateIconsFromSprites(IconSets[player.iconSet][0])
 }
 
-// If no image is found falls back to designated fallback, then Legacy, then MISSINGIMAGE.png
+const getIconSetFallbackOrder = () => {
+  const fallbackOrder: string[] = []
+  let iconSetIndex = player.iconSet
+
+  while (iconSetIndex >= 0 && iconSetIndex < IconSets.length) {
+    const [iconSetName, fallbackSetIndex] = IconSets[iconSetIndex]
+    if (fallbackOrder.includes(iconSetName)) {
+      break
+    }
+
+    fallbackOrder.push(iconSetName)
+    iconSetIndex = fallbackSetIndex
+  }
+
+  for (const [iconSetName] of IconSets) {
+    if (!fallbackOrder.includes(iconSetName)) {
+      fallbackOrder.push(iconSetName)
+    }
+  }
+
+  return fallbackOrder
+}
+
+// If no image is found, tries the designated fallback chain, then every remaining set, then MISSINGIMAGE.png
 // MISSINGIMAGE.png(s) will not be replaced except on a full page reload
 export function imgErrorHandler (evt: ErrorEvent | Event) {
   if (evt instanceof ErrorEvent) console.log('error: ', evt.error)
@@ -402,21 +425,14 @@ export function imgErrorHandler (evt: ErrorEvent | Event) {
     return
   }
   const whichImg = evt.target
-  const iconSetName = IconSets[player.iconSet][0]
-  const fallbackSetNum = IconSets[player.iconSet][1]
-  let fallbackSetName = 'Legacy'
-  if ((fallbackSetNum >= 0) && (fallbackSetNum < IconSets.length - 1)) {
-    fallbackSetName = IconSets[fallbackSetNum][0]
-  }
+  const fallbackOrder = getIconSetFallbackOrder()
+  const currentSetIndex = fallbackOrder.findIndex((iconSetName) => whichImg.src.includes(iconSetName))
+  const fallbackSetName = fallbackOrder[currentSetIndex + 1]
 
-  if (whichImg.src.includes('Legacy') || !(IconSetsRegex.exec(whichImg.src))) {
+  if (currentSetIndex === -1 || fallbackSetName === undefined) {
     // no image to fall back to
     whichImg.src = './Pictures/MISSINGIMAGE.png'
-  } else if (whichImg.src.includes(iconSetName)) {
-    // first fall back attempt
-    whichImg.src = whichImg.src.replace(IconSetsRegex, fallbackSetName)
   } else {
-    // fall back to Legacy
-    whichImg.src = whichImg.src.replace(IconSetsRegex, 'Legacy')
+    whichImg.src = whichImg.src.replace(IconSetsRegex, fallbackSetName)
   }
 }
