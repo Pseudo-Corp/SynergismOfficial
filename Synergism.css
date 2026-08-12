@@ -2494,12 +2494,23 @@ img.runeTypeElement:hover {
 
 #rarityInfoTexts {
     display: none;
-    width: 75%;
+    width: 14.5em;
     align-items: center;
 }
 
+#rarityInfoMultiline > br {
+    display: none;
+}
+
+#rarityInfoMultiline > span:not(:first-child) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    column-gap: 0.5em;
+}
+
 .rarityReqNum {
-    float: right;
+    text-align: right;
+    white-space: nowrap;
 }
 
 #toggleautofortify {
@@ -4119,6 +4130,16 @@ p#ascendHotKeys {
 
 #statsForNerds > button {
     min-width: 150px;
+}
+
+html[data-mobile="false"][data-monospace-font="true"] #statsForNerds {
+    width: 585px;
+    align-items: stretch;
+}
+
+html[data-mobile="false"][data-monospace-font="true"] #statsForNerds > .statsNerds {
+    flex: 0 0 185px;
+    min-width: 0;
 }
 
 .statContainer {
