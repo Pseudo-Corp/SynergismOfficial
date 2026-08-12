@@ -66,7 +66,7 @@ export class CartTab {
 
     CartTab.#productsFetch = createDeferredPromise()
 
-    const url = !PROD ? 'https://synergism.cc/stripe/test/products' : 'https://synergism.cc/stripe/products'
+    const url = 'https://synergism.cc/stripe/products'
 
     // TODO: move this fetch to the products page.
     fetch(url)

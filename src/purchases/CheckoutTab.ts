@@ -72,9 +72,7 @@ const initializeCheckoutTab = memoize(() => {
     let url: string
 
     if (e.target === checkoutStripe) {
-      url = !PROD
-        ? 'https://synergism.cc/stripe/test/create-checkout-session'
-        : 'https://synergism.cc/stripe/create-checkout-session'
+      url = 'https://synergism.cc/stripe/create-checkout-session'
     } else if (e.target === checkoutXsolla) {
       url = 'https://synergism.cc/xsolla/create-token'
     } else {
