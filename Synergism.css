@@ -936,7 +936,7 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
 #exitOffline,
 #exitFastForward,
 #checkout,
-#checkout-nowpayments {
+#checkout-xsolla {
     width: 18em;
     min-height: auto;
     min-width: 220px;
@@ -953,7 +953,7 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
     background-color: var(--purplehover-color);
 }
 
-#checkout-buttons > #checkout-nowpayments:not(:disabled):hover {
+#checkout-buttons > #checkout-xsolla:not(:disabled):hover {
     background-color: var(--blessings-hover-color);
 }
 
@@ -6703,7 +6703,7 @@ html[data-mobile="false"] .pseudoCoinButton {
     margin: 2px auto 4px;
 }
 
-#checkout-buttons > #checkout-nowpayments {
+#checkout-buttons > #checkout-xsolla {
     background-color: cadetblue;
 }
 

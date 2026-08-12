@@ -43,7 +43,7 @@ type RouteLinks = Record<Actions, string>
 
 const cancelSubscriptionLink = 'https://synergism.cc/api/v1/subscriptions/cancel'
 
-const prodRouteLinks: Record<'stripe' | 'paypal' | 'steam', RouteLinks> = {
+const prodRouteLinks: Record<'stripe' | 'paypal' | 'steam' | 'xsolla', RouteLinks> = {
   stripe: {
     manage: 'https://synergism.cc/stripe/manage-subscription',
     upgrade: 'https://synergism.cc/stripe/subscription/upgrade',
@@ -58,21 +58,12 @@ const prodRouteLinks: Record<'stripe' | 'paypal' | 'steam', RouteLinks> = {
     manage: 'https://store.steampowered.com/account/',
     upgrade: 'https://store.steampowered.com/account/',
     downgrade: 'https://store.steampowered.com/account/'
+  },
+  xsolla: {
+    upgrade: 'https://synergism.cc/xsolla/subscription/upgrade',
+    downgrade: 'https://synergism.cc/xsolla/subscription/downgrade',
+    manage: 'https://TODO'
   }
-}
-
-const devRouteLinks: typeof prodRouteLinks = {
-  stripe: {
-    manage: 'https://synergism.cc/stripe/test/manage-subscription',
-    upgrade: 'https://synergism.cc/stripe/test/subscription/upgrade',
-    downgrade: 'https://synergism.cc/stripe/test/subscription/downgrade'
-  },
-  paypal: {
-    manage: 'https://www.paypal.com/myaccount/autopay/',
-    upgrade: 'https://synergism.cc/paypal/subscriptions/revise',
-    downgrade: 'https://synergism.cc/paypal/subscriptions/revise'
-  },
-  steam: prodRouteLinks.steam
 }
 
 const formatter = Intl.NumberFormat('en-US', {
@@ -124,7 +115,7 @@ async function changeSubscription (
     return
   }
 
-  const apiLink = PROD ? prodRouteLinks[sub.provider][type] : devRouteLinks[sub.provider][type]
+  const apiLink = prodRouteLinks[sub.provider][type]
   const url = new URL(apiLink)
   url.searchParams.set('product', productId)
 
@@ -160,9 +151,7 @@ async function manageSubscription (provider: SubscriptionProvider | null) {
     return
   }
 
-  const link = PROD ? prodRouteLinks[provider].manage : devRouteLinks[provider].manage
-
-  location.href = link
+  location.href = prodRouteLinks[provider].manage
 }
 
 async function cancelSubscription (provider: SubscriptionProvider) {
@@ -324,7 +313,7 @@ const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentS
   const notSubbed = sub === null
   const subManageable = PLATFORM === 'mobile'
     ? sub?.provider === 'apple' || sub?.provider === 'google'
-    : sub?.provider === 'stripe' || sub?.provider === 'paypal'
+    : sub?.provider === 'stripe' || sub?.provider === 'paypal' || sub?.provider === 'xsolla'
   const nameHTML = createSubscriptionTierName(product)
 
   if (product.tier < currentSubTier) {
@@ -381,6 +370,7 @@ const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
   const patreonManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-patreon-sub')!
   const stripeManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-stripe-sub')!
   const paypalManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-paypal-sub')!
+  const xsollaManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-xsolla-sub')!
   const mobileManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-mobile-sub')!
 
   const subscriptionCancelButtons = manageSubscriptionHolder.querySelectorAll<HTMLElement>('.subscriptionCancel')
@@ -394,11 +384,13 @@ const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
     patreonManageForm.style.display = 'none'
     stripeManageForm.style.display = 'none'
     paypalManageForm.style.display = 'none'
+    xsollaManageForm.style.display = 'none'
     mobileManageForm.style.display = sub?.provider === 'apple' || sub?.provider === 'google' ? 'flex' : 'none'
   } else {
     patreonManageForm.style.display = sub === null || sub.provider === 'patreon' ? 'flex' : 'none'
     stripeManageForm.style.display = sub === null || sub.provider === 'stripe' ? 'flex' : 'none'
     paypalManageForm.style.display = sub === null || sub.provider === 'paypal' ? 'flex' : 'none'
+    xsollaManageForm.style.display = sub?.provider === 'xsolla' ? 'flex' : 'none'
     mobileManageForm.style.display = 'none'
   }
 

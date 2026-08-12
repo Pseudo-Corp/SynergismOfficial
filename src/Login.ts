@@ -259,7 +259,7 @@ interface BonusTypes {
   quark: number
 }
 
-export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon' | 'steam' | 'apple' | 'google'
+export type SubscriptionProvider = 'paypal' | 'stripe' | 'patreon' | 'steam' | 'apple' | 'google' | 'xsolla'
 
 export type SubscriptionMetadata = {
   provider: SubscriptionProvider
