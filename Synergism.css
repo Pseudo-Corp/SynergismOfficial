@@ -2408,6 +2408,7 @@ p#prestigehotkeys {
     margin: 0;
     text-align: center;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    padding-bottom: 1px;
 }
 
 .runeTypeElementMobile {
