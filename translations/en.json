@@ -4882,6 +4882,7 @@
       "subscriptions": "Subscriptions",
       "upgrades": "Buy Upgrades",
       "consumables": "Consumables & Events",
+      "checkout": "Checkout",
       "checkoutStripe": "Checkout with Stripe",
       "checkoutXsolla": "Checkout",
       "support": "Need help?",

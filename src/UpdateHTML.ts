@@ -1305,7 +1305,6 @@ export const changeTabColor = () => {
   const color = tabColors[G.currentTab]
 
   tab.style.backgroundColor = color
-  document.body.style.setProperty('--subtab-border-color', color)
 }
 
 class AsyncQueue {

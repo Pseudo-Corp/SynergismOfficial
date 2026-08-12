@@ -111,7 +111,6 @@ body {
     --header-color: var(--bg-color);
     --mobile-subtab-height: 0;
     --mobile-subtab-top: 0;
-    --subtab-border-color: yellow;
     --bg-color: #111;
     --alert-color: #141414;
     --history-lines: #262626;
@@ -1227,8 +1226,8 @@ button.isEvent:hover {
 }
 
 .subTabWrapper {
-    --subtab-button-width: 160px;
-    --subtab-button-height: 48px;
+    --subtab-button-width: 150px;
+    --subtab-button-height: 30px;
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
@@ -1237,7 +1236,6 @@ button.isEvent:hover {
     width: 90%;
     margin: 0 auto;
     padding: 10px;
-    border-bottom: 2px solid var(--subtab-border-color);
     overscroll-behavior: contain;
 }
 
@@ -1254,10 +1252,29 @@ button.isEvent:hover {
     min-width: 0;
     width: 100%;
     min-height: var(--subtab-button-height);
-    padding: 4px 8px;
+    padding: 0;
     line-height: 1.1;
     text-align: center;
     overflow-wrap: anywhere;
+}
+
+.subTabWrapper > button > .subTabButtonTextContainer,
+.subTabWrapper > span > button > .subTabButtonTextContainer {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.subTabWrapper > button > .subTabButtonText,
+.subTabWrapper > span > button > .subTabButtonText,
+.subTabButtonTextContainer > .subTabButtonText {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+}
+
+#cartSubTab5 > img {
+    flex: 0 0 auto;
 }
 
 .mobileSubTabIcon {
@@ -1349,10 +1366,6 @@ p#buildinghotkeys2 {
     color: gold;
     margin: 0 auto;
     max-width: 1500px;
-}
-
-#upgradeReferenceHeader {
-    --subtab-border-color: gold;
 }
 
 .upgradeReferenceHeaderIcon {

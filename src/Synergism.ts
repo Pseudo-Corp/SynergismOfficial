@@ -1867,17 +1867,14 @@ const loadSynergy = () => {
         'researches.autoModeManual'
       )
     }
-    if (player.autoSacrificeToggle) {
-      DOMCacheGetOrSet('toggleautosacrifice').textContent = i18next.t(
-        'runes.blessings.autoRuneOn'
-      )
-      DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid green'
-    } else {
-      DOMCacheGetOrSet('toggleautosacrifice').textContent = i18next.t(
-        'runes.blessings.autoRuneOff'
-      )
-      DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid red'
-    }
+    const autoSacrificeI18nKey = player.autoSacrificeToggle
+      ? 'runes.blessings.autoRuneOn'
+      : 'runes.blessings.autoRuneOff'
+    const autoSacrificeToggle = DOMCacheGetOrSet('toggleautosacrifice')
+    const autoSacrificeLabel = DOMCacheGetOrSet('toggleAutoSacrificeText')
+    autoSacrificeLabel.setAttribute('i18n', autoSacrificeI18nKey)
+    autoSacrificeLabel.textContent = i18next.t(autoSacrificeI18nKey)
+    autoSacrificeToggle.style.border = `2px solid ${player.autoSacrificeToggle ? 'green' : 'red'}`
     if (player.autoBuyFragment) {
       DOMCacheGetOrSet('toggleautoBuyFragments').textContent = i18next.t(
         'runes.talismans.autoBuyOn'

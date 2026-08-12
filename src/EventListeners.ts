@@ -336,6 +336,9 @@ const mobileStatsIconConfig: Record<string, string> = {
   kShopVouchers: 'Pictures/Stats for Nerds Icons/Categories/ShopVouchers.png'
 }
 
+const getSubTabI18nKey = (button: HTMLButtonElement) =>
+  button.getAttribute('i18n') ?? button.querySelector<HTMLElement>('[i18n]')?.getAttribute('i18n') ?? null
+
 const termsOfServiceUrl = 'https://synergism.cc/terms-of-service'
 const privacyPolicyUrl = 'https://synergism.cc/privacy-policy'
 
@@ -467,9 +470,10 @@ const createMobileIcon = (sourceButton: HTMLButtonElement, src: string, classNam
   icon.role = 'button'
   icon.tabIndex = 0
 
-  const i18nKey = sourceButton.getAttribute('i18n')
+  const i18nKey = getSubTabI18nKey(sourceButton)
   if (i18nKey !== null) {
     const label = i18next.t(i18nKey)
+    icon.setAttribute('i18n', i18nKey)
     icon.alt = label
     icon.title = label
     icon.setAttribute('aria-label', label)
@@ -502,23 +506,24 @@ const createMobileIconContainer = (sourceButton: HTMLButtonElement, icon: HTMLIm
   }
 
   container.removeAttribute('style')
+  container.removeAttribute('i18n')
   container.classList.remove('active-subtab')
   container.classList.add('mobileSubTabIconContainer')
   container.role = 'button'
   container.tabIndex = 0
 
-  const i18nKey = sourceButton.getAttribute('i18n')
+  const i18nKey = getSubTabI18nKey(sourceButton)
   if (i18nKey !== null) {
     const label = i18next.t(i18nKey)
     container.title = label
     container.setAttribute('aria-label', label)
+    container.setAttribute('i18n-aria-label', i18nKey)
   }
 
   icon.removeAttribute('id')
   icon.removeAttribute('style')
   icon.removeAttribute('role')
   icon.removeAttribute('tabindex')
-  icon.removeAttribute('i18n')
   icon.removeAttribute('i18n-aria-label')
   icon.classList.remove('active-subtab')
 
