@@ -89,6 +89,7 @@ import {
   researchOrderByCost,
   roombaResearchEnabled,
   setResearchRoombaHighlight,
+  syncResearchRoombaHighlight,
   updateResearchAuto,
   updateResearchBG
 } from './Research'
@@ -212,7 +213,7 @@ import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
-import { initializeAnnouncements } from './Messages'
+import { initializeAnnouncements, initializeMessages } from './Messages'
 import { blankOcteractLevelObject, type OcteractUpgrades, octeractUpgrades } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
@@ -5123,7 +5124,7 @@ window.addEventListener('load', async () => {
   toggleAntsSubtab('1')
 
   // Initialize messages on game load
-  fetchUnreadMessages().catch(console.error)
+  initializeMessages().catch(console.error)
 
   // Dynamic Fit certain lines
   createFitties()

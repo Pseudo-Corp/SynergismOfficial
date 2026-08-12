@@ -283,6 +283,16 @@ export const setResearchRoombaHighlight = (index: number) => {
   roombaHighlightIndex = index
 }
 
+export const syncResearchRoombaHighlight = (previous: number) => {
+  const current = player.autoResearch || 1
+
+  if (previous !== current) {
+    DOMCacheGetOrSet(`res${previous}`).classList.remove('researchRoomba')
+  }
+
+  DOMCacheGetOrSet(`res${current}`).classList.add('researchRoomba')
+}
+
 // For mode 'manual'
 export const updateResearchAuto = (index: number) => {
   setResearchRoombaHighlight(index)
