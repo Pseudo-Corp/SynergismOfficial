@@ -2806,7 +2806,7 @@ export const allAddCodeCapacityMultiplierStats: NumberStatLineCategory = {
       color: 'gold',
       displayCriterion: () => true,
       acc: 0
-    },
+    }
   ]
 }
 
@@ -4328,7 +4328,13 @@ const loadAddCodeTimeStats = () => {
 }
 
 const loadAddCodeCapacityStats = () => {
-  loadStatistics(allAddCodeCapacityStats, 'addCodeCapacity', 'statACC', 'addCodeCapacityStat', addCodeMaxCapacityAdditive)
+  loadStatistics(
+    allAddCodeCapacityStats,
+    'addCodeCapacity',
+    'statACC',
+    'addCodeCapacityStat',
+    addCodeMaxCapacityAdditive
+  )
   loadStatistics(
     allAddCodeCapacityMultiplierStats,
     'addCodeCapacity',
