@@ -3,7 +3,7 @@ import type { ProgressiveAchievements } from '../Achievements'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
 import type { CampaignManager } from '../Campaign'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
-import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
+import type { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type { HepteractKeys, HepteractValues } from '../Hepteracts'
@@ -571,15 +571,12 @@ export interface GlobalVariables {
 
   ticker: number
 
-  costDivisor: number
-
   freeAccelerator: number
   totalAccelerator: number
   freeAcceleratorBoost: number
   totalAcceleratorBoost: number
   acceleratorPower: number
   acceleratorEffect: Decimal
-  acceleratorEffectDisplay: Decimal
   generatorPower: Decimal
 
   freeMultiplier: number
@@ -599,11 +596,8 @@ export interface GlobalVariables {
 
   globalCrystalMultiplier: Decimal
   globalMythosMultiplier: Decimal
-  grandmasterMultiplier: Decimal
 
-  mythosBuildingPower: number
   challengeThreeMultiplier: Decimal
-  totalMythosOwned: number
 
   prestigePointGain: Decimal
 
@@ -670,8 +664,6 @@ export interface GlobalVariables {
 
   maxexponent: number
 
-  antMultiplier: Decimal
-
   talismanResourceObtainiumCosts: number[]
   talismanResourceOfferingCosts: number[]
 
@@ -702,16 +694,12 @@ export interface GlobalVariables {
     fourth: Decimal
     fifth: Decimal
   }
-  freeUpgradeAccelerator: number
-  freeUpgradeMultiplier: number
 
   acceleratorMultiplier: number
 
   constUpgradeCosts: ArrayStartingWithNull<number>
 
   globalConstantMult: Decimal
-
-  corruptionTrigger: keyof Corruptions
 
   c15RewardFormulae: Record<Challenge15Rewards, (e: number) => number>
   challenge15Rewards: Challenge15RewardObject

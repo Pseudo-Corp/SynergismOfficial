@@ -6,22 +6,65 @@ import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } fro
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
-import { researchOrderByCost, roombaResearchEnabled } from './Research'
+import { researchOrderByCost, roombaResearchEnabled, setResearchRoombaHighlight } from './Research'
 import { applyChallengeInitialModifiers, reset } from './Reset'
 import { indexToRune } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
+import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
-import { Alert, Confirm, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
+import {
+  Alert,
+  Confirm,
+  createFitties,
+  Prompt,
+  showCorruptionStatsLoadouts,
+  updateChallengeDisplay
+} from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract'
 
 const buyAmountNames = ['one', 'ten', 'hundred', 'thousand', '10k', '100k']
+const MONOSPACE_FONT_STORAGE_KEY = 'monospaceFont'
+
+const applyMonospaceFont = (enabled: boolean) => {
+  document.documentElement.dataset.monospaceFont = `${enabled}`
+}
+
+export const initializeMonospaceFont = (enabledByDefault: boolean) => {
+  const storedSetting = storageGetItem(MONOSPACE_FONT_STORAGE_KEY)
+  const enabled = storedSetting === null ? enabledByDefault : storedSetting === 'true'
+
+  if (storedSetting === null) {
+    storageSetItem(MONOSPACE_FONT_STORAGE_KEY, `${enabled}`)
+  }
+
+  applyMonospaceFont(enabled)
+}
+
+export const settingMonospaceFont = () => {
+  const enabled = storageGetItem(MONOSPACE_FONT_STORAGE_KEY) === 'true'
+  DOMCacheGetOrSet('monospaceFont').textContent = enabled
+    ? i18next.t('settings.fonts.monospace')
+    : i18next.t('settings.fonts.default')
+}
+
+export const toggleMonospaceFont = async () => {
+  const confirmation = await Confirm(i18next.t('main.monospaceFontConfirm'))
+  if (!confirmation) {
+    return
+  }
+
+  const enabled = storageGetItem(MONOSPACE_FONT_STORAGE_KEY) !== 'true'
+  storageSetItem(MONOSPACE_FONT_STORAGE_KEY, `${enabled}`)
+  applyMonospaceFont(enabled)
+  settingMonospaceFont()
+}
 
 export const toggleSettings = (toggle: HTMLElement) => {
   const toggleId = toggle.getAttribute('toggleId') ?? 1
@@ -58,6 +101,7 @@ export const toggleSettings = (toggle: HTMLElement) => {
   }
 
   toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+  updateBuildingAutomationButtons()
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
@@ -286,6 +330,8 @@ export const toggleauto = () => {
       auto.style.border = '2px solid red'
     }
   }
+
+  updateBuildingAutomationButtons()
 }
 
 export const toggleResearchBuy = () => {
@@ -303,7 +349,7 @@ export const toggleAutoResearch = () => {
   if (player.autoResearchToggle || !getShopUpgradeEffects('obtainiumAuto', 'autoResearch')) {
     player.autoResearchToggle = false
     el.textContent = i18next.t('researches.automaticOff')
-    DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
+    setResearchRoombaHighlight(0)
     player.autoResearch = 0
   } else {
     player.autoResearchToggle = true
@@ -324,7 +370,7 @@ export const toggleAutoResearchMode = () => {
     player.autoResearchMode = 'cheapest'
     el.textContent = i18next.t('researches.autoModeCheapest')
   }
-  DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
+  setResearchRoombaHighlight(0)
 
   if (player.autoResearchToggle && roombaResearchEnabled() && player.autoResearchMode === 'cheapest') {
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
@@ -409,6 +455,7 @@ export const toggleBuildingScreen = (input: string) => {
     DOMCacheGetOrSet(screenKey).style.display = 'none'
   }
   DOMCacheGetOrSet(screen[G.buildingSubTab].screen).style.display = 'flex'
+  createFitties()
   // player.subtabNumber = screen[G.buildingSubTab].subtabNumber
 }
 
@@ -894,6 +941,7 @@ export const toggleAutoTesseracts = (i: number) => {
   }
 
   player.autoTesseracts[i] = !player.autoTesseracts[i]
+  updateBuildingAutomationButtons()
 }
 
 export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number) => {

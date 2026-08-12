@@ -13,6 +13,7 @@ Synergism is a TypeScript/HTML/CSS idle game. Frontend entry points are `src/Syn
 
 ## Platform-Specific Code
 
+- When possible, keep HTML and rendering shared between mobile and web. Isolate platform-specific behavior in event listeners, modal invocation/configuration, or other interaction wiring instead of branching the generated HTML.
 - Steam code must be gated with `platform` from `src/Config.ts`.
 - Electron/Steam-only APIs must use dynamic imports inside the gated branch so browser/mobile bundles can tree-shake correctly.
 

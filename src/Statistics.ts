@@ -111,8 +111,8 @@ import { getHepteractEffects } from './Hepteracts'
 import {
   addCodeBonuses,
   addCodeInterval,
-  addCodeMaxUses,
-  addCodeMaxUsesAdditive,
+  addCodeMaxCapacity,
+  addCodeMaxCapacityAdditive,
   addCodeSingularityPerkBonus,
   addCodeTimeToNextUse
 } from './ImportExport'
@@ -222,7 +222,7 @@ export const displayStatLine = (type: StatLineTypes, num: number | Decimal, altD
     return altDisplay()
   } // As a rule, don't show statlines whose value does not affect final result. Decimals used for generalizability
   else if (type === StatLineTypes.Addition) {
-    return !Decimal.fromValue(num).equals(0)
+    return !Decimal.fromValue(num).equals(new Decimal())
   } else if (type === StatLineTypes.Multiplication) {
     return !Decimal.fromValue(num).equals(G.dOne)
   } else {
@@ -2716,7 +2716,7 @@ export const allAddCodeTimerStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'BaseTimer',
-      stat: () => 3600 * 1000 // Base timer value (3600000ms = 1 hour)
+      stat: () => 3600 // Base timer value (3600s = 1 hour)
     },
     {
       i18n: 'Calculator4',
@@ -2740,7 +2740,7 @@ export const allAddCodeTimerStats: NumberStatLineCategory = {
     },
     {
       i18n: 'SingularityPerkBonus',
-      stat: () => 1 / addCodeSingularityPerkBonus(), // Singularity Perk bonus (increases with higher singularity milestones)
+      stat: () => 1 / addCodeSingularityPerkBonus().intervalDivisor, // Singularity Perk bonus (increases with higher singularity milestones)
       color: 'lime'
     }
   ]
@@ -2753,38 +2753,44 @@ export const allAddCodeCapacityStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 24, // Base capacity (24 codes)
+      stat: () => 86400, // Base capacity (1 day, in seconds)
       acc: 0
     },
     {
       i18n: 'Calculator2',
-      stat: () => getShopUpgradeEffects('calculator2', 'addCodeCapacity'), // PL-AT X (2 codes per level)
+      stat: () => getShopUpgradeEffects('calculator2', 'addCodeCapacity'), // PL-AT X (30 mins/lv)
       color: 'lime',
       acc: 0
     },
     {
       i18n: 'Calculator4Max',
-      stat: () => getShopUpgradeEffects('calculator4', 'addCodeCapacity'), // PL-AT δ Maxed (32 codes)
+      stat: () => getShopUpgradeEffects('calculator4', 'addCodeCapacity'), // PL-AT δ Maxed (3 Hours)
       color: 'lime',
       acc: 0
     },
     {
       i18n: 'Calculator5',
-      stat: () => getShopUpgradeEffects('calculator5', 'addCodeCapacity'), // PL-AT Γ (1 code per 10 levels, +6 at max)
+      stat: () => getShopUpgradeEffects('calculator5', 'addCodeCapacity'), // PL-AT Γ (1 mins/lv, +80 mins Maxed)
       color: 'lime',
       acc: 0
     },
     {
       i18n: 'Calculator6Max',
-      stat: () => getShopUpgradeEffects('calculator6', 'addCodeCapacity'), // PL-AT _ Maxed (24 codes)
+      stat: () => getShopUpgradeEffects('calculator6', 'addCodeCapacity'), // PL-AT _ Maxed (3 hours)
       color: 'lime',
       acc: 0
     },
     {
       i18n: 'Calculator7Max',
-      stat: () => getShopUpgradeEffects('calculator7', 'addCodeCapacity'), // PL-AT ΩΩ Maxed (48 codes)
+      stat: () => getShopUpgradeEffects('calculator7', 'addCodeCapacity'), // PL-AT ΩΩ Maxed (3 hours)
       color: 'lime',
       acc: 0
+    },
+    {
+      i18n: 'SingularityPerk',
+      stat: () => addCodeSingularityPerkBonus().addCodeCapacity, // Singularity Perk bonus
+      acc: 0,
+      color: 'lime'
     }
   ]
 }
@@ -2800,11 +2806,6 @@ export const allAddCodeCapacityMultiplierStats: NumberStatLineCategory = {
       color: 'gold',
       displayCriterion: () => true,
       acc: 0
-    },
-    {
-      i18n: 'SingularityPerk',
-      stat: () => addCodeSingularityPerkBonus(), // Singularity Perk bonus
-      acc: 1
     }
   ]
 }
@@ -4327,13 +4328,19 @@ const loadAddCodeTimeStats = () => {
 }
 
 const loadAddCodeCapacityStats = () => {
-  loadStatistics(allAddCodeCapacityStats, 'addCodeCapacity', 'statACC', 'addCodeCapacityStat', addCodeMaxUsesAdditive)
+  loadStatistics(
+    allAddCodeCapacityStats,
+    'addCodeCapacity',
+    'statACC',
+    'addCodeCapacityStat',
+    addCodeMaxCapacityAdditive
+  )
   loadStatistics(
     allAddCodeCapacityMultiplierStats,
     'addCodeCapacity',
     'statACC2',
     'addCodeCapacityStat2',
-    addCodeMaxUses,
+    addCodeMaxCapacity,
     'Total2'
   )
   DOMCacheGetOrSet('stat+next').innerHTML = i18next.t('statistics.nextAdd', {

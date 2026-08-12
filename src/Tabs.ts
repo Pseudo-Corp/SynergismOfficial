@@ -17,7 +17,7 @@ import {
   toggleRuneScreen,
   toggleSingularityScreen
 } from './Toggles'
-import { changeTabColor, CloseModal, hideStuff, revealStuff } from './UpdateHTML'
+import { changeTabColor, CloseModal, createFitties, hideStuff, revealStuff } from './UpdateHTML'
 import { assert, isMobile, limitRange, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -55,8 +55,30 @@ interface SubTab {
   }[]
 }
 
+const tabScrollPositions = new Map<Tabs, Map<number, number>>()
+
+const getMainElement = () => document.querySelector<HTMLElement>('main')
+
 const scrollMainToTop = () => {
-  document.querySelector<HTMLElement>('main')?.scrollTo({ top: 0, left: 0 })
+  getMainElement()?.scrollTo({ top: 0, left: 0 })
+}
+
+const saveTabScrollPosition = (tab: Tabs, subtab: number) => {
+  if (!isMobile) {
+    return
+  }
+
+  const subtabScrollPositions = tabScrollPositions.get(tab) ?? new Map<number, number>()
+  subtabScrollPositions.set(subtab, getMainElement()?.scrollTop ?? 0)
+  tabScrollPositions.set(tab, subtabScrollPositions)
+}
+
+const restoreTabScrollPosition = (tab: Tabs, subtab: number) => {
+  if (isMobile) {
+    getMainElement()?.scrollTo({ top: tabScrollPositions.get(tab)?.get(subtab) ?? 0, left: 0 })
+  } else {
+    scrollMainToTop()
+  }
 }
 
 const subtabInfo: Record<Tabs, SubTab> = {
@@ -1049,6 +1071,8 @@ export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
 }
 
 export const changeTab = (tabs: Tabs, step?: number) => {
+  saveTabScrollPosition(G.currentTab, subtabInfo[G.currentTab].subtabIndex)
+
   if (step === 1) {
     tabRow.setNextTab()
   } else if (step === -1) {
@@ -1089,6 +1113,8 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   ;(document.activeElement as HTMLElement | null)?.blur()
 
   updateSubTabVisibility()
+  createFitties()
+  restoreTabScrollPosition(G.currentTab, subtabInfo[G.currentTab].subtabIndex)
 
   if (PLATFORM === 'steam') {
     import('./steam/discord').then(({ setRichPresenceDiscord }) => {
@@ -1154,6 +1180,11 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
     return
   }
 
+  const isActiveTab = G.currentTab === tabs
+  if (isActiveTab) {
+    saveTabScrollPosition(tab.getType(), subTabs.subtabIndex)
+  }
+
   if (page !== undefined) {
     subtabInfo[tab.getType()].subtabIndex = limitRange(page, 0, subTabs.subTabList.length - 1)
   } else {
@@ -1187,7 +1218,9 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
     }
 
     subTabs.tabSwitcher?.()(subTabList.subTabID)
-    scrollMainToTop()
+    if (isActiveTab) {
+      restoreTabScrollPosition(tab.getType(), subTabs.subtabIndex)
+    }
   }
 
   CloseModal()

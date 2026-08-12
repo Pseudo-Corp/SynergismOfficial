@@ -265,10 +265,37 @@ const getCostForResearchLevels = (index: number, buyTo: number): Decimal => {
 
 export const researchOrderByCost: number[] = sortDecimalWithIndices(researchBaseCosts)
 
+let roombaHighlightIndex = 0
+
+export const setResearchRoombaHighlight = (index: number) => {
+  if (roombaHighlightIndex === index) {
+    return
+  }
+
+  if (roombaHighlightIndex > 0) {
+    DOMCacheGetOrSet(`res${roombaHighlightIndex}`).classList.remove('researchRoomba')
+  }
+
+  if (index > 0) {
+    DOMCacheGetOrSet(`res${index}`).classList.add('researchRoomba')
+  }
+
+  roombaHighlightIndex = index
+}
+
+export const syncResearchRoombaHighlight = (previous: number) => {
+  const current = player.autoResearch || 1
+
+  if (previous !== current) {
+    DOMCacheGetOrSet(`res${previous}`).classList.remove('researchRoomba')
+  }
+
+  DOMCacheGetOrSet(`res${current}`).classList.add('researchRoomba')
+}
+
 // For mode 'manual'
 export const updateResearchAuto = (index: number) => {
-  DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
-  DOMCacheGetOrSet(`res${index}`).classList.add('researchRoomba')
+  setResearchRoombaHighlight(index)
   player.autoResearch = index
 
   // Research is maxed
@@ -294,16 +321,7 @@ export const advanceResearchRoomba = () => {
     player.roombaResearchIndex = 0
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
-}
-
-export const syncResearchRoombaHighlight = (previous: number) => {
-  const current = player.autoResearch || 1
-
-  if (previous !== current) {
-    DOMCacheGetOrSet(`res${previous}`).classList.remove('researchRoomba')
-  }
-
-  DOMCacheGetOrSet(`res${current}`).classList.add('researchRoomba')
+  setResearchRoombaHighlight(player.autoResearch)
 }
 
 /**
@@ -326,7 +344,7 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
   let levelToBuy = getBuyableResearchLevel(index)
   levelToBuy = Math.min(researchData[index].maxLevel, levelToBuy, player.researches[index] + buyAmount)
 
-  let obtainiumCost = new Decimal()
+  let obtainiumCost: Decimal
 
   // If levelToBuy is = current level, either we've already maxxed the upgrade
   // OR we cannot afford any levels. Check which one.
@@ -336,6 +354,8 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
     if (!isResearchMaxed(index)) {
       levelToBuy += 1
       obtainiumCost = getCostForResearchLevels(index, levelToBuy)
+    } else {
+      obtainiumCost = new Decimal()
     }
   } else {
     obtainiumCost = getCostForResearchLevels(index, levelToBuy)
@@ -417,14 +437,14 @@ export const buyResearch = (index: number, auto: boolean, hover: boolean, buyMax
 
   // If the cost is 0, then we are only able to buy up to currentLevel, which is true
   // when the cost to the next level is too prohibitive (getCost is cumulative)
-  const canBuy = researchCost.gt(0)
+  const canBuy = researchCost.gt(new Decimal())
 
   if (canBuy) {
     player.researches[index] = levelToBuy
     player.obtainium = player.obtainium.sub(researchCost)
     // Quick check after upgrading for max. This is to update any automation regardless of auto state
-    if (isResearchMaxed(index)) {
-      DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
+    if (isResearchMaxed(index) && roombaHighlightIndex === index) {
+      setResearchRoombaHighlight(0)
     }
 
     researchDescriptions(index, auto)

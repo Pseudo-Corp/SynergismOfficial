@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
+import { player } from '../Synergism'
 import { isMobile } from '../Utility'
 
 interface Building {
@@ -19,11 +20,13 @@ interface Building {
   toggleIdAttr?: string
   statsExtraClass?: string
   statsStyle?: string
+  fitStats?: boolean
 }
 
 type Entry = Building | { spacer: true }
 
 const costIdOf = (buyId: string) => `cost${buyId.slice('buy'.length)}`
+const joinClasses = (...classes: Array<string | undefined>) => classes.filter(Boolean).join(' ')
 
 export const getBuildingCostElement = (buyId: string): HTMLElement =>
   DOMCacheGetOrSet(isMobile ? costIdOf(buyId) : buyId)
@@ -34,11 +37,11 @@ const renderBuildingDesktop = (b: Building): string => {
   if (b.imgExtraClass) imgClasses.push(b.imgExtraClass)
   if (!b.noImageClass) imgClasses.push('image')
   const imgClass = imgClasses.length ? ` class="${imgClasses.join(' ')}"` : ''
-  const descClass = b.descExtraClass ? `${b.descExtraClass} desc` : 'desc'
+  const descClass = joinClasses(b.descExtraClass, 'desc', 'fitText')
   const descStyle = b.descStyle ? ` style="${b.descStyle}"` : ''
-  const buyClass = b.buyExtraClass ? `${b.buyExtraClass} buildingPurchaseBtn` : 'buildingPurchaseBtn'
+  const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn', 'fitText')
   const toggleIdAttr = b.toggleIdAttr !== undefined ? ` toggleid="${b.toggleIdAttr}"` : ''
-  const statsClass = b.statsExtraClass ? `${b.statsExtraClass} stats` : 'stats'
+  const statsClass = joinClasses(b.statsExtraClass, 'stats', b.fitStats === false ? undefined : 'fitText')
   const statsStyle = b.statsStyle ? ` style="${b.statsStyle}"` : ''
 
   return `<div${wrapper}>`
@@ -56,13 +59,13 @@ const renderBuildingMobile = (b: Building): string => {
   if (b.imgExtraClass) imgClasses.push(b.imgExtraClass)
   if (!b.noImageClass) imgClasses.push('image')
   const imgClass = imgClasses.length ? ` class="${imgClasses.join(' ')}"` : ''
-  const descClass = b.descExtraClass ? `${b.descExtraClass} desc` : 'desc'
+  const descClass = joinClasses(b.descExtraClass, 'desc', 'fitText')
   const descStyle = b.descStyle ? ` style="${b.descStyle}"` : ''
-  const buyClass = b.buyExtraClass ? `${b.buyExtraClass} buildingPurchaseBtn` : 'buildingPurchaseBtn'
+  const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn', 'fitText')
   const toggleIdAttr = b.toggleIdAttr !== undefined ? ` toggleid="${b.toggleIdAttr}"` : ''
-  const statsClass = b.statsExtraClass ? `${b.statsExtraClass} stats` : 'stats'
+  const statsClass = joinClasses(b.statsExtraClass, 'stats', b.fitStats === false ? undefined : 'fitText')
   const statsStyle = b.statsStyle ? ` style="${b.statsStyle}"` : ''
-  const costClass = b.buyExtraClass ? `${b.buyExtraClass} cost` : 'cost'
+  const costClass = joinClasses(b.buyExtraClass, 'cost', 'fitText')
   const buyLabel = i18next.t('buildings.buy')
 
   return `<div${wrapper}>`
@@ -79,8 +82,15 @@ const renderBuildingMobile = (b: Building): string => {
 
 const renderBuilding = isMobile ? renderBuildingMobile : renderBuildingDesktop
 
+const renderAutomationControl = (): string =>
+  '<div class="buildingAutomationControls">'
+  + '<button class="buildingAutomationToggle" type="button" style="display: none"></button>'
+  + '<button class="automatedBuildingVisibilityToggle" type="button" style="display: none" aria-pressed="false"></button>'
+  + '</div>'
+
 const renderRow = (entries: Entry[]): string =>
-  entries.map((e) => 'spacer' in e ? '<div class="buildingSpacer"></div>' : renderBuilding(e)).join('')
+  renderAutomationControl()
+  + entries.map((e) => 'spacer' in e ? '<div class="buildingSpacer"></div>' : renderBuilding(e)).join('')
 
 const goldStyle = 'color: gold'
 
@@ -145,7 +155,8 @@ const coinRow: Entry[] = [
     descExtraClass: 'prestigeunlock',
     descStyle: 'color: cyan',
     buyExtraClass: 'prestigeunlock',
-    statsExtraClass: 'prestigeunlock crimsonText'
+    statsExtraClass: 'prestigeunlock crimsonText',
+    fitStats: false
   }
 ]
 
@@ -211,4 +222,122 @@ export const populateBuildingButtonRows = () => {
       row.innerHTML = renderRow(entries)
     }
   }
+}
+
+const getAutobuyers = (control: HTMLButtonElement): HTMLElement[] => {
+  const row = control.closest('.buttonRow')
+  if (!row) {
+    return []
+  }
+
+  return Array.from(row.querySelectorAll<HTMLElement>('.autobuyerToggleButton'))
+    .filter((toggle) => toggle.style.display !== 'none')
+}
+
+const getVisibilityControl = (row: HTMLElement): HTMLButtonElement | null =>
+  row.querySelector<HTMLButtonElement>('.automatedBuildingVisibilityToggle')
+
+const hasVisibleBuildings = (elements: Element[]) =>
+  elements.some((element) => !element.classList.contains('buildingHiddenByAutomation'))
+
+const getTesseractIndex = (toggle: HTMLElement): number => Number(toggle.id.slice('tesseractAutoToggle'.length))
+
+const autobuyerIsEnabled = (toggle: HTMLElement): boolean => {
+  const toggleId = toggle.getAttribute('toggleid')
+  return toggleId === null
+    ? player.autoTesseracts[getTesseractIndex(toggle)]
+    : player.toggles[Number(toggleId)]
+}
+
+const setAutobuyer = (toggle: HTMLElement, enabled: boolean) => {
+  const toggleId = toggle.getAttribute('toggleid')
+  if (toggleId === null) {
+    player.autoTesseracts[getTesseractIndex(toggle)] = enabled
+  } else {
+    player.toggles[Number(toggleId)] = enabled
+  }
+}
+
+const updateBuildingVisibility = (row: HTMLElement, autobuyers: HTMLElement[]) => {
+  const visibilityControl = getVisibilityControl(row)
+  if (!visibilityControl) {
+    return
+  }
+
+  const hideAutomated = visibilityControl.getAttribute('aria-pressed') === 'true'
+
+  for (const toggle of row.querySelectorAll<HTMLElement>('.autobuyerToggleButton')) {
+    toggle.parentElement?.classList.remove('buildingHiddenByAutomation')
+  }
+
+  if (hideAutomated) {
+    for (const toggle of autobuyers.filter(autobuyerIsEnabled)) {
+      toggle.parentElement?.classList.add('buildingHiddenByAutomation')
+    }
+  }
+
+  const rowChildren = Array.from(row.children)
+
+  for (const [index, child] of rowChildren.entries()) {
+    if (!child.classList.contains('buildingSpacer')) {
+      continue
+    }
+
+    const buildingsBefore = rowChildren.slice(0, index)
+      .filter((element) =>
+        !element.classList.contains('buildingAutomationControls')
+        && !element.classList.contains('buildingSpacer')
+      )
+    const buildingsAfter = rowChildren.slice(index + 1)
+      .filter((element) =>
+        !element.classList.contains('buildingAutomationControls')
+        && !element.classList.contains('buildingSpacer')
+      )
+    child.classList.toggle(
+      'buildingHiddenByAutomation',
+      hideAutomated && (!hasVisibleBuildings(buildingsBefore) || !hasVisibleBuildings(buildingsAfter))
+    )
+  }
+
+  visibilityControl.style.display = autobuyers.length > 0 ? '' : 'none'
+  visibilityControl.textContent = i18next.t(
+    hideAutomated ? 'buildings.hideAutomated' : 'buildings.showAutomated'
+  )
+  visibilityControl.style.border = `2px solid ${hideAutomated ? 'red' : 'green'}`
+}
+
+export const updateBuildingAutomationButtons = () => {
+  const controls = document.querySelectorAll<HTMLButtonElement>('.buildingAutomationToggle')
+
+  for (const control of controls) {
+    const autobuyers = getAutobuyers(control)
+    const allEnabled = autobuyers.length > 0 && autobuyers.every(autobuyerIsEnabled)
+    const row = control.closest<HTMLElement>('.buttonRow')
+
+    control.style.display = autobuyers.length > 0 ? '' : 'none'
+    control.textContent = i18next.t(
+      allEnabled ? 'buildings.disableAllAutomation' : 'buildings.enableAllAutomation'
+    )
+    control.style.border = `2px solid ${allEnabled ? 'green' : 'red'}`
+    control.setAttribute('aria-pressed', `${allEnabled}`)
+
+    if (row) {
+      updateBuildingVisibility(row, autobuyers)
+    }
+  }
+}
+
+export const toggleAllBuildingAutomation = (control: HTMLButtonElement) => {
+  const autobuyers = getAutobuyers(control)
+  const enable = !autobuyers.every(autobuyerIsEnabled)
+
+  for (const autobuyer of autobuyers) {
+    setAutobuyer(autobuyer, enable)
+  }
+}
+
+export const toggleAutomatedBuildingVisibility = (control: HTMLButtonElement) => {
+  const hideAutomated = control.getAttribute('aria-pressed') !== 'true'
+  control.setAttribute('aria-pressed', `${hideAutomated}`)
+  updateBuildingAutomationButtons()
 }

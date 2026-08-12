@@ -38,6 +38,19 @@ html {
     scrollbar-width: none;
 }
 
+html[data-monospace-font="true"] {
+    font-family:
+        Inconsolata,
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        "Courier New",
+        monospace;
+}
+
 img {
     image-rendering: pixelated;
 }
@@ -223,6 +236,7 @@ input,
 button,
 select,
 textarea {
+    font-family: inherit;
     font-size: 0.75em;
     padding: 0;
     margin: 0;
@@ -953,6 +967,7 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
 
 .resetsContainer {
     display: flex;
+    flex-direction: column;
     line-height: 1em;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
@@ -967,6 +982,21 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
 .resetsButtons {
     display: flex;
     align-items: start;
+}
+
+.challengeProgress {
+    display: grid;
+    grid-template-rows: repeat(3, 1.2em);
+    margin-top: 0.25em;
+    line-height: 1.2em;
+}
+
+#transcensionChallengeProgress { color: var(--orchid-text-color); }
+#reincarnationChallengeProgress { color: limegreen; }
+#ascensionChallengeProgress { color: orange; }
+
+html[data-mobile="true"] .challengeProgress {
+    display: none;
 }
 
 #mainHeader {
@@ -1375,9 +1405,19 @@ p#buildinghotkeys2 {
 }
 
 /* Upgrade box */
+.mobileUpgradeSection,
+.mobileUpgradeTabContainer,
+.mobileUpgradeBox {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
 .mobileUpgradeTabContainer {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: hidden;
 }
 
 .mobileUpgradeBox {
@@ -1385,6 +1425,7 @@ p#buildinghotkeys2 {
     flex-direction: column;
     border: 2px solid white;
     gap: 1%;
+    overflow: hidden;
 }
 
 .mobileUpgradeBox > p {
@@ -1472,8 +1513,40 @@ p#buildinghotkeys2 {
 }
 
 p#specialActionsTitle,
-p#themesTitle {
+p#appearanceSettingsTitle {
     margin-top: 15px;
+}
+
+.appearanceSettings {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    width: 100%;
+}
+
+.appearanceSetting {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    padding: 6px;
+    border: 1px solid var(--boxmain-bordercolor);
+    background-color: var(--box-color);
+}
+
+.appearanceSettingWide {
+    grid-column: 1 / -1;
+}
+
+.appearanceSetting > p {
+    margin: 0;
+    color: pink;
+}
+
+.appearanceSetting > .promocodeButton {
+    width: 100%;
+    min-width: 0;
+    margin: auto 0 0;
 }
 
 #exportButtons > * { margin: 2px auto; }
@@ -1581,17 +1654,24 @@ p#promocodeinfo {
     width: 100%;
 }
 
+#themeArea {
+    position: relative;
+}
+
 #themeArea > button { width: 100%; }
 #themeArea:focus-within > div { display: inline-grid; }
 
 #themeArea > div {
     position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
     display: none;
     grid-template-columns: repeat(2, 150px);
     border: 3px solid var(--boxmain-bordercolor);
     background-color: var(--box-color);
     padding: 2px;
-    margin-left: 8px;
+    transform: translateX(-50%);
 }
 
 #themeArea > div button {
@@ -1621,8 +1701,7 @@ p#promocodeinfo {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 35px;
-    margin-left: 7.5%;
+    margin-top: 10px;
     margin-bottom: 20px;
     z-index: 1;
     font-size: min(1em, 20px);
@@ -1647,6 +1726,26 @@ p#promocodeinfo {
     align-items: center;
     gap: 10px;
     min-height: 35px;
+}
+
+.buttonRow > div:not(.buildingAutomationControls) {
+    margin-left: 7.5%;
+}
+
+.buttonRow > .buildingAutomationControls {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.buildingAutomationToggle,
+.automatedBuildingVisibilityToggle {
+    min-width: 14em;
+    background-color: var(--button-color);
+}
+
+.buttonRow > .buildingHiddenByAutomation {
+    display: none !important;
 }
 
 .buildingSpacer {
@@ -1694,6 +1793,7 @@ p#promocodeinfo {
 
 #upgradeTopBtns {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin: 15px 0 10px;
@@ -1703,6 +1803,15 @@ p#promocodeinfo {
 #upgradeTopBtns > button {
     min-width: 130px;
     text-align: center;
+}
+
+#togglePurchasedUpgrades {
+    flex-shrink: 0;
+    width: 15em;
+}
+
+.upgradeHiddenByPurchase {
+    display: none !important;
 }
 
 .upgradeCategoryBtnRow {
@@ -1736,7 +1845,7 @@ p#promocodeinfo {
     font-size: 1em;
 }
 
-.buttonRow.mobile > div:not(.buildingSpacer) {
+.buttonRow.mobile > div:not(.buildingSpacer):not(.buildingAutomationControls) {
     gap: 6px;
     padding: 8px 0;
     border: 2px solid white;
@@ -1762,6 +1871,8 @@ p#promocodeinfo {
 
 .buttonRow.mobile > div > .textStack {
     flex: 1;
+    min-width: 0;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 3px;
@@ -1770,6 +1881,7 @@ p#promocodeinfo {
     > .cost,
     > .stats {
         width: auto;
+        min-width: 0;
         font-size: 1em;
         line-height: 1.2;
         white-space: normal;
@@ -1786,6 +1898,7 @@ p#promocodeinfo {
 }
 
 .buttonRow.mobile > div > .auto {
+    flex: 0 0 5em;
     width: 5em;
     height: 5em;
     min-width: 0;
@@ -1933,6 +2046,11 @@ p#promocodeinfo {
 .synergismLevelMilestoneType > img {
     width: 32px;
     height: 32px;
+}
+
+.synergismLevelPreview {
+    filter: grayscale(1) brightness(0.35) blur(1px);
+    opacity: 0.75;
 }
 
 .tieredAchievementType img.dimmed,
@@ -2864,6 +2982,11 @@ p#transcendhotkeys {
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
     text-align: center;
 }
 
@@ -5396,6 +5519,51 @@ header #obtainiumDisplay { color: pink; }
     border: 2px solid blue;
 }
 
+.blueberryLoadoutSlot.activeBlueberryLoadout {
+    background-color: #1d4ed8;
+    border-color: deepskyblue;
+    color: white;
+    font-weight: bold;
+}
+
+#ambrosiaEditLevels.ambrosiaEditingToggled {
+    background-color: #4a2c00;
+    border-color: gold;
+    color: gold;
+}
+
+#blueberryUpgradeContainer.ambrosiaEditing .blueberryUpgrade {
+    outline: 1px dashed orange;
+    outline-offset: -1px;
+}
+
+.ambrosiaEditModal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.ambrosiaEditModal .modalBtnBuy {
+    width: auto;
+    min-width: 60px;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.ambrosiaEditModal .modalBtnBuy:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.ambrosiaEditModal .ambrosiaEditSave {
+    border-color: lime;
+}
+
+.ambrosiaEditModal .ambrosiaEditDiscard {
+    border-color: crimson;
+}
+
 .blueberryLoadoutSetting {
     height: 32px;
     width: 192px;
@@ -5648,10 +5816,7 @@ img#singularityPerksIcon {
     flex-direction: column;
 }
 
-#singularityChallengeDetails {
-    display: none;
-}
-
+#singularityChallengeDetails,
 .singularityChallengeDetails {
     display: block;
 }
@@ -6243,7 +6408,9 @@ img#singularityPerksIcon {
 #bbLoadoutContainer {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     margin-top: 10px;
 }
 
@@ -7260,6 +7427,16 @@ html[data-mobile="true"] .hideOnMobile {
     text-align: center;
 }
 
+#modal.modalBottomSheet .modalBtnBuy[data-modal-action="buyAll"] {
+    width: auto;
+    min-width: min(240px, 100%);
+    max-width: 100%;
+    height: auto;
+    min-height: 30px;
+    padding: 6px 12px;
+    white-space: normal;
+}
+
 .modalButtonRow {
     display: flex;
     justify-content: center;
@@ -7576,6 +7753,10 @@ html[data-mobile="true"] .hideOnMobile {
         gap: 5px;
     }
 
+    .buttonRow > div:not(.buildingAutomationControls) {
+        margin-left: 0;
+    }
+
     .buttonRow > div > .desc {
         width: 100%;
         order: -1;
@@ -7873,10 +8054,6 @@ html[data-mobile="true"] .hideOnMobile {
         line-height: unset;
     }
 
-    #bbLoadoutContainer {
-        flex-wrap: wrap;
-    }
-
     .blueberryUpgradeTier {
         gap: unset;
     }
@@ -8155,6 +8332,7 @@ html[data-mobile="true"] .hideOnMobile {
 
     #themeArea > div {
         position: unset;
+        transform: unset;
     }
 
     #themeArea.open > div {

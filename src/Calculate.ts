@@ -297,7 +297,7 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
 
   const researchVal = calculateFastForwardResourcesGlobal(deltaTime, resourceMult, baseObtainium, globalSpeedMult)
 
-  let antVal = new Decimal()
+  let antVal: Decimal
   if (player.cubeUpgrades[47] > 0) {
     const stageMod = thresholdModifiers().antSacrificeObtainiumMult
     const antSacMult = calculateAntSacrificeMultiplier().times(stageMod)
@@ -307,6 +307,8 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
       baseObtainium,
       globalSpeedMult
     )
+  } else {
+    antVal = new Decimal()
   }
 
   return Decimal.max(researchVal, antVal).times(multiplier)

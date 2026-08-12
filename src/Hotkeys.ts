@@ -3,6 +3,7 @@ import { boostAccelerator, buyBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { confirmAntSacrifice } from './Features/Ants/AntSacrifice/sacrifice'
 import { promocodes } from './ImportExport'
+import { runes } from './Runes'
 import { useConsumablePrompt } from './Shop'
 import { player, resetCheck, synergismHotkeys } from './Synergism'
 import { getActiveSubTab, keyboardTabChange as kbTabChange, tabRow, Tabs } from './Tabs'
@@ -10,43 +11,166 @@ import { confirmReply, toggleAutoChallengeRun } from './Toggles'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
-type Hotkey = [string, () => void, /* hide during notification */ boolean]
+interface Hotkey {
+  name: string
+  action: () => void
+  allowDuringNotification?: boolean
+  unlocked?: () => boolean
+  hiddenOnMobile?: boolean
+}
 
 const defaultHotkeys = new Map<string, Hotkey>([
-  ['A', ['hotkeys.names.buyAccelerators', () => buyBuilding('accelerator'), false]],
-  ['B', ['hotkeys.names.boostAccelerator', () => boostAccelerator(), false]],
-  ['C', ['hotkeys.names.autoChallenge', () => {
-    toggleChallengeSweep()
-  }, false]],
-  ['E', ['hotkeys.names.exitTRChallenge', () => {
-    if (player.autoChallengeRunning) {
-      toggleChallengeSweep()
-    } else {
-      exitTranscendAndPrestigeChallenge()
+  ['A', { name: 'hotkeys.names.buyAccelerators', action: () => buyBuilding('accelerator') }],
+  [
+    'B',
+    {
+      name: 'hotkeys.names.boostAccelerator',
+      action: () => boostAccelerator(),
+      unlocked: () => player.unlocks.transcend
     }
-  }, false]],
-  ['M', ['hotkeys.names.multipliers', () => buyBuilding('multiplier'), false]],
-  ['N', ['hotkeys.names.noCancel', () => confirmReply(false), true]],
-  ['P', ['hotkeys.names.resetPrestige', () => resetCheck('prestige'), false]],
-  ['R', ['hotkeys.names.resetReincarnate', () => resetCheck('reincarnation'), false]],
-  ['S', ['hotkeys.names.sacrificeAnts', () => confirmAntSacrifice(), false]],
-  ['T', ['hotkeys.names.resetTranscend', () => resetCheck('transcension'), false]],
-  ['Y', ['hotkeys.names.yesOK', () => confirmReply(true), true]],
-  ['ARROWLEFT', ['hotkeys.names.backTab', () => kbTabChange(-1), false]],
-  ['ARROWRIGHT', ['hotkeys.names.nextTab', () => kbTabChange(1), false]],
-  ['ARROWUP', ['hotkeys.names.backSubtab', () => kbTabChange(-1, true), false]],
-  ['ARROWDOWN', ['hotkeys.names.nextSubtab', () => kbTabChange(1, true), false]],
-  ['SHIFT+A', ['hotkeys.names.resetAscend', () => resetCheck('ascension'), false]],
-  ['SHIFT+C', ['hotkeys.names.cleanseCorruptions', () => {
-    player.corruptions.used.resetCorruptions()
-    player.corruptions.next.resetCorruptions()
-  }, false]],
-  ['SHIFT+D', ['hotkeys.names.specActionAdd1', () => promocodes('add', 1), false]],
-  ['SHIFT+E', ['hotkeys.names.exitAscChallenge', () => resetCheck('ascensionChallenge'), false]], // Its already checks if inside Asc. Challenge
-  ['SHIFT+O', ['hotkeys.names.useOffPotion', () => useConsumablePrompt('offeringPotion'), false]],
-  ['SHIFT+P', ['hotkeys.names.useObtPotion', () => useConsumablePrompt('obtainiumPotion'), false]],
-  ['SHIFT+S', ['hotkeys.names.resetSingularity', () => resetCheck('singularity'), false]],
-  ['CTRL+B', ['hotkeys.names.unhideTabs', () => tabRow.reappend(), false]]
+  ],
+  [
+    'C',
+    {
+      name: 'hotkeys.names.autoChallenge',
+      action: () => {
+        toggleChallengeSweep()
+      },
+      unlocked: () => player.researches[150] > 0
+    }
+  ],
+  [
+    'E',
+    {
+      name: 'hotkeys.names.exitTRChallenge',
+      action: () => {
+        if (player.autoChallengeRunning) {
+          toggleChallengeSweep()
+        } else {
+          exitTranscendAndPrestigeChallenge()
+        }
+      },
+      unlocked: () =>
+        player.autoChallengeRunning
+        || player.currentChallenge.transcension !== 0
+        || player.currentChallenge.reincarnation !== 0
+    }
+  ],
+  ['M', { name: 'hotkeys.names.multipliers', action: () => buyBuilding('multiplier') }],
+  [
+    'N',
+    {
+      name: 'hotkeys.names.noCancel',
+      action: () => confirmReply(false),
+      allowDuringNotification: true,
+      hiddenOnMobile: true
+    }
+  ],
+  [
+    'P',
+    {
+      name: 'hotkeys.names.resetPrestige',
+      action: () => resetCheck('prestige'),
+      unlocked: () => player.unlocks.coinfour
+    }
+  ],
+  [
+    'R',
+    {
+      name: 'hotkeys.names.resetReincarnate',
+      action: () => resetCheck('reincarnation'),
+      unlocked: () => player.unlocks.transcend
+    }
+  ],
+  [
+    'S',
+    {
+      name: 'hotkeys.names.sacrificeAnts',
+      action: () => confirmAntSacrifice(),
+      unlocked: () => player.unlocks.anthill
+    }
+  ],
+  [
+    'T',
+    {
+      name: 'hotkeys.names.resetTranscend',
+      action: () => resetCheck('transcension'),
+      unlocked: () => player.unlocks.prestige
+    }
+  ],
+  [
+    'Y',
+    {
+      name: 'hotkeys.names.yesOK',
+      action: () => confirmReply(true),
+      allowDuringNotification: true,
+      hiddenOnMobile: true
+    }
+  ],
+  ['ARROWLEFT', { name: 'hotkeys.names.backTab', action: () => kbTabChange(-1), hiddenOnMobile: true }],
+  ['ARROWRIGHT', { name: 'hotkeys.names.nextTab', action: () => kbTabChange(1), hiddenOnMobile: true }],
+  ['ARROWUP', { name: 'hotkeys.names.backSubtab', action: () => kbTabChange(-1, true), hiddenOnMobile: true }],
+  ['ARROWDOWN', { name: 'hotkeys.names.nextSubtab', action: () => kbTabChange(1, true), hiddenOnMobile: true }],
+  [
+    'SHIFT+A',
+    {
+      name: 'hotkeys.names.resetAscend',
+      action: () => resetCheck('ascension'),
+      unlocked: () => player.unlocks.ascensions
+    }
+  ],
+  [
+    'SHIFT+C',
+    {
+      name: 'hotkeys.names.cleanseCorruptions',
+      action: () => {
+        player.corruptions.used.resetCorruptions()
+        player.corruptions.next.resetCorruptions()
+      },
+      unlocked: () => player.challengecompletions[11] > 0
+    }
+  ],
+  [
+    'SHIFT+D',
+    {
+      name: 'hotkeys.names.specActionAdd1',
+      action: () => promocodes('add', 1),
+      unlocked: () => true
+    }
+  ],
+  [
+    'SHIFT+E',
+    {
+      name: 'hotkeys.names.exitAscChallenge',
+      action: () => resetCheck('ascensionChallenge'), // Its already checks if inside Asc. Challenge
+      unlocked: () => player.currentChallenge.ascension !== 0
+    }
+  ],
+  [
+    'SHIFT+O',
+    {
+      name: 'hotkeys.names.useOffPotion',
+      action: () => useConsumablePrompt('offeringPotion'),
+      unlocked: () => player.shopUpgrades.offeringPotion > 0
+    }
+  ],
+  [
+    'SHIFT+P',
+    {
+      name: 'hotkeys.names.useObtPotion',
+      action: () => useConsumablePrompt('obtainiumPotion'),
+      unlocked: () => player.shopUpgrades.obtainiumPotion > 0
+    }
+  ],
+  [
+    'SHIFT+S',
+    {
+      name: 'hotkeys.names.resetSingularity',
+      action: () => resetCheck('singularity'),
+      unlocked: () => runes.antiquities.level > 0 || player.highestSingularityCount > 0
+    }
+  ],
+  ['CTRL+B', { name: 'hotkeys.names.unhideTabs', action: () => tabRow.reappend(), hiddenOnMobile: true }]
 ])
 
 let hotkeysEnabled = false
@@ -72,7 +196,7 @@ const exitTranscendAndPrestigeChallenge = () => {
 }
 
 const isHotkeyBlockedByOverlay = (key: string, hotkey: Hotkey) =>
-  key !== 'ENTER' && DOMCacheGetOrSet('transparentBG').style.display === 'block' && !hotkey[2]
+  key !== 'ENTER' && DOMCacheGetOrSet('transparentBG').style.display === 'block' && !hotkey.allowDuringNotification
 
 const updateLastHotkeyDisplay = (key: string, hotkeyName: string) => {
   if (G.currentTab !== Tabs.Settings || getActiveSubTab() !== 7) {
@@ -93,8 +217,8 @@ const activateHotkey = (key: string) => {
     return ''
   }
 
-  const hotkeyName = i18next.t(hotkey[0])
-  hotkey[1]()
+  const hotkeyName = i18next.t(hotkey.name)
+  hotkey.action()
   updateLastHotkeyDisplay(key, hotkeyName)
 
   return hotkeyName
@@ -158,7 +282,7 @@ const makeSlot = (key: string, descr: string) => {
   button.addEventListener('click', async (e) => {
     const target = e.target as HTMLElement
     const oldKey = target.textContent.toUpperCase()
-    const name = hotkeys.get(oldKey)?.[0]
+    const name = hotkeys.get(oldKey)?.name
       ?? target.nextSibling?.textContent
 
     // new value to set key as, unformatted
@@ -253,6 +377,8 @@ const makeMobileHotkeyButton = (key: string, descr: string) => {
 
 let mobileHotkeyPanelRegistered = false
 
+const isVisibleOnMobile = (hotkey: Hotkey) => !hotkey.hiddenOnMobile && (hotkey.unlocked?.() ?? true)
+
 const renderMobileHotkeyButtons = () => {
   if (!mobileHotkeyPanelRegistered) {
     return
@@ -261,8 +387,10 @@ const renderMobileHotkeyButtons = () => {
   const actions = DOMCacheGetOrSet('mobileHotkeysActions')
   const fragment = document.createDocumentFragment()
 
-  for (const [key, [descr]] of hotkeys.entries()) {
-    fragment.append(makeMobileHotkeyButton(key, i18next.t(descr)))
+  for (const [key, hotkey] of hotkeys.entries()) {
+    if (isVisibleOnMobile(hotkey)) {
+      fragment.append(makeMobileHotkeyButton(key, i18next.t(hotkey.name)))
+    }
   }
 
   actions.replaceChildren(fragment)
@@ -344,8 +472,8 @@ export const enableHotkeys = () => {
     hotkey.removeChild(hotkey.firstChild)
   }
 
-  for (const [key, [descr]] of hotkeys.entries()) {
-    const div = makeSlot(key, i18next.t(descr))
+  for (const [key, { name }] of hotkeys.entries()) {
+    const div = makeSlot(key, i18next.t(name))
 
     hotkey.appendChild(div)
   }
@@ -385,7 +513,7 @@ export const resetHotkeys = async () => {
     const toSet = player.hotkeys[key][1]
     if (hotkey.has(oldKey)) {
       const old = hotkey.get(oldKey)!
-      settext += `\t${oldKey}[${old[0]}] to ${toSet}, `
+      settext += `\t${oldKey}[${old.name}] to ${toSet}, `
       hotkey.set(toSet, old)
       hotkey.delete(oldKey)
     }

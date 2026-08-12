@@ -300,7 +300,7 @@ export class CorruptionLoadout {
       }
       this.#totalScoreMult = this.#calcTotalScoreMult()
       corruptionLoadoutTableUpdate(true, 0)
-      corruptionDisplay(G.corruptionTrigger)
+      corruptionDisplay('illiteracy')
       DOMCacheGetOrSet('corruptionCleanseConfirm').style.visibility = 'hidden'
     } else {
       Notification(i18next.t('corruptions.resetCorruptionsError'))

@@ -852,7 +852,7 @@ const computeOfferingsToLevel = (rune: RuneKeys, level: number) => {
 
 // Gives levels to buy, total EXP to that level, and offerings required to reach that level
 const maxRuneLevelPurchaseInformation = (rune: RuneKeys, budget: Decimal) => {
-  if (!runes[rune].isUnlocked() || budget.lt(0)) {
+  if (!runes[rune].isUnlocked() || budget.lt(new Decimal())) {
     return { levels: 0, expRequired: new Decimal(), offerings: new Decimal() }
   }
 
@@ -912,7 +912,7 @@ const updateLevelsFromEXP = (rune: RuneKeys) => {
   const levelsPerOOM = getLevelsPerOOM(rune)
   const levels = Math.floor(levelsPerOOM * Decimal.log10(runes[rune].runeEXP.div(runes[rune].costCoefficient).plus(1)))
   // Floating point imprecision fix
-  if (computeEXPLeftToLevel(rune, levels + 1).eq(0)) {
+  if (computeEXPLeftToLevel(rune, levels + 1).eq(new Decimal())) {
     runes[rune].level = levels + 1
   } else {
     runes[rune].level = levels

@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js'
+import fitty, { type FittyInstance } from 'fitty'
 import i18next from 'i18next'
 import {
   type AchievementGroups,
@@ -22,7 +23,12 @@ import {
   calculateExalt6TimeLimit,
   calculateGlobalSpeedMult
 } from './Calculate'
-import { getMaxChallenges } from './Challenges'
+import {
+  calculateChallenge15Score,
+  challenge15ScoreMultiplier,
+  challengeRequirement,
+  getMaxChallenges
+} from './Challenges'
 import { revealCorruptions } from './Corruptions'
 import { canBuyAntMastery } from './Features/Ants/AntMasteries/lib/get-buyable'
 import { canGenerateAntCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
@@ -45,6 +51,7 @@ import {
 } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
+import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { type TalismanKeys, talismans } from './Talismans'
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import {
@@ -87,6 +94,119 @@ const htmlInsertDomRequirements = [
   'quarkDisplay',
   'obtainiumDisplay'
 ] as const
+
+type ChallengeProgressResource = 'coins' | 'transcendShards' | 'challenge10Completions'
+
+type ChallengeProgress = {
+  amount: Decimal | number
+  required: Decimal | number
+  resource: ChallengeProgressResource
+}
+
+const getChallengeProgress = (challenge: number): ChallengeProgress => {
+  if (challenge <= 5) {
+    return {
+      amount: player.coinsThisTranscension,
+      required: challengeRequirement(challenge, player.challengecompletions[challenge], challenge),
+      resource: 'coins'
+    }
+  }
+
+  if (challenge <= 8) {
+    return {
+      amount: player.transcendShards,
+      required: challengeRequirement(challenge, player.challengecompletions[challenge], challenge),
+      resource: 'transcendShards'
+    }
+  }
+
+  if (challenge <= 10) {
+    return {
+      amount: player.coins,
+      required: challengeRequirement(challenge, player.challengecompletions[challenge], challenge),
+      resource: 'coins'
+    }
+  }
+
+  if (challenge <= 14) {
+    return {
+      amount: player.challengecompletions[10],
+      required: challengeRequirement(challenge, player.challengecompletions[challenge], challenge),
+      resource: 'challenge10Completions'
+    }
+  }
+
+  return {
+    amount: player.coins,
+    required: Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),
+    resource: 'coins'
+  }
+}
+
+const getChallenge15ProgressText = (name: string, progress: ChallengeProgress) => {
+  const score = player.challenge15Exponent
+  const projectedScore = calculateChallenge15Score()
+
+  if (getShopUpgradeEffects('challenge15Auto', 'unlocked') && projectedScore >= score) {
+    return i18next.t('reset.challengeProgress.challenge15AutoLine', {
+      name,
+      score: format(score, 3, true)
+    })
+  }
+
+  if (Decimal.gte(progress.amount, progress.required)) {
+    return i18next.t('reset.challengeProgress.challenge15ProjectedLine', {
+      name,
+      score: format(score, 3, true),
+      projectedScore: format(projectedScore, 3, true)
+    })
+  }
+
+  return i18next.t('reset.challengeProgress.challenge15Line', {
+    name,
+    score: format(score, 3, true),
+    current: format(progress.amount),
+    required: format(progress.required)
+  })
+}
+
+const updateChallengeProgressRow = (elementId: string, challenge: number) => {
+  const element = DOMCacheGetOrSet(elementId)
+  element.hidden = challenge === 0
+  if (challenge === 0) {
+    element.textContent = ''
+    return
+  }
+
+  const progress = getChallengeProgress(challenge)
+  const name = i18next.t(`challenges.${challenge}.progressName`)
+  const required = format(progress.required)
+  const text = challenge === 15
+    ? getChallenge15ProgressText(name, progress)
+    : i18next.t('reset.challengeProgress.line', {
+      check: Decimal.gte(progress.amount, progress.required) ? '✓' : '✗',
+      name,
+      comps: player.challengecompletions[challenge],
+      maxComps: getMaxChallenges(challenge),
+      amount: format(progress.amount),
+      resource: i18next.t(`reset.challengeProgress.resources.${progress.resource}`),
+      required
+    })
+
+  if (element.innerHTML !== text) {
+    element.innerHTML = text
+  }
+}
+
+const updateChallengeProgress = () => {
+  if (isMobile) {
+    return
+  }
+
+  updateChallengeProgressRow('transcensionChallengeProgress', player.currentChallenge.transcension)
+  updateChallengeProgressRow('reincarnationChallengeProgress', player.currentChallenge.reincarnation)
+  updateChallengeProgressRow('ascensionChallengeProgress', player.currentChallenge.ascension)
+}
 
 export const revealStuff = () => {
   document.documentElement.dataset.coinOne = player.unlocks.coinone ? 'true' : 'false'
@@ -527,6 +647,8 @@ export const revealStuff = () => {
     el.style.display = automationUnlocks[key] ? 'block' : 'none'
   })
 
+  updateBuildingAutomationButtons()
+
   // Messages subtab visibility - only show when there are unread messages
   DOMCacheGetOrSet('switchSettingSubTab10').style.display = hasUnreadMessages() ? 'block' : 'none'
 
@@ -696,6 +818,7 @@ export const htmlInserts = () => {
     }
   }
 
+  updateChallengeProgress()
   updateAscensionStats()
 
   visualTab[G.currentTab]()
@@ -919,8 +1042,9 @@ export const buttoncolorchange = () => {
 
   if (G.currentTab === Tabs.Runes) {
     if (getActiveSubTab() === 0) {
+      const zero = new Decimal()
       for (const rune of Object.keys(player.runes)) {
-        if (player.offerings.gt(0)) {
+        if (player.offerings.gt(zero)) {
           DOMCacheGetOrSet(`${rune}RuneSacrifice`).classList.add('runeButtonAvailable')
         } else {
           DOMCacheGetOrSet(`${rune}RuneSacrifice`).classList.remove('runeButtonAvailable')
@@ -1814,6 +1938,34 @@ export const closeIframeOverlay = () => {
   if (currentOverlayIframe) {
     wrapper.removeChild(currentOverlayIframe)
     currentOverlayIframe = null
+  }
+}
+
+const fittyInstances = new WeakMap<HTMLElement, FittyInstance>()
+
+export const createFitties = () => {
+  const fittyElements = document.getElementsByClassName('fitText') as HTMLCollectionOf<HTMLElement>
+  for (const element of fittyElements) {
+    const existingInstance = fittyInstances.get(element)
+
+    // Fitty cannot measure elements inside a hidden building tab. Unsubscribe
+    // hidden instances so they can be initialized from a valid width when shown.
+    if (element.getClientRects().length === 0 || element.parentElement?.clientWidth === 0) {
+      existingInstance?.unsubscribe()
+      fittyInstances.delete(element)
+      continue
+    }
+
+    if (!existingInstance) {
+      const fittyOptions = {
+        minSize: 0,
+        maxSize: Number.parseFloat(getComputedStyle(element).fontSize),
+        multiLine: false
+      }
+      fittyInstances.set(element, fitty(element, fittyOptions))
+    } else {
+      existingInstance.fit()
+    }
   }
 }
 

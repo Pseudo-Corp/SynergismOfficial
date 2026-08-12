@@ -1,9 +1,12 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
 import {
+  ambrosiaEditAction,
+  ambrosiaEditToString,
   type AmbrosiaUpgradeNames,
   ambrosiaUpgrades,
   ambrosiaUpgradeToString,
+  beginAmbrosiaEdit,
   buyAmbrosiaUpgradeLevel,
   createLoadoutDescription,
   displayLevelsBlueberry,
@@ -11,10 +14,14 @@ import {
   exportBlueberryTree,
   highlightPrerequisites,
   importBlueberryTree,
+  isAmbrosiaEditMode,
   loadoutHandler,
+  quickSaveBlueberryTree,
   resetBlueberryTree,
   resetHighlights,
-  resetLoadoutOnlyDisplay
+  resetLoadoutOnlyDisplay,
+  setAmbrosiaEditMode,
+  toggleAmbrosiaEditMode
 } from './BlueberryUpgrades'
 import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -123,11 +130,13 @@ import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, registerSubTabSwitches, Tabs } from './Tabs'
+import { toggleAllBuildingAutomation, toggleAutomatedBuildingVisibility } from './tabs/buildings'
 import { IconSets, imgErrorHandler, themeValues, toggleAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import {
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
   toggleAscStatPerSecond,
+  toggleauto,
   toggleAutoAscendResetActive,
   toggleAutoAscendResetMode,
   toggleAutoAscensionMode,
@@ -150,6 +159,7 @@ import {
   toggleHideShop,
   toggleMaxBuyCube,
   toggleMaxPlat,
+  toggleMonospaceFont,
   toggleResearchBuy,
   toggleSettings,
   toggleShopConfirmation,
@@ -166,7 +176,8 @@ import {
   constantUpgradeDescriptions,
   constantUpgradeHTML,
   crystalupgradedescriptions,
-  crystalUpgradeHTML
+  crystalUpgradeHTML,
+  togglePurchasedUpgrades
 } from './Upgrades'
 import { isMobile } from './Utility'
 import { Globals as G } from './Variables'
@@ -180,6 +191,7 @@ type PurchasableModalOptions = {
   updateInterval?: number
   onOpen?: () => void
   onClose?: () => void
+  disabled?: () => boolean
 }
 
 type MobileSubTabIconConfig = {
@@ -381,7 +393,8 @@ const registerPurchasableModal = ({
   mobileButtons,
   updateInterval,
   onOpen,
-  onClose
+  onClose,
+  disabled
 }: PurchasableModalOptions) => {
   const showDesktopModal = (x: number, y: number) => {
     onOpen?.()
@@ -406,24 +419,34 @@ const registerPurchasableModal = ({
   }
 
   if (isMobile) {
-    element.addEventListener('click', showMobileModal)
+    element.addEventListener('click', (event) => {
+      if (disabled?.()) return
+      showMobileModal(event)
+    })
     return
   }
 
-  element.addEventListener('mousemove', (event) => showDesktopModal(event.clientX, event.clientY))
+  element.addEventListener('mousemove', (event) => {
+    if (disabled?.()) return
+    showDesktopModal(event.clientX, event.clientY)
+  })
   element.addEventListener('focus', () => {
+    if (disabled?.()) return
     const elmRect = element.getBoundingClientRect()
     showDesktopModal(elmRect.x, elmRect.y + elmRect.height / 2)
   })
   element.addEventListener('mouseout', () => {
+    if (disabled?.()) return
     CloseModal()
     onClose?.()
   })
   element.addEventListener('blur', () => {
+    if (disabled?.()) return
     CloseModal()
     onClose?.()
   })
   element.addEventListener('click', (event) => {
+    if (disabled?.()) return
     void buy(event)
     showDesktopModal(event.clientX, event.clientY)
   })
@@ -967,6 +990,21 @@ export const generateEventHandlers = () => {
   // I'm just addressing all global toggles here
   const toggles = document.querySelectorAll<HTMLElement>('.auto[toggleid]')
   toggles.forEach((b) => b.addEventListener('click', () => toggleSettings(b)))
+  const buildingAutomationToggles = document.querySelectorAll<HTMLButtonElement>('.buildingAutomationToggle')
+  buildingAutomationToggles.forEach((button) =>
+    button.addEventListener('click', () => {
+      toggleAllBuildingAutomation(button)
+      toggleauto()
+    })
+  )
+  const automatedBuildingVisibilityToggles = document.querySelectorAll<HTMLButtonElement>(
+    '.automatedBuildingVisibilityToggle'
+  )
+  automatedBuildingVisibilityToggles.forEach((button) =>
+    button.addEventListener('click', () => {
+      toggleAutomatedBuildingVisibility(button)
+    })
+  )
   // Toggles auto reset type (between TIME and AMOUNT for 3 first Tiers, and between PERCENTAGE and AMOUNT for Tesseracts)
   DOMCacheGetOrSet('prestigeautotoggle').addEventListener('click', () => toggleAutoPrestigeMode())
   DOMCacheGetOrSet('transcendautotoggle').addEventListener('click', () => toggleAutoTranscendMode())
@@ -994,6 +1032,7 @@ export const generateEventHandlers = () => {
   // UPGRADES TAB
   // For all upgrades in the Upgrades Tab (125) count, we have the same mouseover event. So we'll work on those first.
   DOMCacheGetOrSet('buyAllUpgrades').addEventListener('click', () => buyAllUpgrades(false))
+  DOMCacheGetOrSet('togglePurchasedUpgrades').addEventListener('click', togglePurchasedUpgrades)
 
   // ACHIEVEMENTS TAB
   // TODO: Remove 1 indexing
@@ -1141,43 +1180,25 @@ export const generateEventHandlers = () => {
   const buyAllAntUpgradesButton = DOMCacheGetOrSet('buyAllAntUpgrades')
   const buyAllAntProducersButton = DOMCacheGetOrSet('buyAllAntProducers')
 
-  buyAllAntUpgradesButton.addEventListener('click', (e: MouseEvent) => {
-    buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades)
-    Modal(
-      allAntUpgradeHTML,
-      e.clientX,
-      e.clientY,
-      { borderColor: 'crimson' },
-      MEDIUM_MODAL_UPDATE_TICK,
-      e.currentTarget as HTMLElement
-    )
+  registerPurchasableModal({
+    element: buyAllAntUpgradesButton,
+    html: allAntUpgradeHTML,
+    style: { borderColor: 'crimson' },
+    buy: () => buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades),
+    mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllUpgrades') }],
+    updateInterval: MEDIUM_MODAL_UPDATE_TICK
   })
-  buyAllAntProducersButton.addEventListener('click', (e: MouseEvent) => {
-    buyAllAntProducers(player.ants.toggles.maxBuyProducers)
-    buyAllAntMasteries()
-    Modal(
-      allAntProducerHTML,
-      e.clientX,
-      e.clientY,
-      { borderColor: 'gold' },
-      MEDIUM_MODAL_UPDATE_TICK,
-      e.currentTarget as HTMLElement
-    )
+  registerPurchasableModal({
+    element: buyAllAntProducersButton,
+    html: allAntProducerHTML,
+    style: { borderColor: 'gold' },
+    buy: () => {
+      buyAllAntProducers(player.ants.toggles.maxBuyProducers)
+      buyAllAntMasteries()
+    },
+    mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllProducers') }],
+    updateInterval: MEDIUM_MODAL_UPDATE_TICK
   })
-
-  if (!isMobile) {
-    buyAllAntProducersButton.addEventListener('mousemove', (e: MouseEvent) => {
-      Modal(allAntProducerHTML, e.clientX, e.clientY, { borderColor: 'gold' }, MEDIUM_MODAL_UPDATE_TICK)
-    })
-
-    buyAllAntProducersButton.addEventListener('mouseout', () => CloseModal())
-
-    buyAllAntUpgradesButton.addEventListener('mousemove', (e: MouseEvent) => {
-      Modal(allAntUpgradeHTML, e.clientX, e.clientY, { borderColor: 'crimson' }, MEDIUM_MODAL_UPDATE_TICK)
-    })
-
-    buyAllAntUpgradesButton.addEventListener('mouseout', () => CloseModal())
-  }
 
   for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
     const antTier = DOMCacheGetOrSet(`anttier${ant + 1}`)
@@ -1533,6 +1554,7 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('resetHotkeys').addEventListener('click', () => resetHotkeys())
   DOMCacheGetOrSet('notation').addEventListener('click', () => toggleAnnotation())
   DOMCacheGetOrSet('iconSet').addEventListener('click', () => toggleIconSet(player.iconSet + 1))
+  DOMCacheGetOrSet('monospaceFont').addEventListener('click', () => toggleMonospaceFont())
   DOMCacheGetOrSet('statSymbols').addEventListener('click', () => toggleStatSymbol())
 
   const html = () =>
@@ -1801,14 +1823,12 @@ TODO: Fix this entire tab it's utter shit
   const singularityChallenges = Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]
   for (const key of singularityChallenges) {
     const element = DOMCacheGetOrSet(key)
-    const detailsHTML = () => player.singularityChallenges[key].modalHTML()
-    const style = { borderColor: 'gold' }
 
     if (isMobile) {
       element.addEventListener('click', (event) => {
         Modal(
           () =>
-            `${detailsHTML()}${
+            `${player.singularityChallenges[key].modalHTML()}${
               modalBuyButtonsHTML([
                 {
                   action: 'toggle',
@@ -1820,7 +1840,7 @@ TODO: Fix this entire tab it's utter shit
             }`,
           event.clientX,
           event.clientY,
-          style,
+          { borderColor: 'gold' },
           MEDIUM_MODAL_UPDATE_TICK,
           {
             targetElement: element,
@@ -1834,17 +1854,8 @@ TODO: Fix this entire tab it's utter shit
       continue
     }
 
-    element.addEventListener('mousemove', (event) => {
-      Modal(detailsHTML, event.clientX, event.clientY, style, MEDIUM_MODAL_UPDATE_TICK, element)
-    })
-    element.addEventListener('focus', () => {
-      const elmRect = element.getBoundingClientRect()
-      Modal(detailsHTML, elmRect.x, elmRect.y + elmRect.height / 2, style, MEDIUM_MODAL_UPDATE_TICK, element)
-    })
-    element.addEventListener('mouseout', CloseModal)
-    element.addEventListener('blur', CloseModal)
+    element.addEventListener('mouseover', () => player.singularityChallenges[key].updateChallengeHTML())
     element.addEventListener('click', () => {
-      CloseModal()
       void player.singularityChallenges[key].challengeEntryHandler()
     })
   }
@@ -1854,13 +1865,41 @@ TODO: Fix this entire tab it's utter shit
     ambrosiaUpgrades
   ) as AmbrosiaUpgradeNames[]
   for (const key of blueberryUpgrades) {
+    const element = DOMCacheGetOrSet(key)
+
     registerPurchasableModal({
-      element: DOMCacheGetOrSet(key),
+      element,
       html: () => ambrosiaUpgradeToString(key),
       style: { borderColor: 'blue' },
       buy: (event, action) => buyAmbrosiaUpgradeLevel(key, event, action === 'max'),
       onOpen: () => highlightPrerequisites(key),
-      onClose: resetHighlights
+      onClose: resetHighlights,
+      disabled: isAmbrosiaEditMode
+    })
+
+    element.addEventListener('click', (event) => {
+      if (!isAmbrosiaEditMode()) return
+
+      resetHighlights()
+      beginAmbrosiaEdit(key)
+      highlightPrerequisites(key)
+
+      Modal(
+        () => ambrosiaEditToString(key),
+        event.clientX,
+        event.clientY,
+        { borderColor: 'orange' },
+        MEDIUM_MODAL_UPDATE_TICK,
+        {
+          targetElement: element,
+          buttonClick: (button) => {
+            if (ambrosiaEditAction(key, button.dataset.modalAction)) {
+              CloseModal()
+              resetHighlights()
+            }
+          }
+        }
+      )
     })
   }
 
@@ -1892,6 +1931,14 @@ TODO: Fix this entire tab it's utter shit
   }
 
   DOMCacheGetOrSet('blueberryToggleMode').addEventListener('click', () => toggleBlueberryLoadoutmode())
+  DOMCacheGetOrSet('blueberryQuickSave').addEventListener('click', () => quickSaveBlueberryTree())
+
+  setAmbrosiaEditMode(false)
+  DOMCacheGetOrSet('ambrosiaEditLevels').addEventListener('click', () => {
+    CloseModal()
+    resetHighlights()
+    toggleAmbrosiaEditMode()
+  })
 
   DOMCacheGetOrSet('getBlueberries').addEventListener('click', () => exportBlueberryTree())
   DOMCacheGetOrSet('refundBlueberries').addEventListener('click', () => resetBlueberryTree())
@@ -1902,14 +1949,29 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('importBlueberries').click()
   })
 
-  DOMCacheGetOrSet('showCurrAmbrosiaUpgrades').addEventListener('mouseover', () => {
-    displayLevelsBlueberry()
-    displayRedAmbrosiaLevels()
-  })
-  DOMCacheGetOrSet('showCurrAmbrosiaUpgrades').addEventListener('mouseout', () => {
-    resetLoadoutOnlyDisplay()
-    resetRedAmbrosiaDisplay()
-  })
+  const currAmbrosiaUpgrades = DOMCacheGetOrSet('showCurrAmbrosiaUpgrades')
+
+  if (isMobile) {
+    currAmbrosiaUpgrades.addEventListener('click', function(this: HTMLElement) {
+      const toggled = this.toggleAttribute('show-levels')
+      if (!toggled) {
+        resetLoadoutOnlyDisplay()
+        resetRedAmbrosiaDisplay()
+      } else {
+        displayLevelsBlueberry()
+        displayRedAmbrosiaLevels()
+      }
+    })
+  } else {
+    currAmbrosiaUpgrades.addEventListener('mouseover', () => {
+      displayLevelsBlueberry()
+      displayRedAmbrosiaLevels()
+    })
+    currAmbrosiaUpgrades.addEventListener('mouseout', () => {
+      resetLoadoutOnlyDisplay()
+      resetRedAmbrosiaDisplay()
+    })
+  }
 
   // RED AMBROSIA
   const redAmbrosiaUpgrades = Object.keys(

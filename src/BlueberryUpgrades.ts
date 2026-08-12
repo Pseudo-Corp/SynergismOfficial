@@ -1406,6 +1406,222 @@ export const buyAmbrosiaUpgradeLevel = async (
   }
 }
 
+const ambrosiaEditDeltas = [-10, -1, 1, 10]
+
+let ambrosiaEditMode = false
+let ambrosiaEditTarget: AmbrosiaUpgradeNames | null = null
+let ambrosiaEditLevel = 0
+
+export const isAmbrosiaEditMode = () => ambrosiaEditMode
+
+export const setAmbrosiaEditMode = (state: boolean) => {
+  ambrosiaEditMode = state
+  ambrosiaEditTarget = null
+
+  DOMCacheGetOrSet('blueberryUpgradeContainer').classList.toggle('ambrosiaEditing', state)
+
+  const button = DOMCacheGetOrSet('ambrosiaEditLevels')
+  button.classList.toggle('ambrosiaEditingToggled', state)
+  button.innerHTML = state ? i18next.t('ambrosia.edit.exit') : i18next.t('ambrosia.edit.enter')
+}
+
+export const toggleAmbrosiaEditMode = () => setAmbrosiaEditMode(!ambrosiaEditMode)
+
+const getAmbrosiaUpgradeCostBetween = (upgradeKey: AmbrosiaUpgradeNames, from: number, to: number) => {
+  const { costFormula, costPerLevel } = ambrosiaUpgrades[upgradeKey]
+  let cost = 0
+
+  for (let i = Math.min(from, to); i < Math.max(from, to); i++) {
+    cost += costFormula(i, costPerLevel)
+  }
+
+  return to < from ? -cost : cost
+}
+
+const getAmbrosiaEditFloor = (upgradeKey: AmbrosiaUpgradeNames) => {
+  let level = 0
+  let blocker: AmbrosiaUpgradeNames | null = null
+
+  for (const key of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+    if (ambrosiaUpgrades[key].level === 0) continue
+
+    const required = ambrosiaUpgrades[key].prerequisites[upgradeKey]
+    if (required !== undefined && required > level) {
+      level = required
+      blocker = key
+    }
+  }
+
+  return { level, blocker }
+}
+
+const getAmbrosiaEditCeiling = (upgradeKey: AmbrosiaUpgradeNames) => {
+  const upgrade = ambrosiaUpgrades[upgradeKey]
+
+  if (!checkAmbrosiaUpgradePrerequisites(upgradeKey)) {
+    return upgrade.level
+  }
+
+  if (upgrade.level === 0 && calculateBlueberryInventory() - player.spentBlueberries < upgrade.blueberryCost) {
+    return 0
+  }
+
+  let level = upgrade.level
+  let spent = 0
+
+  while (level < upgrade.maxLevel) {
+    const nextCost = upgrade.costFormula(level, upgrade.costPerLevel)
+    if (spent + nextCost > player.ambrosia) break
+
+    spent += nextCost
+    level += 1
+  }
+
+  return level
+}
+
+const getAmbrosiaEditPendingLevel = (upgradeKey: AmbrosiaUpgradeNames) => {
+  return ambrosiaEditTarget === upgradeKey ? ambrosiaEditLevel : ambrosiaUpgrades[upgradeKey].level
+}
+
+export const beginAmbrosiaEdit = (upgradeKey: AmbrosiaUpgradeNames) => {
+  ambrosiaEditTarget = upgradeKey
+  ambrosiaEditLevel = ambrosiaUpgrades[upgradeKey].level
+}
+
+export const ambrosiaEditToString = (upgradeKey: AmbrosiaUpgradeNames) => {
+  const upgrade = ambrosiaUpgrades[upgradeKey]
+  const floor = getAmbrosiaEditFloor(upgradeKey)
+  const ceiling = getAmbrosiaEditCeiling(upgradeKey)
+  const pending = getAmbrosiaEditPendingLevel(upgradeKey)
+  const difference = getAmbrosiaUpgradeCostBetween(upgradeKey, upgrade.level, pending)
+
+  const nameHTML = `<span style="color: gold">${upgrade.name()}</span>`
+  const levelHTML = pending === upgrade.level
+    ? i18next.t('ambrosia.edit.level', {
+      level: format(upgrade.level, 0, true),
+      max: format(upgrade.maxLevel, 0, true)
+    })
+    : i18next.t('ambrosia.edit.levelChange', {
+      from: format(upgrade.level, 0, true),
+      to: format(pending, 0, true),
+      max: format(upgrade.maxLevel, 0, true)
+    })
+
+  let costHTML: string
+  if (difference > 0) {
+    costHTML = i18next.t('ambrosia.edit.cost', { amount: format(difference, 0, true) })
+  } else if (difference < 0) {
+    costHTML = i18next.t('ambrosia.edit.refund', { amount: format(-difference, 0, true) })
+  } else {
+    costHTML = i18next.t('ambrosia.edit.noChange')
+  }
+
+  let blueberryHTML = ''
+  if (upgrade.blueberryCost > 0 && upgrade.level === 0 && pending > 0) {
+    blueberryHTML = `<br>${
+      i18next.t('ambrosia.edit.blueberryCharge', { amount: format(upgrade.blueberryCost, 0, true) })
+    }`
+  } else if (upgrade.blueberriesInvested > 0 && pending === 0) {
+    blueberryHTML = `<br>${
+      i18next.t('ambrosia.edit.blueberryRefund', { amount: format(upgrade.blueberriesInvested, 0, true) })
+    }`
+  }
+
+  let noticeHTML = ''
+  if (floor.blocker !== null) {
+    noticeHTML = `<br>${
+      i18next.t('ambrosia.edit.lockedBy', {
+        level: format(floor.level, 0, true),
+        name: ambrosiaUpgrades[floor.blocker].name()
+      })
+    }`
+  }
+  if (!checkAmbrosiaUpgradePrerequisites(upgradeKey)) {
+    noticeHTML = `${noticeHTML}<br>${i18next.t('ambrosia.edit.prereqBlocked')}`
+  }
+
+  const stepButtons = ambrosiaEditDeltas.map((delta) => {
+    const target = Math.min(ceiling, Math.max(floor.level, pending + delta))
+    const label = delta > 0 ? `+${delta}` : String(delta)
+    return `<button class="modalBtnBuy" data-modal-action="${delta}"${
+      target === pending ? ' disabled' : ''
+    }>${label}</button>`
+  }).join('')
+
+  const maxButton = `<button class="modalBtnBuy" data-modal-action="max"${ceiling === pending ? ' disabled' : ''}>${
+    i18next.t('ambrosia.edit.max')
+  }</button>`
+
+  const commitButtons = `<button class="modalBtnBuy ambrosiaEditSave" data-modal-action="save"${
+    pending === upgrade.level ? ' disabled' : ''
+  }>${
+    i18next.t('ambrosia.edit.save')
+  }</button><button class="modalBtnBuy ambrosiaEditDiscard" data-modal-action="discard">${
+    i18next.t('ambrosia.edit.discard')
+  }</button>`
+
+  return `<div class="ambrosiaEditModal"><div>${nameHTML}<br>${levelHTML}<br>${costHTML}${blueberryHTML}${noticeHTML}</div><div class="modalButtonRow">${stepButtons}${maxButton}</div><div class="modalButtonRow">${commitButtons}</div></div>`
+}
+
+const applyAmbrosiaEdit = (upgradeKey: AmbrosiaUpgradeNames) => {
+  const upgrade = ambrosiaUpgrades[upgradeKey]
+  const pending = getAmbrosiaEditPendingLevel(upgradeKey)
+
+  if (pending === upgrade.level) {
+    return
+  }
+
+  if (pending < getAmbrosiaEditFloor(upgradeKey).level || pending > getAmbrosiaEditCeiling(upgradeKey)) {
+    void Alert(i18next.t('ambrosia.edit.invalid'))
+    return
+  }
+
+  if (upgrade.level === 0) {
+    player.spentBlueberries += upgrade.blueberryCost
+    upgrade.blueberriesInvested = upgrade.blueberryCost
+  } else if (pending === 0) {
+    player.spentBlueberries -= upgrade.blueberriesInvested
+    upgrade.blueberriesInvested = 0
+  }
+
+  const cost = getAmbrosiaUpgradeCostBetween(upgradeKey, upgrade.level, pending)
+  player.ambrosia -= cost
+  upgrade.ambrosiaInvested += cost
+  upgrade.level = pending
+}
+
+export const ambrosiaEditAction = (upgradeKey: AmbrosiaUpgradeNames, action: string | undefined) => {
+  if (action === 'discard') {
+    ambrosiaEditTarget = null
+    return true
+  }
+
+  if (action === 'save') {
+    applyAmbrosiaEdit(upgradeKey)
+    ambrosiaEditTarget = null
+    return true
+  }
+
+  if (action === undefined) {
+    return false
+  }
+
+  const floor = getAmbrosiaEditFloor(upgradeKey).level
+  const ceiling = getAmbrosiaEditCeiling(upgradeKey)
+  const pending = getAmbrosiaEditPendingLevel(upgradeKey)
+  const delta = Number(action)
+
+  if (action !== 'max' && !ambrosiaEditDeltas.includes(delta)) {
+    return false
+  }
+
+  ambrosiaEditTarget = upgradeKey
+  ambrosiaEditLevel = action === 'max' ? ceiling : Math.min(ceiling, Math.max(floor, pending + delta))
+
+  return false
+}
+
 export const displayProperLoadoutCount = () => {
   const loadoutCount = 8 + PCoinUpgradeEffects.AMBROSIA_LOADOUT_SLOT_QOL
   assert(loadoutCount <= 16, 'Yeah. Nice try.')
@@ -1421,6 +1637,8 @@ export const displayProperLoadoutCount = () => {
 }
 
 export const resetBlueberryTree = (giveAlert = true) => {
+  ambrosiaEditTarget = null
+
   for (const k of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
     ambrosiaUpgrades[k].level = 0
     ambrosiaUpgrades[k].ambrosiaInvested = 0
@@ -1546,7 +1764,7 @@ const createBlueberryTree = (modules: BlueberryOpt) => {
   const isPossible = validateBlueberryTree(modules)
   if (!isPossible) {
     void Alert(i18next.t('ambrosia.importTree.failure'))
-    return
+    return false
   }
 
   // If valid, we will create the tree.
@@ -1573,6 +1791,7 @@ const createBlueberryTree = (modules: BlueberryOpt) => {
     }
   }
   void Alert(i18next.t('ambrosia.importTree.success'))
+  return true
 }
 
 export const importBlueberryTree = (input: string | null) => {
@@ -1589,12 +1808,38 @@ export const importBlueberryTree = (input: string | null) => {
   }
 }
 
+let lastBlueberryLoadout = 0
+
+export const setLastBlueberryLoadout = (n: number) => {
+  lastBlueberryLoadout = n
+  DOMCacheGetOrSet('blueberryQuickSave').innerHTML = n === 0
+    ? i18next.t('ambrosia.loadouts.quickSaveEmpty')
+    : i18next.t('ambrosia.loadouts.quickSave', { n })
+
+  for (let i = 1; i <= 16; i++) {
+    DOMCacheGetOrSet(`blueberryLoadout${i}`).classList.toggle('activeBlueberryLoadout', i === n)
+  }
+}
+
+export const quickSaveBlueberryTree = async () => {
+  if (lastBlueberryLoadout === 0) {
+    return Alert(i18next.t('ambrosia.loadouts.quickSaveNone'))
+  }
+
+  await saveBlueberryTree(
+    lastBlueberryLoadout,
+    player.blueberryLoadouts[lastBlueberryLoadout] ?? {}
+  )
+}
+
 export const loadoutHandler = (n: number, modules: BlueberryOpt) => {
   if (player.blueberryLoadoutMode === 'saveTree') {
     saveBlueberryTree(n, modules)
   }
   if (player.blueberryLoadoutMode === 'loadTree') {
-    createBlueberryTree(modules)
+    if (createBlueberryTree(modules)) {
+      setLastBlueberryLoadout(n)
+    }
   }
 }
 
@@ -1609,6 +1854,7 @@ const saveBlueberryTree = async (
 
   player.blueberryLoadouts[input] = getBlueberryTree()
   createLoadoutDescription(input, player.blueberryLoadouts[input])
+  setLastBlueberryLoadout(input)
 }
 
 export const createLoadoutDescription = (
@@ -1616,7 +1862,10 @@ export const createLoadoutDescription = (
   modules: BlueberryOpt
 ) => {
   let str = ''
+  let modulesEmpty = true
   for (const [key, val] of Object.entries(modules)) {
+    modulesEmpty = false
+
     /*
      * If the entry (saved purchase level) for an upgrade is 0, undefined, or null, we skip it.
      * If 0 - it existed when the loadout was saved; it's just unpurchased
@@ -1630,7 +1879,7 @@ export const createLoadoutDescription = (
     str = `${str}<span style="color:orange">${name}</span> <span style="color:yellow">lv${val}</span> | `
   }
 
-  if (Object.keys(modules).length === 0) {
+  if (modulesEmpty) {
     str = i18next.t('ambrosia.loadouts.none')
   }
 

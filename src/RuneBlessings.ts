@@ -235,9 +235,10 @@ export const buyAllBlessingLevels = (budget: Decimal) => {
     buyBlessingLevels(key, budgetPerBlessing)
   }
 
-  if (player.offerings.lt(0)) {
+  const zero = new Decimal()
+  if (player.offerings.lt(zero)) {
     // TODO: Figure out why this fucking happens so often
-    player.offerings = new Decimal()
+    player.offerings = zero
   }
 }
 
@@ -268,7 +269,7 @@ const updateLevelsFromEXP = (bless: RuneBlessingKeys) => {
     levelsPerOOM * Decimal.log10(runeBlessings[bless].runeEXP.div(runeBlessings[bless].costCoefficient).plus(1))
   )
   // Floating point imprecision fix
-  if (computeEXPLeftToLevel(bless, levels + 1).eq(0)) {
+  if (computeEXPLeftToLevel(bless, levels + 1).eq(new Decimal())) {
     runeBlessings[bless].level = levels + 1
   } else {
     runeBlessings[bless].level = levels
@@ -288,7 +289,7 @@ export const updateAllBlessingLevelsFromEXP = () => {
 
 // Gives levels to buy, total EXP to that level, and offerings required to reach that level
 const maxBlessingLevelPurchaseInformation = (bless: RuneBlessingKeys, budget: Decimal) => {
-  if (budget.lt(0)) {
+  if (budget.lt(new Decimal())) {
     return { levels: 0, expRequired: new Decimal(), offerings: new Decimal() }
   }
 

@@ -2452,10 +2452,11 @@ export const buyTalismanResources = (
     // The calculation being done overall is similar to the following calculation:
     // 2.9992198253874083e47 - (Math.floor(2.9992198253874083e47 / 1e20) * 1e20)
     // which, for most values, returns 0, but values like this example will return a negative number instead.
-    if (player.obtainium.lt(0)) {
-      player.obtainium = new Decimal()
+    const zero = new Decimal()
+    if (player.obtainium.lt(zero)) {
+      player.obtainium = zero
     }
-    if (player.offerings.lt(0)) {
+    if (player.offerings.lt(zero)) {
       player.offerings = new Decimal()
     }
   }

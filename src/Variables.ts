@@ -29,15 +29,12 @@ export const Globals: GlobalVariables = {
 
   ticker: 0,
 
-  costDivisor: 1,
-
   freeAccelerator: 0,
   totalAccelerator: 0,
   freeAcceleratorBoost: 0,
   totalAcceleratorBoost: 0,
   acceleratorPower: 1.10,
   acceleratorEffect: new Decimal(1),
-  acceleratorEffectDisplay: new Decimal(1),
   generatorPower: new Decimal(1),
 
   freeMultiplier: 0,
@@ -57,11 +54,8 @@ export const Globals: GlobalVariables = {
 
   globalCrystalMultiplier: new Decimal(1),
   globalMythosMultiplier: new Decimal(0.01),
-  grandmasterMultiplier: new Decimal(1),
 
-  mythosBuildingPower: 1,
   challengeThreeMultiplier: new Decimal(1),
-  totalMythosOwned: 0,
 
   prestigePointGain: new Decimal(),
 
@@ -118,8 +112,6 @@ export const Globals: GlobalVariables = {
   challengefocus: 0,
 
   maxexponent: 10000,
-
-  antMultiplier: new Decimal('1'),
 
   talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],
   talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
@@ -246,16 +238,12 @@ export const Globals: GlobalVariables = {
     fourth: new Decimal(),
     fifth: new Decimal()
   },
-  freeUpgradeAccelerator: 0,
-  freeUpgradeMultiplier: 0,
 
   acceleratorMultiplier: 1,
 
   constUpgradeCosts: [null, 1, 13, 17, 237, 316, 4216, 5623, 74989, 1e10, 1e24],
 
   globalConstantMult: new Decimal('1'),
-
-  corruptionTrigger: 'illiteracy',
 
   c15RewardFormulae: {
     cube1: (e: number) => 1 + ((1 / 50) * Math.log2(e / 175)),

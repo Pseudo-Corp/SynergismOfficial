@@ -6,6 +6,7 @@ import LZString from 'lz-string'
 import {
   autoAscensionChallengeSweepUnlock,
   CalcECC,
+  calculateChallenge15Score,
   challenge15ScoreMultiplier,
   challengeDisplay,
   challengeRequirement,
@@ -87,6 +88,7 @@ import {
   researchData,
   researchOrderByCost,
   roombaResearchEnabled,
+  setResearchRoombaHighlight,
   syncResearchRoombaHighlight,
   updateResearchAuto,
   updateResearchBG
@@ -130,9 +132,11 @@ import {
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
   AutoResetModes,
+  initializeMonospaceFont,
   setAutoAscendResetActiveText,
   setAutoAscendResetModeText,
   setAutoResetModeTexts,
+  settingMonospaceFont,
   toggleAntsSubtab,
   toggleAscStatPerSecond,
   toggleauto,
@@ -147,6 +151,7 @@ import {
   buttoncolorchange,
   changeTabColor,
   Confirm,
+  createFitties,
   htmlInserts,
   Notification,
   revealStuff,
@@ -172,6 +177,7 @@ import {
   blankAmbrosiaUpgradeObject,
   displayProperLoadoutCount,
   setAmbrosiaUpgradeLevels,
+  setLastBlueberryLoadout,
   updateBlueberryLoadoutCount
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -207,7 +213,7 @@ import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
-import { initializeAnnouncements } from './Messages'
+import { initializeAnnouncements, initializeMessages } from './Messages'
 import { blankOcteractLevelObject, type OcteractUpgrades, octeractUpgrades } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
@@ -266,6 +272,11 @@ const buyAmountTypes = [
   'tesseract'
 ] as const
 const buildingResources = ['Coin', 'Diamonds', 'Mythos'] as const
+
+const researchAutoChallengeIndices = [71, 72, 73, 74, 75]
+// 2020 Platonic... Why the FUCK did you settle on this?
+// Preserved so that the balancing is unaffected
+const researchAutoChallengeReqMulti = [1.25, 1.6, 1.7, 1.45, 2]
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -1425,10 +1436,11 @@ const loadSynergy = () => {
     if (player.reincarnationCount < 0) {
       player.reincarnationCount = 0
     }
-    if (player.offerings.lte(0)) {
-      player.offerings = new Decimal()
+    const zero = new Decimal()
+    if (player.offerings.lte(zero)) {
+      player.offerings = zero
     }
-    if (player.obtainium.lte(0)) {
+    if (player.obtainium.lte(zero)) {
       player.obtainium = new Decimal()
     }
 
@@ -1983,6 +1995,8 @@ const loadSynergy = () => {
     player.autoResearch = Math.min(200, player.autoResearch)
     player.autoSacrifice = Math.min(G.MAX_AUTO_SACRIFICE_RUNE, player.autoSacrifice)
 
+    setResearchRoombaHighlight(player.autoResearchToggle ? player.autoResearch : 0)
+
     if (player.researches[61] === 0) {
       DOMCacheGetOrSet('automaticobtainium').textContent = i18next.t(
         'main.buyResearch3x11'
@@ -2021,6 +2035,7 @@ const loadSynergy = () => {
     DOMCacheGetOrSet('blueberryToggleMode').innerHTML = player.blueberryLoadoutMode === 'saveTree'
       ? i18next.t('ambrosia.loadouts.save')
       : i18next.t('ambrosia.loadouts.load')
+    setLastBlueberryLoadout(0)
 
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()
@@ -2172,6 +2187,8 @@ const getFormatter = (
   return formatters[keyString]
 }
 
+const zeroDecimalForFormatting = new Decimal()
+
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
  * @param input value to format
@@ -2213,7 +2230,7 @@ export const format = (
       mantissa = num / Math.pow(10, power)
     }
   } else if (input instanceof Decimal) {
-    if (input.lessThan(0)) {
+    if (input.lessThan(zeroDecimalForFormatting)) {
       return `-${format(input.negated(), accuracy, long, truncate)}`
     }
     // Gets power and mantissa if input is of type decimal
@@ -2265,15 +2282,16 @@ export const format = (
       standard = mantissa * Math.pow(10, power)
     }
 
+    const tooSmallForStandard = power < -3 || (accuracy > 0 && power < -accuracy)
+
     // Rounds up if the number experiences a rounding error
-    const powerDelta = power < -3 ? power : 0
+    const powerDelta = tooSmallForStandard ? power : 0
     const delta = Math.pow(10, powerDelta - accuracy)
     if (delta - standard % delta < 1e-7) {
       standard += 1e-7 * Math.pow(10, powerDelta)
     }
 
-    // This case handles non-zero numbers less than 1e-3 and greater than -1e-3
-    if (power < -3) {
+    if (tooSmallForStandard) {
       const notation = player.notation === 'Pure Engineering' ? 'engineering' as const : 'scientific' as const
       return getFormatter(accuracy, truncate, notation).format(standard).toLowerCase() // We want 'e' to be in lower case
     }
@@ -2366,7 +2384,6 @@ export const updateAllTick = (): void => {
   let a = 0
 
   G.totalAccelerator = player.acceleratorBought
-  G.costDivisor = 1
 
   if (player.upgrades[8] !== 0) {
     a += Math.floor(player.multiplierBought / 7)
@@ -2401,7 +2418,6 @@ export const updateAllTick = (): void => {
   a += +getAchievementReward('accelerators')
 
   a += 5 * CalcECC('transcend', player.challengecompletions[2])
-  G.freeUpgradeAccelerator = a
   a += G.totalAcceleratorBoost
     * (5
       + 2 * player.researches[18]
@@ -2492,7 +2508,6 @@ export const updateAllTick = (): void => {
       G.totalAccelerator + G.totalMultiplier
     )
   }
-  G.acceleratorEffectDisplay = new Decimal(G.acceleratorPower * 100 - 100)
   if (player.currentChallenge.reincarnation === 10) {
     G.acceleratorEffect = new Decimal(1)
   }
@@ -2553,7 +2568,6 @@ export const updateAllMultiplier = (): void => {
     * player.researches[94]
     * Math.floor(sumOfRuneLevels() / 8)
 
-  G.freeUpgradeMultiplier = Math.min(1e100, a)
   a *= Math.pow(
     1.01,
     player.upgrades[21]
@@ -2749,21 +2763,16 @@ export const crystalUpgrade3CrystalMultiplier = (base?: number): Decimal => {
 }
 
 export const multipliers = (): void => {
-  let s = new Decimal(1)
-  let c = new Decimal(1)
-
   const crystalMult = calculateCrystalCoinMultiplier()
 
   const buildingPower = calculateBuildingPower()
   const buildingPowerMult = calculateBuildingPowerCoinMultiplier(buildingPower)
 
-  G.antMultiplier = getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier
-
-  s = s.times(G.multiplierEffect)
+  let s = new Decimal(G.multiplierEffect)
   s = s.times(G.acceleratorEffect)
   s = s.times(crystalMult)
   s = s.times(buildingPowerMult)
-  s = s.times(G.antMultiplier)
+  s = s.times(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier)
 
   const totalCoinOwned = calculateTotalCoinOwned()
   const first6CoinUp = new Decimal(totalCoinOwned + 1).times(
@@ -2808,7 +2817,7 @@ export const multipliers = (): void => {
   if (player.currentChallenge.reincarnation === 9) {
     s = s.dividedBy('1e2000000')
   }
-  c = Decimal.pow(s, 1 + 0.001 * player.researches[17])
+  let c = Decimal.pow(s, 1 + 0.001 * player.researches[17])
   let lol = Decimal.pow(c, 1 + 0.025 * player.upgrades[123])
   if (
     player.currentChallenge.ascension === 15
@@ -2842,9 +2851,10 @@ export const multipliers = (): void => {
     G.recessionPower[player.corruptions.used.recession]
   )
 
-  G.coinOneMulti = new Decimal(1)
   if (player.upgrades[1] > 0.5) {
-    G.coinOneMulti = G.coinOneMulti.times(first6CoinUp)
+    G.coinOneMulti = Decimal.fromDecimal(first6CoinUp)
+  } else {
+    G.coinOneMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[10] > 0.5) {
     G.coinOneMulti = G.coinOneMulti.times(
@@ -2855,9 +2865,10 @@ export const multipliers = (): void => {
     G.coinOneMulti = G.coinOneMulti.times('1e5000')
   }
 
-  G.coinTwoMulti = new Decimal(1)
   if (player.upgrades[2] > 0.5) {
-    G.coinTwoMulti = G.coinTwoMulti.times(first6CoinUp)
+    G.coinTwoMulti = Decimal.fromDecimal(first6CoinUp)
+  } else {
+    G.coinTwoMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[13] > 0.5) {
     G.coinTwoMulti = G.coinTwoMulti.times(
@@ -2879,9 +2890,10 @@ export const multipliers = (): void => {
     G.coinTwoMulti = G.coinTwoMulti.times('1e7500')
   }
 
-  G.coinThreeMulti = new Decimal(1)
   if (player.upgrades[3] > 0.5) {
-    G.coinThreeMulti = G.coinThreeMulti.times(first6CoinUp)
+    G.coinThreeMulti = Decimal.fromDecimal(first6CoinUp)
+  } else {
+    G.coinThreeMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[18] > 0.5) {
     G.coinThreeMulti = G.coinThreeMulti.times(
@@ -2892,9 +2904,10 @@ export const multipliers = (): void => {
     G.coinThreeMulti = G.coinThreeMulti.times('1e15000')
   }
 
-  G.coinFourMulti = new Decimal(1)
   if (player.upgrades[4] > 0.5) {
-    G.coinFourMulti = G.coinFourMulti.times(first6CoinUp)
+    G.coinFourMulti = Decimal.fromDecimal(first6CoinUp)
+  } else {
+    G.coinFourMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[17] > 0.5) {
     G.coinFourMulti = G.coinFourMulti.times(1e100)
@@ -2903,9 +2916,10 @@ export const multipliers = (): void => {
     G.coinFourMulti = G.coinFourMulti.times('1e25000')
   }
 
-  G.coinFiveMulti = new Decimal(1)
   if (player.upgrades[5] > 0.5) {
-    G.coinFiveMulti = G.coinFiveMulti.times(first6CoinUp)
+    G.coinFiveMulti = Decimal.fromDecimal(first6CoinUp)
+  } else {
+    G.coinFiveMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[60] > 0.5) {
     G.coinFiveMulti = G.coinFiveMulti.times('1e35000')
@@ -2913,10 +2927,7 @@ export const multipliers = (): void => {
 
   const upgrade3Multiplier = crystalUpgrade3CrystalMultiplier()
 
-  G.globalCrystalMultiplier = new Decimal(1)
-  G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
-    +getAchievementReward('crystalMultiplier')
-  )
+  G.globalCrystalMultiplier = Decimal.fromNumber(+getAchievementReward('crystalMultiplier'))
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
     Decimal.pow(10, getRuneEffects('prism', 'productionLog10'))
   )
@@ -3017,21 +3028,14 @@ export const multipliers = (): void => {
       Decimal.pow(buildingPowerMult, 1 / 250)
     )
   }
-  G.grandmasterMultiplier = new Decimal(1)
-  G.totalMythosOwned = player.firstOwnedMythos
-    + player.secondOwnedMythos
-    + player.thirdOwnedMythos
-    + player.fourthOwnedMythos
-    + player.fifthOwnedMythos
 
-  G.mythosBuildingPower = 1 + CalcECC('transcend', player.challengecompletions[3]) / 200
   G.challengeThreeMultiplier = Decimal.pow(
-    G.mythosBuildingPower,
-    G.totalMythosOwned
-  )
-
-  G.grandmasterMultiplier = G.grandmasterMultiplier.times(
-    G.challengeThreeMultiplier
+    1 + CalcECC('transcend', player.challengecompletions[3]) / 200,
+    player.firstOwnedMythos
+      + player.secondOwnedMythos
+      + player.thirdOwnedMythos
+      + player.fourthOwnedMythos
+      + player.fifthOwnedMythos
   )
 
   G.mythosupgrade13 = new Decimal(1)
@@ -3053,14 +3057,11 @@ export const multipliers = (): void => {
     )
   }
 
-  G.globalConstantMult = new Decimal('1')
-  G.globalConstantMult = G.globalConstantMult.times(
-    Decimal.pow(
-      1.05
-        + +getAchievementReward('constUpgrade1Buff')
-        + 0.001 * player.platonicUpgrades[18],
-      player.constantUpgrades[1]
-    )
+  G.globalConstantMult = Decimal.pow(
+    1.05
+      + +getAchievementReward('constUpgrade1Buff')
+      + 0.001 * player.platonicUpgrades[18],
+    player.constantUpgrades[1]
   )
   G.globalConstantMult = G.globalConstantMult.times(
     Decimal.pow(
@@ -3189,7 +3190,7 @@ export const resourceGain = (dt: number): void => {
     .add(player.fifthOwnedMythos)
     .times(player.fifthProduceMythos)
     .times(G.globalMythosMultiplier)
-    .times(G.grandmasterMultiplier)
+    .times(G.challengeThreeMultiplier)
     .times(G.mythosupgrade15)
   G.produceFourthMythos = player.fourthGeneratedMythos
     .add(player.fourthOwnedMythos)
@@ -3222,7 +3223,6 @@ export const resourceGain = (dt: number): void => {
     G.produceSecondMythos.times(dt / 0.025)
   )
 
-  G.produceMythos = new Decimal()
   G.produceMythos = player.firstGeneratedMythos
     .add(player.firstOwnedMythos)
     .times(player.firstProduceMythos)
@@ -3230,18 +3230,18 @@ export const resourceGain = (dt: number): void => {
     .times(G.mythosupgrade13)
   G.producePerSecondMythos = G.produceMythos.times(40)
 
-  let pm = new Decimal('1')
+  let pm: Decimal
   if (player.upgrades[67] > 0.5) {
-    pm = pm.times(
-      Decimal.pow(
-        1.03,
-        player.firstOwnedParticles
-          + player.secondOwnedParticles
-          + player.thirdOwnedParticles
-          + player.fourthOwnedParticles
-          + player.fifthOwnedParticles
-      )
+    pm = Decimal.pow(
+      1.03,
+      player.firstOwnedParticles
+        + player.secondOwnedParticles
+        + player.thirdOwnedParticles
+        + player.fourthOwnedParticles
+        + player.fifthOwnedParticles
     )
+  } else {
+    pm = Decimal.fromNumber(1)
   }
   G.produceFifthParticles = player.fifthGeneratedParticles
     .add(player.fifthOwnedParticles)
@@ -3272,7 +3272,6 @@ export const resourceGain = (dt: number): void => {
     G.produceSecondParticles.times(dt / 0.025)
   )
 
-  G.produceParticles = new Decimal()
   G.produceParticles = player.firstGeneratedParticles
     .add(player.firstOwnedParticles)
     .times(player.firstProduceParticles)
@@ -3326,105 +3325,40 @@ export const resourceGain = (dt: number): void => {
     awardAchievementGroup('constant')
   }
 
-  if (
-    player.researches[71] > 0.5
-    && player.challengecompletions[1]
-      < Math.min(
-        player.highestchallengecompletions[1],
-        25 + 5 * player.researches[66] + 925 * player.researches[105]
-      )
-    && player.coins.gte(
-      Decimal.pow(
-        10,
-        1.25
-          * G.challengeBaseRequirements[0]
-          * Math.pow(1 + player.challengecompletions[1], 2)
-      )
-    )
-  ) {
-    player.challengecompletions[1] += 1
-    challengeAchievementCheck(1)
-    updateChallengeLevel(1)
-  }
-  if (
-    player.researches[72] > 0.5
-    && player.challengecompletions[2]
-      < Math.min(
-        player.highestchallengecompletions[2],
-        25 + 5 * player.researches[67] + 925 * player.researches[105]
-      )
-    && player.coins.gte(
-      Decimal.pow(
-        10,
-        1.6
-          * G.challengeBaseRequirements[1]
-          * Math.pow(1 + player.challengecompletions[2], 2)
-      )
-    )
-  ) {
-    player.challengecompletions[2] += 1
-    challengeAchievementCheck(2)
-    updateChallengeLevel(2)
-  }
-  if (
-    player.researches[73] > 0.5
-    && player.challengecompletions[3]
-      < Math.min(
-        player.highestchallengecompletions[3],
-        25 + 5 * player.researches[68] + 925 * player.researches[105]
-      )
-    && player.coins.gte(
-      Decimal.pow(
-        10,
-        1.7
-          * G.challengeBaseRequirements[2]
-          * Math.pow(1 + player.challengecompletions[3], 2)
-      )
-    )
-  ) {
-    player.challengecompletions[3] += 1
-    challengeAchievementCheck(3)
-    updateChallengeLevel(3)
-  }
-  if (
-    player.researches[74] > 0.5
-    && player.challengecompletions[4]
-      < Math.min(
-        player.highestchallengecompletions[4],
-        25 + 5 * player.researches[69] + 925 * player.researches[105]
-      )
-    && player.coins.gte(
-      Decimal.pow(
-        10,
-        1.45
-          * G.challengeBaseRequirements[3]
-          * Math.pow(1 + player.challengecompletions[4], 2)
-      )
-    )
-  ) {
-    player.challengecompletions[4] += 1
-    challengeAchievementCheck(4)
-    updateChallengeLevel(4)
-  }
-  if (
-    player.researches[75] > 0.5
-    && player.challengecompletions[5]
-      < Math.min(
-        player.highestchallengecompletions[5],
-        25 + 5 * player.researches[70] + 925 * player.researches[105]
-      )
-    && player.coins.gte(
-      Decimal.pow(
-        10,
-        2
-          * G.challengeBaseRequirements[4]
-          * Math.pow(1 + player.challengecompletions[5], 2)
-      )
-    )
-  ) {
-    player.challengecompletions[5] += 1
-    challengeAchievementCheck(5)
-    updateChallengeLevel(5)
+  let autoChallengeCompLimit = 1
+  autoChallengeCompLimit += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+  autoChallengeCompLimit += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+
+  /* Researches 3x21 to 3x25 deal with autogaining Transcension Challenges in
+  Reincarnation Challenges (71-75 in index).
+  */
+  for (let i = 0; i < 5; i++) {
+    const researchIndex = researchAutoChallengeIndices[i]
+    if (
+      player.researches[researchIndex]
+      && player.currentChallenge.reincarnation !== 0
+    ) {
+      const challengeNum = i + 1
+      const maxChallenges = getMaxChallenges(challengeNum)
+      const challengeRequirementMult = researchAutoChallengeReqMulti[i]
+      for (let j = 0; j < autoChallengeCompLimit; j++) {
+        if (
+          player.challengecompletions[challengeNum]
+            < Math.min(maxChallenges, player.highestchallengecompletions[challengeNum])
+          && player.coinsThisTranscension.gte(
+            Decimal.pow(
+              challengeRequirement(challengeNum, player.challengecompletions[challengeNum], challengeNum),
+              challengeRequirementMult
+            )
+          )
+        ) {
+          player.challengecompletions[challengeNum] += 1
+          // Due to the min(..., player.highestchallengecompletions[n]) check, we don't need to award achievements
+        } else {
+          break
+        }
+      }
+    }
   }
 
   const chal = player.currentChallenge.transcension
@@ -3590,8 +3524,10 @@ export const resetCheck = async (
       && reqCheck(player.challengecompletions[q])
     ) {
       let maxInc = 1
-      maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-      maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      if (player.retrychallenges && !manual && !leaving) {
+        maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+        maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      }
       if (player.currentChallenge.ascension === 13) {
         maxInc = 1
       }
@@ -3666,8 +3602,10 @@ export const resetCheck = async (
       && player.challengecompletions[q] < maxCompletions
     ) {
       let maxInc = 1
-      maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-      maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      if (player.retrychallenges && !manual && !leaving) {
+        maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+        maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+      }
       if (player.currentChallenge.ascension === 13) {
         maxInc = 1
       }
@@ -3779,7 +3717,7 @@ export const resetCheck = async (
         if (
           player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))
         ) {
-          player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM
+          player.challenge15Exponent = calculateChallenge15Score()
           c15RewardUpdate()
         }
       }
@@ -3834,15 +3772,19 @@ export const resetCheck = async (
   }
 
   if (i === 'singularity') {
+    if (player.insideSingularityChallenge) {
+      if (G.currentSingChallenge === undefined) {
+        return Alert(i18next.t('main.insideSingularityChallenge'))
+      }
+
+      return player.singularityChallenges[G.currentSingChallenge].challengeEntryHandler()
+    }
+
     if (runes.antiquities.level === 0) {
       return Alert(i18next.t('main.noAntiquity'))
     }
 
     const thankSing = 300
-
-    if (player.insideSingularityChallenge) {
-      return Alert(i18next.t('main.insideSingularityChallenge'))
-    }
 
     if (player.singularityCount >= thankSing) {
       return Alert(i18next.t('main.gameBeat'))
@@ -4366,7 +4308,7 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
   ) {
     const c15SM = challenge15ScoreMultiplier()
     if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
-      player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM
+      player.challenge15Exponent = calculateChallenge15Score()
       c15RewardUpdate()
       updateChallengeLevel(15)
     }
@@ -4375,11 +4317,17 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
 
 export const fastUpdates = (): void => {
   updateAll()
-  htmlInserts()
+
+  if (!isOfflineDialogOpen()) {
+    htmlInserts()
+  }
 }
 
 export const slowUpdates = (): void => {
-  buttoncolorchange()
+  if (!isOfflineDialogOpen()) {
+    buttoncolorchange()
+  }
+
   buildingAchievementCheck()
 }
 
@@ -5012,6 +4960,7 @@ export const reloadShit = async (ignoreOfflineProgress = false) => {
   toggleShops()
   setAutomaticHepteractTexts()
   settingAnnotation()
+  settingMonospaceFont()
   settingSymbols()
   toggleIconSet()
   toggleauto()
@@ -5104,6 +5053,8 @@ window.addEventListener('load', async () => {
     initLiveUpdates().catch((e) => console.error('Failed to initialize live updates', e))
   }
 
+  initializeMonospaceFont(isMobile)
+
   const symbolsEnabled = storageGetItem('statSymbols')
   if (!symbolsEnabled) {
     storageSetItem('statSymbols', 'true')
@@ -5171,6 +5122,12 @@ window.addEventListener('load', async () => {
   generateLevelRewardHTMLs()
   generateLevelMilestoneHTMLS()
   toggleAntsSubtab('1')
+
+  // Initialize messages on game load
+  initializeMessages().catch(console.error)
+
+  // Dynamic Fit certain lines
+  createFitties()
 
   await reloadShit()
 
