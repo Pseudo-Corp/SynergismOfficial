@@ -1383,7 +1383,8 @@ export const Confirm = async (text: string) =>
 
     const kbListener = (e: KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {
-        return listener({ target: ok })
+        const target = e.target instanceof HTMLButtonElement ? e.target : ok
+        return listener({ target })
       } else if (e.key === 'Escape') {
         return listener({ target: cancel })
       }
