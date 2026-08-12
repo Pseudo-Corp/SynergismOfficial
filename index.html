@@ -283,6 +283,11 @@
                             <img class="resetbtn chal10" id="ascendbtn" i18n-aria-label="reset.buttonLabels.ascension" src="Pictures/Default/Ascension.png" loading="lazy">
                             <img class="resetbtn singularity" id="singularitybtn" i18n-aria-label="reset.buttonLabels.singularity" src="Pictures/Default/Singularity.png" loading="lazy">
                         </div>
+                        <div class="challengeProgress">
+                            <div class="fitText" id="transcensionChallengeProgress" hidden></div>
+                            <div class="fitText" id="reincarnationChallengeProgress" hidden></div>
+                            <div class="fitText" id="ascensionChallengeProgress" hidden></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -426,9 +431,9 @@
                 <div class="buttonRow"></div>
 
                 <div id="reincarnationTexts">
-                    <p id="reincarnationshardinfo" style="color:lime;"></p>
-                    <p id="reincarnationCrystalInfo" style="color: cyan; display: none;">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
-                    <p id="reincarnationMythosInfo" style="color:plum; display: none;">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
+                    <p id="reincarnationshardinfo" class="fitText" style="color:lime;"></p>
+                    <p id="reincarnationCrystalInfo" class="fitText" style="color: cyan; display: none;">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
+                    <p id="reincarnationMythosInfo" class="fitText" style="color:plum; display: none;">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
                 </div>
 
                 <div class="resetautomation" id="reincarnateautomation">
@@ -517,6 +522,7 @@
 
             <div id="upgradeTopBtns">
                 <button id="buyAllUpgrades" style="border: 2px solid gold;" i18n="upgrades.buyAll"></button>
+                <button id="togglePurchasedUpgrades" style="border: 2px solid green;" aria-pressed="false" i18n="upgrades.showPurchased"></button>
                 <button class="auto hideOnMobile" id="toggle9" toggleid="9" format="Hover-to-Buy [$]" style="border:2px solid green"></button>
             </div>
 
@@ -807,7 +813,7 @@
                             <img id="taxmanLastStand" class="challenge" src="Pictures/Default/ExaltChalNoOfferingPower.png">
                         </div>
                     </div>
-                    <div id="singularityChallengeDetails">
+                    <div id="singularityChallengeDetails" class="hideOnMobile">
                         <p id="singularityChallengesInfo"></p>
                         <div id="singularityChallengeAllRewards">
                             <p id="singularityChallengeScalingHeader" i18n="singularityChallenge.ScalingHeader"></p>
@@ -2251,24 +2257,39 @@
                         <button id="timeCode" class="promocodeButton" style="border:2px solid green" i18n="settings.time"></button>
                         <button id="promocodes" class="promocodeButton" style="border:2px solid goldenrod" i18n="settings.enterPromoCodeHere"></button>
                         <p id="promocodeinfo" style="color: goldenrod"></p>
-                        <p id="themesTitle" style="color: pink" aria-hidden="true" i18n="settings.currentTheme"></p>
-                        <div id="themeArea" class="promocodeButton" aria-hidden="true">
-                            <button id="theme" tabindex="-1" style="border: 2px solid white" i18n="settings.themes.dark"></button>
-                            <div id="themeBox">
-                                <button id="switchTheme1" style="border: 2px solid gray"  i18n="settings.themes.dark"></button>
-                                <button id="switchTheme2" style="border: 2px solid darkslategray" i18n="settings.themes.darker"></button>
-                                <button id="switchTheme3" style="border: 2px solid lightslategray" i18n="settings.themes.lighterDark"></button>
-                                <button id="switchTheme4" style="border: 2px solid cyan" i18n="settings.themes.light"></button>
-                                <button id="switchTheme5" style="border: 2px solid purple" i18n="settings.themes.dracula"></button>
-                                <button id="switchTheme6" style="border: 2px solid black" i18n="settings.themes.oled"></button>
+                        <p id="appearanceSettingsTitle" style="color: pink" i18n="settings.appearance"></p>
+                        <div class="appearanceSettings">
+                            <div class="appearanceSetting appearanceSettingWide">
+                                <p id="themesTitle" aria-hidden="true" i18n="settings.currentTheme"></p>
+                                <div id="themeArea" class="promocodeButton" aria-hidden="true">
+                                    <button id="theme" tabindex="-1" style="border: 2px solid white" i18n="settings.themes.dark"></button>
+                                    <div id="themeBox">
+                                        <button id="switchTheme1" style="border: 2px solid gray"  i18n="settings.themes.dark"></button>
+                                        <button id="switchTheme2" style="border: 2px solid darkslategray" i18n="settings.themes.darker"></button>
+                                        <button id="switchTheme3" style="border: 2px solid lightslategray" i18n="settings.themes.lighterDark"></button>
+                                        <button id="switchTheme4" style="border: 2px solid cyan" i18n="settings.themes.light"></button>
+                                        <button id="switchTheme5" style="border: 2px solid purple" i18n="settings.themes.dracula"></button>
+                                        <button id="switchTheme6" style="border: 2px solid black" i18n="settings.themes.oled"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="appearanceSetting">
+                                <p id="iconSetTitle" i18n="settings.currentIconSet"></p>
+                                <button id="iconSet" class="promocodeButton" style="border: 2px solid white"></button>
+                            </div>
+                            <div class="appearanceSetting">
+                                <p id="notationTitle" i18n="settings.currentNotation"></p>
+                                <button id="notation" class="promocodeButton" style="border: 2px solid white"></button>
+                            </div>
+                            <div class="appearanceSetting hideOnMobile">
+                                <p id="monospaceFontTitle" i18n="settings.font"></p>
+                                <button id="monospaceFont" class="promocodeButton" style="border: 2px solid white"></button>
+                            </div>
+                            <div class="appearanceSetting hideOnMobile">
+                                <p id="statSymbolTitle" i18n="settings.statSymbol"></p>
+                                <button id="statSymbols" class="promocodeButton" style="border: 2px solid white"></button>
                             </div>
                         </div>
-                        <p id="iconSetTitle" style="color: pink" i18n="settings.currentIconSet"></p>
-                        <button id="iconSet" class="promocodeButton" style="border: 2px solid white"></button>
-                        <p id="notationTitle" style="color: pink" i18n="settings.currentNotation"></p>
-                        <button id="notation" class="promocodeButton" style="border: 2px solid white"></button>
-                        <p id="statSymbolTitle" class="hideOnMobile" style="color: pink" i18n="settings.statSymbol"></p>
-                        <button id="statSymbols" class="promocodeButton hideOnMobile" style="border: 2px solid white"></button>
                     </div>
                     <div id="exportButtons">
                         <div id="versionnumber"></div>
@@ -3925,6 +3946,7 @@
                             <button class="ambrosiaLoadoutBtn" id="getBlueberries" style="border: 2px solid blue" i18n="ambrosia.exportTree.exportButton"></button>
                             <button class="ambrosiaLoadoutBtn" id="importBlueberriesButton" for="importBlueberries" style="border: 2px solid orange" i18n="settings.loadFromFile"></button>
                             <input type="file" id="importBlueberries" accept=".txt,text/plain" style="display: none">
+                            <button class="ambrosiaLoadoutBtn" id="ambrosiaEditLevels" style="border: 2px solid orange">-</button>
                             <button id="showCurrAmbrosiaUpgrades">🔎</button>
                         </div>
                     </div>
@@ -3946,6 +3968,7 @@
                         <button class="blueberryLoadoutSlot" id="blueberryLoadout15">15</button>
                         <button class="blueberryLoadoutSlot" id="blueberryLoadout16">16</button>
                         <button class="blueberryLoadoutSetting" id="blueberryToggleMode">-</button>
+                        <button class="blueberryLoadoutSetting" id="blueberryQuickSave">-</button>
                     </div>
                     <div id="ambrosiaUpgradeValues">
                         <p id="singularityAmbrosiaMultiline"></p>

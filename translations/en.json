@@ -224,7 +224,27 @@
       "none": "No loadout saved in this slot!",
       "loadout": "Loadout",
       "confirmation": "Saving to this slot will override its build. Are you sure?",
-      "imported": "Imported loadout"
+      "imported": "Imported loadout",
+      "quickSave": "SAVE TO LOADOUT {{n}}",
+      "quickSaveEmpty": "SAVE TO LOADOUT: -",
+      "quickSaveNone": "Load or save a loadout slot first, then this button will overwrite that same slot!"
+    },
+    "edit": {
+      "enter": "EDIT LEVELS",
+      "exit": "EXIT EDIT MODE",
+      "level": "Level <<white|{{level}}>> / {{max}}",
+      "levelChange": "Level <<white|{{from}}>> → <<gold|{{to}}>> / {{max}}",
+      "cost": "Cost: <<orange|{{amount}}>> Ambrosia",
+      "refund": "Refund: <<lime|{{amount}}>> Ambrosia",
+      "noChange": "No pending changes.",
+      "blueberryCharge": "Activating this module spends <<blue|{{amount}}>> Blueberries.",
+      "blueberryRefund": "Deactivating this module refunds <<blue|{{amount}}>> Blueberries.",
+      "lockedBy": "Cannot drop below level <<red|{{level}}>>: required by <<orange|{{name}}>>.",
+      "prereqBlocked": "<<red|Prerequisites are not met, so levels cannot be added.>>",
+      "invalid": "Those levels are no longer valid. No changes were made.",
+      "max": "MAX",
+      "save": "SAVE",
+      "discard": "DISCARD"
     },
     "importTree": {
       "success": "Tree successfully imported!",
@@ -1915,6 +1935,9 @@
       "diamondUpgrade20": "• Diamond Upgrade 4x5 {{unlock}}",
       "overfluxConversionRate": "• Overflux Powder Conversion Rate x{{val}}"
     },
+    "levelPreview": {
+      "levelsUntilUnlock": "Unlocks in <<gold|{{count}}>> more Synergism Levels."
+    },
     "levelRewards": {
       "minLevel": "Minimum Level Required: {{level}}",
       "noLevelReq": "Unlocked by Default!",
@@ -2201,6 +2224,17 @@
       "ascensionChallenge": "Click this if you're in an Ascension Challenge and want to leave. You get it already!",
       "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
       "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
+    },
+    "challengeProgress": {
+      "line": "{{check}} {{name}} ({{comps}}/{{maxComps}}): <<gold|{{amount}}>> / <<gold|{{required}}>> {{resource}}",
+      "challenge15Line": "{{name}}: <<gold|{{score}}>> Score (<<gold|{{current}}>>/<<gold|{{required}}>> Coins)",
+      "challenge15ProjectedLine": "{{name}}: <<gold|{{score}}>> → <<gold|{{projectedScore}}>> Score",
+      "challenge15AutoLine": "{{name}}: <<gold|{{score}}>> Score",
+      "resources": {
+        "coins": "Coins",
+        "transcendShards": "Mythos Shards",
+        "challenge10Completions": "Challenge 10 Completions"
+      }
     }
   },
   "ants": {
@@ -2635,6 +2669,7 @@
   "challenges": {
     "1": {
       "name": "No Multipliers Challenge || {{- value}} Completions",
+      "progressName": "No Multipliers Challenge",
       "flavor": "Multipliers make the game a little too fast. Let's take them out!",
       "restrictions": "Transcend and reach the goal except Multipliers count as Accelerators. <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Accelerator Power is reduced. Each completion reduces it more! <br> ☆ Each Multiplier gives a Coin Producer production multiplier equal to Accelerator Power.",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2653,6 +2688,7 @@
     },
     "2": {
       "name": "No Accelerators Challenge || {{- value}} Completions",
+      "progressName": "No Accelerators Challenge",
       "flavor": "Who needs accelerators? They do basically nothing now.",
       "restrictions": "Transcend and reach the goal except Accelerators do nothing! <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power is reduced to be <<gold|num:((1.25)), +num:((0.0012))>> per Multiplier Boost",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2671,6 +2707,7 @@
     },
     "3": {
       "name": "No Shards Challenge || {{- value}} Completions",
+      "progressName": "No Shards Challenge",
       "flavor": "Alright, now you're thinking, how else can I make the game harder?",
       "restrictions": "Transcend and reach the goal except you do not produce Crystals or Mythos Shards. <br> ☆ Refineries do not produce Crystals <br> ☆ Augments do not produce Mythos Shards. <br> ☆ Accelerator Power above 1 is reduced by <<gold|50%>> ",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2689,6 +2726,7 @@
     },
     "4": {
       "name": "Cost+ Challenge || {{- value}} Completions",
+      "progressName": "Cost+ Challenge",
       "flavor": "You're getting rich now, but inflation hasn't happened yet? I don't think so!",
       "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Prices grow super-exponentially after <<gold|num:((1000))>> of each Building. <br> ☆ Each completion lowers the above number by <<gold|10>> <br> ☆ Accelerator and Multiplier prices <<gold|immediately>> grow super-exponentially!",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2707,6 +2745,7 @@
     },
     "5": {
       "name": "Reduced Diamonds Challenge || {{- value}} Completions",
+      "progressName": "Reduced Diamonds Challenge",
       "flavor": "You ever wonder how you get so many diamonds?",
       "restrictions": "Transcend and reach the goal except Prestiging gives you much fewer Diamonds! <br> ☆ Diamond gain is reduced to <<gold | Coins^num:((0.01))>>",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2725,6 +2764,7 @@
     },
     "6": {
       "name": "Higher Tax Challenge || {{- value}} Completions",
+      "progressName": "Higher Tax Challenge",
       "flavor": "The tax man caught wind that you reincarnated recently...",
       "restrictions": "Reincarnate and reach the goal except you pay more Tax! <br> ☆ Your Tax burden is multiplied by <<gold|3 * (1 + completions / 25)^2>> <br> ☆ Your Coin production is divided by <<gold | num:((1e250))>>",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
@@ -2743,6 +2783,7 @@
     },
     "7": {
       "name": "No Multipliers/Accelerators Challenge || {{- value}} Completions",
+      "progressName": "No Multipliers/Accelerators Challenge",
       "flavor": "You're really going to hate this one.",
       "restrictions": "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Power above 1 is reduced by <<gold|95%>> <br> ☆ Your Coin production is divided by <<gold | num:((1e1250))>>",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
@@ -2761,6 +2802,7 @@
     },
     "8": {
       "name": "Cost++ Challenge || {{- value}} Completions",
+      "progressName": "Cost++ Challenge",
       "flavor": "You thought you could outgrow inflation by Reincarnating?",
       "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices increase <<gold|50x>> faster than in Cost+ <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building costs start growing super-exponentially after <<gold|1000 + 1000 per completion>> purchased. <br> ",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
@@ -2779,6 +2821,7 @@
     },
     "9": {
       "name": "No Runes Challenge || {{- value}} Completions",
+      "progressName": "No Runes Challenge",
       "flavor": "Bet you won't even notice Prism Rune's disappearance.",
       "restrictions": "Reincarnate and reach the goal except Runes always have level 1 effects. <br> ☆ Your Coin production is divided by <<gold | num:((1e2000000))>>. You may want a few Galactic Crumbs. <br> ☆ Your Tax burden is reduced by <<pink|num:((99.5))%>> to compensate",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2797,6 +2840,7 @@
     },
     "10": {
       "name": "Sadistic Challenge I || {{- value}} Completions",
+      "progressName": "Sadistic Challenge I",
       "flavor": "I'm sorry for what I've unleashed onto the world. You read a note on the floor: \"You probably want about num:((1e300)) Galactic Crumbs before you fully embrace the challenge. Try to Sacrifice some more Anthills, master your Ants and become one with the Ant God to achieve this.\"",
       "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|num:((25000))>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^num:((0.0001))>> <br> ☆ Mythos gain is reduced to <<gold | Coins^num:((0.001))>>",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
@@ -2815,6 +2859,7 @@
     },
     "11": {
       "name": "Reduced Ants Challenge || {{- value}} Completions",
+      "progressName": "Reduced Ants Challenge",
       "flavor": "The great Ant War of '21 wiped off all of the skilled ants.",
       "restrictions": "Reach the Goal, but only free Ant Upgrade levels do anything. <br> ☆ In Challenge, each Challenge 8 completion gives <<gold|+3>> free Ant Upgrade Levels. <br> ☆ Each Challenge 9 completion gives <<gold|+5>> free Ant Upgrade levels!",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
@@ -2833,6 +2878,7 @@
     },
     "12": {
       "name": "No Reincarnation Challenge || {{- value}} Completions",
+      "progressName": "No Reincarnation Challenge",
       "flavor": "For some reason, you just can't do it.",
       "restrictions": "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! <br> ☆ Ant Speed <<gold|^num:((0.75))>>",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
@@ -2851,6 +2897,7 @@
     },
     "13": {
       "name": "Tax+++ Challenge || {{- value}} Completions",
+      "progressName": "Tax+++ Challenge",
       "flavor": "Good luck with the IRS, buddy.",
       "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. <br> ☆ Ant Speed <<gold|^num:((0.23))>> <br> ☆ Each Transcension and Reincarnation Challenge completed multiplies your tax burden by <<gold|num:((1.05))>>",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
@@ -2869,6 +2916,7 @@
     },
     "14": {
       "name": "No Research Challenge || {{- value}} Completions",
+      "progressName": "No Research Challenge",
       "flavor": "The dimension that never progressed past the dark ages. Many fear to even step foot.",
       "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any Researches purchasable. <br> ☆ Ant Speed <<gold|^num:((0.2))>>",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
@@ -2887,6 +2935,7 @@
     },
     "15": {
       "name": "SADISTIC CHALLENGE II || {{- value}} Completions",
+      "progressName": "SADISTIC CHALLENGE II",
       "flavor": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
       "restrictions": "Ascend and reach the goal but you're stuck in all Corruptions at level 11. <br> ☆ Ant Speed <<gold|^num:((0.5))>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|num:((0.0001))>> <br> ☆ Your Tax burden is reduced by <<pink|num:((99.9995))%>>",
       "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
@@ -3364,12 +3413,12 @@
       "chronometer": "You know, those Ascensions are kinda slow. Why don't I give you a +num:((1.2))% speedup to the timer per level?",
       "infiniteAscent": "Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +num:((0.2))% Quarks and +1% all Cube types per level!",
       "calculator": "The PL-AT can do addition in the blink of an eye. Not much else though. +14% Quarks from using code 'add' per level, the first level provides the answer and the final level does it automatically!",
-      "calculator2": "The PL-AT X has improved memory capacity, allowing you to store 2 additional uses to code 'add' per level. Final level makes 'add' give 25% more Quarks!",
+      "calculator2": "The PL-AT X has improved memory capacity, allowing you to store 30 additional minutes (1,800 seconds) to code 'add' per level. Final level makes 'add' give 25% more Quarks!",
       "calculator3": "The PL-AT Ω is infused with some Unobtainium, which is epic! But furthermore, it reduces the variance of Quarks by code 'add' by 10% per level, which makes you more likely to get the maximum multiplier. It also has the ability to give +60 seconds to Ascension Timer per level using that code.",
-      "calculator4": "The PL-AT δ runs at num:((4096))Hz, which is a huge improvement over previous models. Reduce the interval between 'Add' code uses by 4% per level! Final level adds 32 additional capacity!",
-      "calculator5": "The PL-AT Γ model somehow performs more 'powerful' computations, whatever that means. +6 seconds of GQ Export timer per level. +1 capacity every 10 levels, with 6 more at final level!",
-      "calculator6": "The PL-AT _ model was made by Derpsmith, before he was banished from the industry forever. Gain 1 second of Octeract per usage per level. Final level grants 24 additional capacity!",
-      "calculator7": "The PL-AT ΩΩ model was made by Derpsmith Ω, before he was banished from the industry forever. Gain 1 real-life second of Ambrosia Bar Points per usage per level. Final level grants 48 additional capacity!",
+      "calculator4": "The PL-AT δ runs at num:((4096))Hz, which is a huge improvement over previous models. Reduce the interval between 'Add' code uses by 4% per level! Final level lets you store 3 more hours (10,800 seconds)!",
+      "calculator5": "The PL-AT Γ model somehow performs more 'powerful' computations, whatever that means. +6 seconds of GQ Export timer per level. You also store 1 extra minute per level (60 seconds) and 80 additional minutes when maxed (4,800 seconds)!",
+      "calculator6": "The PL-AT _ model was made by Derpsmith, before he was banished from the industry forever. Gain 1 second of Octeract per usage per level. Final level lets you store 3 more hours (10,800 seconds)!",
+      "calculator7": "The PL-AT ΩΩ model was made by Derpsmith Ω, before he was banished from the industry forever. Gain 1 real-life second of Ambrosia Bar Points per usage per level. Final level lets you store 3 more hours (10,800 seconds)!",
       "constantEX": "The merchant has one last trick up its sleeve: It can augment your second constant upgrade to be marginally better, but it'll cost an arm and a leg! Instead of the cap being 10% (or 11% with achievements) it will be raised by 1% per level.",
       "powderEX": "Platonic himself gives you 2% better conversion rate on Overflux Orbs to Powder per level. This activates when Orbs expire.",
       "chronometer2": "Okay, fine. Here's another +num:((0.6))% Ascension Speed per level, stacks multiplicatively with the first upgrade!",
@@ -3482,12 +3531,12 @@
       "chronometer": "Ascension timer increases <<orange|{{amount}}>> faster.",
       "infiniteAscent": "The first level gives <<cyan|+10%>> Quarks, for free!",
       "calculator": "Code 'add' provides <<cyan|{{amount1}}>> more Quarks. AutoAnswer: <<orchid|{{bool1}}>>, AutoFill: <<orchid|{{bool2}}>>",
-      "calculator2": "Code 'add' has <<orchid|{{amount1}}>> more capacity. 'add' generates <<cyan|{{amount2}}>> more Quarks.",
+      "calculator2": "Code 'add' can store <<orchid|{{amount1}}>> more seconds. 'add' generates <<cyan|{{amount2}}>> more Quarks.",
       "calculator3": "Code 'add' rewards are <<orchid|{{amount1}}>> less random. 'add' generates <<orchid|{{amount2}}>> seconds to Ascension Timer.",
-      "calculator4": "Code 'add' has a <<orchid|{{amount1}}>> shorter interval between uses. Capacity is increased by <<orchid|+{{amount2}}>>.",
-      "calculator5": "Code 'add' generates <<orchid|{{amount1}}>> seconds of GQ export timer. Capacity is increased by <<orchid|+{{amount2}}>>.",
-      "calculator6": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Octeracts. Capacity is increased by <<orchid|+{{amount2}}>>.",
-      "calculator7": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Ambrosia Bar Points. Capacity is increased by <<orchid|+{{amount2}}>>.",
+      "calculator4": "Code 'add' has a <<orchid|{{amount1}}>> shorter interval between uses. Capacity is increased by <<orchid|+{{amount2}}>> seconds.",
+      "calculator5": "Code 'add' generates <<orchid|{{amount1}}>> seconds of GQ export timer. Capacity is increased by <<orchid|+{{amount2}}>> seconds.",
+      "calculator6": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Octeracts. Capacity is increased by <<orchid|+{{amount2}}>> seconds.",
+      "calculator7": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Ambrosia Bar Points. Capacity is increased by <<orchid|+{{amount2}}>> seconds.",
       "constantEX": "<<orange|+{{amount}}%>> max on Constant Upgrade 2",
       "powderEX": "Gain <<red|+{{amount}}>> Overflux Powder when Overflux Orbs expire (midnight, daily).",
       "chronometer2": "Ascension timer increases <<orange|{{amount}}>> faster!",
@@ -3783,7 +3832,7 @@
       },
       "itAllAddsUp": {
         "name": "It all adds up",
-        "default": "The 'Add' Special Action reward & cooldown is divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
+        "default": "The 'Add' Special Action reward & cooldown is divided by <b><<gold|{{div}}>></b>. 'Add' also stores <b><<gold|{{seconds}}>></b> more seconds!"
       },
       "automagicalRunes": {
         "name": "Automagical Runes",
@@ -3972,8 +4021,8 @@
       "cookies5": {
         "name": "Cookie Recipes V",
         "description": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-        "effectHave": "You have paid witness to the suffering of the masses.",
-        "effectHaveNot": "You have not paid witness to the suffering of the masses."
+        "effectHave": "You have borne witness to the suffering of the masses.",
+        "effectHaveNot": "You have not borne witness to the suffering of the masses."
       },
       "ascensions": {
         "name": "Improved Ascension Gain",
@@ -4739,6 +4788,8 @@
       "particles": "Particles"
     },
     "buyAll": "Buy All",
+    "showPurchased": "Purchased Upgrades: SHOW",
+    "hidePurchased": "Purchased Upgrades: HIDE",
     "hover": "Hover over an upgrade icon to see details!",
     "hoverOverUpgrade": "Hover over an upgrade to view details!",
     "bought": "BOUGHT!"
@@ -5255,7 +5306,7 @@
     "shop": "Hover over each portion of the shop to see what each upgrade does!"
   },
   "buildings": {
-    "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold | +{{coinsPerSecond}}/s>>] | Total Ever: <<gold | {{totalGenerated}}>>",
+    "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold |+{{coinsPerSecond}}/s>>] <br> Total Ever: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "You have nothing but 100 coins. You can hire a worker, conveniently for exactly 100 coins!",
       "2": "Your workers sure are working hard. Let's buy some investments with our coins!",
@@ -5284,12 +5335,16 @@
       "25": "No one will know my name, but the bards' songs will remain.",
       "26": "That's a lot of coins lol"
     },
-    "taxWarning": "Your tax also caps your Coin gain at {{gain}}/s.",
-    "acceleratorPower": "Acceleration Power: {{power}}% || Acceleration Multiplier: {{mult}}x",
-    "multiplierPower": "Multiplier Power: {{power}}x || Multiplier: {{mult}}x",
+    "taxWarning": "Your tax also caps your Coin gain at <<gold|{{gain}}/s>>.",
+    "acceleratorPower": "Acceleration Power: {{power}}% <br> Acceleration Multiplier: {{mult}}x",
+    "multiplierPower": "Multiplier Power: {{power}}x <br> Multiplier: {{mult}}x",
     "acceleratorBoost": "Reset Diamonds and Diamond Upgrades, but add {{amount}}% Acceleration Power and {{accelsPerBoost}} free Accelerators.",
     "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
     "buy": "Buy",
+    "enableAllAutomation": "Enable all autobuyers",
+    "disableAllAutomation": "Disable all autobuyers",
+    "hideAutomated": "Automated Buildings: HIDE",
+    "showAutomated": "Automated Buildings: SHOW",
     "costCoins": "Cost: {{coins}} coins.",
     "costDiamonds": "Cost: {{diamonds}} Diamonds.",
     "names": {
@@ -5365,7 +5420,7 @@
     "costTesseracts": "Cost: {{tesseracts}} Tesseracts",
     "autoTesseract": "Auto buyer will save at least {{tesseracts}} tesseracts. [Enter number above].",
     "autoAscensionTesseract": "On Ascension, Auto buyer will save at least {{percent}}% of your current amount of tesseracts. [Enter number above].",
-    "excessiveWealth": "Due to your excessive wealth, coin production is divided by {{div}} to pay taxes! {{- warning}}",
+    "excessiveWealth": "Due to your excessive wealth, coin production is divided by <<gold|{{div}}>> to pay taxes! <br> {{- warning}}",
     "constantHover": "Select an icon for a description of the upgrade."
   },
   "octeract": {
@@ -6202,6 +6257,12 @@
       "pureEngineering": "Pure Engineering"
     },
     "currentNotation": "Current Annotation",
+    "appearance": "Appearance",
+    "font": "Game Font",
+    "fonts": {
+      "default": "Default",
+      "monospace": "Monospace"
+    },
     "iconSets": {
       "default": "Default",
       "legacy": "Legacy",
@@ -6964,26 +7025,26 @@
       "Ambrosia": "PL-AT ΩΩ - Ambrosia Gain (Real-Life Seconds):"
     },
     "addCodeTimer": {
-      "title": "Add Code Timer (in Milliseconds)",
-      "BaseTimer": "Base Timer (ms):",
+      "title": "Add Code Timer (in Seconds)",
+      "BaseTimer": "Base Timer (s):",
       "Calculator4": "PL-AT δ Discount:",
       "SingularityCount": "Singularity Milestone Bonus:",
       "Antiquities": "Antiquities of Ant God Bonus:",
       "SingularityPerkBonus": "Singularity Perk Bonus:",
-      "Total": "Final Add Code Interval (ms):"
+      "Total": "Final Add Code Interval (s):"
     },
     "addCodeCapacity": {
-      "title": "Add Code Capacity Modifiers",
+      "title": "Add Code Capacity (in Seconds)",
       "Base": "Base Capacity:",
       "Calculator2": "PL-AT X Quark Upgrade:",
       "Calculator4Max": "PL-AT δ Max Level Bonus:",
       "Calculator5": "PL-AT Γ Quark Upgrade:",
       "Calculator6Max": "PL-AT _ Max Level Bonus:",
       "Calculator7Max": "PL-AT ΩΩ Max Level Bonus:",
-      "Total": "Total Add Code Capacity:",
+      "Total": "Total Add Code Capacity (s):",
       "PseudoCoins": "PseudoCoin Upgrade Multiplier",
-      "SingularityPerk": "Singularity Perk Bonus",
-      "Total2": "Final Add Code Capacity"
+      "SingularityPerk": "Singularity Perk - It All Adds Up",
+      "Total2": "Final Add Code Capacity (s)"
     },
     "nextAdd": "Regenerate 1 Add Code usage in {{time}}s",
     "miscStats": {
@@ -7630,7 +7691,8 @@
     "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
     "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
     "buyResearch3x11": "[LOCKED - Buy Research 3x11]",
-    "statSymbolConfirm": "Would you like to toggle Stat Symbols?"
+    "statSymbolConfirm": "Would you like to toggle Stat Symbols?",
+    "monospaceFontConfirm": "Would you like to toggle the game font?"
   },
   "history": {
     "perSecondOn": "Per second: ON",

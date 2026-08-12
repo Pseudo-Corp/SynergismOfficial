@@ -1772,8 +1772,8 @@
       "cookies5": {
         "name": "Cookie Recipes V",
         "description": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-        "effectHave": "You have paid witness to the suffering of the masses.",
-        "effectHaveNot": "You have not paid witness to the suffering of the masses."
+        "effectHave": "You have borne witness to the suffering of the masses.",
+        "effectHaveNot": "You have not borne witness to the suffering of the masses."
       },
       "ascensions": {
         "name": "Improved Ascension Gain",
