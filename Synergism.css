@@ -5785,12 +5785,6 @@ header #obtainiumDisplay { color: pink; }
     grid-template-rows: repeat(2, min-content);
 }
 
-#singularityPerksHeader {
-    display: block;
-    margin: 1px;
-    height: min-content;
-}
-
 #singualrityPerksInfo {
     display: grid;
     grid-template-columns: repeat(2, auto);
@@ -5821,16 +5815,59 @@ img#singularityPerksIcon {
     text-align: center;
 }
 
+#singualrityPerksInfo,
+#singularityPerksDesc {
+    display: none;
+}
+
 #singularityPerksGrid {
-    display: grid;
-    grid-template-columns: repeat(5, 250px);
-    grid-template-rows: repeat(10, auto);
-    grid-auto-rows: auto;
+    position: relative;
+    display: flex;
     justify-content: center;
-    align-content: center;
-    gap: 4px;
+    width: min(50vw, 760px);
+    box-sizing: border-box;
+    margin: 4px auto 0;
     font-size: 1em;
-    margin-top: 5px;
+    overflow: visible;
+}
+
+.singularityPerkTreeCanvas {
+    position: relative;
+    isolation: isolate;
+    width: min(100%, 760px);
+    height: clamp(440px, 50vh, 520px);
+    box-sizing: border-box;
+}
+
+#singularityPerkTreeConnections {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.singularityPerkTreeConnection {
+    fill: none;
+    stroke: rgb(218 165 32 / 68%);
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.singularityPerkTreeConnectionNew {
+    stroke: gold;
+    stroke-width: 2.25;
+    filter: drop-shadow(0 0 3px gold);
+}
+
+.singularityPerkTreeJunction {
+    fill: goldenrod;
+    stroke: var(--box-color);
+    stroke-width: 1;
 }
 
 .singularityPerkModal {
@@ -5940,40 +5977,60 @@ img#singularityPerksIcon {
     margin: 0;
 }
 
-.newPerk {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    justify-items: left;
+.newPerk,
+.oldPerk {
+    position: absolute;
+    z-index: 2;
+    top: var(--singularity-perk-tree-y);
+    left: var(--singularity-perk-tree-x);
+    display: flex;
     align-items: center;
-    text-align: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
     padding: 2px;
     cursor: pointer;
+    background: linear-gradient(145deg, var(--button-color), var(--box-color));
+    border-radius: 6px;
+    box-shadow: 0 3px 8px rgb(0 0 0 / 35%);
+    transform: translate(-50%, -50%);
+    transition:
+        color var(--transition-extra),
+        background-color var(--transition-extra),
+        border-color var(--transition-extra),
+        box-shadow var(--transition-extra),
+        transform var(--transition-extra);
+}
+
+.newPerk {
     color: gold;
     border: 2px ridge gold;
     font-weight: bold;
-    background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 .oldPerk {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    justify-items: left;
-    align-items: center;
-    text-align: center;
-    padding: 2px;
-    cursor: pointer;
     border: 2px solid gold;
-    background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
-.newPerk:hover {
-    background-color: var(--hover-color);
+.singularityPerkNode > img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
 }
 
-.oldPerk:hover {
+.newPerk:hover,
+.oldPerk:hover,
+.newPerk:focus-visible,
+.oldPerk:focus-visible {
     background-color: var(--hover-color);
+    box-shadow: 0 5px 14px rgb(218 165 32 / 30%);
+}
+
+.newPerk:focus-visible,
+.oldPerk:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
 }
 
 #autoHepteractPercentage {
@@ -8109,8 +8166,26 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #singularityPerksGrid {
-        grid-template-columns: repeat(2, 50%);
-        gap: unset;
+        width: 100%;
+    }
+
+    .singularityPerkTreeCanvas {
+        width: min(100%, 680px);
+        height: 400px;
+    }
+
+    .newPerk,
+    .oldPerk {
+        width: 26px;
+        height: 26px;
+        padding: 1px;
+        border-width: 1px;
+        border-radius: 4px;
+    }
+
+    .singularityPerkNode > img {
+        width: 22px;
+        height: 22px;
     }
 
     #singualrityPerksInfo,

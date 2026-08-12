@@ -168,7 +168,10 @@ export const updateSingularityPenalties = (): void => {
       )
     })
     : '<span class="grayText">????????? ????? ????? ??? ?????????? ?? ???</span> <span class="redText">(51)</span>'
-  const str = `${getSingularityOridnalText(singularityCount)}<br>${
+  const highestSingularityText = i18next.t('singularity.perks.header', {
+    ord: toOrdinal(player.highestSingularityCount)
+  })
+  const str = `${getSingularityOridnalText(singularityCount)}<br>${highestSingularityText}${
     i18next.t(
       'singularity.penalties.globalSpeed',
       {
@@ -3458,15 +3461,257 @@ export const singularityPerks: SingularityPerk[] = [
   }
 ]
 
+interface SingularityPerkTreePlacement {
+  readonly parentID: string | null
+  readonly x: number
+  readonly y: number
+}
+
+// These are visual progression branches, not perk prerequisites.
+// The Singularity 1 Perks form the central hub and each family grows into the surrounding web.
+const SINGULARITY_PERK_TREE_PLACEMENTS: Record<string, SingularityPerkTreePlacement> = {
+  welcometoSingularity: { parentID: null, x: -1.5, y: -0.5 },
+  tokenInheritance: { parentID: 'welcometoSingularity', x: -4, y: -3.15 },
+  autoCampaigns: { parentID: 'tokenInheritance', x: -5, y: -4.3 },
+  bonusTokens: { parentID: 'autoCampaigns', x: -6, y: -4.3 },
+  firstClearTokens: { parentID: 'tokenInheritance', x: -5, y: -3.15 },
+  lastClearTokens: { parentID: 'firstClearTokens', x: -6, y: -3.15 },
+  sweepomatic: { parentID: 'welcometoSingularity', x: -4, y: -0.85 },
+  automationUpgrades: { parentID: 'sweepomatic', x: -5, y: -0.85 },
+  eternalAscensions: { parentID: 'automationUpgrades', x: -6, y: -0.85 },
+  persistentGlobalResets: { parentID: 'sweepomatic', x: -5, y: -2 },
+
+  unlimitedGrowth: { parentID: null, x: -1, y: -1.5 },
+  evenMoreQuarks: { parentID: 'unlimitedGrowth', x: -1, y: -3.25 },
+  itAllAddsUp: { parentID: 'unlimitedGrowth', x: -2, y: -3.75 },
+  platSigma: { parentID: 'itAllAddsUp', x: -4, y: -5 },
+
+  goldenCoins: { parentID: null, x: 0, y: -1.5 },
+  shopSpecialOffer: { parentID: 'goldenCoins', x: 0, y: -2.75 },
+  goldenRevolution: { parentID: 'shopSpecialOffer', x: 0, y: -5 },
+  midasMilleniumAgedGold: { parentID: 'goldenRevolution', x: -1, y: -5 },
+  goldenRevolution4: { parentID: 'midasMilleniumAgedGold', x: -2, y: -5 },
+  goldenRevolution2: { parentID: 'shopSpecialOffer', x: 1, y: -5 },
+  octeractMetagenesis: { parentID: 'goldenRevolution2', x: 2, y: -5 },
+  infiniteShopUpgrades: { parentID: 'octeractMetagenesis', x: 3, y: -5 },
+  taxReduction: { parentID: 'infiniteShopUpgrades', x: 4, y: -5 },
+  goldenRevolution3: { parentID: 'shopSpecialOffer', x: 1, y: -3.5 },
+  skrauQ: { parentID: 'goldenRevolution3', x: 2, y: -3.5 },
+
+  xyz: { parentID: null, x: 1, y: -1.5 },
+  potionAutogenerator: { parentID: 'xyz', x: 2.25, y: -1.5 },
+  immaculateAlchemy: { parentID: 'potionAutogenerator', x: 4, y: -3 },
+
+  generousOrbs: { parentID: null, x: 1.5, y: -0.5 },
+  coolQOLCubes: { parentID: 'generousOrbs', x: 4, y: -1 },
+  congealedblueberries: { parentID: 'coolQOLCubes', x: 5, y: -1 },
+  wowCubeAutomatedShipping: { parentID: 'generousOrbs', x: 4, y: 0.15 },
+
+  researchDummies: { parentID: null, x: 1.5, y: 0.5 },
+  superStart: { parentID: 'researchDummies', x: 3, y: 3 },
+  platonicClones: { parentID: 'superStart', x: 4, y: 3 },
+  automagicalRunes: { parentID: 'researchDummies', x: 3, y: 4.15 },
+  permanentBenefaction: { parentID: 'automagicalRunes', x: 4, y: 4.15 },
+
+  recycledContent: { parentID: null, x: 0.5, y: 1.5 },
+  infiniteRecycling: { parentID: 'recycledContent', x: -1, y: 5 },
+  recyclistsDesktop: { parentID: 'recycledContent', x: 1, y: 5 },
+
+  antGodsCornucopia: { parentID: null, x: -0.5, y: 1.5 },
+  forTheLoveOfTheAntGod: { parentID: 'antGodsCornucopia', x: -3, y: 3 },
+  irishAnt: { parentID: 'forTheLoveOfTheAntGod', x: -4, y: 3 },
+  irishAnt2: { parentID: 'irishAnt', x: -5, y: 3 },
+  derpSmithsCornucopia: { parentID: 'antGodsCornucopia', x: -3, y: 4.15 },
+  demeterHarvest: { parentID: 'derpSmithsCornucopia', x: -4, y: 4.15 },
+
+  bringToLife: { parentID: null, x: -1.5, y: 0.5 },
+  invigoratedSpirits: { parentID: 'bringToLife', x: -4, y: 1.45 },
+  notSoChallenging: { parentID: 'invigoratedSpirits', x: -5, y: 1.45 },
+  exaltedAchievements: { parentID: 'notSoChallenging', x: -6, y: 1.45 },
+  eloBonus: { parentID: 'bringToLife', x: -4, y: 0.3 },
+  overclocked: { parentID: 'eloBonus', x: -5, y: 0.3 },
+  primalPower: { parentID: 'overclocked', x: -6, y: 0.3 }
+}
+const SINGULARITY_PERK_TREE_BOUNDS = {
+  minimumX: -6,
+  maximumX: 5,
+  minimumY: -5,
+  maximumY: 5,
+  paddingPercent: 5
+} as const
+const SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
+
+let singularityPerkTreeCanvas: HTMLElement | null = null
+let singularityPerkTreeConnectionLayer: SVGGElement | null = null
+let singularityPerkTreeFrame: number | null = null
+let singularityPerkTreeResizeObserver: ResizeObserver | null = null
+
+const singularityPerkTreeElementCenter = (
+  element: HTMLElement,
+  canvasRect: DOMRect
+): { x: number; y: number } => {
+  const elementRect = element.getBoundingClientRect()
+  return {
+    x: elementRect.left + elementRect.width / 2 - canvasRect.left,
+    y: elementRect.top + elementRect.height / 2 - canvasRect.top
+  }
+}
+
+const singularityPerkTreePath = (pathData: string, isNew: boolean): SVGPathElement => {
+  const path = document.createElementNS(SVG_NAMESPACE, 'path')
+  path.setAttribute('d', pathData)
+  path.classList.add('singularityPerkTreeConnection')
+  if (isNew) {
+    path.classList.add('singularityPerkTreeConnectionNew')
+  }
+  return path
+}
+
+const drawSingularityPerkTreeConnections = (): void => {
+  singularityPerkTreeFrame = null
+  const canvas = singularityPerkTreeCanvas
+  const connectionLayer = singularityPerkTreeConnectionLayer
+  if (canvas === null || connectionLayer === null) {
+    return
+  }
+
+  const canvasRect = canvas.getBoundingClientRect()
+  if (canvasRect.width === 0 || canvasRect.height === 0) {
+    connectionLayer.replaceChildren()
+    return
+  }
+
+  const connectionSVG = connectionLayer.ownerSVGElement
+  connectionSVG?.setAttribute('viewBox', `0 0 ${canvasRect.width} ${canvasRect.height}`)
+  const paths = document.createDocumentFragment()
+  const visibleChildrenByParent = new Map<string, HTMLElement[]>()
+
+  for (const [perkID, { parentID }] of Object.entries(SINGULARITY_PERK_TREE_PLACEMENTS)) {
+    if (parentID === null) {
+      continue
+    }
+
+    const child = DOMCacheGetOrSet(perkID)
+    if (child.style.display === 'none') {
+      continue
+    }
+
+    const visibleChildren = visibleChildrenByParent.get(parentID) ?? []
+    visibleChildren.push(child)
+    visibleChildrenByParent.set(parentID, visibleChildren)
+  }
+
+  for (const [parentID, children] of visibleChildrenByParent) {
+    const parent = DOMCacheGetOrSet(parentID)
+    if (parent.style.display === 'none') {
+      continue
+    }
+
+    const start = singularityPerkTreeElementCenter(parent, canvasRect)
+    const childCenters = children.map((child) => singularityPerkTreeElementCenter(child, canvasRect))
+    const averageEnd = childCenters.reduce(
+      (total, point) => ({ x: total.x + point.x / childCenters.length, y: total.y + point.y / childCenters.length }),
+      { x: 0, y: 0 }
+    )
+    const isHorizontal = Math.abs(averageEnd.x - start.x) >= Math.abs(averageEnd.y - start.y)
+    const junction = {
+      x: isHorizontal ? start.x + (averageEnd.x - start.x) / 2 : start.x,
+      y: isHorizontal ? start.y : start.y + (averageEnd.y - start.y) / 2
+    }
+    const hasNewChild = children.some((child) => child.classList.contains('newPerk'))
+
+    paths.append(singularityPerkTreePath(
+      isHorizontal
+        ? `M ${start.x} ${start.y} H ${junction.x}`
+        : `M ${start.x} ${start.y} V ${junction.y}`,
+      hasNewChild
+    ))
+
+    for (let childIndex = 0; childIndex < children.length; childIndex++) {
+      const child = children[childIndex]
+      const end = childCenters[childIndex]
+      paths.append(singularityPerkTreePath(
+        isHorizontal
+          ? `M ${junction.x} ${junction.y} V ${end.y} H ${end.x}`
+          : `M ${junction.x} ${junction.y} H ${end.x} V ${end.y}`,
+        child.classList.contains('newPerk')
+      ))
+    }
+
+    if (children.length > 1) {
+      const junctionNode = document.createElementNS(SVG_NAMESPACE, 'circle')
+      junctionNode.setAttribute('cx', `${junction.x}`)
+      junctionNode.setAttribute('cy', `${junction.y}`)
+      junctionNode.setAttribute('r', '3')
+      junctionNode.classList.add('singularityPerkTreeJunction')
+      paths.append(junctionNode)
+    }
+  }
+
+  connectionLayer.replaceChildren(paths)
+}
+
+const scheduleSingularityPerkTreeConnections = (): void => {
+  if (singularityPerkTreeFrame === null) {
+    singularityPerkTreeFrame = requestAnimationFrame(drawSingularityPerkTreeConnections)
+  }
+}
+
+const updateSingularityPerkTree = (): void => {
+  scheduleSingularityPerkTreeConnections()
+}
+
+export const initializeSingularityPerkTree = (): void => {
+  const tree = DOMCacheGetOrSet('singularityPerksGrid')
+  const canvas = document.createElement('div')
+  const connectionLayer = document.createElementNS(SVG_NAMESPACE, 'svg')
+  const connectionGroup = document.createElementNS(SVG_NAMESPACE, 'g')
+
+  tree.replaceChildren()
+  tree.setAttribute('role', 'group')
+  tree.setAttribute('aria-label', i18next.t('singularity.perks.treeLabel'))
+  canvas.classList.add('singularityPerkTreeCanvas')
+  connectionLayer.id = 'singularityPerkTreeConnections'
+  connectionLayer.setAttribute('aria-hidden', 'true')
+  connectionLayer.setAttribute('focusable', 'false')
+  connectionLayer.append(connectionGroup)
+  canvas.append(connectionLayer)
+  tree.append(canvas)
+  singularityPerkTreeCanvas = canvas
+  singularityPerkTreeConnectionLayer = connectionGroup
+
+  singularityPerkTreeResizeObserver?.disconnect()
+  singularityPerkTreeResizeObserver = new ResizeObserver(scheduleSingularityPerkTreeConnections)
+  singularityPerkTreeResizeObserver.observe(canvas)
+  window.addEventListener('resize', scheduleSingularityPerkTreeConnections)
+}
+
+export const addSingularityPerkToTree = (
+  perkElement: HTMLElement,
+  perkID: string
+): void => {
+  const canvas = singularityPerkTreeCanvas
+  const placement = SINGULARITY_PERK_TREE_PLACEMENTS[perkID]
+  if (canvas === null || placement === undefined) {
+    throw new TypeError(`Singularity Perk "${perkID}" is missing a tree placement.`)
+  }
+
+  const { minimumX, maximumX, minimumY, maximumY, paddingPercent } = SINGULARITY_PERK_TREE_BOUNDS
+  const availablePercent = 100 - 2 * paddingPercent
+  perkElement.style.setProperty(
+    '--singularity-perk-tree-x',
+    `${paddingPercent + availablePercent * (placement.x - minimumX) / (maximumX - minimumX)}%`
+  )
+  perkElement.style.setProperty(
+    '--singularity-perk-tree-y',
+    `${paddingPercent + availablePercent * (placement.y - minimumY) / (maximumY - minimumY)}%`
+  )
+  canvas.append(perkElement)
+}
+
 // Placeholder text for Perk Info that is seen upon first load, check Line 645 EventListeners.ts for actual Perk Info code.
 export const updateSingularityPerks = (): void => {
   const singularityCount = player.highestSingularityCount
-  DOMCacheGetOrSet('singularityPerksHeader').innerHTML = i18next.t(
-    'singularity.perks.header',
-    {
-      ord: toOrdinal(singularityCount)
-    }
-  )
   DOMCacheGetOrSet('singularityPerksText').innerHTML = i18next.t(
     'singularity.perks.levelInfo',
     {
@@ -3478,13 +3723,6 @@ export const updateSingularityPerks = (): void => {
     'singularity.perks.description'
   )
   handlePerks(singularityCount)
-}
-
-interface ISingularityPerkDisplayInfo {
-  name: string
-  lastUpgraded: number
-  acquired: number
-  htmlID: string
 }
 
 /*
@@ -3530,18 +3768,19 @@ export const singularityPerkModalHTML = (perk: SingularityPerk, imageSrc: string
 }
 
 const handlePerks = (singularityCount: number) => {
-  const availablePerks: ISingularityPerkDisplayInfo[] = []
   let singularityCountForNextPerk: number | null = null
   let singularityCountForNextPerkUpgrade = Number.POSITIVE_INFINITY
+  const singTolerance = calculateMaxSingularityLookahead(true) - 1
   for (const perk of singularityPerks) {
     const upgradeInfo = getLastUpgradeInfo(perk, singularityCount)
+    const perkElement = DOMCacheGetOrSet(perk.ID)
     if (upgradeInfo.level > 0) {
-      availablePerks.push({
-        name: perk.name(),
-        lastUpgraded: upgradeInfo.singularity,
-        acquired: perk.levels[0],
-        htmlID: perk.ID
-      })
+      perkElement.style.display = ''
+      if (singularityCount - upgradeInfo.singularity <= singTolerance) { // Is new?
+        perkElement.classList.replace('oldPerk', 'newPerk')
+      } else {
+        perkElement.classList.replace('newPerk', 'oldPerk')
+      }
       if (upgradeInfo.next) {
         singularityCountForNextPerkUpgrade = Math.min(
           singularityCountForNextPerkUpgrade,
@@ -3552,36 +3791,10 @@ const handlePerks = (singularityCount: number) => {
       if (singularityCountForNextPerk === null) {
         singularityCountForNextPerk = upgradeInfo.singularity
       }
-      DOMCacheGetOrSet(perk.ID).style.display = 'none'
+      perkElement.style.display = 'none'
     }
   }
-  // We want to sort the perks so that the most recently upgraded or lastUpgraded are listed first
-  availablePerks.sort((p1, p2) => {
-    if (p1.acquired === p2.acquired && p1.lastUpgraded === p2.lastUpgraded) {
-      return 0
-    }
-    if (p1.lastUpgraded > p2.lastUpgraded) {
-      return -1
-    } else if (
-      p1.lastUpgraded === p2.lastUpgraded
-      && p1.acquired > p2.acquired
-    ) {
-      return -1
-    }
-    return 1
-  })
-
-  for (const availablePerk of availablePerks) {
-    const singTolerance = calculateMaxSingularityLookahead(true) - 1
-    const perkId = DOMCacheGetOrSet(availablePerk.htmlID)
-    perkId.style.display = ''
-    DOMCacheGetOrSet('singularityPerksGrid').append(perkId)
-    if (singularityCount - availablePerk.lastUpgraded <= singTolerance) { // Is new?
-      perkId.classList.replace('oldPerk', 'newPerk')
-    } else {
-      perkId.classList.replace('newPerk', 'oldPerk')
-    }
-  }
+  updateSingularityPerkTree()
   const nextUnlockedId = DOMCacheGetOrSet('singualrityUnlockNext')
   if (singularityCountForNextPerk) {
     nextUnlockedId.style.display = ''
