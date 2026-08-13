@@ -12,6 +12,9 @@ import { assert, isMobile } from './Utility'
 export type BlueberryOpt = Partial<Record<AmbrosiaUpgradeNames, number>>
 export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
 
+const BASE_BLUEBERRY_LOADOUT_COUNT = 8
+const MAX_BLUEBERRY_LOADOUT_COUNT = 16
+
 type AmbrosiaUpgradeRewards = {
   ambrosiaTutorial: { quarks: number; cubes: number }
   ambrosiaQuarks1: { quarks: number }
@@ -1622,16 +1625,23 @@ export const ambrosiaEditAction = (upgradeKey: AmbrosiaUpgradeNames, action: str
   return false
 }
 
-export const displayProperLoadoutCount = () => {
-  const loadoutCount = 8 + PCoinUpgradeEffects.AMBROSIA_LOADOUT_SLOT_QOL
-  assert(loadoutCount <= 16, 'Yeah. Nice try.')
+const getUnlockedBlueberryLoadoutCount = () => {
+  const loadoutCount = BASE_BLUEBERRY_LOADOUT_COUNT + PCoinUpgradeEffects.AMBROSIA_LOADOUT_SLOT_QOL
+  assert(loadoutCount <= MAX_BLUEBERRY_LOADOUT_COUNT, 'Yeah. Nice try.')
+  return loadoutCount
+}
 
-  for (let i = 1; i <= 16; i++) {
+export const displayProperLoadoutCount = () => {
+  const loadoutCount = getUnlockedBlueberryLoadoutCount()
+
+  for (let i = 1; i <= MAX_BLUEBERRY_LOADOUT_COUNT; i++) {
     const elm = DOMCacheGetOrSet(`blueberryLoadout${i}`)
     if (i <= loadoutCount) {
       elm.style.display = 'flex'
+      elm.removeAttribute('disabled')
     } else {
       elm.style.display = 'none'
+      elm.setAttribute('disabled', '')
     }
   }
 }
@@ -1833,6 +1843,10 @@ export const quickSaveBlueberryTree = async () => {
 }
 
 export const loadoutHandler = (n: number, modules: BlueberryOpt) => {
+  if (!Number.isInteger(n) || n < 1 || n > getUnlockedBlueberryLoadoutCount()) {
+    return
+  }
+
   if (player.blueberryLoadoutMode === 'saveTree') {
     saveBlueberryTree(n, modules)
   }
@@ -1892,11 +1906,10 @@ export const createLoadoutDescription = (
 }
 
 export const updateBlueberryLoadoutCount = () => {
-  const maxLoadouts = 16
   const loadoutCount = Object.keys(player.blueberryLoadouts).length
 
-  if (loadoutCount < maxLoadouts) {
-    for (let i = loadoutCount + 1; i <= maxLoadouts; i++) {
+  if (loadoutCount < MAX_BLUEBERRY_LOADOUT_COUNT) {
+    for (let i = loadoutCount + 1; i <= MAX_BLUEBERRY_LOADOUT_COUNT; i++) {
       player.blueberryLoadouts[i] = {}
     }
   }
