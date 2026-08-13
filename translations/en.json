@@ -7591,8 +7591,10 @@
   "importexport": {
     "copiedSave": "Copied save to clipboard!",
     "copiedFile": "Savefile copied to file!",
+    "exportedFile": "Save file exported!",
     "exportFailed": "Export failed!",
     "unableCopySave": "Unable to write the save to clipboard.",
+    "unableExportSave": "Unable to export the save file.",
     "reloadDeletePrompt": "The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it",
     "resetPrompt": "Answer the question to confirm you'd like to reset: what is {{a}}+{{b}}? (Hint: {{sum}})",
     "wrongAnswer": "Answer was wrong, not resetting!",

@@ -185,6 +185,28 @@ export const saveFilename = () => {
 
 export const exportData = async (text: string, fileName: string) => {
   const toClipboard = getElementById<HTMLInputElement>('saveType').checked
+
+  if (PLATFORM === 'mobile') {
+    const exportInfo = DOMCacheGetOrSet('exportinfo')
+
+    try {
+      const { exportMobileData } = await import('./mobile/export')
+      const exported = await exportMobileData(text, fileName, toClipboard)
+      exportInfo.textContent = exported
+        ? i18next.t(toClipboard ? 'importexport.copiedSave' : 'importexport.exportedFile')
+        : ''
+    } catch (error) {
+      console.error('Failed to export save on mobile', error)
+      exportInfo.textContent = i18next.t('importexport.exportFailed')
+      await Alert(i18next.t(
+        toClipboard ? 'importexport.unableCopySave' : 'importexport.unableExportSave'
+      ))
+    }
+
+    setTimeout(() => (exportInfo.textContent = ''), 15_000)
+    return
+  }
+
   if (toClipboard) {
     try {
       // This can fail for two reasons:

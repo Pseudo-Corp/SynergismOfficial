@@ -9,8 +9,11 @@ android {
 
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
+    implementation project(':capacitor-clipboard')
+    implementation project(':capacitor-filesystem')
     implementation project(':capacitor-preferences')
     implementation project(':capacitor-push-notifications')
+    implementation project(':capacitor-share')
     implementation project(':capgo-capacitor-app-attest')
     implementation project(':capgo-capacitor-keep-awake')
     implementation project(':capgo-capacitor-updater')
