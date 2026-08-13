@@ -1776,10 +1776,12 @@ p#promocodeinfo {
 
 .buttonRow > div > .desc {
     width: 22em;
+    min-width: 22em;
 }
 
 .buildingPurchaseBtn {
     width: 15em;
+    min-width: 15em;
     border-radius: 8px;
     border: 1px solid white;
     background-color: var(--buttonbuy-color);
@@ -1843,7 +1845,9 @@ p#promocodeinfo {
 
 .buttonRow > div > .stats {
     width: 25em;
+    min-width: 25em;
     line-height: 1em;
+    overflow-wrap: anywhere;
 }
 
 #buildtext12,
@@ -1905,6 +1909,7 @@ p#promocodeinfo {
 
 .buttonRow.mobile > div > .buildingPurchaseBtn {
     width: auto;
+    min-width: 0;
     padding: 6px 8px;
     font-size: 0.9em;
     flex-shrink: 0;
@@ -7811,11 +7816,13 @@ html[data-mobile="true"] .hideOnMobile {
 
     .buttonRow > div > .desc {
         width: 100%;
+        min-width: 0;
         order: -1;
     }
 
     .buttonRow > div > .stats {
         width: 100%;
+        min-width: 0;
         font-size: 0.9em;
     }
 
@@ -8558,6 +8565,7 @@ html[data-mobile="true"] .hideOnMobile {
 
     .buildingPurchaseBtn {
         width: 100%;
+        min-width: 0;
         font-size: 0.85em;
     }
 
