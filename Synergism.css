@@ -3096,6 +3096,7 @@ p#reincarnatehotkeys {
 #researchToggles {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 10px 15px;
     margin: 15px 0;
@@ -3148,6 +3149,10 @@ p#reincarnatehotkeys {
 
 #researchtable .researchMaxed > img {
     background-color: green;
+}
+
+#researchtable.hideMaxedResearches > tbody > tr > td:has(> .researchMaxed) {
+    display: none;
 }
 
 #shop {
@@ -8409,6 +8414,47 @@ html[data-mobile="true"] .hideOnMobile {
 
     #actualPotionShop {
         flex-wrap: unset;
+    }
+}
+
+@media (max-width: 1024px) and (orientation: portrait) {
+    /* Keep the research icons readable by transposing the 8x25 table. */
+    .researchContainer > .scrollbarX {
+        max-width: 100%;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+    }
+
+    #researchtable,
+    #researchtable > tbody {
+        flex-flow: row nowrap;
+    }
+
+    #researchtable {
+        flex: none;
+        width: max-content;
+    }
+
+    #researchtable > tbody > tr {
+        flex-flow: column nowrap;
+    }
+
+    #researchtable > tbody > tr > td {
+        padding: 0;
+    }
+
+    #researchtable button {
+        display: flex;
+        width: 44px;
+        height: 44px;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        padding: 2px;
+    }
+
+    #researchtable button > img {
+        display: block;
     }
 }
 

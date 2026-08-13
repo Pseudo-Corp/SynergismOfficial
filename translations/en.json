@@ -3385,6 +3385,8 @@
     "automaticOff": "Automatic: OFF",
     "autoModeCheapest": "Automatic mode: Cheapest",
     "autoModeManual": "Automatic mode: Manual",
+    "maxedResearchesShow": "Maxed Researches: SHOW",
+    "maxedResearchesHide": "Maxed Researches: HIDE",
     "hoverToBuyOn": "Hover-to-Buy [ON]",
     "hoverToBuyOff": "Hover-to-Buy [OFF]",
     "hover": "Hover over the grid to get details about Research!",
