@@ -12,7 +12,7 @@ import { getTalismanEffects } from './Talismans'
 import { IconSets } from './Themes'
 import { toggleCorruptionLevel } from './Toggles'
 import { Alert, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification, Prompt } from './UpdateHTML'
-import { getElementById, isMobile, productContents, sumContents, validateNonnegativeInteger } from './Utility'
+import { assert, getElementById, isMobile, productContents, sumContents, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
 
 enum CorruptionIndices {
@@ -59,6 +59,19 @@ export type Corruptions = {
   recession: number
   dilation: number
   hyperchallenge: number
+}
+
+const BASE_CORRUPTION_LOADOUT_COUNT = 8
+const MAX_CORRUPTION_LOADOUT_COUNT = 16
+
+export const getUnlockedCorruptionLoadoutCount = () => {
+  const loadoutCount = BASE_CORRUPTION_LOADOUT_COUNT + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
+  assert(loadoutCount <= MAX_CORRUPTION_LOADOUT_COUNT, 'Corruption loadout count exceeds the supported maximum.')
+  return loadoutCount
+}
+
+export const isCorruptionLoadoutUnlocked = (loadoutNum: number) => {
+  return Number.isInteger(loadoutNum) && loadoutNum >= 0 && loadoutNum < getUnlockedCorruptionLoadoutCount()
 }
 
 export const c15Corruptions: Corruptions = {
@@ -371,7 +384,7 @@ export class CorruptionSaves {
   #saves: Array<SavedCorruption>
   constructor (corrSaveData: Record<string, Corruptions>) {
     this.#saves = []
-    for (const saveKey of Object.keys(corrSaveData).slice(0, 16)) {
+    for (const saveKey of Object.keys(corrSaveData).slice(0, MAX_CORRUPTION_LOADOUT_COUNT)) {
       this.#saves.push({ name: saveKey, loadout: new CorruptionLoadout(corrSaveData[saveKey]) })
     }
   }
@@ -673,7 +686,7 @@ export const corruptionLoadoutTableCreate = () => {
   zeroCell.title = i18next.t('corruptions.loadoutTable.zeroTitle')
 
   // Do the rest of the thing
-  const allowedRows = 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
+  const allowedRows = getUnlockedCorruptionLoadoutCount()
   for (let i = 0; i < Math.min(corrSaves.length, allowedRows); i++) {
     const corrSave = corrSaves[i]
     const corrLoadout = corrSave.loadout.loadout
@@ -708,6 +721,10 @@ export const corruptionLoadoutTableCreate = () => {
 }
 
 export const corruptionLoadoutTableUpdate = (updateNext = false, updateRow = 0) => {
+  if (!updateNext && updateRow > 0 && !isCorruptionLoadoutUnlocked(updateRow - 1)) {
+    return
+  }
+
   const row = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows[updateRow + 1].cells
   if (updateNext) {
     const corrNext = player.corruptions.next.loadout
@@ -729,12 +746,20 @@ export const corruptionLoadoutTableUpdate = (updateNext = false, updateRow = 0) 
 }
 
 const corruptionSaveLoadout = (loadoutNum: number) => {
+  if (!isCorruptionLoadoutUnlocked(loadoutNum)) {
+    return
+  }
+
   const buildToSave = player.corruptions.next.loadout
   player.corruptions.saves.saves[loadoutNum].loadout.setCorruptionLevelsWithChallengeRequirement(buildToSave)
   corruptionLoadoutTableUpdate(false, loadoutNum + 1)
 }
 
 export const corruptionLoadLoadout = (loadoutNum: number) => {
+  if (!isCorruptionLoadoutUnlocked(loadoutNum)) {
+    return
+  }
+
   const buildToLoad = player.corruptions.saves.saves[loadoutNum].loadout.loadout
   player.corruptions.next.setCorruptionLevelsWithChallengeRequirement(buildToLoad)
   corruptionLoadoutTableUpdate(true)
@@ -773,6 +798,10 @@ async function importCorruptionsPrompt () {
 }
 
 async function corruptionLoadoutGetNewName (loadout = 0) {
+  if (!isCorruptionLoadoutUnlocked(loadout)) {
+    return
+  }
+
   const maxChars = 9
   // eslint-disable-next-line no-control-regex
   const regex = /^[\x00-\xFF]*$/
@@ -799,7 +828,7 @@ async function corruptionLoadoutGetNewName (loadout = 0) {
 
 export const updateCorruptionLoadoutNames = () => {
   const rows = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows
-  const totalSlots = 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
+  const totalSlots = getUnlockedCorruptionLoadoutCount()
   for (let i = 0; i < totalSlots; i++) {
     const cells = rows[i + 2].cells // start changes on 2nd row
     if (cells[0].textContent.length === 0) { // first time setup
@@ -888,10 +917,9 @@ export const updateUndefinedLoadouts = () => {
   // Sanity checks that you have 16 loadouts and 16 loadout names in the Player object
   // The monetization update adds more loadouts, so this is to ensure that the player object is up to date
   // And because the validation schema does not take into account length of object
-  const maxLoadoutCount = 16 // Update if more loadouts are added
   const currLoadoutCount = Object.keys(player.corruptions.saves.saves).length
-  if (currLoadoutCount < maxLoadoutCount) {
-    for (let i = currLoadoutCount + 1; i <= maxLoadoutCount; i++) {
+  if (currLoadoutCount < MAX_CORRUPTION_LOADOUT_COUNT) {
+    for (let i = currLoadoutCount + 1; i <= MAX_CORRUPTION_LOADOUT_COUNT; i++) {
       player.corruptions.saves.addSave(`Loadout ${i}`, corruptionsSchema.parse({}))
     }
   }
