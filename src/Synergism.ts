@@ -73,6 +73,8 @@ import {
   CorruptionSaves,
   corruptionsSchema,
   corruptionStatsUpdate,
+  getUnlockedCorruptionLoadoutCount,
+  isCorruptionLoadoutUnlocked,
   updateCorruptionLoadoutNames,
   updateUndefinedLoadouts
 } from './Corruptions'
@@ -217,7 +219,7 @@ import { initializeAnnouncements, initializeMessages } from './Messages'
 import { blankOcteractLevelObject, type OcteractUpgrades, octeractUpgrades } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
-import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { initializePCoinCache } from './PseudoCoinUpgrades'
 import { getQuarkBonus, QuarkHandler, refreshQuarkBonus } from './Quark'
 import {
   blankRedAmbrosiaUpgradeObject,
@@ -1561,7 +1563,7 @@ const loadSynergy = () => {
     updateUndefinedLoadouts() // Monetization update added more corruption loadout slots
     updateBlueberryLoadoutCount() // Monetization update also added more Blueberry loadout slots
 
-    const corrs = 1 + 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
+    const corrs = 1 + getUnlockedCorruptionLoadoutCount()
     // const corrs = Math.min(8, Object.keys(player.corruptionLoadouts).length) + 1
     for (let i = 0; i < corrs; i++) {
       corruptionLoadoutTableUpdate(true, i)
@@ -1867,17 +1869,14 @@ const loadSynergy = () => {
         'researches.autoModeManual'
       )
     }
-    if (player.autoSacrificeToggle) {
-      DOMCacheGetOrSet('toggleautosacrifice').textContent = i18next.t(
-        'runes.blessings.autoRuneOn'
-      )
-      DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid green'
-    } else {
-      DOMCacheGetOrSet('toggleautosacrifice').textContent = i18next.t(
-        'runes.blessings.autoRuneOff'
-      )
-      DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid red'
-    }
+    const autoSacrificeI18nKey = player.autoSacrificeToggle
+      ? 'runes.blessings.autoRuneOn'
+      : 'runes.blessings.autoRuneOff'
+    const autoSacrificeToggle = DOMCacheGetOrSet('toggleautosacrifice')
+    const autoSacrificeLabel = DOMCacheGetOrSet('toggleAutoSacrificeText')
+    autoSacrificeLabel.setAttribute('i18n', autoSacrificeI18nKey)
+    autoSacrificeLabel.textContent = i18next.t(autoSacrificeI18nKey)
+    autoSacrificeToggle.style.border = `2px solid ${player.autoSacrificeToggle ? 'green' : 'red'}`
     if (player.autoBuyFragment) {
       DOMCacheGetOrSet('toggleautoBuyFragments').textContent = i18next.t(
         'runes.talismans.autoBuyOn'
@@ -4683,7 +4682,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       num = -1
     }
     if (player.challengecompletions[11] > 0 && !isNaN(num)) {
-      if (num >= 0 && num < 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL) {
+      if (isCorruptionLoadoutUnlocked(num)) {
         if (player.toggles[41]) {
           void Notification(
             i18next.t('main.corruptionLoadoutApplied', {

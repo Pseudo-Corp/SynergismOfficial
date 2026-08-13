@@ -229,7 +229,10 @@ export const calculateObtainium = (timeMultUsed = true) => {
 
   // Reincarnation Timer Effects (Including HALF MIND)
   const timeMultiplier = timeMultUsed
-    ? calculateGlobalTimerModifiers(player.reincarnationcounter, player.reincarnationCount >= 5)
+    ? calculateGlobalTimerModifiers(
+      player.reincarnationcounter,
+      Boolean(getAchievementReward('obtainiumTimerMultiplier'))
+    )
     : 1
 
   const baseMults = calculateObtainiumDecimal()

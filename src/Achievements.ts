@@ -283,6 +283,7 @@ type AchievementRewards =
   | 'autoAntSacrifice'
   | 'antSpeed2UpgradeImprover'
   | 'antSacrificeToReincarnation'
+  | 'obtainiumTimerMultiplier'
 
 type AchievementReward = Partial<Record<AchievementRewards, () => number>>
 
@@ -2550,7 +2551,10 @@ const achievements: Achievement[] = [
     pointValue: 8,
     unlockCondition: () => player.reincarnationCount >= 10,
     group: 'reincarnationCount',
-    reward: { reincarnationCountMultiplier: () => Math.max(1, 1 + Math.floor(Math.log10(player.reincarnationCount))) }
+    reward: {
+      reincarnationCountMultiplier: () => Math.max(1, 1 + Math.floor(Math.log10(player.reincarnationCount))),
+      obtainiumTimerMultiplier: () => 1
+    }
   },
   {
     pointValue: 12,
@@ -3533,6 +3537,9 @@ const achRewards: Record<AchievementRewards, () => number | boolean> = {
   },
   antSacrificeToReincarnation: (): boolean => {
     return Boolean(player.achievements[achievementsByReward.antSacrificeToReincarnation[0]])
+  },
+  obtainiumTimerMultiplier: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.obtainiumTimerMultiplier[0]])
   }
 }
 

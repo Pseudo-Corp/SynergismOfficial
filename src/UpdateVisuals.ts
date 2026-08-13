@@ -73,7 +73,7 @@ import {
 } from './Hypercubes'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
 import type { OcteractUpgrades } from './Octeracts'
-import { getOcteractUpgradeCostTNL, octeractUpgrades } from './Octeracts'
+import { getOcteractUpgradeCostTNL, octeractUpgrades, updateOcteractUpgradeVisibility } from './Octeracts'
 import {
   calculateAscensionScorePlatonicBlessing,
   calculateCubeMultiplierPlatonicBlessing,
@@ -97,7 +97,8 @@ import {
   getGQUpgradeCostTNL,
   getGQUpgradeEffect,
   goldenQuarkUpgrades,
-  type SingularityDataKeys
+  type SingularityDataKeys,
+  updateGoldenQuarkUpgradeVisibility
 } from './singularity'
 import { loadStatisticsUpdate } from './Statistics'
 import {
@@ -368,7 +369,7 @@ export const visualUpdateBuildings = () => {
 
     // update the tax text
     let warning = ''
-    if (player.reincarnationCount > 0.5) {
+    if (player.reincarnationCount > 0) {
       warning = i18next.t('buildings.taxWarning', {
         gain: format(
           Decimal.pow(10, G.maxexponent - Decimal.log(G.taxdivisorcheck, 10)),
@@ -1665,10 +1666,7 @@ export const visualUpdateSingularity = () => {
       }
       const singItem = goldenQuarkUpgrades[key]
       const el = DOMCacheGetOrSet(key)
-      if (
-        singItem.maxLevel !== -1
-        && singItem.level >= computeGQUpgradeMaxLevel(key)
-      ) {
+      if (updateGoldenQuarkUpgradeVisibility(key, el)) {
         el.style.filter = val ? 'brightness(.9)' : 'none'
       } else if (
         player.highestSingularityCount < singItem.minimumSingularity
@@ -1693,7 +1691,7 @@ export const visualUpdateSingularity = () => {
     for (const key of keys) {
       const octItem = octeractUpgrades[key]
       const el = DOMCacheGetOrSet(key)
-      if (octItem.maxLevel !== -1 && octItem.level >= octItem.maxLevel) {
+      if (updateOcteractUpgradeVisibility(key, el)) {
         el.style.filter = val ? 'brightness(.9)' : 'none'
       } else if (getOcteractUpgradeCostTNL(key) > player.wowOcteracts) {
         el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'

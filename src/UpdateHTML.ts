@@ -618,9 +618,9 @@ export const revealStuff = () => {
     transcendAutoUpgrade: player.upgrades[99] === 1, // Feature - Upgrades - Auto Buy Mythos Upgrades
     generatorsAutoUpgrade: player.upgrades[90] === 1, // Feature - Upgrades - Auto Buy Generator Upgrades
     toggle9: player.unlocks.prestige, // Feature - Upgrades - Hover to Buy
-    toggle28: player.prestigeCount > 0.5 || player.reincarnationCount > 0.5, // Settings - Confirmations - Prestige
-    toggle29: player.transcendCount > 0.5 || player.reincarnationCount > 0.5, // Settings - Confirmations - Transcension
-    toggle30: player.reincarnationCount > 0.5, // Settings - Confirmations - Reincarnation
+    toggle28: player.prestigeCount > 0 || player.reincarnationCount > 0, // Settings - Confirmations - Prestige
+    toggle29: player.transcendCount > 0 || player.reincarnationCount > 0, // Settings - Confirmations - Transcension
+    toggle30: player.reincarnationCount > 0, // Settings - Confirmations - Reincarnation
     toggle31: player.ascensionCount > 0, // Settings - Confirmations - Ascension and Asc. Challenge
     toggle32: Boolean(getAchievementReward('antSacrificeUnlock')), // Settings - Confirmations - Ant Sacrifice
     toggle33: player.highestSingularityCount > 0 && player.ascensionCount > 0, // Settings - Confirmations - Singularity
@@ -1305,7 +1305,6 @@ export const changeTabColor = () => {
   const color = tabColors[G.currentTab]
 
   tab.style.backgroundColor = color
-  document.body.style.setProperty('--subtab-border-color', color)
 }
 
 class AsyncQueue {
