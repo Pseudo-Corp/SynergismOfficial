@@ -102,7 +102,13 @@ import {
   redAmbrosiaUpgradeToString,
   resetRedAmbrosiaDisplay
 } from './RedAmbrosiaUpgrades'
-import { buyResearch, researchDescriptions, researchModalHTML, updateResearchAuto } from './Research'
+import {
+  buyResearch,
+  researchDescriptions,
+  researchModalHTML,
+  toggleMaxedResearches,
+  updateResearchAuto
+} from './Research'
 import { getResetDetails, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { buyAllBlessingLevels } from './RuneBlessings'
 import { runes } from './Runes'
@@ -1187,6 +1193,7 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('toggleresearchbuy').addEventListener('click', () => toggleResearchBuy())
   DOMCacheGetOrSet('toggleautoresearch').addEventListener('click', () => toggleAutoResearch())
   DOMCacheGetOrSet('toggleautoresearchmode').addEventListener('click', () => toggleAutoResearchMode())
+  DOMCacheGetOrSet('toggleMaxedResearches').addEventListener('click', toggleMaxedResearches)
 
   const buyAllAntUpgradesButton = DOMCacheGetOrSet('buyAllAntUpgrades')
   const buyAllAntProducersButton = DOMCacheGetOrSet('buyAllAntProducers')

@@ -524,3 +524,15 @@ export const updateResearchBG = (index: number) => {
     updateClassList(id, [], ['researchPurchased', 'researchMaxed'])
   }
 }
+
+export const toggleMaxedResearches = (): void => {
+  const toggle = DOMCacheGetOrSet('toggleMaxedResearches')
+  const hideMaxed = toggle.getAttribute('aria-pressed') !== 'true'
+  const i18nKey = hideMaxed ? 'researches.maxedResearchesHide' : 'researches.maxedResearchesShow'
+
+  toggle.setAttribute('aria-pressed', `${hideMaxed}`)
+  toggle.setAttribute('i18n', i18nKey)
+  toggle.textContent = i18next.t(i18nKey)
+  toggle.style.border = `2px solid ${hideMaxed ? 'red' : 'green'}`
+  DOMCacheGetOrSet('researchtable').classList.toggle('hideMaxedResearches', hideMaxed)
+}
