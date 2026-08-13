@@ -1,4 +1,4 @@
-export const version = '4.2.7 August 12, 2026: "Add"itional QoL'
+export const version = '4.2.7 August 12, 2026: "Add"itional QoL - Patch 1'
 
 export const isSynergismCC = location.hostname === 'synergism.cc'
 
