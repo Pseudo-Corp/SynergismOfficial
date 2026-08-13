@@ -639,7 +639,10 @@ function sweepTransitionFunc (
       return state
 
     case 'active':
-      if (elapsedTime >= timers.exit) {
+      if (
+        elapsedTime >= timers.exit
+        || player.challengecompletions[state.index] === getMaxChallenges(state.index)
+      ) {
         // Find next challenge
         const nextChallenge = getNextRegularChallenge(state.index, state.explored)
 

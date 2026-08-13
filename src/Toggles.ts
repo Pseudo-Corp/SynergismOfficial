@@ -379,15 +379,18 @@ export const toggleAutoResearchMode = () => {
 
 export const toggleAutoSacrifice = (index: number) => {
   const el = DOMCacheGetOrSet('toggleautosacrifice')
+  const label = DOMCacheGetOrSet('toggleAutoSacrificeText')
   if (index === 0) {
     if (player.autoSacrificeToggle) {
       player.autoSacrificeToggle = false
-      el.textContent = i18next.t('runes.blessings.autoRuneOff')
+      label.setAttribute('i18n', 'runes.blessings.autoRuneOff')
+      label.textContent = i18next.t('runes.blessings.autoRuneOff')
       el.style.border = '2px solid red'
       player.autoSacrifice = 0
     } else {
       player.autoSacrificeToggle = true
-      el.textContent = i18next.t('runes.blessings.autoRuneOn')
+      label.setAttribute('i18n', 'runes.blessings.autoRuneOn')
+      label.textContent = i18next.t('runes.blessings.autoRuneOn')
       el.style.border = '2px solid green'
     }
   } else if (

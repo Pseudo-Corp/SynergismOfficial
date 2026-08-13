@@ -89,7 +89,12 @@ import {
 } from './ImportExport'
 import { exitFastForward, getLotusTimeExpiresAt, getOwnedLotus, getTips, sendToWebsocket, setTips } from './Login'
 import type { OcteractUpgrades } from './Octeracts'
-import { buyOcteractUpgradeLevel, octeractUpgrades, upgradeOcteractToString } from './Octeracts'
+import {
+  buyOcteractUpgradeLevel,
+  octeractUpgrades,
+  toggleMaxedOcteractUpgrades,
+  upgradeOcteractToString
+} from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription, platonicUpgradeModalHTML } from './Platonic'
 import {
   buyRedAmbrosiaUpgradeLevel,
@@ -122,6 +127,7 @@ import {
   singularityPerkModalHTML,
   singularityPerks,
   teleportToSingularity,
+  toggleMaxedGoldenQuarkUpgrades,
   updateSingularityElevator,
   upgradeGQToString
 } from './singularity'
@@ -336,6 +342,9 @@ const mobileStatsIconConfig: Record<string, string> = {
   kShopVouchers: 'Pictures/Stats for Nerds Icons/Categories/ShopVouchers.png'
 }
 
+const getSubTabI18nKey = (button: HTMLButtonElement) =>
+  button.getAttribute('i18n') ?? button.querySelector<HTMLElement>('[i18n]')?.getAttribute('i18n') ?? null
+
 const termsOfServiceUrl = 'https://synergism.cc/terms-of-service'
 const privacyPolicyUrl = 'https://synergism.cc/privacy-policy'
 
@@ -467,9 +476,10 @@ const createMobileIcon = (sourceButton: HTMLButtonElement, src: string, classNam
   icon.role = 'button'
   icon.tabIndex = 0
 
-  const i18nKey = sourceButton.getAttribute('i18n')
+  const i18nKey = getSubTabI18nKey(sourceButton)
   if (i18nKey !== null) {
     const label = i18next.t(i18nKey)
+    icon.setAttribute('i18n', i18nKey)
     icon.alt = label
     icon.title = label
     icon.setAttribute('aria-label', label)
@@ -502,23 +512,24 @@ const createMobileIconContainer = (sourceButton: HTMLButtonElement, icon: HTMLIm
   }
 
   container.removeAttribute('style')
+  container.removeAttribute('i18n')
   container.classList.remove('active-subtab')
   container.classList.add('mobileSubTabIconContainer')
   container.role = 'button'
   container.tabIndex = 0
 
-  const i18nKey = sourceButton.getAttribute('i18n')
+  const i18nKey = getSubTabI18nKey(sourceButton)
   if (i18nKey !== null) {
     const label = i18next.t(i18nKey)
     container.title = label
     container.setAttribute('aria-label', label)
+    container.setAttribute('i18n-aria-label', i18nKey)
   }
 
   icon.removeAttribute('id')
   icon.removeAttribute('style')
   icon.removeAttribute('role')
   icon.removeAttribute('tabindex')
-  icon.removeAttribute('i18n')
   icon.removeAttribute('i18n-aria-label')
   icon.classList.remove('active-subtab')
 
@@ -1179,26 +1190,34 @@ export const generateEventHandlers = () => {
 
   const buyAllAntUpgradesButton = DOMCacheGetOrSet('buyAllAntUpgrades')
   const buyAllAntProducersButton = DOMCacheGetOrSet('buyAllAntProducers')
+  const buyAntUpgrades = () => buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades)
+  const buyAntProducersAndMasteries = () => {
+    buyAllAntProducers(player.ants.toggles.maxBuyProducers)
+    buyAllAntMasteries()
+  }
 
-  registerPurchasableModal({
-    element: buyAllAntUpgradesButton,
-    html: allAntUpgradeHTML,
-    style: { borderColor: 'crimson' },
-    buy: () => buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades),
-    mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllUpgrades') }],
-    updateInterval: MEDIUM_MODAL_UPDATE_TICK
-  })
-  registerPurchasableModal({
-    element: buyAllAntProducersButton,
-    html: allAntProducerHTML,
-    style: { borderColor: 'gold' },
-    buy: () => {
-      buyAllAntProducers(player.ants.toggles.maxBuyProducers)
-      buyAllAntMasteries()
-    },
-    mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllProducers') }],
-    updateInterval: MEDIUM_MODAL_UPDATE_TICK
-  })
+  // Keep the existing modal behavior for browser builds, including browsers on mobile devices.
+  if (PLATFORM === 'mobile') {
+    buyAllAntUpgradesButton.addEventListener('click', buyAntUpgrades)
+    buyAllAntProducersButton.addEventListener('click', buyAntProducersAndMasteries)
+  } else {
+    registerPurchasableModal({
+      element: buyAllAntUpgradesButton,
+      html: allAntUpgradeHTML,
+      style: { borderColor: 'crimson' },
+      buy: buyAntUpgrades,
+      mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllUpgrades') }],
+      updateInterval: MEDIUM_MODAL_UPDATE_TICK
+    })
+    registerPurchasableModal({
+      element: buyAllAntProducersButton,
+      html: allAntProducerHTML,
+      style: { borderColor: 'gold' },
+      buy: buyAntProducersAndMasteries,
+      mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllProducers') }],
+      updateInterval: MEDIUM_MODAL_UPDATE_TICK
+    })
+  }
 
   for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
     const antTier = DOMCacheGetOrSet(`anttier${ant + 1}`)
@@ -1735,6 +1754,8 @@ TODO: Fix this entire tab it's utter shit
     updateSingularityElevator()
   })
 
+  DOMCacheGetOrSet('toggleMaxedGoldenQuarkUpgrades').addEventListener('click', toggleMaxedGoldenQuarkUpgrades)
+
   const GQUpgrades = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
   for (const key of GQUpgrades) {
     if (key === 'offeringAutomatic') {
@@ -1800,6 +1821,8 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // Octeract Upgrades
+  DOMCacheGetOrSet('toggleMaxedOcteractUpgrades').addEventListener('click', toggleMaxedOcteractUpgrades)
+
   const octUpgrade = Object.keys(octeractUpgrades) as OcteractUpgrades[]
   for (const key of octUpgrade) {
     registerPurchasableModal({
