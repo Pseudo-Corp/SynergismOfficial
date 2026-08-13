@@ -89,7 +89,12 @@ import {
 } from './ImportExport'
 import { exitFastForward, getLotusTimeExpiresAt, getOwnedLotus, getTips, sendToWebsocket, setTips } from './Login'
 import type { OcteractUpgrades } from './Octeracts'
-import { buyOcteractUpgradeLevel, octeractUpgrades, upgradeOcteractToString } from './Octeracts'
+import {
+  buyOcteractUpgradeLevel,
+  octeractUpgrades,
+  toggleMaxedOcteractUpgrades,
+  upgradeOcteractToString
+} from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription, platonicUpgradeModalHTML } from './Platonic'
 import {
   buyRedAmbrosiaUpgradeLevel,
@@ -122,6 +127,7 @@ import {
   singularityPerkModalHTML,
   singularityPerks,
   teleportToSingularity,
+  toggleMaxedGoldenQuarkUpgrades,
   updateSingularityElevator,
   upgradeGQToString
 } from './singularity'
@@ -1740,6 +1746,8 @@ TODO: Fix this entire tab it's utter shit
     updateSingularityElevator()
   })
 
+  DOMCacheGetOrSet('toggleMaxedGoldenQuarkUpgrades').addEventListener('click', toggleMaxedGoldenQuarkUpgrades)
+
   const GQUpgrades = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
   for (const key of GQUpgrades) {
     if (key === 'offeringAutomatic') {
@@ -1805,6 +1813,8 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // Octeract Upgrades
+  DOMCacheGetOrSet('toggleMaxedOcteractUpgrades').addEventListener('click', toggleMaxedOcteractUpgrades)
+
   const octUpgrade = Object.keys(octeractUpgrades) as OcteractUpgrades[]
   for (const key of octUpgrade) {
     registerPurchasableModal({

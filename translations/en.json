@@ -4477,6 +4477,8 @@
     "autoOffBracket": "Auto [OFF]",
     "softCapped": "(Softcapped)",
     "maxed": "(Maxed)",
+    "maxedUpgradesShow": "Maxed Upgrades: SHOW",
+    "maxedUpgradesHide": "Maxed Upgrades: HIDE",
     "affordable": "(Affordable)",
     "enabled": "(Enabled)",
     "effectiveLevel": "Effective Level: {{level}}",

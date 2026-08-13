@@ -2229,6 +2229,35 @@ export const maxGoldenQuarkUpgradeAP = Object.values(goldenQuarkUpgrades).reduce
   return acc + 5
 }, 0)
 
+export function updateGoldenQuarkUpgradeVisibility (
+  upgradeKey: SingularityDataKeys,
+  element = DOMCacheGetOrSet(upgradeKey)
+): boolean {
+  const upgrade = goldenQuarkUpgrades[upgradeKey]
+  const isMaxed = upgrade.maxLevel !== -1 && upgrade.level >= computeGQUpgradeMaxLevel(upgradeKey)
+  const hideMaxed = DOMCacheGetOrSet('toggleMaxedGoldenQuarkUpgrades').getAttribute('aria-pressed') === 'true'
+
+  element.classList.toggle('upgradeHiddenByMaxLevel', hideMaxed && isMaxed)
+  return isMaxed
+}
+
+export function toggleMaxedGoldenQuarkUpgrades (): void {
+  const toggle = DOMCacheGetOrSet('toggleMaxedGoldenQuarkUpgrades')
+  const hideMaxed = toggle.getAttribute('aria-pressed') !== 'true'
+  const i18nKey = hideMaxed ? 'general.maxedUpgradesHide' : 'general.maxedUpgradesShow'
+
+  toggle.setAttribute('aria-pressed', `${hideMaxed}`)
+  toggle.setAttribute('i18n', i18nKey)
+  toggle.textContent = i18next.t(i18nKey)
+  toggle.style.border = `2px solid ${hideMaxed ? 'red' : 'green'}`
+
+  for (const key of Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]) {
+    if (key !== 'offeringAutomatic') {
+      updateGoldenQuarkUpgradeVisibility(key)
+    }
+  }
+}
+
 /**
  * Get the upgrade's HTML representation with all relevant information
  */
