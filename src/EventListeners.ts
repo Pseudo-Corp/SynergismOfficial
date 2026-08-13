@@ -1190,26 +1190,34 @@ export const generateEventHandlers = () => {
 
   const buyAllAntUpgradesButton = DOMCacheGetOrSet('buyAllAntUpgrades')
   const buyAllAntProducersButton = DOMCacheGetOrSet('buyAllAntProducers')
+  const buyAntUpgrades = () => buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades)
+  const buyAntProducersAndMasteries = () => {
+    buyAllAntProducers(player.ants.toggles.maxBuyProducers)
+    buyAllAntMasteries()
+  }
 
-  registerPurchasableModal({
-    element: buyAllAntUpgradesButton,
-    html: allAntUpgradeHTML,
-    style: { borderColor: 'crimson' },
-    buy: () => buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades),
-    mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllUpgrades') }],
-    updateInterval: MEDIUM_MODAL_UPDATE_TICK
-  })
-  registerPurchasableModal({
-    element: buyAllAntProducersButton,
-    html: allAntProducerHTML,
-    style: { borderColor: 'gold' },
-    buy: () => {
-      buyAllAntProducers(player.ants.toggles.maxBuyProducers)
-      buyAllAntMasteries()
-    },
-    mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllProducers') }],
-    updateInterval: MEDIUM_MODAL_UPDATE_TICK
-  })
+  // Keep the existing modal behavior for browser builds, including browsers on mobile devices.
+  if (PLATFORM === 'mobile') {
+    buyAllAntUpgradesButton.addEventListener('click', buyAntUpgrades)
+    buyAllAntProducersButton.addEventListener('click', buyAntProducersAndMasteries)
+  } else {
+    registerPurchasableModal({
+      element: buyAllAntUpgradesButton,
+      html: allAntUpgradeHTML,
+      style: { borderColor: 'crimson' },
+      buy: buyAntUpgrades,
+      mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllUpgrades') }],
+      updateInterval: MEDIUM_MODAL_UPDATE_TICK
+    })
+    registerPurchasableModal({
+      element: buyAllAntProducersButton,
+      html: allAntProducerHTML,
+      style: { borderColor: 'gold' },
+      buy: buyAntProducersAndMasteries,
+      mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllProducers') }],
+      updateInterval: MEDIUM_MODAL_UPDATE_TICK
+    })
+  }
 
   for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
     const antTier = DOMCacheGetOrSet(`anttier${ant + 1}`)
