@@ -369,7 +369,7 @@ export const visualUpdateBuildings = () => {
 
     // update the tax text
     let warning = ''
-    if (player.reincarnationCount > 0.5) {
+    if (player.reincarnationCount > 0) {
       warning = i18next.t('buildings.taxWarning', {
         gain: format(
           Decimal.pow(10, G.maxexponent - Decimal.log(G.taxdivisorcheck, 10)),

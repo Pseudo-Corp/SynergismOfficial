@@ -1620,7 +1620,8 @@
         "reincarnationCountMultiplier": "Gain up to 4x the Reincarnation Count based on your Prestige Timer (maxes at num:((1000))s)"
       },
       "467": {
-        "reincarnationCountMultiplier": "Gain +100% more Reincarnation Count per digit in your Reincarnation Count (additive)!"
+        "reincarnationCountMultiplier": "Gain +100% more Reincarnation Count per digit in your Reincarnation Count (additive)!",
+        "obtainiumTimerMultiplier": "Gain +100% more Obtainium every 10 seconds in your current Reincarnation, increasing continuously!"
       },
       "468": {
         "obtainiumBonus": "Gain +2% more Obtainium per digit in your Reincarnation Count (additive)!"

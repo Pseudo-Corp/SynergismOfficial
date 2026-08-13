@@ -4140,7 +4140,10 @@ const loadStatisticsObtainiumIgnoreDR = () => {
 const loadStatisticsObtainiumMultipliers = () => {
   loadStatistics(allObtainiumStats, 'obtainiumMultiplierStats', 'statObt', 'ObtainiumStat', calculateObtainiumDecimal)
   loadStatistics(
-    combinedObtainiumDRTimeModifiers(player.reincarnationcounter, player.reincarnationCount >= 5),
+    combinedObtainiumDRTimeModifiers(
+      player.reincarnationcounter,
+      Boolean(getAchievementReward('obtainiumTimerMultiplier'))
+    ),
     'obtainiumMultiplierStats',
     'statObt2',
     'ObtainiumStat2',
