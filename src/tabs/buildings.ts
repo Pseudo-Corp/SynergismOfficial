@@ -28,8 +28,7 @@ type Entry = Building | { spacer: true }
 const costIdOf = (buyId: string) => `cost${buyId.slice('buy'.length)}`
 const joinClasses = (...classes: Array<string | undefined>) => classes.filter(Boolean).join(' ')
 
-export const getBuildingCostElement = (buyId: string): HTMLElement =>
-  DOMCacheGetOrSet(isMobile ? costIdOf(buyId) : buyId)
+export const getBuildingCostElement = (buyId: string): HTMLElement => DOMCacheGetOrSet(costIdOf(buyId))
 
 const renderBuildingDesktop = (b: Building): string => {
   const wrapper = b.containerClass ? ` class="${b.containerClass}"` : ''
@@ -37,19 +36,20 @@ const renderBuildingDesktop = (b: Building): string => {
   if (b.imgExtraClass) imgClasses.push(b.imgExtraClass)
   if (!b.noImageClass) imgClasses.push('image')
   const imgClass = imgClasses.length ? ` class="${imgClasses.join(' ')}"` : ''
-  const descClass = joinClasses(b.descExtraClass, 'desc', 'fitText')
+  const descClass = joinClasses(b.descExtraClass, 'desc')
   const descStyle = b.descStyle ? ` style="${b.descStyle}"` : ''
-  const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn', 'fitText')
+  const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn')
   const toggleIdAttr = b.toggleIdAttr !== undefined ? ` toggleid="${b.toggleIdAttr}"` : ''
-  const statsClass = joinClasses(b.statsExtraClass, 'stats', b.fitStats === false ? undefined : 'fitText')
+  const statsClass = joinClasses(b.statsExtraClass, 'stats')
+  const statsTextClass = b.fitStats === false ? '' : ' class="fitText"'
   const statsStyle = b.statsStyle ? ` style="${b.statsStyle}"` : ''
 
   return `<div${wrapper}>`
     + `<img${imgClass} id="${b.imgId}" alt="${b.imgAlt}" src="${b.imgSrc}" loading="lazy">`
-    + `<span class="${descClass}" id="${b.descId}"${descStyle}></span>`
-    + `<button class="${buyClass}" id="${b.buyId}"></button>`
+    + `<span class="${descClass}"${descStyle}><span class="fitText" id="${b.descId}"></span></span>`
+    + `<button class="${buyClass}" id="${b.buyId}"><span class="fitText" id="${costIdOf(b.buyId)}"></span></button>`
     + `<button class="auto autobuyerToggleButton" id="${b.toggleId}"${toggleIdAttr}></button>`
-    + `<span class="${statsClass}" id="${b.statsId}"${statsStyle}></span>`
+    + `<span class="${statsClass}"${statsStyle}><span${statsTextClass} id="${b.statsId}"></span></span>`
     + '</div>'
 }
 
@@ -59,11 +59,12 @@ const renderBuildingMobile = (b: Building): string => {
   if (b.imgExtraClass) imgClasses.push(b.imgExtraClass)
   if (!b.noImageClass) imgClasses.push('image')
   const imgClass = imgClasses.length ? ` class="${imgClasses.join(' ')}"` : ''
-  const descClass = joinClasses(b.descExtraClass, 'desc', 'fitText')
+  const descClass = joinClasses(b.descExtraClass, 'desc')
   const descStyle = b.descStyle ? ` style="${b.descStyle}"` : ''
-  const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn', 'fitText')
+  const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn')
   const toggleIdAttr = b.toggleIdAttr !== undefined ? ` toggleid="${b.toggleIdAttr}"` : ''
-  const statsClass = joinClasses(b.statsExtraClass, 'stats', b.fitStats === false ? undefined : 'fitText')
+  const statsClass = joinClasses(b.statsExtraClass, 'stats')
+  const statsTextClass = b.fitStats === false ? '' : ' class="fitText"'
   const statsStyle = b.statsStyle ? ` style="${b.statsStyle}"` : ''
   const costClass = joinClasses(b.buyExtraClass, 'cost', 'fitText')
   const buyLabel = i18next.t('buildings.buy')
@@ -71,9 +72,9 @@ const renderBuildingMobile = (b: Building): string => {
   return `<div${wrapper}>`
     + `<img${imgClass} id="${b.imgId}" alt="${b.imgAlt}" src="${b.imgSrc}" loading="lazy">`
     + '<div class="textStack">'
-    + `<span class="${descClass}" id="${b.descId}"${descStyle}></span>`
+    + `<span class="${descClass}"${descStyle}><span class="fitText" id="${b.descId}"></span></span>`
     + `<span class="${costClass}" id="${costIdOf(b.buyId)}"></span>`
-    + `<span class="${statsClass}" id="${b.statsId}"${statsStyle}></span>`
+    + `<span class="${statsClass}"${statsStyle}><span${statsTextClass} id="${b.statsId}"></span></span>`
     + '</div>'
     + `<button class="${buyClass}" id="${b.buyId}">${buyLabel}</button>`
     + `<button class="auto autobuyerToggleButton" id="${b.toggleId}"${toggleIdAttr}></button>`
