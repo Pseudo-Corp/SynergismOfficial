@@ -111,7 +111,6 @@ body {
     --header-color: var(--bg-color);
     --mobile-subtab-height: 0;
     --mobile-subtab-top: 0;
-    --subtab-border-color: yellow;
     --bg-color: #111;
     --alert-color: #141414;
     --history-lines: #262626;
@@ -1227,8 +1226,8 @@ button.isEvent:hover {
 }
 
 .subTabWrapper {
-    --subtab-button-width: 160px;
-    --subtab-button-height: 48px;
+    --subtab-button-width: 150px;
+    --subtab-button-height: 30px;
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
@@ -1237,7 +1236,6 @@ button.isEvent:hover {
     width: 90%;
     margin: 0 auto;
     padding: 10px;
-    border-bottom: 2px solid var(--subtab-border-color);
     overscroll-behavior: contain;
 }
 
@@ -1254,10 +1252,29 @@ button.isEvent:hover {
     min-width: 0;
     width: 100%;
     min-height: var(--subtab-button-height);
-    padding: 4px 8px;
+    padding: 0;
     line-height: 1.1;
     text-align: center;
     overflow-wrap: anywhere;
+}
+
+.subTabWrapper > button > .subTabButtonTextContainer,
+.subTabWrapper > span > button > .subTabButtonTextContainer {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.subTabWrapper > button > .subTabButtonText,
+.subTabWrapper > span > button > .subTabButtonText,
+.subTabButtonTextContainer > .subTabButtonText {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+}
+
+#cartSubTab5 > img {
+    flex: 0 0 auto;
 }
 
 .mobileSubTabIcon {
@@ -1349,10 +1366,6 @@ p#buildinghotkeys2 {
     color: gold;
     margin: 0 auto;
     max-width: 1500px;
-}
-
-#upgradeReferenceHeader {
-    --subtab-border-color: gold;
 }
 
 .upgradeReferenceHeaderIcon {
@@ -2408,6 +2421,7 @@ p#prestigehotkeys {
     margin: 0;
     text-align: center;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    padding-bottom: 1px;
 }
 
 .runeTypeElementMobile {
@@ -2592,6 +2606,7 @@ img.runeTypeElement:hover {
 }
 
 .talismanContainer {
+    box-sizing: content-box;
     flex-direction: column;
     width: 80px;
     align-items: center;
@@ -4437,7 +4452,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     justify-items: center;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(3, minmax(0, 1fr)) auto;
+    line-height: 1.2;
 }
 
 #campaignsIcons {
@@ -5108,7 +5124,6 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .platonicPortion {
-    width: 400px;
     margin: 0;
 }
 
@@ -5492,6 +5507,21 @@ header #obtainiumDisplay { color: pink; }
     margin-top: 5px;
     width: calc(36px * 14);
     gap: 4px;
+}
+
+.upgradeVisibilityControls {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.toggleMaxedUpgrades {
+    border: 2px solid green;
+    min-width: 15em;
+}
+
+.upgradeHiddenByMaxLevel {
+    display: none !important;
 }
 
 #blueberryUpgradeContainer {
