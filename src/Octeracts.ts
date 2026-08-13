@@ -1049,6 +1049,33 @@ export const maxOcteractUpgradeAP = Object.values(octeractUpgrades).reduce((acc,
   return acc + 8
 }, 0)
 
+export const updateOcteractUpgradeVisibility = (
+  upgradeKey: OcteractUpgrades,
+  element = DOMCacheGetOrSet(upgradeKey)
+): boolean => {
+  const upgrade = octeractUpgrades[upgradeKey]
+  const isMaxed = upgrade.maxLevel !== -1 && upgrade.level >= upgrade.maxLevel
+  const hideMaxed = DOMCacheGetOrSet('toggleMaxedOcteractUpgrades').getAttribute('aria-pressed') === 'true'
+
+  element.classList.toggle('upgradeHiddenByMaxLevel', hideMaxed && isMaxed)
+  return isMaxed
+}
+
+export const toggleMaxedOcteractUpgrades = (): void => {
+  const toggle = DOMCacheGetOrSet('toggleMaxedOcteractUpgrades')
+  const hideMaxed = toggle.getAttribute('aria-pressed') !== 'true'
+  const i18nKey = hideMaxed ? 'general.maxedUpgradesHide' : 'general.maxedUpgradesShow'
+
+  toggle.setAttribute('aria-pressed', `${hideMaxed}`)
+  toggle.setAttribute('i18n', i18nKey)
+  toggle.textContent = i18next.t(i18nKey)
+  toggle.style.border = `2px solid ${hideMaxed ? 'red' : 'green'}`
+
+  for (const key of Object.keys(octeractUpgrades) as OcteractUpgrades[]) {
+    updateOcteractUpgradeVisibility(key)
+  }
+}
+
 export const blankOcteractLevelObject: Record<
   OcteractUpgrades,
   { level: number; freeLevel: number; octeractsInvested: number }

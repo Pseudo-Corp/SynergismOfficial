@@ -5509,6 +5509,21 @@ header #obtainiumDisplay { color: pink; }
     gap: 4px;
 }
 
+.upgradeVisibilityControls {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.toggleMaxedUpgrades {
+    border: 2px solid green;
+    min-width: 15em;
+}
+
+.upgradeHiddenByMaxLevel {
+    display: none !important;
+}
+
 #blueberryUpgradeContainer {
     flex-direction: column;
     width: unset;
