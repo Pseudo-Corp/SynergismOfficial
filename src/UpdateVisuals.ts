@@ -2104,7 +2104,7 @@ export const visualUpdatePurple = () => {
   if (G.currentTab !== Tabs.Singularity) {
     return
   }
-
+  
   const capacity = Math.max(0, calculatePurpleReactantCapacity())
   const ambrosiaBarPoints = player.purpleReactor.storedAmbrosiaBarPoints
   const redAmbrosiaBarPoints = player.purpleReactor.storedRedAmbrosiaBarPoints
