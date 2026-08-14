@@ -4550,7 +4550,6 @@ const tack = (dt: number) => {
              expensive one. */
           if (player.researches[currIndex] < researchData[currIndex].maxLevel) {
             player.roombaResearchIndex = 0
-            player.autoResearch = 1
             break
           }
         }
