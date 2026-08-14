@@ -772,6 +772,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
+      addTimers('purpleHoney', blueberryTime)
       addTimers('ambrosia', blueberryTime)
 
       if (player.highestSingularityCount >= 150) {
@@ -830,6 +831,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
+      addTimers('purpleHoney', blueberryTime)
       addTimers('ambrosia', blueberryTime)
 
       await Alert(

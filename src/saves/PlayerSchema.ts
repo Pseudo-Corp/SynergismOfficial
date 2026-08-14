@@ -270,11 +270,21 @@ const ambrosiaUpgradeSchema = z.object({
   blueberriesInvested: z.number().default(0)
 })
 
+const purpleReactantPercentageSchema = z.union([
+  z.literal(0),
+  z.literal(10),
+  z.literal(25),
+  z.literal(50),
+  z.literal(100)
+])
+
 const purpleReactorSchema = z.object({
   purpleHoney: z.number().default(0),
   lifetimePurpleHoney: z.number().default(0),
   storedAmbrosiaBarPoints: z.number().default(0),
-  storedRedAmbrosiaBarPoints: z.number().default(0)
+  storedRedAmbrosiaBarPoints: z.number().default(0),
+  ambrosiaBarPointPercentage: purpleReactantPercentageSchema.default(0).catch(0),
+  redAmbrosiaBarPointPercentage: purpleReactantPercentageSchema.default(0).catch(0)
 })
 
 const playerCorruptionSchema = z.object({
@@ -1041,6 +1051,7 @@ export const playerSchema = z.object({
     }
   ).default(() => ({ ...blankSave.redAmbrosiaUpgrades })),
 
+  purpleHoneyProgress: z.number().default(0),
   purpleReactor: purpleReactorSchema.default(() => deepClone()(blankSave.purpleReactor)),
 
   purpleReactorUpgrades: z.record(z.string(), z.number()).transform(
