@@ -212,16 +212,6 @@ export const exportData = async (text: string, fileName: string) => {
       setTimeout(() => (exportInfo.textContent = ''), 15_000)
       return
     }
-
-    const { PluginHeaders } = Capacitor as unknown as { PluginHeaders?: { name: string }[] }
-    await Alert(
-      `DEBUG<br>platform: ${Capacitor.getPlatform()}<br>`
-        + `native: ${Capacitor.isNativePlatform()}<br>`
-        + `Clipboard: ${Capacitor.isPluginAvailable('Clipboard')}<br>`
-        + `Filesystem: ${Capacitor.isPluginAvailable('Filesystem')}<br>`
-        + `Share: ${Capacitor.isPluginAvailable('Share')}<br>`
-        + `PluginHeaders: ${PluginHeaders?.map((h) => h.name).join(', ') ?? 'undefined'}`
-    )
   }
 
   if (toClipboard) {
