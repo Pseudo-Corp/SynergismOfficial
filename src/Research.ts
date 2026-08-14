@@ -176,7 +176,7 @@ const researchUnlockRanges: RangeCondition[] = [
   { range: [80, 80], condition: () => runes.duplication.isUnlocked() },
   { range: [81, 100], condition: () => player.unlocks.anthill },
   { range: [101, 118], condition: () => player.unlocks.talismans },
-  { range: [119, 123], condition: () => player.unlocks.ascensions },
+  { range: [119, 123], condition: () => player.unlocks.ascensions || player.highestSingularityCount > 0 },
   { range: [124, 125], condition: () => Boolean(getAchievementReward('antSacrificeUnlock')) },
   { range: [126, 140], condition: () => player.ascensionCount > 0 || player.highestSingularityCount > 0 },
   {
