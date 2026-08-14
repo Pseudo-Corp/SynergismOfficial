@@ -2429,7 +2429,7 @@
                     <button class="statsNerds octeracts" id="kLuckConversion" style="border: 2px solid yellow" i18n="statistics.subtabs.luckConversion"></button>
                     <button class="statsNerds octeracts" id="kRedAmbrosiaLuck" style="border: 2px solid red" i18n="statistics.subtabs.redAmbrosiaLuck"></button>
                     <button class="statsNerds octeracts" id="kRedAmbrosiaGenMult" style="border: 2px solid red" i18n="statistics.subtabs.redAmbrosiaGenMult"></button>
-                    <button class="statsNerds octeracts" id="kPurpleLatency" style="border: 2px solid purple" i18n="statistics.subtabs.purpleLatency"></button>
+                    <button class="statsNerds octeracts" id="kPurpleHalfLife" style="border: 2px solid purple" i18n="statistics.subtabs.purpleHalfLife"></button>
                     <button class="statsNerds octeracts" id="kPurpleReactantCapacity" style="border: 2px solid purple" i18n="statistics.subtabs.purpleReactantCapacity"></button>
                     <button class="statsNerds octeracts" id="kPurpleAmbrosiaLuck" style="border: 2px solid purple" i18n="statistics.subtabs.purpleAmbrosiaLuck"></button>
                     <button class="statsNerds octeracts" id="kShopVouchers" style="border: 2px solid cyan" i18n="statistics.subtabs.shopVouchers"></button>
@@ -2599,8 +2599,8 @@
                     <p id="redAmbrosiaGenStatTitle" class="statPortion" style="color: red; font-size: 1.2em" i18n="statistics.redAmbrosiaGenerationStats.title"></p>
                 </div>
 
-                <div id="purpleLatencyStats" class="statContainer activeStats" aria-live="polite">
-                    <p id="purpleLatencyStatTitle" class="statPortion" style="color: purple; font-size: 1.2em" i18n="statistics.purpleLatencyStats.title"></p>
+                <div id="purpleHalfLifeStats" class="statContainer activeStats" aria-live="polite">
+                    <p id="purpleHalfLifeStatTitle" class="statPortion" style="color: purple; font-size: 1.2em" i18n="statistics.purpleHalfLifeStats.title"></p>
                 </div>
 
                 <div id="purpleReactantCapacityStats" class="statContainer activeStats" aria-live="polite">
@@ -3619,7 +3619,63 @@
             <div id="singularityContainer6" style="display: none;">
                 <div id="purpleHoneyDisplay">
                     <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHoney.png" loading="lazy">
-                    <p id="purpleHoneyAmount" class="amberText"></p>
+                    <div>
+                        <p id="purpleHoneyAmount" class="amberText"></p>
+                    </div>
+                </div>
+                <div class="purpleBoxColor" id="purpleReactantContainers">
+                    <p class="purpleReactantContainersDescription" i18n="purpleReactor.reactantContainersDescription"></p>
+                    <div class="purpleReactantContainerStats">
+                        <p id="purpleReactantCapacity" class="purpleReactantContainersDescription"></p>
+                        <p id="purpleReactantHalfLife" class="purpleReactantContainersDescription"></p>
+                    </div>
+                    <div id="purpleHoneyProgressContainer">
+                        <div class="purpleReactantProgressBar" id="purpleHoneyProgressBar">
+                            <div id="purpleHoneyProgressFill"></div>
+                            <span id="purpleHoneyProgressText"></span>
+                        </div>
+                        <div id="purpleHoneyExtractorInfo">
+                            <p class="purpleHoneyExtractorText" i18n="purpleReactor.purpleHoneyExtractor"></p>
+                            <p id="purpleHoneyGeneration" class="purpleHoneyExtractorText" i18n="purpleReactor.currentlyGeneratingPurpleHoney"></p>
+                            <p id="purpleHoneyLuck" class="purpleHoneyExtractorText"></p>
+                            <p id="purpleHoneyExtractionMultiplier" class="purpleHoneyExtractorText"></p>
+                            <p id="purpleHoneyExtractionBonusChance" class="purpleHoneyExtractorText"></p>
+                        </div>
+                    </div>
+                    <svg id="purpleReactantArrows" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M 100 130 V 20 H 206 M 176 5 L 206 20 L 176 35"></path>
+                        <path d="M 900 130 V 20 H 794 M 824 5 L 794 20 L 824 35"></path>
+                    </svg>
+                    <div class="purpleReactantContainer">
+                        <p class="purpleReactantContainerTitle" style="color: lightblue" i18n="purpleReactor.ambrosiaBarPointContainer"></p>
+                        <div class="purpleReactantProgressBar" id="ambrosiaContainerProgressBar">
+                            <div id="ambrosiaContainerProgress"></div>
+                            <span id="ambrosiaContainerProgressText"></span>
+                        </div>
+                        <p class="purpleReactantReserveTitle" i18n="purpleReactor.reactantReserve"></p>
+                        <div class="purpleReactantPercentageButtons" role="group" i18n-aria-label="purpleReactor.ambrosiaBarPointPercentageAriaLabel">
+                            <button id="ambrosiaBarPointPercentage0" type="button" i18n="purpleReactor.percentageOption0"></button>
+                            <button id="ambrosiaBarPointPercentage10" type="button" i18n="purpleReactor.percentageOption10"></button>
+                            <button id="ambrosiaBarPointPercentage25" type="button" i18n="purpleReactor.percentageOption25"></button>
+                            <button id="ambrosiaBarPointPercentage50" type="button" i18n="purpleReactor.percentageOption50"></button>
+                            <button id="ambrosiaBarPointPercentage100" type="button" i18n="purpleReactor.percentageOption100"></button>
+                        </div>
+                    </div>
+                    <div class="purpleReactantContainer">
+                        <p class="purpleReactantContainerTitle" style="color: red" i18n="purpleReactor.redAmbrosiaBarPointContainer"></p>
+                        <div class="purpleReactantProgressBar" id="redAmbrosiaContainerProgressBar">
+                            <div id="redAmbrosiaContainerProgress"></div>
+                            <span id="redAmbrosiaContainerProgressText"></span>
+                        </div>
+                        <p class="purpleReactantReserveTitle" i18n="purpleReactor.reactantReserve"></p>
+                        <div class="purpleReactantPercentageButtons" role="group" i18n-aria-label="purpleReactor.redAmbrosiaBarPointPercentageAriaLabel">
+                            <button id="redAmbrosiaBarPointPercentage0" type="button" i18n="purpleReactor.percentageOption0"></button>
+                            <button id="redAmbrosiaBarPointPercentage10" type="button" i18n="purpleReactor.percentageOption10"></button>
+                            <button id="redAmbrosiaBarPointPercentage25" type="button" i18n="purpleReactor.percentageOption25"></button>
+                            <button id="redAmbrosiaBarPointPercentage50" type="button" i18n="purpleReactor.percentageOption50"></button>
+                            <button id="redAmbrosiaBarPointPercentage100" type="button" i18n="purpleReactor.percentageOption100"></button>
+                        </div>
+                    </div>
                 </div>
                 <div id="singularityPurple" class="singularityContainer">
                     <div class="purpleBoxColor" id="purpleUpgradeContainer">
@@ -3631,6 +3687,9 @@
                         </button>
                         <button class="purpleUpgrade" id="purpleReactorPurpleAmbrosiaLuck1">
                             <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleAmbrosiaLuck1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHalfLife1">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife1.png">
                         </button>
                     </div>
                 </div>

@@ -417,11 +417,36 @@
     }
   },
   "purpleReactor": {
-    "purpleHoneyAmount": "You have <<purple|{{amount}}>> Purple Honey (<<purple|{{lifetimeAmount}}>> Lifetime)",
+    "purpleHoneyAmount": "You have <<var(--purple-text-color)|{{amount}}>> Purple Honey (<<var(--purple-text-color)|{{lifetimeAmount}}>> Lifetime)",
+    "reactantContainersDescription": "The <b>Grand</b>, <i>Fantabulous</i> <<var(--purple-text-color)|Chroma-Encabulator>>",
+    "ambrosiaBarPointContainer": "Ambrosia Bar Points",
+    "redAmbrosiaBarPointContainer": "Red Bar Points",
+    "reactantReserve": "Reserve Percent",
+    "reactantContainerCapacity": "Reactants Capacity: <<gold|{{capacity}}>>",
+    "reactantContainerHalfLife": "Reactant Half-Life: <<gold|{{time}}>> seconds",
+    "reactantContainerProgress": "{{stored}}{{net}}",
+    "barPointNetRatePositive": " [+{{amount}}/s]",
+    "barPointNetRateNegative": " [-{{amount}}/s]",
+    "barPointNetRateZero": " [0/s]",
+    "purpleHoneyProgress": "{{current}}/{{conversion}} [+{{rate}}/s]",
+    "purpleHoneyExtractor": "Purple Honey Extractor",
+    "currentlyGeneratingPurpleHoney": "Currently generating <<var(--purple-text-color)|{{amount}}>> Purple Honey",
+    "purpleHoneyLuck": "Purple Honey Luck: <<var(--purple-text-color)|{{luck}}>>",
+    "purpleHoneyExtractionMultiplier": "Extraction Multiplier: <<gold|{{multiplier}}>>",
+    "purpleHoneyExtractionBonusChance": "Chance for +1 more: <<gold|{{chance}}%>>",
+    "percentageOption0": "0%",
+    "percentageOption10": "10%",
+    "percentageOption25": "25%",
+    "percentageOption50": "50%",
+    "percentageOption100": "100%",
+    "ambrosiaBarPointPercentageAriaLabel": "Ambrosia Bar Point reservation percentage",
+    "redAmbrosiaBarPointPercentageAriaLabel": "Red Ambrosia Bar Point reservation percentage",
     "purpleHoneyCost": "Cost for next level: <<purple | {{amount}}>> Purple Honey",
     "purpleHoneySpent": "Total Purple Honey spent: <<purple | {{amount}}>>",
     "purpleHoneyBuyPrompt": "You can buy up to {{max}} levels of this upgrade. How many would you like to buy? Type -1 to use max!",
     "notPositiveInteger": "The number you entered must be a positive integer! (or -1, to buy max)",
+    "upgradeAPPerLevel": "Each level of this Purple Honey upgrade grants <<gold|+{{amount}}>> AP [<<gold|+{{total}}>>]",
+    "upgradeAPMax": "You also get <<gold|+{{amount}}>> AP for maxing this upgrade! {{check}}",
     "upgrades": {
       "tutorial": {
         "name": "The Purple Guy's Greeting",
@@ -436,10 +461,16 @@
         "effectMaxed": "<<gold|+{{maxPercent}}>> Purple Honey from Chroma-Encabulator fusions."
       },
       "purpleAmbrosiaLuck1": {
-        "name": "Purple Luck I",
+        "name": "Purple Honey Luck I",
         "flavor": "I'm feeling lucky.",
-        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Purple Luck.",
-        "effectMaxed": "<<gold|+{{maxValue}}>> Purple Luck."
+        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Purple Honey Luck.",
+        "effectMaxed": "<<gold|+{{maxValue}}>> Purple Honey Luck."
+      },
+      "purpleHalfLife1": {
+        "name": "All-Natural, Organic Catalyzer I",
+        "flavor": "Now chemical-free!",
+        "effectNotMaxed": "<<silver|{{oldValue}}s →>> <<gold|{{newValue}}s>> Reactant Half-Life.",
+        "effectMaxed": "<<gold|{{maxValue}}s>> Reactant Half-Life."
       }
     }
   },
@@ -6431,9 +6462,9 @@
       "luckConversion": "Luck Conversion",
       "redAmbrosiaLuck": "Red Luck",
       "redAmbrosiaGenMult": "Red Bar Points",
-      "purpleLatency": "Purple Latency",
+      "purpleHalfLife": "Purple Half-Life",
       "purpleReactantCapacity": "Purple Reactant Capacity",
-      "purpleAmbrosiaLuck": "Purple Ambrosia Luck",
+      "purpleAmbrosiaLuck": "Purple Honey Luck",
       "shopVouchers": "Shop Vouchers",
       "generate": "Generate Savefile Stats Summary"
     },
@@ -7045,6 +7076,7 @@
       "CookieUpgrade26": "Cookie Upgrade 26 (Cx26):",
       "Event": "Event Bonus:",
       "CashGrabUltra": "Cash Grab ULTRA Blueberry Bonus:",
+      "PurpleHoneyUpgrade1": "Purple Honey - The Purple Guy's Greeting:",
       "Total": "Ambrosia Bar Points/s:",
       "BlueberryCount": "Number of Blueberries Owned:",
       "Total2": "Final Ambrosia Bar Points/s:"
@@ -7179,6 +7211,7 @@
       "BlueberrySpeed": "Speed from Ambrosia (num:((0.5)) DR after num:((1000))):",
       "RedAmbrosia": "Red Ambrosia - Millennium-Aged Red Ambrosia:",
       "Exalt5": "EXALT - No Ambrosia Effects:",
+      "PurpleHoneyUpgrade1": "Purple Honey - The Purple Guy's Greeting:",
       "Total": "Total Red Bar Points/s:"
     },
     "shopVoucherStats": {
@@ -7355,10 +7388,11 @@
       "OneMind": "One Mind Modifier:",
       "Total": "Ascension Count gained this Ascension:"
     },
-    "purpleLatencyStats": {
-      "title": "Purple Latency",
-      "Base": "Base Latency:",
-      "Total": "Total Purple Latency:"
+    "purpleHalfLifeStats": {
+      "title": "Purple Reactant Half-Life",
+      "Base": "Base Reactant Half-Life:",
+      "PurpleHoneyUpgrade1": "Purple Honey - All-Natural, Organic Catalyzer I:",
+      "Total": "Total Reactant Half-Life:"
     },
     "purpleReactantCapacityStats": {
       "title": "Purple Reactant Capacity",
@@ -7366,9 +7400,10 @@
       "Total": "Total Purple Reactant Capacity:"
     },
     "purpleAmbrosiaLuckStats": {
-      "title": "Purple Ambrosia Luck",
-      "Base": "Base Purple Luck:",
-      "Total": "Total Purple Ambrosia Luck:"
+      "title": "Purple Honey Luck",
+      "Base": "Base Purple Honey Luck:",
+      "PurpleHoneyUpgrade1": "Purple Honey - Purple Honey Luck I",
+      "Total": "Total Purple Honey Luck:"
     },
     "gameStage": "Current Game Section: {{stage}}"
   },

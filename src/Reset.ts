@@ -1224,6 +1224,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.lifetimeRedAmbrosia = player.lifetimeRedAmbrosia
   hold.redAmbrosiaTime = player.redAmbrosiaTime
   hold.redAmbrosiaUpgrades = player.redAmbrosiaUpgrades
+  hold.purpleHoneyProgress = player.purpleHoneyProgress
   hold.purpleReactor = player.purpleReactor
   hold.purpleReactorUpgrades = player.purpleReactorUpgrades
   hold.singularityChallenges = Object.fromEntries(

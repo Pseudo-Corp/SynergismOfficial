@@ -1182,11 +1182,14 @@ export const player: Player = {
   // Invested, because I realized that keeping classes on the player is generally a bad idea
   redAmbrosiaUpgrades: blankRedAmbrosiaUpgradeObject,
 
+  purpleHoneyProgress: 0,
   purpleReactor: {
     purpleHoney: 0,
     lifetimePurpleHoney: 0,
     storedAmbrosiaBarPoints: 0,
-    storedRedAmbrosiaBarPoints: 0
+    storedRedAmbrosiaBarPoints: 0,
+    ambrosiaBarPointPercentage: 0,
+    redAmbrosiaBarPointPercentage: 0
   },
 
   purpleReactorUpgrades: blankPurpleReactorUpgradeObject,
@@ -1195,7 +1198,7 @@ export const player: Player = {
 
   lastExportedSave: 0,
 
-  seed: Array.from({ length: 3 }, () => Date.now()),
+  seed: Array.from({ length: 4 }, () => Date.now()),
 
   stats: {
     totalAddCodesUsed: 0
@@ -4500,6 +4503,7 @@ const tack = (dt: number) => {
     addTimers('octeracts', dt)
     addTimers('singularity', dt)
     addTimers('autoPotion', dt)
+    addTimers('purpleHoney', dt)
     addTimers('ambrosia', dt)
     addTimers('redAmbrosia', dt)
 

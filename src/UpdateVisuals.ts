@@ -17,6 +17,13 @@ import {
   calculateCubeQuarkMultiplier,
   calculateNumberOfThresholds,
   calculateOcteractMultiplier,
+  calculatePurpleAmbrosiaLuck,
+  calculatePurpleHoneyConversionFactor,
+  calculatePurpleHoneyExtractionMultiplier,
+  calculatePurpleHoneyPerExtraction,
+  calculatePurpleReactantCapacity,
+  calculatePurpleReactantHalfLife,
+  calculatePurpleReactantRouting,
   calculateRedAmbrosiaCubes,
   calculateRedAmbrosiaGenerationSpeed,
   calculateRedAmbrosiaLuck,
@@ -153,6 +160,29 @@ const coinNames = [
   'coinMints',
   'alchemies'
 ]
+const purpleReactantPercentages = [0, 10, 25, 50, 100]
+
+const normalizePurpleReactantNetRate = (netRate: number, capacity: number) => {
+  const roundingTolerance = 16 * Number.EPSILON * capacity
+  return Math.abs(netRate) <= roundingTolerance ? 0 : netRate
+}
+
+const isPurpleReactantAtCapacity = (barPoints: number, capacity: number) => {
+  const roundingTolerance = 16 * Number.EPSILON * capacity
+  return capacity > 0 && barPoints >= capacity - roundingTolerance
+}
+
+const formatPurpleReactantNetRate = (netRate: number) => {
+  if (netRate > 0) {
+    return i18next.t('purpleReactor.barPointNetRatePositive', { amount: format(netRate, 2, true) })
+  }
+
+  if (netRate < 0) {
+    return i18next.t('purpleReactor.barPointNetRateNegative', { amount: format(-netRate, 2, true) })
+  }
+
+  return i18next.t('purpleReactor.barPointNetRateZero')
+}
 
 const diamondUpper = [
   'produceFirstDiamonds',
@@ -1883,6 +1913,29 @@ export const visualUpdateAmbrosia = () => {
 
   const totalTimePerSecond = calculateAmbrosiaGenerationSpeed()
   const totalTimePerSecondRed = calculateRedAmbrosiaGenerationSpeed()
+  const reactantCapacity = Math.max(0, calculatePurpleReactantCapacity())
+  const reactantHalfLife = calculatePurpleReactantHalfLife()
+  const conversionFractionPerSecond = 1 - Math.pow(2, -1 / reactantHalfLife)
+  const reactantDissolutionRate = Math.min(
+    Math.max(0, player.purpleReactor.storedAmbrosiaBarPoints),
+    Math.max(0, player.purpleReactor.storedRedAmbrosiaBarPoints)
+  ) * conversionFractionPerSecond
+  const ambrosiaRouting = calculatePurpleReactantRouting(
+    player.singularityChallenges.noSingularityUpgrades.completions > 0 ? totalTimePerSecond : 0,
+    player.purpleReactor.ambrosiaBarPointPercentage,
+    player.purpleReactor.storedAmbrosiaBarPoints,
+    reactantCapacity,
+    1,
+    reactantDissolutionRate
+  )
+  const redAmbrosiaRouting = calculatePurpleReactantRouting(
+    player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? totalTimePerSecondRed : 0,
+    player.purpleReactor.redAmbrosiaBarPointPercentage,
+    player.purpleReactor.storedRedAmbrosiaBarPoints,
+    reactantCapacity,
+    1,
+    reactantDissolutionRate
+  )
   const barWidth = 100 * Math.min(1, player.blueberryTime / requiredTime)
   const pixelBarWidth = 100 * Math.min(1, player.redAmbrosiaTime / requiredTimeRed)
 
@@ -1898,7 +1951,7 @@ export const visualUpdateAmbrosia = () => {
   if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
     DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true, false)} / ${
       format(requiredTime, 0, true)
-    } [+${format(totalTimePerSecond, 0, true)}/s]`
+    } [+${format(ambrosiaRouting.regularRate, 0, true)}/s]`
   } else {
     DOMCacheGetOrSet('ambrosiaProgressText').textContent = i18next.t('ambrosia.notUnlocked')
   }
@@ -1908,7 +1961,7 @@ export const visualUpdateAmbrosia = () => {
   if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
     DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.redAmbrosiaTime, 0, true, false)} / ${
       format(requiredTimeRed, 0, true)
-    } [+${format(totalTimePerSecondRed, 2, true)}/s]`
+    } [+${format(redAmbrosiaRouting.regularRate, 2, true)}/s]`
   } else {
     DOMCacheGetOrSet('pixelProgressText').textContent = i18next.t('redAmbrosia.notUnlocked')
   }
@@ -2033,10 +2086,129 @@ export const visualUpdatePurple = () => {
     return
   }
 
+  const capacity = Math.max(0, calculatePurpleReactantCapacity())
+  const ambrosiaBarPoints = player.purpleReactor.storedAmbrosiaBarPoints
+  const redAmbrosiaBarPoints = player.purpleReactor.storedRedAmbrosiaBarPoints
+
+  const conversionFactor = calculatePurpleHoneyConversionFactor()
+  const purpleHoneyPerExtraction = calculatePurpleHoneyPerExtraction()
+  const purpleHoneyLuck = calculatePurpleAmbrosiaLuck()
+  const { guaranteedMultiplier, bonusMultiplierChance } = calculatePurpleHoneyExtractionMultiplier(purpleHoneyLuck)
+  const reactantHalfLife = calculatePurpleReactantHalfLife()
+
+  const conversionFractionPerSecond = 1 - Math.pow(2, -1 / reactantHalfLife)
+
+  const purpleHoneyProgress = player.purpleHoneyProgress
+  const purpleHoneyProgressPerSecond = Math.min(ambrosiaBarPoints, redAmbrosiaBarPoints)
+    * conversionFractionPerSecond
+
+  const reactantDissolutionRate = Math.min(ambrosiaBarPoints, redAmbrosiaBarPoints) * conversionFractionPerSecond
+
+  const ambrosiaReactantRouting = calculatePurpleReactantRouting(
+    player.singularityChallenges.noSingularityUpgrades.completions > 0 ? calculateAmbrosiaGenerationSpeed() : 0,
+    player.purpleReactor.ambrosiaBarPointPercentage,
+    ambrosiaBarPoints,
+    capacity,
+    1,
+    reactantDissolutionRate
+  )
+  const redAmbrosiaReactantRouting = calculatePurpleReactantRouting(
+    player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? calculateRedAmbrosiaGenerationSpeed() : 0,
+    player.purpleReactor.redAmbrosiaBarPointPercentage,
+    redAmbrosiaBarPoints,
+    capacity,
+    1,
+    reactantDissolutionRate
+  )
+
+  const ambrosiaBarPointReserveRate = ambrosiaReactantRouting.reserveRate
+  const redAmbrosiaBarPointReserveRate = redAmbrosiaReactantRouting.reserveRate
+  const ambrosiaBarPointNetRate = normalizePurpleReactantNetRate(
+    ambrosiaBarPointReserveRate - reactantDissolutionRate,
+    capacity
+  )
+  const redAmbrosiaBarPointNetRate = normalizePurpleReactantNetRate(
+    redAmbrosiaBarPointReserveRate - reactantDissolutionRate,
+    capacity
+  )
+
+  const ambrosiaAtCapacity = isPurpleReactantAtCapacity(ambrosiaReactantRouting.storedBarPoints, capacity)
+  const redAmbrosiaAtCapacity = isPurpleReactantAtCapacity(redAmbrosiaReactantRouting.storedBarPoints, capacity)
+  const displayedAmbrosiaBarPoints = ambrosiaAtCapacity ? capacity : ambrosiaBarPoints
+  const displayedRedAmbrosiaBarPoints = redAmbrosiaAtCapacity ? capacity : redAmbrosiaBarPoints
+  const ambrosiaProgress = capacity > 0 ? Math.min(100, 100 * displayedAmbrosiaBarPoints / capacity) : 0
+  const redAmbrosiaProgress = capacity > 0 ? Math.min(100, 100 * displayedRedAmbrosiaBarPoints / capacity) : 0
+
   DOMCacheGetOrSet('purpleHoneyAmount').innerHTML = i18next.t('purpleReactor.purpleHoneyAmount', {
     amount: format(player.purpleReactor.purpleHoney, 2, true),
     lifetimeAmount: format(player.purpleReactor.lifetimePurpleHoney, 2, true)
   })
+  DOMCacheGetOrSet('purpleHoneyGeneration').innerHTML = i18next.t(
+    'purpleReactor.currentlyGeneratingPurpleHoney',
+    { amount: format(purpleHoneyPerExtraction, 2, true) }
+  )
+  DOMCacheGetOrSet('purpleHoneyLuck').innerHTML = i18next.t(
+    'purpleReactor.purpleHoneyLuck',
+    {
+      luck: format(purpleHoneyLuck, 2, true)
+    }
+  )
+  DOMCacheGetOrSet('purpleHoneyExtractionMultiplier').innerHTML = i18next.t(
+    'purpleReactor.purpleHoneyExtractionMultiplier',
+    { multiplier: `${format(guaranteedMultiplier, 0, true)}x` }
+  )
+  DOMCacheGetOrSet('purpleHoneyExtractionBonusChance').innerHTML = i18next.t(
+    'purpleReactor.purpleHoneyExtractionBonusChance',
+    { chance: format(100 * bonusMultiplierChance, 2, true) }
+  )
+
+  DOMCacheGetOrSet('purpleReactantCapacity').innerHTML = i18next.t(
+    'purpleReactor.reactantContainerCapacity',
+    { capacity: format(capacity, 0, true) }
+  )
+  DOMCacheGetOrSet('purpleReactantHalfLife').innerHTML = i18next.t(
+    'purpleReactor.reactantContainerHalfLife',
+    { time: format(reactantHalfLife, 0, true) }
+  )
+  DOMCacheGetOrSet('purpleHoneyProgressFill').style.width = `${
+    Math.min(100, 100 * purpleHoneyProgress / conversionFactor)
+  }%`
+  DOMCacheGetOrSet('purpleHoneyProgressText').textContent = i18next.t(
+    'purpleReactor.purpleHoneyProgress',
+    {
+      current: format(purpleHoneyProgress, 2, true),
+      conversion: format(conversionFactor, 2, true),
+      rate: format(purpleHoneyProgressPerSecond, 2, true)
+    }
+  )
+  DOMCacheGetOrSet('ambrosiaContainerProgress').style.width = `${ambrosiaProgress}%`
+  DOMCacheGetOrSet('ambrosiaContainerProgressText').textContent = i18next.t(
+    'purpleReactor.reactantContainerProgress',
+    {
+      stored: format(displayedAmbrosiaBarPoints, 2, true),
+      net: ambrosiaAtCapacity ? '' : formatPurpleReactantNetRate(ambrosiaBarPointNetRate)
+    }
+  )
+  DOMCacheGetOrSet('redAmbrosiaContainerProgress').style.width = `${redAmbrosiaProgress}%`
+  DOMCacheGetOrSet('redAmbrosiaContainerProgressText').textContent = i18next.t(
+    'purpleReactor.reactantContainerProgress',
+    {
+      stored: format(displayedRedAmbrosiaBarPoints, 2, true),
+      net: redAmbrosiaAtCapacity ? '' : formatPurpleReactantNetRate(redAmbrosiaBarPointNetRate)
+    }
+  )
+
+  for (const percentage of purpleReactantPercentages) {
+    const ambrosiaButton = DOMCacheGetOrSet(`ambrosiaBarPointPercentage${percentage}`)
+    const redAmbrosiaButton = DOMCacheGetOrSet(`redAmbrosiaBarPointPercentage${percentage}`)
+    const ambrosiaSelected = player.purpleReactor.ambrosiaBarPointPercentage === percentage
+    const redAmbrosiaSelected = player.purpleReactor.redAmbrosiaBarPointPercentage === percentage
+
+    ambrosiaButton.classList.toggle('purpleReactantPercentageSelected', ambrosiaSelected)
+    redAmbrosiaButton.classList.toggle('purpleReactantPercentageSelected', redAmbrosiaSelected)
+    ambrosiaButton.setAttribute('aria-pressed', String(ambrosiaSelected))
+    redAmbrosiaButton.setAttribute('aria-pressed', String(redAmbrosiaSelected))
+  }
 }
 
 export const visualUpdateShop = () => {
