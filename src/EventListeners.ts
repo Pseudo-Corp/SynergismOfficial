@@ -96,6 +96,7 @@ import {
   upgradeOcteractToString
 } from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription, platonicUpgradeModalHTML } from './Platonic'
+import { buyPurpleReactorUpgradeLevel, purpleReactorUpgradeToString } from './Purple'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -1990,6 +1991,21 @@ TODO: Fix this entire tab it's utter shit
       html: () => redAmbrosiaUpgradeToString(key),
       style: { borderColor: 'red' },
       buy: (event, action) => buyRedAmbrosiaUpgradeLevel(key, event, action === 'max')
+    })
+  }
+
+  // THE PURPLE
+  // PURPLE REACTOR
+  const purpleReactorUpgrades = Object.keys(
+    player.purpleReactorUpgrades
+  ) as (keyof Player['purpleReactorUpgrades'])[]
+  for (const key of purpleReactorUpgrades) {
+    const capitalizedName = key.charAt(0).toUpperCase() + key.slice(1)
+    registerPurchasableModal({
+      element: DOMCacheGetOrSet(`purpleReactor${capitalizedName}`),
+      html: () => purpleReactorUpgradeToString(key),
+      style: { borderColor: 'purple' },
+      buy: (event, action) => buyPurpleReactorUpgradeLevel(key, event, action === 'max')
     })
   }
 

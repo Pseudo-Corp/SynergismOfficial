@@ -308,6 +308,11 @@ const subtabInfo: Record<Tabs, SubTab> = {
         subTabID: '5',
         unlocked: () => player.highestSingularityCount >= 25,
         buttonID: 'toggleSingularitySubTab5'
+      },
+      {
+        subTabID: '6',
+        unlocked: () => true, // change requirement later
+        buttonID: 'toggleSingularitySubTab6'
       }
     ]
   },

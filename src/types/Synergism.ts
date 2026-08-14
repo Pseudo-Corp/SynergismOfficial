@@ -9,6 +9,7 @@ import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type { HepteractKeys, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrades } from '../Octeracts'
+import type { PurpleReactorNames } from '../Purple'
 import type { QuarkHandler } from '../Quark'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
 import type { RuneBlessingKeys } from '../RuneBlessings'
@@ -546,6 +547,15 @@ export interface Player {
   lifetimeRedAmbrosia: number
   redAmbrosiaTime: number
   redAmbrosiaUpgrades: Record<RedAmbrosiaNames, number>
+
+  purpleReactor: {
+    purpleHoney: number
+    lifetimePurpleHoney: number
+    storedAmbrosiaBarPoints: number
+    storedRedAmbrosiaBarPoints: number
+  }
+
+  purpleReactorUpgrades: Record<PurpleReactorNames, number>
 
   singChallengeTimer: number
 

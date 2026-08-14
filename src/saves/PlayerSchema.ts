@@ -270,6 +270,13 @@ const ambrosiaUpgradeSchema = z.object({
   blueberriesInvested: z.number().default(0)
 })
 
+const purpleReactorSchema = z.object({
+  purpleHoney: z.number().default(0),
+  lifetimePurpleHoney: z.number().default(0),
+  storedAmbrosiaBarPoints: z.number().default(0),
+  storedRedAmbrosiaBarPoints: z.number().default(0)
+})
+
 const playerCorruptionSchema = z.object({
   used: optionalCorruptionSchema.transform((value) => {
     return new CorruptionLoadout(value)
@@ -1033,6 +1040,20 @@ export const playerSchema = z.object({
       )
     }
   ).default(() => ({ ...blankSave.redAmbrosiaUpgrades })),
+
+  purpleReactor: purpleReactorSchema.default(() => deepClone()(blankSave.purpleReactor)),
+
+  purpleReactorUpgrades: z.record(z.string(), z.number()).transform(
+    (object) => {
+      return Object.fromEntries(
+        Object.keys(blankSave.purpleReactorUpgrades).map((key) => {
+          const value = object[key]
+            ?? blankSave.purpleReactorUpgrades[key as keyof typeof blankSave['purpleReactorUpgrades']]
+          return value === null ? [key, 0] : [key, Number(value)]
+        })
+      )
+    }
+  ).default(() => ({ ...blankSave.purpleReactorUpgrades })),
 
   singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
 

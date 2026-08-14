@@ -245,6 +245,7 @@ import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 // eslint-disable-next-line no-unassigned-import
 import './saves/verify'
+import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from './Purple'
 import { getShopUpgradeEffects, updateShopLevels } from './Shop'
 import { generateShopTabHTML } from './ShopTab'
 import {
@@ -1180,6 +1181,15 @@ export const player: Player = {
   // NOTE: This only keeps track of the total number of Red Ambrosia
   // Invested, because I realized that keeping classes on the player is generally a bad idea
   redAmbrosiaUpgrades: blankRedAmbrosiaUpgradeObject,
+
+  purpleReactor: {
+    purpleHoney: 0,
+    lifetimePurpleHoney: 0,
+    storedAmbrosiaBarPoints: 0,
+    storedRedAmbrosiaBarPoints: 0
+  },
+
+  purpleReactorUpgrades: blankPurpleReactorUpgradeObject,
 
   singChallengeTimer: 0,
 
@@ -4912,6 +4922,7 @@ export const reloadShit = async (ignoreOfflineProgress = false) => {
   // Must run before updateAchievementPoints
   setAmbrosiaUpgradeLevels()
   setRedAmbrosiaUpgradeLevels()
+  setPurpleReactorUpgradeLevels()
 
   updateAchievementPoints(true)
   if (player.talismans !== undefined) {

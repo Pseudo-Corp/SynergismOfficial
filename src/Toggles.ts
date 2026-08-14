@@ -17,7 +17,7 @@ import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
 import { Alert, Confirm, createFitties, Prompt, updateChallengeDisplay } from './UpdateHTML'
-import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
+import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts, visualUpdatePurple } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract'
@@ -537,7 +537,7 @@ export const toggleMaxPlat = () => {
 export const toggleSingularityScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 6; i++) {
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
       b.style.display = 'block'
@@ -546,13 +546,16 @@ export const toggleSingularityScreen = (indexStr: string) => {
     }
   }
 
+  console.log(`Singularity subtab ${index} selected. Current active subtab: ${getActiveSubTab()}`)
   if (index === 1) {
     updateSingularityElevator()
     updateSingularityElevatorVisibility()
-  } else if (getActiveSubTab() === 4) {
+  } else if (getActiveSubTab() === 3) {
     visualUpdateOcteracts()
-  } else if (getActiveSubTab() === 5) {
+  } else if (getActiveSubTab() === 4) {
     visualUpdateAmbrosia()
+  } else if (getActiveSubTab() === 5) {
+    visualUpdatePurple()
   }
 }
 

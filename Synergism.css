@@ -117,6 +117,7 @@ body {
     --boxmain-bordercolor: plum;
     --box-color: #111;
     --blueberry-box-color: #4f86f7;
+    --purple-box-color: purple;
     --button-color: #171717;
     --blackbtn-color: black;
     --purplebtn-color: purple;
@@ -212,6 +213,12 @@ html[data-legacyicons="true"] {
 .blueberryBoxColor {
     border: 3px solid;
     border-color: var(--blueberry-box-color);
+    background-color: var(--box-color);
+}
+
+.purpleBoxColor {
+    border: 3px solid;
+    border-color: var(--purple-box-color);
     background-color: var(--box-color);
 }
 
@@ -3431,7 +3438,8 @@ p#reincarnatehotkeys {
 #totalOcteractsDisplay,
 #ambrosiaDisplay,
 #redAmbrosiaDisplay,
-#blueberryDisplay {
+#blueberryDisplay,
+#purpleHoneyDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -5683,7 +5691,8 @@ header #obtainiumDisplay { color: pink; }
 
 #singularityUpgradeContainer,
 #singularityOcteracts,
-#singularityAmbrosia {
+#singularityAmbrosia,
+#singularityPurple {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5827,7 +5836,8 @@ header #obtainiumDisplay { color: pink; }
 
 #actualSingularityUpgradeContainer,
 #octeractUpgradeContainer,
-#blueberryUpgradeContainer {
+#blueberryUpgradeContainer,
+#purpleUpgradeContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -8472,7 +8482,8 @@ html[data-mobile="true"] .hideOnMobile {
 
     #actualSingularityUpgradeContainer,
     #octeractUpgradeContainer,
-    #blueberryUpgradeContainer {
+    #blueberryUpgradeContainer,
+    #purpleUpgradeContainer {
         width: unset;
     }
 
