@@ -17,7 +17,13 @@ import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
 import { Alert, Confirm, createFitties, Prompt, updateChallengeDisplay } from './UpdateHTML'
-import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts, visualUpdatePurple } from './UpdateVisuals'
+import {
+  visualUpdateAmbrosia,
+  visualUpdateAnts,
+  visualUpdateCubes,
+  visualUpdateOcteracts,
+  visualUpdatePurple
+} from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract'
