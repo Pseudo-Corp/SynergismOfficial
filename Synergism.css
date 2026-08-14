@@ -8443,7 +8443,7 @@ html[data-mobile="true"] .hideOnMobile {
         padding: 0;
     }
 
-    #researchtable button {
+    #researchtable button:not(.researchLocked) {
         display: flex;
         width: 44px;
         height: 44px;
