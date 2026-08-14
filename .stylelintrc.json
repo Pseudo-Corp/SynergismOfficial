@@ -6,6 +6,6 @@
         "selector-class-pattern": null,
         "declaration-block-no-shorthand-property-overrides": null,
         "declaration-block-no-redundant-longhand-properties": null,
-        "indentation": 4
+        "selector-not-notation": "simple"
     }
 }

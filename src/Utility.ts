@@ -339,7 +339,8 @@ export function isomorphicDecode (input: Uint8Array) {
 }
 
 export const isMobile = (function isMobileDevice() {
-  return PLATFORM === 'mobile' || window.matchMedia('(pointer: coarse)').matches
+  return PLATFORM === 'mobile'
+    || (window.matchMedia('(any-pointer: coarse)').matches && !window.matchMedia('(any-pointer: fine)').matches)
     || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 })()
 
