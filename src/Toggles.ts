@@ -559,7 +559,7 @@ export const toggleMaxPlat = () => {
 export const toggleSingularityScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 6; i++) {
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
       b.style.display = 'block'

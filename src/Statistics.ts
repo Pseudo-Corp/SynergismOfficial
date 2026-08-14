@@ -56,6 +56,9 @@ import {
   calculatePlatonicMultiplier,
   calculatePositiveSalvage,
   calculatePowderConversion,
+  calculatePurpleAmbrosiaLuck,
+  calculatePurpleLatency,
+  calculatePurpleReactantCapacity,
   calculateQuarkMultFromPowder,
   calculateQuarkMultiplier,
   calculateRawAntSpeedMult,
@@ -3647,6 +3650,46 @@ export const ascensionCountMultStats: NumberStatLineCategory = {
   ]
 }
 
+/**
+ * This is different from 'Purple Ambrosia Generation', by the way.
+ * "Purple" is the base resource used for Purple Ambrosia stuff.
+ */
+export const allPurpleLatencyStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 0.00001 // 0.001% per second
+    }
+  ]
+}
+
+/**
+ * Purple Reactants are Ambrosia and Red Ambrosia Bar Points (ABP, RABP)
+ */
+export const allPurpleReactantCapacityStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 1_000_000_000
+    }
+  ]
+}
+
+export const allPurpleAmbrosiaLuckStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 100
+    }
+  ]
+}
+
 const allMiscStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Misc,
@@ -3756,6 +3799,9 @@ const associated = new Map<string, string>([
   ['kLuckConversion', 'luckConversionStats'],
   ['kRedAmbrosiaLuck', 'redAmbrosiaLuckStats'],
   ['kRedAmbrosiaGenMult', 'redAmbrosiaGenerationStats'],
+  ['kPurpleLatency', 'purpleLatencyStats'],
+  ['kPurpleReactantCapacity', 'purpleReactantCapacityStats'],
+  ['kPurpleAmbrosiaLuck', 'purpleAmbrosiaLuckStats'],
   ['kShopVouchers', 'shopVoucherStats']
 ])
 
@@ -3923,6 +3969,15 @@ export const loadStatisticsUpdate = (statsId?: string) => {
         break
       case 'redAmbrosiaGenerationStats':
         loadRedAmbrosiaGenerationStats()
+        break
+      case 'purpleLatencyStats':
+        loadStatisticsPurpleLatencyStats()
+        break
+      case 'purpleReactantCapacityStats':
+        loadStatisticsPurpleReactantCapacityStats()
+        break
+      case 'purpleAmbrosiaLuckStats':
+        loadStatisticsPurpleAmbrosiaLuckStats()
         break
       case 'shopVoucherStats':
         loadShopVoucherStats()
@@ -4459,6 +4514,36 @@ const loadStatisticsAscensionCountMultiplierStats = () => {
     'statACM',
     'AscensionCountMultStat',
     calculateAscensionCount
+  )
+}
+
+const loadStatisticsPurpleLatencyStats = () => {
+  loadStatistics(
+    allPurpleLatencyStats,
+    'purpleLatencyStats',
+    'statPL',
+    'PurpleLatencyStat',
+    calculatePurpleLatency
+  )
+}
+
+const loadStatisticsPurpleReactantCapacityStats = () => {
+  loadStatistics(
+    allPurpleReactantCapacityStats,
+    'purpleReactantCapacityStats',
+    'statPRC',
+    'PurpleReactantCapacityStat',
+    calculatePurpleReactantCapacity
+  )
+}
+
+const loadStatisticsPurpleAmbrosiaLuckStats = () => {
+  loadStatistics(
+    allPurpleAmbrosiaLuckStats,
+    'purpleAmbrosiaLuckStats',
+    'statPAL',
+    'PurpleAmbrosiaLuckStat',
+    calculatePurpleAmbrosiaLuck
   )
 }
 

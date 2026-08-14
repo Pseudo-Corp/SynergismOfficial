@@ -1804,6 +1804,8 @@ export const visualUpdateSingularity = () => {
     }
   } else if (activeSubTab === 4) {
     visualUpdateAmbrosia()
+  } else if (activeSubTab === 5) {
+    visualUpdatePurple()
   }
 }
 
@@ -2042,6 +2044,17 @@ export const visualUpdateAmbrosia = () => {
       }
     )
   }
+}
+
+export const visualUpdatePurple = () => {
+  if (G.currentTab !== Tabs.Singularity) {
+    return
+  }
+
+  DOMCacheGetOrSet('purpleHoneyAmount').innerHTML = i18next.t('purpleReactor.purpleHoneyAmount', {
+    amount: format(player.purpleReactor.purpleHoney, 2, true),
+    lifetimeAmount: format(player.purpleReactor.lifetimePurpleHoney, 2, true)
+  })
 }
 
 export const visualUpdateShop = () => {

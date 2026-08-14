@@ -46,6 +46,9 @@ import {
   allOfferingStats,
   allPlatonicCubeStats,
   allPowderMultiplierStats,
+  allPurpleAmbrosiaLuckStats,
+  allPurpleLatencyStats,
+  allPurpleReactantCapacityStats,
   allQuarkStats,
   allRedAmbrosiaGenerationSpeedStats,
   allRedAmbrosiaLuckStats,
@@ -388,6 +391,10 @@ export const calculateLuckConversion = () => calculateTotalStat(allLuckConversio
 export const calculateRedAmbrosiaLuck = () => calculateTotalStat(allRedAmbrosiaLuckStats)
 
 export const calculateRedAmbrosiaGenerationSpeed = () => calculateTotalStat(allRedAmbrosiaGenerationSpeedStats)
+
+export const calculatePurpleLatency = () => calculateTotalStat(allPurpleLatencyStats)
+export const calculatePurpleReactantCapacity = () => calculateTotalStat(allPurpleReactantCapacityStats)
+export const calculatePurpleAmbrosiaLuck = () => calculateTotalStat(allPurpleAmbrosiaLuckStats)
 
 export const calculateFreeShopInfinityUpgrades = () => calculateTotalStat(allShopTablets)
 
