@@ -61,8 +61,8 @@
     "oxlint": "^1.53.0",
     "oxlint-tsgolint": "^0.16.0",
     "shx": "^0.4.0",
-    "stylelint": "^14.8.2",
-    "stylelint-config-standard": "^25.0.0",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3"
   },
   "scripts": {

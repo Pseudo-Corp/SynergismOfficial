@@ -153,7 +153,7 @@ body.loading {
     background-color: var(--bg-color);
 }
 
-.textOutline:not(button, #importFileButton) {
+.textOutline:not(button):not(#importFileButton) {
     text-shadow: -1px 0 #67647a, 0 1px #67647a, 1px 0 #67647a, 0 -1px #67647a;
 }
 
@@ -1903,7 +1903,6 @@ p#promocodeinfo {
         line-height: 1.2;
         white-space: normal;
         overflow-wrap: anywhere;
-        word-break: break-word;
     }
 }
 
@@ -1958,7 +1957,7 @@ p#promocodeinfo {
     display: grid;
     grid-template-columns: repeat(8, 48px);
     grid-template-rows: repeat(5, 48px);
-    gap: 2px 2px;
+    gap: 2px;
 }
 
 #tieredAchievementsTable > div {
@@ -1970,7 +1969,7 @@ p#promocodeinfo {
     display: grid;
     grid-template-columns: repeat(12, 32px);
     grid-template-rows: repeat(5, 32px);
-    gap: 2px 2px;
+    gap: 2px;
 }
 
 #ungroupedAchievementsTable > div {
@@ -1982,7 +1981,7 @@ p#promocodeinfo {
     display: grid;
     grid-template-columns: repeat(8, 48px);
     grid-template-rows: repeat(5, 48px);
-    gap: 2px 2px;
+    gap: 2px;
 }
 
 #progressiveAchievementsTable > div {
@@ -2191,7 +2190,7 @@ p#promocodeinfo {
     display: grid;
     grid-template-columns: repeat(12, 48px);
     grid-template-rows: repeat(1, 48px);
-    gap: 2px 2px;
+    gap: 2px;
     align-items: center;
     justify-content: center;
 }
@@ -2205,7 +2204,7 @@ p#promocodeinfo {
     display: grid;
     grid-template-columns: repeat(12, 32px);
     grid-template-rows: repeat(4, 32px);
-    gap: 2px 2px;
+    gap: 2px;
     align-items: center;
     justify-content: center;
 }
@@ -2475,8 +2474,8 @@ img.runeTypeElement:hover {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0;
-    grid-row-gap: 0;
+    column-gap: 0;
+    row-gap: 0;
     position: relative;
 }
 
@@ -3402,7 +3401,7 @@ p#reincarnatehotkeys {
 .antUpgradeRow {
     display: flex;
     flex-direction: row;
-    gap: 4px 4px;
+    gap: 4px;
     justify-content: center;
 }
 
@@ -3979,7 +3978,6 @@ p[id$="BlessingsTotal"] {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    flex-basis: 1;
     flex-grow: 0;
     min-width: 450px;
     max-width: 750px;
@@ -4013,7 +4011,6 @@ button.language-select span.lang-name {
 }
 
 .languageContribution {
-    flex-basis: 1;
     flex-grow: 0;
     min-width: 450px;
     max-width: 750px;
@@ -4480,8 +4477,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     display: grid;
     grid-template-columns: repeat(10, minmax(0, 48px));
     grid-template-rows: repeat(5, minmax(0, 48px));
-    grid-column-gap: 5px;
-    grid-row-gap: 5px;
+    column-gap: 5px;
+    row-gap: 5px;
     justify-content: center;
 }
 
@@ -5198,8 +5195,8 @@ header #obtainiumDisplay { color: pink; }
     padding: 8px;
     grid-column: shop 2/4;
     grid-row: 1;
-    grid-column-gap: 15px;
-    grid-row-gap: 15px;
+    column-gap: 15px;
+    row-gap: 15px;
     align-self: flex-start;
     line-height: 1.2em;
     padding-bottom: 2em;
@@ -5354,7 +5351,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #saveString {
-    word-wrap: anywhere;
+    overflow-wrap: anywhere;
 }
 
 #singularity {
@@ -5819,7 +5816,7 @@ img#singularityPerksIcon {
     grid-auto-rows: auto;
     justify-content: center;
     align-content: center;
-    grid-gap: 4px;
+    gap: 4px;
     font-size: 1em;
     margin-top: 5px;
 }
@@ -5897,7 +5894,7 @@ img#singularityPerksIcon {
     grid-template-rows: repeat(2, auto);
     grid-template-columns: repeat(2, minmax(0, 375px));
     justify-content: center;
-    grid-gap: 10px;
+    gap: 10px;
 }
 
 #singularityChallengeScalingHeader,
@@ -6395,7 +6392,7 @@ img#singularityPerksIcon {
     }
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .details-content {
         flex-direction: column;
         gap: 15px;
@@ -6557,7 +6554,7 @@ form input:hover {
 
 #manage-subscription-holder {
     display: flex;
-    flex: row;
+    flex-direction: row;
 }
 
 #manage-subscription-holder > form {
@@ -6724,7 +6721,7 @@ form input:hover {
     cursor: pointer;
     border: 2px solid white;
     font-size: 1.2em;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
     margin-bottom: 5px;
     font-family: Inconsolata, monospace;
 }
@@ -7049,7 +7046,7 @@ html[data-mobile="false"] .pseudoCoinButton {
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
     border: 0;
 }
 
@@ -7621,7 +7618,7 @@ html[data-mobile="true"] .hideOnMobile {
    MOBILE RESPONSIVE STYLES
    ============================================ */
 
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
     html {
         min-width: unset;
         width: 100%;
@@ -8055,8 +8052,8 @@ html[data-mobile="true"] .hideOnMobile {
 
     #campaignIconGrid {
         grid-template-columns: repeat(5, 48px);
-        grid-column-gap: unset;
-        grid-row-gap: unset;
+        column-gap: unset;
+        row-gap: unset;
     }
 
     #campaignsTokensInfo {
@@ -8101,7 +8098,7 @@ html[data-mobile="true"] .hideOnMobile {
 
     #singularityPerksGrid {
         grid-template-columns: repeat(2, 50%);
-        grid-gap: unset;
+        gap: unset;
     }
 
     #singualrityPerksInfo,
@@ -8316,7 +8313,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #statisticsSubTab > * {
-        word-break: break-word;
+        overflow-wrap: anywhere;
     }
 
     .statContainer {
@@ -8417,7 +8414,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 }
 
-@media (max-width: 1024px) and (orientation: portrait) {
+@media (width <= 1024px) and (orientation: portrait) {
     /* Keep the research icons readable by transposing the 8x25 table. */
     .researchContainer > .scrollbarX {
         max-width: 100%;
@@ -8458,7 +8455,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
     /* Extra small screens */
     html {
         font-size: 14px;
@@ -9023,37 +9020,39 @@ html[data-mobile="true"] .hideOnMobile {
 }
 
 /* Ensure touch-friendly tap targets */
-@media (pointer: coarse) {
-    button:not(.mobile-menu-toggle):not(.mobileTabIconButton):not(.singularityUpgrade):not(.octeractUpgrade),
-    .buildingPurchaseBtn,
-    nav button:not(.mobile-menu-toggle):not(.mobileTabIconButton) {
-        min-height: 44px;
-    }
+@media (any-pointer: coarse) {
+    @media not all and (any-pointer: fine) {
+        button:not(.mobile-menu-toggle):not(.mobileTabIconButton):not(.singularityUpgrade):not(.octeractUpgrade),
+        .buildingPurchaseBtn,
+        nav button:not(.mobile-menu-toggle):not(.mobileTabIconButton) {
+            min-height: 44px;
+        }
 
-    #antProducers .antProducerColumn > button {
-        min-height: 0;
-        min-width: 0;
-    }
+        #antProducers .antProducerColumn > button {
+            min-height: 0;
+            min-width: 0;
+        }
 
-    #platonicUpgradePics button {
-        min-height: unset;
-    }
+        #platonicUpgradePics button {
+            min-height: unset;
+        }
 
-    input[type="checkbox"] {
-        min-width: 24px;
-        min-height: 24px;
-    }
+        input[type="checkbox"] {
+            min-width: 24px;
+            min-height: 24px;
+        }
 
-    .confirmationToggle {
-        gap: 10px;
-    }
+        .confirmationToggle {
+            gap: 10px;
+        }
 
-    #challengesAutoToggles > button {
-        min-height: 44px;
-        padding: 4px 8px;
-    }
+        #challengesAutoToggles > button {
+            min-height: 44px;
+            padding: 4px 8px;
+        }
 
-    #accountSubTab div#left.scrollbarX > div:is(#register, #login, #forgotpassword) {
-        width: 100%;
+        #accountSubTab div#left.scrollbarX > div:is(#register, #login, #forgotpassword) {
+            width: 100%;
+        }
     }
 }
