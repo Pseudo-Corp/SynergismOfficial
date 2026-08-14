@@ -230,7 +230,7 @@ const getCostAccelMult = (type: keyof typeof accelMultData, n: number): Decimal 
   return cost
 }
 
-const getAcceleratorBoostCost = (n = 1): Decimal => {
+export const getAcceleratorBoostCost = (n = 1): Decimal => {
   const owned = n - 1
   const base = new Decimal(1000)
   const r = getRuneBlessingEffect('thrift').accelBoostCostDelay
@@ -497,7 +497,7 @@ export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamoun
     while (player.prestigePoints.gte(player.acceleratorBoostCost) && G.ticker < 1) {
       if (player.prestigePoints.gte(player.acceleratorBoostCost)) {
         player.acceleratorBoostBought += 1
-        player.acceleratorBoostCost = getAcceleratorBoostCost(player.acceleratorBoostBought)
+        player.acceleratorBoostCost = getAcceleratorBoostCost(player.acceleratorBoostBought + 1)
         player.transcendnoaccelerator = false
         player.reincarnatenoaccelerator = false
         if (player.upgrades[46] < 0.5) {
