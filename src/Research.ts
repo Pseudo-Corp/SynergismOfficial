@@ -179,10 +179,22 @@ const researchUnlockRanges: RangeCondition[] = [
   { range: [119, 123], condition: () => player.unlocks.ascensions },
   { range: [124, 125], condition: () => Boolean(getAchievementReward('antSacrificeUnlock')) },
   { range: [126, 140], condition: () => player.ascensionCount > 0 || player.highestSingularityCount > 0 },
-  { range: [141, 155], condition: () => player.highestchallengecompletions[11] > 0 || player.highestSingularityCount > 0 },
-  { range: [156, 170], condition: () => player.highestchallengecompletions[12] > 0 || player.highestSingularityCount > 0 },
-  { range: [171, 185], condition: () => player.highestchallengecompletions[13] > 0 || player.highestSingularityCount > 0 },
-  { range: [186, 200], condition: () => player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0 }
+  {
+    range: [141, 155],
+    condition: () => player.highestchallengecompletions[11] > 0 || player.highestSingularityCount > 0
+  },
+  {
+    range: [156, 170],
+    condition: () => player.highestchallengecompletions[12] > 0 || player.highestSingularityCount > 0
+  },
+  {
+    range: [171, 185],
+    condition: () => player.highestchallengecompletions[13] > 0 || player.highestSingularityCount > 0
+  },
+  {
+    range: [186, 200],
+    condition: () => player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0
+  }
 ]
 
 const createResearchDataMap = (
