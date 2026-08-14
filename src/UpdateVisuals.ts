@@ -2036,6 +2036,17 @@ export const visualUpdateAmbrosia = () => {
   }
 }
 
+export const visualUpdatePurple = () => {
+  if (G.currentTab !== Tabs.Singularity) {
+    return
+  }
+
+  DOMCacheGetOrSet('purpleHoneyAmount').innerHTML = i18next.t('purpleReactor.purpleHoneyAmount', {
+    amount: format(player.purpleReactor.purpleHoney, 2, true),
+    lifetimeAmount: format(player.purpleReactor.lifetimePurpleHoney, 2, true)
+  })
+}
+
 export const visualUpdateShop = () => {
   if (G.currentTab !== Tabs.Shop) {
     return

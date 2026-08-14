@@ -2429,6 +2429,9 @@
                     <button class="statsNerds octeracts" id="kLuckConversion" style="border: 2px solid yellow" i18n="statistics.subtabs.luckConversion"></button>
                     <button class="statsNerds octeracts" id="kRedAmbrosiaLuck" style="border: 2px solid red" i18n="statistics.subtabs.redAmbrosiaLuck"></button>
                     <button class="statsNerds octeracts" id="kRedAmbrosiaGenMult" style="border: 2px solid red" i18n="statistics.subtabs.redAmbrosiaGenMult"></button>
+                    <button class="statsNerds octeracts" id="kPurpleLatency" style="border: 2px solid purple" i18n="statistics.subtabs.purpleLatency"></button>
+                    <button class="statsNerds octeracts" id="kPurpleReactantCapacity" style="border: 2px solid purple" i18n="statistics.subtabs.purpleReactantCapacity"></button>
+                    <button class="statsNerds octeracts" id="kPurpleAmbrosiaLuck" style="border: 2px solid purple" i18n="statistics.subtabs.purpleAmbrosiaLuck"></button>
                     <button class="statsNerds octeracts" id="kShopVouchers" style="border: 2px solid cyan" i18n="statistics.subtabs.shopVouchers"></button>
                     <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;" i18n="statistics.subtabs.generate"></button>
                 </div>
@@ -2594,6 +2597,18 @@
 
                 <div id="redAmbrosiaGenerationStats" class="statContainer activeStats" aria-live="polite">
                     <p id="redAmbrosiaGenStatTitle" class="statPortion" style="color: red; font-size: 1.2em" i18n="statistics.redAmbrosiaGenerationStats.title"></p>
+                </div>
+
+                <div id="purpleLatencyStats" class="statContainer activeStats" aria-live="polite">
+                    <p id="purpleLatencyStatTitle" class="statPortion" style="color: purple; font-size: 1.2em" i18n="statistics.purpleLatencyStats.title"></p>
+                </div>
+
+                <div id="purpleReactantCapacityStats" class="statContainer activeStats" aria-live="polite">
+                    <p id="purpleReactantCapacityStatTitle" class="statPortion" style="color: purple; font-size: 1.2em" i18n="statistics.purpleReactantCapacityStats.title"></p>
+                </div>
+
+                <div id="purpleAmbrosiaLuckStats" class="statContainer activeStats" aria-live="polite">
+                    <p id="purpleAmbrosiaLuckStatTitle" class="statPortion" style="color: purple; font-size: 1.2em" i18n="statistics.purpleAmbrosiaLuckStats.title"></p>
                 </div>
 
                 <div id="shopVoucherStats" class="statContainer activeStats" aria-live="polite">
@@ -2829,6 +2844,7 @@
                 <button id="toggleSingularitySubTab3" style="border: 2px solid orange; color: white"><span class="subTabButtonText fitText" i18n="tabs.singularity.perks-penalties"></span></button>
                 <button id="toggleSingularitySubTab4" class="octeracts" style="border: 2px solid blue; color: white"><span class="subTabButtonText fitText" i18n="tabs.singularity.octeracts"></span></button>
                 <button id="toggleSingularitySubTab5" class="singChallenges" style="border: 2px solid #ffbf00; color: gold"><span class="subTabButtonText fitText" i18n="tabs.singularity.ambrosia"></span></button>
+                <button id="toggleSingularitySubTab6" class="singChallenges" style="border: 2px solid purple; color: orchid"><span class="subTabButtonText fitText" i18n="tabs.singularity.purple"></span></button>
             </div>
 
             <div id="singularityContainer1">
@@ -3593,6 +3609,25 @@
                     </div>
                     <div id="ambrosiaUpgradeValues">
                         <p id="singularityAmbrosiaMultiline"></p>
+                    </div>
+                </div>
+            </div>
+            <div id="singularityContainer6" style="display: none;">
+                <div id="purpleHoneyDisplay">
+                    <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHoney.png" loading="lazy">
+                    <p id="purpleHoneyAmount" class="amberText"></p>
+                </div>
+                <div id="singularityPurple" class="singularityContainer">
+                    <div class="purpleBoxColor" id="purpleUpgradeContainer">
+                        <button class="purpleUpgrade" id="purpleReactorTutorial">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurpleTutorial.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleEfficiency1">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleEfficiency1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleAmbrosiaLuck1">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleAmbrosiaLuck1.png">
+                        </button>
                     </div>
                 </div>
             </div>
