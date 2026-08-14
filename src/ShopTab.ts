@@ -246,8 +246,13 @@ const shopSections = [
         tiers: [
           { key: 'shopRedLuck1', icon: 'Pictures/img_transparent.png' },
           { key: 'shopRedLuck2', icon: 'Pictures/img_transparent.png' },
-          { key: 'shopRedLuck3', icon: 'Pictures/img_transparent.png' }
+          { key: 'shopRedLuck3', icon: 'Pictures/img_transparent.png' },
+          { key: 'shopRedLuck4', icon: 'Pictures/img_transparent.png' }
         ]
+      },
+      {
+        id: 'shopPurpleHoney',
+        tiers: [{ key: 'shopPurpleBarRebate', icon: 'Pictures/Default/ShopPurpleBarRebate.png' }]
       }
     ]
   },
@@ -298,24 +303,36 @@ export const shopFamilyCoverage: [UncoveredShopTiers] extends [never] ? true : U
 let selectedFamily: ShopFamilyData = shopSections[0].families[0]
 let selectedTier: ShopUpgradeNames = shopSections[0].families[0].tiers[0].key
 
-const tierUnlocked = (key: ShopUpgradeNames) => shopUpgrades[key].isUnlocked()
+const tierAvailable = (key: ShopUpgradeNames) => testing || shopUpgrades[key].isUnlocked()
 
 const tierMaxed = (key: ShopUpgradeNames) =>
   player.shopUpgrades[key] >= shopUpgrades[key].maxLevel || instantUnlocked(key)
 
 const tierHidden = (key: ShopUpgradeNames) => player.shopHideToggle && tierMaxed(key)
 
+const updateTextContentIfChanged = (element: HTMLElement, text: string) => {
+  if (element.textContent !== text) {
+    element.textContent = text
+  }
+}
+
+const updateInnerHTMLIfChanged = (element: HTMLElement, html: string) => {
+  if (element.innerHTML !== html) {
+    element.innerHTML = html
+  }
+}
+
 const familyNameKey = (family: ShopFamilyData) =>
   family.tiers.length > 1 ? `shop.familyNames.${family.id}` : `shop.names.${family.tiers[0].key}`
 
 const frontierTier = (family: ShopFamilyData) => {
   for (const tier of family.tiers) {
-    if (tierUnlocked(tier.key) && !tierMaxed(tier.key)) {
+    if (tierAvailable(tier.key) && !tierMaxed(tier.key)) {
       return tier
     }
   }
   for (let i = family.tiers.length - 1; i >= 0; i--) {
-    if (tierUnlocked(family.tiers[i].key)) {
+    if (tierAvailable(family.tiers[i].key)) {
       return family.tiers[i]
     }
   }
@@ -485,7 +502,7 @@ const updateShopDetail = () => {
       const isSelectedFamily = family === selectedFamily
       for (const tier of family.tiers) {
         const chip = DOMCacheGetOrSet(`shopTierChip-${tier.key}`)
-        chip.style.display = isSelectedFamily && (tierUnlocked(tier.key) || testing) && !tierHidden(tier.key)
+        chip.style.display = isSelectedFamily && tierAvailable(tier.key) && !tierHidden(tier.key)
           ? ''
           : 'none'
         if (!isSelectedFamily) {
@@ -493,44 +510,58 @@ const updateShopDetail = () => {
         }
         chip.classList.toggle('shopTierSelected', tier.key === selectedTier)
         chip.classList.toggle('shopTierMaxed', tierMaxed(tier.key))
-        chip.classList.toggle('shopTestingOnly', testing && !tierUnlocked(tier.key))
-        DOMCacheGetOrSet(`shopTierChipLevel-${tier.key}`).textContent = shopUpgrades[tier.key].maxLevel === 1
+        chip.classList.toggle('shopTestingOnly', testing && !shopUpgrades[tier.key].isUnlocked())
+        const levelText = shopUpgrades[tier.key].maxLevel === 1
           ? (tierMaxed(tier.key) ? '✓' : '✕')
           : i18next.t('shop.level', {
             x: format(player.shopUpgrades[tier.key]),
             y: format(shopUpgrades[tier.key].maxLevel)
           })
+        updateTextContentIfChanged(DOMCacheGetOrSet(`shopTierChipLevel-${tier.key}`), levelText)
       }
     }
   }
 
-  DOMCacheGetOrSet('shopDetailName').innerHTML = `${item.name()}${getShopTypeSymbolsHTML(selectedTier)}`
+  updateInnerHTMLIfChanged(
+    DOMCacheGetOrSet('shopDetailName'),
+    `${item.name()}${getShopTypeSymbolsHTML(selectedTier)}`
+  )
+
+  const testingOnlyWarning = DOMCacheGetOrSet('shopTestingOnlyWarning')
+  const testingOnly = testing && !item.isUnlocked()
+  testingOnlyWarning.hidden = !testingOnly
+  if (testingOnly) {
+    updateTextContentIfChanged(testingOnlyWarning, i18next.t('shop.testingOnlyUpgrade'))
+  }
 
   const levelEl = DOMCacheGetOrSet('shopDetailLevel')
   if (item.maxLevel === 1) {
     const bought = tierMaxed(selectedTier)
-    levelEl.textContent = bought ? i18next.t('shop.bought') : i18next.t('shop.notBought')
+    updateTextContentIfChanged(levelEl, bought ? i18next.t('shop.bought') : i18next.t('shop.notBought'))
     levelEl.style.color = bought ? 'gold' : 'white'
   } else {
-    levelEl.textContent = i18next.t('shop.levelWithText', {
-      x: format(player.shopUpgrades[selectedTier]),
-      y: format(item.maxLevel)
-    })
+    updateTextContentIfChanged(
+      levelEl,
+      i18next.t('shop.levelWithText', {
+        x: format(player.shopUpgrades[selectedTier]),
+        y: format(item.maxLevel)
+      })
+    )
     levelEl.style.color = tierMaxed(selectedTier) ? 'gold' : 'white'
   }
 
   const resetEl = DOMCacheGetOrSet('shopDetailReset')
+  let resetHTML = ''
   if (player.highestSingularityCount > 0 || getRuneEffectiveLevel('antiquities') > 0) {
-    resetEl.innerHTML = item.resetOnSingularity()
-      ? `<span style="color: crimson">⚠ ${i18next.t('shop.resetOnSingularity', { x: item.refundMinimumLevel })}</span>`
+    resetHTML = item.resetOnSingularity()
+      ? `<span style="color: crimson">⚠ ${i18next.t('shop.resetOnSingularity')}</span>`
       : `<span style="color: lightgreen">♔ ${i18next.t('shop.noResetOnSingularity')}</span>`
-  } else {
-    resetEl.innerHTML = ''
   }
+  updateInnerHTMLIfChanged(resetEl, resetHTML)
 
   const buyButton = DOMCacheGetOrSet('shopDetailBuy')
   buyButton.hidden = tierMaxed(selectedTier)
-  buyButton.textContent = buyButtonLabel(selectedTier)
+  updateTextContentIfChanged(buyButton, buyButtonLabel(selectedTier))
 }
 
 export const updateShopTab = () => {
@@ -540,9 +571,9 @@ export const updateShopTab = () => {
     let visibleFamilies = 0
     for (const family of section.families) {
       const row = DOMCacheGetOrSet(`shopFamilyRow-${family.id}`)
-      const anyUnlocked = family.tiers.some((tier) => tierUnlocked(tier.key)) || testing
-      const allDone = family.tiers.every((tier) => !tierUnlocked(tier.key) || tierMaxed(tier.key))
-      const hidden = !anyUnlocked || (player.shopHideToggle && allDone)
+      const anyAvailable = family.tiers.some((tier) => tierAvailable(tier.key))
+      const allDone = family.tiers.every((tier) => !tierAvailable(tier.key) || tierMaxed(tier.key))
+      const hidden = !anyAvailable || (player.shopHideToggle && allDone)
       row.style.display = hidden ? 'none' : 'flex'
       if (hidden) {
         continue
@@ -554,17 +585,17 @@ export const updateShopTab = () => {
       }
       row.classList.toggle('shopFamilySelected', family === selectedFamily)
 
-      const frontier = family.tiers.find((tier) => tierUnlocked(tier.key) && !tierMaxed(tier.key))
+      const frontier = family.tiers.find((tier) => tierAvailable(tier.key) && !tierMaxed(tier.key))
       const cost = DOMCacheGetOrSet(`shopFamilyRowCost-${family.id}`)
       if (frontier === undefined) {
-        cost.textContent = i18next.t('shop.maxed')
+        updateTextContentIfChanged(cost, i18next.t('shop.maxed'))
         cost.classList.add('shopFamilyMaxed')
         cost.classList.remove('shopCantAfford')
       } else {
         const buyData = getShopBuyData(frontier.key)
         const nextLevelPrice = getShopCosts(frontier.key)
         const price = buyData.amount === 0 ? nextLevelPrice : buyData.cost
-        cost.textContent = format(price, 0, true)
+        updateTextContentIfChanged(cost, format(price, 0, true))
         cost.classList.remove('shopFamilyMaxed')
         cost.classList.toggle('shopCantAfford', +player.worlds < nextLevelPrice)
       }
@@ -572,7 +603,7 @@ export const updateShopTab = () => {
       if (family.tiers.length > 1) {
         for (const tier of family.tiers) {
           const shortcut = DOMCacheGetOrSet(`shopTierShortcut-${tier.key}`)
-          shortcut.style.display = (tierUnlocked(tier.key) || testing) && !tierHidden(tier.key) ? '' : 'none'
+          shortcut.style.display = tierAvailable(tier.key) && !tierHidden(tier.key) ? '' : 'none'
           shortcut.classList.toggle('shopTierShortcutMaxed', tierMaxed(tier.key))
           shortcut.classList.toggle(
             'shopTierShortcutUnfinished',

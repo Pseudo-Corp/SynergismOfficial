@@ -1,4 +1,4 @@
-import { bypass, delay, http, HttpResponse } from 'msw'
+import { bypass, delay, http, HttpResponse, passthrough } from 'msw'
 import { setupWorker } from 'msw/browser'
 import { getSubMetadata, setSubMetadata } from '../Login'
 import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
@@ -6,743 +6,124 @@ import { messageHandlers } from './handlers/MessageHandlers'
 import { paymentHandlers } from './handlers/PaymentHandlers'
 import { subscriptionHandlers } from './handlers/SubscriptionHandlers'
 import { xsollaHandlers } from './handlers/XsollaHandlers'
-import { consumeHandlers } from './websocket'
+import { createConsumeHandlers } from './websocket'
+
+interface PseudoCoinUpgrade {
+  upgradeId: number
+  maxLevel: number
+  name: string
+  description: string
+  internalName: string
+  level: number
+  cost: number
+}
+
+interface PlayerPseudoCoinUpgrade {
+  upgradeId: number
+  level: number
+  internalName: string
+}
+
+interface ConsumableListItem {
+  id: number
+  name: string
+  description: string
+  internalName: string
+  cost: number
+  length: string | null
+}
+
+let pseudoCoinBalance = 999_999
+let pseudoCoinUpgrades: PseudoCoinUpgrade[] = []
+
+const playerUpgrades: PlayerPseudoCoinUpgrade[] = [
+  {
+    upgradeId: 15,
+    level: 2,
+    internalName: 'ADD_CODE_CAP_BUFF'
+  }
+]
+
+let consumables: ConsumableListItem[] = []
+
+const purchaseConsumable = (internalName: string) => {
+  const consumable = consumables.find((item) => item.internalName === internalName)
+
+  if (!consumable || consumable.cost > pseudoCoinBalance) {
+    return false
+  }
+
+  pseudoCoinBalance -= consumable.cost
+  return true
+}
 
 const GETHandlers = [
   http.get('https://synergism.cc/api/v1/quark-bonus', async () => {
     await delay(Math.random() * (2000 - 100) + 100)
 
     return HttpResponse.json({
-      bonus: 105.3
+      bonus: 150
     })
   }),
   http.get('https://synergism.cc/stripe/coins', () => {
     return HttpResponse.json({
-      coins: 49001
+      coins: pseudoCoinBalance
     })
   }),
-  http.get('https://synergism.cc/consumables/list', ({ request }) => {
-    return fetch(bypass(request))
+  http.get('https://synergism.cc/consumables/list', async ({ request }) => {
+    const response = await fetch(bypass(request))
+    consumables = await response.clone().json()
+    return response
   }),
-  http.get('https://synergism.cc/stripe/upgrades', () => {
+  http.get('https://synergism.cc/stripe/upgrades', async ({ request }) => {
+    const serverResponse = await fetch(bypass(request))
+    const json = await serverResponse.json()
+
+    pseudoCoinUpgrades = json.upgrades
+
     return HttpResponse.json({
-      upgrades: [
-        {
-          upgradeId: 1,
-          maxLevel: 1,
-          name: 'Instant Unlock',
-          description: 'Instantly unlocks the Plastic Talisman in the shop! (Applies to all savefiles)',
-          internalName: 'INSTANT_UNLOCK_1',
-          level: 1,
-          cost: 400
-        },
-        {
-          upgradeId: 2,
-          maxLevel: 1,
-          name: 'Instant Unlock',
-          description: 'Instantly unlock the Infinite Ascent rune in the shop! (Applies to all savefiles)',
-          internalName: 'INSTANT_UNLOCK_2',
-          level: 1,
-          cost: 600
-        },
-        {
-          upgradeId: 3,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +6% Cubes per level',
-          internalName: 'CUBE_BUFF',
-          level: 1,
-          cost: 100
-        },
-        {
-          upgradeId: 3,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +6% Cubes per level',
-          internalName: 'CUBE_BUFF',
-          level: 2,
-          cost: 150
-        },
-        {
-          upgradeId: 3,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +6% Cubes per level',
-          internalName: 'CUBE_BUFF',
-          level: 3,
-          cost: 200
-        },
-        {
-          upgradeId: 3,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +6% Cubes per level',
-          internalName: 'CUBE_BUFF',
-          level: 4,
-          cost: 250
-        },
-        {
-          upgradeId: 3,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +6% Cubes per level',
-          internalName: 'CUBE_BUFF',
-          level: 5,
-          cost: 300
-        },
-        {
-          upgradeId: 4,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +20 Ambrosia Luck per level',
-          internalName: 'AMBROSIA_LUCK_BUFF',
-          level: 1,
-          cost: 100
-        },
-        {
-          upgradeId: 4,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +20 Ambrosia Luck per level',
-          internalName: 'AMBROSIA_LUCK_BUFF',
-          level: 2,
-          cost: 150
-        },
-        {
-          upgradeId: 4,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +20 Ambrosia Luck per level',
-          internalName: 'AMBROSIA_LUCK_BUFF',
-          level: 3,
-          cost: 200
-        },
-        {
-          upgradeId: 4,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +20 Ambrosia Luck per level',
-          internalName: 'AMBROSIA_LUCK_BUFF',
-          level: 4,
-          cost: 250
-        },
-        {
-          upgradeId: 4,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +20 Ambrosia Luck per level',
-          internalName: 'AMBROSIA_LUCK_BUFF',
-          level: 5,
-          cost: 300
-        },
-        {
-          upgradeId: 5,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% Ambrosia Generation Speed per level',
-          internalName: 'AMBROSIA_GENERATION_BUFF',
-          level: 1,
-          cost: 100
-        },
-        {
-          upgradeId: 5,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% Ambrosia Generation Speed per level',
-          internalName: 'AMBROSIA_GENERATION_BUFF',
-          level: 2,
-          cost: 150
-        },
-        {
-          upgradeId: 5,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% Ambrosia Generation Speed per level',
-          internalName: 'AMBROSIA_GENERATION_BUFF',
-          level: 3,
-          cost: 200
-        },
-        {
-          upgradeId: 5,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% Ambrosia Generation Speed per level',
-          internalName: 'AMBROSIA_GENERATION_BUFF',
-          level: 4,
-          cost: 250
-        },
-        {
-          upgradeId: 5,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% Ambrosia Generation Speed per level',
-          internalName: 'AMBROSIA_GENERATION_BUFF',
-          level: 5,
-          cost: 300
-        },
-        {
-          upgradeId: 8,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +4% Golden Quarks per level',
-          internalName: 'GOLDEN_QUARK_BUFF',
-          level: 1,
-          cost: 100
-        },
-        {
-          upgradeId: 8,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +4% Golden Quarks per level',
-          internalName: 'GOLDEN_QUARK_BUFF',
-          level: 2,
-          cost: 150
-        },
-        {
-          upgradeId: 8,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +4% Golden Quarks per level',
-          internalName: 'GOLDEN_QUARK_BUFF',
-          level: 3,
-          cost: 200
-        },
-        {
-          upgradeId: 8,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +4% Golden Quarks per level',
-          internalName: 'GOLDEN_QUARK_BUFF',
-          level: 4,
-          cost: 250
-        },
-        {
-          upgradeId: 8,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +4% Golden Quarks per level',
-          internalName: 'GOLDEN_QUARK_BUFF',
-          level: 5,
-          cost: 300
-        },
-        {
-          upgradeId: 9,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +2% more Free Upgrades from promocodes per level',
-          internalName: 'FREE_UPGRADE_PROMOCODE_BUFF',
-          level: 1,
-          cost: 100
-        },
-        {
-          upgradeId: 9,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +2% more Free Upgrades from promocodes per level',
-          internalName: 'FREE_UPGRADE_PROMOCODE_BUFF',
-          level: 2,
-          cost: 150
-        },
-        {
-          upgradeId: 9,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +2% more Free Upgrades from promocodes per level',
-          internalName: 'FREE_UPGRADE_PROMOCODE_BUFF',
-          level: 3,
-          cost: 200
-        },
-        {
-          upgradeId: 9,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +2% more Free Upgrades from promocodes per level',
-          internalName: 'FREE_UPGRADE_PROMOCODE_BUFF',
-          level: 4,
-          cost: 250
-        },
-        {
-          upgradeId: 9,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +2% more Free Upgrades from promocodes per level',
-          internalName: 'FREE_UPGRADE_PROMOCODE_BUFF',
-          level: 5,
-          cost: 300
-        },
-        {
-          upgradeId: 10,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Corruption Loadout slot!',
-          internalName: 'CORRUPTION_LOADOUT_SLOT_QOL',
-          level: 8,
-          cost: 125
-        },
-        {
-          upgradeId: 10,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Corruption Loadout slot!',
-          internalName: 'CORRUPTION_LOADOUT_SLOT_QOL',
-          level: 7,
-          cost: 125
-        },
-        {
-          upgradeId: 10,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Corruption Loadout slot!',
-          internalName: 'CORRUPTION_LOADOUT_SLOT_QOL',
-          level: 6,
-          cost: 125
-        },
-        {
-          upgradeId: 10,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Corruption Loadout slot!',
-          internalName: 'CORRUPTION_LOADOUT_SLOT_QOL',
-          level: 5,
-          cost: 125
-        },
-        {
-          upgradeId: 10,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Corruption Loadout slot!',
-          internalName: 'CORRUPTION_LOADOUT_SLOT_QOL',
-          level: 4,
-          cost: 125
-        },
-        {
-          upgradeId: 10,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Corruption Loadout slot!',
-          internalName: 'CORRUPTION_LOADOUT_SLOT_QOL',
-          level: 3,
-          cost: 125
-        },
-        {
-          upgradeId: 10,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Corruption Loadout slot!',
-          internalName: 'CORRUPTION_LOADOUT_SLOT_QOL',
-          level: 2,
-          cost: 125
-        },
-        {
-          upgradeId: 10,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Corruption Loadout slot!',
-          internalName: 'CORRUPTION_LOADOUT_SLOT_QOL',
-          level: 1,
-          cost: 125
-        },
-        {
-          upgradeId: 11,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Ambrosia Loadout slot!',
-          internalName: 'AMBROSIA_LOADOUT_SLOT_QOL',
-          level: 8,
-          cost: 125
-        },
-        {
-          upgradeId: 11,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Ambrosia Loadout slot!',
-          internalName: 'AMBROSIA_LOADOUT_SLOT_QOL',
-          level: 7,
-          cost: 125
-        },
-        {
-          upgradeId: 11,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Ambrosia Loadout slot!',
-          internalName: 'AMBROSIA_LOADOUT_SLOT_QOL',
-          level: 6,
-          cost: 125
-        },
-        {
-          upgradeId: 11,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Ambrosia Loadout slot!',
-          internalName: 'AMBROSIA_LOADOUT_SLOT_QOL',
-          level: 5,
-          cost: 125
-        },
-        {
-          upgradeId: 11,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Ambrosia Loadout slot!',
-          internalName: 'AMBROSIA_LOADOUT_SLOT_QOL',
-          level: 4,
-          cost: 125
-        },
-        {
-          upgradeId: 11,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Ambrosia Loadout slot!',
-          internalName: 'AMBROSIA_LOADOUT_SLOT_QOL',
-          level: 3,
-          cost: 125
-        },
-        {
-          upgradeId: 11,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Ambrosia Loadout slot!',
-          internalName: 'AMBROSIA_LOADOUT_SLOT_QOL',
-          level: 2,
-          cost: 125
-        },
-        {
-          upgradeId: 11,
-          maxLevel: 8,
-          name: 'QOL',
-          description: 'Each purchase adds +1 Ambrosia Loadout slot!',
-          internalName: 'AMBROSIA_LOADOUT_SLOT_QOL',
-          level: 1,
-          cost: 125
-        },
-        {
-          upgradeId: 12,
-          maxLevel: 1,
-          name: 'QOL',
-          description: 'Auto-Potion No Longer Spends Potions When Consumed!',
-          internalName: 'AUTO_POTION_FREE_POTIONS_QOL',
-          level: 1,
-          cost: 500
-        },
-        {
-          upgradeId: 13,
-          maxLevel: 2,
-          name: 'QOL',
-          description: 'Increase the Offline Timer Cap by 100% per level!',
-          internalName: 'OFFLINE_TIMER_CAP_BUFF',
-          level: 1,
-          cost: 400
-        },
-        {
-          upgradeId: 13,
-          maxLevel: 2,
-          name: 'QOL',
-          description: 'Increase the Offline Timer Cap by 100% per level!',
-          internalName: 'OFFLINE_TIMER_CAP_BUFF',
-          level: 2,
-          cost: 600
-        },
-        {
-          upgradeId: 15,
-          maxLevel: 2,
-          name: 'QOL',
-          description: 'Increase "add" Code Cap by 100% per level!',
-          internalName: 'ADD_CODE_CAP_BUFF',
-          level: 1,
-          cost: 400
-        },
-        {
-          upgradeId: 15,
-          maxLevel: 2,
-          name: 'QOL',
-          description: 'Increase "add" Code Cap by 100% per level!',
-          internalName: 'ADD_CODE_CAP_BUFF',
-          level: 2,
-          cost: 600
-        },
-        {
-          upgradeId: 16,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +6 Base Offerings per level, affected by all multipliers!',
-          internalName: 'BASE_OFFERING_BUFF',
-          level: 1,
-          cost: 100
-        },
-        {
-          upgradeId: 16,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +6 Base Offerings per level, affected by all multipliers!',
-          internalName: 'BASE_OFFERING_BUFF',
-          level: 2,
-          cost: 150
-        },
-        {
-          upgradeId: 16,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +6 Base Offerings per level, affected by all multipliers!',
-          internalName: 'BASE_OFFERING_BUFF',
-          level: 3,
-          cost: 200
-        },
-        {
-          upgradeId: 16,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +6 Base Offerings per level, affected by all multipliers!',
-          internalName: 'BASE_OFFERING_BUFF',
-          level: 4,
-          cost: 250
-        },
-        {
-          upgradeId: 16,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +6 Base Offerings per level, affected by all multipliers!',
-          internalName: 'BASE_OFFERING_BUFF',
-          level: 5,
-          cost: 300
-        },
-        {
-          upgradeId: 17,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +3 Base Obtainium per level, affected by all multipliers!',
-          internalName: 'BASE_OBTAINIUM_BUFF',
-          level: 1,
-          cost: 100
-        },
-        {
-          upgradeId: 17,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +3 Base Obtainium per level, affected by all multipliers!',
-          internalName: 'BASE_OBTAINIUM_BUFF',
-          level: 2,
-          cost: 150
-        },
-        {
-          upgradeId: 17,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +3 Base Obtainium per level, affected by all multipliers!',
-          internalName: 'BASE_OBTAINIUM_BUFF',
-          level: 3,
-          cost: 200
-        },
-        {
-          upgradeId: 17,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +3 Base Obtainium per level, affected by all multipliers!',
-          internalName: 'BASE_OBTAINIUM_BUFF',
-          level: 4,
-          cost: 250
-        },
-        {
-          upgradeId: 17,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +3 Base Obtainium per level, affected by all multipliers!',
-          internalName: 'BASE_OBTAINIUM_BUFF',
-          level: 5,
-          cost: 300
-        },
-        {
-          upgradeId: 18,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +20 Red Ambrosia Luck per level',
-          internalName: 'RED_LUCK_BUFF',
-          level: 1,
-          cost: 100
-        },
-        {
-          upgradeId: 18,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +20 Red Ambrosia Luck per level',
-          internalName: 'RED_LUCK_BUFF',
-          level: 2,
-          cost: 150
-        },
-        {
-          upgradeId: 18,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +20 Red Ambrosia Luck per level',
-          internalName: 'RED_LUCK_BUFF',
-          level: 3,
-          cost: 200
-        },
-        {
-          upgradeId: 18,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +20 Red Ambrosia Luck per level',
-          internalName: 'RED_LUCK_BUFF',
-          level: 4,
-          cost: 250
-        },
-        {
-          upgradeId: 18,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +20 Red Ambrosia Luck per level',
-          internalName: 'RED_LUCK_BUFF',
-          level: 5,
-          cost: 300
-        },
-        {
-          upgradeId: 19,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% more Red Ambrosia Bar Points per level',
-          internalName: 'RED_GENERATION_BUFF',
-          level: 5,
-          cost: 300
-        },
-        {
-          upgradeId: 19,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% more Red Ambrosia Bar Points per level',
-          internalName: 'RED_GENERATION_BUFF',
-          level: 4,
-          cost: 250
-        },
-        {
-          upgradeId: 19,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% more Red Ambrosia Bar Points per level',
-          internalName: 'RED_GENERATION_BUFF',
-          level: 3,
-          cost: 200
-        },
-        {
-          upgradeId: 19,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% more Red Ambrosia Bar Points per level',
-          internalName: 'RED_GENERATION_BUFF',
-          level: 2,
-          cost: 150
-        },
-        {
-          upgradeId: 19,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% more Red Ambrosia Bar Points per level',
-          internalName: 'RED_GENERATION_BUFF',
-          level: 1,
-          cost: 100
-        }
-      ],
-      playerUpgrades: [
-        {
-          upgradeId: 15,
-          level: 2,
-          internalName: 'ADD_CODE_CAP_BUFF'
-        },
-        {
-          upgradeId: 5,
-          level: 5,
-          internalName: 'AMBROSIA_GENERATION_BUFF'
-        },
-        {
-          upgradeId: 11,
-          level: 8,
-          internalName: 'AMBROSIA_LOADOUT_SLOT_QOL'
-        },
-        {
-          upgradeId: 4,
-          level: 5,
-          internalName: 'AMBROSIA_LUCK_BUFF'
-        },
-        {
-          upgradeId: 12,
-          level: 1,
-          internalName: 'AUTO_POTION_FREE_POTIONS_QOL'
-        },
-        {
-          upgradeId: 10,
-          level: 8,
-          internalName: 'CORRUPTION_LOADOUT_SLOT_QOL'
-        },
-        {
-          upgradeId: 3,
-          level: 5,
-          internalName: 'CUBE_BUFF'
-        },
-        {
-          upgradeId: 9,
-          level: 5,
-          internalName: 'FREE_UPGRADE_PROMOCODE_BUFF'
-        },
-        {
-          upgradeId: 8,
-          level: 5,
-          internalName: 'GOLDEN_QUARK_BUFF'
-        },
-        {
-          upgradeId: 1,
-          level: 1,
-          internalName: 'INSTANT_UNLOCK_1'
-        },
-        {
-          upgradeId: 2,
-          level: 1,
-          internalName: 'INSTANT_UNLOCK_2'
-        },
-        {
-          upgradeId: 13,
-          level: 2,
-          internalName: 'OFFLINE_TIMER_CAP_BUFF'
-        },
-        {
-          upgradeId: 17,
-          level: 5,
-          internalName: 'BASE_OFFERING_BUFF'
-        },
-        {
-          upgradeId: 18,
-          level: 5,
-          internalName: 'BASE_OBTAINIUM_BUFF'
-        },
-        {
-          upgradeId: 19,
-          level: 5,
-          internalName: 'RED_LUCK_BUFF'
-        },
-        {
-          upgradeId: 20,
-          level: 5,
-          internalName: 'RED_GENERATION_BUFF'
-        }
-      ]
+      ...json,
+      playerUpgrades
     })
   }),
-  http.get('https://synergism.cc/stripe/products', ({ request }) => {
-    return fetch(bypass(request))
-  }),
-  http.get('https://synergism.cc/events/get', ({ request }) => {
-    return fetch(bypass(request))
-  }),
-  http.get('/favicon.ico', ({ request }) => {
-    return fetch(bypass(request))
-  })
+  http.get('https://synergism.cc/stripe/products', () => passthrough()),
+  http.get('https://synergism.cc/events/get', () => passthrough()),
+  http.get('/favicon.ico', () => passthrough())
 ]
 
 const PUTHandlers = [
-  http.put('https://synergism.cc/stripe/buy-upgrade/:id', async ({ params }) => {
-    const { id } = params
+  http.put('https://synergism.cc/stripe/buy-upgrade/:id', ({ params }) => {
+    const upgradeId = Number(params.id)
+    const playerUpgrade = playerUpgrades.find((upgrade) => upgrade.upgradeId === upgradeId)
+    const currentLevel = playerUpgrade?.level ?? 0
+    const nextUpgrade = pseudoCoinUpgrades.find((upgrade) =>
+      upgrade.upgradeId === upgradeId
+      && upgrade.level === currentLevel + 1
+      && upgrade.cost <= pseudoCoinBalance
+    )
 
-    // TODO: Mock buying beyond level 1
+    if (!nextUpgrade) {
+      return HttpResponse.json(
+        { error: 'Upgrade not found or you cannot afford it.' },
+        { status: 400 }
+      )
+    }
+
+    pseudoCoinBalance -= nextUpgrade.cost
+
+    if (playerUpgrade) {
+      playerUpgrade.level = nextUpgrade.level
+    } else {
+      playerUpgrades.push({
+        upgradeId,
+        level: nextUpgrade.level,
+        internalName: nextUpgrade.internalName
+      })
+    }
+
     return HttpResponse.json({
-      upgradeId: Number(id),
-      level: 1
+      upgradeId,
+      level: nextUpgrade.level
     })
   })
 ]
@@ -803,7 +184,7 @@ export const worker = setupWorker(
   }),
   ...GETHandlers,
   ...PUTHandlers,
-  ...consumeHandlers,
+  ...createConsumeHandlers(purchaseConsumable),
   ...cloudSaveHandlers,
   ...messageHandlers,
   ...paymentHandlers,

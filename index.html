@@ -131,6 +131,10 @@
                 <img src="Pictures/Default/BackedRedAmbrosia.png" class="offlineStatIcon">
                 <span id="offlineRedAmbrosiaCount" class="offlineStatElement" i18n="offlineProgress.redAmbrosia"></span>
             </div>
+            <div class="offlineStat Exalt9x1" id="offlineSingularityCountDiv">
+                <img src="Pictures/Default/BackedPurpleHoney.png" class="offlineStatIcon">
+                <span id="offlinePurpleHoneyCount" class="offlineStatElement" i18n="offlineProgress.purpleHoney"></span>
+            </div>
         </div>
 
         <button id="exitOffline" class="subtabContent">That's cool. Take me to the game!</button>
@@ -178,6 +182,10 @@
             <div class="fastForwardStat ambrosiaSkip" id="fastForwardRedAmbrosiaCountDiv">
                 <img src="Pictures/Default/BackedRedAmbrosia.png" class="offlineStatIcon">
                 <span id="fastForwardRedAmbrosiaCount" class="offlineStatElement"></span>
+            </div>
+            <div class="fastForwardStat ambrosiaSkip" id="fastForwardPurpleHoneyCountDiv">
+                <img src="Pictures/Default/BackedPurpleHoney.png" class="offlineStatIcon">
+                <span id="fastForwardPurpleHoneyCount" class="offlineStatElement"></span>
             </div>
         </div>
 
@@ -2485,6 +2493,11 @@
                     <button class="statsNerds octeracts" id="kRedAmbrosiaLuck" style="border: 2px solid red" i18n="statistics.subtabs.redAmbrosiaLuck"></button>
                     <button class="statsNerds octeracts" id="kRedAmbrosiaGenMult" style="border: 2px solid red" i18n="statistics.subtabs.redAmbrosiaGenMult"></button>
                     <button class="statsNerds octeracts" id="kShopVouchers" style="border: 2px solid cyan" i18n="statistics.subtabs.shopVouchers"></button>
+                    <button class="statsNerds Exalt9x1" id="kPurpleHoneyEfficiency" style="border: 2px solid purple" i18n="statistics.subtabs.purpleHoneyEfficiency"></button>
+                    <button class="statsNerds Exalt9x1" id="kPurpleHalfLife" style="border: 2px solid purple" i18n="statistics.subtabs.purpleHalfLife"></button>
+                    <button class="statsNerds Exalt9x1" id="kPurpleReactantCapacity" style="border: 2px solid purple" i18n="statistics.subtabs.purpleReactantCapacity"></button>
+                    <button class="statsNerds Exalt9x1" id="kPurpleHoneyLuck" style="border: 2px solid purple" i18n="statistics.subtabs.purpleHoneyLuck"></button>
+                    <button class="statsNerds Exalt9x1" id="kPurpleHoneyProgressRequirement" style="border: 2px solid purple" i18n="statistics.subtabs.purpleHoneyProgressRequirement"></button>
                     <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;" i18n="statistics.subtabs.generate"></button>
                 </div>
                 <div id="miscStats" class="statContainer activeStats">
@@ -2649,6 +2662,26 @@
 
                 <div id="redAmbrosiaGenerationStats" class="statContainer activeStats" aria-live="polite">
                     <p id="redAmbrosiaGenStatTitle" class="statPortion" style="color: red; font-size: 1.2em" i18n="statistics.redAmbrosiaGenerationStats.title"></p>
+                </div>
+
+                <div id="purpleHoneyEfficiencyStats" class="statContainer activeStats" aria-live="polite">
+                    <p id="purpleHoneyEfficiencyStatTitle" class="statPortion" style="color: var(--purple-text-color); font-size: 1.2em" i18n="statistics.purpleHoneyEfficiencyStats.title"></p>
+                </div>
+
+                <div id="purpleHalfLifeStats" class="statContainer activeStats" aria-live="polite">
+                    <p id="purpleHalfLifeStatTitle" class="statPortion" style="color: var(--purple-text-color); font-size: 1.2em" i18n="statistics.purpleHalfLifeStats.title"></p>
+                </div>
+
+                <div id="purpleReactantCapacityStats" class="statContainer activeStats" aria-live="polite">
+                    <p id="purpleReactantCapacityStatTitle" class="statPortion" style="color: var(--purple-text-color); font-size: 1.2em" i18n="statistics.purpleReactantCapacityStats.title"></p>
+                </div>
+
+                <div id="purpleHoneyLuckStats" class="statContainer activeStats" aria-live="polite">
+                    <p id="purpleHoneyLuckStatTitle" class="statPortion" style="color: var(--purple-text-color); font-size: 1.2em" i18n="statistics.purpleHoneyLuckStats.title"></p>
+                </div>
+
+                <div id="purpleHoneyProgressRequirementStats" class="statContainer activeStats" aria-live="polite">
+                    <p id="purpleHoneyProgressRequirementStatTitle" class="statPortion" style="color: var(--purple-text-color); font-size: 1.2em" i18n="statistics.purpleHoneyProgressRequirementStats.title"></p>
                 </div>
 
                 <div id="shopVoucherStats" class="statContainer activeStats" aria-live="polite">
@@ -2854,6 +2887,7 @@
                             <div id="shopDetail">
                                 <div id="shopTierRail"></div>
                                 <p id="shopDetailName"></p>
+                                <p id="shopTestingOnlyWarning" role="note" hidden></p>
                                 <p id="shopDetailLevel"></p>
                                 <p id="quarkdescription"></p>
                                 <p id="quarkeffect"></p>
@@ -2863,7 +2897,6 @@
                             </div>
                         </div>
                         <div id="shopButtons">
-                            <button id="resetShopUpgrades" style="border: 2px solid orangered; color: white" i18n="shop.resetPermShop"></button>
                             <button id="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
                             <button id="toggleHideShop" title="Only hides Non Refundable upgrades" style="border: 2px solid white">Hide Maxed: OFF</button>
                             <button id="toggleBuyMaxShop" style="border: 2px solid white">
@@ -2884,6 +2917,7 @@
                 <button id="toggleSingularitySubTab3" style="border: 2px solid orange; color: white"><span class="subTabButtonText fitText" i18n="tabs.singularity.perks-penalties"></span></button>
                 <button id="toggleSingularitySubTab4" class="octeracts" style="border: 2px solid blue; color: white"><span class="subTabButtonText fitText" i18n="tabs.singularity.octeracts"></span></button>
                 <button id="toggleSingularitySubTab5" class="singChallenges" style="border: 2px solid #ffbf00; color: gold"><span class="subTabButtonText fitText" i18n="tabs.singularity.ambrosia"></span></button>
+                <button id="toggleSingularitySubTab6" class="singChallenges" style="border: 2px solid purple"><span class="subTabButtonText fitText" i18n="tabs.singularity.purple"></span></button>
             </div>
 
             <div id="singularityContainer1">
@@ -2998,6 +3032,9 @@
                         </button>
                         <button class="singularityUpgrade" id="wowPass4" i18n-aria-label="singularity.data.wowPass4.description">
                             <img alt="wowPass4" src="Pictures/Default/SingularityWowPass4.png" loading="lazy">
+                        </button>
+                        <button class="singularityUpgrade" id="wowPass5" i18n-aria-label="singularity.data.wowPass5.description">
+                            <img alt="wowPass5" src="Pictures/Default/SingularityWowPass5.png" loading="lazy">
                         </button>
                         <button class="singularityUpgrade" id="cookies" i18n-aria-label="singularity.data.cookies.description">
                             <img alt="cookies" src="Pictures/Default/SingularityCookies.png" loading="lazy">
@@ -3365,265 +3402,349 @@
 
             <div id="singularityContainer5" style="display: none;">
                 <div id="singularityAmbrosia" class="singularityContainer">
-                    <div id="ambrosiaDisplay" class="Exalt1x1">
-                        <img src="Pictures/Default/Ambrosia.png" loading="lazy">
-                        <p id="ambrosiaAmount" class="amberText"></p>
-                        <p id="ambrosiaCubeBonus">+500% Cubes</p>
-                        <p id="ambrosiaQuarkBonus">+112% Quarks</p>
-                    </div>
-                    <div id="redAmbrosiaDisplay" class="Exalt5x1">
-                        <img src="Pictures/RedAmbrosia/RedAmbrosia.png" loading="lazy">
-                        <p id="redAmbrosiaAmount" class="amberText"></p>
-                        <p id="redAmbrosiaCubeBonus">+2% Cubes</p>
-                        <p id="redAmbrosiaOfferingBonus">+8% Offerings</p>
-                        <p id="redAmbrosiaObtainiumBonus">+4% Obtainium</p>
-                        <p id="redAmbrosiaLuckBonus">+93 Ambrosia Luck</p>
-                    </div>
-                    <div id="blueberryDisplay" class="Exalt1x1">
-                        <img src="Pictures/Default/Blueberries.png" loading="lazy">
-                        <p id="blueberryAmount" class="amberText">Unspent: 1 | Total: 25</p>
-                    </div>
-                    <div id="ambrosiaTexts" class="Exalt1x1">
-                        <p id="ambrosiaAmountPerGeneration" class="lightYellowText"></p>
-                        <p id="redAmbrosiaAmountPerGeneration" class="lightYellowText Exalt5x1"></p>
-                        <p id="ambrosiaThresholdInfo" style="color: lightblue"></p>
-                    </div>
-                    <div id="ambrosiaProgressBar">
-                        <div id="ambrosiaProgress"></div>
-                        <span id="ambrosiaProgressText">EVAL 492942 + 4294256!</span>
-                    </div>
-                    <div id="pixelProgressBar">
-                        <div id="pixelProgress"></div>
-                        <span id="pixelProgressText">EVAL 492942 + 4294256!</span>
-                    </div>
-                    <div class="blueberryBoxColor Exalt1x1" id="blueberryUpgradeContainer">
-                        <div class="blueberryUpgradeTier">
-                            <button class="blueberryUpgrade" id="ambrosiaTutorial">
-                                <img src="Pictures/Default/BlueberryTutorial.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaPatreon">
-                                <img src="Pictures/Default/BlueberryPatreon.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaObtainium1">
-                                <img src="Pictures/Default/BlueberryObtainium.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaOffering1">
-                                <img src="Pictures/Default/BlueberryOffering.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaHyperflux">
-                                <img src="Pictures/Default/BlueberryHyperflux.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaBrickOfLead">
-                              <img src="Pictures/Default/BlueberryBrickOfLead.png">
-                            </button>
-                            <div class="ambrosiaBorder Exalt5x1">
-                                <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
+                    <div id="ambrosiaWorkspace">
+                        <div id="ambrosiaLedger">
+                            <div id="ambrosiaLedgerControls" hidden>
+                                <button id="ambrosiaBalanceDetails" type="button" aria-haspopup="dialog" i18n="ambrosia.ledger.balanceDetails"></button>
+                                <button id="ambrosiaToggleBonuses" type="button" aria-expanded="true" aria-controls="ambrosiaLedgerBonuses redAmbrosiaLedgerBonuses blueberryLedgerBonuses" i18n="ambrosia.ledger.hideBonuses"></button>
                             </div>
-                            <button id="redAmbrosiaTutorial" class="redAmbrosiaUpgrade Exalt5x1">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaTutorial.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeTutorialLevels">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeTutorialLevels.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaConversionImprovement1">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaConversionImprovement1.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaBlueberryGenerationSpeed">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaBlueberryGenerationSpeed.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaRegularLuck">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaRegularLuck.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaBlueberries">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaBlueberries.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaRedAmbrosiaFreeAccumulator">
-                              <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeAccumulator.png">
-                            </button>
+                            <section id="ambrosiaDisplay" class="ambrosiaLedgerRow" aria-labelledby="ambrosiaLedgerName">
+                                <div class="ambrosiaLedgerResource amberText">
+                                    <img src="Pictures/Default/Ambrosia.png" alt="" loading="lazy">
+                                    <div>
+                                        <p id="ambrosiaLedgerName" i18n="ambrosia.ambrosia"></p>
+                                        <p id="ambrosiaAmount" class="ambrosiaLedgerBalance" tabindex="0"></p>
+                                    </div>
+                                </div>
+                                <div class="ambrosiaLedgerGeneration">
+                                    <p id="ambrosiaLuck"></p>
+                                    <p id="ambrosiaAmountPerGeneration"></p>
+                                </div>
+                                <div id="ambrosiaLedgerBonuses" class="ambrosiaLedgerBonuses">
+                                    <p id="ambrosiaCubeBonus"></p>
+                                    <p id="ambrosiaQuarkBonus"></p>
+                                    <p id="ambrosiaOfferingBonus" hidden></p>
+                                    <p id="ambrosiaObtainiumBonus" hidden></p>
+                                    <p id="ambrosiaBarBonus" hidden></p>
+                                </div>
+                                <div id="ambrosiaProgressBar" class="ambrosiaLedgerProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="ambrosia.ledger.ambrosiaProgress">
+                                    <div id="ambrosiaProgress"></div>
+                                    <span id="ambrosiaProgressText"></span>
+                                </div>
+                            </section>
+                            <section id="redAmbrosiaDisplay" class="ambrosiaLedgerRow" aria-labelledby="redAmbrosiaLedgerName" hidden>
+                                <div id="pixelProgressBar" class="ambrosiaLedgerProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="ambrosia.ledger.redAmbrosiaProgress">
+                                    <div id="pixelProgress"></div>
+                                    <span id="pixelProgressText"></span>
+                                </div>
+                                <div class="ambrosiaLedgerResource redText">
+                                    <img src="Pictures/RedAmbrosia/RedAmbrosia.png" alt="" loading="lazy">
+                                    <div>
+                                        <p id="redAmbrosiaLedgerName" i18n="redAmbrosia.redAmbrosia"></p>
+                                        <p id="redAmbrosiaAmount" class="ambrosiaLedgerBalance" tabindex="0"></p>
+                                    </div>
+                                </div>
+                                <div class="ambrosiaLedgerGeneration">
+                                    <p id="redAmbrosiaLuck"></p>
+                                    <p id="redAmbrosiaAmountPerGeneration"></p>
+                                </div>
+                                <div id="redAmbrosiaLedgerBonuses" class="ambrosiaLedgerBonuses">
+                                    <p id="redAmbrosiaCubeBonus" hidden></p>
+                                    <p id="redAmbrosiaOfferingBonus" hidden></p>
+                                    <p id="redAmbrosiaObtainiumBonus" hidden></p>
+                                    <p id="redAmbrosiaLuckBonus" hidden></p>
+                                </div>
+                            </section>
+                            <section class="ambrosiaLedgerRow" aria-labelledby="blueberryLedgerName">
+                                <div id="purpleAmbrosiaDisplay" class="ambrosiaLedgerResource" hidden>
+                                    <img src="Pictures/PurpleAmbrosia/PurpleAmbrosia.png" alt="" loading="lazy">
+                                    <div>
+                                        <p id="purpleAmbrosiaLedgerName" i18n="purpleReactor.synthesis.purpleAmbrosia"></p>
+                                        <p id="purpleAmbrosiaAmount" class="ambrosiaLedgerBalance" tabindex="0"></p>
+                                    </div>
+                                </div>
+                                <div id="blueberryDisplay" class="ambrosiaLedgerResource">
+                                    <img src="Pictures/Default/Blueberries.png" alt="" loading="lazy">
+                                    <div>
+                                        <p id="blueberryLedgerName" i18n="ambrosia.ledger.blueberries"></p>
+                                        <p id="blueberryAmount" class="ambrosiaLedgerBalance" tabindex="0"></p>
+                                    </div>
+                                </div>
+                                <div id="blueberryLedgerBonuses" class="ambrosiaLedgerBonuses">
+                                    <p id="blueberryLeoBonus" hidden></p>
+                                    <p id="blueberryVirgoBonus" hidden></p>
+                                    <p id="blueberryHoneyBonus" hidden></p>
+                                </div>
+                            </section>
                         </div>
-                        <div class="blueberryUpgradeTier">
-                            <button class="blueberryUpgrade" id="ambrosiaFreeLuckUpgrades">
-                              <img src="Pictures/Default/BlueberryFreeLuckUpgrades.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaQuarks1">
-                                <img src="Pictures/Default/BlueberryQuarks.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaCubes1">
-                                <img src="Pictures/Default/BlueberryCubes.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaLuck1">
-                                <img src="Pictures/Default/BlueberryLuck.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaBaseObtainium1">
-                                <img src="Pictures/Default/BlueberryBaseObtainium1.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaBaseOffering1">
-                                <img src="Pictures/Default/BlueberryBaseOffering1.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaSingReduction1">
-                                <img src="Pictures/Default/BlueberrySingReduction.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaTalismanBonusRuneLevel">
-                                <img src="Pictures/Default/BlueberryTalismanBonusRuneLevel.png">
-                            </button>
-                            <div class="ambrosiaBorder Exalt5x1">
-                                <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
+                        <div class="blueberryBoxColor Exalt1x1" id="blueberryUpgradeContainer" data-ambrosia-layout="blueberry">
+                            <div id="ambrosiaUpgradeGrid">
+                                <div class="ambrosiaUpgradeSection" data-ambrosia-kind="blueberry" id="blueberryUpgradeGroups">
+                                    <button class="blueberryUpgrade" id="ambrosiaTutorial">
+                                        <img src="Pictures/Default/BlueberryTutorial.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaPatreon">
+                                        <img src="Pictures/Default/BlueberryPatreon.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaObtainium1">
+                                        <img src="Pictures/Default/BlueberryObtainium.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaOffering1">
+                                        <img src="Pictures/Default/BlueberryOffering.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaHyperflux">
+                                        <img src="Pictures/Default/BlueberryHyperflux.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaBrickOfLead">
+                                        <img src="Pictures/Default/BlueberryBrickOfLead.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaFreeLuckUpgrades">
+                                        <img src="Pictures/Default/BlueberryFreeLuckUpgrades.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaQuarks1">
+                                        <img src="Pictures/Default/BlueberryQuarks.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaCubes1">
+                                        <img src="Pictures/Default/BlueberryCubes.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaLuck1">
+                                        <img src="Pictures/Default/BlueberryLuck.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaBaseObtainium1">
+                                        <img src="Pictures/Default/BlueberryBaseObtainium1.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaBaseOffering1">
+                                        <img src="Pictures/Default/BlueberryBaseOffering1.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaSingReduction1">
+                                        <img src="Pictures/Default/BlueberrySingReduction.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaTalismanBonusRuneLevel">
+                                        <img src="Pictures/Default/BlueberryTalismanBonusRuneLevel.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaFreeGenerationUpgrades">
+                                        <img src="Pictures/Default/BlueberryFreeGenerationLevels.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaCubeQuark1">
+                                        <img src="Pictures/Default/BlueberryCubeQuark.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaLuckQuark1">
+                                        <img src="Pictures/Default/BlueberryLuckQuark.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaLuckCube1">
+                                        <img src="Pictures/Default/BlueberryLuckCube.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaQuarkCube1">
+                                        <img src="Pictures/Default/BlueberryQuarkCube.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaCubeLuck1">
+                                        <img src="Pictures/Default/BlueberryCubeLuck.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaQuarkLuck1">
+                                        <img src="Pictures/Default/BlueberryQuarkLuck.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaFreeRedLuckUpgrades">
+                                        <img src="Pictures/Default/BlueberryFreeRedLuckUpgrades.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaQuarks2">
+                                        <img src="Pictures/Default/BlueberryQuarks2.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaCubes2">
+                                        <img src="Pictures/Default/BlueberryCubes2.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaLuck2">
+                                        <img src="Pictures/Default/BlueberryLuck2.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaBaseObtainium2">
+                                        <img src="Pictures/Default/BlueberryBaseObtainium2.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaBaseOffering2">
+                                        <img src="Pictures/Default/BlueberryBaseOffering2.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaInfiniteShopUpgrades1">
+                                        <img src="Pictures/Default/BlueberryInfiniteShopUpgrades.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaRuneOOMBonus">
+                                        <img src="Pictures/Default/BlueberryRuneOOMBonus.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaFreeQuarkUpgrades">
+                                        <img src="Pictures/Default/BlueberryFreeQuarkUpgrades.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaQuarks3">
+                                        <img src="Pictures/Default/BlueberryQuarks3.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaCubes3">
+                                        <img src="Pictures/Default/BlueberryCubes3.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaLuck3">
+                                        <img src="Pictures/Default/BlueberryLuck3.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaSingReduction2">
+                                        <img src="Pictures/Default/BlueberrySingReduction2.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaInfiniteShopUpgrades2">
+                                        <img src="Pictures/Default/BlueberryInfiniteShopUpgrades2.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaInfiniteShopUpgrades3">
+                                        <img src="Pictures/Default/BlueberryInfiniteShopUpgrades3.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaLuck4">
+                                        <img src="Pictures/Default/BlueberryLuck4.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaFreeObtainiumUpgrades">
+                                        <img src="Pictures/Default/BlueberryFreeObtainiumUpgrades.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaFreeOfferingUpgrades">
+                                        <img src="Pictures/Default/BlueberryFreeOfferingUpgrades.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaQuarks4">
+                                        <img src="Pictures/Default/BlueberryQuarks4.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaCubes4">
+                                        <img src="Pictures/Default/BlueberryCubes4.png">
+                                    </button>
+                                    <button class="blueberryUpgrade" id="ambrosiaFreeCubeUpgrades">
+                                        <img src="Pictures/Default/BlueberryFreeCubeUpgrades.png">
+                                    </button>
+                                </div>
+                                <div class="ambrosiaUpgradeSection Exalt9x1" data-ambrosia-kind="purple">
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Aries.png">
+                                    </button>
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Taurus.png">
+                                    </button>
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Gemini.png">
+                                    </button>
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Cancer.png">
+                                    </button>
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Leo.png">
+                                    </button>
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Virgo.png">
+                                    </button>
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Libra.png">
+                                    </button>
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Scorpio.png">
+                                    </button>
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Sagittarius.png">
+                                    </button>
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Capricorn.png">
+                                    </button>
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Aquarius.png">
+                                    </button>
+                                    <button class="purpleAmbrosiaUpgrade">
+                                        <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Pisces.png">
+                                    </button>
+                                </div>
+                                <div class="ambrosiaUpgradeSection Exalt5x1" data-ambrosia-kind="red" id="redAmbrosiaUpgradeGroups">
+                                    <button id="redAmbrosiaTutorial" class="redAmbrosiaUpgrade">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaTutorial.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaFreeTutorialLevels">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeTutorialLevels.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaConversionImprovement1">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaConversionImprovement1.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaBlueberryGenerationSpeed">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaBlueberryGenerationSpeed.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaRegularLuck">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaRegularLuck.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaBlueberries">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaBlueberries.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaRedAmbrosiaFreeAccumulator">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeAccumulator.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaFreeLevelsRow2">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow2.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaRedAmbrosiaCube">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaRedAmbrosiaCube.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaRedAmbrosiaObtainium">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaObtainium.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaRedAmbrosiaOffering">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaOffering.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaFreeOfferingUpgrades">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeOfferingUpgrades.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaFreeLevelsRow3">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow3.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaConversionImprovement2">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaConversionImprovement2.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaRedGenerationSpeed">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaRedGenerationSpeed.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaRedLuck">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaRedLuck.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaSalvageYinYang">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaSalvageYinYang.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaFreeObtainiumUpgrades">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeObtainiumUpgrades.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaFreeLevelsRow4">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow4.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaRedAmbrosiaCubeImprover">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaRedAmbrosiaCubeImprover.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaInfiniteShopUpgrades">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaInfiniteShopLevels.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaRedAmbrosiaAccelerator">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaAccelerator.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaFreeCubeUpgrades">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeCubeUpgrades.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaViscount">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaTutorial.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaFreeLevelsRow5">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow5.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaConversionImprovement3">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaConversionImprovement3.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaBlueberryGenerationSpeed2">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaBlueberryGenerationSpeed.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaRegularLuck2">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaRegularLuck.png">
+                                    </button>
+                                    <button class="redAmbrosiaUpgrade" id="redAmbrosiaFreeSpeedUpgrades">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeSpeedUpgrades.png">
+                                    </button>
+                                </div>
                             </div>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeLevelsRow2">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow2.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaRedAmbrosiaCube">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaRedAmbrosiaCube.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaRedAmbrosiaObtainium">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaObtainium.png">
-                            </button>
-                            <button class ="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaRedAmbrosiaOffering">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaOffering.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeOfferingUpgrades">
-                               <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeOfferingUpgrades.png">
-                            </button>
-                        </div>
-                        <div class="blueberryUpgradeTier">
-                            <button class="blueberryUpgrade" id="ambrosiaFreeGenerationUpgrades">
-                              <img src="Pictures/Default/BlueberryFreeGenerationLevels.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaCubeQuark1">
-                                <img src="Pictures/Default/BlueberryCubeQuark.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaLuckQuark1">
-                                <img src="Pictures/Default/BlueberryLuckQuark.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaLuckCube1">
-                                <img src="Pictures/Default/BlueberryLuckCube.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaQuarkCube1">
-                                <img src="Pictures/Default/BlueberryQuarkCube.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaCubeLuck1">
-                                <img src="Pictures/Default/BlueberryCubeLuck.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaQuarkLuck1">
-                                <img src="Pictures/Default/BlueberryQuarkLuck.png">
-                            </button>
-                            <div class="ambrosiaBorder Exalt5x1">
-                                <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
+                            <p class="ambrosiaUpgradeUnlockHint" data-ambrosia-next="red" i18n="ambrosia.upgradeUnlockHints.red"></p>
+                            <p class="ambrosiaUpgradeUnlockHint" data-ambrosia-next="purple" i18n="ambrosia.upgradeUnlockHints.purple"></p>
+                            <div class="ambrosiaUpgradeActions">
+                                <button class="ambrosiaLoadoutBtn" id="refundBlueberries" style="border: 2px solid blue" i18n="ambrosia.refundWord"></button>
+                                <button class="ambrosiaLoadoutBtn" id="getBlueberries" style="border: 2px solid blue" i18n="ambrosia.exportTree.exportButton"></button>
+                                <button class="ambrosiaLoadoutBtn" id="importBlueberriesButton" for="importBlueberries" style="border: 2px solid orange" i18n="settings.loadFromFile"></button>
+                                <input type="file" id="importBlueberries" accept=".txt,text/plain" style="display: none">
+                                <button class="ambrosiaLoadoutBtn" id="ambrosiaEditLevels" style="border: 2px solid orange">-</button>
+                                <button id="showCurrAmbrosiaUpgrades">🔎</button>
                             </div>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeLevelsRow3">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow3.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaConversionImprovement2">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaConversionImprovement2.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaRedGenerationSpeed">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaRedGenerationSpeed.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaRedLuck">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaRedLuck.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaSalvageYinYang">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaSalvageYinYang.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeObtainiumUpgrades">
-                              <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeObtainiumUpgrades.png">
-                            </button>
-                        </div>
-                        <div class="blueberryUpgradeTier Exalt5x1">
-                            <button class="blueberryUpgrade" id="ambrosiaFreeRedLuckUpgrades">
-                              <img src="Pictures/Default/BlueberryFreeRedLuckUpgrades.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaQuarks2">
-                                <img src="Pictures/Default/BlueberryQuarks2.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaCubes2">
-                                <img src="Pictures/Default/BlueberryCubes2.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaLuck2">
-                                <img src="Pictures/Default/BlueberryLuck2.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaBaseObtainium2">
-                                <img src="Pictures/Default/BlueberryBaseObtainium2.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaBaseOffering2">
-                                <img src="Pictures/Default/BlueberryBaseOffering2.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaInfiniteShopUpgrades1">
-                                <img src="Pictures/Default/BlueberryInfiniteShopUpgrades.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaRuneOOMBonus">
-                                <img src="Pictures/Default/BlueberryRuneOOMBonus.png">
-                            </button>
-                            <div class="ambrosiaBorder Exalt5x1">
-                                <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
-                            </div>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeLevelsRow4">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow4.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaRedAmbrosiaCubeImprover">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaRedAmbrosiaCubeImprover.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaInfiniteShopUpgrades">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaInfiniteShopLevels.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaRedAmbrosiaAccelerator">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaAccelerator.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeCubeUpgrades">
-                              <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeCubeUpgrades.png">
-                            </button>
-                        </div>
-                        <div class="blueberryUpgradeTier Exalt5x1">
-                            <button class="blueberryUpgrade" id="ambrosiaFreeQuarkUpgrades">
-                              <img src="Pictures/Default/BlueberryFreeQuarkUpgrades.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaQuarks3">
-                                <img src="Pictures/Default/BlueberryQuarks3.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaCubes3">
-                                <img src="Pictures/Default/BlueberryCubes3.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaLuck3">
-                                <img src="Pictures/Default/BlueberryLuck3.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaSingReduction2">
-                                <img src="Pictures/Default/BlueberrySingReduction2.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaInfiniteShopUpgrades2">
-                                <img src="Pictures/Default/BlueberryInfiniteShopUpgrades2.png">
-                            </button>
-                            <button class="blueberryUpgrade" id="ambrosiaLuck4">
-                                <img src="Pictures/Default/BlueberryLuck4.png">
-                            </button>
-                            <div class="ambrosiaBorder Exalt5x1">
-                                <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
-                            </div>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaViscount">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaTutorial.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeLevelsRow5">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow5.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaConversionImprovement3">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaConversionImprovement3.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaBlueberryGenerationSpeed2">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaBlueberryGenerationSpeed.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaRegularLuck2">
-                                <img src="Pictures/RedAmbrosia/RedAmbrosiaRegularLuck.png">
-                            </button>
-                            <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeSpeedUpgrades">
-                              <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeSpeedUpgrades.png">
-                            </button>
-                        </div>
-                        <div class="blueberryUpgradeTier">
-                            <button class="ambrosiaLoadoutBtn" id="refundBlueberries" style="border: 2px solid blue" i18n="ambrosia.refundWord"></button>
-                            <button class="ambrosiaLoadoutBtn" id="getBlueberries" style="border: 2px solid blue" i18n="ambrosia.exportTree.exportButton"></button>
-                            <button class="ambrosiaLoadoutBtn" id="importBlueberriesButton" for="importBlueberries" style="border: 2px solid orange" i18n="settings.loadFromFile"></button>
-                            <input type="file" id="importBlueberries" accept=".txt,text/plain" style="display: none">
-                            <button class="ambrosiaLoadoutBtn" id="ambrosiaEditLevels" style="border: 2px solid orange">-</button>
-                            <button id="showCurrAmbrosiaUpgrades">🔎</button>
                         </div>
                     </div>
                     <div class="blueberryBoxColor Exalt1x1" id="bbLoadoutContainer">
@@ -3648,6 +3769,323 @@
                     </div>
                     <div id="ambrosiaUpgradeValues">
                         <p id="singularityAmbrosiaMultiline"></p>
+                    </div>
+                </div>
+            </div>
+            <div id="singularityContainer6" style="display: none;">
+                <div id="purpleHoneyDisplay">
+                    <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHoney.png" loading="lazy">
+                    <div>
+                        <p id="purpleHoneyAmount" class="amberText"></p>
+                        <p id="highestPurpleHoney" class="amberText"></p>
+                        <p id="highestPurpleHoneyModifiers" class="amberText"></p>
+                    </div>
+                </div>
+                <div class="purpleBoxColor" id="purpleReactantContainers">
+                    <header class="purpleReactorHeader">
+                        <div class="purpleReactorHeading">
+                            <p class="purpleReactorTitle" i18n="purpleReactor.header.title"></p>
+                            <p i18n="purpleReactor.header.subtitle"></p>
+                        </div>
+                        <div class="purpleReactorControls">
+                            <button id="purpleUpgradeToggle" class="purpleReactorToggle" type="button" aria-controls="singularityPurple" aria-expanded="false">
+                                <span i18n="purpleReactor.upgradeShop.toggleUpgrades"></span>
+                            </button>
+                            <button id="purpleSynthesisToggle" class="purpleReactorToggle" type="button" aria-controls="singularityPurple" aria-expanded="false">
+                                <span i18n="purpleReactor.synthesis.name"></span>
+                            </button>
+                        </div>
+                        <div class="purpleReactorRecipe">
+                            <p class="purpleReactorSectionLabel" i18n="purpleReactor.header.reactionLabel"></p>
+                            <p id="purpleReactorRecipeValue"></p>
+                            <p id="purpleReactorAriesModifier"></p>
+                            <p id="purpleReactorScorpioModifier"></p>
+                        </div>
+                        <div class="purpleReactorSettings">
+                            <p class="purpleReactorSectionLabel" i18n="purpleReactor.header.speedLabel"></p>
+                            <p id="purpleReactorSpeed"></p>
+                            <label id="purpleReactantOvercapControls" class="purpleCheckbox" hidden>
+                                <input id="encabulatorOvercapToggle" type="checkbox" disabled>
+                                <span i18n="purpleReactor.header.overflowLabel"></span>
+                            </label>
+                        </div>
+                        <p id="purpleReactorMaximumDraw"></p>
+                    </header>
+                    <div class="purpleReactorMachine">
+                        <section class="purpleReactorPanel purpleReactantTankAmbrosia" aria-labelledby="ambrosiaReactantTitle">
+                            <div class="purpleReactorPanelHeader">
+                                <p class="purpleReactorPanelLabel" i18n="purpleReactor.reactantTankLabel"></p>
+                            </div>
+                            <p id="ambrosiaReactantTitle" class="purpleReactorProgressTitle" i18n="purpleReactor.ambrosiaReactantTankTitle"></p>
+                            <div class="purpleReactorProgressBar" id="ambrosiaContainerProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="purpleReactor.ambrosiaTankAriaLabel">
+                                <div id="ambrosiaContainerProgress" class="purpleReactorProgressFill"></div>
+                                <span class="purpleReactorProgressText"><span class="fitText" id="ambrosiaContainerProgressText"></span></span>
+                            </div>
+                            <div class="purpleReactorPanelBody">
+                                <p id="ambrosiaReactantNetRate" class="purpleReactorRate"></p>
+                                <p id="ambrosiaReactantRoutedRate" class="purpleReactorRate"></p>
+                                <p id="ambrosiaReactantSpentRate" class="purpleReactorRate"></p>
+                                <p id="ambrosiaReactantOverflowRate" class="purpleReactorRate" hidden></p>
+                                <div class="purpleReactantRoutingControl">
+                                    <div class="purpleReactantRoutingHeader">
+                                        <label class="purpleReactantReserveTitle" for="ambrosiaBarPointPercentageSlider">
+                                            <span class="fitText" i18n="purpleReactor.reactantRouting"></span>
+                                        </label>
+                                        <output id="ambrosiaBarPointPercentageValue" for="ambrosiaBarPointPercentageSlider" i18n="purpleReactor.percentageOption0"></output>
+                                    </div>
+                                    <input id="ambrosiaBarPointPercentageSlider" class="purpleReactantPercentageSlider" type="range" min="0" max="100" step="1" value="0" i18n-aria-label="purpleReactor.ambrosiaBarPointPercentageAriaLabel">
+                                    <div class="purpleReactantSliderScale" aria-hidden="true">
+                                        <span i18n="purpleReactor.percentageOption0"></span>
+                                        <span i18n="purpleReactor.percentageOption50"></span>
+                                        <span i18n="purpleReactor.percentageOption100"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="purpleReactorPanel purpleReactantTankRed" aria-labelledby="redAmbrosiaReactantTitle">
+                            <div class="purpleReactorPanelHeader">
+                                <p class="purpleReactorPanelLabel" i18n="purpleReactor.reactantTankLabel"></p>
+                            </div>
+                            <p id="redAmbrosiaReactantTitle" class="purpleReactorProgressTitle" i18n="purpleReactor.redAmbrosiaReactantTankTitle"></p>
+                            <div class="purpleReactorProgressBar" id="redAmbrosiaContainerProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="purpleReactor.redAmbrosiaTankAriaLabel">
+                                <div id="redAmbrosiaContainerProgress" class="purpleReactorProgressFill"></div>
+                                <span class="purpleReactorProgressText"><span class="fitText" id="redAmbrosiaContainerProgressText"></span></span>
+                            </div>
+                            <div class="purpleReactorPanelBody">
+                                <p id="redAmbrosiaReactantNetRate" class="purpleReactorRate"></p>
+                                <p id="redAmbrosiaReactantRoutedRate" class="purpleReactorRate"></p>
+                                <p id="redAmbrosiaReactantSpentRate" class="purpleReactorRate"></p>
+                                <p id="redAmbrosiaReactantOverflowRate" class="purpleReactorRate" hidden></p>
+                                <div class="purpleReactantRoutingControl">
+                                    <div class="purpleReactantRoutingHeader">
+                                        <label class="purpleReactantReserveTitle" for="redAmbrosiaBarPointPercentageSlider">
+                                            <span class="fitText" i18n="purpleReactor.reactantRouting"></span>
+                                        </label>
+                                        <output id="redAmbrosiaBarPointPercentageValue" for="redAmbrosiaBarPointPercentageSlider" i18n="purpleReactor.percentageOption0"></output>
+                                    </div>
+                                    <input id="redAmbrosiaBarPointPercentageSlider" class="purpleReactantPercentageSlider" type="range" min="0" max="100" step="1" value="0" i18n-aria-label="purpleReactor.redAmbrosiaBarPointPercentageAriaLabel">
+                                    <div class="purpleReactantSliderScale" aria-hidden="true">
+                                        <span i18n="purpleReactor.percentageOption0"></span>
+                                        <span i18n="purpleReactor.percentageOption50"></span>
+                                        <span i18n="purpleReactor.percentageOption100"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="purpleHoneyProgressContainer" class="purpleReactorPanel purpleReactorCore" aria-labelledby="purpleReactorCoreTitle">
+                            <div class="purpleReactorPanelHeader">
+                                <p id="purpleReactorCoreTitle" class="purpleReactorPanelLabel" i18n="purpleReactor.reactorCoreTitle"></p>
+                            </div>
+                            <p class="purpleReactorProgressTitle" i18n="purpleReactor.purpleHoneyProgressTitle"></p>
+                            <div class="purpleReactorProgressBar" id="purpleHoneyProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="purpleReactor.purpleHoneyProgressAriaLabel">
+                                <div id="purpleHoneyProgressFill" aria-hidden="true">
+                                    <div class="purpleReactorProgressFill"></div>
+                                    <div class="purpleReactorProgressFill"></div>
+                                </div>
+                                <span class="purpleReactorProgressText"><span class="fitText" id="purpleHoneyProgressText"></span></span>
+                            </div>
+                            <div class="purpleReactorPanelBody">
+                                <p id="purpleHoneyProgressRate" class="purpleReactorRate"></p>
+                                <p id="purpleHoneyCancerBonus" class="purpleReactorRate" hidden></p>
+                                <p id="purpleHoneyLibraBonus" class="purpleReactorRate" hidden></p>
+                                <div class="purpleReactorOutput">
+                                    <span class="purpleReactorOutputSymbol" aria-hidden="true">☼</span>
+                                    <div class="purpleReactorOutputText">
+                                        <p id="purpleHoneyGeneration" class="purpleHoneyExtractorText fitText"></p>
+                                    </div>
+                                    <div id="purpleHoneyGainContainer" aria-hidden="true"></div>
+                                </div>
+                                <div class="purpleReactorModifiers">
+                                    <p id="purpleHoneyLuck"></p>
+                                    <p id="purpleHoneyExtractionMultiplier"></p>
+                                    <p id="purpleHoneyExtractionBonusChance"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="purpleReactorConduit purpleReactorConduitAmbrosia" aria-hidden="true">
+                            <span></span>
+                        </div>
+                        <div class="purpleReactorConduit purpleReactorConduitRed" aria-hidden="true">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div id="singularityPurple" class="singularityContainer" hidden>
+                        <section class="purpleBoxColor purplePopup" id="purpleSynthesisContainer" role="dialog" tabindex="-1" aria-labelledby="purpleSynthesisTitle" hidden>
+                            <header class="purplePopupHeader synthesisHeader">
+                                <p id="purpleSynthesisTitle" class="synthesisTitle" i18n="purpleReactor.synthesis.name"></p>
+                                <p class="synthesisConversion">
+                                    <span class="synthesisConversionRed">
+                                        <span id="synthesisConversionRedAmbrosiaCost"></span>
+                                        <span i18n="purpleReactor.synthesis.redAmbrosia"></span>
+                                    </span>
+                                    <span aria-hidden="true"> + </span>
+                                    <span class="synthesisConversionPurple">
+                                        <span id="synthesisConversionPurpleHoneyCost"></span>
+                                        <span i18n="purpleReactor.synthesis.purpleHoney"></span>
+                                    </span>
+                                    <span aria-hidden="true"> → </span>
+                                    <span class="synthesisConversionPurple">
+                                        <span id="synthesisConversionPurpleAmbrosiaAmount"></span>
+                                        <span i18n="purpleReactor.synthesis.purpleAmbrosia"></span>
+                                    </span>
+                                </p>
+                                <button id="purpleSynthesisClose" class="purplePopupClose" type="button" aria-controls="singularityPurple" i18n-aria-label="purpleReactor.synthesis.close">×</button>
+                            </header>
+                            <div class="synthesisWorkspace scrollbar">
+                                <div class="synthesisConversionWorkspace scrollbar">
+                                    <div class="synthesisMap">
+                                        <div class="synthesisInputs">
+                                            <article id="synthesisRedAmbrosiaInventory" class="synthesisSource synthesisSourceRed">
+                                                <img src="Pictures/RedAmbrosia/RedAmbrosia.png" alt="" loading="lazy">
+                                                <div>
+                                                    <p class="synthesisSourceName" i18n="purpleReactor.synthesis.redAmbrosia"></p>
+                                                    <p class="synthesisBalance fitText">
+                                                        <span id="synthesisRedAmbrosiaAmount"></span>
+                                                        <span aria-hidden="true">/</span>
+                                                        <span id="synthesisRedAmbrosiaCost"></span>
+                                                    </p>
+                                                </div>
+                                            </article>
+                                            <article id="synthesisPurpleHoneyInventory" class="synthesisSource synthesisSourceHoney">
+                                                <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHoney.png" alt="" loading="lazy">
+                                                <div>
+                                                    <p class="synthesisSourceName" i18n="purpleReactor.synthesis.purpleHoney"></p>
+                                                    <p class="synthesisBalance fitText">
+                                                        <span id="synthesisPurpleHoneyAmount"></span>
+                                                        <span aria-hidden="true">/</span>
+                                                        <span id="synthesisPurpleHoneyCost"></span>
+                                                    </p>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <article class="synthesisProduct">
+                                            <img src="Pictures/PurpleAmbrosia/PurpleAmbrosia.png" alt="" loading="lazy">
+                                            <div>
+                                                <p class="synthesisProductName" i18n="purpleReactor.synthesis.purpleAmbrosia"></p>
+                                                <p id="synthesisPurpleAmbrosiaAmount" class="synthesisProductStat fitText"></p>
+                                            </div>
+                                            <div id="synthesisGainContainer" aria-hidden="true"></div>
+                                        </article>
+                                    </div>
+                                    <div class="synthesisCrafting">
+                                        <p id="synthesisMaximumCraftAmount" class="synthesisCraftableTitle"></p>
+                                        <div id="synthesisCraftButtons">
+                                            <div id="synthesisCraftButtonsPrimary" class="synthesisCraftButtonRow">
+                                                <button id="synthesisCraftOne" type="button"></button>
+                                                <button id="synthesisCraftTen" type="button"></button>
+                                                <button id="synthesisCraftHundred" type="button"></button>
+                                            </div>
+                                            <div id="synthesisCraftButtonsSecondary" class="synthesisCraftButtonRow">
+                                                <button id="synthesisCraftThousand" type="button"></button>
+                                                <button id="synthesisCraftMax" type="button"></button>
+                                            </div>
+                                            <div class="synthesisCraftButtonRow">
+                                                <button id="synthesisAutomationUnlock" type="button"></button>
+                                                <label id="synthesisAutomationToggleContainer" class="purpleCheckbox" hidden>
+                                                    <input id="synthesisAutomationToggle" type="checkbox" disabled>
+                                                    <span i18n="purpleReactor.synthesis.enableAutomation"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <aside id="synthesisUpgradeRegion" class="synthesisUpgradeRegion scrollbar">
+                                    <section class="synthesisUpgradeModal" aria-labelledby="synthesisUpgradeModalTitle">
+                                        <p id="synthesisUpgradeModalTitle" class="synthesisUpgradeModalTitle" i18n="purpleReactor.synthesis.upgradesTitle"></p>
+                                        <div class="synthesisUpgradeList">
+                                            <article class="synthesisUpgradeCard">
+                                                <header class="synthesisUpgradeHeading">
+                                                    <img src="Pictures/PurpleAmbrosia/Synthesis/redAmbrosiaReduction.png" alt="" loading="lazy">
+                                                    <p class="synthesisUpgradeTitle" i18n="purpleReactor.synthesis.upgrades.redAmbrosiaReduction.name"></p>
+                                                    <p id="synthesisRedAmbrosiaReductionLevel" class="synthesisUpgradeLevel"></p>
+                                                </header>
+                                                <p class="synthesisUpgradeFlavor" i18n="purpleReactor.synthesis.upgrades.redAmbrosiaReduction.flavor"></p>
+                                                <p id="synthesisRedAmbrosiaReductionEffect" class="synthesisUpgradeEffect"></p>
+                                                <p id="synthesisRedAmbrosiaReductionNextCost" class="synthesisUpgradeNextCost"></p>
+                                                <p id="synthesisRedAmbrosiaReductionAP" class="synthesisUpgradeAP"></p>
+                                                <div id="synthesisRedAmbrosiaReductionPurchaseButtons" class="synthesisUpgradePurchaseButtons">
+                                                    <button id="synthesisRedAmbrosiaReductionBuyOne" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisRedAmbrosiaReductionBuyTen" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisRedAmbrosiaReductionBuyHundred" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisRedAmbrosiaReductionBuyMax" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                </div>
+                                            </article>
+                                            <article class="synthesisUpgradeCard">
+                                                <header class="synthesisUpgradeHeading">
+                                                    <img src="Pictures/PurpleAmbrosia/Synthesis/purpleHoneyReduction.png" alt="" loading="lazy">
+                                                    <p class="synthesisUpgradeTitle" i18n="purpleReactor.synthesis.upgrades.purpleHoneyReduction.name"></p>
+                                                    <p id="synthesisPurpleHoneyReductionLevel" class="synthesisUpgradeLevel"></p>
+                                                </header>
+                                                <p class="synthesisUpgradeFlavor" i18n="purpleReactor.synthesis.upgrades.purpleHoneyReduction.flavor"></p>
+                                                <p id="synthesisPurpleHoneyReductionEffect" class="synthesisUpgradeEffect"></p>
+                                                <p id="synthesisPurpleHoneyReductionNextCost" class="synthesisUpgradeNextCost"></p>
+                                                <p id="synthesisPurpleHoneyReductionAP" class="synthesisUpgradeAP"></p>
+                                                <div id="synthesisPurpleHoneyReductionPurchaseButtons" class="synthesisUpgradePurchaseButtons">
+                                                    <button id="synthesisPurpleHoneyReductionBuyOne" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisPurpleHoneyReductionBuyTen" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisPurpleHoneyReductionBuyHundred" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisPurpleHoneyReductionBuyMax" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                </div>
+                                            </article>
+                                            <article class="synthesisUpgradeCard">
+                                                <header class="synthesisUpgradeHeading">
+                                                    <img src="Pictures/PurpleAmbrosia/Synthesis/subatomicShavings.png" alt="" loading="lazy">
+                                                    <p class="synthesisUpgradeTitle" i18n="purpleReactor.synthesis.upgrades.subatomicShavings.name"></p>
+                                                    <p id="synthesisSubatomicShavingsLevel" class="synthesisUpgradeLevel"></p>
+                                                </header>
+                                                <p class="synthesisUpgradeFlavor" i18n="purpleReactor.synthesis.upgrades.subatomicShavings.flavor"></p>
+                                                <p id="synthesisSubatomicShavingsEffect" class="synthesisUpgradeEffect"></p>
+                                                <p id="synthesisSubatomicShavingsNextCost" class="synthesisUpgradeNextCost"></p>
+                                                <p id="synthesisSubatomicShavingsAP" class="synthesisUpgradeAP"></p>
+                                                <div id="synthesisSubatomicShavingsPurchaseButtons" class="synthesisUpgradePurchaseButtons">
+                                                    <button id="synthesisSubatomicShavingsBuyOne" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisSubatomicShavingsBuyTen" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisSubatomicShavingsBuyHundred" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisSubatomicShavingsBuyMax" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                </div>
+                                            </article>
+                                            <article class="synthesisUpgradeCard">
+                                                <header class="synthesisUpgradeHeading">
+                                                    <img src="Pictures/PurpleAmbrosia/Synthesis/exceptionalLieGroup.png" alt="" loading="lazy">
+                                                    <p class="synthesisUpgradeTitle" i18n="purpleReactor.synthesis.upgrades.exceptionalLieGroup.name"></p>
+                                                    <p id="synthesisExceptionalLieGroupLevel" class="synthesisUpgradeLevel"></p>
+                                                </header>
+                                                <p class="synthesisUpgradeFlavor" i18n="purpleReactor.synthesis.upgrades.exceptionalLieGroup.flavor"></p>
+                                                <p id="synthesisExceptionalLieGroupEffect" class="synthesisUpgradeEffect"></p>
+                                                <p id="synthesisExceptionalLieGroupNextCost" class="synthesisUpgradeNextCost"></p>
+                                                <p id="synthesisExceptionalLieGroupAP" class="synthesisUpgradeAP"></p>
+                                                <div id="synthesisExceptionalLieGroupPurchaseButtons" class="synthesisUpgradePurchaseButtons">
+                                                    <button id="synthesisExceptionalLieGroupBuyOne" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisExceptionalLieGroupBuyTen" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisExceptionalLieGroupBuyHundred" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                    <button id="synthesisExceptionalLieGroupBuyMax" class="synthesisUpgradePurchaseButton" type="button"></button>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </section>
+                                </aside>
+                            </div>
+                        </section>
+                        <div class="purpleBoxColor purplePopup" id="purpleUpgradeContainer">
+                            <div class="purplePopupHeader purpleUpgradeHeader">
+                                <p id="purpleUpgradeAP" class="purpleUpgradeAP"></p>
+                                <button id="purpleUpgradeClose" class="purplePopupClose" type="button" aria-controls="singularityPurple" i18n-aria-label="purpleReactor.upgradeShop.closeUpgrades">×</button>
+                            </div>
+                            <div id="purpleUpgradeShop">
+                                <div id="purpleUpgradeFamilyList" class="scrollbar"></div>
+                                <section id="purpleUpgradeDetail" class="scrollbar">
+                                    <div id="purpleUpgradeTierRail"></div>
+                                    <div id="purpleUpgradeDetailText"></div>
+                                    <div id="purpleUpgradeDetailButtons">
+                                        <button id="purpleUpgradeDetailBuyOne" type="button"></button>
+                                        <button id="purpleUpgradeDetailBuyTen" type="button"></button>
+                                        <button id="purpleUpgradeDetailBuyHundred" type="button"></button>
+                                        <button id="purpleUpgradeDetailBuyThousand" type="button"></button>
+                                        <button id="purpleUpgradeDetailBuyMax" type="button"></button>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

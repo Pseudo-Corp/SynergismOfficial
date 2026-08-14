@@ -8,6 +8,7 @@ import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { type RuneKeys, runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
@@ -776,7 +777,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
-      return getSingularityChallengeEffect('taxmanLastStand', 'talismanUnlock')
+      return getPurpleAmbrosiaUpgradeEffects('capricorn', 'horseshoeTalismanUnlocked')
+        || getSingularityChallengeEffect('taxmanLastStand', 'talismanUnlock')
     },
     name: () => i18next.t('runes.talismans.horseShoe.name'),
     description: () => i18next.t('runes.talismans.horseShoe.description')
