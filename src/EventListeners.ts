@@ -97,7 +97,7 @@ import {
   upgradeOcteractToString
 } from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription, platonicUpgradeModalHTML } from './Platonic'
-import { buyPurpleReactorUpgradeLevel, purpleReactorUpgradeToString } from './Purple'
+import { buyPurpleReactorUpgradeLevel, purpleReactorUpgradeNames, purpleReactorUpgradeToString } from './Purple'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -176,7 +176,7 @@ import {
 } from './Toggles'
 import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
 import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframeOverlay, Prompt } from './UpdateHTML'
-import { cycleCorruptionScoreTarget, selectCorruptionScoreTarget, shopMouseover } from './UpdateVisuals'
+import { cycleCorruptionScoreTarget, selectCorruptionScoreTarget, shopMouseover, visualUpdatePurple } from './UpdateVisuals'
 import {
   buyAllUpgrades,
   buyConstantUpgrades,
@@ -209,6 +209,9 @@ type MobileSubTabIconConfig = {
 
 const MOBILE_HEADER_EXPANDED_STORAGE_VALUE = 'expanded'
 const mobileSubTabIconContainerIDs = new Set(['switchSettingSubTab10'])
+const purpleReactantPercentages = [0, 10, 25, 50, 100] as const
+
+type PurpleReactantPercentage = typeof purpleReactantPercentages[number]
 
 const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
   {
@@ -2001,16 +2004,34 @@ TODO: Fix this entire tab it's utter shit
 
   // THE PURPLE
   // PURPLE REACTOR
-  const purpleReactorUpgrades = Object.keys(
-    player.purpleReactorUpgrades
-  ) as (keyof Player['purpleReactorUpgrades'])[]
-  for (const key of purpleReactorUpgrades) {
+  for (const key of purpleReactorUpgradeNames) {
     const capitalizedName = key.charAt(0).toUpperCase() + key.slice(1)
     registerPurchasableModal({
       element: DOMCacheGetOrSet(`purpleReactor${capitalizedName}`),
       html: () => purpleReactorUpgradeToString(key),
       style: { borderColor: 'purple' },
       buy: (event, action) => buyPurpleReactorUpgradeLevel(key, event, action === 'max')
+    })
+  }
+
+  const setPurpleReactantPercentage = (
+    reactant: 'ambrosia' | 'redAmbrosia',
+    percentage: PurpleReactantPercentage
+  ) => {
+    if (reactant === 'ambrosia') {
+      player.purpleReactor.ambrosiaBarPointPercentage = percentage
+    } else {
+      player.purpleReactor.redAmbrosiaBarPointPercentage = percentage
+    }
+    visualUpdatePurple()
+  }
+
+  for (const percentage of purpleReactantPercentages) {
+    DOMCacheGetOrSet(`ambrosiaBarPointPercentage${percentage}`).addEventListener('click', () => {
+      setPurpleReactantPercentage('ambrosia', percentage)
+    })
+    DOMCacheGetOrSet(`redAmbrosiaBarPointPercentage${percentage}`).addEventListener('click', () => {
+      setPurpleReactantPercentage('redAmbrosia', percentage)
     })
   }
 

@@ -548,11 +548,15 @@ export interface Player {
   redAmbrosiaTime: number
   redAmbrosiaUpgrades: Record<RedAmbrosiaNames, number>
 
+  purpleHoneyProgress: number
+
   purpleReactor: {
     purpleHoney: number
     lifetimePurpleHoney: number
     storedAmbrosiaBarPoints: number
     storedRedAmbrosiaBarPoints: number
+    ambrosiaBarPointPercentage: 0 | 10 | 25 | 50 | 100
+    redAmbrosiaBarPointPercentage: 0 | 10 | 25 | 50 | 100
   }
 
   purpleReactorUpgrades: Record<PurpleReactorNames, number>
@@ -729,6 +733,7 @@ export interface GlobalVariables {
 
   ambrosiaTimer: number
   redAmbrosiaTimer: number
+  purpleHoneyTimer: number
   TIME_PER_AMBROSIA: number
   TIME_PER_RED_AMBROSIA: number
 

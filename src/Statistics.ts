@@ -57,8 +57,8 @@ import {
   calculatePositiveSalvage,
   calculatePowderConversion,
   calculatePurpleAmbrosiaLuck,
-  calculatePurpleLatency,
   calculatePurpleReactantCapacity,
+  calculatePurpleReactantHalfLife,
   calculateQuarkMultFromPowder,
   calculateQuarkMultiplier,
   calculateRawAntSpeedMult,
@@ -129,6 +129,7 @@ import {
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getPurpleReactorUpgradeEffects } from './Purple'
 import { getGlobalBonus, getPersonalBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { getRuneBlessingEffect } from './RuneBlessings'
@@ -2488,6 +2489,10 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
       stat: () => getShopUpgradeEffects('shopCashGrabUltra', 'ambrosiaGenerationMult') // Cash Grab ULTRA Blueberry Bonus
     },
     {
+      i18n: 'PurpleHoneyUpgrade1',
+      stat: () => getPurpleReactorUpgradeEffects('tutorial', 'ambrosiaGeneration') // Purple Honey Upgrade 1
+    },
+    {
       i18n: 'Event',
       stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1, // Event Bonus
       color: 'lime',
@@ -2950,6 +2955,10 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'Exalt5',
       stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'redSpeedMult') // No Ambrosia Upgrades
+    },
+    {
+      i18n: 'PurpleHoneyUpgrade1',
+      stat: () => getPurpleReactorUpgradeEffects('tutorial', 'redAmbrosiaGeneration') // Purple Honey Upgrade 1
     }
   ]
 }
@@ -3654,13 +3663,17 @@ export const ascensionCountMultStats: NumberStatLineCategory = {
  * This is different from 'Purple Ambrosia Generation', by the way.
  * "Purple" is the base resource used for Purple Ambrosia stuff.
  */
-export const allPurpleLatencyStats: NumberStatLineCategory = {
+export const allPurpleReactantHalfLifeStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
   lines: [
     {
       i18n: 'Base',
-      stat: () => 0.00001 // 0.001% per second
+      stat: () => 60_000
+    },
+    {
+      i18n: 'PurpleHoneyUpgrade1',
+      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife1', 'halfLifeReduction')
     }
   ]
 }
@@ -3686,6 +3699,10 @@ export const allPurpleAmbrosiaLuckStats: NumberStatLineCategory = {
     {
       i18n: 'Base',
       stat: () => 100
+    },
+    {
+      i18n: 'PurpleHoneyUpgrade1',
+      stat: () => getPurpleReactorUpgradeEffects('purpleAmbrosiaLuck1', 'purpleAmbrosiaLuck') // Purple Honey Upgrade 1
     }
   ]
 }
@@ -3799,7 +3816,7 @@ const associated = new Map<string, string>([
   ['kLuckConversion', 'luckConversionStats'],
   ['kRedAmbrosiaLuck', 'redAmbrosiaLuckStats'],
   ['kRedAmbrosiaGenMult', 'redAmbrosiaGenerationStats'],
-  ['kPurpleLatency', 'purpleLatencyStats'],
+  ['kPurpleHalfLife', 'purpleHalfLifeStats'],
   ['kPurpleReactantCapacity', 'purpleReactantCapacityStats'],
   ['kPurpleAmbrosiaLuck', 'purpleAmbrosiaLuckStats'],
   ['kShopVouchers', 'shopVoucherStats']
@@ -3970,8 +3987,8 @@ export const loadStatisticsUpdate = (statsId?: string) => {
       case 'redAmbrosiaGenerationStats':
         loadRedAmbrosiaGenerationStats()
         break
-      case 'purpleLatencyStats':
-        loadStatisticsPurpleLatencyStats()
+      case 'purpleHalfLifeStats':
+        loadStatisticsPurpleReactantHalfLifeStats()
         break
       case 'purpleReactantCapacityStats':
         loadStatisticsPurpleReactantCapacityStats()
@@ -4517,13 +4534,13 @@ const loadStatisticsAscensionCountMultiplierStats = () => {
   )
 }
 
-const loadStatisticsPurpleLatencyStats = () => {
+const loadStatisticsPurpleReactantHalfLifeStats = () => {
   loadStatistics(
-    allPurpleLatencyStats,
-    'purpleLatencyStats',
-    'statPL',
-    'PurpleLatencyStat',
-    calculatePurpleLatency
+    allPurpleReactantHalfLifeStats,
+    'purpleHalfLifeStats',
+    'statPHL',
+    'PurpleReactantHalfLifeStat',
+    calculatePurpleReactantHalfLife
   )
 }
 

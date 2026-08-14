@@ -13,9 +13,17 @@ type PurpleReactorUpgradeRewards = {
   purpleAmbrosiaLuck1: {
     purpleAmbrosiaLuck: number
   }
+  purpleHalfLife1: {
+    halfLifeReduction: number
+  }
 }
 
 export type PurpleReactorNames = keyof PurpleReactorUpgradeRewards
+
+export type APRewards = {
+  perLevelAP: number
+  maxLevelAP: number
+}
 
 interface PurpleReactorUpgrade<T extends PurpleReactorNames, K extends keyof PurpleReactorUpgradeRewards[T]> {
   level: number
@@ -26,6 +34,7 @@ interface PurpleReactorUpgrade<T extends PurpleReactorNames, K extends keyof Pur
   effects: (n: number, key: K) => PurpleReactorUpgradeRewards[T][K]
   notMaxedEffectsDescription: (n: number) => string
   maxedEffectsDescription: () => string
+  apValue: APRewards
 }
 
 // Writing out 'level' and 'purpleInvested' as all zeroes is repetitive...
@@ -58,6 +67,10 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       return i18next.t('purpleReactor.upgrades.tutorial.effectMaxed', {
         maxPercent: formatAsPercentIncrease(effect, 0)
       })
+    },
+    apValue: {
+      perLevelAP: 1,
+      maxLevelAP: 0
     }
   },
   purpleEfficiency1: {
@@ -79,6 +92,10 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       return i18next.t('purpleReactor.upgrades.purpleEfficiency1.effectMaxed', {
         maxPercent: formatAsPercentIncrease(effect, 0)
       })
+    },
+    apValue: {
+      perLevelAP: 1,
+      maxLevelAP: 5
     }
   },
   purpleAmbrosiaLuck1: {
@@ -100,6 +117,35 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       return i18next.t('purpleReactor.upgrades.purpleAmbrosiaLuck1.effectMaxed', {
         maxValue: format(effect, 0)
       })
+    },
+    apValue: {
+      perLevelAP: 1,
+      maxLevelAP: 5
+    }
+  },
+  purpleHalfLife1: {
+    maxLevel: 50,
+    costFormula: (level: number) => Math.floor(level * (level + 1) / 2),
+    effects: (n) => {
+      return -200 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife1', 'halfLifeReduction')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife1', 'halfLifeReduction')
+      return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectNotMaxed', {
+        oldValue: format(effect, 0),
+        newValue: format(newEffect, 0)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife1', 'halfLifeReduction')
+      return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectMaxed', {
+        maxValue: format(effect, 0)
+      })
+    },
+    apValue: {
+      perLevelAP: 0.3,
+      maxLevelAP: 5
     }
   }
 }
@@ -258,9 +304,27 @@ export const purpleReactorUpgradeToString = (upgradeKey: PurpleReactorNames): st
     amount: format(upgrade.purpleInvested, 0, true)
   })
 
-  return `${nameSpan} <br> ${flavorSpan} <br> ${levelSpan} <br><br> ${effectSpan} <br> ${
+  let baseString = `${nameSpan} <br> ${flavorSpan} <br> ${levelSpan} <br><br> ${effectSpan} <br> ${
     (!isMaxLevel) ? `${costNextLevelSpan} <br>` : ''
-  } ${spentSpan}`
+  } ${spentSpan} <br>`
+
+  if (upgrade.apValue.perLevelAP > 0) {
+    const apPerLevelSpan = i18next.t('purpleReactor.upgradeAPPerLevel', {
+      amount: format(upgrade.apValue.perLevelAP, 1),
+      total: format(upgrade.level * upgrade.apValue.perLevelAP, 1)
+    })
+    baseString += `<br> ${apPerLevelSpan}`
+  }
+
+  if (upgrade.apValue.maxLevelAP > 0) {
+    const apMaxLevelSpan = i18next.t('purpleReactor.upgradeAPMax', {
+      amount: format(upgrade.apValue.maxLevelAP, 1),
+      check: (upgrade.level === upgrade.maxLevel) ? '✔' : '✖'
+    })
+    baseString += `<br> ${apMaxLevelSpan}`
+  }
+
+  return baseString
 }
 
 export const buyPurpleReactorUpgradeLevel = async (
@@ -308,4 +372,16 @@ export const buyPurpleReactorUpgradeLevel = async (
   if (toPurchase > 1) {
     return Alert(i18next.t('octeract.buyLevel.multiBuy', { n: format(toPurchase) }))
   }
+}
+
+export const calculatePurpleReactorAP = (): number => {
+  let totalAP = 0
+  for (const upgradeKey of purpleReactorUpgradeNames) {
+    const upgrade = purpleReactorUpgrades[upgradeKey]
+    totalAP += upgrade.level * upgrade.apValue.perLevelAP
+    if (upgrade.level === upgrade.maxLevel) {
+      totalAP += upgrade.apValue.maxLevelAP
+    }
+  }
+  return totalAP
 }

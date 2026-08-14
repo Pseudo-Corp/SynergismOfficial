@@ -17,6 +17,7 @@ import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { calculateAscensionScorePlatonicBlessing } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getPurpleReactorUpgradeEffects } from './Purple'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
@@ -47,8 +48,8 @@ import {
   allPlatonicCubeStats,
   allPowderMultiplierStats,
   allPurpleAmbrosiaLuckStats,
-  allPurpleLatencyStats,
   allPurpleReactantCapacityStats,
+  allPurpleReactantHalfLifeStats,
   allQuarkStats,
   allRedAmbrosiaGenerationSpeedStats,
   allRedAmbrosiaLuckStats,
@@ -392,9 +393,58 @@ export const calculateRedAmbrosiaLuck = () => calculateTotalStat(allRedAmbrosiaL
 
 export const calculateRedAmbrosiaGenerationSpeed = () => calculateTotalStat(allRedAmbrosiaGenerationSpeedStats)
 
-export const calculatePurpleLatency = () => calculateTotalStat(allPurpleLatencyStats)
+export const calculatePurpleReactantHalfLife = () => Math.max(1, calculateTotalStat(allPurpleReactantHalfLifeStats))
 export const calculatePurpleReactantCapacity = () => calculateTotalStat(allPurpleReactantCapacityStats)
 export const calculatePurpleAmbrosiaLuck = () => calculateTotalStat(allPurpleAmbrosiaLuckStats)
+
+export const calculatePurpleReactantRouting = (
+  productionPerSecond: number,
+  reservePercentage: number,
+  storedBarPoints: number,
+  capacity: number,
+  elapsedSeconds = 1,
+  dissolutionPerSecond = 0
+) => {
+  // Check edge case to avoid div by 0 and extraneous work
+  if (elapsedSeconds === 0) {
+    return {
+      storedBarPoints,
+      regularBarPoints: 0,
+      reserveRate: 0,
+      regularRate: 0
+    }
+  }
+
+  const clampedStored = Math.min(capacity, storedBarPoints)
+  const requestedReserveRate = productionPerSecond * reservePercentage / 100
+  const dissolvedBarPoints = Math.min(clampedStored, dissolutionPerSecond * elapsedSeconds)
+  const storedAfterDissolution = clampedStored - dissolvedBarPoints
+  const reservedBarPoints = Math.min(requestedReserveRate * elapsedSeconds, capacity - storedAfterDissolution)
+  const regularBarPoints = productionPerSecond * elapsedSeconds - reservedBarPoints
+
+  return {
+    storedBarPoints: storedAfterDissolution + reservedBarPoints,
+    regularBarPoints,
+    reserveRate: reservedBarPoints / elapsedSeconds,
+    regularRate: regularBarPoints / elapsedSeconds
+  }
+}
+
+export const calculatePurpleHoneyConversionFactor = () => {
+  return 100_000 + player.purpleReactor.purpleHoney
+}
+
+export const calculatePurpleHoneyPerExtraction = () => {
+  return getPurpleReactorUpgradeEffects('purpleEfficiency1', 'purpleEfficiency')
+}
+
+export const calculatePurpleHoneyExtractionMultiplier = (luck: number) => {
+  const guaranteedMultiplier = Math.floor(luck / 100)
+  return {
+    guaranteedMultiplier,
+    bonusMultiplierChance: luck / 100 - guaranteedMultiplier
+  }
+}
 
 export const calculateFreeShopInfinityUpgrades = () => calculateTotalStat(allShopTablets)
 
@@ -703,6 +753,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   addTimers('goldenQuarks', timeAdd)
   addTimers('singularity', timeAdd)
   addTimers('octeracts', timeTick)
+  addTimers('purpleHoney', timeAdd)
   addTimers('ambrosia', timeAdd)
   addTimers('redAmbrosia', timeAdd)
 

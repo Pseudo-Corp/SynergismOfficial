@@ -118,6 +118,7 @@ body {
     --box-color: #111;
     --blueberry-box-color: #4f86f7;
     --purple-box-color: purple;
+    --purple-text-color: #b000b0;
     --button-color: #171717;
     --blackbtn-color: black;
     --purplebtn-color: purple;
@@ -3447,6 +3448,20 @@ p#reincarnatehotkeys {
 #ambrosiaDisplay > p,
 #redAmbrosiaDisplay > p {
     margin: 0 0 0 10px;
+}
+
+#purpleHoneyDisplay > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: 1;
+}
+
+#purpleHoneyDisplay > div > p {
+    min-height: 0;
+    margin: 0 !important;
+    padding: 0;
+    line-height: 1;
 }
 
 #ambrosiaTexts {
@@ -7892,6 +7907,7 @@ header #obtainiumDisplay { color: pink; }
     border: solid white;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+    overflow: hidden;
     position: relative;
 }
 
@@ -7925,6 +7941,7 @@ header #obtainiumDisplay { color: pink; }
     border: solid white;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+    overflow: hidden;
     position: relative;
 }
 
@@ -7949,6 +7966,176 @@ header #obtainiumDisplay { color: pink; }
     justify-content: center; /* Center the text horizontally */
     color: white;
     font-weight: bold;
+}
+
+#purpleReactantContainers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 10px;
+    width: min(90%, 680px);
+    margin: 10px auto;
+    padding: 10px;
+}
+
+.purpleReactantContainersDescription {
+    grid-column: 1 / -1;
+    margin: 0;
+    text-align: center;
+}
+
+.purpleReactantContainerStats {
+    grid-column: 1 / -1;
+}
+
+.purpleReactantContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.purpleReactantContainerTitle {
+    margin: 0;
+    font-weight: bold;
+}
+
+.purpleReactantReserveTitle {
+    margin: 0;
+    text-align: center;
+}
+
+.purpleReactantProgressBar {
+    width: 100%;
+    height: 30px;
+    background-color: black;
+    border: solid white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+    overflow: hidden;
+    position: relative;
+}
+
+#ambrosiaProgressBar,
+#ambrosiaContainerProgressBar {
+    border-color: #006;
+}
+
+#pixelProgressBar,
+#redAmbrosiaContainerProgressBar {
+    border-color: maroon;
+}
+
+#purpleHoneyProgressBar {
+    border-color: #650065;
+}
+
+#ambrosiaContainerProgress,
+#redAmbrosiaContainerProgress,
+#purpleHoneyProgressFill {
+    height: 100%;
+    transition: width 0.4s ease;
+}
+
+#ambrosiaContainerProgress {
+    background: linear-gradient(to right, navy, darkturquoise);
+}
+
+#redAmbrosiaContainerProgress {
+    background: linear-gradient(to right, maroon, red);
+}
+
+#purpleHoneyProgressFill {
+    background: linear-gradient(to right, #650065, var(--purple-text-color));
+}
+
+#ambrosiaContainerProgressText,
+#redAmbrosiaContainerProgressText,
+#purpleHoneyProgressText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-weight: bold;
+}
+
+#purpleHoneyProgressContainer {
+    grid-column: 1 / -1;
+    justify-self: center;
+    position: relative;
+    width: min(100%, 400px);
+    text-align: center;
+}
+
+#purpleHoneyExtractorInfo {
+    position: absolute;
+    top: 34px;
+    width: 100%;
+    z-index: 1;
+}
+
+.purpleHoneyExtractorText {
+    margin: 0;
+}
+
+#purpleReactantArrows {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 125px;
+    margin-top: -50px;
+    overflow: visible;
+}
+
+#purpleReactantArrows > path {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 6;
+}
+
+#purpleReactantArrows > path:first-child {
+    stroke: lightblue;
+}
+
+#purpleReactantArrows > path:last-child {
+    stroke: red;
+}
+
+.purpleReactantPercentageButtons {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+}
+
+.purpleReactantPercentageButtons > button {
+    border: 2px solid green;
+    border-radius: 0;
+    color: white;
+}
+
+.purpleReactantPercentageButtons > button.purpleReactantPercentageSelected {
+    border-color: gold;
+}
+
+.purpleReactantPercentageButtons > button[id^="ambrosiaBarPointPercentage"].purpleReactantPercentageSelected,
+.purpleReactantPercentageButtons > button[id^="ambrosiaBarPointPercentage"].purpleReactantPercentageSelected:hover {
+    background-color: lightblue;
+    color: black;
+}
+
+.purpleReactantPercentageButtons > button[id^="redAmbrosiaBarPointPercentage"].purpleReactantPercentageSelected,
+.purpleReactantPercentageButtons > button[id^="redAmbrosiaBarPointPercentage"].purpleReactantPercentageSelected:hover {
+    background-color: red;
+}
+
+@media (max-width: 720px) {
+    #purpleReactantArrows {
+        display: none;
+    }
 }
 
 #bbLoadoutContainer {
