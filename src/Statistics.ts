@@ -56,7 +56,7 @@ import {
   calculatePlatonicMultiplier,
   calculatePositiveSalvage,
   calculatePowderConversion,
-  calculatePurpleAmbrosiaLuck,
+  calculatePurpleHoneyLuck,
   calculatePurpleReactantCapacity,
   calculatePurpleReactantHalfLife,
   calculateQuarkMultFromPowder,
@@ -3669,11 +3669,27 @@ export const allPurpleReactantHalfLifeStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 60_000
+      stat: () => 18_000 // 5 hour base
     },
+    // Purple Honey - All Natural, Organic Catalyzer I
     {
       i18n: 'PurpleHoneyUpgrade1',
       stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife1', 'halfLifeReduction')
+    },
+    // Purple Honey - All Natural, Organic Catalyzer II
+    {
+      i18n: 'PurpleHoneyUpgrade2',
+      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife2', 'halfLifeReduction')
+    },
+    // Purple Honey - All Natural, Organic Catalyzer III
+    {
+      i18n: 'PurpleHoneyUpgrade3',
+      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife3', 'halfLifeReduction')
+    },
+    // Purple Honey - All Natural, Organic Catalyzer IV
+    {
+      i18n: 'PurpleHoneyUpgrade4',
+      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife4', 'halfLifeReduction')
     }
   ]
 }
@@ -3688,21 +3704,81 @@ export const allPurpleReactantCapacityStats: NumberStatLineCategory = {
     {
       i18n: 'Base',
       stat: () => 1_000_000_000
+    },
+    // Purple Honey - Reactant Storage Expansion I
+    {
+      i18n: 'PurpleHoneyUpgrade1',
+      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander1', 'purpleCapacity')
+    },
+    // Purple Honey - Reactant Storage Expansion II
+    {
+      i18n: 'PurpleHoneyUpgrade2',
+      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander2', 'purpleCapacity')
+    },
+    // Purple Honey - Reactant Storage Expansion III
+    {
+      i18n: 'PurpleHoneyUpgrade3',
+      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander3', 'purpleCapacity')
+    },
+    // Purple Honey - Reactant Storage Expansion IV
+    {
+      i18n: 'PurpleHoneyUpgrade4',
+      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander4', 'purpleCapacity')
     }
   ]
 }
 
-export const allPurpleAmbrosiaLuckStats: NumberStatLineCategory = {
+export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
   lines: [
+    // Base Value
     {
       i18n: 'Base',
       stat: () => 100
     },
+    // Purple Honey Luck I
     {
       i18n: 'PurpleHoneyUpgrade1',
-      stat: () => getPurpleReactorUpgradeEffects('purpleAmbrosiaLuck1', 'purpleAmbrosiaLuck') // Purple Honey Upgrade 1
+      stat: () => getPurpleReactorUpgradeEffects('purpleHoneyLuck1', 'purpleHoneyLuck')
+    },
+    // Purple Honey Luck II
+    {
+      i18n: 'PurpleHoneyUpgrade2',
+      stat: () => getPurpleReactorUpgradeEffects('purpleHoneyLuck2', 'purpleHoneyLuck')
+    },
+    // Purple Honey Luck III
+    {
+      i18n: 'PurpleHoneyUpgrade3',
+      stat: () => getPurpleReactorUpgradeEffects('purpleHoneyLuck3', 'purpleHoneyLuck')
+    },
+    // Purple Honey Luck IV
+    {
+      i18n: 'PurpleHoneyUpgrade4',
+      stat: () => getPurpleReactorUpgradeEffects('purpleHoneyLuck4', 'purpleHoneyLuck')
+    }
+  ]
+}
+
+export const allPurpleHoneyProgressRequirementStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 500_000
+    },
+    {
+      i18n: 'PurpleHoney',
+      stat: () => 1 + player.purpleReactor.purpleHoney / 10000 // Purple Honey Upgrade 1
+    },
+    {
+      i18n: 'PurpleHoneyUpgrades',
+      stat: () => 1 
+      - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
+      - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
+      - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
+      - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
     }
   ]
 }
@@ -3818,7 +3894,7 @@ const associated = new Map<string, string>([
   ['kRedAmbrosiaGenMult', 'redAmbrosiaGenerationStats'],
   ['kPurpleHalfLife', 'purpleHalfLifeStats'],
   ['kPurpleReactantCapacity', 'purpleReactantCapacityStats'],
-  ['kPurpleAmbrosiaLuck', 'purpleAmbrosiaLuckStats'],
+  ['kPurpleHoneyLuck', 'purpleHoneyLuckStats'],
   ['kShopVouchers', 'shopVoucherStats']
 ])
 
@@ -3993,8 +4069,8 @@ export const loadStatisticsUpdate = (statsId?: string) => {
       case 'purpleReactantCapacityStats':
         loadStatisticsPurpleReactantCapacityStats()
         break
-      case 'purpleAmbrosiaLuckStats':
-        loadStatisticsPurpleAmbrosiaLuckStats()
+      case 'purpleHoneyLuckStats':
+        loadStatisticsPurpleHoneyLuckStats()
         break
       case 'shopVoucherStats':
         loadShopVoucherStats()
@@ -4554,13 +4630,13 @@ const loadStatisticsPurpleReactantCapacityStats = () => {
   )
 }
 
-const loadStatisticsPurpleAmbrosiaLuckStats = () => {
+const loadStatisticsPurpleHoneyLuckStats = () => {
   loadStatistics(
-    allPurpleAmbrosiaLuckStats,
-    'purpleAmbrosiaLuckStats',
-    'statPAL',
-    'PurpleAmbrosiaLuckStat',
-    calculatePurpleAmbrosiaLuck
+    allPurpleHoneyLuckStats,
+    'purpleHoneyLuckStats',
+    'statPHoL',
+    'PurpleHoneyLuckStat',
+    calculatePurpleHoneyLuck
   )
 }
 

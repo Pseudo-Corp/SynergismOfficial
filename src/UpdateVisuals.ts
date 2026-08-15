@@ -17,9 +17,9 @@ import {
   calculateCubeQuarkMultiplier,
   calculateNumberOfThresholds,
   calculateOcteractMultiplier,
-  calculatePurpleAmbrosiaLuck,
   calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyExtractionMultiplier,
+  calculatePurpleHoneyLuck,
   calculatePurpleHoneyPerExtraction,
   calculatePurpleReactantCapacity,
   calculatePurpleReactantHalfLife,
@@ -89,6 +89,7 @@ import {
   calculateTaxPlatonicBlessing,
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
+import { calculatePurpleReactorAP, maxPurpleReactorAP } from './Purple'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
@@ -182,6 +183,24 @@ const formatPurpleReactantNetRate = (netRate: number) => {
   }
 
   return i18next.t('purpleReactor.barPointNetRateZero')
+}
+
+export const animatePurpleHoneyGain = (amount: number) => {
+  if (G.currentTab !== Tabs.Singularity || getActiveSubTab() !== 5) {
+    return
+  }
+
+  const gain = document.createElement('span')
+  gain.classList.add('purpleHoneyGain')
+  gain.textContent = i18next.t('purpleReactor.purpleHoneyGain', {
+    amount: format(amount, 2, true)
+  })
+  const removeGain = () => gain.remove()
+  gain.addEventListener('animationend', removeGain, { once: true })
+
+  DOMCacheGetOrSet('purpleHoneyGainContainer').appendChild(gain)
+  requestAnimationFrame(() => gain.classList.add('purpleHoneyGainAnimating'))
+  setTimeout(removeGain, 1000)
 }
 
 const diamondUpper = [
@@ -2092,9 +2111,10 @@ export const visualUpdatePurple = () => {
 
   const conversionFactor = calculatePurpleHoneyConversionFactor()
   const purpleHoneyPerExtraction = calculatePurpleHoneyPerExtraction()
-  const purpleHoneyLuck = calculatePurpleAmbrosiaLuck()
+  const purpleHoneyLuck = calculatePurpleHoneyLuck()
   const { guaranteedMultiplier, bonusMultiplierChance } = calculatePurpleHoneyExtractionMultiplier(purpleHoneyLuck)
   const reactantHalfLife = calculatePurpleReactantHalfLife()
+  const purpleReactorAP = calculatePurpleReactorAP()
 
   const conversionFractionPerSecond = 1 - Math.pow(2, -1 / reactantHalfLife)
 
@@ -2139,6 +2159,10 @@ export const visualUpdatePurple = () => {
   const ambrosiaProgress = capacity > 0 ? Math.min(100, 100 * displayedAmbrosiaBarPoints / capacity) : 0
   const redAmbrosiaProgress = capacity > 0 ? Math.min(100, 100 * displayedRedAmbrosiaBarPoints / capacity) : 0
 
+  DOMCacheGetOrSet('purpleUpgradeAP').innerHTML = i18next.t('purpleReactor.purpleUpgradeAP', {
+    current: format(purpleReactorAP, 0, true),
+    max: format(maxPurpleReactorAP, 0, true)
+  })
   DOMCacheGetOrSet('purpleHoneyAmount').innerHTML = i18next.t('purpleReactor.purpleHoneyAmount', {
     amount: format(player.purpleReactor.purpleHoney, 2, true),
     lifetimeAmount: format(player.purpleReactor.lifetimePurpleHoney, 2, true)

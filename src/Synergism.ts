@@ -557,7 +557,8 @@ export const player: Player = {
     talismanRarities: 0,
     singularityUpgrades: 0,
     octeractUpgrades: 0,
-    redAmbrosiaUpgrades: 0
+    redAmbrosiaUpgrades: 0,
+    purpleHoneyUpgrades: 0,
   },
 
   achievementPoints: 0,
