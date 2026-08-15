@@ -7,9 +7,9 @@ import {
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateOcteractMultiplier,
-  calculatePurpleAmbrosiaLuck,
   calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyExtractionMultiplier,
+  calculatePurpleHoneyLuck,
   calculatePurpleHoneyPerExtraction,
   calculatePurpleReactantCapacity,
   calculatePurpleReactantHalfLife,
@@ -35,7 +35,7 @@ import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { player } from './Synergism'
 import { buyAllTalismanResources } from './Talismans'
-import { visualUpdatePurple } from './UpdateVisuals'
+import { animatePurpleHoneyGain, visualUpdatePurple } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 type TimerInput =
@@ -109,7 +109,7 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
   const purpleHoneyProgress = player.purpleHoneyProgress + barPointsToConvert
   const completedExtractions = Math.floor(purpleHoneyProgress / conversionFactor)
   const { guaranteedMultiplier, bonusMultiplierChance } = calculatePurpleHoneyExtractionMultiplier(
-    calculatePurpleAmbrosiaLuck()
+    calculatePurpleHoneyLuck()
   )
   let bonusExtractions = 0
 
@@ -130,6 +130,9 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
   player.purpleReactor.purpleHoney += purpleHoneyGained
   player.purpleReactor.lifetimePurpleHoney += purpleHoneyGained
 
+  if (purpleHoneyGained > 0) {
+    animatePurpleHoneyGain(purpleHoneyGained)
+  }
 }
 
 /**

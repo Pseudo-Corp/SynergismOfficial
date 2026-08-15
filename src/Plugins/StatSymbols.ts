@@ -18,6 +18,7 @@ const KEYWORD_SYMBOLS: Record<string, string> = {
   'Purple Honey Luck': '✰',
   'Ambrosia Bar Point': '◊',
   'Red Bar Point': '❖',
+  'Purple Bar Point': '𝚫',
   'Purple Honey': '☼',
   'Blueberries': '☌',
   'Quark': '❂',
