@@ -47,7 +47,8 @@ import {
   allOfferingStats,
   allPlatonicCubeStats,
   allPowderMultiplierStats,
-  allPurpleAmbrosiaLuckStats,
+  allPurpleHoneyLuckStats,
+  allPurpleHoneyProgressRequirementStats,
   allPurpleReactantCapacityStats,
   allPurpleReactantHalfLifeStats,
   allQuarkStats,
@@ -398,7 +399,8 @@ export const calculateRedAmbrosiaGenerationSpeed = () => calculateTotalStat(allR
 
 export const calculatePurpleReactantHalfLife = () => Math.max(1, calculateTotalStat(allPurpleReactantHalfLifeStats))
 export const calculatePurpleReactantCapacity = () => calculateTotalStat(allPurpleReactantCapacityStats)
-export const calculatePurpleAmbrosiaLuck = () => calculateTotalStat(allPurpleAmbrosiaLuckStats)
+export const calculatePurpleHoneyLuck = () => calculateTotalStat(allPurpleHoneyLuckStats)
+export const calculatePurpleHoneyConversionFactor = () => calculateTotalStat(allPurpleHoneyProgressRequirementStats)
 
 export const calculatePurpleReactantRouting = (
   productionPerSecond: number,
@@ -433,12 +435,12 @@ export const calculatePurpleReactantRouting = (
   }
 }
 
-export const calculatePurpleHoneyConversionFactor = () => {
-  return 100_000 + player.purpleReactor.purpleHoney
-}
-
 export const calculatePurpleHoneyPerExtraction = () => {
-  return getPurpleReactorUpgradeEffects('purpleEfficiency1', 'purpleEfficiency')
+  return 1
+  + getPurpleReactorUpgradeEffects('purpleEfficiency1', 'purpleEfficiency')
+  + getPurpleReactorUpgradeEffects('purpleEfficiency2', 'purpleEfficiency')
+  + getPurpleReactorUpgradeEffects('purpleEfficiency3', 'purpleEfficiency')
+  + getPurpleReactorUpgradeEffects('purpleEfficiency4', 'purpleEfficiency')
 }
 
 export const calculatePurpleHoneyExtractionMultiplier = (luck: number) => {

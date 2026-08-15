@@ -8,6 +8,7 @@ import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs
 import { hepteracts } from './Hepteracts'
 import { displayLevelStuff } from './Levels'
 import { maxOcteractUpgradeAP, octeractUpgrades } from './Octeracts'
+import { calculatePurpleReactorAP, maxPurpleReactorAP } from './Purple'
 import { maxRedAmbrosiaUpgradeAP, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { runeBlessings } from './RuneBlessings'
@@ -320,6 +321,7 @@ export type ProgressiveAchievements =
   | 'octeractUpgrades'
   | 'redAmbrosiaUpgrades'
   | 'exalts'
+  | 'purpleHoneyUpgrades'
 
 export const progressiveAchievements: Record<ProgressiveAchievements, ProgressiveAchievement> = {
   runeLevel: {
@@ -551,6 +553,19 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     rewardedAP: 0,
     displayOrder: 5,
     displayCondition: () => player.unlocks.talismans
+  },
+  purpleHoneyUpgrades: {
+    maxPointValue: maxPurpleReactorAP,
+    pointsAwarded: (_cached: number) => {
+      return calculatePurpleReactorAP()
+    },
+    updateValue: () => {
+      return 0
+    },
+    useCachedValue: false,
+    rewardedAP: 0,
+    displayOrder: 13,
+    displayCondition: () => true // TODO
   }
 }
 

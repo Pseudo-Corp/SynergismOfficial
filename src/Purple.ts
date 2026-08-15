@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
+import { visualUpdatePurple } from './UpdateVisuals'
 
 type PurpleReactorUpgradeRewards = {
   tutorial: {
@@ -10,11 +11,65 @@ type PurpleReactorUpgradeRewards = {
   purpleEfficiency1: {
     purpleEfficiency: number
   }
-  purpleAmbrosiaLuck1: {
-    purpleAmbrosiaLuck: number
+  purpleEfficiency2: {
+    purpleEfficiency: number
   }
+  purpleEfficiency3: {
+    purpleEfficiency: number
+  }
+  purpleEfficiency4: {
+    purpleEfficiency: number
+  }
+  purpleHoneyLuck1: {
+    purpleHoneyLuck: number
+  },
+  purpleHoneyLuck2: {
+    purpleHoneyLuck: number
+  },
+  purpleHoneyLuck3: {
+    purpleHoneyLuck: number
+  },
+  purpleHoneyLuck4: {
+    purpleHoneyLuck: number
+  },
   purpleHalfLife1: {
     halfLifeReduction: number
+  },
+  purpleHalfLife2: {
+    halfLifeReduction: number
+  },
+  purpleHalfLife3: {
+    halfLifeReduction: number
+  },
+  purpleHalfLife4: {
+    halfLifeReduction: number
+  },
+  purpleHoneyRequirementReduction1: {
+    purpleHoneyRequirementMult: number
+  },
+  purpleHoneyRequirementReduction2: {
+    purpleHoneyRequirementMult: number
+  },
+  purpleHoneyRequirementReduction3: {
+    purpleHoneyRequirementMult: number
+  },
+  purpleHoneyRequirementReduction4: {
+    purpleHoneyRequirementMult: number
+  },
+  paperweight: {
+    nothing: void
+  }
+  purpleCapacityExpander1: {
+    purpleCapacity: number
+  }
+  purpleCapacityExpander2: {
+    purpleCapacity: number
+  }
+  purpleCapacityExpander3: {
+    purpleCapacity: number
+  }
+  purpleCapacityExpander4: {
+    purpleCapacity: number
   }
 }
 
@@ -50,7 +105,7 @@ type PurpleReactorUpgradeData = {
 export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   tutorial: {
     maxLevel: 20,
-    costFormula: (level: number) => Math.floor(level * (level + 1) / 2),
+    costFormula: (level: number) => level,
     effects: (n) => {
       return 1 + 0.01 * n // Same for ambrosia and red ambrosia generation
     },
@@ -74,23 +129,123 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     }
   },
   purpleEfficiency1: {
-    maxLevel: 10,
-    costFormula: (level: number) => Math.floor(level * (level + 1) / 2),
+    maxLevel: 20,
+    costFormula: (level: number) => 5 * level,
     effects: (n) => {
-      return 1 + 0.01 * n
+      return 0.01 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleEfficiency1', 'purpleEfficiency')
       const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleEfficiency1', 'purpleEfficiency')
       return i18next.t('purpleReactor.upgrades.purpleEfficiency1.effectNotMaxed', {
-        oldPercent: formatAsPercentIncrease(effect, 0),
-        newPercent: formatAsPercentIncrease(newEffect, 0)
+        oldPercent: format(effect, 2),
+        newPercent: format(newEffect, 2)
       })
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleEfficiency1', 'purpleEfficiency')
       return i18next.t('purpleReactor.upgrades.purpleEfficiency1.effectMaxed', {
-        maxPercent: formatAsPercentIncrease(effect, 0)
+        maxPercent: format(effect, 2)
+      })
+    },
+    apValue: {
+      perLevelAP: 0.5,
+      maxLevelAP: 5
+    }
+  },
+  purpleEfficiency2: {
+    maxLevel: 20,
+    costFormula: (level: number) => 500 * level,
+    effects: (n) => {
+      return 0.01 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleEfficiency2', 'purpleEfficiency')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleEfficiency2', 'purpleEfficiency')
+      return i18next.t('purpleReactor.upgrades.purpleEfficiency1.effectNotMaxed', {
+        oldPercent: format(effect, 2),
+        newPercent: format(newEffect, 2)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleEfficiency2', 'purpleEfficiency')
+      return i18next.t('purpleReactor.upgrades.purpleEfficiency1.effectMaxed', {
+        maxPercent: format(effect, 2)
+      })
+    },
+    apValue: {
+      perLevelAP: 0.5,
+      maxLevelAP: 10
+    }
+  },
+  purpleEfficiency3: {
+    maxLevel: 30,
+    costFormula: (level: number) => 50_000 * level,
+    effects: (n) => {
+      return 0.01 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleEfficiency3', 'purpleEfficiency')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleEfficiency3', 'purpleEfficiency')
+      return i18next.t('purpleReactor.upgrades.purpleEfficiency1.effectNotMaxed', {
+        oldPercent: format(effect, 2),
+        newPercent: format(newEffect, 2)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleEfficiency3', 'purpleEfficiency')
+      return i18next.t('purpleReactor.upgrades.purpleEfficiency1.effectMaxed', {
+        maxPercent: format(effect, 2)
+      })
+    },
+    apValue: {
+      perLevelAP: 0.5,
+      maxLevelAP: 10
+    }
+  },
+  purpleEfficiency4: {
+    maxLevel: 30,
+    costFormula: (level: number) => 5_000_000 * level,
+    effects: (n) => {
+      return 0.01 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleEfficiency4', 'purpleEfficiency')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleEfficiency4', 'purpleEfficiency')
+      return i18next.t('purpleReactor.upgrades.purpleEfficiency1.effectNotMaxed', {
+        oldPercent: format(effect, 2),
+        newPercent: format(newEffect, 2)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleEfficiency4', 'purpleEfficiency')
+      return i18next.t('purpleReactor.upgrades.purpleEfficiency1.effectMaxed', {
+        maxPercent: format(effect, 2)
+      })
+    },
+    apValue: {
+      perLevelAP: 0.5,
+      maxLevelAP: 15
+    }
+  },
+  purpleHoneyLuck1: {
+    maxLevel: 10,
+    costFormula: (level: number) => 7 * level,
+    effects: (n) => {
+      return n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyLuck1', 'purpleHoneyLuck')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHoneyLuck1', 'purpleHoneyLuck')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyLuck1.effectNotMaxed', {
+        oldValue: format(effect, 0),
+        newValue: format(newEffect, 0)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyLuck1', 'purpleHoneyLuck')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyLuck1.effectMaxed', {
+        maxValue: format(effect, 0)
       })
     },
     apValue: {
@@ -98,23 +253,73 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       maxLevelAP: 5
     }
   },
-  purpleAmbrosiaLuck1: {
-    maxLevel: 10,
-    costFormula: (level: number) => Math.floor(level * (level + 1) / 2),
+  purpleHoneyLuck2: {
+    maxLevel: 15,
+    costFormula: (level: number) => 777 * level,
     effects: (n) => {
       return n
     },
     notMaxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleAmbrosiaLuck1', 'purpleAmbrosiaLuck')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleAmbrosiaLuck1', 'purpleAmbrosiaLuck')
-      return i18next.t('purpleReactor.upgrades.purpleAmbrosiaLuck1.effectNotMaxed', {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyLuck2', 'purpleHoneyLuck')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHoneyLuck2', 'purpleHoneyLuck')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyLuck1.effectNotMaxed', {
         oldValue: format(effect, 0),
         newValue: format(newEffect, 0)
       })
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleAmbrosiaLuck1', 'purpleAmbrosiaLuck')
-      return i18next.t('purpleReactor.upgrades.purpleAmbrosiaLuck1.effectMaxed', {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyLuck2', 'purpleHoneyLuck')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyLuck1.effectMaxed', {
+        maxValue: format(effect, 0)
+      })
+    },
+    apValue: {
+      perLevelAP: 1,
+      maxLevelAP: 5
+    }
+  },
+  purpleHoneyLuck3: {
+    maxLevel: 20,
+    costFormula: (level: number) => 77_777 * level,
+    effects: (n) => {
+      return n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyLuck3', 'purpleHoneyLuck')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHoneyLuck3', 'purpleHoneyLuck')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyLuck1.effectNotMaxed', {
+        oldValue: format(effect, 0),
+        newValue: format(newEffect, 0)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyLuck3', 'purpleHoneyLuck')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyLuck1.effectMaxed', {
+        maxValue: format(effect, 0)
+      })
+    },
+    apValue: {
+      perLevelAP: 1,
+      maxLevelAP: 5
+    }
+  },
+  purpleHoneyLuck4: {
+    maxLevel: 25,
+    costFormula: (level: number) => 7_777_777 * level,
+    effects: (n) => {
+      return n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyLuck4', 'purpleHoneyLuck')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHoneyLuck4', 'purpleHoneyLuck')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyLuck1.effectNotMaxed', {
+        oldValue: format(effect, 0),
+        newValue: format(newEffect, 0)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyLuck4', 'purpleHoneyLuck')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyLuck1.effectMaxed', {
         maxValue: format(effect, 0)
       })
     },
@@ -125,9 +330,9 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleHalfLife1: {
     maxLevel: 50,
-    costFormula: (level: number) => Math.floor(level * (level + 1) / 2),
+    costFormula: (level: number) => 12 * level,
     effects: (n) => {
-      return -200 * n
+      return -36 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHalfLife1', 'halfLifeReduction')
@@ -144,7 +349,299 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       })
     },
     apValue: {
+      perLevelAP: 0.2,
+      maxLevelAP: 10
+    }
+  },
+  purpleHalfLife2: {
+    maxLevel: 50,
+    costFormula: (level: number) => 1_200 * level,
+    effects: (n) => {
+      return -36 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife2', 'halfLifeReduction')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife2', 'halfLifeReduction')
+      return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectNotMaxed', {
+        oldValue: format(effect, 0),
+        newValue: format(newEffect, 0)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife2', 'halfLifeReduction')
+      return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectMaxed', {
+        maxValue: format(effect, 0)
+      })
+    },
+    apValue: {
       perLevelAP: 0.3,
+      maxLevelAP: 10
+    }
+  },
+  purpleHalfLife3: {
+    maxLevel: 50,
+    costFormula: (level: number) => 120_000 * level,
+    effects: (n) => {
+      return -36 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife3', 'halfLifeReduction')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife3', 'halfLifeReduction')
+      return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectNotMaxed', {
+        oldValue: format(effect, 0),
+        newValue: format(newEffect, 0)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife3', 'halfLifeReduction')
+      return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectMaxed', {
+        maxValue: format(effect, 0)
+      })
+    },
+    apValue: {
+      perLevelAP: 0.4,
+      maxLevelAP: 10
+    }
+  },
+  purpleHalfLife4: {
+    maxLevel: 50,
+    costFormula: (level: number) => 12_000_000 * level,
+    effects: (n) => {
+      return -36 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife4', 'halfLifeReduction')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife4', 'halfLifeReduction')
+      return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectNotMaxed', {
+        oldValue: format(effect, 0),
+        newValue: format(newEffect, 0)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife4', 'halfLifeReduction')
+      return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectMaxed', {
+        maxValue: format(effect, 0)
+      })
+    },
+    apValue: {
+      perLevelAP: 0.5,
+      maxLevelAP: 10
+    }
+  },
+  paperweight: {
+    maxLevel: 100,
+    costFormula: (level: number) => Math.pow(level, 3),
+    effects: () => {
+      return
+    },
+    notMaxedEffectsDescription: () => {
+      return i18next.t('purpleReactor.upgrades.paperweight.effectNotMaxed')
+    },
+    maxedEffectsDescription: () => {
+      return i18next.t('purpleReactor.upgrades.paperweight.effectMaxed')
+    },
+    apValue: {
+      perLevelAP: 0.3,
+      maxLevelAP: 20
+    }
+  },
+  purpleCapacityExpander1: {
+    maxLevel: 10_000,
+    costFormula: (level: number) => Math.ceil(Math.pow(level, 1.1)),
+    effects: (n) => {
+      return 50_000 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleCapacityExpander1', 'purpleCapacity')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander1', 'purpleCapacity')
+      return i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxed', {
+        oldValue: format(effect, 0, true),
+        newValue: format(newEffect, 0, true)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleCapacityExpander1', 'purpleCapacity')
+      return i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxed', {
+        maxValue: format(effect, 0, true)
+      })
+    },
+    apValue: {
+      perLevelAP: 0,
+      maxLevelAP: 30
+    }
+  },
+  purpleCapacityExpander2: {
+    maxLevel: 10_000,
+    costFormula: (level: number) => 10 * Math.ceil(Math.pow(level, 1.2)),
+    effects: (n) => {
+      return 50_000 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleCapacityExpander2', 'purpleCapacity')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander2', 'purpleCapacity')
+      return i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxed', {
+        oldValue: format(effect, 0, true),
+        newValue: format(newEffect, 0, true)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleCapacityExpander2', 'purpleCapacity')
+      return i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxed', {
+        maxValue: format(effect, 0, true)
+      })
+    },
+    apValue: {
+      perLevelAP: 0,
+      maxLevelAP: 40
+    }
+  },
+  purpleCapacityExpander3: {
+    maxLevel: 10_000,
+    costFormula: (level: number) => 100 * Math.ceil(Math.pow(level, 1.25)),
+    effects: (n) => {
+      return 50_000 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleCapacityExpander3', 'purpleCapacity')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander3', 'purpleCapacity')
+      return i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxed', {
+        oldValue: format(effect, 0, true),
+        newValue: format(newEffect, 0, true)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleCapacityExpander3', 'purpleCapacity')
+      return i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxed', {
+        maxValue: format(effect, 0, true)
+      })
+    },
+    apValue: {
+      perLevelAP: 0,
+      maxLevelAP: 50
+    }
+  },
+  purpleCapacityExpander4: {
+    maxLevel: 10_000,
+    costFormula: (level: number) => 1000 * Math.ceil(Math.pow(level, 1.3)),
+    effects: (n) => {
+      return 50_000 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleCapacityExpander4', 'purpleCapacity')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander4', 'purpleCapacity')
+      return i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxed', {
+        oldValue: format(effect, 0, true),
+        newValue: format(newEffect, 0, true)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleCapacityExpander4', 'purpleCapacity')
+      return i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxed', {
+        maxValue: format(effect, 0, true)
+      })
+    },
+    apValue: {
+      perLevelAP: 0,
+      maxLevelAP: 60
+    }
+  },
+  purpleHoneyRequirementReduction1: {
+    maxLevel: 50,
+    costFormula: (level: number) => 20 * level,
+    effects: (n) => {
+      return 0.004 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectNotMaxed', {
+        oldPercent: formatAsPercentIncrease(1 - effect, 1),
+        newPercent: formatAsPercentIncrease(1 - newEffect, 1)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectMaxed', {
+        maxPercent: formatAsPercentIncrease(1 - effect, 0)
+      })
+    },
+    apValue: {
+      perLevelAP: 0.3,
+      maxLevelAP: 5
+    }
+  },
+  purpleHoneyRequirementReduction2: {
+    maxLevel: 50,
+    costFormula: (level: number) => 2_000 * level,
+    effects: (n) => {
+      return 0.004 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectNotMaxed', {
+        oldPercent: formatAsPercentIncrease(1 - effect, 1),
+        newPercent: formatAsPercentIncrease(1 - newEffect, 1)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectMaxed', {
+        maxPercent: formatAsPercentIncrease(1 - effect, 0)
+      })
+    },
+    apValue: {
+      perLevelAP: 0.4,
+      maxLevelAP: 5
+    }
+  },
+  purpleHoneyRequirementReduction3: {
+    maxLevel: 50,
+    costFormula: (level: number) => 200_000 * level,
+    effects: (n) => {
+      return 0.004 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectNotMaxed', {
+        oldPercent: formatAsPercentIncrease(1 - effect, 1),
+        newPercent: formatAsPercentIncrease(1 - newEffect, 1)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectMaxed', {
+        maxPercent: formatAsPercentIncrease(1 - effect, 0)
+      })
+    },
+    apValue: {
+      perLevelAP: 0.5,
+      maxLevelAP: 5
+    }
+  },
+  purpleHoneyRequirementReduction4: {
+    maxLevel: 50,
+    costFormula: (level: number) => 20_000_000 * level,
+    effects: (n) => {
+      return 0.004 * n
+    },
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectNotMaxed', {
+        oldPercent: formatAsPercentIncrease(1 - effect, 1),
+        newPercent: formatAsPercentIncrease(1 - newEffect, 1)
+      })
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
+      return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectMaxed', {
+        maxPercent: formatAsPercentIncrease(1 - effect, 0)
+      })
+    },
+    apValue: {
+      perLevelAP: 0.6,
       maxLevelAP: 5
     }
   }
@@ -364,11 +861,12 @@ export const buyPurpleReactorUpgradeLevel = async (
     }
   }
 
-  const cost = upgrade.costFormula(upgrade.level + toPurchase)
+  const cost = upgrade.costFormula(upgrade.level + toPurchase) - upgrade.costFormula(upgrade.level)
   player.purpleReactor.purpleHoney -= cost
   upgrade.purpleInvested += cost
   upgrade.level += toPurchase
   player.purpleReactorUpgrades[upgradeKey] += cost
+  visualUpdatePurple()
   if (toPurchase > 1) {
     return Alert(i18next.t('octeract.buyLevel.multiBuy', { n: format(toPurchase) }))
   }
@@ -383,5 +881,12 @@ export const calculatePurpleReactorAP = (): number => {
       totalAP += upgrade.apValue.maxLevelAP
     }
   }
-  return totalAP
+  return Math.floor(totalAP)
 }
+
+export const maxPurpleReactorAP = Math.floor(
+  purpleReactorUpgradeNames.reduce((totalAP, upgradeKey) => {
+    const upgrade = purpleReactorUpgrades[upgradeKey]
+    return totalAP + upgrade.maxLevel * upgrade.apValue.perLevelAP + upgrade.apValue.maxLevelAP
+  }, 0)
+)

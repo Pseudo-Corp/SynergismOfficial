@@ -2431,7 +2431,7 @@
                     <button class="statsNerds octeracts" id="kRedAmbrosiaGenMult" style="border: 2px solid red" i18n="statistics.subtabs.redAmbrosiaGenMult"></button>
                     <button class="statsNerds octeracts" id="kPurpleHalfLife" style="border: 2px solid purple" i18n="statistics.subtabs.purpleHalfLife"></button>
                     <button class="statsNerds octeracts" id="kPurpleReactantCapacity" style="border: 2px solid purple" i18n="statistics.subtabs.purpleReactantCapacity"></button>
-                    <button class="statsNerds octeracts" id="kPurpleAmbrosiaLuck" style="border: 2px solid purple" i18n="statistics.subtabs.purpleAmbrosiaLuck"></button>
+                    <button class="statsNerds octeracts" id="kPurpleHoneyLuck" style="border: 2px solid purple" i18n="statistics.subtabs.purpleHoneyLuck"></button>
                     <button class="statsNerds octeracts" id="kShopVouchers" style="border: 2px solid cyan" i18n="statistics.subtabs.shopVouchers"></button>
                     <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;" i18n="statistics.subtabs.generate"></button>
                 </div>
@@ -2607,8 +2607,8 @@
                     <p id="purpleReactantCapacityStatTitle" class="statPortion" style="color: purple; font-size: 1.2em" i18n="statistics.purpleReactantCapacityStats.title"></p>
                 </div>
 
-                <div id="purpleAmbrosiaLuckStats" class="statContainer activeStats" aria-live="polite">
-                    <p id="purpleAmbrosiaLuckStatTitle" class="statPortion" style="color: purple; font-size: 1.2em" i18n="statistics.purpleAmbrosiaLuckStats.title"></p>
+                <div id="purpleHoneyLuckStats" class="statContainer activeStats" aria-live="polite">
+                    <p id="purpleHoneyLuckStatTitle" class="statPortion" style="color: purple; font-size: 1.2em" i18n="statistics.purpleHoneyLuckStats.title"></p>
                 </div>
 
                 <div id="shopVoucherStats" class="statContainer activeStats" aria-live="polite">
@@ -3626,12 +3626,13 @@
                         <p id="purpleReactantHalfLife" class="purpleReactantContainersDescription"></p>
                     </div>
                     <div id="purpleHoneyProgressContainer">
+                        <p class="purpleHoneyProgressTitle" i18n="purpleReactor.purpleHoneyProgressTitle"></p>
                         <div class="purpleReactantProgressBar" id="purpleHoneyProgressBar">
                             <div id="purpleHoneyProgressFill"></div>
                             <span id="purpleHoneyProgressText"></span>
                         </div>
+                        <div id="purpleHoneyGainContainer" aria-hidden="true"></div>
                         <div id="purpleHoneyExtractorInfo">
-                            <p class="purpleHoneyExtractorText" i18n="purpleReactor.purpleHoneyExtractor"></p>
                             <p id="purpleHoneyGeneration" class="purpleHoneyExtractorText" i18n="purpleReactor.currentlyGeneratingPurpleHoney"></p>
                             <p id="purpleHoneyLuck" class="purpleHoneyExtractorText"></p>
                             <p id="purpleHoneyExtractionMultiplier" class="purpleHoneyExtractorText"></p>
@@ -3675,17 +3676,72 @@
                 </div>
                 <div id="singularityPurple" class="singularityContainer">
                     <div class="purpleBoxColor" id="purpleUpgradeContainer">
+                        <p id="purpleUpgradeAP" class="purpleUpgradeAP"></p>
                         <button class="purpleUpgrade" id="purpleReactorTutorial">
                             <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurpleTutorial.png">
                         </button>
                         <button class="purpleUpgrade" id="purpleReactorPurpleEfficiency1">
                             <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleEfficiency1.png">
                         </button>
-                        <button class="purpleUpgrade" id="purpleReactorPurpleAmbrosiaLuck1">
-                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleAmbrosiaLuck1.png">
+                        <button class="purpleUpgrade" id="purpleReactorPurpleEfficiency2">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleEfficiency1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleEfficiency3">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleEfficiency1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleEfficiency4">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleEfficiency1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHoneyLuck1">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleHoneyLuck1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHoneyLuck2">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleHoneyLuck1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHoneyLuck3">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleHoneyLuck1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHoneyLuck4">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleHoneyLuck1.png">
                         </button>
                         <button class="purpleUpgrade" id="purpleReactorPurpleHalfLife1">
                             <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHalfLife2">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHalfLife3">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHalfLife4">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleCapacityExpander1">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleCapacityExpander1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleCapacityExpander2">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleCapacityExpander1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleCapacityExpander3">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleCapacityExpander1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleCapacityExpander4">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleCapacityExpander1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHoneyRequirementReduction1">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleHoneyRequirementReduction1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHoneyRequirementReduction2">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleHoneyRequirementReduction1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHoneyRequirementReduction3">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleHoneyRequirementReduction1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPurpleHoneyRequirementReduction4">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleHoneyRequirementReduction1.png">
+                        </button>
+                        <button class="purpleUpgrade" id="purpleReactorPaperweight">
+                            <img src="Pictures/PurpleAmbrosia/Purple Upgrades/PurplePaperweight.png">
                         </button>
                     </div>
                 </div>
