@@ -702,10 +702,10 @@ async function handleWebSocket () {
     }
 
     setLotusBalanceLoading()
-    tries++
     const delay = PLATFORM === 'mobile'
       ? exponentialBackoff[Math.min(tries, exponentialBackoff.length - 1)]
       : exponentialBackoff[tries]
+    tries++
 
     console.log(
       `[Consumables WS] closed: code=${event.code}, reason=${event.reason || '(none)'}, clean=${event.wasClean}; `

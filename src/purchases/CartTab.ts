@@ -64,7 +64,8 @@ export class CartTab {
       return CartTab.#productsFetch.promise
     }
 
-    CartTab.#productsFetch = createDeferredPromise()
+    const productsFetch = createDeferredPromise<undefined>()
+    CartTab.#productsFetch = productsFetch
 
     const url = 'https://synergism.cc/stripe/products'
 
@@ -79,11 +80,14 @@ export class CartTab {
 
         // The Subscriptions do not naturally sort themselves by price
         subscriptionProducts.sort((a, b) => a.price - b.price)
-        CartTab.#productsFetch?.resolve(undefined)
+        productsFetch.resolve(undefined)
       })
-      .catch((e) => CartTab.#productsFetch!.reject(e))
+      .catch((e: Error) => {
+        CartTab.#productsFetch = undefined
+        productsFetch.reject(e)
+      })
 
-    return CartTab.#productsFetch.promise
+    return productsFetch.promise
   }
 
   static fetchUpgrades () {
