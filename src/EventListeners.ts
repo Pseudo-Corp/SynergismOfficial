@@ -30,7 +30,7 @@ import { challengeDisplay, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
-import { storageGetItem, storageSetItem } from './events/storage-events'
+import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
 import { buyAllAntMasteries, buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
 import { antProducerData } from './Features/Ants/AntProducers/data/data'
 import { buyAllAntProducers, buyAntProducers } from './Features/Ants/AntProducers/lib/buy-producer'
@@ -2064,7 +2064,7 @@ TODO: Fix this entire tab it's utter shit
     const element = event.target as HTMLInputElement
 
     if (!element.checked) {
-      localStorage.removeItem('copyToClipboard')
+      storageRemoveItem('copyToClipboard')
       event.stopPropagation()
       return
     }
@@ -2077,7 +2077,7 @@ TODO: Fix this entire tab it's utter shit
       element.checked = !element.checked
       storageSetItem('copyToClipboard', '')
     } else {
-      localStorage.removeItem('copyToClipboard')
+      storageRemoveItem('copyToClipboard')
     }
   })
 

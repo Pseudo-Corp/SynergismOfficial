@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { storageGetItem, storageSetItem } from './events/storage-events'
+import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
 import { updateIconsFromSprites } from './SpriteSheets'
 import { player } from './Synergism'
 
@@ -112,7 +112,7 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
   }
 
   if (themeNumber === Theme.Dark) {
-    localStorage.removeItem('theme')
+    storageRemoveItem('theme')
     themeButton.textContent = i18next.t('settings.themes.dark')
   } else if (themeNumber === Theme.Darker) { // 'Darker Mode'
     body.style.setProperty('--header-color', 'black')

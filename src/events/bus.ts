@@ -2,6 +2,7 @@ import type { StorageRetrieveEvent } from './storage-events'
 
 interface GameEvents {
   'storage:save': SynEvent<{ key: string; value: string }>
+  'storage:remove': SynEvent<{ key: string }>
   'storage:get': StorageRetrieveEvent
   'subscription:order': SynEvent<{ lookupKey: string }>
   'subscription:manage': SynEvent<undefined>
