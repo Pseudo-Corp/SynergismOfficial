@@ -335,7 +335,7 @@ export async function handleLogin () {
     subscription = sub
     logoutElement.style.display = loggedIn ? '' : 'none'
 
-    if (!isSynergismCC && PLATFORM === 'browser') {
+    if (!isSynergismCC && PLATFORM === 'browser' && !DEV) {
       subtabElement.innerHTML = i18next.t('account.loginNotAvailable')
     } else if (hasAccount(account)) {
       if (account.member == null || Object.keys(account.member).length === 0) {
@@ -915,9 +915,28 @@ async function logout () {
 const hasCaptcha = new WeakSet<HTMLElement>()
 const boundSteamAuthForms = new WeakSet<HTMLFormElement>()
 const boundBrowserAuthForms = new WeakSet<HTMLFormElement>()
-const authSubmitButtonSelector = 'button[type="submit"]'
 
-const getAuthSubmitButton = (form: HTMLFormElement) => form.querySelector<HTMLButtonElement>(authSubmitButtonSelector)
+let turnstileScript: Promise<void> | null = null
+
+const loadTurnstileScript = () => {
+  turnstileScript ??= new Promise<void>((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
+    script.async = true
+    script.defer = true
+    script.addEventListener('load', () => resolve())
+    script.addEventListener('error', () => {
+      turnstileScript = null
+      script.remove()
+      reject(new Error('Failed to load the Turnstile script'))
+    })
+    document.head.appendChild(script)
+  })
+
+  return turnstileScript
+}
+
+const getAuthSubmitButton = (form: HTMLFormElement) => form.querySelector<HTMLButtonElement>('button[type="submit"]')
 
 export const startAuthFormSubmission = (form: HTMLFormElement) => {
   if (form.dataset.submitting === 'true') return false
@@ -1022,13 +1041,20 @@ export const renderCaptcha = PLATFORM === 'steam'
     const visible = captchaElements.find((el) => el.offsetParent !== null)
 
     if (visible && !hasCaptcha.has(visible)) {
-      turnstile.render(visible, {
-        sitekey: visible.getAttribute('data-sitekey')!,
-        'error-callback' () {},
-        retry: 'never'
-      })
-
       hasCaptcha.add(visible)
+
+      loadTurnstileScript()
+        .then(() => {
+          turnstile.render(visible, {
+            sitekey: visible.getAttribute('data-sitekey')!,
+            'error-callback' () {},
+            retry: 'never'
+          })
+        })
+        .catch((e) => {
+          hasCaptcha.delete(visible)
+          console.error(e)
+        })
     }
   }
 

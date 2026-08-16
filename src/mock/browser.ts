@@ -1,4 +1,4 @@
-import { delay, http, HttpResponse } from 'msw'
+import { bypass, delay, http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
 import { getSubMetadata, setSubMetadata } from '../Login'
 import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
@@ -21,102 +21,8 @@ const GETHandlers = [
       coins: 49001
     })
   }),
-  http.get('https://synergism.cc/consumables/list', () => {
-    return HttpResponse.json([
-      {
-        name: 'Happy Hour Bell',
-        description:
-          'When you activate a consumable, trigger an event for 60 minutes, giving all players:\\n- Quark bonus: 25% + 2.5% * (active - 1)\\n- Cube, Obtainium, Offering bonuses: 50% + 5% * (active - 1)\\n- Ambrosia Luck Multiplier: 10% + 1% * (active - 1)\\n- Blueberry Generation Speed: 10% + 1% * (active - 1)\\n\\nIf you activate this consumable, you will receive 12 hours of Offline Time, in the form of tips. Each tip can be redeemed in the Events tab for 1 minute of Offline Time!',
-        internalName: 'HAPPY_HOUR_BELL',
-        cost: 500,
-        length: '+1 hour'
-      },
-      {
-        name: 'Small Global Timeskip',
-        description: 'Skip 6 hours Gloablly',
-        internalName: 'SMALL_GLOBAL_TIMESKIP',
-        cost: 100,
-        length: '360'
-      },
-      {
-        name: 'Large Global Timeskip',
-        description: 'Skip 12 hours Gloablly',
-        internalName: 'LARGE_GLOBAL_TIMESKIP',
-        cost: 200,
-        length: '720'
-      },
-      {
-        name: 'Jumbo Global Timeskip',
-        description: 'Skip 24 hours Gloablly',
-        internalName: 'JUMBO_GLOBAL_TIMESKIP',
-        cost: 300,
-        length: '1440'
-      },
-      {
-        name: 'Small Ascension Timeskip',
-        description: 'Skip 6 hours Ascension',
-        internalName: 'SMALL_ASCENSION_TIMESKIP',
-        cost: 100,
-        length: '360'
-      },
-      {
-        name: 'Large Ascension Timeskip',
-        description: 'Skip 12 hours Ascension',
-        internalName: 'LARGE_ASCENSION_TIMESKIP',
-        cost: 200,
-        length: '720'
-      },
-      {
-        name: 'Jumbo Ascension Timeskip',
-        description: 'Skip 24 hours Ascension',
-        internalName: 'JUMBO_ASCENSION_TIMESKIP',
-        cost: 300,
-        length: '1440'
-      },
-      {
-        name: 'Small Ambrosia Timeskip',
-        description: 'Skip 6 hours Ambrosia',
-        internalName: 'SMALL_AMBROSIA_TIMESKIP',
-        cost: 150,
-        length: '360'
-      },
-      {
-        name: 'Large Ambrosia Timeskip',
-        description: 'Skip 12 hours Ambrosia',
-        internalName: 'LARGE_AMBROSIA_TIMESKIP',
-        cost: 300,
-        length: '720'
-      },
-      {
-        name: 'Jumbo Ambrosia Timeskip',
-        description: 'Skip 24 hours Ambrosia',
-        internalName: 'JUMBO_AMBROSIA_TIMESKIP',
-        cost: 400,
-        length: '1440'
-      },
-      {
-        name: 'Lotus of Rejuvenation',
-        description:
-          'Grants +1 Lotus, which you can use in the Anthill to instantly gain Reborn ELO for the next five Ant Sacrifices.',
-        internalName: 'LOTUS_SINGLE',
-        cost: 20,
-        length: '1'
-      },
-      {
-        name: 'dozen Loti of Rejuvenation',
-        description: 'Grants +12 Lotuses, for the price of 11.',
-        internalName: 'LOTUS_DOZEN',
-        cost: 220,
-        length: '12'
-      },
-      {
-        name: 'Loti of Rejuvenation bouquet (50)',
-        description: 'Grants +50 Lotuses, for the price of 40. What a steal!',
-        internalName: 'LOTUS_BUNDLE',
-        cost: 800,
-        length: '50'
-      }
-    ])
+  http.get('https://synergism.cc/consumables/list', ({ request }) => {
+    return fetch(bypass(request))
   }),
   http.get('https://synergism.cc/stripe/upgrades', () => {
     return HttpResponse.json({
@@ -817,6 +723,15 @@ const GETHandlers = [
         }
       ]
     })
+  }),
+  http.get('https://synergism.cc/stripe/products', ({ request }) => {
+    return fetch(bypass(request))
+  }),
+  http.get('https://synergism.cc/events/get', ({ request }) => {
+    return fetch(bypass(request))
+  }),
+  http.get('/favicon.ico', ({ request }) => {
+    return fetch(bypass(request))
   })
 ]
 
