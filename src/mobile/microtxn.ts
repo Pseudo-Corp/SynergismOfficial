@@ -11,6 +11,7 @@ const BUNDLE_ID = 'cc.pseudocorp.synergism'
 
 let orderInProgress = false
 let storeInitialization: Promise<void> | undefined
+let storeInitializeCalled = false
 
 const storePlatform = Capacitor.getPlatform() === 'android'
   ? Platform.GOOGLE_PLAY
@@ -28,7 +29,24 @@ const toStoreProductId = (lookupKey: string) => {
   return `${prefix}.${formattedKey}`
 }
 
+const anyProductLoaded = () =>
+  [...coinProducts, ...subscriptionProducts]
+    .some((product) => store.get(toStoreProductId(product.id), storePlatform))
+
 const initializeStore = async (): Promise<void> => {
+  if (storeInitializeCalled) {
+    store.minTimeBetweenUpdates = 0
+    await store.update()
+
+    if (!anyProductLoaded()) {
+      throw new Error('Store update failed: no products available')
+    }
+
+    return
+  }
+
+  storeInitializeCalled = true
+
   const consumables = coinProducts.map((product) => ({
     type: ProductType.CONSUMABLE,
     id: toStoreProductId(product.id),
@@ -58,10 +76,7 @@ const initializeStore = async (): Promise<void> => {
       .join(' | ')
     console.error(`CdvPurchase init errors: ${details}`)
 
-    const anyProductLoaded = [...coinProducts, ...subscriptionProducts]
-      .some((product) => store.get(toStoreProductId(product.id), storePlatform))
-
-    if (!anyProductLoaded) {
+    if (!anyProductLoaded()) {
       throw new Error(details)
     }
   }
@@ -70,8 +85,16 @@ const initializeStore = async (): Promise<void> => {
 export const initMobilePurchases = async (): Promise<void> => {
   await CartTab.fetchProducts()
 
-  storeInitialization ??= initializeStore()
-  await storeInitialization
+  const initialization = storeInitialization ??= initializeStore()
+
+  try {
+    await initialization
+  } catch (e) {
+    if (storeInitialization === initialization) {
+      storeInitialization = undefined
+    }
+    throw e
+  }
 }
 
 async function onTransactionApproved (transaction: Transaction): Promise<void> {
