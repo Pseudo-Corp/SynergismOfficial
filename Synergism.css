@@ -857,6 +857,18 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
     color: pink;
 }
 
+#preloadPlayOffline {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    font-size: 2em;
+    padding: 0.5em 1.5em;
+    border: 2px solid limegreen;
+    color: lightgreen;
+}
+
 #offlineBlur {
     background-color: #111;
     position: fixed;

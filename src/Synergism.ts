@@ -5073,8 +5073,14 @@ window.addEventListener('load', async () => {
     .catch(console.error)
     .finally(() => setInterval(() => refreshQuarkBonus(), 1000 * 60 * 15))
 
+  const playOfflineButton = DOMCacheGetOrSet('preloadPlayOffline')
+  playOfflineButton.style.display = 'block'
+  const playOffline = new Promise<void>((resolve) => {
+    playOfflineButton.addEventListener('click', () => resolve(), { once: true })
+  })
+
   try {
-    await initializePCoinCache()
+    await Promise.race([initializePCoinCache(), playOffline])
   } catch (e) {
     console.error(e)
     const response = await Confirm(
@@ -5083,6 +5089,8 @@ window.addEventListener('load', async () => {
     )
 
     if (!response) return
+  } finally {
+    playOfflineButton.style.display = 'none'
   }
 
   const ver = DOMCacheGetOrSet('versionnumber')
