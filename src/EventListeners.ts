@@ -1788,10 +1788,10 @@ TODO: Fix this entire tab it's utter shit
   initializeSingularityPerkTree()
   for (const perk of singularityPerks) {
     const perkHTML = document.createElement('span')
+    const perkIconSrc = () => `Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png`
     const unlockSingularity = perk.levels[0]
     const perkName = perk.name()
-    perkHTML.innerHTML = `<img src="Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png" alt="" loading="lazy">`
-    const perkIcon = perkHTML.querySelector('img')!
+    perkHTML.innerHTML = `<img src="${perkIconSrc()}" alt="" loading="lazy">`
     perkHTML.id = perk.ID
     perkHTML.classList.add('oldPerk', 'singularityPerkNode')
     if (isMobile) {
@@ -1811,7 +1811,7 @@ TODO: Fix this entire tab it's utter shit
     if (isMobile) {
       singularityPerkElement.addEventListener('click', (event) => {
         Modal(
-          () => singularityPerkModalHTML(perk, perkIcon.src),
+          () => singularityPerkModalHTML(perk, perkIconSrc()),
           event.clientX,
           event.clientY,
           { borderColor: 'gold' },
@@ -1824,7 +1824,7 @@ TODO: Fix this entire tab it's utter shit
 
     singularityPerkElement.addEventListener('mousemove', (event: MouseEvent) => {
       Modal(
-        () => singularityPerkModalHTML(perk, perkIcon.src),
+        () => singularityPerkModalHTML(perk, perkIconSrc()),
         event.clientX,
         event.clientY,
         { borderColor: 'gold' },
@@ -1835,7 +1835,7 @@ TODO: Fix this entire tab it's utter shit
     singularityPerkElement.addEventListener('focus', () => {
       const perkRect = singularityPerkElement.getBoundingClientRect()
       Modal(
-        () => singularityPerkModalHTML(perk, perkIcon.src),
+        () => singularityPerkModalHTML(perk, perkIconSrc()),
         perkRect.x,
         perkRect.y + perkRect.height / 2,
         { borderColor: 'gold' },

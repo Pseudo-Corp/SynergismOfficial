@@ -52,6 +52,21 @@ translations/en.json       # Required for all new text strings
 - Match existing naming conventions
 - Maintain consistency with current architecture
 
+### Live Modals & `data-modal-preserve`
+- `Modal()` (in `src/UpdateHTML.ts`) re-runs its HTML closure on an interval and diffs the result
+  against the live modal DOM (`patchNodes`), overwriting any difference.
+- Mark stable wrapper elements and `<img>`s with `data-modal-preserve="children"` (on BOTH the element
+  and its parent chain down from the modal root) so they are patched attribute-by-attribute in place.
+  Without it, any change to an element's serialized HTML replaces the whole node — for `<img>` this
+  reloads the image and visibly flickers.
+- Missing image files: `imgErrorHandler` (in `src/Themes.ts`) rewrites a 404'd img's `src` through the
+  icon-set fallback chain, ending at `MISSINGIMAGE.png`. Modal HTML closures that rebuild the URL from
+  `IconSets[player.iconSet]` each tick would fight this and flicker forever; `updateModal` prevents it
+  by resolving every generated `<img src>` through the recorded fallback map (`resolveImgSrc`) before
+  diffing. Never bypass `updateModal` to write modal img srcs directly. When the modal is opened from
+  an element that already contains the same icon (e.g. a hovered node), prefer passing that element's
+  live `.src` instead of rebuilding the URL.
+
 ### Steam
 - There is a Steam version of the app that uses Electron.
 - Steam features MUST be gated by checking the `platform` variable from Config.ts
