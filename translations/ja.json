@@ -2949,7 +2949,6 @@
     "perks": {
       "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
-      "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
       "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
       "description": "(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
       "welcometoSingularity": {
