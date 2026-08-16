@@ -5830,6 +5830,11 @@ header #obtainiumDisplay { color: pink; }
     filter: drop-shadow(0 0 3px gold);
 }
 
+.singularityPerkTreeConnectionPreview {
+    stroke: rgb(218 165 32 / 30%);
+    stroke-dasharray: 4 4;
+}
+
 .singularityPerkTreeJunction {
     fill: goldenrod;
     stroke: var(--box-color);
@@ -5976,6 +5981,11 @@ header #obtainiumDisplay { color: pink; }
 
 .oldPerk {
     border: 2px solid rgb(218 165 32 / 68%);
+}
+
+.singularityPerkPreview {
+    filter: grayscale(1) brightness(0.35) blur(1px);
+    opacity: 0.75;
 }
 
 .singularityPerkNode > img {
