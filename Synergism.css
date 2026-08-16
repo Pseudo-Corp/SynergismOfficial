@@ -5780,44 +5780,10 @@ header #obtainiumDisplay { color: pink; }
     margin-bottom: 1px;
 }
 
-#singularityPerkContainer {
-    display: grid;
-    grid-template-rows: repeat(2, min-content);
-}
-
-#singualrityPerksInfo {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-}
-
-img#singularityPerksIcon {
-    display: grid;
-    justify-self: end;
-    align-self: end;
-    padding-right: 5px;
-}
-
-#singularityPerksText {
-    display: block;
-    justify-self: start;
-    margin-bottom: 1px;
-}
-
 #singularityPerksDesc {
-    display: block;
-    white-space: pre-line;
-    margin: 5px 5px 1px;
-    height: 150px;
-    min-width: 39em;
-    max-width: 39em;
-    padding: 5px;
-    overflow: auto;
+    grid-column: 1 / -1;
+    margin: 4px auto 0;
     text-align: center;
-}
-
-#singualrityPerksInfo,
-#singularityPerksDesc {
-    display: none;
 }
 
 #singularityPerksGrid {
@@ -6004,13 +5970,12 @@ img#singularityPerksIcon {
 }
 
 .newPerk {
-    color: gold;
-    border: 2px ridge gold;
-    font-weight: bold;
+    border: 2px solid gold;
+    filter: drop-shadow(0 0 4px gold);
 }
 
 .oldPerk {
-    border: 2px solid gold;
+    border: 2px solid rgb(218 165 32 / 68%);
 }
 
 .singularityPerkNode > img {
@@ -8188,14 +8153,8 @@ html[data-mobile="true"] .hideOnMobile {
         height: 22px;
     }
 
-    #singualrityPerksInfo,
     #singularityPerksDesc {
         display: none;
-    }
-
-    #singularityPerksDesc {
-        height: unset;
-        min-width: unset;
     }
 
     #ambrosiaTexts {

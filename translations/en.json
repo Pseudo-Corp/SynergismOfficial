@@ -3709,7 +3709,7 @@
       "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
       "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
       "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
-      "description": "(Hover or focus a Perk icon for details. Branches show unlock progression, not requirements. Perks with <<gold|gold borders>> were added or improved in this Singularity.)",
+      "description": "(Hover or focus a Perk icon for details. Branches show unlock progression, not requirements. Perks with a <<gold|golden glow>> were added or improved in this Singularity.)",
       "treeLabel": "Singularity Perk progression tree",
       "treePerkLabel": "{{name}}, unlocked at Singularity {{singularity}}",
       "usesCurrentSing": "This perk uses your current Singularity count. The level of this perk may <<crimson|decrease>> if you are in a lower Singularity.",

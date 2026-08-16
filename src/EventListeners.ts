@@ -1788,25 +1788,30 @@ TODO: Fix this entire tab it's utter shit
   initializeSingularityPerkTree()
   for (const perk of singularityPerks) {
     const perkHTML = document.createElement('span')
-    const perkIconSrc = () => `Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png`
     const unlockSingularity = perk.levels[0]
     const perkName = perk.name()
-    perkHTML.innerHTML = `<img src="${perkIconSrc()}" alt="" loading="lazy">`
+    perkHTML.innerHTML = `<img src="Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png" alt="" loading="lazy">`
+    const perkIcon = perkHTML.querySelector('img')!
     perkHTML.id = perk.ID
     perkHTML.classList.add('oldPerk', 'singularityPerkNode')
-    perkHTML.setAttribute('role', 'button')
+    if (isMobile) {
+      perkHTML.setAttribute('role', 'button')
+    }
     perkHTML.setAttribute('tabindex', '0')
-    perkHTML.setAttribute('aria-label', i18next.t('singularity.perks.treePerkLabel', {
-      name: perkName,
-      singularity: unlockSingularity
-    }))
+    perkHTML.setAttribute(
+      'aria-label',
+      i18next.t('singularity.perks.treePerkLabel', {
+        name: perkName,
+        singularity: unlockSingularity
+      })
+    )
     perkHTML.style.display = 'none' // Ensure the perk is hidden if not unlocked as an anti-spoiler failsafe.
     addSingularityPerkToTree(perkHTML, perk.ID)
     const singularityPerkElement = DOMCacheGetOrSet(perk.ID)
     if (isMobile) {
       singularityPerkElement.addEventListener('click', (event) => {
         Modal(
-          () => singularityPerkModalHTML(perk, perkIconSrc()),
+          () => singularityPerkModalHTML(perk, perkIcon.src),
           event.clientX,
           event.clientY,
           { borderColor: 'gold' },
@@ -1819,7 +1824,7 @@ TODO: Fix this entire tab it's utter shit
 
     singularityPerkElement.addEventListener('mousemove', (event: MouseEvent) => {
       Modal(
-        () => singularityPerkModalHTML(perk, perkIconSrc()),
+        () => singularityPerkModalHTML(perk, perkIcon.src),
         event.clientX,
         event.clientY,
         { borderColor: 'gold' },
@@ -1830,7 +1835,7 @@ TODO: Fix this entire tab it's utter shit
     singularityPerkElement.addEventListener('focus', () => {
       const perkRect = singularityPerkElement.getBoundingClientRect()
       Modal(
-        () => singularityPerkModalHTML(perk, perkIconSrc()),
+        () => singularityPerkModalHTML(perk, perkIcon.src),
         perkRect.x,
         perkRect.y + perkRect.height / 2,
         { borderColor: 'gold' },

@@ -3651,17 +3651,11 @@ const drawSingularityPerkTreeConnections = (): void => {
   connectionLayer.replaceChildren(paths)
 }
 
-const scheduleSingularityPerkTreeConnections = (): void => {
-  if (singularityPerkTreeFrame === null) {
-    singularityPerkTreeFrame = requestAnimationFrame(drawSingularityPerkTreeConnections)
-  }
+const scheduleSingularityPerkTreeConnections = () => {
+  singularityPerkTreeFrame ??= requestAnimationFrame(drawSingularityPerkTreeConnections)
 }
 
-const updateSingularityPerkTree = (): void => {
-  scheduleSingularityPerkTreeConnections()
-}
-
-export const initializeSingularityPerkTree = (): void => {
+export const initializeSingularityPerkTree = () => {
   const tree = DOMCacheGetOrSet('singularityPerksGrid')
   const canvas = document.createElement('div')
   const connectionLayer = document.createElementNS(SVG_NAMESPACE, 'svg')
@@ -3683,16 +3677,16 @@ export const initializeSingularityPerkTree = (): void => {
   singularityPerkTreeResizeObserver?.disconnect()
   singularityPerkTreeResizeObserver = new ResizeObserver(scheduleSingularityPerkTreeConnections)
   singularityPerkTreeResizeObserver.observe(canvas)
+  window.removeEventListener('resize', scheduleSingularityPerkTreeConnections)
   window.addEventListener('resize', scheduleSingularityPerkTreeConnections)
 }
 
-export const addSingularityPerkToTree = (
-  perkElement: HTMLElement,
-  perkID: string
-): void => {
-  const canvas = singularityPerkTreeCanvas
+export const addSingularityPerkToTree = (perkElement: HTMLElement, perkID: string) => {
   const placement = SINGULARITY_PERK_TREE_PLACEMENTS[perkID]
-  if (canvas === null || placement === undefined) {
+  if (singularityPerkTreeCanvas === null) {
+    throw new TypeError('initializeSingularityPerkTree must be called before adding perks.')
+  }
+  if (placement === undefined) {
     throw new TypeError(`Singularity Perk "${perkID}" is missing a tree placement.`)
   }
 
@@ -3706,23 +3700,7 @@ export const addSingularityPerkToTree = (
     '--singularity-perk-tree-y',
     `${paddingPercent + availablePercent * (placement.y - minimumY) / (maximumY - minimumY)}%`
   )
-  canvas.append(perkElement)
-}
-
-// Placeholder text for Perk Info that is seen upon first load, check Line 645 EventListeners.ts for actual Perk Info code.
-export const updateSingularityPerks = (): void => {
-  const singularityCount = player.highestSingularityCount
-  DOMCacheGetOrSet('singularityPerksText').innerHTML = i18next.t(
-    'singularity.perks.levelInfo',
-    {
-      level: '#',
-      singularity: '#'
-    }
-  )
-  DOMCacheGetOrSet('singularityPerksDesc').innerHTML = i18next.t(
-    'singularity.perks.description'
-  )
-  handlePerks(singularityCount)
+  singularityPerkTreeCanvas.append(perkElement)
 }
 
 /*
@@ -3758,7 +3736,7 @@ export const singularityPerkModalHTML = (perk: SingularityPerk, imageSrc: string
       <span>${perk.name()}</span>
     </div>
     <div class="singularityPerkModalLevel">${levelInfo}</div>
-    <div class="singularityPerkModalDescription">${
+    <div class="singularityPerkModalDescription" data-modal-preserve="children">${
     perk.description(
       player.highestSingularityCount,
       perk.levels
@@ -3767,16 +3745,16 @@ export const singularityPerkModalHTML = (perk: SingularityPerk, imageSrc: string
   </div>`
 }
 
-const handlePerks = (singularityCount: number) => {
+export const updateSingularityPerks = () => {
   let singularityCountForNextPerk: number | null = null
   let singularityCountForNextPerkUpgrade = Number.POSITIVE_INFINITY
   const singTolerance = calculateMaxSingularityLookahead(true) - 1
   for (const perk of singularityPerks) {
-    const upgradeInfo = getLastUpgradeInfo(perk, singularityCount)
+    const upgradeInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
     const perkElement = DOMCacheGetOrSet(perk.ID)
     if (upgradeInfo.level > 0) {
       perkElement.style.display = ''
-      if (singularityCount - upgradeInfo.singularity <= singTolerance) { // Is new?
+      if (player.highestSingularityCount - upgradeInfo.singularity <= singTolerance) { // Is new?
         perkElement.classList.replace('oldPerk', 'newPerk')
       } else {
         perkElement.classList.replace('newPerk', 'oldPerk')
@@ -3794,7 +3772,7 @@ const handlePerks = (singularityCount: number) => {
       perkElement.style.display = 'none'
     }
   }
-  updateSingularityPerkTree()
+  scheduleSingularityPerkTreeConnections()
   const nextUnlockedId = DOMCacheGetOrSet('singualrityUnlockNext')
   if (singularityCountForNextPerk) {
     nextUnlockedId.style.display = ''
