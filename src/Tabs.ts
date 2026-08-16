@@ -1158,7 +1158,7 @@ export const resetAllSubTabs = (page = 0) => {
 
       if (subTabs.subTabList.length === 0) {
         subTabs.subtabIndex = 0
-        return
+        continue
       }
 
       subTabs.subtabIndex = limitRange(page, 0, subTabs.subTabList.length - 1)

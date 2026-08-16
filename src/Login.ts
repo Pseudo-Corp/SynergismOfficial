@@ -458,9 +458,12 @@ export async function handleLogin () {
 
       const allPlatforms = [
         { name: 'discord', direct: false },
-        { name: 'patreon', direct: false },
-        { name: 'steam', direct: true }
+        { name: 'patreon', direct: false }
       ]
+
+      if (PLATFORM === 'steam') {
+        allPlatforms.push({ name: 'steam', direct: true })
+      }
 
       const unlinkedPlatforms = allPlatforms.filter((p) => !linkedAccounts.includes(p.name))
 
@@ -671,6 +674,7 @@ function resetWebSocket () {
   usedLotus = 0
   lotusInventoryLoaded = false
   lotusTimeExpiresAt = undefined
+  queue.length = 0
   setLotusBalanceLoading()
   setFavicon('./favicon.ico')
 }
@@ -1213,8 +1217,8 @@ function handleCloudSaves () {
   const subtabElement = document.querySelector('#accountSubTab div#right.scrollbarX')!
   const table = subtabElement.querySelector('#table > #dataGrid')!
 
-  const uploadButton = subtabElement.querySelector<HTMLButtonElement>('button#upload')
-  const transferButton = subtabElement.querySelector<HTMLButtonElement>('button#transfer')
+  const uploadButton = subtabElement.querySelector<HTMLButtonElement>('button#upload')!
+  const transferButton = subtabElement.querySelector<HTMLButtonElement>('button#transfer')!
 
   function populateTable () {
     fetch('https://synergism.cc/saves/retrieve/all')
@@ -1429,8 +1433,15 @@ function handleCloudSaves () {
 
   populateTable()
 
+  if (
+    uploadButton.getAttribute('x-listener-added') !== null
+    || transferButton.getAttribute('x-listener-added') !== null
+  ) {
+    return
+  }
+
   // Handle uploading savefiles
-  uploadButton?.addEventListener('click', () => {
+  uploadButton.addEventListener('click', () => {
     uploadButton.disabled = true
     const originalText = uploadButton.textContent
     uploadButton.innerHTML = '<span class="spinner"></span> Uploading...'
@@ -1470,7 +1481,7 @@ function handleCloudSaves () {
     })
   })
 
-  transferButton?.addEventListener('click', () => {
+  transferButton.addEventListener('click', () => {
     transferButton.disabled = true
     const originalText = transferButton.textContent
     transferButton.innerHTML = '<span class="spinner"></span> Transferring...'
@@ -1496,6 +1507,9 @@ function handleCloudSaves () {
       )
     })
   })
+
+  uploadButton.setAttribute('x-listener-added', '')
+  transferButton.setAttribute('x-listener-added', '')
 }
 
 async function handleSteamCloudSave () {

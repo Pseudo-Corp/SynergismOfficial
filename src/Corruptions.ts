@@ -841,12 +841,9 @@ export const updateCorruptionLoadoutNames = () => {
 
 const corruptionLoadoutGetExport = async () => {
   const str = JSON.stringify(player.corruptions.next.loadout)
-  if ('clipboard' in navigator) {
-    await navigator.clipboard.writeText(str)
-      .catch((e: Error) => Alert(i18next.t('corruptions.loadoutExport.saveErrorNavigator', { message: e.message })))
-  } else {
-    void Alert(i18next.t('corruptions.loadoutExport.saveErrorNavigator', { message: str }))
-  }
+
+  await navigator.clipboard.writeText(str)
+    .catch((e: Error) => Alert(i18next.t('corruptions.loadoutExport.saveErrorNavigator', { message: e.message })))
 }
 
 export const corruptionCleanseConfirm = () => {

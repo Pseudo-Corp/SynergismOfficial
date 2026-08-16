@@ -1,6 +1,5 @@
 // August 22, 2022: Creation of Exportable Statistics.
 
-import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
 import { achievementPoints, maxAchievementPoints } from './Achievements'
 import { type AmbrosiaUpgradeNames, ambrosiaUpgrades } from './BlueberryUpgrades'
@@ -570,35 +569,7 @@ export const generateExportSummary = async (): Promise<void> => {
   try {
     await navigator.clipboard.writeText(returnString)
   } catch {
-    // So we fallback to the deprecated way of doing it,
-    // which isn't limited by any browser other than Safari
-    // because Apple is ran by a monkey in a human skin suit.
-
-    // Old/bad browsers (legacy Edge, Safari because of limitations)
-    const textArea = document.createElement('textarea')
-
-    textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;')
-    textArea.setAttribute('data-clipboard-text', returnString)
-
-    document.body.appendChild(textArea)
-    textArea.focus()
-    textArea.select()
-
-    const clipboard = new ClipboardJS(textArea)
-
-    const cleanup = () => {
-      clipboard.destroy()
-      document.body.removeChild(textArea)
-    }
-
-    clipboard.on('success', () => {
-      document.getElementById('exportinfo')!.textContent = 'Copied save to clipboard!'
-      cleanup()
-    })
-
-    clipboard.on('error', () => {
-      void Alert('Unable to write the save to clipboard.').finally(cleanup)
-    })
+    void Alert('Unable to write the save to clipboard.')
   }
 
   const a = document.createElement('a')

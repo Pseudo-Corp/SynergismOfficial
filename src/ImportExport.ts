@@ -1,4 +1,3 @@
-import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
 import LZString from 'lz-string'
 import {
@@ -216,48 +215,15 @@ export const exportData = async (text: string, fileName: string) => {
 
   if (toClipboard) {
     try {
-      // This can fail for two reasons:
-      // - TypeError (browser doesn't support this feature)
-      // - Failed to copy (browser limitation; Safari)
       await navigator.clipboard.writeText(text)
       DOMCacheGetOrSet('exportinfo').textContent = i18next.t(
         'importexport.copiedSave'
       )
     } catch {
-      // So we fallback to the deprecated way of doing it,
-      // which isn't limited by any browser.
-
-      // Old/bad browsers (legacy Edge, Safari because of limitations)
-      const textArea = document.createElement('textarea')
-
-      textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;')
-      // For future Khafra: html5 attributes have no limit in length
-      textArea.setAttribute('data-clipboard-text', text)
-
-      document.body.appendChild(textArea)
-      textArea.focus()
-      textArea.select()
-
-      const clipboard = new ClipboardJS(textArea)
-
-      const cleanup = () => {
-        clipboard.destroy()
-        document.body.removeChild(textArea)
-      }
-
-      clipboard.on('success', () => {
-        DOMCacheGetOrSet('exportinfo').textContent = i18next.t(
-          'importexport.copiedSave'
-        )
-        cleanup()
-      })
-
-      clipboard.on('error', () => {
-        DOMCacheGetOrSet('exportinfo').textContent = i18next.t(
-          'importexport.exportFailed'
-        )
-        void Alert(i18next.t('importexport.unableCopySave')).finally(cleanup)
-      })
+      DOMCacheGetOrSet('exportinfo').textContent = i18next.t(
+        'importexport.exportFailed'
+      )
+      void Alert(i18next.t('importexport.unableCopySave'))
     }
   } else {
     const a = document.createElement('a')

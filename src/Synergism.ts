@@ -5046,7 +5046,7 @@ window.addEventListener('load', async () => {
       import('./mobile/updater')
     ])
     bindMobileFormHandlers()
-    initMobilePurchases()
+    initMobilePurchases().catch((e) => console.error('Failed to initialize mobile purchases', e))
     initPushNotifications().catch((e) => console.error('Failed to initialize push notifications', e))
     initKeepAwake().catch((e) => console.error('Failed to initialize keep awake', e))
     initLiveUpdates().catch((e) => console.error('Failed to initialize live updates', e))

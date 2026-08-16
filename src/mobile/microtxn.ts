@@ -5,12 +5,12 @@ import { bus } from '../events/bus'
 import { CartTab, coinProducts, subscriptionProducts } from '../purchases/CartTab'
 import { updatePseudoCoins } from '../purchases/UpgradesSubtab'
 import { Alert, Notification } from '../UpdateHTML'
-import { memoize } from '../Utility'
 import { consumePendingMobilePurchase, showMobilePurchaseAuthModal } from './purchase-auth'
 
 const BUNDLE_ID = 'cc.pseudocorp.synergism'
 
 let orderInProgress = false
+let storeInitialization: Promise<void> | undefined
 
 const storePlatform = Capacitor.getPlatform() === 'android'
   ? Platform.GOOGLE_PLAY
@@ -28,9 +28,7 @@ const toStoreProductId = (lookupKey: string) => {
   return `${prefix}.${formattedKey}`
 }
 
-const initStore = memoize(async (): Promise<void> => {
-  await CartTab.fetchProducts()
-
+const initializeStore = async (): Promise<void> => {
   const consumables = coinProducts.map((product) => ({
     type: ProductType.CONSUMABLE,
     id: toStoreProductId(product.id),
@@ -59,8 +57,22 @@ const initStore = memoize(async (): Promise<void> => {
       .map((e) => `${ErrorCode[e.code]}(${e.code})${e.productId ? ` [${e.productId}]` : ''}: ${e.message}`)
       .join(' | ')
     console.error(`CdvPurchase init errors: ${details}`)
+
+    const anyProductLoaded = [...coinProducts, ...subscriptionProducts]
+      .some((product) => store.get(toStoreProductId(product.id), storePlatform))
+
+    if (!anyProductLoaded) {
+      throw new Error(details)
+    }
   }
-})
+}
+
+export const initMobilePurchases = async (): Promise<void> => {
+  await CartTab.fetchProducts()
+
+  storeInitialization ??= initializeStore()
+  await storeInitialization
+}
 
 async function onTransactionApproved (transaction: Transaction): Promise<void> {
   if (transaction.platform !== storePlatform) {
@@ -107,7 +119,15 @@ async function getStoreUuid (): Promise<string | null | undefined> {
 
 export async function orderProduct (lookupKey: string): Promise<void> {
   if (PLATFORM !== 'mobile') return
-  await initStore()
+
+  try {
+    await initMobilePurchases()
+  } catch (e) {
+    console.error('Failed to initialize mobile purchases', e)
+    Notification(i18next.t('mobile.purchases.orderFailed', { error: `${e}` }))
+    return
+  }
+
   const product = store.get(toStoreProductId(lookupKey), storePlatform)
 
   if (!product) {
@@ -170,8 +190,4 @@ if (PLATFORM === 'mobile') {
   bus.addEventListener('subscription:manage', () => {
     store.manageSubscriptions(storePlatform)
   })
-}
-
-export const initMobilePurchases = () => {
-  initStore().catch((e) => console.error('Failed to initialize mobile purchases', e))
 }
