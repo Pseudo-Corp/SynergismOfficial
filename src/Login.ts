@@ -603,6 +603,8 @@ export async function handleLogin () {
         renderCaptcha()
       })
 
+      renderCaptcha()
+
       if (PLATFORM === 'steam') {
         for (const link of subtabElement.querySelectorAll<HTMLAnchorElement>('a[href*="synergism.cc/login?with="]')) {
           const url = new URL(link.href)
