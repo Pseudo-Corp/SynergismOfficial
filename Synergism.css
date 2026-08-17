@@ -3248,12 +3248,6 @@ p#reincarnatehotkeys {
     height: 24px;
 }
 
-.shopWowPassRowIcon {
-    background-image: url("Pictures/Default/Sprite Sheets/WowPasses.png");
-    background-size: auto 24px;
-    background-position: 0 0;
-}
-
 .shopFamilyRowInfo {
     display: flex;
     flex-direction: column;

@@ -137,13 +137,13 @@ const shopSections = [
       {
         id: 'calculator',
         tiers: [
-          { key: 'calculator', icon: 'Pictures/Default/ShopCalculator.png' },
-          { key: 'calculator2', icon: 'Pictures/Default/ShopCalculator2.png' },
-          { key: 'calculator3', icon: 'Pictures/Default/ShopCalculator3.png' },
-          { key: 'calculator4', icon: 'Pictures/Default/ShopCalculator4.png' },
-          { key: 'calculator5', icon: 'Pictures/Default/ShopCalculator5.png' },
-          { key: 'calculator6', icon: 'Pictures/Default/ShopCalculator6.png' },
-          { key: 'calculator7', icon: 'Pictures/Default/ShopCalculator7.png' }
+          { key: 'calculator', icon: 'Pictures/img_transparent.png' },
+          { key: 'calculator2', icon: 'Pictures/img_transparent.png' },
+          { key: 'calculator3', icon: 'Pictures/img_transparent.png' },
+          { key: 'calculator4', icon: 'Pictures/img_transparent.png' },
+          { key: 'calculator5', icon: 'Pictures/img_transparent.png' },
+          { key: 'calculator6', icon: 'Pictures/img_transparent.png' },
+          { key: 'calculator7', icon: 'Pictures/img_transparent.png' }
         ]
       },
       {
@@ -159,10 +159,10 @@ const shopSections = [
       {
         id: 'cubeToQuark',
         tiers: [
-          { key: 'cubeToQuark', icon: 'Pictures/Default/ShopCubeQuarkUpgrade.png' },
-          { key: 'tesseractToQuark', icon: 'Pictures/Default/ShopTesseractQuarkUpgrade.png' },
-          { key: 'hypercubeToQuark', icon: 'Pictures/Default/ShopHypercubeQuarkUpgrade.png' },
-          { key: 'cubeToQuarkAll', icon: 'Pictures/Default/ShopCubeOpeningQuarkUpgrade.png' }
+          { key: 'cubeToQuark', icon: 'Pictures/img_transparent.png' },
+          { key: 'tesseractToQuark', icon: 'Pictures/img_transparent.png' },
+          { key: 'hypercubeToQuark', icon: 'Pictures/img_transparent.png' },
+          { key: 'cubeToQuarkAll', icon: 'Pictures/img_transparent.png' }
         ]
       },
       {
@@ -242,9 +242,9 @@ const shopSections = [
       {
         id: 'shopRedLuck1',
         tiers: [
-          { key: 'shopRedLuck1', icon: 'Pictures/Default/ShopRedLuck1.png' },
-          { key: 'shopRedLuck2', icon: 'Pictures/Default/ShopRedLuck2.png' },
-          { key: 'shopRedLuck3', icon: 'Pictures/Default/ShopRedLuck3.png' }
+          { key: 'shopRedLuck1', icon: 'Pictures/img_transparent.png' },
+          { key: 'shopRedLuck2', icon: 'Pictures/img_transparent.png' },
+          { key: 'shopRedLuck3', icon: 'Pictures/img_transparent.png' }
         ]
       }
     ]
@@ -324,13 +324,11 @@ const createFamilyRow = (family: ShopFamilyData) => {
   row.className = 'shopFamilyRow'
 
   const icon = document.createElement('img')
+  icon.id = `shopFamilyRowIcon-${family.id}`
   icon.className = 'shopFamilyRowIcon'
   icon.src = family.tiers[0].icon
   icon.alt = family.tiers[0].key
   icon.loading = 'lazy'
-  if (family.id === 'seasonPass') {
-    icon.classList.add('shopWowPassRowIcon')
-  }
 
   const info = document.createElement('span')
   info.className = 'shopFamilyRowInfo'
