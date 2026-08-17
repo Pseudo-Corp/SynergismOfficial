@@ -3706,10 +3706,15 @@
     },
     "perks": {
       "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
-      "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
-      "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
+      "previewInfo": "Unlocks at Singularity <<gold|{{singularity}}>>",
+      "nextLevelInfo": "Next level at Singularity <<gold|{{singularity}}>>",
+      "highestLevel": "<<orchid|This Perk is at its highest possible level.>>",
+      "new": "<<limegreen|[NEW!]>>",
+      "upgraded": "<<gold|[UPGRADED!]>>",
+      "nextSoon": "<<white|[Upgrades Soon!]>>",
       "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
-      "description": "(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
+      "treeLabel": "Singularity Perk progression tree",
+      "treePerkLabel": "{{name}}, unlocked at Singularity {{singularity}}",
       "usesCurrentSing": "This perk uses your current Singularity count. The level of this perk may <<crimson|decrease>> if you are in a lower Singularity.",
       "welcometoSingularity": {
         "name": "Welcome to Singularity!",

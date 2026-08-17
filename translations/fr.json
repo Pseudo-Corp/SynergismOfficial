@@ -3639,7 +3639,6 @@
     "perks": {
       "levelInfo": "Niveau {{level}} - (Singularité {{singularity}})",
       "improvedIn": "Une Faveur existante sera améliorée à la Singularité {{sing}}",
-      "unlockedIn": "Vous débloquerez une toute nouvelle Faveur à la Singularité {{sing}}",
       "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
       "description": "(Survolez pour plus de détails. Les Faveurs en <span style=\"color: gold\">texte jaune</span> ont été ajoutées ou améliorées cette Singularité.)",
       "usesCurrentSing": "This perk uses your current Singularity count. The level of this perk may <<crimson|decrease>> if you are in a lower Singularity.",

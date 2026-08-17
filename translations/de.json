@@ -3639,7 +3639,6 @@
     "perks": {
       "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "Ein bestehender Vorteil wird verbessert in Singularity {{sing}}",
-      "unlockedIn": "In Singularity {{sing}} schaltest du einen neuen Vorteil frei",
       "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
       "description": "(Fahre darüber für mehr Details. Boni in <span style=\"color: gold\">goldenem Text</span> wurden in dieser Singularität hinzugefügt oder verbessert)",
       "usesCurrentSing": "This perk uses your current Singularity count. The level of this perk may <<crimson|decrease>> if you are in a lower Singularity.",

@@ -3639,7 +3639,6 @@
     "perks": {
       "levelInfo": "等级 {{level}} - (奇点 {{singularity}})",
       "improvedIn": "第{{sing}}次进入奇点后将有特权加强",
-      "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
       "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点</span><br/>。",
       "description": "(鼠标停留在特权上可以查看效果。<span style=\"color: gold\">金色文本</span>的特权在本次奇点解锁或者加强)",
       "usesCurrentSing": "该特权与您当前奇点次数有关。如果次数降低，特权等级可能会<<crimson|降低>>",

@@ -3639,7 +3639,6 @@
     "perks": {
       "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "Istniejąca umiejętność zostanie ulepszona w Osobliwości {{sing}}",
-      "unlockedIn": "Odblokujesz zupełnie nowy profit w Osobliwości {{sing}}",
       "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
       "description": "(Najedź kursorem, aby więcej szczegółów. Dodatki w <span style=\"color: gold\">złotym tekście</span> zostały dodane lub ulepszone w tej Osobliwości)",
       "usesCurrentSing": "This perk uses your current Singularity count. The level of this perk may <<crimson|decrease>> if you are in a lower Singularity.",
