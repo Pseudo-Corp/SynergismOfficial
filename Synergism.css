@@ -3235,12 +3235,12 @@ p#reincarnatehotkeys {
 }
 
 .shopFamilyRow:hover {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: rgb(255 255 255 / 8%);
 }
 
 .shopFamilyRow.shopFamilySelected {
     border-left-color: cyan;
-    background-color: rgba(0, 255, 255, 0.1);
+    background-color: rgb(0 255 255 / 10%);
 }
 
 .shopFamilyRowIcon {
@@ -3273,7 +3273,7 @@ p#reincarnatehotkeys {
 }
 
 .shopTierDotStarted {
-    background-color: rgba(0, 255, 255, 0.35);
+    background-color: rgb(0 255 255 / 35%);
     border-color: cyan;
 }
 
