@@ -162,7 +162,36 @@ const coinNames = [
   'coinMints',
   'alchemies'
 ]
-const purpleReactantPercentages = [0, 10, 25, 50, 100]
+const updateProgressBarAccessibility = (elementId: string, progress: number, valueText: string) => {
+  const progressBar = DOMCacheGetOrSet(elementId)
+  progressBar.setAttribute('aria-valuenow', String(Math.round(progress * 100) / 100))
+  progressBar.setAttribute('aria-valuetext', valueText)
+}
+
+const updateInnerHTMLIfChanged = (elementId: string, html: string) => {
+  const element = DOMCacheGetOrSet(elementId)
+  if (element.innerHTML !== html) {
+    element.innerHTML = html
+  }
+}
+
+const updatePurpleReactantSlider = (sliderId: string, outputId: string, percentage: number) => {
+  const normalizedPercentage = Math.min(100, Math.max(0, Math.round(percentage)))
+  const slider = DOMCacheGetOrSet(sliderId) as HTMLInputElement
+  const percentageText = i18next.t('purpleReactor.reactantRoutingPercentage', {
+    percentage: format(normalizedPercentage, 0, true)
+  })
+
+  slider.value = String(normalizedPercentage)
+  slider.style.setProperty('--routing-percentage', `${normalizedPercentage}%`)
+  slider.setAttribute(
+    'aria-valuetext',
+    i18next.t('purpleReactor.reactantRoutingPercentageAria', {
+      percentage: format(normalizedPercentage, 0, true)
+    })
+  )
+  DOMCacheGetOrSet(outputId).textContent = percentageText
+}
 
 const normalizePurpleReactantNetRate = (netRate: number, capacity: number) => {
   const roundingTolerance = 16 * Number.EPSILON * capacity
@@ -176,14 +205,14 @@ const isPurpleReactantAtCapacity = (barPoints: number, capacity: number) => {
 
 const formatPurpleReactantNetRate = (netRate: number) => {
   if (netRate > 0) {
-    return i18next.t('purpleReactor.barPointNetRatePositive', { amount: format(netRate, 2, true) })
+    return i18next.t('purpleReactor.reactantNetRatePositive', { amount: format(netRate, 2, true) })
   }
 
   if (netRate < 0) {
-    return i18next.t('purpleReactor.barPointNetRateNegative', { amount: format(-netRate, 2, true) })
+    return i18next.t('purpleReactor.reactantNetRateNegative', { amount: format(-netRate, 2, true) })
   }
 
-  return i18next.t('purpleReactor.barPointNetRateZero')
+  return i18next.t('purpleReactor.reactantNetRateZero')
 }
 
 export const animatePurpleHoneyGain = (amount: number) => {
@@ -2174,83 +2203,149 @@ export const visualUpdatePurple = () => {
   const redAmbrosiaAtCapacity = isPurpleReactantAtCapacity(redAmbrosiaReactantRouting.storedBarPoints, capacity)
   const displayedAmbrosiaBarPoints = ambrosiaAtCapacity ? capacity : ambrosiaBarPoints
   const displayedRedAmbrosiaBarPoints = redAmbrosiaAtCapacity ? capacity : redAmbrosiaBarPoints
-  const ambrosiaProgress = capacity > 0 ? Math.min(100, 100 * displayedAmbrosiaBarPoints / capacity) : 0
-  const redAmbrosiaProgress = capacity > 0 ? Math.min(100, 100 * displayedRedAmbrosiaBarPoints / capacity) : 0
-
-  DOMCacheGetOrSet('purpleUpgradeAP').innerHTML = i18next.t('purpleReactor.purpleUpgradeAP', {
-    current: format(purpleReactorAP, 0, true),
-    max: format(maxPurpleReactorAP, 0, true)
+  const ambrosiaProgress = capacity > 0
+    ? Math.min(100, Math.max(0, 100 * displayedAmbrosiaBarPoints / capacity))
+    : 0
+  const redAmbrosiaProgress = capacity > 0
+    ? Math.min(100, Math.max(0, 100 * displayedRedAmbrosiaBarPoints / capacity))
+    : 0
+  const purpleHoneyProgressPercentage = conversionFactor > 0
+    ? Math.min(100, Math.max(0, 100 * purpleHoneyProgress / conversionFactor))
+    : 0
+  const purpleHoneyProgressText = i18next.t('purpleReactor.purpleHoneyProgress', {
+    current: format(purpleHoneyProgress, 2, true),
+    conversion: format(conversionFactor, 2, true)
   })
-  DOMCacheGetOrSet('purpleHoneyAmount').innerHTML = i18next.t('purpleReactor.purpleHoneyAmount', {
-    amount: format(player.purpleReactor.purpleHoney, 2, true),
-    lifetimeAmount: format(player.purpleReactor.lifetimePurpleHoney, 2, true)
+  const formattedAmbrosiaBarPoints = format(displayedAmbrosiaBarPoints, 2, true)
+  const formattedRedAmbrosiaBarPoints = format(displayedRedAmbrosiaBarPoints, 2, true)
+  const ambrosiaProgressText = i18next.t('purpleReactor.reactantTankProgress', {
+    stored: formattedAmbrosiaBarPoints
   })
-  DOMCacheGetOrSet('purpleHoneyGeneration').innerHTML = i18next.t(
-    'purpleReactor.currentlyGeneratingPurpleHoney',
-    { amount: format(purpleHoneyPerExtraction, 2, true) }
+  const redAmbrosiaProgressText = i18next.t('purpleReactor.reactantTankProgress', {
+    stored: formattedRedAmbrosiaBarPoints
+  })
+  const ambrosiaProgressAriaText = i18next.t('purpleReactor.reactantTankProgressAria', {
+    stored: formattedAmbrosiaBarPoints,
+    percentage: format(ambrosiaProgress, 2, true)
+  })
+  const redAmbrosiaProgressAriaText = i18next.t('purpleReactor.reactantTankProgressAria', {
+    stored: formattedRedAmbrosiaBarPoints,
+    percentage: format(redAmbrosiaProgress, 2, true)
+  })
+  const reactorActive = reactantDissolutionRate > 0
+
+  updateInnerHTMLIfChanged(
+    'purpleUpgradeAP',
+    i18next.t('purpleReactor.purpleUpgradeAP', {
+      current: format(purpleReactorAP, 0, true),
+      max: format(maxPurpleReactorAP, 0, true)
+    })
   )
-  DOMCacheGetOrSet('purpleHoneyLuck').innerHTML = i18next.t(
-    'purpleReactor.purpleHoneyLuck',
-    {
-      luck: format(purpleHoneyLuck, 2, true)
-    }
+  updateInnerHTMLIfChanged(
+    'purpleHoneyAmount',
+    i18next.t('purpleReactor.purpleHoneyAmount', {
+      amount: format(player.purpleReactor.purpleHoney, 2, true),
+      lifetimeAmount: format(player.purpleReactor.lifetimePurpleHoney, 2, true)
+    })
   )
-  DOMCacheGetOrSet('purpleHoneyExtractionMultiplier').innerHTML = i18next.t(
-    'purpleReactor.purpleHoneyExtractionMultiplier',
-    { multiplier: `${format(guaranteedMultiplier, 0, true)}x` }
+  updateInnerHTMLIfChanged(
+    'purpleHoneyGeneration',
+    i18next.t(
+      'purpleReactor.purpleHoneyBaseYield',
+      { amount: format(purpleHoneyPerExtraction, 2, true) }
+    )
   )
-  DOMCacheGetOrSet('purpleHoneyExtractionBonusChance').innerHTML = i18next.t(
-    'purpleReactor.purpleHoneyExtractionBonusChance',
-    { chance: format(100 * bonusMultiplierChance, 2, true) }
+  updateInnerHTMLIfChanged(
+    'purpleHoneyLuck',
+    i18next.t(
+      'purpleReactor.purpleHoneyLuck',
+      {
+        luck: format(purpleHoneyLuck, 2, true)
+      }
+    )
+  )
+  updateInnerHTMLIfChanged(
+    'purpleHoneyExtractionMultiplier',
+    i18next.t(
+      'purpleReactor.purpleHoneyExtractionMultiplier',
+      { multiplier: `${format(guaranteedMultiplier, 0, true)}x` }
+    )
+  )
+  updateInnerHTMLIfChanged(
+    'purpleHoneyExtractionBonusChance',
+    i18next.t(
+      'purpleReactor.purpleHoneyExtractionBonusChance',
+      { chance: format(100 * bonusMultiplierChance, 2, true) }
+    )
   )
 
-  DOMCacheGetOrSet('purpleReactantCapacity').innerHTML = i18next.t(
-    'purpleReactor.reactantContainerCapacity',
-    { capacity: format(capacity, 0, true) }
+  updateInnerHTMLIfChanged(
+    'purpleReactantHalfLife',
+    i18next.t(
+      'purpleReactor.reactantContainerHalfLife',
+      { time: format(reactantHalfLife, 0, true) }
+    )
   )
-  DOMCacheGetOrSet('purpleReactantHalfLife').innerHTML = i18next.t(
-    'purpleReactor.reactantContainerHalfLife',
-    { time: format(reactantHalfLife, 0, true) }
+
+  const reactorContainer = DOMCacheGetOrSet('purpleReactantContainers')
+  reactorContainer.classList.toggle('purpleReactorActive', reactorActive)
+
+  DOMCacheGetOrSet('purpleHoneyProgressFill').style.width = `${purpleHoneyProgressPercentage}%`
+  DOMCacheGetOrSet('purpleHoneyProgressText').textContent = purpleHoneyProgressText
+  DOMCacheGetOrSet('purpleHoneyProgressRate').textContent = i18next.t(
+    'purpleReactor.purpleHoneyProgressRate',
+    { rate: format(purpleHoneyProgressPerSecond, 2, true) }
   )
-  DOMCacheGetOrSet('purpleHoneyProgressFill').style.width = `${
-    Math.min(100, 100 * purpleHoneyProgress / conversionFactor)
-  }%`
-  DOMCacheGetOrSet('purpleHoneyProgressText').textContent = i18next.t(
-    'purpleReactor.purpleHoneyProgress',
-    {
-      current: format(purpleHoneyProgress, 2, true),
-      conversion: format(conversionFactor, 2, true),
-      rate: format(purpleHoneyProgressPerSecond, 2, true)
-    }
-  )
+  updateProgressBarAccessibility('purpleHoneyProgressBar', purpleHoneyProgressPercentage, purpleHoneyProgressText)
+
   DOMCacheGetOrSet('ambrosiaContainerProgress').style.width = `${ambrosiaProgress}%`
-  DOMCacheGetOrSet('ambrosiaContainerProgressText').textContent = i18next.t(
-    'purpleReactor.reactantContainerProgress',
-    {
-      stored: format(displayedAmbrosiaBarPoints, 2, true),
-      net: ambrosiaAtCapacity ? '' : formatPurpleReactantNetRate(ambrosiaBarPointNetRate)
-    }
+  DOMCacheGetOrSet('ambrosiaContainerProgressText').textContent = ambrosiaProgressText
+  DOMCacheGetOrSet('ambrosiaReactantNetRate').textContent = formatPurpleReactantNetRate(ambrosiaBarPointNetRate)
+  updateInnerHTMLIfChanged(
+    'ambrosiaReactantRoutedRate',
+    i18next.t(
+      'purpleReactor.reactantRoutedRate',
+      { amount: format(ambrosiaBarPointReserveRate, 2, true) }
+    )
   )
+  updateInnerHTMLIfChanged(
+    'ambrosiaReactantSpentRate',
+    i18next.t(
+      'purpleReactor.reactantSpentRate',
+      { amount: format(reactantDissolutionRate, 2, true) }
+    )
+  )
+  updateProgressBarAccessibility('ambrosiaContainerProgressBar', ambrosiaProgress, ambrosiaProgressAriaText)
+
   DOMCacheGetOrSet('redAmbrosiaContainerProgress').style.width = `${redAmbrosiaProgress}%`
-  DOMCacheGetOrSet('redAmbrosiaContainerProgressText').textContent = i18next.t(
-    'purpleReactor.reactantContainerProgress',
-    {
-      stored: format(displayedRedAmbrosiaBarPoints, 2, true),
-      net: redAmbrosiaAtCapacity ? '' : formatPurpleReactantNetRate(redAmbrosiaBarPointNetRate)
-    }
+  DOMCacheGetOrSet('redAmbrosiaContainerProgressText').textContent = redAmbrosiaProgressText
+  DOMCacheGetOrSet('redAmbrosiaReactantNetRate').textContent = formatPurpleReactantNetRate(redAmbrosiaBarPointNetRate)
+  updateInnerHTMLIfChanged(
+    'redAmbrosiaReactantRoutedRate',
+    i18next.t(
+      'purpleReactor.reactantRoutedRate',
+      { amount: format(redAmbrosiaBarPointReserveRate, 2, true) }
+    )
   )
+  updateInnerHTMLIfChanged(
+    'redAmbrosiaReactantSpentRate',
+    i18next.t(
+      'purpleReactor.reactantSpentRate',
+      { amount: format(reactantDissolutionRate, 2, true) }
+    )
+  )
+  updateProgressBarAccessibility('redAmbrosiaContainerProgressBar', redAmbrosiaProgress, redAmbrosiaProgressAriaText)
 
-  for (const percentage of purpleReactantPercentages) {
-    const ambrosiaButton = DOMCacheGetOrSet(`ambrosiaBarPointPercentage${percentage}`)
-    const redAmbrosiaButton = DOMCacheGetOrSet(`redAmbrosiaBarPointPercentage${percentage}`)
-    const ambrosiaSelected = player.purpleReactor.ambrosiaBarPointPercentage === percentage
-    const redAmbrosiaSelected = player.purpleReactor.redAmbrosiaBarPointPercentage === percentage
-
-    ambrosiaButton.classList.toggle('purpleReactantPercentageSelected', ambrosiaSelected)
-    redAmbrosiaButton.classList.toggle('purpleReactantPercentageSelected', redAmbrosiaSelected)
-    ambrosiaButton.setAttribute('aria-pressed', String(ambrosiaSelected))
-    redAmbrosiaButton.setAttribute('aria-pressed', String(redAmbrosiaSelected))
-  }
+  updatePurpleReactantSlider(
+    'ambrosiaBarPointPercentageSlider',
+    'ambrosiaBarPointPercentageValue',
+    player.purpleReactor.ambrosiaBarPointPercentage
+  )
+  updatePurpleReactantSlider(
+    'redAmbrosiaBarPointPercentageSlider',
+    'redAmbrosiaBarPointPercentageValue',
+    player.purpleReactor.redAmbrosiaBarPointPercentage
+  )
 }
 
 export const visualUpdateShop = () => {

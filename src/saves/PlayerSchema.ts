@@ -270,13 +270,7 @@ const ambrosiaUpgradeSchema = z.object({
   blueberriesInvested: z.number().default(0)
 })
 
-const purpleReactantPercentageSchema = z.union([
-  z.literal(0),
-  z.literal(10),
-  z.literal(25),
-  z.literal(50),
-  z.literal(100)
-])
+const purpleReactantPercentageSchema = z.number().int().min(0).max(100)
 
 const purpleReactorSchema = z.object({
   purpleHoney: z.number().default(0),

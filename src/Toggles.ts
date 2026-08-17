@@ -578,6 +578,8 @@ export const toggleSingularityScreen = (indexStr: string) => {
   } else if (index === 4) {
     initializeOcteractUpgradeMap()
   }
+
+  createFitties()
 }
 
 interface ChadContributor {
