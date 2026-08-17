@@ -2305,11 +2305,15 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
   lol.innerHTML = shopUpgrades[input].effectDescription()
 }
 
+export const instantUnlocked = (key: ShopUpgradeNames) =>
+  (key === 'shopTalisman' && PCoinUpgradeEffects.INSTANT_UNLOCK_1 > 0)
+  || (key === 'infiniteAscent' && PCoinUpgradeEffects.INSTANT_UNLOCK_2 > 0)
+
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   const shopItem = shopUpgrades[input]
   const name = shopItem.name()
 
-  if (player.shopUpgrades[input] >= shopItem.maxLevel) {
+  if (player.shopUpgrades[input] >= shopItem.maxLevel || instantUnlocked(input)) {
     return player.shopConfirmationToggle
       ? Alert(
         `You can't purchase ${name} because you are already at the maximum ${

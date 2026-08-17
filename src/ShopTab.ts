@@ -2,12 +2,12 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSummationNonLinear } from './Calculate'
 import { testing } from './Config'
-import { PCoinUpgrades } from './PseudoCoinUpgrades'
 import { getRuneEffectiveLevel } from './Runes'
 import {
   buyShopUpgrades,
   getShopCosts,
   getShopTypeSymbolsHTML,
+  instantUnlocked,
   shopDescriptions,
   type ShopUpgradeNames,
   shopUpgrades,
@@ -298,11 +298,8 @@ let selectedTier: ShopUpgradeNames = shopSections[0].families[0].tiers[0].key
 
 const tierUnlocked = (key: ShopUpgradeNames) => shopUpgrades[key].isUnlocked()
 
-const tierMaxed = (key: ShopUpgradeNames) => player.shopUpgrades[key] >= shopUpgrades[key].maxLevel
-
-const instantUnlocked = (key: ShopUpgradeNames) =>
-  (key === 'shopTalisman' && PCoinUpgrades.INSTANT_UNLOCK_1 > 0)
-  || (key === 'infiniteAscent' && PCoinUpgrades.INSTANT_UNLOCK_2 > 0)
+const tierMaxed = (key: ShopUpgradeNames) =>
+  player.shopUpgrades[key] >= shopUpgrades[key].maxLevel || instantUnlocked(key)
 
 const familyNameKey = (family: ShopFamilyData) =>
   family.tiers.length > 1 ? `shop.familyNames.${family.id}` : `shop.names.${family.tiers[0].key}`
@@ -421,7 +418,7 @@ const selectShopTier = (key: ShopUpgradeNames) => {
 
 const buyButtonLabel = (key: ShopUpgradeNames) => {
   const shopItem = shopUpgrades[key]
-  if (player.shopUpgrades[key] >= shopItem.maxLevel) {
+  if (tierMaxed(key)) {
     return i18next.t('shop.maxed')
   }
   if (player.shopBuyMaxToggle === false) {
@@ -457,7 +454,7 @@ const updateShopDetail = () => {
         chip.classList.toggle('shopTierMaxed', tierMaxed(tier.key))
         chip.classList.toggle('shopTestingOnly', testing && !tierUnlocked(tier.key))
         DOMCacheGetOrSet(`shopTierChipLevel-${tier.key}`).textContent = shopUpgrades[tier.key].maxLevel === 1
-          ? (player.shopUpgrades[tier.key] > 0 || instantUnlocked(tier.key) ? '✓' : '✕')
+          ? (tierMaxed(tier.key) ? '✓' : '✕')
           : i18next.t('shop.level', {
             x: format(player.shopUpgrades[tier.key]),
             y: format(shopUpgrades[tier.key].maxLevel)
@@ -470,7 +467,7 @@ const updateShopDetail = () => {
 
   const levelEl = DOMCacheGetOrSet('shopDetailLevel')
   if (item.maxLevel === 1) {
-    const bought = player.shopUpgrades[selectedTier] > 0 || instantUnlocked(selectedTier)
+    const bought = tierMaxed(selectedTier)
     levelEl.textContent = bought ? i18next.t('shop.bought') : i18next.t('shop.notBought')
     levelEl.style.color = bought ? 'gold' : 'white'
   } else {
