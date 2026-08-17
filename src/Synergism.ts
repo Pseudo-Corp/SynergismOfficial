@@ -248,6 +248,7 @@ import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 // eslint-disable-next-line no-unassigned-import
 import './saves/verify'
 import { getShopUpgradeEffects, updateShopLevels } from './Shop'
+import { generateShopTabHTML } from './ShopTab'
 import {
   blankGQLevelObject,
   calculateMaxSingularityLookahead,
@@ -5121,6 +5122,7 @@ window.addEventListener('load', async () => {
   generateTalismansHTML()
   generateBlessingsHTML()
   generateSpiritsHTML()
+  generateShopTabHTML()
   generateEventHandlers()
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()

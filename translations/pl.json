@@ -3425,7 +3425,6 @@
     "singularityQuarkAmount": "Owned: {{amount}}",
     "buyYerPotions": "Buy Yer' Potions!",
     "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
-    "youHaveQuarks": "You have {{x}} Quarks!",
     "refundable": "This item is refundable! Will be set to level {{level}} when refunded.",
     "cannotRefund": "This item CANNOT be refunded! Take caution.",
     "resetPermShop": "Reset Upgrades",
@@ -5218,8 +5217,7 @@
       "finishTranscension": "Jeśli nie możesz zakończyć wyzwania Transcenzja, Naciśnij klawisz skrótu wymieniony powyżej LUB kliknij na fioletowe Wyzwanie \"C\" na przyciskach resetowania na górze.",
       "leaveReincarnation": "To leave a reincarnation challenge, press the grey Challenge \"C\" instead!"
     },
-    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> Researches first. The <<var(--crimson-text-color);|red-bordered>> Researches are never reset whereas the <<white;|white-bordered>> Researches will reset upon the next reset tier!",
-    "shop": "Hover over each portion of the shop to see what each upgrade does!"
+    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> Researches first. The <<var(--crimson-text-color);|red-bordered>> Researches are never reset whereas the <<white;|white-bordered>> Researches will reset upon the next reset tier!"
   },
   "buildings": {
     "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold | +{{coinsPerSecond}}/s>>] | Total Ever: <<gold | {{totalGenerated}}>>",

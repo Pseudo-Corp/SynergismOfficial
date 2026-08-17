@@ -3425,7 +3425,6 @@
     "singularityQuarkAmount": "Owned: {{amount}}",
     "buyYerPotions": "Achètes tes potions !",
     "header": "Bienvenue dans la boutique de Quarks. Tu es impressionné par le choix disponible !",
-    "youHaveQuarks": "Tu as {{x}} Quarks !",
     "refundable": "This item is refundable! Will be set to level {{level}} when refunded.",
     "cannotRefund": "Cet article NE PEUT PAS être remboursé ! Soyez prudent.",
     "resetPermShop": "Reset Upgrades",

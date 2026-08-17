@@ -3425,7 +3425,6 @@
     "singularityQuarkAmount": "Owned: {{amount}}",
     "buyYerPotions": "Kauf´ deine Tränke!",
     "header": "Willkommen am Quark Markt. Du wirst nicht glauben, was alles zum Verkauf steht!",
-    "youHaveQuarks": "Du hast {{x}} Quarks!",
     "refundable": "This item is refundable! Will be set to level {{level}} when refunded.",
     "cannotRefund": "Dieser Gegenstand kann NICHT rückerstattet werden! Sei vorsichtig.",
     "resetPermShop": "Reset Upgrades",

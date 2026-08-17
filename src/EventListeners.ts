@@ -113,16 +113,7 @@ import { getResetDetails, updateAutoCubesOpens, updateAutoReset, updateTesseract
 import { buyAllBlessingLevels } from './RuneBlessings'
 import { runes } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
-import type { ShopUpgradeNames } from './Shop'
-import {
-  buyShopUpgrades,
-  createShopHTML,
-  resetShopUpgrades,
-  shopDescriptions,
-  shopUpgrades,
-  shopUpgradeTypes,
-  useConsumablePrompt
-} from './Shop'
+import { buyShopUpgrades, resetShopUpgrades, useConsumablePrompt } from './Shop'
 import {
   addSingularityPerkToTree,
   buyGoldenQuarks,
@@ -1642,10 +1633,6 @@ TODO: Fix this entire tab it's utter shit
 
   // Part 2: Potions
   /*Offering Potion*/
-  DOMCacheGetOrSet('offeringPotions').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
-  DOMCacheGetOrSet('offeringpotionowned').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
-  DOMCacheGetOrSet('buyofferingpotion').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
-  DOMCacheGetOrSet('useofferingpotion').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
   DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyShopUpgrades('offeringPotion'))
   // DOMCacheGetOrSet('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
   DOMCacheGetOrSet('useofferingpotion').addEventListener('click', () => useConsumablePrompt('offeringPotion'))
@@ -1653,58 +1640,12 @@ TODO: Fix this entire tab it's utter shit
     player.autoPotionTimer = 0
   })
   /*Obtainium Potion*/
-  DOMCacheGetOrSet('obtainiumPotions').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
-  DOMCacheGetOrSet('obtainiumpotionowned').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
-  DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
-  DOMCacheGetOrSet('useobtainiumpotion').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
   DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades('obtainiumPotion'))
   // DOMCacheGetOrSet('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
   DOMCacheGetOrSet('useobtainiumpotion').addEventListener('click', () => useConsumablePrompt('obtainiumPotion'))
   DOMCacheGetOrSet('toggle43').addEventListener('click', () => {
     player.autoPotionTimerObtainium = 0
   })
-  /* Permanent Upgrade Images */
-  const shopKeys = Object.keys(player.shopUpgrades) as ShopUpgradeNames[]
-  for (const key of shopKeys) {
-    const shopItem = shopUpgrades[key]
-    if (shopItem.type === shopUpgradeTypes.UPGRADE) {
-      const boundShopDescriptions = shopDescriptions.bind(null, key)
-      const boundCreateShopHTML = createShopHTML.bind(null, key)
-
-      if (isMobile) {
-        const showMobileShopModal = (event: MouseEvent) => {
-          boundShopDescriptions()
-          Modal(
-            boundCreateShopHTML,
-            event.clientX,
-            event.clientY,
-            { borderColor: 'cyan' },
-            MEDIUM_MODAL_UPDATE_TICK,
-            event.currentTarget as HTMLElement
-          )
-        }
-
-        DOMCacheGetOrSet(key).addEventListener('click', showMobileShopModal)
-        DOMCacheGetOrSet(`${key}Level`).addEventListener('click', showMobileShopModal)
-      } else {
-        DOMCacheGetOrSet(key).addEventListener(
-          'mousemove',
-          (e) => Modal(boundCreateShopHTML, e.clientX, e.clientY, { borderColor: 'cyan' })
-        )
-        DOMCacheGetOrSet(key).addEventListener('focus', function(this: HTMLElement) {
-          const elmRect = this.getBoundingClientRect()
-          Modal(boundCreateShopHTML, elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'cyan' })
-        })
-        DOMCacheGetOrSet(key).addEventListener('mouseout', CloseModal)
-        DOMCacheGetOrSet(key).addEventListener('blur', CloseModal)
-        DOMCacheGetOrSet(key).addEventListener('mouseover', boundShopDescriptions)
-        DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', boundShopDescriptions)
-        DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', boundShopDescriptions)
-      }
-      // DOMCacheGetOrSet(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
-      DOMCacheGetOrSet(`${key}Button`).addEventListener('pointerdown', () => buyShopUpgrades(key))
-    }
-  }
   DOMCacheGetOrSet('buySingularityQuarksButton').addEventListener('click', () => buyGoldenQuarks())
   // SINGULARITY TAB
 

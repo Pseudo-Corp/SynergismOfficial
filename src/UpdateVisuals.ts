@@ -26,7 +26,6 @@ import {
   calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium,
   calculateSalvageRuneEXPMultiplier,
-  calculateSummationNonLinear,
   calculateToNextThreshold,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractObtainiumBonus,
@@ -35,7 +34,7 @@ import {
   calculateTotalSalvage
 } from './Calculate'
 import { CalcECC, challengeDisplay, timeSinceLastStateChange } from './Challenges'
-import { testing, version } from './Config'
+import { version } from './Config'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -46,8 +45,7 @@ import {
   calculateObtainiumCubeBlessing,
   calculateOfferingCubeBlessing,
   calculateRuneEffectivenessCubeBlessing,
-  calculateSalvageCubeBlessing,
-  type IMultiBuy
+  calculateSalvageCubeBlessing
 } from './Cubes'
 import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
 import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib/calculate-production'
@@ -84,12 +82,12 @@ import {
   calculateTaxPlatonicBlessing,
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
-import { PCoinUpgrades } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
 import { runeSpiritKeys, updateRuneSpiritHTML } from './RuneSpirits'
-import { getShopCosts, getShopUpgradeEffects, type ShopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
+import { getShopCosts, getShopUpgradeEffects, shopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
+import { updateShopTab } from './ShopTab'
 import {
   computeGQUpgradeFreeLevelSoftcap,
   computeGQUpgradeMaxLevel,
@@ -1947,10 +1945,7 @@ export const visualUpdateShop = () => {
   if (G.currentTab !== Tabs.Shop) {
     return
   }
-  DOMCacheGetOrSet('quarkamount').textContent = i18next.t(
-    'shop.youHaveQuarks',
-    { x: format(player.worlds.valueOf(), 0, true, false) }
-  )
+
   DOMCacheGetOrSet('offeringpotionowned').textContent = format(
     player.shopUpgrades.offeringPotion,
     0,
@@ -1963,8 +1958,7 @@ export const visualUpdateShop = () => {
   )
 
   // Create Keys with the correct type
-  const keys = Object.keys(player.shopUpgrades) as ShopUpgradeNames[]
-  for (const key of keys) {
+  for (const key of shopUpgradeNames) {
     // Create a copy of shopItem instead of accessing many times
     const shopItem = shopUpgrades[key]
 
@@ -1995,107 +1989,9 @@ export const visualUpdateShop = () => {
           } Quarks`
       }
     }
-
-    if (shopItem.type === shopUpgradeTypes.UPGRADE) {
-      if (
-        player.shopHideToggle
-        && player.shopUpgrades[key] >= shopItem.maxLevel
-      ) {
-        DOMCacheGetOrSet(`${key}Hide`).style.display = 'none'
-        continue
-      } else {
-        DOMCacheGetOrSet(`${key}Hide`).style.display = shopItem.isUnlocked() || testing
-          ? 'block'
-          : 'none'
-
-        if (!shopItem.isUnlocked() && testing) {
-          DOMCacheGetOrSet(`${key}Hide`).style.backgroundColor = 'red'
-        }
-      }
-      // Case: If max level is 1, then it can be considered a boolean "bought" or "not bought" item
-      if (shopItem.maxLevel === 1) {
-        const upgradeDom = DOMCacheGetOrSet(`${key}Level`)
-        if (player.shopUpgrades[key] === shopItem.maxLevel) {
-          upgradeDom.textContent = i18next.t('shop.bought')
-          upgradeDom.style.color = 'gold'
-        } else {
-          upgradeDom.textContent = i18next.t('shop.notBought')
-          upgradeDom.style.color = 'white'
-        }
-
-        if (key === 'shopTalisman' && PCoinUpgrades.INSTANT_UNLOCK_1 > 0) {
-          upgradeDom.textContent = i18next.t('shop.bought')
-          upgradeDom.style.color = 'orchid'
-        }
-        if (key === 'infiniteAscent' && PCoinUpgrades.INSTANT_UNLOCK_2 > 0) {
-          upgradeDom.textContent = i18next.t('shop.bought')
-          upgradeDom.style.color = 'orchid'
-        }
-      } else {
-        // Case: max level greater than 1, treat it as a fraction out of max level
-        const upgradeDom = DOMCacheGetOrSet(`${key}Level`)
-        upgradeDom.textContent = i18next.t('shop.level', {
-          x: format(player.shopUpgrades[key]),
-          y: format(shopItem.maxLevel)
-        })
-
-        if (player.shopUpgrades[key] === shopItem.maxLevel) {
-          upgradeDom.style.color = 'gold'
-        } else {
-          upgradeDom.style.color = 'white'
-        }
-      }
-      // Handles Button - max level needs no price indicator, otherwise it's necessary
-
-      const buyMaxAmount = shopItem.maxLevel - player.shopUpgrades[key]
-      let buyData: IMultiBuy
-
-      switch (player.shopBuyMaxToggle) {
-        case false:
-          DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel
-            ? i18next.t('shop.maxed')
-            : i18next.t('shop.upgradeFor', { x: format(getShopCosts(key)) })
-          break
-        case 'TEN':
-          buyData = calculateSummationNonLinear(
-            player.shopUpgrades[key],
-            shopItem.price,
-            +player.worlds,
-            shopItem.priceIncrease / shopItem.price,
-            Math.min(10, buyMaxAmount)
-          )
-          DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel
-            ? i18next.t('shop.maxed')
-            : i18next.t('shop.plusForQuarks', {
-              x: format(
-                buyData.levelCanBuy - player.shopUpgrades[key],
-                0,
-                true
-              ),
-              y: format(buyData.cost)
-            })
-          break
-        default:
-          buyData = calculateSummationNonLinear(
-            player.shopUpgrades[key],
-            shopItem.price,
-            +player.worlds,
-            shopItem.priceIncrease / shopItem.price,
-            buyMaxAmount
-          )
-          DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel
-            ? i18next.t('shop.maxed')
-            : i18next.t('shop.plusForQuarks', {
-              x: format(
-                buyData.levelCanBuy - player.shopUpgrades[key],
-                0,
-                true
-              ),
-              y: format(buyData.cost)
-            })
-      }
-    }
   }
+
+  updateShopTab()
 
   DOMCacheGetOrSet('buySingularityQuarksAmount').textContent = player.goldenQuarks < 1000
     ? i18next.t('shop.singularityQuarkAmount', { amount: format(player.goldenQuarks) })

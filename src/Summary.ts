@@ -24,7 +24,7 @@ import {
 } from './Octeracts'
 import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { type RuneKeys, runes } from './Runes'
-import { type ShopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
+import { shopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
 import {
   actualGQUpgradeTotalLevels,
   calculateEffectiveSingularities,
@@ -287,13 +287,12 @@ export const generateExportSummary = async (): Promise<void> => {
   if (player.reincarnationCount > 0 || player.highestSingularityCount > 0) {
     shopUpgradeStats =
       '===== SHOP UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
-    const shopUpgrade = Object.keys(player.shopUpgrades) as ShopUpgradeNames[]
     let totalShopUpgradeCount = 0
     let totalShopUpgradeUnlocked = 0
     let totalShopUpgradeMax = 0
     let totalQuarksSpent = 0
 
-    for (const key of shopUpgrade) {
+    for (const key of shopUpgradeNames) {
       const shopUpg = player.shopUpgrades[key]
       let upgradeText = ''
 

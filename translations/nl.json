@@ -1409,7 +1409,6 @@
     "consume": "CONSUME",
     "buyYerPotions": "Buy Yer' Potions!",
     "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
-    "youHaveQuarks": "You have {{x}} Quarks!",
     "cannotRefund": "This item CANNOT be refunded! Take caution.",
     "resetPermShop": "Reset Perm Shop [Cost: 15 Quarks]",
     "shopConfirmationOn": "Shop Confirmations: ON",
@@ -2612,8 +2611,7 @@
       "finishTranscension": "If you are unable to finish a Transcension challenge, press the hotkey listed above OR click on the red Challenge \"C\" button on the reset buttons on top.",
       "leaveReincarnation": "To leave a reincarnation challenge, press the grey Challenge \"C\" instead!"
     },
-    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> researches first. The <<var(--crimson-text-color);|red-bordered>> researches are never reset whereas the <<white;|white-bordered>> researches will reset upon the next reset tier!",
-    "shop": "Hover over each portion of the shop to see what each upgrade does!"
+    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> researches first. The <<var(--crimson-text-color);|red-bordered>> researches are never reset whereas the <<white;|white-bordered>> researches will reset upon the next reset tier!"
   },
   "buildings": {
     "taxWarning": "Your tax also caps your Coin gain at {{gain}}/s.",

@@ -3425,7 +3425,6 @@
     "singularityQuarkAmount": "拥有：{{amount}}",
     "buyYerPotions": "买点药剂！",
     "header": "欢迎来到夸克商店，您肯定想不到这里会有些什么！",
-    "youHaveQuarks": "您有{{x}}夸克！",
     "refundable": "您可以重置此项购买！重置后将变为{{level}}级。",
     "cannotRefund": "请注意！您无法重置此项购买！",
     "resetPermShop": "重置商店升级",

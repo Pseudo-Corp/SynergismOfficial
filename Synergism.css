@@ -3177,44 +3177,218 @@ p#reincarnatehotkeys {
 }
 
 #actualWrapper {
-    display: flex;
+    display: grid;
+    grid-template-areas:
+        ". shoptop"
+        "consumables shop"
+        ". buttons";
+    justify-items: center;
     font-size: min(1em, 20px);
 }
 
 #actualShopContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: contents;
 }
 
 #actualShop {
+    grid-area: shop;
     display: flex;
-    padding: 5px;
+    align-items: stretch;
     margin-top: 10px;
-    width: calc(103px * 8 - 8px); /* TODO: this sucks */
     border: 3px solid plum;
-    gap: 5px;
+    color: white;
+    text-align: left;
+}
+
+#shopFamilyList {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    max-height: 70vh;
+    border-right: 1px solid plum;
+    scrollbar-width: thin;
+}
+
+.shopSectionHeader {
+    flex-shrink: 0;
+    margin: 8px 8px 2px;
+    color: plum;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.shopFamilyRow {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    background: none;
+    border: none;
+    border-left: 3px solid transparent;
+    color: white;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.shopFamilyRow:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.shopFamilyRow.shopFamilySelected {
+    border-left-color: cyan;
+    background-color: rgba(0, 255, 255, 0.1);
+}
+
+.shopFamilyRowIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.shopWowPassRowIcon {
+    background-image: url("Pictures/Default/Sprite Sheets/WowPasses.png");
+    background-size: auto 24px;
+    background-position: 0 0;
+}
+
+.shopFamilyRowInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.shopFamilyRowTiers {
+    display: flex;
+    gap: 3px;
+}
+
+.shopTierDot {
+    width: 7px;
+    height: 7px;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+
+.shopTierDotStarted {
+    background-color: rgba(0, 255, 255, 0.35);
+    border-color: cyan;
+}
+
+.shopTierDotFrontier {
+    background-color: cyan;
+    border-color: cyan;
+}
+
+.shopTierDotMaxed {
+    background-color: gold;
+    border-color: gold;
+}
+
+.shopFamilyRowCost {
+    margin-left: auto;
+    padding-left: 10px;
+    color: gold;
+}
+
+.shopFamilyRowCost.shopCantAfford {
+    color: gray;
+}
+
+.shopFamilyRowCost.shopFamilyMaxed {
+    color: orchid;
+}
+
+#shopDetail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 62ch;
+    padding: 10px;
+    text-align: center;
+}
+
+#shopDetail > p {
+    margin: 0;
+    overflow-wrap: break-word;
+}
+
+#shopTierRail {
+    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+
+.shopTierChip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 5px 8px;
+    background: none;
+    border: 1px solid gray;
+    color: white;
+    font: inherit;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+.shopTierChip img {
+    width: 32px;
+    height: 32px;
+}
+
+.shopTierChip.shopTierSelected {
+    border-color: cyan;
+    box-shadow: 0 0 6px cyan;
+}
+
+.shopTierChip.shopTierMaxed {
+    border-color: gold;
+}
+
+.shopTestingOnly {
+    background-color: maroon;
+}
+
+#shopDetailName {
+    font-size: 1.1em;
+}
+
+#quarkdescription { color: plum; }
+#quarkeffect { color: limegreen; }
+#quarkRefundable { color: goldenrod; }
+
+#shopDetailBuy {
+    width: auto;
+    min-width: 220px;
+    padding: 0 12px;
+    border: 2px solid goldenrod;
 }
 
 #actualPotionShop > div,
-#actualShop > div {
+#goldenQuarksShop {
     width: 110px;
 }
 
 #actualPotionShop > div > p,
-#actualShop > div > p {
+#goldenQuarksShop > p {
     margin: 0 0 3px;
     line-height: 1em;
 }
 
 #shoptop {
+    grid-area: shoptop;
     color: whitesmoke;
     font-size: 1.2em;
-    margin-top: 20px;
 }
 
 #actualConsumables {
+    grid-area: consumables;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3236,13 +3410,6 @@ p#reincarnatehotkeys {
     font-size: 0;
 }
 
-#quarkamount {
-    font-size: 1.2em;
-    color: aqua;
-    margin: 0 0 0 5px;
-}
-
-#quarksDisplay,
 #goldenQuarksDisplay,
 #octeractsDisplay,
 #totalOcteractsDisplay,
@@ -3310,6 +3477,7 @@ p#reincarnatehotkeys {
 }
 
 #shopButtons {
+    grid-area: buttons;
     display: flex;
     justify-content: center;
     flex-flow: wrap;
@@ -3323,13 +3491,6 @@ p#reincarnatehotkeys {
     min-height: 40px;
     margin-bottom: 6px;
 }
-
-#shopHovers {
-    width: 800px;
-    min-height: 8.2em;
-}
-
-#shopHovers > p { margin: 0; }
 
 .consumablebutton,
 .permshopbutton {
@@ -7487,32 +7648,6 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     display: none;
 }
 
-html[data-instant-unlock1="true"] .shopTalismanShopUpgrade {
-    opacity: 0.5;
-}
-
-html[data-instant-unlock1="true"] .shopTalismanShopUpgrade button {
-    display: none;
-}
-
-html[data-instant-unlock1="false"] .shopTalismanShopUpgrade {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-html[data-instant-unlock2="true"] .infiniteAscentShopUpgrade {
-    opacity: 0.5;
-}
-
-html[data-instant-unlock2="true"] .infiniteAscentShopUpgrade button {
-    display: none;
-}
-
-html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
-    opacity: 1;
-    pointer-events: auto;
-}
-
 html[data-mobile="true"] {
     -webkit-touch-callout: none;
     -webkit-user-select: none; /* stylelint-disable-line property-no-vendor-prefix */
@@ -9012,7 +9147,11 @@ html[data-mobile="true"] .hideOnMobile {
 
     /* Shops tab */
     #actualWrapper {
-        flex-direction: column;
+        grid-template-areas:
+            "consumables"
+            "shoptop"
+            "shop"
+            "buttons";
     }
 
     #actualConsumables {
@@ -9020,15 +9159,17 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #actualShop {
-        width: unset;
-        justify-content: center;
+        flex-direction: column;
+        align-items: stretch;
     }
 
-    #actualShop > div {
-        width: 30%;
+    #shopFamilyList {
+        max-height: 40vh;
+        border-right: none;
+        border-bottom: 1px solid plum;
     }
 
-    #shopHovers {
+    #shopDetail {
         width: unset;
     }
 
