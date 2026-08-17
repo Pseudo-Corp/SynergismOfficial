@@ -563,6 +563,8 @@ export const toggleSingularityScreen = (indexStr: string) => {
   } else if (getActiveSubTab() === 5) {
     visualUpdatePurple()
   }
+
+  createFitties()
 }
 
 interface ChadContributor {
