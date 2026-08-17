@@ -53,6 +53,7 @@ import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism
 import { getActiveSubTab, Tabs } from './Tabs'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { type TalismanKeys, talismans } from './Talismans'
+import { resolveImgSrc } from './Themes'
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import {
   visualUpdateAchievements,
@@ -1765,16 +1766,32 @@ const patchNodes = (parent: Element, newParent: DocumentFragment | Element) => {
   }
 }
 
+const resolveModalImgSrcs = (root: Element | DocumentFragment) => {
+  for (const img of root.querySelectorAll('img')) {
+    const src = img.getAttribute('src')
+    if (src === null) {
+      continue
+    }
+    const resolved = resolveImgSrc(src)
+    if (resolved !== src) {
+      img.setAttribute('src', resolved)
+    }
+  }
+}
+
 const updateModal = (HTML: () => string) => {
   const modalContent = DOMCacheGetOrSet('modalContent')
   const htmlContent = HTML()
 
   if (modalContent.childNodes.length === 0) {
-    modalContent.innerHTML = htmlContent
+    modalTemplate.innerHTML = htmlContent
+    resolveModalImgSrcs(modalTemplate.content)
+    modalContent.replaceChildren(...modalTemplate.content.cloneNode(true).childNodes)
     return
   }
 
   modalTemplate.innerHTML = htmlContent
+  resolveModalImgSrcs(modalTemplate.content)
   patchNodes(modalContent, modalTemplate.content)
 }
 

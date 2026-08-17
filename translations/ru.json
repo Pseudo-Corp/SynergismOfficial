@@ -3639,7 +3639,6 @@
     "perks": {
       "levelInfo": "Уровень {{level}} - (Сингулярность {{singularity}})",
       "improvedIn": "Уже существующая Привилегия будет улучшена в Сингулярности {{sing}}",
-      "unlockedIn": "Вы разблокируете новую Привилегию в Сингулярности {{sing}}",
       "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
       "description": "(Наведите курсор для получения более подробной информации. В этой Сингулярности были добавлены или улучшены привилегии, <span style=\"color: gold\">выделенные золотым текстом</span>)",
       "usesCurrentSing": "This perk uses your current Singularity count. The level of this perk may <<crimson|decrease>> if you are in a lower Singularity.",

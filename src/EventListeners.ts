@@ -124,11 +124,12 @@ import {
   useConsumablePrompt
 } from './Shop'
 import {
+  addSingularityPerkToTree,
   buyGoldenQuarks,
   buyGQUpgradeLevel,
   calculateMaxSingularityLookahead,
-  getLastUpgradeInfo,
   goldenQuarkUpgrades,
+  initializeSingularityPerkTree,
   type SingularityDataKeys,
   singularityPerkModalHTML,
   singularityPerks,
@@ -1784,19 +1785,28 @@ TODO: Fix this entire tab it's utter shit
     () => shopMouseover(false)
   )
 
-  const perkImage = DOMCacheGetOrSet(
-    'singularityPerksIcon'
-  ) as HTMLImageElement
-  const perksText = DOMCacheGetOrSet('singularityPerksText')
-  const perksDesc = DOMCacheGetOrSet('singularityPerksDesc')
+  initializeSingularityPerkTree()
   for (const perk of singularityPerks) {
     const perkHTML = document.createElement('span')
     const perkIconSrc = () => `Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png`
-    perkHTML.innerHTML = `<img src="${perkIconSrc()}">${perk.name()}`
+    const unlockSingularity = perk.levels[0]
+    const perkName = perk.name()
+    perkHTML.innerHTML = `<img src="${perkIconSrc()}" alt="" loading="lazy">`
     perkHTML.id = perk.ID
-    perkHTML.classList.add('oldPerk')
+    perkHTML.classList.add('oldPerk', 'singularityPerkNode')
+    if (isMobile) {
+      perkHTML.setAttribute('role', 'button')
+    }
+    perkHTML.setAttribute('tabindex', '0')
+    perkHTML.setAttribute(
+      'aria-label',
+      i18next.t('singularity.perks.treePerkLabel', {
+        name: perkName,
+        singularity: unlockSingularity
+      })
+    )
     perkHTML.style.display = 'none' // Ensure the perk is hidden if not unlocked as an anti-spoiler failsafe.
-    DOMCacheGetOrSet('singularityPerksGrid').append(perkHTML)
+    addSingularityPerkToTree(perkHTML, perk.ID)
     const singularityPerkElement = DOMCacheGetOrSet(perk.ID)
     if (isMobile) {
       singularityPerkElement.addEventListener('click', (event) => {
@@ -1812,19 +1822,29 @@ TODO: Fix this entire tab it's utter shit
       continue
     }
 
-    singularityPerkElement.addEventListener('mouseover', () => {
-      const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
-      const levelInfo = i18next.t('singularity.perks.levelInfo', {
-        level: perkInfo.level,
-        singularity: perkInfo.singularity
-      })
-      perkImage.src = perkIconSrc()
-      perksText.innerHTML = levelInfo
-      perksDesc.innerHTML = perk.description(
-        player.highestSingularityCount,
-        perk.levels
+    singularityPerkElement.addEventListener('mousemove', (event: MouseEvent) => {
+      Modal(
+        () => singularityPerkModalHTML(perk, perkIconSrc()),
+        event.clientX,
+        event.clientY,
+        { borderColor: 'gold' },
+        MEDIUM_MODAL_UPDATE_TICK,
+        singularityPerkElement
       )
     })
+    singularityPerkElement.addEventListener('focus', () => {
+      const perkRect = singularityPerkElement.getBoundingClientRect()
+      Modal(
+        () => singularityPerkModalHTML(perk, perkIconSrc()),
+        perkRect.x,
+        perkRect.y + perkRect.height / 2,
+        { borderColor: 'gold' },
+        MEDIUM_MODAL_UPDATE_TICK,
+        singularityPerkElement
+      )
+    })
+    singularityPerkElement.addEventListener('mouseleave', CloseModal)
+    singularityPerkElement.addEventListener('blur', CloseModal)
   }
 
   // Octeract Upgrades

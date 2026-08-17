@@ -416,6 +416,21 @@ const getIconSetFallbackOrder = () => {
   return fallbackOrder
 }
 
+const imgFallbacks = new Map<string, string>()
+
+export const resolveImgSrc = (src: string) => {
+  let resolved = new URL(src, document.baseURI).href
+  if (!imgFallbacks.has(resolved)) {
+    return src
+  }
+  let next = imgFallbacks.get(resolved)
+  while (next !== undefined && next !== resolved) {
+    resolved = next
+    next = imgFallbacks.get(resolved)
+  }
+  return resolved
+}
+
 // If no image is found, tries the designated fallback chain, then every remaining set, then MISSINGIMAGE.png
 // MISSINGIMAGE.png(s) will not be replaced except on a full page reload
 export function imgErrorHandler (evt: ErrorEvent | Event) {
@@ -425,6 +440,7 @@ export function imgErrorHandler (evt: ErrorEvent | Event) {
     return
   }
   const whichImg = evt.target
+  const failedSrc = whichImg.src
   const fallbackOrder = getIconSetFallbackOrder()
   const currentSetIndex = fallbackOrder.findIndex((iconSetName) => whichImg.src.includes(iconSetName))
   const fallbackSetName = fallbackOrder[currentSetIndex + 1]
@@ -434,5 +450,9 @@ export function imgErrorHandler (evt: ErrorEvent | Event) {
     whichImg.src = './Pictures/MISSINGIMAGE.png'
   } else {
     whichImg.src = whichImg.src.replace(IconSetsRegex, fallbackSetName)
+  }
+
+  if (whichImg.src !== failedSrc) {
+    imgFallbacks.set(failedSrc, whichImg.src)
   }
 }
