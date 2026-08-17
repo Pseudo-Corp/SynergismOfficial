@@ -3739,6 +3739,33 @@ export const getLastUpgradeInfo = (
   return { level: 0, singularity: perk.levels[0], next: perk.levels[0] }
 }
 
+const getRecentSingularityPerkStatus = (
+  perkInfo: ReturnType<typeof getLastUpgradeInfo>,
+  singTolerance: number
+): 'unlocked' | 'upgraded' | null => {
+  if (
+    perkInfo.level === 0
+    || player.highestSingularityCount - perkInfo.singularity > singTolerance
+  ) {
+    return null
+  }
+
+  return perkInfo.level === 1 ? 'unlocked' : 'upgraded'
+}
+
+const getNextSingularityPerkUpgrade = (): number | null => {
+  let nextUpgrade = Number.POSITIVE_INFINITY
+
+  for (const perk of singularityPerks) {
+    const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
+    if (perkInfo.level > 0 && perkInfo.next !== null) {
+      nextUpgrade = Math.min(nextUpgrade, perkInfo.next)
+    }
+  }
+
+  return Number.isFinite(nextUpgrade) ? nextUpgrade : null
+}
+
 export const singularityPerkModalHTML = (perk: SingularityPerk, imageSrc: string): string => {
   const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
   if (perkInfo.level === 0) {
@@ -3758,13 +3785,30 @@ export const singularityPerkModalHTML = (perk: SingularityPerk, imageSrc: string
     level: perkInfo.level,
     singularity: perkInfo.singularity
   })
+  const recentStatus = getRecentSingularityPerkStatus(
+    perkInfo,
+    calculateMaxSingularityLookahead(true) - 1
+  )
+  const recentStatusText = recentStatus === 'unlocked'
+    ? i18next.t('singularity.perks.new')
+    : recentStatus === 'upgraded'
+    ? i18next.t('singularity.perks.upgraded')
+    : ''
+  const nextSoonText = perkInfo.next !== null && perkInfo.next === getNextSingularityPerkUpgrade()
+    ? i18next.t('singularity.perks.nextSoon')
+    : ''
+  const statusText = [recentStatusText, nextSoonText].filter(Boolean).join(' ')
+  const nextLevelInfo = perkInfo.next === null
+    ? i18next.t('singularity.perks.highestLevel')
+    : i18next.t('singularity.perks.nextLevelInfo', { singularity: perkInfo.next })
 
   return `<div class="singularityPerkModal" data-modal-preserve="children">
     <div class="singularityPerkModalTitle" data-modal-preserve="children">
       <img src="${imageSrc}" alt="" data-modal-preserve="children">
-      <span>${perk.name()}</span>
+      <span>${perk.name()}${statusText === '' ? '' : ` ${statusText}`}</span>
     </div>
     <div class="singularityPerkModalLevel">${levelInfo}</div>
+    <div class="singularityPerkModalNextLevel">${nextLevelInfo}</div>
     <div class="singularityPerkModalDescription" data-modal-preserve="children">${
     perk.description(
       player.highestSingularityCount,
@@ -3775,8 +3819,8 @@ export const singularityPerkModalHTML = (perk: SingularityPerk, imageSrc: string
 }
 
 export const updateSingularityPerks = () => {
-  let singularityCountForNextPerkUpgrade = Number.POSITIVE_INFINITY
   const singTolerance = calculateMaxSingularityLookahead(true) - 1
+  const nextPerkUpgrade = getNextSingularityPerkUpgrade()
   const lockedPerks: SingularityPerk[] = []
   for (const perk of singularityPerks) {
     const upgradeInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
@@ -3784,17 +3828,18 @@ export const updateSingularityPerks = () => {
     if (upgradeInfo.level > 0) {
       perkElement.style.display = ''
       perkElement.classList.remove('singularityPerkPreview')
-      if (player.highestSingularityCount - upgradeInfo.singularity <= singTolerance) { // Is new?
+      const recentStatus = getRecentSingularityPerkStatus(upgradeInfo, singTolerance)
+      if (recentStatus !== null) {
         perkElement.classList.replace('oldPerk', 'newPerk')
       } else {
         perkElement.classList.replace('newPerk', 'oldPerk')
       }
-      if (upgradeInfo.next) {
-        singularityCountForNextPerkUpgrade = Math.min(
-          singularityCountForNextPerkUpgrade,
-          upgradeInfo.next
-        )
-      }
+      perkElement.classList.toggle('singularityPerkRecentlyUnlocked', recentStatus === 'unlocked')
+      perkElement.classList.toggle('singularityPerkRecentlyUpgraded', recentStatus === 'upgraded')
+      perkElement.classList.toggle(
+        'singularityPerkNextUpgrade',
+        upgradeInfo.next !== null && upgradeInfo.next === nextPerkUpgrade
+      )
     } else {
       lockedPerks.push(perk)
     }
@@ -3809,17 +3854,13 @@ export const updateSingularityPerks = () => {
     perkElement.style.display = isPreview ? '' : 'none'
     perkElement.classList.toggle('singularityPerkPreview', isPreview)
     perkElement.classList.replace('newPerk', 'oldPerk')
+    perkElement.classList.remove(
+      'singularityPerkRecentlyUnlocked',
+      'singularityPerkRecentlyUpgraded',
+      'singularityPerkNextUpgrade'
+    )
   }
   scheduleSingularityPerkTreeConnections()
-  const countNext = DOMCacheGetOrSet('singualrityImproveNext')
-  if (singularityCountForNextPerkUpgrade < Number.POSITIVE_INFINITY) {
-    countNext.style.display = ''
-    countNext.innerHTML = i18next.t('singularity.perks.improvedIn', {
-      sing: singularityCountForNextPerkUpgrade
-    })
-  } else {
-    countNext.style.display = 'none'
-  }
 }
 
 export const calculateMaxSingularityLookahead = (nonZero: boolean): number => {

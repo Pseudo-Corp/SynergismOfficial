@@ -5780,12 +5780,6 @@ header #obtainiumDisplay { color: pink; }
     margin-bottom: 1px;
 }
 
-#singularityPerksDesc {
-    grid-column: 1 / -1;
-    margin: 4px auto 0;
-    text-align: center;
-}
-
 #singularityPerksGrid {
     position: relative;
     display: flex;
@@ -5866,6 +5860,10 @@ header #obtainiumDisplay { color: pink; }
 
 .singularityPerkModalLevel {
     color: lightgoldenrodyellow;
+}
+
+.singularityPerkModalNextLevel {
+    color: white;
 }
 
 .singularityPerkModalDescription {
@@ -5950,6 +5948,9 @@ header #obtainiumDisplay { color: pink; }
 
 .newPerk,
 .oldPerk {
+    --singularity-perk-recent-glow: 0 0 0 0 transparent;
+    --singularity-perk-upcoming-glow: 0 0 0 0 transparent;
+
     position: absolute;
     z-index: 2;
     top: var(--singularity-perk-tree-y);
@@ -5964,7 +5965,10 @@ header #obtainiumDisplay { color: pink; }
     cursor: pointer;
     background: linear-gradient(145deg, var(--button-color), var(--box-color));
     border-radius: 6px;
-    box-shadow: 0 3px 8px rgb(0 0 0 / 35%);
+    box-shadow:
+        0 3px 8px rgb(0 0 0 / 35%),
+        var(--singularity-perk-recent-glow),
+        var(--singularity-perk-upcoming-glow);
     transform: translate(-50%, -50%);
     transition:
         color var(--transition-extra),
@@ -5974,9 +5978,20 @@ header #obtainiumDisplay { color: pink; }
         transform var(--transition-extra);
 }
 
-.newPerk {
+.singularityPerkRecentlyUpgraded {
     border: 2px solid gold;
-    filter: drop-shadow(0 0 4px gold);
+
+    --singularity-perk-recent-glow: 0 0 4px gold;
+}
+
+.singularityPerkRecentlyUnlocked {
+    border: 2px solid limegreen;
+
+    --singularity-perk-recent-glow: 0 0 4px limegreen;
+}
+
+.singularityPerkNextUpgrade {
+    --singularity-perk-upcoming-glow: 0 0 4px white;
 }
 
 .oldPerk {
@@ -5999,7 +6014,10 @@ header #obtainiumDisplay { color: pink; }
 .newPerk:focus-visible,
 .oldPerk:focus-visible {
     background-color: var(--hover-color);
-    box-shadow: 0 5px 14px rgb(218 165 32 / 30%);
+    box-shadow:
+        0 5px 14px rgb(218 165 32 / 30%),
+        var(--singularity-perk-recent-glow),
+        var(--singularity-perk-upcoming-glow);
 }
 
 .newPerk:focus-visible,
@@ -8161,10 +8179,6 @@ html[data-mobile="true"] .hideOnMobile {
     .singularityPerkNode > img {
         width: 22px;
         height: 22px;
-    }
-
-    #singularityPerksDesc {
-        display: none;
     }
 
     #ambrosiaTexts {
