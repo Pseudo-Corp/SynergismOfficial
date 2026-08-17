@@ -555,8 +555,8 @@ export interface Player {
     lifetimePurpleHoney: number
     storedAmbrosiaBarPoints: number
     storedRedAmbrosiaBarPoints: number
-    ambrosiaBarPointPercentage: 0 | 10 | 25 | 50 | 100
-    redAmbrosiaBarPointPercentage: 0 | 10 | 25 | 50 | 100
+    ambrosiaBarPointPercentage: number
+    redAmbrosiaBarPointPercentage: number
   }
 
   purpleReactorUpgrades: Record<PurpleReactorNames, number>

@@ -208,9 +208,6 @@ type MobileSubTabIconConfig = {
 
 const MOBILE_HEADER_EXPANDED_STORAGE_VALUE = 'expanded'
 const mobileSubTabIconContainerIDs = new Set(['switchSettingSubTab10'])
-const purpleReactantPercentages = [0, 10, 25, 50, 100] as const
-
-type PurpleReactantPercentage = typeof purpleReactantPercentages[number]
 
 const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
   {
@@ -2012,7 +2009,7 @@ TODO: Fix this entire tab it's utter shit
 
   const setPurpleReactantPercentage = (
     reactant: 'ambrosia' | 'redAmbrosia',
-    percentage: PurpleReactantPercentage
+    percentage: number
   ) => {
     if (reactant === 'ambrosia') {
       player.purpleReactor.ambrosiaBarPointPercentage = percentage
@@ -2022,14 +2019,23 @@ TODO: Fix this entire tab it's utter shit
     visualUpdatePurple()
   }
 
-  for (const percentage of purpleReactantPercentages) {
-    DOMCacheGetOrSet(`ambrosiaBarPointPercentage${percentage}`).addEventListener('click', () => {
-      setPurpleReactantPercentage('ambrosia', percentage)
-    })
-    DOMCacheGetOrSet(`redAmbrosiaBarPointPercentage${percentage}`).addEventListener('click', () => {
-      setPurpleReactantPercentage('redAmbrosia', percentage)
+  const registerPurpleReactantSlider = (
+    elementId: string,
+    reactant: 'ambrosia' | 'redAmbrosia'
+  ) => {
+    const slider = DOMCacheGetOrSet(elementId) as HTMLInputElement
+    slider.addEventListener('input', () => {
+      const requestedPercentage = slider.valueAsNumber
+      const percentage = Number.isFinite(requestedPercentage)
+        ? Math.min(100, Math.max(0, Math.round(requestedPercentage)))
+        : 0
+
+      setPurpleReactantPercentage(reactant, percentage)
     })
   }
+
+  registerPurpleReactantSlider('ambrosiaBarPointPercentageSlider', 'ambrosia')
+  registerPurpleReactantSlider('redAmbrosiaBarPointPercentageSlider', 'redAmbrosia')
 
   // EVENT TAB
   function visitConsumableTab () {
