@@ -840,8 +840,33 @@
                 <button class="toggleMaxedUpgrades" id="toggleMaxedResearches" aria-pressed="false" i18n="researches.maxedResearchesShow"></button>
             </div>
 
-            <div class="researchContainer">
-                <div class="scrollbarX">
+            <div id="researchWorkspace" class="researchWorkspace">
+                <section class="researchPanel researchDirectoryPanel" aria-labelledby="researchDirectoryHeading">
+                    <header class="researchPanelHeader">
+                        <h2 id="researchDirectoryHeading" i18n="researches.directoryTitle"></h2>
+                    </header>
+                    <div class="researchDirectoryColumns" aria-hidden="true">
+                        <span i18n="researches.directoryIcon"></span>
+                        <span i18n="researches.directoryId"></span>
+                        <span i18n="researches.directoryName"></span>
+                        <span i18n="researches.directoryStatus"></span>
+                    </div>
+                    <div id="researchDirectoryList" class="researchDirectoryList"></div>
+                </section>
+
+                <section class="researchPanel researchMapPanel" aria-labelledby="researchMapHeading">
+                    <header class="researchPanelHeader researchMapHeader">
+                        <h2 id="researchMapHeading" i18n="researches.treeMapTitle"></h2>
+                        <div class="researchMapControls">
+                            <button id="researchZoomOut" type="button" i18n-aria-label="researches.zoomOut">−</button>
+                            <output id="researchZoomLevel">100%</output>
+                            <button id="researchZoomIn" type="button" i18n-aria-label="researches.zoomIn">+</button>
+                            <button id="researchFitMap" type="button" i18n="researches.fitMap"></button>
+                        </div>
+                    </header>
+                    <div id="researchMapViewport" class="researchMapViewport" tabindex="0" i18n-aria-label="researches.mapInstructions">
+                        <div id="researchMapCanvas" class="researchMapCanvas">
+                            <canvas id="researchTreeCanvas" class="researchTreeCanvas" aria-hidden="true"></canvas>
                     <table id="researchtable">
                         <tr>
                             <td><button id="res1" i18n-aria-label="researches.descriptions.1"><img src="Pictures/Default/Research1.png" alt="" loading="lazy"></button></td>
@@ -1059,14 +1084,32 @@
                             <td><button id="res199" i18n-aria-label="researches.descriptions.199"><img src="Pictures/Default/Research199.png" alt="" loading="lazy"></button></td>
                             <td><button id="res200" i18n-aria-label="researches.descriptions.200"><img src="Pictures/Default/Research200.png" alt="" loading="lazy"></button></td>
                         </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="researchDetails" aria-live="polite">
-                <p id="researchinfo2" style="color:pink" i18n="researches.hover"></p>
-                <p id="researchcost" style="color:pink"></p>
-                <p id="researchinfo3" style="color:white;"></p>
-                <p id="researchinfo4"></p>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="researchMapNote" i18n="researches.mapProgressionNote"></p>
+                </section>
+
+                <section class="researchPanel researchDetails researchSelectedPanel" aria-labelledby="selectedResearchHeading" aria-live="polite">
+                    <header class="researchPanelHeader researchSelectedHeader">
+                        <h2 id="selectedResearchHeading" i18n="researches.selectedTitle"></h2>
+                        <span id="researchSelectedStatus" class="researchStatus"></span>
+                    </header>
+                    <div class="researchSelectedIdentity">
+                        <img id="researchSelectedIcon" src="Pictures/Default/Research1.png" alt="">
+                        <div>
+                            <p id="researchSelectedId"></p>
+                            <p id="researchSelectedName"></p>
+                        </div>
+                    </div>
+                    <div class="researchSelectedDetails">
+                        <p id="researchinfo2" i18n="researches.hover"></p>
+                        <p id="researchcost"></p>
+                        <p id="researchinfo3"></p>
+                        <p id="researchinfo4"></p>
+                    </div>
+                    <button id="buySelectedResearch" class="researchBuySelected" type="button"></button>
+                </section>
             </div>
             <div class="researchDetails">
             <p id="automaticobtainium" style="color: lightblue" i18n="main.buyResearch3x11"></p>

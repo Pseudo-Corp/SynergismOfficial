@@ -3091,20 +3091,6 @@ p#reincarnatehotkeys {
     display: none;
 }
 
-.researchContainer {
-    display: flex;
-    justify-content: center;
-}
-
-#researchtable {
-    border-collapse: collapse;
-    font-size: 0;
-}
-
-#researchtable > tbody {
-    margin-top: 15px;
-}
-
 .researchDetails {
     display: flex;
     flex-direction: column;
@@ -3132,10 +3118,6 @@ p#reincarnatehotkeys {
     min-width: 175px;
 }
 
-#researchinfo2 {
-    min-height: 3em;
-}
-
 .researchModal {
     display: flex;
     flex-direction: column;
@@ -3143,41 +3125,361 @@ p#reincarnatehotkeys {
     text-align: center;
 }
 
-#researchtable button > img {
-    background-color: var(--buttonimg-color);
+.researchWorkspace {
+    display: grid;
+    grid-template-areas: "directory selected map";
+    grid-template-columns: minmax(280px, 1fr) minmax(260px, 0.9fr) minmax(440px, 1.7fr);
+    gap: 10px;
+    width: 100%;
+    height: clamp(570px, calc(100vh - 245px), 800px);
+    min-height: 0;
+    padding: 0 12px 10px;
 }
 
-#researchtable .researchAvailable > img {
+.researchPanel {
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    color: var(--text-color);
+    border: 1px solid #32786f;
+    border-radius: 8px;
+    background: var(--box-color);
+    box-shadow: inset 0 0 20px #001b1866;
+}
+
+.researchPanelHeader {
+    display: flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+    border-bottom: 1px solid #32786f;
+    background: #0d3f3859;
+}
+
+.researchPanelHeader h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.researchDirectoryPanel {
+    grid-area: directory;
+    display: flex;
+    flex-direction: column;
+}
+
+.researchDirectoryColumns,
+.researchDirectoryRow {
+    display: grid;
+    grid-template-columns: 44px 52px minmax(0, 1fr) 52px;
+    align-items: center;
+    gap: 8px;
+}
+
+.researchDirectoryColumns {
+    padding: 8px 10px;
+    color: #b8d8d3;
+    border-bottom: 1px solid #32786f;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.researchDirectoryList {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: #32786f var(--box-color);
+    scrollbar-width: thin;
+}
+
+.researchDirectoryRow {
+    width: 100%;
+    min-height: 62px;
+    padding: 6px 10px;
+    color: var(--text-color);
+    border: 0;
+    border-bottom: 1px solid #32786f66;
+    border-radius: 0;
+    background: transparent;
+    text-align: left;
+}
+
+.researchDirectoryRow:hover,
+.researchDirectoryRow:focus-visible {
+    background: #2d726933;
+}
+
+.researchDirectoryRow.researchSelected {
+    background: #6c873c59;
+    box-shadow: inset 3px 0 #d4e157;
+}
+
+.researchDirectoryRow.researchAutoTarget {
+    box-shadow: inset -3px 0 orange;
+}
+
+.researchDirectoryRow.researchSelected.researchAutoTarget {
+    box-shadow: inset 3px 0 #d4e157, inset -3px 0 orange;
+}
+
+.researchDirectoryIcon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border: 1px solid #5a9b91;
+    border-radius: 4px;
+    background: var(--buttonimg-color);
+}
+
+.researchDirectoryId {
+    color: #dcefeb;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+
+.researchDirectoryNameColumn {
+    min-width: 0;
+}
+
+.researchDirectoryName,
+.researchDirectoryLevel {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.researchDirectoryName {
+    color: var(--text-color);
+    font-size: 0.86rem;
+}
+
+.researchDirectoryLevel {
+    margin-top: 3px;
+    color: #a6bdb9;
+    font-size: 0.7rem;
+}
+
+.researchStatus {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.researchStatusDot {
+    flex: none;
+}
+
+.researchStatus[data-progress="untouched"] .researchStatusDot {
+    border-color: gray;
+    background-color: transparent;
+}
+
+.researchStatus[data-progress="upgrading"] .researchStatusDot {
+    border-color: pink;
+    background-color: pink;
+}
+
+.researchStatus[data-progress="maxed"] .researchStatusDot {
+    border-color: gold;
+    background-color: gold;
+}
+
+.researchSelectedPanel {
+    grid-area: selected;
+    align-items: stretch;
+    margin: 0;
+    padding-bottom: 12px;
+    text-align: left;
+}
+
+.researchSelectedHeader {
+    flex: none;
+}
+
+.researchSelectedIdentity {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    margin: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #32786f;
+}
+
+.researchSelectedIdentity img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    border: 2px solid #5a9b91;
+    border-radius: 6px;
+    background: var(--buttonimg-color);
+}
+
+.researchSelectedIdentity p {
+    margin: 0;
+}
+
+#researchSelectedId {
+    margin-bottom: 6px;
+    color: #a6d9d1;
+    font-weight: 700;
+}
+
+#researchSelectedName {
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+}
+
+.researchSelectedDetails {
+    min-height: 0;
+    padding: 0 12px;
+    overflow-y: auto;
+    text-align: left;
+    scrollbar-width: thin;
+}
+
+.researchSelectedDetails p {
+    width: auto;
+    max-width: none;
+    margin: 0 0 10px;
+}
+
+#researchinfo2 {
+    min-height: 3em;
+    color: pink;
+    line-height: 1.4;
+}
+
+#researchcost {
+    color: pink;
+}
+
+#researchinfo3 {
+    color: white;
+}
+
+.researchBuySelected {
+    width: calc(100% - 24px);
+    min-height: 44px;
+    margin: auto 12px 0;
+    color: white;
+    border: 2px solid #b6d34d;
+    background: #4c5d1e;
+    font-weight: 700;
+}
+
+.researchBuySelected:hover:not(:disabled) {
+    background: #667b2b;
+}
+
+.researchBuySelected:disabled {
+    cursor: not-allowed;
+    filter: grayscale(0.8);
+    opacity: 0.55;
+}
+
+.researchMapPanel {
+    grid-area: map;
+    display: flex;
+    flex-direction: column;
+}
+
+.researchMapHeader {
+    flex-wrap: wrap;
+}
+
+.researchMapControls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.researchMapControls button {
+    min-width: 32px;
+    height: 32px;
+    padding: 3px 8px;
+    color: var(--text-color);
+    border: 1px solid #5a9b91;
+    background: var(--button-color);
+}
+
+#researchZoomLevel {
+    min-width: 48px;
+    color: #b8d8d3;
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.researchMapViewport {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    margin: 8px;
+    overflow: hidden;
+    contain: strict;
+    touch-action: none;
+    cursor: grab;
+    isolation: isolate;
+    outline: none;
+    border: 1px solid #32786f;
+    border-radius: 6px;
+    background-color: #061c1a;
+    background-image: radial-gradient(circle, #4d837a55 1px, transparent 1px);
+    background-size: 24px 24px;
+    user-select: none;
+}
+
+.researchMapViewport:focus-visible {
+    box-shadow: 0 0 0 2px #79cbbd;
+}
+
+.researchMapViewport.researchMapPanning {
+    cursor: grabbing;
+}
+
+.researchMapCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.researchTreeCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.researchTreeNodeSources {
+    display: none;
+}
+
+.researchMapViewport.researchMapNodeHovered:not(.researchMapPanning) {
     cursor: pointer;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
-#researchtable .researchAvailable:hover > img {
-    background-color: var(--hover-color);
+.researchMapNote {
+    flex: none;
+    margin: 0 10px 8px;
+    color: #9fbab5;
+    font-size: 0.72rem;
+    line-height: 1.3;
+    text-align: center;
 }
 
-#researchtable .researchPurchased > img {
-    background-color: purple;
-}
-
-#researchtable .researchPurchasedAvailable > img {
-    cursor: pointer;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
-}
-
-#researchtable .researchPurchasedAvailable:hover > img {
-    background-color: #b300b2;
-}
-
-#researchtable .researchRoomba > img {
-    background-color: orange;
-}
-
-#researchtable .researchMaxed > img {
-    background-color: green;
-}
-
-#researchtable.hideMaxedResearches > tbody > tr > td:has(> .researchMaxed) {
+.researchWorkspace.hideMaxedResearches .researchDirectoryRow[data-status="maxed"] {
     display: none;
 }
 
@@ -3274,7 +3576,8 @@ p#reincarnatehotkeys {
     gap: 3px;
 }
 
-.shopTierDot {
+.shopTierDot,
+.researchStatusDot {
     width: 7px;
     height: 7px;
     border: 1px solid gray;
@@ -8297,30 +8600,13 @@ html[data-mobile="true"] .hideOnMobile {
         width: 80%;
     }
 
-    /* Research section - convert table to wrapping grid */
-    .researchContainer {
-        overflow-x: visible;
-    }
-
-    .researchContainer > .scrollbarX {
-        overflow-x: visible;
-    }
-
-    #researchtable,
-    #researchtable > tbody,
-    #researchtable > tbody > tr {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    #researchtable > tbody > tr > td {
-        display: block;
-    }
-
-    #researchtable button > img {
-        width: 36px;
-        height: 36px;
+    .researchWorkspace {
+        grid-template-areas:
+            "directory selected"
+            "map map";
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: minmax(400px, 50vh) minmax(520px, 68vh);
+        height: auto;
     }
 
     /* Ants */
@@ -8784,43 +9070,13 @@ html[data-mobile="true"] .hideOnMobile {
 }
 
 @media (width <= 1024px) and (orientation: portrait) {
-    /* Keep the research icons readable by transposing the 8x25 table. */
-    .researchContainer > .scrollbarX {
-        max-width: 100%;
-        overflow-x: auto;
-        overscroll-behavior-inline: contain;
-    }
-
-    #researchtable,
-    #researchtable > tbody {
-        flex-flow: row nowrap;
-    }
-
-    #researchtable {
-        flex: none;
-        width: max-content;
-    }
-
-    #researchtable > tbody > tr {
-        flex-flow: column nowrap;
-    }
-
-    #researchtable > tbody > tr > td {
-        padding: 0;
-    }
-
-    #researchtable button:not(.researchLocked) {
-        display: flex;
-        width: 44px;
-        height: 44px;
-        min-height: 44px;
-        align-items: center;
-        justify-content: center;
-        padding: 2px;
-    }
-
-    #researchtable button > img {
-        display: block;
+    .researchWorkspace {
+        grid-template-areas:
+            "directory"
+            "selected"
+            "map";
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: minmax(370px, 48vh) minmax(390px, auto) minmax(520px, 68vh);
     }
 }
 
@@ -8828,6 +9084,38 @@ html[data-mobile="true"] .hideOnMobile {
     /* Extra small screens */
     html {
         font-size: 14px;
+    }
+
+    .researchWorkspace {
+        grid-template-rows: minmax(360px, 52vh) auto minmax(500px, 72vh);
+        gap: 8px;
+        padding: 0 6px 8px;
+    }
+
+    .researchDirectoryColumns,
+    .researchDirectoryRow {
+        grid-template-columns: 40px 42px minmax(0, 1fr) 48px;
+        gap: 6px;
+        padding-right: 6px;
+        padding-left: 6px;
+    }
+
+    .researchDirectoryIcon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .researchMapHeader {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .researchMapControls {
+        width: 100%;
+    }
+
+    #researchFitMap {
+        margin-left: auto;
     }
 
     /* Prevent mobile browsers from zooming in on input focus

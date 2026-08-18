@@ -409,7 +409,9 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
 const updateResearchButtonState = (index: number, obtainiumCost: Decimal) => {
   const p = `res${index}`
 
-  if (isResearchMaxed(index)) {
+  if (!isResearchUnlocked(index)) {
+    updateClassList(p, [], ['researchAvailable', 'researchPurchased', 'researchPurchasedAvailable', 'researchMaxed'])
+  } else if (isResearchMaxed(index)) {
     updateClassList(p, ['researchMaxed'], ['researchAvailable', 'researchPurchased', 'researchPurchasedAvailable'])
   } else {
     if (player.researches[index] > 0) {
@@ -459,7 +461,9 @@ export const buyResearch = (index: number, auto: boolean, hover: boolean, buyMax
       setResearchRoombaHighlight(0)
     }
 
-    researchDescriptions(index, auto)
+    if (!auto && !hover) {
+      researchDescriptions(index, auto)
+    }
 
     if (index >= 47 && index <= 50) {
       player.unlocks.rrow1 ||= player.researches[47] > 0
@@ -477,6 +481,15 @@ export const buyResearch = (index: number, auto: boolean, hover: boolean, buyMax
 }
 
 export const isResearchMaxed = (index: number) => player.researches[index] >= researchData[index].maxLevel
+
+export const canBuyResearch = (index: number) => {
+  if (!isResearchUnlocked(index) || isResearchMaxed(index)) {
+    return false
+  }
+
+  const nextLevelCost = getCostForResearchLevels(index, player.researches[index] + 1)
+  return player.obtainium.gte(nextLevelCost)
+}
 
 export const researchDescriptions = (index: number, auto = false, buyMaxOverride?: boolean) => {
   const details = getResearchDetails(index, auto, buyMaxOverride)
@@ -546,5 +559,5 @@ export const toggleMaxedResearches = (): void => {
   toggle.setAttribute('i18n', i18nKey)
   toggle.textContent = i18next.t(i18nKey)
   toggle.style.border = `2px solid ${hideMaxed ? 'red' : 'green'}`
-  DOMCacheGetOrSet('researchtable').classList.toggle('hideMaxedResearches', hideMaxed)
+  DOMCacheGetOrSet('researchWorkspace').classList.toggle('hideMaxedResearches', hideMaxed)
 }

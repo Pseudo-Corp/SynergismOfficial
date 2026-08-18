@@ -102,13 +102,8 @@ import {
   redAmbrosiaUpgradeToString,
   resetRedAmbrosiaDisplay
 } from './RedAmbrosiaUpgrades'
-import {
-  buyResearch,
-  researchDescriptions,
-  researchModalHTML,
-  toggleMaxedResearches,
-  updateResearchAuto
-} from './Research'
+import { buyResearch, toggleMaxedResearches, updateResearchAuto } from './Research'
+import { getSelectedResearchIndex, initializeResearchView, refreshResearchView } from './ResearchView'
 import { getResetDetails, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { buyAllBlessingLevels } from './RuneBlessings'
 import { runes } from './Runes'
@@ -1129,59 +1124,16 @@ export const generateEventHandlers = () => {
 
   // RESEARCH TAB
   // Part 1: Researches
-  // There are 200 researches, ideally in rewrite 200 would instead be length of research list/array
-  for (let index = 1; index <= 200; index++) {
-    const research = DOMCacheGetOrSet(`res${index}`)
-    const buySelectedResearch = (buyMaxOverride?: boolean) => {
-      buyResearch(index, false, false, buyMaxOverride)
-      if (player.autoResearchMode === 'manual' && player.autoResearchToggle) {
-        updateResearchAuto(index)
-      }
+  initializeResearchView()
+
+  DOMCacheGetOrSet('buySelectedResearch').addEventListener('click', () => {
+    const index = getSelectedResearchIndex()
+    buyResearch(index, false, false)
+    if (player.autoResearchMode === 'manual' && player.autoResearchToggle) {
+      updateResearchAuto(index)
     }
-
-    if (isMobile) {
-      const updateDescription = researchDescriptions.bind(null, index)
-
-      research.addEventListener('click', (event) => {
-        updateDescription()
-        let buyMaxOverride: boolean | undefined
-
-        Modal(
-          () => `${researchModalHTML(index, false, buyMaxOverride)}${modalBuyButtonsHTML()}`,
-          event.clientX,
-          event.clientY,
-          { borderColor: 'limegreen' },
-          MEDIUM_MODAL_UPDATE_TICK,
-          {
-            targetElement: research,
-            buttonClick: (button) => {
-              buyMaxOverride = button.dataset.modalAction === 'max'
-              buySelectedResearch(buyMaxOverride)
-            }
-          }
-        )
-      })
-      continue
-    }
-
-    research.addEventListener('click', () => buySelectedResearch())
-    research.addEventListener('mouseover', () => {
-      if (player.toggles[38] && player.highestSingularityCount > 0) {
-        const auto = false
-        const hover = true
-        buyResearch(index, auto, hover)
-      }
-      researchDescriptions(index)
-    })
-    research.addEventListener('focus', () => {
-      if (player.toggles[38] && player.highestSingularityCount > 0) {
-        const auto = false
-        const hover = true
-        buyResearch(index, auto, hover)
-      }
-      researchDescriptions(index)
-    })
-  }
+    refreshResearchView(true)
+  })
 
   // Part 2: QoL buttons
   DOMCacheGetOrSet('toggleresearchbuy').addEventListener('click', () => toggleResearchBuy())
