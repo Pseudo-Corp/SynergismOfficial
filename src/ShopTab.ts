@@ -14,6 +14,7 @@ import {
   shopUpgradeTypeInfo
 } from './Shop'
 import { format, player } from './Synergism'
+import { isMobile } from './Utility'
 
 interface ShopTierData {
   readonly key: ShopUpgradeNames
@@ -402,6 +403,10 @@ export const generateShopTabHTML = () => {
 const selectShopFamily = (family: ShopFamilyData) => {
   selectedFamily = family
   selectShopTier(frontierTier(family).key)
+
+  if (isMobile) {
+    DOMCacheGetOrSet('shopDetail').scrollIntoView({ behavior: 'smooth' })
+  }
 }
 
 const selectShopTier = (key: ShopUpgradeNames) => {

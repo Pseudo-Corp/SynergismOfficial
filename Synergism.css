@@ -4829,8 +4829,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 #corruptionMain {
     min-width: 700px;
     max-width: 1200px;
-    margin: 10px;
-    padding: 10px 0;
 }
 
 #corruptionIntroduction {
@@ -4881,7 +4879,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 #corruptionRewards {
     width: min(100%, 800px);
-    margin: 12px auto 0;
+    margin: 5px auto 0;
     text-align: center;
 }
 
