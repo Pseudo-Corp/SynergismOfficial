@@ -5181,12 +5181,6 @@
     "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Total Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
     "corruptionScore": "Ваш счёт Вознесения <<goldenrod|{{ascScore}}>></span> (основной) * <<var(--crimson-text-color)|{{corrMult}}>> (Множ. порчи) * <<var(--orchid-text-color)|{{bonusMult}}>> (Бонусный множ.) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
     "corruptionScoreDR": "После Счёта Вознесение 1e23, дальнейшее получение возведено в квадратный корень! В данный момент, штраф активен.",
-    "ascensionCount": "Если вы Вознесётесь сейчас, к вашему счётчику вознесений будет добавлено <<darkorange|{{ascCount}}>>.",
-    "corruptionCubes": "При Вознесении сейчас, вы получите <<yellow|{{cubeAmount}}>> Wow! Кубов.",
-    "corruptionTesseracts": "При Вознесении сейчас, вы получите <<orange|{{tesseractAmount}}>> Wow! Тессерактов. [<<var(--orange-text-color)|Получите больше если Счёт >100,000>>]",
-    "corruptionHypercubes": "При Вознесении сейчас, вы получите <<var(--crimson-text-color)|{{hypercubeAmount}}>> Wow! Гиперкубов. [<<var(--red-text-color)|Треб. Счёт: >1,000,000,000>>]",
-    "corruptionPlatonics": "При Вознесении сейчас, вы получите <<orchid|{{platonicAmount}}>> ПЛАТОНОВЫХ КУБОВ. [<<var(--orchid-text-color)|Треб. Счёт: >2,666,000,000,000>>]",
-    "corruptionHepteracts": "При Вознесении сейчас, вы получите <<mediumpurple|{{hepteractAmount}}>> ГЕПТЕРАКТОВ. [<<mediumpurple|Треб. Счёт: >1.666e17>>]",
     "autoAscend": {
       "c10Completions": "Вознеситесь, когда завершите Испытание Садизм I <<var(--violet-text-color)|{{input}}>> раз, Текущее кол-во: <<gold|{{completions}}>>",
       "realTime": "Вознеситесь, когда таймер достигнет как минимум <<var(--violet-text-color)|{{input}}>> секунд (Реальных), Текущий <<gold|{{time}}>>",

@@ -266,7 +266,6 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     DOMCacheGetOrSet('heptGrid').style.backgroundColor = '#11111b'
     DOMCacheGetOrSet('heptGrid').style.borderColor = '#9b7306'
     DOMCacheGetOrSet('corruptionDescription').style.color = '#c205ff'
-    DOMCacheGetOrSet('corruptionTesseracts').style.color = '#c205ff'
     DOMCacheGetOrSet('confirmationToggleTitle').style.color = '#eb0000'
     DOMCacheGetOrSet('specialActionsTitle').style.color = '#eb0000'
     DOMCacheGetOrSet('themesTitle').style.color = '#eb0000'

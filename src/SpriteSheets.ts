@@ -77,7 +77,11 @@ export const spriteSheets: SpriteSheet[] = [
     ],
     iconSize: 56,
     rows: 3,
-    columns: 4
+    columns: 4,
+    aliases: [
+      { elementName: 'eventBuffPowderConversionIcon', iconIndex: 9, displaySize: 32 },
+      { elementName: 'consumableBuffPowderConversionIcon', iconIndex: 9, displaySize: 32 }
+    ]
   },
   {
     name: 'QuarkEnrichedCubes',
@@ -93,6 +97,17 @@ export const spriteSheets: SpriteSheet[] = [
     aliases: [{ elementName: 'shopFamilyRowIcon-cubeToQuark', iconIndex: 0, displaySize: 24 }]
   }
 ]
+
+export const registerSpriteAlias = (sourceElementName: string, elementName: string, displaySize: number) => {
+  for (const sheet of spriteSheets) {
+    const iconIndex = sheet.elementNames.indexOf(sourceElementName)
+    if (iconIndex !== -1) {
+      sheet.aliases ??= []
+      sheet.aliases.push({ elementName, iconIndex, displaySize })
+      return
+    }
+  }
+}
 
 const updateIconFromSprite = (
   sheet: SpriteSheet,

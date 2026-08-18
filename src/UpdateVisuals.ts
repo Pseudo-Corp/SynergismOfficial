@@ -1457,6 +1457,73 @@ const UpdateHeptGridValues = (hept: HepteractKeys) => {
   }
 }
 
+const corruptionScoreTargets = [
+  {
+    score: 1e5,
+    color: 'var(--tesseract-color)',
+    textKey: 'corruptions.rewards.moreTesseracts'
+  },
+  {
+    score: 1e9,
+    color: 'var(--hypercube-color)',
+    textKey: 'corruptions.rewards.scoreRequirement'
+  },
+  {
+    score: 2.666e12,
+    color: 'var(--platonic-color)',
+    textKey: 'corruptions.rewards.scoreRequirement'
+  },
+  {
+    score: 1.666e17,
+    color: 'var(--hepteract-color)',
+    textKey: 'corruptions.rewards.scoreRequirement'
+  }
+] as const
+
+let corruptionScoreTargetIndex: number | null = null
+
+const updateCorruptionReward = (
+  containerId: string,
+  valueId: string,
+  translationKey: string,
+  amount: number
+) => {
+  const formattedAmount = format(amount, 0)
+  const label = i18next.t(translationKey, { amount: formattedAmount })
+  const container = DOMCacheGetOrSet(containerId)
+
+  DOMCacheGetOrSet(valueId).textContent = formattedAmount
+  container.setAttribute('aria-label', label)
+  container.title = label
+}
+
+const updateCorruptionScoreProgress = (effectiveScore: number) => {
+  if (corruptionScoreTargetIndex === null) {
+    const firstUnmetTarget = corruptionScoreTargets.findIndex(({ score }) => effectiveScore < score)
+    corruptionScoreTargetIndex = firstUnmetTarget === -1
+      ? corruptionScoreTargets.length - 1
+      : firstUnmetTarget
+  }
+
+  const target = corruptionScoreTargets[corruptionScoreTargetIndex]
+  const formattedScore = format(effectiveScore, 0, true)
+  const formattedTarget = format(target.score, 3, true)
+  const progress = Math.min(100, Math.max(effectiveScore ? 0.2 : 0, 100 * effectiveScore / target.score))
+  const progressButton = DOMCacheGetOrSet('corruptionScoreProgress')
+  const progressLabel = i18next.t('corruptions.rewards.scoreProgress', {
+    current: formattedScore,
+    target: formattedTarget
+  })
+
+  progressButton.style.setProperty('--corruption-progress-color', target.color)
+  progressButton.setAttribute('aria-label', progressLabel)
+  progressButton.title = progressLabel
+  DOMCacheGetOrSet('corruptionScoreProgressFill').style.width = `${progress}%`
+  DOMCacheGetOrSet('corruptionScoreProgressText').textContent = i18next.t(target.textKey, {
+    score: formattedTarget
+  })
+}
+
 export const visualUpdateCorruptions = () => {
   if (G.currentTab !== Tabs.Corruption) {
     return
@@ -1494,36 +1561,37 @@ export const visualUpdateCorruptions = () => {
     DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'hidden'
   }
 
-  DOMCacheGetOrSet('corruptionCubes').innerHTML = i18next.t(
-    'corruptions.corruptionCubes',
-    {
-      cubeAmount: format(ascensionRewards.wowCubes, 0, true)
-    }
+  updateCorruptionReward(
+    'corruptionCubes',
+    'corruptionCubesValue',
+    'corruptions.rewards.cube',
+    ascensionRewards.wowCubes
   )
-  DOMCacheGetOrSet('corruptionTesseracts').innerHTML = i18next.t(
-    'corruptions.corruptionTesseracts',
-    {
-      tesseractAmount: format(ascensionRewards.wowTesseracts, 0, true)
-    }
+  updateCorruptionReward(
+    'corruptionTesseracts',
+    'corruptionTesseractsValue',
+    'corruptions.rewards.tesseract',
+    ascensionRewards.wowTesseracts
   )
-  DOMCacheGetOrSet('corruptionHypercubes').innerHTML = i18next.t(
-    'corruptions.corruptionHypercubes',
-    {
-      hypercubeAmount: format(ascensionRewards.wowHypercubes, 0, true)
-    }
+  updateCorruptionReward(
+    'corruptionHypercubes',
+    'corruptionHypercubesValue',
+    'corruptions.rewards.hypercube',
+    ascensionRewards.wowHypercubes
   )
-  DOMCacheGetOrSet('corruptionPlatonicCubes').innerHTML = i18next.t(
-    'corruptions.corruptionPlatonics',
-    {
-      platonicAmount: format(ascensionRewards.wowPlatonicCubes, 0, true)
-    }
+  updateCorruptionReward(
+    'corruptionPlatonicCubes',
+    'corruptionPlatonicCubesValue',
+    'corruptions.rewards.platonic',
+    ascensionRewards.wowPlatonicCubes
   )
-  DOMCacheGetOrSet('corruptionHepteracts').innerHTML = i18next.t(
-    'corruptions.corruptionHepteracts',
-    {
-      hepteractAmount: format(ascensionRewards.wowHepteracts, 0, true)
-    }
+  updateCorruptionReward(
+    'corruptionHepteracts',
+    'corruptionHepteractsValue',
+    'corruptions.rewards.hepteract',
+    ascensionRewards.wowHepteracts
   )
+  updateCorruptionScoreProgress(ascensionRewards.effectiveScore)
   DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {
     curr: format(player.corruptions.used.totalCorruptionAscensionMultiplier, 2, true),
     next: format(player.corruptions.next.totalCorruptionAscensionMultiplier, 2, true)
@@ -1537,16 +1605,21 @@ export const visualUpdateCorruptions = () => {
     next: formatAsPercentIncrease(player.corruptions.next.totalCorruptionDifficultyMultiplier)
   })
 
-  DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'block' : 'none'
+  DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'flex' : 'none'
 
   if (ascCount > 1) {
-    DOMCacheGetOrSet('corruptionAscensionCount').innerHTML = i18next.t(
-      'corruptions.ascensionCount',
-      {
-        ascCount: format(calculateAscensionCount())
-      }
+    updateCorruptionReward(
+      'corruptionAscensionCount',
+      'corruptionAscensionCountValue',
+      'corruptions.rewards.ascensionCount',
+      ascCount
     )
   }
+}
+
+export const cycleCorruptionScoreTarget = () => {
+  corruptionScoreTargetIndex = ((corruptionScoreTargetIndex ?? -1) + 1) % corruptionScoreTargets.length
+  visualUpdateCorruptions()
 }
 
 export const visualUpdateSettings = () => {

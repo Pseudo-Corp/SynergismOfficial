@@ -130,6 +130,7 @@ import {
   upgradeGQToString
 } from './singularity'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
+import { registerSpriteAlias } from './SpriteSheets'
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
@@ -173,7 +174,7 @@ import {
 } from './Toggles'
 import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
 import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframeOverlay, Prompt } from './UpdateHTML'
-import { shopMouseover } from './UpdateVisuals'
+import { cycleCorruptionScoreTarget, shopMouseover } from './UpdateVisuals'
 import {
   buyAllUpgrades,
   buyConstantUpgrades,
@@ -325,7 +326,7 @@ const mobileStatsIconConfig: Record<string, string> = {
   kHypercubeMult: 'Pictures/Stats for Nerds Icons/Categories/HypercubeMultiplier.png',
   kPlatMult: 'Pictures/Stats for Nerds Icons/Categories/PlatonicCubeMultiplier.png',
   kHeptMult: 'Pictures/Stats for Nerds Icons/Categories/HepteractMultiplier.png',
-  kOrbPowderMult: 'Pictures/Default/HepteractOverfluxPowder.png',
+  kOrbPowderMult: 'Pictures/img_transparent.png',
   kGQMult: 'Pictures/Stats for Nerds Icons/Categories/GoldenQuarkMultiplier.png',
   kGQCost: 'Pictures/Stats for Nerds Icons/Categories/GoldenQuarkCostMultiplier.png',
   kAddStats: 'Pictures/Stats for Nerds Icons/Categories/AddCodeStats.png',
@@ -608,6 +609,8 @@ const registerMobileStatsIcons = () => {
     icon.style.backgroundColor = ''
     sourceButton.replaceWith(icon)
   }
+
+  registerSpriteAlias('overfluxPowderImage', 'kOrbPowderMult', 32)
 }
 
 const getMobileHeaderContentMaxHeight = (content: HTMLElement) => {
@@ -1535,6 +1538,7 @@ export const generateEventHandlers = () => {
     player.corruptions.used.resetCorruptions()
     player.corruptions.next.resetCorruptions()
   })
+  DOMCacheGetOrSet('corruptionScoreProgress').addEventListener('click', cycleCorruptionScoreTarget)
 
   // Extra toggle
   DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscendResetActive())

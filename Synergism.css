@@ -4879,6 +4879,108 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     color: gold;
 }
 
+#corruptionRewards {
+    width: min(100%, 800px);
+    margin: 12px auto 0;
+    text-align: center;
+}
+
+#corruptionRewardsHeading {
+    margin: 0 0 10px;
+    color: white;
+    font-size: 1.25em;
+}
+
+#corruptionRewardGrid {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: clamp(6px, 2vw, 28px);
+}
+
+.corruptionReward {
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 105px;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+html[data-chal13="true"] .corruptionReward.chal13,
+html[data-chal14="true"] .corruptionReward.chal14,
+html[data-hepteracts="true"] .corruptionReward.hepteracts {
+    display: flex;
+}
+
+.corruptionReward > img {
+    width: clamp(40px, 6vw, 64px);
+    height: clamp(40px, 6vw, 64px);
+    object-fit: contain;
+}
+
+.corruptionAscensionIcon {
+    width: clamp(40px, 6vw, 64px);
+    height: clamp(40px, 6vw, 64px);
+    display: grid;
+    place-items: center;
+}
+
+.corruptionAscensionIcon > img {
+    width: 75%;
+    height: 75%;
+    object-fit: contain;
+}
+
+.corruptionRewardValue {
+    max-width: 100%;
+    font-size: clamp(0.75em, 2vw, 1.25em);
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+#corruptionAscensionCount {
+    color: darkorange;
+}
+
+#corruptionScoreProgress {
+    --corruption-progress-color: var(--tesseract-color);
+
+    width: min(calc(100% - 80px), 650px);
+    height: 24px;
+    min-height: 24px;
+    position: relative;
+    margin: 16px auto 0;
+    overflow: hidden;
+    border-radius: 12px;
+    color: var(--corruption-progress-color);
+    background-color: var(--blessings-hover-color);
+    font-size: 1.05em;
+    isolation: isolate;
+}
+
+#corruptionScoreProgress:focus-visible {
+    outline: 2px solid var(--corruption-progress-color);
+    outline-offset: 3px;
+}
+
+#corruptionScoreProgressFill {
+    width: 0;
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: 0;
+    background-color: var(--corruption-progress-color);
+    transition: width var(--transition-extra);
+}
+
+#corruptionScoreProgressText {
+    position: relative;
+    z-index: 1;
+    color: black;
+    font-weight: bold;
+}
+
 #ascensionAutomation {
     margin-top: 10px;
 }

@@ -301,12 +301,6 @@ export const revealStuff = () => {
 
   visualUpdateShop()
 
-  if (G.challenge15Rewards.hepteractsUnlocked.value > 0) {
-    DOMCacheGetOrSet('corruptionHepteracts').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('corruptionHepteracts').style.display = 'none'
-  }
-
   document.documentElement.dataset.cookies1 = getGQUpgradeEffect('cookies', 'unlocked') ? 'true' : 'false'
   document.documentElement.dataset.cookies2 = getGQUpgradeEffect('cookies2', 'unlocked') ? 'true' : 'false'
   document.documentElement.dataset.cookies3 = getGQUpgradeEffect('cookies3', 'unlocked') ? 'true' : 'false'

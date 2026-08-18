@@ -2191,12 +2191,41 @@
                 <p id="corruptionSpiritTotal" class="chal12 tightText" style="color: gold"></p>
                 <p id="corruptionScore" class="tightText" style="color: white"></p>
                 <p id="corruptionScoreDR" class="tightText" style="color: red" i18n="corruptions.corruptionScoreDR"></p>
-                <p id="corruptionAscensionCount" class="tightText" style="color: white"></p>
-                <p id="corruptionCubes" class="tightText" style="color: white"></p>
-                <p id="corruptionTesseracts" class="tightText" style="color: white"></p>
-                <p id="corruptionHypercubes" class="chal13 tightText" style="color: white"></p>
-                <p id="corruptionPlatonicCubes" class="chal14 tightText" style="color: white"></p>
-                <p id="corruptionHepteracts" class="hepteracts tightText" style="color: white"></p>
+                <section id="corruptionRewards" aria-labelledby="corruptionRewardsHeading">
+                    <p id="corruptionRewardsHeading" i18n="corruptions.rewards.heading"></p>
+                    <div id="corruptionRewardGrid">
+                        <div id="corruptionCubes" class="corruptionReward" role="img">
+                            <img src="Pictures/Default/WowCube.png" alt="" loading="lazy">
+                            <span id="corruptionCubesValue" class="corruptionRewardValue wowcubeText"></span>
+                        </div>
+                        <div id="corruptionTesseracts" class="corruptionReward" role="img">
+                            <img src="Pictures/Default/WowTessaract.png" alt="" loading="lazy">
+                            <span id="corruptionTesseractsValue" class="corruptionRewardValue wowtesseractText"></span>
+                        </div>
+                        <div id="corruptionHypercubes" class="corruptionReward chal13" role="img">
+                            <img src="Pictures/Default/WowHypercube.png" alt="" loading="lazy">
+                            <span id="corruptionHypercubesValue" class="corruptionRewardValue wowhypercubeText"></span>
+                        </div>
+                        <div id="corruptionPlatonicCubes" class="corruptionReward chal14" role="img">
+                            <img src="Pictures/Default/PlatonicCube.png" alt="" loading="lazy">
+                            <span id="corruptionPlatonicCubesValue" class="corruptionRewardValue wowplatonicText"></span>
+                        </div>
+                        <div id="corruptionHepteracts" class="corruptionReward hepteracts" role="img">
+                            <img src="Pictures/Default/Hepteract.png" alt="" loading="lazy">
+                            <span id="corruptionHepteractsValue" class="corruptionRewardValue wowhepteractText"></span>
+                        </div>
+                        <div id="corruptionAscensionCount" class="corruptionReward" role="img">
+                            <span class="corruptionAscensionIcon">
+                                <img src="Pictures/Default/Ascension.png" alt="" loading="lazy">
+                            </span>
+                            <span id="corruptionAscensionCountValue" class="corruptionRewardValue"></span>
+                        </div>
+                    </div>
+                    <button id="corruptionScoreProgress" type="button">
+                        <span id="corruptionScoreProgressFill" aria-hidden="true"></span>
+                        <span id="corruptionScoreProgressText"></span>
+                    </button>
+                </section>
                 <div id="ascensionAutomation" class="cubeUpgrade10 vAlign">
                     <button id="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green"></button>
                     <button id="ascensionAutoToggle" class="hCenter tight" style="border:2px solid orchid;"></button>
@@ -3619,7 +3648,7 @@
                         <p id="eventBuffAmbrosiaLuckValue">+10%</p>
                     </div>
                     <div class="eventBuffVal" id="eventBuffPowderConversion">
-                        <img src="Pictures/Default/HepteractOverfluxPowder.png" i18n="general.resources.powderConversion">
+                        <img id="eventBuffPowderConversionIcon" src="Pictures/img_transparent.png" i18n="general.resources.powderConversion">
                         <p id="eventBuffPowderConversionValue">+10%</p>
                     </div>
                     <div class="eventBuffVal" id="eventBuffAntSacrifice">
@@ -3684,7 +3713,7 @@
                         <p id="consumableBuffAmbrosiaLuckValue"></p>
                     </div>
                     <div class="consumableBuffVal" id="consumableBuffPowderConversion">
-                        <img src="Pictures/Default/HepteractOverfluxPowder.png">
+                        <img id="consumableBuffPowderConversionIcon" src="Pictures/img_transparent.png">
                         <p id="consumableBuffPowderConversionValue"></p>
                     </div>
                     <div class="consumableBuffVal" id="consumableBuffAntSacrifice">

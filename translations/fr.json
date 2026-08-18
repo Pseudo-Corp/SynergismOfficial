@@ -5181,12 +5181,6 @@
     "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Total Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
     "corruptionScore": "Votre score d'Ascension est <<goldenrod|{{ascScore}}>></span>(de base) * <<var(--crimson-text-color)|{{corrMult}}>> (multiplicateur de Corruption) * <<var(--orchid-text-color)|{{bonusMult}}>> (multiplicateur supplémentaire) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
     "corruptionScoreDR": "Past 1e23 Ascension Score, further gains are square rooted! You are currently under this penalty.",
-    "ascensionCount": "Si vous terminez maintenant votre Ascension, <<darkorange|{{ascCount}}>> sera ajouté à votre nombre d'Ascensions.",
-    "corruptionCubes": "Si vous terminez maintenant votre Ascension, vous obtiendrez <<yellow|{{cubeAmount}}>> Cubes Wow!.",
-    "corruptionTesseracts": "Si vous terminez maintenant votre Ascension, vous obtiendrez <<orange|{{tesseractAmount}}>> Tesseracts Wow!. [<<var(--orange-text-color)|Score requis : > 1e5>>]",
-    "corruptionHypercubes": "Si vous terminez maintenant votre Ascension, vous obtiendrez <<var(--crimson-text-color)|{{hypercubeAmount}}>> Hypercubes Wow!. [<<var(--red-text-color)|Score requis : > 1e9>>]",
-    "corruptionPlatonics": "Si vous terminez maintenant votre Ascension, vous obtiendrez <<orchid|{{platonicAmount}}>> Cubes Platonics. [<<var(--orchid-text-color)|Score requis : > 2,666e12>>]",
-    "corruptionHepteracts": "Si vous terminez maintenant votre Ascension, vous obtiendrez <<mediumpurple|{{hepteractAmount}}>> Hepteracts. [<<mediumpurple|Score requis : > 1,666e17>>]",
     "autoAscend": {
       "c10Completions": "Terminez l'Ascension lorsque vous avez complété le défi Sadique I un total de <<var(--violet-text-color)|{{input}}>> fois. Actuellement <<gold|{{completions}}>>",
       "realTime": "Terminez l'Ascension lorsque le temps écoulé est au moins de <<var(--violet-text-color)|{{input}}>> secondes (temps réel). Actuellement <<gold|{{time}}>>",
