@@ -997,7 +997,9 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
 
 .challengeProgress {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: repeat(3, 1.2em);
+    justify-items: start;
     margin-top: 0.25em;
     line-height: 1.2em;
 }
