@@ -1677,6 +1677,8 @@ TODO: Fix this entire tab it's utter shit
 
   // Do the cool scrolling thing
   elevatorInput.addEventListener('wheel', (e) => {
+    e.preventDefault()
+
     if (e.deltaY < 0) {
       // Scroll up: Means we can *increase* singularity
       if (player.singularityElevatorTarget < player.highestSingularityCount) {
