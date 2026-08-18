@@ -2700,8 +2700,6 @@ img.runeTypeElement:hover {
     flex-direction: row;
     justify-content: left;
     align-items: center;
-    gap: 5px;
-    margin-left: 10%;
 }
 
 .mobileTalismanShardContainers {
