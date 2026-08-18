@@ -10,8 +10,7 @@ import {
   instantUnlocked,
   shopDescriptions,
   type ShopUpgradeNames,
-  shopUpgrades,
-  shopUpgradeTypeInfo
+  shopUpgrades
 } from './Shop'
 import { format, player } from './Synergism'
 import { isMobile } from './Utility'
@@ -412,10 +411,6 @@ const selectShopFamily = (family: ShopFamilyData) => {
 const selectShopTier = (key: ShopUpgradeNames) => {
   selectedTier = key
   shopDescriptions(key)
-  const groups = shopUpgrades[key].upgradeTypes
-  DOMCacheGetOrSet('shopDetailBuy').style.borderColor = groups.length > 0
-    ? shopUpgradeTypeInfo[groups[0]].HTMLColor
-    : 'goldenrod'
   updateShopTab()
 }
 
@@ -532,8 +527,10 @@ export const updateShopTab = () => {
           const dot = DOMCacheGetOrSet(`shopTierDot-${tier.key}`)
           dot.style.display = tierUnlocked(tier.key) || testing ? '' : 'none'
           dot.classList.toggle('shopTierDotMaxed', tierMaxed(tier.key))
-          dot.classList.toggle('shopTierDotFrontier', tier === frontier)
-          dot.classList.toggle('shopTierDotStarted', !tierMaxed(tier.key) && player.shopUpgrades[tier.key] > 0)
+          dot.classList.toggle(
+            'shopTierDotUnfinished',
+            tier === frontier || (!tierMaxed(tier.key) && player.shopUpgrades[tier.key] > 0)
+          )
         }
       }
     }

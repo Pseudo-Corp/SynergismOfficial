@@ -3266,12 +3266,7 @@ p#reincarnatehotkeys {
     border-radius: 2px;
 }
 
-.shopTierDotStarted {
-    background-color: rgb(0 255 255 / 35%);
-    border-color: cyan;
-}
-
-.shopTierDotFrontier {
+.shopTierDotUnfinished {
     background-color: cyan;
     border-color: cyan;
 }
@@ -3361,7 +3356,7 @@ p#reincarnatehotkeys {
     width: auto;
     min-width: 220px;
     padding: 0 12px;
-    border: 2px solid goldenrod;
+    border: 2px solid cyan;
 }
 
 #actualPotionShop > div,

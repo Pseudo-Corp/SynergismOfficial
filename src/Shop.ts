@@ -2270,12 +2270,16 @@ export const getShopCosts = (input: ShopUpgradeNames) => {
 
 export const getShopTypeSymbolsHTML = (input: ShopUpgradeNames) => {
   let symbolHTML = ''
+  let typeCount = 0
 
   const bonusLevelMult = shopUpgrades[input].freeUpgradeMultiplier ?? 1
 
   // This is done in order for consistent formatting
   for (let i = ShopUpgradeGroups.Offering; i <= LAST_GROUP; i++) {
     if (shopUpgrades[input].upgradeTypes.includes(i)) {
+      if (typeCount % 4 === 0) {
+        symbolHTML += '<br>'
+      }
       const bonusLevels = shopUpgradeTypeInfo[i].bonusLevels()
       let text = shopUpgradeTypeInfo[i].symbol
       if (bonusLevels > 0) {
@@ -2285,6 +2289,7 @@ export const getShopTypeSymbolsHTML = (input: ShopUpgradeNames) => {
         text += ` (x${bonusLevelMult})`
       }
       symbolHTML += `<span style="color: ${shopUpgradeTypeInfo[i].HTMLColor}"> [${text}]</span>`
+      typeCount++
     }
   }
 
