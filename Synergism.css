@@ -5849,12 +5849,30 @@ header #obtainiumDisplay { color: pink; }
     animation: rainbow-border 2s linear infinite;
 }
 
-.rainbowText {
+.rainbowText,
+.godlikeText,
+.perfectText {
     color: transparent;
-    background-image: linear-gradient(90deg, #ca001f, #ffb17f, #fff200, #22b14c, #767dda, #a349a4, #ca001f, #ffb17f);
     background-clip: text;
-    background-size: 700%;
     animation: rainbow-animation 5s linear infinite;
+}
+
+.rainbowText {
+    background-image: linear-gradient(90deg, #ca001f, #ffb17f, #fff200, #22b14c, #767dda, #a349a4, #ca001f, #ffb17f);
+    background-size: 700%;
+}
+
+.godlikeText,
+.perfectText {
+    background-size: 300%;
+}
+
+.godlikeText {
+    background-image: linear-gradient(90deg, violet, hotpink, magenta, white, magenta, hotpink, violet, hotpink, magenta, white);
+}
+
+.perfectText {
+    background-image: linear-gradient(90deg, blueviolet, mediumorchid, gold, yellow, gold, mediumorchid, blueviolet, mediumorchid, gold, yellow);
 }
 
 @keyframes rainbow-animation {
