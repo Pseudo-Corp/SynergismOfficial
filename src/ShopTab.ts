@@ -10,8 +10,7 @@ import {
   instantUnlocked,
   shopDescriptions,
   type ShopUpgradeNames,
-  shopUpgrades,
-  shopUpgradeTypeInfo
+  shopUpgrades
 } from './Shop'
 import { format, player } from './Synergism'
 
@@ -407,10 +406,6 @@ const selectShopFamily = (family: ShopFamilyData) => {
 const selectShopTier = (key: ShopUpgradeNames) => {
   selectedTier = key
   shopDescriptions(key)
-  const groups = shopUpgrades[key].upgradeTypes
-  DOMCacheGetOrSet('shopDetailBuy').style.borderColor = groups.length > 0
-    ? shopUpgradeTypeInfo[groups[0]].HTMLColor
-    : 'goldenrod'
   updateShopTab()
 }
 
