@@ -485,7 +485,9 @@ const updateShopDetail = () => {
     resetEl.innerHTML = ''
   }
 
-  DOMCacheGetOrSet('shopDetailBuy').textContent = buyButtonLabel(selectedTier)
+  const buyButton = DOMCacheGetOrSet('shopDetailBuy')
+  buyButton.hidden = tierMaxed(selectedTier)
+  buyButton.textContent = buyButtonLabel(selectedTier)
 }
 
 export const updateShopTab = () => {
