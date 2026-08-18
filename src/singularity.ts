@@ -150,6 +150,7 @@ const singularityPenaltyThresholds = [11, 26, 37, 51, 101, 151, 201, 216, 230, 2
 
 export const updateSingularityPenalties = (): void => {
   const singularityCount = player.singularityCount
+  const nextPenaltySpike = calculateNextSpike(singularityCount)
   const platonic = singularityCount > 36
     ? i18next.t('singularity.penalties.platonicCosts', {
       multiplier: format(
@@ -258,11 +259,11 @@ export const updateSingularityPenalties = (): void => {
         ${platonic}
         ${hepteract}
         ${
-    singularityCount >= 270
+    nextPenaltySpike === -1
       ? i18next.t('singularity.penalties.penaltySmooth')
       : i18next.t('singularity.penalties.penaltyRough', {
         num: format(
-          calculateNextSpike(player.singularityCount),
+          nextPenaltySpike,
           0,
           true
         )
