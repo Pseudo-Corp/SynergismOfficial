@@ -5316,8 +5316,7 @@
       "hepteract": "Hepteracts: {{amount}}",
       "ascensionCount": "Ascension count: {{amount}}",
       "moreTesseracts": "[Get more if Score >{{score}}]",
-      "scoreRequirement": "[Req Score: >{{score}}]",
-      "scoreProgress": "Ascension Score {{current}} of {{target}}. Click to show the next score target."
+      "scoreRequirement": "[Req Score: >{{score}}]"
     },
     "autoAscend": {
       "c10Completions": "Ascend when you've completed Sadistic Challenge I a total of <<var(--violet-text-color)|{{input}}>> times, Currently <<gold|{{completions}}>>",

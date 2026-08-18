@@ -4901,6 +4901,40 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     gap: 5px;
 }
 
+button.corruptionRewardSelector {
+    min-height: 0;
+    font-size: inherit;
+    color: inherit;
+    background-color: transparent;
+}
+
+body button.corruptionRewardSelector:hover:not(:disabled):not(.disable-hover-color),
+body button.corruptionRewardSelector:active:not(:disabled):not(.disable-hover-color) {
+    background-color: transparent;
+}
+
+#corruptionTesseracts {
+    --corruption-reward-color: var(--tesseract-color);
+}
+
+#corruptionHypercubes {
+    --corruption-reward-color: var(--hypercube-color);
+}
+
+#corruptionPlatonicCubes {
+    --corruption-reward-color: var(--platonic-color);
+}
+
+#corruptionHepteracts {
+    --corruption-reward-color: var(--hepteract-color);
+}
+
+.corruptionRewardSelector.selected > img,
+.corruptionRewardSelector:focus-visible > img {
+    outline: 2px solid var(--corruption-reward-color);
+    outline-offset: 3px;
+}
+
 html[data-chal13="true"] .corruptionReward.chal13,
 html[data-chal14="true"] .corruptionReward.chal14,
 html[data-hepteracts="true"] .corruptionReward.hepteracts {

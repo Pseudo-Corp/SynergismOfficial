@@ -174,7 +174,7 @@ import {
 } from './Toggles'
 import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
 import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframeOverlay, Prompt } from './UpdateHTML'
-import { cycleCorruptionScoreTarget, shopMouseover } from './UpdateVisuals'
+import { cycleCorruptionScoreTarget, selectCorruptionScoreTarget, shopMouseover } from './UpdateVisuals'
 import {
   buyAllUpgrades,
   buyConstantUpgrades,
@@ -1539,6 +1539,15 @@ export const generateEventHandlers = () => {
     player.corruptions.next.resetCorruptions()
   })
   DOMCacheGetOrSet('corruptionScoreProgress').addEventListener('click', cycleCorruptionScoreTarget)
+  const corruptionScoreTargetButtons = [
+    'corruptionTesseracts',
+    'corruptionHypercubes',
+    'corruptionPlatonicCubes',
+    'corruptionHepteracts'
+  ] as const
+  for (const [index, id] of corruptionScoreTargetButtons.entries()) {
+    DOMCacheGetOrSet(id).addEventListener('click', () => selectCorruptionScoreTarget(index))
+  }
 
   // Extra toggle
   DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscendResetActive())
