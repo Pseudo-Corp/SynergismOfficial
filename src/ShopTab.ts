@@ -522,8 +522,10 @@ export const updateShopTab = () => {
           const dot = DOMCacheGetOrSet(`shopTierDot-${tier.key}`)
           dot.style.display = tierUnlocked(tier.key) || testing ? '' : 'none'
           dot.classList.toggle('shopTierDotMaxed', tierMaxed(tier.key))
-          dot.classList.toggle('shopTierDotFrontier', tier === frontier)
-          dot.classList.toggle('shopTierDotStarted', !tierMaxed(tier.key) && player.shopUpgrades[tier.key] > 0)
+          dot.classList.toggle(
+            'shopTierDotFrontier',
+            tier === frontier || (!tierMaxed(tier.key) && player.shopUpgrades[tier.key] > 0)
+          )
         }
       }
     }

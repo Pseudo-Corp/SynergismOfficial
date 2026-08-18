@@ -3266,11 +3266,6 @@ p#reincarnatehotkeys {
     border-radius: 2px;
 }
 
-.shopTierDotStarted {
-    background-color: rgb(0 255 255 / 35%);
-    border-color: cyan;
-}
-
 .shopTierDotFrontier {
     background-color: cyan;
     border-color: cyan;
