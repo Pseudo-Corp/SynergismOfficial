@@ -604,8 +604,7 @@
                 </button>
                 <button id="toggleRuneSubTab1" class="active-subtab" style="border: 2px solid gold"><span class="subTabButtonText fitText" i18n="tabs.runes.runes"></span></button>
                 <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid silver"><span class="subTabButtonText fitText" i18n="tabs.runes.talismans"></span></button>
-                <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid silver"><span class="subTabButtonText fitText" i18n="tabs.runes.blessings"></span></button>
-                <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid silver"><span class="subTabButtonText fitText" i18n="tabs.runes.spirits"></span></button>
+                <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid silver"><span class="subTabButtonText fitText" i18n="tabs.runes.divinity"></span></button>
             </div>
             <div id="runesHeader">
                 <div id="offeringDetails" class="subTabHeaderDetails">
@@ -640,29 +639,33 @@
             <div id="runeContainer2" style="display: none;">
             </div>
             <div id="runeContainer3" style="display: none">
-                <div class="runeBlessingPurchaseSettings">
-                    <button class="auto" id="toggle36" toggleid="36" format="Auto: $"></button>
-                    <button id="buyAllBlessings" class="runeButtons runeButtonsBuyAll" i18n="runes.blessings.allIncreaseLevel"></button>
-                    <input type="number" id="buyRuneBlessingInput" min="1" max="999999999" defaultValue="1">
-                    <span id="buyRuneBlessingToggle" style="color: yellow"></span>
-                </div>
+                <section class="runeDivinitySection">
+                    <h2 i18n="tabs.runes.blessings"></h2>
+                    <div class="runeBlessingPurchaseSettings">
+                        <button class="auto" id="toggle36" toggleid="36" format="Auto: $"></button>
+                        <button id="buyAllBlessings" class="runeButtons runeButtonsBuyAll" i18n="runes.blessings.allIncreaseLevel"></button>
+                        <input type="number" id="buyRuneBlessingInput" min="1" max="999999999" defaultValue="1">
+                        <span id="buyRuneBlessingToggle" style="color: yellow"></span>
+                    </div>
 
-                <div id="runeBlessings">
+                    <div id="runeBlessings">
 
-                </div>
+                    </div>
+                </section>
 
-            </div>
-            <div id="runeContainer4" style="display: none">
-                <div class="runeBlessingPurchaseSettings">
-                    <button class="auto" id="toggle37" toggleid="37" format="Auto: $"></button>
-                    <button id="buyAllSpirits" class="runeButtons runeButtonsBuyAll" i18n="runes.blessings.allIncreaseLevel"></button>
-                    <input type="number" id="buyRuneSpiritInput" min="1" max="999999999" defaultValue="1">
-                    <span id="buyRuneSpiritToggleValue" style="color: yellow"></span>
-                </div>
+                <section class="runeDivinitySection spiritUnlock">
+                    <h2 i18n="tabs.runes.spirits"></h2>
+                    <div class="runeBlessingPurchaseSettings">
+                        <button class="auto" id="toggle37" toggleid="37" format="Auto: $"></button>
+                        <button id="buyAllSpirits" class="runeButtons runeButtonsBuyAll" i18n="runes.blessings.allIncreaseLevel"></button>
+                        <input type="number" id="buyRuneSpiritInput" min="1" max="999999999" defaultValue="1">
+                        <span id="buyRuneSpiritToggleValue" style="color: yellow"></span>
+                    </div>
 
-                <div id="runeSpirits">
+                    <div id="runeSpirits">
 
-                </div>
+                    </div>
+                </section>
             </div>
         </div>
 

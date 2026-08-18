@@ -481,7 +481,7 @@ export const toggleAchievementScreen = (indexStr: string) => {
 export const toggleRuneScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= 3; i++) {
     const a = DOMCacheGetOrSet(`toggleRuneSubTab${i}`)
     const b = DOMCacheGetOrSet(`runeContainer${i}`)
     if (i === index) {

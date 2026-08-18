@@ -183,11 +183,6 @@ const subtabInfo: Record<Tabs, SubTab> = {
         subTabID: '3',
         unlocked: () => player.unlocks.blessings,
         buttonID: 'toggleRuneSubTab3'
-      },
-      {
-        subTabID: '4',
-        unlocked: () => player.unlocks.spirits,
-        buttonID: 'toggleRuneSubTab4'
       }
     ]
   },

@@ -224,8 +224,7 @@ const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
     icons: {
       toggleRuneSubTab1: 'Pictures/Subtab Icons/Runes/Runes.png',
       toggleRuneSubTab2: 'Pictures/Subtab Icons/Runes/Talismans.png',
-      toggleRuneSubTab3: 'Pictures/Subtab Icons/Runes/Blessings.png',
-      toggleRuneSubTab4: 'Pictures/Subtab Icons/Runes/Spirits.png'
+      toggleRuneSubTab3: 'Pictures/Subtab Icons/Runes/Blessings.png'
     }
   },
   {

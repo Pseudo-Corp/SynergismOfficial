@@ -1780,7 +1780,7 @@ const loadSynergy = () => {
     DOMCacheGetOrSet('buyRuneSpiritToggleValue').innerHTML = i18next.t(
       'runes.spirits.buyUpTo',
       {
-        amount: format(player.runeSpiritBuyAmount, 0, true)
+        amount: format(player.runeSpiritBuyAmount)
       }
     )
 
