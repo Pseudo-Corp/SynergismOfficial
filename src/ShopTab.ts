@@ -523,7 +523,7 @@ export const updateShopTab = () => {
           dot.style.display = tierUnlocked(tier.key) || testing ? '' : 'none'
           dot.classList.toggle('shopTierDotMaxed', tierMaxed(tier.key))
           dot.classList.toggle(
-            'shopTierDotFrontier',
+            'shopTierDotUnfinished',
             tier === frontier || (!tierMaxed(tier.key) && player.shopUpgrades[tier.key] > 0)
           )
         }
