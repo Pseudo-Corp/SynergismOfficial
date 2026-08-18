@@ -9254,6 +9254,7 @@ html[data-mobile="true"] .hideOnMobile {
 
     /* Shops tab */
     #actualWrapper {
+        padding-bottom: max(0px, calc(100vh - 20rem));
         grid-template-areas:
             "consumables"
             "shoptop"
@@ -9278,6 +9279,7 @@ html[data-mobile="true"] .hideOnMobile {
 
     #shopDetail {
         width: unset;
+        scroll-margin-top: calc(var(--mobile-subtab-height) + 0.5rem);
     }
 
     #sacrificeAnts {
