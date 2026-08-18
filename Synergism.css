@@ -2600,8 +2600,7 @@ img.runeTypeElement:hover {
 }
 
 .talismanBtn {
-    width: 5em;
-    min-width: 80px;
+    min-width: 100%;
 }
 
 .talisminBtnAvailable {
@@ -2623,23 +2622,29 @@ img.runeTypeElement:hover {
 
 .talismanContainer {
     box-sizing: content-box;
+    display: flex;
     flex-direction: column;
-    width: 80px;
+    width: 90px;
     align-items: center;
     white-space: nowrap;
     padding: 2px;
 }
 
-.talismanIcon {
-    height: 64px;
-    width: 64px;
+.talismanIcon,
+.talismanContainer > .rainbowBorder {
+    display: flex;
+    width: 80%;
+    height: auto;
+    aspect-ratio: 1;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
 }
 
 .talismanIcon img {
     position: relative;
-    width: calc(100% - 6px);
-    height: calc(100% - 6px);
+    width: 100%;
+    height: 100%;
     object-fit: none;
     background-color: var(--bg-color);
     border-radius: 3px;
