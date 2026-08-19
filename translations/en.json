@@ -5296,6 +5296,7 @@
     "loadoutExport": {
       "saveErrorNavigator": "Unable to write the save to clipboard: {{ message }}"
     },
+    "corrCampaignsBtn": "Campaigns",
     "corrStatsBtn": "Corruption Stats",
     "corrLoadoutsBtn": "Corruption Loadouts",
     "clickInfo": "<<var(--orchid-text-color)|Click the icons to view Corruption info!>>",

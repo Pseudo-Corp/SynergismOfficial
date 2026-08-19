@@ -197,6 +197,7 @@ html[data-legacyicons="true"] {
     background-color: crimson;
 }
 
+#corrCampaignsBtn.active-subtab,
 #corrStatsBtn.active-subtab,
 #corrLoadoutsBtn.active-subtab {
     background-color: dodgerblue;
@@ -1227,11 +1228,6 @@ button.isEvent:hover {
 #cubetab {
     border-color: var(--wowcube-color);
     color: var(--hypercube-color);
-}
-
-#campaigntab {
-    border-color: red;
-    color: orange;
 }
 
 #traitstab {
@@ -4624,20 +4620,16 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #campaigns {
-    justify-content: center;
-    align-items: start;
+    contain: inline-size;
     margin-top: 10px;
 }
 
 #campaignsMain {
-    width: 100%;
-    margin-top: 2%;
-    height: 90%;
-    justify-items: center;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(3, minmax(0, 1fr)) auto;
+    min-width: 700px;
+    max-width: 1200px;
+    row-gap: 10px;
     line-height: 1.2;
+    margin-top: 10px;
 }
 
 #campaignsIcons {
@@ -4645,9 +4637,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     flex-direction: column;
     justify-content: center;
     justify-items: center;
-    grid-area: 1 / 1 / 4 / 3;
-    width: 90%;
-    height: 100%;
 }
 
 #campaignIconGrid {
@@ -4681,8 +4670,9 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #campaignsIcons img {
-    width: 48px;
-    height: 48px;
+    width: 100%;
+    max-width: 48px;
+    height: auto;
     font-size: 0;
     cursor: pointer;
 }
@@ -4692,13 +4682,11 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #campaignsDescriptions {
-    grid-area: 1 / 3 / 4 / 6;
     border: 2px solid red;
-    width: 90%;
-    height: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
+    min-height: 300px;
 }
 
 #campaignsDescriptions h3 {
@@ -4761,15 +4749,12 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #campaignsTokensInfo {
-    grid-area: 4 / 1 / 5 / 6;
     display: flex;
     flex-direction: column;
     justify-content: center;
     justify-items: center;
     text-align: center;
     margin-top: 1%;
-    height: 90%;
-    width: 90%;
 }
 
 #campaignsTokensInfo img {
@@ -5052,6 +5037,7 @@ html[data-hepteracts="true"] .corruptionReward.hepteracts {
     text-align: center;
 }
 
+#corrCampaignsBtn,
 #corrStatsBtn,
 #corrLoadoutsBtn {
     min-width: 120px;
@@ -8438,6 +8424,7 @@ html[data-mobile="true"] .hideOnMobile {
         min-width: 44px;
     }
 
+    #campaignsMain,
     #corruptionMain {
         min-width: unset;
     }
@@ -9150,10 +9137,6 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     /* Campaigns */
-    #campaignsMain {
-        display: unset;
-    }
-
     #campaignsDescriptions {
         width: unset;
     }

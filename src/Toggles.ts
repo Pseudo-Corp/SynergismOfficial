@@ -21,6 +21,7 @@ import {
   Confirm,
   createFitties,
   Prompt,
+  setCampaignSubtabShown,
   showCorruptionStatsLoadouts,
   updateChallengeDisplay
 } from './UpdateHTML'
@@ -953,9 +954,13 @@ export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number) =>
   corruptionLoadoutTableUpdate(true, 0)
 }
 
-export const toggleCorruptionLoadoutsStats = (statsStr: string) => {
-  const stats = statsStr === 'true'
-  player.corruptions.showStats = stats
+export const toggleCorruptionLoadoutsStats = (subTabID: string) => {
+  if (subTabID === 'campaigns') {
+    setCampaignSubtabShown(true)
+  } else {
+    setCampaignSubtabShown(false)
+    player.corruptions.showStats = subTabID === 'true'
+  }
   showCorruptionStatsLoadouts()
 }
 

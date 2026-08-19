@@ -58,7 +58,6 @@ import {
   visualUpdateAchievements,
   visualUpdateAnts,
   visualUpdateBuildings,
-  visualUpdateCampaign,
   visualUpdateChallenges,
   visualUpdateCorruptions,
   visualUpdateCubes,
@@ -669,8 +668,6 @@ export const hideStuff = () => {
   DOMCacheGetOrSet('ants').style.display = 'none'
   DOMCacheGetOrSet('anttab').style.backgroundColor = ''
   DOMCacheGetOrSet('cubetab').style.backgroundColor = ''
-  DOMCacheGetOrSet('campaigntab').style.backgroundColor = ''
-  DOMCacheGetOrSet('campaigns').style.display = 'none'
   DOMCacheGetOrSet('traitstab').style.backgroundColor = ''
   DOMCacheGetOrSet('cubes').style.display = 'none'
   DOMCacheGetOrSet('traits').style.display = 'none'
@@ -751,13 +748,10 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('cubes').style.display = 'flex'
     DOMCacheGetOrSet('cubetab').style.backgroundColor = tabColors[Tabs.WowCubes]
   }
-  if (G.currentTab === Tabs.Campaign) {
-    DOMCacheGetOrSet('campaigns').style.display = 'block'
-    DOMCacheGetOrSet('campaigntab').style.backgroundColor = tabColors[Tabs.Campaign]
-  }
   if (G.currentTab === Tabs.Corruption) {
     DOMCacheGetOrSet('traits').style.display = 'flex'
     DOMCacheGetOrSet('traitstab').style.backgroundColor = tabColors[Tabs.Corruption]
+    syncCampaignsMainWidth()
   }
 
   if (G.currentTab === Tabs.Singularity) {
@@ -792,7 +786,6 @@ const visualTab: Record<Tabs, () => void> = {
   [Tabs.Shop]: visualUpdateShop,
   [Tabs.AntHill]: visualUpdateAnts,
   [Tabs.WowCubes]: visualUpdateCubes,
-  [Tabs.Campaign]: visualUpdateCampaign,
   [Tabs.Corruption]: visualUpdateCorruptions,
   [Tabs.Singularity]: visualUpdateSingularity,
   [Tabs.Event]: visualUpdateEvent,
@@ -1212,11 +1205,51 @@ export const updateChallengeLevel = (k: number) => {
   }
 } */
 
+let campaignSubtabShown = false
+
+export const setCampaignSubtabShown = (shown: boolean) => {
+  campaignSubtabShown = shown
+}
+
+const syncCampaignsMainWidth = () => {
+  if (!campaignSubtabShown) {
+    return
+  }
+
+  const campaignsMain = DOMCacheGetOrSet('campaignsMain')
+  const corruptionMain = DOMCacheGetOrSet('corruptionMain')
+
+  campaignsMain.style.display = 'none'
+  corruptionMain.style.display = ''
+  const width = corruptionMain.offsetWidth
+  if (width > 0) {
+    campaignsMain.style.width = `${width}px`
+  }
+  corruptionMain.style.display = 'none'
+  campaignsMain.style.display = 'flex'
+}
+
 export const showCorruptionStatsLoadouts = () => {
+  const campaignsButton = DOMCacheGetOrSet('corrCampaignsBtn')
   const statsButton = DOMCacheGetOrSet('corrStatsBtn')
   const corrLoadoutsButton = DOMCacheGetOrSet('corrLoadoutsBtn')
 
-  if (player.corruptions.showStats) {
+  DOMCacheGetOrSet('campaigns').style.display = campaignSubtabShown ? 'block' : 'none'
+  if (campaignSubtabShown) {
+    syncCampaignsMainWidth()
+  } else {
+    DOMCacheGetOrSet('corruptionMain').style.display = ''
+    DOMCacheGetOrSet('campaignsMain').style.display = 'none'
+  }
+  campaignsButton.classList.toggle('subtab-active', campaignSubtabShown)
+
+  if (campaignSubtabShown) {
+    DOMCacheGetOrSet('corruptionStats').style.display = 'none'
+    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
+    DOMCacheGetOrSet('corrClickInfo').style.display = 'none'
+    statsButton.classList.remove('subtab-active')
+    corrLoadoutsButton.classList.remove('subtab-active')
+  } else if (player.corruptions.showStats) {
     DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
     DOMCacheGetOrSet('corrClickInfo').style.display = 'block'
@@ -1283,7 +1316,6 @@ const tabColors: Record<Tabs, string> = {
   [Tabs.Research]: 'green',
   [Tabs.AntHill]: 'brown',
   [Tabs.WowCubes]: 'purple',
-  [Tabs.Campaign]: 'red',
   [Tabs.Corruption]: 'orange',
   [Tabs.Settings]: 'white',
   [Tabs.Shop]: 'cyan',
