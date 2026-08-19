@@ -436,25 +436,42 @@ const selectShopTier = (key: ShopUpgradeNames) => {
   updateShopTab()
 }
 
-const buyButtonLabel = (key: ShopUpgradeNames) => {
+const getShopBuyData = (key: ShopUpgradeNames) => {
   const shopItem = shopUpgrades[key]
-  if (tierMaxed(key)) {
-    return i18next.t('shop.maxed')
-  }
   if (player.shopBuyMaxToggle === false) {
-    return i18next.t('shop.upgradeFor', { x: format(getShopCosts(key)) })
+    return {
+      amount: 1,
+      cost: getShopCosts(key)
+    }
   }
-  const buyMaxAmount = shopItem.maxLevel - player.shopUpgrades[key]
-  const amount = player.shopBuyMaxToggle === 'TEN' ? Math.min(10, buyMaxAmount) : buyMaxAmount
+
+  const currentLevel = player.shopUpgrades[key]
+  const maxBuyAmount = shopItem.maxLevel - currentLevel
+  const amount = player.shopBuyMaxToggle === 'TEN' ? Math.min(10, maxBuyAmount) : maxBuyAmount
   const buyData = calculateSummationNonLinear(
-    player.shopUpgrades[key],
+    currentLevel,
     shopItem.price,
     +player.worlds,
     shopItem.priceIncrease / shopItem.price,
     amount
   )
+
+  return {
+    amount: buyData.levelCanBuy - currentLevel,
+    cost: buyData.cost
+  }
+}
+
+const buyButtonLabel = (key: ShopUpgradeNames) => {
+  if (tierMaxed(key)) {
+    return i18next.t('shop.maxed')
+  }
+  const buyData = getShopBuyData(key)
+  if (player.shopBuyMaxToggle === false) {
+    return i18next.t('shop.upgradeFor', { x: format(buyData.cost) })
+  }
   return i18next.t('shop.plusForQuarks', {
-    x: format(buyData.levelCanBuy - player.shopUpgrades[key], 0, true),
+    x: format(buyData.amount, 0, true),
     y: format(buyData.cost)
   })
 }
@@ -540,10 +557,12 @@ export const updateShopTab = () => {
         cost.classList.add('shopFamilyMaxed')
         cost.classList.remove('shopCantAfford')
       } else {
-        const price = getShopCosts(frontier.key)
+        const buyData = getShopBuyData(frontier.key)
+        const nextLevelPrice = getShopCosts(frontier.key)
+        const price = buyData.amount === 0 ? nextLevelPrice : buyData.cost
         cost.textContent = format(price, 0, true)
         cost.classList.remove('shopFamilyMaxed')
-        cost.classList.toggle('shopCantAfford', +player.worlds < price)
+        cost.classList.toggle('shopCantAfford', +player.worlds < nextLevelPrice)
       }
 
       if (family.tiers.length > 1) {
