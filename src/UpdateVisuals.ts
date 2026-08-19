@@ -778,8 +778,6 @@ export const visualUpdateRunes = () => {
     for (const bless of runeBlessingKeys) {
       updateRuneBlessingHTML(bless)
     }
-  } else if (getActiveSubTab() === 3) {
-    updateOfferingAndSalvageText()
     for (const spirit of runeSpiritKeys) {
       updateRuneSpiritHTML(spirit)
     }
