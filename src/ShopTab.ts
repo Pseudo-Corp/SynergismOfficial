@@ -12,6 +12,7 @@ import {
   type ShopUpgradeNames,
   shopUpgrades
 } from './Shop'
+import { registerSpriteAlias } from './SpriteSheets'
 import { format, player } from './Synergism'
 import { isMobile } from './Utility'
 
@@ -176,10 +177,11 @@ const shopSections = [
       },
       {
         id: 'infiniteAscent',
-        tiers: [
-          { key: 'infiniteAscent', icon: 'Pictures/Default/ShopInfiniteAscentRune.png' },
-          { key: 'shopSadisticRune', icon: 'Pictures/Default/ShopSadisticRune.png' }
-        ]
+        tiers: [{ key: 'infiniteAscent', icon: 'Pictures/Default/ShopInfiniteAscentRune.png' }]
+      },
+      {
+        id: 'shopSadisticRune',
+        tiers: [{ key: 'shopSadisticRune', icon: 'Pictures/Default/ShopSadisticRune.png' }]
       },
       {
         id: 'shopInfiniteShopUpgrades',
@@ -319,9 +321,13 @@ const frontierTier = (family: ShopFamilyData) => {
 }
 
 const createFamilyRow = (family: ShopFamilyData) => {
-  const row = document.createElement('button')
+  const row = document.createElement('div')
   row.id = `shopFamilyRow-${family.id}`
   row.className = 'shopFamilyRow'
+
+  const familyButton = document.createElement('button')
+  familyButton.type = 'button'
+  familyButton.className = 'shopFamilyButton'
 
   const icon = document.createElement('img')
   icon.id = `shopFamilyRowIcon-${family.id}`
@@ -338,24 +344,40 @@ const createFamilyRow = (family: ShopFamilyData) => {
   name.textContent = i18next.t(familyNameKey(family))
   info.appendChild(name)
 
-  if (family.tiers.length > 1) {
-    const dots = document.createElement('span')
-    dots.className = 'shopFamilyRowTiers'
-    for (const tier of family.tiers) {
-      const dot = document.createElement('span')
-      dot.id = `shopTierDot-${tier.key}`
-      dot.className = 'shopTierDot'
-      dots.appendChild(dot)
-    }
-    info.appendChild(dots)
-  }
-
   const cost = document.createElement('span')
   cost.id = `shopFamilyRowCost-${family.id}`
   cost.className = 'shopFamilyRowCost'
+  info.appendChild(cost)
 
-  row.append(icon, info, cost)
-  row.addEventListener('click', () => selectShopFamily(family))
+  familyButton.append(icon, info)
+  familyButton.addEventListener('click', () => selectShopFamily(family))
+  row.appendChild(familyButton)
+
+  if (family.tiers.length > 1) {
+    const shortcuts = document.createElement('span')
+    shortcuts.className = 'shopFamilyRowTiers'
+    for (const tier of family.tiers) {
+      const shortcut = document.createElement('button')
+      shortcut.type = 'button'
+      shortcut.id = `shopTierShortcut-${tier.key}`
+      shortcut.className = 'shopTierShortcut'
+      shortcut.title = shopUpgrades[tier.key].name()
+      shortcut.setAttribute('aria-label', shopUpgrades[tier.key].name())
+
+      const shortcutIcon = document.createElement('img')
+      shortcutIcon.id = `shopTierShortcutIcon-${tier.key}`
+      shortcutIcon.src = tier.icon
+      shortcutIcon.alt = ''
+      shortcutIcon.loading = 'lazy'
+      registerSpriteAlias(tier.key, shortcutIcon.id, 16)
+
+      shortcut.appendChild(shortcutIcon)
+      shortcut.addEventListener('click', () => selectShopFamily(family, tier.key))
+      shortcuts.appendChild(shortcut)
+    }
+    row.appendChild(shortcuts)
+  }
+
   return row
 }
 
@@ -399,9 +421,9 @@ export const generateShopTabHTML = () => {
   selectShopFamily(shopSections[0].families[0])
 }
 
-const selectShopFamily = (family: ShopFamilyData) => {
+const selectShopFamily = (family: ShopFamilyData, tier = frontierTier(family).key) => {
   selectedFamily = family
-  selectShopTier(frontierTier(family).key)
+  selectShopTier(tier)
 
   if (isMobile) {
     DOMCacheGetOrSet('shopDetail').scrollIntoView({ behavior: 'smooth' })
@@ -526,11 +548,11 @@ export const updateShopTab = () => {
 
       if (family.tiers.length > 1) {
         for (const tier of family.tiers) {
-          const dot = DOMCacheGetOrSet(`shopTierDot-${tier.key}`)
-          dot.style.display = tierUnlocked(tier.key) || testing ? '' : 'none'
-          dot.classList.toggle('shopTierDotMaxed', tierMaxed(tier.key))
-          dot.classList.toggle(
-            'shopTierDotUnfinished',
+          const shortcut = DOMCacheGetOrSet(`shopTierShortcut-${tier.key}`)
+          shortcut.style.display = tierUnlocked(tier.key) || testing ? '' : 'none'
+          shortcut.classList.toggle('shopTierShortcutMaxed', tierMaxed(tier.key))
+          shortcut.classList.toggle(
+            'shopTierShortcutUnfinished',
             tier === frontier || (!tierMaxed(tier.key) && player.shopUpgrades[tier.key] > 0)
           )
         }
