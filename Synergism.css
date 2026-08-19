@@ -3237,16 +3237,10 @@ p#reincarnatehotkeys {
 .shopFamilyRow {
     display: flex;
     flex-shrink: 0;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 8px;
+    align-items: stretch;
     background: none;
-    border: none;
     border-left: 3px solid transparent;
     color: white;
-    font: inherit;
-    text-align: left;
-    cursor: pointer;
 }
 
 .shopFamilyRow:hover {
@@ -3258,7 +3252,23 @@ p#reincarnatehotkeys {
     background-color: rgb(0 255 255 / 10%);
 }
 
+.shopFamilyButton {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 4px 8px;
+    background: none;
+    border: none;
+    color: white;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
 .shopFamilyRowIcon {
+    flex-shrink: 0;
     width: 24px;
     height: 24px;
 }
@@ -3271,30 +3281,40 @@ p#reincarnatehotkeys {
 
 .shopFamilyRowTiers {
     display: flex;
+    flex-shrink: 0;
+    align-items: center;
     gap: 3px;
+    padding: 4px 8px 4px 0;
 }
 
-.shopTierDot {
-    width: 7px;
-    height: 7px;
+.shopTierShortcut {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    padding: 1px;
+    background: none;
     border: 1px solid gray;
     border-radius: 2px;
+    cursor: pointer;
 }
 
-.shopTierDotUnfinished {
-    background-color: cyan;
+.shopTierShortcut > img {
+    width: 16px;
+    height: 16px;
+}
+
+.shopTierShortcutUnfinished {
     border-color: cyan;
 }
 
-.shopTierDotMaxed {
-    background-color: gold;
+.shopTierShortcutMaxed {
     border-color: gold;
 }
 
 .shopFamilyRowCost {
-    margin-left: auto;
-    padding-left: 10px;
     color: gold;
+    font-size: 0.8em;
 }
 
 .shopFamilyRowCost.shopCantAfford {
