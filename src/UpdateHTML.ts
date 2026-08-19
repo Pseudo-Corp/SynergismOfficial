@@ -1235,6 +1235,7 @@ export const showCorruptionStatsLoadouts = () => {
   const corrLoadoutsButton = DOMCacheGetOrSet('corrLoadoutsBtn')
 
   DOMCacheGetOrSet('campaigns').style.display = campaignSubtabShown ? 'block' : 'none'
+  DOMCacheGetOrSet('corruptionDisplays').style.display = campaignSubtabShown ? 'none' : ''
   if (campaignSubtabShown) {
     syncCampaignsMainWidth()
   } else {
