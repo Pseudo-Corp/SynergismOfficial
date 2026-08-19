@@ -38,7 +38,6 @@ import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/struc
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { hasUnreadMessages } from './Messages'
-import { PCoinUpgrades } from './PseudoCoinUpgrades'
 import { initializeCart } from './purchases/CartTab'
 import { isResearchUnlocked, roombaResearchEnabled } from './Research'
 import { getRuneEffects, type RuneKeys, runes, updateRuneHTML } from './Runes'
@@ -278,6 +277,7 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.chal11 = player.highestchallengecompletions[11] > 0 ? 'true' : 'false'
   document.documentElement.dataset.chal12 = player.highestchallengecompletions[12] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.spiritUnlock = player.unlocks.spirits ? 'true' : 'false'
   document.documentElement.dataset.chal13 = player.highestchallengecompletions[13] > 0 ? 'true' : 'false'
   document.documentElement.dataset.chal14 = player.highestchallengecompletions[14] > 0 ? 'true' : 'false'
 
@@ -288,9 +288,6 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.cubeUpgrade10 = player.cubeUpgrades[10] > 0 ? 'true' : 'false'
   document.documentElement.dataset.cubeUpgrade19 = player.cubeUpgrades[19] > 0 ? 'true' : 'false'
-
-  document.documentElement.dataset.instantUnlock1 = PCoinUpgrades.INSTANT_UNLOCK_1 > 0 ? 'true' : 'false'
-  document.documentElement.dataset.instantUnlock2 = PCoinUpgrades.INSTANT_UNLOCK_2 > 0 ? 'true' : 'false'
 
   document.documentElement.dataset.sacrificeAnts = getAchievementReward('antSacrificeUnlock') ? 'true' : 'false'
 
@@ -304,12 +301,6 @@ export const revealStuff = () => {
   document.documentElement.dataset.legacyicons = player.iconSet === 0 ? 'true' : 'false'
 
   visualUpdateShop()
-
-  if (G.challenge15Rewards.hepteractsUnlocked.value > 0) {
-    DOMCacheGetOrSet('corruptionHepteracts').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('corruptionHepteracts').style.display = 'none'
-  }
 
   document.documentElement.dataset.cookies1 = getGQUpgradeEffect('cookies', 'unlocked') ? 'true' : 'false'
   document.documentElement.dataset.cookies2 = getGQUpgradeEffect('cookies2', 'unlocked') ? 'true' : 'false'

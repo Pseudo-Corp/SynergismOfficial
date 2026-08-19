@@ -113,16 +113,7 @@ import { getResetDetails, updateAutoCubesOpens, updateAutoReset, updateTesseract
 import { buyAllBlessingLevels } from './RuneBlessings'
 import { runes } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
-import type { ShopUpgradeNames } from './Shop'
-import {
-  buyShopUpgrades,
-  createShopHTML,
-  resetShopUpgrades,
-  shopDescriptions,
-  shopUpgrades,
-  shopUpgradeTypes,
-  useConsumablePrompt
-} from './Shop'
+import { buyShopUpgrades, resetShopUpgrades, useConsumablePrompt } from './Shop'
 import {
   addSingularityPerkToTree,
   buyGoldenQuarks,
@@ -139,6 +130,7 @@ import {
   upgradeGQToString
 } from './singularity'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
+import { registerSpriteAlias, updateIconsFromSprites } from './SpriteSheets'
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
@@ -182,7 +174,7 @@ import {
 } from './Toggles'
 import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
 import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframeOverlay, Prompt } from './UpdateHTML'
-import { shopMouseover } from './UpdateVisuals'
+import { cycleCorruptionScoreTarget, selectCorruptionScoreTarget, shopMouseover } from './UpdateVisuals'
 import {
   buyAllUpgrades,
   buyConstantUpgrades,
@@ -232,8 +224,7 @@ const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
     icons: {
       toggleRuneSubTab1: 'Pictures/Subtab Icons/Runes/Runes.png',
       toggleRuneSubTab2: 'Pictures/Subtab Icons/Runes/Talismans.png',
-      toggleRuneSubTab3: 'Pictures/Subtab Icons/Runes/Blessings.png',
-      toggleRuneSubTab4: 'Pictures/Subtab Icons/Runes/Spirits.png'
+      toggleRuneSubTab3: 'Pictures/Subtab Icons/Runes/Blessings.png'
     }
   },
   {
@@ -334,7 +325,7 @@ const mobileStatsIconConfig: Record<string, string> = {
   kHypercubeMult: 'Pictures/Stats for Nerds Icons/Categories/HypercubeMultiplier.png',
   kPlatMult: 'Pictures/Stats for Nerds Icons/Categories/PlatonicCubeMultiplier.png',
   kHeptMult: 'Pictures/Stats for Nerds Icons/Categories/HepteractMultiplier.png',
-  kOrbPowderMult: 'Pictures/Default/HepteractOverfluxPowder.png',
+  kOrbPowderMult: 'Pictures/img_transparent.png',
   kGQMult: 'Pictures/Stats for Nerds Icons/Categories/GoldenQuarkMultiplier.png',
   kGQCost: 'Pictures/Stats for Nerds Icons/Categories/GoldenQuarkCostMultiplier.png',
   kAddStats: 'Pictures/Stats for Nerds Icons/Categories/AddCodeStats.png',
@@ -617,6 +608,9 @@ const registerMobileStatsIcons = () => {
     icon.style.backgroundColor = ''
     sourceButton.replaceWith(icon)
   }
+
+  registerSpriteAlias('overfluxPowderImage', 'kOrbPowderMult', 32)
+  updateIconsFromSprites(IconSets[player.iconSet][0])
 }
 
 const getMobileHeaderContentMaxHeight = (content: HTMLElement) => {
@@ -1544,6 +1538,16 @@ export const generateEventHandlers = () => {
     player.corruptions.used.resetCorruptions()
     player.corruptions.next.resetCorruptions()
   })
+  DOMCacheGetOrSet('corruptionScoreProgress').addEventListener('click', cycleCorruptionScoreTarget)
+  const corruptionScoreTargetButtons = [
+    'corruptionTesseracts',
+    'corruptionHypercubes',
+    'corruptionPlatonicCubes',
+    'corruptionHepteracts'
+  ] as const
+  for (const [index, id] of corruptionScoreTargetButtons.entries()) {
+    DOMCacheGetOrSet(id).addEventListener('click', () => selectCorruptionScoreTarget(index))
+  }
 
   // Extra toggle
   DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscendResetActive())
@@ -1642,10 +1646,6 @@ TODO: Fix this entire tab it's utter shit
 
   // Part 2: Potions
   /*Offering Potion*/
-  DOMCacheGetOrSet('offeringPotions').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
-  DOMCacheGetOrSet('offeringpotionowned').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
-  DOMCacheGetOrSet('buyofferingpotion').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
-  DOMCacheGetOrSet('useofferingpotion').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
   DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyShopUpgrades('offeringPotion'))
   // DOMCacheGetOrSet('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
   DOMCacheGetOrSet('useofferingpotion').addEventListener('click', () => useConsumablePrompt('offeringPotion'))
@@ -1653,58 +1653,12 @@ TODO: Fix this entire tab it's utter shit
     player.autoPotionTimer = 0
   })
   /*Obtainium Potion*/
-  DOMCacheGetOrSet('obtainiumPotions').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
-  DOMCacheGetOrSet('obtainiumpotionowned').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
-  DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
-  DOMCacheGetOrSet('useobtainiumpotion').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
   DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades('obtainiumPotion'))
   // DOMCacheGetOrSet('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
   DOMCacheGetOrSet('useobtainiumpotion').addEventListener('click', () => useConsumablePrompt('obtainiumPotion'))
   DOMCacheGetOrSet('toggle43').addEventListener('click', () => {
     player.autoPotionTimerObtainium = 0
   })
-  /* Permanent Upgrade Images */
-  const shopKeys = Object.keys(player.shopUpgrades) as ShopUpgradeNames[]
-  for (const key of shopKeys) {
-    const shopItem = shopUpgrades[key]
-    if (shopItem.type === shopUpgradeTypes.UPGRADE) {
-      const boundShopDescriptions = shopDescriptions.bind(null, key)
-      const boundCreateShopHTML = createShopHTML.bind(null, key)
-
-      if (isMobile) {
-        const showMobileShopModal = (event: MouseEvent) => {
-          boundShopDescriptions()
-          Modal(
-            boundCreateShopHTML,
-            event.clientX,
-            event.clientY,
-            { borderColor: 'cyan' },
-            MEDIUM_MODAL_UPDATE_TICK,
-            event.currentTarget as HTMLElement
-          )
-        }
-
-        DOMCacheGetOrSet(key).addEventListener('click', showMobileShopModal)
-        DOMCacheGetOrSet(`${key}Level`).addEventListener('click', showMobileShopModal)
-      } else {
-        DOMCacheGetOrSet(key).addEventListener(
-          'mousemove',
-          (e) => Modal(boundCreateShopHTML, e.clientX, e.clientY, { borderColor: 'cyan' })
-        )
-        DOMCacheGetOrSet(key).addEventListener('focus', function(this: HTMLElement) {
-          const elmRect = this.getBoundingClientRect()
-          Modal(boundCreateShopHTML, elmRect.x, elmRect.y + elmRect.height / 2, { borderColor: 'cyan' })
-        })
-        DOMCacheGetOrSet(key).addEventListener('mouseout', CloseModal)
-        DOMCacheGetOrSet(key).addEventListener('blur', CloseModal)
-        DOMCacheGetOrSet(key).addEventListener('mouseover', boundShopDescriptions)
-        DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', boundShopDescriptions)
-        DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', boundShopDescriptions)
-      }
-      // DOMCacheGetOrSet(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
-      DOMCacheGetOrSet(`${key}Button`).addEventListener('pointerdown', () => buyShopUpgrades(key))
-    }
-  }
   DOMCacheGetOrSet('buySingularityQuarksButton').addEventListener('click', () => buyGoldenQuarks())
   // SINGULARITY TAB
 
@@ -1732,6 +1686,8 @@ TODO: Fix this entire tab it's utter shit
 
   // Do the cool scrolling thing
   elevatorInput.addEventListener('wheel', (e) => {
+    e.preventDefault()
+
     if (e.deltaY < 0) {
       // Scroll up: Means we can *increase* singularity
       if (player.singularityElevatorTarget < player.highestSingularityCount) {

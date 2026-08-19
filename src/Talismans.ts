@@ -1122,9 +1122,9 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
 
-  const godlike = `<span style="color: lightgoldenrodyellow">${
+  const godlike = `<span class="godlikeText">${
     i18next.t('runes.talismans.rarityInfo.godlike')
-  } <span class="rarityReqNum">
+  } <span class="rarityReqNum godlikeText">
   ${rarity === 8 ? '▶ ' : ''}
   ${
     i18next.t('runes.talismans.rarityInfo.levelReq', {
@@ -1134,9 +1134,9 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
 
-  const perfect = `<span style="color: gold">${
+  const perfect = `<span class="perfectText">${
     i18next.t('runes.talismans.rarityInfo.perfect')
-  } <span class="rarityReqNum">
+  } <span class="rarityReqNum perfectText">
   ${rarity === 9 ? '▶ ' : ''}
   ${
     i18next.t('runes.talismans.rarityInfo.levelReq', {
@@ -1270,7 +1270,7 @@ const updateWebTalismanDisplay = (t: TalismanKeys) => {
 
   el.classList.remove('rainbowBorder')
   el.classList.add('talismanIcon')
-  la.classList.remove('rainbowText')
+  la.classList.remove('rainbowText', 'godlikeText', 'perfectText')
 
   la.textContent = `${format(talisman.level)}/${format(getTalismanLevelCap(t))}`
   const rarity = talisman.rarity
@@ -1304,11 +1304,13 @@ const updateWebTalismanDisplay = (t: TalismanKeys) => {
   }
   if (rarity === 8) {
     ti.style.border = '3px solid lightgoldenrodyellow'
-    la.style.color = 'lightgoldenrodyellow'
+    la.style.color = ''
+    la.classList.add('godlikeText')
   }
   if (rarity === 9) {
     ti.style.border = '3px solid gold'
-    la.style.color = 'gold'
+    la.style.color = ''
+    la.classList.add('perfectText')
   }
   if (rarity === 10) {
     ti.style.border = ''
@@ -1335,13 +1337,15 @@ const updateMobileTalismanDisplay = (t: TalismanKeys) => {
 
   container.classList.toggle('talismanRarityRainbowBorder', talisman.rarity === 10)
   level.classList.toggle('rainbowText', talisman.rarity === 10)
+  level.classList.toggle('godlikeText', talisman.rarity === 8)
+  level.classList.toggle('perfectText', talisman.rarity === 9)
 
   if (talisman.rarity === 10) {
     container.style.border = ''
     level.style.color = ''
   } else if (colors !== undefined) {
     container.style.border = `2px solid ${colors.border}`
-    level.style.color = colors.level
+    level.style.color = talisman.rarity >= 8 ? '' : colors.level
   }
 
   DOMCacheGetOrSet(`${t}TalismanRarity`).innerHTML = i18next.t('runes.talismans.mobile.currentRarity', {

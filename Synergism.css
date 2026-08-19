@@ -997,7 +997,9 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
 
 .challengeProgress {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: repeat(3, 1.2em);
+    justify-items: start;
     margin-top: 0.25em;
     line-height: 1.2em;
 }
@@ -2334,12 +2336,22 @@ p#prestigehotkeys {
 }
 
 #runeContainer1,
-#runeContainer3,
-#runeContainer4 {
+#runeContainer3 {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+}
+
+.runeDivinitySection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.runeDivinitySection > h2 {
+    margin-bottom: 0;
 }
 
 .heptNotification {
@@ -2600,8 +2612,7 @@ img.runeTypeElement:hover {
 }
 
 .talismanBtn {
-    width: 5em;
-    min-width: 80px;
+    min-width: 100%;
 }
 
 .talisminBtnAvailable {
@@ -2623,23 +2634,29 @@ img.runeTypeElement:hover {
 
 .talismanContainer {
     box-sizing: content-box;
+    display: flex;
     flex-direction: column;
-    width: 80px;
+    width: 90px;
     align-items: center;
     white-space: nowrap;
     padding: 2px;
 }
 
-.talismanIcon {
-    height: 64px;
-    width: 64px;
+.talismanIcon,
+.talismanContainer > .rainbowBorder {
+    display: flex;
+    width: 80%;
+    height: auto;
+    aspect-ratio: 1;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
 }
 
 .talismanIcon img {
     position: relative;
-    width: calc(100% - 6px);
-    height: calc(100% - 6px);
+    width: 100%;
+    height: 100%;
     object-fit: none;
     background-color: var(--bg-color);
     border-radius: 3px;
@@ -2695,8 +2712,6 @@ img.runeTypeElement:hover {
     flex-direction: row;
     justify-content: left;
     align-items: center;
-    gap: 5px;
-    margin-left: 10%;
 }
 
 .mobileTalismanShardContainers {
@@ -3177,44 +3192,207 @@ p#reincarnatehotkeys {
 }
 
 #actualWrapper {
-    display: flex;
+    display: grid;
+    grid-template-areas:
+        ". shoptop"
+        "consumables shop"
+        ". buttons";
+    justify-items: center;
     font-size: min(1em, 20px);
 }
 
 #actualShopContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: contents;
 }
 
 #actualShop {
+    grid-area: shop;
     display: flex;
-    padding: 5px;
+    align-items: stretch;
     margin-top: 10px;
-    width: calc(103px * 8 - 8px); /* TODO: this sucks */
     border: 3px solid plum;
-    gap: 5px;
+    color: white;
+    text-align: left;
+}
+
+#shopFamilyList {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    max-height: 70vh;
+    border-right: 1px solid plum;
+    scrollbar-width: thin;
+}
+
+.shopSectionHeader {
+    flex-shrink: 0;
+    margin: 8px 8px 2px;
+    color: plum;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.shopFamilyRow {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    background: none;
+    border: none;
+    border-left: 3px solid transparent;
+    color: white;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.shopFamilyRow:hover {
+    background-color: rgb(255 255 255 / 8%);
+}
+
+.shopFamilyRow.shopFamilySelected {
+    border-left-color: cyan;
+    background-color: rgb(0 255 255 / 10%);
+}
+
+.shopFamilyRowIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.shopFamilyRowInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.shopFamilyRowTiers {
+    display: flex;
+    gap: 3px;
+}
+
+.shopTierDot {
+    width: 7px;
+    height: 7px;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+
+.shopTierDotUnfinished {
+    background-color: cyan;
+    border-color: cyan;
+}
+
+.shopTierDotMaxed {
+    background-color: gold;
+    border-color: gold;
+}
+
+.shopFamilyRowCost {
+    margin-left: auto;
+    padding-left: 10px;
+    color: gold;
+}
+
+.shopFamilyRowCost.shopCantAfford {
+    color: gray;
+}
+
+.shopFamilyRowCost.shopFamilyMaxed {
+    color: orchid;
+}
+
+#shopDetail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 62ch;
+    padding: 10px;
+    text-align: center;
+}
+
+#shopDetail > p {
+    margin: 0;
+    overflow-wrap: break-word;
+}
+
+#shopTierRail {
+    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+
+.shopTierChip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 5px 8px;
+    background: none;
+    border: 1px solid gray;
+    color: white;
+    font: inherit;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+.shopTierChip img {
+    width: 32px;
+    height: 32px;
+}
+
+.shopTierChip.shopTierSelected {
+    border-color: cyan;
+    box-shadow: 0 0 6px cyan;
+}
+
+.shopTierChip.shopTierMaxed {
+    border-color: gold;
+}
+
+.shopTestingOnly {
+    background-color: maroon;
+}
+
+#shopDetailName {
+    font-size: 1.1em;
+}
+
+#quarkdescription { color: plum; }
+#quarkeffect { color: limegreen; }
+#quarkRefundable { color: goldenrod; }
+
+#shopDetailBuy {
+    width: auto;
+    min-width: 220px;
+    padding: 0 12px;
+    border: 2px solid cyan;
 }
 
 #actualPotionShop > div,
-#actualShop > div {
+#goldenQuarksShop {
     width: 110px;
 }
 
 #actualPotionShop > div > p,
-#actualShop > div > p {
+#goldenQuarksShop > p {
     margin: 0 0 3px;
     line-height: 1em;
 }
 
 #shoptop {
+    grid-area: shoptop;
     color: whitesmoke;
     font-size: 1.2em;
-    margin-top: 20px;
 }
 
 #actualConsumables {
+    grid-area: consumables;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3236,13 +3414,6 @@ p#reincarnatehotkeys {
     font-size: 0;
 }
 
-#quarkamount {
-    font-size: 1.2em;
-    color: aqua;
-    margin: 0 0 0 5px;
-}
-
-#quarksDisplay,
 #goldenQuarksDisplay,
 #octeractsDisplay,
 #totalOcteractsDisplay,
@@ -3310,6 +3481,7 @@ p#reincarnatehotkeys {
 }
 
 #shopButtons {
+    grid-area: buttons;
     display: flex;
     justify-content: center;
     flex-flow: wrap;
@@ -3323,13 +3495,6 @@ p#reincarnatehotkeys {
     min-height: 40px;
     margin-bottom: 6px;
 }
-
-#shopHovers {
-    width: 800px;
-    min-height: 8.2em;
-}
-
-#shopHovers > p { margin: 0; }
 
 .consumablebutton,
 .permshopbutton {
@@ -4674,8 +4839,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 #corruptionMain {
     min-width: 700px;
     max-width: 1200px;
-    margin: 10px;
-    padding: 10px 0;
 }
 
 #corruptionIntroduction {
@@ -4722,6 +4885,142 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 #corruptionSpiritContribution {
     color: gold;
+}
+
+#corruptionRewards {
+    width: min(100%, 800px);
+    margin: 5px auto 0;
+    text-align: center;
+}
+
+#corruptionRewardsHeading {
+    margin: 0 0 10px;
+    color: white;
+    font-size: 1.25em;
+}
+
+#corruptionRewardGrid {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: clamp(6px, 2vw, 28px);
+}
+
+.corruptionReward {
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 105px;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+button.corruptionRewardSelector {
+    min-height: 0;
+    font-size: inherit;
+    color: inherit;
+    background-color: transparent;
+}
+
+body button.corruptionRewardSelector:hover:not(:disabled):not(.disable-hover-color),
+body button.corruptionRewardSelector:active:not(:disabled):not(.disable-hover-color) {
+    background-color: transparent;
+}
+
+#corruptionTesseracts {
+    --corruption-reward-color: var(--tesseract-color);
+}
+
+#corruptionHypercubes {
+    --corruption-reward-color: var(--hypercube-color);
+}
+
+#corruptionPlatonicCubes {
+    --corruption-reward-color: var(--platonic-color);
+}
+
+#corruptionHepteracts {
+    --corruption-reward-color: var(--hepteract-color);
+}
+
+.corruptionRewardSelector.selected > img,
+.corruptionRewardSelector:focus-visible > img {
+    outline: 2px solid var(--corruption-reward-color);
+    outline-offset: 3px;
+}
+
+html[data-chal13="true"] .corruptionReward.chal13,
+html[data-chal14="true"] .corruptionReward.chal14,
+html[data-hepteracts="true"] .corruptionReward.hepteracts {
+    display: flex;
+}
+
+.corruptionReward > img {
+    width: clamp(40px, 6vw, 64px);
+    height: clamp(40px, 6vw, 64px);
+    object-fit: contain;
+}
+
+.corruptionAscensionIcon {
+    width: clamp(40px, 6vw, 64px);
+    height: clamp(40px, 6vw, 64px);
+    display: grid;
+    place-items: center;
+}
+
+.corruptionAscensionIcon > img {
+    width: 75%;
+    height: 75%;
+    object-fit: contain;
+}
+
+.corruptionRewardValue {
+    max-width: 100%;
+    font-size: clamp(0.75em, 2vw, 1.25em);
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+#corruptionAscensionCount {
+    color: darkorange;
+}
+
+#corruptionScoreProgress {
+    --corruption-progress-color: var(--tesseract-color);
+
+    width: min(calc(100% - 80px), 650px);
+    height: 24px;
+    min-height: 24px;
+    position: relative;
+    margin: 16px auto 0;
+    overflow: hidden;
+    border-radius: 12px;
+    color: var(--corruption-progress-color);
+    background-color: var(--blessings-hover-color);
+    font-size: 1.05em;
+    isolation: isolate;
+}
+
+#corruptionScoreProgress:focus-visible {
+    outline: 2px solid var(--corruption-progress-color);
+    outline-offset: 3px;
+}
+
+#corruptionScoreProgressFill {
+    width: 0;
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: 0;
+    background-color: var(--corruption-progress-color);
+    transition: width var(--transition-extra);
+}
+
+#corruptionScoreProgressText {
+    position: relative;
+    z-index: 1;
+    color: black;
+    font-weight: bold;
 }
 
 #ascensionAutomation {
@@ -5694,12 +5993,30 @@ header #obtainiumDisplay { color: pink; }
     animation: rainbow-border 2s linear infinite;
 }
 
-.rainbowText {
+.rainbowText,
+.godlikeText,
+.perfectText {
     color: transparent;
-    background-image: linear-gradient(90deg, #ca001f, #ffb17f, #fff200, #22b14c, #767dda, #a349a4, #ca001f, #ffb17f);
     background-clip: text;
-    background-size: 700%;
     animation: rainbow-animation 5s linear infinite;
+}
+
+.rainbowText {
+    background-image: linear-gradient(90deg, #ca001f, #ffb17f, #fff200, #22b14c, #767dda, #a349a4, #ca001f, #ffb17f);
+    background-size: 700%;
+}
+
+.godlikeText,
+.perfectText {
+    background-size: 300%;
+}
+
+.godlikeText {
+    background-image: linear-gradient(90deg, violet, hotpink, magenta, white, magenta, hotpink, violet, hotpink, magenta, white);
+}
+
+.perfectText {
+    background-image: linear-gradient(90deg, blueviolet, mediumorchid, gold, yellow, gold, mediumorchid, blueviolet, mediumorchid, gold, yellow);
 }
 
 @keyframes rainbow-animation {
@@ -7291,6 +7608,14 @@ html[data-chal12="true"] .chal12 {
     display: block;
 }
 
+html[data-spirit-unlock="true"] .spiritUnlock {
+    display: flex;
+}
+
+html[data-spirit-unlock="false"] .spiritUnlock {
+    display: none;
+}
+
 html[data-chal12="false"] .chal12 {
     display: none;
 }
@@ -7485,32 +7810,6 @@ html[data-golden-quark3-upg="true"] .goldenQuark3Upg {
 
 html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     display: none;
-}
-
-html[data-instant-unlock1="true"] .shopTalismanShopUpgrade {
-    opacity: 0.5;
-}
-
-html[data-instant-unlock1="true"] .shopTalismanShopUpgrade button {
-    display: none;
-}
-
-html[data-instant-unlock1="false"] .shopTalismanShopUpgrade {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-html[data-instant-unlock2="true"] .infiniteAscentShopUpgrade {
-    opacity: 0.5;
-}
-
-html[data-instant-unlock2="true"] .infiniteAscentShopUpgrade button {
-    display: none;
-}
-
-html[data-instant-unlock2="false"] .infiniteAscentShopUpgrade {
-    opacity: 1;
-    pointer-events: auto;
 }
 
 html[data-mobile="true"] {
@@ -9012,7 +9311,12 @@ html[data-mobile="true"] .hideOnMobile {
 
     /* Shops tab */
     #actualWrapper {
-        flex-direction: column;
+        padding-bottom: max(0px, calc(100vh - 20rem));
+        grid-template-areas:
+            "consumables"
+            "shoptop"
+            "shop"
+            "buttons";
     }
 
     #actualConsumables {
@@ -9020,16 +9324,19 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #actualShop {
-        width: unset;
-        justify-content: center;
+        flex-direction: column;
+        align-items: stretch;
     }
 
-    #actualShop > div {
-        width: 30%;
+    #shopFamilyList {
+        max-height: 40vh;
+        border-right: none;
+        border-bottom: 1px solid plum;
     }
 
-    #shopHovers {
+    #shopDetail {
         width: unset;
+        scroll-margin-top: calc(var(--mobile-subtab-height) + 0.5rem);
     }
 
     #sacrificeAnts {

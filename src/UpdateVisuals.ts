@@ -26,7 +26,6 @@ import {
   calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium,
   calculateSalvageRuneEXPMultiplier,
-  calculateSummationNonLinear,
   calculateToNextThreshold,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractObtainiumBonus,
@@ -35,7 +34,7 @@ import {
   calculateTotalSalvage
 } from './Calculate'
 import { CalcECC, challengeDisplay, timeSinceLastStateChange } from './Challenges'
-import { testing, version } from './Config'
+import { version } from './Config'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -46,8 +45,7 @@ import {
   calculateObtainiumCubeBlessing,
   calculateOfferingCubeBlessing,
   calculateRuneEffectivenessCubeBlessing,
-  calculateSalvageCubeBlessing,
-  type IMultiBuy
+  calculateSalvageCubeBlessing
 } from './Cubes'
 import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
 import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib/calculate-production'
@@ -84,12 +82,12 @@ import {
   calculateTaxPlatonicBlessing,
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
-import { PCoinUpgrades } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
 import { runeSpiritKeys, updateRuneSpiritHTML } from './RuneSpirits'
-import { getShopCosts, getShopUpgradeEffects, type ShopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
+import { getShopCosts, getShopUpgradeEffects, shopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
+import { updateShopTab } from './ShopTab'
 import {
   computeGQUpgradeFreeLevelSoftcap,
   computeGQUpgradeMaxLevel,
@@ -1459,6 +1457,80 @@ const UpdateHeptGridValues = (hept: HepteractKeys) => {
   }
 }
 
+const corruptionScoreTargets = [
+  {
+    score: 1e5,
+    color: 'var(--tesseract-color)',
+    textKey: 'corruptions.rewards.moreTesseracts'
+  },
+  {
+    score: 1e9,
+    color: 'var(--hypercube-color)',
+    textKey: 'corruptions.rewards.scoreRequirement'
+  },
+  {
+    score: 2.666e12,
+    color: 'var(--platonic-color)',
+    textKey: 'corruptions.rewards.scoreRequirement'
+  },
+  {
+    score: 1.666e17,
+    color: 'var(--hepteract-color)',
+    textKey: 'corruptions.rewards.scoreRequirement'
+  }
+] as const
+
+const corruptionScoreTargetRewardIds = [
+  'corruptionTesseracts',
+  'corruptionHypercubes',
+  'corruptionPlatonicCubes',
+  'corruptionHepteracts'
+] as const
+
+let corruptionScoreTargetIndex: number | null = null
+
+const updateCorruptionReward = (
+  containerId: string,
+  valueId: string,
+  translationKey: string,
+  amount: number
+) => {
+  const formattedAmount = format(amount, 0)
+  const label = i18next.t(translationKey, { amount: formattedAmount })
+  const container = DOMCacheGetOrSet(containerId)
+
+  DOMCacheGetOrSet(valueId).textContent = formattedAmount
+  container.setAttribute('aria-label', label)
+  container.title = label
+}
+
+const updateCorruptionScoreProgress = (effectiveScore: number) => {
+  if (corruptionScoreTargetIndex === null) {
+    const firstUnmetTarget = corruptionScoreTargets.findIndex(({ score }) => effectiveScore < score)
+    corruptionScoreTargetIndex = firstUnmetTarget === -1
+      ? corruptionScoreTargets.length - 1
+      : firstUnmetTarget
+  }
+
+  const target = corruptionScoreTargets[corruptionScoreTargetIndex]
+  const formattedTarget = format(target.score, 3, true)
+  const progress = Math.min(100, Math.max(effectiveScore ? 0.2 : 0, 100 * effectiveScore / target.score))
+  const progressButton = DOMCacheGetOrSet('corruptionScoreProgress')
+
+  progressButton.style.setProperty('--corruption-progress-color', target.color)
+  DOMCacheGetOrSet('corruptionScoreProgressFill').style.width = `${progress}%`
+  DOMCacheGetOrSet('corruptionScoreProgressText').textContent = i18next.t(target.textKey, {
+    score: formattedTarget
+  })
+
+  for (const [index, rewardId] of corruptionScoreTargetRewardIds.entries()) {
+    const reward = DOMCacheGetOrSet(rewardId)
+    const isSelected = index === corruptionScoreTargetIndex
+    reward.setAttribute('aria-pressed', `${isSelected}`)
+    reward.classList.toggle('selected', isSelected)
+  }
+}
+
 export const visualUpdateCorruptions = () => {
   if (G.currentTab !== Tabs.Corruption) {
     return
@@ -1496,36 +1568,37 @@ export const visualUpdateCorruptions = () => {
     DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'hidden'
   }
 
-  DOMCacheGetOrSet('corruptionCubes').innerHTML = i18next.t(
-    'corruptions.corruptionCubes',
-    {
-      cubeAmount: format(ascensionRewards.wowCubes, 0, true)
-    }
+  updateCorruptionReward(
+    'corruptionCubes',
+    'corruptionCubesValue',
+    'corruptions.rewards.cube',
+    ascensionRewards.wowCubes
   )
-  DOMCacheGetOrSet('corruptionTesseracts').innerHTML = i18next.t(
-    'corruptions.corruptionTesseracts',
-    {
-      tesseractAmount: format(ascensionRewards.wowTesseracts, 0, true)
-    }
+  updateCorruptionReward(
+    'corruptionTesseracts',
+    'corruptionTesseractsValue',
+    'corruptions.rewards.tesseract',
+    ascensionRewards.wowTesseracts,
   )
-  DOMCacheGetOrSet('corruptionHypercubes').innerHTML = i18next.t(
-    'corruptions.corruptionHypercubes',
-    {
-      hypercubeAmount: format(ascensionRewards.wowHypercubes, 0, true)
-    }
+  updateCorruptionReward(
+    'corruptionHypercubes',
+    'corruptionHypercubesValue',
+    'corruptions.rewards.hypercube',
+    ascensionRewards.wowHypercubes,
   )
-  DOMCacheGetOrSet('corruptionPlatonicCubes').innerHTML = i18next.t(
-    'corruptions.corruptionPlatonics',
-    {
-      platonicAmount: format(ascensionRewards.wowPlatonicCubes, 0, true)
-    }
+  updateCorruptionReward(
+    'corruptionPlatonicCubes',
+    'corruptionPlatonicCubesValue',
+    'corruptions.rewards.platonic',
+    ascensionRewards.wowPlatonicCubes,
   )
-  DOMCacheGetOrSet('corruptionHepteracts').innerHTML = i18next.t(
-    'corruptions.corruptionHepteracts',
-    {
-      hepteractAmount: format(ascensionRewards.wowHepteracts, 0, true)
-    }
+  updateCorruptionReward(
+    'corruptionHepteracts',
+    'corruptionHepteractsValue',
+    'corruptions.rewards.hepteract',
+    ascensionRewards.wowHepteracts,
   )
+  updateCorruptionScoreProgress(ascensionRewards.effectiveScore)
   DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {
     curr: format(player.corruptions.used.totalCorruptionAscensionMultiplier, 2, true),
     next: format(player.corruptions.next.totalCorruptionAscensionMultiplier, 2, true)
@@ -1539,16 +1612,30 @@ export const visualUpdateCorruptions = () => {
     next: formatAsPercentIncrease(player.corruptions.next.totalCorruptionDifficultyMultiplier)
   })
 
-  DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'block' : 'none'
+  DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'flex' : 'none'
 
   if (ascCount > 1) {
-    DOMCacheGetOrSet('corruptionAscensionCount').innerHTML = i18next.t(
-      'corruptions.ascensionCount',
-      {
-        ascCount: format(calculateAscensionCount())
-      }
+    updateCorruptionReward(
+      'corruptionAscensionCount',
+      'corruptionAscensionCountValue',
+      'corruptions.rewards.ascensionCount',
+      ascCount
     )
   }
+}
+
+export const cycleCorruptionScoreTarget = () => {
+  corruptionScoreTargetIndex = ((corruptionScoreTargetIndex ?? -1) + 1) % corruptionScoreTargets.length
+  visualUpdateCorruptions()
+}
+
+export const selectCorruptionScoreTarget = (index: number) => {
+  if (index < 0 || index >= corruptionScoreTargets.length) {
+    return
+  }
+
+  corruptionScoreTargetIndex = index
+  visualUpdateCorruptions()
 }
 
 export const visualUpdateSettings = () => {
@@ -1947,10 +2034,7 @@ export const visualUpdateShop = () => {
   if (G.currentTab !== Tabs.Shop) {
     return
   }
-  DOMCacheGetOrSet('quarkamount').textContent = i18next.t(
-    'shop.youHaveQuarks',
-    { x: format(player.worlds.valueOf(), 0, true, false) }
-  )
+
   DOMCacheGetOrSet('offeringpotionowned').textContent = format(
     player.shopUpgrades.offeringPotion,
     0,
@@ -1963,8 +2047,7 @@ export const visualUpdateShop = () => {
   )
 
   // Create Keys with the correct type
-  const keys = Object.keys(player.shopUpgrades) as ShopUpgradeNames[]
-  for (const key of keys) {
+  for (const key of shopUpgradeNames) {
     // Create a copy of shopItem instead of accessing many times
     const shopItem = shopUpgrades[key]
 
@@ -1995,107 +2078,9 @@ export const visualUpdateShop = () => {
           } Quarks`
       }
     }
-
-    if (shopItem.type === shopUpgradeTypes.UPGRADE) {
-      if (
-        player.shopHideToggle
-        && player.shopUpgrades[key] >= shopItem.maxLevel
-      ) {
-        DOMCacheGetOrSet(`${key}Hide`).style.display = 'none'
-        continue
-      } else {
-        DOMCacheGetOrSet(`${key}Hide`).style.display = shopItem.isUnlocked() || testing
-          ? 'block'
-          : 'none'
-
-        if (!shopItem.isUnlocked() && testing) {
-          DOMCacheGetOrSet(`${key}Hide`).style.backgroundColor = 'red'
-        }
-      }
-      // Case: If max level is 1, then it can be considered a boolean "bought" or "not bought" item
-      if (shopItem.maxLevel === 1) {
-        const upgradeDom = DOMCacheGetOrSet(`${key}Level`)
-        if (player.shopUpgrades[key] === shopItem.maxLevel) {
-          upgradeDom.textContent = i18next.t('shop.bought')
-          upgradeDom.style.color = 'gold'
-        } else {
-          upgradeDom.textContent = i18next.t('shop.notBought')
-          upgradeDom.style.color = 'white'
-        }
-
-        if (key === 'shopTalisman' && PCoinUpgrades.INSTANT_UNLOCK_1 > 0) {
-          upgradeDom.textContent = i18next.t('shop.bought')
-          upgradeDom.style.color = 'orchid'
-        }
-        if (key === 'infiniteAscent' && PCoinUpgrades.INSTANT_UNLOCK_2 > 0) {
-          upgradeDom.textContent = i18next.t('shop.bought')
-          upgradeDom.style.color = 'orchid'
-        }
-      } else {
-        // Case: max level greater than 1, treat it as a fraction out of max level
-        const upgradeDom = DOMCacheGetOrSet(`${key}Level`)
-        upgradeDom.textContent = i18next.t('shop.level', {
-          x: format(player.shopUpgrades[key]),
-          y: format(shopItem.maxLevel)
-        })
-
-        if (player.shopUpgrades[key] === shopItem.maxLevel) {
-          upgradeDom.style.color = 'gold'
-        } else {
-          upgradeDom.style.color = 'white'
-        }
-      }
-      // Handles Button - max level needs no price indicator, otherwise it's necessary
-
-      const buyMaxAmount = shopItem.maxLevel - player.shopUpgrades[key]
-      let buyData: IMultiBuy
-
-      switch (player.shopBuyMaxToggle) {
-        case false:
-          DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel
-            ? i18next.t('shop.maxed')
-            : i18next.t('shop.upgradeFor', { x: format(getShopCosts(key)) })
-          break
-        case 'TEN':
-          buyData = calculateSummationNonLinear(
-            player.shopUpgrades[key],
-            shopItem.price,
-            +player.worlds,
-            shopItem.priceIncrease / shopItem.price,
-            Math.min(10, buyMaxAmount)
-          )
-          DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel
-            ? i18next.t('shop.maxed')
-            : i18next.t('shop.plusForQuarks', {
-              x: format(
-                buyData.levelCanBuy - player.shopUpgrades[key],
-                0,
-                true
-              ),
-              y: format(buyData.cost)
-            })
-          break
-        default:
-          buyData = calculateSummationNonLinear(
-            player.shopUpgrades[key],
-            shopItem.price,
-            +player.worlds,
-            shopItem.priceIncrease / shopItem.price,
-            buyMaxAmount
-          )
-          DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel
-            ? i18next.t('shop.maxed')
-            : i18next.t('shop.plusForQuarks', {
-              x: format(
-                buyData.levelCanBuy - player.shopUpgrades[key],
-                0,
-                true
-              ),
-              y: format(buyData.cost)
-            })
-      }
-    }
   }
+
+  updateShopTab()
 
   DOMCacheGetOrSet('buySingularityQuarksAmount').textContent = player.goldenQuarks < 1000
     ? i18next.t('shop.singularityQuarkAmount', { amount: format(player.goldenQuarks) })

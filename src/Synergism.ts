@@ -248,6 +248,7 @@ import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 // eslint-disable-next-line no-unassigned-import
 import './saves/verify'
 import { getShopUpgradeEffects, updateShopLevels } from './Shop'
+import { generateShopTabHTML } from './ShopTab'
 import {
   blankGQLevelObject,
   calculateMaxSingularityLookahead,
@@ -1779,7 +1780,7 @@ const loadSynergy = () => {
     DOMCacheGetOrSet('buyRuneSpiritToggleValue').innerHTML = i18next.t(
       'runes.spirits.buyUpTo',
       {
-        amount: format(player.runeSpiritBuyAmount, 0, true)
+        amount: format(player.runeSpiritBuyAmount)
       }
     )
 
@@ -5121,6 +5122,7 @@ window.addEventListener('load', async () => {
   generateTalismansHTML()
   generateBlessingsHTML()
   generateSpiritsHTML()
+  generateShopTabHTML()
   generateEventHandlers()
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()

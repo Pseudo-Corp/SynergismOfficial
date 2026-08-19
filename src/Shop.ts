@@ -2268,68 +2268,32 @@ export const getShopCosts = (input: ShopUpgradeNames) => {
   }
 }
 
-export const createShopHTML = (input: ShopUpgradeNames) => {
-  const name = shopUpgrades[input].name()
-
+export const getShopTypeSymbolsHTML = (input: ShopUpgradeNames) => {
   let symbolHTML = ''
-  let bonusLevelHTML = ''
+  let typeCount = 0
 
   const bonusLevelMult = shopUpgrades[input].freeUpgradeMultiplier ?? 1
 
   // This is done in order for consistent formatting
   for (let i = ShopUpgradeGroups.Offering; i <= LAST_GROUP; i++) {
     if (shopUpgrades[input].upgradeTypes.includes(i)) {
+      if (typeCount % 4 === 0) {
+        symbolHTML += '<br>'
+      }
       const bonusLevels = shopUpgradeTypeInfo[i].bonusLevels()
-      let bonusMultText = ''
-      if (bonusLevelMult > 1) {
-        bonusMultText = ` x${bonusLevelMult}`
-      }
-      symbolHTML += `<span style="color: ${shopUpgradeTypeInfo[i].HTMLColor}"> [${
-        shopUpgradeTypeInfo[i].symbol
-      }${bonusMultText}]</span>`
+      let text = shopUpgradeTypeInfo[i].symbol
       if (bonusLevels > 0) {
-        bonusLevelHTML += `<span style="color: ${shopUpgradeTypeInfo[i].HTMLColor}"> [+${
-          shopUpgradeTypeInfo[i].bonusLevels() * bonusLevelMult
-        }]</span>`
+        text += ` +${bonusLevels * bonusLevelMult}`
       }
+      if (bonusLevelMult > 1) {
+        text += ` (x${bonusLevelMult})`
+      }
+      symbolHTML += `<span style="color: ${shopUpgradeTypeInfo[i].HTMLColor}"> [${text}]</span>`
+      typeCount++
     }
   }
-  const level = player.shopUpgrades[input]
-  const maxLevel = shopUpgrades[input].maxLevel
-  const levelHTMLColor = level >= maxLevel ? 'orchid' : 'white'
 
-  const levelHTML = i18next.t('shop.levelWithText', { x: format(level), y: format(maxLevel) })
-
-  const description = shopUpgrades[input].description()
-  const cost = getShopCosts(input)
-  const costHTML = player.shopUpgrades[input] >= shopUpgrades[input].maxLevel
-    ? ''
-    : `${i18next.t('shop.upgradeFor', { x: format(cost, 0, false) })}<br>`
-
-  const effectDescription = shopUpgrades[input].effectDescription()
-
-  const refundableHTML = shopUpgrades[input].refundable
-    ? `<span style="color: lightgreen">♚ ${
-      i18next.t('shop.refundable', { level: shopUpgrades[input].refundMinimumLevel })
-    }</span><br>`
-    : `<span style="color: crimson">⚠ ${i18next.t('shop.cannotRefund')}</span><br>`
-
-  let resetHTML = ''
-  if (player.highestSingularityCount > 0 || getRuneEffectiveLevel('antiquities') > 0) {
-    resetHTML = shopUpgrades[input].resetOnSingularity()
-      ? `<span style="color: crimson">⚠ ${
-        i18next.t('shop.resetOnSingularity', { x: shopUpgrades[input].refundMinimumLevel })
-      }</span><br>`
-      : `<span style="color: lightgreen">♔ ${i18next.t('shop.noResetOnSingularity')}</span><br>`
-  }
-
-  return `${name}${symbolHTML}<br>
-  <span style="color:${levelHTMLColor}">${levelHTML}</span>${bonusLevelHTML}<br>
-  ${costHTML}
-  ${description}<br>
-  ▶ ${effectDescription} <br><br>
-  ${refundableHTML}
-  ${resetHTML}`
+  return symbolHTML
 }
 
 export const shopDescriptions = (input: ShopUpgradeNames) => {
@@ -2346,11 +2310,15 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
   lol.innerHTML = shopUpgrades[input].effectDescription()
 }
 
+export const instantUnlocked = (key: ShopUpgradeNames) =>
+  (key === 'shopTalisman' && PCoinUpgradeEffects.INSTANT_UNLOCK_1 > 0)
+  || (key === 'infiniteAscent' && PCoinUpgradeEffects.INSTANT_UNLOCK_2 > 0)
+
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   const shopItem = shopUpgrades[input]
   const name = shopItem.name()
 
-  if (player.shopUpgrades[input] >= shopItem.maxLevel) {
+  if (player.shopUpgrades[input] >= shopItem.maxLevel || instantUnlocked(input)) {
     return player.shopConfirmationToggle
       ? Alert(
         `You can't purchase ${name} because you are already at the maximum ${
@@ -2578,7 +2546,7 @@ export const resetShopUpgrades = async () => {
 }
 
 export const resetShopUpgradesOnSingularity = () => {
-  for (const shopKey of Object.keys(shopUpgrades) as ShopUpgradeNames[]) {
+  for (const shopKey of shopUpgradeNames) {
     const item = shopUpgrades[shopKey]
     const reset = item.resetOnSingularity()
     const refundableLevel = item.refundMinimumLevel
@@ -2590,7 +2558,7 @@ export const resetShopUpgradesOnSingularity = () => {
 
 export const forceResetShopUpgrades = () => {
   let totalRefundAmt = 0
-  for (const shopKey of Object.keys(shopUpgrades) as ShopUpgradeNames[]) {
+  for (const shopKey of shopUpgradeNames) {
     const item = shopUpgrades[shopKey]
     const refundableLevel = item.refundMinimumLevel
     const isRefundable = item.refundable
