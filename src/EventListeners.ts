@@ -130,7 +130,7 @@ import {
   upgradeGQToString
 } from './singularity'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
-import { registerSpriteAlias } from './SpriteSheets'
+import { registerSpriteAlias, updateIconsFromSprites } from './SpriteSheets'
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
@@ -610,6 +610,7 @@ const registerMobileStatsIcons = () => {
   }
 
   registerSpriteAlias('overfluxPowderImage', 'kOrbPowderMult', 32)
+  updateIconsFromSprites(IconSets[player.iconSet][0])
 }
 
 const getMobileHeaderContentMaxHeight = (content: HTMLElement) => {
