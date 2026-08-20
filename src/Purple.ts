@@ -1250,7 +1250,7 @@ export const buyPurpleReactorUpgradeLevel = async (
       toPurchase = maxPurchasable
     } else if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy) || buy <= 0) {
       // nan + Infinity checks
-      return Alert(i18next.t('purpleReactor.notPositive'))
+      return Alert(i18next.t('purpleReactor.notPositiveInteger'))
     } else {
       toPurchase = Math.min(buy, maxPurchasable)
     }

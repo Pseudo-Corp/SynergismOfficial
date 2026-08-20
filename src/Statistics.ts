@@ -1491,7 +1491,6 @@ export const allQuarkStats: NumberStatLineCategory = {
     {
       i18n: 'HighestPurpleHoneyPower',
       stat: () => getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'quarkMultiplier'),
-      color: 'purple'
     }
   ]
 }
@@ -2049,7 +2048,6 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'HighestPurpleHoneyPower',
       stat: () => getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier'), // Highest Purple Honey Power
-      color: 'purple'
     }
   ]
 }
@@ -2178,7 +2176,6 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'HighestPurpleHoneyPower',
       stat: () => getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier'),
-      color: 'purple'
     }
   ]
 }
@@ -2525,7 +2522,6 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'HighestPurpleHoneyPower',
       stat: () => getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed'),
-      color: 'purple'
     }
   ]
 }
@@ -3001,7 +2997,6 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'HighestPurpleHoneyPower',
       stat: () => getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed'),
-      color: 'purple'
     }
   ]
 }
@@ -3567,7 +3562,6 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
       i18n: 'HighestPurpleHoneyPower',
       stat: () => getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent'),
       acc: 2,
-      color: 'purple'
     }
   ]
 }
@@ -3661,7 +3655,6 @@ export const rebornELOCreationSpeedMultStats: NumberStatLineCategory = {
     {
       i18n: 'HighestPurpleHoneyPower',
       stat: () => getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult'),
-      color: 'purple'
     }
   ]
 }
@@ -3759,6 +3752,13 @@ export const allPurpleReactantCapacityStats: NumberStatLineCategory = {
       i18n: 'Base',
       stat: () => 1_000_000_000
     },
+    // PseudoCoins
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.PURPLE_REACTOR_CAPACITY_BUFF,
+      color: 'gold',
+      displayCriterion: () => true
+    },
     // Purple Honey - Reactant Storage Expansion I
     {
       i18n: 'PurpleHoneyUpgrade1',
@@ -3790,6 +3790,13 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
     {
       i18n: 'Base',
       stat: () => 100
+    },
+    // PseudoCoin Upgrade
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.PURPLE_LUCK_BUFF,
+      color: 'gold',
+      displayCriterion: () => true
     },
     // Synergism Level Reward
     {
