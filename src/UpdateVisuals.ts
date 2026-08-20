@@ -92,10 +92,10 @@ import {
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
 import {
-  calculateHighestPurpleHoneyPower,
   calculatePurpleReactorAP,
   getPurpleReactorUpgradeEffects,
-  maxPurpleReactorAP
+  maxPurpleReactorAP,
+  purpleReactorUpgrades
 } from './Purple'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
@@ -182,7 +182,7 @@ const updateInnerHTMLIfChanged = (elementId: string, html: string) => {
 }
 
 const updatePurpleReactantSlider = (sliderId: string, outputId: string, percentage: number) => {
-  const normalizedPercentage = Math.min(100, Math.max(0, Math.round(percentage)))
+  const normalizedPercentage = Math.min(100, Math.round(percentage))
   const slider = DOMCacheGetOrSet(sliderId) as HTMLInputElement
   const percentageText = i18next.t('purpleReactor.reactantRoutingPercentage', {
     percentage: format(normalizedPercentage, 0, true)
@@ -1976,17 +1976,17 @@ export const visualUpdateAmbrosia = () => {
 
   const totalTimePerSecond = calculateAmbrosiaGenerationSpeed()
   const totalTimePerSecondRed = calculateRedAmbrosiaGenerationSpeed()
-  const ambrosiaReactantCapacity = Math.max(0, calculatePurpleReactantCapacity())
-  const redAmbrosiaReactantCapacity = Math.max(0, calculateRedAmbrosiaReactantCapacity())
+  const ambrosiaReactantCapacity = calculatePurpleReactantCapacity()
+  const redAmbrosiaReactantCapacity = calculateRedAmbrosiaReactantCapacity()
   const reactantHalfLife = calculatePurpleReactantHalfLife()
   const conversionFractionPerSecond = 1 - Math.pow(2, -1 / reactantHalfLife)
   const {
     ambrosiaBarPointsSpent: ambrosiaReactantDissolutionRate,
     redAmbrosiaBarPointsSpent: redAmbrosiaReactantDissolutionRate
   } = calculatePurpleReactantConversion(
-    Math.max(0, player.purpleReactor.storedAmbrosiaBarPoints),
+    player.purpleReactor.storedAmbrosiaBarPoints,
     Math.min(
-      Math.max(0, player.purpleReactor.storedRedAmbrosiaBarPoints),
+      player.purpleReactor.storedRedAmbrosiaBarPoints,
       redAmbrosiaReactantCapacity
     ),
     conversionFractionPerSecond
@@ -2157,8 +2157,8 @@ export const visualUpdatePurple = () => {
     return
   }
 
-  const ambrosiaReactantCapacity = Math.max(0, calculatePurpleReactantCapacity())
-  const redAmbrosiaReactantCapacity = Math.max(0, calculateRedAmbrosiaReactantCapacity())
+  const ambrosiaReactantCapacity = calculatePurpleReactantCapacity()
+  const redAmbrosiaReactantCapacity = calculateRedAmbrosiaReactantCapacity()
   const ambrosiaBarPoints = player.purpleReactor.storedAmbrosiaBarPoints
   const redAmbrosiaBarPoints = Math.min(
     player.purpleReactor.storedRedAmbrosiaBarPoints,
@@ -2220,13 +2220,13 @@ export const visualUpdatePurple = () => {
   const displayedAmbrosiaBarPoints = ambrosiaAtCapacity ? ambrosiaReactantCapacity : ambrosiaBarPoints
   const displayedRedAmbrosiaBarPoints = redAmbrosiaAtCapacity ? redAmbrosiaReactantCapacity : redAmbrosiaBarPoints
   const ambrosiaProgress = ambrosiaReactantCapacity > 0
-    ? Math.min(100, Math.max(0, 100 * displayedAmbrosiaBarPoints / ambrosiaReactantCapacity))
+    ? Math.min(100, 100 * displayedAmbrosiaBarPoints / ambrosiaReactantCapacity)
     : 0
   const redAmbrosiaProgress = redAmbrosiaReactantCapacity > 0
-    ? Math.min(100, Math.max(0, 100 * displayedRedAmbrosiaBarPoints / redAmbrosiaReactantCapacity))
+    ? Math.min(100, 100 * displayedRedAmbrosiaBarPoints / redAmbrosiaReactantCapacity)
     : 0
   const purpleHoneyProgressPercentage = conversionFactor > 0
-    ? Math.min(100, Math.max(0, 100 * purpleHoneyProgress / conversionFactor))
+    ? Math.min(100, 100 * purpleHoneyProgress / conversionFactor)
     : 0
   const purpleHoneyProgressText = i18next.t('purpleReactor.purpleHoneyProgress', {
     current: format(purpleHoneyProgress, 2, true),
@@ -2273,48 +2273,48 @@ export const visualUpdatePurple = () => {
   updateInnerHTMLIfChanged(
     'highestPurpleHoney',
     i18next.t('purpleReactor.highestPurpleHoney', {
-      amount: format(player.purpleReactor.highestPurpleHoney, 2, true)
+      amount: format(player.stats.highestPurpleHoney, 2, true)
     })
   )
   const highestPurpleHoneyModifierLines = [
     [
-      getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'unlocked')
+      purpleReactorUpgrades.highestHoneyQuarks.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyQuarks', {
-          amount: formatAsPercentIncrease(calculateHighestPurpleHoneyPower('quarkMultiplier'), 2)
+          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'quarkMultiplier'), 2)
         })
         : null,
-      getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'unlocked')
+      purpleReactorUpgrades.highestHoneyGlobalSpeed.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyGlobalSpeed', {
-          amount: formatAsPercentIncrease(calculateHighestPurpleHoneyPower('globalSpeedMultiplier'), 2)
+          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier'), 2)
         })
         : null,
-      getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'unlocked')
+      purpleReactorUpgrades.highestHoneyAscensionSpeed.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyAscensionSpeed', {
-          amount: formatAsPercentIncrease(calculateHighestPurpleHoneyPower('ascensionSpeedMultiplier'), 2)
+          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier'), 2)
         })
         : null
     ].filter((modifier): modifier is string => modifier !== null).join(' · '),
     [
-      getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'unlocked')
+      purpleReactorUpgrades.highestHoneyAmbrosia.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyAmbrosia', {
-          amount: formatAsPercentIncrease(calculateHighestPurpleHoneyPower('ambrosiaGenerationMultiplier'), 2)
+          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed'), 2)
         })
         : null,
-      getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'unlocked')
+      purpleReactorUpgrades.highestHoneyRedAmbrosia.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyRedAmbrosia', {
-          amount: formatAsPercentIncrease(calculateHighestPurpleHoneyPower('redAmbrosiaGenerationMultiplier'), 2)
+          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed'), 2)
         })
         : null
     ].filter((modifier): modifier is string => modifier !== null).join(' · '),
     [
-      getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'unlocked')
+      purpleReactorUpgrades.highestHoneyAntELO.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyAntELO', {
-          amount: format(100 * calculateHighestPurpleHoneyPower('additiveAntELOMultiplier'), 2, true)
+          amount: formatAsPercentIncrease(1 + getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent'), 3)
         })
         : null,
-      getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'unlocked')
+      purpleReactorUpgrades.highestHoneyRebornELOSpeed.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyRebornELOSpeed', {
-          amount: formatAsPercentIncrease(calculateHighestPurpleHoneyPower('rebornELOCreationSpeedMultiplier'), 2)
+          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult'), 2)
         })
         : null
     ].filter((modifier): modifier is string => modifier !== null).join(' · ')

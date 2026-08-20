@@ -1188,7 +1188,6 @@ export const player: Player = {
   purpleReactor: {
     purpleHoney: 0,
     lifetimePurpleHoney: 0,
-    highestPurpleHoney: 0,
     storedAmbrosiaBarPoints: 0,
     storedRedAmbrosiaBarPoints: 0,
     ambrosiaBarPointPercentage: 0,
@@ -1208,7 +1207,8 @@ export const player: Player = {
   seed: Array.from({ length: 4 }, () => Date.now()),
 
   stats: {
-    totalAddCodesUsed: 0
+    totalAddCodesUsed: 0,
+    highestPurpleHoney: 0,
   }
 }
 
