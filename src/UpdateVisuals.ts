@@ -1997,10 +1997,7 @@ export const visualUpdateAmbrosia = () => {
     redAmbrosiaBarPointsSpent: redAmbrosiaReactantDissolutionRate
   } = calculatePurpleReactantConversion(
     player.purpleReactor.storedAmbrosiaBarPoints,
-    Math.min(
-      player.purpleReactor.storedRedAmbrosiaBarPoints,
-      redAmbrosiaReactantCapacity
-    ),
+    player.purpleReactor.storedRedAmbrosiaBarPoints,
     conversionFractionPerSecond
   )
   const ambrosiaRouting = calculatePurpleReactantRouting(
@@ -2167,13 +2164,11 @@ export const visualUpdatePurple = () => {
     return
   }
 
+  const ambrosiaBarPoints = player.purpleReactor.storedAmbrosiaBarPoints
+  const redAmbrosiaBarPoints = player.purpleReactor.storedRedAmbrosiaBarPoints
+
   const ambrosiaReactantCapacity = calculatePurpleReactantCapacity()
   const redAmbrosiaReactantCapacity = calculateRedAmbrosiaReactantCapacity()
-  const ambrosiaBarPoints = player.purpleReactor.storedAmbrosiaBarPoints
-  const redAmbrosiaBarPoints = Math.min(
-    player.purpleReactor.storedRedAmbrosiaBarPoints,
-    redAmbrosiaReactantCapacity
-  )
 
   const conversionFactor = calculatePurpleHoneyConversionFactor()
   const purpleHoneyPerExtraction = calculatePurpleHoneyPerExtraction()
