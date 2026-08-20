@@ -461,6 +461,7 @@ export const calculatePurpleReactantRouting = (
 
 export const calculatePurpleHoneyPerExtraction = () => {
   return 1
+    + PCoinUpgradeEffects.PURPLE_HONEY_BUFF
     + getPurpleReactorUpgradeEffects('purpleEfficiency1', 'purpleEfficiency')
     + getPurpleReactorUpgradeEffects('purpleEfficiency2', 'purpleEfficiency')
     + getPurpleReactorUpgradeEffects('purpleEfficiency3', 'purpleEfficiency')

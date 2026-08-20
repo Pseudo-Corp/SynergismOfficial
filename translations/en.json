@@ -7395,6 +7395,10 @@
       "title": "Red Bar Points",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Base": "Default Per Second:",
+      "SynergismLevelReward": "Synergism Level Reward:",
+      "PatreonBonus": "Ambrosia - Shameless, Ambrosial Subscriber Advertisement:",
+      "RedAmbrosiaUpgrade": "Red Ambrosia - The Sands of Time",
+      "RedAmbrosiaUpgrade2": "Red Ambrosia - The Sands of Time II",
       "BlueberrySpeed": "Speed from Ambrosia (num:((0.5)) DR after num:((1000))):",
       "RedAmbrosia": "Red Ambrosia - Millennium-Aged Red Ambrosia:",
       "Exalt5": "EXALT - No Ambrosia Effects:",
@@ -7592,6 +7596,7 @@
     "purpleReactantCapacityStats": {
       "title": "Ambrosia Bar Point Capacity (Red: 1/1,000)",
       "Base": "Base Ambrosia Bar Point Capacity:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
       "PurpleHoneyUpgrade1": "Purple Honey - Reactant Storage Expansion I:",
       "PurpleHoneyUpgrade2": "Purple Honey - Reactant Storage Expansion II:",
       "PurpleHoneyUpgrade3": "Purple Honey - Reactant Storage Expansion III:",
@@ -7601,6 +7606,8 @@
     "purpleHoneyLuckStats": {
       "title": "Purple Honey Luck",
       "Base": "Base Purple Honey Luck:",
+      "SynergismLevelReward": "Synergism Level Reward:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
       "PurpleHoneyUpgrade1": "Purple Honey - Purple Honey Luck I",
       "PurpleHoneyUpgrade2": "Purple Honey - Purple Honey Luck II",
       "PurpleHoneyUpgrade3": "Purple Honey - Purple Honey Luck III",
@@ -8202,7 +8209,7 @@
       "RED_GENERATION_BUFF": "Red Bar Point gain is multiplied by <<gold | {{amount}}>>",
       "PURPLE_LUCK_BUFF": "Purple Luck is increased by <<gold | {{amount}}>>",
       "PURPLE_HONEY_BUFF": "Base Purple Honey per extraction is increased by <<gold | {{amount}}>>",
-      "PURPLE_REACTOR_CAPACITY_BUFF": "Chroma Encabulator Ambrosia Bar Point capacity is increased by <<gold | {{amount}}>> (1/1000 for Red Bar Point capacity)"
+      "PURPLE_REACTOR_CAPACITY_BUFF": "Chroma Encabulator Ambrosia Bar Point capacity is increased by <<gold | {{amount}}>> (1/1,000 for Red Bar Point capacity)"
     },
     "consumables": {
       "tipReceived": "{{offlineTime}} people tipped you in the last minute!",
