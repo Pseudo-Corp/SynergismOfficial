@@ -109,11 +109,6 @@ const processPurpleReactant = (
 }
 
 const convertPurpleReactants = (elapsedSeconds: number) => {
-  const ambrosiaBarPoints = player.purpleReactor.storedAmbrosiaBarPoints
-  const redAmbrosiaBarPoints = Math.min(
-    player.purpleReactor.storedRedAmbrosiaBarPoints,
-    calculateRedAmbrosiaReactantCapacity()
-  )
 
   const halfLife = calculatePurpleReactantHalfLife()
   const conversionFraction = 1 - Math.pow(2, -elapsedSeconds / halfLife)
@@ -121,14 +116,9 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
     ambrosiaBarPointsSpent,
     redAmbrosiaBarPointsSpent,
     purpleBarPointsGained
-  } = calculatePurpleReactantConversion(ambrosiaBarPoints, redAmbrosiaBarPoints, conversionFraction)
+  } = calculatePurpleReactantConversion(player.purpleReactor.storedAmbrosiaBarPoints, player.purpleReactor.storedRedAmbrosiaBarPoints, conversionFraction)
 
   const conversionFactor = calculatePurpleHoneyConversionFactor()
-
-  if (purpleBarPointsGained >= 1000) {
-    console.log(`Conv: ${conversionFactor}`)
-    console.log(`Gained: ${purpleBarPointsGained}`)
-  }
   const purpleHoneyProgress = player.purpleHoneyProgress + purpleBarPointsGained
   const completedExtractions = Math.floor(purpleHoneyProgress / conversionFactor)
   const { guaranteedMultiplier, bonusMultiplierChance } = calculatePurpleHoneyExtractionMultiplier(
@@ -147,8 +137,8 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
   const purpleHoneyGained = (completedExtractions * guaranteedMultiplier + bonusExtractions)
     * calculatePurpleHoneyPerExtraction()
 
-  player.purpleReactor.storedAmbrosiaBarPoints = ambrosiaBarPoints - ambrosiaBarPointsSpent
-  player.purpleReactor.storedRedAmbrosiaBarPoints = redAmbrosiaBarPoints - redAmbrosiaBarPointsSpent
+  player.purpleReactor.storedAmbrosiaBarPoints -= ambrosiaBarPointsSpent
+  player.purpleReactor.storedRedAmbrosiaBarPoints -= redAmbrosiaBarPointsSpent
   player.purpleHoneyProgress = purpleHoneyProgress % conversionFactor
   player.purpleReactor.purpleHoney += purpleHoneyGained
   player.purpleReactor.lifetimePurpleHoney += purpleHoneyGained

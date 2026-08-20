@@ -1135,11 +1135,6 @@ const getPurpleReactorUpgradeCostTNL = (upgradeKey: PurpleReactorNames): number 
   if (upgrade.level === upgrade.maxLevel) {
     return 0
   }
-  // since costFormula is a cumulative function, level 1 = cost of level 1
-  if (upgrade.level === 0) {
-    return upgrade.costFormula(1)
-  }
-  // cost(n) = cumulative(n) - cumulative(n-1)
   return upgrade.costFormula(upgrade.level + 1) - upgrade.costFormula(upgrade.level)
 }
 

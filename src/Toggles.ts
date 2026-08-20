@@ -552,7 +552,6 @@ export const toggleSingularityScreen = (indexStr: string) => {
     }
   }
 
-  console.log(`Singularity subtab ${index} selected. Current active subtab: ${getActiveSubTab()}`)
   if (index === 1) {
     updateSingularityElevator()
     updateSingularityElevatorVisibility()
