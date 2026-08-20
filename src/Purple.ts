@@ -133,7 +133,6 @@ type PurpleReactorUpgradeData = {
   [K in PurpleReactorNames]: PurpleReactorUpgradeDefinition<K, keyof PurpleReactorUpgradeRewards[K]>
 }
 
-
 export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   tutorial: {
     maxLevel: 20,
@@ -498,7 +497,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       const newRedCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander1', 'redCapacity')
       const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedRed', {
         oldValue: format(oldRedCap, 0),
-        newValue: format(newRedCap, 0),
+        newValue: format(newRedCap, 0)
       })
 
       return `${ambrosiaText}<br>${redText}`
@@ -542,7 +541,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       const newRedCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander2', 'redCapacity')
       const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedRed', {
         oldValue: format(oldRedCap, 0),
-        newValue: format(newRedCap, 0),
+        newValue: format(newRedCap, 0)
       })
 
       return `${ambrosiaText}<br>${redText}`
@@ -586,7 +585,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       const newRedCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander3', 'redCapacity')
       const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedRed', {
         oldValue: format(oldRedCap, 0),
-        newValue: format(newRedCap, 0),
+        newValue: format(newRedCap, 0)
       })
 
       return `${ambrosiaText}<br>${redText}`
@@ -630,7 +629,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       const newRedCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander4', 'redCapacity')
       const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedRed', {
         oldValue: format(oldRedCap, 0),
-        newValue: format(newRedCap, 0),
+        newValue: format(newRedCap, 0)
       })
 
       return `${ambrosiaText}<br>${redText}`
@@ -887,7 +886,10 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     },
     notMaxedEffectsDescription: () => {
       const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects(
+        'highestHoneyAscensionSpeed',
+        'ascensionSpeedMultiplier'
+      )
 
       const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAscensionSpeed.effectNotMaxed', {
         oldPercent: formatAsPercentIncrease(oldEffect, 2),
