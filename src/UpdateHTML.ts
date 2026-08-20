@@ -1211,34 +1211,23 @@ export const setCampaignSubtabShown = (shown: boolean) => {
 }
 
 export const showCorruptionStatsLoadouts = () => {
-  const campaignsButton = DOMCacheGetOrSet('corrCampaignsBtn')
-  const statsButton = DOMCacheGetOrSet('corrStatsBtn')
-  const corrLoadoutsButton = DOMCacheGetOrSet('corrLoadoutsBtn')
-
   DOMCacheGetOrSet('campaigns').style.display = campaignSubtabShown ? 'block' : 'none'
   DOMCacheGetOrSet('corruptionDisplays').style.display = campaignSubtabShown ? 'none' : ''
   DOMCacheGetOrSet('corruptionMain').classList.toggle('campaigns-active', campaignSubtabShown)
   DOMCacheGetOrSet('campaignsMain').style.display = campaignSubtabShown ? 'flex' : 'none'
-  campaignsButton.classList.toggle('subtab-active', campaignSubtabShown)
 
   if (campaignSubtabShown) {
     DOMCacheGetOrSet('corruptionStats').style.display = 'none'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
     DOMCacheGetOrSet('corrClickInfo').style.display = 'none'
-    statsButton.classList.remove('subtab-active')
-    corrLoadoutsButton.classList.remove('subtab-active')
   } else if (player.corruptions.showStats) {
     DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
     DOMCacheGetOrSet('corrClickInfo').style.display = 'block'
-    statsButton.classList.add('subtab-active')
-    corrLoadoutsButton.classList.remove('subtab-active')
   } else {
     DOMCacheGetOrSet('corruptionStats').style.display = 'none'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
     DOMCacheGetOrSet('corrClickInfo').style.display = 'none'
-    statsButton.classList.remove('subtab-active')
-    corrLoadoutsButton.classList.add('subtab-active')
   }
 }
 
