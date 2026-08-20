@@ -13,7 +13,7 @@ const GETHandlers = [
     await delay(Math.random() * (2000 - 100) + 100)
 
     return HttpResponse.json({
-      bonus: 105.3
+      bonus: 150
     })
   }),
   http.get('https://synergism.cc/stripe/coins', () => {

@@ -67,6 +67,7 @@ import {
   calculateRawPositiveSalvage,
   calculateRedAmbrosiaCubes,
   calculateRedAmbrosiaGenerationSpeed,
+  calculateRedAmbrosiaGenerationSpeedRaw,
   calculateRedAmbrosiaLuck,
   calculateRedAmbrosiaObtainium,
   calculateRedAmbrosiaOffering,
@@ -129,7 +130,7 @@ import {
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { getPurpleReactorUpgradeEffects } from './Purple'
+import { calculateHighestPurpleHoneyPower, getPurpleReactorUpgradeEffects } from './Purple'
 import { getGlobalBonus, getPersonalBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { getRuneBlessingEffect } from './RuneBlessings'
@@ -1209,6 +1210,10 @@ export const allOfferingStats: DecimalStatLineCategory = {
       stat: () => getShopUpgradeEffects('shopEXUltra', 'offeringMult') // EX Ultra Shop Upgrade
     },
     {
+      i18n: 'PurpleHoneyUpgrade',
+      stat: () => getPurpleReactorUpgradeEffects('offerings', 'offeringMultiplier') // Purple Honey Offering Upgrade
+    },
+    {
       i18n: 'Exalt6Penalty',
       stat: () =>
         (player.singularityChallenges.limitedTime.enabled)
@@ -1482,6 +1487,11 @@ export const allQuarkStats: NumberStatLineCategory = {
       i18n: 'AccountBonus',
       stat: () => 1 + getPersonalBonus() / 100,
       color: 'gold'
+    },
+    {
+      i18n: 'HighestPurpleHoneyPower',
+      stat: () => calculateHighestPurpleHoneyPower('quarkMultiplier'),
+      color: 'purple'
     }
   ]
 }
@@ -1782,6 +1792,10 @@ export const allObtainiumStats: DecimalStatLineCategory = {
       stat: () => getShopUpgradeEffects('shopEXUltra', 'obtainiumMult') // EX Ultra Obtainium Bonus
     },
     {
+      i18n: 'PurpleHoneyUpgrade',
+      stat: () => getPurpleReactorUpgradeEffects('obtainium', 'obtainiumMultiplier') // Purple Honey Obtainium Upgrade
+    },
+    {
       i18n: 'Challenge14',
       stat: () => (player.currentChallenge.ascension === 14) ? 0 : 1, // Challenge 14: No Obtainium
       color: 'red'
@@ -2031,6 +2045,11 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
       i18n: 'SpacialDilation',
       stat: () => player.corruptions.used.corruptionEffects('dilation'), // Spacial Dilation
       color: 'red'
+    },
+    {
+      i18n: 'HighestPurpleHoneyPower',
+      stat: () => calculateHighestPurpleHoneyPower('globalSpeedMultiplier'),
+      color: 'purple'
     }
   ]
 }
@@ -2155,6 +2174,11 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
       stat: () => 1 + calculateEventBuff(BuffType.AscensionSpeed), // Event
       color: 'lime',
       displayCriterion: () => true
+    },
+    {
+      i18n: 'HighestPurpleHoneyPower',
+      stat: () => calculateHighestPurpleHoneyPower('ascensionSpeedMultiplier'),
+      color: 'purple'
     }
   ]
 }
@@ -2497,6 +2521,11 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
       stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1, // Event Bonus
       color: 'lime',
       displayCriterion: () => true
+    },
+    {
+      i18n: 'HighestPurpleHoneyPower',
+      stat: () => calculateHighestPurpleHoneyPower('ambrosiaGenerationMultiplier'),
+      color: 'purple'
     }
   ]
 }
@@ -2942,15 +2971,24 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
       displayCriterion: () => true
     },
     {
-      i18n: 'BlueberrySpeed',
-      stat: () => {
-        const bSpeed = calculateAmbrosiaGenerationSpeed()
-        return bSpeed > 1000 ? Math.pow(bSpeed * 1000, 1 / 2) : bSpeed // Blueberry Speed
-      }
+      i18n: 'SynergismLevelReward',
+      stat: () => getLevelReward('redAmbrosiaGeneration') // Synergism Level Reward
+    },
+    {
+      i18n: 'PatreonBonus',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaPatreon', 'blueberryGeneration') // Patreon Bonus
     },
     {
       i18n: 'RedAmbrosia',
       stat: () => getRedAmbrosiaUpgradeEffects('redGenerationSpeed', 'redAmbrosiaGenerationSpeed')
+    },
+    {
+      i18n: 'RedAmbrosiaUpgrade',
+      stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed', 'blueberryGenerationSpeed') // Red Ambrosia Upgrade
+    },
+    {
+      i18n: 'RedAmbrosiaUpgrade2',
+      stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed2', 'blueberryGenerationSpeed') // Red Ambrosia Upgrade 2
     },
     {
       i18n: 'Exalt5',
@@ -2959,6 +2997,11 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'PurpleHoneyUpgrade1',
       stat: () => getPurpleReactorUpgradeEffects('tutorial', 'redAmbrosiaGeneration') // Purple Honey Upgrade 1
+    },
+    {
+      i18n: 'HighestPurpleHoneyPower',
+      stat: () => calculateHighestPurpleHoneyPower('redAmbrosiaGenerationMultiplier'),
+      color: 'purple'
     }
   ]
 }
@@ -3519,6 +3562,12 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
       i18n: 'SingularityPerk',
       stat: () => singularityELOBonusMult(),
       acc: 4
+    },
+    {
+      i18n: 'HighestPurpleHoneyPower',
+      stat: () => calculateHighestPurpleHoneyPower('additiveAntELOMultiplier'),
+      acc: 2,
+      color: 'purple'
     }
   ]
 }
@@ -3608,6 +3657,11 @@ export const rebornELOCreationSpeedMultStats: NumberStatLineCategory = {
       i18n: 'Exalt6',
       stat: () => (player.singularityChallenges.limitedTime.enabled && runes.antiquities.level === 0) ? 5 : 1,
       color: 'orchid'
+    },
+    {
+      i18n: 'HighestPurpleHoneyPower',
+      stat: () => calculateHighestPurpleHoneyPower('rebornELOCreationSpeedMultiplier'),
+      color: 'purple'
     }
   ]
 }
@@ -3737,6 +3791,11 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
       i18n: 'Base',
       stat: () => 100
     },
+    // Synergism Level Reward
+    {
+      i18n: 'SynergismLevelReward',
+      stat: () => getLevelReward('purpleHoneyLuck')
+    },
     // Purple Honey Luck I
     {
       i18n: 'PurpleHoneyUpgrade1',
@@ -3774,11 +3833,12 @@ export const allPurpleHoneyProgressRequirementStats: NumberStatLineCategory = {
     },
     {
       i18n: 'PurpleHoneyUpgrades',
-      stat: () => 1 
-      - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
-      - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
-      - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
-      - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
+      stat: () =>
+        1
+        - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
+        - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
+        - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
+        - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
     }
   ]
 }
@@ -3846,6 +3906,16 @@ const allMiscStats: NumberStatLineCategory = {
       i18n: 'QuarkTimerMax',
       stat: () => 90000 + 18000 * player.researches[195],
       color: 'yellow'
+    },
+    {
+      i18n: 'HighestPurpleHoney',
+      stat: () => player.purpleReactor.highestPurpleHoney,
+      color: 'var(--purple-text-color)C'
+    },
+    {
+      i18n: 'PurpleHoneySpentUpgrades',
+      stat: () => player.spentPurpleHoney.upgrades,
+      color: 'var(--purple-text-color)'
     }
   ]
 }
@@ -4519,7 +4589,15 @@ const loadRedAmbrosiaGenerationStats = () => {
     'redAmbrosiaGenerationStats',
     'statRAGM',
     'redAmbrosiaGenStat',
-    calculateRedAmbrosiaGenerationSpeed
+    calculateRedAmbrosiaGenerationSpeedRaw
+  )
+  loadStatistics(
+    ambrosiaGenerationSpeedModifiers,
+    'redAmbrosiaGenerationStats',
+    'statRAGM2',
+    'redAmbrosiaGenStat2',
+    calculateRedAmbrosiaGenerationSpeed,
+    'Total2'
   )
 }
 

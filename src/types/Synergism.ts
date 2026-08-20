@@ -553,10 +553,15 @@ export interface Player {
   purpleReactor: {
     purpleHoney: number
     lifetimePurpleHoney: number
+    highestPurpleHoney: number
     storedAmbrosiaBarPoints: number
     storedRedAmbrosiaBarPoints: number
     ambrosiaBarPointPercentage: number
     redAmbrosiaBarPointPercentage: number
+  }
+
+  spentPurpleHoney: {
+    upgrades: number
   }
 
   purpleReactorUpgrades: Record<PurpleReactorNames, number>

@@ -12,10 +12,12 @@ import {
   calculatePurpleHoneyLuck,
   calculatePurpleHoneyPerExtraction,
   calculatePurpleReactantCapacity,
+  calculatePurpleReactantConversion,
   calculatePurpleReactantHalfLife,
   calculatePurpleReactantRouting,
   calculateRedAmbrosiaGenerationSpeed,
   calculateRedAmbrosiaLuck,
+  calculateRedAmbrosiaReactantCapacity,
   calculateRequiredBlueberryTime,
   calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium
@@ -75,7 +77,9 @@ const processPurpleReactant = (
   elapsedSeconds: number,
   productionPerSecond: number
 ) => {
-  const capacity = calculatePurpleReactantCapacity()
+  const capacity = reactant === 'ambrosia'
+    ? calculatePurpleReactantCapacity()
+    : calculateRedAmbrosiaReactantCapacity()
   let stored = 0
   let percentage = 0
 
@@ -106,14 +110,26 @@ const processPurpleReactant = (
 
 const convertPurpleReactants = (elapsedSeconds: number) => {
   const ambrosiaBarPoints = player.purpleReactor.storedAmbrosiaBarPoints
-  const redAmbrosiaBarPoints = player.purpleReactor.storedRedAmbrosiaBarPoints
+  const redAmbrosiaBarPoints = Math.min(
+    player.purpleReactor.storedRedAmbrosiaBarPoints,
+    calculateRedAmbrosiaReactantCapacity()
+  )
 
   const halfLife = calculatePurpleReactantHalfLife()
   const conversionFraction = 1 - Math.pow(2, -elapsedSeconds / halfLife)
-  const barPointsToConvert = Math.min(ambrosiaBarPoints, redAmbrosiaBarPoints) * conversionFraction
+  const {
+    ambrosiaBarPointsSpent,
+    redAmbrosiaBarPointsSpent,
+    purpleBarPointsGained
+  } = calculatePurpleReactantConversion(ambrosiaBarPoints, redAmbrosiaBarPoints, conversionFraction)
 
   const conversionFactor = calculatePurpleHoneyConversionFactor()
-  const purpleHoneyProgress = player.purpleHoneyProgress + barPointsToConvert
+
+  if (purpleBarPointsGained >= 1000) {
+    console.log(`Conv: ${conversionFactor}`)
+    console.log(`Gained: ${purpleBarPointsGained}`)
+  }
+  const purpleHoneyProgress = player.purpleHoneyProgress + purpleBarPointsGained
   const completedExtractions = Math.floor(purpleHoneyProgress / conversionFactor)
   const { guaranteedMultiplier, bonusMultiplierChance } = calculatePurpleHoneyExtractionMultiplier(
     calculatePurpleHoneyLuck()
@@ -131,11 +147,15 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
   const purpleHoneyGained = (completedExtractions * guaranteedMultiplier + bonusExtractions)
     * calculatePurpleHoneyPerExtraction()
 
-  player.purpleReactor.storedAmbrosiaBarPoints = ambrosiaBarPoints - barPointsToConvert
-  player.purpleReactor.storedRedAmbrosiaBarPoints = redAmbrosiaBarPoints - barPointsToConvert
+  player.purpleReactor.storedAmbrosiaBarPoints = ambrosiaBarPoints - ambrosiaBarPointsSpent
+  player.purpleReactor.storedRedAmbrosiaBarPoints = redAmbrosiaBarPoints - redAmbrosiaBarPointsSpent
   player.purpleHoneyProgress = purpleHoneyProgress % conversionFactor
   player.purpleReactor.purpleHoney += purpleHoneyGained
   player.purpleReactor.lifetimePurpleHoney += purpleHoneyGained
+  player.purpleReactor.highestPurpleHoney = Math.max(
+    player.purpleReactor.highestPurpleHoney,
+    player.purpleReactor.purpleHoney
+  )
 
   if (purpleHoneyGained > 0) {
     animatePurpleHoneyGain(purpleHoneyGained)
@@ -383,7 +403,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
       }
 
       if (ambrosiaTimeToGrant > 0) {
-        addTimers('purpleHoney', ambrosiaTimeToGrant)
         addTimers('ambrosia', ambrosiaTimeToGrant)
       }
 
