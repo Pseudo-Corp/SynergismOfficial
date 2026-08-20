@@ -2797,6 +2797,7 @@ img.runeTypeElement:hover {
 
 .mobileTalismanBuyButtonsSection > * {
     flex: 1;
+    min-width: 0;
     text-align: center;
     margin: 2px;
 }
