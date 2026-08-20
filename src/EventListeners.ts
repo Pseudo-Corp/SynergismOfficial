@@ -176,7 +176,12 @@ import {
 } from './Toggles'
 import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
 import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframeOverlay, Prompt } from './UpdateHTML'
-import { cycleCorruptionScoreTarget, selectCorruptionScoreTarget, shopMouseover, visualUpdatePurple } from './UpdateVisuals'
+import {
+  cycleCorruptionScoreTarget,
+  selectCorruptionScoreTarget,
+  shopMouseover,
+  visualUpdatePurple
+} from './UpdateVisuals'
 import {
   buyAllUpgrades,
   buyConstantUpgrades,
