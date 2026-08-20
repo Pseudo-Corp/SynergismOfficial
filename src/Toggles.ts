@@ -354,11 +354,13 @@ export const toggleAutoResearch = () => {
   } else {
     player.autoResearchToggle = true
     el.textContent = i18next.t('researches.automaticOn')
+    player.autoResearch ||= 1
   }
 
   if (player.autoResearchToggle && roombaResearchEnabled() && player.autoResearchMode === 'cheapest') {
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
+  setResearchRoombaHighlight(player.autoResearchToggle ? player.autoResearch : 0)
 }
 
 export const toggleAutoResearchMode = () => {
@@ -375,6 +377,7 @@ export const toggleAutoResearchMode = () => {
   if (player.autoResearchToggle && roombaResearchEnabled() && player.autoResearchMode === 'cheapest') {
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
+  setResearchRoombaHighlight(player.autoResearchToggle ? player.autoResearch : 0)
 }
 
 export const toggleAutoSacrifice = (index: number) => {

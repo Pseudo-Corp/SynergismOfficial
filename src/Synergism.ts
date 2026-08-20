@@ -91,7 +91,6 @@ import {
   researchOrderByCost,
   roombaResearchEnabled,
   setResearchRoombaHighlight,
-  syncResearchRoombaHighlight,
   updateResearchAuto,
   updateResearchBG
 } from './Research'
@@ -1990,6 +1989,8 @@ const loadSynergy = () => {
       && player.autoResearchMode === 'cheapest'
     ) {
       player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
+    } else if (player.autoResearchToggle) {
+      player.autoResearch ||= 1
     }
 
     player.autoResearch = Math.min(200, player.autoResearch)
@@ -4530,7 +4531,6 @@ const tack = (dt: number) => {
       && roombaResearchEnabled()
       && player.autoResearchMode === 'cheapest'
     ) {
-      const previousRoombaResearch = player.autoResearch || 1
       let counter = 0
       const maxCount = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
       while (counter < maxCount) {
@@ -4561,7 +4561,7 @@ const tack = (dt: number) => {
         }
         counter++
       }
-      syncResearchRoombaHighlight(previousRoombaResearch)
+      setResearchRoombaHighlight(player.autoResearch)
     }
   }
 

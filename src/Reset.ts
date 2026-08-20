@@ -1186,7 +1186,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoAscend = player.autoAscend
   hold.autoAscendMode = player.autoAscendMode
   hold.autoAscendThreshold = player.autoAscendThreshold
-  hold.autoResearch = 0
+  hold.autoResearch = player.autoResearchToggle ? 1 : 0
   hold.autoTesseracts = player.autoTesseracts
   hold.tesseractAutoBuyerToggle = player.tesseractAutoBuyerToggle
   hold.tesseractAutoBuyerAmount = player.tesseractAutoBuyerAmount
