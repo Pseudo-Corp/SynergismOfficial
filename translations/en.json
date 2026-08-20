@@ -7782,7 +7782,8 @@
     "forms": {
       "register": "Register",
       "login": "Login",
-      "sendResetPasswordEmail": "Send Reset Password Email"
+      "sendResetPasswordEmail": "Send Reset Password Email",
+      "requestFailed": "Could not submit the account form: {{error}}"
     },
     "bonuses": {
       "transcendedBaller": "Transcended Baller <<gold|(or higher)>>",
@@ -7845,10 +7846,6 @@
       "productUnavailable": "This product isn't available right now. Please try again later.",
       "orderFailed": "Could not start the purchase: {{error}}",
       "accountUnavailable": "Your account could not be verified. Please try again.",
-      "signInRequiredTitle": "Account Required",
-      "signInRequiredBody": "Sign in or create an account to continue with this purchase. After you finish, the purchase will resume automatically.",
-      "createAccount": "Create Account",
-      "login": "Login",
       "verifyFailed": "Could not verify your purchase: {{error}}",
       "success": "Purchase successful! Your PseudoCoins have been credited.",
       "subscriptionSuccess": "Subscription successful! Your perks have been applied."
@@ -7856,6 +7853,12 @@
   },
   "pseudoCoins": {
     "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",
+    "purchaseAuth": {
+      "signInRequiredTitle": "Account Required",
+      "signInRequiredBody": "Sign in or create an account to continue with this purchase. After you finish, the purchase will resume automatically.",
+      "createAccount": "Create Account",
+      "login": "Login"
+    },
     "balances": {
       "pseudoCoins": "PseudoCoins:",
       "lotus": "Lotus:",

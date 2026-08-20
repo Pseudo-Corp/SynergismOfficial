@@ -6575,7 +6575,7 @@ header #obtainiumDisplay { color: pink; }
     display: none;
 }
 
-/* The mobile purchase modal hosts the real #register/#login form node inline. */
+/* The purchase auth modal hosts the real #register/#login form node inline. */
 .purchaseAuthModal > div:is(#register, #login) {
     flex-direction: column;
     border: 1px solid gold;
