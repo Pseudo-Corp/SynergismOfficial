@@ -35,7 +35,7 @@ const choiceModalHTML = () => {
   `
 }
 
-export const finishPurchaseAuthentication = (authenticated: boolean) => {
+export const finishPurchaseAuthentication = (authenticated: boolean, closeModal = true) => {
   const request = activePurchaseAuthentication
   if (request === null) return
 
@@ -49,7 +49,9 @@ export const finishPurchaseAuthentication = (authenticated: boolean) => {
     request.restoreForm?.()
   }
 
-  CloseModal()
+  if (closeModal) {
+    CloseModal()
+  }
   request.resolve(authenticated)
 }
 
@@ -138,11 +140,12 @@ export const showPurchaseAuthModal = (): Promise<boolean> => {
         } else if (action === 'back') {
           showChoice()
         } else if (action === 'cancel') {
-          finishPurchaseAuthentication(false)
+          CloseModal()
         }
       },
-      backdropClick: () => finishPurchaseAuthentication(false),
-      centered: true
+      backdropClick: CloseModal,
+      centered: true,
+      onClose: () => finishPurchaseAuthentication(false, false)
     }
   )
 

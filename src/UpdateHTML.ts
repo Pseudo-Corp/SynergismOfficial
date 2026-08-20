@@ -1684,10 +1684,12 @@ interface ModalOptions {
   buttonClick?: ModalButtonClickCallback
   backdropClick?: () => void
   centered?: boolean
+  onClose?: () => void
 }
 
 let id: number | null = null
 let modalEventController: AbortController | null = null
+let modalCloseHandler: { modalId: number; callback: () => void } | null = null
 
 export const MEDIUM_MODAL_UPDATE_TICK = 250
 const VERY_FAST_MODAL_UPDATE_TICK = 20
@@ -1803,6 +1805,10 @@ export const Modal = (
     ? { targetElement: targetElementOrOptions }
     : targetElementOrOptions ?? {}
 
+  if (modalCloseHandler !== null) {
+    CloseModal()
+  }
+
   modalEventController?.abort()
   modalEventController = new AbortController()
   const { signal } = modalEventController
@@ -1828,6 +1834,9 @@ export const Modal = (
   }
 
   const modalId = id = Math.random()
+  modalCloseHandler = modalOptions.onClose
+    ? { modalId, callback: modalOptions.onClose }
+    : null
   const interval = setInterval(() => {
     if (id !== modalId) {
       clearInterval(interval)
@@ -1845,6 +1854,8 @@ export const Modal = (
   modal.style.visibility = 'hidden'
   modal.style.display = 'block'
   requestAnimationFrame(() => {
+    if (id !== modalId) return
+
     const modalRect = modalContent.getBoundingClientRect()
     const viewportWidth = window.innerWidth
     const viewportHeight = window.innerHeight
@@ -1911,10 +1922,22 @@ export const Modal = (
 export const CloseModal = () => {
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
+  const modalId = id
+  const closeHandler = modalCloseHandler?.modalId === modalId
+    ? modalCloseHandler.callback
+    : null
 
   id = null
+  modalCloseHandler = null
   modalEventController?.abort()
   modalEventController = null
+
+  try {
+    closeHandler?.()
+  } catch (error) {
+    console.error('Failed to run modal close handler', error)
+  }
+
   modal.classList.remove('modalBottomSheet')
   modalContent.innerHTML = ''
   modal.style.display = 'none'
