@@ -8039,22 +8039,23 @@ html[data-mobile="false"] .pseudoCoinButton {
 
 #upgradeGrid {
     display: grid;
-    grid-template-columns: repeat(6, 15%);
-    grid-template-rows: repeat(3, 15%);
-    column-gap: 10px;
-    row-gap: 64px;
+    grid-template-columns: repeat(6, 64px);
+    grid-auto-rows: 64px;
+    justify-content: center;
+    column-gap: 16px;
+    row-gap: 16px;
     margin: 0;
-    width: 38%;
+    width: 100%;
     padding-top: 15px;
-    max-height: 256px;
 }
 
 #upgradeGrid > div {
+    box-sizing: border-box;
     position: relative;
     height: 64px;
     width: 64px;
+    border: 2px solid var(--darkgold-color);
     background: #222;
-    place-self: center;
 }
 
 #upgradeGrid > div > p {
@@ -9503,10 +9504,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #upgradeGrid {
-        grid-template-rows: repeat(3, 33%);
-        row-gap: 5px;
-        width: unset;
-        max-height: unset;
+        row-gap: 12px;
         padding-bottom: 15px;
     }
 
@@ -10003,18 +10001,14 @@ html[data-mobile="true"] .hideOnMobile {
     #upgradeGrid {
         width: 100%;
         grid-template-columns: repeat(5, 15%);
-        grid-template-rows: unset;
         justify-content: center;
         column-gap: 4px;
         row-gap: 4px;
-        max-height: none;
-        height: auto;
         padding: 0;
     }
 
     #upgradeGrid > div {
-        place-self: unset;
-        margin: unset !important;
+        justify-self: center;
     }
 
     #upgradeInfo {

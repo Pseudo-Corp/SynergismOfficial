@@ -8174,7 +8174,10 @@
       "BASE_OFFERING_BUFF": "Abundant Harvests",
       "BASE_OBTAINIUM_BUFF": "Super Literate Scientists",
       "RED_LUCK_BUFF": "Golden Fuzzy Dice",
-      "RED_GENERATION_BUFF": "Century-Aged Red Ambrosia"
+      "RED_GENERATION_BUFF": "Century-Aged Red Ambrosia",
+      "PURPLE_LUCK_BUFF": "The Purple Platonic Star",
+      "PURPLE_HONEY_BUFF": "Golden Extractor Vaseline",
+      "PURPLE_REACTOR_CAPACITY_BUFF": "Golden-Purple Reactor Bars"
     },
     "upgradeEffects": {
       "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
@@ -8192,7 +8195,10 @@
       "BASE_OFFERING_BUFF": "Base Offering Gain is increased by <<gold | {{amount}}>>",
       "BASE_OBTAINIUM_BUFF": "Base Obtainium Gain is increased by <<gold | {{amount}}>>",
       "RED_LUCK_BUFF": "Red Luck is increased by <<gold | {{amount}}>>",
-      "RED_GENERATION_BUFF": "Red Bar Point gain is multiplied by <<gold | {{amount}}>>"
+      "RED_GENERATION_BUFF": "Red Bar Point gain is multiplied by <<gold | {{amount}}>>",
+      "PURPLE_LUCK_BUFF": "Purple Luck is increased by <<gold | {{amount}}>>",
+      "PURPLE_HONEY_BUFF": "Base Purple Honey per extraction is increased by <<gold | {{amount}}>>",
+      "PURPLE_REACTOR_CAPACITY_BUFF": "Chroma Encabulator Ambrosia Bar Point capacity is increased by <<gold | {{amount}}>> (1/1000 for Red Bar Point capacity)"
     },
     "consumables": {
       "tipReceived": "{{offlineTime}} people tipped you in the last minute!",
