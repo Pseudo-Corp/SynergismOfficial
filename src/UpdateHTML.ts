@@ -1682,9 +1682,12 @@ type ModalButtonClickCallback = (button: HTMLButtonElement, event: MouseEvent) =
 interface ModalOptions {
   targetElement?: HTMLElement
   buttonClick?: ModalButtonClickCallback
+  backdropClick?: () => void
+  centered?: boolean
 }
 
 let id: number | null = null
+let modalEventController: AbortController | null = null
 
 export const MEDIUM_MODAL_UPDATE_TICK = 250
 const VERY_FAST_MODAL_UPDATE_TICK = 20
@@ -1800,25 +1803,29 @@ export const Modal = (
     ? { targetElement: targetElementOrOptions }
     : targetElementOrOptions ?? {}
 
-  /* eslint-disable unicorn/prefer-add-event-listener */
-  modalContent.onclick = modalOptions.buttonClick
-    ? (event) => {
+  modalEventController?.abort()
+  modalEventController = new AbortController()
+  const { signal } = modalEventController
+
+  if (modalOptions.buttonClick) {
+    modalContent.addEventListener('click', (event) => {
       const button = event.target instanceof Element
         ? event.target.closest('button')
         : null
       if (button && modalContent.contains(button)) {
         modalOptions.buttonClick?.(button, event)
       }
-    }
-    : null
-  modal.onclick = isMobile
-    ? (event) => {
+    }, { signal })
+  }
+
+  const backdropClick = modalOptions.backdropClick ?? (isMobile ? CloseModal : undefined)
+  if (backdropClick) {
+    modal.addEventListener('click', (event) => {
       if (event.target === modal) {
-        CloseModal()
+        backdropClick()
       }
-    }
-    : null
-  /* eslint-enable unicorn/prefer-add-event-listener */
+    }, { signal })
+  }
 
   const modalId = id = Math.random()
   const interval = setInterval(() => {
@@ -1862,9 +1869,20 @@ export const Modal = (
     if (isMobile) {
       modal.style.removeProperty('left')
       modal.style.removeProperty('top')
+      modal.style.removeProperty('transform')
       modal.style.visibility = 'visible'
       return
     }
+
+    if (modalOptions.centered) {
+      modal.style.left = '50%'
+      modal.style.top = '50%'
+      modal.style.transform = 'translate(-50%, -50%)'
+      modal.style.visibility = 'visible'
+      return
+    }
+
+    modal.style.removeProperty('transform')
 
     // Base positioning
     let modalX = baseX + 20
@@ -1895,12 +1913,10 @@ export const CloseModal = () => {
   const modalContent = DOMCacheGetOrSet('modalContent')
 
   id = null
+  modalEventController?.abort()
+  modalEventController = null
   modal.classList.remove('modalBottomSheet')
   modalContent.innerHTML = ''
-  /* eslint-disable unicorn/prefer-add-event-listener */
-  modalContent.onclick = null
-  modal.onclick = null
-  /* eslint-enable unicorn/prefer-add-event-listener */
   modal.style.display = 'none'
 }
 

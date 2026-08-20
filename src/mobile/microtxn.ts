@@ -167,7 +167,20 @@ export async function orderProduct (lookupKey: string): Promise<void> {
   const applicationUsername = await getStoreUuid()
 
   if (applicationUsername === null) {
-    showMobilePurchaseAuthModal(lookupKey)
+    const { handleLogin, isLoggedIn } = await import('../Login')
+
+    if (isLoggedIn()) {
+      await handleLogin()
+    }
+
+    if (isLoggedIn()) {
+      Notification(i18next.t('mobile.purchases.orderFailed', {
+        error: i18next.t('mobile.purchases.accountUnavailable')
+      }))
+      return
+    }
+
+    await showMobilePurchaseAuthModal(lookupKey)
     return
   }
 

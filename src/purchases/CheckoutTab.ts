@@ -13,6 +13,7 @@ import {
   getQuantity,
   removeFromCart
 } from './CartUtil'
+import { requirePurchaseAuthentication } from './PurchaseAuth'
 import { initializePayPal_Subscription } from './SubscriptionsSubtab'
 import { updatePseudoCoins } from './UpgradesSubtab'
 
@@ -67,6 +68,11 @@ const initializeCheckoutTab = memoize(() => {
     function reset () {
       checkoutStripe?.removeAttribute('disabled')
       checkoutXsolla?.removeAttribute('disabled')
+    }
+
+    if (!await requirePurchaseAuthentication()) {
+      reset()
+      return
     }
 
     let url: string
@@ -254,6 +260,17 @@ async function initializePayPal_OneTime (selector: string | HTMLElement) {
       layout: 'vertical',
       color: 'gold',
       label: 'paypal'
+    },
+
+    async onClick (_data, actions) {
+      if (!radioTOSAgree.checked) {
+        tosSection.classList.add('rainbow-border-highlight')
+        Notification(i18next.t('tabs.pseudocoins.agreeTOS'))
+        return actions.reject()
+      }
+
+      const authenticated = await requirePurchaseAuthentication()
+      return authenticated ? actions.resolve() : actions.reject()
     },
 
     async createOrder () {

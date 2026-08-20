@@ -627,6 +627,9 @@ export async function handleLogin () {
     handleWebSocket()
     handleCloudSaves()
 
+    const { finishPurchaseAuthentication } = await import('./purchases/PurchaseAuth')
+    finishPurchaseAuthentication(true)
+
     if (PLATFORM === 'mobile') {
       import('./mobile/microtxn')
         .then(({ resumePendingMobilePurchase }) => resumePendingMobilePurchase())
@@ -975,9 +978,52 @@ const bindBrowserAuthFormHandlers = () => {
     if (boundBrowserAuthForms.has(form)) continue
     boundBrowserAuthForms.add(form)
 
-    form.addEventListener('submit', (event) => {
-      if (!startAuthFormSubmission(form)) {
-        event.preventDefault()
+    form.addEventListener('submit', async (event) => {
+      const isPurchaseAuthentication = form.closest('.purchaseAuthModal') !== null
+
+      if (!isPurchaseAuthentication) {
+        if (!startAuthFormSubmission(form)) {
+          event.preventDefault()
+        }
+        return
+      }
+
+      event.preventDefault()
+      if (!startAuthFormSubmission(form)) return
+
+      const captcha = form.querySelector<HTMLElement>('.turnstile')
+      const resetCaptcha = () => {
+        if (captcha && typeof turnstile !== 'undefined') {
+          turnstile.reset(captcha)
+        }
+      }
+
+      try {
+        const body = new URLSearchParams()
+        for (const [key, value] of new FormData(form)) {
+          body.set(key, `${value}`)
+        }
+
+        const response = await fetch(form.action, {
+          method: form.method.toUpperCase(),
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body.toString(),
+          credentials: 'include'
+        })
+
+        if (response.redirected || response.ok) {
+          await handleLogin()
+          if (!loggedIn) resetCaptcha()
+        } else {
+          resetCaptcha()
+          await displayHTMLError(response)
+        }
+      } catch (error) {
+        resetCaptcha()
+        console.error('Failed to submit the account form', error)
+        await Alert(i18next.t('account.forms.requestFailed', { error: `${error}` }))
+      } finally {
+        finishAuthFormSubmission(form)
       }
     })
   }

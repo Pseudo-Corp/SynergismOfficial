@@ -7,6 +7,7 @@ import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { assert, memoize } from '../Utility'
 import { type SubscriptionProduct, subscriptionProducts } from './CartTab'
 import { addToCart, getQuantity } from './CartUtil'
+import { requirePurchaseAuthentication } from './PurchaseAuth'
 
 const subscriptionsContainer = document.querySelector<HTMLElement>('#pseudoCoins > #subscriptionsContainer')!
 const subscriptionSectionHolder = subscriptionsContainer.querySelector<HTMLElement>('#sub-section-holder')!
@@ -516,6 +517,11 @@ export const initializePayPal_Subscription = async () => {
         layout: 'vertical',
         color: 'gold',
         label: 'paypal'
+      },
+
+      async onClick (_data, actions) {
+        const authenticated = await requirePurchaseAuthentication()
+        return authenticated ? actions.resolve() : actions.reject()
       },
 
       async createSubscription () {

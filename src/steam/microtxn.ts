@@ -1,9 +1,15 @@
+import { requirePurchaseAuthentication } from '../purchases/PurchaseAuth'
 import { Alert, Notification } from '../UpdateHTML'
+import { createDeferredPromise } from '../Utility'
 import type { MicroTxnAuthorizationResponse } from './steam'
 import { getSteamId, onMicroTxnAuthorizationResponse } from './steam'
 
 // https://partner.steamgames.com/doc/features/microtransactions/implementation#5
 export async function submitSteamMicroTxn (fd: FormData): Promise<boolean> {
+  if (!await requirePurchaseAuthentication()) {
+    return false
+  }
+
   const steamId = await getSteamId()
 
   if (!steamId) {
@@ -25,7 +31,7 @@ export async function submitSteamMicroTxn (fd: FormData): Promise<boolean> {
 
   const { orderId } = await initTxnResponse.json() as { orderId: string; transId: string }
 
-  const p = Promise.withResolvers<MicroTxnAuthorizationResponse>()
+  const p = createDeferredPromise<MicroTxnAuthorizationResponse>()
   onMicroTxnAuthorizationResponse((txnResponse) => p.resolve(txnResponse))
 
   const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 15 * 60 * 1000))
