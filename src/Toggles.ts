@@ -16,15 +16,7 @@ import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
-import {
-  Alert,
-  Confirm,
-  createFitties,
-  Prompt,
-  setCampaignSubtabShown,
-  showCorruptionStatsLoadouts,
-  updateChallengeDisplay
-} from './UpdateHTML'
+import { Alert, Confirm, createFitties, Prompt, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
@@ -952,16 +944,6 @@ export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number) =>
   player.corruptions.next.incrementDecrementLevel(corr, value)
   corruptionDisplay(corr)
   corruptionLoadoutTableUpdate(true, 0)
-}
-
-export const toggleCorruptionLoadoutsStats = (subTabID: string) => {
-  if (subTabID === 'campaigns') {
-    setCampaignSubtabShown(true)
-  } else {
-    setCampaignSubtabShown(false)
-    player.corruptions.showStats = subTabID === 'true'
-  }
-  showCorruptionStatsLoadouts()
 }
 
 export const toggleAscStatPerSecond = (id: number) => {

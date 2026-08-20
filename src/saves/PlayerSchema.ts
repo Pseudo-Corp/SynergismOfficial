@@ -279,8 +279,7 @@ const playerCorruptionSchema = z.object({
   }),
   saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {
     return new CorruptionSaves(value)
-  }),
-  showStats: z.boolean()
+  })
 }).default(() => JSON.parse(JSON.stringify(blankSave.corruptions)))
 
 const campaignSchema = z.object({
@@ -845,7 +844,6 @@ export const playerSchema = z.object({
   corruptionLoadouts: z.record(integerStringSchema, z.number().array()).optional(),
 
   corruptionLoadoutNames: z.string().array().optional(),
-  corruptionShowStats: z.boolean().optional(),
 
   constantUpgrades: arrayStartingWithNull(z.number()).default((): [
     null,

@@ -12,12 +12,11 @@ import {
   toggleAntsSubtab,
   toggleBuildingScreen,
   toggleChallengesScreen,
-  toggleCorruptionLoadoutsStats,
   toggleCubeSubTab,
   toggleRuneScreen,
   toggleSingularityScreen
 } from './Toggles'
-import { changeTabColor, CloseModal, createFitties, hideStuff, revealStuff } from './UpdateHTML'
+import { CloseModal, createFitties, hideStuff, revealStuff, showCorruptionStatsLoadouts } from './UpdateHTML'
 import { assert, isMobile, limitRange, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -45,7 +44,7 @@ export enum Tabs {
 type SubTabSwitchOptions = { step: number; page?: undefined } | { page: number; step?: undefined }
 
 interface SubTab {
-  tabSwitcher?: () => (id: string) => unknown
+  tabSwitcher?: (id: string) => void
   subtabIndex: number
   subTabList: {
     subTabID: string
@@ -57,10 +56,6 @@ interface SubTab {
 const tabScrollPositions = new Map<Tabs, Map<number, number>>()
 
 const getMainElement = () => document.querySelector<HTMLElement>('main')
-
-const scrollMainToTop = () => {
-  getMainElement()?.scrollTo({ top: 0, left: 0 })
-}
 
 const saveTabScrollPosition = (tab: Tabs, subtab: number) => {
   if (!isMobile) {
@@ -76,13 +71,13 @@ const restoreTabScrollPosition = (tab: Tabs, subtab: number) => {
   if (isMobile) {
     getMainElement()?.scrollTo({ top: tabScrollPositions.get(tab)?.get(subtab) ?? 0, left: 0 })
   } else {
-    scrollMainToTop()
+    getMainElement()?.scrollTo({ top: 0, left: 0 })
   }
 }
 
 const subtabInfo: Record<Tabs, SubTab> = {
   [Tabs.Settings]: {
-    tabSwitcher: () => setActiveSettingScreen,
+    tabSwitcher: setActiveSettingScreen,
     subtabIndex: 0,
     subTabList: [
       { subTabID: 'settingsubtab', unlocked: () => true, buttonID: 'switchSettingSubTab1' },
@@ -118,7 +113,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subtabIndex: 0
   },
   [Tabs.Buildings]: {
-    tabSwitcher: () => toggleBuildingScreen,
+    tabSwitcher: toggleBuildingScreen,
     subtabIndex: 0,
     subTabList: [
       { subTabID: 'coin', unlocked: () => true, buttonID: 'switchToCoinBuilding' },
@@ -149,7 +144,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subtabIndex: 0
   },
   [Tabs.Achievements]: {
-    tabSwitcher: () => toggleAchievementScreen,
+    tabSwitcher: toggleAchievementScreen,
     subtabIndex: 0,
     subTabList: [
       {
@@ -165,7 +160,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Runes]: {
-    tabSwitcher: () => toggleRuneScreen,
+    tabSwitcher: toggleRuneScreen,
     subtabIndex: 0,
     subTabList: [
       {
@@ -186,7 +181,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Challenges]: {
-    tabSwitcher: () => toggleChallengesScreen,
+    tabSwitcher: toggleChallengesScreen,
     subtabIndex: 0,
     subTabList: [
       { subTabID: '1', unlocked: () => true, buttonID: 'toggleChallengesSubTab1' },
@@ -202,7 +197,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subtabIndex: 0
   },
   [Tabs.AntHill]: {
-    tabSwitcher: () => toggleAntsSubtab,
+    tabSwitcher: toggleAntsSubtab,
     subtabIndex: 0,
     subTabList: [
       {
@@ -223,7 +218,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.WowCubes]: {
-    tabSwitcher: () => toggleCubeSubTab,
+    tabSwitcher: toggleCubeSubTab,
     subtabIndex: 0,
     subTabList: [
       {
@@ -264,7 +259,8 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Corruption]: {
-    tabSwitcher: () => toggleCorruptionLoadoutsStats,
+    // Circular import... yay
+    tabSwitcher: (subTabID) => showCorruptionStatsLoadouts(subTabID),
     subtabIndex: 0,
     subTabList: [
       {
@@ -285,7 +281,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Singularity]: {
-    tabSwitcher: () => toggleSingularityScreen,
+    tabSwitcher: toggleSingularityScreen,
     subtabIndex: 0,
     subTabList: [
       {
@@ -320,7 +316,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subtabIndex: 0
   },
   [Tabs.Purchase]: {
-    tabSwitcher: () => initializeCart,
+    tabSwitcher: initializeCart,
     subtabIndex: 0,
     subTabList: [
       {
@@ -660,7 +656,6 @@ class TabRow extends HTMLDivElement {
       const nextTab = this.#getNextUnlockedTab(this.#currentTab)
       if (nextTab !== null) {
         changeTab(nextTab.getType())
-        changeTabColor()
       }
     }
 
@@ -765,11 +760,15 @@ interface kSubTabOptionsBag {
   i18n: string
   mobileIcon: string
   borderColor?: string
+  activeColor: string
+  activeTextColor?: string
 }
 
 class $Tab extends HTMLButtonElement {
   #unlocked = () => true
   #type!: Tabs
+  #activeColor: string
+  #activeTextColor?: string
   #removeable = false
   #moveable = false
   #hidden = false
@@ -777,6 +776,8 @@ class $Tab extends HTMLButtonElement {
   constructor (options: kSubTabOptionsBag) {
     super()
 
+    this.#activeColor = options.activeColor
+    this.#activeTextColor = options.activeTextColor
     this.id = options.id
     if (options.class) {
       this.classList.add(options.class)
@@ -816,7 +817,6 @@ class $Tab extends HTMLButtonElement {
       }
 
       changeTab(this.#type)
-      changeTabColor()
     })
   }
 
@@ -840,6 +840,22 @@ class $Tab extends HTMLButtonElement {
 
   getType () {
     return this.#type
+  }
+
+  setActive (active: boolean) {
+    this.classList.toggle('active-tab', active)
+    this.style.backgroundColor = active ? this.#activeColor : ''
+
+    if (this.#activeTextColor !== undefined) {
+      this.style.color = active ? this.#activeTextColor : ''
+    }
+
+    if (active) {
+      this.setAttribute('aria-current', 'page')
+      DOMCacheGetOrSet('tabBorder').style.backgroundColor = this.#activeColor
+    } else {
+      this.removeAttribute('aria-current')
+    }
   }
 
   getSubTabs () {
@@ -935,11 +951,11 @@ export const tabRow = new TabRow()
 document.getElementsByClassName('navbar').item(0)?.appendChild(tabRow)
 
 tabRow.appendButton(
-  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings', mobileIcon: 'Buildings.png' })
+  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings', mobileIcon: 'Buildings.png', activeColor: 'orange' })
     .setType(Tabs.Buildings)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades', mobileIcon: 'Upgrades.png' })
+  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades', mobileIcon: 'Upgrades.png', activeColor: 'orange' })
     .setType(Tabs.Upgrades)
     .makeDraggable()
     .makeRemoveable(),
@@ -947,13 +963,21 @@ tabRow.appendButton(
     /* class: 'prestigeunlock', */
     id: 'achievementstab',
     i18n: 'tabs.main.achievements',
-    mobileIcon: 'Achievements.png'
+    mobileIcon: 'Achievements.png',
+    activeColor: 'white',
+    activeTextColor: 'black'
   })
     // .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Achievements)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'prestigeunlock', id: 'runestab', i18n: 'tabs.main.runes', mobileIcon: 'Runes.png' })
+  new $Tab({
+    class: 'prestigeunlock',
+    id: 'runestab',
+    i18n: 'tabs.main.runes',
+    mobileIcon: 'Runes.png',
+    activeColor: 'cornflowerblue'
+  })
     .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Runes)
     .makeDraggable()
@@ -962,7 +986,8 @@ tabRow.appendButton(
     class: 'transcendunlock',
     id: 'challengetab',
     i18n: 'tabs.main.challenges',
-    mobileIcon: 'Challenges.png'
+    mobileIcon: 'Challenges.png',
+    activeColor: 'purple'
   })
     .setUnlockedState(() => player.unlocks.transcend)
     .setType(Tabs.Challenges)
@@ -972,23 +997,42 @@ tabRow.appendButton(
     class: 'reincarnationunlock',
     id: 'researchtab',
     i18n: 'tabs.main.research',
-    mobileIcon: 'Research.png'
+    mobileIcon: 'Research.png',
+    activeColor: 'green'
   })
     .setUnlockedState(() => player.unlocks.reincarnate)
     .setType(Tabs.Research)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal8', id: 'anttab', i18n: 'tabs.main.antHill', mobileIcon: 'Anthill.png' })
+  new $Tab({
+    class: 'chal8',
+    id: 'anttab',
+    i18n: 'tabs.main.antHill',
+    mobileIcon: 'Anthill.png',
+    activeColor: 'brown'
+  })
     .setUnlockedState(() => player.unlocks.anthill)
     .setType(Tabs.AntHill)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal10', id: 'cubetab', i18n: 'tabs.main.wowCubes', mobileIcon: 'WowCubes.png' })
+  new $Tab({
+    class: 'chal10',
+    id: 'cubetab',
+    i18n: 'tabs.main.wowCubes',
+    mobileIcon: 'WowCubes.png',
+    activeColor: 'purple'
+  })
     .setUnlockedState(() => player.unlocks.ascensions)
     .setType(Tabs.WowCubes)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption', mobileIcon: 'Corruption.png' })
+  new $Tab({
+    class: 'chal11',
+    id: 'traitstab',
+    i18n: 'tabs.main.corruption',
+    mobileIcon: 'Corruption.png',
+    activeColor: 'orange'
+  })
     .setUnlockedState(() => (player.challengecompletions[11] > 0))
     .setType(Tabs.Corruption)
     .makeDraggable()
@@ -997,25 +1041,49 @@ tabRow.appendButton(
     class: 'singularity',
     id: 'singularitytab',
     i18n: 'tabs.main.singularity',
-    mobileIcon: 'Singularity.png'
+    mobileIcon: 'Singularity.png',
+    activeColor: 'lightgoldenrodyellow'
   })
     .setUnlockedState(() => player.highestSingularityCount > 0)
     .setType(Tabs.Singularity)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings', mobileIcon: 'Settings.png' })
+  new $Tab({
+    id: 'settingstab',
+    i18n: 'tabs.main.settings',
+    mobileIcon: 'Settings.png',
+    activeColor: 'white',
+    activeTextColor: 'black'
+  })
     .setType(Tabs.Settings)
     .makeDraggable(),
-  new $Tab({ class: 'reincarnationunlock', id: 'shoptab', i18n: 'tabs.main.shop', mobileIcon: 'Shop.png' })
+  new $Tab({
+    class: 'reincarnationunlock',
+    id: 'shoptab',
+    i18n: 'tabs.main.shop',
+    mobileIcon: 'Shop.png',
+    activeColor: 'cyan'
+  })
     .setUnlockedState(() => player.unlocks.reincarnate || player.highestSingularityCount > 0)
     .setType(Tabs.Shop)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith', mobileIcon: 'Events.png' })
+  new $Tab({
+    class: 'isEvent',
+    id: 'eventtab',
+    i18n: 'tabs.main.unsmith',
+    mobileIcon: 'Events.png',
+    activeColor: 'limegreen'
+  })
     .setType(Tabs.Event)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'pseudoCoinstab', i18n: 'tabs.main.purchase', mobileIcon: 'PseudoCoins.png' })
+  new $Tab({
+    id: 'pseudoCoinstab',
+    i18n: 'tabs.main.purchase',
+    mobileIcon: 'PseudoCoins.png',
+    activeColor: 'orchid'
+  })
     .setType(Tabs.Purchase)
     .makeDraggable()
 )
@@ -1056,7 +1124,6 @@ export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
     }
 
     changeTab(tab.getType(), step)
-    changeTabColor()
   }
 }
 
@@ -1083,14 +1150,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
 
   G.currentTab = tabRow.getCurrentTab().getType()
   for (const tab of tabRow.getSubs()) {
-    const isActive = tab === tabRow.getCurrentTab()
-    tab.classList.toggle('active-tab', isActive)
-
-    if (isActive) {
-      tab.setAttribute('aria-current', 'page')
-    } else {
-      tab.removeAttribute('aria-current')
-    }
+    tab.setActive(tab === tabRow.getCurrentTab())
   }
 
   if (G.currentTab === Tabs.Achievements) {
@@ -1207,7 +1267,7 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
       }
     }
 
-    subTabs.tabSwitcher?.()(subTabList.subTabID)
+    subTabs.tabSwitcher?.(subTabList.subTabID)
     if (isActiveTab) {
       restoreTabScrollPosition(tab.getType(), subTabs.subtabIndex)
     }

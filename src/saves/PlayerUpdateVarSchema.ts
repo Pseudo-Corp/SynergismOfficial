@@ -23,10 +23,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
     player.corruptions.next = new CorruptionLoadout(corrLoadout)
   }
 
-  if (player.corruptionShowStats !== undefined) {
-    player.corruptions.showStats = player.corruptionShowStats
-  }
-
   if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
     const corruptionSaveStuff = player.corruptionLoadoutNames.reduce(
       (map, key, index) => {
@@ -305,7 +301,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   Reflect.deleteProperty(player, 'runelevels')
   Reflect.deleteProperty(player, 'usedCorruptions')
   Reflect.deleteProperty(player, 'prototypeCorruptions')
-  Reflect.deleteProperty(player, 'corruptionShowStats')
   Reflect.deleteProperty(player, 'corruptionLoadouts')
   Reflect.deleteProperty(player, 'corruptionLoadoutNames')
   Reflect.deleteProperty(player, 'ultimatePixels')

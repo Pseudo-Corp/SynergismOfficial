@@ -1159,7 +1159,6 @@ export const singularity = (setSingNumber = -1) => {
       return [save.name, save.loadout.loadout]
     })
   )
-  hold.corruptions.showStats = player.corruptions.showStats
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
   hold.resetToggleModes = player.resetToggleModes

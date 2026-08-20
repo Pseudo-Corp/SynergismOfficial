@@ -40,8 +40,7 @@ export const playerJsonSchema = playerSchema.extend({
     return {
       used: stuff.used.loadout,
       next: stuff.next.loadout,
-      saves: stuff.saves.corrSaveData, // TODO: This is the correct typing, but see above comment
-      showStats: stuff.showStats
+      saves: stuff.saves.corrSaveData // TODO: This is the correct typing, but see above comment
     }
   }),
 
