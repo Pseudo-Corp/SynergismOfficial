@@ -2285,36 +2285,54 @@ export const visualUpdatePurple = () => {
         : null,
       purpleReactorUpgrades.highestHoneyGlobalSpeed.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyGlobalSpeed', {
-          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier'), 2)
+          amount: formatAsPercentIncrease(
+            getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier'),
+            2
+          )
         })
         : null,
       purpleReactorUpgrades.highestHoneyAscensionSpeed.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyAscensionSpeed', {
-          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier'), 2)
+          amount: formatAsPercentIncrease(
+            getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier'),
+            2
+          )
         })
         : null
     ].filter((modifier): modifier is string => modifier !== null).join(' · '),
     [
       purpleReactorUpgrades.highestHoneyAmbrosia.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyAmbrosia', {
-          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed'), 2)
+          amount: formatAsPercentIncrease(
+            getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed'),
+            2
+          )
         })
         : null,
       purpleReactorUpgrades.highestHoneyRedAmbrosia.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyRedAmbrosia', {
-          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed'), 2)
+          amount: formatAsPercentIncrease(
+            getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed'),
+            2
+          )
         })
         : null
     ].filter((modifier): modifier is string => modifier !== null).join(' · '),
     [
       purpleReactorUpgrades.highestHoneyAntELO.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyAntELO', {
-          amount: formatAsPercentIncrease(1 + getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent'), 3)
+          amount: formatAsPercentIncrease(
+            1 + getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent'),
+            3
+          )
         })
         : null,
       purpleReactorUpgrades.highestHoneyRebornELOSpeed.level > 0
         ? i18next.t('purpleReactor.highestPurpleHoneyRebornELOSpeed', {
-          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult'), 2)
+          amount: formatAsPercentIncrease(
+            getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult'),
+            2
+          )
         })
         : null
     ].filter((modifier): modifier is string => modifier !== null).join(' · ')

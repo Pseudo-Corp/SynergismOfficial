@@ -1208,7 +1208,7 @@ export const player: Player = {
 
   stats: {
     totalAddCodesUsed: 0,
-    highestPurpleHoney: 0,
+    highestPurpleHoney: 0
   }
 }
 
