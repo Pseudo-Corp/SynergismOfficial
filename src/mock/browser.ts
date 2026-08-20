@@ -638,6 +638,141 @@ const GETHandlers = [
           internalName: 'RED_GENERATION_BUFF',
           level: 1,
           cost: 100
+        },
+        {
+          upgradeId: 20,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5 more Purple Honey Luck per level',
+          internalName: 'PURPLE_LUCK_BUFF',
+          level: 1,
+          cost: 100
+        },
+        {
+          upgradeId: 20,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5 more Purple Honey Luck per level',
+          internalName: 'PURPLE_LUCK_BUFF',
+          level: 2,
+          cost: 150
+        },
+        {
+          upgradeId: 20,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5 more Purple Honey Luck per level',
+          internalName: 'PURPLE_LUCK_BUFF',
+          level: 3,
+          cost: 200
+        },
+        {
+          upgradeId: 20,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5 more Purple Honey Luck per level',
+          internalName: 'PURPLE_LUCK_BUFF',
+          level: 4,
+          cost: 250
+        },
+        {
+          upgradeId: 20,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5 more Purple Honey Luck per level',
+          internalName: 'PURPLE_LUCK_BUFF',
+          level: 5,
+          cost: 300
+        },
+        {
+          upgradeId: 21,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +0.04 base Purple Honey per extraction, per level',
+          internalName: 'PURPLE_HONEY_BUFF',
+          level: 1,
+          cost: 100
+        },
+        {
+          upgradeId: 21,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +0.04 base Purple Honey per extraction, per level',
+          internalName: 'PURPLE_HONEY_BUFF',
+          level: 2,
+          cost: 150
+        },
+        {
+          upgradeId: 21,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +0.04 base Purple Honey per extraction, per level',
+          internalName: 'PURPLE_HONEY_BUFF',
+          level: 3,
+          cost: 200
+        },
+        {
+          upgradeId: 21,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +0.04 base Purple Honey per extraction, per level',
+          internalName: 'PURPLE_HONEY_BUFF',
+          level: 4,
+          cost: 250
+        },
+        {
+          upgradeId: 21,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +0.04 base Purple Honey per extraction, per level',
+          internalName: 'PURPLE_HONEY_BUFF',
+          level: 5,
+          cost: 300
+        },
+        {
+          upgradeId: 22,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
+          internalName: 'PURPLE_REACTOR_CAPACITY_BUFF',
+          level: 1,
+          cost: 100
+        },
+        {
+          upgradeId: 22,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
+          internalName: 'PURPLE_REACTOR_CAPACITY_BUFF',
+          level: 2,
+          cost: 150
+        },
+        {
+          upgradeId: 22,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
+          internalName: 'PURPLE_REACTOR_CAPACITY_BUFF',
+          level: 3,
+          cost: 200
+        },
+        {
+          upgradeId: 22,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
+          internalName: 'PURPLE_REACTOR_CAPACITY_BUFF',
+          level: 4,
+          cost: 250
+        },
+        {
+          upgradeId: 22,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
+          internalName: 'PURPLE_REACTOR_CAPACITY_BUFF',
+          level: 5,
+          cost: 300
         }
       ],
       playerUpgrades: [
