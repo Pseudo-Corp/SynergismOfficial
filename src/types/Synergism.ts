@@ -429,7 +429,6 @@ export interface Player {
     next: CorruptionLoadout
     used: CorruptionLoadout
     saves: CorruptionSaves
-    showStats: boolean
   }
 
   constantUpgrades: ArrayStartingWithNull<number>

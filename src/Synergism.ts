@@ -151,13 +151,11 @@ import { type OneToFive, type Player, type resetNames, type ZeroToFour } from '.
 import {
   Alert,
   buttoncolorchange,
-  changeTabColor,
   Confirm,
   createFitties,
   htmlInserts,
   Notification,
   revealStuff,
-  showCorruptionStatsLoadouts,
   updateChallengeDisplay,
   updateChallengeLevel
 } from './UpdateHTML'
@@ -1024,8 +1022,7 @@ export const player: Player = {
       'Loadout 14': corruptionsSchema.parse({}),
       'Loadout 15': corruptionsSchema.parse({}),
       'Loadout 16': corruptionsSchema.parse({})
-    }),
-    showStats: true
+    })
   },
 
   campaigns: new CampaignManager(),
@@ -1571,7 +1568,6 @@ const loadSynergy = () => {
       corruptionLoadoutTableUpdate(false, i)
     }
 
-    showCorruptionStatsLoadouts()
     updateCorruptionLoadoutNames()
 
     // For blueberry upgrades!
@@ -4980,7 +4976,6 @@ export const reloadShit = async (ignoreOfflineProgress = false) => {
   }, 30000)
 
   constantIntervals()
-  changeTabColor()
 
   eventCheck()
     .catch(() => {})

@@ -2078,45 +2078,22 @@
             </div>
         </div>
 
-        <div id="campaigns" style="display: none;">
-            <div id="campaignsFlavor" class="flex column">
-                <h2 id="campaignsIntroduction" class="tightText" i18n="campaigns.intro" style="color: red"></h2>
-                <h4 id="campaignsInfo1" class="tightText" i18n="campaigns.campaignInfo" style="color: orange"></h4>
-            </div>
-            <div id="campaignsMain">
-                <div id="campaignsIcons" aria-live="polite">
-                    <h3 i18n="campaigns.pickNow"></h3>
-                    <div id="campaignIconGrid"> 
-                    </div>
-                    <h3 id="currentCampaignText"></h3>
-                </div>
-                <div id="campaignsDescriptions" aria-live="polite">
-                    <h3 id="campaignName"></h3>
-                    <h5 id="campaignDesc"></h5>
-
-                    <div id="campaignCorruptionInfo">
-                        <div id="campaignCorruptions">
-                        </div>
-                        <div id="campaignCorruptionStats">
-                        </div>
-                    </div>
-
-                </div>
-                <div id="campaignsTokensInfo" aria-live="polite">
-                    <h2 id="campaignTokenCount"></h2>
-                    <div id="campaignTokenRewardIcons"></div>
-                    <h4 id="campaignTokenRewardText"></h4>
-                </div>
-            </div>
-        </div>
-
         <div id="traits" style="display: none;">
             <div id="corruptionStatsLoadouts" class="flex column">
                 <span id="corrButtonRow" class="flex row center">
+                    <button id="corrCampaignsBtn" i18n="corruptions.corrCampaignsBtn"></button>
                     <button id="corrStatsBtn" class="active-subtab" i18n="corruptions.corrStatsBtn"></button>
                     <button id="corrLoadoutsBtn" i18n="corruptions.corrLoadoutsBtn"></button>
                 </span>
                 <p id="corrClickInfo" i18n="corruptions.clickInfo"></p>
+                <div id="campaigns" style="display: none;">
+                    <div id="campaignsIcons" aria-live="polite">
+                        <h3 i18n="campaigns.pickNow"></h3>
+                        <div id="campaignIconGrid">
+                        </div>
+                        <h3 id="currentCampaignText"></h3>
+                    </div>
+                </div>
                 <div id="corruptionStats" class="corruptionContainer">
                     <span class="corruptionStatRow chal11Corruption">
                     </span>
@@ -2234,6 +2211,29 @@
                     <button id="ascensionAutoToggle" class="hCenter tight" style="border:2px solid orchid;"></button>
                     <input id="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1">
                     <p id="autoAscend" class="ascendunlock tightText"></p>
+                </div>
+                <div id="campaignsMain" class="flex column" style="display: none;">
+                    <div id="campaignsFlavor" class="flex column">
+                        <h2 id="campaignsIntroduction" class="tightText" i18n="campaigns.intro" style="color: red"></h2>
+                        <h4 id="campaignsInfo1" class="tightText" i18n="campaigns.campaignInfo" style="color: orange"></h4>
+                    </div>
+                    <div id="campaignsDescriptions" aria-live="polite">
+                        <h3 id="campaignName"></h3>
+                        <h5 id="campaignDesc"></h5>
+
+                        <div id="campaignCorruptionInfo">
+                            <div id="campaignCorruptions">
+                            </div>
+                            <div id="campaignCorruptionStats">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="campaignsTokensInfo" aria-live="polite">
+                        <h2 id="campaignTokenCount"></h2>
+                        <div id="campaignTokenRewardIcons"></div>
+                        <h4 id="campaignTokenRewardText"></h4>
+                    </div>
                 </div>
             </div>
         </div>

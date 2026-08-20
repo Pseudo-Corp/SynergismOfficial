@@ -1576,25 +1576,25 @@ export const visualUpdateCorruptions = () => {
     'corruptionTesseracts',
     'corruptionTesseractsValue',
     'corruptions.rewards.tesseract',
-    ascensionRewards.wowTesseracts,
+    ascensionRewards.wowTesseracts
   )
   updateCorruptionReward(
     'corruptionHypercubes',
     'corruptionHypercubesValue',
     'corruptions.rewards.hypercube',
-    ascensionRewards.wowHypercubes,
+    ascensionRewards.wowHypercubes
   )
   updateCorruptionReward(
     'corruptionPlatonicCubes',
     'corruptionPlatonicCubesValue',
     'corruptions.rewards.platonic',
-    ascensionRewards.wowPlatonicCubes,
+    ascensionRewards.wowPlatonicCubes
   )
   updateCorruptionReward(
     'corruptionHepteracts',
     'corruptionHepteractsValue',
     'corruptions.rewards.hepteract',
-    ascensionRewards.wowHepteracts,
+    ascensionRewards.wowHepteracts
   )
   updateCorruptionScoreProgress(ascensionRewards.effectiveScore)
   DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {
@@ -2155,5 +2155,3 @@ export const visualUpdateEvent = () => {
 }
 
 export const visualUpdatePurchase = () => {}
-
-export const visualUpdateCampaign = () => {}
