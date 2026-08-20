@@ -553,7 +553,6 @@ export interface Player {
   purpleReactor: {
     purpleHoney: number
     lifetimePurpleHoney: number
-    highestPurpleHoney: number
     storedAmbrosiaBarPoints: number
     storedRedAmbrosiaBarPoints: number
     ambrosiaBarPointPercentage: number
@@ -577,6 +576,7 @@ export interface Player {
 
   stats: {
     totalAddCodesUsed: number
+    highestPurpleHoney: number
   }
 }
 

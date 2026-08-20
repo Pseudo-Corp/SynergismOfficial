@@ -424,7 +424,7 @@
     "highestPurpleHoneyAscensionSpeed": "<<orange|Ascension Speed +{{amount}}>>",
     "highestPurpleHoneyAmbrosia": "<<lightblue|Ambrosia Bar Points +{{amount}}>>",
     "highestPurpleHoneyRedAmbrosia": "<<red|Red Bar Points +{{amount}}>>",
-    "highestPurpleHoneyAntELO": "<<orchid|Ant ELO +{{amount}}%>>",
+    "highestPurpleHoneyAntELO": "<<orchid|Ant ELO +{{amount}}>>",
     "highestPurpleHoneyRebornELOSpeed": "<<#00DDFF|Reborn ELO Speed +{{amount}}>>",
     "reactantContainersDescription": "The <b>Grand</b>, <i>Fantabulous</i> <<var(--purple-text-color)|Chroma-Encabulator>>",
     "reactionExplanation": "<<lightblue|1,000 Ambrosia Bar Points>> + <<red|1 Red Bar Point>> → <<var(--purple-text-color)|100 Purple Bar Points>>",
@@ -536,12 +536,10 @@
       "purpleCapacityExpander1": {
         "name": "Reactant Storage Expansion I",
         "flavor": "More storage means potentially more Purple Honey creation!",
-        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Ambrosia Bar Point storage capacity.",
-        "effectMaxed": "<<gold|+{{maxValue}}>> Ambrosia Bar Point storage capacity."
-      },
-      "redCapacityExpander1": {
-        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Red Bar Point storage capacity.",
-        "effectMaxed": "<<gold|+{{maxValue}}>> Red Bar Point storage capacity."
+        "effectNotMaxedAmbrosia": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Ambrosia Bar Point storage capacity.",
+        "effectNotMaxedRed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Red Bar Point storage capacity.",
+        "effectMaxedAmbrosia": "<<gold|+{{maxValue}}>> Ambrosia Bar Point storage capacity.",
+        "effectMaxedRed": "<<gold|+{{maxValue}}>> Red Bar Point storage capacity."
       },
       "purpleCapacityExpander2": {
         "name": "Reactant Storage Expansion II",
@@ -588,44 +586,51 @@
       "highestHoneyQuarks": {
         "name": "Highest Honey Power: Quarks",
         "flavor": "Oh, honey honey!",
-        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Quarks.",
-        "effectMaxed": "Highest Purple Honey Power bonus to Quarks unlocked."
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Quarks, from your Highest Held Honey stat.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Quarks, from your Highest Held Honey stat.",
+        "formula": "Multiplier = 1 + 0.05 * (ln(1 + Honey/100))^1.1"
       },
       "highestHoneyGlobalSpeed": {
         "name": "Highest Honey Power: Global Speed",
         "flavor": "We're not going faster, the Earth is just spinning without us.",
-        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Global Speed.",
-        "effectMaxed": "Highest Purple Honey Power bonus to Global Speed unlocked."
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Global Speed, from your Highest Held Honey stat.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Global Speed, from your Highest Held Honey stat.",
+        "formula": "Multiplier = 1 + 0.1 * (ln(1 + Honey/100))^1.15"
       },
       "highestHoneyAscensionSpeed": {
         "name": "Highest Honey Power: Ascension Speed",
         "flavor": "The flavor of this Honey is ascendent.",
-        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Ascension Speed.",
-        "effectMaxed": "Highest Purple Honey Power bonus to Ascension Speed unlocked."
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ascension Speed, from your Highest Held Honey stat.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Ascension Speed, from your Highest Held Honey stat.",
+        "formula": "Multiplier = 1 + 0.075 * (ln(1 + Honey/100))^1.15"
       },
       "highestHoneyAmbrosia": {
         "name": "Highest Honey Power: Ambrosia",
         "flavor": "Lathering your Ambrosia with Honey is like putting bacon on your hotdog.",
-        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Ambrosia Bar Points.",
-        "effectMaxed": "Highest Purple Honey Power bonus to Ambrosia Bar Points unlocked."
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ambrosia Bar Points, from your Highest Held Honey stat.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Ambrosia Bar Points, from your Highest Held Honey stat.",
+        "formula": "Multiplier = 1 + 0.02 * (ln(1 + Honey/100))^1.075"
       },
       "highestHoneyRedAmbrosia": {
         "name": "Highest Honey Power: Red Ambrosia",
         "flavor": "Lathering your Red Ambrosia with Honey is like putting red bacon on your red hotdog. Wait.",
-        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Red Bar Points.",
-        "effectMaxed": "Highest Purple Honey Power bonus to Red Bar Points unlocked."
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Red Bar Points, from your Highest Held Honey stat.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Red Bar Points, from your Highest Held Honey stat.",
+        "formula": "Multiplier = 1 + 0.01 * (ln(1 + Honey/100))^1.125"
       },
       "highestHoneyAntELO": {
         "name": "Highest Honey Power: Ant ELO",
         "flavor": "Honey attracts Ants better than your Galactic Crumbs do.",
-        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Ant ELO.",
-        "effectMaxed": "Highest Purple Honey Power bonus to Ant ELO unlocked."
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ant ELO, from your Highest Held Honey stat.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Ant ELO, from your Highest Held Honey stat.",
+        "formula": "Bonus = 0.01% * ln(1 + Honey)"
       },
       "highestHoneyRebornELOSpeed": {
         "name": "Highest Honey Power: Reborn ELO Speed",
         "flavor": "Too much honey will have you catching up to Ant God quicker.",
-        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Reborn ELO Speed.",
-        "effectMaxed": "Highest Purple Honey Power bonus to Reborn ELO Speed unlocked."
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Reborn ELO Speed, from your Highest Held Honey stat.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Reborn ELO Speed, from your Highest Held Honey stat.",
+        "formula": "Multiplier = 1 + 0.04 * (ln(1 + Honey/100))^1.1"
       }
     }
   },
