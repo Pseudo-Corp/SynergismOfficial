@@ -751,7 +751,6 @@ export const hideStuff = () => {
   if (G.currentTab === Tabs.Corruption) {
     DOMCacheGetOrSet('traits').style.display = 'flex'
     DOMCacheGetOrSet('traitstab').style.backgroundColor = tabColors[Tabs.Corruption]
-    syncCampaignsMainWidth()
   }
 
   if (G.currentTab === Tabs.Singularity) {
@@ -1211,24 +1210,6 @@ export const setCampaignSubtabShown = (shown: boolean) => {
   campaignSubtabShown = shown
 }
 
-const syncCampaignsMainWidth = () => {
-  if (!campaignSubtabShown) {
-    return
-  }
-
-  const campaignsMain = DOMCacheGetOrSet('campaignsMain')
-  const corruptionMain = DOMCacheGetOrSet('corruptionMain')
-
-  campaignsMain.style.display = 'none'
-  corruptionMain.style.display = ''
-  const width = corruptionMain.offsetWidth
-  if (width > 0) {
-    campaignsMain.style.width = `${width}px`
-  }
-  corruptionMain.style.display = 'none'
-  campaignsMain.style.display = 'flex'
-}
-
 export const showCorruptionStatsLoadouts = () => {
   const campaignsButton = DOMCacheGetOrSet('corrCampaignsBtn')
   const statsButton = DOMCacheGetOrSet('corrStatsBtn')
@@ -1236,12 +1217,8 @@ export const showCorruptionStatsLoadouts = () => {
 
   DOMCacheGetOrSet('campaigns').style.display = campaignSubtabShown ? 'block' : 'none'
   DOMCacheGetOrSet('corruptionDisplays').style.display = campaignSubtabShown ? 'none' : ''
-  if (campaignSubtabShown) {
-    syncCampaignsMainWidth()
-  } else {
-    DOMCacheGetOrSet('corruptionMain').style.display = ''
-    DOMCacheGetOrSet('campaignsMain').style.display = 'none'
-  }
+  DOMCacheGetOrSet('corruptionMain').classList.toggle('campaigns-active', campaignSubtabShown)
+  DOMCacheGetOrSet('campaignsMain').style.display = campaignSubtabShown ? 'flex' : 'none'
   campaignsButton.classList.toggle('subtab-active', campaignSubtabShown)
 
   if (campaignSubtabShown) {

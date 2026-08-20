@@ -4625,8 +4625,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #campaignsMain {
-    min-width: 700px;
-    max-width: 1200px;
+    contain: inline-size;
+    min-width: 0;
     row-gap: 10px;
     line-height: 1.2;
     margin-top: 10px;
@@ -4643,8 +4643,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     display: grid;
     grid-template-columns: repeat(10, minmax(0, 48px));
     grid-template-rows: repeat(5, minmax(0, 48px));
-    column-gap: 5px;
-    row-gap: 5px;
+    column-gap: 2px;
+    row-gap: 2px;
     justify-content: center;
 }
 
@@ -4822,8 +4822,16 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #corruptionMain {
-    min-width: 700px;
-    max-width: 1200px;
+    min-width: 43.75rem;
+    max-width: 75rem;
+}
+
+#corruptionMain.campaigns-active > :not(#campaignsMain) {
+    visibility: hidden;
+    block-size: 0;
+    min-block-size: 0;
+    margin-block: 0;
+    overflow: hidden;
 }
 
 #corruptionIntroduction {
@@ -8412,8 +8420,20 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #corruptionStatsLoadouts {
-        min-width: 100%;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
         margin: unset;
+    }
+
+    #corrButtonRow {
+        width: 100%;
+        gap: clamp(0.5rem, 2vw, 1rem);
+    }
+
+    #corrButtonRow > button {
+        flex: 1 1 0;
+        min-width: 0;
     }
 
     .corrDesc {
