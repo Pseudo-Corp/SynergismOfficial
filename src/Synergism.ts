@@ -558,7 +558,7 @@ export const player: Player = {
     singularityUpgrades: 0,
     octeractUpgrades: 0,
     redAmbrosiaUpgrades: 0,
-    purpleHoneyUpgrades: 0,
+    purpleHoneyUpgrades: 0
   },
 
   achievementPoints: 0,
@@ -1187,10 +1187,15 @@ export const player: Player = {
   purpleReactor: {
     purpleHoney: 0,
     lifetimePurpleHoney: 0,
+    highestPurpleHoney: 0,
     storedAmbrosiaBarPoints: 0,
     storedRedAmbrosiaBarPoints: 0,
     ambrosiaBarPointPercentage: 0,
     redAmbrosiaBarPointPercentage: 0
+  },
+
+  spentPurpleHoney: {
+    upgrades: 0
   },
 
   purpleReactorUpgrades: blankPurpleReactorUpgradeObject,

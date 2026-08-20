@@ -125,7 +125,7 @@
       },
       "ambrosiaPatreon": {
         "name": "Shameless, Ambrosial Subscriber Advertisement",
-        "description": "In every realm, Platonic sells out. The Global Subscriber Bonus and the Personal Account Bonus will also impact your Ambrosia Bar Point generation. Consider Subscribing to support development and increase this bonus, for you and all Synergism players!",
+        "description": "In every realm, Platonic sells out. The Global Subscriber Bonus and the Personal Account Bonus will also impact your Bar Point generation. Consider Subscribing to support development and increase this bonus, for you and all Synergism players!",
         "effect": "Generous Subscribers and your Personal Bonus grants you {{amount}}% more Ambrosia Bar Points!"
       },
       "ambrosiaObtainium1": {
@@ -313,8 +313,8 @@
       },
       "blueberryGenerationSpeed": {
         "name": "The Sands of Time",
-        "description": "+num:((0.2))% Ambrosia Bar Point gain per level. They say this hourglass has the benediction of Chronos himself.",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by <<lightblue|{{amount}}>>!"
+        "description": "+num:((0.2))% Ambrosia AND Red Bar Point gain per level. They say this hourglass has the benediction of Chronos himself.",
+        "effect": "This upgrade increases Ambrosia AND Red Bar Point gain by <<lightblue|{{amount}}>>!"
       },
       "regularLuck": {
         "name": "Ossified Blueberry Tactics",
@@ -371,13 +371,13 @@
       },
       "regularLuck2": {
         "name": "Ossified Blueberry Tactics II",
-        "description": "This also gives +2 Ambrosia Luck / level, but you can purchase a ton of levels of this!",
+        "description": "This also gives +2 Ambrosia Luck / level.",
         "effect": "This upgrade increases Ambrosia Luck by <<green|{{amount}}>>!"
       },
       "blueberryGenerationSpeed2": {
         "name": "The Sands of Time II",
-        "description": "This gives +num:((0.1))% Ambrosia Bar Point gain per level, but you can purchase a ton of levels of this!",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by <<lightblue|{{amount}}>>!"
+        "description": "This gives +num:((0.1))% Ambrosia AND Red Bar Point gain per level.",
+        "effect": "This upgrade increases Ambrosia AND Red Bar Point gain by <<lightblue|{{amount}}>>!"
       },
       "salvageYinYang": {
         "name": "Yin and Yang: Salvage Edition",
@@ -418,8 +418,16 @@
   },
   "purpleReactor": {
     "purpleHoneyAmount": "You have <<var(--purple-text-color)|{{amount}}>> Purple Honey (<<var(--purple-text-color)|{{lifetimeAmount}}>> Lifetime)",
+    "highestPurpleHoney": "Most Purple Honey at once: <<var(--purple-text-color)|{{amount}}>>",
+    "highestPurpleHoneyQuarks": "<<cyan|Quarks +{{amount}}>>",
+    "highestPurpleHoneyGlobalSpeed": "<<lightskyblue|Global Speed +{{amount}}>>",
+    "highestPurpleHoneyAscensionSpeed": "<<orange|Ascension Speed +{{amount}}>>",
+    "highestPurpleHoneyAmbrosia": "<<lightblue|Ambrosia Bar Points +{{amount}}>>",
+    "highestPurpleHoneyRedAmbrosia": "<<red|Red Bar Points +{{amount}}>>",
+    "highestPurpleHoneyAntELO": "<<orchid|Ant ELO +{{amount}}%>>",
+    "highestPurpleHoneyRebornELOSpeed": "<<#00DDFF|Reborn ELO Speed +{{amount}}>>",
     "reactantContainersDescription": "The <b>Grand</b>, <i>Fantabulous</i> <<var(--purple-text-color)|Chroma-Encabulator>>",
-    "reactionExplanation": "Use Ambrosia and Red Bar Points to generate Purple Honey!",
+    "reactionExplanation": "<<lightblue|1,000 Ambrosia Bar Points>> + <<red|1 Red Bar Point>> → <<var(--purple-text-color)|100 Purple Bar Points>>",
     "reactantTankLabel": "Input Tank",
     "ambrosiaReactantTankTitle": "<<lightblue|Ambrosia Bar Points>>",
     "redAmbrosiaReactantTankTitle": "<<red|Red Bar Points>>",
@@ -427,8 +435,8 @@
     "reactantRoutingPercentage": "{{percentage}}%",
     "reactantRoutingPercentageAria": "{{percentage}}% of production routed to the reactor",
     "reactantContainerHalfLife": "Reactant Half-Life: <<gold|{{time}}>> seconds",
-    "reactantTankProgress": "{{stored}}",
-    "reactantTankProgressAria": "{{stored}} stored; {{percentage}}% full",
+    "reactantTankProgress": "{{stored}} / {{capacity}}",
+    "reactantTankProgressAria": "{{stored}} of {{capacity}} stored; {{percentage}}% full",
     "reactantNetRatePositive": "+{{amount}}/s net",
     "reactantNetRateNegative": "-{{amount}}/s net",
     "reactantNetRateZero": "0/s net",
@@ -528,8 +536,12 @@
       "purpleCapacityExpander1": {
         "name": "Reactant Storage Expansion I",
         "flavor": "More storage means potentially more Purple Honey creation!",
-        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Reactant Storage Capacity.",
-        "effectMaxed": "<<gold|+{{maxValue}}>> Reactant Storage Capacity."
+        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Ambrosia Bar Point storage capacity.",
+        "effectMaxed": "<<gold|+{{maxValue}}>> Ambrosia Bar Point storage capacity."
+      },
+      "redCapacityExpander1": {
+        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Red Bar Point storage capacity.",
+        "effectMaxed": "<<gold|+{{maxValue}}>> Red Bar Point storage capacity."
       },
       "purpleCapacityExpander2": {
         "name": "Reactant Storage Expansion II",
@@ -560,6 +572,60 @@
       "purpleHoneyRequirementReduction4": {
         "name": "Purple Bar Size Reduction IV",
         "flavor": "Bend space, but not time, to make the Purple Bar fill up faster."
+      },
+      "obtainium": {
+        "name": "Obtainium Purpling",
+        "flavor": "Let me shift the hue down a bit for you.",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Obtainium.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Obtainium."
+      },
+      "offerings": {
+        "name": "Offerings but Purple",
+        "flavor": "They're Purple for an amazing reason!",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Offerings.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Offerings."
+      },
+      "highestHoneyQuarks": {
+        "name": "Highest Honey Power: Quarks",
+        "flavor": "Oh, honey honey!",
+        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Quarks.",
+        "effectMaxed": "Highest Purple Honey Power bonus to Quarks unlocked."
+      },
+      "highestHoneyGlobalSpeed": {
+        "name": "Highest Honey Power: Global Speed",
+        "flavor": "We're not going faster, the Earth is just spinning without us.",
+        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Global Speed.",
+        "effectMaxed": "Highest Purple Honey Power bonus to Global Speed unlocked."
+      },
+      "highestHoneyAscensionSpeed": {
+        "name": "Highest Honey Power: Ascension Speed",
+        "flavor": "The flavor of this Honey is ascendent.",
+        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Ascension Speed.",
+        "effectMaxed": "Highest Purple Honey Power bonus to Ascension Speed unlocked."
+      },
+      "highestHoneyAmbrosia": {
+        "name": "Highest Honey Power: Ambrosia",
+        "flavor": "Lathering your Ambrosia with Honey is like putting bacon on your hotdog.",
+        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Ambrosia Bar Points.",
+        "effectMaxed": "Highest Purple Honey Power bonus to Ambrosia Bar Points unlocked."
+      },
+      "highestHoneyRedAmbrosia": {
+        "name": "Highest Honey Power: Red Ambrosia",
+        "flavor": "Lathering your Red Ambrosia with Honey is like putting red bacon on your red hotdog. Wait.",
+        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Red Bar Points.",
+        "effectMaxed": "Highest Purple Honey Power bonus to Red Bar Points unlocked."
+      },
+      "highestHoneyAntELO": {
+        "name": "Highest Honey Power: Ant ELO",
+        "flavor": "Honey attracts Ants better than your Galactic Crumbs do.",
+        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Ant ELO.",
+        "effectMaxed": "Highest Purple Honey Power bonus to Ant ELO unlocked."
+      },
+      "highestHoneyRebornELOSpeed": {
+        "name": "Highest Honey Power: Reborn ELO Speed",
+        "flavor": "Too much honey will have you catching up to Ant God quicker.",
+        "effectNotMaxed": "Unlock the Highest Purple Honey Power bonus to Reborn ELO Speed.",
+        "effectMaxed": "Highest Purple Honey Power bonus to Reborn ELO Speed unlocked."
       }
     }
   },
@@ -2154,6 +2220,16 @@
         "name": "Red luck",
         "description": "For each level past 259, gain +1 Red Luck! I like stats with symbols next to them.",
         "effect": "Current Effect: +{{luck}} Red Luck"
+      },
+      "redAmbrosiaGeneration": {
+        "name": "Red Ambrosia Generation",
+        "description": "For each level past 259, gain +1% Red Bar Point production! I like stats with symbols next to them.",
+        "effect": "Current Effect: +{{percent}} Red Ambrosia Generation"
+      },
+      "purpleHoneyLuck": {
+        "name": "Purple Honey Luck",
+        "description": "For each level past 299, gain +1 Purple Honey Luck!",
+        "effect": "Current Effect: +{{luck}} Purple Honey Luck"
       }
     },
     "levelMilestones": {
@@ -6557,7 +6633,7 @@
       "redAmbrosiaLuck": "Red Luck",
       "redAmbrosiaGenMult": "Red Bar Points",
       "purpleHalfLife": "Purple Half-Life",
-      "purpleReactantCapacity": "Purple Reactant Capacity",
+      "purpleReactantCapacity": "Ambrosia Bar Point Capacity (Red: 1/1,000)",
       "purpleHoneyLuck": "Purple Honey Luck",
       "shopVouchers": "Shop Vouchers",
       "generate": "Generate Savefile Stats Summary"
@@ -6823,6 +6899,7 @@
       "OfferingEX2": "Offering EX 2 Quark Upgrade:",
       "OfferingINF": "Offering INF Quark Upgrade:",
       "EXUltra": "EX ULTIMATE Cube Bonus:",
+      "PurpleHoneyUpgrade": "Purple Honey - Offerings but Purple:",
       "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
       "RedAmbrosia": "Offerings \"\"\"made\"\"\" of Red Ambrosia",
       "Event": "Event Bonus:",
@@ -6898,6 +6975,7 @@
       "Event": "Event + Consumables Bonus:",
       "GlobalSubscriber": "Global Bonus from our Wonderful Subscribers:",
       "AccountBonus": "Synergism Account Personal Quark Bonus:",
+      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
       "Total": "Total Quark Multiplier:"
     },
     "baseObtainiumStats": {
@@ -6989,6 +7067,7 @@
       "OcteractObtainium1": "Octeracts - Obtainium Deluge:",
       "AmbrosiaObtainium1": "Ambrosia - RNG-based Obtainium Booster:",
       "EXUltraObtainium": "EX ULTIMATE Obtainium Bonus:",
+      "PurpleHoneyUpgrade": "Purple Honey - Obtainium Purpling:",
       "Challenge14": "Challenge 14 - No Obtainium:",
       "SingularityDebuff": "Singularity Debuff:",
       "Exalt6Penalty": "The Grand Singularity Speedrun - Too Slow:",
@@ -7056,6 +7135,7 @@
       "FastSpeedDR": "Global Speed Fast Softcap Power (>100):",
       "SlowSpeedDR": "Global Speed Slow Softcap Power (<1):",
       "ImmaculateSpeedMult": "Immaculate Global Speed DR-Ignore:",
+      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
       "Total": "Global Speed Multiplier:",
       "Total2": "Final Global Speed Multiplier:"
     },
@@ -7089,6 +7169,7 @@
       "ExponentialScalingSlow": "Ascension Speed Exponent (<1 Base):",
       "SingularityDebuff": "Singularity Debuff:",
       "AmbrosiaBrickOfLead": "Ambrosia - The Brick of Lead:",
+      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
       "Total": "Base Ascension Speed Multiplier:",
       "Total2": "Final Ascension Speed Multiplier:"
     },
@@ -7171,6 +7252,7 @@
       "Event": "Event Bonus:",
       "CashGrabUltra": "Cash Grab ULTRA Blueberry Bonus:",
       "PurpleHoneyUpgrade1": "Purple Honey - The Purple Guy's Greeting:",
+      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
       "Total": "Ambrosia Bar Points/s:",
       "BlueberryCount": "Number of Blueberries Owned:",
       "Total2": "Final Ambrosia Bar Points/s:"
@@ -7267,7 +7349,9 @@
       "QuarksThisSingularity": "Quarks This Singularity:",
       "TotalQuarks": "Total Quarks Ever:",
       "QuarkTimer": "Quark Timer:",
-      "QuarkTimerMax": "Quark Timer Maximum:"
+      "QuarkTimerMax": "Quark Timer Maximum:",
+      "HighestPurpleHoney": "Highest Stored Purple Honey:",
+      "PurpleHoneySpentUpgrades": "Purple Honey Spent on Upgrades:"
     },
     "luckConversionStats": {
       "title": "Ambrosia Luck Conversion",
@@ -7306,7 +7390,10 @@
       "RedAmbrosia": "Red Ambrosia - Millennium-Aged Red Ambrosia:",
       "Exalt5": "EXALT - No Ambrosia Effects:",
       "PurpleHoneyUpgrade1": "Purple Honey - The Purple Guy's Greeting:",
-      "Total": "Total Red Bar Points/s:"
+      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
+      "BlueberryCount": "Number of Blueberries Owned:",
+      "Total": "Total Red Bar Points/s:",
+      "Total2": "Final Red Bar Points/s:"
     },
     "shopVoucherStats": {
       "title": "Free 'Infinity CO' Quark Upgrade Levels",
@@ -7439,6 +7526,7 @@
       "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
       "SingularityPerk": "Singularity Perk - Advanced... Cheating Tactics?",
       "SingularityDebuff": "Singularity Debuff:",
+      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
       "Total": "Total Ant ELO Multiplier:"
     },
     "effectiveAntELOStats": {
@@ -7466,6 +7554,7 @@
       "MortuusTalisman": "Mortuus Talisman:",
       "ThresholdModifiers": "Threshold Modifiers:",
       "Exalt6": "The Grand Singularity Speedrun - Derpsmith's Boost:",
+      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
       "Total": "Total Reborn ELO Creation Speed Multiplier:"
     },
     "ascensionCountMultiplierStats": {
@@ -7492,13 +7581,13 @@
       "Total": "Total Reactant Half-Life:"
     },
     "purpleReactantCapacityStats": {
-      "title": "Purple Reactant Capacity",
-      "Base": "Base Capacity:",
-      "PurpleHoneyUpgrade1": "Purple Honey - Reactant Storage Expansion I",
-      "PurpleHoneyUpgrade2": "Purple Honey - Reactant Storage Expansion I",
-      "PurpleHoneyUpgrade3": "Purple Honey - Reactant Storage Expansion I",
-      "PurpleHoneyUpgrade4": "Purple Honey - Reactant Storage Expansion I",
-      "Total": "Total Purple Reactant Capacity:"
+      "title": "Ambrosia Bar Point Capacity (Red: 1/1,000)",
+      "Base": "Base Ambrosia Bar Point Capacity:",
+      "PurpleHoneyUpgrade1": "Purple Honey - Reactant Storage Expansion I:",
+      "PurpleHoneyUpgrade2": "Purple Honey - Reactant Storage Expansion II:",
+      "PurpleHoneyUpgrade3": "Purple Honey - Reactant Storage Expansion III:",
+      "PurpleHoneyUpgrade4": "Purple Honey - Reactant Storage Expansion IV:",
+      "Total": "Total Ambrosia Bar Point Capacity:"
     },
     "purpleHoneyLuckStats": {
       "title": "Purple Honey Luck",

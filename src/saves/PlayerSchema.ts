@@ -275,10 +275,20 @@ const purpleReactantPercentageSchema = z.number().int().min(0).max(100)
 const purpleReactorSchema = z.object({
   purpleHoney: z.number().default(0),
   lifetimePurpleHoney: z.number().default(0),
+  highestPurpleHoney: z.number().default(0),
   storedAmbrosiaBarPoints: z.number().default(0),
   storedRedAmbrosiaBarPoints: z.number().default(0),
   ambrosiaBarPointPercentage: purpleReactantPercentageSchema.default(0).catch(0),
   redAmbrosiaBarPointPercentage: purpleReactantPercentageSchema.default(0).catch(0)
+}).transform((reactor) => {
+  return {
+    ...reactor,
+    highestPurpleHoney: Math.max(reactor.purpleHoney, reactor.highestPurpleHoney)
+  }
+})
+
+const spentPurpleHoneySchema = z.object({
+  upgrades: z.number().default(0)
 })
 
 const playerCorruptionSchema = z.object({
@@ -1047,6 +1057,7 @@ export const playerSchema = z.object({
 
   purpleHoneyProgress: z.number().default(0),
   purpleReactor: purpleReactorSchema.default(() => deepClone()(blankSave.purpleReactor)),
+  spentPurpleHoney: spentPurpleHoneySchema.default(() => deepClone()(blankSave.spentPurpleHoney)),
 
   purpleReactorUpgrades: z.record(z.string(), z.number()).transform(
     (object) => {

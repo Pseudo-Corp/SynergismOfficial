@@ -500,7 +500,7 @@ export const Globals: GlobalVariables = {
   redAmbrosiaTimer: 0,
   purpleHoneyTimer: 0,
   TIME_PER_AMBROSIA: 45,
-  TIME_PER_RED_AMBROSIA: 100000,
+  TIME_PER_RED_AMBROSIA: 1000,
   currentSingChallenge: undefined,
 
   coinVanityThresholds: [
