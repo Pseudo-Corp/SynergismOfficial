@@ -22,6 +22,8 @@ type SynergismLevelReward =
   | 'wowOcteracts'
   | 'ambrosiaLuck'
   | 'redAmbrosiaLuck'
+  | 'redAmbrosiaGeneration'
+  | 'purpleHoneyLuck'
 
 interface SynergismLevelRewardData {
   name: () => string
@@ -231,6 +233,34 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     minLevel: 260,
     defaultValue: 0,
     nameColor: 'red'
+  },
+  redAmbrosiaGeneration: {
+    name: () => i18next.t('achievements.levelRewards.redAmbrosiaGeneration.name'),
+    description: () => i18next.t('achievements.levelRewards.redAmbrosiaGeneration.description'),
+    effect: (lv: number) => 1 + 0.01 * (lv - 259),
+    effectDescription: () => {
+      const mult = getLevelReward('redAmbrosiaGeneration')
+      return i18next.t('achievements.levelRewards.redAmbrosiaGeneration.effect', {
+        percent: formatAsPercentIncrease(mult, 0)
+      })
+    },
+    minLevel: 260,
+    defaultValue: 1,
+    nameColor: 'red'
+  },
+  purpleHoneyLuck: {
+    name: () => i18next.t('achievements.levelRewards.purpleHoneyLuck.name'),
+    description: () => i18next.t('achievements.levelRewards.purpleHoneyLuck.description'),
+    effect: (lv: number) => (lv - 299),
+    effectDescription: () => {
+      const luck = getLevelReward('purpleHoneyLuck')
+      return i18next.t('achievements.levelRewards.purpleHoneyLuck.effect', {
+        luck: format(luck)
+      })
+    },
+    minLevel: 300,
+    defaultValue: 0,
+    nameColor: 'var(--purple-text-color)'
   }
 }
 

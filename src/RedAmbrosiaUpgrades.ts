@@ -257,6 +257,9 @@ export const redAmbrosiaUpgrades: {
     level: 0,
     redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
+      if (level >= 100) {
+        return 10 * baseCost * (level + 1)
+      }
       return baseCost * (level + 1)
     },
     effects: (n: number) => {
@@ -266,7 +269,7 @@ export const redAmbrosiaUpgrades: {
       const val = getRedAmbrosiaUpgradeEffects('redGenerationSpeed', 'redAmbrosiaGenerationSpeed')
       return i18next.t('redAmbrosia.data.redGenerationSpeed.effect', { amount: formatAsPercentIncrease(val) })
     },
-    maxLevel: 100,
+    maxLevel: 200,
     costPerLevel: 12,
     name: () => i18next.t('redAmbrosia.data.redGenerationSpeed.name'),
     description: () => i18next.t('redAmbrosia.data.redGenerationSpeed.description')

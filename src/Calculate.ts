@@ -18,6 +18,7 @@ import { getOcteractUpgradeEffect } from './Octeracts'
 import { calculateAscensionScorePlatonicBlessing } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getPurpleReactorUpgradeEffects } from './Purple'
+import { calculateRedAmbrosiaReactantCapacityFromAmbrosia, purpleReactantConversion } from './PurpleReactor'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
@@ -392,12 +393,38 @@ export const calculateLuckConversion = () => calculateTotalStat(allLuckConversio
 
 export const calculateRedAmbrosiaLuck = () => calculateTotalStat(allRedAmbrosiaLuckStats)
 
-export const calculateRedAmbrosiaGenerationSpeed = () => calculateTotalStat(allRedAmbrosiaGenerationSpeedStats)
+export const calculateRedAmbrosiaGenerationSpeedRaw = () => calculateTotalStat(allRedAmbrosiaGenerationSpeedStats)
+export const calculateRedAmbrosiaGenerationSpeed = () => {
+  const rawSpeed = calculateRedAmbrosiaGenerationSpeedRaw()
+  const blueberries = calculateBlueberryInventory()
+  return rawSpeed * blueberries
+}
 
 export const calculatePurpleReactantHalfLife = () => Math.max(1, calculateTotalStat(allPurpleReactantHalfLifeStats))
 export const calculatePurpleReactantCapacity = () => calculateTotalStat(allPurpleReactantCapacityStats)
 export const calculatePurpleHoneyLuck = () => calculateTotalStat(allPurpleHoneyLuckStats)
 export const calculatePurpleHoneyConversionFactor = () => calculateTotalStat(allPurpleHoneyProgressRequirementStats)
+
+export const calculateRedAmbrosiaReactantCapacity = () => {
+  return calculateRedAmbrosiaReactantCapacityFromAmbrosia(calculatePurpleReactantCapacity())
+}
+
+export const calculatePurpleReactantConversion = (
+  ambrosiaBarPoints: number,
+  redAmbrosiaBarPoints: number,
+  conversionFraction: number
+) => {
+  const conversionBatches = Math.min(
+    ambrosiaBarPoints / purpleReactantConversion.ambrosiaBarPoints,
+    redAmbrosiaBarPoints / purpleReactantConversion.redAmbrosiaBarPoints
+  ) * conversionFraction
+
+  return {
+    ambrosiaBarPointsSpent: conversionBatches * purpleReactantConversion.ambrosiaBarPoints,
+    redAmbrosiaBarPointsSpent: conversionBatches * purpleReactantConversion.redAmbrosiaBarPoints,
+    purpleBarPointsGained: conversionBatches * purpleReactantConversion.purpleBarPoints
+  }
+}
 
 export const calculatePurpleReactantRouting = (
   productionPerSecond: number,
@@ -434,10 +461,10 @@ export const calculatePurpleReactantRouting = (
 
 export const calculatePurpleHoneyPerExtraction = () => {
   return 1
-  + getPurpleReactorUpgradeEffects('purpleEfficiency1', 'purpleEfficiency')
-  + getPurpleReactorUpgradeEffects('purpleEfficiency2', 'purpleEfficiency')
-  + getPurpleReactorUpgradeEffects('purpleEfficiency3', 'purpleEfficiency')
-  + getPurpleReactorUpgradeEffects('purpleEfficiency4', 'purpleEfficiency')
+    + getPurpleReactorUpgradeEffects('purpleEfficiency1', 'purpleEfficiency')
+    + getPurpleReactorUpgradeEffects('purpleEfficiency2', 'purpleEfficiency')
+    + getPurpleReactorUpgradeEffects('purpleEfficiency3', 'purpleEfficiency')
+    + getPurpleReactorUpgradeEffects('purpleEfficiency4', 'purpleEfficiency')
 }
 
 export const calculatePurpleHoneyExtractionMultiplier = (luck: number) => {
@@ -1514,10 +1541,10 @@ export const calculateRequiredBlueberryTime = () => {
 }
 
 export const calculateRequiredRedAmbrosiaTime = () => {
-  let val = G.TIME_PER_RED_AMBROSIA // Currently 100,000
-  val += 200 * player.lifetimeRedAmbrosia
+  let val = G.TIME_PER_RED_AMBROSIA // Currently 1,000
+  val += 2 * player.lifetimeRedAmbrosia
 
-  const max = 1e6 * getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
+  const max = 1e4 * getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
   val *= getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
 
   return Math.min(max, val)
