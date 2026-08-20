@@ -1,43 +1,18 @@
 import { Alert, Notification } from '../UpdateHTML'
-import type { MicroTxnAuthorizationResponse, SteamGetUserInfoResponse } from './steam'
-import { getCurrentGameLanguage, getSteamId, onMicroTxnAuthorizationResponse } from './steam'
+import type { MicroTxnAuthorizationResponse } from './steam'
+import { getSteamId, onMicroTxnAuthorizationResponse } from './steam'
 
 // https://partner.steamgames.com/doc/features/microtransactions/implementation#5
 export async function submitSteamMicroTxn (fd: FormData): Promise<boolean> {
-  const [steamId, currentGameLanguage] = await Promise.all([getSteamId(), getCurrentGameLanguage()])
+  const steamId = await getSteamId()
 
-  if (!steamId || !currentGameLanguage) {
+  if (!steamId) {
     await Alert('Steam is not initialized, I cannot create a transaction')
     return false
   }
 
   // oxlint-disable-next-line synergism-rules/no-relative-fetch
-  const response = await fetch('/api/v1/steam/get-user-info', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      steamId,
-      currentGameLanguage
-    })
-  })
-
-  if (!response.ok) {
-    const { error } = await response.json()
-    Notification(error)
-    return false
-  }
-
-  const { status } = await response.json() as SteamGetUserInfoResponse
-
-  if (status === 'Locked') {
-    await Alert('Your Steam account is locked. You cannot make purchases.')
-    return false
-  }
-
-  // oxlint-disable-next-line synergism-rules/no-relative-fetch
-  const initTxnResponse = await fetch('/api/v1/steam/init-txn', {
+  const initTxnResponse = await fetch(`/api/v2/steam/init-txn?steamId=${steamId}`, {
     method: 'POST',
     body: fd
   })
@@ -73,7 +48,7 @@ export async function submitSteamMicroTxn (fd: FormData): Promise<boolean> {
   }
 
   // oxlint-disable-next-line synergism-rules/no-relative-fetch
-  const finalizeResponse = await fetch('/api/v1/steam/finalize-txn', {
+  const finalizeResponse = await fetch('/api/v2/steam/finalize-txn', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
