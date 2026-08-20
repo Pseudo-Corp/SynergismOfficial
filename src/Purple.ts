@@ -1,5 +1,4 @@
 import i18next from 'i18next'
-import { calculateRedAmbrosiaReactantCapacityFromAmbrosia } from './PurpleReactor'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { visualUpdatePurple } from './UpdateVisuals'
@@ -61,16 +60,20 @@ type PurpleReactorUpgradeRewards = {
     nothing: void
   }
   purpleCapacityExpander1: {
-    purpleCapacity: number
+    ambrosiaCapacity: number
+    redCapacity: number
   }
   purpleCapacityExpander2: {
-    purpleCapacity: number
+    ambrosiaCapacity: number
+    redCapacity: number
   }
   purpleCapacityExpander3: {
-    purpleCapacity: number
+    ambrosiaCapacity: number
+    redCapacity: number
   }
   purpleCapacityExpander4: {
-    purpleCapacity: number
+    ambrosiaCapacity: number
+    redCapacity: number
   }
   obtainium: {
     obtainiumMultiplier: number
@@ -79,25 +82,25 @@ type PurpleReactorUpgradeRewards = {
     offeringMultiplier: number
   }
   highestHoneyQuarks: {
-    unlocked: boolean
+    quarkMultiplier: number
   }
   highestHoneyGlobalSpeed: {
-    unlocked: boolean
+    globalSpeedMultiplier: number
   }
   highestHoneyAscensionSpeed: {
-    unlocked: boolean
+    ascensionSpeedMultiplier: number
   }
   highestHoneyAmbrosia: {
-    unlocked: boolean
+    ambrosiaGenerationSpeed: number
   }
   highestHoneyRedAmbrosia: {
-    unlocked: boolean
+    redAmbrosiaGenerationSpeed: number
   }
   highestHoneyAntELO: {
-    unlocked: boolean
+    additiveAntELOPercent: number
   }
   highestHoneyRebornELOSpeed: {
-    unlocked: boolean
+    rebornELOSpeedMult: number
   }
 }
 
@@ -130,45 +133,6 @@ type PurpleReactorUpgradeData = {
   [K in PurpleReactorNames]: PurpleReactorUpgradeDefinition<K, keyof PurpleReactorUpgradeRewards[K]>
 }
 
-type PurpleCapacityExpander = Extract<PurpleReactorNames, `purpleCapacityExpander${number}`>
-type HighestHoneyUpgrade = Extract<PurpleReactorNames, `highestHoney${string}`>
-
-const getHighestHoneyUpgradeNotMaxedEffectsDescription = (upgradeKey: HighestHoneyUpgrade): string => {
-  return i18next.t(`purpleReactor.upgrades.${upgradeKey}.effectNotMaxed`)
-}
-
-const getHighestHoneyUpgradeMaxedEffectsDescription = (upgradeKey: HighestHoneyUpgrade): string => {
-  return i18next.t(`purpleReactor.upgrades.${upgradeKey}.effectMaxed`)
-}
-
-const getPurpleCapacityExpanderNotMaxedEffectsDescription = (upgradeKey: PurpleCapacityExpander): string => {
-  const effect = getPurpleReactorUpgradeEffects(upgradeKey, 'purpleCapacity')
-  const newEffect = getPurpleReactorUpgradeNextLevelEffects(upgradeKey, 'purpleCapacity')
-
-  return [
-    i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxed', {
-      oldValue: format(effect, 0, true),
-      newValue: format(newEffect, 0, true)
-    }),
-    i18next.t('purpleReactor.upgrades.redCapacityExpander1.effectNotMaxed', {
-      oldValue: format(calculateRedAmbrosiaReactantCapacityFromAmbrosia(effect), 2, true),
-      newValue: format(calculateRedAmbrosiaReactantCapacityFromAmbrosia(newEffect), 2, true)
-    })
-  ].join('<br>')
-}
-
-const getPurpleCapacityExpanderMaxedEffectsDescription = (upgradeKey: PurpleCapacityExpander): string => {
-  const effect = getPurpleReactorUpgradeEffects(upgradeKey, 'purpleCapacity')
-
-  return [
-    i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxed', {
-      maxValue: format(effect, 0, true)
-    }),
-    i18next.t('purpleReactor.upgrades.redCapacityExpander1.effectMaxed', {
-      maxValue: format(calculateRedAmbrosiaReactantCapacityFromAmbrosia(effect), 2, true)
-    })
-  ].join('<br>')
-}
 
 export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   tutorial: {
@@ -516,14 +480,41 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   purpleCapacityExpander1: {
     maxLevel: 10_000,
     costFormula: (level: number) => Math.ceil(Math.pow(level, 1.1)),
-    effects: (n) => {
-      return 50_000 * n
+    effects: (n, key) => {
+      if (key === 'ambrosiaCapacity') {
+        return 125_000 * n
+      }
+      return 125 * n // redCapacity
     },
     notMaxedEffectsDescription: () => {
-      return getPurpleCapacityExpanderNotMaxedEffectsDescription('purpleCapacityExpander1')
+      const oldAmbrosiaCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander1', 'ambrosiaCapacity')
+      const newAmbrosiaCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander1', 'ambrosiaCapacity')
+      const ambrosiaText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedAmbrosia', {
+        oldValue: format(oldAmbrosiaCap, 0),
+        newValue: format(newAmbrosiaCap, 0)
+      })
+
+      const oldRedCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander1', 'redCapacity')
+      const newRedCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander1', 'redCapacity')
+      const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedRed', {
+        oldValue: format(oldRedCap, 0),
+        newValue: format(newRedCap, 0),
+      })
+
+      return `${ambrosiaText}<br>${redText}`
     },
     maxedEffectsDescription: () => {
-      return getPurpleCapacityExpanderMaxedEffectsDescription('purpleCapacityExpander1')
+      const ambrosiaCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander1', 'ambrosiaCapacity')
+      const ambrosiaText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxedAmbrosia', {
+        maxValue: format(ambrosiaCap, 0)
+      })
+
+      const redCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander1', 'redCapacity')
+      const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxedRed', {
+        maxValue: format(redCap, 0)
+      })
+
+      return `${ambrosiaText}<br>${redText}`
     },
     apValue: {
       perLevelAP: 0,
@@ -533,14 +524,41 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   purpleCapacityExpander2: {
     maxLevel: 10_000,
     costFormula: (level: number) => 10 * Math.ceil(Math.pow(level, 1.2)),
-    effects: (n) => {
-      return 50_000 * n
+    effects: (n, key) => {
+      if (key === 'ambrosiaCapacity') {
+        return 150_000 * n
+      }
+      return 150 * n // redCapacity
     },
     notMaxedEffectsDescription: () => {
-      return getPurpleCapacityExpanderNotMaxedEffectsDescription('purpleCapacityExpander2')
+      const oldAmbrosiaCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander2', 'ambrosiaCapacity')
+      const newAmbrosiaCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander2', 'ambrosiaCapacity')
+      const ambrosiaText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedAmbrosia', {
+        oldValue: format(oldAmbrosiaCap, 0),
+        newValue: format(newAmbrosiaCap, 0)
+      })
+
+      const oldRedCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander2', 'redCapacity')
+      const newRedCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander2', 'redCapacity')
+      const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedRed', {
+        oldValue: format(oldRedCap, 0),
+        newValue: format(newRedCap, 0),
+      })
+
+      return `${ambrosiaText}<br>${redText}`
     },
     maxedEffectsDescription: () => {
-      return getPurpleCapacityExpanderMaxedEffectsDescription('purpleCapacityExpander2')
+      const ambrosiaCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander2', 'ambrosiaCapacity')
+      const ambrosiaText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxedAmbrosia', {
+        maxValue: format(ambrosiaCap, 0)
+      })
+
+      const redCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander2', 'redCapacity')
+      const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxedRed', {
+        maxValue: format(redCap, 0)
+      })
+
+      return `${ambrosiaText}<br>${redText}`
     },
     apValue: {
       perLevelAP: 0,
@@ -550,14 +568,41 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   purpleCapacityExpander3: {
     maxLevel: 10_000,
     costFormula: (level: number) => 100 * Math.ceil(Math.pow(level, 1.25)),
-    effects: (n) => {
-      return 50_000 * n
+    effects: (n, key) => {
+      if (key === 'ambrosiaCapacity') {
+        return 150_000 * n
+      }
+      return 150 * n // redCapacity
     },
     notMaxedEffectsDescription: () => {
-      return getPurpleCapacityExpanderNotMaxedEffectsDescription('purpleCapacityExpander3')
+      const oldAmbrosiaCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander3', 'ambrosiaCapacity')
+      const newAmbrosiaCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander3', 'ambrosiaCapacity')
+      const ambrosiaText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedAmbrosia', {
+        oldValue: format(oldAmbrosiaCap, 0),
+        newValue: format(newAmbrosiaCap, 0)
+      })
+
+      const oldRedCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander3', 'redCapacity')
+      const newRedCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander3', 'redCapacity')
+      const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedRed', {
+        oldValue: format(oldRedCap, 0),
+        newValue: format(newRedCap, 0),
+      })
+
+      return `${ambrosiaText}<br>${redText}`
     },
     maxedEffectsDescription: () => {
-      return getPurpleCapacityExpanderMaxedEffectsDescription('purpleCapacityExpander3')
+      const ambrosiaCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander3', 'ambrosiaCapacity')
+      const ambrosiaText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxedAmbrosia', {
+        maxValue: format(ambrosiaCap, 0)
+      })
+
+      const redCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander3', 'redCapacity')
+      const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxedRed', {
+        maxValue: format(redCap, 0)
+      })
+
+      return `${ambrosiaText}<br>${redText}`
     },
     apValue: {
       perLevelAP: 0,
@@ -567,14 +612,41 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   purpleCapacityExpander4: {
     maxLevel: 10_000,
     costFormula: (level: number) => 1000 * Math.ceil(Math.pow(level, 1.3)),
-    effects: (n) => {
-      return 50_000 * n
+    effects: (n, key) => {
+      if (key === 'ambrosiaCapacity') {
+        return 175_000 * n
+      }
+      return 175 * n // redCapacity
     },
     notMaxedEffectsDescription: () => {
-      return getPurpleCapacityExpanderNotMaxedEffectsDescription('purpleCapacityExpander4')
+      const oldAmbrosiaCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander4', 'ambrosiaCapacity')
+      const newAmbrosiaCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander4', 'ambrosiaCapacity')
+      const ambrosiaText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedAmbrosia', {
+        oldValue: format(oldAmbrosiaCap, 0),
+        newValue: format(newAmbrosiaCap, 0)
+      })
+
+      const oldRedCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander4', 'redCapacity')
+      const newRedCap = getPurpleReactorUpgradeNextLevelEffects('purpleCapacityExpander4', 'redCapacity')
+      const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectNotMaxedRed', {
+        oldValue: format(oldRedCap, 0),
+        newValue: format(newRedCap, 0),
+      })
+
+      return `${ambrosiaText}<br>${redText}`
     },
     maxedEffectsDescription: () => {
-      return getPurpleCapacityExpanderMaxedEffectsDescription('purpleCapacityExpander4')
+      const ambrosiaCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander4', 'ambrosiaCapacity')
+      const ambrosiaText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxedAmbrosia', {
+        maxValue: format(ambrosiaCap, 0)
+      })
+
+      const redCap = getPurpleReactorUpgradeEffects('purpleCapacityExpander4', 'redCapacity')
+      const redText = i18next.t('purpleReactor.upgrades.purpleCapacityExpander1.effectMaxedRed', {
+        maxValue: format(redCap, 0)
+      })
+
+      return `${ambrosiaText}<br>${redText}`
     },
     apValue: {
       perLevelAP: 0,
@@ -745,79 +817,226 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   highestHoneyQuarks: {
     maxLevel: 1,
-    costFormula: (level: number) => level,
-    effects: (n) => n > 0,
-    notMaxedEffectsDescription: () => getHighestHoneyUpgradeNotMaxedEffectsDescription('highestHoneyQuarks'),
-    maxedEffectsDescription: () => getHighestHoneyUpgradeMaxedEffectsDescription('highestHoneyQuarks'),
+    costFormula: (level: number) => 500 * level,
+    effects: (n) => {
+      return 1 + n * 0.05 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.1)
+    },
+    notMaxedEffectsDescription: () => {
+      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'quarkMultiplier')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyQuarks', 'quarkMultiplier')
+
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyQuarks.effectNotMaxed', {
+        oldPercent: formatAsPercentIncrease(oldEffect, 2),
+        newPercent: formatAsPercentIncrease(newEffect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyQuarks.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'quarkMultiplier')
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyQuarks.effectMaxed', {
+        maxPercent: formatAsPercentIncrease(effect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyQuarks.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
     apValue: {
       perLevelAP: 0,
-      maxLevelAP: 0
+      maxLevelAP: 10
     }
   },
   highestHoneyGlobalSpeed: {
     maxLevel: 1,
-    costFormula: (level: number) => level,
-    effects: (n) => n > 0,
-    notMaxedEffectsDescription: () => getHighestHoneyUpgradeNotMaxedEffectsDescription('highestHoneyGlobalSpeed'),
-    maxedEffectsDescription: () => getHighestHoneyUpgradeMaxedEffectsDescription('highestHoneyGlobalSpeed'),
+    costFormula: (level: number) => 2_000 * level,
+    effects: (n) => {
+      return 1 + n * 0.1 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.15)
+    },
+    notMaxedEffectsDescription: () => {
+      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier')
+
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyGlobalSpeed.effectNotMaxed', {
+        oldPercent: formatAsPercentIncrease(oldEffect, 2),
+        newPercent: formatAsPercentIncrease(newEffect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyGlobalSpeed.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier')
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyGlobalSpeed.effectMaxed', {
+        maxPercent: formatAsPercentIncrease(effect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyGlobalSpeed.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
     apValue: {
       perLevelAP: 0,
-      maxLevelAP: 0
+      maxLevelAP: 15
     }
   },
   highestHoneyAscensionSpeed: {
     maxLevel: 1,
-    costFormula: (level: number) => level,
-    effects: (n) => n > 0,
-    notMaxedEffectsDescription: () => getHighestHoneyUpgradeNotMaxedEffectsDescription('highestHoneyAscensionSpeed'),
-    maxedEffectsDescription: () => getHighestHoneyUpgradeMaxedEffectsDescription('highestHoneyAscensionSpeed'),
+    costFormula: (level: number) => 2_000 * level,
+    effects: (n) => {
+      return 1 + n * 0.075 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.15)
+    },
+    notMaxedEffectsDescription: () => {
+      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
+
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAscensionSpeed.effectNotMaxed', {
+        oldPercent: formatAsPercentIncrease(oldEffect, 2),
+        newPercent: formatAsPercentIncrease(newEffect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAscensionSpeed.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAscensionSpeed.effectMaxed', {
+        maxPercent: formatAsPercentIncrease(effect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAscensionSpeed.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
     apValue: {
       perLevelAP: 0,
-      maxLevelAP: 0
+      maxLevelAP: 15
     }
   },
   highestHoneyAmbrosia: {
     maxLevel: 1,
-    costFormula: (level: number) => 5 * 10**3 * level,
-    effects: (n) => n > 0,
-    notMaxedEffectsDescription: () => getHighestHoneyUpgradeNotMaxedEffectsDescription('highestHoneyAmbrosia'),
-    maxedEffectsDescription: () => getHighestHoneyUpgradeMaxedEffectsDescription('highestHoneyAmbrosia'),
+    costFormula: (level: number) => 10_000 * level,
+    effects: (n) => {
+      return 1 + n * 0.02 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.075)
+    },
+    notMaxedEffectsDescription: () => {
+      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed')
+
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAmbrosia.effectNotMaxed', {
+        oldPercent: formatAsPercentIncrease(oldEffect, 2),
+        newPercent: formatAsPercentIncrease(newEffect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAmbrosia.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed')
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAmbrosia.effectMaxed', {
+        maxPercent: formatAsPercentIncrease(effect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAmbrosia.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
     apValue: {
       perLevelAP: 0,
-      maxLevelAP: 0
+      maxLevelAP: 20
     }
   },
   highestHoneyRedAmbrosia: {
     maxLevel: 1,
-    costFormula: (level: number) => 10**4 * level,
-    effects: (n) => n > 0,
-    notMaxedEffectsDescription: () => getHighestHoneyUpgradeNotMaxedEffectsDescription('highestHoneyRedAmbrosia'),
-    maxedEffectsDescription: () => getHighestHoneyUpgradeMaxedEffectsDescription('highestHoneyRedAmbrosia'),
+    costFormula: (level: number) => 25_000 * level,
+    effects: (n) => {
+      return 1 + n * 0.01 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.125)
+    },
+    notMaxedEffectsDescription: () => {
+      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
+
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyRedAmbrosia.effectNotMaxed', {
+        oldPercent: formatAsPercentIncrease(oldEffect, 2),
+        newPercent: formatAsPercentIncrease(newEffect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyRedAmbrosia.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyRedAmbrosia.effectMaxed', {
+        maxPercent: formatAsPercentIncrease(effect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyRedAmbrosia.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
     apValue: {
       perLevelAP: 0,
-      maxLevelAP: 0
+      maxLevelAP: 20
     }
   },
   highestHoneyAntELO: {
     maxLevel: 1,
-    costFormula: (level: number) => level,
-    effects: (n) => n > 0,
-    notMaxedEffectsDescription: () => getHighestHoneyUpgradeNotMaxedEffectsDescription('highestHoneyAntELO'),
-    maxedEffectsDescription: () => getHighestHoneyUpgradeMaxedEffectsDescription('highestHoneyAntELO'),
+    costFormula: (level: number) => 250_000 * level,
+    effects: (n) => {
+      return 0.0001 * n * Math.log(1 + player.stats.highestPurpleHoney)
+    },
+    notMaxedEffectsDescription: () => {
+      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyAntELO', 'additiveAntELOPercent')
+
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAntELO.effectNotMaxed', {
+        oldPercent: formatAsPercentIncrease(1 + oldEffect, 2),
+        newPercent: formatAsPercentIncrease(1 + newEffect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAntELO.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent')
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAntELO.effectMaxed', {
+        maxPercent: formatAsPercentIncrease(1 + effect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAntELO.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
     apValue: {
       perLevelAP: 0,
-      maxLevelAP: 0
+      maxLevelAP: 25
     }
   },
   highestHoneyRebornELOSpeed: {
     maxLevel: 1,
-    costFormula: (level: number) => level,
-    effects: (n) => n > 0,
-    notMaxedEffectsDescription: () => getHighestHoneyUpgradeNotMaxedEffectsDescription('highestHoneyRebornELOSpeed'),
-    maxedEffectsDescription: () => getHighestHoneyUpgradeMaxedEffectsDescription('highestHoneyRebornELOSpeed'),
+    costFormula: (level: number) => 750_000 * level,
+    effects: (n) => {
+      return 1 + n * 0.04 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.1)
+    },
+    notMaxedEffectsDescription: () => {
+      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult')
+
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyRebornELOSpeed.effectNotMaxed', {
+        oldPercent: formatAsPercentIncrease(oldEffect, 2),
+        newPercent: formatAsPercentIncrease(newEffect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyRebornELOSpeed.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult')
+      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyRebornELOSpeed.effectMaxed', {
+        maxPercent: formatAsPercentIncrease(effect, 2)
+      })
+      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyRebornELOSpeed.formula')
+
+      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+    },
     apValue: {
       perLevelAP: 0,
-      maxLevelAP: 0
+      maxLevelAP: 25
     }
   }
 }
@@ -870,8 +1089,8 @@ export const setPurpleReactorUpgradeLevels = (): void => {
     const toRefund = oldInvested - totalCost
     if (toRefund > 0) {
       player.purpleReactor.purpleHoney += toRefund
-      player.purpleReactor.highestPurpleHoney = Math.max(
-        player.purpleReactor.highestPurpleHoney,
+      player.stats.highestPurpleHoney = Math.max(
+        player.stats.highestPurpleHoney,
         player.purpleReactor.purpleHoney
       )
     }
@@ -1070,57 +1289,3 @@ export const maxPurpleReactorAP = Math.floor(
     return totalAP + upgrade.maxLevel * upgrade.apValue.perLevelAP + upgrade.apValue.maxLevelAP
   }, 0)
 )
-
-type HighestPurpleHoneyPower =
-  | 'quarkMultiplier'
-  | 'globalSpeedMultiplier'
-  | 'ascensionSpeedMultiplier'
-  | 'ambrosiaGenerationMultiplier'
-  | 'redAmbrosiaGenerationMultiplier'
-  | 'additiveAntELOMultiplier'
-  | 'rebornELOCreationSpeedMultiplier'
-
-export const calculateHighestPurpleHoneyPower = (key: HighestPurpleHoneyPower) => {
-  const highestPurpleHoney = Math.max(0, player.purpleReactor.highestPurpleHoney)
-  const scaledLogarithm = Math.log1p(highestPurpleHoney / 100)
-
-  if (key === 'quarkMultiplier') {
-    return getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'unlocked')
-      ? 1 + 0.05 * Math.pow(scaledLogarithm, 1.1)
-      : 1
-  }
-
-  if (key === 'globalSpeedMultiplier') {
-    return getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'unlocked')
-      ? 1 + 0.1 * Math.pow(scaledLogarithm, 1.15)
-      : 1
-  }
-
-  if (key === 'ascensionSpeedMultiplier') {
-    return getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'unlocked')
-      ? 1 + 0.1 * Math.pow(scaledLogarithm, 1.15)
-      : 1
-  }
-
-  if (key === 'ambrosiaGenerationMultiplier') {
-    return getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'unlocked')
-      ? 1 + 0.02 * Math.pow(scaledLogarithm, 1.075)
-      : 1
-  }
-
-  if (key === 'redAmbrosiaGenerationMultiplier') {
-    return getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'unlocked')
-      ? 1 + 0.02 * Math.pow(scaledLogarithm, 1.075)
-      : 1
-  }
-
-  if (key === 'additiveAntELOMultiplier') {
-    return getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'unlocked')
-      ? 0.0001 * Math.log1p(highestPurpleHoney)
-      : 0
-  }
-
-  return getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'unlocked')
-    ? 1 + 0.04 * Math.pow(scaledLogarithm, 1.1)
-    : 1
-}

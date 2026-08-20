@@ -145,8 +145,8 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
   player.purpleHoneyProgress = purpleHoneyProgress % conversionFactor
   player.purpleReactor.purpleHoney += purpleHoneyGained
   player.purpleReactor.lifetimePurpleHoney += purpleHoneyGained
-  player.purpleReactor.highestPurpleHoney = Math.max(
-    player.purpleReactor.highestPurpleHoney,
+  player.stats.highestPurpleHoney = Math.max(
+    player.stats.highestPurpleHoney,
     player.purpleReactor.purpleHoney
   )
 

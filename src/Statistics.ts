@@ -130,7 +130,7 @@ import {
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { calculateHighestPurpleHoneyPower, getPurpleReactorUpgradeEffects } from './Purple'
+import { getPurpleReactorUpgradeEffects } from './Purple'
 import { getGlobalBonus, getPersonalBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { getRuneBlessingEffect } from './RuneBlessings'
@@ -1490,7 +1490,7 @@ export const allQuarkStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => calculateHighestPurpleHoneyPower('quarkMultiplier'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'quarkMultiplier'),
       color: 'purple'
     }
   ]
@@ -2048,7 +2048,7 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => calculateHighestPurpleHoneyPower('globalSpeedMultiplier'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier'), // Highest Purple Honey Power
       color: 'purple'
     }
   ]
@@ -2177,7 +2177,7 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => calculateHighestPurpleHoneyPower('ascensionSpeedMultiplier'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier'),
       color: 'purple'
     }
   ]
@@ -2524,7 +2524,7 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => calculateHighestPurpleHoneyPower('ambrosiaGenerationMultiplier'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed'),
       color: 'purple'
     }
   ]
@@ -3000,7 +3000,7 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => calculateHighestPurpleHoneyPower('redAmbrosiaGenerationMultiplier'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed'),
       color: 'purple'
     }
   ]
@@ -3565,7 +3565,7 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => calculateHighestPurpleHoneyPower('additiveAntELOMultiplier'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent'),
       acc: 2,
       color: 'purple'
     }
@@ -3660,7 +3660,7 @@ export const rebornELOCreationSpeedMultStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => calculateHighestPurpleHoneyPower('rebornELOCreationSpeedMultiplier'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult'),
       color: 'purple'
     }
   ]
@@ -3762,22 +3762,22 @@ export const allPurpleReactantCapacityStats: NumberStatLineCategory = {
     // Purple Honey - Reactant Storage Expansion I
     {
       i18n: 'PurpleHoneyUpgrade1',
-      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander1', 'purpleCapacity')
+      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander1', 'ambrosiaCapacity')
     },
     // Purple Honey - Reactant Storage Expansion II
     {
       i18n: 'PurpleHoneyUpgrade2',
-      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander2', 'purpleCapacity')
+      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander2', 'ambrosiaCapacity')
     },
     // Purple Honey - Reactant Storage Expansion III
     {
       i18n: 'PurpleHoneyUpgrade3',
-      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander3', 'purpleCapacity')
+      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander3', 'ambrosiaCapacity')
     },
     // Purple Honey - Reactant Storage Expansion IV
     {
       i18n: 'PurpleHoneyUpgrade4',
-      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander4', 'purpleCapacity')
+      stat: () => getPurpleReactorUpgradeEffects('purpleCapacityExpander4', 'ambrosiaCapacity')
     }
   ]
 }
@@ -3909,7 +3909,7 @@ const allMiscStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoney',
-      stat: () => player.purpleReactor.highestPurpleHoney,
+      stat: () => player.stats.highestPurpleHoney,
       color: 'var(--purple-text-color)C'
     },
     {
