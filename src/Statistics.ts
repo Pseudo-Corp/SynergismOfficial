@@ -146,8 +146,7 @@ import { getShopUpgradeEffects } from './Shop'
 import {
   calculateMaxSingularityLookahead,
   calculateSingularityDebuff,
-  getGQUpgradeEffect,
-  goldenQuarkUpgrades
+  getGQUpgradeEffect
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
@@ -4985,7 +4984,7 @@ const gameStages = (): Stage[] => {
       stage: 24,
       tier: 6,
       name: 'exalt7x10-pen',
-      unlocked: goldenQuarkUpgrades.ultimatePen.level > 0,
+      unlocked: player.goldenQuarkUpgrades.ultimatePen.level > 0,
       reset: player.highestSingularityCount > 0
     },
     {

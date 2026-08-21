@@ -25,7 +25,6 @@ export type RuneSpiritKeys = keyof RuneSpiritTypeMap
 
 interface RuneSpiritData<K extends RuneSpiritKeys> {
   level: number
-  runeEXP: Decimal
   costCoefficient: Decimal
   levelsPerOOM: number
   effectiveLevelMult: () => number
@@ -60,7 +59,6 @@ const spiritMultiplier = (key: RuneKeys) => {
 export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   speed: {
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e45),
     levelsPerOOM: 2,
     effects: (level) => {
@@ -84,7 +82,6 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   },
   duplication: {
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e52),
     levelsPerOOM: 2,
     effects: (level) => {
@@ -108,7 +105,6 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   },
   prism: {
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e60),
     levelsPerOOM: 2,
     effects: (level) => {
@@ -132,7 +128,6 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   },
   thrift: {
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e72),
     levelsPerOOM: 2,
     effects: (level) => {
@@ -156,7 +151,6 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
   },
   superiorIntellect: {
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e85),
     levelsPerOOM: 2,
     effects: (level) => {
@@ -201,7 +195,7 @@ const computeEXPToLevel = (spirit: RuneSpiritKeys, level: number) => {
 }
 
 const computeEXPLeftToLevel = (spirit: RuneSpiritKeys, level: number) => {
-  return Decimal.max(0, computeEXPToLevel(spirit, level).minus(runeSpirits[spirit].runeEXP))
+  return Decimal.max(0, computeEXPToLevel(spirit, level).minus(player.runeSpirits[spirit]))
 }
 
 export const buySpiritLevels = (spirit: RuneSpiritKeys, budget: Decimal) => {
@@ -236,10 +230,10 @@ const levelSpirit = (spirit: RuneSpiritKeys, timesLeveled: number, budget: Decim
   const offeringsRequired = Decimal.max(1, expRequired.div(runeEXPPerOffering).ceil())
 
   if (offeringsRequired.gt(budget)) {
-    runeSpirits[spirit].runeEXP = runeSpirits[spirit].runeEXP.add(budget.times(runeEXPPerOffering))
+    player.runeSpirits[spirit] = player.runeSpirits[spirit].add(budget.times(runeEXPPerOffering))
     budgetUsed = budget
   } else {
-    runeSpirits[spirit].runeEXP = computeEXPToLevel(spirit, runeSpirits[spirit].level + timesLeveled)
+    player.runeSpirits[spirit] = computeEXPToLevel(spirit, runeSpirits[spirit].level + timesLeveled)
     budgetUsed = offeringsRequired
   }
 
@@ -249,7 +243,7 @@ const levelSpirit = (spirit: RuneSpiritKeys, timesLeveled: number, budget: Decim
 const updateLevelsFromEXP = (spirit: RuneSpiritKeys) => {
   const levelsPerOOM = runeSpirits[spirit].levelsPerOOM
   const levels = Math.floor(
-    levelsPerOOM * Decimal.log10(runeSpirits[spirit].runeEXP.div(runeSpirits[spirit].costCoefficient).plus(1))
+    levelsPerOOM * Decimal.log10(player.runeSpirits[spirit].div(runeSpirits[spirit].costCoefficient).plus(1))
   )
   // Floating point imprecision fix
   if (computeEXPLeftToLevel(spirit, levels + 1).eq(new Decimal())) {
@@ -276,7 +270,7 @@ const maxSpiritLevelPurchaseInformation = (spirit: RuneSpiritKeys, budget: Decim
   }
 
   const runeEXPPerOffering = getRuneSpiritEXPPerOffering(spirit)
-  const totalEXPAvailable = budget.times(runeEXPPerOffering).add(runeSpirits[spirit].runeEXP)
+  const totalEXPAvailable = budget.times(runeEXPPerOffering).add(player.runeSpirits[spirit])
   const levelsPerOOM = runeSpirits[spirit].levelsPerOOM
   const costCoeff = runeSpirits[spirit].costCoefficient
 
@@ -294,7 +288,7 @@ const maxSpiritLevelPurchaseInformation = (spirit: RuneSpiritKeys, budget: Decim
     const nextLevelEXP = computeEXPToLevel(spirit, runeSpirits[spirit].level + 1)
     const offeringsRequired = Decimal.max(
       1,
-      nextLevelEXP.minus(runeSpirits[spirit].runeEXP).div(runeEXPPerOffering).ceil()
+      nextLevelEXP.minus(player.runeSpirits[spirit]).div(runeEXPPerOffering).ceil()
     )
     return { levels: 1, expRequired: nextLevelEXP, offerings: offeringsRequired }
   }
@@ -304,7 +298,7 @@ const maxSpiritLevelPurchaseInformation = (spirit: RuneSpiritKeys, budget: Decim
   // Need to be recomputed since offerings required is not necessarily equal to budget.
   const offeringsRequired = Decimal.max(
     1,
-    expRequired.minus(runeSpirits[spirit].runeEXP).div(runeEXPPerOffering).ceil()
+    expRequired.minus(player.runeSpirits[spirit]).div(runeEXPPerOffering).ceil()
   )
   return { levels: levelsGained, expRequired: expRequired, offerings: offeringsRequired }
 }
@@ -396,7 +390,7 @@ export const focusedRuneSpiritHTML = (spirit: RuneSpiritKeys) => {
   })
 
   const experienceHTML = i18next.t('runes.spirits.spiritEXP', {
-    exp: format(runeSpirits[spirit].runeEXP, 2, true),
+    exp: format(player.runeSpirits[spirit], 2, true),
     perEXP: format(getRuneSpiritEXPPerOffering(spirit), 2, true)
   })
 
@@ -418,7 +412,7 @@ export function resetRuneSpirits (tier: keyof typeof resetTiers) {
   for (const spirit of runeSpiritKeys) {
     if (resetTiers[tier] >= resetTiers[runeSpirits[spirit].minimalResetTier]) {
       runeSpirits[spirit].level = 0
-      runeSpirits[spirit].runeEXP = new Decimal()
+      player.runeSpirits[spirit] = new Decimal()
     }
   }
 }

@@ -12,7 +12,7 @@ import { testing, version } from './Config'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { addTimers } from './Helper'
 import { getFinalHepteractCap, hepteracts } from './Hepteracts'
-import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
+import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
@@ -474,7 +474,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const cap = getFinalHepteractCap('quark')
 
     if (cap < 1e300 && (hepteracts.quark.UNLOCKED() || player.highestSingularityCount > 0)) {
-      hepteracts.quark.TIMES_CAP_EXTENDED += 1
+      player.hepteracts.quark.TIMES_CAP_EXTENDED += 1
       player.codes.set(47, true)
       return Alert(i18next.t('importexport.promocodes.bribe.thanks'))
     }
@@ -566,7 +566,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
         const num = 1000 * seededRandom(Seed.PromoCodes)
         for (const key of keys) {
           if (upgradeDistribution[key].pdf(num)) {
-            goldenQuarkUpgrades[key].freeLevel += upgradeDistribution[key].value
+            player.goldenQuarkUpgrades[key].freeLevel += upgradeDistribution[key].value
             if (freeLevels[key]) {
               freeLevels[key] += upgradeDistribution[key].value
             } else {
@@ -577,19 +577,19 @@ export const promocodes = async (input: string | null, amount?: number) => {
       }
 
       if (player.highestSingularityCount >= 20) {
-        goldenQuarkUpgrades.goldenQuarks1.freeLevel += 0.2
+        player.goldenQuarkUpgrades.goldenQuarks1.freeLevel += 0.2
         if (freeLevels.goldenQuarks1) {
           freeLevels.goldenQuarks1 += 0.2
         } else {
           freeLevels.goldenQuarks1 = 0.2
         }
-        goldenQuarkUpgrades.goldenQuarks2.freeLevel += 0.2
+        player.goldenQuarkUpgrades.goldenQuarks2.freeLevel += 0.2
         if (freeLevels.goldenQuarks2) {
           freeLevels.goldenQuarks2 += 0.2
         } else {
           freeLevels.goldenQuarks2 = 0.2
         }
-        goldenQuarkUpgrades.goldenQuarks3.freeLevel += 1
+        player.goldenQuarkUpgrades.goldenQuarks3.freeLevel += 1
         if (freeLevels.goldenQuarks3) {
           freeLevels.goldenQuarks3 += 1
         } else {
@@ -599,33 +599,33 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
       if (player.highestSingularityCount >= 200 && player.highestSingularityCount < 205) {
         const freeLevelOct1 = Math.max(
-          octeractUpgrades.octeractGain.level / 100,
+          player.octUpgrades.octeractGain.level / 100,
           Math.pow(
-            octeractUpgrades.octeractGain.level * octeractUpgrades.octeractGain.freeLevel / 1000,
+            player.octUpgrades.octeractGain.level * player.octUpgrades.octeractGain.freeLevel / 1000,
             0.5
           )
         )
-        octeractUpgrades.octeractGain.freeLevel += freeLevelOct1
+        player.octUpgrades.octeractGain.freeLevel += freeLevelOct1
         freeLevels.octeractGain = freeLevelOct1
       } else if (player.highestSingularityCount >= 205) {
         const freeLevelOct1 = Math.max(
-          octeractUpgrades.octeractGain.level / 100,
+          player.octUpgrades.octeractGain.level / 100,
           Math.pow(
-            octeractUpgrades.octeractGain.level * octeractUpgrades.octeractGain.freeLevel / 640,
+            player.octUpgrades.octeractGain.level * player.octUpgrades.octeractGain.freeLevel / 640,
             0.5
           )
         )
         const freeLevelOct2 = Math.max(
-          octeractUpgrades.octeractGain2.level / 100,
+          player.octUpgrades.octeractGain2.level / 100,
           Math.pow(
-            Math.pow(octeractUpgrades.octeractGain2.level, 2) * octeractUpgrades.octeractGain2.freeLevel
+            Math.pow(player.octUpgrades.octeractGain2.level, 2) * player.octUpgrades.octeractGain2.freeLevel
               / 125000,
             0.333
           )
         )
 
-        octeractUpgrades.octeractGain.freeLevel += freeLevelOct1
-        octeractUpgrades.octeractGain2.freeLevel += freeLevelOct2
+        player.octUpgrades.octeractGain.freeLevel += freeLevelOct1
+        player.octUpgrades.octeractGain2.freeLevel += freeLevelOct2
         freeLevels.octeractGain = freeLevelOct1
         freeLevels.octeractGain2 = freeLevelOct2
       }
@@ -636,9 +636,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
         'redAmbrosiaFreeAccumulator',
         'freeAccumulatorLevels'
       )
-      octeractUpgrades.octeractAscensionsOcteractGain.freeLevel = Math.min(
+      player.octUpgrades.octeractAscensionsOcteractGain.freeLevel = Math.min(
         digitalOcteractAccumulatorCap,
-        octeractUpgrades.octeractAscensionsOcteractGain.freeLevel + digitalOcteractFreeLevels
+        player.octUpgrades.octeractAscensionsOcteractGain.freeLevel + digitalOcteractFreeLevels
       )
 
       if (digitalOcteractFreeLevels > 0) {
@@ -759,8 +759,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
       addTimers('ambrosia', blueberryTime)
 
       if (player.highestSingularityCount >= 150) {
-        goldenQuarkUpgrades.goldenQuarks1.freeLevel += 0.01 * realAttemptsUsed
-        goldenQuarkUpgrades.goldenQuarks3.freeLevel += 0.05 * realAttemptsUsed
+        player.goldenQuarkUpgrades.goldenQuarks1.freeLevel += 0.01 * realAttemptsUsed
+        player.goldenQuarkUpgrades.goldenQuarks3.freeLevel += 0.05 * realAttemptsUsed
       }
 
       player.rngCode = v

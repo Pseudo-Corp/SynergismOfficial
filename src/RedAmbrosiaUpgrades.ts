@@ -45,7 +45,6 @@ interface RedAmbrosiaUpgrade<T extends RedAmbrosiaNames, K extends keyof RedAmbr
   level: number
   maxLevel: number
   costPerLevel: number
-  redAmbrosiaInvested: number
   costFormula: (level: number, baseCost: number) => number
   effects: (n: number, key: K) => RedAmbrosiaUpgradeRewards[T][K]
   effectsDescription: (n: number) => string
@@ -63,7 +62,6 @@ export const redAmbrosiaUpgrades: {
 } = {
   tutorial: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (_level: number, baseCost: number) => {
       return baseCost // Level has no effect.
     },
@@ -83,7 +81,6 @@ export const redAmbrosiaUpgrades: {
   },
   conversionImprovement1: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(2, level)
     },
@@ -100,7 +97,6 @@ export const redAmbrosiaUpgrades: {
   },
   conversionImprovement2: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(4, level)
     },
@@ -117,7 +113,6 @@ export const redAmbrosiaUpgrades: {
   },
   conversionImprovement3: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(10, level)
     },
@@ -134,7 +129,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeTutorialLevels: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost + level
     },
@@ -151,7 +145,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeLevelsRow2: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(2, level)
     },
@@ -168,7 +161,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeLevelsRow3: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(2, level)
     },
@@ -185,7 +177,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeLevelsRow4: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(2, level)
     },
@@ -202,7 +193,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeLevelsRow5: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(2, level)
     },
@@ -219,7 +209,6 @@ export const redAmbrosiaUpgrades: {
   },
   blueberryGenerationSpeed: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (level + 1)
     },
@@ -237,7 +226,6 @@ export const redAmbrosiaUpgrades: {
   },
   regularLuck: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (level + 1)
     },
@@ -255,7 +243,6 @@ export const redAmbrosiaUpgrades: {
   },
   redGenerationSpeed: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       if (level >= 100) {
         return 10 * baseCost * (level + 1)
@@ -276,7 +263,6 @@ export const redAmbrosiaUpgrades: {
   },
   redLuck: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (level + 1)
     },
@@ -294,7 +280,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaCube: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (level + 1)
     },
@@ -322,7 +307,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaObtainium: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (level + 1)
     },
@@ -346,7 +330,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaOffering: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (level + 1)
     },
@@ -369,7 +352,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaCubeImprover: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (level + 1)
     },
@@ -389,7 +371,6 @@ export const redAmbrosiaUpgrades: {
   },
   viscount: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (level + 1)
     },
@@ -414,7 +395,6 @@ export const redAmbrosiaUpgrades: {
   },
   infiniteShopUpgrades: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost + 100 * level
     },
@@ -431,7 +411,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaAccelerator: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (_level: number, baseCost: number) => {
       return baseCost
     },
@@ -454,7 +433,6 @@ export const redAmbrosiaUpgrades: {
   },
   regularLuck2: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (_level: number, baseCost: number) => {
       return baseCost
     },
@@ -472,7 +450,6 @@ export const redAmbrosiaUpgrades: {
   },
   blueberryGenerationSpeed2: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (_level: number, baseCost: number) => {
       return baseCost
     },
@@ -490,7 +467,6 @@ export const redAmbrosiaUpgrades: {
   },
   salvageYinYang: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (level + 1)
     },
@@ -520,7 +496,6 @@ export const redAmbrosiaUpgrades: {
   },
   blueberries: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, _baseCost: number) => {
       return blueberryCostValues[level] ?? 0
     },
@@ -537,7 +512,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaFreeAccumulator: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, _baseCost: number) => {
       return redAmbrosiaFreeAccumulatorValues[level] ?? 0
     },
@@ -563,7 +537,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeOfferingUpgrades: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, _baseCost: number) => {
       return freeOfferingUpgradesValues[level] ?? 0
     },
@@ -580,7 +553,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeObtainiumUpgrades: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, _baseCost: number) => {
       return freeObtainiumUpgradesValues[level] ?? 0
     },
@@ -597,7 +569,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeCubeUpgrades: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, _baseCost: number) => {
       return freeCubeUpgradesValues[level] ?? 0
     },
@@ -614,7 +585,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeSpeedUpgrades: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (level: number, _baseCost: number) => {
       return freeSpeedUpgradesValues[level] ?? 0
     },
@@ -666,7 +636,6 @@ export const setRedAmbrosiaUpgradeLevels = (): void => {
     }
 
     upgrade.level = level
-    upgrade.redAmbrosiaInvested = invested - budget
   }
 }
 
@@ -717,7 +686,7 @@ export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string
   })
 
   const spentSpan = i18next.t('redAmbrosia.redAmbrosiaSpent', {
-    amount: format(upgrade.redAmbrosiaInvested, 0, true)
+    amount: format(player.redAmbrosiaUpgrades[upgradeKey], 0, true)
   })
 
   const purchaseWarningSpan = `<span>${i18next.t('redAmbrosia.purchaseWarning')}</span>`
@@ -801,7 +770,6 @@ export const buyRedAmbrosiaUpgradeLevel = async (
     } else {
       player.redAmbrosia -= cost
       redAmbrosiaBudget -= cost
-      upgrade.redAmbrosiaInvested += cost
       upgrade.level += 1
       purchased += 1
       maxPurchasable -= 1
