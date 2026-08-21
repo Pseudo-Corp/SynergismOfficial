@@ -733,7 +733,8 @@ const GETHandlers = [
           upgradeId: 22,
           maxLevel: 5,
           name: 'Multi-Level',
-          description: 'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
+          description:
+            'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
           internalName: 'PURPLE_REACTOR_CAPACITY_BUFF',
           level: 1,
           cost: 100
@@ -742,7 +743,8 @@ const GETHandlers = [
           upgradeId: 22,
           maxLevel: 5,
           name: 'Multi-Level',
-          description: 'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
+          description:
+            'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
           internalName: 'PURPLE_REACTOR_CAPACITY_BUFF',
           level: 2,
           cost: 150
@@ -751,7 +753,8 @@ const GETHandlers = [
           upgradeId: 22,
           maxLevel: 5,
           name: 'Multi-Level',
-          description: 'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
+          description:
+            'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
           internalName: 'PURPLE_REACTOR_CAPACITY_BUFF',
           level: 3,
           cost: 200
@@ -760,7 +763,8 @@ const GETHandlers = [
           upgradeId: 22,
           maxLevel: 5,
           name: 'Multi-Level',
-          description: 'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
+          description:
+            'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
           internalName: 'PURPLE_REACTOR_CAPACITY_BUFF',
           level: 4,
           cost: 250
@@ -769,7 +773,8 @@ const GETHandlers = [
           upgradeId: 22,
           maxLevel: 5,
           name: 'Multi-Level',
-          description: 'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
+          description:
+            'Increase Ambrosia Bar Point capacity in the Chroma Encabulator by 250,000,000 per level! 250,000 per level for Red Bar Point capacity.',
           internalName: 'PURPLE_REACTOR_CAPACITY_BUFF',
           level: 5,
           cost: 300

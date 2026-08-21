@@ -522,7 +522,7 @@ const updateShopDetail = () => {
   const resetEl = DOMCacheGetOrSet('shopDetailReset')
   if (player.highestSingularityCount > 0 || getRuneEffectiveLevel('antiquities') > 0) {
     resetEl.innerHTML = item.resetOnSingularity()
-      ? `<span style="color: crimson">⚠ ${i18next.t('shop.resetOnSingularity', { x: item.refundMinimumLevel })}</span>`
+      ? `<span style="color: crimson">⚠ ${i18next.t('shop.resetOnSingularity')}</span>`
       : `<span style="color: lightgreen">♔ ${i18next.t('shop.noResetOnSingularity')}</span>`
   } else {
     resetEl.innerHTML = ''

@@ -2209,9 +2209,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
 
   if (player.shopBuyMaxToggle === 'ANY' && !singular) {
     const buyInput = await Prompt(
-      `You can afford to purchase up to ${merch} of ${name} for ${buyCost.toLocaleString()} Quarks. How many would you like to buy?${
-        maxPots
-      }`
+      `You can afford to purchase up to ${merch} of ${name} for ${buyCost.toLocaleString()} Quarks. How many would you like to buy?${maxPots}`
     )
     let buyAny: number
     if (
