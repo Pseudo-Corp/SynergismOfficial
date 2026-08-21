@@ -14,7 +14,7 @@ import {
 } from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { version } from './Config'
-import { getFinalHepteractCap, hepteractKeys, hepteracts } from './Hepteracts'
+import { getFinalHepteractCap, hepteractKeys } from './Hepteracts'
 import { saveFilename } from './ImportExport'
 import {
   actualOcteractUpgradeTotalLevels,
@@ -197,9 +197,10 @@ export const generateExportSummary = async (): Promise<void> => {
       ascension = `${ascension}----- HEPTERACTS -----\n`
 
       for (const key of hepteractKeys) {
-        const bal = hepteracts[key].BAL
         const cap = getFinalHepteractCap(key)
-        ascension = `${ascension}${key.toUpperCase()} HEPTERACT: ${format(bal, 0, true)}/${format(cap, 0, true)}\n`
+        ascension = `${ascension}${key.toUpperCase()} HEPTERACT: ${format(player.hepteracts[key].BAL, 0, true)}/${
+          format(cap, 0, true)
+        }\n`
       }
 
       ascension = `${ascension}----- POWDER & ORBS -----\n`
@@ -348,7 +349,7 @@ export const generateExportSummary = async (): Promise<void> => {
       if (singUpg.maxLevel === -1) {
         totalSingInfiniteLevel += 1
       }
-      if (singUpg.level === singUpg.maxLevel) {
+      if (player.goldenQuarkUpgrades[key].level === singUpg.maxLevel) {
         totalSingUpgradeMax += 1
       }
       if (player.singularityCount >= singUpg.minimumSingularity) {
@@ -359,7 +360,7 @@ export const generateExportSummary = async (): Promise<void> => {
       if (player.singularityCount >= singUpg.minimumSingularity) {
         if (singUpg.maxLevel === -1) {
           unicodeSymbol = '[∞]'
-        } else if (singUpg.level === singUpg.maxLevel) {
+        } else if (player.goldenQuarkUpgrades[key].level === singUpg.maxLevel) {
           unicodeSymbol = '[★]'
         } else {
           unicodeSymbol = '[✔]'
@@ -369,13 +370,13 @@ export const generateExportSummary = async (): Promise<void> => {
       upgradeText = upgradeText + unicodeSymbol
       upgradeText = `${upgradeText} ${singUpg.name()}:`
       upgradeText = upgradeText + (singUpg.maxLevel === -1
-        ? ` Level ${singUpg.level}`
-        : ` Level ${singUpg.level}/${singUpg.maxLevel}`)
-      upgradeText = upgradeText + (singUpg.freeLevel > 0
-        ? ` [+${format(singUpg.freeLevel, 2, true)}]`
+        ? ` Level ${player.goldenQuarkUpgrades[key].level}`
+        : ` Level ${player.goldenQuarkUpgrades[key].level}/${singUpg.maxLevel}`)
+      upgradeText = upgradeText + (player.goldenQuarkUpgrades[key].freeLevel > 0
+        ? ` [+${format(player.goldenQuarkUpgrades[key].freeLevel, 2, true)}]`
         : '')
 
-      upgradeText = upgradeText + (singUpg.freeLevel > 0
+      upgradeText = upgradeText + (player.goldenQuarkUpgrades[key].freeLevel > 0
         ? ` =+= Effective Level: ${format(actualGQUpgradeTotalLevels(key), 2, true)}`
         : '')
 
@@ -407,27 +408,27 @@ export const generateExportSummary = async (): Promise<void> => {
       if (octUpg.maxLevel !== -1) {
         totalOctUpgradeCount += 1
       }
-      if (octUpg.level === octUpg.maxLevel) {
+      if (player.octUpgrades[key].level === octUpg.maxLevel) {
         totalOctUpgradeMax += 1
       }
 
       let unicodeSymbol = '[ ]'
       if (octUpg.maxLevel === -1) {
         unicodeSymbol = '[∞]'
-      } else if (octUpg.level === octUpg.maxLevel) {
+      } else if (player.octUpgrades[key].level === octUpg.maxLevel) {
         unicodeSymbol = '[★]'
       }
 
       upgradeText = upgradeText + unicodeSymbol
       upgradeText = `${upgradeText} ${octUpg.name()}:`
       upgradeText = upgradeText + (octUpg.maxLevel === -1
-        ? ` Level ${octUpg.level}`
-        : ` Level ${octUpg.level}/${octUpg.maxLevel}`)
-      upgradeText = upgradeText + (octUpg.freeLevel > 0
+        ? ` Level ${player.octUpgrades[key].level}`
+        : ` Level ${player.octUpgrades[key].level}/${octUpg.maxLevel}`)
+      upgradeText = upgradeText + (player.octUpgrades[key].freeLevel > 0
         ? ` [+${format(computeOcteractFreeLevelSoftcap(key), 2, true)}]`
         : '')
 
-      upgradeText = upgradeText + (octUpg.freeLevel > 0
+      upgradeText = upgradeText + (player.octUpgrades[key].freeLevel > 0
         ? ` =+= Effective Level: ${format(actualOcteractUpgradeTotalLevels(key), 2, true)}`
         : '')
 

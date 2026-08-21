@@ -717,7 +717,7 @@ export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string
   })
 
   const spentSpan = i18next.t('redAmbrosia.redAmbrosiaSpent', {
-    amount: format(upgrade.redAmbrosiaInvested, 0, true)
+    amount: format(player.redAmbrosiaUpgrades[upgradeKey], 0, true)
   })
 
   const purchaseWarningSpan = `<span>${i18next.t('redAmbrosia.purchaseWarning')}</span>`

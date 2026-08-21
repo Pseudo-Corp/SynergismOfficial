@@ -1,6 +1,5 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { hepteracts } from './Hepteracts'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { Alert, revealStuff } from './UpdateHTML'
@@ -311,7 +310,7 @@ const checkPlatonicUpgrade = (
 
   if (
     platUpgradeBaseCosts[index].abyssals === 0
-    || hepteracts.abyss.BAL >= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier)
+    || player.hepteracts.abyss.BAL >= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier)
   ) {
     checksum++
     checks.abyssals = true
@@ -381,7 +380,7 @@ export const createPlatonicDescription = (index: number) => {
   DOMCacheGetOrSet('platonicHepteractCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.hepteractCost',
     {
-      a: format(hepteracts.abyss.BAL),
+      a: format(player.hepteracts.abyss.BAL),
       b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier))
     }
   )
@@ -484,7 +483,7 @@ export const platonicUpgradeModalHTML = (index: number, imageSrc?: string) => {
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.hepteractCost', {
-        a: format(hepteracts.abyss.BAL),
+        a: format(player.hepteracts.abyss.BAL),
         b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier))
       }),
       affordable: resourceCheck.abyssals
@@ -548,7 +547,7 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
       player.wowTesseracts.sub(Math.floor(platUpgradeBaseCosts[index].tesseracts * priceMultiplier))
       player.wowHypercubes.sub(Math.floor(platUpgradeBaseCosts[index].hypercubes * priceMultiplier))
       player.wowPlatonicCubes.sub(Math.floor(platUpgradeBaseCosts[index].platonics * priceMultiplier))
-      hepteracts.abyss.BAL -= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier)
+      player.hepteracts.abyss.BAL -= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier)
 
       if (index === 20 && !auto && player.singularityCount === 0) {
         void Alert(
