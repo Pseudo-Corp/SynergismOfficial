@@ -261,7 +261,7 @@
     "amount": "Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
     "purchaseWarning": "<<gold | ⚠>> Unlike Blueberry Modules, you <<red | CANNOT>> refund this upgrade.",
     "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: {{ambrosiaLuck}}>>]",
-    "redAmbrosiaBuyPrompt": "How many Red Ambrosia would you like to spend? You have {{amount}} Red Ambrosia. Type -1 to use max!",
+    "redAmbrosiaBuyPrompt": "How many levels would you like to buy? You can buy up to {{amount}}. Type -1 to use max!",
     "notUnlocked": "Clear No Ambrosia Upgrades, Tier 1!",
     "redAmbrosiaCost": "Cost for next level: <<red | {{amount}}>> Red Ambrosia",
     "redAmbrosiaSpent": "Total Red Ambrosia spent: <<red | {{amount}}>>",
