@@ -5,7 +5,6 @@ import { updateMaxTokens, updateTokens } from './Campaign'
 import { hepteracts } from './Hepteracts'
 import { format, formatAsPercentIncrease, formatTimeShort, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
-import { isMobile } from './Utility'
 
 type OcteractUpgradeRewards = {
   octeractStarter: {
@@ -1042,6 +1041,123 @@ export const octeractUpgrades: {
   }
 }
 
+const OCTERACT_UPGRADE_MAP_LINES = [
+  {
+    id: 'core',
+    upgrades: ['octeractStarter', 'octeractGain', 'octeractGain2', 'octeractAscensionsOcteractGain']
+  },
+  {
+    id: 'quarks',
+    upgrades: [
+      'octeractQuarkGain',
+      'octeractQuarkGain2',
+      'octeractImprovedQuarkHept',
+      'octeractExportQuarks'
+    ]
+  },
+  {
+    id: 'goldenQuarks',
+    upgrades: [
+      'octeractGQCostReduce',
+      'octeractImprovedDaily',
+      'octeractImprovedDaily2',
+      'octeractImprovedDaily3',
+      'octeractSingUpgradeCap',
+      'octeractFastForward',
+      'octeractInfiniteShopUpgrades'
+    ]
+  },
+  {
+    id: 'ascension',
+    upgrades: [
+      'octeractImprovedGlobalSpeed',
+      'octeractImprovedAscensionSpeed',
+      'octeractImprovedAscensionSpeed2',
+      'octeractAscensions',
+      'octeractAscensions2',
+      'octeractOneMindImprover'
+    ]
+  },
+  {
+    id: 'freeLevels',
+    upgrades: [
+      'octeractImprovedFree',
+      'octeractImprovedFree2',
+      'octeractImprovedFree3',
+      'octeractImprovedFree4'
+    ]
+  },
+  {
+    id: 'challenges',
+    upgrades: [
+      'octeractCorruption',
+      'octeractBonusTokens1',
+      'octeractBonusTokens2',
+      'octeractBonusTokens3',
+      'octeractBonusTokens4'
+    ]
+  },
+  {
+    id: 'resources',
+    upgrades: [
+      'octeractOfferings1',
+      'octeractObtainium1',
+      'octeractAutoPotionSpeed',
+      'octeractAutoPotionEfficiency'
+    ]
+  },
+  {
+    id: 'talismans',
+    upgrades: [
+      'octeractTalismanLevelCap1',
+      'octeractTalismanLevelCap2',
+      'octeractTalismanLevelCap3',
+      'octeractTalismanLevelCap4'
+    ]
+  },
+  {
+    id: 'ambrosia',
+    upgrades: [
+      'octeractBlueberries',
+      'octeractAmbrosiaLuck2',
+      'octeractAmbrosiaLuck3',
+      'octeractAmbrosiaLuck',
+      'octeractAmbrosiaLuck4',
+      'octeractAmbrosiaGeneration2',
+      'octeractAmbrosiaGeneration3',
+      'octeractAmbrosiaGeneration',
+      'octeractAmbrosiaGeneration4'
+    ]
+  }
+]
+
+export const initializeOcteractUpgradeMap = (): void => {
+  const container = DOMCacheGetOrSet('octeractUpgradeContainer')
+  const lines = document.createElement('div')
+
+  container.setAttribute('role', 'group')
+  container.setAttribute('aria-label', i18next.t('octeract.map.ariaLabel'))
+  lines.classList.add('octeractUpgradeLines')
+
+  for (const { id, upgrades } of OCTERACT_UPGRADE_MAP_LINES) {
+    const line = document.createElement('div')
+    const track = document.createElement('div')
+
+    line.classList.add('octeractUpgradeLine')
+    line.dataset.octeractLine = id
+    track.classList.add('octeractUpgradeTrack')
+
+    for (const upgrade of upgrades) {
+      track.append(DOMCacheGetOrSet(upgrade))
+    }
+
+    line.append(track)
+    lines.append(line)
+  }
+
+  container.replaceChildren(lines)
+}
+
 export const maxOcteractUpgradeAP = Object.values(octeractUpgrades).reduce((acc, upgrade) => {
   if (upgrade.maxLevel === -1) {
     return acc
@@ -1213,31 +1329,6 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
     : ''
 
   return `${nameHTML}<br>${levelHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${effectHTML}<br>${costHTML}${investedOcteractsHTML}${qualityOfLifeText}`
-}
-
-export const updateMobileOcteractHTML = (upgradeKey: OcteractUpgrades): void => {
-  const elm = DOMCacheGetOrSet('singularityOcteractsMultiline')
-  elm.innerHTML = upgradeOcteractToString(upgradeKey)
-
-  // MOBILE ONLY - Add a button for buying upgrades
-  if (isMobile) {
-    const buttonDiv = document.createElement('div')
-
-    const buyOne = document.createElement('button')
-    const buyMax = document.createElement('button')
-
-    buyOne.classList.add('modalBtnBuy')
-    buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.dataset.modalAction = 'one'
-
-    buyMax.classList.add('modalBtnBuy')
-    buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.dataset.modalAction = 'max'
-
-    buttonDiv.appendChild(buyOne)
-    buttonDiv.appendChild(buyMax)
-    elm.appendChild(buttonDiv)
-  }
 }
 
 export const buyOcteractUpgradeLevel = async (

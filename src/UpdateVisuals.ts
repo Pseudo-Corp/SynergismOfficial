@@ -1776,9 +1776,17 @@ export const visualUpdateSingularity = () => {
     for (const key of keys) {
       const octItem = octeractUpgrades[key]
       const el = DOMCacheGetOrSet(key)
-      if (updateOcteractUpgradeVisibility(key, el)) {
+      const isMaxed = updateOcteractUpgradeVisibility(key, el)
+      const isAffordable = !isMaxed && getOcteractUpgradeCostTNL(key) <= player.wowOcteracts
+
+      el.dataset.octeractLevel = `${format(octItem.level)}`
+      el.classList.toggle('octeractUpgradeAffordable', isAffordable)
+      el.classList.toggle('octeractUpgradeMaxed', isMaxed)
+      el.classList.toggle('octeractUpgradeFreeLevels', octItem.freeLevel > 0)
+
+      if (isMaxed) {
         el.style.filter = val ? 'brightness(.9)' : 'none'
-      } else if (getOcteractUpgradeCostTNL(key) > player.wowOcteracts) {
+      } else if (!isAffordable) {
         el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
       } else if (octItem.maxLevel === -1 || octItem.level < octItem.maxLevel) {
         if (octItem.freeLevel > octItem.level) {
