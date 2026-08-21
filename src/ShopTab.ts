@@ -303,6 +303,8 @@ const tierUnlocked = (key: ShopUpgradeNames) => shopUpgrades[key].isUnlocked()
 const tierMaxed = (key: ShopUpgradeNames) =>
   player.shopUpgrades[key] >= shopUpgrades[key].maxLevel || instantUnlocked(key)
 
+const tierHidden = (key: ShopUpgradeNames) => player.shopHideToggle && tierMaxed(key)
+
 const familyNameKey = (family: ShopFamilyData) =>
   family.tiers.length > 1 ? `shop.familyNames.${family.id}` : `shop.names.${family.tiers[0].key}`
 
@@ -483,7 +485,9 @@ const updateShopDetail = () => {
       const isSelectedFamily = family === selectedFamily
       for (const tier of family.tiers) {
         const chip = DOMCacheGetOrSet(`shopTierChip-${tier.key}`)
-        chip.style.display = isSelectedFamily && (tierUnlocked(tier.key) || testing) ? '' : 'none'
+        chip.style.display = isSelectedFamily && (tierUnlocked(tier.key) || testing) && !tierHidden(tier.key)
+          ? ''
+          : 'none'
         if (!isSelectedFamily) {
           continue
         }
@@ -568,7 +572,7 @@ export const updateShopTab = () => {
       if (family.tiers.length > 1) {
         for (const tier of family.tiers) {
           const shortcut = DOMCacheGetOrSet(`shopTierShortcut-${tier.key}`)
-          shortcut.style.display = tierUnlocked(tier.key) || testing ? '' : 'none'
+          shortcut.style.display = (tierUnlocked(tier.key) || testing) && !tierHidden(tier.key) ? '' : 'none'
           shortcut.classList.toggle('shopTierShortcutMaxed', tierMaxed(tier.key))
           shortcut.classList.toggle(
             'shopTierShortcutUnfinished',
@@ -589,6 +593,11 @@ export const updateShopTab = () => {
       selectShopFamily(firstVisibleFamily)
       return
     }
+  }
+
+  if (tierHidden(selectedTier)) {
+    selectedTier = frontierTier(selectedFamily).key
+    shopDescriptions(selectedTier)
   }
 
   DOMCacheGetOrSet('actualShop').style.display = ''
