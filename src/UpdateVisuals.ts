@@ -1522,7 +1522,7 @@ const UpdateHeptGridValues = (hept: HepteractKeys) => {
     barEl.style.width = '100%'
     barEl.style.backgroundColor = 'var(--hepteract-bar-red)'
   } else {
-    const balance = hepteracts[hept].BAL
+    const balance = player.hepteracts[hept].BAL
     const cap = getFinalHepteractCap(hept)
     const barWidth = Math.round((balance / cap) * 100)
 
@@ -1846,9 +1846,9 @@ export const visualUpdateSingularity = () => {
         el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
       } else if (
         singItem.maxLevel === -1
-        || singItem.level < computeGQUpgradeMaxLevel(key)
+        || player.goldenQuarkUpgrades[key].level < computeGQUpgradeMaxLevel(key)
       ) {
-        if (computeGQUpgradeFreeLevelSoftcap(key) > singItem.level) {
+        if (computeGQUpgradeFreeLevelSoftcap(key) > player.goldenQuarkUpgrades[key].level) {
           el.style.filter = val ? 'blur(1px) invert(.9) saturate(200)' : 'none'
         } else {
           el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none'
@@ -1874,8 +1874,8 @@ export const visualUpdateSingularity = () => {
         el.style.filter = val ? 'brightness(.9)' : 'none'
       } else if (!isAffordable) {
         el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
-      } else if (octItem.maxLevel === -1 || octItem.level < octItem.maxLevel) {
-        if (octItem.freeLevel > octItem.level) {
+      } else if (octItem.maxLevel === -1 || player.octUpgrades[key].level < octItem.maxLevel) {
+        if (player.octUpgrades[key].freeLevel > player.octUpgrades[key].level) {
           el.style.filter = val ? 'blur(2px) invert(.9) saturate(200)' : 'none'
         } else {
           el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none'
