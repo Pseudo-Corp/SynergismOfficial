@@ -1078,8 +1078,11 @@ export const blankPurpleReactorUpgradeObject: Record<PurpleReactorNames, number>
 export const setPurpleReactorUpgradeLevels = (): void => {
   for (const upgradeKey of purpleReactorUpgradeNames) {
     const upgrade = purpleReactorUpgrades[upgradeKey]
-
     const oldInvested = player.purpleReactorUpgrades[upgradeKey] || 0
+
+    upgrade.level = 0
+    upgrade.purpleInvested = 0
+
     const maxAffordableLevel = maximumAffordableLevel(upgradeKey, oldInvested)
     const totalCost = upgrade.costFormula(maxAffordableLevel)
 

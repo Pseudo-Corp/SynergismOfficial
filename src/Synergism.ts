@@ -245,7 +245,12 @@ import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 // eslint-disable-next-line no-unassigned-import
 import './saves/verify'
-import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from './Purple'
+import {
+  blankPurpleReactorUpgradeObject,
+  type PurpleReactorNames,
+  purpleReactorUpgrades,
+  setPurpleReactorUpgradeLevels
+} from './Purple'
 import { generatePurpleUpgradeTabHTML } from './PurpleUpgradeTab'
 import { getShopUpgradeEffects, updateShopLevels } from './Shop'
 import { generateShopTabHTML } from './ShopTab'
@@ -1309,6 +1314,13 @@ export const saveSynergy = (button?: boolean) => {
       }]
     })
   ) as Record<HepteractKeys, HepteractValues>
+
+  player.purpleReactorUpgrades = Object.fromEntries(
+    Object.keys(player.purpleReactorUpgrades).map((key) => {
+      const k = key as PurpleReactorNames
+      return [key, purpleReactorUpgrades[k].purpleInvested]
+    })
+  ) as Record<PurpleReactorNames, number>
 
   const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
@@ -4894,6 +4906,13 @@ export const reloadShit = async (ignoreOfflineProgress = false) => {
     for (const [key, value] of Object.entries(player.redAmbrosiaUpgrades)) {
       const k = key as RedAmbrosiaNames
       redAmbrosiaUpgrades[k].redAmbrosiaInvested = value
+    }
+  }
+
+  if (player.purpleReactorUpgrades !== undefined) {
+    for (const [key, value] of Object.entries(player.purpleReactorUpgrades)) {
+      const k = key as PurpleReactorNames
+      purpleReactorUpgrades[k].purpleInvested = value
     }
   }
 
