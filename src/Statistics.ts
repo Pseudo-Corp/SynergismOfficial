@@ -1490,7 +1490,7 @@ export const allQuarkStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'quarkMultiplier'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'quarkMultiplier')
     }
   ]
 }
@@ -2047,7 +2047,7 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier'), // Highest Purple Honey Power
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier') // Highest Purple Honey Power
     }
   ]
 }
@@ -2175,7 +2175,7 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
     }
   ]
 }
@@ -2521,7 +2521,7 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed')
     }
   ]
 }
@@ -2996,7 +2996,7 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
     }
   ]
 }
@@ -3561,7 +3561,7 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
     {
       i18n: 'HighestPurpleHoneyPower',
       stat: () => getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent'),
-      acc: 2,
+      acc: 2
     }
   ]
 }
@@ -3654,7 +3654,7 @@ export const rebornELOCreationSpeedMultStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult'),
+      stat: () => getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult')
     }
   ]
 }

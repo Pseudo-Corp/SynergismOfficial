@@ -223,7 +223,11 @@ export const displayPCoinEffect = (name: PseudoCoinUpgradeNames, level: number) 
         i18next.t('pseudoCoins.upgradeEffects.PURPLE_HONEY_BUFF', { amount: format(0.04 * level, 2, true) })
       )
     case 'PURPLE_REACTOR_CAPACITY_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.PURPLE_REACTOR_CAPACITY_BUFF', { amount: format(250_000_000 * level, 0, true) }))
+      return String(
+        i18next.t('pseudoCoins.upgradeEffects.PURPLE_REACTOR_CAPACITY_BUFF', {
+          amount: format(250_000_000 * level, 0, true)
+        })
+      )
   }
 }
 

@@ -102,14 +102,17 @@ const processPurpleReactant = (
 }
 
 const convertPurpleReactants = (elapsedSeconds: number) => {
-
   const halfLife = calculatePurpleReactantHalfLife()
   const conversionFraction = 1 - Math.pow(2, -elapsedSeconds / halfLife)
   const {
     ambrosiaBarPointsSpent,
     redAmbrosiaBarPointsSpent,
     purpleBarPointsGained
-  } = calculatePurpleReactantConversion(player.purpleReactor.storedAmbrosiaBarPoints, player.purpleReactor.storedRedAmbrosiaBarPoints, conversionFraction)
+  } = calculatePurpleReactantConversion(
+    player.purpleReactor.storedAmbrosiaBarPoints,
+    player.purpleReactor.storedRedAmbrosiaBarPoints,
+    conversionFraction
+  )
 
   const conversionFactor = calculatePurpleHoneyConversionFactor()
   const purpleHoneyProgress = player.purpleHoneyProgress + purpleBarPointsGained
