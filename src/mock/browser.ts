@@ -837,24 +837,29 @@ const GETHandlers = [
           internalName: 'OFFLINE_TIMER_CAP_BUFF'
         },
         {
-          upgradeId: 17,
+          upgradeId: 16,
           level: 5,
           internalName: 'BASE_OFFERING_BUFF'
         },
         {
-          upgradeId: 18,
+          upgradeId: 17,
           level: 5,
           internalName: 'BASE_OBTAINIUM_BUFF'
         },
         {
-          upgradeId: 19,
+          upgradeId: 18,
           level: 5,
           internalName: 'RED_LUCK_BUFF'
         },
         {
-          upgradeId: 20,
+          upgradeId: 19,
           level: 5,
           internalName: 'RED_GENERATION_BUFF'
+        },
+        {
+          upgradeId: 20,
+          level: 5,
+          internalName: 'PURPLE_LUCK_BUFF'
         }
       ]
     })

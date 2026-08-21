@@ -460,12 +460,34 @@
     "ambrosiaTankAriaLabel": "Ambrosia Bar Point reactor storage",
     "redAmbrosiaTankAriaLabel": "Red Bar Point reactor storage",
     "purpleHoneyCost": "Cost for next level: <<var(--purple-text-color) | {{amount}}>> Purple Honey",
+    "purpleHoneyOneTimeCost": "Costs <<var(--purple-text-color) | {{amount}}>> Purple Honey",
     "purpleHoneySpent": "Total Purple Honey spent: <<var(--purple-text-color) | {{amount}}>>",
-    "purpleHoneyBuyPrompt": "You can buy up to {{max}} levels of this upgrade. How many would you like to buy? Type -1 to use max!",
-    "notPositiveInteger": "The number you entered must be a positive integer! (or -1, to buy max)",
     "upgradeAPPerLevel": "Each level of this Purple Honey upgrade grants <<gold|+{{amount}}>> AP [<<gold|+{{total}}>>]",
     "upgradeAPMax": "You also get <<gold|+{{amount}}>> AP for maxing this upgrade! {{check}}",
     "purpleUpgradeAP": "Purple Honey Upgrade AP: <<gold|{{current}}/{{max}}>>",
+    "upgradeShop": {
+      "sections": {
+        "intro": "Intro",
+        "reactor": "Purple Reactor Upgrades",
+        "honeyPower": "Honey Power Upgrades",
+        "resources": "Resource Upgrades"
+      },
+      "familyNames": {
+        "capacity": "Capacity",
+        "halfLife": "Half-Life",
+        "efficiency": "Efficiency",
+        "honeyLuck": "Honey Luck",
+        "requirementReduction": "Purple Bar Size Reduction"
+      },
+      "level": "{{current}}/{{max}}",
+      "maxed": "Maxed!",
+      "nextCost": "Next: {{cost}} Purple Honey",
+      "cost": "Costs {{cost}} Purple Honey",
+      "toggleUpgrades": "Upgrades",
+      "closeUpgrades": "Close upgrades",
+      "buyOne": "Upgrade for {{cost}} Purple Honey",
+      "buyMax": "Buy MAX (+{{amount}}) for {{cost}} Purple Honey"
+    },
     "upgrades": {
       "tutorial": {
         "name": "The Purple Guy's Greeting",
