@@ -113,7 +113,7 @@ import { getResetDetails, updateAutoCubesOpens, updateAutoReset, updateTesseract
 import { buyAllBlessingLevels } from './RuneBlessings'
 import { runes } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
-import { buyShopUpgrades, resetShopUpgrades, useConsumablePrompt } from './Shop'
+import { buyShopUpgrades, useConsumablePrompt } from './Shop'
 import {
   addSingularityPerkToTree,
   buyGoldenQuarks,
@@ -1636,9 +1636,6 @@ TODO: Fix this entire tab it's utter shit
   */
 
   // Part 1: The Settings
-  /*Respec The Upgrades*/ DOMCacheGetOrSet(
-    'resetShopUpgrades'
-  ).addEventListener('click', () => resetShopUpgrades())
   /*Toggle Shop Confirmations*/ DOMCacheGetOrSet(
     'toggleConfirmShop'
   ).addEventListener('click', () => toggleShopConfirmation())
