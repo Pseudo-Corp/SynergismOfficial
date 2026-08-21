@@ -247,6 +247,7 @@ import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, qu
 // eslint-disable-next-line no-unassigned-import
 import './saves/verify'
 import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from './Purple'
+import { generatePurpleUpgradeTabHTML } from './PurpleUpgradeTab'
 import { getShopUpgradeEffects, updateShopLevels } from './Shop'
 import { generateShopTabHTML } from './ShopTab'
 import {
@@ -5194,6 +5195,7 @@ window.addEventListener('load', async () => {
   generateSpiritsHTML()
   generateShopTabHTML()
   initializeOcteractUpgradeMap()
+  generatePurpleUpgradeTabHTML()
   generateEventHandlers()
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()

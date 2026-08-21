@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { format, formatAsPercentIncrease, player } from './Synergism'
-import { Alert, Prompt } from './UpdateHTML'
+import { Alert } from './UpdateHTML'
 import { visualUpdatePurple } from './UpdateVisuals'
 
 type PurpleReactorUpgradeRewards = {
@@ -1188,9 +1188,12 @@ export const purpleReactorUpgradeToString = (upgradeKey: PurpleReactorNames): st
     effectSpan = `<span style="color: white">${effect}</span>`
   }
 
-  const costNextLevelSpan = i18next.t('purpleReactor.purpleHoneyCost', {
-    amount: format(costNextLevel, 0, true)
-  })
+  const costNextLevelSpan = i18next.t(
+    upgrade.maxLevel === 1 ? 'purpleReactor.purpleHoneyOneTimeCost' : 'purpleReactor.purpleHoneyCost',
+    {
+      amount: format(costNextLevel, 0, true)
+    }
+  )
 
   const spentSpan = i18next.t('purpleReactor.purpleHoneySpent', {
     amount: format(upgrade.purpleInvested, 0, true)
@@ -1221,7 +1224,6 @@ export const purpleReactorUpgradeToString = (upgradeKey: PurpleReactorNames): st
 
 export const buyPurpleReactorUpgradeLevel = async (
   upgradeKey: PurpleReactorNames,
-  event: MouseEvent,
   buyMax = false
 ): Promise<void> => {
   const upgrade = purpleReactorUpgrades[upgradeKey]
@@ -1238,22 +1240,8 @@ export const buyPurpleReactorUpgradeLevel = async (
     return Alert(i18next.t('octeract.buyLevel.cannotAfford'))
   }
 
-  if (event.shiftKey || buyMax) {
-    const buy = Number(
-      await Prompt(
-        i18next.t('purpleReactor.purpleHoneyBuyPrompt', {
-          max: format(maxPurchasable, 0, true)
-        })
-      )
-    )
-    if (buy === -1) {
-      toPurchase = maxPurchasable
-    } else if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy) || buy <= 0) {
-      // nan + Infinity checks
-      return Alert(i18next.t('purpleReactor.notPositiveInteger'))
-    } else {
-      toPurchase = Math.min(buy, maxPurchasable)
-    }
+  if (buyMax) {
+    toPurchase = maxPurchasable
   }
 
   const cost = upgrade.costFormula(upgrade.level + toPurchase) - upgrade.costFormula(upgrade.level)
@@ -1263,9 +1251,6 @@ export const buyPurpleReactorUpgradeLevel = async (
   upgrade.level += toPurchase
   player.purpleReactorUpgrades[upgradeKey] += cost
   visualUpdatePurple()
-  if (toPurchase > 1) {
-    return Alert(i18next.t('octeract.buyLevel.multiBuy', { n: format(toPurchase) }))
-  }
 }
 
 export const calculatePurpleReactorAP = (): number => {

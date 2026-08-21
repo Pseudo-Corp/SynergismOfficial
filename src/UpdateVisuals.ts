@@ -97,6 +97,7 @@ import {
   maxPurpleReactorAP,
   purpleReactorUpgrades
 } from './Purple'
+import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
@@ -2436,6 +2437,9 @@ export const visualUpdatePurple = () => {
     'redAmbrosiaBarPointPercentageValue',
     player.purpleReactor.redAmbrosiaBarPointPercentage
   )
+  if (getActiveSubTab() === 5) {
+    updatePurpleUpgradeTab()
+  }
 }
 
 export const visualUpdateShop = () => {
