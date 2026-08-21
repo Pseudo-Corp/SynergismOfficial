@@ -229,14 +229,12 @@ interface IShopData<T extends ShopUpgradeNames, K extends keyof QuarkShopUpgrade
   description: () => string
   effects: (n: number, key: K) => QuarkShopUpgradeRewards[T][K]
   effectDescription: () => string
-  refundable: boolean
   resetOnSingularity: () => boolean
   isUnlocked: () => boolean
   price: number
   priceIncrease: number
   maxLevel: number
   type: shopUpgradeTypes
-  refundMinimumLevel: number
   upgradeTypes: ShopUpgradeGroups[]
   freeUpgradeMultiplier?: number
 }
@@ -266,9 +264,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: Math.pow(10, 15),
     type: shopUpgradeTypes.CONSUMABLE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   obtainiumPotion: {
@@ -297,9 +293,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: Math.pow(10, 15),
     type: shopUpgradeTypes.CONSUMABLE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   offeringEX: {
@@ -319,9 +313,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 15,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
     resetOnSingularity: resetUntilSingularity10,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Offering]
   },
   offeringAuto: {
@@ -347,9 +339,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 10,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Offering, ShopUpgradeGroups.Utility]
   },
   obtainiumEX: {
@@ -369,9 +359,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 15,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
     resetOnSingularity: resetUntilSingularity10,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Obtainium]
   },
   obtainiumAuto: {
@@ -395,9 +383,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 10,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Obtainium, ShopUpgradeGroups.Utility]
   },
   instantChallenge: {
@@ -418,9 +404,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 99999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   antSpeed: {
@@ -437,9 +421,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 25,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
     resetOnSingularity: resetUntilSingularity10,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   cashGrab: {
@@ -456,9 +438,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 40,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
     resetOnSingularity: resetUntilSingularity10,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Obtainium, ShopUpgradeGroups.Offering]
   },
   shopTalisman: {
@@ -475,9 +455,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 99999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   seasonPass: {
@@ -493,9 +471,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 75,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
     resetOnSingularity: resetUntilSingularity50,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Cubes]
   },
   challengeExtension: {
@@ -511,9 +487,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 250,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   challengeTome: {
@@ -539,9 +513,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 250,
     maxLevel: 15,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   cubeToQuark: {
@@ -563,9 +535,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 99999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Quark]
   },
   tesseractToQuark: {
@@ -589,9 +559,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 99999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Quark]
   },
   hypercubeToQuark: {
@@ -615,9 +583,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 99999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Quark]
   },
   seasonPass2: {
@@ -635,9 +601,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 250,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
     resetOnSingularity: resetUntilSingularity50,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Cubes]
   },
   seasonPass3: {
@@ -655,9 +619,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 500,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
     resetOnSingularity: resetUntilSingularity50,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Cubes]
   },
   chronometer: {
@@ -673,9 +635,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 400,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
     resetOnSingularity: resetUntilSingularity50,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Speed]
   },
   infiniteAscent: {
@@ -692,9 +652,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 9999999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   calculator: {
@@ -724,9 +682,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 300,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 1,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   calculator2: {
@@ -752,9 +708,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 800,
     maxLevel: 12,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   calculator3: {
@@ -780,9 +734,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 1500,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   calculator4: {
@@ -808,9 +760,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 1e6,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   calculator5: {
@@ -836,9 +786,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 1e8,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   calculator6: {
@@ -864,9 +812,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2e10,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   constantEX: {
@@ -882,9 +828,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 899999,
     maxLevel: 2,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   powderEX: {
@@ -902,9 +846,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 750,
     maxLevel: 50,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   chronometer2: {
@@ -922,9 +864,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 1500,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
     resetOnSingularity: resetUntilSingularity50,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Speed]
   },
   chronometer3: {
@@ -940,9 +880,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 250,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Speed]
   },
   seasonPassY: {
@@ -962,9 +900,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 1500,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: true,
     resetOnSingularity: resetUntilSingularity50,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Cubes]
   },
   seasonPassZ: {
@@ -982,9 +918,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 250,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Cubes]
   },
   challengeTome2: {
@@ -1010,9 +944,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 1000000,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   instantChallenge2: {
@@ -1034,9 +966,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   cubeToQuarkAll: {
@@ -1054,9 +984,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Quark]
   },
   cashGrab2: {
@@ -1072,9 +1000,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 5000,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Obtainium, ShopUpgradeGroups.Offering]
   },
   chronometerZ: {
@@ -1090,9 +1016,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 12500,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Speed]
   },
   offeringEX2: {
@@ -1108,9 +1032,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 10000,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Offering]
   },
   obtainiumEX2: {
@@ -1126,9 +1048,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 10000,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Obtainium]
   },
   powderAuto: {
@@ -1144,9 +1064,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   seasonPassLost: {
@@ -1162,9 +1080,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 25000,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Cubes]
   },
   challenge15Auto: {
@@ -1179,9 +1095,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   extraWarp: {
@@ -1197,9 +1111,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   autoWarp: {
@@ -1214,9 +1126,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   improveQuarkHept: {
@@ -1234,9 +1144,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 19999,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Quark, ShopUpgradeGroups.Utility]
   },
   improveQuarkHept2: {
@@ -1252,9 +1160,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2e6 - 1,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Quark, ShopUpgradeGroups.Utility]
   },
   improveQuarkHept3: {
@@ -1270,9 +1176,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2e9 - 1,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Quark, ShopUpgradeGroups.Utility]
   },
   improveQuarkHept4: {
@@ -1288,9 +1192,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2e11 - 1,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Quark, ShopUpgradeGroups.Utility]
   },
   shopImprovedDaily: {
@@ -1310,9 +1212,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2500,
     maxLevel: 20,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopImprovedDaily2: {
@@ -1338,9 +1238,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 500000,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopImprovedDaily3: {
@@ -1366,9 +1264,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 12500000,
     maxLevel: 15,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopImprovedDaily4: {
@@ -1394,9 +1290,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 5e9,
     maxLevel: 25,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   offeringEX3: {
@@ -1422,9 +1316,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 1.25e12,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Offering, ShopUpgradeGroups.InfinityUpgrades]
   },
   obtainiumEX3: {
@@ -1450,9 +1342,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 1.25e12,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Obtainium, ShopUpgradeGroups.InfinityUpgrades]
   },
   improveQuarkHept5: {
@@ -1468,9 +1358,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2.5e9,
     maxLevel: 7777,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Quark, ShopUpgradeGroups.InfinityUpgrades, ShopUpgradeGroups.Utility]
   },
   chronometerInfinity: {
@@ -1496,9 +1384,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2.5e12,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Speed, ShopUpgradeGroups.InfinityUpgrades]
   },
   seasonPassInfinity: {
@@ -1524,9 +1410,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 3.75e12,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Cubes, ShopUpgradeGroups.InfinityUpgrades]
   },
   shopSingularityPenaltyDebuff: {
@@ -1545,9 +1429,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 9.99e19,
     maxLevel: 4,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopAmbrosiaLuckMultiplier4: {
@@ -1565,9 +1447,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 3e20,
     maxLevel: 4,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   calculator7: {
@@ -1593,9 +1473,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 1e19,
     maxLevel: 50,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   shopOcteractAmbrosiaLuck: {
@@ -1611,9 +1489,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 9e21,
     maxLevel: 2,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopAmbrosiaGeneration1: {
@@ -1629,9 +1505,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 5e11,
     maxLevel: 25,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.AmbrosiaGeneration]
   },
   shopAmbrosiaGeneration2: {
@@ -1647,9 +1521,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 5e12,
     maxLevel: 30,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.AmbrosiaGeneration]
   },
   shopAmbrosiaGeneration3: {
@@ -1665,9 +1537,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 5e13,
     maxLevel: 35,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.AmbrosiaGeneration]
   },
   shopAmbrosiaGeneration4: {
@@ -1683,9 +1553,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 4 * 1e16,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.AmbrosiaGeneration]
   },
   shopAmbrosiaLuck1: {
@@ -1701,9 +1569,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2e11,
     maxLevel: 40,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
   },
   shopAmbrosiaLuck2: {
@@ -1719,9 +1585,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2e12,
     maxLevel: 50,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
   },
   shopAmbrosiaLuck3: {
@@ -1737,9 +1601,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2e13,
     maxLevel: 60,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
   },
   shopAmbrosiaLuck4: {
@@ -1755,9 +1617,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 4 * 1e16,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
   },
   shopRedLuck1: {
@@ -1783,9 +1643,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 5e13,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck]
   },
   shopRedLuck2: {
@@ -1811,9 +1669,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 1e17,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck]
   },
   shopRedLuck3: {
@@ -1839,9 +1695,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 3e19,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck],
     freeUpgradeMultiplier: 2
   },
@@ -1874,9 +1728,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 1e22,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopAmbrosiaAccelerator: {
@@ -1897,9 +1749,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2e21,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopEXUltra: {
@@ -1918,9 +1768,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 80,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopChronometerS: {
@@ -1940,9 +1788,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopAmbrosiaUltra: {
@@ -1961,9 +1807,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 2e23,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopSingularitySpeedup: {
@@ -1981,9 +1825,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopSingularityPotency: {
@@ -2001,9 +1843,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopSadisticRune: {
@@ -2018,9 +1858,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   shopInfiniteShopUpgrades: {
@@ -2041,9 +1879,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopHorseShoe: {
@@ -2070,9 +1906,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: []
   },
   shopPanthema: {
@@ -2194,9 +2028,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
-    refundable: false,
     resetOnSingularity: resetNever,
-    refundMinimumLevel: 0,
     upgradeTypes: [
       ShopUpgradeGroups.Offering,
       ShopUpgradeGroups.Obtainium,
@@ -2300,14 +2132,8 @@ export const getShopTypeSymbolsHTML = (input: ShopUpgradeNames) => {
 export const shopDescriptions = (input: ShopUpgradeNames) => {
   const rofl = DOMCacheGetOrSet('quarkdescription')
   const lol = DOMCacheGetOrSet('quarkeffect')
-  const refundable = DOMCacheGetOrSet('quarkRefundable')
 
   rofl.innerHTML = shopUpgrades[input].description()
-
-  refundable.textContent = shopUpgrades[input].refundable
-    ? i18next.t('shop.refundable', { level: shopUpgrades[input].refundMinimumLevel })
-    : i18next.t('shop.cannotRefund')
-
   lol.innerHTML = shopUpgrades[input].effectDescription()
 }
 
@@ -2378,9 +2204,6 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   const merch = buyAmount.toLocaleString()
     + (shopItem.type === shopUpgradeTypes.UPGRADE ? ' level' : ' vial')
     + (buyAmount === 1 ? '' : 's')
-  const noRefunds = shopItem.refundable
-    ? ''
-    : '\n\n\u26A0\uFE0F !! No Refunds !! \u26A0\uFE0F'
   const maxPots = shopItem.type === shopUpgradeTypes.CONSUMABLE
     ? '\n\nType -1 in Buy: ANY to buy equal amounts of both Potions.'
     : ''
@@ -2388,7 +2211,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   if (player.shopBuyMaxToggle === 'ANY' && !singular) {
     const buyInput = await Prompt(
       `You can afford to purchase up to ${merch} of ${name} for ${buyCost.toLocaleString()} Quarks. How many would you like to buy?${
-        maxPots + noRefunds
+        maxPots
       }`
     )
     let buyAny: number
@@ -2442,7 +2265,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     p = await Confirm(
       `You are about to ${
         singular ? 'unlock' : `purchase ${merch} of`
-      } ${name} for ${buyCost.toLocaleString()} Quarks. Press 'OK' to finalize purchase.${maxPots + noRefunds}`
+      } ${name} for ${buyCost.toLocaleString()} Quarks. Press 'OK' to finalize purchase.${maxPots}`
     )
   }
   if (p) {
@@ -2537,60 +2360,12 @@ export const useConsumable = (
   }
 }
 
-export const resetShopUpgrades = async () => {
-  const p = player.shopConfirmationToggle
-    ? await Confirm(i18next.t('shop.refundConfirmation'))
-    : true
-
-  if (p) {
-    return forceResetShopUpgrades()
-  }
-}
-
 export const resetShopUpgradesOnSingularity = () => {
   for (const shopKey of shopUpgradeNames) {
     const item = shopUpgrades[shopKey]
     const reset = item.resetOnSingularity()
-    const refundableLevel = item.refundMinimumLevel
     if (reset) {
-      player.shopUpgrades[shopKey] = Math.min(player.shopUpgrades[shopKey], refundableLevel)
+      player.shopUpgrades[shopKey] = 0
     }
-  }
-}
-
-export const forceResetShopUpgrades = () => {
-  let totalRefundAmt = 0
-  for (const shopKey of shopUpgradeNames) {
-    const item = shopUpgrades[shopKey]
-    const refundableLevel = item.refundMinimumLevel
-    const isRefundable = item.refundable
-    if (
-      isRefundable
-      && player.shopUpgrades[shopKey] > refundableLevel
-    ) {
-      // How many quarks it costs to get to level `refundMinimumLevel`
-      // We do not want to refund this portion of the quarks spent.
-      const doNotRefund = item.price * refundableLevel
-        + (item.priceIncrease
-            * refundableLevel
-            * (refundableLevel - 1))
-          / 2
-
-      // How many quarks the player spent on this upgrade in total
-      const quarksSpentOnUpgrade = item.price * player.shopUpgrades[shopKey]
-        + (item.priceIncrease
-            * player.shopUpgrades[shopKey]
-            * (player.shopUpgrades[shopKey] - 1))
-          / 2
-
-      totalRefundAmt += quarksSpentOnUpgrade - doNotRefund
-      player.worlds.add(quarksSpentOnUpgrade - doNotRefund, false, false)
-      player.shopUpgrades[shopKey] = refundableLevel
-    }
-  }
-  if (player.shopConfirmationToggle) {
-    void Alert(i18next.t('shop.refundSuccessful', {
-      amount: format(totalRefundAmt, 0, false)
-    }))
   }
 }
