@@ -6,14 +6,14 @@ export const paymentHandlers: HttpHandler[] = [
       {
         'id': 'omega-monthly-sub',
         'name': 'Tier 4 Subscription - The Omega Baller',
-        'description': '+2,000 PseudoCoins per month and +14% Quarks as a personal bonus!',
+        'description': '+2,200 PseudoCoins per month and +14% Quarks as a personal bonus!',
         'price': 2000,
         'coins': 2000,
         'tier': 4,
         'subscription': true,
         'quarkBonus': 2,
         'features': [
-          '+2,000 PseudoCoins / month',
+          '+2,200 PseudoCoins / month',
           '+14% Personal Quark Bonus',
           '+2% to the Global Quark Bonus',
           '+9 Save Slots (10 total)'
@@ -22,14 +22,14 @@ export const paymentHandlers: HttpHandler[] = [
       {
         'id': 'ascended-monthly-sub',
         'name': 'Tier 3 Subscription - The Ascended Baller',
-        'description': '+1,000 PseudoCoins per month and +9% Quarks as a personal bonus!',
+        'description': '+1,050 PseudoCoins per month and +9% Quarks as a personal bonus!',
         'price': 1000,
         'coins': 1000,
         'tier': 3,
         'subscription': true,
         'quarkBonus': 1,
         'features': [
-          '+1,000 PseudoCoins / month',
+          '+1,050 PseudoCoins / month',
           '+9% Personal Quark Bonus',
           '+1% to the Global Quark Bonus',
           '+6 Save Slots (7 total)'
