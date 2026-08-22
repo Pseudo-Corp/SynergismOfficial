@@ -3428,7 +3428,6 @@ p#reincarnatehotkeys {
 
 #goldenQuarksDisplay,
 #octeractsDisplay,
-#totalOcteractsDisplay,
 #ambrosiaDisplay,
 #redAmbrosiaDisplay,
 #blueberryDisplay {
@@ -3450,23 +3449,31 @@ p#reincarnatehotkeys {
 }
 
 #totalOcteractsDisplay {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    width: min(100%, 860px);
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+    box-sizing: border-box;
+    width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
-    gap: 6px;
     padding: 0 10px;
 }
 
-#octeractsDisplay > p,
-#totalOcteractsDisplay > p {
+#octeractsDisplay > p {
     margin: 0 0 0 10px;
 }
 
 #totalOcteractsDisplay > p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 1ch;
     margin: 0;
     overflow-wrap: anywhere;
+}
+
+#totalOcteractsDisplay > p > span {
+    margin-left: auto;
 }
 
 #goldenQuarkamount {
@@ -5842,8 +5849,8 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #octeractUpgradeContainer {
-    --octeract-map-trunk-color: lightseagreen;
-    --octeract-map-trunk-offset: 12px;
+    --octeract-line-color: lightseagreen;
+    --octeract-icon-size: 46px;
 
     position: relative;
     isolation: isolate;
@@ -5856,71 +5863,67 @@ header #obtainiumDisplay { color: pink; }
 
 .octeractUpgradeLines {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
     padding: 10px 0 0;
 }
 
-.octeractUpgradeLines::before {
+#octeractUpgradeContainer [data-octeract-line="core"] { --octeract-line-color: #2dd4bf; }
+#octeractUpgradeContainer [data-octeract-line="goldenQuarks"] { --octeract-line-color: #facc15; }
+#octeractUpgradeContainer [data-octeract-line="quarks"] { --octeract-line-color: #38bdf8; }
+#octeractUpgradeContainer [data-octeract-line="daily"] { --octeract-line-color: #f472b6; }
+#octeractUpgradeContainer [data-octeract-line="freeLevels"] { --octeract-line-color: #f472b6; }
+#octeractUpgradeContainer [data-octeract-line="ascensions"] { --octeract-line-color: #e2e8f0; }
+#octeractUpgradeContainer [data-octeract-line="speed"] { --octeract-line-color: #c084fc; }
+#octeractUpgradeContainer [data-octeract-line="corruption"] { --octeract-line-color: #e2e8f0; }
+#octeractUpgradeContainer [data-octeract-line="tokens"] { --octeract-line-color: #fb7185; }
+#octeractUpgradeContainer [data-octeract-line="resources"] { --octeract-line-color: #34d399; }
+#octeractUpgradeContainer [data-octeract-line="potions"] { --octeract-line-color: #4ade80; }
+#octeractUpgradeContainer [data-octeract-line="shop"] { --octeract-line-color: #22c55e; }
+#octeractUpgradeContainer [data-octeract-line="talismans"] { --octeract-line-color: #a78bfa; }
+#octeractUpgradeContainer [data-octeract-line="blueberries"] { --octeract-line-color: #fb923c; }
+#octeractUpgradeContainer [data-octeract-line="ambrosiaLuck"] { --octeract-line-color: #fb923c; }
+#octeractUpgradeContainer [data-octeract-line="ambrosiaGeneration"] { --octeract-line-color: #fb923c; }
+
+.octeractUpgradeSpine {
+    position: relative;
+    grid-column: 2;
+    width: 4px;
+}
+
+.octeractUpgradeSpine::before {
     position: absolute;
     z-index: 0;
-    top: 39px;
-    bottom: 29px;
-    left: var(--octeract-map-trunk-offset);
-    width: 4px;
-    border-radius: 2px;
-    background: linear-gradient(
-        to bottom,
-        #2dd4bf 0% 11%,
-        #38bdf8 11% 22%,
-        #facc15 22% 33%,
-        #c084fc 33% 44%,
-        #f472b6 44% 55%,
-        #fb7185 55% 66%,
-        #4ade80 66% 77%,
-        #a78bfa 77% 88%,
-        #fb923c 88% 100%
-    );
-    box-shadow: 0 0 8px rgb(32 178 170 / 40%);
+    inset: 0;
+    background-color: var(--octeract-line-color);
+    box-shadow: 0 0 6px var(--octeract-line-color);
     content: '';
-    transform: translateX(-50%);
 }
 
-.octeractUpgradeLine {
-    --octeract-line-color: var(--octeract-map-trunk-color);
-
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    min-height: 58px;
+.octeractUpgradeLines > :first-child + .octeractUpgradeSpine::before {
+    top: 50%;
+    border-radius: 2px 2px 0 0;
 }
 
-.octeractUpgradeLine[data-octeract-line="core"] { --octeract-line-color: #2dd4bf; }
-.octeractUpgradeLine[data-octeract-line="quarks"] { --octeract-line-color: #38bdf8; }
-.octeractUpgradeLine[data-octeract-line="goldenQuarks"] { --octeract-line-color: #facc15; }
-.octeractUpgradeLine[data-octeract-line="ascension"] { --octeract-line-color: #c084fc; }
-.octeractUpgradeLine[data-octeract-line="freeLevels"] { --octeract-line-color: #f472b6; }
-.octeractUpgradeLine[data-octeract-line="challenges"] { --octeract-line-color: #fb7185; }
-.octeractUpgradeLine[data-octeract-line="resources"] { --octeract-line-color: #4ade80; }
-.octeractUpgradeLine[data-octeract-line="talismans"] { --octeract-line-color: #a78bfa; }
-.octeractUpgradeLine[data-octeract-line="ambrosia"] { --octeract-line-color: #fb923c; }
+.octeractUpgradeSpine:nth-last-child(2)::before {
+    bottom: 50%;
+    border-radius: 0 0 2px 2px;
+}
 
-.octeractUpgradeLine::before {
+.octeractUpgradeSpine::after {
     position: absolute;
     z-index: 2;
     top: 50%;
-    left: calc(var(--octeract-map-trunk-offset) - 8px);
+    left: 50%;
     box-sizing: border-box;
     width: 16px;
     height: 16px;
-    border: 3px solid var(--octeract-line-color);
+    border: 3px solid white;
     border-radius: 50%;
     background-color: var(--box-color);
     box-shadow: 0 0 6px var(--octeract-line-color);
     content: '';
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
 }
 
 .octeractUpgradeTrack {
@@ -5928,10 +5931,19 @@ header #obtainiumDisplay { color: pink; }
     display: flex;
     align-items: center;
     gap: clamp(8px, 1.2vw, 18px);
-    width: max-content;
-    max-width: 100%;
-    min-height: 54px;
-    margin-left: var(--octeract-map-trunk-offset);
+    min-height: calc(var(--octeract-icon-size) + 16px);
+}
+
+.octeractUpgradeTrackLeft {
+    grid-column: 1;
+    flex-direction: row-reverse;
+    justify-self: end;
+    padding-right: 28px;
+}
+
+.octeractUpgradeTrackRight {
+    grid-column: 3;
+    justify-self: start;
     padding-left: 28px;
 }
 
@@ -5939,8 +5951,6 @@ header #obtainiumDisplay { color: pink; }
     position: absolute;
     z-index: 0;
     top: 50%;
-    right: 23px;
-    left: 0;
     height: 4px;
     border-radius: 2px;
     background-color: var(--octeract-line-color);
@@ -5949,15 +5959,25 @@ header #obtainiumDisplay { color: pink; }
     transform: translateY(-50%);
 }
 
+.octeractUpgradeTrackLeft::before {
+    right: -4px;
+    left: calc(var(--octeract-icon-size) / 2);
+}
+
+.octeractUpgradeTrackRight::before {
+    right: calc(var(--octeract-icon-size) / 2);
+    left: -4px;
+}
+
 #octeractUpgradeContainer .octeractUpgrade {
     position: relative;
     z-index: 1;
     display: grid;
-    flex: 0 0 46px;
+    flex: 0 0 var(--octeract-icon-size);
     place-items: center;
     box-sizing: border-box;
-    width: 46px;
-    height: 46px;
+    width: var(--octeract-icon-size);
+    height: var(--octeract-icon-size);
     padding: 4px;
     border: 3px solid var(--octeract-line-color);
     border-radius: 11px;
@@ -5968,8 +5988,8 @@ header #obtainiumDisplay { color: pink; }
 
 #octeractUpgradeContainer .octeractUpgrade > img {
     display: block;
-    width: 32px;
-    height: 32px;
+    width: calc(var(--octeract-icon-size) - 14px);
+    height: calc(var(--octeract-icon-size) - 14px);
     object-fit: contain;
 }
 
@@ -6037,54 +6057,39 @@ header #obtainiumDisplay { color: pink; }
     transform: translateY(0) scale(0.98);
 }
 
-.octeractUpgradeLine:not(:has(.octeractUpgrade:not(.upgradeHiddenByMaxLevel))) {
+.octeractUpgradeTrack:not(:has(.octeractUpgrade:not(.upgradeHiddenByMaxLevel))) {
+    display: none;
+}
+
+.octeractUpgradeTrackLeft:not(:has(.octeractUpgrade:not(.upgradeHiddenByMaxLevel)))
++ .octeractUpgradeSpine:not(:has(+ .octeractUpgradeTrackRight .octeractUpgrade:not(.upgradeHiddenByMaxLevel)))::after {
     display: none;
 }
 
 @media (width <= 768px) {
+    #singularityOcteracts {
+        flex-direction: column;
+    }
+
     #octeractUpgradeContainer {
-        width: calc(100% - 12px);
-        margin-inline: 6px;
-        padding: 10px;
-        background-size: 18px 18px;
-    }
+        --octeract-icon-size: 36px;
 
-    .octeractUpgradeLines {
-        gap: 10px;
-        padding: 10px 0 0;
-    }
-
-    .octeractUpgradeLines::before {
-        display: none;
-    }
-
-    .octeractUpgradeLine {
-        display: block;
-        min-height: 0;
-        padding: 7px;
-        border: 1px solid var(--octeract-line-color);
-        border-left-width: 4px;
-        border-radius: 8px;
-        background-color: rgb(0 0 0 / 8%);
-    }
-
-    .octeractUpgradeLine::before {
-        display: none;
+        max-width: 100%;
+        margin-inline: auto;
+        padding: 0 8px 12px;
+        overflow-x: auto;
     }
 
     .octeractUpgradeTrack {
-        flex-wrap: wrap;
-        box-sizing: border-box;
-        width: 100%;
-        max-width: 100%;
-        min-height: 0;
-        margin-left: 0;
-        padding: 5px 4px 3px;
-        gap: 10px;
+        gap: 7px;
     }
 
-    .octeractUpgradeTrack::before {
-        display: none;
+    .octeractUpgradeTrackLeft {
+        padding-right: 16px;
+    }
+
+    .octeractUpgradeTrackRight {
+        padding-left: 16px;
     }
 }
 

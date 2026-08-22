@@ -1041,97 +1041,80 @@ export const octeractUpgrades: {
   }
 }
 
-const OCTERACT_UPGRADE_MAP_LINES = [
+const OCTERACT_UPGRADE_MAP_ROWS = [
   {
-    id: 'core',
-    upgrades: ['octeractStarter', 'octeractGain', 'octeractGain2', 'octeractAscensionsOcteractGain']
+    left: { id: 'core', upgrades: ['octeractStarter'] },
+    right: {
+      id: 'core',
+      upgrades: ['octeractGain', 'octeractGain2', 'octeractAscensionsOcteractGain', 'octeractOneMindImprover']
+    }
   },
   {
-    id: 'quarks',
-    upgrades: [
-      'octeractQuarkGain',
-      'octeractQuarkGain2',
-      'octeractImprovedQuarkHept',
-      'octeractExportQuarks'
-    ]
+    left: { id: 'goldenQuarks', upgrades: ['octeractGQCostReduce', 'octeractSingUpgradeCap', 'octeractFastForward'] },
+    right: {
+      id: 'quarks',
+      upgrades: ['octeractQuarkGain', 'octeractQuarkGain2', 'octeractImprovedQuarkHept', 'octeractExportQuarks']
+    }
   },
   {
-    id: 'goldenQuarks',
-    upgrades: [
-      'octeractGQCostReduce',
-      'octeractImprovedDaily',
-      'octeractImprovedDaily2',
-      'octeractImprovedDaily3',
-      'octeractSingUpgradeCap',
-      'octeractFastForward',
-      'octeractInfiniteShopUpgrades'
-    ]
+    left: { id: 'daily', upgrades: ['octeractImprovedDaily', 'octeractImprovedDaily2', 'octeractImprovedDaily3'] },
+    right: {
+      id: 'freeLevels',
+      upgrades: ['octeractImprovedFree', 'octeractImprovedFree2', 'octeractImprovedFree3', 'octeractImprovedFree4']
+    }
   },
   {
-    id: 'ascension',
-    upgrades: [
-      'octeractImprovedGlobalSpeed',
-      'octeractImprovedAscensionSpeed',
-      'octeractImprovedAscensionSpeed2',
-      'octeractAscensions',
-      'octeractAscensions2',
-      'octeractOneMindImprover'
-    ]
+    left: { id: 'ascensions', upgrades: ['octeractAscensions', 'octeractAscensions2'] },
+    right: {
+      id: 'speed',
+      upgrades: ['octeractImprovedGlobalSpeed', 'octeractImprovedAscensionSpeed', 'octeractImprovedAscensionSpeed2']
+    }
   },
   {
-    id: 'freeLevels',
-    upgrades: [
-      'octeractImprovedFree',
-      'octeractImprovedFree2',
-      'octeractImprovedFree3',
-      'octeractImprovedFree4'
-    ]
+    left: { id: 'corruption', upgrades: ['octeractCorruption'] },
+    right: {
+      id: 'tokens',
+      upgrades: ['octeractBonusTokens1', 'octeractBonusTokens2', 'octeractBonusTokens3', 'octeractBonusTokens4']
+    }
   },
   {
-    id: 'challenges',
-    upgrades: [
-      'octeractCorruption',
-      'octeractBonusTokens1',
-      'octeractBonusTokens2',
-      'octeractBonusTokens3',
-      'octeractBonusTokens4'
-    ]
+    left: { id: 'resources', upgrades: ['octeractOfferings1', 'octeractObtainium1'] },
+    right: { id: 'potions', upgrades: ['octeractAutoPotionSpeed', 'octeractAutoPotionEfficiency'] }
   },
   {
-    id: 'resources',
-    upgrades: [
-      'octeractOfferings1',
-      'octeractObtainium1',
-      'octeractAutoPotionSpeed',
-      'octeractAutoPotionEfficiency'
-    ]
+    left: { id: 'shop', upgrades: ['octeractInfiniteShopUpgrades'] },
+    right: {
+      id: 'talismans',
+      upgrades: [
+        'octeractTalismanLevelCap1',
+        'octeractTalismanLevelCap2',
+        'octeractTalismanLevelCap3',
+        'octeractTalismanLevelCap4'
+      ]
+    }
   },
   {
-    id: 'talismans',
-    upgrades: [
-      'octeractTalismanLevelCap1',
-      'octeractTalismanLevelCap2',
-      'octeractTalismanLevelCap3',
-      'octeractTalismanLevelCap4'
-    ]
+    left: { id: 'blueberries', upgrades: ['octeractBlueberries'] },
+    right: {
+      id: 'ambrosiaLuck',
+      upgrades: ['octeractAmbrosiaLuck2', 'octeractAmbrosiaLuck3', 'octeractAmbrosiaLuck', 'octeractAmbrosiaLuck4']
+    }
   },
   {
-    id: 'ambrosia',
-    upgrades: [
-      'octeractBlueberries',
-      'octeractAmbrosiaLuck2',
-      'octeractAmbrosiaLuck3',
-      'octeractAmbrosiaLuck',
-      'octeractAmbrosiaLuck4',
-      'octeractAmbrosiaGeneration2',
-      'octeractAmbrosiaGeneration3',
-      'octeractAmbrosiaGeneration',
-      'octeractAmbrosiaGeneration4'
-    ]
+    left: null,
+    right: {
+      id: 'ambrosiaGeneration',
+      upgrades: [
+        'octeractAmbrosiaGeneration2',
+        'octeractAmbrosiaGeneration3',
+        'octeractAmbrosiaGeneration',
+        'octeractAmbrosiaGeneration4'
+      ]
+    }
   }
 ]
 
-export const initializeOcteractUpgradeMap = (): void => {
+export const initializeOcteractUpgradeMap = () => {
   const container = DOMCacheGetOrSet('octeractUpgradeContainer')
   const lines = document.createElement('div')
 
@@ -1139,20 +1122,29 @@ export const initializeOcteractUpgradeMap = (): void => {
   container.setAttribute('aria-label', i18next.t('octeract.map.ariaLabel'))
   lines.classList.add('octeractUpgradeLines')
 
-  for (const { id, upgrades } of OCTERACT_UPGRADE_MAP_LINES) {
-    const line = document.createElement('div')
-    const track = document.createElement('div')
+  for (const { left, right } of OCTERACT_UPGRADE_MAP_ROWS) {
+    const leftTrack = document.createElement('div')
+    const spine = document.createElement('div')
+    const rightTrack = document.createElement('div')
 
-    line.classList.add('octeractUpgradeLine')
-    line.dataset.octeractLine = id
-    track.classList.add('octeractUpgradeTrack')
+    leftTrack.classList.add('octeractUpgradeTrack', 'octeractUpgradeTrackLeft')
+    leftTrack.dataset.octeractLine = left !== null ? left.id : right.id
+    spine.classList.add('octeractUpgradeSpine')
+    spine.dataset.octeractLine = right.id
+    rightTrack.classList.add('octeractUpgradeTrack', 'octeractUpgradeTrackRight')
+    rightTrack.dataset.octeractLine = right.id
 
-    for (const upgrade of upgrades) {
-      track.append(DOMCacheGetOrSet(upgrade))
+    if (left !== null) {
+      for (const upgrade of left.upgrades) {
+        leftTrack.append(DOMCacheGetOrSet(upgrade))
+      }
     }
 
-    line.append(track)
-    lines.append(line)
+    for (const upgrade of right.upgrades) {
+      rightTrack.append(DOMCacheGetOrSet(upgrade))
+    }
+
+    lines.append(leftTrack, spine, rightTrack)
   }
 
   container.replaceChildren(lines)
