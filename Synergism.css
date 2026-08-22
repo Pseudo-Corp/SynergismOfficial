@@ -3421,7 +3421,6 @@ p#reincarnatehotkeys {
 
 #goldenQuarksDisplay,
 #octeractsDisplay,
-#totalOcteractsDisplay,
 #ambrosiaDisplay,
 #redAmbrosiaDisplay,
 #blueberryDisplay {
@@ -3443,33 +3442,37 @@ p#reincarnatehotkeys {
 }
 
 #totalOcteractsDisplay {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    width: min(100%, 860px);
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+    box-sizing: border-box;
+    width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
-    gap: 6px;
     padding: 0 10px;
 }
 
-#octeractsDisplay > p,
-#totalOcteractsDisplay > p {
+#octeractsDisplay > p {
     margin: 0 0 0 10px;
+    font-size: 1.2em;
 }
 
 #totalOcteractsDisplay > p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 1ch;
     margin: 0;
     overflow-wrap: anywhere;
+}
+
+#totalOcteractsDisplay > p > span {
+    margin-left: auto;
 }
 
 #goldenQuarkamount {
     font-size: 1.2em;
     color: gold;
-    margin-left: 5px;
-}
-
-#octeractAmount {
-    font-size: 1.2em;
     margin-left: 5px;
 }
 
@@ -5675,11 +5678,16 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #singularityUpgradeContainer,
-#singularityOcteracts,
 #singularityAmbrosia {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#singularityOcteracts {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 /* Singularity Elevator Styles */
@@ -5819,7 +5827,6 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #actualSingularityUpgradeContainer,
-#octeractUpgradeContainer,
 #blueberryUpgradeContainer {
     display: flex;
     flex-wrap: wrap;
@@ -5828,6 +5835,251 @@ header #obtainiumDisplay { color: pink; }
     margin-top: 5px;
     width: calc(36px * 14);
     gap: 4px;
+}
+
+#octeractUpgradeContainer {
+    --octeract-line-color: lightseagreen;
+    --octeract-icon-size: 46px;
+
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    width: fit-content;
+    max-width: 94vw;
+    padding: 0 18px 18px;
+    margin: 10px;
+}
+
+.octeractUpgradeLines {
+    position: relative;
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
+    padding: 10px 0 0;
+}
+
+#octeractUpgradeContainer [data-octeract-line="core"] { --octeract-line-color: #2dd4bf; }
+#octeractUpgradeContainer [data-octeract-line="goldenQuarks"] { --octeract-line-color: #facc15; }
+#octeractUpgradeContainer [data-octeract-line="quarks"] { --octeract-line-color: #38bdf8; }
+#octeractUpgradeContainer [data-octeract-line="daily"] { --octeract-line-color: #f472b6; }
+#octeractUpgradeContainer [data-octeract-line="freeLevels"] { --octeract-line-color: #f472b6; }
+#octeractUpgradeContainer [data-octeract-line="ascensions"] { --octeract-line-color: #e2e8f0; }
+#octeractUpgradeContainer [data-octeract-line="speed"] { --octeract-line-color: #c084fc; }
+#octeractUpgradeContainer [data-octeract-line="corruption"] { --octeract-line-color: #e2e8f0; }
+#octeractUpgradeContainer [data-octeract-line="tokens"] { --octeract-line-color: #fb7185; }
+#octeractUpgradeContainer [data-octeract-line="resources"] { --octeract-line-color: #34d399; }
+#octeractUpgradeContainer [data-octeract-line="potions"] { --octeract-line-color: #4ade80; }
+#octeractUpgradeContainer [data-octeract-line="shop"] { --octeract-line-color: #22c55e; }
+#octeractUpgradeContainer [data-octeract-line="talismans"] { --octeract-line-color: #a78bfa; }
+#octeractUpgradeContainer [data-octeract-line="blueberries"] { --octeract-line-color: #fb923c; }
+#octeractUpgradeContainer [data-octeract-line="ambrosiaLuck"] { --octeract-line-color: #fb923c; }
+#octeractUpgradeContainer [data-octeract-line="ambrosiaGeneration"] { --octeract-line-color: #fb923c; }
+
+.octeractUpgradeSpine {
+    position: relative;
+    grid-column: 2;
+    width: 4px;
+}
+
+.octeractUpgradeSpine::before {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background-color: var(--octeract-line-color);
+    box-shadow: 0 0 6px var(--octeract-line-color);
+    content: '';
+}
+
+.octeractUpgradeLines > :first-child + .octeractUpgradeSpine::before {
+    top: 50%;
+    border-radius: 2px 2px 0 0;
+}
+
+.octeractUpgradeSpine:nth-last-child(2)::before {
+    bottom: 50%;
+    border-radius: 0 0 2px 2px;
+}
+
+.octeractUpgradeSpine::after {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    border: 3px solid white;
+    border-radius: 50%;
+    background-color: var(--box-color);
+    box-shadow: 0 0 6px var(--octeract-line-color);
+    content: '';
+    transform: translate(-50%, -50%);
+}
+
+.octeractUpgradeTrack {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 1.2vw, 18px);
+    min-height: calc(var(--octeract-icon-size) + 16px);
+}
+
+.octeractUpgradeTrackLeft {
+    grid-column: 1;
+    flex-direction: row-reverse;
+    justify-self: end;
+    padding-right: 28px;
+}
+
+.octeractUpgradeTrackRight {
+    grid-column: 3;
+    justify-self: start;
+    padding-left: 28px;
+}
+
+.octeractUpgradeTrack::before {
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--octeract-line-color);
+    box-shadow: 0 0 6px var(--octeract-line-color);
+    content: '';
+    transform: translateY(-50%);
+}
+
+.octeractUpgradeTrackLeft::before {
+    right: -4px;
+    left: calc(var(--octeract-icon-size) / 2);
+}
+
+.octeractUpgradeTrackRight::before {
+    right: calc(var(--octeract-icon-size) / 2);
+    left: -4px;
+}
+
+#octeractUpgradeContainer .octeractUpgrade {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    flex: 0 0 var(--octeract-icon-size);
+    place-items: center;
+    box-sizing: border-box;
+    width: var(--octeract-icon-size);
+    height: var(--octeract-icon-size);
+    padding: 4px;
+    border: 3px solid var(--octeract-line-color);
+    border-radius: 11px;
+    background-color: var(--button-color);
+    box-shadow: 0 0 0 2px var(--box-color);
+    transition: box-shadow 120ms ease, transform 120ms ease;
+}
+
+#octeractUpgradeContainer .octeractUpgrade > img {
+    display: block;
+    width: calc(var(--octeract-icon-size) - 14px);
+    height: calc(var(--octeract-icon-size) - 14px);
+    object-fit: contain;
+}
+
+#octeractUpgradeContainer .octeractUpgrade::after {
+    position: absolute;
+    right: -7px;
+    bottom: -8px;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    min-width: 18px;
+    height: 16px;
+    padding: 0 3px;
+    border: 1px solid var(--octeract-line-color);
+    border-radius: 8px;
+    background-color: var(--box-color);
+    color: var(--text-color);
+    content: attr(data-octeract-level);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 14px;
+    white-space: nowrap;
+}
+
+#octeractUpgradeContainer .octeractUpgrade:not([data-octeract-level])::after {
+    display: none;
+}
+
+#octeractUpgradeContainer .octeractUpgradeFreeLevels::before {
+    position: absolute;
+    z-index: 2;
+    top: -6px;
+    left: -6px;
+    width: 9px;
+    height: 9px;
+    border: 2px solid var(--box-color);
+    border-radius: 50%;
+    background-color: orange;
+    box-shadow: 0 0 6px orange;
+    content: '';
+}
+
+#octeractUpgradeContainer .octeractUpgradeAffordable {
+    box-shadow:
+        0 0 0 2px var(--box-color),
+        0 0 0 4px lightseagreen,
+        0 0 13px lightseagreen;
+}
+
+#octeractUpgradeContainer .octeractUpgradeMaxed {
+    box-shadow:
+        0 0 0 2px var(--box-color),
+        0 0 0 4px plum,
+        0 0 11px plum;
+}
+
+#octeractUpgradeContainer .octeractUpgrade:hover,
+#octeractUpgradeContainer .octeractUpgrade:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+    transform: translateY(-2px) scale(1.05);
+}
+
+#octeractUpgradeContainer .octeractUpgrade:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.octeractUpgradeTrack:not(:has(.octeractUpgrade:not(.upgradeHiddenByMaxLevel))) {
+    display: none;
+}
+
+.octeractUpgradeTrackLeft:not(:has(.octeractUpgrade:not(.upgradeHiddenByMaxLevel)))
++ .octeractUpgradeSpine:not(:has(+ .octeractUpgradeTrackRight .octeractUpgrade:not(.upgradeHiddenByMaxLevel)))::after {
+    display: none;
+}
+
+@media (width <= 768px) {
+    #singularityOcteracts {
+        flex-direction: column;
+    }
+
+    #octeractUpgradeContainer {
+        --octeract-icon-size: 36px;
+
+        max-width: 100%;
+        margin-inline: auto;
+        padding: 0 8px 12px;
+        overflow-x: auto;
+    }
+
+    .octeractUpgradeTrack {
+        gap: 7px;
+    }
+
+    .octeractUpgradeTrackLeft {
+        padding-right: 16px;
+    }
+
+    .octeractUpgradeTrackRight {
+        padding-left: 16px;
+    }
 }
 
 .upgradeVisibilityControls {
@@ -5839,6 +6091,16 @@ header #obtainiumDisplay { color: pink; }
 .toggleMaxedUpgrades {
     border: 2px solid green;
     min-width: 15em;
+}
+
+#toggleMaxedOcteractUpgrades {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    min-width: 0;
+    padding: 5px;
+    margin: 2px;
 }
 
 .upgradeHiddenByMaxLevel {
@@ -6191,13 +6453,11 @@ header #obtainiumDisplay { color: pink; }
     white-space: pre-line;
 }
 
-#octeractUpgradeValues,
 #ambrosiaUpgradeValues {
     width: 100%;
 }
 
 #goldenQuarkMultiline,
-#singularityOcteractsMultiline,
 #singularityAmbrosiaMultiline {
     white-space: pre-line;
     margin: 15px auto 0;
@@ -8454,7 +8714,6 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #actualSingularityUpgradeContainer,
-    #octeractUpgradeContainer,
     #blueberryUpgradeContainer {
         width: unset;
     }
