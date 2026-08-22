@@ -5982,6 +5982,10 @@ header #obtainiumDisplay { color: pink; }
     transition: box-shadow 120ms ease, transform 120ms ease;
 }
 
+#octeractUpgradeContainer .octeractUpgrade:not(.octeractUpgradeMaxed) {
+    border-style: dashed;
+}
+
 #octeractUpgradeContainer .octeractUpgrade > img {
     display: block;
     width: calc(var(--octeract-icon-size) - 14px);
