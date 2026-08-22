@@ -113,7 +113,6 @@ export type APRewards = {
 
 interface PurpleReactorUpgrade<T extends PurpleReactorNames, K extends keyof PurpleReactorUpgradeRewards[T]> {
   level: number
-  purpleInvested: number
   maxLevel: number
   // In these formulas, costFormula is expected to be a cumulative function
   costFormula: (level: number) => number
@@ -123,11 +122,11 @@ interface PurpleReactorUpgrade<T extends PurpleReactorNames, K extends keyof Pur
   apValue: APRewards
 }
 
-// Writing out 'level' and 'purpleInvested' as all zeroes is repetitive...
+// Writing out 'level' as zero is repetitive...
 type PurpleReactorUpgradeDefinition<
   T extends PurpleReactorNames,
   K extends keyof PurpleReactorUpgradeRewards[T]
-> = Omit<PurpleReactorUpgrade<T, K>, 'level' | 'purpleInvested'>
+> = Omit<PurpleReactorUpgrade<T, K>, 'level'>
 
 type PurpleReactorUpgradeData = {
   [K in PurpleReactorNames]: PurpleReactorUpgradeDefinition<K, keyof PurpleReactorUpgradeRewards[K]>
@@ -1057,8 +1056,7 @@ function createPurpleReactorUpgrades (
         name,
         {
           ...definition,
-          level: 0,
-          purpleInvested: 0
+          level: 0
         }
       ]
     })
@@ -1081,13 +1079,11 @@ export const setPurpleReactorUpgradeLevels = (): void => {
     const oldInvested = player.purpleReactorUpgrades[upgradeKey] || 0
 
     upgrade.level = 0
-    upgrade.purpleInvested = 0
 
-    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, oldInvested)
+    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, 0)
     const totalCost = upgrade.costFormula(maxAffordableLevel)
 
     upgrade.level = maxAffordableLevel
-    upgrade.purpleInvested = totalCost
 
     player.purpleReactorUpgrades[upgradeKey] = totalCost
 
@@ -1141,14 +1137,14 @@ const getPurpleReactorUpgradeCostTNL = (upgradeKey: PurpleReactorNames): number 
   return upgrade.costFormula(upgrade.level + 1) - upgrade.costFormula(upgrade.level)
 }
 
-export const maximumAffordableLevel = (upgradeKey: PurpleReactorNames, purpleAmount: number): number => {
+export const maximumAffordableLevel = (upgradeKey: PurpleReactorNames, unspentPurple: number): number => {
   const upgrade = purpleReactorUpgrades[upgradeKey]
 
   if (upgrade.level === upgrade.maxLevel) {
     return upgrade.level // no need to check maxed upgrades for affordability
   }
 
-  const availablePurple = purpleAmount + upgrade.purpleInvested
+  const availablePurple = unspentPurple + player.purpleReactorUpgrades[upgradeKey]
 
   let low = upgrade.level
   let high = upgrade.maxLevel
@@ -1199,7 +1195,7 @@ export const purpleReactorUpgradeToString = (upgradeKey: PurpleReactorNames): st
   )
 
   const spentSpan = i18next.t('purpleReactor.purpleHoneySpent', {
-    amount: format(upgrade.purpleInvested, 0, true)
+    amount: format(player.purpleReactorUpgrades[upgradeKey], 0, true)
   })
 
   let baseString = `${nameSpan} <br> ${flavorSpan} <br> ${levelSpan} <br><br> ${effectSpan} <br> ${
@@ -1250,7 +1246,6 @@ export const buyPurpleReactorUpgradeLevel = async (
   const cost = upgrade.costFormula(upgrade.level + toPurchase) - upgrade.costFormula(upgrade.level)
   player.purpleReactor.purpleHoney -= cost
   player.spentPurpleHoney.upgrades += cost
-  upgrade.purpleInvested += cost
   upgrade.level += toPurchase
   player.purpleReactorUpgrades[upgradeKey] += cost
   visualUpdatePurple()

@@ -1,12 +1,11 @@
 import Decimal from 'break_infinity.js'
-import { type AmbrosiaUpgradeNames, ambrosiaUpgrades } from '../BlueberryUpgrades'
+import type { AmbrosiaUpgradeNames } from '../BlueberryUpgrades'
 import { CorruptionLoadout, type Corruptions, CorruptionSaves } from '../Corruptions'
 import { AntProducers } from '../Features/Ants/structs/structs'
 import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
-import { type HepteractKeys, hepteracts } from '../Hepteracts'
+import type { HepteractKeys } from '../Hepteracts'
 import type { OcteractUpgrades } from '../Octeracts'
-import { octeractUpgrades } from '../Octeracts'
-import { goldenQuarkUpgrades, type SingularityDataKeys } from '../singularity'
+import type { SingularityDataKeys } from '../singularity'
 import { updateResourcePredefinedLevel } from '../Talismans'
 import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
 import { convertArrayToCorruption } from './PlayerJsonSchema'
@@ -127,9 +126,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
         const AUTO = value.AUTO ?? false
 
         player.hepteracts[k] = { BAL, TIMES_CAP_EXTENDED, AUTO }
-        hepteracts[k].BAL = BAL
-        hepteracts[k].TIMES_CAP_EXTENDED = TIMES_CAP_EXTENDED
-        hepteracts[k].AUTO = AUTO
       }
     }
   }
@@ -152,9 +148,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
         freeLevel,
         goldenQuarksInvested
       }
-      goldenQuarkUpgrades[k].level = level
-      goldenQuarkUpgrades[k].freeLevel = freeLevel
-      goldenQuarkUpgrades[k].goldenQuarksInvested = goldenQuarksInvested
     }
   }
 
@@ -171,9 +164,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
         freeLevel,
         octeractsInvested
       }
-      octeractUpgrades[k].level = level
-      octeractUpgrades[k].freeLevel = level
-      octeractUpgrades[k].octeractsInvested = octeractsInvested
     }
   }
 
@@ -188,8 +178,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
         ambrosiaInvested,
         blueberriesInvested
       }
-      ambrosiaUpgrades[k].ambrosiaInvested = ambrosiaInvested
-      ambrosiaUpgrades[k].blueberriesInvested = blueberriesInvested
     }
   }
 
