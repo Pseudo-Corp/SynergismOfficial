@@ -1221,9 +1221,7 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
   } <span style="color:blue">${upgrade.blueberryCost}</span>`
   const spentAmbrosiaHTML = `${i18next.t('general.spent')} ${
     i18next.t('ambrosia.ambrosia')
-  }: <span style="color:orange">${
-    format(player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested, 0, true)
-  }</span>`
+  }: <span style="color:orange">${format(player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested, 0, true)}</span>`
   const ignoreEXALTHTML = upgrade.ignoreEXALT
     ? `<br><span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span>`
     : ''
