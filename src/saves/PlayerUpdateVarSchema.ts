@@ -4,8 +4,8 @@ import { CorruptionLoadout, type Corruptions, CorruptionSaves } from '../Corrupt
 import { AntProducers } from '../Features/Ants/structs/structs'
 import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
 import type { HepteractKeys } from '../Hepteracts'
-import { type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
-import type { SingularityDataKeys } from '../singularity'
+import { octeractUpgradeNames, type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
+import { getGQUpgradeCumulativeCost, goldenQuarkUpgradeNames, type SingularityDataKeys } from '../singularity'
 import { updateResourcePredefinedLevel } from '../Talismans'
 import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
 import { convertArrayToCorruption } from './PlayerJsonSchema'
@@ -18,6 +18,15 @@ const getLegacyOcteractsInvested = (
   return upgrade.level === undefined
     ? upgrade.octeractsInvested ?? 0
     : octeractUpgrades[key].costFormula(upgrade.level)
+}
+
+const getLegacyGoldenQuarksInvested = (
+  key: SingularityDataKeys,
+  upgrade: { level?: number; goldenQuarksInvested?: number }
+): number => {
+  return upgrade.level === undefined
+    ? upgrade.goldenQuarksInvested ?? 0
+    : getGQUpgradeCumulativeCost(key, upgrade.level)
 }
 
 export const playerUpdateVarSchema = playerSchema.transform((player) => {
@@ -148,26 +157,31 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
 
       const k = key as SingularityDataKeys
 
-      const level = player.singularityUpgrades[k].level ?? 0
       const freeLevel = player.singularityUpgrades[k].freeLevels ?? 0
-      const goldenQuarksInvested = player.singularityUpgrades[k].goldenQuarksInvested ?? 0
+      const goldenQuarksInvested = getLegacyGoldenQuarksInvested(k, player.singularityUpgrades[k])
 
       player.goldenQuarkUpgrades[k] = {
-        level,
         freeLevel,
         goldenQuarksInvested
       }
     }
   }
 
+  for (const key of goldenQuarkUpgradeNames) {
+    const upgrade = player.goldenQuarkUpgrades[key]
+
+    if (upgrade.level !== undefined) {
+      upgrade.goldenQuarksInvested = getLegacyGoldenQuarksInvested(key, upgrade)
+      Reflect.deleteProperty(upgrade, 'level')
+    }
+  }
+
   if (player.octeractUpgrades !== undefined) {
-    for (const key of Object.keys(player.octeractUpgrades)) {
-      const k = key as OcteractUpgrades
+    for (const key of octeractUpgradeNames) {
+      const freeLevel = player.octeractUpgrades[key].freeLevels ?? 0
+      const octeractsInvested = getLegacyOcteractsInvested(key, player.octeractUpgrades[key])
 
-      const freeLevel = player.octeractUpgrades[k].freeLevels ?? 0
-      const octeractsInvested = getLegacyOcteractsInvested(k, player.octeractUpgrades[k])
-
-      player.octUpgrades[k] = {
+      player.octUpgrades[key] = {
         freeLevel,
         octeractsInvested
       }

@@ -143,7 +143,12 @@ import {
 } from './Runes'
 import { getRuneSpiritEffect } from './RuneSpirits'
 import { getShopUpgradeEffects } from './Shop'
-import { calculateMaxSingularityLookahead, calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
+import {
+  calculateMaxSingularityLookahead,
+  calculateSingularityDebuff,
+  getGQUpgradeEffect,
+  goldenQuarkUpgrades
+} from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talismans'
@@ -4967,7 +4972,7 @@ const gameStages = (): Stage[] => {
       stage: 24,
       tier: 6,
       name: 'exalt7x10-pen',
-      unlocked: player.goldenQuarkUpgrades.ultimatePen.level > 0,
+      unlocked: goldenQuarkUpgrades.ultimatePen.level > 0,
       reset: player.highestSingularityCount > 0
     },
     {

@@ -254,7 +254,7 @@ const talismanFragmentSchema = z.object({
 })
 
 const goldenQuarkUpgradeSchema = z.object({
-  level: z.number().default(0),
+  level: z.number().optional(),
   freeLevel: z.number().default(0),
   goldenQuarksInvested: z.number().default(0)
 })
@@ -940,8 +940,8 @@ export const playerSchema = z.object({
   goldenQuarkUpgrades: z.record(z.string(), goldenQuarkUpgradeSchema).transform((object) => {
     return Object.fromEntries(
       Object.keys(blankSave.goldenQuarkUpgrades).map((key) => {
-        const value = object[key] ?? { level: 0, freeLevel: 0, goldenQuarksInvested: 0 }
-        return value === null ? [key, { level: 0, freeLevel: 0, goldenQuarksInvested: 0 }] : [key, value]
+        const value = object[key] ?? { freeLevel: 0, goldenQuarksInvested: 0 }
+        return value === null ? [key, { freeLevel: 0, goldenQuarksInvested: 0 }] : [key, value]
       })
     )
   })
