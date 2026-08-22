@@ -12,7 +12,6 @@ import {
 } from './Calculate'
 import { isSynergismCC } from './Config'
 import { updateGlobalsIsEvent } from './Event'
-import { storageGetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
 import { updateLotusDisplay } from './purchases/ConsumablesTab'
@@ -20,6 +19,7 @@ import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
+import { getStoredSave } from './saves/SaveStorage'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Confirm, Notification } from './UpdateHTML'
 import { assert, btoa, displayHTMLError, isomorphicDecode } from './Utility'
@@ -1515,35 +1515,38 @@ function handleCloudSaves () {
   }
 
   // Handle uploading savefiles
-  uploadButton.addEventListener('click', () => {
+  uploadButton.addEventListener('click', async () => {
     uploadButton.disabled = true
     const originalText = uploadButton.textContent
     uploadButton.innerHTML = '<span class="spinner"></span> Uploading...'
 
-    const name = saveFilename()
-    const save = storageGetItem('Synergysave2')
-    assert(save !== null, 'no save')
+    try {
+      const name = saveFilename()
+      const save = await getStoredSave()
+      assert(save !== null, 'no save')
 
-    const fd = new FormData()
-    fd.set('file', new File([save], name))
-    fd.set('name', name)
+      const fd = new FormData()
+      fd.set('file', new File([save], name))
+      fd.set('name', name)
 
-    fetch('https://synergism.cc/saves/upload', {
-      method: 'POST',
-      body: fd
-    }).then((response) => {
+      const response = await fetch('https://synergism.cc/saves/upload', {
+        method: 'POST',
+        body: fd
+      })
+
       if (!response.ok) {
-        response.text().then((error) => Notification(error || i18next.t('settings.cloud.uploadFailed')))
+        const error = await response.text()
+        Notification(error || i18next.t('settings.cloud.uploadFailed'))
 
         throw new TypeError(`Received status ${response.status}`)
       }
 
       uploadButton.textContent = i18next.t('settings.cloud.uploadSuccess')
       populateTable()
-    }).catch((e) => {
+    } catch (e) {
       console.error(e)
       uploadButton.textContent = i18next.t('settings.cloud.uploadFailed')
-    }).finally(() => {
+    } finally {
       setTimeout(
         (uploadButton_: HTMLButtonElement) => {
           uploadButton_.disabled = false
@@ -1552,7 +1555,7 @@ function handleCloudSaves () {
         5000,
         uploadButton
       )
-    })
+    }
   })
 
   transferButton.addEventListener('click', () => {
@@ -1695,7 +1698,18 @@ async function handleSteamCloudSave () {
     uploadBtn.disabled = true
     uploadBtn.textContent = i18next.t('account.steamCloud.uploading')
 
-    const localSave = storageGetItem('Synergysave2')
+    let localSave: string | null
+
+    try {
+      localSave = await getStoredSave()
+    } catch (error) {
+      console.error('Failed to read local save for Steam Cloud upload', error)
+      Alert(i18next.t('account.steamCloud.uploadFailed'))
+      uploadBtn.disabled = false
+      uploadBtn.textContent = i18next.t('account.steamCloud.upload')
+      return
+    }
+
     if (!localSave) {
       Alert(i18next.t('account.steamCloud.noLocalSave'))
       uploadBtn.disabled = false
