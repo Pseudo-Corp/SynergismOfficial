@@ -22,6 +22,7 @@ import { resetRuneBlessings } from './RuneBlessings'
 import { resetRunes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { flushSaveStorage, getStoredSave, queueSave } from './saves/SaveStorage'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect, goldenQuarkUpgrades } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
@@ -277,7 +278,15 @@ export const exportSynergism = async (
     return
   }
 
-  const saveString = storageGetItem('Synergysave2')
+  let saveString: string | null
+
+  try {
+    saveString = await getStoredSave()
+  } catch (error) {
+    console.error('Failed to read save for export', error)
+    await Alert(i18next.t('testing.errorSaving'))
+    return
+  }
 
   if (!saveString) {
     return Alert('How?')
@@ -323,7 +332,7 @@ export const resetGame = async (force = true) => {
 
 export const importData = async (
   e: Event,
-  importFunc: (save: string | null) => void
+  importFunc: (save: string | null) => void | Promise<void>
 ) => {
   const element = e.target as HTMLInputElement
   const file = element.files![0]
@@ -378,8 +387,16 @@ export const importSynergism = (input: string | null, reset = false) => {
       return
     }
 
-    storageSetItem('Synergysave2', saveString)
-    reloadShit(reset).then(() => syncSteamAchievements()).catch(console.error)
+    if (!queueSave(saveString)) {
+      Alert(i18next.t('testing.errorSaving'))
+      return
+    }
+
+    void flushSaveStorage().catch((error: unknown) => {
+      console.error('Failed to persist imported save', error)
+      void Alert(i18next.t('testing.errorSaving'))
+    })
+    reloadShit(reset, saveString).then(() => syncSteamAchievements()).catch(console.error)
     return
   } else {
     Alert(i18next.t('importexport.loadTestInLive'))

@@ -243,6 +243,7 @@ import {
 } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
+import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, queueSave } from './saves/SaveStorage'
 // eslint-disable-next-line no-unassigned-import
 import './saves/verify'
 import { getShopUpgradeEffects, updateShopLevels } from './Shop'
@@ -1292,17 +1293,22 @@ export const saveSynergy = (button?: boolean) => {
 
   const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
-  if (save !== null) {
-    storageSetItem('Synergysave2', save)
-  } else {
+  if (save === null || !queueSave(save)) {
     void Alert(i18next.t('testing.errorSaving'))
     return false
   }
 
   if (button) {
-    const el = DOMCacheGetOrSet('saveinfo')
-    el.textContent = i18next.t('testing.gameSaved')
-    setTimeout(() => (el.textContent = ''), 4000)
+    void flushSaveStorage()
+      .then(() => {
+        const el = DOMCacheGetOrSet('saveinfo')
+        el.textContent = i18next.t('testing.gameSaved')
+        setTimeout(() => (el.textContent = ''), 4000)
+      })
+      .catch((error: unknown) => {
+        console.error('Failed to persist save', error)
+        void Alert(i18next.t('testing.errorSaving'))
+      })
   }
 
   // Auto-sync to Steam Cloud (throttled to every 60 seconds, or immediately on manual save)
@@ -1356,10 +1362,9 @@ async function syncToSteamCloud (saveData: string) {
   console.log('[SteamCloud] cloudWriteFile result:', writeResult)
 }
 
-const loadSynergy = () => {
-  const saveString = storageGetItem('Synergysave2')
-  const data = saveString ? JSON.parse(atob(saveString)) : null
-  if (data && testing) {
+const loadSynergy = (saveString: string): boolean => {
+  const data = JSON.parse(atob(saveString))
+  if (testing) {
     data.exporttest = false
   }
 
@@ -1367,7 +1372,8 @@ const loadSynergy = () => {
 
   if (data) {
     if ((data.exporttest === false || data.exporttest === 'NO!') && !testing) {
-      return Alert(i18next.t('testing.saveInLive2'))
+      void Alert(i18next.t('testing.saveInLive2'))
+      return false
     }
 
     // size before loading
@@ -1390,7 +1396,8 @@ const loadSynergy = () => {
       console.log(validatedPlayer.error)
       console.log(data)
       clearTimers()
-      return
+      void Alert(i18next.t('save.loadFailed'))
+      return false
     }
 
     player.lastExportedSave = data.lastExportedSave ?? 0
@@ -2053,6 +2060,7 @@ const loadSynergy = () => {
   const m = d.getMinutes()
   const s = d.getSeconds()
   player.dayTimer = 60 * 60 * 24 - (s + 60 * m + 60 * 60 * h)
+  return true
 }
 
 // dprint-ignore
@@ -4799,10 +4807,11 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
 /**
  * Reloads shit.
  * @param ignoreOfflineProgress if this param is true, offline progression will not be calculated.
+ * @param saveOverride when supplied by an import/reset, load this already-validated encoded save without rereading storage.
  */
 let reloadGeneration = 0
 
-export const reloadShit = async (ignoreOfflineProgress = false) => {
+export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: string) => {
   const generation = ++reloadGeneration
   clearTimers()
   cancelOfflineProgress()
@@ -4815,9 +4824,24 @@ export const reloadShit = async (ignoreOfflineProgress = false) => {
 
   disableHotkeys()
 
-  const saveObject = storageGetItem('Synergysave2')
+  let saveObject: string | null
+
+  if (saveOverride === undefined) {
+    try {
+      await initializeSaveStorage()
+      saveObject = await getStoredSave()
+    } catch (error) {
+      clearTimeout(preloadDeleteGame)
+      console.error('Failed to initialize save storage', error)
+      await Alert(i18next.t('save.storageLoadFailed'))
+      return
+    }
+  } else {
+    saveObject = saveOverride
+  }
 
   if (saveObject) {
+    let saveString = saveObject
     const decompress = LZString.decompressFromBase64(saveObject)
     const isLZString = decompress !== ''
 
@@ -4826,18 +4850,41 @@ export const reloadShit = async (ignoreOfflineProgress = false) => {
         return Alert(i18next.t('save.loadFailed'))
       }
 
-      const saveString = btoa(decompress)
+      const convertedSave = btoa(decompress)
 
-      if (saveString === null) {
+      if (convertedSave === null) {
         return Alert(i18next.t('save.loadFailed'))
       }
 
-      localStorage.clear()
-      storageSetItem('Synergysave2', saveString)
+      saveString = convertedSave
+
+      if (PLATFORM !== 'mobile') {
+        localStorage.clear()
+      }
+
+      try {
+        await persistSave(saveString)
+      } catch (error) {
+        clearTimeout(preloadDeleteGame)
+        console.error('Failed to persist converted save', error)
+        await Alert(i18next.t('testing.errorSaving'))
+        return
+      }
+
       Alert(i18next.t('main.transferredFromLZ'))
     }
 
-    loadSynergy()
+    try {
+      if (!loadSynergy(saveString)) {
+        clearTimeout(preloadDeleteGame)
+        return
+      }
+    } catch (error) {
+      clearTimeout(preloadDeleteGame)
+      console.error('Failed to decode save', error)
+      await Alert(i18next.t('save.loadFailed'))
+      return
+    }
   }
 
   // Recover Sing Upgrade (now GQ upgrade) level from Player Obj
@@ -5059,6 +5106,15 @@ window.addEventListener('load', async () => {
   }
 
   await i18nInit()
+
+  try {
+    await initializeSaveStorage()
+  } catch (error) {
+    console.error('Failed to initialize save storage', error)
+    await Alert(i18next.t('save.storageLoadFailed'))
+    return
+  }
+
   const loginResolved = handleLogin().catch(console.error)
   if (PLATFORM === 'steam') {
     const { onAuthChanged } = await import('./steam/steam')
