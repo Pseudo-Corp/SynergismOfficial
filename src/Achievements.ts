@@ -511,7 +511,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
       // Go through all octeract upgrades. if the max level is NOT -1, add 8 points if the upgrade level equals max level
       for (const key of Object.keys(octeractUpgrades) as OcteractUpgrades[]) {
         const upgrade = octeractUpgrades[key]
-        if (upgrade.maxLevel !== -1 && player.octUpgrades[key].level >= upgrade.maxLevel) {
+        if (upgrade.maxLevel !== -1 && octeractUpgrades[key].level >= upgrade.maxLevel) {
           pointValue += 8
         }
       }

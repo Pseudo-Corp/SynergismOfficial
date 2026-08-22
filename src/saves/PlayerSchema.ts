@@ -260,7 +260,7 @@ const goldenQuarkUpgradeSchema = z.object({
 })
 
 const octeractUpgradeSchema = z.object({
-  level: z.number().default(0),
+  level: z.number().optional(),
   freeLevel: z.number().default(0),
   octeractsInvested: z.number().default(0)
 })
@@ -952,8 +952,8 @@ export const playerSchema = z.object({
     // something different. Oh well... this can be changed later. -Plat
     return Object.fromEntries(
       Object.keys(blankSave.octUpgrades).map((key) => {
-        const value = object[key] ?? { level: 0, freeLevel: 0, octeractsInvested: 0 }
-        return value === null ? [key, { level: 0, freeLevel: 0, octeractsInvested: 0 }] : [key, value]
+        const value = object[key] ?? { freeLevel: 0, octeractsInvested: 0 }
+        return value === null ? [key, { freeLevel: 0, octeractsInvested: 0 }] : [key, value]
       })
     )
   })

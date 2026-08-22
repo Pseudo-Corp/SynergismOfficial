@@ -12,7 +12,7 @@ import { testing, version } from './Config'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { addTimers } from './Helper'
 import { getFinalHepteractCap, hepteracts } from './Hepteracts'
-import { getOcteractUpgradeEffect } from './Octeracts'
+import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
@@ -616,9 +616,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
       if (player.highestSingularityCount >= 200 && player.highestSingularityCount < 205) {
         const freeLevelOct1 = Math.max(
-          player.octUpgrades.octeractGain.level / 100,
+          octeractUpgrades.octeractGain.level / 100,
           Math.pow(
-            player.octUpgrades.octeractGain.level * player.octUpgrades.octeractGain.freeLevel / 1000,
+            octeractUpgrades.octeractGain.level * player.octUpgrades.octeractGain.freeLevel / 1000,
             0.5
           )
         )
@@ -626,16 +626,16 @@ export const promocodes = async (input: string | null, amount?: number) => {
         freeLevels.octeractGain = freeLevelOct1
       } else if (player.highestSingularityCount >= 205) {
         const freeLevelOct1 = Math.max(
-          player.octUpgrades.octeractGain.level / 100,
+          octeractUpgrades.octeractGain.level / 100,
           Math.pow(
-            player.octUpgrades.octeractGain.level * player.octUpgrades.octeractGain.freeLevel / 640,
+            octeractUpgrades.octeractGain.level * player.octUpgrades.octeractGain.freeLevel / 640,
             0.5
           )
         )
         const freeLevelOct2 = Math.max(
-          player.octUpgrades.octeractGain2.level / 100,
+          octeractUpgrades.octeractGain2.level / 100,
           Math.pow(
-            Math.pow(player.octUpgrades.octeractGain2.level, 2) * player.octUpgrades.octeractGain2.freeLevel
+            Math.pow(octeractUpgrades.octeractGain2.level, 2) * player.octUpgrades.octeractGain2.freeLevel
               / 125000,
             0.333
           )

@@ -4,12 +4,21 @@ import { CorruptionLoadout, type Corruptions, CorruptionSaves } from '../Corrupt
 import { AntProducers } from '../Features/Ants/structs/structs'
 import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
 import type { HepteractKeys } from '../Hepteracts'
-import type { OcteractUpgrades } from '../Octeracts'
+import { type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
 import type { SingularityDataKeys } from '../singularity'
 import { updateResourcePredefinedLevel } from '../Talismans'
 import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
 import { convertArrayToCorruption } from './PlayerJsonSchema'
 import { playerSchema } from './PlayerSchema'
+
+const getLegacyOcteractsInvested = (
+  key: OcteractUpgrades,
+  upgrade: { level?: number; octeractsInvested?: number }
+): number => {
+  return upgrade.level === undefined
+    ? upgrade.octeractsInvested ?? 0
+    : octeractUpgrades[key].costFormula(upgrade.level)
+}
 
 export const playerUpdateVarSchema = playerSchema.transform((player) => {
   if (player.usedCorruptions !== undefined) {
@@ -155,15 +164,22 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
     for (const key of Object.keys(player.octeractUpgrades)) {
       const k = key as OcteractUpgrades
 
-      const level = player.octeractUpgrades[k].level ?? 0
       const freeLevel = player.octeractUpgrades[k].freeLevels ?? 0
-      const octeractsInvested = player.octeractUpgrades[k].octeractsInvested ?? 0
+      const octeractsInvested = getLegacyOcteractsInvested(k, player.octeractUpgrades[k])
 
       player.octUpgrades[k] = {
-        level,
         freeLevel,
         octeractsInvested
       }
+    }
+  }
+
+  for (const key of Object.keys(player.octUpgrades) as OcteractUpgrades[]) {
+    const upgrade = player.octUpgrades[key]
+
+    if (upgrade.level !== undefined) {
+      upgrade.octeractsInvested = getLegacyOcteractsInvested(key, upgrade)
+      Reflect.deleteProperty(upgrade, 'level')
     }
   }
 

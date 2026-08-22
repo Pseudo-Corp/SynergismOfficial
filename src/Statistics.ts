@@ -143,11 +143,7 @@ import {
 } from './Runes'
 import { getRuneSpiritEffect } from './RuneSpirits'
 import { getShopUpgradeEffects } from './Shop'
-import {
-  calculateMaxSingularityLookahead,
-  calculateSingularityDebuff,
-  getGQUpgradeEffect
-} from './singularity'
+import { calculateMaxSingularityLookahead, calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talismans'
