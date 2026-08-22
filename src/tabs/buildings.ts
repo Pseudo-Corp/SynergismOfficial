@@ -206,21 +206,22 @@ const tesseractRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
 }))
 
 export const populateBuildingButtonRows = () => {
-  const rows: [string, Entry[]][] = [
-    ['coinBuildings', coinRow],
-    ['prestige', diamondRow],
-    ['transcension', mythosRow],
-    ['reincarnation', particleRow],
-    ['ascension', tesseractRow]
+  const rows: [string, string, Entry[]][] = [
+    ['coinBuildings', 'buyamountcoin', coinRow],
+    ['prestige', 'buyamountcrystal', diamondRow],
+    ['transcension', 'buyamountmythos', mythosRow],
+    ['reincarnation', 'buyamountparticle', particleRow],
+    ['ascension', 'buyAmountTesseract', tesseractRow]
   ]
 
-  for (const [tabId, entries] of rows) {
+  for (const [tabId, buyAmountId, entries] of rows) {
     const row = DOMCacheGetOrSet(tabId).querySelector<HTMLDivElement>('.buttonRow')
     if (row) {
       if (isMobile) {
         row.classList.add('mobile')
       }
       row.innerHTML = renderRow(entries)
+      row.querySelector('.buildingAutomationControls')?.append(DOMCacheGetOrSet(buyAmountId))
     }
   }
 }

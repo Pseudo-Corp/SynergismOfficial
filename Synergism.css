@@ -1738,6 +1738,8 @@ p#promocodeinfo {
 }
 
 #coinVanity {
+    max-width: 100%;
+    word-break: break-all;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -2242,15 +2244,6 @@ p#promocodeinfo {
 
 .talismansModify p {
     margin: 0;
-}
-
-#buyamountcoin,
-#buyamountcrystal,
-#buyamountmythos,
-#buyamountparticle,
-#buyAmountTesseract {
-    position: absolute;
-    left: 80%;
 }
 
 .buyAmountBtn {
@@ -8197,16 +8190,6 @@ html[data-mobile="true"] .hideOnMobile {
         width: 100%;
         min-width: 0;
         font-size: 0.9em;
-    }
-
-    /* Auto-buy quantity */
-    #buyamountcoin,
-    #buyamountcrystal,
-    #buyamountmythos,
-    #buyamountparticle,
-    #buyAmountTesseract {
-        position: unset;
-        left: unset;
     }
 
     /* Building text */
