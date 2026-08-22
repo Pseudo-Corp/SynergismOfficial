@@ -655,7 +655,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 50,
     costFormula: (level: number) => 20 * level,
     effects: (n) => {
-      return 0.004 * n
+      return 1 - 0.006 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
@@ -664,14 +664,14 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         'purpleHoneyRequirementMult'
       )
       return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectNotMaxed', {
-        oldPercent: formatAsPercentIncrease(1 - effect, 1),
-        newPercent: formatAsPercentIncrease(1 - newEffect, 1)
+        oldPercent: formatAsPercentIncrease(effect, 1),
+        newPercent: formatAsPercentIncrease(newEffect, 1)
       })
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
       return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectMaxed', {
-        maxPercent: formatAsPercentIncrease(1 - effect, 0)
+        maxPercent: formatAsPercentIncrease(effect, 0)
       })
     },
     apValue: {
@@ -683,7 +683,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 50,
     costFormula: (level: number) => 2_000 * level,
     effects: (n) => {
-      return 0.004 * n
+      return 1 - 0.006 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
@@ -692,14 +692,14 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         'purpleHoneyRequirementMult'
       )
       return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectNotMaxed', {
-        oldPercent: formatAsPercentIncrease(1 - effect, 1),
-        newPercent: formatAsPercentIncrease(1 - newEffect, 1)
+        oldPercent: formatAsPercentIncrease(effect, 1),
+        newPercent: formatAsPercentIncrease(newEffect, 1)
       })
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
       return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectMaxed', {
-        maxPercent: formatAsPercentIncrease(1 - effect, 0)
+        maxPercent: formatAsPercentIncrease(effect, 0)
       })
     },
     apValue: {
@@ -711,7 +711,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 50,
     costFormula: (level: number) => 200_000 * level,
     effects: (n) => {
-      return 0.004 * n
+      return 1 - 0.006 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
@@ -720,14 +720,14 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         'purpleHoneyRequirementMult'
       )
       return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectNotMaxed', {
-        oldPercent: formatAsPercentIncrease(1 - effect, 1),
-        newPercent: formatAsPercentIncrease(1 - newEffect, 1)
+        oldPercent: formatAsPercentIncrease(effect, 1),
+        newPercent: formatAsPercentIncrease(newEffect, 1)
       })
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
       return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectMaxed', {
-        maxPercent: formatAsPercentIncrease(1 - effect, 0)
+        maxPercent: formatAsPercentIncrease(effect, 0)
       })
     },
     apValue: {
@@ -739,7 +739,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 50,
     costFormula: (level: number) => 20_000_000 * level,
     effects: (n) => {
-      return 0.004 * n
+      return 1 - 0.006 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
@@ -748,14 +748,14 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         'purpleHoneyRequirementMult'
       )
       return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectNotMaxed', {
-        oldPercent: formatAsPercentIncrease(1 - effect, 1),
-        newPercent: formatAsPercentIncrease(1 - newEffect, 1)
+        oldPercent: formatAsPercentIncrease(effect, 1),
+        newPercent: formatAsPercentIncrease(newEffect, 1)
       })
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
       return i18next.t('purpleReactor.upgrades.purpleHoneyRequirementReduction1.effectMaxed', {
-        maxPercent: formatAsPercentIncrease(1 - effect, 0)
+        maxPercent: formatAsPercentIncrease(effect, 0)
       })
     },
     apValue: {

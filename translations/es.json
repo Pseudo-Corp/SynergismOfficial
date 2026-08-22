@@ -6121,7 +6121,7 @@
         "taxMod": "¢ Gain <<orange|4x>> the taxes when you've beaten Challenge 10, and <<red|5x>> more taxes when you've beaten Challenge 14",
         "capMod": "<<white | ▼ You cannot gain more than (100x + 1) your current Obtainium or Offerings from any source>>",
         "tributeMod": "<<gold | ε When you open Wow! Cubes, the amount of Tributes you get is divided by (ln^3(X + 1)), where X is the total number of Tributes plus Tributes you would otherwise gain>>",
-        "omegaMod": "<b><<gray | Ω Singularity Penalties are substantially worse until you buy Platonic OMEGA!>></b>",
+        "omegaMod": "<b><<gray | Ω Challenge 13 effects are always active! Reduce the effect by 5 challenge completions per Cube and Platonic Upgrade maxed.>></b>",
         "ScalingReward1": "+25 <<var(--red-text-color)|Talisman Level Caps>> for any Talisman that resets on Singularity",
         "ScalingReward2": "+3% <<var(--blueberry-box-color)|Talisman Free Rune Levels>>",
         "ScalingReward3": "+0.002 <<var(--amber-text-color)|Rune Coefficient>> for Antiquities!",

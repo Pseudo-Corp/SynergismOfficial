@@ -260,15 +260,11 @@ const infiniteAscentOOMIncrease = () => {
 }
 
 const antiquitiesOOMIncrease = () => {
-  return (
-    getSingularityChallengeEffect('taxmanLastStand', 'antiquityOOM')
-  )
+  return 0
 }
 
 const horseShoeOOMIncrease = () => {
-  return (
-    getSingularityChallengeEffect('taxmanLastStand', 'horseShoeOOM')
-  )
+  return 0
 }
 
 export const firstFiveEffectiveRuneLevelMult = () => {
@@ -669,7 +665,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     freeLevels: () => bonusRuneLevelsHorseShoe(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => {
-      return getSingularityChallengeEffect('taxmanLastStand', 'horseShoeUnlock')
+      return false // TODO: Add back in later
     },
     minimalResetTier: 'never',
     name: () => i18next.t('runes.horseShoe.name'),

@@ -152,6 +152,10 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
 
   if (purpleHoneyGained > 0) {
     animatePurpleHoneyGain(purpleHoneyGained)
+
+    const ambrosiasTimeToGrant = purpleHoneyGained * getShopUpgradeEffects('shopPurpleBarRebate', 'rebateTime')
+    addTimers('redAmbrosia', ambrosiasTimeToGrant)
+    addTimers('ambrosia', ambrosiasTimeToGrant)
   }
 }
 

@@ -248,6 +248,10 @@ const shopSections = [
           { key: 'shopRedLuck2', icon: 'Pictures/img_transparent.png' },
           { key: 'shopRedLuck3', icon: 'Pictures/img_transparent.png' }
         ]
+      },
+      {
+        id: 'shopPurpleHoney',
+        tiers: [{ key: 'shopPurpleBarRebate', icon: 'Pictures/Default/ShopPurpleBarRebate.png' }]
       }
     ]
   },
