@@ -551,6 +551,18 @@ export const revealStuff = () => {
     }
   }
 
+  const exalt9x1Unlocks = document.getElementsByClassName('Exalt9x1') as HTMLCollectionOf<HTMLElement>
+  for (const item of exalt9x1Unlocks) {
+    const parent = item.parentElement!
+    if (parent.classList.contains('offlineStats')) {
+      item.style.display = player.singularityChallenges.taxmanLastStand.completions >= 1 ? 'flex' : 'none'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.taxmanLastStand.completions < 1}`)
+    } else {
+      item.style.visibility = player.singularityChallenges.taxmanLastStand.completions >= 1 ? 'visible' : 'hidden'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.taxmanLastStand.completions < 1}`)
+    }
+  }
+
   DOMCacheGetOrSet('toggleSingularitySubTab5').style.display = player.highestSingularityCount >= 25
     ? 'block'
     : 'none'

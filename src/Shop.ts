@@ -107,6 +107,7 @@ type QuarkShopUpgradeRewards = {
   shopRedLuck2: { redLuck: number; luckConversionRatio: number }
   shopRedLuck3: { redLuck: number; luckConversionRatio: number }
   shopHorseShoe: { bonusHorseLevels: number; singularityPenaltyMult: number }
+  shopPurpleBarRebate: { rebateTime: number }
   shopInfiniteShopUpgrades: { infiniteVouchers: number }
   shopSingularityPenaltyDebuff: { singularityPenaltyReducers: number }
   shopCashGrabUltra: { ambrosiaGenerationMult: number; cubesMult: number; quarkMult: number }
@@ -1900,10 +1901,30 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount2: formatAsPercentIncrease(singularityPenaltyMult)
       })
     },
-    isUnlocked: () => getSingularityChallengeEffect('taxmanLastStand', 'shopUpgrade'),
+    isUnlocked: () => false, // TODO: Add back.
     price: 5e26,
     priceIncrease: 0,
     maxLevel: 1,
+    type: shopUpgradeTypes.UPGRADE,
+    resetOnSingularity: resetNever,
+    upgradeTypes: []
+  },
+  shopPurpleBarRebate: {
+    name: () => i18next.t('shop.names.shopPurpleBarRebate'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopPurpleBarRebate'),
+    effects: (n) => {
+      return 0.1 * n // rebateTime
+    },
+    effectDescription () {
+      const rebateTime = getShopUpgradeEffects('shopPurpleBarRebate', 'rebateTime')
+      return i18next.t('shop.upgradeEffects.shopPurpleBarRebate', {
+        amount: format(rebateTime, 1, true)
+      })
+    },
+    isUnlocked: () => getSingularityChallengeEffect('taxmanLastStand', 'shopUpgrade'),
+    price: 5e26,
+    priceIncrease: 5e26,
+    maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
     resetOnSingularity: resetNever,
     upgradeTypes: []

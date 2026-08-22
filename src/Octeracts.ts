@@ -154,7 +154,13 @@ export const octeractUpgrades: {
   octeractQuarkGain: {
     level: 0,
     costFormula: (n) => {
-      return 1e-7 * (Math.pow(10, Math.sqrt(n / 2)) - 1)
+      if (n < 1000) {
+        return 1e-7 * Math.pow(n, 7) // 0 - 1e14
+      } else if (n >= 1000 && n < 10000) {
+        return 1e14 * Math.pow(10, (n - 1000) / 1000) // 1e14 - 1e23
+      } else {
+        return 1e23 * Math.pow(10, (n - 10000) / 125) // 1e23 - 1e103
+      }
     },
     maxLevel: 20000,
     qualityOfLife: false,
@@ -177,7 +183,7 @@ export const octeractUpgrades: {
     qualityOfLife: false,
     effect: (n: number) => {
       return 1
-        + (1 / 10000) * Math.floor(octeractUpgrades.octeractQuarkGain.level / 111)
+        + (1 / 1000) * Math.floor(octeractUpgrades.octeractQuarkGain.level / 1000)
           * n
           * Math.floor(1 + Math.log10(Math.max(1, player.hepteracts.quark.BAL))) // quarkMult
     },
@@ -188,7 +194,7 @@ export const octeractUpgrades: {
         const digits = Math.floor(1 + Math.log10(Math.max(1, player.hepteracts.quark.BAL)))
         return i18next.t('octeract.data.octeractQuarkGain2.effectEnabled', {
           amount: formatAsPercentIncrease(quarkMult, 2),
-          amount2: formatAsPercentIncrease(1 + n / 10000 * Math.floor(quarkGain1Levels / 111), 2),
+          amount2: formatAsPercentIncrease(1 + n / 1000 * Math.floor(quarkGain1Levels / 1000), 2),
           amount3: format(digits, 0, true)
         })
       } else {
@@ -605,7 +611,7 @@ export const octeractUpgrades: {
     level: 0,
     costFormula: (n) => {
       if (n >= 10) {
-        return 10 ** (8 * n - 25)
+        return 10 ** (55 + (n - 10) * 9.2)
       } else {
         return 10 ** (25) * (Math.pow(1e3, n) - 1)
       }

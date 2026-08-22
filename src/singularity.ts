@@ -4007,14 +4007,6 @@ export const calculateEffectiveSingularities = (
     effectiveSingularities *= Math.pow(3, singularityCount - 269)
   }
 
-  if (
-    player.singularityChallenges.taxmanLastStand.enabled
-    && player.singularityChallenges.taxmanLastStand.completions >= 8
-    && player.platonicUpgrades[15] === 0
-  ) {
-    effectiveSingularities = Math.pow(effectiveSingularities, 3 / 2)
-  }
-
   return effectiveSingularities
 }
 

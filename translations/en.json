@@ -3734,7 +3734,8 @@
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by num:((0.1))% per level additive (Max -30%)!",
-      "shopPanthema": "Ace from space!"
+      "shopPanthema": "Ace from space!",
+      "shopPurpleBarRebate": "When the Purple Reactor Bar fills up, gain <<var(--purple-text-color)|+num:((0.1))s>> of real-life time to your Ambrosia and Red Bars per extracted Purple Honey, per level of this upgrade!"
     },
     "maxed": "Maxed!",
     "bought": "Bought!",
@@ -3855,7 +3856,8 @@
       "shopPanthemaInfinityMeta": "+{{amount}} bonuses for all other Upgrade Levels! (+1% per Infinity level)",
       "shopPanthemaAmbrosiaGeneration": "+{{amount}} Ambrosia Bar Points! (+{{amount2}} per Ambrosia Generation level)",
       "shopPanthemaAmbrosiaLuck": "+{{amount}} Ambrosia Luck! (+{{amount2}} per Ambrosia Luck level)",
-      "shopPanthemaRedLuck": "+{{amount}} Red Luck! (+{{amount2}} per Red Luck level)"
+      "shopPanthemaRedLuck": "+{{amount}} Red Luck! (+{{amount2}} per Red Luck level)",
+      "shopPurpleBarRebate": "<<var(--purple-text-color)|+{{amount}}>> seconds of real-life time to Ambrosia and Red Bars per Purple Honey extracted."
     },
     "names": {
       "offeringPotion": "Offering Potion",
@@ -3940,7 +3942,8 @@
       "shopSadisticRune": "Sadistic Rune Unlock! Or does it?",
       "shopInfiniteShopUpgrades": "Blue Infinity Shop Voucher",
       "shopHorseShoe": "A Horse Shoe Singularity Debuff",
-      "shopPanthema": "The Jack of All Trades"
+      "shopPanthema": "The Jack of All Trades",
+      "shopPurpleBarRebate": "Purple Bar Rebates"
     },
     "sections": {
       "offerings": "Offerings & Obtainium",
@@ -5761,7 +5764,7 @@
       },
       "octeractQuarkGain2": {
         "name": "Octo-Hepteract Primality Synergism",
-        "description": "For every 111 levels of Quark Octeract, you gain num:((0.01))% more Quarks per digit in your Quark Hepteract count per level!",
+        "description": "For every 1,000 levels of Quark Octeract, you gain num:((0.1))% more Quarks per digit in your Quark Hepteract count per level!",
         "effectDisabled": "Octo-Hepteract Primality Synergism is not currently occuring.",
         "effectEnabled": "Octo-Hepteract Primality Synergism is granting you {{amount}} more Quarks! <br> +{{amount2}} per digit in your Quark Hepteract count <br> Total digits: {{amount3}}"
       },
@@ -6503,15 +6506,15 @@
         "taxMod": "¢ Gain <<orange|4x>> the taxes when you've beaten Challenge 10, and <<red|5x>> more taxes when you've beaten Challenge 14",
         "capMod": "<<white | ▼ You cannot gain more than (100x + 1) your current Obtainium or Offerings from any source>>",
         "tributeMod": "<<gold | ε When you open Wow! Cubes, the amount of Tributes you get is divided by (ln^3(X + 1)), where X is the total number of Tributes plus Tributes you would otherwise gain>>",
-        "omegaMod": "<b><<gray | Ω Singularity Penalties are substantially worse until you buy Platonic OMEGA!>></b>",
+        "omegaMod": "<b><<gray | Ω Challenge 13 effects are always active! Reduce the effect by 5 challenge completions per Cube and Platonic Upgrade maxed.>></b>",
         "ScalingReward1": "+25 <<var(--red-text-color)|Talisman Level Caps>> for any Talisman that resets on Singularity",
         "ScalingReward2": "+3% <<var(--blueberry-box-color)|Talisman Free Rune Levels>>",
-        "ScalingReward3": "+num:((0.002)) <<var(--amber-text-color)|Rune Coefficient>> for Antiquities!",
-        "ScalingReward4": "+num:((0.005)) <<var(--amber-text-color)|Rune Coefficient>> for... <<burlywood | something>>...",
+        "ScalingReward3": "+3 <<var(--purple-text-color)|Purple Honey Luck!>>",
+        "ScalingReward4": "-3% <<var(--purple-text-color)|Purple Bar Points>> to fill the Purple Bar.",
         "ScalingReward5": "50 Achievement Points!",
-        "UniqueReward1": "1st - Unlock <<burlywood | Something Cool... and Runelike>>",
+        "UniqueReward1": "1st - Unlock <i><<var(--purple-text-color)|The Purple!>></i>",
         "UniqueReward2": "5th - Unlock a new <<orchid|Quark Upgrade>>!",
-        "UniqueReward3": "10th - Unlock <<burlywood | Something even Cooler... and Fashionable...>>"
+        "UniqueReward3": "10th - Unlock <<var(--purple-text-color)|The Purple Gem>>"
       },
       "noQuarkUpgrades": {
         "name": "Disappearance of a Salesman",
@@ -7629,6 +7632,7 @@
       "PurpleHoneyUpgrade2": "Purple Honey - Purple Honey Luck II",
       "PurpleHoneyUpgrade3": "Purple Honey - Purple Honey Luck III",
       "PurpleHoneyUpgrade4": "Purple Honey - Purple Honey Luck IV",
+      "TaxmanLastStand": "Taxman's Last Stand:",
       "Total": "Total Purple Honey Luck:"
     },
     "gameStage": "Current Game Section: {{stage}}"
