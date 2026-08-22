@@ -96,12 +96,6 @@ export const sortDecimalWithIndices = (toSort: DecimalSource[]) => {
 }
 
 /**
- * Identical to @see {DOMCacheGetOrSet} but casts the type.
- * @param id {string}
- */
-export const getElementById = <T extends HTMLElement>(id: string) => DOMCacheGetOrSet(id) as T
-
-/**
  * Pads an array (a) with param (b) (c) times
  * @param a array to be padded
  * @param b item to pad to array

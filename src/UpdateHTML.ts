@@ -1476,12 +1476,12 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
     clearTimeout(closeTimer)
     closeTimer = 0
     x.removeEventListener('click', close)
-    closedTimer = +setTimeout(closed, 1000)
+    closedTimer = setTimeout(closed, 1000)
     p.resolve()
   }
 
   x.addEventListener('click', close)
-  closeTimer = +setTimeout(close, time)
+  closeTimer = setTimeout(close, time)
 
   return p.promise
 }

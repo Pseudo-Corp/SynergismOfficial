@@ -149,6 +149,8 @@ export const getEventBuff = (buff: BuffType): number => {
     case BuffType.AmbrosiaLuck:
       return event.ambrosiaLuck
   }
+
+  return 0
 }
 
 export const consumableEventBuff = (buff: BuffType) => {
@@ -191,6 +193,8 @@ export const consumableEventBuff = (buff: BuffType) => {
     case BuffType.AmbrosiaLuck:
       return HAPPY_HOUR_BELL ? 0.1 + 0.01 * happyHourInterval : 0
   }
+
+  return 0
 }
 
 const isConsumableActive = (name?: PseudoCoinConsumableNames) => {

@@ -1,12 +1,7 @@
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
-import {
-  displayPCoinEffect,
-  type PseudoCoinUpgradeNames,
-  showCostAndEffect,
-  updatePCoinCache
-} from '../PseudoCoinUpgrades'
+import { displayPCoinEffect, type PseudoCoinUpgradeNames, updatePCoinCache } from '../PseudoCoinUpgrades'
 import { Alert } from '../UpdateHTML'
 import { isMobile, memoize } from '../Utility'
 import { upgradeResponse } from './CartTab'
@@ -28,9 +23,8 @@ interface PlayerUpgrades {
   internalName: PseudoCoinUpgradeNames
 }
 
-type UpgradesList = Omit<Upgrades, 'level' | 'cost'> & {
-  level: number[]
-  cost: number[]
+type UpgradeList = Omit<Upgrades, 'level' | 'cost'> & {
+  levels: Array<Pick<Upgrades, 'level' | 'cost'>>
   playerLevel: number
 }
 
@@ -44,15 +38,16 @@ interface CoinsResponse {
 }
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #upgradesContainer')!
-let activeUpgrade: UpgradesList | undefined
+let activeUpgrade: UpgradeList | undefined
 let pseudoCoinBalanceRequest = 0
+const numberFormatter = new Intl.NumberFormat()
 
 const buyUpgradeSchema = z.object({
   upgradeId: z.number(),
   level: z.number()
 })
 
-function setActiveUpgrade (upgrade: UpgradesList) {
+function setActiveUpgrade (upgrade: UpgradeList) {
   activeUpgrade = upgrade
 
   const name = i18next.t(`pseudoCoins.upgradeNames.${upgrade.internalName}`)
@@ -63,11 +58,6 @@ function setActiveUpgrade (upgrade: UpgradesList) {
     'src',
     `Pictures/PseudoShop/${upgrade.internalName ?? 'PseudoCoins'}.png`
   )
-
-  const levelCostMap: { [level: number]: number } = {}
-  upgrade.level.forEach((level, index) => {
-    levelCostMap[level] = upgrade.cost[index]
-  })
 
   const buy = DOMCacheGetOrSet('buy')
   const currEffect = DOMCacheGetOrSet('pCoinEffectCurr')
@@ -80,9 +70,6 @@ function setActiveUpgrade (upgrade: UpgradesList) {
     displayPCoinEffect(upgrade.internalName, upgrade.playerLevel + 1)
   }`
 
-  const costs = DOMCacheGetOrSet('pCoinScalingCosts')
-  const effects = DOMCacheGetOrSet('pCoinScalingEffect')
-
   if (upgrade.playerLevel === upgrade.maxLevel) {
     buy.setAttribute('disabled', '')
     buy.setAttribute('style', 'display: none')
@@ -92,16 +79,16 @@ function setActiveUpgrade (upgrade: UpgradesList) {
     buy.removeAttribute('style')
     nextEffect.removeAttribute('style')
     buy.innerHTML = i18next.t('pseudoCoins.buyButton', {
-      amount: Intl.NumberFormat().format(levelCostMap[upgrade.playerLevel + 1])
+      amount: numberFormatter.format(upgrade.levels.find(({ level }) => level === upgrade.playerLevel + 1)!.cost)
     })
   }
 
-  const info = showCostAndEffect(upgrade.internalName)
-  costs.textContent = info.cost
-  effects.textContent = info.effect
+  DOMCacheGetOrSet('pCoinScalingCosts').innerHTML = i18next.t('pseudoCoins.cost', {
+    amount: upgrade.levels.map(({ cost }) => numberFormatter.format(cost)).join('/')
+  })
 }
 
-async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
+async function purchaseUpgrade (upgrades: Map<number, UpgradeList>) {
   if (!activeUpgrade) {
     Alert('Click on an upgrade to buy it.')
     return
@@ -146,19 +133,22 @@ const initializeUpgradeSubtab = memoize(() => {
     const playerUpgrade = upgradeResponse.playerUpgrades.find((v) => v.upgradeId === upgrade.upgradeId)
 
     if (!current) {
+      const { cost, level, ...upgradeDetails } = upgrade
       map.set(upgrade.upgradeId, {
-        ...upgrade,
-        cost: [upgrade.cost],
-        level: [upgrade.level],
+        ...upgradeDetails,
+        levels: [{ cost, level }],
         playerLevel: playerUpgrade?.level ?? 0
       })
     } else {
       current.maxLevel = Math.max(current.maxLevel, upgrade.maxLevel)
-      current.cost.push(upgrade.cost)
-      current.level.push(upgrade.level)
+      current.levels.push({ cost: upgrade.cost, level: upgrade.level })
     }
     return map
-  }, new Map<number, UpgradesList>())
+  }, new Map<number, UpgradeList>())
+
+  for (const upgrade of grouped.values()) {
+    upgrade.levels.sort((a, b) => a.level - b.level)
+  }
 
   tab.querySelector('#upgradeGrid')!.innerHTML = [...grouped.values()].map((u) => `
     <div

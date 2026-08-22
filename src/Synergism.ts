@@ -1367,7 +1367,8 @@ const loadSynergy = () => {
 
   if (data) {
     if ((data.exporttest === false || data.exporttest === 'NO!') && !testing) {
-      return Alert(i18next.t('testing.saveInLive2'))
+      void Alert(i18next.t('testing.saveInLive2'))
+      return
     }
 
     // size before loading

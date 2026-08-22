@@ -306,13 +306,15 @@ const checkAnnouncements = async () => {
 
     handledAnnouncements.add(announcement.id)
 
-    Announcement(announcement.title, announcement.content).then(() => {
-      if (loggedIn) {
-        return markMessageAsRead(announcement.id)
-      }
-
-      dismissAnnouncementLocally(announcement.id, liveIds)
-    }).catch(console.error)
+    Announcement(announcement.title, announcement.content)
+      .then(async () => {
+        if (loggedIn) {
+          await markMessageAsRead(announcement.id)
+        } else {
+          dismissAnnouncementLocally(announcement.id, liveIds)
+        }
+      })
+      .catch(console.error)
   }
 }
 

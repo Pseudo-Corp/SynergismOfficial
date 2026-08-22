@@ -447,7 +447,7 @@ export const craftHepteracts = async (hept: HepteractKeys, max = false) => {
 
   for (const item of (Object.keys(hepteracts[hept].OTHER_CONVERSIONS) as (keyof Player)[])) {
     if (typeof player[item] === 'number') {
-      // eslint-disable-next-line typescript/no-unnecessary-type-assertion: false positive
+      // eslint-disable-next-line typescript/no-unnecessary-type-assertion
       ;(player[item] as number) -= amountToCraft * craftCostMulti
         * hepteracts[hept].OTHER_CONVERSIONS[item]
     }

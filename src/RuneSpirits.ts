@@ -379,8 +379,8 @@ export const focusedRuneSpiritHTML = (spirit: RuneSpiritKeys) => {
     name: runes[spirit as RuneKeys].name()
   })
   const blessingPowerMultHTML = i18next.t('runes.spirits.blessingPowerMult', {
-    level: format(runeBlessings[spirit as RuneBlessingKeys].level, 0, true),
-    name: runeBlessings[spirit as RuneBlessingKeys].name()
+    level: format(runeBlessings[spirit].level, 0, true),
+    name: runeBlessings[spirit].name()
   })
   const otherPowerMultHTML = i18next.t('runes.spirits.otherPowerMult', {
     mult: format(otherSpiritMultipliers(), 2, true)

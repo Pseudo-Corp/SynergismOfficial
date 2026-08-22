@@ -1,7 +1,7 @@
 import { player } from '../../../Synergism'
 import { autoAntSacrificeEnabledHTML } from '../HTML/updates/toggles/sacrifice-enabled'
 import { autoAntSacrificeModeNameHTML } from '../HTML/updates/toggles/sacrifice-mode'
-import { type AutoSacrificeModes, NUM_SACRIFICE_MODES } from './structs/sacrifice'
+import { NUM_SACRIFICE_MODES } from './structs/sacrifice'
 
 export const toggleAutoAntSacrificeEnabled = (): void => {
   player.ants.toggles.autoSacrificeEnabled = !player.ants.toggles.autoSacrificeEnabled
@@ -11,7 +11,7 @@ export const toggleAutoAntSacrificeEnabled = (): void => {
 
 export const toggleAutoAntSacrificeMode = (): void => {
   const nextEnum = (player.ants.toggles.autoSacrificeMode + 1) % NUM_SACRIFICE_MODES
-  player.ants.toggles.autoSacrificeMode = nextEnum as AutoSacrificeModes
+  player.ants.toggles.autoSacrificeMode = nextEnum
 
   autoAntSacrificeModeNameHTML(player.ants.toggles.autoSacrificeMode)
 }

@@ -243,25 +243,25 @@ export const setAutoResetModeTexts = () => {
 
 export const toggleAutoPrestigeMode = () => {
   const nextEnum = (player.resetToggleModes.prestige + 1) % NUM_TOGGLE_MODES
-  player.resetToggleModes.prestige = nextEnum as AutoResetModes
+  player.resetToggleModes.prestige = nextEnum
   DOMCacheGetOrSet('prestigeautotoggle').textContent = autoResetTogglei18n[player.resetToggleModes.prestige]()
 }
 
 export const toggleAutoTranscendMode = () => {
   const nextEnum = (player.resetToggleModes.transcend + 1) % NUM_TOGGLE_MODES
-  player.resetToggleModes.transcend = nextEnum as AutoResetModes
+  player.resetToggleModes.transcend = nextEnum
   DOMCacheGetOrSet('transcendautotoggle').textContent = autoResetTogglei18n[player.resetToggleModes.transcend]()
 }
 
 export const toggleAutoReincarnateMode = () => {
   const nextEnum = (player.resetToggleModes.reincarnation + 1) % NUM_TOGGLE_MODES
-  player.resetToggleModes.reincarnation = nextEnum as AutoResetModes
+  player.resetToggleModes.reincarnation = nextEnum
   DOMCacheGetOrSet('reincarnateautotoggle').textContent = autoResetTogglei18n[player.resetToggleModes.reincarnation]()
 }
 
 export const toggleAutoAscensionMode = () => {
   const nextEnum = (player.resetToggleModes.ascension + 1) % NUM_TOGGLE_MODES
-  player.resetToggleModes.ascension = nextEnum as AutoAscensionModes
+  player.resetToggleModes.ascension = nextEnum
   DOMCacheGetOrSet('tesseractautobuymode').textContent = autoAscensionTogglei18n[player.resetToggleModes.ascension]()
 }
 
@@ -838,7 +838,7 @@ export const setAutoAscendResetModeText = () => {
 export const toggleAutoAscendResetMode = () => {
   if (player.highestSingularityCount >= 25) {
     const nextEnum = (player.autoAscendMode + 1) % NUM_ASCENSION_RESET_MODES
-    player.autoAscendMode = nextEnum as AutoAscensionResetModes
+    player.autoAscendMode = nextEnum
     setAutoAscendResetModeText()
   }
 }

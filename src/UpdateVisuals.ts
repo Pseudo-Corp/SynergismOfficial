@@ -899,37 +899,29 @@ export const visualUpdateCubes = () => {
   const platonicMult = 1.5
 
   const toNextQuark: cubeNames = {
-    cube: Number(
-      player.wowCubes.checkCubesToNextQuark(
-        5,
-        cubeMult,
-        player.cubeQuarkDaily,
-        player.cubeOpenedDaily
-      )
+    cube: player.wowCubes.checkCubesToNextQuark(
+      5,
+      cubeMult,
+      player.cubeQuarkDaily,
+      player.cubeOpenedDaily
     ),
-    tesseract: Number(
-      player.wowTesseracts.checkCubesToNextQuark(
-        7,
-        tesseractMult,
-        player.tesseractQuarkDaily,
-        player.tesseractOpenedDaily
-      )
+    tesseract: player.wowTesseracts.checkCubesToNextQuark(
+      7,
+      tesseractMult,
+      player.tesseractQuarkDaily,
+      player.tesseractOpenedDaily
     ),
-    hypercube: Number(
-      player.wowHypercubes.checkCubesToNextQuark(
-        10,
-        hypercubeMult,
-        player.hypercubeQuarkDaily,
-        player.hypercubeOpenedDaily
-      )
+    hypercube: player.wowHypercubes.checkCubesToNextQuark(
+      10,
+      hypercubeMult,
+      player.hypercubeQuarkDaily,
+      player.hypercubeOpenedDaily
     ),
-    platonicCube: Number(
-      player.wowPlatonicCubes.checkCubesToNextQuark(
-        15,
-        platonicMult,
-        player.platonicCubeQuarkDaily,
-        player.platonicCubeOpenedDaily
-      )
+    platonicCube: player.wowPlatonicCubes.checkCubesToNextQuark(
+      15,
+      platonicMult,
+      player.platonicCubeQuarkDaily,
+      player.platonicCubeOpenedDaily
     )
   }
 

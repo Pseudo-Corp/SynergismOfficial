@@ -22,6 +22,11 @@ import { noTalismanFragments } from '../Talismans'
 import type { Player } from '../types/Synergism'
 import { padArray, sumContents } from '../Utility'
 
+const FIRST_ANT_PRODUCER_INDEX: number = AntProducers.Workers
+const LAST_ANT_PRODUCER_INDEX: number = LAST_ANT_PRODUCER
+const FIRST_ANT_UPGRADE_INDEX: number = AntUpgrades.AntSpeed
+const LAST_ANT_UPGRADE_INDEX: number = LAST_ANT_UPGRADE
+
 const decimalSchema = z.custom<DecimalSource>((value) => {
   try {
     // eslint-disable-next-line no-new
@@ -78,8 +83,8 @@ const antsSchema = z.object({
 
       for (const key of Object.keys(record)) {
         const value = record[key]
-        const numKey = Number(key) as AntProducers
-        if (numKey >= AntProducers.Workers && numKey <= LAST_ANT_PRODUCER) {
+        const numKey = Number(key)
+        if (numKey >= FIRST_ANT_PRODUCER_INDEX && numKey <= LAST_ANT_PRODUCER_INDEX) {
           result[numKey] = value
         }
       }
@@ -98,8 +103,8 @@ const antsSchema = z.object({
 
       for (const key of Object.keys(record)) {
         const value = record[key]
-        const numKey = Number(key) as AntProducers
-        if (numKey >= AntProducers.Workers && numKey <= LAST_ANT_PRODUCER) {
+        const numKey = Number(key)
+        if (numKey >= FIRST_ANT_PRODUCER_INDEX && numKey <= LAST_ANT_PRODUCER_INDEX) {
           result[numKey] = value
         }
       }
@@ -117,8 +122,8 @@ const antsSchema = z.object({
       const result: Record<number, number> = {}
 
       for (const [key, value] of Object.entries(record)) {
-        const numKey = Number(key) as AntUpgrades
-        if (numKey >= AntUpgrades.AntSpeed && numKey <= LAST_ANT_UPGRADE) {
+        const numKey = Number(key)
+        if (numKey >= FIRST_ANT_UPGRADE_INDEX && numKey <= LAST_ANT_UPGRADE_INDEX) {
           result[numKey] = value
         }
       }
@@ -531,7 +536,7 @@ export const playerSchema = z.object({
     return Object.fromEntries(
       Object.keys(blankSave.unlocks).map((key) => {
         const value = object[key] ?? blankSave.unlocks[key as keyof typeof blankSave['unlocks']]
-        return value === null ? [key, false] : [key, Boolean(value)]
+        return value === null ? [key, false] : [key, value]
       })
     )
   }).default(() => ({ ...blankSave.unlocks })),
@@ -542,7 +547,7 @@ export const playerSchema = z.object({
         Object.keys(blankSave.progressiveAchievements).map((key) => {
           const value = object[key]
             ?? blankSave.progressiveAchievements[key as keyof typeof blankSave['progressiveAchievements']]
-          return value === null ? [key, 0] : [key, Number(value)]
+          return value === null ? [key, 0] : [key, value]
         })
       )
     }
@@ -662,7 +667,7 @@ export const playerSchema = z.object({
       return Object.fromEntries(
         Object.keys(blankSave.shopUpgrades).map((key) => {
           const value = object[key] ?? blankSave.shopUpgrades[key as keyof typeof blankSave['shopUpgrades']]
-          return value === null ? [key, 0] : [key, Number(value)]
+          return value === null ? [key, 0] : [key, value]
         })
       )
     })
@@ -1028,7 +1033,7 @@ export const playerSchema = z.object({
         Object.keys(blankSave.redAmbrosiaUpgrades).map((key) => {
           const value = object[key]
             ?? blankSave.redAmbrosiaUpgrades[key as keyof typeof blankSave['redAmbrosiaUpgrades']]
-          return value === null ? [key, 0] : [key, Number(value)]
+          return value === null ? [key, 0] : [key, value]
         })
       )
     }

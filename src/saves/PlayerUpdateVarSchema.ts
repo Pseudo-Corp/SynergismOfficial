@@ -8,7 +8,6 @@ import type { OcteractUpgrades } from '../Octeracts'
 import { octeractUpgrades } from '../Octeracts'
 import { goldenQuarkUpgrades, type SingularityDataKeys } from '../singularity'
 import { updateResourcePredefinedLevel } from '../Talismans'
-import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
 import { convertArrayToCorruption } from './PlayerJsonSchema'
 import { playerSchema } from './PlayerSchema'
 
@@ -279,16 +278,16 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   }
 
   if (player.resettoggle1 !== undefined) {
-    player.resetToggleModes.prestige = (oldToNewToggles[player.resettoggle1] ?? 0) as AutoResetModes
+    player.resetToggleModes.prestige = oldToNewToggles[player.resettoggle1] ?? 0
   }
   if (player.resettoggle2 !== undefined) {
-    player.resetToggleModes.transcend = (oldToNewToggles[player.resettoggle2] ?? 0) as AutoResetModes
+    player.resetToggleModes.transcend = oldToNewToggles[player.resettoggle2] ?? 0
   }
   if (player.resettoggle3 !== undefined) {
-    player.resetToggleModes.reincarnation = (oldToNewToggles[player.resettoggle3] ?? 0) as AutoResetModes
+    player.resetToggleModes.reincarnation = oldToNewToggles[player.resettoggle3] ?? 0
   }
   if (player.resettoggle4 !== undefined) {
-    player.resetToggleModes.ascension = (oldToNewToggles[player.resettoggle4] ?? 0) as AutoAscensionModes
+    player.resetToggleModes.ascension = oldToNewToggles[player.resettoggle4] ?? 0
   }
 
   Reflect.deleteProperty(player, 'runeshards')
