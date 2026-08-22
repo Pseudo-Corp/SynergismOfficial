@@ -44,7 +44,6 @@ interface RedAmbrosiaUpgrade<T extends RedAmbrosiaNames, K extends keyof RedAmbr
   description: () => string
   level: number
   maxLevel: number
-  redAmbrosiaInvested: number
   costFormula: (n: number) => number
   effects: (n: number, key: K) => RedAmbrosiaUpgradeRewards[T][K]
   effectsDescription: (n: number) => string
@@ -70,7 +69,6 @@ export const redAmbrosiaUpgrades: {
 } = {
   tutorial: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return n
     },
@@ -89,7 +87,6 @@ export const redAmbrosiaUpgrades: {
   },
   conversionImprovement1: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 5 * (Math.pow(2, n) - 1)
     },
@@ -105,7 +102,6 @@ export const redAmbrosiaUpgrades: {
   },
   conversionImprovement2: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 200 * (Math.pow(4, n) - 1) / 3
     },
@@ -121,7 +117,6 @@ export const redAmbrosiaUpgrades: {
   },
   conversionImprovement3: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 10000 * (Math.pow(10, n) - 1) / 9
     },
@@ -137,7 +132,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeTutorialLevels: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return n * (n + 1) / 2
     },
@@ -153,7 +147,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeLevelsRow2: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 10 * (Math.pow(2, n) - 1)
     },
@@ -169,7 +162,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeLevelsRow3: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 250 * (Math.pow(2, n) - 1)
     },
@@ -185,7 +177,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeLevelsRow4: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 5000 * (Math.pow(2, n) - 1)
     },
@@ -201,7 +192,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeLevelsRow5: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 50000 * (Math.pow(2, n) - 1)
     },
@@ -217,7 +207,6 @@ export const redAmbrosiaUpgrades: {
   },
   blueberryGenerationSpeed: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return n * (n + 1) / 2
     },
@@ -234,7 +223,6 @@ export const redAmbrosiaUpgrades: {
   },
   regularLuck: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return n * (n + 1) / 2
     },
@@ -251,7 +239,6 @@ export const redAmbrosiaUpgrades: {
   },
   redGenerationSpeed: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       if (n >= 100) {
         return 6 * 100 * 101
@@ -275,7 +262,6 @@ export const redAmbrosiaUpgrades: {
   },
   redLuck: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 2 * n * (n + 1)
     },
@@ -292,7 +278,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaCube: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 500 * n
     },
@@ -319,7 +304,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaObtainium: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 1250 * n
     },
@@ -342,7 +326,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaOffering: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 4000 * n
     },
@@ -364,7 +347,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaCubeImprover: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 50 * n * (n + 1)
     },
@@ -383,7 +365,6 @@ export const redAmbrosiaUpgrades: {
   },
   viscount: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 99_999 * n
     },
@@ -407,7 +388,6 @@ export const redAmbrosiaUpgrades: {
   },
   infiniteShopUpgrades: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 200 * n + 50 * n * (n - 1)
     },
@@ -423,7 +403,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaAccelerator: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 1_000 * n
     },
@@ -445,7 +424,6 @@ export const redAmbrosiaUpgrades: {
   },
   regularLuck2: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 8_000 * n
     },
@@ -462,7 +440,6 @@ export const redAmbrosiaUpgrades: {
   },
   blueberryGenerationSpeed2: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 8_000 * n
     },
@@ -479,7 +456,6 @@ export const redAmbrosiaUpgrades: {
   },
   salvageYinYang: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 100 * n * (n + 1)
     },
@@ -508,7 +484,6 @@ export const redAmbrosiaUpgrades: {
   },
   blueberries: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return blueberryCostTotals[n] ?? Number.POSITIVE_INFINITY
     },
@@ -524,7 +499,6 @@ export const redAmbrosiaUpgrades: {
   },
   redAmbrosiaFreeAccumulator: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return redAmbrosiaFreeAccumulatorTotals[n] ?? Number.POSITIVE_INFINITY
     },
@@ -549,7 +523,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeOfferingUpgrades: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 1000 * (Math.pow(3, n) - 1) / 2
     },
@@ -565,7 +538,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeObtainiumUpgrades: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 1500 * (Math.pow(3, n) - 1) / 2
     },
@@ -581,7 +553,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeCubeUpgrades: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 10000 * (Math.pow(3, n) - 1) / 2
     },
@@ -597,7 +568,6 @@ export const redAmbrosiaUpgrades: {
   },
   freeSpeedUpgrades: {
     level: 0,
-    redAmbrosiaInvested: 0,
     costFormula: (n) => {
       return 15000 * (Math.pow(3, n) - 1) / 2
     },
@@ -629,7 +599,7 @@ export const maximumAffordableLevel = (upgradeKey: RedAmbrosiaNames, redAmbrosia
     return upgrade.level // no need to check maxed upgrades for affordability
   }
 
-  const availablePurple = redAmbrosiaAmount + upgrade.redAmbrosiaInvested
+  const availablePurple = redAmbrosiaAmount + player.redAmbrosiaUpgrades[upgradeKey]
 
   let low = upgrade.level
   let high = upgrade.maxLevel
@@ -653,13 +623,11 @@ export const setRedAmbrosiaUpgradeLevels = (): void => {
     const oldInvested = player.redAmbrosiaUpgrades[upgradeKey] || 0
 
     upgrade.level = 0
-    upgrade.redAmbrosiaInvested = 0
 
     const maxAffordableLevel = maximumAffordableLevel(upgradeKey, oldInvested)
     const totalCost = upgrade.costFormula(maxAffordableLevel)
 
     upgrade.level = maxAffordableLevel
-    upgrade.redAmbrosiaInvested = totalCost
 
     player.redAmbrosiaUpgrades[upgradeKey] = totalCost
 
@@ -793,7 +761,6 @@ export const buyRedAmbrosiaUpgradeLevel = async (
   const cost = upgrade.costFormula(upgrade.level + levelsToPurchase) - upgrade.costFormula(upgrade.level)
   player.redAmbrosia -= cost
   player.redAmbrosiaUpgrades[upgradeKey] += cost
-  upgrade.redAmbrosiaInvested += cost
   upgrade.level += levelsToPurchase
 
   if (levelsToPurchase > 1) {
