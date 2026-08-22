@@ -117,6 +117,8 @@ body {
     --boxmain-bordercolor: plum;
     --box-color: #111;
     --blueberry-box-color: #4f86f7;
+    --purple-box-color: purple;
+    --purple-text-color: #b000b0;
     --button-color: #171717;
     --blackbtn-color: black;
     --purplebtn-color: purple;
@@ -212,6 +214,12 @@ html[data-legacyicons="true"] {
 .blueberryBoxColor {
     border: 3px solid;
     border-color: var(--blueberry-box-color);
+    background-color: var(--box-color);
+}
+
+.purpleBoxColor {
+    border: 3px solid;
+    border-color: var(--purple-box-color);
     background-color: var(--box-color);
 }
 
@@ -3424,7 +3432,8 @@ p#reincarnatehotkeys {
 #totalOcteractsDisplay,
 #ambrosiaDisplay,
 #redAmbrosiaDisplay,
-#blueberryDisplay {
+#blueberryDisplay,
+#purpleHoneyDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -3436,6 +3445,20 @@ p#reincarnatehotkeys {
 #ambrosiaDisplay > p,
 #redAmbrosiaDisplay > p {
     margin: 0 0 0 10px;
+}
+
+#purpleHoneyDisplay > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: 1;
+}
+
+#purpleHoneyDisplay > div > p {
+    min-height: 0;
+    margin: 0 !important;
+    padding: 0;
+    line-height: 1;
 }
 
 #ambrosiaTexts {
@@ -5676,7 +5699,8 @@ header #obtainiumDisplay { color: pink; }
 
 #singularityUpgradeContainer,
 #singularityOcteracts,
-#singularityAmbrosia {
+#singularityAmbrosia,
+#singularityPurple {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5848,6 +5872,277 @@ header #obtainiumDisplay { color: pink; }
 #blueberryUpgradeContainer {
     flex-direction: column;
     width: unset;
+}
+
+.purpleUpgradeAP {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 8px 10px;
+    border-bottom: 1px solid rgb(176 0 176 / 55%);
+    text-align: center;
+}
+
+#purpleUpgradeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    color: white;
+    font-size: 16px;
+    text-align: left;
+}
+
+#singularityPurple {
+    position: absolute;
+    z-index: 3;
+    top: 8px;
+    right: 8px;
+    left: 8px;
+    height: min(70vh, 600px);
+    min-height: 0;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 70%);
+}
+
+#singularityPurple[hidden] {
+    display: none;
+}
+
+#purpleReactantContainers.purpleUpgradeShopOpen {
+    overflow: visible;
+}
+
+#purpleUpgradeClose {
+    position: absolute;
+    z-index: 5;
+    top: 7px;
+    right: 7px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid var(--purple-text-color);
+    border-radius: 3px;
+    background-color: var(--box-color);
+    color: var(--purple-text-color);
+    font: inherit;
+    font-size: 1.35em;
+    line-height: 1;
+    cursor: pointer;
+}
+
+#purpleUpgradeClose:hover,
+#purpleUpgradeClose:focus-visible {
+    background-color: rgb(176 0 176 / 22%);
+    box-shadow: 0 0 7px var(--purple-text-color);
+}
+
+#purpleUpgradeShop {
+    display: flex;
+    flex: 1;
+    align-items: stretch;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#purpleUpgradeFamilyList {
+    display: flex;
+    flex: 0 1 47%;
+    flex-direction: column;
+    min-width: 390px;
+    min-height: 0;
+    overflow-y: auto;
+    border-right: 1px solid var(--purple-box-color);
+    scrollbar-width: thin;
+}
+
+.purpleUpgradeSectionHeader {
+    flex-shrink: 0;
+    margin: 8px 8px 2px;
+    color: var(--purple-text-color);
+    font-size: 0.75em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.purpleUpgradeFamilyRow {
+    display: flex;
+    flex-shrink: 0;
+    align-items: stretch;
+    border-left: 3px solid transparent;
+    background: none;
+    color: white;
+}
+
+.purpleUpgradeFamilyRow:hover {
+    background-color: rgb(255 255 255 / 8%);
+}
+
+.purpleUpgradeFamilyRow.purpleUpgradeFamilySelected {
+    border-left-color: var(--purple-text-color);
+    background-color: rgb(176 0 176 / 12%);
+}
+
+.purpleUpgradeFamilyButton {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 5px 8px;
+    border: 0;
+    background: none;
+    color: white;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.purpleUpgradeFamilyRowIcon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+}
+
+.purpleUpgradeFamilyRowInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.purpleUpgradeFamilyRowName {
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+
+.purpleUpgradeFamilyRowTiers {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 8px 4px 0;
+}
+
+.purpleUpgradeTierShortcut {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    padding: 2px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    background: none;
+    cursor: pointer;
+}
+
+.purpleUpgradeTierShortcut > img {
+    width: 20px;
+    height: 20px;
+}
+
+.purpleUpgradeTierShortcutSelected {
+    border-color: var(--purple-text-color);
+    box-shadow: 0 0 5px var(--purple-text-color);
+}
+
+.purpleUpgradeTierShortcutMaxed {
+    border-color: gold;
+}
+
+.purpleUpgradeFamilyRowCost {
+    color: var(--purple-text-color);
+    font-size: 0.75em;
+    line-height: 1.15;
+}
+
+.purpleUpgradeFamilyRowCost.purpleUpgradeCantAfford {
+    color: gray;
+}
+
+.purpleUpgradeFamilyRowCost.purpleUpgradeFamilyMaxed {
+    color: gold;
+}
+
+#purpleUpgradeDetail {
+    display: flex;
+    flex: 1 1 53%;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 12px;
+    overflow-y: auto;
+    text-align: center;
+}
+
+#purpleUpgradeTierRail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+}
+
+.purpleUpgradeTierChip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    min-width: 70px;
+    padding: 6px 8px;
+    border: 1px solid gray;
+    background: none;
+    color: white;
+    font: inherit;
+    font-size: 0.75em;
+    cursor: pointer;
+}
+
+.purpleUpgradeTierChip > img {
+    width: 52px;
+    height: 52px;
+}
+
+.purpleUpgradeTierChip.purpleUpgradeTierSelected {
+    border-color: var(--purple-text-color);
+    box-shadow: 0 0 7px var(--purple-text-color);
+}
+
+.purpleUpgradeTierChip.purpleUpgradeTierMaxed {
+    border-color: gold;
+}
+
+#purpleUpgradeDetailText {
+    width: 100%;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+}
+
+#purpleUpgradeDetailButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+#purpleUpgradeDetailButtons > button {
+    width: 280px;
+    max-width: 100%;
+    min-height: 34px;
+    padding: 3px 10px;
+    border: 2px solid var(--purple-text-color);
+    color: white;
+}
+
+#purpleUpgradeDetailButtons > button:disabled {
+    border-color: gray;
+    color: gray;
+    cursor: not-allowed;
 }
 
 .blueberryUpgradeTier {
@@ -6793,13 +7088,13 @@ header #obtainiumDisplay { color: pink; }
     border: solid white;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+    overflow: hidden;
     position: relative;
 }
 
 #pixelProgress {
     height: 100%;
     background: linear-gradient(to right, maroon, red);
-    border-radius: 5px;
     transition: width 0.4s ease;
 }
 
@@ -6823,13 +7118,13 @@ header #obtainiumDisplay { color: pink; }
     border: solid white;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+    overflow: hidden;
     position: relative;
 }
 
 #ambrosiaProgress {
     height: 100%;
     background: linear-gradient(to right, navy, darkturquoise);
-    border-radius: 5px;
     transition: width 0.4s ease;
 }
 
@@ -6844,6 +7139,825 @@ header #obtainiumDisplay { color: pink; }
     justify-content: center; /* Center the text horizontally */
     color: white;
     font-weight: bold;
+}
+
+#purpleReactantContainers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: min(96%, 1000px);
+    margin: 10px auto;
+    padding: 12px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    font-size: clamp(16px, 1.2vw, 18px);
+    background:
+        linear-gradient(135deg, rgb(128 0 128 / 12%), transparent 34%),
+        repeating-linear-gradient(90deg, transparent 0 63px, rgb(255 255 255 / 2%) 64px),
+        var(--box-color);
+    box-shadow: inset 0 0 24px rgb(80 0 80 / 35%);
+}
+
+#purpleReactantContainers::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 5px;
+    border: 1px solid rgb(255 0 255 / 14%);
+    pointer-events: none;
+}
+
+.purpleReactorHeader {
+    position: relative;
+    z-index: 2;
+    padding: 0 8px 8px;
+    border-bottom: 1px solid rgb(176 0 176 / 55%);
+    background-color: transparent;
+}
+
+.purpleReactantContainersDescription,
+.purpleReactorExplanation {
+    margin: 0;
+    text-align: center;
+}
+
+.purpleReactantContainersDescription {
+    font-size: 1.12em;
+}
+
+.purpleReactorExplanation {
+    max-width: 820px;
+    margin: 3px auto 0;
+    color: lightgray;
+    font-size: 0.84em;
+    line-height: 1.25;
+}
+
+.purpleReactorHalfLife {
+    margin: 4px 0 0;
+    font-size: 0.84em;
+    line-height: 1.25;
+    text-align: center;
+}
+
+.purpleReactorMachine {
+    display: grid;
+    grid-template-areas: "amb pipe-a core pipe-r red";
+    grid-template-columns: minmax(0, 1fr) 30px minmax(300px, 1.25fr) 30px minmax(0, 1fr);
+    align-items: stretch;
+    gap: 4px;
+    position: relative;
+    z-index: 2;
+}
+
+.purpleReactorUpgradeToggleRow {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    padding-top: 4px;
+}
+
+#purpleUpgradeToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 180px;
+    min-height: 34px;
+    padding: 4px 18px;
+    border: 2px solid var(--purple-box-color);
+    border-radius: 3px;
+    background: linear-gradient(180deg, rgb(176 0 176 / 22%), rgb(80 0 80 / 20%));
+    color: var(--purple-text-color);
+    font: inherit;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+}
+
+#purpleUpgradeToggle:hover,
+#purpleUpgradeToggle:focus-visible,
+#purpleUpgradeToggle.purpleUpgradeToggleOpen {
+    border-color: var(--purple-text-color);
+    background-color: rgb(176 0 176 / 18%);
+    box-shadow: 0 0 7px rgb(176 0 176 / 55%);
+}
+
+.purpleReactantTank {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    position: relative;
+    z-index: 2;
+    padding: 10px;
+    overflow: hidden;
+    border: 2px solid var(--reactant-dark);
+    border-radius: 4px;
+    background:
+        linear-gradient(180deg, rgb(var(--reactant-rgb) / 12%), transparent 55%),
+        var(--box-color);
+    box-shadow:
+        inset 0 0 15px rgb(var(--reactant-rgb) / 10%),
+        0 0 8px rgb(0 0 0 / 45%);
+}
+
+.purpleReactantTank::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border: 1px solid rgb(var(--reactant-rgb) / 18%);
+    pointer-events: none;
+}
+
+.purpleReactantTank::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    right: 26%;
+    left: 26%;
+    height: 4px;
+    background-color: var(--reactant-bright);
+    box-shadow: 0 0 7px rgb(var(--reactant-rgb) / 55%);
+}
+
+.purpleReactantTankAmbrosia {
+    --reactant-dark: #006;
+    --reactant-bright: darkturquoise;
+    --reactant-rgb: 0 206 209;
+
+    grid-area: amb;
+}
+
+.purpleReactantTankRed {
+    --reactant-dark: maroon;
+    --reactant-bright: red;
+    --reactant-rgb: 255 0 0;
+
+    grid-area: red;
+}
+
+.purpleReactantTankHeader {
+    display: grid;
+    grid-template-columns: 1.7em minmax(0, 1fr) 1.7em;
+    align-items: center;
+    column-gap: 8px;
+    min-height: 34px;
+    text-align: center;
+}
+
+.purpleReactantTankSymbol {
+    color: var(--reactant-bright);
+    font-size: 1.4em;
+    line-height: 1;
+    text-shadow: 0 0 7px rgb(var(--reactant-rgb) / 70%);
+}
+
+.purpleReactantTankAmbrosia .purpleReactantTankSymbol {
+    grid-column: 1;
+}
+
+.purpleReactantTankRed .purpleReactantTankSymbol {
+    grid-column: 3;
+}
+
+.purpleReactantTankHeading {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    text-align: center;
+}
+
+.purpleReactantTankLabel {
+    margin: 0;
+    color: gray;
+    font-size: 0.72em;
+    letter-spacing: 0.12em;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.purpleReactantContainerTitle {
+    width: 100%;
+    margin: 0;
+    font-size: 0.96em;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.purpleReactantReserveTitle {
+    margin: 0;
+    color: lightgray;
+    font-size: 0.8em;
+    line-height: 1.2;
+}
+
+.purpleReactantProgressBar {
+    width: 100%;
+    height: 34px;
+    background-color: black;
+    border: 2px solid white;
+    border-radius: 3px;
+    box-shadow: inset 0 0 8px rgb(0 0 0 / 70%);
+    overflow: hidden;
+    position: relative;
+}
+
+#ambrosiaProgressBar,
+#ambrosiaContainerProgressBar {
+    border-color: #006;
+}
+
+#pixelProgressBar,
+#redAmbrosiaContainerProgressBar {
+    border-color: maroon;
+}
+
+#purpleHoneyProgressBar {
+    border-color: #650065;
+    height: 40px;
+}
+
+#ambrosiaContainerProgress,
+#redAmbrosiaContainerProgress,
+#purpleHoneyProgressFill {
+    height: 100%;
+    transition: width 0.4s ease;
+}
+
+#ambrosiaContainerProgress {
+    background: linear-gradient(to right, navy, darkturquoise);
+}
+
+#redAmbrosiaContainerProgress {
+    background: linear-gradient(to right, maroon, red);
+}
+
+#purpleHoneyProgressFill {
+    background: linear-gradient(90deg, #4b004b, var(--purple-text-color), #760076);
+}
+
+#ambrosiaContainerProgressText,
+#redAmbrosiaContainerProgressText,
+#purpleHoneyProgressText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 0.94em;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 1px 2px black;
+    z-index: 2;
+}
+
+#purpleHoneyProgressText {
+    font-size: 1em;
+}
+
+.purpleReactantNetRate,
+.purpleReactorCycleRate {
+    margin: 0;
+    font-size: 0.82em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.purpleReactantNetRate {
+    color: var(--reactant-bright);
+}
+
+.purpleReactantFlowRates {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: -2px;
+}
+
+.purpleReactantFlowRate {
+    margin: 0;
+    color: lightgray;
+    font-size: 0.74em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.purpleReactorCore {
+    grid-area: core;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+    padding: 10px;
+    border: 2px solid var(--purple-box-color);
+    border-radius: 5px;
+    background:
+        radial-gradient(circle at 50% 40%, rgb(176 0 176 / 18%), transparent 58%),
+        var(--box-color);
+    box-shadow:
+        inset 0 0 20px rgb(101 0 101 / 42%),
+        0 0 9px rgb(0 0 0 / 50%);
+}
+
+.purpleReactorCore::before,
+.purpleReactorCore::after {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 12px;
+    pointer-events: none;
+}
+
+.purpleReactorCore::before {
+    top: 4px;
+    left: 4px;
+    border-top: 2px solid var(--purple-text-color);
+    border-left: 2px solid var(--purple-text-color);
+}
+
+.purpleReactorCore::after {
+    right: 4px;
+    bottom: 4px;
+    border-right: 2px solid var(--purple-text-color);
+    border-bottom: 2px solid var(--purple-text-color);
+}
+
+.purpleReactorCoreHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-height: 34px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.purpleReactorCoreTitle {
+    margin: 0;
+    font-size: 0.86em;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    line-height: 1.15;
+    text-transform: uppercase;
+}
+
+.purpleReactorCoreSymbol {
+    color: var(--purple-text-color);
+    font-size: 1.4em;
+    line-height: 1;
+    text-shadow: 0 0 8px var(--purple-text-color);
+}
+
+.purpleHoneyProgressTitle,
+.purpleHoneyExtractorText {
+    margin: 0;
+}
+
+.purpleHoneyProgressTitle {
+    margin-bottom: 3px;
+    font-size: 0.86em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.purpleReactorCycleRate {
+    margin-top: 3px;
+    color: var(--purple-text-color);
+}
+
+.purpleReactorOutput {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+    min-height: 32px;
+    margin-top: 6px;
+    padding: 4px 7px;
+    border: 1px solid #650065;
+    background-color: rgb(101 0 101 / 20%);
+    text-align: center;
+}
+
+.purpleReactorOutputSymbol {
+    color: var(--purple-text-color);
+    font-size: 1.05em;
+    text-shadow: 0 0 7px var(--purple-text-color);
+}
+
+.purpleReactorOutputText {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.purpleHoneyExtractorText {
+    font-size: 0.82em;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.purpleReactorModifiers {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 6px;
+    padding-top: 4px;
+    border-top: 1px solid rgb(176 0 176 / 40%);
+    text-align: center;
+}
+
+.purpleReactorModifiers > p {
+    margin: 0;
+    font-size: 0.82em;
+    line-height: 1.3;
+}
+
+.purpleReactorConduit {
+    align-self: center;
+    position: relative;
+    z-index: 1;
+    width: calc(100% + 8px);
+    height: 18px;
+    margin: 0 -4px;
+    border-top: 3px solid var(--conduit-dark);
+    border-bottom: 3px solid var(--conduit-dark);
+    background-color: #050505;
+    opacity: 0.42;
+    transition: opacity 250ms ease;
+}
+
+.purpleReactorConduit > span {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.purpleReactorConduit > span::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -36px;
+    width: calc(100% + 36px);
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 8px,
+            var(--conduit-bright) 8px 13px,
+            transparent 13px 18px
+        );
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+}
+
+.purpleReactorConduit::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform: translateY(-50%);
+}
+
+.purpleReactorConduitAmbrosia {
+    --conduit-dark: #006;
+    --conduit-bright: darkturquoise;
+
+    grid-area: pipe-a;
+}
+
+.purpleReactorConduitAmbrosia::after {
+    right: -7px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid var(--conduit-bright);
+}
+
+.purpleReactorConduitRed {
+    --conduit-dark: maroon;
+    --conduit-bright: red;
+
+    grid-area: pipe-r;
+}
+
+.purpleReactorConduitRed::after {
+    left: -7px;
+    border-top: 8px solid transparent;
+    border-right: 8px solid var(--conduit-bright);
+    border-bottom: 8px solid transparent;
+}
+
+#purpleReactantContainers.purpleReactorActive .purpleReactorConduit {
+    opacity: 0.9;
+}
+
+@keyframes purple-honey-gain {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+#purpleHoneyGainContainer {
+    position: absolute;
+    z-index: 4;
+    inset: 0;
+    pointer-events: none;
+}
+
+.purpleHoneyGain {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    color: var(--purple-text-color);
+    font-weight: bold;
+    text-shadow: 0 1px 2px #650065;
+    white-space: nowrap;
+    opacity: 0;
+}
+
+.purpleHoneyGainAnimating {
+    animation: purple-honey-gain 900ms ease-out forwards;
+}
+
+@keyframes purple-reactor-flow {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(36px, 0, 0);
+    }
+}
+
+@keyframes purple-reactor-core-pulse {
+    from {
+        box-shadow:
+            inset 0 0 20px rgb(101 0 101 / 42%),
+            0 0 7px rgb(176 0 176 / 25%);
+    }
+
+    to {
+        box-shadow:
+            inset 0 0 25px rgb(176 0 176 / 52%),
+            0 0 13px rgb(176 0 176 / 55%);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    #purpleReactantContainers.purpleReactorActive .purpleReactorConduit > span::before {
+        animation: purple-reactor-flow 900ms linear infinite;
+    }
+
+    #purpleReactantContainers.purpleReactorActive .purpleReactorConduitRed > span::before {
+        animation-direction: reverse;
+    }
+
+    #purpleReactantContainers.purpleReactorActive .purpleReactorCore {
+        animation: purple-reactor-core-pulse 1200ms ease-in-out infinite alternate;
+    }
+}
+
+.purpleReactantRoutingControl {
+    margin-top: auto;
+    padding-top: 3px;
+}
+
+.purpleReactantRoutingHeader {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.purpleReactantRoutingHeader > .purpleReactantReserveTitle {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.purpleReactantReserveTitle > .fitText {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.purpleReactantRoutingHeader > output {
+    flex: 0 0 auto;
+    min-width: 4ch;
+    color: var(--reactant-bright);
+    font-size: 0.94em;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    text-align: right;
+}
+
+#purpleReactantContainers .purpleReactantPercentageSlider {
+    --routing-percentage: 0%;
+
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: 30px;
+    min-height: 30px;
+    margin: 1px 0 0;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 0;
+    outline-offset: 1px;
+    background: transparent;
+    accent-color: var(--reactant-bright);
+    cursor: pointer;
+    touch-action: pan-y;
+}
+
+#purpleReactantContainers .purpleReactantPercentageSlider:focus-visible {
+    outline: 2px solid white;
+}
+
+#purpleReactantContainers .purpleReactantPercentageSlider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    border: 1px solid var(--reactant-dark);
+    border-radius: 1px;
+    background:
+        linear-gradient(
+            90deg,
+            var(--reactant-bright) 0 var(--routing-percentage),
+            #111 var(--routing-percentage) 100%
+        );
+    box-shadow: inset 0 0 4px black;
+}
+
+#purpleReactantContainers .purpleReactantPercentageSlider::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    margin-top: -6px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: var(--reactant-bright);
+    box-shadow: 0 0 7px rgb(var(--reactant-rgb) / 75%);
+}
+
+#purpleReactantContainers .purpleReactantPercentageSlider::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    border: 1px solid var(--reactant-dark);
+    border-radius: 1px;
+    background-color: #111;
+    box-shadow: inset 0 0 4px black;
+}
+
+#purpleReactantContainers .purpleReactantPercentageSlider::-moz-range-progress {
+    height: 8px;
+    background-color: var(--reactant-bright);
+}
+
+#purpleReactantContainers .purpleReactantPercentageSlider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: var(--reactant-bright);
+    box-shadow: 0 0 7px rgb(var(--reactant-rgb) / 75%);
+}
+
+.purpleReactantSliderScale {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4px;
+    color: silver;
+    font-size: 0.7em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+}
+
+@media (width <= 900px) {
+    #purpleReactantContainers {
+        width: min(96%, 760px);
+    }
+
+    .purpleReactorMachine {
+        grid-template-areas:
+            "amb red"
+            "core core";
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .purpleReactorConduit {
+        display: none;
+    }
+}
+
+@media (width <= 560px) {
+    #purpleReactantContainers {
+        width: calc(100% - 10px);
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .purpleReactorMachine {
+        grid-template-areas:
+            "amb"
+            "red"
+            "core";
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .purpleReactorHeader {
+        padding-inline: 2px;
+    }
+}
+
+@media (width <= 1024px) {
+    #singularityPurple {
+        bottom: 8px;
+        height: auto;
+        scroll-margin-top: calc(var(--mobile-subtab-height) + 0.5rem);
+    }
+
+    #purpleReactantContainers.purpleUpgradeShopOpen {
+        overflow: hidden;
+    }
+
+    #purpleUpgradeShop {
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    #purpleUpgradeFamilyList {
+        flex: none;
+        min-width: 0;
+        max-height: 40vh;
+        border-right: 0;
+        border-bottom: 1px solid var(--purple-box-color);
+    }
+
+    #purpleUpgradeDetail {
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+        scroll-margin-top: calc(var(--mobile-subtab-height) + 0.5rem);
+    }
+}
+
+@media (width <= 600px) {
+    #purpleUpgradeToggle {
+        min-height: 44px;
+    }
+
+    #purpleUpgradeClose {
+        width: 44px;
+        height: 44px;
+    }
+
+}
+
+@media (any-pointer: coarse) {
+    .purpleUpgradeTierShortcut {
+        min-width: 44px;
+    }
+
+    #purpleUpgradeToggle {
+        min-height: 44px;
+    }
+
+    #purpleReactantContainers .purpleReactantPercentageSlider {
+        height: 44px;
+        min-height: 44px;
+    }
+
+    #purpleReactantContainers .purpleReactantPercentageSlider::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+        margin-top: -9px;
+    }
+
+    #purpleReactantContainers .purpleReactantPercentageSlider::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+    }
 }
 
 #bbLoadoutContainer {
@@ -7268,22 +8382,23 @@ html[data-mobile="false"] .pseudoCoinButton {
 
 #upgradeGrid {
     display: grid;
-    grid-template-columns: repeat(6, 15%);
-    grid-template-rows: repeat(3, 15%);
-    column-gap: 10px;
-    row-gap: 64px;
+    grid-template-columns: repeat(6, 64px);
+    grid-auto-rows: 64px;
+    justify-content: center;
+    column-gap: 16px;
+    row-gap: 16px;
     margin: 0;
-    width: 38%;
+    width: 100%;
     padding-top: 15px;
-    max-height: 256px;
 }
 
 #upgradeGrid > div {
+    box-sizing: border-box;
     position: relative;
     height: 64px;
     width: 64px;
+    border: 2px solid var(--darkgold-color);
     background: #222;
-    place-self: center;
 }
 
 #upgradeGrid > div > p {
@@ -8721,10 +9836,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #upgradeGrid {
-        grid-template-rows: repeat(3, 33%);
-        row-gap: 5px;
-        width: unset;
-        max-height: unset;
+        row-gap: 12px;
         padding-bottom: 15px;
     }
 
@@ -9221,18 +10333,14 @@ html[data-mobile="true"] .hideOnMobile {
     #upgradeGrid {
         width: 100%;
         grid-template-columns: repeat(5, 15%);
-        grid-template-rows: unset;
         justify-content: center;
         column-gap: 4px;
         row-gap: 4px;
-        max-height: none;
-        height: auto;
         padding: 0;
     }
 
     #upgradeGrid > div {
-        place-self: unset;
-        margin: unset !important;
+        justify-self: center;
     }
 
     #upgradeInfo {

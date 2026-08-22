@@ -1215,6 +1215,7 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     }
 
     // Timer Things
+    addTimers('purpleHoney', seconds)
     addTimers('ambrosia', seconds)
     addTimers('redAmbrosia', seconds)
 

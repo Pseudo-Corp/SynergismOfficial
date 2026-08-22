@@ -1,16 +1,33 @@
 import Decimal from 'break_infinity.js'
-import { type AmbrosiaUpgradeNames, ambrosiaUpgrades } from '../BlueberryUpgrades'
+import type { AmbrosiaUpgradeNames } from '../BlueberryUpgrades'
 import { CorruptionLoadout, type Corruptions, CorruptionSaves } from '../Corruptions'
 import { AntProducers } from '../Features/Ants/structs/structs'
 import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
-import { type HepteractKeys, hepteracts } from '../Hepteracts'
-import type { OcteractUpgrades } from '../Octeracts'
-import { octeractUpgrades } from '../Octeracts'
-import { goldenQuarkUpgrades, type SingularityDataKeys } from '../singularity'
+import type { HepteractKeys } from '../Hepteracts'
+import { octeractUpgradeNames, type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
+import { getGQUpgradeCumulativeCost, goldenQuarkUpgradeNames, type SingularityDataKeys } from '../singularity'
 import { updateResourcePredefinedLevel } from '../Talismans'
 import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
 import { convertArrayToCorruption } from './PlayerJsonSchema'
 import { playerSchema } from './PlayerSchema'
+
+const getLegacyOcteractsInvested = (
+  key: OcteractUpgrades,
+  upgrade: { level?: number; octeractsInvested?: number }
+): number => {
+  return upgrade.level === undefined
+    ? upgrade.octeractsInvested ?? 0
+    : octeractUpgrades[key].costFormula(upgrade.level)
+}
+
+const getLegacyGoldenQuarksInvested = (
+  key: SingularityDataKeys,
+  upgrade: { level?: number; goldenQuarksInvested?: number }
+): number => {
+  return upgrade.level === undefined
+    ? upgrade.goldenQuarksInvested ?? 0
+    : getGQUpgradeCumulativeCost(key, upgrade.level)
+}
 
 export const playerUpdateVarSchema = playerSchema.transform((player) => {
   if (player.usedCorruptions !== undefined) {
@@ -127,9 +144,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
         const AUTO = value.AUTO ?? false
 
         player.hepteracts[k] = { BAL, TIMES_CAP_EXTENDED, AUTO }
-        hepteracts[k].BAL = BAL
-        hepteracts[k].TIMES_CAP_EXTENDED = TIMES_CAP_EXTENDED
-        hepteracts[k].AUTO = AUTO
       }
     }
   }
@@ -143,37 +157,43 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
 
       const k = key as SingularityDataKeys
 
-      const level = player.singularityUpgrades[k].level ?? 0
       const freeLevel = player.singularityUpgrades[k].freeLevels ?? 0
-      const goldenQuarksInvested = player.singularityUpgrades[k].goldenQuarksInvested ?? 0
+      const goldenQuarksInvested = getLegacyGoldenQuarksInvested(k, player.singularityUpgrades[k])
 
       player.goldenQuarkUpgrades[k] = {
-        level,
         freeLevel,
         goldenQuarksInvested
       }
-      goldenQuarkUpgrades[k].level = level
-      goldenQuarkUpgrades[k].freeLevel = freeLevel
-      goldenQuarkUpgrades[k].goldenQuarksInvested = goldenQuarksInvested
+    }
+  }
+
+  for (const key of goldenQuarkUpgradeNames) {
+    const upgrade = player.goldenQuarkUpgrades[key]
+
+    if (upgrade.level !== undefined) {
+      upgrade.goldenQuarksInvested = getLegacyGoldenQuarksInvested(key, upgrade)
+      Reflect.deleteProperty(upgrade, 'level')
     }
   }
 
   if (player.octeractUpgrades !== undefined) {
-    for (const key of Object.keys(player.octeractUpgrades)) {
-      const k = key as OcteractUpgrades
+    for (const key of octeractUpgradeNames) {
+      const freeLevel = player.octeractUpgrades[key].freeLevels ?? 0
+      const octeractsInvested = getLegacyOcteractsInvested(key, player.octeractUpgrades[key])
 
-      const level = player.octeractUpgrades[k].level ?? 0
-      const freeLevel = player.octeractUpgrades[k].freeLevels ?? 0
-      const octeractsInvested = player.octeractUpgrades[k].octeractsInvested ?? 0
-
-      player.octUpgrades[k] = {
-        level,
+      player.octUpgrades[key] = {
         freeLevel,
         octeractsInvested
       }
-      octeractUpgrades[k].level = level
-      octeractUpgrades[k].freeLevel = level
-      octeractUpgrades[k].octeractsInvested = octeractsInvested
+    }
+  }
+
+  for (const key of Object.keys(player.octUpgrades) as OcteractUpgrades[]) {
+    const upgrade = player.octUpgrades[key]
+
+    if (upgrade.level !== undefined) {
+      upgrade.octeractsInvested = getLegacyOcteractsInvested(key, upgrade)
+      Reflect.deleteProperty(upgrade, 'level')
     }
   }
 
@@ -188,8 +208,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
         ambrosiaInvested,
         blueberriesInvested
       }
-      ambrosiaUpgrades[k].ambrosiaInvested = ambrosiaInvested
-      ambrosiaUpgrades[k].blueberriesInvested = blueberriesInvested
     }
   }
 

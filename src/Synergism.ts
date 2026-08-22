@@ -108,7 +108,6 @@ import {
   generateRunesHTML,
   getRuneEffects,
   indexToRune,
-  type RuneKeys,
   runes,
   sacrificeOfferings,
   sumOfRuneLevels,
@@ -172,8 +171,6 @@ import {
 import i18next from 'i18next'
 import rfdc from 'rfdc'
 import {
-  type AmbrosiaUpgradeNames,
-  ambrosiaUpgrades,
   blankAmbrosiaUpgradeObject,
   displayProperLoadoutCount,
   setAmbrosiaUpgradeLevels,
@@ -203,9 +200,6 @@ import { defaultPlayerAnts } from './Features/Ants/player/default'
 import {
   defaultHepteractValues,
   getHepteractEffects,
-  type HepteractKeys,
-  hepteracts,
-  type HepteractValues,
   setAutomaticHepteractTexts,
   toggleAutoBuyOrbs
 } from './Hepteracts'
@@ -214,23 +208,17 @@ import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
 import { initializeAnnouncements, initializeMessages } from './Messages'
-import { blankOcteractLevelObject, type OcteractUpgrades, octeractUpgrades } from './Octeracts'
+import { blankOcteractLevelObject, setOcteractUpgradeLevels } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache } from './PseudoCoinUpgrades'
 import { getQuarkBonus, QuarkHandler, refreshQuarkBonus } from './Quark'
-import {
-  blankRedAmbrosiaUpgradeObject,
-  type RedAmbrosiaNames,
-  redAmbrosiaUpgrades,
-  setRedAmbrosiaUpgradeLevels
-} from './RedAmbrosiaUpgrades'
+import { blankRedAmbrosiaUpgradeObject, setRedAmbrosiaUpgradeLevels } from './RedAmbrosiaUpgrades'
 import {
   buyBlessingLevels,
   generateBlessingsHTML,
   getRuneBlessingEffect,
   type RuneBlessingKeys,
-  runeBlessings,
   updateAllBlessingLevelsFromEXP
 } from './RuneBlessings'
 import {
@@ -238,21 +226,17 @@ import {
   generateSpiritsHTML,
   getRuneSpiritEffect,
   type RuneSpiritKeys,
-  runeSpirits,
   updateAllSpiritLevelsFromEXP
 } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 // eslint-disable-next-line no-unassigned-import
 import './saves/verify'
+import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from './Purple'
+import { generatePurpleUpgradeTabHTML } from './PurpleUpgradeTab'
 import { getShopUpgradeEffects, updateShopLevels } from './Shop'
 import { generateShopTabHTML } from './ShopTab'
-import {
-  blankGQLevelObject,
-  calculateMaxSingularityLookahead,
-  goldenQuarkUpgrades,
-  type SingularityDataKeys
-} from './singularity'
+import { blankGQLevelObject, calculateMaxSingularityLookahead, setGQUpgradeLevels } from './singularity'
 import {
   getSingularityChallengeEffect,
   SingularityChallenge,
@@ -556,7 +540,8 @@ export const player: Player = {
     talismanRarities: 0,
     singularityUpgrades: 0,
     octeractUpgrades: 0,
-    redAmbrosiaUpgrades: 0
+    redAmbrosiaUpgrades: 0,
+    purpleHoneyUpgrades: 0
   },
 
   achievementPoints: 0,
@@ -1181,14 +1166,31 @@ export const player: Player = {
   // Invested, because I realized that keeping classes on the player is generally a bad idea
   redAmbrosiaUpgrades: blankRedAmbrosiaUpgradeObject,
 
+  purpleHoneyProgress: 0,
+  purpleReactor: {
+    purpleHoney: 0,
+    lifetimePurpleHoney: 0,
+    storedAmbrosiaBarPoints: 0,
+    storedRedAmbrosiaBarPoints: 0,
+    ambrosiaBarPointPercentage: 0,
+    redAmbrosiaBarPointPercentage: 0
+  },
+
+  spentPurpleHoney: {
+    upgrades: 0
+  },
+
+  purpleReactorUpgrades: blankPurpleReactorUpgradeObject,
+
   singChallengeTimer: 0,
 
   lastExportedSave: 0,
 
-  seed: Array.from({ length: 3 }, () => Date.now()),
+  seed: Array.from({ length: 4 }, () => Date.now()),
 
   stats: {
-    totalAddCodesUsed: 0
+    totalAddCodesUsed: 0,
+    highestPurpleHoney: 0
   }
 }
 
@@ -1219,76 +1221,12 @@ export const saveSynergy = (button?: boolean) => {
 
   player.offlinetick = Date.now()
 
-  // save to player.goldenQuarkUpgrades, taking the level and freeLevel from corresponding goldenQuarkUpgrades from singularity.ts
-  player.goldenQuarkUpgrades = Object.fromEntries(
-    Object.keys(player.goldenQuarkUpgrades).map((key) => {
-      const k = key as SingularityDataKeys
-      const gqu = goldenQuarkUpgrades[k]
-      return [key, { level: gqu.level, freeLevel: gqu.freeLevel, goldenQuarksInvested: gqu.goldenQuarksInvested }]
-    })
-  ) as Record<SingularityDataKeys, { level: number; freeLevel: number; goldenQuarksInvested: number }>
-
-  player.octUpgrades = Object.fromEntries(
-    Object.keys(player.octUpgrades).map((key) => {
-      const k = key as OcteractUpgrades
-      const ou = octeractUpgrades[k]
-      return [key, { level: ou.level, freeLevel: ou.freeLevel, octeractsInvested: ou.octeractsInvested }]
-    })
-  ) as Record<OcteractUpgrades, { level: number; freeLevel: number; octeractsInvested: number }>
-
-  player.ambrosiaUpgrades = Object.fromEntries(
-    Object.keys(player.ambrosiaUpgrades).map((key) => {
-      const k = key as AmbrosiaUpgradeNames
-      const au = ambrosiaUpgrades[k]
-      return [key, { ambrosiaInvested: au.ambrosiaInvested, blueberriesInvested: au.blueberriesInvested }]
-    })
-  ) as Record<AmbrosiaUpgradeNames, { ambrosiaInvested: number; blueberriesInvested: number }>
-
-  player.redAmbrosiaUpgrades = Object.fromEntries(
-    Object.keys(player.redAmbrosiaUpgrades).map((key) => {
-      const k = key as RedAmbrosiaNames
-      return [key, redAmbrosiaUpgrades[k].redAmbrosiaInvested]
-    })
-  ) as Record<RedAmbrosiaNames, number>
-
   player.talismans = Object.fromEntries(
     Object.keys(player.talismans).map((key) => {
       const k = key as TalismanKeys
       return [key, { ...talismans[k].fragmentsInvested }]
     })
   ) as Record<TalismanKeys, Record<TalismanCraftItems, Decimal>>
-
-  player.runes = Object.fromEntries(
-    Object.keys(player.runes).map((key) => {
-      const k = key as RuneKeys
-      return [key, new Decimal(runes[k].runeEXP)]
-    })
-  ) as Record<RuneKeys, Decimal>
-
-  player.runeBlessings = Object.fromEntries(
-    Object.keys(player.runeBlessings).map((key) => {
-      const k = key as RuneBlessingKeys
-      return [key, new Decimal(runeBlessings[k].runeEXP)]
-    })
-  ) as Record<RuneBlessingKeys, Decimal>
-
-  player.runeSpirits = Object.fromEntries(
-    Object.keys(player.runeSpirits).map((key) => {
-      const k = key as RuneSpiritKeys
-      return [key, new Decimal(runeSpirits[k].runeEXP)]
-    })
-  ) as Record<RuneSpiritKeys, Decimal>
-
-  player.hepteracts = Object.fromEntries(
-    Object.keys(player.hepteracts).map((key) => {
-      const k = key as HepteractKeys
-      return [key, {
-        BAL: hepteracts[k].BAL,
-        TIMES_CAP_EXTENDED: hepteracts[k].TIMES_CAP_EXTENDED,
-        AUTO: hepteracts[k].AUTO
-      }]
-    })
-  ) as Record<HepteractKeys, HepteractValues>
 
   const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
@@ -4490,6 +4428,7 @@ const tack = (dt: number) => {
     addTimers('octeracts', dt)
     addTimers('singularity', dt)
     addTimers('autoPotion', dt)
+    addTimers('purpleHoney', dt)
     addTimers('ambrosia', dt)
     addTimers('redAmbrosia', dt)
 
@@ -4840,78 +4779,16 @@ export const reloadShit = async (ignoreOfflineProgress = false) => {
     loadSynergy()
   }
 
-  // Recover Sing Upgrade (now GQ upgrade) level from Player Obj
-  if (player.goldenQuarkUpgrades !== undefined) {
-    for (const [key, value] of Object.entries(player.goldenQuarkUpgrades)) {
-      const k = key as SingularityDataKeys
-      goldenQuarkUpgrades[k].level = value.level
-      goldenQuarkUpgrades[k].freeLevel = value.freeLevel
-      goldenQuarkUpgrades[k].goldenQuarksInvested = value.goldenQuarksInvested
-    }
-  }
-
-  // Recover Oct Upgrades level from Player Obj
-  if (player.octUpgrades !== undefined) {
-    for (const [key, value] of Object.entries(player.octUpgrades)) {
-      const k = key as OcteractUpgrades
-
-      octeractUpgrades[k].level = value.level
-      octeractUpgrades[k].freeLevel = value.freeLevel
-      octeractUpgrades[k].octeractsInvested = value.octeractsInvested
-    }
-  }
-
-  if (player.ambrosiaUpgrades !== undefined) {
-    for (const [key, value] of Object.entries(player.ambrosiaUpgrades)) {
-      const k = key as AmbrosiaUpgradeNames
-      ambrosiaUpgrades[k].ambrosiaInvested = value.ambrosiaInvested ?? 0
-      ambrosiaUpgrades[k].blueberriesInvested = value.blueberriesInvested ?? 0
-    }
-  }
-
-  if (player.redAmbrosiaUpgrades !== undefined) {
-    for (const [key, value] of Object.entries(player.redAmbrosiaUpgrades)) {
-      const k = key as RedAmbrosiaNames
-      redAmbrosiaUpgrades[k].redAmbrosiaInvested = value
-    }
-  }
-
-  if (player.runes !== undefined) {
-    for (const key of Object.keys(player.runes) as RuneKeys[]) {
-      const runeEXP = player.runes[key]
-      runes[key].runeEXP = new Decimal(runeEXP)
-    }
-    updateAllRuneLevelsFromEXP()
-  }
-
-  if (player.runeBlessings !== undefined) {
-    for (const key of Object.keys(player.runeBlessings) as RuneBlessingKeys[]) {
-      const blessingEXP = player.runeBlessings[key]
-      runeBlessings[key].runeEXP = new Decimal(blessingEXP)
-    }
-    updateAllBlessingLevelsFromEXP()
-  }
-
-  if (player.runeSpirits !== undefined) {
-    for (const key of Object.keys(player.runeSpirits) as RuneSpiritKeys[]) {
-      const spiritEXP = player.runeSpirits[key]
-      runeSpirits[key].runeEXP = new Decimal(spiritEXP)
-    }
-    updateAllSpiritLevelsFromEXP()
-  }
-
-  if (player.hepteracts !== undefined) {
-    for (const key of Object.keys(player.hepteracts) as HepteractKeys[]) {
-      hepteracts[key].BAL = player.hepteracts[key].BAL ?? hepteracts[key].BAL
-      hepteracts[key].AUTO = player.hepteracts[key].AUTO ?? hepteracts[key].AUTO
-      hepteracts[key].TIMES_CAP_EXTENDED = player.hepteracts[key].TIMES_CAP_EXTENDED
-        ?? hepteracts[key].TIMES_CAP_EXTENDED
-    }
-  }
+  updateAllRuneLevelsFromEXP()
+  updateAllBlessingLevelsFromEXP()
+  updateAllSpiritLevelsFromEXP()
 
   // Must run before updateAchievementPoints
+  setGQUpgradeLevels()
+  setOcteractUpgradeLevels()
   setAmbrosiaUpgradeLevels()
   setRedAmbrosiaUpgradeLevels()
+  setPurpleReactorUpgradeLevels()
 
   updateAchievementPoints(true)
   if (player.talismans !== undefined) {
@@ -5118,6 +4995,7 @@ window.addEventListener('load', async () => {
   generateBlessingsHTML()
   generateSpiritsHTML()
   generateShopTabHTML()
+  generatePurpleUpgradeTabHTML()
   generateEventHandlers()
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()

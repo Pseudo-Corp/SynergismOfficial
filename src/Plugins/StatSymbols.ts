@@ -15,8 +15,11 @@ const KEYWORD_SYMBOLS: Record<string, string> = {
   'Salvage': '♻',
   'Ambrosia Luck': '☘',
   'Red Luck': '⚅',
+  'Purple Honey Luck': '✰',
   'Ambrosia Bar Point': '◊',
   'Red Bar Point': '❖',
+  'Purple Bar Point': '𝚫',
+  'Purple Honey': '☼',
   'Blueberries': '☌',
   'Quark': '❂',
   'Cube': '⬢',
@@ -38,7 +41,8 @@ const KEYWORD_SYMBOLS: Record<string, string> = {
   'Reborn ELO': '🝘',
   'Ant Speed': '≫',
   'Ant Sacrifice': '⤬',
-  'Stage': '⎍'
+  'Stage': '⎍',
+  'Half-Life': 'λ'
 }
 
 const reg = new RegExp(Object.keys(KEYWORD_SYMBOLS).join('|'), 'g')

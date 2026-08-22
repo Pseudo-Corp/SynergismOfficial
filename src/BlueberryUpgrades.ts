@@ -74,8 +74,6 @@ interface AmbrosiaUpgrade<T extends AmbrosiaUpgradeNames, K extends keyof Ambros
   effects: (n: number, key: K) => AmbrosiaUpgradeRewards[T][K]
   effectsDescription: () => string
   extraLevelCalc: () => number
-  ambrosiaInvested: number
-  blueberriesInvested: number
   blueberryCost: number
   prerequisites: BlueberryOpt
   ignoreEXALT: boolean
@@ -87,8 +85,6 @@ export const ambrosiaUpgrades: {
 } = {
   ambrosiaTutorial: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 10,
     costPerLevel: 1,
     blueberryCost: 0,
@@ -119,8 +115,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaQuarks1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 100,
     costPerLevel: 1,
     blueberryCost: 0,
@@ -147,8 +141,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaCubes1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 100,
     costPerLevel: 1,
     blueberryCost: 0,
@@ -175,8 +167,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaLuck1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 100,
     costPerLevel: 1,
     blueberryCost: 0,
@@ -203,8 +193,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaQuarkCube1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 25,
     costPerLevel: 250,
     blueberryCost: 1,
@@ -235,8 +223,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaLuckCube1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 25,
     costPerLevel: 250,
     blueberryCost: 1,
@@ -265,8 +251,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaCubeQuark1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 25,
     costPerLevel: 500,
     blueberryCost: 1,
@@ -303,8 +287,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaLuckQuark1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 25,
     costPerLevel: 500,
     blueberryCost: 1,
@@ -338,8 +320,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaCubeLuck1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 25,
     costPerLevel: 100,
     blueberryCost: 1,
@@ -375,8 +355,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaQuarkLuck1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 25,
     costPerLevel: 100,
     blueberryCost: 1,
@@ -405,8 +383,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaQuarks2: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 100,
     costPerLevel: 500,
     blueberryCost: 1,
@@ -437,8 +413,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaCubes2: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 100,
     costPerLevel: 500,
     blueberryCost: 1,
@@ -471,8 +445,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaLuck2: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 100,
     costPerLevel: 250,
     blueberryCost: 1,
@@ -502,8 +474,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaQuarks3: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 10,
     costPerLevel: 750000,
     blueberryCost: 3,
@@ -533,8 +503,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaCubes3: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 100,
     costPerLevel: 75000,
     blueberryCost: 3,
@@ -565,8 +533,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaLuck3: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 100,
     costPerLevel: 50000,
     blueberryCost: 3,
@@ -594,8 +560,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaLuck4: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 50,
     costPerLevel: 250000,
     blueberryCost: 5,
@@ -622,8 +586,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaPatreon: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 1,
     costPerLevel: 1,
     blueberryCost: 0,
@@ -648,8 +610,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaObtainium1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 2,
     costPerLevel: 50000,
     blueberryCost: 1,
@@ -675,8 +635,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaOffering1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 2,
     costPerLevel: 50000,
     blueberryCost: 1,
@@ -702,8 +660,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaHyperflux: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 7,
     costPerLevel: 33333,
     blueberryCost: 3,
@@ -731,8 +687,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaBaseOffering1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 40,
     costPerLevel: 5,
     blueberryCost: 1,
@@ -757,8 +711,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaBaseObtainium1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 20,
     costPerLevel: 40,
     blueberryCost: 1,
@@ -783,8 +735,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaBaseOffering2: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 60,
     costPerLevel: 20,
     blueberryCost: 2,
@@ -812,8 +762,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaBaseObtainium2: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 30,
     costPerLevel: 160,
     blueberryCost: 2,
@@ -841,8 +789,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaSingReduction1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 2,
     costPerLevel: 100000,
     blueberryCost: 2,
@@ -873,8 +819,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaInfiniteShopUpgrades1: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 20,
     costPerLevel: 25000,
     blueberryCost: 1,
@@ -903,8 +847,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaInfiniteShopUpgrades2: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 20,
     costPerLevel: 75000,
     blueberryCost: 2,
@@ -934,8 +876,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaSingReduction2: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 2,
     costPerLevel: 1.25e7,
     blueberryCost: 4,
@@ -964,8 +904,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaTalismanBonusRuneLevel: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 100,
     costPerLevel: 100,
     blueberryCost: 0,
@@ -993,8 +931,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaRuneOOMBonus: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 100,
     costPerLevel: 2500,
     blueberryCost: 0,
@@ -1025,8 +961,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaBrickOfLead: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 25,
     costPerLevel: 10,
     blueberryCost: 4,
@@ -1061,8 +995,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaFreeLuckUpgrades: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 25,
     costPerLevel: 5000,
     blueberryCost: 1,
@@ -1087,8 +1019,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaFreeGenerationUpgrades: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 3,
     costPerLevel: 5000,
     blueberryCost: 1,
@@ -1113,8 +1043,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaFreeRedLuckUpgrades: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 40,
     costPerLevel: 10000,
     blueberryCost: 2,
@@ -1141,8 +1069,6 @@ export const ambrosiaUpgrades: {
   },
   ambrosiaFreeQuarkUpgrades: {
     level: 0,
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0,
     maxLevel: 10,
     costPerLevel: 25000,
     blueberryCost: 2,
@@ -1182,21 +1108,20 @@ export const blankAmbrosiaUpgradeObject: Record<
 
 export const setAmbrosiaUpgradeLevels = () => {
   for (const upgradeKey of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
-    const invested = ambrosiaUpgrades[upgradeKey].ambrosiaInvested
-    const upgradeCost = ambrosiaUpgrades[upgradeKey].costFormula
-    const perLevelCost = ambrosiaUpgrades[upgradeKey].costPerLevel
+    const upgrade = ambrosiaUpgrades[upgradeKey]
+    const invested = player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested
 
     let level = 0
     let budget = invested
 
-    let nextCost = upgradeCost(level, perLevelCost)
+    let nextCost = upgrade.costFormula(level, upgrade.costPerLevel)
 
     while (budget >= nextCost) {
       budget -= nextCost
       level += 1
-      nextCost = upgradeCost(level, perLevelCost)
+      nextCost = upgrade.costFormula(level, upgrade.costPerLevel)
 
-      if (level >= ambrosiaUpgrades[upgradeKey].maxLevel) {
+      if (level >= upgrade.maxLevel) {
         break
       }
     }
@@ -1208,8 +1133,7 @@ export const setAmbrosiaUpgradeLevels = () => {
       player.ambrosia += budget
     }
 
-    ambrosiaUpgrades[upgradeKey].level = level
-    ambrosiaUpgrades[upgradeKey].ambrosiaInvested = invested - budget
+    upgrade.level = level
   }
 }
 
@@ -1297,7 +1221,7 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
   } <span style="color:blue">${upgrade.blueberryCost}</span>`
   const spentAmbrosiaHTML = `${i18next.t('general.spent')} ${
     i18next.t('ambrosia.ambrosia')
-  }: <span style="color:orange">${format(upgrade.ambrosiaInvested, 0, true)}</span>`
+  }: <span style="color:orange">${format(player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested, 0, true)}</span>`
   const ignoreEXALTHTML = upgrade.ignoreEXALT
     ? `<br><span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span>`
     : ''
@@ -1387,12 +1311,12 @@ export const buyAmbrosiaUpgradeLevel = async (
           return Alert(i18next.t('ambrosia.notEnoughBlueberries'))
         } else {
           player.spentBlueberries += upgrade.blueberryCost
-          upgrade.blueberriesInvested = upgrade.blueberryCost
+          player.ambrosiaUpgrades[upgradeKey].blueberriesInvested = upgrade.blueberryCost
         }
       }
       player.ambrosia -= cost
       ambrosiaBudget -= cost
-      upgrade.ambrosiaInvested += cost
+      player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested += cost
       upgrade.level += 1
       purchased += 1
       maxPurchasable -= 1
@@ -1525,9 +1449,11 @@ export const ambrosiaEditToString = (upgradeKey: AmbrosiaUpgradeNames) => {
     blueberryHTML = `<br>${
       i18next.t('ambrosia.edit.blueberryCharge', { amount: format(upgrade.blueberryCost, 0, true) })
     }`
-  } else if (upgrade.blueberriesInvested > 0 && pending === 0) {
+  } else if (player.ambrosiaUpgrades[upgradeKey].blueberriesInvested > 0 && pending === 0) {
     blueberryHTML = `<br>${
-      i18next.t('ambrosia.edit.blueberryRefund', { amount: format(upgrade.blueberriesInvested, 0, true) })
+      i18next.t('ambrosia.edit.blueberryRefund', {
+        amount: format(player.ambrosiaUpgrades[upgradeKey].blueberriesInvested, 0, true)
+      })
     }`
   }
 
@@ -1582,15 +1508,15 @@ const applyAmbrosiaEdit = (upgradeKey: AmbrosiaUpgradeNames) => {
 
   if (upgrade.level === 0) {
     player.spentBlueberries += upgrade.blueberryCost
-    upgrade.blueberriesInvested = upgrade.blueberryCost
+    player.ambrosiaUpgrades[upgradeKey].blueberriesInvested = upgrade.blueberryCost
   } else if (pending === 0) {
-    player.spentBlueberries -= upgrade.blueberriesInvested
-    upgrade.blueberriesInvested = 0
+    player.spentBlueberries -= player.ambrosiaUpgrades[upgradeKey].blueberriesInvested
+    player.ambrosiaUpgrades[upgradeKey].blueberriesInvested = 0
   }
 
   const cost = getAmbrosiaUpgradeCostBetween(upgradeKey, upgrade.level, pending)
   player.ambrosia -= cost
-  upgrade.ambrosiaInvested += cost
+  player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested += cost
   upgrade.level = pending
 }
 
@@ -1651,8 +1577,6 @@ export const resetBlueberryTree = (giveAlert = true) => {
 
   for (const k of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
     ambrosiaUpgrades[k].level = 0
-    ambrosiaUpgrades[k].ambrosiaInvested = 0
-    ambrosiaUpgrades[k].blueberriesInvested = 0
     player.ambrosiaUpgrades[k].ambrosiaInvested = 0
     player.ambrosiaUpgrades[k].blueberriesInvested = 0
   }
@@ -1789,14 +1713,14 @@ const createBlueberryTree = (modules: BlueberryOpt) => {
     const { costFormula, costPerLevel, blueberryCost } = ambrosiaUpgrades[k]
 
     if (val > 0) {
-      ambrosiaUpgrades[k].blueberriesInvested = blueberryCost
+      player.ambrosiaUpgrades[k].blueberriesInvested = blueberryCost
       player.spentBlueberries += blueberryCost
       let tempCost = 0
       for (let i = 0; i < val; i++) {
         tempCost += costFormula(i, costPerLevel)
       }
       player.ambrosia -= tempCost
-      ambrosiaUpgrades[k].ambrosiaInvested = tempCost
+      player.ambrosiaUpgrades[k].ambrosiaInvested = tempCost
       ambrosiaUpgrades[k].level = val
     }
   }
