@@ -6,18 +6,18 @@ import { campaignTokens } from './Campaign'
 import { calculateLeaderboardValue } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-leaderboard'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { displayLevelStuff } from './Levels'
-import { maxOcteractUpgradeAP, type OcteractUpgrades, octeractUpgrades } from './Octeracts'
+import { maxOcteractUpgradeAP, octeractUpgradeNames, octeractUpgrades } from './Octeracts'
 import { calculatePurpleReactorAP, maxPurpleReactorAP } from './Purple'
-import { maxRedAmbrosiaUpgradeAP, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
+import { maxRedAmbrosiaUpgradeAP, redAmbrosiaUpgradeNames, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { runeBlessings } from './RuneBlessings'
 import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
 import { runeSpirits } from './RuneSpirits'
 import {
   getGQUpgradeEffect,
+  goldenQuarkUpgradeNames,
   goldenQuarkUpgrades,
-  maxGoldenQuarkUpgradeAP,
-  type SingularityDataKeys
+  maxGoldenQuarkUpgradeAP
 } from './singularity'
 import { maxAPFromChallenges, type SingularityChallengeDataKeys } from './SingularityChallenges'
 import { format, player } from './Synergism'
@@ -488,9 +488,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     pointsAwarded: (_cached: number) => {
       let pointValue = 0
       // Go through all sing upgrades. if the max level is NOT -1, add 5 points if the upgrade level equals max level
-      for (const key of Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]) {
+      for (const key of goldenQuarkUpgradeNames) {
         const upgrade = goldenQuarkUpgrades[key]
-        if (upgrade.maxLevel !== -1 && player.goldenQuarkUpgrades[key].level >= upgrade.maxLevel) {
+        if (upgrade.maxLevel !== -1 && goldenQuarkUpgrades[key].level >= upgrade.maxLevel) {
           pointValue += 5
         }
       }
@@ -509,7 +509,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     pointsAwarded: (_cached: number) => {
       let pointValue = 0
       // Go through all octeract upgrades. if the max level is NOT -1, add 8 points if the upgrade level equals max level
-      for (const key of Object.keys(octeractUpgrades) as OcteractUpgrades[]) {
+      for (const key of octeractUpgradeNames) {
         const upgrade = octeractUpgrades[key]
         if (upgrade.maxLevel !== -1 && octeractUpgrades[key].level >= upgrade.maxLevel) {
           pointValue += 8
@@ -529,8 +529,8 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     maxPointValue: maxRedAmbrosiaUpgradeAP,
     pointsAwarded: () => {
       let pointValue = 0
-      for (const upgrade of Object.values(redAmbrosiaUpgrades)) {
-        if (upgrade.level >= upgrade.maxLevel) {
+      for (const upgrade of redAmbrosiaUpgradeNames) {
+        if (redAmbrosiaUpgrades[upgrade].level >= redAmbrosiaUpgrades[upgrade].maxLevel) {
           pointValue += 10
         }
       }

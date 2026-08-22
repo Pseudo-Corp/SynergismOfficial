@@ -79,8 +79,12 @@ import {
   calculateSalvageHypercubeBlessing
 } from './Hypercubes'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
-import type { OcteractUpgrades } from './Octeracts'
-import { getOcteractUpgradeCostTNL, octeractUpgrades, updateOcteractUpgradeVisibility } from './Octeracts'
+import {
+  getOcteractUpgradeCostTNL,
+  octeractUpgradeNames,
+  octeractUpgrades,
+  updateOcteractUpgradeVisibility
+} from './Octeracts'
 import {
   calculateAscensionScorePlatonicBlessing,
   calculateCubeMultiplierPlatonicBlessing,
@@ -110,8 +114,8 @@ import {
   getGoldenQuarkCost,
   getGQUpgradeCostTNL,
   getGQUpgradeEffect,
+  goldenQuarkUpgradeNames,
   goldenQuarkUpgrades,
-  type SingularityDataKeys,
   updateGoldenQuarkUpgradeVisibility
 } from './singularity'
 import { loadStatisticsUpdate } from './Statistics'
@@ -1828,10 +1832,9 @@ export const visualUpdateSingularity = () => {
       }
     )
 
-    const keys = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
     const val = G.shopEnhanceVision
 
-    for (const key of keys) {
+    for (const key of goldenQuarkUpgradeNames) {
       if (key === 'offeringAutomatic') {
         continue
       }
@@ -1846,9 +1849,9 @@ export const visualUpdateSingularity = () => {
         el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
       } else if (
         singItem.maxLevel === -1
-        || player.goldenQuarkUpgrades[key].level < computeGQUpgradeMaxLevel(key)
+        || goldenQuarkUpgrades[key].level < computeGQUpgradeMaxLevel(key)
       ) {
-        if (computeGQUpgradeFreeLevelSoftcap(key) > player.goldenQuarkUpgrades[key].level) {
+        if (computeGQUpgradeFreeLevelSoftcap(key) > goldenQuarkUpgrades[key].level) {
           el.style.filter = val ? 'blur(1px) invert(.9) saturate(200)' : 'none'
         } else {
           el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none'
@@ -1856,10 +1859,9 @@ export const visualUpdateSingularity = () => {
       }
     }
   } else if (getActiveSubTab() === 3) {
-    const keys = Object.keys(octeractUpgrades) as OcteractUpgrades[]
     const val = G.shopEnhanceVision
 
-    for (const key of keys) {
+    for (const key of octeractUpgradeNames) {
       const octItem = octeractUpgrades[key]
       const el = DOMCacheGetOrSet(key)
       const isMaxed = updateOcteractUpgradeVisibility(key, el)

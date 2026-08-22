@@ -88,10 +88,9 @@ import {
   updateSaveString
 } from './ImportExport'
 import { exitFastForward, getLotusTimeExpiresAt, getOwnedLotus, getTips, sendToWebsocket, setTips } from './Login'
-import type { OcteractUpgrades } from './Octeracts'
 import {
   buyOcteractUpgradeLevel,
-  octeractUpgrades,
+  octeractUpgradeNames,
   toggleMaxedOcteractUpgrades,
   upgradeOcteractToString
 } from './Octeracts'
@@ -119,9 +118,8 @@ import {
   buyGoldenQuarks,
   buyGQUpgradeLevel,
   calculateMaxSingularityLookahead,
-  goldenQuarkUpgrades,
+  goldenQuarkUpgradeNames,
   initializeSingularityPerkTree,
-  type SingularityDataKeys,
   singularityPerkModalHTML,
   singularityPerks,
   teleportToSingularity,
@@ -1723,8 +1721,7 @@ TODO: Fix this entire tab it's utter shit
 
   DOMCacheGetOrSet('toggleMaxedGoldenQuarkUpgrades').addEventListener('click', toggleMaxedGoldenQuarkUpgrades)
 
-  const GQUpgrades = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
-  for (const key of GQUpgrades) {
+  for (const key of goldenQuarkUpgradeNames) {
     if (key === 'offeringAutomatic') {
       continue
     }
@@ -1809,8 +1806,7 @@ TODO: Fix this entire tab it's utter shit
   // Octeract Upgrades
   DOMCacheGetOrSet('toggleMaxedOcteractUpgrades').addEventListener('click', toggleMaxedOcteractUpgrades)
 
-  const octUpgrade = Object.keys(octeractUpgrades) as OcteractUpgrades[]
-  for (const key of octUpgrade) {
+  for (const key of octeractUpgradeNames) {
     registerPurchasableModal({
       element: DOMCacheGetOrSet(key),
       html: () => upgradeOcteractToString(key),
