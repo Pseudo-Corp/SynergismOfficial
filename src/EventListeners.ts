@@ -1462,6 +1462,7 @@ export const generateEventHandlers = () => {
     const upgradeIndex = index + 1
 
     if (isMobile) {
+      platonicUpgrade.addEventListener('click', () => createPlatonicDescription(upgradeIndex))
       registerPurchasableModal({
         element: platonicUpgrade,
         html: () => platonicUpgradeModalHTML(upgradeIndex, platonicUpgrade.src),
