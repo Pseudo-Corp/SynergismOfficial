@@ -923,7 +923,7 @@ export const setOcteractUpgradeLevels = (): void => {
 
     upgrade.level = 0
 
-    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, oldInvested)
+    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, 0)
     const totalCost = upgrade.costFormula(maxAffordableLevel)
 
     upgrade.level = maxAffordableLevel
@@ -959,7 +959,7 @@ export const toggleMaxedOcteractUpgrades = (): void => {
   toggle.textContent = i18next.t(i18nKey)
   toggle.style.border = `2px solid ${hideMaxed ? 'red' : 'green'}`
 
-  for (const key of Object.keys(octeractUpgrades) as OcteractUpgrades[]) {
+  for (const key of octeractUpgradeNames) {
     updateOcteractUpgradeVisibility(key)
   }
 }
@@ -1140,11 +1140,14 @@ export const buyOcteractUpgradeLevel = async (
     return Alert(i18next.t('octeract.buyLevel.alreadyMax'))
   }
 
-  let levelsToPurchase = 1
-  const budget = player.wowOcteracts
+  const affordableLevel = maximumAffordableLevel(upgradeKey, player.wowOcteracts)
+  let levelsToPurchase = Math.min(1, affordableLevel - upgrade.level)
+
+  if (levelsToPurchase <= 0) {
+    return Alert(i18next.t('singularity.goldenQuarks.poor'))
+  }
 
   if (event.shiftKey || buyMax) {
-    const affordableLevel = maximumAffordableLevel(upgradeKey, budget)
     // Don't need to clip to maxLevel since maximumAffordableLevel guarantees it is within bounds
     const maxPurchasableLevels = affordableLevel - upgrade.level
     const levelAmountSelected = Number(

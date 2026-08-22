@@ -507,7 +507,6 @@ export interface Player {
   notation: 'Pure Scientific' | 'Pure Engineering' | 'Default'
 
   goldenQuarkUpgrades: Record<SingularityDataKeys, {
-    level: number
     freeLevel: number
     goldenQuarksInvested: number
   }>

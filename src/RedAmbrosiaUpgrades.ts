@@ -624,7 +624,7 @@ export const setRedAmbrosiaUpgradeLevels = (): void => {
 
     upgrade.level = 0
 
-    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, oldInvested)
+    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, 0)
     const totalCost = upgrade.costFormula(maxAffordableLevel)
 
     upgrade.level = maxAffordableLevel
@@ -729,11 +729,14 @@ export const buyRedAmbrosiaUpgradeLevel = async (
     return Alert(i18next.t('octeract.buyLevel.alreadyMax'))
   }
 
-  let levelsToPurchase = 1
-  const budget = player.redAmbrosia
+  const affordableLevel = maximumAffordableLevel(upgradeKey, player.redAmbrosia)
+  let levelsToPurchase = Math.min(1, affordableLevel - upgrade.level)
+
+  if (levelsToPurchase <= 0) {
+    return Alert(i18next.t('singularity.goldenQuarks.poor'))
+  }
 
   if (event.shiftKey || buyMax) {
-    const affordableLevel = maximumAffordableLevel(upgradeKey, budget)
     // Don't need to clip to maxLevel since maximumAffordableLevel guarantees it is within bounds
     const maxPurchasableLevels = affordableLevel - upgrade.level
     const levelAmountSelected = Number(
@@ -769,15 +772,13 @@ export const buyRedAmbrosiaUpgradeLevel = async (
 }
 
 export const displayRedAmbrosiaLevels = () => {
-  for (const key of Object.keys(redAmbrosiaUpgrades)) {
-    const k = key as RedAmbrosiaNames
-
+  for (const key of redAmbrosiaUpgradeNames) {
     const capKey = key.charAt(0).toUpperCase() + key.slice(1)
     const name = `redAmbrosia${capKey}`
     const elm = DOMCacheGetOrSet(name)
     // There is an image in the elm. find it.
     const img = elm.querySelector('img') as HTMLImageElement
-    const level = redAmbrosiaUpgrades[k].level || 0
+    const level = redAmbrosiaUpgrades[key].level || 0
 
     img.classList.add('dimmed')
     let levelOverlay = elm.querySelector('.level-overlay') as HTMLDivElement
@@ -785,7 +786,7 @@ export const displayRedAmbrosiaLevels = () => {
       levelOverlay = document.createElement('div')
       levelOverlay.classList.add('level-overlay')
 
-      if (level === redAmbrosiaUpgrades[k].maxLevel) {
+      if (level === redAmbrosiaUpgrades[key].maxLevel) {
         levelOverlay.classList.add('maxRedAmbrosiaLevel')
       } else {
         levelOverlay.classList.add('notMaxRedAmbrosiaLevel')
@@ -800,7 +801,7 @@ export const displayRedAmbrosiaLevels = () => {
 }
 
 export const resetRedAmbrosiaDisplay = () => {
-  for (const key of Object.keys(redAmbrosiaUpgrades)) {
+  for (const key of redAmbrosiaUpgradeNames) {
     const capKey = key.charAt(0).toUpperCase() + key.slice(1)
     const name = `redAmbrosia${capKey}`
     const elm = DOMCacheGetOrSet(name)

@@ -19,22 +19,21 @@ import { saveFilename } from './ImportExport'
 import {
   actualOcteractUpgradeTotalLevels,
   computeOcteractFreeLevelSoftcap,
-  type OcteractUpgrades,
+  octeractUpgradeNames,
   octeractUpgrades
 } from './Octeracts'
-import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
+import { redAmbrosiaUpgradeNames, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { type RuneKeys, runes } from './Runes'
 import { shopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
 import {
   actualGQUpgradeTotalLevels,
   calculateEffectiveSingularities,
   getGQUpgradeEffect,
-  goldenQuarkUpgrades,
-  type SingularityDataKeys
+  goldenQuarkUpgradeNames,
+  goldenQuarkUpgrades
 } from './singularity'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
 import { format, player } from './Synergism'
-import type { Player } from './types/Synergism'
 import { Alert } from './UpdateHTML'
 import { formatS, sumContents } from './Utility'
 import { Globals as G } from './Variables'
@@ -336,13 +335,12 @@ export const generateExportSummary = async (): Promise<void> => {
   if (player.highestSingularityCount > 0) {
     singularityUpgradeStats =
       '===== SINGULARITY UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
-    const GQUpgrade = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
     let totalSingUpgradeCount = -1 // One upgrade cannot ever be leveled, by design, so subtract that from the actual count
     let totalSingInfiniteLevel = 0
     let totalSingUpgradeUnlocked = 0
     let totalSingUpgradeMax = 0
 
-    for (const key of GQUpgrade) {
+    for (const key of goldenQuarkUpgradeNames) {
       let upgradeText = ''
       const singUpg = goldenQuarkUpgrades[key]
 
@@ -350,7 +348,7 @@ export const generateExportSummary = async (): Promise<void> => {
       if (singUpg.maxLevel === -1) {
         totalSingInfiniteLevel += 1
       }
-      if (player.goldenQuarkUpgrades[key].level === singUpg.maxLevel) {
+      if (goldenQuarkUpgrades[key].level === singUpg.maxLevel) {
         totalSingUpgradeMax += 1
       }
       if (player.singularityCount >= singUpg.minimumSingularity) {
@@ -361,7 +359,7 @@ export const generateExportSummary = async (): Promise<void> => {
       if (player.singularityCount >= singUpg.minimumSingularity) {
         if (singUpg.maxLevel === -1) {
           unicodeSymbol = '[∞]'
-        } else if (player.goldenQuarkUpgrades[key].level === singUpg.maxLevel) {
+        } else if (goldenQuarkUpgrades[key].level === singUpg.maxLevel) {
           unicodeSymbol = '[★]'
         } else {
           unicodeSymbol = '[✔]'
@@ -370,9 +368,7 @@ export const generateExportSummary = async (): Promise<void> => {
 
       upgradeText = upgradeText + unicodeSymbol
       upgradeText = `${upgradeText} ${singUpg.name()}:`
-      upgradeText = upgradeText + (singUpg.maxLevel === -1
-        ? ` Level ${player.goldenQuarkUpgrades[key].level}`
-        : ` Level ${player.goldenQuarkUpgrades[key].level}/${singUpg.maxLevel}`)
+      upgradeText = upgradeText + ` Level ${goldenQuarkUpgrades[key].level}/${singUpg.maxLevel}`
       upgradeText = upgradeText + (player.goldenQuarkUpgrades[key].freeLevel > 0
         ? ` [+${format(player.goldenQuarkUpgrades[key].freeLevel, 2, true)}]`
         : '')
@@ -398,11 +394,10 @@ export const generateExportSummary = async (): Promise<void> => {
   if (getGQUpgradeEffect('octeractUnlock', 'unlocked')) {
     octeractUpgradeStats =
       '===== OCTERACT UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [ ]: Upgrade INCOMPLETE - \n'
-    const octUpgrade = Object.keys(octeractUpgrades) as OcteractUpgrades[]
     let totalOctUpgradeCount = 0
     let totalOctUpgradeMax = 0
 
-    for (const key of octUpgrade) {
+    for (const key of octeractUpgradeNames) {
       let upgradeText = ''
       const octUpg = octeractUpgrades[key]
 
@@ -534,12 +529,11 @@ export const generateExportSummary = async (): Promise<void> => {
   if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
     redAmbrosiaUpgradeStats =
       '===== RED AMBROSIA UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [ ]: Upgrade is NOT MAXED - \n'
-    const redAmbUpgrade = Object.keys(player.redAmbrosiaUpgrades) as (keyof Player['redAmbrosiaUpgrades'])[]
 
     const currentRedAmbrosia = player.redAmbrosia
     const lifetimeRedAmbrosia = player.lifetimeRedAmbrosia
 
-    for (const key of redAmbUpgrade) {
+    for (const key of redAmbrosiaUpgradeNames) {
       let upgradeText = ''
       const redAmbUpg = redAmbrosiaUpgrades[key]
 

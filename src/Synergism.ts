@@ -236,7 +236,7 @@ import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from '
 import { generatePurpleUpgradeTabHTML } from './PurpleUpgradeTab'
 import { getShopUpgradeEffects, updateShopLevels } from './Shop'
 import { generateShopTabHTML } from './ShopTab'
-import { blankGQLevelObject, calculateMaxSingularityLookahead } from './singularity'
+import { blankGQLevelObject, calculateMaxSingularityLookahead, setGQUpgradeLevels } from './singularity'
 import {
   getSingularityChallengeEffect,
   SingularityChallenge,
@@ -4784,6 +4784,7 @@ export const reloadShit = async (ignoreOfflineProgress = false) => {
   updateAllSpiritLevelsFromEXP()
 
   // Must run before updateAchievementPoints
+  setGQUpgradeLevels()
   setOcteractUpgradeLevels()
   setAmbrosiaUpgradeLevels()
   setRedAmbrosiaUpgradeLevels()
