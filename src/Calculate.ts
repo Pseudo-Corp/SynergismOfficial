@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CalcECC } from './Challenges'
+import { CalcECC, useChallenge13Modifiers } from './Challenges'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
@@ -609,7 +609,7 @@ export const calculateActualAntSpeedMult = () => {
   let exponent = 1
   if (player.currentChallenge.ascension === 12) {
     exponent = 0.75
-  } else if (player.currentChallenge.ascension === 13) {
+  } else if (useChallenge13Modifiers()) {
     exponent = 0.23
   } else if (player.currentChallenge.ascension === 14) {
     exponent = 0.2

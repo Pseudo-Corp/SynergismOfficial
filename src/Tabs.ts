@@ -354,7 +354,7 @@ const tabInfo: Record<Tabs, TabInfo> = {
       },
       {
         subTabID: '6',
-        unlocked: () => true, // change requirement later
+        unlocked: () => player.singularityChallenges.taxmanLastStand.completions > 0,
         buttonID: 'toggleSingularitySubTab6'
       }
     ]

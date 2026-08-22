@@ -15,7 +15,8 @@ import {
   getNextAscensionChallenge,
   highestChallengeRewards,
   setChallengeFocus,
-  tickChallengeSweep
+  tickChallengeSweep,
+  useChallenge13Modifiers
 } from './Challenges'
 import { btoa, isMobile, memoize } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
@@ -721,7 +722,8 @@ export const player: Player = {
     shopRedLuck3: 0,
     shopInfiniteShopUpgrades: 0,
     shopHorseShoe: 0,
-    shopPanthema: 0
+    shopPanthema: 0,
+    shopPurpleBarRebate: 0
   },
 
   shopPotionsConsumed: {
@@ -3474,7 +3476,7 @@ export const resetCheck = async (
         maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
         maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
       }
-      if (player.currentChallenge.ascension === 13) {
+      if (useChallenge13Modifiers()) {
         maxInc = 1
       }
       let counter = 0
@@ -3549,7 +3551,7 @@ export const resetCheck = async (
         maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
         maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
       }
-      if (player.currentChallenge.ascension === 13) {
+      if (useChallenge13Modifiers()) {
         maxInc = 1
       }
       let counter = 0

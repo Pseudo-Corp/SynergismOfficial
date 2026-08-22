@@ -3822,6 +3822,10 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
     {
       i18n: 'PurpleHoneyUpgrade4',
       stat: () => getPurpleReactorUpgradeEffects('purpleHoneyLuck4', 'purpleHoneyLuck')
+    },
+    {
+      i18n: 'TaxmanLastStand',
+      stat: () => getSingularityChallengeEffect('taxmanLastStand', 'purpleHoneyLuck')
     }
   ]
 }
@@ -3839,13 +3843,24 @@ export const allPurpleHoneyProgressRequirementStats: NumberStatLineCategory = {
       stat: () => 1 + player.purpleReactor.purpleHoney / 10000 // Purple Honey Upgrade 1
     },
     {
-      i18n: 'PurpleHoneyUpgrades',
-      stat: () =>
-        1
-        - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
-        - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
-        - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
-        - getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
+      i18n: 'PurpleHoneyUpgrade1',
+      stat: () => getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
+    },
+    {
+      i18n: 'PurpleHoneyUpgrade2',
+      stat: () => getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
+    },
+    {
+      i18n: 'PurpleHoneyUpgrade3',
+      stat: () => getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
+    },
+    {
+      i18n: 'PurpleHoneyUpgrade4',
+      stat: () => getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
+    },
+    {
+      i18n: 'TaxmanLastStand',
+      stat: () => getSingularityChallengeEffect('taxmanLastStand', 'purpleBarSize')
     }
   ]
 }

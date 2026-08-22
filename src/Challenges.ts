@@ -854,3 +854,9 @@ export const getNextAscensionChallenge = (startIndex: number) => {
   // This returns the same as startIndex if no valid Challenges are found.
   return nextChallenge
 }
+
+export const useChallenge13Modifiers = () => {
+  return player.currentChallenge.ascension === 13
+    || (player.singularityChallenges.taxmanLastStand.enabled
+      && player.singularityChallenges.taxmanLastStand.completions >= 8)
+}

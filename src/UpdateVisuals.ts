@@ -1876,7 +1876,7 @@ export const visualUpdateSingularity = () => {
       el.dataset.octeractLevel = format(octItem.level)
       el.classList.toggle('octeractUpgradeAffordable', isAffordable)
       el.classList.toggle('octeractUpgradeMaxed', isMaxed)
-      el.classList.toggle('octeractUpgradeFreeLevels', octItem.freeLevel > 0)
+      el.classList.toggle('octeractUpgradeFreeLevels', player.octUpgrades[key].freeLevel > 0)
 
       if (isMaxed) {
         el.style.filter = val ? 'brightness(.9)' : 'none'

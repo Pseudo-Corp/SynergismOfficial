@@ -465,6 +465,26 @@ export const revealStuff = () => {
   document.documentElement.dataset.singularityButton =
     runes.antiquities.level > 0 || player.highestSingularityCount > 0 ? 'true' : 'false'
 
+  const exalt9x1Unlocks = document.getElementsByClassName('Exalt9x1') as HTMLCollectionOf<HTMLElement>
+  for (const item of exalt9x1Unlocks) {
+    const parent = item.parentElement!
+    if (parent.classList.contains('offlineStats')) {
+      item.style.display = player.singularityChallenges.taxmanLastStand.completions >= 1 ? 'flex' : 'none'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.taxmanLastStand.completions < 1}`)
+    } else {
+      item.style.visibility = player.singularityChallenges.taxmanLastStand.completions >= 1 ? 'visible' : 'hidden'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.taxmanLastStand.completions < 1}`)
+    }
+  }
+
+  DOMCacheGetOrSet('toggleSingularitySubTab5').style.display = player.highestSingularityCount >= 25
+    ? 'block'
+    : 'none'
+  // Hide Challenge Subtabs until Exalts are unlocked
+  DOMCacheGetOrSet('challengesTabsToggle').style.display = player.highestSingularityCount >= 25
+    ? ''
+    : 'none'
+
   document.documentElement.dataset.insideSingularityChallenge = player.insideSingularityChallenge ? 'true' : 'false'
 
   document.documentElement.dataset.ascensionStats =

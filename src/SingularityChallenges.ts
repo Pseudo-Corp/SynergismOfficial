@@ -83,13 +83,12 @@ export type SingularityChallengeRewards = {
     shopUpgrade3: boolean
   }
   taxmanLastStand: {
-    horseShoeUnlock: boolean
     shopUpgrade: boolean
     talismanUnlock: boolean
     talismanFreeLevel: number
     talismanRuneEffect: number
-    antiquityOOM: number
-    horseShoeOOM: number
+    purpleHoneyLuck: number
+    purpleBarSize: number
   }
 }
 
@@ -699,7 +698,7 @@ export const singularityChallengeData: {
     }
   },
   taxmanLastStand: {
-    baseReq: 240,
+    baseReq: 264,
     maxCompletions: 10,
     unlockSingularity: 281,
     achievementPointValue: (n) => {
@@ -707,14 +706,12 @@ export const singularityChallengeData: {
     },
     HTMLTag: 'taxmanLastStand',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 4 * completions
+      return baseReq + 2 * completions
     },
     scalingrewardcount: 5,
     uniquerewardcount: 3,
     effect: (n, key) => {
-      if (key === 'horseShoeUnlock') {
-        return n > 0
-      } else if (key === 'shopUpgrade') {
+      if (key === 'shopUpgrade') {
         return n >= 5
       } else if (key === 'talismanUnlock') {
         return n >= 10
@@ -722,10 +719,10 @@ export const singularityChallengeData: {
         return 25 * n
       } else if (key === 'talismanRuneEffect') {
         return 0.03 * n
-      } else if (key === 'antiquityOOM') {
-        return 1 / 50 * n / 10
+      } else if (key === 'purpleHoneyLuck') {
+        return 3 * n
       } else {
-        return 1 / 20 * n / 10 // horseShoeOOM
+        return 1 - 0.03 * n // purpleBarSize
       }
     },
     alternateDescription: () => {
