@@ -5723,7 +5723,7 @@
   },
   "octeract": {
     "buyLevel": {
-      "buyPrompt": "How many Octeracts would you like to spend? You have {{n}} OCT. Type -1 to use max!",
+      "buyPrompt": "How many levels would you like to buy? You can buy up to {{n}} levels! Type -1 to use max!",
       "cancelPurchase": "Purchase cancelled!",
       "alreadyMax": "Hey! You have already maxed this upgrade. :D",
       "cannotAfford": "You cannot afford this upgrade. Sorry!",
@@ -5756,7 +5756,7 @@
       },
       "octeractQuarkGain": {
         "name": "Quark Octeract",
-        "description": "An altered forme of the hepteract, this gives a num:((1.1))% Quark Bonus per level without Diminishing Return.",
+        "description": "An altered forme of the hepteract, this gives a num:((1))% Quark Bonus per level without Diminishing Return.",
         "effect": "Quark gain is increased by {{n}}."
       },
       "octeractQuarkGain2": {

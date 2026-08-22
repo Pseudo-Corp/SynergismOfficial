@@ -1912,13 +1912,13 @@ export const goldenQuarkUpgrades: {
         player.goldenQuarkUpgrades.oneMind.level >= goldenQuarkUpgrades.oneMind.maxLevel
       )
       const upgrade4 = +(
-        player.octUpgrades.octeractImprovedFree.level >= octeractUpgrades.octeractImprovedFree.maxLevel
+        octeractUpgrades.octeractImprovedFree.level >= octeractUpgrades.octeractImprovedFree.maxLevel
       )
       const upgrade5 = +(
-        player.octUpgrades.octeractCorruption.level >= octeractUpgrades.octeractCorruption.maxLevel
+        octeractUpgrades.octeractCorruption.level >= octeractUpgrades.octeractCorruption.maxLevel
       )
       const upgrade6 = +(
-        player.octUpgrades.octeractBlueberries.level >= octeractUpgrades.octeractBlueberries.maxLevel
+        octeractUpgrades.octeractBlueberries.level >= octeractUpgrades.octeractBlueberries.maxLevel
       )
       const upgrade7 = +(redAmbrosiaUpgrades.tutorial.level >= redAmbrosiaUpgrades.tutorial.maxLevel)
       const upgrade8 =
@@ -1946,18 +1946,18 @@ export const goldenQuarkUpgrades: {
         checkMark: player.goldenQuarkUpgrades.oneMind.level >= goldenQuarkUpgrades.oneMind.maxLevel ? '✔️' : '❌'
       })
       const upgrade4 = i18next.t('singularity.data.favoriteUpgrade.upgrade4', {
-        checkMark: player.octUpgrades.octeractImprovedFree.level
+        checkMark: octeractUpgrades.octeractImprovedFree.level
             >= octeractUpgrades.octeractImprovedFree.maxLevel
           ? '✔️'
           : '❌'
       })
       const upgrade5 = i18next.t('singularity.data.favoriteUpgrade.upgrade5', {
-        checkMark: player.octUpgrades.octeractCorruption.level >= octeractUpgrades.octeractCorruption.maxLevel
+        checkMark: octeractUpgrades.octeractCorruption.level >= octeractUpgrades.octeractCorruption.maxLevel
           ? '✔️'
           : '❌'
       })
       const upgrade6 = i18next.t('singularity.data.favoriteUpgrade.upgrade6', {
-        checkMark: player.octUpgrades.octeractBlueberries.level >= octeractUpgrades.octeractBlueberries.maxLevel
+        checkMark: octeractUpgrades.octeractBlueberries.level >= octeractUpgrades.octeractBlueberries.maxLevel
           ? '✔️'
           : '❌'
       })
@@ -2078,7 +2078,9 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     : ''
 
   let freeLevelText = freeLevelsWithMult > 0
-    ? `<span style="color: orange"> [+${format(player.goldenQuarkUpgrades[upgradeKey].freeLevel, 2, true)}${freeMultText}]</span>`
+    ? `<span style="color: orange"> [+${
+      format(player.goldenQuarkUpgrades[upgradeKey].freeLevel, 2, true)
+    }${freeMultText}]</span>`
     : ''
 
   if (freeLevelsWithMult > player.goldenQuarkUpgrades[upgradeKey].level) {

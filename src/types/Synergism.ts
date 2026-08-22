@@ -513,7 +513,6 @@ export interface Player {
   }>
 
   octUpgrades: Record<OcteractUpgrades, {
-    level: number
     freeLevel: number
     octeractsInvested: number
   }>

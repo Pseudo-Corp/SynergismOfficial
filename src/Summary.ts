@@ -409,22 +409,22 @@ export const generateExportSummary = async (): Promise<void> => {
       if (octUpg.maxLevel !== -1) {
         totalOctUpgradeCount += 1
       }
-      if (player.octUpgrades[key].level === octUpg.maxLevel) {
+      if (octeractUpgrades[key].level === octUpg.maxLevel) {
         totalOctUpgradeMax += 1
       }
 
       let unicodeSymbol = '[ ]'
       if (octUpg.maxLevel === -1) {
         unicodeSymbol = '[∞]'
-      } else if (player.octUpgrades[key].level === octUpg.maxLevel) {
+      } else if (octeractUpgrades[key].level === octUpg.maxLevel) {
         unicodeSymbol = '[★]'
       }
 
       upgradeText = upgradeText + unicodeSymbol
       upgradeText = `${upgradeText} ${octUpg.name()}:`
       upgradeText = upgradeText + (octUpg.maxLevel === -1
-        ? ` Level ${player.octUpgrades[key].level}`
-        : ` Level ${player.octUpgrades[key].level}/${octUpg.maxLevel}`)
+        ? ` Level ${octeractUpgrades[key].level}`
+        : ` Level ${octeractUpgrades[key].level}/${octUpg.maxLevel}`)
       upgradeText = upgradeText + (player.octUpgrades[key].freeLevel > 0
         ? ` [+${format(computeOcteractFreeLevelSoftcap(key), 2, true)}]`
         : '')

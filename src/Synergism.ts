@@ -208,7 +208,7 @@ import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
 import { initializeAnnouncements, initializeMessages } from './Messages'
-import { blankOcteractLevelObject, initializeOcteractUpgradeMap } from './Octeracts'
+import { blankOcteractLevelObject, initializeOcteractUpgradeMap, setOcteractUpgradeLevels } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache } from './PseudoCoinUpgrades'
@@ -4829,6 +4829,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   updateAllSpiritLevelsFromEXP()
 
   // Must run before updateAchievementPoints
+  setOcteractUpgradeLevels()
   setAmbrosiaUpgradeLevels()
   setRedAmbrosiaUpgradeLevels()
   setPurpleReactorUpgradeLevels()
