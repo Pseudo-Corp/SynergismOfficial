@@ -1141,6 +1141,7 @@ export const singularity = (setSingNumber = -1) => {
 
   if (!getSingularityChallengeEffect('limitedTime', 'preserveQuarks')) {
     player.worlds.reset()
+    hold.worlds = 0
   } else {
     hold.worlds = Number(player.worlds)
   }
