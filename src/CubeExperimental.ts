@@ -191,7 +191,7 @@ export class WowCubes extends Cube {
     player.cubeOpenedDaily += toSpend
 
     const quarkMult = getShopUpgradeEffects('cubeToQuark', 'cubeQuarkMult')
-    const gainQuarks = Number(this.checkQuarkGain(5, quarkMult, player.cubeOpenedDaily))
+    const gainQuarks = this.checkQuarkGain(5, quarkMult, player.cubeOpenedDaily)
     const actualQuarksGain = Math.max(0, gainQuarks - player.cubeQuarkDaily)
     player.cubeQuarkDaily += actualQuarksGain
     player.worlds.add(actualQuarksGain, false, true)
@@ -264,7 +264,7 @@ export class WowTesseracts extends Cube {
     player.tesseractOpenedDaily += toSpend
 
     const quarkMult = getShopUpgradeEffects('tesseractToQuark', 'tesseractQuarkMult')
-    const gainQuarks = Number(this.checkQuarkGain(7, quarkMult, player.tesseractOpenedDaily))
+    const gainQuarks = this.checkQuarkGain(7, quarkMult, player.tesseractOpenedDaily)
     const actualQuarksGain = Math.max(0, gainQuarks - player.tesseractQuarkDaily)
     player.tesseractQuarkDaily += actualQuarksGain
     player.worlds.add(actualQuarksGain, false, true)

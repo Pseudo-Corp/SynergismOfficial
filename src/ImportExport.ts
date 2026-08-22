@@ -36,7 +36,7 @@ import { blankSave, deepClone, format, player, reloadShit, saveSynergy } from '.
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs } from './Tabs'
 import { resetTalismanData } from './Talismans'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { cleanString, getElementById } from './Utility'
+import { cleanString } from './Utility'
 import { btoa } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -183,7 +183,7 @@ export const saveFilename = () => {
 }
 
 export const exportData = async (text: string, fileName: string) => {
-  const toClipboard = getElementById<HTMLInputElement>('saveType').checked
+  const toClipboard = (DOMCacheGetOrSet('saveType') as HTMLInputElement).checked
 
   if (PLATFORM === 'mobile') {
     const { Capacitor } = await import('@capacitor/core')

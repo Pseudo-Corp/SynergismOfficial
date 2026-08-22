@@ -115,11 +115,12 @@ export const messageSchema = z.preprocess(
         return JSON.parse(arg)
       } catch {
         ctx.addIssue({ code: 'custom', message: 'Received non-JSON message' })
-        return
+        return undefined
       }
     }
 
     ctx.addIssue({ code: 'custom', message: 'Received non-string message' })
+    return undefined
   },
   z.union([
     z.object({ type: z.literal('consume'), consumable: z.string() }),

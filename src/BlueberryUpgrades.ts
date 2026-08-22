@@ -1658,7 +1658,7 @@ export const resetBlueberryTree = (giveAlert = true) => {
   }
   player.ambrosia = player.lifetimeAmbrosia
   player.spentBlueberries = 0
-  if (giveAlert) return Alert(i18next.t('ambrosia.refund'))
+  if (giveAlert) void Alert(i18next.t('ambrosia.refund'))
 }
 
 const validateBlueberryTree = (modules: BlueberryOpt) => {
@@ -1806,14 +1806,16 @@ const createBlueberryTree = (modules: BlueberryOpt) => {
 
 export const importBlueberryTree = (input: string | null) => {
   if (typeof input !== 'string') {
-    return Alert(i18next.t('importexport.unableImport'))
+    void Alert(i18next.t('importexport.unableImport'))
+    return
   } else {
     try {
       const modules = JSON.parse(input) as BlueberryOpt
       createBlueberryTree(modules)
       createLoadoutDescription(0, modules)
     } catch {
-      return Alert(i18next.t('ambrosia.importTree.error'))
+      void Alert(i18next.t('ambrosia.importTree.error'))
+      return
     }
   }
 }

@@ -12,7 +12,7 @@ import { getTalismanEffects } from './Talismans'
 import { IconSets } from './Themes'
 import { toggleCorruptionLevel } from './Toggles'
 import { Alert, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification, Prompt } from './UpdateHTML'
-import { assert, getElementById, isMobile, productContents, sumContents, validateNonnegativeInteger } from './Utility'
+import { assert, isMobile, productContents, sumContents, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
 
 enum CorruptionIndices {
@@ -248,6 +248,8 @@ export class CorruptionLoadout {
         return this.#viscosityEffect()
       }
     }
+
+    throw new Error(`Unknown corruption: ${corr}`)
   }
 
   get totalLevels () {
@@ -638,7 +640,7 @@ export const corruptionButtonsAdd = () => {
 }
 
 export const corruptionLoadoutTableCreate = () => {
-  const table = getElementById<HTMLTableElement>('corruptionLoadoutTable')
+  const table = DOMCacheGetOrSet('corruptionLoadoutTable') as HTMLTableElement
 
   const corrNext = player.corruptions.next.loadout
   const corrSaves = player.corruptions.saves.saves
@@ -725,7 +727,7 @@ export const corruptionLoadoutTableUpdate = (updateNext = false, updateRow = 0) 
     return
   }
 
-  const row = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows[updateRow + 1].cells
+  const row = (DOMCacheGetOrSet('corruptionLoadoutTable') as HTMLTableElement).rows[updateRow + 1].cells
   if (updateNext) {
     const corrNext = player.corruptions.next.loadout
     let index = 0
@@ -827,7 +829,7 @@ async function corruptionLoadoutGetNewName (loadout = 0) {
 // let hasUpdatedCorruptionLoadoutNames = false
 
 export const updateCorruptionLoadoutNames = () => {
-  const rows = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows
+  const rows = (DOMCacheGetOrSet('corruptionLoadoutTable') as HTMLTableElement).rows
   const totalSlots = getUnlockedCorruptionLoadoutCount()
   for (let i = 0; i < totalSlots; i++) {
     const cells = rows[i + 2].cells // start changes on 2nd row

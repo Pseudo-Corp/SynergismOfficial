@@ -325,7 +325,7 @@ export class SingularityChallenge {
   scaleString (): string {
     let text = ''
     for (let i = 1; i <= this.scalingrewardcount; i++) {
-      const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.ScalingReward${i}`)
+      const list = i18next.t(`singularityChallenge.data.${this.HTMLTag}.ScalingReward${i}`)
       text += i > 1 ? `\n${list}` : list
     }
     return text
@@ -335,7 +335,7 @@ export class SingularityChallenge {
   uniqueString (): string {
     let text = ''
     for (let i = 1; i <= this.uniquerewardcount; i++) {
-      const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.UniqueReward${i}`)
+      const list = i18next.t(`singularityChallenge.data.${this.HTMLTag}.UniqueReward${i}`)
       text += i > 1 ? `\n${list}` : list
     }
     return text

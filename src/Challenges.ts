@@ -544,6 +544,8 @@ const calculateChallengeRequirementMultiplier = (
       }
       return requirementMultiplier
   }
+
+  return requirementMultiplier
 }
 
 /**
@@ -567,6 +569,8 @@ export const CalcECC = (type: 'transcend' | 'reincarnation' | 'ascension', compl
       effective += 1 / 2 * (Math.max(10, completions) - 10)
       return effective
   }
+
+  return effective
 }
 
 export const challengeRequirement = (challenge: number, completion: number, special = 0) => {
@@ -686,6 +690,8 @@ function sweepTransitionFunc (
         return { kind: 'initial_wait' }
       }
   }
+
+  return state
 }
 
 function handleStateTransition (oldState: SweepStates, newState: SweepStates): void {

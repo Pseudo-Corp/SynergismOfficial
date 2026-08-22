@@ -91,6 +91,20 @@ const boundLogoutButtons = new WeakSet<HTMLElement>()
 
 const cloudSaves: Save[] = []
 
+const decodeSave = async (save: string) => {
+  const decoded = atob(save)
+  const bytes = new Uint8Array(decoded.length)
+  for (let i = 0; i < decoded.length; i++) {
+    bytes[i] = decoded.charCodeAt(i)
+  }
+
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
+  const textBody = await new Response(stream).text()
+  const encoder = new TextEncoder()
+  const jsonBytes = encoder.encode(textBody)
+  return btoa(isomorphicDecode(jsonBytes))
+}
+
 export const isLoggedIn = () => loggedIn
 
 export const getTips = () => tips
@@ -124,6 +138,7 @@ const messageSchema = z.preprocess(
     }
 
     ctx.addIssue({ code: 'custom', message: 'Invalid message received.' })
+    return undefined
   },
   z.union([
     /** Received after the user connects to the websocket */
@@ -1414,22 +1429,6 @@ function handleCloudSaves () {
           table.appendChild(rowDiv)
           table.appendChild(detailsRow)
         })
-
-        async function decodeSave (save: string) {
-          const decoded = atob(save)
-          const bytes = new Uint8Array(decoded.length)
-          for (let i = 0; i < decoded.length; i++) {
-            bytes[i] = decoded.charCodeAt(i)
-          }
-
-          const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
-          const textBody = await new Response(stream).text()
-          const encoder = new TextEncoder()
-          const jsonBytes = encoder.encode(textBody)
-          const final = btoa(isomorphicDecode(jsonBytes))
-
-          return final
-        }
 
         async function handleDownload (saveId: number) {
           const save = cloudSaves.find((s) => saveId === s.id)

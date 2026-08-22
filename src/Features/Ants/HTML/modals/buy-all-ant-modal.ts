@@ -15,16 +15,17 @@ export const allAntProducerHTML = () => {
   let purchasableHTMLIntro = ''
   let list = ''
   for (let antProducer = AntProducers.Workers; antProducer <= LAST_ANT_PRODUCER; antProducer++) {
+    const antProducerIndex: number = antProducer
     const nameText = i18next.t(`ants.producers.${antProducer}.name`)
     const amountPurchasable = getMaxPurchasableAnts(antProducer, player.ants.crumbs)
       - player.ants.producers[antProducer].purchased
     const isNotAutobuyProducer = !player.ants.toggles.autobuyProducers
-      || antProducer > (autobuyersUnlocked - 1 as AntProducers)
+      || antProducerIndex > autobuyersUnlocked - 1
     const producerDisplayCheck = isNotAutobuyProducer && amountPurchasable > 0
 
     const masteriesPurchasable = getBuyableMasteryLevels(antProducer)
     const isNotAutobuyMastery = !player.ants.toggles.autobuyMasteries
-      || antProducer > (autobuyersUnlocked - 1 as AntProducers)
+      || antProducerIndex > autobuyersUnlocked - 1
     const masteryDisplayCheck = isNotAutobuyMastery && masteriesPurchasable > 0
 
     if (producerDisplayCheck || masteryDisplayCheck) {

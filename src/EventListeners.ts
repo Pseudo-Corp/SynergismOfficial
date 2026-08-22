@@ -761,6 +761,34 @@ const registerMobileSubTabLayout = () => {
   update()
 }
 
+const buyAntUpgrades = () => buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades)
+
+const buyAntProducersAndMasteries = () => {
+  buyAllAntProducers(player.ants.toggles.maxBuyProducers)
+  buyAllAntMasteries()
+}
+
+const saveStringHTML = () =>
+  [
+    i18next.t('settings.saveString.version'),
+    i18next.t('settings.saveString.time'),
+    i18next.t('settings.saveString.year'),
+    i18next.t('settings.saveString.day'),
+    i18next.t('settings.saveString.min'),
+    i18next.t('settings.saveString.period'),
+    i18next.t('settings.saveString.date'),
+    i18next.t('settings.saveString.times'),
+    i18next.t('settings.saveString.sing'),
+    i18next.t('settings.saveString.quarks'),
+    i18next.t('settings.saveString.gq'),
+    i18next.t('settings.saveString.stage')
+  ].join('<br>')
+
+const visitConsumableTab = () => {
+  changeTab(Tabs.Purchase)
+  changeSubTab(Tabs.Purchase, { page: 3 })
+}
+
 export const generateEventHandlers = () => {
   registerMobileSubTabIcons()
   registerMobileStatsIcons()
@@ -1192,11 +1220,6 @@ export const generateEventHandlers = () => {
 
   const buyAllAntUpgradesButton = DOMCacheGetOrSet('buyAllAntUpgrades')
   const buyAllAntProducersButton = DOMCacheGetOrSet('buyAllAntProducers')
-  const buyAntUpgrades = () => buyAllAntUpgrades(player.ants.toggles.maxBuyUpgrades)
-  const buyAntProducersAndMasteries = () => {
-    buyAllAntProducers(player.ants.toggles.maxBuyProducers)
-    buyAllAntMasteries()
-  }
 
   // Keep the existing modal behavior for browser builds, including browsers on mobile devices.
   if (PLATFORM === 'mobile') {
@@ -1297,7 +1320,8 @@ export const generateEventHandlers = () => {
         }
 
         if (getOwnedLotus() < 1) {
-          return Alert(i18next.t('pseudoCoins.lotus.noLotus'))
+          void Alert(i18next.t('pseudoCoins.lotus.noLotus'))
+          return
         }
 
         sendToWebsocket(
@@ -1589,26 +1613,10 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('monospaceFont').addEventListener('click', () => toggleMonospaceFont())
   DOMCacheGetOrSet('statSymbols').addEventListener('click', () => toggleStatSymbol())
 
-  const html = () =>
-    [
-      i18next.t('settings.saveString.version'),
-      i18next.t('settings.saveString.time'),
-      i18next.t('settings.saveString.year'),
-      i18next.t('settings.saveString.day'),
-      i18next.t('settings.saveString.min'),
-      i18next.t('settings.saveString.period'),
-      i18next.t('settings.saveString.date'),
-      i18next.t('settings.saveString.times'),
-      i18next.t('settings.saveString.sing'),
-      i18next.t('settings.saveString.quarks'),
-      i18next.t('settings.saveString.gq'),
-      i18next.t('settings.saveString.stage')
-    ].join('<br>')
-
-  saveStringInput.addEventListener('mousemove', (e) => Modal(() => html(), e.clientX, e.clientY))
+  saveStringInput.addEventListener('mousemove', (e) => Modal(saveStringHTML, e.clientX, e.clientY))
   saveStringInput.addEventListener('focus', () => {
     const elmRect = saveStringInput.getBoundingClientRect()
-    Modal(() => html(), elmRect.x, elmRect.y + elmRect.height / 2)
+    Modal(saveStringHTML, elmRect.x, elmRect.y + elmRect.height / 2)
   })
   saveStringInput.addEventListener('mouseout', CloseModal)
 
@@ -1995,11 +2003,6 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // EVENT TAB
-  function visitConsumableTab () {
-    changeTab(Tabs.Purchase)
-    changeSubTab(Tabs.Purchase, { page: 3 })
-  }
-
   document.querySelector('#consumableEvents > .consumableButton')?.addEventListener('click', visitConsumableTab)
   document.querySelector('#lotusButtons > .consumableButton')?.addEventListener('click', visitConsumableTab)
 

@@ -506,7 +506,7 @@ export const calculateTotalSalvage = () => {
   return calculatePositiveSalvage() + calculateNegativeSalvage()
 }
 
-export const calculateSalvageRuneEXPMultiplier = (salvageVal: number | undefined = undefined): Decimal => {
+export const calculateSalvageRuneEXPMultiplier = (salvageVal?: number): Decimal => {
   let salvage = salvageVal
   // Factors where Salvage comes from
   if (salvage === undefined) {

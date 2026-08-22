@@ -24,7 +24,7 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     body.style.setProperty('--transition', '750ms')
     body.style.setProperty('--transition-extra', '600ms')
   } else {
-    themeNumber = Number(storageGetItem('theme') ?? Theme.Dark) as Theme
+    themeNumber = Number(storageGetItem('theme') ?? Theme.Dark)
   }
 
   /* Full reset for easy out of order change */
@@ -314,16 +314,16 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
   }
 }
 
-enum Notations {
-  PURE_SCIENTIFIC = 'Pure Scientific',
-  PURE_ENGINEERING = 'Pure Engineering',
-  DEFAULT = 'Default'
-}
+const Notations = {
+  PURE_SCIENTIFIC: 'Pure Scientific',
+  PURE_ENGINEERING: 'Pure Engineering',
+  DEFAULT: 'Default'
+} as const
 
 export const toggleAnnotation = (setting = true) => {
   const notationButton = DOMCacheGetOrSet('notation')
   const current = player.notation
-  let newNotation: Notations
+  let newNotation: typeof Notations[keyof typeof Notations]
 
   switch (current) {
     case Notations.PURE_SCIENTIFIC:

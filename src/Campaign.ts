@@ -1611,7 +1611,8 @@ const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
     campaignButton.textContent = i18next.t('campaigns.corruptionStats.startCampaign')
     campaignButton.addEventListener('click', () => {
       if (player.currentChallenge.ascension !== 0) {
-        return Alert(i18next.t('campaigns.errorMessages.ascensionChallenge'))
+        void Alert(i18next.t('campaigns.errorMessages.ascensionChallenge'))
+        return
       }
       reset('ascension')
       player.campaigns.campaign = key
