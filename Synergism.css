@@ -3461,6 +3461,7 @@ p#reincarnatehotkeys {
 
 #octeractsDisplay > p {
     margin: 0 0 0 10px;
+    font-size: 1.2em;
 }
 
 #totalOcteractsDisplay > p {
@@ -3479,11 +3480,6 @@ p#reincarnatehotkeys {
 #goldenQuarkamount {
     font-size: 1.2em;
     color: gold;
-    margin-left: 5px;
-}
-
-#octeractAmount {
-    font-size: 1.2em;
     margin-left: 5px;
 }
 
@@ -6102,6 +6098,16 @@ header #obtainiumDisplay { color: pink; }
 .toggleMaxedUpgrades {
     border: 2px solid green;
     min-width: 15em;
+}
+
+#toggleMaxedOcteractUpgrades {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    min-width: 0;
+    padding: 5px;
+    margin: 2px;
 }
 
 .upgradeHiddenByMaxLevel {

@@ -1147,7 +1147,7 @@ export const initializeOcteractUpgradeMap = () => {
     lines.append(leftTrack, spine, rightTrack)
   }
 
-  container.replaceChildren(lines)
+  container.replaceChildren(DOMCacheGetOrSet('toggleMaxedOcteractUpgrades'), lines)
 }
 
 export const maxOcteractUpgradeAP = Object.values(octeractUpgrades).reduce((acc, upgrade) => {
