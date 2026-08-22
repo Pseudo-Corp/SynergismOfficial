@@ -4876,11 +4876,9 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
 
     try {
       if (!loadSynergy(saveString)) {
-        clearTimeout(preloadDeleteGame)
         return
       }
     } catch (error) {
-      clearTimeout(preloadDeleteGame)
       console.error('Failed to decode save', error)
       await Alert(i18next.t('save.loadFailed'))
       return
