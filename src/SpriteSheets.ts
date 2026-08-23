@@ -4,7 +4,7 @@ export type iconSize = 32 | 56 | 64
 
 export interface SpriteSheet {
   name: string
-  elementNames: string[]
+  elementNames: (string | null)[]
   iconSize: iconSize // All icons in the sheet must be the same size.
   rows: number
   columns: number
@@ -84,6 +84,77 @@ export const spriteSheets: SpriteSheet[] = [
     ]
   },
   {
+    name: 'Octeracts',
+    elementNames: [
+      null,
+      null,
+      'octeractStarterImage',
+      'octeractGainImage',
+      'octeractGain2Image',
+      'octeractAscensionsOcteractGainImage',
+      'octeractOneMindImproverImage',
+      'octeractFastForwardImage',
+      'octeractSingUpgradeCapImage',
+      'octeractGQCostReduceImage',
+      'octeractQuarkGainImage',
+      'octeractQuarkGain2Image',
+      'octeractImprovedQuarkHeptImage',
+      'octeractExportQuarksImage',
+      'octeractImprovedDaily3Image',
+      'octeractImprovedDaily2Image',
+      'octeractImprovedDailyImage',
+      'octeractImprovedFreeImage',
+      'octeractImprovedFree2Image',
+      'octeractImprovedFree3Image',
+      'octeractImprovedFree4Image',
+      null,
+      'octeractAscensions2Image',
+      'octeractAscensionsImage',
+      'octeractImprovedGlobalSpeedImage',
+      'octeractImprovedAscensionSpeedImage',
+      'octeractImprovedAscensionSpeed2Image',
+      null,
+      null,
+      null,
+      'octeractCorruptionImage',
+      'octeractBonusTokens1Image',
+      'octeractBonusTokens2Image',
+      'octeractBonusTokens3Image',
+      'octeractBonusTokens4Image',
+      null,
+      'octeractObtainium1Image',
+      'octeractOfferings1Image',
+      'octeractAutoPotionSpeedImage',
+      'octeractAutoPotionEfficiencyImage',
+      null,
+      null,
+      null,
+      null,
+      'octeractInfiniteShopUpgradesImage',
+      'octeractTalismanLevelCap1Image',
+      'octeractTalismanLevelCap2Image',
+      'octeractTalismanLevelCap3Image',
+      'octeractTalismanLevelCap4Image',
+      null,
+      null,
+      'octeractBlueberriesImage',
+      'octeractAmbrosiaLuck2Image',
+      'octeractAmbrosiaLuck3Image',
+      'octeractAmbrosiaLuckImage',
+      'octeractAmbrosiaLuck4Image',
+      null,
+      null,
+      null,
+      'octeractAmbrosiaGeneration2Image',
+      'octeractAmbrosiaGeneration3Image',
+      'octeractAmbrosiaGenerationImage',
+      'octeractAmbrosiaGeneration4Image'
+    ],
+    iconSize: 32,
+    rows: 9,
+    columns: 7
+  },
+  {
     name: 'QuarkEnrichedCubes',
     elementNames: [
       'cubeToQuark',
@@ -130,6 +201,10 @@ const updateIconFromSprite = (
 export const updateIconsFromSprites = (folderUsed: string) => {
   for (const sheet of spriteSheets) {
     for (const [iconIndex, elementName] of sheet.elementNames.entries()) {
+      if (elementName === null) {
+        continue
+      }
+
       /* Why backgroundImage? If we use .src, the image is the entire sheet,
              Condensed into something of size iconSize * iconSize.
              In index.html, each of these elements has src img_transparent, so

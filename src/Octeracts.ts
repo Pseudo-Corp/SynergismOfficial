@@ -5,7 +5,6 @@ import { updateMaxTokens, updateTokens } from './Campaign'
 import { hepteracts } from './Hepteracts'
 import { format, formatAsPercentIncrease, formatTimeShort, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
-import { isMobile } from './Utility'
 
 type OcteractUpgradeRewards = {
   octeractStarter: {
@@ -1042,6 +1041,115 @@ export const octeractUpgrades: {
   }
 }
 
+const OCTERACT_UPGRADE_MAP_ROWS = [
+  {
+    left: { id: 'core', upgrades: ['octeractStarter'] },
+    right: {
+      id: 'core',
+      upgrades: ['octeractGain', 'octeractGain2', 'octeractAscensionsOcteractGain', 'octeractOneMindImprover']
+    }
+  },
+  {
+    left: { id: 'goldenQuarks', upgrades: ['octeractGQCostReduce', 'octeractSingUpgradeCap', 'octeractFastForward'] },
+    right: {
+      id: 'quarks',
+      upgrades: ['octeractQuarkGain', 'octeractQuarkGain2', 'octeractImprovedQuarkHept', 'octeractExportQuarks']
+    }
+  },
+  {
+    left: { id: 'daily', upgrades: ['octeractImprovedDaily', 'octeractImprovedDaily2', 'octeractImprovedDaily3'] },
+    right: {
+      id: 'freeLevels',
+      upgrades: ['octeractImprovedFree', 'octeractImprovedFree2', 'octeractImprovedFree3', 'octeractImprovedFree4']
+    }
+  },
+  {
+    left: { id: 'ascensions', upgrades: ['octeractAscensions', 'octeractAscensions2'] },
+    right: {
+      id: 'speed',
+      upgrades: ['octeractImprovedGlobalSpeed', 'octeractImprovedAscensionSpeed', 'octeractImprovedAscensionSpeed2']
+    }
+  },
+  {
+    left: { id: 'corruption', upgrades: ['octeractCorruption'] },
+    right: {
+      id: 'tokens',
+      upgrades: ['octeractBonusTokens1', 'octeractBonusTokens2', 'octeractBonusTokens3', 'octeractBonusTokens4']
+    }
+  },
+  {
+    left: { id: 'resources', upgrades: ['octeractOfferings1', 'octeractObtainium1'] },
+    right: { id: 'potions', upgrades: ['octeractAutoPotionSpeed', 'octeractAutoPotionEfficiency'] }
+  },
+  {
+    left: { id: 'shop', upgrades: ['octeractInfiniteShopUpgrades'] },
+    right: {
+      id: 'talismans',
+      upgrades: [
+        'octeractTalismanLevelCap1',
+        'octeractTalismanLevelCap2',
+        'octeractTalismanLevelCap3',
+        'octeractTalismanLevelCap4'
+      ]
+    }
+  },
+  {
+    left: { id: 'blueberries', upgrades: ['octeractBlueberries'] },
+    right: {
+      id: 'ambrosiaLuck',
+      upgrades: ['octeractAmbrosiaLuck2', 'octeractAmbrosiaLuck3', 'octeractAmbrosiaLuck', 'octeractAmbrosiaLuck4']
+    }
+  },
+  {
+    left: null,
+    right: {
+      id: 'ambrosiaGeneration',
+      upgrades: [
+        'octeractAmbrosiaGeneration2',
+        'octeractAmbrosiaGeneration3',
+        'octeractAmbrosiaGeneration',
+        'octeractAmbrosiaGeneration4'
+      ]
+    }
+  }
+]
+
+export const initializeOcteractUpgradeMap = () => {
+  const container = DOMCacheGetOrSet('octeractUpgradeContainer')
+  const lines = document.createElement('div')
+
+  container.setAttribute('role', 'group')
+  container.setAttribute('aria-label', i18next.t('octeract.map.ariaLabel'))
+  lines.classList.add('octeractUpgradeLines')
+
+  for (const { left, right } of OCTERACT_UPGRADE_MAP_ROWS) {
+    const leftTrack = document.createElement('div')
+    const spine = document.createElement('div')
+    const rightTrack = document.createElement('div')
+
+    leftTrack.classList.add('octeractUpgradeTrack', 'octeractUpgradeTrackLeft')
+    leftTrack.dataset.octeractLine = left !== null ? left.id : right.id
+    spine.classList.add('octeractUpgradeSpine')
+    spine.dataset.octeractLine = right.id
+    rightTrack.classList.add('octeractUpgradeTrack', 'octeractUpgradeTrackRight')
+    rightTrack.dataset.octeractLine = right.id
+
+    if (left !== null) {
+      for (const upgrade of left.upgrades) {
+        leftTrack.append(DOMCacheGetOrSet(upgrade))
+      }
+    }
+
+    for (const upgrade of right.upgrades) {
+      rightTrack.append(DOMCacheGetOrSet(upgrade))
+    }
+
+    lines.append(leftTrack, spine, rightTrack)
+  }
+
+  container.replaceChildren(DOMCacheGetOrSet('toggleMaxedOcteractUpgrades'), lines)
+}
+
 export const maxOcteractUpgradeAP = Object.values(octeractUpgrades).reduce((acc, upgrade) => {
   if (upgrade.maxLevel === -1) {
     return acc
@@ -1213,31 +1321,6 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
     : ''
 
   return `${nameHTML}<br>${levelHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${effectHTML}<br>${costHTML}${investedOcteractsHTML}${qualityOfLifeText}`
-}
-
-export const updateMobileOcteractHTML = (upgradeKey: OcteractUpgrades): void => {
-  const elm = DOMCacheGetOrSet('singularityOcteractsMultiline')
-  elm.innerHTML = upgradeOcteractToString(upgradeKey)
-
-  // MOBILE ONLY - Add a button for buying upgrades
-  if (isMobile) {
-    const buttonDiv = document.createElement('div')
-
-    const buyOne = document.createElement('button')
-    const buyMax = document.createElement('button')
-
-    buyOne.classList.add('modalBtnBuy')
-    buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.dataset.modalAction = 'one'
-
-    buyMax.classList.add('modalBtnBuy')
-    buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.dataset.modalAction = 'max'
-
-    buttonDiv.appendChild(buyOne)
-    buttonDiv.appendChild(buyMax)
-    elm.appendChild(buttonDiv)
-  }
 }
 
 export const buyOcteractUpgradeLevel = async (
