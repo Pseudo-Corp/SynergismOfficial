@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
+import { initializeAmbrosiaMap } from './AmbrosiaMap'
 import {
   ambrosiaEditAction,
   ambrosiaEditToString,
@@ -1990,6 +1991,8 @@ TODO: Fix this entire tab it's utter shit
       buy: (event, action) => buyRedAmbrosiaUpgradeLevel(key, event, action === 'max')
     })
   }
+
+  initializeAmbrosiaMap()
 
   const setPurpleReactantPercentage = (
     reactant: 'ambrosia' | 'redAmbrosia',

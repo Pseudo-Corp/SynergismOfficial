@@ -37,6 +37,11 @@
     "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
     "notUnlocked": "Clear No Golden Quark Upgrades, Tier 1!",
     "ambrosiaCost": "Cost for next level: <<orange | {{amount}}>> Ambrosia",
+    "map": {
+      "stage": "Stage {{stage}}",
+      "blueBuild": "Refundable blue build",
+      "redSupport": "Permanent red support"
+    },
     "data": {
       "ambrosiaTutorial": {
         "name": "Ambrosia Tutorial Module",

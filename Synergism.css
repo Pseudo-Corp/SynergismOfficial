@@ -4,6 +4,466 @@
     box-sizing: border-box;
 }
 
+/* Ambrosia upgrade-map prototypes */
+#blueberryUpgradeContainer[data-ambrosia-layout] {
+    --ambrosia-map-blue: #58a6ff;
+    --ambrosia-map-blue-dark: rgb(15 52 96 / 82%);
+    --ambrosia-map-red: #ff5c70;
+    --ambrosia-map-red-dark: rgb(91 17 31 / 82%);
+    --ambrosia-map-gold: #ffd166;
+    --ambrosia-map-panel: rgb(7 12 24 / 94%);
+
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    width: min(100%, 1040px);
+    padding: 12px;
+    gap: 10px;
+    overflow-x: auto;
+    border-color: #3f83d5;
+    background:
+        radial-gradient(circle at 18% 0%, rgb(31 111 235 / 20%), transparent 30%),
+        radial-gradient(circle at 82% 0%, rgb(248 81 73 / 16%), transparent 30%),
+        #060a13;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] > :not(.ambrosiaMapConnections) {
+    position: relative;
+    z-index: 1;
+}
+
+.ambrosiaMapConnections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.ambrosiaMapEdge {
+    fill: none;
+    stroke-linecap: round;
+    stroke-width: 1.5;
+    opacity: 0.08;
+    transition: opacity 160ms ease, stroke-width 160ms ease;
+}
+
+.ambrosiaMapEdge-requirement {
+    stroke: var(--ambrosia-map-blue);
+}
+
+.ambrosiaMapEdge-support {
+    stroke: var(--ambrosia-map-red);
+    stroke-dasharray: 5 5;
+}
+
+.ambrosiaMapArrow-requirement {
+    fill: var(--ambrosia-map-blue);
+}
+
+.ambrosiaMapArrow-support {
+    fill: var(--ambrosia-map-red);
+}
+
+#blueberryUpgradeContainer[data-ambrosia-edge-mode="requirements"] .ambrosiaMapEdge-requirement,
+#blueberryUpgradeContainer[data-ambrosia-edge-mode="support"] .ambrosiaMapEdge-support,
+#blueberryUpgradeContainer[data-ambrosia-edge-mode="all"] .ambrosiaMapEdge {
+    opacity: 0.42;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-edge-mode] .ambrosiaMapEdge.ambrosiaMapEdgeFocused {
+    stroke-width: 3;
+    opacity: 1;
+    filter: drop-shadow(0 0 3px currentcolor);
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] .blueberryUpgrade,
+#blueberryUpgradeContainer[data-ambrosia-layout] .redAmbrosiaUpgrade {
+    width: 46px;
+    min-width: 46px;
+    height: 46px;
+    min-height: 46px !important;
+    padding: 3px;
+    border: 2px solid var(--ambrosia-map-blue);
+    border-radius: 10px;
+    background: linear-gradient(145deg, #172a46, #090f1b);
+    box-shadow: 0 3px 8px rgb(0 0 0 / 48%);
+    transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] .redAmbrosiaUpgrade {
+    border-color: var(--ambrosia-map-red);
+    background: linear-gradient(145deg, #491725, #15090d);
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] :is(.blueberryUpgrade, .redAmbrosiaUpgrade) > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] :is(.blueberryUpgrade, .redAmbrosiaUpgrade):hover,
+#blueberryUpgradeContainer[data-ambrosia-layout] :is(.blueberryUpgrade, .redAmbrosiaUpgrade):focus-visible,
+#blueberryUpgradeContainer[data-ambrosia-layout] .ambrosiaMapNodeSelected {
+    z-index: 3;
+    transform: translateY(-2px) scale(1.08);
+    filter: brightness(1.22);
+    box-shadow: 0 0 14px rgb(255 255 255 / 45%);
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] .ambrosiaMapNodeRelated {
+    outline: 2px solid var(--ambrosia-map-gold);
+    outline-offset: 2px;
+    filter: brightness(1.18);
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] [data-ambrosia-map-family="quark"] {
+    box-shadow: inset 0 -3px 0 #47d7ff, 0 3px 8px rgb(0 0 0 / 48%);
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] [data-ambrosia-map-family="cube"] {
+    box-shadow: inset 0 -3px 0 #ffe66d, 0 3px 8px rgb(0 0 0 / 48%);
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] [data-ambrosia-map-family="luck"] {
+    box-shadow: inset 0 -3px 0 #6ee7a8, 0 3px 8px rgb(0 0 0 / 48%);
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] [data-ambrosia-map-family="hybrid"] {
+    box-shadow: inset 0 -3px 0 #c084fc, 0 3px 8px rgb(0 0 0 / 48%);
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] [data-ambrosia-map-family="blueSupport"] {
+    box-shadow: inset 0 -3px 0 #67e8f9, 0 3px 8px rgb(0 0 0 / 48%);
+}
+
+.ambrosiaMapStageLabel {
+    display: grid;
+    width: auto !important;
+    height: auto !important;
+    min-height: 22px;
+    align-items: center;
+    color: #9fb1c9;
+    font-size: 0.69em;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.ambrosiaMapStageName {
+    color: var(--ambrosia-map-gold);
+}
+
+.ambrosiaMapBlueLabel {
+    color: #8dc4ff;
+}
+
+.ambrosiaMapRedLabel {
+    color: #ff8a99;
+    text-align: right;
+}
+
+.ambrosiaMapControlsTier {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-top: 10px;
+    border-top: 1px solid rgb(255 255 255 / 12%);
+    gap: 6px;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout] .ambrosiaMapControlsTier > button {
+    min-height: 34px;
+}
+
+/* 1. Dual-layer circuit map */
+#blueberryUpgradeContainer[data-ambrosia-layout="circuit"] .blueberryUpgradeTier:not(.ambrosiaMapControlsTier),
+#blueberryUpgradeContainer[data-ambrosia-layout="panels"] .blueberryUpgradeTier:not(.ambrosiaMapControlsTier) {
+    display: grid;
+    grid-template-columns: repeat(8, 46px) 18px repeat(7, 46px);
+    width: max-content;
+    padding: 8px 10px 10px;
+    margin: 0 auto;
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 9px;
+    gap: 6px;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="circuit"] .ambrosiaMapStageLabel,
+#blueberryUpgradeContainer[data-ambrosia-layout="panels"] .ambrosiaMapStageLabel {
+    grid-template-columns: 92px 1fr 1fr;
+    grid-column: 1 / -1;
+}
+
+#blueberryUpgradeContainer:is([data-ambrosia-layout="circuit"], [data-ambrosia-layout="panels"])
+    .ambrosiaBorder {
+    grid-column: 9;
+    width: 18px;
+    height: 46px;
+    opacity: 0.75;
+}
+
+#blueberryUpgradeContainer:is([data-ambrosia-layout="circuit"], [data-ambrosia-layout="panels"])
+    .ambrosiaBorder > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="circuit"] .blueberryUpgradeTier:not(.ambrosiaMapControlsTier) {
+    background:
+        linear-gradient(90deg, rgb(24 74 125 / 32%) 0 54%, transparent 54% 57%, rgb(111 24 41 / 30%) 57%),
+        var(--ambrosia-map-panel);
+    box-shadow: inset 3px 0 0 rgb(88 166 255 / 55%), inset -3px 0 0 rgb(255 92 112 / 48%);
+}
+
+/* 2. Linked blue and red panels */
+#blueberryUpgradeContainer[data-ambrosia-layout="panels"] {
+    background:
+        linear-gradient(90deg, rgb(13 44 82 / 92%) 0 52%, rgb(47 8 18 / 92%) 52%),
+        #050810;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="panels"]::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 52%;
+    z-index: 0;
+    width: 1px;
+    background: linear-gradient(transparent, var(--ambrosia-map-gold), transparent);
+    content: "";
+    opacity: 0.6;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="panels"] .blueberryUpgradeTier:not(.ambrosiaMapControlsTier) {
+    border-color: rgb(255 255 255 / 8%);
+    background: rgb(0 0 0 / 18%);
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="panels"]
+    .ambrosiaMapEdge:not(.ambrosiaMapEdgeFocused) {
+    opacity: 0.04;
+}
+
+/* 3. Tiered metro lanes */
+#blueberryUpgradeContainer[data-ambrosia-layout="metro"] .blueberryUpgradeTier:not(.ambrosiaMapControlsTier) {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(14, 46px);
+    width: max-content;
+    padding: 8px 12px 12px;
+    margin: 0 auto;
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 24px;
+    background: rgb(4 10 20 / 88%);
+    gap: 9px;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="metro"] .blueberryUpgradeTier:not(.ambrosiaMapControlsTier)::before {
+    position: absolute;
+    right: 34px;
+    bottom: 34px;
+    left: 34px;
+    z-index: 0;
+    height: 5px;
+    border-top: 2px solid var(--ambrosia-map-blue);
+    border-bottom: 2px solid var(--ambrosia-map-red);
+    background: #111827;
+    content: "";
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="metro"] .ambrosiaMapStageLabel {
+    grid-template-columns: 92px 1fr 1fr;
+    grid-column: 1 / -1;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="metro"] :is(.blueberryUpgrade, .redAmbrosiaUpgrade) {
+    z-index: 1;
+    border-radius: 50%;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="metro"] .ambrosiaBorder {
+    width: 46px;
+    height: 46px;
+    padding: 8px;
+    border: 3px double var(--ambrosia-map-gold);
+    border-radius: 50%;
+    background: #101827;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="metro"] .ambrosiaBorder > img {
+    width: 100%;
+    height: 100%;
+}
+
+/* 4. Radial yin-yang constellation */
+#blueberryUpgradeContainer[data-ambrosia-layout="radial"] {
+    width: min(100%, 710px);
+    min-height: var(--ambrosia-radial-height, 750px);
+    margin-inline: auto;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at center, rgb(110 35 126 / 24%) 0 13%, transparent 13% 21%, rgb(88 166 255 / 12%) 21% 50%, transparent 50%),
+        linear-gradient(90deg, rgb(13 44 82 / 80%), rgb(47 8 18 / 80%));
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="radial"] .blueberryUpgradeTier:not(.ambrosiaMapControlsTier) {
+    display: contents;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="radial"] .ambrosiaMapStageLabel,
+#blueberryUpgradeContainer[data-ambrosia-layout="radial"] .ambrosiaBorder {
+    display: none;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="radial"] :is(.blueberryUpgrade, .redAmbrosiaUpgrade) {
+    position: absolute;
+    border-radius: 50%;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="radial"] .ambrosiaMapControlsTier {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+}
+
+/* 5. One combined tree */
+#blueberryUpgradeContainer[data-ambrosia-layout="tree"] .blueberryUpgradeTier:not(.ambrosiaMapControlsTier) {
+    display: flex;
+    width: min(100%, 900px);
+    align-items: center;
+    justify-content: center;
+    padding: 9px;
+    margin: 0 auto;
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgb(18 62 107 / 45%), rgb(76 15 29 / 45%));
+    gap: 7px;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="tree"] .ambrosiaMapStageLabel {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: space-between;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="tree"] .ambrosiaBorder {
+    display: none;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="tree"]
+    :is(.blueberryUpgrade, .redAmbrosiaUpgrade) {
+    transform: rotate(45deg);
+    border-radius: 8px;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="tree"]
+    :is(.blueberryUpgrade, .redAmbrosiaUpgrade) > :is(img, .level-overlay) {
+    transform: rotate(-45deg);
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="tree"]
+    :is(.blueberryUpgrade, .redAmbrosiaUpgrade):is(:hover, :focus-visible),
+#blueberryUpgradeContainer[data-ambrosia-layout="tree"] .ambrosiaMapNodeSelected {
+    transform: translateY(-2px) scale(1.08) rotate(45deg);
+}
+
+@media (width <= 700px) {
+    #blueberryUpgradeContainer[data-ambrosia-layout] {
+        width: 100%;
+        padding: 7px;
+        overflow-x: hidden;
+    }
+
+    #blueberryUpgradeContainer:is(
+        [data-ambrosia-layout="circuit"],
+        [data-ambrosia-layout="panels"],
+        [data-ambrosia-layout="metro"],
+        [data-ambrosia-layout="radial"]
+    ) .blueberryUpgradeTier:not(.ambrosiaMapControlsTier) {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(4, 44px);
+        width: max-content;
+        padding: 7px;
+        margin: 0 auto;
+        border-radius: 9px;
+        gap: 7px;
+    }
+
+    #blueberryUpgradeContainer[data-ambrosia-layout] .blueberryUpgrade,
+    #blueberryUpgradeContainer[data-ambrosia-layout] .redAmbrosiaUpgrade {
+        position: relative;
+        top: auto !important;
+        left: auto !important;
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
+        min-height: 44px !important;
+    }
+
+    #blueberryUpgradeContainer[data-ambrosia-layout] .ambrosiaMapStageLabel {
+        display: flex;
+        grid-column: 1 / -1;
+        justify-content: space-between;
+    }
+
+    #blueberryUpgradeContainer:is(
+        [data-ambrosia-layout="circuit"],
+        [data-ambrosia-layout="panels"],
+        [data-ambrosia-layout="radial"]
+    ) .ambrosiaBorder {
+        display: block;
+        grid-column: 1 / -1;
+        width: 100%;
+        height: 5px;
+        border: 0;
+        border-radius: 3px;
+        background: linear-gradient(90deg, var(--ambrosia-map-blue), var(--ambrosia-map-red));
+    }
+
+    #blueberryUpgradeContainer:is(
+        [data-ambrosia-layout="circuit"],
+        [data-ambrosia-layout="panels"],
+        [data-ambrosia-layout="radial"]
+    ) .ambrosiaBorder > img {
+        display: none;
+    }
+
+    #blueberryUpgradeContainer[data-ambrosia-layout="panels"]::after,
+    #blueberryUpgradeContainer[data-ambrosia-layout="metro"]
+        .blueberryUpgradeTier:not(.ambrosiaMapControlsTier)::before {
+        display: none;
+    }
+
+    #blueberryUpgradeContainer[data-ambrosia-layout="radial"] {
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    #blueberryUpgradeContainer[data-ambrosia-layout="radial"] .ambrosiaMapControlsTier {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        left: auto;
+    }
+
+    #blueberryUpgradeContainer[data-ambrosia-layout="tree"] .blueberryUpgradeTier:not(.ambrosiaMapControlsTier) {
+        gap: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ambrosiaMapEdge,
+    #blueberryUpgradeContainer[data-ambrosia-layout] .blueberryUpgrade,
+    #blueberryUpgradeContainer[data-ambrosia-layout] .redAmbrosiaUpgrade {
+        transition: none;
+    }
+}
+
 body *,
 body {
     transition: background-color var(--transition), border-color var(--transition);
