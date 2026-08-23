@@ -6069,10 +6069,17 @@ header #obtainiumDisplay { color: pink; }
     }
 
     #octeractUpgradeContainer {
+        --octeract-icon-size: 30px;
+
+        width: 100%;
         max-width: 100%;
         margin-inline: auto;
         padding: 0 8px 12px;
         overflow-x: auto;
+    }
+
+    .octeractUpgradeLines {
+        justify-content: center;
     }
 
     .octeractUpgradeTrack {
@@ -6085,6 +6092,13 @@ header #obtainiumDisplay { color: pink; }
 
     .octeractUpgradeTrackRight {
         padding-left: 16px;
+    }
+
+    #octeractUpgradeContainer .octeractUpgrade > img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.5);
     }
 }
 
