@@ -5982,17 +5982,6 @@ header #obtainiumDisplay { color: pink; }
     transition: box-shadow 120ms ease, transform 120ms ease;
 }
 
-#octeractUpgradeContainer .octeractUpgrade:not(.octeractUpgradeMaxed) {
-    border-style: dashed;
-}
-
-#octeractUpgradeContainer .octeractUpgrade > img {
-    display: block;
-    width: calc(var(--octeract-icon-size) - 14px);
-    height: calc(var(--octeract-icon-size) - 14px);
-    object-fit: contain;
-}
-
 #octeractUpgradeContainer .octeractUpgrade::after {
     position: absolute;
     right: -7px;
@@ -6039,6 +6028,14 @@ header #obtainiumDisplay { color: pink; }
         0 0 13px lightseagreen;
 }
 
+#octeractUpgradeContainer .octeractUpgradeAffordable:not(.octeractUpgradeMaxed) {
+    box-shadow:
+        0 0 0 2px var(--box-color),
+        0 0 13px lightseagreen;
+    outline: 2px dotted lightseagreen;
+    outline-offset: 2px;
+}
+
 #octeractUpgradeContainer .octeractUpgradeMaxed {
     box-shadow:
         0 0 0 2px var(--box-color),
@@ -6072,8 +6069,6 @@ header #obtainiumDisplay { color: pink; }
     }
 
     #octeractUpgradeContainer {
-        --octeract-icon-size: 36px;
-
         max-width: 100%;
         margin-inline: auto;
         padding: 0 8px 12px;
