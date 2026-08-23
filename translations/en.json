@@ -5483,6 +5483,9 @@
       "becomeAffordable": "(Affordable in {{n}})",
       "spentOcteracts": "Spent Octeracts: {{spent}}"
     },
+    "map": {
+      "ariaLabel": "Octeract upgrade network"
+    },
     "data": {
       "octeractStarter": {
         "name": "Octeracts for Dummies",
