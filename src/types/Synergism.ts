@@ -499,6 +499,7 @@ export interface Player {
   singularityMatter: number
   goldenQuarks: number
   quarksThisSingularity: number
+  goldenQuarksGainedFromConversion: number
   totalQuarksEver: number
   hotkeys: Record<number, string[]>
   theme: string
