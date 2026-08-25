@@ -1173,8 +1173,16 @@
                 </div>
                 <div id="antSubtab2">
                     <div id="antAltarWelcomeTexts" class="introTextContainer">
+                        <span class="antAltarHeaderDecoration antAltarHeaderDecorationLeft" aria-hidden="true">
+                            <img src="Pictures/Achievements/Rewards/Ants.png" alt="">
+                            <span class="antAltarHeaderCircuit"></span>
+                        </span>
                         <p id="antAltarWelcome" style="color: lightslategrey" class="introText" i18n="ants.altarHeader"></p>
                         <p id="antAltarDescription" style="color: plum" i18n="ants.altarDetails"></p>
+                        <span class="antAltarHeaderDecoration antAltarHeaderDecorationRight" aria-hidden="true">
+                            <img src="Pictures/Achievements/Rewards/Ants.png" alt="">
+                            <span class="antAltarHeaderCircuit"></span>
+                        </span>
                     </div>
                     <div id="sacrificeAntsLocked">
                         <div id="sacrificeUnlockTexts">
@@ -1184,7 +1192,7 @@
                     </div>
                     <div id="sacrificeAnts" class="none">
                         <div id="eloCorner" class="sacrificeAntsContainer">
-                            <p style="font-size: 1.3em" i18n="ants.altar.titles.elo"></p>
+                            <p class="antSacrificePanelTitle" i18n="ants.altar.titles.elo"></p>
                             <button id="immortalELOInfoToggleButton" class="antLeaderboardToggleBtn" data-mode="overview">
                                 <span i18n="ants.compendium.toggleOverview"></span>
                             </button>
@@ -1218,29 +1226,9 @@
                                 <p id="eloStageTranche4" i18n="ants.stageTranche4"></p>
                                 <p id="eloStageTranche5" i18n="ants.stageTranche5"></p>
                             </div>
-                            <br>
-                            <div id="lotusCorner">
-                                <div id="lotusNameIcon">
-                                    <div class="iconAndNameContainer">
-                                        <img src="Pictures/PseudoShop/LOTUS.png">
-                                        <p class="gradientText lotusGradient" i18n="pseudoCoins.lotus.nameSingular"></p>
-                                    </div>
-                                    <p i18n="pseudoCoins.lotus.boxText1"></p>
-                                    <p i18n="pseudoCoins.lotus.boxText2"></p>
-                                    <p i18n="pseudoCoins.lotus.boxText3"></p>
-                                    <br>
-                                    <p id="lotusOwnedAnt"></p>
-                                    <p id="lotusStatus"></p>
-                                    <div id="lotusButtons">
-                                        <button id="use-lotus" i18n="pseudoCoins.lotus.useLotus"></button>
-                                        <button class="consumableButton" i18n="pseudoCoins.consumables.consumableButton"></button>
-                                    </div>
-                                </div>
-                                <p id="lotusInformation"></p>
-                            </div>
                         </div>
                         <div id="altar" class="sacrificeAntsContainer">
-                            <p style="font-size: 1.3em" i18n="ants.altar.titles.altar"></p>
+                            <p class="antSacrificePanelTitle" i18n="ants.altar.titles.altar"></p>
                             <button id="antSacrifice" i18n-aria-label="ants.antSacrifice" style="display: inline-block;">
                             <img alt="" src="Pictures/Default/AntSacrifice.png" style="cursor: pointer; display: block;" loading="lazy">
                             </button>
@@ -1254,10 +1242,10 @@
                                 <p id="anthillsRemainingForAutoSac"></p>
                             </div>
                             <div id="autoSacrifice">
-                                <button id="toggleAutoSacrificeAnt" class="antToggleBtn"></button>
-                                <div class="antSacrificeSettingsContainer" id="antSacrificeButtons">
+                                <div class="antSacrificeSettingsContainer">
+                                    <button id="toggleAutoSacrificeAnt" class="antToggleBtn"></button>
                                     <button id="autoSacrificeAntMode"></button>
-                                    <input id="autoAntSacrificeAmount" type="number">
+                                    <input id="autoAntSacrificeAmount" type="number" min="0">
                                 </div>
                                 <span id="autoAntSacrifice"></span>
                                 <div id="otherAutoSac">
@@ -1279,48 +1267,72 @@
                             </div>
                         </div>
                         <div id="antSacrificeRewards" class="sacrificeAntsContainer">
-                            <p id="antSacrificeRewardsTitle" style="font-size: 1.3em;" i18n="ants.altar.titles.worldRewards"></p>
+                            <p class="antSacrificePanelTitle" i18n="ants.altar.titles.worldRewards"></p>
                             <div id="antSacrificeObtainiumOfferings">
-                                <div class="antSacrificeRewardColumn" style="border: 2px solid orange; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardOffering">
                                     <img src="Pictures/Default/Offering.png" i18n="general.resources.offering" loading="lazy">
-                                    <p id="antSacrificeOffering" style="color: gold;"></p>
+                                    <p id="antSacrificeOffering"></p>
                                 </div>
-                                <div class="antSacrificeRewardColumn" style="border: 2px solid pink; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardObtainium">
                                     <img src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium" loading="lazy">
-                                    <p id="antSacrificeObtainium" style="color: pink"></p>
+                                    <p id="antSacrificeObtainium"></p>
                                 </div>
                             </div>
                             <div id="antSacrificeShardsRow1">
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid gold; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardTalisman chal9x1">
                                     <img src="Pictures/Default/TalismanShard.png" i18n="general.resources.talismanShard" loading="lazy">
-                                    <p id="antSacrificeTalismanShard" style="color: gold"></p>
+                                    <p id="antSacrificeTalismanShard"></p>
                                 </div>
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid white; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardCommon chal9x1">
                                     <img src="Pictures/Default/TalismanShardCommon.png" i18n="general.resources.talismanShardCommon" loading="lazy">
-                                    <p id="antSacrificeCommonFragment" style="color: white"></p>
+                                    <p id="antSacrificeCommonFragment"></p>
                                 </div>
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid limegreen; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardUncommon chal9x1">
                                     <img src="Pictures/Default/TalismanShardUncommon.png" i18n="general.resources.talismanShardUncommon" loading="lazy">
-                                    <p id="antSacrificeUncommonFragment" style="color: limegreen"></p>
-                                </div>
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid darkcyan; border-radius: 4px;">
-                                    <img src="Pictures/Default/TalismanShardRare.png" i18n="general.resources.talismanShardRare" loading="lazy">
-                                    <p id="antSacrificeRareFragment" style="color: darkcyan"></p>
+                                    <p id="antSacrificeUncommonFragment"></p>
                                 </div>
                             </div>
                             <div id="antSacrificeShardsRow2">
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid plum; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardRare chal9x1">
+                                    <img src="Pictures/Default/TalismanShardRare.png" i18n="general.resources.talismanShardRare" loading="lazy">
+                                    <p id="antSacrificeRareFragment"></p>
+                                </div>
+                                <div class="antSacrificeRewardColumn antSacrificeRewardEpic chal9x1">
                                     <img src="Pictures/Default/TalismanShardEpic.png" i18n="general.resources.talismanShardEpic" loading="lazy">
-                                    <p id="antSacrificeEpicFragment" style="color: plum"></p>
+                                    <p id="antSacrificeEpicFragment"></p>
                                 </div>
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid orange; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardLegendary chal9x1">
                                     <img src="Pictures/Default/TalismanShardLegendary.png" i18n="general.resources.talismanShardLegendary" loading="lazy">
-                                    <p id="antSacrificeLegendaryFragment" style="color: orange"></p>
+                                    <p id="antSacrificeLegendaryFragment"></p>
                                 </div>
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid crimson; border-radius: 4px;">
+                            </div>
+                            <div id="antSacrificeShardsRow3">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardMythical chal9x1">
                                     <img src="Pictures/Default/TalismanShardMythical.png" i18n="general.resources.talismanShardMythic" loading="lazy">
-                                    <p id="antSacrificeMythicalFragment" style="color: crimson"></p>
+                                    <p id="antSacrificeMythicalFragment"></p>
                                 </div>
+                            </div>
+                        </div>
+                        <div id="lotusCorner">
+                            <div id="lotusVisual" aria-hidden="true">
+                                <img src="Pictures/PseudoShop/LOTUS.png" alt="" loading="lazy">
+                            </div>
+                            <div id="lotusNameIcon">
+                                <p class="gradientText lotusGradient" i18n="pseudoCoins.lotus.nameSingular"></p>
+                                <p i18n="pseudoCoins.lotus.boxText1"></p>
+                                <p i18n="pseudoCoins.lotus.boxText2"></p>
+                                <p i18n="pseudoCoins.lotus.boxText3"></p>
+                            </div>
+                            <div id="lotusInventory">
+                                <p id="lotusOwnedAnt"></p>
+                                <p id="lotusStatus"></p>
+                                <button id="use-lotus" i18n="pseudoCoins.lotus.useLotus"></button>
+                            </div>
+                            <div id="lotusButtons">
+                                <button class="consumableButton">
+                                    <img src="Pictures/cart.png" alt="">
+                                    <span i18n="pseudoCoins.consumables.consumableButton"></span>
+                                </button>
                             </div>
                         </div>
                     </div>

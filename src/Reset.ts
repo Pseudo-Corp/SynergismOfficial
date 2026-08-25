@@ -247,7 +247,7 @@ export const updateAutoReset = (i: number) => {
     player.autoAscendThreshold = Math.max(value, 1)
   } else if (i === 5) {
     value = Number.parseFloat((DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value) || 0
-    toggleAutoAntSacrificeThreshold(value)
+    toggleAutoAntSacrificeThreshold(Math.max(value, 0))
   }
 }
 

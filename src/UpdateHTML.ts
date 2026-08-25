@@ -395,12 +395,10 @@ export const revealStuff = () => {
   if (unlockedAntSac) {
     DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'none'
     const sacAnts = DOMCacheGetOrSet('sacrificeAnts')
-    sacAnts.classList.add('flex')
     sacAnts.classList.remove('none')
   } else {
     DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'flex'
     const sacAnts = DOMCacheGetOrSet('sacrificeAnts')
-    sacAnts.classList.remove('flex')
     sacAnts.classList.add('none')
   }
 
