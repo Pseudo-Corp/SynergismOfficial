@@ -118,6 +118,7 @@ export const allDurableConsumables: Record<PseudoCoinConsumableNames, Consumable
 const messageSchema = z.preprocess(
   (data, ctx) => {
     if (typeof data === 'string') {
+      if (data === 'pong') return data
       try {
         return JSON.parse(data)
       } catch {}
