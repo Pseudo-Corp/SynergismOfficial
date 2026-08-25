@@ -126,6 +126,7 @@ const messageSchema = z.preprocess(
     ctx.addIssue({ code: 'custom', message: 'Invalid message received.' })
   },
   z.union([
+    z.literal('pong'),
     /** Received after the user connects to the websocket */
     z.object({ type: z.literal('join') }),
     z.object({ type: z.literal('error'), message: z.string() }),
@@ -761,9 +762,9 @@ async function handleWebSocket () {
   })
 
   ws.addEventListener('message', (ev) => {
-    if (ev.data === 'pong') return
+    const { success, data } = messageSchema.safeParse(ev.data)
 
-    const data = messageSchema.parse(ev.data)
+    if (!success || data === 'pong') return
 
     if (data.type === 'warn') {
       Notification(data.message, 5_000)
