@@ -104,12 +104,16 @@ export const showSacrifice = () => {
   DOMCacheGetOrSet('antSacrificeOffering').textContent = `+${format(sacRewards.offerings, 0, false, false)}`
   DOMCacheGetOrSet('antSacrificeObtainium').textContent = `+${format(sacRewards.obtainium, 0, false, false)}`
 
-  DOMCacheGetOrSet('lotusStatus').innerHTML = i18next.t('pseudoCoins.lotus.status', {
+  const lotusStatusHTML = i18next.t('pseudoCoins.lotus.status', {
     time: timeRemainingMinutes(getLotusTimeExpiresAt())
   })
-  DOMCacheGetOrSet('lotusOwnedAnt').innerHTML = i18next.t('pseudoCoins.lotus.owned', {
+  const lotusOwnedHTML = i18next.t('pseudoCoins.lotus.owned', {
     x: format(getOwnedLotus(), 0, true)
   })
+  DOMCacheGetOrSet('lotusStatus').innerHTML = lotusStatusHTML
+  DOMCacheGetOrSet('lotusStatusCollapsed').innerHTML = lotusStatusHTML
+  DOMCacheGetOrSet('lotusOwnedAnt').innerHTML = lotusOwnedHTML
+  DOMCacheGetOrSet('lotusOwnedAntCollapsed').innerHTML = lotusOwnedHTML
 
   if (player.challengecompletions[9] > 0) {
     // Helper function to update reward display and styling

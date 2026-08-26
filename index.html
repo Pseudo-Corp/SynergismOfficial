@@ -1314,25 +1314,53 @@
                             </div>
                         </div>
                         <div id="lotusCorner">
-                            <div id="lotusVisual" aria-hidden="true">
+                            <button
+                                id="toggleLotusSection"
+                                type="button"
+                                aria-expanded="true"
+                                aria-controls="lotusDetails"
+                                i18n-aria-label="pseudoCoins.lotus.collapseSection"
+                            >
+                                <span aria-hidden="true"></span>
+                            </button>
+                            <div id="lotusCollapsedSummary" aria-hidden="true">
                                 <img src="Pictures/PseudoShop/LOTUS.png" alt="" loading="lazy">
+                                <p class="gradientText lotusGradient lotusCollapsedTitle" i18n="pseudoCoins.lotus.nameSingular"></p>
+                                <div class="lotusCollapsedValues">
+                                    <p id="lotusOwnedAntCollapsed"></p>
+                                    <p id="lotusStatusCollapsed"></p>
+                                </div>
+                                <div class="lotusCollapsedActions">
+                                    <button id="use-lotus-collapsed" i18n="pseudoCoins.lotus.useLotus"></button>
+                                    <button id="lotusConsumablesButtonCollapsed" class="consumableButton">
+                                        <img src="Pictures/cart.png" alt="">
+                                        <span i18n="pseudoCoins.consumables.consumableButton"></span>
+                                    </button>
+                                </div>
                             </div>
-                            <div id="lotusNameIcon">
-                                <p class="gradientText lotusGradient" i18n="pseudoCoins.lotus.nameSingular"></p>
-                                <p i18n="pseudoCoins.lotus.boxText1"></p>
-                                <p i18n="pseudoCoins.lotus.boxText2"></p>
-                                <p i18n="pseudoCoins.lotus.boxText3"></p>
-                            </div>
-                            <div id="lotusInventory">
-                                <p id="lotusOwnedAnt"></p>
-                                <p id="lotusStatus"></p>
-                                <button id="use-lotus" i18n="pseudoCoins.lotus.useLotus"></button>
-                            </div>
-                            <div id="lotusButtons">
-                                <button class="consumableButton">
-                                    <img src="Pictures/cart.png" alt="">
-                                    <span i18n="pseudoCoins.consumables.consumableButton"></span>
-                                </button>
+                            <div id="lotusDetails">
+                                <div id="lotusExpandedContent">
+                                    <div id="lotusVisual" aria-hidden="true">
+                                        <img src="Pictures/PseudoShop/LOTUS.png" alt="" loading="lazy">
+                                    </div>
+                                    <div id="lotusNameIcon">
+                                        <p class="gradientText lotusGradient" i18n="pseudoCoins.lotus.nameSingular"></p>
+                                        <p i18n="pseudoCoins.lotus.boxText1"></p>
+                                        <p i18n="pseudoCoins.lotus.boxText2"></p>
+                                        <p i18n="pseudoCoins.lotus.boxText3"></p>
+                                    </div>
+                                    <div id="lotusInventory">
+                                        <p id="lotusOwnedAnt"></p>
+                                        <p id="lotusStatus"></p>
+                                        <button id="use-lotus" i18n="pseudoCoins.lotus.useLotus"></button>
+                                    </div>
+                                    <div id="lotusButtons">
+                                        <button id="lotusConsumablesButton" class="consumableButton">
+                                            <img src="Pictures/cart.png" alt="">
+                                            <span i18n="pseudoCoins.consumables.consumableButton"></span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

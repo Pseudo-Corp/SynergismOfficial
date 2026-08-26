@@ -3722,11 +3722,6 @@ p#reincarnatehotkeys {
         linear-gradient(currentcolor, currentcolor) 97px 4px / 25px 2px no-repeat;
 }
 
-#toggleAntMax {
-    min-width: 100px;
-    border: 1px solid gold;
-}
-
 #toggleAutoSacrificeAnt {
     box-sizing: border-box;
     width: 100%;
@@ -4043,24 +4038,199 @@ p#reincarnatehotkeys {
     --ant-altar-panel-color: #9a438f;
 
     position: relative;
-    display: grid;
+    display: block;
     grid-area: lotus;
-    grid-template-columns: 130px minmax(220px, 1.2fr) minmax(190px, 0.8fr) minmax(220px, 0.95fr);
-    gap: 16px;
-    align-items: center;
     box-sizing: border-box;
     width: 100%;
     min-width: 0;
-    height: clamp(115px, 15vh, 130px);
+    height: auto;
     min-height: 0;
-    padding: 8px 30px;
+    padding: 0;
     overflow: hidden;
+    interpolate-size: allow-keywords;
     text-align: left;
     border: 2px solid var(--ant-altar-panel-color);
     border-radius: 7px;
     box-shadow:
         inset 0 0 22px rgb(0 0 0 / 78%),
         0 0 0 1px rgb(0 0 0 / 80%);
+    transition: height 260ms ease;
+}
+
+#lotusExpandedContent {
+    display: grid;
+    grid-template-columns: 130px minmax(220px, 1.2fr) minmax(190px, 0.8fr) minmax(220px, 0.95fr);
+    gap: 16px;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+    padding: 0 46px 0 30px;
+    overflow: hidden;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+        opacity 180ms ease,
+        transform 260ms ease;
+}
+
+#lotusCorner.lotusCollapsed {
+    height: 44px;
+    min-height: 44px;
+}
+
+#lotusCorner.lotusCollapsed #lotusExpandedContent {
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+#toggleLotusSection {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 28px;
+    color: #ef9ae4;
+    cursor: pointer;
+    background: #150c16;
+    border: 1px solid #bd5fb0;
+    border-radius: 4px;
+}
+
+#toggleLotusSection:hover {
+    color: white;
+    background-color: #713068;
+}
+
+#toggleLotusSection > span {
+    display: block;
+    font-size: 0.75em;
+    line-height: 1;
+    transition: transform 260ms ease;
+}
+
+#toggleLotusSection > span::before {
+    content: "▲";
+}
+
+#lotusCorner.lotusCollapsed #toggleLotusSection > span {
+    transform: rotate(180deg);
+}
+
+#lotusCollapsedSummary {
+    position: absolute;
+    inset: 0 45px 0 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    min-width: 0;
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(7px);
+    transition:
+        visibility 0s linear 180ms,
+        opacity 160ms ease,
+        transform 220ms ease;
+}
+
+#lotusCorner.lotusCollapsed #lotusCollapsedSummary {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 90ms;
+}
+
+#lotusCollapsedSummary > img {
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.lotusCollapsedTitle {
+    min-width: 0;
+    overflow: hidden;
+    font-size: 1.05em;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.lotusCollapsedValues {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 18px;
+    align-items: center;
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.lotusCollapsedActions {
+    display: flex;
+    flex: 0 1 auto;
+    gap: 6px;
+    align-items: center;
+    min-width: 0;
+    pointer-events: auto;
+}
+
+#use-lotus-collapsed,
+#lotusConsumablesButtonCollapsed {
+    box-sizing: border-box;
+    width: auto;
+    min-width: 0;
+    height: 30px;
+    min-height: 30px;
+    padding: 2px 8px;
+    margin: 0;
+    overflow: hidden;
+    font-size: 0.78em;
+    font-weight: 700;
+    line-height: 1;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-radius: 4px;
+}
+
+#use-lotus-collapsed {
+    flex: 0 0 auto;
+    color: #ef9ae4;
+    background: #150c16;
+    border: 1px solid #dd72cd;
+}
+
+#lotusConsumablesButtonCollapsed {
+    display: flex;
+    flex: 0 1 auto;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    border-width: 2px;
+}
+
+#lotusConsumablesButtonCollapsed > img {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    filter: brightness(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #lotusCorner,
+    #lotusExpandedContent,
+    #lotusCollapsedSummary,
+    #toggleLotusSection > span {
+        transition: none;
+    }
 }
 
 #lotusCorner p {
@@ -4073,7 +4243,6 @@ p#reincarnatehotkeys {
     place-items: center;
     width: 108px;
     height: 108px;
-    border-radius: 50%;
 }
 
 #lotusVisual::before,
@@ -4302,15 +4471,9 @@ p#reincarnatehotkeys {
         height: 390px;
     }
 
-    #lotusCorner {
+    #lotusExpandedContent {
         grid-template-columns: 160px minmax(240px, 1fr) minmax(220px, 1fr);
-        height: auto;
         min-height: 180px;
-    }
-
-    #lotusVisual {
-        width: 108px;
-        height: 108px;
     }
 
     #lotusButtons {
@@ -4358,15 +4521,6 @@ p#reincarnatehotkeys {
         grid-template-columns: minmax(0, 1fr);
     }
 
-    .sacrificeAntsContainer {
-        height: auto;
-        min-height: 0;
-    }
-
-    #eloCorner {
-        min-height: 0;
-    }
-
     #altar {
         min-height: 430px;
     }
@@ -4377,10 +4531,11 @@ p#reincarnatehotkeys {
     }
 
     #antSacrificeRewards {
+        height: auto;
         min-height: 390px;
     }
 
-    #lotusCorner {
+    #lotusExpandedContent {
         grid-template-columns: minmax(0, 1fr);
         justify-items: center;
         padding: 24px;
@@ -4408,18 +4563,37 @@ p#reincarnatehotkeys {
     }
 }
 
+@media (width <= 600px) {
+    .lotusCollapsedValues {
+        display: none;
+    }
+
+    .lotusCollapsedActions {
+        margin-left: auto;
+    }
+}
+
 @media (width <= 480px) {
+    #lotusCollapsedSummary > img,
+    .lotusCollapsedTitle {
+        display: none;
+    }
+
+    .lotusCollapsedActions {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #lotusConsumablesButtonCollapsed {
+        flex: 1 1 auto;
+    }
+
     #antAltarWelcomeTexts {
         padding: 12px 18px;
     }
 
     .antAltarHeaderDecoration {
         display: none;
-    }
-
-    .antSacrificePanelTitle::before,
-    .antSacrificePanelTitle::after {
-        margin: 0 7px;
     }
 
     #antSacrificeObtainiumOfferings,
@@ -10236,10 +10410,6 @@ html[data-mobile="true"] .hideOnMobile {
     #shopDetail {
         width: unset;
         scroll-margin-top: calc(var(--mobile-subtab-height) + 0.5rem);
-    }
-
-    .sacrificeAntsContainer {
-        width: unset;
     }
 
     #antSacrificeShardsRow1,
