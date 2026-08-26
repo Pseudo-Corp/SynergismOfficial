@@ -4680,10 +4680,6 @@ p#reincarnatehotkeys {
     border: 2px solid #4a8a4a !important;
 }
 
-.antBtn {
-    height: 100%;
-}
-
 .antTierBtnAvailable > img {
     cursor: pointer;
     background-color: burlywood;
@@ -10045,11 +10041,6 @@ html[data-mobile="true"] .hideOnMobile {
         margin-left: 5px;
         margin-right: 5px;
         font-size: 0.85em;
-    }
-
-    .buttonRow > div > .image {
-        height: 24px;
-        width: 24px;
     }
 
     .buildingPurchaseBtn {
