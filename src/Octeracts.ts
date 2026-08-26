@@ -631,7 +631,7 @@ export const octeractUpgrades: {
   octeractAmbrosiaLuck: {
     level: 0,
     costFormula: (n) => {
-      return 1e60 * (Math.pow(10, n) - 1)
+      return 1e60 * (Math.pow(10, n) - 1) / 9
     },
     maxLevel: 100,
     effect: (n: number) => {
@@ -673,7 +673,7 @@ export const octeractUpgrades: {
   octeractAmbrosiaLuck4: {
     level: 0,
     costFormula: (n) => {
-      return 1e70 * (Math.pow(3, n) - 1)
+      return 1e70 * (Math.pow(3, n) - 1) / 2
     },
     maxLevel: 50,
     effect: (n: number) => {

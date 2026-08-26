@@ -7402,6 +7402,7 @@
     "nextAdd": "Regenerate 1 Add Code usage in {{time}}s",
     "miscStats": {
       "title": "Misc. Statistics",
+      "FirstPlayed": "First Played:",
       "PrestigeCount": "Prestige Count:",
       "FastestPrestige": "Fastest Prestige:",
       "MaxOfferings": "Maximum Offerings:",

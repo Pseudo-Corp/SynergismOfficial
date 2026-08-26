@@ -157,8 +157,10 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
     addTimers('redAmbrosia', ambrosiasTimeToGrant)
     addTimers('ambrosia', ambrosiasTimeToGrant)
 
-    const quarksToAdd = purpleHoneyGained * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
-    player.worlds.add(quarksToAdd, true, true)
+    if (player.singularityCounter >= 3600) {
+      const quarksToAdd = purpleHoneyGained * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+      player.worlds.add(quarksToAdd, true, true)
+    }
   }
 }
 

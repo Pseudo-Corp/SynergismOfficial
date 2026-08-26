@@ -772,8 +772,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     reincarnation: player.reincarnationCount
   }
 
-  console.log(timeAdd * calculateAmbrosiaGenerationSpeed(), ' ABP')
-
   const timerAdd = {
     prestige: timeAdd * G.timeMultiplier,
     transcension: timeAdd * G.timeMultiplier,
@@ -825,7 +823,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     G.timeMultiplier = calculateGlobalSpeedMult()
     calculateObtainium()
 
-    console.log(timeTick)
     // Reset Stuff lmao!
     addTimers('prestige', timeTick)
     addTimers('transcension', timeTick)
