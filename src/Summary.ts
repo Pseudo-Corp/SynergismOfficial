@@ -335,7 +335,6 @@ export const generateExportSummary = async (): Promise<void> => {
     singularityUpgradeStats =
       '===== SINGULARITY UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
     let totalSingUpgradeCount = -1 // One upgrade cannot ever be leveled, by design, so subtract that from the actual count
-    let totalSingInfiniteLevel = 0
     let totalSingUpgradeUnlocked = 0
     let totalSingUpgradeMax = 0
 
@@ -344,9 +343,6 @@ export const generateExportSummary = async (): Promise<void> => {
       const singUpg = goldenQuarkUpgrades[key]
 
       totalSingUpgradeCount += 1
-      if (singUpg.maxLevel === -1) {
-        totalSingInfiniteLevel += 1
-      }
       if (goldenQuarkUpgrades[key].level === singUpg.maxLevel) {
         totalSingUpgradeMax += 1
       }
@@ -356,9 +352,7 @@ export const generateExportSummary = async (): Promise<void> => {
 
       let unicodeSymbol = '[✖]'
       if (player.singularityCount >= singUpg.minimumSingularity) {
-        if (singUpg.maxLevel === -1) {
-          unicodeSymbol = '[∞]'
-        } else if (goldenQuarkUpgrades[key].level === singUpg.maxLevel) {
+        if (goldenQuarkUpgrades[key].level === singUpg.maxLevel) {
           unicodeSymbol = '[★]'
         } else {
           unicodeSymbol = '[✔]'
@@ -382,9 +376,8 @@ export const generateExportSummary = async (): Promise<void> => {
     singularityUpgradeStats = singularityUpgradeStats + subCategoryDivisor
     singularityUpgradeStats =
       `${singularityUpgradeStats}Upgrades Unlocked: ${totalSingUpgradeUnlocked}/${totalSingUpgradeCount}\n`
-    singularityUpgradeStats = `${singularityUpgradeStats}Upgrades MAXED: ${totalSingUpgradeMax}/${
-      totalSingUpgradeCount - totalSingInfiniteLevel
-    }\n`
+    singularityUpgradeStats =
+      `${singularityUpgradeStats}Upgrades MAXED: ${totalSingUpgradeMax}/${totalSingUpgradeCount}\n`
     singularityUpgradeStats = singularityUpgradeStats + subCategoryDivisor
   }
 
@@ -400,25 +393,19 @@ export const generateExportSummary = async (): Promise<void> => {
       let upgradeText = ''
       const octUpg = octeractUpgrades[key]
 
-      if (octUpg.maxLevel !== -1) {
-        totalOctUpgradeCount += 1
-      }
+      totalOctUpgradeCount += 1
       if (octeractUpgrades[key].level === octUpg.maxLevel) {
         totalOctUpgradeMax += 1
       }
 
       let unicodeSymbol = '[ ]'
-      if (octUpg.maxLevel === -1) {
-        unicodeSymbol = '[∞]'
-      } else if (octeractUpgrades[key].level === octUpg.maxLevel) {
+      if (octeractUpgrades[key].level === octUpg.maxLevel) {
         unicodeSymbol = '[★]'
       }
 
       upgradeText = upgradeText + unicodeSymbol
       upgradeText = `${upgradeText} ${octUpg.name()}:`
-      upgradeText = upgradeText + (octUpg.maxLevel === -1
-        ? ` Level ${octeractUpgrades[key].level}`
-        : ` Level ${octeractUpgrades[key].level}/${octUpg.maxLevel}`)
+      upgradeText = upgradeText + ` Level ${octeractUpgrades[key].level}/${octUpg.maxLevel}`
       upgradeText = upgradeText + (player.octUpgrades[key].freeLevel > 0
         ? ` [+${format(computeOcteractFreeLevelSoftcap(key), 2, true)}]`
         : '')

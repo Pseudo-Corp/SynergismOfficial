@@ -2,8 +2,9 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   buyPurpleReactorUpgradeLevel,
-  maximumAffordableLevel,
+  getPurpleReactorUpgradePurchase,
   type PurpleReactorNames,
+  type PurpleReactorPurchaseAmount,
   purpleReactorUpgrades,
   purpleReactorUpgradeToString
 } from './Purple'
@@ -25,6 +26,14 @@ interface PurpleUpgradeSectionData {
   readonly families: readonly PurpleUpgradeFamilyData[]
 }
 
+const purpleUpgradePurchaseButtons = [
+  { id: 'purpleUpgradeDetailBuyOne', amount: 1 },
+  { id: 'purpleUpgradeDetailBuyTen', amount: 10 },
+  { id: 'purpleUpgradeDetailBuyHundred', amount: 100 },
+  { id: 'purpleUpgradeDetailBuyThousand', amount: 1000 },
+  { id: 'purpleUpgradeDetailBuyMax', amount: 'max' }
+] as const satisfies readonly { id: string; amount: PurpleReactorPurchaseAmount }[]
+
 const purpleUpgradeSections = [
   {
     id: 'intro',
@@ -32,10 +41,6 @@ const purpleUpgradeSections = [
       {
         id: 'tutorial',
         tiers: [{ key: 'tutorial', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleTutorial.png' }]
-      },
-      {
-        id: 'paperweight',
-        tiers: [{ key: 'paperweight', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePaperweight.png' }]
       }
     ]
   },
@@ -61,15 +66,6 @@ const purpleUpgradeSections = [
             key: 'purpleCapacityExpander4',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleCapacityExpander4.png'
           }
-        ]
-      },
-      {
-        id: 'halfLife',
-        tiers: [
-          { key: 'purpleHalfLife1', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife1.png' },
-          { key: 'purpleHalfLife2', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife2.png' },
-          { key: 'purpleHalfLife3', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife3.png' },
-          { key: 'purpleHalfLife4', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife4.png' }
         ]
       },
       {
@@ -115,6 +111,15 @@ const purpleUpgradeSections = [
         ]
       },
       {
+        id: 'halfLife',
+        tiers: [
+          { key: 'purpleHalfLife1', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife1.png' },
+          { key: 'purpleHalfLife2', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife2.png' },
+          { key: 'purpleHalfLife3', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife3.png' },
+          { key: 'purpleHalfLife4', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife4.png' }
+        ]
+      },
+      {
         id: 'requirementReduction',
         tiers: [
           {
@@ -141,57 +146,29 @@ const purpleUpgradeSections = [
     id: 'honeyPower',
     families: [
       {
-        id: 'highestHoneyQuarks',
-        tiers: [{ key: 'highestHoneyQuarks', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyQuarks.png' }]
-      },
-      {
-        id: 'highestHoneyGlobalSpeed',
+        id: 'highestHoneyBonuses',
         tiers: [
+          { key: 'highestHoneyQuarks', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyQuarks.png' },
           {
             key: 'highestHoneyGlobalSpeed',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyGlobalSpeed.png'
-          }
-        ]
-      },
-      {
-        id: 'highestHoneyAscensionSpeed',
-        tiers: [
+          },
           {
             key: 'highestHoneyAscensionSpeed',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyAscensionSpeed.png'
-          }
-        ]
-      },
-      {
-        id: 'highestHoneyAmbrosia',
-        tiers: [
+          },
           {
             key: 'highestHoneyAmbrosia',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyAmbrosia.png'
-          }
-        ]
-      },
-      {
-        id: 'highestHoneyRedAmbrosia',
-        tiers: [
+          },
           {
             key: 'highestHoneyRedAmbrosia',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyRedAmbrosia.png'
-          }
-        ]
-      },
-      {
-        id: 'highestHoneyAntELO',
-        tiers: [
+          },
           {
             key: 'highestHoneyAntELO',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyAntElo.png'
-          }
-        ]
-      },
-      {
-        id: 'highestHoneyRebornELOSpeed',
-        tiers: [
+          },
           {
             key: 'highestHoneyRebornELOSpeed',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyRebornELOSpeed.png'
@@ -210,6 +187,19 @@ const purpleUpgradeSections = [
       {
         id: 'obtainium',
         tiers: [{ key: 'obtainium', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleObtainium.png' }]
+      },
+      {
+        id: 'purpleQuarkGain',
+        tiers: [{ key: 'purpleQuarkGain', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleQuarkGain.png' }]
+      }
+    ]
+  },
+  {
+    id: 'miscellaneous',
+    families: [
+      {
+        id: 'paperweight',
+        tiers: [{ key: 'paperweight', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePaperweight.png' }]
       }
     ]
   }
@@ -364,8 +354,8 @@ const createTierChip = (family: PurpleUpgradeFamilyData, tier: PurpleUpgradeTier
   return chip
 }
 
-const buySelectedUpgrade = async (buyMax: boolean) => {
-  await buyPurpleReactorUpgradeLevel(selectedTier, buyMax)
+const buySelectedUpgrade = async (purchaseAmount: PurpleReactorPurchaseAmount) => {
+  await buyPurpleReactorUpgradeLevel(selectedTier, purchaseAmount)
 }
 
 export const generatePurpleUpgradeTabHTML = () => {
@@ -388,12 +378,11 @@ export const generatePurpleUpgradeTabHTML = () => {
     }
   }
 
-  DOMCacheGetOrSet('purpleUpgradeDetailBuyOne').addEventListener('click', () => {
-    void buySelectedUpgrade(false)
-  })
-  DOMCacheGetOrSet('purpleUpgradeDetailBuyMax').addEventListener('click', () => {
-    void buySelectedUpgrade(true)
-  })
+  for (const { id, amount } of purpleUpgradePurchaseButtons) {
+    DOMCacheGetOrSet(id).addEventListener('click', () => {
+      void buySelectedUpgrade(amount)
+    })
+  }
   DOMCacheGetOrSet('purpleUpgradeToggle').addEventListener('click', () => {
     setUpgradeShopOpen(!upgradeShopOpen)
   })
@@ -445,23 +434,23 @@ const updateDetail = () => {
   )
 
   const upgrade = purpleReactorUpgrades[selectedTier]
-  const maxed = tierMaxed(selectedTier)
-  const cost = nextLevelCost(selectedTier)
-  const maxLevel = maximumAffordableLevel(selectedTier, player.purpleReactor.purpleHoney)
-  const buyMaxAmount = maxLevel - upgrade.level
-  const buyMaxCost = upgrade.costFormula(maxLevel) - upgrade.costFormula(upgrade.level)
-  const buyOneButton = DOMCacheGetOrSet('purpleUpgradeDetailBuyOne') as HTMLButtonElement
-  const buyMaxButton = DOMCacheGetOrSet('purpleUpgradeDetailBuyMax') as HTMLButtonElement
+  const remainingLevels = upgrade.maxLevel - upgrade.level
+  const maxed = remainingLevels === 0
 
-  buyOneButton.hidden = maxed
-  buyMaxButton.hidden = maxed || upgrade.maxLevel === 1
-  buyOneButton.disabled = player.purpleReactor.purpleHoney < cost
-  buyMaxButton.disabled = buyMaxAmount === 0
-  buyOneButton.textContent = i18next.t('purpleReactor.upgradeShop.buyOne', { cost: format(cost, 0, true) })
-  buyMaxButton.textContent = i18next.t('purpleReactor.upgradeShop.buyMax', {
-    amount: format(buyMaxAmount, 0, true),
-    cost: format(buyMaxCost, 0, true)
-  })
+  for (const { id, amount } of purpleUpgradePurchaseButtons) {
+    const purchase = getPurpleReactorUpgradePurchase(selectedTier, amount)
+    const button = DOMCacheGetOrSet(id) as HTMLButtonElement
+    const redundantAtMax = amount !== 'max' && amount !== 1 && amount === remainingLevels
+    button.hidden = maxed || redundantAtMax || (amount === 'max' ? remainingLevels === 1 : amount > remainingLevels)
+    button.disabled = purchase.amount === 0 || player.purpleReactor.purpleHoney < purchase.cost
+    const amountText = amount === 'max'
+      ? i18next.t('purpleReactor.upgradeShop.purchaseMax')
+      : i18next.t('purpleReactor.upgradeShop.purchaseAmount', { amount: format(amount, 0, true) })
+    const costText = i18next.t('purpleReactor.upgradeShop.purchaseCost', {
+      cost: format(purchase.cost, 2, true)
+    })
+    button.textContent = `${amountText}\n${costText}`
+  }
 }
 
 export const updatePurpleUpgradeTab = () => {

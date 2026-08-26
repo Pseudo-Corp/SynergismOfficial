@@ -585,10 +585,7 @@ export const redAmbrosiaUpgrades: {
 
 export const redAmbrosiaUpgradeNames = Object.keys(redAmbrosiaUpgrades) as RedAmbrosiaNames[]
 
-export const maxRedAmbrosiaUpgradeAP = Object.values(redAmbrosiaUpgrades).reduce((acc, upgrade) => {
-  if (upgrade.maxLevel === -1) {
-    return acc
-  }
+export const maxRedAmbrosiaUpgradeAP = Object.values(redAmbrosiaUpgrades).reduce((acc) => {
   return acc + 10
 }, 0)
 
@@ -669,7 +666,7 @@ const getRedAmbrosiaUpgradeCostTNL = (upgradeKey: RedAmbrosiaNames): number => {
 export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string => {
   const upgrade = redAmbrosiaUpgrades[upgradeKey]
   const costNextLevel = getRedAmbrosiaUpgradeCostTNL(upgradeKey)
-  const maxLevel = upgrade.maxLevel === -1 ? '' : `/${format(upgrade.maxLevel, 0, true)}`
+  const maxLevel = `/${format(upgrade.maxLevel, 0, true)}`
   const isMaxLevel = upgrade.maxLevel === upgrade.level
   const color = isMaxLevel ? 'plum' : 'white'
 

@@ -102,6 +102,9 @@ type PurpleReactorUpgradeRewards = {
   highestHoneyRebornELOSpeed: {
     rebornELOSpeedMult: number
   }
+  purpleQuarkGain: {
+    quarksPerPurpleHoney: number
+  }
 }
 
 export type PurpleReactorNames = keyof PurpleReactorUpgradeRewards
@@ -135,7 +138,7 @@ type PurpleReactorUpgradeData = {
 export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   tutorial: {
     maxLevel: 20,
-    costFormula: (level: number) => level,
+    costFormula: (level: number) => level * (level + 1) / 2,
     effects: (n) => {
       return 1 + 0.01 * n // Same for ambrosia and red ambrosia generation
     },
@@ -160,7 +163,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleEfficiency1: {
     maxLevel: 20,
-    costFormula: (level: number) => 5 * level,
+    costFormula: (level: number) => 3 * level,
     effects: (n) => {
       return 0.01 * n
     },
@@ -185,7 +188,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleEfficiency2: {
     maxLevel: 20,
-    costFormula: (level: number) => 500 * level,
+    costFormula: (level: number) => 60 * level,
     effects: (n) => {
       return 0.01 * n
     },
@@ -210,7 +213,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleEfficiency3: {
     maxLevel: 30,
-    costFormula: (level: number) => 50_000 * level,
+    costFormula: (level: number) => 1_200 * level,
     effects: (n) => {
       return 0.01 * n
     },
@@ -235,7 +238,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleEfficiency4: {
     maxLevel: 30,
-    costFormula: (level: number) => 5_000_000 * level,
+    costFormula: (level: number) => 24_000 * level,
     effects: (n) => {
       return 0.01 * n
     },
@@ -285,7 +288,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleHoneyLuck2: {
     maxLevel: 15,
-    costFormula: (level: number) => 777 * level,
+    costFormula: (level: number) => 140 * level,
     effects: (n) => {
       return n
     },
@@ -310,7 +313,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleHoneyLuck3: {
     maxLevel: 20,
-    costFormula: (level: number) => 77_777 * level,
+    costFormula: (level: number) => 2_800 * level,
     effects: (n) => {
       return n
     },
@@ -335,7 +338,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleHoneyLuck4: {
     maxLevel: 25,
-    costFormula: (level: number) => 7_777_777 * level,
+    costFormula: (level: number) => 56_000 * level,
     effects: (n) => {
       return n
     },
@@ -385,7 +388,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleHalfLife2: {
     maxLevel: 50,
-    costFormula: (level: number) => 1_200 * level,
+    costFormula: (level: number) => 240 * level,
     effects: (n) => {
       return -36 * n
     },
@@ -410,7 +413,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleHalfLife3: {
     maxLevel: 50,
-    costFormula: (level: number) => 120_000 * level,
+    costFormula: (level: number) => 48_000 * level,
     effects: (n) => {
       return -36 * n
     },
@@ -435,7 +438,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleHalfLife4: {
     maxLevel: 50,
-    costFormula: (level: number) => 12_000_000 * level,
+    costFormula: (level: number) => 96_000 * level,
     effects: (n) => {
       return -36 * n
     },
@@ -477,7 +480,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleCapacityExpander1: {
     maxLevel: 10_000,
-    costFormula: (level: number) => Math.ceil(Math.pow(level, 1.1)),
+    costFormula: (level: number) => Math.pow(level, 1.1),
     effects: (n, key) => {
       if (key === 'ambrosiaCapacity') {
         return 125_000 * n
@@ -521,7 +524,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleCapacityExpander2: {
     maxLevel: 10_000,
-    costFormula: (level: number) => 10 * Math.ceil(Math.pow(level, 1.2)),
+    costFormula: (level: number) => 10 * Math.pow(level, 1.2),
     effects: (n, key) => {
       if (key === 'ambrosiaCapacity') {
         return 150_000 * n
@@ -565,7 +568,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleCapacityExpander3: {
     maxLevel: 10_000,
-    costFormula: (level: number) => 100 * Math.ceil(Math.pow(level, 1.25)),
+    costFormula: (level: number) => 100 * Math.pow(level, 1.25),
     effects: (n, key) => {
       if (key === 'ambrosiaCapacity') {
         return 150_000 * n
@@ -609,7 +612,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleCapacityExpander4: {
     maxLevel: 10_000,
-    costFormula: (level: number) => 1000 * Math.ceil(Math.pow(level, 1.3)),
+    costFormula: (level: number) => 1000 * Math.pow(level, 1.3),
     effects: (n, key) => {
       if (key === 'ambrosiaCapacity') {
         return 175_000 * n
@@ -681,7 +684,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleHoneyRequirementReduction2: {
     maxLevel: 50,
-    costFormula: (level: number) => 2_000 * level,
+    costFormula: (level: number) => 400 * level,
     effects: (n) => {
       return 1 - 0.006 * n
     },
@@ -709,7 +712,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleHoneyRequirementReduction3: {
     maxLevel: 50,
-    costFormula: (level: number) => 200_000 * level,
+    costFormula: (level: number) => 8_000 * level,
     effects: (n) => {
       return 1 - 0.006 * n
     },
@@ -737,7 +740,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleHoneyRequirementReduction4: {
     maxLevel: 50,
-    costFormula: (level: number) => 20_000_000 * level,
+    costFormula: (level: number) => 160_000 * level,
     effects: (n) => {
       return 1 - 0.006 * n
     },
@@ -764,10 +767,10 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     }
   },
   obtainium: {
-    maxLevel: 100_000_000,
-    costFormula: (level: number) => Math.floor(Math.pow(level, 1.2)),
+    maxLevel: 100_000,
+    costFormula: (level: number) => 10 * Math.pow(level, 1.2),
     effects: (n) => {
-      return 1 + Math.pow(Math.log(1 + n / 100), 1.25)
+      return 1 + Math.log(1 + n / 100) * Math.pow(1.002, Math.floor(n / 100))
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('obtainium', 'obtainiumMultiplier')
@@ -789,10 +792,10 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     }
   },
   offerings: {
-    maxLevel: 100_000_000,
-    costFormula: (level: number) => Math.floor(Math.pow(level, 1.2)),
+    maxLevel: 100_000,
+    costFormula: (level: number) => 10 * Math.pow(level, 1.2),
     effects: (n) => {
-      return 1 + Math.pow(Math.log(1 + n / 100), 1.25)
+      return 1 + Math.log(1 + n / 100) * Math.pow(1.002, Math.floor(n / 100))
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('offerings', 'offeringMultiplier')
@@ -1039,6 +1042,37 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       perLevelAP: 0,
       maxLevelAP: 25
     }
+  },
+  purpleQuarkGain: {
+    maxLevel: 5,
+    costFormula: (level: number) => 2_000 * (Math.pow(4, level) - 1) / 3,
+    effects: (n) => {
+      return n / 5
+    },
+    notMaxedEffectsDescription: () => {
+      const oldEffect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+
+      const disclaimer = i18next.t('purpleReactor.upgrades.purpleQuarkGain.disclaimer')
+      const effectText = i18next.t('purpleReactor.upgrades.purpleQuarkGain.effectNotMaxed', {
+        oldValue: format(oldEffect, 1),
+        newValue: format(newEffect, 1)
+      })
+      return `${effectText}<br>${disclaimer}`
+    },
+    maxedEffectsDescription: () => {
+      const effect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+
+      const disclaimer = i18next.t('purpleReactor.upgrades.purpleQuarkGain.disclaimer')
+      const effectText = i18next.t('purpleReactor.upgrades.purpleQuarkGain.effectMaxed', {
+        maxValue: format(effect, 1)
+      })
+      return `${effectText}<br>${disclaimer}`
+    },
+    apValue: {
+      perLevelAP: 2,
+      maxLevelAP: 10
+    }
   }
 }
 
@@ -1129,14 +1163,6 @@ const getPurpleReactorUpgradeMaxedDescription = (upgradeKey: PurpleReactorNames)
   return purpleReactorUpgradeData[upgradeKey].maxedEffectsDescription()
 }
 
-const getPurpleReactorUpgradeCostTNL = (upgradeKey: PurpleReactorNames): number => {
-  const upgrade = purpleReactorUpgrades[upgradeKey]
-  if (upgrade.level === upgrade.maxLevel) {
-    return 0
-  }
-  return upgrade.costFormula(upgrade.level + 1) - upgrade.costFormula(upgrade.level)
-}
-
 export const maximumAffordableLevel = (upgradeKey: PurpleReactorNames, unspentPurple: number): number => {
   const upgrade = purpleReactorUpgrades[upgradeKey]
 
@@ -1164,8 +1190,7 @@ export const maximumAffordableLevel = (upgradeKey: PurpleReactorNames, unspentPu
 
 export const purpleReactorUpgradeToString = (upgradeKey: PurpleReactorNames): string => {
   const upgrade = purpleReactorUpgrades[upgradeKey]
-  const costNextLevel = getPurpleReactorUpgradeCostTNL(upgradeKey)
-  const maxLevel = upgrade.maxLevel === -1 ? '' : `/${format(upgrade.maxLevel, 0, true)}`
+  const maxLevel = `/${format(upgrade.maxLevel, 0, true)}`
   const isMaxLevel = upgrade.maxLevel === upgrade.level
   const color = isMaxLevel ? 'plum' : 'white'
 
@@ -1187,20 +1212,12 @@ export const purpleReactorUpgradeToString = (upgradeKey: PurpleReactorNames): st
     effectSpan = `<span style="color: white">${effect}</span>`
   }
 
-  const costNextLevelSpan = i18next.t(
-    upgrade.maxLevel === 1 ? 'purpleReactor.purpleHoneyOneTimeCost' : 'purpleReactor.purpleHoneyCost',
-    {
-      amount: format(costNextLevel, 0, true)
-    }
-  )
-
   const spentSpan = i18next.t('purpleReactor.purpleHoneySpent', {
-    amount: format(player.purpleReactorUpgrades[upgradeKey], 0, true)
+    current: format(player.purpleReactorUpgrades[upgradeKey], 2, true),
+    max: format(upgrade.costFormula(upgrade.maxLevel), 2, true)
   })
 
-  let baseString = `${nameSpan} <br> ${flavorSpan} <br> ${levelSpan} <br><br> ${effectSpan} <br> ${
-    (!isMaxLevel) ? `${costNextLevelSpan} <br>` : ''
-  } ${spentSpan} <br>`
+  let baseString = `${nameSpan} <br> ${flavorSpan} <br> ${levelSpan} <br><br> ${effectSpan} <br> ${spentSpan} <br>`
 
   if (upgrade.apValue.perLevelAP > 0) {
     const apPerLevelSpan = i18next.t('purpleReactor.upgradeAPPerLevel', {
@@ -1221,9 +1238,26 @@ export const purpleReactorUpgradeToString = (upgradeKey: PurpleReactorNames): st
   return baseString
 }
 
+export type PurpleReactorPurchaseAmount = 1 | 10 | 100 | 1000 | 'max'
+
+export const getPurpleReactorUpgradePurchase = (
+  upgradeKey: PurpleReactorNames,
+  purchaseAmount: PurpleReactorPurchaseAmount
+) => {
+  const upgrade = purpleReactorUpgrades[upgradeKey]
+  const targetLevel = purchaseAmount === 'max'
+    ? maximumAffordableLevel(upgradeKey, player.purpleReactor.purpleHoney)
+    : Math.min(upgrade.level + purchaseAmount, upgrade.maxLevel)
+
+  return {
+    amount: targetLevel - upgrade.level,
+    cost: upgrade.costFormula(targetLevel) - upgrade.costFormula(upgrade.level)
+  }
+}
+
 export const buyPurpleReactorUpgradeLevel = async (
   upgradeKey: PurpleReactorNames,
-  buyMax = false
+  purchaseAmount: PurpleReactorPurchaseAmount = 1
 ): Promise<void> => {
   const upgrade = purpleReactorUpgrades[upgradeKey]
 
@@ -1231,23 +1265,16 @@ export const buyPurpleReactorUpgradeLevel = async (
     return Alert(i18next.t('octeract.buyLevel.alreadyMax'))
   }
 
-  const highestBuyableLevel = maximumAffordableLevel(upgradeKey, player.purpleReactor.purpleHoney)
-  const maxPurchasable = highestBuyableLevel - upgrade.level
-  let toPurchase = 1
+  const purchase = getPurpleReactorUpgradePurchase(upgradeKey, purchaseAmount)
 
-  if (maxPurchasable <= 0) {
+  if (purchase.amount <= 0 || player.purpleReactor.purpleHoney < purchase.cost) {
     return Alert(i18next.t('octeract.buyLevel.cannotAfford'))
   }
 
-  if (buyMax) {
-    toPurchase = maxPurchasable
-  }
-
-  const cost = upgrade.costFormula(upgrade.level + toPurchase) - upgrade.costFormula(upgrade.level)
-  player.purpleReactor.purpleHoney -= cost
-  player.spentPurpleHoney.upgrades += cost
-  upgrade.level += toPurchase
-  player.purpleReactorUpgrades[upgradeKey] += cost
+  player.purpleReactor.purpleHoney -= purchase.cost
+  player.spentPurpleHoney.upgrades += purchase.cost
+  upgrade.level += purchase.amount
+  player.purpleReactorUpgrades[upgradeKey] += purchase.cost
   visualUpdatePurple()
 }
 

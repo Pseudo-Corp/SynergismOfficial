@@ -17,7 +17,6 @@ import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { calculateAscensionScorePlatonicBlessing } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { getPurpleReactorUpgradeEffects } from './Purple'
 import { calculateRedAmbrosiaReactantCapacityFromAmbrosia, purpleReactantConversion } from './PurpleReactor'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
@@ -48,6 +47,7 @@ import {
   allOfferingStats,
   allPlatonicCubeStats,
   allPowderMultiplierStats,
+  allPurpleHoneyEfficiencyStats,
   allPurpleHoneyLuckStats,
   allPurpleHoneyProgressRequirementStats,
   allPurpleReactantCapacityStats,
@@ -445,11 +445,23 @@ export const calculatePurpleReactantRouting = (
   }
 
   const clampedStored = Math.min(capacity, storedBarPoints)
-  const requestedReserveRate = productionPerSecond * reservePercentage / 100
+  const clampedReservePercentage = Math.min(100, Math.max(0, reservePercentage))
+  const producedBarPoints = productionPerSecond * elapsedSeconds
+  const requestedReserveBarPoints = clampedReservePercentage === 100
+    ? producedBarPoints
+    : producedBarPoints * clampedReservePercentage / 100
   const dissolvedBarPoints = Math.min(clampedStored, dissolutionPerSecond * elapsedSeconds)
   const storedAfterDissolution = clampedStored - dissolvedBarPoints
-  const reservedBarPoints = Math.min(requestedReserveRate * elapsedSeconds, capacity - storedAfterDissolution)
-  const regularBarPoints = productionPerSecond * elapsedSeconds - reservedBarPoints
+  const reservedBarPoints = Math.min(requestedReserveBarPoints, capacity - storedAfterDissolution)
+  const unroundedRegularBarPoints = producedBarPoints - reservedBarPoints
+  const roundingTolerance = 16 * Number.EPSILON * Math.max(
+    1,
+    Math.abs(producedBarPoints),
+    Math.abs(reservedBarPoints)
+  )
+  const regularBarPoints = Math.abs(unroundedRegularBarPoints) <= roundingTolerance
+    ? 0
+    : unroundedRegularBarPoints
 
   return {
     storedBarPoints: storedAfterDissolution + reservedBarPoints,
@@ -459,14 +471,7 @@ export const calculatePurpleReactantRouting = (
   }
 }
 
-export const calculatePurpleHoneyPerExtraction = () => {
-  return 1
-    + PCoinUpgradeEffects.PURPLE_HONEY_BUFF
-    + getPurpleReactorUpgradeEffects('purpleEfficiency1', 'purpleEfficiency')
-    + getPurpleReactorUpgradeEffects('purpleEfficiency2', 'purpleEfficiency')
-    + getPurpleReactorUpgradeEffects('purpleEfficiency3', 'purpleEfficiency')
-    + getPurpleReactorUpgradeEffects('purpleEfficiency4', 'purpleEfficiency')
-}
+export const calculatePurpleHoneyPerExtraction = () => calculateTotalStat(allPurpleHoneyEfficiencyStats)
 
 export const calculatePurpleHoneyExtractionMultiplier = (luck: number) => {
   const guaranteedMultiplier = Math.floor(luck / 100)
@@ -764,6 +769,8 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     reincarnation: player.reincarnationCount
   }
 
+  console.log(timeAdd * calculateAmbrosiaGenerationSpeed(), ' ABP')
+
   const timerAdd = {
     prestige: timeAdd * G.timeMultiplier,
     transcension: timeAdd * G.timeMultiplier,
@@ -775,7 +782,8 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     ambrosia: player.lifetimeAmbrosia,
     redAmbrosia: player.lifetimeRedAmbrosia,
     ambrosiaPoints: timeAdd * calculateAmbrosiaGenerationSpeed(),
-    redAmbrosiaPoints: timeAdd * calculateRedAmbrosiaGenerationSpeed()
+    redAmbrosiaPoints: timeAdd * calculateRedAmbrosiaGenerationSpeed(),
+    purpleHoney: player.purpleReactor.lifetimePurpleHoney
   }
 
   addTimers('ascension', timeAdd)
@@ -783,9 +791,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   addTimers('goldenQuarks', timeAdd)
   addTimers('singularity', timeAdd)
   addTimers('octeracts', timeTick)
-  addTimers('purpleHoney', timeAdd)
-  addTimers('ambrosia', timeAdd)
-  addTimers('redAmbrosia', timeAdd)
 
   updatePrestigeCount(resetAdd.prestige)
   updateTranscensionCount(resetAdd.transcension)
@@ -793,8 +798,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
 
   timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
   timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
-  timerAdd.ambrosia = player.lifetimeAmbrosia - timerAdd.ambrosia
-  timerAdd.redAmbrosia = player.lifetimeRedAmbrosia - timerAdd.redAmbrosia
 
   resetAddDisplay.prestige = player.prestigeCount - resetAddDisplay.prestige
   resetAddDisplay.transcension = player.transcendCount - resetAddDisplay.transcension
@@ -819,12 +822,16 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     G.timeMultiplier = calculateGlobalSpeedMult()
     calculateObtainium()
 
+    console.log(timeTick)
     // Reset Stuff lmao!
     const timerSpeedMult = memoize(calculateGlobalSpeedMult)
     addTimers('prestige', timeTick, timerSpeedMult)
     addTimers('transcension', timeTick, timerSpeedMult)
     addTimers('reincarnation', timeTick, timerSpeedMult)
     addTimers('octeracts', timeTick)
+    addTimers('ambrosia', timeTick)
+    addTimers('redAmbrosia', timeTick)
+    addTimers('purpleHoney', timeTick)
 
     resourceGain(timeTick * G.timeMultiplier)
     generateAntsAndCrumbs(timeTick)
@@ -854,6 +861,9 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     resourceTicks -= 1
   }
 
+  timerAdd.ambrosia = player.lifetimeAmbrosia - timerAdd.ambrosia
+  timerAdd.redAmbrosia = player.lifetimeRedAmbrosia - timerAdd.redAmbrosia
+  timerAdd.purpleHoney = player.purpleReactor.lifetimePurpleHoney - timerAdd.purpleHoney
   G.timeWarp = false
 
   DOMCacheGetOrSet('offlinePrestigeCount').innerHTML = i18next.t(
@@ -940,6 +950,12 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     {
       value: format(timerAdd.redAmbrosia, 0, true),
       value2: format(timerAdd.redAmbrosiaPoints, 0, true)
+    }
+  )
+  DOMCacheGetOrSet('offlinePurpleHoneyCount').innerHTML = i18next.t(
+    'offlineProgress.purpleHoney',
+    {
+      value: format(timerAdd.purpleHoney, 2, true)
     }
   )
 
@@ -1654,6 +1670,39 @@ export const calculateDilatedFiveLeafBonus = () => {
   }
 
   return singThresholds.length / 100
+}
+
+const irishAnt3Thresholds = [285, 293]
+export const calculateIrish3PurpleLuck = () => {
+  if (player.highestSingularityCount < irishAnt3Thresholds[0]) {
+    return 0
+  }
+
+  let luckPerSing = 2
+  if (player.highestSingularityCount >= irishAnt3Thresholds[1]) {
+    luckPerSing++
+  }
+
+  return (player.highestSingularityCount - 280) * luckPerSing
+}
+
+const efficientBlueberryThresholds = [283, 289]
+export const calculateEfficientBlueberryPurpleEfficiency = () => {
+  if (player.highestSingularityCount < efficientBlueberryThresholds[0]) {
+    return 0
+  }
+
+  let efficiencyPerTwo = 0.02
+  if (player.highestSingularityCount >= efficientBlueberryThresholds[1]) {
+    efficiencyPerTwo += 0.01
+  }
+
+  const blueberries = calculateBlueberryInventory()
+  return Math.floor(blueberries / 2) * efficiencyPerTwo
+}
+
+export const calculateSingularityPurpleBarSizeMultiplier = () => {
+  return 1 - Math.max(0, Math.floor((player.highestSingularityCount - 280) / 2) / 100)
 }
 
 export const dailyResetCheck = () => {

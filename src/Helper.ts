@@ -26,6 +26,8 @@ import { sacrificeAnts } from './Features/Ants/AntSacrifice/sacrifice'
 import { canAutoSacrifice } from './Features/Ants/Automation/sacrifice'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
+import { getPurpleReactorUpgradeEffects } from './Purple'
+import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { Seed, seededRandom } from './RNG'
@@ -57,8 +59,6 @@ type TimerInput =
 const octeractGiveawayLevels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249]
 
 type PurpleReactant = 'ambrosia' | 'redAmbrosia'
-
-const AMBROSIA_TICK_THRESHOLD = 0.125
 
 /**
  * Routes one reactant's Bar Points into its Purple Honey container.
@@ -149,6 +149,9 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
     const ambrosiasTimeToGrant = purpleHoneyGained * getShopUpgradeEffects('shopPurpleBarRebate', 'rebateTime')
     addTimers('redAmbrosia', ambrosiasTimeToGrant)
     addTimers('ambrosia', ambrosiasTimeToGrant)
+
+    const quarksToAdd = purpleHoneyGained * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+    player.worlds.add(quarksToAdd, true, true)
   }
 }
 
@@ -307,13 +310,13 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
     }
     case 'purpleHoney': {
       G.purpleHoneyTimer += time * timeMultiplier
-      if (G.purpleHoneyTimer < AMBROSIA_TICK_THRESHOLD) {
+      if (G.purpleHoneyTimer < PURPLE_REACTOR_TICK_INTERVAL) {
         break
       }
 
-      const elapsed = Math.floor(G.purpleHoneyTimer / AMBROSIA_TICK_THRESHOLD)
-        * AMBROSIA_TICK_THRESHOLD
-      G.purpleHoneyTimer %= AMBROSIA_TICK_THRESHOLD
+      const elapsed = Math.floor(G.purpleHoneyTimer / PURPLE_REACTOR_TICK_INTERVAL)
+        * PURPLE_REACTOR_TICK_INTERVAL
+      G.purpleHoneyTimer %= PURPLE_REACTOR_TICK_INTERVAL
       convertPurpleReactants(elapsed)
       visualUpdatePurple()
       break
@@ -321,12 +324,13 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
     case 'ambrosia': {
       G.ambrosiaTimer += time * timeMultiplier
 
-      if (G.ambrosiaTimer < AMBROSIA_TICK_THRESHOLD) {
+      if (G.ambrosiaTimer < PURPLE_REACTOR_TICK_INTERVAL) {
         break
       }
 
-      const elapsed = Math.floor(G.ambrosiaTimer / AMBROSIA_TICK_THRESHOLD) * AMBROSIA_TICK_THRESHOLD
-      G.ambrosiaTimer %= AMBROSIA_TICK_THRESHOLD
+      const elapsed = Math.floor(G.ambrosiaTimer / PURPLE_REACTOR_TICK_INTERVAL)
+        * PURPLE_REACTOR_TICK_INTERVAL
+      G.ambrosiaTimer %= PURPLE_REACTOR_TICK_INTERVAL
       const isUnlocked = player.singularityChallenges.noSingularityUpgrades.completions > 0
       const baseBlueberryTime = isUnlocked ? calculateAmbrosiaGenerationSpeed() : 0
       const normalBarPoints = processPurpleReactant('ambrosia', elapsed, baseBlueberryTime)
@@ -357,12 +361,13 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
     }
     case 'redAmbrosia': {
       G.redAmbrosiaTimer += time * timeMultiplier
-      if (G.redAmbrosiaTimer < AMBROSIA_TICK_THRESHOLD) {
+      if (G.redAmbrosiaTimer < PURPLE_REACTOR_TICK_INTERVAL) {
         break
       }
 
-      const elapsed = Math.floor(G.redAmbrosiaTimer / AMBROSIA_TICK_THRESHOLD) * AMBROSIA_TICK_THRESHOLD
-      G.redAmbrosiaTimer %= AMBROSIA_TICK_THRESHOLD
+      const elapsed = Math.floor(G.redAmbrosiaTimer / PURPLE_REACTOR_TICK_INTERVAL)
+        * PURPLE_REACTOR_TICK_INTERVAL
+      G.redAmbrosiaTimer %= PURPLE_REACTOR_TICK_INTERVAL
       const isUnlocked = player.singularityChallenges.noAmbrosiaUpgrades.completions > 0
       const speed = isUnlocked ? calculateRedAmbrosiaGenerationSpeed() : 0
       const normalBarPoints = processPurpleReactant('redAmbrosia', elapsed, speed)

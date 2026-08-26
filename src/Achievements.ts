@@ -13,6 +13,7 @@ import { resetTiers } from './Reset'
 import { runeBlessings } from './RuneBlessings'
 import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
 import { runeSpirits } from './RuneSpirits'
+import { maxQuarkUpgradeAP, quarkUpgradeAP } from './Shop'
 import {
   getGQUpgradeEffect,
   goldenQuarkUpgradeNames,
@@ -315,6 +316,7 @@ interface ProgressiveAchievement {
 export type ProgressiveAchievements =
   | 'runeLevel'
   | 'freeRuneLevel'
+  | 'quarkUpgrades'
   | 'antMasteries'
   | 'rebornELO'
   | 'talismanRarities'
@@ -356,6 +358,19 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayOrder: 2,
     displayCondition: () => player.prestigeCount > 0
   },
+  quarkUpgrades: {
+    maxPointValue: maxQuarkUpgradeAP,
+    pointsAwarded: (_cached: number) => {
+      return quarkUpgradeAP()
+    },
+    updateValue: () => {
+      return 0
+    },
+    useCachedValue: false,
+    rewardedAP: 0,
+    displayOrder: 3,
+    displayCondition: () => player.reincarnationCount > 0 || player.highestSingularityCount > 0
+  },
   antMasteries: {
     maxPointValue: 360,
     pointsAwarded: (_cached: number) => {
@@ -377,7 +392,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 3,
+    displayOrder: 4,
     displayCondition: () => player.unlocks.anthill
   },
   rebornELO: {
@@ -395,7 +410,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 4,
+    displayOrder: 5,
     displayCondition: () => player.unlocks.anthill
   },
   singularityCount: {
@@ -410,7 +425,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 6,
+    displayOrder: 7,
     displayCondition: () => player.highestSingularityCount > 0
   },
   ambrosiaCount: {
@@ -425,7 +440,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: true,
     rewardedAP: 0,
-    displayOrder: 10,
+    displayOrder: 11,
     displayCondition: () => player.highestSingularityCount >= 25
   },
   redAmbrosiaCount: {
@@ -441,7 +456,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: true,
     rewardedAP: 0,
-    displayOrder: 11,
+    displayOrder: 12,
     displayCondition: () => player.highestSingularityCount >= 150
   },
   exalts: {
@@ -480,7 +495,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
         cap9: player.singularityChallenges.taxmanLastStand.maxAP
       }
     },
-    displayOrder: 9,
+    displayOrder: 10,
     displayCondition: () => player.highestSingularityCount >= 25
   },
   singularityUpgrades: {
@@ -490,8 +505,8 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
       // Go through all sing upgrades. if the max level is NOT -1, add 5 points if the upgrade level equals max level
       for (const key of goldenQuarkUpgradeNames) {
         const upgrade = goldenQuarkUpgrades[key]
-        if (upgrade.maxLevel !== -1 && goldenQuarkUpgrades[key].level >= upgrade.maxLevel) {
-          pointValue += 5
+        if (goldenQuarkUpgrades[key].level >= upgrade.maxLevel) {
+          pointValue += 6
         }
       }
       return pointValue
@@ -501,7 +516,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 7,
+    displayOrder: 8,
     displayCondition: () => player.highestSingularityCount > 0
   },
   octeractUpgrades: {
@@ -522,7 +537,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 8,
+    displayOrder: 9,
     displayCondition: () => getGQUpgradeEffect('octeractUnlock', 'unlocked')
   },
   redAmbrosiaUpgrades: {
@@ -541,7 +556,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 12,
+    displayOrder: 13,
     displayCondition: () => player.highestSingularityCount >= 150
   },
   talismanRarities: {
@@ -570,7 +585,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 13,
+    displayOrder: 14,
     displayCondition: () => true // TODO
   }
 }

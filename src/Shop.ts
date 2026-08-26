@@ -106,6 +106,7 @@ type QuarkShopUpgradeRewards = {
   shopRedLuck1: { redLuck: number; luckConversionRatio: number }
   shopRedLuck2: { redLuck: number; luckConversionRatio: number }
   shopRedLuck3: { redLuck: number; luckConversionRatio: number }
+  shopRedLuck4: { redLuck: number; luckConversionRatio: number }
   shopHorseShoe: { bonusHorseLevels: number; singularityPenaltyMult: number }
   shopPurpleBarRebate: { rebateTime: number }
   shopInfiniteShopUpgrades: { infiniteVouchers: number }
@@ -1700,6 +1701,33 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck],
     freeUpgradeMultiplier: 2
   },
+  shopRedLuck4: {
+    name: () => i18next.t('shop.names.shopRedLuck4'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopRedLuck4'),
+    effects: (n, key) => {
+      if (key === 'redLuck') {
+        return 0.2 * n
+      }
+
+      return -0.01 * Math.floor(n / 100) // luckConversionRatio
+    },
+    effectDescription () {
+      const redLuck = getShopUpgradeEffects('shopRedLuck4', 'redLuck')
+      const luckConversionRatio = getShopUpgradeEffects('shopRedLuck4', 'luckConversionRatio')
+      return i18next.t('shop.upgradeEffects.shopRedLuck4', {
+        amount: format(redLuck, 1, true),
+        amount2: format(-luckConversionRatio, 2, true)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 1e24,
+    priceIncrease: 1e23,
+    maxLevel: 1000,
+    type: shopUpgradeTypes.UPGRADE,
+    resetOnSingularity: resetNever,
+    upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck],
+    freeUpgradeMultiplier: 3
+  },
   shopCashGrabUltra: {
     name: () => i18next.t('shop.names.shopCashGrabUltra'),
     description: () => i18next.t('shop.upgradeDescriptions.shopCashGrabUltra'),
@@ -2065,6 +2093,21 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
 }
 
 export const shopUpgradeNames: ShopUpgradeNames[] = Object.keys(shopUpgrades) as ShopUpgradeNames[]
+
+export const quarkUpgradeAP = () => {
+  let points = 0
+  for (const upg of shopUpgradeNames) {
+    if (
+      player.shopUpgrades[upg] === shopUpgrades[upg].maxLevel
+      && shopUpgrades[upg].type === shopUpgradeTypes.UPGRADE
+    ) {
+      points += 4
+    }
+  }
+  return points
+}
+
+export const maxQuarkUpgradeAP = (shopUpgradeNames.length - 2) * 4
 
 const getBonusLevels = (upgradeKey: ShopUpgradeNames) => {
   if (player.shopUpgrades[upgradeKey] === 0) {

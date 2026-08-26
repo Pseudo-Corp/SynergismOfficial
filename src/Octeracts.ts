@@ -999,10 +999,7 @@ export const initializeOcteractUpgradeMap = memoize(() => {
 
 export const octeractUpgradeNames = Object.keys(octeractUpgrades) as OcteractUpgrades[]
 
-export const maxOcteractUpgradeAP = Object.values(octeractUpgrades).reduce((acc, upgrade) => {
-  if (upgrade.maxLevel === -1) {
-    return acc
-  }
+export const maxOcteractUpgradeAP = Object.values(octeractUpgrades).reduce((acc) => {
   return acc + 8
 }, 0)
 
@@ -1140,9 +1137,7 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
   const freeLevelsWithMult = player.octUpgrades[upgradeKey].freeLevel * freeLevelMult
   const totalEffectiveLevels = actualOcteractUpgradeTotalLevels(upgradeKey)
 
-  const maxLevel = upgrade.maxLevel === -1
-    ? ''
-    : `/${format(upgrade.maxLevel, 0, true)}`
+  const maxLevel = `/${format(upgrade.maxLevel, 0, true)}`
 
   const isMaxLevel = upgrade.maxLevel === octeractUpgrades[upgradeKey].level
   const color = isMaxLevel ? 'plum' : 'white'
