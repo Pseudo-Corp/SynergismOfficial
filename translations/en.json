@@ -7,6 +7,7 @@
   },
   "save": {
     "loadFailed": "Unable to load save.",
+    "storageLoadFailed": "The app could not read your saved game from device storage. Autosaving has been disabled to protect it. Close and reopen the app, then try again.",
     "saveToClipboard": "Are you sure you want to enable copy save to clipboard?",
     "playOffline": "Play Offline"
   },
@@ -5488,6 +5489,9 @@
       "costNextLevel": "Cost for next level: {{amount}} Octeracts.",
       "becomeAffordable": "(Affordable in {{n}})",
       "spentOcteracts": "Spent Octeracts: {{spent}}"
+    },
+    "map": {
+      "ariaLabel": "Octeract upgrade network"
     },
     "data": {
       "octeractStarter": {
