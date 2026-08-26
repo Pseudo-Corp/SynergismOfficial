@@ -171,6 +171,7 @@ enum StatLineTypes {
 interface StatLine<T> {
   i18n: string
   stat: () => T
+  format?: (stat: number | Decimal) => string
   color?: string
   acc?: number
   displayCriterion?: () => boolean
@@ -3933,6 +3934,15 @@ const allMiscStats: NumberStatLineCategory = {
   type: StatLineTypes.Misc,
   lines: [
     {
+      i18n: 'FirstPlayed',
+      stat: () => new Date(player.firstPlayed).getTime(),
+      format: (firstPlayed) =>
+        new Date(Number(firstPlayed)).toLocaleDateString(
+          i18next.language.replace('_', '-'),
+          { dateStyle: 'long' }
+        )
+    },
+    {
       i18n: 'PrestigeCount',
       stat: () => player.prestigeCount,
       color: 'cyan'
@@ -4291,7 +4301,7 @@ const loadStatistics = (
       }
       numberDisplayedLines++
       const accuracy = line.acc ?? 3
-      statNumber.textContent = format(num, accuracy, true)
+      statNumber.textContent = line.format?.(num) ?? format(num, accuracy, true)
     } else {
       statLine.style.display = 'none'
     }
