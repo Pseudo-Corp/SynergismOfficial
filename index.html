@@ -194,11 +194,11 @@
                     <img src="Pictures/Default/TinyWow4.png" class="corruptionImg" alt="4D Cube" title="Tesseract Information" loading="lazy">
                     <span id="ascTess" class="wowtesseractText">x</span> T<span id="unit2">/s</span>
                 </span>
-                <span id="ascHyperStats">
+                <span id="ascHyperStats" class="chal13">
                     <img src="Pictures/Default/TinyWow5.png" class="corruptionImg" title="Hypercube Information" loading="lazy">
                     <span id="ascHyper" class="wowhypercubeText">x</span> Hy<span id="unit3">/s</span>
                 </span>
-                <span id="ascPlatonicStats">
+                <span id="ascPlatonicStats" class="chal14">
                     <img src="Pictures/Default/TinyWow6.png" class="corruptionImg" title="Platonic Information" loading="lazy">
                     <span id="ascPlatonic" class="wowplatonicText">x</span> P<span id="unit4">/s</span>
                 </span>
@@ -337,9 +337,9 @@
                 <div class="buttonRow"></div>
 
                 <div id="buildingtext">
-                    <p class="prestigeunlock" id="taxinfo" style="color: orange;"></p>
-                    <p class="prestigeunlock" id="buildinghotkeys" i18n="footnotes.buildings"></p>
-                    <p class="prestigeunlock" id="buildinghotkeys2" i18n="footnotes.buildings2"></p>
+                    <p id="taxinfo" style="color: orange;"></p>
+                    <p class="hideOnMobile" id="buildinghotkeys" i18n="footnotes.buildings"></p>
+                    <p class="hideOnMobile" id="buildinghotkeys2" i18n="footnotes.buildings2"></p>
                 </div>
             </div>
             <div id="prestige" style="display: none;">
@@ -383,7 +383,7 @@
                     <button id="prestigeautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
                     <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1">
                     <p class="transcendunlock mainText" id="autoprestige"></p>
-                    <p id="prestigehotkeys" class="grayText" i18n="footnotes.crystals"></p>
+                    <p id="prestigehotkeys" class="grayText hideOnMobile" i18n="footnotes.crystals"></p>
                 </div>
             </div>
             <div id="transcension" style="display: none;">
@@ -412,7 +412,7 @@
                     <p class="transcendunlock" id="autotranscend"></p>
                 </div>
 
-                <p id="transcendhotkeys" class="grayText" i18n="footnotes.mythos"></p>
+                <p id="transcendhotkeys" class="grayText hideOnMobile" i18n="footnotes.mythos"></p>
             </div>
             <div id="reincarnation" style="display: none;">
                 <div id="buyamountparticle">
@@ -444,7 +444,7 @@
                         <p class="reincarnationunlock mainText" id="autoreincarnate"></p>
                     </div>
                 </div>
-                <p id="reincarnatehotkeys" class="grayText" i18n="footnotes.particle"></p>
+                <p id="reincarnatehotkeys" class="grayText hideOnMobile" i18n="footnotes.particle"></p>
             </div>
             <div id="ascension" style="display: none">
                 <div id="buyAmountTesseract">
@@ -513,7 +513,7 @@
                     <input class="tesseractautobuyamount" type="number" id="tesseractAmount" min="1" max="999999999" defaultValue="1">
                     <p class="tesseractautobuyamount mainText" id="autotessbuyeramount"></p>
                 </div>
-                <p id="ascendHotKeys" class="grayText" i18n="footnotes.particle"></p>
+                <p id="ascendHotKeys" class="grayText hideOnMobile" i18n="footnotes.particle"></p>
             </div>
         </div>
 
@@ -523,7 +523,7 @@
             <div id="upgradeTopBtns">
                 <button id="buyAllUpgrades" style="border: 2px solid gold;" i18n="upgrades.buyAll"></button>
                 <button id="togglePurchasedUpgrades" style="border: 2px solid green;" aria-pressed="false" i18n="upgrades.showPurchased"></button>
-                <button class="auto hideOnMobile" id="toggle9" toggleid="9" format="Hover-to-Buy [$]" style="border:2px solid green"></button>
+                <button class="auto hideOnMobile" id="toggle9" toggleid="9" format="Hover-to-Buy [$]"></button>
             </div>
 
             <div id="upgradesFlex">
@@ -548,7 +548,7 @@
                 <div class="NotificationToggle">
                     <p class="mainText" id="achievementprogress" style="font-size: 1.2em;"></p>
                     <img class="achNotification" id="achnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
-                    <button class="auto nonSquare" id="toggle34" toggleid="34" format="[$]" style="border: 2px solid green">[ON]</button>
+                    <button class="auto nonSquare" id="toggle34" toggleid="34" format="[$]">[ON]</button>
                     <button id="showAchievementProgress" i18n-aria-label="achievements.showProgressDetails">
                         <svg class="achievementSearchIcon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <circle cx="11" cy="11" r="6"></circle>
@@ -670,7 +670,7 @@
         </div>
 
         <div id="challenges" style="display: none;">
-            <div id="challengesTabsToggle" class="subTabWrapper">
+            <div id="challengesTabsToggle" class="subTabWrapper singChallenges">
                 <button id="toggleChallengesSubTab1" class="active-subtab" style="border: 2px solid green; color: white;"><span class="subTabButtonText fitText" i18n="tabs.challenges.normal"></span></button>
                 <button id="toggleChallengesSubTab2" class="singChallenges" style="border: 2px solid purple; color: gold"><span class="subTabButtonText fitText" i18n="tabs.challenges.exalt"></span></button>
             </div>
@@ -779,7 +779,7 @@
                 </div>
 
                 <div id="challengeWorthlessTexts">
-                    <p id="challengehotkeys" i18n="footnotes.challenges.hotkey"></p>
+                    <p id="challengehotkeys" class="hideOnMobile" i18n="footnotes.challenges.hotkey"></p>
                     <p id="challengewarning" i18n="footnotes.challenges.finishTranscension"></p>
                     <p class="reincarnationunlock" id="challengewarningreincarnation" i18n="footnotes.challenges.leaveReincarnation"></p>
                 </div>
@@ -836,7 +836,7 @@
                 <button id="toggleresearchbuy" style="color: white;border: 2px solid pink">Upgrade: 1 Level</button>
                 <button id="toggleautoresearch" style="color: white; border: 2px solid blue">Automatic: OFF</button>
                 <button id="toggleautoresearchmode" style="color: white; border: 2px solid red">Automatic mode: Manual</button>
-                <button class="auto" id="toggle38" toggleid="38" format="Hover-to-Buy [$]" style="border:2px solid green">Hover-To-Buy: Off</button>
+                <button class="auto" id="toggle38" toggleid="38" format="Hover-to-Buy [$]">Hover-To-Buy: Off</button>
                 <button class="toggleMaxedUpgrades" id="toggleMaxedResearches" aria-pressed="false" i18n="researches.maxedResearchesShow"></button>
             </div>
 
@@ -1934,8 +1934,8 @@
                         <img class="openImage" src="Pictures/Default/Hepteract.png" loading="lazy">
                         <div class="NotificationToggle">
                             <span id="hepteractQuantity" class="wowhepteractText"></span>
-                            <img class="heptNotification" id="heptnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
-                            <button class="auto nonSquare" id="toggle35" toggleid="35" format="[$]" style="border: 2px solid green">[ON]</button>
+                            <img class="heptNotification singularity" id="heptnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
+                            <button class="auto nonSquare" id="toggle35" toggleid="35" format="[$]">[ON]</button>
                         </div>
                     </div>
 
@@ -2175,26 +2175,32 @@
                     <p id="corruptionRewardsHeading" i18n="corruptions.rewards.heading"></p>
                     <div id="corruptionRewardGrid">
                         <div id="corruptionCubes" class="corruptionReward" role="img">
+                            <span class="wowcubeText" i18n="general.resources.cubes"></span>
                             <img src="Pictures/Default/WowCube.png" alt="" loading="lazy">
                             <span id="corruptionCubesValue" class="corruptionRewardValue wowcubeText"></span>
                         </div>
                         <button id="corruptionTesseracts" class="corruptionReward corruptionRewardSelector" type="button" aria-pressed="false">
+                            <span class="wowtesseractText" i18n="general.resources.tesseracts"></span>
                             <img src="Pictures/Default/WowTessaract.png" alt="" loading="lazy">
                             <span id="corruptionTesseractsValue" class="corruptionRewardValue wowtesseractText"></span>
                         </button>
                         <button id="corruptionHypercubes" class="corruptionReward corruptionRewardSelector chal13" type="button" aria-pressed="false">
+                            <span class="wowhypercubeText" i18n="general.resources.hypercubes"></span>
                             <img src="Pictures/Default/WowHypercube.png" alt="" loading="lazy">
                             <span id="corruptionHypercubesValue" class="corruptionRewardValue wowhypercubeText"></span>
                         </button>
                         <button id="corruptionPlatonicCubes" class="corruptionReward corruptionRewardSelector chal14" type="button" aria-pressed="false">
+                            <span class="wowplatonicText" i18n="general.resources.platonics"></span>
                             <img src="Pictures/Default/PlatonicCube.png" alt="" loading="lazy">
                             <span id="corruptionPlatonicCubesValue" class="corruptionRewardValue wowplatonicText"></span>
                         </button>
                         <button id="corruptionHepteracts" class="corruptionReward corruptionRewardSelector hepteracts" type="button" aria-pressed="false">
+                            <span class="wowhepteractText" i18n="general.resources.hepteracts"></span>
                             <img src="Pictures/Default/Hepteract.png" alt="" loading="lazy">
                             <span id="corruptionHepteractsValue" class="corruptionRewardValue wowhepteractText"></span>
                         </button>
                         <div id="corruptionAscensionCount" class="corruptionReward" role="img">
+                            <span i18n="general.resources.ascensionCount"></span>
                             <span class="corruptionAscensionIcon">
                                 <img src="Pictures/Default/Ascension.png" alt="" loading="lazy">
                             </span>
@@ -2258,27 +2264,27 @@
                         <div class="confirmationToggles">
                             <div class="confirmationToggle">
                                 <img class="prestigeunlock settingpic" src="Pictures/Default/PrestigeNoBorder.png" i18n="tabs.settings.confirmation.prestige" loading="lazy">
-                                <button class="auto square" id="toggle28" toggleid="28" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle28" toggleid="28" format="$">ON</button>
                             </div>
                             <div class="confirmationToggle">
                                 <img class="transcendunlock settingpic" src="Pictures/Default/TranscendNoBorder.png" i18n="tabs.settings.confirmation.transcend" loading="lazy">
-                                <button class="auto square" id="toggle29" toggleid="29" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle29" toggleid="29" format="$">ON</button>
                             </div>
                             <div class="confirmationToggle">
                                 <img class="reincarnationunlock settingpic" src="Pictures/Default/ReincarnateNoBorder.png" i18n="tabs.settings.confirmation.reincarnate" loading="lazy">
-                                <button class="auto square" id="toggle30" toggleid="30" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle30" toggleid="30" format="$">ON</button>
                             </div>
                             <div class="confirmationToggle">
                                 <img class="ascendunlock settingpic" src="Pictures/Default/AscensionNoBorder.png" i18n="tabs.settings.confirmation.ascension" loading="lazy">
-                                <button class="auto square" id="toggle31" toggleid="31" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle31" toggleid="31" format="$">ON</button>
                             </div>
                             <div class="confirmationToggle">
                                 <img class="sacrificeAnts settingpic" src="Pictures/Default/SacrificeNoBorder.png" i18n="tabs.settings.confirmation.sacrifice" loading="lazy">
-                                <button class="auto square" id="toggle32" toggleid="32" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle32" toggleid="32" format="$">ON</button>
                             </div>
                             <div class="confirmationToggle">
                                 <img class="singularity settingpic" id="settingpic6" src="Pictures/Default/SingularityNoBorder.png" i18n="tabs.settings.confirmation.singularity" loading="lazy">
-                                <button class="auto square" id="toggle33" toggleid="33" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle33" toggleid="33" format="$">ON</button>
                             </div>
                         </div>
                         <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum" i18n="settings.noHotkeyAvailable"></p>
@@ -2680,9 +2686,9 @@
                 <span class="chal11 grayText" i18n="hotkeys.note1"></span>
                 <div class="resetHotkeys">
                     <button id="resetHotkeys" style="border: 2px solid brown" i18n="hotkeys.reset"></button>
-                    <button class="auto" id="toggle39" toggleid="39" format="Hotkeys: $" style="border:2px solid green">Hotkeys: ON</button>
-                    <button class="auto" id="toggle40" toggleid="40" format="Number Hotkeys: $" style="border:2px solid green">Number Hotkeys: ON</button>
-                    <button class="auto" id="toggle41" toggleid="41" format="Loadouts Notify: $" style="border:2px solid green">Loadouts Notify: ON</button>
+                    <button class="auto" id="toggle39" toggleid="39" format="Hotkeys: $">Hotkeys: ON</button>
+                    <button class="auto" id="toggle40" toggleid="40" format="Number Hotkeys: $">Number Hotkeys: ON</button>
+                    <button class="auto" id="toggle41" toggleid="41" format="Loadouts Notify: $">Loadouts Notify: ON</button>
                 </div>
             </div>
             <div class="subtabContent subtabDisplayFlex" id="accountSubTab">
@@ -2828,7 +2834,7 @@
                 <button id="toggleSingularitySubTab2" style="border: 2px solid gold; color: white;"><span class="subTabButtonText fitText" i18n="tabs.singularity.goldenQuarks"></span></button>
                 <button id="toggleSingularitySubTab3" style="border: 2px solid orange; color: white"><span class="subTabButtonText fitText" i18n="tabs.singularity.perks-penalties"></span></button>
                 <button id="toggleSingularitySubTab4" class="octeracts" style="border: 2px solid blue; color: white"><span class="subTabButtonText fitText" i18n="tabs.singularity.octeracts"></span></button>
-                <button id="toggleSingularitySubTab5" class="singChallenges" style="border: 2px solid #ffbf00; color: gold"><span class="subTabButtonText fitText" i18n="tabs.singularity.ambrosia"></span></button>
+                <button id="toggleSingularitySubTab5" class="Exalt1x1" style="border: 2px solid #ffbf00; color: gold"><span class="subTabButtonText fitText" i18n="tabs.singularity.ambrosia"></span></button>
             </div>
 
             <div id="singularityContainer1">

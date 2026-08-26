@@ -3921,7 +3921,6 @@ export const generateAchievementHTMLs = memoize(() => {
     img.id = `achievementGroup${capitalizedName}`
     img.src = `Pictures/Achievements/Grouped/${capitalizedName}.png`
     img.alt = i18next.t(`achievements.groupNames.${k}`)
-    img.style.cursor = 'pointer'
     img.tabIndex = 0
 
     registerAchievementModal(img, createGroupedAchievementDescription.bind(null, k), 'cyan')
@@ -3949,7 +3948,6 @@ export const generateAchievementHTMLs = memoize(() => {
     img.id = `ungroupedAchievement${capitalizedName}`
     img.src = `Pictures/Achievements/Ungrouped/${capitalizedName}.png`
     img.alt = ''
-    img.style.cursor = 'pointer'
     img.tabIndex = 0
 
     registerAchievementModal(img, () => generateUngroupedDescription(k), 'white', null)
@@ -3978,7 +3976,6 @@ export const generateAchievementHTMLs = memoize(() => {
     img.id = `progressiveAchievement${capitalizedName}`
     img.src = `Pictures/Achievements/Progressive/${capitalizedName}.png`
     img.alt = i18next.t(`achievements.progressiveAchievements.${k}.name`)
-    img.style.cursor = 'pointer'
     img.tabIndex = 0
 
     registerAchievementModal(img, () => generateProgressiveAchievementDescription(k), 'turquoise')

@@ -306,7 +306,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: '5',
-        unlocked: () => player.highestSingularityCount >= 25,
+        unlocked: () => player.singularityChallenges.noSingularityUpgrades.completions >= 1,
         buttonID: 'toggleSingularitySubTab5'
       }
     ]
@@ -951,11 +951,24 @@ export const tabRow = new TabRow()
 document.getElementsByClassName('navbar').item(0)?.appendChild(tabRow)
 
 tabRow.appendButton(
-  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings', mobileIcon: 'Buildings.png', activeColor: 'orange' })
+  new $Tab({
+    id: 'buildingstab',
+    i18n:
+    'tabs.main.buildings',
+    mobileIcon: 'Buildings.png',
+    activeColor: 'orange',
+    activeTextColor: 'black'
+  })
     .setType(Tabs.Buildings)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades', mobileIcon: 'Upgrades.png', activeColor: 'orange' })
+  new $Tab({
+    id: 'upgradestab',
+    i18n: 'tabs.main.upgrades',
+    mobileIcon: 'Upgrades.png',
+    activeColor: 'orange',
+    activeTextColor: 'black'
+  })
     .setType(Tabs.Upgrades)
     .makeDraggable()
     .makeRemoveable(),
@@ -976,7 +989,8 @@ tabRow.appendButton(
     id: 'runestab',
     i18n: 'tabs.main.runes',
     mobileIcon: 'Runes.png',
-    activeColor: 'cornflowerblue'
+    activeColor: 'cornflowerblue',
+    activeTextColor: 'black'
   })
     .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Runes)
@@ -1020,7 +1034,8 @@ tabRow.appendButton(
     id: 'cubetab',
     i18n: 'tabs.main.wowCubes',
     mobileIcon: 'WowCubes.png',
-    activeColor: 'purple'
+    activeColor: 'purple',
+    activeTextColor: 'white'
   })
     .setUnlockedState(() => player.unlocks.ascensions)
     .setType(Tabs.WowCubes)
@@ -1062,7 +1077,8 @@ tabRow.appendButton(
     id: 'shoptab',
     i18n: 'tabs.main.shop',
     mobileIcon: 'Shop.png',
-    activeColor: 'cyan'
+    activeColor: 'cyan',
+    activeTextColor: 'black'
   })
     .setUnlockedState(() => player.unlocks.reincarnate || player.highestSingularityCount > 0)
     .setType(Tabs.Shop)
@@ -1073,7 +1089,8 @@ tabRow.appendButton(
     id: 'eventtab',
     i18n: 'tabs.main.unsmith',
     mobileIcon: 'Events.png',
-    activeColor: 'limegreen'
+    activeColor: 'limegreen',
+    activeTextColor: 'black'
   })
     .setType(Tabs.Event)
     .makeDraggable()

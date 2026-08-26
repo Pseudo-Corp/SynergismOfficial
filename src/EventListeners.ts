@@ -1747,7 +1747,6 @@ TODO: Fix this entire tab it's utter shit
     const perkHTML = document.createElement('span')
     const perkIconSrc = () => `Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png`
     const unlockSingularity = perk.levels[0]
-    const perkName = perk.name()
     perkHTML.innerHTML = `<img src="${perkIconSrc()}" alt="" loading="lazy">`
     perkHTML.id = perk.ID
     perkHTML.classList.add('oldPerk', 'singularityPerkNode')
@@ -1758,7 +1757,7 @@ TODO: Fix this entire tab it's utter shit
     perkHTML.setAttribute(
       'aria-label',
       i18next.t('singularity.perks.treePerkLabel', {
-        name: perkName,
+        name: perk.name,
         singularity: unlockSingularity
       })
     )

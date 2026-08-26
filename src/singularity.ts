@@ -2598,7 +2598,7 @@ const currentSingularityText = () => i18next.t('singularity.perks.usesCurrentSin
  * They can have one or several levels with a description for each level
  */
 interface SingularityPerk {
-  readonly name: () => string
+  readonly name: string
   readonly levels: number[]
   readonly description: (n: number, levels: number[]) => string
   readonly ID: string
@@ -2608,9 +2608,7 @@ interface SingularityPerk {
 // The list is ordered on first level acquisition, so be careful when inserting a new one ;)
 export const singularityPerks: SingularityPerk[] = [
   {
-    name: () => {
-      return i18next.t('singularity.perks.welcometoSingularity.name')
-    },
+    name: 'singularity.perks.welcometoSingularity.name',
     levels: [1],
     description: () => {
       return i18next.t('singularity.perks.welcometoSingularity.default')
@@ -2618,9 +2616,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'welcometoSingularity'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.unlimitedGrowth.name')
-    },
+    name: 'singularity.perks.unlimitedGrowth.name',
     levels: [1],
     description: () => {
       return i18next.t('singularity.perks.unlimitedGrowth.default', {
@@ -2630,9 +2626,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'unlimitedGrowth'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.goldenCoins.name')
-    },
+    name: 'singularity.perks.goldenCoins.name',
     levels: [1],
     description: () => {
       return i18next.t('singularity.perks.goldenCoins.default', {
@@ -2646,9 +2640,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'goldenCoins'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.xyz.name')
-    },
+    name: 'singularity.perks.xyz.name',
     levels: [1, 20, 200],
     description: (n: number, levels: number[]) => {
       if (n >= levels[2]) {
@@ -2662,9 +2654,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'xyz'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.generousOrbs.name')
-    },
+    name: 'singularity.perks.generousOrbs.name',
     levels: [1, 2, 5, 10, 15, 20, 25, 30, 35],
     description: (n: number, levels: number[]) => {
       const overfluxBonus: Record<number, number> = {
@@ -2690,9 +2680,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'generousOrbs'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.researchDummies.name')
-    },
+    name: 'singularity.perks.researchDummies.name',
     levels: [1, 11],
     description: (n: number, levels: number[]) => {
       if (n >= levels[1]) {
@@ -2704,9 +2692,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'researchDummies'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.recycledContent.name')
-    },
+    name: 'singularity.perks.recycledContent.name',
     levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     description: (n: number, _levels: number[]) => {
       const salvageBonus = Math.min(50, 5 * n)
@@ -2717,9 +2703,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'recycledContent'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.antGodsCornucopia.name')
-    },
+    name: 'singularity.perks.antGodsCornucopia.name',
     levels: [1, 30, 70, 100],
     description: (n: number, levels: number[]) => {
       if (n >= levels[3]) {
@@ -2735,9 +2719,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'antGodsCornucopia'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.bringToLife.name')
-    },
+    name: 'singularity.perks.bringToLife.name',
     levels: [1, 9, 25, 49, 81, 121, 169, 196, 225, 256, 289],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i > 0; i--) {
@@ -2753,9 +2735,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'bringToLife'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.tokenInheritance.name')
-    },
+    name: 'singularity.perks.tokenInheritance.name',
     levels: [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277],
     description: (n: number, levels: number[]) => {
       for (let i = 15; i > 0; i--) {
@@ -2770,9 +2750,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'tokenInheritance'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.sweepomatic.name')
-    },
+    name: 'singularity.perks.sweepomatic.name',
     levels: [2, 101],
     description: (n: number, levels: number[]) => {
       if (n >= levels[1]) {
@@ -2784,9 +2762,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'sweepomatic'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.superStart.name')
-    },
+    name: 'singularity.perks.superStart.name',
     levels: [2, 3, 4, 7, 15],
     description: (n: number, levels: number[]) => {
       if (n >= levels[4]) {
@@ -2804,9 +2780,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'superStart'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.invigoratedSpirits.name')
-    },
+    name: 'singularity.perks.invigoratedSpirits.name',
     levels: [2, 10, 26, 50, 82, 122, 170, 197, 226, 257, 290],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -2826,9 +2800,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'invigoratedSpirits'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.eloBonus.name')
-    },
+    name: 'singularity.perks.eloBonus.name',
     levels: [3, 11, 27, 51, 83, 123, 171, 198, 227, 258, 291],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -2844,9 +2816,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'eloBonus'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.notSoChallenging.name')
-    },
+    name: 'singularity.perks.notSoChallenging.name',
     levels: [4, 7, 10, 15, 20],
     description: (n: number, levels: number[]) => {
       if (n >= levels[4]) {
@@ -2864,9 +2834,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'notSoChallenging'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.autoCampaigns.name')
-    },
+    name: 'singularity.perks.autoCampaigns.name',
     levels: [4],
     description: () => {
       return i18next.t('singularity.perks.autoCampaigns.default')
@@ -2874,9 +2842,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'autoCampaigns'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.automationUpgrades.name')
-    },
+    name: 'singularity.perks.automationUpgrades.name',
     levels: [5, 10, 15, 25, 30, 100],
     description: (n: number, levels: number[]) => {
       if (n >= levels[5]) {
@@ -2896,9 +2862,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'automationUpgrades'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.evenMoreQuarks.name')
-    },
+    name: 'singularity.perks.evenMoreQuarks.name',
     // dprint-ignore
     levels: [
       5, 7, 10, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170,
@@ -2921,9 +2885,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'evenMoreQuarks'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.potionAutogenerator.name')
-    },
+    name: 'singularity.perks.potionAutogenerator.name',
     levels: [6],
     description: () => {
       return i18next.t('singularity.perks.potionAutogenerator.default')
@@ -2931,9 +2893,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'potionAutogenerator'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.persistentGlobalResets.name')
-    },
+    name: 'singularity.perks.persistentGlobalResets.name',
     levels: [8],
     description: () => {
       return i18next.t('singularity.perks.persistentGlobalResets.default')
@@ -2941,9 +2901,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'persistentGlobalResets'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.shopSpecialOffer.name')
-    },
+    name: 'singularity.perks.shopSpecialOffer.name',
     levels: [10, 50],
     description: (n: number, levels: number[]) => {
       if (n >= levels[1]) {
@@ -2957,9 +2915,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'shopSpecialOffer'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.forTheLoveOfTheAntGod.name')
-    },
+    name: 'singularity.perks.forTheLoveOfTheAntGod.name',
     levels: [10, 15, 20],
     description: (n: number, levels: number[]) => {
       if (n >= levels[2]) {
@@ -2973,9 +2929,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'forTheLoveOfTheAntGod'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.itAllAddsUp.name')
-    },
+    name: 'singularity.perks.itAllAddsUp.name',
     levels: [
       10,
       16,
@@ -3008,9 +2962,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'itAllAddsUp'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.automagicalRunes.name')
-    },
+    name: 'singularity.perks.automagicalRunes.name',
     levels: [15, 30, 40, 50],
     description: (n: number, levels: number[]) => {
       if (n >= levels[3]) {
@@ -3026,9 +2978,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'automagicalRunes'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.firstClearTokens.name')
-    },
+    name: 'singularity.perks.firstClearTokens.name',
     levels: [16],
     description: () => {
       return i18next.t('singularity.perks.firstClearTokens.default')
@@ -3036,9 +2986,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'firstClearTokens'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.derpSmithsCornucopia.name')
-    },
+    name: 'singularity.perks.derpSmithsCornucopia.name',
     levels: [
       18,
       38,
@@ -3071,9 +3019,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'derpSmithsCornucopia'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.eternalAscensions.name')
-    },
+    name: 'singularity.perks.eternalAscensions.name',
     levels: [25],
     description: () => {
       return i18next.t('singularity.perks.eternalAscensions.default')
@@ -3081,9 +3027,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'eternalAscensions'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.exaltedAchievements.name')
-    },
+    name: 'singularity.perks.exaltedAchievements.name',
     levels: [25],
     description: () => {
       return i18next.t('singularity.perks.exaltedAchievements.default')
@@ -3091,9 +3035,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'exaltedAchievements'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.coolQOLCubes.name')
-    },
+    name: 'singularity.perks.coolQOLCubes.name',
     levels: [25, 35],
     description: (n: number, levels: number[]) => {
       if (n >= levels[1]) {
@@ -3105,9 +3047,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'coolQOLCubes'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.infiniteRecycling.name')
-    },
+    name: 'singularity.perks.infiniteRecycling.name',
     levels: [30, 40, 61, 81, 111, 131, 161, 191, 236, 260],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -3123,9 +3063,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'infiniteRecycling'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.irishAnt.name')
-    },
+    name: 'singularity.perks.irishAnt.name',
     levels: [35, 42, 49, 56, 63, 70, 77, 135, 142, 149, 156, 163, 170, 177],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -3143,9 +3081,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'irishAnt'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.bonusTokens.name')
-    },
+    name: 'singularity.perks.bonusTokens.name',
     levels: [41, 58, 113, 163, 229],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -3160,9 +3096,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'bonusTokens'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.immaculateAlchemy.name')
-    },
+    name: 'singularity.perks.immaculateAlchemy.name',
     levels: [50],
     description: (_n: number, _levels: number[]) => {
       const multiplier = calculateImmaculateAlchemyBonus()
@@ -3173,9 +3107,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'immaculateAlchemy'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.overclocked.name')
-    },
+    name: 'singularity.perks.overclocked.name',
     levels: [50, 60, 75, 100, 125, 150, 175, 200, 225, 250],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -3189,9 +3121,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'overclocked'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.wowCubeAutomatedShipping.name')
-    },
+    name: 'singularity.perks.wowCubeAutomatedShipping.name',
     levels: [50],
     description: () => {
       return i18next.t(
@@ -3201,9 +3131,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'wowCubeAutomatedShipping'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.platonicClones.name')
-    },
+    name: 'singularity.perks.platonicClones.name',
     levels: [50],
     description: () => {
       return i18next.t('singularity.perks.platonicClones.default')
@@ -3211,9 +3139,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'platonicClones'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.congealedblueberries.name')
-    },
+    name: 'singularity.perks.congealedblueberries.name',
     levels: [64, 128, 192, 256, 270],
     description (n, levels) {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -3228,9 +3154,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'congealedblueberries'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.lastClearTokens.name')
-    },
+    name: 'singularity.perks.lastClearTokens.name',
     levels: [69],
     description: () => {
       return i18next.t('singularity.perks.lastClearTokens.default')
@@ -3238,9 +3162,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'lastClearTokens'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.recyclistsDesktop.name')
-    },
+    name: 'singularity.perks.recyclistsDesktop.name',
     levels: [75, 85, 105, 125, 155, 185, 215, 245, 260, 275],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -3256,9 +3178,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'recyclistsDesktop'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.goldenRevolution.name')
-    },
+    name: 'singularity.perks.goldenRevolution.name',
     levels: [100],
     description: () => {
       return i18next.t('singularity.perks.goldenRevolution.default', {
@@ -3268,9 +3188,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'goldenRevolution'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.goldenRevolutionII.name')
-    },
+    name: 'singularity.perks.goldenRevolutionII.name',
     levels: [100],
     description: () => {
       return i18next.t('singularity.perks.goldenRevolutionII.default', {
@@ -3280,9 +3198,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'goldenRevolution2'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.goldenRevolutionIII.name')
-    },
+    name: 'singularity.perks.goldenRevolutionIII.name',
     levels: [100],
     description: () => {
       return i18next.t('singularity.perks.goldenRevolutionIII.default', {
@@ -3292,9 +3208,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'goldenRevolution3'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.irishAnt2.name')
-    },
+    name: 'singularity.perks.irishAnt2.name',
     levels: [100, 150, 200, 225, 250, 255, 260, 265, 269, 272],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -3310,9 +3224,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'irishAnt2'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.platSigma.name')
-    },
+    name: 'singularity.perks.platSigma.name',
     levels: [125, 200],
     description: (n: number, levels: number[]) => {
       let counter = 0
@@ -3330,9 +3242,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'platSigma'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.primalPower.name')
-    },
+    name: 'singularity.perks.primalPower.name',
     levels: [131, 269],
     description: (n: number, levels: number[]) => {
       if (n >= levels[1]) {
@@ -3344,9 +3254,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'primalPower'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.midasMilleniumAgedGold.name')
-    },
+    name: 'singularity.perks.midasMilleniumAgedGold.name',
     levels: [150],
     description: () => {
       return i18next.t('singularity.perks.midasMilleniumAgedGold.default')
@@ -3354,9 +3262,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'midasMilleniumAgedGold'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.goldenRevolution4.name')
-    },
+    name: 'singularity.perks.goldenRevolution4.name',
     levels: [160, 173, 185, 194, 204, 210, 219, 229, 240, 249],
     description: (n: number, levels: number[]) => {
       const perSecond = 1000000
@@ -3374,9 +3280,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'goldenRevolution4'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.octeractMetagenesis.name')
-    },
+    name: 'singularity.perks.octeractMetagenesis.name',
     levels: [200, 205],
     description: (n: number, levels: number[]) => {
       if (n >= levels[1]) {
@@ -3388,9 +3292,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'octeractMetagenesis'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.skrauQ.name')
-    },
+    name: 'singularity.perks.skrauQ.name',
     levels: [200],
     description: () => {
       const amt = (player.singularityCount >= 200)
@@ -3401,9 +3303,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'skrauQ'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.demeterHarvest.name')
-    },
+    name: 'singularity.perks.demeterHarvest.name',
     levels: [230, 245, 260, 275, 290],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -3419,9 +3319,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'demeterHarvest'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.permanentBenefaction.name')
-    },
+    name: 'singularity.perks.permanentBenefaction.name',
     levels: [244],
     description: () => {
       return i18next.t('singularity.perks.permanentBenefaction.default')
@@ -3429,9 +3327,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'permanentBenefaction'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.infiniteShopUpgrades.name')
-    },
+    name: 'singularity.perks.infiniteShopUpgrades.name',
     levels: [250, 280],
     description: () => {
       if (player.highestSingularityCount < 280) {
@@ -3449,9 +3345,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'infiniteShopUpgrades'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.taxReduction.name')
-    },
+    name: 'singularity.perks.taxReduction.name',
     levels: [281],
     description: () => {
       return i18next.t('singularity.perks.taxReduction.default', {
@@ -3773,7 +3667,7 @@ export const singularityPerkModalHTML = (perk: SingularityPerk, imageSrc: string
     return `<div class="singularityPerkModal" data-modal-preserve="children">
     <div class="singularityPerkModalTitle" data-modal-preserve="children">
       <img src="${imageSrc}" alt="" class="singularityPerkPreview" data-modal-preserve="children">
-      <span>${perk.name()}</span>
+      <span>${i18next.t(perk.name)}</span>
     </div>
     <div class="singularityPerkModalLevel">${
       i18next.t('singularity.perks.previewInfo', {
@@ -3806,7 +3700,7 @@ export const singularityPerkModalHTML = (perk: SingularityPerk, imageSrc: string
   return `<div class="singularityPerkModal" data-modal-preserve="children">
     <div class="singularityPerkModalTitle" data-modal-preserve="children">
       <img src="${imageSrc}" alt="" data-modal-preserve="children">
-      <span>${perk.name()}${statusText === '' ? '' : ` ${statusText}`}</span>
+      <span>${i18next.t(perk.name)}${statusText === '' ? '' : ` ${statusText}`}</span>
     </div>
     <div class="singularityPerkModalLevel">${levelInfo}</div>
     <div class="singularityPerkModalNextLevel">${nextLevelInfo}</div>

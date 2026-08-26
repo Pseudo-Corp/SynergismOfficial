@@ -739,7 +739,7 @@ export const upgradeupdate = (num: number, fast?: boolean) => {
     el.classList.remove('green-background')
   }
 
-  const hidePurchased = DOMCacheGetOrSet('togglePurchasedUpgrades').getAttribute('aria-pressed') === 'true'
+  const hidePurchased = DOMCacheGetOrSet('togglePurchasedUpgrades').classList.contains('pressed')
   const upgradeContainer = isMobile ? el : el.closest('td') ?? el
   upgradeContainer.classList.toggle('upgradeHiddenByPurchase', hidePurchased && player.upgrades[num] === 1)
 
@@ -750,7 +750,7 @@ export const upgradeupdate = (num: number, fast?: boolean) => {
 
 export const togglePurchasedUpgrades = () => {
   const toggle = DOMCacheGetOrSet('togglePurchasedUpgrades')
-  const hidePurchased = toggle.getAttribute('aria-pressed') !== 'true'
+  const hidePurchased = toggle.classList.toggle('pressed')
   const i18nKey = hidePurchased ? 'upgrades.hidePurchased' : 'upgrades.showPurchased'
 
   toggle.setAttribute('aria-pressed', `${hidePurchased}`)
@@ -1024,10 +1024,10 @@ const createUpgradeSectionButtons = (category: UpgradeCategories) => {
   if (category !== UpgradeCategories.Autobuyer) {
     const toggleAutoBtn = document.createElement('button')
     toggleAutoBtn.id = `${data.autoToggle}AutoUpgrade`
-    toggleAutoBtn.classList.add('autobuyerToggleButton')
+    toggleAutoBtn.classList.add('auto', 'autobuyerToggleButton')
     toggleAutoBtn.ariaPressed = 'true'
     toggleAutoBtn.setAttribute('aria-label', `Toggle ${data.autoToggle} auto-upgrader`)
-    toggleAutoBtn.style.border = '2px solid green'
+    toggleAutoBtn.setAttribute('format', 'Auto: $')
 
     toggleAutoBtn.addEventListener('click', () => {
       toggleShops(data.autoToggle as upgradeAutos)

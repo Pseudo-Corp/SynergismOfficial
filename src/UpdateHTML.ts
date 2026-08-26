@@ -37,7 +37,6 @@ import { getCostNextAntUpgrade } from './Features/Ants/AntUpgrades/lib/get-cost'
 import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { getLevelMilestone } from './Levels'
-import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
 import { isResearchUnlocked, roombaResearchEnabled } from './Research'
 import { getRuneEffects, type RuneKeys, runes, updateRuneHTML } from './Runes'
@@ -48,8 +47,8 @@ import {
   updateSingularityPenalties,
   updateSingularityPerks
 } from './singularity'
-import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
-import { getActiveSubTab, Tabs } from './Tabs'
+import { format, formatTimeShort, player } from './Synergism'
+import { getActiveSubTab, Tabs, updateSubTabVisibility } from './Tabs'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { type TalismanKeys, talismans } from './Talismans'
 import { resolveImgSrc } from './Themes'
@@ -178,7 +177,7 @@ const updateChallengeProgressRow = (elementId: string, challenge: number) => {
   }
 
   const progress = getChallengeProgress(challenge)
-  const name = i18next.t(`challenges.${challenge}.progressName`)
+  const name = `challenges.${challenge}.progressName`
   const required = format(progress.required)
   const text = challenge === 15
     ? getChallenge15ProgressText(name, progress)
@@ -218,7 +217,7 @@ export const revealStuff = () => {
 
   const example9 = document.getElementsByClassName('auto') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example9.length; i++) {
-    example9[i].style.display = 'none'
+    example9[i].classList.add('none')
     example9[i].setAttribute('aria-disabled', 'true')
   }
 
@@ -230,19 +229,13 @@ export const revealStuff = () => {
   document.documentElement.dataset.chal6 = player.achievements[113] === 1 ? 'true' : 'false'
   document.documentElement.dataset.chal7 = player.achievements[120] === 1 ? 'true' : 'false'
 
+  document.documentElement.dataset.chal8 = player.unlocks.anthill ? 'true' : 'false'
   const example17 = document.getElementsByClassName('chal8') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example17.length; i++) {
-    const parent = example17[i].parentElement!
-    if (parent.classList.contains('offlineStats')) {
-      example17[i].style.display = player.unlocks.anthill ? 'flex' : 'none'
-      example17[i].setAttribute('aria-disabled', `${!player.unlocks.anthill}`)
-    } else {
-      example17[i].style.display = player.unlocks.anthill ? 'block' : 'none'
-      example17[i].setAttribute('aria-disabled', `${!player.unlocks.anthill}`)
-    }
+    example17[i].setAttribute('aria-disabled', `${!player.unlocks.anthill}`)
   }
 
-  DOMCacheGetOrSet('challenge8AntLocked').style.display = canGenerateAntCrumbs() ? 'none' : 'block'
+  DOMCacheGetOrSet('challenge8AntLocked').classList.toggle('none', canGenerateAntCrumbs())
 
   document.documentElement.dataset.chal9 = player.unlocks.talismans ? 'true' : 'false'
   document.documentElement.dataset.chal9x1 = player.highestchallengecompletions[9] > 0 ? 'true' : 'false'
@@ -252,18 +245,6 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.particleUpgradeResearch =
     player.researches[47] || player.researches[48] || player.researches[49] || player.researches[50] ? 'true' : 'false'
-
-  const example21 = document.getElementsByClassName('ascendunlock') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example21.length; i++) {
-    const parent = example21[i].parentElement!
-    if (parent.classList.contains('offlineStats')) {
-      example21[i].style.display = player.ascensionCount > 0 ? 'flex' : 'none'
-      example21[i].setAttribute('aria-disabled', `${player.ascensionCount <= 0}`)
-    } else {
-      example21[i].style.display = player.ascensionCount > 0 ? 'block' : 'none'
-      example21[i].setAttribute('aria-disabled', `${player.ascensionCount <= 0}`)
-    }
-  }
 
   for (let i = 1; i <= player.researches.length - 1; i++) {
     const resKey = `res${i}`
@@ -281,6 +262,11 @@ export const revealStuff = () => {
   document.documentElement.dataset.chal14 = player.highestchallengecompletions[14] > 0 ? 'true' : 'false'
 
   document.documentElement.dataset.ascendUnlock = player.ascensionCount > 0 ? 'true' : 'false'
+  const example21 = document.getElementsByClassName('ascendunlock') as HTMLCollectionOf<HTMLElement>
+  for (let i = 0; i < example21.length; i++) {
+    example21[i].setAttribute('aria-disabled', `${player.ascensionCount <= 0}`)
+  }
+
   document.documentElement.dataset.prestigeUnlock = player.unlocks.prestige ? 'true' : 'false'
 
   document.documentElement.dataset.research150 = player.researches[150] > 0 ? 'true' : 'false'
@@ -311,24 +297,18 @@ export const revealStuff = () => {
     ? 'true'
     : 'false'
 
-  if (player.upgrades[89] === 1) {
-    DOMCacheGetOrSet('transcendautotoggle').style.display = 'block'
-    DOMCacheGetOrSet('transcendamount').style.display = 'block'
-    DOMCacheGetOrSet('autotranscend').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('transcendautotoggle').style.display = 'none'
-    DOMCacheGetOrSet('transcendamount').style.display = 'none'
-    DOMCacheGetOrSet('autotranscend').style.display = 'none'
-  }
+  DOMCacheGetOrSet('transcendautotoggle').classList.toggle('none', player.upgrades[89] !== 1)
+  DOMCacheGetOrSet('transcendamount').classList.toggle('none', player.upgrades[89] !== 1)
+  DOMCacheGetOrSet('autotranscend').classList.toggle('none', player.upgrades[89] !== 1)
 
   for (const groupedAch of Object.keys(groupedAchievementData) as (Exclude<AchievementGroups, 'ungrouped'>)[]) {
     const capitalizedName = groupedAch.charAt(0).toUpperCase() + groupedAch.slice(1)
     const img = DOMCacheGetOrSet(`achievementGroup${capitalizedName}`)
     const shouldDisplay = groupedAchievementData[groupedAch].displayCondition() || player.highestSingularityCount > 0
 
-    img.style.display = shouldDisplay ? 'block' : 'none'
+    img.classList.toggle('none', !shouldDisplay)
     if (img.parentElement) {
-      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
+      img.parentElement.classList.toggle('none', !shouldDisplay)
     }
   }
 
@@ -338,9 +318,9 @@ export const revealStuff = () => {
     const shouldDisplay = ungroupedAchievementData[ungroupedAch].displayCondition()
       || player.highestSingularityCount > 0
 
-    img.style.display = shouldDisplay ? 'block' : 'none'
+    img.classList.toggle('none', !shouldDisplay)
     if (img.parentElement) {
-      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
+      img.parentElement.classList.toggle('none', !shouldDisplay)
     }
   }
 
@@ -349,227 +329,165 @@ export const revealStuff = () => {
     const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`)
     const shouldDisplay = progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0
 
-    img.style.display = shouldDisplay ? 'block' : 'none'
+    img.classList.toggle('none', !shouldDisplay)
     if (img.parentElement) {
-      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
+      img.parentElement.classList.toggle('none', !shouldDisplay)
     }
   }
 
   for (const rune of Object.keys(player.runes) as RuneKeys[]) {
-    if (runes[rune].isUnlocked()) {
-      DOMCacheGetOrSet(`${rune}RuneContainer`).style.display = 'flex'
-      DOMCacheGetOrSet(`${rune}RuneLockedContainer`).style.display = 'none'
-    } else {
-      DOMCacheGetOrSet(`${rune}RuneContainer`).style.display = 'none'
-      DOMCacheGetOrSet(`${rune}RuneLockedContainer`).style.display = 'flex'
-    }
+    DOMCacheGetOrSet(`${rune}RuneContainer`).classList.toggle('none', !runes[rune].isUnlocked())
+    DOMCacheGetOrSet(`${rune}RuneLockedContainer`).classList.toggle('none', runes[rune].isUnlocked())
   }
 
   for (const t of Object.keys(talismans) as TalismanKeys[]) {
-    if (talismans[t].isUnlocked()) {
-      DOMCacheGetOrSet(`${t}TalismanContainer`).style.display = 'flex'
-    } else {
-      DOMCacheGetOrSet(`${t}TalismanContainer`).style.display = 'none'
-    }
+    DOMCacheGetOrSet(`${t}TalismanContainer`).classList.toggle('none', !talismans[t].isUnlocked())
   }
 
-  if (getLevelMilestone('autoPrestige') === 1) { // Transcend Mythos Achievement 1
-    DOMCacheGetOrSet('prestigeautotoggle').style.display = 'block'
-    DOMCacheGetOrSet('prestigeamount').style.display = 'block'
-    DOMCacheGetOrSet('autoprestige').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('prestigeautotoggle').style.display = 'none'
-    DOMCacheGetOrSet('prestigeamount').style.display = 'none'
-    DOMCacheGetOrSet('autoprestige').style.display = 'none'
-  }
-
-  if (player.unlocks.talismans) { // No Runes Challenge Achievement 1
-    DOMCacheGetOrSet('toggleRuneSubTab2').style.display = 'block'
-    DOMCacheGetOrSet('toggleRuneSubTab3').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('toggleRuneSubTab2').style.display = 'none'
-    DOMCacheGetOrSet('toggleRuneSubTab3').style.display = 'none'
-  }
+  const autoPrestige = getLevelMilestone('autoPrestige') === 1
+  DOMCacheGetOrSet('prestigeautotoggle').classList.toggle('none', !autoPrestige)
+  DOMCacheGetOrSet('prestigeamount').classList.toggle('none', !autoPrestige)
+  DOMCacheGetOrSet('autoprestige').classList.toggle('none', !autoPrestige)
 
   const unlockedAntSac = getAchievementReward('antSacrificeUnlock')
-  if (unlockedAntSac) {
-    DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'none'
-    const sacAnts = DOMCacheGetOrSet('sacrificeAnts')
-    sacAnts.classList.add('flex')
-    sacAnts.classList.remove('none')
-  } else {
-    DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'flex'
-    const sacAnts = DOMCacheGetOrSet('sacrificeAnts')
-    sacAnts.classList.remove('flex')
-    sacAnts.classList.add('none')
-  }
+  DOMCacheGetOrSet('sacrificeAntsLocked').classList.toggle('none', !!unlockedAntSac)
+  DOMCacheGetOrSet('sacrificeAnts').classList.toggle('none', !unlockedAntSac)
 
   const unlockedAutoAntSac = getAchievementReward('autoAntSacrifice')
-  if (unlockedAutoAntSac) {
-    DOMCacheGetOrSet('autoSacrifice').style.display = 'flex'
-    DOMCacheGetOrSet('autoSacrificeLocked').style.display = 'none'
-  } else {
-    DOMCacheGetOrSet('autoSacrifice').style.display = 'none'
-    DOMCacheGetOrSet('autoSacrificeLocked').style.display = 'block'
-  }
+  DOMCacheGetOrSet('autoSacrificeLocked').classList.toggle('none', !!unlockedAutoAntSac)
+  DOMCacheGetOrSet('autoSacrifice').classList.toggle('none', !unlockedAutoAntSac)
 
   const unlockedAdditionalSacrificeOptions = player.researches[124] > 0
-  if (unlockedAdditionalSacrificeOptions) {
-    DOMCacheGetOrSet('additionalAutoSacOptionsLocked').style.display = 'none'
-    DOMCacheGetOrSet('additionalAutoSacOptions').style.display = 'flex'
-  } else {
-    DOMCacheGetOrSet('additionalAutoSacOptionsLocked').style.display = 'block'
-    DOMCacheGetOrSet('additionalAutoSacOptions').style.display = 'none'
-  }
+  DOMCacheGetOrSet('additionalAutoSacOptionsLocked').classList.toggle(
+    'none', unlockedAdditionalSacrificeOptions
+  )
+  DOMCacheGetOrSet('additionalAutoSacOptions').classList.toggle(
+    'none', !unlockedAdditionalSacrificeOptions
+  )
 
-  DOMCacheGetOrSet('reincarnationCrystalInfo').style.display = // 3x9 Research [Crystal Building Power]
-    player.researches[39] > 0 ? 'block' : 'none'
+  // 3x9 Research [Crystal Building Power]
+  DOMCacheGetOrSet('reincarnationCrystalInfo').classList.toggle('none', player.researches[39] < 1)
 
-  DOMCacheGetOrSet('reincarnationMythosInfo').style.display = // 3x10 Research [Mythos Shard Building Power]
-    player.researches[40] > 0 ? 'block' : 'none'
+  // 3x10 Research [Mythos Shard Building Power]
+  DOMCacheGetOrSet('reincarnationMythosInfo').classList.toggle('none', player.researches[40] < 1)
 
-  DOMCacheGetOrSet('reincarnateautomation').style.display = // 5x6 Research [Auto R.]
-    player.researches[46] > 0 ? 'block' : 'none'
+  // 5x6 Research [Auto R.]
+  DOMCacheGetOrSet('reincarnateautomation').classList.toggle('none', player.researches[46] < 1)
 
-  DOMCacheGetOrSet('toggleautofortify').style.display = // 6x5 Research [Talisman Auto Fortify]
-    player.researches[130] > 0 ? 'block' : 'none'
+  // 6x5 Research [Talisman Auto Fortify]
+  DOMCacheGetOrSet('toggleautofortify').classList.toggle('none', player.researches[130] < 1)
 
+  // 8x15 Research [Auto Tesseracts]
   for (let z = 1; z <= 5; z++) {
-    DOMCacheGetOrSet(`tesseractAutoToggle${z}`).style.display = // 8x15 Research [Auto Tesseracts]
-      player.researches[190] > 0 ? 'block' : 'none'
+    DOMCacheGetOrSet(`tesseractAutoToggle${z}`).classList.toggle(
+      'none', player.researches[190] < 1
+    )
   }
-  DOMCacheGetOrSet('tesseractautobuytoggle').style.display = // 8x15 Research [Auto Tesseracts]
-    player.researches[190] > 0 ? 'block' : 'none'
-  DOMCacheGetOrSet('tesseractautobuymode').style.display = // 8x15 Research [Auto Tesseracts]
-    player.researches[190] > 0 ? 'block' : 'none'
-  DOMCacheGetOrSet('tesseractAmount').style.display = // 8x15 Research [Auto Tesseracts]
-    player.researches[190] > 0 ? 'block' : 'none'
-  DOMCacheGetOrSet('autotessbuyeramount').style.display = // 8x15 Research [Auto Tesseracts]
-    player.researches[190] > 0 ? 'block' : 'none'
+  DOMCacheGetOrSet('tesseractautobuytoggle').classList.toggle('none', player.researches[190] < 1)
+  DOMCacheGetOrSet('tesseractautobuymode').classList.toggle('none', player.researches[190] < 1)
+  DOMCacheGetOrSet('tesseractAmount').classList.toggle('none', player.researches[190] < 1)
+  DOMCacheGetOrSet('autotessbuyeramount').classList.toggle('none', player.researches[190] < 1)
 
-  DOMCacheGetOrSet('toggleautosacrifice').style.display = // Auto Offering Shop Purchase
-    getShopUpgradeEffects('offeringAuto', 'autoRune') ? 'block' : 'none'
+  DOMCacheGetOrSet('toggleautosacrifice').classList.toggle( // Auto Offering Shop Purchase
+    'none', !getShopUpgradeEffects('offeringAuto', 'autoRune')
+  )
 
-  DOMCacheGetOrSet('toggleautoBuyFragments').style.display = // Auto Fragments Buy (After Cx1)
-    player.cubeUpgrades[51] > 0 && player.highestSingularityCount >= 40 ? 'block' : 'none'
+  DOMCacheGetOrSet('toggleautoBuyFragments').classList.toggle( // Auto Fragments Buy (After Cx1)
+    'none', player.cubeUpgrades[51] < 1 || player.highestSingularityCount < 40
+  )
 
   const autoResearch = getShopUpgradeEffects('obtainiumAuto', 'autoResearch')
 
-  DOMCacheGetOrSet('toggleautoresearch').style.display = // Auto Research Shop Purchase
-    autoResearch ? 'block' : 'none'
+  // Auto Research Shop Purchase
+  DOMCacheGetOrSet('toggleautoresearch').classList.toggle('none', !autoResearch)
 
-  DOMCacheGetOrSet('toggleautoresearchmode').style.display = autoResearch && roombaResearchEnabled() // Auto Research Shop Purchase Mode
-    ? 'block'
-    : 'none'
+  DOMCacheGetOrSet('toggleautoresearchmode').classList.toggle( // Auto Research Shop Purchase Mode
+    'none', !autoResearch || !roombaResearchEnabled()
+  )
 
-  DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = player.cubeUpgrades[8] > 0 ? 'block' : 'none'
+  DOMCacheGetOrSet('reincarnateAutoUpgrade').classList.toggle('none', player.cubeUpgrades[8] < 1)
 
-  DOMCacheGetOrSet('maxPlatToggle').style.display = // Save Offerings
-    player.highestSingularityCount > 0 ? 'block' : 'none'
+  // Save Offerings
+  DOMCacheGetOrSet('maxPlatToggle').classList.toggle('none', player.highestSingularityCount < 1)
 
   // Auto Open Cubes toggle
-  if (player.highestSingularityCount >= 35) {
-    DOMCacheGetOrSet('openCubes').style.display = 'block'
-    DOMCacheGetOrSet('cubeOpensInput').style.display = 'block'
-    DOMCacheGetOrSet('openTesseracts').style.display = 'block'
-    DOMCacheGetOrSet('tesseractsOpensInput').style.display = 'block'
-    DOMCacheGetOrSet('openHypercubes').style.display = 'block'
-    DOMCacheGetOrSet('hypercubesOpensInput').style.display = 'block'
-    DOMCacheGetOrSet('openPlatonicCube').style.display = 'block'
-    DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('openCubes').style.display = 'none'
-    DOMCacheGetOrSet('cubeOpensInput').style.display = 'none'
-    DOMCacheGetOrSet('openTesseracts').style.display = 'none'
-    DOMCacheGetOrSet('tesseractsOpensInput').style.display = 'none'
-    DOMCacheGetOrSet('openHypercubes').style.display = 'none'
-    DOMCacheGetOrSet('hypercubesOpensInput').style.display = 'none'
-    DOMCacheGetOrSet('openPlatonicCube').style.display = 'none'
-    DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'none'
-  }
+  const autoOpenCubes = player.highestSingularityCount >= 35;
+  DOMCacheGetOrSet('openCubes').classList.toggle('none', !autoOpenCubes)
+  DOMCacheGetOrSet('cubeOpensInput').classList.toggle('none', !autoOpenCubes)
+  DOMCacheGetOrSet('openTesseracts').classList.toggle('none', !autoOpenCubes)
+  DOMCacheGetOrSet('tesseractsOpensInput').classList.toggle('none', !autoOpenCubes)
+  DOMCacheGetOrSet('openHypercubes').classList.toggle('none', !autoOpenCubes)
+  DOMCacheGetOrSet('hypercubesOpensInput').classList.toggle('none', !autoOpenCubes)
+  DOMCacheGetOrSet('openPlatonicCube').classList.toggle('none', !autoOpenCubes)
+  DOMCacheGetOrSet('platonicCubeOpensInput').classList.toggle('none', !autoOpenCubes)
 
-  DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = // Auto Cube Upgrades
-    player.highestSingularityCount >= 50
-      ? 'block'
-      : 'none'
-  DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = // Auto Platonic Upgrades
-    player.highestSingularityCount >= 50
-      ? 'block'
-      : 'none'
-
-  // Singularity confirmation toggle pic
-  DOMCacheGetOrSet('settingpic6').style.display = player.highestSingularityCount > 0 && player.ascensionCount > 0
-    ? 'block'
-    : 'none'
+  // Auto Cube Upgrades
+  const autoCubeUpgrades = player.highestSingularityCount >= 50
+  DOMCacheGetOrSet('toggleAutoCubeUpgrades').classList.toggle('none', !autoCubeUpgrades)
+  DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').classList.toggle('none', !autoCubeUpgrades)
 
   // Hepteract Confirmations toggle
-  DOMCacheGetOrSet('heptnotificationpic').style.display = player.highestSingularityCount > 0
-      && player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
-    ? 'block'
-    : 'none'
+  DOMCacheGetOrSet('heptnotificationpic').classList.toggle(
+    'none', player.challenge15Exponent < G.challenge15Rewards.hepteractsUnlocked.requirement
+  )
 
-  DOMCacheGetOrSet('warpAuto').style.display = getShopUpgradeEffects('autoWarp', 'unlocked') ? '' : 'none'
+  DOMCacheGetOrSet('warpAuto').classList.toggle(
+    'none', !getShopUpgradeEffects('autoWarp', 'unlocked')
+  )
 
+  const octeractUnlock = getGQUpgradeEffect('octeractUnlock', 'unlocked')
   const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>
   for (const item of octeractUnlocks) { // Stuff that you need octeracts to access
-    const parent = item.parentElement!
-    if (parent.classList.contains('offlineStats')) {
-      item.style.display = getGQUpgradeEffect('octeractUnlock', 'unlocked') ? 'flex' : 'none'
-      item.setAttribute('aria-disabled', `${!getGQUpgradeEffect('octeractUnlock', 'unlocked')}`)
-    } else {
-      item.style.display = getGQUpgradeEffect('octeractUnlock', 'unlocked') ? 'block' : 'none'
-      item.setAttribute('aria-disabled', `${!getGQUpgradeEffect('octeractUnlock', 'unlocked')}`)
-    }
+    item.classList.toggle('none', !octeractUnlock)
+    item.setAttribute('aria-disabled', `${!octeractUnlock}`)
   }
 
   const singChallengeUnlocks = document.getElementsByClassName('singChallenges') as HTMLCollectionOf<HTMLElement>
   for (const item of singChallengeUnlocks) {
-    item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none'
+    item.classList.toggle('none', player.highestSingularityCount < 25)
   }
 
   const exalt1x1Unlocks = document.getElementsByClassName('Exalt1x1') as HTMLCollectionOf<HTMLElement>
   for (const item of exalt1x1Unlocks) {
-    const parent = item.parentElement!
-    if (parent.classList.contains('offlineStats')) {
-      item.style.display = player.singularityChallenges.noSingularityUpgrades.completions >= 1 ? 'flex' : 'none'
-      item.setAttribute('aria-disabled', `${player.singularityChallenges.noSingularityUpgrades.completions < 1}`)
-    } else {
-      item.style.visibility = player.singularityChallenges.noSingularityUpgrades.completions >= 1 ? 'visible' : 'hidden'
-      item.setAttribute('aria-disabled', `${player.singularityChallenges.noSingularityUpgrades.completions < 1}`)
-    }
+    item.classList.toggle('none', player.singularityChallenges.noSingularityUpgrades.completions < 1)
+    item.setAttribute('aria-disabled', `${player.singularityChallenges.noSingularityUpgrades.completions < 1}`)
   }
 
   const exalt5x1Unlocks = document.getElementsByClassName('Exalt5x1') as HTMLCollectionOf<HTMLElement>
   for (const item of exalt5x1Unlocks) {
-    const parent = item.parentElement!
-    if (parent.classList.contains('offlineStats')) {
-      item.style.display = player.singularityChallenges.noAmbrosiaUpgrades.completions >= 1 ? 'flex' : 'none'
-      item.setAttribute('aria-disabled', `${player.singularityChallenges.noAmbrosiaUpgrades.completions < 1}`)
-    } else {
-      item.style.visibility = player.singularityChallenges.noAmbrosiaUpgrades.completions >= 1 ? 'visible' : 'hidden'
-      item.setAttribute('aria-disabled', `${player.singularityChallenges.noAmbrosiaUpgrades.completions < 1}`)
-    }
+    item.classList.toggle('none', player.singularityChallenges.noAmbrosiaUpgrades.completions < 1)
+    item.setAttribute('aria-disabled', `${player.singularityChallenges.noAmbrosiaUpgrades.completions < 1}`)
   }
 
-  DOMCacheGetOrSet('toggleSingularitySubTab5').style.display = player.highestSingularityCount >= 25
-    ? 'block'
-    : 'none'
-  // Hide Challenge Subtabs until Exalts are unlocked
-  DOMCacheGetOrSet('challengesTabsToggle').style.display = player.highestSingularityCount >= 25
-    ? ''
-    : 'none'
+  DOMCacheGetOrSet('singularitybtn').classList.toggle('none', runes.antiquities.level <= 0)
 
-  DOMCacheGetOrSet('singularitybtn').style.display = runes.antiquities.level > 0 || player.highestSingularityCount > 0
-    ? 'block'
-    : 'none'
-
-  DOMCacheGetOrSet('ascSingChallengeTimeTakenStats').style.display = player.insideSingularityChallenge ? '' : 'none'
+  DOMCacheGetOrSet('ascSingChallengeTimeTakenStats').classList.toggle(
+    'none', !player.insideSingularityChallenge
+  )
 
   DOMCacheGetOrSet('ascensionStats').style.visibility =
     (Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0) ? 'visible' : 'hidden'
-  DOMCacheGetOrSet('ascHyperStats').style.display = player.challengecompletions[13] > 0 ? '' : 'none'
-  DOMCacheGetOrSet('ascPlatonicStats').style.display = player.challengecompletions[14] > 0 ? '' : 'none'
-  DOMCacheGetOrSet('ascHepteractStats').style.display = G.challenge15Rewards.hepteractsUnlocked.value >= 1 ? '' : 'none'
+  
+  DOMCacheGetOrSet('ascHepteractStats').classList.toggle(
+    'none', G.challenge15Rewards.hepteractsUnlocked.value < 1
+  )
+
+  let highestResetLevel = 0
+  if (player.prestigeCount) {
+    highestResetLevel = 1
+  }
+  if (player.transcendCount) {
+    highestResetLevel = 2
+  }
+  if (player.reincarnationCount) {
+    highestResetLevel = 3
+  }
+  if (player.ascensionCount) {
+    highestResetLevel = 4
+  }
+  if (player.highestSingularityCount) {
+    highestResetLevel = 5
+  }
 
   // I'll clean this up later. Note to 2019 Platonic: Fuck you
   // note to 2019 and 2020 Platonic, you're welcome
@@ -609,12 +527,12 @@ export const revealStuff = () => {
     transcendAutoUpgrade: player.upgrades[99] === 1, // Feature - Upgrades - Auto Buy Mythos Upgrades
     generatorsAutoUpgrade: player.upgrades[90] === 1, // Feature - Upgrades - Auto Buy Generator Upgrades
     toggle9: player.unlocks.prestige, // Feature - Upgrades - Hover to Buy
-    toggle28: player.prestigeCount > 0 || player.reincarnationCount > 0, // Settings - Confirmations - Prestige
-    toggle29: player.transcendCount > 0 || player.reincarnationCount > 0, // Settings - Confirmations - Transcension
-    toggle30: player.reincarnationCount > 0, // Settings - Confirmations - Reincarnation
-    toggle31: player.ascensionCount > 0, // Settings - Confirmations - Ascension and Asc. Challenge
+    toggle28: highestResetLevel >= 1, // Settings - Confirmations - Prestige
+    toggle29: highestResetLevel >= 2, // Settings - Confirmations - Transcension
+    toggle30: highestResetLevel >= 3, // Settings - Confirmations - Reincarnation
+    toggle31: highestResetLevel >= 4, // Settings - Confirmations - Ascension and Asc. Challenge
     toggle32: Boolean(getAchievementReward('antSacrificeUnlock')), // Settings - Confirmations - Ant Sacrifice
-    toggle33: player.highestSingularityCount > 0 && player.ascensionCount > 0, // Settings - Confirmations - Singularity
+    toggle33: highestResetLevel >= 5, // Settings - Confirmations - Singularity
     toggle34: player.unlocks.coinfour, // Achievements - Notifications
     toggle35: player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
       && player.highestSingularityCount > 0, // Hepteracts - Notifications
@@ -635,13 +553,16 @@ export const revealStuff = () => {
       return
     }
 
-    el.style.display = automationUnlocks[key] ? 'block' : 'none'
+    DOMCacheGetOrSet(key).classList.toggle('none', !automationUnlocks[key])
   })
+
+  /*for (let i = 1; i <= 5; i++) {
+    DOMCacheGetOrSet(`tesseractAutoToggle${i}`).classList.toggle('pressed', player.autoTesseracts[i])
+  }*/
 
   updateBuildingAutomationButtons()
 
-  // Messages subtab visibility - only show when there are unread messages
-  DOMCacheGetOrSet('switchSettingSubTab10').style.display = hasUnreadMessages() ? 'block' : 'none'
+  updateSubTabVisibility()
 
   revealCorruptions()
 }
@@ -1937,7 +1858,8 @@ export const createFitties = () => {
       fittyInstances.delete(element)
       continue
     }
-
+    if (element.classList.contains('runeTypeElement'))
+      console.log('test')
     if (!existingInstance) {
       const fittyOptions = {
         minSize: 0,

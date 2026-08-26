@@ -59,6 +59,36 @@ export const toggleMonospaceFont = async () => {
   settingMonospaceFont()
 }
 
+const updateToggleVisuals = (toggle: HTMLElement, value: boolean) => {
+  // eslint-disable-next-line no-shadow
+  const format = toggle.getAttribute('format')
+
+  if (format === '$' || format === '[$]') {
+    const text = value ? i18next.t('general.on') : i18next.t('general.off')
+    toggle.textContent = format === '[$]' ? `[${text}]` : text
+  } else if (format === 'Auto Catalyze: $') {
+    const text = value ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
+    toggle.textContent = text
+  } else if (format === 'Hover-to-Buy [$]') {
+    const text = value
+      ? i18next.t('researches.hoverToBuyOn')
+      : i18next.t('researches.hoverToBuyOff')
+    toggle.textContent = text
+  } else if (format === 'Auto: $') {
+    const text = value ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
+    toggle.textContent = text
+  } else if (format) {
+    const finishedString = format.replace('$', value ? 'ON' : 'OFF')
+    toggle.textContent = finishedString
+  } else {
+    toggle.textContent = value
+      ? i18next.t('general.autoOnBracket')
+      : i18next.t('general.autoOffBracket')
+  }
+
+  toggle.classList.toggle('pressed', value)
+}
+
 export const toggleSettings = (toggle: HTMLElement) => {
   const toggleId = toggle.getAttribute('toggleId') ?? 1
   if (player.toggles[+toggleId]) {
@@ -66,34 +96,7 @@ export const toggleSettings = (toggle: HTMLElement) => {
   } else {
     player.toggles[+toggleId] = true
   }
-
-  // eslint-disable-next-line no-shadow
-  const format = toggle.getAttribute('format')
-
-  if (format === '$' || format === '[$]') {
-    const text = player.toggles[+toggleId] ? i18next.t('general.on') : i18next.t('general.off')
-    toggle.textContent = format === '[$]' ? `[${text}]` : text
-  } else if (format === 'Auto Catalyze: $') {
-    const text = player.toggles[+toggleId] ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
-    toggle.textContent = text
-  } else if (format === 'Hover-to-Buy [$]') {
-    const text = player.toggles[+toggleId]
-      ? i18next.t('researches.hoverToBuyOn')
-      : i18next.t('researches.hoverToBuyOff')
-    toggle.textContent = text
-  } else if (format === 'Auto: $') {
-    const text = player.toggles[+toggleId] ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
-    toggle.textContent = text
-  } else if (format) {
-    const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF')
-    toggle.textContent = finishedString
-  } else {
-    toggle.textContent = player.toggles[+toggleId]
-      ? i18next.t('general.autoOnBracket')
-      : i18next.t('general.autoOffBracket')
-  }
-
-  toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+  updateToggleVisuals(toggle, player.toggles[+toggleId])
   updateBuildingAutomationButtons()
 }
 
@@ -189,26 +192,15 @@ export const toggleShops = (toggle?: upgradeAutos) => {
   // toggle provided: we do not want to update every button
   if (toggle) {
     player.shoptoggles[toggle] = !player.shoptoggles[toggle]
-    DOMCacheGetOrSet(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle] ? 'green' : 'red'
+    const element = DOMCacheGetOrSet(`${toggle}AutoUpgrade`)
+    updateToggleVisuals(element, player.shoptoggles[toggle])
+    return
+  }
 
-    if (player.shoptoggles[toggle]) {
-      DOMCacheGetOrSet(`${toggle}AutoUpgrade`).textContent = i18next.t('general.autoOnColon')
-    } else {
-      DOMCacheGetOrSet(`${toggle}AutoUpgrade`).textContent = i18next.t('general.autoOffColon')
-    }
-  } else {
-    const keys = Object.keys(player.shoptoggles) as (keyof Player['shoptoggles'])[]
-    for (const key of keys) {
-      const color = player.shoptoggles[key] ? 'green' : 'red'
-
-      if (player.shoptoggles[key]) {
-        DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = i18next.t('general.autoOnColon')
-      } else {
-        DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = i18next.t('general.autoOffColon')
-      }
-
-      DOMCacheGetOrSet(`${key}AutoUpgrade`).style.borderColor = color
-    }
+  const keys = Object.keys(player.shoptoggles) as (keyof Player['shoptoggles'])[]
+  for (const key of keys) {
+    const element = DOMCacheGetOrSet(`${key}AutoUpgrade`)
+    updateToggleVisuals(element, player.shoptoggles[key])
   }
 }
 
@@ -280,34 +272,8 @@ export const toggleautobuytesseract = () => {
 export const toggleauto = () => {
   const toggles = document.querySelectorAll<HTMLElement>('.auto[toggleid]')
   for (const toggle of toggles) {
-    // eslint-disable-next-line no-shadow
-    const format = toggle.getAttribute('format')
     const toggleId = toggle.getAttribute('toggleId') ?? 1
-
-    if (format === '$') {
-      const text = player.toggles[+toggleId] ? i18next.t('general.on') : i18next.t('general.off')
-      toggle.textContent = text
-    } else if (format === 'Auto Catalyze: $') {
-      const text = player.toggles[+toggleId] ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
-      toggle.textContent = text
-    } else if (format === 'Hover-to-Buy [$]') {
-      const text = player.toggles[+toggleId]
-        ? i18next.t('researches.hoverToBuyOn')
-        : i18next.t('researches.hoverToBuyOff')
-      toggle.textContent = text
-    } else if (format === 'Auto: $') {
-      const text = player.toggles[+toggleId] ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
-      toggle.textContent = text
-    } else if (format) {
-      const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF')
-      toggle.textContent = finishedString
-    } else {
-      toggle.textContent = player.toggles[+toggleId]
-        ? i18next.t('general.autoOnBracket')
-        : i18next.t('general.autoOffBracket')
-    }
-
-    toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+    updateToggleVisuals(toggle, player.toggles[+toggleId])
   }
 
   const tesseractAutos = document.querySelectorAll<HTMLElement>('*[id^="tesseractAutoToggle"]')
@@ -317,10 +283,10 @@ export const toggleauto = () => {
 
     if (player.autoTesseracts[j + 1]) {
       auto.textContent = i18next.t('general.autoOnBracket')
-      auto.style.border = '2px solid green'
+      auto.classList.add('pressed')
     } else {
       auto.textContent = i18next.t('general.autoOffBracket')
-      auto.style.border = '2px solid red'
+      auto.classList.remove('pressed')
     }
   }
 
@@ -930,10 +896,10 @@ export const toggleAutoTesseracts = (i: number) => {
   const el = DOMCacheGetOrSet(`tesseractAutoToggle${i}`)
   if (player.autoTesseracts[i]) {
     el.textContent = i18next.t('general.autoOffBracket')
-    el.style.border = '2px solid red'
+    el.classList.remove('pressed')
   } else {
     el.textContent = i18next.t('general.autoOnBracket')
-    el.style.border = '2px solid green'
+    el.classList.add('pressed')
   }
 
   player.autoTesseracts[i] = !player.autoTesseracts[i]

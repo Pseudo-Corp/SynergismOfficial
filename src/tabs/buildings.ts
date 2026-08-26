@@ -21,9 +21,8 @@ interface Building {
   statsExtraClass?: string
   statsStyle?: string
   fitStats?: boolean
+  spacer?: boolean
 }
-
-type Entry = Building | { spacer: true }
 
 const costIdOf = (buyId: string) => `cost${buyId.slice('buy'.length)}`
 const joinClasses = (...classes: Array<string | undefined>) => classes.filter(Boolean).join(' ')
@@ -31,10 +30,11 @@ const joinClasses = (...classes: Array<string | undefined>) => classes.filter(Bo
 export const getBuildingCostElement = (buyId: string): HTMLElement => DOMCacheGetOrSet(costIdOf(buyId))
 
 const renderBuildingDesktop = (b: Building): string => {
-  const wrapper = b.containerClass ? ` class="${b.containerClass}"` : ''
+  const containerClasses: string[] = []
+  if (b.containerClass) containerClasses.push(b.containerClass)
+  if (b.spacer) containerClasses.push('spacer')
+  const containerClass = containerClasses.length ? ` class="${containerClasses.join(' ')}"` : ''
   const imgClasses: string[] = []
-  if (b.imgExtraClass) imgClasses.push(b.imgExtraClass)
-  if (!b.noImageClass) imgClasses.push('image')
   const imgClass = imgClasses.length ? ` class="${imgClasses.join(' ')}"` : ''
   const descClass = joinClasses(b.descExtraClass, 'desc')
   const descStyle = b.descStyle ? ` style="${b.descStyle}"` : ''
@@ -44,17 +44,22 @@ const renderBuildingDesktop = (b: Building): string => {
   const statsTextClass = b.fitStats === false ? '' : ' class="fitText"'
   const statsStyle = b.statsStyle ? ` style="${b.statsStyle}"` : ''
 
-  return `<div${wrapper}>`
+  return `<div${containerClass}>`
     + `<img${imgClass} id="${b.imgId}" alt="${b.imgAlt}" src="${b.imgSrc}" loading="lazy">`
     + `<span class="${descClass}"${descStyle}><span class="fitText" id="${b.descId}"></span></span>`
+    + '<div class="buildingPurchaseWrapper">'
     + `<button class="${buyClass}" id="${b.buyId}"><span class="fitText" id="${costIdOf(b.buyId)}"></span></button>`
     + `<button class="auto autobuyerToggleButton" id="${b.toggleId}"${toggleIdAttr}></button>`
+    + '</div>'
     + `<span class="${statsClass}"${statsStyle}><span${statsTextClass} id="${b.statsId}"></span></span>`
     + '</div>'
 }
 
 const renderBuildingMobile = (b: Building): string => {
-  const wrapper = b.containerClass ? ` class="${b.containerClass}"` : ''
+  const containerClasses: string[] = []
+  if (b.containerClass) containerClasses.push(b.containerClass)
+  if (b.spacer) containerClasses.push('spacer')
+  const containerClass = containerClasses.length ? ` class="${containerClasses.join(' ')}"` : ''
   const imgClasses: string[] = []
   if (b.imgExtraClass) imgClasses.push(b.imgExtraClass)
   if (!b.noImageClass) imgClasses.push('image')
@@ -69,7 +74,7 @@ const renderBuildingMobile = (b: Building): string => {
   const costClass = joinClasses(b.buyExtraClass, 'cost', 'fitText')
   const buyLabel = i18next.t('buildings.buy')
 
-  return `<div${wrapper}>`
+  return `<div${containerClass}>`
     + `<img${imgClass} id="${b.imgId}" alt="${b.imgAlt}" src="${b.imgSrc}" loading="lazy">`
     + '<div class="textStack">'
     + `<span class="${descClass}"${descStyle}><span class="fitText" id="${b.descId}"></span></span>`
@@ -89,9 +94,8 @@ const renderAutomationControl = (): string =>
   + '<button class="automatedBuildingVisibilityToggle" type="button" style="display: none" aria-pressed="false"></button>'
   + '</div>'
 
-const renderRow = (entries: Entry[]): string =>
-  renderAutomationControl()
-  + entries.map((e) => 'spacer' in e ? '<div class="buildingSpacer"></div>' : renderBuilding(e)).join('')
+const renderRow = (entries: Building[]): string =>
+  renderAutomationControl() + entries.map((e) => renderBuilding(e)).join('')
 
 const goldStyle = 'color: gold'
 
@@ -101,8 +105,8 @@ const mythosNames = ['Augment', 'Enchantment', 'Wizard', 'Oracle', 'Grandmaster'
 const particleNames = ['Proton', 'Element', 'Pulsar', 'Quasar', 'Galactic Nucleus']
 const tesseractNames = ['Dot', 'Vector', 'Three-Space', 'Bent Time', 'Hilbert Space']
 
-const coinRow: Entry[] = [
-  ...[0, 1, 2, 3, 4].map((i): Building => ({
+const coinRow: Building[] = [
+  ...[0, 1, 2, 3, 4].map((i) => ({
     imgId: `coin${i + 1}`,
     imgAlt: coinNames[i],
     imgSrc: `Pictures/Default/Tier${i + 1}.png`,
@@ -113,9 +117,9 @@ const coinRow: Entry[] = [
     statsId: `buildtext${2 * i + 2}`,
     containerClass: i === 0 ? undefined : `coinunlock${i}`,
     descStyle: goldStyle,
-    statsStyle: goldStyle
+    statsStyle: goldStyle,
+    spacer: i === 4
   })),
-  { spacer: true },
   {
     imgId: 'accelerator',
     imgAlt: 'Accelerator',
@@ -161,7 +165,7 @@ const coinRow: Entry[] = [
   }
 ]
 
-const diamondRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
+const diamondRow: Building[] = [0, 1, 2, 3, 4].map((i) => ({
   imgId: `diamond${i + 1}`,
   imgAlt: diamondNames[i],
   imgSrc: `Pictures/Default/DiamondTier${i + 1}.png`,
@@ -172,7 +176,7 @@ const diamondRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
   statsId: `prestigetext${2 * i + 2}`
 }))
 
-const mythosRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
+const mythosRow: Building[] = [0, 1, 2, 3, 4].map((i) => ({
   imgId: `mythos${i + 1}`,
   imgAlt: mythosNames[i],
   imgSrc: `Pictures/Default/MythosTier${i + 1}.png`,
@@ -183,7 +187,7 @@ const mythosRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
   statsId: `transcendtext${2 * i + 2}`
 }))
 
-const particleRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
+const particleRow: Building[] = [0, 1, 2, 3, 4].map((i) => ({
   imgId: `particles${i + 1}`,
   imgAlt: particleNames[i],
   imgSrc: `Pictures/Default/ParticlesTier${i + 1}.png`,
@@ -195,7 +199,7 @@ const particleRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
   noImageClass: i === 0
 }))
 
-const tesseractRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
+const tesseractRow: Building[] = [0, 1, 2, 3, 4].map((i) => ({
   imgId: `tesseracts${i + 1}`,
   imgAlt: tesseractNames[i],
   imgSrc: `Pictures/Default/TesseractTier${i + 1}.png`,
@@ -206,7 +210,7 @@ const tesseractRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
 }))
 
 export const populateBuildingButtonRows = () => {
-  const rows: [string, string, Entry[]][] = [
+  const rows: [string, string, Building[]][] = [
     ['coinBuildings', 'buyamountcoin', coinRow],
     ['prestige', 'buyamountcrystal', diamondRow],
     ['transcension', 'buyamountmythos', mythosRow],
@@ -221,7 +225,9 @@ export const populateBuildingButtonRows = () => {
         row.classList.add('mobile')
       }
       row.innerHTML = renderRow(entries)
-      row.querySelector('.buildingAutomationControls')?.append(DOMCacheGetOrSet(buyAmountId))
+      if (!isMobile) {
+        row.querySelector('.buildingAutomationControls')?.append(DOMCacheGetOrSet(buyAmountId))
+      }
     }
   }
 }
@@ -232,15 +238,11 @@ const getAutobuyers = (control: HTMLButtonElement): HTMLElement[] => {
     return []
   }
 
-  return Array.from(row.querySelectorAll<HTMLElement>('.autobuyerToggleButton'))
-    .filter((toggle) => toggle.style.display !== 'none')
+  return Array.from(row.querySelectorAll<HTMLElement>('div > .auto:not(.none)'))
 }
 
 const getVisibilityControl = (row: HTMLElement): HTMLButtonElement | null =>
   row.querySelector<HTMLButtonElement>('.automatedBuildingVisibilityToggle')
-
-const hasVisibleBuildings = (elements: Element[]) =>
-  elements.some((element) => !element.classList.contains('buildingHiddenByAutomation'))
 
 const getTesseractIndex = (toggle: HTMLElement): number => Number(toggle.id.slice('tesseractAutoToggle'.length))
 
@@ -266,46 +268,11 @@ const updateBuildingVisibility = (row: HTMLElement, autobuyers: HTMLElement[]) =
     return
   }
 
-  const hideAutomated = visibilityControl.getAttribute('aria-pressed') === 'true'
-
-  for (const toggle of row.querySelectorAll<HTMLElement>('.autobuyerToggleButton')) {
-    toggle.parentElement?.classList.remove('buildingHiddenByAutomation')
-  }
-
-  if (hideAutomated) {
-    for (const toggle of autobuyers.filter(autobuyerIsEnabled)) {
-      toggle.parentElement?.classList.add('buildingHiddenByAutomation')
-    }
-  }
-
-  const rowChildren = Array.from(row.children)
-
-  for (const [index, child] of rowChildren.entries()) {
-    if (!child.classList.contains('buildingSpacer')) {
-      continue
-    }
-
-    const buildingsBefore = rowChildren.slice(0, index)
-      .filter((element) =>
-        !element.classList.contains('buildingAutomationControls')
-        && !element.classList.contains('buildingSpacer')
-      )
-    const buildingsAfter = rowChildren.slice(index + 1)
-      .filter((element) =>
-        !element.classList.contains('buildingAutomationControls')
-        && !element.classList.contains('buildingSpacer')
-      )
-    child.classList.toggle(
-      'buildingHiddenByAutomation',
-      hideAutomated && (!hasVisibleBuildings(buildingsBefore) || !hasVisibleBuildings(buildingsAfter))
-    )
-  }
-
+  const hideAutomated = visibilityControl.classList.contains('pressed')
   visibilityControl.style.display = autobuyers.length > 0 ? '' : 'none'
   visibilityControl.textContent = i18next.t(
     hideAutomated ? 'buildings.hideAutomated' : 'buildings.showAutomated'
   )
-  visibilityControl.style.border = `2px solid ${hideAutomated ? 'red' : 'green'}`
 }
 
 export const updateBuildingAutomationButtons = () => {
@@ -339,7 +306,7 @@ export const toggleAllBuildingAutomation = (control: HTMLButtonElement) => {
 }
 
 export const toggleAutomatedBuildingVisibility = (control: HTMLButtonElement) => {
-  const hideAutomated = control.getAttribute('aria-pressed') !== 'true'
+  const hideAutomated = control.classList.toggle('pressed')
   control.setAttribute('aria-pressed', `${hideAutomated}`)
   updateBuildingAutomationButtons()
 }
