@@ -118,7 +118,7 @@ body {
     --box-color: #111;
     --blueberry-box-color: #4f86f7;
     --purple-box-color: purple;
-    --purple-text-color: #b000b0;
+    --purple-text-color: #FF29FF;
     --button-color: #171717;
     --blackbtn-color: black;
     --purplebtn-color: purple;
@@ -3372,6 +3372,17 @@ p#reincarnatehotkeys {
     background-color: maroon;
 }
 
+#shopTestingOnlyWarning {
+    box-sizing: border-box;
+    max-width: 48ch;
+    padding: 6px 8px;
+    border: 2px solid red;
+    border-radius: 3px;
+    background-color: rgb(128 0 0 / 35%);
+    color: #ffb3b3;
+    font-weight: 600;
+}
+
 #shopDetailName {
     font-size: 1.1em;
 }
@@ -6152,14 +6163,15 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .purpleUpgradeAP {
-    flex-shrink: 0;
+    grid-area: ap;
     margin: 0;
-    padding: 8px 10px;
-    border-bottom: 1px solid rgb(176 0 176 / 55%);
+    padding: 0 10px;
     text-align: center;
 }
 
 #purpleUpgradeContainer {
+    --purple-upgrade-close-size: 34px;
+
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -6172,12 +6184,22 @@ header #obtainiumDisplay { color: pink; }
     text-align: left;
 }
 
+.purpleUpgradeHeader {
+    display: grid;
+    flex-shrink: 0;
+    grid-template-areas: ". ap close";
+    grid-template-columns: var(--purple-upgrade-close-size) minmax(0, 1fr) var(--purple-upgrade-close-size);
+    align-items: center;
+    padding: 7px;
+    border-bottom: 1px solid rgb(176 0 176 / 55%);
+}
+
 #singularityPurple {
     position: absolute;
     z-index: 3;
     top: 8px;
-    right: 8px;
-    left: 8px;
+    right: -3px;
+    left: -3px;
     height: min(70vh, 600px);
     min-height: 0;
     overflow: hidden;
@@ -6193,14 +6215,11 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #purpleUpgradeClose {
-    position: absolute;
-    z-index: 5;
-    top: 7px;
-    right: 7px;
     display: grid;
+    grid-area: close;
     place-items: center;
-    width: 34px;
-    height: 34px;
+    width: var(--purple-upgrade-close-size);
+    height: var(--purple-upgrade-close-size);
     padding: 0;
     border: 1px solid var(--purple-text-color);
     border-radius: 3px;
@@ -6401,19 +6420,23 @@ header #obtainiumDisplay { color: pink; }
 
 #purpleUpgradeDetailButtons {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
     gap: 8px;
     width: 100%;
 }
 
 #purpleUpgradeDetailButtons > button {
-    width: 280px;
+    flex: 0 1 140px;
+    width: 140px;
     max-width: 100%;
     min-height: 34px;
     padding: 3px 10px;
     border: 2px solid var(--purple-text-color);
     color: white;
+    line-height: 1.3;
+    white-space: pre-line;
 }
 
 #purpleUpgradeDetailButtons > button:disabled {
@@ -7417,6 +7440,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #purpleReactantContainers {
+    container: purple-reactor / inline-size;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -7444,6 +7468,14 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .purpleReactorHeader {
+    display: grid;
+    grid-template-areas:
+        ". title upgrades"
+        "explanation explanation explanation"
+        "half-life half-life half-life"
+        "spent spent spent";
+    grid-template-columns: 180px minmax(0, 1fr) 180px;
+    align-items: center;
     position: relative;
     z-index: 2;
     padding: 0 8px 8px;
@@ -7458,10 +7490,12 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .purpleReactantContainersDescription {
+    grid-area: title;
     font-size: 1.12em;
 }
 
 .purpleReactorExplanation {
+    grid-area: explanation;
     max-width: 820px;
     margin: 3px auto 0;
     color: lightgray;
@@ -7470,8 +7504,19 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .purpleReactorHalfLife {
+    grid-area: half-life;
     margin: 4px 0 0;
     font-size: 0.84em;
+    line-height: 1.25;
+    text-align: center;
+}
+
+.purpleReactorSpentRates {
+    grid-area: spent;
+    margin: 1px 0 0;
+    color: lightgray;
+    font-size: 0.76em;
+    font-variant-numeric: tabular-nums;
     line-height: 1.25;
     text-align: center;
 }
@@ -7488,10 +7533,10 @@ header #obtainiumDisplay { color: pink; }
 
 .purpleReactorUpgradeToggleRow {
     display: flex;
-    justify-content: center;
+    grid-area: upgrades;
+    justify-content: flex-end;
     position: relative;
     z-index: 2;
-    padding-top: 4px;
 }
 
 #purpleUpgradeToggle {
@@ -8127,6 +8172,22 @@ header #obtainiumDisplay { color: pink; }
     line-height: 1;
 }
 
+@container purple-reactor (width <= 900px) {
+    .purpleReactorHeader {
+        grid-template-areas:
+            "title"
+            "explanation"
+            "half-life"
+            "spent"
+            "upgrades";
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .purpleReactorUpgradeToggleRow {
+        margin-top: 4px;
+    }
+}
+
 @media (width <= 900px) {
     #purpleReactantContainers {
         width: min(96%, 760px);
@@ -8182,7 +8243,7 @@ header #obtainiumDisplay { color: pink; }
     }
 
     #purpleUpgradeFamilyList {
-        flex: none;
+        flex: 0 0 50%;
         min-width: 0;
         max-height: 40vh;
         border-right: 0;
@@ -8202,11 +8263,24 @@ header #obtainiumDisplay { color: pink; }
         min-height: 44px;
     }
 
-    #purpleUpgradeClose {
-        width: 44px;
-        height: 44px;
+    #purpleUpgradeContainer {
+        --purple-upgrade-close-size: 44px;
     }
 
+    .purpleUpgradeFamilyRow {
+        flex-wrap: wrap;
+    }
+
+    .purpleUpgradeFamilyButton {
+        flex-basis: 100%;
+    }
+
+    .purpleUpgradeFamilyRowTiers {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        padding: 0 8px 6px;
+    }
 }
 
 @media (any-pointer: coarse) {

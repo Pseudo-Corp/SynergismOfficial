@@ -4,6 +4,8 @@ export const purpleReactantConversion = {
   purpleBarPoints: 100
 } as const
 
+export const PURPLE_REACTOR_TICK_INTERVAL = 0.125
+
 export const calculateRedAmbrosiaReactantCapacityFromAmbrosia = (
   ambrosiaBarPointCapacity: number
 ) => {

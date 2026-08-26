@@ -2,6 +2,7 @@ import i18next from 'i18next'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  calculateBlueberryInventory,
   calculateExalt4EffectiveSingularityMultiplier,
   calculateGoldenQuarkCost,
   calculateImmaculateAlchemyBonus
@@ -85,6 +86,7 @@ type GoldenQuarkUpgradeRewards = {
   wowPass2: { unlocked: boolean }
   wowPass3: { unlocked: boolean }
   wowPass4: { unlocked: boolean }
+  wowPass5: { unlocked: boolean }
   potionBuff: { potionPowerMult: number }
   potionBuff2: { potionPowerMult: number }
   potionBuff3: { potionPowerMult: number }
@@ -1725,6 +1727,26 @@ export const goldenQuarkUpgrades: {
     name: () => i18next.t('singularity.data.wowPass4.name'),
     description: () => i18next.t('singularity.data.wowPass4.description')
   },
+  wowPass5: {
+    level: 0,
+    maxLevel: 1,
+    canExceedCap: false,
+    qualityOfLife: true,
+    costPerLevel: 1e29,
+    minimumSingularity: 283,
+    specialCostForm: 'Default',
+    effect: (n: number) => {
+      return n > 0
+    },
+    effectDescription: () => {
+      const unlocked = getGQUpgradeEffect('wowPass5', 'unlocked')
+      return i18next.t(
+        `singularity.data.wowPass5.effect${unlocked ? 'Have' : 'HaveNot'}`
+      )
+    },
+    name: () => i18next.t('singularity.data.wowPass5.name'),
+    description: () => i18next.t('singularity.data.wowPass5.description')
+  },
   blueberries: {
     level: 0,
     maxLevel: 10,
@@ -2192,7 +2214,7 @@ export const blankGQLevelObject: Record<
 ) as Record<SingularityDataKeys, { freeLevel: number; goldenQuarksInvested: number }>
 
 export const maxGoldenQuarkUpgradeAP = Object.values(goldenQuarkUpgrades).reduce((acc) => {
-  return acc + 5
+  return acc + 6
 }, 0)
 
 export function updateGoldenQuarkUpgradeVisibility (
@@ -3434,6 +3456,61 @@ export const singularityPerks: SingularityPerk[] = [
       })
     },
     ID: 'taxReduction'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.irishAnt3.name')
+    },
+    levels: [285, 293],
+    description: () => {
+      let perSing = 2
+      if (player.highestSingularityCount >= 292) {
+        perSing++
+      }
+
+      const effect = perSing * (player.highestSingularityCount - 280)
+      return i18next.t('singularity.perks.irishAnt3.default', {
+        amt: format(effect, 0, true),
+        amt2: format(perSing, 0, true)
+      })
+    },
+    ID: 'irishAnt3'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.efficientBlueberries.name')
+    },
+    levels: [283, 289],
+    description: () => {
+      let perTwo = 2 / 100
+      if (player.highestSingularityCount >= 289) {
+        perTwo += 1 / 100
+      }
+      const effect = perTwo * Math.floor(calculateBlueberryInventory() / 2)
+      return i18next.t('singularity.perks.efficientBlueberries.default', {
+        amt: format(effect, 2, true),
+        amt2: format(perTwo, 2, true)
+      })
+    },
+    ID: 'efficientBlueberries'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.reactorSpeedup.name')
+    },
+    levels: [282, 284, 286, 288, 290, 292, 294, 296, 298, 300],
+    description: (n: number, levels: number[]) => {
+      for (let i = levels.length - 1; i >= 0; i--) {
+        if (n >= levels[i]) {
+          return i18next.t('singularity.perks.reactorSpeedup.default', {
+            amt: formatAsPercentIncrease(1 - (i + 1) / 100, 0)
+          })
+        }
+      }
+
+      return i18next.t('singularity.perks.evenMoreQuarks.bug')
+    },
+    ID: 'reactorSpeedup'
   }
 ]
 
@@ -3481,6 +3558,8 @@ const SINGULARITY_PERK_TREE_PLACEMENTS: Record<string, SingularityPerkTreePlacem
   generousOrbs: { parentID: null, x: 1.5, y: -0.5 },
   coolQOLCubes: { parentID: 'generousOrbs', x: 4, y: -1 },
   congealedblueberries: { parentID: 'coolQOLCubes', x: 5, y: -1 },
+  efficientBlueberries: { parentID: 'congealedblueberries', x: 5, y: 0.15 },
+  reactorSpeedup: { parentID: 'congealedblueberries', x: 5, y: -2.15 },
   wowCubeAutomatedShipping: { parentID: 'generousOrbs', x: 4, y: 0.15 },
 
   researchDummies: { parentID: null, x: 1.5, y: 0.5 },
@@ -3497,6 +3576,8 @@ const SINGULARITY_PERK_TREE_PLACEMENTS: Record<string, SingularityPerkTreePlacem
   forTheLoveOfTheAntGod: { parentID: 'antGodsCornucopia', x: -3, y: 3 },
   irishAnt: { parentID: 'forTheLoveOfTheAntGod', x: -4, y: 3 },
   irishAnt2: { parentID: 'irishAnt', x: -5, y: 3 },
+  irishAnt3: { parentID: 'irishAnt2', x: -6, y: 3 },
+
   derpSmithsCornucopia: { parentID: 'antGodsCornucopia', x: -3, y: 4.15 },
   demeterHarvest: { parentID: 'derpSmithsCornucopia', x: -4, y: 4.15 },
 

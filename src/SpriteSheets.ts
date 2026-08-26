@@ -38,11 +38,12 @@ export const spriteSheets: SpriteSheet[] = [
     elementNames: [
       'shopRedLuck1',
       'shopRedLuck2',
-      'shopRedLuck3'
+      'shopRedLuck3',
+      'shopRedLuck4'
     ],
     iconSize: 64,
     rows: 1,
-    columns: 3,
+    columns: 4,
     aliases: [{ elementName: 'shopFamilyRowIcon-shopRedLuck1', iconIndex: 0, displaySize: 24 }]
   },
   {

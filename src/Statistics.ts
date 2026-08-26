@@ -30,6 +30,7 @@ import {
   calculateCubeMultiplier,
   calculateCubeMultiplierWithTau,
   calculateDilatedFiveLeafBonus,
+  calculateEfficientBlueberryPurpleEfficiency,
   calculateEventBuff,
   calculateExalt3Penalty,
   calculateExalt6Penalty,
@@ -42,6 +43,7 @@ import {
   calculateHepteractMultiplier,
   calculateHypercubeMultiplier,
   calculateImmaculateAlchemyBonus,
+  calculateIrish3PurpleLuck,
   calculateLuckConversion,
   calculateNegativeSalvage,
   calculateNumberOfThresholds,
@@ -56,7 +58,9 @@ import {
   calculatePlatonicMultiplier,
   calculatePositiveSalvage,
   calculatePowderConversion,
+  calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyLuck,
+  calculatePurpleHoneyPerExtraction,
   calculatePurpleReactantCapacity,
   calculatePurpleReactantHalfLife,
   calculateQuarkMultFromPowder,
@@ -73,6 +77,7 @@ import {
   calculateRedAmbrosiaOffering,
   calculateSingularityAmbrosiaLuckMilestoneBonus,
   calculateSingularityMilestoneBlueberries,
+  calculateSingularityPurpleBarSizeMultiplier,
   calculateSingularityQuarkMilestoneMultiplier,
   calculateTesseractMultiplier,
   calculateTotalOcteractCubeBonus,
@@ -2883,6 +2888,11 @@ export const allLuckConversionStats: NumberStatLineCategory = {
       acc: 2
     },
     {
+      i18n: 'ShopRedLuck4',
+      stat: () => getShopUpgradeEffects('shopRedLuck4', 'luckConversionRatio'), // Shop Red Luck IV
+      acc: 2
+    },
+    {
       i18n: 'HorseShoeRune',
       stat: () => getRuneEffects('horseShoe', 'redLuckConversion') // Horseshoe Rune
     }
@@ -2931,6 +2941,10 @@ export const allRedAmbrosiaLuckStats: NumberStatLineCategory = {
     {
       i18n: 'ShopRedLuck3',
       stat: () => getShopUpgradeEffects('shopRedLuck3', 'redLuck') // Shop Red Luck III
+    },
+    {
+      i18n: 'ShopRedLuck4',
+      stat: () => getShopUpgradeEffects('shopRedLuck4', 'redLuck') // Shop Red Luck IV
     },
     {
       i18n: 'Jack',
@@ -3803,6 +3817,10 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
       i18n: 'SynergismLevelReward',
       stat: () => getLevelReward('purpleHoneyLuck')
     },
+    {
+      i18n: 'IrishAnt3',
+      stat: () => calculateIrish3PurpleLuck()
+    },
     // Purple Honey Luck I
     {
       i18n: 'PurpleHoneyUpgrade1',
@@ -3830,13 +3848,58 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
   ]
 }
 
+export const allPurpleHoneyEfficiencyStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => 1
+    },
+    {
+      i18n: 'PseudoCoins',
+      stat: () => PCoinUpgradeEffects.PURPLE_HONEY_BUFF,
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'SingularityPerk',
+      stat: () => calculateEfficientBlueberryPurpleEfficiency()
+    },
+    {
+      i18n: 'PurpleHoneyUpgrade1',
+      stat: () => getPurpleReactorUpgradeEffects('purpleEfficiency1', 'purpleEfficiency')
+    },
+    {
+      i18n: 'PurpleHoneyUpgrade2',
+      stat: () => getPurpleReactorUpgradeEffects('purpleEfficiency2', 'purpleEfficiency')
+    },
+    {
+      i18n: 'PurpleHoneyUpgrade3',
+      stat: () => getPurpleReactorUpgradeEffects('purpleEfficiency3', 'purpleEfficiency')
+    },
+    {
+      i18n: 'PurpleHoneyUpgrade4',
+      stat: () => getPurpleReactorUpgradeEffects('purpleEfficiency4', 'purpleEfficiency')
+    }
+  ]
+}
+
 export const allPurpleHoneyProgressRequirementStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
   lines: [
     {
       i18n: 'Base',
-      stat: () => 500_000
+      stat: () => 50
+    },
+    {
+      i18n: 'SingularityPerk',
+      stat: () => calculateSingularityPurpleBarSizeMultiplier()
+    },
+    {
+      i18n: 'LifetimePurpleHoney',
+      stat: () => Math.min(100_000, player.purpleReactor.lifetimePurpleHoney + 10) / 10
     },
     {
       i18n: 'PurpleHoney',
@@ -3932,7 +3995,7 @@ const allMiscStats: NumberStatLineCategory = {
     {
       i18n: 'HighestPurpleHoney',
       stat: () => player.stats.highestPurpleHoney,
-      color: 'var(--purple-text-color)C'
+      color: 'var(--purple-text-color)'
     },
     {
       i18n: 'PurpleHoneySpentUpgrades',
@@ -3984,9 +4047,11 @@ const associated = new Map<string, string>([
   ['kLuckConversion', 'luckConversionStats'],
   ['kRedAmbrosiaLuck', 'redAmbrosiaLuckStats'],
   ['kRedAmbrosiaGenMult', 'redAmbrosiaGenerationStats'],
+  ['kPurpleHoneyEfficiency', 'purpleHoneyEfficiencyStats'],
   ['kPurpleHalfLife', 'purpleHalfLifeStats'],
   ['kPurpleReactantCapacity', 'purpleReactantCapacityStats'],
   ['kPurpleHoneyLuck', 'purpleHoneyLuckStats'],
+  ['kPurpleHoneyProgressRequirement', 'purpleHoneyProgressRequirementStats'],
   ['kShopVouchers', 'shopVoucherStats']
 ])
 
@@ -4155,6 +4220,9 @@ export const loadStatisticsUpdate = (statsId?: string) => {
       case 'redAmbrosiaGenerationStats':
         loadRedAmbrosiaGenerationStats()
         break
+      case 'purpleHoneyEfficiencyStats':
+        loadStatisticsPurpleHoneyEfficiencyStats()
+        break
       case 'purpleHalfLifeStats':
         loadStatisticsPurpleReactantHalfLifeStats()
         break
@@ -4163,6 +4231,9 @@ export const loadStatisticsUpdate = (statsId?: string) => {
         break
       case 'purpleHoneyLuckStats':
         loadStatisticsPurpleHoneyLuckStats()
+        break
+      case 'purpleHoneyProgressRequirementStats':
+        loadStatisticsPurpleHoneyProgressRequirementStats()
         break
       case 'shopVoucherStats':
         loadShopVoucherStats()
@@ -4720,6 +4791,16 @@ const loadStatisticsPurpleReactantHalfLifeStats = () => {
   )
 }
 
+const loadStatisticsPurpleHoneyEfficiencyStats = () => {
+  loadStatistics(
+    allPurpleHoneyEfficiencyStats,
+    'purpleHoneyEfficiencyStats',
+    'statPHE',
+    'PurpleHoneyEfficiencyStat',
+    calculatePurpleHoneyPerExtraction
+  )
+}
+
 const loadStatisticsPurpleReactantCapacityStats = () => {
   loadStatistics(
     allPurpleReactantCapacityStats,
@@ -4737,6 +4818,16 @@ const loadStatisticsPurpleHoneyLuckStats = () => {
     'statPHoL',
     'PurpleHoneyLuckStat',
     calculatePurpleHoneyLuck
+  )
+}
+
+const loadStatisticsPurpleHoneyProgressRequirementStats = () => {
+  loadStatistics(
+    allPurpleHoneyProgressRequirementStats,
+    'purpleHoneyProgressRequirementStats',
+    'statPHPR',
+    'PurpleHoneyProgressRequirementStat',
+    calculatePurpleHoneyConversionFactor
   )
 }
 

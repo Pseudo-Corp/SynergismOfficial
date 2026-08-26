@@ -101,6 +101,7 @@ import {
   maxPurpleReactorAP,
   purpleReactorUpgrades
 } from './Purple'
+import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
 import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
@@ -186,6 +187,13 @@ const updateInnerHTMLIfChanged = (elementId: string, html: string) => {
   }
 }
 
+const updateTextContentIfChanged = (elementId: string, text: string) => {
+  const element = DOMCacheGetOrSet(elementId)
+  if (element.textContent !== text) {
+    element.textContent = text
+  }
+}
+
 const updatePurpleReactantSlider = (sliderId: string, outputId: string, percentage: number) => {
   const normalizedPercentage = Math.min(100, Math.round(percentage))
   const slider = DOMCacheGetOrSet(sliderId) as HTMLInputElement
@@ -212,6 +220,48 @@ const normalizePurpleReactantNetRate = (netRate: number, capacity: number) => {
 const isPurpleReactantAtCapacity = (barPoints: number, capacity: number) => {
   const roundingTolerance = 16 * Number.EPSILON * capacity
   return capacity > 0 && barPoints >= capacity - roundingTolerance
+}
+
+const calculatePurpleReactantDisplay = (
+  productionPerSecond: number,
+  reservePercentage: number,
+  storedBarPoints: number,
+  capacity: number,
+  dissolutionPerSecond: number,
+  maximumDissolutionPerSecond: number
+) => {
+  const refill = calculatePurpleReactantRouting(
+    productionPerSecond,
+    reservePercentage,
+    storedBarPoints,
+    capacity,
+    PURPLE_REACTOR_TICK_INTERVAL
+  )
+  const fullTankRouting = calculatePurpleReactantRouting(
+    productionPerSecond,
+    reservePercentage,
+    capacity,
+    capacity,
+    1,
+    maximumDissolutionPerSecond
+  )
+  const atCapacity = isPurpleReactantAtCapacity(refill.storedBarPoints, capacity)
+    && isPurpleReactantAtCapacity(fullTankRouting.storedBarPoints, capacity)
+
+  return {
+    atCapacity,
+    dissolutionPerSecond: atCapacity ? maximumDissolutionPerSecond : dissolutionPerSecond,
+    routing: atCapacity
+      ? fullTankRouting
+      : calculatePurpleReactantRouting(
+        productionPerSecond,
+        reservePercentage,
+        storedBarPoints,
+        capacity,
+        1,
+        dissolutionPerSecond
+      )
+  }
 }
 
 const formatPurpleReactantNetRate = (netRate: number) => {
@@ -1848,8 +1898,7 @@ export const visualUpdateSingularity = () => {
       ) {
         el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
       } else if (
-        singItem.maxLevel === -1
-        || goldenQuarkUpgrades[key].level < computeGQUpgradeMaxLevel(key)
+        goldenQuarkUpgrades[key].level < computeGQUpgradeMaxLevel(key)
       ) {
         if (computeGQUpgradeFreeLevelSoftcap(key) > goldenQuarkUpgrades[key].level) {
           el.style.filter = val ? 'blur(1px) invert(.9) saturate(200)' : 'none'
@@ -1867,16 +1916,16 @@ export const visualUpdateSingularity = () => {
       const isMaxed = updateOcteractUpgradeVisibility(key, el)
       const isAffordable = !isMaxed && getOcteractUpgradeCostTNL(key) <= player.wowOcteracts
 
-      el.dataset.octeractLevel = `${format(octItem.level)}`
+      el.dataset.octeractLevel = format(octItem.level)
       el.classList.toggle('octeractUpgradeAffordable', isAffordable)
       el.classList.toggle('octeractUpgradeMaxed', isMaxed)
-      el.classList.toggle('octeractUpgradeFreeLevels', octItem.freeLevel > 0)
+      el.classList.toggle('octeractUpgradeFreeLevels', player.octUpgrades[key].freeLevel > 0)
 
       if (isMaxed) {
         el.style.filter = val ? 'brightness(.9)' : 'none'
       } else if (!isAffordable) {
         el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
-      } else if (octItem.maxLevel === -1 || octeractUpgrades[key].level < octItem.maxLevel) {
+      } else if (octeractUpgrades[key].level < octItem.maxLevel) {
         if (player.octUpgrades[key].freeLevel > octeractUpgrades[key].level) {
           el.style.filter = val ? 'blur(2px) invert(.9) saturate(200)' : 'none'
         } else {
@@ -1991,21 +2040,29 @@ export const visualUpdateAmbrosia = () => {
     player.purpleReactor.storedRedAmbrosiaBarPoints,
     conversionFractionPerSecond
   )
-  const ambrosiaRouting = calculatePurpleReactantRouting(
+  const {
+    ambrosiaBarPointsSpent: maximumAmbrosiaReactantDissolutionRate,
+    redAmbrosiaBarPointsSpent: maximumRedAmbrosiaReactantDissolutionRate
+  } = calculatePurpleReactantConversion(
+    ambrosiaReactantCapacity,
+    redAmbrosiaReactantCapacity,
+    conversionFractionPerSecond
+  )
+  const { routing: ambrosiaRouting } = calculatePurpleReactantDisplay(
     player.singularityChallenges.noSingularityUpgrades.completions > 0 ? totalTimePerSecond : 0,
     player.purpleReactor.ambrosiaBarPointPercentage,
     player.purpleReactor.storedAmbrosiaBarPoints,
     ambrosiaReactantCapacity,
-    1,
-    ambrosiaReactantDissolutionRate
+    ambrosiaReactantDissolutionRate,
+    maximumAmbrosiaReactantDissolutionRate
   )
-  const redAmbrosiaRouting = calculatePurpleReactantRouting(
+  const { routing: redAmbrosiaRouting } = calculatePurpleReactantDisplay(
     player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? totalTimePerSecondRed : 0,
     player.purpleReactor.redAmbrosiaBarPointPercentage,
     player.purpleReactor.storedRedAmbrosiaBarPoints,
     redAmbrosiaReactantCapacity,
-    1,
-    redAmbrosiaReactantDissolutionRate
+    redAmbrosiaReactantDissolutionRate,
+    maximumRedAmbrosiaReactantDissolutionRate
   )
   const barWidth = 100 * Math.min(1, player.blueberryTime / requiredTime)
   const pixelBarWidth = 100 * Math.min(1, player.redAmbrosiaTime / requiredTimeRed)
@@ -2176,45 +2233,49 @@ export const visualUpdatePurple = () => {
     redAmbrosiaBarPointsSpent: redAmbrosiaReactantDissolutionRate,
     purpleBarPointsGained: purpleHoneyProgressPerSecond
   } = calculatePurpleReactantConversion(ambrosiaBarPoints, redAmbrosiaBarPoints, conversionFractionPerSecond)
+  const {
+    ambrosiaBarPointsSpent: maximumAmbrosiaReactantDissolutionRate,
+    redAmbrosiaBarPointsSpent: maximumRedAmbrosiaReactantDissolutionRate
+  } = calculatePurpleReactantConversion(
+    ambrosiaReactantCapacity,
+    redAmbrosiaReactantCapacity,
+    conversionFractionPerSecond
+  )
 
   const purpleHoneyProgress = player.purpleHoneyProgress
 
-  const ambrosiaReactantRouting = calculatePurpleReactantRouting(
+  const ambrosiaReactantDisplay = calculatePurpleReactantDisplay(
     player.singularityChallenges.noSingularityUpgrades.completions > 0 ? calculateAmbrosiaGenerationSpeed() : 0,
     player.purpleReactor.ambrosiaBarPointPercentage,
     ambrosiaBarPoints,
     ambrosiaReactantCapacity,
-    1,
-    ambrosiaReactantDissolutionRate
+    ambrosiaReactantDissolutionRate,
+    maximumAmbrosiaReactantDissolutionRate
   )
-  const redAmbrosiaReactantRouting = calculatePurpleReactantRouting(
+  const redAmbrosiaReactantDisplay = calculatePurpleReactantDisplay(
     player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? calculateRedAmbrosiaGenerationSpeed() : 0,
     player.purpleReactor.redAmbrosiaBarPointPercentage,
     redAmbrosiaBarPoints,
     redAmbrosiaReactantCapacity,
-    1,
-    redAmbrosiaReactantDissolutionRate
+    redAmbrosiaReactantDissolutionRate,
+    maximumRedAmbrosiaReactantDissolutionRate
   )
+  const ambrosiaReactantRouting = ambrosiaReactantDisplay.routing
+  const redAmbrosiaReactantRouting = redAmbrosiaReactantDisplay.routing
 
   const ambrosiaBarPointReserveRate = ambrosiaReactantRouting.reserveRate
   const redAmbrosiaBarPointReserveRate = redAmbrosiaReactantRouting.reserveRate
   const ambrosiaBarPointNetRate = normalizePurpleReactantNetRate(
-    ambrosiaBarPointReserveRate - ambrosiaReactantDissolutionRate,
+    ambrosiaBarPointReserveRate - ambrosiaReactantDisplay.dissolutionPerSecond,
     ambrosiaReactantCapacity
   )
   const redAmbrosiaBarPointNetRate = normalizePurpleReactantNetRate(
-    redAmbrosiaBarPointReserveRate - redAmbrosiaReactantDissolutionRate,
+    redAmbrosiaBarPointReserveRate - redAmbrosiaReactantDisplay.dissolutionPerSecond,
     redAmbrosiaReactantCapacity
   )
 
-  const ambrosiaAtCapacity = isPurpleReactantAtCapacity(
-    ambrosiaReactantRouting.storedBarPoints,
-    ambrosiaReactantCapacity
-  )
-  const redAmbrosiaAtCapacity = isPurpleReactantAtCapacity(
-    redAmbrosiaReactantRouting.storedBarPoints,
-    redAmbrosiaReactantCapacity
-  )
+  const ambrosiaAtCapacity = ambrosiaReactantDisplay.atCapacity
+  const redAmbrosiaAtCapacity = redAmbrosiaReactantDisplay.atCapacity
   const displayedAmbrosiaBarPoints = ambrosiaAtCapacity ? ambrosiaReactantCapacity : ambrosiaBarPoints
   const displayedRedAmbrosiaBarPoints = redAmbrosiaAtCapacity ? redAmbrosiaReactantCapacity : redAmbrosiaBarPoints
   const ambrosiaProgress = ambrosiaReactantCapacity > 0
@@ -2379,6 +2440,13 @@ export const visualUpdatePurple = () => {
       { time: format(reactantHalfLife, 0, true) }
     )
   )
+  updateInnerHTMLIfChanged(
+    'purpleReactantSpentRates',
+    i18next.t('purpleReactor.reactantSpentRates', {
+      ambrosia: format(ambrosiaReactantDisplay.dissolutionPerSecond, 2, true),
+      redAmbrosia: format(redAmbrosiaReactantDisplay.dissolutionPerSecond, 2, true)
+    })
+  )
 
   const reactorContainer = DOMCacheGetOrSet('purpleReactantContainers')
   reactorContainer.classList.toggle('purpleReactorActive', reactorActive)
@@ -2405,7 +2473,7 @@ export const visualUpdatePurple = () => {
     'ambrosiaReactantSpentRate',
     i18next.t(
       'purpleReactor.reactantSpentRate',
-      { amount: format(ambrosiaReactantDissolutionRate, 2, true) }
+      { amount: format(ambrosiaReactantDisplay.dissolutionPerSecond, 2, true) }
     )
   )
   updateProgressBarAccessibility('ambrosiaContainerProgressBar', ambrosiaProgress, ambrosiaProgressAriaText)
@@ -2424,7 +2492,7 @@ export const visualUpdatePurple = () => {
     'redAmbrosiaReactantSpentRate',
     i18next.t(
       'purpleReactor.reactantSpentRate',
-      { amount: format(redAmbrosiaReactantDissolutionRate, 2, true) }
+      { amount: format(redAmbrosiaReactantDisplay.dissolutionPerSecond, 2, true) }
     )
   )
   updateProgressBarAccessibility('redAmbrosiaContainerProgressBar', redAmbrosiaProgress, redAmbrosiaProgressAriaText)
@@ -2449,16 +2517,8 @@ export const visualUpdateShop = () => {
     return
   }
 
-  DOMCacheGetOrSet('offeringpotionowned').textContent = format(
-    player.shopUpgrades.offeringPotion,
-    0,
-    false
-  )
-  DOMCacheGetOrSet('obtainiumpotionowned').textContent = format(
-    player.shopUpgrades.obtainiumPotion,
-    0,
-    false
-  )
+  updateTextContentIfChanged('offeringpotionowned', format(player.shopUpgrades.offeringPotion, 0, false))
+  updateTextContentIfChanged('obtainiumpotionowned', format(player.shopUpgrades.obtainiumPotion, 0, false))
 
   // Create Keys with the correct type
   for (const key of shopUpgradeNames) {
@@ -2470,13 +2530,13 @@ export const visualUpdateShop = () => {
         Math.floor(Number(player.worlds) / getShopCosts(key)),
         shopItem.maxLevel - player.shopUpgrades[key]
       )
-      const el = DOMCacheGetOrSet(`buy${key.toLowerCase()}`)
+      let label: string
       switch (player.shopBuyMaxToggle) {
         case false:
-          el.textContent = 'BUY: 100 Quarks Each'
+          label = 'BUY: 100 Quarks Each'
           break
         case 'TEN':
-          el.textContent = `+${Math.min(10, maxBuyablePotions)} for ${
+          label = `+${Math.min(10, maxBuyablePotions)} for ${
             format(
               getShopCosts(key) * Math.min(10, maxBuyablePotions),
               0,
@@ -2485,24 +2545,29 @@ export const visualUpdateShop = () => {
           } Quarks`
           break
         default:
-          el.textContent = `+${format(maxBuyablePotions, 0)} for ${
+          label = `+${format(maxBuyablePotions, 0)} for ${
             format(
               getShopCosts(key) * maxBuyablePotions
             )
           } Quarks`
       }
+      updateTextContentIfChanged(`buy${key.toLowerCase()}`, label)
     }
   }
 
   updateShopTab()
 
-  DOMCacheGetOrSet('buySingularityQuarksAmount').textContent = player.goldenQuarks < 1000
-    ? i18next.t('shop.singularityQuarkAmount', { amount: format(player.goldenQuarks) })
-    : format(player.goldenQuarks, 0, false, false)
+  updateTextContentIfChanged(
+    'buySingularityQuarksAmount',
+    player.goldenQuarks < 1000
+      ? i18next.t('shop.singularityQuarkAmount', { amount: format(player.goldenQuarks) })
+      : format(player.goldenQuarks, 0, false, false)
+  )
 
-  DOMCacheGetOrSet('buySingularityQuarksButton').textContent = i18next.t('shop.singularityQuarkCost', {
-    cost: format(getGoldenQuarkCost().cost)
-  })
+  updateTextContentIfChanged(
+    'buySingularityQuarksButton',
+    i18next.t('shop.singularityQuarkCost', { cost: format(getGoldenQuarkCost().cost) })
+  )
 }
 
 const constructConsumableTimes = (p: PseudoCoinConsumableNames) => {

@@ -1177,7 +1177,7 @@ const checkAmbrosiaUpgradePrerequisites = (upgradeKey: AmbrosiaUpgradeNames): bo
 export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): string => {
   const upgrade = ambrosiaUpgrades[upgradeKey]
   const costNextLevel = getAmbrosiaUpgradeCostTNL(upgradeKey)
-  const maxLevel = upgrade.maxLevel === -1 ? '' : `/${format(upgrade.maxLevel, 0, true)}`
+  const maxLevel = `/${format(upgrade.maxLevel, 0, true)}`
   const isMaxLevel = upgrade.maxLevel === upgrade.level
   const color = isMaxLevel ? 'plum' : 'white'
 

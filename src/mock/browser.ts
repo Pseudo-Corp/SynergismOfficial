@@ -6,7 +6,171 @@ import { messageHandlers } from './handlers/MessageHandlers'
 import { paymentHandlers } from './handlers/PaymentHandlers'
 import { subscriptionHandlers } from './handlers/SubscriptionHandlers'
 import { xsollaHandlers } from './handlers/XsollaHandlers'
-import { consumeHandlers } from './websocket'
+import { createConsumeHandlers } from './websocket'
+
+interface PseudoCoinUpgrade {
+  upgradeId: number
+  maxLevel: number
+  name: string
+  description: string
+  internalName: string
+  level: number
+  cost: number
+}
+
+interface PlayerPseudoCoinUpgrade {
+  upgradeId: number
+  level: number
+  internalName: string
+}
+
+interface PseudoCoinUpgradeResponse {
+  upgrades: PseudoCoinUpgrade[]
+  playerUpgrades: PlayerPseudoCoinUpgrade[]
+}
+
+interface ConsumableListItem {
+  id: number
+  name: string
+  description: string
+  internalName: string
+  cost: number
+  length: string | null
+}
+
+let pseudoCoinBalance = 999_999
+let pseudoCoinUpgrades: PseudoCoinUpgrade[] = []
+
+const playerUpgrades: PlayerPseudoCoinUpgrade[] = [
+  {
+    upgradeId: 15,
+    level: 2,
+    internalName: 'ADD_CODE_CAP_BUFF'
+  }
+]
+
+const consumables: ConsumableListItem[] = [
+  {
+    id: 1,
+    name: 'Happy Hour Bell',
+    description:
+      'When you activate a consumable, trigger an event for 60 minutes, giving all players:\\n- Quark bonus: 25% + 2.5% * (active - 1)\\n- Cube, Obtainium, Offering bonuses: 50% + 5% * (active - 1)\\n- Ambrosia Luck Multiplier: 10% + 1% * (active - 1)\\n- Blueberry Generation Speed: 10% + 1% * (active - 1)\\n\\nIf you activate this consumable, you will receive 12 hours of Offline Time, in the form of tips. Each tip can be redeemed in the Events tab for 1 minute of Offline Time!',
+    internalName: 'HAPPY_HOUR_BELL',
+    cost: 500,
+    length: null
+  },
+  {
+    id: 2,
+    name: 'Small Global Timeskip',
+    description:
+      'Adds 6 hours of REAL-LIFE time to your Prestige, Transcension, Reincarnation and Ant Sacrifice timers. Applies immediately!',
+    internalName: 'SMALL_GLOBAL_TIMESKIP',
+    cost: 100,
+    length: '360'
+  },
+  {
+    id: 3,
+    name: 'Large Global Timeskip',
+    description:
+      'Adds 12 hours of REAL-LIFE time to your Prestige, Transcension, Reincarnation and Ant Sacrifice timers! Applies immediately!',
+    internalName: 'LARGE_GLOBAL_TIMESKIP',
+    cost: 200,
+    length: '720'
+  },
+  {
+    id: 4,
+    name: 'Jumbo Global Timeskip',
+    description:
+      'Adds 24 hours of REAL LIFE time to your Prestige, Transcension, Reincarnation and Ant Sacrifice timers. Applies Immediately!',
+    internalName: 'JUMBO_GLOBAL_TIMESKIP',
+    cost: 300,
+    length: '1440'
+  },
+  {
+    id: 5,
+    name: 'Small Ascension Timeskip',
+    description: 'Adds 6 hours of REAL LIFE time to your Ascension Timer. Applies immediately!',
+    internalName: 'SMALL_ASCENSION_TIMESKIP',
+    cost: 100,
+    length: '360'
+  },
+  {
+    id: 6,
+    name: 'Large Ascension Timeskip',
+    description: 'Adds 12 hours of REAL LIFE time to your Ascension Timers. Applies immediately!',
+    internalName: 'LARGE_ASCENSION_TIMESKIP',
+    cost: 200,
+    length: '720'
+  },
+  {
+    id: 7,
+    name: 'Jumbo Ascension Timeskip',
+    description: 'Adds 24 hours of REAL LIFE time to your Ascension Timers. Applies Immediately!',
+    internalName: 'JUMBO_ASCENSION_TIMESKIP',
+    cost: 300,
+    length: '1440'
+  },
+  {
+    id: 8,
+    name: 'Small Ambrosia Timeskip',
+    description: 'Gain six hours worth of Ambrosia and Red Ambrosia Bar Points! Applies immediately!',
+    internalName: 'SMALL_AMBROSIA_TIMESKIP',
+    cost: 150,
+    length: '360'
+  },
+  {
+    id: 9,
+    name: 'Large Ambrosia Timeskip',
+    description: 'Gain 12 hours worth of Ambrosia and Red Ambrosia Bar Points! Applies immediately!\t',
+    internalName: 'LARGE_AMBROSIA_TIMESKIP',
+    cost: 300,
+    length: '720'
+  },
+  {
+    id: 10,
+    name: 'Jumbo Ambrosia Timeskip',
+    description: 'Gain 24 hours worth of Ambrosia and Red Ambrosia Bar Points! Applies immediately!\t',
+    internalName: 'JUMBO_AMBROSIA_TIMESKIP',
+    cost: 400,
+    length: '1440'
+  },
+  {
+    id: 11,
+    name: 'Lotus of Rejuvenation',
+    description:
+      'Grants +1 Lotus, which you can use in the Anthill to instantly gain Reborn ELO for the next five Ant Sacrifices.',
+    internalName: 'LOTUS_SINGLE',
+    cost: 20,
+    length: '1'
+  },
+  {
+    id: 12,
+    name: 'dozen Loti of Rejuvenation',
+    description: 'Grants +12 Loti, for the price of 11.',
+    internalName: 'LOTUS_DOZEN',
+    cost: 220,
+    length: '12'
+  },
+  {
+    id: 13,
+    name: 'Loti of Rejuvenation bouquet (50)',
+    description: 'Grants +50 Loti, for the price of 40. What a steal!',
+    internalName: 'LOTUS_BUNDLE',
+    cost: 800,
+    length: '50'
+  }
+]
+
+const purchaseConsumable = (internalName: string) => {
+  const consumable = consumables.find((item) => item.internalName === internalName)
+
+  if (!consumable || consumable.cost > pseudoCoinBalance) {
+    return false
+  }
+
+  pseudoCoinBalance -= consumable.cost
+  return true
+}
 
 const GETHandlers = [
   http.get('https://synergism.cc/api/v1/quark-bonus', async () => {
@@ -18,14 +182,14 @@ const GETHandlers = [
   }),
   http.get('https://synergism.cc/stripe/coins', () => {
     return HttpResponse.json({
-      coins: 49001
+      coins: pseudoCoinBalance
     })
   }),
-  http.get('https://synergism.cc/consumables/list', ({ request }) => {
-    return fetch(bypass(request))
+  http.get('https://synergism.cc/consumables/list', () => {
+    return HttpResponse.json(consumables)
   }),
   http.get('https://synergism.cc/stripe/upgrades', () => {
-    return HttpResponse.json({
+    const response: PseudoCoinUpgradeResponse = {
       upgrades: [
         {
           upgradeId: 1,
@@ -780,94 +944,12 @@ const GETHandlers = [
           cost: 300
         }
       ],
-      playerUpgrades: [
-        {
-          upgradeId: 15,
-          level: 2,
-          internalName: 'ADD_CODE_CAP_BUFF'
-        },
-        {
-          upgradeId: 5,
-          level: 5,
-          internalName: 'AMBROSIA_GENERATION_BUFF'
-        },
-        {
-          upgradeId: 11,
-          level: 8,
-          internalName: 'AMBROSIA_LOADOUT_SLOT_QOL'
-        },
-        {
-          upgradeId: 4,
-          level: 5,
-          internalName: 'AMBROSIA_LUCK_BUFF'
-        },
-        {
-          upgradeId: 12,
-          level: 1,
-          internalName: 'AUTO_POTION_FREE_POTIONS_QOL'
-        },
-        {
-          upgradeId: 10,
-          level: 8,
-          internalName: 'CORRUPTION_LOADOUT_SLOT_QOL'
-        },
-        {
-          upgradeId: 3,
-          level: 5,
-          internalName: 'CUBE_BUFF'
-        },
-        {
-          upgradeId: 9,
-          level: 5,
-          internalName: 'FREE_UPGRADE_PROMOCODE_BUFF'
-        },
-        {
-          upgradeId: 8,
-          level: 5,
-          internalName: 'GOLDEN_QUARK_BUFF'
-        },
-        {
-          upgradeId: 1,
-          level: 1,
-          internalName: 'INSTANT_UNLOCK_1'
-        },
-        {
-          upgradeId: 2,
-          level: 1,
-          internalName: 'INSTANT_UNLOCK_2'
-        },
-        {
-          upgradeId: 13,
-          level: 2,
-          internalName: 'OFFLINE_TIMER_CAP_BUFF'
-        },
-        {
-          upgradeId: 16,
-          level: 5,
-          internalName: 'BASE_OFFERING_BUFF'
-        },
-        {
-          upgradeId: 17,
-          level: 5,
-          internalName: 'BASE_OBTAINIUM_BUFF'
-        },
-        {
-          upgradeId: 18,
-          level: 5,
-          internalName: 'RED_LUCK_BUFF'
-        },
-        {
-          upgradeId: 19,
-          level: 5,
-          internalName: 'RED_GENERATION_BUFF'
-        },
-        {
-          upgradeId: 20,
-          level: 5,
-          internalName: 'PURPLE_LUCK_BUFF'
-        }
-      ]
-    })
+      playerUpgrades
+    }
+
+    pseudoCoinUpgrades = response.upgrades
+
+    return HttpResponse.json(response)
   }),
   http.get('https://synergism.cc/stripe/products', ({ request }) => {
     return fetch(bypass(request))
@@ -881,13 +963,38 @@ const GETHandlers = [
 ]
 
 const PUTHandlers = [
-  http.put('https://synergism.cc/stripe/buy-upgrade/:id', async ({ params }) => {
-    const { id } = params
+  http.put('https://synergism.cc/stripe/buy-upgrade/:id', ({ params }) => {
+    const upgradeId = Number(params.id)
+    const playerUpgrade = playerUpgrades.find((upgrade) => upgrade.upgradeId === upgradeId)
+    const currentLevel = playerUpgrade?.level ?? 0
+    const nextUpgrade = pseudoCoinUpgrades.find((upgrade) =>
+      upgrade.upgradeId === upgradeId
+      && upgrade.level === currentLevel + 1
+      && upgrade.cost <= pseudoCoinBalance
+    )
 
-    // TODO: Mock buying beyond level 1
+    if (!nextUpgrade) {
+      return HttpResponse.json(
+        { error: 'Upgrade not found or you cannot afford it.' },
+        { status: 400 }
+      )
+    }
+
+    pseudoCoinBalance -= nextUpgrade.cost
+
+    if (playerUpgrade) {
+      playerUpgrade.level = nextUpgrade.level
+    } else {
+      playerUpgrades.push({
+        upgradeId,
+        level: nextUpgrade.level,
+        internalName: nextUpgrade.internalName
+      })
+    }
+
     return HttpResponse.json({
-      upgradeId: Number(id),
-      level: 1
+      upgradeId,
+      level: nextUpgrade.level
     })
   })
 ]
@@ -948,7 +1055,7 @@ export const worker = setupWorker(
   }),
   ...GETHandlers,
   ...PUTHandlers,
-  ...consumeHandlers,
+  ...createConsumeHandlers(purchaseConsumable),
   ...cloudSaveHandlers,
   ...messageHandlers,
   ...paymentHandlers,

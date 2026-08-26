@@ -533,6 +533,7 @@ export const player: Player = {
   progressiveAchievements: {
     runeLevel: 0,
     freeRuneLevel: 0,
+    quarkUpgrades: 0,
     antMasteries: 0,
     rebornELO: 0,
     singularityCount: 0,
@@ -719,6 +720,7 @@ export const player: Player = {
     shopRedLuck1: 0,
     shopRedLuck2: 0,
     shopRedLuck3: 0,
+    shopRedLuck4: 0,
     shopInfiniteShopUpgrades: 0,
     shopHorseShoe: 0,
     shopPanthema: 0,
@@ -4831,8 +4833,8 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   updateAllSpiritLevelsFromEXP()
 
   // Must run before updateAchievementPoints
-  setGQUpgradeLevels()
   setOcteractUpgradeLevels()
+  setGQUpgradeLevels()
   setAmbrosiaUpgradeLevels()
   setRedAmbrosiaUpgradeLevels()
   setPurpleReactorUpgradeLevels()
