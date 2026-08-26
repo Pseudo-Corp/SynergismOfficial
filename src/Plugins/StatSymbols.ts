@@ -32,6 +32,7 @@ const KEYWORD_SYMBOLS: Record<string, string> = {
   'Global Speed': '⧖',
   'Ascension Speed': '⧗',
   'Research': '⚛',
+  'Platonic Cube': '✞',
   'Platonic': '✞',
   'Ant ELO': '☇',
   'Immortal ELO': '⛉',
@@ -51,18 +52,6 @@ export default {
       return value
     }
 
-    const iterable = value.matchAll(reg)
-    let offset = 0
-
-    for (const iter of iterable) {
-      value = `${value.substring(0, iter.index + offset)}${KEYWORD_SYMBOLS[iter[0]]} ${
-        value.slice(iter.index + offset)
-      }`
-      // Each time we replace the value, we add characters (space and the length of the symbol) but the indices are based on the original string
-      offset += 1 + KEYWORD_SYMBOLS[iter[0]].length
-      // Fun fact! '🝘' has a length of 2.
-    }
-
-    return value
+    return value.replaceAll(reg, substring => `${KEYWORD_SYMBOLS[substring]}\u00A0${substring}`)
   }
 } satisfies PostProcessorModule
