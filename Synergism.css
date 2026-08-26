@@ -4684,17 +4684,17 @@ p#reincarnatehotkeys {
     height: 100%;
 }
 
-.antTierBtnAvailable {
+.antTierBtnAvailable > img {
     cursor: pointer;
     background-color: burlywood;
 }
 
-.antMasteryBtnAvailable {
+.antMasteryBtnAvailable > img {
     cursor: pointer;
     background-color: lightgreen;
 }
 
-.antUpgradeBtnAvailable {
+.antUpgradeBtnAvailable > img {
     cursor: pointer;
     background-color: silver;
 }
