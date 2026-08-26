@@ -7964,6 +7964,8 @@
       "boxText2": "Use a Lotus to skip the wait!",
       "boxText3": "Each Lotus lasts for 5 minutes.",
       "useLotus": "Use Lotus!",
+      "collapseSection": "Collapse Lotus section",
+      "expandSection": "Expand Lotus section",
       "purchaseBtn": "+{{amount}} Lotus [<<gold|{{cost}} PseudoCoins>>]",
       "buyConfirm": "You are about to buy a {{name}} for {{cost}} PseudoCoins. Continue?",
       "useConfirm": "You are about to use a Lotus of Rejuvenation. This will consume one of your Loti and activate its effect for 5 minutes, granting you Reborn ELO without having to wait. Continue?",

@@ -45,6 +45,7 @@ import { antProducerHTML } from './Features/Ants/HTML/modals/producer-modal'
 import { antUpgradeHTML } from './Features/Ants/HTML/modals/upgrade-modal'
 import { toggleRebornELOInfo } from './Features/Ants/HTML/updates/elo-info'
 import { toggleLeaderboardMode } from './Features/Ants/HTML/updates/leaderboard'
+import { toggleLotusSection } from './Features/Ants/HTML/updates/lotus-section'
 import {
   updateAlwaysSacrificeMaxRebornELOToggle,
   updateOnlySacrificeMaxRebornELOToggle
@@ -1283,7 +1284,7 @@ export const generateEventHandlers = () => {
     updateOnlySacrificeMaxRebornELOToggle(player.ants.toggles.onlySacrificeMaxRebornELO)
   })
 
-  document.getElementById('use-lotus')?.addEventListener('click', () => {
+  const useLotus = () => {
     const timeNow = Date.now()
     const lotusTime = getLotusTimeExpiresAt()
     let extraHTML = ''
@@ -1307,7 +1308,10 @@ export const generateEventHandlers = () => {
           })
         )
       })
-  })
+  }
+
+  DOMCacheGetOrSet('use-lotus').addEventListener('click', useLotus)
+  DOMCacheGetOrSet('use-lotus-collapsed').addEventListener('click', useLotus)
 
   // Part 3.5: Leaderboard
   DOMCacheGetOrSet('antLeaderboardToggle').addEventListener('click', () => toggleLeaderboardMode())
@@ -2001,7 +2005,9 @@ TODO: Fix this entire tab it's utter shit
   }
 
   document.querySelector('#consumableEvents > .consumableButton')?.addEventListener('click', visitConsumableTab)
-  document.querySelector('#lotusButtons > .consumableButton')?.addEventListener('click', visitConsumableTab)
+  DOMCacheGetOrSet('lotusConsumablesButton').addEventListener('click', visitConsumableTab)
+  DOMCacheGetOrSet('lotusConsumablesButtonCollapsed').addEventListener('click', visitConsumableTab)
+  DOMCacheGetOrSet('toggleLotusSection').addEventListener('click', toggleLotusSection)
 
   document.getElementById('apply-tips')?.addEventListener('click', () => {
     Prompt(i18next.t('pseudoCoins.consumables.applyTipsPrompt', { tips: getTips() }))
