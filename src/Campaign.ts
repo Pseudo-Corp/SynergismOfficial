@@ -1664,7 +1664,15 @@ export const createCampaignIconHTMLS = () => {
     campaignIconDiv.appendChild(campaignIcon)
 
     campaignIcon.addEventListener('click', campaignCorruptionStatHTMLUpdate.bind(null, key))
-    campaignIcon.addEventListener('dblclick', startCampaign.bind(null, key))
+    if (!isMobile) {
+      campaignIcon.addEventListener('dblclick', () => {
+        if (player.campaigns.current === key) {
+          void exitCampaign()
+        } else {
+          startCampaign(key)
+        }
+      })
+    }
   }
 }
 
