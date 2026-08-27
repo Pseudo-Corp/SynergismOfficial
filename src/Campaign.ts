@@ -1600,22 +1600,10 @@ const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
   const campaignButton = document.createElement('button')
   if (player.campaigns.current === key) {
     campaignButton.textContent = i18next.t('campaigns.corruptionStats.resetCampaign')
-    campaignButton.addEventListener('click', async () => {
-      if (player.challengecompletions[10] === 0) {
-        const p = await Confirm(i18next.t('campaigns.noChallengeCompletionConfirm'))
-        if (!p) return
-      }
-      reset('ascension')
-    })
+    campaignButton.addEventListener('click', () => void exitCampaign())
   } else {
     campaignButton.textContent = i18next.t('campaigns.corruptionStats.startCampaign')
-    campaignButton.addEventListener('click', () => {
-      if (player.currentChallenge.ascension !== 0) {
-        return Alert(i18next.t('campaigns.errorMessages.ascensionChallenge'))
-      }
-      reset('ascension')
-      player.campaigns.campaign = key
-    })
+    campaignButton.addEventListener('click', startCampaign.bind(null, key))
   }
 
   const saveLoadoutButton = document.createElement('button')
@@ -1638,6 +1626,30 @@ const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
   corruptionStats.appendChild(saveLoadoutButton)
 }
 
+export const exitCampaign = async () => {
+  if (player.campaigns.current === undefined) {
+    return
+  }
+
+  if (player.challengecompletions[10] === 0) {
+    const confirmed = await Confirm(i18next.t('campaigns.noChallengeCompletionConfirm'))
+    if (!confirmed) {
+      return
+    }
+  }
+
+  reset('ascension')
+}
+
+const startCampaign = (key: CampaignKeys) => {
+  if (player.currentChallenge.ascension !== 0) {
+    void Alert(i18next.t('campaigns.errorMessages.ascensionChallenge'))
+    return
+  }
+  reset('ascension')
+  player.campaigns.campaign = key
+}
+
 export const createCampaignIconHTMLS = () => {
   const campaignIconDiv = DOMCacheGetOrSet('campaignIconGrid')
   // Reset existing Icons
@@ -1652,6 +1664,15 @@ export const createCampaignIconHTMLS = () => {
     campaignIconDiv.appendChild(campaignIcon)
 
     campaignIcon.addEventListener('click', campaignCorruptionStatHTMLUpdate.bind(null, key))
+    if (!isMobile) {
+      campaignIcon.addEventListener('dblclick', () => {
+        if (player.campaigns.current === key) {
+          void exitCampaign()
+        } else {
+          startCampaign(key)
+        }
+      })
+    }
   }
 }
 

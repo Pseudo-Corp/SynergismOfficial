@@ -8013,7 +8013,8 @@
       "useOffPotion": "Use Off. Potion",
       "useObtPotion": "Use Obt. Potion",
       "resetSingularity": "Reset Singularity",
-      "unhideTabs": "Un-hide Tabs"
+      "unhideTabs": "Un-hide Tabs",
+      "exitCampaign": "Exit Campaign"
     },
     "hotkeysON": "Hotkeys: ON",
     "hotkeysOFF": "Hotkeys: OFF",
