@@ -5458,8 +5458,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     display: grid;
     grid-template-columns: repeat(10, minmax(0, 48px));
     grid-template-rows: repeat(5, minmax(0, 48px));
-    column-gap: 2px;
-    row-gap: 2px;
     justify-content: center;
 }
 

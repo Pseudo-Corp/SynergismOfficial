@@ -1659,7 +1659,7 @@ export const createCampaignIconHTMLS = () => {
     const campaignIcon = document.createElement('img')
     campaignIcon.id = `${key}CampaignIcon`
     campaignIcon.classList.add('campaignIcon')
-    campaignIcon.src = `Pictures/Campaigns/CampaignIcons/${key}.png`
+    campaignIcon.src = 'Pictures/img_transparent.png'
 
     campaignIconDiv.appendChild(campaignIcon)
 
@@ -1698,7 +1698,7 @@ export const campaignTokenRewardHTMLUpdate = () => {
       && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())
     ) {
       const tokenIcon = document.createElement('img')
-      tokenIcon.src = `Pictures/Campaigns/${key}.png`
+      tokenIcon.src = 'Pictures/img_transparent.png'
       tokenIcon.classList.add('campaignTokenRewardIcon')
 
       tokenIcon.addEventListener('click', (event) => {
@@ -1725,7 +1725,7 @@ export const campaignTokenRewardHTMLUpdate = () => {
   // Create the final icon that displays the total sum of rewards in a popup.
   if (campaignTokens > 0) {
     const totalRewardIcon = document.createElement('img')
-    totalRewardIcon.src = 'Pictures/Campaigns/sum.png'
+    totalRewardIcon.src = 'Pictures/img_transparent.png'
 
     const popupTexts: string[] = []
     for (
