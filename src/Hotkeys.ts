@@ -173,7 +173,7 @@ const defaultHotkeys = new Map<string, Hotkey>([
   ],
   ['CTRL+B', { name: 'hotkeys.names.unhideTabs', action: () => tabRow.reappend(), hiddenOnMobile: true }],
   [
-    'CTRL+SHIFT+C',
+    'SHIFT+X',
     {
       name: 'hotkeys.names.exitCampaign',
       action: () => void exitCampaign(),
