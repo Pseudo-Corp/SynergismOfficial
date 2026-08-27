@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import { boostAccelerator, buyBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { exitCampaign } from './Campaign'
 import { confirmAntSacrifice } from './Features/Ants/AntSacrifice/sacrifice'
 import { promocodes } from './ImportExport'
 import { runes } from './Runes'
@@ -170,7 +171,15 @@ const defaultHotkeys = new Map<string, Hotkey>([
       unlocked: () => runes.antiquities.level > 0 || player.highestSingularityCount > 0
     }
   ],
-  ['CTRL+B', { name: 'hotkeys.names.unhideTabs', action: () => tabRow.reappend(), hiddenOnMobile: true }]
+  ['CTRL+B', { name: 'hotkeys.names.unhideTabs', action: () => tabRow.reappend(), hiddenOnMobile: true }],
+  [
+    'CTRL+SHIFT+C',
+    {
+      name: 'hotkeys.names.exitCampaign',
+      action: () => void exitCampaign(),
+      unlocked: () => player.campaigns.current !== undefined
+    }
+  ]
 ])
 
 let hotkeysEnabled = false
