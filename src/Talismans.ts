@@ -783,7 +783,9 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   }
 }
 
-export const maxTalismansRarityAP = 50 * Object.keys(talismans).length
+export const talismanKeys = Object.keys(talismans) as TalismanKeys[]
+
+export const maxTalismansRarityAP = 50 * talismanKeys.length
 
 interface TalismanCostCacheEntry {
   level: number
@@ -906,7 +908,7 @@ export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void =
 }
 
 export const updateTalismanRarities = (): void => {
-  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+  for (const t of talismanKeys) {
     if (talismans[t].isUnlocked()) {
       setTalismanRarity(t)
     }
@@ -1037,7 +1039,7 @@ const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneKeys): nu
 export const getRuneBonusFromAllTalismans = (rune: RuneKeys): number => {
   const specialMultiplier = allTalismanRuneBonusStatsSum()
   let totalBonus = 0
-  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+  for (const t of talismanKeys) {
     totalBonus += getRuneBonusFromIndividualTalisman(t, rune)
   }
 
@@ -1426,7 +1428,7 @@ const resetSingleTalisman = (t: TalismanKeys) => {
 }
 
 export const resetTalismanData = (tier: keyof typeof resetTiers) => {
-  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+  for (const t of talismanKeys) {
     if (resetTiers[tier] >= resetTiers[talismans[t].minimalResetTier]) {
       resetSingleTalisman(t)
     }
@@ -1448,7 +1450,7 @@ export const resetTalismanData = (tier: keyof typeof resetTiers) => {
 
 export const sumOfTalismanRarities = (): number => {
   let sum = 0
-  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+  for (const t of talismanKeys) {
     sum += talismans[t].rarity
   }
   return sum
@@ -1474,7 +1476,7 @@ export const updateResourcePredefinedLevel = (level: number, t: TalismanKeys): v
 }
 
 export const updateAllTalismanHTML = () => {
-  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+  for (const t of talismanKeys) {
     updateTalismanDisplay(t)
   }
 }
@@ -1595,7 +1597,7 @@ export const generateWebCenterTalismansHTML = () => {
   const talismansContainer = document.createElement('div')
   talismansContainer.className = 'talismansContainer'
 
-  for (const key of Object.keys(talismans) as TalismanKeys[]) {
+  for (const key of talismanKeys) {
     const talismansDivIndividual = document.createElement('div')
     talismansDivIndividual.className = 'talismanContainer'
     talismansDivIndividual.id = `${key}TalismanContainer`
@@ -2137,7 +2139,7 @@ export const generateMobileMainTalismansHTML = () => {
   mobileMainTalismansBody.id = 'mobileMainTalismansBody'
 
   // Talismans with info + buy buttons (3)
-  for (const key of Object.keys(talismans) as TalismanKeys[]) {
+  for (const key of talismanKeys) {
     // Top Row, similar to how it's done on runes...
     const talisman = document.createElement('div')
     talisman.className = 'mobileTalismanContainer'

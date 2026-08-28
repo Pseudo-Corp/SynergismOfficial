@@ -51,7 +51,7 @@ import {
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
-import { type TalismanKeys, talismans } from './Talismans'
+import { talismanKeys, talismans } from './Talismans'
 import { resolveImgSrc } from './Themes'
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import {
@@ -365,7 +365,7 @@ export const revealStuff = () => {
     }
   }
 
-  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+  for (const t of talismanKeys) {
     if (talismans[t].isUnlocked()) {
       DOMCacheGetOrSet(`${t}TalismanContainer`).style.display = 'flex'
     } else {

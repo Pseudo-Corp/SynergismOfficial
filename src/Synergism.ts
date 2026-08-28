@@ -120,6 +120,7 @@ import {
   generateTalismansHTML,
   noTalismanFragments,
   type TalismanCraftItems,
+  talismanKeys,
   type TalismanKeys,
   talismans,
   toggleTalismanBuy,
@@ -4087,7 +4088,7 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
 
   if ((player.researches[130] > 0 || player.researches[135] > 0) && player.autoFortifyToggle) {
     let inventoryChanged = false
-    for (const key of Object.keys(talismans) as TalismanKeys[]) {
+    for (const key of talismanKeys) {
       const changed = buyTalismanLevelToRarityIncrease(key, {
         auto: true,
         refreshVisuals: false
