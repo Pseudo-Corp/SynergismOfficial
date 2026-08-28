@@ -1,5 +1,4 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { resolveImgSrc } from './Themes'
 
 export type iconSize = 32 | 48 | 56 | 64
 
@@ -345,7 +344,8 @@ export const registerSpriteAlias = (sourceElementName: string, elementName: stri
   }
 }
 
-const fallbackLookups = new Set<string>()
+// A null value marks a lookup as started; a string stores the fallback found for that source.
+const spriteSheetFallbacks = new Map<string, string | null>()
 const activeSpriteSheetSources = new Map<string, string>()
 
 const updateIconFromSprite = (
@@ -368,7 +368,7 @@ const updateIconFromSprite = (
 
 const updateIconsFromSpriteSheet = (sheet: SpriteSheet, folderUsed: string) => {
   const requestedSrc = `Pictures/${folderUsed}/Sprite Sheets/${sheet.name}.png`
-  const resolvedSrc = resolveImgSrc(requestedSrc)
+  const resolvedSrc = spriteSheetFallbacks.get(requestedSrc) ?? requestedSrc
   activeSpriteSheetSources.set(sheet.name, resolvedSrc)
 
   for (const [iconIndex, elementName] of sheet.elementNames.entries()) {
@@ -383,15 +383,18 @@ const updateIconsFromSpriteSheet = (sheet: SpriteSheet, folderUsed: string) => {
     updateIconFromSprite(sheet, resolvedSrc, alias.elementName, alias.iconIndex, alias.displaySize)
   }
 
-  if (folderUsed === 'Default' || resolvedSrc !== requestedSrc || fallbackLookups.has(resolvedSrc)) {
+  if (folderUsed === 'Default' || resolvedSrc !== requestedSrc || spriteSheetFallbacks.has(requestedSrc)) {
     return
   }
 
-  fallbackLookups.add(resolvedSrc)
+  spriteSheetFallbacks.set(requestedSrc, null)
   const probe = new Image()
   probe.addEventListener('error', () => {
+    const fallbackSrc = `Pictures/Default/Sprite Sheets/${sheet.name}.png`
+    spriteSheetFallbacks.set(requestedSrc, fallbackSrc)
+
     if (activeSpriteSheetSources.get(sheet.name) === resolvedSrc) {
-      updateIconsFromSpriteSheet(sheet, 'Default')
+      updateIconsFromSpriteSheet(sheet, folderUsed)
     }
   }, { once: true })
   probe.src = requestedSrc
