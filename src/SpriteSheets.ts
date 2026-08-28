@@ -1,4 +1,5 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { resolveImgSrc } from './Themes'
 
 export type iconSize = 32 | 56 | 64
 
@@ -296,7 +297,9 @@ const updateIconFromSprite = (
   displaySize: number = sheet.iconSize
 ) => {
   const element = DOMCacheGetOrSet(elementName)
-  element.style.backgroundImage = `url('Pictures/${folderUsed}/Sprite Sheets/${sheet.name}.png')`
+  const requestedSrc = `Pictures/${folderUsed}/Sprite Sheets/${sheet.name}.png`
+  const resolvedSrc = resolveImgSrc(requestedSrc)
+  element.style.backgroundImage = `url('${resolvedSrc}')`
   element.style.backgroundPosition = `${-(iconIndex % sheet.columns) * displaySize}px ${
     -Math.floor(iconIndex / sheet.columns) * displaySize
   }px`
@@ -304,6 +307,16 @@ const updateIconFromSprite = (
   element.style.backgroundRepeat = 'no-repeat'
   element.style.width = `${displaySize}px`
   element.style.height = `${displaySize}px`
+
+  if (folderUsed === 'Default' || resolvedSrc !== requestedSrc) {
+    return
+  }
+
+  const probe = new Image()
+  probe.addEventListener('error', () => {
+    updateIconsFromSprites('Default')
+  }, { once: true })
+  probe.src = requestedSrc
 }
 
 export const updateIconsFromSprites = (folderUsed: string) => {
@@ -313,12 +326,6 @@ export const updateIconsFromSprites = (folderUsed: string) => {
         continue
       }
 
-      /* Why backgroundImage? If we use .src, the image is the entire sheet,
-             Condensed into something of size iconSize * iconSize.
-             In index.html, each of these elements has src img_transparent, so
-             we need to use the sprite as the background image, using only
-             the relevant portion of the sheet
-            */
       updateIconFromSprite(sheet, folderUsed, elementName, iconIndex)
     }
 
