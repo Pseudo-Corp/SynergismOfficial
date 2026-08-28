@@ -1,7 +1,7 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { resolveImgSrc } from './Themes'
 
-export type iconSize = 32 | 56 | 64
+export type iconSize = 32 | 48 | 56 | 64
 
 export interface SpriteSheet {
   name: string
@@ -275,6 +275,29 @@ export const spriteSheets: SpriteSheet[] = [
     rows: 1,
     columns: 4,
     aliases: [{ elementName: 'shopFamilyRowIcon-cubeToQuark', iconIndex: 0, displaySize: 24 }]
+  },
+  {
+    name: 'CampaignTokens',
+    elementNames: [
+      'campaignTokenRewardIcon-sum',
+      'campaignTokenRewardIcon-tutorial',
+      'campaignTokenRewardIcon-cube',
+      'campaignTokenRewardIcon-obtainium',
+      'campaignTokenRewardIcon-offering',
+      'campaignTokenRewardIcon-ascensionScore',
+      'campaignTokenRewardIcon-timeThreshold',
+      'campaignTokenRewardIcon-quark',
+      'campaignTokenRewardIcon-tax',
+      'campaignTokenRewardIcon-c15',
+      'campaignTokenRewardIcon-rune6',
+      'campaignTokenRewardIcon-goldenQuark',
+      'campaignTokenRewardIcon-octeract',
+      'campaignTokenRewardIcon-ambrosiaLuck',
+      'campaignTokenRewardIcon-blueberrySpeed'
+    ],
+    iconSize: 48,
+    rows: 1,
+    columns: 15
   }
 ]
 

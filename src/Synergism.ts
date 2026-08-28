@@ -186,6 +186,7 @@ import {
   CampaignManager,
   campaignTokenRewardHTMLUpdate,
   createCampaignIconHTMLS,
+  createCampaignTokenRewardEventHandlers,
   updateMaxTokens,
   updateTokens
 } from './Campaign'
@@ -5177,6 +5178,7 @@ window.addEventListener('load', async () => {
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
   createCampaignIconHTMLS()
+  createCampaignTokenRewardEventHandlers()
   generateAchievementHTMLs()
   generateLevelRewardHTMLs()
   generateLevelMilestoneHTMLS()
