@@ -74,223 +74,289 @@ const linSum = (n: number) => n * (n + 1) / 2
 const sqrSum = (n: number) => n * (n + 1) * (2 * n + 1) / 6
 const fact100 = Decimal.fromNumber(100).factorial()
 
-const getCostBuilding = (
+const decimalBases = {
+  building: Decimal.fromNumber(1.25),
+  lateBuilding: Decimal.fromNumber(1.03),
+  oneHundred: Decimal.fromNumber(100),
+  two: Decimal.fromNumber(2)
+} as const
+
+type BuildingType = keyof typeof producerData | keyof typeof accelMultData | 'acceleratorBoost'
+type CostCalculator = (n: number) => Decimal
+
+interface BuildingCostScaling {
+  reduction: number
+  threshold1000: number
+  threshold5000: number
+  threshold20000: number
+  threshold25000: number
+  threshold250000: number
+  inverseFactorial1000(): Decimal
+  inverseFactorial5000(): Decimal
+  inverseFactorial20000Cubed(): Decimal
+}
+
+let buildingCostScalingCache: BuildingCostScaling | undefined
+
+const getBuildingCostScaling = (reduction: number): BuildingCostScaling => {
+  if (buildingCostScalingCache?.reduction === reduction) {
+    return buildingCostScalingCache
+  }
+
+  const threshold1000 = Math.ceil(reduction * 1000)
+  const threshold5000 = Math.ceil(reduction * 5000)
+  const threshold20000 = Math.ceil(reduction * 20000)
+  let inverseFactorial1000: Decimal | undefined
+  let inverseFactorial5000: Decimal | undefined
+  let inverseFactorial20000Cubed: Decimal | undefined
+
+  buildingCostScalingCache = {
+    reduction,
+    threshold1000,
+    threshold5000,
+    threshold20000,
+    threshold25000: Math.ceil(reduction * 25000),
+    threshold250000: Math.ceil(reduction * 250000),
+    inverseFactorial1000 () {
+      return inverseFactorial1000 ??= Decimal.fromNumber(threshold1000 - 1).factorial().recip()
+    },
+    inverseFactorial5000 () {
+      return inverseFactorial5000 ??= Decimal.fromNumber(threshold5000 - 1).factorial().recip()
+    },
+    inverseFactorial20000Cubed () {
+      return inverseFactorial20000Cubed ??= Decimal.fromNumber(threshold20000 - 1).factorial().pow(3).recip()
+    }
+  }
+
+  return buildingCostScalingCache
+}
+
+const createBuildingCostCalculator = (
   type: 'coin' | 'diamond' | 'mythos',
-  n: number,
   index: ZeroToFour,
   r: number
-): Decimal => {
-  const owned = n - 1
-
+): CostCalculator => {
   const originalCost = producerData[type].costs[index]
   const growth = producerData[type].growth[index]
-
-  // Accounts for the add 1s
-  // The formula was (originalCost + n) * 1.25 ^ (n * growth), but that was incorrect
-  // The correct formula is (originalCost + add1s) * 1.25^n - add1s
   const add1s = 1 / (Math.pow(1.25, growth) - 1)
-  let cost = Decimal.add(originalCost, add1s)
+  const baseCost = Decimal.add(originalCost, add1s)
+  const firstGrowth = Decimal.fromNumber((1 + growth / 2) / 1000)
+  const secondGrowth = Decimal.fromNumber(100 + 100 * growth)
+  const thirdGrowth = Decimal.fromNumber(1e7 + 1e7 * growth)
+  const scaling = getBuildingCostScaling(r)
+  const challenge4Completions = player.challengecompletions[4]
+  const challenge4Active = player.currentChallenge.transcension === 4 && type !== 'mythos'
+  const challenge4Threshold = Math.max(1, 1000 - 10 * challenge4Completions)
+  const challenge4Exponent = 1.25 + challenge4Completions / 4
+  const challenge8Completions = player.challengecompletions[8]
+  const challenge8Active = player.currentChallenge.reincarnation === 8
+  const challenge8Threshold = Math.ceil(r * 1000 * challenge8Completions)
+  const challenge10Active = player.currentChallenge.reincarnation === 10 && type !== 'mythos'
+  let softcapCost: Decimal | undefined
 
-  // Accounts for the multiplies by 1.25^growth owned times
-  let steps = growth * owned
+  const calculateCost: CostCalculator = (n) => {
+    const owned = n - 1
 
-  let fastFactMultBuyTo = 0
-  let fr = Math.ceil(r * 1000)
-  if (owned >= fr) {
-    // This code is such a mess at this point, just know that this is equivalent to what it was before
-    ;++fastFactMultBuyTo
-    // const fr = Math.floor(r * 1000) // floored r value gets used a lot in removing calculations
-    cost = cost.dividedBy(Decimal.fromNumber(fr - 1).factorial())
-    cost = cost.times(Decimal.pow((1 + growth / 2) / 1000, n - fr))
-  }
+    // Accounts for the multiplies by 1.25^growth owned times
+    let steps = growth * owned
+    let cost = baseCost
+    let fastFactMultBuyTo = 0
 
-  fr = Math.ceil(r * 5000)
-  if (owned >= fr) {
-    // This code is such a mess at this point, just know that this is equivalent to what it was before
-    ;++fastFactMultBuyTo
-    cost = cost.dividedBy(Decimal.fromNumber(fr - 1).factorial())
-    cost = cost.times(Decimal.pow(100 + 100 * growth, n - fr))
-  }
-
-  fr = Math.ceil(r * 20000)
-  if (owned >= fr) {
-    // This code is such a mess at this point, just know that this is equivalent to what it was before
-    fastFactMultBuyTo += 3
-    cost = cost.dividedBy(Decimal.fromNumber(fr - 1).factorial().pow(3))
-    cost = cost.times(Decimal.pow(1e7 + 1e7 * growth, n - fr))
-  }
-
-  fr = Math.ceil(r * 250000)
-  if (owned >= fr) {
-    // 1.03^x*1.03^y = 1.03^(x+y), we'll abuse this for this section of the algorithm
-    // 1.03^(x+y-((number of terms)250000*r))
-    // up to 250003 case
-    // assume r = 1 for this case
-    // (1.03^250000-250000)(1.03^250001-250000)(1.03^250002-250000)(1.03^250003) = (1.03^0*1.03^1*1.03^2*1.03^3)
-    // so in reality we just need to take owned - fr and sum the power up to it
-    // (1.03^(sum from 0 to owned - fr)) is the multiplier
-    // so (1.03^( (owned-fr)(owned-fr+1)/2 )
-    // god damn that was hard to make an algo for
-    cost = cost.times(Decimal.pow(1.03, (owned - fr) * (n - fr) / 2))
-  }
-
-  // Applies the factorials from earlier without computing them 5 times
-  cost = cost.times(Decimal.fromNumber(owned).factorial().pow(fastFactMultBuyTo))
-
-  if ((player.currentChallenge.transcension === 4) && (type === 'coin' || type === 'diamond')) {
-    // you would not fucking believe how long it took me to figure this out
-    // (100*costofcurrent + 10000)^n = (((100+owned)!/100!)*100^owned)^n
-    const extra = Decimal.fromNumber(owned + 100).factorial().dividedBy(fact100).times(Decimal.pow(100, owned))
-    cost = cost.times(extra.pow(1.25 + player.challengecompletions[4] / 4))
-    const threshold = Math.max(1, 1000 - 10 * player.challengecompletions[4])
-    if (owned >= threshold) {
-      // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to owned
-      //
-      // Summation from 1 to owned is incorrect, it should be from threshold - 1 to owned
-      steps += (owned * n - threshold * (threshold - 1)) / 2
+    if (owned >= scaling.threshold1000) {
+      fastFactMultBuyTo += 1
+      cost = cost.times(scaling.inverseFactorial1000())
+      cost = cost.times(firstGrowth.pow(n - scaling.threshold1000))
     }
-  }
 
-  if ((player.currentChallenge.reincarnation === 10) && (type === 'coin' || type === 'diamond')) {
-    // you would not fucking believe how long it took me to figure this out
-    // (100*costofcurrent + 10000)^n = (((100+owned)!/100!)*100^owned)^n
-    fr = Math.ceil(r * 25000)
-    if (owned >= fr) {
-      // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to owned
-      //
-      // Assuming the same principle as in challenge 4,
-      // summation from 1 to owned is incorrect, it should be from fr - 1 to owned
-      steps += (owned * n - fr * (fr - 1)) / 2
+    if (owned >= scaling.threshold5000) {
+      fastFactMultBuyTo += 1
+      cost = cost.times(scaling.inverseFactorial5000())
+      cost = cost.times(secondGrowth.pow(n - scaling.threshold5000))
     }
-  }
 
-  // Applies all the 1.25s from earlier n times to avoid multiple computations
-  cost = cost.times(Decimal.pow(1.25, steps))
-
-  if (player.currentChallenge.reincarnation === 8) {
-    fr = Math.ceil(r * 1000 * player.challengecompletions[8])
-    if (owned > fr) {
-      cost = cost.times(Decimal.pow(2, (owned - fr) * (n - fr) / (2 + player.challengecompletions[8])))
+    if (owned >= scaling.threshold20000) {
+      fastFactMultBuyTo += 3
+      cost = cost.times(scaling.inverseFactorial20000Cubed())
+      cost = cost.times(thirdGrowth.pow(n - scaling.threshold20000))
     }
+
+    if (owned >= scaling.threshold250000) {
+      // The exponents from each 1.03 multiplier form the sum from zero to owned - threshold.
+      cost = cost.times(
+        decimalBases.lateBuilding.pow(
+          (owned - scaling.threshold250000) * (n - scaling.threshold250000) / 2
+        )
+      )
+    }
+
+    if (fastFactMultBuyTo > 0) {
+      // Applies the factorials from earlier without computing them five times.
+      cost = cost.times(Decimal.fromNumber(owned).factorial().pow(fastFactMultBuyTo))
+    }
+
+    if (challenge4Active) {
+      const extra = Decimal.fromNumber(owned + 100).factorial()
+        .dividedBy(fact100)
+        .times(decimalBases.oneHundred.pow(owned))
+      cost = cost.times(extra.pow(challenge4Exponent))
+      if (owned >= challenge4Threshold) {
+        steps += (owned * n - challenge4Threshold * (challenge4Threshold - 1)) / 2
+      }
+    }
+
+    if (challenge10Active && owned >= scaling.threshold25000) {
+      steps += (owned * n - scaling.threshold25000 * (scaling.threshold25000 - 1)) / 2
+    }
+
+    // Applies all the 1.25s from earlier n times to avoid multiple computations.
+    cost = cost.times(decimalBases.building.pow(steps))
+
+    if (challenge8Active && owned > challenge8Threshold) {
+      cost = cost.times(
+        decimalBases.two.pow(
+          (owned - challenge8Threshold) * (n - challenge8Threshold) / (2 + challenge8Completions)
+        )
+      )
+    }
+
+    cost = cost.subtract(add1s)
+    // c4, c8x0, c10 add1s are annoying to deal with, and it'd be possible to fix that,
+    // but that's a lot of work for a minuscule difference.
+
+    if (owned > softcap) {
+      softcapCost ??= calculateCost(softcap)
+      const newCost = softcapCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
+      return Decimal.max(cost, newCost)
+    }
+    return cost
   }
 
-  cost = cost.subtract(add1s)
-  // c4, c8x0, c10 add1s are annoying to deal with, and it'd be possible to fix that,
-  // but that's a lot of work for a minuscule difference
-
-  if (owned > softcap) {
-    const QuadrillionCost = getCostBuilding(type, softcap, index, r)
-    const newCost = QuadrillionCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
-    // No need for normalization, Decimal.prototype.pow() already normalizes the number
-    return Decimal.max(cost, newCost)
-  }
-  return cost
+  return calculateCost
 }
 
-const getCostAccelMult = (type: keyof typeof accelMultData, n: number): Decimal => {
-  const owned = n - 1
-  let steps = owned
-  let cost = Decimal.fromNumber(accelMultData[type].cost)
-
+const createAccelMultCostCalculator = (type: keyof typeof accelMultData): CostCalculator => {
   const c4reward = accelMultData[type].c4effect * CalcECC('transcend', player.challengecompletions[4])
-  let threshold = accelMultData[type].threshold + c4reward
-  if (owned > threshold) {
-    const num = owned - threshold
-    steps += num
-    cost = cost.times(Decimal.fromNumber(num).factorial())
-  }
-  cost = cost.times(Decimal.pow(accelMultData[type].growth, steps))
-
-  threshold = 2000 + c4reward
-  if (owned > threshold) {
-    const num = owned - threshold
-    const sumBit = num * (num + 1) / 2
-    cost = cost.times(Decimal.pow(2, sumBit))
-  }
-
-  let growth = 1
+  const factorialThreshold = accelMultData[type].threshold + c4reward
+  const secondaryThreshold = 2000 + c4reward
+  const baseCost = Decimal.fromNumber(accelMultData[type].cost)
+  const growthBase = Decimal.fromNumber(accelMultData[type].growth)
+  let challengeGrowth = 1
   if (player.currentChallenge.transcension === 4) {
-    growth *= 10
+    challengeGrowth *= 10
   }
   if (player.currentChallenge.reincarnation === 8) {
-    growth *= 1e50
+    challengeGrowth *= 1e50
   }
-  if (growth > 1) {
-    const sumBit = owned * n / 2
-    cost = cost.times(Decimal.pow(growth, sumBit))
+  const challengeGrowthBase = challengeGrowth > 1 ? Decimal.fromNumber(challengeGrowth) : undefined
+  let softcapCost: Decimal | undefined
+
+  const calculateCost: CostCalculator = (n) => {
+    const owned = n - 1
+    let steps = owned
+    let cost = baseCost
+
+    if (owned > factorialThreshold) {
+      const num = owned - factorialThreshold
+      steps += num
+      cost = cost.times(Decimal.fromNumber(num).factorial())
+    }
+    cost = cost.times(growthBase.pow(steps))
+
+    if (owned > secondaryThreshold) {
+      const num = owned - secondaryThreshold
+      cost = cost.times(decimalBases.two.pow(linSum(num)))
+    }
+
+    if (challengeGrowthBase !== undefined) {
+      cost = cost.times(challengeGrowthBase.pow(linSum(owned)))
+    }
+
+    if (owned > softcap) {
+      softcapCost ??= calculateCost(softcap)
+      const newCost = softcapCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
+      return Decimal.max(cost, newCost)
+    }
+
+    return cost
   }
 
-  if (owned > softcap) {
-    const QuadrillionCost = getCostAccelMult(type, softcap)
-    const newCost = QuadrillionCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
-    // No need for normalization, Decimal.prototype.pow() already normalizes the number
-    return Decimal.max(cost, newCost)
-  }
-
-  return cost
+  return calculateCost
 }
 
-const getAcceleratorBoostCost = (n = 1): Decimal => {
-  const owned = n - 1
+const createAcceleratorBoostCostCalculator = (): CostCalculator => {
   const base = new Decimal(1000)
   const r = getRuneBlessingEffect('thrift').accelBoostCostDelay
+  const threshold = 1000 * r
+  let softcapCost: Decimal | undefined
 
-  let exponent = 10 * owned + linSum(owned) // each level increases the exponent by 1 more each time
-  if (owned > 1000 * r) {
-    // after cost delay is passed each level increases the cost by the square each time
-    exponent += sqrSum(owned - 1000 * r) / r
-  }
-  const cost = base.times(Decimal.pow(10, exponent))
+  const calculateCost: CostCalculator = (n) => {
+    const owned = n - 1
+    let exponent = 10 * owned + linSum(owned) // each level increases the exponent by 1 more each time
+    if (owned > threshold) {
+      // after cost delay is passed each level increases the cost by the square each time
+      exponent += sqrSum(owned - threshold) / r
+    }
+    const cost = base.times(Decimal.pow(10, exponent))
 
-  if (owned > softcap) {
-    const QuadrillionCost = getAcceleratorBoostCost(softcap)
-    const newCost = QuadrillionCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
-    // No need for normalization, Decimal.prototype.pow() already normalizes the number
-    return Decimal.max(cost, newCost)
+    if (owned > softcap) {
+      softcapCost ??= calculateCost(softcap)
+      const newCost = softcapCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
+      return Decimal.max(cost, newCost)
+    }
+    return cost
   }
-  return cost
+
+  return calculateCost
 }
 
-const getCostParticle = (n: number, index: ZeroToFour): Decimal => {
-  const owned = n - 1
+const createParticleCostCalculator = (index: ZeroToFour): CostCalculator => {
   const originalCost = producerData.particle.costs[index]
-  let cost = Decimal.fromValue(originalCost).times(Decimal.pow(2, owned))
-
+  const baseCost = Decimal.fromValue(originalCost)
   const DR = (player.currentChallenge.ascension !== 15) ? 325000 : 1000
-  if (owned > DR) {
-    cost = cost.times(Decimal.pow(1.001, linSum(owned - DR)))
+  const lateGrowth = Decimal.fromNumber(1.001)
+  let softcapCost: Decimal | undefined
+
+  const calculateCost: CostCalculator = (n) => {
+    const owned = n - 1
+    let cost = baseCost.times(decimalBases.two.pow(owned))
+
+    if (owned > DR) {
+      cost = cost.times(lateGrowth.pow(linSum(owned - DR)))
+    }
+
+    if (owned > softcap) {
+      softcapCost ??= calculateCost(softcap)
+      const newCost = softcapCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
+      return Decimal.max(cost, newCost)
+    }
+    return cost
   }
 
-  if (owned > softcap) {
-    const QuadrillionCost = getCostParticle(softcap, index)
-    const newCost = QuadrillionCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
-    // No need for normalization, Decimal.prototype.pow() already normalizes the number
-    return Decimal.max(cost, newCost)
-  }
-  return cost
+  return calculateCost
 }
 
-export const getCost = (
-  type: keyof typeof producerData | keyof typeof accelMultData | 'acceleratorBoost',
-  n: number,
+const createCostCalculator = (
+  type: BuildingType,
   index: ZeroToFour = 0,
   r?: number
-) => {
+): CostCalculator => {
   switch (type) {
     case 'accelerator':
     case 'multiplier':
-      return getCostAccelMult(type, n)
+      return createAccelMultCostCalculator(type)
     case 'acceleratorBoost':
-      return getAcceleratorBoostCost(n)
+      return createAcceleratorBoostCostCalculator()
     case 'particle':
-      return getCostParticle(n, index)
+      return createParticleCostCalculator(index)
   }
-  r ??= getReductionValue()
-  return getCostBuilding(type, n, index, r)
+  return createBuildingCostCalculator(type, index, r ?? getReductionValue())
 }
 
+export const getCost = (type: BuildingType, n: number, index: ZeroToFour = 0, r?: number): Decimal =>
+  createCostCalculator(type, index, r)(n)
+
 export const buyBuilding = (
-  type: keyof typeof producerData | keyof typeof accelMultData | 'acceleratorBoost',
+  type: BuildingType,
   amount?: BuyAmount | 'max',
   index: ZeroToFour = 0
 ) => {
@@ -299,10 +365,10 @@ export const buyBuilding = (
   const pos = G.ordinals[index]
 
   const coinmax = 1e99
-  const r = getReductionValue()
   const tag = isAccelMult ? 'coins' : isProducer ? producerData[type].currency : 'prestigePoints'
   const posOwnedType = isProducer ? `${pos}Owned${producerData[type].name}` as const : `${type}Bought` as const
   const posCostType = isProducer ? `${pos}Cost${producerData[type].name}` as const : `${type}Cost` as const
+  const calculateCost = createCostCalculator(type, index)
 
   if (amount === undefined) {
     if (isProducer) {
@@ -316,7 +382,7 @@ export const buyBuilding = (
   // If at least softcap, we will use a different formulae
   if (buyStart >= softcap) {
     const log10Resource = Decimal.log10(player[tag])
-    const log10QuadrillionCost = Decimal.log10(getCost(type, softcap, index, r))
+    const log10QuadrillionCost = Decimal.log10(calculateCost(softcap))
 
     let hi = Math.floor(softcap * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, exponentDR)))
     let lo = softcap
@@ -325,14 +391,14 @@ export const buyBuilding = (
       if (mid === lo || mid === hi) {
         break
       }
-      if (!player[tag].gte(getCost(type, mid, index, r))) {
+      if (!player[tag].gte(calculateCost(mid))) {
         hi = mid
       } else {
         lo = mid
       }
     }
     const buyable = lo
-    const thisCost = getCost(type, buyable, index, r)
+    const thisCost = calculateCost(buyable)
 
     player[posOwnedType] = buyable
     player[posCostType] = thisCost
@@ -348,7 +414,7 @@ export const buyBuilding = (
   let buyInc = smallestInc(buyStart)
   const buyDefault = buyStart + buyInc
 
-  let cashToBuy = getCost(type, buyDefault, index, r)
+  let cashToBuy = calculateCost(buyDefault)
 
   // Degenerate Case: return maximum if coins is too large
   if (cashToBuy.exponent >= coinmax || !player[tag].gte(cashToBuy)) {
@@ -358,12 +424,12 @@ export const buyBuilding = (
   while (cashToBuy.exponent < coinmax && player[tag].gte(cashToBuy)) {
     // then multiply by 4 until it reaches just above the amount needed
     buyInc = buyInc * 4
-    cashToBuy = getCost(type, buyStart + buyInc, index, r)
+    cashToBuy = calculateCost(buyStart + buyInc)
   }
   let stepdown = Math.floor(buyInc / 8)
   while (stepdown >= smallestInc(buyInc)) {
     // if step down would push it below out of expense range then divide step down by 2
-    if (getCost(type, buyStart + buyInc - stepdown, index, r).lte(player[tag])) {
+    if (calculateCost(buyStart + buyInc - stepdown).lte(player[tag])) {
       stepdown = Math.floor(stepdown / 2)
     } else {
       buyInc = buyInc - Math.max(smallestInc(buyInc), stepdown)
@@ -379,18 +445,18 @@ export const buyBuilding = (
   // meaning that the code below this cannot run if this ever runs.
   if (buyStart + buyInc >= softcap) {
     player[posOwnedType] = softcap
-    player[posCostType] = getCost(type, softcap, index, r)
+    player[posCostType] = calculateCost(softcap)
     return
   }
 
   // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
   let buyFrom = Math.max(buyStart + buyInc - 6 - smallestInc(buyInc), buyDefault)
-  let thisCost = getCost(type, buyFrom, index, r)
+  let thisCost = calculateCost(buyFrom)
   while (buyFrom <= buyStart + buyInc && player[tag].gte(thisCost)) {
     player[tag] = player[tag].sub(thisCost)
     player[posOwnedType] = buyFrom
     buyFrom = buyFrom + smallestInc(buyFrom)
-    thisCost = getCost(type, buyFrom, index, r)
+    thisCost = calculateCost(buyFrom)
     player[posCostType] = thisCost
   }
 
@@ -494,10 +560,11 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
 
 export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount) => {
   if (player.upgrades[46] < 1) {
+    const calculateCost = createAcceleratorBoostCostCalculator()
     while (player.prestigePoints.gte(player.acceleratorBoostCost) && G.ticker < 1) {
       if (player.prestigePoints.gte(player.acceleratorBoostCost)) {
         player.acceleratorBoostBought += 1
-        player.acceleratorBoostCost = getAcceleratorBoostCost(player.acceleratorBoostBought)
+        player.acceleratorBoostCost = calculateCost(player.acceleratorBoostBought)
         player.transcendnoaccelerator = false
         player.reincarnatenoaccelerator = false
         if (player.upgrades[46] < 0.5) {
