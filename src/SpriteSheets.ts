@@ -127,6 +127,39 @@ export const spriteSheets: SpriteSheet[] = [
     columns: 8
   },
   {
+    name: 'Challenges',
+    elementNames: [
+      'challenge1',
+      'challenge2',
+      'challenge3',
+      'challenge4',
+      'challenge5',
+      'challenge6',
+      'challenge7',
+      'challenge8',
+      'challenge9',
+      'challenge10',
+      'challenge11',
+      'challenge12',
+      'challenge13',
+      'challenge14',
+      'challenge15',
+      'noSingularityUpgrades',
+      'oneChallengeCap',
+      'limitedAscensions',
+      'noQuarkUpgrades',
+      'noOcteracts',
+      'noAmbrosiaUpgrades',
+      'limitedTime',
+      'sadisticPrequel',
+      'taxmanLastStand',
+      null
+    ],
+    iconSize: 64,
+    rows: 5,
+    columns: 5
+  },
+  {
     name: 'WowPasses',
     elementNames: [
       'seasonPass',
