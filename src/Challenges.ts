@@ -747,6 +747,26 @@ export function resetChallengeSweep (): void {
   }
 }
 
+const getSweepTransitionDelay = (state: SweepStates): number | undefined => {
+  switch (state.kind) {
+    case 'initial_wait':
+      return player.autoChallengeTimer.start
+    case 'active':
+      return player.challengecompletions[state.index] === getMaxChallenges(state.index)
+        ? undefined
+        : player.autoChallengeTimer.exit
+    case 'enter_wait':
+      return player.autoChallengeTimer.enter
+    case 'c15_wait':
+      return 5
+    case 'idle':
+    case 'finished':
+      return undefined
+  }
+
+  return undefined
+}
+
 export function tickChallengeSweep (dt: number): void {
   const wasEnabled = currentSweepState.kind !== 'idle'
   const isEnabled = shouldRunSweep()
@@ -771,13 +791,19 @@ export function tickChallengeSweep (dt: number): void {
   }
 
   timeSinceLastStateChange += dt
-  const newState = sweepTransitionFunc(currentSweepState, timeSinceLastStateChange)
 
-  if (newState !== currentSweepState) {
-    // State changed, reset timer and handle side effects
+  while (true) {
     const oldState = currentSweepState
+    const newState = sweepTransitionFunc(oldState, timeSinceLastStateChange)
+    if (newState === oldState) {
+      break
+    }
+
+    const transitionDelay = getSweepTransitionDelay(oldState)
     currentSweepState = newState
-    timeSinceLastStateChange = 0
+    timeSinceLastStateChange = transitionDelay === undefined
+      ? 0
+      : Math.max(0, timeSinceLastStateChange - transitionDelay)
     handleStateTransition(oldState, newState)
   }
 }

@@ -292,6 +292,7 @@ const calculateAutoSacrificeInterval = () => {
   interval /= getLevelMilestone('runeAutobuyImprover')
   return interval
 }
+
 let autoSacrificeInterval = 1
 
 /**
@@ -337,8 +338,9 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
     case 'runeSacrifice':
       // Every real life second this will trigger
       player.sacrificeTimer += time
+      const sacrificeEvents = Math.floor(player.sacrificeTimer / autoSacrificeInterval)
       if (
-        player.sacrificeTimer >= autoSacrificeInterval
+        sacrificeEvents > 0
         && player.offerings.gt(new Decimal())
       ) {
         // Automatic purchase of Blessings
@@ -385,8 +387,8 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
             sacrificeOfferings(indexToRune[rune], player.offerings, true)
           }
         }
+        player.sacrificeTimer -= sacrificeEvents * autoSacrificeInterval
         autoSacrificeInterval = calculateAutoSacrificeInterval()
-        player.sacrificeTimer = 0
       }
       break
     case 'antSacrifice': {

@@ -190,7 +190,7 @@ import {
   updateMaxTokens,
   updateTokens
 } from './Campaign'
-import { lastUpdated, testing, ticksPerSecond, version } from './Config'
+import { lastUpdated, schedulerTicksPerSecond, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
 import { initMobileStorage, storageGetItem, storageSetItem } from './events/storage-events'
@@ -3112,7 +3112,28 @@ export const multipliers = (): void => {
   )
 }
 
-export const resourceGain = (dt: number): void => {
+const getMaxAffordableChallengeCompletions = (
+  current: number,
+  maximum: number,
+  increaseLimit: number,
+  canComplete: (completion: number) => boolean
+): number => {
+  let low = current
+  let high = Math.min(maximum, current + Math.max(0, Math.floor(increaseLimit)))
+
+  while (low < high) {
+    const middle = Math.ceil((low + high) / 2)
+    if (canComplete(middle - 1)) {
+      low = middle
+    } else {
+      high = middle - 1
+    }
+  }
+
+  return low
+}
+
+export const resourceGain = (dt: number, automationEvents = 1): void => {
   calculateTotalAcceleratorBoost()
 
   updateAllTick()
@@ -3330,9 +3351,10 @@ export const resourceGain = (dt: number): void => {
     awardAchievementGroup('constant')
   }
 
-  let autoChallengeCompLimit = 1
-  autoChallengeCompLimit += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-  autoChallengeCompLimit += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+  let autoChallengeCompletionsPerEvent = 1
+  autoChallengeCompletionsPerEvent += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+  autoChallengeCompletionsPerEvent += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+  const autoChallengeCompLimit = autoChallengeCompletionsPerEvent * automationEvents
 
   /* Researches 3x21 to 3x25 deal with autogaining Transcension Challenges in
   Reincarnation Challenges (71-75 in index).
@@ -3346,40 +3368,37 @@ export const resourceGain = (dt: number): void => {
       const challengeNum = i + 1
       const maxChallenges = getMaxChallenges(challengeNum)
       const challengeRequirementMult = researchAutoChallengeReqMulti[i]
-      for (let j = 0; j < autoChallengeCompLimit; j++) {
-        if (
-          player.challengecompletions[challengeNum]
-            < Math.min(maxChallenges, player.highestchallengecompletions[challengeNum])
-          && player.coinsThisTranscension.gte(
+      const currentCompletions = player.challengecompletions[challengeNum]
+      const maximumCompletions = Math.min(maxChallenges, player.highestchallengecompletions[challengeNum])
+      player.challengecompletions[challengeNum] = getMaxAffordableChallengeCompletions(
+        currentCompletions,
+        maximumCompletions,
+        autoChallengeCompLimit,
+        (completion) =>
+          player.coinsThisTranscension.gte(
             Decimal.pow(
-              challengeRequirement(challengeNum, player.challengecompletions[challengeNum], challengeNum),
+              challengeRequirement(challengeNum, completion, challengeNum),
               challengeRequirementMult
             )
           )
-        ) {
-          player.challengecompletions[challengeNum] += 1
-          // Due to the min(..., player.highestchallengecompletions[n]) check, we don't need to award achievements
-        } else {
-          break
-        }
-      }
+      )
     }
   }
 
   const chal = player.currentChallenge.transcension
   const reinchal = player.currentChallenge.reincarnation
   const ascendchal = player.currentChallenge.ascension
-  if (chal !== 0) {
+  if (chal !== 0 && automationEvents > 0) {
     if (
       player.coinsThisTranscension.gte(
         challengeRequirement(chal, player.challengecompletions[chal], chal)
       )
     ) {
-      void resetCheck('transcensionChallenge', false)
+      void resetCheck('transcensionChallenge', false, false, automationEvents)
       clearStateChangeTimer()
     }
   }
-  if (reinchal < 9 && reinchal !== 0) {
+  if (reinchal < 9 && reinchal !== 0 && automationEvents > 0) {
     if (
       player.transcendShards.gte(
         challengeRequirement(
@@ -3389,11 +3408,11 @@ export const resourceGain = (dt: number): void => {
         )
       )
     ) {
-      void resetCheck('reincarnationChallenge', false)
+      void resetCheck('reincarnationChallenge', false, false, automationEvents)
       clearStateChangeTimer()
     }
   }
-  if (reinchal >= 9) {
+  if (reinchal >= 9 && automationEvents > 0) {
     if (
       player.coins.gte(
         challengeRequirement(
@@ -3403,11 +3422,11 @@ export const resourceGain = (dt: number): void => {
         )
       )
     ) {
-      void resetCheck('reincarnationChallenge', false)
+      void resetCheck('reincarnationChallenge', false, false, automationEvents)
       clearStateChangeTimer()
     }
   }
-  if (ascendchal !== 0 && ascendchal < 15) {
+  if (ascendchal !== 0 && ascendchal < 15 && automationEvents > 0) {
     if (
       player.challengecompletions[10]
         >= (challengeRequirement(
@@ -3416,7 +3435,7 @@ export const resourceGain = (dt: number): void => {
           ascendchal
         ) as number)
     ) {
-      void resetCheck('ascensionChallenge', false)
+      void resetCheck('ascensionChallenge', false, false, automationEvents)
       challengeAchievementCheck(ascendchal)
     }
   }
@@ -3490,7 +3509,8 @@ export const resetCurrency = (): void => {
 export const resetCheck = async (
   i: resetNames,
   manual = true,
-  leaving = false
+  leaving = false,
+  automationEvents = 1
 ): Promise<void> => {
   if (i === 'prestige') {
     if (player.coinsThisPrestige.gte(G.d1e16) || G.prestigePointGain.gte(G.d100)) {
@@ -3528,23 +3548,25 @@ export const resetCheck = async (
       player.challengecompletions[q] < maxCompletions
       && reqCheck(player.challengecompletions[q])
     ) {
+      const canBatchCompletions = player.retrychallenges
+        && !manual
+        && !leaving
+        && getShopUpgradeEffects('instantChallenge', 'unlocked')
       let maxInc = 1
-      if (player.retrychallenges && !manual && !leaving) {
+      if (canBatchCompletions) {
         maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
         maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+        maxInc *= automationEvents
       }
       if (player.currentChallenge.ascension === 13) {
-        maxInc = 1
+        maxInc = canBatchCompletions ? automationEvents : 1
       }
-      let counter = 0
-      let comp = player.challengecompletions[q]
-      while (counter < maxInc) {
-        if (comp < maxCompletions && reqCheck(comp)) {
-          comp++
-        }
-        counter++
-      }
-      player.challengecompletions[q] = comp
+      player.challengecompletions[q] = getMaxAffordableChallengeCompletions(
+        player.challengecompletions[q],
+        maxCompletions,
+        maxInc,
+        reqCheck
+      )
       challengeDisplay(q, false)
       updateChallengeLevel(q)
     }
@@ -3606,23 +3628,25 @@ export const resetCheck = async (
       reqCheck(player.challengecompletions[q])
       && player.challengecompletions[q] < maxCompletions
     ) {
+      const canBatchCompletions = player.retrychallenges
+        && !manual
+        && !leaving
+        && getShopUpgradeEffects('instantChallenge', 'unlocked')
       let maxInc = 1
-      if (player.retrychallenges && !manual && !leaving) {
+      if (canBatchCompletions) {
         maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
         maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+        maxInc *= automationEvents
       }
       if (player.currentChallenge.ascension === 13) {
-        maxInc = 1
+        maxInc = canBatchCompletions ? automationEvents : 1
       }
-      let counter = 0
-      let comp = player.challengecompletions[q]
-      while (counter < maxInc) {
-        if (reqCheck(comp) && comp < maxCompletions) {
-          comp++
-        }
-        counter++
-      }
-      player.challengecompletions[q] = comp
+      player.challengecompletions[q] = getMaxAffordableChallengeCompletions(
+        player.challengecompletions[q],
+        maxCompletions,
+        maxInc,
+        reqCheck
+      )
       challengeDisplay(q, false)
       updateChallengeLevel(q)
     }
@@ -3691,16 +3715,21 @@ export const resetCheck = async (
     const maxCompletions = getMaxChallenges(a)
 
     if (a !== 0 && a < 15) {
-      if (
-        player.challengecompletions[10]
-          >= (challengeRequirement(
-            a,
-            player.challengecompletions[a],
-            a
-          ) as number)
-        && player.challengecompletions[a] < maxCompletions
-      ) {
-        player.challengecompletions[a] += 1
+      const canBatchCompletions = player.retrychallenges
+        && !manual
+        && !leaving
+        && getShopUpgradeEffects('instantChallenge2', 'unlocked')
+      const maxInc = canBatchCompletions ? automationEvents : 1
+      const currentCompletions = player.challengecompletions[a]
+      player.challengecompletions[a] = getMaxAffordableChallengeCompletions(
+        currentCompletions,
+        maxCompletions,
+        maxInc,
+        (completion) =>
+          player.challengecompletions[10]
+            >= (challengeRequirement(a, completion, a) as number)
+      )
+      if (player.challengecompletions[a] > currentCompletions) {
         updateChallengeLevel(a)
         challengeDisplay(a, false)
       }
@@ -3732,14 +3761,16 @@ export const resetCheck = async (
       awardUngroupedAchievement('sadisticAch')
     }
 
-    if (
-      player.challengecompletions[a] > player.highestchallengecompletions[a]
-    ) {
+    const previousHighestCompletions = player.highestchallengecompletions[a]
+    while (player.challengecompletions[a] > player.highestchallengecompletions[a]) {
       player.highestchallengecompletions[a] += 1
       player.wowHypercubes.add(1)
-      if (player.highestchallengecompletions[a] >= maxCompletions) {
-        leaving = true
-      }
+    }
+    if (
+      player.highestchallengecompletions[a] > previousHighestCompletions
+      && player.highestchallengecompletions[a] >= maxCompletions
+    ) {
+      leaving = true
     }
 
     if (player.highestchallengecompletions[11] > 0) {
@@ -4339,62 +4370,60 @@ export const slowUpdates = (): void => {
 const fastUpdateInterval = PLATFORM === 'mobile' ? 100 : 50
 const sweepInterval = PLATFORM === 'mobile' ? 100 : 25
 
-export const constantIntervals = (): void => {
-  // Updates are suspended during offline simulation
-  setInterval(() => {
-    if (!G.timeWarp) {
-      saveSynergy()
-    }
-  }, 5000)
-  setInterval(() => {
-    if (!G.timeWarp) {
-      slowUpdates()
-    }
-  }, 200)
-  setInterval(() => {
-    if (!G.timeWarp) {
-      fastUpdates()
-    }
-  }, fastUpdateInterval)
-  setInterval(campaignIconHTMLUpdates, 15000)
-  setInterval(() => {
-    if (!G.timeWarp) {
-      updateAllRuneLevelsFromEXP()
-    }
-  }, sweepInterval)
-  setInterval(() => {
-    if (!G.timeWarp) {
-      updateTalismanRarities()
-    }
-  }, 250)
-  setInterval(() => {
-    if (!G.timeWarp) {
-      awardAchievementGroup('runeFreeLevel')
-    }
-  }, sweepInterval)
-  setInterval(() => {
-    if (G.timeWarp) {
-      return
-    }
-    for (const key of progressiveAchievementKeys) {
-      updateProgressiveCache(key)
-    }
-  }, sweepInterval)
+interface SchedulerPhase {
+  elapsedMs: number
+  intervalMs: number
+  runDuringTimeWarp?: boolean
+  update: () => void
+}
 
-  if (!isOfflineDialogOpen()) {
-    exitOffline()
+const runSweepUpdates = (): void => {
+  updateAllRuneLevelsFromEXP()
+  awardAchievementGroup('runeFreeLevel')
+  for (const key of progressiveAchievementKeys) {
+    updateProgressiveCache(key)
+  }
+}
+
+const schedulerPhases: SchedulerPhase[] = [
+  { elapsedMs: 0, intervalMs: sweepInterval, update: runSweepUpdates },
+  { elapsedMs: 0, intervalMs: fastUpdateInterval, update: fastUpdates },
+  { elapsedMs: 0, intervalMs: 200, update: slowUpdates },
+  { elapsedMs: 0, intervalMs: 250, update: updateTalismanRarities },
+  { elapsedMs: 0, intervalMs: 5000, update: saveSynergy },
+  { elapsedMs: 0, intervalMs: 15000, runDuringTimeWarp: true, update: campaignIconHTMLUpdates },
+  { elapsedMs: 0, intervalMs: 30000, update: dailyResetCheck }
+]
+
+const runSchedulerPhases = (elapsedMs: number): void => {
+  for (const phase of schedulerPhases) {
+    const totalElapsed = phase.elapsedMs + elapsedMs
+    const elapsedIntervals = Math.floor(totalElapsed / phase.intervalMs)
+    phase.elapsedMs = totalElapsed - elapsedIntervals * phase.intervalMs
+
+    if (elapsedIntervals > 0 && (!G.timeWarp || phase.runDuringTimeWarp)) {
+      phase.update()
+    }
   }
 }
 
 let lastUpdate = 0
 let lastTickWallClock = Date.now()
 let tickGeneration = 0
+let nextTickAt = 0
+let automationElapsedMs = 0
 
-const tickIntervalMs = 1000 / ticksPerSecond
+const tickIntervalMs = 1000 / schedulerTicksPerSecond
+const automationIntervalMs = 5
 
 export const createTimer = (): void => {
   lastUpdate = performance.now()
+  nextTickAt = lastUpdate + tickIntervalMs
   lastTickWallClock = Date.now()
+  automationElapsedMs = 0
+  for (const phase of schedulerPhases) {
+    phase.elapsedMs = 0
+  }
   tickGeneration += 1
   scheduleTick(tickGeneration)
 }
@@ -4408,14 +4437,23 @@ const scheduleTick = (generation: number) => {
     try {
       tick()
     } finally {
+      nextTickAt += tickIntervalMs
+      const now = performance.now()
+      if (nextTickAt <= now) {
+        const skippedTicks = Math.floor((now - nextTickAt) / tickIntervalMs) + 1
+        nextTickAt += skippedTicks * tickIntervalMs
+      }
       scheduleTick(generation)
     }
-  }, tickIntervalMs)
+  }, Math.max(0, nextTickAt - performance.now()))
 }
 
-const dt = 5
-const filterStrength = 20
-let deltaMean = 0
+const startScheduler = (): void => {
+  createTimer()
+  if (!isOfflineDialogOpen()) {
+    exitOffline()
+  }
+}
 
 const loadingDate = new Date()
 const loadingBasePerfTick = performance.now()
@@ -4428,12 +4466,12 @@ export const getTimePinnedToLoadDate = () => {
   return loadingDate.getTime() + (performance.now() - loadingBasePerfTick)
 }
 
-const tickBudgetMs = PLATFORM === 'mobile' ? 10 : 30
-
 const resumeOfflineGapMs = 60_000
 
 const tick = () => {
   const now = performance.now()
+  const elapsedMs = Math.max(0, now - lastUpdate)
+  lastUpdate = now
 
   if (PLATFORM === 'mobile') {
     const wallNow = Date.now()
@@ -4445,48 +4483,32 @@ const tick = () => {
       // consumed here and lost to live catch-up
       if (!G.timeWarp && !isOfflineDialogOpen()) {
         lastTickWallClock = wallNow
-        lastUpdate = now
         calculateOffline(wallGap / 1000).catch(console.error)
         return
       }
 
       // The pending gap must be credited exactly once by the eventual offline
       // progress, so skip live catch-up of it too
-      lastUpdate = now
       return
     } else {
       lastTickWallClock = wallNow
     }
   }
 
-  let delta = now - lastUpdate
-  // TODO: We need discrete tick tracking, but it's way too inaccurate as a measure of time to do so right now.
-  // compute pseudo-average delta cf. https://stackoverflow.com/a/5111475/343834
-  deltaMean += (delta - deltaMean) / filterStrength
-  let dtEffective: number
-  while (delta > 5) {
-    // tack will compute dtEffective milliseconds of game time
-    dtEffective = dt
-    // If the mean lag (deltaMean) is more than a whole frame (16ms), compensate by computing deltaMean - dt ms, up to 1 hour
-    dtEffective += deltaMean > 16 ? Math.min(3600 * 1000, deltaMean - dt) : 0
-    // compute at max delta ms to avoid negative delta
-    dtEffective = Math.min(delta, dtEffective)
-    // run tack and record timings
-    tack(dtEffective / 1000)
-    lastUpdate += dtEffective
-    delta -= dtEffective
-    if (performance.now() - now > tickBudgetMs) {
-      break
-    }
-  }
+  automationElapsedMs += elapsedMs
+  const automationEvents = Math.floor(automationElapsedMs / automationIntervalMs)
+  automationElapsedMs -= automationEvents * automationIntervalMs
+
+  tack(elapsedMs / 1000, automationEvents)
+  runSchedulerPhases(elapsedMs)
 }
 
 // eslint-disable-next-line no-shadow
-const tack = (dt: number) => {
+const tack = (dt: number, automationEvents: number) => {
   if (!G.timeWarp) {
     // Adds Resources (coins, ants, etc)
     const timeMult = calculateGlobalSpeedMult()
-    resourceGain(dt * timeMult)
+    resourceGain(dt * timeMult, automationEvents)
     generateAntsAndCrumbs(dt)
 
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
@@ -4521,7 +4543,12 @@ const tack = (dt: number) => {
     }
 
     // Regular Research Automation (only once)
-    if (player.autoResearchToggle && player.autoResearch > 0 && player.autoResearchMode === 'manual') {
+    if (
+      automationEvents > 0
+      && player.autoResearchToggle
+      && player.autoResearch > 0
+      && player.autoResearchMode === 'manual'
+    ) {
       const auto = true
       const hover = false
       buyResearch(player.autoResearch, auto, hover)
@@ -4534,10 +4561,12 @@ const tack = (dt: number) => {
       && player.autoResearch > 0
       && roombaResearchEnabled()
       && player.autoResearchMode === 'cheapest'
+      && automationEvents > 0
     ) {
       const previousRoombaResearch = player.autoResearch || 1
       let counter = 0
-      const maxCount = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
+      const purchasesPerEvent = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
+      const maxCount = Math.min(researchOrderByCost.length, purchasesPerEvent * automationEvents)
       while (counter < maxCount) {
         const currIndex = player.autoResearch
         if (isResearchUnlocked(currIndex)) {
@@ -5007,7 +5036,6 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   toggleIconSet()
   toggleauto()
   htmlInserts()
-  createTimer()
 
   // Reset Displays
   resetAllSubTabs()
@@ -5015,13 +5043,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   changeSubTab(Tabs.Buildings, { page: 0 })
 
   dailyResetCheck()
-  setInterval(() => {
-    if (!G.timeWarp) {
-      dailyResetCheck()
-    }
-  }, 30000)
-
-  constantIntervals()
+  startScheduler()
 
   eventCheck()
     .catch(() => {})
