@@ -55,7 +55,6 @@ import {
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateObtainium,
-  calculateOfferings,
   calculateOffline,
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
@@ -4675,7 +4674,6 @@ const tack = (dt: number) => {
       }
     }
   }
-  calculateOfferings()
 }
 
 export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
