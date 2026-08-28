@@ -7040,6 +7040,11 @@ header #obtainiumDisplay { color: pink; }
     border-radius: 3px;
 }
 
+.singularityChallenges > .rainbowBorder > img {
+    /* Sprite dimensions are applied inline, so preserve the original 3px inset. */
+    clip-path: inset(3px round 3px);
+}
+
 .rainbowBorder:hover {
     cursor: pointer;
     background-color: var(--hover-color);
