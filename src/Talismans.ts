@@ -14,7 +14,7 @@ import { getShopUpgradeEffects } from './Shop'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { allTalismanRuneBonusStatsSum } from './Statistics'
 import { format, formatAsPercentIncrease, player } from './Synergism'
-import { Tabs } from './Tabs'
+import { getActiveSubTab, Tabs } from './Tabs'
 import { toggleAutoBuyFragment, toggleautofortify } from './Toggles'
 import type { Player } from './types/Synergism'
 import { assert, isMobile } from './Utility'
@@ -2398,7 +2398,11 @@ export const updateTalismanInventory = () => {
   for (const item of talismanCraftItems) {
     const spanId = talismanResourceData[item].spanId
     const playerKey = talismanResourceData[item].playerKey
-    DOMCacheGetOrSet(spanId).textContent = format(player[playerKey] as Decimal)
+    const inventory = DOMCacheGetOrSet(spanId)
+    const formattedValue = format(player[playerKey] as Decimal)
+    if (inventory.textContent !== formattedValue) {
+      inventory.textContent = formattedValue
+    }
   }
 }
 
@@ -2425,14 +2429,19 @@ export const buyAllTalismanResources = () => {
   const obtainiumBudget = player.obtainium.times(player.buyTalismanShardPercent / 100).div(numElms)
   const offeringBudget = player.offerings.times(player.buyTalismanShardPercent / 100).div(numElms)
   for (const item of talismanCraftItems) {
-    buyTalismanResources(item, obtainiumBudget, offeringBudget)
+    buyTalismanResources(item, obtainiumBudget, offeringBudget, false)
+  }
+
+  if (G.currentTab === Tabs.Runes && getActiveSubTab() === 1) {
+    updateTalismanInventory()
   }
 }
 
 export const buyTalismanResources = (
   type: TalismanCraftItems,
   obtainiumBudget: Decimal,
-  offeringBudget: Decimal
+  offeringBudget: Decimal,
+  refreshVisuals = true
 ) => {
   const talismanResourcesData = getTalismanResourceInfo(type, obtainiumBudget, offeringBudget)
 
@@ -2464,10 +2473,12 @@ export const buyTalismanResources = (
       player.offerings = new Decimal()
     }
   }
-  if (isMobile) {
-    updateMobileTalismanInventoryPurchaseInfo(type)
-  } else {
-    updateTalismanCostDisplay(type, obtainiumBudget, offeringBudget)
+  if (refreshVisuals) {
+    if (isMobile) {
+      updateMobileTalismanInventoryPurchaseInfo(type)
+    } else {
+      updateTalismanCostDisplay(type, obtainiumBudget, offeringBudget)
+    }
+    updateTalismanInventory()
   }
-  updateTalismanInventory()
 }
