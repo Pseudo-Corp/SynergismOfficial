@@ -3728,7 +3728,8 @@ p#reincarnatehotkeys {
     min-width: 0;
     min-height: 31px;
     font-size: 0.95em;
-    border: 1px solid #237c36;
+    border-width: 1px;
+    border-style: solid;
 }
 
 #autoSacrificeAntMode,
