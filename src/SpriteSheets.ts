@@ -318,7 +318,7 @@ export const spriteSheets: SpriteSheet[] = [
       'campaignTokenRewardIcon-obtainium',
       'campaignTokenRewardIcon-offering',
       'campaignTokenRewardIcon-ascensionScore',
-      'campaignTokenRewardIcon-timeThreshold',
+      null,
       'campaignTokenRewardIcon-quark',
       'campaignTokenRewardIcon-tax',
       'campaignTokenRewardIcon-c15',
@@ -345,17 +345,18 @@ export const registerSpriteAlias = (sourceElementName: string, elementName: stri
   }
 }
 
+const fallbackLookups = new Set<string>()
+const activeSpriteSheetSources = new Map<string, string>()
+
 const updateIconFromSprite = (
   sheet: SpriteSheet,
-  folderUsed: string,
+  src: string,
   elementName: string,
   iconIndex: number,
   displaySize: number = sheet.iconSize
 ) => {
   const element = DOMCacheGetOrSet(elementName)
-  const requestedSrc = `Pictures/${folderUsed}/Sprite Sheets/${sheet.name}.png`
-  const resolvedSrc = resolveImgSrc(requestedSrc)
-  element.style.backgroundImage = `url('${resolvedSrc}')`
+  element.style.backgroundImage = `url('${src}')`
   element.style.backgroundPosition = `${-(iconIndex % sheet.columns) * displaySize}px ${
     -Math.floor(iconIndex / sheet.columns) * displaySize
   }px`
@@ -363,30 +364,41 @@ const updateIconFromSprite = (
   element.style.backgroundRepeat = 'no-repeat'
   element.style.width = `${displaySize}px`
   element.style.height = `${displaySize}px`
+}
 
-  if (folderUsed === 'Default' || resolvedSrc !== requestedSrc) {
+const updateIconsFromSpriteSheet = (sheet: SpriteSheet, folderUsed: string) => {
+  const requestedSrc = `Pictures/${folderUsed}/Sprite Sheets/${sheet.name}.png`
+  const resolvedSrc = resolveImgSrc(requestedSrc)
+  activeSpriteSheetSources.set(sheet.name, resolvedSrc)
+
+  for (const [iconIndex, elementName] of sheet.elementNames.entries()) {
+    if (elementName === null) {
+      continue
+    }
+
+    updateIconFromSprite(sheet, resolvedSrc, elementName, iconIndex)
+  }
+
+  for (const alias of sheet.aliases ?? []) {
+    updateIconFromSprite(sheet, resolvedSrc, alias.elementName, alias.iconIndex, alias.displaySize)
+  }
+
+  if (folderUsed === 'Default' || resolvedSrc !== requestedSrc || fallbackLookups.has(resolvedSrc)) {
     return
   }
 
+  fallbackLookups.add(resolvedSrc)
   const probe = new Image()
   probe.addEventListener('error', () => {
-    updateIconsFromSprites('Default')
+    if (activeSpriteSheetSources.get(sheet.name) === resolvedSrc) {
+      updateIconsFromSpriteSheet(sheet, 'Default')
+    }
   }, { once: true })
   probe.src = requestedSrc
 }
 
 export const updateIconsFromSprites = (folderUsed: string) => {
   for (const sheet of spriteSheets) {
-    for (const [iconIndex, elementName] of sheet.elementNames.entries()) {
-      if (elementName === null) {
-        continue
-      }
-
-      updateIconFromSprite(sheet, folderUsed, elementName, iconIndex)
-    }
-
-    for (const alias of sheet.aliases ?? []) {
-      updateIconFromSprite(sheet, folderUsed, alias.elementName, alias.iconIndex, alias.displaySize)
-    }
+    updateIconsFromSpriteSheet(sheet, folderUsed)
   }
 }
