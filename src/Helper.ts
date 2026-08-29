@@ -27,9 +27,8 @@ import { getShopUpgradeEffects, useConsumable } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { player } from './Synergism'
-import { Tabs } from './Tabs'
 import { buyAllTalismanResources } from './Talismans'
-import { visualUpdateAmbrosia, visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals'
+import { visualUpdateAmbrosia, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 type TimerInput =
@@ -320,10 +319,6 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
 
       // Add Obtainium
       player.obtainium = player.obtainium.add(obtainiumGain)
-      // Update visual displays if appropriate
-      if (G.currentTab === Tabs.Research) {
-        visualUpdateResearch()
-      }
       break
     }
     case 'addOfferings':
