@@ -93,6 +93,11 @@ const htmlInsertDomRequirements = [
   'quarkDisplay',
   'obtainiumDisplay'
 ] as const
+const challengeProgressRowIds = {
+  transcension: 'transcensionChallengeProgress',
+  reincarnation: 'reincarnationChallengeProgress',
+  ascension: 'ascensionChallengeProgress'
+} as const
 
 type ChallengeProgressResource = 'coins' | 'transcendShards' | 'challenge10Completions'
 
@@ -169,12 +174,29 @@ const getChallenge15ProgressText = (name: string, progress: ChallengeProgress) =
   })
 }
 
+type ChallengeTier = keyof typeof challengeProgressRowIds
+
+export const challengeExit = (tier: ChallengeTier) => {
+  if (player.currentChallenge[tier] === 0) {
+    return
+  }
+
+  player.currentChallenge[tier] = 0
+
+  if (isMobile) {
+    return
+  }
+
+  const element = DOMCacheGetOrSet(challengeProgressRowIds[tier])
+  element.hidden = true
+  element.textContent = ''
+}
+
 const updateChallengeProgressRow = (elementId: string, challenge: number) => {
   const element = DOMCacheGetOrSet(elementId)
-  element.hidden = challenge === 0
-  if (challenge === 0) {
-    element.textContent = ''
-    return
+
+  if (element.hidden) {
+    element.hidden = false
   }
 
   const progress = getChallengeProgress(challenge)
@@ -202,9 +224,17 @@ const updateChallengeProgress = () => {
     return
   }
 
-  updateChallengeProgressRow('transcensionChallengeProgress', player.currentChallenge.transcension)
-  updateChallengeProgressRow('reincarnationChallengeProgress', player.currentChallenge.reincarnation)
-  updateChallengeProgressRow('ascensionChallengeProgress', player.currentChallenge.ascension)
+  const { transcension, reincarnation, ascension } = player.currentChallenge
+
+  if (transcension !== 0) {
+    updateChallengeProgressRow(challengeProgressRowIds.transcension, transcension)
+  }
+  if (reincarnation !== 0) {
+    updateChallengeProgressRow(challengeProgressRowIds.reincarnation, reincarnation)
+  }
+  if (ascension !== 0) {
+    updateChallengeProgressRow(challengeProgressRowIds.ascension, ascension)
+  }
 }
 
 export const revealStuff = () => {

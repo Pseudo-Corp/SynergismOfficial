@@ -17,7 +17,7 @@ import { updateTalismanInventory } from './Talismans'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
-import { Alert, Confirm, createFitties, Prompt, updateChallengeDisplay } from './UpdateHTML'
+import { Alert, challengeExit, Confirm, createFitties, Prompt, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
@@ -102,7 +102,11 @@ export const toggleChallenges = (i: number, auto = false) => {
   if (i >= 0 && i <= 5) {
     reset('transcensionChallenge', false, 'enterChallenge')
     applyChallengeInitialModifiers('transcensionChallenge', i)
-    player.currentChallenge.transcension = i
+    if (i === 0) {
+      challengeExit('transcension')
+    } else {
+      player.currentChallenge.transcension = i
+    }
   }
   if (i >= 6 && i <= 10) {
     reset('reincarnationChallenge', false, 'enterChallenge')

@@ -151,6 +151,7 @@ import { type OneToFive, type Player, type resetNames, type ZeroToFour } from '.
 import {
   Alert,
   buttoncolorchange,
+  challengeExit,
   Confirm,
   createFitties,
   htmlInserts,
@@ -1392,6 +1393,9 @@ const loadSynergy = (saveString: string): boolean => {
     const validatedPlayer = playerUpdateVarSchema.safeParse(data)
 
     if (validatedPlayer.success) {
+      challengeExit('transcension')
+      challengeExit('reincarnation')
+      challengeExit('ascension')
       Object.assign(player, validatedPlayer.data)
     } else {
       console.log(validatedPlayer.error)
@@ -3565,7 +3569,7 @@ export const resetCheck = async (
       || (player.autoChallengeRunning
         && player.challengecompletions[q] >= maxCompletions)
     ) {
-      player.currentChallenge.transcension = 0
+      challengeExit('transcension')
       updateChallengeDisplay()
     }
     if (leaving || !getShopUpgradeEffects('instantChallenge', 'unlocked')) {
@@ -3653,7 +3657,7 @@ export const resetCheck = async (
       || (player.autoChallengeRunning
         && player.challengecompletions[q] >= maxCompletions)
     ) {
-      player.currentChallenge.reincarnation = 0
+      challengeExit('reincarnation')
       if (getShopUpgradeEffects('instantChallenge', 'unlocked')) {
         for (let j = 1; j <= 5; j++) {
           player.challengecompletions[j] = player.highestchallengecompletions[j]
@@ -3766,7 +3770,7 @@ export const resetCheck = async (
           && player.cubeUpgrades[10] > 0
         )
       ) {
-        player.currentChallenge.ascension = 0
+        challengeExit('ascension')
         updateChallengeDisplay()
       }
     }
