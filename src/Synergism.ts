@@ -55,7 +55,6 @@ import {
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateObtainium,
-  calculateOfferings,
   calculateOffline,
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
@@ -120,6 +119,7 @@ import {
   generateTalismansHTML,
   noTalismanFragments,
   type TalismanCraftItems,
+  talismanKeys,
   type TalismanKeys,
   talismans,
   toggleTalismanBuy,
@@ -186,6 +186,7 @@ import {
   CampaignManager,
   campaignTokenRewardHTMLUpdate,
   createCampaignIconHTMLS,
+  createCampaignTokenRewardEventHandlers,
   updateMaxTokens,
   updateTokens
 } from './Campaign'
@@ -4086,7 +4087,7 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
 
   if ((player.researches[130] > 0 || player.researches[135] > 0) && player.autoFortifyToggle) {
     let inventoryChanged = false
-    for (const key of Object.keys(talismans) as TalismanKeys[]) {
+    for (const key of talismanKeys) {
       const changed = buyTalismanLevelToRarityIncrease(key, {
         auto: true,
         refreshVisuals: false
@@ -4673,7 +4674,6 @@ const tack = (dt: number) => {
       }
     }
   }
-  calculateOfferings()
 }
 
 export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
@@ -5177,6 +5177,7 @@ window.addEventListener('load', async () => {
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
   createCampaignIconHTMLS()
+  createCampaignTokenRewardEventHandlers()
   generateAchievementHTMLs()
   generateLevelRewardHTMLs()
   generateLevelMilestoneHTMLS()

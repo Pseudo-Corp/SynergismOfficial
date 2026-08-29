@@ -13,6 +13,7 @@ import { getShopUpgradeEffects } from './Shop'
 import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
+import { updateTalismanInventory } from './Talismans'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
@@ -488,6 +489,7 @@ export const toggleRuneScreen = (indexStr: string) => {
 
   if (index === 2) {
     DOMCacheGetOrSet('offeringDetails').style.display = 'none'
+    updateTalismanInventory()
   } else {
     DOMCacheGetOrSet('offeringDetails').style.display = 'flex'
   }

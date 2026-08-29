@@ -14,7 +14,7 @@ import { getShopUpgradeEffects } from './Shop'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { allTalismanRuneBonusStatsSum } from './Statistics'
 import { format, formatAsPercentIncrease, player } from './Synergism'
-import { Tabs } from './Tabs'
+import { getActiveSubTab, Tabs } from './Tabs'
 import { toggleAutoBuyFragment, toggleautofortify } from './Toggles'
 import type { Player } from './types/Synergism'
 import { assert, isMobile } from './Utility'
@@ -783,10 +783,26 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   }
 }
 
-export const maxTalismansRarityAP = 50 * Object.keys(talismans).length
+export const talismanKeys = Object.keys(talismans) as TalismanKeys[]
 
-const getTalismanCostTNL = (t: TalismanKeys) => {
-  return talismans[t].costs(talismans[t].baseMult, talismans[t].level)
+export const maxTalismansRarityAP = 50 * talismanKeys.length
+
+interface TalismanCostCacheEntry {
+  level: number
+  costs: Record<TalismanCraftItems, Decimal>
+}
+
+const talismanCostCache: Partial<Record<TalismanKeys, TalismanCostCacheEntry>> = {}
+
+const getTalismanCost = (t: TalismanKeys, level: number): Record<TalismanCraftItems, Decimal> => {
+  const cached = talismanCostCache[t]
+  if (cached?.level === level) {
+    return cached.costs
+  }
+
+  const costs = talismans[t].costs(talismans[t].baseMult, level)
+  talismanCostCache[t] = { level, costs }
+  return costs
 }
 
 export const getTalismanLevelCap = (t: TalismanKeys) => {
@@ -847,13 +863,13 @@ const affordableNextLevel = (
   level: number,
   loadingTalismans = false
 ): boolean => {
-  const costs = talismans[t].costs(talismans[t].baseMult, level)
+  const costs = getTalismanCost(t, level)
   // This fixes a bug where imprecisions cause Talismans to be one level lower after loading
   // Talismans might need a redesign in terms of leveling, to make it more in line with Runes/Spirits/Blessings
-  const smallBufferMult = loadingTalismans ? 1.0001 : 1
 
-  for (const item in costs) {
-    if (costs[item as TalismanCraftItems].gt(budget[item as TalismanCraftItems].times(smallBufferMult))) {
+  for (const item of talismanCraftItems) {
+    const available = loadingTalismans ? budget[item].times(1.0001) : budget[item]
+    if (costs[item].gt(available)) {
       return false
     }
   }
@@ -868,7 +884,7 @@ export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void =
   talismans[t].fragmentsInvested = { ...player.talismans[t] }
   const trueLevelCap = getTalismanLevelCap(t)
 
-  let nextCost = talismans[t].costs(talismans[t].baseMult, level)
+  let nextCost = getTalismanCost(t, level)
   const loadingTalismans = true
 
   let canAffordNextLevel = affordableNextLevel(t, budget, level, loadingTalismans)
@@ -878,7 +894,7 @@ export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void =
       budget[item as TalismanCraftItems] = budget[item as TalismanCraftItems].sub(nextCost[item as TalismanCraftItems])
     }
     level += 1
-    nextCost = talismans[t].costs(talismans[t].baseMult, level)
+    nextCost = getTalismanCost(t, level)
 
     if (level >= trueLevelCap) {
       break
@@ -892,7 +908,7 @@ export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void =
 }
 
 export const updateTalismanRarities = (): void => {
-  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+  for (const t of talismanKeys) {
     if (talismans[t].isUnlocked()) {
       setTalismanRarity(t)
     }
@@ -920,7 +936,7 @@ export const buyTalismanLevel = (t: TalismanKeys, fromMultibuy = false): void =>
     return
   }
 
-  const costs = talismans[t].costs(talismans[t].baseMult, talismans[t].level)
+  const costs = getTalismanCost(t, talismans[t].level)
   const budget = getPlayerTalismanBudget()
   const canAffordNextLevel = affordableNextLevel(t, budget, talismans[t].level)
 
@@ -958,7 +974,12 @@ export const buyTalismanLevelToRarityIncrease = (
   { auto = false, refreshVisuals = true }: BuyTalismanLevelToRarityIncreaseOptions = {}
 ): boolean => {
   const previousLevel = talismans[t].level
-  const levelsToBuy = levelsUntilRarityIncrease(t)
+  const levelsUntilCap = talismans[t].isUnlocked()
+    ? getTalismanLevelCap(t) - talismans[t].level
+    : 0
+  const levelsToBuy = levelsUntilCap > 0
+    ? Math.min(levelsUntilRarityIncrease(t), levelsUntilCap)
+    : 0
   if (levelsToBuy > 0) {
     for (let i = 0; i < levelsToBuy; i++) {
       const budget = getPlayerTalismanBudget()
@@ -981,7 +1002,7 @@ export const buyTalismanLevelToRarityIncrease = (
 
 export const buyTalismanLevelToMax = (t: TalismanKeys): void => {
   const trueLevelCap = getTalismanLevelCap(t)
-  const levelsToBuy = trueLevelCap - talismans[t].level
+  const levelsToBuy = talismans[t].isUnlocked() ? trueLevelCap - talismans[t].level : 0
   if (levelsToBuy > 0) {
     for (let i = 0; i < levelsToBuy; i++) {
       const budget = getPlayerTalismanBudget()
@@ -1018,7 +1039,7 @@ const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneKeys): nu
 export const getRuneBonusFromAllTalismans = (rune: RuneKeys): number => {
   const specialMultiplier = allTalismanRuneBonusStatsSum()
   let totalBonus = 0
-  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+  for (const t of talismanKeys) {
     totalBonus += getRuneBonusFromIndividualTalisman(t, rune)
   }
 
@@ -1224,7 +1245,7 @@ export const updateWebTalismanCostHTML = (t: TalismanKeys) => {
   DOMCacheGetOrSet('talismanLevelUpSummary').textContent = i18next.t('runes.resourcesToLevelup')
   DOMCacheGetOrSet('talismanLevelUpSummary').style.color = 'silver'
 
-  const nextCost = getTalismanCostTNL(t)
+  const nextCost = getTalismanCost(t, talismans[t].level)
   a.textContent = format(nextCost.shard, 0, false)
   b.textContent = format(nextCost.commonFragment, 0, false)
   c.textContent = format(nextCost.uncommonFragment, 0, false)
@@ -1235,7 +1256,7 @@ export const updateWebTalismanCostHTML = (t: TalismanKeys) => {
 }
 
 export const updateMobileTalismanCostHTML = (t: TalismanKeys) => {
-  const nextCost = getTalismanCostTNL(t)
+  const nextCost = getTalismanCost(t, talismans[t].level)
   for (const item of talismanCraftItems) {
     DOMCacheGetOrSet(`mobile${t}Cost${item}Talisman`).textContent = format(nextCost[item], 0, false)
   }
@@ -1324,7 +1345,7 @@ const updateWebTalismanDisplay = (t: TalismanKeys) => {
 
 const updateMobileTalismanDisplay = (t: TalismanKeys) => {
   const talisman = talismans[t]
-  const itemCosts = getTalismanCostTNL(t)
+  const itemCosts = getTalismanCost(t, talismans[t].level)
   const container = DOMCacheGetOrSet(`${t}TalismanContainer`)
   const level = DOMCacheGetOrSet(`${t}TalismanLevel`)
 
@@ -1407,7 +1428,7 @@ const resetSingleTalisman = (t: TalismanKeys) => {
 }
 
 export const resetTalismanData = (tier: keyof typeof resetTiers) => {
-  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+  for (const t of talismanKeys) {
     if (resetTiers[tier] >= resetTiers[talismans[t].minimalResetTier]) {
       resetSingleTalisman(t)
     }
@@ -1429,7 +1450,7 @@ export const resetTalismanData = (tier: keyof typeof resetTiers) => {
 
 export const sumOfTalismanRarities = (): number => {
   let sum = 0
-  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+  for (const t of talismanKeys) {
     sum += talismans[t].rarity
   }
   return sum
@@ -1446,7 +1467,7 @@ export const updateResourcePredefinedLevel = (level: number, t: TalismanKeys): v
   setTalismanRarity(t)
 
   for (let n = 0; n < talismans[t].level; n++) {
-    const nextCost = talismans[t].costs(talismans[t].baseMult, n)
+    const nextCost = getTalismanCost(t, n)
     for (const item in nextCost) {
       talismans[t].fragmentsInvested[item as TalismanCraftItems] = talismans[t]
         .fragmentsInvested[item as TalismanCraftItems].add(nextCost[item as TalismanCraftItems])
@@ -1455,7 +1476,7 @@ export const updateResourcePredefinedLevel = (level: number, t: TalismanKeys): v
 }
 
 export const updateAllTalismanHTML = () => {
-  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+  for (const t of talismanKeys) {
     updateTalismanDisplay(t)
   }
 }
@@ -1576,7 +1597,7 @@ export const generateWebCenterTalismansHTML = () => {
   const talismansContainer = document.createElement('div')
   talismansContainer.className = 'talismansContainer'
 
-  for (const key of Object.keys(talismans) as TalismanKeys[]) {
+  for (const key of talismanKeys) {
     const talismansDivIndividual = document.createElement('div')
     talismansDivIndividual.className = 'talismanContainer'
     talismansDivIndividual.id = `${key}TalismanContainer`
@@ -2118,7 +2139,7 @@ export const generateMobileMainTalismansHTML = () => {
   mobileMainTalismansBody.id = 'mobileMainTalismansBody'
 
   // Talismans with info + buy buttons (3)
-  for (const key of Object.keys(talismans) as TalismanKeys[]) {
+  for (const key of talismanKeys) {
     // Top Row, similar to how it's done on runes...
     const talisman = document.createElement('div')
     talisman.className = 'mobileTalismanContainer'
@@ -2398,7 +2419,11 @@ export const updateTalismanInventory = () => {
   for (const item of talismanCraftItems) {
     const spanId = talismanResourceData[item].spanId
     const playerKey = talismanResourceData[item].playerKey
-    DOMCacheGetOrSet(spanId).textContent = format(player[playerKey] as Decimal)
+    const inventory = DOMCacheGetOrSet(spanId)
+    const formattedValue = format(player[playerKey] as Decimal)
+    if (inventory.textContent !== formattedValue) {
+      inventory.textContent = formattedValue
+    }
   }
 }
 
@@ -2425,14 +2450,19 @@ export const buyAllTalismanResources = () => {
   const obtainiumBudget = player.obtainium.times(player.buyTalismanShardPercent / 100).div(numElms)
   const offeringBudget = player.offerings.times(player.buyTalismanShardPercent / 100).div(numElms)
   for (const item of talismanCraftItems) {
-    buyTalismanResources(item, obtainiumBudget, offeringBudget)
+    buyTalismanResources(item, obtainiumBudget, offeringBudget, false)
+  }
+
+  if (G.currentTab === Tabs.Runes && getActiveSubTab() === 1) {
+    updateTalismanInventory()
   }
 }
 
 export const buyTalismanResources = (
   type: TalismanCraftItems,
   obtainiumBudget: Decimal,
-  offeringBudget: Decimal
+  offeringBudget: Decimal,
+  refreshVisuals = true
 ) => {
   const talismanResourcesData = getTalismanResourceInfo(type, obtainiumBudget, offeringBudget)
 
@@ -2464,10 +2494,12 @@ export const buyTalismanResources = (
       player.offerings = new Decimal()
     }
   }
-  if (isMobile) {
-    updateMobileTalismanInventoryPurchaseInfo(type)
-  } else {
-    updateTalismanCostDisplay(type, obtainiumBudget, offeringBudget)
+  if (refreshVisuals) {
+    if (isMobile) {
+      updateMobileTalismanInventoryPurchaseInfo(type)
+    } else {
+      updateTalismanCostDisplay(type, obtainiumBudget, offeringBudget)
+    }
+    updateTalismanInventory()
   }
-  updateTalismanInventory()
 }

@@ -1469,9 +1469,9 @@ const campaignTokenRewardText = (key: CampaignTokenRewardNames, value: CampaignT
   return i18next.t(`campaigns.tokens.rewardTexts.${key}`, reward)
 }
 
-const campaignTokenRewardModalHTML = (imgSrc: string, rewardText: string) => {
+const campaignTokenRewardModalHTML = (iconStyle: string, rewardText: string) => {
   return `<div class="campaignTokenRewardModal" data-modal-preserve="children">
-    <img src="${imgSrc}" alt="" data-modal-preserve="children">
+    <img src="Pictures/img_transparent.png" alt="" style='${iconStyle}' data-modal-preserve="children">
     <div class="campaignTokenRewardModalInfo">${rewardText}</div>
   </div>`
 }
@@ -1676,9 +1676,70 @@ export const createCampaignIconHTMLS = () => {
   }
 }
 
+const campaignTokenRewardUnlocked = (value: CampaignTokenRewardDisplay) => {
+  return campaignTokens >= value.tokenRequirement
+    && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())
+}
+
+export const createCampaignTokenRewardEventHandlers = () => {
+  for (
+    const [key, value] of Object.entries(campaignTokenRewardDatas) as [
+      CampaignTokenRewardNames,
+      CampaignTokenRewardDisplay
+    ][]
+  ) {
+    const tokenIcon = DOMCacheGetOrSet(`campaignTokenRewardIcon-${key}`)
+
+    tokenIcon.addEventListener('click', (event) => {
+      const rewardText = campaignTokenRewardText(key, value)
+      if (isMobile) {
+        Modal(
+          () => campaignTokenRewardModalHTML(tokenIcon.style.cssText, rewardText),
+          event.clientX,
+          event.clientY,
+          { borderColor: 'gold' },
+          MEDIUM_MODAL_UPDATE_TICK,
+          tokenIcon
+        )
+        return
+      }
+
+      DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = rewardText
+    })
+  }
+
+  const totalRewardIcon = DOMCacheGetOrSet('campaignTokenRewardIcon-sum')
+
+  totalRewardIcon.addEventListener('click', (event) => {
+    const popupTexts: string[] = []
+    for (
+      const [key, value] of Object.entries(campaignTokenRewardDatas) as [
+        CampaignTokenRewardNames,
+        CampaignTokenRewardDisplay
+      ][]
+    ) {
+      if (campaignTokenRewardUnlocked(value)) {
+        popupTexts.push(campaignTokenRewardText(key, value))
+      }
+    }
+
+    if (isMobile) {
+      Modal(
+        () => campaignTokenRewardSumModalHTML(popupTexts),
+        event.clientX,
+        event.clientY,
+        { borderColor: 'gold' },
+        MEDIUM_MODAL_UPDATE_TICK,
+        totalRewardIcon
+      )
+      return
+    }
+
+    Alert(`${popupTexts.join('\n')}\n`)
+  })
+}
+
 export const campaignTokenRewardHTMLUpdate = () => {
-  // Reset HTMLs for the Icons
-  DOMCacheGetOrSet('campaignTokenRewardIcons').innerHTML = ''
   DOMCacheGetOrSet('campaignTokenRewardText').textContent = ''
 
   DOMCacheGetOrSet('campaignTokenCount').textContent = i18next.t('campaigns.tokens.count', {
@@ -1692,71 +1753,8 @@ export const campaignTokenRewardHTMLUpdate = () => {
       CampaignTokenRewardDisplay
     ][]
   ) {
-    // Create a new Icon if the player has enough tokens and extra requirements are met
-    if (
-      campaignTokens >= value.tokenRequirement
-      && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())
-    ) {
-      const tokenIcon = document.createElement('img')
-      tokenIcon.src = `Pictures/Campaigns/${key}.png`
-      tokenIcon.classList.add('campaignTokenRewardIcon')
-
-      tokenIcon.addEventListener('click', (event) => {
-        const rewardText = campaignTokenRewardText(key, value)
-        if (isMobile) {
-          Modal(
-            () => campaignTokenRewardModalHTML(tokenIcon.src, rewardText),
-            event.clientX,
-            event.clientY,
-            { borderColor: 'gold' },
-            MEDIUM_MODAL_UPDATE_TICK,
-            tokenIcon
-          )
-          return
-        }
-
-        DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = rewardText
-      })
-
-      DOMCacheGetOrSet('campaignTokenRewardIcons').appendChild(tokenIcon)
-    }
+    DOMCacheGetOrSet(`campaignTokenRewardIcon-${key}`).hidden = !campaignTokenRewardUnlocked(value)
   }
 
-  // Create the final icon that displays the total sum of rewards in a popup.
-  if (campaignTokens > 0) {
-    const totalRewardIcon = document.createElement('img')
-    totalRewardIcon.src = 'Pictures/Campaigns/sum.png'
-
-    const popupTexts: string[] = []
-    for (
-      const [key, value] of Object.entries(campaignTokenRewardDatas) as [
-        CampaignTokenRewardNames,
-        CampaignTokenRewardDisplay
-      ][]
-    ) {
-      if (
-        campaignTokens >= value.tokenRequirement
-        && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())
-      ) {
-        popupTexts.push(campaignTokenRewardText(key, value))
-      }
-    }
-
-    totalRewardIcon.addEventListener('click', (event) => {
-      if (isMobile) {
-        Modal(
-          () => campaignTokenRewardSumModalHTML(popupTexts),
-          event.clientX,
-          event.clientY,
-          { borderColor: 'gold' },
-          MEDIUM_MODAL_UPDATE_TICK,
-          totalRewardIcon
-        )
-        return
-      }
-
-      Alert(`${popupTexts.join('\n')}\n`)
-    })
-    DOMCacheGetOrSet('campaignTokenRewardIcons').appendChild(totalRewardIcon)
-  }
+  DOMCacheGetOrSet('campaignTokenRewardIcon-sum').hidden = campaignTokens === 0
 }

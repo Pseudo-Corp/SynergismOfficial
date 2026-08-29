@@ -1,6 +1,6 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
 
-export type iconSize = 32 | 56 | 64
+export type iconSize = 32 | 48 | 56 | 64
 
 export interface SpriteSheet {
   name: string
@@ -124,6 +124,39 @@ export const spriteSheets: SpriteSheet[] = [
     iconSize: 56,
     rows: 2,
     columns: 8
+  },
+  {
+    name: 'Challenges',
+    elementNames: [
+      'challenge1',
+      'challenge2',
+      'challenge3',
+      'challenge4',
+      'challenge5',
+      'challenge6',
+      'challenge7',
+      'challenge8',
+      'challenge9',
+      'challenge10',
+      'challenge11',
+      'challenge12',
+      'challenge13',
+      'challenge14',
+      'challenge15',
+      'noSingularityUpgrades',
+      'oneChallengeCap',
+      'limitedAscensions',
+      'noQuarkUpgrades',
+      'noOcteracts',
+      'noAmbrosiaUpgrades',
+      'limitedTime',
+      'sadisticPrequel',
+      'taxmanLastStand',
+      null
+    ],
+    iconSize: 64,
+    rows: 5,
+    columns: 5
   },
   {
     name: 'WowPasses',
@@ -274,6 +307,29 @@ export const spriteSheets: SpriteSheet[] = [
     rows: 1,
     columns: 4,
     aliases: [{ elementName: 'shopFamilyRowIcon-cubeToQuark', iconIndex: 0, displaySize: 24 }]
+  },
+  {
+    name: 'CampaignTokens',
+    elementNames: [
+      'campaignTokenRewardIcon-sum',
+      'campaignTokenRewardIcon-tutorial',
+      'campaignTokenRewardIcon-cube',
+      'campaignTokenRewardIcon-obtainium',
+      'campaignTokenRewardIcon-offering',
+      'campaignTokenRewardIcon-ascensionScore',
+      null,
+      'campaignTokenRewardIcon-quark',
+      'campaignTokenRewardIcon-tax',
+      'campaignTokenRewardIcon-c15',
+      'campaignTokenRewardIcon-rune6',
+      'campaignTokenRewardIcon-goldenQuark',
+      'campaignTokenRewardIcon-octeract',
+      'campaignTokenRewardIcon-ambrosiaLuck',
+      'campaignTokenRewardIcon-blueberrySpeed'
+    ],
+    iconSize: 48,
+    rows: 1,
+    columns: 15
   }
 ]
 
@@ -288,15 +344,19 @@ export const registerSpriteAlias = (sourceElementName: string, elementName: stri
   }
 }
 
+// A null value marks a lookup as started; a string stores the fallback found for that source.
+const spriteSheetFallbacks = new Map<string, string | null>()
+const activeSpriteSheetSources = new Map<string, string>()
+
 const updateIconFromSprite = (
   sheet: SpriteSheet,
-  folderUsed: string,
+  src: string,
   elementName: string,
   iconIndex: number,
   displaySize: number = sheet.iconSize
 ) => {
   const element = DOMCacheGetOrSet(elementName)
-  element.style.backgroundImage = `url('Pictures/${folderUsed}/Sprite Sheets/${sheet.name}.png')`
+  element.style.backgroundImage = `url('${src}')`
   element.style.backgroundPosition = `${-(iconIndex % sheet.columns) * displaySize}px ${
     -Math.floor(iconIndex / sheet.columns) * displaySize
   }px`
@@ -306,24 +366,42 @@ const updateIconFromSprite = (
   element.style.height = `${displaySize}px`
 }
 
+const updateIconsFromSpriteSheet = (sheet: SpriteSheet, folderUsed: string) => {
+  const requestedSrc = `Pictures/${folderUsed}/Sprite Sheets/${sheet.name}.png`
+  const resolvedSrc = spriteSheetFallbacks.get(requestedSrc) ?? requestedSrc
+  activeSpriteSheetSources.set(sheet.name, resolvedSrc)
+
+  for (const [iconIndex, elementName] of sheet.elementNames.entries()) {
+    if (elementName === null) {
+      continue
+    }
+
+    updateIconFromSprite(sheet, resolvedSrc, elementName, iconIndex)
+  }
+
+  for (const alias of sheet.aliases ?? []) {
+    updateIconFromSprite(sheet, resolvedSrc, alias.elementName, alias.iconIndex, alias.displaySize)
+  }
+
+  if (folderUsed === 'Default' || resolvedSrc !== requestedSrc || spriteSheetFallbacks.has(requestedSrc)) {
+    return
+  }
+
+  spriteSheetFallbacks.set(requestedSrc, null)
+  const probe = new Image()
+  probe.addEventListener('error', () => {
+    const fallbackSrc = `Pictures/Default/Sprite Sheets/${sheet.name}.png`
+    spriteSheetFallbacks.set(requestedSrc, fallbackSrc)
+
+    if (activeSpriteSheetSources.get(sheet.name) === resolvedSrc) {
+      updateIconsFromSpriteSheet(sheet, folderUsed)
+    }
+  }, { once: true })
+  probe.src = requestedSrc
+}
+
 export const updateIconsFromSprites = (folderUsed: string) => {
   for (const sheet of spriteSheets) {
-    for (const [iconIndex, elementName] of sheet.elementNames.entries()) {
-      if (elementName === null) {
-        continue
-      }
-
-      /* Why backgroundImage? If we use .src, the image is the entire sheet,
-             Condensed into something of size iconSize * iconSize.
-             In index.html, each of these elements has src img_transparent, so
-             we need to use the sprite as the background image, using only
-             the relevant portion of the sheet
-            */
-      updateIconFromSprite(sheet, folderUsed, elementName, iconIndex)
-    }
-
-    for (const alias of sheet.aliases ?? []) {
-      updateIconFromSprite(sheet, folderUsed, alias.elementName, alias.iconIndex, alias.displaySize)
-    }
+    updateIconsFromSpriteSheet(sheet, folderUsed)
   }
 }

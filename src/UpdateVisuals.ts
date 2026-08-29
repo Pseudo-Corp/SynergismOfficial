@@ -115,7 +115,7 @@ import { getBuildingCostElement } from './tabs/buildings'
 import {
   getTalismanLevelCap,
   talismanCraftItems,
-  type TalismanKeys,
+  talismanKeys,
   talismans,
   updateAllTalismanHTML,
   updateMobileTalismanInventoryPurchaseInfo
@@ -759,7 +759,7 @@ export const visualUpdateRunes = () => {
   }
 
   if (getActiveSubTab() === 1) {
-    for (const t of Object.keys(talismans) as TalismanKeys[]) {
+    for (const t of talismanKeys) {
       if (isMobile) {
         for (const item of talismanCraftItems) {
           updateMobileTalismanInventoryPurchaseInfo(item)
