@@ -40,7 +40,7 @@ import { getLevelMilestone } from './Levels'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
 import { isResearchUnlocked, roombaResearchEnabled } from './Research'
-import { getRuneEffects, type RuneKeys, runes, updateRuneHTML } from './Runes'
+import { getRuneEffects, type RuneKeys, runes, runesKeys, updateRuneHTML } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import {
   getGQUpgradeEffect,
@@ -385,7 +385,7 @@ export const revealStuff = () => {
     }
   }
 
-  for (const rune of Object.keys(player.runes) as RuneKeys[]) {
+  for (const rune of runesKeys) {
     if (runes[rune].isUnlocked()) {
       DOMCacheGetOrSet(`${rune}RuneContainer`).style.display = 'flex'
       DOMCacheGetOrSet(`${rune}RuneLockedContainer`).style.display = 'none'

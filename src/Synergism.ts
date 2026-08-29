@@ -281,6 +281,7 @@ const researchAutoChallengeIndices = [71, 72, 73, 74, 75]
 // 2020 Platonic... Why the FUCK did you settle on this?
 // Preserved so that the balancing is unaffected
 const researchAutoChallengeReqMulti = [1.25, 1.6, 1.7, 1.45, 2]
+const periodicProgressiveAchievementKeys = progressiveAchievementKeys.filter((key) => key !== 'runeLevel')
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -4338,10 +4339,15 @@ export const slowUpdates = (): void => {
   }
 
   buildingAchievementCheck()
+  updateAllRuneLevelsFromEXP({ forceAchievementCheck: false })
+  awardAchievementGroup('runeFreeLevel')
+
+  for (const key of periodicProgressiveAchievementKeys) {
+    updateProgressiveCache(key)
+  }
 }
 
 const fastUpdateInterval = PLATFORM === 'mobile' ? 100 : 50
-const sweepInterval = PLATFORM === 'mobile' ? 100 : 25
 
 export const constantIntervals = (): void => {
   // Updates are suspended during offline simulation
@@ -4363,27 +4369,9 @@ export const constantIntervals = (): void => {
   setInterval(campaignIconHTMLUpdates, 15000)
   setInterval(() => {
     if (!G.timeWarp) {
-      updateAllRuneLevelsFromEXP()
-    }
-  }, sweepInterval)
-  setInterval(() => {
-    if (!G.timeWarp) {
       updateTalismanRarities()
     }
   }, 250)
-  setInterval(() => {
-    if (!G.timeWarp) {
-      awardAchievementGroup('runeFreeLevel')
-    }
-  }, sweepInterval)
-  setInterval(() => {
-    if (G.timeWarp) {
-      return
-    }
-    for (const key of progressiveAchievementKeys) {
-      updateProgressiveCache(key)
-    }
-  }, sweepInterval)
 
   if (!isOfflineDialogOpen()) {
     exitOffline()
@@ -4930,7 +4918,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
       const runeEXP = player.runes[key]
       runes[key].runeEXP = new Decimal(runeEXP)
     }
-    updateAllRuneLevelsFromEXP()
+    updateAllRuneLevelsFromEXP({ sourcedFromUpdate: true })
   }
 
   if (player.runeBlessings !== undefined) {

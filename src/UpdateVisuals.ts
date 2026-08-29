@@ -1770,6 +1770,8 @@ export const visualUpdateSingularity = () => {
       }
     }
   } else if (getActiveSubTab() === 3) {
+    visualUpdateOcteracts()
+
     const keys = Object.keys(octeractUpgrades) as OcteractUpgrades[]
     const val = G.shopEnhanceVision
 
@@ -1796,6 +1798,8 @@ export const visualUpdateSingularity = () => {
         }
       }
     }
+  } else if (getActiveSubTab() === 4) {
+    visualUpdateAmbrosia()
   }
 }
 

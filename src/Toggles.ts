@@ -12,7 +12,7 @@ import { indexToRune } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 import { format, player, resetCheck } from './Synergism'
-import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
+import { subTabsInMainTab, Tabs } from './Tabs'
 import { updateTalismanInventory } from './Talismans'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { settingSymbols } from './Themes'
@@ -555,9 +555,9 @@ export const toggleSingularityScreen = (indexStr: string) => {
   if (index === 1) {
     updateSingularityElevator()
     updateSingularityElevatorVisibility()
-  } else if (getActiveSubTab() === 4) {
+  } else if (index === 4) {
     visualUpdateOcteracts()
-  } else if (getActiveSubTab() === 5) {
+  } else if (index === 5) {
     visualUpdateAmbrosia()
   }
 }

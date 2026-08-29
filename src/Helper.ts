@@ -28,7 +28,6 @@ import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { player } from './Synergism'
 import { buyAllTalismanResources } from './Talismans'
-import { visualUpdateAmbrosia, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 type TimerInput =
@@ -144,7 +143,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
             player.quarksThisSingularity *= 1 - quarkFraction
           }
         }
-        visualUpdateOcteracts()
       }
       break
     }
@@ -232,8 +230,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
           timeToAmbrosia = calculateRequiredBlueberryTime()
         }
-
-        visualUpdateAmbrosia()
       }
       break
     }
@@ -269,8 +265,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
         if (ambrosiaTimeToGrant > 0) {
           addTimers('ambrosia', ambrosiaTimeToGrant)
         }
-
-        visualUpdateAmbrosia()
       }
     }
   }
