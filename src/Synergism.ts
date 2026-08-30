@@ -4286,15 +4286,6 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
     }
   }
 
-  if (player.researches[175] > 0) {
-    for (let i = 1; i <= 10; i++) {
-      const [, cost] = getConstUpgradeMetadata(i)
-      if (player.ascendShards.gte(cost)) {
-        buyConstantUpgrades(i, true)
-      }
-    }
-  }
-
   const reductionValue = getReductionValue()
   if (reductionValue !== G.prevReductionValue) {
     G.prevReductionValue = reductionValue
