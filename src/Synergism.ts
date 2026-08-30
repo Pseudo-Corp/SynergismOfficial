@@ -17,7 +17,7 @@ import {
   highestChallengeRewards,
   tickChallengeSweep
 } from './Challenges'
-import { btoa, isMobile } from './Utility'
+import { btoa, isMobile, memoize } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -151,6 +151,7 @@ import { type OneToFive, type Player, type resetNames, type ZeroToFour } from '.
 import {
   Alert,
   buttoncolorchange,
+  challengeExit,
   Confirm,
   createFitties,
   htmlInserts,
@@ -280,6 +281,7 @@ const researchAutoChallengeIndices = [71, 72, 73, 74, 75]
 // 2020 Platonic... Why the FUCK did you settle on this?
 // Preserved so that the balancing is unaffected
 const researchAutoChallengeReqMulti = [1.25, 1.6, 1.7, 1.45, 2]
+const periodicProgressiveAchievementKeys = progressiveAchievementKeys.filter((key) => key !== 'runeLevel')
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -1392,6 +1394,9 @@ const loadSynergy = (saveString: string): boolean => {
     const validatedPlayer = playerUpdateVarSchema.safeParse(data)
 
     if (validatedPlayer.success) {
+      challengeExit('transcension')
+      challengeExit('reincarnation')
+      challengeExit('ascension')
       Object.assign(player, validatedPlayer.data)
     } else {
       console.log(validatedPlayer.error)
@@ -3565,7 +3570,7 @@ export const resetCheck = async (
       || (player.autoChallengeRunning
         && player.challengecompletions[q] >= maxCompletions)
     ) {
-      player.currentChallenge.transcension = 0
+      challengeExit('transcension')
       updateChallengeDisplay()
     }
     if (leaving || !getShopUpgradeEffects('instantChallenge', 'unlocked')) {
@@ -3653,7 +3658,7 @@ export const resetCheck = async (
       || (player.autoChallengeRunning
         && player.challengecompletions[q] >= maxCompletions)
     ) {
-      player.currentChallenge.reincarnation = 0
+      challengeExit('reincarnation')
       if (getShopUpgradeEffects('instantChallenge', 'unlocked')) {
         for (let j = 1; j <= 5; j++) {
           player.challengecompletions[j] = player.highestchallengecompletions[j]
@@ -3766,7 +3771,7 @@ export const resetCheck = async (
           && player.cubeUpgrades[10] > 0
         )
       ) {
-        player.currentChallenge.ascension = 0
+        challengeExit('ascension')
         updateChallengeDisplay()
       }
     }
@@ -4334,10 +4339,15 @@ export const slowUpdates = (): void => {
   }
 
   buildingAchievementCheck()
+  updateAllRuneLevelsFromEXP({ forceAchievementCheck: false })
+  awardAchievementGroup('runeFreeLevel')
+
+  for (const key of periodicProgressiveAchievementKeys) {
+    updateProgressiveCache(key)
+  }
 }
 
 const fastUpdateInterval = PLATFORM === 'mobile' ? 100 : 50
-const sweepInterval = PLATFORM === 'mobile' ? 100 : 25
 
 export const constantIntervals = (): void => {
   // Updates are suspended during offline simulation
@@ -4359,27 +4369,9 @@ export const constantIntervals = (): void => {
   setInterval(campaignIconHTMLUpdates, 15000)
   setInterval(() => {
     if (!G.timeWarp) {
-      updateAllRuneLevelsFromEXP()
-    }
-  }, sweepInterval)
-  setInterval(() => {
-    if (!G.timeWarp) {
       updateTalismanRarities()
     }
   }, 250)
-  setInterval(() => {
-    if (!G.timeWarp) {
-      awardAchievementGroup('runeFreeLevel')
-    }
-  }, sweepInterval)
-  setInterval(() => {
-    if (G.timeWarp) {
-      return
-    }
-    for (const key of progressiveAchievementKeys) {
-      updateProgressiveCache(key)
-    }
-  }, sweepInterval)
 
   if (!isOfflineDialogOpen()) {
     exitOffline()
@@ -4490,9 +4482,10 @@ const tack = (dt: number) => {
     generateAntsAndCrumbs(dt)
 
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
-    addTimers('prestige', dt)
-    addTimers('transcension', dt)
-    addTimers('reincarnation', dt)
+    const timerSpeedMult = memoize(calculateGlobalSpeedMult)
+    addTimers('prestige', dt, timerSpeedMult)
+    addTimers('transcension', dt, timerSpeedMult)
+    addTimers('reincarnation', dt, timerSpeedMult)
     addTimers('ascension', dt)
     addTimers('quarks', dt)
     addTimers('goldenQuarks', dt)
@@ -4926,7 +4919,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
       const runeEXP = player.runes[key]
       runes[key].runeEXP = new Decimal(runeEXP)
     }
-    updateAllRuneLevelsFromEXP()
+    updateAllRuneLevelsFromEXP({ sourcedFromUpdate: true })
   }
 
   if (player.runeBlessings !== undefined) {

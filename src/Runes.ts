@@ -4,7 +4,7 @@ import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { awardAchievementGroup, getAchievementReward } from './Achievements'
+import { awardAchievementGroup, getAchievementReward, updateProgressiveCache } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
@@ -803,6 +803,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   }
 }
 
+export const runesKeys = Object.keys(runes) as RuneKeys[]
+
 export const indexToRune = Object.fromEntries(
   Object.entries(runes).map(([key, value]) => [value.index, key])
 ) as Record<number, RuneKeys>
@@ -902,13 +904,17 @@ const levelRune = (rune: RuneKeys, timesLeveled: number, budget: Decimal) => {
   // this.updateRuneEffectHTML()
 }
 
+let runeLevelAchievementsDirty = true
+
 const setRuneLevel = (rune: RuneKeys, level: number) => {
   const exp = computeEXPToLevel(rune, level)
+  runeLevelAchievementsDirty ||= runes[rune].level !== level
   runes[rune].level = level
   runes[rune].runeEXP = exp
 }
 
 const updateLevelsFromEXP = (rune: RuneKeys) => {
+  const previousLevel = runes[rune].level
   const levelsPerOOM = getLevelsPerOOM(rune)
   const levels = Math.floor(levelsPerOOM * Decimal.log10(runes[rune].runeEXP.div(runes[rune].costCoefficient).plus(1)))
   // Floating point imprecision fix
@@ -917,13 +923,32 @@ const updateLevelsFromEXP = (rune: RuneKeys) => {
   } else {
     runes[rune].level = levels
   }
+
+  runeLevelAchievementsDirty ||= previousLevel !== runes[rune].level
 }
 
-export const updateAllRuneLevelsFromEXP = () => {
-  for (const rune of Object.keys(runes) as RuneKeys[]) {
+const updateRuneLevelAchievementProgress = (force = false, sourcedFromUpdate = false) => {
+  if (!force && !runeLevelAchievementsDirty) {
+    return
+  }
+
+  awardAchievementGroup('runeLevel')
+  updateProgressiveCache('runeLevel', sourcedFromUpdate)
+  runeLevelAchievementsDirty = false
+}
+
+interface UpdateRuneLevelOptions {
+  forceAchievementCheck?: boolean
+  sourcedFromUpdate?: boolean
+}
+
+export const updateAllRuneLevelsFromEXP = (
+  { forceAchievementCheck = true, sourcedFromUpdate = false }: UpdateRuneLevelOptions = {}
+) => {
+  for (const rune of runesKeys) {
     updateLevelsFromEXP(rune)
   }
-  awardAchievementGroup('runeLevel')
+  updateRuneLevelAchievementProgress(forceAchievementCheck, sourcedFromUpdate)
 }
 
 export const updateWebRuneHTML = (rune: RuneKeys) => {
@@ -1076,8 +1101,9 @@ export function resetRunes (tier: keyof typeof resetTiers) {
   if (runes === null) {
     throw new Error('Runes not initialized. Call initRunes first.')
   }
-  for (const rune of Object.keys(runes) as RuneKeys[]) {
+  for (const rune of runesKeys) {
     if (resetTiers[tier] >= resetTiers[runes[rune].minimalResetTier]) {
+      runeLevelAchievementsDirty ||= runes[rune].level !== 0
       runes[rune].level = 0
       runes[rune].runeEXP = new Decimal()
       player.runes[rune] = new Decimal()
@@ -1119,13 +1145,14 @@ export const sacrificeOfferings = (rune: RuneKeys, budget: Decimal, auto = false
   }
 
   updateLevelsFromEXP(rune)
+  updateRuneLevelAchievementProgress()
   player.offerings = Decimal.max(0, player.offerings)
 }
 
 export const generateWebRunesHTML = () => {
   const runeContainer = DOMCacheGetOrSet('runeDetails')
 
-  for (const key of Object.keys(runes) as RuneKeys[]) {
+  for (const key of runesKeys) {
     // Create unlocked rune container
     const runesDiv = document.createElement('div')
     runesDiv.className = 'runeType'
@@ -1248,7 +1275,7 @@ export const generateWebRunesHTML = () => {
 
 export const generateMobileRunesHTML = () => {
   const runeContainer = DOMCacheGetOrSet('runeDetails')
-  for (const key of Object.keys(runes) as RuneKeys[]) {
+  for (const key of runesKeys) {
     // Create unlocked rune container
     const runesDiv = document.createElement('div')
     runesDiv.className = 'runeTypeMobile'

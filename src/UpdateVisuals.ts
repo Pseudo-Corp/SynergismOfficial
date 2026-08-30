@@ -1770,6 +1770,8 @@ export const visualUpdateSingularity = () => {
       }
     }
   } else if (getActiveSubTab() === 3) {
+    visualUpdateOcteracts()
+
     const keys = Object.keys(octeractUpgrades) as OcteractUpgrades[]
     const val = G.shopEnhanceVision
 
@@ -1796,6 +1798,8 @@ export const visualUpdateSingularity = () => {
         }
       }
     }
+  } else if (getActiveSubTab() === 4) {
+    visualUpdateAmbrosia()
   }
 }
 
@@ -1891,8 +1895,8 @@ export const visualUpdateAmbrosia = () => {
 
   const totalTimePerSecond = calculateAmbrosiaGenerationSpeed()
   const totalTimePerSecondRed = calculateRedAmbrosiaGenerationSpeed()
-  const barWidth = 100 * Math.min(1, player.blueberryTime / requiredTime)
-  const pixelBarWidth = 100 * Math.min(1, player.redAmbrosiaTime / requiredTimeRed)
+  const ambrosiaProgress = Math.min(1, player.blueberryTime / requiredTime)
+  const redAmbrosiaProgress = Math.min(1, player.redAmbrosiaTime / requiredTimeRed)
 
   const ambCubeBonus = calculateAmbrosiaCubeMult()
   const ambQuarkBonus = calculateAmbrosiaQuarkMult()
@@ -1901,7 +1905,7 @@ export const visualUpdateAmbrosia = () => {
   const redAmbOffBonus = calculateRedAmbrosiaOffering()
   const redAmbLuckBonus = calculateCookieUpgrade29Luck()
 
-  DOMCacheGetOrSet('ambrosiaProgress').style.width = `${barWidth}%`
+  DOMCacheGetOrSet('ambrosiaProgress').style.transform = `scaleX(${ambrosiaProgress})`
 
   if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
     DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true, false)} / ${
@@ -1911,7 +1915,7 @@ export const visualUpdateAmbrosia = () => {
     DOMCacheGetOrSet('ambrosiaProgressText').textContent = i18next.t('ambrosia.notUnlocked')
   }
 
-  DOMCacheGetOrSet('pixelProgress').style.width = `${pixelBarWidth}%`
+  DOMCacheGetOrSet('pixelProgress').style.transform = `scaleX(${redAmbrosiaProgress})`
 
   if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
     DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.redAmbrosiaTime, 0, true, false)} / ${

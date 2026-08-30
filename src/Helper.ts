@@ -27,9 +27,7 @@ import { getShopUpgradeEffects, useConsumable } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { player } from './Synergism'
-import { Tabs } from './Tabs'
 import { buyAllTalismanResources } from './Talismans'
-import { visualUpdateAmbrosia, visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 type TimerInput =
@@ -51,14 +49,15 @@ const octeractGiveawayLevels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
  * @param input
  * @param time
+ * @param globalSpeedMult
  */
-export const addTimers = (input: TimerInput, time = 0) => {
+export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => number) => {
   const timeMultiplier = input === 'prestige'
       || input === 'transcension'
       || input === 'reincarnation'
     ? getGQUpgradeEffect('halfMind', 'unlocked')
       ? G.MIND_DIVISOR
-      : calculateGlobalSpeedMult()
+      : globalSpeedMult?.() ?? calculateGlobalSpeedMult()
     : 1
 
   switch (input) {
@@ -145,7 +144,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
             player.quarksThisSingularity *= 1 - quarkFraction
           }
         }
-        visualUpdateOcteracts()
       }
       break
     }
@@ -233,8 +231,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
           timeToAmbrosia = calculateRequiredBlueberryTime()
         }
-
-        visualUpdateAmbrosia()
       }
       break
     }
@@ -270,8 +266,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
         if (ambrosiaTimeToGrant > 0) {
           addTimers('ambrosia', ambrosiaTimeToGrant)
         }
-
-        visualUpdateAmbrosia()
       }
     }
   }
@@ -320,10 +314,6 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
 
       // Add Obtainium
       player.obtainium = player.obtainium.add(obtainiumGain)
-      // Update visual displays if appropriate
-      if (G.currentTab === Tabs.Research) {
-        visualUpdateResearch()
-      }
       break
     }
     case 'addOfferings':

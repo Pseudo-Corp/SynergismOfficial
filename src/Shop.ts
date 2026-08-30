@@ -276,8 +276,9 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.obtainiumPotion'),
     effects: () => 7200, // skipSeconds
     effectDescription: () => {
+      const baseObtainium = calculateBaseObtainium()
       const amount = format(
-        calculatePotionValue(calculateObtainium(false), calculateBaseObtainium()),
+        calculatePotionValue(calculateObtainium(false, baseObtainium), baseObtainium),
         2,
         true
       )
@@ -2505,9 +2506,10 @@ export const useConsumable = (
       return
     }
 
+    const baseObtainium = calculateBaseObtainium()
     let obtainiumPotionValue = calculatePotionValue(
-      calculateObtainium(false),
-      calculateBaseObtainium()
+      calculateObtainium(false, baseObtainium),
+      baseObtainium
     )
 
     if (
