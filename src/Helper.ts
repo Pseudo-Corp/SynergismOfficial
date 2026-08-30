@@ -49,14 +49,15 @@ const octeractGiveawayLevels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
  * @param input
  * @param time
+ * @param globalSpeedMult
  */
-export const addTimers = (input: TimerInput, time = 0) => {
+export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => number) => {
   const timeMultiplier = input === 'prestige'
       || input === 'transcension'
       || input === 'reincarnation'
     ? getGQUpgradeEffect('halfMind', 'unlocked')
       ? G.MIND_DIVISOR
-      : calculateGlobalSpeedMult()
+      : globalSpeedMult?.() ?? calculateGlobalSpeedMult()
     : 1
 
   switch (input) {

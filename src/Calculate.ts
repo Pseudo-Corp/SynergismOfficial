@@ -65,7 +65,7 @@ import {
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
 import { Alert, Prompt } from './UpdateHTML'
-import { findInsertionIndex } from './Utility'
+import { findInsertionIndex, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 // dprint-ignore
@@ -735,9 +735,10 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     calculateObtainium()
 
     // Reset Stuff lmao!
-    addTimers('prestige', timeTick)
-    addTimers('transcension', timeTick)
-    addTimers('reincarnation', timeTick)
+    const timerSpeedMult = memoize(calculateGlobalSpeedMult)
+    addTimers('prestige', timeTick, timerSpeedMult)
+    addTimers('transcension', timeTick, timerSpeedMult)
+    addTimers('reincarnation', timeTick, timerSpeedMult)
     addTimers('octeracts', timeTick)
 
     resourceGain(timeTick * G.timeMultiplier)

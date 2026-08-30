@@ -17,7 +17,7 @@ import {
   highestChallengeRewards,
   tickChallengeSweep
 } from './Challenges'
-import { btoa, isMobile } from './Utility'
+import { btoa, isMobile, memoize } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -4482,9 +4482,10 @@ const tack = (dt: number) => {
     generateAntsAndCrumbs(dt)
 
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
-    addTimers('prestige', dt)
-    addTimers('transcension', dt)
-    addTimers('reincarnation', dt)
+    const timerSpeedMult = memoize(calculateGlobalSpeedMult)
+    addTimers('prestige', dt, timerSpeedMult)
+    addTimers('transcension', dt, timerSpeedMult)
+    addTimers('reincarnation', dt, timerSpeedMult)
     addTimers('ascension', dt)
     addTimers('quarks', dt)
     addTimers('goldenQuarks', dt)
