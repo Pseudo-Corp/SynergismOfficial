@@ -277,6 +277,10 @@ body button.active-subtab:active:not(:disabled):not(.disable-hover-color) {
     background-color: crimson;
 }
 
+.tab:not(.active-tab) {
+    display: none !important;
+}
+
 .none {
     display: none !important;
 }
@@ -5630,6 +5634,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #traits {
+    display: flex;
     justify-content: center;
     align-items: start;
 

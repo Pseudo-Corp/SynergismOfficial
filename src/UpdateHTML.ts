@@ -3,18 +3,12 @@ import fitty, { type FittyInstance } from 'fitty'
 import i18next from 'i18next'
 import {
   type AchievementGroups,
-  achievementLevel,
-  achievementPoints,
   getAchievementReward,
   groupedAchievementData,
   progressiveAchievementKeys,
   progressiveAchievements,
-  toNextAchievementLevelEXP,
   ungroupedAchievementData,
-  ungroupedAchievementKeys,
-  updateAllGroupedAchievementProgress,
-  updateAllProgressiveAchievementProgress,
-  updateAllUngroupedAchievementProgress
+  ungroupedAchievementKeys
 } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -38,38 +32,16 @@ import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/struc
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { hasUnreadMessages } from './Messages'
-import { initializeCart } from './purchases/CartTab'
 import { isResearchUnlocked, roombaResearchEnabled } from './Research'
-import { getRuneEffects, type RuneKeys, runes, runesKeys, updateRuneHTML } from './Runes'
+import { getRuneEffects, runes, runesKeys } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
-import {
-  getGQUpgradeEffect,
-  updateSingularityElevator,
-  updateSingularityPenalties,
-  updateSingularityPerks
-} from './singularity'
+import { getGQUpgradeEffect } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
-import { getActiveSubTab, Tabs } from './Tabs'
+import { getActiveSubTab, Tabs, visualUpdate } from './Tabs'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { talismanKeys, talismans } from './Talismans'
 import { resolveImgSrc } from './Themes'
 import type { OneToFive, ZeroToFour } from './types/Synergism'
-import {
-  visualUpdateAchievements,
-  visualUpdateAnts,
-  visualUpdateBuildings,
-  visualUpdateChallenges,
-  visualUpdateCorruptions,
-  visualUpdateCubes,
-  visualUpdateEvent,
-  visualUpdatePurchase,
-  visualUpdateResearch,
-  visualUpdateRunes,
-  visualUpdateSettings,
-  visualUpdateShop,
-  visualUpdateSingularity,
-  visualUpdateUpgrades
-} from './UpdateVisuals'
 import { createDeferredPromise, isMobile, memoize, updateClassList } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -672,115 +644,6 @@ export const revealStuff = () => {
   revealCorruptions()
 }
 
-export const hideStuff = () => {
-  DOMCacheGetOrSet('buildings').style.display = 'none'
-  DOMCacheGetOrSet('upgrades').style.display = 'none'
-  DOMCacheGetOrSet('settings').style.display = 'none'
-
-  DOMCacheGetOrSet('statistics').style.display = 'none'
-  DOMCacheGetOrSet('runes').style.display = 'none'
-  DOMCacheGetOrSet('challenges').style.display = 'none'
-  DOMCacheGetOrSet('research').style.display = 'none'
-  DOMCacheGetOrSet('shop').style.display = 'none'
-  DOMCacheGetOrSet('ants').style.display = 'none'
-  DOMCacheGetOrSet('cubes').style.display = 'none'
-  DOMCacheGetOrSet('traits').style.display = 'none'
-  DOMCacheGetOrSet('singularity').style.display = 'none'
-  DOMCacheGetOrSet('event').style.display = 'none'
-  document.getElementById('pseudoCoins')?.style.setProperty('display', 'none')
-
-  if (G.currentTab === Tabs.Buildings) {
-    DOMCacheGetOrSet('buildings').style.display = 'block'
-  }
-  if (G.currentTab === Tabs.Upgrades) {
-    DOMCacheGetOrSet('upgrades').style.display = 'block'
-  }
-  if (G.currentTab === Tabs.Settings) {
-    DOMCacheGetOrSet('settings').style.display = 'block'
-  }
-  if (G.currentTab === Tabs.Achievements) {
-    DOMCacheGetOrSet('statistics').style.display = 'block'
-    DOMCacheGetOrSet('achievementprogress').textContent = i18next.t(
-      isMobile ? 'achievements.achievementPointsMobile' : 'achievements.achievementPoints',
-      {
-        x: format(achievementPoints)
-      }
-    )
-    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t(
-      isMobile ? 'achievements.achievementLevelMobile' : 'achievements.achievementLevel',
-      {
-        level: format(achievementLevel)
-      }
-    )
-    DOMCacheGetOrSet('achievementTNLText').innerHTML = i18next.t('achievements.achievementToNextLevel', {
-      level: format(achievementLevel + 1),
-      AP: format(toNextAchievementLevelEXP(), 0, true)
-    })
-    updateAllGroupedAchievementProgress()
-    updateAllUngroupedAchievementProgress()
-    updateAllProgressiveAchievementProgress()
-  } else if (G.currentTab === Tabs.Runes) {
-    DOMCacheGetOrSet('runes').style.display = 'block'
-
-    for (const rune of Object.keys(player.runes)) {
-      const runeKey = rune as RuneKeys
-      updateRuneHTML(runeKey)
-    }
-  }
-  if (G.currentTab === Tabs.Challenges) {
-    DOMCacheGetOrSet('challenges').style.display = 'block'
-  }
-  if (G.currentTab === Tabs.Research) {
-    DOMCacheGetOrSet('research').style.display = 'block'
-  }
-  if (G.currentTab === Tabs.Shop) {
-    DOMCacheGetOrSet('shop').style.display = 'block'
-  }
-  if (G.currentTab === Tabs.AntHill) {
-    DOMCacheGetOrSet('ants').style.display = 'block'
-  }
-  if (G.currentTab === Tabs.WowCubes) {
-    DOMCacheGetOrSet('cubes').style.display = 'flex'
-  }
-  if (G.currentTab === Tabs.Corruption) {
-    DOMCacheGetOrSet('traits').style.display = 'flex'
-  }
-
-  if (G.currentTab === Tabs.Singularity) {
-    DOMCacheGetOrSet('singularity').style.display = 'block'
-    updateSingularityPenalties()
-    updateSingularityPerks()
-    updateSingularityElevator()
-  }
-
-  if (G.currentTab === Tabs.Event) {
-    DOMCacheGetOrSet('event').style.display = 'block'
-  }
-
-  if (G.currentTab === Tabs.Purchase) {
-    initializeCart()
-
-    document.getElementById('pseudoCoins')?.style.setProperty('display', 'unset')
-  }
-}
-
-const visualTab: Record<Tabs, () => void> = {
-  [Tabs.Buildings]: visualUpdateBuildings,
-  [Tabs.Upgrades]: visualUpdateUpgrades,
-  [Tabs.Achievements]: visualUpdateAchievements,
-  [Tabs.Runes]: visualUpdateRunes,
-  [Tabs.Challenges]: visualUpdateChallenges,
-  [Tabs.Research]: visualUpdateResearch,
-  [Tabs.Settings]: visualUpdateSettings,
-  [Tabs.Shop]: visualUpdateShop,
-  [Tabs.AntHill]: visualUpdateAnts,
-  [Tabs.WowCubes]: visualUpdateCubes,
-  [Tabs.Corruption]: visualUpdateCorruptions,
-  [Tabs.Singularity]: visualUpdateSingularity,
-  [Tabs.Event]: visualUpdateEvent,
-  [Tabs.Purchase]: visualUpdatePurchase
-}
-
 export const htmlInserts = () => {
   // ALWAYS Update these, for they are the most important resources
   for (let i = 0; i < htmlInsertPlayerRequirements.length; i++) {
@@ -795,7 +658,7 @@ export const htmlInserts = () => {
   updateChallengeProgress()
   updateAscensionStats()
 
-  visualTab[G.currentTab]()
+  visualUpdate(G.currentTab)
 }
 
 // TODO(not @KhafraDev): cache the elements and stop getting them every time?

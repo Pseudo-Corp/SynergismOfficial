@@ -1,5 +1,10 @@
 import i18next from 'i18next'
-import { awardUngroupedAchievement } from './Achievements'
+import {
+  awardUngroupedAchievement,
+  updateAllGroupedAchievementProgress,
+  updateAllProgressiveAchievementProgress,
+  updateAllUngroupedAchievementProgress
+} from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { type AutoChallengeStates, getChallengeConditions, resetChallengeSweep } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions, corruptionStatsUpdate } from './Corruptions'
@@ -10,7 +15,12 @@ import { researchOrderByCost, roombaResearchEnabled, setResearchRoombaHighlight 
 import { applyChallengeInitialModifiers, reset } from './Reset'
 import { indexToRune } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
-import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
+import {
+  updateSingularityElevator,
+  updateSingularityElevatorVisibility,
+  updateSingularityPenalties,
+  updateSingularityPerks
+} from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { subTabsInMainTab, Tabs } from './Tabs'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
@@ -473,6 +483,12 @@ export const toggleAchievementScreen = (indexStr: string) => {
       b.style.display = 'none'
     }
   }
+
+  awardUngroupedAchievement('participationTrophy')
+
+  updateAllGroupedAchievementProgress()
+  updateAllUngroupedAchievementProgress()
+  updateAllProgressiveAchievementProgress()
 }
 
 export const toggleRuneScreen = (indexStr: string) => {
@@ -555,6 +571,9 @@ export const toggleSingularityScreen = (indexStr: string) => {
     // These only need to be updated when the subtab is first opened.
     updateSingularityElevator()
     updateSingularityElevatorVisibility()
+  } else if (index === 3) {
+    updateSingularityPenalties()
+    updateSingularityPerks()
   }
 }
 
