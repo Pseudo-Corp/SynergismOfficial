@@ -57,8 +57,12 @@ function setActiveUpgrade (upgrade: UpgradesList) {
 
   const name = i18next.t(`pseudoCoins.upgradeNames.${upgrade.internalName}`)
 
+  const description = upgrade.internalName === 'PURPLE_REACTOR_CAPACITY_BUFF'
+    ? i18next.t('pseudoCoins.upgradeDescriptions.PURPLE_REACTOR_CAPACITY_BUFF')
+    : upgrade.description
+
   DOMCacheGetOrSet('pCoinUpgradeName').textContent = name
-  DOMCacheGetOrSet('description').textContent = upgrade.description
+  DOMCacheGetOrSet('description').textContent = description
   DOMCacheGetOrSet('pCoinUpgradeIcon').setAttribute(
     'src',
     `Pictures/PseudoShop/${upgrade.internalName ?? 'PseudoCoins'}.png`

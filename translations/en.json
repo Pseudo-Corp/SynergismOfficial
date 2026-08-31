@@ -434,19 +434,19 @@
     "redAmbrosiaReactantTankTitle": "<<red|Red Bar Points>>",
     "reactantRouting": "Percent Production Routed",
     "reactantRoutingPercentage": "{{percentage}}%",
-    "reactantRoutingPercentageAria": "{{percentage}}% of production routed to the reactor",
-    "reactantContainerHalfLife": "Reactant Half-Life: <<gold|{{time}}>> seconds",
-    "reactantSpentRates": "Spent per second: <<lightblue|{{ambrosia}} Ambrosia Bar Points>> and <<red|{{redAmbrosia}} Red Bar Points>>",
+    "reactantRoutingPercentageAria": "{{percentage}}% of production routed to the Encabulator",
+    "reactantContainerHalfLife": "Encabulator Speed: <<gold|{{speed}}>>",
+    "reactantSpentRates": "Spending <<gold|{{speed}}%>> of Capacity per hour (<<lightblue|{{ambrosia}} Ambrosia Bar Points>>/s and <<red|{{redAmbrosia}} Red Bar Points>>/s).",
     "reactantTankProgress": "{{stored}} / {{capacity}}",
     "reactantTankProgressAria": "{{stored}} of {{capacity}} stored; {{percentage}}% full",
     "reactantNetRatePositive": "+{{amount}}/s net",
     "reactantNetRateNegative": "-{{amount}}/s net",
     "reactantNetRateZero": "0/s net",
     "reactantRoutedRate": "Routed to storage: <<var(--reactant-bright)|{{amount}}/s>>",
-    "reactantSpentRate": "Spent in reactor: <<var(--purple-text-color)|{{amount}}/s>>",
+    "reactantSpentRate": "Spent in Encabulator: <<var(--purple-text-color)|{{amount}}/s>>",
     "purpleHoneyProgress": "{{current}} / {{conversion}}",
     "purpleHoneyProgressRate": "Generating {{rate}}/s",
-    "reactorCoreTitle": "Reactor Core",
+    "reactorCoreTitle": "Encabulator Core",
     "purpleHoneyProgressTitle": "<<var(--purple-text-color)|Purple Bar Points>>",
     "purpleHoneyProgressAriaLabel": "Purple Bar Points toward the next Purple Honey extraction",
     "purpleHoneyGain": "+{{amount}}",
@@ -457,10 +457,10 @@
     "percentageOption0": "0%",
     "percentageOption50": "50%",
     "percentageOption100": "100%",
-    "ambrosiaBarPointPercentageAriaLabel": "Percentage of Ambrosia Bar Point production routed to the reactor",
-    "redAmbrosiaBarPointPercentageAriaLabel": "Percentage of Red Bar Point production routed to the reactor",
-    "ambrosiaTankAriaLabel": "Ambrosia Bar Point reactor storage",
-    "redAmbrosiaTankAriaLabel": "Red Bar Point reactor storage",
+    "ambrosiaBarPointPercentageAriaLabel": "Percentage of Ambrosia Bar Point production routed to the Encabulator",
+    "redAmbrosiaBarPointPercentageAriaLabel": "Percentage of Red Bar Point production routed to the Encabulator",
+    "ambrosiaTankAriaLabel": "Ambrosia Bar Point Encabulator storage",
+    "redAmbrosiaTankAriaLabel": "Red Bar Point Encabulator storage",
     "purpleHoneySpent": "Purple Honey spent: <<var(--purple-text-color)|{{current}}/{{max}}>>",
     "upgradeAPPerLevel": "Each level of this upgrade grants <<gold|+{{amount}}>> AP [<<gold|+{{total}}>>]",
     "upgradeAPMax": "You also get <<gold|+{{amount}}>> AP for maxing this upgrade! {{check}}",
@@ -472,14 +472,14 @@
     "upgradeShop": {
       "sections": {
         "intro": "Intro",
-        "reactor": "Purple Reactor Upgrades",
+        "reactor": "Purple Encabulator Upgrades",
         "honeyPower": "Honey Power Upgrades",
         "resources": "Resource Upgrades",
         "miscellaneous": "Miscellaneous"
       },
       "familyNames": {
         "capacity": "Capacity",
-        "halfLife": "Half-Life",
+        "halfLife": "Encabulator Speed",
         "efficiency": "Efficiency",
         "honeyLuck": "Honey Luck",
         "requirementReduction": "Purple Bar Size Reduction",
@@ -541,8 +541,8 @@
       "purpleHalfLife1": {
         "name": "All-Natural, Organic Catalyzer I",
         "flavor": "Now chemical-free!",
-        "effectNotMaxed": "<<silver|{{oldValue}}s →>> <<gold|{{newValue}}s>> Reactant Half-Life.",
-        "effectMaxed": "<<gold|{{maxValue}}s>> Reactant Half-Life."
+        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Encabulator Speed.",
+        "effectMaxed": "<<gold|+{{maxValue}}>> Encabulator Speed."
       },
       "purpleHalfLife2": {
         "name": "All-Natural, Organic Catalyzer II",
@@ -619,37 +619,37 @@
         "effectMaxed": "<<gold|+{{maxPercent}}>> Quarks, from your Lifetime Honey stat."
       },
       "lifetimeHoneyGlobalSpeed": {
-        "name": "Highest Honey Power: Global Speed",
+        "name": "Honey Power: Global Speed",
         "flavor": "We're not going faster, the Earth is just spinning without us.",
         "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Global Speed",
         "effectMaxed": "<<gold|+{{maxPercent}}>> Global Speed, from your Lifetime Honey stat."
       },
       "lifetimeHoneyAscensionSpeed": {
-        "name": "Highest Honey Power: Ascension Speed",
+        "name": "Honey Power: Ascension Speed",
         "flavor": "The flavor of this Honey is ascendent.",
         "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ascension Speed",
         "effectMaxed": "<<gold|+{{maxPercent}}>> Ascension Speed, from your Lifetime Honey stat."
       },
       "lifetimeHoneyAmbrosia": {
-        "name": "Highest Honey Power: Ambrosia",
+        "name": "Honey Power: Ambrosia",
         "flavor": "Lathering your Ambrosia with Honey is like putting bacon on your hotdog.",
         "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ambrosia Bar Points",
         "effectMaxed": "<<gold|+{{maxPercent}}>> Ambrosia Bar Points, from your Lifetime Honey stat."
       },
       "lifetimeHoneyRedAmbrosia": {
-        "name": "Highest Honey Power: Red Ambrosia",
+        "name": "Honey Power: Red Ambrosia",
         "flavor": "Lathering your Red Ambrosia with Honey is like putting red bacon on your red hotdog. Wait.",
         "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Red Bar Points",
         "effectMaxed": "<<gold|+{{maxPercent}}>> Red Bar Points, from your Lifetime Honey stat."
       },
       "lifetimeHoneyAntELO": {
-        "name": "Highest Honey Power: Ant ELO",
+        "name": "Honey Power: Ant ELO",
         "flavor": "Honey attracts Ants better than your Galactic Crumbs do.",
         "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ant ELO",
         "effectMaxed": "<<gold|+{{maxPercent}}>> Ant ELO, from your Lifetime Honey stat."
       },
       "lifetimeHoneyRebornELOSpeed": {
-        "name": "Highest Honey Power: Reborn ELO Speed",
+        "name": "Honey Power: Reborn ELO Speed",
         "flavor": "Too much honey will have you catching up to Ant God quicker.",
         "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Reborn ELO Speed",
         "effectMaxed": "<<gold|+{{maxPercent}}>> Reborn ELO Speed, from your Lifetime Honey stat."
@@ -3747,7 +3747,7 @@
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by num:((0.1))% per level additive (Max -30%)!",
       "shopPanthema": "Ace from space!",
-      "shopPurpleBarRebate": "When the Purple Reactor Bar fills up, gain <<var(--purple-text-color)|+num:((0.1))s>> of real-life time to your Ambrosia and Red Bars per extracted Purple Honey, per level of this upgrade!"
+      "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--purple-text-color)|+num:((0.1))s>> of real-life time to your Ambrosia and Red Bars per extracted Purple Honey, per level of this upgrade!"
     },
     "maxed": "Maxed!",
     "bought": "Bought!",
@@ -4195,7 +4195,7 @@
       },
       "reactorSpeedup": {
         "name": "282+ Years of Work Experience",
-        "default": "The Purple Bar in the reactor requires <<var(--purple-text-color)|{{amt}}>> Purple Bar Points to fill!"
+        "default": "The Purple Bar in the Encabulator requires <<var(--purple-text-color)|{{amt}}>> Purple Bar Points to fill!"
       },
       "goldenRevolution": {
         "name": "Golden Revolution",
@@ -6696,7 +6696,7 @@
       "redAmbrosiaLuck": "Red Luck",
       "redAmbrosiaGenMult": "Red Bar Points",
       "purpleHoneyEfficiency": "Purple Honey Efficiency",
-      "purpleHalfLife": "Purple Half-Life",
+      "purpleHalfLife": "Encabulator Speed",
       "purpleReactantCapacity": "Ambrosia Bar Point Capacity (Red: 1/1,000)",
       "purpleHoneyLuck": "Purple Honey Luck",
       "purpleHoneyProgressRequirement": "Purple Bar Points Required",
@@ -7655,13 +7655,13 @@
       "Total": "Total Base Purple Honey per Extraction:"
     },
     "purpleHalfLifeStats": {
-      "title": "Purple Reactant Half-Life",
-      "Base": "Base Reactant Half-Life:",
+      "title": "Encabulator Speed",
+      "Base": "Base Encabulator Speed:",
       "PurpleHoneyUpgrade1": "Purple Honey - All-Natural, Organic Catalyzer I:",
       "PurpleHoneyUpgrade2": "Purple Honey - All-Natural, Organic Catalyzer II:",
       "PurpleHoneyUpgrade3": "Purple Honey - All-Natural, Organic Catalyzer III:",
       "PurpleHoneyUpgrade4": "Purple Honey - All-Natural, Organic Catalyzer IV:",
-      "Total": "Total Reactant Half-Life:"
+      "Total": "Total Encabulator Speed:"
     },
     "purpleReactantCapacityStats": {
       "title": "Ambrosia Bar Point Capacity (Red: 1/1,000)",
@@ -8273,7 +8273,10 @@
       "RED_GENERATION_BUFF": "Century-Aged Red Ambrosia",
       "PURPLE_LUCK_BUFF": "The Purple Platonic Star",
       "PURPLE_HONEY_BUFF": "Golden Extractor Vaseline",
-      "PURPLE_REACTOR_CAPACITY_BUFF": "Golden-Purple Reactor Bars"
+      "PURPLE_REACTOR_CAPACITY_BUFF": "Golden-Purple Encabulator Bars"
+    },
+    "upgradeDescriptions": {
+      "PURPLE_REACTOR_CAPACITY_BUFF": "Chroma-Encabulator capacity: +num:((250000000)) Ambrosia / +num:((250000)) Red per level."
     },
     "upgradeEffects": {
       "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
@@ -8294,7 +8297,13 @@
       "RED_GENERATION_BUFF": "Red Bar Point gain is multiplied by <<gold | {{amount}}>>",
       "PURPLE_LUCK_BUFF": "Purple Luck is increased by <<gold | {{amount}}>>",
       "PURPLE_HONEY_BUFF": "Base Purple Honey per extraction is increased by <<gold | {{amount}}>>",
-      "PURPLE_REACTOR_CAPACITY_BUFF": "Chroma Encabulator Ambrosia Bar Point capacity is increased by <<gold | {{amount}}>> (1/1,000 for Red Bar Point capacity)"
+      "PURPLE_REACTOR_CAPACITY_BUFF": "Chroma-Encabulator capacity: <<gold | num:(({{amount}}))>> Ambrosia (1/num:((1000)) Red)"
+    },
+    "upgradeDetails": {
+      "PURPLE_REACTOR_CAPACITY_BUFF": {
+        "cost": "Cost: num:((100))/num:((150))/num:((200))/num:((250))/num:((300)) PseudoCoins",
+        "effect": "Effect: +num:((250000000)) Ambrosia / +num:((250000)) Red capacity per level"
+      }
     },
     "consumables": {
       "tipReceived": "{{offlineTime}} people tipped you in the last minute!",

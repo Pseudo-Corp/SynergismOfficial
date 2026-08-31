@@ -31,6 +31,7 @@ import {
   calculateCubeMultiplierWithTau,
   calculateDilatedFiveLeafBonus,
   calculateEfficientBlueberryPurpleEfficiency,
+  calculateEncabulatorSpeed,
   calculateEventBuff,
   calculateExalt3Penalty,
   calculateExalt6Penalty,
@@ -62,7 +63,6 @@ import {
   calculatePurpleHoneyLuck,
   calculatePurpleHoneyPerExtraction,
   calculatePurpleReactantCapacity,
-  calculatePurpleReactantHalfLife,
   calculateQuarkMultFromPowder,
   calculateQuarkMultiplier,
   calculateRawAntSpeedMult,
@@ -3725,33 +3725,33 @@ export const ascensionCountMultStats: NumberStatLineCategory = {
  * This is different from 'Purple Ambrosia Generation', by the way.
  * "Purple" is the base resource used for Purple Ambrosia stuff.
  */
-export const allPurpleReactantHalfLifeStats: NumberStatLineCategory = {
+export const allEncabulatorSpeedStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
   lines: [
     {
       i18n: 'Base',
-      stat: () => 18_000 // 5 hour base
+      stat: () => 12
     },
     // Purple Honey - All Natural, Organic Catalyzer I
     {
       i18n: 'PurpleHoneyUpgrade1',
-      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife1', 'halfLifeReduction')
+      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife1', 'encabulatorSpeed')
     },
     // Purple Honey - All Natural, Organic Catalyzer II
     {
       i18n: 'PurpleHoneyUpgrade2',
-      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife2', 'halfLifeReduction')
+      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife2', 'encabulatorSpeed')
     },
     // Purple Honey - All Natural, Organic Catalyzer III
     {
       i18n: 'PurpleHoneyUpgrade3',
-      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife3', 'halfLifeReduction')
+      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife3', 'encabulatorSpeed')
     },
     // Purple Honey - All Natural, Organic Catalyzer IV
     {
       i18n: 'PurpleHoneyUpgrade4',
-      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife4', 'halfLifeReduction')
+      stat: () => getPurpleReactorUpgradeEffects('purpleHalfLife4', 'encabulatorSpeed')
     }
   ]
 }
@@ -4238,7 +4238,7 @@ export const loadStatisticsUpdate = (statsId?: string) => {
         loadStatisticsPurpleHoneyEfficiencyStats()
         break
       case 'purpleHalfLifeStats':
-        loadStatisticsPurpleReactantHalfLifeStats()
+        loadStatisticsEncabulatorSpeedStats()
         break
       case 'purpleReactantCapacityStats':
         loadStatisticsPurpleReactantCapacityStats()
@@ -4795,13 +4795,13 @@ const loadStatisticsAscensionCountMultiplierStats = () => {
   )
 }
 
-const loadStatisticsPurpleReactantHalfLifeStats = () => {
+const loadStatisticsEncabulatorSpeedStats = () => {
   loadStatistics(
-    allPurpleReactantHalfLifeStats,
+    allEncabulatorSpeedStats,
     'purpleHalfLifeStats',
     'statPHL',
     'PurpleReactantHalfLifeStat',
-    calculatePurpleReactantHalfLife
+    calculateEncabulatorSpeed
   )
 }
 

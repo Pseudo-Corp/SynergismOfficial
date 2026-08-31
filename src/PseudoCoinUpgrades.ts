@@ -225,7 +225,7 @@ export const displayPCoinEffect = (name: PseudoCoinUpgradeNames, level: number) 
     case 'PURPLE_REACTOR_CAPACITY_BUFF':
       return String(
         i18next.t('pseudoCoins.upgradeEffects.PURPLE_REACTOR_CAPACITY_BUFF', {
-          amount: format(250_000_000 * level, 0, true)
+          amount: 250_000_000 * level
         })
       )
   }
@@ -325,8 +325,8 @@ export const showCostAndEffect = (name: PseudoCoinUpgradeNames) => {
       }
     case 'PURPLE_REACTOR_CAPACITY_BUFF':
       return {
-        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
-        effect: 'Effect: +250,000,000/+250_000 Ambrosia/Red Bar Point Capacity per level'
+        cost: String(i18next.t('pseudoCoins.upgradeDetails.PURPLE_REACTOR_CAPACITY_BUFF.cost')),
+        effect: String(i18next.t('pseudoCoins.upgradeDetails.PURPLE_REACTOR_CAPACITY_BUFF.effect'))
       }
   }
 }

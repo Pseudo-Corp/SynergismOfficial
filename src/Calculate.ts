@@ -34,6 +34,7 @@ import {
   allBaseObtainiumStats,
   allBaseOfferingStats,
   allCubeStats,
+  allEncabulatorSpeedStats,
   allGlobalSpeedIgnoreDRStats,
   allGlobalSpeedStats,
   allGoldenQuarkMultiplierStats,
@@ -51,7 +52,6 @@ import {
   allPurpleHoneyLuckStats,
   allPurpleHoneyProgressRequirementStats,
   allPurpleReactantCapacityStats,
-  allPurpleReactantHalfLifeStats,
   allQuarkStats,
   allRedAmbrosiaGenerationSpeedStats,
   allRedAmbrosiaLuckStats,
@@ -400,7 +400,7 @@ export const calculateRedAmbrosiaGenerationSpeed = () => {
   return rawSpeed * blueberries
 }
 
-export const calculatePurpleReactantHalfLife = () => Math.max(1, calculateTotalStat(allPurpleReactantHalfLifeStats))
+export const calculateEncabulatorSpeed = () => calculateTotalStat(allEncabulatorSpeedStats)
 export const calculatePurpleReactantCapacity = () => calculateTotalStat(allPurpleReactantCapacityStats)
 export const calculatePurpleHoneyLuck = () => calculateTotalStat(allPurpleHoneyLuckStats)
 export const calculatePurpleHoneyConversionFactor = () => calculateTotalStat(allPurpleHoneyProgressRequirementStats)
@@ -412,12 +412,13 @@ export const calculateRedAmbrosiaReactantCapacity = () => {
 export const calculatePurpleReactantConversion = (
   ambrosiaBarPoints: number,
   redAmbrosiaBarPoints: number,
-  conversionFraction: number
+  ambrosiaBarPointsRequested: number
 ) => {
   const conversionBatches = Math.min(
     ambrosiaBarPoints / purpleReactantConversion.ambrosiaBarPoints,
-    redAmbrosiaBarPoints / purpleReactantConversion.redAmbrosiaBarPoints
-  ) * conversionFraction
+    redAmbrosiaBarPoints / purpleReactantConversion.redAmbrosiaBarPoints,
+    ambrosiaBarPointsRequested / purpleReactantConversion.ambrosiaBarPoints
+  )
 
   return {
     ambrosiaBarPointsSpent: conversionBatches * purpleReactantConversion.ambrosiaBarPoints,
