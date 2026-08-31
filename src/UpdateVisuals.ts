@@ -118,7 +118,8 @@ import {
   talismanKeys,
   talismans,
   updateAllTalismanHTML,
-  updateMobileTalismanInventoryPurchaseInfo
+  updateMobileTalismanInventoryPurchaseInfo,
+  updateTalismanInventory
 } from './Talismans'
 import {
   calculateAcceleratorTesseractBlessing,
@@ -759,6 +760,7 @@ export const visualUpdateRunes = () => {
   }
 
   if (getActiveSubTab() === 1) {
+    updateTalismanInventory()
     for (const t of talismanKeys) {
       if (isMobile) {
         for (const item of talismanCraftItems) {

@@ -3901,9 +3901,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
   }
 }
 
-type UpdateAllMode = 'live' | 'offline'
-
-export const updateAll = (mode: UpdateAllMode = 'live'): void => {
+export const updateAll = (): void => {
   if (runes.antiquities.level > 0) {
     player.highestSingularityCount = Math.max(
       player.highestSingularityCount,
@@ -4084,16 +4082,8 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
   // Talismans
 
   if ((player.researches[130] > 0 || player.researches[135] > 0) && player.autoFortifyToggle) {
-    let inventoryChanged = false
     for (const key of talismanKeys) {
-      const changed = buyTalismanLevelToRarityIncrease(key, {
-        auto: true,
-        refreshVisuals: false
-      })
-      inventoryChanged ||= changed
-    }
-    if (mode === 'live' && inventoryChanged) {
-      updateTalismanInventory()
+      buyTalismanLevelToRarityIncrease(key, true)
     }
   }
 
