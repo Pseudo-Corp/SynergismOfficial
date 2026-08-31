@@ -146,31 +146,31 @@ const purpleUpgradeSections = [
     id: 'honeyPower',
     families: [
       {
-        id: 'highestHoneyBonuses',
+        id: 'lifetimeHoneyBonuses',
         tiers: [
-          { key: 'highestHoneyQuarks', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyQuarks.png' },
+          { key: 'lifetimeHoneyQuarks', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyQuarks.png' },
           {
-            key: 'highestHoneyGlobalSpeed',
+            key: 'lifetimeHoneyGlobalSpeed',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyGlobalSpeed.png'
           },
           {
-            key: 'highestHoneyAscensionSpeed',
+            key: 'lifetimeHoneyAscensionSpeed',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyAscensionSpeed.png'
           },
           {
-            key: 'highestHoneyAmbrosia',
+            key: 'lifetimeHoneyAmbrosia',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyAmbrosia.png'
           },
           {
-            key: 'highestHoneyRedAmbrosia',
+            key: 'lifetimeHoneyRedAmbrosia',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyRedAmbrosia.png'
           },
           {
-            key: 'highestHoneyAntELO',
+            key: 'lifetimeHoneyAntELO',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyAntElo.png'
           },
           {
-            key: 'highestHoneyRebornELOSpeed',
+            key: 'lifetimeHoneyRebornELOSpeed',
             icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/HighestHoneyRebornELOSpeed.png'
           }
         ]
@@ -477,7 +477,7 @@ export const updatePurpleUpgradeTab = () => {
         const costKey = purpleReactorUpgrades[frontier.key].maxLevel === 1
           ? 'purpleReactor.upgradeShop.cost'
           : 'purpleReactor.upgradeShop.nextCost'
-        cost.textContent = i18next.t(costKey, { cost: format(price, 0, true) })
+        cost.textContent = i18next.t(costKey, { cost: format(price, 2, true) })
         cost.classList.remove('purpleUpgradeFamilyMaxed')
         cost.classList.toggle('purpleUpgradeCantAfford', player.purpleReactor.purpleHoney < price)
       }

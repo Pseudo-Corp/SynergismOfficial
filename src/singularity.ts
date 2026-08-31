@@ -1732,7 +1732,7 @@ export const goldenQuarkUpgrades: {
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
-    costPerLevel: 1e29,
+    costPerLevel: 4e27,
     minimumSingularity: 283,
     specialCostForm: 'Default',
     effect: (n: number) => {

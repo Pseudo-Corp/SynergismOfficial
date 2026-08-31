@@ -2347,59 +2347,59 @@ export const visualUpdatePurple = () => {
   )
   const highestPurpleHoneyModifierLines = [
     [
-      purpleReactorUpgrades.highestHoneyQuarks.level > 0
-        ? i18next.t('purpleReactor.highestPurpleHoneyQuarks', {
-          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'quarkMultiplier'), 2)
+      purpleReactorUpgrades.lifetimeHoneyQuarks.level > 0
+        ? i18next.t('purpleReactor.lifetimePurpleHoneyQuarks', {
+          amount: formatAsPercentIncrease(getPurpleReactorUpgradeEffects('lifetimeHoneyQuarks', 'quarkMultiplier'), 2)
         })
         : null,
-      purpleReactorUpgrades.highestHoneyGlobalSpeed.level > 0
-        ? i18next.t('purpleReactor.highestPurpleHoneyGlobalSpeed', {
+      purpleReactorUpgrades.lifetimeHoneyGlobalSpeed.level > 0
+        ? i18next.t('purpleReactor.lifetimePurpleHoneyGlobalSpeed', {
           amount: formatAsPercentIncrease(
-            getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier'),
+            getPurpleReactorUpgradeEffects('lifetimeHoneyGlobalSpeed', 'globalSpeedMultiplier'),
             2
           )
         })
         : null,
-      purpleReactorUpgrades.highestHoneyAscensionSpeed.level > 0
-        ? i18next.t('purpleReactor.highestPurpleHoneyAscensionSpeed', {
+      purpleReactorUpgrades.lifetimeHoneyAscensionSpeed.level > 0
+        ? i18next.t('purpleReactor.lifetimePurpleHoneyAscensionSpeed', {
           amount: formatAsPercentIncrease(
-            getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier'),
+            getPurpleReactorUpgradeEffects('lifetimeHoneyAscensionSpeed', 'ascensionSpeedMultiplier'),
             2
           )
         })
         : null
     ].filter((modifier): modifier is string => modifier !== null).join(' · '),
     [
-      purpleReactorUpgrades.highestHoneyAmbrosia.level > 0
-        ? i18next.t('purpleReactor.highestPurpleHoneyAmbrosia', {
+      purpleReactorUpgrades.lifetimeHoneyAmbrosia.level > 0
+        ? i18next.t('purpleReactor.lifetimePurpleHoneyAmbrosia', {
           amount: formatAsPercentIncrease(
-            getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed'),
+            getPurpleReactorUpgradeEffects('lifetimeHoneyAmbrosia', 'ambrosiaGenerationSpeed'),
             2
           )
         })
         : null,
-      purpleReactorUpgrades.highestHoneyRedAmbrosia.level > 0
-        ? i18next.t('purpleReactor.highestPurpleHoneyRedAmbrosia', {
+      purpleReactorUpgrades.lifetimeHoneyRedAmbrosia.level > 0
+        ? i18next.t('purpleReactor.lifetimePurpleHoneyRedAmbrosia', {
           amount: formatAsPercentIncrease(
-            getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed'),
+            getPurpleReactorUpgradeEffects('lifetimeHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed'),
             2
           )
         })
         : null
     ].filter((modifier): modifier is string => modifier !== null).join(' · '),
     [
-      purpleReactorUpgrades.highestHoneyAntELO.level > 0
-        ? i18next.t('purpleReactor.highestPurpleHoneyAntELO', {
+      purpleReactorUpgrades.lifetimeHoneyAntELO.level > 0
+        ? i18next.t('purpleReactor.lifetimePurpleHoneyAntELO', {
           amount: formatAsPercentIncrease(
-            1 + getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent'),
+            1 + getPurpleReactorUpgradeEffects('lifetimeHoneyAntELO', 'additiveAntELOPercent'),
             3
           )
         })
         : null,
-      purpleReactorUpgrades.highestHoneyRebornELOSpeed.level > 0
-        ? i18next.t('purpleReactor.highestPurpleHoneyRebornELOSpeed', {
+      purpleReactorUpgrades.lifetimeHoneyRebornELOSpeed.level > 0
+        ? i18next.t('purpleReactor.lifetimePurpleHoneyRebornELOSpeed', {
           amount: formatAsPercentIncrease(
-            getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult'),
+            getPurpleReactorUpgradeEffects('lifetimeHoneyRebornELOSpeed', 'rebornELOSpeedMult'),
             2
           )
         })

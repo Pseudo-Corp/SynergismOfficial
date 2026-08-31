@@ -81,25 +81,25 @@ type PurpleReactorUpgradeRewards = {
   offerings: {
     offeringMultiplier: number
   }
-  highestHoneyQuarks: {
+  lifetimeHoneyQuarks: {
     quarkMultiplier: number
   }
-  highestHoneyGlobalSpeed: {
+  lifetimeHoneyGlobalSpeed: {
     globalSpeedMultiplier: number
   }
-  highestHoneyAscensionSpeed: {
+  lifetimeHoneyAscensionSpeed: {
     ascensionSpeedMultiplier: number
   }
-  highestHoneyAmbrosia: {
+  lifetimeHoneyAmbrosia: {
     ambrosiaGenerationSpeed: number
   }
-  highestHoneyRedAmbrosia: {
+  lifetimeHoneyRedAmbrosia: {
     redAmbrosiaGenerationSpeed: number
   }
-  highestHoneyAntELO: {
+  lifetimeHoneyAntELO: {
     additiveAntELOPercent: number
   }
-  highestHoneyRebornELOSpeed: {
+  lifetimeHoneyRebornELOSpeed: {
     rebornELOSpeedMult: number
   }
   purpleQuarkGain: {
@@ -816,231 +816,290 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       maxLevelAP: 40
     }
   },
-  highestHoneyQuarks: {
-    maxLevel: 1,
+  lifetimeHoneyQuarks: {
+    maxLevel: 10,
     costFormula: (level: number) => 500 * level,
     effects: (n) => {
-      return 1 + n * 0.05 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.1)
+      return 1 + +(n > 0) * (0.10 + 0.005 * n) * Math.log(1 + player.purpleReactor.lifetimePurpleHoney / 100)
     },
     notMaxedEffectsDescription: () => {
-      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'quarkMultiplier')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyQuarks', 'quarkMultiplier')
+      const oldEffect = getPurpleReactorUpgradeEffects('lifetimeHoneyQuarks', 'quarkMultiplier')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('lifetimeHoneyQuarks', 'quarkMultiplier')
 
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyQuarks.effectNotMaxed', {
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyQuarks.effectNotMaxed', {
         oldPercent: formatAsPercentIncrease(oldEffect, 2),
         newPercent: formatAsPercentIncrease(newEffect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyQuarks.formula')
+
+      const lv = purpleReactorUpgrades.lifetimeHoneyQuarks.level
+      const oldValue = +(lv > 0) * (0.10 + 0.005 * lv)
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaNotMaxed', {
+        oldValue: format(oldValue, 3),
+        newValue: format(0.10 + 0.005 * (lv + 1), 3)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'quarkMultiplier')
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyQuarks.effectMaxed', {
+      const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyQuarks', 'quarkMultiplier')
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyQuarks.effectMaxed', {
         maxPercent: formatAsPercentIncrease(effect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyQuarks.formula')
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaMaxed', {
+        maxValue: format(0.15, 2)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 10
+      perLevelAP: 1,
+      maxLevelAP: 5
     }
   },
-  highestHoneyGlobalSpeed: {
-    maxLevel: 1,
+  lifetimeHoneyGlobalSpeed: {
+    maxLevel: 10,
     costFormula: (level: number) => 2_000 * level,
     effects: (n) => {
-      return 1 + n * 0.1 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.15)
+      return 1 + +(n > 0) * (0.1 + 0.01 * n) * Math.log(1 + player.purpleReactor.lifetimePurpleHoney / 100)
     },
     notMaxedEffectsDescription: () => {
-      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier')
+      const oldEffect = getPurpleReactorUpgradeEffects('lifetimeHoneyGlobalSpeed', 'globalSpeedMultiplier')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('lifetimeHoneyGlobalSpeed', 'globalSpeedMultiplier')
 
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyGlobalSpeed.effectNotMaxed', {
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyGlobalSpeed.effectNotMaxed', {
         oldPercent: formatAsPercentIncrease(oldEffect, 2),
         newPercent: formatAsPercentIncrease(newEffect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyGlobalSpeed.formula')
+
+      const lv = purpleReactorUpgrades.lifetimeHoneyGlobalSpeed.level
+      const oldValue = +(lv > 0) * (0.1 + 0.01 * lv)
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaNotMaxed', {
+        oldValue: format(oldValue, 2),
+        newValue: format(0.1 + 0.01 * (lv + 1), 2)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier')
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyGlobalSpeed.effectMaxed', {
+      const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyGlobalSpeed', 'globalSpeedMultiplier')
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyGlobalSpeed.effectMaxed', {
         maxPercent: formatAsPercentIncrease(effect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyGlobalSpeed.formula')
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaMaxed', {
+        maxValue: format(0.25, 2)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 15
+      perLevelAP: 1,
+      maxLevelAP: 0
     }
   },
-  highestHoneyAscensionSpeed: {
-    maxLevel: 1,
+  lifetimeHoneyAscensionSpeed: {
+    maxLevel: 10,
     costFormula: (level: number) => 2_000 * level,
     effects: (n) => {
-      return 1 + n * 0.075 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.15)
+      return 1 + +(n > 0) * (0.08 + 0.008 * n) * Math.log(1 + player.purpleReactor.lifetimePurpleHoney / 100)
     },
     notMaxedEffectsDescription: () => {
-      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
+      const oldEffect = getPurpleReactorUpgradeEffects('lifetimeHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
       const newEffect = getPurpleReactorUpgradeNextLevelEffects(
-        'highestHoneyAscensionSpeed',
+        'lifetimeHoneyAscensionSpeed',
         'ascensionSpeedMultiplier'
       )
 
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAscensionSpeed.effectNotMaxed', {
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyAscensionSpeed.effectNotMaxed', {
         oldPercent: formatAsPercentIncrease(oldEffect, 2),
         newPercent: formatAsPercentIncrease(newEffect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAscensionSpeed.formula')
+
+      const lv = purpleReactorUpgrades.lifetimeHoneyAscensionSpeed.level
+      const oldValue = +(lv > 0) * (0.08 + 0.008 * lv)
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaNotMaxed', {
+        oldValue: format(oldValue, 3),
+        newValue: format(0.08 + 0.008 * (lv + 1), 3)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAscensionSpeed.effectMaxed', {
+      const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyAscensionSpeed.effectMaxed', {
         maxPercent: formatAsPercentIncrease(effect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAscensionSpeed.formula')
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaMaxed', {
+        maxValue: format(0.16, 2)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 15
+      perLevelAP: 1,
+      maxLevelAP: 0
     }
   },
-  highestHoneyAmbrosia: {
-    maxLevel: 1,
+  lifetimeHoneyAmbrosia: {
+    maxLevel: 10,
     costFormula: (level: number) => 10_000 * level,
     effects: (n) => {
-      return 1 + n * 0.02 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.075)
+      return 1 + +(n > 0) * (0.02 + 0.002 * n) * Math.log(1 + player.purpleReactor.lifetimePurpleHoney / 100)
     },
     notMaxedEffectsDescription: () => {
-      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed')
+      const oldEffect = getPurpleReactorUpgradeEffects('lifetimeHoneyAmbrosia', 'ambrosiaGenerationSpeed')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('lifetimeHoneyAmbrosia', 'ambrosiaGenerationSpeed')
 
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAmbrosia.effectNotMaxed', {
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyAmbrosia.effectNotMaxed', {
         oldPercent: formatAsPercentIncrease(oldEffect, 2),
         newPercent: formatAsPercentIncrease(newEffect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAmbrosia.formula')
+
+      const lv = purpleReactorUpgrades.lifetimeHoneyAmbrosia.level
+      const oldValue = +(lv > 0) * (0.02 + 0.002 * lv)
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaNotMaxed', {
+        oldValue: format(oldValue, 3),
+        newValue: format(0.02 + 0.002 * (lv + 1), 3)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed')
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAmbrosia.effectMaxed', {
+      const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyAmbrosia', 'ambrosiaGenerationSpeed')
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyAmbrosia.effectMaxed', {
         maxPercent: formatAsPercentIncrease(effect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAmbrosia.formula')
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaMaxed', {
+        maxValue: format(0.04, 2)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
+      perLevelAP: 1,
+      maxLevelAP: 5
     }
   },
-  highestHoneyRedAmbrosia: {
-    maxLevel: 1,
-    costFormula: (level: number) => 25_000 * level,
+  lifetimeHoneyRedAmbrosia: {
+    maxLevel: 15,
+    costFormula: (level: number) => 10_000 * level,
     effects: (n) => {
-      return 1 + n * 0.01 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.125)
+      return 1 + +(n > 0) * (0.02 + 0.002 * n) * Math.log(1 + player.purpleReactor.lifetimePurpleHoney / 100)
     },
     notMaxedEffectsDescription: () => {
-      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
+      const oldEffect = getPurpleReactorUpgradeEffects('lifetimeHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects(
+        'lifetimeHoneyRedAmbrosia',
+        'redAmbrosiaGenerationSpeed'
+      )
 
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyRedAmbrosia.effectNotMaxed', {
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyRedAmbrosia.effectNotMaxed', {
         oldPercent: formatAsPercentIncrease(oldEffect, 2),
         newPercent: formatAsPercentIncrease(newEffect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyRedAmbrosia.formula')
+
+      const lv = purpleReactorUpgrades.lifetimeHoneyRedAmbrosia.level
+      const oldValue = +(lv > 0) * (0.02 + 0.002 * lv)
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaNotMaxed', {
+        oldValue: format(oldValue, 3),
+        newValue: format(0.02 + 0.002 * (lv + 1), 3)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyRedAmbrosia.effectMaxed', {
+      const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyRedAmbrosia.effectMaxed', {
         maxPercent: formatAsPercentIncrease(effect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyRedAmbrosia.formula')
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaMaxed', {
+        maxValue: format(0.05, 2)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
+      perLevelAP: 1,
+      maxLevelAP: 0
     }
   },
-  highestHoneyAntELO: {
-    maxLevel: 1,
-    costFormula: (level: number) => 250_000 * level,
+  lifetimeHoneyAntELO: {
+    maxLevel: 50,
+    costFormula: (level: number) => 15_000 * level,
     effects: (n) => {
-      return 0.0001 * n * Math.log(1 + player.stats.highestPurpleHoney)
+      return (0.0001 + 0.00001 * n) * +(n > 0) * Math.log(1 + player.purpleReactor.lifetimePurpleHoney)
     },
     notMaxedEffectsDescription: () => {
-      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyAntELO', 'additiveAntELOPercent')
+      const oldEffect = getPurpleReactorUpgradeEffects('lifetimeHoneyAntELO', 'additiveAntELOPercent')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('lifetimeHoneyAntELO', 'additiveAntELOPercent')
 
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAntELO.effectNotMaxed', {
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyAntELO.effectNotMaxed', {
         oldPercent: formatAsPercentIncrease(1 + oldEffect, 2),
         newPercent: formatAsPercentIncrease(1 + newEffect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAntELO.formula')
+
+      const lv = purpleReactorUpgrades.lifetimeHoneyAntELO.level
+      const oldPercent = 1 + 0.0001 * +(lv > 0) + 0.00001 * lv
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyELOFormulaNotMaxed', {
+        oldPercent: formatAsPercentIncrease(oldPercent, 3),
+        newPercent: formatAsPercentIncrease(1.0001 + 0.00001 * (purpleReactorUpgrades.lifetimeHoneyAntELO.level + 1), 3)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent')
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyAntELO.effectMaxed', {
+      const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyAntELO', 'additiveAntELOPercent')
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyAntELO.effectMaxed', {
         maxPercent: formatAsPercentIncrease(1 + effect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyAntELO.formula')
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyELOFormulaMaxed', {
+        maxPercent: formatAsPercentIncrease(1.0006, 2)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 25
+      perLevelAP: 1,
+      maxLevelAP: 5
     }
   },
-  highestHoneyRebornELOSpeed: {
-    maxLevel: 1,
-    costFormula: (level: number) => 750_000 * level,
+  lifetimeHoneyRebornELOSpeed: {
+    maxLevel: 50,
+    costFormula: (level: number) => 15_000 * level,
     effects: (n) => {
-      return 1 + n * 0.04 * Math.pow(Math.log(1 + player.stats.highestPurpleHoney / 100), 1.1)
+      return 1 + +(n / 100) * (0.04 + 0.004 * n) * Math.log(1 + player.purpleReactor.lifetimePurpleHoney / 100)
     },
     notMaxedEffectsDescription: () => {
-      const oldEffect = getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult')
+      const oldEffect = getPurpleReactorUpgradeEffects('lifetimeHoneyRebornELOSpeed', 'rebornELOSpeedMult')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('lifetimeHoneyRebornELOSpeed', 'rebornELOSpeedMult')
 
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyRebornELOSpeed.effectNotMaxed', {
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyRebornELOSpeed.effectNotMaxed', {
         oldPercent: formatAsPercentIncrease(oldEffect, 2),
         newPercent: formatAsPercentIncrease(newEffect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyRebornELOSpeed.formula')
+
+      const lv = purpleReactorUpgrades.lifetimeHoneyRebornELOSpeed.level
+      const oldValue = +(lv > 0) * (0.04 + 0.004 * lv)
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaNotMaxed', {
+        oldValue: format(oldValue, 3),
+        newValue: format(0.04 + 0.004 * (lv + 1), 3, true)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult')
-      const effectText = i18next.t('purpleReactor.upgrades.highestHoneyRebornELOSpeed.effectMaxed', {
+      const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyRebornELOSpeed', 'rebornELOSpeedMult')
+      const effectText = i18next.t('purpleReactor.upgrades.lifetimeHoneyRebornELOSpeed.effectMaxed', {
         maxPercent: formatAsPercentIncrease(effect, 2)
       })
-      const formulaText = i18next.t('purpleReactor.upgrades.highestHoneyRebornELOSpeed.formula')
+      const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaMaxed', {
+        maxValue: format(0.24, 2)
+      })
 
       return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
     },
     apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 25
+      perLevelAP: 1,
+      maxLevelAP: 0
     }
   },
   purpleQuarkGain: {

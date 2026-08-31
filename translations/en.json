@@ -420,13 +420,13 @@
   "purpleReactor": {
     "purpleHoneyAmount": "You have <<var(--purple-text-color)|{{amount}}>> Purple Honey (<<var(--purple-text-color)|{{lifetimeAmount}}>> Lifetime)",
     "highestPurpleHoney": "Most Purple Honey at once: <<var(--purple-text-color)|{{amount}}>>",
-    "highestPurpleHoneyQuarks": "<<cyan|Quarks +{{amount}}>>",
-    "highestPurpleHoneyGlobalSpeed": "<<lightskyblue|Global Speed +{{amount}}>>",
-    "highestPurpleHoneyAscensionSpeed": "<<orange|Ascension Speed +{{amount}}>>",
-    "highestPurpleHoneyAmbrosia": "<<lightblue|Ambrosia Bar Points +{{amount}}>>",
-    "highestPurpleHoneyRedAmbrosia": "<<red|Red Bar Points +{{amount}}>>",
-    "highestPurpleHoneyAntELO": "<<orchid|Ant ELO +{{amount}}>>",
-    "highestPurpleHoneyRebornELOSpeed": "<<#00DDFF|Reborn ELO Speed +{{amount}}>>",
+    "lifetimePurpleHoneyQuarks": "<<cyan|Quarks +{{amount}}>>",
+    "lifetimePurpleHoneyGlobalSpeed": "<<lightskyblue|Global Speed +{{amount}}>>",
+    "lifetimePurpleHoneyAscensionSpeed": "<<orange|Ascension Speed +{{amount}}>>",
+    "lifetimePurpleHoneyAmbrosia": "<<lightblue|Ambrosia Bar Points +{{amount}}>>",
+    "lifetimePurpleHoneyRedAmbrosia": "<<red|Red Bar Points +{{amount}}>>",
+    "lifetimePurpleHoneyAntELO": "<<orchid|Ant ELO +{{amount}}>>",
+    "lifetimePurpleHoneyRebornELOSpeed": "<<#00DDFF|Reborn ELO Speed +{{amount}}>>",
     "reactantContainersDescription": "The <b>Grand</b>, <i>Fantabulous</i> <<var(--purple-text-color)|Chroma-Encabulator>>",
     "reactionExplanation": "<<lightblue|1,000 Ambrosia Bar Points>> + <<red|1 Red Bar Point>> → <<var(--purple-text-color)|100 Purple Bar Points>>",
     "reactantTankLabel": "Input Tank",
@@ -465,6 +465,10 @@
     "upgradeAPPerLevel": "Each level of this upgrade grants <<gold|+{{amount}}>> AP [<<gold|+{{total}}>>]",
     "upgradeAPMax": "You also get <<gold|+{{amount}}>> AP for maxing this upgrade! {{check}}",
     "purpleUpgradeAP": "Purple Honey Upgrade AP: <<gold|{{current}}/{{max}}>>",
+    "lifetimeHoneyFormulaNotMaxed": "Multiplier = 1 + (<<silver|{{oldValue}} →>> <<gold|{{newValue}}>>) * ln(1 + Honey/100)",
+    "lifetimeHoneyFormulaMaxed": "Multiplier = 1 + <<gold|{{maxValue}}>> * ln(1 + Honey/100)",
+    "lifetimeHoneyELOFormulaNotMaxed": "Bonus: (<<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>>) * ln(1 + Honey)",
+    "lifetimeHoneyELOFormulaMaxed": "Bonus: <<gold|{{maxPercent}}>> * ln(1 + Honey)",
     "upgradeShop": {
       "sections": {
         "intro": "Intro",
@@ -479,7 +483,7 @@
         "efficiency": "Efficiency",
         "honeyLuck": "Honey Luck",
         "requirementReduction": "Purple Bar Size Reduction",
-        "highestHoneyBonuses": "Highest Honey Bonuses"
+        "lifetimeHoneyBonuses": "Lifetime Honey Bonuses"
       },
       "level": "{{current}}/{{max}}",
       "maxed": "Maxed!",
@@ -608,54 +612,47 @@
         "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Offerings.",
         "effectMaxed": "<<gold|+{{maxPercent}}>> Offerings."
       },
-      "highestHoneyQuarks": {
-        "name": "Highest Honey Power: Quarks",
+      "lifetimeHoneyQuarks": {
+        "name": "Honey Power: Quarks",
         "flavor": "Oh, honey honey!",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Quarks, from your Highest Held Honey stat.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Quarks, from your Highest Held Honey stat.",
-        "formula": "Multiplier = 1 + 0.05 * (ln(1 + Honey/100))^1.1"
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Quarks",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Quarks, from your Lifetime Honey stat."
       },
-      "highestHoneyGlobalSpeed": {
+      "lifetimeHoneyGlobalSpeed": {
         "name": "Highest Honey Power: Global Speed",
         "flavor": "We're not going faster, the Earth is just spinning without us.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Global Speed, from your Highest Held Honey stat.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Global Speed, from your Highest Held Honey stat.",
-        "formula": "Multiplier = 1 + 0.1 * (ln(1 + Honey/100))^1.15"
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Global Speed",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Global Speed, from your Lifetime Honey stat."
       },
-      "highestHoneyAscensionSpeed": {
+      "lifetimeHoneyAscensionSpeed": {
         "name": "Highest Honey Power: Ascension Speed",
         "flavor": "The flavor of this Honey is ascendent.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ascension Speed, from your Highest Held Honey stat.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Ascension Speed, from your Highest Held Honey stat.",
-        "formula": "Multiplier = 1 + 0.075 * (ln(1 + Honey/100))^1.15"
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ascension Speed",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Ascension Speed, from your Lifetime Honey stat."
       },
-      "highestHoneyAmbrosia": {
+      "lifetimeHoneyAmbrosia": {
         "name": "Highest Honey Power: Ambrosia",
         "flavor": "Lathering your Ambrosia with Honey is like putting bacon on your hotdog.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ambrosia Bar Points, from your Highest Held Honey stat.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Ambrosia Bar Points, from your Highest Held Honey stat.",
-        "formula": "Multiplier = 1 + 0.02 * (ln(1 + Honey/100))^1.075"
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ambrosia Bar Points",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Ambrosia Bar Points, from your Lifetime Honey stat."
       },
-      "highestHoneyRedAmbrosia": {
+      "lifetimeHoneyRedAmbrosia": {
         "name": "Highest Honey Power: Red Ambrosia",
         "flavor": "Lathering your Red Ambrosia with Honey is like putting red bacon on your red hotdog. Wait.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Red Bar Points, from your Highest Held Honey stat.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Red Bar Points, from your Highest Held Honey stat.",
-        "formula": "Multiplier = 1 + 0.01 * (ln(1 + Honey/100))^1.125"
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Red Bar Points",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Red Bar Points, from your Lifetime Honey stat."
       },
-      "highestHoneyAntELO": {
+      "lifetimeHoneyAntELO": {
         "name": "Highest Honey Power: Ant ELO",
         "flavor": "Honey attracts Ants better than your Galactic Crumbs do.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ant ELO, from your Highest Held Honey stat.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Ant ELO, from your Highest Held Honey stat.",
-        "formula": "Bonus = 0.01% * ln(1 + Honey)"
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ant ELO",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Ant ELO, from your Lifetime Honey stat."
       },
-      "highestHoneyRebornELOSpeed": {
+      "lifetimeHoneyRebornELOSpeed": {
         "name": "Highest Honey Power: Reborn ELO Speed",
         "flavor": "Too much honey will have you catching up to Ant God quicker.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Reborn ELO Speed, from your Highest Held Honey stat.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Reborn ELO Speed, from your Highest Held Honey stat.",
-        "formula": "Multiplier = 1 + 0.04 * (ln(1 + Honey/100))^1.1"
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Reborn ELO Speed",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Reborn ELO Speed, from your Lifetime Honey stat."
       },
       "purpleQuarkGain": {
         "name": "Lab-Grown Quarks",

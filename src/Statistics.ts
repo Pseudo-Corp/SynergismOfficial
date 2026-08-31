@@ -1495,8 +1495,8 @@ export const allQuarkStats: NumberStatLineCategory = {
       color: 'gold'
     },
     {
-      i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyQuarks', 'quarkMultiplier')
+      i18n: 'LifetimePurpleHoneyPower',
+      stat: () => getPurpleReactorUpgradeEffects('lifetimeHoneyQuarks', 'quarkMultiplier')
     }
   ]
 }
@@ -2052,8 +2052,8 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
       color: 'red'
     },
     {
-      i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyGlobalSpeed', 'globalSpeedMultiplier') // Highest Purple Honey Power
+      i18n: 'LifetimePurpleHoneyPower',
+      stat: () => getPurpleReactorUpgradeEffects('lifetimeHoneyGlobalSpeed', 'globalSpeedMultiplier') // Lifetime Purple Honey Power
     }
   ]
 }
@@ -2180,8 +2180,8 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
       displayCriterion: () => true
     },
     {
-      i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
+      i18n: 'LifetimePurpleHoneyPower',
+      stat: () => getPurpleReactorUpgradeEffects('lifetimeHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
     }
   ]
 }
@@ -2526,8 +2526,8 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
       displayCriterion: () => true
     },
     {
-      i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyAmbrosia', 'ambrosiaGenerationSpeed')
+      i18n: 'LifetimePurpleHoneyPower',
+      stat: () => getPurpleReactorUpgradeEffects('lifetimeHoneyAmbrosia', 'ambrosiaGenerationSpeed')
     }
   ]
 }
@@ -3010,8 +3010,8 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
       stat: () => getPurpleReactorUpgradeEffects('tutorial', 'redAmbrosiaGeneration') // Purple Honey Upgrade 1
     },
     {
-      i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
+      i18n: 'LifetimePurpleHoneyPower',
+      stat: () => getPurpleReactorUpgradeEffects('lifetimeHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
     }
   ]
 }
@@ -3574,8 +3574,8 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
       acc: 4
     },
     {
-      i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyAntELO', 'additiveAntELOPercent'),
+      i18n: 'LifetimePurpleHoneyPower',
+      stat: () => getPurpleReactorUpgradeEffects('lifetimeHoneyAntELO', 'additiveAntELOPercent'),
       acc: 2
     }
   ]
@@ -3668,8 +3668,8 @@ export const rebornELOCreationSpeedMultStats: NumberStatLineCategory = {
       color: 'orchid'
     },
     {
-      i18n: 'HighestPurpleHoneyPower',
-      stat: () => getPurpleReactorUpgradeEffects('highestHoneyRebornELOSpeed', 'rebornELOSpeedMult')
+      i18n: 'LifetimePurpleHoneyPower',
+      stat: () => getPurpleReactorUpgradeEffects('lifetimeHoneyRebornELOSpeed', 'rebornELOSpeedMult')
     }
   ]
 }
@@ -3892,7 +3892,7 @@ export const allPurpleHoneyProgressRequirementStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 50
+      stat: () => 50_000
     },
     {
       i18n: 'SingularityPerk',
@@ -3900,11 +3900,15 @@ export const allPurpleHoneyProgressRequirementStats: NumberStatLineCategory = {
     },
     {
       i18n: 'LifetimePurpleHoney',
-      stat: () => Math.min(100_000, player.purpleReactor.lifetimePurpleHoney + 10) / 10
+      stat: () => Math.min(25_000, player.purpleReactor.lifetimePurpleHoney * 9 / 10 + 2_500) / 2_500 // max: 10
     },
     {
       i18n: 'PurpleHoney',
-      stat: () => 1 + player.purpleReactor.purpleHoney / 10000 // Purple Honey Upgrade 1
+      stat: () =>
+        1 + Math.min(
+          player.purpleReactor.purpleHoney / 10000,
+          Math.log(1 + player.purpleReactor.purpleHoney / 100)
+        )
     },
     {
       i18n: 'PurpleHoneyUpgrade1',
