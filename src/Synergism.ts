@@ -8,13 +8,13 @@ import {
   CalcECC,
   calculateChallenge15Score,
   challenge15ScoreMultiplier,
-  challengeDisplay,
   challengeRequirement,
   clearStateChangeTimer,
   getChallengeConditions,
   getMaxChallenges,
   getNextAscensionChallenge,
   highestChallengeRewards,
+  setChallengeFocus,
   tickChallengeSweep
 } from './Challenges'
 import { btoa, isMobile, memoize } from './Utility'
@@ -157,8 +157,7 @@ import {
   htmlInserts,
   Notification,
   revealStuff,
-  updateChallengeDisplay,
-  updateChallengeLevel
+  updateChallengeDisplay
 } from './UpdateHTML'
 import {
   ascendBuildingDR,
@@ -1566,13 +1565,13 @@ const loadSynergy = (saveString: string): boolean => {
 
     // Challenge summary should be displayed
     if (player.currentChallenge.transcension > 0) {
-      challengeDisplay(player.currentChallenge.transcension)
+      setChallengeFocus(player.currentChallenge.transcension)
     } else if (player.currentChallenge.reincarnation > 0) {
-      challengeDisplay(player.currentChallenge.reincarnation)
+      setChallengeFocus(player.currentChallenge.reincarnation)
     } else if (player.currentChallenge.ascension > 0) {
-      challengeDisplay(player.currentChallenge.ascension)
+      setChallengeFocus(player.currentChallenge.ascension)
     } else {
-      challengeDisplay(1)
+      setChallengeFocus(1)
     }
 
     corruptionStatsUpdate()
@@ -3555,8 +3554,6 @@ export const resetCheck = async (
         counter++
       }
       player.challengecompletions[q] = comp
-      challengeDisplay(q, false)
-      updateChallengeLevel(q)
     }
     if (
       player.challengecompletions[q] > player.highestchallengecompletions[q]
@@ -3576,7 +3573,6 @@ export const resetCheck = async (
         && player.challengecompletions[q] >= maxCompletions)
     ) {
       challengeExit('transcension')
-      updateChallengeDisplay()
     }
     if (leaving || !getShopUpgradeEffects('instantChallenge', 'unlocked')) {
       reset('transcensionChallenge', false, 'leaveChallenge')
@@ -3633,8 +3629,6 @@ export const resetCheck = async (
         counter++
       }
       player.challengecompletions[q] = comp
-      challengeDisplay(q, false)
-      updateChallengeLevel(q)
     }
     if (
       player.challengecompletions[q] > player.highestchallengecompletions[q]
@@ -3669,7 +3663,6 @@ export const resetCheck = async (
           player.challengecompletions[j] = player.highestchallengecompletions[j]
         }
       }
-      updateChallengeDisplay()
     }
     if (leaving || !getShopUpgradeEffects('instantChallenge', 'unlocked')) {
       reset('reincarnationChallenge', false, 'leaveChallenge')
@@ -3711,8 +3704,6 @@ export const resetCheck = async (
         && player.challengecompletions[a] < maxCompletions
       ) {
         player.challengecompletions[a] += 1
-        updateChallengeLevel(a)
-        challengeDisplay(a, false)
       }
       challengeAchievementCheck(a)
     }
@@ -3725,8 +3716,6 @@ export const resetCheck = async (
         && player.challengecompletions[a] < maxCompletions
       ) {
         player.challengecompletions[a] += 1
-        updateChallengeLevel(a)
-        challengeDisplay(a, false)
       }
       if (manual || leaving || getShopUpgradeEffects('challenge15Auto', 'unlocked')) {
         if (
@@ -3777,7 +3766,6 @@ export const resetCheck = async (
         )
       ) {
         challengeExit('ascension')
-        updateChallengeDisplay()
       }
     }
 
@@ -4316,7 +4304,6 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
     if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
       player.challenge15Exponent = calculateChallenge15Score()
       c15RewardUpdate()
-      updateChallengeLevel(15)
     }
   }
 }
@@ -4727,7 +4714,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges) {
         toggleChallenges(num)
-        challengeDisplay(num)
+        setChallengeFocus(num)
       }
       break
     }
@@ -4741,7 +4728,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges && player.reincarnationCount > 0) {
         toggleChallenges(6)
-        challengeDisplay(6)
+        setChallengeFocus(6)
       }
       if (G.currentTab === Tabs.Runes) {
         if (getActiveSubTab() === 0) {
@@ -4755,7 +4742,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges && player.achievements[113] === 1) {
         toggleChallenges(7)
-        challengeDisplay(7)
+        setChallengeFocus(7)
       }
       if (G.currentTab === Tabs.Runes) {
         if (getActiveSubTab() === 0) {
@@ -4769,7 +4756,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges && player.achievements[120] === 1) {
         toggleChallenges(8)
-        challengeDisplay(8)
+        setChallengeFocus(8)
       }
       break
     case '9':
@@ -4778,7 +4765,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges && player.unlocks.anthill) {
         toggleChallenges(9)
-        challengeDisplay(9)
+        setChallengeFocus(9)
       }
       break
     case '0':
@@ -4787,7 +4774,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges && player.unlocks.talismans) {
         toggleChallenges(10)
-        challengeDisplay(10)
+        setChallengeFocus(10)
       }
       break
   }

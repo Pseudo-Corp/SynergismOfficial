@@ -26,7 +26,7 @@ import {
 import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
-import { challengeDisplay, toggleRetryChallenges } from './Challenges'
+import { setChallengeFocus, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
@@ -1091,11 +1091,11 @@ export const generateEventHandlers = () => {
   // Part 1: Challenges
   // Challenge 1-15 buttons
   for (let index = 0; index < 15; index++) {
-    DOMCacheGetOrSet(`challenge${index + 1}`).addEventListener('click', () => challengeDisplay(index + 1))
+    DOMCacheGetOrSet(`challenge${index + 1}`).addEventListener('click', () => setChallengeFocus(index + 1))
     DOMCacheGetOrSet(`challenge${index + 1}`).addEventListener(
       'dblclick',
       () => {
-        challengeDisplay(index + 1)
+        setChallengeFocus(index + 1)
         toggleChallenges(G.triggerChallenge, false)
       }
     )
