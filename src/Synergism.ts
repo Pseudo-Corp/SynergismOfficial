@@ -139,7 +139,6 @@ import {
   setAutoAscendResetModeText,
   setAutoResetModeTexts,
   settingMonospaceFont,
-  toggleAntsSubtab,
   toggleAscStatPerSecond,
   toggleauto,
   toggleChallenges,
@@ -217,7 +216,6 @@ import { handleLogin } from './Login'
 import { initializeAnnouncements, initializeMessages } from './Messages'
 import {
   blankOcteractLevelObject,
-  initializeOcteractUpgradeMap,
   type OcteractUpgrades,
   octeractUpgrades
 } from './Octeracts'
@@ -5137,7 +5135,6 @@ window.addEventListener('load', async () => {
   generateBlessingsHTML()
   generateSpiritsHTML()
   generateShopTabHTML()
-  initializeOcteractUpgradeMap()
   generateEventHandlers()
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
@@ -5146,7 +5143,6 @@ window.addEventListener('load', async () => {
   generateAchievementHTMLs()
   generateLevelRewardHTMLs()
   generateLevelMilestoneHTMLS()
-  toggleAntsSubtab('1')
 
   // Initialize messages on game load
   initializeMessages().catch(console.error)

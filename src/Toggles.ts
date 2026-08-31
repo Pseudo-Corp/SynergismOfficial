@@ -11,6 +11,7 @@ import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions, corr
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
+import { initializeOcteractUpgradeMap } from './Octeracts'
 import { researchOrderByCost, roombaResearchEnabled, setResearchRoombaHighlight } from './Research'
 import { applyChallengeInitialModifiers, reset } from './Reset'
 import { indexToRune } from './Runes'
@@ -574,6 +575,8 @@ export const toggleSingularityScreen = (indexStr: string) => {
   } else if (index === 3) {
     updateSingularityPenalties()
     updateSingularityPerks()
+  } else if (index === 4) {
+    initializeOcteractUpgradeMap()
   }
 }
 

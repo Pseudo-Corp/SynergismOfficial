@@ -955,8 +955,6 @@ const upgradeUnlockMap: Record<number, string> = Object.fromEntries(
   )
 )
 
-let createdHTMLThisSession = false
-
 const addUpgradeReferenceHeaderIcon = (category: UpgradeCategories) => {
   const data = categoryData[category]
   const div = DOMCacheGetOrSet('upgradeReferenceHeader')
@@ -1165,13 +1163,9 @@ const createUpgradeSection = (category: UpgradeCategories) => {
 }
 
 export const generateUpgradesTab = () => {
-  if (createdHTMLThisSession) {
-    return
-  }
   const flexTab = DOMCacheGetOrSet('upgradesFlex')
   for (let i = UpgradeCategories.Coin; i <= UpgradeCategories.Generator; i++) {
     addUpgradeReferenceHeaderIcon(i)
     flexTab.appendChild(createUpgradeSection(i))
   }
-  createdHTMLThisSession = true
 }
