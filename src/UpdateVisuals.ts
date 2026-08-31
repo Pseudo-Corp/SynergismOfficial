@@ -96,7 +96,7 @@ import {
   getGQUpgradeEffect,
   goldenQuarkUpgrades,
   type SingularityDataKeys,
-  updateGoldenQuarkUpgradeVisibility,
+  updateGoldenQuarkUpgradeVisibility
 } from './singularity'
 import { loadStatisticsUpdate, updateDisplayC15Rewards } from './Statistics'
 import {
@@ -1783,7 +1783,7 @@ export const visualUpdateSingularity = () => {
       const isMaxed = updateOcteractUpgradeVisibility(key, el)
       const isAffordable = !isMaxed && getOcteractUpgradeCostTNL(key) <= player.wowOcteracts
 
-      el.dataset.octeractLevel = `${format(octItem.level)}`
+      el.dataset.octeractLevel = format(octItem.level)
       el.classList.toggle('octeractUpgradeAffordable', isAffordable)
       el.classList.toggle('octeractUpgradeMaxed', isMaxed)
       el.classList.toggle('octeractUpgradeFreeLevels', octItem.freeLevel > 0)

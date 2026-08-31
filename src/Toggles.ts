@@ -10,15 +10,15 @@ import { researchOrderByCost, roombaResearchEnabled, setResearchRoombaHighlight 
 import { applyChallengeInitialModifiers, reset } from './Reset'
 import { indexToRune } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
+import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { subTabsInMainTab, Tabs } from './Tabs'
-import { updateTalismanInventory } from './Talismans'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
+import { updateTalismanInventory } from './Talismans'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
 import { Alert, challengeExit, Confirm, createFitties, Prompt, updateChallengeDisplay } from './UpdateHTML'
 import { Globals as G } from './Variables'
-import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract'
 

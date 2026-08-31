@@ -119,8 +119,8 @@ import {
   generateTalismansHTML,
   noTalismanFragments,
   type TalismanCraftItems,
-  talismanKeys,
   type TalismanKeys,
+  talismanKeys,
   talismans,
   toggleTalismanBuy,
   updateTalismanInventory,
@@ -216,7 +216,12 @@ import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
 import { initializeAnnouncements, initializeMessages } from './Messages'
-import { blankOcteractLevelObject, type OcteractUpgrades, octeractUpgrades, initializeOcteractUpgradeMap } from './Octeracts'
+import {
+  blankOcteractLevelObject,
+  initializeOcteractUpgradeMap,
+  type OcteractUpgrades,
+  octeractUpgrades
+} from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache } from './PseudoCoinUpgrades'
