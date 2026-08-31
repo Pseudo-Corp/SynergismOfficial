@@ -329,8 +329,6 @@ export const revealStuff = () => {
   // switch color pallete to match legacy wowcubes
   document.documentElement.dataset.legacyicons = player.iconSet === 0 ? 'true' : 'false'
 
-  visualUpdateShop()
-
   document.documentElement.dataset.cookies1 = getGQUpgradeEffect('cookies', 'unlocked') ? 'true' : 'false'
   document.documentElement.dataset.cookies2 = getGQUpgradeEffect('cookies2', 'unlocked') ? 'true' : 'false'
   document.documentElement.dataset.cookies3 = getGQUpgradeEffect('cookies3', 'unlocked') ? 'true' : 'false'

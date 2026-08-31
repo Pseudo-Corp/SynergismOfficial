@@ -10,7 +10,6 @@ import { researchOrderByCost, roombaResearchEnabled, setResearchRoombaHighlight 
 import { applyChallengeInitialModifiers, reset } from './Reset'
 import { indexToRune } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
-import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 import { format, player, resetCheck } from './Synergism'
 import { subTabsInMainTab, Tabs } from './Tabs'
 import { updateTalismanInventory } from './Talismans'
@@ -18,8 +17,8 @@ import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
 import { Alert, challengeExit, Confirm, createFitties, Prompt, updateChallengeDisplay } from './UpdateHTML'
-import { visualUpdateAmbrosia, visualUpdateAnts, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
+import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract'
 
@@ -553,12 +552,9 @@ export const toggleSingularityScreen = (indexStr: string) => {
   }
 
   if (index === 1) {
+    // These only need to be updated when the subtab is first opened.
     updateSingularityElevator()
     updateSingularityElevatorVisibility()
-  } else if (index === 4) {
-    visualUpdateOcteracts()
-  } else if (index === 5) {
-    visualUpdateAmbrosia()
   }
 }
 
@@ -724,8 +720,6 @@ export const toggleCubeSubTab = (indexStr: string) => {
       // player.subtabNumber = j - 1
     }
   }
-
-  visualUpdateCubes()
 }
 
 export const updateAutoChallenge = (i: number) => {
@@ -1053,6 +1047,4 @@ export const toggleAntsSubtab = (indexStr: string) => {
   const antTab = DOMCacheGetOrSet(`antSubtab${i}`)
   antTab.classList.add('flex')
   antTab.classList.remove('none')
-
-  visualUpdateAnts()
 }

@@ -113,7 +113,7 @@ import {
   sumOfRuneLevels,
   updateAllRuneLevelsFromEXP
 } from './Runes'
-import { c15RewardUpdate, updateDisplayC15Rewards } from './Statistics'
+import { c15RewardUpdate } from './Statistics'
 import {
   buyTalismanLevelToRarityIncrease,
   generateTalismansHTML,
@@ -5023,7 +5023,6 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   updateAllGroupedAchievementProgress()
   updateAllProgressiveAchievementProgress()
   updateChallengeDisplay()
-  updateDisplayC15Rewards()
   clearTimeout(preloadDeleteGame)
 
   // All versions of Chrome and Firefox supported by the game have this API,
