@@ -454,7 +454,6 @@ class TabRow extends HTMLDivElement {
     const index = this.#list.indexOf(this.#currentTab)
 
     this.#currentTab = this.#list[index + 1] ?? this.#list[0]
-    changeSubTab(this.#currentTab.getType(), { page: tabInfo[this.#currentTab.getType()].subtabIndex })
     return this.#currentTab
   }
 
@@ -462,7 +461,6 @@ class TabRow extends HTMLDivElement {
     const index = this.#list.indexOf(this.#currentTab)
 
     this.#currentTab = this.#list[index - 1] ?? this.#list[this.#list.length - 1]
-    changeSubTab(this.#currentTab.getType(), { page: tabInfo[this.#currentTab.getType()].subtabIndex })
     return this.#currentTab
   }
 
@@ -1175,6 +1173,48 @@ export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
   }
 }
 
+const switchSubTab = (tab: $Tab, { page, step }: SubTabSwitchOptions) => {
+  const subTabs = tab.getSubTabs()
+
+  if (!tab.isUnlocked() || subTabs.subTabList.length === 0) {
+    return false
+  }
+
+  if (page !== undefined) {
+    tabInfo[tab.getType()].subtabIndex = limitRange(page, 0, subTabs.subTabList.length - 1)
+  } else {
+    tabInfo[tab.getType()].subtabIndex = limitRange(
+      tabInfo[tab.getType()].subtabIndex + step,
+      0,
+      subTabs.subTabList.length - 1
+    )
+  }
+
+  let subTab = subTabs.subTabList[tabInfo[tab.getType()].subtabIndex]
+
+  while (!subTab.unlocked()) {
+    tabInfo[tab.getType()].subtabIndex = limitRange(
+      tabInfo[tab.getType()].subtabIndex + (step ?? 1),
+      0,
+      subTabs.subTabList.length - 1
+    )
+    subTab = subTabs.subTabList[tabInfo[tab.getType()].subtabIndex]
+  }
+
+  for (const candidate of subTabs.subTabList) {
+    const element = DOMCacheGetOrSet(candidate.buttonID)
+
+    if (candidate === subTab) {
+      element.classList.add('active-subtab')
+    } else {
+      element.classList.remove('active-subtab')
+    }
+  }
+
+  subTabs.tabSwitcher?.(subTab.subTabID)
+  return true
+}
+
 export const changeTab = (tabs: Tabs, step?: number) => {
   saveTabScrollPosition(G.currentTab, tabInfo[G.currentTab].subtabIndex)
 
@@ -1200,6 +1240,8 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   for (const tab of tabRow.getSubs()) {
     tab.setActive(tab === tabRow.getCurrentTab())
   }
+
+  switchSubTab(tabRow.getCurrentTab(), { page: tabInfo[G.currentTab].subtabIndex })
 
   revealStuff()
   CloseModal()
@@ -1259,7 +1301,7 @@ export const resetAllSubTabs = (page = 0) => {
   }
 }
 
-export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) => {
+export const changeSubTab = (tabs: Tabs, options: SubTabSwitchOptions) => {
   let tab = tabRow.getCurrentTab()
 
   if (tab.getType() !== tabs) {
@@ -1278,42 +1320,8 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
     saveTabScrollPosition(tab.getType(), subTabs.subtabIndex)
   }
 
-  if (page !== undefined) {
-    tabInfo[tab.getType()].subtabIndex = limitRange(page, 0, subTabs.subTabList.length - 1)
-  } else {
-    tabInfo[tab.getType()].subtabIndex = limitRange(
-      tabInfo[tab.getType()].subtabIndex + step,
-      0,
-      subTabs.subTabList.length - 1
-    )
-  }
-
-  let subTabList = subTabs.subTabList[tabInfo[tab.getType()].subtabIndex]
-
-  while (!subTabList.unlocked()) {
-    tabInfo[tab.getType()].subtabIndex = limitRange(
-      tabInfo[tab.getType()].subtabIndex + (step ?? 1),
-      0,
-      subTabs.subTabList.length - 1
-    )
-    subTabList = subTabs.subTabList[tabInfo[tab.getType()].subtabIndex]
-  }
-
-  if (subTabList.unlocked()) {
-    for (const subtab of subTabs.subTabList) {
-      const element = DOMCacheGetOrSet(subtab.buttonID)
-
-      if (subtab === subTabList) {
-        element.classList.add('active-subtab')
-      } else {
-        element.classList.remove('active-subtab')
-      }
-    }
-
-    subTabs.tabSwitcher?.(subTabList.subTabID)
-    if (isActiveTab) {
-      restoreTabScrollPosition(tab.getType(), subTabs.subtabIndex)
-    }
+  if (switchSubTab(tab, options) && isActiveTab) {
+    restoreTabScrollPosition(tab.getType(), subTabs.subtabIndex)
   }
 
   CloseModal()
