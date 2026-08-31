@@ -1,9 +1,7 @@
-import { DOMCacheGetOrSet } from './Cache/DOM'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
 import { getGQUpgradeEffect } from './singularity'
 import { getTimePinnedToLoadDate, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
-import { timeRemainingHours } from './Utility'
 import { Globals as G } from './Variables'
 
 export enum BuffType {
@@ -67,9 +65,6 @@ export const eventCheck = async () => {
   if (now >= apiEvents.start && now <= apiEvents.end && apiEvents.name.length) {
     nowEvent = apiEvents
   }
-
-  const eventNowEndDate = new Date(nowEvent?.end ?? 0)
-  DOMCacheGetOrSet('globalEventTimer').textContent = timeRemainingHours(eventNowEndDate)
 
   const updateIsEventCheck = G.isEvent
 
