@@ -2233,13 +2233,31 @@ export const visualUpdatePurple = () => {
     * encabulatorSpeed
     / 100
     / 3600
+  const ambrosiaProductionPerSecond = player.singularityChallenges.noSingularityUpgrades.completions > 0
+    ? calculateAmbrosiaGenerationSpeed()
+    : 0
+  const redAmbrosiaProductionPerSecond = player.singularityChallenges.noAmbrosiaUpgrades.completions > 0
+    ? calculateRedAmbrosiaGenerationSpeed()
+    : 0
+  const ambrosiaRoutedRate = calculatePurpleReactantRouting(
+    ambrosiaProductionPerSecond,
+    player.purpleReactor.ambrosiaBarPointPercentage,
+    ambrosiaBarPoints,
+    ambrosiaReactantCapacity
+  ).reserveRate
+  const redAmbrosiaRoutedRate = calculatePurpleReactantRouting(
+    redAmbrosiaProductionPerSecond,
+    player.purpleReactor.redAmbrosiaBarPointPercentage,
+    redAmbrosiaBarPoints,
+    redAmbrosiaReactantCapacity
+  ).reserveRate
   const {
     ambrosiaBarPointsSpent: ambrosiaReactantDissolutionRate,
     redAmbrosiaBarPointsSpent: redAmbrosiaReactantDissolutionRate,
     purpleBarPointsGained: purpleHoneyProgressPerSecond
   } = calculatePurpleReactantConversion(
-    ambrosiaBarPoints,
-    redAmbrosiaBarPoints,
+    ambrosiaBarPoints + ambrosiaRoutedRate,
+    redAmbrosiaBarPoints + redAmbrosiaRoutedRate,
     ambrosiaBarPointsRequestedPerSecond
   )
   const {
@@ -2254,7 +2272,7 @@ export const visualUpdatePurple = () => {
   const purpleHoneyProgress = player.purpleHoneyProgress
 
   const ambrosiaReactantDisplay = calculatePurpleReactantDisplay(
-    player.singularityChallenges.noSingularityUpgrades.completions > 0 ? calculateAmbrosiaGenerationSpeed() : 0,
+    ambrosiaProductionPerSecond,
     player.purpleReactor.ambrosiaBarPointPercentage,
     ambrosiaBarPoints,
     ambrosiaReactantCapacity,
@@ -2262,7 +2280,7 @@ export const visualUpdatePurple = () => {
     maximumAmbrosiaReactantDissolutionRate
   )
   const redAmbrosiaReactantDisplay = calculatePurpleReactantDisplay(
-    player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? calculateRedAmbrosiaGenerationSpeed() : 0,
+    redAmbrosiaProductionPerSecond,
     player.purpleReactor.redAmbrosiaBarPointPercentage,
     redAmbrosiaBarPoints,
     redAmbrosiaReactantCapacity,
