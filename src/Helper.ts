@@ -4,6 +4,7 @@ import {
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaLuck,
   calculateAscensionSpeedMult,
+  calculateEncabulatorSpeed,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateOcteractMultiplier,
@@ -13,7 +14,6 @@ import {
   calculatePurpleHoneyPerExtraction,
   calculatePurpleReactantCapacity,
   calculatePurpleReactantConversion,
-  calculatePurpleReactantHalfLife,
   calculatePurpleReactantRouting,
   calculateRedAmbrosiaGenerationSpeed,
   calculateRedAmbrosiaLuck,
@@ -109,8 +109,11 @@ const processPurpleReactant = (
 }
 
 const convertPurpleReactants = (elapsedSeconds: number) => {
-  const halfLife = calculatePurpleReactantHalfLife()
-  const conversionFraction = 1 - Math.pow(2, -elapsedSeconds / halfLife)
+  const ambrosiaBarPointsRequested = calculatePurpleReactantCapacity()
+    * calculateEncabulatorSpeed()
+    / 100
+    / 3600
+    * elapsedSeconds
   const {
     ambrosiaBarPointsSpent,
     redAmbrosiaBarPointsSpent,
@@ -118,7 +121,7 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
   } = calculatePurpleReactantConversion(
     player.purpleReactor.storedAmbrosiaBarPoints,
     player.purpleReactor.storedRedAmbrosiaBarPoints,
-    conversionFraction
+    ambrosiaBarPointsRequested
   )
 
   const conversionFactor = calculatePurpleHoneyConversionFactor()
@@ -140,8 +143,14 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
   const purpleHoneyGained = (completedExtractions * guaranteedMultiplier + bonusExtractions)
     * calculatePurpleHoneyPerExtraction()
 
-  player.purpleReactor.storedAmbrosiaBarPoints -= ambrosiaBarPointsSpent
-  player.purpleReactor.storedRedAmbrosiaBarPoints -= redAmbrosiaBarPointsSpent
+  player.purpleReactor.storedAmbrosiaBarPoints = Math.max(
+    0,
+    player.purpleReactor.storedAmbrosiaBarPoints - ambrosiaBarPointsSpent
+  )
+  player.purpleReactor.storedRedAmbrosiaBarPoints = Math.max(
+    0,
+    player.purpleReactor.storedRedAmbrosiaBarPoints - redAmbrosiaBarPointsSpent
+  )
   player.purpleHoneyProgress = purpleHoneyProgress % conversionFactor
   player.purpleReactor.purpleHoney += purpleHoneyGained
   player.purpleReactor.lifetimePurpleHoney += purpleHoneyGained

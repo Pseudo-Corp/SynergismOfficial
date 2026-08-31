@@ -33,16 +33,16 @@ type PurpleReactorUpgradeRewards = {
     purpleHoneyLuck: number
   }
   purpleHalfLife1: {
-    halfLifeReduction: number
+    encabulatorSpeed: number
   }
   purpleHalfLife2: {
-    halfLifeReduction: number
+    encabulatorSpeed: number
   }
   purpleHalfLife3: {
-    halfLifeReduction: number
+    encabulatorSpeed: number
   }
   purpleHalfLife4: {
-    halfLifeReduction: number
+    encabulatorSpeed: number
   }
   purpleHoneyRequirementReduction1: {
     purpleHoneyRequirementMult: number
@@ -113,6 +113,8 @@ export type APRewards = {
   perLevelAP: number
   maxLevelAP: number
 }
+
+const encabulatorSpeedBonusPerLevel = 3 / 50
 
 interface PurpleReactorUpgrade<T extends PurpleReactorNames, K extends keyof PurpleReactorUpgradeRewards[T]> {
   level: number
@@ -365,20 +367,20 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 50,
     costFormula: (level: number) => 12 * level,
     effects: (n) => {
-      return -36 * n
+      return encabulatorSpeedBonusPerLevel * n
     },
     notMaxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife1', 'halfLifeReduction')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife1', 'halfLifeReduction')
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife1', 'encabulatorSpeed')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife1', 'encabulatorSpeed')
       return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectNotMaxed', {
-        oldValue: format(effect, 0),
-        newValue: format(newEffect, 0)
+        oldValue: format(effect, 2),
+        newValue: format(newEffect, 2)
       })
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife1', 'halfLifeReduction')
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife1', 'encabulatorSpeed')
       return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectMaxed', {
-        maxValue: format(effect, 0)
+        maxValue: format(effect, 2)
       })
     },
     apValue: {
@@ -390,20 +392,20 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 50,
     costFormula: (level: number) => 240 * level,
     effects: (n) => {
-      return -36 * n
+      return encabulatorSpeedBonusPerLevel * n
     },
     notMaxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife2', 'halfLifeReduction')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife2', 'halfLifeReduction')
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife2', 'encabulatorSpeed')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife2', 'encabulatorSpeed')
       return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectNotMaxed', {
-        oldValue: format(effect, 0),
-        newValue: format(newEffect, 0)
+        oldValue: format(effect, 2),
+        newValue: format(newEffect, 2)
       })
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife2', 'halfLifeReduction')
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife2', 'encabulatorSpeed')
       return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectMaxed', {
-        maxValue: format(effect, 0)
+        maxValue: format(effect, 2)
       })
     },
     apValue: {
@@ -413,22 +415,22 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   },
   purpleHalfLife3: {
     maxLevel: 50,
-    costFormula: (level: number) => 48_000 * level,
+    costFormula: (level: number) => 4_800 * level,
     effects: (n) => {
-      return -36 * n
+      return encabulatorSpeedBonusPerLevel * n
     },
     notMaxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife3', 'halfLifeReduction')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife3', 'halfLifeReduction')
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife3', 'encabulatorSpeed')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife3', 'encabulatorSpeed')
       return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectNotMaxed', {
-        oldValue: format(effect, 0),
-        newValue: format(newEffect, 0)
+        oldValue: format(effect, 2),
+        newValue: format(newEffect, 2)
       })
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife3', 'halfLifeReduction')
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife3', 'encabulatorSpeed')
       return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectMaxed', {
-        maxValue: format(effect, 0)
+        maxValue: format(effect, 2)
       })
     },
     apValue: {
@@ -440,20 +442,20 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 50,
     costFormula: (level: number) => 96_000 * level,
     effects: (n) => {
-      return -36 * n
+      return encabulatorSpeedBonusPerLevel * n
     },
     notMaxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife4', 'halfLifeReduction')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife4', 'halfLifeReduction')
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife4', 'encabulatorSpeed')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleHalfLife4', 'encabulatorSpeed')
       return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectNotMaxed', {
-        oldValue: format(effect, 0),
-        newValue: format(newEffect, 0)
+        oldValue: format(effect, 2),
+        newValue: format(newEffect, 2)
       })
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife4', 'halfLifeReduction')
+      const effect = getPurpleReactorUpgradeEffects('purpleHalfLife4', 'encabulatorSpeed')
       return i18next.t('purpleReactor.upgrades.purpleHalfLife1.effectMaxed', {
-        maxValue: format(effect, 0)
+        maxValue: format(effect, 2)
       })
     },
     apValue: {

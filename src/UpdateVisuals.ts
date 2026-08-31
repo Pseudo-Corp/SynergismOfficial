@@ -15,6 +15,7 @@ import {
   calculateBlueberryInventory,
   calculateCookieUpgrade29Luck,
   calculateCubeQuarkMultiplier,
+  calculateEncabulatorSpeed,
   calculateNumberOfThresholds,
   calculateOcteractMultiplier,
   calculatePurpleHoneyConversionFactor,
@@ -23,7 +24,6 @@ import {
   calculatePurpleHoneyPerExtraction,
   calculatePurpleReactantCapacity,
   calculatePurpleReactantConversion,
-  calculatePurpleReactantHalfLife,
   calculatePurpleReactantRouting,
   calculateRedAmbrosiaCubes,
   calculateRedAmbrosiaGenerationSpeed,
@@ -2030,15 +2030,17 @@ export const visualUpdateAmbrosia = () => {
   const totalTimePerSecondRed = calculateRedAmbrosiaGenerationSpeed()
   const ambrosiaReactantCapacity = calculatePurpleReactantCapacity()
   const redAmbrosiaReactantCapacity = calculateRedAmbrosiaReactantCapacity()
-  const reactantHalfLife = calculatePurpleReactantHalfLife()
-  const conversionFractionPerSecond = 1 - Math.pow(2, -1 / reactantHalfLife)
+  const ambrosiaBarPointsRequestedPerSecond = ambrosiaReactantCapacity
+    * calculateEncabulatorSpeed()
+    / 100
+    / 3600
   const {
     ambrosiaBarPointsSpent: ambrosiaReactantDissolutionRate,
     redAmbrosiaBarPointsSpent: redAmbrosiaReactantDissolutionRate
   } = calculatePurpleReactantConversion(
     player.purpleReactor.storedAmbrosiaBarPoints,
     player.purpleReactor.storedRedAmbrosiaBarPoints,
-    conversionFractionPerSecond
+    ambrosiaBarPointsRequestedPerSecond
   )
   const {
     ambrosiaBarPointsSpent: maximumAmbrosiaReactantDissolutionRate,
@@ -2046,7 +2048,7 @@ export const visualUpdateAmbrosia = () => {
   } = calculatePurpleReactantConversion(
     ambrosiaReactantCapacity,
     redAmbrosiaReactantCapacity,
-    conversionFractionPerSecond
+    ambrosiaBarPointsRequestedPerSecond
   )
   const { routing: ambrosiaRouting } = calculatePurpleReactantDisplay(
     player.singularityChallenges.noSingularityUpgrades.completions > 0 ? totalTimePerSecond : 0,
@@ -2224,22 +2226,29 @@ export const visualUpdatePurple = () => {
   const purpleHoneyPerExtraction = calculatePurpleHoneyPerExtraction()
   const purpleHoneyLuck = calculatePurpleHoneyLuck()
   const { guaranteedMultiplier, bonusMultiplierChance } = calculatePurpleHoneyExtractionMultiplier(purpleHoneyLuck)
-  const reactantHalfLife = calculatePurpleReactantHalfLife()
+  const encabulatorSpeed = calculateEncabulatorSpeed()
   const purpleReactorAP = calculatePurpleReactorAP()
 
-  const conversionFractionPerSecond = 1 - Math.pow(2, -1 / reactantHalfLife)
+  const ambrosiaBarPointsRequestedPerSecond = ambrosiaReactantCapacity
+    * encabulatorSpeed
+    / 100
+    / 3600
   const {
     ambrosiaBarPointsSpent: ambrosiaReactantDissolutionRate,
     redAmbrosiaBarPointsSpent: redAmbrosiaReactantDissolutionRate,
     purpleBarPointsGained: purpleHoneyProgressPerSecond
-  } = calculatePurpleReactantConversion(ambrosiaBarPoints, redAmbrosiaBarPoints, conversionFractionPerSecond)
+  } = calculatePurpleReactantConversion(
+    ambrosiaBarPoints,
+    redAmbrosiaBarPoints,
+    ambrosiaBarPointsRequestedPerSecond
+  )
   const {
     ambrosiaBarPointsSpent: maximumAmbrosiaReactantDissolutionRate,
     redAmbrosiaBarPointsSpent: maximumRedAmbrosiaReactantDissolutionRate
   } = calculatePurpleReactantConversion(
     ambrosiaReactantCapacity,
     redAmbrosiaReactantCapacity,
-    conversionFractionPerSecond
+    ambrosiaBarPointsRequestedPerSecond
   )
 
   const purpleHoneyProgress = player.purpleHoneyProgress
@@ -2437,14 +2446,15 @@ export const visualUpdatePurple = () => {
     'purpleReactantHalfLife',
     i18next.t(
       'purpleReactor.reactantContainerHalfLife',
-      { time: format(reactantHalfLife, 0, true) }
+      { speed: format(encabulatorSpeed, 2, true) }
     )
   )
   updateInnerHTMLIfChanged(
     'purpleReactantSpentRates',
     i18next.t('purpleReactor.reactantSpentRates', {
-      ambrosia: format(ambrosiaReactantDisplay.dissolutionPerSecond, 2, true),
-      redAmbrosia: format(redAmbrosiaReactantDisplay.dissolutionPerSecond, 2, true)
+      speed: format(encabulatorSpeed, 2, true),
+      ambrosia: format(maximumAmbrosiaReactantDissolutionRate, 2, true),
+      redAmbrosia: format(maximumRedAmbrosiaReactantDissolutionRate, 2, true)
     })
   )
 
