@@ -185,7 +185,7 @@
     </div>
     <header id="mainHeader">
         <div id="mobileHeaderContent">
-            <div id="ascensionStats">
+            <div class="ascensionStats" id="ascensionStats">
                 <span id="ascCubeStats">
                     <img src="Pictures/Default/TinyWow3.png" class="corruptionImg" alt="3D Cube" title="Cube Information" loading="lazy">
                     <span id="ascCubes" class="wowcubeText">x</span> C<span id="unit1">/s</span>
@@ -194,15 +194,15 @@
                     <img src="Pictures/Default/TinyWow4.png" class="corruptionImg" alt="4D Cube" title="Tesseract Information" loading="lazy">
                     <span id="ascTess" class="wowtesseractText">x</span> T<span id="unit2">/s</span>
                 </span>
-                <span id="ascHyperStats">
+                <span class="ascHyperStats" id="ascHyperStats">
                     <img src="Pictures/Default/TinyWow5.png" class="corruptionImg" title="Hypercube Information" loading="lazy">
                     <span id="ascHyper" class="wowhypercubeText">x</span> Hy<span id="unit3">/s</span>
                 </span>
-                <span id="ascPlatonicStats">
+                <span class="ascPlatonicStats" id="ascPlatonicStats">
                     <img src="Pictures/Default/TinyWow6.png" class="corruptionImg" title="Platonic Information" loading="lazy">
                     <span id="ascPlatonic" class="wowplatonicText">x</span> P<span id="unit4">/s</span>
                 </span>
-                <span id="ascHepteractStats">
+                <span class="ascHepteractStats" id="ascHepteractStats">
                     <img src="Pictures/Default/TinyWow7.png" class="corruptionImg" title="Hepteract Information" loading="lazy">
                     <span id="ascHepteract" class="wowhepteractText">x</span> He<span id="unit5">/s</span>
                 </span>
@@ -230,7 +230,7 @@
                     <img src="Pictures/Default/TinySTime.png" class="corruptionImg singularity" title="Singularity Timer" loading="lazy">
                     <span id="ascSingLen" class="singularity">x</span>
                 </span>
-                <span id="ascSingChallengeTimeTakenStats">
+                <span class="insideSingularityChallenge" id="ascSingChallengeTimeTakenStats">
                     <img src="Pictures/Default/TinySChalTime.png" class="corruptionImg singularity" title="Singularity Challenge Timer" loading="lazy">
                     <span id="ascSingChallengeLen" class="singularity">x</span>
                 </span>
@@ -281,7 +281,7 @@
                             <img class="resetbtn reincarnationunlock" id="reincarnatechallengebtn" i18n-aria-label="reset.buttonLabels.reincarnationChallenge" src="Pictures/Default/ChallengeReincarnation.png" loading="lazy">
                             <img class="resetbtn ascendunlock" id="ascendChallengeBtn" i18n-aria-label="reset.buttonLabels.ascensionChallenge" src="Pictures/Default/ChallengeAscension.png" loading="lazy">
                             <img class="resetbtn chal10" id="ascendbtn" i18n-aria-label="reset.buttonLabels.ascension" src="Pictures/Default/Ascension.png" loading="lazy">
-                            <img class="resetbtn singularity" id="singularitybtn" i18n-aria-label="reset.buttonLabels.singularity" src="Pictures/Default/Singularity.png" loading="lazy">
+                            <img class="resetbtn singularity singularityButton" id="singularitybtn" i18n-aria-label="reset.buttonLabels.singularity" src="Pictures/Default/Singularity.png" loading="lazy">
                         </div>
                         <div class="challengeProgress">
                             <div class="fitText" id="transcensionChallengeProgress" hidden></div>
@@ -303,7 +303,7 @@
         <div id="mobileHeaderResizeHandle" role="separator" aria-orientation="horizontal" tabindex="0" i18n-aria-label="mobile.header.resize"></div>
     </header>
     <main>
-        <div id="buildings">
+        <div id="buildings" class="tab">
             <div class="subTabWrapper">
                 <button id="switchToCoinBuilding" class="active-subtab" style="border: 2px solid yellow;"><span class="subTabButtonText fitText" i18n="tabs.buildings.coin"></span></button>
                 <button class="prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan"><span class="subTabButtonText fitText" i18n="tabs.buildings.diamond"></span></button>
@@ -380,9 +380,9 @@
 
                 <div class="resetautomation" id="autocrystalbuild">
                     <button class="auto" id="toggle15" toggleid="15" format="Auto Prestige [$]">Automatic Prestige &amp; Customization Being Developed!</button>
-                    <button id="prestigeautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
-                    <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1">
-                    <p class="transcendunlock mainText" id="autoprestige"></p>
+                    <button class="autoPrestige" id="prestigeautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
+                    <input class="transcendunlock autoPrestige" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1">
+                    <p class="transcendunlock autoPrestige mainText" id="autoprestige"></p>
                     <p id="prestigehotkeys" class="grayText" i18n="footnotes.crystals"></p>
                 </div>
             </div>
@@ -407,9 +407,9 @@
 
                 <div class="resetautomation">
                     <button class="auto" id="toggle21" toggleid="21" format="Auto Transcend [$]"></button>
-                    <button id="transcendautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
-                    <input class="transcendunlock" type="number" id="transcendamount" min="1" max="999999999" defaultValue="1">
-                    <p class="transcendunlock" id="autotranscend"></p>
+                    <button class="autoTranscend" id="transcendautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
+                    <input class="transcendunlock autoTranscend" type="number" id="transcendamount" min="1" max="999999999" defaultValue="1">
+                    <p class="transcendunlock autoTranscend" id="autotranscend"></p>
                 </div>
 
                 <p id="transcendhotkeys" class="grayText" i18n="footnotes.mythos"></p>
@@ -432,8 +432,8 @@
 
                 <div id="reincarnationTexts">
                     <p id="reincarnationshardinfo" class="fitText" style="color:lime;"></p>
-                    <p id="reincarnationCrystalInfo" class="fitText" style="color: cyan; display: none;">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
-                    <p id="reincarnationMythosInfo" class="fitText" style="color:plum; display: none;">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
+                    <p id="reincarnationCrystalInfo" class="fitText research39" style="color: cyan;">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
+                    <p id="reincarnationMythosInfo" class="fitText" style="color:plum;">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
                 </div>
 
                 <div class="resetautomation" id="reincarnateautomation">
@@ -508,16 +508,16 @@
                     <p class="mainText" id="constUpgradeEffect1">Current Effect: <span id="constUpgradeEffect2" class="orchidText">---</span></p>
                 </div>
                 <div class="resetautomation" id="ascendautomation">
-                    <button id="tesseractautobuytoggle" style="border:2px solid red;" i18n="runes.talismans.autoBuyOff"></button>
-                    <button id="tesseractautobuymode" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
-                    <input class="tesseractautobuyamount" type="number" id="tesseractAmount" min="1" max="999999999" defaultValue="1">
-                    <p class="tesseractautobuyamount mainText" id="autotessbuyeramount"></p>
+                    <button class="research190" id="tesseractautobuytoggle" style="border:2px solid red;" i18n="runes.talismans.autoBuyOff"></button>
+                    <button class="research190" id="tesseractautobuymode" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
+                    <input class="tesseractautobuyamount research190" type="number" id="tesseractAmount" min="1" max="999999999" defaultValue="1">
+                    <p class="tesseractautobuyamount research190 mainText" id="autotessbuyeramount"></p>
                 </div>
                 <p id="ascendHotKeys" class="grayText" i18n="footnotes.particle"></p>
             </div>
         </div>
 
-        <div id="upgrades" style="display: none;">
+        <div id="upgrades" class="tab">
             <div id="upgradeReferenceHeader" class="subTabWrapper mobileIconSubTabWrapper showOnMobile"></div>
 
             <div id="upgradeTopBtns">
@@ -539,7 +539,7 @@
 
         </div> 
 
-        <div id="statistics" style="display: none;">
+        <div id="statistics" class="tab">
             <div id="achievementsToggle" class="subTabWrapper">
                 <button id="toggleAchievementSubTab1" class="active-subtab" style="border: 2px solid gold"><span class="subTabButtonText fitText" i18n="tabs.achievements.achievements"></span></button>
                 <button id="toggleAchievementSubTab2" style="border: 2px solid silver"><span class="subTabButtonText fitText" i18n="tabs.achievements.rewards"></span></button>
@@ -597,9 +597,9 @@
             </div>
         </div>
 
-        <div id="runes" style="display: none;">
+        <div id="runes" class="tab">
             <div id="runesToggle" class="subTabWrapper">
-                <button id="toggleautosacrifice" style="border: 2px solid orangered">
+                <button class="offeringAuto" id="toggleautosacrifice" style="border: 2px solid orangered">
                     <span id="toggleAutoSacrificeText" class="subTabButtonText fitText"></span>
                 </button>
                 <button id="toggleRuneSubTab1" class="active-subtab" style="border: 2px solid gold"><span class="subTabButtonText fitText" i18n="tabs.runes.runes"></span></button>
@@ -669,8 +669,8 @@
             </div>
         </div>
 
-        <div id="challenges" style="display: none;">
-            <div id="challengesTabsToggle" class="subTabWrapper">
+        <div id="challenges" class="tab">
+            <div id="challengesTabsToggle" class="subTabWrapper singChallengesTabs">
                 <button id="toggleChallengesSubTab1" class="active-subtab" style="border: 2px solid green; color: white;"><span class="subTabButtonText fitText" i18n="tabs.challenges.normal"></span></button>
                 <button id="toggleChallengesSubTab2" class="singChallenges" style="border: 2px solid purple; color: gold"><span class="subTabButtonText fitText" i18n="tabs.challenges.exalt"></span></button>
             </div>
@@ -831,11 +831,11 @@
             </div>
         </div>
 
-        <div id="research" style="display: none;">
+        <div id="research" class="tab">
             <div id="researchToggles">
                 <button id="toggleresearchbuy" style="color: white;border: 2px solid pink">Upgrade: 1 Level</button>
-                <button id="toggleautoresearch" style="color: white; border: 2px solid blue">Automatic: OFF</button>
-                <button id="toggleautoresearchmode" style="color: white; border: 2px solid red">Automatic mode: Manual</button>
+                <button class="autoResearch" id="toggleautoresearch" style="color: white; border: 2px solid blue">Automatic: OFF</button>
+                <button class="autoResearchMode" id="toggleautoresearchmode" style="color: white; border: 2px solid red">Automatic mode: Manual</button>
                 <button class="auto" id="toggle38" toggleid="38" format="Hover-to-Buy [$]" style="border:2px solid green">Hover-To-Buy: Off</button>
                 <button class="toggleMaxedUpgrades" id="toggleMaxedResearches" aria-pressed="false" i18n="researches.maxedResearchesShow"></button>
             </div>
@@ -1074,7 +1074,7 @@
             </div>
         </div>
 
-        <div id="ants" style="display: none;">
+        <div id="ants" class="tab">
             <div id="antsWrapper">
                 <div id="antSubtabs" class="subTabWrapper">
                     <button id="toggleAntSubtab1" class="active-subtab" style="border: 2px solid burlywood"><span class="subTabButtonText fitText" i18n="tabs.ants.anthill"></span></button>
@@ -1171,7 +1171,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="antSubtab2">
+                <div id="antSubtab2" class="none">
                     <div id="antAltarWelcomeTexts" class="introTextContainer">
                         <span class="antAltarHeaderDecoration antAltarHeaderDecorationLeft" aria-hidden="true">
                             <img src="Pictures/Achievements/Rewards/Ants.png" alt="">
@@ -1184,13 +1184,13 @@
                             <span class="antAltarHeaderCircuit"></span>
                         </span>
                     </div>
-                    <div id="sacrificeAntsLocked">
+                    <div id="sacrificeAntsLocked" class="sacrificeAntsLocked">
                         <div id="sacrificeUnlockTexts">
                             <p id="sacrificeLockedText" style="color: crimson"></p>
                             <p id="sacrificeUnlockCondition" i18n="ants.altar.locked.altarRequirements"></p>
                         </div>
                     </div>
-                    <div id="sacrificeAnts" class="none">
+                    <div id="sacrificeAnts" class="sacrificeAntsUnlocked">
                         <div id="eloCorner" class="sacrificeAntsContainer">
                             <p class="antSacrificePanelTitle" i18n="ants.altar.titles.elo"></p>
                             <button id="immortalELOInfoToggleButton" class="antLeaderboardToggleBtn" data-mode="overview">
@@ -1237,11 +1237,11 @@
                             <p id="antSacrificeNumber" class="bodycolor"></p>
                             <p id="antSacrificeRequired" class="bodycolor"></p>
                             <br>
-                            <div id="autoSacrificeLocked">
+                            <div class="autoSacrificeLocked" id="autoSacrificeLocked">
                                 <p i18n="ants.altar.autoSacrificeLocked.info"></p>
                                 <p id="anthillsRemainingForAutoSac"></p>
                             </div>
-                            <div id="autoSacrifice">
+                            <div class="autoSacrifice" id="autoSacrifice">
                                 <div class="antSacrificeSettingsContainer">
                                     <button id="toggleAutoSacrificeAnt" class="antToggleBtn"></button>
                                     <button id="autoSacrificeAntMode"></button>
@@ -1249,8 +1249,8 @@
                                 </div>
                                 <span id="autoAntSacrifice"></span>
                                 <div id="otherAutoSac">
-                                    <div id="additionalAutoSacOptionsLocked" style="font-size: 1.15em; color: greenyellow" i18n="ants.altar.additionalAutoSacOptions.info"></div>
-                                    <div id="additionalAutoSacOptions">
+                                    <div class="additionalAutoSacOptionsLocked" id="additionalAutoSacOptionsLocked" style="font-size: 1.15em; color: greenyellow" i18n="ants.altar.additionalAutoSacOptions.info"></div>
+                                    <div class="additionalAutoSacOptions" id="additionalAutoSacOptions">
                                         <label class="antSacToggle">
                                             <input type="checkbox" id="alwaysMaxRebornELOToggle" class="antSacToggleInput">
                                             <p i18n="ants.altar.additionalAutoSacOptions.alwaysMaxReborn"></p>
@@ -1365,7 +1365,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="antSubtab3">
+                <div id="antSubtab3" class="none">
                     <div id="antCompendiumWelcomeTexts" class="introTextContainer">
                         <p id="antCompendiumWelcome" style="color: lightslategrey" class="introText" i18n="ants.compendiumHeader"></p>
                         <p id="antCompendiumDescription" style="color: cyan" i18n="ants.compendiumDetails"></p>
@@ -1403,7 +1403,7 @@
             </div>
         </div>
 
-        <div id="cubes" style="display: none;">
+        <div id="cubes" class="tab">
             <div id="wowCubeSidebarButtons" class="subTabWrapper">
                 <button id="switchCubeSubTab1" class="cubeSwitchTabBtn active-subtab" style="border: 2px solid var(--wowcube-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.cubeTributes"></span></button>
                 <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid var(--tesseract-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.tesseract"></span></button>
@@ -1458,8 +1458,8 @@
                                 <button class="cubeBtn" id="openCustomCube" i18n="wowCubes.openCustom"></button>
                                 <button class="cubeBtn" id="openMostCube" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens" id="openCubes" style="border: 1px solid red" title="On Ascension will open % of Cubes&#013Cx1 is required"></button>
-                                    <input class="autoOpensInput" type="number" id="cubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openCubes" style="border: 1px solid red" title="On Ascension will open % of Cubes&#013Cx1 is required"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="cubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1550,8 +1550,8 @@
                                 <button id="openCustomTesseract" class="cubeBtn" i18n="wowCubes.openCustom"></button>
                                 <button id="openMostTesseract" class="cubeBtn" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens" id="openTesseracts" style="border: 1px solid red" title="On Ascension will open % of Tesseracts&#013Cant work with amount Mode (Auto Tesseract Buildings)"></button>
-                                    <input class="autoOpensInput" type="number" id="tesseractsOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openTesseracts" style="border: 1px solid red" title="On Ascension will open % of Tesseracts&#013Cant work with amount Mode (Auto Tesseract Buildings)"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="tesseractsOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1639,8 +1639,8 @@
                                 <button id="openCustomHypercube" class="cubeBtn" i18n="wowCubes.openCustom"></button>
                                 <button id="openMostHypercube" class="cubeBtn" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens" id="openHypercubes" style="border: 1px solid red" title="On Ascension will open % of Hypercubes"></button>
-                                    <input class="autoOpensInput" type="number" id="hypercubesOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openHypercubes" style="border: 1px solid red" title="On Ascension will open % of Hypercubes"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="hypercubesOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1728,8 +1728,8 @@
                                 <button id="openCustomPlatonicCube" class="cubeBtn" i18n="wowCubes.openCustom"></button>
                                 <button id="openMostPlatonicCube" class="cubeBtn" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens" id="openPlatonicCube" style="border: 1px solid red" title="On Ascension will open % of Platonic Cubes"></button>
-                                    <input class="autoOpensInput" type="number" id="platonicCubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openPlatonicCube" style="border: 1px solid red" title="On Ascension will open % of Platonic Cubes"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="platonicCubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1903,7 +1903,7 @@
                         </div>
                         <div class="cubeUpgradeToggles">
                             <button id="toggleCubeBuy" style="text-align: center;color: white;border: 2px solid pink">Upgrade: 1 Level wow</button>
-                            <button id="toggleAutoCubeUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
+                            <button class="autoCubeUpgrades" id="toggleAutoCubeUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
                         </div>
                     </div>
                 </div>
@@ -1946,8 +1946,8 @@
                                 </tr>
                             </table>
                             <div class="platonicUpgrades2 platonicUpgradesToggles">
-                                <button id="maxPlatToggle" style="border: 2px solid gold" title="If ON, then attempt to buy as much of an upgrade as possible">Buy Max [ON]</button>
-                                <button id="toggleAutoPlatonicUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
+                                <button class="saveOfferings" id="maxPlatToggle" style="border: 2px solid gold" title="If ON, then attempt to buy as much of an upgrade as possible">Buy Max [ON]</button>
+                                <button class="autoPlatonicUpgrades" id="toggleAutoPlatonicUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
                             </div>
                         </div>
                         <div id="platonicUpgradeDescriptions" class="platonicContainer boxColor">
@@ -1974,7 +1974,7 @@
                         <img class="openImage" src="Pictures/Default/Hepteract.png" loading="lazy">
                         <div class="NotificationToggle">
                             <span id="hepteractQuantity" class="wowhepteractText"></span>
-                            <img class="heptNotification" id="heptnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
+                            <img class="heptNotification hepteractConfirmation" id="heptnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
                             <button class="auto nonSquare" id="toggle35" toggleid="35" format="[$]" style="border: 2px solid green">[ON]</button>
                         </div>
                     </div>
@@ -2089,7 +2089,7 @@
                         <div class="hepteractType" id="overfluxPowder">
                             <img id="overfluxPowderImage" alt="Overflux Powder" class="heptTypeImage" src="Pictures/img_transparent.png">
                             <button id="powderDayWarp"  i18n="wowCubes.hepteractForge.warp"></button>
-                            <button id="warpAuto" style="border: 2px solid red;"></button>
+                            <button class="autoWarp" id="warpAuto" style="border: 2px solid red;"></button>
                             <div class="heptGridInventory" style="align-self: end;">
                                 <span class="heptGridInventoryLabel orchidText" i18n="wowCubes.hepteractForge.powder"></span>
                                 <span class="heptGridInventoryValue orchidText" id="heptGridPowderBalance">0</span>
@@ -2118,7 +2118,7 @@
             </div>
         </div>
 
-        <div id="traits" style="display: none;">
+        <div id="traits" class="tab">
             <div id="corruptionStatsLoadouts" class="flex column">
                 <span id="corrButtonRow" class="flex row center">
                     <button id="corrCampaignsBtn" i18n="corruptions.corrCampaignsBtn"></button>
@@ -2293,7 +2293,7 @@
             </div>
         </div>
 
-        <div id="settings" style="display: none;">
+        <div id="settings" class="tab">
             <div class="subtabSwitcher subTabWrapper">
                 <button id="switchSettingSubTab1" class="active-subtab" style="border: 2px solid white"><span class="subTabButtonText fitText" i18n="tabs.main.settings"></span></button>
                 <button id="switchSettingSubTab2" style="border: 2px solid cyan"><span class="subTabButtonText fitText" i18n="tabs.settings.languages"></span></button>
@@ -2304,7 +2304,7 @@
                 <button id="switchSettingSubTab7" class="singularity" style="border: 2px solid darkorange"><span class="subTabButtonText fitText" i18n="tabs.settings.singularityHistory"></span></button>
                 <button id="switchSettingSubTab8" style="border: 2px solid white"><span class="subTabButtonText fitText" i18n="tabs.settings.hotkeys"></span></button>
                 <button id="switchSettingSubTab9"><span class="subTabButtonText fitText" i18n="tabs.settings.account"></span></button>
-                <button id="switchSettingSubTab10" style="border: 2px solid red"><span class="subTabButtonText fitText" i18n="tabs.settings.messages"></span></button>
+                <button class="unreadMessages" id="switchSettingSubTab10" style="border: 2px solid red"><span class="subTabButtonText fitText" i18n="tabs.settings.messages"></span></button>
             </div>
             <div class="subtabContent subtabDisplayFlex subtabActive" id="settingsubtab">
                 <div class="settingSubTabUpper">
@@ -2332,7 +2332,7 @@
                                 <button class="auto square" id="toggle32" toggleid="32" format="$" style="border:2px solid green">ON</button>
                             </div>
                             <div class="confirmationToggle">
-                                <img class="singularity settingpic" id="settingpic6" src="Pictures/Default/SingularityNoBorder.png" i18n="tabs.settings.confirmation.singularity" loading="lazy">
+                                <img class="singularity settingpic singularityConfirmation" id="settingpic6" src="Pictures/Default/SingularityNoBorder.png" i18n="tabs.settings.confirmation.singularity" loading="lazy">
                                 <button class="auto square" id="toggle33" toggleid="33" format="$" style="border:2px solid green">ON</button>
                             </div>
                         </div>
@@ -2820,7 +2820,7 @@
             </div>
         </div>
 
-        <div id="shop" style="display: none;">
+        <div id="shop" class="tab">
             <div id="shopWrapper">
                 <div id="actualWrapper" class="scrollbarX">
                     <div id="actualConsumables">
@@ -2877,7 +2877,7 @@
             </div>
         </div>
 
-        <div id="singularity">
+        <div id="singularity" class="tab">
             <div id="singularityTabsToggle" class="subTabWrapper">
                 <button id="toggleSingularitySubTab1" class="active-subtab" style="border: 2px solid silver; color: white;"><span class="subTabButtonText fitText" i18n="tabs.singularity.info"></span></button>
                 <button id="toggleSingularitySubTab2" style="border: 2px solid gold; color: white;"><span class="subTabButtonText fitText" i18n="tabs.singularity.goldenQuarks"></span></button>
@@ -3653,7 +3653,7 @@
             </div>
         </div>
 
-        <div id="event">
+        <div id="event" class="tab">
             <div id="globalFreeEvents" class="event-container">
                 <h3 id="globalEventName" class="event-title" i18n="pseudoCoins.consumables.globalEvent"></h3>
                 <div id="eventBuffContainer" class="temporaryBuffContainer">
@@ -3785,7 +3785,7 @@
             </div>
         </div>
 
-        <div id="pseudoCoins">
+        <div id="pseudoCoins" class="tab">
         <div class="subtabSwitcher subTabWrapper">
             <button
             id="cartSubTab1"
