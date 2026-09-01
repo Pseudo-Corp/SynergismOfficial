@@ -308,11 +308,11 @@ export class CorruptionLoadout {
     if (player.currentChallenge.ascension !== 15 && player.campaigns.currentCampaign === undefined || nextLoadout) {
       for (const corr in this.#levels) {
         const corrKey = corr as keyof Corruptions
-        this.setLevel(corrKey, 0)
-        corruptionDisplay(corrKey)
+        this.#levels[corrKey] = 0
       }
       this.#totalScoreMult = this.#calcTotalScoreMult()
       corruptionLoadoutTableUpdate(true, 0)
+      corruptionStatsUpdate()
       corruptionDisplay('illiteracy')
       DOMCacheGetOrSet('corruptionCleanseConfirm').style.visibility = 'hidden'
     } else {
@@ -489,8 +489,6 @@ const corruptionDisplayDetails = (corr: keyof Corruptions | 'exit') => {
       }),
       image: `Pictures/${IconSets[player.iconSet][0]}${corrIcons[corr]}`
     }
-    DOMCacheGetOrSet(`corrCurrent${corr}`).textContent = format(player.corruptions.used.getLevel(corr))
-    DOMCacheGetOrSet(`corrNext${corr}`).textContent = format(player.corruptions.next.getLevel(corr))
   }
 
   return text
@@ -549,9 +547,12 @@ export const openCorruptionDetailsModal = (
   )
 }
 
-export const corruptionStatsUpdate = () => {
-  for (const corr in player.corruptions.used.loadout) {
-    const corrKey = corr as keyof Corruptions
+export const corruptionStatsUpdate = (corruption?: keyof Corruptions) => {
+  const corruptions = corruption === undefined
+    ? Object.keys(player.corruptions.used.loadout) as Array<keyof Corruptions>
+    : [corruption]
+
+  for (const corrKey of corruptions) {
     // https://discord.com/channels/677271830838640680/706329553639047241/841749032841379901
     const a = DOMCacheGetOrSet(`corrCurrent${corrKey}`)
     const b = DOMCacheGetOrSet(`corrNext${corrKey}`)

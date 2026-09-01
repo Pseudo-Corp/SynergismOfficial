@@ -1,5 +1,4 @@
 import i18next from 'i18next'
-import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { hasUnreadMessages } from './Messages'
@@ -16,7 +15,23 @@ import {
   toggleRuneScreen,
   toggleSingularityScreen
 } from './Toggles'
-import { CloseModal, createFitties, hideStuff, revealStuff, showCorruptionStatsLoadouts } from './UpdateHTML'
+import { CloseModal, createFitties, revealStuff, showCorruptionStatsLoadouts } from './UpdateHTML'
+import {
+  visualUpdateAchievements,
+  visualUpdateAnts,
+  visualUpdateBuildings,
+  visualUpdateChallenges,
+  visualUpdateCorruptions,
+  visualUpdateCubes,
+  visualUpdateEvent,
+  visualUpdatePurchase,
+  visualUpdateResearch,
+  visualUpdateRunes,
+  visualUpdateSettings,
+  visualUpdateShop,
+  visualUpdateSingularity,
+  visualUpdateUpgrades
+} from './UpdateVisuals'
 import { assert, isMobile, limitRange, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -43,8 +58,12 @@ export enum Tabs {
  */
 type SubTabSwitchOptions = { step: number; page?: undefined } | { page: number; step?: undefined }
 
-interface SubTab {
+interface TabInfo {
+  panelID: string
+  /* Runs once when the tab is initially switched to */
   tabSwitcher?: (id: string) => void
+  /* Runs once per tick */
+  visualUpdater: () => void
   subtabIndex: number
   subTabList: {
     subTabID: string
@@ -75,9 +94,11 @@ const restoreTabScrollPosition = (tab: Tabs, subtab: number) => {
   }
 }
 
-const subtabInfo: Record<Tabs, SubTab> = {
+const tabInfo: Record<Tabs, TabInfo> = {
   [Tabs.Settings]: {
+    panelID: 'settings',
     tabSwitcher: setActiveSettingScreen,
+    visualUpdater: () => visualUpdateSettings(),
     subtabIndex: 0,
     subTabList: [
       { subTabID: 'settingsubtab', unlocked: () => true, buttonID: 'switchSettingSubTab1' },
@@ -109,11 +130,15 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Shop]: {
+    panelID: 'shop',
+    visualUpdater: () => visualUpdateShop(),
     subTabList: [],
     subtabIndex: 0
   },
   [Tabs.Buildings]: {
+    panelID: 'buildings',
     tabSwitcher: toggleBuildingScreen,
+    visualUpdater: () => visualUpdateBuildings(),
     subtabIndex: 0,
     subTabList: [
       { subTabID: 'coin', unlocked: () => true, buttonID: 'switchToCoinBuilding' },
@@ -140,11 +165,15 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Upgrades]: {
+    panelID: 'upgrades',
+    visualUpdater: () => visualUpdateUpgrades(),
     subTabList: [],
     subtabIndex: 0
   },
   [Tabs.Achievements]: {
+    panelID: 'statistics',
     tabSwitcher: toggleAchievementScreen,
+    visualUpdater: () => visualUpdateAchievements(),
     subtabIndex: 0,
     subTabList: [
       {
@@ -160,7 +189,9 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Runes]: {
+    panelID: 'runes',
     tabSwitcher: toggleRuneScreen,
+    visualUpdater: () => visualUpdateRunes(),
     subtabIndex: 0,
     subTabList: [
       {
@@ -181,7 +212,9 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Challenges]: {
+    panelID: 'challenges',
     tabSwitcher: toggleChallengesScreen,
+    visualUpdater: () => visualUpdateChallenges(),
     subtabIndex: 0,
     subTabList: [
       { subTabID: '1', unlocked: () => true, buttonID: 'toggleChallengesSubTab1' },
@@ -193,11 +226,15 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Research]: {
+    panelID: 'research',
+    visualUpdater: () => visualUpdateResearch(),
     subTabList: [],
     subtabIndex: 0
   },
   [Tabs.AntHill]: {
+    panelID: 'ants',
     tabSwitcher: toggleAntsSubtab,
+    visualUpdater: () => visualUpdateAnts(),
     subtabIndex: 0,
     subTabList: [
       {
@@ -218,7 +255,9 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.WowCubes]: {
+    panelID: 'cubes',
     tabSwitcher: toggleCubeSubTab,
+    visualUpdater: () => visualUpdateCubes(),
     subtabIndex: 0,
     subTabList: [
       {
@@ -259,8 +298,10 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Corruption]: {
+    panelID: 'traits',
     // Circular import... yay
     tabSwitcher: (subTabID) => showCorruptionStatsLoadouts(subTabID),
+    visualUpdater: () => visualUpdateCorruptions(),
     subtabIndex: 0,
     subTabList: [
       {
@@ -281,7 +322,9 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Singularity]: {
+    panelID: 'singularity',
     tabSwitcher: toggleSingularityScreen,
+    visualUpdater: () => visualUpdateSingularity(),
     subtabIndex: 0,
     subTabList: [
       {
@@ -312,11 +355,15 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Event]: {
+    panelID: 'event',
+    visualUpdater: () => visualUpdateEvent(),
     subTabList: [],
     subtabIndex: 0
   },
   [Tabs.Purchase]: {
+    panelID: 'pseudoCoins',
     tabSwitcher: initializeCart,
+    visualUpdater: () => visualUpdatePurchase(),
     subtabIndex: 0,
     subTabList: [
       {
@@ -407,7 +454,6 @@ class TabRow extends HTMLDivElement {
     const index = this.#list.indexOf(this.#currentTab)
 
     this.#currentTab = this.#list[index + 1] ?? this.#list[0]
-    changeSubTab(this.#currentTab.getType(), { page: subtabInfo[this.#currentTab.getType()].subtabIndex })
     return this.#currentTab
   }
 
@@ -415,7 +461,6 @@ class TabRow extends HTMLDivElement {
     const index = this.#list.indexOf(this.#currentTab)
 
     this.#currentTab = this.#list[index - 1] ?? this.#list[this.#list.length - 1]
-    changeSubTab(this.#currentTab.getType(), { page: subtabInfo[this.#currentTab.getType()].subtabIndex })
     return this.#currentTab
   }
 
@@ -844,6 +889,7 @@ class $Tab extends HTMLButtonElement {
 
   setActive (active: boolean) {
     this.classList.toggle('active-tab', active)
+    DOMCacheGetOrSet(tabInfo[this.#type].panelID).classList.toggle('active-tab', active)
     this.style.backgroundColor = active ? this.#activeColor : ''
 
     if (this.#activeTextColor !== undefined) {
@@ -859,7 +905,7 @@ class $Tab extends HTMLButtonElement {
   }
 
   getSubTabs () {
-    return subtabInfo[this.#type]
+    return tabInfo[this.#type]
   }
 
   makeDraggable () {
@@ -1127,8 +1173,50 @@ export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
   }
 }
 
+const switchSubTab = (tab: $Tab, { page, step }: SubTabSwitchOptions) => {
+  const subTabs = tab.getSubTabs()
+
+  if (!tab.isUnlocked() || subTabs.subTabList.length === 0) {
+    return false
+  }
+
+  if (page !== undefined) {
+    tabInfo[tab.getType()].subtabIndex = limitRange(page, 0, subTabs.subTabList.length - 1)
+  } else {
+    tabInfo[tab.getType()].subtabIndex = limitRange(
+      tabInfo[tab.getType()].subtabIndex + step,
+      0,
+      subTabs.subTabList.length - 1
+    )
+  }
+
+  let subTab = subTabs.subTabList[tabInfo[tab.getType()].subtabIndex]
+
+  while (!subTab.unlocked()) {
+    tabInfo[tab.getType()].subtabIndex = limitRange(
+      tabInfo[tab.getType()].subtabIndex + (step ?? 1),
+      0,
+      subTabs.subTabList.length - 1
+    )
+    subTab = subTabs.subTabList[tabInfo[tab.getType()].subtabIndex]
+  }
+
+  for (const candidate of subTabs.subTabList) {
+    const element = DOMCacheGetOrSet(candidate.buttonID)
+
+    if (candidate === subTab) {
+      element.classList.add('active-subtab')
+    } else {
+      element.classList.remove('active-subtab')
+    }
+  }
+
+  subTabs.tabSwitcher?.(subTab.subTabID)
+  return true
+}
+
 export const changeTab = (tabs: Tabs, step?: number) => {
-  saveTabScrollPosition(G.currentTab, subtabInfo[G.currentTab].subtabIndex)
+  saveTabScrollPosition(G.currentTab, tabInfo[G.currentTab].subtabIndex)
 
   if (step === 1) {
     tabRow.setNextTab()
@@ -1153,18 +1241,15 @@ export const changeTab = (tabs: Tabs, step?: number) => {
     tab.setActive(tab === tabRow.getCurrentTab())
   }
 
-  if (G.currentTab === Tabs.Achievements) {
-    awardUngroupedAchievement('participationTrophy')
-  }
+  switchSubTab(tabRow.getCurrentTab(), { page: tabInfo[G.currentTab].subtabIndex })
 
   revealStuff()
-  hideStuff()
   CloseModal()
   ;(document.activeElement as HTMLElement | null)?.blur()
 
   updateSubTabVisibility()
   createFitties()
-  restoreTabScrollPosition(G.currentTab, subtabInfo[G.currentTab].subtabIndex)
+  restoreTabScrollPosition(G.currentTab, tabInfo[G.currentTab].subtabIndex)
 
   if (PLATFORM === 'steam') {
     import('./steam/discord').then(({ setRichPresenceDiscord }) => {
@@ -1179,7 +1264,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
 }
 
 export const updateSubTabVisibility = () => {
-  const subTabList = subtabInfo[G.currentTab].subTabList
+  const subTabList = tabInfo[G.currentTab].subTabList
   for (let i = 0; i < subTabList.length; i++) {
     const id = subTabList[i].buttonID
     if (DOMCacheHas(id)) {
@@ -1192,7 +1277,7 @@ export const updateSubTabVisibility = () => {
       }
 
       if (button.classList.contains('active-subtab')) {
-        subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex = i
+        tabInfo[tabRow.getCurrentTab().getType()].subtabIndex = i
       }
     }
   }
@@ -1204,7 +1289,7 @@ export const updateSubTabVisibility = () => {
 export const resetAllSubTabs = (page = 0) => {
   for (const tab of Object.values(Tabs)) {
     if (typeof tab === 'number') {
-      const subTabs = subtabInfo[tab]
+      const subTabs = tabInfo[tab]
 
       if (subTabs.subTabList.length === 0) {
         subTabs.subtabIndex = 0
@@ -1216,7 +1301,7 @@ export const resetAllSubTabs = (page = 0) => {
   }
 }
 
-export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) => {
+export const changeSubTab = (tabs: Tabs, options: SubTabSwitchOptions) => {
   let tab = tabRow.getCurrentTab()
 
   if (tab.getType() !== tabs) {
@@ -1235,42 +1320,8 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
     saveTabScrollPosition(tab.getType(), subTabs.subtabIndex)
   }
 
-  if (page !== undefined) {
-    subtabInfo[tab.getType()].subtabIndex = limitRange(page, 0, subTabs.subTabList.length - 1)
-  } else {
-    subtabInfo[tab.getType()].subtabIndex = limitRange(
-      subtabInfo[tab.getType()].subtabIndex + step,
-      0,
-      subTabs.subTabList.length - 1
-    )
-  }
-
-  let subTabList = subTabs.subTabList[subtabInfo[tab.getType()].subtabIndex]
-
-  while (!subTabList.unlocked()) {
-    subtabInfo[tab.getType()].subtabIndex = limitRange(
-      subtabInfo[tab.getType()].subtabIndex + (step ?? 1),
-      0,
-      subTabs.subTabList.length - 1
-    )
-    subTabList = subTabs.subTabList[subtabInfo[tab.getType()].subtabIndex]
-  }
-
-  if (subTabList.unlocked()) {
-    for (const subtab of subTabs.subTabList) {
-      const element = DOMCacheGetOrSet(subtab.buttonID)
-
-      if (subtab === subTabList) {
-        element.classList.add('active-subtab')
-      } else {
-        element.classList.remove('active-subtab')
-      }
-    }
-
-    subTabs.tabSwitcher?.(subTabList.subTabID)
-    if (isActiveTab) {
-      restoreTabScrollPosition(tab.getType(), subTabs.subtabIndex)
-    }
+  if (switchSubTab(tab, options) && isActiveTab) {
+    restoreTabScrollPosition(tab.getType(), subTabs.subtabIndex)
   }
 
   CloseModal()
@@ -1282,7 +1333,7 @@ export const registerSubTabSwitches = memoize(() => {
       continue
     }
 
-    for (const [page, subtab] of subtabInfo[tab].subTabList.entries()) {
+    for (const [page, subtab] of tabInfo[tab].subTabList.entries()) {
       DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => changeSubTab(tab, { page }))
     }
   }
@@ -1299,5 +1350,9 @@ export function subTabsInMainTab (name: Tabs) {
 }
 
 export function getActiveSubTab () {
-  return subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex
+  return tabInfo[tabRow.getCurrentTab().getType()].subtabIndex
+}
+
+export function visualUpdate (name: Tabs) {
+  return tabInfo[name].visualUpdater()
 }

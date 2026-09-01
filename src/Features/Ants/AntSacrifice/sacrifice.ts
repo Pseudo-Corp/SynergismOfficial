@@ -3,7 +3,6 @@ import { awardAchievementGroup, awardUngroupedAchievement } from '../../../Achie
 import { resetHistoryAdd, type ResetHistoryEntryAntSacrifice } from '../../../History'
 import { AntSacrificeTiers } from '../../../Reset'
 import { player } from '../../../Synergism'
-import { updateTalismanInventory } from '../../../Talismans'
 import { Confirm } from '../../../UpdateHTML'
 import { Globals as G } from '../../../Variables'
 import { resetAnts } from '../player/reset'
@@ -70,7 +69,6 @@ export const sacrificeAnts = () => {
   awardAchievementGroup('sacMult')
   // Now we're safe to reset the ants.
   resetAnts(AntSacrificeTiers.sacrifice)
-  updateTalismanInventory()
   resetHistoryAdd('ants', historyEntry)
 
   if (player.mythicalFragments.gte(G.d1e25)) {

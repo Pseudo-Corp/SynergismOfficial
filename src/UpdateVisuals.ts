@@ -98,7 +98,7 @@ import {
   type SingularityDataKeys,
   updateGoldenQuarkUpgradeVisibility
 } from './singularity'
-import { loadStatisticsUpdate } from './Statistics'
+import { loadStatisticsUpdate, updateDisplayC15Rewards } from './Statistics'
 import {
   calculateBuildingPower,
   calculateBuildingPowerCoinMultiplier,
@@ -118,7 +118,8 @@ import {
   talismanKeys,
   talismans,
   updateAllTalismanHTML,
-  updateMobileTalismanInventoryPurchaseInfo
+  updateMobileTalismanInventoryPurchaseInfo,
+  updateTalismanInventory
 } from './Talismans'
 import {
   calculateAcceleratorTesseractBlessing,
@@ -759,6 +760,7 @@ export const visualUpdateRunes = () => {
   }
 
   if (getActiveSubTab() === 1) {
+    updateTalismanInventory()
     for (const t of talismanKeys) {
       if (isMobile) {
         for (const item of talismanCraftItems) {
@@ -1385,6 +1387,7 @@ export const visualUpdateCubes = () => {
       } Wow! Cubes =)`
       break
     case 5:
+      updateDisplayC15Rewards()
       break
     case 6:
       DOMCacheGetOrSet('hepteractQuantity').innerHTML = i18next.t(
@@ -1624,7 +1627,6 @@ export const visualUpdateCorruptions = () => {
 
 export const cycleCorruptionScoreTarget = () => {
   corruptionScoreTargetIndex = ((corruptionScoreTargetIndex ?? -1) + 1) % corruptionScoreTargets.length
-  visualUpdateCorruptions()
 }
 
 export const selectCorruptionScoreTarget = (index: number) => {
@@ -1633,7 +1635,6 @@ export const selectCorruptionScoreTarget = (index: number) => {
   }
 
   corruptionScoreTargetIndex = index
-  visualUpdateCorruptions()
 }
 
 export const visualUpdateSettings = () => {
@@ -1734,7 +1735,10 @@ export const visualUpdateSingularity = () => {
   if (G.currentTab !== Tabs.Singularity) {
     return
   }
-  if (getActiveSubTab() === 1) {
+
+  const activeSubTab = getActiveSubTab()
+
+  if (activeSubTab === 1) {
     DOMCacheGetOrSet('goldenQuarkamount').textContent = i18next.t(
       'singularity.goldenQuarkAmount',
       {
@@ -1769,7 +1773,7 @@ export const visualUpdateSingularity = () => {
         }
       }
     }
-  } else if (getActiveSubTab() === 3) {
+  } else if (activeSubTab === 3) {
     visualUpdateOcteracts()
 
     const keys = Object.keys(octeractUpgrades) as OcteractUpgrades[]
@@ -1781,7 +1785,7 @@ export const visualUpdateSingularity = () => {
       const isMaxed = updateOcteractUpgradeVisibility(key, el)
       const isAffordable = !isMaxed && getOcteractUpgradeCostTNL(key) <= player.wowOcteracts
 
-      el.dataset.octeractLevel = `${format(octItem.level)}`
+      el.dataset.octeractLevel = format(octItem.level)
       el.classList.toggle('octeractUpgradeAffordable', isAffordable)
       el.classList.toggle('octeractUpgradeMaxed', isMaxed)
       el.classList.toggle('octeractUpgradeFreeLevels', octItem.freeLevel > 0)
@@ -1798,7 +1802,7 @@ export const visualUpdateSingularity = () => {
         }
       }
     }
-  } else if (getActiveSubTab() === 4) {
+  } else if (activeSubTab === 4) {
     visualUpdateAmbrosia()
   }
 }

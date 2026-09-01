@@ -145,19 +145,23 @@ export const getMaxChallenges = (i: number) => {
   return maxChallenge
 }
 
-export const challengeDisplay = (i: number, changefocus = true) => {
-  let quarksMultiplier = 1
+export const setChallengeFocus = (i: number) => {
+  G.challengefocus = i
+  G.triggerChallenge = i
+}
 
-  if (changefocus) {
-    G.challengefocus = i
+export const challengeDisplay = (i: number) => {
+  let quarksMultiplier = 1
+  const isFocused = i === G.challengefocus
+
+  if (isFocused) {
     DOMCacheGetOrSet('oneChallengeDetails').style.display = 'flex'
     DOMCacheGetOrSet('startChallenge').style.display = 'block'
     DOMCacheGetOrSet('retryChallenge').style.display = 'block'
-    G.triggerChallenge = i
   }
 
   const maxChallenges = getMaxChallenges(i)
-  if (i <= 5 && changefocus) {
+  if (i <= 5 && isFocused) {
     if (player.challengecompletions[i] >= 100) {
       DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
         x: 100,
@@ -170,7 +174,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
 
   if (i > 5 && i <= 10) {
     quarksMultiplier = 10
-    if (player.challengecompletions[i] >= 25 && changefocus) {
+    if (player.challengecompletions[i] >= 25 && isFocused) {
       DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
         x: 25,
         y: format(CalcECC('reincarnation', player.challengecompletions[i]), 2, true)
@@ -204,7 +208,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
   const m = DOMCacheGetOrSet('challengeCurrent2')
   const n = DOMCacheGetOrSet('challengeCurrent3')
 
-  if (i === G.challengefocus) {
+  if (isFocused) {
     const completions = `${format(player.challengecompletions[i])}/${format(maxChallenges)}`
     const special = (i >= 6 && i <= 10) || i === 15
     const goal = format(challengeRequirement(i, player.challengecompletions[i], special ? i : 0))
@@ -342,7 +346,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
       scoreDisplay = challengeScoreArray1[i]
     }
   }
-  if (changefocus) {
+  if (isFocused) {
     j.textContent = ''
   }
   if (player.ascensionCount === 0) {
@@ -351,7 +355,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
   }
   if (
     player.challengecompletions[i] >= player.highestchallengecompletions[i]
-    && player.highestchallengecompletions[i] < maxChallenges && changefocus && player.ascensionCount < 1
+    && player.highestchallengecompletions[i] < maxChallenges && isFocused && player.ascensionCount < 1
   ) {
     j.textContent = i18next.t(descriptor ? 'challenges.firstTimeBonusQuarks' : 'challenges.firstTimeBonus', {
       x: Math.floor(
@@ -362,7 +366,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
   }
   if (
     player.challengecompletions[i] >= player.highestchallengecompletions[i]
-    && player.highestchallengecompletions[i] < maxChallenges && changefocus && player.ascensionCount >= 1
+    && player.highestchallengecompletions[i] < maxChallenges && isFocused && player.ascensionCount >= 1
     && i <= 10
   ) {
     j.textContent = i18next.t('challenges.ascensionBankAdd', {
@@ -377,7 +381,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     j.textContent = i18next.t('challenges.hypercubeOneTimeBonus')
   }
 
-  if (changefocus) {
+  if (isFocused) {
     const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore')
     el.style.display = i <= (autoAscensionChallengeSweepUnlock() ? 15 : 10) && player.researches[150] > 0
       ? 'block'

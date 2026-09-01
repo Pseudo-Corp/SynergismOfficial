@@ -964,16 +964,7 @@ export const buyTalismanLevel = (t: TalismanKeys, fromMultibuy = false): void =>
   }
 }
 
-interface BuyTalismanLevelToRarityIncreaseOptions {
-  auto?: boolean
-  refreshVisuals?: boolean
-}
-
-export const buyTalismanLevelToRarityIncrease = (
-  t: TalismanKeys,
-  { auto = false, refreshVisuals = true }: BuyTalismanLevelToRarityIncreaseOptions = {}
-): boolean => {
-  const previousLevel = talismans[t].level
+export const buyTalismanLevelToRarityIncrease = (t: TalismanKeys, auto = false): void => {
   const levelsUntilCap = talismans[t].isUnlocked()
     ? getTalismanLevelCap(t) - talismans[t].level
     : 0
@@ -990,14 +981,11 @@ export const buyTalismanLevelToRarityIncrease = (
     }
   }
 
-  if (refreshVisuals) {
-    if (!auto) {
-      updateTalismanCostHTML(t)
-    }
+  if (!auto) {
+    updateTalismanCostHTML(t)
     updateTalismanInventory()
   }
   setTalismanRarity(t)
-  return talismans[t].level !== previousLevel
 }
 
 export const buyTalismanLevelToMax = (t: TalismanKeys): void => {
@@ -1500,6 +1488,7 @@ export const generateWebLeftTalismanHTML = () => {
 
   const toggleautoBuyFragments = document.createElement('button')
   toggleautoBuyFragments.id = 'toggleautoBuyFragments'
+  toggleautoBuyFragments.className = 'autoBuyFragments'
   toggleautoBuyFragments.style.border = '2px solid white'
   toggleautoBuyFragments.addEventListener('click', () => toggleAutoBuyFragment())
 
@@ -1979,6 +1968,7 @@ export const generateMobileTopTalismansHTML = () => {
 
   const toggleautoBuyFragments = document.createElement('button')
   toggleautoBuyFragments.id = 'toggleautoBuyFragments'
+  toggleautoBuyFragments.className = 'autoBuyFragments'
   toggleautoBuyFragments.style.border = '2px solid white'
   toggleautoBuyFragments.addEventListener('click', () => toggleAutoBuyFragment())
   mobileTalismanShardHead.appendChild(toggleautoBuyFragments)

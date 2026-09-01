@@ -8,13 +8,13 @@ import {
   CalcECC,
   calculateChallenge15Score,
   challenge15ScoreMultiplier,
-  challengeDisplay,
   challengeRequirement,
   clearStateChangeTimer,
   getChallengeConditions,
   getMaxChallenges,
   getNextAscensionChallenge,
   highestChallengeRewards,
+  setChallengeFocus,
   tickChallengeSweep
 } from './Challenges'
 import { btoa, isMobile, memoize } from './Utility'
@@ -113,14 +113,14 @@ import {
   sumOfRuneLevels,
   updateAllRuneLevelsFromEXP
 } from './Runes'
-import { c15RewardUpdate, updateDisplayC15Rewards } from './Statistics'
+import { c15RewardUpdate } from './Statistics'
 import {
   buyTalismanLevelToRarityIncrease,
   generateTalismansHTML,
   noTalismanFragments,
   type TalismanCraftItems,
-  talismanKeys,
   type TalismanKeys,
+  talismanKeys,
   talismans,
   toggleTalismanBuy,
   updateTalismanInventory,
@@ -139,7 +139,6 @@ import {
   setAutoAscendResetModeText,
   setAutoResetModeTexts,
   settingMonospaceFont,
-  toggleAntsSubtab,
   toggleAscStatPerSecond,
   toggleauto,
   toggleChallenges,
@@ -157,8 +156,7 @@ import {
   htmlInserts,
   Notification,
   revealStuff,
-  updateChallengeDisplay,
-  updateChallengeLevel
+  updateChallengeDisplay
 } from './UpdateHTML'
 import {
   ascendBuildingDR,
@@ -216,7 +214,11 @@ import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
 import { initializeAnnouncements, initializeMessages } from './Messages'
-import { blankOcteractLevelObject, type OcteractUpgrades, octeractUpgrades, initializeOcteractUpgradeMap } from './Octeracts'
+import {
+  blankOcteractLevelObject,
+  type OcteractUpgrades,
+  octeractUpgrades
+} from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache } from './PseudoCoinUpgrades'
@@ -1561,13 +1563,13 @@ const loadSynergy = (saveString: string): boolean => {
 
     // Challenge summary should be displayed
     if (player.currentChallenge.transcension > 0) {
-      challengeDisplay(player.currentChallenge.transcension)
+      setChallengeFocus(player.currentChallenge.transcension)
     } else if (player.currentChallenge.reincarnation > 0) {
-      challengeDisplay(player.currentChallenge.reincarnation)
+      setChallengeFocus(player.currentChallenge.reincarnation)
     } else if (player.currentChallenge.ascension > 0) {
-      challengeDisplay(player.currentChallenge.ascension)
+      setChallengeFocus(player.currentChallenge.ascension)
     } else {
-      challengeDisplay(1)
+      setChallengeFocus(1)
     }
 
     corruptionStatsUpdate()
@@ -3550,8 +3552,6 @@ export const resetCheck = async (
         counter++
       }
       player.challengecompletions[q] = comp
-      challengeDisplay(q, false)
-      updateChallengeLevel(q)
     }
     if (
       player.challengecompletions[q] > player.highestchallengecompletions[q]
@@ -3571,7 +3571,6 @@ export const resetCheck = async (
         && player.challengecompletions[q] >= maxCompletions)
     ) {
       challengeExit('transcension')
-      updateChallengeDisplay()
     }
     if (leaving || !getShopUpgradeEffects('instantChallenge', 'unlocked')) {
       reset('transcensionChallenge', false, 'leaveChallenge')
@@ -3628,8 +3627,6 @@ export const resetCheck = async (
         counter++
       }
       player.challengecompletions[q] = comp
-      challengeDisplay(q, false)
-      updateChallengeLevel(q)
     }
     if (
       player.challengecompletions[q] > player.highestchallengecompletions[q]
@@ -3664,7 +3661,6 @@ export const resetCheck = async (
           player.challengecompletions[j] = player.highestchallengecompletions[j]
         }
       }
-      updateChallengeDisplay()
     }
     if (leaving || !getShopUpgradeEffects('instantChallenge', 'unlocked')) {
       reset('reincarnationChallenge', false, 'leaveChallenge')
@@ -3706,8 +3702,6 @@ export const resetCheck = async (
         && player.challengecompletions[a] < maxCompletions
       ) {
         player.challengecompletions[a] += 1
-        updateChallengeLevel(a)
-        challengeDisplay(a, false)
       }
       challengeAchievementCheck(a)
     }
@@ -3720,8 +3714,6 @@ export const resetCheck = async (
         && player.challengecompletions[a] < maxCompletions
       ) {
         player.challengecompletions[a] += 1
-        updateChallengeLevel(a)
-        challengeDisplay(a, false)
       }
       if (manual || leaving || getShopUpgradeEffects('challenge15Auto', 'unlocked')) {
         if (
@@ -3772,7 +3764,6 @@ export const resetCheck = async (
         )
       ) {
         challengeExit('ascension')
-        updateChallengeDisplay()
       }
     }
 
@@ -3908,9 +3899,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
   }
 }
 
-type UpdateAllMode = 'live' | 'offline'
-
-export const updateAll = (mode: UpdateAllMode = 'live'): void => {
+export const updateAll = (): void => {
   if (runes.antiquities.level > 0) {
     player.highestSingularityCount = Math.max(
       player.highestSingularityCount,
@@ -4091,16 +4080,8 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
   // Talismans
 
   if ((player.researches[130] > 0 || player.researches[135] > 0) && player.autoFortifyToggle) {
-    let inventoryChanged = false
     for (const key of talismanKeys) {
-      const changed = buyTalismanLevelToRarityIncrease(key, {
-        auto: true,
-        refreshVisuals: false
-      })
-      inventoryChanged ||= changed
-    }
-    if (mode === 'live' && inventoryChanged) {
-      updateTalismanInventory()
+      buyTalismanLevelToRarityIncrease(key, true)
     }
   }
 
@@ -4311,7 +4292,6 @@ export const updateAll = (mode: UpdateAllMode = 'live'): void => {
     if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
       player.challenge15Exponent = calculateChallenge15Score()
       c15RewardUpdate()
-      updateChallengeLevel(15)
     }
   }
 }
@@ -4722,7 +4702,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges) {
         toggleChallenges(num)
-        challengeDisplay(num)
+        setChallengeFocus(num)
       }
       break
     }
@@ -4736,7 +4716,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges && player.reincarnationCount > 0) {
         toggleChallenges(6)
-        challengeDisplay(6)
+        setChallengeFocus(6)
       }
       if (G.currentTab === Tabs.Runes) {
         if (getActiveSubTab() === 0) {
@@ -4750,7 +4730,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges && player.achievements[113] === 1) {
         toggleChallenges(7)
-        challengeDisplay(7)
+        setChallengeFocus(7)
       }
       if (G.currentTab === Tabs.Runes) {
         if (getActiveSubTab() === 0) {
@@ -4764,7 +4744,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges && player.achievements[120] === 1) {
         toggleChallenges(8)
-        challengeDisplay(8)
+        setChallengeFocus(8)
       }
       break
     case '9':
@@ -4773,7 +4753,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges && player.unlocks.anthill) {
         toggleChallenges(9)
-        challengeDisplay(9)
+        setChallengeFocus(9)
       }
       break
     case '0':
@@ -4782,7 +4762,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Challenges && player.unlocks.talismans) {
         toggleChallenges(10)
-        challengeDisplay(10)
+        setChallengeFocus(10)
       }
       break
   }
@@ -5023,7 +5003,6 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   updateAllGroupedAchievementProgress()
   updateAllProgressiveAchievementProgress()
   updateChallengeDisplay()
-  updateDisplayC15Rewards()
   clearTimeout(preloadDeleteGame)
 
   // All versions of Chrome and Firefox supported by the game have this API,
@@ -5156,7 +5135,6 @@ window.addEventListener('load', async () => {
   generateBlessingsHTML()
   generateSpiritsHTML()
   generateShopTabHTML()
-  initializeOcteractUpgradeMap()
   generateEventHandlers()
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
@@ -5165,7 +5143,6 @@ window.addEventListener('load', async () => {
   generateAchievementHTMLs()
   generateLevelRewardHTMLs()
   generateLevelMilestoneHTMLS()
-  toggleAntsSubtab('1')
 
   // Initialize messages on game load
   initializeMessages().catch(console.error)

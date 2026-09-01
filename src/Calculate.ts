@@ -760,7 +760,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
 
     if (resourceTicks % 5 === 1) {
       // 196, 191, ... , 6, 1 ticks remaining
-      updateAll('offline')
+      updateAll()
     }
 
     resourceTicks -= 1
