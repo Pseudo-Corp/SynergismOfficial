@@ -291,6 +291,8 @@ export const revealStuff = () => {
   document.documentElement.dataset.cubeUpgrade19 = player.cubeUpgrades[19] > 0 ? 'true' : 'false'
 
   document.documentElement.dataset.sacrificeAnts = getAchievementReward('antSacrificeUnlock') ? 'true' : 'false'
+  document.documentElement.dataset.autoAntSacrifice = getAchievementReward('autoAntSacrifice') ? 'true' : 'false'
+  document.documentElement.dataset.additionalAutoSacrificeOptions = player.researches[124] > 0 ? 'true' : 'false'
 
   document.documentElement.dataset.hepteracts = // Ability to use and gain hepteracts
     player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement ? 'true' : 'false'
@@ -311,15 +313,7 @@ export const revealStuff = () => {
     ? 'true'
     : 'false'
 
-  if (player.upgrades[89] === 1) {
-    DOMCacheGetOrSet('transcendautotoggle').style.display = 'block'
-    DOMCacheGetOrSet('transcendamount').style.display = 'block'
-    DOMCacheGetOrSet('autotranscend').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('transcendautotoggle').style.display = 'none'
-    DOMCacheGetOrSet('transcendamount').style.display = 'none'
-    DOMCacheGetOrSet('autotranscend').style.display = 'none'
-  }
+  document.documentElement.dataset.autoTranscend = player.upgrades[89] === 1 ? 'true' : 'false'
 
   for (const groupedAch of Object.keys(groupedAchievementData) as (Exclude<AchievementGroups, 'ungrouped'>)[]) {
     const capitalizedName = groupedAch.charAt(0).toUpperCase() + groupedAch.slice(1)
@@ -373,140 +367,61 @@ export const revealStuff = () => {
     }
   }
 
-  if (getLevelMilestone('autoPrestige') === 1) { // Transcend Mythos Achievement 1
-    DOMCacheGetOrSet('prestigeautotoggle').style.display = 'block'
-    DOMCacheGetOrSet('prestigeamount').style.display = 'block'
-    DOMCacheGetOrSet('autoprestige').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('prestigeautotoggle').style.display = 'none'
-    DOMCacheGetOrSet('prestigeamount').style.display = 'none'
-    DOMCacheGetOrSet('autoprestige').style.display = 'none'
-  }
+  document.documentElement.dataset.autoPrestige = getLevelMilestone('autoPrestige') === 1 ? 'true' : 'false'
 
-  if (player.unlocks.talismans) { // No Runes Challenge Achievement 1
-    DOMCacheGetOrSet('toggleRuneSubTab2').style.display = 'block'
-    DOMCacheGetOrSet('toggleRuneSubTab3').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('toggleRuneSubTab2').style.display = 'none'
-    DOMCacheGetOrSet('toggleRuneSubTab3').style.display = 'none'
-  }
+  document.documentElement.dataset.research39 = // 3x9 Research [Crystal Building Power]
+    player.researches[39] > 0 ? 'true' : 'false'
 
-  const unlockedAntSac = getAchievementReward('antSacrificeUnlock')
-  if (unlockedAntSac) {
-    DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'none'
-    const sacAnts = DOMCacheGetOrSet('sacrificeAnts')
-    sacAnts.classList.remove('none')
-  } else {
-    DOMCacheGetOrSet('sacrificeAntsLocked').style.display = 'flex'
-    const sacAnts = DOMCacheGetOrSet('sacrificeAnts')
-    sacAnts.classList.add('none')
-  }
+  document.documentElement.dataset.research40 = // 3x10 Research [Mythos Shard Building Power]
+    player.researches[40] > 0 ? 'true' : 'false'
 
-  const unlockedAutoAntSac = getAchievementReward('autoAntSacrifice')
-  if (unlockedAutoAntSac) {
-    DOMCacheGetOrSet('autoSacrifice').style.display = 'flex'
-    DOMCacheGetOrSet('autoSacrificeLocked').style.display = 'none'
-  } else {
-    DOMCacheGetOrSet('autoSacrifice').style.display = 'none'
-    DOMCacheGetOrSet('autoSacrificeLocked').style.display = 'block'
-  }
+  document.documentElement.dataset.research46 = // 5x6 Research [Auto R.]
+    player.researches[46] > 0 ? 'true' : 'false'
 
-  const unlockedAdditionalSacrificeOptions = player.researches[124] > 0
-  if (unlockedAdditionalSacrificeOptions) {
-    DOMCacheGetOrSet('additionalAutoSacOptionsLocked').style.display = 'none'
-    DOMCacheGetOrSet('additionalAutoSacOptions').style.display = 'flex'
-  } else {
-    DOMCacheGetOrSet('additionalAutoSacOptionsLocked').style.display = 'block'
-    DOMCacheGetOrSet('additionalAutoSacOptions').style.display = 'none'
-  }
+  document.documentElement.dataset.research130 = // 6x5 Research [Talisman Auto Fortify]
+    player.researches[130] > 0 ? 'true' : 'false'
 
-  DOMCacheGetOrSet('reincarnationCrystalInfo').style.display = // 3x9 Research [Crystal Building Power]
-    player.researches[39] > 0 ? 'block' : 'none'
+  document.documentElement.dataset.research190 = // 8x15 Research [Auto Tesseracts]
+    player.researches[190] > 0 ? 'true' : 'false'
 
-  DOMCacheGetOrSet('reincarnationMythosInfo').style.display = // 3x10 Research [Mythos Shard Building Power]
-    player.researches[40] > 0 ? 'block' : 'none'
+  document.documentElement.dataset.offeringAuto = // Auto Offering Shop Purchase
+    getShopUpgradeEffects('offeringAuto', 'autoRune') ? 'true' : 'false'
 
-  DOMCacheGetOrSet('reincarnateautomation').style.display = // 5x6 Research [Auto R.]
-    player.researches[46] > 0 ? 'block' : 'none'
-
-  DOMCacheGetOrSet('toggleautofortify').style.display = // 6x5 Research [Talisman Auto Fortify]
-    player.researches[130] > 0 ? 'block' : 'none'
-
-  for (let z = 1; z <= 5; z++) {
-    DOMCacheGetOrSet(`tesseractAutoToggle${z}`).style.display = // 8x15 Research [Auto Tesseracts]
-      player.researches[190] > 0 ? 'block' : 'none'
-  }
-  DOMCacheGetOrSet('tesseractautobuytoggle').style.display = // 8x15 Research [Auto Tesseracts]
-    player.researches[190] > 0 ? 'block' : 'none'
-  DOMCacheGetOrSet('tesseractautobuymode').style.display = // 8x15 Research [Auto Tesseracts]
-    player.researches[190] > 0 ? 'block' : 'none'
-  DOMCacheGetOrSet('tesseractAmount').style.display = // 8x15 Research [Auto Tesseracts]
-    player.researches[190] > 0 ? 'block' : 'none'
-  DOMCacheGetOrSet('autotessbuyeramount').style.display = // 8x15 Research [Auto Tesseracts]
-    player.researches[190] > 0 ? 'block' : 'none'
-
-  DOMCacheGetOrSet('toggleautosacrifice').style.display = // Auto Offering Shop Purchase
-    getShopUpgradeEffects('offeringAuto', 'autoRune') ? 'block' : 'none'
-
-  DOMCacheGetOrSet('toggleautoBuyFragments').style.display = // Auto Fragments Buy (After Cx1)
-    player.cubeUpgrades[51] > 0 && player.highestSingularityCount >= 40 ? 'block' : 'none'
+  document.documentElement.dataset.autoBuyFragments = // Auto Fragments Buy (After Cx1)
+    player.cubeUpgrades[51] > 0 && player.highestSingularityCount >= 40 ? 'true' : 'false'
 
   const autoResearch = getShopUpgradeEffects('obtainiumAuto', 'autoResearch')
 
-  DOMCacheGetOrSet('toggleautoresearch').style.display = // Auto Research Shop Purchase
-    autoResearch ? 'block' : 'none'
+  document.documentElement.dataset.autoResearch = // Auto Research Shop Purchase
+    autoResearch ? 'true' : 'false'
 
-  DOMCacheGetOrSet('toggleautoresearchmode').style.display = autoResearch && roombaResearchEnabled() // Auto Research Shop Purchase Mode
-    ? 'block'
-    : 'none'
+  document.documentElement.dataset.autoResearchMode = // Auto Research Shop Purchase Mode
+    autoResearch && roombaResearchEnabled() ? 'true' : 'false'
 
-  DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = player.cubeUpgrades[8] > 0 ? 'block' : 'none'
+  document.documentElement.dataset.cubeUpgrade8 = player.cubeUpgrades[8] > 0 ? 'true' : 'false'
 
-  DOMCacheGetOrSet('maxPlatToggle').style.display = // Save Offerings
-    player.highestSingularityCount > 0 ? 'block' : 'none'
+  document.documentElement.dataset.saveOfferings = // Save Offerings
+    player.highestSingularityCount > 0 ? 'true' : 'false'
 
   // Auto Open Cubes toggle
-  if (player.highestSingularityCount >= 35) {
-    DOMCacheGetOrSet('openCubes').style.display = 'block'
-    DOMCacheGetOrSet('cubeOpensInput').style.display = 'block'
-    DOMCacheGetOrSet('openTesseracts').style.display = 'block'
-    DOMCacheGetOrSet('tesseractsOpensInput').style.display = 'block'
-    DOMCacheGetOrSet('openHypercubes').style.display = 'block'
-    DOMCacheGetOrSet('hypercubesOpensInput').style.display = 'block'
-    DOMCacheGetOrSet('openPlatonicCube').style.display = 'block'
-    DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('openCubes').style.display = 'none'
-    DOMCacheGetOrSet('cubeOpensInput').style.display = 'none'
-    DOMCacheGetOrSet('openTesseracts').style.display = 'none'
-    DOMCacheGetOrSet('tesseractsOpensInput').style.display = 'none'
-    DOMCacheGetOrSet('openHypercubes').style.display = 'none'
-    DOMCacheGetOrSet('hypercubesOpensInput').style.display = 'none'
-    DOMCacheGetOrSet('openPlatonicCube').style.display = 'none'
-    DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'none'
-  }
+  document.documentElement.dataset.autoOpenCubes = player.highestSingularityCount >= 35 ? 'true' : 'false'
 
-  DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = // Auto Cube Upgrades
-    player.highestSingularityCount >= 50
-      ? 'block'
-      : 'none'
-  DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = // Auto Platonic Upgrades
-    player.highestSingularityCount >= 50
-      ? 'block'
-      : 'none'
+  document.documentElement.dataset.autoCubeUpgrades = // Auto Cube Upgrades
+    player.highestSingularityCount >= 50 ? 'true' : 'false'
+  document.documentElement.dataset.autoPlatonicUpgrades = // Auto Platonic Upgrades
+    player.highestSingularityCount >= 50 ? 'true' : 'false'
 
   // Singularity confirmation toggle pic
-  DOMCacheGetOrSet('settingpic6').style.display = player.highestSingularityCount > 0 && player.ascensionCount > 0
-    ? 'block'
-    : 'none'
+  document.documentElement.dataset.singularityConfirmation =
+    player.highestSingularityCount > 0 && player.ascensionCount > 0 ? 'true' : 'false'
 
   // Hepteract Confirmations toggle
-  DOMCacheGetOrSet('heptnotificationpic').style.display = player.highestSingularityCount > 0
+  document.documentElement.dataset.hepteractConfirmation = player.highestSingularityCount > 0
       && player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
-    ? 'block'
-    : 'none'
+    ? 'true'
+    : 'false'
 
-  DOMCacheGetOrSet('warpAuto').style.display = getShopUpgradeEffects('autoWarp', 'unlocked') ? '' : 'none'
+  document.documentElement.dataset.autoWarp = getShopUpgradeEffects('autoWarp', 'unlocked') ? 'true' : 'false'
 
   const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>
   for (const item of octeractUnlocks) { // Stuff that you need octeracts to access
@@ -520,10 +435,8 @@ export const revealStuff = () => {
     }
   }
 
-  const singChallengeUnlocks = document.getElementsByClassName('singChallenges') as HTMLCollectionOf<HTMLElement>
-  for (const item of singChallengeUnlocks) {
-    item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none'
-  }
+  // Hide Challenge Subtabs until Exalts are unlocked
+  document.documentElement.dataset.singChallenges = player.highestSingularityCount >= 25 ? 'true' : 'false'
 
   const exalt1x1Unlocks = document.getElementsByClassName('Exalt1x1') as HTMLCollectionOf<HTMLElement>
   for (const item of exalt1x1Unlocks) {
@@ -549,25 +462,17 @@ export const revealStuff = () => {
     }
   }
 
-  DOMCacheGetOrSet('toggleSingularitySubTab5').style.display = player.highestSingularityCount >= 25
-    ? 'block'
-    : 'none'
-  // Hide Challenge Subtabs until Exalts are unlocked
-  DOMCacheGetOrSet('challengesTabsToggle').style.display = player.highestSingularityCount >= 25
-    ? ''
-    : 'none'
+  document.documentElement.dataset.singularityButton =
+    runes.antiquities.level > 0 || player.highestSingularityCount > 0 ? 'true' : 'false'
 
-  DOMCacheGetOrSet('singularitybtn').style.display = runes.antiquities.level > 0 || player.highestSingularityCount > 0
-    ? 'block'
-    : 'none'
+  document.documentElement.dataset.insideSingularityChallenge = player.insideSingularityChallenge ? 'true' : 'false'
 
-  DOMCacheGetOrSet('ascSingChallengeTimeTakenStats').style.display = player.insideSingularityChallenge ? '' : 'none'
-
-  DOMCacheGetOrSet('ascensionStats').style.visibility =
-    (Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0) ? 'visible' : 'hidden'
-  DOMCacheGetOrSet('ascHyperStats').style.display = player.challengecompletions[13] > 0 ? '' : 'none'
-  DOMCacheGetOrSet('ascPlatonicStats').style.display = player.challengecompletions[14] > 0 ? '' : 'none'
-  DOMCacheGetOrSet('ascHepteractStats').style.display = G.challenge15Rewards.hepteractsUnlocked.value >= 1 ? '' : 'none'
+  document.documentElement.dataset.ascensionStats =
+    (Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0) ? 'true' : 'false'
+  document.documentElement.dataset.ascHyperStats = player.challengecompletions[13] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.ascPlatonicStats = player.challengecompletions[14] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.ascHepteractStats =
+    G.challenge15Rewards.hepteractsUnlocked.value >= 1 ? 'true' : 'false'
 
   // I'll clean this up later. Note to 2019 Platonic: Fuck you
   // note to 2019 and 2020 Platonic, you're welcome
@@ -639,7 +544,7 @@ export const revealStuff = () => {
   updateBuildingAutomationButtons()
 
   // Messages subtab visibility - only show when there are unread messages
-  DOMCacheGetOrSet('switchSettingSubTab10').style.display = hasUnreadMessages() ? 'block' : 'none'
+  document.documentElement.dataset.unreadMessages = hasUnreadMessages() ? 'true' : 'false'
 
   revealCorruptions()
 }

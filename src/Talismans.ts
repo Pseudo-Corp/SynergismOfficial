@@ -1488,6 +1488,7 @@ export const generateWebLeftTalismanHTML = () => {
 
   const toggleautoBuyFragments = document.createElement('button')
   toggleautoBuyFragments.id = 'toggleautoBuyFragments'
+  toggleautoBuyFragments.className = 'autoBuyFragments'
   toggleautoBuyFragments.style.border = '2px solid white'
   toggleautoBuyFragments.addEventListener('click', () => toggleAutoBuyFragment())
 
@@ -1967,6 +1968,7 @@ export const generateMobileTopTalismansHTML = () => {
 
   const toggleautoBuyFragments = document.createElement('button')
   toggleautoBuyFragments.id = 'toggleautoBuyFragments'
+  toggleautoBuyFragments.className = 'autoBuyFragments'
   toggleautoBuyFragments.style.border = '2px solid white'
   toggleautoBuyFragments.addEventListener('click', () => toggleAutoBuyFragment())
   mobileTalismanShardHead.appendChild(toggleautoBuyFragments)

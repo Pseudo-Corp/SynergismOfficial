@@ -81,6 +81,7 @@ interface CategoryData {
   i18n: string
   unlockHTMLClass: string
   autoToggle: upgradeAutos | ''
+  autoToggleExtraClass?: string
   color: string
   ariaLabelledBy: string
 }
@@ -123,6 +124,7 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
     i18n: 'particles',
     unlockHTMLClass: 'particleUpgradeResearch',
     autoToggle: 'reincarnate',
+    autoToggleExtraClass: 'cubeUpgrade8',
     color: 'limegreen',
     ariaLabelledBy: 'reincarnationtext'
   },
@@ -1023,6 +1025,9 @@ const createUpgradeSectionButtons = (category: UpgradeCategories) => {
     const toggleAutoBtn = document.createElement('button')
     toggleAutoBtn.id = `${data.autoToggle}AutoUpgrade`
     toggleAutoBtn.classList.add('autobuyerToggleButton')
+    if (data.autoToggleExtraClass !== undefined) {
+      toggleAutoBtn.classList.add(data.autoToggleExtraClass)
+    }
     toggleAutoBtn.ariaPressed = 'true'
     toggleAutoBtn.setAttribute('aria-label', `Toggle ${data.autoToggle} auto-upgrader`)
     toggleAutoBtn.style.border = '2px solid green'

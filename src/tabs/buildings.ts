@@ -17,6 +17,7 @@ interface Building {
   descExtraClass?: string
   descStyle?: string
   buyExtraClass?: string
+  toggleExtraClass?: string
   toggleIdAttr?: string
   statsExtraClass?: string
   statsStyle?: string
@@ -39,6 +40,7 @@ const renderBuildingDesktop = (b: Building): string => {
   const descClass = joinClasses(b.descExtraClass, 'desc')
   const descStyle = b.descStyle ? ` style="${b.descStyle}"` : ''
   const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn')
+  const toggleClass = joinClasses('auto', 'autobuyerToggleButton', b.toggleExtraClass)
   const toggleIdAttr = b.toggleIdAttr !== undefined ? ` toggleid="${b.toggleIdAttr}"` : ''
   const statsClass = joinClasses(b.statsExtraClass, 'stats')
   const statsTextClass = b.fitStats === false ? '' : ' class="fitText"'
@@ -48,7 +50,7 @@ const renderBuildingDesktop = (b: Building): string => {
     + `<img${imgClass} id="${b.imgId}" alt="${b.imgAlt}" src="${b.imgSrc}" loading="lazy">`
     + `<span class="${descClass}"${descStyle}><span class="fitText" id="${b.descId}"></span></span>`
     + `<button class="${buyClass}" id="${b.buyId}"><span class="fitText" id="${costIdOf(b.buyId)}"></span></button>`
-    + `<button class="auto autobuyerToggleButton" id="${b.toggleId}"${toggleIdAttr}></button>`
+    + `<button class="${toggleClass}" id="${b.toggleId}"${toggleIdAttr}></button>`
     + `<span class="${statsClass}"${statsStyle}><span${statsTextClass} id="${b.statsId}"></span></span>`
     + '</div>'
 }
@@ -62,6 +64,7 @@ const renderBuildingMobile = (b: Building): string => {
   const descClass = joinClasses(b.descExtraClass, 'desc')
   const descStyle = b.descStyle ? ` style="${b.descStyle}"` : ''
   const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn')
+  const toggleClass = joinClasses('auto', 'autobuyerToggleButton', b.toggleExtraClass)
   const toggleIdAttr = b.toggleIdAttr !== undefined ? ` toggleid="${b.toggleIdAttr}"` : ''
   const statsClass = joinClasses(b.statsExtraClass, 'stats')
   const statsTextClass = b.fitStats === false ? '' : ' class="fitText"'
@@ -77,7 +80,7 @@ const renderBuildingMobile = (b: Building): string => {
     + `<span class="${statsClass}"${statsStyle}><span${statsTextClass} id="${b.statsId}"></span></span>`
     + '</div>'
     + `<button class="${buyClass}" id="${b.buyId}">${buyLabel}</button>`
-    + `<button class="auto autobuyerToggleButton" id="${b.toggleId}"${toggleIdAttr}></button>`
+    + `<button class="${toggleClass}" id="${b.toggleId}"${toggleIdAttr}></button>`
     + '</div>'
 }
 
@@ -203,6 +206,7 @@ const tesseractRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
   descId: `ascendText${i + 1}`,
   buyId: `buyTesseracts${i + 1}`,
   toggleId: `tesseractAutoToggle${i + 1}`,
+  toggleExtraClass: 'research190',
   statsId: `ascendText${i + 6}`
 }))
 
@@ -234,7 +238,7 @@ const getAutobuyers = (control: HTMLButtonElement): HTMLElement[] => {
   }
 
   return Array.from(row.querySelectorAll<HTMLElement>('.autobuyerToggleButton'))
-    .filter((toggle) => toggle.style.display !== 'none')
+    .filter((toggle) => getComputedStyle(toggle).display !== 'none')
 }
 
 const getVisibilityControl = (row: HTMLElement): HTMLButtonElement | null =>

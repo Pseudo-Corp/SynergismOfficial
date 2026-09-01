@@ -3752,7 +3752,7 @@ p#reincarnatehotkeys {
     grid-column: 1 / -1;
 }
 
-#additionalAutoSacOptions {
+.additionalAutoSacOptions {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -3788,7 +3788,7 @@ p#reincarnatehotkeys {
     font-size: 1.3em;
 }
 
-#sacrificeAnts {
+.sacrificeAntsUnlocked {
     display: grid;
     grid-template-areas:
         "elo altar rewards"
@@ -3907,7 +3907,7 @@ p#reincarnatehotkeys {
     margin-top: 2px !important;
 }
 
-#autoSacrifice {
+.autoSacrifice {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3916,7 +3916,7 @@ p#reincarnatehotkeys {
     margin-top: 2px;
 }
 
-#autoSacrifice > br {
+.autoSacrifice > br {
     display: none;
 }
 
@@ -4464,7 +4464,7 @@ p#reincarnatehotkeys {
         width: 80px;
     }
 
-    #sacrificeAnts {
+    .sacrificeAntsUnlocked {
         grid-template-areas:
             "elo altar"
             "rewards rewards"
@@ -4517,7 +4517,7 @@ p#reincarnatehotkeys {
         display: none;
     }
 
-    #sacrificeAnts {
+    .sacrificeAntsUnlocked {
         grid-template-areas:
             "elo"
             "altar"
@@ -6119,7 +6119,7 @@ header #obtainiumDisplay { color: pink; }
     line-height: 1em;
 }
 
-#ascensionStats {
+.ascensionStats {
     display: flex;
     margin: 10px 0;
     min-width: 1250px;
@@ -6131,13 +6131,13 @@ header #obtainiumDisplay { color: pink; }
     line-height: 1em;
 }
 
-#ascensionStats > span {
+.ascensionStats > span {
     display: flex;
     white-space: pre;
     align-items: center;
 }
 
-#ascensionStats img {
+.ascensionStats img {
     height: 20px;
     margin: auto 4px auto 0;
 }
@@ -8796,6 +8796,22 @@ html[data-transcend-unlock="false"] .offlineStats > .transcendunlock {
     display: none;
 }
 
+html[data-auto-transcend="true"] .autoTranscend {
+    display: block;
+}
+
+html[data-auto-transcend="false"] .autoTranscend {
+    display: none;
+}
+
+html[data-auto-prestige="true"] .autoPrestige {
+    display: block;
+}
+
+html[data-auto-prestige="false"] .autoPrestige {
+    display: none;
+}
+
 html[data-reincarnate-unlock="false"] .reincarnationunlock {
     display: none;
 }
@@ -8820,6 +8836,171 @@ html[data-research150="false"] .research150 {
     display: none;
 }
 
+html[data-research39="true"] .research39 {
+    display: block;
+}
+
+html[data-research39="false"] .research39 {
+    display: none;
+}
+
+html[data-research40="true"] #reincarnationMythosInfo {
+    display: block;
+}
+
+html[data-research40="false"] #reincarnationMythosInfo {
+    display: none;
+}
+
+html[data-research46="true"] #reincarnateautomation {
+    display: block;
+}
+
+html[data-research46="false"] #reincarnateautomation {
+    display: none;
+}
+
+html[data-research130="true"] #toggleautofortify {
+    display: block;
+}
+
+html[data-research130="false"] #toggleautofortify {
+    display: none;
+}
+
+html[data-research190="true"] .research190 {
+    display: block !important;
+}
+
+html[data-research190="false"] .research190 {
+    display: none !important;
+}
+
+html[data-offering-auto="true"] .offeringAuto {
+    display: block;
+}
+
+html[data-offering-auto="false"] .offeringAuto {
+    display: none;
+}
+
+html[data-auto-buy-fragments="true"] .autoBuyFragments {
+    display: block;
+}
+
+html[data-auto-buy-fragments="false"] .autoBuyFragments {
+    display: none;
+}
+
+html[data-auto-research="true"] .autoResearch {
+    display: block;
+}
+
+html[data-auto-research="false"] .autoResearch {
+    display: none;
+}
+
+html[data-auto-research-mode="true"] .autoResearchMode {
+    display: block;
+}
+
+html[data-auto-research-mode="false"] .autoResearchMode {
+    display: none;
+}
+
+html[data-cube-upgrade8="true"] .cubeUpgrade8 {
+    display: block;
+}
+
+html[data-cube-upgrade8="false"] .cubeUpgrade8 {
+    display: none;
+}
+
+html[data-save-offerings="true"] .saveOfferings {
+    display: block;
+}
+
+html[data-save-offerings="false"] .saveOfferings {
+    display: none;
+}
+
+html[data-auto-open-cubes="true"] .autoOpenCubes {
+    display: block;
+}
+
+html[data-auto-open-cubes="false"] .autoOpenCubes {
+    display: none;
+}
+
+html[data-auto-cube-upgrades="true"] .autoCubeUpgrades {
+    display: block;
+}
+
+html[data-auto-cube-upgrades="false"] .autoCubeUpgrades {
+    display: none;
+}
+
+html[data-auto-platonic-upgrades="true"] .autoPlatonicUpgrades {
+    display: block;
+}
+
+html[data-auto-platonic-upgrades="false"] .autoPlatonicUpgrades {
+    display: none;
+}
+
+html[data-hepteract-confirmation="true"] .hepteractConfirmation {
+    display: block;
+}
+
+html[data-hepteract-confirmation="false"] .hepteractConfirmation {
+    display: none;
+}
+
+html[data-auto-warp="false"] .autoWarp {
+    display: none;
+}
+
+html[data-sing-challenges="true"] .singChallenges {
+    display: block;
+}
+
+html[data-sing-challenges="false"] .singChallenges,
+html[data-sing-challenges="false"] .singChallengesTabs {
+    display: none;
+}
+
+html[data-inside-singularity-challenge="false"] .insideSingularityChallenge {
+    display: none;
+}
+
+html[data-ascension-stats="true"] .ascensionStats {
+    visibility: visible;
+}
+
+html[data-ascension-stats="false"] .ascensionStats {
+    visibility: hidden;
+}
+
+html[data-asc-hyper-stats="false"] .ascHyperStats {
+    display: none;
+}
+
+html[data-asc-platonic-stats="false"] .ascPlatonicStats {
+    display: none;
+}
+
+html[data-asc-hepteract-stats="false"] .ascHepteractStats {
+    display: none;
+}
+
+html[data-unread-messages="true"] .unreadMessages {
+    display: block;
+}
+
+html[data-unread-messages="false"] .unreadMessages {
+    display: none;
+}
+
 html[data-cube-upgrade10="true"] .cubeUpgrade10 {
     display: flex;
 }
@@ -8836,11 +9017,24 @@ html[data-cube-upgrade19="false"] .cubeUpgrade19 {
     display: none;
 }
 
-html[data-sacrifice-ants="true"] .sacrificeAnts {
+.sacrificeAnts,
+.sacrificeAntsLocked {
     display: flex;
 }
 
-html[data-sacrifice-ants="false"] .sacrificeAnts {
+html[data-sacrifice-ants="true"] .sacrificeAntsLocked,
+html[data-sacrifice-ants="false"] .sacrificeAnts,
+html[data-sacrifice-ants="false"] .sacrificeAntsUnlocked {
+    display: none;
+}
+
+html[data-auto-ant-sacrifice="true"] .autoSacrificeLocked,
+html[data-auto-ant-sacrifice="false"] .autoSacrifice {
+    display: none;
+}
+
+html[data-additional-auto-sacrifice-options="true"] .additionalAutoSacOptionsLocked,
+html[data-additional-auto-sacrifice-options="false"] .additionalAutoSacOptions {
     display: none;
 }
 
@@ -8857,6 +9051,22 @@ html[data-singularity="true"] .singularity {
 }
 
 html[data-singularity="false"] .singularity {
+    display: none;
+}
+
+html[data-singularity-button="true"] .singularityButton {
+    display: block;
+}
+
+html[data-singularity-button="false"] .singularityButton {
+    display: none;
+}
+
+html[data-singularity-confirmation="true"] .singularityConfirmation {
+    display: block;
+}
+
+html[data-singularity-confirmation="false"] .singularityConfirmation {
     display: none;
 }
 
@@ -9141,7 +9351,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     /* Ascension stats - horizontally scrollable on mobile */
-    #ascensionStats {
+    .ascensionStats {
         min-width: unset;
         width: 100%;
         padding: 0 10px;
@@ -9151,7 +9361,7 @@ html[data-mobile="true"] .hideOnMobile {
         scrollbar-width: thin;
     }
 
-    #ascensionStats > span {
+    .ascensionStats > span {
         flex-shrink: 0;
     }
 
@@ -9187,7 +9397,7 @@ html[data-mobile="true"] .hideOnMobile {
         flex: 0 0 auto;
     }
 
-    html[data-mobile="true"] #ascensionStats {
+    html[data-mobile="true"] .ascensionStats {
         order: 2;
         flex: 0 0 auto;
     }
