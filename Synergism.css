@@ -117,6 +117,7 @@ body {
     --boxmain-bordercolor: plum;
     --box-color: #111;
     --blueberry-box-color: #4f86f7;
+    --blueberry-text-color: #8888FF;
     --purple-box-color: purple;
     --purple-text-color: #FF29FF;
     --button-color: #171717;
@@ -3442,6 +3443,7 @@ p#reincarnatehotkeys {
 #octeractsDisplay,
 #ambrosiaDisplay,
 #redAmbrosiaDisplay,
+#purpleAmbrosiaDisplay,
 #blueberryDisplay,
 #purpleHoneyDisplay {
     display: flex;
@@ -3453,7 +3455,8 @@ p#reincarnatehotkeys {
 
 #blueberryDisplay > p,
 #ambrosiaDisplay > p,
-#redAmbrosiaDisplay > p {
+#redAmbrosiaDisplay > p,
+#purpleAmbrosiaDisplay > p {
     margin: 0 0 0 10px;
 }
 
@@ -7074,6 +7077,58 @@ header #obtainiumDisplay { color: pink; }
     position: relative;
     display: inline-block; /* Or block, depending on your layout */
     cursor: pointer;
+}
+
+.blueberryUpgrade > .purpleAmbrosiaEnchantmentIcon {
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    z-index: 2;
+    width: 14px;
+    height: 14px;
+    filter: drop-shadow(0 0 2px black);
+    cursor: pointer;
+}
+
+.purpleAmbrosiaEnchantmentIconType2 {
+    transform: scaleX(-1);
+}
+
+.blueberryUpgrade > .purpleAmbrosiaEnchantmentIconLoadoutHidden,
+.blueberryUpgrade > .purpleAmbrosiaEnchantmentIconMaxed {
+    display: none;
+}
+
+.purpleAmbrosiaEnchantmentModal {
+    padding-top: 8px;
+    margin-top: 8px;
+    border-top: 1px solid var(--purple-text-color);
+    text-align: center;
+}
+
+.purpleAmbrosiaEnchantmentTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--purple-text-color);
+}
+
+.purpleAmbrosiaEnchantmentTitle > img {
+    width: 24px;
+    height: 24px;
+}
+
+.purpleAmbrosiaEnchantmentModal .modalBtnBuy {
+    width: auto;
+    min-width: 120px;
+    padding: 0 10px;
+    border-color: var(--purple-text-color);
+}
+
+.purpleAmbrosiaEnchantmentModal .modalBtnBuy:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
 }
 
 .maxBlueberryLevel,

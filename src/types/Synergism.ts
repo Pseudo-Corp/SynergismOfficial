@@ -519,6 +519,7 @@ export interface Player {
   ambrosiaUpgrades: Record<AmbrosiaUpgradeNames, {
     ambrosiaInvested: number
     blueberriesInvested: number
+    purpleAmbrosiaInvested?: number
   }>
 
   dailyCodeUsed: boolean
@@ -533,6 +534,8 @@ export interface Player {
 
   ambrosia: number
   lifetimeAmbrosia: number
+  purpleAmbrosia: number
+  lifetimePurpleAmbrosia: number
 
   blueberryTime: number
   ambrosiaRNG: number // DEPRECIATED, DO NOT USE
@@ -559,6 +562,7 @@ export interface Player {
 
   spentPurpleHoney: {
     upgrades: number
+    purpleAmbrosia: number
   }
 
   purpleReactorUpgrades: Record<PurpleReactorNames, number>

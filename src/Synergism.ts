@@ -174,6 +174,7 @@ import rfdc from 'rfdc'
 import {
   blankAmbrosiaUpgradeObject,
   displayProperLoadoutCount,
+  reconcilePurpleAmbrosiaEnchantments,
   setAmbrosiaUpgradeLevels,
   setLastBlueberryLoadout,
   updateBlueberryLoadoutCount
@@ -1140,6 +1141,8 @@ export const player: Player = {
 
   ambrosia: 0,
   lifetimeAmbrosia: 0,
+  purpleAmbrosia: 0,
+  lifetimePurpleAmbrosia: 0,
   ambrosiaRNG: 0,
   blueberryTime: 0,
   spentBlueberries: 0,
@@ -1182,7 +1185,8 @@ export const player: Player = {
   },
 
   spentPurpleHoney: {
-    upgrades: 0
+    upgrades: 0,
+    purpleAmbrosia: 0
   },
 
   purpleReactorUpgrades: blankPurpleReactorUpgradeObject,
@@ -4836,6 +4840,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   setOcteractUpgradeLevels()
   setGQUpgradeLevels()
   setAmbrosiaUpgradeLevels()
+  reconcilePurpleAmbrosiaEnchantments()
   setRedAmbrosiaUpgradeLevels()
   setPurpleReactorUpgradeLevels()
 

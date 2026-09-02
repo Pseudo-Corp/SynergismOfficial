@@ -2,7 +2,11 @@
 
 import i18next from 'i18next'
 import { achievementPoints, maxAchievementPoints } from './Achievements'
-import { type AmbrosiaUpgradeNames, ambrosiaUpgrades } from './BlueberryUpgrades'
+import {
+  type AmbrosiaUpgradeNames,
+  ambrosiaUpgrades,
+  getAmbrosiaUpgradeBlueberryCost
+} from './BlueberryUpgrades'
 import {
   calculateAscensionSpeedMult,
   calculateBlueberryInventory,
@@ -481,7 +485,7 @@ export const generateExportSummary = async (): Promise<void> => {
 
       let unicodeSymbol = '[ ]'
       if (ambUpg.level > 0) {
-        spentBlueberries += ambUpg.blueberryCost
+        spentBlueberries += getAmbrosiaUpgradeBlueberryCost(key)
         unicodeSymbol = (ambUpg.level === ambUpg.maxLevel) ? '[★]' : '[𖥔]'
       }
 

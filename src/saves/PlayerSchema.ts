@@ -267,7 +267,8 @@ const octeractUpgradeSchema = z.object({
 
 const ambrosiaUpgradeSchema = z.object({
   ambrosiaInvested: z.number().default(0),
-  blueberriesInvested: z.number().default(0)
+  blueberriesInvested: z.number().default(0),
+  purpleAmbrosiaInvested: z.number().default(0)
 })
 
 const purpleReactantPercentageSchema = z.number().int().min(0).max(100)
@@ -282,7 +283,8 @@ const purpleReactorSchema = z.object({
 })
 
 const spentPurpleHoneySchema = z.object({
-  upgrades: z.number().default(0)
+  upgrades: z.number().default(0),
+  purpleAmbrosia: z.number().default(0)
 })
 
 const playerCorruptionSchema = z.object({
@@ -1017,6 +1019,8 @@ export const playerSchema = z.object({
 
   ambrosia: z.number().default(() => blankSave.ambrosia),
   lifetimeAmbrosia: z.number().default(() => blankSave.lifetimeAmbrosia),
+  purpleAmbrosia: z.number().default(() => blankSave.purpleAmbrosia),
+  lifetimePurpleAmbrosia: z.number().default(() => blankSave.lifetimePurpleAmbrosia),
   ambrosiaRNG: z.number().default(() => blankSave.ambrosiaRNG),
   blueberryTime: z.number().default(() => blankSave.blueberryTime),
   visitedAmbrosiaSubtab: z.boolean().optional(),

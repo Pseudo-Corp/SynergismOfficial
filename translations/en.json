@@ -36,8 +36,26 @@
     "refund": "You have refunded all spent Blueberries and Ambrosia.",
     "refundWord": "Refund",
     "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
+    "moduleActive": "<<gold|[Active]>>",
+    "moduleInactive": "<<gray|[Inactive]>>",
     "notUnlocked": "Clear No Golden Quark Upgrades, Tier 1!",
     "ambrosiaCost": "Cost for next level: <<orange | {{amount}}>> Ambrosia",
+    "purpleAmbrosia": {
+      "amount": "Purple Ambrosia: <<var(--purple-text-color)|{{amount}}>>",
+      "enchantment": "Purple Ambrosia Enchantment",
+      "level": "Enchantment Level {{level}}/{{maxLevel}}",
+      "freeLevelsEffectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> levels of this Blueberry Module.",
+      "freeLevelsEffectMaxed": "<<gold|+{{maxValue}}>> levels of this Blueberry Module.",
+      "blueberryCostReductionEffectNotMaxed": "This Module requires <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> fewer Blueberries to activate.",
+      "blueberryCostReductionEffectMaxed": "This Module requires <<gold|{{maxValue}}>> fewer Blueberries to activate.",
+      "activeRequirement": "<<gold | ⚠>> Only takes effect when this Module is activated!",
+      "cost": "Cost for next enchantment level: <<var(--purple-text-color)|{{amount}}>> Purple Ambrosia",
+      "spent": "Purple Ambrosia Spent: <<var(--purple-text-color)|{{curr}}/{{max}}>>",
+      "buy": "Enchant",
+      "desktopBuy": "Click the Purple Ambrosia badge on this upgrade to enchant it.",
+      "alreadyMaxed": "This Purple Ambrosia enchantment is already maxed.",
+      "notEnough": "You do not have enough Purple Ambrosia for this enchantment."
+    },
     "data": {
       "ambrosiaTutorial": {
         "name": "Ambrosia Tutorial Module",
@@ -206,7 +224,7 @@
       },
       "ambrosiaFreeGenerationUpgrades": {
         "name": "Time in a Bottle",
-        "description": "For all 'Generation' type Quark Upgrades, gain +1 free level per level! These will have a corresponding icon.",
+        "description": "For all 'Generation' type Quark Upgrades, gain +0.5 free levels per Module level! These will have a corresponding icon.",
         "effect": "+{{amount}} free levels for 'Generation' type Quark Upgrades"
       },
       "ambrosiaFreeRedLuckUpgrades": {

@@ -42,7 +42,7 @@ const KEYWORD_SYMBOLS: Record<string, string> = {
   'Ant Speed': '≫',
   'Ant Sacrifice': '⤬',
   'Stage': '⎍',
-  'Half-Life': 'λ'
+  'Encabulator Speed': '⏲'
 }
 
 const reg = new RegExp(Object.keys(KEYWORD_SYMBOLS).join('|'), 'g')
