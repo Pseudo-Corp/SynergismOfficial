@@ -2120,6 +2120,10 @@ export const visualUpdateAmbrosia = () => {
     lifetimeAmbrosia: format(player.lifetimeAmbrosia, 0, true)
   })
 
+  DOMCacheGetOrSet('purpleAmbrosiaAmount').innerHTML = i18next.t('ambrosia.purpleAmbrosia.amount', {
+    amount: format(player.purpleAmbrosia, 0, true)
+  })
+
   DOMCacheGetOrSet('ambrosiaCubeBonus').style.display = ambCubeBonus > 1 ? 'block' : 'none'
   DOMCacheGetOrSet('ambrosiaQuarkBonus').style.display = ambQuarkBonus > 1 ? 'block' : 'none'
 

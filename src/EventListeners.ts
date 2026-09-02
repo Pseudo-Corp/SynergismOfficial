@@ -8,6 +8,7 @@ import {
   ambrosiaUpgradeToString,
   beginAmbrosiaEdit,
   buyAmbrosiaUpgradeLevel,
+  buyPurpleAmbrosiaEnchantmentLevel,
   createLoadoutDescription,
   displayLevelsBlueberry,
   displayOnlyLoadout,
@@ -16,12 +17,14 @@ import {
   importBlueberryTree,
   isAmbrosiaEditMode,
   loadoutHandler,
+  PURPLE_AMBROSIA_ENCHANTMENT_ACTION,
   quickSaveBlueberryTree,
   resetBlueberryTree,
   resetHighlights,
   resetLoadoutOnlyDisplay,
   setAmbrosiaEditMode,
-  toggleAmbrosiaEditMode
+  toggleAmbrosiaEditMode,
+  updatePurpleAmbrosiaEnchantmentBadge
 } from './BlueberryUpgrades'
 import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -1880,12 +1883,32 @@ TODO: Fix this entire tab it's utter shit
   ) as AmbrosiaUpgradeNames[]
   for (const key of blueberryUpgrades) {
     const element = DOMCacheGetOrSet(key)
+    const enchantment = ambrosiaUpgrades[key].purpleAmbrosiaEnchantment
+    if (element.querySelector('.purpleAmbrosiaEnchantmentIcon') === null) {
+      const enchantmentIcon = document.createElement('img')
+      enchantmentIcon.classList.add('purpleAmbrosiaEnchantmentIcon')
+      enchantmentIcon.classList.toggle(
+        'purpleAmbrosiaEnchantmentIconType2',
+        enchantment.type === 'blueberryCostReduction'
+      )
+      enchantmentIcon.src = 'Pictures/PurpleAmbrosia/PurpleAmbrosia.png'
+      enchantmentIcon.alt = ''
+      element.appendChild(enchantmentIcon)
+      updatePurpleAmbrosiaEnchantmentBadge(key)
+    }
 
     registerPurchasableModal({
       element,
       html: () => ambrosiaUpgradeToString(key),
       style: { borderColor: 'blue' },
-      buy: (event, action) => buyAmbrosiaUpgradeLevel(key, event, action === 'max'),
+      buy: (event, action) => {
+        const target = event.target instanceof Element ? event.target : null
+        if (action === PURPLE_AMBROSIA_ENCHANTMENT_ACTION
+          || target?.classList.contains('purpleAmbrosiaEnchantmentIcon')) {
+          return buyPurpleAmbrosiaEnchantmentLevel(key)
+        }
+        return buyAmbrosiaUpgradeLevel(key, event, action === 'max')
+      },
       onOpen: () => highlightPrerequisites(key),
       onClose: resetHighlights,
       disabled: isAmbrosiaEditMode
