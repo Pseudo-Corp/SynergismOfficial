@@ -3,6 +3,7 @@
 import DOMPurify from 'dompurify'
 import i18next from 'i18next'
 import { z } from 'zod'
+import { achievementLevel } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   afterOfflineProgress,
@@ -1588,6 +1589,37 @@ function handleCloudSaves () {
       )
     })
   })
+
+  setInterval(async () => {
+    if (!loggedIn || achievementLevel <= 1) return
+
+    const latestSaveExists = cloudSaves.some((save) => save.name === 'Latest Save')
+
+    try {
+      const save = await getStoredSave()
+      if (save === null) return
+
+      const fd = new FormData()
+      fd.set('file', new File([save], 'Latest Save'))
+      fd.set('name', 'Latest Save')
+
+      const response = await fetch('https://synergism.cc/saves/upload', {
+        method: 'POST',
+        body: fd
+      })
+
+      // A 400 here means no slot was available.
+      if (response.status === 400) return
+
+      if (!response.ok) {
+        throw new TypeError(`Received status ${response.status}`)
+      }
+
+      if (!latestSaveExists) populateTable()
+    } catch (error) {
+      console.error('Failed to automatically upload cloud save', error)
+    }
+  }, 1000 * 60 * 60)
 
   uploadButton.setAttribute('x-listener-added', '')
   transferButton.setAttribute('x-listener-added', '')
