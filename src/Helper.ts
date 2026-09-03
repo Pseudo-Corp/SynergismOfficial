@@ -39,15 +39,8 @@ import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { autoCraftSynthesis } from './Synthesis'
 import { player } from './Synergism'
-import { Tabs } from './Tabs'
 import { buyAllTalismanResources } from './Talismans'
-import {
-  animatePurpleHoneyGain,
-  visualUpdateAmbrosia,
-  visualUpdateOcteracts,
-  visualUpdatePurple,
-  visualUpdateResearch
-} from './UpdateVisuals'
+import { animatePurpleHoneyGain } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 type TimerInput =
@@ -178,14 +171,15 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
  * @param input
  * @param time
+ * @param globalSpeedMult
  */
-export const addTimers = (input: TimerInput, time = 0) => {
+export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => number) => {
   const timeMultiplier = input === 'prestige'
       || input === 'transcension'
       || input === 'reincarnation'
     ? getGQUpgradeEffect('halfMind', 'unlocked')
       ? G.MIND_DIVISOR
-      : calculateGlobalSpeedMult()
+      : globalSpeedMult?.() ?? calculateGlobalSpeedMult()
     : 1
 
   switch (input) {
@@ -272,7 +266,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
             player.quarksThisSingularity *= 1 - quarkFraction
           }
         }
-        visualUpdateOcteracts()
       }
       break
     }
@@ -338,7 +331,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
       G.purpleHoneyTimer %= PURPLE_REACTOR_TICK_INTERVAL
       convertPurpleReactants(elapsed)
       autoCraftSynthesis()
-      visualUpdatePurple()
       break
     }
     case 'ambrosia': {
@@ -377,7 +369,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
         timeToAmbrosia = calculateRequiredBlueberryTime()
       }
 
-      visualUpdateAmbrosia()
       break
     }
     case 'redAmbrosia': {
@@ -422,7 +413,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
       }
 
       autoCraftSynthesis()
-      visualUpdateAmbrosia()
     }
   }
 }
@@ -470,10 +460,6 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
 
       // Add Obtainium
       player.obtainium = player.obtainium.add(obtainiumGain)
-      // Update visual displays if appropriate
-      if (G.currentTab === Tabs.Research) {
-        visualUpdateResearch()
-      }
       break
     }
     case 'addOfferings':

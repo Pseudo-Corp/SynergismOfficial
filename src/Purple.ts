@@ -1,7 +1,6 @@
 import i18next from 'i18next'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert } from './UpdateHTML'
-import { visualUpdatePurple } from './UpdateVisuals'
 
 type PurpleReactorUpgradeRewards = {
   tutorial: {
@@ -1353,7 +1352,6 @@ export const buyPurpleReactorUpgradeLevel = async (
   player.spentPurpleHoney.upgrades += purchase.cost
   upgrade.level += purchase.amount
   player.purpleReactorUpgrades[upgradeKey] += purchase.cost
-  visualUpdatePurple()
 }
 
 export const calculatePurpleReactorAP = (): number => {

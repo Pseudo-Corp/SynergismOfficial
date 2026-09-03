@@ -29,7 +29,7 @@ import {
 import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
-import { challengeDisplay, toggleRetryChallenges } from './Challenges'
+import { setChallengeFocus, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
@@ -48,6 +48,7 @@ import { antProducerHTML } from './Features/Ants/HTML/modals/producer-modal'
 import { antUpgradeHTML } from './Features/Ants/HTML/modals/upgrade-modal'
 import { toggleRebornELOInfo } from './Features/Ants/HTML/updates/elo-info'
 import { toggleLeaderboardMode } from './Features/Ants/HTML/updates/leaderboard'
+import { toggleLotusSection } from './Features/Ants/HTML/updates/lotus-section'
 import {
   updateAlwaysSacrificeMaxRebornELOToggle,
   updateOnlySacrificeMaxRebornELOToggle
@@ -199,8 +200,7 @@ import {
 import {
   cycleCorruptionScoreTarget,
   selectCorruptionScoreTarget,
-  shopMouseover,
-  visualUpdatePurple
+  shopMouseover
 } from './UpdateVisuals'
 import {
   buyAllUpgrades,
@@ -1122,11 +1122,11 @@ export const generateEventHandlers = () => {
   // Part 1: Challenges
   // Challenge 1-15 buttons
   for (let index = 0; index < 15; index++) {
-    DOMCacheGetOrSet(`challenge${index + 1}`).addEventListener('click', () => challengeDisplay(index + 1))
+    DOMCacheGetOrSet(`challenge${index + 1}`).addEventListener('click', () => setChallengeFocus(index + 1))
     DOMCacheGetOrSet(`challenge${index + 1}`).addEventListener(
       'dblclick',
       () => {
-        challengeDisplay(index + 1)
+        setChallengeFocus(index + 1)
         toggleChallenges(G.triggerChallenge, false)
       }
     )
@@ -1315,7 +1315,7 @@ export const generateEventHandlers = () => {
     updateOnlySacrificeMaxRebornELOToggle(player.ants.toggles.onlySacrificeMaxRebornELO)
   })
 
-  document.getElementById('use-lotus')?.addEventListener('click', () => {
+  const useLotus = () => {
     const timeNow = Date.now()
     const lotusTime = getLotusTimeExpiresAt()
     let extraHTML = ''
@@ -1339,7 +1339,10 @@ export const generateEventHandlers = () => {
           })
         )
       })
-  })
+  }
+
+  DOMCacheGetOrSet('use-lotus').addEventListener('click', useLotus)
+  DOMCacheGetOrSet('use-lotus-collapsed').addEventListener('click', useLotus)
 
   // Part 3.5: Leaderboard
   DOMCacheGetOrSet('antLeaderboardToggle').addEventListener('click', () => toggleLeaderboardMode())
@@ -2050,7 +2053,6 @@ TODO: Fix this entire tab it's utter shit
     } else {
       player.purpleReactor.redAmbrosiaBarPointPercentage = percentage
     }
-    visualUpdatePurple()
   }
 
   const registerPurpleReactantSlider = (
@@ -2144,7 +2146,9 @@ TODO: Fix this entire tab it's utter shit
   }
 
   document.querySelector('#consumableEvents > .consumableButton')?.addEventListener('click', visitConsumableTab)
-  document.querySelector('#lotusButtons > .consumableButton')?.addEventListener('click', visitConsumableTab)
+  DOMCacheGetOrSet('lotusConsumablesButton').addEventListener('click', visitConsumableTab)
+  DOMCacheGetOrSet('lotusConsumablesButtonCollapsed').addEventListener('click', visitConsumableTab)
+  DOMCacheGetOrSet('toggleLotusSection').addEventListener('click', toggleLotusSection)
 
   document.getElementById('apply-tips')?.addEventListener('click', () => {
     Prompt(i18next.t('pseudoCoins.consumables.applyTipsPrompt', { tips: getTips() }))

@@ -1,29 +1,34 @@
 import i18next from 'i18next'
-import { awardUngroupedAchievement } from './Achievements'
+import {
+  awardUngroupedAchievement,
+  updateAllGroupedAchievementProgress,
+  updateAllProgressiveAchievementProgress,
+  updateAllUngroupedAchievementProgress
+} from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { type AutoChallengeStates, getChallengeConditions, resetChallengeSweep } from './Challenges'
-import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } from './Corruptions'
+import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions, corruptionStatsUpdate } from './Corruptions'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
+import { initializeOcteractUpgradeMap } from './Octeracts'
 import { researchOrderByCost, roombaResearchEnabled, setResearchRoombaHighlight } from './Research'
 import { applyChallengeInitialModifiers, reset } from './Reset'
 import { indexToRune } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
-import { updateSingularityElevator, updateSingularityElevatorVisibility } from './singularity'
+import {
+  updateSingularityElevator,
+  updateSingularityElevatorVisibility,
+  updateSingularityPenalties,
+  updateSingularityPerks
+} from './singularity'
 import { format, player, resetCheck } from './Synergism'
-import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
+import { subTabsInMainTab, Tabs } from './Tabs'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
+import { updateTalismanInventory } from './Talismans'
 import { settingSymbols } from './Themes'
 import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
-import { Alert, Confirm, createFitties, Prompt, updateChallengeDisplay } from './UpdateHTML'
-import {
-  visualUpdateAmbrosia,
-  visualUpdateAnts,
-  visualUpdateCubes,
-  visualUpdateOcteracts,
-  visualUpdatePurple
-} from './UpdateVisuals'
+import { Alert, challengeExit, Confirm, createFitties, Prompt, updateChallengeDisplay } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract'
@@ -107,7 +112,11 @@ export const toggleChallenges = (i: number, auto = false) => {
   if (i >= 0 && i <= 5) {
     reset('transcensionChallenge', false, 'enterChallenge')
     applyChallengeInitialModifiers('transcensionChallenge', i)
-    player.currentChallenge.transcension = i
+    if (i === 0) {
+      challengeExit('transcension')
+    } else {
+      player.currentChallenge.transcension = i
+    }
   }
   if (i >= 6 && i <= 10) {
     reset('reincarnationChallenge', false, 'enterChallenge')
@@ -475,6 +484,12 @@ export const toggleAchievementScreen = (indexStr: string) => {
       b.style.display = 'none'
     }
   }
+
+  awardUngroupedAchievement('participationTrophy')
+
+  updateAllGroupedAchievementProgress()
+  updateAllUngroupedAchievementProgress()
+  updateAllProgressiveAchievementProgress()
 }
 
 export const toggleRuneScreen = (indexStr: string) => {
@@ -494,6 +509,7 @@ export const toggleRuneScreen = (indexStr: string) => {
 
   if (index === 2) {
     DOMCacheGetOrSet('offeringDetails').style.display = 'none'
+    updateTalismanInventory()
   } else {
     DOMCacheGetOrSet('offeringDetails').style.display = 'flex'
   }
@@ -553,14 +569,14 @@ export const toggleSingularityScreen = (indexStr: string) => {
   }
 
   if (index === 1) {
+    // These only need to be updated when the subtab is first opened.
     updateSingularityElevator()
     updateSingularityElevatorVisibility()
-  } else if (getActiveSubTab() === 3) {
-    visualUpdateOcteracts()
-  } else if (getActiveSubTab() === 4) {
-    visualUpdateAmbrosia()
-  } else if (getActiveSubTab() === 5) {
-    visualUpdatePurple()
+  } else if (index === 3) {
+    updateSingularityPenalties()
+    updateSingularityPerks()
+  } else if (index === 4) {
+    initializeOcteractUpgradeMap()
   }
 
   createFitties()
@@ -728,8 +744,6 @@ export const toggleCubeSubTab = (indexStr: string) => {
       // player.subtabNumber = j - 1
     }
   }
-
-  visualUpdateCubes()
 }
 
 export const updateAutoChallenge = (i: number) => {
@@ -952,6 +966,7 @@ export const toggleAutoTesseracts = (i: number) => {
 
 export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number) => {
   player.corruptions.next.incrementDecrementLevel(corr, value)
+  corruptionStatsUpdate(corr)
   corruptionDisplay(corr)
   corruptionLoadoutTableUpdate(true, 0)
 }
@@ -1057,6 +1072,4 @@ export const toggleAntsSubtab = (indexStr: string) => {
   const antTab = DOMCacheGetOrSet(`antSubtab${i}`)
   antTab.classList.add('flex')
   antTab.classList.remove('none')
-
-  visualUpdateAnts()
 }

@@ -60,7 +60,7 @@ import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
 import { AutoAscensionModes } from './Toggles'
 import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
-import { Alert, revealStuff, updateChallengeDisplay } from './UpdateHTML'
+import { Alert, challengeExit, revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
 import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
@@ -242,7 +242,7 @@ export const updateAutoReset = (i: number) => {
     player.autoAscendThreshold = Math.max(value, 1)
   } else if (i === 5) {
     value = Number.parseFloat((DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value) || 0
-    toggleAutoAntSacrificeThreshold(value)
+    toggleAutoAntSacrificeThreshold(Math.max(value, 0))
   }
 }
 
@@ -541,7 +541,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
       updateReincarnationCount(1)
     }
 
-    player.currentChallenge.transcension = 0
+    challengeExit('transcension')
     resetUpgrades(3)
     player.coinsThisReincarnation = Decimal.fromString('100')
     player.firstOwnedMythos = 0
@@ -603,8 +603,8 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
       awardAchievementGroup('ascensionScore')
     }
     // reset auto challenges
-    player.currentChallenge.transcension = 0
-    player.currentChallenge.reincarnation = 0
+    challengeExit('transcension')
+    challengeExit('reincarnation')
     // reset challenge sweep state machine
     resetChallengeSweep()
 

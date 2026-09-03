@@ -27,7 +27,7 @@ import {
   octeractUpgrades
 } from './Octeracts'
 import { redAmbrosiaUpgradeNames, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
-import { type RuneKeys, runes } from './Runes'
+import { runes, runesKeys } from './Runes'
 import { shopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
 import {
   actualGQUpgradeTotalLevels,
@@ -276,11 +276,10 @@ export const generateExportSummary = async (): Promise<void> => {
       })
     }\n`
 
-    for (const rune of Object.keys(runes)) {
-      const runeKey = rune as RuneKeys
-      if (runes[runeKey].isUnlocked()) {
-        prestige = `${prestige}${runes[runeKey].name()}: Level ${format(runes[runeKey].level, 0, true)} [+${
-          format(runes[runeKey].freeLevels(), 0, true)
+    for (const rune of runesKeys) {
+      if (runes[rune].isUnlocked()) {
+        prestige = `${prestige}${runes[rune].name()}: Level ${format(runes[rune].level, 0, true)} [+${
+          format(runes[rune].freeLevels(), 0, true)
         }]\n`
       }
     }

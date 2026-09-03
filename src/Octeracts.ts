@@ -4,6 +4,7 @@ import { calculateOcteractMultiplier } from './Calculate'
 import { updateMaxTokens, updateTokens } from './Campaign'
 import { format, formatAsPercentIncrease, formatTimeShort, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
+import { memoize } from './Utility'
 
 type OcteractUpgradeRewards = {
   octeractStarter: {
@@ -960,7 +961,7 @@ const OCTERACT_UPGRADE_MAP_ROWS = [
   }
 ]
 
-export const initializeOcteractUpgradeMap = () => {
+export const initializeOcteractUpgradeMap = memoize(() => {
   const container = DOMCacheGetOrSet('octeractUpgradeContainer')
   const lines = document.createElement('div')
 
@@ -994,7 +995,7 @@ export const initializeOcteractUpgradeMap = () => {
   }
 
   container.replaceChildren(DOMCacheGetOrSet('toggleMaxedOcteractUpgrades'), lines)
-}
+})
 
 export const octeractUpgradeNames = Object.keys(octeractUpgrades) as OcteractUpgrades[]
 

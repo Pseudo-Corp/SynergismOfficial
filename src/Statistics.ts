@@ -4858,8 +4858,6 @@ export const c15RewardUpdate = () => {
       v.value = G.c15RewardFormulae[key](e)
     }
   }
-
-  updateDisplayC15Rewards()
 }
 
 export const updateDisplayC15Rewards = () => {
@@ -4896,20 +4894,9 @@ export const updateDisplayC15Rewards = () => {
     const elm = DOMCacheGetOrSet(`c15Reward${key}`)
     if (player.challenge15Exponent >= requirement) {
       elm.style.display = player.challenge15Exponent >= requirement ? 'block' : 'none'
-      if (typeof value === 'number') {
-        if (doNotUsePercentage) {
-          elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
-            amount: format(value, 0, true)
-          })
-        } else {
-          elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
-            amount: formatAsPercentIncrease(value, 2)
-          })
-        }
-      } else {
-        // Do not pass boolean value (all texts will say 'Unlocked' as you cannot see rewards not yet earned)
-        elm.textContent = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`)
-      }
+      elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
+        amount: doNotUsePercentage ? format(value, 0, true) : formatAsPercentIncrease(value, 2)
+      })
     } else {
       elm.style.display = 'none'
       if (requirement < lowestMissingExponent) {

@@ -120,7 +120,7 @@ import {
   goldenQuarkUpgrades,
   updateGoldenQuarkUpgradeVisibility
 } from './singularity'
-import { loadStatisticsUpdate } from './Statistics'
+import { loadStatisticsUpdate, updateDisplayC15Rewards } from './Statistics'
 import {
   calculateBuildingPower,
   calculateBuildingPowerCoinMultiplier,
@@ -137,10 +137,11 @@ import { getBuildingCostElement } from './tabs/buildings'
 import {
   getTalismanLevelCap,
   talismanCraftItems,
-  type TalismanKeys,
+  talismanKeys,
   talismans,
   updateAllTalismanHTML,
-  updateMobileTalismanInventoryPurchaseInfo
+  updateMobileTalismanInventoryPurchaseInfo,
+  updateTalismanInventory
 } from './Talismans'
 import {
   calculateAcceleratorTesseractBlessing,
@@ -900,7 +901,8 @@ export const visualUpdateRunes = () => {
   }
 
   if (getActiveSubTab() === 1) {
-    for (const t of Object.keys(talismans) as TalismanKeys[]) {
+    updateTalismanInventory()
+    for (const t of talismanKeys) {
       if (isMobile) {
         for (const item of talismanCraftItems) {
           updateMobileTalismanInventoryPurchaseInfo(item)
@@ -1526,6 +1528,7 @@ export const visualUpdateCubes = () => {
       } Wow! Cubes =)`
       break
     case 5:
+      updateDisplayC15Rewards()
       break
     case 6:
       DOMCacheGetOrSet('hepteractQuantity').innerHTML = i18next.t(
@@ -1765,7 +1768,6 @@ export const visualUpdateCorruptions = () => {
 
 export const cycleCorruptionScoreTarget = () => {
   corruptionScoreTargetIndex = ((corruptionScoreTargetIndex ?? -1) + 1) % corruptionScoreTargets.length
-  visualUpdateCorruptions()
 }
 
 export const selectCorruptionScoreTarget = (index: number) => {
@@ -1774,7 +1776,6 @@ export const selectCorruptionScoreTarget = (index: number) => {
   }
 
   corruptionScoreTargetIndex = index
-  visualUpdateCorruptions()
 }
 
 export const visualUpdateSettings = () => {
@@ -1875,7 +1876,10 @@ export const visualUpdateSingularity = () => {
   if (G.currentTab !== Tabs.Singularity) {
     return
   }
-  if (getActiveSubTab() === 1) {
+
+  const activeSubTab = getActiveSubTab()
+
+  if (activeSubTab === 1) {
     DOMCacheGetOrSet('goldenQuarkamount').textContent = i18next.t(
       'singularity.goldenQuarkAmount',
       {
@@ -1908,7 +1912,9 @@ export const visualUpdateSingularity = () => {
         }
       }
     }
-  } else if (getActiveSubTab() === 3) {
+  } else if (activeSubTab === 3) {
+    visualUpdateOcteracts()
+
     const val = G.shopEnhanceVision
 
     for (const key of octeractUpgradeNames) {
@@ -1934,6 +1940,10 @@ export const visualUpdateSingularity = () => {
         }
       }
     }
+  } else if (activeSubTab === 4) {
+    visualUpdateAmbrosia()
+  } else if (activeSubTab === 5) {
+    visualUpdatePurple()
   }
 }
 
@@ -2029,6 +2039,8 @@ export const visualUpdateAmbrosia = () => {
 
   const totalTimePerSecond = calculateAmbrosiaGenerationSpeed()
   const totalTimePerSecondRed = calculateRedAmbrosiaGenerationSpeed()
+  const ambrosiaProgress = Math.min(1, player.blueberryTime / requiredTime)
+  const redAmbrosiaProgress = Math.min(1, player.redAmbrosiaTime / requiredTimeRed)
   const ambrosiaReactantCapacity = calculatePurpleReactantCapacity()
   const redAmbrosiaReactantCapacity = calculateRedAmbrosiaReactantCapacity()
   const ambrosiaBarPointsRequestedPerSecond = ambrosiaReactantCapacity
@@ -2067,8 +2079,6 @@ export const visualUpdateAmbrosia = () => {
     redAmbrosiaReactantDissolutionRate,
     maximumRedAmbrosiaReactantDissolutionRate
   )
-  const barWidth = 100 * Math.min(1, player.blueberryTime / requiredTime)
-  const pixelBarWidth = 100 * Math.min(1, player.redAmbrosiaTime / requiredTimeRed)
 
   const ambCubeBonus = calculateAmbrosiaCubeMult()
   const ambQuarkBonus = calculateAmbrosiaQuarkMult()
@@ -2077,7 +2087,7 @@ export const visualUpdateAmbrosia = () => {
   const redAmbOffBonus = calculateRedAmbrosiaOffering()
   const redAmbLuckBonus = calculateCookieUpgrade29Luck()
 
-  DOMCacheGetOrSet('ambrosiaProgress').style.width = `${barWidth}%`
+  DOMCacheGetOrSet('ambrosiaProgress').style.transform = `scaleX(${ambrosiaProgress})`
 
   if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
     DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true, false)} / ${
@@ -2087,7 +2097,7 @@ export const visualUpdateAmbrosia = () => {
     DOMCacheGetOrSet('ambrosiaProgressText').textContent = i18next.t('ambrosia.notUnlocked')
   }
 
-  DOMCacheGetOrSet('pixelProgress').style.width = `${pixelBarWidth}%`
+  DOMCacheGetOrSet('pixelProgress').style.transform = `scaleX(${redAmbrosiaProgress})`
 
   if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
     DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.redAmbrosiaTime, 0, true, false)} / ${
@@ -2484,7 +2494,7 @@ export const visualUpdatePurple = () => {
   const reactorContainer = DOMCacheGetOrSet('purpleReactantContainers')
   reactorContainer.classList.toggle('purpleReactorActive', reactorActive)
 
-  DOMCacheGetOrSet('purpleHoneyProgressFill').style.width = `${purpleHoneyProgressPercentage}%`
+  DOMCacheGetOrSet('purpleHoneyProgressFill').style.transform = `scaleX(${purpleHoneyProgressPercentage / 100})`
   DOMCacheGetOrSet('purpleHoneyProgressText').textContent = purpleHoneyProgressText
   DOMCacheGetOrSet('purpleHoneyProgressRate').textContent = i18next.t(
     'purpleReactor.purpleHoneyProgressRate',
@@ -2492,7 +2502,7 @@ export const visualUpdatePurple = () => {
   )
   updateProgressBarAccessibility('purpleHoneyProgressBar', purpleHoneyProgressPercentage, purpleHoneyProgressText)
 
-  DOMCacheGetOrSet('ambrosiaContainerProgress').style.width = `${ambrosiaProgress}%`
+  DOMCacheGetOrSet('ambrosiaContainerProgress').style.transform = `scaleX(${ambrosiaProgress / 100})`
   DOMCacheGetOrSet('ambrosiaContainerProgressText').textContent = ambrosiaProgressText
   DOMCacheGetOrSet('ambrosiaReactantNetRate').textContent = formatPurpleReactantNetRate(ambrosiaBarPointNetRate)
   updateInnerHTMLIfChanged(
@@ -2511,7 +2521,7 @@ export const visualUpdatePurple = () => {
   )
   updateProgressBarAccessibility('ambrosiaContainerProgressBar', ambrosiaProgress, ambrosiaProgressAriaText)
 
-  DOMCacheGetOrSet('redAmbrosiaContainerProgress').style.width = `${redAmbrosiaProgress}%`
+  DOMCacheGetOrSet('redAmbrosiaContainerProgress').style.transform = `scaleX(${redAmbrosiaProgress / 100})`
   DOMCacheGetOrSet('redAmbrosiaContainerProgressText').textContent = redAmbrosiaProgressText
   DOMCacheGetOrSet('redAmbrosiaReactantNetRate').textContent = formatPurpleReactantNetRate(redAmbrosiaBarPointNetRate)
   updateInnerHTMLIfChanged(

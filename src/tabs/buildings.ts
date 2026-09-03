@@ -17,6 +17,7 @@ interface Building {
   descExtraClass?: string
   descStyle?: string
   buyExtraClass?: string
+  toggleExtraClass?: string
   toggleIdAttr?: string
   statsExtraClass?: string
   statsStyle?: string
@@ -39,6 +40,7 @@ const renderBuildingDesktop = (b: Building): string => {
   const descClass = joinClasses(b.descExtraClass, 'desc')
   const descStyle = b.descStyle ? ` style="${b.descStyle}"` : ''
   const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn')
+  const toggleClass = joinClasses('auto', 'autobuyerToggleButton', b.toggleExtraClass)
   const toggleIdAttr = b.toggleIdAttr !== undefined ? ` toggleid="${b.toggleIdAttr}"` : ''
   const statsClass = joinClasses(b.statsExtraClass, 'stats')
   const statsTextClass = b.fitStats === false ? '' : ' class="fitText"'
@@ -48,7 +50,7 @@ const renderBuildingDesktop = (b: Building): string => {
     + `<img${imgClass} id="${b.imgId}" alt="${b.imgAlt}" src="${b.imgSrc}" loading="lazy">`
     + `<span class="${descClass}"${descStyle}><span class="fitText" id="${b.descId}"></span></span>`
     + `<button class="${buyClass}" id="${b.buyId}"><span class="fitText" id="${costIdOf(b.buyId)}"></span></button>`
-    + `<button class="auto autobuyerToggleButton" id="${b.toggleId}"${toggleIdAttr}></button>`
+    + `<button class="${toggleClass}" id="${b.toggleId}"${toggleIdAttr}></button>`
     + `<span class="${statsClass}"${statsStyle}><span${statsTextClass} id="${b.statsId}"></span></span>`
     + '</div>'
 }
@@ -62,6 +64,7 @@ const renderBuildingMobile = (b: Building): string => {
   const descClass = joinClasses(b.descExtraClass, 'desc')
   const descStyle = b.descStyle ? ` style="${b.descStyle}"` : ''
   const buyClass = joinClasses(b.buyExtraClass, 'buildingPurchaseBtn')
+  const toggleClass = joinClasses('auto', 'autobuyerToggleButton', b.toggleExtraClass)
   const toggleIdAttr = b.toggleIdAttr !== undefined ? ` toggleid="${b.toggleIdAttr}"` : ''
   const statsClass = joinClasses(b.statsExtraClass, 'stats')
   const statsTextClass = b.fitStats === false ? '' : ' class="fitText"'
@@ -77,11 +80,12 @@ const renderBuildingMobile = (b: Building): string => {
     + `<span class="${statsClass}"${statsStyle}><span${statsTextClass} id="${b.statsId}"></span></span>`
     + '</div>'
     + `<button class="${buyClass}" id="${b.buyId}">${buyLabel}</button>`
-    + `<button class="auto autobuyerToggleButton" id="${b.toggleId}"${toggleIdAttr}></button>`
+    + `<button class="${toggleClass}" id="${b.toggleId}"${toggleIdAttr}></button>`
     + '</div>'
 }
 
 const renderBuilding = isMobile ? renderBuildingMobile : renderBuildingDesktop
+const spritePlaceholder = 'Pictures/img_transparent.png'
 
 const renderAutomationControl = (): string =>
   '<div class="buildingAutomationControls">'
@@ -105,7 +109,7 @@ const coinRow: Entry[] = [
   ...[0, 1, 2, 3, 4].map((i): Building => ({
     imgId: `coin${i + 1}`,
     imgAlt: coinNames[i],
-    imgSrc: `Pictures/Default/Tier${i + 1}.png`,
+    imgSrc: spritePlaceholder,
     descId: `buildtext${2 * i + 1}`,
     buyId: `buycoin${i + 1}`,
     toggleId: `toggle${i + 1}`,
@@ -119,7 +123,7 @@ const coinRow: Entry[] = [
   {
     imgId: 'accelerator',
     imgAlt: 'Accelerator',
-    imgSrc: 'Pictures/Default/Accelerator.png',
+    imgSrc: spritePlaceholder,
     descId: 'buildtext11',
     buyId: 'buyaccelerator',
     toggleId: 'toggle6',
@@ -132,7 +136,7 @@ const coinRow: Entry[] = [
   {
     imgId: 'multiplier',
     imgAlt: 'Multiplier',
-    imgSrc: 'Pictures/Default/Multiplier.png',
+    imgSrc: spritePlaceholder,
     descId: 'buildtext13',
     buyId: 'buymultiplier',
     toggleId: 'toggle7',
@@ -145,7 +149,7 @@ const coinRow: Entry[] = [
   {
     imgId: 'acceleratorboost',
     imgAlt: 'Accelerator Boost',
-    imgSrc: 'Pictures/Default/AcceleratorBoost.png',
+    imgSrc: spritePlaceholder,
     descId: 'buildtext15',
     buyId: 'buyacceleratorboost',
     toggleId: 'toggle8',
@@ -164,7 +168,7 @@ const coinRow: Entry[] = [
 const diamondRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
   imgId: `diamond${i + 1}`,
   imgAlt: diamondNames[i],
-  imgSrc: `Pictures/Default/DiamondTier${i + 1}.png`,
+  imgSrc: spritePlaceholder,
   descId: `prestigetext${2 * i + 1}`,
   buyId: `buydiamond${i + 1}`,
   toggleId: `toggle${10 + i}`,
@@ -175,7 +179,7 @@ const diamondRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
 const mythosRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
   imgId: `mythos${i + 1}`,
   imgAlt: mythosNames[i],
-  imgSrc: `Pictures/Default/MythosTier${i + 1}.png`,
+  imgSrc: spritePlaceholder,
   descId: `transcendtext${2 * i + 1}`,
   buyId: `buymythos${i + 1}`,
   toggleId: `toggle${16 + i}`,
@@ -186,7 +190,7 @@ const mythosRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
 const particleRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
   imgId: `particles${i + 1}`,
   imgAlt: particleNames[i],
-  imgSrc: `Pictures/Default/ParticlesTier${i + 1}.png`,
+  imgSrc: spritePlaceholder,
   descId: `reincarnationtext${i + 1}`,
   buyId: `buyparticles${i + 1}`,
   toggleId: `toggle${22 + i}`,
@@ -198,10 +202,11 @@ const particleRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
 const tesseractRow: Entry[] = [0, 1, 2, 3, 4].map((i): Building => ({
   imgId: `tesseracts${i + 1}`,
   imgAlt: tesseractNames[i],
-  imgSrc: `Pictures/Default/TesseractTier${i + 1}.png`,
+  imgSrc: spritePlaceholder,
   descId: `ascendText${i + 1}`,
   buyId: `buyTesseracts${i + 1}`,
   toggleId: `tesseractAutoToggle${i + 1}`,
+  toggleExtraClass: 'research190',
   statsId: `ascendText${i + 6}`
 }))
 
@@ -233,7 +238,7 @@ const getAutobuyers = (control: HTMLButtonElement): HTMLElement[] => {
   }
 
   return Array.from(row.querySelectorAll<HTMLElement>('.autobuyerToggleButton'))
-    .filter((toggle) => toggle.style.display !== 'none')
+    .filter((toggle) => getComputedStyle(toggle).display !== 'none')
 }
 
 const getVisibilityControl = (row: HTMLElement): HTMLButtonElement | null =>

@@ -7,6 +7,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   afterOfflineProgress,
   calculateAmbrosiaGenerationSpeed,
+  calculateGlobalSpeedMult,
   calculateOffline,
   calculateRedAmbrosiaGenerationSpeed
 } from './Calculate'
@@ -22,7 +23,7 @@ import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount 
 import { getStoredSave } from './saves/SaveStorage'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Confirm, Notification } from './UpdateHTML'
-import { assert, btoa, displayHTMLError, isomorphicDecode } from './Utility'
+import { assert, btoa, displayHTMLError, isomorphicDecode, memoize } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -1136,9 +1137,10 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     }
 
     // Timer Things
-    addTimers('prestige', seconds)
-    addTimers('transcension', seconds)
-    addTimers('reincarnation', seconds)
+    const globalSpeedMult = memoize(calculateGlobalSpeedMult)
+    addTimers('prestige', seconds, globalSpeedMult)
+    addTimers('transcension', seconds, globalSpeedMult)
+    addTimers('reincarnation', seconds, globalSpeedMult)
     automaticTools('antSacrifice', seconds)
     updatePrestigeCount(seconds / Math.max(0.25, player.fastestprestige))
     updateTranscensionCount(seconds / Math.max(0.25, player.fastesttranscend))

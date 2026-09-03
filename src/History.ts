@@ -438,7 +438,9 @@ const resetHistoryRenderRow = (
     extra.push(
       `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${
         format(newMulti, 3, false)
-      }"><img src="Pictures/${IconSets[player.iconSet][0]}/Multiplier.png" alt="Ant Multiplier">+${
+      }"><img src="Pictures/img_transparent.png" style="background-image: url('Pictures/${
+        IconSets[player.iconSet][0]
+      }/Sprite Sheets/BuildingsAndUpgrades.png'); background-position: -120px 0; background-size: 200px 100px;" alt="Ant Multiplier">+${
         format(diff, 3, false)
       }</span>`,
       `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/${

@@ -193,7 +193,7 @@
     </div>
     <header id="mainHeader">
         <div id="mobileHeaderContent">
-            <div id="ascensionStats">
+            <div class="ascensionStats" id="ascensionStats">
                 <span id="ascCubeStats">
                     <img src="Pictures/Default/TinyWow3.png" class="corruptionImg" alt="3D Cube" title="Cube Information" loading="lazy">
                     <span id="ascCubes" class="wowcubeText">x</span> C<span id="unit1">/s</span>
@@ -202,15 +202,15 @@
                     <img src="Pictures/Default/TinyWow4.png" class="corruptionImg" alt="4D Cube" title="Tesseract Information" loading="lazy">
                     <span id="ascTess" class="wowtesseractText">x</span> T<span id="unit2">/s</span>
                 </span>
-                <span id="ascHyperStats">
+                <span class="ascHyperStats" id="ascHyperStats">
                     <img src="Pictures/Default/TinyWow5.png" class="corruptionImg" title="Hypercube Information" loading="lazy">
                     <span id="ascHyper" class="wowhypercubeText">x</span> Hy<span id="unit3">/s</span>
                 </span>
-                <span id="ascPlatonicStats">
+                <span class="ascPlatonicStats" id="ascPlatonicStats">
                     <img src="Pictures/Default/TinyWow6.png" class="corruptionImg" title="Platonic Information" loading="lazy">
                     <span id="ascPlatonic" class="wowplatonicText">x</span> P<span id="unit4">/s</span>
                 </span>
-                <span id="ascHepteractStats">
+                <span class="ascHepteractStats" id="ascHepteractStats">
                     <img src="Pictures/Default/TinyWow7.png" class="corruptionImg" title="Hepteract Information" loading="lazy">
                     <span id="ascHepteract" class="wowhepteractText">x</span> He<span id="unit5">/s</span>
                 </span>
@@ -238,7 +238,7 @@
                     <img src="Pictures/Default/TinySTime.png" class="corruptionImg singularity" title="Singularity Timer" loading="lazy">
                     <span id="ascSingLen" class="singularity">x</span>
                 </span>
-                <span id="ascSingChallengeTimeTakenStats">
+                <span class="insideSingularityChallenge" id="ascSingChallengeTimeTakenStats">
                     <img src="Pictures/Default/TinySChalTime.png" class="corruptionImg singularity" title="Singularity Challenge Timer" loading="lazy">
                     <span id="ascSingChallengeLen" class="singularity">x</span>
                 </span>
@@ -289,7 +289,7 @@
                             <img class="resetbtn reincarnationunlock" id="reincarnatechallengebtn" i18n-aria-label="reset.buttonLabels.reincarnationChallenge" src="Pictures/Default/ChallengeReincarnation.png" loading="lazy">
                             <img class="resetbtn ascendunlock" id="ascendChallengeBtn" i18n-aria-label="reset.buttonLabels.ascensionChallenge" src="Pictures/Default/ChallengeAscension.png" loading="lazy">
                             <img class="resetbtn chal10" id="ascendbtn" i18n-aria-label="reset.buttonLabels.ascension" src="Pictures/Default/Ascension.png" loading="lazy">
-                            <img class="resetbtn singularity" id="singularitybtn" i18n-aria-label="reset.buttonLabels.singularity" src="Pictures/Default/Singularity.png" loading="lazy">
+                            <img class="resetbtn singularity singularityButton" id="singularitybtn" i18n-aria-label="reset.buttonLabels.singularity" src="Pictures/Default/Singularity.png" loading="lazy">
                         </div>
                         <div class="challengeProgress">
                             <div class="fitText" id="transcensionChallengeProgress" hidden></div>
@@ -311,7 +311,7 @@
         <div id="mobileHeaderResizeHandle" role="separator" aria-orientation="horizontal" tabindex="0" i18n-aria-label="mobile.header.resize"></div>
     </header>
     <main>
-        <div id="buildings">
+        <div id="buildings" class="tab">
             <div class="subTabWrapper">
                 <button id="switchToCoinBuilding" class="active-subtab" style="border: 2px solid yellow;"><span class="subTabButtonText fitText" i18n="tabs.buildings.coin"></span></button>
                 <button class="prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan"><span class="subTabButtonText fitText" i18n="tabs.buildings.diamond"></span></button>
@@ -371,11 +371,11 @@
                 <div id="crystalupgrades">
                     <table id="crystalupgradestable" style="padding: 0; font-size: 0;">
                         <tr>
-                            <td><img id="buycrystalupgrade1" alt="Crystal Upgrade 1" src="Pictures/Default/CrystalUpgrade1.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade2" alt="Crystal Upgrade 2" src="Pictures/Default/CrystalUpgrade2.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade3" alt="Crystal Upgrade 3" class="transcendunlock" src="Pictures/Default/CrystalUpgrade3.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade4" alt="Crystal Upgrade 4" class="transcendunlock" src="Pictures/Default/CrystalUpgrade4.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade5" alt="Crystal Upgrade 5" class="transcendunlock" src="Pictures/Default/CrystalUpgrade5.png" loading="lazy"></td>
+                            <td><img id="buycrystalupgrade1" alt="Crystal Upgrade 1" src="Pictures/img_transparent.png" loading="lazy"></td>
+                            <td><img id="buycrystalupgrade2" alt="Crystal Upgrade 2" src="Pictures/img_transparent.png" loading="lazy"></td>
+                            <td><img id="buycrystalupgrade3" alt="Crystal Upgrade 3" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy"></td>
+                            <td><img id="buycrystalupgrade4" alt="Crystal Upgrade 4" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy"></td>
+                            <td><img id="buycrystalupgrade5" alt="Crystal Upgrade 5" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy"></td>
                         </tr>
                     </table>
                     <div aria-live="polite">
@@ -388,9 +388,9 @@
 
                 <div class="resetautomation" id="autocrystalbuild">
                     <button class="auto" id="toggle15" toggleid="15" format="Auto Prestige [$]">Automatic Prestige &amp; Customization Being Developed!</button>
-                    <button id="prestigeautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
-                    <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1">
-                    <p class="transcendunlock mainText" id="autoprestige"></p>
+                    <button class="autoPrestige" id="prestigeautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
+                    <input class="transcendunlock autoPrestige" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1">
+                    <p class="transcendunlock autoPrestige mainText" id="autoprestige"></p>
                     <p id="prestigehotkeys" class="grayText" i18n="footnotes.crystals"></p>
                 </div>
             </div>
@@ -415,9 +415,9 @@
 
                 <div class="resetautomation">
                     <button class="auto" id="toggle21" toggleid="21" format="Auto Transcend [$]"></button>
-                    <button id="transcendautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
-                    <input class="transcendunlock" type="number" id="transcendamount" min="1" max="999999999" defaultValue="1">
-                    <p class="transcendunlock" id="autotranscend"></p>
+                    <button class="autoTranscend" id="transcendautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
+                    <input class="transcendunlock autoTranscend" type="number" id="transcendamount" min="1" max="999999999" defaultValue="1">
+                    <p class="transcendunlock autoTranscend" id="autotranscend"></p>
                 </div>
 
                 <p id="transcendhotkeys" class="grayText" i18n="footnotes.mythos"></p>
@@ -440,8 +440,8 @@
 
                 <div id="reincarnationTexts">
                     <p id="reincarnationshardinfo" class="fitText" style="color:lime;"></p>
-                    <p id="reincarnationCrystalInfo" class="fitText" style="color: cyan; display: none;">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
-                    <p id="reincarnationMythosInfo" class="fitText" style="color:plum; display: none;">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
+                    <p id="reincarnationCrystalInfo" class="fitText research39" style="color: cyan;">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
+                    <p id="reincarnationMythosInfo" class="fitText" style="color:plum;">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
                 </div>
 
                 <div class="resetautomation" id="reincarnateautomation">
@@ -479,34 +479,34 @@
                     <table id="constantUpgradeTable">
                         <tr>
                             <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade1" src="Pictures/Default/ConstantUpgrade1.png" loading="lazy">
+                                <img class="constUpgrade" id="buyConstantUpgrade1" src="Pictures/img_transparent.png" loading="lazy">
                             </td>
                             <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade2" src="Pictures/Default/ConstantUpgrade2.png" loading="lazy">
+                                <img class="constUpgrade" id="buyConstantUpgrade2" src="Pictures/img_transparent.png" loading="lazy">
                             </td>
                             <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade3" src="Pictures/Default/ConstantUpgrade3.png" loading="lazy">
+                                <img class="constUpgrade" id="buyConstantUpgrade3" src="Pictures/img_transparent.png" loading="lazy">
                             </td>
                             <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade4" src="Pictures/Default/ConstantUpgrade4.png" loading="lazy">
+                                <img class="constUpgrade" id="buyConstantUpgrade4" src="Pictures/img_transparent.png" loading="lazy">
                             </td>
                             <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade5" src="Pictures/Default/ConstantUpgrade5.png" loading="lazy">
+                                <img class="constUpgrade" id="buyConstantUpgrade5" src="Pictures/img_transparent.png" loading="lazy">
                             </td>
                             <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade6" src="Pictures/Default/ConstantUpgrade6.png" loading="lazy">
+                                <img class="constUpgrade" id="buyConstantUpgrade6" src="Pictures/img_transparent.png" loading="lazy">
                             </td>
                             <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade7" src="Pictures/Default/ConstantUpgrade7.png" loading="lazy">
+                                <img class="constUpgrade" id="buyConstantUpgrade7" src="Pictures/img_transparent.png" loading="lazy">
                             </td>
                             <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade8" src="Pictures/Default/ConstantUpgrade8.png" loading="lazy">
+                                <img class="constUpgrade" id="buyConstantUpgrade8" src="Pictures/img_transparent.png" loading="lazy">
                             </td>
                             <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade9" src="Pictures/Default/ConstantUpgrade9.png" loading="lazy">
+                                <img class="constUpgrade" id="buyConstantUpgrade9" src="Pictures/img_transparent.png" loading="lazy">
                             </td>
                             <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade10" src="Pictures/Default/ConstantUpgrade10.png" loading="lazy">
+                                <img class="constUpgrade" id="buyConstantUpgrade10" src="Pictures/img_transparent.png" loading="lazy">
                             </td>
                         </tr>
                     </table>
@@ -516,16 +516,16 @@
                     <p class="mainText" id="constUpgradeEffect1">Current Effect: <span id="constUpgradeEffect2" class="orchidText">---</span></p>
                 </div>
                 <div class="resetautomation" id="ascendautomation">
-                    <button id="tesseractautobuytoggle" style="border:2px solid red;" i18n="runes.talismans.autoBuyOff"></button>
-                    <button id="tesseractautobuymode" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
-                    <input class="tesseractautobuyamount" type="number" id="tesseractAmount" min="1" max="999999999" defaultValue="1">
-                    <p class="tesseractautobuyamount mainText" id="autotessbuyeramount"></p>
+                    <button class="research190" id="tesseractautobuytoggle" style="border:2px solid red;" i18n="runes.talismans.autoBuyOff"></button>
+                    <button class="research190" id="tesseractautobuymode" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
+                    <input class="tesseractautobuyamount research190" type="number" id="tesseractAmount" min="1" max="999999999" defaultValue="1">
+                    <p class="tesseractautobuyamount research190 mainText" id="autotessbuyeramount"></p>
                 </div>
                 <p id="ascendHotKeys" class="grayText" i18n="footnotes.particle"></p>
             </div>
         </div>
 
-        <div id="upgrades" style="display: none;">
+        <div id="upgrades" class="tab">
             <div id="upgradeReferenceHeader" class="subTabWrapper mobileIconSubTabWrapper showOnMobile"></div>
 
             <div id="upgradeTopBtns">
@@ -547,7 +547,7 @@
 
         </div> 
 
-        <div id="statistics" style="display: none;">
+        <div id="statistics" class="tab">
             <div id="achievementsToggle" class="subTabWrapper">
                 <button id="toggleAchievementSubTab1" class="active-subtab" style="border: 2px solid gold"><span class="subTabButtonText fitText" i18n="tabs.achievements.achievements"></span></button>
                 <button id="toggleAchievementSubTab2" style="border: 2px solid silver"><span class="subTabButtonText fitText" i18n="tabs.achievements.rewards"></span></button>
@@ -605,9 +605,9 @@
             </div>
         </div>
 
-        <div id="runes" style="display: none;">
+        <div id="runes" class="tab">
             <div id="runesToggle" class="subTabWrapper">
-                <button id="toggleautosacrifice" style="border: 2px solid orangered">
+                <button class="offeringAuto" id="toggleautosacrifice" style="border: 2px solid orangered">
                     <span id="toggleAutoSacrificeText" class="subTabButtonText fitText"></span>
                 </button>
                 <button id="toggleRuneSubTab1" class="active-subtab" style="border: 2px solid gold"><span class="subTabButtonText fitText" i18n="tabs.runes.runes"></span></button>
@@ -677,8 +677,8 @@
             </div>
         </div>
 
-        <div id="challenges" style="display: none;">
-            <div id="challengesTabsToggle" class="subTabWrapper">
+        <div id="challenges" class="tab">
+            <div id="challengesTabsToggle" class="subTabWrapper singChallengesTabs">
                 <button id="toggleChallengesSubTab1" class="active-subtab" style="border: 2px solid green; color: white;"><span class="subTabButtonText fitText" i18n="tabs.challenges.normal"></span></button>
                 <button id="toggleChallengesSubTab2" class="singChallenges" style="border: 2px solid purple; color: gold"><span class="subTabButtonText fitText" i18n="tabs.challenges.exalt"></span></button>
             </div>
@@ -692,63 +692,63 @@
                 </div>
                 <div id="challengeIcons">
                     <div>
-                        <img id="challenge1" alt="Challenge 1" class="challenge" src="Pictures/Default/Challenge1.png" loading="lazy">
+                        <img id="challenge1" alt="Challenge 1" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge1level">0 / 25</p>
                     </div>
                     <div>
-                        <img id="challenge2" alt="Challenge 2" class="challenge" src="Pictures/Default/Challenge2.png" loading="lazy">
+                        <img id="challenge2" alt="Challenge 2" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge2level">0 / 25</p>
                     </div>
                     <div>
-                        <img id="challenge3" alt="Challenge 3" class="challenge" src="Pictures/Default/Challenge3.png" loading="lazy">
+                        <img id="challenge3" alt="Challenge 3" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge3level">0 / 25</p>
                     </div>
                     <div>
-                        <img id="challenge4" alt="Challenge 4" class="challenge" src="Pictures/Default/Challenge4.png" loading="lazy">
+                        <img id="challenge4" alt="Challenge 4" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge4level">0 / 25</p>
                     </div>
                     <div>
-                        <img id="challenge5" alt="Challenge 5" class="challenge" src="Pictures/Default/Challenge5.png" loading="lazy">
+                        <img id="challenge5" alt="Challenge 5" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge5level">0 / 25</p>
                     </div>
                     <div class="reincarnationunlock">
-                        <img id="challenge6" alt="Challenge 6" class="challenge" src="Pictures/Default/Challenge6.png" loading="lazy">
+                        <img id="challenge6" alt="Challenge 6" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge6level">0 / 25</p>
                     </div>
                     <div class="chal6">
-                        <img id="challenge7" alt="Challenge 7" class="challenge" src="Pictures/Default/Challenge7.png" loading="lazy">
+                        <img id="challenge7" alt="Challenge 7" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge7level">0 / 25</p>
                     </div>
                     <div class="chal7">
-                        <img id="challenge8" alt="Challenge 8" class="challenge" src="Pictures/Default/Challenge8.png" loading="lazy">
+                        <img id="challenge8" alt="Challenge 8" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge8level">0 / 25</p>
                     </div>
                     <div class="chal8">
-                        <img id="challenge9" alt="Challenge 9" class="challenge" src="Pictures/Default/Challenge9.png" loading="lazy">
+                        <img id="challenge9" alt="Challenge 9" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge9level">0 / 25</p>
                     </div>
                     <div class="chal9">
-                        <img id="challenge10" alt="Challenge 10" class="challenge" src="Pictures/Default/Challenge10.png" loading="lazy">
+                        <img id="challenge10" alt="Challenge 10" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge10level">0 / 25</p>
                     </div>
                     <div class="chal10">
-                        <img id="challenge11" alt="challenge11" class="challenge" src="Pictures/Default/Challenge11.png" loading="lazy">
+                        <img id="challenge11" alt="challenge11" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge11level">0 / 10</p>
                     </div>
                     <div class="chal11">
-                        <img id="challenge12" alt="Challenge 12" class="challenge" src="Pictures/Default/Challenge12.png" loading="lazy">
+                        <img id="challenge12" alt="Challenge 12" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge12level">0 / 10</p>
                     </div>
                     <div class="chal12">
-                        <img id="challenge13" alt="Challenge 13" class="challenge" src="Pictures/Default/Challenge13.png" loading="lazy">
+                        <img id="challenge13" alt="Challenge 13" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge13level">0 / 10</p>
                     </div>
                     <div class="chal13">
-                        <img id="challenge14" alt="Challenge 14" class="challenge" src="Pictures/Default/Challenge14.png" loading="lazy">
+                        <img id="challenge14" alt="Challenge 14" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge14level">0 / 10</p>
                     </div>
                     <div class="chal14">
-                        <img id="challenge15" alt="Challenge 15" class="challenge" src="Pictures/Default/Challenge15.png" loading="lazy">
+                        <img id="challenge15" alt="Challenge 15" class="challenge" src="Pictures/img_transparent.png" loading="lazy">
                         <p class="challengeLevels" id="challenge15level">0 / 0</p>
                     </div>
                 </div>
@@ -799,31 +799,31 @@
                     </div>
                     <div class="singularityChallenges">
                         <div id="noSingularityUpgradesDiv" class="rainbowBorder">
-                            <img id="noSingularityUpgrades" class="challenge" src="Pictures/Default/ExaltChalNoSingularityUpgrade.png">
+                            <img id="noSingularityUpgrades" class="challenge" src="Pictures/img_transparent.png">
                         </div>
                         <div id="oneChallengeCapDiv" class="rainbowBorder">
-                            <img id="oneChallengeCap" class="challenge" src="Pictures/Default/ExaltChalOneChallengeCap.png">
+                            <img id="oneChallengeCap" class="challenge" src="Pictures/img_transparent.png">
                         </div>
                         <div id="limitedAscensionsDiv" class="rainbowBorder">
-                            <img id="limitedAscensions" class="challenge" src="Pictures/Default/ExaltChalLimitedAscensions.png">
+                            <img id="limitedAscensions" class="challenge" src="Pictures/img_transparent.png">
                         </div>
                         <div id="noQuarkUpgradesDiv" class="rainbowBorder">
-                            <img id="noQuarkUpgrades" class="challenge" src="Pictures/Default/ExaltChalNoQuarkUpgrades.png">
+                            <img id="noQuarkUpgrades" class="challenge" src="Pictures/img_transparent.png">
                         </div>
                         <div id="noOcteractsDiv" class="rainbowBorder">
-                            <img id="noOcteracts" class="challenge" src="Pictures/Default/ExaltChalNoOcteracts.png">
+                            <img id="noOcteracts" class="challenge" src="Pictures/img_transparent.png">
                         </div>
                         <div id="noAmbrosiaUpgradesDiv" class="rainbowBorder">
-                            <img id="noAmbrosiaUpgrades" class="challenge" src="Pictures/Default/ExaltChalNoAmbrosiaUpgrades.png">
+                            <img id="noAmbrosiaUpgrades" class="challenge" src="Pictures/img_transparent.png">
                         </div>
                         <div id="limitedTimeDiv" class="rainbowBorder">
-                            <img id="limitedTime" class="challenge" src="Pictures/Default/ExaltChalLimitedTime.png">
+                            <img id="limitedTime" class="challenge" src="Pictures/img_transparent.png">
                         </div>
                         <div id="sadisticPrequelDiv" class="rainbowBorder">
-                            <img id="sadisticPrequel" class="challenge" src="Pictures/Default/ExaltChalRainbowEffects.png">
+                            <img id="sadisticPrequel" class="challenge" src="Pictures/img_transparent.png">
                         </div>
                         <div id="taxmanLastStandDiv" class="rainbowBorder">
-                            <img id="taxmanLastStand" class="challenge" src="Pictures/Default/ExaltChalNoOfferingPower.png">
+                            <img id="taxmanLastStand" class="challenge" src="Pictures/img_transparent.png">
                         </div>
                     </div>
                     <div id="singularityChallengeDetails" class="hideOnMobile">
@@ -839,11 +839,11 @@
             </div>
         </div>
 
-        <div id="research" style="display: none;">
+        <div id="research" class="tab">
             <div id="researchToggles">
                 <button id="toggleresearchbuy" style="color: white;border: 2px solid pink">Upgrade: 1 Level</button>
-                <button id="toggleautoresearch" style="color: white; border: 2px solid blue">Automatic: OFF</button>
-                <button id="toggleautoresearchmode" style="color: white; border: 2px solid red">Automatic mode: Manual</button>
+                <button class="autoResearch" id="toggleautoresearch" style="color: white; border: 2px solid blue">Automatic: OFF</button>
+                <button class="autoResearchMode" id="toggleautoresearchmode" style="color: white; border: 2px solid red">Automatic mode: Manual</button>
                 <button class="auto" id="toggle38" toggleid="38" format="Hover-to-Buy [$]" style="border:2px solid green">Hover-To-Buy: Off</button>
                 <button class="toggleMaxedUpgrades" id="toggleMaxedResearches" aria-pressed="false" i18n="researches.maxedResearchesShow"></button>
             </div>
@@ -1082,7 +1082,7 @@
             </div>
         </div>
 
-        <div id="ants" style="display: none;">
+        <div id="ants" class="tab">
             <div id="antsWrapper">
                 <div id="antSubtabs" class="subTabWrapper">
                     <button id="toggleAntSubtab1" class="active-subtab" style="border: 2px solid burlywood"><span class="subTabButtonText fitText" i18n="tabs.ants.anthill"></span></button>
@@ -1105,40 +1105,40 @@
                         <button id="buyAllAntProducers" class="buyAllAntBtn" style="margin-bottom: 12px;" i18n="ants.buyAllProducers"></button>
                         <div id="antProducers">
                             <div class="antProducerColumn">
-                                <button id="anttier1" class="disable-hover-color" i18n-aria-label="ants.producers.0.name"><img alt="" class="antBtn" src="Pictures/Default/AntTier1.png" loading="lazy"></button>
-                                <button id="antMastery1"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                                <button id="anttier1" class="disable-hover-color" i18n-aria-label="ants.producers.0.name"><img id="antTier1Image" alt="" class="antBtn" src="Pictures/img_transparent.png" loading="lazy"></button>
+                                <button id="antMastery1"><img id="antMastery1Image" class="antBtn" src="Pictures/img_transparent.png"></button>
                             </div>
                             <div class="antProducerColumn">
-                                <button id="anttier2" class="disable-hover-color" i18n-aria-label="ants.producers.1.name"><img alt="" class="antBtn" src="Pictures/Default/AntTier2.png" loading="lazy"></button>
-                                <button id="antMastery2"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                                <button id="anttier2" class="disable-hover-color" i18n-aria-label="ants.producers.1.name"><img id="antTier2Image" alt="" class="antBtn" src="Pictures/img_transparent.png" loading="lazy"></button>
+                                <button id="antMastery2"><img id="antMastery2Image" class="antBtn" src="Pictures/img_transparent.png"></button>
                             </div>
                             <div class="antProducerColumn">
-                                <button id="anttier3" class="disable-hover-color" i18n-aria-label="ants.producers.2.name"><img alt="" class="antBtn" src="Pictures/Default/AntTier3.png" loading="lazy"></button>
-                                <button id="antMastery3"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                                <button id="anttier3" class="disable-hover-color" i18n-aria-label="ants.producers.2.name"><img id="antTier3Image" alt="" class="antBtn" src="Pictures/img_transparent.png" loading="lazy"></button>
+                                <button id="antMastery3"><img id="antMastery3Image" class="antBtn" src="Pictures/img_transparent.png"></button>
                             </div>
                             <div class="antProducerColumn">
-                                <button id="anttier4" class="disable-hover-color" i18n-aria-label="ants.producers.3.name"><img alt="" class="antBtn" src="Pictures/Default/AntTier4.png" loading="lazy"></button>
-                                <button id="antMastery4"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                                <button id="anttier4" class="disable-hover-color" i18n-aria-label="ants.producers.3.name"><img id="antTier4Image" alt="" class="antBtn" src="Pictures/img_transparent.png" loading="lazy"></button>
+                                <button id="antMastery4"><img id="antMastery4Image" class="antBtn" src="Pictures/img_transparent.png"></button>
                             </div>
                             <div class="antProducerColumn">
-                                <button id="anttier5" class="disable-hover-color" i18n-aria-label="ants.producers.4.name"><img alt="" class="antBtn" src="Pictures/Default/AntTier5.png" loading="lazy"></button>
-                                <button id="antMastery5"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                                <button id="anttier5" class="disable-hover-color" i18n-aria-label="ants.producers.4.name"><img id="antTier5Image" alt="" class="antBtn" src="Pictures/img_transparent.png" loading="lazy"></button>
+                                <button id="antMastery5"><img id="antMastery5Image" class="antBtn" src="Pictures/img_transparent.png"></button>
                             </div>
                             <div class="antProducerColumn">
-                                <button id="anttier6" class="disable-hover-color" i18n-aria-label="ants.producers.5.name"><img alt="" class="antBtn" src="Pictures/Default/AntTier6.png" loading="lazy"></button>
-                                <button id="antMastery6"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                                <button id="anttier6" class="disable-hover-color" i18n-aria-label="ants.producers.5.name"><img id="antTier6Image" alt="" class="antBtn" src="Pictures/img_transparent.png" loading="lazy"></button>
+                                <button id="antMastery6"><img id="antMastery6Image" class="antBtn" src="Pictures/img_transparent.png"></button>
                             </div>
                             <div class="antProducerColumn">
-                                <button id="anttier7" class="disable-hover-color" i18n-aria-label="ants.producers.6.name"><img alt="" class="antBtn" src="Pictures/Default/AntTier7.png" loading="lazy"></button>
-                                <button id="antMastery7"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                                <button id="anttier7" class="disable-hover-color" i18n-aria-label="ants.producers.6.name"><img id="antTier7Image" alt="" class="antBtn" src="Pictures/img_transparent.png" loading="lazy"></button>
+                                <button id="antMastery7"><img id="antMastery7Image" class="antBtn" src="Pictures/img_transparent.png"></button>
                             </div>
                             <div class="antProducerColumn">
-                                <button id="anttier8" class="disable-hover-color" i18n-aria-label="ants.producers.7.name"><img alt="" class="antBtn" src="Pictures/Default/AntTier8.png" loading="lazy"></button>
-                                <button id="antMastery8"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                                <button id="anttier8" class="disable-hover-color" i18n-aria-label="ants.producers.7.name"><img id="antTier8Image" alt="" class="antBtn" src="Pictures/img_transparent.png" loading="lazy"></button>
+                                <button id="antMastery8"><img id="antMastery8Image" class="antBtn" src="Pictures/img_transparent.png"></button>
                             </div>
                             <div class="antProducerColumn">
-                                <button id="anttier9" class="disable-hover-color" i18n-aria-label="ants.producers.8.name"><img alt="" class="antBtn" src="Pictures/Default/AntTier9.png" loading="lazy"></button>
-                                <button id="antMastery9"><img class="antBtn" src="Pictures/Default/Particle5.png"></button>
+                                <button id="anttier9" class="disable-hover-color" i18n-aria-label="ants.producers.8.name"><img id="antTier9Image" alt="" class="antBtn" src="Pictures/img_transparent.png" loading="lazy"></button>
+                                <button id="antMastery9"><img id="antMastery9Image" class="antBtn" src="Pictures/img_transparent.png"></button>
                             </div>
                         </div>
                     </div>
@@ -1146,24 +1146,24 @@
                     <div id="antUpgradesContainer">
                         <button id="buyAllAntUpgrades" class="buyAllAntBtn" style="margin-bottom: 12px;" i18n="ants.buyAllUpgrades"></button>
                         <div class="antUpgradeRow">
-                            <button id="antUpgrade1" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.antSpeed.name"><img src="Pictures/Default/AntUpgrade1.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade2" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.coins.name"><img src="Pictures/Default/AntUpgrade2.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade3" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.taxes.name"><img src="Pictures/Default/AntUpgrade3.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade4" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.acceleratorBoosts.name"><img src="Pictures/Default/AntUpgrade4.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade5" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.multipliers.name"><img src="Pictures/Default/AntUpgrade5.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade6" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.offerings.name"><img src="Pictures/Default/AntUpgrade6.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade10" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.obtainium.name"><img src="Pictures/Default/AntUpgrade10.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade12" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.mortuus.name"><img src="Pictures/Default/AntUpgrade12.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade1" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.antSpeed.name"><img id="antUpgrade1Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade2" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.coins.name"><img id="antUpgrade2Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade3" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.taxes.name"><img id="antUpgrade3Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade4" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.acceleratorBoosts.name"><img id="antUpgrade4Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade5" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.multipliers.name"><img id="antUpgrade5Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade6" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.offerings.name"><img id="antUpgrade6Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade10" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.obtainium.name"><img id="antUpgrade10Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade12" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.mortuus.name"><img id="antUpgrade12Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
                         </div>
                         <div class="antUpgradeRow">
-                            <button id="antUpgrade13" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.antSpeed2.name"><img src="Pictures/Default/AntUpgrade13.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade7" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.buildingCostScale.name"><img src="Pictures/Default/AntUpgrade7.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade8" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.salvage.name"><img src="Pictures/Default/AntUpgrade8.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade9" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.freeRunes.name"><img src="Pictures/Default/AntUpgrade9.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade11" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.antSacrifice.name"><img src="Pictures/Default/AntUpgrade11.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade14" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.wowCubes.name"><img src="Pictures/Default/AntUpgrade14.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade15" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.ascensionScore.name"><img src="Pictures/Default/AntUpgrade15.png" class="antBtn" alt="" loading="lazy"></button>
-                            <button id="antUpgrade16" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.mortuus2.name"><img src="Pictures/Default/AntUpgrade16.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade13" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.antSpeed2.name"><img id="antUpgrade13Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade7" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.buildingCostScale.name"><img id="antUpgrade7Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade8" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.salvage.name"><img id="antUpgrade8Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade9" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.freeRunes.name"><img id="antUpgrade9Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade11" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.antSacrifice.name"><img id="antUpgrade11Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade14" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.wowCubes.name"><img id="antUpgrade14Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade15" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.ascensionScore.name"><img id="antUpgrade15Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
+                            <button id="antUpgrade16" class="disable-hover-color antUpgrade" i18n-aria-label="ants.upgrades.mortuus2.name"><img id="antUpgrade16Image" src="Pictures/img_transparent.png" class="antBtn" alt="" loading="lazy"></button>
                         </div>
                     </div>
 
@@ -1179,20 +1179,28 @@
                         </div>
                     </div>
                 </div>
-                <div id="antSubtab2">
+                <div id="antSubtab2" class="none">
                     <div id="antAltarWelcomeTexts" class="introTextContainer">
+                        <span class="antAltarHeaderDecoration antAltarHeaderDecorationLeft" aria-hidden="true">
+                            <img src="Pictures/Achievements/Rewards/Ants.png" alt="">
+                            <span class="antAltarHeaderCircuit"></span>
+                        </span>
                         <p id="antAltarWelcome" style="color: lightslategrey" class="introText" i18n="ants.altarHeader"></p>
                         <p id="antAltarDescription" style="color: plum" i18n="ants.altarDetails"></p>
+                        <span class="antAltarHeaderDecoration antAltarHeaderDecorationRight" aria-hidden="true">
+                            <img src="Pictures/Achievements/Rewards/Ants.png" alt="">
+                            <span class="antAltarHeaderCircuit"></span>
+                        </span>
                     </div>
-                    <div id="sacrificeAntsLocked">
+                    <div id="sacrificeAntsLocked" class="sacrificeAntsLocked">
                         <div id="sacrificeUnlockTexts">
                             <p id="sacrificeLockedText" style="color: crimson"></p>
                             <p id="sacrificeUnlockCondition" i18n="ants.altar.locked.altarRequirements"></p>
                         </div>
                     </div>
-                    <div id="sacrificeAnts" class="none">
+                    <div id="sacrificeAnts" class="sacrificeAntsUnlocked">
                         <div id="eloCorner" class="sacrificeAntsContainer">
-                            <p style="font-size: 1.3em" i18n="ants.altar.titles.elo"></p>
+                            <p class="antSacrificePanelTitle" i18n="ants.altar.titles.elo"></p>
                             <button id="immortalELOInfoToggleButton" class="antLeaderboardToggleBtn" data-mode="overview">
                                 <span i18n="ants.compendium.toggleOverview"></span>
                             </button>
@@ -1226,29 +1234,9 @@
                                 <p id="eloStageTranche4" i18n="ants.stageTranche4"></p>
                                 <p id="eloStageTranche5" i18n="ants.stageTranche5"></p>
                             </div>
-                            <br>
-                            <div id="lotusCorner">
-                                <div id="lotusNameIcon">
-                                    <div class="iconAndNameContainer">
-                                        <img src="Pictures/PseudoShop/LOTUS.png">
-                                        <p class="gradientText lotusGradient" i18n="pseudoCoins.lotus.nameSingular"></p>
-                                    </div>
-                                    <p i18n="pseudoCoins.lotus.boxText1"></p>
-                                    <p i18n="pseudoCoins.lotus.boxText2"></p>
-                                    <p i18n="pseudoCoins.lotus.boxText3"></p>
-                                    <br>
-                                    <p id="lotusOwnedAnt"></p>
-                                    <p id="lotusStatus"></p>
-                                    <div id="lotusButtons">
-                                        <button id="use-lotus" i18n="pseudoCoins.lotus.useLotus"></button>
-                                        <button class="consumableButton" i18n="pseudoCoins.consumables.consumableButton"></button>
-                                    </div>
-                                </div>
-                                <p id="lotusInformation"></p>
-                            </div>
                         </div>
                         <div id="altar" class="sacrificeAntsContainer">
-                            <p style="font-size: 1.3em" i18n="ants.altar.titles.altar"></p>
+                            <p class="antSacrificePanelTitle" i18n="ants.altar.titles.altar"></p>
                             <button id="antSacrifice" i18n-aria-label="ants.antSacrifice" style="display: inline-block;">
                             <img alt="" src="Pictures/Default/AntSacrifice.png" style="cursor: pointer; display: block;" loading="lazy">
                             </button>
@@ -1257,20 +1245,20 @@
                             <p id="antSacrificeNumber" class="bodycolor"></p>
                             <p id="antSacrificeRequired" class="bodycolor"></p>
                             <br>
-                            <div id="autoSacrificeLocked">
+                            <div class="autoSacrificeLocked" id="autoSacrificeLocked">
                                 <p i18n="ants.altar.autoSacrificeLocked.info"></p>
                                 <p id="anthillsRemainingForAutoSac"></p>
                             </div>
-                            <div id="autoSacrifice">
-                                <button id="toggleAutoSacrificeAnt" class="antToggleBtn"></button>
-                                <div class="antSacrificeSettingsContainer" id="antSacrificeButtons">
+                            <div class="autoSacrifice" id="autoSacrifice">
+                                <div class="antSacrificeSettingsContainer">
+                                    <button id="toggleAutoSacrificeAnt" class="antToggleBtn"></button>
                                     <button id="autoSacrificeAntMode"></button>
-                                    <input id="autoAntSacrificeAmount" type="number">
+                                    <input id="autoAntSacrificeAmount" type="number" min="0">
                                 </div>
                                 <span id="autoAntSacrifice"></span>
                                 <div id="otherAutoSac">
-                                    <div id="additionalAutoSacOptionsLocked" style="font-size: 1.15em; color: greenyellow" i18n="ants.altar.additionalAutoSacOptions.info"></div>
-                                    <div id="additionalAutoSacOptions">
+                                    <div class="additionalAutoSacOptionsLocked" id="additionalAutoSacOptionsLocked" style="font-size: 1.15em; color: greenyellow" i18n="ants.altar.additionalAutoSacOptions.info"></div>
+                                    <div class="additionalAutoSacOptions" id="additionalAutoSacOptions">
                                         <label class="antSacToggle">
                                             <input type="checkbox" id="alwaysMaxRebornELOToggle" class="antSacToggleInput">
                                             <p i18n="ants.altar.additionalAutoSacOptions.alwaysMaxReborn"></p>
@@ -1287,53 +1275,105 @@
                             </div>
                         </div>
                         <div id="antSacrificeRewards" class="sacrificeAntsContainer">
-                            <p id="antSacrificeRewardsTitle" style="font-size: 1.3em;" i18n="ants.altar.titles.worldRewards"></p>
+                            <p class="antSacrificePanelTitle" i18n="ants.altar.titles.worldRewards"></p>
                             <div id="antSacrificeObtainiumOfferings">
-                                <div class="antSacrificeRewardColumn" style="border: 2px solid orange; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardOffering">
                                     <img src="Pictures/Default/Offering.png" i18n="general.resources.offering" loading="lazy">
-                                    <p id="antSacrificeOffering" style="color: gold;"></p>
+                                    <p id="antSacrificeOffering"></p>
                                 </div>
-                                <div class="antSacrificeRewardColumn" style="border: 2px solid pink; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardObtainium">
                                     <img src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium" loading="lazy">
-                                    <p id="antSacrificeObtainium" style="color: pink"></p>
+                                    <p id="antSacrificeObtainium"></p>
                                 </div>
                             </div>
                             <div id="antSacrificeShardsRow1">
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid gold; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardTalisman chal9x1">
                                     <img src="Pictures/Default/TalismanShard.png" i18n="general.resources.talismanShard" loading="lazy">
-                                    <p id="antSacrificeTalismanShard" style="color: gold"></p>
+                                    <p id="antSacrificeTalismanShard"></p>
                                 </div>
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid white; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardCommon chal9x1">
                                     <img src="Pictures/Default/TalismanShardCommon.png" i18n="general.resources.talismanShardCommon" loading="lazy">
-                                    <p id="antSacrificeCommonFragment" style="color: white"></p>
+                                    <p id="antSacrificeCommonFragment"></p>
                                 </div>
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid limegreen; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardUncommon chal9x1">
                                     <img src="Pictures/Default/TalismanShardUncommon.png" i18n="general.resources.talismanShardUncommon" loading="lazy">
-                                    <p id="antSacrificeUncommonFragment" style="color: limegreen"></p>
-                                </div>
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid darkcyan; border-radius: 4px;">
-                                    <img src="Pictures/Default/TalismanShardRare.png" i18n="general.resources.talismanShardRare" loading="lazy">
-                                    <p id="antSacrificeRareFragment" style="color: darkcyan"></p>
+                                    <p id="antSacrificeUncommonFragment"></p>
                                 </div>
                             </div>
                             <div id="antSacrificeShardsRow2">
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid plum; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardRare chal9x1">
+                                    <img src="Pictures/Default/TalismanShardRare.png" i18n="general.resources.talismanShardRare" loading="lazy">
+                                    <p id="antSacrificeRareFragment"></p>
+                                </div>
+                                <div class="antSacrificeRewardColumn antSacrificeRewardEpic chal9x1">
                                     <img src="Pictures/Default/TalismanShardEpic.png" i18n="general.resources.talismanShardEpic" loading="lazy">
-                                    <p id="antSacrificeEpicFragment" style="color: plum"></p>
+                                    <p id="antSacrificeEpicFragment"></p>
                                 </div>
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid orange; border-radius: 4px;">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardLegendary chal9x1">
                                     <img src="Pictures/Default/TalismanShardLegendary.png" i18n="general.resources.talismanShardLegendary" loading="lazy">
-                                    <p id="antSacrificeLegendaryFragment" style="color: orange"></p>
+                                    <p id="antSacrificeLegendaryFragment"></p>
                                 </div>
-                                <div class="antSacrificeRewardColumn chal9x1" style="border: 2px solid crimson; border-radius: 4px;">
+                            </div>
+                            <div id="antSacrificeShardsRow3">
+                                <div class="antSacrificeRewardColumn antSacrificeRewardMythical chal9x1">
                                     <img src="Pictures/Default/TalismanShardMythical.png" i18n="general.resources.talismanShardMythic" loading="lazy">
-                                    <p id="antSacrificeMythicalFragment" style="color: crimson"></p>
+                                    <p id="antSacrificeMythicalFragment"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="lotusCorner">
+                            <button
+                                id="toggleLotusSection"
+                                type="button"
+                                aria-expanded="true"
+                                aria-controls="lotusDetails"
+                                i18n-aria-label="pseudoCoins.lotus.collapseSection"
+                            >
+                                <span aria-hidden="true"></span>
+                            </button>
+                            <div id="lotusCollapsedSummary" aria-hidden="true">
+                                <img src="Pictures/PseudoShop/LOTUS.png" alt="" loading="lazy">
+                                <p class="gradientText lotusGradient lotusCollapsedTitle" i18n="pseudoCoins.lotus.nameSingular"></p>
+                                <div class="lotusCollapsedValues">
+                                    <p id="lotusOwnedAntCollapsed"></p>
+                                    <p id="lotusStatusCollapsed"></p>
+                                </div>
+                                <div class="lotusCollapsedActions">
+                                    <button id="use-lotus-collapsed" i18n="pseudoCoins.lotus.useLotus"></button>
+                                    <button id="lotusConsumablesButtonCollapsed" class="consumableButton">
+                                        <img src="Pictures/cart.png" alt="">
+                                        <span i18n="pseudoCoins.consumables.consumableButton"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="lotusDetails">
+                                <div id="lotusExpandedContent">
+                                    <div id="lotusVisual" aria-hidden="true">
+                                        <img src="Pictures/PseudoShop/LOTUS.png" alt="" loading="lazy">
+                                    </div>
+                                    <div id="lotusNameIcon">
+                                        <p class="gradientText lotusGradient" i18n="pseudoCoins.lotus.nameSingular"></p>
+                                        <p i18n="pseudoCoins.lotus.boxText1"></p>
+                                        <p i18n="pseudoCoins.lotus.boxText2"></p>
+                                        <p i18n="pseudoCoins.lotus.boxText3"></p>
+                                    </div>
+                                    <div id="lotusInventory">
+                                        <p id="lotusOwnedAnt"></p>
+                                        <p id="lotusStatus"></p>
+                                        <button id="use-lotus" i18n="pseudoCoins.lotus.useLotus"></button>
+                                    </div>
+                                    <div id="lotusButtons">
+                                        <button id="lotusConsumablesButton" class="consumableButton">
+                                            <img src="Pictures/cart.png" alt="">
+                                            <span i18n="pseudoCoins.consumables.consumableButton"></span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="antSubtab3">
+                <div id="antSubtab3" class="none">
                     <div id="antCompendiumWelcomeTexts" class="introTextContainer">
                         <p id="antCompendiumWelcome" style="color: lightslategrey" class="introText" i18n="ants.compendiumHeader"></p>
                         <p id="antCompendiumDescription" style="color: cyan" i18n="ants.compendiumDetails"></p>
@@ -1371,7 +1411,7 @@
             </div>
         </div>
 
-        <div id="cubes" style="display: none;">
+        <div id="cubes" class="tab">
             <div id="wowCubeSidebarButtons" class="subTabWrapper">
                 <button id="switchCubeSubTab1" class="cubeSwitchTabBtn active-subtab" style="border: 2px solid var(--wowcube-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.cubeTributes"></span></button>
                 <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid var(--tesseract-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.tesseract"></span></button>
@@ -1426,8 +1466,8 @@
                                 <button class="cubeBtn" id="openCustomCube" i18n="wowCubes.openCustom"></button>
                                 <button class="cubeBtn" id="openMostCube" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens" id="openCubes" style="border: 1px solid red" title="On Ascension will open % of Cubes&#013Cx1 is required"></button>
-                                    <input class="autoOpensInput" type="number" id="cubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openCubes" style="border: 1px solid red" title="On Ascension will open % of Cubes&#013Cx1 is required"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="cubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1518,8 +1558,8 @@
                                 <button id="openCustomTesseract" class="cubeBtn" i18n="wowCubes.openCustom"></button>
                                 <button id="openMostTesseract" class="cubeBtn" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens" id="openTesseracts" style="border: 1px solid red" title="On Ascension will open % of Tesseracts&#013Cant work with amount Mode (Auto Tesseract Buildings)"></button>
-                                    <input class="autoOpensInput" type="number" id="tesseractsOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openTesseracts" style="border: 1px solid red" title="On Ascension will open % of Tesseracts&#013Cant work with amount Mode (Auto Tesseract Buildings)"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="tesseractsOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1607,8 +1647,8 @@
                                 <button id="openCustomHypercube" class="cubeBtn" i18n="wowCubes.openCustom"></button>
                                 <button id="openMostHypercube" class="cubeBtn" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens" id="openHypercubes" style="border: 1px solid red" title="On Ascension will open % of Hypercubes"></button>
-                                    <input class="autoOpensInput" type="number" id="hypercubesOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openHypercubes" style="border: 1px solid red" title="On Ascension will open % of Hypercubes"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="hypercubesOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1696,8 +1736,8 @@
                                 <button id="openCustomPlatonicCube" class="cubeBtn" i18n="wowCubes.openCustom"></button>
                                 <button id="openMostPlatonicCube" class="cubeBtn" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens" id="openPlatonicCube" style="border: 1px solid red" title="On Ascension will open % of Platonic Cubes"></button>
-                                    <input class="autoOpensInput" type="number" id="platonicCubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openPlatonicCube" style="border: 1px solid red" title="On Ascension will open % of Platonic Cubes"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="platonicCubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1871,13 +1911,13 @@
                         </div>
                         <div class="cubeUpgradeToggles">
                             <button id="toggleCubeBuy" style="text-align: center;color: white;border: 2px solid pink">Upgrade: 1 Level wow</button>
-                            <button id="toggleAutoCubeUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
+                            <button class="autoCubeUpgrades" id="toggleAutoCubeUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
                         </div>
                     </div>
                 </div>
                 <div id="cubeTab6" class="cubeTab" style="display: none">
                     <div id="c15Rewards" class="challengeContainer boxColor">
-                        <p id="c15Reward0" i18n="wowCubes.platonicUpgrades.c15Rewards.0" class="challengePortion"></p>
+                        <p id="c15Reward0" class="challengePortion"></p>
                         <p id="c15RequiredExponent" class="challengePortion"></p>
                         <p id="c15NextReward" class="challengePortion" style="color: orchid"></p>
                     </div>
@@ -1914,8 +1954,8 @@
                                 </tr>
                             </table>
                             <div class="platonicUpgrades2 platonicUpgradesToggles">
-                                <button id="maxPlatToggle" style="border: 2px solid gold" title="If ON, then attempt to buy as much of an upgrade as possible">Buy Max [ON]</button>
-                                <button id="toggleAutoPlatonicUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
+                                <button class="saveOfferings" id="maxPlatToggle" style="border: 2px solid gold" title="If ON, then attempt to buy as much of an upgrade as possible">Buy Max [ON]</button>
+                                <button class="autoPlatonicUpgrades" id="toggleAutoPlatonicUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
                             </div>
                         </div>
                         <div id="platonicUpgradeDescriptions" class="platonicContainer boxColor">
@@ -1942,7 +1982,7 @@
                         <img class="openImage" src="Pictures/Default/Hepteract.png" loading="lazy">
                         <div class="NotificationToggle">
                             <span id="hepteractQuantity" class="wowhepteractText"></span>
-                            <img class="heptNotification" id="heptnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
+                            <img class="heptNotification hepteractConfirmation" id="heptnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
                             <button class="auto nonSquare" id="toggle35" toggleid="35" format="[$]" style="border: 2px solid green">[ON]</button>
                         </div>
                     </div>
@@ -2057,7 +2097,7 @@
                         <div class="hepteractType" id="overfluxPowder">
                             <img id="overfluxPowderImage" alt="Overflux Powder" class="heptTypeImage" src="Pictures/img_transparent.png">
                             <button id="powderDayWarp"  i18n="wowCubes.hepteractForge.warp"></button>
-                            <button id="warpAuto" style="border: 2px solid red;"></button>
+                            <button class="autoWarp" id="warpAuto" style="border: 2px solid red;"></button>
                             <div class="heptGridInventory" style="align-self: end;">
                                 <span class="heptGridInventoryLabel orchidText" i18n="wowCubes.hepteractForge.powder"></span>
                                 <span class="heptGridInventoryValue orchidText" id="heptGridPowderBalance">0</span>
@@ -2086,7 +2126,7 @@
             </div>
         </div>
 
-        <div id="traits" style="display: none;">
+        <div id="traits" class="tab">
             <div id="corruptionStatsLoadouts" class="flex column">
                 <span id="corrButtonRow" class="flex row center">
                     <button id="corrCampaignsBtn" i18n="corruptions.corrCampaignsBtn"></button>
@@ -2239,14 +2279,29 @@
                     </div>
                     <div id="campaignsTokensInfo" aria-live="polite">
                         <h2 id="campaignTokenCount"></h2>
-                        <div id="campaignTokenRewardIcons"></div>
+                        <div id="campaignTokenRewardIcons">
+                            <img id="campaignTokenRewardIcon-tutorial" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-cube" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-obtainium" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-offering" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-ascensionScore" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-quark" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-tax" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-c15" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-rune6" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-goldenQuark" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-octeract" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-ambrosiaLuck" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-blueberrySpeed" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-sum" src="Pictures/img_transparent.png" alt="" hidden>
+                        </div>
                         <h4 id="campaignTokenRewardText"></h4>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="settings" style="display: none;">
+        <div id="settings" class="tab">
             <div class="subtabSwitcher subTabWrapper">
                 <button id="switchSettingSubTab1" class="active-subtab" style="border: 2px solid white"><span class="subTabButtonText fitText" i18n="tabs.main.settings"></span></button>
                 <button id="switchSettingSubTab2" style="border: 2px solid cyan"><span class="subTabButtonText fitText" i18n="tabs.settings.languages"></span></button>
@@ -2257,7 +2312,7 @@
                 <button id="switchSettingSubTab7" class="singularity" style="border: 2px solid darkorange"><span class="subTabButtonText fitText" i18n="tabs.settings.singularityHistory"></span></button>
                 <button id="switchSettingSubTab8" style="border: 2px solid white"><span class="subTabButtonText fitText" i18n="tabs.settings.hotkeys"></span></button>
                 <button id="switchSettingSubTab9"><span class="subTabButtonText fitText" i18n="tabs.settings.account"></span></button>
-                <button id="switchSettingSubTab10" style="border: 2px solid red"><span class="subTabButtonText fitText" i18n="tabs.settings.messages"></span></button>
+                <button class="unreadMessages" id="switchSettingSubTab10" style="border: 2px solid red"><span class="subTabButtonText fitText" i18n="tabs.settings.messages"></span></button>
             </div>
             <div class="subtabContent subtabDisplayFlex subtabActive" id="settingsubtab">
                 <div class="settingSubTabUpper">
@@ -2285,7 +2340,7 @@
                                 <button class="auto square" id="toggle32" toggleid="32" format="$" style="border:2px solid green">ON</button>
                             </div>
                             <div class="confirmationToggle">
-                                <img class="singularity settingpic" id="settingpic6" src="Pictures/Default/SingularityNoBorder.png" i18n="tabs.settings.confirmation.singularity" loading="lazy">
+                                <img class="singularity settingpic singularityConfirmation" id="settingpic6" src="Pictures/Default/SingularityNoBorder.png" i18n="tabs.settings.confirmation.singularity" loading="lazy">
                                 <button class="auto square" id="toggle33" toggleid="33" format="$" style="border:2px solid green">ON</button>
                             </div>
                         </div>
@@ -2798,7 +2853,7 @@
             </div>
         </div>
 
-        <div id="shop" style="display: none;">
+        <div id="shop" class="tab">
             <div id="shopWrapper">
                 <div id="actualWrapper" class="scrollbarX">
                     <div id="actualConsumables">
@@ -2855,7 +2910,7 @@
             </div>
         </div>
 
-        <div id="singularity">
+        <div id="singularity" class="tab">
             <div id="singularityTabsToggle" class="subTabWrapper">
                 <button id="toggleSingularitySubTab1" class="active-subtab" style="border: 2px solid silver; color: white;"><span class="subTabButtonText fitText" i18n="tabs.singularity.info"></span></button>
                 <button id="toggleSingularitySubTab2" style="border: 2px solid gold; color: white;"><span class="subTabButtonText fitText" i18n="tabs.singularity.goldenQuarks"></span></button>
@@ -3375,11 +3430,11 @@
                         <p id="ambrosiaThresholdInfo" style="color: lightblue"></p>
                     </div>
                     <div id="ambrosiaProgressBar">
-                        <div id="ambrosiaProgress" style="width: 70%;"></div>
+                        <div id="ambrosiaProgress"></div>
                         <span id="ambrosiaProgressText">EVAL 492942 + 4294256!</span>
                     </div>
                     <div id="pixelProgressBar">
-                        <div id="pixelProgress" style="width: 70%;"></div>
+                        <div id="pixelProgress"></div>
                         <span id="pixelProgressText">EVAL 492942 + 4294256!</span>
                     </div>
                     <div class="blueberryBoxColor Exalt1x1" id="blueberryUpgradeContainer">
@@ -3943,7 +3998,7 @@
             </div>
         </div>
 
-        <div id="event">
+        <div id="event" class="tab">
             <div id="globalFreeEvents" class="event-container">
                 <h3 id="globalEventName" class="event-title" i18n="pseudoCoins.consumables.globalEvent"></h3>
                 <div id="eventBuffContainer" class="temporaryBuffContainer">
@@ -4075,7 +4130,7 @@
             </div>
         </div>
 
-        <div id="pseudoCoins">
+        <div id="pseudoCoins" class="tab">
         <div class="subtabSwitcher subTabWrapper">
             <button
             id="cartSubTab1"

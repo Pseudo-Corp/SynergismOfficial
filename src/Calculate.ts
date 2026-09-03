@@ -71,7 +71,7 @@ import {
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
 import { Alert, Prompt } from './UpdateHTML'
-import { findInsertionIndex } from './Utility'
+import { findInsertionIndex, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 // dprint-ignore
@@ -220,13 +220,10 @@ export const calculateObtainiumDRIgnoreMult = () => calculateTotalStat(allObtain
 
 /**
  * @param timeMultUsed Default true. If false, gives multiplier as if time multiplier was 1
- * @param logMultOnly Default false. If true, returns the log10 of the obtainium multiplier, possibly greater than 300.
+ * @param baseObtainium The precomputed base obtainium, if available
  * @returns
  */
-export const calculateObtainium = (timeMultUsed = true) => {
-  // Base Obtainium
-  const base = calculateBaseObtainium()
-
+export const calculateObtainium = (timeMultUsed = true, baseObtainium = calculateBaseObtainium()) => {
   // Immaculate Offering Capacity
   const immaculate = calculateObtainiumDRIgnoreMult()
 
@@ -256,12 +253,12 @@ export const calculateObtainium = (timeMultUsed = true) => {
   ) {
     return Decimal.min(
       player.obtainium.times(100).plus(1),
-      Decimal.max(base, total)
+      Decimal.max(baseObtainium, total)
     )
   }
 
   // As of Statistics Update, you can never get less than your base Offerings per Reincarnation, no matter what.
-  return Decimal.max(base, total)
+  return Decimal.max(baseObtainium, total)
 }
 
 const calculateFastForwardResourcesGlobal = (
@@ -300,9 +297,9 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
   }
 
   const useTimer = false
-  const resourceMult = calculateObtainium(useTimer)
-  const globalSpeedMult = calculateGlobalSpeedMult()
   const baseObtainium = calculateBaseObtainium()
+  const resourceMult = calculateObtainium(useTimer, baseObtainium)
+  const globalSpeedMult = calculateGlobalSpeedMult()
 
   const researchVal = calculateFastForwardResourcesGlobal(deltaTime, resourceMult, baseObtainium, globalSpeedMult)
 
@@ -825,9 +822,10 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     calculateObtainium()
 
     // Reset Stuff lmao!
-    addTimers('prestige', timeTick)
-    addTimers('transcension', timeTick)
-    addTimers('reincarnation', timeTick)
+    const timerSpeedMult = memoize(calculateGlobalSpeedMult)
+    addTimers('prestige', timeTick, timerSpeedMult)
+    addTimers('transcension', timeTick, timerSpeedMult)
+    addTimers('reincarnation', timeTick, timerSpeedMult)
     addTimers('octeracts', timeTick)
     addTimers('ambrosia', timeTick)
     addTimers('redAmbrosia', timeTick)
@@ -855,7 +853,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
 
     if (resourceTicks % 5 === 1) {
       // 196, 191, ... , 6, 1 ticks remaining
-      updateAll('offline')
+      updateAll()
     }
 
     resourceTicks -= 1
