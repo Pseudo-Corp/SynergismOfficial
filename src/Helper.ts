@@ -39,7 +39,7 @@ import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { player } from './Synergism'
 import { buyAllTalismanResources } from './Talismans'
-import { animatePurpleHoneyGain, visualUpdatePurple } from './UpdateVisuals'
+import { animatePurpleHoneyGain } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 type TimerInput =
@@ -329,7 +329,6 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         * PURPLE_REACTOR_TICK_INTERVAL
       G.purpleHoneyTimer %= PURPLE_REACTOR_TICK_INTERVAL
       convertPurpleReactants(elapsed)
-      visualUpdatePurple()
       break
     }
     case 'ambrosia': {

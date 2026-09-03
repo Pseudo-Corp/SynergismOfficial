@@ -179,8 +179,7 @@ import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframe
 import {
   cycleCorruptionScoreTarget,
   selectCorruptionScoreTarget,
-  shopMouseover,
-  visualUpdatePurple
+  shopMouseover
 } from './UpdateVisuals'
 import {
   buyAllUpgrades,
@@ -2033,7 +2032,6 @@ TODO: Fix this entire tab it's utter shit
     } else {
       player.purpleReactor.redAmbrosiaBarPointPercentage = percentage
     }
-    visualUpdatePurple()
   }
 
   const registerPurpleReactantSlider = (
