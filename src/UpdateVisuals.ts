@@ -2493,7 +2493,7 @@ export const visualUpdatePurple = () => {
   const reactorContainer = DOMCacheGetOrSet('purpleReactantContainers')
   reactorContainer.classList.toggle('purpleReactorActive', reactorActive)
 
-  DOMCacheGetOrSet('purpleHoneyProgressFill').style.width = `${purpleHoneyProgressPercentage}%`
+  DOMCacheGetOrSet('purpleHoneyProgressFill').style.transform = `scaleX(${purpleHoneyProgressPercentage / 100})`
   DOMCacheGetOrSet('purpleHoneyProgressText').textContent = purpleHoneyProgressText
   DOMCacheGetOrSet('purpleHoneyProgressRate').textContent = i18next.t(
     'purpleReactor.purpleHoneyProgressRate',
@@ -2501,7 +2501,7 @@ export const visualUpdatePurple = () => {
   )
   updateProgressBarAccessibility('purpleHoneyProgressBar', purpleHoneyProgressPercentage, purpleHoneyProgressText)
 
-  DOMCacheGetOrSet('ambrosiaContainerProgress').style.width = `${ambrosiaProgress}%`
+  DOMCacheGetOrSet('ambrosiaContainerProgress').style.transform = `scaleX(${ambrosiaProgress / 100})`
   DOMCacheGetOrSet('ambrosiaContainerProgressText').textContent = ambrosiaProgressText
   DOMCacheGetOrSet('ambrosiaReactantNetRate').textContent = formatPurpleReactantNetRate(ambrosiaBarPointNetRate)
   updateInnerHTMLIfChanged(
@@ -2520,7 +2520,7 @@ export const visualUpdatePurple = () => {
   )
   updateProgressBarAccessibility('ambrosiaContainerProgressBar', ambrosiaProgress, ambrosiaProgressAriaText)
 
-  DOMCacheGetOrSet('redAmbrosiaContainerProgress').style.width = `${redAmbrosiaProgress}%`
+  DOMCacheGetOrSet('redAmbrosiaContainerProgress').style.transform = `scaleX(${redAmbrosiaProgress / 100})`
   DOMCacheGetOrSet('redAmbrosiaContainerProgressText').textContent = redAmbrosiaProgressText
   DOMCacheGetOrSet('redAmbrosiaReactantNetRate').textContent = formatPurpleReactantNetRate(redAmbrosiaBarPointNetRate)
   updateInnerHTMLIfChanged(
