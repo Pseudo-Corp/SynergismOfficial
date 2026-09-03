@@ -3,6 +3,7 @@
 import DOMPurify from 'dompurify'
 import i18next from 'i18next'
 import { z } from 'zod'
+import { achievementLevel } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   afterOfflineProgress,
@@ -1291,6 +1292,17 @@ const buyLotusNotification = (amount: number) => {
   }
 }
 
+async function uploadSave (name: string, save: string): Promise<Response> {
+  const fd = new FormData()
+  fd.set('file', new File([save], name))
+  fd.set('name', name)
+
+  return fetch('https://synergism.cc/saves/upload', {
+    method: 'POST',
+    body: fd
+  })
+}
+
 function handleCloudSaves () {
   const subtabElement = document.querySelector('#accountSubTab div#right.scrollbarX')!
   const table = subtabElement.querySelector('#table > #dataGrid')!
@@ -1529,14 +1541,7 @@ function handleCloudSaves () {
       const save = await getStoredSave()
       assert(save !== null, 'no save')
 
-      const fd = new FormData()
-      fd.set('file', new File([save], name))
-      fd.set('name', name)
-
-      const response = await fetch('https://synergism.cc/saves/upload', {
-        method: 'POST',
-        body: fd
-      })
+      const response = await uploadSave(name, save)
 
       if (!response.ok) {
         const error = await response.text()
@@ -1588,6 +1593,32 @@ function handleCloudSaves () {
       )
     })
   })
+
+  setInterval(async () => {
+    // Skip brand new saves
+    if (!loggedIn || achievementLevel <= 1) return
+
+    const fileName = '[Auto] Latest Save'
+    const latestSaveExists = cloudSaves.some((save) => save.name === fileName)
+
+    try {
+      const save = await getStoredSave()
+      if (save === null) return
+
+      const response = await uploadSave(fileName, save)
+
+      // A 400 here means no slot was available.
+      if (response.status === 400) return
+
+      if (!response.ok) {
+        throw new TypeError(`Received status ${response.status}`)
+      }
+
+      if (!latestSaveExists) populateTable()
+    } catch (error) {
+      console.error('Failed to automatically upload cloud save', error)
+    }
+  }, 1000 * 60 * 60)
 
   uploadButton.setAttribute('x-listener-added', '')
   transferButton.setAttribute('x-listener-added', '')
