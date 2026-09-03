@@ -1292,6 +1292,17 @@ const buyLotusNotification = (amount: number) => {
   }
 }
 
+async function uploadSave (name: string, save: string): Promise<Response> {
+  const fd = new FormData()
+  fd.set('file', new File([save], name))
+  fd.set('name', name)
+
+  return fetch('https://synergism.cc/saves/upload', {
+    method: 'POST',
+    body: fd
+  })
+}
+
 function handleCloudSaves () {
   const subtabElement = document.querySelector('#accountSubTab div#right.scrollbarX')!
   const table = subtabElement.querySelector('#table > #dataGrid')!
@@ -1530,14 +1541,7 @@ function handleCloudSaves () {
       const save = await getStoredSave()
       assert(save !== null, 'no save')
 
-      const fd = new FormData()
-      fd.set('file', new File([save], name))
-      fd.set('name', name)
-
-      const response = await fetch('https://synergism.cc/saves/upload', {
-        method: 'POST',
-        body: fd
-      })
+      const response = await uploadSave(name, save)
 
       if (!response.ok) {
         const error = await response.text()
@@ -1591,22 +1595,17 @@ function handleCloudSaves () {
   })
 
   setInterval(async () => {
+    // Skip brand new saves
     if (!loggedIn || achievementLevel <= 1) return
 
-    const latestSaveExists = cloudSaves.some((save) => save.name === 'Latest Save')
+    const fileName = '[Auto] Latest Save'
+    const latestSaveExists = cloudSaves.some((save) => save.name === fileName)
 
     try {
       const save = await getStoredSave()
       if (save === null) return
 
-      const fd = new FormData()
-      fd.set('file', new File([save], 'Latest Save'))
-      fd.set('name', 'Latest Save')
-
-      const response = await fetch('https://synergism.cc/saves/upload', {
-        method: 'POST',
-        body: fd
-      })
+      const response = await uploadSave(fileName, save)
 
       // A 400 here means no slot was available.
       if (response.status === 400) return
