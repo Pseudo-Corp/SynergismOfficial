@@ -254,20 +254,56 @@ const talismanFragmentSchema = z.object({
 })
 
 const goldenQuarkUpgradeSchema = z.object({
-  level: z.number().default(0),
+  level: z.number().optional(),
   freeLevel: z.number().default(0),
   goldenQuarksInvested: z.number().default(0)
 })
 
 const octeractUpgradeSchema = z.object({
-  level: z.number().default(0),
+  level: z.number().optional(),
   freeLevel: z.number().default(0),
   octeractsInvested: z.number().default(0)
 })
 
 const ambrosiaUpgradeSchema = z.object({
   ambrosiaInvested: z.number().default(0),
-  blueberriesInvested: z.number().default(0)
+  blueberriesInvested: z.number().default(0),
+  purpleAmbrosiaInvested: z.number().default(0)
+})
+
+const purpleReactantPercentageSchema = z.number().int().min(0).max(100)
+
+const purpleReactorSchema = z.object({
+  purpleHoney: z.number().default(0),
+  lifetimePurpleHoney: z.number().default(0),
+  storedAmbrosiaBarPoints: z.number().default(0),
+  storedRedAmbrosiaBarPoints: z.number().default(0),
+  ambrosiaBarPointPercentage: purpleReactantPercentageSchema.default(0).catch(0),
+  redAmbrosiaBarPointPercentage: purpleReactantPercentageSchema.default(0).catch(0)
+})
+
+const spentPurpleHoneySchema = z.object({
+  upgrades: z.number().default(0),
+  purpleAmbrosia: z.number().default(0)
+})
+
+const synthesisUpgradesSchema = z.object({
+  redAmbrosiaReduction: z.object({
+    purpleAmbrosia: z.number().default(0),
+    redAmbrosia: z.number().default(0)
+  }).default(() => deepClone()(blankSave.synthesisUpgrades.redAmbrosiaReduction)),
+  purpleHoneyReduction: z.object({
+    purpleAmbrosia: z.number().default(0),
+    purpleHoney: z.number().default(0)
+  }).default(() => deepClone()(blankSave.synthesisUpgrades.purpleHoneyReduction)),
+  subatomicShavings: z.object({
+    purpleAmbrosia: z.number().default(0),
+    quarks: z.number().default(0)
+  }).default(() => deepClone()(blankSave.synthesisUpgrades.subatomicShavings)),
+  exceptionalLieGroup: z.object({
+    purpleAmbrosia: z.number().default(0),
+    octeracts: z.number().default(0)
+  }).default(() => deepClone()(blankSave.synthesisUpgrades.exceptionalLieGroup))
 })
 
 const playerCorruptionSchema = z.object({
@@ -925,8 +961,8 @@ export const playerSchema = z.object({
   goldenQuarkUpgrades: z.record(z.string(), goldenQuarkUpgradeSchema).transform((object) => {
     return Object.fromEntries(
       Object.keys(blankSave.goldenQuarkUpgrades).map((key) => {
-        const value = object[key] ?? { level: 0, freeLevel: 0, goldenQuarksInvested: 0 }
-        return value === null ? [key, { level: 0, freeLevel: 0, goldenQuarksInvested: 0 }] : [key, value]
+        const value = object[key] ?? { freeLevel: 0, goldenQuarksInvested: 0 }
+        return value === null ? [key, { freeLevel: 0, goldenQuarksInvested: 0 }] : [key, value]
       })
     )
   })
@@ -937,8 +973,8 @@ export const playerSchema = z.object({
     // something different. Oh well... this can be changed later. -Plat
     return Object.fromEntries(
       Object.keys(blankSave.octUpgrades).map((key) => {
-        const value = object[key] ?? { level: 0, freeLevel: 0, octeractsInvested: 0 }
-        return value === null ? [key, { level: 0, freeLevel: 0, octeractsInvested: 0 }] : [key, value]
+        const value = object[key] ?? { freeLevel: 0, octeractsInvested: 0 }
+        return value === null ? [key, { freeLevel: 0, octeractsInvested: 0 }] : [key, value]
       })
     )
   })
@@ -1002,6 +1038,8 @@ export const playerSchema = z.object({
 
   ambrosia: z.number().default(() => blankSave.ambrosia),
   lifetimeAmbrosia: z.number().default(() => blankSave.lifetimeAmbrosia),
+  purpleAmbrosia: z.number().default(() => blankSave.purpleAmbrosia),
+  lifetimePurpleAmbrosia: z.number().default(() => blankSave.lifetimePurpleAmbrosia),
   ambrosiaRNG: z.number().default(() => blankSave.ambrosiaRNG),
   blueberryTime: z.number().default(() => blankSave.blueberryTime),
   visitedAmbrosiaSubtab: z.boolean().optional(),
@@ -1034,6 +1072,26 @@ export const playerSchema = z.object({
     }
   ).default(() => ({ ...blankSave.redAmbrosiaUpgrades })),
 
+  purpleHoneyProgress: z.number().default(0),
+  purpleReactor: purpleReactorSchema.default(() => deepClone()(blankSave.purpleReactor)),
+  spentPurpleHoney: spentPurpleHoneySchema.default(() => deepClone()(blankSave.spentPurpleHoney)),
+
+  purpleReactorUpgrades: z.record(z.string(), z.number()).transform(
+    (object) => {
+      return Object.fromEntries(
+        Object.keys(blankSave.purpleReactorUpgrades).map((key) => {
+          const value = object[key]
+            ?? blankSave.purpleReactorUpgrades[key as keyof typeof blankSave['purpleReactorUpgrades']]
+          return value === null ? [key, 0] : [key, Number(value)]
+        })
+      )
+    }
+  ).default(() => ({ ...blankSave.purpleReactorUpgrades })),
+
+  synthesisUpgrades: synthesisUpgradesSchema.default(() => deepClone()(blankSave.synthesisUpgrades)),
+  synthesisAutomationUnlocked: z.boolean().default(() => blankSave.synthesisAutomationUnlocked),
+  synthesisAutomationEnabled: z.boolean().default(() => blankSave.synthesisAutomationEnabled),
+
   singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
 
   lastExportedSave: z.number().default(() => blankSave.lastExportedSave),
@@ -1043,6 +1101,7 @@ export const playerSchema = z.object({
     .refine((value) => value.every((seed) => seed > Date.parse('2020-01-01T00:00:00Z') && seed < Date.now() + 1000)),
 
   stats: z.object({
-    totalAddCodesUsed: z.number()
+    totalAddCodesUsed: z.number(),
+    highestPurpleHoney: z.number().default(0)
   }).default(() => deepClone()(blankSave.stats))
 })

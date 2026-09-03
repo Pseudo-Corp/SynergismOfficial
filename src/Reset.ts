@@ -52,12 +52,7 @@ import { resetOfferings, resetRunes, runes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { getShopUpgradeEffects, resetShopUpgradesOnSingularity } from './Shop'
-import {
-  calculateMaxSingularityLookahead,
-  calculateSingularityDebuff,
-  getGQUpgradeEffect,
-  goldenQuarkUpgrades
-} from './singularity'
+import { calculateMaxSingularityLookahead, calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { blankSave, deepClone, format, player, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs, updateSubTabVisibility } from './Tabs'
@@ -766,7 +761,9 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
 
   if (input === 'ascension' || input === 'ascensionChallenge') {
     // Hepteract Autocraft
-    const numberOfAutoCraftsAndOrbs = Object.values(hepteracts).filter((v) => v.AUTO && v.UNLOCKED()).length
+    const numberOfAutoCraftsAndOrbs = hepteractKeys.filter((key) =>
+      player.hepteracts[key].AUTO && hepteracts[key].UNLOCKED()
+    ).length
       + (player.overfluxOrbsAutoBuy ? 1 : 0)
     if (player.highestSingularityCount >= 1 && numberOfAutoCraftsAndOrbs > 0) {
       // Computes the max number of Hepteracts to spend on each auto Hepteract craft
@@ -775,7 +772,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
       )
 
       for (const hept of hepteractKeys) {
-        if (hepteracts[hept].AUTO && hepteracts[hept].UNLOCKED()) {
+        if (player.hepteracts[hept].AUTO && hepteracts[hept].UNLOCKED()) {
           autoCraftHepteracts(hept, heptAutoSpend)
         }
       }
@@ -1047,7 +1044,7 @@ export const singularity = (setSingNumber = -1) => {
       hyperTribs: sumContents(hypercubeArray),
       platTribs: sumContents(platonicArray),
       octeracts: player.totalWowOcteracts,
-      quarkHept: hepteracts.quark.BAL,
+      quarkHept: player.hepteracts.quark.BAL,
       kind: 'singularity'
     }
     resetHistoryAdd('singularity', historyEntry)
@@ -1082,10 +1079,10 @@ export const singularity = (setSingNumber = -1) => {
     if (incrementHighestSing) {
       player.highestSingularityCount++
       if (player.highestSingularityCount === 5) {
-        goldenQuarkUpgrades.goldenQuarks3.freeLevel += 1
+        player.goldenQuarkUpgrades.goldenQuarks3.freeLevel += 1
       }
       if (player.highestSingularityCount === 10) {
-        goldenQuarkUpgrades.goldenQuarks3.freeLevel += 2
+        player.goldenQuarkUpgrades.goldenQuarks3.freeLevel += 2
       }
     }
   } else {
@@ -1224,6 +1221,11 @@ export const singularity = (setSingNumber = -1) => {
   hold.lifetimeRedAmbrosia = player.lifetimeRedAmbrosia
   hold.redAmbrosiaTime = player.redAmbrosiaTime
   hold.redAmbrosiaUpgrades = player.redAmbrosiaUpgrades
+  hold.purpleHoneyProgress = player.purpleHoneyProgress
+  hold.purpleReactor = player.purpleReactor
+  hold.spentPurpleHoney = player.spentPurpleHoney
+  hold.purpleReactorUpgrades = player.purpleReactorUpgrades
+  hold.synthesisUpgrades = player.synthesisUpgrades
   hold.singularityChallenges = Object.fromEntries(
     Object.entries(player.singularityChallenges).map(([key, value]) => {
       return [key, {
@@ -1241,6 +1243,8 @@ export const singularity = (setSingNumber = -1) => {
 
   hold.ambrosia = player.ambrosia
   hold.lifetimeAmbrosia = player.lifetimeAmbrosia
+  hold.purpleAmbrosia = player.purpleAmbrosia
+  hold.lifetimePurpleAmbrosia = player.lifetimePurpleAmbrosia
   hold.blueberryTime = player.blueberryTime
   hold.blueberryLoadouts = player.blueberryLoadouts
   hold.blueberryLoadoutMode = player.blueberryLoadoutMode

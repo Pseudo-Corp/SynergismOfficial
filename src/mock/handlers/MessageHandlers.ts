@@ -20,7 +20,7 @@ const mockMessages: Message[] = [
       'We will be performing server maintenance on Sunday at 3:00 AM UTC. The game will remain playable but cloud saves may be temporarily unavailable.\n\nMaintenance is expected to last 2 hours.',
     type: 'warning',
     priority: 80,
-    announcement: 1,
+    announcement: 0,
     created_at: new Date(Date.now() - 43200000).toISOString(), // 12 hours ago
     expires_at: new Date(Date.now() + 86400000 * 3).toISOString() // 3 days from now
   },
@@ -31,7 +31,7 @@ const mockMessages: Message[] = [
       'Join our Discord server to access:\n• Exclusive roles and channels\n• Beta testing opportunities\n• Direct feedback to developers\n• Community events and giveaways\n\nLink: https://discord.gg/synergism',
     type: 'info',
     priority: 50,
-    announcement: 1,
+    announcement: 0,
     created_at: new Date(Date.now() - 21600000).toISOString(), // 6 hours ago
     expires_at: null
   },
@@ -64,7 +64,7 @@ const mockMessages: Message[] = [
       'Get ready for our upcoming <b>holiday event</b>! Special rewards and challenges await. Event starts next week.\n\nFull details: https://synergism.cc/',
     type: 'info',
     priority: 40,
-    announcement: 1,
+    announcement: 0,
     created_at: new Date(Date.now() - 1800000).toISOString(), // 30 minutes ago
     expires_at: new Date(Date.now() + 86400000 * 14).toISOString() // 14 days from now
   }

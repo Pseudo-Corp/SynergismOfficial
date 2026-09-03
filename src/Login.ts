@@ -1215,18 +1215,24 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
   if (name.includes('AMBROSIA')) {
     const beforeStats = {
       redAmbrosia: player.lifetimeRedAmbrosia,
-      ambrosia: player.lifetimeAmbrosia
+      ambrosia: player.lifetimeAmbrosia,
+      purpleHoney: player.purpleReactor.lifetimePurpleHoney
     }
 
+    // Run many times because Purple Bar Points is a resource with dynamic /s gains.
     // Timer Things
-    addTimers('ambrosia', seconds)
-    addTimers('redAmbrosia', seconds)
+    for (let i = 0; i < minutes; i++) {
+      addTimers('ambrosia', 60)
+      addTimers('redAmbrosia', 60)
+      addTimers('purpleHoney', 60)
+    }
 
     const addedStats = {
       redAmbrosia: player.lifetimeRedAmbrosia - beforeStats.redAmbrosia,
       ambrosia: player.lifetimeAmbrosia - beforeStats.ambrosia,
       ambrosiaBarFill: calculateAmbrosiaGenerationSpeed() * seconds,
-      redBarFill: calculateRedAmbrosiaGenerationSpeed() * seconds
+      redBarFill: calculateRedAmbrosiaGenerationSpeed() * seconds,
+      purpleHoney: player.purpleReactor.lifetimePurpleHoney - beforeStats.purpleHoney
     }
 
     DOMCacheGetOrSet('fastForwardTimer').innerHTML = i18next.t('fastForward.ambrosia', {
@@ -1239,6 +1245,9 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     DOMCacheGetOrSet('fastForwardRedAmbrosiaCount').innerHTML = i18next.t('offlineProgress.redAmbrosia', {
       value: format(addedStats.redAmbrosia, 0, true),
       value2: format(addedStats.redBarFill, 0, true)
+    })
+    DOMCacheGetOrSet('fastForwardPurpleHoneyCount').innerHTML = i18next.t('offlineProgress.purpleHoney', {
+      value: format(addedStats.purpleHoney, 0, true)
     })
   }
 

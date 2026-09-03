@@ -9,6 +9,7 @@ import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type { HepteractKeys, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrades } from '../Octeracts'
+import type { PurpleReactorNames } from '../Purple'
 import type { QuarkHandler } from '../Quark'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
 import type { RuneBlessingKeys } from '../RuneBlessings'
@@ -17,6 +18,7 @@ import type { RuneSpiritKeys } from '../RuneSpirits'
 import type { ShopUpgradeNames } from '../Shop'
 import type { SingularityDataKeys } from '../singularity'
 import type { SingularityChallenge, SingularityChallengeDataKeys } from '../SingularityChallenges'
+import type { SynthesisUpgrades } from '../Synthesis'
 import type { Tabs } from '../Tabs'
 import type { TalismanCraftItems, TalismanKeys } from '../Talismans'
 import type { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from '../Toggles'
@@ -506,13 +508,11 @@ export interface Player {
   notation: 'Pure Scientific' | 'Pure Engineering' | 'Default'
 
   goldenQuarkUpgrades: Record<SingularityDataKeys, {
-    level: number
     freeLevel: number
     goldenQuarksInvested: number
   }>
 
   octUpgrades: Record<OcteractUpgrades, {
-    level: number
     freeLevel: number
     octeractsInvested: number
   }>
@@ -520,6 +520,7 @@ export interface Player {
   ambrosiaUpgrades: Record<AmbrosiaUpgradeNames, {
     ambrosiaInvested: number
     blueberriesInvested: number
+    purpleAmbrosiaInvested?: number
   }>
 
   dailyCodeUsed: boolean
@@ -534,6 +535,8 @@ export interface Player {
 
   ambrosia: number
   lifetimeAmbrosia: number
+  purpleAmbrosia: number
+  lifetimePurpleAmbrosia: number
 
   blueberryTime: number
   ambrosiaRNG: number // DEPRECIATED, DO NOT USE
@@ -547,6 +550,27 @@ export interface Player {
   redAmbrosiaTime: number
   redAmbrosiaUpgrades: Record<RedAmbrosiaNames, number>
 
+  purpleHoneyProgress: number
+
+  purpleReactor: {
+    purpleHoney: number
+    lifetimePurpleHoney: number
+    storedAmbrosiaBarPoints: number
+    storedRedAmbrosiaBarPoints: number
+    ambrosiaBarPointPercentage: number
+    redAmbrosiaBarPointPercentage: number
+  }
+
+  spentPurpleHoney: {
+    upgrades: number
+    purpleAmbrosia: number
+  }
+
+  purpleReactorUpgrades: Record<PurpleReactorNames, number>
+  synthesisUpgrades: SynthesisUpgrades
+  synthesisAutomationUnlocked: boolean
+  synthesisAutomationEnabled: boolean
+
   singChallengeTimer: number
 
   /**
@@ -558,6 +582,7 @@ export interface Player {
 
   stats: {
     totalAddCodesUsed: number
+    highestPurpleHoney: number
   }
 }
 
@@ -719,6 +744,7 @@ export interface GlobalVariables {
 
   ambrosiaTimer: number
   redAmbrosiaTimer: number
+  purpleHoneyTimer: number
   TIME_PER_AMBROSIA: number
   TIME_PER_RED_AMBROSIA: number
 

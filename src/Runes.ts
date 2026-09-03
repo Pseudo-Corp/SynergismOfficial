@@ -87,7 +87,6 @@ interface RuneHTMLStyle {
 interface RuneData<T extends RuneKeys, K extends keyof RuneTypeMap[T]> {
   index: number
   level: number
-  runeEXP: Decimal
   costCoefficient: Decimal
   levelsPerOOM: number
   ignoreChal9: boolean
@@ -261,15 +260,11 @@ const infiniteAscentOOMIncrease = () => {
 }
 
 const antiquitiesOOMIncrease = () => {
-  return (
-    getSingularityChallengeEffect('taxmanLastStand', 'antiquityOOM')
-  )
+  return 0
 }
 
 const horseShoeOOMIncrease = () => {
-  return (
-    getSingularityChallengeEffect('taxmanLastStand', 'horseShoeOOM')
-  )
+  return 0
 }
 
 export const firstFiveEffectiveRuneLevelMult = () => {
@@ -329,7 +324,6 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   speed: {
     index: 1,
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(50),
     levelsPerOOM: 150,
     ignoreChal9: false,
@@ -374,7 +368,6 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   duplication: {
     index: 2,
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(20000),
     levelsPerOOM: 120,
     ignoreChal9: false,
@@ -419,7 +412,6 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   prism: {
     index: 3,
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(5e5),
     levelsPerOOM: 90,
     ignoreChal9: false,
@@ -458,7 +450,6 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   thrift: {
     index: 4,
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(2.5e7),
     levelsPerOOM: 60,
     ignoreChal9: false,
@@ -499,7 +490,6 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   superiorIntellect: {
     index: 5,
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e12),
     levelsPerOOM: 30,
     ignoreChal9: false,
@@ -542,7 +532,6 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   infiniteAscent: {
     index: 6,
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e75),
     levelsPerOOM: 1 / 2,
     ignoreChal9: true,
@@ -595,7 +584,6 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   antiquities: {
     index: 7,
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e206),
     levelsPerOOM: 1 / 50,
     ignoreChal9: true,
@@ -649,7 +637,6 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   horseShoe: {
     index: 8,
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal('1e500'),
     levelsPerOOM: 1 / 20,
     ignoreChal9: true,
@@ -678,7 +665,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     freeLevels: () => bonusRuneLevelsHorseShoe(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => {
-      return getSingularityChallengeEffect('taxmanLastStand', 'horseShoeUnlock')
+      return false // TODO: Add back in later
     },
     minimalResetTier: 'never',
     name: () => i18next.t('runes.horseShoe.name'),
@@ -692,7 +679,6 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   finiteDescent: {
     index: 9,
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal('1e-40'),
     levelsPerOOM: 0.1,
     ignoreChal9: true,
@@ -737,7 +723,6 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   topHat: {
     index: 10,
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal('1'),
     levelsPerOOM: 1,
     ignoreChal9: false,
@@ -845,7 +830,7 @@ const computeEXPToLevel = (rune: RuneKeys, level: number) => {
 }
 
 const computeEXPLeftToLevel = (rune: RuneKeys, level: number) => {
-  return Decimal.max(0, computeEXPToLevel(rune, level).minus(runes[rune].runeEXP))
+  return Decimal.max(0, computeEXPToLevel(rune, level).minus(player.runes[rune]))
 }
 
 const computeOfferingsToLevel = (rune: RuneKeys, level: number) => {
@@ -859,7 +844,7 @@ const maxRuneLevelPurchaseInformation = (rune: RuneKeys, budget: Decimal) => {
   }
 
   const runeEXPPerOffering = getRuneEXPPerOffering(rune)
-  const totalEXPAvailable = budget.times(runeEXPPerOffering).add(runes[rune].runeEXP)
+  const totalEXPAvailable = budget.times(runeEXPPerOffering).add(player.runes[rune])
   const levelsPerOOM = getLevelsPerOOM(rune)
   const costCoeff = runes[rune].costCoefficient
 
@@ -872,14 +857,14 @@ const maxRuneLevelPurchaseInformation = (rune: RuneKeys, budget: Decimal) => {
   if (levelsGained === 0) {
     // Can't afford any levels, return next level stuff
     const nextLevelEXP = computeEXPToLevel(rune, runes[rune].level + 1)
-    const offeringsRequired = Decimal.max(1, nextLevelEXP.minus(runes[rune].runeEXP).div(runeEXPPerOffering).ceil())
+    const offeringsRequired = Decimal.max(1, nextLevelEXP.minus(player.runes[rune]).div(runeEXPPerOffering).ceil())
     return { levels: 1, expRequired: nextLevelEXP, offerings: offeringsRequired }
   }
 
   // Return the levels we can gain and the EXP required for that many levels
   const expRequired = computeEXPToLevel(rune, runes[rune].level + levelsGained)
   // Need to be recomputed since offerings required is not necessarily equal to budget.
-  const offeringsRequired = Decimal.max(1, expRequired.minus(runes[rune].runeEXP).div(runeEXPPerOffering).ceil())
+  const offeringsRequired = Decimal.max(1, expRequired.minus(player.runes[rune]).div(runeEXPPerOffering).ceil())
   return { levels: levelsGained, expRequired: expRequired, offerings: offeringsRequired }
 }
 
@@ -891,10 +876,10 @@ const levelRune = (rune: RuneKeys, timesLeveled: number, budget: Decimal) => {
   const offeringsRequired = Decimal.max(1, expRequired.div(runeEXPPerOffering).ceil())
 
   if (offeringsRequired.gt(budget)) {
-    runes[rune].runeEXP = runes[rune].runeEXP.add(budget.times(runeEXPPerOffering))
+    player.runes[rune] = player.runes[rune].add(budget.times(runeEXPPerOffering))
     budgetUsed = budget
   } else {
-    runes[rune].runeEXP = computeEXPToLevel(rune, runes[rune].level + timesLeveled)
+    player.runes[rune] = computeEXPToLevel(rune, runes[rune].level + timesLeveled)
     budgetUsed = offeringsRequired
   }
 
@@ -910,13 +895,13 @@ const setRuneLevel = (rune: RuneKeys, level: number) => {
   const exp = computeEXPToLevel(rune, level)
   runeLevelAchievementsDirty ||= runes[rune].level !== level
   runes[rune].level = level
-  runes[rune].runeEXP = exp
+  player.runes[rune] = exp
 }
 
 const updateLevelsFromEXP = (rune: RuneKeys) => {
   const previousLevel = runes[rune].level
   const levelsPerOOM = getLevelsPerOOM(rune)
-  const levels = Math.floor(levelsPerOOM * Decimal.log10(runes[rune].runeEXP.div(runes[rune].costCoefficient).plus(1)))
+  const levels = Math.floor(levelsPerOOM * Decimal.log10(player.runes[rune].div(runes[rune].costCoefficient).plus(1)))
   // Floating point imprecision fix
   if (computeEXPLeftToLevel(rune, levels + 1).eq(new Decimal())) {
     runes[rune].level = levels + 1
@@ -1048,7 +1033,7 @@ export const focusedRuneHTML = (rune: RuneKeys) => {
   })
 
   const experienceInfo = i18next.t('runes.runeEXP', {
-    exp: format(runes[rune].runeEXP, 2, true),
+    exp: format(player.runes[rune], 2, true),
     perEXP: format(getRuneEXPPerOffering(rune), 2, true)
   })
 
@@ -1105,7 +1090,6 @@ export function resetRunes (tier: keyof typeof resetTiers) {
     if (resetTiers[tier] >= resetTiers[runes[rune].minimalResetTier]) {
       runeLevelAchievementsDirty ||= runes[rune].level !== 0
       runes[rune].level = 0
-      runes[rune].runeEXP = new Decimal()
       player.runes[rune] = new Decimal()
     }
 

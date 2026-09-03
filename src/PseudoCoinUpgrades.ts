@@ -21,6 +21,9 @@ export type PseudoCoinUpgradeNames =
   | 'BASE_OBTAINIUM_BUFF'
   | 'RED_GENERATION_BUFF'
   | 'RED_LUCK_BUFF'
+  | 'PURPLE_LUCK_BUFF'
+  | 'PURPLE_HONEY_BUFF'
+  | 'PURPLE_REACTOR_CAPACITY_BUFF'
 
 type PseudoCoinUpgrades = Record<PseudoCoinUpgradeNames, number>
 type PseudoCoinUpgradeEffects = Record<PseudoCoinUpgradeNames, number>
@@ -43,7 +46,10 @@ export const PCoinUpgrades: PseudoCoinUpgrades = {
   'BASE_OFFERING_BUFF': 0,
   'BASE_OBTAINIUM_BUFF': 0,
   'RED_GENERATION_BUFF': 0,
-  'RED_LUCK_BUFF': 0
+  'RED_LUCK_BUFF': 0,
+  'PURPLE_LUCK_BUFF': 0,
+  'PURPLE_HONEY_BUFF': 0,
+  'PURPLE_REACTOR_CAPACITY_BUFF': 0
 }
 
 export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
@@ -62,7 +68,10 @@ export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
   BASE_OFFERING_BUFF: 0,
   BASE_OBTAINIUM_BUFF: 0,
   RED_GENERATION_BUFF: 1,
-  RED_LUCK_BUFF: 0
+  RED_LUCK_BUFF: 0,
+  PURPLE_LUCK_BUFF: 0,
+  PURPLE_HONEY_BUFF: 0,
+  PURPLE_REACTOR_CAPACITY_BUFF: 0
 }
 
 export const initializePCoinCache = async () => {
@@ -139,6 +148,15 @@ const updatePCoinEffects = (name: PseudoCoinUpgradeNames, level: number) => {
     case 'RED_LUCK_BUFF':
       PCoinUpgradeEffects.RED_LUCK_BUFF = level * 20
       break
+    case 'PURPLE_LUCK_BUFF':
+      PCoinUpgradeEffects.PURPLE_LUCK_BUFF = level * 5
+      break
+    case 'PURPLE_HONEY_BUFF':
+      PCoinUpgradeEffects.PURPLE_HONEY_BUFF = level * 0.04
+      break
+    case 'PURPLE_REACTOR_CAPACITY_BUFF':
+      PCoinUpgradeEffects.PURPLE_REACTOR_CAPACITY_BUFF = level * 250_000_000
+      break
   }
 }
 
@@ -198,6 +216,18 @@ export const displayPCoinEffect = (name: PseudoCoinUpgradeNames, level: number) 
       )
     case 'RED_LUCK_BUFF':
       return String(i18next.t('pseudoCoins.upgradeEffects.RED_LUCK_BUFF', { amount: 20 * level }))
+    case 'PURPLE_LUCK_BUFF':
+      return String(i18next.t('pseudoCoins.upgradeEffects.PURPLE_LUCK_BUFF', { amount: 5 * level }))
+    case 'PURPLE_HONEY_BUFF':
+      return String(
+        i18next.t('pseudoCoins.upgradeEffects.PURPLE_HONEY_BUFF', { amount: format(0.04 * level, 2, true) })
+      )
+    case 'PURPLE_REACTOR_CAPACITY_BUFF':
+      return String(
+        i18next.t('pseudoCoins.upgradeEffects.PURPLE_REACTOR_CAPACITY_BUFF', {
+          amount: 250_000_000 * level
+        })
+      )
   }
 }
 
@@ -282,6 +312,21 @@ export const showCostAndEffect = (name: PseudoCoinUpgradeNames) => {
       return {
         cost: 'Cost: 100/150/200/250/300 PseudoCoins',
         effect: 'Effect: 20/40/60/80/100 Red Luck'
+      }
+    case 'PURPLE_LUCK_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: 5/10/15/20/25 Purple Luck'
+      }
+    case 'PURPLE_HONEY_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: +0.04/+0.08/+0.12/+0.16/+0.20 Base Purple Honey per extraction'
+      }
+    case 'PURPLE_REACTOR_CAPACITY_BUFF':
+      return {
+        cost: String(i18next.t('pseudoCoins.upgradeDetails.PURPLE_REACTOR_CAPACITY_BUFF.cost')),
+        effect: String(i18next.t('pseudoCoins.upgradeDetails.PURPLE_REACTOR_CAPACITY_BUFF.effect'))
       }
   }
 }

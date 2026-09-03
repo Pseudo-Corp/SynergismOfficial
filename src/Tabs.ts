@@ -351,6 +351,11 @@ const tabInfo: Record<Tabs, TabInfo> = {
         subTabID: '5',
         unlocked: () => player.highestSingularityCount >= 25,
         buttonID: 'toggleSingularitySubTab5'
+      },
+      {
+        subTabID: '6',
+        unlocked: () => player.singularityChallenges.taxmanLastStand.completions > 0,
+        buttonID: 'toggleSingularitySubTab6'
       }
     ]
   },

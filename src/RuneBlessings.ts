@@ -25,7 +25,6 @@ export type RuneBlessingKeys = keyof RuneBlessingTypeMap
 
 interface RuneBlessingData<K extends RuneBlessingKeys> {
   level: number
-  runeEXP: Decimal
   costCoefficient: Decimal
   levelsPerOOM: number
   effectiveLevelMult: () => number
@@ -59,7 +58,6 @@ const blessingMultiplier = (key: RuneKeys) => {
 export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   speed: {
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e6),
     levelsPerOOM: 4,
     effects: (level) => {
@@ -85,7 +83,6 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   },
   duplication: {
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e7),
     levelsPerOOM: 4,
     effects: (level) => {
@@ -111,7 +108,6 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   },
   prism: {
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e9),
     levelsPerOOM: 4,
     effects: (level) => {
@@ -137,7 +133,6 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   },
   thrift: {
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e12),
     levelsPerOOM: 4,
     effects: (level) => {
@@ -163,7 +158,6 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
   },
   superiorIntellect: {
     level: 0,
-    runeEXP: new Decimal(),
     costCoefficient: new Decimal(1e15),
     levelsPerOOM: 4,
     effects: (level) => {
@@ -214,7 +208,7 @@ const computeEXPToLevel = (bless: RuneBlessingKeys, level: number) => {
 }
 
 const computeEXPLeftToLevel = (bless: RuneBlessingKeys, level: number) => {
-  return Decimal.max(0, computeEXPToLevel(bless, level).minus(runeBlessings[bless].runeEXP))
+  return Decimal.max(0, computeEXPToLevel(bless, level).minus(player.runeBlessings[bless]))
 }
 
 export const buyBlessingLevels = (blessing: RuneBlessingKeys, budget: Decimal) => {
@@ -250,10 +244,10 @@ const levelBlessing = (bless: RuneBlessingKeys, timesLeveled: number, budget: De
   const offeringsRequired = Decimal.max(1, expRequired.div(runeEXPPerOffering).ceil())
 
   if (offeringsRequired.gt(budget)) {
-    runeBlessings[bless].runeEXP = runeBlessings[bless].runeEXP.add(budget.times(runeEXPPerOffering))
+    player.runeBlessings[bless] = player.runeBlessings[bless].add(budget.times(runeEXPPerOffering))
     budgetUsed = budget
   } else {
-    runeBlessings[bless].runeEXP = computeEXPToLevel(bless, runeBlessings[bless].level + timesLeveled)
+    player.runeBlessings[bless] = computeEXPToLevel(bless, runeBlessings[bless].level + timesLeveled)
     budgetUsed = offeringsRequired
   }
 
@@ -266,7 +260,7 @@ const levelBlessing = (bless: RuneBlessingKeys, timesLeveled: number, budget: De
 const updateLevelsFromEXP = (bless: RuneBlessingKeys) => {
   const levelsPerOOM = runeBlessings[bless].levelsPerOOM
   const levels = Math.floor(
-    levelsPerOOM * Decimal.log10(runeBlessings[bless].runeEXP.div(runeBlessings[bless].costCoefficient).plus(1))
+    levelsPerOOM * Decimal.log10(player.runeBlessings[bless].div(runeBlessings[bless].costCoefficient).plus(1))
   )
   // Floating point imprecision fix
   if (computeEXPLeftToLevel(bless, levels + 1).eq(new Decimal())) {
@@ -294,13 +288,13 @@ const maxBlessingLevelPurchaseInformation = (bless: RuneBlessingKeys, budget: De
   }
 
   const runeEXPPerOffering = getRuneBlessingEXPPerOffering(bless)
-  const totalEXPAvailable = budget.times(runeEXPPerOffering).add(runeBlessings[bless].runeEXP)
+  const totalEXPAvailable = budget.times(runeEXPPerOffering).add(player.runeBlessings[bless])
   const levelsPerOOM = runeBlessings[bless].levelsPerOOM
   const costCoeff = runeBlessings[bless].costCoefficient
 
   // Take into account the smallest increment to floating point
   const minOfferingsToIncreaseEXP = Decimal.ceil(
-    runeBlessings[bless].runeEXP.div(runeEXPPerOffering.times(Number.MAX_SAFE_INTEGER))
+    player.runeBlessings[bless].div(runeEXPPerOffering.times(Number.MAX_SAFE_INTEGER))
   )
 
   // Calculate max level we can reach with available EXP
@@ -317,7 +311,7 @@ const maxBlessingLevelPurchaseInformation = (bless: RuneBlessingKeys, budget: De
     const nextLevelEXP = computeEXPToLevel(bless, runeBlessings[bless].level + 1)
     const offeringsRequired = Decimal.max(
       minOfferingsToIncreaseEXP,
-      nextLevelEXP.minus(runeBlessings[bless].runeEXP).div(runeEXPPerOffering).ceil()
+      nextLevelEXP.minus(player.runeBlessings[bless]).div(runeEXPPerOffering).ceil()
     )
     return { levels: 1, expRequired: nextLevelEXP, offerings: offeringsRequired }
   }
@@ -327,7 +321,7 @@ const maxBlessingLevelPurchaseInformation = (bless: RuneBlessingKeys, budget: De
   // Need to be recomputed since offerings required is not necessarily equal to budget.
   const offeringsRequired = Decimal.max(
     minOfferingsToIncreaseEXP,
-    expRequired.minus(runeBlessings[bless].runeEXP).div(runeEXPPerOffering).ceil()
+    expRequired.minus(player.runeBlessings[bless]).div(runeEXPPerOffering).ceil()
   )
   return { levels: levelsGained, expRequired: expRequired, offerings: offeringsRequired }
 }
@@ -416,7 +410,7 @@ export const focusedRuneBlessingHTML = (bless: RuneBlessingKeys) => {
   })
 
   const experienceHTML = i18next.t('runes.blessings.blessingEXP', {
-    exp: format(runeBlessings[bless].runeEXP, 2, true),
+    exp: format(player.runeBlessings[bless], 2, true),
     perEXP: format(getRuneBlessingEXPPerOffering(bless), 2, true)
   })
 
@@ -438,7 +432,7 @@ export function resetRuneBlessings (tier: keyof typeof resetTiers) {
   for (const bless of runeBlessingKeys) {
     if (resetTiers[tier] >= resetTiers[runeBlessings[bless].minimalResetTier]) {
       runeBlessings[bless].level = 0
-      runeBlessings[bless].runeEXP = new Decimal()
+      player.runeBlessings[bless] = new Decimal()
     }
   }
 }
