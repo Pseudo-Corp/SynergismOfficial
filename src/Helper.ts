@@ -37,6 +37,7 @@ import { buyAllSpiritLevels } from './RuneSpirits'
 import { getShopUpgradeEffects, useConsumable } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
+import { autoCraftSynthesis } from './Synthesis'
 import { player } from './Synergism'
 import { Tabs } from './Tabs'
 import { buyAllTalismanResources } from './Talismans'
@@ -336,6 +337,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         * PURPLE_REACTOR_TICK_INTERVAL
       G.purpleHoneyTimer %= PURPLE_REACTOR_TICK_INTERVAL
       convertPurpleReactants(elapsed)
+      autoCraftSynthesis()
       visualUpdatePurple()
       break
     }
@@ -419,6 +421,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         addTimers('ambrosia', ambrosiaTimeToGrant)
       }
 
+      autoCraftSynthesis()
       visualUpdateAmbrosia()
     }
   }

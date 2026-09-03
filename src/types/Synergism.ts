@@ -18,6 +18,7 @@ import type { RuneSpiritKeys } from '../RuneSpirits'
 import type { ShopUpgradeNames } from '../Shop'
 import type { SingularityDataKeys } from '../singularity'
 import type { SingularityChallenge, SingularityChallengeDataKeys } from '../SingularityChallenges'
+import type { SynthesisUpgrades } from '../Synthesis'
 import type { Tabs } from '../Tabs'
 import type { TalismanCraftItems, TalismanKeys } from '../Talismans'
 import type { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from '../Toggles'
@@ -566,6 +567,9 @@ export interface Player {
   }
 
   purpleReactorUpgrades: Record<PurpleReactorNames, number>
+  synthesisUpgrades: SynthesisUpgrades
+  synthesisAutomationUnlocked: boolean
+  synthesisAutomationEnabled: boolean
 
   singChallengeTimer: number
 

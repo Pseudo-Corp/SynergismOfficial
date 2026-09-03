@@ -22,6 +22,7 @@ import {
 } from './singularity'
 import { maxAPFromChallenges, type SingularityChallengeDataKeys } from './SingularityChallenges'
 import { format, player } from './Synergism'
+import { maxSynthesisUpgradeAP } from './Synthesis'
 import { Tabs } from './Tabs'
 import { maxTalismansRarityAP, talismans } from './Talismans'
 import type { resetNames } from './types/Synergism'
@@ -576,7 +577,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => player.unlocks.talismans
   },
   purpleHoneyUpgrades: {
-    maxPointValue: maxPurpleReactorAP,
+    maxPointValue: maxPurpleReactorAP + maxSynthesisUpgradeAP,
     pointsAwarded: (_cached: number) => {
       return calculatePurpleReactorAP()
     },

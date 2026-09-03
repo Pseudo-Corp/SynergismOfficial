@@ -117,7 +117,7 @@ body {
     --boxmain-bordercolor: plum;
     --box-color: #111;
     --blueberry-box-color: #4f86f7;
-    --blueberry-text-color: #8888FF;
+    --blueberry-text-color: #88F;
     --purple-box-color: purple;
     --purple-text-color: #FF29FF;
     --button-color: #171717;
@@ -6173,7 +6173,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #purpleUpgradeContainer {
-    --purple-upgrade-close-size: 34px;
+    --purple-popup-close-size: 34px;
 
     display: flex;
     flex-direction: column;
@@ -6187,11 +6187,16 @@ header #obtainiumDisplay { color: pink; }
     text-align: left;
 }
 
+#purpleUpgradeContainer[hidden],
+#purpleSynthesisContainer[hidden] {
+    display: none;
+}
+
 .purpleUpgradeHeader {
     display: grid;
     flex-shrink: 0;
     grid-template-areas: ". ap close";
-    grid-template-columns: var(--purple-upgrade-close-size) minmax(0, 1fr) var(--purple-upgrade-close-size);
+    grid-template-columns: var(--purple-popup-close-size) minmax(0, 1fr) var(--purple-popup-close-size);
     align-items: center;
     padding: 7px;
     border-bottom: 1px solid rgb(176 0 176 / 55%);
@@ -6213,16 +6218,22 @@ header #obtainiumDisplay { color: pink; }
     display: none;
 }
 
-#purpleReactantContainers.purpleUpgradeShopOpen {
+#singularityPurple.purpleSynthesisOpen {
+    bottom: -3px;
+    height: auto;
+}
+
+#purpleReactantContainers.purplePopupOpen {
     overflow: visible;
 }
 
-#purpleUpgradeClose {
+#purpleUpgradeClose,
+#purpleSynthesisClose {
     display: grid;
     grid-area: close;
     place-items: center;
-    width: var(--purple-upgrade-close-size);
-    height: var(--purple-upgrade-close-size);
+    width: var(--purple-popup-close-size);
+    height: var(--purple-popup-close-size);
     padding: 0;
     border: 1px solid var(--purple-text-color);
     border-radius: 3px;
@@ -6235,9 +6246,484 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #purpleUpgradeClose:hover,
-#purpleUpgradeClose:focus-visible {
+#purpleUpgradeClose:focus-visible,
+#purpleSynthesisClose:hover,
+#purpleSynthesisClose:focus-visible {
     background-color: rgb(176 0 176 / 22%);
     box-shadow: 0 0 7px var(--purple-text-color);
+}
+
+#purpleSynthesisContainer {
+    --purple-popup-close-size: 34px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    color: white;
+    font-size: 16px;
+    text-align: left;
+    background:
+        linear-gradient(135deg, rgb(255 0 255 / 7%), transparent 32%),
+        repeating-linear-gradient(90deg, transparent 0 63px, rgb(255 255 255 / 2%) 64px),
+        var(--box-color);
+}
+
+.synthesisHeader {
+    display: grid;
+    flex-shrink: 0;
+    grid-template-areas:
+        ". heading close"
+        ". conversion .";
+    grid-template-columns: var(--purple-popup-close-size) minmax(0, 1fr) var(--purple-popup-close-size);
+    align-items: center;
+    position: sticky;
+    z-index: 5;
+    top: 0;
+    padding: 7px;
+    border-bottom: 1px solid rgb(176 0 176 / 55%);
+    background:
+        linear-gradient(90deg, rgb(176 0 176 / 11%), transparent 30% 70%, rgb(176 0 176 / 11%)),
+        var(--box-color);
+}
+
+.synthesisTitle,
+.synthesisSource p,
+.synthesisProduct p {
+    margin: 0;
+}
+
+.synthesisTitle {
+    grid-area: heading;
+    color: var(--purple-text-color);
+    font-size: 20px;
+    text-align: center;
+}
+
+.synthesisConversion {
+    grid-area: conversion;
+    margin: 0;
+    color: lightgray;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.synthesisConversionRed {
+    color: red;
+}
+
+.synthesisConversionHoney,
+.synthesisConversionProduct {
+    color: var(--purple-text-color);
+}
+
+.synthesisWorkspace {
+    display: grid;
+    flex: 1 1 auto;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.synthesisConversionWorkspace {
+    min-width: 0;
+}
+
+.synthesisUpgradeRegion {
+    min-height: 0;
+    min-width: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 10px;
+    border-left: 1px solid rgb(176 0 176 / 35%);
+    background: linear-gradient(90deg, rgb(176 0 176 / 4%), transparent 30%);
+}
+
+.synthesisUpgradeModal {
+    box-sizing: border-box;
+    border: 2px solid var(--purple-box-color);
+    background: rgb(0 0 0 / 20%);
+}
+
+.synthesisUpgradeModalTitle {
+    margin: 0;
+    padding: 7px;
+    border-bottom: 1px solid rgb(176 0 176 / 55%);
+    color: var(--purple-text-color);
+    font-size: 20px;
+    text-align: center;
+}
+
+.synthesisUpgradeList {
+    display: grid;
+    gap: 7px;
+    padding: 7px;
+}
+
+.synthesisUpgradeCard {
+    padding: 6px;
+    border: 1px solid rgb(176 0 176 / 45%);
+    background: linear-gradient(135deg, rgb(176 0 176 / 9%), rgb(0 0 0 / 16%));
+}
+
+.synthesisUpgradeHeading {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 5px;
+}
+
+.synthesisUpgradeHeading > img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.synthesisUpgradeTitle,
+.synthesisUpgradeLevel,
+.synthesisUpgradeFlavor,
+.synthesisUpgradeEffect,
+.synthesisUpgradeNextCost,
+.synthesisUpgradeAP {
+    margin: 0;
+}
+
+.synthesisUpgradeTitle {
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+.synthesisUpgradeLevel {
+    color: lightgray;
+    font-size: 1em;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.synthesisUpgradeFlavor {
+    margin-top: 4px;
+    color: silver;
+    font-size: 1em;
+    font-style: italic;
+    line-height: 1.2;
+}
+
+.synthesisUpgradeEffect {
+    margin-top: 4px;
+    color: white;
+    font-size: 1em;
+    line-height: 1.2;
+}
+
+.synthesisUpgradeEffectMaxed {
+    color: plum;
+}
+
+.synthesisUpgradeNextCost,
+.synthesisUpgradeAP {
+    margin-top: 4px;
+    color: lightgray;
+    font-size: 1em;
+    line-height: 1.2;
+}
+
+.synthesisUpgradeAP {
+    color: gold;
+}
+
+.synthesisUpgradePurchaseButtons {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+    width: 100%;
+}
+
+.synthesisUpgradePurchaseButton {
+    flex: 1 1 0;
+    width: 0;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 34px;
+    padding: 3px 10px;
+    border: 2px solid var(--purple-text-color);
+    color: white;
+    font: inherit;
+    font-size: 1em;
+    line-height: 1.3;
+    white-space: pre-line;
+    cursor: pointer;
+}
+
+.synthesisUpgradePurchaseButton:disabled {
+    border-color: #555;
+    color: gray;
+    cursor: not-allowed;
+}
+
+.synthesisMap {
+    display: grid;
+    grid-template-areas:
+        "inputs"
+        "product";
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(62px, auto);
+    align-items: center;
+    width: min(100%, 760px);
+    margin: 0 auto;
+    column-gap: 16px;
+    row-gap: 10px;
+    padding: 16px 18px 12px;
+}
+
+.synthesisInputs {
+    display: grid;
+    grid-area: inputs;
+    grid-template-columns: repeat(2, minmax(0, 240px));
+    justify-content: center;
+    gap: 16px;
+}
+
+.synthesisSource {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    align-items: center;
+    gap: 7px;
+    position: relative;
+    min-width: 0;
+    padding: 7px;
+    overflow: hidden;
+    border: 2px solid var(--synthesis-resource-color);
+    border-radius: 3px;
+    background:
+        linear-gradient(135deg, rgb(var(--synthesis-resource-rgb) / 13%), transparent 65%),
+        rgb(0 0 0 / 24%);
+    box-shadow: inset 0 0 12px rgb(var(--synthesis-resource-rgb) / 10%);
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.synthesisSource > img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.synthesisSource p {
+    color: lightgray;
+    line-height: 1.15;
+}
+
+.synthesisSource > div,
+.synthesisProduct > div:first-of-type {
+    min-width: 0;
+}
+
+.synthesisSourceName,
+.synthesisProductName {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.15;
+}
+
+.synthesisSource .synthesisSourceName {
+    color: var(--synthesis-resource-color);
+}
+
+.synthesisBalance {
+    margin-top: 3px !important;
+    color: var(--synthesis-resource-color);
+    font-size: 16px;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+
+.synthesisBalance.fitText,
+.synthesisProductStat.fitText {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+.synthesisBalanceDivider,
+.synthesisBalanceDivider + span {
+    color: lightgray;
+}
+
+.synthesisSourceRed {
+    --synthesis-resource-color: red;
+    --synthesis-resource-rgb: 255 0 0;
+}
+
+.synthesisSourceHoney {
+    grid-template-columns: minmax(0, 1fr) 32px;
+
+    --synthesis-resource-color: #ff5cff;
+    --synthesis-resource-rgb: 176 0 176;
+}
+
+.synthesisSourceHoney > img {
+    grid-column: 2;
+}
+
+.synthesisSourceHoney > div {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+@media (width > 600px) {
+    .synthesisSource {
+        width: min(100%, 240px);
+    }
+
+    .synthesisSourceRed {
+        justify-self: end;
+    }
+
+    .synthesisSourceRed > div {
+        text-align: right;
+    }
+
+    .synthesisSourceHoney {
+        justify-self: start;
+    }
+
+    .synthesisProduct {
+        width: min(100%, 240px);
+        justify-self: center;
+    }
+}
+
+.synthesisProduct {
+    display: grid;
+    grid-area: product;
+    grid-template-columns: 32px minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    min-width: 0;
+    padding: 10px;
+    overflow: hidden;
+    border: 2px solid var(--purple-text-color);
+    border-radius: 3px;
+    background:
+        linear-gradient(135deg, rgb(255 0 255 / 16%), transparent 68%),
+        rgb(0 0 0 / 24%);
+    box-shadow: inset 0 0 14px rgb(176 0 176 / 20%);
+}
+
+.synthesisProduct > img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.synthesisProductName {
+    color: var(--purple-text-color);
+}
+
+.synthesisProductStat {
+    margin-top: 2px !important;
+    color: lightgray;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.15;
+}
+
+.synthesisResourceInsufficient {
+    border-color: #555;
+    box-shadow: none;
+}
+
+.synthesisResourceInsufficient > img {
+    filter: grayscale(0.5);
+    opacity: 0.55;
+}
+
+.synthesisCrafting {
+    box-sizing: border-box;
+    width: min(100%, 760px);
+    margin: 0 auto;
+    padding: 14px;
+}
+
+.synthesisCraftableTitle {
+    margin: 0;
+    color: lightgray;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#synthesisCraftButtons {
+    display: grid;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.synthesisCraftButtonRow {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.synthesisCraftButtonRow[hidden] {
+    display: none;
+}
+
+.synthesisCraftButtonRow > button {
+    flex: 0 1 140px;
+    width: 140px;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 38px;
+    padding: 5px 7px;
+    border: 2px solid var(--purple-text-color);
+    border-radius: 2px;
+    background: linear-gradient(180deg, rgb(176 0 176 / 22%), rgb(80 0 80 / 18%));
+    color: white;
+    font: inherit;
+    font-size: 1em;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+}
+
+.synthesisCraftButtonRow > button:hover,
+.synthesisCraftButtonRow > button:focus-visible {
+    background-color: rgb(176 0 176 / 22%);
+    box-shadow: 0 0 7px rgb(176 0 176 / 55%);
+}
+
+.synthesisCraftButtonRow > button:disabled {
+    border-color: #555;
+    background: var(--box-color);
+    box-shadow: none;
+    color: gray;
+    cursor: not-allowed;
+}
+
+#synthesisAutomationUnlock {
+    flex-basis: 300px;
+    width: 300px;
+}
+
+#synthesisAutomationToggleContainer[hidden] {
+    display: none;
 }
 
 #purpleUpgradeShop {
@@ -7525,11 +8011,11 @@ header #obtainiumDisplay { color: pink; }
 .purpleReactorHeader {
     display: grid;
     grid-template-areas:
-        ". title upgrades"
-        "explanation explanation explanation"
-        "half-life half-life half-life"
-        "spent spent spent";
-    grid-template-columns: 180px minmax(0, 1fr) 180px;
+        "title controls"
+        "explanation controls"
+        "half-life controls"
+        "spent controls";
+    grid-template-columns: minmax(0, 1fr) 180px;
     align-items: center;
     position: relative;
     z-index: 2;
@@ -7570,7 +8056,7 @@ header #obtainiumDisplay { color: pink; }
     grid-area: spent;
     margin: 1px 0 0;
     color: lightgray;
-    font-size: 0.76em;
+    font-size: 0.84em;
     font-variant-numeric: tabular-nums;
     line-height: 1.25;
     text-align: center;
@@ -7586,14 +8072,23 @@ header #obtainiumDisplay { color: pink; }
     z-index: 2;
 }
 
-.purpleReactorUpgradeToggleRow {
+.purpleReactorControls {
     display: flex;
-    grid-area: upgrades;
-    justify-content: flex-end;
+    flex-direction: column;
+    grid-area: controls;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
     position: relative;
     z-index: 2;
 }
 
+.purpleReactorSynthesisToggleRow,
+.purpleReactorUpgradeToggleRow {
+    display: flex;
+}
+
+#purpleSynthesisToggle,
 #purpleUpgradeToggle {
     display: flex;
     align-items: center;
@@ -7610,8 +8105,12 @@ header #obtainiumDisplay { color: pink; }
     font-weight: bold;
     letter-spacing: 0.04em;
     cursor: pointer;
+    width: 100%;
 }
 
+#purpleSynthesisToggle:hover,
+#purpleSynthesisToggle:focus-visible,
+#purpleSynthesisToggle.purpleSynthesisToggleOpen,
 #purpleUpgradeToggle:hover,
 #purpleUpgradeToggle:focus-visible,
 #purpleUpgradeToggle.purpleUpgradeToggleOpen {
@@ -7776,23 +8275,24 @@ header #obtainiumDisplay { color: pink; }
     background: linear-gradient(90deg, #4b004b, var(--purple-text-color), #760076);
 }
 
-#ambrosiaContainerProgressText,
-#redAmbrosiaContainerProgressText,
-#purpleHoneyProgressText {
+.purpleReactantProgressText {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+    overflow: hidden;
     color: white;
     font-size: 0.94em;
     font-weight: bold;
     font-variant-numeric: tabular-nums;
     text-shadow: 0 1px 2px black;
     z-index: 2;
+}
+
+.purpleReactantProgressText > .fitText {
+    display: inline-block;
+    white-space: nowrap;
 }
 
 #purpleHoneyProgressText {
@@ -8052,7 +8552,8 @@ header #obtainiumDisplay { color: pink; }
     }
 }
 
-#purpleHoneyGainContainer {
+#purpleHoneyGainContainer,
+#synthesisGainContainer {
     position: absolute;
     z-index: 4;
     inset: 0;
@@ -8072,6 +8573,12 @@ header #obtainiumDisplay { color: pink; }
 
 .purpleHoneyGainAnimating {
     animation: purple-honey-gain 900ms ease-out forwards;
+}
+
+.synthesisGain {
+    top: 48%;
+    right: 10px;
+    font-size: 1.05em;
 }
 
 @keyframes purple-reactor-flow {
@@ -8230,16 +8737,50 @@ header #obtainiumDisplay { color: pink; }
 @container purple-reactor (width <= 900px) {
     .purpleReactorHeader {
         grid-template-areas:
-            "title"
-            "explanation"
-            "half-life"
-            "spent"
-            "upgrades";
-        grid-template-columns: minmax(0, 1fr);
+            "title title"
+            "explanation explanation"
+            "half-life half-life"
+            "spent spent"
+            "controls controls";
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .purpleReactorUpgradeToggleRow {
+    .purpleReactorControls {
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
         margin-top: 4px;
+    }
+
+    .purpleReactorSynthesisToggleRow,
+    .purpleReactorUpgradeToggleRow {
+        flex: 0 1 180px;
+    }
+
+    #purpleSynthesisToggle,
+    #purpleUpgradeToggle {
+        width: min(180px, 100%);
+        min-width: 0;
+    }
+}
+
+@container purple-reactor (width <= 850px) {
+    .synthesisWorkspace {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+
+    .synthesisConversionWorkspace {
+        min-height: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .synthesisUpgradeRegion {
+        border-top: 1px solid rgb(176 0 176 / 35%);
+        border-left: 0;
+        background: linear-gradient(180deg, rgb(176 0 176 / 4%), transparent 30%);
     }
 }
 
@@ -8288,7 +8829,7 @@ header #obtainiumDisplay { color: pink; }
         scroll-margin-top: calc(var(--mobile-subtab-height) + 0.5rem);
     }
 
-    #purpleReactantContainers.purpleUpgradeShopOpen {
+    #purpleReactantContainers.purplePopupOpen {
         overflow: hidden;
     }
 
@@ -8314,12 +8855,14 @@ header #obtainiumDisplay { color: pink; }
 }
 
 @media (width <= 600px) {
+    #purpleSynthesisToggle,
     #purpleUpgradeToggle {
         min-height: 44px;
     }
 
-    #purpleUpgradeContainer {
-        --purple-upgrade-close-size: 44px;
+    #purpleUpgradeContainer,
+    #purpleSynthesisContainer {
+        --purple-popup-close-size: 44px;
     }
 
     .purpleUpgradeFamilyRow {
@@ -8336,14 +8879,45 @@ header #obtainiumDisplay { color: pink; }
         width: 100%;
         padding: 0 8px 6px;
     }
+
+    .synthesisMap {
+        grid-template-areas:
+            "red"
+            "honey"
+            "product";
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 2px;
+    }
+
+    .synthesisInputs {
+        display: contents;
+    }
+
+    .synthesisSourceRed {
+        grid-area: red;
+    }
+
+    .synthesisSourceHoney {
+        grid-area: honey;
+    }
+
 }
 
 @media (any-pointer: coarse) {
+    #purpleSynthesisContainer {
+        --purple-popup-close-size: 44px;
+    }
+
     .purpleUpgradeTierShortcut {
         min-width: 44px;
     }
 
+    #purpleSynthesisToggle,
     #purpleUpgradeToggle {
+        min-height: 44px;
+    }
+
+    .synthesisCraftButtonRow > button {
         min-height: 44px;
     }
 

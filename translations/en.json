@@ -483,6 +483,60 @@
     "upgradeAPPerLevel": "Each level of this upgrade grants <<gold|+{{amount}}>> AP [<<gold|+{{total}}>>]",
     "upgradeAPMax": "You also get <<gold|+{{amount}}>> AP for maxing this upgrade! {{check}}",
     "purpleUpgradeAP": "Purple Honey Upgrade AP: <<gold|{{current}}/{{max}}>>",
+    "synthesis": {
+      "name": "Synthesis",
+      "close": "Close Synthesis",
+      "purpleAmbrosia": "Purple Ambrosia",
+      "redAmbrosia": "Red Ambrosia",
+      "purpleHoney": "Purple Honey",
+      "owned": "Owned: {{amount}}",
+      "craftable": "Can Synthesize ×{{amount}}",
+      "craftAmount": "Craft {{amount}}",
+      "craftAria": "Craft {{amount}} Purple Ambrosia for {{redAmbrosia}} Red Ambrosia and {{purpleHoney}} Purple Honey",
+      "unlockAutomation": "Unlock Autosynth - {{cost}} Purple Ambrosia",
+      "enableAutomation": "Autosynthesize Purple Ambrosia",
+      "gain": "+{{amount}}",
+      "upgradesTitle": "Synthesis Upgrades",
+      "upgradeLevel": "Level {{current}}/{{max}}",
+      "upgradeMaxed": "Maxed!",
+      "upgradeAPProgress": "+{{amount}}/50 AP (+5 every {{levels}} levels)",
+      "purchaseAmount": "+{{amount}}",
+      "purchaseMax": "+MAX",
+      "upgrades": {
+        "redAmbrosiaReduction": {
+          "name": "Red Ambrosia Reduction",
+          "flavor": "One of those 'you gotta spend money to make money' moments.",
+          "cost": "Cost: <<var(--purple-text-color)|{{purpleAmbrosia}} Purple Ambrosia>> and <<red|{{redAmbrosia}} Red Ambrosia>>.",
+          "purchaseAria": "Buy {{amount}} levels of Red Ambrosia Reduction for {{purpleAmbrosia}} Purple Ambrosia and {{redAmbrosia}} Red Ambrosia.",
+          "effectNotMaxed": "Synthesis costs <<silver|{{current}} →>> <<gold|{{next}}>> Red Ambrosia.",
+          "effectMaxed": "Synthesis costs <<gold|{{value}}>> Red Ambrosia."
+        },
+        "purpleHoneyReduction": {
+          "name": "Purple Honey Reduction",
+          "flavor": "Honey that is more strictly purple, whatever that means.",
+          "cost": "Cost: <<var(--purple-text-color)|{{purpleAmbrosia}} Purple Ambrosia>> and <<var(--purple-text-color)|{{purpleHoney}} Purple Honey>>.",
+          "purchaseAria": "Buy {{amount}} levels of Purple Honey Reduction for {{purpleAmbrosia}} Purple Ambrosia and {{purpleHoney}} Purple Honey.",
+          "effectNotMaxed": "Synthesis costs <<silver|{{current}} →>> <<gold|{{next}}>> Purple Honey.",
+          "effectMaxed": "Synthesis costs <<gold|{{value}}>> Purple Honey."
+        },
+        "subatomicShavings": {
+          "name": "Subatomic Shavings",
+          "flavor": "Straight off the floor of the Encabulator.",
+          "cost": "Cost: <<var(--purple-text-color)|{{purpleAmbrosia}} Purple Ambrosia>> and <<cyan|{{quarks}} Quarks>>.",
+          "purchaseAria": "Buy {{amount}} levels of Subatomic Shavings for {{purpleAmbrosia}} Purple Ambrosia and {{quarks}} Quarks.",
+          "effectNotMaxed": "On Synthesis: Gain <<silver|{{current}} →>> <<gold|{{next}}>> Quarks.",
+          "effectMaxed": "On Synthesis: Gain <<gold|{{value}}>> Quarks."
+        },
+        "exceptionalLieGroup": {
+          "name": "Exceptional Lie Group",
+          "flavor": "n, s.t. E<sub>n</sub> is 248-dimensional.",
+          "cost": "Cost: <<var(--purple-text-color)|{{purpleAmbrosia}} Purple Ambrosia>> and <<var(--lightseagreen-text-color)|{{octeracts}} Octeracts>>.",
+          "purchaseAria": "Buy {{amount}} levels of Exceptional Lie Group for {{purpleAmbrosia}} Purple Ambrosia and {{octeracts}} Octeracts.",
+          "effectNotMaxed": "On Synthesis: <<silver|{{current}} →>> <<gold|{{next}}s>> of Octeract production.",
+          "effectMaxed": "On Syntehsis: <<gold|{{value}}s>> of Octeract production."
+        }
+      }
+    },
     "lifetimeHoneyFormulaNotMaxed": "Multiplier = 1 + (<<silver|{{oldValue}} →>> <<gold|{{newValue}}>>) * ln(1 + Honey/100)",
     "lifetimeHoneyFormulaMaxed": "Multiplier = 1 + <<gold|{{maxValue}}>> * ln(1 + Honey/100)",
     "lifetimeHoneyELOFormulaNotMaxed": "Bonus: (<<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>>) * ln(1 + Honey)",

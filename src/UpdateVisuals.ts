@@ -56,6 +56,7 @@ import {
   calculateRuneEffectivenessCubeBlessing,
   calculateSalvageCubeBlessing
 } from './Cubes'
+import { updateSynthesis } from './Synthesis'
 import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
 import { calculateBaseAntsToBeGenerated } from './Features/Ants/AntProducers/lib/calculate-production'
 import { hasEnoughCrumbsForSacrifice, MINIMUM_CRUMBS_FOR_SACRIFICE } from './Features/Ants/AntSacrifice/constants'
@@ -2541,6 +2542,7 @@ export const visualUpdatePurple = () => {
   )
   if (getActiveSubTab() === 5) {
     updatePurpleUpgradeTab()
+    updateSynthesis()
   }
 }
 

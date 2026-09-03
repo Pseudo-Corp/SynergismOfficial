@@ -1161,6 +1161,23 @@ function createPurpleReactorUpgrades (
 export const purpleReactorUpgrades = createPurpleReactorUpgrades(purpleReactorUpgradeData)
 export const purpleReactorUpgradeNames = Object.keys(purpleReactorUpgrades) as PurpleReactorNames[]
 
+type PurpleReactorAPContribution = {
+  id: string
+  calculateAP: () => number
+  maximumAP: number
+}
+
+const purpleReactorAPContributions: PurpleReactorAPContribution[] = []
+
+export const registerPurpleReactorAPContribution = (contribution: PurpleReactorAPContribution) => {
+  if (purpleReactorAPContributions.some(({ id }) => id === contribution.id)) {
+    return
+  }
+
+  purpleReactorAPContributions.push(contribution)
+  maxPurpleReactorAP += contribution.maximumAP
+}
+
 export const blankPurpleReactorUpgradeObject: Record<PurpleReactorNames, number> = Object.fromEntries(
   Object.keys(purpleReactorUpgrades).map((key) => [
     key as PurpleReactorNames,
@@ -1348,10 +1365,13 @@ export const calculatePurpleReactorAP = (): number => {
       totalAP += upgrade.apValue.maxLevelAP
     }
   }
+  for (const contribution of purpleReactorAPContributions) {
+    totalAP += contribution.calculateAP()
+  }
   return Math.floor(totalAP)
 }
 
-export const maxPurpleReactorAP = Math.floor(
+export let maxPurpleReactorAP = Math.floor(
   purpleReactorUpgradeNames.reduce((totalAP, upgradeKey) => {
     const upgrade = purpleReactorUpgrades[upgradeKey]
     return totalAP + upgrade.maxLevel * upgrade.apValue.perLevelAP + upgrade.apValue.maxLevelAP

@@ -233,6 +233,7 @@ import {
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, queueSave } from './saves/SaveStorage'
+import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthesis'
 // eslint-disable-next-line no-unassigned-import
 import './saves/verify'
 import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from './Purple'
@@ -1190,6 +1191,9 @@ export const player: Player = {
   },
 
   purpleReactorUpgrades: blankPurpleReactorUpgradeObject,
+  synthesisUpgrades: createBlankSynthesisUpgradeObject(),
+  synthesisAutomationUnlocked: false,
+  synthesisAutomationEnabled: false,
 
   singChallengeTimer: 0,
 
@@ -5060,6 +5064,7 @@ window.addEventListener('load', async () => {
   generateShopTabHTML()
   initializeOcteractUpgradeMap()
   generatePurpleUpgradeTabHTML()
+  initializeSynthesis()
   generateEventHandlers()
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()

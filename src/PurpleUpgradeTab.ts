@@ -213,7 +213,10 @@ export const purpleUpgradeFamilyCoverage: [UncoveredPurpleUpgrade] extends [neve
 let selectedFamily: PurpleUpgradeFamilyData = purpleUpgradeSections[0].families[0]
 let selectedTier: PurpleReactorNames = purpleUpgradeSections[0].families[0].tiers[0].key
 let lastDetailHTML = ''
-let upgradeShopOpen = false
+
+export type PurpleReactorPopupMode = 'upgrades' | 'synthesis' | null
+
+let purpleReactorPopupMode: PurpleReactorPopupMode = null
 
 const tierMaxed = (key: PurpleReactorNames) => {
   const upgrade = purpleReactorUpgrades[key]
@@ -241,17 +244,35 @@ const scrollToDetailOnMobile = () => {
   }
 }
 
-const setUpgradeShopOpen = (open: boolean) => {
-  upgradeShopOpen = open
-  const container = DOMCacheGetOrSet('singularityPurple')
-  const toggle = DOMCacheGetOrSet('purpleUpgradeToggle')
-  container.hidden = !open
-  toggle.setAttribute('aria-expanded', `${open}`)
-  toggle.classList.toggle('purpleUpgradeToggleOpen', open)
-  DOMCacheGetOrSet('purpleReactantContainers').classList.toggle('purpleUpgradeShopOpen', open)
+export const getPurpleReactorPopupMode = () => purpleReactorPopupMode
 
-  if (open) {
+export const setPurpleReactorPopupMode = (mode: PurpleReactorPopupMode) => {
+  purpleReactorPopupMode = mode
+  const container = DOMCacheGetOrSet('singularityPurple')
+  const upgradesOpen = mode === 'upgrades'
+  const synthesisOpen = mode === 'synthesis'
+  const popupOpen = mode !== null
+
+  container.hidden = !popupOpen
+  container.classList.toggle('purpleSynthesisOpen', synthesisOpen)
+  DOMCacheGetOrSet('purpleUpgradeContainer').hidden = !upgradesOpen
+  DOMCacheGetOrSet('purpleSynthesisContainer').hidden = !synthesisOpen
+
+  const upgradeToggle = DOMCacheGetOrSet('purpleUpgradeToggle')
+  upgradeToggle.setAttribute('aria-expanded', `${upgradesOpen}`)
+  upgradeToggle.classList.toggle('purpleUpgradeToggleOpen', upgradesOpen)
+
+  const synthesisToggle = DOMCacheGetOrSet('purpleSynthesisToggle')
+  synthesisToggle.setAttribute('aria-expanded', `${synthesisOpen}`)
+  synthesisToggle.classList.toggle('purpleSynthesisToggleOpen', synthesisOpen)
+
+  DOMCacheGetOrSet('purpleReactantContainers').classList.toggle('purplePopupOpen', popupOpen)
+
+  if (upgradesOpen) {
     updatePurpleUpgradeTab()
+  }
+
+  if (popupOpen) {
     if (isMobile) {
       requestAnimationFrame(() => container.scrollIntoView({ behavior: 'smooth', block: 'start' }))
     }
@@ -384,13 +405,13 @@ export const generatePurpleUpgradeTabHTML = () => {
     })
   }
   DOMCacheGetOrSet('purpleUpgradeToggle').addEventListener('click', () => {
-    setUpgradeShopOpen(!upgradeShopOpen)
+    setPurpleReactorPopupMode(purpleReactorPopupMode === 'upgrades' ? null : 'upgrades')
   })
   DOMCacheGetOrSet('purpleUpgradeClose').addEventListener('click', () => {
-    setUpgradeShopOpen(false)
+    setPurpleReactorPopupMode(null)
     DOMCacheGetOrSet('purpleUpgradeToggle').focus()
   })
-  setUpgradeShopOpen(false)
+  setPurpleReactorPopupMode(null)
   selectPurpleUpgradeFamily(purpleUpgradeSections[0].families[0], undefined, false)
 }
 
@@ -454,7 +475,7 @@ const updateDetail = () => {
 }
 
 export const updatePurpleUpgradeTab = () => {
-  if (!upgradeShopOpen) {
+  if (purpleReactorPopupMode !== 'upgrades') {
     return
   }
 

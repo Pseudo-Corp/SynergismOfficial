@@ -287,6 +287,25 @@ const spentPurpleHoneySchema = z.object({
   purpleAmbrosia: z.number().default(0)
 })
 
+const synthesisUpgradesSchema = z.object({
+  redAmbrosiaReduction: z.object({
+    purpleAmbrosia: z.number().default(0),
+    redAmbrosia: z.number().default(0)
+  }).default(() => deepClone()(blankSave.synthesisUpgrades.redAmbrosiaReduction)),
+  purpleHoneyReduction: z.object({
+    purpleAmbrosia: z.number().default(0),
+    purpleHoney: z.number().default(0)
+  }).default(() => deepClone()(blankSave.synthesisUpgrades.purpleHoneyReduction)),
+  subatomicShavings: z.object({
+    purpleAmbrosia: z.number().default(0),
+    quarks: z.number().default(0)
+  }).default(() => deepClone()(blankSave.synthesisUpgrades.subatomicShavings)),
+  exceptionalLieGroup: z.object({
+    purpleAmbrosia: z.number().default(0),
+    octeracts: z.number().default(0)
+  }).default(() => deepClone()(blankSave.synthesisUpgrades.exceptionalLieGroup))
+})
+
 const playerCorruptionSchema = z.object({
   used: optionalCorruptionSchema.transform((value) => {
     return new CorruptionLoadout(value)
@@ -1068,6 +1087,10 @@ export const playerSchema = z.object({
       )
     }
   ).default(() => ({ ...blankSave.purpleReactorUpgrades })),
+
+  synthesisUpgrades: synthesisUpgradesSchema.default(() => deepClone()(blankSave.synthesisUpgrades)),
+  synthesisAutomationUnlocked: z.boolean().default(() => blankSave.synthesisAutomationUnlocked),
+  synthesisAutomationEnabled: z.boolean().default(() => blankSave.synthesisAutomationEnabled),
 
   singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
 

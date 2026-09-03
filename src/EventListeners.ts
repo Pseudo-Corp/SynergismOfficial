@@ -98,6 +98,7 @@ import {
   upgradeOcteractToString
 } from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription, platonicUpgradeModalHTML } from './Platonic'
+import { getPurpleReactorPopupMode, setPurpleReactorPopupMode } from './PurpleUpgradeTab'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -116,6 +117,17 @@ import { buyAllBlessingLevels } from './RuneBlessings'
 import { runes } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
 import { buyShopUpgrades, useConsumablePrompt } from './Shop'
+import {
+  buySynthesisUpgrade,
+  craftFromSynthesis,
+  getSynthesisUpgradePurchaseButtonID,
+  setSynthesisAutomationEnabled,
+  synthesisCraftButtons,
+  synthesisUpgradeNames,
+  synthesisUpgradePurchaseAmounts,
+  unlockSynthesisAutomation,
+  updateSynthesis
+} from './Synthesis'
 import {
   addSingularityPerkToTree,
   buyGoldenQuarks,
@@ -174,7 +186,16 @@ import {
   updateRuneBlessingBuyAmount
 } from './Toggles'
 import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
-import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframeOverlay, Prompt } from './UpdateHTML'
+import {
+  Alert,
+  CloseModal,
+  Confirm,
+  createFitties,
+  MEDIUM_MODAL_UPDATE_TICK,
+  Modal,
+  openIframeOverlay,
+  Prompt
+} from './UpdateHTML'
 import {
   cycleCorruptionScoreTarget,
   selectCorruptionScoreTarget,
@@ -2049,6 +2070,72 @@ TODO: Fix this entire tab it's utter shit
 
   registerPurpleReactantSlider('ambrosiaBarPointPercentageSlider', 'ambrosia')
   registerPurpleReactantSlider('redAmbrosiaBarPointPercentageSlider', 'redAmbrosia')
+
+  for (const upgradeKey of synthesisUpgradeNames) {
+    for (const amount of synthesisUpgradePurchaseAmounts) {
+      DOMCacheGetOrSet(getSynthesisUpgradePurchaseButtonID(upgradeKey, amount)).addEventListener('click', () => {
+        buySynthesisUpgrade(upgradeKey, amount)
+      })
+    }
+  }
+
+  for (const { id, amount } of synthesisCraftButtons) {
+    DOMCacheGetOrSet(id).addEventListener('click', () => {
+      craftFromSynthesis(amount, id)
+    })
+  }
+
+  DOMCacheGetOrSet('synthesisAutomationUnlock').addEventListener('click', () => {
+    if (unlockSynthesisAutomation()) {
+      DOMCacheGetOrSet('synthesisAutomationToggle').focus()
+    }
+  })
+  DOMCacheGetOrSet('synthesisAutomationToggle').addEventListener('change', (event) => {
+    setSynthesisAutomationEnabled((event.target as HTMLInputElement).checked)
+  })
+
+  DOMCacheGetOrSet('purpleSynthesisToggle').addEventListener('click', () => {
+    const mode = getPurpleReactorPopupMode() === 'synthesis' ? null : 'synthesis'
+    setPurpleReactorPopupMode(mode)
+    updateSynthesis()
+
+    if (mode === 'synthesis') {
+      createFitties()
+      requestAnimationFrame(() => DOMCacheGetOrSet('purpleSynthesisClose').focus())
+    }
+  })
+
+  DOMCacheGetOrSet('purpleSynthesisClose').addEventListener('click', () => {
+    setPurpleReactorPopupMode(null)
+    DOMCacheGetOrSet('purpleSynthesisToggle').focus()
+  })
+
+  DOMCacheGetOrSet('purpleSynthesisContainer').addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      setPurpleReactorPopupMode(null)
+      DOMCacheGetOrSet('purpleSynthesisToggle').focus()
+      return
+    }
+
+    if (event.key === 'Tab') {
+      const focusableElements = Array.from(
+        DOMCacheGetOrSet('purpleSynthesisContainer').querySelectorAll<HTMLElement>(
+          'button:not(:disabled):not([hidden]), input:not(:disabled)'
+        )
+      )
+      const firstElement = focusableElements[0]
+      const lastElement = focusableElements[focusableElements.length - 1]
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault()
+        lastElement?.focus()
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault()
+        firstElement?.focus()
+      }
+    }
+  })
 
   // EVENT TAB
   function visitConsumableTab () {
