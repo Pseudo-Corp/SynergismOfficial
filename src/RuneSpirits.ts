@@ -6,9 +6,9 @@ import { calculateSalvageRuneEXPMultiplier } from './Calculate'
 import { resetTiers } from './Reset'
 import { type RuneBlessingKeys, runeBlessings } from './RuneBlessings'
 import { type RuneKeys, runes } from './Runes'
+import { registerSpriteAlias, spritePlaceholder } from './SpriteSheets'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
-import { IconSets } from './Themes'
 import { CloseModal, Modal } from './UpdateHTML'
 import { assert, isMobile } from './Utility'
 import { Globals as G } from './Variables'
@@ -35,9 +35,6 @@ interface RuneSpiritData<K extends RuneSpiritKeys> {
   effectsDescription: (n: number) => string
   name: () => string
   description: () => string
-  HTMLData: {
-    imgName: string
-  }
 }
 
 const otherSpiritMultipliers = () => {
@@ -77,10 +74,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.speed.name(),
-    description: () => i18next.t('runes.spirits.speed.description'),
-    HTMLData: {
-      imgName: 'SpiritSpeed'
-    }
+    description: () => i18next.t('runes.spirits.speed.description')
   },
   duplication: {
     level: 0,
@@ -101,10 +95,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.duplication.name(),
-    description: () => i18next.t('runes.spirits.duplication.description'),
-    HTMLData: {
-      imgName: 'SpiritDuplication'
-    }
+    description: () => i18next.t('runes.spirits.duplication.description')
   },
   prism: {
     level: 0,
@@ -125,10 +116,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.prism.name(),
-    description: () => i18next.t('runes.spirits.prism.description'),
-    HTMLData: {
-      imgName: 'SpiritPrism'
-    }
+    description: () => i18next.t('runes.spirits.prism.description')
   },
   thrift: {
     level: 0,
@@ -149,10 +137,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.thrift.name(),
-    description: () => i18next.t('runes.spirits.thrift.description'),
-    HTMLData: {
-      imgName: 'SpiritThrift'
-    }
+    description: () => i18next.t('runes.spirits.thrift.description')
   },
   superiorIntellect: {
     level: 0,
@@ -173,10 +158,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.superiorIntellect.name(),
-    description: () => i18next.t('runes.spirits.superiorIntellect.description'),
-    HTMLData: {
-      imgName: 'SpiritSI'
-    }
+    description: () => i18next.t('runes.spirits.superiorIntellect.description')
   }
 }
 
@@ -467,7 +449,7 @@ export const generateWebRuneSpiritsHTML = () => {
     runeIcon.className = 'runeImage'
     runeIcon.id = `${key}RuneSpirit`
     runeIcon.alt = `${key} Rune`
-    runeIcon.src = `Pictures/${IconSets[player.iconSet][0]}/${runeSpirits[key].HTMLData.imgName}.png`
+    runeIcon.src = spritePlaceholder
     runeIcon.loading = 'lazy'
 
     runesDiv.appendChild(runeIcon)
@@ -522,8 +504,10 @@ export const generateMobileRuneSpiritsHTML = () => {
     runeIcon.width = 32
     runeIcon.id = `${key}RuneSpirit`
     runeIcon.alt = `${key} Rune`
-    runeIcon.src = `Pictures/Runes/${key.charAt(0).toUpperCase() + key.slice(1)}.png`
+    runeIcon.src = spritePlaceholder
     runeIcon.loading = 'lazy'
+
+    registerSpriteAlias(runeIcon.id, runeIcon.id, 32)
 
     topRow.appendChild(runeIcon)
 

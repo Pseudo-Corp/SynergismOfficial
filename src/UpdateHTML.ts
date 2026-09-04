@@ -462,8 +462,9 @@ export const revealStuff = () => {
     }
   }
 
-  document.documentElement.dataset.singularityButton =
-    runes.antiquities.level > 0 || player.highestSingularityCount > 0 ? 'true' : 'false'
+  document.documentElement.dataset.singularityButton = runes.antiquities.level > 0 || player.highestSingularityCount > 0
+    ? 'true'
+    : 'false'
 
   document.documentElement.dataset.insideSingularityChallenge = player.insideSingularityChallenge ? 'true' : 'false'
 
@@ -471,8 +472,9 @@ export const revealStuff = () => {
     (Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0) ? 'true' : 'false'
   document.documentElement.dataset.ascHyperStats = player.challengecompletions[13] > 0 ? 'true' : 'false'
   document.documentElement.dataset.ascPlatonicStats = player.challengecompletions[14] > 0 ? 'true' : 'false'
-  document.documentElement.dataset.ascHepteractStats =
-    G.challenge15Rewards.hepteractsUnlocked.value >= 1 ? 'true' : 'false'
+  document.documentElement.dataset.ascHepteractStats = G.challenge15Rewards.hepteractsUnlocked.value >= 1
+    ? 'true'
+    : 'false'
 
   // I'll clean this up later. Note to 2019 Platonic: Fuck you
   // note to 2019 and 2020 Platonic, you're welcome

@@ -126,6 +126,24 @@ export const spriteSheets: SpriteSheet[] = [
     columns: 8
   },
   {
+    name: 'Divinity',
+    elementNames: [
+      'speedRuneBlessing',
+      'duplicationRuneBlessing',
+      'prismRuneBlessing',
+      'thriftRuneBlessing',
+      'superiorIntellectRuneBlessing',
+      'speedRuneSpirit',
+      'duplicationRuneSpirit',
+      'prismRuneSpirit',
+      'thriftRuneSpirit',
+      'superiorIntellectRuneSpirit'
+    ],
+    iconSize: 64,
+    rows: 2,
+    columns: 5
+  },
+  {
     name: 'Challenges',
     elementNames: [
       'challenge1',
@@ -332,6 +350,8 @@ export const spriteSheets: SpriteSheet[] = [
     columns: 15
   }
 ]
+
+export const spritePlaceholder = 'Pictures/img_transparent.png'
 
 export const registerSpriteAlias = (sourceElementName: string, elementName: string, displaySize: number) => {
   for (const sheet of spriteSheets) {
