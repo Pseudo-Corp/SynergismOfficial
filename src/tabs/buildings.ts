@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
+import { spritePlaceholder } from '../SpriteSheets'
 import { player } from '../Synergism'
 import { isMobile } from '../Utility'
 
@@ -85,7 +86,6 @@ const renderBuildingMobile = (b: Building): string => {
 }
 
 const renderBuilding = isMobile ? renderBuildingMobile : renderBuildingDesktop
-const spritePlaceholder = 'Pictures/img_transparent.png'
 
 const renderAutomationControl = (): string =>
   '<div class="buildingAutomationControls">'

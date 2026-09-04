@@ -5,10 +5,10 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSalvageRuneEXPMultiplier } from './Calculate'
 import { resetTiers } from './Reset'
 import { type RuneKeys, runes } from './Runes'
+import { registerSpriteAlias, spritePlaceholder } from './SpriteSheets'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { getTalismanEffects } from './Talismans'
-import { IconSets } from './Themes'
 import { CloseModal, Modal } from './UpdateHTML'
 import { assert, isMobile } from './Utility'
 import { Globals as G } from './Variables'
@@ -35,9 +35,6 @@ interface RuneBlessingData<K extends RuneBlessingKeys> {
   effectsDescription: (n: number) => string
   name: () => string
   description: () => string
-  HTMLData: {
-    imgName: string
-  }
 }
 
 const otherBlessingMultipliers = () => {
@@ -78,10 +75,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.speed.name(),
-    description: () => i18next.t('runes.blessings.speed.description'),
-    HTMLData: {
-      imgName: 'BlessingSpeed'
-    }
+    description: () => i18next.t('runes.blessings.speed.description')
   },
   duplication: {
     level: 0,
@@ -104,10 +98,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.duplication.name(),
-    description: () => i18next.t('runes.blessings.duplication.description'),
-    HTMLData: {
-      imgName: 'BlessingDuplication'
-    }
+    description: () => i18next.t('runes.blessings.duplication.description')
   },
   prism: {
     level: 0,
@@ -130,10 +121,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.prism.name(),
-    description: () => i18next.t('runes.blessings.prism.description'),
-    HTMLData: {
-      imgName: 'BlessingPrism'
-    }
+    description: () => i18next.t('runes.blessings.prism.description')
   },
   thrift: {
     level: 0,
@@ -156,10 +144,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.thrift.name(),
-    description: () => i18next.t('runes.blessings.thrift.description'),
-    HTMLData: {
-      imgName: 'BlessingThrift'
-    }
+    description: () => i18next.t('runes.blessings.thrift.description')
   },
   superiorIntellect: {
     level: 0,
@@ -186,10 +171,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.superiorIntellect.name(),
-    description: () => i18next.t('runes.blessings.superiorIntellect.description'),
-    HTMLData: {
-      imgName: 'BlessingSI'
-    }
+    description: () => i18next.t('runes.blessings.superiorIntellect.description')
   }
 }
 
@@ -486,7 +468,7 @@ export const generateWebRuneBlessingsHTML = () => {
     runeIcon.className = 'runeImage'
     runeIcon.id = `${key}RuneBlessing`
     runeIcon.alt = `${key} Rune`
-    runeIcon.src = `Pictures/${IconSets[player.iconSet][0]}/${runeBlessings[key].HTMLData.imgName}.png`
+    runeIcon.src = spritePlaceholder
     runeIcon.loading = 'lazy'
 
     runesDiv.appendChild(runeIcon)
@@ -541,8 +523,10 @@ export const generateMobileRuneBlessingsHTML = () => {
     runeIcon.width = 32
     runeIcon.id = `${key}RuneBlessing`
     runeIcon.alt = `${key} Rune`
-    runeIcon.src = `Pictures/Runes/${key.charAt(0).toUpperCase() + key.slice(1)}.png`
+    runeIcon.src = spritePlaceholder
     runeIcon.loading = 'lazy'
+
+    registerSpriteAlias(runeIcon.id, runeIcon.id, 32)
 
     topRow.appendChild(runeIcon)
 
