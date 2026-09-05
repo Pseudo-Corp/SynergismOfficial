@@ -9,7 +9,8 @@ import {
   purpleReactorUpgradeToString
 } from './Purple'
 import { format, player } from './Synergism'
-import { isMobile } from './Utility'
+
+const purplePopupMediaQuery = window.matchMedia('(width <= 1024px)')
 
 interface PurpleUpgradeTierData {
   readonly key: PurpleReactorNames
@@ -239,8 +240,8 @@ const familyNameKey = (family: PurpleUpgradeFamilyData) => {
 }
 
 const scrollToDetailOnMobile = () => {
-  if (isMobile) {
-    DOMCacheGetOrSet('purpleUpgradeDetail').scrollIntoView({ behavior: 'smooth', block: 'start' })
+  if (purplePopupMediaQuery.matches) {
+    DOMCacheGetOrSet('purpleUpgradeDetail').scrollTo({ behavior: 'smooth', top: 0 })
   }
 }
 
@@ -260,11 +261,9 @@ export const setPurpleReactorPopupMode = (mode: PurpleReactorPopupMode) => {
 
   const upgradeToggle = DOMCacheGetOrSet('purpleUpgradeToggle')
   upgradeToggle.setAttribute('aria-expanded', `${upgradesOpen}`)
-  upgradeToggle.classList.toggle('purpleUpgradeToggleOpen', upgradesOpen)
 
   const synthesisToggle = DOMCacheGetOrSet('purpleSynthesisToggle')
   synthesisToggle.setAttribute('aria-expanded', `${synthesisOpen}`)
-  synthesisToggle.classList.toggle('purpleSynthesisToggleOpen', synthesisOpen)
 
   DOMCacheGetOrSet('purpleReactantContainers').classList.toggle('purplePopupOpen', popupOpen)
 
@@ -272,10 +271,8 @@ export const setPurpleReactorPopupMode = (mode: PurpleReactorPopupMode) => {
     updatePurpleUpgradeTab()
   }
 
-  if (popupOpen) {
-    if (isMobile) {
-      requestAnimationFrame(() => container.scrollIntoView({ behavior: 'smooth', block: 'start' }))
-    }
+  if (popupOpen && purplePopupMediaQuery.matches) {
+    requestAnimationFrame(() => container.scrollIntoView({ behavior: 'smooth', block: 'start' }))
   }
 }
 
@@ -380,6 +377,14 @@ const buySelectedUpgrade = async (purchaseAmount: PurpleReactorPurchaseAmount) =
 }
 
 export const generatePurpleUpgradeTabHTML = () => {
+  const popup = DOMCacheGetOrSet('singularityPurple')
+  const main = popup.closest('main')
+  if (main !== null) {
+    new ResizeObserver(() => {
+      popup.style.setProperty('--purple-popup-viewport-height', `${main.clientHeight}px`)
+    }).observe(main)
+  }
+
   const list = DOMCacheGetOrSet('purpleUpgradeFamilyList')
   const rail = DOMCacheGetOrSet('purpleUpgradeTierRail')
 

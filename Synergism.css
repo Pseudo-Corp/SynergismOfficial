@@ -109,8 +109,8 @@ body {
     --amber-text-color: #ffbf00;
     --lightgoldenrodyellow-text-color: lightgoldenrodyellow;
     --header-color: var(--bg-color);
-    --mobile-subtab-height: 0;
-    --mobile-subtab-top: 0;
+    --mobile-subtab-height: 0px;
+    --mobile-subtab-top: 0px;
     --bg-color: #111;
     --alert-color: #141414;
     --history-lines: #262626;
@@ -6981,7 +6981,7 @@ header #obtainiumDisplay { color: pink; }
     text-align: center;
 }
 
-#purpleUpgradeContainer {
+.purplePopup {
     --purple-popup-close-size: 34px;
 
     display: flex;
@@ -6996,19 +6996,22 @@ header #obtainiumDisplay { color: pink; }
     text-align: left;
 }
 
-#purpleUpgradeContainer[hidden],
-#purpleSynthesisContainer[hidden] {
+.purplePopup[hidden] {
     display: none;
 }
 
-.purpleUpgradeHeader {
+.purplePopupHeader {
     display: grid;
     flex-shrink: 0;
-    grid-template-areas: ". ap close";
     grid-template-columns: var(--purple-popup-close-size) minmax(0, 1fr) var(--purple-popup-close-size);
     align-items: center;
     padding: 7px;
     border-bottom: 1px solid rgb(176 0 176 / 55%);
+    background-color: var(--box-color);
+}
+
+.purpleUpgradeHeader {
+    grid-template-areas: ". ap close";
 }
 
 #singularityPurple {
@@ -7027,7 +7030,11 @@ header #obtainiumDisplay { color: pink; }
     display: none;
 }
 
-#singularityPurple.purpleSynthesisOpen {
+#singularityPurple .scrollbar {
+    scrollbar-color: var(--scrollbar-color) var(--scrollbar-bg-color);
+}
+
+#singularityPurple:where(.purpleSynthesisOpen) {
     bottom: -3px;
     height: auto;
 }
@@ -7036,8 +7043,7 @@ header #obtainiumDisplay { color: pink; }
     overflow: visible;
 }
 
-#purpleUpgradeClose,
-#purpleSynthesisClose {
+.purplePopupClose {
     display: grid;
     grid-area: close;
     place-items: center;
@@ -7054,55 +7060,19 @@ header #obtainiumDisplay { color: pink; }
     cursor: pointer;
 }
 
-#purpleUpgradeClose:hover,
-#purpleUpgradeClose:focus-visible,
-#purpleSynthesisClose:hover,
-#purpleSynthesisClose:focus-visible {
+#singularityPurple .purplePopupClose:is(:hover, :focus-visible) {
     background-color: rgb(176 0 176 / 22%);
     box-shadow: 0 0 7px var(--purple-text-color);
 }
 
-#purpleSynthesisContainer {
-    --purple-popup-close-size: 34px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    overflow: hidden;
-    color: white;
-    font-size: 16px;
-    text-align: left;
-    background:
-        linear-gradient(135deg, rgb(255 0 255 / 7%), transparent 32%),
-        repeating-linear-gradient(90deg, transparent 0 63px, rgb(255 255 255 / 2%) 64px),
-        var(--box-color);
-}
-
 .synthesisHeader {
-    display: grid;
-    flex-shrink: 0;
     grid-template-areas:
         ". heading close"
         ". conversion .";
-    grid-template-columns: var(--purple-popup-close-size) minmax(0, 1fr) var(--purple-popup-close-size);
-    align-items: center;
-    position: sticky;
-    z-index: 5;
-    top: 0;
-    padding: 7px;
-    border-bottom: 1px solid rgb(176 0 176 / 55%);
-    background:
-        linear-gradient(90deg, rgb(176 0 176 / 11%), transparent 30% 70%, rgb(176 0 176 / 11%)),
-        var(--box-color);
 }
 
 .synthesisTitle,
-.synthesisSource p,
-.synthesisProduct p {
+:where(.synthesisSource, .synthesisProduct, .synthesisUpgradeCard) p {
     margin: 0;
 }
 
@@ -7128,8 +7098,7 @@ header #obtainiumDisplay { color: pink; }
     color: red;
 }
 
-.synthesisConversionHoney,
-.synthesisConversionProduct {
+.synthesisConversionPurple {
     color: var(--purple-text-color);
 }
 
@@ -7153,13 +7122,11 @@ header #obtainiumDisplay { color: pink; }
     overscroll-behavior: contain;
     padding: 10px;
     border-left: 1px solid rgb(176 0 176 / 35%);
-    background: linear-gradient(90deg, rgb(176 0 176 / 4%), transparent 30%);
 }
 
 .synthesisUpgradeModal {
-    box-sizing: border-box;
     border: 2px solid var(--purple-box-color);
-    background: rgb(0 0 0 / 20%);
+    background-color: var(--box-color);
 }
 
 .synthesisUpgradeModalTitle {
@@ -7180,7 +7147,7 @@ header #obtainiumDisplay { color: pink; }
 .synthesisUpgradeCard {
     padding: 6px;
     border: 1px solid rgb(176 0 176 / 45%);
-    background: linear-gradient(135deg, rgb(176 0 176 / 9%), rgb(0 0 0 / 16%));
+    background-color: var(--box-color);
 }
 
 .synthesisUpgradeHeading {
@@ -7190,91 +7157,85 @@ header #obtainiumDisplay { color: pink; }
     gap: 5px;
 }
 
-.synthesisUpgradeHeading > img {
+.synthesisUpgradeHeading > img,
+.synthesisSource > img,
+.synthesisProduct > img {
     width: 32px;
     height: 32px;
     object-fit: contain;
 }
 
-.synthesisUpgradeTitle,
-.synthesisUpgradeLevel,
 .synthesisUpgradeFlavor,
 .synthesisUpgradeEffect,
 .synthesisUpgradeNextCost,
 .synthesisUpgradeAP {
-    margin: 0;
+    margin-top: 4px;
+    line-height: 1.2;
 }
 
 .synthesisUpgradeTitle {
     color: white;
-    font-size: 1em;
     font-weight: bold;
     line-height: 1.1;
 }
 
 .synthesisUpgradeLevel {
     color: lightgray;
-    font-size: 1em;
     font-variant-numeric: tabular-nums;
     text-align: right;
     white-space: nowrap;
 }
 
 .synthesisUpgradeFlavor {
-    margin-top: 4px;
     color: silver;
-    font-size: 1em;
     font-style: italic;
-    line-height: 1.2;
 }
 
 .synthesisUpgradeEffect {
-    margin-top: 4px;
     color: white;
-    font-size: 1em;
-    line-height: 1.2;
 }
 
 .synthesisUpgradeEffectMaxed {
     color: plum;
 }
 
-.synthesisUpgradeNextCost,
-.synthesisUpgradeAP {
-    margin-top: 4px;
+.synthesisUpgradeNextCost {
     color: lightgray;
-    font-size: 1em;
-    line-height: 1.2;
 }
 
 .synthesisUpgradeAP {
     color: gold;
 }
 
-.synthesisUpgradePurchaseButtons {
+.synthesisUpgradePurchaseButtons,
+#purpleUpgradeDetailButtons {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: stretch;
     justify-content: center;
     gap: 8px;
-    margin-top: 6px;
     width: 100%;
 }
 
+.synthesisUpgradePurchaseButtons {
+    margin-top: 6px;
+}
+
 .synthesisUpgradePurchaseButton {
-    flex: 1 1 0;
-    width: 0;
+    flex: 1 1 4.5em;
+    font: inherit;
+    cursor: pointer;
+}
+
+.synthesisUpgradePurchaseButton,
+#purpleUpgradeDetailButtons > button {
     max-width: 100%;
-    min-width: 0;
     min-height: 34px;
     padding: 3px 10px;
     border: 2px solid var(--purple-text-color);
     color: white;
-    font: inherit;
-    font-size: 1em;
     line-height: 1.3;
     white-space: pre-line;
-    cursor: pointer;
 }
 
 .synthesisUpgradePurchaseButton:disabled {
@@ -7306,37 +7267,27 @@ header #obtainiumDisplay { color: pink; }
     gap: 16px;
 }
 
-.synthesisSource {
+.synthesisSource,
+.synthesisProduct {
     display: grid;
     grid-template-columns: 32px minmax(0, 1fr);
     align-items: center;
-    gap: 7px;
     position: relative;
     min-width: 0;
-    padding: 7px;
     overflow: hidden;
-    border: 2px solid var(--synthesis-resource-color);
+    border: 2px solid var(--synthesis-resource-color, var(--purple-text-color));
     border-radius: 3px;
-    background:
-        linear-gradient(135deg, rgb(var(--synthesis-resource-rgb) / 13%), transparent 65%),
-        rgb(0 0 0 / 24%);
-    box-shadow: inset 0 0 12px rgb(var(--synthesis-resource-rgb) / 10%);
-    transition: border-color 150ms ease, box-shadow 150ms ease;
+    background-color: var(--box-color);
 }
 
-.synthesisSource > img {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-}
-
-.synthesisSource p {
-    color: lightgray;
-    line-height: 1.15;
+.synthesisSource {
+    gap: 7px;
+    padding: 7px;
+    transition: border-color 150ms ease;
 }
 
 .synthesisSource > div,
-.synthesisProduct > div:first-of-type {
+.synthesisProduct > div {
     min-width: 0;
 }
 
@@ -7347,17 +7298,13 @@ header #obtainiumDisplay { color: pink; }
     line-height: 1.15;
 }
 
-.synthesisSource .synthesisSourceName {
+.synthesisSourceName {
     color: var(--synthesis-resource-color);
 }
 
 .synthesisBalance {
-    margin-top: 3px !important;
-    color: var(--synthesis-resource-color);
-    font-size: 16px;
+    margin-top: 3px;
     font-weight: bold;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.15;
     overflow-wrap: anywhere;
 }
 
@@ -7368,21 +7315,22 @@ header #obtainiumDisplay { color: pink; }
     white-space: nowrap;
 }
 
-.synthesisBalanceDivider,
-.synthesisBalanceDivider + span {
+.synthesisBalance,
+.synthesisProductStat {
     color: lightgray;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.15;
 }
 
 .synthesisSourceRed {
     --synthesis-resource-color: red;
-    --synthesis-resource-rgb: 255 0 0;
 }
 
 .synthesisSourceHoney {
     grid-template-columns: minmax(0, 1fr) 32px;
 
     --synthesis-resource-color: #ff5cff;
-    --synthesis-resource-rgb: 176 0 176;
 }
 
 .synthesisSourceHoney > img {
@@ -7418,27 +7366,9 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .synthesisProduct {
-    display: grid;
     grid-area: product;
-    grid-template-columns: 32px minmax(0, 1fr);
-    align-items: center;
     gap: 10px;
-    position: relative;
-    min-width: 0;
     padding: 10px;
-    overflow: hidden;
-    border: 2px solid var(--purple-text-color);
-    border-radius: 3px;
-    background:
-        linear-gradient(135deg, rgb(255 0 255 / 16%), transparent 68%),
-        rgb(0 0 0 / 24%);
-    box-shadow: inset 0 0 14px rgb(176 0 176 / 20%);
-}
-
-.synthesisProduct > img {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
 }
 
 .synthesisProductName {
@@ -7446,16 +7376,11 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .synthesisProductStat {
-    margin-top: 2px !important;
-    color: lightgray;
-    font-size: 16px;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.15;
+    margin-top: 2px;
 }
 
 .synthesisResourceInsufficient {
     border-color: #555;
-    box-shadow: none;
 }
 
 .synthesisResourceInsufficient > img {
@@ -7464,7 +7389,6 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .synthesisCrafting {
-    box-sizing: border-box;
     width: min(100%, 760px);
     margin: 0 auto;
     padding: 14px;
@@ -7488,6 +7412,7 @@ header #obtainiumDisplay { color: pink; }
     display: flex;
     justify-content: center;
     gap: 8px;
+    min-width: 0;
 }
 
 .synthesisCraftButtonRow[hidden] {
@@ -7503,10 +7428,9 @@ header #obtainiumDisplay { color: pink; }
     padding: 5px 7px;
     border: 2px solid var(--purple-text-color);
     border-radius: 2px;
-    background: linear-gradient(180deg, rgb(176 0 176 / 22%), rgb(80 0 80 / 18%));
+    background-color: var(--button-color);
     color: white;
     font: inherit;
-    font-size: 1em;
     line-height: 1.2;
     overflow-wrap: anywhere;
     cursor: pointer;
@@ -7514,14 +7438,12 @@ header #obtainiumDisplay { color: pink; }
 
 .synthesisCraftButtonRow > button:hover,
 .synthesisCraftButtonRow > button:focus-visible {
-    background-color: rgb(176 0 176 / 22%);
-    box-shadow: 0 0 7px rgb(176 0 176 / 55%);
+    background-color: var(--hover-color);
 }
 
 .synthesisCraftButtonRow > button:disabled {
     border-color: #555;
-    background: var(--box-color);
-    box-shadow: none;
+    background-color: var(--box-color);
     color: gray;
     cursor: not-allowed;
 }
@@ -7529,10 +7451,6 @@ header #obtainiumDisplay { color: pink; }
 #synthesisAutomationUnlock {
     flex-basis: 300px;
     width: 300px;
-}
-
-#synthesisAutomationToggleContainer[hidden] {
-    display: none;
 }
 
 #purpleUpgradeShop {
@@ -7558,9 +7476,7 @@ header #obtainiumDisplay { color: pink; }
     flex-shrink: 0;
     margin: 8px 8px 2px;
     color: var(--purple-text-color);
-    font-size: 0.75em;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.875em;
 }
 
 .purpleUpgradeFamilyRow {
@@ -7572,11 +7488,11 @@ header #obtainiumDisplay { color: pink; }
     color: white;
 }
 
-.purpleUpgradeFamilyRow:hover {
+.purpleUpgradeFamilyRow:where(:hover) {
     background-color: rgb(255 255 255 / 8%);
 }
 
-.purpleUpgradeFamilyRow.purpleUpgradeFamilySelected {
+.purpleUpgradeFamilySelected {
     border-left-color: var(--purple-text-color);
     background-color: rgb(176 0 176 / 12%);
 }
@@ -7639,26 +7555,17 @@ header #obtainiumDisplay { color: pink; }
     height: 20px;
 }
 
-.purpleUpgradeTierShortcutSelected {
-    border-color: var(--purple-text-color);
-    box-shadow: 0 0 5px var(--purple-text-color);
-}
-
-.purpleUpgradeTierShortcutMaxed {
-    border-color: gold;
-}
-
 .purpleUpgradeFamilyRowCost {
     color: var(--purple-text-color);
     font-size: 0.75em;
     line-height: 1.15;
 }
 
-.purpleUpgradeFamilyRowCost.purpleUpgradeCantAfford {
+.purpleUpgradeCantAfford {
     color: gray;
 }
 
-.purpleUpgradeFamilyRowCost.purpleUpgradeFamilyMaxed {
+.purpleUpgradeFamilyMaxed {
     color: gold;
 }
 
@@ -7701,40 +7608,38 @@ header #obtainiumDisplay { color: pink; }
     height: 52px;
 }
 
-.purpleUpgradeTierChip.purpleUpgradeTierSelected {
+.purpleUpgradeTierShortcutSelected,
+.purpleUpgradeTierSelected {
     border-color: var(--purple-text-color);
-    box-shadow: 0 0 7px var(--purple-text-color);
+    outline: 1px solid var(--purple-text-color);
+    outline-offset: 1px;
 }
 
-.purpleUpgradeTierChip.purpleUpgradeTierMaxed {
+.purpleUpgradeTierShortcutMaxed,
+.purpleUpgradeTierMaxed {
     border-color: gold;
 }
 
 #purpleUpgradeDetailText {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     width: 100%;
-    line-height: 1.4;
+    line-height: 1.3;
     overflow-wrap: break-word;
 }
 
-#purpleUpgradeDetailButtons {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
+#purpleUpgradeDetailText p {
+    margin: 0;
+}
+
+.purpleUpgradeDetailSecondary {
+    font-size: 0.875em;
 }
 
 #purpleUpgradeDetailButtons > button {
     flex: 0 1 140px;
     width: 140px;
-    max-width: 100%;
-    min-height: 34px;
-    padding: 3px 10px;
-    border: 2px solid var(--purple-text-color);
-    color: white;
-    line-height: 1.3;
-    white-space: pre-line;
 }
 
 #purpleUpgradeDetailButtons > button:disabled {
@@ -8743,7 +8648,7 @@ header #obtainiumDisplay { color: pink; }
     width: 25%;
     height: 30px;
     background-color: black;
-    border: solid white;
+    border: solid maroon;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
     overflow: hidden;
@@ -8777,7 +8682,7 @@ header #obtainiumDisplay { color: pink; }
     width: 25%;
     height: 30px;
     background-color: black;
-    border: solid white;
+    border: solid #006;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
     overflow: hidden;
@@ -8819,194 +8724,175 @@ header #obtainiumDisplay { color: pink; }
     isolation: isolate;
     overflow: hidden;
     font-size: clamp(16px, 1.2vw, 18px);
-    background:
-        linear-gradient(135deg, rgb(128 0 128 / 12%), transparent 34%),
-        repeating-linear-gradient(90deg, transparent 0 63px, rgb(255 255 255 / 2%) 64px),
-        var(--box-color);
-    box-shadow: inset 0 0 24px rgb(80 0 80 / 35%);
-}
-
-#purpleReactantContainers::before {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    inset: 5px;
-    border: 1px solid rgb(255 0 255 / 14%);
-    pointer-events: none;
 }
 
 .purpleReactorHeader {
     display: grid;
     grid-template-areas:
-        "title controls"
-        "explanation controls"
-        "half-life controls"
-        "spent controls"
-        "overflow controls";
-    grid-template-columns: minmax(0, 1fr) 180px;
-    align-items: center;
+        "heading controls"
+        "recipe settings"
+        "draw draw";
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr);
+    align-items: start;
+    gap: 12px 24px;
     position: relative;
     z-index: 2;
-    padding: 0 8px 8px;
+    padding: 0 8px 12px;
     border-bottom: 1px solid rgb(176 0 176 / 55%);
     background-color: transparent;
-}
-
-.purpleReactantContainersDescription,
-.purpleReactorExplanation {
-    margin: 0;
-    text-align: center;
-}
-
-.purpleReactantContainersDescription {
-    grid-area: title;
-    font-size: 1.12em;
-}
-
-.purpleReactorExplanation {
-    grid-area: explanation;
-    max-width: 820px;
-    margin: 3px auto 0;
     color: lightgray;
-    font-size: 0.84em;
-    line-height: 1.25;
-}
-
-.purpleReactorHalfLife {
-    grid-area: half-life;
-    margin: 4px 0 0;
-    font-size: 0.84em;
-    line-height: 1.25;
-    text-align: center;
-}
-
-.purpleReactorSpentRates {
-    grid-area: spent;
-    margin: 1px 0 0;
-    color: lightgray;
-    font-size: 0.84em;
+    font-size: 0.9em;
     font-variant-numeric: tabular-nums;
-    line-height: 1.25;
-    text-align: center;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.purpleReactorHeader p {
+    margin: 0;
+}
+
+.purpleReactorHeader > div {
+    min-width: 0;
+}
+
+.purpleReactorHeading {
+    grid-area: heading;
+}
+
+.purpleReactorTitle {
+    color: var(--purple-text-color);
+    font-size: 1.6em;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.purpleReactorRecipe {
+    grid-area: recipe;
+}
+
+.purpleReactorSettings {
+    grid-area: settings;
+}
+
+.purpleReactorSectionLabel {
+    font-weight: bold;
+}
+
+#purpleReactorMaximumDraw {
+    grid-area: draw;
 }
 
 .purpleReactorMachine {
     display: grid;
-    grid-template-areas: "amb pipe-a core pipe-r red";
     grid-template-columns: minmax(0, 1fr) 30px minmax(300px, 1.25fr) 30px minmax(0, 1fr);
     align-items: stretch;
-    gap: 4px;
+    gap: 0 4px;
     position: relative;
     z-index: 2;
 }
 
 .purpleReactorControls {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     grid-area: controls;
-    justify-content: center;
+    align-self: center;
     gap: 8px;
-    min-width: 0;
-    position: relative;
-    z-index: 2;
 }
 
-#purpleReactantOvercapControls {
-    grid-area: overflow;
+.purpleCheckbox {
     display: flex;
     align-items: center;
-    justify-self: center;
-    gap: 6px;
-    margin-top: 4px;
-    font-size: 0.84em;
-    white-space: nowrap;
+    gap: 8px;
+    min-height: 28px;
     cursor: pointer;
 }
 
-#purpleReactantOvercapControls[hidden] {
+.purpleCheckbox[hidden] {
     display: none;
 }
 
-.purpleReactorSynthesisToggleRow,
-.purpleReactorUpgradeToggleRow {
-    display: flex;
+.purpleCheckbox > input {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    accent-color: var(--purple-text-color);
+    font: inherit;
+    cursor: inherit;
 }
 
-#purpleSynthesisToggle,
-#purpleUpgradeToggle {
+#purpleReactantOvercapControls {
+    margin-top: 4px;
+}
+
+.purpleReactorToggle {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    min-width: 180px;
+    flex: 1 1 0;
+    min-width: 0;
     min-height: 34px;
-    padding: 4px 18px;
+    padding: 4px 12px;
     border: 2px solid var(--purple-box-color);
     border-radius: 3px;
-    background: linear-gradient(180deg, rgb(176 0 176 / 22%), rgb(80 0 80 / 20%));
     color: var(--purple-text-color);
     font: inherit;
     font-weight: bold;
-    letter-spacing: 0.04em;
     cursor: pointer;
-    width: 100%;
 }
 
-#purpleSynthesisToggle:hover,
-#purpleSynthesisToggle:focus-visible,
-#purpleSynthesisToggle.purpleSynthesisToggleOpen,
-#purpleUpgradeToggle:hover,
-#purpleUpgradeToggle:focus-visible,
-#purpleUpgradeToggle.purpleUpgradeToggleOpen {
+.purpleReactorToggle:is(:hover, :focus-visible, [aria-expanded="true"]) {
     border-color: var(--purple-text-color);
-    background-color: rgb(176 0 176 / 18%);
-    box-shadow: 0 0 7px rgb(176 0 176 / 55%);
+    background-color: var(--hover-color);
 }
 
-.purpleReactantTank {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+.purpleReactorPanel {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / span 4;
+    row-gap: 0;
     min-width: 0;
     position: relative;
     z-index: 2;
     padding: 10px;
-    overflow: hidden;
-    border: 2px solid var(--reactant-dark);
+    border: 2px solid var(--reactant-dark, var(--purple-box-color));
     border-radius: 4px;
-    background:
-        linear-gradient(180deg, rgb(var(--reactant-rgb) / 12%), transparent 55%),
-        var(--box-color);
-    box-shadow:
-        inset 0 0 15px rgb(var(--reactant-rgb) / 10%),
-        0 0 8px rgb(0 0 0 / 45%);
+    background-color: var(--box-color);
 }
 
-.purpleReactantTank::before {
+.purpleReactorPanelBody {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.purpleReactorPanel::after,
+.purpleReactorCore::before {
+    /* Match the progress bar's row without depending on heading height. */
     content: "";
     position: absolute;
-    inset: 5px;
-    border: 1px solid rgb(var(--reactant-rgb) / 18%);
+    grid-row: 3 / 4;
+    top: 0;
+    bottom: 0;
+    right: -2px;
+    width: 4px;
+    color: var(--reactant-bright, var(--purple-text-color));
+    background-color: currentcolor;
+    box-shadow: 0 0 7px color-mix(in srgb, currentcolor 55%, transparent);
     pointer-events: none;
 }
 
-.purpleReactantTank::after {
-    content: "";
-    position: absolute;
-    top: -2px;
-    right: 26%;
-    left: 26%;
-    height: 4px;
-    background-color: var(--reactant-bright);
-    box-shadow: 0 0 7px rgb(var(--reactant-rgb) / 55%);
+.purpleReactantTankRed::after,
+.purpleReactorCore::before {
+    right: auto;
+    left: -2px;
 }
 
 .purpleReactantTankAmbrosia {
-    --reactant-dark: #006;
+    --reactant-dark: var(--blueberry-box-color);
     --reactant-bright: darkturquoise;
     --reactant-rgb: 0 206 209;
 
-    grid-area: amb;
+    grid-column: 1;
 }
 
 .purpleReactantTankRed {
@@ -9014,41 +8900,20 @@ header #obtainiumDisplay { color: pink; }
     --reactant-bright: red;
     --reactant-rgb: 255 0 0;
 
-    grid-area: red;
+    grid-column: 5;
 }
 
-.purpleReactantTankHeader {
-    display: grid;
-    grid-template-columns: 1.7em minmax(0, 1fr) 1.7em;
+.purpleReactorPanelHeader {
+    display: flex;
     align-items: center;
-    column-gap: 8px;
+    justify-content: center;
     min-height: 34px;
+    margin-bottom: 5px;
     text-align: center;
 }
 
-.purpleReactantTankSymbol {
-    color: var(--reactant-bright);
-    font-size: 1.4em;
-    line-height: 1;
-    text-shadow: 0 0 7px rgb(var(--reactant-rgb) / 70%);
-}
-
-.purpleReactantTankAmbrosia .purpleReactantTankSymbol {
-    grid-column: 1;
-}
-
-.purpleReactantTankRed .purpleReactantTankSymbol {
-    grid-column: 3;
-}
-
-.purpleReactantTankHeading {
-    grid-column: 2;
-    grid-row: 1;
+.purpleReactorPanelLabel {
     min-width: 0;
-    text-align: center;
-}
-
-.purpleReactantTankLabel {
     margin: 0;
     color: gray;
     font-size: 0.72em;
@@ -9057,55 +8922,41 @@ header #obtainiumDisplay { color: pink; }
     text-transform: uppercase;
 }
 
-.purpleReactantContainerTitle {
-    width: 100%;
-    margin: 0;
-    font-size: 0.96em;
+.purpleReactorProgressTitle {
+    margin: 0 0 3px;
+    font-size: 0.86em;
     font-weight: bold;
-    line-height: 1.2;
     text-align: center;
-    white-space: nowrap;
 }
 
 .purpleReactantReserveTitle {
+    flex: 1 1 auto;
+    min-width: 0;
     margin: 0;
     color: lightgray;
     font-size: 0.8em;
     line-height: 1.2;
 }
 
-.purpleReactantProgressBar {
+.purpleReactorProgressBar {
     width: 100%;
-    height: 34px;
+    height: 40px;
     background-color: black;
-    border: 2px solid white;
+    border: 2px solid var(--reactant-dark, white);
     border-radius: 3px;
     box-shadow: inset 0 0 8px rgb(0 0 0 / 70%);
     overflow: hidden;
     position: relative;
 }
 
-#ambrosiaProgressBar,
-#ambrosiaContainerProgressBar {
-    border-color: #006;
-}
-
-#pixelProgressBar,
-#redAmbrosiaContainerProgressBar {
-    border-color: maroon;
-}
-
 #purpleHoneyProgressBar {
     border-color: #650065;
-    height: 40px;
 }
 
-#ambrosiaContainerProgress,
-#redAmbrosiaContainerProgress,
-#purpleHoneyProgressFill {
+.purpleReactorProgressFill {
     width: 100%;
     height: 100%;
-    transform: scaleX(0);
+    transform: scaleX(var(--progress-fill, 0));
     transform-origin: left;
     transition: transform 0.4s ease;
 }
@@ -9119,150 +8970,55 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #purpleHoneyProgressFill {
-    background: linear-gradient(90deg, #4b004b, var(--purple-text-color), #760076);
+    display: flex;
+    height: 100%;
 }
 
-#ambrosiaContainerProgressText,
-#redAmbrosiaContainerProgressText,
-#purpleHoneyProgressText {
+#purpleHoneyProgressFill > .purpleReactorProgressFill {
+    width: 50%;
+    background: linear-gradient(to right, blue, var(--purple-honey-center-color));
+}
+
+#purpleHoneyProgressFill > .purpleReactorProgressFill:last-child {
+    transform-origin: right;
+    background: linear-gradient(to right, var(--purple-honey-center-color), red);
+}
+
+.purpleReactorProgressText {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
     color: white;
-    font-size: 0.94em;
     font-weight: bold;
     font-variant-numeric: tabular-nums;
     text-shadow: 0 1px 2px black;
+    white-space: nowrap;
     z-index: 2;
 }
 
-.purpleReactantProgressText > .fitText {
-    display: inline-block;
-    white-space: nowrap;
-}
-
-#purpleHoneyProgressText {
-    font-size: 1em;
-}
-
-.purpleReactantNetRate,
-.purpleReactorCycleRate {
-    margin: 0;
+.purpleReactorRate {
+    margin: 3px 0 0;
+    color: var(--reactant-bright, var(--purple-text-color));
     font-size: 0.82em;
     font-variant-numeric: tabular-nums;
     line-height: 1.2;
     text-align: center;
 }
 
-.purpleReactantNetRate {
-    color: var(--reactant-bright);
-}
-
-.purpleReactantFlowRates {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin-top: -2px;
-}
-
-.purpleReactantFlowRate {
-    margin: 0;
-    color: lightgray;
-    font-size: 0.74em;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.25;
-    text-align: center;
-    white-space: nowrap;
-}
-
 .purpleReactorCore {
-    grid-area: core;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 2;
-    min-width: 0;
-    padding: 10px;
-    border: 2px solid var(--purple-box-color);
-    border-radius: 5px;
-    background:
-        radial-gradient(circle at 50% 40%, rgb(176 0 176 / 18%), transparent 58%),
-        var(--box-color);
-    box-shadow:
-        inset 0 0 20px rgb(101 0 101 / 42%),
-        0 0 9px rgb(0 0 0 / 50%);
-}
+    --purple-honey-center-color: purple;
 
-.purpleReactorCore::before,
-.purpleReactorCore::after {
-    content: "";
-    position: absolute;
-    width: 24px;
-    height: 12px;
-    pointer-events: none;
+    grid-column: 3;
 }
 
 .purpleReactorCore::before {
-    top: 4px;
-    left: 4px;
-    border-top: 2px solid var(--purple-text-color);
-    border-left: 2px solid var(--purple-text-color);
+    color: color-mix(in srgb, blue, var(--purple-honey-center-color));
 }
 
 .purpleReactorCore::after {
-    right: 4px;
-    bottom: 4px;
-    border-right: 2px solid var(--purple-text-color);
-    border-bottom: 2px solid var(--purple-text-color);
-}
-
-.purpleReactorCoreHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    min-height: 34px;
-    margin-bottom: 5px;
-    text-align: center;
-}
-
-.purpleReactorCoreTitle {
-    margin: 0;
-    font-size: 0.86em;
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    line-height: 1.15;
-    text-transform: uppercase;
-}
-
-.purpleReactorCoreSymbol {
-    color: var(--purple-text-color);
-    font-size: 1.4em;
-    line-height: 1;
-    text-shadow: 0 0 8px var(--purple-text-color);
-}
-
-.purpleHoneyProgressTitle,
-.purpleHoneyExtractorText {
-    margin: 0;
-}
-
-.purpleHoneyProgressTitle {
-    margin-bottom: 3px;
-    font-size: 0.86em;
-    font-weight: bold;
-    text-align: center;
-}
-
-.purpleReactorCycleRate {
-    margin-top: 3px;
-    color: var(--purple-text-color);
+    color: color-mix(in srgb, red, var(--purple-honey-center-color));
 }
 
 .purpleReactorOutput {
@@ -9291,6 +9047,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .purpleHoneyExtractorText {
+    margin: 0;
     font-size: 0.82em;
     line-height: 1.3;
     white-space: nowrap;
@@ -9313,6 +9070,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .purpleReactorConduit {
+    grid-row: 3;
     align-self: center;
     position: relative;
     z-index: 1;
@@ -9356,6 +9114,8 @@ header #obtainiumDisplay { color: pink; }
     top: 50%;
     width: 0;
     height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
     transform: translateY(-50%);
 }
 
@@ -9363,13 +9123,11 @@ header #obtainiumDisplay { color: pink; }
     --conduit-dark: #006;
     --conduit-bright: darkturquoise;
 
-    grid-area: pipe-a;
+    grid-column: 2;
 }
 
 .purpleReactorConduitAmbrosia::after {
     right: -7px;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
     border-left: 8px solid var(--conduit-bright);
 }
 
@@ -9377,17 +9135,15 @@ header #obtainiumDisplay { color: pink; }
     --conduit-dark: maroon;
     --conduit-bright: red;
 
-    grid-area: pipe-r;
+    grid-column: 4;
 }
 
 .purpleReactorConduitRed::after {
     left: -7px;
-    border-top: 8px solid transparent;
     border-right: 8px solid var(--conduit-bright);
-    border-bottom: 8px solid transparent;
 }
 
-#purpleReactantContainers.purpleReactorActive .purpleReactorConduit {
+.purpleReactorActive .purpleReactorConduit {
     opacity: 0.9;
 }
 
@@ -9442,32 +9198,15 @@ header #obtainiumDisplay { color: pink; }
     }
 }
 
-@keyframes purple-reactor-core-pulse {
-    from {
-        box-shadow:
-            inset 0 0 20px rgb(101 0 101 / 42%),
-            0 0 7px rgb(176 0 176 / 25%);
-    }
-
-    to {
-        box-shadow:
-            inset 0 0 25px rgb(176 0 176 / 52%),
-            0 0 13px rgb(176 0 176 / 55%);
-    }
-}
-
 @media (prefers-reduced-motion: no-preference) {
-    #purpleReactantContainers.purpleReactorActive .purpleReactorConduit > span::before {
+    .purpleReactorActive .purpleReactorConduit > span::before {
         animation: purple-reactor-flow 900ms linear infinite;
     }
 
-    #purpleReactantContainers.purpleReactorActive .purpleReactorConduitRed > span::before {
+    .purpleReactorActive .purpleReactorConduitRed > span::before {
         animation-direction: reverse;
     }
 
-    #purpleReactantContainers.purpleReactorActive .purpleReactorCore {
-        animation: purple-reactor-core-pulse 1200ms ease-in-out infinite alternate;
-    }
 }
 
 .purpleReactantRoutingControl {
@@ -9480,11 +9219,6 @@ header #obtainiumDisplay { color: pink; }
     align-items: baseline;
     justify-content: space-between;
     gap: 10px;
-}
-
-.purpleReactantRoutingHeader > .purpleReactantReserveTitle {
-    flex: 1 1 auto;
-    min-width: 0;
 }
 
 .purpleReactantReserveTitle > .fitText {
@@ -9504,7 +9238,7 @@ header #obtainiumDisplay { color: pink; }
     text-align: right;
 }
 
-#purpleReactantContainers .purpleReactantPercentageSlider {
+.purpleReactantPercentageSlider {
     --routing-percentage: 0%;
 
     appearance: none;
@@ -9523,11 +9257,11 @@ header #obtainiumDisplay { color: pink; }
     touch-action: pan-y;
 }
 
-#purpleReactantContainers .purpleReactantPercentageSlider:focus-visible {
+.purpleReactantPercentageSlider:focus-visible {
     outline: 2px solid white;
 }
 
-#purpleReactantContainers .purpleReactantPercentageSlider::-webkit-slider-runnable-track {
+.purpleReactantPercentageSlider::-webkit-slider-runnable-track {
     width: 100%;
     height: 8px;
     border: 1px solid var(--reactant-dark);
@@ -9541,7 +9275,7 @@ header #obtainiumDisplay { color: pink; }
     box-shadow: inset 0 0 4px black;
 }
 
-#purpleReactantContainers .purpleReactantPercentageSlider::-webkit-slider-thumb {
+.purpleReactantPercentageSlider::-webkit-slider-thumb {
     appearance: none;
     width: 18px;
     height: 18px;
@@ -9552,7 +9286,7 @@ header #obtainiumDisplay { color: pink; }
     box-shadow: 0 0 7px rgb(var(--reactant-rgb) / 75%);
 }
 
-#purpleReactantContainers .purpleReactantPercentageSlider::-moz-range-track {
+.purpleReactantPercentageSlider::-moz-range-track {
     width: 100%;
     height: 8px;
     border: 1px solid var(--reactant-dark);
@@ -9561,12 +9295,12 @@ header #obtainiumDisplay { color: pink; }
     box-shadow: inset 0 0 4px black;
 }
 
-#purpleReactantContainers .purpleReactantPercentageSlider::-moz-range-progress {
+.purpleReactantPercentageSlider::-moz-range-progress {
     height: 8px;
     background-color: var(--reactant-bright);
 }
 
-#purpleReactantContainers .purpleReactantPercentageSlider::-moz-range-thumb {
+.purpleReactantPercentageSlider::-moz-range-thumb {
     width: 18px;
     height: 18px;
     border: 2px solid white;
@@ -9585,55 +9319,50 @@ header #obtainiumDisplay { color: pink; }
     line-height: 1;
 }
 
-@container purple-reactor (width <= 900px) {
+@container purple-reactor (width <= 650px) {
     .purpleReactorHeader {
         grid-template-areas:
-            "title title"
-            "explanation explanation"
-            "half-life half-life"
-            "spent spent"
-            "overflow overflow"
-            "controls controls";
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+            "heading"
+            "controls"
+            "recipe"
+            "settings"
+            "draw";
+        grid-template-columns: minmax(0, 1fr);
     }
 
-    .purpleReactorControls {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-        width: 100%;
-        margin-top: 4px;
+    #purpleUpgradeShop {
+        flex-direction: column;
     }
 
-    .purpleReactorSynthesisToggleRow,
-    .purpleReactorUpgradeToggleRow {
-        flex: 0 1 180px;
-    }
-
-    #purpleSynthesisToggle,
-    #purpleUpgradeToggle {
-        width: min(180px, 100%);
+    #purpleUpgradeFamilyList {
+        flex: 0 0 50%;
         min-width: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--purple-box-color);
+    }
+
+    #purpleUpgradeDetail {
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
     }
 }
 
 @container purple-reactor (width <= 850px) {
     .synthesisWorkspace {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-rows: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    }
-
-    .synthesisConversionWorkspace {
-        min-height: 0;
+        display: block;
         overflow-y: auto;
         overscroll-behavior: contain;
+    }
+
+    .synthesisConversionWorkspace,
+    .synthesisUpgradeRegion {
+        overflow: visible;
     }
 
     .synthesisUpgradeRegion {
         border-top: 1px solid rgb(176 0 176 / 35%);
         border-left: 0;
-        background: linear-gradient(180deg, rgb(176 0 176 / 4%), transparent 30%);
     }
 }
 
@@ -9643,11 +9372,20 @@ header #obtainiumDisplay { color: pink; }
     }
 
     .purpleReactorMachine {
-        grid-template-areas:
-            "amb red"
-            "core core";
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
+    }
+
+    .purpleReactorPanel {
+        grid-row: span 4;
+    }
+
+    .purpleReactantTankRed {
+        grid-column: 2;
+    }
+
+    .purpleReactorCore {
+        grid-column: 1 / -1;
     }
 
     .purpleReactorConduit {
@@ -9658,16 +9396,14 @@ header #obtainiumDisplay { color: pink; }
 @media (width <= 560px) {
     #purpleReactantContainers {
         width: calc(100% - 10px);
-        padding: 12px;
-        font-size: 16px;
     }
 
     .purpleReactorMachine {
-        grid-template-areas:
-            "amb"
-            "red"
-            "core";
         grid-template-columns: minmax(0, 1fr);
+    }
+
+    .purpleReactantTankRed {
+        grid-column: 1;
     }
 
     .purpleReactorHeader {
@@ -9677,47 +9413,24 @@ header #obtainiumDisplay { color: pink; }
 
 @media (width <= 1024px) {
     #singularityPurple {
-        bottom: 8px;
-        height: auto;
-        scroll-margin-top: calc(var(--mobile-subtab-height) + 0.5rem);
-    }
-
-    #purpleReactantContainers.purplePopupOpen {
-        overflow: hidden;
-    }
-
-    #purpleUpgradeShop {
-        flex-direction: column;
-        min-height: 0;
-    }
-
-    #purpleUpgradeFamilyList {
-        flex: 0 0 50%;
-        min-width: 0;
-        max-height: 40vh;
-        border-right: 0;
-        border-bottom: 1px solid var(--purple-box-color);
-    }
-
-    #purpleUpgradeDetail {
-        flex: 1 1 auto;
-        min-height: 0;
-        width: 100%;
+        bottom: auto;
+        height: calc(var(--purple-popup-viewport-height, 100dvh) - var(--mobile-subtab-height) - 1rem);
         scroll-margin-top: calc(var(--mobile-subtab-height) + 0.5rem);
     }
 }
 
-@media (width <= 600px) {
-    #purpleSynthesisToggle,
-    #purpleUpgradeToggle {
+@media (width <= 600px), (any-pointer: coarse) {
+    .purpleReactorToggle,
+    .synthesisCraftButtonRow > button {
         min-height: 44px;
     }
 
-    #purpleUpgradeContainer,
-    #purpleSynthesisContainer {
+    .purplePopup {
         --purple-popup-close-size: 44px;
     }
+}
 
+@media (width <= 600px) {
     .purpleUpgradeFamilyRow {
         flex-wrap: wrap;
     }
@@ -9738,7 +9451,6 @@ header #obtainiumDisplay { color: pink; }
             "red"
             "honey"
             "product";
-        grid-template-columns: minmax(0, 1fr);
         row-gap: 2px;
     }
 
@@ -9757,35 +9469,22 @@ header #obtainiumDisplay { color: pink; }
 }
 
 @media (any-pointer: coarse) {
-    #purpleSynthesisContainer {
-        --purple-popup-close-size: 44px;
-    }
-
     .purpleUpgradeTierShortcut {
         min-width: 44px;
     }
 
-    #purpleSynthesisToggle,
-    #purpleUpgradeToggle {
-        min-height: 44px;
-    }
-
-    .synthesisCraftButtonRow > button {
-        min-height: 44px;
-    }
-
-    #purpleReactantContainers .purpleReactantPercentageSlider {
+    .purpleReactantPercentageSlider {
         height: 44px;
         min-height: 44px;
     }
 
-    #purpleReactantContainers .purpleReactantPercentageSlider::-webkit-slider-thumb {
+    .purpleReactantPercentageSlider::-webkit-slider-thumb {
         width: 24px;
         height: 24px;
         margin-top: -9px;
     }
 
-    #purpleReactantContainers .purpleReactantPercentageSlider::-moz-range-thumb {
+    .purpleReactantPercentageSlider::-moz-range-thumb {
         width: 24px;
         height: 24px;
     }

@@ -1294,14 +1294,22 @@ export const purpleReactorUpgradeToString = (upgradeKey: PurpleReactorNames): st
     max: format(upgrade.costFormula(upgrade.maxLevel), 2, true)
   })
 
-  let baseString = `${nameSpan} <br> ${flavorSpan} <br> ${levelSpan} <br><br> ${effectSpan} <br> ${spentSpan} <br>`
+  let baseString = `<div>
+    <p>${nameSpan}</p>
+    <p class="purpleUpgradeDetailSecondary">${flavorSpan}</p>
+    <p class="purpleUpgradeDetailSecondary">${levelSpan}</p>
+  </div>
+  <div>
+    <p>${effectSpan}</p>
+    <p class="purpleUpgradeDetailSecondary">${spentSpan}</p>
+  </div>`
 
   if (upgrade.apValue.perLevelAP > 0) {
     const apPerLevelSpan = i18next.t('purpleReactor.upgradeAPPerLevel', {
       amount: format(upgrade.apValue.perLevelAP, 1),
       total: format(upgrade.level * upgrade.apValue.perLevelAP, 1)
     })
-    baseString += `<br> ${apPerLevelSpan}`
+    baseString += `<p class="purpleUpgradeDetailSecondary">${apPerLevelSpan}</p>`
   }
 
   if (upgrade.apValue.maxLevelAP > 0) {
@@ -1309,7 +1317,7 @@ export const purpleReactorUpgradeToString = (upgradeKey: PurpleReactorNames): st
       amount: format(upgrade.apValue.maxLevelAP, 1),
       check: (upgrade.level === upgrade.maxLevel) ? '✔' : '✖'
     })
-    baseString += `<br> ${apMaxLevelSpan}`
+    baseString += `<p class="purpleUpgradeDetailSecondary">${apMaxLevelSpan}</p>`
   }
 
   return baseString

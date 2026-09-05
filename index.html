@@ -3727,118 +3727,123 @@
                 </div>
                 <div class="purpleBoxColor" id="purpleReactantContainers">
                     <header class="purpleReactorHeader">
-                        <p class="purpleReactantContainersDescription" i18n="purpleReactor.reactantContainersDescription"></p>
-                        <div class="purpleReactorControls">
-                            <div class="purpleReactorUpgradeToggleRow">
-                                <button id="purpleUpgradeToggle" type="button" aria-controls="singularityPurple" aria-expanded="false">
-                                    <span i18n="purpleReactor.upgradeShop.toggleUpgrades"></span>
-                                </button>
-                            </div>
-                            <div class="purpleReactorSynthesisToggleRow">
-                                <button id="purpleSynthesisToggle" type="button" aria-controls="singularityPurple" aria-expanded="false">
-                                    <span i18n="purpleReactor.synthesis.name"></span>
-                                </button>
-                            </div>
+                        <div class="purpleReactorHeading">
+                            <p class="purpleReactorTitle" i18n="purpleReactor.header.title"></p>
+                            <p i18n="purpleReactor.header.subtitle"></p>
                         </div>
-                        <p id="purpleReactorReactionExplanation" class="purpleReactorExplanation"></p>
-                        <p id="purpleReactantHalfLife" class="purpleReactorHalfLife"></p>
-                        <p id="purpleReactantSpentRates" class="purpleReactorSpentRates"></p>
-                        <label id="purpleReactantOvercapControls" hidden>
-                            <input id="encabulatorOvercapToggle" type="checkbox" disabled>
-                            <span id="encabulatorOvercapToggleLabel"></span>
-                        </label>
+                        <div class="purpleReactorControls">
+                            <button id="purpleUpgradeToggle" class="purpleReactorToggle" type="button" aria-controls="singularityPurple" aria-expanded="false">
+                                <span i18n="purpleReactor.upgradeShop.toggleUpgrades"></span>
+                            </button>
+                            <button id="purpleSynthesisToggle" class="purpleReactorToggle" type="button" aria-controls="singularityPurple" aria-expanded="false">
+                                <span i18n="purpleReactor.synthesis.name"></span>
+                            </button>
+                        </div>
+                        <div class="purpleReactorRecipe">
+                            <p class="purpleReactorSectionLabel" i18n="purpleReactor.header.reactionLabel"></p>
+                            <p id="purpleReactorRecipeValue"></p>
+                            <p id="purpleReactorAriesModifier"></p>
+                            <p id="purpleReactorScorpioModifier"></p>
+                        </div>
+                        <div class="purpleReactorSettings">
+                            <p class="purpleReactorSectionLabel" i18n="purpleReactor.header.speedLabel"></p>
+                            <p id="purpleReactorSpeed"></p>
+                            <label id="purpleReactantOvercapControls" class="purpleCheckbox" hidden>
+                                <input id="encabulatorOvercapToggle" type="checkbox" disabled>
+                                <span i18n="purpleReactor.header.overflowLabel"></span>
+                            </label>
+                        </div>
+                        <p id="purpleReactorMaximumDraw"></p>
                     </header>
                     <div class="purpleReactorMachine">
-                        <section class="purpleReactantTank purpleReactantTankAmbrosia" aria-labelledby="ambrosiaReactantTitle">
-                            <div class="purpleReactantTankHeader">
-                                <span class="purpleReactantTankSymbol" aria-hidden="true">◊</span>
-                                <div class="purpleReactantTankHeading">
-                                    <p class="purpleReactantTankLabel" i18n="purpleReactor.reactantTankLabel"></p>
-                                    <p id="ambrosiaReactantTitle" class="purpleReactantContainerTitle fitText" i18n="purpleReactor.ambrosiaReactantTankTitle"></p>
-                                </div>
+                        <section class="purpleReactorPanel purpleReactantTankAmbrosia" aria-labelledby="ambrosiaReactantTitle">
+                            <div class="purpleReactorPanelHeader">
+                                <p class="purpleReactorPanelLabel" i18n="purpleReactor.reactantTankLabel"></p>
                             </div>
-                            <div class="purpleReactantProgressBar" id="ambrosiaContainerProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="purpleReactor.ambrosiaTankAriaLabel">
-                                <div id="ambrosiaContainerProgress"></div>
-                                <span class="purpleReactantProgressText"><span class="fitText" id="ambrosiaContainerProgressText"></span></span>
+                            <p id="ambrosiaReactantTitle" class="purpleReactorProgressTitle" i18n="purpleReactor.ambrosiaReactantTankTitle"></p>
+                            <div class="purpleReactorProgressBar" id="ambrosiaContainerProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="purpleReactor.ambrosiaTankAriaLabel">
+                                <div id="ambrosiaContainerProgress" class="purpleReactorProgressFill"></div>
+                                <span class="purpleReactorProgressText"><span class="fitText" id="ambrosiaContainerProgressText"></span></span>
                             </div>
-                            <p id="ambrosiaReactantNetRate" class="purpleReactantNetRate"></p>
-                            <div class="purpleReactantFlowRates">
-                                <p id="ambrosiaReactantRoutedRate" class="purpleReactantFlowRate"></p>
-                                <p id="ambrosiaReactantSpentRate" class="purpleReactantFlowRate"></p>
-                                <p id="ambrosiaReactantOverflowRate" class="purpleReactantFlowRate" hidden></p>
-                            </div>
-                            <div class="purpleReactantRoutingControl">
-                                <div class="purpleReactantRoutingHeader">
-                                    <label class="purpleReactantReserveTitle" for="ambrosiaBarPointPercentageSlider">
-                                        <span class="fitText" i18n="purpleReactor.reactantRouting"></span>
-                                    </label>
-                                    <output id="ambrosiaBarPointPercentageValue" for="ambrosiaBarPointPercentageSlider" i18n="purpleReactor.percentageOption0"></output>
-                                </div>
-                                <input id="ambrosiaBarPointPercentageSlider" class="purpleReactantPercentageSlider" type="range" min="0" max="100" step="1" value="0" i18n-aria-label="purpleReactor.ambrosiaBarPointPercentageAriaLabel">
-                                <div class="purpleReactantSliderScale" aria-hidden="true">
-                                    <span i18n="purpleReactor.percentageOption0"></span>
-                                    <span i18n="purpleReactor.percentageOption50"></span>
-                                    <span i18n="purpleReactor.percentageOption100"></span>
+                            <div class="purpleReactorPanelBody">
+                                <p id="ambrosiaReactantNetRate" class="purpleReactorRate"></p>
+                                <p id="ambrosiaReactantRoutedRate" class="purpleReactorRate"></p>
+                                <p id="ambrosiaReactantSpentRate" class="purpleReactorRate"></p>
+                                <p id="ambrosiaReactantOverflowRate" class="purpleReactorRate" hidden></p>
+                                <div class="purpleReactantRoutingControl">
+                                    <div class="purpleReactantRoutingHeader">
+                                        <label class="purpleReactantReserveTitle" for="ambrosiaBarPointPercentageSlider">
+                                            <span class="fitText" i18n="purpleReactor.reactantRouting"></span>
+                                        </label>
+                                        <output id="ambrosiaBarPointPercentageValue" for="ambrosiaBarPointPercentageSlider" i18n="purpleReactor.percentageOption0"></output>
+                                    </div>
+                                    <input id="ambrosiaBarPointPercentageSlider" class="purpleReactantPercentageSlider" type="range" min="0" max="100" step="1" value="0" i18n-aria-label="purpleReactor.ambrosiaBarPointPercentageAriaLabel">
+                                    <div class="purpleReactantSliderScale" aria-hidden="true">
+                                        <span i18n="purpleReactor.percentageOption0"></span>
+                                        <span i18n="purpleReactor.percentageOption50"></span>
+                                        <span i18n="purpleReactor.percentageOption100"></span>
+                                    </div>
                                 </div>
                             </div>
                         </section>
-                        <section class="purpleReactantTank purpleReactantTankRed" aria-labelledby="redAmbrosiaReactantTitle">
-                            <div class="purpleReactantTankHeader">
-                                <span class="purpleReactantTankSymbol" aria-hidden="true">❖</span>
-                                <div class="purpleReactantTankHeading">
-                                    <p class="purpleReactantTankLabel" i18n="purpleReactor.reactantTankLabel"></p>
-                                    <p id="redAmbrosiaReactantTitle" class="purpleReactantContainerTitle fitText" i18n="purpleReactor.redAmbrosiaReactantTankTitle"></p>
-                                </div>
+                        <section class="purpleReactorPanel purpleReactantTankRed" aria-labelledby="redAmbrosiaReactantTitle">
+                            <div class="purpleReactorPanelHeader">
+                                <p class="purpleReactorPanelLabel" i18n="purpleReactor.reactantTankLabel"></p>
                             </div>
-                            <div class="purpleReactantProgressBar" id="redAmbrosiaContainerProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="purpleReactor.redAmbrosiaTankAriaLabel">
-                                <div id="redAmbrosiaContainerProgress"></div>
-                                <span class="purpleReactantProgressText"><span class="fitText" id="redAmbrosiaContainerProgressText"></span></span>
+                            <p id="redAmbrosiaReactantTitle" class="purpleReactorProgressTitle" i18n="purpleReactor.redAmbrosiaReactantTankTitle"></p>
+                            <div class="purpleReactorProgressBar" id="redAmbrosiaContainerProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="purpleReactor.redAmbrosiaTankAriaLabel">
+                                <div id="redAmbrosiaContainerProgress" class="purpleReactorProgressFill"></div>
+                                <span class="purpleReactorProgressText"><span class="fitText" id="redAmbrosiaContainerProgressText"></span></span>
                             </div>
-                            <p id="redAmbrosiaReactantNetRate" class="purpleReactantNetRate"></p>
-                            <div class="purpleReactantFlowRates">
-                                <p id="redAmbrosiaReactantRoutedRate" class="purpleReactantFlowRate"></p>
-                                <p id="redAmbrosiaReactantSpentRate" class="purpleReactantFlowRate"></p>
-                                <p id="redAmbrosiaReactantOverflowRate" class="purpleReactantFlowRate" hidden></p>
-                            </div>
-                            <div class="purpleReactantRoutingControl">
-                                <div class="purpleReactantRoutingHeader">
-                                    <label class="purpleReactantReserveTitle" for="redAmbrosiaBarPointPercentageSlider">
-                                        <span class="fitText" i18n="purpleReactor.reactantRouting"></span>
-                                    </label>
-                                    <output id="redAmbrosiaBarPointPercentageValue" for="redAmbrosiaBarPointPercentageSlider" i18n="purpleReactor.percentageOption0"></output>
-                                </div>
-                                <input id="redAmbrosiaBarPointPercentageSlider" class="purpleReactantPercentageSlider" type="range" min="0" max="100" step="1" value="0" i18n-aria-label="purpleReactor.redAmbrosiaBarPointPercentageAriaLabel">
-                                <div class="purpleReactantSliderScale" aria-hidden="true">
-                                    <span i18n="purpleReactor.percentageOption0"></span>
-                                    <span i18n="purpleReactor.percentageOption50"></span>
-                                    <span i18n="purpleReactor.percentageOption100"></span>
+                            <div class="purpleReactorPanelBody">
+                                <p id="redAmbrosiaReactantNetRate" class="purpleReactorRate"></p>
+                                <p id="redAmbrosiaReactantRoutedRate" class="purpleReactorRate"></p>
+                                <p id="redAmbrosiaReactantSpentRate" class="purpleReactorRate"></p>
+                                <p id="redAmbrosiaReactantOverflowRate" class="purpleReactorRate" hidden></p>
+                                <div class="purpleReactantRoutingControl">
+                                    <div class="purpleReactantRoutingHeader">
+                                        <label class="purpleReactantReserveTitle" for="redAmbrosiaBarPointPercentageSlider">
+                                            <span class="fitText" i18n="purpleReactor.reactantRouting"></span>
+                                        </label>
+                                        <output id="redAmbrosiaBarPointPercentageValue" for="redAmbrosiaBarPointPercentageSlider" i18n="purpleReactor.percentageOption0"></output>
+                                    </div>
+                                    <input id="redAmbrosiaBarPointPercentageSlider" class="purpleReactantPercentageSlider" type="range" min="0" max="100" step="1" value="0" i18n-aria-label="purpleReactor.redAmbrosiaBarPointPercentageAriaLabel">
+                                    <div class="purpleReactantSliderScale" aria-hidden="true">
+                                        <span i18n="purpleReactor.percentageOption0"></span>
+                                        <span i18n="purpleReactor.percentageOption50"></span>
+                                        <span i18n="purpleReactor.percentageOption100"></span>
+                                    </div>
                                 </div>
                             </div>
                         </section>
-                        <section id="purpleHoneyProgressContainer" class="purpleReactorCore" aria-labelledby="purpleReactorCoreTitle">
-                            <div class="purpleReactorCoreHeader">
-                                <span class="purpleReactorCoreSymbol" aria-hidden="true">𝚫</span>
-                                <p id="purpleReactorCoreTitle" class="purpleReactorCoreTitle" i18n="purpleReactor.reactorCoreTitle"></p>
+                        <section id="purpleHoneyProgressContainer" class="purpleReactorPanel purpleReactorCore" aria-labelledby="purpleReactorCoreTitle">
+                            <div class="purpleReactorPanelHeader">
+                                <p id="purpleReactorCoreTitle" class="purpleReactorPanelLabel" i18n="purpleReactor.reactorCoreTitle"></p>
                             </div>
-                            <p class="purpleHoneyProgressTitle" i18n="purpleReactor.purpleHoneyProgressTitle"></p>
-                            <div class="purpleReactantProgressBar" id="purpleHoneyProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="purpleReactor.purpleHoneyProgressAriaLabel">
-                                <div id="purpleHoneyProgressFill"></div>
-                                <span class="purpleReactantProgressText"><span class="fitText" id="purpleHoneyProgressText"></span></span>
-                            </div>
-                            <p id="purpleHoneyProgressRate" class="purpleReactorCycleRate"></p>
-                            <p id="purpleHoneyCancerBonus" class="purpleReactorCycleRate" hidden></p>
-                            <p id="purpleHoneyLibraBonus" class="purpleReactorCycleRate" hidden></p>
-                            <div class="purpleReactorOutput">
-                                <span class="purpleReactorOutputSymbol" aria-hidden="true">☼</span>
-                                <div class="purpleReactorOutputText">
-                                    <p id="purpleHoneyGeneration" class="purpleHoneyExtractorText fitText"></p>
+                            <p class="purpleReactorProgressTitle" i18n="purpleReactor.purpleHoneyProgressTitle"></p>
+                            <div class="purpleReactorProgressBar" id="purpleHoneyProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="purpleReactor.purpleHoneyProgressAriaLabel">
+                                <div id="purpleHoneyProgressFill" aria-hidden="true">
+                                    <div class="purpleReactorProgressFill"></div>
+                                    <div class="purpleReactorProgressFill"></div>
                                 </div>
-                                <div id="purpleHoneyGainContainer" aria-hidden="true"></div>
+                                <span class="purpleReactorProgressText"><span class="fitText" id="purpleHoneyProgressText"></span></span>
                             </div>
-                            <div class="purpleReactorModifiers">
-                                <p id="purpleHoneyLuck"></p>
-                                <p id="purpleHoneyExtractionMultiplier"></p>
-                                <p id="purpleHoneyExtractionBonusChance"></p>
+                            <div class="purpleReactorPanelBody">
+                                <p id="purpleHoneyProgressRate" class="purpleReactorRate"></p>
+                                <p id="purpleHoneyCancerBonus" class="purpleReactorRate" hidden></p>
+                                <p id="purpleHoneyLibraBonus" class="purpleReactorRate" hidden></p>
+                                <div class="purpleReactorOutput">
+                                    <span class="purpleReactorOutputSymbol" aria-hidden="true">☼</span>
+                                    <div class="purpleReactorOutputText">
+                                        <p id="purpleHoneyGeneration" class="purpleHoneyExtractorText fitText"></p>
+                                    </div>
+                                    <div id="purpleHoneyGainContainer" aria-hidden="true"></div>
+                                </div>
+                                <div class="purpleReactorModifiers">
+                                    <p id="purpleHoneyLuck"></p>
+                                    <p id="purpleHoneyExtractionMultiplier"></p>
+                                    <p id="purpleHoneyExtractionBonusChance"></p>
+                                </div>
                             </div>
                         </section>
                         <div class="purpleReactorConduit purpleReactorConduitAmbrosia" aria-hidden="true">
@@ -3849,8 +3854,8 @@
                         </div>
                     </div>
                     <div id="singularityPurple" class="singularityContainer" hidden>
-                        <section class="purpleBoxColor" id="purpleSynthesisContainer" role="dialog" tabindex="-1" aria-labelledby="purpleSynthesisTitle" hidden>
-                            <header class="synthesisHeader">
+                        <section class="purpleBoxColor purplePopup" id="purpleSynthesisContainer" role="dialog" tabindex="-1" aria-labelledby="purpleSynthesisTitle" hidden>
+                            <header class="purplePopupHeader synthesisHeader">
                                 <p id="purpleSynthesisTitle" class="synthesisTitle" i18n="purpleReactor.synthesis.name"></p>
                                 <p class="synthesisConversion">
                                     <span class="synthesisConversionRed">
@@ -3858,20 +3863,20 @@
                                         <span i18n="purpleReactor.synthesis.redAmbrosia"></span>
                                     </span>
                                     <span aria-hidden="true"> + </span>
-                                    <span class="synthesisConversionHoney">
+                                    <span class="synthesisConversionPurple">
                                         <span id="synthesisConversionPurpleHoneyCost"></span>
                                         <span i18n="purpleReactor.synthesis.purpleHoney"></span>
                                     </span>
                                     <span aria-hidden="true"> → </span>
-                                    <span class="synthesisConversionProduct">
+                                    <span class="synthesisConversionPurple">
                                         <span id="synthesisConversionPurpleAmbrosiaAmount"></span>
                                         <span i18n="purpleReactor.synthesis.purpleAmbrosia"></span>
                                     </span>
                                 </p>
-                                <button id="purpleSynthesisClose" type="button" aria-controls="singularityPurple" i18n-aria-label="purpleReactor.synthesis.close">×</button>
+                                <button id="purpleSynthesisClose" class="purplePopupClose" type="button" aria-controls="singularityPurple" i18n-aria-label="purpleReactor.synthesis.close">×</button>
                             </header>
-                            <div class="synthesisWorkspace">
-                                <div class="synthesisConversionWorkspace">
+                            <div class="synthesisWorkspace scrollbar">
+                                <div class="synthesisConversionWorkspace scrollbar">
                                     <div class="synthesisMap">
                                         <div class="synthesisInputs">
                                             <article id="synthesisRedAmbrosiaInventory" class="synthesisSource synthesisSourceRed">
@@ -3880,7 +3885,7 @@
                                                     <p class="synthesisSourceName" i18n="purpleReactor.synthesis.redAmbrosia"></p>
                                                     <p class="synthesisBalance fitText">
                                                         <span id="synthesisRedAmbrosiaAmount"></span>
-                                                        <span class="synthesisBalanceDivider" aria-hidden="true">/</span>
+                                                        <span aria-hidden="true">/</span>
                                                         <span id="synthesisRedAmbrosiaCost"></span>
                                                     </p>
                                                 </div>
@@ -3891,7 +3896,7 @@
                                                     <p class="synthesisSourceName" i18n="purpleReactor.synthesis.purpleHoney"></p>
                                                     <p class="synthesisBalance fitText">
                                                         <span id="synthesisPurpleHoneyAmount"></span>
-                                                        <span class="synthesisBalanceDivider" aria-hidden="true">/</span>
+                                                        <span aria-hidden="true">/</span>
                                                         <span id="synthesisPurpleHoneyCost"></span>
                                                     </p>
                                                 </div>
@@ -3920,7 +3925,7 @@
                                             </div>
                                             <div class="synthesisCraftButtonRow">
                                                 <button id="synthesisAutomationUnlock" type="button"></button>
-                                                <label id="synthesisAutomationToggleContainer" hidden>
+                                                <label id="synthesisAutomationToggleContainer" class="purpleCheckbox" hidden>
                                                     <input id="synthesisAutomationToggle" type="checkbox" disabled>
                                                     <span i18n="purpleReactor.synthesis.enableAutomation"></span>
                                                 </label>
@@ -3928,7 +3933,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <aside id="synthesisUpgradeRegion" class="synthesisUpgradeRegion">
+                                <aside id="synthesisUpgradeRegion" class="synthesisUpgradeRegion scrollbar">
                                     <section class="synthesisUpgradeModal" aria-labelledby="synthesisUpgradeModalTitle">
                                         <p id="synthesisUpgradeModalTitle" class="synthesisUpgradeModalTitle" i18n="purpleReactor.synthesis.upgradesTitle"></p>
                                         <div class="synthesisUpgradeList">
@@ -4005,14 +4010,14 @@
                                 </aside>
                             </div>
                         </section>
-                        <div class="purpleBoxColor" id="purpleUpgradeContainer">
-                            <div class="purpleUpgradeHeader">
+                        <div class="purpleBoxColor purplePopup" id="purpleUpgradeContainer">
+                            <div class="purplePopupHeader purpleUpgradeHeader">
                                 <p id="purpleUpgradeAP" class="purpleUpgradeAP"></p>
-                                <button id="purpleUpgradeClose" type="button" aria-controls="singularityPurple" i18n-aria-label="purpleReactor.upgradeShop.closeUpgrades">×</button>
+                                <button id="purpleUpgradeClose" class="purplePopupClose" type="button" aria-controls="singularityPurple" i18n-aria-label="purpleReactor.upgradeShop.closeUpgrades">×</button>
                             </div>
                             <div id="purpleUpgradeShop">
-                                <div id="purpleUpgradeFamilyList"></div>
-                                <section id="purpleUpgradeDetail">
+                                <div id="purpleUpgradeFamilyList" class="scrollbar"></div>
+                                <section id="purpleUpgradeDetail" class="scrollbar">
                                     <div id="purpleUpgradeTierRail"></div>
                                     <div id="purpleUpgradeDetailText"></div>
                                     <div id="purpleUpgradeDetailButtons">

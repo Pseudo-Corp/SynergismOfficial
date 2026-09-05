@@ -2284,21 +2284,26 @@ export const visualUpdatePurple = () => {
   const overcapToggle = DOMCacheGetOrSet('encabulatorOvercapToggle') as HTMLInputElement
   overcapToggle.disabled = !libraUnlocked
   overcapToggle.checked = player.encabulatorOvercapToggle
-  updateInnerHTMLIfChanged(
-    'encabulatorOvercapToggleLabel',
-    i18next.t(
-      libraUnlocked && player.encabulatorOvercapToggle
-        ? 'purpleReactor.overflowEnabled'
-        : 'purpleReactor.overflowDisabled'
-    )
-  )
   const reaction = calculatePurpleReactantRecipe()
   updateInnerHTMLIfChanged(
-    'purpleReactorReactionExplanation',
-    i18next.t('purpleReactor.reactionExplanation', {
+    'purpleReactorRecipeValue',
+    i18next.t('purpleReactor.header.reaction', {
       ambrosia: format(reaction.ambrosiaBarPoints, 0, true),
       redAmbrosia: format(reaction.redAmbrosiaBarPoints, 0, true),
       purple: format(reaction.purpleBarPoints, 0, true)
+    })
+  )
+
+  updateInnerHTMLIfChanged(
+    'purpleReactorAriesModifier',
+    i18next.t('purpleReactor.header.ariesModifier', {
+      percent: formatAsPercentIncrease(getPurpleAmbrosiaUpgradeEffects('aries', 'universalBarPointMult'), 2)
+    })
+  )
+  updateInnerHTMLIfChanged(
+    'purpleReactorScorpioModifier',
+    i18next.t('purpleReactor.header.scorpioModifier', {
+      percent: formatAsPercentIncrease(getPurpleAmbrosiaUpgradeEffects('scorpio', 'purpleReactorConversionMult'), 0)
     })
   )
 
@@ -2550,16 +2555,15 @@ export const visualUpdatePurple = () => {
   )
 
   updateInnerHTMLIfChanged(
-    'purpleReactantHalfLife',
+    'purpleReactorSpeed',
     i18next.t(
-      'purpleReactor.reactantContainerHalfLife',
+      'purpleReactor.header.speed',
       { speed: format(encabulatorSpeed, 2, true) }
     )
   )
   updateInnerHTMLIfChanged(
-    'purpleReactantSpentRates',
-    i18next.t('purpleReactor.reactantSpentRates', {
-      speed: format(encabulatorSpeed, 2, true),
+    'purpleReactorMaximumDraw',
+    i18next.t('purpleReactor.header.maximumDraw', {
       ambrosia: format(maximumAmbrosiaReactantDissolutionRate, 2, true),
       redAmbrosia: format(maximumRedAmbrosiaReactantDissolutionRate, 2, true)
     })
@@ -2568,7 +2572,7 @@ export const visualUpdatePurple = () => {
   const reactorContainer = DOMCacheGetOrSet('purpleReactantContainers')
   reactorContainer.classList.toggle('purpleReactorActive', reactorActive)
 
-  DOMCacheGetOrSet('purpleHoneyProgressFill').style.transform = `scaleX(${purpleHoneyProgressPercentage / 100})`
+  DOMCacheGetOrSet('purpleHoneyProgressFill').style.setProperty('--progress-fill', `${purpleHoneyProgressPercentage / 100}`)
   DOMCacheGetOrSet('purpleHoneyProgressText').textContent = purpleHoneyProgressText
   DOMCacheGetOrSet('purpleHoneyProgressRate').textContent = i18next.t(
     'purpleReactor.purpleHoneyProgressRate',

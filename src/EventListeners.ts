@@ -2142,7 +2142,7 @@ TODO: Fix this entire tab it's utter shit
 
     if (mode === 'synthesis') {
       createFitties()
-      requestAnimationFrame(() => DOMCacheGetOrSet('purpleSynthesisClose').focus())
+      requestAnimationFrame(() => DOMCacheGetOrSet('purpleSynthesisClose').focus({ preventScroll: true }))
     }
   })
 
