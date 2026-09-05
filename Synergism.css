@@ -200,6 +200,14 @@ html[data-legacyicons="true"] {
     background-color: crimson;
 }
 
+#toggleSingularitySubTab6 {
+    color: var(--purple-text-color);
+}
+
+#toggleSingularitySubTab6.active-subtab {
+    color: #fff0ff;
+}
+
 #corrCampaignsBtn.active-subtab,
 #corrStatsBtn.active-subtab,
 #corrLoadoutsBtn.active-subtab {
