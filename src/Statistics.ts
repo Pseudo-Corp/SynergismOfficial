@@ -136,6 +136,7 @@ import {
 } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getPurpleReactorUpgradeEffects } from './Purple'
+import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { getGlobalBonus, getPersonalBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { getRuneBlessingEffect } from './RuneBlessings'
@@ -429,9 +430,15 @@ export const allCubeStats: NumberStatLineCategory = {
     {
       i18n: 'OneMind',
       stat: () => {
-        return getGQUpgradeEffect('oneMind', 'unlocked')
-          ? calculateAscensionSpeedMult() / G.MIND_DIVISOR
-          : 1
+        if (!getGQUpgradeEffect('oneMind', 'unlocked')) {
+          return 1
+        }
+
+        const ascensionSpeed = calculateAscensionSpeedMult()
+        const aquariusExponent = ascensionSpeed >= 1
+          ? getPurpleAmbrosiaUpgradeEffects('aquarius', 'infiniteTranscriptionExponent')
+          : 0
+        return Math.pow(ascensionSpeed, 1 + aquariusExponent) / G.MIND_DIVISOR
       },
       color: 'magenta'
     },
@@ -2390,6 +2397,11 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
     {
       i18n: 'HorseShoeRune',
       stat: () => getRuneEffects('horseShoe', 'ambrosiaLuck') // Horseshoe Rune
+    },
+    {
+      i18n: 'PurpleAmbrosiaLeo',
+      stat: () => getPurpleAmbrosiaUpgradeEffects('leo', 'unassignedBlueberyLuck'),
+      acc: 0
     }
   ]
 }
@@ -2528,6 +2540,10 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'LifetimePurpleHoneyPower',
       stat: () => getPurpleReactorUpgradeEffects('lifetimeHoneyAmbrosia', 'ambrosiaGenerationSpeed')
+    },
+    {
+      i18n: 'PurpleAmbrosiaAries',
+      stat: () => getPurpleAmbrosiaUpgradeEffects('aries', 'universalBarPointMult')
     }
   ]
 }
@@ -2892,10 +2908,6 @@ export const allLuckConversionStats: NumberStatLineCategory = {
       i18n: 'ShopRedLuck4',
       stat: () => getShopUpgradeEffects('shopRedLuck4', 'luckConversionRatio'), // Shop Red Luck IV
       acc: 2
-    },
-    {
-      i18n: 'HorseShoeRune',
-      stat: () => getRuneEffects('horseShoe', 'redLuckConversion') // Horseshoe Rune
     }
   ]
 }
@@ -3012,6 +3024,10 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'LifetimePurpleHoneyPower',
       stat: () => getPurpleReactorUpgradeEffects('lifetimeHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
+    },
+    {
+      i18n: 'PurpleAmbrosiaAries',
+      stat: () => getPurpleAmbrosiaUpgradeEffects('aries', 'universalBarPointMult')
     }
   ]
 }
@@ -3233,6 +3249,11 @@ export const positiveSalvageStats: NumberStatLineCategory = {
     {
       i18n: 'RedAmbrosiaYinYang',
       stat: () => getRedAmbrosiaUpgradeEffects('salvageYinYang', 'positiveSalvage'), // Red Ambrosia Upgrade: Yin Yang
+      acc: 0
+    },
+    {
+      i18n: 'PurpleAmbrosiaVirgo',
+      stat: () => getPurpleAmbrosiaUpgradeEffects('virgo', 'assignedBlueberrySalvage'),
       acc: 0
     }
   ]
@@ -3845,6 +3866,11 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
     {
       i18n: 'TaxmanLastStand',
       stat: () => getSingularityChallengeEffect('taxmanLastStand', 'purpleHoneyLuck')
+    },
+    {
+      i18n: 'HorseShoeRune',
+      stat: () => getRuneEffects('horseShoe', 'purpleHoneyLuck'),
+      acc: 2
     }
   ]
 }

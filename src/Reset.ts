@@ -46,6 +46,7 @@ import {
 import { importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
+import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { isResearchMaxed, setResearchRoombaHighlight, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, runes } from './Runes'
@@ -1221,7 +1222,12 @@ export const singularity = (setSingNumber = -1) => {
   hold.lifetimeRedAmbrosia = player.lifetimeRedAmbrosia
   hold.redAmbrosiaTime = player.redAmbrosiaTime
   hold.redAmbrosiaUpgrades = player.redAmbrosiaUpgrades
+  hold.purpleAmbrosiaUpgrades = player.purpleAmbrosiaUpgrades
+  if (getPurpleAmbrosiaUpgradeEffects('pisces', 'platonicBetaAtStart')) {
+    hold.platonicUpgrades[10] = 1
+  }
   hold.purpleHoneyProgress = player.purpleHoneyProgress
+  hold.encabulatorOvercapToggle = player.encabulatorOvercapToggle
   hold.purpleReactor = player.purpleReactor
   hold.spentPurpleHoney = player.spentPurpleHoney
   hold.purpleReactorUpgrades = player.purpleReactorUpgrades

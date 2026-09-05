@@ -1,9 +1,9 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { addTimers } from './Helper'
 import { registerPurpleReactorAPContribution } from './Purple'
 import { getPurpleReactorPopupMode } from './PurpleUpgradeTab'
 import { format, player } from './Synergism'
-import { addTimers } from './Helper'
 
 export const SYNTHESIS_RED_AMBROSIA_COST = 2_500
 export const SYNTHESIS_PURPLE_HONEY_COST = 500
@@ -198,7 +198,12 @@ export const synthesisCraftButtons = [
 ] as const satisfies readonly { id: string; amount: SynthesisCraftAmount }[]
 
 const synthesisCraftButtonRows = ['synthesisCraftButtonsPrimary', 'synthesisCraftButtonsSecondary'] as const
-export const synthesisUpgradePurchaseAmounts = [1, 10, 100, 'max'] as const satisfies readonly SynthesisUpgradePurchaseAmount[]
+export const synthesisUpgradePurchaseAmounts = [
+  1,
+  10,
+  100,
+  'max'
+] as const satisfies readonly SynthesisUpgradePurchaseAmount[]
 const synthesisUpgradeElementIDPrefixes = {
   redAmbrosiaReduction: 'synthesisRedAmbrosiaReduction',
   purpleHoneyReduction: 'synthesisPurpleHoneyReduction',

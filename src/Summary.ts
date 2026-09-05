@@ -2,11 +2,7 @@
 
 import i18next from 'i18next'
 import { achievementPoints, maxAchievementPoints } from './Achievements'
-import {
-  type AmbrosiaUpgradeNames,
-  ambrosiaUpgrades,
-  getAmbrosiaUpgradeBlueberryCost
-} from './BlueberryUpgrades'
+import { type AmbrosiaUpgradeNames, ambrosiaUpgrades, getAmbrosiaUpgradeBlueberryCost } from './BlueberryUpgrades'
 import {
   calculateAscensionSpeedMult,
   calculateBlueberryInventory,

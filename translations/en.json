@@ -435,6 +435,91 @@
       }
     }
   },
+  "purpleAmbrosia": {
+    "taurusTaxReduction": "Taurus: Tax scaling ÷<<gold|{{divisor}}>>.",
+    "geminiActive": "Gemini <<lime|active>>: Ambrosia and Red Bar fill requirements <<gold|-{{percent}}>>.",
+    "geminiInactive": "Gemini <<red|inactive>>: An Encabulator input tank is full.",
+    "cancerBarFillBonus": "Cancer: <<var(--purple-text-color)|+{{points}}>> per Ambrosia Bar Fill",
+    "purpleAmbrosiaCost": "Cost for next level: <<var(--purple-text-color)|{{amount}}>> Purple Ambrosia",
+    "purpleAmbrosiaSpent": "Purple Ambrosia spent: <<var(--purple-text-color)|{{current}}/{{max}}>>",
+    "purchaseWarning": "<<gold|⚠>> Unlike Blueberry Modules, you <<var(--purple-text-color)|CANNOT>> refund this upgrade.",
+    "purpleAmbrosiaBuyPrompt": "How many levels would you like to buy? You can buy up to {{amount}}. Type -1 to use max!",
+    "notEnough": "You cannot afford another level of this upgrade.",
+    "data": {
+      "aries": {
+        "name": "Aries",
+        "description": "Lots of momentum, potential and promise. For Ambrosia, that is.",
+        "effectNotMaxed": "For every digit in lifetime Ambrosia, Red Ambrosia and Purple Ambrosia, ALL Bar Points generate <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> faster (Current: <<silver|{{oldPercent2}} →>> <<gold|{{newPercent2}}>>)",
+        "effectMaxed": "For every digit in lifetime Ambrosia, Red Ambrosia and Purple Ambrosia, ALL Bar Points generate <<gold|{{maxPercent}}>> faster (Current: <<gold|{{maxPercent2}}>>)"
+      },
+      "taurus": {
+        "name": "Taurus",
+        "description": "Taxes are absolute bull-- bad!",
+        "effectNotMaxed": "Taxes are divided by <<silver|{{oldValue}} →>> <<gold|{{newValue}}>>.",
+        "effectMaxed": "Taxes are divided by <<gold|{{maxValue}}>>."
+      },
+      "gemini": {
+        "name": "Gemini",
+        "description": "Sorry, I cannot fulfill this request.",
+        "effectNotMaxed": "If neither input tank in the Encabulator is full: Ambrosia and Red Bar fill requirement <<silver|-{{oldPercent}} →>> <<gold|-{{newPercent}}>>.",
+        "effectMaxed": "If neither input tank in the Encabulator is full: Ambrosia and Red Bar fill requirement <<gold|-{{maxPercent}}>>."
+      },
+      "cancer": {
+        "name": "Cancer",
+        "description": "Particularly compatible with Gemini.",
+        "effectNotMaxed": "When either Ambrosia bar fills: Fill <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> of the Purple Bar.",
+        "effectMaxed": "When either Ambrosia bar fills: Fill <<gold|{{maxPercent}}>> of the Purple Bar."
+      },
+      "leo": {
+        "name": "Leo",
+        "description": "Particularly likes to forage blueberries.",
+        "effectNotMaxed": "If you have at least five unassigned Blueberries: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Ambrosia Luck per unassigned Blueberry (Current: <<silver|{{oldValue2}} →>> <<gold|{{newValue2}}>>).",
+        "effectMaxed": "If you have at least five unassigned Blueberries: <<gold|{{maxValue}}>> Ambrosia Luck per unassigned Blueberry (Current: <<gold|{{maxValue2}}>>)."
+      },
+      "virgo": {
+        "name": "Virgo",
+        "description": "It was the best of times. It still is, but it used to too.",
+        "effectNotMaxed": "For each assigned Blueberry: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Salvage (Current: <<silver|{{oldValue2}} →>> <<gold|{{newValue2}}>>).",
+        "effectMaxed": "For each assigned Blueberry: <<gold|{{maxValue}}>> Salvage (Current: <<gold|{{maxValue2}}>>)."
+      },
+      "libra": {
+        "name": "Libra",
+        "description": "Strongly dislikes: irregularities in the pension fund.",
+        "effectNotMaxed": "You <<silver|can't →>> <<gold|can>> enable overflow reactions in the Encabulator. Excess reacts at 10% efficiency if the other reactant is available; the rest returns to its regular bar.",
+        "effectMaxed": "You can enable overflow reactions in the Encabulator. Excess reacts at 10% efficiency if the other reactant is available; the rest returns to its regular bar."
+      },
+      "scorpio": {
+        "name": "Scorpio",
+        "description": "Hungers for your regular Ambrosia.",
+        "effectNotMaxed": "Purple Reactor Conversion: <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> more Ambrosia Bar Points and Purple Bar Points. Red Bar Points are left alone!",
+        "effectMaxed": "Purple Reactor Conversion: <<gold|{{maxPercent}}>> more Ambrosia Bar Points and Purple Bar Points. Red Bar Points are left alone!"
+      },
+      "sagittarius": {
+        "name": "Sagittarius",
+        "description": "A horse is a horse, of course. Horse!",
+        "effectNotMaxed": "Unlock a new Horseshoe rune! Boosts Ambrosia Luck, Red Luck and Purple Honey Luck.",
+        "effectMaxed": "You've unlocked a Horseshoe rune!"
+      },
+      "capricorn": {
+        "name": "Capricorn",
+        "description": "Has a horse shoe that only a Sagittarius could love.",
+        "effectNotMaxed": "Unlock a new Horse Shoe talisman! Boosts Ambrosia Luck and Red Luck!",
+        "effectMaxed": "You've unlocked a Horse Shoe talisman! Don't forget the Red Luck Mythic Signature."
+      },
+      "aquarius": {
+        "name": "Aquarius",
+        "description": "Mystic crystal revelation, and the MIND's true liberation.",
+        "effectNotMaxed": "'Infinite Transcription of the One Mind' adds <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> to One Mind's Ascension Speed exponent for the global cube multiplier. Applies only when Ascension Speed is at least 1.",
+        "effectMaxed": "'Infinite Transcription of the One Mind' adds <<gold|+{{maxValue}}>> to One Mind's Ascension Speed exponent for the global cube multiplier. Applies only when Ascension Speed is at least 1."
+      },
+      "pisces": {
+        "name": "Pisces",
+        "description": "Platonic's a Pisces. Pass it on.",
+        "effectNotMaxed": "You <<silver|don't →>> <<gold|will>> start Singularities with Platonic BETA!",
+        "effectMaxed": "You <<gold|start>> Singularities with Platonic BETA!"
+      }
+    }
+  },
   "purpleReactor": {
     "purpleHoneyAmount": "You have <<var(--purple-text-color)|{{amount}}>> Purple Honey (<<var(--purple-text-color)|{{lifetimeAmount}}>> Lifetime)",
     "highestPurpleHoney": "Most Purple Honey at once: <<var(--purple-text-color)|{{amount}}>>",
@@ -446,7 +531,7 @@
     "lifetimePurpleHoneyAntELO": "<<orchid|Ant ELO +{{amount}}>>",
     "lifetimePurpleHoneyRebornELOSpeed": "<<#00DDFF|Reborn ELO Speed +{{amount}}>>",
     "reactantContainersDescription": "The <b>Grand</b>, <i>Fantabulous</i> <<var(--purple-text-color)|Chroma-Encabulator>>",
-    "reactionExplanation": "<<lightblue|1,000 Ambrosia Bar Points>> + <<red|1 Red Bar Point>> → <<var(--purple-text-color)|100 Purple Bar Points>>",
+    "reactionExplanation": "<<lightblue|{{ambrosia}} Ambrosia Bar Points>> + <<red|{{redAmbrosia}} Red Bar Point>> → <<var(--purple-text-color)|{{purple}} Purple Bar Points>>",
     "reactantTankLabel": "Input Tank",
     "ambrosiaReactantTankTitle": "<<lightblue|Ambrosia Bar Points>>",
     "redAmbrosiaReactantTankTitle": "<<red|Red Bar Points>>",
@@ -454,7 +539,7 @@
     "reactantRoutingPercentage": "{{percentage}}%",
     "reactantRoutingPercentageAria": "{{percentage}}% of production routed to the Encabulator",
     "reactantContainerHalfLife": "Encabulator Speed: <<gold|{{speed}}>>",
-    "reactantSpentRates": "Spending <<gold|{{speed}}%>> of Capacity per hour (<<lightblue|{{ambrosia}} Ambrosia Bar Points>>/s and <<red|{{redAmbrosia}} Red Bar Points>>/s).",
+    "reactantSpentRates": "Spending <<gold|{{speed}}%>> of Ambrosia Capacity per hour (<<lightblue|{{ambrosia}} Ambrosia Bar Points>>/s and <<red|{{redAmbrosia}} Red Bar Points>>/s).",
     "reactantTankProgress": "{{stored}} / {{capacity}}",
     "reactantTankProgressAria": "{{stored}} of {{capacity}} stored; {{percentage}}% full",
     "reactantNetRatePositive": "+{{amount}}/s net",
@@ -462,8 +547,13 @@
     "reactantNetRateZero": "0/s net",
     "reactantRoutedRate": "Routed to storage: <<var(--reactant-bright)|{{amount}}/s>>",
     "reactantSpentRate": "Spent in Encabulator: <<var(--purple-text-color)|{{amount}}/s>>",
+    "overflowEnabled": "Libra: Overflow <<lime|Enabled>>",
+    "overflowDisabled": "Libra: Overflow <<red|Disabled>>",
+    "overflowExplanation": "React excess from either input tank at 10% efficiency using the other tank's reactant. Any unmatched excess returns to its regular bar.",
+    "reactantOverflowRate": "Overflow reacted: <<var(--reactant-bright)|{{amount}}/s>>",
+    "purpleHoneyOverflowRate": "Libra: +{{rate}}/s from overflow",
     "purpleHoneyProgress": "{{current}} / {{conversion}}",
-    "purpleHoneyProgressRate": "Generating {{rate}}/s",
+    "purpleHoneyProgressRate": "Generating {{rate}}/s from reactants",
     "reactorCoreTitle": "Encabulator Core",
     "purpleHoneyProgressTitle": "<<var(--purple-text-color)|Purple Bar Points>>",
     "purpleHoneyProgressAriaLabel": "Purple Bar Points toward the next Purple Honey extraction",
@@ -6181,12 +6271,12 @@
     "horseShoe": {
       "name": "The Horse's Shoe",
       "description": "I never realized the world was so easily won, just by realizing you got someone to say you won't be lonely anymore.",
-      "lockedDescription": "This rune is locked! To unlock it, you might need to tussle with the <<lightgray|Taxman>> himself.",
+      "lockedDescription": "This rune is locked! Purchase <<var(--purple-text-color)|Sagittarius>> in the Purple Ambrosia upgrades to unlock it.",
       "ambrosiaLuck": "<<limegreen | {{val}} Ambrosia Luck>> (+1 per Power)",
       "redLuck": "<<red | {{val}} Red Luck>> (+num:((0.2)) per Power)",
-      "luckConversion": "<<crimson | Luck Conversion Ratio {{val}}>> (Up to -num:((0.5)))",
-      "values": "Each level gives you +1 Ambrosia Luck, +num:((0.2)) Red Luck. You also reduce the Luck Conversion Ratio between the two by up to num:((0.5)), depending on level (-num:((0.5)) * level / (level + 50))",
-      "effect": "Horseshoe Rune Bonus: +{{val}} Ambrosia Luck, +{{val2}} Red Luck, {{val3}} Luck Conversion Ratio."
+      "purpleHoneyLuck": "<<var(--purple-text-color)|{{val}} Purple Honey Luck>> (+num:((0.2)) per Power)",
+      "values": "Each level gives you +1 Ambrosia Luck, +num:((0.2)) Red Luck and +num:((0.2)) Purple Honey Luck.",
+      "effect": "Horseshoe Rune Bonus: +{{val}} Ambrosia Luck, +{{val2}} Red Luck, +{{val3}} Purple Honey Luck."
     },
     "finiteDescent": {
       "name": "Finite Descent",
@@ -7325,6 +7415,7 @@
       "Total": "Total Additive Luck Multiplier:"
     },
     "ambrosiaLuckStats": {
+      "PurpleAmbrosiaLeo": "Purple Ambrosia - Leo:",
       "title": "Ambrosia Luck",
       "Base": "Base Value:",
       "SynergismLevel": "Synergism Level Reward:",
@@ -7369,6 +7460,7 @@
       "Total": "Total Blueberries Owned:"
     },
     "ambrosiaGenerationStats": {
+      "PurpleAmbrosiaAries": "Purple Ambrosia - Aries:",
       "title": "Ambrosia Bar Points",
       "Default": "Default Per Second:",
       "PseudoCoins": "PseudoCoin Upgrade:",
@@ -7501,7 +7593,6 @@
       "ShopRedLuck2": "Dice of Asmodeus:",
       "ShopRedLuck3": "High Class Dice of Asmodeus:",
       "ShopRedLuck4": "Elite Class Dice of Asmodeus:",
-      "HorseShoeRune": "Horse Shoe Rune Reduction:",
       "Total": "Ambrosia Luck per 1 Red Luck:"
     },
     "redAmbrosiaLuckStats": {
@@ -7523,6 +7614,7 @@
       "Total": "Total Red Luck:"
     },
     "redAmbrosiaGenerationStats": {
+      "PurpleAmbrosiaAries": "Purple Ambrosia - Aries:",
       "title": "Red Bar Points",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Base": "Default Per Second:",
@@ -7578,6 +7670,7 @@
       "extraInfo": "Your Salvage multiplies your Rune, Blessing and Spirit EXP gain by <br> <<yellow |10^(Salvage / 30)>> <br> <<crimson|If your Salvage is negative, your Rune EXP is instead divided by this amount.>>"
     },
     "salvagePositive": {
+      "PurpleAmbrosiaVirgo": "Purple Ambrosia - Virgo:",
       "title": "Positive Salvage",
       "BaseMultiplier": "Base Positive Salvage Multiplier",
       "AchievementTalisman": "Achievement Talisman - Salvage Bonus:",
@@ -7756,6 +7849,7 @@
       "PurpleHoneyUpgrade3": "Purple Honey - Purple Honey Luck III",
       "PurpleHoneyUpgrade4": "Purple Honey - Purple Honey Luck IV",
       "TaxmanLastStand": "Taxman's Last Stand:",
+      "HorseShoeRune": "Horse Shoe Rune Bonus:",
       "Total": "Total Purple Honey Luck:"
     },
     "purpleHoneyProgressRequirementStats": {

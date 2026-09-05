@@ -17,7 +17,13 @@ import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { calculateAscensionScorePlatonicBlessing } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { calculateRedAmbrosiaReactantCapacityFromAmbrosia, purpleReactantConversion } from './PurpleReactor'
+import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
+import {
+  calculateRedAmbrosiaReactantCapacityFromAmbrosia,
+  PURPLE_REACTOR_OVERFLOW_EFFICIENCY,
+  type PurpleReactant,
+  purpleReactantConversion
+} from './PurpleReactor'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
@@ -405,8 +411,23 @@ export const calculatePurpleReactantCapacity = () => calculateTotalStat(allPurpl
 export const calculatePurpleHoneyLuck = () => calculateTotalStat(allPurpleHoneyLuckStats)
 export const calculatePurpleHoneyConversionFactor = () => calculateTotalStat(allPurpleHoneyProgressRequirementStats)
 
+export const calculatePurpleBarPointsPerAmbrosiaFill = () => {
+  const barFillRatio = getPurpleAmbrosiaUpgradeEffects('cancer', 'barFillRatio')
+  return barFillRatio > 0 ? calculatePurpleHoneyConversionFactor() * barFillRatio : 0
+}
+
 export const calculateRedAmbrosiaReactantCapacity = () => {
   return calculateRedAmbrosiaReactantCapacityFromAmbrosia(calculatePurpleReactantCapacity())
+}
+
+export const calculatePurpleReactantRecipe = () => {
+  const conversionMultiplier = getPurpleAmbrosiaUpgradeEffects('scorpio', 'purpleReactorConversionMult')
+  return {
+    ambrosiaBarPoints: purpleReactantConversion.ambrosiaBarPoints * conversionMultiplier,
+    redAmbrosiaBarPoints: purpleReactantConversion.redAmbrosiaBarPoints,
+    purpleBarPoints: purpleReactantConversion.purpleBarPoints * conversionMultiplier
+      * getPurpleAmbrosiaUpgradeEffects('aries', 'universalBarPointMult')
+  }
 }
 
 export const calculatePurpleReactantConversion = (
@@ -414,16 +435,25 @@ export const calculatePurpleReactantConversion = (
   redAmbrosiaBarPoints: number,
   ambrosiaBarPointsRequested: number
 ) => {
+  const recipe = calculatePurpleReactantRecipe()
   const conversionBatches = Math.min(
-    ambrosiaBarPoints / purpleReactantConversion.ambrosiaBarPoints,
-    redAmbrosiaBarPoints / purpleReactantConversion.redAmbrosiaBarPoints,
-    ambrosiaBarPointsRequested / purpleReactantConversion.ambrosiaBarPoints
+    ambrosiaBarPoints / recipe.ambrosiaBarPoints,
+    redAmbrosiaBarPoints / recipe.redAmbrosiaBarPoints,
+    ambrosiaBarPointsRequested / recipe.ambrosiaBarPoints
   )
 
   return {
-    ambrosiaBarPointsSpent: conversionBatches * purpleReactantConversion.ambrosiaBarPoints,
-    redAmbrosiaBarPointsSpent: conversionBatches * purpleReactantConversion.redAmbrosiaBarPoints,
-    purpleBarPointsGained: conversionBatches * purpleReactantConversion.purpleBarPoints
+    ambrosiaBarPointsSpent: conversionBatches * recipe.ambrosiaBarPoints,
+    redAmbrosiaBarPointsSpent: conversionBatches * recipe.redAmbrosiaBarPoints,
+    purpleBarPointsGained: conversionBatches * recipe.purpleBarPoints
+  }
+}
+
+export const calculatePurpleOverflowConversion = (ambrosiaBarPoints: number, redAmbrosiaBarPoints: number) => {
+  const reaction = calculatePurpleReactantConversion(ambrosiaBarPoints, redAmbrosiaBarPoints, ambrosiaBarPoints)
+  return {
+    ...reaction,
+    purpleBarPointsGained: reaction.purpleBarPointsGained * PURPLE_REACTOR_OVERFLOW_EFFICIENCY
   }
 }
 
@@ -433,15 +463,22 @@ export const calculatePurpleReactantRouting = (
   storedBarPoints: number,
   capacity: number,
   elapsedSeconds = 1,
-  dissolutionPerSecond = 0
+  dissolutionPerSecond = 0,
+  overflow?: { reactant: PurpleReactant; counterpartBarPoints: number }
 ) => {
   // Check edge case to avoid div by 0 and extraneous work
   if (elapsedSeconds === 0) {
     return {
       storedBarPoints,
       regularBarPoints: 0,
+      overflowBarPoints: 0,
+      overflowCounterpartBarPoints: 0,
+      purpleBarPointsGained: 0,
       reserveRate: 0,
-      regularRate: 0
+      regularRate: 0,
+      overflowRate: 0,
+      overflowCounterpartRate: 0,
+      purpleBarPointsRate: 0
     }
   }
 
@@ -454,7 +491,26 @@ export const calculatePurpleReactantRouting = (
   const dissolvedBarPoints = Math.min(clampedStored, dissolutionPerSecond * elapsedSeconds)
   const storedAfterDissolution = clampedStored - dissolvedBarPoints
   const reservedBarPoints = Math.min(requestedReserveBarPoints, capacity - storedAfterDissolution)
-  const unroundedRegularBarPoints = producedBarPoints - reservedBarPoints
+  let overflowBarPoints = 0
+  let overflowCounterpartBarPoints = 0
+  let purpleBarPointsGained = 0
+  const requestedOverflowBarPoints = Math.max(0, requestedReserveBarPoints - reservedBarPoints)
+  if (
+    overflow && requestedOverflowBarPoints > 0 && player.encabulatorOvercapToggle
+    && getPurpleAmbrosiaUpgradeEffects('libra', 'overcapToggleUnlocked')
+  ) {
+    const reaction = overflow.reactant === 'ambrosia'
+      ? calculatePurpleOverflowConversion(requestedOverflowBarPoints, overflow.counterpartBarPoints)
+      : calculatePurpleOverflowConversion(overflow.counterpartBarPoints, requestedOverflowBarPoints)
+    overflowBarPoints = overflow.reactant === 'ambrosia'
+      ? reaction.ambrosiaBarPointsSpent
+      : reaction.redAmbrosiaBarPointsSpent
+    overflowCounterpartBarPoints = overflow.reactant === 'ambrosia'
+      ? reaction.redAmbrosiaBarPointsSpent
+      : reaction.ambrosiaBarPointsSpent
+    purpleBarPointsGained = reaction.purpleBarPointsGained
+  }
+  const unroundedRegularBarPoints = producedBarPoints - reservedBarPoints - overflowBarPoints
   const roundingTolerance = 16 * Number.EPSILON * Math.max(
     1,
     Math.abs(producedBarPoints),
@@ -467,8 +523,14 @@ export const calculatePurpleReactantRouting = (
   return {
     storedBarPoints: storedAfterDissolution + reservedBarPoints,
     regularBarPoints,
+    overflowBarPoints,
+    overflowCounterpartBarPoints,
+    purpleBarPointsGained,
     reserveRate: reservedBarPoints / elapsedSeconds,
-    regularRate: regularBarPoints / elapsedSeconds
+    regularRate: regularBarPoints / elapsedSeconds,
+    overflowRate: overflowBarPoints / elapsedSeconds,
+    overflowCounterpartRate: overflowCounterpartBarPoints / elapsedSeconds,
+    purpleBarPointsRate: purpleBarPointsGained / elapsedSeconds
   }
 }
 
@@ -1536,6 +1598,17 @@ export const calculateToNextThreshold = () => {
   }
 }
 
+export const calculateAmbrosiaBarRequirementMultiplier = () => {
+  const requirementMultiplier = getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaRequirementMult')
+  if (requirementMultiplier === 1) {
+    return 1
+  }
+
+  const inputTanksHaveSpace = player.purpleReactor.storedAmbrosiaBarPoints < calculatePurpleReactantCapacity()
+    && player.purpleReactor.storedRedAmbrosiaBarPoints < calculateRedAmbrosiaReactantCapacity()
+  return inputTanksHaveSpace ? requirementMultiplier : 1
+}
+
 export const calculateRequiredBlueberryTime = () => {
   let val = G.TIME_PER_AMBROSIA // Currently 45
   val += Math.floor(player.lifetimeAmbrosia / 300)
@@ -1549,10 +1622,10 @@ export const calculateRequiredBlueberryTime = () => {
   if (player.lifetimeAmbrosia >= 10000) {
     const extraScalingPower = Math.log10(4)
     val *= Math.pow(player.lifetimeAmbrosia / 10000, extraScalingPower)
-    return Math.ceil(val)
-  } else {
-    return val
+    val = Math.ceil(val)
   }
+
+  return val * calculateAmbrosiaBarRequirementMultiplier()
 }
 
 export const calculateRequiredRedAmbrosiaTime = () => {
@@ -1562,7 +1635,7 @@ export const calculateRequiredRedAmbrosiaTime = () => {
   const max = 1e4 * getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
   val *= getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
 
-  return Math.min(max, val)
+  return Math.min(max, val) * calculateAmbrosiaBarRequirementMultiplier()
 }
 
 export const calculateSingularityMilestoneBlueberries = () => {

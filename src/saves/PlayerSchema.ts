@@ -1072,7 +1072,20 @@ export const playerSchema = z.object({
     }
   ).default(() => ({ ...blankSave.redAmbrosiaUpgrades })),
 
+  purpleAmbrosiaUpgrades: z.record(z.string(), z.number()).transform(
+    (object) => {
+      return Object.fromEntries(
+        Object.keys(blankSave.purpleAmbrosiaUpgrades).map((key) => {
+          const value = object[key]
+            ?? blankSave.purpleAmbrosiaUpgrades[key as keyof typeof blankSave['purpleAmbrosiaUpgrades']]
+          return value === null ? [key, 0] : [key, Number(value)]
+        })
+      )
+    }
+  ).default(() => ({ ...blankSave.purpleAmbrosiaUpgrades })),
+
   purpleHoneyProgress: z.number().default(0),
+  encabulatorOvercapToggle: z.boolean().default(false),
   purpleReactor: purpleReactorSchema.default(() => deepClone()(blankSave.purpleReactor)),
   spentPurpleHoney: spentPurpleHoneySchema.default(() => deepClone()(blankSave.spentPurpleHoney)),
 

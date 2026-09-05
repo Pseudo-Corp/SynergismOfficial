@@ -12,6 +12,7 @@ import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-eff
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { createShopUpgradeTypeIcon, getShopUpgradeEffects, ShopUpgradeGroups } from './Shop'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
@@ -61,7 +62,7 @@ type RuneTypeMap = {
   horseShoe: {
     ambrosiaLuck: number
     redLuck: number
-    redLuckConversion: number
+    purpleHoneyLuck: number
   }
   finiteDescent: {
     ascensionScore: number
@@ -647,25 +648,25 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       } else if (key === 'redLuck') {
         return n / 5
       } else {
-        return -0.5 * n / (n + 50) // redLuckConversion
+        return n / 5 // purpleHoneyLuck
       }
     },
     effectsDescription: () => {
       const ambrosiaLuck = getRuneEffects('horseShoe', 'ambrosiaLuck')
       const redLuck = getRuneEffects('horseShoe', 'redLuck')
-      const redLuckConversion = getRuneEffects('horseShoe', 'redLuckConversion')
+      const purpleHoneyLuck = getRuneEffects('horseShoe', 'purpleHoneyLuck')
       const ambrosiaLuckText = i18next.t('runes.horseShoe.ambrosiaLuck', { val: format(ambrosiaLuck, 2, true) })
       const redLuckText = i18next.t('runes.horseShoe.redLuck', { val: format(redLuck, 2, true) })
-      const redLuckConversionText = i18next.t('runes.horseShoe.luckConversion', {
-        val: format(redLuckConversion, 3, true)
+      const purpleHoneyLuckText = i18next.t('runes.horseShoe.purpleHoneyLuck', {
+        val: format(purpleHoneyLuck, 2, true)
       })
-      return `${ambrosiaLuckText}<br>${redLuckText}<br>${redLuckConversionText}`
+      return `${ambrosiaLuckText}<br>${redLuckText}<br>${purpleHoneyLuckText}`
     },
     effectiveLevelMult: () => 1,
     freeLevels: () => bonusRuneLevelsHorseShoe(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => {
-      return false // TODO: Add back in later
+      return getPurpleAmbrosiaUpgradeEffects('sagittarius', 'horseshoeRuneUnlocked')
     },
     minimalResetTier: 'never',
     name: () => i18next.t('runes.horseShoe.name'),

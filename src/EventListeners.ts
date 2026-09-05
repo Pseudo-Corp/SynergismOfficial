@@ -99,6 +99,14 @@ import {
   upgradeOcteractToString
 } from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription, platonicUpgradeModalHTML } from './Platonic'
+import {
+  buyPurpleAmbrosiaUpgradeLevel,
+  displayPurpleAmbrosiaLevels,
+  getPurpleAmbrosiaUpgradeEffects,
+  purpleAmbrosiaUpgradeNames,
+  purpleAmbrosiaUpgradeToString,
+  resetPurpleAmbrosiaDisplay
+} from './PurpleAmbrosiaUpgrades'
 import { getPurpleReactorPopupMode, setPurpleReactorPopupMode } from './PurpleUpgradeTab'
 import {
   buyRedAmbrosiaUpgradeLevel,
@@ -119,17 +127,6 @@ import { runes } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
 import { buyShopUpgrades, useConsumablePrompt } from './Shop'
 import {
-  buySynthesisUpgrade,
-  craftFromSynthesis,
-  getSynthesisUpgradePurchaseButtonID,
-  setSynthesisAutomationEnabled,
-  synthesisCraftButtons,
-  synthesisUpgradeNames,
-  synthesisUpgradePurchaseAmounts,
-  unlockSynthesisAutomation,
-  updateSynthesis
-} from './Synthesis'
-import {
   addSingularityPerkToTree,
   buyGoldenQuarks,
   buyGQUpgradeLevel,
@@ -148,6 +145,17 @@ import { registerSpriteAlias, updateIconsFromSprites } from './SpriteSheets'
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
+import {
+  buySynthesisUpgrade,
+  craftFromSynthesis,
+  getSynthesisUpgradePurchaseButtonID,
+  setSynthesisAutomationEnabled,
+  synthesisCraftButtons,
+  synthesisUpgradeNames,
+  synthesisUpgradePurchaseAmounts,
+  unlockSynthesisAutomation,
+  updateSynthesis
+} from './Synthesis'
 import { changeSubTab, changeTab, registerSubTabSwitches, Tabs } from './Tabs'
 import { toggleAllBuildingAutomation, toggleAutomatedBuildingVisibility } from './tabs/buildings'
 import { IconSets, imgErrorHandler, themeValues, toggleAnnotation, toggleIconSet, toggleTheme } from './Themes'
@@ -200,7 +208,8 @@ import {
 import {
   cycleCorruptionScoreTarget,
   selectCorruptionScoreTarget,
-  shopMouseover
+  shopMouseover,
+  visualUpdatePurple
 } from './UpdateVisuals'
 import {
   buyAllUpgrades,
@@ -1923,8 +1932,10 @@ TODO: Fix this entire tab it's utter shit
       style: { borderColor: 'blue' },
       buy: (event, action) => {
         const target = event.target instanceof Element ? event.target : null
-        if (action === PURPLE_AMBROSIA_ENCHANTMENT_ACTION
-          || target?.classList.contains('purpleAmbrosiaEnchantmentIcon')) {
+        if (
+          action === PURPLE_AMBROSIA_ENCHANTMENT_ACTION
+          || target?.classList.contains('purpleAmbrosiaEnchantmentIcon')
+        ) {
           return buyPurpleAmbrosiaEnchantmentLevel(key)
         }
         return buyAmbrosiaUpgradeLevel(key, event, action === 'max')
@@ -2014,19 +2025,23 @@ TODO: Fix this entire tab it's utter shit
       if (!toggled) {
         resetLoadoutOnlyDisplay()
         resetRedAmbrosiaDisplay()
+        resetPurpleAmbrosiaDisplay()
       } else {
         displayLevelsBlueberry()
         displayRedAmbrosiaLevels()
+        displayPurpleAmbrosiaLevels()
       }
     })
   } else {
     currAmbrosiaUpgrades.addEventListener('mouseover', () => {
       displayLevelsBlueberry()
       displayRedAmbrosiaLevels()
+      displayPurpleAmbrosiaLevels()
     })
     currAmbrosiaUpgrades.addEventListener('mouseout', () => {
       resetLoadoutOnlyDisplay()
       resetRedAmbrosiaDisplay()
+      resetPurpleAmbrosiaDisplay()
     })
   }
 
@@ -2043,6 +2058,22 @@ TODO: Fix this entire tab it's utter shit
       buy: (event, action) => buyRedAmbrosiaUpgradeLevel(key, event, action === 'max')
     })
   }
+
+  // PURPLE AMBROSIA
+  const purpleAmbrosiaUpgradeElements = document.querySelectorAll<HTMLElement>('.purpleAmbrosiaUpgrade')
+  purpleAmbrosiaUpgradeNames.forEach((key, index) => {
+    const element = purpleAmbrosiaUpgradeElements.item(index)
+    if (element === null) {
+      return
+    }
+
+    registerPurchasableModal({
+      element,
+      html: () => purpleAmbrosiaUpgradeToString(key),
+      style: { borderColor: 'purple' },
+      buy: (event, action) => buyPurpleAmbrosiaUpgradeLevel(key, event, action === 'max')
+    })
+  })
 
   const setPurpleReactantPercentage = (
     reactant: 'ambrosia' | 'redAmbrosia',
@@ -2072,6 +2103,14 @@ TODO: Fix this entire tab it's utter shit
 
   registerPurpleReactantSlider('ambrosiaBarPointPercentageSlider', 'ambrosia')
   registerPurpleReactantSlider('redAmbrosiaBarPointPercentageSlider', 'redAmbrosia')
+
+  DOMCacheGetOrSet('encabulatorOvercapToggle').addEventListener('change', (event) => {
+    if (!getPurpleAmbrosiaUpgradeEffects('libra', 'overcapToggleUnlocked')) {
+      return
+    }
+    player.encabulatorOvercapToggle = (event.target as HTMLInputElement).checked
+    visualUpdatePurple()
+  })
 
   for (const upgradeKey of synthesisUpgradeNames) {
     for (const amount of synthesisUpgradePurchaseAmounts) {

@@ -214,6 +214,7 @@ import { blankOcteractLevelObject, setOcteractUpgradeLevels } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache } from './PseudoCoinUpgrades'
+import { blankPurpleAmbrosiaUpgradeObject, setPurpleAmbrosiaUpgradeLevels } from './PurpleAmbrosiaUpgrades'
 import { getQuarkBonus, QuarkHandler, refreshQuarkBonus } from './Quark'
 import { blankRedAmbrosiaUpgradeObject, setRedAmbrosiaUpgradeLevels } from './RedAmbrosiaUpgrades'
 import {
@@ -1175,8 +1176,11 @@ export const player: Player = {
   // NOTE: This only keeps track of the total number of Red Ambrosia
   // Invested, because I realized that keeping classes on the player is generally a bad idea
   redAmbrosiaUpgrades: blankRedAmbrosiaUpgradeObject,
+  // This only keeps track of the total number of Purple Ambrosia invested.
+  purpleAmbrosiaUpgrades: blankPurpleAmbrosiaUpgradeObject,
 
   purpleHoneyProgress: 0,
+  encabulatorOvercapToggle: false,
   purpleReactor: {
     purpleHoney: 0,
     lifetimePurpleHoney: 0,
@@ -4806,6 +4810,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   setAmbrosiaUpgradeLevels()
   reconcilePurpleAmbrosiaEnchantments()
   setRedAmbrosiaUpgradeLevels()
+  setPurpleAmbrosiaUpgradeLevels()
   setPurpleReactorUpgradeLevels()
 
   updateAchievementPoints(true)

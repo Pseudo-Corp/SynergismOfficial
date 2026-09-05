@@ -8,6 +8,7 @@ import { CalcECC, useChallenge13Modifiers } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { calculateTaxPlatonicBlessing } from './PlatonicCubes'
+import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { getRuneEffects } from './Runes'
 import { getTalismanEffects } from './Talismans'
 
@@ -104,6 +105,7 @@ export const calculatetax = () => {
   exponent *= 1 - 0.666 * player.cubeUpgrades[50] / 100000
   exponent *= G.challenge15Rewards.taxes.value
   exponent *= player.campaigns.taxMultiplier
+  exponent /= getPurpleAmbrosiaUpgradeEffects('taurus', 'taxDivisor')
   if (player.upgrades[121] > 0) {
     exponent *= 0.5
   }

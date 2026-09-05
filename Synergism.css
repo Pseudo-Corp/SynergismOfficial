@@ -8345,7 +8345,8 @@ header #obtainiumDisplay { color: pink; }
 
 /* Style for dimmed image */
 .blueberryUpgrade img.dimmed,
-.redAmbrosiaUpgrade img.dimmed {
+.redAmbrosiaUpgrade img.dimmed,
+.purpleAmbrosiaUpgrade img.dimmed {
     opacity: 0.3;
 }
 
@@ -8356,7 +8357,8 @@ header #obtainiumDisplay { color: pink; }
 
 /* Style for level display */
 .blueberryUpgrade .level-overlay,
-.redAmbrosiaUpgrade .level-overlay {
+.redAmbrosiaUpgrade .level-overlay,
+.purpleAmbrosiaUpgrade .level-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -8373,7 +8375,8 @@ header #obtainiumDisplay { color: pink; }
 
 /* Style for relative positioning */
 .blueberryUpgrade,
-.redAmbrosiaUpgrade {
+.redAmbrosiaUpgrade,
+.purpleAmbrosiaUpgrade {
     position: relative;
     display: inline-block; /* Or block, depending on your layout */
     cursor: pointer;
@@ -8432,13 +8435,15 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .maxBlueberryLevel,
-.maxRedAmbrosiaLevel {
+.maxRedAmbrosiaLevel,
+.maxPurpleAmbrosiaLevel {
     color: orchid;
     font-weight: bold;
 }
 
 .notMaxBlueberryLevel,
-.notMaxRedAmbrosiaLevel {
+.notMaxRedAmbrosiaLevel,
+.notMaxPurpleAmbrosiaLevel {
     color: white;
 }
 
@@ -8836,7 +8841,8 @@ header #obtainiumDisplay { color: pink; }
         "title controls"
         "explanation controls"
         "half-life controls"
-        "spent controls";
+        "spent controls"
+        "overflow controls";
     grid-template-columns: minmax(0, 1fr) 180px;
     align-items: center;
     position: relative;
@@ -8903,6 +8909,22 @@ header #obtainiumDisplay { color: pink; }
     min-width: 0;
     position: relative;
     z-index: 2;
+}
+
+#purpleReactantOvercapControls {
+    grid-area: overflow;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    gap: 6px;
+    margin-top: 4px;
+    font-size: 0.84em;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+#purpleReactantOvercapControls[hidden] {
+    display: none;
 }
 
 .purpleReactorSynthesisToggleRow,
@@ -9570,12 +9592,14 @@ header #obtainiumDisplay { color: pink; }
             "explanation explanation"
             "half-life half-life"
             "spent spent"
+            "overflow overflow"
             "controls controls";
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .purpleReactorControls {
         flex-direction: row;
+        flex-wrap: wrap;
         justify-content: center;
         gap: 8px;
         width: 100%;

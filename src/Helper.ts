@@ -8,6 +8,7 @@ import {
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateOcteractMultiplier,
+  calculatePurpleBarPointsPerAmbrosiaFill,
   calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyExtractionMultiplier,
   calculatePurpleHoneyLuck,
@@ -27,7 +28,7 @@ import { canAutoSacrifice } from './Features/Ants/Automation/sacrifice'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { getPurpleReactorUpgradeEffects } from './Purple'
-import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
+import { PURPLE_REACTOR_TICK_INTERVAL, type PurpleReactant } from './PurpleReactor'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { Seed, seededRandom } from './RNG'
@@ -37,8 +38,8 @@ import { buyAllSpiritLevels } from './RuneSpirits'
 import { getShopUpgradeEffects, useConsumable } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { autoCraftSynthesis } from './Synthesis'
 import { player } from './Synergism'
+import { autoCraftSynthesis } from './Synthesis'
 import { buyAllTalismanResources } from './Talismans'
 import { animatePurpleHoneyGain } from './UpdateVisuals'
 import { Globals as G } from './Variables'
@@ -58,8 +59,6 @@ type TimerInput =
   | 'purpleHoney'
 
 const octeractGiveawayLevels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249]
-
-type PurpleReactant = 'ambrosia' | 'redAmbrosia'
 
 /**
  * Routes one reactant's Bar Points into its Purple Honey container.
@@ -90,14 +89,30 @@ const processPurpleReactant = (
     percentage,
     stored,
     capacity,
-    elapsedSeconds
+    elapsedSeconds,
+    0,
+    {
+      reactant,
+      counterpartBarPoints: reactant === 'ambrosia'
+        ? player.purpleReactor.storedRedAmbrosiaBarPoints
+        : player.purpleReactor.storedAmbrosiaBarPoints
+    }
   )
 
   if (reactant === 'ambrosia') {
     player.purpleReactor.storedAmbrosiaBarPoints = routing.storedBarPoints
+    player.purpleReactor.storedRedAmbrosiaBarPoints = Math.max(
+      0,
+      player.purpleReactor.storedRedAmbrosiaBarPoints - routing.overflowCounterpartBarPoints
+    )
   } else {
     player.purpleReactor.storedRedAmbrosiaBarPoints = routing.storedBarPoints
+    player.purpleReactor.storedAmbrosiaBarPoints = Math.max(
+      0,
+      player.purpleReactor.storedAmbrosiaBarPoints - routing.overflowCounterpartBarPoints
+    )
   }
+  player.purpleHoneyProgress += routing.purpleBarPointsGained
 
   return routing.regularBarPoints
 }
@@ -365,6 +380,7 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         player.ambrosia += ambrosiaToGain
         player.lifetimeAmbrosia += ambrosiaToGain
         player.blueberryTime -= timeToAmbrosia
+        player.purpleHoneyProgress += calculatePurpleBarPointsPerAmbrosiaFill()
 
         timeToAmbrosia = calculateRequiredBlueberryTime()
       }
@@ -405,6 +421,7 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         player.lifetimeRedAmbrosia += redAmbrosiaToGain
         ambrosiaTimeToGrant += redAmbrosiaToGain * timeCoeff
         player.redAmbrosiaTime -= timeToRedAmbrosia
+        player.purpleHoneyProgress += calculatePurpleBarPointsPerAmbrosiaFill()
         timeToRedAmbrosia = calculateRequiredRedAmbrosiaTime()
       }
 

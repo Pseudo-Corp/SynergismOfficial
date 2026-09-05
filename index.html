@@ -3428,6 +3428,7 @@
                         <p id="ambrosiaAmountPerGeneration" class="lightYellowText"></p>
                         <p id="redAmbrosiaAmountPerGeneration" class="lightYellowText Exalt5x1"></p>
                         <p id="ambrosiaThresholdInfo" style="color: lightblue"></p>
+                        <p id="ambrosiaGeminiStatus" hidden></p>
                     </div>
                     <div id="ambrosiaProgressBar">
                         <div id="ambrosiaProgress"></div>
@@ -3457,8 +3458,11 @@
                             <button class="blueberryUpgrade" id="ambrosiaBrickOfLead">
                               <img src="Pictures/Default/BlueberryBrickOfLead.png">
                             </button>
-                            <div class="ambrosiaBorder Exalt5x1">
-                                <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
+                            <div class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Aries.png">
+                            </div>
+                            <div class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Taurus.png">
                             </div>
                             <button id="redAmbrosiaTutorial" class="redAmbrosiaUpgrade Exalt5x1">
                                 <img src="Pictures/RedAmbrosia/RedAmbrosiaTutorial.png">
@@ -3507,8 +3511,11 @@
                             <button class="blueberryUpgrade" id="ambrosiaTalismanBonusRuneLevel">
                                 <img src="Pictures/Default/BlueberryTalismanBonusRuneLevel.png">
                             </button>
-                            <div class="ambrosiaBorder Exalt5x1">
-                                <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
+                            <div class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Gemini.png">
+                            </div>
+                            <div class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Cancer.png">
                             </div>
                             <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeLevelsRow2">
                                 <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow2.png">
@@ -3548,8 +3555,11 @@
                             <button class="blueberryUpgrade" id="ambrosiaQuarkLuck1">
                                 <img src="Pictures/Default/BlueberryQuarkLuck.png">
                             </button>
-                            <div class="ambrosiaBorder Exalt5x1">
-                                <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
+                            <div class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Leo.png">
+                            </div>
+                            <div class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Virgo.png">
                             </div>
                             <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeLevelsRow3">
                                 <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow3.png">
@@ -3595,8 +3605,11 @@
                             <button class="blueberryUpgrade" id="ambrosiaRuneOOMBonus">
                                 <img src="Pictures/Default/BlueberryRuneOOMBonus.png">
                             </button>
-                            <div class="ambrosiaBorder Exalt5x1">
-                                <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
+                            <div class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Libra.png">
+                            </div>
+                            <div class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Scorpio.png">
                             </div>
                             <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeLevelsRow4">
                                 <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow4.png">
@@ -3636,8 +3649,11 @@
                             <button class="blueberryUpgrade" id="ambrosiaLuck4">
                                 <img src="Pictures/Default/BlueberryLuck4.png">
                             </button>
-                            <div class="ambrosiaBorder Exalt5x1">
-                                <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
+                            <div class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Sagittarius.png">
+                            </div>
+                            <div class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Capricorn.png">
                             </div>
                             <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaViscount">
                                 <img src="Pictures/RedAmbrosia/RedAmbrosiaTutorial.png">
@@ -3656,6 +3672,14 @@
                             </button>
                             <button class="redAmbrosiaUpgrade Exalt5x1" id="redAmbrosiaFreeSpeedUpgrades">
                               <img src="Pictures/RedAmbrosia/RedAmbrosiaFreeSpeedUpgrades.png">
+                            </button>
+                        </div>
+                        <div class="blueberryUpgradeTier Exalt5x1">
+                            <button class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Aquarius.png">
+                            </button>
+                            <button class="purpleAmbrosiaUpgrade Exalt5x1">
+                                <img src="Pictures/PurpleAmbrosia/Purple Ambrosia Upgrades/Pisces.png">
                             </button>
                         </div>
                         <div class="blueberryUpgradeTier">
@@ -3716,9 +3740,13 @@
                                 </button>
                             </div>
                         </div>
-                        <p class="purpleReactorExplanation" i18n="purpleReactor.reactionExplanation"></p>
+                        <p id="purpleReactorReactionExplanation" class="purpleReactorExplanation"></p>
                         <p id="purpleReactantHalfLife" class="purpleReactorHalfLife"></p>
                         <p id="purpleReactantSpentRates" class="purpleReactorSpentRates"></p>
+                        <label id="purpleReactantOvercapControls" hidden>
+                            <input id="encabulatorOvercapToggle" type="checkbox" disabled>
+                            <span id="encabulatorOvercapToggleLabel"></span>
+                        </label>
                     </header>
                     <div class="purpleReactorMachine">
                         <section class="purpleReactantTank purpleReactantTankAmbrosia" aria-labelledby="ambrosiaReactantTitle">
@@ -3737,6 +3765,7 @@
                             <div class="purpleReactantFlowRates">
                                 <p id="ambrosiaReactantRoutedRate" class="purpleReactantFlowRate"></p>
                                 <p id="ambrosiaReactantSpentRate" class="purpleReactantFlowRate"></p>
+                                <p id="ambrosiaReactantOverflowRate" class="purpleReactantFlowRate" hidden></p>
                             </div>
                             <div class="purpleReactantRoutingControl">
                                 <div class="purpleReactantRoutingHeader">
@@ -3769,6 +3798,7 @@
                             <div class="purpleReactantFlowRates">
                                 <p id="redAmbrosiaReactantRoutedRate" class="purpleReactantFlowRate"></p>
                                 <p id="redAmbrosiaReactantSpentRate" class="purpleReactantFlowRate"></p>
+                                <p id="redAmbrosiaReactantOverflowRate" class="purpleReactantFlowRate" hidden></p>
                             </div>
                             <div class="purpleReactantRoutingControl">
                                 <div class="purpleReactantRoutingHeader">
@@ -3796,6 +3826,8 @@
                                 <span class="purpleReactantProgressText"><span class="fitText" id="purpleHoneyProgressText"></span></span>
                             </div>
                             <p id="purpleHoneyProgressRate" class="purpleReactorCycleRate"></p>
+                            <p id="purpleHoneyCancerBonus" class="purpleReactorCycleRate" hidden></p>
+                            <p id="purpleHoneyLibraBonus" class="purpleReactorCycleRate" hidden></p>
                             <div class="purpleReactorOutput">
                                 <span class="purpleReactorOutputSymbol" aria-hidden="true">☼</span>
                                 <div class="purpleReactorOutputText">
