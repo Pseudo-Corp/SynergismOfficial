@@ -1570,34 +1570,6 @@ export const calculateAmbrosiaLuckOcteractUpgrade = () => {
   )
 }
 
-const digitReduction = 4
-
-export const calculateNumberOfThresholds = () => {
-  const numDigits = player.lifetimeAmbrosia > 0 ? 1 + Math.floor(Math.log10(player.lifetimeAmbrosia)) : 0
-  const matissa = Math.floor(player.lifetimeAmbrosia / Math.pow(10, numDigits - 1))
-
-  const extraReduction = matissa >= 3 ? 1 : 0
-
-  // First reduction at 10^(digitReduction+1), add 1 at 3 * 10^(digitReduction+1)
-  return Math.max(0, 2 * (numDigits - digitReduction) - 1 + extraReduction)
-}
-
-export const calculateToNextThreshold = () => {
-  const numThresholds = calculateNumberOfThresholds()
-
-  if (numThresholds === 0) {
-    return 10000 - player.lifetimeAmbrosia
-  } else {
-    // This is when the previous threshold is of the form 3 * 10^n
-    if (numThresholds % 2 === 0) {
-      return Math.pow(10, numThresholds / 2 + digitReduction) - player.lifetimeAmbrosia
-    } // Previous threshold is of the form 10^n
-    else {
-      return 3 * Math.pow(10, (numThresholds - 1) / 2 + digitReduction) - player.lifetimeAmbrosia
-    }
-  }
-}
-
 export const calculateAmbrosiaBarRequirementMultiplier = () => {
   const requirementMultiplier = getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaRequirementMult')
   if (requirementMultiplier === 1) {

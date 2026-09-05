@@ -3453,23 +3453,12 @@ p#reincarnatehotkeys {
 
 #goldenQuarksDisplay,
 #octeractsDisplay,
-#ambrosiaDisplay,
-#redAmbrosiaDisplay,
-#purpleAmbrosiaDisplay,
-#blueberryDisplay,
 #purpleHoneyDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     white-space: pre-line;
-}
-
-#blueberryDisplay > p,
-#ambrosiaDisplay > p,
-#redAmbrosiaDisplay > p,
-#purpleAmbrosiaDisplay > p {
-    margin: 0 0 0 10px;
 }
 
 #purpleHoneyDisplay > div {
@@ -3484,10 +3473,6 @@ p#reincarnatehotkeys {
     margin: 0 !important;
     padding: 0;
     line-height: 1;
-}
-
-#ambrosiaTexts {
-    line-height: 5px;
 }
 
 #totalOcteractsDisplay {
@@ -3522,12 +3507,6 @@ p#reincarnatehotkeys {
 #goldenQuarkamount {
     font-size: 1.2em;
     color: gold;
-    margin-left: 5px;
-}
-
-#ambrosiaAmount,
-#redAmbrosiaAmount {
-    font-size: 1.2em;
     margin-left: 5px;
 }
 
@@ -6980,6 +6959,177 @@ header #obtainiumDisplay { color: pink; }
 #blueberryUpgradeContainer {
     flex-direction: column;
     width: unset;
+}
+
+#ambrosiaWorkspace {
+    width: 60em;
+    max-width: calc(100% - 20px);
+}
+
+#ambrosiaLedger {
+    contain: inline-size;
+    width: 100%;
+    margin: 5px 0;
+    color: var(--text-color);
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+    text-align: left;
+}
+
+#ambrosiaLedger p {
+    margin: 0;
+}
+
+#ambrosiaLedger [hidden] {
+    display: none;
+}
+
+.ambrosiaLedgerRow {
+    /* Reserve two comma-formatted nine-digit balances, plus the icon and its gap. */
+    display: grid;
+    grid-template-columns: min(50%, calc(24ch + 40px)) minmax(0, 1fr);
+    gap: 4px 12px;
+    align-items: center;
+    padding: 3px 0;
+}
+
+.ambrosiaLedgerRow:not([hidden]) ~ .ambrosiaLedgerRow:not([hidden]) {
+    margin-top: 0.5em;
+}
+
+#ambrosiaLedger #redAmbrosiaDisplay {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.ambrosiaLedgerRow > div,
+.ambrosiaLedgerResource > div {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.ambrosiaLedgerResource {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ambrosiaLedgerResource > div {
+    display: block;
+}
+
+.ambrosiaLedgerGeneration {
+    grid-column: 2;
+    grid-row: 1;
+    overflow-wrap: normal;
+}
+
+#ambrosiaAmountPerGeneration,
+#redAmbrosiaAmountPerGeneration {
+    font-size: 0.85em;
+}
+
+.ambrosiaLedgerBonuses {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 16px;
+}
+
+.ambrosiaLedgerBonuses:not(:has(> :not([hidden]))) {
+    display: none;
+}
+
+.ambrosiaLedgerResource > img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.ambrosiaLedgerCurrent {
+    font-size: 1.15em;
+}
+
+.ambrosiaLedgerTotal {
+    font-size: 0.85em;
+    white-space: nowrap;
+}
+
+#blueberryDisplay {
+    color: lightblue;
+}
+
+#purpleAmbrosiaDisplay:not([hidden]) + #blueberryDisplay {
+    grid-column: 2;
+}
+
+#blueberryAmount.ambrosiaLedgerEmpty .ambrosiaLedgerCurrent {
+    color: var(--gray-text-color);
+}
+
+#purpleAmbrosiaDisplay {
+    color: var(--purple-text-color);
+}
+
+.ambrosiaLedgerBonuses > p {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.5ch;
+}
+
+#ambrosiaLedger summary {
+    cursor: pointer;
+}
+
+#ambrosiaLedger details > p {
+    padding: 3px 0;
+}
+
+#ambrosiaLedger #ambrosiaProgressBar,
+#ambrosiaLedger #pixelProgressBar {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 24px;
+    border-width: 1px;
+    font-size: 1em;
+}
+
+#ambrosiaLedger #pixelProgressBar {
+    grid-row: 1;
+}
+
+#redAmbrosiaDisplay .ambrosiaLedgerResource,
+#redAmbrosiaDisplay .ambrosiaLedgerGeneration {
+    grid-row: 2;
+}
+
+#redAmbrosiaDisplay .ambrosiaLedgerBonuses {
+    grid-row: 3;
+}
+
+@media (width <= 450px) {
+    #purpleAmbrosiaDisplay:not([hidden]) + #blueberryDisplay {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .ambrosiaLedgerRow {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ambrosiaLedgerGeneration,
+    .ambrosiaLedgerBonuses {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    #redAmbrosiaDisplay .ambrosiaLedgerGeneration,
+    #redAmbrosiaDisplay .ambrosiaLedgerBonuses {
+        grid-row: auto;
+    }
 }
 
 .purpleUpgradeAP {
@@ -11339,10 +11489,6 @@ html[data-mobile="true"] .hideOnMobile {
     .singularityPerkNode > img {
         width: 22px;
         height: 22px;
-    }
-
-    #ambrosiaTexts {
-        line-height: unset;
     }
 
     .blueberryUpgradeTier {

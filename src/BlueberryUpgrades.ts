@@ -1236,7 +1236,7 @@ export const ambrosiaUpgrades: {
       return baseCost * (Math.pow(4, level + 1) - Math.pow(4, level))
     },
     effects: (n: number) => {
-      return n / 2 // freeGenerationUpgrades
+      return n // freeGenerationUpgrades
     },
     effectsDescription: function() {
       const levels = getAmbrosiaUpgradeEffects('ambrosiaFreeGenerationUpgrades', 'freeGenerationUpgrades')

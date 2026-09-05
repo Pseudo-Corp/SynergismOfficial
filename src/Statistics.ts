@@ -47,7 +47,6 @@ import {
   calculateIrish3PurpleLuck,
   calculateLuckConversion,
   calculateNegativeSalvage,
-  calculateNumberOfThresholds,
   calculateObtainium,
   calculateObtainiumDecimal,
   calculateObtainiumDRIgnoreMult,
@@ -2521,7 +2520,7 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CookieUpgrade26',
-      stat: () => 1 + 0.01 * player.cubeUpgrades[76] * calculateNumberOfThresholds() // Cookie Upgrade 26 (Cx26)
+      stat: () => 1 + 0.02 * player.cubeUpgrades[76] // Cookie Upgrade 26 (Cx26)
     },
     {
       i18n: 'CashGrabUltra',
@@ -2986,6 +2985,10 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'Base',
       stat: () => player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? 1 : 0
+    },
+    {
+      i18n: 'CookieUpgrade26',
+      stat: () => 1 + 0.02 * player.cubeUpgrades[76]
     },
     {
       i18n: 'PseudoCoins',

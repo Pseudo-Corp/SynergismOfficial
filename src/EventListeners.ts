@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
+import { initializeAmbrosiaBarDetails } from './AmbrosiaBarDetails'
 import {
   ambrosiaEditAction,
   ambrosiaEditToString,
@@ -1970,6 +1971,8 @@ TODO: Fix this entire tab it's utter shit
       )
     })
   }
+
+  initializeAmbrosiaBarDetails()
 
   // BLUEBERRY LOADOUTS
   const blueberryLoadouts = document.querySelectorAll('[id^="blueberryLoadout"]')

@@ -13,6 +13,41 @@
   },
   "ambrosia": {
     "ambrosia": "Ambrosia",
+    "barDetails": {
+      "ambrosia": "Ambrosia Bar requirements",
+      "red": "Red Bar requirements",
+      "purple": "Purple Bar requirements",
+      "base": "Base Bar Points",
+      "lifetimeAddition": "Added by lifetime Ambrosia",
+      "redLifetimeAddition": "Added by lifetime Red Ambrosia",
+      "lifetimeScaling": "Lifetime scaling",
+      "cap": "Bar Point cap",
+      "total": "Required Bar Points",
+      "rounding": "Round up to a whole Bar Point.",
+      "value": "{{label}}: <<lightblue|{{value}}>>",
+      "multiplier": "{{label}} ×<<lightblue|{{value}}>>",
+      "geminiInactive": "Gemini: ×{{value}} <<gray|inactive>> (an Encabulator input tank is full)"
+    },
+    "ledger": {
+      "blueberries": "Blueberries",
+      "balance": "<span class='ambrosiaLedgerCurrent'>{{current}}</span> <span class='ambrosiaLedgerTotal'>/ {{total}}</span>",
+      "balanceDescription": "{{current}} available out of {{total}} earned over your lifetime",
+      "blueberryBalanceDescription": "{{current}} unspent out of {{total}} total Blueberries",
+      "perFill": "<<var(--amber-text-color)|+{{guaranteed}}>> Ambrosia on fill (<<var(--amber-text-color)|{{extraChance}}%>> chance for 1 more)",
+      "redPerFill": "<<red|+{{guaranteed}}>> Red Ambrosia on fill (<<red|{{extraChance}}%>> chance for 1 more)",
+      "luck": "<<lime|{{luck}}>> Ambrosia Luck [<<var(--amber-text-color)|{{base}} + {{percent}}%>>]",
+      "redLuck": "<<red|{{luck}}>> Red Luck",
+      "ambrosiaProgress": "Ambrosia generation progress",
+      "redAmbrosiaProgress": "Red Ambrosia generation progress",
+      "progress": "{{current}} / {{required}} (+{{rate}}/s)",
+      "progressPoints": "{{current}} / {{required}} Bar Points (+{{rate}}/s)",
+      "generationLocked": "Generation locked",
+      "leoBonus": "Ambrosia Luck <<lime|+{{luck}}>>",
+      "leoInactive": "Leo <<gray|inactive>> (needs 5 unspent)",
+      "virgoBonus": "Salvage <<lime|+{{salvage}}>>",
+      "honeyBonus": "Base Purple Honey per extraction <<var(--purple-text-color)|+{{honey}}>>",
+      "barBonus": "Bar Points <<lightblue|+{{percent}}>>"
+    },
     "amount": "Ambrosia: <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Current | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Lifetime",
     "blueberryAmount": "Blueberries: <<lightblue | {{unspentBlueberries}}>> Unspent | <<lightblue | {{blueberries}}>> Total",
     "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> Ambrosia Bar Points.",
@@ -29,8 +64,6 @@
     "blueberryCost": "Blueberries (To Activate):",
     "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
     "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
-    "timeThresholds": "You've reached <<cyan | {{threshold}}>> thresholds due to lifetime Ambrosia. Next in <<orange|{{toNext}}>> lifetime Ambrosia.",
-    "cubeUpgradeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Ambrosia Bar Point gain +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
     "refund": "You have refunded all spent Blueberries and Ambrosia.",
@@ -224,7 +257,7 @@
       },
       "ambrosiaFreeGenerationUpgrades": {
         "name": "Time in a Bottle",
-        "description": "For all 'Generation' type Quark Upgrades, gain +0.5 free levels per Module level! These will have a corresponding icon.",
+        "description": "For all 'Generation' type Quark Upgrades, gain +1 free level per Module level! These will have a corresponding icon.",
         "effect": "+{{amount}} free levels for 'Generation' type Quark Upgrades"
       },
       "ambrosiaFreeRedLuckUpgrades": {
@@ -277,7 +310,7 @@
   },
   "redAmbrosia": {
     "redAmbrosia": "Red Ambrosia",
-    "amount": "Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
+    "amount": "Red Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
     "purchaseWarning": "<<gold | ⚠>> Unlike Blueberry Modules, you <<red | CANNOT>> refund this upgrade.",
     "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: {{ambrosiaLuck}}>>]",
     "redAmbrosiaBuyPrompt": "How many levels would you like to buy? You can buy up to {{amount}}. Type -1 to use max!",
@@ -3579,7 +3612,7 @@
       "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
       "74": "[Cx24] Add +num:((0.30)) to all Corruption Multiplier values.",
       "75": "[Cx25] Each level adds +num:((0.3))% effectiveness to free Golden Quark upgrades per level! (additive with all other boosts)",
-      "76": "[Cx26] Each level gives <<lightblue | +1% Ambrosia Bar Points >> for each time threshold you have reached!",
+      "76": "[Cx26] Each level gives <<lightblue|+2% Ambrosia Bar Points>> and <<red|+2% Red Bar Points>>!",
       "77": "[Cx27] Each level adds <<green | +2 +num:((0.1))% Ambrosia Luck>>!",
       "78": "[Cx28] Each level adds +num:((0.3))% effectiveness to free Octeract Upgrades per level!",
       "79": "[Cx29] Gain Ambrosia Luck when this upgrade is purchased, based on your Lifetime Red Ambrosia! [Formula is 10 * (Log_10(x))^2]",
@@ -7620,6 +7653,7 @@
       "Total": "Total Red Luck:"
     },
     "redAmbrosiaGenerationStats": {
+      "CookieUpgrade26": "Cookie Upgrade 26 (Cx26):",
       "PurpleAmbrosiaAries": "Purple Ambrosia - Aries:",
       "title": "Red Bar Points",
       "PseudoCoins": "PseudoCoin Upgrade:",
