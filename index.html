@@ -3404,6 +3404,10 @@
                 <div id="singularityAmbrosia" class="singularityContainer">
                     <div id="ambrosiaWorkspace">
                         <div id="ambrosiaLedger">
+                            <div id="ambrosiaLedgerControls" hidden>
+                                <button id="ambrosiaBalanceDetails" type="button" aria-haspopup="dialog" i18n="ambrosia.ledger.balanceDetails"></button>
+                                <button id="ambrosiaToggleBonuses" type="button" aria-expanded="true" aria-controls="ambrosiaLedgerBonuses redAmbrosiaLedgerBonuses blueberryLedgerBonuses" i18n="ambrosia.ledger.hideBonuses"></button>
+                            </div>
                             <section id="ambrosiaDisplay" class="ambrosiaLedgerRow" aria-labelledby="ambrosiaLedgerName">
                                 <div class="ambrosiaLedgerResource amberText">
                                     <img src="Pictures/Default/Ambrosia.png" alt="" loading="lazy">
@@ -3416,20 +3420,20 @@
                                     <p id="ambrosiaLuck"></p>
                                     <p id="ambrosiaAmountPerGeneration"></p>
                                 </div>
-                                <div class="ambrosiaLedgerBonuses">
+                                <div id="ambrosiaLedgerBonuses" class="ambrosiaLedgerBonuses">
                                     <p id="ambrosiaCubeBonus"></p>
                                     <p id="ambrosiaQuarkBonus"></p>
                                     <p id="ambrosiaOfferingBonus" hidden></p>
                                     <p id="ambrosiaObtainiumBonus" hidden></p>
                                     <p id="ambrosiaBarBonus" hidden></p>
                                 </div>
-                                <div id="ambrosiaProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="ambrosia.ledger.ambrosiaProgress">
+                                <div id="ambrosiaProgressBar" class="ambrosiaLedgerProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="ambrosia.ledger.ambrosiaProgress">
                                     <div id="ambrosiaProgress"></div>
                                     <span id="ambrosiaProgressText"></span>
                                 </div>
                             </section>
                             <section id="redAmbrosiaDisplay" class="ambrosiaLedgerRow" aria-labelledby="redAmbrosiaLedgerName" hidden>
-                                <div id="pixelProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="ambrosia.ledger.redAmbrosiaProgress">
+                                <div id="pixelProgressBar" class="ambrosiaLedgerProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="ambrosia.ledger.redAmbrosiaProgress">
                                     <div id="pixelProgress"></div>
                                     <span id="pixelProgressText"></span>
                                 </div>
@@ -3444,7 +3448,7 @@
                                     <p id="redAmbrosiaLuck"></p>
                                     <p id="redAmbrosiaAmountPerGeneration"></p>
                                 </div>
-                                <div class="ambrosiaLedgerBonuses">
+                                <div id="redAmbrosiaLedgerBonuses" class="ambrosiaLedgerBonuses">
                                     <p id="redAmbrosiaCubeBonus" hidden></p>
                                     <p id="redAmbrosiaOfferingBonus" hidden></p>
                                     <p id="redAmbrosiaObtainiumBonus" hidden></p>
@@ -3466,7 +3470,7 @@
                                         <p id="blueberryAmount" class="ambrosiaLedgerBalance" tabindex="0"></p>
                                     </div>
                                 </div>
-                                <div class="ambrosiaLedgerBonuses">
+                                <div id="blueberryLedgerBonuses" class="ambrosiaLedgerBonuses">
                                     <p id="blueberryLeoBonus" hidden></p>
                                     <p id="blueberryVirgoBonus" hidden></p>
                                     <p id="blueberryHoneyBonus" hidden></p>

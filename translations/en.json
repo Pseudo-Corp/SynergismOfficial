@@ -30,6 +30,9 @@
     },
     "ledger": {
       "blueberries": "Blueberries",
+      "balanceDetails": "Balance details",
+      "hideBonuses": "Hide bonuses",
+      "showBonuses": "Show bonuses",
       "balance": "<span class='ambrosiaLedgerCurrent'>{{current}}</span> <span class='ambrosiaLedgerTotal'>/ {{total}}</span>",
       "balanceDescription": "{{current}} available out of {{total}} earned over your lifetime",
       "blueberryBalanceDescription": "{{current}} unspent out of {{total}} total Blueberries",

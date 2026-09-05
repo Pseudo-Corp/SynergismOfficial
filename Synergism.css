@@ -6967,7 +6967,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #ambrosiaLedger {
-    contain: inline-size;
+    container: ambrosia-ledger / inline-size;
     width: 100%;
     margin: 5px 0;
     color: var(--text-color);
@@ -6984,6 +6984,27 @@ header #obtainiumDisplay { color: pink; }
     display: none;
 }
 
+#ambrosiaLedgerControls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    margin-bottom: 6px;
+}
+
+#ambrosiaLedgerControls > button {
+    flex: 1 1 auto;
+    min-height: 44px;
+    min-width: 0;
+    height: auto;
+    padding: 6px 10px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+html[data-mobile="true"] .ambrosiaLedgerBonusesCollapsed .ambrosiaLedgerBonuses {
+    display: none;
+}
+
 .ambrosiaLedgerRow {
     /* Reserve two comma-formatted nine-digit balances, plus the icon and its gap. */
     display: grid;
@@ -6993,11 +7014,11 @@ header #obtainiumDisplay { color: pink; }
     padding: 3px 0;
 }
 
-.ambrosiaLedgerRow:not([hidden]) ~ .ambrosiaLedgerRow:not([hidden]) {
+.ambrosiaLedgerRow + .ambrosiaLedgerRow {
     margin-top: 0.5em;
 }
 
-#ambrosiaLedger #redAmbrosiaDisplay {
+#redAmbrosiaDisplay {
     margin-top: 0;
     padding-top: 0;
 }
@@ -7009,21 +7030,13 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .ambrosiaLedgerResource {
-    grid-column: 1;
-    grid-row: 1;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.ambrosiaLedgerResource > div {
-    display: block;
-}
-
 .ambrosiaLedgerGeneration {
-    grid-column: 2;
-    grid-row: 1;
-    overflow-wrap: normal;
+    text-align: right;
 }
 
 #ambrosiaAmountPerGeneration,
@@ -7033,7 +7046,6 @@ header #obtainiumDisplay { color: pink; }
 
 .ambrosiaLedgerBonuses {
     grid-column: 1 / -1;
-    grid-row: 2;
     display: flex;
     flex-wrap: wrap;
     gap: 2px 16px;
@@ -7044,6 +7056,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .ambrosiaLedgerResource > img {
+    flex: 0 0 32px;
     width: 32px;
     height: 32px;
     object-fit: contain;
@@ -7054,19 +7067,16 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .ambrosiaLedgerTotal {
+    display: inline-block;
+    max-width: 100%;
     font-size: 0.85em;
-    white-space: nowrap;
 }
 
 #blueberryDisplay {
     color: lightblue;
 }
 
-#purpleAmbrosiaDisplay:not([hidden]) + #blueberryDisplay {
-    grid-column: 2;
-}
-
-#blueberryAmount.ambrosiaLedgerEmpty .ambrosiaLedgerCurrent {
+.ambrosiaLedgerEmpty .ambrosiaLedgerCurrent {
     color: var(--gray-text-color);
 }
 
@@ -7080,55 +7090,65 @@ header #obtainiumDisplay { color: pink; }
     column-gap: 0.5ch;
 }
 
-#ambrosiaLedger summary {
-    cursor: pointer;
-}
-
-#ambrosiaLedger details > p {
-    padding: 3px 0;
-}
-
-#ambrosiaLedger #ambrosiaProgressBar,
-#ambrosiaLedger #pixelProgressBar {
+/* Text determines the bar height so large values can wrap without clipping. */
+.ambrosiaLedgerProgress {
     grid-column: 1 / -1;
-    width: 100%;
-    height: 24px;
-    border-width: 1px;
-    font-size: 1em;
+    min-width: 0;
+    min-height: 24px;
+    position: relative;
+    overflow: hidden;
+    background-color: black;
+    border: 1px solid #006;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
 }
 
-#ambrosiaLedger #pixelProgressBar {
-    grid-row: 1;
+.ambrosiaLedgerProgress > div {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, navy, darkturquoise);
+    border-radius: inherit;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
 }
 
-#redAmbrosiaDisplay .ambrosiaLedgerResource,
-#redAmbrosiaDisplay .ambrosiaLedgerGeneration {
-    grid-row: 2;
+.ambrosiaLedgerProgress > span {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: inherit;
+    padding: 0 4px;
+    overflow-wrap: anywhere;
+    color: white;
+    font-weight: bold;
+    text-align: center;
 }
 
-#redAmbrosiaDisplay .ambrosiaLedgerBonuses {
-    grid-row: 3;
+#pixelProgressBar {
+    border-color: maroon;
 }
 
-@media (width <= 450px) {
-    #purpleAmbrosiaDisplay:not([hidden]) + #blueberryDisplay {
-        grid-column: 1;
-        grid-row: auto;
-    }
+#pixelProgress {
+    background: linear-gradient(to right, maroon, red);
+}
 
+/* Stack based on the panel width, including when text is enlarged. */
+@container ambrosia-ledger (width <= 42em) {
     .ambrosiaLedgerRow {
         grid-template-columns: minmax(0, 1fr);
     }
 
-    .ambrosiaLedgerGeneration,
-    .ambrosiaLedgerBonuses {
-        grid-column: 1;
-        grid-row: auto;
+    .ambrosiaLedgerGeneration {
+        text-align: left;
     }
+}
 
-    #redAmbrosiaDisplay .ambrosiaLedgerGeneration,
-    #redAmbrosiaDisplay .ambrosiaLedgerBonuses {
-        grid-row: auto;
+@media (any-pointer: coarse) {
+    .ambrosiaLedgerProgress,
+    .ambrosiaLedgerBalance {
+        min-height: 44px;
     }
 }
 
@@ -8800,74 +8820,6 @@ header #obtainiumDisplay { color: pink; }
         justify-content: flex-start;
         flex-wrap: wrap;
     }
-}
-
-#pixelProgressBar {
-    width: 25%;
-    height: 30px;
-    background-color: black;
-    border: solid maroon;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
-    overflow: hidden;
-    position: relative;
-}
-
-#pixelProgress {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, maroon, red);
-    border-radius: 5px;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-}
-
-#pixelProgressText {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center; /* Center the text vertically */
-    justify-content: center; /* Center the text horizontally */
-    color: white;
-    font-weight: bold;
-}
-
-#ambrosiaProgressBar {
-    width: 25%;
-    height: 30px;
-    background-color: black;
-    border: solid #006;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
-    overflow: hidden;
-    position: relative;
-}
-
-#ambrosiaProgress {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, navy, darkturquoise);
-    border-radius: 5px;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-}
-
-#ambrosiaProgressText {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center; /* Center the text vertically */
-    justify-content: center; /* Center the text horizontally */
-    color: white;
-    font-weight: bold;
 }
 
 #purpleReactantContainers {
@@ -11644,12 +11596,6 @@ html[data-mobile="true"] .hideOnMobile {
     /* Cube upgrades */
     .pseudoUpgradeContainer {
         grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* Hepteract bars */
-    #pixelProgressBar,
-    #ambrosiaProgressBar {
-        width: 80%;
     }
 
     /* Toggle buttons */

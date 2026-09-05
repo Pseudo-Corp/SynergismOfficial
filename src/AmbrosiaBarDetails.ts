@@ -24,6 +24,45 @@ const ambrosiaBars = [
   { id: 'purpleHoneyProgressBar', type: 'purple' }
 ] as const
 
+const ambrosiaBalances = [
+  { amountId: 'ambrosiaAmount', nameId: 'ambrosiaLedgerName', sectionId: 'ambrosiaDisplay' },
+  { amountId: 'redAmbrosiaAmount', nameId: 'redAmbrosiaLedgerName', sectionId: 'redAmbrosiaDisplay' },
+  { amountId: 'purpleAmbrosiaAmount', nameId: 'purpleAmbrosiaLedgerName', sectionId: 'purpleAmbrosiaDisplay' },
+  { amountId: 'blueberryAmount', nameId: 'blueberryLedgerName', sectionId: 'blueberryDisplay' }
+] as const
+
+const ambrosiaBalanceDetails = (): string => {
+  const content = document.createElement('div')
+  for (const { amountId, nameId, sectionId } of ambrosiaBalances) {
+    if (DOMCacheGetOrSet(sectionId).hidden) continue
+    const line = document.createElement('p')
+    const name = document.createElement('strong')
+    name.textContent = DOMCacheGetOrSet(nameId).textContent
+    line.append(name, document.createElement('br'))
+    // Reuse the live, localized balance description maintained by UpdateVisuals.
+    line.append(DOMCacheGetOrSet(amountId).getAttribute('aria-label') ?? '')
+    content.append(line)
+  }
+  return content.innerHTML
+}
+
+const initializeMobileAmbrosiaLedger = () => {
+  DOMCacheGetOrSet('ambrosiaLedgerControls').hidden = false
+  const details = DOMCacheGetOrSet('ambrosiaBalanceDetails')
+  details.addEventListener('click', () => {
+    Modal(ambrosiaBalanceDetails, 0, 0, {}, MEDIUM_MODAL_UPDATE_TICK, { targetElement: details })
+  })
+
+  const toggle = DOMCacheGetOrSet('ambrosiaToggleBonuses')
+  toggle.addEventListener('click', () => {
+    const collapsed = DOMCacheGetOrSet('ambrosiaLedger').classList.toggle('ambrosiaLedgerBonusesCollapsed')
+    const label = collapsed ? 'ambrosia.ledger.showBonuses' : 'ambrosia.ledger.hideBonuses'
+    toggle.setAttribute('aria-expanded', String(!collapsed))
+    toggle.setAttribute('i18n', label)
+    toggle.textContent = i18next.t(label)
+  })
+}
+
 export const ambrosiaBarDetails = (type: AmbrosiaBar): string => {
   const lines: string[] = []
   const valueLine = (key: string, value: number) => {
@@ -92,6 +131,8 @@ export const ambrosiaBarDetails = (type: AmbrosiaBar): string => {
 }
 
 export const initializeAmbrosiaBarDetails = () => {
+  if (isMobile) initializeMobileAmbrosiaLedger()
+
   for (const { id, type } of ambrosiaBars) {
     const element = DOMCacheGetOrSet(id)
     element.tabIndex = 0
