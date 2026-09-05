@@ -6957,6 +6957,12 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #blueberryUpgradeContainer {
+    --ambrosia-cell-size: 32px;
+    --ambrosia-grid-gap: 4px;
+    --ambrosia-side-width: calc(8 * var(--ambrosia-cell-size) + 7 * var(--ambrosia-grid-gap));
+    --ambrosia-zodiac-width: calc(2 * var(--ambrosia-cell-size) + var(--ambrosia-grid-gap));
+
+    overflow-x: auto;
     flex-direction: column;
     width: unset;
 }
@@ -7826,18 +7832,89 @@ html[data-mobile="true"] .ambrosiaLedgerBonusesCollapsed .ambrosiaLedgerBonuses 
     cursor: not-allowed;
 }
 
-.blueberryUpgradeTier {
+.ambrosiaUpgradeActions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 2px;
     width: 100%;
-    gap: 4px;
+    gap: var(--ambrosia-grid-gap);
 }
 
-.blueberryUpgradeTier > div {
-    width: 32px;
-    height: 32px;
+/* Independent sections let blueberry groups grow without shifting the Zodiac columns. */
+#ambrosiaUpgradeGrid {
+    display: grid;
+    grid-template-columns: var(--ambrosia-side-width);
+    justify-content: center;
+    align-items: start;
+    gap: 12px;
+    min-width: max-content;
+    padding: 2px;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="red"] #ambrosiaUpgradeGrid {
+    grid-template-columns: repeat(2, var(--ambrosia-side-width));
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="purple"] #ambrosiaUpgradeGrid {
+    grid-template-columns: var(--ambrosia-side-width) var(--ambrosia-zodiac-width) var(--ambrosia-side-width);
+}
+
+.ambrosiaUpgradeSection {
+    display: grid;
+    grid-template-rows: repeat(6, var(--ambrosia-cell-size));
+    align-content: start;
+    gap: 8px var(--ambrosia-grid-gap);
+    min-width: 0;
+}
+
+.ambrosiaUpgradeGroup {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, var(--ambrosia-cell-size));
+    justify-content: start;
+    gap: var(--ambrosia-grid-gap);
+}
+
+#blueberryUpgradeGroups {
+    grid-template-columns: var(--ambrosia-cell-size) minmax(0, 1fr);
+}
+
+.blueberryUpgradeGroup {
+    grid-column: 2;
+}
+
+.blueberryUpgradeGroup[data-upgrade-group="general"] {
+    grid-column: 1;
+    grid-row: 1 / span 6;
+    grid-template-columns: var(--ambrosia-cell-size);
+    grid-template-rows: repeat(6, var(--ambrosia-cell-size));
+    row-gap: 8px;
+}
+
+.ambrosiaUpgradeGroup > :is(button, div),
+.ambrosiaUpgradeSection[data-ambrosia-kind="purple"] > :is(button, div) {
+    width: var(--ambrosia-cell-size);
+    height: var(--ambrosia-cell-size);
+}
+
+.ambrosiaUpgradeSection[data-ambrosia-kind="purple"] {
+    grid-template-columns: repeat(2, var(--ambrosia-cell-size));
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="blueberry"] .Exalt5x1,
+#blueberryUpgradeContainer:not([data-ambrosia-layout="purple"]) .Exalt9x1 {
+    display: none;
+}
+
+.ambrosiaUpgradeUnlockHint {
+    display: none;
+    margin: 6px 0;
+    text-align: center;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="blueberry"] [data-ambrosia-next="red"],
+#blueberryUpgradeContainer[data-ambrosia-layout="red"] [data-ambrosia-next="purple"] {
+    display: block;
 }
 
 .singularityUpgrade,
@@ -11443,11 +11520,12 @@ html[data-mobile="true"] .hideOnMobile {
         height: 22px;
     }
 
-    .blueberryUpgradeTier {
+    .ambrosiaUpgradeActions {
         gap: unset;
     }
 
-    .blueberryUpgradeTier button {
+    .ambrosiaUpgradeActions button,
+    #ambrosiaUpgradeGrid button {
         min-height: unset !important;
     }
 

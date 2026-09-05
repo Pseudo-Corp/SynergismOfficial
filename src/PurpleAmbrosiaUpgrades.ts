@@ -500,6 +500,10 @@ export const buyPurpleAmbrosiaUpgradeLevel = async (
   event: MouseEvent,
   buyMax = false
 ): Promise<void> => {
+  if (player.singularityChallenges.taxmanLastStand.completions < 1) {
+    return
+  }
+
   const upgrade = purpleAmbrosiaUpgrades[upgradeKey]
   if (upgrade.level === upgrade.maxLevel) {
     return Alert(i18next.t('octeract.buyLevel.alreadyMax'))

@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
 import { initializeAmbrosiaBarDetails } from './AmbrosiaBarDetails'
+import { initializeAmbrosiaUpgradeLayout } from './AmbrosiaUpgradeLayout'
 import {
   ambrosiaEditAction,
   ambrosiaEditToString,
@@ -1908,6 +1909,7 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // BLUEBERRY UPGRADES
+  initializeAmbrosiaUpgradeLayout()
   const blueberryUpgrades = Object.keys(
     ambrosiaUpgrades
   ) as AmbrosiaUpgradeNames[]

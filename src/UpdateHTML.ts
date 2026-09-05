@@ -467,6 +467,13 @@ export const revealStuff = () => {
     : 'false'
 
   const exalt9x1Unlocks = document.getElementsByClassName('Exalt9x1') as HTMLCollectionOf<HTMLElement>
+  DOMCacheGetOrSet('blueberryUpgradeContainer').dataset.ambrosiaLayout =
+    player.singularityChallenges.taxmanLastStand.completions >= 1
+      ? 'purple'
+      : player.singularityChallenges.noAmbrosiaUpgrades.completions >= 1
+      ? 'red'
+      : 'blueberry'
+
   for (const item of exalt9x1Unlocks) {
     const parent = item.parentElement!
     if (parent.classList.contains('offlineStats')) {

@@ -13,6 +13,10 @@
   },
   "ambrosia": {
     "ambrosia": "Ambrosia",
+    "upgradeUnlockHints": {
+      "red": "Unlock more upgrades by completing EXALT <<red|$t(singularityChallenge.data.noAmbrosiaUpgrades.name), Tier 1>>.",
+      "purple": "Unlock more upgrades by completing EXALT <<var(--purple-text-color)|$t(singularityChallenge.data.taxmanLastStand.name), Tier 1>>."
+    },
     "barDetails": {
       "ambrosia": "Ambrosia Bar requirements",
       "red": "Red Bar requirements",
