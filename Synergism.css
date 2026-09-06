@@ -5490,6 +5490,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #campaignsIcons img {
+    box-sizing: content-box;
     width: 100%;
     max-width: 48px;
     height: auto;
