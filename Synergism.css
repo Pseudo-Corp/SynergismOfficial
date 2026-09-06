@@ -5530,11 +5530,15 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .campaignCorrDisplay {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
 }
 
 .campaignCorrDisplay img {
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
     font-size: 0;
 }
 
@@ -5550,7 +5554,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #campaignCorruptionStats {
-    width: 50%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -5574,7 +5577,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     justify-content: center;
     justify-items: center;
     text-align: center;
-    margin-top: 1%;
 }
 
 #campaignsTokensInfo img {
