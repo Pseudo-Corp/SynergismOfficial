@@ -1353,6 +1353,10 @@ button.isEvent:hover {
     --toggled-color: green;
 }
 
+.buyAmount > button.toggled {
+    cursor: default;
+}
+
 .buyAmount img {
     display: block;
 }
