@@ -732,6 +732,8 @@ export const toggleCubeSubTab = (indexStr: string) => {
   const i = Number(indexStr)
   const numSubTabs = subTabsInMainTab(Tabs.WowCubes)
 
+  DOMCacheGetOrSet('cubesWrapper').classList.toggle('cubeContentExpanded', i === 5 || i === 6)
+
   for (let j = 1; j <= numSubTabs; j++) {
     const cubeTab = DOMCacheGetOrSet(`cubeTab${j}`)
     if (cubeTab.style.display === 'flex' && j !== i) {

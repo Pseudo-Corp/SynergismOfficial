@@ -258,7 +258,7 @@ const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
       switchCubeSubTab3: 'Pictures/Subtab Icons/Wow! Cubes/HypercubeBenedictions.png',
       switchCubeSubTab4: 'Pictures/Subtab Icons/Wow! Cubes/PlatonicStatues.png',
       switchCubeSubTab5: 'Pictures/Subtab Icons/Wow! Cubes/CubeUpgrades.png',
-      switchCubeSubTab6: 'Pictures/Subtab Icons/Wow! Cubes/PlatonicUpgrades.png',
+      switchCubeSubTab6: 'Pictures/Default/Challenge15.png',
       switchCubeSubTab7: 'Pictures/Subtab Icons/Wow! Cubes/HepteractForge.png'
     }
   },
