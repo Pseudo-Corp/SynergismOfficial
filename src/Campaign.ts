@@ -1558,13 +1558,17 @@ const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
     corrIcon.src = `Pictures/${IconSets[player.iconSet][0]}/${corrIcons[corrKey]}`
     corrDiv.appendChild(corrIcon)
 
+    const corrDetails = document.createElement('div')
+    const corrLevel = document.createElement('p')
+    corrLevel.textContent = i18next.t('campaigns.corruptionLevel', { level })
+    corrDetails.appendChild(corrLevel)
+
     const corrText = document.createElement('p')
-    corrText.textContent = `lv${level} | ${
-      i18next.t(`campaigns.corruptionTexts.${corrKey}`, {
-        effect: format(usableCorruption.corruptionEffects(corrKey), 2, true)
-      })
-    }`
-    corrDiv.appendChild(corrText)
+    corrText.textContent = i18next.t(`campaigns.corruptionTexts.${corrKey}`, {
+      effect: format(usableCorruption.corruptionEffects(corrKey), 2, true)
+    })
+    corrDetails.appendChild(corrText)
+    corrDiv.appendChild(corrDetails)
 
     campaignCorrDiv.appendChild(corrDiv)
   }

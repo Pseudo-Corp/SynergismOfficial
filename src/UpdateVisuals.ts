@@ -1537,6 +1537,11 @@ export const visualUpdateCorruptions = () => {
     return
   }
 
+  // Hidden corruption text still determines the campaign panel's width.
+  if (getActiveSubTab() === 0) {
+    return
+  }
+
   const ascensionRewards = CalcCorruptionStuff()
   const ascCount = calculateAscensionCount()
 

@@ -5163,6 +5163,7 @@
         "description": "The final campaign. Don't count on beating it on your first try. Maybe you need to go beyond Ascensions?"
       }
     },
+    "corruptionLevel": "Level {{ level }}",
     "corruptionTexts": {
       "viscosity": "Free Accel. and Multipliers Exponent ^{{ effect }}",
       "dilation": "Time Speed is multiplied by {{ effect }}",
