@@ -1469,7 +1469,7 @@ export const generateEventHandlers = () => {
       platonicUpgrade.addEventListener('click', () => createPlatonicDescription(upgradeIndex))
       registerPurchasableModal({
         element: platonicUpgrade,
-        html: () => platonicUpgradeModalHTML(upgradeIndex, platonicUpgrade.src),
+        html: () => platonicUpgradeModalHTML(upgradeIndex, platonicUpgrade.style.cssText),
         style: { borderColor: 'orchid' },
         buy: () => {
           buyPlatonicUpgrades(upgradeIndex)

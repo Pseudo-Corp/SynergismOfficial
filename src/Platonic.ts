@@ -423,7 +423,7 @@ export const createPlatonicDescription = (index: number) => {
   }
 }
 
-export const platonicUpgradeModalHTML = (index: number, imageSrc?: string) => {
+export const platonicUpgradeModalHTML = (index: number, iconStyle?: string) => {
   const resourceCheck = checkPlatonicUpgrade(index)
   const priceMultiplier = getPlatonicUpgradePriceMultiplier(index)
   const maxed = player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel
@@ -436,8 +436,8 @@ export const platonicUpgradeModalHTML = (index: number, imageSrc?: string) => {
     ? 'wowCubes.platonicUpgrades.descriptionBox.modalCanBuy'
     : 'wowCubes.platonicUpgrades.descriptionBox.modalCannotBuy'
   const statusClass = maxed ? 'maxed' : resourceCheck.canBuy ? 'affordable' : 'unaffordable'
-  const imageHTML = imageSrc
-    ? `<img src="${imageSrc}" alt="" class="platonicUpgradeModalIcon" data-modal-preserve="children">`
+  const imageHTML = iconStyle
+    ? `<img src="Pictures/img_transparent.png" alt="" class="platonicUpgradeModalIcon" style='${iconStyle}' data-modal-preserve="children">`
     : ''
   const resourceCosts = [
     {
