@@ -221,6 +221,34 @@ export const spriteSheets: SpriteSheet[] = [
     aliases: [{ elementName: 'shopFamilyRowIcon-calculator', iconIndex: 0, displaySize: 24 }]
   },
   {
+    name: 'PlatonicUpgrades',
+    elementNames: [
+      'platUpg1Image',
+      'platUpg2Image',
+      'platUpg3Image',
+      'platUpg4Image',
+      'platUpg5Image',
+      'platUpg6Image',
+      'platUpg7Image',
+      'platUpg8Image',
+      'platUpg9Image',
+      'platUpg10Image',
+      'platUpg11Image',
+      'platUpg12Image',
+      'platUpg13Image',
+      'platUpg14Image',
+      'platUpg15Image',
+      'platUpg16Image',
+      'platUpg17Image',
+      'platUpg18Image',
+      'platUpg19Image',
+      'platUpg20Image'
+    ],
+    iconSize: 32,
+    rows: 4,
+    columns: 5
+  },
+  {
     name: 'Hepteracts',
     elementNames: [
       'chronosHepteractImage',
