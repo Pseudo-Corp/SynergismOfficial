@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
         with:
           persist-credentials: false 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
         with:
           node-version: lts/*
       - name: Install deps
@@ -32,7 +32,7 @@ jobs:
           mkdir -p targetdir
           mv dist Pictures translations index.html Synergism.css favicon.ico package.json targetdir/
       - name: Deploy with the $GME emoji for some reason 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@132898c54c57c7cc6b80eb3a89968de8fc283505 # 3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages

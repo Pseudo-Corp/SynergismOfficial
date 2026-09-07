@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
         with:
           persist-credentials: false 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
         with:
           node-version: lts/*
       - name: Install deps
@@ -27,7 +27,7 @@ jobs:
         run: |
           rm -rf Kong.zip
       - name: Create .zip File
-        uses: vimtor/action-zip@v1
+        uses: vimtor/action-zip@5f1c4aa587ea41db1110df6a99981dbe19cee310 # v1
         with:
           files: dist/ Pictures/Splash/ Pictures/Default/ Pictures/logo.png Pictures/logoLight.png Pictures/MISSINGIMAGE.png translations/ index.html Synergism.css favicon.ico
           dest: Kong.zip
@@ -37,7 +37,7 @@ jobs:
           echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
         id: version
       - name: Create release
-        uses: marvinpinto/action-automatic-releases@latest
+        uses: marvinpinto/action-automatic-releases@d68defdd11f9dcc7f52f35c1b7c236ee7513bcc1 # latest
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           automatic_release_tag: v${{ steps.version.outputs.VERSION }}
