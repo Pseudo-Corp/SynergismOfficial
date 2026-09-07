@@ -37,7 +37,7 @@ import { getRuneEffects, runes, runesKeys } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
-import { getActiveSubTab, Tabs, visualUpdate } from './Tabs'
+import { getActiveSubTab, Tabs, updateTabVisibility, visualUpdate } from './Tabs'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { talismanKeys, talismans } from './Talismans'
 import { resolveImgSrc } from './Themes'
@@ -549,6 +549,7 @@ export const revealStuff = () => {
   document.documentElement.dataset.unreadMessages = hasUnreadMessages() ? 'true' : 'false'
 
   revealCorruptions()
+  updateTabVisibility()
 }
 
 export const htmlInserts = () => {

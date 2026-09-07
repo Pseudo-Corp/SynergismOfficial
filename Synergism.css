@@ -1065,6 +1065,12 @@ nav button {
     white-space: nowrap;
 }
 
+#tabrow > button.tab-locked,
+.subTabWrapper [aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
 #tabrow.tab-edit-mode > button:not(#tabEditDone) {
     position: relative;
     overflow: visible;
@@ -8968,7 +8974,7 @@ html[data-sing-challenges="true"] .singChallenges {
 }
 
 html[data-sing-challenges="false"] .singChallenges,
-html[data-sing-challenges="false"] .singChallengesTabs {
+html[data-sing-challenges="false"][data-singularity="false"] .singChallengesTabs {
     display: none;
 }
 

@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
+import { DOMCacheGetOrSet } from './Cache/DOM'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
@@ -69,6 +69,7 @@ interface TabInfo {
     subTabID: string
     unlocked: () => boolean
     buttonID: string
+    hideWhenLocked?: boolean
   }[]
 }
 
@@ -389,7 +390,8 @@ const tabInfo: Record<Tabs, TabInfo> = {
       {
         subTabID: 'cartContainer',
         unlocked: () => PLATFORM !== 'mobile',
-        buttonID: 'cartSubTab5'
+        buttonID: 'cartSubTab5',
+        hideWhenLocked: true
       }
     ]
   }
@@ -555,7 +557,9 @@ class TabRow extends HTMLDivElement {
     if (
       tab === null
       || !tab.canMove()
-      || (this.#isEditing ? !tab.isProgressionUnlocked() : !tab.isUnlocked())
+      || (this.#isEditing
+        ? !tab.isProgressionUnlocked() && player.highestSingularityCount === 0
+        : !tab.isUnlocked())
     ) {
       return
     }
@@ -651,6 +655,7 @@ class TabRow extends HTMLDivElement {
     this.replaceChildren(...this.#list)
     this.#list.forEach((tab) => {
       tab.setAttribute('aria-grabbed', 'false')
+      tab.updateVisibility()
       tab.showCloseButton()
     })
 
@@ -691,6 +696,7 @@ class TabRow extends HTMLDivElement {
     this.#list.forEach((tab) => {
       tab.removeAttribute('aria-grabbed')
       tab.hideCloseButton()
+      tab.updateVisibility()
 
       if (tab.isHidden()) {
         tab.remove()
@@ -861,7 +867,9 @@ class $Tab extends HTMLButtonElement {
         return
       }
 
-      changeTab(this.#type)
+      if (this.isUnlocked()) {
+        changeTab(this.#type)
+      }
     })
   }
 
@@ -876,6 +884,15 @@ class $Tab extends HTMLButtonElement {
 
   isProgressionUnlocked () {
     return this.#unlocked()
+  }
+
+  updateVisibility () {
+    const unlocked = this.isProgressionUnlocked()
+    this.classList.toggle('none', !unlocked && player.highestSingularityCount === 0)
+    this.classList.toggle('tab-locked', !unlocked)
+    // Editing must still allow locked tabs to be moved, hidden and restored.
+    this.disabled = !unlocked && !tabRow.isEditing()
+    this.setAttribute('aria-disabled', String(this.disabled))
   }
 
   setType (type: Tabs) {
@@ -1006,19 +1023,16 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
-    /* class: 'prestigeunlock', */
     id: 'achievementstab',
     i18n: 'tabs.main.achievements',
     mobileIcon: 'Achievements.png',
     activeColor: 'white',
     activeTextColor: 'black'
   })
-    // .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Achievements)
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
-    class: 'prestigeunlock',
     id: 'runestab',
     i18n: 'tabs.main.runes',
     mobileIcon: 'Runes.png',
@@ -1029,7 +1043,6 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
-    class: 'transcendunlock',
     id: 'challengetab',
     i18n: 'tabs.main.challenges',
     mobileIcon: 'Challenges.png',
@@ -1040,7 +1053,6 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
-    class: 'reincarnationunlock',
     id: 'researchtab',
     i18n: 'tabs.main.research',
     mobileIcon: 'Research.png',
@@ -1051,7 +1063,6 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
-    class: 'chal8',
     id: 'anttab',
     i18n: 'tabs.main.antHill',
     mobileIcon: 'Anthill.png',
@@ -1062,7 +1073,6 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
-    class: 'chal10',
     id: 'cubetab',
     i18n: 'tabs.main.wowCubes',
     mobileIcon: 'WowCubes.png',
@@ -1073,7 +1083,6 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
-    class: 'chal11',
     id: 'traitstab',
     i18n: 'tabs.main.corruption',
     mobileIcon: 'Corruption.png',
@@ -1084,7 +1093,6 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
-    class: 'singularity',
     id: 'singularitytab',
     i18n: 'tabs.main.singularity',
     mobileIcon: 'Singularity.png',
@@ -1104,7 +1112,6 @@ tabRow.appendButton(
     .setType(Tabs.Settings)
     .makeDraggable(),
   new $Tab({
-    class: 'reincarnationunlock',
     id: 'shoptab',
     i18n: 'tabs.main.shop',
     mobileIcon: 'Shop.png',
@@ -1263,22 +1270,26 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   }
 }
 
-export const updateSubTabVisibility = () => {
-  const subTabList = tabInfo[G.currentTab].subTabList
+export const updateTabVisibility = () => {
+  for (const tab of tabRow.getSubs()) {
+    tab.updateVisibility()
+    updateSubTabVisibility(tab.getType())
+  }
+}
+
+export const updateSubTabVisibility = (tabs = G.currentTab) => {
+  const subTabs = tabInfo[tabs]
+  const subTabList = subTabs.subTabList
   for (let i = 0; i < subTabList.length; i++) {
-    const id = subTabList[i].buttonID
-    if (DOMCacheHas(id)) {
-      const button = DOMCacheGetOrSet(id)
+    const subTab = subTabList[i]
+    const button = DOMCacheGetOrSet(subTab.buttonID) as HTMLButtonElement
+    const unlocked = subTab.unlocked()
+    button.classList.toggle('none', !unlocked && (player.highestSingularityCount === 0 || !!subTab.hideWhenLocked))
+    button.disabled = !unlocked
+    button.setAttribute('aria-disabled', String(!unlocked))
 
-      if (!subTabList[i].unlocked()) {
-        button.classList.add('none')
-      } else {
-        button.classList.remove('none')
-      }
-
-      if (button.classList.contains('active-subtab')) {
-        tabInfo[tabRow.getCurrentTab().getType()].subtabIndex = i
-      }
+    if (button.classList.contains('active-subtab')) {
+      subTabs.subtabIndex = i
     }
   }
 }
@@ -1334,7 +1345,11 @@ export const registerSubTabSwitches = memoize(() => {
     }
 
     for (const [page, subtab] of tabInfo[tab].subTabList.entries()) {
-      DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => changeSubTab(tab, { page }))
+      DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => {
+        if (subtab.unlocked()) {
+          changeSubTab(tab, { page })
+        }
+      })
     }
   }
 })
