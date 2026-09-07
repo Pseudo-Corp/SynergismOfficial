@@ -190,23 +190,12 @@ interface MiscStatLineCategory {
   lines: StatLine<number | Decimal>[]
 }
 
-export const calculateTotalStatNumber = (category: NumberStatLineCategory): number => {
-  return Math.min(1e300, category.value())
-}
-
-export const calculateTotalStatDecimal = (category: DecimalStatLineCategory): Decimal => {
-  return category.value()
-}
-
 // Overload is intentional -Plat
-export function calculateTotalStat (category: NumberStatLineCategory): number
-export function calculateTotalStat (category: DecimalStatLineCategory): Decimal
-export function calculateTotalStat (category: NumberStatLineCategory | DecimalStatLineCategory): number | Decimal {
-  if (category.kind === 'number') {
-    return calculateTotalStatNumber(category)
-  } else {
-    return calculateTotalStatDecimal(category)
-  }
+export function calculateTotalStat (category: NumberStatLineCategory): () => number
+export function calculateTotalStat (category: DecimalStatLineCategory): () => Decimal
+export function calculateTotalStat (category: NumberStatLineCategory | DecimalStatLineCategory): () => number | Decimal {
+  const isNumberKind = category.kind === 'number'
+  return () => isNumberKind ? Math.min(1e300, category.value()) : category.value()
 }
 
 export const displayStatLine = (type: StatLineTypes, num: number | Decimal, altDisplay?: () => boolean): boolean => {

@@ -995,8 +995,8 @@ export const addCodeSingularityPerkBonus = (): { intervalDivisor: number; addCod
   }
 }
 
-export const addCodeMaxCapacityAdditive = () => calculateTotalStat(allAddCodeCapacityStats)
-export const addCodeMaxCapacityMultiplicative = () => calculateTotalStat(allAddCodeCapacityMultiplierStats)
+export const addCodeMaxCapacityAdditive = calculateTotalStat(allAddCodeCapacityStats)
+export const addCodeMaxCapacityMultiplicative = calculateTotalStat(allAddCodeCapacityMultiplierStats)
 
 export const addCodeMaxCapacity = () => {
   const additiveValue = addCodeMaxCapacityAdditive()
@@ -1004,7 +1004,7 @@ export const addCodeMaxCapacity = () => {
   return Math.floor(additiveValue * multiplier)
 }
 
-export const addCodeInterval = () => calculateTotalStat(allAddCodeTimerStats)
+export const addCodeInterval = calculateTotalStat(allAddCodeTimerStats)
 
 export const addCodeMaxUses = (): number => {
   const maxTime = addCodeMaxCapacity() // in seconds

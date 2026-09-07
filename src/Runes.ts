@@ -272,13 +272,8 @@ const horseShoeOOMIncrease = () => {
   )
 }
 
-export const firstFiveEffectiveRuneLevelMult = () => {
-  return calculateTotalStat(firstFiveRuneEffectivenessStats)
-}
-
-export const SIEffectiveRuneLevelMult = () => {
-  return calculateTotalStat(runeEffectivenessStatsSI)
-}
+export const firstFiveEffectiveRuneLevelMult = calculateTotalStat(firstFiveRuneEffectivenessStats)
+export const SIEffectiveRuneLevelMult = calculateTotalStat(runeEffectivenessStatsSI)
 
 const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
   // recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead

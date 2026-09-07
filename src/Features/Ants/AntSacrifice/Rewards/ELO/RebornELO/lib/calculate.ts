@@ -15,7 +15,7 @@ export const calculateAvailableRebornELO = () => {
   return Math.max(0, pool - alreadyActivated)
 }
 
-export const rebornELOCreationSpeedMult = () => calculateTotalStat(rebornELOCreationSpeedMultStats)
+export const rebornELOCreationSpeedMult = calculateTotalStat(rebornELOCreationSpeedMultStats)
 
 const calculateTotalProductionForRebornELO = (rebornELO: number) => {
   const stage = calculateRebornELOThresholds(rebornELO)
