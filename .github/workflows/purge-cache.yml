@@ -10,7 +10,7 @@ jobs:
       contents: read
       deployments: write
     steps:
-    - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - name: Wait for CF Pages
       id: cf-pages
       uses: WalshyDev/cf-pages-await@79be30bf0110110b5b8d42129b279328096b5391 # v1
