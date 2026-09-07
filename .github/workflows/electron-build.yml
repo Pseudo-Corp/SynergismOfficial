@@ -40,7 +40,7 @@ jobs:
 
       - name: Upload Windows artifacts
         if: matrix.platform == 'win'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: synergism-windows
           path: |
@@ -49,7 +49,7 @@ jobs:
 
       - name: Upload macOS artifacts
         if: matrix.platform == 'mac'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: synergism-macos
           path: |
@@ -58,7 +58,7 @@ jobs:
 
       - name: Upload Linux artifacts
         if: matrix.platform == 'linux'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: synergism-linux
           path: release/linux-unpacked/
