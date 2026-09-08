@@ -172,7 +172,7 @@ const updateChallengeProgressRow = (elementId: string, challenge: number) => {
   }
 
   const progress = getChallengeProgress(challenge)
-  const name = i18next.t(`challenges.${challenge}.progressName`)
+  const name = `challenges.${challenge}.progressName`
   const required = format(progress.required)
   const text = challenge === 15
     ? getChallenge15ProgressText(name, progress)
