@@ -2262,15 +2262,6 @@ p#promocodeinfo {
     height: 32px;
 }
 
-#buyamountoffering {
-    left: calc(50% + 350px);
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 1;
-}
-
 .talismansModify {
     display: flex;
     flex-direction: column;
@@ -2282,16 +2273,6 @@ p#promocodeinfo {
     margin: 0;
 }
 
-.buyAmountBtn {
-    background-color: var(--button-color);
-    cursor: pointer;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
-}
-
-.buyAmountBtn:hover {
-    background-color: var(--hover-color);
-}
-
 #prestige {
     position: relative;
     padding: 0;
@@ -2300,19 +2281,6 @@ p#promocodeinfo {
     align-items: center;
     max-width: 1600px;
     margin: 0 auto;
-}
-
-#crystalupgrades {
-    width: 50em;
-    max-width: 1000px;
-    color: white;
-    text-align: center;
-}
-
-#crystalupgradestable { margin: 0 auto; }
-
-#crystalupgrades img {
-    background-color: var(--buttonbuy-color);
 }
 
 #autocrystalbuild {
@@ -2366,6 +2334,10 @@ p#prestigehotkeys {
     flex-direction: column;
     align-items: center;
     position: relative;
+}
+
+#runeContainer1 {
+    row-gap: 2px;
 }
 
 .runeDivinitySection {
@@ -2555,6 +2527,7 @@ img.runeTypeElement:hover {
 .talismanSettingsContainer {
     display: flex;
     flex-direction: column;
+    row-gap: 2px;
     width: 60%;
     align-items: center;
 }
