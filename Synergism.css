@@ -1343,6 +1343,24 @@ button.isEvent:hover {
     display: block;
 }
 
+.buyAmount {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+}
+
+.buyAmount > button {
+    --toggled-color: green;
+}
+
+.buyAmount > button.toggled {
+    cursor: default;
+}
+
+.buyAmount img {
+    display: block;
+}
+
 .mobileSubTabIconContainer:hover > .mobileSubTabIcon,
 .mobileSubTabIconContainer:active > .mobileSubTabIcon,
 .mobileSubTabIconContainer:focus-visible > .mobileSubTabIcon {
