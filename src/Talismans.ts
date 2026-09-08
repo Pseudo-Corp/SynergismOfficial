@@ -1890,19 +1890,7 @@ export const generateWebCenterTalismansHTML = () => {
   talismansDiv.appendChild(talismansCenter)
 }
 
-export const generateWebRightTalismansHTML = () => {
-  const talismansDiv = DOMCacheGetOrSet('runeContainer2')
-
-  const talismanToggles = document.createElement('div')
-  talismanToggles.id = 'talismanTogglesDiv'
-  talismanToggles.className = 'talismanToggles'
-
-  const talismanSettingsContainer = document.createElement('div')
-  talismanSettingsContainer.className = 'talismanSettingsContainer'
-
-  const buyTalismanLevelAmount = document.createElement('div')
-  buyTalismanLevelAmount.id = 'buyTalismanLevelAmount'
-
+const generateBuyAmountTalismansHTML = () => {
   const bar = document.createElement('div')
   bar.classList.add('buyAmount')
   bar.title = 'Toggle percent resources used'
@@ -1920,8 +1908,22 @@ export const generateWebRightTalismansHTML = () => {
 
     button.addEventListener('click', () => toggleTalismanBuy(talismanBuyPercents[i]))
   }
+  return bar
+}
 
-  buyTalismanLevelAmount.appendChild(bar)
+export const generateWebRightTalismansHTML = () => {
+  const talismansDiv = DOMCacheGetOrSet('runeContainer2')
+
+  const talismanToggles = document.createElement('div')
+  talismanToggles.id = 'talismanTogglesDiv'
+  talismanToggles.className = 'talismanToggles'
+
+  const talismanSettingsContainer = document.createElement('div')
+  talismanSettingsContainer.className = 'talismanSettingsContainer'
+
+  const buyTalismanLevelAmount = document.createElement('div')
+  buyTalismanLevelAmount.id = 'buyTalismanLevelAmount'
+  buyTalismanLevelAmount.appendChild(generateBuyAmountTalismansHTML())
   talismanSettingsContainer.appendChild(buyTalismanLevelAmount)
 
   const toggleAutoFortify = document.createElement('button')
@@ -1984,26 +1986,7 @@ export const generateMobileTopTalismansHTML = () => {
   const buyPercentageText = document.createElement('p')
   buyPercentageText.textContent = i18next.t('general.buyPercentage')
   buyTalismanLevelAmount.appendChild(buyPercentageText)
-
-  const bar = document.createElement('div')
-  bar.classList.add('buyAmount')
-  bar.title = 'Toggle percent resources used'
-  const talismanBuyPercents = [10, 25, 50, 100]
-  const talismanBuyPercentsOrd = ['Ten', 'TwentyFive', 'Fifty', 'Hundred']
-  for (let i = 0; i < talismanBuyPercents.length; i++) {
-    const button = document.createElement('button')
-    const img = document.createElement('img')
-    img.id = `talisman${talismanBuyPercentsOrd[i]}`
-    img.alt = `${talismanBuyPercents[i]} Percent`
-    img.src = `Pictures/Default/Talisman${talismanBuyPercentsOrd[i]}.png`
-    img.loading = 'lazy'
-    button.appendChild(img)
-    bar.appendChild(button)
-
-    img.addEventListener('click', () => toggleTalismanBuy(talismanBuyPercents[i]))
-  }
-
-  buyTalismanLevelAmount.appendChild(bar)
+  buyTalismanLevelAmount.appendChild(generateBuyAmountTalismansHTML())
   mobileTalismanShardHead.appendChild(buyTalismanLevelAmount)
 
   // Individual resource buy buttons
