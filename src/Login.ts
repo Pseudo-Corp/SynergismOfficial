@@ -53,6 +53,7 @@ interface Save {
   save: string
   actionButtons?: {
     rename: HTMLButtonElement
+    refresh: HTMLButtonElement
     download: HTMLButtonElement
     load: HTMLButtonElement
     delete: HTMLButtonElement
@@ -1391,6 +1392,12 @@ function handleCloudSaves () {
           renameBtn.textContent = i18next.t('account.rename')
           renameBtn.setAttribute('aria-label', i18next.t('account.rename'))
 
+          const refreshBtn = document.createElement('button')
+          refreshBtn.type = 'button'
+          refreshBtn.className = 'btn-refresh'
+          refreshBtn.setAttribute('data-id', id.toString())
+          refreshBtn.textContent = i18next.t('account.refresh')
+
           const deleteBtn = document.createElement('button')
           deleteBtn.className = 'btn-delete'
           deleteBtn.setAttribute('data-id', id.toString())
@@ -1399,12 +1406,14 @@ function handleCloudSaves () {
           actionsDiv.appendChild(downloadBtn)
           actionsDiv.appendChild(loadBtn)
           actionsDiv.appendChild(renameBtn)
+          actionsDiv.appendChild(refreshBtn)
           actionsDiv.appendChild(deleteBtn)
           detailsContent.appendChild(actionsDiv)
           detailsRow.appendChild(detailsContent)
 
           save.actionButtons = {
             rename: renameBtn,
+            refresh: refreshBtn,
             download: downloadBtn,
             load: loadBtn,
             delete: deleteBtn
@@ -1435,6 +1444,8 @@ function handleCloudSaves () {
               handleLoadSave(saveId)
             } else if (target.classList.contains('btn-rename')) {
               void handleRenameSave(saveId, nameCell)
+            } else if (target.classList.contains('btn-refresh')) {
+              void handleRefreshSave(saveId)
             } else if (target.classList.contains('btn-delete')) {
               handleDeleteSave(saveId)
             }
@@ -1511,6 +1522,49 @@ function handleCloudSaves () {
           }
         }
 
+        async function handleRefreshSave (saveId: number) {
+          const save = cloudSaves.find((s) => saveId === s.id)
+
+          if (!save) {
+            populateTable()
+            Alert(i18next.t('account.noSaveFound'))
+            return
+          }
+
+          const buttons = Object.values(save.actionButtons ?? {})
+          buttons.forEach((button) => button.disabled = true)
+
+          try {
+            const confirmed = await Confirm(i18next.t('account.refreshSavePrompt', { name: save.name }))
+            if (!confirmed) return
+
+            if (save.actionButtons) {
+              save.actionButtons.refresh.textContent = i18next.t('account.refreshing')
+            }
+
+            const localSave = await getStoredSave()
+            assert(localSave !== null, 'no save')
+
+            const response = await uploadSave(save.name, localSave)
+
+            if (!response.ok) {
+              throw new Error(`Received status ${response.status}`)
+            }
+
+            Notification(i18next.t('account.refreshedSave', { name: save.name }))
+            populateTable()
+          } catch (error) {
+            console.error('Failed to refresh cloud save', error)
+            await Alert(i18next.t('account.notRefreshed'))
+          } finally {
+            buttons.forEach((button) => button.disabled = false)
+
+            if (save.actionButtons) {
+              save.actionButtons.refresh.textContent = i18next.t('account.refresh')
+            }
+          }
+        }
+
         async function handleDownload (saveId: number) {
           const save = cloudSaves.find((s) => saveId === s.id)
 
@@ -1556,6 +1610,7 @@ function handleCloudSaves () {
           // Disable the action buttons during deletion
           if (save.actionButtons) {
             save.actionButtons.rename.disabled = true
+            save.actionButtons.refresh.disabled = true
             save.actionButtons.download.disabled = true
             save.actionButtons.load.disabled = true
             save.actionButtons.delete.disabled = true
@@ -1575,6 +1630,7 @@ function handleCloudSaves () {
 
             if (save.actionButtons) {
               save.actionButtons.rename.disabled = false
+              save.actionButtons.refresh.disabled = false
               save.actionButtons.download.disabled = false
               save.actionButtons.load.disabled = false
               save.actionButtons.delete.disabled = false
