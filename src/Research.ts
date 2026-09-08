@@ -311,17 +311,7 @@ export const updateResearchAuto = (index: number) => {
 }
 
 export const advanceResearchRoomba = () => {
-  let maxIndex = player.autoResearch
-  if (isResearchMaxed(player.autoResearch) || !isResearchUnlocked(player.autoResearch)) {
-    maxIndex = researchOrderByCost.length - 1
-  }
-
-  /* Why do we need to do this?
-     If a new research is unlocked in the interim, that is
-     Less expensive than the research we currently autobuy,
-     We want to go back to that one... Also, we don't want to
-     keep iterating over the research list if we can't afford the least
-     expensive one. */
+  const maxIndex = researchOrderByCost.length - 1
   player.roombaResearchIndex = player.roombaResearchIndex % maxIndex + 1
   const checkedResearch = researchOrderByCost[player.roombaResearchIndex]
   if (!isResearchMaxed(checkedResearch) && isResearchUnlocked(checkedResearch)) {
