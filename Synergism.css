@@ -122,6 +122,7 @@ body {
     --purplebtn-color: purple;
     --purplehover-color: #b300b2;
     --hover-color: #333;
+    --toggled-color: var(--button-color);
     --buttonbuy-color: #171717;
     --buildings-canbuy-color: #555;
     --buildings-hover-color: #666;
@@ -266,9 +267,22 @@ button {
     background-color: var(--button-color);
 }
 
-body button:hover:not(:disabled):not(.disable-hover-color),
-body button:active:not(:disabled):not(.disable-hover-color) {
+button:hover,
+button:active {
     background-color: var(--hover-color);
+}
+
+button.disabled {
+    cursor: default;
+}
+
+button.disabled,
+button.disable-hover-color {
+    --hover-color: var(--button-color);
+}
+
+button.toggled {
+    background-color: var(--toggled-color);
 }
 
 body button.active-subtab,
