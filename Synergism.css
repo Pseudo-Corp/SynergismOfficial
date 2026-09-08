@@ -1378,15 +1378,11 @@ button.isEvent:hover {
 .buildingUpgradesBar > button {
     --button-color: var(--buttonbuy-color);
     --hover-color: var(--button-color);
-
-    cursor: default;
 }
 
 .buildingUpgradesBar > .affordable {
     --button-color: purple;
     --hover-color: #b300b3;
-
-    cursor: pointer;
 }
 
 .buildingUpgradesBar > .autobuy {
