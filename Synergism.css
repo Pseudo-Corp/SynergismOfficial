@@ -7833,6 +7833,15 @@ header #obtainiumDisplay { color: pink; }
     background: var(--primary-hover, #0056b3);
 }
 
+.details-actions .btn-rename {
+    background: var(--secondary-color, #6c757d);
+    color: white;
+}
+
+.details-actions .btn-rename:hover {
+    background: var(--secondary-hover, #5a6268);
+}
+
 .details-actions .btn-delete {
     background: var(--danger-color, #dc3545);
     color: white;

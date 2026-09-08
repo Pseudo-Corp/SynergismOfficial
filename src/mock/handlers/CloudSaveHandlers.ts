@@ -104,6 +104,24 @@ export const cloudSaveHandlers: HttpHandler[] = [
 
     return new HttpResponse('Ok!', { status: 200 })
   }),
+  http.patch('https://synergism.cc/saves/rename', async ({ request }) => {
+    await delay(1000)
+
+    const { name, newName } = await request.json() as { name: string; newName: string }
+
+    if (typeof newName !== 'string' || newName.length === 0 || newName.length > 255) {
+      return new HttpResponse('Name must be between 1 and 255 characters', { status: 400 })
+    }
+
+    const save = saves.find((s) => s.name === name)
+    if (!save || saves.some((s) => s.id !== save.id && s.name === newName)) {
+      return new HttpResponse('Did not rename', { status: 400 })
+    }
+
+    save.name = newName
+
+    return new HttpResponse(null, { status: 204 })
+  }),
   http.delete('https://synergism.cc/saves/delete', async ({ request }) => {
     await delay(1000)
 

@@ -23,7 +23,7 @@ import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { getStoredSave } from './saves/SaveStorage'
 import { format, player, saveSynergy } from './Synergism'
-import { Alert, Confirm, Notification } from './UpdateHTML'
+import { Alert, Confirm, Notification, Prompt } from './UpdateHTML'
 import { assert, btoa, displayHTMLError, isomorphicDecode, memoize } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
@@ -52,6 +52,7 @@ interface Save {
   uploadedAt: string
   save: string
   actionButtons?: {
+    rename: HTMLButtonElement
     download: HTMLButtonElement
     load: HTMLButtonElement
     delete: HTMLButtonElement
@@ -1345,6 +1346,7 @@ function handleCloudSaves () {
           const nameCell = document.createElement('div')
           nameCell.className = 'grid-cell name-cell'
           nameCell.textContent = name.length > 60 ? `${name.slice(0, 60)}...` : name
+          nameCell.title = name
 
           const dateCell = document.createElement('div')
           dateCell.className = 'grid-cell date-cell'
@@ -1382,6 +1384,13 @@ function handleCloudSaves () {
           loadBtn.setAttribute('data-id', id.toString())
           loadBtn.textContent = i18next.t('account.loadSave')
 
+          const renameBtn = document.createElement('button')
+          renameBtn.type = 'button'
+          renameBtn.className = 'btn-rename'
+          renameBtn.setAttribute('data-id', id.toString())
+          renameBtn.textContent = i18next.t('account.rename')
+          renameBtn.setAttribute('aria-label', i18next.t('account.rename'))
+
           const deleteBtn = document.createElement('button')
           deleteBtn.className = 'btn-delete'
           deleteBtn.setAttribute('data-id', id.toString())
@@ -1389,11 +1398,13 @@ function handleCloudSaves () {
 
           actionsDiv.appendChild(downloadBtn)
           actionsDiv.appendChild(loadBtn)
+          actionsDiv.appendChild(renameBtn)
           actionsDiv.appendChild(deleteBtn)
           detailsContent.appendChild(actionsDiv)
           detailsRow.appendChild(detailsContent)
 
           save.actionButtons = {
+            rename: renameBtn,
             download: downloadBtn,
             load: loadBtn,
             delete: deleteBtn
@@ -1422,6 +1433,8 @@ function handleCloudSaves () {
               handleDownload(saveId)
             } else if (target.classList.contains('btn-load')) {
               handleLoadSave(saveId)
+            } else if (target.classList.contains('btn-rename')) {
+              void handleRenameSave(saveId, nameCell)
             } else if (target.classList.contains('btn-delete')) {
               handleDeleteSave(saveId)
             }
@@ -1445,6 +1458,57 @@ function handleCloudSaves () {
           const final = btoa(isomorphicDecode(jsonBytes))
 
           return final
+        }
+
+        async function handleRenameSave (saveId: number, nameCell: HTMLDivElement) {
+          const save = cloudSaves.find((s) => saveId === s.id)
+
+          if (!save) {
+            populateTable()
+            Alert(i18next.t('account.noSaveFound'))
+            return
+          }
+
+          const buttons = Object.values(save.actionButtons ?? {})
+          buttons.forEach((button) => button.disabled = true)
+
+          try {
+            const input = await Prompt(i18next.t('account.renameSavePrompt'), save.name)
+            if (input === null) return
+
+            const newName = input.trim()
+            if (newName === save.name) return
+
+            if (newName.length === 0 || newName.length > 255) {
+              await Alert(i18next.t('account.invalidSaveName'))
+              return
+            }
+
+            if (cloudSaves.some((s) => s.id !== saveId && s.name === newName)) {
+              await Alert(i18next.t('account.duplicateSaveName'))
+              return
+            }
+
+            const response = await fetch('https://synergism.cc/saves/rename', {
+              method: 'PATCH',
+              credentials: 'include',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name: save.name, newName })
+            })
+
+            if (!response.ok) {
+              throw new Error(`Received status ${response.status}`)
+            }
+
+            save.name = newName
+            nameCell.textContent = newName.length > 60 ? `${newName.slice(0, 60)}...` : newName
+            nameCell.title = newName
+          } catch (error) {
+            console.error('Failed to rename cloud save', error)
+            await Alert(i18next.t('account.notRenamed'))
+          } finally {
+            buttons.forEach((button) => button.disabled = false)
+          }
         }
 
         async function handleDownload (saveId: number) {
@@ -1491,6 +1555,7 @@ function handleCloudSaves () {
 
           // Disable the action buttons during deletion
           if (save.actionButtons) {
+            save.actionButtons.rename.disabled = true
             save.actionButtons.download.disabled = true
             save.actionButtons.load.disabled = true
             save.actionButtons.delete.disabled = true
@@ -1509,6 +1574,7 @@ function handleCloudSaves () {
             Alert(i18next.t('account.notDeleted'))
 
             if (save.actionButtons) {
+              save.actionButtons.rename.disabled = false
               save.actionButtons.download.disabled = false
               save.actionButtons.load.disabled = false
               save.actionButtons.delete.disabled = false
