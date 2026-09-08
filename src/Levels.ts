@@ -237,14 +237,14 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
   redAmbrosiaGeneration: {
     name: () => i18next.t('achievements.levelRewards.redAmbrosiaGeneration.name'),
     description: () => i18next.t('achievements.levelRewards.redAmbrosiaGeneration.description'),
-    effect: (lv: number) => 1 + 0.01 * (lv - 259),
+    effect: (lv: number) => 1 + 0.01 * (lv - 279),
     effectDescription: () => {
       const mult = getLevelReward('redAmbrosiaGeneration')
       return i18next.t('achievements.levelRewards.redAmbrosiaGeneration.effect', {
         percent: formatAsPercentIncrease(mult, 0)
       })
     },
-    minLevel: 260,
+    minLevel: 280,
     defaultValue: 1,
     nameColor: 'red'
   },

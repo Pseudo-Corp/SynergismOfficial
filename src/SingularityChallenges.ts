@@ -1,11 +1,14 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  calculateBarEXALTPurpleHoneyRequirement,
   calculateExalt3AscensionLimit,
   calculateExalt4EffectiveSingularityMultiplier,
   calculateExalt6PenaltyPerSecond,
   calculateExalt6TimeLimit,
-  calculateGoldenQuarks
+  calculateGoldenQuarks,
+  calculateRequiredBlueberryTimeEXALT,
+  calculateRequiredRedAmbrosiaTimeEXALT
 } from './Calculate'
 import { singularity } from './Reset'
 import { runes } from './Runes'
@@ -89,6 +92,11 @@ export type SingularityChallengeRewards = {
     talismanRuneEffect: number
     purpleHoneyLuck: number
     purpleBarSize: number
+  }
+  barDependence: {
+    purpleAmbrosiaCostReduction: number
+    purpleHoneyLuck: number
+    blueberries: number
   }
 }
 
@@ -698,7 +706,7 @@ export const singularityChallengeData: {
     }
   },
   taxmanLastStand: {
-    baseReq: 264,
+    baseReq: 266,
     maxCompletions: 10,
     unlockSingularity: 281,
     achievementPointValue: (n) => {
@@ -747,6 +755,49 @@ export const singularityChallengeData: {
         stringText += `<br>${omegaMod}`
       }
       return stringText
+    }
+  },
+  barDependence: {
+    baseReq: 288,
+    maxCompletions: 10,
+    unlockSingularity: 1,
+    achievementPointValue: (n) => {
+      return 50 * n
+    },
+    HTMLTag: 'barDependence',
+    singularityRequirement: (baseReq: number, completions: number) => {
+      return baseReq + completions
+    },
+    scalingrewardcount: 2,
+    uniquerewardcount: 1,
+    effect: (n, key) => {
+      if (key === 'blueberries') {
+        return n
+      }
+      if (key === 'purpleHoneyLuck') {
+        return 50 * +(n > 0)
+      }
+      return 1 - 0.05 * n // purpleAmbrosiaCostReduction
+    },
+    alternateDescription: () => {
+      const baseDesc = i18next.t('singularityChallenge.data.barDependence.description')
+      const warningText = i18next.t('singularityChallenge.data.barDependence.warning')
+
+      const introText = i18next.t('singularityChallenge.data.barDependence.barIntro')
+
+      const blueberryReq = calculateRequiredBlueberryTimeEXALT()
+      const barMod1Text = i18next.t('singularityChallenge.data.barDependence.barMod1', {
+        req: format(blueberryReq, 0, true)
+      })
+
+      const redReq = calculateRequiredRedAmbrosiaTimeEXALT()
+      const barMod2Text = i18next.t('singularityChallenge.data.barDependence.barMod2', { req: format(redReq, 0, true) })
+
+      const purpleReq = calculateBarEXALTPurpleHoneyRequirement()
+      const barMod3Text = i18next.t('singularityChallenge.data.barDependence.barMod3', {
+        req: format(purpleReq, 0, true)
+      })
+      return `${baseDesc}<br>${warningText}<br>${introText}<br>${barMod1Text}<br>${barMod2Text}<br>${barMod3Text}`
     }
   }
 }

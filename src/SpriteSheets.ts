@@ -170,7 +170,7 @@ export const spriteSheets: SpriteSheet[] = [
       'limitedTime',
       'sadisticPrequel',
       'taxmanLastStand',
-      null
+      'barDependence'
     ],
     iconSize: 64,
     rows: 5,

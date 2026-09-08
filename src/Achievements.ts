@@ -493,7 +493,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
         num8: player.singularityChallenges.sadisticPrequel.rewardAP,
         cap8: player.singularityChallenges.sadisticPrequel.maxAP,
         num9: player.singularityChallenges.taxmanLastStand.rewardAP,
-        cap9: player.singularityChallenges.taxmanLastStand.maxAP
+        cap9: player.singularityChallenges.taxmanLastStand.maxAP,
+        num10: player.singularityChallenges.barDependence.rewardAP,
+        cap10: player.singularityChallenges.barDependence.maxAP
       }
     },
     displayOrder: 10,

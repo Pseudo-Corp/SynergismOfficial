@@ -2456,6 +2456,11 @@ export const allAmbrosiaBlueberryStats: NumberStatLineCategory = {
       i18n: 'NoAmbrosiaUpgrades',
       stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberries'), // No Ambrosia Challenge Reward
       acc: 0
+    },
+    {
+      i18n: 'BarDependence',
+      stat: () => getSingularityChallengeEffect('barDependence', 'blueberries'), // Bar Charging Challenge Reward
+      acc: 0
     }
   ]
 }
@@ -3857,6 +3862,10 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
       stat: () => getLevelReward('purpleHoneyLuck')
     },
     {
+      i18n: 'PurpleGem',
+      stat: () => getTalismanEffects('purpleGem').purpleHoneyLuck
+    },
+    {
       i18n: 'IrishAnt3',
       stat: () => calculateIrish3PurpleLuck()
     },
@@ -3883,6 +3892,10 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
     {
       i18n: 'TaxmanLastStand',
       stat: () => getSingularityChallengeEffect('taxmanLastStand', 'purpleHoneyLuck')
+    },
+    {
+      i18n: 'BarDependence',
+      stat: () => getSingularityChallengeEffect('barDependence', 'purpleHoneyLuck')
     },
     {
       i18n: 'HorseShoeRune',

@@ -901,7 +901,7 @@
         "flavor": "Looks, feels, tastes and <i>is</i> just like a Quark.",
         "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Quarks per extracted Purple Honey",
         "effectMaxed": "<<gold|+{{maxValue}}>> Quarks per extracted Purple Honey",
-        "disclaimer": "<<gold | ⚠>> This perk only works if your current Singularity is at least 1 hour long! The lab takes some time warming up, after all."
+        "disclaimer": "<<gold | ⚠>> This perk only works if your current Singularity is at least 1 hour long, and you are not in the 'Bar Charging' EXALT! The lab takes some time warming up, after all."
       }
     }
   },
@@ -2499,7 +2499,7 @@
       },
       "redAmbrosiaGeneration": {
         "name": "Red Ambrosia Generation",
-        "description": "For each level past 259, gain +1% Red Bar Point production! I like stats with symbols next to them.",
+        "description": "For each level past 279, gain +1% Red Bar Point production! I like stats with symbols next to them.",
         "effect": "Current Effect: +{{percent}} Red Ambrosia Generation"
       },
       "purpleHoneyLuck": {
@@ -2654,7 +2654,7 @@
       "exalts": {
         "name": "Progressive Achievement - EXALT Completions",
         "description": "Gain AP for each EXALT you have completed!",
-        "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Limited Ascensions: {{num3}}/{{cap3}} AP <br> No Quark Upgrades: {{num4}}/{{cap4}} AP <br> No Octeract Effects: {{num5}}/{{cap5}} AP <br> No Ambrosia Upgrades: {{num6}}/{{cap6}} AP <br> Grand Singularity Speedrun: {{num7}}/{{cap7}} AP <br> Sadistic III: {{num8}}/{{cap8}} AP <br> Taxman's Last Stand: {{num9}}/{{cap9}} AP"
+        "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Limited Ascensions: {{num3}}/{{cap3}} AP <br> No Quark Upgrades: {{num4}}/{{cap4}} AP <br> No Octeract Effects: {{num5}}/{{cap5}} AP <br> No Ambrosia Upgrades: {{num6}}/{{cap6}} AP <br> Grand Singularity Speedrun: {{num7}}/{{cap7}} AP <br> Sadistic III: {{num8}}/{{cap8}} AP <br> Taxman's Last Stand: {{num9}}/{{cap9}} AP <br> Bar Charging: {{num10}}/{{cap10}} AP"
       },
       "singularityUpgrades": {
         "name": "Progressive Achievement - Golden Quark Upgrades",
@@ -6492,6 +6492,12 @@
         "inscription": "<<gold|Inscription>>: Gain <<gold|+{{val}}%>> Ambrosia Luck.",
         "signature": "<<crimson|Signature>>: Gain <<crimson|+{{val}}>> Red Luck."
       },
+      "purpleGem": {
+        "name": "Purple Gem",
+        "description": "Shines bright like a diamond.",
+        "inscription": "<<gold|Inscription>>: Gain <<gold|+{{val}}>> Purple Honey Luck.",
+        "signature": "<<crimson|Signature>>: <<crimson|num:((-20))%>> cost for Purple Ambrosia Synthesis."
+      },
       "shards": {
         "shard": "Talisman Shard",
         "commonFragment": "Common Fragment",
@@ -6792,6 +6798,18 @@
         "UniqueReward1": "1st - Unlock <i><<var(--purple-text-color)|The Purple!>></i>",
         "UniqueReward2": "5th - Unlock a new <<orchid|Quark Upgrade>>!",
         "UniqueReward3": "10th - Unlock <<var(--purple-text-color)|The Purple Gem>>"
+      },
+      "barDependence": {
+        "name": "Bar Charging",
+        "description": "You no longer gain time normally! Instead, fill the Bars to gain time!",
+        "warning": "<<gold | ⚠>> While in the EXALT, your Ambrosia and Purple Bars will not grant Ambrosia or Purple Honey.",
+        "barIntro": "Ambrosia Bars and the Purple Bar have fixed lengths, which are divided by your lifetime amount of those values, increased with completions.",
+        "barMod1": "<<var(--blueberry-text-color)|Ambrosia Bar: +1 second of Global Time>> (Requirement is fixed at <<var(--blueberry-text-color)|{{req}} ABP>>)",
+        "barMod2": "<<red|Red Bar: +1 second of Ascension Time>> (Requirement is fixed at <<red|{{req}} RABP>>)",
+        "barMod3": "<<var(--purple-text-color)|Purple Bar: Immediately fill both bars>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
+        "ScalingReward1": "<<var(--purple-text-color)|Purple Ambrosia Synthesis>> costs -5%",
+        "ScalingReward2": "+1 <<var(--blueberry-text-color)|Blueberry>>. Yes, really.",
+        "UniqueReward1": "1st - <<var(--purple-text-color)|+50 Purple Honey Luck>>. This will be changed, one day."
       },
       "noQuarkUpgrades": {
         "name": "Disappearance of a Salesman",
@@ -7538,6 +7556,7 @@
       "SingBlueberries": "Golden Quark Upgrade - Blueberries!:",
       "ConglomerateBerries": "Congealed Blueberries (Singularity Milestones):",
       "NoAmbrosiaUpgrades": "EXALT - No Ambrosia Effects:",
+      "BarDependence": "EXALT - Bar Charging:",
       "OcteractBlueberries": "Octeracts - Berries that are Blue!:",
       "RedAmbrosiaBlueberries": "Red Ambrosia - Berries that are... blue?:",
       "Total": "Total Blueberries Owned:"
@@ -7929,11 +7948,13 @@
       "SynergismLevelReward": "Synergism Level Reward:",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "IrishAnt3": "Singularity Perk - Irish Ants III",
+      "PurpleGem": "Talisman - Purple Gem Inscription:",
       "PurpleHoneyUpgrade1": "Purple Honey - Purple Honey Luck I",
       "PurpleHoneyUpgrade2": "Purple Honey - Purple Honey Luck II",
       "PurpleHoneyUpgrade3": "Purple Honey - Purple Honey Luck III",
       "PurpleHoneyUpgrade4": "Purple Honey - Purple Honey Luck IV",
       "TaxmanLastStand": "Taxman's Last Stand:",
+      "BarDependence": "Bar Charging:",
       "HorseShoeRune": "Horse Shoe Rune Bonus:",
       "Total": "Total Purple Honey Luck:"
     },

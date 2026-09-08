@@ -409,7 +409,19 @@ export const calculateRedAmbrosiaGenerationSpeed = () => {
 export const calculateEncabulatorSpeed = () => calculateTotalStat(allEncabulatorSpeedStats)
 export const calculatePurpleReactantCapacity = () => calculateTotalStat(allPurpleReactantCapacityStats)
 export const calculatePurpleHoneyLuck = () => calculateTotalStat(allPurpleHoneyLuckStats)
-export const calculatePurpleHoneyConversionFactor = () => calculateTotalStat(allPurpleHoneyProgressRequirementStats)
+
+export const calculateBarEXALTPurpleHoneyRequirement = () => {
+  const multiplier = Math.pow(1 + player.singularityChallenges.barDependence.completions, 2)
+  const divisor = Math.max(1, player.purpleReactor.lifetimePurpleHoney)
+  return 1e10 * multiplier / divisor
+}
+
+export const calculatePurpleHoneyConversionFactor = () => {
+  if (player.singularityChallenges.barDependence.enabled) {
+    return calculateBarEXALTPurpleHoneyRequirement()
+  }
+  return calculateTotalStat(allPurpleHoneyProgressRequirementStats)
+}
 
 export const calculatePurpleBarPointsPerAmbrosiaFill = () => {
   const barFillRatio = getPurpleAmbrosiaUpgradeEffects('cancer', 'barFillRatio')
@@ -816,7 +828,14 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   player.offlinetick = player.offlinetick < 1.5e12 ? Date.now() : player.offlinetick
 
   G.timeMultiplier = calculateGlobalSpeedMult()
-  const obtainiumGain = calculateResearchAutomaticObtainium(timeAdd)
+  if (player.singularityChallenges.barDependence.enabled) {
+    G.timeMultiplier = 0
+  }
+
+  let obtainiumGain = calculateResearchAutomaticObtainium(timeAdd)
+  if (player.singularityChallenges.barDependence.enabled) {
+    obtainiumGain = new Decimal()
+  }
 
   const resetAdd = {
     prestige: (player.prestigeCount > 0) ? timeAdd / Math.max(0.25, player.fastestprestige) : 0,
@@ -847,7 +866,9 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     purpleHoney: player.purpleReactor.lifetimePurpleHoney
   }
 
-  addTimers('ascension', timeAdd)
+  if (!player.singularityChallenges.barDependence.enabled) {
+    addTimers('ascension', timeAdd)
+  }
   addTimers('quarks', timeAdd)
   addTimers('goldenQuarks', timeAdd)
   addTimers('singularity', timeAdd)
@@ -884,10 +905,17 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     calculateObtainium()
 
     // Reset Stuff lmao!
-    const timerSpeedMult = memoize(calculateGlobalSpeedMult)
-    addTimers('prestige', timeTick, timerSpeedMult)
-    addTimers('transcension', timeTick, timerSpeedMult)
-    addTimers('reincarnation', timeTick, timerSpeedMult)
+
+    if (!player.singularityChallenges.barDependence.enabled) {
+      const timerSpeedMult = memoize(calculateGlobalSpeedMult)
+      addTimers('prestige', timeTick, timerSpeedMult)
+      addTimers('transcension', timeTick, timerSpeedMult)
+      addTimers('reincarnation', timeTick, timerSpeedMult)
+      // Auto Obtainium Stuff
+      if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14) {
+        automaticTools('addObtainium', timeTick)
+      }
+    }
     addTimers('octeracts', timeTick)
     addTimers('ambrosia', timeTick)
     addTimers('redAmbrosia', timeTick)
@@ -895,11 +923,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
 
     resourceGain(timeTick * G.timeMultiplier)
     generateAntsAndCrumbs(timeTick)
-
-    // Auto Obtainium Stuff
-    if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14) {
-      automaticTools('addObtainium', timeTick)
-    }
 
     // Auto Ant Sacrifice Stuff
     if (getAchievementReward('antSacrificeUnlock')) {
@@ -1581,7 +1604,17 @@ export const calculateAmbrosiaBarRequirementMultiplier = () => {
   return inputTanksHaveSpace ? requirementMultiplier : 1
 }
 
+export const calculateRequiredBlueberryTimeEXALT = () => {
+  const multiplier = player.singularityChallenges.barDependence.completions + 1
+  const divisor = 1 + player.lifetimeAmbrosia
+  return 2.5e15 * multiplier / divisor
+}
+
 export const calculateRequiredBlueberryTime = () => {
+  if (player.singularityChallenges.barDependence.enabled) {
+    return calculateRequiredBlueberryTimeEXALT()
+  }
+
   let val = G.TIME_PER_AMBROSIA // Currently 45
   val += Math.floor(player.lifetimeAmbrosia / 300)
 
@@ -1600,7 +1633,17 @@ export const calculateRequiredBlueberryTime = () => {
   return val * calculateAmbrosiaBarRequirementMultiplier()
 }
 
+export const calculateRequiredRedAmbrosiaTimeEXALT = () => {
+  const multiplier = player.singularityChallenges.barDependence.completions + 1
+  const divisor = 1 + player.lifetimeRedAmbrosia
+  return 1.5e11 * multiplier / divisor
+}
+
 export const calculateRequiredRedAmbrosiaTime = () => {
+  if (player.singularityChallenges.barDependence.enabled) {
+    return calculateRequiredRedAmbrosiaTimeEXALT()
+  }
+
   let val = G.TIME_PER_RED_AMBROSIA // Currently 1,000
   val += 2 * player.lifetimeRedAmbrosia
 

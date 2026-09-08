@@ -768,7 +768,8 @@ export const player: Player = {
     wowSquare: noTalismanFragments,
     achievement: noTalismanFragments,
     cookieGrandma: noTalismanFragments,
-    horseShoe: noTalismanFragments
+    horseShoe: noTalismanFragments,
+    purpleGem: noTalismanFragments
   },
 
   talismanShards: new Decimal(),
@@ -1138,6 +1139,10 @@ export const player: Player = {
     noQuarkUpgrades: new SingularityChallenge(
       singularityChallengeData.noQuarkUpgrades,
       'noQuarkUpgrades'
+    ),
+    barDependence: new SingularityChallenge(
+      singularityChallengeData.barDependence,
+      'barDependence'
     )
   },
 
@@ -4402,16 +4407,19 @@ const tack = (dt: number) => {
     generateAntsAndCrumbs(dt)
 
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
-    const timerSpeedMult = memoize(calculateGlobalSpeedMult)
-    addTimers('prestige', dt, timerSpeedMult)
-    addTimers('transcension', dt, timerSpeedMult)
-    addTimers('reincarnation', dt, timerSpeedMult)
+    if (!player.singularityChallenges.barDependence.enabled) {
+      const timerSpeedMult = memoize(calculateGlobalSpeedMult)
+      addTimers('prestige', dt, timerSpeedMult)
+      addTimers('transcension', dt, timerSpeedMult)
+      addTimers('reincarnation', dt, timerSpeedMult)
+      addTimers('autoPotion', dt)
+      addTimers('ascension', dt)
+    }
     addTimers('ascension', dt)
     addTimers('quarks', dt)
     addTimers('goldenQuarks', dt)
     addTimers('octeracts', dt)
     addTimers('singularity', dt)
-    addTimers('autoPotion', dt)
     addTimers('purpleHoney', dt)
     addTimers('ambrosia', dt)
     addTimers('redAmbrosia', dt)

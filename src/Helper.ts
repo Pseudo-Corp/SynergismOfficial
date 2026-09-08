@@ -161,12 +161,21 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
     player.purpleReactor.storedRedAmbrosiaBarPoints - redAmbrosiaBarPointsSpent
   )
   player.purpleHoneyProgress = purpleHoneyProgress % conversionFactor
-  player.purpleReactor.purpleHoney += purpleHoneyGained
-  player.purpleReactor.lifetimePurpleHoney += purpleHoneyGained
-  player.stats.highestPurpleHoney = Math.max(
-    player.stats.highestPurpleHoney,
-    player.purpleReactor.purpleHoney
-  )
+
+  if (player.singularityChallenges.barDependence.enabled && purpleHoneyGained > 0) {
+    const ambrosiaBarPoint = calculateRequiredBlueberryTime()
+    player.blueberryTime += ambrosiaBarPoint
+
+    const redAmbrosiaBarPoint = calculateRequiredRedAmbrosiaTime()
+    player.redAmbrosiaTime += redAmbrosiaBarPoint
+  } else {
+    player.purpleReactor.purpleHoney += purpleHoneyGained
+    player.purpleReactor.lifetimePurpleHoney += purpleHoneyGained
+    player.stats.highestPurpleHoney = Math.max(
+      player.stats.highestPurpleHoney,
+      player.purpleReactor.purpleHoney
+    )
+  }
 
   if (purpleHoneyGained > 0) {
     animatePurpleHoneyGain(purpleHoneyGained)
@@ -175,7 +184,7 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
     addTimers('redAmbrosia', ambrosiasTimeToGrant)
     addTimers('ambrosia', ambrosiasTimeToGrant)
 
-    if (player.singularityCounter >= 3600) {
+    if (player.singularityCounter >= 3600 && !player.singularityChallenges.barDependence.enabled) {
       const quarksToAdd = purpleHoneyGained * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
       player.worlds.add(quarksToAdd, true, true)
     }
@@ -377,8 +386,15 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         const bonusAmbrosia = getSingularityChallengeEffect('noAmbrosiaUpgrades', 'bonusAmbrosia')
         const ambrosiaToGain = (ambrosiaMult + luckMult) + bonusAmbrosia
 
-        player.ambrosia += ambrosiaToGain
-        player.lifetimeAmbrosia += ambrosiaToGain
+        if (player.singularityChallenges.barDependence.enabled) {
+          addTimers('prestige', ambrosiaToGain * 0.01, globalSpeedMult)
+          addTimers('transcension', ambrosiaToGain * 0.01, globalSpeedMult)
+          addTimers('reincarnation', ambrosiaToGain * 0.01, globalSpeedMult)
+          addTimers('autoPotion', ambrosiaToGain * 0.01, globalSpeedMult)
+        } else {
+          player.ambrosia += ambrosiaToGain
+          player.lifetimeAmbrosia += ambrosiaToGain
+        }
         player.blueberryTime -= timeToAmbrosia
         player.purpleHoneyProgress += calculatePurpleBarPointsPerAmbrosiaFill()
 
@@ -417,8 +433,12 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         const luckMult = RNG < redAmbrosiaLuck / 100 - Math.floor(redAmbrosiaLuck / 100) ? 1 : 0
         const redAmbrosiaToGain = redAmbrosiaMult + luckMult
 
-        player.redAmbrosia += redAmbrosiaToGain
-        player.lifetimeRedAmbrosia += redAmbrosiaToGain
+        if (player.singularityChallenges.barDependence.enabled) {
+          addTimers('ascension', redAmbrosiaToGain * 0.05)
+        } else {
+          player.redAmbrosia += redAmbrosiaToGain
+          player.lifetimeRedAmbrosia += redAmbrosiaToGain
+        }
         ambrosiaTimeToGrant += redAmbrosiaToGain * timeCoeff
         player.redAmbrosiaTime -= timeToRedAmbrosia
         player.purpleHoneyProgress += calculatePurpleBarPointsPerAmbrosiaFill()

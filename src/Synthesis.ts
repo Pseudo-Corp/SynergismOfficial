@@ -3,7 +3,9 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { addTimers } from './Helper'
 import { registerPurpleReactorAPContribution } from './Purple'
 import { getPurpleReactorPopupMode } from './PurpleUpgradeTab'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, player } from './Synergism'
+import { getTalismanEffects } from './Talismans'
 
 export const SYNTHESIS_RED_AMBROSIA_COST = 2_500
 export const SYNTHESIS_PURPLE_HONEY_COST = 500
@@ -332,11 +334,15 @@ export const getSynthesisUpgradeEffect = (upgradeKey: SynthesisUpgradeName) => {
 }
 
 const getSynthesisRedAmbrosiaCost = () => {
-  return SYNTHESIS_RED_AMBROSIA_COST - getSynthesisUpgradeEffect('redAmbrosiaReduction')
+  return (SYNTHESIS_RED_AMBROSIA_COST - getSynthesisUpgradeEffect('redAmbrosiaReduction'))
+    * getTalismanEffects('purpleGem').purpleAmbrosiaDiscount
+    * getSingularityChallengeEffect('barDependence', 'purpleAmbrosiaCostReduction')
 }
 
 const getSynthesisPurpleHoneyCost = () => {
-  return SYNTHESIS_PURPLE_HONEY_COST - getSynthesisUpgradeEffect('purpleHoneyReduction')
+  return (SYNTHESIS_PURPLE_HONEY_COST - getSynthesisUpgradeEffect('purpleHoneyReduction'))
+    * getTalismanEffects('purpleGem').purpleAmbrosiaDiscount
+    * getSingularityChallengeEffect('barDependence', 'purpleAmbrosiaCostReduction')
 }
 
 export const getMaximumSynthesisCraftAmount = (): number => {
