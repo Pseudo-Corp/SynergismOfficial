@@ -323,16 +323,13 @@ export const updateResearchAuto = (index: number) => {
 }
 
 export const advanceResearchRoomba = () => {
-  if (isResearchMaxed(player.autoResearch) || !isResearchUnlocked(player.autoResearch)) {
-    player.roombaResearchIndex = Math.min(researchOrderByCost.length - 1, player.roombaResearchIndex + 1)
-    player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
+  const maxIndex = researchOrderByCost.length - 1
+  player.roombaResearchIndex = player.roombaResearchIndex % maxIndex + 1
+  const checkedResearch = researchOrderByCost[player.roombaResearchIndex]
+  if (!isResearchMaxed(checkedResearch) && isResearchUnlocked(checkedResearch)) {
+    player.autoResearch = checkedResearch
   }
 
-  // Loops us back to the start
-  if (player.roombaResearchIndex === 200 && !isResearchUnlocked(200)) {
-    player.roombaResearchIndex = 0
-    player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
-  }
   setResearchRoombaHighlight(player.autoResearch)
 }
 
