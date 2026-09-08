@@ -352,16 +352,24 @@
 
                 <p id="prestigeshardinfo" style="color: lightblue; text-align: center">You have 1.39e+100394 Prestige Shards, providing 1,214,593 multiplier power boosts.</p>
 
-                <div id="crystalupgrades">
-                    <table id="crystalupgradestable" style="padding: 0; font-size: 0;">
-                        <tr>
-                            <td><img id="buycrystalupgrade1" alt="Crystal Upgrade 1" src="Pictures/img_transparent.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade2" alt="Crystal Upgrade 2" src="Pictures/img_transparent.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade3" alt="Crystal Upgrade 3" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade4" alt="Crystal Upgrade 4" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade5" alt="Crystal Upgrade 5" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy"></td>
-                        </tr>
-                    </table>
+                <div id="crystalupgrades" class="buildingUpgrades">
+                    <div class="buildingUpgradesBar">
+                        <button id="buyCrystalUpgrade1Btn">
+                            <img id="buycrystalupgrade1" alt="Crystal Upgrade 1" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyCrystalUpgrade2Btn">
+                            <img id="buycrystalupgrade2" alt="Crystal Upgrade 2" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyCrystalUpgrade3Btn">
+                            <img id="buycrystalupgrade3" alt="Crystal Upgrade 3" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyCrystalUpgrade4Btn">
+                            <img id="buycrystalupgrade4" alt="Crystal Upgrade 4" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyCrystalUpgrade5Btn">
+                            <img id="buycrystalupgrade5" alt="Crystal Upgrade 5" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                    </div>
                     <div aria-live="polite">
                     <p class="mainText" id="crystalupgradedescription" style="text-align: center;" i18n="buildings.hoverCrystalUpgrade"></p>
                     <p class="mainText" id="crystalupgradeslevel1" style="text-align: center;"></p>
@@ -447,41 +455,39 @@
                     <p id="ascendShardInfo" style="color: orange;">You have a mathematical constant of 3. I Wonder what it's for!</p>
                 </div>
 
-                <div id="ascendConstantUpgrades">
-                    <table id="constantUpgradeTable">
-                        <tr>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade1" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade2" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade3" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade4" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade5" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade6" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade7" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade8" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade9" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade10" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                        </tr>
-                    </table>
+                <div class="buildingUpgrades">
+                    <div class="buildingUpgradesBar">
+                        <button id="buyConstantUpgrade1Btn">
+                            <img id="buyConstantUpgrade1" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade2Btn">
+                            <img id="buyConstantUpgrade2" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade3Btn">
+                            <img id="buyConstantUpgrade3" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade4Btn">
+                            <img id="buyConstantUpgrade4" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade5Btn">
+                            <img id="buyConstantUpgrade5" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade6Btn">
+                            <img id="buyConstantUpgrade6" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade7Btn">
+                            <img id="buyConstantUpgrade7" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade8Btn">
+                            <img id="buyConstantUpgrade8" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade9Btn">
+                            <img id="buyConstantUpgrade9" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade10Btn">
+                            <img id="buyConstantUpgrade10" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                    </div>
                     <p id="constUpgradeDescription" style="color: gold" i18n="buildings.constantHover"></p>
                     <p class="mainText" id="constUpgradeLevel">Current Level: <span id="constUpgradeLevel2" class="orchidText">---</span></p>
                     <p class="mainText" id="constUpgradeCost">Cost: <span id="constUpgradeCost2" class="orchidText">---</span> from your Constant</p>

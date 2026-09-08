@@ -1361,6 +1361,42 @@ button.isEvent:hover {
     display: block;
 }
 
+.buildingUpgrades {
+    display: flex;
+    width: 50em;
+    max-width: 1000px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buildingUpgradesBar {
+    display: flex;
+    column-gap: 4px;
+    margin: 2px 0;
+}
+
+.buildingUpgradesBar > button {
+    --button-color: var(--buttonbuy-color);
+    --hover-color: var(--button-color);
+
+    cursor: default;
+}
+
+.buildingUpgradesBar > .affordable {
+    --button-color: purple;
+    --hover-color: #b300b3;
+
+    cursor: pointer;
+}
+
+.buildingUpgradesBar > .autobuy {
+    --button-color: green;
+}
+
+.buildingUpgradesBar img {
+    display: block;
+}
+
 .mobileSubTabIconContainer:hover > .mobileSubTabIcon,
 .mobileSubTabIconContainer:active > .mobileSubTabIcon,
 .mobileSubTabIconContainer:focus-visible > .mobileSubTabIcon {
@@ -5051,14 +5087,6 @@ button.language-select span.lang-name {
     text-align: center;
 }
 
-#ascendConstantUpgrades {
-    display: flex;
-    width: 50em;
-    max-width: 1000px;
-    flex-direction: column;
-    align-items: center;
-}
-
 #ascendautomation {
     margin-top: 10px;
 }
@@ -5218,24 +5246,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .statNumber.statTotal {
     color: deepskyblue;
-}
-
-.constUpgrade {
-    background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
-}
-
-.constUpgradeAvailable {
-    background-color: purple;
-    cursor: pointer;
-}
-
-.constUpgradeAvailable:hover {
-    background-color: #b300b3;
-}
-
-.constUpgradeAuto {
-    background-color: green;
 }
 
 .subtabContent {
@@ -10079,7 +10089,7 @@ html[data-mobile="true"] .hideOnMobile {
         display: none;
     }
 
-    #ascendConstantUpgrades {
+    .buildingUpgrades {
         width: unset;
     }
 
