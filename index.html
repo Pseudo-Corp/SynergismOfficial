@@ -1409,8 +1409,8 @@
                 <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid var(--tesseract-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.tesseract"></span></button>
                 <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid var(--hypercube-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.hypercube"></span></button>
                 <button id="switchCubeSubTab4" class="cubeSwitchTabBtn chal14" style="border: 2px solid var(--platonic-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.platonic"></span></button>
-                <button id="switchCubeSubTab5" class="cubeSwitchTabBtn" style="border: 2px solid white;"><span class="subTabButtonText fitText" i18n="tabs.cubes.cubeUpgrades"></span></button>
-                <button id="switchCubeSubTab6" class="cubeSwitchTabBtn chal14" style="border: 2px solid orchid;"><span class="subTabButtonText fitText" i18n="tabs.cubes.challenge15"></span></button>
+                <button id="switchCubeSubTab5" class="cubeSwitchTabBtn" style="border: 2px solid white;"><span class="subTabButtonText fitText" i18n="tabs.cubes.upgrades"></span></button>
+                <button id="switchCubeSubTab6" class="cubeSwitchTabBtn chal14" style="border: 2px solid orchid;"><span class="subTabButtonText fitText" i18n="tabs.cubes.challenge15Rewards"></span></button>
                 <button id="switchCubeSubTab7" class="cubeSwitchTabBtn hepteracts" style="border: 2px solid var(--hepteract-color)"><span class="subTabButtonText fitText" i18n="tabs.cubes.hepteract"></span></button>
             </div>
             <div id="cubesWrapper">
@@ -1793,8 +1793,9 @@
                     </div>
                 </div>
                 <div id="cubeTab5" class="cubeTab" style="display: none">
-                    <div id="cubeTab5Wrapper">
-                        <p id="cubeAmount2" style="color: white">You have 0 Wow! Cubes</p>
+                    <div id="cubeTab5Wrapper" class="boxColor">
+                        <h2 class="cubeUpgradeSectionTitle" i18n="tabs.cubes.cubeUpgrades"></h2>
+                        <p id="cubeAmount2" class="wowcubeText"></p>
                         <table id="cubeUpgradeTable">
                             <tr>
                                 <td><button id="cubeUpg1" i18n-aria-label="cubes.upgradeNames.1"><img src="Pictures/Default/CubeUpgrade1.png" class="gridImg" alt="" loading="lazy"></button></td>
@@ -1893,77 +1894,69 @@
                                 <td><button id="cubeUpg80" class="assortedCookies5" i18n-aria-label="cubes.upgradeNames.80"><img src="Pictures/Default/CubeUpgrade80.png" class="gridImg" loading="lazy"></button></td>
                             </tr>
                         </table>
-                        <div aria-live="polite">
-                        <div class="cubeUpgradeInfo">
-                            <p id="cubeUpgradeName" style="text-align:center;" i18n="cubes.cubeMetadata.selectUpgrade"></p>
-                            <p id="cubeUpgradeDescription" style="text-align: center; color: lightblue"></p>
-                        </div>
-                        <p id="cubeUpgradeCost" style="text-align:center; color:pink"></p>
-                        <p id="cubeUpgradeLevel" style="text-align: center; color: crimson"></p>
-                        </div>
                         <div class="cubeUpgradeToggles">
                             <button id="toggleCubeBuy" style="text-align: center;color: white;border: 2px solid pink">Upgrade: 1 Level wow</button>
                             <button class="autoCubeUpgrades" id="toggleAutoCubeUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
                         </div>
                     </div>
-                </div>
-                <div id="cubeTab6" class="cubeTab" style="display: none">
-                    <div id="c15Rewards" class="challengeContainer boxColor">
-                        <p id="c15Reward0" class="challengePortion"></p>
-                        <p id="c15RequiredExponent" class="challengePortion"></p>
-                        <p id="c15NextReward" class="challengePortion" style="color: orchid"></p>
-                    </div>
-                    <div class="platonicUpgradesContainer">
-                        <div id="platonicUpgrades">
-                            <table class="boxColor" id="platonicUpgradePics">
-                                <tr>
-                                    <td><button id="platUpg1"><img id="platUpg1Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg2"><img id="platUpg2Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg3"><img id="platUpg3Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg4"><img id="platUpg4Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg5"><img id="platUpg5Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                </tr>
-                                <tr>
-                                    <td><button id="platUpg6"><img id="platUpg6Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg7"><img id="platUpg7Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg8"><img id="platUpg8Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg9"><img id="platUpg9Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg10"><img id="platUpg10Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                </tr>
-                                <tr>
-                                    <td><button id="platUpg11"><img id="platUpg11Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg12"><img id="platUpg12Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg13"><img id="platUpg13Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg14"><img id="platUpg14Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg15"><img id="platUpg15Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                </tr>
-                                <tr>
-                                    <td><button id="platUpg16"><img id="platUpg16Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg17"><img id="platUpg17Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg18"><img id="platUpg18Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg19"><img id="platUpg19Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                    <td><button id="platUpg20"><img id="platUpg20Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
-                                </tr>
-                            </table>
-                            <div class="platonicUpgrades2 platonicUpgradesToggles">
-                                <button class="saveOfferings" id="maxPlatToggle" style="border: 2px solid gold" title="If ON, then attempt to buy as much of an upgrade as possible">Buy Max [ON]</button>
-                                <button class="autoPlatonicUpgrades" id="toggleAutoPlatonicUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
+                    <div id="platonicUpgradePanel" class="chal14">
+                        <div class="platonicUpgradesContainer boxColor">
+                            <h2 class="cubeUpgradeSectionTitle" i18n="wowCubes.platonicUpgrades.title"></h2>
+                            <p id="platonicUpgradeAmount" class="wowplatonicText"></p>
+                            <div id="platonicUpgrades">
+                                <table id="platonicUpgradePics">
+                                    <tr>
+                                        <td><button id="platUpg1"><img id="platUpg1Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg2"><img id="platUpg2Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg3"><img id="platUpg3Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg4"><img id="platUpg4Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg5"><img id="platUpg5Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button id="platUpg6"><img id="platUpg6Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg7"><img id="platUpg7Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg8"><img id="platUpg8Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg9"><img id="platUpg9Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg10"><img id="platUpg10Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button id="platUpg11"><img id="platUpg11Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg12"><img id="platUpg12Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg13"><img id="platUpg13Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg14"><img id="platUpg14Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg15"><img id="platUpg15Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button id="platUpg16"><img id="platUpg16Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg17"><img id="platUpg17Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg18"><img id="platUpg18Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg19"><img id="platUpg19Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                        <td><button id="platUpg20"><img id="platUpg20Image" src="Pictures/img_transparent.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                    </tr>
+                                </table>
+                                <div class="platonicUpgradesToggles">
+                                    <button class="saveOfferings" id="maxPlatToggle" style="border: 2px solid gold" title="If ON, then attempt to buy as much of an upgrade as possible">Buy Max [ON]</button>
+                                    <button class="autoPlatonicUpgrades" id="toggleAutoPlatonicUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
+                                </div>
                             </div>
                         </div>
-                        <div id="platonicUpgradeDescriptions" class="platonicContainer boxColor">
-                            <p class="platonicPortion" i18n="wowCubes.platonicUpgrades.descriptionBox.descriptionDivisor"></p>
-                            <p id="platonicUpgradeDescription" i18n="wowCubes.platonicUpgrades.descriptionBox.descriptionDefault" class="platonicPortion" style="color: white"></p>
-                            <p id="platonicUpgradeLevel" class="platonicPortion">---</p>
-                            <p class="platonicPortion" i18n="wowCubes.platonicUpgrades.descriptionBox.costDivisor"></p>
-                            <p id="platonicOfferingCost" class="platonicPortion">---</p>
-                            <p id="platonicObtainiumCost" class="platonicPortion">---</p>
-                            <p id="platonicCubeCost" class="platonicPortion">---</p>
-                            <p id="platonicTesseractCost" class="platonicPortion">---</p>
-                            <p id="platonicHypercubeCost" class="platonicPortion">---</p>
-                            <p id="platonicPlatonicCost" class="platonicPortion">---</p>
-                            <p id="platonicHepteractCost" class="platonicPortion">---</p>
-                            <p id="platonicCanBuy" class="platonicPortion">---</p>
+                    </div>
+                </div>
+                <div id="cubeTab6" class="cubeTab" style="display: none">
+                    <div id="c15Rewards">
+                        <div class="c15RewardsSummary boxColor">
+                            <div class="c15RewardsHeading">
+                                <img src="Pictures/Default/Challenge15.png" alt="" loading="lazy">
+                                <div>
+                                    <h2 i18n="tabs.cubes.challenge15Rewards"></h2>
+                                    <p id="c15RewardsUnlocked"></p>
+                                </div>
+                            </div>
+                            <p id="c15Reward0"></p>
+                            <p id="c15RequiredExponent"></p>
+                            <p id="c15NextReward"></p>
                         </div>
+                        <div id="c15RewardsGrid" role="list" i18n-aria-label="tabs.cubes.challenge15Rewards"></div>
                     </div>
                 </div>
                 <div id="cubeTab7" class="cubeTab" style="display: none">

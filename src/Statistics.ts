@@ -147,6 +147,7 @@ import {
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talismans'
+import { IconSets } from './Themes'
 import type { GlobalVariables } from './types/Synergism'
 import { MEDIUM_MODAL_UPDATE_TICK, Modal } from './UpdateHTML'
 import { isMobile, sumContents } from './Utility'
@@ -4477,6 +4478,45 @@ export const c15RewardUpdate = () => {
   }
 }
 
+const c15RewardIcons: Record<Challenge15Rewards, string> = {
+  cube1: 'WowCube',
+  ascensions: 'Ascension',
+  coinExponent: 'Coin',
+  taxes: 'TalismanExemption',
+  obtainium: 'Obtainium',
+  offering: 'Offering',
+  accelerator: 'Cube1',
+  multiplier: 'Cube2',
+  runeExp: 'Cube4',
+  runeBonus: 'RuneSI',
+  cube2: 'WowCube',
+  transcendChallengeReduction: 'Challenge',
+  reincarnationChallengeReduction: 'ChallengeReincarnation',
+  antSpeed: 'Cube6',
+  bonusAntLevel: 'RuneAntGod',
+  achievementUnlock: 'Challenge15',
+  cube3: 'WowCube',
+  talismanBonus: 'TalismanShard',
+  globalSpeed: 'TinySpeed',
+  blessingBonus: 'RunePrism',
+  constantBonus: 'Ascension',
+  cube4: 'WowCube',
+  spiritBonus: 'RunePrism',
+  score: 'PlatonicCube7',
+  quarks: 'Quark',
+  hepteractsUnlocked: 'Hepteract',
+  challengeHepteractUnlocked: 'ChallengeAscension',
+  cube5: 'WowCube',
+  powder: 'ShopPowderGainUpgrade',
+  abyssHepteractUnlocked: 'Hepteract',
+  exponent: 'PlatonicCube6',
+  acceleratorHepteractUnlocked: 'Cube1',
+  acceleratorBoostHepteractUnlocked: 'AcceleratorBoostShortcut',
+  multiplierHepteractUnlocked: 'Cube2',
+  freeOrbs: 'SingularityQuarkHepteract',
+  ascensionSpeed: 'TinySpeedAscension'
+}
+
 export const updateDisplayC15Rewards = () => {
   DOMCacheGetOrSet('c15Reward0').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.0', {
     exponent: format(player.challenge15Exponent, 3, true)
@@ -4488,8 +4528,9 @@ export const updateDisplayC15Rewards = () => {
     }
   )
 
-  const rewardDiv = DOMCacheGetOrSet('c15Rewards')
+  const rewardDiv = DOMCacheGetOrSet('c15RewardsGrid')
   let lowestMissingExponent = Number.MAX_VALUE
+  let unlockedCount = 0
   for (const [k, v] of Object.entries(G.challenge15Rewards)) {
     const key = k as Challenge15Rewards
     const value = v.value
@@ -4497,23 +4538,44 @@ export const updateDisplayC15Rewards = () => {
     const doNotUsePercentage = v.doNotUsePercentage ?? false
 
     if (!LOADED_STATS_HTMLS.challenge15) {
-      const elm = document.createElement('p')
+      const elm = document.createElement('div')
       elm.id = `c15Reward${key}`
-      elm.className = 'challengePortion'
+      elm.className = 'c15RewardCard'
+      elm.setAttribute('role', 'listitem')
+      elm.style.setProperty('--c15-reward-color', v.HTMLColor ?? 'var(--orchid-text-color)')
+
+      const icon = document.createElement('img')
+      icon.src = `Pictures/${IconSets[player.iconSet][0]}/${c15RewardIcons[key]}.png`
+      icon.alt = ''
+      icon.loading = 'lazy'
+
+      const details = document.createElement('div')
+      const description = document.createElement('p')
+      description.id = `c15Reward${key}Description`
+      const threshold = document.createElement('p')
+      threshold.id = `c15Reward${key}Requirement`
+      threshold.className = 'c15RewardRequirement'
 
       if (v.HTMLColor !== undefined) {
-        elm.style.color = v.HTMLColor
+        description.style.color = v.HTMLColor
       }
 
+      details.append(description, threshold)
+      elm.append(icon, details)
       rewardDiv.appendChild(elm)
     }
 
     const elm = DOMCacheGetOrSet(`c15Reward${key}`)
     if (player.challenge15Exponent >= requirement) {
-      elm.style.display = player.challenge15Exponent >= requirement ? 'block' : 'none'
-      elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
+      unlockedCount++
+      elm.style.display = 'grid'
+      DOMCacheGetOrSet(`c15Reward${key}Description`).innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
         amount: doNotUsePercentage ? format(value, 0, true) : formatAsPercentIncrease(value, 2)
       })
+      DOMCacheGetOrSet(`c15Reward${key}Requirement`).textContent = i18next.t(
+        'wowCubes.platonicUpgrades.c15Rewards.unlockedAt',
+        { exponent: format(requirement, 0, true) }
+      )
     } else {
       elm.style.display = 'none'
       if (requirement < lowestMissingExponent) {
@@ -4521,6 +4583,11 @@ export const updateDisplayC15Rewards = () => {
       }
     }
   }
+
+  DOMCacheGetOrSet('c15RewardsUnlocked').textContent = i18next.t('wowCubes.platonicUpgrades.c15Rewards.unlockedCount', {
+    unlocked: format(unlockedCount),
+    total: format(Object.keys(G.challenge15Rewards).length)
+  })
 
   if (lowestMissingExponent < Number.MAX_VALUE) {
     DOMCacheGetOrSet('c15NextReward').innerHTML = i18next.t(

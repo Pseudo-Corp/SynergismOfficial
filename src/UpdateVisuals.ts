@@ -1378,13 +1378,12 @@ export const visualUpdateCubes = () => {
       break
     }
     case 4:
-      DOMCacheGetOrSet('cubeAmount2').textContent = `You have ${
-        format(
-          player.wowCubes.valueOf(),
-          0,
-          true
-        )
-      } Wow! Cubes =)`
+      DOMCacheGetOrSet('cubeAmount2').innerHTML = i18next.t('wowCubes.cubes.inventory', {
+        amount: format(player.wowCubes.valueOf(), 0, true)
+      })
+      DOMCacheGetOrSet('platonicUpgradeAmount').innerHTML = i18next.t('wowCubes.platonics.inventory', {
+        amount: format(player.wowPlatonicCubes.valueOf(), 0, true)
+      })
       break
     case 5:
       updateDisplayC15Rewards()

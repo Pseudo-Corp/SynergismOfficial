@@ -29,7 +29,7 @@ import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import { setChallengeFocus, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
-import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
+import { buyCubeUpgrades, cubeUpgradeModalHTML } from './Cubes'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
 import { buyAllAntMasteries, buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
 import { antProducerData } from './Features/Ants/AntProducers/data/data'
@@ -96,7 +96,7 @@ import {
   toggleMaxedOcteractUpgrades,
   upgradeOcteractToString
 } from './Octeracts'
-import { buyPlatonicUpgrades, createPlatonicDescription, platonicUpgradeModalHTML } from './Platonic'
+import { buyPlatonicUpgrades, platonicUpgradeModalHTML } from './Platonic'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -258,7 +258,7 @@ const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
       switchCubeSubTab3: 'Pictures/Subtab Icons/Wow! Cubes/HypercubeBenedictions.png',
       switchCubeSubTab4: 'Pictures/Subtab Icons/Wow! Cubes/PlatonicStatues.png',
       switchCubeSubTab5: 'Pictures/Subtab Icons/Wow! Cubes/CubeUpgrades.png',
-      switchCubeSubTab6: 'Pictures/Subtab Icons/Wow! Cubes/PlatonicUpgrades.png',
+      switchCubeSubTab6: 'Pictures/Default/Challenge15.png',
       switchCubeSubTab7: 'Pictures/Subtab Icons/Wow! Cubes/HepteractForge.png'
     }
   },
@@ -1338,7 +1338,6 @@ export const generateEventHandlers = () => {
   // Part 1: Cube Upgrades
   const cubeUpgradeModalStyle = { borderColor: 'gold' }
   const desktopCubeUpgradeModal = (index: number, cubeUpgrade: HTMLElement, x: number, y: number) => {
-    cubeUpgradeDesc(index)
     const image = cubeUpgrade.querySelector('img')
 
     Modal(
@@ -1352,7 +1351,6 @@ export const generateEventHandlers = () => {
   }
 
   const mobileCubeUpgradeModal = (index: number, cubeUpgrade: HTMLElement, event: MouseEvent) => {
-    cubeUpgradeDesc(index)
     let buyMaxOverride = player.cubeUpgradesBuyMaxToggle
     const image = cubeUpgrade.querySelector('img')
 
@@ -1458,34 +1456,26 @@ export const generateEventHandlers = () => {
 
   DOMCacheGetOrSet('maxPlatToggle').addEventListener('click', () => toggleMaxPlat())
   // Part 3: Platonic Upgrade Section
-  const platonicUpgrades = document.getElementsByClassName(
-    'platonicUpgradeImage'
-  )
-  for (let index = 0; index < platonicUpgrades.length; index++) {
-    const platonicUpgrade = platonicUpgrades[index] as HTMLImageElement
-    const upgradeIndex = index + 1
+  for (let index = 1; index < player.platonicUpgrades.length; index++) {
+    const platonicUpgrade = DOMCacheGetOrSet(`platUpg${index}`)
+    const image = platonicUpgrade.querySelector('img')
+    platonicUpgrade.setAttribute('aria-haspopup', 'dialog')
 
-    if (isMobile) {
-      platonicUpgrade.addEventListener('click', () => createPlatonicDescription(upgradeIndex))
-      registerPurchasableModal({
-        element: platonicUpgrade,
-        html: () => platonicUpgradeModalHTML(upgradeIndex, platonicUpgrade.style.cssText),
-        style: { borderColor: 'orchid' },
-        buy: () => {
-          buyPlatonicUpgrades(upgradeIndex)
-        },
-        mobileButtons: [
-          {
-            action: 'buy',
-            label: i18next.t('wowCubes.platonicUpgrades.descriptionBox.buyButton')
-          }
-        ],
-        updateInterval: MEDIUM_MODAL_UPDATE_TICK
-      })
-    } else {
-      platonicUpgrade.addEventListener('mouseover', () => createPlatonicDescription(upgradeIndex))
-      platonicUpgrade.addEventListener('click', () => buyPlatonicUpgrades(upgradeIndex))
-    }
+    registerPurchasableModal({
+      element: platonicUpgrade,
+      html: () => platonicUpgradeModalHTML(index, image?.style.cssText),
+      style: { borderColor: 'orchid' },
+      buy: () => {
+        buyPlatonicUpgrades(index)
+      },
+      mobileButtons: [
+        {
+          action: 'buy',
+          label: i18next.t('wowCubes.platonicUpgrades.descriptionBox.buyButton')
+        }
+      ],
+      updateInterval: MEDIUM_MODAL_UPDATE_TICK
+    })
   }
   DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').addEventListener('click', () => autoPlatonicUpgradesToggle())
 
