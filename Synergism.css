@@ -6270,7 +6270,7 @@ header #obtainiumDisplay { color: pink; }
 
 #c15RewardsGrid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 6px 12px;
 }
 
