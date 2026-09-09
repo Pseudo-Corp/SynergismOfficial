@@ -7919,15 +7919,6 @@ html[data-mobile="true"] .ambrosiaLedgerBonusesCollapsed .ambrosiaLedgerBonuses 
 
 .ambrosiaUpgradeSection[data-ambrosia-kind="purple"] {
     grid-template-columns: repeat(2, var(--ambrosia-cell-size));
-    direction: rtl;
-}
-
-.ambrosiaUpgradeSection[data-ambrosia-kind="purple"] > .purpleAmbrosiaUpgrade {
-    direction: ltr;
-}
-
-.ambrosiaUpgradeSection[data-ambrosia-kind="purple"] > .purpleAmbrosiaUpgrade > img {
-    transform: scaleX(-1);
 }
 
 #blueberryUpgradeContainer[data-ambrosia-layout="blueberry"] .Exalt5x1,

@@ -828,14 +828,8 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   player.offlinetick = player.offlinetick < 1.5e12 ? Date.now() : player.offlinetick
 
   G.timeMultiplier = calculateGlobalSpeedMult()
-  if (player.singularityChallenges.barDependence.enabled) {
-    G.timeMultiplier = 0
-  }
 
   let obtainiumGain = calculateResearchAutomaticObtainium(timeAdd)
-  if (player.singularityChallenges.barDependence.enabled) {
-    obtainiumGain = new Decimal()
-  }
 
   const resetAdd = {
     prestige: (player.prestigeCount > 0) ? timeAdd / Math.max(0.25, player.fastestprestige) : 0,
@@ -843,6 +837,14 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     transcension: (player.transcendCount > 0) ? timeAdd / Math.max(0.25, player.fastesttranscend) : 0,
     reincarnation: (player.reincarnationCount > 0) ? timeAdd / Math.max(0.25, player.fastestreincarnate) : 0,
     obtainium: obtainiumGain.times(timeAdd).times(G.timeMultiplier)
+  }
+
+  if (player.singularityChallenges.barDependence.enabled) {
+    resetAdd.prestige = 0
+    resetAdd.offering = 0
+    resetAdd.transcension = 0
+    resetAdd.reincarnation = 0
+    resetAdd.obtainium = new Decimal()
   }
 
   const resetAddDisplay = {
@@ -866,9 +868,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     purpleHoney: player.purpleReactor.lifetimePurpleHoney
   }
 
-  if (!player.singularityChallenges.barDependence.enabled) {
-    addTimers('ascension', timeAdd)
-  }
+  addTimers('ascension', timeAdd)
   addTimers('quarks', timeAdd)
   addTimers('goldenQuarks', timeAdd)
   addTimers('singularity', timeAdd)
@@ -902,19 +902,16 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     }
 
     G.timeMultiplier = calculateGlobalSpeedMult()
-    calculateObtainium()
 
     // Reset Stuff lmao!
 
-    if (!player.singularityChallenges.barDependence.enabled) {
-      const timerSpeedMult = memoize(calculateGlobalSpeedMult)
-      addTimers('prestige', timeTick, timerSpeedMult)
-      addTimers('transcension', timeTick, timerSpeedMult)
-      addTimers('reincarnation', timeTick, timerSpeedMult)
-      // Auto Obtainium Stuff
-      if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14) {
-        automaticTools('addObtainium', timeTick)
-      }
+    const timerSpeedMult = memoize(calculateGlobalSpeedMult)
+    addTimers('prestige', timeTick, timerSpeedMult)
+    addTimers('transcension', timeTick, timerSpeedMult)
+    addTimers('reincarnation', timeTick, timerSpeedMult)
+    // Auto Obtainium Stuff
+    if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14) {
+      automaticTools('addObtainium', timeTick)
     }
     addTimers('octeracts', timeTick)
     addTimers('ambrosia', timeTick)
@@ -1051,7 +1048,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   saveSynergy()
 
   updateTalismanInventory()
-  calculateObtainium()
 
   // allow aesthetic offline progress
   if (offlineDialog) {

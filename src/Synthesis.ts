@@ -1,7 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { addTimers } from './Helper'
-import { registerPurpleReactorAPContribution } from './Purple'
 import { getPurpleReactorPopupMode } from './PurpleUpgradeTab'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, player } from './Synergism'
@@ -653,11 +652,6 @@ export const craftFromSynthesis = (requestedAmount: SynthesisCraftAmount, source
 }
 
 export const initializeSynthesis = () => {
-  registerPurpleReactorAPContribution({
-    id: 'synthesis',
-    calculateAP: calculateSynthesisUpgradeAP,
-    maximumAP: maxSynthesisUpgradeAP
-  })
   initializeSynthesisUpgrades()
 }
 

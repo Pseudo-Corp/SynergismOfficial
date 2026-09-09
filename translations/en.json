@@ -17,21 +17,6 @@
       "red": "Unlock more upgrades by completing EXALT <<red|$t(singularityChallenge.data.noAmbrosiaUpgrades.name), Tier 1>>.",
       "purple": "Unlock more upgrades by completing EXALT <<var(--purple-text-color)|$t(singularityChallenge.data.taxmanLastStand.name), Tier 1>>."
     },
-    "barDetails": {
-      "ambrosia": "Ambrosia Bar requirements",
-      "red": "Red Bar requirements",
-      "purple": "Purple Bar requirements",
-      "base": "Base Bar Points",
-      "lifetimeAddition": "Added by lifetime Ambrosia",
-      "redLifetimeAddition": "Added by lifetime Red Ambrosia",
-      "lifetimeScaling": "Lifetime scaling",
-      "cap": "Bar Point cap",
-      "total": "Required Bar Points",
-      "rounding": "Round up to a whole Bar Point.",
-      "value": "{{label}}: <<lightblue|{{value}}>>",
-      "multiplier": "{{label}} ×<<lightblue|{{value}}>>",
-      "geminiInactive": "Gemini: ×{{value}} <<gray|inactive>> (an Encabulator input tank is full)"
-    },
     "ledger": {
       "blueberries": "Blueberries",
       "balanceDetails": "Balance details",
@@ -2680,6 +2665,11 @@
         "name": "Progressive Achievement - Purple Honey Upgrades",
         "description": "Gain various AP for each Purple Honey upgrade maxxed, or levels purchased!",
         "apSource": "Check out <i>The Purple</i> Subtab in Singularity for more info. AP is rounded down."
+      },
+      "purpleAmbrosiaUpgrades": {
+        "name": "Progressive Achievement - Purple Ambrosia Upgrades",
+        "description": "Gain AP from Synthesis Upgrades, Purple Ambrosia Upgrades, and Purple Enchantments!",
+        "apSource": "Synthesis Upgrades: up to +50 AP per upgrade as levels are purchased.<br>Purple Ambrosia Upgrades: +12 AP per maxxed upgrade.<br>Purple Enchantments (Blueberry Modules): +5 AP per maxxed enchantment."
       }
     },
     "alerts": {
@@ -6804,8 +6794,9 @@
         "description": "You no longer gain time normally! Instead, fill the Bars to gain time!",
         "warning": "<<gold | ⚠>> While in the EXALT, your Ambrosia and Purple Bars will not grant Ambrosia or Purple Honey.",
         "barIntro": "Ambrosia Bars and the Purple Bar have fixed lengths, which are divided by your lifetime amount of those values, increased with completions.",
-        "barMod1": "<<var(--blueberry-text-color)|Ambrosia Bar: +1 second of Global Time>> (Requirement is fixed at <<var(--blueberry-text-color)|{{req}} ABP>>)",
-        "barMod2": "<<red|Red Bar: +1 second of Ascension Time>> (Requirement is fixed at <<red|{{req}} RABP>>)",
+        "barIntro2": "Gain more time depending on your Luck! (+1s per 10,000 Ambrosia Luck / 2,000 Red Luck)",
+        "barMod1": "<<var(--blueberry-text-color)|Ambrosia Bar: +{{secs}} seconds of Global Time>> (Requirement is fixed at <<var(--blueberry-text-color)|{{req}} ABP>>)",
+        "barMod2": "<<red|Red Bar: +{{secs}} second of Ascension Time>> (Requirement is fixed at <<red|{{req}} RABP>>)",
         "barMod3": "<<var(--purple-text-color)|Purple Bar: Immediately fill both bars>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
         "ScalingReward1": "<<var(--purple-text-color)|Purple Ambrosia Synthesis>> costs -5%",
         "ScalingReward2": "+1 <<var(--blueberry-text-color)|Blueberry>>. Yes, really.",

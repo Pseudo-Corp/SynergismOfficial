@@ -197,7 +197,7 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
  * @param time
  * @param globalSpeedMult
  */
-export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => number) => {
+export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => number, barDependenceSrc = false) => {
   const timeMultiplier = input === 'prestige'
       || input === 'transcension'
       || input === 'reincarnation'
@@ -208,18 +208,30 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
 
   switch (input) {
     case 'prestige': {
+      if (player.singularityChallenges.barDependence.enabled && !barDependenceSrc) {
+        return
+      }
       player.prestigecounter += time * timeMultiplier
       break
     }
     case 'transcension': {
+      if (player.singularityChallenges.barDependence.enabled && !barDependenceSrc) {
+        return
+      }
       player.transcendcounter += time * timeMultiplier
       break
     }
     case 'reincarnation': {
+      if (player.singularityChallenges.barDependence.enabled && !barDependenceSrc) {
+        return
+      }
       player.reincarnationcounter += time * timeMultiplier
       break
     }
     case 'ascension': {
+      if (player.singularityChallenges.barDependence.enabled && !barDependenceSrc) {
+        return
+      }
       // Anything in here is affected by add code
       const ascensionSpeedMulti = getGQUpgradeEffect('oneMind', 'unlocked')
         ? G.MIND_DIVISOR
@@ -294,6 +306,9 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
       break
     }
     case 'autoPotion': {
+      if (player.singularityChallenges.barDependence.enabled && !barDependenceSrc) {
+        return
+      }
       if (player.highestSingularityCount < 6) {
         return
       } else {
@@ -387,10 +402,10 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         const ambrosiaToGain = (ambrosiaMult + luckMult) + bonusAmbrosia
 
         if (player.singularityChallenges.barDependence.enabled) {
-          addTimers('prestige', ambrosiaToGain * 0.01, globalSpeedMult)
-          addTimers('transcension', ambrosiaToGain * 0.01, globalSpeedMult)
-          addTimers('reincarnation', ambrosiaToGain * 0.01, globalSpeedMult)
-          addTimers('autoPotion', ambrosiaToGain * 0.01, globalSpeedMult)
+          addTimers('prestige', ambrosiaToGain * 0.01, globalSpeedMult, true)
+          addTimers('transcension', ambrosiaToGain * 0.01, globalSpeedMult, true)
+          addTimers('reincarnation', ambrosiaToGain * 0.01, globalSpeedMult, true)
+          addTimers('autoPotion', ambrosiaToGain * 0.01, globalSpeedMult, true)
         } else {
           player.ambrosia += ambrosiaToGain
           player.lifetimeAmbrosia += ambrosiaToGain
@@ -434,7 +449,7 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         const redAmbrosiaToGain = redAmbrosiaMult + luckMult
 
         if (player.singularityChallenges.barDependence.enabled) {
-          addTimers('ascension', redAmbrosiaToGain * 0.05)
+          addTimers('ascension', redAmbrosiaToGain * 0.05, undefined, true)
         } else {
           player.redAmbrosia += redAmbrosiaToGain
           player.lifetimeRedAmbrosia += redAmbrosiaToGain

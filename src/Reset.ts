@@ -1232,6 +1232,8 @@ export const singularity = (setSingNumber = -1) => {
   hold.spentPurpleHoney = player.spentPurpleHoney
   hold.purpleReactorUpgrades = player.purpleReactorUpgrades
   hold.synthesisUpgrades = player.synthesisUpgrades
+  hold.synthesisAutomationUnlocked = player.synthesisAutomationUnlocked
+  hold.synthesisAutomationEnabled = player.synthesisAutomationEnabled
   hold.singularityChallenges = Object.fromEntries(
     Object.entries(player.singularityChallenges).map(([key, value]) => {
       return [key, {

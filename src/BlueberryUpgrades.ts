@@ -723,7 +723,7 @@ export const ambrosiaUpgrades: {
         amount: format(freeLevels, 0, true)
       })
     },
-    redAmbrosiaUpgrade: 'freeLevelsRow3',
+    redAmbrosiaUpgrade: 'freeLevelsRow4',
     name: () => i18next.t('ambrosia.data.ambrosiaFreeCubeUpgrades.name'),
     description: () => i18next.t('ambrosia.data.ambrosiaFreeCubeUpgrades.description'),
     unlockCriterion: 'Exalt5x1',
@@ -1500,8 +1500,14 @@ export const ambrosiaUpgrades: {
   }
 }
 
+export const ambrosiaUpgradeNames = Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]
+
 const isAmbrosiaUpgradeSuppressed = (upgradeKey: AmbrosiaUpgradeNames): boolean => {
   const upgrade = ambrosiaUpgrades[upgradeKey]
+  if (upgrade.unlockCriterion === 'Exalt9x1' && !(player.singularityChallenges.taxmanLastStand.completions > 0)) {
+    return true
+  }
+
   return (player.singularityChallenges.noAmbrosiaUpgrades.enabled
     || player.singularityChallenges.sadisticPrequel.enabled)
     && !upgrade.ignoreEXALT
@@ -1677,6 +1683,10 @@ const getAmbrosiaUpgradeCostTNL = (upgradeKey: AmbrosiaUpgradeNames): number => 
 
 const checkAmbrosiaUpgradePrerequisites = (upgradeKey: AmbrosiaUpgradeNames): boolean => {
   const upgrade = ambrosiaUpgrades[upgradeKey]
+  if (upgrade.unlockCriterion === 'Exalt9x1' && !(player.singularityChallenges.taxmanLastStand.completions > 0)) {
+    return false
+  }
+
   const prerequisites = upgrade.prerequisites
 
   for (const [prereq, val] of Object.entries(prerequisites)) {
@@ -2573,3 +2583,5 @@ export const displayLevelsBlueberry = () => {
   const curr = getBlueberryTree()
   displayOnlyLoadout(curr)
 }
+
+export const maxPurpleEnchantmentAP = 5 * ambrosiaUpgradeNames.length

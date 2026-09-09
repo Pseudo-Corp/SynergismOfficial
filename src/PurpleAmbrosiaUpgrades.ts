@@ -34,10 +34,6 @@ export interface PurpleAmbrosiaUpgrade<
   effects: (level: number, key: K) => PurpleAmbrosiaUpgradeRewards[T][K]
   notMaxedEffectsDescription: (level: number) => string
   maxedEffectsDescription: () => string
-  apValue: {
-    perLevelAP: number
-    maxLevelAP: number
-  }
   name: () => string
   description: () => string
 }
@@ -78,10 +74,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
         maxPercent: formatAsPercentIncrease(1 + 0.0005 * purpleAmbrosiaUpgradeData.aries.maxLevel, 2),
         maxPercent2: formatAsPercentIncrease(getPurpleAmbrosiaUpgradeEffects('aries', 'universalBarPointMult'), 2)
       }),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.aries.name'),
     description: () => i18next.t('purpleAmbrosia.data.aries.description')
   },
@@ -98,10 +90,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
       i18next.t('purpleAmbrosia.data.taurus.effectMaxed', {
         maxValue: format(getPurpleAmbrosiaUpgradeEffects('taurus', 'taxDivisor'), 1, true)
       }),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.taurus.name'),
     description: () => i18next.t('purpleAmbrosia.data.taurus.description')
   },
@@ -124,10 +112,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
       i18next.t('purpleAmbrosia.data.gemini.effectMaxed', {
         maxPercent: formatAsPercentIncrease(2 - getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaRequirementMult'), 0)
       }),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.gemini.name'),
     description: () => i18next.t('purpleAmbrosia.data.gemini.description')
   },
@@ -144,10 +128,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
       i18next.t('purpleAmbrosia.data.cancer.effectMaxed', {
         maxPercent: formatAsPercentIncrease(1 + getPurpleAmbrosiaUpgradeEffects('cancer', 'barFillRatio'), 0)
       }),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.cancer.name'),
     description: () => i18next.t('purpleAmbrosia.data.cancer.description')
   },
@@ -170,10 +150,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
         maxValue: format(purpleAmbrosiaUpgradeData.leo.maxLevel, 0, true),
         maxValue2: format(getPurpleAmbrosiaUpgradeEffects('leo', 'unassignedBlueberyLuck'), 0, true)
       }),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.leo.name'),
     description: () => i18next.t('purpleAmbrosia.data.leo.description')
   },
@@ -193,10 +169,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
         maxValue: format(purpleAmbrosiaUpgradeData.virgo.maxLevel, 0, true),
         maxValue2: format(getPurpleAmbrosiaUpgradeEffects('virgo', 'assignedBlueberrySalvage'), 0, true)
       }),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.virgo.name'),
     description: () => i18next.t('purpleAmbrosia.data.virgo.description')
   },
@@ -206,10 +178,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
     effects: (level: number) => level > 0,
     notMaxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.libra.effectNotMaxed'),
     maxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.libra.effectMaxed'),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.libra.name'),
     description: () => i18next.t('purpleAmbrosia.data.libra.description')
   },
@@ -235,10 +203,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
           0
         )
       }),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.scorpio.name'),
     description: () => i18next.t('purpleAmbrosia.data.scorpio.description')
   },
@@ -248,10 +212,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
     effects: (level: number) => level > 0,
     notMaxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.sagittarius.effectNotMaxed'),
     maxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.sagittarius.effectMaxed'),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.sagittarius.name'),
     description: () => i18next.t('purpleAmbrosia.data.sagittarius.description')
   },
@@ -261,10 +221,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
     effects: (level: number) => level > 0,
     notMaxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.capricorn.effectNotMaxed'),
     maxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.capricorn.effectMaxed'),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.capricorn.name'),
     description: () => i18next.t('purpleAmbrosia.data.capricorn.description')
   },
@@ -282,10 +238,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
       i18next.t('purpleAmbrosia.data.aquarius.effectMaxed', {
         maxValue: format(getPurpleAmbrosiaUpgradeEffects('aquarius', 'infiniteTranscriptionExponent'), 3, true)
       }),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.aquarius.name'),
     description: () => i18next.t('purpleAmbrosia.data.aquarius.description')
   },
@@ -295,10 +247,6 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
     effects: (level: number) => level > 0,
     notMaxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.pisces.effectNotMaxed'),
     maxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.pisces.effectMaxed'),
-    apValue: {
-      perLevelAP: 0,
-      maxLevelAP: 20
-    },
     name: () => i18next.t('purpleAmbrosia.data.pisces.name'),
     description: () => i18next.t('purpleAmbrosia.data.pisces.description')
   }
@@ -325,9 +273,7 @@ const createPurpleAmbrosiaUpgrades = (definitions: PurpleAmbrosiaUpgradeData): P
 export const purpleAmbrosiaUpgrades = createPurpleAmbrosiaUpgrades(purpleAmbrosiaUpgradeData)
 export const purpleAmbrosiaUpgradeNames = Object.keys(purpleAmbrosiaUpgrades) as PurpleAmbrosiaNames[]
 
-export const maxPurpleAmbrosiaUpgradeAP = Object.values(purpleAmbrosiaUpgrades).reduce((acc, upgrade) => {
-  return acc + upgrade.apValue.maxLevelAP
-}, 0)
+export const maxPurpleAmbrosiaUpgradeAP = 12 * purpleAmbrosiaUpgradeNames.length
 
 export const maximumAffordableLevel = (
   upgradeKey: PurpleAmbrosiaNames,
@@ -460,13 +406,11 @@ export const purpleAmbrosiaUpgradeToString = (upgradeKey: PurpleAmbrosiaNames): 
     (!isMaxLevel) ? `${costNextLevelSpan} <br> ` : ''
   }${spentSpan} <br>`
 
-  if (upgrade.apValue.maxLevelAP > 0) {
-    const apMaxLevelSpan = i18next.t('purpleReactor.upgradeAPMax', {
-      amount: format(upgrade.apValue.maxLevelAP, 1),
-      check: isMaxLevel ? '✔' : '✖'
-    })
-    baseString += `<br> ${apMaxLevelSpan}`
-  }
+  const apMaxLevelSpan = i18next.t('purpleReactor.upgradeAPMax', {
+    amount: format(12),
+    check: isMaxLevel ? '✔' : '✖'
+  })
+  baseString += `<br> ${apMaxLevelSpan}`
 
   return baseString
 }

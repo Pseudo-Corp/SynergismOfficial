@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { ambrosiaUpgradeNames, ambrosiaUpgrades, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateAscensionScore } from './Calculate'
 import { campaignTokens } from './Campaign'
@@ -8,6 +9,11 @@ import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs
 import { displayLevelStuff } from './Levels'
 import { maxOcteractUpgradeAP, octeractUpgradeNames, octeractUpgrades } from './Octeracts'
 import { calculatePurpleReactorAP, maxPurpleReactorAP } from './Purple'
+import {
+  maxPurpleAmbrosiaUpgradeAP,
+  purpleAmbrosiaUpgradeNames,
+  purpleAmbrosiaUpgrades
+} from './PurpleAmbrosiaUpgrades'
 import { maxRedAmbrosiaUpgradeAP, redAmbrosiaUpgradeNames, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { runeBlessings } from './RuneBlessings'
@@ -22,7 +28,7 @@ import {
 } from './singularity'
 import { maxAPFromChallenges, type SingularityChallengeDataKeys } from './SingularityChallenges'
 import { format, player } from './Synergism'
-import { maxSynthesisUpgradeAP } from './Synthesis'
+import { calculateSynthesisUpgradeAP, maxSynthesisUpgradeAP } from './Synthesis'
 import { Tabs } from './Tabs'
 import { maxTalismansRarityAP, talismans } from './Talismans'
 import type { resetNames } from './types/Synergism'
@@ -329,6 +335,7 @@ export type ProgressiveAchievements =
   | 'redAmbrosiaUpgrades'
   | 'exalts'
   | 'purpleHoneyUpgrades'
+  | 'purpleAmbrosiaUpgrades'
 
 export const progressiveAchievements: Record<ProgressiveAchievements, ProgressiveAchievement> = {
   runeLevel: {
@@ -579,7 +586,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => player.unlocks.talismans
   },
   purpleHoneyUpgrades: {
-    maxPointValue: maxPurpleReactorAP + maxSynthesisUpgradeAP,
+    maxPointValue: maxPurpleReactorAP,
     pointsAwarded: (_cached: number) => {
       return calculatePurpleReactorAP()
     },
@@ -590,6 +597,34 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     rewardedAP: 0,
     displayOrder: 14,
     displayCondition: () => true // TODO
+  },
+  purpleAmbrosiaUpgrades: {
+    maxPointValue: maxSynthesisUpgradeAP + maxPurpleAmbrosiaUpgradeAP + maxPurpleEnchantmentAP,
+    pointsAwarded: () => {
+      let pointValue = calculateSynthesisUpgradeAP()
+      for (const key of purpleAmbrosiaUpgradeNames) {
+        const upgrade = purpleAmbrosiaUpgrades[key]
+        if (player.purpleAmbrosiaUpgrades[key] >= upgrade.costFormula(upgrade.maxLevel)) {
+          pointValue += 12
+        }
+      }
+      for (const key of ambrosiaUpgradeNames) {
+        const enchantment = ambrosiaUpgrades[key].purpleAmbrosiaEnchantment
+        if (
+          (player.ambrosiaUpgrades[key].purpleAmbrosiaInvested ?? 0) >= enchantment.costFormula(enchantment.maxLevel)
+        ) {
+          pointValue += 5
+        }
+      }
+      return pointValue
+    },
+    updateValue: () => {
+      return 0
+    },
+    useCachedValue: false,
+    rewardedAP: 0,
+    displayOrder: 15,
+    displayCondition: () => true
   }
 }
 

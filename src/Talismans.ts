@@ -733,7 +733,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
-      return true
+      return getSingularityChallengeEffect('taxmanLastStand', 'talismanUnlock')
     },
     name: () => i18next.t('runes.talismans.purpleGem.name'),
     description: () => i18next.t('runes.talismans.purpleGem.description')

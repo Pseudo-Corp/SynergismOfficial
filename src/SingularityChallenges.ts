@@ -1,12 +1,14 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  calculateAmbrosiaLuck,
   calculateBarEXALTPurpleHoneyRequirement,
   calculateExalt3AscensionLimit,
   calculateExalt4EffectiveSingularityMultiplier,
   calculateExalt6PenaltyPerSecond,
   calculateExalt6TimeLimit,
   calculateGoldenQuarks,
+  calculateRedAmbrosiaLuck,
   calculateRequiredBlueberryTimeEXALT,
   calculateRequiredRedAmbrosiaTimeEXALT
 } from './Calculate'
@@ -784,20 +786,27 @@ export const singularityChallengeData: {
       const warningText = i18next.t('singularityChallenge.data.barDependence.warning')
 
       const introText = i18next.t('singularityChallenge.data.barDependence.barIntro')
+      const introText2 = i18next.t('singularityChallenge.data.barDependence.barIntro2')
 
       const blueberryReq = calculateRequiredBlueberryTimeEXALT()
+      const secs = calculateAmbrosiaLuck() / 10000
       const barMod1Text = i18next.t('singularityChallenge.data.barDependence.barMod1', {
+        secs: format(secs, 2, true),
         req: format(blueberryReq, 0, true)
       })
 
       const redReq = calculateRequiredRedAmbrosiaTimeEXALT()
-      const barMod2Text = i18next.t('singularityChallenge.data.barDependence.barMod2', { req: format(redReq, 0, true) })
+      const secs2 = calculateRedAmbrosiaLuck() / 2000
+      const barMod2Text = i18next.t('singularityChallenge.data.barDependence.barMod2', {
+        secs: format(secs2, 2, true),
+        req: format(redReq, 0, true)
+      })
 
       const purpleReq = calculateBarEXALTPurpleHoneyRequirement()
       const barMod3Text = i18next.t('singularityChallenge.data.barDependence.barMod3', {
         req: format(purpleReq, 0, true)
       })
-      return `${baseDesc}<br>${warningText}<br>${introText}<br>${barMod1Text}<br>${barMod2Text}<br>${barMod3Text}`
+      return `${baseDesc}<br>${warningText}<br>${introText}<br>${introText2}<br>${barMod1Text}<br>${barMod2Text}<br>${barMod3Text}`
     }
   }
 }
