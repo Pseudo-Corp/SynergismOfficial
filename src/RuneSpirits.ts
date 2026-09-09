@@ -10,7 +10,7 @@ import { registerSpriteAlias, spritePlaceholder } from './SpriteSheets'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { CloseModal, Modal } from './UpdateHTML'
-import { assert, isMobile } from './Utility'
+import { assert, isMobile, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 type RuneSpiritTypeMap = {
@@ -571,16 +571,10 @@ export const generateMobileRuneSpiritsHTML = () => {
   }
 }
 
-let htmlGeneratedThisSession = false
-
-export const generateSpiritsHTML = () => {
-  if (htmlGeneratedThisSession) {
-    return
-  }
+export const generateSpiritsHTML = memoize(() => {
   if (isMobile) {
     generateMobileRuneSpiritsHTML()
   } else {
     generateWebRuneSpiritsHTML()
   }
-  htmlGeneratedThisSession = true
-}
+})

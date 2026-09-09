@@ -3,7 +3,7 @@ import { achievementLevel } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { CloseModal, MEDIUM_MODAL_UPDATE_TICK, Modal } from './UpdateHTML'
-import { isMobile } from './Utility'
+import { isMobile, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 const MAX_LEVEL_PREVIEWS = 3
@@ -359,11 +359,7 @@ const getLevelRewardDescription = (reward: SynergismLevelReward) => {
   ${effectDesc}`
 }
 
-export const generateLevelRewardHTMLs = () => {
-  const alreadyGenerated = document.getElementsByClassName('synergismLevelRewardType').length > 0
-  if (alreadyGenerated) {
-    return
-  }
+export const generateLevelRewardHTMLs = memoize(() => {
   const rewardTable = DOMCacheGetOrSet('synergismLevelRewardsTable')
   for (const reward of synergismLevelReward) {
     const capitalizedName = reward.charAt(0).toUpperCase() + reward.slice(1)
@@ -387,7 +383,7 @@ export const generateLevelRewardHTMLs = () => {
     div.appendChild(img)
     rewardTable.appendChild(div)
   }
-}
+})
 
 type SynergismLevelMilestones =
   | 'offeringTimerScaling'
@@ -789,11 +785,7 @@ const getLevelMilestoneDescription = (milestone: SynergismLevelMilestones) => {
   ${effectDesc}`
 }
 
-export const generateLevelMilestoneHTMLS = () => {
-  const alreadyGenerated = document.getElementsByClassName('synergismLevelMilestoneType').length > 0
-  if (alreadyGenerated) {
-    return
-  }
+export const generateLevelMilestoneHTMLS = memoize(() => {
   const rewardTable = DOMCacheGetOrSet('synergismLevelMilestonesTable')
   for (const milestone of synergismLevelMilestone) {
     const capitalizedName = milestone.charAt(0).toUpperCase() + milestone.slice(1)
@@ -808,13 +800,13 @@ export const generateLevelMilestoneHTMLS = () => {
     img.style.cursor = 'pointer'
     img.tabIndex = 0
 
-    registerLevelDetailsModal(img, () => getLevelMilestoneDescription(milestone), 'lightblue', 'lightblue')
+    registerLevelDetailsModal(img, getLevelMilestoneDescription.bind(null, milestone), 'lightblue', 'lightblue')
     div.appendChild(img)
     rewardTable.appendChild(div)
   }
 
   displayLevelStuff()
-}
+})
 
 export const displayLevelStuff = () => {
   const unlockedRewards = synergismLevelReward

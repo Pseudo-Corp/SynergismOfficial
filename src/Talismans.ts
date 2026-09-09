@@ -18,7 +18,7 @@ import { format, formatAsPercentIncrease, player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { toggleAutoBuyFragment, toggleautofortify } from './Toggles'
 import type { Player } from './types/Synergism'
-import { assert, isMobile } from './Utility'
+import { assert, isMobile, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 interface TalismanFragmentCost {
@@ -1512,8 +1512,6 @@ export const updateAllTalismanHTML = () => {
   }
 }
 
-let htmlGeneratedThisSession = false
-
 // This was purely transformed from HTML to JS. It's kinda shit.
 export const generateWebLeftTalismanHTML = () => {
   const talismansDiv = DOMCacheGetOrSet('runeContainer2')
@@ -2361,10 +2359,7 @@ export const generateMobileMainTalismansHTML = () => {
   talismansDiv.appendChild(mobileMainTalismans)
 }
 
-export const generateTalismansHTML = () => {
-  if (htmlGeneratedThisSession) {
-    return
-  }
+export const generateTalismansHTML = memoize(() => {
   if (isMobile) {
     generateMobileTopTalismansHTML()
     generateMobileMainTalismansHTML()
@@ -2373,8 +2368,7 @@ export const generateTalismansHTML = () => {
     generateWebCenterTalismansHTML()
     generateWebRightTalismansHTML()
   }
-  htmlGeneratedThisSession = true
-}
+})
 
 const getTalismanResourceInfo = (
   type: TalismanCraftItems,

@@ -1314,7 +1314,7 @@ async function uploadSave (name: string, save: string): Promise<Response> {
   })
 }
 
-function handleCloudSaves () {
+const initializeCloudSaves = memoize(() => {
   const subtabElement = document.querySelector('#accountSubTab div#right.scrollbarX')!
   const table = subtabElement.querySelector('#table > #dataGrid')!
 
@@ -1652,15 +1652,6 @@ function handleCloudSaves () {
       })
   }
 
-  populateTable()
-
-  if (
-    uploadButton.getAttribute('x-listener-added') !== null
-    || transferButton.getAttribute('x-listener-added') !== null
-  ) {
-    return
-  }
-
   // Handle uploading savefiles
   uploadButton.addEventListener('click', async () => {
     uploadButton.disabled = true
@@ -1751,8 +1742,12 @@ function handleCloudSaves () {
     }
   }, 1000 * 60 * 60)
 
-  uploadButton.setAttribute('x-listener-added', '')
-  transferButton.setAttribute('x-listener-added', '')
+  return populateTable
+})
+
+function handleCloudSaves () {
+  const populateTable = initializeCloudSaves()
+  populateTable()
 }
 
 async function handleSteamCloudSave () {

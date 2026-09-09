@@ -21,7 +21,7 @@ import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
 import { toggleAutoSacrifice } from './Toggles'
 import { CloseModal, Modal } from './UpdateHTML'
-import { assert, isMobile } from './Utility'
+import { assert, isMobile, memoize } from './Utility'
 
 type RuneTypeMap = {
   speed: {
@@ -1391,14 +1391,10 @@ export const generateMobileRunesHTML = () => {
   }
 }
 
-let htmlGeneratedThisSession = false
-
-export const generateRunesHTML = () => {
-  if (htmlGeneratedThisSession) return
+export const generateRunesHTML = memoize(() => {
   if (isMobile) {
     generateMobileRunesHTML()
   } else {
     generateWebRunesHTML()
   }
-  htmlGeneratedThisSession = true
-}
+})

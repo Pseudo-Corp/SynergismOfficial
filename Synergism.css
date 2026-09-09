@@ -445,11 +445,12 @@ body button.active-subtab:active:not(:disabled):not(.disable-hover-color) {
 }
 
 #mobileHotkeysOpen,
-#mobileHotkeysOverlay {
+#mobileHotkeysOverlay,
+#mobileHotkeysRestore {
     display: none;
 }
 
-html[data-mobile="true"] #mobileHotkeysOpen {
+html[data-mobile="true"] #mobileHotkeysOpen:not([hidden]) {
     position: fixed;
     right: calc(12px + env(safe-area-inset-right));
     bottom: calc(12px + env(safe-area-inset-bottom));
@@ -459,6 +460,7 @@ html[data-mobile="true"] #mobileHotkeysOpen {
     justify-content: center;
     width: 52px;
     min-width: 52px;
+    height: 52px;
     min-height: 52px;
     border: 2px solid gold;
     border-radius: 8px;
@@ -469,51 +471,139 @@ html[data-mobile="true"] #mobileHotkeysOpen {
     box-shadow: 0 4px 16px rgb(0 0 0 / 60%);
 }
 
-html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
-    border-color: cyan;
+#mobileHotkeysOpen,
+#mobileHotkeysMove,
+#mobileHotkeysRestore {
+    touch-action: none;
+    user-select: none;
+    cursor: grab;
 }
 
-#mobileHotkeysOverlay.mobileHotkeysOverlayOpen {
+#mobileHotkeysOverlay {
     position: fixed;
     inset: 0;
     z-index: 6967;
+    padding: calc(12px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left));
+    overflow: hidden;
+    pointer-events: none;
+}
+
+html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     display: block;
-    background: rgb(0 0 0 / 45%);
-    backdrop-filter: blur(4px);
 }
 
 #mobileHotkeysCard {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    top: 0;
     left: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    max-height: 72vh;
-    padding: 14px 15px calc(16px + env(safe-area-inset-bottom));
+    gap: 8px;
+    width: min(300px, var(--mobile-hotkeys-available-width, calc(100vw - 24px)));
+    max-height: min(60vh, 440px, var(--mobile-hotkeys-available-height, 100vh));
+    padding: 10px;
     overflow: hidden;
     color: white;
     background-color: var(--alert-color);
-    border-top: 2px solid gold;
-    border-radius: 8px 8px 0 0;
-    box-shadow: 0 -12px 35px rgb(0 0 0 / 60%);
+    border: 2px solid gold;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgb(0 0 0 / 60%);
+    pointer-events: auto;
+}
+
+#mobileHotkeysOpen,
+#mobileHotkeysCard,
+#mobileHotkeysRestore {
+    transition: transform 180ms ease-out;
+}
+
+#mobileHotkeysOpen.mobileHotkeysDragging,
+#mobileHotkeysCard.mobileHotkeysDragging,
+#mobileHotkeysRestore.mobileHotkeysDragging {
+    transition: none;
+    cursor: grabbing;
+}
+
+#mobileHotkeysCard.mobileHotkeysDragging #mobileHotkeysMove {
+    cursor: grabbing;
+}
+
+#mobileHotkeysOverlay[data-state="docked"] #mobileHotkeysCard {
+    pointer-events: none;
+}
+
+#mobileHotkeysRestore {
+    position: absolute;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    min-width: 44px;
+    height: 72px;
+    padding: 0;
+    border: 2px solid gold;
+    border-radius: 12px 0 0 12px;
+    color: gold;
+    background-color: var(--alert-color);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 60%);
+    font-size: 2rem;
+    pointer-events: auto;
+}
+
+#mobileHotkeysOverlay[data-state="docked"] #mobileHotkeysRestore {
+    display: flex;
+}
+
+#mobileHotkeysOverlay[data-side="left"] #mobileHotkeysRestore {
+    border-radius: 0 12px 12px 0;
 }
 
 .mobileHotkeysHeader {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 6px;
 }
 
-#mobileHotkeysTitle {
+.mobileHotkeysHeader h2 {
+    flex: 1;
+    min-width: 0;
     margin: 0;
+    font-size: 1em;
+}
+
+#mobileHotkeysMove {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    min-height: 44px;
+    padding: 4px 0;
+    border: 0;
+    border-radius: 5px;
     color: gold;
+    background: transparent;
     font-size: 1.1em;
     line-height: 1.2;
+    text-align: left;
 }
 
+.mobileHotkeysGrip {
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+#mobileHotkeysHint {
+    flex-shrink: 0;
+    margin: 0;
+    color: lightgray;
+    font-size: 0.75rem;
+    line-height: 1.3;
+}
+
+#mobileHotkeysDock,
 #mobileHotkeysClose {
     width: 44px;
     min-width: 44px;
@@ -526,10 +616,28 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
 
 #mobileHotkeysActions {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 8px;
+    min-height: 0;
     overflow-y: auto;
     padding-right: 4px;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+}
+
+#mobileHotkeysOpen:focus-visible,
+#mobileHotkeysCard button:focus-visible,
+#mobileHotkeysRestore:focus-visible {
+    outline: 2px solid cyan;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #mobileHotkeysOpen,
+    #mobileHotkeysCard,
+    #mobileHotkeysRestore {
+        transition: none;
+    }
 }
 
 .mobileHotkeyAction {

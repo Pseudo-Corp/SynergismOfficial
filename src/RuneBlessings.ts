@@ -10,7 +10,7 @@ import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { getTalismanEffects } from './Talismans'
 import { CloseModal, Modal } from './UpdateHTML'
-import { assert, isMobile } from './Utility'
+import { assert, isMobile, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 type RuneBlessingTypeMap = {
@@ -590,16 +590,10 @@ export const generateMobileRuneBlessingsHTML = () => {
   }
 }
 
-let htmlGeneratedThisSession = false
-
-export const generateBlessingsHTML = () => {
-  if (htmlGeneratedThisSession) {
-    return
-  }
+export const generateBlessingsHTML = memoize(() => {
   if (isMobile) {
     generateMobileRuneBlessingsHTML()
   } else {
     generateWebRuneBlessingsHTML()
   }
-  htmlGeneratedThisSession = true
-}
+})
