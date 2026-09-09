@@ -4797,7 +4797,7 @@ p[id$="BlessingsTotal"] {
 #cubesWrapper {
     display: flex;
     justify-content: flex-start;
-    margin-top: 30px;
+    margin-top: 15px;
     width: 1250px;
 }
 
@@ -4884,7 +4884,7 @@ p[id$="BlessingsTotal"] {
 #cubeTab5 {
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: center;
     gap: 24px;
 }
@@ -4924,10 +4924,6 @@ p[id$="BlessingsTotal"] {
     margin: 5px 0;
     border-collapse: collapse;
     font-size: 0;
-}
-
-.cubeUpgradeInfo {
-    min-height: 4em;
 }
 
 .cubeUpgradeModal {
@@ -6282,7 +6278,6 @@ header #obtainiumDisplay { color: pink; }
     min-width: 0;
     padding: 6px 10px;
     border: 1px solid var(--boxmain-bordercolor);
-    border-left: 3px solid var(--c15-reward-color);
     border-radius: 6px;
     background: linear-gradient(145deg, var(--button-color), var(--box-color));
     color: var(--text-color);
@@ -6325,6 +6320,7 @@ header #obtainiumDisplay { color: pink; }
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    height: 100%;
     padding: 16px;
     border-color: var(--platonic-color);
     border-radius: 8px;
@@ -6336,6 +6332,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #platonicUpgradePics {
+    margin: auto 0;
     font-size: 0;
     border-collapse: collapse;
 }
@@ -6344,9 +6341,10 @@ header #obtainiumDisplay { color: pink; }
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    flex: 1;
+    gap: 8px;
     width: 100%;
-    margin: 8px 0 12px;
+    margin: 8px 0 0;
 }
 
 .platonicUpgradesToggles {
@@ -6364,23 +6362,6 @@ header #obtainiumDisplay { color: pink; }
 .platonicUpgradeImage {
     background-color: var(--buttonimg-color);
     cursor: pointer;
-}
-
-.platonicContainer {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    padding-top: 12px;
-    border-top: 1px solid var(--boxmain-bordercolor);
-    color: white;
-    text-align: left;
-    font-size: 1em;
-}
-
-.platonicPortion {
-    margin: 0;
-    white-space: pre-line;
 }
 
 .platonicUpgradeModal {

@@ -29,7 +29,7 @@ import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import { setChallengeFocus, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
-import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
+import { buyCubeUpgrades, cubeUpgradeModalHTML } from './Cubes'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
 import { buyAllAntMasteries, buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
 import { antProducerData } from './Features/Ants/AntProducers/data/data'
@@ -96,7 +96,7 @@ import {
   toggleMaxedOcteractUpgrades,
   upgradeOcteractToString
 } from './Octeracts'
-import { buyPlatonicUpgrades, createPlatonicDescription, platonicUpgradeModalHTML } from './Platonic'
+import { buyPlatonicUpgrades, platonicUpgradeModalHTML } from './Platonic'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -1338,7 +1338,6 @@ export const generateEventHandlers = () => {
   // Part 1: Cube Upgrades
   const cubeUpgradeModalStyle = { borderColor: 'gold' }
   const desktopCubeUpgradeModal = (index: number, cubeUpgrade: HTMLElement, x: number, y: number) => {
-    cubeUpgradeDesc(index)
     const image = cubeUpgrade.querySelector('img')
 
     Modal(
@@ -1352,7 +1351,6 @@ export const generateEventHandlers = () => {
   }
 
   const mobileCubeUpgradeModal = (index: number, cubeUpgrade: HTMLElement, event: MouseEvent) => {
-    cubeUpgradeDesc(index)
     let buyMaxOverride = player.cubeUpgradesBuyMaxToggle
     const image = cubeUpgrade.querySelector('img')
 
@@ -1476,8 +1474,7 @@ export const generateEventHandlers = () => {
           label: i18next.t('wowCubes.platonicUpgrades.descriptionBox.buyButton')
         }
       ],
-      updateInterval: MEDIUM_MODAL_UPDATE_TICK,
-      onOpen: () => createPlatonicDescription(index)
+      updateInterval: MEDIUM_MODAL_UPDATE_TICK
     })
   }
   DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').addEventListener('click', () => autoPlatonicUpgradesToggle())

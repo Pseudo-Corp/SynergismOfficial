@@ -105,38 +105,6 @@ const getCubeMax = (i: number) => {
   return baseValue
 }
 
-export const cubeUpgradeDesc = (i: number, buyMax = player.cubeUpgradesBuyMaxToggle) => {
-  const metaData = getCubeCost(i, buyMax)
-  const a = DOMCacheGetOrSet('cubeUpgradeName')
-  const b = DOMCacheGetOrSet('cubeUpgradeDescription')
-  const c = DOMCacheGetOrSet('cubeUpgradeCost')
-  const d = DOMCacheGetOrSet('cubeUpgradeLevel')
-  const maxLevel = getCubeMax(i)
-
-  a.textContent = i18next.t(`cubes.upgradeNames.${i}`)
-  b.innerHTML = i18next.t(`cubes.upgradeDescriptions.${i}`)
-  c.textContent = i18next.t('cubes.cubeMetadata.cost', {
-    value1: format(metaData.cost, 0, true),
-    value2: format(metaData.levelCanBuy - player.cubeUpgrades[i]!, 0, true)
-  })
-  c.style.color = 'var(--green-text-color)'
-  d.textContent = i18next.t('cubes.cubeMetadata.level', {
-    value1: format(player.cubeUpgrades[i], 0, true),
-    value2: format(maxLevel, 0, true)
-  })
-  d.style.color = 'white'
-
-  // This conditional is true only in the case where you can buy zero levels.
-  if (Number(player.wowCubes) < metaData.cost) {
-    c.style.color = 'var(--crimson-text-color)'
-  }
-  if (player.cubeUpgrades[i] === maxLevel) {
-    c.style.color = 'gold'
-    c.textContent = i18next.t('cubes.cubeMetadata.maxLevel')
-    d.style.color = 'plum'
-  }
-}
-
 export const cubeUpgradeModalHTML = (
   i: number,
   buyMax = player.cubeUpgradesBuyMaxToggle,
@@ -253,7 +221,6 @@ export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
   }
 
   if (!auto) {
-    cubeUpgradeDesc(i, buyMax)
     revealStuff()
   }
   updateCubeUpgradeBG(i)

@@ -3154,8 +3154,7 @@
     "cubeMetadata": {
       "cost": "Cost: {{value1}} Wow! Cubes [+{{value2}} Levels]",
       "level": "Level: {{value1}} / {{value2}}",
-      "maxLevel": "Cost: 0 Wow! Cubes. This upgrade is maxed! wow",
-      "selectUpgrade": "Hover, focus, or tap a Cube Upgrade to view its details."
+      "maxLevel": "Cost: 0 Wow! Cubes. This upgrade is maxed! wow"
     },
     "noCubesOpened": "OK. No cubes opened.",
     "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \nYou can input a percentage of cubes to open, for example: \"50%\" or \"100%\". \nYou can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",
@@ -4890,7 +4889,6 @@
       "cubeUpgrades": "Cube Upgrades",
       "upgrades": "Cube / Platonic Upgrades",
       "challenge15Rewards": "Challenge 15 Rewards",
-      "challenge15": "Challenge 15/Platonic Upgrades",
       "hepteract": "Hepteract Forge"
     },
     "singularity": {
@@ -7478,9 +7476,6 @@
         "ascensionSpeed": "Ascension Speed: +{{amount}}"
       },
       "descriptionBox": {
-        "descriptionDivisor": "===Upgrade Description===",
-        "descriptionDefault": "Click an icon for info!",
-        "costDivisor": "===Upgrade Costs===",
         "modalTitle": "Platonic Upgrade {{index}}",
         "buyButton": "Buy",
         "modalCanBuy": "Affordable",
@@ -7494,10 +7489,7 @@
         "tesseractCost": "{{a}}/{{b}} Wow! Tesseracts",
         "hypercubeCost": "{{a}}/{{b}} Wow! Hypercubes",
         "platonicCost": "{{a}}/{{b}} Platonic! Cubes",
-        "hepteractCost": "{{a}}/{{b}} Hepteracts of the Abyss",
-        "platonicCanBuy": "===Affordable! Click to buy!===",
-        "platonicCannotBuy": "===You cannot afford this!===",
-        "platonicCanBuyMaxed": "===Maxed==="
+        "hepteractCost": "{{a}}/{{b}} Hepteracts of the Abyss"
       },
       "descriptions": {
         "1": "+num:((0.0090))% Cubes per Corruption level per level!",
