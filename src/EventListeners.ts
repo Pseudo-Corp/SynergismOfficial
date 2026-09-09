@@ -1458,34 +1458,27 @@ export const generateEventHandlers = () => {
 
   DOMCacheGetOrSet('maxPlatToggle').addEventListener('click', () => toggleMaxPlat())
   // Part 3: Platonic Upgrade Section
-  const platonicUpgrades = document.getElementsByClassName(
-    'platonicUpgradeImage'
-  )
-  for (let index = 0; index < platonicUpgrades.length; index++) {
-    const platonicUpgrade = platonicUpgrades[index] as HTMLImageElement
-    const upgradeIndex = index + 1
+  for (let index = 1; index < player.platonicUpgrades.length; index++) {
+    const platonicUpgrade = DOMCacheGetOrSet(`platUpg${index}`)
+    const image = platonicUpgrade.querySelector('img')
+    platonicUpgrade.setAttribute('aria-haspopup', 'dialog')
 
-    if (isMobile) {
-      platonicUpgrade.addEventListener('click', () => createPlatonicDescription(upgradeIndex))
-      registerPurchasableModal({
-        element: platonicUpgrade,
-        html: () => platonicUpgradeModalHTML(upgradeIndex, platonicUpgrade.style.cssText),
-        style: { borderColor: 'orchid' },
-        buy: () => {
-          buyPlatonicUpgrades(upgradeIndex)
-        },
-        mobileButtons: [
-          {
-            action: 'buy',
-            label: i18next.t('wowCubes.platonicUpgrades.descriptionBox.buyButton')
-          }
-        ],
-        updateInterval: MEDIUM_MODAL_UPDATE_TICK
-      })
-    } else {
-      platonicUpgrade.addEventListener('mouseover', () => createPlatonicDescription(upgradeIndex))
-      platonicUpgrade.addEventListener('click', () => buyPlatonicUpgrades(upgradeIndex))
-    }
+    registerPurchasableModal({
+      element: platonicUpgrade,
+      html: () => platonicUpgradeModalHTML(index, image?.style.cssText),
+      style: { borderColor: 'orchid' },
+      buy: () => {
+        buyPlatonicUpgrades(index)
+      },
+      mobileButtons: [
+        {
+          action: 'buy',
+          label: i18next.t('wowCubes.platonicUpgrades.descriptionBox.buyButton')
+        }
+      ],
+      updateInterval: MEDIUM_MODAL_UPDATE_TICK,
+      onOpen: () => createPlatonicDescription(index)
+    })
   }
   DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').addEventListener('click', () => autoPlatonicUpgradesToggle())
 
