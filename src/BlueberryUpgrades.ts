@@ -65,6 +65,7 @@ type AmbrosiaUpgradeRewards = {
   ambrosiaFreeLuckUpgrades: { freeLuckUpgrades: number }
   ambrosiaFreeGenerationUpgrades: { freeGenerationUpgrades: number }
   ambrosiaFreeRedLuckUpgrades: { freeRedLuckUpgrades: number }
+  twoMind: { twoMindEnabled: number }
 }
 
 export type AmbrosiaUpgradeNames = keyof AmbrosiaUpgradeRewards
@@ -1497,6 +1498,43 @@ export const ambrosiaUpgrades: {
       maxLevel: 1,
       costFormula: (level: number) => 2000 * level
     }
+  },
+  twoMind: {
+    level: 0,
+    maxLevel: 1,
+    costPerLevel: 0,
+    blueberryCost: 8,
+    ignoreEXALT: false,
+    prerequisites: {},
+    costFormula: (_level: number, _baseCost: number): number => {
+      return 0
+    },
+    effects: (n: number) => {
+      return n // twoMindEnabled
+    },
+    effectsDescription: function() {
+      const enabled = getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')
+      if (enabled) {
+        return i18next.t('ambrosia.data.twoMind.effectEnabled')
+      }
+      return i18next.t('ambrosia.data.twoMind.effectDisabled')
+    },
+    name: () => i18next.t('ambrosia.data.twoMind.name'),
+    description: () => {
+      const intro = i18next.t('ambrosia.data.twoMind.description')
+      const ambMod = i18next.t('ambrosia.data.twoMind.descriptionAmbrosia')
+      const redAmbMod = i18next.t('ambrosia.data.twoMind.descriptionRedAmbrosia')
+      const purpleMod = i18next.t('ambrosia.data.twoMind.descriptionPurpleHoney')
+      const summary = i18next.t('ambrosia.data.twoMind.descriptionSummary')
+
+      return `${intro}<br>${ambMod}<br>${redAmbMod}<br>${purpleMod}<br>${summary}`
+    },
+    unlockCriterion: 'Exalt9x1',
+    purpleAmbrosiaEnchantment: {
+      type: 'blueberryCostReduction',
+      maxLevel: 1,
+      costFormula: (level: number) => 2222 * level
+    }
   }
 }
 
@@ -1594,6 +1632,12 @@ export const blankAmbrosiaUpgradeObject: Record<
 export const setAmbrosiaUpgradeLevels = () => {
   for (const upgradeKey of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
     const upgrade = ambrosiaUpgrades[upgradeKey]
+    if (upgradeKey === 'twoMind') {
+      // This upgrade costs only Blueberries, so Ambrosia investment cannot indicate ownership.
+      upgrade.level = player.ambrosiaUpgrades.twoMind.blueberriesInvested > 0 ? 1 : 0
+      continue
+    }
+
     const invested = player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested
 
     let level = 0
@@ -2178,6 +2222,12 @@ export const ambrosiaEditToString = (upgradeKey: AmbrosiaUpgradeNames) => {
   return `<div class="ambrosiaEditModal"><div>${nameHTML}<br>${levelHTML}<br>${costHTML}${blueberryHTML}${noticeHTML}</div><div class="modalButtonRow">${stepButtons}${maxButton}</div><div class="modalButtonRow">${commitButtons}</div></div>`
 }
 
+const resetAmbrosiaBarProgress = () => {
+  player.blueberryTime = 0
+  player.redAmbrosiaTime = 0
+  player.purpleHoneyProgress = 0
+}
+
 const applyAmbrosiaEdit = (upgradeKey: AmbrosiaUpgradeNames) => {
   const upgrade = ambrosiaUpgrades[upgradeKey]
   const blueberryCost = getAmbrosiaUpgradeBlueberryCost(upgradeKey)
@@ -2203,6 +2253,9 @@ const applyAmbrosiaEdit = (upgradeKey: AmbrosiaUpgradeNames) => {
   const cost = getAmbrosiaUpgradeCostBetween(upgradeKey, upgrade.level, pending)
   player.ambrosia -= cost
   player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested += cost
+  if (pending < upgrade.level) {
+    resetAmbrosiaBarProgress()
+  }
   upgrade.level = pending
 }
 
@@ -2268,6 +2321,7 @@ export const resetBlueberryTree = (giveAlert = true) => {
   }
   player.ambrosia = player.lifetimeAmbrosia
   player.spentBlueberries = 0
+  resetAmbrosiaBarProgress()
   if (giveAlert) return Alert(i18next.t('ambrosia.refund'))
 }
 

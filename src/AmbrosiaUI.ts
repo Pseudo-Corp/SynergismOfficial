@@ -57,8 +57,8 @@ const blueberryUpgradeGroups = {
     'ambrosiaTutorial',
     'ambrosiaPatreon',
     'ambrosiaBrickOfLead',
+    'twoMind',
     'ambrosiaObtainium1',
-    'ambrosiaOffering1',
     'ambrosiaHyperflux'
   ],
   quarks: [
@@ -96,6 +96,7 @@ const blueberryUpgradeGroups = {
     'ambrosiaBaseObtainium1',
     'ambrosiaBaseObtainium2',
     'ambrosiaFreeObtainiumUpgrades',
+    'ambrosiaOffering1',
     'ambrosiaBaseOffering1',
     'ambrosiaBaseOffering2',
     'ambrosiaFreeOfferingUpgrades'

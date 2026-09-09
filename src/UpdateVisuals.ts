@@ -1,6 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
+import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   CalcCorruptionStuff,
@@ -11,6 +12,7 @@ import {
   calculateAmbrosiaLuck,
   calculateAmbrosiaLuckRaw,
   calculateAmbrosiaQuarkMult,
+  calculateAmbrosiaRewardLuck,
   calculateAscensionCount,
   calculateBlueberryInventory,
   calculateCookieUpgrade29Luck,
@@ -18,11 +20,11 @@ import {
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
   calculateOcteractMultiplier,
-  calculatePurpleBarPointsPerAmbrosiaFill,
   calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyExtractionMultiplier,
   calculatePurpleHoneyLuck,
   calculatePurpleHoneyPerExtraction,
+  calculatePurpleHoneyRewardLuck,
   calculatePurpleReactantCapacity,
   calculatePurpleReactantConversion,
   calculatePurpleReactantRecipe,
@@ -33,6 +35,7 @@ import {
   calculateRedAmbrosiaObtainium,
   calculateRedAmbrosiaOffering,
   calculateRedAmbrosiaReactantCapacity,
+  calculateRedAmbrosiaRewardLuck,
   calculateRequiredBlueberryTime,
   calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium,
@@ -2061,13 +2064,14 @@ export const visualUpdateAmbrosia = () => {
   DOMCacheGetOrSet('redAmbrosiaDisplay').hidden = !redUnlocked
   DOMCacheGetOrSet('purpleAmbrosiaDisplay').hidden = !purpleUnlocked
 
-  const luck = calculateAmbrosiaLuck()
+  const twoMindEnabled = getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')
+  const luck = calculateAmbrosiaRewardLuck()
   const baseLuck = calculateAmbrosiaLuckRaw()
   const luckBonusPercent = 100 * (calculateAmbrosiaAdditiveLuckMult() - 1)
   const guaranteed = Math.floor(luck / 100)
   const chance = luck - 100 * Math.floor(luck / 100)
 
-  const luckRed = calculateRedAmbrosiaLuck()
+  const luckRed = calculateRedAmbrosiaRewardLuck()
   const guaranteedRed = Math.floor(luckRed / 100)
   const chanceRed = luckRed - 100 * Math.floor(luckRed / 100)
 
@@ -2252,16 +2256,18 @@ export const visualUpdateAmbrosia = () => {
 
   updateInnerHTMLIfChanged(
     'ambrosiaLuck',
-    i18next.t('ambrosia.ledger.luck', {
+    i18next.t(twoMindEnabled ? 'ambrosia.ledger.luckTwoMind' : 'ambrosia.ledger.luck', {
       luck: format(luck, 0, true),
+      unmodifiedLuck: format(calculateAmbrosiaLuck(), 0, true),
       base: format(baseLuck, 0, true),
       percent: format(luckBonusPercent, 2, true)
     })
   )
   updateInnerHTMLIfChanged(
     'redAmbrosiaLuck',
-    i18next.t('ambrosia.ledger.redLuck', {
-      luck: format(luckRed, 0, true)
+    i18next.t(twoMindEnabled ? 'ambrosia.ledger.redLuckTwoMind' : 'ambrosia.ledger.redLuck', {
+      luck: format(luckRed, 0, true),
+      unmodifiedLuck: format(calculateRedAmbrosiaLuck(), 0, true)
     })
   )
 
@@ -2327,7 +2333,7 @@ export const visualUpdatePurple = () => {
 
   const conversionFactor = calculatePurpleHoneyConversionFactor()
   const purpleHoneyPerExtraction = calculatePurpleHoneyPerExtraction()
-  const purpleHoneyLuck = calculatePurpleHoneyLuck()
+  const purpleHoneyLuck = calculatePurpleHoneyRewardLuck()
   const { guaranteedMultiplier, bonusMultiplierChance } = calculatePurpleHoneyExtractionMultiplier(purpleHoneyLuck)
   const encabulatorSpeed = calculateEncabulatorSpeed()
   const purpleReactorAP = calculatePurpleReactorAP()
@@ -2360,13 +2366,12 @@ export const visualUpdatePurple = () => {
     })
   )
 
-  const cancerBarFillRatio = getPurpleAmbrosiaUpgradeEffects('cancer', 'barFillRatio')
-  DOMCacheGetOrSet('purpleHoneyCancerBonus').hidden = cancerBarFillRatio === 0
+  const purpleBarPointsOnFill = getPurpleAmbrosiaUpgradeEffects('cancer', 'purpleBarPointsOnFill')
+  DOMCacheGetOrSet('purpleHoneyCancerBonus').hidden = purpleBarPointsOnFill === 0
   updateInnerHTMLIfChanged(
     'purpleHoneyCancerBonus',
     i18next.t('purpleAmbrosia.cancerBarFillBonus', {
-      points: format(calculatePurpleBarPointsPerAmbrosiaFill(), 2, true),
-      percent: formatAsPercentIncrease(1 + cancerBarFillRatio, 0)
+      points: format(purpleBarPointsOnFill, 2, true)
     })
   )
 
@@ -2586,9 +2591,12 @@ export const visualUpdatePurple = () => {
   updateInnerHTMLIfChanged(
     'purpleHoneyLuck',
     i18next.t(
-      'purpleReactor.purpleHoneyLuck',
+      getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')
+        ? 'purpleReactor.purpleHoneyLuckTwoMind'
+        : 'purpleReactor.purpleHoneyLuck',
       {
-        luck: format(purpleHoneyLuck, 2, true)
+        luck: format(purpleHoneyLuck, 2, true),
+        unmodifiedLuck: format(calculatePurpleHoneyLuck(), 2, true)
       }
     )
   )

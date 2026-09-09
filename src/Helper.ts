@@ -2,23 +2,22 @@ import Decimal from 'break_infinity.js'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import {
   calculateAmbrosiaGenerationSpeed,
-  calculateAmbrosiaLuck,
+  calculateAmbrosiaRewardLuck,
   calculateAscensionSpeedMult,
   calculateEncabulatorSpeed,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateOcteractMultiplier,
-  calculatePurpleBarPointsPerAmbrosiaFill,
   calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyExtractionMultiplier,
-  calculatePurpleHoneyLuck,
   calculatePurpleHoneyPerExtraction,
+  calculatePurpleHoneyRewardLuck,
   calculatePurpleReactantCapacity,
   calculatePurpleReactantConversion,
   calculatePurpleReactantRouting,
   calculateRedAmbrosiaGenerationSpeed,
-  calculateRedAmbrosiaLuck,
   calculateRedAmbrosiaReactantCapacity,
+  calculateRedAmbrosiaRewardLuck,
   calculateRequiredBlueberryTime,
   calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium
@@ -28,6 +27,7 @@ import { canAutoSacrifice } from './Features/Ants/Automation/sacrifice'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { getPurpleReactorUpgradeEffects } from './Purple'
+import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { PURPLE_REACTOR_TICK_INTERVAL, type PurpleReactant } from './PurpleReactor'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
@@ -137,12 +137,17 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
   const purpleHoneyProgress = player.purpleHoneyProgress + purpleBarPointsGained
   const completedExtractions = Math.floor(purpleHoneyProgress / conversionFactor)
   const { guaranteedMultiplier, bonusMultiplierChance } = calculatePurpleHoneyExtractionMultiplier(
-    calculatePurpleHoneyLuck()
+    calculatePurpleHoneyRewardLuck()
   )
   let bonusExtractions = 0
 
   if (bonusMultiplierChance > 0) {
-    for (let i = 0; i < completedExtractions; i++) {
+    let extractionsToLoop = completedExtractions
+    if (completedExtractions > 100) {
+      extractionsToLoop %= 100
+      bonusExtractions = Math.floor(bonusMultiplierChance * 100 * completedExtractions / 100)
+    }
+    for (let i = 0; i < extractionsToLoop; i++) {
       if (seededRandom(Seed.PurpleHoney) < bonusMultiplierChance) {
         bonusExtractions++
       }
@@ -180,9 +185,14 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
   if (purpleHoneyGained > 0) {
     animatePurpleHoneyGain(purpleHoneyGained)
 
-    const ambrosiasTimeToGrant = purpleHoneyGained * getShopUpgradeEffects('shopPurpleBarRebate', 'rebateTime')
-    addTimers('redAmbrosia', ambrosiasTimeToGrant)
-    addTimers('ambrosia', ambrosiasTimeToGrant)
+    player.blueberryTime += completedExtractions * (
+      getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaBarPointsOnFill')
+      + getShopUpgradeEffects('shopPurpleBarRebate', 'ambrosiaBarPointsPerFill')
+    )
+    player.redAmbrosiaTime += completedExtractions * (
+      getPurpleAmbrosiaUpgradeEffects('gemini', 'redAmbrosiaBarPointsOnFill')
+      + getShopUpgradeEffects('shopPurpleBarRebate', 'redAmbrosiaBarPointsPerFill')
+    )
 
     if (player.singularityCounter >= 3600 && !player.singularityChallenges.barDependence.enabled) {
       const quarksToAdd = purpleHoneyGained * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
@@ -390,11 +400,11 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         break
       }
 
-      const ambrosiaLuck = calculateAmbrosiaLuck()
       player.blueberryTime += normalBarPoints
       let timeToAmbrosia = calculateRequiredBlueberryTime()
 
       while (player.blueberryTime >= timeToAmbrosia) {
+        const ambrosiaLuck = calculateAmbrosiaRewardLuck()
         const RNG = seededRandom(Seed.Ambrosia)
         const ambrosiaMult = Math.floor(ambrosiaLuck / 100)
         const luckMult = RNG < ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100) ? 1 : 0
@@ -411,7 +421,7 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
           player.lifetimeAmbrosia += ambrosiaToGain
         }
         player.blueberryTime -= timeToAmbrosia
-        player.purpleHoneyProgress += calculatePurpleBarPointsPerAmbrosiaFill()
+        player.purpleHoneyProgress += getPurpleAmbrosiaUpgradeEffects('cancer', 'purpleBarPointsOnFill')
 
         timeToAmbrosia = calculateRequiredBlueberryTime()
       }
@@ -442,7 +452,7 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
       const timeCoeff = getRedAmbrosiaUpgradeEffects('redAmbrosiaAccelerator', 'ambrosiaTimePerRedAmbrosia')
 
       while (player.redAmbrosiaTime >= timeToRedAmbrosia) {
-        const redAmbrosiaLuck = calculateRedAmbrosiaLuck()
+        const redAmbrosiaLuck = calculateRedAmbrosiaRewardLuck()
         const RNG = seededRandom(Seed.RedAmbrosia)
         const redAmbrosiaMult = Math.floor(redAmbrosiaLuck / 100)
         const luckMult = RNG < redAmbrosiaLuck / 100 - Math.floor(redAmbrosiaLuck / 100) ? 1 : 0
@@ -456,7 +466,7 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         }
         ambrosiaTimeToGrant += redAmbrosiaToGain * timeCoeff
         player.redAmbrosiaTime -= timeToRedAmbrosia
-        player.purpleHoneyProgress += calculatePurpleBarPointsPerAmbrosiaFill()
+        player.purpleHoneyProgress += getPurpleAmbrosiaUpgradeEffects('cancer', 'purpleBarPointsOnFill')
         timeToRedAmbrosia = calculateRequiredRedAmbrosiaTime()
       }
 

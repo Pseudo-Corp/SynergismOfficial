@@ -9,8 +9,8 @@ import { isMobile } from './Utility'
 export type PurpleAmbrosiaUpgradeRewards = {
   aries: { universalBarPointMult: number }
   taurus: { taxDivisor: number }
-  gemini: { ambrosiaRequirementMult: number }
-  cancer: { barFillRatio: number }
+  gemini: { ambrosiaBarPointsOnFill: number; redAmbrosiaBarPointsOnFill: number }
+  cancer: { purpleBarPointsOnFill: number }
   leo: { unassignedBlueberyLuck: number }
   virgo: { assignedBlueberrySalvage: number }
   libra: { overcapToggleUnlocked: boolean }
@@ -96,37 +96,58 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
   gemini: {
     maxLevel: 10,
     costFormula: (level: number) => 80 * level,
-    effects: (level: number) => 1 - level / 100,
-    notMaxedEffectsDescription: () =>
-      i18next.t('purpleAmbrosia.data.gemini.effectNotMaxed', {
-        oldPercent: formatAsPercentIncrease(
-          2 - getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaRequirementMult'),
-          0
-        ),
-        newPercent: formatAsPercentIncrease(
-          2 - getPurpleAmbrosiaUpgradeNextLevelEffects('gemini', 'ambrosiaRequirementMult'),
-          0
-        )
-      }),
-    maxedEffectsDescription: () =>
-      i18next.t('purpleAmbrosia.data.gemini.effectMaxed', {
-        maxPercent: formatAsPercentIncrease(2 - getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaRequirementMult'), 0)
-      }),
+    effects: (level, key) => {
+      if (key === 'ambrosiaBarPointsOnFill') {
+        return 125_000 * level
+      }
+      return 25 * level // redAmbrosiaBarPointsOnFill
+    },
+    notMaxedEffectsDescription: () => {
+      const oldEffect1 = getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaBarPointsOnFill')
+      const newEffect1 = getPurpleAmbrosiaUpgradeNextLevelEffects('gemini', 'ambrosiaBarPointsOnFill')
+      const effectText1 = i18next.t('purpleAmbrosia.data.gemini.effectNotMaxed', {
+        oldValue: format(oldEffect1, 0, true),
+        newValue: format(newEffect1, 0, true)
+      })
+
+      const oldEffect2 = getPurpleAmbrosiaUpgradeEffects('gemini', 'redAmbrosiaBarPointsOnFill')
+      const newEffect2 = getPurpleAmbrosiaUpgradeNextLevelEffects('gemini', 'redAmbrosiaBarPointsOnFill')
+      const effectText2 = i18next.t('purpleAmbrosia.data.gemini.effectNotMaxed2', {
+        oldValue: format(oldEffect2, 0, true),
+        newValue: format(newEffect2, 0, true)
+      })
+      return `${effectText1}<br>${effectText2}`
+    },
+    maxedEffectsDescription: () => {
+      const maxEffect1 = getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaBarPointsOnFill')
+      const effectText1 = i18next.t('purpleAmbrosia.data.gemini.effectMaxed', {
+        maxValue: format(maxEffect1, 0, true)
+      })
+
+      const maxEffect2 = getPurpleAmbrosiaUpgradeEffects('gemini', 'redAmbrosiaBarPointsOnFill')
+      const effectText2 = i18next.t('purpleAmbrosia.data.gemini.effectMaxed2', {
+        maxValue: format(maxEffect2, 0, true)
+      })
+      return `${effectText1}<br>${effectText2}`
+    },
     name: () => i18next.t('purpleAmbrosia.data.gemini.name'),
     description: () => i18next.t('purpleAmbrosia.data.gemini.description')
   },
   cancer: {
     maxLevel: 10,
     costFormula: (level: number) => 80 * level,
-    effects: (level: number) => level / 100,
-    notMaxedEffectsDescription: () =>
-      i18next.t('purpleAmbrosia.data.cancer.effectNotMaxed', {
-        oldPercent: formatAsPercentIncrease(1 + getPurpleAmbrosiaUpgradeEffects('cancer', 'barFillRatio'), 0),
-        newPercent: formatAsPercentIncrease(1 + getPurpleAmbrosiaUpgradeNextLevelEffects('cancer', 'barFillRatio'), 0)
-      }),
+    effects: (level: number) => 500 * level,
+    notMaxedEffectsDescription: () => {
+      const effect = getPurpleAmbrosiaUpgradeEffects('cancer', 'purpleBarPointsOnFill')
+      const nextEffect = getPurpleAmbrosiaUpgradeNextLevelEffects('cancer', 'purpleBarPointsOnFill')
+      return i18next.t('purpleAmbrosia.data.cancer.effectNotMaxed', {
+        oldValue: format(effect, 0, true),
+        newValue: format(nextEffect, 0, true)
+      })
+    },
     maxedEffectsDescription: () =>
       i18next.t('purpleAmbrosia.data.cancer.effectMaxed', {
-        maxPercent: formatAsPercentIncrease(1 + getPurpleAmbrosiaUpgradeEffects('cancer', 'barFillRatio'), 0)
+        maxValue: format(getPurpleAmbrosiaUpgradeEffects('cancer', 'purpleBarPointsOnFill'), 0, true)
       }),
     name: () => i18next.t('purpleAmbrosia.data.cancer.name'),
     description: () => i18next.t('purpleAmbrosia.data.cancer.description')

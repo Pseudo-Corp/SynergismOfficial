@@ -1,6 +1,11 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateRedAmbrosiaCubes, calculateRedAmbrosiaObtainium, calculateRedAmbrosiaOffering } from './Calculate'
+import {
+  calculateRedAmbrosiaCubes,
+  calculateRedAmbrosiaLuck,
+  calculateRedAmbrosiaObtainium,
+  calculateRedAmbrosiaOffering
+} from './Calculate'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { isMobile } from './Utility'
@@ -414,8 +419,11 @@ export const redAmbrosiaUpgrades: {
         'redAmbrosiaAccelerator',
         'ambrosiaTimePerRedAmbrosia'
       )
+
+      const redLuckMultiplier = Math.floor(calculateRedAmbrosiaLuck() / 100)
       return i18next.t('redAmbrosia.data.redAmbrosiaAccelerator.effect', {
-        amount: format(ambrosiaTimePerRedAmbrosia, 2, true)
+        amount: format(ambrosiaTimePerRedAmbrosia, 2, true),
+        current: format(ambrosiaTimePerRedAmbrosia * redLuckMultiplier, 2, true)
       })
     },
     maxLevel: 100,

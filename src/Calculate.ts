@@ -119,6 +119,12 @@ const challengeScoreArrays4 = [
 const ambrosiaLuckSingThresholds1 = [35, 42, 49, 56, 63, 70, 77]
 const ambrosiaLuckSingThresholds2 = [135, 142, 149, 156, 163, 170, 177]
 
+const twoMindBarRequirements = {
+  ambrosia: 25_000_000,
+  redAmbrosia: 5_000,
+  purpleHoney: 100_000
+}
+
 const derpsmithSingCounts = [
   18,
   38,
@@ -382,6 +388,20 @@ export const calculateAmbrosiaLuck = () => {
   return rawLuck * multiplier
 }
 
+// TWO MIND changes reward luck only; other luck-based effects keep their normal values.
+const calculateBarRewardLuck = (luck: number, calculateRequirement: (ignoreTwoMind?: boolean) => number) => {
+  if (!getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')) {
+    return luck
+  }
+
+  const fixedRequirement = calculateRequirement()
+  const oldRequirement = calculateRequirement(true)
+  return luck * (fixedRequirement / oldRequirement)
+}
+
+export const calculateAmbrosiaRewardLuck = () =>
+  calculateBarRewardLuck(calculateAmbrosiaLuck(), calculateRequiredBlueberryTime)
+
 export const calculateBlueberryInventory = () => calculateTotalStat(allAmbrosiaBlueberryStats)
 export const calculateAmbrosiaGenerationSpeedRaw = () => calculateTotalStat(allAmbrosiaGenerationSpeedStats)
 export const calculateAmbrosiaGenerationSpeed = () => {
@@ -399,6 +419,9 @@ export const calculateLuckConversion = () => calculateTotalStat(allLuckConversio
 
 export const calculateRedAmbrosiaLuck = () => calculateTotalStat(allRedAmbrosiaLuckStats)
 
+export const calculateRedAmbrosiaRewardLuck = () =>
+  calculateBarRewardLuck(calculateRedAmbrosiaLuck(), calculateRequiredRedAmbrosiaTime)
+
 export const calculateRedAmbrosiaGenerationSpeedRaw = () => calculateTotalStat(allRedAmbrosiaGenerationSpeedStats)
 export const calculateRedAmbrosiaGenerationSpeed = () => {
   const rawSpeed = calculateRedAmbrosiaGenerationSpeedRaw()
@@ -410,22 +433,24 @@ export const calculateEncabulatorSpeed = () => calculateTotalStat(allEncabulator
 export const calculatePurpleReactantCapacity = () => calculateTotalStat(allPurpleReactantCapacityStats)
 export const calculatePurpleHoneyLuck = () => calculateTotalStat(allPurpleHoneyLuckStats)
 
+export const calculatePurpleHoneyRewardLuck = () =>
+  calculateBarRewardLuck(calculatePurpleHoneyLuck(), calculatePurpleHoneyConversionFactor)
+
 export const calculateBarEXALTPurpleHoneyRequirement = () => {
   const multiplier = Math.pow(1 + player.singularityChallenges.barDependence.completions, 2)
   const divisor = Math.max(1, player.purpleReactor.lifetimePurpleHoney)
   return 1e10 * multiplier / divisor
 }
 
-export const calculatePurpleHoneyConversionFactor = () => {
+export const calculatePurpleHoneyConversionFactor = (ignoreTwoMind = false) => {
+  if (!ignoreTwoMind && getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')) {
+    return twoMindBarRequirements.purpleHoney
+  }
+
   if (player.singularityChallenges.barDependence.enabled) {
     return calculateBarEXALTPurpleHoneyRequirement()
   }
   return calculateTotalStat(allPurpleHoneyProgressRequirementStats)
-}
-
-export const calculatePurpleBarPointsPerAmbrosiaFill = () => {
-  const barFillRatio = getPurpleAmbrosiaUpgradeEffects('cancer', 'barFillRatio')
-  return barFillRatio > 0 ? calculatePurpleHoneyConversionFactor() * barFillRatio : 0
 }
 
 export const calculateRedAmbrosiaReactantCapacity = () => {
@@ -1589,24 +1614,17 @@ export const calculateAmbrosiaLuckOcteractUpgrade = () => {
   )
 }
 
-export const calculateAmbrosiaBarRequirementMultiplier = () => {
-  const requirementMultiplier = getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaRequirementMult')
-  if (requirementMultiplier === 1) {
-    return 1
-  }
-
-  const inputTanksHaveSpace = player.purpleReactor.storedAmbrosiaBarPoints < calculatePurpleReactantCapacity()
-    && player.purpleReactor.storedRedAmbrosiaBarPoints < calculateRedAmbrosiaReactantCapacity()
-  return inputTanksHaveSpace ? requirementMultiplier : 1
-}
-
 export const calculateRequiredBlueberryTimeEXALT = () => {
   const multiplier = player.singularityChallenges.barDependence.completions + 1
   const divisor = 1 + player.lifetimeAmbrosia
   return 2.5e15 * multiplier / divisor
 }
 
-export const calculateRequiredBlueberryTime = () => {
+export const calculateRequiredBlueberryTime = (ignoreTwoMind = false) => {
+  if (!ignoreTwoMind && getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')) {
+    return twoMindBarRequirements.ambrosia
+  }
+
   if (player.singularityChallenges.barDependence.enabled) {
     return calculateRequiredBlueberryTimeEXALT()
   }
@@ -1626,7 +1644,7 @@ export const calculateRequiredBlueberryTime = () => {
     val = Math.ceil(val)
   }
 
-  return val * calculateAmbrosiaBarRequirementMultiplier()
+  return val
 }
 
 export const calculateRequiredRedAmbrosiaTimeEXALT = () => {
@@ -1635,7 +1653,11 @@ export const calculateRequiredRedAmbrosiaTimeEXALT = () => {
   return 1.5e11 * multiplier / divisor
 }
 
-export const calculateRequiredRedAmbrosiaTime = () => {
+export const calculateRequiredRedAmbrosiaTime = (ignoreTwoMind = false) => {
+  if (!ignoreTwoMind && getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')) {
+    return twoMindBarRequirements.redAmbrosia
+  }
+
   if (player.singularityChallenges.barDependence.enabled) {
     return calculateRequiredRedAmbrosiaTimeEXALT()
   }
@@ -1646,7 +1668,7 @@ export const calculateRequiredRedAmbrosiaTime = () => {
   const max = 1e4 * getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
   val *= getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
 
-  return Math.min(max, val) * calculateAmbrosiaBarRequirementMultiplier()
+  return Math.min(max, val)
 }
 
 export const calculateSingularityMilestoneBlueberries = () => {

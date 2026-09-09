@@ -28,7 +28,9 @@
       "perFill": "<<var(--amber-text-color)|+{{guaranteed}}>> Ambrosia on fill (<<var(--amber-text-color)|{{extraChance}}%>> chance for 1 more)",
       "redPerFill": "<<red|+{{guaranteed}}>> Red Ambrosia on fill (<<red|{{extraChance}}%>> chance for 1 more)",
       "luck": "<<lime|{{luck}}>> Ambrosia Luck [<<var(--amber-text-color)|{{base}} + {{percent}}%>>]",
+      "luckTwoMind": "<<lime|{{luck}}>> Ambrosia Luck for Ambrosia [<<var(--amber-text-color)|{{unmodifiedLuck}}>> for everything else]",
       "redLuck": "<<red|{{luck}}>> Red Luck",
+      "redLuckTwoMind": "<<red|{{luck}}>> Red Luck for Red Ambrosia [<<red|{{unmodifiedLuck}}>> for everything else]",
       "ambrosiaProgress": "Ambrosia generation progress",
       "redAmbrosiaProgress": "Red Ambrosia generation progress",
       "progress": "{{current}} / {{required}} (+{{rate}}/s)",
@@ -295,6 +297,16 @@
         "name": "Silent Cube",
         "description": "Who can turn a cub into a cube? +1 free level for all 'Cube' type Quark Upgrades per level! These will have a corresponding icon.",
         "effect": "+{{amount}} free levels for 'Cube' type Quark Upgrades"
+      },
+      "twoMind": {
+        "name": "TWO MIND",
+        "description": "Consume the Blueberry. Consume. You must!",
+        "descriptionAmbrosia": "Fix the Ambrosia Bar to require <<var(--blueberry-text-color)|25,000,000>> Ambrosia Bar Points.",
+        "descriptionRedAmbrosia": "Fix the Red Bar to require <<red|5,000>> Red Ambrosia Bar Points.",
+        "descriptionPurpleHoney": "Fix the Purple Bar to require <<var(--purple-text-color)|100,000>> Purple Bar Points.",
+        "descriptionSummary": "<b>Luck used for Bar rewards is multiplied by the ratio of the fixed requirement to the expected requirement (without TWO MIND). Luck used for all other effects is unchanged.</b>",
+        "effectDisabled": "You haven't YET consumed the Blueberry.",
+        "effectEnabled": "You've consumed the Blueberry, and feel your MIND has been washed from its toxins."
       }
     },
     "loadouts": {
@@ -444,8 +456,8 @@
       },
       "redAmbrosiaAccelerator": {
         "name": "Red-Blue Ultrafusion",
-        "description": "When you gain a Red Ambrosia, you gain a bit of progress toward regular Ambrosia! +num:((0.02)) real-life seconds of Ambrosia Bar Points per level, per Red Ambrosia generated, with the first level giving +1!",
-        "effect": "Each Red Ambrosia generated grants <<white|{{amount}}>> real-life seconds of Ambrosia Bar Points."
+        "description": "When you fill the Red Bar, you gain a bit of Ambrosia Bar Points! +num:((0.02)) real-life seconds of Ambrosia Bar Points per level, per 100 Red Ambrosia Luck, with the first level giving +1 second!",
+        "effect": "Each Red Bar Fill grants <<white|{{amount}}>> real-life seconds of Ambrosia Bar Points per 100 Red Luck (Per Red Bar Fill: <<white|+{{current}}s>>)"
       },
       "regularLuck2": {
         "name": "Ossified Blueberry Tactics II",
@@ -496,9 +508,7 @@
   },
   "purpleAmbrosia": {
     "taurusTaxReduction": "Taurus: Tax scaling ÷<<gold|{{divisor}}>>.",
-    "geminiActive": "Gemini <<lime|active>>: Ambrosia and Red Bar fill requirements <<gold|-{{percent}}>>.",
-    "geminiInactive": "Gemini <<red|inactive>>: An Encabulator input tank is full.",
-    "cancerBarFillBonus": "Cancer: <<var(--purple-text-color)|+{{points}}>> per Ambrosia Bar Fill",
+    "cancerBarFillBonus": "Cancer: <<var(--purple-text-color)|+{{points}}>> per Ambrosia/Red Bar Fill",
     "purpleAmbrosiaCost": "Cost for next level: <<var(--purple-text-color)|{{amount}}>> Purple Ambrosia",
     "purpleAmbrosiaSpent": "Purple Ambrosia spent: <<var(--purple-text-color)|{{current}}/{{max}}>>",
     "purchaseWarning": "<<gold|⚠>> Unlike Blueberry Modules, you <<var(--purple-text-color)|CANNOT>> refund this upgrade.",
@@ -520,14 +530,16 @@
       "gemini": {
         "name": "Gemini",
         "description": "Sorry, I cannot fulfill this request.",
-        "effectNotMaxed": "If neither input tank in the Encabulator is full: Ambrosia and Red Bar fill requirement <<silver|-{{oldPercent}} →>> <<gold|-{{newPercent}}>>.",
-        "effectMaxed": "If neither input tank in the Encabulator is full: Ambrosia and Red Bar fill requirement <<gold|-{{maxPercent}}>>."
+        "effectNotMaxed": "On Purple Bar Fill: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Ambrosia Bar Points.",
+        "effectNotMaxed2": "On Purple Bar Fill: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Red Ambrosia Bar Points.",
+        "effectMaxed": "On Purple Bar Fill: <<gold|{{maxValue}}>> Ambrosia Bar Points.",
+        "effectMaxed2": "On Purple Bar Fill: <<gold|{{maxValue}}>> Red Ambrosia Bar Points."
       },
       "cancer": {
         "name": "Cancer",
         "description": "Particularly compatible with Gemini.",
-        "effectNotMaxed": "When either Ambrosia bar fills: Fill <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> of the Purple Bar.",
-        "effectMaxed": "When either Ambrosia bar fills: Fill <<gold|{{maxPercent}}>> of the Purple Bar."
+        "effectNotMaxed": "On Ambrosia or Red Bar fill: Gain <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Purple Bar Points.",
+        "effectMaxed": "On Ambrosia or Red Bar fill: Gain <<gold|+{{maxValue}}>> Purple Bar Points."
       },
       "leo": {
         "name": "Leo",
@@ -625,6 +637,7 @@
     "purpleHoneyGain": "+{{amount}}",
     "purpleHoneyBaseYield": "Base Purple Honey per extraction: <<var(--purple-text-color)|{{amount}}>>",
     "purpleHoneyLuck": "Purple Honey Luck: <<var(--purple-text-color)|{{luck}}>>",
+    "purpleHoneyLuckTwoMind": "Purple Honey Luck for Purple Honey: <<var(--purple-text-color)|{{luck}}>> [<<var(--purple-text-color)|{{unmodifiedLuck}}>> for everything else]",
     "purpleHoneyExtractionMultiplier": "Extraction Multiplier: <<gold|{{multiplier}}>>",
     "purpleHoneyExtractionBonusChance": "Chance for +1 more: <<gold|{{chance}}%>>",
     "percentageOption0": "0%",
@@ -3979,7 +3992,7 @@
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by num:((0.1))% per level additive (Max -30%)!",
       "shopPanthema": "Ace from space!",
-      "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--purple-text-color)|+num:((0.1))s>> of real-life time to your Ambrosia and Red Bars per extracted Purple Honey, per level of this upgrade!"
+      "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--blueberry-text-color)|+num:((125000))>> Ambrosia Bar Points and <<var(--red-text-color)|+num:((25))>> Red Bar Points per level of this upgrade!"
     },
     "maxed": "Maxed!",
     "bought": "Bought!",
@@ -4103,7 +4116,7 @@
       "shopPanthemaAmbrosiaGeneration": "+{{amount}} Ambrosia Bar Points! (+{{amount2}} per Ambrosia Generation level)",
       "shopPanthemaAmbrosiaLuck": "+{{amount}} Ambrosia Luck! (+{{amount2}} per Ambrosia Luck level)",
       "shopPanthemaRedLuck": "+{{amount}} Red Luck! (+{{amount2}} per Red Luck level)",
-      "shopPurpleBarRebate": "<<var(--purple-text-color)|+{{amount}}>> seconds of real-life time to Ambrosia and Red Bars per Purple Honey extracted."
+      "shopPurpleBarRebate": "On Purple Bar fill: gain <<var(--blueberry-text-color)|+{{ambrosiaBarPointsPerFill}}>> Ambrosia Bar Points and <<red|+{{redAmbrosiaBarPointsPerFill}}>> Red Bar Points."
     },
     "names": {
       "offeringPotion": "Offering Potion",
@@ -6736,7 +6749,7 @@
         "ScalingReward4": "+2% <<red|Red Bar Point>> gain",
         "ScalingReward5": "25 Achievement Points!",
         "UniqueReward1": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
-        "UniqueReward2": "1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
+        "UniqueReward2": "1st - On Ambrosia Bar Fill: +1 <<var(--amber-text-color)|Ambrosia>>",
         "UniqueReward3": "1st - Unlock <<red|Red Ambrosia>>! It's like Ambrosia, but <<red|red>>.",
         "UniqueReward4": "5th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
         "UniqueReward5": "8th - A new <<orchid|Quark>> upgrade!",
