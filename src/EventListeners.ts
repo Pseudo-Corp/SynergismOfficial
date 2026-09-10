@@ -126,7 +126,7 @@ import { getResetDetails, updateAutoCubesOpens, updateAutoReset, updateTesseract
 import { buyAllBlessingLevels } from './RuneBlessings'
 import { runes } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
-import { buyShopUpgrades, useConsumablePrompt } from './Shop'
+import { buyShopUpgrades, shopUpgrades, useConsumablePrompt } from './Shop'
 import {
   addSingularityPerkToTree,
   buyGoldenQuarks,
@@ -387,6 +387,7 @@ const getSubTabI18nKey = (button: HTMLButtonElement) =>
 
 const termsOfServiceUrl = 'https://synergism.cc/terms-of-service'
 const privacyPolicyUrl = 'https://synergism.cc/privacy-policy'
+const shopPotionKeys = ['offeringPotion', 'obtainiumPotion'] as const
 
 const registerIframeOverlayLink = (id: string, url: string) => {
   DOMCacheGetOrSet(id).addEventListener('click', (event) => {
@@ -1687,16 +1688,50 @@ TODO: Fix this entire tab it's utter shit
   ).addEventListener('click', () => toggleHideShop())
 
   // Part 2: Potions
+  for (const key of shopPotionKeys) {
+    const icon = DOMCacheGetOrSet(`${key}s`)
+    const container = DOMCacheGetOrSet(`${key}Hide`)
+    const showPotionModal = (x: number, y: number) => {
+      Modal(
+        () =>
+          `<span style="color: gold">${shopUpgrades[key].name()}</span><br><br>
+          <span style="color: plum">${shopUpgrades[key].description()}</span><br><br>
+          <span style="color: limegreen">${shopUpgrades[key].effectDescription()}</span>`,
+        x,
+        y,
+        { borderColor: 'gold' },
+        MEDIUM_MODAL_UPDATE_TICK,
+        icon
+      )
+    }
+
+    icon.addEventListener('click', (event) => showPotionModal(event.clientX, event.clientY))
+    icon.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        icon.click()
+      }
+    })
+
+    if (!isMobile) {
+      container.addEventListener('mousemove', (event) => showPotionModal(event.clientX, event.clientY))
+      container.addEventListener('focusin', (event) => {
+        const rect = (event.target as HTMLElement).getBoundingClientRect()
+        showPotionModal(rect.x, rect.y + rect.height / 2)
+      })
+      container.addEventListener('mouseleave', CloseModal)
+      container.addEventListener('focusout', CloseModal)
+    }
+  }
+
   /*Offering Potion*/
   DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyShopUpgrades('offeringPotion'))
-  // DOMCacheGetOrSet('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
   DOMCacheGetOrSet('useofferingpotion').addEventListener('click', () => useConsumablePrompt('offeringPotion'))
   DOMCacheGetOrSet('toggle42').addEventListener('click', () => {
     player.autoPotionTimer = 0
   })
   /*Obtainium Potion*/
   DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades('obtainiumPotion'))
-  // DOMCacheGetOrSet('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
   DOMCacheGetOrSet('useobtainiumpotion').addEventListener('click', () => useConsumablePrompt('obtainiumPotion'))
   DOMCacheGetOrSet('toggle43').addEventListener('click', () => {
     player.autoPotionTimerObtainium = 0

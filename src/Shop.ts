@@ -2202,6 +2202,10 @@ export const getShopTypeSymbolsHTML = (input: ShopUpgradeNames) => {
 }
 
 export const shopDescriptions = (input: ShopUpgradeNames) => {
+  if (shopUpgrades[input].type === shopUpgradeTypes.CONSUMABLE) {
+    return
+  }
+
   const rofl = DOMCacheGetOrSet('quarkdescription')
   const lol = DOMCacheGetOrSet('quarkeffect')
 
