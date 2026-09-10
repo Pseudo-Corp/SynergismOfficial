@@ -298,8 +298,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     name: () => i18next.t('shop.names.offeringEX'),
     description: () => i18next.t('shop.upgradeDescriptions.offeringEX'),
     effects: (n) => {
-      const offeringMult = 1 + 0.06 * n
-      const extraMult = Math.pow(1.08, Math.floor(n / 10))
+      const offeringMult = 1 + 0.1 * n
+      const extraMult = Math.pow(1.12, Math.floor(n / 10))
       return offeringMult * extraMult // offeringMult
     },
     effectDescription () {
@@ -309,7 +309,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     isUnlocked: () => player.unlocks.reincarnate || player.highestSingularityCount > 0,
     price: 225,
     priceIncrease: 15,
-    maxLevel: 100,
+    maxLevel: 60,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.Offering]
   },
@@ -342,8 +342,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     name: () => i18next.t('shop.names.obtainiumEX'),
     description: () => i18next.t('shop.upgradeDescriptions.obtainiumEX'),
     effects: (n: number) => {
-      const obtainiumMult = 1 + 0.06 * n
-      const extraMult = Math.pow(1.08, Math.floor(n / 10))
+      const obtainiumMult = 1 + 0.1 * n
+      const extraMult = Math.pow(1.12, Math.floor(n / 10))
       return obtainiumMult * extraMult // obtainiumMult
     },
     effectDescription () {
@@ -353,7 +353,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     isUnlocked: () => player.unlocks.reincarnate || player.highestSingularityCount > 0,
     price: 225,
     priceIncrease: 15,
-    maxLevel: 100,
+    maxLevel: 60,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.Obtainium]
   },
@@ -403,7 +403,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   antSpeed: {
     name: () => i18next.t('shop.names.antSpeed'),
     description: () => i18next.t('shop.upgradeDescriptions.antSpeed'),
-    effects: (n) => 4 * n, // antELO
+    effects: (n) => 8 * n, // antELO
     effectDescription () {
       const effect = getShopUpgradeEffects('antSpeed', 'antELO')
       return i18next.t('shop.upgradeEffects.antSpeed', { amount: format(effect) })
@@ -412,14 +412,14 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       player.highestchallengecompletions[10] > 0 || player.ascensionCount > 0 || player.highestSingularityCount > 0,
     price: 200,
     priceIncrease: 25,
-    maxLevel: 100,
+    maxLevel: 60,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: []
   },
   cashGrab: {
     name: () => i18next.t('shop.names.cashGrab'),
     description: () => i18next.t('shop.upgradeDescriptions.cashGrab'),
-    effects: (n) => 1 + 0.01 * n, // obtainiumMult, offeringMult
+    effects: (n) => 1 + 0.0166 * n, // obtainiumMult, offeringMult
     effectDescription () {
       const obtainiumMult = getShopUpgradeEffects('cashGrab', 'obtainiumMult')
       return i18next.t('shop.upgradeEffects.cashGrab', { amount: formatAsPercentIncrease(obtainiumMult, 0) })
@@ -428,7 +428,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       player.highestchallengecompletions[8] > 0 || player.ascensionCount > 0 || player.highestSingularityCount > 0,
     price: 100,
     priceIncrease: 40,
-    maxLevel: 100,
+    maxLevel: 60,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.Obtainium, ShopUpgradeGroups.Offering]
   },
@@ -451,7 +451,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   seasonPass: {
     name: () => i18next.t('shop.names.seasonPass'),
     description: () => i18next.t('shop.upgradeDescriptions.seasonPass'),
-    effects: (n) => 1 + 0.0225 * n, // wowCubeMult, wowTesseractMult
+    effects: (n) => 1 + 0.0375 * n, // wowCubeMult, wowTesseractMult
     effectDescription: () => {
       const effects = getShopUpgradeEffects('seasonPass', 'wowCubeMult')
       return i18next.t('shop.upgradeEffects.seasonPass', { amount: formatAsPercentIncrease(effects) })
@@ -459,7 +459,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     isUnlocked: () => player.ascensionCount > 0 || player.highestSingularityCount > 0,
     price: 500,
     priceIncrease: 75,
-    maxLevel: 100,
+    maxLevel: 60,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.Cubes]
   },
@@ -607,7 +607,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   chronometer: {
     name: () => i18next.t('shop.names.chronometer'),
     description: () => i18next.t('shop.upgradeDescriptions.chronometer'),
-    effects: (n) => 1 + 0.012 * n, // ascensionSpeedMult
+    effects: (n) => 1 + 0.02 * n, // ascensionSpeedMult
     effectDescription () {
       const effect = getShopUpgradeEffects('chronometer', 'ascensionSpeedMult')
       return i18next.t('shop.upgradeEffects.chronometer', { amount: formatAsPercentIncrease(effect, 1) })
@@ -615,7 +615,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     isUnlocked: () => player.highestchallengecompletions[12] > 0 || player.highestSingularityCount > 0,
     price: 1600,
     priceIncrease: 400,
-    maxLevel: 100,
+    maxLevel: 60,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.Speed]
   },
