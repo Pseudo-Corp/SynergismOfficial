@@ -6954,7 +6954,7 @@
       "redAmbrosiaGenMult": "Red Bar Points",
       "purpleHoneyEfficiency": "Purple Honey Efficiency",
       "purpleHalfLife": "Encabulator Speed",
-      "purpleReactantCapacity": "Ambrosia Bar Point Capacity (Red: 1/1,000)",
+      "purpleReactantCapacity": "Ambrosia Bar Point Capacity",
       "purpleHoneyLuck": "Purple Honey Luck",
       "purpleHoneyProgressRequirement": "Purple Bar Points Required",
       "shopVouchers": "Shop Vouchers",
@@ -7299,7 +7299,7 @@
       "Event": "Event + Consumables Bonus:",
       "GlobalSubscriber": "Global Bonus from our Wonderful Subscribers:",
       "AccountBonus": "Synergism Account Personal Quark Bonus:",
-      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Total Quark Multiplier:"
     },
     "baseObtainiumStats": {
@@ -7459,7 +7459,7 @@
       "FastSpeedDR": "Global Speed Fast Softcap Power (>100):",
       "SlowSpeedDR": "Global Speed Slow Softcap Power (<1):",
       "ImmaculateSpeedMult": "Immaculate Global Speed DR-Ignore:",
-      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Global Speed Multiplier:",
       "Total2": "Final Global Speed Multiplier:"
     },
@@ -7493,7 +7493,7 @@
       "ExponentialScalingSlow": "Ascension Speed Exponent (<1 Base):",
       "SingularityDebuff": "Singularity Debuff:",
       "AmbrosiaBrickOfLead": "Ambrosia - The Brick of Lead:",
-      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Base Ascension Speed Multiplier:",
       "Total2": "Final Ascension Speed Multiplier:"
     },
@@ -7579,7 +7579,7 @@
       "Event": "Event Bonus:",
       "CashGrabUltra": "Cash Grab ULTRA Blueberry Bonus:",
       "PurpleHoneyUpgrade1": "Purple Honey - The Purple Guy's Greeting:",
-      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Ambrosia Bar Points/s:",
       "BlueberryCount": "Number of Blueberries Owned:",
       "Total2": "Final Ambrosia Bar Points/s:"
@@ -7725,7 +7725,7 @@
       "RedAmbrosia": "Red Ambrosia - Millennium-Aged Red Ambrosia:",
       "Exalt5": "EXALT - No Ambrosia Effects:",
       "PurpleHoneyUpgrade1": "Purple Honey - The Purple Guy's Greeting:",
-      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "BlueberryCount": "Number of Blueberries Owned:",
       "Total": "Total Red Bar Points/s:",
       "Total2": "Final Red Bar Points/s:"
@@ -7863,7 +7863,7 @@
       "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
       "SingularityPerk": "Singularity Perk - Advanced... Cheating Tactics?",
       "SingularityDebuff": "Singularity Debuff:",
-      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Total Ant ELO Multiplier:"
     },
     "effectiveAntELOStats": {
@@ -7891,7 +7891,7 @@
       "MortuusTalisman": "Mortuus Talisman:",
       "ThresholdModifiers": "Threshold Modifiers:",
       "Exalt6": "The Grand Singularity Speedrun - Derpsmith's Boost:",
-      "HighestPurpleHoneyPower": "Highest Purple Honey Power:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Total Reborn ELO Creation Speed Multiplier:"
     },
     "ascensionCountMultiplierStats": {

@@ -5279,14 +5279,26 @@ p#ascendHotKeys {
     min-width: 150px;
 }
 
-html[data-mobile="false"][data-monospace-font="true"] #statsForNerds {
-    width: 585px;
+html[data-mobile="false"] #statsForNerds {
+    display: grid;
+    grid-template-columns: repeat(3, 180px);
+    grid-auto-rows: 1fr;
+    width: 570px;
     align-items: stretch;
 }
 
-html[data-mobile="false"][data-monospace-font="true"] #statsForNerds > .statsNerds {
-    flex: 0 0 185px;
+html[data-mobile="false"] #statsForNerds > .statsNerds {
     min-width: 0;
+}
+
+html[data-mobile="false"] #summaryGeneration {
+    grid-column: 1 / -1;
+    justify-self: center;
+}
+
+html[data-mobile="false"][data-monospace-font="true"] #statsForNerds {
+    grid-template-columns: repeat(3, 185px);
+    width: 585px;
 }
 
 .statContainer {

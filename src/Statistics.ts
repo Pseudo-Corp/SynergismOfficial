@@ -1326,6 +1326,18 @@ export const allQuarkStats: NumberStatLineCategory = {
   type: StatLineTypes.Multiplication,
   lines: [
     {
+      i18n: 'GlobalSubscriber',
+      stat: () => 1 + getGlobalBonus() / 100,
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'AccountBonus',
+      stat: () => 1 + getPersonalBonus() / 100,
+      color: 'gold',
+      displayCriterion: () => true
+    },
+    {
       i18n: 'AchievementBonus',
       stat: () => +getAchievementReward('quarkGain')
     },
@@ -1497,16 +1509,6 @@ export const allQuarkStats: NumberStatLineCategory = {
       stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.Quark) + calculateEventBuff(BuffType.OneMind) : 1,
       color: 'lime',
       displayCriterion: () => true
-    },
-    {
-      i18n: 'GlobalSubscriber',
-      stat: () => 1 + getGlobalBonus() / 100,
-      color: 'gold'
-    },
-    {
-      i18n: 'AccountBonus',
-      stat: () => 1 + getPersonalBonus() / 100,
-      color: 'gold'
     },
     {
       i18n: 'LifetimePurpleHoneyPower',
