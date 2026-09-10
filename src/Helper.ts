@@ -169,10 +169,10 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
 
   if (player.singularityChallenges.barDependence.enabled && purpleHoneyGained > 0) {
     const ambrosiaBarPoint = calculateRequiredBlueberryTime()
-    player.blueberryTime += ambrosiaBarPoint
+    player.blueberryTime += ambrosiaBarPoint * completedExtractions
 
     const redAmbrosiaBarPoint = calculateRequiredRedAmbrosiaTime()
-    player.redAmbrosiaTime += redAmbrosiaBarPoint
+    player.redAmbrosiaTime += redAmbrosiaBarPoint * completedExtractions
   } else {
     player.purpleReactor.purpleHoney += purpleHoneyGained
     player.purpleReactor.lifetimePurpleHoney += purpleHoneyGained
