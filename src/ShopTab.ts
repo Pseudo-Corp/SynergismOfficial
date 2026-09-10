@@ -2,7 +2,6 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSummationNonLinear } from './Calculate'
 import { testing } from './Config'
-import { getRuneEffectiveLevel } from './Runes'
 import {
   buyShopUpgrades,
   getShopCosts,
@@ -549,15 +548,6 @@ const updateShopDetail = () => {
     )
     levelEl.style.color = tierMaxed(selectedTier) ? 'gold' : 'white'
   }
-
-  const resetEl = DOMCacheGetOrSet('shopDetailReset')
-  let resetHTML = ''
-  if (player.highestSingularityCount > 0 || getRuneEffectiveLevel('antiquities') > 0) {
-    resetHTML = item.resetOnSingularity()
-      ? `<span style="color: crimson">⚠ ${i18next.t('shop.resetOnSingularity')}</span>`
-      : `<span style="color: lightgreen">♔ ${i18next.t('shop.noResetOnSingularity')}</span>`
-  }
-  updateInnerHTMLIfChanged(resetEl, resetHTML)
 
   const buyButton = DOMCacheGetOrSet('shopDetailBuy')
   buyButton.hidden = tierMaxed(selectedTier)

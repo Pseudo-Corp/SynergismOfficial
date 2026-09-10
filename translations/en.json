@@ -4008,8 +4008,6 @@
     "buyYerPotions": "Buy Yer' Potions!",
     "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
     "testingOnlyUpgrade": "⚠ Testing version: This upgrade would normally be hidden because you have not unlocked it yet.",
-    "noResetOnSingularity": "This upgrade does not reset on Singularity! You keep it <b>forever!</b>",
-    "resetOnSingularity": "This upgrade resets on Singularity! Maybe a Singularity Perk stops it from resetting?",
     "shopConfirmationOn": "Shop Confirmations: ON",
     "shopConfirmationOff": "Shop Confirmations: OFF",
     "hideMaxedOn": "Hide Maxed: ON",

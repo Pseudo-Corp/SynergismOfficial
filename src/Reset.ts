@@ -52,7 +52,7 @@ import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, runes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
-import { getShopUpgradeEffects, resetShopUpgradesOnSingularity } from './Shop'
+import { getShopUpgradeEffects } from './Shop'
 import { calculateMaxSingularityLookahead, calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { blankSave, deepClone, format, player, saveSynergy } from './Synergism'
@@ -1096,8 +1096,6 @@ export const singularity = (setSingNumber = -1) => {
   }
 
   player.totalQuarksEver += player.quarksThisSingularity
-  resetShopUpgradesOnSingularity()
-
   const hold = playerJsonSchema.parse(deepClone()(blankSave))
 
   // Reset Displays
