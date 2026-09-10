@@ -4364,12 +4364,6 @@
         "bug": "This is a bug! Contact Platonic if you see this message, somehow.",
         "default": "You gain <<cyan|{{stack}}>> stacks of <<cyan|5%>> Quarks! Total Increase: <<cyan|+{{inc}}%>>"
       },
-      "shopSpecialOffer": {
-        "name": "Shop Special Offer",
-        "hasLevel2": "All Quark Upgrades are kept on Singularity!",
-        "hasLevel1": "Certain Reincarnation-level Quark Upgrades no longer reset on Singularity!",
-        "default": "This level of the perk has been deprecated."
-      },
       "potionAutogenerator": {
         "name": "Potion Autogenerator",
         "default": "Every 180 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity."

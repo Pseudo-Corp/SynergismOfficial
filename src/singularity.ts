@@ -2898,20 +2898,6 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'persistentGlobalResets'
   },
   {
-    name: 'singularity.perks.shopSpecialOffer.name',
-    levels: [10, 50],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[1]) {
-        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel2')
-      } else if (n >= levels[0]) {
-        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel1')
-      } else {
-        return i18next.t('singularity.perks.shopSpecialOffer.default')
-      }
-    },
-    ID: 'shopSpecialOffer'
-  },
-  {
     name: 'singularity.perks.forTheLoveOfTheAntGod.name',
     levels: [10, 15, 20],
     description: (n: number, levels: number[]) => {
@@ -3412,82 +3398,88 @@ interface SingularityPerkTreePlacement {
   readonly parentID: string | null
   readonly x: number
   readonly y: number
+  // Draw separate straight lines to children instead of a shared branch and junction.
+  readonly independentChildConnections?: boolean
 }
+
+const xScale = 1 // Identity
+const yScale = 1.33
+const xPrime = (k: number) => k * xScale
+// 0.25 yScale shift to make tree further away from the subtab buttons
+const yPrime = (k: number) => (k + 0.25) * yScale
 
 // These are visual progression branches, not perk prerequisites.
 // The Singularity 1 Perks form the central hub and each family grows into the surrounding web.
 const SINGULARITY_PERK_TREE_PLACEMENTS: Record<string, SingularityPerkTreePlacement> = {
-  welcometoSingularity: { parentID: null, x: -1.5, y: -0.5 },
-  tokenInheritance: { parentID: 'welcometoSingularity', x: -4, y: -3.15 },
-  autoCampaigns: { parentID: 'tokenInheritance', x: -5, y: -4.3 },
-  bonusTokens: { parentID: 'autoCampaigns', x: -6, y: -4.3 },
-  firstClearTokens: { parentID: 'tokenInheritance', x: -5, y: -3.15 },
-  lastClearTokens: { parentID: 'firstClearTokens', x: -6, y: -3.15 },
-  sweepomatic: { parentID: 'welcometoSingularity', x: -4, y: -0.85 },
-  automationUpgrades: { parentID: 'sweepomatic', x: -5, y: -0.85 },
-  eternalAscensions: { parentID: 'automationUpgrades', x: -6, y: -0.85 },
-  persistentGlobalResets: { parentID: 'sweepomatic', x: -5, y: -2 },
+  welcometoSingularity: { parentID: null, x: -1, y: 0 },
+  tokenInheritance: { parentID: 'welcometoSingularity', x: -3, y: -2, independentChildConnections: true },
+  autoCampaigns: { parentID: 'tokenInheritance', x: -4, y: -3 },
+  bonusTokens: { parentID: 'autoCampaigns', x: -5, y: -3 },
+  firstClearTokens: { parentID: 'tokenInheritance', x: -4, y: -2 },
+  lastClearTokens: { parentID: 'firstClearTokens', x: -5, y: -2 },
+  sweepomatic: { parentID: 'welcometoSingularity', x: -3, y: 0 },
+  automationUpgrades: { parentID: 'sweepomatic', x: -4, y: 0, independentChildConnections: true },
+  potionAutogenerator: { parentID: 'automationUpgrades', x: -4, y: 1 },
+  automagicalRunes: { parentID: 'automationUpgrades', x: -4, y: -1 },
+  eternalAscensions: { parentID: 'automationUpgrades', x: -5, y: 0, independentChildConnections: true },
+  wowCubeAutomatedShipping: { parentID: 'eternalAscensions', x: -5, y: 1 },
+  platonicClones: { parentID: 'eternalAscensions', x: -5, y: -1 },
+  persistentGlobalResets: { parentID: 'welcometoSingularity', x: -3, y: -1 },
 
-  unlimitedGrowth: { parentID: null, x: -1, y: -1.5 },
-  evenMoreQuarks: { parentID: 'unlimitedGrowth', x: -1, y: -3.25 },
-  itAllAddsUp: { parentID: 'unlimitedGrowth', x: -2, y: -3.75 },
-  platSigma: { parentID: 'itAllAddsUp', x: -4, y: -5 },
+  unlimitedGrowth: { parentID: null, x: 0, y: -1, independentChildConnections: true },
+  derpSmithsCornucopia: { parentID: 'unlimitedGrowth', x: 0, y: -2 },
+  primalPower: { parentID: 'derpSmithsCornucopia', x: 0, y: -3 },
+  infiniteShopUpgrades: { parentID: 'primalPower', x: -1, y: -3 },
+  evenMoreQuarks: { parentID: 'unlimitedGrowth', x: -1, y: -1 },
+  skrauQ: { parentID: 'evenMoreQuarks', x: -1, y: -2 },
 
-  goldenCoins: { parentID: null, x: 0, y: -1.5 },
-  shopSpecialOffer: { parentID: 'goldenCoins', x: 0, y: -2.75 },
-  goldenRevolution: { parentID: 'shopSpecialOffer', x: 0, y: -5 },
-  midasMilleniumAgedGold: { parentID: 'goldenRevolution', x: -1, y: -5 },
-  goldenRevolution4: { parentID: 'midasMilleniumAgedGold', x: -2, y: -5 },
-  goldenRevolution2: { parentID: 'shopSpecialOffer', x: 1, y: -5 },
-  octeractMetagenesis: { parentID: 'goldenRevolution2', x: 2, y: -5 },
-  infiniteShopUpgrades: { parentID: 'octeractMetagenesis', x: 3, y: -5 },
-  taxReduction: { parentID: 'infiniteShopUpgrades', x: 4, y: -5 },
-  goldenRevolution3: { parentID: 'shopSpecialOffer', x: 1, y: -3.5 },
-  skrauQ: { parentID: 'goldenRevolution3', x: 2, y: -3.5 },
+  goldenCoins: { parentID: null, x: 1, y: -1 },
+  immaculateAlchemy: { parentID: 'goldenCoins', x: 1, y: -3 },
+  goldenRevolution: { parentID: 'immaculateAlchemy', x: 1, y: -4 },
+  goldenRevolution2: { parentID: 'goldenRevolution', x: 0, y: -4 },
+  goldenRevolution3: { parentID: 'goldenRevolution', x: 2, y: -4 },
+  goldenRevolution4: { parentID: 'goldenRevolution3', x: 3, y: -4 },
+  taxReduction: { parentID: 'goldenRevolution4', x: 3, y: -3 },
 
-  xyz: { parentID: null, x: 1, y: -1.5 },
-  potionAutogenerator: { parentID: 'xyz', x: 2.25, y: -1.5 },
-  immaculateAlchemy: { parentID: 'potionAutogenerator', x: 4, y: -3 },
+  xyz: { parentID: null, x: 2, y: 0, independentChildConnections: true },
+  octeractMetagenesis: { parentID: 'xyz', x: 3, y: 0 },
+  itAllAddsUp: { parentID: 'xyz', x: 2, y: -1 },
+  platSigma: { parentID: 'itAllAddsUp', x: 3, y: -1 },
+  midasMilleniumAgedGold: { parentID: 'platSigma', x: 4, y: -1 },
 
-  generousOrbs: { parentID: null, x: 1.5, y: -0.5 },
-  coolQOLCubes: { parentID: 'generousOrbs', x: 4, y: -1 },
-  congealedblueberries: { parentID: 'coolQOLCubes', x: 5, y: -1 },
-  efficientBlueberries: { parentID: 'congealedblueberries', x: 5, y: 0.15 },
-  reactorSpeedup: { parentID: 'congealedblueberries', x: 5, y: -2.15 },
-  wowCubeAutomatedShipping: { parentID: 'generousOrbs', x: 4, y: 0.15 },
+  generousOrbs: { parentID: null, x: -1, y: 1 },
+  overclocked: { parentID: 'generousOrbs', x: -2, y: 1 },
 
-  researchDummies: { parentID: null, x: 1.5, y: 0.5 },
-  superStart: { parentID: 'researchDummies', x: 3, y: 3 },
-  platonicClones: { parentID: 'superStart', x: 4, y: 3 },
-  automagicalRunes: { parentID: 'researchDummies', x: 3, y: 4.15 },
-  permanentBenefaction: { parentID: 'automagicalRunes', x: 4, y: 4.15 },
+  researchDummies: { parentID: null, x: 2, y: 1 },
+  superStart: { parentID: 'researchDummies', x: 3, y: 1, independentChildConnections: true },
+  notSoChallenging: { parentID: 'superStart', x: 4, y: 1 },
+  coolQOLCubes: { parentID: 'superStart', x: 3, y: 2 },
+  permanentBenefaction: { parentID: 'coolQOLCubes', x: 4, y: 2 },
 
-  recycledContent: { parentID: null, x: 0.5, y: 1.5 },
-  infiniteRecycling: { parentID: 'recycledContent', x: -1, y: 5 },
-  recyclistsDesktop: { parentID: 'recycledContent', x: 1, y: 5 },
+  recycledContent: { parentID: null, x: 1, y: 2 },
+  infiniteRecycling: { parentID: 'recycledContent', x: 0, y: 3 },
+  demeterHarvest: { parentID: 'recycledContent', x: 1, y: 3 },
+  recyclistsDesktop: { parentID: 'recycledContent', x: 2, y: 3 },
 
-  antGodsCornucopia: { parentID: null, x: -0.5, y: 1.5 },
-  forTheLoveOfTheAntGod: { parentID: 'antGodsCornucopia', x: -3, y: 3 },
-  irishAnt: { parentID: 'forTheLoveOfTheAntGod', x: -4, y: 3 },
-  irishAnt2: { parentID: 'irishAnt', x: -5, y: 3 },
-  irishAnt3: { parentID: 'irishAnt2', x: -6, y: 3 },
+  antGodsCornucopia: { parentID: null, x: 0, y: 2 },
+  eloBonus: { parentID: 'antGodsCornucopia', x: -2, y: 2 },
+  invigoratedSpirits: { parentID: 'eloBonus', x: -3, y: 2 },
+  bringToLife: { parentID: 'invigoratedSpirits', x: -4, y: 2 },
+  forTheLoveOfTheAntGod: { parentID: 'antGodsCornucopia', x: -2, y: 3 },
+  irishAnt: { parentID: 'forTheLoveOfTheAntGod', x: -3, y: 3, independentChildConnections: true },
+  irishAnt2: { parentID: 'irishAnt', x: -4, y: 3 },
+  congealedblueberries: { parentID: 'irishAnt', x: -3, y: 4 },
+  efficientBlueberries: { parentID: 'congealedblueberries', x: -2, y: 4 },
+  reactorSpeedup: { parentID: 'congealedblueberries', x: -4, y: 4 },
+  irishAnt3: { parentID: 'irishAnt2', x: -5, y: 3 },
 
-  derpSmithsCornucopia: { parentID: 'antGodsCornucopia', x: -3, y: 4.15 },
-  demeterHarvest: { parentID: 'derpSmithsCornucopia', x: -4, y: 4.15 },
-
-  bringToLife: { parentID: null, x: -1.5, y: 0.5 },
-  invigoratedSpirits: { parentID: 'bringToLife', x: -4, y: 1.45 },
-  notSoChallenging: { parentID: 'invigoratedSpirits', x: -5, y: 1.45 },
-  exaltedAchievements: { parentID: 'notSoChallenging', x: -6, y: 1.45 },
-  eloBonus: { parentID: 'bringToLife', x: -4, y: 0.3 },
-  overclocked: { parentID: 'eloBonus', x: -5, y: 0.3 },
-  primalPower: { parentID: 'overclocked', x: -6, y: 0.3 }
+  exaltedAchievements: { parentID: null, x: 0.5, y: 0.5 }
 }
 const SINGULARITY_PERK_TREE_BOUNDS = {
   minimumX: -6,
-  maximumX: 5,
-  minimumY: -5,
-  maximumY: 5,
+  maximumX: 6,
+  minimumY: -6,
+  maximumY: 6,
   paddingPercent: 5
 } as const
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
@@ -3570,6 +3562,17 @@ const drawSingularityPerkTreeConnections = (): void => {
     }
 
     const start = singularityPerkTreeElementCenter(parent, canvasRect)
+    if (SINGULARITY_PERK_TREE_PLACEMENTS[parentID].independentChildConnections) {
+      for (const child of children) {
+        const end = singularityPerkTreeElementCenter(child, canvasRect)
+        paths.append(singularityPerkTreePath(
+          `M ${start.x} ${start.y} L ${end.x} ${end.y}`,
+          singularityPerkTreeConnectionClass(child)
+        ))
+      }
+      continue
+    }
+
     const childCenters = children.map((child) => singularityPerkTreeElementCenter(child, canvasRect))
     const averageEnd = childCenters.reduce(
       (total, point) => ({ x: total.x + point.x / childCenters.length, y: total.y + point.y / childCenters.length }),
@@ -3661,11 +3664,11 @@ export const addSingularityPerkToTree = (perkElement: HTMLElement, perkID: strin
   const availablePercent = 100 - 2 * paddingPercent
   perkElement.style.setProperty(
     '--singularity-perk-tree-x',
-    `${paddingPercent + availablePercent * (placement.x - minimumX) / (maximumX - minimumX)}%`
+    `${paddingPercent + availablePercent * (xPrime(placement.x) - minimumX) / (maximumX - minimumX)}%`
   )
   perkElement.style.setProperty(
     '--singularity-perk-tree-y',
-    `${paddingPercent + availablePercent * (placement.y - minimumY) / (maximumY - minimumY)}%`
+    `${paddingPercent + availablePercent * (yPrime(placement.y) - minimumY) / (maximumY - minimumY)}%`
   )
   singularityPerkTreeCanvas.append(perkElement)
 }

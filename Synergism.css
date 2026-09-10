@@ -8280,6 +8280,7 @@ html[data-mobile="true"] .ambrosiaLedgerBonusesCollapsed .ambrosiaLedgerBonuses 
 }
 
 #singularityPenaltiesMultiline {
+    align-self: center;
     white-space: pre-line;
     justify-content: center;
     margin-top: 1px;
