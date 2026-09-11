@@ -8561,9 +8561,6 @@
       "PURPLE_HONEY_BUFF": "Golden Extractor Vaseline",
       "PURPLE_REACTOR_CAPACITY_BUFF": "Golden-Purple Encabulator Bars"
     },
-    "upgradeDescriptions": {
-      "PURPLE_REACTOR_CAPACITY_BUFF": "Chroma-Encabulator capacity: +num:((250000000)) Ambrosia / +num:((250000)) Red per level."
-    },
     "upgradeEffects": {
       "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
       "INSTANT_UNLOCK_2": "The Rune of Infinite Ascent is <<gold | {{descriptor}}>> always unlocked! <<orange | Bonus Levels +{{amount}}>>",
@@ -8584,12 +8581,6 @@
       "PURPLE_LUCK_BUFF": "Purple Luck is increased by <<gold | {{amount}}>>",
       "PURPLE_HONEY_BUFF": "Base Purple Honey per extraction is increased by <<gold | {{amount}}>>",
       "PURPLE_REACTOR_CAPACITY_BUFF": "Chroma-Encabulator capacity: <<gold | num:(({{amount}}))>> Ambrosia (1/num:((1000)) Red)"
-    },
-    "upgradeDetails": {
-      "PURPLE_REACTOR_CAPACITY_BUFF": {
-        "cost": "Cost: num:((100))/num:((150))/num:((200))/num:((250))/num:((300)) PseudoCoins",
-        "effect": "Effect: +num:((250000000)) Ambrosia / +num:((250000)) Red capacity per level"
-      }
     },
     "consumables": {
       "tipReceived": "{{offlineTime}} people tipped you in the last minute!",
