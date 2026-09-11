@@ -654,7 +654,7 @@ export const singularityChallengeData: {
       } else if (key === 'ascensionSpeed') {
         return 1 + 0.12 * n
       } else if (key === 'barRequirementMultiplier') {
-        return 1 - 0.02 * n
+        return 1 - 0.01 * n
       } else if (key === 'shopUpgrade') {
         return n >= 5
       } else {
@@ -732,7 +732,7 @@ export const singularityChallengeData: {
       } else if (key === 'purpleHoneyLuck') {
         return 3 * n
       } else {
-        return 1 - 0.03 * n // purpleBarSize
+        return 1 - 0.01 * n // purpleBarSize
       }
     },
     alternateDescription: () => {

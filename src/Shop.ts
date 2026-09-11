@@ -1860,7 +1860,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       if (key === 'ambrosiaBarPointsPerFill') {
         return 125000 * n
       }
-      return 25 * n // redAmbrosiaBarPointsPerFill
+      return 37.5 * n // redAmbrosiaBarPointsPerFill
     },
     effectDescription () {
       const ambrosiaBarPointsPerFill = getShopUpgradeEffects('shopPurpleBarRebate', 'ambrosiaBarPointsPerFill')

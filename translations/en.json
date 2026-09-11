@@ -302,8 +302,8 @@
         "name": "TWO MIND",
         "description": "Consume the Blueberry. Consume. You must!",
         "descriptionAmbrosia": "Fix the Ambrosia Bar to require <<var(--blueberry-text-color)|25,000,000>> Ambrosia Bar Points.",
-        "descriptionRedAmbrosia": "Fix the Red Bar to require <<red|5,000>> Red Ambrosia Bar Points.",
-        "descriptionPurpleHoney": "Fix the Purple Bar to require <<var(--purple-text-color)|100,000>> Purple Bar Points.",
+        "descriptionRedAmbrosia": "Fix the Red Bar to require <<red|7,500>> Red Ambrosia Bar Points.",
+        "descriptionPurpleHoney": "Fix the Purple Bar to require <<var(--purple-text-color)|150,000>> Purple Bar Points.",
         "descriptionSummary": "<b>Luck used for Bar rewards is multiplied by the ratio of the fixed requirement to the expected requirement (without TWO MIND). Luck used for all other effects is unchanged.</b>",
         "effectDisabled": "You haven't YET consumed the Blueberry.",
         "effectEnabled": "You've consumed the Blueberry, and feel your MIND has been washed from its toxins."
@@ -3992,7 +3992,7 @@
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by num:((0.1))% per level additive (Max -30%)!",
       "shopPanthema": "Ace from space!",
-      "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--blueberry-text-color)|+num:((125000))>> Ambrosia Bar Points and <<var(--red-text-color)|+num:((25))>> Red Bar Points per level of this upgrade!"
+      "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--blueberry-text-color)|+num:((125000))>> Ambrosia Bar Points and <<var(--red-text-color)|+num:((37.5))>> Red Bar Points per level of this upgrade!"
     },
     "maxed": "Maxed!",
     "bought": "Bought!",
@@ -6758,7 +6758,7 @@
         "ScalingReward1": "+12% <<orange|Global Speed>>!",
         "ScalingReward2": "+12% <<orange|Ascension Speed>>!",
         "ScalingReward3": "+2% <<cyan|Quarks>>!",
-        "ScalingReward4": "-2% <<red|Red Bar Fill Requirements>>!",
+        "ScalingReward4": "-1% <<red|Red Bar Fill Requirements>>!",
         "ScalingReward5": "30 Achievement Points!",
         "UniqueReward1": "1st - Your quarks no longer reset on Singularity!",
         "UniqueReward2": "5th - A new <<orchid|Quark Upgrade>>!",
@@ -6788,7 +6788,7 @@
         "ScalingReward1": "+25 <<var(--red-text-color)|Talisman Level Caps>> for any Talisman that resets on Singularity",
         "ScalingReward2": "+3% <<var(--blueberry-box-color)|Talisman Free Rune Levels>>",
         "ScalingReward3": "+3 <<var(--purple-text-color)|Purple Honey Luck!>>",
-        "ScalingReward4": "-3% <<var(--purple-text-color)|Purple Bar Points>> to fill the Purple Bar.",
+        "ScalingReward4": "-1% <<var(--purple-text-color)|Purple Bar Points>> to fill the Purple Bar.",
         "ScalingReward5": "50 Achievement Points!",
         "UniqueReward1": "1st - Unlock <i><<var(--purple-text-color)|The Purple!>></i>",
         "UniqueReward2": "5th - Unlock a new <<orchid|Quark Upgrade>>!",

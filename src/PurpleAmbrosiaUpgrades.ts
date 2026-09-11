@@ -57,12 +57,12 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
         (total, ambrosia) => total + (ambrosia > 0 ? Math.floor(Math.log10(ambrosia)) + 1 : 0),
         0
       )
-      return 1 + 0.0005 * level * digits
+      return 1 + 0.0002 * level * digits
     },
     notMaxedEffectsDescription: (level: number) =>
       i18next.t('purpleAmbrosia.data.aries.effectNotMaxed', {
-        oldPercent: formatAsPercentIncrease(1 + 0.0005 * level, 2),
-        newPercent: formatAsPercentIncrease(1 + 0.0005 * (level + 1), 2),
+        oldPercent: formatAsPercentIncrease(1 + 0.0002 * level, 2),
+        newPercent: formatAsPercentIncrease(1 + 0.0002 * (level + 1), 2),
         oldPercent2: formatAsPercentIncrease(getPurpleAmbrosiaUpgradeEffects('aries', 'universalBarPointMult'), 2),
         newPercent2: formatAsPercentIncrease(
           getPurpleAmbrosiaUpgradeNextLevelEffects('aries', 'universalBarPointMult'),
@@ -71,7 +71,7 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
       }),
     maxedEffectsDescription: () =>
       i18next.t('purpleAmbrosia.data.aries.effectMaxed', {
-        maxPercent: formatAsPercentIncrease(1 + 0.0005 * purpleAmbrosiaUpgradeData.aries.maxLevel, 2),
+        maxPercent: formatAsPercentIncrease(1 + 0.0002 * purpleAmbrosiaUpgradeData.aries.maxLevel, 2),
         maxPercent2: formatAsPercentIncrease(getPurpleAmbrosiaUpgradeEffects('aries', 'universalBarPointMult'), 2)
       }),
     name: () => i18next.t('purpleAmbrosia.data.aries.name'),
@@ -100,7 +100,7 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
       if (key === 'ambrosiaBarPointsOnFill') {
         return 125_000 * level
       }
-      return 25 * level // redAmbrosiaBarPointsOnFill
+      return 37.5 * level // redAmbrosiaBarPointsOnFill
     },
     notMaxedEffectsDescription: () => {
       const oldEffect1 = getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaBarPointsOnFill')
@@ -136,7 +136,7 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
   cancer: {
     maxLevel: 10,
     costFormula: (level: number) => 80 * level,
-    effects: (level: number) => 500 * level,
+    effects: (level: number) => 750 * level,
     notMaxedEffectsDescription: () => {
       const effect = getPurpleAmbrosiaUpgradeEffects('cancer', 'purpleBarPointsOnFill')
       const nextEffect = getPurpleAmbrosiaUpgradeNextLevelEffects('cancer', 'purpleBarPointsOnFill')

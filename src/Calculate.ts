@@ -121,8 +121,8 @@ const ambrosiaLuckSingThresholds2 = [135, 142, 149, 156, 163, 170, 177]
 
 const twoMindBarRequirements = {
   ambrosia: 25_000_000,
-  redAmbrosia: 5_000,
-  purpleHoney: 100_000
+  redAmbrosia: 7_500,
+  purpleHoney: 150_000
 }
 
 const derpsmithSingCounts = [
@@ -439,7 +439,7 @@ export const calculatePurpleHoneyRewardLuck = () =>
 export const calculateBarEXALTPurpleHoneyRequirement = () => {
   const multiplier = Math.pow(1 + player.singularityChallenges.barDependence.completions, 2)
   const divisor = Math.max(1, player.purpleReactor.lifetimePurpleHoney)
-  return 1e10 * multiplier / divisor
+  return Math.max(150_000, 1e10 * multiplier / divisor)
 }
 
 export const calculatePurpleHoneyConversionFactor = (ignoreTwoMind = false) => {
@@ -1617,7 +1617,7 @@ export const calculateAmbrosiaLuckOcteractUpgrade = () => {
 export const calculateRequiredBlueberryTimeEXALT = () => {
   const multiplier = player.singularityChallenges.barDependence.completions + 1
   const divisor = 1 + player.lifetimeAmbrosia
-  return 2.5e15 * multiplier / divisor
+  return Math.max(2.5e7, 1.5e15 * multiplier / divisor)
 }
 
 export const calculateRequiredBlueberryTime = (ignoreTwoMind = false) => {
@@ -1650,7 +1650,7 @@ export const calculateRequiredBlueberryTime = (ignoreTwoMind = false) => {
 export const calculateRequiredRedAmbrosiaTimeEXALT = () => {
   const multiplier = player.singularityChallenges.barDependence.completions + 1
   const divisor = 1 + player.lifetimeRedAmbrosia
-  return 1.5e11 * multiplier / divisor
+  return Math.min(7.5e3, 2e11 * multiplier / divisor)
 }
 
 export const calculateRequiredRedAmbrosiaTime = (ignoreTwoMind = false) => {

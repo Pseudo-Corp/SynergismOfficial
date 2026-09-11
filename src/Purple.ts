@@ -138,7 +138,7 @@ type PurpleReactorUpgradeData = {
 
 export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
   tutorial: {
-    maxLevel: 20,
+    maxLevel: 15,
     costFormula: (level: number) => level * (level + 1) / 2,
     effects: (n) => {
       return 1 + 0.01 * n // Same for ambrosia and red ambrosia generation
@@ -687,7 +687,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 50,
     costFormula: (level: number) => 400 * level,
     effects: (n) => {
-      return 1 - 0.006 * n
+      return 1 - 0.005 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
@@ -715,7 +715,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 50,
     costFormula: (level: number) => 8_000 * level,
     effects: (n) => {
-      return 1 - 0.006 * n
+      return 1 - 0.004 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
@@ -743,7 +743,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 50,
     costFormula: (level: number) => 160_000 * level,
     effects: (n) => {
-      return 1 - 0.006 * n
+      return 1 - 0.003 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
