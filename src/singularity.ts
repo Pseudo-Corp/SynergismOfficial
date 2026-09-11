@@ -3338,9 +3338,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'taxReduction'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.irishAnt3.name')
-    },
+    name: 'singularity.perks.irishAnt3.name',
     levels: [285, 293],
     description: () => {
       let perSing = 2
@@ -3357,9 +3355,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'irishAnt3'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.efficientBlueberries.name')
-    },
+    name: 'singularity.perks.efficientBlueberries.name',
     levels: [283, 289],
     description: () => {
       let perTwo = 2 / 100
@@ -3375,9 +3371,7 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'efficientBlueberries'
   },
   {
-    name: () => {
-      return i18next.t('singularity.perks.reactorSpeedup.name')
-    },
+    name: 'singularity.perks.reactorSpeedup.name',
     levels: [282, 284, 286, 288, 290, 292, 294, 296, 298, 300],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {

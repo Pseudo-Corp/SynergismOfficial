@@ -56,6 +56,6 @@ export default {
       return value
     }
 
-    return value.replaceAll(reg, substring => `${KEYWORD_SYMBOLS[substring]}\u00A0${substring}`)
+    return value.replaceAll(reg, (substring) => `${KEYWORD_SYMBOLS[substring]}\u00A0${substring}`)
   }
 } satisfies PostProcessorModule
