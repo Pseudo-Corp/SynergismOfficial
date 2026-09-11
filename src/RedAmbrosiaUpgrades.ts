@@ -776,6 +776,16 @@ export const buyRedAmbrosiaUpgradeLevel = async (
     }
   }
 
+  // Autosynthesis can spend Red Ambrosia while the purchase prompt is open.
+  levelsToPurchase = Math.min(
+    levelsToPurchase,
+    maximumAffordableLevel(upgradeKey, player.redAmbrosia) - upgrade.level
+  )
+
+  if (levelsToPurchase <= 0) {
+    return Alert(i18next.t('redAmbrosia.purchaseNoLongerAffordable'))
+  }
+
   const cost = upgrade.costFormula(upgrade.level + levelsToPurchase) - upgrade.costFormula(upgrade.level)
   player.redAmbrosia -= cost
   player.redAmbrosiaUpgrades[upgradeKey] += cost

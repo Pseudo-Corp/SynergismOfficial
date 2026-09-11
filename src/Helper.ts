@@ -144,8 +144,9 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
   if (bonusMultiplierChance > 0) {
     let extractionsToLoop = completedExtractions
     if (completedExtractions > 100) {
+      const hundredBundles = Math.floor(completedExtractions / 100)
       extractionsToLoop %= 100
-      bonusExtractions = Math.floor(bonusMultiplierChance * 100 * completedExtractions / 100)
+      bonusExtractions = Math.floor(bonusMultiplierChance * 100 * hundredBundles)
     }
     for (let i = 0; i < extractionsToLoop; i++) {
       if (seededRandom(Seed.PurpleHoney) < bonusMultiplierChance) {
@@ -167,24 +168,7 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
   )
   player.purpleHoneyProgress = purpleHoneyProgress % conversionFactor
 
-  if (player.singularityChallenges.barDependence.enabled && purpleHoneyGained > 0) {
-    const ambrosiaBarPoint = calculateRequiredBlueberryTime()
-    player.blueberryTime += ambrosiaBarPoint * completedExtractions
-
-    const redAmbrosiaBarPoint = calculateRequiredRedAmbrosiaTime()
-    player.redAmbrosiaTime += redAmbrosiaBarPoint * completedExtractions
-  } else {
-    player.purpleReactor.purpleHoney += purpleHoneyGained
-    player.purpleReactor.lifetimePurpleHoney += purpleHoneyGained
-    player.stats.highestPurpleHoney = Math.max(
-      player.stats.highestPurpleHoney,
-      player.purpleReactor.purpleHoney
-    )
-  }
-
-  if (purpleHoneyGained > 0) {
-    animatePurpleHoneyGain(purpleHoneyGained)
-
+  if (completedExtractions > 0) {
     player.blueberryTime += completedExtractions * (
       getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaBarPointsOnFill')
       + getShopUpgradeEffects('shopPurpleBarRebate', 'ambrosiaBarPointsPerFill')
@@ -194,9 +178,24 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
       + getShopUpgradeEffects('shopPurpleBarRebate', 'redAmbrosiaBarPointsPerFill')
     )
 
-    if (player.singularityCounter >= 3600 && !player.singularityChallenges.barDependence.enabled) {
-      const quarksToAdd = purpleHoneyGained * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
-      player.worlds.add(quarksToAdd, true, true)
+    if (player.singularityChallenges.barDependence.enabled) {
+      const ambrosiaBarPoint = calculateRequiredBlueberryTime()
+      player.blueberryTime += ambrosiaBarPoint * completedExtractions
+
+      const redAmbrosiaBarPoint = calculateRequiredRedAmbrosiaTime()
+      player.redAmbrosiaTime += redAmbrosiaBarPoint * completedExtractions
+    } else {
+      player.purpleReactor.purpleHoney += purpleHoneyGained
+      player.purpleReactor.lifetimePurpleHoney += purpleHoneyGained
+      animatePurpleHoneyGain(purpleHoneyGained)
+      player.stats.highestPurpleHoney = Math.max(
+        player.stats.highestPurpleHoney,
+        player.purpleReactor.purpleHoney
+      )
+      if (player.singularityCounter >= 3600 && !player.singularityChallenges.barDependence.enabled) {
+        const quarksToAdd = purpleHoneyGained * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+        player.worlds.add(quarksToAdd, true, true)
+      }
     }
   }
 }

@@ -114,6 +114,7 @@ export type APRewards = {
 }
 
 const encabulatorSpeedBonusPerLevel = 3 / 50
+const purpleReactorLevelReconstructionTolerance = 0.001
 
 interface PurpleReactorUpgrade<T extends PurpleReactorNames, K extends keyof PurpleReactorUpgradeRewards[T]> {
   level: number
@@ -1067,7 +1068,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 50,
     costFormula: (level: number) => 15_000 * level,
     effects: (n) => {
-      return 1 + +(n / 100) * (0.04 + 0.004 * n) * Math.log(1 + player.purpleReactor.lifetimePurpleHoney / 100)
+      return 1 + +(n > 0) * (0.04 + 0.004 * n) * Math.log(1 + player.purpleReactor.lifetimePurpleHoney / 100)
     },
     notMaxedEffectsDescription: () => {
       const oldEffect = getPurpleReactorUpgradeEffects('lifetimeHoneyRebornELOSpeed', 'rebornELOSpeedMult')
@@ -1174,7 +1175,8 @@ export const setPurpleReactorUpgradeLevels = (): void => {
 
     upgrade.level = 0
 
-    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, 0)
+    // Accumulated purchase costs can round slightly below the cumulative level cost.
+    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, purpleReactorLevelReconstructionTolerance)
     const totalCost = upgrade.costFormula(maxAffordableLevel)
 
     upgrade.level = maxAffordableLevel

@@ -178,6 +178,11 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
 
   if (player.octeractUpgrades !== undefined) {
     for (const key of octeractUpgradeNames) {
+      // Older saves may predate some upgrades; keep their schema defaults.
+      if (player.octeractUpgrades[key] === undefined) {
+        continue
+      }
+
       const freeLevel = player.octeractUpgrades[key].freeLevels ?? 0
       const octeractsInvested = getLegacyOcteractsInvested(key, player.octeractUpgrades[key])
 

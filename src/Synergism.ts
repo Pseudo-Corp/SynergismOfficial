@@ -4408,14 +4408,11 @@ const tack = (dt: number) => {
     generateAntsAndCrumbs(dt)
 
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
-    if (!player.singularityChallenges.barDependence.enabled) {
-      const timerSpeedMult = memoize(calculateGlobalSpeedMult)
-      addTimers('prestige', dt, timerSpeedMult)
-      addTimers('transcension', dt, timerSpeedMult)
-      addTimers('reincarnation', dt, timerSpeedMult)
-      addTimers('autoPotion', dt)
-      addTimers('ascension', dt)
-    }
+    const timerSpeedMult = memoize(calculateGlobalSpeedMult)
+    addTimers('prestige', dt, timerSpeedMult)
+    addTimers('transcension', dt, timerSpeedMult)
+    addTimers('reincarnation', dt, timerSpeedMult)
+    addTimers('autoPotion', dt)
     addTimers('ascension', dt)
     addTimers('quarks', dt)
     addTimers('goldenQuarks', dt)
