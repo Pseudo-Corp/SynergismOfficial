@@ -99,6 +99,7 @@ export type SingularityChallengeRewards = {
     purpleAmbrosiaCostReduction: number
     purpleHoneyLuck: number
     blueberries: number
+    shopUpgrade: boolean
   }
 }
 
@@ -771,8 +772,11 @@ export const singularityChallengeData: {
       return baseReq + completions
     },
     scalingrewardcount: 2,
-    uniquerewardcount: 1,
+    uniquerewardcount: 2,
     effect: (n, key) => {
+      if (key === 'shopUpgrade') {
+        return n >= 2
+      }
       if (key === 'blueberries') {
         return n
       }

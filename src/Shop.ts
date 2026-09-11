@@ -1846,7 +1846,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount2: formatAsPercentIncrease(singularityPenaltyMult)
       })
     },
-    isUnlocked: () => false, // TODO: Add back.
+    isUnlocked: () => getSingularityChallengeEffect('barDependence', 'shopUpgrade'),
     price: 5e26,
     priceIncrease: 0,
     maxLevel: 1,
