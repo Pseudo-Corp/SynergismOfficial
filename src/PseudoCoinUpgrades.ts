@@ -157,4 +157,3 @@ const updatePCoinEffects = (name: PseudoCoinUpgradeNames, level: number) => {
       break
   }
 }
-

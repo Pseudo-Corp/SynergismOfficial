@@ -155,6 +155,11 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
         continue
       }
 
+      // Older saves may predate some upgrades; keep their schema defaults.
+      if (player.singularityUpgrades[key] === undefined) {
+        continue
+      }
+
       const k = key as SingularityDataKeys
 
       const freeLevel = player.singularityUpgrades[k].freeLevels ?? 0
