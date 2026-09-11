@@ -6690,31 +6690,9 @@
     "notDeleted": "Your save wasn't deleted. Check the console for more information."
   },
   "pseudoCoins": {
-    "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",
-    "cost": "Cost: <<gold|{{amount}} PseudoCoins>>",
-    "maxxed": "<<gold|Maxed!>>",
     "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",
     "currEffect": "Current Level:",
     "nextEffect": "Next Level:",
-    "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
-    "upgradeNames": {
-      "INSTANT_UNLOCK_1": "The Talisman Activator-inator",
-      "INSTANT_UNLOCK_2": "The Rune Discoverer-inator",
-      "CUBE_BUFF": "Gold-Infused Cubes",
-      "AMBROSIA_LUCK_BUFF": "The Gold Leaf Clovers",
-      "AMBROSIA_GENERATION_BUFF": "Alchemized Ambrosia Speedup",
-      "GOLDEN_QUARK_BUFF": "Even Golder Quarks",
-      "FREE_UPGRADE_PROMOCODE_BUFF": "Bribing the Daily Code",
-      "CORRUPTION_LOADOUT_SLOT_QOL": "More Corruption Loadouts!",
-      "AMBROSIA_LOADOUT_SLOT_QOL": "More Ambrosia Loadouts!",
-      "AUTO_POTION_FREE_POTIONS_QOL": "Potion Duplication Glitch",
-      "OFFLINE_TIMER_CAP_BUFF": "Cozier Beds Enshrined in Gold",
-      "ADD_CODE_CAP_BUFF": "The Limited-Edition PLAT-P Calculator",
-      "BASE_OFFERING_BUFF": "Abundant Harvests",
-      "BASE_OBTAINIUM_BUFF": "Super Literate Scientists",
-      "RED_LUCK_BUFF": "Golden Fuzzy Dice",
-      "RED_GENERATION_BUFF": "Century-Aged Red Ambrosia"
-    },
     "upgradeEffects": {
       "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
       "INSTANT_UNLOCK_2": "The Rune of Infinite Ascent is <<gold | {{descriptor}}>> always unlocked! <<orange | Bonus Levels +{{amount}}>>",

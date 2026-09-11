@@ -7687,33 +7687,11 @@
     }
   },
   "pseudoCoins": {
-    "coinCount": "У вас <<gold|{{amount}} ПсевдоМонет>>!",
-    "cost": "Стоимость: <<gold|{{amount}} ПсевдоМонет>>",
-    "maxxed": "<<gold|Макс!>>",
     "buyButton": "Купить! <<gold|-{{amount}} ПсевдоМонет>>",
     "currEffect": "Текущий Уровень:",
     "nextEffect": "Следующий Уровень:",
-    "globalQuarkBonus": "Ваша подписка увеличивает глобальный бонус Кварков на +{{percent}}%!",
     "subscriptionRenews": "Renews: {{date}}",
     "subscriptionYouAreHere": "You are here!",
-    "upgradeNames": {
-      "INSTANT_UNLOCK_1": "Активатор-Инатор Талисмана",
-      "INSTANT_UNLOCK_2": "Обнаружитель-Инатор Рун",
-      "CUBE_BUFF": "Пропитанные Золотом Кубы",
-      "AMBROSIA_LUCK_BUFF": "Клевера с Золотыми Листьями",
-      "AMBROSIA_GENERATION_BUFF": "Алхимически Ускоренная Амброзия",
-      "GOLDEN_QUARK_BUFF": "Ещё Более Золотые Кварки",
-      "FREE_UPGRADE_PROMOCODE_BUFF": "Взятка Коду Daily",
-      "CORRUPTION_LOADOUT_SLOT_QOL": "Больше Заготовок Порчи!",
-      "AMBROSIA_LOADOUT_SLOT_QOL": "Больше Заготовок Амброзии!",
-      "AUTO_POTION_FREE_POTIONS_QOL": "Глитч Клонирования Зелий",
-      "OFFLINE_TIMER_CAP_BUFF": "Оправленные Золотом Мягкие Кровати",
-      "ADD_CODE_CAP_BUFF": "Эксклюзивный PLAT-P Калькулятор",
-      "BASE_OFFERING_BUFF": "Изобильные Урожаи",
-      "BASE_OBTAINIUM_BUFF": "Супер Начитанные Учёные",
-      "RED_LUCK_BUFF": "Золотые Плюшевые Кости",
-      "RED_GENERATION_BUFF": "Красная Амброзия Вековой Выдержки"
-    },
     "upgradeEffects": {
       "INSTANT_UNLOCK_1": "Талисман Пластик <<gold | {{descriptor}}>> всегда доступен! <<orange | Максимальный Уровень +{{amount}}>>",
       "INSTANT_UNLOCK_2": "Руна Бесконечного Восхождения <<gold | {{descriptor}}>> всегда доступна! <<orange | Бонусные Уровни +{{amount}}>>",

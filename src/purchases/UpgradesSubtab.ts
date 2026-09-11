@@ -1,12 +1,7 @@
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
-import {
-  displayPCoinEffect,
-  type PseudoCoinUpgradeNames,
-  showCostAndEffect,
-  updatePCoinCache
-} from '../PseudoCoinUpgrades'
+import { displayPCoinEffect, type PseudoCoinUpgradeNames, updatePCoinCache } from '../PseudoCoinUpgrades'
 import { Alert } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { upgradeResponse } from './CartTab'
@@ -17,6 +12,8 @@ interface Upgrades {
   maxLevel: number
   name: string
   description: string
+  languages: Record<string, { cost: string; effect: string }>
+  icon: string
   internalName: PseudoCoinUpgradeNames
   level: number
   cost: number
@@ -55,14 +52,10 @@ const buyUpgradeSchema = z.object({
 function setActiveUpgrade (upgrade: UpgradesList) {
   activeUpgrade = upgrade
 
-  const name = i18next.t(`pseudoCoins.upgradeNames.${upgrade.internalName}`)
-
-  DOMCacheGetOrSet('pCoinUpgradeName').textContent = name // TODO: get rid of this moronic i18n
+  DOMCacheGetOrSet('pCoinUpgradeName').textContent = upgrade.name
   DOMCacheGetOrSet('description').textContent = upgrade.description
-  DOMCacheGetOrSet('pCoinUpgradeIcon').setAttribute(
-    'src',
-    `Pictures/PseudoShop/${upgrade.internalName ?? 'PseudoCoins'}.png`
-  )
+  DOMCacheGetOrSet('pCoinUpgradeIcon').setAttribute('src', upgrade.icon)
+  DOMCacheGetOrSet('pCoinUpgradeIcon').setAttribute('alt', upgrade.name)
 
   const levelCostMap: { [level: number]: number } = {}
   upgrade.level.forEach((level, index) => {
@@ -96,9 +89,8 @@ function setActiveUpgrade (upgrade: UpgradesList) {
     })
   }
 
-  const info = showCostAndEffect(upgrade.internalName)
-  costs.textContent = info.cost
-  effects.textContent = info.effect
+  costs.textContent = upgrade.languages.en.cost
+  effects.textContent = upgrade.languages.en.effect
 }
 
 async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
@@ -160,16 +152,26 @@ const initializeUpgradeSubtab = memoize(() => {
     return map
   }, new Map<number, UpgradesList>())
 
-  tab.querySelector('#upgradeGrid')!.innerHTML = [...grouped.values()].map((u) => `
-    <div
-      data-id="${u.upgradeId}"
-      data-key="${u.name}"
-    >
-      <img src='Pictures/PseudoShop/${u.internalName}.png' alt='${u.internalName}' />
-      <p id="a">${u.playerLevel}/${u.maxLevel}</p>
-      ${u.playerLevel === u.maxLevel ? '<p id="b">✔️</p>' : '<p id="b"></p>'}
-    </div>
-  `).join('')
+  DOMCacheGetOrSet('upgradeGrid').replaceChildren(...[...grouped.values()].map((upgrade) => {
+    const element = document.createElement('div')
+    element.dataset.id = String(upgrade.upgradeId)
+    element.dataset.key = upgrade.name
+
+    const icon = document.createElement('img')
+    icon.src = upgrade.icon
+    icon.alt = upgrade.name
+
+    const level = document.createElement('p')
+    level.id = 'a'
+    level.textContent = `${upgrade.playerLevel}/${upgrade.maxLevel}`
+
+    const maxed = document.createElement('p')
+    maxed.id = 'b'
+    maxed.textContent = upgrade.playerLevel === upgrade.maxLevel ? '✔️' : ''
+
+    element.append(icon, level, maxed)
+    return element
+  }))
 
   const upgradesInGrid = tab.querySelectorAll<HTMLElement>('#upgradeGrid > div[data-id]')
   upgradesInGrid.forEach((element) => {
