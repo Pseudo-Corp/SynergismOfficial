@@ -13,6 +13,32 @@
   },
   "ambrosia": {
     "ambrosia": "Ambrosia",
+    "upgradeUnlockHints": {
+      "red": "Unlock more upgrades by completing EXALT <<red|$t(singularityChallenge.data.noAmbrosiaUpgrades.name), Tier 1>>.",
+      "purple": "Unlock more upgrades by completing EXALT <<var(--purple-text-color)|$t(singularityChallenge.data.taxmanLastStand.name), Tier 1>>."
+    },
+    "ledger": {
+      "blueberries": "Blueberries",
+      "balance": "<span class='ambrosiaLedgerCurrent'>{{current}}</span> <span class='ambrosiaLedgerTotal'>/ {{total}}</span>",
+      "balanceDescription": "{{current}} available out of {{total}} earned over your lifetime",
+      "blueberryBalanceDescription": "{{current}} unspent out of {{total}} total Blueberries",
+      "perFill": "<<var(--amber-text-color)|+{{guaranteed}}>> Ambrosia on fill (<<var(--amber-text-color)|{{extraChance}}%>> chance for 1 more)",
+      "redPerFill": "<<red|+{{guaranteed}}>> Red Ambrosia on fill (<<red|{{extraChance}}%>> chance for 1 more)",
+      "luck": "<<lime|{{luck}}>> Ambrosia Luck [<<var(--amber-text-color)|{{base}} + {{percent}}%>>]",
+      "luckTwoMind": "<<lime|{{luck}}>> Ambrosia Luck for Ambrosia [<<var(--amber-text-color)|{{unmodifiedLuck}}>> for everything else]",
+      "redLuck": "<<red|{{luck}}>> Red Luck",
+      "redLuckTwoMind": "<<red|{{luck}}>> Red Luck for Red Ambrosia [<<red|{{unmodifiedLuck}}>> for everything else]",
+      "ambrosiaProgress": "Ambrosia generation progress",
+      "redAmbrosiaProgress": "Red Ambrosia generation progress",
+      "progress": "{{current}} / {{required}} (+{{rate}}/s)",
+      "progressPoints": "{{current}} / {{required}} Bar Points (+{{rate}}/s)",
+      "generationLocked": "Generation locked",
+      "leoBonus": "Ambrosia Luck <<lime|+{{luck}}>>",
+      "leoInactive": "Leo <<gray|inactive>> (needs 5 unspent)",
+      "virgoBonus": "Salvage <<lime|+{{salvage}}>>",
+      "honeyBonus": "Base Purple Honey per extraction <<var(--purple-text-color)|+{{honey}}>>",
+      "barBonus": "Bar Points <<lightblue|+{{percent}}>>"
+    },
     "amount": "Ambrosia: <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Current | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Lifetime",
     "blueberryAmount": "Blueberries: <<lightblue | {{unspentBlueberries}}>> Unspent | <<lightblue | {{blueberries}}>> Total",
     "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> Ambrosia Bar Points.",
@@ -26,18 +52,38 @@
     "generatedOfferingBonus": "Offerings <<orange|+{{offeringBonus}}>>",
     "prerequisite": "Prerequisites:",
     "prereqNotMet": " (Not Met!)",
+    "prerequisiteDetails": {
+      "heading": "Prerequisites (purchased levels):",
+      "levels": "{{current}}/{{required}}"
+    },
     "blueberryCost": "Blueberries (To Activate):",
     "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
     "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
-    "timeThresholds": "You've reached <<cyan | {{threshold}}>> thresholds due to lifetime Ambrosia. Next in <<orange|{{toNext}}>> lifetime Ambrosia.",
-    "cubeUpgradeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Ambrosia Bar Point gain +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
     "refund": "You have refunded all spent Blueberries and Ambrosia.",
     "refundWord": "Refund",
     "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
+    "moduleActive": "<<gold|[Active]>>",
+    "moduleInactive": "<<gray|[Inactive]>>",
     "notUnlocked": "Clear No Golden Quark Upgrades, Tier 1!",
     "ambrosiaCost": "Cost for next level: <<orange | {{amount}}>> Ambrosia",
+    "purpleAmbrosia": {
+      "amount": "Purple Ambrosia: <<var(--purple-text-color)|{{amount}}>>",
+      "enchantment": "Purple Ambrosia Enchantment",
+      "level": "Enchantment Level {{level}}/{{maxLevel}}",
+      "freeLevelsEffectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> levels of this Blueberry Module.",
+      "freeLevelsEffectMaxed": "<<gold|+{{maxValue}}>> levels of this Blueberry Module.",
+      "blueberryCostReductionEffectNotMaxed": "This Module requires <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> fewer Blueberries to activate.",
+      "blueberryCostReductionEffectMaxed": "This Module requires <<gold|{{maxValue}}>> fewer Blueberries to activate.",
+      "activeRequirement": "<<gold | ⚠>> Only takes effect when this Module is activated!",
+      "cost": "Cost for next enchantment level: <<var(--purple-text-color)|{{amount}}>> Purple Ambrosia",
+      "spent": "Purple Ambrosia Spent: <<var(--purple-text-color)|{{curr}}/{{max}}>>",
+      "buy": "Enchant",
+      "desktopBuy": "Click the Purple Ambrosia badge on this upgrade to enchant it.",
+      "alreadyMaxed": "This Purple Ambrosia enchantment is already maxed.",
+      "notEnough": "You do not have enough Purple Ambrosia for this enchantment."
+    },
     "data": {
       "ambrosiaTutorial": {
         "name": "Ambrosia Tutorial Module",
@@ -109,10 +155,20 @@
         "description": "A darkness emboldens this module. +5% Quarks per level, and the effect is 1% stronger per level of Ambrosia Quark Module II.",
         "effect": "This third generation Quark module increases Quark gain by {{amount}}%"
       },
+      "ambrosiaQuarks4": {
+        "name": "Ambrosia Quark Capstone",
+        "description": "+1% Quarks per level, as simple as it gets.",
+        "effect": "This fourth generation Quark module increases Quark gain by {{amount}}"
+      },
       "ambrosiaCubes3": {
         "name": "Ambrosia Cube Module III",
         "description": "A darkness emboldens this module. +20% Cubes per level, and the effect is 3% stronger per level of Ambrosia Cube Module II. Every 5 levels give num:((1.2))x Cubes.",
         "effect": "This third generation Cube module increases Cube gain by {{amount}}%"
+      },
+      "ambrosiaCubes4": {
+        "name": "Ambrosia Cube^4",
+        "description": "Not too different from the Four Dimensional Time Cube... +1% Cubes per level, num:((1.3))x Cubes every 5 levels.",
+        "effect": "This fourth generation Cube module increases Cube gain by {{amount}}"
       },
       "ambrosiaLuck3": {
         "name": "Ambrosia Luck Module III",
@@ -126,7 +182,7 @@
       },
       "ambrosiaPatreon": {
         "name": "Shameless, Ambrosial Subscriber Advertisement",
-        "description": "In every realm, Platonic sells out. The Global Subscriber Bonus and the Personal Account Bonus will also impact your Ambrosia Bar Point generation. Consider Subscribing to support development and increase this bonus, for you and all Synergism players!",
+        "description": "In every realm, Platonic sells out. The Global Subscriber Bonus and the Personal Account Bonus will also impact your Bar Point generation. Consider Subscribing to support development and increase this bonus, for you and all Synergism players!",
         "effect": "Generous Subscribers and your Personal Bonus grants you {{amount}}% more Ambrosia Bar Points!"
       },
       "ambrosiaObtainium1": {
@@ -159,10 +215,20 @@
         "description": "+1 Base Obtainium per level! Channel your inner er.",
         "effect": "This module increases Base Obtainium by {{amount}}!"
       },
+      "ambrosiaFreeObtainiumUpgrades": {
+        "name": "Blinded by Science",
+        "description": "Gain +1 free Quark Upgrade level for all 'Obtainium' type Quark Upgrades per level!",
+        "effect": "+{{amount}} free levels for 'Obtainium' type Quark Upgrades"
+      },
       "ambrosiaBaseOffering2": {
         "name": "Based Offerings Booster",
         "description": "+1 Base Offerings per level! Channel your... I got nothing.",
         "effect": "This module increases Base Offerings by {{amount}}!"
+      },
+      "ambrosiaFreeOfferingUpgrades": {
+        "name": "Youthful Cannibals",
+        "description": "Gain +1 free Quark Upgrade level for all 'Offering' type Quark Upgrades per level!",
+        "effect": "+{{amount}} free levels for 'Offering' type Quark Upgrades"
       },
       "ambrosiaSingReduction1": {
         "name": "Singularity Stabilizer Module",
@@ -178,6 +244,11 @@
         "name": "Violet Infinity Shop Voucher",
         "description": "A Shop Voucher, printed on a violet tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Upgrades.",
         "effect": "You own {{amount}} Violet Infinity Shop Vouchers!"
+      },
+      "ambrosiaInfiniteShopUpgrades3": {
+        "name": "Periwinkle Infinity Shop Voucher",
+        "description": "A Shop Voucher, printed on a periwinkle tablet. Each grants +1 effective level of the 'Infinity CO.' Quark Upgrades.",
+        "effect": "You own {{amount}} Periwinkle Infinity Shop Vouchers!"
       },
       "ambrosiaSingReduction2": {
         "name": "Exo-Chromatic Kinetic Post-Modulated Singularity Stabilizer Module",
@@ -206,7 +277,7 @@
       },
       "ambrosiaFreeGenerationUpgrades": {
         "name": "Time in a Bottle",
-        "description": "For all 'Generation' type Quark Upgrades, gain +1 free level per level! These will have a corresponding icon.",
+        "description": "For all 'Generation' type Quark Upgrades, gain +1 free level per Module level! These will have a corresponding icon.",
         "effect": "+{{amount}} free levels for 'Generation' type Quark Upgrades"
       },
       "ambrosiaFreeRedLuckUpgrades": {
@@ -218,6 +289,21 @@
         "name": "Mechanical - the 1981 Cut",
         "description": "For all 'Quark' type Quark Upgrades, gain +num:((0.1)) free levels per level! These will have a corresponding icon.",
         "effect": "+{{amount}} free levels for 'Quark' type Quark Upgrades"
+      },
+      "ambrosiaFreeCubeUpgrades": {
+        "name": "Silent Cube",
+        "description": "Who can turn a cub into a cube? +1 free level for all 'Cube' type Quark Upgrades per level! These will have a corresponding icon.",
+        "effect": "+{{amount}} free levels for 'Cube' type Quark Upgrades"
+      },
+      "twoMind": {
+        "name": "TWO MIND",
+        "description": "Consume the Blueberry. Consume. You must!",
+        "descriptionAmbrosia": "Fix the Ambrosia Bar to require <<var(--blueberry-text-color)|25,000,000>> Ambrosia Bar Points.",
+        "descriptionRedAmbrosia": "Fix the Red Bar to require <<red|7,500>> Red Ambrosia Bar Points.",
+        "descriptionPurpleHoney": "Fix the Purple Bar to require <<var(--purple-text-color)|150,000>> Purple Bar Points.",
+        "descriptionSummary": "<b>Luck used for Bar rewards is multiplied by the ratio of the fixed requirement to the expected requirement (without TWO MIND). Luck used for all other effects is unchanged.</b>",
+        "effectDisabled": "You haven't YET consumed the Blueberry.",
+        "effectEnabled": "You've consumed the Blueberry, and feel your MIND has been washed from its toxins."
       }
     },
     "loadouts": {
@@ -259,10 +345,11 @@
   },
   "redAmbrosia": {
     "redAmbrosia": "Red Ambrosia",
-    "amount": "Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
+    "amount": "Red Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
     "purchaseWarning": "<<gold | ⚠>> Unlike Blueberry Modules, you <<red | CANNOT>> refund this upgrade.",
     "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: {{ambrosiaLuck}}>>]",
-    "redAmbrosiaBuyPrompt": "How many Red Ambrosia would you like to spend? You have {{amount}} Red Ambrosia. Type -1 to use max!",
+    "redAmbrosiaBuyPrompt": "How many levels would you like to buy? You can buy up to {{amount}}. Type -1 to use max!",
+    "purchaseNoLongerAffordable": "You no longer have enough Red Ambrosia to buy a level. Autosynthesis may have spent it while the purchase prompt was open. No levels were purchased.",
     "notUnlocked": "Clear No Ambrosia Upgrades, Tier 1!",
     "redAmbrosiaCost": "Cost for next level: <<red | {{amount}}>> Red Ambrosia",
     "redAmbrosiaSpent": "Total Red Ambrosia spent: <<red | {{amount}}>>",
@@ -293,29 +380,29 @@
         "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow2": {
-        "name": "More Row 2 Blueberry Upgrade Levels!",
-        "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the second row, per level.",
-        "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by <<pink | {{amount}}>>!"
+        "name": "More Blueberry Luck Module Levels!",
+        "description": "Add one effective level per level to all Blueberry Modules in the third row, excluding the first column, and to hybrid modules that grant Ambrosia Luck.",
+        "effect": "This upgrade increases the effective level of third-row Blueberry Modules (excluding the first column) and hybrid modules that grant Ambrosia Luck by <<pink|{{amount}}>>!"
       },
       "freeLevelsRow3": {
-        "name": "More Row 3 Blueberry Upgrade Levels!",
-        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the third row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 3 Blueberry Modules by <<pink | {{amount}}>>!"
+        "name": "More Blueberry Resource and Utility Module Levels!",
+        "description": "Add one effective level per level to all Blueberry Modules in rows 5 and 6, excluding the first column and Singularity Stabilizer modules.",
+        "effect": "This upgrade increases the effective level of Blueberry Modules in rows 5 and 6, excluding the first column and Singularity Stabilizer modules by <<pink|{{amount}}>>!"
       },
       "freeLevelsRow4": {
-        "name": "More Row 4 Blueberry Upgrade Levels!",
-        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fourth row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 4 Blueberry Modules by <<pink | {{amount}}>>!"
+        "name": "More Blueberry Cube Module Levels!",
+        "description": "Add one effective level per level to all Blueberry Modules in the second row, excluding the first column, and to hybrid modules that grant cubes.",
+        "effect": "This upgrade increases the effective level of second-row Blueberry Modules (excluding the first column) and hybrid modules that grant cubes by <<pink|{{amount}}>>!"
       },
       "freeLevelsRow5": {
-        "name": "More Row 5 Blueberry Upgrade Levels!",
-        "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the fifth row, per level.",
-        "effect": "This upgrade increases the effective level of (most) row 5 Blueberry Modules by <<pink | {{amount}}>>!"
+        "name": "More Blueberry Quark Module Levels!",
+        "description": "Add one effective level per level to all Blueberry Modules in the first row, excluding the first column, and to hybrid modules that grant quarks.",
+        "effect": "This upgrade increases the effective level of first-row Blueberry Modules (excluding the first column) and hybrid modules that grant quarks by <<pink|{{amount}}>>!"
       },
       "blueberryGenerationSpeed": {
         "name": "The Sands of Time",
-        "description": "+num:((0.2))% Ambrosia Bar Point gain per level. They say this hourglass has the benediction of Chronos himself.",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by <<lightblue|{{amount}}>>!"
+        "description": "+num:((0.2))% Ambrosia AND Red Bar Point gain per level. They say this hourglass has the benediction of Chronos himself.",
+        "effect": "This upgrade increases Ambrosia AND Red Bar Point gain by <<lightblue|{{amount}}>>!"
       },
       "regularLuck": {
         "name": "Ossified Blueberry Tactics",
@@ -325,6 +412,11 @@
       "redGenerationSpeed": {
         "name": "Millennium-Aged Red Ambrosia",
         "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +num:((0.3))% more Red Bar Points per level.",
+        "effect": "This upgrade increases Red Bar Point gain by <<red|{{amount}}>>!"
+      },
+      "redGenerationSpeed2": {
+        "name": "Era of Red Ambrosia",
+        "description": "+num:((0.1))% more Red Bar Points per level. Red Ambrosia so old that it makes Ant God seem young!",
         "effect": "This upgrade increases Red Bar Point gain by <<red|{{amount}}>>!"
       },
       "redLuck": {
@@ -367,18 +459,18 @@
       },
       "redAmbrosiaAccelerator": {
         "name": "Red-Blue Ultrafusion",
-        "description": "When you gain a Red Ambrosia, you gain a bit of progress toward regular Ambrosia! +num:((0.02)) real-life seconds of Ambrosia Bar Points per level, per Red Ambrosia generated, with the first level giving +1!",
-        "effect": "Each Red Ambrosia generated grants <<white|{{amount}}>> real-life seconds of Ambrosia Bar Points."
+        "description": "When you fill the Red Bar, you gain a bit of Ambrosia Bar Points! +num:((0.02)) real-life seconds of Ambrosia Bar Points per level, per 100 Red Ambrosia Luck, with the first level giving +1 second!",
+        "effect": "Each Red Bar Fill grants <<white|{{amount}}>> real-life seconds of Ambrosia Bar Points per 100 Red Luck (Per Red Bar Fill: <<white|+{{current}}s>>)"
       },
       "regularLuck2": {
         "name": "Ossified Blueberry Tactics II",
-        "description": "This also gives +2 Ambrosia Luck / level, but you can purchase a ton of levels of this!",
+        "description": "This also gives +2 Ambrosia Luck / level.",
         "effect": "This upgrade increases Ambrosia Luck by <<green|{{amount}}>>!"
       },
       "blueberryGenerationSpeed2": {
         "name": "The Sands of Time II",
-        "description": "This gives +num:((0.1))% Ambrosia Bar Point gain per level, but you can purchase a ton of levels of this!",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by <<lightblue|{{amount}}>>!"
+        "description": "This gives +num:((0.1))% Ambrosia AND Red Bar Point gain per level.",
+        "effect": "This upgrade increases Ambrosia AND Red Bar Point gain by <<lightblue|{{amount}}>>!"
       },
       "salvageYinYang": {
         "name": "Yin and Yang: Salvage Edition",
@@ -417,6 +509,402 @@
       }
     }
   },
+  "purpleAmbrosia": {
+    "taurusTaxReduction": "Taurus: Tax scaling ÷<<gold|{{divisor}}>>.",
+    "cancerBarFillBonus": "Cancer: <<var(--purple-text-color)|+{{points}}>> per Ambrosia/Red Bar Fill",
+    "purpleAmbrosiaCost": "Cost for next level: <<var(--purple-text-color)|{{amount}}>> Purple Ambrosia",
+    "purpleAmbrosiaSpent": "Purple Ambrosia spent: <<var(--purple-text-color)|{{current}}/{{max}}>>",
+    "purchaseWarning": "<<gold|⚠>> Unlike Blueberry Modules, you <<var(--purple-text-color)|CANNOT>> refund this upgrade.",
+    "purpleAmbrosiaBuyPrompt": "How many levels would you like to buy? You can buy up to {{amount}}. Type -1 to use max!",
+    "notEnough": "You cannot afford another level of this upgrade.",
+    "data": {
+      "aries": {
+        "name": "Aries",
+        "description": "Lots of momentum, potential and promise. For Ambrosia, that is.",
+        "effectNotMaxed": "For every digit in lifetime Ambrosia, Red Ambrosia and Purple Ambrosia, ALL Bar Points generate <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> faster (Current: <<silver|{{oldPercent2}} →>> <<gold|{{newPercent2}}>>)",
+        "effectMaxed": "For every digit in lifetime Ambrosia, Red Ambrosia and Purple Ambrosia, ALL Bar Points generate <<gold|{{maxPercent}}>> faster (Current: <<gold|{{maxPercent2}}>>)"
+      },
+      "taurus": {
+        "name": "Taurus",
+        "description": "Taxes are absolute bull-- bad!",
+        "effectNotMaxed": "Taxes are divided by <<silver|{{oldValue}} →>> <<gold|{{newValue}}>>.",
+        "effectMaxed": "Taxes are divided by <<gold|{{maxValue}}>>."
+      },
+      "gemini": {
+        "name": "Gemini",
+        "description": "Sorry, I cannot fulfill this request.",
+        "effectNotMaxed": "On Purple Bar Fill: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Ambrosia Bar Points.",
+        "effectNotMaxed2": "On Purple Bar Fill: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Red Ambrosia Bar Points.",
+        "effectMaxed": "On Purple Bar Fill: <<gold|{{maxValue}}>> Ambrosia Bar Points.",
+        "effectMaxed2": "On Purple Bar Fill: <<gold|{{maxValue}}>> Red Ambrosia Bar Points."
+      },
+      "cancer": {
+        "name": "Cancer",
+        "description": "Particularly compatible with Gemini.",
+        "effectNotMaxed": "On Ambrosia or Red Bar fill: Gain <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Purple Bar Points.",
+        "effectMaxed": "On Ambrosia or Red Bar fill: Gain <<gold|+{{maxValue}}>> Purple Bar Points."
+      },
+      "leo": {
+        "name": "Leo",
+        "description": "Particularly likes to forage blueberries.",
+        "effectNotMaxed": "If you have at least five unassigned Blueberries: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Ambrosia Luck per unassigned Blueberry (Current: <<silver|{{oldValue2}} →>> <<gold|{{newValue2}}>>).",
+        "effectMaxed": "If you have at least five unassigned Blueberries: <<gold|{{maxValue}}>> Ambrosia Luck per unassigned Blueberry (Current: <<gold|{{maxValue2}}>>)."
+      },
+      "virgo": {
+        "name": "Virgo",
+        "description": "It was the best of times. It still is, but it used to too.",
+        "effectNotMaxed": "For each assigned Blueberry: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Salvage (Current: <<silver|{{oldValue2}} →>> <<gold|{{newValue2}}>>).",
+        "effectMaxed": "For each assigned Blueberry: <<gold|{{maxValue}}>> Salvage (Current: <<gold|{{maxValue2}}>>)."
+      },
+      "libra": {
+        "name": "Libra",
+        "description": "Strongly dislikes: irregularities in the pension fund.",
+        "effectNotMaxed": "You <<silver|can't →>> <<gold|can>> enable overflow reactions in the Encabulator. Excess reacts at 10% efficiency if the other reactant is available; the rest returns to its regular bar.",
+        "effectMaxed": "You can enable overflow reactions in the Encabulator. Excess reacts at 10% efficiency if the other reactant is available; the rest returns to its regular bar."
+      },
+      "scorpio": {
+        "name": "Scorpio",
+        "description": "Hungers for your regular Ambrosia.",
+        "effectNotMaxed": "Purple Reactor Conversion: <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> more Ambrosia Bar Points and Purple Bar Points. Red Bar Points are left alone!",
+        "effectMaxed": "Purple Reactor Conversion: <<gold|{{maxPercent}}>> more Ambrosia Bar Points and Purple Bar Points. Red Bar Points are left alone!"
+      },
+      "sagittarius": {
+        "name": "Sagittarius",
+        "description": "A horse is a horse, of course. Horse!",
+        "effectNotMaxed": "Unlock a new Horseshoe rune! Boosts Ambrosia Luck, Red Luck and Purple Honey Luck.",
+        "effectMaxed": "You've unlocked a Horseshoe rune!"
+      },
+      "capricorn": {
+        "name": "Capricorn",
+        "description": "Has a horse shoe that only a Sagittarius could love.",
+        "effectNotMaxed": "Unlock a new Horse Shoe talisman! Boosts Ambrosia Luck and Red Luck!",
+        "effectMaxed": "You've unlocked a Horse Shoe talisman! Don't forget the Red Luck Mythic Signature."
+      },
+      "aquarius": {
+        "name": "Aquarius",
+        "description": "Mystic crystal revelation, and the MIND's true liberation.",
+        "effectNotMaxed": "'Infinite Transcription of the One Mind' adds <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> to One Mind's Ascension Speed exponent for the global cube multiplier. Applies only when Ascension Speed is at least 1.",
+        "effectMaxed": "'Infinite Transcription of the One Mind' adds <<gold|+{{maxValue}}>> to One Mind's Ascension Speed exponent for the global cube multiplier. Applies only when Ascension Speed is at least 1."
+      },
+      "pisces": {
+        "name": "Pisces",
+        "description": "Platonic's a Pisces. Pass it on.",
+        "effectNotMaxed": "You <<silver|don't →>> <<gold|will>> start Singularities with Platonic BETA!",
+        "effectMaxed": "You <<gold|start>> Singularities with Platonic BETA!"
+      }
+    }
+  },
+  "purpleReactor": {
+    "purpleHoneyAmount": "You have <<var(--purple-text-color)|{{amount}}>> Purple Honey (<<var(--purple-text-color)|{{lifetimeAmount}}>> Lifetime)",
+    "highestPurpleHoney": "Most Purple Honey at once: <<var(--purple-text-color)|{{amount}}>>",
+    "lifetimePurpleHoneyQuarks": "<<cyan|Quarks +{{amount}}>>",
+    "lifetimePurpleHoneyGlobalSpeed": "<<lightskyblue|Global Speed +{{amount}}>>",
+    "lifetimePurpleHoneyAscensionSpeed": "<<orange|Ascension Speed +{{amount}}>>",
+    "lifetimePurpleHoneyAmbrosia": "<<lightblue|Ambrosia Bar Points +{{amount}}>>",
+    "lifetimePurpleHoneyRedAmbrosia": "<<red|Red Bar Points +{{amount}}>>",
+    "lifetimePurpleHoneyAntELO": "<<orchid|Ant ELO +{{amount}}>>",
+    "lifetimePurpleHoneyRebornELOSpeed": "<<#00DDFF|Reborn ELO Speed +{{amount}}>>",
+    "header": {
+      "title": "Chroma-Encabulator",
+      "subtitle": "The Grand, Fantabulous",
+      "reactionLabel": "Reaction (Bar Points)",
+      "reaction": "<<lightblue|{{ambrosia}} Ambrosia>> + <<red|{{redAmbrosia}} Red>> → <<var(--purple-text-color)|{{purple}} Purple>>",
+      "ariesModifier": "Aries: <<gold|+{{percent}}>> Purple output",
+      "scorpioModifier": "Scorpio: <<gold|+{{percent}}>> Ambrosia cost and Purple output",
+      "speedLabel": "Encabulator Speed",
+      "speed": "<<gold|{{speed}}%>> Ambrosia capacity / hour",
+      "maximumDraw": "Maximum draw: <<lightblue|{{ambrosia}} Ambrosia BP/s>> and <<red|{{redAmbrosia}} Red BP/s>>",
+      "overflowLabel": "Libra overflow"
+    },
+    "reactantTankLabel": "Input Tank",
+    "ambrosiaReactantTankTitle": "<<lightblue|Ambrosia Bar Points>>",
+    "redAmbrosiaReactantTankTitle": "<<red|Red Bar Points>>",
+    "reactantRouting": "Percent Production Routed",
+    "reactantRoutingPercentage": "{{percentage}}%",
+    "reactantRoutingPercentageAria": "{{percentage}}% of production routed to the Encabulator",
+    "reactantTankProgress": "{{stored}} / {{capacity}}",
+    "reactantTankProgressAria": "{{stored}} of {{capacity}} stored; {{percentage}}% full",
+    "reactantNetRatePositive": "+{{amount}}/s net",
+    "reactantNetRateNegative": "-{{amount}}/s net",
+    "reactantNetRateZero": "0/s net",
+    "reactantRoutedRate": "Routed to storage: <<var(--reactant-bright)|{{amount}}/s>>",
+    "reactantSpentRate": "Spent in Encabulator: <<var(--purple-text-color)|{{amount}}/s>>",
+    "overflowExplanation": "React excess from either input tank at 10% efficiency using the other tank's reactant. Any unmatched excess returns to its regular bar.",
+    "reactantOverflowRate": "Overflow reacted: <<var(--reactant-bright)|{{amount}}/s>>",
+    "purpleHoneyOverflowRate": "Libra: +{{rate}}/s from overflow",
+    "purpleHoneyProgress": "{{current}} / {{conversion}}",
+    "purpleHoneyProgressRate": "Reactants: +{{rate}}/s",
+    "reactorCoreTitle": "Encabulator Core",
+    "purpleHoneyProgressTitle": "<<var(--purple-text-color)|Purple Bar Points>>",
+    "purpleHoneyProgressAriaLabel": "Purple Bar Points toward the next Purple Honey extraction",
+    "purpleHoneyGain": "+{{amount}}",
+    "purpleHoneyBaseYield": "Base Purple Honey per extraction: <<var(--purple-text-color)|{{amount}}>>",
+    "purpleHoneyLuck": "Purple Honey Luck: <<var(--purple-text-color)|{{luck}}>>",
+    "purpleHoneyLuckTwoMind": "Purple Honey Luck for Purple Honey: <<var(--purple-text-color)|{{luck}}>> [<<var(--purple-text-color)|{{unmodifiedLuck}}>> for everything else]",
+    "purpleHoneyExtractionMultiplier": "Extraction Multiplier: <<gold|{{multiplier}}>> [<<gold|{{chance}}%>> chance for +1]",
+    "percentageOption0": "0%",
+    "percentageOption50": "50%",
+    "percentageOption100": "100%",
+    "ambrosiaBarPointPercentageAriaLabel": "Percentage of Ambrosia Bar Point production routed to the Encabulator",
+    "redAmbrosiaBarPointPercentageAriaLabel": "Percentage of Red Bar Point production routed to the Encabulator",
+    "ambrosiaTankAriaLabel": "Ambrosia Bar Point Encabulator storage",
+    "redAmbrosiaTankAriaLabel": "Red Bar Point Encabulator storage",
+    "purpleHoneySpent": "Purple Honey spent: <<var(--purple-text-color)|{{current}}/{{max}}>>",
+    "upgradeAPPerLevel": "Each level of this upgrade grants <<gold|+{{amount}}>> AP [<<gold|+{{total}}>>]",
+    "upgradeAPMax": "You also get <<gold|+{{amount}}>> AP for maxing this upgrade! {{check}}",
+    "purpleUpgradeAP": "Purple Honey Upgrade AP: <<gold|{{current}}/{{max}}>>",
+    "synthesis": {
+      "name": "Synthesis",
+      "close": "Close Synthesis",
+      "purpleAmbrosia": "Purple Ambrosia",
+      "redAmbrosia": "Red Ambrosia",
+      "purpleHoney": "Purple Honey",
+      "owned": "Owned: {{amount}}",
+      "craftable": "Can Synthesize ×{{amount}}",
+      "craftAmount": "Craft {{amount}}",
+      "craftAria": "Craft {{amount}} Purple Ambrosia for {{redAmbrosia}} Red Ambrosia and {{purpleHoney}} Purple Honey",
+      "unlockAutomation": "Unlock Autosynth - {{cost}} Purple Ambrosia",
+      "enableAutomation": "Autosynthesize Purple Ambrosia",
+      "gain": "+{{amount}}",
+      "upgradesTitle": "Synthesis Upgrades",
+      "upgradeLevel": "Level {{current}}/{{max}}",
+      "upgradeMaxed": "Maxed!",
+      "upgradeAPProgress": "+{{amount}}/50 AP (+5 every {{levels}} levels)",
+      "purchaseAmount": "+{{amount}}",
+      "purchaseMax": "+MAX",
+      "upgrades": {
+        "redAmbrosiaReduction": {
+          "name": "Red Ambrosia Reduction",
+          "flavor": "One of those 'you gotta spend money to make money' moments.",
+          "cost": "Cost: <<var(--purple-text-color)|{{purpleAmbrosia}} Purple Ambrosia>> and <<red|{{redAmbrosia}} Red Ambrosia>>.",
+          "purchaseAria": "Buy {{amount}} levels of Red Ambrosia Reduction for {{purpleAmbrosia}} Purple Ambrosia and {{redAmbrosia}} Red Ambrosia.",
+          "effectNotMaxed": "Synthesis costs <<silver|{{current}} →>> <<gold|{{next}}>> Red Ambrosia.",
+          "effectMaxed": "Synthesis costs <<gold|{{value}}>> Red Ambrosia."
+        },
+        "purpleHoneyReduction": {
+          "name": "Purple Honey Reduction",
+          "flavor": "Honey that is more strictly purple, whatever that means.",
+          "cost": "Cost: <<var(--purple-text-color)|{{purpleAmbrosia}} Purple Ambrosia>> and <<var(--purple-text-color)|{{purpleHoney}} Purple Honey>>.",
+          "purchaseAria": "Buy {{amount}} levels of Purple Honey Reduction for {{purpleAmbrosia}} Purple Ambrosia and {{purpleHoney}} Purple Honey.",
+          "effectNotMaxed": "Synthesis costs <<silver|{{current}} →>> <<gold|{{next}}>> Purple Honey.",
+          "effectMaxed": "Synthesis costs <<gold|{{value}}>> Purple Honey."
+        },
+        "subatomicShavings": {
+          "name": "Subatomic Shavings",
+          "flavor": "Straight off the floor of the Encabulator.",
+          "cost": "Cost: <<var(--purple-text-color)|{{purpleAmbrosia}} Purple Ambrosia>> and <<cyan|{{quarks}} Quarks>>.",
+          "purchaseAria": "Buy {{amount}} levels of Subatomic Shavings for {{purpleAmbrosia}} Purple Ambrosia and {{quarks}} Quarks.",
+          "effectNotMaxed": "On Synthesis: Gain <<silver|{{current}} →>> <<gold|{{next}}>> Quarks.",
+          "effectMaxed": "On Synthesis: Gain <<gold|{{value}}>> Quarks."
+        },
+        "exceptionalLieGroup": {
+          "name": "Exceptional Lie Group",
+          "flavor": "n, s.t. E<sub>n</sub> is 248-dimensional.",
+          "cost": "Cost: <<var(--purple-text-color)|{{purpleAmbrosia}} Purple Ambrosia>> and <<var(--lightseagreen-text-color)|{{octeracts}} Octeracts>>.",
+          "purchaseAria": "Buy {{amount}} levels of Exceptional Lie Group for {{purpleAmbrosia}} Purple Ambrosia and {{octeracts}} Octeracts.",
+          "effectNotMaxed": "On Synthesis: <<silver|{{current}} →>> <<gold|{{next}}s>> of Octeract production.",
+          "effectMaxed": "On Syntehsis: <<gold|{{value}}s>> of Octeract production."
+        }
+      }
+    },
+    "lifetimeHoneyFormulaNotMaxed": "Multiplier = 1 + (<<silver|{{oldValue}} →>> <<gold|{{newValue}}>>) * ln(1 + Honey/100)",
+    "lifetimeHoneyFormulaMaxed": "Multiplier = 1 + <<gold|{{maxValue}}>> * ln(1 + Honey/100)",
+    "lifetimeHoneyELOFormulaNotMaxed": "Bonus: (<<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>>) * ln(1 + Honey)",
+    "lifetimeHoneyELOFormulaMaxed": "Bonus: <<gold|{{maxPercent}}>> * ln(1 + Honey)",
+    "upgradeShop": {
+      "sections": {
+        "intro": "Intro",
+        "reactor": "Purple Encabulator Upgrades",
+        "honeyPower": "Honey Power Upgrades",
+        "resources": "Resource Upgrades",
+        "miscellaneous": "Miscellaneous"
+      },
+      "familyNames": {
+        "capacity": "Capacity",
+        "halfLife": "Encabulator Speed",
+        "efficiency": "Efficiency",
+        "honeyLuck": "Honey Luck",
+        "requirementReduction": "Purple Bar Size Reduction",
+        "lifetimeHoneyBonuses": "Lifetime Honey Bonuses"
+      },
+      "level": "{{current}}/{{max}}",
+      "maxed": "Maxed!",
+      "nextCost": "Next: {{cost}} Purple Honey",
+      "cost": "Costs {{cost}} Purple Honey",
+      "toggleUpgrades": "Upgrades",
+      "closeUpgrades": "Close upgrades",
+      "purchaseAmount": "+{{amount}}",
+      "purchaseMax": "+MAX",
+      "purchaseCost": "Cost: {{cost}}"
+    },
+    "upgrades": {
+      "tutorial": {
+        "name": "The Purple Guy's Greeting",
+        "flavor": "You ask for the guy's name. He says \"<i>Not Sure</i>\"...",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ambrosia Bar Point and Red Bar Point Generation.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Ambrosia Bar Point and Red Bar Point Generation."
+      },
+      "purpleEfficiency1": {
+        "name": "Chroma-Encabulator Efficiency I",
+        "flavor": "mmm... Purple...",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Purple Honey from Chroma-Encabulator fusions.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Purple Honey from Chroma-Encabulator fusions."
+      },
+      "purpleEfficiency2": {
+        "name": "Chroma-Encabulator Efficiency II",
+        "flavor": "Let the Sunshine in to get more Honey from your Purple Bar Points!"
+      },
+      "purpleEfficiency3": {
+        "name": "Chroma-Encabulator Efficiency III",
+        "flavor": "Where does Purple Honey come from? Purple Bees!"
+      },
+      "purpleEfficiency4": {
+        "name": "Chroma-Encabulator Efficiency IV",
+        "flavor": "Orange you glad I didn't say... Purple?"
+      },
+      "purpleHoneyLuck1": {
+        "name": "Purple Honey Luck I",
+        "flavor": "I'm feeling lucky.",
+        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Purple Honey Luck.",
+        "effectMaxed": "<<gold|+{{maxValue}}>> Purple Honey Luck."
+      },
+      "purpleHoneyLuck2": {
+        "name": "Purple Honey Luck II",
+        "flavor": "Everyone needs a lucky break sometimes."
+      },
+      "purpleHoneyLuck3": {
+        "name": "Purple Honey Luck III",
+        "flavor": "It's as though you can predict when more Purple Honey is synthesized."
+      },
+      "purpleHoneyLuck4": {
+        "name": "Purple Honey Luck IV",
+        "flavor": "Everyone has that third, Purple eye."
+      },
+      "purpleHalfLife1": {
+        "name": "All-Natural, Organic Catalyzer I",
+        "flavor": "Now chemical-free!",
+        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Encabulator Speed.",
+        "effectMaxed": "<<gold|+{{maxValue}}>> Encabulator Speed."
+      },
+      "purpleHalfLife2": {
+        "name": "All-Natural, Organic Catalyzer II",
+        "flavor": "What takes minutes, now takes fewer minutes!"
+      },
+      "purpleHalfLife3": {
+        "name": "All-Natural, Organic Catalyzer III",
+        "flavor": "I don't need to say it... right?"
+      },
+      "purpleHalfLife4": {
+        "name": "All-Natural, Organic Catalyzer IV",
+        "flavor": "The One With the Really Fast Reaction"
+      },
+      "paperweight": {
+        "name": "The AP Paperweight, Mate",
+        "flavor": "This thing can't really hold paper down.",
+        "effectNotMaxed": "This paperweight does nothing, except give you a little AP.",
+        "effectMaxed": "Yup. Still nothing but AP."
+      },
+      "purpleCapacityExpander1": {
+        "name": "Reactant Storage Expansion I",
+        "flavor": "More storage means potentially more Purple Honey creation!",
+        "effectNotMaxedAmbrosia": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Ambrosia Bar Point storage capacity.",
+        "effectNotMaxedRed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Red Bar Point storage capacity.",
+        "effectMaxedAmbrosia": "<<gold|+{{maxValue}}>> Ambrosia Bar Point storage capacity.",
+        "effectMaxedRed": "<<gold|+{{maxValue}}>> Red Bar Point storage capacity."
+      },
+      "purpleCapacityExpander2": {
+        "name": "Reactant Storage Expansion II",
+        "flavor": "Storage does grow on trees!"
+      },
+      "purpleCapacityExpander3": {
+        "name": "Reactant Storage Expansion III",
+        "flavor": "You gotta spend Honey to make (more) Honey."
+      },
+      "purpleCapacityExpander4": {
+        "name": "Reactant Storage Expansion IV",
+        "flavor": "It's questionable how much more space your Encabulator can take."
+      },
+      "purpleHoneyRequirementReduction1": {
+        "name": "Purple Bar Size Reduction I",
+        "flavor": "Making the bar shorter makes it fill faster? Why aren't we funding this?",
+        "effectNotMaxed": "<<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> Purple Bar Points required to fill the Purple bar.",
+        "effectMaxed": "<<gold|{{maxPercent}}>> Purple Bar Points required to fill the Purple bar."
+      },
+      "purpleHoneyRequirementReduction2": {
+        "name": "Purple Bar Size Reduction II",
+        "flavor": "More Purple, less wait."
+      },
+      "purpleHoneyRequirementReduction3": {
+        "name": "Purple Bar Size Reduction III",
+        "flavor": "Is the Purple Bar getting smaller, or am I just getting larger?"
+      },
+      "purpleHoneyRequirementReduction4": {
+        "name": "Purple Bar Size Reduction IV",
+        "flavor": "Bend space, but not time, to make the Purple Bar fill up faster."
+      },
+      "obtainium": {
+        "name": "Obtainium Purpling",
+        "flavor": "Let me shift the hue down a bit for you.",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Obtainium.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Obtainium."
+      },
+      "offerings": {
+        "name": "Offerings but Purple",
+        "flavor": "They're Purple for an amazing reason!",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Offerings.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Offerings."
+      },
+      "lifetimeHoneyQuarks": {
+        "name": "Honey Power: Quarks",
+        "flavor": "Oh, honey honey!",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Quarks",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Quarks, from your Lifetime Honey stat."
+      },
+      "lifetimeHoneyGlobalSpeed": {
+        "name": "Honey Power: Global Speed",
+        "flavor": "We're not going faster, the Earth is just spinning without us.",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Global Speed",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Global Speed, from your Lifetime Honey stat."
+      },
+      "lifetimeHoneyAscensionSpeed": {
+        "name": "Honey Power: Ascension Speed",
+        "flavor": "The flavor of this Honey is ascendent.",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ascension Speed",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Ascension Speed, from your Lifetime Honey stat."
+      },
+      "lifetimeHoneyAmbrosia": {
+        "name": "Honey Power: Ambrosia",
+        "flavor": "Lathering your Ambrosia with Honey is like putting bacon on your hotdog.",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ambrosia Bar Points",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Ambrosia Bar Points, from your Lifetime Honey stat."
+      },
+      "lifetimeHoneyRedAmbrosia": {
+        "name": "Honey Power: Red Ambrosia",
+        "flavor": "Lathering your Red Ambrosia with Honey is like putting red bacon on your red hotdog. Wait.",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Red Bar Points",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Red Bar Points, from your Lifetime Honey stat."
+      },
+      "lifetimeHoneyAntELO": {
+        "name": "Honey Power: Ant ELO",
+        "flavor": "Honey attracts Ants better than your Galactic Crumbs do.",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ant ELO",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Ant ELO, from your Lifetime Honey stat."
+      },
+      "lifetimeHoneyRebornELOSpeed": {
+        "name": "Honey Power: Reborn ELO Speed",
+        "flavor": "Too much honey will have you catching up to Ant God quicker.",
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Reborn ELO Speed",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Reborn ELO Speed, from your Lifetime Honey stat."
+      },
+      "purpleQuarkGain": {
+        "name": "Lab-Grown Quarks",
+        "flavor": "Looks, feels, tastes and <i>is</i> just like a Quark.",
+        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Quarks per extracted Purple Honey",
+        "effectMaxed": "<<gold|+{{maxValue}}>> Quarks per extracted Purple Honey",
+        "disclaimer": "<<gold | ⚠>> This perk only works if your current Singularity is at least 1 hour long, and you are not in the 'Bar Charging' EXALT! The lab takes some time warming up, after all."
+      }
+    }
+  },
   "achievements": {
     "showProgressDetails": "Show achievement progress details",
     "descriptions": {
@@ -438,7 +926,7 @@
       "15": "Stationery!: Build 1 Printer.",
       "16": "Printing Press: Build 10 Printers.",
       "17": "It prints free money!: Build 100 Printers.",
-      "18": "Solving Our Debts: Build 333 Printers.",
+      "18": "Solving Our Debts: Build 333 Printoers.",
       "19": "Monopolizing the market: Build num:((5000)) Printers.",
       "20": "We're running out of Ink!: Build num:((10000)) Printers.",
       "21": "3D-printing the universe: Build num:((20000)) Printers.",
@@ -2008,6 +2496,16 @@
         "name": "Red luck",
         "description": "For each level past 259, gain +1 Red Luck! I like stats with symbols next to them.",
         "effect": "Current Effect: +{{luck}} Red Luck"
+      },
+      "redAmbrosiaGeneration": {
+        "name": "Red Ambrosia Generation",
+        "description": "For each level past 279, gain +1% Red Bar Point production! I like stats with symbols next to them.",
+        "effect": "Current Effect: +{{percent}} Red Ambrosia Generation"
+      },
+      "purpleHoneyLuck": {
+        "name": "Purple Honey Luck",
+        "description": "For each level past 299, gain +1 Purple Honey Luck!",
+        "effect": "Current Effect: +{{luck}} Purple Honey Luck"
       }
     },
     "levelMilestones": {
@@ -2123,6 +2621,11 @@
         "description": "Gain AP based on the sum of all your free rune levels! <br> Best Total: <<gold|{{x}}>>",
         "apSource": "Gain +1 AP per 250 Free Rune Levels owned, up to num:((25000)) Levels. <br> Gain +1 AP per 750 Free Rune Levels owned, up to num:((150000)) Levels. <br> Gain +1 AP per num:((2500)) Free Rune Levels owned, up to num:((500000)) Levels."
       },
+      "quarkUpgrades": {
+        "name": "Progressive Achievement - Quark Upgrades",
+        "description": "Gain AP for each Quark upgrade you've maxxed!",
+        "apSource": "For each upgrade leveled to the max: +4 AP"
+      },
       "antMasteries": {
         "name": "Progressive Achievement - Ant Masteries",
         "description": "Gain AP based on your unique Ant Mastery levels purchsed! <br> Best Total: <<gold|{{x}}>>",
@@ -2151,12 +2654,12 @@
       "exalts": {
         "name": "Progressive Achievement - EXALT Completions",
         "description": "Gain AP for each EXALT you have completed!",
-        "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Limited Ascensions: {{num3}}/{{cap3}} AP <br> No Quark Upgrades: {{num4}}/{{cap4}} AP <br> No Octeract Effects: {{num5}}/{{cap5}} AP <br> No Ambrosia Upgrades: {{num6}}/{{cap6}} AP <br> Grand Singularity Speedrun: {{num7}}/{{cap7}} AP <br> Sadistic III: {{num8}}/{{cap8}} AP <br> Taxman's Last Stand: {{num9}}/{{cap9}} AP"
+        "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Limited Ascensions: {{num3}}/{{cap3}} AP <br> No Quark Upgrades: {{num4}}/{{cap4}} AP <br> No Octeract Effects: {{num5}}/{{cap5}} AP <br> No Ambrosia Upgrades: {{num6}}/{{cap6}} AP <br> Grand Singularity Speedrun: {{num7}}/{{cap7}} AP <br> Sadistic III: {{num8}}/{{cap8}} AP <br> Taxman's Last Stand: {{num9}}/{{cap9}} AP <br> Bar Charging: {{num10}}/{{cap10}} AP"
       },
       "singularityUpgrades": {
         "name": "Progressive Achievement - Golden Quark Upgrades",
         "description": "Gain AP for each Golden Quark upgrade you've maxxed!",
-        "apSource": "Capped upgrades: +5 AP If the upgraded level (excluding free upgrades) is at least the base maximum level."
+        "apSource": "Capped upgrades: +6 AP If the upgraded level (excluding free upgrades) is at least the base maximum level."
       },
       "octeractUpgrades": {
         "name": "Progressive Achievement - Octeract Upgrades",
@@ -2172,6 +2675,16 @@
         "name": "Talisman Rarity",
         "description": "Your talismans grant AP based on their rarity! <br> Best sum of rarities: <<gold|{{x}}>>",
         "apSource": "Gain +5 AP for each rarity. Unlocked Talismans have a rarity of at least 1."
+      },
+      "purpleHoneyUpgrades": {
+        "name": "Progressive Achievement - Purple Honey Upgrades",
+        "description": "Gain various AP for each Purple Honey upgrade maxxed, or levels purchased!",
+        "apSource": "Check out <i>The Purple</i> Subtab in Singularity for more info. AP is rounded down."
+      },
+      "purpleAmbrosiaUpgrades": {
+        "name": "Progressive Achievement - Purple Ambrosia Upgrades",
+        "description": "Gain AP from Synthesis Upgrades, Purple Ambrosia Upgrades, and Purple Enchantments!",
+        "apSource": "Synthesis Upgrades: up to +50 AP per upgrade as levels are purchased.<br>Purple Ambrosia Upgrades: +12 AP per maxxed upgrade.<br>Purple Enchantments (Blueberry Modules): +5 AP per maxxed enchantment."
       }
     },
     "alerts": {
@@ -3145,7 +3658,7 @@
       "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
       "74": "[Cx24] Add +num:((0.30)) to all Corruption Multiplier values.",
       "75": "[Cx25] Each level adds +num:((0.3))% effectiveness to free Golden Quark upgrades per level! (additive with all other boosts)",
-      "76": "[Cx26] Each level gives <<lightblue | +1% Ambrosia Bar Points >> for each time threshold you have reached!",
+      "76": "[Cx26] Each level gives <<lightblue|+2% Ambrosia Bar Points>> and <<red|+2% Red Bar Points>>!",
       "77": "[Cx27] Each level adds <<green | +2 +num:((0.1))% Ambrosia Luck>>!",
       "78": "[Cx28] Each level adds +num:((0.3))% effectiveness to free Octeract Upgrades per level!",
       "79": "[Cx29] Gain Ambrosia Luck when this upgrade is purchased, based on your Lifetime Red Ambrosia! [Formula is 10 * (Log_10(x))^2]",
@@ -3399,15 +3912,15 @@
     "upgradeDescriptions": {
       "offeringPotion": "Instantly gain 2 real life hours of Offerings, based on your all time best Offerings/sec and speed acceleration!",
       "obtainiumPotion": "Instantly gain 2 real life hours of Obtainium, based on your all time best Obtainium/sec and speed acceleration!",
-      "offeringEX": "Each level, get +6% more Offerings! Every 10th level multiplies the effect of this upgrade by num:((1.08)).",
+      "offeringEX": "Each level, get +10% more Offerings! Every 10th level multiplies the effect of this upgrade by num:((1.12)).",
       "offeringAuto": "Automatically pour Offerings into a Rune. Unlock the mechanic with the first level, and make it 1% faster per level!",
-      "obtainiumEX": "Each level, get +6% more Obtainium! Every 10th level multiplies the effect of this upgrade by num:((1.08)).",
+      "obtainiumEX": "Each level, get +10% more Obtainium! Every 10th level multiplies the effect of this upgrade by num:((1.12)).",
       "obtainiumAuto": "Automatically pour Obtainium into a Research. Unlock the mechanic with the first level. Each level also reduces the cost of Researches by num:((0.1))% per level! (Cost is rounded up)",
       "instantChallenge": "T and R Challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Additionally, instantly gain T Challenge completions up to highest completed when exiting R Challenges.",
-      "antSpeed": "Each level grants +4 Ant ELO per level. Don't ask where it comes from.",
-      "cashGrab": "This is a cash grab but it gives a couple cool stats. +1% production per level to Offerings and Obtainium.",
+      "antSpeed": "Each level grants +8 Ant ELO per level. Don't ask where it comes from.",
+      "cashGrab": "This is a cash grab but it gives a couple cool stats. +1.66% production per level to Offerings and Obtainium.",
       "shopTalisman": "Permanently unlock a Shop talisman!",
-      "seasonPass": "Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +num:((2.25))% Cubes and Tesseracts per level when you Ascend!",
+      "seasonPass": "Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +num:((3.75))% Cubes and Tesseracts per level when you Ascend!",
       "challengeExtension": "Using some amazing trick, you manage to increase your Reincarnation Challenge cap by 2 for each level!",
       "challengeTome": "The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level. Past 60 completions of Challenge 9 or 10, this will also reduce the scaling factor by 1% per level.",
       "cubeToQuark": "Are your Quark gains from Cubes wimpy? Well, buy this for +50% Quarks from opening Wow! Cubes, forever! Additional levels grant up to +50% more, with exponential decay.",
@@ -3415,7 +3928,7 @@
       "hypercubeToQuark": "Are your Quark gains from Hypercubes wimpy? Well, buy this for +50% Quarks from opening Wow! Hypercubes, forever! Additional levels grant up to +50% more, with exponential decay.",
       "seasonPass2": "Five times the price gouge, twice the fun! +num:((1.5))% Wow! Hypercubes and Platonic Cubes per level.",
       "seasonPass3": "Okay, now this is just ridiculous. +num:((1.5))% Wow! Hepteracts and Octeracts per level!",
-      "chronometer": "You know, those Ascensions are kinda slow. Why don't I give you a +num:((1.2))% speedup to the timer per level?",
+      "chronometer": "You know, those Ascensions are kinda slow. Why don't I give you a +num:((2))% speedup to the timer per level?",
       "infiniteAscent": "Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +num:((0.2))% Quarks and +1% all Cube types per level!",
       "calculator": "The PL-AT can do addition in the blink of an eye. Not much else though. +14% Quarks from using code 'add' per level, the first level provides the answer and the final level does it automatically!",
       "calculator2": "The PL-AT X has improved memory capacity, allowing you to store 30 additional minutes (1,800 seconds) to code 'add' per level. Final level makes 'add' give 25% more Quarks!",
@@ -3467,6 +3980,7 @@
       "shopRedLuck1": "A small, lesser dice from the tactician of gambling himself. +num:((0.05)) Red Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by num:((0.01)).",
       "shopRedLuck2": "This one seems to have a heavy side. I wonder what that is about. +num:((0.075)) Red Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by num:((0.01)).",
       "shopRedLuck3": "When you pick up this dice, it phases out of existence, then returns, the six face-up. +num:((0.1)) Red Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by num:((0.01)).",
+      "shopRedLuck4": "You don't even need to touch this dice. At once, it simulates a world where you roll a six. +num:((0.2)) Red Luck per level. Every 100 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by num:((0.01)).",
       "shopAmbrosiaLuckMultiplier4": "Gain +1% Ambrosia Luck per level! Simple as that.",
       "shopOcteractAmbrosiaLuck": "Gain +1 Ambrosia Luck per level, multiplied by the number of digits in your lifetime produced Octeracts!",
       "shopCashGrabUltra": "For a nominal price, gain up to +15% Ambrosia Bar Points, +120% Cubes and +8% Quarks per level based on Ambrosia, scaling nonlinearly until num:((10000000)) lifetime earned.",
@@ -3479,7 +3993,8 @@
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by num:((0.1))% per level additive (Max -30%)!",
-      "shopPanthema": "Ace from space!"
+      "shopPanthema": "Ace from space!",
+      "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--blueberry-text-color)|+num:((125000))>> Ambrosia Bar Points and <<var(--red-text-color)|+num:((37.5))>> Red Bar Points per level of this upgrade!"
     },
     "maxed": "Maxed!",
     "bought": "Bought!",
@@ -3494,13 +4009,7 @@
     "singularityQuarkAmount": "Owned: {{amount}}",
     "buyYerPotions": "Buy Yer' Potions!",
     "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
-    "refundable": "This item is refundable! Will be set to level {{level}} when refunded.",
-    "cannotRefund": "This item CANNOT be refunded! Take caution.",
-    "resetPermShop": "Reset Upgrades",
-    "refundConfirmation": "This resets upgrades that are labeled 'refundable', granting all of those Quarks back. Continue?",
-    "refundSuccessful": "You've successfully reset the 'refundable' Quark Upgrades! You were refunded {{amount}} Quarks.",
-    "noResetOnSingularity": "This upgrade does not reset on Singularity! You keep it <b>forever!</b>",
-    "resetOnSingularity": "This upgrade resets on Singularity! Resets to level {{x}} if you've purchased it to that point.",
+    "testingOnlyUpgrade": "⚠ Testing version: This upgrade would normally be hidden because you have not unlocked it yet.",
     "shopConfirmationOn": "Shop Confirmations: ON",
     "shopConfirmationOff": "Shop Confirmations: OFF",
     "hideMaxedOn": "Hide Maxed: ON",
@@ -3586,6 +4095,7 @@
       "shopRedLuck1": "<<red|+{{amount}} Red Luck>>, <<crimson|-{{amount2}} Luck Conversion Ratio>>",
       "shopRedLuck2": "<<red|+{{amount}} Red Luck>>, <<crimson|-{{amount2}} Luck Conversion Ratio>>",
       "shopRedLuck3": "<<red|+{{amount}} Red Luck>>, <<crimson|-{{amount2}} Luck Conversion Ratio>>",
+      "shopRedLuck4": "<<red|+{{amount}} Red Luck>>, <<crimson|-{{amount2}} Luck Conversion Ratio>>",
       "shopCashGrabUltra": "<<lightblue|+{{amount}} Ambrosia Bar Points>>. Also, <<white|+{{amount2}} Cubes of all dimensions>>! Finally, <<cyan|+{{amount3}} Quarks>>!",
       "shopAmbrosiaAccelerator": "Ambrosia Bar Points required for Ambrosia generation are reduced by <<lightblue|{{amount}}>>.",
       "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}>>.",
@@ -3605,7 +4115,8 @@
       "shopPanthemaInfinityMeta": "+{{amount}} bonuses for all other Upgrade Levels! (+1% per Infinity level)",
       "shopPanthemaAmbrosiaGeneration": "+{{amount}} Ambrosia Bar Points! (+{{amount2}} per Ambrosia Generation level)",
       "shopPanthemaAmbrosiaLuck": "+{{amount}} Ambrosia Luck! (+{{amount2}} per Ambrosia Luck level)",
-      "shopPanthemaRedLuck": "+{{amount}} Red Luck! (+{{amount2}} per Red Luck level)"
+      "shopPanthemaRedLuck": "+{{amount}} Red Luck! (+{{amount2}} per Red Luck level)",
+      "shopPurpleBarRebate": "On Purple Bar fill: gain <<var(--blueberry-text-color)|+{{ambrosiaBarPointsPerFill}}>> Ambrosia Bar Points and <<red|+{{redAmbrosiaBarPointsPerFill}}>> Red Bar Points."
     },
     "names": {
       "offeringPotion": "Offering Potion",
@@ -3680,6 +4191,7 @@
       "shopRedLuck1": "Low Class Dice of Asmodeus",
       "shopRedLuck2": "Dice of Asmodeus",
       "shopRedLuck3": "High Class Dice of Asmodeus",
+      "shopRedLuck4": "Elite Class Dice of Asmodeus",
       "shopCashGrabUltra": "It's the FINAL CASHGRAB!",
       "shopAmbrosiaAccelerator": "An Ambrosial Accelerator!",
       "shopEXUltra": "It's the FINAL E X!",
@@ -3690,7 +4202,8 @@
       "shopSadisticRune": "Sadistic Rune Unlock! Or does it?",
       "shopInfiniteShopUpgrades": "Blue Infinity Shop Voucher",
       "shopHorseShoe": "A Horse Shoe Singularity Debuff",
-      "shopPanthema": "The Jack of All Trades"
+      "shopPanthema": "The Jack of All Trades",
+      "shopPurpleBarRebate": "Purple Bar Rebates"
     },
     "sections": {
       "offerings": "Offerings & Obtainium",
@@ -3728,7 +4241,7 @@
       "transaction": "Transaction of {{spent}} Golden Quarks successful! [-{{cost}} Quarks]",
       "poor": "Sorry, I can't give credit. Come back when you're a little... mmm... richer!",
       "buyPrompt": "You can buy Golden Quarks here for {{cost}} Quarks (Discounted by {{discount}})! You can buy up to {{max}}. How many do you want? Type -1 to buy max!",
-      "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq}} GQ. Type -1 to use max!",
+      "spendPrompt": "How many levels would you like to buy? You can buy up to {{n}} levels!. Type -1 to use max!",
       "hasUpgrade": "Hey! You have already maxed this upgrade. :D",
       "notHighEnoughLevel": "You're not powerful enough to purchase this yet.",
       "ascensionReset": "You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...",
@@ -3853,12 +4366,6 @@
         "bug": "This is a bug! Contact Platonic if you see this message, somehow.",
         "default": "You gain <<cyan|{{stack}}>> stacks of <<cyan|5%>> Quarks! Total Increase: <<cyan|+{{inc}}%>>"
       },
-      "shopSpecialOffer": {
-        "name": "Shop Special Offer",
-        "hasLevel2": "All Quark Upgrades are kept on Singularity!",
-        "hasLevel1": "Certain Reincarnation-level Quark Upgrades no longer reset on Singularity!",
-        "default": "This level of the perk has been deprecated."
-      },
       "potionAutogenerator": {
         "name": "Potion Autogenerator",
         "default": "Every 180 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity."
@@ -3905,6 +4412,10 @@
         "name": "Irish Ants II: Electric Boogaloo",
         "default": "Ants blessed with more fortunate luck of the Irish increase base <<limegreen|Ambrosia Luck>> by <<limegreen|{{percent}}%>>! <<limegreen|+1%>> per perk level."
       },
+      "irishAnt3": {
+        "name": "Irish Ants III",
+        "default": "Ants blessed with a purple luck of the Irish grant <<var(--purple-text-color)|+{{amt}} Purple Honey Luck>>! (<<var(--purple-text-color)|+{{amt2}}>> per Singularity past 280)"
+      },
       "overclocked": {
         "name": "Overclocked",
         "default": "Level Caps on Certain Golden Quark Upgrades are increased by {{i}}!"
@@ -3916,6 +4427,14 @@
       "congealedblueberries": {
         "name": "Congealed Blueberries",
         "default": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!"
+      },
+      "efficientBlueberries": {
+        "name": "Efficient Blueberries",
+        "default": "For every 2 Blueberries, add <<var(--purple-text-color)|{{amt2}}>> base Purple Honey per extraction. Currently: <<var(--purple-text-color)|+{{amt}}>>"
+      },
+      "reactorSpeedup": {
+        "name": "282+ Years of Work Experience",
+        "default": "The Purple Bar in the Encabulator requires <<var(--purple-text-color)|{{amt}}>> Purple Bar Points to fill!"
       },
       "goldenRevolution": {
         "name": "Golden Revolution",
@@ -4336,6 +4855,12 @@
         "description": "Deals that'll cost you a beak and a wing!",
         "effectHave": "You have quacked your last QUARK",
         "effectHaveNot": "You haven't quacked your last QUARK"
+      },
+      "wowPass5": {
+        "name": "Selling Quark Upgrades while Purple",
+        "description": "I am currently purple, so please leave the Quarks on the counter. Thanks.",
+        "effectHave": "The Quack Merchant, despite being Purple, will sell you Quark Upgrades! Quaaack",
+        "effectHaveNot": "The Quack Merchant is Purple, but isn't selling Quark Upgrades at this time."
       },
       "blueberries": {
         "name": "Blueberries!",
@@ -4851,7 +5376,7 @@
       "corruption": "Corruption",
       "singularity": "Singularity",
       "settings": "Settings",
-      "shop": "Shop",
+      "shop": "Quarks",
       "unsmith": "Events",
       "purchase": "PseudoCoins"
     },
@@ -4896,7 +5421,8 @@
       "goldenQuarks": "Golden Quarks",
       "perks-penalties": "Perks / Penalties",
       "octeracts": "Octeracts",
-      "ambrosia": "Ambrosia"
+      "ambrosia": "Ambrosia",
+      "purple": "The Purple"
     },
     "settings": {
       "languages": "🌐 Languages 🌐",
@@ -4949,7 +5475,8 @@
     "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
     "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>",
     "ambrosia": "Ambrosia: +<<orange|{{value}}>> | Ambrosia Bar Points +<<lightblue|{{value2}}>>",
-    "redAmbrosia": "Red Ambrosia: +<<red|{{value}}>> | Red Bar Points +<<red|{{value2}}>>"
+    "redAmbrosia": "Red Ambrosia: +<<red|{{value}}>> | Red Bar Points +<<red|{{value2}}>>",
+    "purpleHoney": "Purple Honey: +<<var(--purple-text-color)|{{value}}>>"
   },
   "fastForward": {
     "global": "Your Global stuff fast forwarded {{time}} seconds!",
@@ -5341,7 +5868,7 @@
     "upgrade": "Press [1], [2], [3], [4], [5], or [6] on your keyboard to use resources for each upgrades.",
     "achievements": {
       "green": "Green background: Achieved.",
-      "purple": "Purple background: Unachieved, provides bonus multiplier.",
+      "purple": "Orchid background: Unachieved, provides bonus multiplier.",
       "red": "Red background: Unachieved, provides content/feature unlock.",
       "none": "No background: Unachieved, nothing special."
     },
@@ -5473,7 +6000,7 @@
   },
   "octeract": {
     "buyLevel": {
-      "buyPrompt": "How many Octeracts would you like to spend? You have {{n}} OCT. Type -1 to use max!",
+      "buyPrompt": "How many levels would you like to buy? You can buy up to {{n}} levels! Type -1 to use max!",
       "cancelPurchase": "Purchase cancelled!",
       "alreadyMax": "Hey! You have already maxed this upgrade. :D",
       "cannotAfford": "You cannot afford this upgrade. Sorry!",
@@ -5506,12 +6033,12 @@
       },
       "octeractQuarkGain": {
         "name": "Quark Octeract",
-        "description": "An altered forme of the hepteract, this gives a num:((1.1))% Quark Bonus per level without Diminishing Return.",
+        "description": "An altered forme of the hepteract, this gives a num:((1))% Quark Bonus per level without Diminishing Return.",
         "effect": "Quark gain is increased by {{n}}."
       },
       "octeractQuarkGain2": {
         "name": "Octo-Hepteract Primality Synergism",
-        "description": "For every 111 levels of Quark Octeract, you gain num:((0.01))% more Quarks per digit in your Quark Hepteract count per level!",
+        "description": "For every 1,000 levels of Quark Octeract, you gain num:((0.1))% more Quarks per digit in your Quark Hepteract count per level!",
         "effectDisabled": "Octo-Hepteract Primality Synergism is not currently occuring.",
         "effectEnabled": "Octo-Hepteract Primality Synergism is granting you {{amount}} more Quarks! <br> +{{amount2}} per digit in your Quark Hepteract count <br> Total digits: {{amount3}}"
       },
@@ -5822,12 +6349,12 @@
     "horseShoe": {
       "name": "The Horse's Shoe",
       "description": "I never realized the world was so easily won, just by realizing you got someone to say you won't be lonely anymore.",
-      "lockedDescription": "This rune is locked! To unlock it, you might need to tussle with the <<lightgray|Taxman>> himself.",
+      "lockedDescription": "This rune is locked! Purchase <<var(--purple-text-color)|Sagittarius>> in the Purple Ambrosia upgrades to unlock it.",
       "ambrosiaLuck": "<<limegreen | {{val}} Ambrosia Luck>> (+1 per Power)",
       "redLuck": "<<red | {{val}} Red Luck>> (+num:((0.2)) per Power)",
-      "luckConversion": "<<crimson | Luck Conversion Ratio {{val}}>> (Up to -num:((0.5)))",
-      "values": "Each level gives you +1 Ambrosia Luck, +num:((0.2)) Red Luck. You also reduce the Luck Conversion Ratio between the two by up to num:((0.5)), depending on level (-num:((0.5)) * level / (level + 50))",
-      "effect": "Horseshoe Rune Bonus: +{{val}} Ambrosia Luck, +{{val2}} Red Luck, {{val3}} Luck Conversion Ratio."
+      "purpleHoneyLuck": "<<var(--purple-text-color)|{{val}} Purple Honey Luck>> (+num:((0.2)) per Power)",
+      "values": "Each level gives you +1 Ambrosia Luck, +num:((0.2)) Red Luck and +num:((0.2)) Purple Honey Luck.",
+      "effect": "Horseshoe Rune Bonus: +{{val}} Ambrosia Luck, +{{val2}} Red Luck, +{{val3}} Purple Honey Luck."
     },
     "finiteDescent": {
       "name": "Finite Descent",
@@ -5961,6 +6488,12 @@
         "description": "It's an actual horse shoe!",
         "inscription": "<<gold|Inscription>>: Gain <<gold|+{{val}}%>> Ambrosia Luck.",
         "signature": "<<crimson|Signature>>: Gain <<crimson|+{{val}}>> Red Luck."
+      },
+      "purpleGem": {
+        "name": "Purple Gem",
+        "description": "Shines bright like a diamond.",
+        "inscription": "<<gold|Inscription>>: Gain <<gold|+{{val}}>> Purple Honey Luck.",
+        "signature": "<<crimson|Signature>>: <<crimson|num:((-20))%>> cost for Purple Ambrosia Synthesis."
       },
       "shards": {
         "shard": "Talisman Shard",
@@ -6210,7 +6743,7 @@
         "ScalingReward4": "+2% <<red|Red Bar Point>> gain",
         "ScalingReward5": "25 Achievement Points!",
         "UniqueReward1": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
-        "UniqueReward2": "1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
+        "UniqueReward2": "1st - On Ambrosia Bar Fill: +1 <<var(--amber-text-color)|Ambrosia>>",
         "UniqueReward3": "1st - Unlock <<red|Red Ambrosia>>! It's like Ambrosia, but <<red|red>>.",
         "UniqueReward4": "5th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
         "UniqueReward5": "8th - A new <<orchid|Quark>> upgrade!",
@@ -6227,7 +6760,7 @@
         "ScalingReward1": "+12% <<orange|Global Speed>>!",
         "ScalingReward2": "+12% <<orange|Ascension Speed>>!",
         "ScalingReward3": "+2% <<cyan|Quarks>>!",
-        "ScalingReward4": "-2% <<red|Red Bar Fill Requirements>>!",
+        "ScalingReward4": "-1% <<red|Red Bar Fill Requirements>>!",
         "ScalingReward5": "30 Achievement Points!",
         "UniqueReward1": "1st - Your quarks no longer reset on Singularity!",
         "UniqueReward2": "5th - A new <<orchid|Quark Upgrade>>!",
@@ -6253,15 +6786,29 @@
         "taxMod": "¢ Gain <<orange|4x>> the taxes when you've beaten Challenge 10, and <<red|5x>> more taxes when you've beaten Challenge 14",
         "capMod": "<<white | ▼ You cannot gain more than (100x + 1) your current Obtainium or Offerings from any source>>",
         "tributeMod": "<<gold | ε When you open Wow! Cubes, the amount of Tributes you get is divided by (ln^3(X + 1)), where X is the total number of Tributes plus Tributes you would otherwise gain>>",
-        "omegaMod": "<b><<gray | Ω Singularity Penalties are substantially worse until you buy Platonic OMEGA!>></b>",
+        "omegaMod": "<b><<gray | Ω Challenge 13 effects are always active! Reduce the effect by 5 challenge completions per Cube and Platonic Upgrade maxed.>></b>",
         "ScalingReward1": "+25 <<var(--red-text-color)|Talisman Level Caps>> for any Talisman that resets on Singularity",
         "ScalingReward2": "+3% <<var(--blueberry-box-color)|Talisman Free Rune Levels>>",
-        "ScalingReward3": "+num:((0.002)) <<var(--amber-text-color)|Rune Coefficient>> for Antiquities!",
-        "ScalingReward4": "+num:((0.005)) <<var(--amber-text-color)|Rune Coefficient>> for... <<burlywood | something>>...",
+        "ScalingReward3": "+3 <<var(--purple-text-color)|Purple Honey Luck!>>",
+        "ScalingReward4": "-1% <<var(--purple-text-color)|Purple Bar Points>> to fill the Purple Bar.",
         "ScalingReward5": "50 Achievement Points!",
-        "UniqueReward1": "1st - Unlock <<burlywood | Something Cool... and Runelike>>",
+        "UniqueReward1": "1st - Unlock <i><<var(--purple-text-color)|The Purple!>></i>",
         "UniqueReward2": "5th - Unlock a new <<orchid|Quark Upgrade>>!",
-        "UniqueReward3": "10th - Unlock <<burlywood | Something even Cooler... and Fashionable...>>"
+        "UniqueReward3": "10th - Unlock <<var(--purple-text-color)|The Purple Gem>>"
+      },
+      "barDependence": {
+        "name": "Bar Charging",
+        "description": "You no longer gain time normally! Instead, fill the Bars to gain time!",
+        "warning": "<<gold | ⚠>> While in the EXALT, your Ambrosia and Purple Bars will not grant Ambrosia or Purple Honey.",
+        "barIntro": "Ambrosia Bars and the Purple Bar have fixed lengths, which are divided by your lifetime amount of those values, increased with completions.",
+        "barIntro2": "Gain more time depending on your Luck! (+1s per 10,000 Ambrosia Luck / 2,000 Red Luck)",
+        "barMod1": "<<var(--blueberry-text-color)|Ambrosia Bar: +{{secs}} seconds of Global Time>> (Requirement is fixed at <<var(--blueberry-text-color)|{{req}} ABP>>)",
+        "barMod2": "<<red|Red Bar: +{{secs}} second of Ascension Time>> (Requirement is fixed at <<red|{{req}} RABP>>)",
+        "barMod3": "<<var(--purple-text-color)|Purple Bar: Immediately fill both bars>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
+        "ScalingReward1": "<<var(--purple-text-color)|Purple Ambrosia Synthesis>> costs -5%",
+        "ScalingReward2": "+1 <<var(--blueberry-text-color)|Blueberry>>. Yes, really.",
+        "UniqueReward1": "1st - <<var(--purple-text-color)|+50 Purple Honey Luck>>. This will be changed, one day.",
+        "UniqueReward2": "2nd - Unlock a new <<orchid|Quark Upgrade>>! Neigh."
       },
       "noQuarkUpgrades": {
         "name": "Disappearance of a Salesman",
@@ -6408,6 +6955,11 @@
       "luckConversion": "Luck Conversion",
       "redAmbrosiaLuck": "Red Luck",
       "redAmbrosiaGenMult": "Red Bar Points",
+      "purpleHoneyEfficiency": "Purple Honey Efficiency",
+      "purpleHalfLife": "Encabulator Speed",
+      "purpleReactantCapacity": "Ambrosia Bar Point Capacity",
+      "purpleHoneyLuck": "Purple Honey Luck",
+      "purpleHoneyProgressRequirement": "Purple Bar Points Required",
       "shopVouchers": "Shop Vouchers",
       "generate": "Generate Savefile Stats Summary"
     },
@@ -6443,13 +6995,14 @@
       "WowOcteract": "Lifetime Octeract Bonus:",
       "NoSing": "EXALT - No Golden Quark Upgrades:",
       "TwentyAscensions": "EXALT - Twenty Ascensions Challenge:",
-      "Ambrosia": "Lifetime Ambrosia Bonus:",
+      "Ambrosia": "Default Lifetime Ambrosia Bonus:",
       "ModuleTutorial": "Ambrosia - Tutorial Module:",
       "ModuleCubes1": "Ambrosia - Cube Module I:",
       "ModuleLuckCube1": "Ambrosia - Luck-Cube Hybrid Module I:",
       "ModuleQuarkCube1": "Ambrosia - Quark-Cube Hybrid Module I:",
       "ModuleCubes2": "Ambrosia - Cube Module II:",
       "ModuleCubes3": "Ambrosia - Cube Module III:",
+      "ModuleCubes4": "Ambrosia - Cube^4:",
       "ModuleHyperflux": "Ambrosia - Hyperflux Module:",
       "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
       "RedAmbrosia": "Cubes \"made\" of Red Ambrosia:",
@@ -6585,7 +7138,7 @@
       "PlatonicDelta": "Golden Quark Upgrade - Platonic DELTA:",
       "NoSingUpgrades": "EXALT - No Golden Quark Upgrades:",
       "PassINF": "Season Pass ∞:",
-      "Ambrosia": "Lifetime Ambrosia Bonus:",
+      "Ambrosia": "Default Lifetime Ambrosia Bonus:",
       "ModuleTutorial": "Ambrosia - Tutorial Module:",
       "ModuleCubes1": "Ambrosia - Cube Module I:",
       "ModuleLuckCube1": "Ambrosia - Luck-Cube Hybrid Module I:",
@@ -6672,6 +7225,7 @@
       "OfferingEX2": "Offering EX 2 Quark Upgrade:",
       "OfferingINF": "Offering INF Quark Upgrade:",
       "EXUltra": "EX ULTIMATE Cube Bonus:",
+      "PurpleHoneyUpgrade": "Purple Honey - Offerings but Purple:",
       "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
       "RedAmbrosia": "Offerings \"\"\"made\"\"\" of Red Ambrosia",
       "Event": "Event Bonus:",
@@ -6732,13 +7286,14 @@
       "OcteractQuarkGain2": "Octeracts - Octo-Hepteract Primality Synergism:",
       "SingularityPacks": "Golden Quark Pack Upgrades:",
       "SingQuarkImprover1": "Golden Quark Upgrade - Doohickey:",
-      "AmbrosiaQuarkMult": "Lifetime Ambrosia Bonus:",
+      "AmbrosiaQuarkMult": "DefaultLifetime Ambrosia Bonus:",
       "AmbrosiaTutorial": "Ambrosia - Tutorial Module:",
       "AmbrosiaQuarks1": "Ambrosia - Quark Module I:",
       "AmbrosiaCubeQuark1": "Ambrosia - Cube-Quark Hybrid Module I:",
       "AmbrosiaLuckQuark1": "Ambrosia - Luck-Quark Hybrid Module I:",
       "AmbrosiaQuarks2": "Ambrosia - Quark Module II:",
       "AmbrosiaQuarks3": "Ambrosia - Quark Module III:",
+      "AmbrosiaQuarks4": "Ambrosia - Quark Capstone:",
       "CashGrabQuarkBonus": "Cash Grab ULTRA Quark Bonus:",
       "LimitedTimeChallenge": "EXALT - Limited Time:",
       "SadisticPrequel": "EXALT - Sadistic Prequel:",
@@ -6747,6 +7302,7 @@
       "Event": "Event + Consumables Bonus:",
       "GlobalSubscriber": "Global Bonus from our Wonderful Subscribers:",
       "AccountBonus": "Synergism Account Personal Quark Bonus:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Total Quark Multiplier:"
     },
     "baseObtainiumStats": {
@@ -6838,6 +7394,7 @@
       "OcteractObtainium1": "Octeracts - Obtainium Deluge:",
       "AmbrosiaObtainium1": "Ambrosia - RNG-based Obtainium Booster:",
       "EXUltraObtainium": "EX ULTIMATE Obtainium Bonus:",
+      "PurpleHoneyUpgrade": "Purple Honey - Obtainium Purpling:",
       "Challenge14": "Challenge 14 - No Obtainium:",
       "SingularityDebuff": "Singularity Debuff:",
       "Exalt6Penalty": "The Grand Singularity Speedrun - Too Slow:",
@@ -6905,6 +7462,7 @@
       "FastSpeedDR": "Global Speed Fast Softcap Power (>100):",
       "SlowSpeedDR": "Global Speed Slow Softcap Power (<1):",
       "ImmaculateSpeedMult": "Immaculate Global Speed DR-Ignore:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Global Speed Multiplier:",
       "Total2": "Final Global Speed Multiplier:"
     },
@@ -6938,6 +7496,7 @@
       "ExponentialScalingSlow": "Ascension Speed Exponent (<1 Base):",
       "SingularityDebuff": "Singularity Debuff:",
       "AmbrosiaBrickOfLead": "Ambrosia - The Brick of Lead:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Base Ascension Speed Multiplier:",
       "Total2": "Final Ascension Speed Multiplier:"
     },
@@ -6956,6 +7515,7 @@
       "Total": "Total Additive Luck Multiplier:"
     },
     "ambrosiaLuckStats": {
+      "PurpleAmbrosiaLeo": "Purple Ambrosia - Leo:",
       "title": "Ambrosia Luck",
       "Base": "Base Value:",
       "SynergismLevel": "Synergism Level Reward:",
@@ -6995,11 +7555,13 @@
       "SingBlueberries": "Golden Quark Upgrade - Blueberries!:",
       "ConglomerateBerries": "Congealed Blueberries (Singularity Milestones):",
       "NoAmbrosiaUpgrades": "EXALT - No Ambrosia Effects:",
+      "BarDependence": "EXALT - Bar Charging:",
       "OcteractBlueberries": "Octeracts - Berries that are Blue!:",
       "RedAmbrosiaBlueberries": "Red Ambrosia - Berries that are... blue?:",
       "Total": "Total Blueberries Owned:"
     },
     "ambrosiaGenerationStats": {
+      "PurpleAmbrosiaAries": "Purple Ambrosia - Aries:",
       "title": "Ambrosia Bar Points",
       "Default": "Default Per Second:",
       "PseudoCoins": "PseudoCoin Upgrade:",
@@ -7019,6 +7581,8 @@
       "CookieUpgrade26": "Cookie Upgrade 26 (Cx26):",
       "Event": "Event Bonus:",
       "CashGrabUltra": "Cash Grab ULTRA Blueberry Bonus:",
+      "PurpleHoneyUpgrade1": "Purple Honey - The Purple Guy's Greeting:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Ambrosia Bar Points/s:",
       "BlueberryCount": "Number of Blueberries Owned:",
       "Total2": "Final Ambrosia Bar Points/s:"
@@ -7100,6 +7664,7 @@
     "nextAdd": "Regenerate 1 Add Code usage in {{time}}s",
     "miscStats": {
       "title": "Misc. Statistics",
+      "FirstPlayed": "First Played:",
       "PrestigeCount": "Prestige Count:",
       "FastestPrestige": "Fastest Prestige:",
       "MaxOfferings": "Maximum Offerings:",
@@ -7115,7 +7680,9 @@
       "QuarksThisSingularity": "Quarks This Singularity:",
       "TotalQuarks": "Total Quarks Ever:",
       "QuarkTimer": "Quark Timer:",
-      "QuarkTimerMax": "Quark Timer Maximum:"
+      "QuarkTimerMax": "Quark Timer Maximum:",
+      "HighestPurpleHoney": "Highest Stored Purple Honey:",
+      "PurpleHoneySpentUpgrades": "Purple Honey Spent on Upgrades:"
     },
     "luckConversionStats": {
       "title": "Ambrosia Luck Conversion",
@@ -7126,7 +7693,7 @@
       "ShopRedLuck1": "Low Class Dice of Asmodeus:",
       "ShopRedLuck2": "Dice of Asmodeus:",
       "ShopRedLuck3": "High Class Dice of Asmodeus:",
-      "HorseShoeRune": "Horse Shoe Rune Reduction:",
+      "ShopRedLuck4": "Elite Class Dice of Asmodeus:",
       "Total": "Ambrosia Luck per 1 Red Luck:"
     },
     "redAmbrosiaLuckStats": {
@@ -7140,6 +7707,7 @@
       "ShopRedLuck1": "Low Class Dice of Asmodeus:",
       "ShopRedLuck2": "Dice of Asmodeus:",
       "ShopRedLuck3": "High Class Dice of Asmodeus:",
+      "ShopRedLuck4": "Elite Class Dice of Asmodeus:",
       "Jack": "The Jack of all Trades:",
       "Viscount": "Benefits of being a Viscount:",
       "HorseShoeRune": "Horse Shoe Rune Bonus:",
@@ -7147,13 +7715,24 @@
       "Total": "Total Red Luck:"
     },
     "redAmbrosiaGenerationStats": {
+      "CookieUpgrade26": "Cookie Upgrade 26 (Cx26):",
+      "PurpleAmbrosiaAries": "Purple Ambrosia - Aries:",
       "title": "Red Bar Points",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Base": "Default Per Second:",
+      "SynergismLevelReward": "Synergism Level Reward:",
+      "PatreonBonus": "Ambrosia - Shameless, Ambrosial Subscriber Advertisement:",
+      "RedAmbrosiaUpgrade": "Red Ambrosia - The Sands of Time",
+      "RedAmbrosiaUpgrade2": "Red Ambrosia - The Sands of Time II",
       "BlueberrySpeed": "Speed from Ambrosia (num:((0.5)) DR after num:((1000))):",
       "RedAmbrosia": "Red Ambrosia - Millennium-Aged Red Ambrosia:",
+      "RedAmbrosia2": "Red Ambrosia - Era of Red Ambrosia:",
       "Exalt5": "EXALT - No Ambrosia Effects:",
-      "Total": "Total Red Bar Points/s:"
+      "PurpleHoneyUpgrade1": "Purple Honey - The Purple Guy's Greeting:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
+      "BlueberryCount": "Number of Blueberries Owned:",
+      "Total": "Total Red Bar Points/s:",
+      "Total2": "Final Red Bar Points/s:"
     },
     "shopVoucherStats": {
       "title": "Free 'Infinity CO' Quark Upgrade Levels",
@@ -7168,6 +7747,7 @@
       "Blue": "Blue Vouchers [Quarks]:",
       "Indigo": "Indigo Vouchers [Ambrosia 1]:",
       "Violet": "Violet Vouchers [Ambrosia 2]:",
+      "Periwinkle": "Periwinkle Vouchers [Ambrosia 3]:",
       "Total": "Total Free Levels:"
     },
     "talismanRuneBonusMultiplierStats": {
@@ -7194,6 +7774,7 @@
       "extraInfo": "Your Salvage multiplies your Rune, Blessing and Spirit EXP gain by <br> <<yellow |10^(Salvage / 30)>> <br> <<crimson|If your Salvage is negative, your Rune EXP is instead divided by this amount.>>"
     },
     "salvagePositive": {
+      "PurpleAmbrosiaVirgo": "Purple Ambrosia - Virgo:",
       "title": "Positive Salvage",
       "BaseMultiplier": "Base Positive Salvage Multiplier",
       "AchievementTalisman": "Achievement Talisman - Salvage Bonus:",
@@ -7286,6 +7867,7 @@
       "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
       "SingularityPerk": "Singularity Perk - Advanced... Cheating Tactics?",
       "SingularityDebuff": "Singularity Debuff:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Total Ant ELO Multiplier:"
     },
     "effectiveAntELOStats": {
@@ -7313,6 +7895,7 @@
       "MortuusTalisman": "Mortuus Talisman:",
       "ThresholdModifiers": "Threshold Modifiers:",
       "Exalt6": "The Grand Singularity Speedrun - Derpsmith's Boost:",
+      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Total Reborn ELO Creation Speed Multiplier:"
     },
     "ascensionCountMultiplierStats": {
@@ -7328,6 +7911,65 @@
       "OcteractUpgrade2": "Octeracts - Hidden Late Fees:",
       "OneMind": "One Mind Modifier:",
       "Total": "Ascension Count gained this Ascension:"
+    },
+    "purpleHoneyEfficiencyStats": {
+      "title": "Purple Honey Efficiency",
+      "Base": "Base Purple Honey per Extraction:",
+      "SingularityPerk": "Singularity Perk - Efficient Blueberries:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
+      "PurpleHoneyUpgrade1": "Purple Honey - Chroma-Encabulator Efficiency I:",
+      "PurpleHoneyUpgrade2": "Purple Honey - Chroma-Encabulator Efficiency II:",
+      "PurpleHoneyUpgrade3": "Purple Honey - Chroma-Encabulator Efficiency III:",
+      "PurpleHoneyUpgrade4": "Purple Honey - Chroma-Encabulator Efficiency IV:",
+      "Total": "Total Base Purple Honey per Extraction:"
+    },
+    "purpleHalfLifeStats": {
+      "title": "Encabulator Speed",
+      "Base": "Base Encabulator Speed:",
+      "PurpleHoneyUpgrade1": "Purple Honey - All-Natural, Organic Catalyzer I:",
+      "PurpleHoneyUpgrade2": "Purple Honey - All-Natural, Organic Catalyzer II:",
+      "PurpleHoneyUpgrade3": "Purple Honey - All-Natural, Organic Catalyzer III:",
+      "PurpleHoneyUpgrade4": "Purple Honey - All-Natural, Organic Catalyzer IV:",
+      "Total": "Total Encabulator Speed:"
+    },
+    "purpleReactantCapacityStats": {
+      "title": "Ambrosia Bar Point Capacity (Red: 1/1,000)",
+      "Base": "Base Ambrosia Bar Point Capacity:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
+      "PurpleHoneyUpgrade1": "Purple Honey - Reactant Storage Expansion I:",
+      "PurpleHoneyUpgrade2": "Purple Honey - Reactant Storage Expansion II:",
+      "PurpleHoneyUpgrade3": "Purple Honey - Reactant Storage Expansion III:",
+      "PurpleHoneyUpgrade4": "Purple Honey - Reactant Storage Expansion IV:",
+      "Total": "Total Ambrosia Bar Point Capacity:"
+    },
+    "purpleHoneyLuckStats": {
+      "title": "Purple Honey Luck",
+      "Base": "Base Purple Honey Luck:",
+      "SynergismLevelReward": "Synergism Level Reward:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
+      "IrishAnt3": "Singularity Perk - Irish Ants III",
+      "PurpleGem": "Talisman - Purple Gem Inscription:",
+      "PurpleHoneyUpgrade1": "Purple Honey - Purple Honey Luck I",
+      "PurpleHoneyUpgrade2": "Purple Honey - Purple Honey Luck II",
+      "PurpleHoneyUpgrade3": "Purple Honey - Purple Honey Luck III",
+      "PurpleHoneyUpgrade4": "Purple Honey - Purple Honey Luck IV",
+      "TaxmanLastStand": "Taxman's Last Stand:",
+      "BarDependence": "Bar Charging:",
+      "HorseShoeRune": "Horse Shoe Rune Bonus:",
+      "Total": "Total Purple Honey Luck:"
+    },
+    "purpleHoneyProgressRequirementStats": {
+      "title": "Purple Bar Points Required",
+      "Base": "Base Purple Bar Point Requirement:",
+      "SingularityPerk": "Singularity Perk - 282+ Years of Work Experience:",
+      "LifetimePurpleHoney": "Lifetime Purple Honey:",
+      "PurpleHoney": "Stored Purple Honey:",
+      "PurpleHoneyUpgrade1": "Purple Honey - Purple Bar Size Reduction I:",
+      "PurpleHoneyUpgrade2": "Purple Honey - Purple Bar Size Reduction II:",
+      "PurpleHoneyUpgrade3": "Purple Honey - Purple Bar Size Reduction III:",
+      "PurpleHoneyUpgrade4": "Purple Honey - Purple Bar Size Reduction IV:",
+      "TaxmanLastStand": "Taxman's Last Stand:",
+      "Total": "Total Purple Bar Points Required:"
     },
     "gameStage": "Current Game Section: {{stage}}"
   },
@@ -7867,7 +8509,6 @@
     }
   },
   "pseudoCoins": {
-    "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",
     "purchaseAuth": {
       "signInRequiredTitle": "Account Required",
       "signInRequiredBody": "Sign in or create an account to continue with this purchase. After you finish, the purchase will resume automatically.",
@@ -7880,12 +8521,9 @@
       "loadingPseudoCoins": "Loading PseudoCoins",
       "loadingLotus": "Loading Lotus"
     },
-    "cost": "Cost: <<gold|{{amount}} PseudoCoins>>",
-    "maxxed": "<<gold|Maxed!>>",
     "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",
     "currEffect": "Current Level:",
     "nextEffect": "Next Level:",
-    "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
     "subscriptionPricePerMonth": "{{price}} / month",
     "manageSubscription": "Manage Subscription",
     "subscriptionUpdated": "Your subscription and its bonuses have been updated!",
@@ -7894,42 +8532,6 @@
     "subscriptionUpgradePrice": "↑ (+{{price}})",
     "subscriptionRenews": "Renews: {{date}}",
     "subscriptionYouAreHere": "You are here!",
-    "upgradeNames": {
-      "INSTANT_UNLOCK_1": "The Talisman Activator-inator",
-      "INSTANT_UNLOCK_2": "The Rune Discoverer-inator",
-      "CUBE_BUFF": "Gold-Infused Cubes",
-      "AMBROSIA_LUCK_BUFF": "The Gold Leaf Clovers",
-      "AMBROSIA_GENERATION_BUFF": "Alchemized Ambrosia Speedup",
-      "GOLDEN_QUARK_BUFF": "Even Golder Quarks",
-      "FREE_UPGRADE_PROMOCODE_BUFF": "Bribing the Daily Code",
-      "CORRUPTION_LOADOUT_SLOT_QOL": "More Corruption Loadouts!",
-      "AMBROSIA_LOADOUT_SLOT_QOL": "More Ambrosia Loadouts!",
-      "AUTO_POTION_FREE_POTIONS_QOL": "Potion Duplication Glitch",
-      "OFFLINE_TIMER_CAP_BUFF": "Cozier Beds Enshrined in Gold",
-      "ADD_CODE_CAP_BUFF": "The Limited-Edition PLAT-P Calculator",
-      "BASE_OFFERING_BUFF": "Abundant Harvests",
-      "BASE_OBTAINIUM_BUFF": "Super Literate Scientists",
-      "RED_LUCK_BUFF": "Golden Fuzzy Dice",
-      "RED_GENERATION_BUFF": "Century-Aged Red Ambrosia"
-    },
-    "upgradeEffects": {
-      "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
-      "INSTANT_UNLOCK_2": "The Rune of Infinite Ascent is <<gold | {{descriptor}}>> always unlocked! <<orange | Bonus Levels +{{amount}}>>",
-      "CUBE_BUFF": "Cube Gain is multiplied by <<gold | {{amount}}>>",
-      "AMBROSIA_LUCK_BUFF": "Ambrosia Luck is increased by <<gold | {{amount}}>>",
-      "AMBROSIA_GENERATION_BUFF": "Ambrosia Bar Points production is multiplied by <<gold | {{amount}}>>",
-      "GOLDEN_QUARK_BUFF": "Golden Quark Gain is multiplied by <<gold | {{amount}}>>",
-      "FREE_UPGRADE_PROMOCODE_BUFF": "Code 'Daily' gives <<gold | {{amount}}x>> the Free Upgrades!",
-      "CORRUPTION_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Corruption Loadout slots!",
-      "AMBROSIA_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Ambrosia Loadout slots!",
-      "AUTO_POTION_FREE_POTIONS_QOL": "Auto-Potion is <<gold | {{descriptor}}>> FREE!",
-      "OFFLINE_TIMER_CAP_BUFF": "Offline Time Capacity is multiplied by <<gold | {{amount}}>>",
-      "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>",
-      "BASE_OFFERING_BUFF": "Base Offering Gain is increased by <<gold | {{amount}}>>",
-      "BASE_OBTAINIUM_BUFF": "Base Obtainium Gain is increased by <<gold | {{amount}}>>",
-      "RED_LUCK_BUFF": "Red Luck is increased by <<gold | {{amount}}>>",
-      "RED_GENERATION_BUFF": "Red Bar Point gain is multiplied by <<gold | {{amount}}>>"
-    },
     "consumables": {
       "tipReceived": "{{offlineTime}} people tipped you in the last minute!",
       "thanks": "The booster is now in effect! Thank you for supporting the game!",
@@ -7999,7 +8601,11 @@
     "mobile": {
       "open": "Open mobile hotkeys",
       "close": "Close mobile hotkeys",
-      "title": "Hotkeys"
+      "title": "Hotkeys",
+      "move": "Move hotkeys: drag, use arrow keys, or tap for the next corner",
+      "moveHint": "Drag to a corner. Swipe sideways to tuck away.",
+      "dock": "Tuck hotkeys into the side of the screen",
+      "restore": "Restore hotkeys: tap or swipe inward"
     },
     "names": {
       "buyAccelerators": "Buy Accelerators",
