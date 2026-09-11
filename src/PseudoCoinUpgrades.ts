@@ -325,8 +325,8 @@ export const showCostAndEffect = (name: PseudoCoinUpgradeNames) => {
       }
     case 'PURPLE_REACTOR_CAPACITY_BUFF':
       return {
-        cost: String(i18next.t('pseudoCoins.upgradeDetails.PURPLE_REACTOR_CAPACITY_BUFF.cost')),
-        effect: String(i18next.t('pseudoCoins.upgradeDetails.PURPLE_REACTOR_CAPACITY_BUFF.effect'))
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: +250,000,000 Ambrosia / 250,000 Red capacity per level'
       }
   }
 }
