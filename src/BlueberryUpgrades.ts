@@ -1774,6 +1774,10 @@ const getPurpleAmbrosiaEnchantmentEffectDescription = (
 }
 
 const purpleAmbrosiaEnchantmentToString = (upgradeKey: AmbrosiaUpgradeNames): string => {
+  if (player.singularityChallenges.taxmanLastStand.completions < 1) {
+    return ''
+  }
+
   const enchantment = ambrosiaUpgrades[upgradeKey].purpleAmbrosiaEnchantment
   const level = getPurpleAmbrosiaEnchantmentLevel(upgradeKey)
   const isMaxLevel = level >= enchantment.maxLevel
@@ -2032,6 +2036,10 @@ export const buyAmbrosiaUpgradeLevel = async (
 export const buyPurpleAmbrosiaEnchantmentLevel = async (
   upgradeKey: AmbrosiaUpgradeNames
 ): Promise<void> => {
+  if (player.singularityChallenges.taxmanLastStand.completions < 1) {
+    return
+  }
+
   const upgrade = ambrosiaUpgrades[upgradeKey]
   const enchantment = upgrade.purpleAmbrosiaEnchantment
   const level = getPurpleAmbrosiaEnchantmentLevel(upgradeKey)

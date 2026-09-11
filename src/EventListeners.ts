@@ -1950,7 +1950,7 @@ TODO: Fix this entire tab it's utter shit
     const enchantment = ambrosiaUpgrades[key].purpleAmbrosiaEnchantment
     if (element.querySelector('.purpleAmbrosiaEnchantmentIcon') === null) {
       const enchantmentIcon = document.createElement('img')
-      enchantmentIcon.classList.add('purpleAmbrosiaEnchantmentIcon')
+      enchantmentIcon.classList.add('purpleAmbrosiaEnchantmentIcon', 'Exalt9x1')
       enchantmentIcon.classList.toggle(
         'purpleAmbrosiaEnchantmentIconType2',
         enchantment.type === 'blueberryCostReduction'
