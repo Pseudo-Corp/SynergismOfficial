@@ -23,6 +23,7 @@ type RedAmbrosiaUpgradeRewards = {
   blueberryGenerationSpeed: { blueberryGenerationSpeed: number }
   regularLuck: { ambrosiaLuck: number }
   redGenerationSpeed: { redAmbrosiaGenerationSpeed: number }
+  redGenerationSpeed2: { redAmbrosiaGenerationSpeed: number }
   redLuck: { redAmbrosiaLuck: number }
   redAmbrosiaCube: { unlockedRedAmbrosiaCube: boolean }
   redAmbrosiaObtainium: { unlockRedAmbrosiaObtainium: boolean }
@@ -245,14 +246,7 @@ export const redAmbrosiaUpgrades: {
   redGenerationSpeed: {
     level: 0,
     costFormula: (n) => {
-      if (n >= 100) {
-        return 6 * 100 * 101
-          // The second part scales 10x as fast, remove the first 100 levels of fast scaling
-          + 60 * n * (n + 1)
-          - 60 * 100 * 101
-      } else {
-        return 6 * n * (n + 1)
-      }
+      return 6 * n * (n + 1)
     },
     effects: (n: number) => {
       return 1 + 3 * n / 1000 // redAmbrosiaGenerationSpeed
@@ -261,9 +255,25 @@ export const redAmbrosiaUpgrades: {
       const val = getRedAmbrosiaUpgradeEffects('redGenerationSpeed', 'redAmbrosiaGenerationSpeed')
       return i18next.t('redAmbrosia.data.redGenerationSpeed.effect', { amount: formatAsPercentIncrease(val) })
     },
-    maxLevel: 200,
+    maxLevel: 100,
     name: () => i18next.t('redAmbrosia.data.redGenerationSpeed.name'),
     description: () => i18next.t('redAmbrosia.data.redGenerationSpeed.description')
+  },
+  redGenerationSpeed2: {
+    level: 0,
+    costFormula: (n) => {
+      return 120 * n * (n + 1)
+    },
+    effects: (n: number) => {
+      return 1 + 1 * n / 1000 // redAmbrosiaGenerationSpeed
+    },
+    effectsDescription: (_n: number) => {
+      const val = getRedAmbrosiaUpgradeEffects('redGenerationSpeed2', 'redAmbrosiaGenerationSpeed')
+      return i18next.t('redAmbrosia.data.redGenerationSpeed2.effect', { amount: formatAsPercentIncrease(val) })
+    },
+    maxLevel: 250,
+    name: () => i18next.t('redAmbrosia.data.redGenerationSpeed2.name'),
+    description: () => i18next.t('redAmbrosia.data.redGenerationSpeed2.description')
   },
   redLuck: {
     level: 0,

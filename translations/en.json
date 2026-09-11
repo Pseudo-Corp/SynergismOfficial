@@ -416,6 +416,11 @@
         "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +num:((0.3))% more Red Bar Points per level.",
         "effect": "This upgrade increases Red Bar Point gain by <<red|{{amount}}>>!"
       },
+      "redGenerationSpeed2": {
+        "name": "Era of Red Ambrosia",
+        "description": "+num:((0.1))% more Red Bar Points per level. Red Ambrosia so old that it makes Ant God seem young!",
+        "effect": "This upgrade increases Red Bar Point gain by <<red|{{amount}}>>!"
+      },
       "redLuck": {
         "name": "The Dice that Decide Your Fate",
         "description": "A life on every face, until you're finally left with an eight. +1 Red Luck per level!",
@@ -7723,6 +7728,7 @@
       "RedAmbrosiaUpgrade2": "Red Ambrosia - The Sands of Time II",
       "BlueberrySpeed": "Speed from Ambrosia (num:((0.5)) DR after num:((1000))):",
       "RedAmbrosia": "Red Ambrosia - Millennium-Aged Red Ambrosia:",
+      "RedAmbrosia2": "Red Ambrosia - Era of Red Ambrosia:",
       "Exalt5": "EXALT - No Ambrosia Effects:",
       "PurpleHoneyUpgrade1": "Purple Honey - The Purple Guy's Greeting:",
       "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",

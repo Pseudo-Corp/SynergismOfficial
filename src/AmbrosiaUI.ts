@@ -138,6 +138,7 @@ const redAmbrosiaUpgradeGroups = {
     'blueberryGenerationSpeed2',
     'blueberries',
     'redGenerationSpeed',
+    'redGenerationSpeed2',
     'redAmbrosiaAccelerator'
   ]
 } as const satisfies Record<string, readonly RedAmbrosiaNames[]>

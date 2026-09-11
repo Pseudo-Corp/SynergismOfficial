@@ -3024,6 +3024,10 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
       stat: () => getRedAmbrosiaUpgradeEffects('redGenerationSpeed', 'redAmbrosiaGenerationSpeed')
     },
     {
+      i18n: 'RedAmbrosia2',
+      stat: () => getRedAmbrosiaUpgradeEffects('redGenerationSpeed2', 'redAmbrosiaGenerationSpeed')
+    },
+    {
       i18n: 'RedAmbrosiaUpgrade',
       stat: () => getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed', 'blueberryGenerationSpeed') // Red Ambrosia Upgrade
     },
