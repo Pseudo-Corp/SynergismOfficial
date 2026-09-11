@@ -763,7 +763,7 @@ export const singularityChallengeData: {
   barDependence: {
     baseReq: 288,
     maxCompletions: 10,
-    unlockSingularity: 1,
+    unlockSingularity: 290,
     achievementPointValue: (n) => {
       return 50 * n
     },

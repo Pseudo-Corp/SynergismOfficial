@@ -1650,7 +1650,7 @@ export const calculateRequiredBlueberryTime = (ignoreTwoMind = false) => {
 export const calculateRequiredRedAmbrosiaTimeEXALT = () => {
   const multiplier = player.singularityChallenges.barDependence.completions + 1
   const divisor = 1 + player.lifetimeRedAmbrosia
-  return Math.min(7.5e3, 2e11 * multiplier / divisor)
+  return Math.max(7.5e3, 2e11 * multiplier / divisor)
 }
 
 export const calculateRequiredRedAmbrosiaTime = (ignoreTwoMind = false) => {
