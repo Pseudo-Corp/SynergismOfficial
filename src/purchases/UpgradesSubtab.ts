@@ -1,14 +1,9 @@
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
-import {
-  displayPCoinEffect,
-  type PseudoCoinUpgradeNames,
-  showCostAndEffect,
-  updatePCoinCache
-} from '../PseudoCoinUpgrades'
+import { type PseudoCoinUpgradeNames, updatePCoinCache } from '../PseudoCoinUpgrades'
 import { Alert } from '../UpdateHTML'
-import { isMobile, memoize } from '../Utility'
+import { memoize } from '../Utility'
 import { upgradeResponse } from './CartTab'
 import { setPseudoCoinBalance, setPseudoCoinBalanceLoading } from './PseudoCoinBalances'
 
@@ -17,6 +12,8 @@ interface Upgrades {
   maxLevel: number
   name: string
   description: string
+  language: Record<string, { cost: string; effect: string; levelEffects: string[] }>
+  icon: string
   internalName: PseudoCoinUpgradeNames
   level: number
   cost: number
@@ -47,6 +44,11 @@ const tab = document.querySelector<HTMLElement>('#pseudoCoins > #upgradesContain
 let activeUpgrade: UpgradesList | undefined
 let pseudoCoinBalanceRequest = 0
 
+const backendTextOptions = {
+  keySeparator: false,
+  nsSeparator: false
+} as const
+
 const buyUpgradeSchema = z.object({
   upgradeId: z.number(),
   level: z.number()
@@ -54,15 +56,12 @@ const buyUpgradeSchema = z.object({
 
 function setActiveUpgrade (upgrade: UpgradesList) {
   activeUpgrade = upgrade
+  const language = upgrade.language[i18next.language] ?? upgrade.language.en
 
-  const name = i18next.t(`pseudoCoins.upgradeNames.${upgrade.internalName}`)
-
-  DOMCacheGetOrSet('pCoinUpgradeName').textContent = name
+  DOMCacheGetOrSet('pCoinUpgradeName').textContent = upgrade.name
   DOMCacheGetOrSet('description').textContent = upgrade.description
-  DOMCacheGetOrSet('pCoinUpgradeIcon').setAttribute(
-    'src',
-    `Pictures/PseudoShop/${upgrade.internalName ?? 'PseudoCoins'}.png`
-  )
+  DOMCacheGetOrSet('pCoinUpgradeIcon').setAttribute('src', upgrade.icon)
+  DOMCacheGetOrSet('pCoinUpgradeIcon').setAttribute('alt', upgrade.name)
 
   const levelCostMap: { [level: number]: number } = {}
   upgrade.level.forEach((level, index) => {
@@ -74,10 +73,7 @@ function setActiveUpgrade (upgrade: UpgradesList) {
   const nextEffect = DOMCacheGetOrSet('pCoinEffectNext')
 
   currEffect.innerHTML = `${i18next.t('pseudoCoins.currEffect')} ${
-    displayPCoinEffect(upgrade.internalName, upgrade.playerLevel)
-  }`
-  nextEffect.innerHTML = `${i18next.t('pseudoCoins.nextEffect')} ${
-    displayPCoinEffect(upgrade.internalName, upgrade.playerLevel + 1)
+    i18next.t(language.levelEffects[upgrade.playerLevel], backendTextOptions)
   }`
 
   const costs = DOMCacheGetOrSet('pCoinScalingCosts')
@@ -87,18 +83,21 @@ function setActiveUpgrade (upgrade: UpgradesList) {
     buy.setAttribute('disabled', '')
     buy.setAttribute('style', 'display: none')
     nextEffect.setAttribute('style', 'display: none')
+    nextEffect.textContent = ''
   } else {
     buy.removeAttribute('disabled')
     buy.removeAttribute('style')
     nextEffect.removeAttribute('style')
+    nextEffect.innerHTML = `${i18next.t('pseudoCoins.nextEffect')} ${
+      i18next.t(language.levelEffects[upgrade.playerLevel + 1], backendTextOptions)
+    }`
     buy.innerHTML = i18next.t('pseudoCoins.buyButton', {
       amount: Intl.NumberFormat().format(levelCostMap[upgrade.playerLevel + 1])
     })
   }
 
-  const info = showCostAndEffect(upgrade.internalName)
-  costs.textContent = info.cost
-  effects.textContent = info.effect
+  costs.textContent = language.cost
+  effects.textContent = language.effect
 }
 
 async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
@@ -160,17 +159,26 @@ const initializeUpgradeSubtab = memoize(() => {
     return map
   }, new Map<number, UpgradesList>())
 
-  tab.querySelector('#upgradeGrid')!.innerHTML = [...grouped.values()].map((u) => `
-    <div
-      data-id="${u.upgradeId}"
-      data-key="${u.name}"
-      ${isMobile ? '' : 'style="margin: 40px;"'}
-    >
-      <img src='Pictures/PseudoShop/${u.internalName}.png' alt='${u.internalName}' />
-      <p id="a">${u.playerLevel}/${u.maxLevel}</p>
-      ${u.playerLevel === u.maxLevel ? '<p id="b">✔️</p>' : '<p id="b"></p>'}
-    </div>
-  `).join('')
+  DOMCacheGetOrSet('upgradeGrid').replaceChildren(...[...grouped.values()].map((upgrade) => {
+    const element = document.createElement('div')
+    element.dataset.id = String(upgrade.upgradeId)
+    element.dataset.key = upgrade.name
+
+    const icon = document.createElement('img')
+    icon.src = upgrade.icon
+    icon.alt = upgrade.name
+
+    const level = document.createElement('p')
+    level.id = 'a'
+    level.textContent = `${upgrade.playerLevel}/${upgrade.maxLevel}`
+
+    const maxed = document.createElement('p')
+    maxed.id = 'b'
+    maxed.textContent = upgrade.playerLevel === upgrade.maxLevel ? '✔️' : ''
+
+    element.append(icon, level, maxed)
+    return element
+  }))
 
   const upgradesInGrid = tab.querySelectorAll<HTMLElement>('#upgradeGrid > div[data-id]')
   upgradesInGrid.forEach((element) => {

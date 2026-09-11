@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CalcECC } from './Challenges'
+import { CalcECC, useChallenge13Modifiers } from './Challenges'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
@@ -17,6 +17,13 @@ import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { calculateAscensionScorePlatonicBlessing } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
+import {
+  calculateRedAmbrosiaReactantCapacityFromAmbrosia,
+  PURPLE_REACTOR_OVERFLOW_EFFICIENCY,
+  type PurpleReactant,
+  purpleReactantConversion
+} from './PurpleReactor'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
@@ -33,6 +40,7 @@ import {
   allBaseObtainiumStats,
   allBaseOfferingStats,
   allCubeStats,
+  allEncabulatorSpeedStats,
   allGlobalSpeedIgnoreDRStats,
   allGlobalSpeedStats,
   allGoldenQuarkMultiplierStats,
@@ -46,6 +54,10 @@ import {
   allOfferingStats,
   allPlatonicCubeStats,
   allPowderMultiplierStats,
+  allPurpleHoneyEfficiencyStats,
+  allPurpleHoneyLuckStats,
+  allPurpleHoneyProgressRequirementStats,
+  allPurpleReactantCapacityStats,
   allQuarkStats,
   allRedAmbrosiaGenerationSpeedStats,
   allRedAmbrosiaLuckStats,
@@ -106,6 +118,12 @@ const challengeScoreArrays4 = [
 
 const ambrosiaLuckSingThresholds1 = [35, 42, 49, 56, 63, 70, 77]
 const ambrosiaLuckSingThresholds2 = [135, 142, 149, 156, 163, 170, 177]
+
+const twoMindBarRequirements = {
+  ambrosia: 25_000_000,
+  redAmbrosia: 7_500,
+  purpleHoney: 150_000
+}
 
 const derpsmithSingCounts = [
   18,
@@ -370,6 +388,20 @@ export const calculateAmbrosiaLuck = () => {
   return rawLuck * multiplier
 }
 
+// TWO MIND changes reward luck only; other luck-based effects keep their normal values.
+const calculateBarRewardLuck = (luck: number, calculateRequirement: (ignoreTwoMind?: boolean) => number) => {
+  if (!getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')) {
+    return luck
+  }
+
+  const fixedRequirement = calculateRequirement()
+  const oldRequirement = calculateRequirement(true)
+  return luck * (fixedRequirement / oldRequirement)
+}
+
+export const calculateAmbrosiaRewardLuck = () =>
+  calculateBarRewardLuck(calculateAmbrosiaLuck(), calculateRequiredBlueberryTime)
+
 export const calculateBlueberryInventory = () => calculateTotalStat(allAmbrosiaBlueberryStats)
 export const calculateAmbrosiaGenerationSpeedRaw = () => calculateTotalStat(allAmbrosiaGenerationSpeedStats)
 export const calculateAmbrosiaGenerationSpeed = () => {
@@ -387,7 +419,174 @@ export const calculateLuckConversion = () => calculateTotalStat(allLuckConversio
 
 export const calculateRedAmbrosiaLuck = () => calculateTotalStat(allRedAmbrosiaLuckStats)
 
-export const calculateRedAmbrosiaGenerationSpeed = () => calculateTotalStat(allRedAmbrosiaGenerationSpeedStats)
+export const calculateRedAmbrosiaRewardLuck = () =>
+  calculateBarRewardLuck(calculateRedAmbrosiaLuck(), calculateRequiredRedAmbrosiaTime)
+
+export const calculateRedAmbrosiaGenerationSpeedRaw = () => calculateTotalStat(allRedAmbrosiaGenerationSpeedStats)
+export const calculateRedAmbrosiaGenerationSpeed = () => {
+  const rawSpeed = calculateRedAmbrosiaGenerationSpeedRaw()
+  const blueberries = calculateBlueberryInventory()
+  return rawSpeed * blueberries
+}
+
+export const calculateEncabulatorSpeed = () => calculateTotalStat(allEncabulatorSpeedStats)
+export const calculatePurpleReactantCapacity = () => calculateTotalStat(allPurpleReactantCapacityStats)
+export const calculatePurpleHoneyLuck = () => calculateTotalStat(allPurpleHoneyLuckStats)
+
+export const calculatePurpleHoneyRewardLuck = () =>
+  calculateBarRewardLuck(calculatePurpleHoneyLuck(), calculatePurpleHoneyConversionFactor)
+
+export const calculateBarEXALTPurpleHoneyRequirement = () => {
+  const multiplier = Math.pow(1 + player.singularityChallenges.barDependence.completions, 2)
+  const divisor = Math.max(1, player.purpleReactor.lifetimePurpleHoney)
+  return Math.max(150_000, 1e10 * multiplier / divisor)
+}
+
+export const calculatePurpleHoneyConversionFactor = (ignoreTwoMind = false) => {
+  if (!ignoreTwoMind && getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')) {
+    return twoMindBarRequirements.purpleHoney
+  }
+
+  if (player.singularityChallenges.barDependence.enabled) {
+    return calculateBarEXALTPurpleHoneyRequirement()
+  }
+  return calculateTotalStat(allPurpleHoneyProgressRequirementStats)
+}
+
+export const calculateRedAmbrosiaReactantCapacity = () => {
+  return calculateRedAmbrosiaReactantCapacityFromAmbrosia(calculatePurpleReactantCapacity())
+}
+
+export const calculatePurpleReactantRecipe = () => {
+  const conversionMultiplier = getPurpleAmbrosiaUpgradeEffects('scorpio', 'purpleReactorConversionMult')
+  return {
+    ambrosiaBarPoints: purpleReactantConversion.ambrosiaBarPoints * conversionMultiplier,
+    redAmbrosiaBarPoints: purpleReactantConversion.redAmbrosiaBarPoints,
+    purpleBarPoints: purpleReactantConversion.purpleBarPoints * conversionMultiplier
+      * getPurpleAmbrosiaUpgradeEffects('aries', 'universalBarPointMult')
+  }
+}
+
+export const calculatePurpleReactantConversion = (
+  ambrosiaBarPoints: number,
+  redAmbrosiaBarPoints: number,
+  ambrosiaBarPointsRequested: number
+) => {
+  const recipe = calculatePurpleReactantRecipe()
+  const ambrosiaBatches = ambrosiaBarPoints / recipe.ambrosiaBarPoints
+  const redAmbrosiaBatches = redAmbrosiaBarPoints / recipe.redAmbrosiaBarPoints
+  const conversionBatches = Math.min(
+    ambrosiaBatches,
+    redAmbrosiaBatches,
+    ambrosiaBarPointsRequested / recipe.ambrosiaBarPoints
+  )
+
+  return {
+    // Consume the limiting input exactly, without leaving a floating-point remainder.
+    ambrosiaBarPointsSpent: conversionBatches === ambrosiaBatches
+      ? ambrosiaBarPoints
+      : conversionBatches * recipe.ambrosiaBarPoints,
+    redAmbrosiaBarPointsSpent: conversionBatches === redAmbrosiaBatches
+      ? redAmbrosiaBarPoints
+      : conversionBatches * recipe.redAmbrosiaBarPoints,
+    purpleBarPointsGained: conversionBatches * recipe.purpleBarPoints
+  }
+}
+
+export const calculatePurpleOverflowConversion = (ambrosiaBarPoints: number, redAmbrosiaBarPoints: number) => {
+  const reaction = calculatePurpleReactantConversion(ambrosiaBarPoints, redAmbrosiaBarPoints, ambrosiaBarPoints)
+  return {
+    ...reaction,
+    purpleBarPointsGained: reaction.purpleBarPointsGained * PURPLE_REACTOR_OVERFLOW_EFFICIENCY
+  }
+}
+
+export const calculatePurpleReactantRouting = (
+  productionPerSecond: number,
+  reservePercentage: number,
+  storedBarPoints: number,
+  capacity: number,
+  elapsedSeconds = 1,
+  dissolutionPerSecond = 0,
+  overflow?: { reactant: PurpleReactant; counterpartBarPoints: number }
+) => {
+  // Check edge case to avoid div by 0 and extraneous work
+  if (elapsedSeconds === 0) {
+    return {
+      storedBarPoints,
+      regularBarPoints: 0,
+      overflowBarPoints: 0,
+      overflowCounterpartBarPoints: 0,
+      purpleBarPointsGained: 0,
+      reserveRate: 0,
+      regularRate: 0,
+      overflowRate: 0,
+      overflowCounterpartRate: 0,
+      purpleBarPointsRate: 0
+    }
+  }
+
+  const clampedStored = Math.min(capacity, storedBarPoints)
+  const clampedReservePercentage = Math.min(100, Math.max(0, reservePercentage))
+  const producedBarPoints = productionPerSecond * elapsedSeconds
+  const requestedReserveBarPoints = clampedReservePercentage === 100
+    ? producedBarPoints
+    : producedBarPoints * clampedReservePercentage / 100
+  const dissolvedBarPoints = Math.min(clampedStored, dissolutionPerSecond * elapsedSeconds)
+  const storedAfterDissolution = clampedStored - dissolvedBarPoints
+  const reservedBarPoints = Math.min(requestedReserveBarPoints, capacity - storedAfterDissolution)
+  let overflowBarPoints = 0
+  let overflowCounterpartBarPoints = 0
+  let purpleBarPointsGained = 0
+  const requestedOverflowBarPoints = Math.max(0, requestedReserveBarPoints - reservedBarPoints)
+  if (
+    overflow && requestedOverflowBarPoints > 0 && player.encabulatorOvercapToggle
+    && getPurpleAmbrosiaUpgradeEffects('libra', 'overcapToggleUnlocked')
+  ) {
+    const reaction = overflow.reactant === 'ambrosia'
+      ? calculatePurpleOverflowConversion(requestedOverflowBarPoints, overflow.counterpartBarPoints)
+      : calculatePurpleOverflowConversion(overflow.counterpartBarPoints, requestedOverflowBarPoints)
+    overflowBarPoints = overflow.reactant === 'ambrosia'
+      ? reaction.ambrosiaBarPointsSpent
+      : reaction.redAmbrosiaBarPointsSpent
+    overflowCounterpartBarPoints = overflow.reactant === 'ambrosia'
+      ? reaction.redAmbrosiaBarPointsSpent
+      : reaction.ambrosiaBarPointsSpent
+    purpleBarPointsGained = reaction.purpleBarPointsGained
+  }
+  const unroundedRegularBarPoints = producedBarPoints - reservedBarPoints - overflowBarPoints
+  const roundingTolerance = 16 * Number.EPSILON * Math.max(
+    1,
+    Math.abs(producedBarPoints),
+    Math.abs(reservedBarPoints)
+  )
+  const regularBarPoints = Math.abs(unroundedRegularBarPoints) <= roundingTolerance
+    ? 0
+    : unroundedRegularBarPoints
+
+  return {
+    storedBarPoints: storedAfterDissolution + reservedBarPoints,
+    regularBarPoints,
+    overflowBarPoints,
+    overflowCounterpartBarPoints,
+    purpleBarPointsGained,
+    reserveRate: reservedBarPoints / elapsedSeconds,
+    regularRate: regularBarPoints / elapsedSeconds,
+    overflowRate: overflowBarPoints / elapsedSeconds,
+    overflowCounterpartRate: overflowCounterpartBarPoints / elapsedSeconds,
+    purpleBarPointsRate: purpleBarPointsGained / elapsedSeconds
+  }
+}
+
+export const calculatePurpleHoneyPerExtraction = () => calculateTotalStat(allPurpleHoneyEfficiencyStats)
+
+export const calculatePurpleHoneyExtractionMultiplier = (luck: number) => {
+  const guaranteedMultiplier = Math.floor(luck / 100)
+  return {
+    guaranteedMultiplier,
+    bonusMultiplierChance: luck / 100 - guaranteedMultiplier
+  }
+}
 
 export const calculateFreeShopInfinityUpgrades = () => calculateTotalStat(allShopTablets)
 
@@ -522,7 +721,7 @@ export const calculateActualAntSpeedMult = () => {
   let exponent = 1
   if (player.currentChallenge.ascension === 12) {
     exponent = 0.75
-  } else if (player.currentChallenge.ascension === 13) {
+  } else if (useChallenge13Modifiers()) {
     exponent = 0.23
   } else if (player.currentChallenge.ascension === 14) {
     exponent = 0.2
@@ -661,7 +860,8 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   player.offlinetick = player.offlinetick < 1.5e12 ? Date.now() : player.offlinetick
 
   G.timeMultiplier = calculateGlobalSpeedMult()
-  const obtainiumGain = calculateResearchAutomaticObtainium(timeAdd)
+
+  let obtainiumGain = calculateResearchAutomaticObtainium(timeAdd)
 
   const resetAdd = {
     prestige: (player.prestigeCount > 0) ? timeAdd / Math.max(0.25, player.fastestprestige) : 0,
@@ -669,6 +869,14 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     transcension: (player.transcendCount > 0) ? timeAdd / Math.max(0.25, player.fastesttranscend) : 0,
     reincarnation: (player.reincarnationCount > 0) ? timeAdd / Math.max(0.25, player.fastestreincarnate) : 0,
     obtainium: obtainiumGain.times(timeAdd).times(G.timeMultiplier)
+  }
+
+  if (player.singularityChallenges.barDependence.enabled) {
+    resetAdd.prestige = 0
+    resetAdd.offering = 0
+    resetAdd.transcension = 0
+    resetAdd.reincarnation = 0
+    resetAdd.obtainium = new Decimal()
   }
 
   const resetAddDisplay = {
@@ -688,7 +896,8 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     ambrosia: player.lifetimeAmbrosia,
     redAmbrosia: player.lifetimeRedAmbrosia,
     ambrosiaPoints: timeAdd * calculateAmbrosiaGenerationSpeed(),
-    redAmbrosiaPoints: timeAdd * calculateRedAmbrosiaGenerationSpeed()
+    redAmbrosiaPoints: timeAdd * calculateRedAmbrosiaGenerationSpeed(),
+    purpleHoney: player.purpleReactor.lifetimePurpleHoney
   }
 
   addTimers('ascension', timeAdd)
@@ -696,8 +905,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   addTimers('goldenQuarks', timeAdd)
   addTimers('singularity', timeAdd)
   addTimers('octeracts', timeTick)
-  addTimers('ambrosia', timeAdd)
-  addTimers('redAmbrosia', timeAdd)
 
   updatePrestigeCount(resetAdd.prestige)
   updateTranscensionCount(resetAdd.transcension)
@@ -705,8 +912,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
 
   timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
   timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
-  timerAdd.ambrosia = player.lifetimeAmbrosia - timerAdd.ambrosia
-  timerAdd.redAmbrosia = player.lifetimeRedAmbrosia - timerAdd.redAmbrosia
 
   resetAddDisplay.prestige = player.prestigeCount - resetAddDisplay.prestige
   resetAddDisplay.transcension = player.transcendCount - resetAddDisplay.transcension
@@ -729,22 +934,24 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     }
 
     G.timeMultiplier = calculateGlobalSpeedMult()
-    calculateObtainium()
 
     // Reset Stuff lmao!
+
     const timerSpeedMult = memoize(calculateGlobalSpeedMult)
     addTimers('prestige', timeTick, timerSpeedMult)
     addTimers('transcension', timeTick, timerSpeedMult)
     addTimers('reincarnation', timeTick, timerSpeedMult)
-    addTimers('octeracts', timeTick)
-
-    resourceGain(timeTick * G.timeMultiplier)
-    generateAntsAndCrumbs(timeTick)
-
     // Auto Obtainium Stuff
     if (player.researches[61] > 0 && player.currentChallenge.ascension !== 14) {
       automaticTools('addObtainium', timeTick)
     }
+    addTimers('octeracts', timeTick)
+    addTimers('ambrosia', timeTick)
+    addTimers('redAmbrosia', timeTick)
+    addTimers('purpleHoney', timeTick)
+
+    resourceGain(timeTick * G.timeMultiplier)
+    generateAntsAndCrumbs(timeTick)
 
     // Auto Ant Sacrifice Stuff
     if (getAchievementReward('antSacrificeUnlock')) {
@@ -766,6 +973,9 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     resourceTicks -= 1
   }
 
+  timerAdd.ambrosia = player.lifetimeAmbrosia - timerAdd.ambrosia
+  timerAdd.redAmbrosia = player.lifetimeRedAmbrosia - timerAdd.redAmbrosia
+  timerAdd.purpleHoney = player.purpleReactor.lifetimePurpleHoney - timerAdd.purpleHoney
   G.timeWarp = false
 
   DOMCacheGetOrSet('offlinePrestigeCount').innerHTML = i18next.t(
@@ -854,6 +1064,12 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
       value2: format(timerAdd.redAmbrosiaPoints, 0, true)
     }
   )
+  DOMCacheGetOrSet('offlinePurpleHoneyCount').innerHTML = i18next.t(
+    'offlineProgress.purpleHoney',
+    {
+      value: format(timerAdd.purpleHoney, 2, true)
+    }
+  )
 
   DOMCacheGetOrSet('progressbardescription').textContent = i18next.t(
     'calculate.offlineEarnings'
@@ -864,7 +1080,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   saveSynergy()
 
   updateTalismanInventory()
-  calculateObtainium()
 
   // allow aesthetic offline progress
   if (offlineDialog) {
@@ -1406,35 +1621,21 @@ export const calculateAmbrosiaLuckOcteractUpgrade = () => {
   )
 }
 
-const digitReduction = 4
-
-export const calculateNumberOfThresholds = () => {
-  const numDigits = player.lifetimeAmbrosia > 0 ? 1 + Math.floor(Math.log10(player.lifetimeAmbrosia)) : 0
-  const matissa = Math.floor(player.lifetimeAmbrosia / Math.pow(10, numDigits - 1))
-
-  const extraReduction = matissa >= 3 ? 1 : 0
-
-  // First reduction at 10^(digitReduction+1), add 1 at 3 * 10^(digitReduction+1)
-  return Math.max(0, 2 * (numDigits - digitReduction) - 1 + extraReduction)
+export const calculateRequiredBlueberryTimeEXALT = () => {
+  const multiplier = player.singularityChallenges.barDependence.completions + 1
+  const divisor = 1 + player.lifetimeAmbrosia
+  return Math.max(2.5e7, 1.5e15 * multiplier / divisor)
 }
 
-export const calculateToNextThreshold = () => {
-  const numThresholds = calculateNumberOfThresholds()
-
-  if (numThresholds === 0) {
-    return 10000 - player.lifetimeAmbrosia
-  } else {
-    // This is when the previous threshold is of the form 3 * 10^n
-    if (numThresholds % 2 === 0) {
-      return Math.pow(10, numThresholds / 2 + digitReduction) - player.lifetimeAmbrosia
-    } // Previous threshold is of the form 10^n
-    else {
-      return 3 * Math.pow(10, (numThresholds - 1) / 2 + digitReduction) - player.lifetimeAmbrosia
-    }
+export const calculateRequiredBlueberryTime = (ignoreTwoMind = false) => {
+  if (!ignoreTwoMind && getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')) {
+    return twoMindBarRequirements.ambrosia
   }
-}
 
-export const calculateRequiredBlueberryTime = () => {
+  if (player.singularityChallenges.barDependence.enabled) {
+    return calculateRequiredBlueberryTimeEXALT()
+  }
+
   let val = G.TIME_PER_AMBROSIA // Currently 45
   val += Math.floor(player.lifetimeAmbrosia / 300)
 
@@ -1447,17 +1648,31 @@ export const calculateRequiredBlueberryTime = () => {
   if (player.lifetimeAmbrosia >= 10000) {
     const extraScalingPower = Math.log10(4)
     val *= Math.pow(player.lifetimeAmbrosia / 10000, extraScalingPower)
-    return Math.ceil(val)
-  } else {
-    return val
+    val = Math.ceil(val)
   }
+
+  return val
 }
 
-export const calculateRequiredRedAmbrosiaTime = () => {
-  let val = G.TIME_PER_RED_AMBROSIA // Currently 100,000
-  val += 200 * player.lifetimeRedAmbrosia
+export const calculateRequiredRedAmbrosiaTimeEXALT = () => {
+  const multiplier = player.singularityChallenges.barDependence.completions + 1
+  const divisor = 1 + player.lifetimeRedAmbrosia
+  return Math.max(7.5e3, 2e11 * multiplier / divisor)
+}
 
-  const max = 1e6 * getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
+export const calculateRequiredRedAmbrosiaTime = (ignoreTwoMind = false) => {
+  if (!ignoreTwoMind && getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')) {
+    return twoMindBarRequirements.redAmbrosia
+  }
+
+  if (player.singularityChallenges.barDependence.enabled) {
+    return calculateRequiredRedAmbrosiaTimeEXALT()
+  }
+
+  let val = G.TIME_PER_RED_AMBROSIA // Currently 1,000
+  val += 2 * player.lifetimeRedAmbrosia
+
+  const max = 1e4 * getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
   val *= getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
 
   return Math.min(max, val)
@@ -1566,6 +1781,39 @@ export const calculateDilatedFiveLeafBonus = () => {
   }
 
   return singThresholds.length / 100
+}
+
+const irishAnt3Thresholds = [285, 293]
+export const calculateIrish3PurpleLuck = () => {
+  if (player.highestSingularityCount < irishAnt3Thresholds[0]) {
+    return 0
+  }
+
+  let luckPerSing = 2
+  if (player.highestSingularityCount >= irishAnt3Thresholds[1]) {
+    luckPerSing++
+  }
+
+  return (player.highestSingularityCount - 280) * luckPerSing
+}
+
+const efficientBlueberryThresholds = [283, 289]
+export const calculateEfficientBlueberryPurpleEfficiency = () => {
+  if (player.highestSingularityCount < efficientBlueberryThresholds[0]) {
+    return 0
+  }
+
+  let efficiencyPerTwo = 0.02
+  if (player.highestSingularityCount >= efficientBlueberryThresholds[1]) {
+    efficiencyPerTwo += 0.01
+  }
+
+  const blueberries = calculateBlueberryInventory()
+  return Math.floor(blueberries / 2) * efficiencyPerTwo
+}
+
+export const calculateSingularityPurpleBarSizeMultiplier = () => {
+  return 1 - Math.max(0, Math.floor((player.highestSingularityCount - 280) / 2) / 100)
 }
 
 export const dailyResetCheck = () => {

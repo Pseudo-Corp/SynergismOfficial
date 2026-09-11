@@ -12,7 +12,7 @@ const lotus = {
   timer: 0
 }
 
-export const consumeHandlers = [
+export const createConsumeHandlers = (purchaseConsumable: (internalName: string) => boolean) => [
   consumable.addEventListener('connection', ({ client }) => {
     const pendingTimeSkips = new Map<string, string>()
 
@@ -37,6 +37,11 @@ export const consumeHandlers = [
 
       switch (data.type) {
         case 'consume': {
+          if (!purchaseConsumable(data.consumable)) {
+            client.send(messages.warn('Consumable not found or you cannot afford it.'))
+            return
+          }
+
           if (data.consumable.includes('TIMESKIP')) {
             const id = crypto.randomUUID()
             const length = data.consumable.includes('SMALL')

@@ -3,7 +3,7 @@ import { achievementLevel } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { CloseModal, MEDIUM_MODAL_UPDATE_TICK, Modal } from './UpdateHTML'
-import { isMobile } from './Utility'
+import { isMobile, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 const MAX_LEVEL_PREVIEWS = 3
@@ -22,6 +22,8 @@ type SynergismLevelReward =
   | 'wowOcteracts'
   | 'ambrosiaLuck'
   | 'redAmbrosiaLuck'
+  | 'redAmbrosiaGeneration'
+  | 'purpleHoneyLuck'
 
 interface SynergismLevelRewardData {
   name: () => string
@@ -231,6 +233,34 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     minLevel: 260,
     defaultValue: 0,
     nameColor: 'red'
+  },
+  redAmbrosiaGeneration: {
+    name: () => i18next.t('achievements.levelRewards.redAmbrosiaGeneration.name'),
+    description: () => i18next.t('achievements.levelRewards.redAmbrosiaGeneration.description'),
+    effect: (lv: number) => 1 + 0.01 * (lv - 279),
+    effectDescription: () => {
+      const mult = getLevelReward('redAmbrosiaGeneration')
+      return i18next.t('achievements.levelRewards.redAmbrosiaGeneration.effect', {
+        percent: formatAsPercentIncrease(mult, 0)
+      })
+    },
+    minLevel: 280,
+    defaultValue: 1,
+    nameColor: 'red'
+  },
+  purpleHoneyLuck: {
+    name: () => i18next.t('achievements.levelRewards.purpleHoneyLuck.name'),
+    description: () => i18next.t('achievements.levelRewards.purpleHoneyLuck.description'),
+    effect: (lv: number) => (lv - 299),
+    effectDescription: () => {
+      const luck = getLevelReward('purpleHoneyLuck')
+      return i18next.t('achievements.levelRewards.purpleHoneyLuck.effect', {
+        luck: format(luck)
+      })
+    },
+    minLevel: 300,
+    defaultValue: 0,
+    nameColor: 'var(--purple-text-color)'
   }
 }
 
@@ -329,11 +359,7 @@ const getLevelRewardDescription = (reward: SynergismLevelReward) => {
   ${effectDesc}`
 }
 
-export const generateLevelRewardHTMLs = () => {
-  const alreadyGenerated = document.getElementsByClassName('synergismLevelRewardType').length > 0
-  if (alreadyGenerated) {
-    return
-  }
+export const generateLevelRewardHTMLs = memoize(() => {
   const rewardTable = DOMCacheGetOrSet('synergismLevelRewardsTable')
   for (const reward of synergismLevelReward) {
     const capitalizedName = reward.charAt(0).toUpperCase() + reward.slice(1)
@@ -357,7 +383,7 @@ export const generateLevelRewardHTMLs = () => {
     div.appendChild(img)
     rewardTable.appendChild(div)
   }
-}
+})
 
 type SynergismLevelMilestones =
   | 'offeringTimerScaling'
@@ -759,11 +785,7 @@ const getLevelMilestoneDescription = (milestone: SynergismLevelMilestones) => {
   ${effectDesc}`
 }
 
-export const generateLevelMilestoneHTMLS = () => {
-  const alreadyGenerated = document.getElementsByClassName('synergismLevelMilestoneType').length > 0
-  if (alreadyGenerated) {
-    return
-  }
+export const generateLevelMilestoneHTMLS = memoize(() => {
   const rewardTable = DOMCacheGetOrSet('synergismLevelMilestonesTable')
   for (const milestone of synergismLevelMilestone) {
     const capitalizedName = milestone.charAt(0).toUpperCase() + milestone.slice(1)
@@ -778,13 +800,13 @@ export const generateLevelMilestoneHTMLS = () => {
     img.style.cursor = 'pointer'
     img.tabIndex = 0
 
-    registerLevelDetailsModal(img, () => getLevelMilestoneDescription(milestone), 'lightblue', 'lightblue')
+    registerLevelDetailsModal(img, getLevelMilestoneDescription.bind(null, milestone), 'lightblue', 'lightblue')
     div.appendChild(img)
     rewardTable.appendChild(div)
   }
 
   displayLevelStuff()
-}
+})
 
 export const displayLevelStuff = () => {
   const unlockedRewards = synergismLevelReward

@@ -1218,18 +1218,24 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
   if (name.includes('AMBROSIA')) {
     const beforeStats = {
       redAmbrosia: player.lifetimeRedAmbrosia,
-      ambrosia: player.lifetimeAmbrosia
+      ambrosia: player.lifetimeAmbrosia,
+      purpleHoney: player.purpleReactor.lifetimePurpleHoney
     }
 
+    // Run many times because Purple Bar Points is a resource with dynamic /s gains.
     // Timer Things
-    addTimers('ambrosia', seconds)
-    addTimers('redAmbrosia', seconds)
+    for (let i = 0; i < minutes; i++) {
+      addTimers('ambrosia', 60)
+      addTimers('redAmbrosia', 60)
+      addTimers('purpleHoney', 60)
+    }
 
     const addedStats = {
       redAmbrosia: player.lifetimeRedAmbrosia - beforeStats.redAmbrosia,
       ambrosia: player.lifetimeAmbrosia - beforeStats.ambrosia,
       ambrosiaBarFill: calculateAmbrosiaGenerationSpeed() * seconds,
-      redBarFill: calculateRedAmbrosiaGenerationSpeed() * seconds
+      redBarFill: calculateRedAmbrosiaGenerationSpeed() * seconds,
+      purpleHoney: player.purpleReactor.lifetimePurpleHoney - beforeStats.purpleHoney
     }
 
     DOMCacheGetOrSet('fastForwardTimer').innerHTML = i18next.t('fastForward.ambrosia', {
@@ -1242,6 +1248,9 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     DOMCacheGetOrSet('fastForwardRedAmbrosiaCount').innerHTML = i18next.t('offlineProgress.redAmbrosia', {
       value: format(addedStats.redAmbrosia, 0, true),
       value2: format(addedStats.redBarFill, 0, true)
+    })
+    DOMCacheGetOrSet('fastForwardPurpleHoneyCount').innerHTML = i18next.t('offlineProgress.purpleHoney', {
+      value: format(addedStats.purpleHoney, 0, true)
     })
   }
 
@@ -1305,7 +1314,7 @@ async function uploadSave (name: string, save: string): Promise<Response> {
   })
 }
 
-function handleCloudSaves () {
+const initializeCloudSaves = memoize(() => {
   const subtabElement = document.querySelector('#accountSubTab div#right.scrollbarX')!
   const table = subtabElement.querySelector('#table > #dataGrid')!
 
@@ -1643,15 +1652,6 @@ function handleCloudSaves () {
       })
   }
 
-  populateTable()
-
-  if (
-    uploadButton.getAttribute('x-listener-added') !== null
-    || transferButton.getAttribute('x-listener-added') !== null
-  ) {
-    return
-  }
-
   // Handle uploading savefiles
   uploadButton.addEventListener('click', async () => {
     uploadButton.disabled = true
@@ -1742,8 +1742,12 @@ function handleCloudSaves () {
     }
   }, 1000 * 60 * 60)
 
-  uploadButton.setAttribute('x-listener-added', '')
-  transferButton.setAttribute('x-listener-added', '')
+  return populateTable
+})
+
+function handleCloudSaves () {
+  const populateTable = initializeCloudSaves()
+  populateTable()
 }
 
 async function handleSteamCloudSave () {

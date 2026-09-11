@@ -8,6 +8,7 @@ import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { type RuneKeys, runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
@@ -17,7 +18,7 @@ import { format, formatAsPercentIncrease, player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { toggleAutoBuyFragment, toggleautofortify } from './Toggles'
 import type { Player } from './types/Synergism'
-import { assert, isMobile } from './Utility'
+import { assert, isMobile, memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 interface TalismanFragmentCost {
@@ -138,6 +139,7 @@ type TalismanTypeMap = {
   wowSquare: { evenDimBonus: number; oddDimBonus: number }
   achievement: { positiveSalvageMult: number; negativeSalvageMult: number }
   cookieGrandma: { freeCorruptionLevel: number; cookieSix: boolean }
+  purpleGem: { purpleHoneyLuck: number; purpleAmbrosiaDiscount: number }
   horseShoe: { luckPercentage: number; redLuck: number }
 }
 
@@ -293,6 +295,7 @@ const mortuusInscriptValues = [1, 1.05, 1.1, 1.15, 1.2, 1.3, 1.4, 1.5, 1.65, 1.8
 const plasticInscriptValues = [1, 1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.04, 1.045, 1.05, 1.0666]
 const wowSquareInscriptValues = [1, 1.025, 1.05, 1.075, 1.1, 1.125, 1.15, 1.2, 1.225, 1.25, 1.30]
 const achievementEffectInscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.006, 0.008, .01, .015, .02, .03]
+const purpleGemInscriptValues = [0, 1, 2, 3, 4, 5, 6, 10, 20, 30, 40]
 const cookieGrandmaInscriptValues = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10]
 const horseShoeInscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.005, 0.007, 0.01, 0.012, 0.015, 0.02]
 
@@ -696,6 +699,45 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
         num: achievementPoints
       })
   },
+  purpleGem: {
+    level: 0,
+    rarity: 0,
+    fragmentsInvested: { ...noTalismanFragments },
+    baseMult: new Decimal('1e1000'),
+    maxLevel: 6,
+    costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 1e8),
+    levelCapIncrease: () => 54,
+    effects: (n) => {
+      return {
+        purpleHoneyLuck: purpleGemInscriptValues[n] ?? 0,
+        purpleAmbrosiaDiscount: n >= 6 ? 0.80 : 1
+      }
+    },
+    inscriptionDesc: (_n) => {
+      return i18next.t('runes.talismans.purpleGem.inscription', {
+        val: format(10)
+      })
+    },
+    signatureDesc: () => i18next.t('runes.talismans.purpleGem.signature'),
+    talismanBaseCoefficient: {
+      speed: 1,
+      duplication: 1,
+      prism: 1,
+      thrift: 1,
+      superiorIntellect: 1,
+      infiniteAscent: 0.01,
+      antiquities: 0,
+      horseShoe: 0,
+      finiteDescent: 0,
+      topHat: 0
+    },
+    minimalResetTier: 'never',
+    isUnlocked: () => {
+      return getSingularityChallengeEffect('taxmanLastStand', 'talismanUnlock')
+    },
+    name: () => i18next.t('runes.talismans.purpleGem.name'),
+    description: () => i18next.t('runes.talismans.purpleGem.description')
+  },
   cookieGrandma: {
     level: 0,
     rarity: 0,
@@ -776,7 +818,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
-      return getSingularityChallengeEffect('taxmanLastStand', 'talismanUnlock')
+      return getPurpleAmbrosiaUpgradeEffects('capricorn', 'horseshoeTalismanUnlocked')
+        || getSingularityChallengeEffect('taxmanLastStand', 'talismanUnlock')
     },
     name: () => i18next.t('runes.talismans.horseShoe.name'),
     description: () => i18next.t('runes.talismans.horseShoe.description')
@@ -1468,8 +1511,6 @@ export const updateAllTalismanHTML = () => {
     updateTalismanDisplay(t)
   }
 }
-
-let htmlGeneratedThisSession = false
 
 // This was purely transformed from HTML to JS. It's kinda shit.
 export const generateWebLeftTalismanHTML = () => {
@@ -2318,10 +2359,7 @@ export const generateMobileMainTalismansHTML = () => {
   talismansDiv.appendChild(mobileMainTalismans)
 }
 
-export const generateTalismansHTML = () => {
-  if (htmlGeneratedThisSession) {
-    return
-  }
+export const generateTalismansHTML = memoize(() => {
   if (isMobile) {
     generateMobileTopTalismansHTML()
     generateMobileMainTalismansHTML()
@@ -2330,8 +2368,7 @@ export const generateTalismansHTML = () => {
     generateWebCenterTalismansHTML()
     generateWebRightTalismansHTML()
   }
-  htmlGeneratedThisSession = true
-}
+})
 
 const getTalismanResourceInfo = (
   type: TalismanCraftItems,

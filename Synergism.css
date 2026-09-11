@@ -109,14 +109,17 @@ body {
     --amber-text-color: #ffbf00;
     --lightgoldenrodyellow-text-color: lightgoldenrodyellow;
     --header-color: var(--bg-color);
-    --mobile-subtab-height: 0;
-    --mobile-subtab-top: 0;
+    --mobile-subtab-height: 0px;
+    --mobile-subtab-top: 0px;
     --bg-color: #111;
     --alert-color: #141414;
     --history-lines: #262626;
     --boxmain-bordercolor: plum;
     --box-color: #111;
     --blueberry-box-color: #4f86f7;
+    --blueberry-text-color: #88F;
+    --purple-box-color: purple;
+    --purple-text-color: #FF29FF;
     --button-color: #171717;
     --blackbtn-color: black;
     --purplebtn-color: purple;
@@ -197,6 +200,14 @@ html[data-legacyicons="true"] {
     background-color: crimson;
 }
 
+#toggleSingularitySubTab6 {
+    color: var(--purple-text-color);
+}
+
+#toggleSingularitySubTab6.active-subtab {
+    color: #fff0ff;
+}
+
 #corrCampaignsBtn.active-subtab,
 #corrStatsBtn.active-subtab,
 #corrLoadoutsBtn.active-subtab {
@@ -212,6 +223,12 @@ html[data-legacyicons="true"] {
 .blueberryBoxColor {
     border: 3px solid;
     border-color: var(--blueberry-box-color);
+    background-color: var(--box-color);
+}
+
+.purpleBoxColor {
+    border: 3px solid;
+    border-color: var(--purple-box-color);
     background-color: var(--box-color);
 }
 
@@ -428,11 +445,12 @@ body button.active-subtab:active:not(:disabled):not(.disable-hover-color) {
 }
 
 #mobileHotkeysOpen,
-#mobileHotkeysOverlay {
+#mobileHotkeysOverlay,
+#mobileHotkeysRestore {
     display: none;
 }
 
-html[data-mobile="true"] #mobileHotkeysOpen {
+html[data-mobile="true"] #mobileHotkeysOpen:not([hidden]) {
     position: fixed;
     right: calc(12px + env(safe-area-inset-right));
     bottom: calc(12px + env(safe-area-inset-bottom));
@@ -442,6 +460,7 @@ html[data-mobile="true"] #mobileHotkeysOpen {
     justify-content: center;
     width: 52px;
     min-width: 52px;
+    height: 52px;
     min-height: 52px;
     border: 2px solid gold;
     border-radius: 8px;
@@ -452,51 +471,139 @@ html[data-mobile="true"] #mobileHotkeysOpen {
     box-shadow: 0 4px 16px rgb(0 0 0 / 60%);
 }
 
-html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
-    border-color: cyan;
+#mobileHotkeysOpen,
+#mobileHotkeysMove,
+#mobileHotkeysRestore {
+    touch-action: none;
+    user-select: none;
+    cursor: grab;
 }
 
-#mobileHotkeysOverlay.mobileHotkeysOverlayOpen {
+#mobileHotkeysOverlay {
     position: fixed;
     inset: 0;
     z-index: 6967;
+    padding: calc(12px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left));
+    overflow: hidden;
+    pointer-events: none;
+}
+
+html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     display: block;
-    background: rgb(0 0 0 / 45%);
-    backdrop-filter: blur(4px);
 }
 
 #mobileHotkeysCard {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    top: 0;
     left: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    max-height: 72vh;
-    padding: 14px 15px calc(16px + env(safe-area-inset-bottom));
+    gap: 8px;
+    width: min(300px, var(--mobile-hotkeys-available-width, calc(100vw - 24px)));
+    max-height: min(60vh, 440px, var(--mobile-hotkeys-available-height, 100vh));
+    padding: 10px;
     overflow: hidden;
     color: white;
     background-color: var(--alert-color);
-    border-top: 2px solid gold;
-    border-radius: 8px 8px 0 0;
-    box-shadow: 0 -12px 35px rgb(0 0 0 / 60%);
+    border: 2px solid gold;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgb(0 0 0 / 60%);
+    pointer-events: auto;
+}
+
+#mobileHotkeysOpen,
+#mobileHotkeysCard,
+#mobileHotkeysRestore {
+    transition: transform 180ms ease-out;
+}
+
+#mobileHotkeysOpen.mobileHotkeysDragging,
+#mobileHotkeysCard.mobileHotkeysDragging,
+#mobileHotkeysRestore.mobileHotkeysDragging {
+    transition: none;
+    cursor: grabbing;
+}
+
+#mobileHotkeysCard.mobileHotkeysDragging #mobileHotkeysMove {
+    cursor: grabbing;
+}
+
+#mobileHotkeysOverlay[data-state="docked"] #mobileHotkeysCard {
+    pointer-events: none;
+}
+
+#mobileHotkeysRestore {
+    position: absolute;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    min-width: 44px;
+    height: 72px;
+    padding: 0;
+    border: 2px solid gold;
+    border-radius: 12px 0 0 12px;
+    color: gold;
+    background-color: var(--alert-color);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 60%);
+    font-size: 2rem;
+    pointer-events: auto;
+}
+
+#mobileHotkeysOverlay[data-state="docked"] #mobileHotkeysRestore {
+    display: flex;
+}
+
+#mobileHotkeysOverlay[data-side="left"] #mobileHotkeysRestore {
+    border-radius: 0 12px 12px 0;
 }
 
 .mobileHotkeysHeader {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 6px;
 }
 
-#mobileHotkeysTitle {
+.mobileHotkeysHeader h2 {
+    flex: 1;
+    min-width: 0;
     margin: 0;
+    font-size: 1em;
+}
+
+#mobileHotkeysMove {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    min-height: 44px;
+    padding: 4px 0;
+    border: 0;
+    border-radius: 5px;
     color: gold;
+    background: transparent;
     font-size: 1.1em;
     line-height: 1.2;
+    text-align: left;
 }
 
+.mobileHotkeysGrip {
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+#mobileHotkeysHint {
+    flex-shrink: 0;
+    margin: 0;
+    color: lightgray;
+    font-size: 0.75rem;
+    line-height: 1.3;
+}
+
+#mobileHotkeysDock,
 #mobileHotkeysClose {
     width: 44px;
     min-width: 44px;
@@ -509,10 +616,28 @@ html[data-mobile="true"] #mobileHotkeysOpen[aria-expanded="true"] {
 
 #mobileHotkeysActions {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 8px;
+    min-height: 0;
     overflow-y: auto;
     padding-right: 4px;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+}
+
+#mobileHotkeysOpen:focus-visible,
+#mobileHotkeysCard button:focus-visible,
+#mobileHotkeysRestore:focus-visible {
+    outline: 2px solid cyan;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #mobileHotkeysOpen,
+    #mobileHotkeysCard,
+    #mobileHotkeysRestore {
+        transition: none;
+    }
 }
 
 .mobileHotkeyAction {
@@ -3368,6 +3493,17 @@ p#reincarnatehotkeys {
     background-color: maroon;
 }
 
+#shopTestingOnlyWarning {
+    box-sizing: border-box;
+    max-width: 48ch;
+    padding: 6px 8px;
+    border: 2px solid red;
+    border-radius: 3px;
+    background-color: rgb(128 0 0 / 35%);
+    color: #ffb3b3;
+    font-weight: 600;
+}
+
 #shopDetailName {
     font-size: 1.1em;
 }
@@ -3425,9 +3561,7 @@ p#reincarnatehotkeys {
 
 #goldenQuarksDisplay,
 #octeractsDisplay,
-#ambrosiaDisplay,
-#redAmbrosiaDisplay,
-#blueberryDisplay {
+#purpleHoneyDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -3435,14 +3569,18 @@ p#reincarnatehotkeys {
     white-space: pre-line;
 }
 
-#blueberryDisplay > p,
-#ambrosiaDisplay > p,
-#redAmbrosiaDisplay > p {
-    margin: 0 0 0 10px;
+#purpleHoneyDisplay > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: 1;
 }
 
-#ambrosiaTexts {
-    line-height: 5px;
+#purpleHoneyDisplay > div > p {
+    min-height: 0;
+    margin: 0 !important;
+    padding: 0;
+    line-height: 1;
 }
 
 #totalOcteractsDisplay {
@@ -3477,12 +3615,6 @@ p#reincarnatehotkeys {
 #goldenQuarkamount {
     font-size: 1.2em;
     color: gold;
-    margin-left: 5px;
-}
-
-#ambrosiaAmount,
-#redAmbrosiaAmount {
-    font-size: 1.2em;
     margin-left: 5px;
 }
 
@@ -5136,25 +5268,20 @@ p#ascendHotKeys {
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    width: 25em;
-    min-width: 500px;
-    max-width: 800px;
     height: fit-content;
     gap: 10px 15px;
 }
 
-#statsForNerds > button {
-    min-width: 150px;
-}
-
-html[data-mobile="false"][data-monospace-font="true"] #statsForNerds {
-    width: 585px;
+html[data-mobile="false"] #statsForNerds {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
     align-items: stretch;
 }
 
-html[data-mobile="false"][data-monospace-font="true"] #statsForNerds > .statsNerds {
-    flex: 0 0 185px;
-    min-width: 0;
+html[data-mobile="false"] #summaryGeneration {
+    grid-column: 1 / -1;
+    justify-self: center;
 }
 
 .statContainer {
@@ -6490,7 +6617,9 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #singularityUpgradeContainer,
-#singularityAmbrosia {
+#singularityOcteracts,
+#singularityAmbrosia,
+#singularityPurple {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6639,6 +6768,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #actualSingularityUpgradeContainer,
+#octeractUpgradeContainer,
 #blueberryUpgradeContainer {
     display: flex;
     flex-wrap: wrap;
@@ -6933,22 +7063,960 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #blueberryUpgradeContainer {
+    --ambrosia-cell-size: 32px;
+    --ambrosia-grid-gap: 4px;
+    --ambrosia-side-width: calc(8 * var(--ambrosia-cell-size) + 7 * var(--ambrosia-grid-gap));
+    --ambrosia-zodiac-width: calc(2 * var(--ambrosia-cell-size) + var(--ambrosia-grid-gap));
+
+    overflow-x: auto;
     flex-direction: column;
     width: unset;
 }
 
-.blueberryUpgradeTier {
+#ambrosiaWorkspace {
+    width: 60em;
+    max-width: calc(100% - 20px);
+}
+
+#ambrosiaLedger {
+    container: ambrosia-ledger / inline-size;
+    width: 100%;
+    margin: 5px 0;
+    color: var(--text-color);
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+    text-align: left;
+}
+
+#ambrosiaLedger p {
+    margin: 0;
+}
+
+#ambrosiaLedger [hidden] {
+    display: none;
+}
+
+.ambrosiaLedgerRow {
+    /* Reserve two comma-formatted nine-digit balances, plus the icon and its gap. */
+    display: grid;
+    grid-template-columns: min(50%, calc(24ch + 40px)) minmax(0, 1fr);
+    gap: 4px 12px;
+    align-items: center;
+    padding: 3px 0;
+}
+
+.ambrosiaLedgerRow + .ambrosiaLedgerRow {
+    margin-top: 0.5em;
+}
+
+#redAmbrosiaDisplay {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.ambrosiaLedgerRow > div,
+.ambrosiaLedgerResource > div {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.ambrosiaLedgerResource {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ambrosiaLedgerGeneration {
+    text-align: right;
+}
+
+#ambrosiaAmountPerGeneration,
+#redAmbrosiaAmountPerGeneration {
+    font-size: 0.85em;
+}
+
+.ambrosiaLedgerBonuses {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 16px;
+}
+
+.ambrosiaLedgerBonuses:not(:has(> :not([hidden]))) {
+    display: none;
+}
+
+.ambrosiaLedgerResource > img {
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.ambrosiaLedgerCurrent {
+    font-size: 1.15em;
+}
+
+.ambrosiaLedgerTotal {
+    display: inline-block;
+    max-width: 100%;
+    font-size: 0.85em;
+}
+
+#blueberryDisplay {
+    color: lightblue;
+}
+
+.ambrosiaLedgerEmpty .ambrosiaLedgerCurrent {
+    color: var(--gray-text-color);
+}
+
+#purpleAmbrosiaDisplay {
+    color: var(--purple-text-color);
+}
+
+.ambrosiaLedgerBonuses > p {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.5ch;
+}
+
+/* Text determines the bar height so large values can wrap without clipping. */
+.ambrosiaLedgerProgress {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 50%;
+    min-width: 0;
+    min-height: 24px;
+    position: relative;
+    overflow: hidden;
+    background-color: black;
+    border: 1px solid #006;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+}
+
+.ambrosiaLedgerProgress > div {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, navy, darkturquoise);
+    border-radius: inherit;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.ambrosiaLedgerProgress > span {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: inherit;
+    padding: 0 4px;
+    overflow-wrap: anywhere;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+#pixelProgressBar {
+    border-color: maroon;
+}
+
+#pixelProgress {
+    background: linear-gradient(to right, maroon, red);
+}
+
+/* Stack based on the panel width, including when text is enlarged. */
+@container ambrosia-ledger (width <= 42em) {
+    .ambrosiaLedgerRow {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ambrosiaLedgerGeneration {
+        text-align: left;
+    }
+
+    .ambrosiaLedgerProgress {
+        width: 100%;
+    }
+}
+
+@media (any-pointer: coarse) {
+    .ambrosiaLedgerProgress,
+    .ambrosiaLedgerBalance {
+        min-height: 44px;
+    }
+}
+
+.purpleUpgradeAP {
+    grid-area: ap;
+    margin: 0;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.purplePopup {
+    --purple-popup-close-size: 34px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    color: white;
+    font-size: 16px;
+    text-align: left;
+}
+
+.purplePopup[hidden] {
+    display: none;
+}
+
+.purplePopupHeader {
+    display: grid;
+    flex-shrink: 0;
+    grid-template-columns: var(--purple-popup-close-size) minmax(0, 1fr) var(--purple-popup-close-size);
+    align-items: center;
+    padding: 7px;
+    border-bottom: 1px solid rgb(176 0 176 / 55%);
+    background-color: var(--box-color);
+}
+
+.purpleUpgradeHeader {
+    grid-template-areas: ". ap close";
+}
+
+#singularityPurple {
+    position: absolute;
+    z-index: 3;
+    top: 8px;
+    right: -3px;
+    left: -3px;
+    height: min(70vh, 600px);
+    min-height: 0;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 70%);
+}
+
+#singularityPurple[hidden] {
+    display: none;
+}
+
+#singularityPurple .scrollbar {
+    scrollbar-color: var(--scrollbar-color) var(--scrollbar-bg-color);
+}
+
+#singularityPurple:where(.purpleSynthesisOpen) {
+    bottom: -3px;
+    height: auto;
+}
+
+#purpleReactantContainers.purplePopupOpen {
+    overflow: visible;
+}
+
+.purplePopupClose {
+    display: grid;
+    grid-area: close;
+    place-items: center;
+    width: var(--purple-popup-close-size);
+    height: var(--purple-popup-close-size);
+    padding: 0;
+    border: 1px solid var(--purple-text-color);
+    border-radius: 3px;
+    background-color: var(--box-color);
+    color: var(--purple-text-color);
+    font: inherit;
+    font-size: 1.35em;
+    line-height: 1;
+    cursor: pointer;
+}
+
+#singularityPurple .purplePopupClose:is(:hover, :focus-visible) {
+    background-color: rgb(176 0 176 / 22%);
+    box-shadow: 0 0 7px var(--purple-text-color);
+}
+
+.synthesisHeader {
+    grid-template-areas:
+        ". heading close"
+        ". conversion .";
+}
+
+.synthesisTitle,
+:where(.synthesisSource, .synthesisProduct, .synthesisUpgradeCard) p {
+    margin: 0;
+}
+
+.synthesisTitle {
+    grid-area: heading;
+    color: var(--purple-text-color);
+    font-size: 20px;
+    text-align: center;
+}
+
+.synthesisConversion {
+    grid-area: conversion;
+    margin: 0;
+    color: lightgray;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.synthesisConversionRed {
+    color: red;
+}
+
+.synthesisConversionPurple {
+    color: var(--purple-text-color);
+}
+
+.synthesisWorkspace {
+    display: grid;
+    flex: 1 1 auto;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.synthesisConversionWorkspace {
+    min-width: 0;
+}
+
+.synthesisUpgradeRegion {
+    min-height: 0;
+    min-width: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 10px;
+    border-left: 1px solid rgb(176 0 176 / 35%);
+}
+
+.synthesisUpgradeModal {
+    border: 2px solid var(--purple-box-color);
+    background-color: var(--box-color);
+}
+
+.synthesisUpgradeModalTitle {
+    margin: 0;
+    padding: 7px;
+    border-bottom: 1px solid rgb(176 0 176 / 55%);
+    color: var(--purple-text-color);
+    font-size: 20px;
+    text-align: center;
+}
+
+.synthesisUpgradeList {
+    display: grid;
+    gap: 7px;
+    padding: 7px;
+}
+
+.synthesisUpgradeCard {
+    padding: 6px;
+    border: 1px solid rgb(176 0 176 / 45%);
+    background-color: var(--box-color);
+}
+
+.synthesisUpgradeHeading {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 5px;
+}
+
+.synthesisUpgradeHeading > img,
+.synthesisSource > img,
+.synthesisProduct > img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.synthesisUpgradeFlavor,
+.synthesisUpgradeEffect,
+.synthesisUpgradeNextCost,
+.synthesisUpgradeAP {
+    margin-top: 4px;
+    line-height: 1.2;
+}
+
+.synthesisUpgradeTitle {
+    color: white;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+.synthesisUpgradeLevel {
+    color: lightgray;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.synthesisUpgradeFlavor {
+    color: silver;
+    font-style: italic;
+}
+
+.synthesisUpgradeEffect {
+    color: white;
+}
+
+.synthesisUpgradeEffectMaxed {
+    color: plum;
+}
+
+.synthesisUpgradeNextCost {
+    color: lightgray;
+}
+
+.synthesisUpgradeAP {
+    color: gold;
+}
+
+.synthesisUpgradePurchaseButtons,
+#purpleUpgradeDetailButtons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.synthesisUpgradePurchaseButtons {
+    margin-top: 6px;
+}
+
+.synthesisUpgradePurchaseButton {
+    flex: 1 1 4.5em;
+    font: inherit;
+    cursor: pointer;
+}
+
+.synthesisUpgradePurchaseButton,
+#purpleUpgradeDetailButtons > button {
+    max-width: 100%;
+    min-height: 34px;
+    padding: 3px 10px;
+    border: 2px solid var(--purple-text-color);
+    color: white;
+    line-height: 1.3;
+    white-space: pre-line;
+}
+
+.synthesisUpgradePurchaseButton:disabled {
+    border-color: #555;
+    color: gray;
+    cursor: not-allowed;
+}
+
+.synthesisMap {
+    display: grid;
+    grid-template-areas:
+        "inputs"
+        "product";
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(62px, auto);
+    align-items: center;
+    width: min(100%, 760px);
+    margin: 0 auto;
+    column-gap: 16px;
+    row-gap: 10px;
+    padding: 16px 18px 12px;
+}
+
+.synthesisInputs {
+    display: grid;
+    grid-area: inputs;
+    grid-template-columns: repeat(2, minmax(0, 240px));
+    justify-content: center;
+    gap: 16px;
+}
+
+.synthesisSource,
+.synthesisProduct {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    align-items: center;
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    border: 2px solid var(--synthesis-resource-color, var(--purple-text-color));
+    border-radius: 3px;
+    background-color: var(--box-color);
+}
+
+.synthesisSource {
+    gap: 7px;
+    padding: 7px;
+    transition: border-color 150ms ease;
+}
+
+.synthesisSource > div,
+.synthesisProduct > div {
+    min-width: 0;
+}
+
+.synthesisSourceName,
+.synthesisProductName {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.15;
+}
+
+.synthesisSourceName {
+    color: var(--synthesis-resource-color);
+}
+
+.synthesisBalance {
+    margin-top: 3px;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+.synthesisBalance.fitText,
+.synthesisProductStat.fitText {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+.synthesisBalance,
+.synthesisProductStat {
+    color: lightgray;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.15;
+}
+
+.synthesisSourceRed {
+    --synthesis-resource-color: red;
+}
+
+.synthesisSourceHoney {
+    grid-template-columns: minmax(0, 1fr) 32px;
+
+    --synthesis-resource-color: #ff5cff;
+}
+
+.synthesisSourceHoney > img {
+    grid-column: 2;
+}
+
+.synthesisSourceHoney > div {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+@media (width > 600px) {
+    .synthesisSource {
+        width: min(100%, 240px);
+    }
+
+    .synthesisSourceRed {
+        justify-self: end;
+    }
+
+    .synthesisSourceRed > div {
+        text-align: right;
+    }
+
+    .synthesisSourceHoney {
+        justify-self: start;
+    }
+
+    .synthesisProduct {
+        width: min(100%, 240px);
+        justify-self: center;
+    }
+}
+
+.synthesisProduct {
+    grid-area: product;
+    gap: 10px;
+    padding: 10px;
+}
+
+.synthesisProductName {
+    color: var(--purple-text-color);
+}
+
+.synthesisProductStat {
+    margin-top: 2px;
+}
+
+.synthesisResourceInsufficient {
+    border-color: #555;
+}
+
+.synthesisResourceInsufficient > img {
+    filter: grayscale(0.5);
+    opacity: 0.55;
+}
+
+.synthesisCrafting {
+    width: min(100%, 760px);
+    margin: 0 auto;
+    padding: 14px;
+}
+
+.synthesisCraftableTitle {
+    margin: 0;
+    color: lightgray;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#synthesisCraftButtons {
+    display: grid;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.synthesisCraftButtonRow {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.synthesisCraftButtonRow[hidden] {
+    display: none;
+}
+
+.synthesisCraftButtonRow > button {
+    flex: 0 1 140px;
+    width: 140px;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 38px;
+    padding: 5px 7px;
+    border: 2px solid var(--purple-text-color);
+    border-radius: 2px;
+    background-color: var(--button-color);
+    color: white;
+    font: inherit;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+}
+
+.synthesisCraftButtonRow > button:hover,
+.synthesisCraftButtonRow > button:focus-visible {
+    background-color: var(--hover-color);
+}
+
+.synthesisCraftButtonRow > button:disabled {
+    border-color: #555;
+    background-color: var(--box-color);
+    color: gray;
+    cursor: not-allowed;
+}
+
+#synthesisAutomationUnlock {
+    flex-basis: 300px;
+    width: 300px;
+}
+
+#purpleUpgradeShop {
+    display: flex;
+    flex: 1;
+    align-items: stretch;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#purpleUpgradeFamilyList {
+    display: flex;
+    flex: 0 1 47%;
+    flex-direction: column;
+    min-width: 390px;
+    min-height: 0;
+    overflow-y: auto;
+    border-right: 1px solid var(--purple-box-color);
+    scrollbar-width: thin;
+}
+
+.purpleUpgradeSectionHeader {
+    flex-shrink: 0;
+    margin: 8px 8px 2px;
+    color: var(--purple-text-color);
+    font-size: 0.875em;
+}
+
+.purpleUpgradeFamilyRow {
+    display: flex;
+    flex-shrink: 0;
+    align-items: stretch;
+    border-left: 3px solid transparent;
+    background: none;
+    color: white;
+}
+
+.purpleUpgradeFamilyRow:where(:hover) {
+    background-color: rgb(255 255 255 / 8%);
+}
+
+.purpleUpgradeFamilySelected {
+    border-left-color: var(--purple-text-color);
+    background-color: rgb(176 0 176 / 12%);
+}
+
+.purpleUpgradeFamilyButton {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 5px 8px;
+    border: 0;
+    background: none;
+    color: white;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.purpleUpgradeFamilyRowIcon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+}
+
+.purpleUpgradeFamilyRowInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.purpleUpgradeFamilyRowName {
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+
+.purpleUpgradeFamilyRowTiers {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 8px 4px 0;
+}
+
+.purpleUpgradeTierShortcut {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    padding: 2px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    background: none;
+    cursor: pointer;
+}
+
+.purpleUpgradeTierShortcut > img {
+    width: 20px;
+    height: 20px;
+}
+
+.purpleUpgradeFamilyRowCost {
+    color: var(--purple-text-color);
+    font-size: 0.75em;
+    line-height: 1.15;
+}
+
+.purpleUpgradeCantAfford {
+    color: gray;
+}
+
+.purpleUpgradeFamilyMaxed {
+    color: gold;
+}
+
+#purpleUpgradeDetail {
+    display: flex;
+    flex: 1 1 53%;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 12px;
+    overflow-y: auto;
+    text-align: center;
+}
+
+#purpleUpgradeTierRail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+}
+
+.purpleUpgradeTierChip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    min-width: 70px;
+    padding: 6px 8px;
+    border: 1px solid gray;
+    background: none;
+    color: white;
+    font: inherit;
+    font-size: 0.75em;
+    cursor: pointer;
+}
+
+.purpleUpgradeTierChip > img {
+    width: 52px;
+    height: 52px;
+}
+
+.purpleUpgradeTierShortcutSelected,
+.purpleUpgradeTierSelected {
+    border-color: var(--purple-text-color);
+    outline: 1px solid var(--purple-text-color);
+    outline-offset: 1px;
+}
+
+.purpleUpgradeTierShortcutMaxed,
+.purpleUpgradeTierMaxed {
+    border-color: gold;
+}
+
+#purpleUpgradeDetailText {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+#purpleUpgradeDetailText p {
+    margin: 0;
+}
+
+.purpleUpgradeDetailSecondary {
+    font-size: 0.875em;
+}
+
+#purpleUpgradeDetailButtons > button {
+    flex: 0 1 140px;
+    width: 140px;
+}
+
+#purpleUpgradeDetailButtons > button:disabled {
+    border-color: gray;
+    color: gray;
+    cursor: not-allowed;
+}
+
+.ambrosiaUpgradeActions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 2px;
     width: 100%;
-    gap: 4px;
+    gap: var(--ambrosia-grid-gap);
 }
 
-.blueberryUpgradeTier > div {
-    width: 32px;
-    height: 32px;
+/* Independent sections let blueberry groups grow without shifting the Zodiac columns. */
+#ambrosiaUpgradeGrid {
+    display: grid;
+    grid-template-columns: var(--ambrosia-side-width);
+    justify-content: center;
+    align-items: start;
+    gap: 12px;
+    min-width: max-content;
+    padding: 2px;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="red"] #ambrosiaUpgradeGrid {
+    grid-template-columns: repeat(2, var(--ambrosia-side-width));
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="purple"] #ambrosiaUpgradeGrid {
+    grid-template-columns: var(--ambrosia-side-width) var(--ambrosia-zodiac-width) var(--ambrosia-side-width);
+}
+
+.ambrosiaUpgradeSection {
+    display: grid;
+    grid-template-rows: repeat(6, var(--ambrosia-cell-size));
+    align-content: start;
+    gap: 8px var(--ambrosia-grid-gap);
+    min-width: 0;
+}
+
+.ambrosiaUpgradeGroup {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, var(--ambrosia-cell-size));
+    justify-content: start;
+    gap: var(--ambrosia-grid-gap);
+}
+
+#blueberryUpgradeGroups {
+    order: 1;
+    grid-template-columns: var(--ambrosia-cell-size) minmax(0, 1fr);
+    direction: ltr;
+}
+
+#redAmbrosiaUpgradeGroups {
+    order: -1;
+    direction: rtl;
+}
+
+#redAmbrosiaUpgradeGroups button {
+    direction: ltr;
+}
+
+.blueberryUpgradeGroup {
+    grid-column: 2;
+}
+
+.blueberryUpgradeGroup[data-upgrade-group="general"] {
+    grid-column: 1;
+    grid-row: 1 / span 6;
+    grid-template-columns: var(--ambrosia-cell-size);
+    grid-template-rows: repeat(6, var(--ambrosia-cell-size));
+    row-gap: 8px;
+}
+
+.ambrosiaUpgradeGroup > :is(button, div),
+.ambrosiaUpgradeSection[data-ambrosia-kind="purple"] > :is(button, div) {
+    width: var(--ambrosia-cell-size);
+    height: var(--ambrosia-cell-size);
+}
+
+.ambrosiaUpgradeSection[data-ambrosia-kind="purple"] {
+    grid-template-columns: repeat(2, var(--ambrosia-cell-size));
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="blueberry"] .Exalt5x1,
+#blueberryUpgradeContainer:not([data-ambrosia-layout="purple"]) .Exalt9x1 {
+    display: none;
+}
+
+.ambrosiaUpgradeUnlockHint {
+    display: none;
+    margin: 6px 0;
+    text-align: center;
+}
+
+#blueberryUpgradeContainer[data-ambrosia-layout="blueberry"] [data-ambrosia-next="red"],
+#blueberryUpgradeContainer[data-ambrosia-layout="red"] [data-ambrosia-next="purple"] {
+    display: block;
 }
 
 .singularityUpgrade,
@@ -7186,6 +8254,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #singularityPenaltiesMultiline {
+    align-self: center;
     white-space: pre-line;
     justify-content: center;
     margin-top: 1px;
@@ -7532,14 +8601,199 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .blueberryPrereq {
-    height: 28px;
-    width: 28px;
+    outline: 2px solid red;
+    outline-offset: -2px;
+}
+
+.blueberryPrereqMet {
+    outline-color: var(--lime-text-color);
+}
+
+.redAmbrosiaTarget {
+    outline: 2px solid red;
+    outline-offset: -2px;
+}
+
+.ambrosiaPrerequisites {
+    display: block;
+    margin: 6px 0;
+    text-align: left;
+    white-space: normal;
+}
+
+.ambrosiaPrerequisiteHeading {
+    display: block;
+    margin-bottom: 4px;
+    color: lightgray;
+    font-size: 0.875em;
+}
+
+.ambrosiaPrerequisiteList {
+    display: contents;
+}
+
+.ambrosiaDependencyGraph {
+    /* A 3px shaft keeps all three prerequisite bands visible at the same arrow size. */
+    --ambrosia-arrow-shaft-height: 3px;
+    --ambrosia-arrow-row: 2;
+    --ambrosia-arrow-fill: var(--ambrosia-prerequisite-1-color);
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 36px 40px;
+    align-items: center;
+}
+
+.ambrosiaDependencyGraph[data-prerequisite-count="1"] {
+    --ambrosia-arrow-row: 1;
+}
+
+/* With two prerequisites, the arrow sits exactly at the boundary between their rows. */
+.ambrosiaDependencyGraph[data-prerequisite-count="2"] {
+    --ambrosia-arrow-fill: linear-gradient(
+        to bottom,
+        var(--ambrosia-prerequisite-1-color) 50%,
+        var(--ambrosia-prerequisite-2-color) 50%
+    );
+
+    grid-template-rows: auto 0 auto;
+}
+
+.ambrosiaDependencyGraph[data-prerequisite-count="2"] .ambrosiaPrerequisite:last-child {
+    grid-row: 3;
+}
+
+.ambrosiaDependencyGraph[data-prerequisite-count="3"] {
+    --ambrosia-arrow-band-half: calc(var(--ambrosia-arrow-shaft-height) / 6);
+    --ambrosia-arrow-fill: linear-gradient(
+        to bottom,
+        var(--ambrosia-prerequisite-1-color) calc(50% - var(--ambrosia-arrow-band-half)),
+        var(--ambrosia-prerequisite-2-color) calc(50% - var(--ambrosia-arrow-band-half))
+            calc(50% + var(--ambrosia-arrow-band-half)),
+        var(--ambrosia-prerequisite-3-color) calc(50% + var(--ambrosia-arrow-band-half))
+    );
+}
+
+.ambrosiaPrerequisite {
+    --ambrosia-prerequisite-color: red;
+
+    position: relative;
+    grid-column: 1;
+    align-self: stretch;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 4px 3px 0;
+}
+
+.ambrosiaPrerequisiteMet {
+    --ambrosia-prerequisite-color: var(--lime-text-color);
+}
+
+/* Paint the vertical connector after the branch so its band colors stay visible at the junction. */
+.ambrosiaPrerequisite::before,
+.ambrosiaPrerequisite::after {
+    content: "";
+    position: absolute;
+    right: -12px;
+    background: var(--ambrosia-prerequisite-color);
+}
+
+.ambrosiaPrerequisite::before {
+    top: 50%;
+    width: 12px;
+    height: 2px;
+    transform: translateY(-50%);
+}
+
+.ambrosiaPrerequisite::after {
+    top: 0;
+    bottom: 0;
+    width: 2px;
+}
+
+.ambrosiaPrerequisite:first-child::after {
+    top: 50%;
+}
+
+.ambrosiaPrerequisite:last-child::after {
+    bottom: 50%;
+}
+
+/* Carry the outer branches through the middle row to their corresponding arrow bands. */
+.ambrosiaDependencyGraph[data-prerequisite-count="3"] .ambrosiaPrerequisite:nth-child(2)::after {
+    background: var(--ambrosia-arrow-fill);
+}
+
+/* A single prerequisite needs only the arrow, without an extra connector extending its shaft. */
+.ambrosiaPrerequisite:only-child::before,
+.ambrosiaPrerequisite:only-child::after {
+    content: none;
+}
+
+.ambrosiaPrerequisite > img {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    outline: 2px solid var(--ambrosia-prerequisite-color);
+    outline-offset: -2px;
+}
+
+.ambrosiaDependencyArrow {
+    grid-column: 2;
+    grid-row: var(--ambrosia-arrow-row);
+    height: 10px;
+    margin: 0 6px 0 12px;
+    background: var(--ambrosia-arrow-fill);
+    clip-path: polygon(
+        0 calc(50% - var(--ambrosia-arrow-shaft-height) / 2),
+        calc(100% - 6px) calc(50% - var(--ambrosia-arrow-shaft-height) / 2),
+        calc(100% - 6px) 0,
+        100% 50%,
+        calc(100% - 6px) 100%,
+        calc(100% - 6px) calc(50% + var(--ambrosia-arrow-shaft-height) / 2),
+        0 calc(50% + var(--ambrosia-arrow-shaft-height) / 2)
+    );
+}
+
+.ambrosiaDependencyTarget {
+    grid-column: 3;
+    grid-row: var(--ambrosia-arrow-row);
+    display: flex;
+    padding: 2px;
     border: 2px solid gold;
+}
+
+.ambrosiaDependencyTarget > img {
+    width: 32px;
+    height: 32px;
+}
+
+.ambrosiaPrerequisiteDetails {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 8px;
+    min-width: 0;
+    color: var(--ambrosia-prerequisite-color);
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+.ambrosiaPrerequisiteName {
+    flex: 1 1 8em;
+}
+
+.ambrosiaPrerequisiteLevels {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
 }
 
 /* Style for dimmed image */
 .blueberryUpgrade img.dimmed,
-.redAmbrosiaUpgrade img.dimmed {
+.redAmbrosiaUpgrade img.dimmed,
+.purpleAmbrosiaUpgrade img.dimmed {
     opacity: 0.3;
 }
 
@@ -7550,7 +8804,8 @@ header #obtainiumDisplay { color: pink; }
 
 /* Style for level display */
 .blueberryUpgrade .level-overlay,
-.redAmbrosiaUpgrade .level-overlay {
+.redAmbrosiaUpgrade .level-overlay,
+.purpleAmbrosiaUpgrade .level-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -7567,20 +8822,75 @@ header #obtainiumDisplay { color: pink; }
 
 /* Style for relative positioning */
 .blueberryUpgrade,
-.redAmbrosiaUpgrade {
+.redAmbrosiaUpgrade,
+.purpleAmbrosiaUpgrade {
     position: relative;
     display: inline-block; /* Or block, depending on your layout */
     cursor: pointer;
 }
 
+.blueberryUpgrade > .purpleAmbrosiaEnchantmentIcon {
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    z-index: 2;
+    width: 14px;
+    height: 14px;
+    filter: drop-shadow(0 0 2px black);
+    cursor: pointer;
+}
+
+.purpleAmbrosiaEnchantmentIconType2 {
+    transform: scaleX(-1);
+}
+
+.blueberryUpgrade > .purpleAmbrosiaEnchantmentIconLoadoutHidden,
+.blueberryUpgrade > .purpleAmbrosiaEnchantmentIconMaxed {
+    display: none;
+}
+
+.purpleAmbrosiaEnchantmentModal {
+    padding-top: 8px;
+    margin-top: 8px;
+    border-top: 1px solid var(--purple-text-color);
+    text-align: center;
+}
+
+.purpleAmbrosiaEnchantmentTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--purple-text-color);
+}
+
+.purpleAmbrosiaEnchantmentTitle > img {
+    width: 24px;
+    height: 24px;
+}
+
+.purpleAmbrosiaEnchantmentModal .modalBtnBuy {
+    width: auto;
+    min-width: 120px;
+    padding: 0 10px;
+    border-color: var(--purple-text-color);
+}
+
+.purpleAmbrosiaEnchantmentModal .modalBtnBuy:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
 .maxBlueberryLevel,
-.maxRedAmbrosiaLevel {
+.maxRedAmbrosiaLevel,
+.maxPurpleAmbrosiaLevel {
     color: orchid;
     font-weight: bold;
 }
 
 .notMaxBlueberryLevel,
-.notMaxRedAmbrosiaLevel {
+.notMaxRedAmbrosiaLevel,
+.notMaxPurpleAmbrosiaLevel {
     color: white;
 }
 
@@ -7592,8 +8902,7 @@ header #obtainiumDisplay { color: pink; }
     border-radius: var(--border-width);
 }
 
-#switchSettingSubTab9::after,
-.blueberryPrereq::after {
+#switchSettingSubTab9::after {
     content: "";
     position: absolute;
     top: calc(-1 * var(--border-width));
@@ -7894,70 +9203,749 @@ header #obtainiumDisplay { color: pink; }
     }
 }
 
-#pixelProgressBar {
-    width: 25%;
-    height: 30px;
+#purpleReactantContainers {
+    container: purple-reactor / inline-size;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: min(96%, 1000px);
+    margin: 10px auto;
+    padding: 12px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    font-size: clamp(16px, 1.2vw, 18px);
+}
+
+.purpleReactorHeader {
+    display: grid;
+    grid-template-areas:
+        "heading controls"
+        "recipe settings"
+        "draw draw";
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr);
+    align-items: start;
+    gap: 12px 24px;
+    position: relative;
+    z-index: 2;
+    padding: 0 8px 12px;
+    border-bottom: 1px solid rgb(176 0 176 / 55%);
+    background-color: transparent;
+    color: lightgray;
+    font-size: 0.9em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.purpleReactorHeader p {
+    margin: 0;
+}
+
+.purpleReactorHeader > div {
+    min-width: 0;
+}
+
+.purpleReactorHeading {
+    grid-area: heading;
+}
+
+.purpleReactorTitle {
+    color: var(--purple-text-color);
+    font-size: 1.6em;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.purpleReactorRecipe {
+    grid-area: recipe;
+}
+
+.purpleReactorSettings {
+    grid-area: settings;
+}
+
+.purpleReactorSectionLabel {
+    font-weight: bold;
+}
+
+#purpleReactorMaximumDraw {
+    grid-area: draw;
+}
+
+.purpleReactorMachine {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 30px minmax(300px, 1.25fr) 30px minmax(0, 1fr);
+    align-items: stretch;
+    gap: 0 4px;
+    position: relative;
+    z-index: 2;
+}
+
+.purpleReactorControls {
+    display: flex;
+    flex-wrap: wrap;
+    grid-area: controls;
+    align-self: center;
+    gap: 8px;
+}
+
+.purpleCheckbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 28px;
+    cursor: pointer;
+}
+
+.purpleCheckbox[hidden] {
+    display: none;
+}
+
+.purpleCheckbox > input {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    accent-color: var(--purple-text-color);
+    font: inherit;
+    cursor: inherit;
+}
+
+#purpleReactantOvercapControls {
+    margin-top: 4px;
+}
+
+.purpleReactorToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 34px;
+    padding: 4px 12px;
+    border: 2px solid var(--purple-box-color);
+    border-radius: 3px;
+    color: var(--purple-text-color);
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.purpleReactorToggle:is(:hover, :focus-visible, [aria-expanded="true"]) {
+    border-color: var(--purple-text-color);
+    background-color: var(--hover-color);
+}
+
+.purpleReactorPanel {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / span 4;
+    row-gap: 0;
+    min-width: 0;
+    position: relative;
+    z-index: 2;
+    padding: 10px;
+    border: 2px solid var(--reactant-dark, var(--purple-box-color));
+    border-radius: 4px;
+    background-color: var(--box-color);
+}
+
+.purpleReactorPanelBody {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.purpleReactorPanel::after,
+.purpleReactorCore::before {
+    /* Match the progress bar's row without depending on heading height. */
+    content: "";
+    position: absolute;
+    grid-row: 3 / 4;
+    top: 0;
+    bottom: 0;
+    right: -2px;
+    width: 4px;
+    color: var(--reactant-bright, var(--purple-text-color));
+    background-color: currentcolor;
+    box-shadow: 0 0 7px color-mix(in srgb, currentcolor 55%, transparent);
+    pointer-events: none;
+}
+
+.purpleReactantTankRed::after,
+.purpleReactorCore::before {
+    right: auto;
+    left: -2px;
+}
+
+.purpleReactantTankAmbrosia {
+    --reactant-dark: var(--blueberry-box-color);
+    --reactant-bright: darkturquoise;
+    --reactant-rgb: 0 206 209;
+
+    grid-column: 1;
+}
+
+.purpleReactantTankRed {
+    --reactant-dark: maroon;
+    --reactant-bright: red;
+    --reactant-rgb: 255 0 0;
+
+    grid-column: 5;
+}
+
+.purpleReactorPanelHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.purpleReactorPanelLabel {
+    min-width: 0;
+    margin: 0;
+    color: gray;
+    font-size: 0.72em;
+    letter-spacing: 0.12em;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.purpleReactorProgressTitle {
+    margin: 0 0 3px;
+    font-size: 0.86em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.purpleReactantReserveTitle {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    color: lightgray;
+    font-size: 0.8em;
+    line-height: 1.2;
+}
+
+.purpleReactorProgressBar {
+    width: 100%;
+    height: 40px;
     background-color: black;
-    border: solid white;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+    border: 2px solid var(--reactant-dark, white);
+    border-radius: 3px;
+    box-shadow: inset 0 0 8px rgb(0 0 0 / 70%);
+    overflow: hidden;
     position: relative;
 }
 
-#pixelProgress {
+#purpleHoneyProgressBar {
+    border-color: #650065;
+}
+
+.purpleReactorProgressFill {
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, maroon, red);
-    border-radius: 5px;
-    transform: scaleX(0);
+    transform: scaleX(var(--progress-fill, 0));
     transform-origin: left;
     transition: transform 0.4s ease;
 }
 
-#pixelProgressText {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center; /* Center the text vertically */
-    justify-content: center; /* Center the text horizontally */
-    color: white;
-    font-weight: bold;
-}
-
-#ambrosiaProgressBar {
-    width: 25%;
-    height: 30px;
-    background-color: black;
-    border: solid white;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
-    position: relative;
-}
-
-#ambrosiaProgress {
-    width: 100%;
-    height: 100%;
+#ambrosiaContainerProgress {
     background: linear-gradient(to right, navy, darkturquoise);
-    border-radius: 5px;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
 }
 
-#ambrosiaProgressText {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+#redAmbrosiaContainerProgress {
+    background: linear-gradient(to right, maroon, red);
+}
+
+#purpleHoneyProgressFill {
     display: flex;
-    align-items: center; /* Center the text vertically */
-    justify-content: center; /* Center the text horizontally */
+    height: 100%;
+}
+
+#purpleHoneyProgressFill > .purpleReactorProgressFill {
+    width: 50%;
+    background: linear-gradient(to right, blue, var(--purple-honey-center-color));
+}
+
+#purpleHoneyProgressFill > .purpleReactorProgressFill:last-child {
+    transform-origin: right;
+    background: linear-gradient(to right, var(--purple-honey-center-color), red);
+}
+
+.purpleReactorProgressText {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: white;
     font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 1px 2px black;
+    white-space: nowrap;
+    z-index: 2;
+}
+
+.purpleReactorRate {
+    margin: 3px 0 0;
+    color: var(--reactant-bright, var(--purple-text-color));
+    font-size: 0.82em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.purpleReactorCore {
+    --purple-honey-center-color: purple;
+
+    grid-column: 3;
+}
+
+.purpleReactorCore::before {
+    color: color-mix(in srgb, blue, var(--purple-honey-center-color));
+}
+
+.purpleReactorCore::after {
+    color: color-mix(in srgb, red, var(--purple-honey-center-color));
+}
+
+.purpleReactorModifiers {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: relative;
+    margin-top: 6px;
+    text-align: center;
+}
+
+.purpleReactorModifiers > p {
+    margin: 0;
+    font-size: 0.82em;
+    line-height: 1.3;
+}
+
+.purpleReactorConduit {
+    grid-row: 3;
+    align-self: center;
+    position: relative;
+    z-index: 1;
+    width: calc(100% + 8px);
+    height: 18px;
+    margin: 0 -4px;
+    border-top: 3px solid var(--conduit-dark);
+    border-bottom: 3px solid var(--conduit-dark);
+    background-color: #050505;
+    opacity: 0.42;
+    transition: opacity 250ms ease;
+}
+
+.purpleReactorConduit > span {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.purpleReactorConduit > span::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -36px;
+    width: calc(100% + 36px);
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 8px,
+            var(--conduit-bright) 8px 13px,
+            transparent 13px 18px
+        );
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+}
+
+.purpleReactorConduit::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    transform: translateY(-50%);
+}
+
+.purpleReactorConduitAmbrosia {
+    --conduit-dark: #006;
+    --conduit-bright: darkturquoise;
+
+    grid-column: 2;
+}
+
+.purpleReactorConduitAmbrosia::after {
+    right: -7px;
+    border-left: 8px solid var(--conduit-bright);
+}
+
+.purpleReactorConduitRed {
+    --conduit-dark: maroon;
+    --conduit-bright: red;
+
+    grid-column: 4;
+}
+
+.purpleReactorConduitRed::after {
+    left: -7px;
+    border-right: 8px solid var(--conduit-bright);
+}
+
+.purpleReactorActive .purpleReactorConduit {
+    opacity: 0.9;
+}
+
+@keyframes purple-honey-gain {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+#purpleHoneyGainContainer,
+#synthesisGainContainer {
+    position: absolute;
+    z-index: 4;
+    inset: 0;
+    pointer-events: none;
+}
+
+.purpleHoneyGain {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    color: var(--purple-text-color);
+    font-weight: bold;
+    text-shadow: 0 1px 2px #650065;
+    white-space: nowrap;
+    opacity: 0;
+}
+
+.purpleHoneyGainAnimating {
+    animation: purple-honey-gain 900ms ease-out forwards;
+}
+
+.synthesisGain {
+    top: 48%;
+    right: 10px;
+    font-size: 1.05em;
+}
+
+@keyframes purple-reactor-flow {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(36px, 0, 0);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .purpleReactorActive .purpleReactorConduit > span::before {
+        animation: purple-reactor-flow 900ms linear infinite;
+    }
+
+    .purpleReactorActive .purpleReactorConduitRed > span::before {
+        animation-direction: reverse;
+    }
+
+}
+
+.purpleReactantRoutingControl {
+    margin-top: auto;
+    padding-top: 3px;
+}
+
+.purpleReactantRoutingHeader {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.purpleReactantReserveTitle > .fitText {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.purpleReactantRoutingHeader > output {
+    flex: 0 0 auto;
+    min-width: 4ch;
+    color: var(--reactant-bright);
+    font-size: 0.94em;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    text-align: right;
+}
+
+.purpleReactantPercentageSlider {
+    --routing-percentage: 0%;
+
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: 30px;
+    min-height: 30px;
+    margin: 1px 0 0;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 0;
+    outline-offset: 1px;
+    background: transparent;
+    accent-color: var(--reactant-bright);
+    cursor: pointer;
+    touch-action: pan-y;
+}
+
+.purpleReactantPercentageSlider:focus-visible {
+    outline: 2px solid white;
+}
+
+.purpleReactantPercentageSlider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    border: 1px solid var(--reactant-dark);
+    border-radius: 1px;
+    background:
+        linear-gradient(
+            90deg,
+            var(--reactant-bright) 0 var(--routing-percentage),
+            #111 var(--routing-percentage) 100%
+        );
+    box-shadow: inset 0 0 4px black;
+}
+
+.purpleReactantPercentageSlider::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    margin-top: -6px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: var(--reactant-bright);
+    box-shadow: 0 0 7px rgb(var(--reactant-rgb) / 75%);
+}
+
+.purpleReactantPercentageSlider::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    border: 1px solid var(--reactant-dark);
+    border-radius: 1px;
+    background-color: #111;
+    box-shadow: inset 0 0 4px black;
+}
+
+.purpleReactantPercentageSlider::-moz-range-progress {
+    height: 8px;
+    background-color: var(--reactant-bright);
+}
+
+.purpleReactantPercentageSlider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: var(--reactant-bright);
+    box-shadow: 0 0 7px rgb(var(--reactant-rgb) / 75%);
+}
+
+.purpleReactantSliderScale {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4px;
+    color: silver;
+    font-size: 0.7em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+}
+
+@container purple-reactor (width <= 650px) {
+    .purpleReactorHeader {
+        grid-template-areas:
+            "heading"
+            "controls"
+            "recipe"
+            "settings"
+            "draw";
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #purpleUpgradeShop {
+        flex-direction: column;
+    }
+
+    #purpleUpgradeFamilyList {
+        flex: 0 0 50%;
+        min-width: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--purple-box-color);
+    }
+
+    #purpleUpgradeDetail {
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+    }
+}
+
+@container purple-reactor (width <= 850px) {
+    .synthesisWorkspace {
+        display: block;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .synthesisConversionWorkspace,
+    .synthesisUpgradeRegion {
+        overflow: visible;
+    }
+
+    .synthesisUpgradeRegion {
+        border-top: 1px solid rgb(176 0 176 / 35%);
+        border-left: 0;
+    }
+}
+
+@media (width <= 900px) {
+    #purpleReactantContainers {
+        width: min(96%, 760px);
+    }
+
+    .purpleReactorMachine {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .purpleReactorPanel {
+        grid-row: span 4;
+    }
+
+    .purpleReactantTankRed {
+        grid-column: 2;
+    }
+
+    .purpleReactorCore {
+        grid-column: 1 / -1;
+    }
+
+    .purpleReactorConduit {
+        display: none;
+    }
+}
+
+@media (width <= 560px) {
+    #purpleReactantContainers {
+        width: calc(100% - 10px);
+    }
+
+    .purpleReactorMachine {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .purpleReactantTankRed {
+        grid-column: 1;
+    }
+
+    .purpleReactorHeader {
+        padding-inline: 2px;
+    }
+}
+
+@media (width <= 1024px) {
+    #singularityPurple {
+        bottom: auto;
+        height: calc(var(--purple-popup-viewport-height, 100dvh) - var(--mobile-subtab-height) - 1rem);
+        scroll-margin-top: calc(var(--mobile-subtab-height) + 0.5rem);
+    }
+}
+
+@media (width <= 600px), (any-pointer: coarse) {
+    .purpleReactorToggle,
+    .synthesisCraftButtonRow > button {
+        min-height: 44px;
+    }
+
+    .purplePopup {
+        --purple-popup-close-size: 44px;
+    }
+}
+
+@media (width <= 600px) {
+    .purpleUpgradeFamilyRow {
+        flex-wrap: wrap;
+    }
+
+    .purpleUpgradeFamilyButton {
+        flex-basis: 100%;
+    }
+
+    .purpleUpgradeFamilyRowTiers {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        padding: 0 8px 6px;
+    }
+
+    .synthesisMap {
+        grid-template-areas:
+            "red"
+            "honey"
+            "product";
+        row-gap: 2px;
+    }
+
+    .synthesisInputs {
+        display: contents;
+    }
+
+    .synthesisSourceRed {
+        grid-area: red;
+    }
+
+    .synthesisSourceHoney {
+        grid-area: honey;
+    }
+
+}
+
+@media (any-pointer: coarse) {
+    .purpleUpgradeTierShortcut {
+        min-width: 44px;
+    }
+
+    .purpleReactantPercentageSlider {
+        height: 44px;
+        min-height: 44px;
+    }
+
+    .purpleReactantPercentageSlider::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+        margin-top: -9px;
+    }
+
+    .purpleReactantPercentageSlider::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+    }
 }
 
 #bbLoadoutContainer {
@@ -8382,22 +10370,23 @@ html[data-mobile="false"] .pseudoCoinButton {
 
 #upgradeGrid {
     display: grid;
-    grid-template-columns: repeat(6, 15%);
-    grid-template-rows: repeat(3, 15%);
-    column-gap: 10px;
-    row-gap: 64px;
+    grid-template-columns: repeat(6, 64px);
+    grid-auto-rows: 64px;
+    justify-content: center;
+    column-gap: 16px;
+    row-gap: 16px;
     margin: 0;
-    width: 38%;
+    width: 100%;
     padding-top: 15px;
-    max-height: 256px;
 }
 
 #upgradeGrid > div {
+    box-sizing: border-box;
     position: relative;
     height: 64px;
     width: 64px;
+    border: 2px solid var(--darkgold-color);
     background: #222;
-    place-self: center;
 }
 
 #upgradeGrid > div > p {
@@ -8485,9 +10474,9 @@ html[data-mobile="false"] .pseudoCoinButton {
 
 #pseudoCoinUpgradeDescription {
     display: grid;
-    height: 192px;
+    min-height: 192px;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 192px;
+    grid-template-rows: auto;
     width: 100%;
 }
 
@@ -8498,16 +10487,16 @@ html[data-mobile="false"] .pseudoCoinButton {
 
 #pseudoCoinUpgradeTexts {
     display: grid;
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: 1fr auto;
     grid-column: 2 / 4;
     margin: auto;
     width: 100%;
-    height: 100%;
+    min-height: 192px;
     align-items: center;
 }
 
 #pCoinUpgradeDesc {
-    grid-row: 1 / 6;
+    grid-row: 1;
     text-align: center;
     margin: auto;
     width: 100%;
@@ -8518,7 +10507,7 @@ html[data-mobile="false"] .pseudoCoinButton {
 }
 
 #pCoinButton {
-    grid-row: 6;
+    grid-row: 2;
     margin: 0 auto;
     width: 100%;
 }
@@ -9770,6 +11759,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #actualSingularityUpgradeContainer,
+    #octeractUpgradeContainer,
     #blueberryUpgradeContainer {
         width: unset;
     }
@@ -9801,15 +11791,12 @@ html[data-mobile="true"] .hideOnMobile {
         height: 22px;
     }
 
-    #ambrosiaTexts {
-        line-height: unset;
-    }
-
-    .blueberryUpgradeTier {
+    .ambrosiaUpgradeActions {
         gap: unset;
     }
 
-    .blueberryUpgradeTier button {
+    .ambrosiaUpgradeActions button,
+    #ambrosiaUpgradeGrid button {
         min-height: unset !important;
     }
 
@@ -9960,12 +11947,6 @@ html[data-mobile="true"] .hideOnMobile {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    /* Hepteract bars */
-    #pixelProgressBar,
-    #ambrosiaProgressBar {
-        width: 80%;
-    }
-
     /* Toggle buttons */
     #challengesAutoToggles {
         gap: 8px 10px;
@@ -10036,10 +12017,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #upgradeGrid {
-        grid-template-rows: repeat(3, 33%);
-        row-gap: 5px;
-        width: unset;
-        max-height: unset;
+        row-gap: 12px;
         padding-bottom: 15px;
     }
 
@@ -10531,18 +12509,14 @@ html[data-mobile="true"] .hideOnMobile {
     #upgradeGrid {
         width: 100%;
         grid-template-columns: repeat(5, 15%);
-        grid-template-rows: unset;
         justify-content: center;
         column-gap: 4px;
         row-gap: 4px;
-        max-height: none;
-        height: auto;
         padding: 0;
     }
 
     #upgradeGrid > div {
-        place-self: unset;
-        margin: unset !important;
+        justify-self: center;
     }
 
     #upgradeInfo {

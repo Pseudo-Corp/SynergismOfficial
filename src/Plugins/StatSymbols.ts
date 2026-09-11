@@ -15,8 +15,11 @@ const KEYWORD_SYMBOLS: Record<string, string> = {
   'Salvage': '♻',
   'Ambrosia Luck': '☘',
   'Red Luck': '⚅',
+  'Purple Honey Luck': '✰',
   'Ambrosia Bar Point': '◊',
   'Red Bar Point': '❖',
+  'Purple Bar Point': '𝚫',
+  'Purple Honey': '☼',
   'Blueberries': '☌',
   'Quark': '❂',
   'Cube': '⬢',
@@ -39,7 +42,8 @@ const KEYWORD_SYMBOLS: Record<string, string> = {
   'Reborn ELO': '🝘',
   'Ant Speed': '≫',
   'Ant Sacrifice': '⤬',
-  'Stage': '⎍'
+  'Stage': '⎍',
+  'Encabulator Speed': '⏲'
 }
 
 const reg = new RegExp(Object.keys(KEYWORD_SYMBOLS).join('|'), 'g')
@@ -52,6 +56,6 @@ export default {
       return value
     }
 
-    return value.replaceAll(reg, substring => `${KEYWORD_SYMBOLS[substring]}\u00A0${substring}`)
+    return value.replaceAll(reg, (substring) => `${KEYWORD_SYMBOLS[substring]}\u00A0${substring}`)
   }
 } satisfies PostProcessorModule

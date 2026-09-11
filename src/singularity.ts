@@ -2,6 +2,7 @@ import i18next from 'i18next'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  calculateBlueberryInventory,
   calculateExalt4EffectiveSingularityMultiplier,
   calculateGoldenQuarkCost,
   calculateImmaculateAlchemyBonus
@@ -16,6 +17,8 @@ import { getShopUpgradeEffects } from './Shop'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { isMobile, toOrdinal } from './Utility'
+
+const funny32BitNumber = 2 ** 31 - 1
 
 type GoldenQuarkUpgradeRewards = {
   goldenQuarks1: { goldenQuarkMult: number }
@@ -83,6 +86,7 @@ type GoldenQuarkUpgradeRewards = {
   wowPass2: { unlocked: boolean }
   wowPass3: { unlocked: boolean }
   wowPass4: { unlocked: boolean }
+  wowPass5: { unlocked: boolean }
   potionBuff: { potionPowerMult: number }
   potionBuff2: { potionPowerMult: number }
   potionBuff3: { potionPowerMult: number }
@@ -290,10 +294,115 @@ type SingularitySpecialCostFormulae =
   | 'Cubic'
   | 'Exponential2'
 
+type SingularityCostFormula = (costPerLevel: number, level: number, maxLevel: number) => number
+
+function sumPowersOfFour (level: number): number {
+  return 4 * (Math.pow(4, level) - 1) / 3
+}
+
+function sumLevelsTimesPowersOfFour (level: number): number {
+  return (4 + (3 * level - 1) * Math.pow(4, level + 1)) / 9
+}
+
+function sumSquaredLevelsTimesPowersOfFour (level: number): number {
+  return ((9 * Math.pow(level, 2) - 6 * level + 5) * Math.pow(4, level + 1) - 20) / 27
+}
+
+function sumConsecutiveProducts (level: number): number {
+  return level * (level + 1) * (level + 2) / 3
+}
+
+function sumSquaredAndCubedLevels (level: number): number {
+  return Math.pow(level * (level + 1) / 2, 2) + level * (level + 1) * (2 * level + 1) / 6
+}
+
+/**
+ * Cumulative cost of a Default upgrade at a given level.
+ */
+function defaultGQUpgradeCostFormula (costPerLevel: number, level: number, maxLevel: number): number {
+  // Preserve the additional scaling for Default upgrades that were formerly uncapped.
+  if (maxLevel === funny32BitNumber) {
+    if (level <= 100) {
+      return Math.round(costPerLevel * level * (level + 1) / 2)
+    }
+
+    const costFromLevel101To400 = sumConsecutiveProducts(Math.min(level, 400) - 1) - sumConsecutiveProducts(99)
+
+    if (level <= 400) {
+      return Math.floor(costPerLevel * (5050 * 50 + costFromLevel101To400) / 50)
+    }
+
+    const costAfterLevel400 = sumSquaredAndCubedLevels(level - 1) - sumSquaredAndCubedLevels(399)
+    return Math.floor(
+      costPerLevel * (5050 * 5000 + 100 * costFromLevel101To400 + costAfterLevel400) / 5000
+    )
+  }
+
+  const overclockedLevels = Math.max(0, level - maxLevel)
+  const levelsBeforeOverclocking = Math.min(level, maxLevel)
+  return Math.round(
+    costPerLevel * (
+      levelsBeforeOverclocking * (levelsBeforeOverclocking + 1) / 2
+      + maxLevel * sumPowersOfFour(overclockedLevels)
+      + sumLevelsTimesPowersOfFour(overclockedLevels)
+    )
+  )
+}
+
+/**
+ * Cumulative cost of a Quadratic upgrade at a given level.
+ */
+function quadraticGQUpgradeCostFormula (costPerLevel: number, level: number, maxLevel: number): number {
+  const overclockedLevels = Math.max(0, level - maxLevel)
+  const levelsBeforeOverclocking = level - overclockedLevels
+  return Math.round(
+    costPerLevel * (
+      Math.pow(levelsBeforeOverclocking, 2)
+      + (2 * maxLevel - 1) * sumPowersOfFour(overclockedLevels)
+      + 2 * sumLevelsTimesPowersOfFour(overclockedLevels)
+    )
+  )
+}
+
+/**
+ * Cumulative cost of a Cubic upgrade at a given level.
+ */
+function cubicGQUpgradeCostFormula (costPerLevel: number, level: number, maxLevel: number): number {
+  const overclockedLevels = Math.max(0, level - maxLevel)
+  const levelsBeforeOverclocking = level - overclockedLevels
+  return Math.round(
+    costPerLevel * (
+      Math.pow(levelsBeforeOverclocking, 3)
+      + (3 * Math.pow(maxLevel, 2) - 3 * maxLevel + 1) * sumPowersOfFour(overclockedLevels)
+      + (6 * maxLevel - 3) * sumLevelsTimesPowersOfFour(overclockedLevels)
+      + 3 * sumSquaredLevelsTimesPowersOfFour(overclockedLevels)
+    )
+  )
+}
+
+/**
+ * Cumulative cost of an Exponential2 upgrade at a given level.
+ */
+function exponential2GQUpgradeCostFormula (costPerLevel: number, level: number, maxLevel: number): number {
+  const overclockedLevels = Math.max(0, level - maxLevel)
+  const levelsBeforeOverclocking = level - overclockedLevels
+  return Math.round(
+    costPerLevel * (
+      Math.pow(2, levelsBeforeOverclocking) - 1
+      + Math.pow(2, maxLevel - 1) * sumPowersOfFour(overclockedLevels)
+    )
+  )
+}
+
+const singularityCostFormulae: Record<SingularitySpecialCostFormulae, SingularityCostFormula> = {
+  Default: defaultGQUpgradeCostFormula,
+  Quadratic: quadraticGQUpgradeCostFormula,
+  Cubic: cubicGQUpgradeCostFormula,
+  Exponential2: exponential2GQUpgradeCostFormula
+}
+
 interface GoldenQuarkUpgrade<T extends SingularityDataKeys, K extends keyof GoldenQuarkUpgradeRewards[T]> {
   level: number
-  freeLevel: number
-  goldenQuarksInvested: number
   maxLevel: number
   canExceedCap: boolean
   qualityOfLife: boolean
@@ -311,8 +420,6 @@ export const goldenQuarkUpgrades: {
 } = {
   goldenQuarks1: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 15,
     canExceedCap: true,
     qualityOfLife: true,
@@ -337,8 +444,6 @@ export const goldenQuarkUpgrades: {
   },
   goldenQuarks2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 75,
     canExceedCap: true,
     qualityOfLife: true,
@@ -364,8 +469,6 @@ export const goldenQuarkUpgrades: {
   },
   goldenQuarks3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1000,
     canExceedCap: false,
     qualityOfLife: false,
@@ -390,8 +493,6 @@ export const goldenQuarkUpgrades: {
   },
   starterPack: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -421,8 +522,6 @@ export const goldenQuarkUpgrades: {
   },
   wowPass: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -443,8 +542,6 @@ export const goldenQuarkUpgrades: {
   },
   cookies: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -465,8 +562,6 @@ export const goldenQuarkUpgrades: {
   },
   cookies2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -487,8 +582,6 @@ export const goldenQuarkUpgrades: {
   },
   cookies3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -509,8 +602,6 @@ export const goldenQuarkUpgrades: {
   },
   cookies4: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -531,8 +622,6 @@ export const goldenQuarkUpgrades: {
   },
   cookies5: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -553,9 +642,7 @@ export const goldenQuarkUpgrades: {
   },
   ascensions: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
-    maxLevel: -1,
+    maxLevel: funny32BitNumber,
     canExceedCap: false,
     qualityOfLife: false,
     costPerLevel: 5,
@@ -575,8 +662,6 @@ export const goldenQuarkUpgrades: {
   },
   corruptionFourteen: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -600,8 +685,6 @@ export const goldenQuarkUpgrades: {
   },
   corruptionFifteen: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -625,9 +708,7 @@ export const goldenQuarkUpgrades: {
   },
   singOfferings1: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
-    maxLevel: -1,
+    maxLevel: funny32BitNumber,
     canExceedCap: false,
     qualityOfLife: false,
     costPerLevel: 1,
@@ -647,8 +728,6 @@ export const goldenQuarkUpgrades: {
   },
   singOfferings2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 25,
     canExceedCap: true,
     qualityOfLife: false,
@@ -669,8 +748,6 @@ export const goldenQuarkUpgrades: {
   },
   singOfferings3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 40,
     canExceedCap: true,
     qualityOfLife: false,
@@ -691,9 +768,7 @@ export const goldenQuarkUpgrades: {
   },
   singObtainium1: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
-    maxLevel: -1,
+    maxLevel: funny32BitNumber,
     canExceedCap: false,
     qualityOfLife: false,
     costPerLevel: 1,
@@ -713,8 +788,6 @@ export const goldenQuarkUpgrades: {
   },
   singObtainium2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 25,
     canExceedCap: true,
     qualityOfLife: false,
@@ -735,8 +808,6 @@ export const goldenQuarkUpgrades: {
   },
   singObtainium3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 40,
     canExceedCap: true,
     qualityOfLife: false,
@@ -757,9 +828,7 @@ export const goldenQuarkUpgrades: {
   },
   singCubes1: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
-    maxLevel: -1,
+    maxLevel: funny32BitNumber,
     canExceedCap: false,
     qualityOfLife: false,
     costPerLevel: 1,
@@ -779,8 +848,6 @@ export const goldenQuarkUpgrades: {
   },
   singCubes2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 25,
     canExceedCap: true,
     qualityOfLife: false,
@@ -801,8 +868,6 @@ export const goldenQuarkUpgrades: {
   },
   singCubes3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 40,
     canExceedCap: true,
     qualityOfLife: false,
@@ -823,9 +888,7 @@ export const goldenQuarkUpgrades: {
   },
   singCitadel: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
-    maxLevel: -1,
+    maxLevel: funny32BitNumber,
     canExceedCap: false,
     qualityOfLife: false,
     costPerLevel: 500000,
@@ -845,8 +908,6 @@ export const goldenQuarkUpgrades: {
   },
   singCitadel2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 100,
     canExceedCap: false,
     qualityOfLife: false,
@@ -870,8 +931,6 @@ export const goldenQuarkUpgrades: {
   },
   octeractUnlock: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -892,8 +951,6 @@ export const goldenQuarkUpgrades: {
   },
   singOcteractPatreonBonus: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -917,9 +974,7 @@ export const goldenQuarkUpgrades: {
   },
   offeringAutomatic: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
-    maxLevel: -1,
+    maxLevel: funny32BitNumber,
     canExceedCap: false,
     qualityOfLife: false,
     costPerLevel: 1e14,
@@ -934,8 +989,6 @@ export const goldenQuarkUpgrades: {
   },
   intermediatePack: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -962,8 +1015,6 @@ export const goldenQuarkUpgrades: {
   },
   advancedPack: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -988,8 +1039,6 @@ export const goldenQuarkUpgrades: {
   },
   expertPack: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1016,8 +1065,6 @@ export const goldenQuarkUpgrades: {
   },
   masterPack: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1042,8 +1089,6 @@ export const goldenQuarkUpgrades: {
   },
   divinePack: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1080,8 +1125,6 @@ export const goldenQuarkUpgrades: {
   },
   wowPass2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1102,8 +1145,6 @@ export const goldenQuarkUpgrades: {
   },
   wowPass3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1124,8 +1165,6 @@ export const goldenQuarkUpgrades: {
   },
   potionBuff: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: true,
     qualityOfLife: false,
@@ -1146,8 +1185,6 @@ export const goldenQuarkUpgrades: {
   },
   potionBuff2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: true,
     qualityOfLife: false,
@@ -1168,8 +1205,6 @@ export const goldenQuarkUpgrades: {
   },
   potionBuff3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: true,
     qualityOfLife: false,
@@ -1190,8 +1225,6 @@ export const goldenQuarkUpgrades: {
   },
   singChallengeExtension: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 4,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1217,8 +1250,6 @@ export const goldenQuarkUpgrades: {
   },
   singChallengeExtension2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 3,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1244,8 +1275,6 @@ export const goldenQuarkUpgrades: {
   },
   singChallengeExtension3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 3,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1271,8 +1300,6 @@ export const goldenQuarkUpgrades: {
   },
   singQuarkImprover1: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 30,
     canExceedCap: true,
     qualityOfLife: true,
@@ -1293,8 +1320,6 @@ export const goldenQuarkUpgrades: {
   },
   singQuarkHepteract: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1315,8 +1340,6 @@ export const goldenQuarkUpgrades: {
   },
   singQuarkHepteract2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1337,8 +1360,6 @@ export const goldenQuarkUpgrades: {
   },
   singQuarkHepteract3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: true,
     qualityOfLife: true,
@@ -1359,9 +1380,7 @@ export const goldenQuarkUpgrades: {
   },
   singOcteractGain: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
-    maxLevel: -1,
+    maxLevel: funny32BitNumber,
     canExceedCap: false,
     qualityOfLife: false,
     costPerLevel: 20000,
@@ -1381,8 +1400,6 @@ export const goldenQuarkUpgrades: {
   },
   singOcteractGain2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 25,
     canExceedCap: true,
     qualityOfLife: false,
@@ -1403,8 +1420,6 @@ export const goldenQuarkUpgrades: {
   },
   singOcteractGain3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 50,
     canExceedCap: true,
     qualityOfLife: false,
@@ -1425,8 +1440,6 @@ export const goldenQuarkUpgrades: {
   },
   singOcteractGain4: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 100,
     canExceedCap: true,
     qualityOfLife: false,
@@ -1447,8 +1460,6 @@ export const goldenQuarkUpgrades: {
   },
   singOcteractGain5: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 200,
     canExceedCap: true,
     qualityOfLife: false,
@@ -1469,8 +1480,6 @@ export const goldenQuarkUpgrades: {
   },
   platonicTau: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1494,8 +1503,6 @@ export const goldenQuarkUpgrades: {
   },
   platonicAlpha: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1516,8 +1523,6 @@ export const goldenQuarkUpgrades: {
   },
   platonicDelta: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1539,8 +1544,6 @@ export const goldenQuarkUpgrades: {
   },
   platonicPhi: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1552,7 +1555,7 @@ export const goldenQuarkUpgrades: {
       return n > 0 ? Math.floor(5 * Math.min(player.singularityCounter * speedMult / (3600 * 24), 10)) : 0
     },
     effectDescription: () => {
-      const level = player.goldenQuarkUpgrades.platonicPhi.level
+      const level = goldenQuarkUpgrades.platonicPhi.level
       return i18next.t(
         `singularity.data.platonicPhi.effect${level > 0 ? 'Have' : 'HaveNot'}`
       )
@@ -1562,8 +1565,6 @@ export const goldenQuarkUpgrades: {
   },
   singFastForward: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1584,8 +1585,6 @@ export const goldenQuarkUpgrades: {
   },
   singFastForward2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1606,8 +1605,6 @@ export const goldenQuarkUpgrades: {
   },
   singAscensionSpeed: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1629,8 +1626,6 @@ export const goldenQuarkUpgrades: {
   },
   singAscensionSpeed2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 30,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1651,8 +1646,6 @@ export const goldenQuarkUpgrades: {
   },
   ultimatePen: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1676,8 +1669,6 @@ export const goldenQuarkUpgrades: {
   },
   halfMind: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1698,8 +1689,6 @@ export const goldenQuarkUpgrades: {
   },
   oneMind: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1720,8 +1709,6 @@ export const goldenQuarkUpgrades: {
   },
   wowPass4: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1740,10 +1727,28 @@ export const goldenQuarkUpgrades: {
     name: () => i18next.t('singularity.data.wowPass4.name'),
     description: () => i18next.t('singularity.data.wowPass4.description')
   },
+  wowPass5: {
+    level: 0,
+    maxLevel: 1,
+    canExceedCap: false,
+    qualityOfLife: true,
+    costPerLevel: 4e27,
+    minimumSingularity: 283,
+    specialCostForm: 'Default',
+    effect: (n: number) => {
+      return n > 0
+    },
+    effectDescription: () => {
+      const unlocked = getGQUpgradeEffect('wowPass5', 'unlocked')
+      return i18next.t(
+        `singularity.data.wowPass5.effect${unlocked ? 'Have' : 'HaveNot'}`
+      )
+    },
+    name: () => i18next.t('singularity.data.wowPass5.name'),
+    description: () => i18next.t('singularity.data.wowPass5.description')
+  },
   blueberries: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1762,9 +1767,7 @@ export const goldenQuarkUpgrades: {
   },
   singAmbrosiaLuck: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
-    maxLevel: -1,
+    maxLevel: 75,
     canExceedCap: false,
     qualityOfLife: true,
     costPerLevel: 1e9,
@@ -1784,8 +1787,6 @@ export const goldenQuarkUpgrades: {
   },
   singAmbrosiaLuck2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 30,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1806,8 +1807,6 @@ export const goldenQuarkUpgrades: {
   },
   singAmbrosiaLuck3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 30,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1828,8 +1827,6 @@ export const goldenQuarkUpgrades: {
   },
   singAmbrosiaLuck4: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 50,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1850,9 +1847,7 @@ export const goldenQuarkUpgrades: {
   },
   singAmbrosiaGeneration: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
-    maxLevel: -1,
+    maxLevel: 75,
     canExceedCap: false,
     qualityOfLife: true,
     costPerLevel: 1e9,
@@ -1872,8 +1867,6 @@ export const goldenQuarkUpgrades: {
   },
   singAmbrosiaGeneration2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 20,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1894,8 +1887,6 @@ export const goldenQuarkUpgrades: {
   },
   singAmbrosiaGeneration3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 35,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1916,8 +1907,6 @@ export const goldenQuarkUpgrades: {
   },
   singAmbrosiaGeneration4: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 50,
     canExceedCap: false,
     qualityOfLife: true,
@@ -1938,8 +1927,6 @@ export const goldenQuarkUpgrades: {
   },
   singBonusTokens1: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1960,8 +1947,6 @@ export const goldenQuarkUpgrades: {
   },
   singBonusTokens2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -1982,8 +1967,6 @@ export const goldenQuarkUpgrades: {
   },
   singBonusTokens3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -2004,8 +1987,6 @@ export const goldenQuarkUpgrades: {
   },
   singBonusTokens4: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 30,
     canExceedCap: false,
     qualityOfLife: false,
@@ -2026,8 +2007,6 @@ export const goldenQuarkUpgrades: {
   },
   singInfiniteShopUpgrades: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 80,
     canExceedCap: false,
     qualityOfLife: false,
@@ -2048,8 +2027,6 @@ export const goldenQuarkUpgrades: {
   },
   singTalismanBonusRunes1: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -2070,8 +2047,6 @@ export const goldenQuarkUpgrades: {
   },
   singTalismanBonusRunes2: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -2092,8 +2067,6 @@ export const goldenQuarkUpgrades: {
   },
   singTalismanBonusRunes3: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 5,
     canExceedCap: false,
     qualityOfLife: false,
@@ -2114,8 +2087,6 @@ export const goldenQuarkUpgrades: {
   },
   singTalismanBonusRunes4: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 10,
     canExceedCap: false,
     qualityOfLife: false,
@@ -2136,8 +2107,6 @@ export const goldenQuarkUpgrades: {
   },
   favoriteUpgrade: {
     level: 0,
-    freeLevel: 0,
-    goldenQuarksInvested: 0,
     maxLevel: 100,
     canExceedCap: false,
     qualityOfLife: true,
@@ -2145,12 +2114,24 @@ export const goldenQuarkUpgrades: {
     specialCostForm: 'Exponential2',
     minimumSingularity: 2,
     effect: (n: number) => {
-      const upgrade1 = +(goldenQuarkUpgrades.goldenQuarks1.level >= goldenQuarkUpgrades.goldenQuarks1.maxLevel)
-      const upgrade2 = +(goldenQuarkUpgrades.platonicDelta.level >= goldenQuarkUpgrades.platonicDelta.maxLevel)
-      const upgrade3 = +(goldenQuarkUpgrades.oneMind.level >= goldenQuarkUpgrades.oneMind.maxLevel)
-      const upgrade4 = +(octeractUpgrades.octeractImprovedFree.level >= octeractUpgrades.octeractImprovedFree.maxLevel)
-      const upgrade5 = +(octeractUpgrades.octeractCorruption.level >= octeractUpgrades.octeractCorruption.maxLevel)
-      const upgrade6 = +(octeractUpgrades.octeractBlueberries.level >= octeractUpgrades.octeractBlueberries.maxLevel)
+      const upgrade1 = +(
+        goldenQuarkUpgrades.goldenQuarks1.level >= goldenQuarkUpgrades.goldenQuarks1.maxLevel
+      )
+      const upgrade2 = +(
+        goldenQuarkUpgrades.platonicDelta.level >= goldenQuarkUpgrades.platonicDelta.maxLevel
+      )
+      const upgrade3 = +(
+        goldenQuarkUpgrades.oneMind.level >= goldenQuarkUpgrades.oneMind.maxLevel
+      )
+      const upgrade4 = +(
+        octeractUpgrades.octeractImprovedFree.level >= octeractUpgrades.octeractImprovedFree.maxLevel
+      )
+      const upgrade5 = +(
+        octeractUpgrades.octeractCorruption.level >= octeractUpgrades.octeractCorruption.maxLevel
+      )
+      const upgrade6 = +(
+        octeractUpgrades.octeractBlueberries.level >= octeractUpgrades.octeractBlueberries.maxLevel
+      )
       const upgrade7 = +(redAmbrosiaUpgrades.tutorial.level >= redAmbrosiaUpgrades.tutorial.maxLevel)
       const upgrade8 =
         +(redAmbrosiaUpgrades.infiniteShopUpgrades.level >= redAmbrosiaUpgrades.infiniteShopUpgrades.maxLevel)
@@ -2164,16 +2145,21 @@ export const goldenQuarkUpgrades: {
     description: () => {
       const titleText = i18next.t('singularity.data.favoriteUpgrade.description')
       const upgrade1 = i18next.t('singularity.data.favoriteUpgrade.upgrade1', {
-        checkMark: goldenQuarkUpgrades.goldenQuarks1.level >= goldenQuarkUpgrades.goldenQuarks1.maxLevel ? '✔️' : '❌'
+        checkMark: goldenQuarkUpgrades.goldenQuarks1.level >= goldenQuarkUpgrades.goldenQuarks1.maxLevel
+          ? '✔️'
+          : '❌'
       })
       const upgrade2 = i18next.t('singularity.data.favoriteUpgrade.upgrade2', {
-        checkMark: goldenQuarkUpgrades.platonicDelta.level >= goldenQuarkUpgrades.platonicDelta.maxLevel ? '✔️' : '❌'
+        checkMark: goldenQuarkUpgrades.platonicDelta.level >= goldenQuarkUpgrades.platonicDelta.maxLevel
+          ? '✔️'
+          : '❌'
       })
       const upgrade3 = i18next.t('singularity.data.favoriteUpgrade.upgrade3', {
         checkMark: goldenQuarkUpgrades.oneMind.level >= goldenQuarkUpgrades.oneMind.maxLevel ? '✔️' : '❌'
       })
       const upgrade4 = i18next.t('singularity.data.favoriteUpgrade.upgrade4', {
-        checkMark: octeractUpgrades.octeractImprovedFree.level >= octeractUpgrades.octeractImprovedFree.maxLevel
+        checkMark: octeractUpgrades.octeractImprovedFree.level
+            >= octeractUpgrades.octeractImprovedFree.maxLevel
           ? '✔️'
           : '❌'
       })
@@ -2212,33 +2198,30 @@ export const goldenQuarkUpgrades: {
   }
 }
 
+export const goldenQuarkUpgradeNames = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
+
 export const blankGQLevelObject: Record<
   SingularityDataKeys,
-  { level: number; freeLevel: number; goldenQuarksInvested: number }
+  { freeLevel: number; goldenQuarksInvested: number }
 > = Object.fromEntries(
   Object.keys(goldenQuarkUpgrades).map((key) => [
     key as SingularityDataKeys,
     {
-      level: 0,
       freeLevel: 0,
       goldenQuarksInvested: 0
     }
   ])
-) as Record<SingularityDataKeys, { level: number; freeLevel: number; goldenQuarksInvested: number }>
+) as Record<SingularityDataKeys, { freeLevel: number; goldenQuarksInvested: number }>
 
-export const maxGoldenQuarkUpgradeAP = Object.values(goldenQuarkUpgrades).reduce((acc, upgrade) => {
-  if (upgrade.maxLevel === -1) {
-    return acc
-  }
-  return acc + 5
+export const maxGoldenQuarkUpgradeAP = Object.values(goldenQuarkUpgrades).reduce((acc) => {
+  return acc + 6
 }, 0)
 
 export function updateGoldenQuarkUpgradeVisibility (
   upgradeKey: SingularityDataKeys,
   element = DOMCacheGetOrSet(upgradeKey)
 ): boolean {
-  const upgrade = goldenQuarkUpgrades[upgradeKey]
-  const isMaxed = upgrade.maxLevel !== -1 && upgrade.level >= computeGQUpgradeMaxLevel(upgradeKey)
+  const isMaxed = goldenQuarkUpgrades[upgradeKey].level >= computeGQUpgradeMaxLevel(upgradeKey)
   const hideMaxed = DOMCacheGetOrSet('toggleMaxedGoldenQuarkUpgrades').getAttribute('aria-pressed') === 'true'
 
   element.classList.toggle('upgradeHiddenByMaxLevel', hideMaxed && isMaxed)
@@ -2255,7 +2238,7 @@ export function toggleMaxedGoldenQuarkUpgrades (): void {
   toggle.textContent = i18next.t(i18nKey)
   toggle.style.border = `2px solid ${hideMaxed ? 'red' : 'green'}`
 
-  for (const key of Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]) {
+  for (const key of goldenQuarkUpgradeNames) {
     if (key !== 'offeringAutomatic') {
       updateGoldenQuarkUpgradeVisibility(key)
     }
@@ -2270,12 +2253,14 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   const name = upgrade.name()
   const description = upgrade.description()
   const costNextLevel = getGQUpgradeCostTNL(upgradeKey)
-  const maxLevel = upgrade.maxLevel === -1 ? '' : `/${format(computeGQUpgradeMaxLevel(upgradeKey), 0, true)}`
+  const maxLevel = `/${format(computeGQUpgradeMaxLevel(upgradeKey), 0, true)}`
   const effectDesc = upgrade.effectDescription()
   const freeLevelMult = computeFreeLevelMultiplier()
-  const freeLevelsWithMult = upgrade.freeLevel * freeLevelMult
+  const freeLevelsWithMult = player.goldenQuarkUpgrades[upgradeKey].freeLevel * freeLevelMult
   const totalEffectiveLevels = actualGQUpgradeTotalLevels(upgradeKey)
-  const color = computeGQUpgradeMaxLevel(upgradeKey) === upgrade.level ? 'plum' : 'white'
+  const color = computeGQUpgradeMaxLevel(upgradeKey) === goldenQuarkUpgrades[upgradeKey].level
+    ? 'plum'
+    : 'white'
 
   // Upgrade Name Text
   const nameHTML = `<span style="color: gold">${name}</span>`
@@ -2301,10 +2286,12 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     : ''
 
   let freeLevelText = freeLevelsWithMult > 0
-    ? `<span style="color: orange"> [+${format(upgrade.freeLevel, 2, true)}${freeMultText}]</span>`
+    ? `<span style="color: orange"> [+${
+      format(player.goldenQuarkUpgrades[upgradeKey].freeLevel, 2, true)
+    }${freeMultText}]</span>`
     : ''
 
-  if (freeLevelsWithMult > upgrade.level) {
+  if (freeLevelsWithMult > goldenQuarkUpgrades[upgradeKey].level) {
     freeLevelText = `${freeLevelText}<span style="color: lightgray"> ${
       i18next.t(
         'general.softCapped'
@@ -2312,7 +2299,7 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     }</span>`
   }
 
-  const effectiveLevelText = totalEffectiveLevels !== upgrade.level
+  const effectiveLevelText = totalEffectiveLevels !== goldenQuarkUpgrades[upgradeKey].level
     ? `<br><b><span style="color: white">${
       i18next.t('general.effectiveLevel', {
         level: format(totalEffectiveLevels, 2, true)
@@ -2321,20 +2308,22 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     : ''
 
   const levelText = `<span style="color: ${color}">${i18next.t('general.level')} ${
-    format(upgrade.level, 0, true)
+    format(goldenQuarkUpgrades[upgradeKey].level, 0, true)
   }${maxLevel}${freeLevelText}</span>`
 
   // Upgrade Effect Text
   const upgradeEffectHTML = `<span style="color: gold">${effectDesc}</span>`
 
   // TNL Cost Text
-  const costHTML = computeGQUpgradeMaxLevel(upgradeKey) === upgrade.level
+  const costHTML = computeGQUpgradeMaxLevel(upgradeKey) === goldenQuarkUpgrades[upgradeKey].level
     ? ''
     : i18next.t('singularity.toString.costNextLevel', { amount: format(costNextLevel, 0, true) })
 
-  const investedGQHTML = upgrade.goldenQuarksInvested > 0
+  const investedGQHTML = player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested > 0
     ? `<br><span style="color: orange">${
-      i18next.t('singularity.toString.spentGQ', { spent: format(upgrade.goldenQuarksInvested, 0, true) })
+      i18next.t('singularity.toString.spentGQ', {
+        spent: format(player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested, 0, true)
+      })
     }</span>`
     : ''
 
@@ -2371,50 +2360,74 @@ export function updateMobileGQHTML (k: SingularityDataKeys) {
   }
 }
 
+export const getGQUpgradeCumulativeCost = (upgradeKey: SingularityDataKeys, level: number): number => {
+  const upgrade = goldenQuarkUpgrades[upgradeKey]
+  const costForm = singularityCostFormulae[upgrade.specialCostForm]
+
+  return costForm(upgrade.costPerLevel, level, upgrade.maxLevel)
+}
+
+export const maximumAffordableLevel = (upgradeKey: SingularityDataKeys, goldenQuarkAmount: number): number => {
+  const maxLevel = computeGQUpgradeMaxLevel(upgradeKey)
+
+  if (goldenQuarkUpgrades[upgradeKey].level === maxLevel) {
+    return maxLevel // no need to check maxed upgrades for affordability
+  }
+
+  const availableGQ = goldenQuarkAmount + player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested
+
+  let low = goldenQuarkUpgrades[upgradeKey].level
+  let high = maxLevel
+
+  while (low < high) {
+    const middle = low + Math.ceil((high - low) / 2)
+
+    if (getGQUpgradeCumulativeCost(upgradeKey, middle) <= availableGQ) {
+      low = middle
+    } else {
+      high = middle - 1
+    }
+  }
+
+  return low
+}
+
+export const setGQUpgradeLevels = () => {
+  for (const upgradeKey of goldenQuarkUpgradeNames) {
+    const upgrade = goldenQuarkUpgrades[upgradeKey]
+    const oldInvested = player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested || 0
+
+    upgrade.level = 0
+
+    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, 0)
+    const totalCost = getGQUpgradeCumulativeCost(upgradeKey, maxAffordableLevel)
+
+    upgrade.level = maxAffordableLevel
+
+    player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested = totalCost
+
+    const toRefund = oldInvested - totalCost
+    if (toRefund > 0) {
+      player.goldenQuarks += toRefund
+    }
+  }
+}
+
 /**
  * Get the cost for upgrading once. Returns 0 if maxed.
  */
 export function getGQUpgradeCostTNL (upgradeKey: SingularityDataKeys): number {
-  const upgrade = goldenQuarkUpgrades[upgradeKey]
-  let costMultiplier = 1
-
-  if (computeGQUpgradeMaxLevel(upgradeKey) === upgrade.level) {
+  if (computeGQUpgradeMaxLevel(upgradeKey) === goldenQuarkUpgrades[upgradeKey].level) {
     return 0
   }
 
-  // Overcap
-  if (upgrade.level >= upgrade.maxLevel && computeGQUpgradeMaxLevel(upgradeKey) > upgrade.maxLevel) {
-    costMultiplier *= Math.pow(4, upgrade.level - upgrade.maxLevel + 1)
+  const nextLevelCost = getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level + 1)
+
+  if (!Number.isFinite(nextLevelCost)) {
+    return Number.POSITIVE_INFINITY
   }
 
-  if (upgrade.specialCostForm === 'Exponential2') {
-    return (
-      upgrade.costPerLevel * Math.sqrt(costMultiplier) * Math.pow(2, upgrade.level)
-    )
-  }
-
-  if (upgrade.specialCostForm === 'Cubic') {
-    return (
-      upgrade.costPerLevel
-      * costMultiplier
-      * (Math.pow(upgrade.level + 1, 3) - Math.pow(upgrade.level, 3))
-    )
-  }
-
-  if (upgrade.specialCostForm === 'Quadratic') {
-    return (
-      upgrade.costPerLevel
-      * costMultiplier
-      * (Math.pow(upgrade.level + 1, 2) - Math.pow(upgrade.level, 2))
-    )
-  }
-
-  costMultiplier *= upgrade.maxLevel === -1 && upgrade.level >= 100 ? upgrade.level / 50 : 1
-  costMultiplier *= upgrade.maxLevel === -1 && upgrade.level >= 400 ? upgrade.level / 100 : 1
-
-  return computeGQUpgradeMaxLevel(upgradeKey) === upgrade.level
-    ? 0
-    : Math.ceil(upgrade.costPerLevel * (1 + upgrade.level) * costMultiplier)
+  return nextLevelCost - getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level)
 }
 
 /**
@@ -2426,82 +2439,67 @@ export async function buyGQUpgradeLevel (
   buyMax = false
 ): Promise<void> {
   const upgrade = goldenQuarkUpgrades[upgradeKey]
-  let purchased = 0
-  let maxPurchasable = 1
-  let GQBudget = player.goldenQuarks
-
-  if (event.shiftKey || buyMax) {
-    maxPurchasable = 100000000
-    const buy = Number(
-      await Prompt(
-        i18next.t('singularity.goldenQuarks.spendPrompt', {
-          gq: format(player.goldenQuarks, 0, true)
-        })
-      )
-    )
-
-    if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) {
-      return Alert(i18next.t('general.validation.finite'))
-    }
-
-    if (buy === -1) {
-      GQBudget = player.goldenQuarks
-    } else if (buy <= 0) {
-      return Alert(i18next.t('general.validation.zeroOrLess'))
-    } else {
-      GQBudget = buy
-    }
-    GQBudget = Math.min(player.goldenQuarks, GQBudget)
-  }
-
-  if (upgrade.maxLevel > 0) {
-    maxPurchasable = Math.min(
-      maxPurchasable,
-      computeGQUpgradeMaxLevel(upgradeKey) - upgrade.level
-    )
-  }
-
-  if (maxPurchasable === 0) {
+  if (computeGQUpgradeMaxLevel(upgradeKey) === goldenQuarkUpgrades[upgradeKey].level) {
     return Alert(i18next.t('singularity.goldenQuarks.hasUpgrade'))
   }
-
   if (player.highestSingularityCount < upgrade.minimumSingularity) {
     return Alert(i18next.t('singularity.goldenQuarks.notHighEnoughLevel'))
   }
 
-  while (maxPurchasable > 0) {
-    const cost = getGQUpgradeCostTNL(upgradeKey)
-    if (player.goldenQuarks < cost || GQBudget < cost) {
-      break
+  const GQBudget = player.goldenQuarks
+  const affordableLevel = maximumAffordableLevel(upgradeKey, GQBudget)
+
+  // This is either 0 or 1
+  let levelsToPurchase = Math.min(1, affordableLevel - goldenQuarkUpgrades[upgradeKey].level)
+  if (levelsToPurchase === 0) {
+    return Alert(i18next.t('singularity.goldenQuarks.poor'))
+  }
+
+  if (event.shiftKey || buyMax) {
+    const maxPurchasableLevels = affordableLevel - goldenQuarkUpgrades[upgradeKey].level
+    const amountLevelSelected = Number(
+      await Prompt(
+        i18next.t('singularity.goldenQuarks.spendPrompt', {
+          n: format(maxPurchasableLevels, 0, true)
+        })
+      )
+    )
+
+    if (isNaN(amountLevelSelected) || !isFinite(amountLevelSelected) || !Number.isInteger(amountLevelSelected)) {
+      return Alert(i18next.t('general.validation.finite'))
+    }
+
+    if (amountLevelSelected === -1) {
+      levelsToPurchase = maxPurchasableLevels
+    } else if (amountLevelSelected <= 0) {
+      return Alert(i18next.t('general.validation.zeroOrLess'))
     } else {
-      player.goldenQuarks -= cost
-      upgrade.goldenQuarksInvested += cost
-      GQBudget -= cost
-      upgrade.level += 1
-      purchased += 1
-      maxPurchasable -= 1
-    }
-
-    // Special upgrade effects
-    if (upgradeKey === 'oneMind') {
-      player.ascensionCounter = 0
-      player.ascensionCounterReal = 0
-      player.ascensionCounterRealReal = 0
-      void Alert(i18next.t('singularity.goldenQuarks.ascensionReset'))
-    }
-
-    if (upgradeKey === 'singCitadel2') {
-      goldenQuarkUpgrades.singCitadel.freeLevel = upgrade.level
+      levelsToPurchase = Math.min(amountLevelSelected, maxPurchasableLevels)
     }
   }
 
-  if (purchased === 0) {
-    return Alert(i18next.t('general.validation.moreThanPlayerHas'))
+  const cost = getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level + levelsToPurchase)
+    - getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level)
+
+  player.goldenQuarks -= cost
+  player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested += cost
+  goldenQuarkUpgrades[upgradeKey].level += levelsToPurchase
+
+  if (upgradeKey === 'oneMind') {
+    player.ascensionCounter = 0
+    player.ascensionCounterReal = 0
+    player.ascensionCounterRealReal = 0
+    void Alert(i18next.t('singularity.goldenQuarks.ascensionReset'))
   }
-  if (purchased > 1) {
+
+  if (upgradeKey === 'singCitadel2') {
+    player.goldenQuarkUpgrades.singCitadel.freeLevel = goldenQuarkUpgrades.singCitadel2.level
+  }
+
+  if (levelsToPurchase > 1) {
     void Alert(
       i18next.t('singularity.goldenQuarks.multiBuyPurchased', {
-        levels: format(purchased)
+        levels: format(levelsToPurchase)
       })
     )
   }
@@ -2518,12 +2516,11 @@ function computeFreeLevelMultiplier (): number {
 }
 
 export function computeGQUpgradeFreeLevelSoftcap (upgradeKey: SingularityDataKeys): number {
-  const upgrade = goldenQuarkUpgrades[upgradeKey]
   const freeLevelMult = computeFreeLevelMultiplier()
-  const baseRealFreeLevels = freeLevelMult * upgrade.freeLevel
+  const baseRealFreeLevels = freeLevelMult * player.goldenQuarkUpgrades[upgradeKey].freeLevel
   return (
-    Math.min(upgrade.level, baseRealFreeLevels)
-    + Math.sqrt(Math.max(0, baseRealFreeLevels - upgrade.level))
+    Math.min(goldenQuarkUpgrades[upgradeKey].level, baseRealFreeLevels)
+    + Math.sqrt(Math.max(0, baseRealFreeLevels - goldenQuarkUpgrades[upgradeKey].level))
   )
 }
 
@@ -2565,7 +2562,7 @@ export function actualGQUpgradeTotalLevels (upgradeKey: SingularityDataKeys): nu
   }
 
   const actualFreeLevels = computeGQUpgradeFreeLevelSoftcap(upgradeKey)
-  const linearLevels = upgrade.level + actualFreeLevels
+  const linearLevels = goldenQuarkUpgrades[upgradeKey].level + actualFreeLevels
   let polynomialLevels = 0
 
   if (getOcteractUpgradeEffect('octeractImprovedFree', 'unlocked')) {
@@ -2573,7 +2570,7 @@ export function actualGQUpgradeTotalLevels (upgradeKey: SingularityDataKeys): nu
     exponent += getOcteractUpgradeEffect('octeractImprovedFree2', 'freeLevelPowerIncrease')
     exponent += getOcteractUpgradeEffect('octeractImprovedFree3', 'freeLevelPowerIncrease')
     exponent += getOcteractUpgradeEffect('octeractImprovedFree4', 'freeLevelPowerIncrease')
-    polynomialLevels = Math.pow(upgrade.level * actualFreeLevels, exponent)
+    polynomialLevels = Math.pow(goldenQuarkUpgrades[upgradeKey].level * actualFreeLevels, exponent)
   }
 
   return Math.max(linearLevels, polynomialLevels)
@@ -2899,20 +2896,6 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t('singularity.perks.persistentGlobalResets.default')
     },
     ID: 'persistentGlobalResets'
-  },
-  {
-    name: 'singularity.perks.shopSpecialOffer.name',
-    levels: [10, 50],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[1]) {
-        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel2')
-      } else if (n >= levels[0]) {
-        return i18next.t('singularity.perks.shopSpecialOffer.hasLevel1')
-      } else {
-        return i18next.t('singularity.perks.shopSpecialOffer.default')
-      }
-    },
-    ID: 'shopSpecialOffer'
   },
   {
     name: 'singularity.perks.forTheLoveOfTheAntGod.name',
@@ -3353,6 +3336,55 @@ export const singularityPerks: SingularityPerk[] = [
       })
     },
     ID: 'taxReduction'
+  },
+  {
+    name: 'singularity.perks.irishAnt3.name',
+    levels: [285, 293],
+    description: () => {
+      let perSing = 2
+      if (player.highestSingularityCount >= 292) {
+        perSing++
+      }
+
+      const effect = perSing * (player.highestSingularityCount - 280)
+      return i18next.t('singularity.perks.irishAnt3.default', {
+        amt: format(effect, 0, true),
+        amt2: format(perSing, 0, true)
+      })
+    },
+    ID: 'irishAnt3'
+  },
+  {
+    name: 'singularity.perks.efficientBlueberries.name',
+    levels: [283, 289],
+    description: () => {
+      let perTwo = 2 / 100
+      if (player.highestSingularityCount >= 289) {
+        perTwo += 1 / 100
+      }
+      const effect = perTwo * Math.floor(calculateBlueberryInventory() / 2)
+      return i18next.t('singularity.perks.efficientBlueberries.default', {
+        amt: format(effect, 2, true),
+        amt2: format(perTwo, 2, true)
+      })
+    },
+    ID: 'efficientBlueberries'
+  },
+  {
+    name: 'singularity.perks.reactorSpeedup.name',
+    levels: [282, 284, 286, 288, 290, 292, 294, 296, 298, 300],
+    description: (n: number, levels: number[]) => {
+      for (let i = levels.length - 1; i >= 0; i--) {
+        if (n >= levels[i]) {
+          return i18next.t('singularity.perks.reactorSpeedup.default', {
+            amt: formatAsPercentIncrease(1 - (i + 1) / 100, 0)
+          })
+        }
+      }
+
+      return i18next.t('singularity.perks.evenMoreQuarks.bug')
+    },
+    ID: 'reactorSpeedup'
   }
 ]
 
@@ -3360,78 +3392,88 @@ interface SingularityPerkTreePlacement {
   readonly parentID: string | null
   readonly x: number
   readonly y: number
+  // Draw separate straight lines to children instead of a shared branch and junction.
+  readonly independentChildConnections?: boolean
 }
+
+const xScale = 1 // Identity
+const yScale = 1.33
+const xPrime = (k: number) => k * xScale
+// 0.25 yScale shift to make tree further away from the subtab buttons
+const yPrime = (k: number) => (k + 0.25) * yScale
 
 // These are visual progression branches, not perk prerequisites.
 // The Singularity 1 Perks form the central hub and each family grows into the surrounding web.
 const SINGULARITY_PERK_TREE_PLACEMENTS: Record<string, SingularityPerkTreePlacement> = {
-  welcometoSingularity: { parentID: null, x: -1.5, y: -0.5 },
-  tokenInheritance: { parentID: 'welcometoSingularity', x: -4, y: -3.15 },
-  autoCampaigns: { parentID: 'tokenInheritance', x: -5, y: -4.3 },
-  bonusTokens: { parentID: 'autoCampaigns', x: -6, y: -4.3 },
-  firstClearTokens: { parentID: 'tokenInheritance', x: -5, y: -3.15 },
-  lastClearTokens: { parentID: 'firstClearTokens', x: -6, y: -3.15 },
-  sweepomatic: { parentID: 'welcometoSingularity', x: -4, y: -0.85 },
-  automationUpgrades: { parentID: 'sweepomatic', x: -5, y: -0.85 },
-  eternalAscensions: { parentID: 'automationUpgrades', x: -6, y: -0.85 },
-  persistentGlobalResets: { parentID: 'sweepomatic', x: -5, y: -2 },
+  welcometoSingularity: { parentID: null, x: -1, y: 0 },
+  tokenInheritance: { parentID: 'welcometoSingularity', x: -3, y: -2, independentChildConnections: true },
+  autoCampaigns: { parentID: 'tokenInheritance', x: -4, y: -3 },
+  bonusTokens: { parentID: 'autoCampaigns', x: -5, y: -3 },
+  firstClearTokens: { parentID: 'tokenInheritance', x: -4, y: -2 },
+  lastClearTokens: { parentID: 'firstClearTokens', x: -5, y: -2 },
+  sweepomatic: { parentID: 'welcometoSingularity', x: -3, y: 0 },
+  automationUpgrades: { parentID: 'sweepomatic', x: -4, y: 0, independentChildConnections: true },
+  potionAutogenerator: { parentID: 'automationUpgrades', x: -4, y: 1 },
+  automagicalRunes: { parentID: 'automationUpgrades', x: -4, y: -1 },
+  eternalAscensions: { parentID: 'automationUpgrades', x: -5, y: 0, independentChildConnections: true },
+  wowCubeAutomatedShipping: { parentID: 'eternalAscensions', x: -5, y: 1 },
+  platonicClones: { parentID: 'eternalAscensions', x: -5, y: -1 },
+  persistentGlobalResets: { parentID: 'welcometoSingularity', x: -3, y: -1 },
 
-  unlimitedGrowth: { parentID: null, x: -1, y: -1.5 },
-  evenMoreQuarks: { parentID: 'unlimitedGrowth', x: -1, y: -3.25 },
-  itAllAddsUp: { parentID: 'unlimitedGrowth', x: -2, y: -3.75 },
-  platSigma: { parentID: 'itAllAddsUp', x: -4, y: -5 },
+  unlimitedGrowth: { parentID: null, x: 0, y: -1, independentChildConnections: true },
+  derpSmithsCornucopia: { parentID: 'unlimitedGrowth', x: 0, y: -2 },
+  primalPower: { parentID: 'derpSmithsCornucopia', x: 0, y: -3 },
+  infiniteShopUpgrades: { parentID: 'primalPower', x: -1, y: -3 },
+  evenMoreQuarks: { parentID: 'unlimitedGrowth', x: -1, y: -1 },
+  skrauQ: { parentID: 'evenMoreQuarks', x: -1, y: -2 },
 
-  goldenCoins: { parentID: null, x: 0, y: -1.5 },
-  shopSpecialOffer: { parentID: 'goldenCoins', x: 0, y: -2.75 },
-  goldenRevolution: { parentID: 'shopSpecialOffer', x: 0, y: -5 },
-  midasMilleniumAgedGold: { parentID: 'goldenRevolution', x: -1, y: -5 },
-  goldenRevolution4: { parentID: 'midasMilleniumAgedGold', x: -2, y: -5 },
-  goldenRevolution2: { parentID: 'shopSpecialOffer', x: 1, y: -5 },
-  octeractMetagenesis: { parentID: 'goldenRevolution2', x: 2, y: -5 },
-  infiniteShopUpgrades: { parentID: 'octeractMetagenesis', x: 3, y: -5 },
-  taxReduction: { parentID: 'infiniteShopUpgrades', x: 4, y: -5 },
-  goldenRevolution3: { parentID: 'shopSpecialOffer', x: 1, y: -3.5 },
-  skrauQ: { parentID: 'goldenRevolution3', x: 2, y: -3.5 },
+  goldenCoins: { parentID: null, x: 1, y: -1 },
+  immaculateAlchemy: { parentID: 'goldenCoins', x: 1, y: -3 },
+  goldenRevolution: { parentID: 'immaculateAlchemy', x: 1, y: -4 },
+  goldenRevolution2: { parentID: 'goldenRevolution', x: 0, y: -4 },
+  goldenRevolution3: { parentID: 'goldenRevolution', x: 2, y: -4 },
+  goldenRevolution4: { parentID: 'goldenRevolution3', x: 3, y: -4 },
+  taxReduction: { parentID: 'goldenRevolution4', x: 3, y: -3 },
 
-  xyz: { parentID: null, x: 1, y: -1.5 },
-  potionAutogenerator: { parentID: 'xyz', x: 2.25, y: -1.5 },
-  immaculateAlchemy: { parentID: 'potionAutogenerator', x: 4, y: -3 },
+  xyz: { parentID: null, x: 2, y: 0, independentChildConnections: true },
+  octeractMetagenesis: { parentID: 'xyz', x: 3, y: 0 },
+  itAllAddsUp: { parentID: 'xyz', x: 2, y: -1 },
+  platSigma: { parentID: 'itAllAddsUp', x: 3, y: -1 },
+  midasMilleniumAgedGold: { parentID: 'platSigma', x: 4, y: -1 },
 
-  generousOrbs: { parentID: null, x: 1.5, y: -0.5 },
-  coolQOLCubes: { parentID: 'generousOrbs', x: 4, y: -1 },
-  congealedblueberries: { parentID: 'coolQOLCubes', x: 5, y: -1 },
-  wowCubeAutomatedShipping: { parentID: 'generousOrbs', x: 4, y: 0.15 },
+  generousOrbs: { parentID: null, x: -1, y: 1 },
+  overclocked: { parentID: 'generousOrbs', x: -2, y: 1 },
 
-  researchDummies: { parentID: null, x: 1.5, y: 0.5 },
-  superStart: { parentID: 'researchDummies', x: 3, y: 3 },
-  platonicClones: { parentID: 'superStart', x: 4, y: 3 },
-  automagicalRunes: { parentID: 'researchDummies', x: 3, y: 4.15 },
-  permanentBenefaction: { parentID: 'automagicalRunes', x: 4, y: 4.15 },
+  researchDummies: { parentID: null, x: 2, y: 1 },
+  superStart: { parentID: 'researchDummies', x: 3, y: 1, independentChildConnections: true },
+  notSoChallenging: { parentID: 'superStart', x: 4, y: 1 },
+  coolQOLCubes: { parentID: 'superStart', x: 3, y: 2 },
+  permanentBenefaction: { parentID: 'coolQOLCubes', x: 4, y: 2 },
 
-  recycledContent: { parentID: null, x: 0.5, y: 1.5 },
-  infiniteRecycling: { parentID: 'recycledContent', x: -1, y: 5 },
-  recyclistsDesktop: { parentID: 'recycledContent', x: 1, y: 5 },
+  recycledContent: { parentID: null, x: 1, y: 2 },
+  infiniteRecycling: { parentID: 'recycledContent', x: 0, y: 3 },
+  demeterHarvest: { parentID: 'recycledContent', x: 1, y: 3 },
+  recyclistsDesktop: { parentID: 'recycledContent', x: 2, y: 3 },
 
-  antGodsCornucopia: { parentID: null, x: -0.5, y: 1.5 },
-  forTheLoveOfTheAntGod: { parentID: 'antGodsCornucopia', x: -3, y: 3 },
-  irishAnt: { parentID: 'forTheLoveOfTheAntGod', x: -4, y: 3 },
-  irishAnt2: { parentID: 'irishAnt', x: -5, y: 3 },
-  derpSmithsCornucopia: { parentID: 'antGodsCornucopia', x: -3, y: 4.15 },
-  demeterHarvest: { parentID: 'derpSmithsCornucopia', x: -4, y: 4.15 },
+  antGodsCornucopia: { parentID: null, x: 0, y: 2 },
+  eloBonus: { parentID: 'antGodsCornucopia', x: -2, y: 2 },
+  invigoratedSpirits: { parentID: 'eloBonus', x: -3, y: 2 },
+  bringToLife: { parentID: 'invigoratedSpirits', x: -4, y: 2 },
+  forTheLoveOfTheAntGod: { parentID: 'antGodsCornucopia', x: -2, y: 3 },
+  irishAnt: { parentID: 'forTheLoveOfTheAntGod', x: -3, y: 3, independentChildConnections: true },
+  irishAnt2: { parentID: 'irishAnt', x: -4, y: 3 },
+  congealedblueberries: { parentID: 'irishAnt', x: -3, y: 4 },
+  efficientBlueberries: { parentID: 'congealedblueberries', x: -2, y: 4 },
+  reactorSpeedup: { parentID: 'congealedblueberries', x: -4, y: 4 },
+  irishAnt3: { parentID: 'irishAnt2', x: -5, y: 3 },
 
-  bringToLife: { parentID: null, x: -1.5, y: 0.5 },
-  invigoratedSpirits: { parentID: 'bringToLife', x: -4, y: 1.45 },
-  notSoChallenging: { parentID: 'invigoratedSpirits', x: -5, y: 1.45 },
-  exaltedAchievements: { parentID: 'notSoChallenging', x: -6, y: 1.45 },
-  eloBonus: { parentID: 'bringToLife', x: -4, y: 0.3 },
-  overclocked: { parentID: 'eloBonus', x: -5, y: 0.3 },
-  primalPower: { parentID: 'overclocked', x: -6, y: 0.3 }
+  exaltedAchievements: { parentID: null, x: 0.5, y: 0.5 }
 }
 const SINGULARITY_PERK_TREE_BOUNDS = {
   minimumX: -6,
-  maximumX: 5,
-  minimumY: -5,
-  maximumY: 5,
+  maximumX: 6,
+  minimumY: -6,
+  maximumY: 6,
   paddingPercent: 5
 } as const
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
@@ -3514,6 +3556,17 @@ const drawSingularityPerkTreeConnections = (): void => {
     }
 
     const start = singularityPerkTreeElementCenter(parent, canvasRect)
+    if (SINGULARITY_PERK_TREE_PLACEMENTS[parentID].independentChildConnections) {
+      for (const child of children) {
+        const end = singularityPerkTreeElementCenter(child, canvasRect)
+        paths.append(singularityPerkTreePath(
+          `M ${start.x} ${start.y} L ${end.x} ${end.y}`,
+          singularityPerkTreeConnectionClass(child)
+        ))
+      }
+      continue
+    }
+
     const childCenters = children.map((child) => singularityPerkTreeElementCenter(child, canvasRect))
     const averageEnd = childCenters.reduce(
       (total, point) => ({ x: total.x + point.x / childCenters.length, y: total.y + point.y / childCenters.length }),
@@ -3605,11 +3658,11 @@ export const addSingularityPerkToTree = (perkElement: HTMLElement, perkID: strin
   const availablePercent = 100 - 2 * paddingPercent
   perkElement.style.setProperty(
     '--singularity-perk-tree-x',
-    `${paddingPercent + availablePercent * (placement.x - minimumX) / (maximumX - minimumX)}%`
+    `${paddingPercent + availablePercent * (xPrime(placement.x) - minimumX) / (maximumX - minimumX)}%`
   )
   perkElement.style.setProperty(
     '--singularity-perk-tree-y',
-    `${paddingPercent + availablePercent * (placement.y - minimumY) / (maximumY - minimumY)}%`
+    `${paddingPercent + availablePercent * (yPrime(placement.y) - minimumY) / (maximumY - minimumY)}%`
   )
   singularityPerkTreeCanvas.append(perkElement)
 }
@@ -3924,14 +3977,6 @@ export const calculateEffectiveSingularities = (
   if (singularityCount > 269) {
     effectiveSingularities *= 3
     effectiveSingularities *= Math.pow(3, singularityCount - 269)
-  }
-
-  if (
-    player.singularityChallenges.taxmanLastStand.enabled
-    && player.singularityChallenges.taxmanLastStand.completions >= 8
-    && player.platonicUpgrades[15] === 0
-  ) {
-    effectiveSingularities = Math.pow(effectiveSingularities, 3 / 2)
   }
 
   return effectiveSingularities

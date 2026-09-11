@@ -6,6 +6,9 @@ Synergism is a TypeScript/HTML/CSS idle game. Frontend entry points are `src/Syn
 
 - Ask the user before adding fields to the `player` object; save size matters.
 - New player fields must be reflected in `src/types/Synergism.ts`, `src/saves/PlayerSchema.ts`, and the `player` definition in `src/Synergism.ts`.
+- Treat `player` as the sole source of truth for permanent game state. Definition objects such as upgrade registries may contain static metadata or derived/transient state, but must not duplicate values already stored on `player`; read and write those values directly on `player`.
+  - For registries such as `ambrosiaUpgrades`, `redAmbrosiaUpgrades`, `purpleReactorUpgrades`, `octeractUpgrades`, and `goldenQuarkUpgrades`, do not synchronize duplicate permanent values during save, reload, or save migration.
+  - Access nested upgrade state directly (for example, `player.goldenQuarkUpgrades[key].level`); do not introduce local aliases for `player` upgrade entries.
 - Add all user-facing text to `translations/en.json` for i18next. Colored text uses `<<color|{{text}}>>`.
 - Use `DOMCacheGetOrSet('elementId')` instead of `document.getElementById`.
   - Import with `import { DOMCacheGetOrSet } from './Cache/DOM'`.

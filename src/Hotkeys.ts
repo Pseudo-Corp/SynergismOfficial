@@ -4,12 +4,14 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { exitCampaign } from './Campaign'
 import { confirmAntSacrifice } from './Features/Ants/AntSacrifice/sacrifice'
 import { promocodes } from './ImportExport'
+import { initializeMobileHotkeyPanel } from './mobile/hotkey-panel'
 import { runes } from './Runes'
 import { useConsumablePrompt } from './Shop'
 import { player, resetCheck, synergismHotkeys } from './Synergism'
 import { getActiveSubTab, keyboardTabChange as kbTabChange, tabRow, Tabs } from './Tabs'
 import { confirmReply, toggleAutoChallengeRun } from './Toggles'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
+import { memoize } from './Utility'
 import { Globals as G } from './Variables'
 
 interface Hotkey {
@@ -384,14 +386,10 @@ const makeMobileHotkeyButton = (key: string, descr: string) => {
   return button
 }
 
-let mobileHotkeyPanelRegistered = false
-
 const isVisibleOnMobile = (hotkey: Hotkey) => !hotkey.hiddenOnMobile && (hotkey.unlocked?.() ?? true)
 
 const renderMobileHotkeyButtons = () => {
-  if (!mobileHotkeyPanelRegistered) {
-    return
-  }
+  registerMobileHotkeyPanel()
 
   const actions = DOMCacheGetOrSet('mobileHotkeysActions')
   const fragment = document.createDocumentFragment()
@@ -405,50 +403,10 @@ const renderMobileHotkeyButtons = () => {
   actions.replaceChildren(fragment)
 }
 
-const setMobileHotkeyPanelOpen = (open: boolean) => {
-  const openButton = DOMCacheGetOrSet('mobileHotkeysOpen')
-  const overlay = DOMCacheGetOrSet('mobileHotkeysOverlay')
-
-  overlay.classList.toggle('mobileHotkeysOverlayOpen', open)
-  overlay.setAttribute('aria-hidden', `${!open}`)
-  openButton.setAttribute('aria-expanded', `${open}`)
-
-  if (open) {
-    DOMCacheGetOrSet('mobileHotkeysClose').focus()
-  } else {
-    openButton.focus()
-  }
-}
-
-const openMobileHotkeyPanel = () => {
-  renderMobileHotkeyButtons()
-  setMobileHotkeyPanelOpen(true)
-}
-
-export const registerMobileHotkeyPanel = () => {
-  if (mobileHotkeyPanelRegistered) {
-    return
-  }
-
-  mobileHotkeyPanelRegistered = true
-
-  const openButton = DOMCacheGetOrSet('mobileHotkeysOpen')
-  const closeButton = DOMCacheGetOrSet('mobileHotkeysClose')
-  const overlay = DOMCacheGetOrSet('mobileHotkeysOverlay')
+export const registerMobileHotkeyPanel = memoize(() => {
+  initializeMobileHotkeyPanel(renderMobileHotkeyButtons)
   const actions = DOMCacheGetOrSet('mobileHotkeysActions')
 
-  openButton.addEventListener('click', openMobileHotkeyPanel)
-  closeButton.addEventListener('click', () => setMobileHotkeyPanelOpen(false))
-  overlay.addEventListener('click', (event) => {
-    if (event.target === overlay) {
-      setMobileHotkeyPanelOpen(false)
-    }
-  })
-  overlay.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      setMobileHotkeyPanelOpen(false)
-    }
-  })
   actions.addEventListener('click', (event) => {
     const button = event.target instanceof Element
       ? event.target.closest<HTMLButtonElement>('button[data-mobile-hotkey]')
@@ -468,7 +426,7 @@ export const registerMobileHotkeyPanel = () => {
   })
 
   renderMobileHotkeyButtons()
-}
+})
 
 export const disableHotkeys = () => hotkeysEnabled = false
 

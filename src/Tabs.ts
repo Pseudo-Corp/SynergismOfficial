@@ -351,6 +351,11 @@ const tabInfo: Record<Tabs, TabInfo> = {
         subTabID: '5',
         unlocked: () => player.highestSingularityCount >= 25,
         buttonID: 'toggleSingularitySubTab5'
+      },
+      {
+        subTabID: '6',
+        unlocked: () => player.singularityChallenges.taxmanLastStand.completions > 0,
+        buttonID: 'toggleSingularitySubTab6'
       }
     ]
   },
@@ -410,7 +415,6 @@ class TabRow extends HTMLDivElement {
   #editDoneButton: HTMLButtonElement | null = null
   #pointerStartX = 0
   #pointerStartY = 0
-  #dragCreated = false
 
   constructor () {
     super()
@@ -533,18 +537,13 @@ class TabRow extends HTMLDivElement {
     }
   }
 
-  #createDrag () {
-    if (this.#dragCreated) {
-      return
-    }
-
-    this.#dragCreated = true
+  #createDrag = memoize(() => {
     this.addEventListener('pointerdown', (event) => this.#handlePointerDown(event))
     this.addEventListener('pointermove', (event) => this.#handlePointerMove(event))
     this.addEventListener('pointerup', (event) => this.#handlePointerUp(event))
     this.addEventListener('pointercancel', (event) => this.#handlePointerUp(event))
     this.addEventListener('pointerleave', (event) => this.#handlePointerLeave(event))
-  }
+  })
 
   #handlePointerDown (event: PointerEvent) {
     if (event.button !== 0) {

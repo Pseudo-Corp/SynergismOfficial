@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
+import { initializeAmbrosiaUpgradeLayout } from './AmbrosiaUI'
 import {
   ambrosiaEditAction,
   ambrosiaEditToString,
@@ -8,20 +9,23 @@ import {
   ambrosiaUpgradeToString,
   beginAmbrosiaEdit,
   buyAmbrosiaUpgradeLevel,
-  createLoadoutDescription,
+  buyPurpleAmbrosiaEnchantmentLevel,
   displayLevelsBlueberry,
   displayOnlyLoadout,
   exportBlueberryTree,
   highlightPrerequisites,
+  highlightRedAmbrosiaTargets,
   importBlueberryTree,
   isAmbrosiaEditMode,
   loadoutHandler,
+  PURPLE_AMBROSIA_ENCHANTMENT_ACTION,
   quickSaveBlueberryTree,
   resetBlueberryTree,
   resetHighlights,
   resetLoadoutOnlyDisplay,
   setAmbrosiaEditMode,
-  toggleAmbrosiaEditMode
+  toggleAmbrosiaEditMode,
+  updatePurpleAmbrosiaEnchantmentBadge
 } from './BlueberryUpgrades'
 import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -89,14 +93,22 @@ import {
   updateSaveString
 } from './ImportExport'
 import { exitFastForward, getLotusTimeExpiresAt, getOwnedLotus, getTips, sendToWebsocket, setTips } from './Login'
-import type { OcteractUpgrades } from './Octeracts'
 import {
   buyOcteractUpgradeLevel,
-  octeractUpgrades,
+  octeractUpgradeNames,
   toggleMaxedOcteractUpgrades,
   upgradeOcteractToString
 } from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription, platonicUpgradeModalHTML } from './Platonic'
+import {
+  buyPurpleAmbrosiaUpgradeLevel,
+  displayPurpleAmbrosiaLevels,
+  getPurpleAmbrosiaUpgradeEffects,
+  purpleAmbrosiaUpgradeNames,
+  purpleAmbrosiaUpgradeToString,
+  resetPurpleAmbrosiaDisplay
+} from './PurpleAmbrosiaUpgrades'
+import { getPurpleReactorPopupMode, setPurpleReactorPopupMode } from './PurpleUpgradeTab'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -114,15 +126,14 @@ import { getResetDetails, updateAutoCubesOpens, updateAutoReset, updateTesseract
 import { buyAllBlessingLevels } from './RuneBlessings'
 import { runes } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
-import { buyShopUpgrades, resetShopUpgrades, useConsumablePrompt } from './Shop'
+import { buyShopUpgrades, shopUpgrades, useConsumablePrompt } from './Shop'
 import {
   addSingularityPerkToTree,
   buyGoldenQuarks,
   buyGQUpgradeLevel,
   calculateMaxSingularityLookahead,
-  goldenQuarkUpgrades,
+  goldenQuarkUpgradeNames,
   initializeSingularityPerkTree,
-  type SingularityDataKeys,
   singularityPerkModalHTML,
   singularityPerks,
   teleportToSingularity,
@@ -135,6 +146,17 @@ import { registerSpriteAlias, updateIconsFromSprites } from './SpriteSheets'
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
+import {
+  buySynthesisUpgrade,
+  craftFromSynthesis,
+  getSynthesisUpgradePurchaseButtonID,
+  setSynthesisAutomationEnabled,
+  synthesisCraftButtons,
+  synthesisUpgradeNames,
+  synthesisUpgradePurchaseAmounts,
+  unlockSynthesisAutomation,
+  updateSynthesis
+} from './Synthesis'
 import { changeSubTab, changeTab, registerSubTabSwitches, Tabs } from './Tabs'
 import { toggleAllBuildingAutomation, toggleAutomatedBuildingVisibility } from './tabs/buildings'
 import { IconSets, imgErrorHandler, themeValues, toggleAnnotation, toggleIconSet, toggleTheme } from './Themes'
@@ -174,8 +196,22 @@ import {
   updateRuneBlessingBuyAmount
 } from './Toggles'
 import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
-import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, openIframeOverlay, Prompt } from './UpdateHTML'
-import { cycleCorruptionScoreTarget, selectCorruptionScoreTarget, shopMouseover } from './UpdateVisuals'
+import {
+  Alert,
+  CloseModal,
+  Confirm,
+  createFitties,
+  MEDIUM_MODAL_UPDATE_TICK,
+  Modal,
+  openIframeOverlay,
+  Prompt
+} from './UpdateHTML'
+import {
+  cycleCorruptionScoreTarget,
+  selectCorruptionScoreTarget,
+  shopMouseover,
+  visualUpdatePurple
+} from './UpdateVisuals'
 import {
   buyAllUpgrades,
   buyConstantUpgrades,
@@ -269,7 +305,8 @@ const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
       toggleSingularitySubTab2: 'Pictures/Subtab Icons/Singularity/GoldenQuarkUpgrades.png',
       toggleSingularitySubTab3: 'Pictures/Subtab Icons/Singularity/SingularityPerks.png',
       toggleSingularitySubTab4: 'Pictures/Subtab Icons/Singularity/Octeracts.png',
-      toggleSingularitySubTab5: 'Pictures/Subtab Icons/Singularity/Ambrosia.png'
+      toggleSingularitySubTab5: 'Pictures/Subtab Icons/Singularity/Ambrosia.png',
+      toggleSingularitySubTab6: 'Pictures/Subtab Icons/Singularity/Purple.png'
     }
   },
   {
@@ -338,7 +375,12 @@ const mobileStatsIconConfig: Record<string, string> = {
   kLuckConversion: 'Pictures/Stats for Nerds Icons/Categories/LuckConversion.png',
   kRedAmbrosiaLuck: 'Pictures/Stats for Nerds Icons/Categories/RedLuck.png',
   kRedAmbrosiaGenMult: 'Pictures/Stats for Nerds Icons/Categories/RedBarPoints.png',
-  kShopVouchers: 'Pictures/Stats for Nerds Icons/Categories/ShopVouchers.png'
+  kShopVouchers: 'Pictures/Stats for Nerds Icons/Categories/ShopVouchers.png',
+  kPurpleHoneyEfficiency: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleEfficiency1.png',
+  kPurpleHalfLife: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife1.png',
+  kPurpleReactantCapacity: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleCapacityExpander1.png',
+  kPurpleHoneyLuck: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleHoneyLuck1.png',
+  kPurpleHoneyProgressRequirement: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleHoneyRequirementReduction1.png'
 }
 
 const getSubTabI18nKey = (button: HTMLButtonElement) =>
@@ -346,6 +388,7 @@ const getSubTabI18nKey = (button: HTMLButtonElement) =>
 
 const termsOfServiceUrl = 'https://synergism.cc/terms-of-service'
 const privacyPolicyUrl = 'https://synergism.cc/privacy-policy'
+const shopPotionKeys = ['offeringPotion', 'obtainiumPotion'] as const
 
 const registerIframeOverlayLink = (id: string, url: string) => {
   DOMCacheGetOrSet(id).addEventListener('click', (event) => {
@@ -405,12 +448,11 @@ const registerPurchasableModal = ({
   disabled
 }: PurchasableModalOptions) => {
   const showDesktopModal = (x: number, y: number) => {
+    Modal(html, x, y, style, updateInterval, { targetElement: element, onClose })
     onOpen?.()
-    Modal(html, x, y, style, updateInterval, element)
   }
 
   const showMobileModal = (event: MouseEvent) => {
-    onOpen?.()
     Modal(
       () => `${html()}${modalBuyButtonsHTML(mobileButtons)}`,
       event.clientX,
@@ -419,11 +461,13 @@ const registerPurchasableModal = ({
       updateInterval,
       {
         targetElement: element,
+        onClose,
         buttonClick: (button, buttonEvent) => {
           void buy(buttonEvent, button.dataset.modalAction)
         }
       }
     )
+    onOpen?.()
   }
 
   if (isMobile) {
@@ -446,12 +490,10 @@ const registerPurchasableModal = ({
   element.addEventListener('mouseout', () => {
     if (disabled?.()) return
     CloseModal()
-    onClose?.()
   })
   element.addEventListener('blur', () => {
     if (disabled?.()) return
     CloseModal()
-    onClose?.()
   })
   element.addEventListener('click', (event) => {
     if (disabled?.()) return
@@ -1635,9 +1677,6 @@ TODO: Fix this entire tab it's utter shit
   */
 
   // Part 1: The Settings
-  /*Respec The Upgrades*/ DOMCacheGetOrSet(
-    'resetShopUpgrades'
-  ).addEventListener('click', () => resetShopUpgrades())
   /*Toggle Shop Confirmations*/ DOMCacheGetOrSet(
     'toggleConfirmShop'
   ).addEventListener('click', () => toggleShopConfirmation())
@@ -1650,16 +1689,50 @@ TODO: Fix this entire tab it's utter shit
   ).addEventListener('click', () => toggleHideShop())
 
   // Part 2: Potions
+  for (const key of shopPotionKeys) {
+    const icon = DOMCacheGetOrSet(`${key}s`)
+    const container = DOMCacheGetOrSet(`${key}Hide`)
+    const showPotionModal = (x: number, y: number) => {
+      Modal(
+        () =>
+          `<span style="color: gold">${shopUpgrades[key].name()}</span><br><br>
+          <span style="color: plum">${shopUpgrades[key].description()}</span><br><br>
+          <span style="color: limegreen">${shopUpgrades[key].effectDescription()}</span>`,
+        x,
+        y,
+        { borderColor: 'gold' },
+        MEDIUM_MODAL_UPDATE_TICK,
+        icon
+      )
+    }
+
+    icon.addEventListener('click', (event) => showPotionModal(event.clientX, event.clientY))
+    icon.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        icon.click()
+      }
+    })
+
+    if (!isMobile) {
+      container.addEventListener('mousemove', (event) => showPotionModal(event.clientX, event.clientY))
+      container.addEventListener('focusin', (event) => {
+        const rect = (event.target as HTMLElement).getBoundingClientRect()
+        showPotionModal(rect.x, rect.y + rect.height / 2)
+      })
+      container.addEventListener('mouseleave', CloseModal)
+      container.addEventListener('focusout', CloseModal)
+    }
+  }
+
   /*Offering Potion*/
   DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyShopUpgrades('offeringPotion'))
-  // DOMCacheGetOrSet('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
   DOMCacheGetOrSet('useofferingpotion').addEventListener('click', () => useConsumablePrompt('offeringPotion'))
   DOMCacheGetOrSet('toggle42').addEventListener('click', () => {
     player.autoPotionTimer = 0
   })
   /*Obtainium Potion*/
   DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades('obtainiumPotion'))
-  // DOMCacheGetOrSet('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
   DOMCacheGetOrSet('useobtainiumpotion').addEventListener('click', () => useConsumablePrompt('obtainiumPotion'))
   DOMCacheGetOrSet('toggle43').addEventListener('click', () => {
     player.autoPotionTimerObtainium = 0
@@ -1725,8 +1798,7 @@ TODO: Fix this entire tab it's utter shit
 
   DOMCacheGetOrSet('toggleMaxedGoldenQuarkUpgrades').addEventListener('click', toggleMaxedGoldenQuarkUpgrades)
 
-  const GQUpgrades = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
-  for (const key of GQUpgrades) {
+  for (const key of goldenQuarkUpgradeNames) {
     if (key === 'offeringAutomatic') {
       continue
     }
@@ -1810,8 +1882,7 @@ TODO: Fix this entire tab it's utter shit
   // Octeract Upgrades
   DOMCacheGetOrSet('toggleMaxedOcteractUpgrades').addEventListener('click', toggleMaxedOcteractUpgrades)
 
-  const octUpgrade = Object.keys(octeractUpgrades) as OcteractUpgrades[]
-  for (const key of octUpgrade) {
+  for (const key of octeractUpgradeNames) {
     registerPurchasableModal({
       element: DOMCacheGetOrSet(key),
       html: () => upgradeOcteractToString(key),
@@ -1871,17 +1942,40 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // BLUEBERRY UPGRADES
+  initializeAmbrosiaUpgradeLayout()
   const blueberryUpgrades = Object.keys(
     ambrosiaUpgrades
   ) as AmbrosiaUpgradeNames[]
   for (const key of blueberryUpgrades) {
     const element = DOMCacheGetOrSet(key)
+    const enchantment = ambrosiaUpgrades[key].purpleAmbrosiaEnchantment
+    if (element.querySelector('.purpleAmbrosiaEnchantmentIcon') === null) {
+      const enchantmentIcon = document.createElement('img')
+      enchantmentIcon.classList.add('purpleAmbrosiaEnchantmentIcon', 'Exalt9x1')
+      enchantmentIcon.classList.toggle(
+        'purpleAmbrosiaEnchantmentIconType2',
+        enchantment.type === 'blueberryCostReduction'
+      )
+      enchantmentIcon.src = 'Pictures/PurpleAmbrosia/PurpleAmbrosia.png'
+      enchantmentIcon.alt = ''
+      element.appendChild(enchantmentIcon)
+      updatePurpleAmbrosiaEnchantmentBadge(key)
+    }
 
     registerPurchasableModal({
       element,
       html: () => ambrosiaUpgradeToString(key),
       style: { borderColor: 'blue' },
-      buy: (event, action) => buyAmbrosiaUpgradeLevel(key, event, action === 'max'),
+      buy: (event, action) => {
+        const target = event.target instanceof Element ? event.target : null
+        if (
+          action === PURPLE_AMBROSIA_ENCHANTMENT_ACTION
+          || target?.classList.contains('purpleAmbrosiaEnchantmentIcon')
+        ) {
+          return buyPurpleAmbrosiaEnchantmentLevel(key)
+        }
+        return buyAmbrosiaUpgradeLevel(key, event, action === 'max')
+      },
       onOpen: () => highlightPrerequisites(key),
       onClose: resetHighlights,
       disabled: isAmbrosiaEditMode
@@ -1922,10 +2016,6 @@ TODO: Fix this entire tab it's utter shit
     const shiftedKey = i + 1
     const el = blueberryLoadouts[i]
     el.addEventListener('mouseover', () => {
-      createLoadoutDescription(
-        shiftedKey,
-        player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 }
-      )
       loadoutContainer.classList.add(`hoveredBlueberryLoadout${shiftedKey}`)
       displayOnlyLoadout(player.blueberryLoadouts[shiftedKey])
     })
@@ -1967,19 +2057,23 @@ TODO: Fix this entire tab it's utter shit
       if (!toggled) {
         resetLoadoutOnlyDisplay()
         resetRedAmbrosiaDisplay()
+        resetPurpleAmbrosiaDisplay()
       } else {
         displayLevelsBlueberry()
         displayRedAmbrosiaLevels()
+        displayPurpleAmbrosiaLevels()
       }
     })
   } else {
     currAmbrosiaUpgrades.addEventListener('mouseover', () => {
       displayLevelsBlueberry()
       displayRedAmbrosiaLevels()
+      displayPurpleAmbrosiaLevels()
     })
     currAmbrosiaUpgrades.addEventListener('mouseout', () => {
       resetLoadoutOnlyDisplay()
       resetRedAmbrosiaDisplay()
+      resetPurpleAmbrosiaDisplay()
     })
   }
 
@@ -1993,9 +2087,130 @@ TODO: Fix this entire tab it's utter shit
       element: DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`),
       html: () => redAmbrosiaUpgradeToString(key),
       style: { borderColor: 'red' },
-      buy: (event, action) => buyRedAmbrosiaUpgradeLevel(key, event, action === 'max')
+      buy: (event, action) => buyRedAmbrosiaUpgradeLevel(key, event, action === 'max'),
+      onOpen: () => highlightRedAmbrosiaTargets(key),
+      onClose: resetHighlights
     })
   }
+
+  // PURPLE AMBROSIA
+  const purpleAmbrosiaUpgradeElements = document.querySelectorAll<HTMLElement>('.purpleAmbrosiaUpgrade')
+  purpleAmbrosiaUpgradeNames.forEach((key, index) => {
+    const element = purpleAmbrosiaUpgradeElements.item(index)
+    if (element === null) {
+      return
+    }
+
+    registerPurchasableModal({
+      element,
+      html: () => purpleAmbrosiaUpgradeToString(key),
+      style: { borderColor: 'purple' },
+      buy: (event, action) => buyPurpleAmbrosiaUpgradeLevel(key, event, action === 'max')
+    })
+  })
+
+  const setPurpleReactantPercentage = (
+    reactant: 'ambrosia' | 'redAmbrosia',
+    percentage: number
+  ) => {
+    if (reactant === 'ambrosia') {
+      player.purpleReactor.ambrosiaBarPointPercentage = percentage
+    } else {
+      player.purpleReactor.redAmbrosiaBarPointPercentage = percentage
+    }
+  }
+
+  const registerPurpleReactantSlider = (
+    elementId: string,
+    reactant: 'ambrosia' | 'redAmbrosia'
+  ) => {
+    const slider = DOMCacheGetOrSet(elementId) as HTMLInputElement
+    slider.addEventListener('input', () => {
+      const requestedPercentage = slider.valueAsNumber
+      const percentage = Number.isFinite(requestedPercentage)
+        ? Math.min(100, Math.max(0, Math.round(requestedPercentage)))
+        : 0
+
+      setPurpleReactantPercentage(reactant, percentage)
+    })
+  }
+
+  registerPurpleReactantSlider('ambrosiaBarPointPercentageSlider', 'ambrosia')
+  registerPurpleReactantSlider('redAmbrosiaBarPointPercentageSlider', 'redAmbrosia')
+
+  DOMCacheGetOrSet('encabulatorOvercapToggle').addEventListener('change', (event) => {
+    if (!getPurpleAmbrosiaUpgradeEffects('libra', 'overcapToggleUnlocked')) {
+      return
+    }
+    player.encabulatorOvercapToggle = (event.target as HTMLInputElement).checked
+    visualUpdatePurple()
+  })
+
+  for (const upgradeKey of synthesisUpgradeNames) {
+    for (const amount of synthesisUpgradePurchaseAmounts) {
+      DOMCacheGetOrSet(getSynthesisUpgradePurchaseButtonID(upgradeKey, amount)).addEventListener('click', () => {
+        buySynthesisUpgrade(upgradeKey, amount)
+      })
+    }
+  }
+
+  for (const { id, amount } of synthesisCraftButtons) {
+    DOMCacheGetOrSet(id).addEventListener('click', () => {
+      craftFromSynthesis(amount, id)
+    })
+  }
+
+  DOMCacheGetOrSet('synthesisAutomationUnlock').addEventListener('click', () => {
+    if (unlockSynthesisAutomation()) {
+      DOMCacheGetOrSet('synthesisAutomationToggle').focus()
+    }
+  })
+  DOMCacheGetOrSet('synthesisAutomationToggle').addEventListener('change', (event) => {
+    setSynthesisAutomationEnabled((event.target as HTMLInputElement).checked)
+  })
+
+  DOMCacheGetOrSet('purpleSynthesisToggle').addEventListener('click', () => {
+    const mode = getPurpleReactorPopupMode() === 'synthesis' ? null : 'synthesis'
+    setPurpleReactorPopupMode(mode)
+    updateSynthesis()
+
+    if (mode === 'synthesis') {
+      createFitties()
+      requestAnimationFrame(() => DOMCacheGetOrSet('purpleSynthesisClose').focus({ preventScroll: true }))
+    }
+  })
+
+  DOMCacheGetOrSet('purpleSynthesisClose').addEventListener('click', () => {
+    setPurpleReactorPopupMode(null)
+    DOMCacheGetOrSet('purpleSynthesisToggle').focus()
+  })
+
+  DOMCacheGetOrSet('purpleSynthesisContainer').addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      setPurpleReactorPopupMode(null)
+      DOMCacheGetOrSet('purpleSynthesisToggle').focus()
+      return
+    }
+
+    if (event.key === 'Tab') {
+      const focusableElements = Array.from(
+        DOMCacheGetOrSet('purpleSynthesisContainer').querySelectorAll<HTMLElement>(
+          'button:not(:disabled):not([hidden]), input:not(:disabled)'
+        )
+      )
+      const firstElement = focusableElements[0]
+      const lastElement = focusableElements[focusableElements.length - 1]
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault()
+        lastElement?.focus()
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault()
+        firstElement?.focus()
+      }
+    }
+  })
 
   // EVENT TAB
   function visitConsumableTab () {

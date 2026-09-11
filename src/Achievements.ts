@@ -1,21 +1,34 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { ambrosiaUpgradeNames, ambrosiaUpgrades, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateAscensionScore } from './Calculate'
 import { campaignTokens } from './Campaign'
 import { calculateLeaderboardValue } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-leaderboard'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
-import { hepteracts } from './Hepteracts'
 import { displayLevelStuff } from './Levels'
-import { maxOcteractUpgradeAP, octeractUpgrades } from './Octeracts'
-import { maxRedAmbrosiaUpgradeAP, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
+import { maxOcteractUpgradeAP, octeractUpgradeNames, octeractUpgrades } from './Octeracts'
+import { calculatePurpleReactorAP, maxPurpleReactorAP } from './Purple'
+import {
+  maxPurpleAmbrosiaUpgradeAP,
+  purpleAmbrosiaUpgradeNames,
+  purpleAmbrosiaUpgrades
+} from './PurpleAmbrosiaUpgrades'
+import { maxRedAmbrosiaUpgradeAP, redAmbrosiaUpgradeNames, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { runeBlessings } from './RuneBlessings'
 import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
 import { runeSpirits } from './RuneSpirits'
-import { getGQUpgradeEffect, goldenQuarkUpgrades, maxGoldenQuarkUpgradeAP } from './singularity'
+import { maxQuarkUpgradeAP, quarkUpgradeAP } from './Shop'
+import {
+  getGQUpgradeEffect,
+  goldenQuarkUpgradeNames,
+  goldenQuarkUpgrades,
+  maxGoldenQuarkUpgradeAP
+} from './singularity'
 import { maxAPFromChallenges, type SingularityChallengeDataKeys } from './SingularityChallenges'
 import { format, player } from './Synergism'
+import { calculateSynthesisUpgradeAP, maxSynthesisUpgradeAP } from './Synthesis'
 import { Tabs } from './Tabs'
 import { maxTalismansRarityAP, talismans } from './Talismans'
 import type { resetNames } from './types/Synergism'
@@ -310,6 +323,7 @@ interface ProgressiveAchievement {
 export type ProgressiveAchievements =
   | 'runeLevel'
   | 'freeRuneLevel'
+  | 'quarkUpgrades'
   | 'antMasteries'
   | 'rebornELO'
   | 'talismanRarities'
@@ -320,6 +334,8 @@ export type ProgressiveAchievements =
   | 'octeractUpgrades'
   | 'redAmbrosiaUpgrades'
   | 'exalts'
+  | 'purpleHoneyUpgrades'
+  | 'purpleAmbrosiaUpgrades'
 
 export const progressiveAchievements: Record<ProgressiveAchievements, ProgressiveAchievement> = {
   runeLevel: {
@@ -350,6 +366,19 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayOrder: 2,
     displayCondition: () => player.prestigeCount > 0
   },
+  quarkUpgrades: {
+    maxPointValue: maxQuarkUpgradeAP,
+    pointsAwarded: (_cached: number) => {
+      return quarkUpgradeAP()
+    },
+    updateValue: () => {
+      return 0
+    },
+    useCachedValue: false,
+    rewardedAP: 0,
+    displayOrder: 3,
+    displayCondition: () => player.reincarnationCount > 0 || player.highestSingularityCount > 0
+  },
   antMasteries: {
     maxPointValue: 360,
     pointsAwarded: (_cached: number) => {
@@ -371,7 +400,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 3,
+    displayOrder: 4,
     displayCondition: () => player.unlocks.anthill
   },
   rebornELO: {
@@ -389,7 +418,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 4,
+    displayOrder: 5,
     displayCondition: () => player.unlocks.anthill
   },
   singularityCount: {
@@ -404,7 +433,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 6,
+    displayOrder: 7,
     displayCondition: () => player.highestSingularityCount > 0
   },
   ambrosiaCount: {
@@ -419,7 +448,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: true,
     rewardedAP: 0,
-    displayOrder: 10,
+    displayOrder: 11,
     displayCondition: () => player.highestSingularityCount >= 25
   },
   redAmbrosiaCount: {
@@ -435,7 +464,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: true,
     rewardedAP: 0,
-    displayOrder: 11,
+    displayOrder: 12,
     displayCondition: () => player.highestSingularityCount >= 150
   },
   exalts: {
@@ -471,10 +500,12 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
         num8: player.singularityChallenges.sadisticPrequel.rewardAP,
         cap8: player.singularityChallenges.sadisticPrequel.maxAP,
         num9: player.singularityChallenges.taxmanLastStand.rewardAP,
-        cap9: player.singularityChallenges.taxmanLastStand.maxAP
+        cap9: player.singularityChallenges.taxmanLastStand.maxAP,
+        num10: player.singularityChallenges.barDependence.rewardAP,
+        cap10: player.singularityChallenges.barDependence.maxAP
       }
     },
-    displayOrder: 9,
+    displayOrder: 10,
     displayCondition: () => player.highestSingularityCount >= 25
   },
   singularityUpgrades: {
@@ -482,29 +513,10 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     pointsAwarded: (_cached: number) => {
       let pointValue = 0
       // Go through all sing upgrades. if the max level is NOT -1, add 5 points if the upgrade level equals max level
-      for (const upgrade of Object.values(goldenQuarkUpgrades)) {
-        if (upgrade.maxLevel !== -1 && upgrade.level >= upgrade.maxLevel) {
-          pointValue += 5
-        }
-      }
-      return pointValue
-    },
-    updateValue: () => {
-      return 0
-    },
-    useCachedValue: false,
-    rewardedAP: 0,
-    displayOrder: 7,
-    displayCondition: () => player.highestSingularityCount > 0
-  },
-  octeractUpgrades: {
-    maxPointValue: maxOcteractUpgradeAP,
-    pointsAwarded: (_cached: number) => {
-      let pointValue = 0
-      // Go through all octeract upgrades. if the max level is NOT -1, add 8 points if the upgrade level equals max level
-      for (const upgrade of Object.values(octeractUpgrades)) {
-        if (upgrade.maxLevel !== -1 && upgrade.level >= upgrade.maxLevel) {
-          pointValue += 8
+      for (const key of goldenQuarkUpgradeNames) {
+        const upgrade = goldenQuarkUpgrades[key]
+        if (goldenQuarkUpgrades[key].level >= upgrade.maxLevel) {
+          pointValue += 6
         }
       }
       return pointValue
@@ -515,14 +527,35 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     useCachedValue: false,
     rewardedAP: 0,
     displayOrder: 8,
+    displayCondition: () => player.highestSingularityCount > 0
+  },
+  octeractUpgrades: {
+    maxPointValue: maxOcteractUpgradeAP,
+    pointsAwarded: (_cached: number) => {
+      let pointValue = 0
+      // Go through all octeract upgrades. if the max level is NOT -1, add 8 points if the upgrade level equals max level
+      for (const key of octeractUpgradeNames) {
+        const upgrade = octeractUpgrades[key]
+        if (upgrade.maxLevel !== -1 && octeractUpgrades[key].level >= upgrade.maxLevel) {
+          pointValue += 8
+        }
+      }
+      return pointValue
+    },
+    updateValue: () => {
+      return 0
+    },
+    useCachedValue: false,
+    rewardedAP: 0,
+    displayOrder: 9,
     displayCondition: () => getGQUpgradeEffect('octeractUnlock', 'unlocked')
   },
   redAmbrosiaUpgrades: {
     maxPointValue: maxRedAmbrosiaUpgradeAP,
     pointsAwarded: () => {
       let pointValue = 0
-      for (const upgrade of Object.values(redAmbrosiaUpgrades)) {
-        if (upgrade.level >= upgrade.maxLevel) {
+      for (const upgrade of redAmbrosiaUpgradeNames) {
+        if (redAmbrosiaUpgrades[upgrade].level >= redAmbrosiaUpgrades[upgrade].maxLevel) {
           pointValue += 10
         }
       }
@@ -533,7 +566,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: false,
     rewardedAP: 0,
-    displayOrder: 12,
+    displayOrder: 13,
     displayCondition: () => player.highestSingularityCount >= 150
   },
   talismanRarities: {
@@ -549,8 +582,49 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: true,
     rewardedAP: 0,
-    displayOrder: 5,
+    displayOrder: 6,
     displayCondition: () => player.unlocks.talismans
+  },
+  purpleHoneyUpgrades: {
+    maxPointValue: maxPurpleReactorAP,
+    pointsAwarded: (_cached: number) => {
+      return calculatePurpleReactorAP()
+    },
+    updateValue: () => {
+      return 0
+    },
+    useCachedValue: false,
+    rewardedAP: 0,
+    displayOrder: 14,
+    displayCondition: () => true // TODO
+  },
+  purpleAmbrosiaUpgrades: {
+    maxPointValue: maxSynthesisUpgradeAP + maxPurpleAmbrosiaUpgradeAP + maxPurpleEnchantmentAP,
+    pointsAwarded: () => {
+      let pointValue = calculateSynthesisUpgradeAP()
+      for (const key of purpleAmbrosiaUpgradeNames) {
+        const upgrade = purpleAmbrosiaUpgrades[key]
+        if (player.purpleAmbrosiaUpgrades[key] >= upgrade.costFormula(upgrade.maxLevel)) {
+          pointValue += 12
+        }
+      }
+      for (const key of ambrosiaUpgradeNames) {
+        const enchantment = ambrosiaUpgrades[key].purpleAmbrosiaEnchantment
+        if (
+          (player.ambrosiaUpgrades[key].purpleAmbrosiaInvested ?? 0) >= enchantment.costFormula(enchantment.maxLevel)
+        ) {
+          pointValue += 5
+        }
+      }
+      return pointValue
+    },
+    updateValue: () => {
+      return 0
+    },
+    useCachedValue: false,
+    rewardedAP: 0,
+    displayOrder: 15,
+    displayCondition: () => true
   }
 }
 
@@ -1851,7 +1925,7 @@ const achievements: Achievement[] = [
     pointValue: 70,
     unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e23,
     group: 'ascensionScore',
-    reward: { ascensionScore: () => Math.pow(1.01, hepteracts.abyss.TIMES_CAP_EXTENDED) },
+    reward: { ascensionScore: () => Math.pow(1.01, player.hepteracts.abyss.TIMES_CAP_EXTENDED) },
     steamAchievementId: 'GROUPED_ASCENSIONSCORE_2'
   },
   {

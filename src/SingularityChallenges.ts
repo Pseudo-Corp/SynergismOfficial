@@ -1,11 +1,16 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  calculateAmbrosiaLuck,
+  calculateBarEXALTPurpleHoneyRequirement,
   calculateExalt3AscensionLimit,
   calculateExalt4EffectiveSingularityMultiplier,
   calculateExalt6PenaltyPerSecond,
   calculateExalt6TimeLimit,
-  calculateGoldenQuarks
+  calculateGoldenQuarks,
+  calculateRedAmbrosiaLuck,
+  calculateRequiredBlueberryTimeEXALT,
+  calculateRequiredRedAmbrosiaTimeEXALT
 } from './Calculate'
 import { singularity } from './Reset'
 import { runes } from './Runes'
@@ -83,13 +88,18 @@ export type SingularityChallengeRewards = {
     shopUpgrade3: boolean
   }
   taxmanLastStand: {
-    horseShoeUnlock: boolean
     shopUpgrade: boolean
     talismanUnlock: boolean
     talismanFreeLevel: number
     talismanRuneEffect: number
-    antiquityOOM: number
-    horseShoeOOM: number
+    purpleHoneyLuck: number
+    purpleBarSize: number
+  }
+  barDependence: {
+    purpleAmbrosiaCostReduction: number
+    purpleHoneyLuck: number
+    blueberries: number
+    shopUpgrade: boolean
   }
 }
 
@@ -645,7 +655,7 @@ export const singularityChallengeData: {
       } else if (key === 'ascensionSpeed') {
         return 1 + 0.12 * n
       } else if (key === 'barRequirementMultiplier') {
-        return 1 - 0.02 * n
+        return 1 - 0.01 * n
       } else if (key === 'shopUpgrade') {
         return n >= 5
       } else {
@@ -699,7 +709,7 @@ export const singularityChallengeData: {
     }
   },
   taxmanLastStand: {
-    baseReq: 240,
+    baseReq: 266,
     maxCompletions: 10,
     unlockSingularity: 281,
     achievementPointValue: (n) => {
@@ -707,14 +717,12 @@ export const singularityChallengeData: {
     },
     HTMLTag: 'taxmanLastStand',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 4 * completions
+      return baseReq + 2 * completions
     },
     scalingrewardcount: 5,
     uniquerewardcount: 3,
     effect: (n, key) => {
-      if (key === 'horseShoeUnlock') {
-        return n > 0
-      } else if (key === 'shopUpgrade') {
+      if (key === 'shopUpgrade') {
         return n >= 5
       } else if (key === 'talismanUnlock') {
         return n >= 10
@@ -722,10 +730,10 @@ export const singularityChallengeData: {
         return 25 * n
       } else if (key === 'talismanRuneEffect') {
         return 0.03 * n
-      } else if (key === 'antiquityOOM') {
-        return 1 / 50 * n / 10
+      } else if (key === 'purpleHoneyLuck') {
+        return 3 * n
       } else {
-        return 1 / 20 * n / 10 // horseShoeOOM
+        return 1 - 0.01 * n // purpleBarSize
       }
     },
     alternateDescription: () => {
@@ -750,6 +758,59 @@ export const singularityChallengeData: {
         stringText += `<br>${omegaMod}`
       }
       return stringText
+    }
+  },
+  barDependence: {
+    baseReq: 288,
+    maxCompletions: 10,
+    unlockSingularity: 290,
+    achievementPointValue: (n) => {
+      return 50 * n
+    },
+    HTMLTag: 'barDependence',
+    singularityRequirement: (baseReq: number, completions: number) => {
+      return baseReq + completions
+    },
+    scalingrewardcount: 2,
+    uniquerewardcount: 2,
+    effect: (n, key) => {
+      if (key === 'shopUpgrade') {
+        return n >= 2
+      }
+      if (key === 'blueberries') {
+        return n
+      }
+      if (key === 'purpleHoneyLuck') {
+        return 50 * +(n > 0)
+      }
+      return 1 - 0.05 * n // purpleAmbrosiaCostReduction
+    },
+    alternateDescription: () => {
+      const baseDesc = i18next.t('singularityChallenge.data.barDependence.description')
+      const warningText = i18next.t('singularityChallenge.data.barDependence.warning')
+
+      const introText = i18next.t('singularityChallenge.data.barDependence.barIntro')
+      const introText2 = i18next.t('singularityChallenge.data.barDependence.barIntro2')
+
+      const blueberryReq = calculateRequiredBlueberryTimeEXALT()
+      const secs = calculateAmbrosiaLuck() / 10000
+      const barMod1Text = i18next.t('singularityChallenge.data.barDependence.barMod1', {
+        secs: format(secs, 2, true),
+        req: format(blueberryReq, 0, true)
+      })
+
+      const redReq = calculateRequiredRedAmbrosiaTimeEXALT()
+      const secs2 = calculateRedAmbrosiaLuck() / 2000
+      const barMod2Text = i18next.t('singularityChallenge.data.barDependence.barMod2', {
+        secs: format(secs2, 2, true),
+        req: format(redReq, 0, true)
+      })
+
+      const purpleReq = calculateBarEXALTPurpleHoneyRequirement()
+      const barMod3Text = i18next.t('singularityChallenge.data.barDependence.barMod3', {
+        req: format(purpleReq, 0, true)
+      })
+      return `${baseDesc}<br>${warningText}<br>${introText}<br>${introText2}<br>${barMod1Text}<br>${barMod2Text}<br>${barMod3Text}`
     }
   }
 }

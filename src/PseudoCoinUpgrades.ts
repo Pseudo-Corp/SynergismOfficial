@@ -1,8 +1,6 @@
-import i18next from 'i18next'
 import { displayProperLoadoutCount } from './BlueberryUpgrades'
 import { corruptionLoadoutTableCreate, updateCorruptionLoadoutNames } from './Corruptions'
 import { CartTab } from './purchases/CartTab'
-import { format } from './Synergism'
 
 export type PseudoCoinUpgradeNames =
   | 'INSTANT_UNLOCK_1'
@@ -21,6 +19,9 @@ export type PseudoCoinUpgradeNames =
   | 'BASE_OBTAINIUM_BUFF'
   | 'RED_GENERATION_BUFF'
   | 'RED_LUCK_BUFF'
+  | 'PURPLE_LUCK_BUFF'
+  | 'PURPLE_HONEY_BUFF'
+  | 'PURPLE_REACTOR_CAPACITY_BUFF'
 
 type PseudoCoinUpgrades = Record<PseudoCoinUpgradeNames, number>
 type PseudoCoinUpgradeEffects = Record<PseudoCoinUpgradeNames, number>
@@ -43,7 +44,10 @@ export const PCoinUpgrades: PseudoCoinUpgrades = {
   'BASE_OFFERING_BUFF': 0,
   'BASE_OBTAINIUM_BUFF': 0,
   'RED_GENERATION_BUFF': 0,
-  'RED_LUCK_BUFF': 0
+  'RED_LUCK_BUFF': 0,
+  'PURPLE_LUCK_BUFF': 0,
+  'PURPLE_HONEY_BUFF': 0,
+  'PURPLE_REACTOR_CAPACITY_BUFF': 0
 }
 
 export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
@@ -62,7 +66,10 @@ export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
   BASE_OFFERING_BUFF: 0,
   BASE_OBTAINIUM_BUFF: 0,
   RED_GENERATION_BUFF: 1,
-  RED_LUCK_BUFF: 0
+  RED_LUCK_BUFF: 0,
+  PURPLE_LUCK_BUFF: 0,
+  PURPLE_HONEY_BUFF: 0,
+  PURPLE_REACTOR_CAPACITY_BUFF: 0
 }
 
 export const initializePCoinCache = async () => {
@@ -139,149 +146,14 @@ const updatePCoinEffects = (name: PseudoCoinUpgradeNames, level: number) => {
     case 'RED_LUCK_BUFF':
       PCoinUpgradeEffects.RED_LUCK_BUFF = level * 20
       break
-  }
-}
-
-export const displayPCoinEffect = (name: PseudoCoinUpgradeNames, level: number) => {
-  switch (name) {
-    case 'INSTANT_UNLOCK_1':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.INSTANT_UNLOCK_1', {
-          descriptor: level > 0 ? '' : 'NOT',
-          amount: 10 * level
-        })
-      )
-    case 'INSTANT_UNLOCK_2':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.INSTANT_UNLOCK_2', {
-          descriptor: level > 0 ? '' : 'NOT',
-          amount: 6 * level
-        })
-      )
-    case 'CUBE_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.CUBE_BUFF', { amount: format(1 + 0.06 * level, 2, true) }))
-    case 'AMBROSIA_LUCK_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.AMBROSIA_LUCK_BUFF', { amount: 20 * level }))
-    case 'AMBROSIA_GENERATION_BUFF':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.AMBROSIA_GENERATION_BUFF', { amount: format(1 + 0.05 * level, 2, true) })
-      )
-    case 'GOLDEN_QUARK_BUFF':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.GOLDEN_QUARK_BUFF', { amount: format(1 + 0.04 * level, 2, true) })
-      )
-    case 'FREE_UPGRADE_PROMOCODE_BUFF':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.FREE_UPGRADE_PROMOCODE_BUFF', {
-          amount: format(1 + 0.02 * level, 2, true)
-        })
-      )
-    case 'CORRUPTION_LOADOUT_SLOT_QOL':
-      return String(i18next.t('pseudoCoins.upgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL', { amount: level }))
-    case 'AMBROSIA_LOADOUT_SLOT_QOL':
-      return String(i18next.t('pseudoCoins.upgradeEffects.AMBROSIA_LOADOUT_SLOT_QOL', { amount: level }))
-    case 'AUTO_POTION_FREE_POTIONS_QOL':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.AUTO_POTION_FREE_POTIONS_QOL', { descriptor: level > 0 ? '' : 'NOT' })
-      )
-    case 'OFFLINE_TIMER_CAP_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.OFFLINE_TIMER_CAP_BUFF', { amount: level + 1 }))
-    case 'ADD_CODE_CAP_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.ADD_CODE_CAP_BUFF', { amount: level + 1 }))
-    case 'BASE_OFFERING_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.BASE_OFFERING_BUFF', { amount: 6 * level }))
-    case 'BASE_OBTAINIUM_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.BASE_OBTAINIUM_BUFF', { amount: 3 * level }))
-    case 'RED_GENERATION_BUFF':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.RED_GENERATION_BUFF', { amount: format(1 + 0.05 * level, 2, true) })
-      )
-    case 'RED_LUCK_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.RED_LUCK_BUFF', { amount: 20 * level }))
-  }
-}
-
-export const showCostAndEffect = (name: PseudoCoinUpgradeNames) => {
-  switch (name) {
-    case 'INSTANT_UNLOCK_1':
-      return {
-        cost: 'Cost: 400 PseudoCoins',
-        effect: 'Effect: +10 Levels'
-      }
-    case 'INSTANT_UNLOCK_2':
-      return {
-        cost: 'Cost: 600 PseudoCoins',
-        effect: 'Effect: +6 Levels'
-      }
-    case 'CUBE_BUFF':
-      return {
-        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
-        effect: 'Effect: 1.06/1.12/1.18/1.24/1.30x Cubes'
-      }
-    case 'AMBROSIA_LUCK_BUFF':
-      return {
-        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
-        effect: 'Effect: 20/40/60/80/100 Ambrosia Luck'
-      }
-    case 'AMBROSIA_GENERATION_BUFF':
-      return {
-        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
-        effect: 'Effect: 1.05/1.10/1.15/1.20/1.25x Ambrosia Generation'
-      }
-    case 'GOLDEN_QUARK_BUFF':
-      return {
-        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
-        effect: 'Effect: 1.04/1.08/1.12/1.16/1.20x Golden Quarks'
-      }
-    case 'FREE_UPGRADE_PROMOCODE_BUFF':
-      return {
-        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
-        effect: 'Effect: 1.02/1.04/1.06/1.08/1.10x Free Upgrade Promocodes'
-      }
-    case 'CORRUPTION_LOADOUT_SLOT_QOL':
-      return {
-        cost: 'Cost: 125/per PseudoCoins',
-        effect: 'Effect: +1 Loadout Slot per level'
-      }
-    case 'AMBROSIA_LOADOUT_SLOT_QOL':
-      return {
-        cost: 'Cost: 125/per PseudoCoins',
-        effect: 'Effect: +1 Loadout Slot per level'
-      }
-    case 'AUTO_POTION_FREE_POTIONS_QOL':
-      return {
-        cost: 'Cost: 500 PseudoCoins',
-        effect: 'Effect: Auto Potion gives free potions'
-      }
-    case 'OFFLINE_TIMER_CAP_BUFF':
-      return {
-        cost: 'Cost: 400/600 PseudoCoins',
-        effect: 'Effect: 2x/3x Offline Time Cap'
-      }
-    case 'ADD_CODE_CAP_BUFF':
-      return {
-        cost: 'Cost: 400/600 PseudoCoins',
-        effect: 'Effect: 2x/3x Add Code Cap'
-      }
-    case 'BASE_OFFERING_BUFF':
-      return {
-        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
-        effect: 'Effect: +6/+12/+18/+24/+30 Base Offering'
-      }
-    case 'BASE_OBTAINIUM_BUFF':
-      return {
-        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
-        effect: 'Effect: +3/+6/+9/+12/+15 Base Obtainium'
-      }
-    case 'RED_GENERATION_BUFF':
-      return {
-        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
-        effect: 'Effect: 1.05/1.10/1.15/1.20/1.25x Red Generation'
-      }
-    case 'RED_LUCK_BUFF':
-      return {
-        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
-        effect: 'Effect: 20/40/60/80/100 Red Luck'
-      }
+    case 'PURPLE_LUCK_BUFF':
+      PCoinUpgradeEffects.PURPLE_LUCK_BUFF = level * 5
+      break
+    case 'PURPLE_HONEY_BUFF':
+      PCoinUpgradeEffects.PURPLE_HONEY_BUFF = level * 0.04
+      break
+    case 'PURPLE_REACTOR_CAPACITY_BUFF':
+      PCoinUpgradeEffects.PURPLE_REACTOR_CAPACITY_BUFF = level * 250_000_000
+      break
   }
 }
