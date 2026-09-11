@@ -473,15 +473,22 @@ export const calculatePurpleReactantConversion = (
   ambrosiaBarPointsRequested: number
 ) => {
   const recipe = calculatePurpleReactantRecipe()
+  const ambrosiaBatches = ambrosiaBarPoints / recipe.ambrosiaBarPoints
+  const redAmbrosiaBatches = redAmbrosiaBarPoints / recipe.redAmbrosiaBarPoints
   const conversionBatches = Math.min(
-    ambrosiaBarPoints / recipe.ambrosiaBarPoints,
-    redAmbrosiaBarPoints / recipe.redAmbrosiaBarPoints,
+    ambrosiaBatches,
+    redAmbrosiaBatches,
     ambrosiaBarPointsRequested / recipe.ambrosiaBarPoints
   )
 
   return {
-    ambrosiaBarPointsSpent: conversionBatches * recipe.ambrosiaBarPoints,
-    redAmbrosiaBarPointsSpent: conversionBatches * recipe.redAmbrosiaBarPoints,
+    // Consume the limiting input exactly, without leaving a floating-point remainder.
+    ambrosiaBarPointsSpent: conversionBatches === ambrosiaBatches
+      ? ambrosiaBarPoints
+      : conversionBatches * recipe.ambrosiaBarPoints,
+    redAmbrosiaBarPointsSpent: conversionBatches === redAmbrosiaBatches
+      ? redAmbrosiaBarPoints
+      : conversionBatches * recipe.redAmbrosiaBarPoints,
     purpleBarPointsGained: conversionBatches * recipe.purpleBarPoints
   }
 }

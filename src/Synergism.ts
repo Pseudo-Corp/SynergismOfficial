@@ -4418,9 +4418,9 @@ const tack = (dt: number) => {
     addTimers('goldenQuarks', dt)
     addTimers('octeracts', dt)
     addTimers('singularity', dt)
-    addTimers('purpleHoney', dt)
     addTimers('ambrosia', dt)
     addTimers('redAmbrosia', dt)
+    addTimers('purpleHoney', dt)
 
     // Triggers automatic rune sacrifice (adds milliseconds to payload timer)
     if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto', 'autoRune')) {

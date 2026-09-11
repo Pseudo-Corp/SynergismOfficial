@@ -9512,45 +9512,12 @@ header #obtainiumDisplay { color: pink; }
     color: color-mix(in srgb, red, var(--purple-honey-center-color));
 }
 
-.purpleReactorOutput {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    position: relative;
-    min-height: 32px;
-    margin-top: 6px;
-    padding: 4px 7px;
-    border: 1px solid #650065;
-    background-color: rgb(101 0 101 / 20%);
-    text-align: center;
-}
-
-.purpleReactorOutputSymbol {
-    color: var(--purple-text-color);
-    font-size: 1.05em;
-    text-shadow: 0 0 7px var(--purple-text-color);
-}
-
-.purpleReactorOutputText {
-    flex: 1 1 auto;
-    min-width: 0;
-}
-
-.purpleHoneyExtractorText {
-    margin: 0;
-    font-size: 0.82em;
-    line-height: 1.3;
-    white-space: nowrap;
-}
-
 .purpleReactorModifiers {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    position: relative;
     margin-top: 6px;
-    padding-top: 4px;
-    border-top: 1px solid rgb(176 0 176 / 40%);
     text-align: center;
 }
 

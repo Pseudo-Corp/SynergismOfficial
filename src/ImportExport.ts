@@ -772,8 +772,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
-      addTimers('purpleHoney', blueberryTime)
       addTimers('ambrosia', blueberryTime)
+      addTimers('purpleHoney', blueberryTime)
 
       if (player.highestSingularityCount >= 150) {
         player.goldenQuarkUpgrades.goldenQuarks1.freeLevel += 0.01 * realAttemptsUsed
@@ -831,8 +831,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
-      addTimers('purpleHoney', blueberryTime)
       addTimers('ambrosia', blueberryTime)
+      addTimers('purpleHoney', blueberryTime)
 
       await Alert(
         i18next.t('importexport.promocodes.add.reward', {

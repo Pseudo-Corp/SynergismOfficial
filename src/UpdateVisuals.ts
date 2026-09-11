@@ -106,7 +106,7 @@ import {
   purpleReactorUpgrades
 } from './Purple'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
-import { PURPLE_REACTOR_TICK_INTERVAL, type PurpleReactant } from './PurpleReactor'
+import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
 import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
@@ -245,51 +245,66 @@ const isPurpleReactantAtCapacity = (barPoints: number, capacity: number) => {
   return capacity > 0 && barPoints >= capacity - roundingTolerance
 }
 
-const calculatePurpleReactantDisplay = (
-  productionPerSecond: number,
-  reservePercentage: number,
-  storedBarPoints: number,
-  capacity: number,
-  dissolutionPerSecond: number,
-  maximumDissolutionPerSecond: number,
-  overflow?: { reactant: PurpleReactant; counterpartBarPoints: number }
+const calculatePurpleReactorDisplay = (
+  ambrosiaProductionPerSecond: number,
+  redAmbrosiaProductionPerSecond: number
 ) => {
-  const availableDissolutionPerSecond = Math.min(dissolutionPerSecond, maximumDissolutionPerSecond)
-  const refill = calculatePurpleReactantRouting(
-    productionPerSecond,
-    reservePercentage,
-    storedBarPoints,
-    capacity,
+  const ambrosiaCapacity = calculatePurpleReactantCapacity()
+  const redAmbrosiaCapacity = calculateRedAmbrosiaReactantCapacity()
+
+  // Preview the same input-then-reaction tick as the simulation. A balance is an
+  // amount, so convert the tick's spending to a rate only after both inputs arrive.
+  const ambrosiaRouting = calculatePurpleReactantRouting(
+    ambrosiaProductionPerSecond,
+    player.purpleReactor.ambrosiaBarPointPercentage,
+    player.purpleReactor.storedAmbrosiaBarPoints,
+    ambrosiaCapacity,
     PURPLE_REACTOR_TICK_INTERVAL,
     0,
-    overflow
+    { reactant: 'ambrosia', counterpartBarPoints: player.purpleReactor.storedRedAmbrosiaBarPoints }
   )
-  const fullTankRouting = calculatePurpleReactantRouting(
-    productionPerSecond,
-    reservePercentage,
-    capacity,
-    capacity,
-    1,
-    availableDissolutionPerSecond,
-    overflow
+  const redAmbrosiaRouting = calculatePurpleReactantRouting(
+    redAmbrosiaProductionPerSecond,
+    player.purpleReactor.redAmbrosiaBarPointPercentage,
+    Math.max(0, player.purpleReactor.storedRedAmbrosiaBarPoints - ambrosiaRouting.overflowCounterpartBarPoints),
+    redAmbrosiaCapacity,
+    PURPLE_REACTOR_TICK_INTERVAL,
+    0,
+    { reactant: 'redAmbrosia', counterpartBarPoints: ambrosiaRouting.storedBarPoints }
   )
-  const atCapacity = isPurpleReactantAtCapacity(refill.storedBarPoints, capacity)
-    && isPurpleReactantAtCapacity(fullTankRouting.storedBarPoints, capacity)
+  const ambrosiaBarPoints = Math.max(
+    0,
+    ambrosiaRouting.storedBarPoints - redAmbrosiaRouting.overflowCounterpartBarPoints
+  )
+  const redAmbrosiaBarPoints = redAmbrosiaRouting.storedBarPoints
+  const reaction = calculatePurpleReactantConversion(
+    ambrosiaBarPoints,
+    redAmbrosiaBarPoints,
+    ambrosiaCapacity * calculateEncabulatorSpeed() / 100 / 3600 * PURPLE_REACTOR_TICK_INTERVAL
+  )
 
   return {
-    atCapacity,
-    dissolutionPerSecond: availableDissolutionPerSecond,
-    routing: atCapacity
-      ? fullTankRouting
-      : calculatePurpleReactantRouting(
-        productionPerSecond,
-        reservePercentage,
-        storedBarPoints,
-        capacity,
-        1,
-        availableDissolutionPerSecond,
-        overflow
-      )
+    ambrosia: {
+      routing: ambrosiaRouting,
+      dissolutionPerSecond: reaction.ambrosiaBarPointsSpent / PURPLE_REACTOR_TICK_INTERVAL,
+      atCapacity: player.purpleReactor.storedAmbrosiaBarPoints > 0
+        && isPurpleReactantAtCapacity(ambrosiaBarPoints, ambrosiaCapacity)
+        && normalizePurpleReactantNetRate(
+            ambrosiaBarPoints - reaction.ambrosiaBarPointsSpent - player.purpleReactor.storedAmbrosiaBarPoints,
+            ambrosiaCapacity
+          ) >= 0
+    },
+    redAmbrosia: {
+      routing: redAmbrosiaRouting,
+      dissolutionPerSecond: reaction.redAmbrosiaBarPointsSpent / PURPLE_REACTOR_TICK_INTERVAL,
+      atCapacity: player.purpleReactor.storedRedAmbrosiaBarPoints > 0
+        && isPurpleReactantAtCapacity(redAmbrosiaBarPoints, redAmbrosiaCapacity)
+        && normalizePurpleReactantNetRate(
+            redAmbrosiaBarPoints - reaction.redAmbrosiaBarPointsSpent - player.purpleReactor.storedRedAmbrosiaBarPoints,
+            redAmbrosiaCapacity
+          ) >= 0
+    },
+    purpleBarPointsPerSecond: reaction.purpleBarPointsGained / PURPLE_REACTOR_TICK_INTERVAL
   }
 }
 
@@ -2084,51 +2099,12 @@ export const visualUpdateAmbrosia = () => {
   const totalTimePerSecondRed = calculateRedAmbrosiaGenerationSpeed()
   const ambrosiaProgress = Math.min(1, player.blueberryTime / requiredTime)
   const redAmbrosiaProgress = Math.min(1, player.redAmbrosiaTime / requiredTimeRed)
-  const ambrosiaReactantCapacity = calculatePurpleReactantCapacity()
-  const redAmbrosiaReactantCapacity = calculateRedAmbrosiaReactantCapacity()
-  const ambrosiaBarPointsRequestedPerSecond = ambrosiaReactantCapacity
-    * calculateEncabulatorSpeed()
-    / 100
-    / 3600
   const {
-    ambrosiaBarPointsSpent: ambrosiaReactantDissolutionRate,
-    redAmbrosiaBarPointsSpent: redAmbrosiaReactantDissolutionRate
-  } = calculatePurpleReactantConversion(
-    player.purpleReactor.storedAmbrosiaBarPoints,
-    player.purpleReactor.storedRedAmbrosiaBarPoints,
-    ambrosiaBarPointsRequestedPerSecond
-  )
-  const {
-    ambrosiaBarPointsSpent: maximumAmbrosiaReactantDissolutionRate,
-    redAmbrosiaBarPointsSpent: maximumRedAmbrosiaReactantDissolutionRate
-  } = calculatePurpleReactantConversion(
-    ambrosiaReactantCapacity,
-    redAmbrosiaReactantCapacity,
-    ambrosiaBarPointsRequestedPerSecond
-  )
-  const { routing: ambrosiaRouting } = calculatePurpleReactantDisplay(
+    ambrosia: { routing: ambrosiaRouting },
+    redAmbrosia: { routing: redAmbrosiaRouting }
+  } = calculatePurpleReactorDisplay(
     player.singularityChallenges.noSingularityUpgrades.completions > 0 ? totalTimePerSecond : 0,
-    player.purpleReactor.ambrosiaBarPointPercentage,
-    player.purpleReactor.storedAmbrosiaBarPoints,
-    ambrosiaReactantCapacity,
-    ambrosiaReactantDissolutionRate,
-    maximumAmbrosiaReactantDissolutionRate,
-    {
-      reactant: 'ambrosia',
-      counterpartBarPoints: Math.max(
-        0,
-        player.purpleReactor.storedRedAmbrosiaBarPoints - redAmbrosiaReactantDissolutionRate
-      )
-    }
-  )
-  const { routing: redAmbrosiaRouting } = calculatePurpleReactantDisplay(
-    player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? totalTimePerSecondRed : 0,
-    player.purpleReactor.redAmbrosiaBarPointPercentage,
-    Math.max(0, player.purpleReactor.storedRedAmbrosiaBarPoints - ambrosiaRouting.overflowCounterpartBarPoints),
-    redAmbrosiaReactantCapacity,
-    redAmbrosiaReactantDissolutionRate,
-    maximumRedAmbrosiaReactantDissolutionRate,
-    { reactant: 'redAmbrosia', counterpartBarPoints: ambrosiaRouting.storedBarPoints }
+    player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? totalTimePerSecondRed : 0
   )
   const ambCubeBonus = calculateAmbrosiaCubeMult()
     * getShopUpgradeEffects('shopCashGrabUltra', 'cubesMult')
@@ -2386,45 +2362,23 @@ export const visualUpdatePurple = () => {
     ? calculateRedAmbrosiaGenerationSpeed()
     : 0
   const {
-    ambrosiaBarPointsSpent: ambrosiaReactantDissolutionRate,
-    redAmbrosiaBarPointsSpent: redAmbrosiaReactantDissolutionRate,
-    purpleBarPointsGained: purpleHoneyProgressPerSecond
-  } = calculatePurpleReactantConversion(
-    ambrosiaBarPoints,
-    redAmbrosiaBarPoints,
-    ambrosiaBarPointsRequestedPerSecond
-  )
-  const {
     ambrosiaBarPointsSpent: maximumAmbrosiaReactantDissolutionRate,
     redAmbrosiaBarPointsSpent: maximumRedAmbrosiaReactantDissolutionRate
   } = calculatePurpleReactantConversion(
-    ambrosiaReactantCapacity,
-    redAmbrosiaReactantCapacity,
+    ambrosiaReactantCapacity / PURPLE_REACTOR_TICK_INTERVAL,
+    redAmbrosiaReactantCapacity / PURPLE_REACTOR_TICK_INTERVAL,
     ambrosiaBarPointsRequestedPerSecond
   )
 
   const purpleHoneyProgress = player.purpleHoneyProgress
 
-  const ambrosiaReactantDisplay = calculatePurpleReactantDisplay(
+  const {
+    ambrosia: ambrosiaReactantDisplay,
+    redAmbrosia: redAmbrosiaReactantDisplay,
+    purpleBarPointsPerSecond: purpleHoneyProgressPerSecond
+  } = calculatePurpleReactorDisplay(
     ambrosiaProductionPerSecond,
-    player.purpleReactor.ambrosiaBarPointPercentage,
-    ambrosiaBarPoints,
-    ambrosiaReactantCapacity,
-    ambrosiaReactantDissolutionRate,
-    maximumAmbrosiaReactantDissolutionRate,
-    {
-      reactant: 'ambrosia',
-      counterpartBarPoints: Math.max(0, redAmbrosiaBarPoints - redAmbrosiaReactantDissolutionRate)
-    }
-  )
-  const redAmbrosiaReactantDisplay = calculatePurpleReactantDisplay(
-    redAmbrosiaProductionPerSecond,
-    player.purpleReactor.redAmbrosiaBarPointPercentage,
-    Math.max(0, redAmbrosiaBarPoints - ambrosiaReactantDisplay.routing.overflowCounterpartBarPoints),
-    redAmbrosiaReactantCapacity,
-    redAmbrosiaReactantDissolutionRate,
-    maximumRedAmbrosiaReactantDissolutionRate,
-    { reactant: 'redAmbrosia', counterpartBarPoints: ambrosiaReactantDisplay.routing.storedBarPoints }
+    redAmbrosiaProductionPerSecond
   )
   const ambrosiaReactantRouting = ambrosiaReactantDisplay.routing
   const redAmbrosiaReactantRouting = redAmbrosiaReactantDisplay.routing
@@ -2450,10 +2404,6 @@ export const visualUpdatePurple = () => {
   )
 
   const ambrosiaAtCapacity = ambrosiaReactantDisplay.atCapacity
-    && isPurpleReactantAtCapacity(
-      ambrosiaReactantRouting.storedBarPoints - redAmbrosiaReactantRouting.overflowCounterpartBarPoints,
-      ambrosiaReactantCapacity
-    )
   const redAmbrosiaAtCapacity = redAmbrosiaReactantDisplay.atCapacity
   const displayedAmbrosiaBarPoints = ambrosiaAtCapacity ? ambrosiaReactantCapacity : ambrosiaBarPoints
   const displayedRedAmbrosiaBarPoints = redAmbrosiaAtCapacity ? redAmbrosiaReactantCapacity : redAmbrosiaBarPoints
@@ -2604,14 +2554,10 @@ export const visualUpdatePurple = () => {
     'purpleHoneyExtractionMultiplier',
     i18next.t(
       'purpleReactor.purpleHoneyExtractionMultiplier',
-      { multiplier: `${format(guaranteedMultiplier, 0, true)}x` }
-    )
-  )
-  updateInnerHTMLIfChanged(
-    'purpleHoneyExtractionBonusChance',
-    i18next.t(
-      'purpleReactor.purpleHoneyExtractionBonusChance',
-      { chance: format(100 * bonusMultiplierChance, 2, true) }
+      {
+        multiplier: `${format(guaranteedMultiplier, 0, true)}x`,
+        chance: format(100 * bonusMultiplierChance, 2, true)
+      }
     )
   )
 
