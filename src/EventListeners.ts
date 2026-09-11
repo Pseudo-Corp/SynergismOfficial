@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
-import { initializeAmbrosiaLedger, initializeAmbrosiaUpgradeLayout } from './AmbrosiaUI'
+import { initializeAmbrosiaUpgradeLayout } from './AmbrosiaUI'
 import {
   ambrosiaEditAction,
   ambrosiaEditToString,
@@ -2006,8 +2006,6 @@ TODO: Fix this entire tab it's utter shit
       )
     })
   }
-
-  initializeAmbrosiaLedger()
 
   // BLUEBERRY LOADOUTS
   const blueberryLoadouts = document.querySelectorAll('[id^="blueberryLoadout"]')

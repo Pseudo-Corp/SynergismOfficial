@@ -7096,27 +7096,6 @@ header #obtainiumDisplay { color: pink; }
     display: none;
 }
 
-#ambrosiaLedgerControls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 8px;
-    margin-bottom: 6px;
-}
-
-#ambrosiaLedgerControls > button {
-    flex: 1 1 auto;
-    min-height: 44px;
-    min-width: 0;
-    height: auto;
-    padding: 6px 10px;
-    white-space: normal;
-    overflow-wrap: anywhere;
-}
-
-html[data-mobile="true"] .ambrosiaLedgerBonusesCollapsed .ambrosiaLedgerBonuses {
-    display: none;
-}
-
 .ambrosiaLedgerRow {
     /* Reserve two comma-formatted nine-digit balances, plus the icon and its gap. */
     display: grid;
