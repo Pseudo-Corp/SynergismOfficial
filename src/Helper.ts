@@ -193,7 +193,8 @@ const convertPurpleReactants = (elapsedSeconds: number) => {
         player.purpleReactor.purpleHoney
       )
       if (player.singularityCounter >= 3600 && !player.singularityChallenges.barDependence.enabled) {
-        const quarksToAdd = purpleHoneyGained * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+        const quarksToAdd = purpleHoneyGained
+          * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
         player.worlds.add(quarksToAdd, true, true)
       }
     }
