@@ -251,7 +251,7 @@ export const octeractUpgrades: {
   octeractImprovedDaily: {
     level: 0,
     costFormula: (n) => {
-      return 1e-3 * Math.pow(2.6, n)
+      return 1e-3 * (Math.pow(1.6, n) - 1) / (1.6 - 1)
     },
     maxLevel: 50,
     effect: (n: number) => {
@@ -1261,13 +1261,11 @@ export const buyOcteractUpgradeLevel = async (
   player.wowOcteracts -= cost
   player.octUpgrades[upgradeKey].octeractsInvested += cost
   upgrade.level += levelsToPurchase
-
+  updateTokens()
+  updateMaxTokens()
   if (levelsToPurchase > 1) {
     return Alert(i18next.t('octeract.buyLevel.multiBuy', { n: format(levelsToPurchase) }))
   }
-
-  updateTokens()
-  updateMaxTokens()
 }
 
 export const getOcteractUpgradeEffect = <

@@ -305,7 +305,8 @@ const mobileSubTabIconConfigs: MobileSubTabIconConfig[] = [
       toggleSingularitySubTab2: 'Pictures/Subtab Icons/Singularity/GoldenQuarkUpgrades.png',
       toggleSingularitySubTab3: 'Pictures/Subtab Icons/Singularity/SingularityPerks.png',
       toggleSingularitySubTab4: 'Pictures/Subtab Icons/Singularity/Octeracts.png',
-      toggleSingularitySubTab5: 'Pictures/Subtab Icons/Singularity/Ambrosia.png'
+      toggleSingularitySubTab5: 'Pictures/Subtab Icons/Singularity/Ambrosia.png',
+      toggleSingularitySubTab6: 'Pictures/Subtab Icons/Singularity/Purple.png'
     }
   },
   {

@@ -582,7 +582,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: true,
     rewardedAP: 0,
-    displayOrder: 5,
+    displayOrder: 6,
     displayCondition: () => player.unlocks.talismans
   },
   purpleHoneyUpgrades: {
