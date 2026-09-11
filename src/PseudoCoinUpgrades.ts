@@ -1,8 +1,6 @@
-import i18next from 'i18next'
 import { displayProperLoadoutCount } from './BlueberryUpgrades'
 import { corruptionLoadoutTableCreate, updateCorruptionLoadoutNames } from './Corruptions'
 import { CartTab } from './purchases/CartTab'
-import { format } from './Synergism'
 
 export type PseudoCoinUpgradeNames =
   | 'INSTANT_UNLOCK_1'
@@ -157,77 +155,6 @@ const updatePCoinEffects = (name: PseudoCoinUpgradeNames, level: number) => {
     case 'PURPLE_REACTOR_CAPACITY_BUFF':
       PCoinUpgradeEffects.PURPLE_REACTOR_CAPACITY_BUFF = level * 250_000_000
       break
-  }
-}
-
-export const displayPCoinEffect = (name: PseudoCoinUpgradeNames, level: number) => {
-  switch (name) {
-    case 'INSTANT_UNLOCK_1':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.INSTANT_UNLOCK_1', {
-          descriptor: level > 0 ? '' : 'NOT',
-          amount: 10 * level
-        })
-      )
-    case 'INSTANT_UNLOCK_2':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.INSTANT_UNLOCK_2', {
-          descriptor: level > 0 ? '' : 'NOT',
-          amount: 6 * level
-        })
-      )
-    case 'CUBE_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.CUBE_BUFF', { amount: format(1 + 0.06 * level, 2, true) }))
-    case 'AMBROSIA_LUCK_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.AMBROSIA_LUCK_BUFF', { amount: 20 * level }))
-    case 'AMBROSIA_GENERATION_BUFF':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.AMBROSIA_GENERATION_BUFF', { amount: format(1 + 0.05 * level, 2, true) })
-      )
-    case 'GOLDEN_QUARK_BUFF':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.GOLDEN_QUARK_BUFF', { amount: format(1 + 0.04 * level, 2, true) })
-      )
-    case 'FREE_UPGRADE_PROMOCODE_BUFF':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.FREE_UPGRADE_PROMOCODE_BUFF', {
-          amount: format(1 + 0.02 * level, 2, true)
-        })
-      )
-    case 'CORRUPTION_LOADOUT_SLOT_QOL':
-      return String(i18next.t('pseudoCoins.upgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL', { amount: level }))
-    case 'AMBROSIA_LOADOUT_SLOT_QOL':
-      return String(i18next.t('pseudoCoins.upgradeEffects.AMBROSIA_LOADOUT_SLOT_QOL', { amount: level }))
-    case 'AUTO_POTION_FREE_POTIONS_QOL':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.AUTO_POTION_FREE_POTIONS_QOL', { descriptor: level > 0 ? '' : 'NOT' })
-      )
-    case 'OFFLINE_TIMER_CAP_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.OFFLINE_TIMER_CAP_BUFF', { amount: level + 1 }))
-    case 'ADD_CODE_CAP_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.ADD_CODE_CAP_BUFF', { amount: level + 1 }))
-    case 'BASE_OFFERING_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.BASE_OFFERING_BUFF', { amount: 6 * level }))
-    case 'BASE_OBTAINIUM_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.BASE_OBTAINIUM_BUFF', { amount: 3 * level }))
-    case 'RED_GENERATION_BUFF':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.RED_GENERATION_BUFF', { amount: format(1 + 0.05 * level, 2, true) })
-      )
-    case 'RED_LUCK_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.RED_LUCK_BUFF', { amount: 20 * level }))
-    case 'PURPLE_LUCK_BUFF':
-      return String(i18next.t('pseudoCoins.upgradeEffects.PURPLE_LUCK_BUFF', { amount: 5 * level }))
-    case 'PURPLE_HONEY_BUFF':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.PURPLE_HONEY_BUFF', { amount: format(0.04 * level, 2, true) })
-      )
-    case 'PURPLE_REACTOR_CAPACITY_BUFF':
-      return String(
-        i18next.t('pseudoCoins.upgradeEffects.PURPLE_REACTOR_CAPACITY_BUFF', {
-          amount: 250_000_000 * level
-        })
-      )
   }
 }
 

@@ -3505,20 +3505,6 @@
   "pseudoCoins": {
     "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",
     "currEffect": "Current Level:",
-    "nextEffect": "Next Level:",
-    "upgradeEffects": {
-      "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
-      "INSTANT_UNLOCK_2": "The Rune of Infinite Ascent is <<gold | {{descriptor}}>> always unlocked! <<orange | Bonus Levels +{{amount}}>>",
-      "CUBE_BUFF": "Cube Gain is multiplied by <<gold | {{amount}}>>",
-      "AMBROSIA_LUCK_BUFF": "Ambrosia Luck is increased by <<gold | {{amount}}>>",
-      "AMBROSIA_GENERATION_BUFF": "Blueberry Generation Speed is multiplied by <<gold | {{amount}}>>",
-      "GOLDEN_QUARK_BUFF": "Golden Quark Gain is multiplied by <<gold | {{amount}}>>",
-      "FREE_UPGRADE_PROMOCODE_BUFF": "Code 'Daily' gives <<gold | {{amount}}x>> the Free Upgrades!",
-      "CORRUPTION_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Corruption Loadout slots!",
-      "AMBROSIA_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Ambrosia Loadout slots!",
-      "AUTO_POTION_FREE_POTIONS_QOL": "Auto-Potion is <<gold | {{descriptor}}>> FREE!",
-      "OFFLINE_TIMER_CAP_BUFF": "Offline Time Capacity is multiplied by <<gold | {{amount}}>>",
-      "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>"
-    }
+    "nextEffect": "Next Level:"
   }
 }
