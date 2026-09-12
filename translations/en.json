@@ -8532,6 +8532,7 @@
       "pseudoCoins": "PseudoCoins:",
       "lotus": "Lotus:",
       "loadingPseudoCoins": "Loading PseudoCoins",
+      "refresh": "Refresh PseudoCoin balance",
       "loadingLotus": "Loading Lotus"
     },
     "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",

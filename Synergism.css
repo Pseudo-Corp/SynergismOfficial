@@ -10445,6 +10445,18 @@ html[data-mobile="false"] .pseudoCoinButton {
     object-fit: contain;
 }
 
+#refreshPseudoCoinBalance {
+    padding: unset;
+    min-width: 30px;
+    font-size: 1em;
+    color: var(--amber-text-color);
+}
+
+#refreshPseudoCoinBalance:disabled > span {
+    display: inline-block;
+    animation: rotation 1s linear infinite;
+}
+
 .pseudoCoinBalanceValue,
 .lotusBalanceValue {
     min-width: 16px;
