@@ -278,6 +278,10 @@ export const exportSynergism = async (
     return
   }
 
+  await exportStoredSave()
+}
+
+export const exportStoredSave = async () => {
   let saveString: string | null
 
   try {
@@ -298,7 +302,7 @@ export const exportSynergism = async (
 
 export const reloadDeleteGame = async () => {
   await Alert(i18next.t('importexport.reloadDeletePrompt'))
-  await resetGame(true)
+  await resetGame(false)
 }
 
 export const resetGame = async (force = true) => {

@@ -4720,16 +4720,21 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
  */
 let reloadGeneration = 0
 
+const showLoadRecovery = () => {
+  if (G.timeWarp) {
+    return
+  }
+
+  DOMCacheGetOrSet('preloadRecovery').style.display = ''
+}
+
 export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: string) => {
   const generation = ++reloadGeneration
   clearTimers()
   cancelOfflineProgress()
 
-  // Shows a reset button when page loading seems to stop or cause an error
-  const preloadDeleteGame = setTimeout(
-    () => (DOMCacheGetOrSet('preloadDeleteGame').style.display = 'block'),
-    10000
-  )
+  DOMCacheGetOrSet('preloadRecovery').style.display = 'none'
+  const loadRecoveryTimer = setTimeout(showLoadRecovery, 10000)
 
   disableHotkeys()
 
@@ -4740,7 +4745,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
       await initializeSaveStorage()
       saveObject = await getStoredSave()
     } catch (error) {
-      clearTimeout(preloadDeleteGame)
+      clearTimeout(loadRecoveryTimer)
       console.error('Failed to initialize save storage', error)
       await Alert(i18next.t('save.storageLoadFailed'))
       return
@@ -4756,12 +4761,14 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
 
     if (isLZString) {
       if (!decompress) {
+        showLoadRecovery()
         return Alert(i18next.t('save.loadFailed'))
       }
 
       const convertedSave = btoa(decompress)
 
       if (convertedSave === null) {
+        showLoadRecovery()
         return Alert(i18next.t('save.loadFailed'))
       }
 
@@ -4774,7 +4781,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
       try {
         await persistSave(saveString)
       } catch (error) {
-        clearTimeout(preloadDeleteGame)
+        clearTimeout(loadRecoveryTimer)
         console.error('Failed to persist converted save', error)
         await Alert(i18next.t('testing.errorSaving'))
         return
@@ -4785,10 +4792,12 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
 
     try {
       if (!loadSynergy(saveString)) {
+        showLoadRecovery()
         return
       }
     } catch (error) {
       console.error('Failed to decode save', error)
+      showLoadRecovery()
       await Alert(i18next.t('save.loadFailed'))
       return
     }
@@ -4888,7 +4897,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   updateAllGroupedAchievementProgress()
   updateAllProgressiveAchievementProgress()
   updateChallengeDisplay()
-  clearTimeout(preloadDeleteGame)
+  clearTimeout(loadRecoveryTimer)
 
   // All versions of Chrome and Firefox supported by the game have this API,
   // but not all versions of Edge and Safari do.

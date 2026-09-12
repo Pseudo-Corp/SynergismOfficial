@@ -82,6 +82,7 @@ import { resetHistoryTogglePerSecond } from './History'
 import { registerMobileHotkeyPanel, resetHotkeys } from './Hotkeys'
 import {
   addCodeAvailableUses,
+  exportStoredSave,
   exportSynergism,
   importData,
   importSynergism,
@@ -1616,6 +1617,8 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('savegame').addEventListener('click', () => saveSynergy(true))
   DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame(false))
   DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
+  DOMCacheGetOrSet('preloadExportSave').addEventListener('click', () => exportStoredSave())
+  DOMCacheGetOrSet('preloadImportSave').addEventListener('click', () => DOMCacheGetOrSet('importfile').click())
   DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
   DOMCacheGetOrSet('addCodeBox').addEventListener('mouseover', () => promocodesInfo('add'))
   DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))

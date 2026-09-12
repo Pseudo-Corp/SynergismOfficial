@@ -977,12 +977,36 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 
-#preloadDeleteGame {
+#preloadRecovery {
     position: fixed;
-    bottom: 1em;
-    right: 1em;
-    min-width: 8em;
+    bottom: calc(1em + env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    color: white;
+    text-align: center;
+}
+
+#preloadRecovery > button {
+    font-size: 1.25em;
+    padding: 0.5em 1.5em;
+}
+
+#preloadExportSave {
+    border: 2px solid gold;
+    color: gold;
+}
+
+#preloadImportSave {
+    border: 2px solid limegreen;
+    color: lightgreen;
+}
+
+#preloadDeleteGame {
     border: 2px solid red;
     color: pink;
 }

@@ -9,7 +9,10 @@
     "loadFailed": "Unable to load save.",
     "storageLoadFailed": "The app could not read your saved game from device storage. Autosaving has been disabled to protect it. Close and reopen the app, then try again.",
     "saveToClipboard": "Are you sure you want to enable copy save to clipboard?",
-    "playOffline": "Play Offline"
+    "playOffline": "Play Offline",
+    "recoveryHint": "The game could not finish loading your save. You can back it up, load a backup from a file, or delete it and start over.",
+    "recoveryExport": "Export savefile",
+    "recoveryImport": "Load from file"
   },
   "ambrosia": {
     "ambrosia": "Ambrosia",

@@ -77,7 +77,12 @@
     <div id="offlineBlur">
         <img id="logo" src="Pictures/logo.png" alt="The Synergism Logo">
         <button id="preloadPlayOffline" style="display: none;" i18n="save.playOffline">Play Offline</button>
-        <button id="preloadDeleteGame" style="display: none;">Delete savefile</button>
+        <div id="preloadRecovery" style="display: none;">
+            <p i18n="save.recoveryHint"></p>
+            <button id="preloadExportSave" i18n="save.recoveryExport">Export savefile</button>
+            <button id="preloadImportSave" i18n="save.recoveryImport">Load from file</button>
+            <button id="preloadDeleteGame" i18n="settings.deleteSave">Delete savefile</button>
+        </div>
     </div>
     <div id="offlineContainer" style="display: none;">
         <p id="offlineTimer" class="offlineText" style="color: plum"></p>
