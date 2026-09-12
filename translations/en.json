@@ -8435,6 +8435,7 @@
     "helloNoUser": "Hello!",
     "helloUser": "Hello, <<gold|{{username}}>>!",
     "logoutLabel": "Logout",
+    "logoutConfirm": "Are you sure you want to log out?",
     "loggedInBut": "You are logged in, but your profile couldn't be retrieved.",
     "loggedInButError": "You are logged in, but retrieving your profile yielded the following error: {{error}}",
     "loginNotAvailable": "Login is not available here, go to <a href=\"https://synergism.cc\">https://synergism.cc</a> instead!",
