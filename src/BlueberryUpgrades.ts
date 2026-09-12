@@ -1631,7 +1631,7 @@ export const blankAmbrosiaUpgradeObject: Record<
 >
 
 export const setAmbrosiaUpgradeLevels = () => {
-  for (const upgradeKey of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+  for (const upgradeKey of ambrosiaUpgradeNames) {
     const upgrade = ambrosiaUpgrades[upgradeKey]
     if (upgradeKey === 'twoMind') {
       // This upgrade costs only Blueberries, so Ambrosia investment cannot indicate ownership.
@@ -1668,7 +1668,7 @@ export const setAmbrosiaUpgradeLevels = () => {
 }
 
 export const reconcilePurpleAmbrosiaEnchantments = () => {
-  for (const upgradeKey of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+  for (const upgradeKey of ambrosiaUpgradeNames) {
     const enchantment = ambrosiaUpgrades[upgradeKey].purpleAmbrosiaEnchantment
     const state = player.ambrosiaUpgrades[upgradeKey]
     const savedInvestment = state.purpleAmbrosiaInvested ?? 0
@@ -1684,7 +1684,7 @@ export const reconcilePurpleAmbrosiaEnchantments = () => {
   }
 
   player.spentBlueberries = 0
-  for (const upgradeKey of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+  for (const upgradeKey of ambrosiaUpgradeNames) {
     const state = player.ambrosiaUpgrades[upgradeKey]
     if (ambrosiaUpgrades[upgradeKey].level > 0) {
       const blueberryCost = getAmbrosiaUpgradeBlueberryCost(upgradeKey)
@@ -2110,7 +2110,7 @@ const getAmbrosiaEditFloor = (upgradeKey: AmbrosiaUpgradeNames) => {
   let level = 0
   let blocker: AmbrosiaUpgradeNames | null = null
 
-  for (const key of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+  for (const key of ambrosiaUpgradeNames) {
     if (ambrosiaUpgrades[key].level === 0) continue
 
     const required = ambrosiaUpgrades[key].prerequisites[upgradeKey]
@@ -2329,7 +2329,7 @@ export const displayProperLoadoutCount = () => {
 export const resetBlueberryTree = (giveAlert = true) => {
   ambrosiaEditTarget = null
 
-  for (const k of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+  for (const k of ambrosiaUpgradeNames) {
     ambrosiaUpgrades[k].level = 0
     player.ambrosiaUpgrades[k].ambrosiaInvested = 0
     player.ambrosiaUpgrades[k].blueberriesInvested = 0

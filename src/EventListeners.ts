@@ -4,7 +4,7 @@ import { initializeAmbrosiaUpgradeLayout } from './AmbrosiaUI'
 import {
   ambrosiaEditAction,
   ambrosiaEditToString,
-  type AmbrosiaUpgradeNames,
+  ambrosiaUpgradeNames,
   ambrosiaUpgrades,
   ambrosiaUpgradeToString,
   beginAmbrosiaEdit,
@@ -1946,10 +1946,8 @@ TODO: Fix this entire tab it's utter shit
 
   // BLUEBERRY UPGRADES
   initializeAmbrosiaUpgradeLayout()
-  const blueberryUpgrades = Object.keys(
-    ambrosiaUpgrades
-  ) as AmbrosiaUpgradeNames[]
-  for (const key of blueberryUpgrades) {
+
+  for (const key of ambrosiaUpgradeNames) {
     const element = DOMCacheGetOrSet(key)
     const enchantment = ambrosiaUpgrades[key].purpleAmbrosiaEnchantment
     if (element.querySelector('.purpleAmbrosiaEnchantmentIcon') === null) {
