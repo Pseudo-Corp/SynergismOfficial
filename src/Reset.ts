@@ -1057,7 +1057,9 @@ export const singularity = (setSingNumber = -1) => {
   resetTalismanData('singularity')
   resetAnts(AntSacrificeTiers.singularity)
 
-  player.goldenQuarks += calculateGoldenQuarks()
+  if (antiquitiesPurchased) {
+    player.goldenQuarks += calculateGoldenQuarks()
+  }
 
   if (setSingNumber === -1) {
     const lookahead = calculateMaxSingularityLookahead(true)
