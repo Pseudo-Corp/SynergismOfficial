@@ -1618,8 +1618,8 @@ export const blankAmbrosiaUpgradeObject: Record<
   AmbrosiaUpgradeNames,
   { ambrosiaInvested: number; blueberriesInvested: number; purpleAmbrosiaInvested?: number }
 > = Object.fromEntries(
-  Object.keys(ambrosiaUpgrades).map((key) => [
-    key as AmbrosiaUpgradeNames,
+  ambrosiaUpgradeNames.map((key) => [
+    key,
     {
       ambrosiaInvested: 0,
       blueberriesInvested: 0
@@ -2566,15 +2566,14 @@ export const highlightPrerequisites = (k: AmbrosiaUpgradeNames) => {
   const preReq = ambrosiaUpgrades[k].prerequisites
   if (preReq === undefined) return
 
-  for (const key of Object.keys(ambrosiaUpgrades)) {
-    const k2 = key as AmbrosiaUpgradeNames
-    const elm = DOMCacheGetOrSet(k2)
+  for (const key of ambrosiaUpgradeNames) {
+    const elm = DOMCacheGetOrSet(key)
     const img = elm.querySelector('img') as HTMLImageElement
-    const requiredLevel = preReq[k2]
+    const requiredLevel = preReq[key]
     img.classList.toggle('blueberryPrereq', requiredLevel !== undefined)
     img.classList.toggle(
       'blueberryPrereqMet',
-      requiredLevel !== undefined && ambrosiaUpgrades[k2].level >= requiredLevel
+      requiredLevel !== undefined && ambrosiaUpgrades[key].level >= requiredLevel
     )
   }
 }
@@ -2587,9 +2586,8 @@ export const highlightRedAmbrosiaTargets = (upgradeKey: RedAmbrosiaNames) => {
 }
 
 export const resetHighlights = () => {
-  for (const key of Object.keys(ambrosiaUpgrades)) {
-    const k = key as AmbrosiaUpgradeNames
-    const elm = DOMCacheGetOrSet(k)
+  for (const key of ambrosiaUpgradeNames) {
+    const elm = DOMCacheGetOrSet(key)
     const img = elm.querySelector('img') as HTMLImageElement
     img.classList.remove('blueberryPrereq', 'blueberryPrereqMet', 'redAmbrosiaTarget')
   }
@@ -2598,12 +2596,11 @@ export const resetHighlights = () => {
 export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
   const loadoutKeys = Object.keys(loadout)
 
-  for (const key of Object.keys(ambrosiaUpgrades)) {
-    const k = key as AmbrosiaUpgradeNames
-    const elm = DOMCacheGetOrSet(k)
+  for (const key of ambrosiaUpgradeNames) {
+    const elm = DOMCacheGetOrSet(key)
     const img = elm.querySelector('img') as HTMLImageElement
-    const level = loadout[k] || 0 // Get the level from the loadout, default to 0 if not present
-    const isInLoadout = level > 0 && loadoutKeys.includes(k)
+    const level = loadout[key] || 0 // Get the level from the loadout, default to 0 if not present
+    const isInLoadout = level > 0 && loadoutKeys.includes(key)
     const enchantmentIcon = elm.querySelector('.purpleAmbrosiaEnchantmentIcon')
 
     enchantmentIcon?.classList.toggle('purpleAmbrosiaEnchantmentIconLoadoutHidden', !isInLoadout)
@@ -2619,7 +2616,7 @@ export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
     if (isInLoadout) {
       img.classList.add('dimmed') // Apply the dimmed class
       levelOverlay.textContent = String(level) // Set the level text
-      if (level === ambrosiaUpgrades[k].maxLevel) {
+      if (level === ambrosiaUpgrades[key].maxLevel) {
         levelOverlay.classList.add('maxBlueberryLevel')
       }
     } else {
@@ -2630,9 +2627,8 @@ export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
 }
 
 export const resetLoadoutOnlyDisplay = () => {
-  for (const key of Object.keys(ambrosiaUpgrades)) {
-    const k = key as AmbrosiaUpgradeNames
-    const elm = DOMCacheGetOrSet(k)
+  for (const key of ambrosiaUpgradeNames) {
+    const elm = DOMCacheGetOrSet(key)
     const img = elm.querySelector('img') as HTMLImageElement
     img.classList.remove('dimmed') // Remove the dimmed class
     img.classList.remove('superDimmed') // Remove the superDimmed class
