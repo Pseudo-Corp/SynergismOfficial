@@ -4881,7 +4881,7 @@
       },
       "singAmbrosiaLuck": {
         "name": "Absolute Hot",
-        "description": "Your gold smelters get arbitrarily close to 'Absolute Hot'. +4 Ambrosia Luck per level, infinitely levelable!",
+        "description": "Your gold smelters get arbitrarily close to 'Absolute Hot'. +4 Ambrosia Luck per level, up to level 75!",
         "effect": "+{{n}} Ambrosia Luck!"
       },
       "singAmbrosiaLuck4": {
@@ -4901,7 +4901,7 @@
       },
       "singAmbrosiaGeneration": {
         "name": "Hourglass of Limitlessness",
-        "description": "Remember- this hourglass is really important. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
+        "description": "Remember- this hourglass is really important. But it gives +1% faster Ambrosia Bar Point creation per level, up to level 75!",
         "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singAmbrosiaGeneration4": {
@@ -6197,7 +6197,7 @@
       },
       "octeractAmbrosiaLuck": {
         "name": "Berries of an Eight Leaf Clover",
-        "description": "Totally not a reskin of the blueberry! Adds +4 Ambrosial Luck per level, and it is infinitely levelable!",
+        "description": "Totally not a reskin of the blueberry! Adds +4 Ambrosial Luck per level, up to level 100!",
         "effect": "+{{n}} Ambrosia Luck!"
       },
       "octeractAmbrosiaLuck4": {
@@ -6217,7 +6217,7 @@
       },
       "octeractAmbrosiaGeneration": {
         "name": "Hourglass of Infinitude",
-        "description": "Don't get it twisted, this hourglass is really primitive. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
+        "description": "Don't get it twisted, this hourglass is really primitive. But it gives +1% faster Ambrosia Bar Point creation per level, up to level 100!",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration4": {
