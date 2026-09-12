@@ -1831,6 +1831,10 @@ p#promocodeinfo {
     margin: 1px;
 }
 
+#checkMobileUpdates {
+    border: 2px solid var(--amber-text-color)
+}
+
 .center {
     margin: auto;
 }

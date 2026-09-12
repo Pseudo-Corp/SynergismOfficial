@@ -8493,6 +8493,19 @@
     }
   },
   "mobile": {
+    "updates": {
+      "check": "Check for Updates",
+      "checking": "Checking for updates...",
+      "upToDate": "Your app is up to date.",
+      "available": "Update {{version}} is available.",
+      "confirm": "Update {{version}} is available. Download and install it now? Your progress will be saved and the app will reload.",
+      "downloading": "Downloading update...",
+      "installing": "Saving progress and applying update...",
+      "storeUpdateRequired": "Please update Synergism from your app store to get the latest version.",
+      "unavailable": "This update is not currently available for your app. Please try again later.",
+      "saveFailed": "Your progress could not be saved. Please try updating again after the game has finished loading.",
+      "failed": "Could not check for or apply an update. Please check your connection and try again."
+    },
     "header": {
       "resize": "Resize header"
     },
