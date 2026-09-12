@@ -2261,7 +2261,7 @@ const applyAmbrosiaEdit = (upgradeKey: AmbrosiaUpgradeNames) => {
   const cost = getAmbrosiaUpgradeCostBetween(upgradeKey, upgrade.level, pending)
   player.ambrosia -= cost
   player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested += cost
-  if (pending < upgrade.level) {
+  if (pending < upgrade.level || upgradeKey === 'twoMind') {
     resetAmbrosiaBarProgress()
   }
   upgrade.level = pending
