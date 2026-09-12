@@ -328,17 +328,13 @@
                 <button class="ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange"><span class="subTabButtonText fitText" i18n="tabs.buildings.tesseract"></span></button>
             </div>
             <div id="coinBuildings">
-                <div id="buyamountcoin">
-                    <table class="coinunlock3" id="coinbuyamount" title="Toggle amount to buy">
-                        <tr>
-                        <td><img id="coinone" alt="One Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinOne.png" style="background-color: green;" loading="lazy"></td>
-                        <td><img id="cointen" alt="Ten Coin buildings" class="buyAmountBtn" src="Pictures/Default/CoinTen.png" loading="lazy"></td>
-                        <td><img id="coinhundred" alt="100 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinHundred.png" loading="lazy"></td>
-                        <td><img id="cointhousand" alt="1000 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinThousand.png" loading="lazy"></td>
-                        <td><img id="coin10k" alt="10000 Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinTenThousand.png" loading="lazy"></td>
-                        <td><img id="coin100k" alt="100000 Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinHundredThousand.png" loading="lazy"></td>
-                        </tr>
-                    </table>
+                <div id="buyamountcoin" class="buyAmount coinunlock3" title="Toggle amount to buy">
+                    <button id="coinone" class="toggled"><img alt="One Coin Building" src="Pictures/Default/CoinOne.png" loading="lazy"></button>
+                    <button id="cointen"><img alt="Ten Coin buildings" src="Pictures/Default/CoinTen.png" loading="lazy"></button>
+                    <button id="coinhundred"><img alt="100 Coin Buildings" src="Pictures/Default/CoinHundred.png" loading="lazy"></button>
+                    <button id="cointhousand"><img alt="1000 Coin Buildings" src="Pictures/Default/CoinThousand.png" loading="lazy"></button>
+                    <button id="coin10k"><img alt="10000 Coin Buildings" src="Pictures/Default/CoinTenThousand.png" loading="lazy"></button>
+                    <button id="coin100k"><img alt="100000 Coin Buildings" src="Pictures/Default/CoinHundredThousand.png" loading="lazy"></button>
                 </div>
 
             <!--
@@ -359,33 +355,37 @@
                 </div>
             </div>
             <div id="prestige" style="display: none;">
-                <div id="buyamountcrystal">
-                    <table id="crystalbuyamount" title="Toggle amount to buy">
-                        <tr>
-                        <td><img id="crystalone" alt="One Crystal Building" class="buyAmountBtn" src="Pictures/Default/CrystalOne.png" style="background-color: green;" loading="lazy"></td>
-                        <td><img id="crystalten" alt="Ten Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalTen.png" loading="lazy"></td>
-                        <td><img id="crystalhundred" alt="100 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalHundred.png" loading="lazy"></td>
-                        <td><img id="crystalthousand" alt="1000 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalThousand.png" loading="lazy"></td>
-                        <td><img id="crystal10k" alt="10k Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalTenThousand.png" loading="lazy"></td>
-                        <td><img id="crystal100k" alt="100k Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalHundredThousand.png" loading="lazy"></td>
-                        </tr>
-                    </table>
+                <div id="buyamountcrystal" class="buyAmount" title="Toggle amount to buy">
+                    <button id="crystalone" class="toggled"><img alt="One Crystal Building" src="Pictures/Default/CrystalOne.png" loading="lazy"></button>
+                    <button id="crystalten"><img alt="Ten Crystal Buildings" src="Pictures/Default/CrystalTen.png" loading="lazy"></button>
+                    <button id="crystalhundred"><img alt="100 Crystal Buildings" src="Pictures/Default/CrystalHundred.png" loading="lazy"></button>
+                    <button id="crystalthousand"><img alt="1000 Crystal Buildings" src="Pictures/Default/CrystalThousand.png" loading="lazy"></button>
+                    <button id="crystal10k"><img alt="10k Crystal Buildings" src="Pictures/Default/CrystalTenThousand.png" loading="lazy"></button>
+                    <button id="crystal100k"><img alt="100k Crystal Buildings" src="Pictures/Default/CrystalHundredThousand.png" loading="lazy"></button>
                 </div>
 
                 <div class="buttonRow"></div>
 
                 <p id="prestigeshardinfo" style="color: lightblue; text-align: center">You have 1.39e+100394 Prestige Shards, providing 1,214,593 multiplier power boosts.</p>
 
-                <div id="crystalupgrades">
-                    <table id="crystalupgradestable" style="padding: 0; font-size: 0;">
-                        <tr>
-                            <td><img id="buycrystalupgrade1" alt="Crystal Upgrade 1" src="Pictures/img_transparent.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade2" alt="Crystal Upgrade 2" src="Pictures/img_transparent.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade3" alt="Crystal Upgrade 3" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade4" alt="Crystal Upgrade 4" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy"></td>
-                            <td><img id="buycrystalupgrade5" alt="Crystal Upgrade 5" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy"></td>
-                        </tr>
-                    </table>
+                <div id="crystalupgrades" class="buildingUpgrades">
+                    <div class="buildingUpgradesBar">
+                        <button id="buyCrystalUpgrade1Btn">
+                            <img id="buycrystalupgrade1" alt="Crystal Upgrade 1" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyCrystalUpgrade2Btn">
+                            <img id="buycrystalupgrade2" alt="Crystal Upgrade 2" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyCrystalUpgrade3Btn">
+                            <img id="buycrystalupgrade3" alt="Crystal Upgrade 3" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyCrystalUpgrade4Btn">
+                            <img id="buycrystalupgrade4" alt="Crystal Upgrade 4" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyCrystalUpgrade5Btn">
+                            <img id="buycrystalupgrade5" alt="Crystal Upgrade 5" class="transcendunlock" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                    </div>
                     <div aria-live="polite">
                     <p class="mainText" id="crystalupgradedescription" style="text-align: center;" i18n="buildings.hoverCrystalUpgrade"></p>
                     <p class="mainText" id="crystalupgradeslevel1" style="text-align: center;"></p>
@@ -403,17 +403,13 @@
                 </div>
             </div>
             <div id="transcension" style="display: none;">
-                <div id="buyamountmythos">
-                    <table id="mythosbuyamount" title="Toggle amount to buy">
-                        <tr>
-                        <td><img id="mythosone" alt="One Mythos Building" class="buyAmountBtn" src="Pictures/Default/MythosOne.png" style="background-color: green;" loading="lazy"></td>
-                        <td><img id="mythosten" alt="Ten Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosTen.png" loading="lazy"></td>
-                        <td><img id="mythoshundred" alt="100 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosHundred.png" loading="lazy"></td>
-                        <td><img id="mythosthousand" alt="1000 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosThousand.png" loading="lazy"></td>
-                        <td><img id="mythos10k" alt="10k Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosTenThousand.png" loading="lazy"></td>
-                        <td><img id="mythos100k" alt="100k Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosHundredThousand.png" loading="lazy"></td>
-                        </tr>
-                    </table>
+                <div id="buyamountmythos" class="buyAmount" title="Toggle amount to buy">
+                    <button id="mythosone" class="toggled"><img alt="One Mythos Building" src="Pictures/Default/MythosOne.png" loading="lazy"></button>
+                    <button id="mythosten"><img alt="Ten Mythos Buildings" src="Pictures/Default/MythosTen.png" loading="lazy"></button>
+                    <button id="mythoshundred"><img alt="100 Mythos Buildings" src="Pictures/Default/MythosHundred.png" loading="lazy"></button>
+                    <button id="mythosthousand"><img alt="1000 Mythos Buildings" src="Pictures/Default/MythosThousand.png" loading="lazy"></button>
+                    <button id="mythos10k"><img alt="10k Mythos Buildings" src="Pictures/Default/MythosTenThousand.png" loading="lazy"></button>
+                    <button id="mythos100k"><img alt="100k Mythos Buildings" src="Pictures/Default/MythosHundredThousand.png" loading="lazy"></button>
                 </div>
 
                 <div class="buttonRow"></div>
@@ -431,17 +427,13 @@
                 <p id="transcendhotkeys" class="grayText" i18n="footnotes.mythos"></p>
             </div>
             <div id="reincarnation" style="display: none;">
-                <div id="buyamountparticle">
-                    <table id="particlebuyamount" title="Toggle amount to buy">
-                        <tr>
-                        <td><img id="particleone" alt="One Particle Building" class="buyAmountBtn" src="Pictures/Default/ParticleOne.png" style="background-color: green;" loading="lazy"></td>
-                        <td><img id="particleten" alt="Ten Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleTen.png" loading="lazy"></td>
-                        <td><img id="particlehundred" alt="100 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleHundred.png" loading="lazy"></td>
-                        <td><img id="particlethousand" alt="1000 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleThousand.png" loading="lazy"></td>
-                        <td><img id="particle10k" alt="10k Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleTenThousand.png" loading="lazy"></td>
-                        <td><img id="particle100k" alt="100k Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleHundredThousand.png" loading="lazy"></td>
-                        </tr>
-                    </table>
+                <div id="buyamountparticle" class="buyAmount" title="Toggle amount to buy">
+                    <button id="particleone" class="toggled"><img alt="One Particle Building" src="Pictures/Default/ParticleOne.png" loading="lazy"></button>
+                    <button id="particleten"><img alt="Ten Particle Buildings" src="Pictures/Default/ParticleTen.png" loading="lazy"></button>
+                    <button id="particlehundred"><img alt="100 Particle Buildings" src="Pictures/Default/ParticleHundred.png" loading="lazy"></button>
+                    <button id="particlethousand"><img alt="1000 Particle Buildings" src="Pictures/Default/ParticleThousand.png" loading="lazy"></button>
+                    <button id="particle10k"><img alt="10k Particle Buildings" src="Pictures/Default/ParticleTenThousand.png" loading="lazy"></button>
+                    <button id="particle100k"><img alt="100k Particle Buildings" src="Pictures/Default/ParticleHundredThousand.png" loading="lazy"></button>
                 </div>
 
                 <div class="buttonRow"></div>
@@ -463,17 +455,13 @@
                 <p id="reincarnatehotkeys" class="grayText" i18n="footnotes.particle"></p>
             </div>
             <div id="ascension" style="display: none">
-                <div id="buyAmountTesseract">
-                    <table id="buyTesseractToggles" title="Toggle amount to buy">
-                        <tr>
-                            <td><img id="tesseractone" alt="One Tesseract Building" class="buyAmountBtn" src="Pictures/Default/TesseractOne.png" style="background-color: green;" loading="lazy"></td>
-                            <td><img id="tesseractten" alt="Ten Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractTen.png" loading="lazy"></td>
-                            <td><img id="tesseracthundred" alt="100 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractHundred.png" loading="lazy"></td>
-                            <td><img id="tesseractthousand" alt="1000 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractThousand.png" loading="lazy"></td>
-                            <td><img id="tesseract10k" alt="10k Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractTenThousand.png" loading="lazy"></td>
-                            <td><img id="tesseract100k" alt="100k Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractHundredThousand.png" loading="lazy"></td>
-                        </tr>
-                    </table>
+                <div id="buyAmountTesseract" class="buyAmount" title="Toggle amount to buy">
+                    <button id="tesseractone" class="toggled"><img alt="One Tesseract Building" src="Pictures/Default/TesseractOne.png" loading="lazy"></button>
+                    <button id="tesseractten"><img alt="Ten Tesseract Buildings" src="Pictures/Default/TesseractTen.png" loading="lazy"></button>
+                    <button id="tesseracthundred"><img alt="100 Tesseract Buildings" src="Pictures/Default/TesseractHundred.png" loading="lazy"></button>
+                    <button id="tesseractthousand"><img alt="1000 Tesseract Buildings" src="Pictures/Default/TesseractThousand.png" loading="lazy"></button>
+                    <button id="tesseract10k"><img alt="10k Tesseract Buildings" src="Pictures/Default/TesseractTenThousand.png" loading="lazy"></button>
+                    <button id="tesseract100k"><img alt="100k Tesseract Buildings" src="Pictures/Default/TesseractHundredThousand.png" loading="lazy"></button>
                 </div>
 
                 <div class="buttonRow"></div>
@@ -483,41 +471,39 @@
                     <p id="ascendShardInfo" style="color: orange;">You have a mathematical constant of 3. I Wonder what it's for!</p>
                 </div>
 
-                <div id="ascendConstantUpgrades">
-                    <table id="constantUpgradeTable">
-                        <tr>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade1" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade2" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade3" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade4" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade5" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade6" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade7" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade8" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade9" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                            <td>
-                                <img class="constUpgrade" id="buyConstantUpgrade10" src="Pictures/img_transparent.png" loading="lazy">
-                            </td>
-                        </tr>
-                    </table>
+                <div class="buildingUpgrades">
+                    <div class="buildingUpgradesBar">
+                        <button id="buyConstantUpgrade1Btn">
+                            <img id="buyConstantUpgrade1" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade2Btn">
+                            <img id="buyConstantUpgrade2" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade3Btn">
+                            <img id="buyConstantUpgrade3" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade4Btn">
+                            <img id="buyConstantUpgrade4" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade5Btn">
+                            <img id="buyConstantUpgrade5" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade6Btn">
+                            <img id="buyConstantUpgrade6" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade7Btn">
+                            <img id="buyConstantUpgrade7" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade8Btn">
+                            <img id="buyConstantUpgrade8" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade9Btn">
+                            <img id="buyConstantUpgrade9" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                        <button id="buyConstantUpgrade10Btn">
+                            <img id="buyConstantUpgrade10" src="Pictures/img_transparent.png" loading="lazy">
+                        </button>
+                    </div>
                     <p id="constUpgradeDescription" style="color: gold" i18n="buildings.constantHover"></p>
                     <p class="mainText" id="constUpgradeLevel">Current Level: <span id="constUpgradeLevel2" class="orchidText">---</span></p>
                     <p class="mainText" id="constUpgradeCost">Cost: <span id="constUpgradeCost2" class="orchidText">---</span> from your Constant</p>
@@ -629,17 +615,13 @@
                 </div>
             </div>
             <div id="runeContainer1">
-                <div id="buyamountoffering">
-                    <table id="offeringbuyamount" title="Toggle the number of levels to buy per sacrifice" style="font-size: 0;">
-                        <tr>
-                        <td><img id="offeringone" alt="One Rune Level" class="buyAmountBtn" src="Pictures/Default/OfferingOne.png" style="background-color: green;" loading="lazy"></td>
-                        <td><img id="offeringten" alt="Ten Rune Levels" class="buyAmountBtn" src="Pictures/Default/OfferingTen.png" loading="lazy"></td>
-                        <td><img id="offeringhundred" alt="100 Rune Levels" class="buyAmountBtn" src="Pictures/Default/OfferingHundred.png" loading="lazy"></td>
-                        <td><img id="offeringthousand" alt="1000 Rune Levels" class="buyAmountBtn" src="Pictures/Default/OfferingThousand.png" loading="lazy"></td>
-                        <td><img id="offering10k" alt="10k Rune Levels" class="buyAmountBtn" src="Pictures/Default/OfferingTenThousand.png" loading="lazy"></td>
-                        <td><img id="offering100k" alt="100k Rune Levels" class="buyAmountBtn" src="Pictures/Default/OfferingHundredThousand.png" loading="lazy"></td>
-                        </tr>
-                    </table>
+                <div id="buyamountoffering" class="buyAmount" title="Toggle the number of levels to buy per sacrifice">
+                    <button id="offeringone" class="toggled"><img alt="One Rune Level" src="Pictures/Default/OfferingOne.png" loading="lazy"></button>
+                    <button id="offeringten"><img alt="Ten Rune Levels" src="Pictures/Default/OfferingTen.png" loading="lazy"></button>
+                    <button id="offeringhundred"><img alt="100 Rune Levels" src="Pictures/Default/OfferingHundred.png" loading="lazy"></button>
+                    <button id="offeringthousand"><img alt="1000 Rune Levels" src="Pictures/Default/OfferingThousand.png" loading="lazy"></button>
+                    <button id="offering10k"><img alt="10k Rune Levels" src="Pictures/Default/OfferingTenThousand.png" loading="lazy"></button>
+                    <button id="offering100k"><img alt="100k Rune Levels" src="Pictures/Default/OfferingHundredThousand.png" loading="lazy"></button>
                 </div>
 
                 <div id="runeDetails">

@@ -701,11 +701,6 @@ export const buttoncolorchange = () => {
     const c = DOMCacheGetOrSet('buydiamond3')
     const d = DOMCacheGetOrSet('buydiamond4')
     const e = DOMCacheGetOrSet('buydiamond5')
-    const f = DOMCacheGetOrSet('buycrystalupgrade1')
-    const g = DOMCacheGetOrSet('buycrystalupgrade2')
-    const h = DOMCacheGetOrSet('buycrystalupgrade3')
-    const i = DOMCacheGetOrSet('buycrystalupgrade4')
-    const j = DOMCacheGetOrSet('buycrystalupgrade5')
     a.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[10] || getLevelMilestone('tier1CrystalAutobuy') === 0)
@@ -736,78 +731,22 @@ export const buttoncolorchange = () => {
       k += 10
     }
 
-    if (getLevelMilestone('tier1CrystalAutobuy') === 0) {
-      f.style.backgroundColor = player.prestigeShards.gte(
+    for (let i = 1; i <= 5; i++) {
+      const element = DOMCacheGetOrSet(`buyCrystalUpgrade${i}Btn`)
+      if (getLevelMilestone(`tier${i as OneToFive}CrystalAutobuy`) === 0) {
+        element.classList.remove('autobuy')
+        const affordable = player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[0] - getRuneEffects('prism', 'costDivisorLog10')
-              + G.crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2)
+            G.crystalUpgradesCost[i - 1] - getRuneEffects('prism', 'costDivisorLog10')
+              + G.crystalUpgradeCostIncrement[i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - k, 2) / 2)
           )
         )
-        ? 'purple'
-        : ''
-    } else {
-      f.style.backgroundColor = 'green'
-    }
-    if (getLevelMilestone('tier2CrystalAutobuy') === 0) {
-      g.style.backgroundColor = player.prestigeShards.gte(
-          Decimal.pow(
-            10,
-            G.crystalUpgradesCost[1] - getRuneEffects('prism', 'costDivisorLog10')
-              + G.crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2)
-          )
-        )
-        ? 'purple'
-        : ''
-    } else {
-      g.style.backgroundColor = 'green'
-    }
-    if (getLevelMilestone('tier3CrystalAutobuy') === 0) {
-      h.style.backgroundColor = player.prestigeShards.gte(
-          Decimal.pow(
-            10,
-            G.crystalUpgradesCost[2] - getRuneEffects('prism', 'costDivisorLog10')
-              + G.crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2)
-          )
-        )
-        ? 'purple'
-        : ''
-    } else {
-      h.style.backgroundColor = 'green'
-    }
-    if (getLevelMilestone('tier4CrystalAutobuy') === 0) {
-      if (
-        player.prestigeShards.gte(
-          Decimal.pow(
-            10,
-            G.crystalUpgradesCost[3] - getRuneEffects('prism', 'costDivisorLog10')
-              + G.crystalUpgradeCostIncrement[3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2)
-          )
-        )
-      ) {
-        i.style.backgroundColor = 'purple'
+        element.classList.toggle('affordable', affordable)
       } else {
-        i.style.backgroundColor = ''
+        element.classList.remove('affordable')
+        element.classList.add('autobuy')
       }
-    } else {
-      i.style.backgroundColor = 'green'
-    }
-    if (getLevelMilestone('tier5CrystalAutobuy') === 0) {
-      if (
-        player.prestigeShards.gte(
-          Decimal.pow(
-            10,
-            G.crystalUpgradesCost[4] - getRuneEffects('prism', 'costDivisorLog10')
-              + G.crystalUpgradeCostIncrement[4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2)
-          )
-        )
-      ) {
-        j.style.backgroundColor = 'purple'
-      } else {
-        j.style.backgroundColor = ''
-      }
-    } else {
-      j.style.backgroundColor = 'green'
     }
   }
 
@@ -876,31 +815,25 @@ export const buttoncolorchange = () => {
         DOMCacheGetOrSet(`buyTesseracts${i}`).classList.remove('buildingPurchaseBtnAvailable')
       }
     }
-    for (let i = 1; i <= 8; i++) {
+
+    for (let i = 1; i <= 10; i++) {
+      const element = DOMCacheGetOrSet(`buyConstantUpgrade${i}Btn`)
       if (player.researches[175] >= 1) {
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAuto')
+        element.classList.remove('affordable')
+        element.classList.add('autobuy')
       } else {
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAuto')
-        if (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!))) {
-          DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAvailable')
-        } else {
-          DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
-        }
+        element.classList.remove('autobuy')
+        const affordable = player.ascendShards.gte(
+          Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!)
+        )
+        element.classList.toggle('affordable', affordable)
       }
     }
-
     for (let i = 9; i <= 10; i++) {
-      if (player.researches[175] >= 1 || player.constantUpgrades[i]! >= 1) {
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAuto')
-      } else {
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAuto')
-        if (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!))) {
-          DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAvailable')
-        } else {
-          DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
-        }
+      if (player.constantUpgrades[i]! >= 1) {
+        const element = DOMCacheGetOrSet(`buyConstantUpgrade${i}Btn`)
+        element.classList.remove('affordable')
+        element.classList.add('autobuy')
       }
     }
   }

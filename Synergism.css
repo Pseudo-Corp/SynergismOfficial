@@ -125,6 +125,7 @@ body {
     --purplebtn-color: purple;
     --purplehover-color: #b300b2;
     --hover-color: #333;
+    --toggled-color: var(--button-color);
     --buttonbuy-color: #171717;
     --buildings-canbuy-color: #555;
     --buildings-hover-color: #666;
@@ -283,9 +284,22 @@ button {
     background-color: var(--button-color);
 }
 
-body button:hover:not(:disabled):not(.disable-hover-color),
-body button:active:not(:disabled):not(.disable-hover-color) {
+button:hover,
+button:active {
     background-color: var(--hover-color);
+}
+
+button.disabled {
+    cursor: default;
+}
+
+button.disabled,
+button.disable-hover-color {
+    --hover-color: var(--button-color);
+}
+
+button.toggled {
+    background-color: var(--toggled-color);
 }
 
 body button.active-subtab,
@@ -1454,6 +1468,56 @@ button.isEvent:hover {
     display: block;
 }
 
+.buyAmount {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+}
+
+.buyAmount > button {
+    --toggled-color: green;
+}
+
+.buyAmount > button.toggled {
+    cursor: default;
+}
+
+.buyAmount img {
+    display: block;
+}
+
+.buildingUpgrades {
+    display: flex;
+    width: 50em;
+    max-width: 1000px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buildingUpgradesBar {
+    display: flex;
+    column-gap: 4px;
+    margin: 2px 0;
+}
+
+.buildingUpgradesBar > button {
+    --button-color: var(--buttonbuy-color);
+    --hover-color: var(--button-color);
+}
+
+.buildingUpgradesBar > .affordable {
+    --button-color: purple;
+    --hover-color: #b300b3;
+}
+
+.buildingUpgradesBar > .autobuy {
+    --button-color: green;
+}
+
+.buildingUpgradesBar img {
+    display: block;
+}
+
 .mobileSubTabIconContainer:hover > .mobileSubTabIcon,
 .mobileSubTabIconContainer:active > .mobileSubTabIcon,
 .mobileSubTabIconContainer:focus-visible > .mobileSubTabIcon {
@@ -2355,15 +2419,6 @@ p#promocodeinfo {
     height: 32px;
 }
 
-#buyamountoffering {
-    left: calc(50% + 350px);
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 1;
-}
-
 .talismansModify {
     display: flex;
     flex-direction: column;
@@ -2375,16 +2430,6 @@ p#promocodeinfo {
     margin: 0;
 }
 
-.buyAmountBtn {
-    background-color: var(--button-color);
-    cursor: pointer;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
-}
-
-.buyAmountBtn:hover {
-    background-color: var(--hover-color);
-}
-
 #prestige {
     position: relative;
     padding: 0;
@@ -2393,19 +2438,6 @@ p#promocodeinfo {
     align-items: center;
     max-width: 1600px;
     margin: 0 auto;
-}
-
-#crystalupgrades {
-    width: 50em;
-    max-width: 1000px;
-    color: white;
-    text-align: center;
-}
-
-#crystalupgradestable { margin: 0 auto; }
-
-#crystalupgrades img {
-    background-color: var(--buttonbuy-color);
 }
 
 #autocrystalbuild {
@@ -2459,6 +2491,10 @@ p#prestigehotkeys {
     flex-direction: column;
     align-items: center;
     position: relative;
+}
+
+#runeContainer1 {
+    row-gap: 2px;
 }
 
 .runeDivinitySection {
@@ -2648,6 +2684,7 @@ img.runeTypeElement:hover {
 .talismanSettingsContainer {
     display: flex;
     flex-direction: column;
+    row-gap: 2px;
     width: 60%;
     align-items: center;
 }
@@ -5178,14 +5215,6 @@ button.language-select span.lang-name {
     text-align: center;
 }
 
-#ascendConstantUpgrades {
-    display: flex;
-    width: 50em;
-    max-width: 1000px;
-    flex-direction: column;
-    align-items: center;
-}
-
 #ascendautomation {
     margin-top: 10px;
 }
@@ -5340,24 +5369,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .statNumber.statTotal {
     color: deepskyblue;
-}
-
-.constUpgrade {
-    background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
-}
-
-.constUpgradeAvailable {
-    background-color: purple;
-    cursor: pointer;
-}
-
-.constUpgradeAvailable:hover {
-    background-color: #b300b3;
-}
-
-.constUpgradeAuto {
-    background-color: green;
 }
 
 .subtabContent {
@@ -12073,7 +12084,7 @@ html[data-mobile="true"] .hideOnMobile {
         display: none;
     }
 
-    #ascendConstantUpgrades {
+    .buildingUpgrades {
         width: unset;
     }
 
