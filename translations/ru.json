@@ -7587,7 +7587,7 @@
     "singularityMessage2": "Вы можете почивать на ваших лаврах, и считать игру 'пройденной', или же сделать кое-что более интересное.",
     "singularityMessage3": "Вы слишком могущественны для текущей вселенной. Мультивселенная Synergism действительно безгранична, но существуют ещё более сложные по сравнению с вашей параллельные вселенные.",
     "singularityMessage4": "Начните заново, и войдите в Сингулярность #{{x}}. Ваша следующая вселенная будет сложнее нынешней, но вы разблокируете постоянный бонус +10% Кварков, +10% Счётчика Вознесений, а также получите {{y}} Золотых Кварков, которые можно потратить на совершенно новые эндгейм улучшения [Больше на {{z}}% благодаря бонусу Patreon!].",
-    "singularityMessage5": "However, all your past accomplishments are gone! EVERYTHING except for Achievements, the all-time Ant leaderboard, permanent Quark Upgrades, and Quark Hepteracts will be wiped clean.",
+    "singularityMessage5": "However, all your past accomplishments are gone! EVERYTHING except for Achievements, the all-time Ant leaderboard, Quark Upgrades, and Quark Hepteracts will be wiped clean.",
     "singularityConfirm0": "Вы хотите начать сингулярность #{{x}}? Ваша следующая вселенная сложнее, но вы получите {{y}} Золотых Кварков.",
     "singularityConfirm1": "Итак, что скажете? Хотите ли вы войти в Сингулярность?",
     "singularityConfirm2": "Вы уверены, что хотите войти в Сингулярность?",

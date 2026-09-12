@@ -65,7 +65,8 @@ const GETHandlers = [
       bonus: 150
     })
   }),
-  http.get('https://synergism.cc/stripe/coins', () => {
+  http.get('https://synergism.cc/stripe/coins', async () => {
+    await delay(1000)
     return HttpResponse.json({
       coins: pseudoCoinBalance
     })

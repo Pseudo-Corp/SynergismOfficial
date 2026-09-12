@@ -466,8 +466,7 @@ const updateDetail = () => {
   for (const { id, amount } of purpleUpgradePurchaseButtons) {
     const purchase = getPurpleReactorUpgradePurchase(selectedTier, amount)
     const button = DOMCacheGetOrSet(id) as HTMLButtonElement
-    const redundantAtMax = amount !== 'max' && amount !== 1 && amount === remainingLevels
-    button.hidden = maxed || redundantAtMax || (amount === 'max' ? remainingLevels === 1 : amount > remainingLevels)
+    button.hidden = maxed || (amount === 'max' ? remainingLevels === 1 : amount > remainingLevels)
     button.disabled = purchase.amount === 0 || player.purpleReactor.purpleHoney < purchase.cost
     const amountText = amount === 'max'
       ? i18next.t('purpleReactor.upgradeShop.purchaseMax')

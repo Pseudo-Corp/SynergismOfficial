@@ -9,7 +9,9 @@
     "loadFailed": "Unable to load save.",
     "storageLoadFailed": "The app could not read your saved game from device storage. Autosaving has been disabled to protect it. Close and reopen the app, then try again.",
     "saveToClipboard": "Are you sure you want to enable copy save to clipboard?",
-    "playOffline": "Play Offline"
+    "playOffline": "Play Offline",
+    "recoveryExport": "Export savefile",
+    "recoveryImport": "Load from file"
   },
   "ambrosia": {
     "ambrosia": "Ambrosia",
@@ -329,6 +331,7 @@
       "blueberryRefund": "Deactivating this module refunds <<blue|{{amount}}>> Blueberries.",
       "lockedBy": "Cannot drop below level <<red|{{level}}>>: required by <<orange|{{name}}>>.",
       "prereqBlocked": "<<red|Prerequisites are not met, so levels cannot be added.>>",
+      "twoMindReset": "<<red|Activating or deactivating this module resets Ambrosia, Red, and Purple Bar progress.>>",
       "invalid": "Those levels are no longer valid. No changes were made.",
       "max": "MAX",
       "save": "SAVE",
@@ -4879,7 +4882,7 @@
       },
       "singAmbrosiaLuck": {
         "name": "Absolute Hot",
-        "description": "Your gold smelters get arbitrarily close to 'Absolute Hot'. +4 Ambrosia Luck per level, infinitely levelable!",
+        "description": "Your gold smelters get arbitrarily close to 'Absolute Hot'. +4 Ambrosia Luck per level, up to level 75!",
         "effect": "+{{n}} Ambrosia Luck!"
       },
       "singAmbrosiaLuck4": {
@@ -4899,7 +4902,7 @@
       },
       "singAmbrosiaGeneration": {
         "name": "Hourglass of Limitlessness",
-        "description": "Remember- this hourglass is really important. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
+        "description": "Remember- this hourglass is really important. But it gives +1% faster Ambrosia Bar Point creation per level, up to level 75!",
         "effect": "Ambrosia Bar Point creation is +{{n}} faster!"
       },
       "singAmbrosiaGeneration4": {
@@ -6195,7 +6198,7 @@
       },
       "octeractAmbrosiaLuck": {
         "name": "Berries of an Eight Leaf Clover",
-        "description": "Totally not a reskin of the blueberry! Adds +4 Ambrosial Luck per level, and it is infinitely levelable!",
+        "description": "Totally not a reskin of the blueberry! Adds +4 Ambrosial Luck per level, up to level 100!",
         "effect": "+{{n}} Ambrosia Luck!"
       },
       "octeractAmbrosiaLuck4": {
@@ -6215,7 +6218,7 @@
       },
       "octeractAmbrosiaGeneration": {
         "name": "Hourglass of Infinitude",
-        "description": "Don't get it twisted, this hourglass is really primitive. But it gives +1% faster Ambrosia Bar Point creation per level and is infinitely levelable!",
+        "description": "Don't get it twisted, this hourglass is really primitive. But it gives +1% faster Ambrosia Bar Point creation per level, up to level 100!",
         "effect": "Ambrosia Bar Point creation is +{{n}}% faster!"
       },
       "octeractAmbrosiaGeneration4": {
@@ -8376,7 +8379,7 @@
     "singularityMessage2": "You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.",
     "singularityMessage3": "You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.",
     "singularityMessage4": "Start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by {{z}}% due to patreon bonus!].",
-    "singularityMessage5": "However, all your past accomplishments are gone! EVERYTHING except for Achievements, the all-time Ant leaderboard, permanent Quark Upgrades, and Quark Hepteracts will be wiped clean.",
+    "singularityMessage5": "However, all your past accomplishments are gone! EVERYTHING except for Achievements, the all-time Ant leaderboard, Quark Upgrades, and Quark Hepteracts will be wiped clean.",
     "singularityConfirm0": "Do you wish to start singularity #{{x}}? Your next universe is harder but you will gain {{y}} Golden Quarks.",
     "singularityConfirm1": "So, what do you say? Do you wish to enter the Singularity?",
     "singularityConfirm2": "Are you sure you wish to enter the Singularity?",
@@ -8433,6 +8436,7 @@
     "helloNoUser": "Hello!",
     "helloUser": "Hello, <<gold|{{username}}>>!",
     "logoutLabel": "Logout",
+    "logoutConfirm": "Are you sure you want to log out?",
     "loggedInBut": "You are logged in, but your profile couldn't be retrieved.",
     "loggedInButError": "You are logged in, but retrieving your profile yielded the following error: {{error}}",
     "loginNotAvailable": "Login is not available here, go to <a href=\"https://synergism.cc\">https://synergism.cc</a> instead!",
@@ -8493,6 +8497,19 @@
     }
   },
   "mobile": {
+    "updates": {
+      "check": "Check for Updates",
+      "checking": "Checking for updates...",
+      "upToDate": "Your app is up to date.",
+      "available": "Update {{version}} is available.",
+      "confirm": "Update {{version}} is available. Download and install it now? Your progress will be saved and the app will reload.",
+      "downloading": "Downloading update...",
+      "installing": "Saving progress and applying update...",
+      "storeUpdateRequired": "Please update Synergism from your app store to get the latest version.",
+      "unavailable": "This update is not currently available for your app. Please try again later.",
+      "saveFailed": "Your progress could not be saved. Please try updating again after the game has finished loading.",
+      "failed": "Could not check for or apply an update. Please check your connection and try again."
+    },
     "header": {
       "resize": "Resize header"
     },
@@ -8519,6 +8536,7 @@
       "pseudoCoins": "PseudoCoins:",
       "lotus": "Lotus:",
       "loadingPseudoCoins": "Loading PseudoCoins",
+      "refresh": "Refresh PseudoCoin balance",
       "loadingLotus": "Loading Lotus"
     },
     "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",

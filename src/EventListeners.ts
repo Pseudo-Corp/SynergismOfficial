@@ -4,7 +4,7 @@ import { initializeAmbrosiaUpgradeLayout } from './AmbrosiaUI'
 import {
   ambrosiaEditAction,
   ambrosiaEditToString,
-  type AmbrosiaUpgradeNames,
+  ambrosiaUpgradeNames,
   ambrosiaUpgrades,
   ambrosiaUpgradeToString,
   beginAmbrosiaEdit,
@@ -82,6 +82,7 @@ import { resetHistoryTogglePerSecond } from './History'
 import { registerMobileHotkeyPanel, resetHotkeys } from './Hotkeys'
 import {
   addCodeAvailableUses,
+  exportStoredSave,
   exportSynergism,
   importData,
   importSynergism,
@@ -1616,6 +1617,8 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('savegame').addEventListener('click', () => saveSynergy(true))
   DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame(false))
   DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
+  DOMCacheGetOrSet('preloadExportSave').addEventListener('click', () => exportStoredSave())
+  DOMCacheGetOrSet('preloadImportSave').addEventListener('click', () => DOMCacheGetOrSet('importfile').click())
   DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
   DOMCacheGetOrSet('addCodeBox').addEventListener('mouseover', () => promocodesInfo('add'))
   DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))
@@ -1943,10 +1946,8 @@ TODO: Fix this entire tab it's utter shit
 
   // BLUEBERRY UPGRADES
   initializeAmbrosiaUpgradeLayout()
-  const blueberryUpgrades = Object.keys(
-    ambrosiaUpgrades
-  ) as AmbrosiaUpgradeNames[]
-  for (const key of blueberryUpgrades) {
+
+  for (const key of ambrosiaUpgradeNames) {
     const element = DOMCacheGetOrSet(key)
     const enchantment = ambrosiaUpgrades[key].purpleAmbrosiaEnchantment
     if (element.querySelector('.purpleAmbrosiaEnchantmentIcon') === null) {

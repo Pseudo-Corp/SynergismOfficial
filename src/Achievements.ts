@@ -596,7 +596,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     useCachedValue: false,
     rewardedAP: 0,
     displayOrder: 14,
-    displayCondition: () => true // TODO
+    displayCondition: () => player.singularityChallenges.taxmanLastStand.completions > 0
   },
   purpleAmbrosiaUpgrades: {
     maxPointValue: maxSynthesisUpgradeAP + maxPurpleAmbrosiaUpgradeAP + maxPurpleEnchantmentAP,
@@ -624,7 +624,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     useCachedValue: false,
     rewardedAP: 0,
     displayOrder: 15,
-    displayCondition: () => true
+    displayCondition: () => player.singularityChallenges.taxmanLastStand.completions > 0
   }
 }
 

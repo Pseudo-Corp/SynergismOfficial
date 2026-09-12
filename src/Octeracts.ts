@@ -1081,8 +1081,8 @@ export const blankOcteractLevelObject: Record<
   { freeLevel: number; octeractsInvested: number }
 > = Object
   .fromEntries(
-    Object.keys(octeractUpgrades).map((key) => [
-      key as OcteractUpgrades,
+    octeractUpgradeNames.map((key) => [
+      key,
       {
         freeLevel: 0,
         octeractsInvested: 0

@@ -1526,8 +1526,9 @@ export const ambrosiaUpgrades: {
       const redAmbMod = i18next.t('ambrosia.data.twoMind.descriptionRedAmbrosia')
       const purpleMod = i18next.t('ambrosia.data.twoMind.descriptionPurpleHoney')
       const summary = i18next.t('ambrosia.data.twoMind.descriptionSummary')
+      const resetWarning = i18next.t('ambrosia.edit.twoMindReset')
 
-      return `${intro}<br>${ambMod}<br>${redAmbMod}<br>${purpleMod}<br>${summary}`
+      return `${intro}<br>${ambMod}<br>${redAmbMod}<br>${purpleMod}<br>${summary}<br>${resetWarning}`
     },
     unlockCriterion: 'Exalt9x1',
     purpleAmbrosiaEnchantment: {
@@ -1617,8 +1618,8 @@ export const blankAmbrosiaUpgradeObject: Record<
   AmbrosiaUpgradeNames,
   { ambrosiaInvested: number; blueberriesInvested: number; purpleAmbrosiaInvested?: number }
 > = Object.fromEntries(
-  Object.keys(ambrosiaUpgrades).map((key) => [
-    key as AmbrosiaUpgradeNames,
+  ambrosiaUpgradeNames.map((key) => [
+    key,
     {
       ambrosiaInvested: 0,
       blueberriesInvested: 0
@@ -1630,7 +1631,7 @@ export const blankAmbrosiaUpgradeObject: Record<
 >
 
 export const setAmbrosiaUpgradeLevels = () => {
-  for (const upgradeKey of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+  for (const upgradeKey of ambrosiaUpgradeNames) {
     const upgrade = ambrosiaUpgrades[upgradeKey]
     if (upgradeKey === 'twoMind') {
       // This upgrade costs only Blueberries, so Ambrosia investment cannot indicate ownership.
@@ -1667,7 +1668,7 @@ export const setAmbrosiaUpgradeLevels = () => {
 }
 
 export const reconcilePurpleAmbrosiaEnchantments = () => {
-  for (const upgradeKey of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+  for (const upgradeKey of ambrosiaUpgradeNames) {
     const enchantment = ambrosiaUpgrades[upgradeKey].purpleAmbrosiaEnchantment
     const state = player.ambrosiaUpgrades[upgradeKey]
     const savedInvestment = state.purpleAmbrosiaInvested ?? 0
@@ -1683,7 +1684,7 @@ export const reconcilePurpleAmbrosiaEnchantments = () => {
   }
 
   player.spentBlueberries = 0
-  for (const upgradeKey of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+  for (const upgradeKey of ambrosiaUpgradeNames) {
     const state = player.ambrosiaUpgrades[upgradeKey]
     if (ambrosiaUpgrades[upgradeKey].level > 0) {
       const blueberryCost = getAmbrosiaUpgradeBlueberryCost(upgradeKey)
@@ -2022,6 +2023,9 @@ export const buyAmbrosiaUpgradeLevel = async (
       maxPurchasable -= 1
     }
   }
+  if (upgradeKey === 'twoMind' && purchased > 0) {
+    resetAmbrosiaBarProgress()
+  }
 
   if (purchased === 0) {
     return Alert(i18next.t('octeract.buyLevel.cannotAfford'))
@@ -2106,7 +2110,7 @@ const getAmbrosiaEditFloor = (upgradeKey: AmbrosiaUpgradeNames) => {
   let level = 0
   let blocker: AmbrosiaUpgradeNames | null = null
 
-  for (const key of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+  for (const key of ambrosiaUpgradeNames) {
     if (ambrosiaUpgrades[key].level === 0) continue
 
     const required = ambrosiaUpgrades[key].prerequisites[upgradeKey]
@@ -2206,6 +2210,9 @@ export const ambrosiaEditToString = (upgradeKey: AmbrosiaUpgradeNames) => {
   if (!checkAmbrosiaUpgradePrerequisites(upgradeKey)) {
     noticeHTML = `${noticeHTML}<br>${i18next.t('ambrosia.edit.prereqBlocked')}`
   }
+  if (upgradeKey === 'twoMind') {
+    noticeHTML = `${noticeHTML}<br>${i18next.t('ambrosia.edit.twoMindReset')}`
+  }
 
   const stepButtons = ambrosiaEditDeltas.map((delta) => {
     const target = Math.min(ceiling, Math.max(floor.level, pending + delta))
@@ -2261,7 +2268,7 @@ const applyAmbrosiaEdit = (upgradeKey: AmbrosiaUpgradeNames) => {
   const cost = getAmbrosiaUpgradeCostBetween(upgradeKey, upgrade.level, pending)
   player.ambrosia -= cost
   player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested += cost
-  if (pending < upgrade.level) {
+  if (pending < upgrade.level || upgradeKey === 'twoMind') {
     resetAmbrosiaBarProgress()
   }
   upgrade.level = pending
@@ -2322,7 +2329,7 @@ export const displayProperLoadoutCount = () => {
 export const resetBlueberryTree = (giveAlert = true) => {
   ambrosiaEditTarget = null
 
-  for (const k of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+  for (const k of ambrosiaUpgradeNames) {
     ambrosiaUpgrades[k].level = 0
     player.ambrosiaUpgrades[k].ambrosiaInvested = 0
     player.ambrosiaUpgrades[k].blueberriesInvested = 0
@@ -2559,15 +2566,14 @@ export const highlightPrerequisites = (k: AmbrosiaUpgradeNames) => {
   const preReq = ambrosiaUpgrades[k].prerequisites
   if (preReq === undefined) return
 
-  for (const key of Object.keys(ambrosiaUpgrades)) {
-    const k2 = key as AmbrosiaUpgradeNames
-    const elm = DOMCacheGetOrSet(k2)
+  for (const key of ambrosiaUpgradeNames) {
+    const elm = DOMCacheGetOrSet(key)
     const img = elm.querySelector('img') as HTMLImageElement
-    const requiredLevel = preReq[k2]
+    const requiredLevel = preReq[key]
     img.classList.toggle('blueberryPrereq', requiredLevel !== undefined)
     img.classList.toggle(
       'blueberryPrereqMet',
-      requiredLevel !== undefined && ambrosiaUpgrades[k2].level >= requiredLevel
+      requiredLevel !== undefined && ambrosiaUpgrades[key].level >= requiredLevel
     )
   }
 }
@@ -2580,9 +2586,8 @@ export const highlightRedAmbrosiaTargets = (upgradeKey: RedAmbrosiaNames) => {
 }
 
 export const resetHighlights = () => {
-  for (const key of Object.keys(ambrosiaUpgrades)) {
-    const k = key as AmbrosiaUpgradeNames
-    const elm = DOMCacheGetOrSet(k)
+  for (const key of ambrosiaUpgradeNames) {
+    const elm = DOMCacheGetOrSet(key)
     const img = elm.querySelector('img') as HTMLImageElement
     img.classList.remove('blueberryPrereq', 'blueberryPrereqMet', 'redAmbrosiaTarget')
   }
@@ -2591,12 +2596,11 @@ export const resetHighlights = () => {
 export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
   const loadoutKeys = Object.keys(loadout)
 
-  for (const key of Object.keys(ambrosiaUpgrades)) {
-    const k = key as AmbrosiaUpgradeNames
-    const elm = DOMCacheGetOrSet(k)
+  for (const key of ambrosiaUpgradeNames) {
+    const elm = DOMCacheGetOrSet(key)
     const img = elm.querySelector('img') as HTMLImageElement
-    const level = loadout[k] || 0 // Get the level from the loadout, default to 0 if not present
-    const isInLoadout = level > 0 && loadoutKeys.includes(k)
+    const level = loadout[key] || 0 // Get the level from the loadout, default to 0 if not present
+    const isInLoadout = level > 0 && loadoutKeys.includes(key)
     const enchantmentIcon = elm.querySelector('.purpleAmbrosiaEnchantmentIcon')
 
     enchantmentIcon?.classList.toggle('purpleAmbrosiaEnchantmentIconLoadoutHidden', !isInLoadout)
@@ -2612,7 +2616,7 @@ export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
     if (isInLoadout) {
       img.classList.add('dimmed') // Apply the dimmed class
       levelOverlay.textContent = String(level) // Set the level text
-      if (level === ambrosiaUpgrades[k].maxLevel) {
+      if (level === ambrosiaUpgrades[key].maxLevel) {
         levelOverlay.classList.add('maxBlueberryLevel')
       }
     } else {
@@ -2623,9 +2627,8 @@ export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
 }
 
 export const resetLoadoutOnlyDisplay = () => {
-  for (const key of Object.keys(ambrosiaUpgrades)) {
-    const k = key as AmbrosiaUpgradeNames
-    const elm = DOMCacheGetOrSet(k)
+  for (const key of ambrosiaUpgradeNames) {
+    const elm = DOMCacheGetOrSet(key)
     const img = elm.querySelector('img') as HTMLImageElement
     img.classList.remove('dimmed') // Remove the dimmed class
     img.classList.remove('superDimmed') // Remove the superDimmed class

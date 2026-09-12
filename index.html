@@ -77,7 +77,11 @@
     <div id="offlineBlur">
         <img id="logo" src="Pictures/logo.png" alt="The Synergism Logo">
         <button id="preloadPlayOffline" style="display: none;" i18n="save.playOffline">Play Offline</button>
-        <button id="preloadDeleteGame" style="display: none;">Delete savefile</button>
+        <div id="preloadRecovery" style="display: none;">
+            <button id="preloadExportSave" i18n="save.recoveryExport">Export savefile</button>
+            <button id="preloadImportSave" i18n="save.recoveryImport">Load from file</button>
+            <button id="preloadDeleteGame" i18n="settings.deleteSave">Delete savefile</button>
+        </div>
     </div>
     <div id="offlineContainer" style="display: none;">
         <p id="offlineTimer" class="offlineText" style="color: plum"></p>
@@ -2402,6 +2406,10 @@
                     </div>
                     <div id="exportButtons">
                         <div id="versionnumber"></div>
+                        <div id="mobileUpdates" hidden>
+                            <button id="checkMobileUpdates" type="button" i18n="mobile.updates.check"></button>
+                            <p id="mobileUpdateStatus" class="tightText" role="status" aria-live="polite"></p>
+                        </div>
                         <p id="quarktimerdisplay" class="tightText" style="color: gold"></p>
                         <p id="quarktimeramount" class="tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
                         <p id="goldenQuarkTimerDisplay" class="tightText goldenQuark3Upg" style="color: goldenrod">3600s until +1 export Gold Quark</p>
@@ -4274,6 +4282,9 @@
                 aria-busy="true"
                 i18n-aria-label="pseudoCoins.balances.loadingPseudoCoins"
                 ></span>
+                <button id="refreshPseudoCoinBalance" type="button" i18n-aria-label="pseudoCoins.balances.refresh">
+                    <span aria-hidden="true">&#x21bb;</span>
+                </button>
             </div>
             <div class="pseudoCoinBalanceResource">
                 <img src="Pictures/PseudoShop/LOTUS.png" alt="">
