@@ -1526,8 +1526,9 @@ export const ambrosiaUpgrades: {
       const redAmbMod = i18next.t('ambrosia.data.twoMind.descriptionRedAmbrosia')
       const purpleMod = i18next.t('ambrosia.data.twoMind.descriptionPurpleHoney')
       const summary = i18next.t('ambrosia.data.twoMind.descriptionSummary')
+      const resetWarning = i18next.t('ambrosia.edit.twoMindReset')
 
-      return `${intro}<br>${ambMod}<br>${redAmbMod}<br>${purpleMod}<br>${summary}`
+      return `${intro}<br>${ambMod}<br>${redAmbMod}<br>${purpleMod}<br>${summary}<br>${resetWarning}`
     },
     unlockCriterion: 'Exalt9x1',
     purpleAmbrosiaEnchantment: {
@@ -2022,6 +2023,9 @@ export const buyAmbrosiaUpgradeLevel = async (
       maxPurchasable -= 1
     }
   }
+  if (upgradeKey === 'twoMind' && purchased > 0) {
+    resetAmbrosiaBarProgress()
+  }
 
   if (purchased === 0) {
     return Alert(i18next.t('octeract.buyLevel.cannotAfford'))
@@ -2205,6 +2209,9 @@ export const ambrosiaEditToString = (upgradeKey: AmbrosiaUpgradeNames) => {
   }
   if (!checkAmbrosiaUpgradePrerequisites(upgradeKey)) {
     noticeHTML = `${noticeHTML}<br>${i18next.t('ambrosia.edit.prereqBlocked')}`
+  }
+  if (upgradeKey === 'twoMind') {
+    noticeHTML = `${noticeHTML}<br>${i18next.t('ambrosia.edit.twoMindReset')}`
   }
 
   const stepButtons = ambrosiaEditDeltas.map((delta) => {

@@ -331,6 +331,7 @@
       "blueberryRefund": "Deactivating this module refunds <<blue|{{amount}}>> Blueberries.",
       "lockedBy": "Cannot drop below level <<red|{{level}}>>: required by <<orange|{{name}}>>.",
       "prereqBlocked": "<<red|Prerequisites are not met, so levels cannot be added.>>",
+      "twoMindReset": "<<red|Activating or deactivating this module resets Ambrosia, Red, and Purple Bar progress.>>",
       "invalid": "Those levels are no longer valid. No changes were made.",
       "max": "MAX",
       "save": "SAVE",
