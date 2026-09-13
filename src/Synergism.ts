@@ -493,7 +493,6 @@ export const player: Player = {
   obtainium: new Decimal(),
   maxObtainium: new Decimal(),
 
-  obtainiumtimer: 0,
   // Ignore the first index. The other 25 are shaped in a 5x5 grid similar to the production appearance
   // dprint-ignore
   researches: [
@@ -549,8 +548,6 @@ export const player: Player = {
     purpleHoneyUpgrades: 0,
     purpleAmbrosiaUpgrades: 0
   },
-
-  achievementPoints: 0,
 
   prestigenomultiplier: true,
   prestigenoaccelerator: true,
@@ -744,7 +741,6 @@ export const player: Player = {
   autoSacrificeToggle: false,
   autoBuyFragment: false,
   autoFortifyToggle: false,
-  autoEnhanceToggle: false,
   autoResearchToggle: false,
   researchBuyMaxToggle: false,
   autoResearchMode: 'manual',
@@ -1044,7 +1040,6 @@ export const player: Player = {
     false,
     false
   ],
-  autoChallengeStartExponent: 10,
   autoChallengeTimer: {
     start: 10,
     exit: 2,
@@ -1085,12 +1080,10 @@ export const player: Player = {
   singularityElevatorTarget: 1,
   singularityElevatorSlowClimb: true,
   singularityElevatorLocked: false,
-  singularityMatter: 0,
   goldenQuarks: 0,
   quarksThisSingularity: 0,
   totalQuarksEver: 0,
   hotkeys: {},
-  theme: 'Dark Mode',
   iconSet: 1,
   notation: 'Default',
 
@@ -1150,7 +1143,6 @@ export const player: Player = {
   lifetimeAmbrosia: 0,
   purpleAmbrosia: 0,
   lifetimePurpleAmbrosia: 0,
-  ambrosiaRNG: 0,
   blueberryTime: 0,
   spentBlueberries: 0,
 
