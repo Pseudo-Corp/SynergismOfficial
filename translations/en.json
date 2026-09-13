@@ -6,7 +6,9 @@
     "gameSaved": "Game saved successfully!"
   },
   "save": {
-    "loadFailed": "Unable to load save.",
+    "loadFailed": "Unable to load save. {{reason}}",
+    "loadFailedIssueCount": "{{total}} problem(s) found in the save data:",
+    "loadFailedIssuesHidden": "…and {{hidden}} more (the full error is in the browser console)",
     "storageLoadFailed": "The app could not read your saved game from device storage. Autosaving has been disabled to protect it. Close and reopen the app, then try again.",
     "saveToClipboard": "Are you sure you want to enable copy save to clipboard?",
     "playOffline": "Play Offline",

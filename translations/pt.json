@@ -6,7 +6,7 @@
         "gameSaved": "Game saved successfully!"
     },
     "save": {
-        "loadFailed": "Unable to load save.",
+        "loadFailed": "Unable to load save. {{reason}}",
         "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
     },
     "achievements": {

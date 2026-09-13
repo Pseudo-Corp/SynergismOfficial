@@ -1,5 +1,6 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
-import { z, type ZodType } from 'zod'
+import i18next from 'i18next'
+import { z, type ZodError, type ZodIssue, type ZodType } from 'zod'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
@@ -1112,3 +1113,47 @@ export const playerSchema = z.object({
 
   purpleUpdateQuarkRefundAwarded: z.boolean().default(() => false)
 })
+
+const MAX_REPORTED_ISSUES = 20
+const MAX_REPORTED_VALUE_LENGTH = 120
+
+const valueAtPath = (data: unknown, path: (string | number)[]) => {
+  let value = data
+  for (const key of path) {
+    if (value === null || typeof value !== 'object') {
+      return undefined
+    }
+    value = (value as Record<string | number, unknown>)[key]
+  }
+  return value
+}
+
+const describeValue = (value: unknown) => {
+  const json = `${JSON.stringify(value)}`
+  return json.length > MAX_REPORTED_VALUE_LENGTH ? `${json.slice(0, MAX_REPORTED_VALUE_LENGTH)}…` : json
+}
+
+const pushIssueLines = (lines: string[], issue: ZodIssue, data: unknown, depth: number) => {
+  const prefix = depth === 0 ? '•' : '↳'.repeat(depth)
+  const path = issue.path.length > 0 ? issue.path.join('.') : '(root)'
+  const received = describeValue(valueAtPath(data, issue.path))
+  lines.push(`${prefix} ${path}: ${issue.message} [${issue.code}] (received: ${received})`)
+  if (issue.code === 'invalid_union') {
+    for (const unionError of issue.unionErrors) {
+      for (const subIssue of unionError.issues) {
+        pushIssueLines(lines, subIssue, data, depth + 1)
+      }
+    }
+  }
+}
+
+export const formatSaveValidationError = (error: ZodError, data: unknown) => {
+  const lines = [i18next.t('save.loadFailedIssueCount', { total: error.issues.length })]
+  for (const issue of error.issues.slice(0, MAX_REPORTED_ISSUES)) {
+    pushIssueLines(lines, issue, data, 0)
+  }
+  if (error.issues.length > MAX_REPORTED_ISSUES) {
+    lines.push(i18next.t('save.loadFailedIssuesHidden', { hidden: error.issues.length - MAX_REPORTED_ISSUES }))
+  }
+  return lines.join('\n').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}

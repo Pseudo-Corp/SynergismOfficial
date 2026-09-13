@@ -231,6 +231,7 @@ import {
   updateAllSpiritLevelsFromEXP
 } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { formatSaveValidationError } from './saves/PlayerSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, queueSave } from './saves/SaveStorage'
 import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthesis'
@@ -1393,7 +1394,7 @@ const loadSynergy = (saveString: string): boolean => {
       console.log(validatedPlayer.error)
       console.log(data)
       clearTimers()
-      void Alert(i18next.t('save.loadFailed'))
+      void Alert(i18next.t('save.loadFailed', { reason: formatSaveValidationError(validatedPlayer.error, data) }))
       return false
     }
 
@@ -4791,22 +4792,14 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   if (saveObject) {
     let saveString = saveObject
     const decompress = LZString.decompressFromBase64(saveObject)
-    const isLZString = decompress !== ''
 
-    if (isLZString) {
-      if (!decompress) {
+    if (decompress) {
+      try {
+        saveString = btoa(decompress)
+      } catch {
         showLoadRecovery()
-        return Alert(i18next.t('save.loadFailed'))
+        return Alert(i18next.t('save.loadFailed', { reason: 'Save contains invalid characters.' }))
       }
-
-      const convertedSave = btoa(decompress)
-
-      if (convertedSave === null) {
-        showLoadRecovery()
-        return Alert(i18next.t('save.loadFailed'))
-      }
-
-      saveString = convertedSave
 
       if (PLATFORM !== 'mobile') {
         localStorage.clear()
@@ -4832,7 +4825,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
     } catch (error) {
       console.error('Failed to decode save', error)
       showLoadRecovery()
-      await Alert(i18next.t('save.loadFailed'))
+      await Alert(i18next.t('save.loadFailed', { reason: (error as Error).message }))
       return
     }
   }

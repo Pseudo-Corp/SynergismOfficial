@@ -6,7 +6,7 @@
     "gameSaved": "ゲームは正常に保存されました。"
   },
   "save": {
-    "loadFailed": "セーブデータの読み込みに失敗しました。",
+    "loadFailed": "セーブデータの読み込みに失敗しました。{{reason}}",
     "saveToClipboard": "セーブデータの保存先をクリップボードに変更しますか？"
   },
   "ambrosia": {

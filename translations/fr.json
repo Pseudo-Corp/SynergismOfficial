@@ -6,7 +6,7 @@
     "gameSaved": "Partie sauvegardée !"
   },
   "save": {
-    "loadFailed": "Impossible de charger la sauvegarde.",
+    "loadFailed": "Impossible de charger la sauvegarde. {{reason}}",
     "saveToClipboard": "Êtes-vous sûr de vouloir activer l'enregistrement de la sauvegarde dans le presse-papiers ?"
   },
   "ambrosia": {

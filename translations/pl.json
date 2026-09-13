@@ -6,7 +6,7 @@
     "gameSaved": "Stan gry zapisany pomyślnie!"
   },
   "save": {
-    "loadFailed": "Nie można wczytać stanu gry.",
+    "loadFailed": "Nie można wczytać stanu gry. {{reason}}",
     "saveToClipboard": "Czy na pewno chcesz włączyć kopiowanie zapisów do schowka?"
   },
   "ambrosia": {
