@@ -198,7 +198,6 @@ export interface Player {
   challengecompletions: number[]
   highestchallengecompletions: number[]
   challenge15Exponent: number
-  highestChallenge15Exponent: number
 
   retrychallenges: boolean
   currentChallenge: {

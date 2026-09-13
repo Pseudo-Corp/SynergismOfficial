@@ -482,7 +482,6 @@ export const player: Player = {
   challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   highestchallengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   challenge15Exponent: 0,
-  highestChallenge15Exponent: 0,
 
   retrychallenges: false,
   currentChallenge: {

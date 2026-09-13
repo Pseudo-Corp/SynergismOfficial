@@ -540,7 +540,7 @@ export const playerSchema = z.object({
     })
   ]),
   challenge15Exponent: z.number().default(() => blankSave.challenge15Exponent),
-  highestChallenge15Exponent: z.number().default(() => blankSave.highestChallenge15Exponent),
+  highestChallenge15Exponent: z.number().optional(),
 
   retrychallenges: z.boolean().default(() => blankSave.retrychallenges),
   currentChallenge: z.union([
