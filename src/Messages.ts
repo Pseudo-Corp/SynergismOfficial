@@ -312,6 +312,7 @@ const checkAnnouncements = async () => {
       }
 
       dismissAnnouncementLocally(announcement.id, liveIds)
+      return undefined
     }).catch(console.error)
   }
 }

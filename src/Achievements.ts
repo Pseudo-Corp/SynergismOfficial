@@ -3276,7 +3276,7 @@ const achievementsByGroup: Record<AchievementGroups, number[]> = achievements
       if (!groups[achievement.group]) {
         groups[achievement.group] = []
       }
-      groups[achievement.group].push(Number(index))
+      groups[achievement.group].push(index)
     }
     return groups
   }, {} as Record<AchievementGroups, number[]>)
@@ -3291,7 +3291,7 @@ const achievementsByReward: Record<AchievementRewards, number[]> = achievements
         if (!rewards[rewardType]) {
           rewards[rewardType] = []
         }
-        rewards[rewardType].push(Number(index))
+        rewards[rewardType].push(index)
       }
     }
     return rewards
@@ -3678,7 +3678,7 @@ export const syncSteamAchievements = async (): Promise<void> => {
 
 const awardAchievement = (index: number) => {
   if (player.achievements[index] === 1) {
-    return false
+    return
   }
   if (achievements[index].unlockCondition()) {
     player.achievements[index] = 1

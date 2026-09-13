@@ -702,7 +702,7 @@ export const calculateTotalSalvage = () => {
   return calculatePositiveSalvage() + calculateNegativeSalvage()
 }
 
-export const calculateSalvageRuneEXPMultiplier = (salvageVal: number | undefined = undefined): Decimal => {
+export const calculateSalvageRuneEXPMultiplier = (salvageVal?: number): Decimal => {
   let salvage = salvageVal
   // Factors where Salvage comes from
   if (salvage === undefined) {
@@ -1242,11 +1242,11 @@ const solveQuadratic = (
   positive: boolean
 ) => {
   if (a < 0) {
-    throw new Error(String(i18next.t('calculate.quadraticImproperError')))
+    throw new Error(i18next.t('calculate.quadraticImproperError'))
   }
   const determinant = Math.pow(b, 2) - 4 * a * c
   if (determinant < 0) {
-    throw new Error(String(i18next.t('calculate.quadraticDeterminantError')))
+    throw new Error(i18next.t('calculate.quadraticDeterminantError'))
   }
 
   if (determinant === 0) {
@@ -1288,7 +1288,7 @@ export const calculateCubicSumData = (
    *  We can rewrite as n^2 + n - 2 * det = 0 and solve for n.
    */
   if (totalToSpend < 0) {
-    throw new Error(String(i18next.t('calculate.cubicSumNegativeError')))
+    throw new Error(i18next.t('calculate.cubicSumNegativeError'))
   }
 
   const determinantRoot = Math.pow(totalToSpend / baseCost, 0.5) // Assume nonnegative!

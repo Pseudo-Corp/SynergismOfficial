@@ -143,6 +143,8 @@ export const getEventBuff = (buff: BuffType): number => {
       return event.blueberryTime
     case BuffType.AmbrosiaLuck:
       return event.ambrosiaLuck
+    default:
+      return 0
   }
 }
 
@@ -185,6 +187,8 @@ export const consumableEventBuff = (buff: BuffType) => {
       return HAPPY_HOUR_BELL ? 0.1 + 0.01 * happyHourInterval : 0
     case BuffType.AmbrosiaLuck:
       return HAPPY_HOUR_BELL ? 0.1 + 0.01 * happyHourInterval : 0
+    default:
+      return 0
   }
 }
 

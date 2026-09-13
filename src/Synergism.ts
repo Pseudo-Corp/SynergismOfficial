@@ -2,6 +2,7 @@
 import '@ungap/custom-elements'
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import LZString from 'lz-string'
+import DOMPurify from 'dompurify'
 
 import {
   autoAscensionChallengeSweepUnlock,
@@ -1394,7 +1395,7 @@ const loadSynergy = (saveString: string): boolean => {
       console.log(validatedPlayer.error)
       console.log(data)
       clearTimers()
-      void Alert(i18next.t('save.loadFailed', { reason: z.prettifyError(validatedPlayer.error) }))
+      void Alert(i18next.t('save.loadFailed', { reason: DOMPurify.sanitize(z.prettifyError(validatedPlayer.error)) }))
       return false
     }
 
@@ -3857,8 +3858,8 @@ export const resetConfirmation = async (i: string): Promise<void> => {
   }
   if (i === 'transcend') {
     if (player.toggles[29]) {
-      const z = await Confirm(i18next.t('main.transcendPrompt'))
-      if (z) {
+      const r = await Confirm(i18next.t('main.transcendPrompt'))
+      if (r) {
         resetAchievementCheck('transcension')
         reset('transcension')
       }
@@ -3870,8 +3871,8 @@ export const resetConfirmation = async (i: string): Promise<void> => {
   if (i === 'reincarnate') {
     if (player.currentChallenge.ascension !== 12) {
       if (player.toggles[30]) {
-        const z = await Confirm(i18next.t('main.reincarnatePrompt'))
-        if (z) {
+        const r = await Confirm(i18next.t('main.reincarnatePrompt'))
+        if (r) {
           resetAchievementCheck('reincarnation')
           reset('reincarnation')
         }
@@ -3882,8 +3883,8 @@ export const resetConfirmation = async (i: string): Promise<void> => {
     }
   }
   if (i === 'ascend') {
-    const z = !player.toggles[31] || (await Confirm(i18next.t('main.ascendPrompt')))
-    if (z) {
+    const r = !player.toggles[31] || (await Confirm(i18next.t('main.ascendPrompt')))
+    if (r) {
       reset('ascension')
     }
   }

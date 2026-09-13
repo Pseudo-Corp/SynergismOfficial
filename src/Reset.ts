@@ -60,7 +60,7 @@ import { changeSubTab, changeTab, resetAllSubTabs, Tabs, updateSubTabVisibility 
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
 import { AutoAscensionModes } from './Toggles'
-import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
+import type { OneToFive, resetNames, ZeroToFour } from './types/Synergism'
 import { Alert, challengeExit, revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
 import { updateClassList } from './Utility'
@@ -1138,7 +1138,6 @@ export const singularity = (setSingNumber = -1) => {
 
   if (!getSingularityChallengeEffect('limitedTime', 'preserveQuarks')) {
     player.worlds.reset()
-    hold.worlds = Number(hold.worlds)
   } else {
     hold.worlds = Number(player.worlds)
   }
@@ -1239,7 +1238,7 @@ export const singularity = (setSingNumber = -1) => {
         enabled: value.enabled
       }]
     })
-  ) as Player['singularityChallenges']
+  )
   hold.iconSet = player.iconSet
 
   resetHepteracts('singularity')

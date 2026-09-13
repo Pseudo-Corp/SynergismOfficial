@@ -129,6 +129,7 @@ const messageSchema = z.preprocess(
     }
 
     ctx.addIssue({ code: 'custom', message: 'Invalid message received.' })
+    return undefined
   },
   z.union([
     z.literal('pong'),
@@ -1319,6 +1320,22 @@ async function uploadSave (name: string, save: string): Promise<Response> {
   })
 }
 
+async function decodeSave (save: string) {
+  const decoded = atob(save)
+  const bytes = new Uint8Array(decoded.length)
+  for (let i = 0; i < decoded.length; i++) {
+    bytes[i] = decoded.charCodeAt(i)
+  }
+
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
+  const textBody = await new Response(stream).text()
+  const encoder = new TextEncoder()
+  const jsonBytes = encoder.encode(textBody)
+  const final = btoa(isomorphicDecode(jsonBytes))
+
+  return final
+}
+
 const initializeCloudSaves = memoize(() => {
   const subtabElement = document.querySelector('#accountSubTab div#right.scrollbarX')!
   const table = subtabElement.querySelector('#table > #dataGrid')!
@@ -1468,22 +1485,6 @@ const initializeCloudSaves = memoize(() => {
           table.appendChild(rowDiv)
           table.appendChild(detailsRow)
         })
-
-        async function decodeSave (save: string) {
-          const decoded = atob(save)
-          const bytes = new Uint8Array(decoded.length)
-          for (let i = 0; i < decoded.length; i++) {
-            bytes[i] = decoded.charCodeAt(i)
-          }
-
-          const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
-          const textBody = await new Response(stream).text()
-          const encoder = new TextEncoder()
-          const jsonBytes = encoder.encode(textBody)
-          const final = btoa(isomorphicDecode(jsonBytes))
-
-          return final
-        }
 
         async function handleRenameSave (saveId: number, nameCell: HTMLDivElement) {
           const save = cloudSaves.find((s) => saveId === s.id)

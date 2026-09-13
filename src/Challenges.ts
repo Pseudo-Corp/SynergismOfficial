@@ -547,6 +547,8 @@ const calculateChallengeRequirementMultiplier = (
         requirementMultiplier *= Math.pow(1000, completions)
       }
       return requirementMultiplier
+    default:
+      return 0
   }
 }
 
@@ -570,6 +572,8 @@ export const CalcECC = (type: 'transcend' | 'reincarnation' | 'ascension', compl
       effective += Math.min(10, completions)
       effective += 1 / 2 * (Math.max(10, completions) - 10)
       return effective
+    default:
+      throw new Error('Unreachable code in CalcECC')
   }
 }
 
@@ -689,6 +693,8 @@ function sweepTransitionFunc (
       } else {
         return { kind: 'initial_wait' }
       }
+    default:
+      return state
   }
 }
 

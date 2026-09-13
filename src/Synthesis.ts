@@ -324,7 +324,7 @@ const getSynthesisUpgradeLevelForWallet = <K extends SynthesisUpgradeName>(
   return low
 }
 
-export const getSynthesisUpgradeLevel = <K extends SynthesisUpgradeName>(upgradeKey: K): number => {
+export const getSynthesisUpgradeLevel = (upgradeKey: SynthesisUpgradeName): number => {
   return getSynthesisUpgradeLevelForWallet(upgradeKey, player.synthesisUpgrades[upgradeKey])
 }
 
@@ -382,6 +382,7 @@ export const getSynthesisUpgradePurchase = <K extends SynthesisUpgradeName>(
   }
 }
 
+// eslint-disable-next-line typescript/no-unnecessary-type-parameters
 export const buySynthesisUpgrade = <K extends SynthesisUpgradeName>(
   upgradeKey: K,
   purchaseAmount: SynthesisUpgradePurchaseAmount = 1

@@ -9,7 +9,7 @@ import { AntUpgrades, LAST_ANT_UPGRADE } from '../../AntUpgrades/structs/structs
 import { AntProducers, LAST_ANT_PRODUCER } from '../../structs/structs'
 
 export const allAntProducerHTML = () => {
-  const autobuyersUnlocked = +getAchievementReward('antAutobuyers')
+  const highestUnlockedTier: AntProducers = +getAchievementReward('antAutobuyers') - 1
 
   // This is only visible if we can actually manually buy something.
   let purchasableHTMLIntro = ''
@@ -19,12 +19,12 @@ export const allAntProducerHTML = () => {
     const amountPurchasable = getMaxPurchasableAnts(antProducer, player.ants.crumbs)
       - player.ants.producers[antProducer].purchased
     const isNotAutobuyProducer = !player.ants.toggles.autobuyProducers
-      || antProducer > (autobuyersUnlocked - 1 as AntProducers)
+      || antProducer > highestUnlockedTier
     const producerDisplayCheck = isNotAutobuyProducer && amountPurchasable > 0
 
     const masteriesPurchasable = getBuyableMasteryLevels(antProducer)
     const isNotAutobuyMastery = !player.ants.toggles.autobuyMasteries
-      || antProducer > (autobuyersUnlocked - 1 as AntProducers)
+      || antProducer > highestUnlockedTier
     const masteryDisplayCheck = isNotAutobuyMastery && masteriesPurchasable > 0
 
     if (producerDisplayCheck || masteryDisplayCheck) {

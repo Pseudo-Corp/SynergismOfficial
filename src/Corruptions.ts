@@ -247,6 +247,9 @@ export class CorruptionLoadout {
       case 'viscosity': {
         return this.#viscosityEffect()
       }
+      default: {
+        throw new Error('Unreachable code in corruptionEffects')
+      }
     }
   }
 

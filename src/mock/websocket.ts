@@ -105,7 +105,7 @@ export const createConsumeHandlers = (purchaseConsumable: (internalName: string)
             clearTimeout(lotus.timer)
           }
 
-          lotus.timer = +setTimeout(() => {
+          lotus.timer = setTimeout(() => {
             lotus.active -= data.amount
             client.send(messages.lotusEnded())
           }, lotus.activeUntil - Date.now())
