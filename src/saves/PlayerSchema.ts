@@ -1129,7 +1129,7 @@ const valueAtPath = (data: unknown, path: (string | number)[]) => {
 }
 
 const describeValue = (value: unknown) => {
-  const json = `${JSON.stringify(value)}`
+  const json = JSON.stringify(value)
   return json.length > MAX_REPORTED_VALUE_LENGTH ? `${json.slice(0, MAX_REPORTED_VALUE_LENGTH)}…` : json
 }
 

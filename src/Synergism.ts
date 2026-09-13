@@ -4794,12 +4794,14 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
     const decompress = LZString.decompressFromBase64(saveObject)
 
     if (decompress) {
-      try {
-        saveString = btoa(decompress)
-      } catch {
+      const convertedSave = btoa(decompress)
+
+      if (convertedSave === null) {
         showLoadRecovery()
         return Alert(i18next.t('save.loadFailed', { reason: 'Save contains invalid characters.' }))
       }
+
+      saveString = convertedSave
 
       if (PLATFORM !== 'mobile') {
         localStorage.clear()
