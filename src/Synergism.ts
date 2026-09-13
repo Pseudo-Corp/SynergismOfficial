@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unassigned-import
 import '@ungap/custom-elements'
 import Decimal, { type DecimalSource } from 'break_infinity.js'
-import LZString from 'lz-string'
 import DOMPurify from 'dompurify'
+import LZString from 'lz-string'
 
 import {
   autoAscensionChallengeSweepUnlock,
@@ -237,6 +237,7 @@ import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, qu
 import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthesis'
 // eslint-disable-next-line no-unassigned-import
 import './saves/verify'
+import { z } from 'zod'
 import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from './Purple'
 import { generatePurpleUpgradeTabHTML } from './PurpleUpgradeTab'
 import { getShopUpgradeEffects, type ShopUpgradeNames, shopUpgrades, updateShopLevels } from './Shop'
@@ -252,7 +253,6 @@ import { changeSubTab, changeTab, getActiveSubTab, resetAllSubTabs, Tabs } from 
 import { populateBuildingButtonRows } from './tabs/buildings'
 import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
-import { z } from 'zod'
 
 const buyAmountTypes = [
   'coin',
