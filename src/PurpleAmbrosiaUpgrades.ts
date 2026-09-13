@@ -273,7 +273,7 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
     maxLevel: 11,
     costFormula: (level: number) => {
       if (level > 1) {
-        return 1_000 + 300 * level
+        return 1_000 + 300 * (level - 1)
       }
       return 1_000 * level
     },
