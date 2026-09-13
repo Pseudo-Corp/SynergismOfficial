@@ -3,7 +3,7 @@
 import i18next from 'i18next'
 import { achievementPoints, maxAchievementPoints } from './Achievements'
 import {
-  type AmbrosiaUpgradeNames,
+  ambrosiaUpgradeNames,
   ambrosiaUpgrades,
   getAmbrosiaUpgradeBlueberryCost,
   getRedAmbrosiaFreeLevels
@@ -470,7 +470,6 @@ export const generateExportSummary = async (): Promise<void> => {
   if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
     ambrosiaUpgradeStats =
       '===== AMBROSIA UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [𖥔]: Upgrade is ACTIVE - \n - [ ]: Upgrade INACTIVE - \n'
-    const ambUpgrade = Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]
 
     let spentBlueberries = 0
 
@@ -479,7 +478,7 @@ export const generateExportSummary = async (): Promise<void> => {
 
     const blueberries = calculateBlueberryInventory()
 
-    for (const key of ambUpgrade) {
+    for (const key of ambrosiaUpgradeNames) {
       let upgradeText = ''
       const ambUpg = ambrosiaUpgrades[key]
       const redAmbrosiaFreeLevels = getRedAmbrosiaFreeLevels(key)

@@ -278,6 +278,10 @@ export const exportSynergism = async (
     return
   }
 
+  await exportStoredSave()
+}
+
+export const exportStoredSave = async () => {
   let saveString: string | null
 
   try {
@@ -298,7 +302,7 @@ export const exportSynergism = async (
 
 export const reloadDeleteGame = async () => {
   await Alert(i18next.t('importexport.reloadDeletePrompt'))
-  await resetGame(true)
+  await resetGame(false)
 }
 
 export const resetGame = async (force = true) => {
@@ -359,7 +363,7 @@ export const importData = async (
 
 export const importSynergism = (input: string | null, reset = false) => {
   if (typeof input !== 'string') {
-    Alert(i18next.t('importexport.unableImport'))
+    Alert(i18next.t('importexport.unableImport', { reason: 'No input file' }))
     return
   }
 
@@ -370,7 +374,7 @@ export const importSynergism = (input: string | null, reset = false) => {
     f = d ? JSON.parse(d) : JSON.parse(atob(input))
   } catch (e) {
     console.error(e)
-    Alert(i18next.t('importexport.unableImport'))
+    Alert(i18next.t('importexport.unableImport', { reason: (e as Error).message }))
     return
   }
 
@@ -383,7 +387,7 @@ export const importSynergism = (input: string | null, reset = false) => {
     const saveString = btoa(JSON.stringify(f))
 
     if (saveString === null) {
-      Alert(i18next.t('importexport.unableImport'))
+      Alert(i18next.t('importexport.unableImport', { reason: 'Non-ASCII characters in file.' }))
       return
     }
 

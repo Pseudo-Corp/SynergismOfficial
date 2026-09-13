@@ -7496,7 +7496,7 @@
     "reloadDeletePrompt": "La siguiente confirmación es eliminar los datos guardados\nSi no desea eliminarlos, cancela esto",
     "resetPrompt": "Responde a la pregunta para confirmar que quieres reiniciar: ¿cuánto es {{a}}+{{b}}? (Pista: {{sum}})",
     "wrongAnswer": "Respuesta incorrecta, ¡no se resetea!",
-    "unableImport": "¡No se puede importar este archivo!",
+    "unableImport": "¡No se puede importar este archivo! {{reason}}",
     "loadTestInLive": "¡Estás intentando cargar un archivo de pruebas en una versión que no es de prueba!",
     "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism{{year}}\" or \"Khafra\" perchance?]",
     "comeBackSoon": "Bien, ¡Vuelve pronto!",

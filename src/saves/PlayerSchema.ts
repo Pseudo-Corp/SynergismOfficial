@@ -540,7 +540,7 @@ export const playerSchema = z.object({
     })
   ]),
   challenge15Exponent: z.number().default(() => blankSave.challenge15Exponent),
-  highestChallenge15Exponent: z.number().default(() => blankSave.highestChallenge15Exponent),
+  highestChallenge15Exponent: z.number().optional(),
 
   retrychallenges: z.boolean().default(() => blankSave.retrychallenges),
   currentChallenge: z.union([
@@ -556,7 +556,6 @@ export const playerSchema = z.object({
   maxObtainium: decimalSchema.default(() => blankSave.maxObtainium),
 
   researchPoints: z.number().optional(),
-  obtainiumtimer: z.number(),
   obtainiumpersecond: z.number().optional(),
   maxobtainiumpersecond: z.number().optional(),
   maxobtainium: z.number().optional(),
@@ -583,8 +582,6 @@ export const playerSchema = z.object({
       )
     }
   ).default(() => ({ ...blankSave.progressiveAchievements })),
-
-  achievementPoints: z.number(),
 
   prestigenomultiplier: z.boolean(),
   prestigenoaccelerator: z.boolean(),
@@ -718,7 +715,6 @@ export const playerSchema = z.object({
   autoSacrificeToggle: z.boolean().default(() => blankSave.autoSacrificeToggle),
   autoBuyFragment: z.boolean().default(() => blankSave.autoBuyFragment),
   autoFortifyToggle: z.boolean().default(() => blankSave.autoFortifyToggle),
-  autoEnhanceToggle: z.boolean().default(() => blankSave.autoEnhanceToggle),
   autoResearchToggle: z.boolean().default(() => blankSave.autoResearchToggle),
   researchBuyMaxToggle: z.boolean().default(() => blankSave.researchBuyMaxToggle),
   autoResearchMode: z.string().default(() => blankSave.autoResearchMode),
@@ -897,7 +893,6 @@ export const playerSchema = z.object({
   autoChallengeRunning: z.boolean().default(() => blankSave.autoChallengeRunning),
   autoChallengeIndex: z.number().default(() => blankSave.autoChallengeIndex),
   autoChallengeToggles: z.boolean().array().default(() => [...blankSave.autoChallengeToggles]),
-  autoChallengeStartExponent: z.number().default(() => blankSave.autoChallengeStartExponent),
   autoChallengeTimer: autoChallengeTimerSchema.transform((times) => {
     // Enforce minimum of 0.1s on old savefiles
     return {
@@ -949,12 +944,10 @@ export const playerSchema = z.object({
   singularityElevatorTarget: z.number().default(() => blankSave.singularityElevatorTarget),
   singularityElevatorSlowClimb: z.boolean().default(() => blankSave.singularityElevatorSlowClimb),
   singularityElevatorLocked: z.boolean().default(() => blankSave.singularityElevatorLocked),
-  singularityMatter: z.number().default(() => blankSave.singularityMatter),
   goldenQuarks: z.number().default(() => blankSave.goldenQuarks),
   quarksThisSingularity: z.number().nullable().default(() => blankSave.quarksThisSingularity),
   totalQuarksEver: z.number().default(() => blankSave.totalQuarksEver),
   hotkeys: z.record(integerStringSchema, z.string().array()).default(() => blankSave.hotkeys),
-  theme: z.string().default(() => blankSave.theme),
   iconSet: z.number().default(() => blankSave.iconSet),
   notation: z.string().default(() => blankSave.notation),
 
@@ -1040,7 +1033,6 @@ export const playerSchema = z.object({
   lifetimeAmbrosia: z.number().default(() => blankSave.lifetimeAmbrosia),
   purpleAmbrosia: z.number().default(() => blankSave.purpleAmbrosia),
   lifetimePurpleAmbrosia: z.number().default(() => blankSave.lifetimePurpleAmbrosia),
-  ambrosiaRNG: z.number().default(() => blankSave.ambrosiaRNG),
   blueberryTime: z.number().default(() => blankSave.blueberryTime),
   visitedAmbrosiaSubtab: z.boolean().optional(),
   visitedAmbrosiaSubtabRed: z.boolean().optional(),
@@ -1116,5 +1108,7 @@ export const playerSchema = z.object({
   stats: z.object({
     totalAddCodesUsed: z.number(),
     highestPurpleHoney: z.number().default(0)
-  }).default(() => deepClone()(blankSave.stats))
+  }).default(() => deepClone()(blankSave.stats)),
+
+  purpleUpdateQuarkRefundAwarded: z.boolean().default(() => false)
 })

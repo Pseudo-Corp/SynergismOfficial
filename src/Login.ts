@@ -906,6 +906,11 @@ export function sendToWebsocket (message: string) {
 }
 
 async function logout () {
+  const confirmed = await Confirm(i18next.t('account.logoutConfirm'))
+  if (!confirmed) {
+    return
+  }
+
   await fetch('https://synergism.cc/api/v1/users/logout')
 
   if (PLATFORM === 'mobile') {

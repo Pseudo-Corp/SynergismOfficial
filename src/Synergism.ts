@@ -238,7 +238,7 @@ import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthe
 import './saves/verify'
 import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from './Purple'
 import { generatePurpleUpgradeTabHTML } from './PurpleUpgradeTab'
-import { getShopUpgradeEffects, updateShopLevels } from './Shop'
+import { getShopUpgradeEffects, type ShopUpgradeNames, shopUpgrades, updateShopLevels } from './Shop'
 import { generateShopTabHTML } from './ShopTab'
 import { blankGQLevelObject, calculateMaxSingularityLookahead, setGQUpgradeLevels } from './singularity'
 import {
@@ -482,7 +482,6 @@ export const player: Player = {
   challengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   highestchallengecompletions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   challenge15Exponent: 0,
-  highestChallenge15Exponent: 0,
 
   retrychallenges: false,
   currentChallenge: {
@@ -494,7 +493,6 @@ export const player: Player = {
   obtainium: new Decimal(),
   maxObtainium: new Decimal(),
 
-  obtainiumtimer: 0,
   // Ignore the first index. The other 25 are shaped in a 5x5 grid similar to the production appearance
   // dprint-ignore
   researches: [
@@ -550,8 +548,6 @@ export const player: Player = {
     purpleHoneyUpgrades: 0,
     purpleAmbrosiaUpgrades: 0
   },
-
-  achievementPoints: 0,
 
   prestigenomultiplier: true,
   prestigenoaccelerator: true,
@@ -745,7 +741,6 @@ export const player: Player = {
   autoSacrificeToggle: false,
   autoBuyFragment: false,
   autoFortifyToggle: false,
-  autoEnhanceToggle: false,
   autoResearchToggle: false,
   researchBuyMaxToggle: false,
   autoResearchMode: 'manual',
@@ -1045,7 +1040,6 @@ export const player: Player = {
     false,
     false
   ],
-  autoChallengeStartExponent: 10,
   autoChallengeTimer: {
     start: 10,
     exit: 2,
@@ -1086,12 +1080,10 @@ export const player: Player = {
   singularityElevatorTarget: 1,
   singularityElevatorSlowClimb: true,
   singularityElevatorLocked: false,
-  singularityMatter: 0,
   goldenQuarks: 0,
   quarksThisSingularity: 0,
   totalQuarksEver: 0,
   hotkeys: {},
-  theme: 'Dark Mode',
   iconSet: 1,
   notation: 'Default',
 
@@ -1151,7 +1143,6 @@ export const player: Player = {
   lifetimeAmbrosia: 0,
   purpleAmbrosia: 0,
   lifetimePurpleAmbrosia: 0,
-  ambrosiaRNG: 0,
   blueberryTime: 0,
   spentBlueberries: 0,
 
@@ -1214,7 +1205,9 @@ export const player: Player = {
   stats: {
     totalAddCodesUsed: 0,
     highestPurpleHoney: 0
-  }
+  },
+
+  purpleUpdateQuarkRefundAwarded: true
 }
 
 export const deepClone = () =>
@@ -1355,6 +1348,47 @@ const loadSynergy = (saveString: string): boolean => {
       challengeExit('reincarnation')
       challengeExit('ascension')
       Object.assign(player, validatedPlayer.data)
+      // Temp check for Quarks
+      if (!player.purpleUpdateQuarkRefundAwarded) {
+        const sing10ResetUpgrades = ['offeringEX', 'obtainiumEX', 'antSpeed', 'cashGrab'] as ShopUpgradeNames[]
+        const sing50ResetUpgrades = [
+          'seasonPass',
+          'seasonPass2',
+          'seasonPass3',
+          'seasonPassY',
+          'chronometer',
+          'chronometer2'
+        ] as ShopUpgradeNames[]
+
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        const refundFormula = (baseCost: number, scalingFactor: number, level: number) =>
+          baseCost * level + scalingFactor * (level - 1) * level / 2
+        let quarksToRefund = 0
+        if (player.highestSingularityCount <= 10) {
+          for (const key of sing10ResetUpgrades) {
+            const baseCost = shopUpgrades[key].price
+            const scalingFactor = shopUpgrades[key].priceIncrease
+            const level = player.shopUpgrades[key] ?? 0
+            quarksToRefund += refundFormula(baseCost, scalingFactor, level)
+            player.shopUpgrades[key] = 0
+          }
+        }
+        if (player.highestSingularityCount <= 50) {
+          for (const key of sing50ResetUpgrades) {
+            const baseCost = shopUpgrades[key].price
+            const scalingFactor = shopUpgrades[key].priceIncrease
+            const level = player.shopUpgrades[key] ?? 0
+            quarksToRefund += refundFormula(baseCost, scalingFactor, level)
+            player.shopUpgrades[key] = 0
+          }
+        }
+
+        if (quarksToRefund > 0) {
+          player.worlds.add(quarksToRefund, false, false)
+          Alert(i18next.t('versionChangeAnnouncements.sept13Refund', { amount: format(quarksToRefund, 0) }))
+        }
+        player.purpleUpdateQuarkRefundAwarded = true
+      }
     } else {
       console.log(validatedPlayer.error)
       console.log(data)
@@ -4720,16 +4754,21 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
  */
 let reloadGeneration = 0
 
+const showLoadRecovery = () => {
+  if (G.timeWarp) {
+    return
+  }
+
+  DOMCacheGetOrSet('preloadRecovery').style.display = ''
+}
+
 export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: string) => {
   const generation = ++reloadGeneration
   clearTimers()
   cancelOfflineProgress()
 
-  // Shows a reset button when page loading seems to stop or cause an error
-  const preloadDeleteGame = setTimeout(
-    () => (DOMCacheGetOrSet('preloadDeleteGame').style.display = 'block'),
-    10000
-  )
+  DOMCacheGetOrSet('preloadRecovery').style.display = 'none'
+  const loadRecoveryTimer = setTimeout(showLoadRecovery, 10000)
 
   disableHotkeys()
 
@@ -4740,7 +4779,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
       await initializeSaveStorage()
       saveObject = await getStoredSave()
     } catch (error) {
-      clearTimeout(preloadDeleteGame)
+      clearTimeout(loadRecoveryTimer)
       console.error('Failed to initialize save storage', error)
       await Alert(i18next.t('save.storageLoadFailed'))
       return
@@ -4756,12 +4795,14 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
 
     if (isLZString) {
       if (!decompress) {
+        showLoadRecovery()
         return Alert(i18next.t('save.loadFailed'))
       }
 
       const convertedSave = btoa(decompress)
 
       if (convertedSave === null) {
+        showLoadRecovery()
         return Alert(i18next.t('save.loadFailed'))
       }
 
@@ -4774,7 +4815,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
       try {
         await persistSave(saveString)
       } catch (error) {
-        clearTimeout(preloadDeleteGame)
+        clearTimeout(loadRecoveryTimer)
         console.error('Failed to persist converted save', error)
         await Alert(i18next.t('testing.errorSaving'))
         return
@@ -4785,10 +4826,12 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
 
     try {
       if (!loadSynergy(saveString)) {
+        showLoadRecovery()
         return
       }
     } catch (error) {
       console.error('Failed to decode save', error)
+      showLoadRecovery()
       await Alert(i18next.t('save.loadFailed'))
       return
     }
@@ -4888,7 +4931,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   updateAllGroupedAchievementProgress()
   updateAllProgressiveAchievementProgress()
   updateChallengeDisplay()
-  clearTimeout(preloadDeleteGame)
+  clearTimeout(loadRecoveryTimer)
 
   // All versions of Chrome and Firefox supported by the game have this API,
   // but not all versions of Edge and Safari do.

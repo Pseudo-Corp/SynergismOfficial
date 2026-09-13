@@ -2,6 +2,7 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateBlueberryInventory } from './Calculate'
 import { getOcteractUpgradeEffect } from './Octeracts'
+import { runes } from './Runes'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { isMobile } from './Utility'
@@ -15,8 +16,8 @@ export type PurpleAmbrosiaUpgradeRewards = {
   virgo: { assignedBlueberrySalvage: number }
   libra: { overcapToggleUnlocked: boolean }
   scorpio: { purpleReactorConversionMult: number }
-  sagittarius: { horseshoeRuneUnlocked: boolean }
-  capricorn: { horseshoeTalismanUnlocked: boolean }
+  sagittarius: { horseshoeRuneUnlocked: boolean; horseShoeRuneCoefficient: number }
+  capricorn: { horseshoeTalismanUnlocked: boolean; antiquitiesOfAntGodCoefficient: number }
   aquarius: { infiniteTranscriptionExponent: number }
   pisces: { platonicBetaAtStart: boolean }
 }
@@ -228,20 +229,91 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
     description: () => i18next.t('purpleAmbrosia.data.scorpio.description')
   },
   sagittarius: {
-    maxLevel: 1,
+    maxLevel: 11,
     costFormula: (level: number) => 200 * level,
-    effects: (level: number) => level > 0,
-    notMaxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.sagittarius.effectNotMaxed'),
-    maxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.sagittarius.effectMaxed'),
+    effects: (level, key) => {
+      if (key === 'horseShoeRuneCoefficient') {
+        if (level >= 2) {
+          const baseCoefficient = runes.horseShoe.levelsPerOOM
+          return baseCoefficient * 0.10 * (level - 1)
+        }
+        return 0
+      }
+      return level > 0 // horseShoeRuneUnlocked
+    },
+    notMaxedEffectsDescription: () => {
+      const unlocked = getPurpleAmbrosiaUpgradeEffects('sagittarius', 'horseshoeRuneUnlocked')
+      const coefficient = getPurpleAmbrosiaUpgradeEffects('sagittarius', 'horseShoeRuneCoefficient')
+      const coefficientNextLevel = getPurpleAmbrosiaUpgradeNextLevelEffects('sagittarius', 'horseShoeRuneCoefficient')
+      const effect2Text = i18next.t('purpleAmbrosia.data.sagittarius.effect2NotMaxed', {
+        oldValue: format(coefficient, 4, true),
+        newValue: format(coefficientNextLevel, 4, true)
+      })
+
+      if (unlocked) {
+        const unlockText = i18next.t('purpleAmbrosia.data.sagittarius.effectPurchased')
+        return `${unlockText}<br>${effect2Text}`
+      }
+
+      const lockedText = i18next.t('purpleAmbrosia.data.sagittarius.effectNotPurchased')
+      return `${lockedText}<br>${effect2Text}`
+    },
+    maxedEffectsDescription: () => {
+      const coefficient = getPurpleAmbrosiaUpgradeEffects('sagittarius', 'horseShoeRuneCoefficient')
+      const unlockedText = i18next.t('purpleAmbrosia.data.sagittarius.effectPurchased')
+      const effect2Text = i18next.t('purpleAmbrosia.data.sagittarius.effect2Maxed', {
+        maxValue: format(coefficient, 4, true)
+      })
+      return `${unlockedText}<br>${effect2Text}`
+    },
     name: () => i18next.t('purpleAmbrosia.data.sagittarius.name'),
     description: () => i18next.t('purpleAmbrosia.data.sagittarius.description')
   },
   capricorn: {
-    maxLevel: 1,
-    costFormula: (level: number) => 4_000 * level,
-    effects: (level: number) => level > 0,
-    notMaxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.capricorn.effectNotMaxed'),
-    maxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.capricorn.effectMaxed'),
+    maxLevel: 11,
+    costFormula: (level: number) => {
+      if (level > 1) {
+        return 1_000 + 300 * (level - 1)
+      }
+      return 1_000 * level
+    },
+    effects: (level, key) => {
+      if (key === 'antiquitiesOfAntGodCoefficient') {
+        if (level >= 2) {
+          const baseCoefficient = runes.antiquities.levelsPerOOM
+          return baseCoefficient * 0.1 * (level - 1)
+        }
+        return 0
+      }
+      return level > 0 // horseShoeTalismanUnlocked
+    },
+    notMaxedEffectsDescription: () => {
+      const unlocked = getPurpleAmbrosiaUpgradeEffects('capricorn', 'horseshoeTalismanUnlocked')
+      const coefficient = getPurpleAmbrosiaUpgradeEffects('capricorn', 'antiquitiesOfAntGodCoefficient')
+      const coefficientNextLevel = getPurpleAmbrosiaUpgradeNextLevelEffects(
+        'capricorn',
+        'antiquitiesOfAntGodCoefficient'
+      )
+      const effect2Text = i18next.t('purpleAmbrosia.data.capricorn.effect2NotMaxed', {
+        oldValue: format(coefficient, 4, true),
+        newValue: format(coefficientNextLevel, 4, true)
+      })
+      if (unlocked) {
+        const unlockText = i18next.t('purpleAmbrosia.data.capricorn.effectPurchased')
+        return `${unlockText}<br>${effect2Text}`
+      }
+
+      const lockedText = i18next.t('purpleAmbrosia.data.capricorn.effectNotPurchased')
+      return `${lockedText}<br>${effect2Text}`
+    },
+    maxedEffectsDescription: () => {
+      const coefficient = getPurpleAmbrosiaUpgradeEffects('capricorn', 'antiquitiesOfAntGodCoefficient')
+      const unlockedText = i18next.t('purpleAmbrosia.data.capricorn.effectPurchased')
+      const effect2Text = i18next.t('purpleAmbrosia.data.capricorn.effect2Maxed', {
+        maxValue: format(coefficient, 4, true)
+      })
+      return `${unlockedText}<br>${effect2Text}`
+    },
     name: () => i18next.t('purpleAmbrosia.data.capricorn.name'),
     description: () => i18next.t('purpleAmbrosia.data.capricorn.description')
   },

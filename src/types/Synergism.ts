@@ -198,7 +198,6 @@ export interface Player {
   challengecompletions: number[]
   highestchallengecompletions: number[]
   challenge15Exponent: number
-  highestChallenge15Exponent: number
 
   retrychallenges: boolean
   currentChallenge: {
@@ -209,7 +208,6 @@ export interface Player {
 
   obtainium: Decimal
   maxObtainium: Decimal
-  obtainiumtimer: number
 
   // Ignore the first index. The other 25 are shaped in a 5x5 grid similar to the production appearance
   researches: number[]
@@ -239,8 +237,6 @@ export interface Player {
   }
   achievements: number[]
   progressiveAchievements: Record<ProgressiveAchievements, number>
-
-  achievementPoints: number
 
   prestigenomultiplier: boolean
   prestigenoaccelerator: boolean
@@ -323,7 +319,6 @@ export interface Player {
   autoSacrificeToggle: boolean
   autoBuyFragment: boolean
   autoFortifyToggle: boolean
-  autoEnhanceToggle: boolean
   autoResearchToggle: boolean
   researchBuyMaxToggle: boolean
   autoResearchMode: 'cheapest' | 'manual'
@@ -441,7 +436,6 @@ export interface Player {
   autoChallengeRunning: boolean
   autoChallengeIndex: number
   autoChallengeToggles: boolean[]
-  autoChallengeStartExponent: number
   autoChallengeTimer: {
     start: number
     exit: number
@@ -499,12 +493,10 @@ export interface Player {
   singularityElevatorTarget: number
   singularityElevatorSlowClimb: boolean
   singularityElevatorLocked: boolean
-  singularityMatter: number
   goldenQuarks: number
   quarksThisSingularity: number
   totalQuarksEver: number
   hotkeys: Record<number, string[]>
-  theme: string
   iconSet: number
   notation: 'Pure Scientific' | 'Pure Engineering' | 'Default'
 
@@ -540,7 +532,6 @@ export interface Player {
   lifetimePurpleAmbrosia: number
 
   blueberryTime: number
-  ambrosiaRNG: number // DEPRECIATED, DO NOT USE
   spentBlueberries: number
 
   blueberryLoadouts: Record<number, BlueberryOpt>
@@ -587,6 +578,8 @@ export interface Player {
     totalAddCodesUsed: number
     highestPurpleHoney: number
   }
+
+  purpleUpdateQuarkRefundAwarded: boolean
 }
 
 export interface GlobalVariables {

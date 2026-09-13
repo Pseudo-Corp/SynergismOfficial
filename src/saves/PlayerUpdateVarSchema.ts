@@ -398,5 +398,7 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   Reflect.deleteProperty(player, 'visitedAmbrosiaSubtab')
   Reflect.deleteProperty(player, 'visitedAmbrosiaSubtabRed')
 
+  Reflect.deleteProperty(player, 'highestChallenge15Exponent')
+
   return player
 })

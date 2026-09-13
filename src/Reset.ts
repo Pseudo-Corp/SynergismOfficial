@@ -1057,7 +1057,9 @@ export const singularity = (setSingNumber = -1) => {
   resetTalismanData('singularity')
   resetAnts(AntSacrificeTiers.singularity)
 
-  player.goldenQuarks += calculateGoldenQuarks()
+  if (antiquitiesPurchased) {
+    player.goldenQuarks += calculateGoldenQuarks()
+  }
 
   if (setSingNumber === -1) {
     const lookahead = calculateMaxSingularityLookahead(true)
@@ -1113,7 +1115,6 @@ export const singularity = (setSingNumber = -1) => {
   hold.singularityElevatorTarget = player.singularityElevatorTarget
   hold.singularityElevatorSlowClimb = player.singularityElevatorSlowClimb
   hold.singularityElevatorLocked = player.singularityElevatorLocked
-  hold.singularityMatter = player.singularityMatter
   hold.goldenQuarks = player.goldenQuarks
   hold.shopUpgrades = player.shopUpgrades
   hold.shopPotionsConsumed = player.shopPotionsConsumed
@@ -1168,7 +1169,6 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoSacrificeToggle = player.autoSacrificeToggle
   hold.autoBuyFragment = player.autoBuyFragment
   hold.autoFortifyToggle = player.autoFortifyToggle
-  hold.autoEnhanceToggle = player.autoEnhanceToggle
   hold.autoResearchToggle = player.autoResearchToggle
   hold.autoResearchMode = player.autoResearchMode
   hold.dailyCodeUsed = player.dailyCodeUsed
@@ -1209,7 +1209,6 @@ export const singularity = (setSingNumber = -1) => {
   hold.totalWowOcteracts = player.totalWowOcteracts
   hold.overfluxOrbsAutoBuy = player.overfluxOrbsAutoBuy
   hold.hotkeys = player.hotkeys
-  hold.theme = player.theme
   hold.notation = player.notation
   hold.firstPlayed = player.firstPlayed
   hold.autoCubeUpgradesToggle = player.autoCubeUpgradesToggle

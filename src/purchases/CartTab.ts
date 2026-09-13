@@ -1,3 +1,4 @@
+import { DOMCacheGetOrSet } from '../Cache/DOM'
 import { changeSubTab, getActiveSubTab, Tabs } from '../Tabs'
 import { assert, createDeferredPromise, type DeferredPromise, memoize, retry } from '../Utility'
 import { setEmptyProductMap } from './CartUtil'
@@ -167,6 +168,13 @@ export class CartTab {
 }
 
 const onInit = memoize(() => {
+  const refreshBalance = DOMCacheGetOrSet('refreshPseudoCoinBalance') as HTMLButtonElement
+  refreshBalance.addEventListener('click', async () => {
+    refreshBalance.disabled = true
+    await updatePseudoCoins().catch(console.error)
+    refreshBalance.disabled = false
+  })
+
   CartTab.fetchProducts()
   updatePseudoCoins().catch(console.error)
 
