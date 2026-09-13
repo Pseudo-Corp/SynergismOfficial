@@ -703,9 +703,9 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     level: 0,
     rarity: 0,
     fragmentsInvested: { ...noTalismanFragments },
-    baseMult: new Decimal('1e1000'),
+    baseMult: new Decimal('1e1100'),
     maxLevel: 6,
-    costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 1e8),
+    costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 1e2),
     levelCapIncrease: () => 54,
     effects: (n) => {
       return {
@@ -744,7 +744,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal('1e1000'),
     maxLevel: 6,
-    costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 1e8),
+    costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 100),
     levelCapIncrease: () => 54,
     effects: (n) => {
       const cookiesSix = n >= 6
@@ -782,9 +782,9 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     level: 0,
     rarity: 0,
     fragmentsInvested: { ...noTalismanFragments },
-    baseMult: new Decimal('1e1200'),
+    baseMult: new Decimal('1e1000'),
     maxLevel: 12,
-    costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 1e5),
+    costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 100),
     levelCapIncrease: () => 88,
     effects: (n) => {
       const signatureValue = (n >= 6) ? 40 : 0
@@ -819,7 +819,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     minimalResetTier: 'never',
     isUnlocked: () => {
       return getPurpleAmbrosiaUpgradeEffects('capricorn', 'horseshoeTalismanUnlocked')
-        || getSingularityChallengeEffect('taxmanLastStand', 'talismanUnlock')
     },
     name: () => i18next.t('runes.talismans.horseShoe.name'),
     description: () => i18next.t('runes.talismans.horseShoe.description')

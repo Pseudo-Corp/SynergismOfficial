@@ -261,11 +261,11 @@ const infiniteAscentOOMIncrease = () => {
 }
 
 const antiquitiesOOMIncrease = () => {
-  return 0
+  return getPurpleAmbrosiaUpgradeEffects('capricorn', 'antiquitiesOfAntGodCoefficient')
 }
 
 const horseShoeOOMIncrease = () => {
-  return 0
+  return getPurpleAmbrosiaUpgradeEffects('sagittarius', 'horseShoeRuneCoefficient')
 }
 
 export const firstFiveEffectiveRuneLevelMult = () => {
@@ -644,9 +644,9 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     levelsPerOOMIncrease: () => horseShoeOOMIncrease(),
     effects: (n, key) => {
       if (key === 'ambrosiaLuck') {
-        return n
+        return 2 * n
       } else if (key === 'redLuck') {
-        return n / 5
+        return 2 * n / 5
       } else {
         return n / 5 // purpleHoneyLuck
       }

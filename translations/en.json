@@ -574,14 +574,18 @@
       "sagittarius": {
         "name": "Sagittarius",
         "description": "A horse is a horse, of course. Horse!",
-        "effectNotMaxed": "Unlock a new Horseshoe rune! Boosts Ambrosia Luck, Red Luck and Purple Honey Luck.",
-        "effectMaxed": "You've unlocked a Horseshoe rune!"
+        "effectNotPurchased": "Unlock a new Horseshoe rune! Boosts Ambrosia Luck, Red Luck and Purple Honey Luck.",
+        "effectPurchased": "You've unlocked a Horseshoe rune!",
+        "effect2NotMaxed": "Horseshoe Rune Coefficient: <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>",
+        "effect2Maxed": "Horseshoe Rune Coefficient: <<gold|+{{maxValue}}>>"
       },
       "capricorn": {
         "name": "Capricorn",
         "description": "Has a horse shoe that only a Sagittarius could love.",
-        "effectNotMaxed": "Unlock a new Horse Shoe talisman! Boosts Ambrosia Luck and Red Luck!",
-        "effectMaxed": "You've unlocked a Horse Shoe talisman! Don't forget the Red Luck Mythic Signature."
+        "effectNotPurchased": "Unlock a new Horse Shoe talisman! Boosts Ambrosia Luck and Red Luck!",
+        "effectPurchased": "You've unlocked a Horse Shoe talisman! Don't forget the Red Luck Mythic Signature.",
+        "effect2NotMaxed": "Antiquities of Ant God Coefficient: <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>",
+        "effect2Maxed": "Antiquities of Ant God Coefficient: <<gold|+{{maxValue}}>>"
       },
       "aquarius": {
         "name": "Aquarius",
@@ -6353,8 +6357,8 @@
       "name": "The Horse's Shoe",
       "description": "I never realized the world was so easily won, just by realizing you got someone to say you won't be lonely anymore.",
       "lockedDescription": "This rune is locked! Purchase <<var(--purple-text-color)|Sagittarius>> in the Purple Ambrosia upgrades to unlock it.",
-      "ambrosiaLuck": "<<limegreen | {{val}} Ambrosia Luck>> (+1 per Power)",
-      "redLuck": "<<red | {{val}} Red Luck>> (+num:((0.2)) per Power)",
+      "ambrosiaLuck": "<<limegreen | {{val}} Ambrosia Luck>> (+2 per Power)",
+      "redLuck": "<<red | {{val}} Red Luck>> (+num:((0.4)) per Power)",
       "purpleHoneyLuck": "<<var(--purple-text-color)|{{val}} Purple Honey Luck>> (+num:((0.2)) per Power)",
       "values": "Each level gives you +1 Ambrosia Luck, +num:((0.2)) Red Luck and +num:((0.2)) Purple Honey Luck.",
       "effect": "Horseshoe Rune Bonus: +{{val}} Ambrosia Luck, +{{val2}} Red Luck, +{{val3}} Purple Honey Luck."
