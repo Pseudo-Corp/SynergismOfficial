@@ -333,7 +333,7 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
         const baseCost = shopUpgrades[key].price
         const scalingFactor = shopUpgrades[key].priceIncrease
         const level = player.shopUpgrades[key] ?? 0
-        quarksToRefund += refundFormula(baseCost, scalingFactor, level) // Replace with actual values for each upgrade
+        quarksToRefund += refundFormula(baseCost, scalingFactor, level)
       }
     }
     if (player.highestSingularityCount <= 50) {
