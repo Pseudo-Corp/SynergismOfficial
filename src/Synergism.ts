@@ -238,7 +238,7 @@ import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthe
 import './saves/verify'
 import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from './Purple'
 import { generatePurpleUpgradeTabHTML } from './PurpleUpgradeTab'
-import { getShopUpgradeEffects, ShopUpgradeNames, shopUpgrades, updateShopLevels } from './Shop'
+import { getShopUpgradeEffects, type ShopUpgradeNames, shopUpgrades, updateShopLevels } from './Shop'
 import { generateShopTabHTML } from './ShopTab'
 import { blankGQLevelObject, calculateMaxSingularityLookahead, setGQUpgradeLevels } from './singularity'
 import {
@@ -1360,6 +1360,7 @@ const loadSynergy = (saveString: string): boolean => {
           'chronometer2'
         ] as ShopUpgradeNames[]
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         const refundFormula = (baseCost: number, scalingFactor: number, level: number) =>
           baseCost * level + scalingFactor * (level - 1) * level / 2
         let quarksToRefund = 0
