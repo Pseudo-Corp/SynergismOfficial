@@ -11,6 +11,9 @@ import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
 import { convertArrayToCorruption } from './PlayerJsonSchema'
 import { playerSchema } from './PlayerSchema'
 import { ShopUpgradeNames, shopUpgrades } from '../Shop'
+import { Alert } from '../UpdateHTML'
+import i18next from 'i18next'
+import { format } from '../Synergism'
 
 const getLegacyOcteractsInvested = (
   key: OcteractUpgrades,
@@ -334,6 +337,7 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
         const scalingFactor = shopUpgrades[key].priceIncrease
         const level = player.shopUpgrades[key] ?? 0
         quarksToRefund += refundFormula(baseCost, scalingFactor, level)
+        player.shopUpgrades[key] = 0
       }
     }
     if (player.highestSingularityCount <= 50) {
@@ -342,10 +346,16 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
         const scalingFactor = shopUpgrades[key].priceIncrease
         const level = player.shopUpgrades[key] ?? 0
         quarksToRefund += refundFormula(baseCost, scalingFactor, level)
+        player.shopUpgrades[key] = 0
       }
     }
 
-    player.worlds.add(quarksToRefund, false, false)
+    if (quarksToRefund > 0) {
+      player.worlds.add(quarksToRefund, false, false)
+      Alert(i18next.t('versionChangeAnnouncements.sept13Refund',
+        { amount: format(quarksToRefund, 0) }
+      ))
+    }
   }
 
   Reflect.deleteProperty(player, 'runeshards')

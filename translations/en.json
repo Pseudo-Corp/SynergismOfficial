@@ -8660,6 +8660,7 @@
     "invalidKey": "That key can't be used as a hotkey! Try a standard keyboard key instead."
   },
   "versionChangeAnnouncements": {
-    "ants": "Ants have been significantly reworked/rebalanced. Your Anthill progress has been set accordingly!"
+    "ants": "Ants have been significantly reworked/rebalanced. Your Anthill progress has been set accordingly!",
+    "sept13Refund": "Due to the Purple Ambrosia Update, some of your Quark Upgrades have been refunded! Refund amount: <<cyan|+{{amount}}>>"
   }
 }
