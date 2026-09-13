@@ -6,7 +6,7 @@
     "gameSaved": "¡Juego guardado con éxito!"
   },
   "save": {
-    "loadFailed": "Imposible cargar lo guardado.",
+    "loadFailed": "Imposible cargar lo guardado. {{reason}}",
     "saveToClipboard": "¿Seguro que quieres permitir copiado al portapapeles?"
   },
   "ambrosia": {

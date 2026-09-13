@@ -6,7 +6,7 @@
     "gameSaved": "Spel succesvol opgeslagen!"
   },
   "save": {
-    "loadFailed": "Niet in staat om het opslagbestand te laden.",
+    "loadFailed": "Niet in staat om het opslagbestand te laden. {{reason}}",
     "saveToClipboard": "Weet je zeker dat je opslagbestand kopiëren naar het klembord wilt inschakelen?"
   },
   "ambrosia": {

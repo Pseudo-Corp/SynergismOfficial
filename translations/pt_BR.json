@@ -6,7 +6,7 @@
         "gameSaved": ""
     },
     "save": {
-        "loadFailed": "Não foi possível carregar o arquivo.",
+        "loadFailed": "Não foi possível carregar o arquivo. {{reason}}",
         "saveToClipboard": ""
     },
     "achievements": {

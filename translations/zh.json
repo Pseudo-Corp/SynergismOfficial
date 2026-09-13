@@ -6,7 +6,7 @@
     "gameSaved": "游戏保存成功！"
   },
   "save": {
-    "loadFailed": "无法载入存档。",
+    "loadFailed": "无法载入存档。{{reason}}",
     "saveToClipboard": "您确定要启用将存档导出到剪贴板吗？"
   },
   "ambrosia": {
