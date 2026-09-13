@@ -7496,7 +7496,7 @@
     "reloadDeletePrompt": "Следующее подтверждение удалит данные сохранения\nЕсли вы не хотите их удалять, отмените это",
     "resetPrompt": "Чтобы подтвердить, что вы хотите сбросить прогресс, ответьте на вопрос: чему равно {{a}}+{{b}}? (Подсказка: {{sum}})",
     "wrongAnswer": "Ответ неверный, сброс отменён!",
-    "unableImport": "Не удалось импортировать этот файл!",
+    "unableImport": "Не удалось импортировать этот файл! {{reason}}",
     "loadTestInLive": "Вы пытаетесь загрузить тестовый файл в не тестовую версию!",
     "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism{{year}}\" or \"Khafra\" perchance?]",
     "comeBackSoon": "Ладно, до скорой встречи!",

@@ -363,7 +363,7 @@ export const importData = async (
 
 export const importSynergism = (input: string | null, reset = false) => {
   if (typeof input !== 'string') {
-    Alert(i18next.t('importexport.unableImport'))
+    Alert(i18next.t('importexport.unableImport', { reason: 'No input file' }))
     return
   }
 
@@ -374,7 +374,7 @@ export const importSynergism = (input: string | null, reset = false) => {
     f = d ? JSON.parse(d) : JSON.parse(atob(input))
   } catch (e) {
     console.error(e)
-    Alert(i18next.t('importexport.unableImport'))
+    Alert(i18next.t('importexport.unableImport', { reason: (e as Error).message }))
     return
   }
 
@@ -387,7 +387,7 @@ export const importSynergism = (input: string | null, reset = false) => {
     const saveString = btoa(JSON.stringify(f))
 
     if (saveString === null) {
-      Alert(i18next.t('importexport.unableImport'))
+      Alert(i18next.t('importexport.unableImport', { reason: 'Non-ASCII characters in file.' }))
       return
     }
 

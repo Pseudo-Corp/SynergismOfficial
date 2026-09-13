@@ -2489,7 +2489,7 @@ const createBlueberryTree = (modules: BlueberryOpt) => {
 
 export const importBlueberryTree = (input: string | null) => {
   if (typeof input !== 'string') {
-    return Alert(i18next.t('importexport.unableImport'))
+    return Alert(i18next.t('importexport.unableImport', { reason: 'No input' }))
   } else {
     try {
       const modules = JSON.parse(input) as BlueberryOpt

@@ -7496,7 +7496,7 @@
     "reloadDeletePrompt": "La prochaine confirmation valide la suppression des données de sauvegarde\nAnnulez si vous ne voulez pas les supprimer",
     "resetPrompt": "Répondez à la question pour confirmer que vous voulez tout réinitialiser : combien font {{a}} +{{b}} ? (Indice : {{sum}})",
     "wrongAnswer": "Mauvaise réponse, réinitialisation annulée !",
-    "unableImport": "Impossible d'importer ce fichier !",
+    "unableImport": "Impossible d'importer ce fichier ! {{reason}}",
     "loadTestInLive": "Vous essayez de charger un fichier de test dans une version qui n'est pas dédiée aux tests !",
     "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism{{year}}\" or \"Khafra\" perchance?]",
     "comeBackSoon": "D'accord, revenez vite !",

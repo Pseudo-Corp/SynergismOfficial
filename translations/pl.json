@@ -7495,7 +7495,7 @@
     "reloadDeletePrompt": "The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it",
     "resetPrompt": "Answer the question to confirm you'd like to reset: what is {{a}}+{{b}}? (Hint: {{sum}})",
     "wrongAnswer": "Answer was wrong, not resetting!",
-    "unableImport": "Unable to import this file!",
+    "unableImport": "Unable to import this file! {{reason}}",
     "loadTestInLive": "You are attempting to load a testing file in a non-testing version!",
     "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism{{year}}\" or \"Khafra\" perchance?]",
     "comeBackSoon": "Alright, come back soon!",
