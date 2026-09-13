@@ -77,7 +77,11 @@
     <div id="offlineBlur">
         <img id="logo" src="Pictures/logo.png" alt="The Synergism Logo">
         <button id="preloadPlayOffline" style="display: none;" i18n="save.playOffline">Play Offline</button>
-        <button id="preloadDeleteGame" style="display: none;">Delete savefile</button>
+        <div id="preloadRecovery" style="display: none;">
+            <button id="preloadExportSave" i18n="save.recoveryExport">Export savefile</button>
+            <button id="preloadImportSave" i18n="save.recoveryImport">Load from file</button>
+            <button id="preloadDeleteGame" i18n="settings.deleteSave">Delete savefile</button>
+        </div>
     </div>
     <div id="offlineContainer" style="display: none;">
         <p id="offlineTimer" class="offlineText" style="color: plum"></p>
@@ -863,220 +867,220 @@
                 <div class="scrollbarX">
                     <table id="researchtable">
                         <tr>
-                            <td><button id="res1" i18n-aria-label="researches.descriptions.1"><img src="Pictures/Default/Research1.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res2" i18n-aria-label="researches.descriptions.2"><img src="Pictures/Default/Research2.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res3" i18n-aria-label="researches.descriptions.3"><img src="Pictures/Default/Research3.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res4" i18n-aria-label="researches.descriptions.4"><img src="Pictures/Default/Research4.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res5" i18n-aria-label="researches.descriptions.5"><img src="Pictures/Default/Research5.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res6" i18n-aria-label="researches.descriptions.6"><img src="Pictures/Default/Research6.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res7" i18n-aria-label="researches.descriptions.7"><img src="Pictures/Default/Research7.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res8" i18n-aria-label="researches.descriptions.8"><img src="Pictures/Default/Research8.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res9" i18n-aria-label="researches.descriptions.9"><img src="Pictures/Default/Research9.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res10" i18n-aria-label="researches.descriptions.10"><img src="Pictures/Default/Research10.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res11" i18n-aria-label="researches.descriptions.11"><img src="Pictures/Default/Research11.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res12" i18n-aria-label="researches.descriptions.12"><img src="Pictures/Default/Research12.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res13" i18n-aria-label="researches.descriptions.13"><img src="Pictures/Default/Research13.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res14" i18n-aria-label="researches.descriptions.14"><img src="Pictures/Default/Research14.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res15" i18n-aria-label="researches.descriptions.15"><img src="Pictures/Default/Research15.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res16" i18n-aria-label="researches.descriptions.16"><img src="Pictures/Default/Research16.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res17" i18n-aria-label="researches.descriptions.17"><img src="Pictures/Default/Research17.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res18" i18n-aria-label="researches.descriptions.18"><img src="Pictures/Default/Research18.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res19" i18n-aria-label="researches.descriptions.19"><img src="Pictures/Default/Research19.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res20" i18n-aria-label="researches.descriptions.20"><img src="Pictures/Default/Research20.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res21" i18n-aria-label="researches.descriptions.21"><img src="Pictures/Default/Research21.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res22" i18n-aria-label="researches.descriptions.22"><img src="Pictures/Default/Research22.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res23" i18n-aria-label="researches.descriptions.23"><img src="Pictures/Default/Research23.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res24" i18n-aria-label="researches.descriptions.24"><img src="Pictures/Default/Research24.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res25" i18n-aria-label="researches.descriptions.25"><img src="Pictures/Default/Research25.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res1" i18n-aria-label="researches.descriptions.1"><img id="research1Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res2" i18n-aria-label="researches.descriptions.2"><img id="research2Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res3" i18n-aria-label="researches.descriptions.3"><img id="research3Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res4" i18n-aria-label="researches.descriptions.4"><img id="research4Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res5" i18n-aria-label="researches.descriptions.5"><img id="research5Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res6" i18n-aria-label="researches.descriptions.6"><img id="research6Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res7" i18n-aria-label="researches.descriptions.7"><img id="research7Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res8" i18n-aria-label="researches.descriptions.8"><img id="research8Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res9" i18n-aria-label="researches.descriptions.9"><img id="research9Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res10" i18n-aria-label="researches.descriptions.10"><img id="research10Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res11" i18n-aria-label="researches.descriptions.11"><img id="research11Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res12" i18n-aria-label="researches.descriptions.12"><img id="research12Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res13" i18n-aria-label="researches.descriptions.13"><img id="research13Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res14" i18n-aria-label="researches.descriptions.14"><img id="research14Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res15" i18n-aria-label="researches.descriptions.15"><img id="research15Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res16" i18n-aria-label="researches.descriptions.16"><img id="research16Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res17" i18n-aria-label="researches.descriptions.17"><img id="research17Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res18" i18n-aria-label="researches.descriptions.18"><img id="research18Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res19" i18n-aria-label="researches.descriptions.19"><img id="research19Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res20" i18n-aria-label="researches.descriptions.20"><img id="research20Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res21" i18n-aria-label="researches.descriptions.21"><img id="research21Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res22" i18n-aria-label="researches.descriptions.22"><img id="research22Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res23" i18n-aria-label="researches.descriptions.23"><img id="research23Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res24" i18n-aria-label="researches.descriptions.24"><img id="research24Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res25" i18n-aria-label="researches.descriptions.25"><img id="research25Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><button id="res26" i18n-aria-label="researches.descriptions.26"><img src="Pictures/Default/Research26.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res27" i18n-aria-label="researches.descriptions.27"><img src="Pictures/Default/Research27.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res28" i18n-aria-label="researches.descriptions.28"><img src="Pictures/Default/Research28.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res29" i18n-aria-label="researches.descriptions.29"><img src="Pictures/Default/Research29.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res30" i18n-aria-label="researches.descriptions.30"><img src="Pictures/Default/Research30.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res31" i18n-aria-label="researches.descriptions.31"><img src="Pictures/Default/Research31.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res32" i18n-aria-label="researches.descriptions.32"><img src="Pictures/Default/Research32.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res33" i18n-aria-label="researches.descriptions.33"><img src="Pictures/Default/Research33.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res34" i18n-aria-label="researches.descriptions.34"><img src="Pictures/Default/Research34.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res35" i18n-aria-label="researches.descriptions.35"><img src="Pictures/Default/Research35.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res36" i18n-aria-label="researches.descriptions.36"><img src="Pictures/Default/Research36.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res37" i18n-aria-label="researches.descriptions.37"><img src="Pictures/Default/Research37.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res38" i18n-aria-label="researches.descriptions.38"><img src="Pictures/Default/Research38.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res39" i18n-aria-label="researches.descriptions.39"><img src="Pictures/Default/Research39.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res40" i18n-aria-label="researches.descriptions.40"><img src="Pictures/Default/Research40.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res41" i18n-aria-label="researches.descriptions.41"><img src="Pictures/Default/Research41.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res42" i18n-aria-label="researches.descriptions.42"><img src="Pictures/Default/Research42.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res43" i18n-aria-label="researches.descriptions.43"><img src="Pictures/Default/Research43.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res44" i18n-aria-label="researches.descriptions.44"><img src="Pictures/Default/Research44.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res45" i18n-aria-label="researches.descriptions.45"><img src="Pictures/Default/Research45.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res46" i18n-aria-label="researches.descriptions.46"><img src="Pictures/Default/Research46.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res47" i18n-aria-label="researches.descriptions.47"><img src="Pictures/Default/Research47.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res48" i18n-aria-label="researches.descriptions.48"><img src="Pictures/Default/Research48.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res49" i18n-aria-label="researches.descriptions.49"><img src="Pictures/Default/Research49.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res50" i18n-aria-label="researches.descriptions.50"><img src="Pictures/Default/Research50.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res26" i18n-aria-label="researches.descriptions.26"><img id="research26Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res27" i18n-aria-label="researches.descriptions.27"><img id="research27Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res28" i18n-aria-label="researches.descriptions.28"><img id="research28Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res29" i18n-aria-label="researches.descriptions.29"><img id="research29Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res30" i18n-aria-label="researches.descriptions.30"><img id="research30Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res31" i18n-aria-label="researches.descriptions.31"><img id="research31Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res32" i18n-aria-label="researches.descriptions.32"><img id="research32Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res33" i18n-aria-label="researches.descriptions.33"><img id="research33Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res34" i18n-aria-label="researches.descriptions.34"><img id="research34Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res35" i18n-aria-label="researches.descriptions.35"><img id="research35Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res36" i18n-aria-label="researches.descriptions.36"><img id="research36Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res37" i18n-aria-label="researches.descriptions.37"><img id="research37Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res38" i18n-aria-label="researches.descriptions.38"><img id="research38Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res39" i18n-aria-label="researches.descriptions.39"><img id="research39Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res40" i18n-aria-label="researches.descriptions.40"><img id="research40Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res41" i18n-aria-label="researches.descriptions.41"><img id="research41Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res42" i18n-aria-label="researches.descriptions.42"><img id="research42Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res43" i18n-aria-label="researches.descriptions.43"><img id="research43Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res44" i18n-aria-label="researches.descriptions.44"><img id="research44Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res45" i18n-aria-label="researches.descriptions.45"><img id="research45Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res46" i18n-aria-label="researches.descriptions.46"><img id="research46Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res47" i18n-aria-label="researches.descriptions.47"><img id="research47Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res48" i18n-aria-label="researches.descriptions.48"><img id="research48Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res49" i18n-aria-label="researches.descriptions.49"><img id="research49Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res50" i18n-aria-label="researches.descriptions.50"><img id="research50Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><button id="res51" i18n-aria-label="researches.descriptions.51"><img src="Pictures/Default/Research51.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res52" i18n-aria-label="researches.descriptions.52"><img src="Pictures/Default/Research52.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res53" i18n-aria-label="researches.descriptions.53"><img src="Pictures/Default/Research53.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res54" i18n-aria-label="researches.descriptions.54"><img src="Pictures/Default/Research54.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res55" i18n-aria-label="researches.descriptions.55"><img src="Pictures/Default/Research55.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res56" i18n-aria-label="researches.descriptions.56"><img src="Pictures/Default/Research56.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res57" i18n-aria-label="researches.descriptions.57"><img src="Pictures/Default/Research57.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res58" i18n-aria-label="researches.descriptions.58"><img src="Pictures/Default/Research58.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res59" i18n-aria-label="researches.descriptions.59"><img src="Pictures/Default/Research59.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res60" i18n-aria-label="researches.descriptions.60"><img src="Pictures/Default/Research60.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res61" i18n-aria-label="researches.descriptions.61"><img src="Pictures/Default/Research61.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res62" i18n-aria-label="researches.descriptions.62"><img src="Pictures/Default/Research62.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res63" i18n-aria-label="researches.descriptions.63"><img src="Pictures/Default/Research63.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res64" i18n-aria-label="researches.descriptions.64"><img src="Pictures/Default/Research64.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res65" i18n-aria-label="researches.descriptions.65"><img src="Pictures/Default/Research65.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res66" i18n-aria-label="researches.descriptions.66"><img src="Pictures/Default/Research66.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res67" i18n-aria-label="researches.descriptions.67"><img src="Pictures/Default/Research67.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res68" i18n-aria-label="researches.descriptions.68"><img src="Pictures/Default/Research68.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res69" i18n-aria-label="researches.descriptions.69"><img src="Pictures/Default/Research69.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res70" i18n-aria-label="researches.descriptions.70"><img src="Pictures/Default/Research70.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res71" i18n-aria-label="researches.descriptions.71"><img src="Pictures/Default/Research71.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res72" i18n-aria-label="researches.descriptions.72"><img src="Pictures/Default/Research72.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res73" i18n-aria-label="researches.descriptions.73"><img src="Pictures/Default/Research73.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res74" i18n-aria-label="researches.descriptions.74"><img src="Pictures/Default/Research74.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res75" i18n-aria-label="researches.descriptions.75"><img src="Pictures/Default/Research75.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res51" i18n-aria-label="researches.descriptions.51"><img id="research51Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res52" i18n-aria-label="researches.descriptions.52"><img id="research52Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res53" i18n-aria-label="researches.descriptions.53"><img id="research53Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res54" i18n-aria-label="researches.descriptions.54"><img id="research54Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res55" i18n-aria-label="researches.descriptions.55"><img id="research55Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res56" i18n-aria-label="researches.descriptions.56"><img id="research56Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res57" i18n-aria-label="researches.descriptions.57"><img id="research57Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res58" i18n-aria-label="researches.descriptions.58"><img id="research58Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res59" i18n-aria-label="researches.descriptions.59"><img id="research59Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res60" i18n-aria-label="researches.descriptions.60"><img id="research60Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res61" i18n-aria-label="researches.descriptions.61"><img id="research61Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res62" i18n-aria-label="researches.descriptions.62"><img id="research62Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res63" i18n-aria-label="researches.descriptions.63"><img id="research63Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res64" i18n-aria-label="researches.descriptions.64"><img id="research64Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res65" i18n-aria-label="researches.descriptions.65"><img id="research65Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res66" i18n-aria-label="researches.descriptions.66"><img id="research66Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res67" i18n-aria-label="researches.descriptions.67"><img id="research67Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res68" i18n-aria-label="researches.descriptions.68"><img id="research68Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res69" i18n-aria-label="researches.descriptions.69"><img id="research69Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res70" i18n-aria-label="researches.descriptions.70"><img id="research70Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res71" i18n-aria-label="researches.descriptions.71"><img id="research71Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res72" i18n-aria-label="researches.descriptions.72"><img id="research72Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res73" i18n-aria-label="researches.descriptions.73"><img id="research73Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res74" i18n-aria-label="researches.descriptions.74"><img id="research74Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res75" i18n-aria-label="researches.descriptions.75"><img id="research75Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><button id="res76" i18n-aria-label="researches.descriptions.76"><img src="Pictures/Default/Research76.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res77" i18n-aria-label="researches.descriptions.77"><img src="Pictures/Default/Research77.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res78" i18n-aria-label="researches.descriptions.78"><img src="Pictures/Default/Research78.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res79" i18n-aria-label="researches.descriptions.79"><img src="Pictures/Default/Research79.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res80" i18n-aria-label="researches.descriptions.80"><img src="Pictures/Default/Research80.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res81" i18n-aria-label="researches.descriptions.81"><img src="Pictures/Default/Research81.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res82" i18n-aria-label="researches.descriptions.82"><img src="Pictures/Default/Research82.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res83" i18n-aria-label="researches.descriptions.83"><img src="Pictures/Default/Research83.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res84" i18n-aria-label="researches.descriptions.84"><img src="Pictures/Default/Research84.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res85" i18n-aria-label="researches.descriptions.85"><img src="Pictures/Default/Research85.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res86" i18n-aria-label="researches.descriptions.86"><img src="Pictures/Default/Research86.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res87" i18n-aria-label="researches.descriptions.87"><img src="Pictures/Default/Research87.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res88" i18n-aria-label="researches.descriptions.88"><img src="Pictures/Default/Research88.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res89" i18n-aria-label="researches.descriptions.89"><img src="Pictures/Default/Research89.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res90" i18n-aria-label="researches.descriptions.90"><img src="Pictures/Default/Research90.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res91" i18n-aria-label="researches.descriptions.91"><img src="Pictures/Default/Research91.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res92" i18n-aria-label="researches.descriptions.92"><img src="Pictures/Default/Research92.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res93" i18n-aria-label="researches.descriptions.93"><img src="Pictures/Default/Research93.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res94" i18n-aria-label="researches.descriptions.94"><img src="Pictures/Default/Research94.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res95" i18n-aria-label="researches.descriptions.95"><img src="Pictures/Default/Research95.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res96" i18n-aria-label="researches.descriptions.96"><img src="Pictures/Default/Research96.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res97" i18n-aria-label="researches.descriptions.97"><img src="Pictures/Default/Research97.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res98" i18n-aria-label="researches.descriptions.98"><img src="Pictures/Default/Research98.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res99" i18n-aria-label="researches.descriptions.99"><img src="Pictures/Default/Research99.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res100" i18n-aria-label="researches.descriptions.100"><img src="Pictures/Default/Research100.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res76" i18n-aria-label="researches.descriptions.76"><img id="research76Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res77" i18n-aria-label="researches.descriptions.77"><img id="research77Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res78" i18n-aria-label="researches.descriptions.78"><img id="research78Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res79" i18n-aria-label="researches.descriptions.79"><img id="research79Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res80" i18n-aria-label="researches.descriptions.80"><img id="research80Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res81" i18n-aria-label="researches.descriptions.81"><img id="research81Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res82" i18n-aria-label="researches.descriptions.82"><img id="research82Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res83" i18n-aria-label="researches.descriptions.83"><img id="research83Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res84" i18n-aria-label="researches.descriptions.84"><img id="research84Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res85" i18n-aria-label="researches.descriptions.85"><img id="research85Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res86" i18n-aria-label="researches.descriptions.86"><img id="research86Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res87" i18n-aria-label="researches.descriptions.87"><img id="research87Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res88" i18n-aria-label="researches.descriptions.88"><img id="research88Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res89" i18n-aria-label="researches.descriptions.89"><img id="research89Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res90" i18n-aria-label="researches.descriptions.90"><img id="research90Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res91" i18n-aria-label="researches.descriptions.91"><img id="research91Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res92" i18n-aria-label="researches.descriptions.92"><img id="research92Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res93" i18n-aria-label="researches.descriptions.93"><img id="research93Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res94" i18n-aria-label="researches.descriptions.94"><img id="research94Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res95" i18n-aria-label="researches.descriptions.95"><img id="research95Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res96" i18n-aria-label="researches.descriptions.96"><img id="research96Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res97" i18n-aria-label="researches.descriptions.97"><img id="research97Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res98" i18n-aria-label="researches.descriptions.98"><img id="research98Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res99" i18n-aria-label="researches.descriptions.99"><img id="research99Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res100" i18n-aria-label="researches.descriptions.100"><img id="research100Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><button id="res101" i18n-aria-label="researches.descriptions.101"><img src="Pictures/Default/Research101.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res102" i18n-aria-label="researches.descriptions.102"><img src="Pictures/Default/Research102.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res103" i18n-aria-label="researches.descriptions.103"><img src="Pictures/Default/Research103.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res104" i18n-aria-label="researches.descriptions.104"><img src="Pictures/Default/Research104.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res105" i18n-aria-label="researches.descriptions.105"><img src="Pictures/Default/Research105.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res106" i18n-aria-label="researches.descriptions.106"><img src="Pictures/Default/Research106.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res107" i18n-aria-label="researches.descriptions.107"><img src="Pictures/Default/Research107.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res108" i18n-aria-label="researches.descriptions.108"><img src="Pictures/Default/Research108.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res109" i18n-aria-label="researches.descriptions.109"><img src="Pictures/Default/Research109.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res110" i18n-aria-label="researches.descriptions.110"><img src="Pictures/Default/Research110.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res111" i18n-aria-label="researches.descriptions.111"><img src="Pictures/Default/Research111.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res112" i18n-aria-label="researches.descriptions.112"><img src="Pictures/Default/Research112.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res113" i18n-aria-label="researches.descriptions.113"><img src="Pictures/Default/Research113.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res114" i18n-aria-label="researches.descriptions.114"><img src="Pictures/Default/Research114.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res115" i18n-aria-label="researches.descriptions.115"><img src="Pictures/Default/Research115.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res116" i18n-aria-label="researches.descriptions.116"><img src="Pictures/Default/Research116.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res117" i18n-aria-label="researches.descriptions.117"><img src="Pictures/Default/Research117.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res118" i18n-aria-label="researches.descriptions.118"><img src="Pictures/Default/Research118.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res119" i18n-aria-label="researches.descriptions.119"><img src="Pictures/Default/Research119.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res120" i18n-aria-label="researches.descriptions.120"><img src="Pictures/Default/Research120.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res121" i18n-aria-label="researches.descriptions.121"><img src="Pictures/Default/Research121.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res122" i18n-aria-label="researches.descriptions.122"><img src="Pictures/Default/Research122.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res123" i18n-aria-label="researches.descriptions.123"><img src="Pictures/Default/Research123.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res124" i18n-aria-label="researches.descriptions.124"><img src="Pictures/Default/Research124.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res125" i18n-aria-label="researches.descriptions.125"><img src="Pictures/Default/Research125.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res101" i18n-aria-label="researches.descriptions.101"><img id="research101Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res102" i18n-aria-label="researches.descriptions.102"><img id="research102Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res103" i18n-aria-label="researches.descriptions.103"><img id="research103Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res104" i18n-aria-label="researches.descriptions.104"><img id="research104Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res105" i18n-aria-label="researches.descriptions.105"><img id="research105Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res106" i18n-aria-label="researches.descriptions.106"><img id="research106Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res107" i18n-aria-label="researches.descriptions.107"><img id="research107Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res108" i18n-aria-label="researches.descriptions.108"><img id="research108Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res109" i18n-aria-label="researches.descriptions.109"><img id="research109Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res110" i18n-aria-label="researches.descriptions.110"><img id="research110Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res111" i18n-aria-label="researches.descriptions.111"><img id="research111Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res112" i18n-aria-label="researches.descriptions.112"><img id="research112Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res113" i18n-aria-label="researches.descriptions.113"><img id="research113Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res114" i18n-aria-label="researches.descriptions.114"><img id="research114Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res115" i18n-aria-label="researches.descriptions.115"><img id="research115Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res116" i18n-aria-label="researches.descriptions.116"><img id="research116Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res117" i18n-aria-label="researches.descriptions.117"><img id="research117Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res118" i18n-aria-label="researches.descriptions.118"><img id="research118Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res119" i18n-aria-label="researches.descriptions.119"><img id="research119Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res120" i18n-aria-label="researches.descriptions.120"><img id="research120Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res121" i18n-aria-label="researches.descriptions.121"><img id="research121Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res122" i18n-aria-label="researches.descriptions.122"><img id="research122Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res123" i18n-aria-label="researches.descriptions.123"><img id="research123Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res124" i18n-aria-label="researches.descriptions.124"><img id="research124Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res125" i18n-aria-label="researches.descriptions.125"><img id="research125Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><button id="res126" i18n-aria-label="researches.descriptions.126"><img src="Pictures/Default/Research126.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res127" i18n-aria-label="researches.descriptions.127"><img src="Pictures/Default/Research127.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res128" i18n-aria-label="researches.descriptions.128"><img src="Pictures/Default/Research128.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res129" i18n-aria-label="researches.descriptions.129"><img src="Pictures/Default/Research129.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res130" i18n-aria-label="researches.descriptions.130"><img src="Pictures/Default/Research130.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res131" i18n-aria-label="researches.descriptions.131"><img src="Pictures/Default/Research131.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res132" i18n-aria-label="researches.descriptions.132"><img src="Pictures/Default/Research132.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res133" i18n-aria-label="researches.descriptions.133"><img src="Pictures/Default/Research133.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res134" i18n-aria-label="researches.descriptions.134"><img src="Pictures/Default/Research134.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res135" i18n-aria-label="researches.descriptions.135"><img src="Pictures/Default/Research135.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res136" i18n-aria-label="researches.descriptions.136"><img src="Pictures/Default/Research136.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res137" i18n-aria-label="researches.descriptions.137"><img src="Pictures/Default/Research137.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res138" i18n-aria-label="researches.descriptions.138"><img src="Pictures/Default/Research138.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res139" i18n-aria-label="researches.descriptions.139"><img src="Pictures/Default/Research139.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res140" i18n-aria-label="researches.descriptions.140"><img src="Pictures/Default/Research140.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res141" i18n-aria-label="researches.descriptions.141"><img src="Pictures/Default/Research141.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res142" i18n-aria-label="researches.descriptions.142"><img src="Pictures/Default/Research142.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res143" i18n-aria-label="researches.descriptions.143"><img src="Pictures/Default/Research143.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res144" i18n-aria-label="researches.descriptions.144"><img src="Pictures/Default/Research144.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res145" i18n-aria-label="researches.descriptions.145"><img src="Pictures/Default/Research145.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res146" i18n-aria-label="researches.descriptions.146"><img src="Pictures/Default/Research146.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res147" i18n-aria-label="researches.descriptions.147"><img src="Pictures/Default/Research147.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res148" i18n-aria-label="researches.descriptions.148"><img src="Pictures/Default/Research148.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res149" i18n-aria-label="researches.descriptions.149"><img src="Pictures/Default/Research149.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res150" i18n-aria-label="researches.descriptions.150"><img src="Pictures/Default/Research150.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res126" i18n-aria-label="researches.descriptions.126"><img id="research126Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res127" i18n-aria-label="researches.descriptions.127"><img id="research127Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res128" i18n-aria-label="researches.descriptions.128"><img id="research128Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res129" i18n-aria-label="researches.descriptions.129"><img id="research129Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res130" i18n-aria-label="researches.descriptions.130"><img id="research130Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res131" i18n-aria-label="researches.descriptions.131"><img id="research131Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res132" i18n-aria-label="researches.descriptions.132"><img id="research132Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res133" i18n-aria-label="researches.descriptions.133"><img id="research133Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res134" i18n-aria-label="researches.descriptions.134"><img id="research134Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res135" i18n-aria-label="researches.descriptions.135"><img id="research135Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res136" i18n-aria-label="researches.descriptions.136"><img id="research136Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res137" i18n-aria-label="researches.descriptions.137"><img id="research137Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res138" i18n-aria-label="researches.descriptions.138"><img id="research138Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res139" i18n-aria-label="researches.descriptions.139"><img id="research139Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res140" i18n-aria-label="researches.descriptions.140"><img id="research140Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res141" i18n-aria-label="researches.descriptions.141"><img id="research141Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res142" i18n-aria-label="researches.descriptions.142"><img id="research142Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res143" i18n-aria-label="researches.descriptions.143"><img id="research143Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res144" i18n-aria-label="researches.descriptions.144"><img id="research144Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res145" i18n-aria-label="researches.descriptions.145"><img id="research145Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res146" i18n-aria-label="researches.descriptions.146"><img id="research146Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res147" i18n-aria-label="researches.descriptions.147"><img id="research147Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res148" i18n-aria-label="researches.descriptions.148"><img id="research148Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res149" i18n-aria-label="researches.descriptions.149"><img id="research149Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res150" i18n-aria-label="researches.descriptions.150"><img id="research150Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><button id="res151" i18n-aria-label="researches.descriptions.151"><img src="Pictures/Default/Research151.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res152" i18n-aria-label="researches.descriptions.152"><img src="Pictures/Default/Research152.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res153" i18n-aria-label="researches.descriptions.153"><img src="Pictures/Default/Research153.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res154" i18n-aria-label="researches.descriptions.154"><img src="Pictures/Default/Research154.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res155" i18n-aria-label="researches.descriptions.155"><img src="Pictures/Default/Research155.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res156" i18n-aria-label="researches.descriptions.156"><img src="Pictures/Default/Research156.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res157" i18n-aria-label="researches.descriptions.157"><img src="Pictures/Default/Research157.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res158" i18n-aria-label="researches.descriptions.158"><img src="Pictures/Default/Research158.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res159" i18n-aria-label="researches.descriptions.159"><img src="Pictures/Default/Research159.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res160" i18n-aria-label="researches.descriptions.160"><img src="Pictures/Default/Research160.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res161" i18n-aria-label="researches.descriptions.161"><img src="Pictures/Default/Research161.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res162" i18n-aria-label="researches.descriptions.162"><img src="Pictures/Default/Research162.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res163" i18n-aria-label="researches.descriptions.163"><img src="Pictures/Default/Research163.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res164" i18n-aria-label="researches.descriptions.164"><img src="Pictures/Default/Research164.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res165" i18n-aria-label="researches.descriptions.165"><img src="Pictures/Default/Research165.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res166" i18n-aria-label="researches.descriptions.166"><img src="Pictures/Default/Research166.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res167" i18n-aria-label="researches.descriptions.167"><img src="Pictures/Default/Research167.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res168" i18n-aria-label="researches.descriptions.168"><img src="Pictures/Default/Research168.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res169" i18n-aria-label="researches.descriptions.169"><img src="Pictures/Default/Research169.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res170" i18n-aria-label="researches.descriptions.170"><img src="Pictures/Default/Research170.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res171" i18n-aria-label="researches.descriptions.171"><img src="Pictures/Default/Research171.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res172" i18n-aria-label="researches.descriptions.172"><img src="Pictures/Default/Research172.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res173" i18n-aria-label="researches.descriptions.173"><img src="Pictures/Default/Research173.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res174" i18n-aria-label="researches.descriptions.174"><img src="Pictures/Default/Research174.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res175" i18n-aria-label="researches.descriptions.175"><img src="Pictures/Default/Research175.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res151" i18n-aria-label="researches.descriptions.151"><img id="research151Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res152" i18n-aria-label="researches.descriptions.152"><img id="research152Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res153" i18n-aria-label="researches.descriptions.153"><img id="research153Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res154" i18n-aria-label="researches.descriptions.154"><img id="research154Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res155" i18n-aria-label="researches.descriptions.155"><img id="research155Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res156" i18n-aria-label="researches.descriptions.156"><img id="research156Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res157" i18n-aria-label="researches.descriptions.157"><img id="research157Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res158" i18n-aria-label="researches.descriptions.158"><img id="research158Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res159" i18n-aria-label="researches.descriptions.159"><img id="research159Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res160" i18n-aria-label="researches.descriptions.160"><img id="research160Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res161" i18n-aria-label="researches.descriptions.161"><img id="research161Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res162" i18n-aria-label="researches.descriptions.162"><img id="research162Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res163" i18n-aria-label="researches.descriptions.163"><img id="research163Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res164" i18n-aria-label="researches.descriptions.164"><img id="research164Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res165" i18n-aria-label="researches.descriptions.165"><img id="research165Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res166" i18n-aria-label="researches.descriptions.166"><img id="research166Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res167" i18n-aria-label="researches.descriptions.167"><img id="research167Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res168" i18n-aria-label="researches.descriptions.168"><img id="research168Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res169" i18n-aria-label="researches.descriptions.169"><img id="research169Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res170" i18n-aria-label="researches.descriptions.170"><img id="research170Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res171" i18n-aria-label="researches.descriptions.171"><img id="research171Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res172" i18n-aria-label="researches.descriptions.172"><img id="research172Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res173" i18n-aria-label="researches.descriptions.173"><img id="research173Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res174" i18n-aria-label="researches.descriptions.174"><img id="research174Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res175" i18n-aria-label="researches.descriptions.175"><img id="research175Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><button id="res176" i18n-aria-label="researches.descriptions.176"><img src="Pictures/Default/Research176.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res177" i18n-aria-label="researches.descriptions.177"><img src="Pictures/Default/Research177.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res178" i18n-aria-label="researches.descriptions.178"><img src="Pictures/Default/Research178.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res179" i18n-aria-label="researches.descriptions.179"><img src="Pictures/Default/Research179.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res180" i18n-aria-label="researches.descriptions.180"><img src="Pictures/Default/Research180.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res181" i18n-aria-label="researches.descriptions.181"><img src="Pictures/Default/Research181.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res182" i18n-aria-label="researches.descriptions.182"><img src="Pictures/Default/Research182.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res183" i18n-aria-label="researches.descriptions.183"><img src="Pictures/Default/Research183.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res184" i18n-aria-label="researches.descriptions.184"><img src="Pictures/Default/Research184.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res185" i18n-aria-label="researches.descriptions.185"><img src="Pictures/Default/Research185.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res186" i18n-aria-label="researches.descriptions.186"><img src="Pictures/Default/Research186.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res187" i18n-aria-label="researches.descriptions.187"><img src="Pictures/Default/Research187.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res188" i18n-aria-label="researches.descriptions.188"><img src="Pictures/Default/Research188.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res189" i18n-aria-label="researches.descriptions.189"><img src="Pictures/Default/Research189.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res190" i18n-aria-label="researches.descriptions.190"><img src="Pictures/Default/Research190.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res191" i18n-aria-label="researches.descriptions.191"><img src="Pictures/Default/Research191.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res192" i18n-aria-label="researches.descriptions.192"><img src="Pictures/Default/Research192.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res193" i18n-aria-label="researches.descriptions.193"><img src="Pictures/Default/Research193.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res194" i18n-aria-label="researches.descriptions.194"><img src="Pictures/Default/Research194.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res195" i18n-aria-label="researches.descriptions.195"><img src="Pictures/Default/Research195.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res196" i18n-aria-label="researches.descriptions.196"><img src="Pictures/Default/Research196.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res197" i18n-aria-label="researches.descriptions.197"><img src="Pictures/Default/Research197.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res198" i18n-aria-label="researches.descriptions.198"><img src="Pictures/Default/Research198.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res199" i18n-aria-label="researches.descriptions.199"><img src="Pictures/Default/Research199.png" alt="" loading="lazy"></button></td>
-                            <td><button id="res200" i18n-aria-label="researches.descriptions.200"><img src="Pictures/Default/Research200.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res176" i18n-aria-label="researches.descriptions.176"><img id="research176Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res177" i18n-aria-label="researches.descriptions.177"><img id="research177Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res178" i18n-aria-label="researches.descriptions.178"><img id="research178Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res179" i18n-aria-label="researches.descriptions.179"><img id="research179Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res180" i18n-aria-label="researches.descriptions.180"><img id="research180Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res181" i18n-aria-label="researches.descriptions.181"><img id="research181Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res182" i18n-aria-label="researches.descriptions.182"><img id="research182Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res183" i18n-aria-label="researches.descriptions.183"><img id="research183Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res184" i18n-aria-label="researches.descriptions.184"><img id="research184Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res185" i18n-aria-label="researches.descriptions.185"><img id="research185Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res186" i18n-aria-label="researches.descriptions.186"><img id="research186Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res187" i18n-aria-label="researches.descriptions.187"><img id="research187Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res188" i18n-aria-label="researches.descriptions.188"><img id="research188Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res189" i18n-aria-label="researches.descriptions.189"><img id="research189Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res190" i18n-aria-label="researches.descriptions.190"><img id="research190Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res191" i18n-aria-label="researches.descriptions.191"><img id="research191Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res192" i18n-aria-label="researches.descriptions.192"><img id="research192Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res193" i18n-aria-label="researches.descriptions.193"><img id="research193Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res194" i18n-aria-label="researches.descriptions.194"><img id="research194Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res195" i18n-aria-label="researches.descriptions.195"><img id="research195Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res196" i18n-aria-label="researches.descriptions.196"><img id="research196Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res197" i18n-aria-label="researches.descriptions.197"><img id="research197Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res198" i18n-aria-label="researches.descriptions.198"><img id="research198Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res199" i18n-aria-label="researches.descriptions.199"><img id="research199Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
+                            <td><button id="res200" i18n-aria-label="researches.descriptions.200"><img id="research200Image" src="Pictures/img_transparent.png" alt="" loading="lazy"></button></td>
                         </tr>
                     </table>
                 </div>
@@ -1488,61 +1492,61 @@
                         <table id="cubeIcons" class="cubeIcon">
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Cube1.png" loading="lazy">
+                                    <img id="cube1Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="cubeAcceleratorBonus" style="color: yellow"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Cube2.png" loading="lazy">
+                                    <img id="cube2Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="cubeMultiplierBonus" style="color: pink"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Cube3.png" loading="lazy">
+                                    <img id="cube3Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="cubeOfferingBonus" style="color: orange"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Cube4.png" loading="lazy">
+                                    <img id="cube4Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="cubeSalvageBonus" style="color: limegreen"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Cube5.png" loading="lazy">
+                                    <img id="cube5Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="cubeObtainiumBonus" style="color: aquamarine"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Cube6.png" loading="lazy">
+                                    <img id="cube6Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="cubeAntSpeedBonus" style="color: brown"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Cube7.png" loading="lazy">
+                                    <img id="cube7Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="cubeAntSacrificeBonus" class="crimsonText"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Cube8.png" loading="lazy">
+                                    <img id="cube8Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="cubeAntELOBonus" style="color: plum"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Cube9.png" loading="lazy">
+                                    <img id="cube9Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="cubeRuneEffectBonus" style="color: bisque"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Cube10.png" loading="lazy">
+                                    <img id="cube10Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="cubeGlobalSpeedBonus" style="color: silver"></td>
                             </tr>
@@ -1580,61 +1584,61 @@
                         <table id="tesseractIcons" class="cubeIcon">
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Tesseract1.png" loading="lazy">
+                                    <img id="tesseract1Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="tesseractAcceleratorBonus" style="color: yellow"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Tesseract2.png" loading="lazy">
+                                    <img id="tesseract2Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="tesseractMultiplierBonus" style="color: pink"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Tesseract3.png" loading="lazy">
+                                    <img id="tesseract3Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="tesseractOfferingBonus" style="color: orange"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Tesseract4.png" loading="lazy">
+                                    <img id="tesseract4Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="tesseractSalvageBonus" style="color: limegreen"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Tesseract5.png" loading="lazy">
+                                    <img id="tesseract5Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="tesseractObtainiumBonus" style="color: aquamarine"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Tesseract6.png" loading="lazy">
+                                    <img id="tesseract6Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="tesseractAntSpeedBonus" style="color: brown"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Tesseract7.png" loading="lazy">
+                                    <img id="tesseract7Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="tesseractAntSacrificeBonus" class="crimsonText"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Tesseract8.png" loading="lazy">
+                                    <img id="tesseract8Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="tesseractAntELOBonus" style="color: plum"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Tesseract9.png" loading="lazy">
+                                    <img id="tesseract9Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="tesseractRuneEffectBonus" style="color: bisque"></td>
                             </tr>
                             <tr>
                                 <td>
-                                <img src="Pictures/Default/Tesseract10.png" loading="lazy">
+                                <img id="tesseract10Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="tesseractGlobalSpeedBonus" style="color: silver"></td>
                             </tr>
@@ -1669,61 +1673,61 @@
                         <table id="hypercubeIcons" class="cubeIcon">
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Hypercube1.png" loading="lazy">
+                                    <img id="hypercube1Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="hypercubeAcceleratorBonus" style="color: yellow"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Hypercube2.png" loading="lazy">
+                                    <img id="hypercube2Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="hypercubeMultiplierBonus" style="color: pink"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Hypercube3.png" loading="lazy">
+                                    <img id="hypercube3Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="hypercubeOfferingBonus" style="color: orange"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Hypercube4.png" loading="lazy">
+                                    <img id="hypercube4Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="hypercubeSalvageBonus" style="color: limegreen"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Hypercube5.png" loading="lazy">
+                                    <img id="hypercube5Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="hypercubeObtainiumBonus" style="color: aquamarine"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Hypercube6.png" loading="lazy">
+                                    <img id="hypercube6Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="hypercubeAntSpeedBonus" style="color: brown"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Hypercube7.png" loading="lazy">
+                                    <img id="hypercube7Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="hypercubeAntSacrificeBonus" class="crimsonText"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Hypercube8.png" loading="lazy">
+                                    <img id="hypercube8Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="hypercubeAntELOBonus" style="color: plum"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/Hypercube9.png" loading="lazy">
+                                    <img id="hypercube9Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="hypercubeRuneEffectBonus" style="color: bisque"></td>
                             </tr>
                             <tr>
                                 <td>
-                                <img src="Pictures/Default/Hypercube10.png" loading="lazy">
+                                <img id="hypercube10Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="hypercubeGlobalSpeedBonus" style="color: silver"></td>
                             </tr>
@@ -1758,49 +1762,49 @@
                         <table id="platonicCubeIcons" class="cubeIcon">
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/PlatonicCube1.png" loading="lazy">
+                                    <img id="platonicCube1Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="platonicCubeMultiplierBonus" style="color: lightgoldenrodyellow"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/PlatonicCube2.png" loading="lazy">
+                                    <img id="platonicCube2Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="platonicTesseractMultiplierBonus" style="color: lightgoldenrodyellow"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/PlatonicCube3.png" loading="lazy">
+                                    <img id="platonicCube3Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="platonicHypercubeMultiplierBonus" style="color: lightgoldenrodyellow"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/PlatonicCube4.png" loading="lazy">
+                                    <img id="platonicCube4Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="platonicPlatonicMultiplierBonus" style="color: lightgoldenrodyellow"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/PlatonicCube5.png" loading="lazy">
+                                    <img id="platonicCube5Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="platonicHypercubeBlessingBonus" class="redText"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/PlatonicCube6.png" loading="lazy">
+                                    <img id="platonicCube6Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="platonicTaxBonus" class="orchidText"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/PlatonicCube7.png" loading="lazy">
+                                    <img id="platonicCube7Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="platonicAscensionScoreBonus" style="color:orange"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="Pictures/Default/PlatonicCube8.png" loading="lazy">
+                                    <img id="platonicCube8Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
                                 <td id="platonicGlobalSpeedBonus" style="color: silver"></td>
                             </tr>
@@ -2402,6 +2406,10 @@
                     </div>
                     <div id="exportButtons">
                         <div id="versionnumber"></div>
+                        <div id="mobileUpdates" hidden>
+                            <button id="checkMobileUpdates" type="button" i18n="mobile.updates.check"></button>
+                            <p id="mobileUpdateStatus" class="tightText" role="status" aria-live="polite"></p>
+                        </div>
                         <p id="quarktimerdisplay" class="tightText" style="color: gold"></p>
                         <p id="quarktimeramount" class="tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
                         <p id="goldenQuarkTimerDisplay" class="tightText goldenQuark3Upg" style="color: goldenrod">3600s until +1 export Gold Quark</p>
@@ -4274,6 +4282,9 @@
                 aria-busy="true"
                 i18n-aria-label="pseudoCoins.balances.loadingPseudoCoins"
                 ></span>
+                <button id="refreshPseudoCoinBalance" type="button" i18n-aria-label="pseudoCoins.balances.refresh">
+                    <span aria-hidden="true">&#x21bb;</span>
+                </button>
             </div>
             <div class="pseudoCoinBalanceResource">
                 <img src="Pictures/PseudoShop/LOTUS.png" alt="">
