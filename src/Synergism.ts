@@ -231,7 +231,6 @@ import {
   updateAllSpiritLevelsFromEXP
 } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
-import { formatSaveValidationError } from './saves/PlayerSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, queueSave } from './saves/SaveStorage'
 import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthesis'
@@ -252,6 +251,7 @@ import { changeSubTab, changeTab, getActiveSubTab, resetAllSubTabs, Tabs } from 
 import { populateBuildingButtonRows } from './tabs/buildings'
 import { settingAnnotation, settingSymbols, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
+import { z } from 'zod'
 
 const buyAmountTypes = [
   'coin',
@@ -1394,7 +1394,7 @@ const loadSynergy = (saveString: string): boolean => {
       console.log(validatedPlayer.error)
       console.log(data)
       clearTimers()
-      void Alert(i18next.t('save.loadFailed', { reason: formatSaveValidationError(validatedPlayer.error, data) }))
+      void Alert(i18next.t('save.loadFailed', { reason: z.prettifyError(validatedPlayer.error) }))
       return false
     }
 

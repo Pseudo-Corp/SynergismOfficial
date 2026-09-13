@@ -175,7 +175,7 @@ const messageSchema = z.preprocess(
     z.object({
       type: z.literal('time-skip'),
       consumableName: z.string(),
-      id: z.string().uuid(),
+      id: z.uuid(),
       amount: z.number().int()
     }),
 
