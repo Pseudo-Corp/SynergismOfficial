@@ -1108,5 +1108,7 @@ export const playerSchema = z.object({
   stats: z.object({
     totalAddCodesUsed: z.number(),
     highestPurpleHoney: z.number().default(0)
-  }).default(() => deepClone()(blankSave.stats))
+  }).default(() => deepClone()(blankSave.stats)),
+
+  purpleUpdateQuarkRefundAwarded: z.boolean().default(() => false)
 })

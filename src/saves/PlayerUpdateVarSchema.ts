@@ -10,10 +10,6 @@ import { updateResourcePredefinedLevel } from '../Talismans'
 import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
 import { convertArrayToCorruption } from './PlayerJsonSchema'
 import { playerSchema } from './PlayerSchema'
-import { ShopUpgradeNames, shopUpgrades } from '../Shop'
-import { Alert } from '../UpdateHTML'
-import i18next from 'i18next'
-import { format } from '../Synergism'
 
 const getLegacyOcteractsInvested = (
   key: OcteractUpgrades,
@@ -321,41 +317,6 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   }
   if (player.resettoggle4 !== undefined) {
     player.resetToggleModes.ascension = (oldToNewToggles[player.resettoggle4] ?? 0) as AutoAscensionModes
-  }
-
-  // I'm smuggling a Quark Refund here, because why not?
-  // September 13, 2026. Don't remove the Quark refund logic.
-  if (player.highestChallenge15Exponent !== undefined) {
-    const sing10ResetUpgrades = ['offeringEX', 'obtainiumEX', 'antSpeed', 'cashGrab']  as ShopUpgradeNames[]
-    const sing50ResetUpgrades = ['seasonPass', 'seasonPass2', 'seasonPass3', 'seasonPassY', 'chronometer', 'chronometer2'] as ShopUpgradeNames[]
-
-    const refundFormula = (baseCost: number, scalingFactor: number, level: number) => baseCost * level + scalingFactor * (level - 1) * level / 2
-    let quarksToRefund = 0
-    if (player.highestSingularityCount <= 10) {
-      for (const key of sing10ResetUpgrades) {
-        const baseCost = shopUpgrades[key].price
-        const scalingFactor = shopUpgrades[key].priceIncrease
-        const level = player.shopUpgrades[key] ?? 0
-        quarksToRefund += refundFormula(baseCost, scalingFactor, level)
-        player.shopUpgrades[key] = 0
-      }
-    }
-    if (player.highestSingularityCount <= 50) {
-      for (const key of sing50ResetUpgrades) {
-        const baseCost = shopUpgrades[key].price
-        const scalingFactor = shopUpgrades[key].priceIncrease
-        const level = player.shopUpgrades[key] ?? 0
-        quarksToRefund += refundFormula(baseCost, scalingFactor, level)
-        player.shopUpgrades[key] = 0
-      }
-    }
-
-    if (quarksToRefund > 0) {
-      player.worlds.add(quarksToRefund, false, false)
-      Alert(i18next.t('versionChangeAnnouncements.sept13Refund',
-        { amount: format(quarksToRefund, 0) }
-      ))
-    }
   }
 
   Reflect.deleteProperty(player, 'runeshards')

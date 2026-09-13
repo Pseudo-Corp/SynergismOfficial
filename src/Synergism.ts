@@ -238,7 +238,7 @@ import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthe
 import './saves/verify'
 import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from './Purple'
 import { generatePurpleUpgradeTabHTML } from './PurpleUpgradeTab'
-import { getShopUpgradeEffects, updateShopLevels } from './Shop'
+import { getShopUpgradeEffects, ShopUpgradeNames, shopUpgrades, updateShopLevels } from './Shop'
 import { generateShopTabHTML } from './ShopTab'
 import { blankGQLevelObject, calculateMaxSingularityLookahead, setGQUpgradeLevels } from './singularity'
 import {
@@ -1205,7 +1205,9 @@ export const player: Player = {
   stats: {
     totalAddCodesUsed: 0,
     highestPurpleHoney: 0
-  }
+  },
+
+  purpleUpdateQuarkRefundAwarded: true
 }
 
 export const deepClone = () =>
@@ -1346,6 +1348,46 @@ const loadSynergy = (saveString: string): boolean => {
       challengeExit('reincarnation')
       challengeExit('ascension')
       Object.assign(player, validatedPlayer.data)
+      // Temp check for Quarks
+      if (!player.purpleUpdateQuarkRefundAwarded) {
+        const sing10ResetUpgrades = ['offeringEX', 'obtainiumEX', 'antSpeed', 'cashGrab'] as ShopUpgradeNames[]
+        const sing50ResetUpgrades = [
+          'seasonPass',
+          'seasonPass2',
+          'seasonPass3',
+          'seasonPassY',
+          'chronometer',
+          'chronometer2'
+        ] as ShopUpgradeNames[]
+
+        const refundFormula = (baseCost: number, scalingFactor: number, level: number) =>
+          baseCost * level + scalingFactor * (level - 1) * level / 2
+        let quarksToRefund = 0
+        if (player.highestSingularityCount <= 10) {
+          for (const key of sing10ResetUpgrades) {
+            const baseCost = shopUpgrades[key].price
+            const scalingFactor = shopUpgrades[key].priceIncrease
+            const level = player.shopUpgrades[key] ?? 0
+            quarksToRefund += refundFormula(baseCost, scalingFactor, level)
+            player.shopUpgrades[key] = 0
+          }
+        }
+        if (player.highestSingularityCount <= 50) {
+          for (const key of sing50ResetUpgrades) {
+            const baseCost = shopUpgrades[key].price
+            const scalingFactor = shopUpgrades[key].priceIncrease
+            const level = player.shopUpgrades[key] ?? 0
+            quarksToRefund += refundFormula(baseCost, scalingFactor, level)
+            player.shopUpgrades[key] = 0
+          }
+        }
+
+        if (quarksToRefund > 0) {
+          player.worlds.add(quarksToRefund, false, false)
+          Alert(i18next.t('versionChangeAnnouncements.sept13Refund', { amount: format(quarksToRefund, 0) }))
+        }
+        player.purpleUpdateQuarkRefundAwarded = true
+      }
     } else {
       console.log(validatedPlayer.error)
       console.log(data)

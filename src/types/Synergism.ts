@@ -578,6 +578,8 @@ export interface Player {
     totalAddCodesUsed: number
     highestPurpleHoney: number
   }
+
+  purpleUpdateQuarkRefundAwarded: boolean
 }
 
 export interface GlobalVariables {
