@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unassigned-import
 import '@ungap/custom-elements'
 import Decimal, { type DecimalSource } from 'break_infinity.js'
+import DOMPurify from 'dompurify'
 import LZString from 'lz-string'
 
 import {
@@ -236,6 +237,7 @@ import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, qu
 import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthesis'
 // eslint-disable-next-line no-unassigned-import
 import './saves/verify'
+import { z } from 'zod'
 import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from './Purple'
 import { generatePurpleUpgradeTabHTML } from './PurpleUpgradeTab'
 import { getShopUpgradeEffects, type ShopUpgradeNames, shopUpgrades, updateShopLevels } from './Shop'
@@ -1393,7 +1395,7 @@ const loadSynergy = (saveString: string): boolean => {
       console.log(validatedPlayer.error)
       console.log(data)
       clearTimers()
-      void Alert(i18next.t('save.loadFailed'))
+      void Alert(i18next.t('save.loadFailed', { reason: DOMPurify.sanitize(z.prettifyError(validatedPlayer.error)) }))
       return false
     }
 
@@ -3856,8 +3858,8 @@ export const resetConfirmation = async (i: string): Promise<void> => {
   }
   if (i === 'transcend') {
     if (player.toggles[29]) {
-      const z = await Confirm(i18next.t('main.transcendPrompt'))
-      if (z) {
+      const r = await Confirm(i18next.t('main.transcendPrompt'))
+      if (r) {
         resetAchievementCheck('transcension')
         reset('transcension')
       }
@@ -3869,8 +3871,8 @@ export const resetConfirmation = async (i: string): Promise<void> => {
   if (i === 'reincarnate') {
     if (player.currentChallenge.ascension !== 12) {
       if (player.toggles[30]) {
-        const z = await Confirm(i18next.t('main.reincarnatePrompt'))
-        if (z) {
+        const r = await Confirm(i18next.t('main.reincarnatePrompt'))
+        if (r) {
           resetAchievementCheck('reincarnation')
           reset('reincarnation')
         }
@@ -3881,8 +3883,8 @@ export const resetConfirmation = async (i: string): Promise<void> => {
     }
   }
   if (i === 'ascend') {
-    const z = !player.toggles[31] || (await Confirm(i18next.t('main.ascendPrompt')))
-    if (z) {
+    const r = !player.toggles[31] || (await Confirm(i18next.t('main.ascendPrompt')))
+    if (r) {
       reset('ascension')
     }
   }
@@ -4791,19 +4793,13 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   if (saveObject) {
     let saveString = saveObject
     const decompress = LZString.decompressFromBase64(saveObject)
-    const isLZString = decompress !== ''
 
-    if (isLZString) {
-      if (!decompress) {
-        showLoadRecovery()
-        return Alert(i18next.t('save.loadFailed'))
-      }
-
+    if (decompress) {
       const convertedSave = btoa(decompress)
 
       if (convertedSave === null) {
         showLoadRecovery()
-        return Alert(i18next.t('save.loadFailed'))
+        return Alert(i18next.t('save.loadFailed', { reason: 'Save contains invalid characters.' }))
       }
 
       saveString = convertedSave
@@ -4832,7 +4828,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
     } catch (error) {
       console.error('Failed to decode save', error)
       showLoadRecovery()
-      await Alert(i18next.t('save.loadFailed'))
+      await Alert(i18next.t('save.loadFailed', { reason: (error as Error).message }))
       return
     }
   }

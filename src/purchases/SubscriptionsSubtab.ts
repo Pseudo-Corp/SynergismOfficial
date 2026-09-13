@@ -346,7 +346,7 @@ const createIndividualSubscriptionHTML = (product: SubscriptionProduct, currentS
         ${currentSub}
       </section>
     `
-  } else if (product.tier > currentSubTier) {
+  } else {
     const noSubscription = notSubbed ? noSubscriptionButton(product) : ''
     const upgradeBtn = notSubbed || !subManageable ? '' : upgradeButton(product, currentSubTier)
 

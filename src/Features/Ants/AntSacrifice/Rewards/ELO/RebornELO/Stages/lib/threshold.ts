@@ -1,5 +1,4 @@
 import { player } from '../../../../../../../../Synergism'
-import { assert } from '../../../../../../../../Utility'
 
 export const thresholdTranches = [
   { stages: 100, perStage: 100, quarkPerStage: 1 },
@@ -66,7 +65,7 @@ export const calculateToNextELOThreshold = (rebornELO: number, stage?: number) =
     stagesChecked += tranche.stages
     tempELO -= tranche.stages * tranche.perStage
   }
-  assert(false, 'Unreachable code in calculateToNextELOThreshold')
+  throw new Error('Unreachable code in calculateToNextELOThreshold')
 }
 
 export const calculateLeftoverELO = (rebornELO: number, stage?: number) => {

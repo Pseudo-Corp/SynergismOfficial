@@ -24,19 +24,19 @@
     "break_infinity.js": "^2.2.0",
     "capacitor-plugin-cdv-purchase": "^13.15.3",
     "discord-rpc": "^4.0.1",
-    "dompurify": "^3.2.7",
+    "dompurify": "^3.4.15",
     "electron-store": "^11.0.2",
     "electron-window-state": "^5.0.3",
     "fast-mersenne-twister": "^1.0.3",
     "fitty": "^2.4.2",
-    "i18next": "^22.4.9",
+    "i18next": "^26.4.2",
     "lz-string": "^1.4.4",
     "mime-types": "^3.0.2",
     "rfdc": "^1.4.1",
     "steamworks.js": "^0.4.0",
     "synergism-websocket": "file:./src/mobile/websocket-plugin",
     "worker-timers": "^7.0.53",
-    "zod": "^3.23.8"
+    "zod": "^4.6.4"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
@@ -56,12 +56,12 @@
     "htmlhint": "^1.1.4",
     "husky": "^8.0.3",
     "msw": "2.7.5",
-    "oxlint": "^1.53.0",
-    "oxlint-tsgolint": "^0.16.0",
+    "oxlint": "^1.82.0",
+    "oxlint-tsgolint": "^7.0.2001",
     "shx": "^0.4.0",
     "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "scripts": {
     "live-server": "npx live-server --port=3000 -q --watch=dist,index.html,Synergism.css,translations",

@@ -99,6 +99,7 @@ export const sortDecimalWithIndices = (toSort: DecimalSource[]) => {
  * Identical to @see {DOMCacheGetOrSet} but casts the type.
  * @param id {string}
  */
+// eslint-disable-next-line typescript/no-unnecessary-type-parameters
 export const getElementById = <T extends HTMLElement>(id: string) => DOMCacheGetOrSet(id) as T
 
 /**

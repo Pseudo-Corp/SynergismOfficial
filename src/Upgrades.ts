@@ -8,6 +8,7 @@ import { calculateGlobalSpeedMult, calculateTotalCoinOwned } from './Calculate'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getRuneEffects } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
+import { spritePlaceholder } from './SpriteSheets'
 import {
   calculateBuildingPower,
   crystalUpgrade3Base,
@@ -77,7 +78,6 @@ const intervalToArray = (interval: Interval) =>
 interface CategoryData {
   upgradeIds: number[]
   mainIconName: string
-  listIconName: string
   i18n: string
   unlockHTMLClass: string
   autoToggle: upgradeAutos | ''
@@ -90,7 +90,6 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
   [UpgradeCategories.Coin]: {
     upgradeIds: intervalToArray([1, 20]).concat(intervalToArray([121, 125])),
     mainIconName: 'Coin',
-    listIconName: 'Coin',
     i18n: 'coin',
     unlockHTMLClass: '',
     autoToggle: 'coin',
@@ -100,7 +99,6 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
   [UpgradeCategories.Diamond]: {
     upgradeIds: intervalToArray([21, 40]),
     mainIconName: 'Diamond',
-    listIconName: 'Diamond',
     i18n: 'diamond',
     unlockHTMLClass: 'prestigeunlock',
     autoToggle: 'prestige',
@@ -110,7 +108,6 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
   [UpgradeCategories.Mythos]: {
     upgradeIds: intervalToArray([41, 60]),
     mainIconName: 'Mythos',
-    listIconName: 'Mythos',
     i18n: 'mythos',
     unlockHTMLClass: 'transcendunlock',
     autoToggle: 'transcend',
@@ -120,7 +117,6 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
   [UpgradeCategories.Particle]: {
     upgradeIds: intervalToArray([61, 80]),
     mainIconName: 'Particle',
-    listIconName: 'Particle',
     i18n: 'particles',
     unlockHTMLClass: 'particleUpgradeResearch',
     autoToggle: 'reincarnate',
@@ -131,7 +127,6 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
   [UpgradeCategories.Autobuyer]: {
     upgradeIds: intervalToArray([81, 100]),
     mainIconName: 'Automation',
-    listIconName: 'Automation',
     i18n: 'automation',
     unlockHTMLClass: 'prestigeunlock',
     autoToggle: '',
@@ -141,7 +136,6 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
   [UpgradeCategories.Generator]: {
     upgradeIds: intervalToArray([101, 120]),
     mainIconName: 'Generators',
-    listIconName: 'Generator',
     i18n: 'generator',
     unlockHTMLClass: 'prestigeunlock',
     autoToggle: 'generators',
@@ -1071,7 +1065,8 @@ const createWebUpgradesTable = (category: UpgradeCategories) => {
       btn.addEventListener('mouseout', CloseModal)
 
       const img = document.createElement('img')
-      img.src = `Pictures/Default/${data.listIconName}${orderedIndex + 1}.png`
+      img.id = `upg${id}Image`
+      img.src = spritePlaceholder
 
       btn.appendChild(img)
       columnElm.appendChild(btn)
@@ -1091,9 +1086,7 @@ const createMobileUpgradesDiv = (category: UpgradeCategories) => {
   div.classList.add('mobileUpgradeTabContainer')
   div.style.border = `2px solid ${data.color}`
 
-  let picIndex = 0
   data.upgradeIds.forEach((id) => {
-    picIndex++
     const elm = document.createElement('div')
     elm.id = `upg${id}`
     elm.classList.add('mobileUpgradeBox')
@@ -1111,7 +1104,8 @@ const createMobileUpgradesDiv = (category: UpgradeCategories) => {
     iconAndCostDiv.classList.add('mobileUpgradeIconAndCost')
 
     const img = document.createElement('img')
-    img.src = `Pictures/Default/${data.listIconName}${picIndex}.png`
+    img.id = `upg${id}Image`
+    img.src = spritePlaceholder
     img.style.backgroundColor = 'black'
     iconAndCostDiv.appendChild(img)
 

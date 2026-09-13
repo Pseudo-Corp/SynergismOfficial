@@ -115,26 +115,27 @@ export const messageSchema = z.preprocess(
         return JSON.parse(arg)
       } catch {
         ctx.addIssue({ code: 'custom', message: 'Received non-JSON message' })
-        return
+        return undefined
       }
     }
 
     ctx.addIssue({ code: 'custom', message: 'Received non-string message' })
+    return undefined
   },
   z.union([
     z.object({ type: z.literal('consume'), consumable: z.string() }),
     z.object({
       type: z.literal('confirm'),
-      id: z.string().uuid(),
+      id: z.uuid(),
       consumableId: z.string()
     }),
     z.object({
       type: z.union([z.literal('applied-tip'), z.literal('use-tips')]),
-      amount: z.number().int().nonnegative().safe()
+      amount: z.number().int().nonnegative()
     }),
     z.object({
       type: z.literal('applied-lotus'),
-      amount: z.number().int().min(0).safe()
+      amount: z.number().int().min(0)
     })
   ])
 )

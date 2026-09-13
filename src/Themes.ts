@@ -24,7 +24,7 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     body.style.setProperty('--transition', '750ms')
     body.style.setProperty('--transition-extra', '600ms')
   } else {
-    themeNumber = Number(storageGetItem('theme') ?? Theme.Dark) as Theme
+    themeNumber = Number(storageGetItem('theme') ?? Theme.Dark)
   }
 
   /* Full reset for easy out of order change */
@@ -322,7 +322,7 @@ enum Notations {
 
 export const toggleAnnotation = (setting = true) => {
   const notationButton = DOMCacheGetOrSet('notation')
-  const current = player.notation
+  const current = player.notation as Notations
   let newNotation: Notations
 
   switch (current) {
@@ -347,7 +347,7 @@ export const toggleAnnotation = (setting = true) => {
 export const settingAnnotation = () => {
   const notationButton = DOMCacheGetOrSet('notation')
 
-  switch (player.notation) {
+  switch (player.notation as Notations) {
     case Notations.PURE_SCIENTIFIC:
       notationButton.textContent = i18next.t('settings.notation.pureScientific')
       break

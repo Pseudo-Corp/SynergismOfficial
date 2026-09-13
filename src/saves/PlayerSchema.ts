@@ -22,7 +22,7 @@ import { noTalismanFragments } from '../Talismans'
 import type { Player } from '../types/Synergism'
 import { padArray, sumContents } from '../Utility'
 
-const decimalSchema = z.custom<DecimalSource>((value) => {
+const decimalSchema = z.custom<DecimalSource>((value: any) => {
   try {
     // eslint-disable-next-line no-new
     new Decimal(value)
@@ -32,7 +32,7 @@ const decimalSchema = z.custom<DecimalSource>((value) => {
   }
 }).transform((decimalSource) => new Decimal(decimalSource))
 
-const arrayStartingWithNull = (s: ZodType) => z.tuple([z.null()]).rest(s)
+const arrayStartingWithNull = <T extends ZodType>(s: T) => z.tuple([z.null()]).rest(s)
 
 const arrayExtend = <
   K extends keyof Player,
@@ -78,7 +78,7 @@ const antsSchema = z.object({
 
       for (const key of Object.keys(record)) {
         const value = record[key]
-        const numKey = Number(key) as AntProducers
+        const numKey: AntProducers = Number(key)
         if (numKey >= AntProducers.Workers && numKey <= LAST_ANT_PRODUCER) {
           result[numKey] = value
         }
@@ -91,14 +91,14 @@ const antsSchema = z.object({
       return result
     }
   )
-    .default(() => blankSave.ants.producers),
+    .prefault(() => blankSave.ants.producers),
   masteries: z.record(z.string(), antMasterySchema).transform(
     (record) => {
       const result: Record<number, PlayerAntMasteries> = {}
 
       for (const key of Object.keys(record)) {
         const value = record[key]
-        const numKey = Number(key) as AntProducers
+        const numKey: AntProducers = Number(key)
         if (numKey >= AntProducers.Workers && numKey <= LAST_ANT_PRODUCER) {
           result[numKey] = value
         }
@@ -111,13 +111,13 @@ const antsSchema = z.object({
       return result
     }
   )
-    .default(() => blankSave.ants.masteries),
+    .prefault(() => blankSave.ants.masteries),
   upgrades: z.record(z.string(), z.number()).transform(
     (record) => {
       const result: Record<number, number> = {}
 
       for (const [key, value] of Object.entries(record)) {
-        const numKey = Number(key) as AntUpgrades
+        const numKey: AntUpgrades = Number(key)
         if (numKey >= AntUpgrades.AntSpeed && numKey <= LAST_ANT_UPGRADE) {
           result[numKey] = value
         }
@@ -132,10 +132,10 @@ const antsSchema = z.object({
       return result
     }
   )
-    .default(() => blankSave.ants.upgrades),
-  crumbs: decimalSchema.default(() => blankSave.ants.crumbs),
-  crumbsThisSacrifice: decimalSchema.default(() => blankSave.ants.crumbsThisSacrifice),
-  crumbsEverMade: decimalSchema.default(() => blankSave.ants.crumbsEverMade),
+    .prefault(() => blankSave.ants.upgrades),
+  crumbs: decimalSchema.prefault(() => blankSave.ants.crumbs),
+  crumbsThisSacrifice: decimalSchema.prefault(() => blankSave.ants.crumbsThisSacrifice),
+  crumbsEverMade: decimalSchema.prefault(() => blankSave.ants.crumbsEverMade),
   immortalELO: z.number().default(() => blankSave.ants.immortalELO),
   rebornELO: z.number().default(() => blankSave.ants.rebornELO),
   highestRebornELODaily: leaderboardEntrySchema.array().transform((array) =>
@@ -182,14 +182,14 @@ const resetToggleModesSchema = z.object({
 })
 
 const singularityUpgradeSchema = (...keys: string[]) => {
-  return z.object<Record<typeof keys[number], ZodType>>({
+  return z.object<Record<typeof keys[number], ZodType<number>>>({
     level: z.number(),
     // Saves from before free levels existed don't have this field at all
     freeLevels: z.number().default(0),
     ...keys.reduce((accum, value) => {
       accum[value] = z.number()
       return accum
-    }, {} as Record<string, ZodType>)
+    }, {} as Record<string, ZodType<number>>)
   })
 }
 
@@ -316,7 +316,7 @@ const playerCorruptionSchema = z.object({
   saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {
     return new CorruptionSaves(value)
   })
-}).default(() => JSON.parse(JSON.stringify(blankSave.corruptions)))
+}).prefault(() => JSON.parse(JSON.stringify(blankSave.corruptions)))
 
 const campaignSchema = z.object({
   currentCampaign: z.string().optional(),
@@ -325,10 +325,10 @@ const campaignSchema = z.object({
 
 const playerCampaignSchema = campaignSchema.transform((campaignData) => {
   return new CampaignManager(campaignData as ICampaignManagerData)
-}).default(() => JSON.parse(JSON.stringify(blankSave.campaigns)))
+}).prefault(() => JSON.parse(JSON.stringify(blankSave.campaigns)))
 
 export const playerSchema = z.object({
-  firstPlayed: z.string().datetime().optional().default(() => new Date().toISOString()),
+  firstPlayed: z.iso.datetime().optional().default(() => new Date().toISOString()),
   worlds: z.number().transform((quarks) => new QuarkHandler(quarks)),
   coins: decimalSchema,
   coinsThisPrestige: decimalSchema,
@@ -552,8 +552,8 @@ export const playerSchema = z.object({
     }).default(() => ({ ...blankSave.currentChallenge }))
   ]),
 
-  obtainium: decimalSchema.default(() => blankSave.obtainium),
-  maxObtainium: decimalSchema.default(() => blankSave.maxObtainium),
+  obtainium: decimalSchema.prefault(() => blankSave.obtainium),
+  maxObtainium: decimalSchema.prefault(() => blankSave.maxObtainium),
 
   researchPoints: z.number().optional(),
   obtainiumpersecond: z.number().optional(),
@@ -566,7 +566,7 @@ export const playerSchema = z.object({
     return Object.fromEntries(
       Object.keys(blankSave.unlocks).map((key) => {
         const value = object[key] ?? blankSave.unlocks[key as keyof typeof blankSave['unlocks']]
-        return value === null ? [key, false] : [key, Boolean(value)]
+        return value === null ? [key, false] : [key, value]
       })
     )
   }).default(() => ({ ...blankSave.unlocks })),
@@ -577,7 +577,7 @@ export const playerSchema = z.object({
         Object.keys(blankSave.progressiveAchievements).map((key) => {
           const value = object[key]
             ?? blankSave.progressiveAchievements[key as keyof typeof blankSave['progressiveAchievements']]
-          return value === null ? [key, 0] : [key, Number(value)]
+          return value === null ? [key, 0] : [key, value]
         })
       )
     }
@@ -609,7 +609,7 @@ export const playerSchema = z.object({
         })
       )
     })
-    .default(() => ({ ...blankSave.runes })),
+    .prefault(() => ({ ...blankSave.runes })),
 
   runeBlessings: z.record(z.string(), decimalSchema)
     .transform((object) => {
@@ -620,7 +620,7 @@ export const playerSchema = z.object({
         })
       )
     })
-    .default(() => ({ ...blankSave.runeBlessings })),
+    .prefault(() => ({ ...blankSave.runeBlessings })),
 
   runeSpirits: z.record(z.string(), decimalSchema)
     .transform((object) => {
@@ -631,13 +631,13 @@ export const playerSchema = z.object({
         })
       )
     })
-    .default(() => ({ ...blankSave.runeSpirits })),
+    .prefault(() => ({ ...blankSave.runeSpirits })),
 
   runelevels: z.number().array().optional(),
   runeexp: z.union([z.number(), z.null().transform(() => 0)]).array().optional(),
 
-  offerings: decimalSchema.default(() => blankSave.offerings),
-  maxOfferings: decimalSchema.default(() => blankSave.maxOfferings),
+  offerings: decimalSchema.prefault(() => blankSave.offerings),
+  maxOfferings: decimalSchema.prefault(() => blankSave.maxOfferings),
 
   runeshards: z.number().optional(),
   maxofferings: z.number().optional(),
@@ -687,7 +687,7 @@ export const playerSchema = z.object({
   subtabNumber: z.any().optional(),
 
   codes: z.array(z.tuple([z.number(), z.boolean()])).transform((tuple) => new Map(tuple)).default(() =>
-    deepClone()([...blankSave.codes])
+    new Map(deepClone()([...blankSave.codes]))
   ),
 
   shopUpgrades: z.record(z.string(), z.union([z.number(), z.null(), z.boolean()]))
@@ -740,11 +740,11 @@ export const playerSchema = z.object({
         })
       )
     })
-    .default(() => ({ ...blankSave.talismans })),
+    .prefault(() => ({ ...blankSave.talismans })),
 
   talismanLevels: z.union([
     z.number().array(),
-    arrayStartingWithNull(z.number()).transform((array) => array.slice(1))
+    arrayStartingWithNull(z.number()).transform<number[]>((array) => array.slice(1) as number[])
   ]).optional(),
   talismanRarity: z.union([
     z.number().array(),
@@ -757,13 +757,13 @@ export const playerSchema = z.object({
   talismanFive: arrayStartingWithNull(z.number()).optional(),
   talismanSix: arrayStartingWithNull(z.number()).optional(),
   talismanSeven: arrayStartingWithNull(z.number()).optional(),
-  talismanShards: decimalSchema.default(() => blankSave.talismanShards),
-  commonFragments: decimalSchema.default(() => blankSave.commonFragments),
-  uncommonFragments: decimalSchema.default(() => blankSave.uncommonFragments),
-  rareFragments: decimalSchema.default(() => blankSave.rareFragments),
-  epicFragments: decimalSchema.default(() => blankSave.epicFragments),
-  legendaryFragments: decimalSchema.default(() => blankSave.legendaryFragments),
-  mythicalFragments: decimalSchema.default(() => blankSave.mythicalFragments),
+  talismanShards: decimalSchema.prefault(() => blankSave.talismanShards),
+  commonFragments: decimalSchema.prefault(() => blankSave.commonFragments),
+  uncommonFragments: decimalSchema.prefault(() => blankSave.uncommonFragments),
+  rareFragments: decimalSchema.prefault(() => blankSave.rareFragments),
+  epicFragments: decimalSchema.prefault(() => blankSave.epicFragments),
+  legendaryFragments: decimalSchema.prefault(() => blankSave.legendaryFragments),
+  mythicalFragments: decimalSchema.prefault(() => blankSave.mythicalFragments),
 
   buyTalismanShardPercent: z.number().default(() => blankSave.buyTalismanShardPercent),
 
@@ -777,7 +777,7 @@ export const playerSchema = z.object({
   ascensionCounterReal: z.number().default(() => blankSave.ascensionCounterReal),
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
   cubeUpgrades: arrayStartingWithNull(z.number())
-    .transform((array) => arrayExtend(array as [null, ...number[]], 'cubeUpgrades'))
+    .transform((array) => arrayExtend(array, 'cubeUpgrades'))
     .default((): [null, ...number[]] => [...blankSave.cubeUpgrades]),
   cubeUpgradesBuyMaxToggle: z.boolean().default(() => blankSave.cubeUpgradesBuyMaxToggle),
   autoCubeUpgradesToggle: z.boolean().default(() => blankSave.autoCubeUpgradesToggle),
@@ -822,15 +822,15 @@ export const playerSchema = z.object({
   platonicBlessings: z.record(z.string(), z.number()).default(() => ({ ...blankSave.platonicBlessings })),
 
   hepteracts: z.object({
-    chronos: newHepteractCraftSchema.default(() => blankSave.hepteracts.chronos),
-    hyperrealism: newHepteractCraftSchema.default(() => blankSave.hepteracts.hyperrealism),
-    quark: newHepteractCraftSchema.default(() => blankSave.hepteracts.quark),
-    challenge: newHepteractCraftSchema.default(() => blankSave.hepteracts.challenge),
-    abyss: newHepteractCraftSchema.default(() => blankSave.hepteracts.abyss),
-    accelerator: newHepteractCraftSchema.default(() => blankSave.hepteracts.accelerator),
-    acceleratorBoost: newHepteractCraftSchema.default(() => blankSave.hepteracts.acceleratorBoost),
-    multiplier: newHepteractCraftSchema.default(() => blankSave.hepteracts.multiplier)
-  }).default(() => {
+    chronos: newHepteractCraftSchema.prefault(() => blankSave.hepteracts.chronos),
+    hyperrealism: newHepteractCraftSchema.prefault(() => blankSave.hepteracts.hyperrealism),
+    quark: newHepteractCraftSchema.prefault(() => blankSave.hepteracts.quark),
+    challenge: newHepteractCraftSchema.prefault(() => blankSave.hepteracts.challenge),
+    abyss: newHepteractCraftSchema.prefault(() => blankSave.hepteracts.abyss),
+    accelerator: newHepteractCraftSchema.prefault(() => blankSave.hepteracts.accelerator),
+    acceleratorBoost: newHepteractCraftSchema.prefault(() => blankSave.hepteracts.acceleratorBoost),
+    multiplier: newHepteractCraftSchema.prefault(() => blankSave.hepteracts.multiplier)
+  }).prefault(() => {
     return { ...blankSave.hepteracts }
   }),
 
@@ -918,7 +918,7 @@ export const playerSchema = z.object({
     return value
   }),
 
-  dayCheck: z.string().datetime().nullable().default(() => blankSave.dayCheck as null).transform((value) => {
+  dayCheck: z.iso.datetime().nullable().default(() => blankSave.dayCheck as null).transform((value) => {
     return value === null ? value : new Date(value)
   }),
   dayTimer: z.number().default(() => blankSave.dayTimer),
@@ -947,7 +947,7 @@ export const playerSchema = z.object({
   goldenQuarks: z.number().default(() => blankSave.goldenQuarks),
   quarksThisSingularity: z.number().nullable().default(() => blankSave.quarksThisSingularity),
   totalQuarksEver: z.number().default(() => blankSave.totalQuarksEver),
-  hotkeys: z.record(integerStringSchema, z.string().array()).default(() => blankSave.hotkeys),
+  hotkeys: z.record(integerStringSchema, z.string().array()).prefault(() => blankSave.hotkeys),
   iconSet: z.number().default(() => blankSave.iconSet),
   notation: z.string().default(() => blankSave.notation),
 
@@ -959,7 +959,7 @@ export const playerSchema = z.object({
       })
     )
   })
-    .default(() => ({ ...blankSave.goldenQuarkUpgrades })),
+    .prefault(() => ({ ...blankSave.goldenQuarkUpgrades })),
 
   octUpgrades: z.record(z.string(), octeractUpgradeSchema).transform((object) => {
     // We use the same goldenQuarkUpgradeSchema for multiple things. maybe it should be called
@@ -971,7 +971,7 @@ export const playerSchema = z.object({
       })
     )
   })
-    .default(() => ({ ...blankSave.octUpgrades })),
+    .prefault(() => ({ ...blankSave.octUpgrades })),
 
   ambrosiaUpgrades: z.record(z.string(), ambrosiaUpgradeSchema).transform((object) => {
     return Object.fromEntries(
@@ -981,7 +981,7 @@ export const playerSchema = z.object({
       })
     )
   })
-    .default(() => ({ ...blankSave.ambrosiaUpgrades })),
+    .prefault(() => ({ ...blankSave.ambrosiaUpgrades })),
 
   singularityUpgrades: z.record(z.string(), singularityUpgradeSchema('goldenQuarksInvested')).optional(),
   octeractUpgrades: z.record(z.string(), singularityUpgradeSchema('octeractsInvested')).optional(),
@@ -1027,7 +1027,7 @@ export const playerSchema = z.object({
         })
       )
     )
-    .default(() => JSON.parse(JSON.stringify(blankSave.singularityChallenges))),
+    .prefault(() => JSON.parse(JSON.stringify(blankSave.singularityChallenges))),
 
   ambrosia: z.number().default(() => blankSave.ambrosia),
   lifetimeAmbrosia: z.number().default(() => blankSave.lifetimeAmbrosia),
@@ -1042,7 +1042,7 @@ export const playerSchema = z.object({
     .optional(),
 
   // TODO: what type?
-  blueberryLoadouts: z.record(integerStringSchema, z.any()).default(() => blankSave.blueberryLoadouts),
+  blueberryLoadouts: z.record(integerStringSchema, z.any()).prefault(() => blankSave.blueberryLoadouts),
   blueberryLoadoutMode: z.string().default(() => blankSave.blueberryLoadoutMode),
 
   ultimateProgress: z.number().optional(),
@@ -1058,7 +1058,7 @@ export const playerSchema = z.object({
         Object.keys(blankSave.redAmbrosiaUpgrades).map((key) => {
           const value = object[key]
             ?? blankSave.redAmbrosiaUpgrades[key as keyof typeof blankSave['redAmbrosiaUpgrades']]
-          return value === null ? [key, 0] : [key, Number(value)]
+          return value === null ? [key, 0] : [key, value]
         })
       )
     }
@@ -1070,7 +1070,7 @@ export const playerSchema = z.object({
         Object.keys(blankSave.purpleAmbrosiaUpgrades).map((key) => {
           const value = object[key]
             ?? blankSave.purpleAmbrosiaUpgrades[key as keyof typeof blankSave['purpleAmbrosiaUpgrades']]
-          return value === null ? [key, 0] : [key, Number(value)]
+          return value === null ? [key, 0] : [key, value]
         })
       )
     }
@@ -1087,7 +1087,7 @@ export const playerSchema = z.object({
         Object.keys(blankSave.purpleReactorUpgrades).map((key) => {
           const value = object[key]
             ?? blankSave.purpleReactorUpgrades[key as keyof typeof blankSave['purpleReactorUpgrades']]
-          return value === null ? [key, 0] : [key, Number(value)]
+          return value === null ? [key, 0] : [key, value]
         })
       )
     }
@@ -1101,7 +1101,7 @@ export const playerSchema = z.object({
 
   lastExportedSave: z.number().default(() => blankSave.lastExportedSave),
 
-  seed: z.number().array().default(() => blankSave.seed)
+  seed: z.number().array().prefault(() => blankSave.seed)
     .transform((value) => arrayExtend(value, 'seed'))
     .refine((value) => value.every((seed) => seed > Date.parse('2020-01-01T00:00:00Z') && seed < Date.now() + 1000)),
 

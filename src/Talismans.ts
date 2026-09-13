@@ -1087,7 +1087,7 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
 
   const title = `<span style="color: lightgoldenrodyellow">${
     i18next.t('runes.talismans.rarityInfo.title', {
-      talismanName: String(i18next.t(`runes.talismans.${t}.name`))
+      talismanName: i18next.t(`runes.talismans.${t}.name`)
     })
   }
   </span>`
