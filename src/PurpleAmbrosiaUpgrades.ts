@@ -262,7 +262,7 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
       const coefficient = getPurpleAmbrosiaUpgradeEffects('sagittarius', 'horseShoeRuneCoefficient')
       const unlockedText = i18next.t('purpleAmbrosia.data.sagittarius.effectPurchased')
       const effect2Text = i18next.t('purpleAmbrosia.data.sagittarius.effect2Maxed', {
-        value: format(coefficient, 4, true)
+        maxValue: format(coefficient, 4, true)
       })
       return `${unlockedText}<br>${effect2Text}`
     },
