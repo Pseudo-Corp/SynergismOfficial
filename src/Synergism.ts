@@ -1084,6 +1084,7 @@ export const player: Player = {
   singularityElevatorLocked: false,
   goldenQuarks: 0,
   quarksThisSingularity: 0,
+  goldenQuarksGainedFromConversion: 0,
   totalQuarksEver: 0,
   hotkeys: {},
   iconSet: 1,
