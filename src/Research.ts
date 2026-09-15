@@ -316,10 +316,15 @@ export const advanceResearchRoomba = () => {
   const maxIndex = researchOrderByCost.length - 1
   player.roombaResearchIndex = player.roombaResearchIndex % maxIndex + 1
   const checkedResearch = researchOrderByCost[player.roombaResearchIndex]
+  if (player.autoResearch === checkedResearch) {
+    return false
+  }
   if (!isResearchMaxed(checkedResearch) && isResearchUnlocked(checkedResearch)) {
     player.autoResearch = checkedResearch
     setResearchRoombaHighlight(player.autoResearch)
+    return true
   }
+  return false
 }
 
 /**

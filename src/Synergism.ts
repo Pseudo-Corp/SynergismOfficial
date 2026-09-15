@@ -4490,15 +4490,18 @@ const tack = (dt: number) => {
       && roombaResearchEnabled()
       && player.autoResearchMode === 'cheapest'
     ) {
+      let shouldBuy = true
       let previousRoombaResearch = player.roombaResearchIndex
       const maxCount = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
       for (let counter = 0; counter < maxCount; counter++) {
-        buyResearch(player.autoResearch, true, false)
-        // We couldn't buy the presumably cheapest research, reset Roomba's loop
-        if (!isResearchMaxed(player.autoResearch)) {
-          player.roombaResearchIndex = 0
+        if (shouldBuy) {
+          buyResearch(player.autoResearch, true, false)
+          if (!isResearchMaxed(player.autoResearch)) {
+            // We couldn't buy the presumably cheapest research, reset Roomba's loop
+            player.roombaResearchIndex = 0
+          }
         }
-        advanceResearchRoomba()
+        shouldBuy = advanceResearchRoomba()
         if (player.roombaResearchIndex === previousRoombaResearch) {
           break // Roomba has made a full loop, we don't have enough Obtainium
         }
