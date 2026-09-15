@@ -3954,23 +3954,11 @@ export const allPurpleHoneyProgressRequirementStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 50_000
+      stat: () => 500_000
     },
     {
       i18n: 'SingularityPerk',
       stat: () => calculateSingularityPurpleBarSizeMultiplier()
-    },
-    {
-      i18n: 'LifetimePurpleHoney',
-      stat: () => Math.min(25_000, player.purpleReactor.lifetimePurpleHoney * 9 / 10 + 2_500) / 2_500 // max: 10
-    },
-    {
-      i18n: 'PurpleHoney',
-      stat: () =>
-        1 + Math.min(
-          player.purpleReactor.purpleHoney / 10000,
-          Math.log(1 + player.purpleReactor.purpleHoney / 100)
-        )
     },
     {
       i18n: 'PurpleHoneyUpgrade1',
