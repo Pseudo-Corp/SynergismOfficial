@@ -120,9 +120,9 @@ const ambrosiaLuckSingThresholds1 = [35, 42, 49, 56, 63, 70, 77]
 const ambrosiaLuckSingThresholds2 = [135, 142, 149, 156, 163, 170, 177]
 
 const twoMindBarRequirements = {
-  ambrosia: 25_000_000,
+  ambrosia: 10_000_000,
   redAmbrosia: 7_500,
-  purpleHoney: 150_000
+  purpleHoney: 125_000
 }
 
 const derpsmithSingCounts = [

@@ -1858,9 +1858,9 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.shopPurpleBarRebate'),
     effects: (n, key) => {
       if (key === 'ambrosiaBarPointsPerFill') {
-        return 125000 * n
+        return 50_000 * n
       }
-      return 37.5 * n // redAmbrosiaBarPointsPerFill
+      return 25 * n // redAmbrosiaBarPointsPerFill
     },
     effectDescription () {
       const ambrosiaBarPointsPerFill = getShopUpgradeEffects('shopPurpleBarRebate', 'ambrosiaBarPointsPerFill')

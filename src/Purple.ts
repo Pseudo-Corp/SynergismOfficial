@@ -657,10 +657,10 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     }
   },
   purpleHoneyRequirementReduction1: {
-    maxLevel: 50,
+    maxLevel: 25,
     costFormula: (level: number) => 20 * level,
     effects: (n) => {
-      return 1 - 0.006 * n
+      return 1 - 0.004 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
@@ -680,15 +680,15 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       })
     },
     apValue: {
-      perLevelAP: 0.3,
+      perLevelAP: 0.4,
       maxLevelAP: 5
     }
   },
   purpleHoneyRequirementReduction2: {
-    maxLevel: 50,
+    maxLevel: 25,
     costFormula: (level: number) => 400 * level,
     effects: (n) => {
-      return 1 - 0.005 * n
+      return 1 - 0.004 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
@@ -713,7 +713,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     }
   },
   purpleHoneyRequirementReduction3: {
-    maxLevel: 50,
+    maxLevel: 25,
     costFormula: (level: number) => 8_000 * level,
     effects: (n) => {
       return 1 - 0.004 * n
@@ -736,15 +736,15 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       })
     },
     apValue: {
-      perLevelAP: 0.5,
+      perLevelAP: 0.4,
       maxLevelAP: 5
     }
   },
   purpleHoneyRequirementReduction4: {
-    maxLevel: 50,
+    maxLevel: 25,
     costFormula: (level: number) => 160_000 * level,
     effects: (n) => {
-      return 1 - 0.003 * n
+      return 1 - 0.004 * n
     },
     notMaxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
@@ -764,7 +764,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       })
     },
     apValue: {
-      perLevelAP: 0.6,
+      perLevelAP: 0.4,
       maxLevelAP: 5
     }
   },

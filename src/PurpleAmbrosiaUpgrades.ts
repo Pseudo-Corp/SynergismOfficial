@@ -96,12 +96,12 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
   },
   gemini: {
     maxLevel: 10,
-    costFormula: (level: number) => 80 * level,
+    costFormula: (level: number) => 8 * level,
     effects: (level, key) => {
       if (key === 'ambrosiaBarPointsOnFill') {
-        return 125_000 * level
+        return 50_000 * level
       }
-      return 37.5 * level // redAmbrosiaBarPointsOnFill
+      return 25 * level // redAmbrosiaBarPointsOnFill
     },
     notMaxedEffectsDescription: () => {
       const oldEffect1 = getPurpleAmbrosiaUpgradeEffects('gemini', 'ambrosiaBarPointsOnFill')
@@ -136,8 +136,8 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
   },
   cancer: {
     maxLevel: 10,
-    costFormula: (level: number) => 80 * level,
-    effects: (level: number) => 750 * level,
+    costFormula: (level: number) => 8 * level,
+    effects: (level: number) => 500 * level,
     notMaxedEffectsDescription: () => {
       const effect = getPurpleAmbrosiaUpgradeEffects('cancer', 'purpleBarPointsOnFill')
       const nextEffect = getPurpleAmbrosiaUpgradeNextLevelEffects('cancer', 'purpleBarPointsOnFill')
@@ -230,7 +230,12 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
   },
   sagittarius: {
     maxLevel: 11,
-    costFormula: (level: number) => 200 * level,
+    costFormula: (level: number) => {
+      if (level > 1) {
+        return 40 + 200 * (level - 1)
+      }
+      return 40 * level
+    },
     effects: (level, key) => {
       if (key === 'horseShoeRuneCoefficient') {
         if (level >= 2) {

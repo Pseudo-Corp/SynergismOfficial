@@ -3954,7 +3954,7 @@ export const allPurpleHoneyProgressRequirementStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 500_000
+      stat: () => 250_000
     },
     {
       i18n: 'SingularityPerk',
