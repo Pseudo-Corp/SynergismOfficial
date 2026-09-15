@@ -86,12 +86,11 @@ import { resetHistoryRenderAllTables } from './History'
 import {
   advanceResearchRoomba,
   buyResearch,
-  isResearchUnlocked,
+  isResearchMaxed,
   refundOvercapResearches,
   researchOrderByCost,
   roombaResearchEnabled,
   setResearchRoombaHighlight,
-  syncResearchRoombaHighlight,
   updateResearchAuto,
   updateResearchBG
 } from './Research'
@@ -4491,27 +4490,21 @@ const tack = (dt: number) => {
       && roombaResearchEnabled()
       && player.autoResearchMode === 'cheapest'
     ) {
-      const previousRoombaResearch = player.autoResearch || 1
-      let counter = 0
+      let previousRoombaResearch = player.roombaResearchIndex
       const maxCount = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
-      while (counter < maxCount) {
-        const currIndex = player.autoResearch
-        if (isResearchUnlocked(currIndex)) {
-          if (currIndex > 0) {
-            const auto = true
-            const hover = false
-            buyResearch(currIndex, auto, hover)
-          } else {
-            break
-          }
+      for (let counter = 0; counter < maxCount; counter++) {
+        buyResearch(player.autoResearch, true, false)
+        // We couldn't buy the presumably cheapest research, reset Roomba's loop
+        if (!isResearchMaxed(player.autoResearch)) {
+          player.roombaResearchIndex = 0
         }
         advanceResearchRoomba()
-        if (player.autoResearch === currIndex) {
-          break
+        if (player.roombaResearchIndex === previousRoombaResearch) {
+          break // Roomba has made a full loop, we don't have enough Obtainium
         }
-        counter++
+        // If previous Roomba index was 0, we need to update it now
+        previousRoombaResearch ||= player.roombaResearchIndex
       }
-      syncResearchRoombaHighlight(previousRoombaResearch)
     }
   }
 
