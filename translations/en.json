@@ -300,9 +300,9 @@
       "twoMind": {
         "name": "TWO MIND",
         "description": "Consume the Blueberry. Consume. You must!",
-        "descriptionAmbrosia": "Fix the Ambrosia Bar to require <<var(--blueberry-text-color)|25,000,000>> Ambrosia Bar Points.",
+        "descriptionAmbrosia": "Fix the Ambrosia Bar to require <<var(--blueberry-text-color)|10,000,000>> Ambrosia Bar Points.",
         "descriptionRedAmbrosia": "Fix the Red Bar to require <<red|7,500>> Red Ambrosia Bar Points.",
-        "descriptionPurpleHoney": "Fix the Purple Bar to require <<var(--purple-text-color)|150,000>> Purple Bar Points.",
+        "descriptionPurpleHoney": "Fix the Purple Bar to require <<var(--purple-text-color)|125,000>> Purple Bar Points.",
         "descriptionSummary": "<b>Luck used for Bar rewards is multiplied by the ratio of the fixed requirement to the expected requirement (without TWO MIND). Luck used for all other effects is unchanged.</b>",
         "effectDisabled": "You haven't YET consumed the Blueberry.",
         "effectEnabled": "You've consumed the Blueberry, and feel your MIND has been washed from its toxins."
@@ -331,7 +331,7 @@
       "blueberryRefund": "Deactivating this module refunds <<blue|{{amount}}>> Blueberries.",
       "lockedBy": "Cannot drop below level <<red|{{level}}>>: required by <<orange|{{name}}>>.",
       "prereqBlocked": "<<red|Prerequisites are not met, so levels cannot be added.>>",
-      "twoMindReset": "<<red|Activating or deactivating this module resets Ambrosia, Red, and Purple Bar progress.>>",
+      "twoMindReset": "<<red|Activating this module also resets Ambrosia, Red, and Purple Bar progress!>>",
       "invalid": "Those levels are no longer valid. No changes were made.",
       "max": "MAX",
       "save": "SAVE",
@@ -4001,7 +4001,7 @@
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by num:((0.1))% per level additive (Max -30%)!",
       "shopPanthema": "Ace from space!",
-      "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--blueberry-text-color)|+num:((125000))>> Ambrosia Bar Points and <<var(--red-text-color)|+num:((37.5))>> Red Bar Points per level of this upgrade!"
+      "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--blueberry-text-color)|+num:((50000))>> Ambrosia Bar Points and <<var(--red-text-color)|+num:((25))>> Red Bar Points per level of this upgrade!"
     },
     "maxed": "Maxed!",
     "bought": "Bought!",
