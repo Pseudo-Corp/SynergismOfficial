@@ -5022,6 +5022,27 @@
     }
   },
   "general": {
+    "purchasePrompt": {
+      "levels": "Levels to buy",
+      "resource": {
+        "goldenQuarks": "Golden Quarks to spend",
+        "octeracts": "Octeracts to spend",
+        "ambrosia": "Ambrosia to spend",
+        "redAmbrosia": "Red Ambrosia to spend",
+        "purpleAmbrosia": "Purple Ambrosia to spend"
+      },
+      "hint": "Enter levels or a resource budget.",
+      "hint2": "Type -1 in either box to buy MAX.",
+      "summary": {
+        "goldenQuarks": "Buy {{levels}} levels for {{cost}} Golden Quarks.",
+        "octeracts": "Buy {{levels}} levels for {{cost}} Octeracts.",
+        "ambrosia": "Buy {{levels}} levels for {{cost}} Ambrosia.",
+        "redAmbrosia": "Buy {{levels}} levels for {{cost}} Red Ambrosia.",
+        "purpleAmbrosia": "Buy {{levels}} levels for {{cost}} Purple Ambrosia."
+      },
+      "invalid": "Enter a positive whole number, or -1 to buy MAX!",
+      "unavailable": "You can't purchase any levels with selected levels or budget."
+    },
     "youAreInThe": "You are in the <<gold|{{number}} Singularity>>",
     "validation": {
       "finite": "Value must be a finite number!",

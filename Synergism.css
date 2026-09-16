@@ -773,7 +773,8 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 
 #confirmWrapper,
 #alertWrapper,
-#promptWrapper {
+#promptWrapper,
+#purchasePromptWrapper {
     height: 100%;
     display: none;
 }
@@ -850,6 +851,81 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
         ". . . . ."
         ". btn . btn2 ."
         ". . . . .";
+}
+
+#confirmationBox.purchaseConfirmation {
+    box-sizing: border-box;
+    width: min(34em, calc(100vw - 2em));
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    max-height: calc(100dvh - 2em);
+    overflow: auto;
+}
+
+#purchasePrompt {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+#purchasePrompt > p,
+.purchasePromptHeading > p,
+.purchasePromptHints > p {
+    margin: 0;
+    white-space: pre-line;
+    text-align: center;
+}
+
+.purchasePromptHeading,
+.purchasePromptHints {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+}
+
+#purchasePromptTitle {
+    color: gold;
+    font-weight: bold;
+}
+
+#purchasePromptSummary {
+    min-height: 2.5em;
+    line-height: 1.25;
+}
+
+.purchasePromptInputs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.5em 1em;
+}
+
+.purchasePromptInputs > input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 0.4em;
+    border: 1px solid gold;
+    border-radius: 5px;
+    background-color: #171717;
+    color: white;
+    font-size: 1em;
+}
+
+.purchasePromptButtons {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.purchasePromptButtons > button {
+    min-width: 6em;
+    border: 1px solid gold;
+}
+
+#ok_purchasePrompt:disabled {
+    opacity: 0.5;
+    cursor: default;
 }
 
 /* Announcements. The overlay and every card are built by Announcement() in UpdateHTML.ts. */

@@ -73,6 +73,29 @@
                 <button id="cancel_prompt" i18n="general.Cancel"></button>
             </div>
         </div>
+        <div id="purchasePromptWrapper">
+            <div id="purchasePrompt" role="dialog" aria-labelledby="purchasePromptTitle">
+                <div class="purchasePromptHeading">
+                    <p id="purchasePromptTitle"></p>
+                    <p id="purchasePromptLevel"></p>
+                </div>
+                <div class="purchasePromptHints">
+                    <p id="purchasePromptHint" i18n="general.purchasePrompt.hint"></p>
+                    <p id="purchasePromptHint2" i18n="general.purchasePrompt.hint2"></p>
+                </div>
+                <div class="purchasePromptInputs">
+                    <label for="purchasePromptLevels" i18n="general.purchasePrompt.levels"></label>
+                    <label id="purchasePromptCostLabel" for="purchasePromptCost"></label>
+                    <input id="purchasePromptLevels" type="text">
+                    <input id="purchasePromptCost" type="text">
+                </div>
+                <p id="purchasePromptSummary" role="status" aria-live="polite"></p>
+                <div class="purchasePromptButtons">
+                    <button id="ok_purchasePrompt" i18n="general.OK"></button>
+                    <button id="cancel_purchasePrompt" i18n="general.Cancel"></button>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="offlineBlur">
         <img id="logo" src="Pictures/logo.png" alt="The Synergism Logo">

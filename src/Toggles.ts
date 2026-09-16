@@ -1029,6 +1029,10 @@ export const toggleBlueberryLoadoutmode = () => {
 }
 
 export const confirmReply = (confirm = true) => {
+  if (DOMCacheGetOrSet('purchasePromptWrapper').style.display === 'block') {
+    ;(DOMCacheGetOrSet(confirm ? 'ok_purchasePrompt' : 'cancel_purchasePrompt') as HTMLButtonElement).click()
+    return
+  }
   if (DOMCacheGetOrSet('alertWrapper').style.display === 'block') {
     ;(DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()
   }

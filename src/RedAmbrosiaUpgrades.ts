@@ -1,4 +1,5 @@
 import i18next from 'i18next'
+import { calculateSingularityUpgradePurchase } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateRedAmbrosiaCubes,
@@ -7,7 +8,7 @@ import {
   calculateRedAmbrosiaOffering
 } from './Calculate'
 import { format, formatAsPercentIncrease, player } from './Synergism'
-import { Alert, Prompt } from './UpdateHTML'
+import { Alert, PurchasePrompt } from './UpdateHTML'
 import { isMobile } from './Utility'
 
 type RedAmbrosiaUpgradeRewards = {
@@ -744,49 +745,43 @@ export const buyRedAmbrosiaUpgradeLevel = async (
     return Alert(i18next.t('octeract.buyLevel.alreadyMax'))
   }
 
-  const affordableLevel = maximumAffordableLevel(upgradeKey, player.redAmbrosia)
-  let levelsToPurchase = Math.min(1, affordableLevel - upgrade.level)
-
-  if (levelsToPurchase <= 0) {
+  const purchaseOptions = {
+    getMaxLevels: () => upgrade.maxLevel - upgrade.level,
+    getBalance: () => player.redAmbrosia,
+    getCost: (levels: number) => upgrade.costFormula(upgrade.level + levels) - upgrade.costFormula(upgrade.level)
+  }
+  const initialPurchase = calculateSingularityUpgradePurchase(purchaseOptions, 1, 'levels')
+  if (initialPurchase === null || initialPurchase.levels <= 0) {
     return Alert(i18next.t('singularity.goldenQuarks.poor'))
   }
 
-  if (event.shiftKey || buyMax) {
-    // Don't need to clip to maxLevel since maximumAffordableLevel guarantees it is within bounds
-    const maxPurchasableLevels = affordableLevel - upgrade.level
-    const levelAmountSelected = Number(
-      await Prompt(
-        i18next.t('redAmbrosia.redAmbrosiaBuyPrompt', {
-          amount: format(maxPurchasableLevels, 0, true)
-        })
-      )
-    )
-
-    if (isNaN(levelAmountSelected) || !isFinite(levelAmountSelected) || !Number.isInteger(levelAmountSelected)) {
-      // nan + Infinity checks
-      return Alert(i18next.t('general.validation.finite'))
-    }
-
-    if (levelAmountSelected === -1) {
-      levelsToPurchase = maxPurchasableLevels
-    } else if (levelAmountSelected <= 0) {
-      return Alert(i18next.t('octeract.buyLevel.cancelPurchase'))
-    } else {
-      levelsToPurchase = Math.min(levelAmountSelected, maxPurchasableLevels)
-    }
+  const selectedPurchase = event.shiftKey || buyMax
+    ? await PurchasePrompt({
+      ...purchaseOptions,
+      title: upgrade.name(),
+      getLevel: () => upgrade.level,
+      getMaxLevel: () => upgrade.maxLevel,
+      resource: 'redAmbrosia'
+    })
+    : initialPurchase
+  if (selectedPurchase === null || selectedPurchase.levels <= 0) {
+    return
   }
 
   // Autosynthesis can spend Red Ambrosia while the purchase prompt is open.
-  levelsToPurchase = Math.min(
-    levelsToPurchase,
-    maximumAffordableLevel(upgradeKey, player.redAmbrosia) - upgrade.level
+  const purchase = calculateSingularityUpgradePurchase(
+    {
+      ...purchaseOptions,
+      getBalance: () => Math.min(purchaseOptions.getBalance(), selectedPurchase.cost)
+    },
+    selectedPurchase.levels,
+    'levels'
   )
-
-  if (levelsToPurchase <= 0) {
+  if (purchase === null || purchase.levels <= 0) {
     return Alert(i18next.t('redAmbrosia.purchaseNoLongerAffordable'))
   }
 
-  const cost = upgrade.costFormula(upgrade.level + levelsToPurchase) - upgrade.costFormula(upgrade.level)
+  const { levels: levelsToPurchase, cost } = purchase
   player.redAmbrosia -= cost
   player.redAmbrosiaUpgrades[upgradeKey] += cost
   upgrade.level += levelsToPurchase

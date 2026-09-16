@@ -1,4 +1,5 @@
 import i18next from 'i18next'
+import { calculateSingularityUpgradePurchase, type SingularityUpgradePurchaseOptions } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaLuck, calculateBlueberryInventory } from './Calculate'
 import { exportData, saveFilename } from './ImportExport'
@@ -6,7 +7,7 @@ import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects, type RedAmbrosiaNames } from './RedAmbrosiaUpgrades'
 import { format, formatAsPercentIncrease, player } from './Synergism'
-import { Alert, Confirm, Prompt } from './UpdateHTML'
+import { Alert, Confirm, PurchasePrompt } from './UpdateHTML'
 import { assert, isMobile } from './Utility'
 
 export type BlueberryOpt = Partial<Record<AmbrosiaUpgradeNames, number>>
@@ -1959,80 +1960,85 @@ export const buyAmbrosiaUpgradeLevel = async (
   buyMax = false
 ): Promise<void> => {
   const upgrade = ambrosiaUpgrades[upgradeKey]
-  let purchased = 0
-  let maxPurchasable = 1
-  let ambrosiaBudget = player.ambrosia
 
   if (!checkAmbrosiaUpgradePrerequisites(upgradeKey)) {
     return Alert(i18next.t('ambrosia.prereqNotMetAlert'))
   }
 
-  if (event.shiftKey || buyMax) {
-    maxPurchasable = 1000000
-    const buy = Number(
-      await Prompt(
-        i18next.t('ambrosia.ambrosiaBuyPrompt', {
-          amount: format(player.ambrosia, 0, true)
-        })
-      )
-    )
-
-    if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) {
-      // nan + Infinity checks
-      return Alert(i18next.t('general.validation.finite'))
-    }
-
-    if (buy === -1) {
-      ambrosiaBudget = player.ambrosia
-    } else if (buy <= 0) {
-      return Alert(i18next.t('octeract.buyLevel.cancelPurchase'))
-    } else {
-      ambrosiaBudget = buy
-    }
-    ambrosiaBudget = Math.min(player.ambrosia, ambrosiaBudget)
-  }
-
-  if (upgrade.maxLevel > 0) {
-    maxPurchasable = Math.min(maxPurchasable, upgrade.maxLevel - upgrade.level)
-  }
-
-  if (maxPurchasable === 0) {
+  if (upgrade.level >= upgrade.maxLevel) {
     return Alert(i18next.t('octeract.buyLevel.alreadyMax'))
   }
 
-  while (maxPurchasable > 0) {
-    const cost = getAmbrosiaUpgradeCostTNL(upgradeKey)
-    if (player.ambrosia < cost || ambrosiaBudget < cost) {
-      break
-    } else {
-      if (upgrade.level === 0) {
-        const availableBlueberries = calculateBlueberryInventory() - player.spentBlueberries
-        const blueberryCost = getAmbrosiaUpgradeBlueberryCost(upgradeKey)
-        if (availableBlueberries < blueberryCost) {
-          return Alert(i18next.t('ambrosia.notEnoughBlueberries'))
-        } else {
-          player.spentBlueberries += blueberryCost
-          player.ambrosiaUpgrades[upgradeKey].blueberriesInvested = blueberryCost
-        }
-      }
-      player.ambrosia -= cost
-      ambrosiaBudget -= cost
-      player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested += cost
-      upgrade.level += 1
-      purchased += 1
-      maxPurchasable -= 1
-    }
+  if (
+    upgrade.level === 0
+    && calculateBlueberryInventory() - player.spentBlueberries < getAmbrosiaUpgradeBlueberryCost(upgradeKey)
+  ) {
+    return Alert(i18next.t('ambrosia.notEnoughBlueberries'))
   }
-  if (upgradeKey === 'twoMind' && purchased > 0) {
+
+  const options: SingularityUpgradePurchaseOptions = {
+    getMaxLevels: () => {
+      if (
+        !checkAmbrosiaUpgradePrerequisites(upgradeKey)
+        || (upgrade.level === 0
+          && calculateBlueberryInventory() - player.spentBlueberries < getAmbrosiaUpgradeBlueberryCost(upgradeKey))
+      ) {
+        return 0
+      }
+      return Math.max(0, upgrade.maxLevel - upgrade.level)
+    },
+    getBalance: () => player.ambrosia,
+    getCost: (levels) => getAmbrosiaUpgradeCostBetween(upgradeKey, upgrade.level, upgrade.level + levels)
+  }
+  const purchase = event.shiftKey || buyMax
+    ? await PurchasePrompt({
+      ...options,
+      title: upgrade.name(),
+      getLevel: () => upgrade.level,
+      getMaxLevel: () => upgrade.maxLevel,
+      resource: 'ambrosia'
+    })
+    : calculateSingularityUpgradePurchase(options, 1, 'levels')
+
+  if (purchase === null) {
+    return
+  }
+
+  if (!checkAmbrosiaUpgradePrerequisites(upgradeKey)) {
+    return Alert(i18next.t('ambrosia.prereqNotMetAlert'))
+  }
+
+  if (
+    upgrade.level === 0
+    && calculateBlueberryInventory() - player.spentBlueberries < getAmbrosiaUpgradeBlueberryCost(upgradeKey)
+  ) {
+    return Alert(i18next.t('ambrosia.notEnoughBlueberries'))
+  }
+
+  const currentPurchase = calculateSingularityUpgradePurchase(options, purchase.levels, 'levels')
+  if (
+    currentPurchase === null || purchase.levels === 0
+    || currentPurchase.levels !== purchase.levels || currentPurchase.cost !== purchase.cost
+  ) {
+    return Alert(i18next.t('octeract.buyLevel.cannotAfford'))
+  }
+
+  if (upgrade.level === 0) {
+    const blueberryCost = getAmbrosiaUpgradeBlueberryCost(upgradeKey)
+    player.spentBlueberries += blueberryCost
+    player.ambrosiaUpgrades[upgradeKey].blueberriesInvested = blueberryCost
+  }
+  player.ambrosia -= purchase.cost
+  player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested += purchase.cost
+  upgrade.level += purchase.levels
+
+  if (upgradeKey === 'twoMind') {
     resetAmbrosiaBarProgress()
   }
 
-  if (purchased === 0) {
-    return Alert(i18next.t('octeract.buyLevel.cannotAfford'))
-  }
-  if (purchased > 1) {
+  if (purchase.levels > 1) {
     return Alert(
-      i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) })
+      i18next.t('octeract.buyLevel.multiBuy', { n: format(purchase.levels) })
     )
   }
 }

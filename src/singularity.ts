@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
+import { calculateSingularityUpgradePurchase } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateBlueberryInventory,
@@ -15,7 +16,7 @@ import { singularity } from './Reset'
 import { runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { format, formatAsPercentIncrease, player } from './Synergism'
-import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
+import { Alert, Confirm, Prompt, PurchasePrompt, revealStuff } from './UpdateHTML'
 import { isMobile, toOrdinal } from './Utility'
 
 const funny32BitNumber = 2 ** 31 - 1
@@ -2446,41 +2447,47 @@ export async function buyGQUpgradeLevel (
     return Alert(i18next.t('singularity.goldenQuarks.notHighEnoughLevel'))
   }
 
-  const GQBudget = player.goldenQuarks
-  const affordableLevel = maximumAffordableLevel(upgradeKey, GQBudget)
-
-  // This is either 0 or 1
-  let levelsToPurchase = Math.min(1, affordableLevel - goldenQuarkUpgrades[upgradeKey].level)
-  if (levelsToPurchase === 0) {
+  const purchaseOptions = {
+    getMaxLevels: () =>
+      player.highestSingularityCount >= upgrade.minimumSingularity
+        ? computeGQUpgradeMaxLevel(upgradeKey) - goldenQuarkUpgrades[upgradeKey].level
+        : 0,
+    getBalance: () => player.goldenQuarks,
+    getCost: (levels: number) =>
+      getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level + levels)
+      - getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level)
+  }
+  const initialPurchase = calculateSingularityUpgradePurchase(purchaseOptions, 1, 'levels')
+  if (initialPurchase === null || initialPurchase.levels <= 0) {
     return Alert(i18next.t('singularity.goldenQuarks.poor'))
   }
 
-  if (event.shiftKey || buyMax) {
-    const maxPurchasableLevels = affordableLevel - goldenQuarkUpgrades[upgradeKey].level
-    const amountLevelSelected = Number(
-      await Prompt(
-        i18next.t('singularity.goldenQuarks.spendPrompt', {
-          n: format(maxPurchasableLevels, 0, true)
-        })
-      )
-    )
-
-    if (isNaN(amountLevelSelected) || !isFinite(amountLevelSelected) || !Number.isInteger(amountLevelSelected)) {
-      return Alert(i18next.t('general.validation.finite'))
-    }
-
-    if (amountLevelSelected === -1) {
-      levelsToPurchase = maxPurchasableLevels
-    } else if (amountLevelSelected <= 0) {
-      return Alert(i18next.t('general.validation.zeroOrLess'))
-    } else {
-      levelsToPurchase = Math.min(amountLevelSelected, maxPurchasableLevels)
-    }
+  const selectedPurchase = event.shiftKey || buyMax
+    ? await PurchasePrompt({
+      ...purchaseOptions,
+      title: upgrade.name(),
+      getLevel: () => goldenQuarkUpgrades[upgradeKey].level,
+      getMaxLevel: () => computeGQUpgradeMaxLevel(upgradeKey),
+      resource: 'goldenQuarks'
+    })
+    : initialPurchase
+  if (selectedPurchase === null || selectedPurchase.levels <= 0) {
+    return
   }
 
-  const cost = getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level + levelsToPurchase)
-    - getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level)
+  const purchase = calculateSingularityUpgradePurchase(
+    {
+      ...purchaseOptions,
+      getBalance: () => Math.min(purchaseOptions.getBalance(), selectedPurchase.cost)
+    },
+    selectedPurchase.levels,
+    'levels'
+  )
+  if (purchase === null || purchase.levels <= 0) {
+    return Alert(i18next.t('singularity.goldenQuarks.poor'))
+  }
 
+  const { levels: levelsToPurchase, cost } = purchase
   player.goldenQuarks -= cost
   player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested += cost
   goldenQuarkUpgrades[upgradeKey].level += levelsToPurchase

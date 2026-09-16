@@ -1,9 +1,10 @@
 import i18next from 'i18next'
+import { calculateSingularityUpgradePurchase } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
 import { updateMaxTokens, updateTokens } from './Campaign'
 import { format, formatAsPercentIncrease, formatTimeShort, player } from './Synergism'
-import { Alert, Prompt } from './UpdateHTML'
+import { Alert, PurchasePrompt } from './UpdateHTML'
 import { memoize } from './Utility'
 
 type OcteractUpgradeRewards = {
@@ -1225,39 +1226,42 @@ export const buyOcteractUpgradeLevel = async (
     return Alert(i18next.t('octeract.buyLevel.alreadyMax'))
   }
 
-  const affordableLevel = maximumAffordableLevel(upgradeKey, player.wowOcteracts)
-  let levelsToPurchase = Math.min(1, affordableLevel - upgrade.level)
-
-  if (levelsToPurchase <= 0) {
+  const purchaseOptions = {
+    getMaxLevels: () => upgrade.maxLevel - upgrade.level,
+    getBalance: () => player.wowOcteracts,
+    getCost: (levels: number) => upgrade.costFormula(upgrade.level + levels) - upgrade.costFormula(upgrade.level)
+  }
+  const initialPurchase = calculateSingularityUpgradePurchase(purchaseOptions, 1, 'levels')
+  if (initialPurchase === null || initialPurchase.levels <= 0) {
     return Alert(i18next.t('singularity.goldenQuarks.poor'))
   }
 
-  if (event.shiftKey || buyMax) {
-    // Don't need to clip to maxLevel since maximumAffordableLevel guarantees it is within bounds
-    const maxPurchasableLevels = affordableLevel - upgrade.level
-    const levelAmountSelected = Number(
-      await Prompt(
-        i18next.t('octeract.buyLevel.buyPrompt', {
-          n: format(maxPurchasableLevels, 0, true)
-        })
-      )
-    )
-
-    if (isNaN(levelAmountSelected) || !isFinite(levelAmountSelected) || !Number.isInteger(levelAmountSelected)) {
-      // nan + Infinity checks
-      return Alert(i18next.t('general.validation.finite'))
-    }
-
-    if (levelAmountSelected === -1) {
-      levelsToPurchase = maxPurchasableLevels
-    } else if (levelAmountSelected <= 0) {
-      return Alert(i18next.t('octeract.buyLevel.cancelPurchase'))
-    } else {
-      levelsToPurchase = Math.min(levelAmountSelected, maxPurchasableLevels)
-    }
+  const selectedPurchase = event.shiftKey || buyMax
+    ? await PurchasePrompt({
+      ...purchaseOptions,
+      title: upgrade.name(),
+      getLevel: () => upgrade.level,
+      getMaxLevel: () => upgrade.maxLevel,
+      resource: 'octeracts'
+    })
+    : initialPurchase
+  if (selectedPurchase === null || selectedPurchase.levels <= 0) {
+    return
   }
 
-  const cost = upgrade.costFormula(upgrade.level + levelsToPurchase) - upgrade.costFormula(upgrade.level)
+  const purchase = calculateSingularityUpgradePurchase(
+    {
+      ...purchaseOptions,
+      getBalance: () => Math.min(purchaseOptions.getBalance(), selectedPurchase.cost)
+    },
+    selectedPurchase.levels,
+    'levels'
+  )
+  if (purchase === null || purchase.levels <= 0) {
+    return Alert(i18next.t('singularity.goldenQuarks.poor'))
+  }
+
+  const { levels: levelsToPurchase, cost } = purchase
   player.wowOcteracts -= cost
   player.octUpgrades[upgradeKey].octeractsInvested += cost
   upgrade.level += levelsToPurchase

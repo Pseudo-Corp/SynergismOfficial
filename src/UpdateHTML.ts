@@ -10,6 +10,11 @@ import {
   ungroupedAchievementData,
   ungroupedAchievementKeys
 } from './Achievements'
+import {
+  calculateSingularityUpgradePurchase,
+  type SingularityUpgradePurchaseOptions,
+  type SingularityUpgradePurchaseQuote
+} from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   CalcCorruptionStuff,
@@ -1107,6 +1112,7 @@ export const Confirm = async (text: string) =>
 
     DOMCacheGetOrSet('alertWrapper').style.display = 'none'
     DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('purchasePromptWrapper').style.display = 'none'
 
     conf.style.display = 'block'
     confWrap.style.display = 'block'
@@ -1158,6 +1164,7 @@ export const Alert = (text: string): Promise<void> =>
 
     DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
     DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('purchasePromptWrapper').style.display = 'none'
 
     conf.style.display = 'block'
     alertWrap.style.display = 'block'
@@ -1196,6 +1203,7 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
 
     DOMCacheGetOrSet('alertWrapper').style.display = 'none'
     DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
+    DOMCacheGetOrSet('purchasePromptWrapper').style.display = 'none'
 
     conf.style.display = 'block'
     confWrap.style.display = 'block'
@@ -1240,6 +1248,118 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
     ok.addEventListener('click', listener, { once: true })
     cancel.addEventListener('click', listener, { once: true })
     popup.querySelector('input')!.addEventListener('keyup', kbListener)
+
+    return p.promise
+  })
+
+/** Buy levels of Singularity-tier upgrades by level count or resource budget. */
+export const PurchasePrompt = (
+  options: SingularityUpgradePurchaseOptions & {
+    title: string
+    getLevel: () => number
+    getMaxLevel: () => number
+    resource: 'goldenQuarks' | 'octeracts' | 'ambrosia' | 'redAmbrosia' | 'purpleAmbrosia'
+  }
+): Promise<SingularityUpgradePurchaseQuote | null> =>
+  queue.enqueue(() => {
+    const conf = DOMCacheGetOrSet('confirmationBox')
+    const confWrap = DOMCacheGetOrSet('purchasePromptWrapper')
+    const overlay = DOMCacheGetOrSet('transparentBG')
+    const ok = DOMCacheGetOrSet('ok_purchasePrompt') as HTMLButtonElement
+    const cancel = DOMCacheGetOrSet('cancel_purchasePrompt')
+    const levels = DOMCacheGetOrSet('purchasePromptLevels') as HTMLInputElement
+    const cost = DOMCacheGetOrSet('purchasePromptCost') as HTMLInputElement
+    const summary = DOMCacheGetOrSet('purchasePromptSummary')
+
+    DOMCacheGetOrSet('alertWrapper').style.display = 'none'
+    DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
+    DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+
+    conf.classList.add('purchaseConfirmation')
+    conf.style.display = 'block'
+    confWrap.style.display = 'block'
+    overlay.style.display = 'block'
+    DOMCacheGetOrSet('purchasePromptTitle').textContent = options.title
+    DOMCacheGetOrSet('purchasePromptLevel').textContent = i18next.t('general.levelWithRatio', {
+      level: format(options.getLevel(), 0, true),
+      max: format(options.getMaxLevel(), 0, true)
+    })
+    DOMCacheGetOrSet('purchasePromptCostLabel').textContent = i18next.t(
+      `general.purchasePrompt.resource.${options.resource}`
+    )
+    levels.focus()
+
+    const p = createDeferredPromise<SingularityUpgradePurchaseQuote | null>()
+    let quote: SingularityUpgradePurchaseQuote | null = null
+
+    const onInput = (event?: Event) => {
+      const field = event?.target as HTMLInputElement | undefined
+      const input = field === cost ? 'cost' : 'levels'
+      const value = field?.value.trim() ?? '1'
+      const amount = value === '' ? Number.NaN : Number(value)
+      quote = calculateSingularityUpgradePurchase(options, amount, input)
+      ok.disabled = quote === null || quote.levels === 0
+
+      if (field !== levels) levels.value = quote === null ? '' : format(quote.levels, 0, true)
+      if (field !== cost) cost.value = quote === null ? '' : format(quote.cost, 2, true)
+
+      if (value === '') {
+        summary.textContent = ''
+      } else if (quote === null) {
+        summary.textContent = i18next.t('general.purchasePrompt.invalid')
+      } else if (quote.levels === 0) {
+        summary.textContent = i18next.t('general.purchasePrompt.unavailable')
+      } else if (amount === -1 || amount > (input === 'levels' ? quote.levels : options.getBalance())) {
+        summary.textContent = i18next.t(`general.purchasePrompt.summary.${options.resource}`, {
+          levels: format(quote.levels, 0, true),
+          cost: format(quote.cost, 2, true)
+        })
+      } else {
+        summary.textContent = ''
+      }
+    }
+
+    const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
+      const targetEl = target as HTMLButtonElement
+
+      if (targetEl === ok && ok.disabled) return
+
+      ok.removeEventListener('click', listener)
+      cancel.removeEventListener('click', listener)
+      levels.removeEventListener('keyup', kbListener)
+      cost.removeEventListener('keyup', kbListener)
+      levels.removeEventListener('input', onInput)
+      cost.removeEventListener('input', onInput)
+
+      conf.style.display = 'none'
+      confWrap.style.display = 'none'
+      overlay.style.display = 'none'
+      conf.classList.remove('purchaseConfirmation')
+
+      p.resolve(targetEl.id === ok.id ? quote : null)
+
+      levels.value = cost.value = ''
+      levels.blur()
+      cost.blur()
+    }
+
+    const kbListener = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        return listener({ target: ok })
+      } else if (e.key === 'Escape') {
+        return listener({ target: cancel })
+      }
+
+      return e.preventDefault()
+    }
+
+    ok.addEventListener('click', listener, { once: true })
+    cancel.addEventListener('click', listener, { once: true })
+    levels.addEventListener('keyup', kbListener)
+    cost.addEventListener('keyup', kbListener)
+    levels.addEventListener('input', onInput)
+    cost.addEventListener('input', onInput)
+    onInput()
 
     return p.promise
   })
