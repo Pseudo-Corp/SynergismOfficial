@@ -9,7 +9,7 @@ const startTimestamp = new Date()
 
 const store = new Store<{ discordRpcEnabled: boolean }>({
   defaults: {
-    discordRpcEnabled: false
+    discordRpcEnabled: true
   }
 })
 
