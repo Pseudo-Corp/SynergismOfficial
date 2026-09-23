@@ -54,7 +54,7 @@ const arrayExtendGeneral = <T>(array: T[], blankArray: T[]): T[] => {
 
 const buyAmount = z.number().refine((arg) =>
   arg === 1 || arg === 10 || arg === 100 || arg === 1000 || arg === 10_000 || arg === 100_000
-).default(1)
+).default(1).catch(1)
 
 const leaderboardEntrySchema = z.object({
   elo: z.number(),
@@ -560,7 +560,9 @@ export const playerSchema = z.object({
   maxobtainiumpersecond: z.number().optional(),
   maxobtainium: z.number().optional(),
 
-  researches: z.number().array().transform((array) => arrayExtend(array, 'researches')),
+  researches: z.number().array().transform((array) =>
+    arrayExtend(array, 'researches').slice(0, blankSave.researches.length)
+  ),
 
   unlocks: z.record(z.string(), z.boolean()).transform((object) => {
     return Object.fromEntries(

@@ -2191,6 +2191,7 @@ const getFormatter = (
 }
 
 const zeroDecimalForFormatting = new Decimal()
+let warned = false
 
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
@@ -2202,20 +2203,24 @@ const zeroDecimalForFormatting = new Decimal()
  * @param truncate truncates insignificant digits if true
  */
 export const format = (
-  input:
-    | Decimal
-    | number
-    | null
-    | undefined,
+  input: Decimal | number,
   accuracy = 0,
   long = false,
   truncate = true
 ): string => {
   if (input == null) {
+    if (!warned) {
+      console.trace(input, accuracy, long, truncate)
+      warned = true
+    }
     return '0 [null]'
   }
 
   if (Number.isNaN(input)) {
+    if (!warned) {
+      console.trace(input, accuracy, long, truncate)
+      warned = true
+    }
     return '0 [NaN]'
   }
 

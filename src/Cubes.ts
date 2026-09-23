@@ -121,7 +121,7 @@ export const cubeUpgradeDesc = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
   })
   c.style.color = 'var(--green-text-color)'
   d.textContent = i18next.t('cubes.cubeMetadata.level', {
-    value1: format(player.cubeUpgrades[i], 0, true),
+    value1: format(player.cubeUpgrades[i]!, 0, true),
     value2: format(maxLevel, 0, true)
   })
   d.style.color = 'white'
@@ -167,7 +167,7 @@ export const cubeUpgradeModalHTML = (
     <div class="cubeUpgradeModalCost ${costClass}">${costText}</div>
     <div class="cubeUpgradeModalLevel ${levelClass}">${
     i18next.t('cubes.cubeMetadata.level', {
-      value1: format(player.cubeUpgrades[i], 0, true),
+      value1: format(player.cubeUpgrades[i]!, 0, true),
       value2: format(maxLevel, 0, true)
     })
   }</div>

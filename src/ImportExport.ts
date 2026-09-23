@@ -317,18 +317,23 @@ export const resetGame = async (force = true) => {
     }
   }
 
-  resetAchievements()
-  resetTalismanData('never')
-  resetRunes('never')
-  resetRuneBlessings('never')
-  resetRuneSpirits('never')
+  try {
+    resetAchievements()
+    resetTalismanData('never')
+    resetRunes('never')
+    resetRuneBlessings('never')
+    resetRuneSpirits('never')
+
+    // Reset Displays
+    resetAllSubTabs()
+    changeTab(Tabs.Buildings)
+    changeSubTab(Tabs.Buildings, { page: 0 })
+  } catch (error) {
+    console.error('Failed to reset state before deleting save', error)
+  }
 
   const hold = playerJsonSchema.safeParse(deepClone()(blankSave))
 
-  // Reset Displays
-  resetAllSubTabs()
-  changeTab(Tabs.Buildings)
-  changeSubTab(Tabs.Buildings, { page: 0 })
   // Import Game
   importSynergism(btoa(JSON.stringify(hold.data)), true)
 }
