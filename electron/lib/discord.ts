@@ -6,6 +6,7 @@ export type PresenceOptions = Omit<Presence, 'instance' | 'buttons'>
 
 const clientId = '1289263890445631581'
 const startTimestamp = new Date()
+const retryDelayMs = 15e3
 
 const store = new Store<{ discordRpcEnabled: boolean }>({
   defaults: {
@@ -14,12 +15,14 @@ const store = new Store<{ discordRpcEnabled: boolean }>({
 })
 
 let rpc: Client | null = null
+let retryTimeout: ReturnType<typeof setTimeout> | null = null
 let activityInterval: ReturnType<typeof setInterval> | null = null
 let options: PresenceOptions | undefined
+let activityPending = false
 let isReady = false
 
 async function setActivity () {
-  if (!options || !isReady || !rpc) return
+  if (!options || !activityPending || !isReady || !rpc) return
 
   try {
     await rpc.setActivity({
@@ -34,75 +37,90 @@ async function setActivity () {
       ]
     })
 
-    options = undefined
+    activityPending = false
   } catch (error) {
     console.error('[Discord RPC] Failed to set activity:', error)
   }
 }
 
-function createClient (): Client {
-  const client = new Client({ transport: 'ipc' })
-
-  client.on('error', (error) => {
-    console.error('[Discord RPC] Error:', error)
-  })
-
-  client.once('ready', () => {
-    console.log('[Discord RPC] Connected successfully')
-    isReady = true
-    setActivity()
-
-    // activity can only be set every 15 seconds
-    activityInterval = setInterval(() => {
-      setActivity()
-    }, 15e3)
-  })
-
-  return client
-}
-
-async function connectWithRetry (maxRetries = 3, delayMs = 5000): Promise<void> {
-  if (!rpc) return
-
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      await rpc.login({ clientId })
-      console.log('[Discord RPC] Login successful')
-      return
-    } catch (error) {
-      console.error(`[Discord RPC] Connection attempt ${attempt}/${maxRetries} failed:`, error)
-
-      if (attempt < maxRetries) {
-        console.log(`[Discord RPC] Retrying in ${delayMs / 1000} seconds...`)
-        await new Promise((resolve) => setTimeout(resolve, delayMs))
-      }
-    }
-  }
-
-  console.error('[Discord RPC] Failed to connect after all retries.')
-  console.error('[Discord RPC] Make sure Discord is running before launching the app.')
-}
-
-async function disconnect () {
+function stopActivity () {
   if (activityInterval) {
     clearInterval(activityInterval)
     activityInterval = null
   }
 
-  if (rpc) {
-    if (isReady) {
-      await rpc.clearActivity().catch((err) => console.error('[Discord RPC] Failed to clear activity:', err))
-    }
-    await rpc.destroy().catch((err) => console.error('[Discord RPC] Error destroying client:', err))
+  isReady = false
+}
+
+async function connect () {
+  retryTimeout = null
+
+  const client = new Client({ transport: 'ipc' })
+  rpc = client
+
+  client.on('error', (error) => {
+    console.error('[Discord RPC] Error:', error)
+  })
+
+  client.once('disconnected', () => {
+    if (rpc !== client) return
+
+    console.log('[Discord RPC] Disconnected, retrying...')
+    stopActivity()
     rpc = null
+    retryTimeout = setTimeout(connect, retryDelayMs)
+  })
+
+  try {
+    await client.login({ clientId })
+  } catch {
+    if (rpc === client) {
+      rpc = null
+      retryTimeout = setTimeout(connect, retryDelayMs)
+    }
+    client.destroy().catch(() => {})
+    return
   }
 
-  isReady = false
+  if (rpc !== client) {
+    client.destroy().catch(() => {})
+    return
+  }
+
+  console.log('[Discord RPC] Connected successfully')
+  isReady = true
+  activityPending = true
+  setActivity()
+
+  // activity can only be set every 15 seconds
+  activityInterval = setInterval(() => {
+    setActivity()
+  }, 15e3)
+}
+
+async function disconnect () {
+  if (retryTimeout) {
+    clearTimeout(retryTimeout)
+    retryTimeout = null
+  }
+
+  const client = rpc
+  const wasReady = isReady
+  rpc = null
+  stopActivity()
+
+  if (client) {
+    if (wasReady) {
+      await client.clearActivity().catch((err) => console.error('[Discord RPC] Failed to clear activity:', err))
+    }
+    await client.destroy().catch((err) => console.error('[Discord RPC] Error destroying client:', err))
+  }
 }
 
 {
   ipcMain.handle('discord:setRichPresence', (_, presence: PresenceOptions) => {
     options = presence
+    activityPending = true
 
     if (isReady) {
       setActivity().catch((err) => console.error('[Discord RPC] Failed to set activity:', err))
@@ -117,9 +135,8 @@ async function disconnect () {
     store.set('discordRpcEnabled', enabled)
 
     if (enabled) {
-      if (!rpc) {
-        rpc = createClient()
-        connectWithRetry()
+      if (!rpc && !retryTimeout) {
+        connect()
       }
     } else {
       disconnect()
@@ -129,7 +146,6 @@ async function disconnect () {
 
 export function startDiscordRpc () {
   if (store.get('discordRpcEnabled')) {
-    rpc = createClient()
-    connectWithRetry()
+    connect()
   }
 }
