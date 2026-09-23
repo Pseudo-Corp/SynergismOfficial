@@ -6832,7 +6832,7 @@
         "barIntro2": "Gain more time depending on your Luck! (+1s per 10,000 Ambrosia Luck / 2,000 Red Luck)",
         "barMod1": "<<var(--blueberry-text-color)|Ambrosia Bar: +{{secs}} seconds of Global Time>> (Requirement is fixed at <<var(--blueberry-text-color)|{{req}} ABP>>)",
         "barMod2": "<<red|Red Bar: +{{secs}} second of Ascension Time>> (Requirement is fixed at <<red|{{req}} RABP>>)",
-        "barMod3": "<<var(--purple-text-color)|Purple Bar: Immediately fill both bars>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
+        "barMod3": "<<var(--purple-text-color)|Purple Bar: Grants the effect of both bars once per 100 Purple Honey Luck, with remaining Luck giving a chance at +1>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
         "ScalingReward1": "<<var(--purple-text-color)|Purple Ambrosia Synthesis>> costs -5%",
         "ScalingReward2": "+1 <<var(--blueberry-text-color)|Blueberry>>. Yes, really.",
         "UniqueReward1": "1st - <<var(--purple-text-color)|+50 Purple Honey Luck>>. This will be changed, one day.",
