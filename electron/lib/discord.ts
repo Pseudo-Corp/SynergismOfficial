@@ -127,8 +127,9 @@ async function disconnect () {
   })
 }
 
-// Start connection if enabled
-if (store.get('discordRpcEnabled')) {
-  rpc = createClient()
-  connectWithRetry()
+export function startDiscordRpc () {
+  if (store.get('discordRpcEnabled')) {
+    rpc = createClient()
+    connectWithRetry()
+  }
 }

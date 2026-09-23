@@ -6,7 +6,7 @@ import { randomBytes, timingSafeEqual } from 'node:crypto'
 import fsp from 'node:fs/promises'
 import path from 'node:path'
 import { enableSteamOverlay, initializeSteam } from './lib/steam-ipc.ts'
-import './lib/discord.ts' // Discord RPC
+import { startDiscordRpc } from './lib/discord.ts'
 
 if (process.platform === 'darwin') {
   app.commandLine.appendSwitch('enable-gpu-rasterization')
@@ -21,9 +21,8 @@ if (process.platform === 'darwin') {
 
 // Single instance lock — on Windows/Linux, custom protocol URLs launch a new
 // instance. We grab the lock so the second instance can forward the URL to us.
-const gotTheLock = app.requestSingleInstanceLock()
-if (!gotTheLock) {
-  app.quit()
+if (!app.requestSingleInstanceLock()) {
+  process.exit(0)
 }
 
 app.setAsDefaultProtocolClient('synergism')
@@ -263,6 +262,8 @@ app.on('window-all-closed', () => {
 if (initializeSteam()) {
   enableSteamOverlay()
 }
+
+startDiscordRpc()
 
 // Window control IPC handlers
 ipcMain.handle('window:setSize', (_, width: number, height: number) => {
