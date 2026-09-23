@@ -120,6 +120,12 @@ async function handleProtocolUrl (raw: string): Promise<void> {
   }
 }
 
+function openExternal (url: URL) {
+  if (url.protocol === 'https:' || url.protocol === 'http:' || url.protocol === 'mailto:') {
+    shell.openExternal(url.toString())
+  }
+}
+
 function createWindow (): void {
   const windowState = windowStateKeeper({
     defaultWidth: 1920,
@@ -167,7 +173,7 @@ function createWindow (): void {
       const url = new URL(u)
       if (url.hostname !== 'synergism.cc') {
         event.preventDefault()
-        shell.openExternal(u)
+        openExternal(url)
       } else if (url.pathname.startsWith('/login')) {
         // OAuth login flows should go through the system browser so the
         // backend can redirect back via synergism:// protocol.
@@ -184,12 +190,12 @@ function createWindow (): void {
       const parsed = new URL(url)
       if (parsed.hostname === 'synergism.cc' && parsed.pathname.startsWith('/login')) {
         shell.openExternal(withAuthState(parsed))
-        return { action: 'deny' }
+      } else {
+        openExternal(parsed)
       }
     } catch {
     }
 
-    shell.openExternal(url)
     return { action: 'deny' }
   })
 
