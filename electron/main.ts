@@ -6,8 +6,8 @@ import { randomBytes, timingSafeEqual } from 'node:crypto'
 import fsp from 'node:fs/promises'
 import path from 'node:path'
 import { z } from 'zod'
-import { enableSteamOverlay, initializeSteam } from './lib/steam-ipc.ts'
 import { startDiscordRpc } from './lib/discord.ts'
+import { enableSteamOverlay, initializeSteam } from './lib/steam-ipc.ts'
 
 if (process.platform === 'darwin') {
   app.commandLine.appendSwitch('enable-gpu-rasterization')
@@ -245,18 +245,20 @@ app.whenReady().then(async () => {
     const url = new URL(request.url)
 
     if (url.hostname === 'synergism.cc') {
-      let filePath = url.pathname === '/' ? 'index.html' : url.pathname.replace(/^\//, '')
-      filePath = path.join(distPath, filePath)
-
       try {
-        const data = await fsp.readFile(filePath)
-        const ext = path.extname(filePath)
+        const relativePath = url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname.slice(1))
+        const filePath = path.resolve(distPath, relativePath)
 
-        return new Response(data, {
-          headers: {
-            'Content-Type': mimeTypes.contentType(ext) || 'application/octet-stream'
-          }
-        })
+        if (filePath.startsWith(distPath + path.sep)) {
+          const data = await fsp.readFile(filePath)
+          const ext = path.extname(filePath)
+
+          return new Response(data, {
+            headers: {
+              'Content-Type': mimeTypes.contentType(ext) || 'application/octet-stream'
+            }
+          })
+        }
       } catch {
       }
     }
