@@ -199,6 +199,19 @@ function createWindow (): void {
     return { action: 'deny' }
   })
 
+  let lastRendererCrash = 0
+
+  mainWindow.webContents.on('render-process-gone', (_event, details) => {
+    console.error('Renderer process gone:', details)
+    if (details.reason === 'clean-exit') return
+
+    const now = Date.now()
+    if (now - lastRendererCrash > 30_000) {
+      mainWindow?.webContents.reload()
+    }
+    lastRendererCrash = now
+  })
+
   mainWindow.on('closed', () => {
     mainWindow = null
   })
