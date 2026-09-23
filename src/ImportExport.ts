@@ -10,7 +10,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
 import { testing, version } from './Config'
 import { storageGetItem, storageSetItem } from './events/storage-events'
-import { addTimers } from './Helper'
+import { addTimers, runPurpleReactor } from './Helper'
 import { getFinalHepteractCap, hepteracts } from './Hepteracts'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -39,7 +39,6 @@ import { resetTalismanData } from './Talismans'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { cleanString, getElementById } from './Utility'
 import { btoa } from './Utility'
-import { Globals as G } from './Variables'
 
 const weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
 
@@ -776,8 +775,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
-      addTimers('ambrosia', blueberryTime)
-      addTimers('purpleHoney', blueberryTime)
+      runPurpleReactor(blueberryTime, 0, blueberryTime)
 
       if (player.highestSingularityCount >= 150) {
         player.goldenQuarkUpgrades.goldenQuarks1.freeLevel += 0.01 * realAttemptsUsed
@@ -835,8 +833,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
-      addTimers('ambrosia', blueberryTime)
-      addTimers('purpleHoney', blueberryTime)
+      runPurpleReactor(blueberryTime, 0, blueberryTime)
 
       await Alert(
         i18next.t('importexport.promocodes.add.reward', {
@@ -927,7 +924,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       }
 
       player.worlds.add(actualQuarkAward * rewardMult, false, true)
-      G.ambrosiaTimer += blueberryTime
+      runPurpleReactor(blueberryTime, 0, 0)
       const winText = i18next.t('importexport.promocodes.time.won', {
         time: format((end - start) / 1000, 2, true),
         x: format(actualQuarkAward * rewardMult, 0, true)

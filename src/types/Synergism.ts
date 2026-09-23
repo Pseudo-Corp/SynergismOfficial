@@ -738,9 +738,7 @@ export interface GlobalVariables {
   isEvent: boolean
   shopEnhanceVision: boolean
 
-  ambrosiaTimer: number
-  redAmbrosiaTimer: number
-  purpleHoneyTimer: number
+  purpleReactorTimer: number
   TIME_PER_AMBROSIA: number
   TIME_PER_RED_AMBROSIA: number
 

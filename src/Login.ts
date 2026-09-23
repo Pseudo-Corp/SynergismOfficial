@@ -1231,9 +1231,7 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     // Run many times because Purple Bar Points is a resource with dynamic /s gains.
     // Timer Things
     for (let i = 0; i < minutes; i++) {
-      addTimers('ambrosia', 60)
-      addTimers('redAmbrosia', 60)
-      addTimers('purpleHoney', 60)
+      addTimers('purpleReactor', 60)
     }
 
     const addedStats = {
