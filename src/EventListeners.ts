@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
-import { initializeAmbrosiaUpgradeLayout } from './AmbrosiaUI'
+import { initializeAmbrosiaLedgerModals, initializeAmbrosiaUpgradeLayout } from './AmbrosiaUI'
 import {
   ambrosiaEditAction,
   ambrosiaEditToString,
@@ -1965,6 +1965,7 @@ TODO: Fix this entire tab it's utter shit
 
   // BLUEBERRY UPGRADES
   initializeAmbrosiaUpgradeLayout()
+  initializeAmbrosiaLedgerModals()
 
   for (const key of ambrosiaUpgradeNames) {
     const element = DOMCacheGetOrSet(key)

@@ -7183,13 +7183,11 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #ambrosiaLedger {
-    container: ambrosia-ledger / inline-size;
     width: 100%;
     margin: 5px 0;
     color: var(--text-color);
     line-height: 1.2;
     font-variant-numeric: tabular-nums;
-    text-align: left;
 }
 
 #ambrosiaLedger p {
@@ -7200,61 +7198,57 @@ header #obtainiumDisplay { color: pink; }
     display: none;
 }
 
-.ambrosiaLedgerRow {
-    /* Reserve two comma-formatted nine-digit balances, plus the icon and its gap. */
-    display: grid;
-    grid-template-columns: min(50%, calc(24ch + 40px)) minmax(0, 1fr);
-    gap: 4px 12px;
+/* One card per resource: name, balance, luck, then luck modifiers. Cards share the width
+   equally with centered content, so the middle card sits at the center of the panel and the
+   outer cards span to its edges, matching the upgrade box below. */
+#ambrosiaResources {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+}
+
+.ambrosiaResource {
+    display: flex;
+    flex: 1 1 14em;
+    flex-direction: column;
     align-items: center;
-    padding: 3px 0;
-}
-
-.ambrosiaLedgerRow + .ambrosiaLedgerRow {
-    margin-top: 0.5em;
-}
-
-#redAmbrosiaDisplay {
-    margin-top: 0;
-    padding-top: 0;
-}
-
-.ambrosiaLedgerRow > div,
-.ambrosiaLedgerResource > div {
+    text-align: center;
+    gap: 2px;
     min-width: 0;
     overflow-wrap: anywhere;
 }
 
-.ambrosiaLedgerResource {
+/* The header and luck lines open detail modals on hover or focus. */
+.ambrosiaResourceHeader,
+.ambrosiaResourceLuck {
+    cursor: help;
+}
+
+.ambrosiaResourceHeader {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
-.ambrosiaLedgerGeneration {
-    text-align: right;
-}
-
-#ambrosiaAmountPerGeneration,
-#redAmbrosiaAmountPerGeneration {
-    font-size: 0.85em;
-}
-
-.ambrosiaLedgerBonuses {
-    grid-column: 1 / -1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px 16px;
-}
-
-.ambrosiaLedgerBonuses:not(:has(> :not([hidden]))) {
-    display: none;
-}
-
-.ambrosiaLedgerResource > img {
-    flex: 0 0 32px;
-    width: 32px;
-    height: 32px;
+.ambrosiaResourceHeader > img {
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
+}
+
+.ambrosiaResourceLuck {
+    color: var(--text-color);
+}
+
+.ambrosiaResourceModifiers {
+    color: var(--text-color);
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+#purpleAmbrosiaDisplay {
+    color: var(--purple-text-color);
 }
 
 .ambrosiaLedgerCurrent {
@@ -7267,35 +7261,95 @@ header #obtainiumDisplay { color: pink; }
     font-size: 0.85em;
 }
 
-#blueberryDisplay {
-    color: lightblue;
-}
-
 .ambrosiaLedgerEmpty .ambrosiaLedgerCurrent {
     color: var(--gray-text-color);
 }
 
-#purpleAmbrosiaDisplay {
+.ambrosiaDetailsList {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.ambrosiaDetailsList > p {
+    margin: 0;
+}
+
+/* Compact currency row in the upgrade grid: Red Ambrosia ends where the red upgrades end,
+   and Ambrosia and Blueberries start where the blueberry upgrades start. */
+#ambrosiaUpgradeCurrencies {
+    grid-row: 1;
+    grid-column: -2;
+    justify-self: start;
+    display: flex;
+    gap: 16px;
+}
+
+#ambrosiaUpgradeRedAmbrosia {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: end;
+}
+
+/* Centered over the Zodiac column; it may overhang that narrow column into the gaps. */
+#ambrosiaUpgradePurpleAmbrosia {
+    grid-row: 1;
+    grid-column: 2;
+    justify-self: center;
     color: var(--purple-text-color);
 }
 
-.ambrosiaLedgerBonuses > p {
+.ambrosiaUpgradeCurrency {
     display: flex;
-    flex-wrap: wrap;
-    column-gap: 0.5ch;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    font-size: 0.85em;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.ambrosiaUpgradeCurrency > img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.ambrosiaUpgradeCurrency[hidden] {
+    display: none;
+}
+
+#blueberryDisplay {
+    color: lightblue;
+}
+
+#blueberryDisplay > p {
+    margin: 0;
+}
+
+#blueberryDisplay .ambrosiaLedgerCurrent {
+    font-size: 1em;
+}
+
+#ambrosiaLedgerBars {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-top: 0.75em;
 }
 
 /* Text determines the bar height so large values can wrap without clipping. */
 .ambrosiaLedgerProgress {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: 50%;
+    width: 100%;
+    max-width: 48em;
     min-width: 0;
     min-height: 24px;
     position: relative;
     overflow: hidden;
     background-color: black;
-    border: 1px solid #006;
+    border: 1px solid #2a3f9f;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
 }
@@ -7310,17 +7364,41 @@ header #obtainiumDisplay { color: pink; }
     transition: transform 0.4s ease;
 }
 
-.ambrosiaLedgerProgress > span {
+#ambrosiaProgressText,
+#pixelProgressText {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: inherit;
-    padding: 0 4px;
+    padding: 0 96px;
     overflow-wrap: anywhere;
     color: white;
     font-weight: bold;
     text-align: center;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 80%);
+}
+
+/* Resources gained per fill, just right of the bar icon. */
+.ambrosiaLedgerProgressGain {
+    position: absolute;
+    top: 50%;
+    left: 28px;
+    color: white;
+    font-weight: bold;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 80%);
+    transform: translateY(-50%);
+}
+
+.ambrosiaLedgerProgress > img {
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    transform: translateY(-50%);
 }
 
 #pixelProgressBar {
@@ -7331,25 +7409,18 @@ header #obtainiumDisplay { color: pink; }
     background: linear-gradient(to right, maroon, red);
 }
 
-/* Stack based on the panel width, including when text is enlarged. */
-@container ambrosia-ledger (width <= 42em) {
-    .ambrosiaLedgerRow {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .ambrosiaLedgerGeneration {
-        text-align: left;
-    }
-
-    .ambrosiaLedgerProgress {
-        width: 100%;
-    }
-}
-
+/* The header and luck lines open modals on tap, so give them touch-sized targets. */
 @media (any-pointer: coarse) {
-    .ambrosiaLedgerProgress,
-    .ambrosiaLedgerBalance {
+    .ambrosiaLedgerProgress {
         min-height: 44px;
+    }
+
+    .ambrosiaResourceHeader {
+        min-height: 44px;
+    }
+
+    .ambrosiaResourceLuck {
+        padding-block: 12px;
     }
 }
 
@@ -8042,7 +8113,7 @@ header #obtainiumDisplay { color: pink; }
     grid-template-columns: var(--ambrosia-side-width);
     justify-content: center;
     align-items: start;
-    gap: 12px;
+    gap: 6px 12px;
     min-width: max-content;
     padding: 2px;
 }
@@ -8055,7 +8126,9 @@ header #obtainiumDisplay { color: pink; }
     grid-template-columns: var(--ambrosia-side-width) var(--ambrosia-zodiac-width) var(--ambrosia-side-width);
 }
 
+/* Sections sit below the currency row. */
 .ambrosiaUpgradeSection {
+    grid-row: 2;
     display: grid;
     grid-template-rows: repeat(6, var(--ambrosia-cell-size));
     align-content: start;
@@ -8070,14 +8143,14 @@ header #obtainiumDisplay { color: pink; }
     gap: var(--ambrosia-grid-gap);
 }
 
+/* Blueberries always take the last column. */
 #blueberryUpgradeGroups {
-    order: 1;
+    grid-column: -2;
     grid-template-columns: var(--ambrosia-cell-size) minmax(0, 1fr);
-    direction: ltr;
 }
 
 #redAmbrosiaUpgradeGroups {
-    order: -1;
+    grid-column: 1;
     direction: rtl;
 }
 
@@ -8104,6 +8177,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .ambrosiaUpgradeSection[data-ambrosia-kind="purple"] {
+    grid-column: 2;
     grid-template-columns: repeat(2, var(--ambrosia-cell-size));
 }
 

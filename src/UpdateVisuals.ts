@@ -125,6 +125,7 @@ import {
   goldenQuarkUpgrades,
   updateGoldenQuarkUpgradeVisibility
 } from './singularity'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { loadStatisticsUpdate, updateDisplayC15Rewards } from './Statistics'
 import {
   calculateBuildingPower,
@@ -216,6 +217,15 @@ const updateAmbrosiaLedgerBalance = (elementId: string, current: number, total: 
   element.title = description
   element.setAttribute('aria-label', description)
   element.classList.toggle('ambrosiaLedgerEmpty', blueberries && current === 0)
+}
+
+const updateAmbrosiaUpgradeCurrency = (elementId: string, amount: number, descriptionKey: string) => {
+  const formatted = format(amount, 0, true)
+  const element = DOMCacheGetOrSet(elementId)
+  DOMCacheGetOrSet(`${elementId}Amount`).textContent = formatted
+  const description = i18next.t(descriptionKey, { amount: formatted })
+  element.title = description
+  element.setAttribute('aria-label', description)
 }
 
 const updatePurpleReactantSlider = (sliderId: string, outputId: string, percentage: number) => {
@@ -2071,6 +2081,147 @@ export const visualUpdateOcteracts = () => {
   )
 }
 
+const ambrosiaFillReward = (luck: number) => ({
+  guaranteed: Math.floor(luck / 100),
+  chance: luck - 100 * Math.floor(luck / 100)
+})
+
+// Shows a range when the luck remainder gives a chance of one more on fill.
+const ambrosiaFillGainText = (guaranteed: number, chance: number) =>
+  chance > 0
+    ? i18next.t('ambrosia.ledger.fillGainRange', {
+      min: format(guaranteed, 0, true),
+      max: format(guaranteed + 1, 0, true)
+    })
+    : i18next.t('ambrosia.ledger.fillGain', { amount: format(guaranteed, 0, true) })
+
+const ambrosiaDetailsList = (lines: string[]) =>
+  `<div class="ambrosiaDetailsList">${
+    (lines.length > 0 ? lines : [i18next.t('ambrosia.ledger.noBonuses')])
+      .map((line) => `<p>${line}</p>`)
+      .join('')
+  }</div>`
+
+export const ambrosiaBonusesHTML = () => {
+  const lines = [
+    i18next.t('ambrosia.generatedCubeBonus', {
+      cubeBonus: formatAsPercentIncrease(
+        calculateAmbrosiaCubeMult()
+          * getShopUpgradeEffects('shopCashGrabUltra', 'cubesMult')
+          * getShopUpgradeEffects('shopEXUltra', 'cubeMult'),
+        2
+      )
+    }),
+    i18next.t('ambrosia.generatedQuarkBonus', {
+      quarkBonus: formatAsPercentIncrease(
+        calculateAmbrosiaQuarkMult() * getShopUpgradeEffects('shopCashGrabUltra', 'quarkMult'),
+        2
+      )
+    })
+  ]
+  if (player.shopUpgrades.shopEXUltra > 0) {
+    lines.push(
+      i18next.t('ambrosia.generatedOfferingBonus', {
+        offeringBonus: formatAsPercentIncrease(getShopUpgradeEffects('shopEXUltra', 'offeringMult'), 2)
+      }),
+      i18next.t('ambrosia.generatedObtainiumBonus', {
+        obtainiumBonus: formatAsPercentIncrease(getShopUpgradeEffects('shopEXUltra', 'obtainiumMult'), 2)
+      })
+    )
+  }
+  if (player.shopUpgrades.shopCashGrabUltra > 0) {
+    lines.push(
+      i18next.t('ambrosia.ledger.barBonus', {
+        percent: formatAsPercentIncrease(getShopUpgradeEffects('shopCashGrabUltra', 'ambrosiaGenerationMult'), 2)
+      })
+    )
+  }
+  return ambrosiaDetailsList(lines)
+}
+
+export const redAmbrosiaBonusesHTML = () => {
+  const lines: string[] = []
+  if (player.redAmbrosiaUpgrades.redAmbrosiaCube > 0) {
+    lines.push(
+      i18next.t('ambrosia.generatedCubeBonus', { cubeBonus: formatAsPercentIncrease(calculateRedAmbrosiaCubes(), 2) })
+    )
+  }
+  if (player.redAmbrosiaUpgrades.redAmbrosiaOffering > 0) {
+    lines.push(
+      i18next.t('ambrosia.generatedOfferingBonus', {
+        offeringBonus: formatAsPercentIncrease(calculateRedAmbrosiaOffering(), 2)
+      })
+    )
+  }
+  if (player.redAmbrosiaUpgrades.redAmbrosiaObtainium > 0) {
+    lines.push(
+      i18next.t('ambrosia.generatedObtainiumBonus', {
+        obtainiumBonus: formatAsPercentIncrease(calculateRedAmbrosiaObtainium(), 2)
+      })
+    )
+  }
+  if (player.cubeUpgrades[79] > 0) {
+    lines.push(i18next.t('ambrosia.generatedLuckBonus', { luckBonus: format(calculateCookieUpgrade29Luck(), 2, true) }))
+  }
+  return ambrosiaDetailsList(lines)
+}
+
+export const purpleAmbrosiaBonusesHTML = () => {
+  const lines: string[] = []
+  if (player.purpleAmbrosiaUpgrades.virgo > 0) {
+    lines.push(
+      i18next.t('ambrosia.ledger.virgoBonus', {
+        salvage: format(getPurpleAmbrosiaUpgradeEffects('virgo', 'assignedBlueberrySalvage'), 0, true)
+      })
+    )
+  }
+  if (player.highestSingularityCount >= 283) {
+    lines.push(
+      i18next.t('ambrosia.ledger.honeyBonus', {
+        honey: format(calculateEfficientBlueberryPurpleEfficiency(), 2, true)
+      })
+    )
+  }
+  if (player.purpleAmbrosiaUpgrades.leo > 0) {
+    const availableBlueberries = calculateBlueberryInventory() - player.spentBlueberries
+    lines.push(
+      availableBlueberries >= 5
+        ? i18next.t('ambrosia.ledger.leoBonus', {
+          luck: format(getPurpleAmbrosiaUpgradeEffects('leo', 'unassignedBlueberyLuck'), 0, true)
+        })
+        : i18next.t('ambrosia.ledger.leoInactive')
+    )
+  }
+  return ambrosiaDetailsList(lines)
+}
+
+export const ambrosiaLuckHTML = () => {
+  const { guaranteed, chance } = ambrosiaFillReward(calculateAmbrosiaRewardLuck())
+  const bonusAmbrosia = getSingularityChallengeEffect('noAmbrosiaUpgrades', 'bonusAmbrosia')
+  const lines = [
+    i18next.t('ambrosia.ledger.perFill', {
+      guaranteed: format(guaranteed + bonusAmbrosia, 0, true),
+      extraChance: format(chance, 0, true)
+    }),
+    i18next.t('ambrosia.ledger.luckExplanation')
+  ]
+  if (bonusAmbrosia > 0) {
+    lines.push(i18next.t('ambrosia.ledger.noAmbrosiaUpgradesBonus', { amount: format(bonusAmbrosia, 0, true) }))
+  }
+  return ambrosiaDetailsList(lines)
+}
+
+export const redAmbrosiaLuckHTML = () => {
+  const { guaranteed, chance } = ambrosiaFillReward(calculateRedAmbrosiaRewardLuck())
+  return ambrosiaDetailsList([
+    i18next.t('ambrosia.ledger.redPerFill', {
+      guaranteed: format(guaranteed, 0, true),
+      extraChance: format(chance, 0, true)
+    }),
+    i18next.t('ambrosia.ledger.redLuckExplanation')
+  ])
+}
+
 export const visualUpdateAmbrosia = () => {
   if (G.currentTab !== Tabs.Singularity) {
     return
@@ -2079,18 +2230,16 @@ export const visualUpdateAmbrosia = () => {
   const redUnlocked = player.singularityChallenges.noAmbrosiaUpgrades.completions > 0
   const purpleUnlocked = player.singularityChallenges.taxmanLastStand.completions > 0
   DOMCacheGetOrSet('redAmbrosiaDisplay').hidden = !redUnlocked
+  DOMCacheGetOrSet('pixelProgressBar').hidden = !redUnlocked
+  DOMCacheGetOrSet('ambrosiaUpgradeRedAmbrosia').hidden = !redUnlocked
+  DOMCacheGetOrSet('ambrosiaUpgradePurpleAmbrosia').hidden = !purpleUnlocked
   DOMCacheGetOrSet('purpleAmbrosiaDisplay').hidden = !purpleUnlocked
 
   const twoMindEnabled = getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')
   const luck = calculateAmbrosiaRewardLuck()
-  const baseLuck = calculateAmbrosiaLuckRaw()
-  const luckBonusPercent = 100 * (calculateAmbrosiaAdditiveLuckMult() - 1)
-  const guaranteed = Math.floor(luck / 100)
-  const chance = luck - 100 * Math.floor(luck / 100)
-
   const luckRed = calculateRedAmbrosiaRewardLuck()
-  const guaranteedRed = Math.floor(luckRed / 100)
-  const chanceRed = luckRed - 100 * Math.floor(luckRed / 100)
+  const fillReward = ambrosiaFillReward(luck)
+  const fillRewardRed = ambrosiaFillReward(luckRed)
 
   const requiredTime = calculateRequiredBlueberryTime()
   const requiredTimeRed = calculateRequiredRedAmbrosiaTime()
@@ -2108,14 +2257,6 @@ export const visualUpdateAmbrosia = () => {
     player.singularityChallenges.noSingularityUpgrades.completions > 0 ? totalTimePerSecond : 0,
     player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? totalTimePerSecondRed : 0
   )
-  const ambCubeBonus = calculateAmbrosiaCubeMult()
-    * getShopUpgradeEffects('shopCashGrabUltra', 'cubesMult')
-    * getShopUpgradeEffects('shopEXUltra', 'cubeMult')
-  const ambQuarkBonus = calculateAmbrosiaQuarkMult() * getShopUpgradeEffects('shopCashGrabUltra', 'quarkMult')
-  const redAmbCubeBonus = calculateRedAmbrosiaCubes()
-  const redAmbObtBonus = calculateRedAmbrosiaObtainium()
-  const redAmbOffBonus = calculateRedAmbrosiaOffering()
-  const redAmbLuckBonus = calculateCookieUpgrade29Luck()
 
   DOMCacheGetOrSet('ambrosiaProgress').style.transform = `scaleX(${ambrosiaProgress})`
   let ambrosiaProgressDescription: string
@@ -2127,6 +2268,10 @@ export const visualUpdateAmbrosia = () => {
       required: format(requiredTime, 0, true),
       rate: format(ambrosiaRouting.regularRate, 0, true)
     })
+    DOMCacheGetOrSet('ambrosiaProgressGain').textContent = ambrosiaFillGainText(
+      fillReward.guaranteed + getSingularityChallengeEffect('noAmbrosiaUpgrades', 'bonusAmbrosia'),
+      fillReward.chance
+    )
     ambrosiaProgressDescription = i18next.t('ambrosia.ledger.progressPoints', {
       current: format(player.blueberryTime, 0, true, false),
       required: format(requiredTime, 0, true),
@@ -2134,6 +2279,7 @@ export const visualUpdateAmbrosia = () => {
     })
   } else {
     DOMCacheGetOrSet('ambrosiaProgressText').textContent = i18next.t('ambrosia.ledger.generationLocked')
+    DOMCacheGetOrSet('ambrosiaProgressGain').textContent = ''
     ambrosiaProgressDescription = i18next.t('ambrosia.notUnlocked')
   }
 
@@ -2145,6 +2291,10 @@ export const visualUpdateAmbrosia = () => {
       required: format(requiredTimeRed, 0, true),
       rate: format(redAmbrosiaRouting.regularRate, 2, true)
     })
+    DOMCacheGetOrSet('pixelProgressGain').textContent = ambrosiaFillGainText(
+      fillRewardRed.guaranteed,
+      fillRewardRed.chance
+    )
     redAmbrosiaProgressDescription = i18next.t('ambrosia.ledger.progressPoints', {
       current: format(player.redAmbrosiaTime, 0, true, false),
       required: format(requiredTimeRed, 0, true),
@@ -2152,6 +2302,7 @@ export const visualUpdateAmbrosia = () => {
     })
   } else {
     DOMCacheGetOrSet('pixelProgressText').textContent = i18next.t('ambrosia.ledger.generationLocked')
+    DOMCacheGetOrSet('pixelProgressGain').textContent = ''
     redAmbrosiaProgressDescription = i18next.t('redAmbrosia.notUnlocked')
   }
   updateProgressBarAccessibility(
@@ -2169,133 +2320,37 @@ export const visualUpdateAmbrosia = () => {
   updateAmbrosiaLedgerBalance('redAmbrosiaAmount', player.redAmbrosia, player.lifetimeRedAmbrosia)
   updateAmbrosiaLedgerBalance('purpleAmbrosiaAmount', player.purpleAmbrosia, player.lifetimePurpleAmbrosia)
   updateAmbrosiaLedgerBalance('blueberryAmount', availableBlueberries, totalBlueberries, true)
-
-  DOMCacheGetOrSet('ambrosiaCubeBonus').innerHTML = i18next.t(
-    'ambrosia.generatedCubeBonus',
-    {
-      cubeBonus: formatAsPercentIncrease(ambCubeBonus, 2)
-    }
-  )
-  DOMCacheGetOrSet('ambrosiaQuarkBonus').innerHTML = i18next.t(
-    'ambrosia.generatedQuarkBonus',
-    {
-      quarkBonus: formatAsPercentIncrease(ambQuarkBonus, 2)
-    }
+  updateAmbrosiaUpgradeCurrency('ambrosiaUpgradeAmbrosia', player.ambrosia, 'ambrosia.ledger.upgradeAmbrosia')
+  updateAmbrosiaUpgradeCurrency('ambrosiaUpgradeRedAmbrosia', player.redAmbrosia, 'ambrosia.ledger.upgradeRedAmbrosia')
+  updateAmbrosiaUpgradeCurrency(
+    'ambrosiaUpgradePurpleAmbrosia',
+    player.purpleAmbrosia,
+    'ambrosia.ledger.upgradePurpleAmbrosia'
   )
 
-  DOMCacheGetOrSet('redAmbrosiaCubeBonus').hidden = player.redAmbrosiaUpgrades.redAmbrosiaCube === 0
-  DOMCacheGetOrSet('redAmbrosiaObtainiumBonus').hidden = player.redAmbrosiaUpgrades.redAmbrosiaObtainium === 0
-  DOMCacheGetOrSet('redAmbrosiaOfferingBonus').hidden = player.redAmbrosiaUpgrades.redAmbrosiaOffering === 0
-  DOMCacheGetOrSet('redAmbrosiaLuckBonus').hidden = player.cubeUpgrades[79] === 0
-
-  DOMCacheGetOrSet('redAmbrosiaCubeBonus').innerHTML = i18next.t(
-    'ambrosia.generatedCubeBonus',
-    {
-      cubeBonus: formatAsPercentIncrease(redAmbCubeBonus, 2)
-    }
-  )
-
-  DOMCacheGetOrSet('redAmbrosiaObtainiumBonus').innerHTML = i18next.t(
-    'ambrosia.generatedObtainiumBonus',
-    {
-      obtainiumBonus: formatAsPercentIncrease(redAmbObtBonus, 2)
-    }
-  )
-
-  DOMCacheGetOrSet('redAmbrosiaOfferingBonus').innerHTML = i18next.t(
-    'ambrosia.generatedOfferingBonus',
-    {
-      offeringBonus: formatAsPercentIncrease(redAmbOffBonus, 2)
-    }
-  )
-
-  DOMCacheGetOrSet('redAmbrosiaLuckBonus').innerHTML = i18next.t(
-    'ambrosia.generatedLuckBonus',
-    {
-      luckBonus: format(redAmbLuckBonus, 2, true)
-    }
-  )
-
-  DOMCacheGetOrSet('ambrosiaAmountPerGeneration').innerHTML = i18next.t(
-    'ambrosia.ledger.perFill',
-    {
-      guaranteed: format(guaranteed, 0, true),
-      extraChance: format(chance, 0, true)
-    }
-  )
-
-  DOMCacheGetOrSet('redAmbrosiaAmountPerGeneration').innerHTML = i18next.t(
-    'ambrosia.ledger.redPerFill',
-    {
-      guaranteed: format(guaranteedRed, 0, true),
-      extraChance: format(chanceRed, 0, true)
-    }
-  )
-
+  updateInnerHTMLIfChanged('ambrosiaLuck', i18next.t('ambrosia.ledger.luck', { luck: format(luck, 0, true) }))
   updateInnerHTMLIfChanged(
-    'ambrosiaLuck',
-    i18next.t(twoMindEnabled ? 'ambrosia.ledger.luckTwoMind' : 'ambrosia.ledger.luck', {
-      luck: format(luck, 0, true),
-      unmodifiedLuck: format(calculateAmbrosiaLuck(), 0, true),
-      base: format(baseLuck, 0, true),
-      percent: format(luckBonusPercent, 2, true)
-    })
-  )
-  updateInnerHTMLIfChanged(
-    'redAmbrosiaLuck',
-    i18next.t(twoMindEnabled ? 'ambrosia.ledger.redLuckTwoMind' : 'ambrosia.ledger.redLuck', {
-      luck: format(luckRed, 0, true),
-      unmodifiedLuck: format(calculateRedAmbrosiaLuck(), 0, true)
-    })
-  )
-
-  const ambOfferingBonus = getShopUpgradeEffects('shopEXUltra', 'offeringMult')
-  DOMCacheGetOrSet('ambrosiaBarBonus').hidden = player.shopUpgrades.shopCashGrabUltra === 0
-  updateInnerHTMLIfChanged(
-    'ambrosiaBarBonus',
-    i18next.t('ambrosia.ledger.barBonus', {
-      percent: formatAsPercentIncrease(getShopUpgradeEffects('shopCashGrabUltra', 'ambrosiaGenerationMult'), 2)
-    })
-  )
-  const ambObtainiumBonus = getShopUpgradeEffects('shopEXUltra', 'obtainiumMult')
-  DOMCacheGetOrSet('ambrosiaOfferingBonus').hidden = player.shopUpgrades.shopEXUltra === 0
-  DOMCacheGetOrSet('ambrosiaObtainiumBonus').hidden = player.shopUpgrades.shopEXUltra === 0
-  updateInnerHTMLIfChanged(
-    'ambrosiaOfferingBonus',
-    i18next.t('ambrosia.generatedOfferingBonus', {
-      offeringBonus: formatAsPercentIncrease(ambOfferingBonus, 2)
-    })
-  )
-  updateInnerHTMLIfChanged(
-    'ambrosiaObtainiumBonus',
-    i18next.t('ambrosia.generatedObtainiumBonus', {
-      obtainiumBonus: formatAsPercentIncrease(ambObtainiumBonus, 2)
-    })
-  )
-
-  DOMCacheGetOrSet('blueberryLeoBonus').hidden = !purpleUnlocked || player.purpleAmbrosiaUpgrades.leo === 0
-  updateInnerHTMLIfChanged(
-    'blueberryLeoBonus',
-    availableBlueberries >= 5
-      ? i18next.t('ambrosia.ledger.leoBonus', {
-        luck: format(getPurpleAmbrosiaUpgradeEffects('leo', 'unassignedBlueberyLuck'), 0, true)
+    'ambrosiaLuckModifiers',
+    twoMindEnabled
+      ? i18next.t('ambrosia.ledger.twoMindModifier', {
+        unmodifiedLuck: format(calculateAmbrosiaLuck(), 0, true)
       })
-      : i18next.t('ambrosia.ledger.leoInactive')
+      : i18next.t('ambrosia.ledger.luckModifiers', {
+        base: format(calculateAmbrosiaLuckRaw(), 0, true),
+        percent: format(100 * (calculateAmbrosiaAdditiveLuckMult() - 1), 2, true)
+      })
   )
-  DOMCacheGetOrSet('blueberryVirgoBonus').hidden = !purpleUnlocked || player.purpleAmbrosiaUpgrades.virgo === 0
-  updateInnerHTMLIfChanged(
-    'blueberryVirgoBonus',
-    i18next.t('ambrosia.ledger.virgoBonus', {
-      salvage: format(getPurpleAmbrosiaUpgradeEffects('virgo', 'assignedBlueberrySalvage'), 0, true)
-    })
-  )
-  DOMCacheGetOrSet('blueberryHoneyBonus').hidden = !purpleUnlocked || player.highestSingularityCount < 283
-  updateInnerHTMLIfChanged(
-    'blueberryHoneyBonus',
-    i18next.t('ambrosia.ledger.honeyBonus', {
-      honey: format(calculateEfficientBlueberryPurpleEfficiency(), 2, true)
-    })
-  )
+
+  updateInnerHTMLIfChanged('redAmbrosiaLuck', i18next.t('ambrosia.ledger.redLuck', { luck: format(luckRed, 0, true) }))
+  DOMCacheGetOrSet('redAmbrosiaLuckModifiers').hidden = !twoMindEnabled
+  if (twoMindEnabled) {
+    updateInnerHTMLIfChanged(
+      'redAmbrosiaLuckModifiers',
+      i18next.t('ambrosia.ledger.redTwoMindModifier', {
+        unmodifiedLuck: format(calculateRedAmbrosiaLuck(), 0, true)
+      })
+    )
+  }
 }
 
 export const visualUpdatePurple = () => {
