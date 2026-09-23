@@ -589,8 +589,8 @@ export const buyPurpleAmbrosiaUpgradeLevel = async (
 
   const { levels: levelsToPurchase, cost } = purchase
   player.purpleAmbrosia -= cost
-  player.purpleAmbrosiaUpgrades[upgradeKey] += cost
   upgrade.level += levelsToPurchase
+  player.purpleAmbrosiaUpgrades[upgradeKey] = upgrade.costFormula(upgrade.level)
 
   if (levelsToPurchase > 1) {
     return Alert(i18next.t('octeract.buyLevel.multiBuy', { n: format(levelsToPurchase) }))

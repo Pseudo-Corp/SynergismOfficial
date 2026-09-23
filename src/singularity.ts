@@ -2393,6 +2393,8 @@ export const maximumAffordableLevel = (upgradeKey: SingularityDataKeys, goldenQu
   return low
 }
 
+const gqLevelReconstructionTolerance = 1e-10
+
 export const setGQUpgradeLevels = () => {
   for (const upgradeKey of goldenQuarkUpgradeNames) {
     const upgrade = goldenQuarkUpgrades[upgradeKey]
@@ -2400,7 +2402,10 @@ export const setGQUpgradeLevels = () => {
 
     upgrade.level = 0
 
-    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, 0)
+    // Accumulated purchase costs can round slightly below the cumulative level cost once costs
+    // exceed 2^53, so the tolerance must be relative. It is far below the smallest relative
+    // cost step of any upgrade (~2e-5 for uncapped Default upgrades at level 1e6).
+    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, oldInvested * gqLevelReconstructionTolerance)
     const totalCost = getGQUpgradeCumulativeCost(upgradeKey, maxAffordableLevel)
 
     upgrade.level = maxAffordableLevel
@@ -2489,8 +2494,11 @@ export async function buyGQUpgradeLevel (
 
   const { levels: levelsToPurchase, cost } = purchase
   player.goldenQuarks -= cost
-  player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested += cost
   goldenQuarkUpgrades[upgradeKey].level += levelsToPurchase
+  player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested = getGQUpgradeCumulativeCost(
+    upgradeKey,
+    goldenQuarkUpgrades[upgradeKey].level
+  )
 
   if (upgradeKey === 'oneMind') {
     player.ascensionCounter = 0

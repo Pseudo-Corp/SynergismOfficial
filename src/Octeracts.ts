@@ -1029,6 +1029,8 @@ export const maximumAffordableLevel = (upgradeKey: OcteractUpgrades, octeractAmo
   return low
 }
 
+const octeractLevelReconstructionTolerance = 1e-10
+
 export const setOcteractUpgradeLevels = (): void => {
   for (const upgradeKey of octeractUpgradeNames) {
     const upgrade = octeractUpgrades[upgradeKey]
@@ -1036,7 +1038,10 @@ export const setOcteractUpgradeLevels = (): void => {
 
     upgrade.level = 0
 
-    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, 0)
+    // Accumulated purchase costs can round slightly below the cumulative level cost.
+    // Costs span ~1e-15 to ~1e103, so the tolerance must be relative. It is far below the
+    // smallest relative cost step of any upgrade (~6e-8 for octeractGain at max level).
+    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, oldInvested * octeractLevelReconstructionTolerance)
     const totalCost = upgrade.costFormula(maxAffordableLevel)
 
     upgrade.level = maxAffordableLevel
@@ -1263,8 +1268,8 @@ export const buyOcteractUpgradeLevel = async (
 
   const { levels: levelsToPurchase, cost } = purchase
   player.wowOcteracts -= cost
-  player.octUpgrades[upgradeKey].octeractsInvested += cost
   upgrade.level += levelsToPurchase
+  player.octUpgrades[upgradeKey].octeractsInvested = upgrade.costFormula(upgrade.level)
   updateTokens()
   updateMaxTokens()
   if (levelsToPurchase > 1) {
