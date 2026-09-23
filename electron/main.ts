@@ -5,6 +5,7 @@ import mimeTypes from 'mime-types'
 import { randomBytes, timingSafeEqual } from 'node:crypto'
 import fsp from 'node:fs/promises'
 import path from 'node:path'
+import { z } from 'zod'
 import { enableSteamOverlay, initializeSteam } from './lib/steam-ipc.ts'
 import { startDiscordRpc } from './lib/discord.ts'
 
@@ -285,10 +286,15 @@ if (initializeSteam()) {
 startDiscordRpc()
 
 // Window control IPC handlers
-ipcMain.handle('window:setSize', (_, width: number, height: number) => {
+const windowDimensionSchema = z.number().int().positive()
+const zoomFactorSchema = z.number().min(0.5).max(3)
+
+ipcMain.handle('window:setSize', (_, width: unknown, height: unknown) => {
   if (!mainWindow) return
+  const parsedWidth = windowDimensionSchema.parse(width)
+  const parsedHeight = windowDimensionSchema.parse(height)
   if (mainWindow.isMaximized()) mainWindow.unmaximize()
-  mainWindow.setSize(width, height)
+  mainWindow.setSize(parsedWidth, parsedHeight)
   mainWindow.center()
 })
 
@@ -298,10 +304,11 @@ ipcMain.handle('window:getSize', () => {
   return { width, height }
 })
 
-ipcMain.handle('window:setZoomFactor', (_, factor: number) => {
+ipcMain.handle('window:setZoomFactor', (_, factor: unknown) => {
   if (!mainWindow) return
-  mainWindow.webContents.setZoomFactor(factor)
-  settingsStore.set('zoomFactor', factor)
+  const parsedFactor = zoomFactorSchema.parse(factor)
+  mainWindow.webContents.setZoomFactor(parsedFactor)
+  settingsStore.set('zoomFactor', parsedFactor)
 })
 
 ipcMain.handle('window:getZoomFactor', () => {
