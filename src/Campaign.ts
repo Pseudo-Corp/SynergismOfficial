@@ -5,6 +5,7 @@ import { inheritanceTokens, singularityBonusTokenMult } from './Calculate'
 import {
   corrIcons,
   CorruptionLoadout,
+  corruptionLoadoutTableUpdate,
   type Corruptions,
   corruptionsSchema,
   corruptionStatsUpdate,
@@ -1615,6 +1616,7 @@ const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
   saveLoadoutButton.textContent = i18next.t('campaigns.saveLoadout')
   saveLoadoutButton.addEventListener('click', () => {
     player.corruptions.next = new CorruptionLoadout(usableCorruption.loadout)
+    corruptionLoadoutTableUpdate(true, 0)
     corruptionStatsUpdate()
     Notification(i18next.t('campaigns.saveLoadoutNotification', { name: i18next.t(`campaigns.data.${key}.name`) }))
   })
