@@ -4351,11 +4351,11 @@
       },
       "superStart": {
         "name": "Super Start",
-        "hasLevel4": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, num:((2.22e2222)) Particles and 500 Obtainium",
-        "hasLevel3": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, num:((1e100)) Particles and 500 Obtainium",
-        "hasLevel2": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, num:((1e16)) Particles and 500 Obtainium",
-        "hasLevel1": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos and 10 Particles",
-        "default": "You start each Ascension with 1 Transcension and 1001 Mythos"
+        "hasLevel4": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1 Worker, 1001 Mythos, num:((2.22e2222)) Particles, 500 Obtainium and Reincarnation upgrades 1-5 unlocked",
+        "hasLevel3": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1 Worker, 1001 Mythos, num:((1e100)) Particles, 500 Obtainium and Reincarnation upgrades 1-5 unlocked",
+        "hasLevel2": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1 Worker, 1001 Mythos, num:((1e16)) Particles, 500 Obtainium and Reincarnation upgrades 1-5 unlocked",
+        "hasLevel1": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1 Worker, 1001 Mythos, 10 Particles and Reincarnation upgrades 1-5 unlocked",
+        "default": "You start each Ascension with 1 Transcension, 1 Worker and 1001 Mythos"
       },
       "notSoChallenging": {
         "name": "Not So Challenging",
