@@ -3915,7 +3915,9 @@
     "hoverToBuyOn": "Hover-to-Buy [ON]",
     "hoverToBuyOff": "Hover-to-Buy [OFF]",
     "hover": "Hover over the grid to get details about Research!",
-    "resets": "Resets upon the next reset tier.",
+    "resets": "Resets upon the next Reset Tier.",
+    "resetsOnAscension": "Resets upon <<orange|Ascension>>.",
+    "resetsOnSingularity": "Resets upon <span class=\"rainbowText\">Singularity</span>.",
     "doesNotReset": "NEVER resets!"
   },
   "shop": {
@@ -4411,8 +4413,8 @@
       },
       "coolQOLCubes": {
         "name": "Cool QoL Cubes",
-        "hasLevel1": "Keep all Cube Opening Researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
-        "default": "Researches related to opening cubes will no longer reset on Ascension"
+        "hasLevel1": "Keep all Cube Researches through Singularity AND gain the ability to automatically open a percentage of your cubes each Ascension!",
+        "default": "Researches related to Cubes will no longer reset on Singularity"
       },
       "irishAnt": {
         "name": "Irish Ants",

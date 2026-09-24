@@ -2,7 +2,7 @@ import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { getResetResearches } from './Reset'
+import { cubeResearches, getResetResearches } from './Reset'
 import { runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff } from './singularity'
@@ -390,6 +390,7 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
     y: researchData[index].maxLevel
   })
   const resets = getResetResearches().includes(index)
+  const resetsOnSingularity = cubeResearches.includes(index) && player.highestSingularityCount < 25
 
   return {
     description,
@@ -398,9 +399,26 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
     levelText,
     levelColor,
     obtainiumCost,
-    resetText: resets ? i18next.t('researches.resets') : i18next.t('researches.doesNotReset'),
+    resetText: resets
+      ? getAscensionResetText()
+      : resetsOnSingularity
+      ? getSingularityResetText()
+      : i18next.t('researches.doesNotReset'),
     resets
   }
+}
+
+// Only name the reset tier once the player has reached it
+const getAscensionResetText = () => {
+  return player.highestchallengecompletions[10] > 0
+    ? i18next.t('researches.resetsOnAscension')
+    : i18next.t('researches.resets')
+}
+
+const getSingularityResetText = () => {
+  return runes.antiquities.level > 0 || player.highestSingularityCount > 0
+    ? i18next.t('researches.resetsOnSingularity')
+    : i18next.t('researches.resets')
 }
 
 const updateResearchButtonState = (index: number, obtainiumCost: Decimal) => {
@@ -486,7 +504,7 @@ export const researchDescriptions = (index: number, auto = false, buyMaxOverride
   DOMCacheGetOrSet('researchinfo3').textContent = details.levelText
   const resetInfo = DOMCacheGetOrSet('researchinfo4')
 
-  resetInfo.textContent = details.resetText
+  resetInfo.innerHTML = details.resetText
   if (details.resets) {
     resetInfo.classList.remove('crimsonText')
   } else {

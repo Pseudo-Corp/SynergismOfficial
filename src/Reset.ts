@@ -1142,6 +1142,11 @@ export const singularity = (setSingNumber = -1) => {
     hold.worlds = Number(player.worlds)
   }
 
+  if (player.highestSingularityCount >= 25) {
+    for (const index of cubeResearches) {
+      hold.researches[index] = player.researches[index]
+    }
+  }
   hold.goldenQuarkUpgrades = { ...player.goldenQuarkUpgrades }
   hold.octUpgrades = { ...player.octUpgrades }
   hold.ambrosiaUpgrades = { ...player.ambrosiaUpgrades }
@@ -1374,6 +1379,10 @@ const resetUpgrades = (i: number) => {
   }
 }
 
+// Researches which boost Wow! Cube gain or Cube opening. These never reset on Ascension,
+// and are kept through Singularity once the Cool QoL Cubes perk (Singularity 25) is unlocked
+export const cubeResearches = [137, 138, 152, 153, 167, 168, 182, 183, 192, 197, 198]
+
 export const getResetResearches = () => {
   // Array listing all the research indexes deserving of removal
   // dprint-ignore
@@ -1383,14 +1392,10 @@ export const getResetResearches = () => {
     51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 62, 63, 64, 65,
     76, 81, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 96, 97, 98,
     101, 102, 103, 104, 106, 107, 108, 109, 110, 116, 117, 118, 121, 122, 123,
-    126, 127, 128, 129, 131, 132, 133, 134, 136, 137, 139, 141, 142, 143, 144, 146, 147, 148,
-    149, 151, 152, 154, 156, 157, 158, 159, 161, 162, 163, 164, 166, 167, 169, 171, 172, 173, 174,
-    176, 177, 178, 179, 181, 182, 184, 186, 187, 188, 189, 191, 192, 193, 194, 196, 197, 199
+    126, 127, 128, 129, 131, 132, 133, 134, 136, 139, 141, 142, 143, 144, 146, 147, 148,
+    149, 151, 154, 156, 157, 158, 159, 161, 162, 163, 164, 166, 169, 171, 172, 173, 174,
+    176, 177, 178, 179, 181, 184, 186, 187, 188, 189, 191, 193, 194, 196, 199
   ]
-
-  if (player.highestSingularityCount < 25) {
-    destroy.push(138, 153, 168, 183, 198)
-  }
 
   return destroy
 }
