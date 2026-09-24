@@ -4652,7 +4652,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         if (player.toggles[41]) {
           void Notification(i18next.t('main.allCorruptionsZero'), 5000)
         }
-        player.corruptions.next.resetCorruptions()
+        player.corruptions.next.resetCorruptions(true)
       }
       event.preventDefault()
     }
