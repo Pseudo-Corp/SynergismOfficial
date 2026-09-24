@@ -855,14 +855,12 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
 
   G.timeMultiplier = calculateGlobalSpeedMult()
 
-  let obtainiumGain = calculateResearchAutomaticObtainium(timeAdd)
-
   const resetAdd = {
     prestige: (player.prestigeCount > 0) ? timeAdd / Math.max(0.25, player.fastestprestige) : 0,
     offering: Math.floor(timeAdd),
     transcension: (player.transcendCount > 0) ? timeAdd / Math.max(0.25, player.fastesttranscend) : 0,
     reincarnation: (player.reincarnationCount > 0) ? timeAdd / Math.max(0.25, player.fastestreincarnate) : 0,
-    obtainium: obtainiumGain.times(timeAdd).times(G.timeMultiplier)
+    obtainium: calculateResearchAutomaticObtainium(timeAdd)
   }
 
   if (player.singularityChallenges.barDependence.enabled) {
