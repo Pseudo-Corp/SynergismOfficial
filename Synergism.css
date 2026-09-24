@@ -10986,6 +10986,12 @@ html[data-reincarnate-unlock="true"] .offlineStats > .reincarnationunlock {
     display: flex;
 }
 
+html[data-prestige-unlock="true"] .currenciesContainer > .prestigeunlock,
+html[data-transcend-unlock="true"] .currenciesContainer > .transcendunlock,
+html[data-reincarnate-unlock="true"] .currenciesContainer > .reincarnationunlock {
+    display: flex;
+}
+
 html[data-prestige-unlock="false"] .prestigeunlock {
     display: none;
 }
