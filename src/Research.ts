@@ -393,7 +393,7 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
   }
 
   let costText = i18next.t('researches.cost', {
-    x: format(obtainiumCost, 0, false),
+    x: format(obtainiumCost.ceil(), 0, false),
     y: format(levelToBuy - player.researches[index], 0, true)
   })
   let costColor = 'limegreen'
