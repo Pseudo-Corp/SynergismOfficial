@@ -392,8 +392,8 @@
       },
       "freeLevelsRow3": {
         "name": "More Blueberry Resource and Utility Module Levels!",
-        "description": "Add one effective level per level to all Blueberry Modules in rows 5 and 6, excluding the first column and Singularity Stabilizer modules.",
-        "effect": "This upgrade increases the effective level of Blueberry Modules in rows 5 and 6, excluding the first column and Singularity Stabilizer modules by <<pink|{{amount}}>>!"
+        "description": "Add one effective level per level to all Blueberry Modules in rows 5 and 6, excluding the first column, the RNG-based Offerings Booster, and Singularity Stabilizer modules.",
+        "effect": "This upgrade increases the effective level of Blueberry Modules in rows 5 and 6, excluding the first column, the RNG-based Offerings Booster, and Singularity Stabilizer modules by <<pink|{{amount}}>>!"
       },
       "freeLevelsRow4": {
         "name": "More Blueberry Cube Module Levels!",
