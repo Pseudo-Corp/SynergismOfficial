@@ -1906,6 +1906,12 @@ p#promocodeinfo {
     width: 100%;
 }
 
+p#promocodeStatus {
+    width: 100%;
+    color: goldenrod;
+    white-space: pre-line;
+}
+
 #themeArea {
     position: relative;
 }
@@ -7155,7 +7161,7 @@ header #obtainiumDisplay { color: pink; }
 #toggleMaxedOcteractUpgrades {
     position: absolute;
     z-index: 3;
-    top: 0;
+    bottom: 0;
     left: 0;
     min-width: 0;
     padding: 5px;
@@ -10977,6 +10983,12 @@ html[data-reincarnate-unlock="true"] .reincarnationunlock {
 }
 
 html[data-reincarnate-unlock="true"] .offlineStats > .reincarnationunlock {
+    display: flex;
+}
+
+html[data-prestige-unlock="true"] .currenciesContainer > .prestigeunlock,
+html[data-transcend-unlock="true"] .currenciesContainer > .transcendunlock,
+html[data-reincarnate-unlock="true"] .currenciesContainer > .reincarnationunlock {
     display: flex;
 }
 
