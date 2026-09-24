@@ -5052,7 +5052,7 @@ window.addEventListener('load', async () => {
       }-${lastUpdated.getFullYear()}].`
       : ''
     ver.innerHTML = `You're ${TESTING ? 'testing' : 'playing'} v${version} ${textUpdate} ${
-      testing ? `<br><span style="font-size: 1.3em" class="rainbowText">${i18next.t('testing.saveInLive')}</span>` : ''
+      TESTING ? `<br><span style="font-size: 1.3em" class="rainbowText">${i18next.t('testing.saveInLive')}</span>` : ''
     }`
   }
   document.title = `Synergism v${version}`
