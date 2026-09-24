@@ -63,7 +63,7 @@ import { AutoAscensionModes } from './Toggles'
 import type { OneToFive, resetNames, ZeroToFour } from './types/Synergism'
 import { Alert, challengeExit, revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
-import { updateClassList } from './Utility'
+import { memoize, updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -1383,7 +1383,7 @@ const resetUpgrades = (i: number) => {
 // and are kept through Singularity once the Cool QoL Cubes perk (Singularity 25) is unlocked
 export const cubeResearches = [137, 138, 152, 153, 167, 168, 182, 183, 192, 197, 198]
 
-export const getResetResearches = () => {
+export const getResetResearches = memoize(() => {
   // Array listing all the research indexes deserving of removal
   // dprint-ignore
   const destroy = [
@@ -1398,7 +1398,7 @@ export const getResetResearches = () => {
   ]
 
   return destroy
-}
+})
 
 const resetResearches = () => {
   player.obtainium = new Decimal()
