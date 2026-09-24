@@ -43,7 +43,8 @@
   "globals": {
     "PROD": "readonly",
     "DEV": "readonly",
-    "PLATFORM": "readonly"
+    "PLATFORM": "readonly",
+    "TESTING": "readonly"
   },
   "ignorePatterns": ["dist/**", "node_modules/**", "mockServiceWorker.js", "electron/**"]
 }

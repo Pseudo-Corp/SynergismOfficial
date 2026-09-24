@@ -31,7 +31,6 @@ import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import { setChallengeFocus, toggleRetryChallenges } from './Challenges'
-import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
@@ -879,7 +878,7 @@ export const generateEventHandlers = () => {
   registerSubTabSwitches()
   registerMobileSubTabLayout()
 
-  if (testing) {
+  if (TESTING) {
     const warp = document.createElement('button')
     const dayReset = document.createElement('button')
     warp.textContent = 'Click here to warp time! [TESTING ONLY]'

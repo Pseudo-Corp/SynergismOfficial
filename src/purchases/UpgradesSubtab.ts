@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import { z } from 'zod'
+import * as z from 'zod'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
 import { type PseudoCoinUpgradeNames, updatePCoinCache } from '../PseudoCoinUpgrades'
 import { Alert } from '../UpdateHTML'

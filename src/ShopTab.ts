@@ -1,7 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSummationNonLinear } from './Calculate'
-import { testing } from './Config'
 import {
   buyShopUpgrades,
   getShopCosts,
@@ -302,7 +301,7 @@ export const shopFamilyCoverage: [UncoveredShopTiers] extends [never] ? true : U
 let selectedFamily: ShopFamilyData = shopSections[0].families[0]
 let selectedTier: ShopUpgradeNames = shopSections[0].families[0].tiers[0].key
 
-const tierAvailable = (key: ShopUpgradeNames) => testing || shopUpgrades[key].isUnlocked()
+const tierAvailable = (key: ShopUpgradeNames) => TESTING || shopUpgrades[key].isUnlocked()
 
 const tierMaxed = (key: ShopUpgradeNames) =>
   player.shopUpgrades[key] >= shopUpgrades[key].maxLevel || instantUnlocked(key)
@@ -509,7 +508,7 @@ const updateShopDetail = () => {
         }
         chip.classList.toggle('shopTierSelected', tier.key === selectedTier)
         chip.classList.toggle('shopTierMaxed', tierMaxed(tier.key))
-        chip.classList.toggle('shopTestingOnly', testing && !shopUpgrades[tier.key].isUnlocked())
+        chip.classList.toggle('shopTestingOnly', TESTING && !shopUpgrades[tier.key].isUnlocked())
         const levelText = shopUpgrades[tier.key].maxLevel === 1
           ? (tierMaxed(tier.key) ? '✓' : '✕')
           : i18next.t('shop.level', {
@@ -527,7 +526,7 @@ const updateShopDetail = () => {
   )
 
   const testingOnlyWarning = DOMCacheGetOrSet('shopTestingOnlyWarning')
-  const testingOnly = testing && !item.isUnlocked()
+  const testingOnly = TESTING && !item.isUnlocked()
   testingOnlyWarning.hidden = !testingOnly
   if (testingOnly) {
     updateTextContentIfChanged(testingOnlyWarning, i18next.t('shop.testingOnlyUpgrade'))

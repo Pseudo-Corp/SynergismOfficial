@@ -23,20 +23,18 @@ export const storageRemoveItem = (key: string) => {
 }
 
 export const initMobileStorage = async () => {
-  if (PLATFORM !== 'mobile') {
-    return
+  if (PLATFORM === 'mobile') {
+    const { Preferences } = await import('@capacitor/preferences')
+    const { keys } = await Preferences.keys()
+    await Promise.all(keys.map(async (key: string) => {
+      if (key === 'Synergysave2') {
+        return
+      }
+
+      const { value } = await Preferences.get({ key })
+      if (value !== null) localStorage.setItem(key, value)
+    }))
   }
-
-  const { Preferences } = await import('@capacitor/preferences')
-  const { keys } = await Preferences.keys()
-  await Promise.all(keys.map(async (key: string) => {
-    if (key === 'Synergysave2') {
-      return
-    }
-
-    const { value } = await Preferences.get({ key })
-    if (value !== null) localStorage.setItem(key, value)
-  }))
 }
 
 bus.addEventListener('storage:get', (event) => {

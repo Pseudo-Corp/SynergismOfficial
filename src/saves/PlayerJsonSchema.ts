@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 import type { Corruptions } from '../Corruptions'
 import type { Player } from '../types/Synergism'
 import { playerSchema } from './PlayerSchema'

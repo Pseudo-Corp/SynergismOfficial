@@ -16,10 +16,12 @@ let saveWriteTail = Promise.resolve()
 let activeSaveWrite: Promise<void> | null = null
 
 const initializeMobileSaveStorage = async (): Promise<void> => {
-  const { Preferences } = await import('@capacitor/preferences')
-  const { value: nativeSave } = await Preferences.get({ key: SAVE_STORAGE_KEY })
-  lastMobileSaveWrite = nativeSave === null ? 0 : Date.now()
-  mobileSaveStorageReady = true
+  if (PLATFORM === 'mobile') {
+    const { Preferences } = await import('@capacitor/preferences')
+    const { value: nativeSave } = await Preferences.get({ key: SAVE_STORAGE_KEY })
+    lastMobileSaveWrite = nativeSave === null ? 0 : Date.now()
+    mobileSaveStorageReady = true
+  }
 }
 
 export const initializeSaveStorage = (): Promise<void> => {
@@ -47,8 +49,10 @@ const startPendingSaveWrite = (): Promise<void> => {
   pendingSave = null
 
   const write = saveWriteTail.then(async () => {
-    const { Preferences } = await import('@capacitor/preferences')
-    await Preferences.set({ key: SAVE_STORAGE_KEY, value: save.value })
+    if (PLATFORM === 'mobile') {
+      const { Preferences } = await import('@capacitor/preferences')
+      await Preferences.set({ key: SAVE_STORAGE_KEY, value: save.value })
+    }
   })
 
   const trackedWrite = write.then(
@@ -133,18 +137,18 @@ export const persistSave = async (value: string): Promise<void> => {
 }
 
 export const getStoredSave = async (): Promise<string | null> => {
-  if (PLATFORM !== 'mobile') {
-    return localStorage.getItem(SAVE_STORAGE_KEY)
+  if (PLATFORM === 'mobile') {
+    if (!mobileSaveStorageReady) {
+      throw new Error('Mobile save storage has not been initialized.')
+    }
+
+    await flushSaveStorage()
+    const { Preferences } = await import('@capacitor/preferences')
+    const { value } = await Preferences.get({ key: SAVE_STORAGE_KEY })
+    return value
   }
 
-  if (!mobileSaveStorageReady) {
-    throw new Error('Mobile save storage has not been initialized.')
-  }
-
-  await flushSaveStorage()
-  const { Preferences } = await import('@capacitor/preferences')
-  const { value } = await Preferences.get({ key: SAVE_STORAGE_KEY })
-  return value
+  return localStorage.getItem(SAVE_STORAGE_KEY)
 }
 
 if (PLATFORM === 'mobile') {
