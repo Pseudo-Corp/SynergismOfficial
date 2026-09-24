@@ -4288,6 +4288,9 @@ export const updateAll = (): void => {
       player.challenge15Exponent = calculateChallenge15Score()
       c15RewardUpdate()
     }
+    if (player.challenge15Exponent >= 1e15) {
+      player.unlocks.hepteracts = true
+    }
   }
 }
 
