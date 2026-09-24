@@ -190,14 +190,14 @@ const ascensionResetResearches = [
 // Researches which reset on Singularity, but not on Ascension
 // dprint-ignore
 const singularityResetResearches = [
-  1, 2, 3, 4, 5, 18, 19, 20,                   // row 1
-  39, 40,                                      // row 2
-  66, 67, 68, 69, 70,                          // row 3
-  77, 78, 79, 80, 82, 83, 84, 95, 99, 100,     // row 4
-  105, 111, 112, 113, 114, 115, 119, 120, 125, // row 5
-  137, 138, 140,                               // row 6
-  152, 153, 155, 160, 165, 167, 168, 170,      // row 7
-  180, 182, 183, 185, 192, 195, 197, 198, 200  // row 8
+  1, 2, 3, 4, 5, 18, 19, 20,              // row 1
+  39, 40,                                 // row 2
+  66, 67, 68, 69, 70,                     // row 3
+  77, 78, 79, 80, 83, 84, 95,             // row 4
+  105, 111, 112, 113, 114, 115, 119, 120, // row 5
+  137, 138, 140,                          // row 6
+  152, 153, 155, 160, 165, 167, 168, 170, // row 7
+  182, 183, 185, 192, 197, 198, 200       // row 8
 ]
 
 // Every other research never resets

@@ -5910,7 +5910,7 @@
       "finishTranscension": "If you are unable to finish a Transcension challenge, press the hotkey listed above OR click on the purple Challenge \"C\" button on the reset buttons on top.",
       "leaveReincarnation": "To leave a reincarnation challenge, press the grey Challenge \"C\" instead!"
     },
-    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> Researches first. The <<var(--crimson-text-color);|red-bordered>> Researches are never reset whereas the <<white;|white-bordered>> Researches will reset upon the next reset tier!"
+    "research": "Welcome to the future! Not sure what to study? Try the <<limegreen;|green-bordered>> Researches first."
   },
   "buildings": {
     "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold |+{{coinsPerSecond}}/s>>] <br> Total Ever: <<gold | {{totalGenerated}}>>",
