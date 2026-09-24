@@ -2,7 +2,7 @@
 
 import DOMPurify from 'dompurify'
 import i18next from 'i18next'
-import { z } from 'zod'
+import * as z from 'zod'
 import { achievementLevel } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {

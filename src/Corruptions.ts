@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { z } from 'zod'
+import * as z from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'

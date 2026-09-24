@@ -8,7 +8,7 @@ import {
 } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
-import { testing, version } from './Config'
+import { version } from './Config'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { addTimers, runPurpleReactor } from './Helper'
 import { getFinalHepteractCap, hepteracts } from './Hepteracts'
@@ -385,8 +385,8 @@ export const importSynergism = (input: string | null, reset = false) => {
   if (
     f.exporttest === 'YES!'
     || f.exporttest === true
-    || (f.exporttest === false && testing)
-    || (f.exporttest === 'NO!' && testing)
+    || (f.exporttest === false && TESTING)
+    || (f.exporttest === 'NO!' && TESTING)
   ) {
     const saveString = btoa(JSON.stringify(f))
 

@@ -1,5 +1,6 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
-import { z, type ZodType } from 'zod'
+import * as z from 'zod'
+import type { ZodType } from 'zod'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
