@@ -30,7 +30,12 @@ import {
 import { CalcECC, challengeRequirement, resetChallengeSweep } from './Challenges'
 import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate, type SavedCorruption } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
-import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
+import {
+  autoBuyCubeUpgrades,
+  awardCubeResearchCookieUpgrade,
+  cubeAutomationIndices,
+  updateCubeUpgradeBG
+} from './Cubes'
 import { resetAnts } from './Features/Ants/player/reset'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { toggleAutoAntSacrificeThreshold } from './Features/Ants/toggles/auto-sacrifice'
@@ -830,7 +835,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
 
     // Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
     if (player.highestSingularityCount >= 10) {
-      if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
+      if (player.autoOpenCubes && player.openCubes !== 0) {
         player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
       }
       if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
@@ -902,7 +907,9 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.wowAbyssals = 0
 
     for (let index = 1; index <= 50; index++) {
-      player.cubeUpgrades[index] = 0
+      if (!cubeAutomationIndices.includes(index)) {
+        player.cubeUpgrades[index] = 0
+      }
     }
   }
 
@@ -982,7 +989,7 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
   }
   if (singularityReset && player.highestSingularityCount >= 100) {
     player.cubeUpgrades[51] = 1
-    awardAutosCookieUpgrade()
+    awardCubeResearchCookieUpgrade()
   }
 
   if (player.highestSingularityCount >= 244) {
@@ -1134,6 +1141,9 @@ export const singularity = (setSingNumber = -1) => {
   hold.runes = { ...player.runes }
   hold.talismans = { ...player.talismans }
   hold.cubeUpgrades[80] = player.cubeUpgrades[80]
+  for (const i of cubeAutomationIndices) {
+    hold.cubeUpgrades[i] = player.cubeUpgrades[i]
+  }
 
   hold.ants = deepClone()(player.ants)
 

@@ -555,11 +555,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
             buyAllSpiritLevels(player.offerings.div(2))
           }
         }
-        if (
-          player.autoBuyFragment
-          && player.highestSingularityCount >= 40
-          && player.cubeUpgrades[51] > 0
-        ) {
+        if (player.autoBuyFragment && player.highestSingularityCount >= 40) {
           buyAllTalismanResources()
         }
 

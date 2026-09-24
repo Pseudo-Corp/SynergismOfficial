@@ -392,8 +392,8 @@ export const revealStuff = () => {
   document.documentElement.dataset.offeringAuto = // Auto Offering Shop Purchase
     getShopUpgradeEffects('offeringAuto', 'autoRune') ? 'true' : 'false'
 
-  document.documentElement.dataset.autoBuyFragments = // Auto Fragments Buy (After Cx1)
-    player.cubeUpgrades[51] > 0 && player.highestSingularityCount >= 40 ? 'true' : 'false'
+  document.documentElement.dataset.autoBuyFragments = // Auto Fragments Buy (Singularity 40)
+    player.highestSingularityCount >= 40 ? 'true' : 'false'
 
   const autoResearch = getShopUpgradeEffects('obtainiumAuto', 'autoResearch')
 

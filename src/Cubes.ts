@@ -25,8 +25,9 @@ export interface IMultiBuy {
   cost: number
 }
 
+// Automation Cube Upgrades, which are kept through Singularity
 // dprint-ignore
-const cubeAutomationIndices = [
+export const cubeAutomationIndices = [
   4, 5, 6, 7, 8, 9, 10, // row 1
   20,                   // row 2
   26, 27,               // row 3
@@ -191,13 +192,7 @@ export const updateCubeUpgradeBG = (i: number) => {
   }
 }
 
-export const awardAutosCookieUpgrade = () => {
-  for (const i of cubeAutomationIndices) {
-    const maxLevel = getCubeMax(i)
-    player.cubeUpgrades[i] = maxLevel
-    updateCubeUpgradeBG(i)
-  }
-
+export const awardCubeResearchCookieUpgrade = () => {
   for (const i of cubeResearchIndices) {
     player.researches[i] = researchData[i].maxLevel
     updateResearchBG(i)
@@ -241,7 +236,7 @@ export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
   }
 
   if (i === 51 && player.cubeUpgrades[51] > 0) {
-    awardAutosCookieUpgrade()
+    awardCubeResearchCookieUpgrade()
   }
 
   if (i === 57 && player.cubeUpgrades[57] > 0) {
