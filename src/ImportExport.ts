@@ -413,7 +413,10 @@ export const importSynergism = (input: string | null, reset = false) => {
 }
 
 export const promocodesInfo = (input: string) => {
-  const textElement = DOMCacheGetOrSet('promocodeinfo')
+  DOMCacheGetOrSet('promocodeinfo').textContent = promocodesInfoText(input)
+}
+
+export const promocodesInfoText = (input: string) => {
   let textMessage = `'${input}': `
   let availableUses = 0
   switch (input) {
@@ -458,7 +461,7 @@ export const promocodesInfo = (input: string) => {
       textMessage = ''
   }
 
-  textElement.textContent = textMessage
+  return textMessage
 }
 
 export const promocodesPrompt = async () => {

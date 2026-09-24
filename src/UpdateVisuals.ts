@@ -71,6 +71,7 @@ import { showLockedSacrifice, showSacrifice } from './Features/Ants/HTML/updates
 import { autoAntSacrificeModeDescHTML } from './Features/Ants/HTML/updates/toggles/sacrifice-mode'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getFinalHepteractCap, type HepteractKeys, hepteractKeys, hepteracts } from './Hepteracts'
+import { promocodesInfoText } from './ImportExport'
 import {
   calculateAcceleratorHypercubeBlessing,
   calculateAntELOHypercubeBlessing,
@@ -1932,6 +1933,12 @@ export const visualUpdateSettings = () => {
         )
       }
     )
+
+    if (isMobile) {
+      DOMCacheGetOrSet('promocodeStatus').textContent = `${promocodesInfoText('daily')}\n${
+        promocodesInfoText('add')
+      }\n${promocodesInfoText('time')}`
+    }
   } else if (getActiveSubTab() === 3) {
     loadStatisticsUpdate()
   }

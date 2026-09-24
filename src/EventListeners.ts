@@ -1663,6 +1663,11 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('dailyCode').addEventListener('mouseover', () => promocodesInfo('daily'))
   DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))
   DOMCacheGetOrSet('timeCode').addEventListener('mouseover', () => promocodesInfo('time'))
+  if (isMobile) {
+    const promocodeStatus = document.createElement('p')
+    promocodeStatus.id = 'promocodeStatus'
+    DOMCacheGetOrSet('promocodeinfo').before(promocodeStatus)
+  }
   DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener(
     'click',
     () => resetHistoryTogglePerSecond()
