@@ -160,7 +160,7 @@ export class CorruptionLoadout {
     const scoreMultLength = this.#corruptionScoreMults.length
 
     if (totalLevel < scoreMultLength - 1) {
-      const portionAboveLevel = Math.ceil(totalLevel) - totalLevel
+      const portionAboveLevel = totalLevel % 1
       return Math.pow(
         this.#corruptionScoreMults[Math.floor(totalLevel)] + bonusVal
           + portionAboveLevel
