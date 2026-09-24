@@ -17,6 +17,7 @@ import {
   calculatePurpleReactantConversion,
   calculatePurpleReactantRouting,
   calculateRedAmbrosiaGenerationSpeed,
+  calculateRedAmbrosiaLuck,
   calculateRedAmbrosiaReactantCapacity,
   calculateRedAmbrosiaRewardLuck,
   calculateRequiredBlueberryTime,
@@ -96,7 +97,12 @@ const awardRedAmbrosiaBarFill = () => {
     player.lifetimeRedAmbrosia += redAmbrosiaToGain
   }
   player.purpleHoneyProgress += getPurpleAmbrosiaUpgradeEffects('cancer', 'purpleBarPointsOnFill')
-  return redAmbrosiaToGain * getRedAmbrosiaUpgradeEffects('redAmbrosiaAccelerator', 'ambrosiaTimePerRedAmbrosia')
+
+  // Red-Blue Ultrafusion uses base Red Luck, not TWO MIND reward luck
+  const baseRedLuck = calculateRedAmbrosiaLuck()
+  const acceleratorMult = Math.floor(baseRedLuck / 100)
+    + (RNG < baseRedLuck / 100 - Math.floor(baseRedLuck / 100) ? 1 : 0)
+  return acceleratorMult * getRedAmbrosiaUpgradeEffects('redAmbrosiaAccelerator', 'ambrosiaTimePerRedAmbrosia')
 }
 
 const gainAmbrosia = (globalSpeedMult?: () => number) => {
