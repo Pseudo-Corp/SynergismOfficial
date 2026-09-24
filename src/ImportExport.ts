@@ -664,13 +664,16 @@ export const promocodes = async (input: string | null, amount?: number) => {
         'redAmbrosiaFreeAccumulator',
         'freeAccumulatorLevels'
       )
+      const previousDigitalOcteractFreeLevel = player.octUpgrades.octeractAscensionsOcteractGain.freeLevel
       player.octUpgrades.octeractAscensionsOcteractGain.freeLevel = Math.min(
         digitalOcteractAccumulatorCap,
-        player.octUpgrades.octeractAscensionsOcteractGain.freeLevel + digitalOcteractFreeLevels
+        previousDigitalOcteractFreeLevel + digitalOcteractFreeLevels
       )
+      const digitalOcteractFreeLevelsGained = player.octUpgrades.octeractAscensionsOcteractGain.freeLevel
+        - previousDigitalOcteractFreeLevel
 
-      if (digitalOcteractFreeLevels > 0) {
-        freeLevels.octeractAscensionsOcteractGain = digitalOcteractFreeLevels
+      if (digitalOcteractFreeLevelsGained > 0) {
+        freeLevels.octeractAscensionsOcteractGain = digitalOcteractFreeLevelsGained
       }
 
       for (const key of Object.keys(freeLevels)) {
