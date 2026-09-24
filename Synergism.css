@@ -3449,6 +3449,7 @@ p#reincarnatehotkeys {
     flex-direction: column;
     flex-shrink: 0;
     overflow-y: auto;
+    width: 26em;
     max-height: 70vh;
     border-right: 1px solid plum;
     scrollbar-width: thin;
@@ -3544,6 +3545,7 @@ p#reincarnatehotkeys {
 .shopFamilyRowCost {
     color: gold;
     font-size: 0.8em;
+    font-variant-numeric: tabular-nums;
 }
 
 .shopFamilyRowCost.shopCantAfford {
@@ -3588,6 +3590,11 @@ p#reincarnatehotkeys {
     font: inherit;
     font-size: 0.8em;
     cursor: pointer;
+}
+
+.shopTierChip > img {
+    width: 64px;
+    height: 64px;
 }
 
 .shopTierChip.shopTierSelected {
@@ -3757,6 +3764,14 @@ p#reincarnatehotkeys {
     padding: 0;
     line-height: 1em;
     vertical-align: top;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Buy labels wrap to up to 3 lines as quark counts grow; reserve that height so the shop doesn't shift */
+#buyofferingpotion,
+#buyobtainiumpotion,
+#buySingularityQuarksButton {
+    min-height: calc(3em + 4px);
 }
 
 #ants {
@@ -12817,6 +12832,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #shopFamilyList {
+        width: auto;
         max-height: 40vh;
         border-right: none;
         border-bottom: 1px solid plum;
