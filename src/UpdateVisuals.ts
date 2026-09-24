@@ -529,7 +529,7 @@ export const visualUpdateBuildings = () => {
     )
 
     DOMCacheGetOrSet('buildtext16').textContent = i18next.t(
-      'buildings.acceleratorBoost',
+      player.upgrades[88] === 1 ? 'buildings.acceleratorBoostNoReset' : 'buildings.acceleratorBoost',
       {
         amount: format(
           100 * (0.01 * G.tuSevenMulti * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20)),

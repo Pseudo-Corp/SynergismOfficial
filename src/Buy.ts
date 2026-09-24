@@ -559,7 +559,7 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
 }
 
 export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount) => {
-  if (player.upgrades[46] < 1) {
+  if (player.upgrades[88] < 1) {
     const calculateCost = createAcceleratorBoostCostCalculator()
     while (player.prestigePoints.gte(player.acceleratorBoostCost) && G.ticker < 1) {
       if (player.prestigePoints.gte(player.acceleratorBoostCost)) {
@@ -567,7 +567,7 @@ export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamoun
         player.acceleratorBoostCost = calculateCost(player.acceleratorBoostBought)
         player.transcendnoaccelerator = false
         player.reincarnatenoaccelerator = false
-        if (player.upgrades[46] < 0.5) {
+        if (player.upgrades[88] < 0.5) {
           for (let j = 21; j < 41; j++) {
             player.upgrades[j] = 0
           }

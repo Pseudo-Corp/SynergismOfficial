@@ -159,10 +159,13 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       resetDetails.currencyVisible = true
       resetDetails.currencySrc = `Pictures/${iconSet}/Diamond.png`
       resetDetails.currencyText = `-${format(player.acceleratorBoostCost)}`
-      resetDetails.infoText = i18next.t('reset.details.acceleratorBoost', {
-        amount: format(player.prestigePoints),
-        required: format(player.acceleratorBoostCost)
-      })
+      resetDetails.infoText = i18next.t(
+        player.upgrades[88] === 1 ? 'reset.details.acceleratorBoostNoReset' : 'reset.details.acceleratorBoost',
+        {
+          amount: format(player.prestigePoints),
+          required: format(player.acceleratorBoostCost)
+        }
+      )
       resetDetails.infoColor = 'cyan'
       break
     case 'transcensionChallenge':
@@ -622,8 +625,10 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     for (let j = 61; j <= 80; j++) {
       player.upgrades[j] = 0
     }
-    for (let j = 94; j <= 100; j++) {
-      player.upgrades[j] = 0
+    if (player.highestSingularityCount === 0) {
+      for (let j = 94; j <= 100; j++) {
+        player.upgrades[j] = 0
+      }
     }
     player.firstOwnedParticles = 0
     player.secondOwnedParticles = 0
@@ -985,6 +990,12 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
     player.cubeUpgrades[72] = 1
   }
 
+  if (player.highestSingularityCount > 0) {
+    for (let j = 81; j <= 100; j++) {
+      player.upgrades[j] = 1
+    }
+  }
+
   if (player.platonicUpgrades[5] === 0 && getGQUpgradeEffect('platonicAlpha', 'unlocked')) {
     player.platonicUpgrades[5] = 1
     updatePlatonicUpgradeBG(5)
@@ -1289,32 +1300,23 @@ export const singularity = (setSingNumber = -1) => {
   saveSynergy()
 }
 
+// [research, automation upgrade] pairs: owning the research starts every Reincarnation with the upgrade bought
+const reincarnationAutomationResearches = [
+  [41, 88],
+  [42, 90],
+  [43, 91],
+  [44, 92],
+  [45, 93]
+] as const
+
 const resetUpgrades = (i: number) => {
   if (i > 2.5) {
     for (let j = 41; j < 61; j++) {
-      if (j !== 46) {
-        player.upgrades[j] = 0
-      }
+      player.upgrades[j] = 0
     }
 
-    if (player.researches[41] === 0) {
-      player.upgrades[46] = 0
-    }
-
-    if (player.researches[41] === 0) {
-      player.upgrades[88] = 0
-    }
-    if (player.researches[42] === 0) {
-      player.upgrades[90] = 0
-    }
-    if (player.researches[43] === 0) {
-      player.upgrades[91] = 0
-    }
-    if (player.researches[44] === 0) {
-      player.upgrades[92] = 0
-    }
-    if (player.researches[45] === 0) {
-      player.upgrades[93] = 0
+    for (const [research, upgrade] of reincarnationAutomationResearches) {
+      player.upgrades[upgrade] = player.researches[research]
     }
 
     player.upgrades[116] = 0

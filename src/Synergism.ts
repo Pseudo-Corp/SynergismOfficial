@@ -3968,7 +3968,6 @@ export const updateAll = (): void => {
   if (
     player.toggles[8]
     && player.upgrades[88] === 1
-    && player.upgrades[46] === 1
     && player.prestigePoints.gte(player.acceleratorBoostCost)
   ) {
     boostAccelerator('max')
