@@ -3034,7 +3034,7 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: 'singularity.perks.coolQOLCubes.name',
-    levels: [25, 35],
+    levels: [5, 20],
     description: (n: number, levels: number[]) => {
       if (n >= levels[1]) {
         return i18next.t('singularity.perks.coolQOLCubes.hasLevel1')

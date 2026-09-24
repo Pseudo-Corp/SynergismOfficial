@@ -390,7 +390,7 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
     y: researchData[index].maxLevel
   })
   const resets = getResetResearches().includes(index)
-  const resetsOnSingularity = player.highestSingularityCount < 25 && cubeResearches.includes(index)
+  const resetsOnSingularity = player.highestSingularityCount < 5 && cubeResearches.includes(index)
 
   return {
     description,

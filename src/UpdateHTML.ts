@@ -409,7 +409,7 @@ export const revealStuff = () => {
     player.highestSingularityCount > 0 ? 'true' : 'false'
 
   // Auto Open Cubes toggle
-  document.documentElement.dataset.autoOpenCubes = player.highestSingularityCount >= 35 ? 'true' : 'false'
+  document.documentElement.dataset.autoOpenCubes = player.highestSingularityCount >= 20 ? 'true' : 'false'
 
   document.documentElement.dataset.autoCubeUpgrades = // Auto Cube Upgrades
     player.highestSingularityCount >= 50 ? 'true' : 'false'

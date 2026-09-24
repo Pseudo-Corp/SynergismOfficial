@@ -824,7 +824,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     autoBuyCubeUpgrades()
 
     // Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
-    if (player.highestSingularityCount >= 35) {
+    if (player.highestSingularityCount >= 20) {
       if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
         player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
       }
@@ -1142,7 +1142,7 @@ export const singularity = (setSingNumber = -1) => {
     hold.worlds = Number(player.worlds)
   }
 
-  if (player.highestSingularityCount >= 25) {
+  if (player.highestSingularityCount >= 5) {
     for (const index of cubeResearches) {
       hold.researches[index] = player.researches[index]
     }
