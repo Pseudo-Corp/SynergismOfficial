@@ -33,14 +33,12 @@ const cubeAutomationIndices = [
   48, 49                // row 5
 ]
 
+// Researches which boost Wow! Cube gain or Cube opening. Maxed by Cube Upgrade 51
 // dprint-ignore
-const researchAutomationIndices = [
-  41, 42, 43, 44, 45, 46, 47, 48, 49, 50, // row 2
-  61, 71, 72, 73, 74, 75, // row 3
-  124,                    // row 5
-  130, 135, 145, 150,     // row 6
-  175,                    // row 7
-  190                     // row 8
+const cubeResearchIndices = [
+  137, 138,                // row 6
+  152, 153, 167, 168,      // row 7
+  182, 183, 192, 197, 198  // row 8
 ]
 
 // dprint-ignore
@@ -200,7 +198,7 @@ export const awardAutosCookieUpgrade = () => {
     updateCubeUpgradeBG(i)
   }
 
-  for (const i of researchAutomationIndices) {
+  for (const i of cubeResearchIndices) {
     player.researches[i] = researchData[i].maxLevel
     updateResearchBG(i)
   }

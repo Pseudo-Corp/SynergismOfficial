@@ -868,7 +868,7 @@ export const toggleAutoAscendResetMode = () => {
 }
 
 export const toggleautoopensCubes = (i: number) => {
-  if (player.highestSingularityCount >= 20) {
+  if (player.highestSingularityCount >= 10) {
     if (i === 1) {
       const oc = DOMCacheGetOrSet('openCubes')
       const oci = DOMCacheGetOrSet('cubeOpensInput')

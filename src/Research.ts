@@ -2,26 +2,13 @@ import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { cubeResearches, getResetResearches } from './Reset'
+import type { resetTiers } from './Reset'
 import { runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { sortDecimalWithIndices, updateClassList } from './Utility'
-
-interface IResearchData {
-  baseCost: Decimal
-  maxLevel: number
-  // Some research (e.g. 200) can have custom growth (i.e. nonconstant)
-  // may as well specify in general.
-  buyToLevel: (budget: Decimal, baseCost: Decimal, currLevel: number, maxLevel: number) => number
-  // A given levelsBuyable should correspond to a cost for that many levels
-  // It is generally difficult to calculate inverses since budget != cost for levels
-  // So we should choose functions for which it is easy to compute the inverse.
-  costForLevels: (baseCost: Decimal, currLevel: number, buyTo: number) => Decimal
-  unlocked: () => boolean
-}
 
 // TODO: Maybe we should just manually create this map? I was a bit lazy to port all the values
 // dprint-ignore
@@ -124,6 +111,8 @@ interface IResearchData {
   // So we should choose functions for which the inverse is analytical (see below functions)
   costForLevels: (baseCost: Decimal, currLevel: number, buyTo: number) => Decimal
   unlocked: () => boolean
+  // Smallest reset tier which resets this research
+  minimumResetTier: keyof typeof resetTiers
 }
 
 // Requires degree != 0, should only be used for positive degree, though
@@ -176,34 +165,60 @@ const researchUnlockRanges: RangeCondition[] = [
   { range: [80, 80], condition: () => runes.duplication.isUnlocked() },
   { range: [81, 100], condition: () => player.unlocks.anthill },
   { range: [101, 118], condition: () => player.unlocks.talismans },
-  { range: [119, 123], condition: () => player.unlocks.ascensions || player.highestSingularityCount > 0 },
+  { range: [119, 123], condition: () => player.unlocks.ascensions },
   { range: [124, 125], condition: () => Boolean(getAchievementReward('antSacrificeUnlock')) },
-  { range: [126, 140], condition: () => player.ascensionCount > 0 || player.highestSingularityCount > 0 },
-  {
-    range: [141, 155],
-    condition: () => player.highestchallengecompletions[11] > 0 || player.highestSingularityCount > 0
-  },
-  {
-    range: [156, 170],
-    condition: () => player.highestchallengecompletions[12] > 0 || player.highestSingularityCount > 0
-  },
-  {
-    range: [171, 185],
-    condition: () => player.highestchallengecompletions[13] > 0 || player.highestSingularityCount > 0
-  },
-  {
-    range: [186, 200],
-    condition: () => player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0
-  }
+  { range: [126, 140], condition: () => player.ascensionCount > 0 },
+  { range: [141, 155], condition: () => player.highestchallengecompletions[11] > 0 },
+  { range: [156, 170], condition: () => player.highestchallengecompletions[12] > 0 },
+  { range: [171, 185], condition: () => player.highestchallengecompletions[13] > 0 },
+  { range: [186, 200], condition: () => player.highestchallengecompletions[14] > 0 }
 ]
+
+// Researches which reset on Ascension
+// dprint-ignore
+const ascensionResetResearches = [
+  6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 22, 23, 24, 25,                           // row 1
+  26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,                                       // row 2
+  51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 62, 63, 64, 65,                                   // row 3
+  76, 81, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 96, 97, 98,                               // row 4
+  101, 102, 103, 104, 106, 107, 108, 109, 110, 116, 117, 118, 121, 122, 123,                // row 5
+  126, 127, 128, 129, 131, 132, 133, 134, 136, 139, 141, 142, 143, 144, 146, 147, 148, 149, // row 6
+  151, 154, 156, 157, 158, 159, 161, 162, 163, 164, 166, 169, 171, 172, 173, 174,           // row 7
+  176, 177, 178, 179, 181, 184, 186, 187, 188, 189, 191, 193, 194, 196, 199                 // row 8
+]
+
+// Researches which reset on Singularity, but not on Ascension
+// dprint-ignore
+const singularityResetResearches = [
+  1, 2, 3, 4, 5, 18, 19, 20,                   // row 1
+  39, 40,                                      // row 2
+  66, 67, 68, 69, 70,                          // row 3
+  77, 78, 79, 80, 82, 83, 84, 95, 99, 100,     // row 4
+  105, 111, 112, 113, 114, 115, 119, 120, 125, // row 5
+  137, 138, 140,                               // row 6
+  152, 153, 155, 160, 165, 167, 168, 170,      // row 7
+  180, 182, 183, 185, 192, 195, 197, 198, 200  // row 8
+]
+
+// Every other research never resets
 
 const createResearchDataMap = (
   rangeLC: RangeLevelAndCost[],
   rangeU: RangeCondition[],
   costs: DecimalSource[],
-  maxLevels: DecimalSource[]
+  maxLevels: DecimalSource[],
+  ascensionResets: number[],
+  singularityResets: number[]
 ): Record<number, IResearchData> => {
   const dataMap: Record<number, IResearchData> = {}
+
+  const resetTierLookup: Record<number, keyof typeof resetTiers> = {}
+  for (const i of ascensionResets) {
+    resetTierLookup[i] = 'ascension'
+  }
+  for (const i of singularityResets) {
+    resetTierLookup[i] = 'singularity'
+  }
 
   const unlockLookup: Record<number, () => boolean> = {}
   for (const { range, condition } of rangeU) {
@@ -231,7 +246,8 @@ const createResearchDataMap = (
         maxLevel: Number(maxLevels[i]),
         buyToLevel: levelCostFunctions.level,
         costForLevels: levelCostFunctions.cost,
-        unlocked: unlockFunction
+        unlocked: unlockFunction,
+        minimumResetTier: resetTierLookup[i] ?? 'never'
       }
     }
   }
@@ -243,10 +259,16 @@ export const researchData = createResearchDataMap(
   researchLevelCostRanges,
   researchUnlockRanges,
   researchBaseCosts,
-  researchMaxLevels
+  researchMaxLevels,
+  ascensionResetResearches,
+  singularityResetResearches
 )
 
 export const isResearchUnlocked = (index: number): boolean => {
+  // Every research is unlocked once the player has done a Singularity
+  if (player.highestSingularityCount > 0) {
+    return true
+  }
   const unlockFunction = researchData[index].unlocked
   return unlockFunction ? unlockFunction() : false
 }
@@ -389,8 +411,8 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
     x: player.researches[index],
     y: researchData[index].maxLevel
   })
-  const resets = getResetResearches().includes(index)
-  const resetsOnSingularity = player.highestSingularityCount < 5 && cubeResearches.includes(index)
+  const minimumResetTier = researchData[index].minimumResetTier
+  const resets = minimumResetTier === 'ascension'
 
   return {
     description,
@@ -399,26 +421,25 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
     levelText,
     levelColor,
     obtainiumCost,
-    resetText: resets
-      ? getAscensionResetText()
-      : resetsOnSingularity
-      ? getSingularityResetText()
-      : i18next.t('researches.doesNotReset'),
+    resetText: getResetText(minimumResetTier),
     resets
   }
 }
 
 // Only name the reset tier once the player has reached it
-const getAscensionResetText = () => {
-  return player.highestchallengecompletions[10] > 0
-    ? i18next.t('researches.resetsOnAscension')
-    : i18next.t('researches.resets')
-}
-
-const getSingularityResetText = () => {
-  return runes.antiquities.level > 0 || player.highestSingularityCount > 0
-    ? i18next.t('researches.resetsOnSingularity')
-    : i18next.t('researches.resets')
+const getResetText = (tier: keyof typeof resetTiers) => {
+  switch (tier) {
+    case 'ascension':
+      return player.highestchallengecompletions[10] > 0 || player.highestSingularityCount > 0
+        ? i18next.t('researches.resetsOnAscension')
+        : i18next.t('researches.resets')
+    case 'singularity':
+      return runes.antiquities.level > 0 || player.highestSingularityCount > 0
+        ? i18next.t('researches.resetsOnSingularity')
+        : i18next.t('researches.resets')
+    default:
+      return i18next.t('researches.doesNotReset')
+  }
 }
 
 const updateResearchButtonState = (index: number, obtainiumCost: Decimal) => {

@@ -47,7 +47,7 @@ import { importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
-import { isResearchMaxed, setResearchRoombaHighlight, updateResearchBG } from './Research'
+import { isResearchMaxed, researchData, setResearchRoombaHighlight, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, runes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
@@ -63,7 +63,7 @@ import { AutoAscensionModes } from './Toggles'
 import type { OneToFive, resetNames, ZeroToFour } from './types/Synergism'
 import { Alert, challengeExit, revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
-import { memoize, updateClassList } from './Utility'
+import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -613,7 +613,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.autoChallengeIndex = 1
 
     // reset rest
-    resetResearches()
+    resetResearches('ascension')
     resetAnts(AntSacrificeTiers.ascension)
     resetTalismanData('ascension')
     player.reincarnationPoints = new Decimal()
@@ -824,7 +824,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     autoBuyCubeUpgrades()
 
     // Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
-    if (player.highestSingularityCount >= 20) {
+    if (player.highestSingularityCount >= 10) {
       if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
         player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
       }
@@ -931,7 +931,6 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
     player.reincarnationPoints = Decimal.fromString('10')
     player.unlocks.reincarnate = true
     player.unlocks.rrow1 = true
-    player.researches[47] = 1
   }
   if (player.highestSingularityCount >= 4) { // Singularity 4
     player.obtainium = Decimal.fromNumber(Math.floor(
@@ -975,11 +974,6 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
     player.unlocks.talismans = true
     player.unlocks.blessings = true
     player.ants.crumbs = Decimal.fromString('1e100')
-  }
-  if (player.highestSingularityCount >= 30) {
-    player.researches[130] = 1
-    player.researches[135] = 1
-    player.researches[145] = 1
   }
   if (singularityReset && player.highestSingularityCount >= 100) {
     player.cubeUpgrades[51] = 1
@@ -1056,6 +1050,7 @@ export const singularity = (setSingNumber = -1) => {
   resetRuneSpirits('singularity')
   resetTalismanData('singularity')
   resetAnts(AntSacrificeTiers.singularity)
+  resetResearches('singularity')
 
   if (antiquitiesPurchased) {
     player.goldenQuarks += calculateGoldenQuarks()
@@ -1142,11 +1137,7 @@ export const singularity = (setSingNumber = -1) => {
     hold.worlds = Number(player.worlds)
   }
 
-  if (player.highestSingularityCount >= 5) {
-    for (const index of cubeResearches) {
-      hold.researches[index] = player.researches[index]
-    }
-  }
+  hold.researches = [...player.researches]
   hold.goldenQuarkUpgrades = { ...player.goldenQuarkUpgrades }
   hold.octUpgrades = { ...player.octUpgrades }
   hold.ambrosiaUpgrades = { ...player.ambrosiaUpgrades }
@@ -1379,32 +1370,13 @@ const resetUpgrades = (i: number) => {
   }
 }
 
-// Researches which boost Wow! Cube gain or Cube opening. These never reset on Ascension,
-// and are kept through Singularity once the Cool QoL Cubes perk (Singularity 25) is unlocked
-export const cubeResearches = [137, 138, 152, 153, 167, 168, 182, 183, 192, 197, 198]
-
-export const getResetResearches = memoize(() => {
-  // Array listing all the research indexes deserving of removal
-  // dprint-ignore
-  const destroy = [
-    6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 22, 23, 24, 25,
-    26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
-    51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 62, 63, 64, 65,
-    76, 81, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 96, 97, 98,
-    101, 102, 103, 104, 106, 107, 108, 109, 110, 116, 117, 118, 121, 122, 123,
-    126, 127, 128, 129, 131, 132, 133, 134, 136, 139, 141, 142, 143, 144, 146, 147, 148,
-    149, 151, 154, 156, 157, 158, 159, 161, 162, 163, 164, 166, 169, 171, 172, 173, 174,
-    176, 177, 178, 179, 181, 184, 186, 187, 188, 189, 191, 193, 194, 196, 199
-  ]
-
-  return destroy
-})
-
-const resetResearches = () => {
+const resetResearches = (tier: keyof typeof resetTiers) => {
   player.obtainium = new Decimal()
 
-  for (const item of getResetResearches()) {
-    player.researches[item] = 0
+  for (let i = 1; i < player.researches.length; i++) {
+    if (resetTiers[researchData[i].minimumResetTier] <= resetTiers[tier]) {
+      player.researches[i] = 0
+    }
   }
 }
 

@@ -3643,7 +3643,7 @@
       "48": "[5x8] Your Worker Ant at the start of Ascensions can now generate crumbs, even without having Challenge 8 cleared!",
       "49": "[5x9] Immortal ELO is now automatically gained, without having to Sacrifice your ants!",
       "50": "[5x10] What doesn't this boost? +num:((0.01))% Accelerators, Multipliers, Accelerator Boosts, +num:((0.02))% Obtainium, +num:((0.02))% Offerings, num:((0.00066))% Tax reduction per level. Every num:((10000)) levels grant +num:((0.6))% Talisman Power!",
-      "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the Wow! Cubes tab, and Research as well.",
+      "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the Wow! Cubes tab, and max out all Cube Researches.",
       "52": "[Cx2] These sugar cookies sure boost your blood sugar. Gain +1% Global Speed per level.",
       "53": "[Cx3] What a hearty snack. Gain +num:((0.1))% Quarks per level.",
       "54": "[Cx4] Pretty dry, but they suffice. Gain +1% Offerings per level.",
@@ -4413,8 +4413,7 @@
       },
       "coolQOLCubes": {
         "name": "Cool QoL Cubes",
-        "hasLevel1": "Keep all Cube Researches through Singularity AND gain the ability to automatically open a percentage of your cubes each Ascension!",
-        "default": "Researches related to Cubes will no longer reset on Singularity"
+        "default": "Gain the ability to automatically open a percentage of your cubes each Ascension!"
       },
       "irishAnt": {
         "name": "Irish Ants",
