@@ -2000,15 +2000,16 @@ export const visualUpdateSingularity = () => {
       el.classList.toggle('octeractUpgradeMaxed', isMaxed)
       el.classList.toggle('octeractUpgradeFreeLevels', player.octUpgrades[key].freeLevel > 0)
 
+      const img = DOMCacheGetOrSet(`${key}Image`)
       if (isMaxed) {
-        el.style.filter = val ? 'brightness(.9)' : 'none'
+        img.style.filter = val ? 'brightness(.9)' : 'none'
       } else if (!isAffordable) {
-        el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
+        img.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
       } else if (octeractUpgrades[key].level < octItem.maxLevel) {
         if (player.octUpgrades[key].freeLevel > octeractUpgrades[key].level) {
-          el.style.filter = val ? 'blur(2px) invert(.9) saturate(200)' : 'none'
+          img.style.filter = val ? 'blur(2px) invert(.9) saturate(200)' : 'none'
         } else {
-          el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none'
+          img.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none'
         }
       }
     }
