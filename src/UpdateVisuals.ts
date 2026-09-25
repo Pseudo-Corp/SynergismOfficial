@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
-import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
+import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   CalcCorruptionStuff,
@@ -86,7 +86,9 @@ import {
 import { promocodesInfoText } from './ImportExport'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
 import {
+  calculateOcteractUpgradeAP,
   getOcteractUpgradeCostTNL,
+  maxOcteractUpgradeAP,
   octeractUpgradeNames,
   octeractUpgrades,
   updateOcteractUpgradeVisibility
@@ -107,16 +109,22 @@ import {
   maxPurpleReactorAP,
   purpleReactorUpgrades
 } from './Purple'
-import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
+import {
+  calculatePurpleAmbrosiaUpgradeAP,
+  getPurpleAmbrosiaUpgradeEffects,
+  maxPurpleAmbrosiaUpgradeAP
+} from './PurpleAmbrosiaUpgrades'
 import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
 import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
 import { getQuarkBonus, quarkHandler } from './Quark'
+import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
 import { runeSpiritKeys, updateRuneSpiritHTML } from './RuneSpirits'
 import { getShopCosts, getShopUpgradeEffects, shopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
 import { updateShopTab } from './ShopTab'
 import {
+  calculateGQUpgradeAP,
   computeGQUpgradeFreeLevelSoftcap,
   computeGQUpgradeMaxLevel,
   getGoldenQuarkCost,
@@ -124,6 +132,7 @@ import {
   getGQUpgradeEffect,
   goldenQuarkUpgradeNames,
   goldenQuarkUpgrades,
+  maxGoldenQuarkUpgradeAP,
   updateGoldenQuarkUpgradeVisibility
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
@@ -1958,6 +1967,13 @@ export const visualUpdateSingularity = () => {
         goldenQuarks: format(player.goldenQuarks, 0, true, false)
       }
     )
+    updateInnerHTMLIfChanged(
+      'goldenQuarkUpgradeAP',
+      i18next.t('singularity.goldenQuarkUpgradeAP', {
+        current: format(calculateGQUpgradeAP(), 0, true),
+        max: format(maxGoldenQuarkUpgradeAP, 0, true)
+      })
+    )
 
     const val = G.shopEnhanceVision
 
@@ -2031,6 +2047,13 @@ export const visualUpdateOcteracts = () => {
   DOMCacheGetOrSet('octeractAmount').innerHTML = i18next.t('octeract.amount', {
     octeracts: format(player.wowOcteracts, 2, true, false)
   })
+  updateInnerHTMLIfChanged(
+    'octeractUpgradeAP',
+    i18next.t('octeract.octeractUpgradeAP', {
+      current: format(calculateOcteractUpgradeAP(), 0, true),
+      max: format(maxOcteractUpgradeAP, 0, true)
+    })
+  )
 
   const perSecond = calculateOcteractMultiplier()
 
@@ -2242,6 +2265,18 @@ export const visualUpdateAmbrosia = () => {
   DOMCacheGetOrSet('ambrosiaUpgradeRedAmbrosia').hidden = !redUnlocked
   DOMCacheGetOrSet('ambrosiaUpgradePurpleAmbrosia').hidden = !purpleUnlocked
   DOMCacheGetOrSet('purpleAmbrosiaDisplay').hidden = !purpleUnlocked
+  DOMCacheGetOrSet('ambrosiaUpgradeAP').hidden = !redUnlocked
+  if (redUnlocked) {
+    const purpleAP = purpleUnlocked ? calculatePurpleAmbrosiaUpgradeAP() + calculatePurpleEnchantmentAP() : 0
+    const maxPurpleAP = purpleUnlocked ? maxPurpleAmbrosiaUpgradeAP + maxPurpleEnchantmentAP : 0
+    updateInnerHTMLIfChanged(
+      'ambrosiaUpgradeAP',
+      i18next.t('ambrosia.upgradeAP', {
+        current: format(calculateRedAmbrosiaUpgradeAP() + purpleAP, 0, true),
+        max: format(maxRedAmbrosiaUpgradeAP + maxPurpleAP, 0, true)
+      })
+    )
+  }
 
   const twoMindEnabled = getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')
   const luck = calculateAmbrosiaRewardLuck()

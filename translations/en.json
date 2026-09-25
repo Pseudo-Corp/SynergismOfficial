@@ -14,6 +14,7 @@
     "recoveryImport": "Load from file"
   },
   "ambrosia": {
+    "upgradeAP": "Red & Purple Ambrosia Upgrade AP: <<gold|{{current}}/{{max}}>>",
     "ambrosia": "Ambrosia",
     "upgradeUnlockHints": {
       "red": "Unlock more upgrades by completing EXALT <<red|$t(singularityChallenge.data.noAmbrosiaUpgrades.name), Tier 1>>.",
@@ -4260,6 +4261,7 @@
       "ascensionReset": "You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...",
       "multiBuyPurchased": "Purchased {{levels}} levels, thanks to Multi Buy!"
     },
+    "goldenQuarkUpgradeAP": "Golden Quark Upgrade AP: <<gold|{{current}}/{{max}}>>",
     "perks": {
       "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "previewInfo": "Unlocks at Singularity <<gold|{{singularity}}>>",
@@ -4534,7 +4536,9 @@
       "minimum": "Minimum Singularity: {{minSingularity}}",
       "noMinimum": "No minimal Singularity to purchase required",
       "costNextLevel": "Cost for next level: {{amount}} Golden Quarks",
-      "spentGQ": "Golden Quarks Spent: {{spent}}"
+      "spentGQ": "Golden Quarks Spent: {{spent}}",
+      "overclockLevels": "Max Level is increased by {{levels}} (Overclock)",
+      "upgradeAPMaxOverclock": "You get <<gold|+{{amount}}>> AP for reaching level {{level}}! {{check}}"
     },
     "freeUpgradeInfo": {
       "button": "Free Upgrades Info",
@@ -5115,6 +5119,8 @@
     "maxed": "(Maxed)",
     "maxedUpgradesShow": "Maxed Upgrades: SHOW",
     "fullyCapped": "Max level and free level cap reached",
+    "upgradeAPMax": "You get <<gold|+{{amount}}>> AP for maxing this upgrade! {{check}}",
+    "upgradeAPFreeLevelCap": "You get <<gold|+{{amount}}>> AP for capping this upgrade's free levels! {{check}}",
     "maxedUpgradesHide": "Maxed Upgrades: HIDE",
     "affordable": "(Affordable)",
     "enabled": "(Enabled)",
@@ -6073,6 +6079,7 @@
     "constantHover": "Select an icon for a description of the upgrade."
   },
   "octeract": {
+    "octeractUpgradeAP": "Octeract Upgrade AP: <<gold|{{current}}/{{max}}>>",
     "freeUpgradeInfo": {
       "button": "Free Upgrades Info",
       "title": "Free Octeract Upgrade Levels",

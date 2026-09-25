@@ -2227,10 +2227,6 @@ export const blankGQLevelObject: Record<
   ])
 ) as Record<SingularityDataKeys, { freeLevel: number; goldenQuarksInvested: number }>
 
-export const maxGoldenQuarkUpgradeAP = Object.values(goldenQuarkUpgrades).reduce((acc) => {
-  return acc + 6
-}, 0)
-
 export function updateGoldenQuarkUpgradeVisibility (
   upgradeKey: SingularityDataKeys,
   element = DOMCacheGetOrSet(upgradeKey)
@@ -2356,6 +2352,18 @@ export const dailyFreeUpgradeTable: Record<DailyFreeUpgradeKey, DailyFreeUpgrade
 }
 
 export const dailyFreeUpgradeKeys = Object.keys(dailyFreeUpgradeTable) as DailyFreeUpgradeKey[]
+
+export const maxGoldenQuarkUpgradeAP = 6 * goldenQuarkUpgradeNames.length
+  + 6 * dailyFreeUpgradeKeys.filter((key) => dailyFreeUpgradeTable[key].freeLevelCap !== -1).length
+
+const hasGQFreeLevelCap = (key: SingularityDataKeys): key is DailyFreeUpgradeKey =>
+  key in dailyFreeUpgradeTable && dailyFreeUpgradeTable[key as DailyFreeUpgradeKey].freeLevelCap !== -1
+
+export const getGQUpgradeAP = (key: SingularityDataKeys): number =>
+  (goldenQuarkUpgrades[key].level >= goldenQuarkUpgrades[key].maxLevel ? 6 : 0)
+  + (hasGQFreeLevelCap(key) && isDailyFreeUpgradeCapped(key) ? 6 : 0)
+
+export const calculateGQUpgradeAP = () => sumContents(goldenQuarkUpgradeNames.map(getGQUpgradeAP))
 
 const getDailyFreeUpgradeRoom = (key: DailyFreeUpgradeKey): number => {
   const cap = dailyFreeUpgradeTable[key].freeLevelCap
@@ -2717,6 +2725,13 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     format(goldenQuarkUpgrades[upgradeKey].level, 0, true)
   }${maxLevel}${freeLevelText}${fullyCappedText}</span>`
 
+  const overclockLevels = computeGQUpgradeMaxLevel(upgradeKey) - upgrade.maxLevel
+  const overclockHTML = overclockLevels > 0
+    ? `<br><span style="color: orchid">${
+      i18next.t('singularity.toString.overclockLevels', { levels: format(overclockLevels, 0, true) })
+    }</span>`
+    : ''
+
   // Upgrade Effect Text
   const upgradeEffectHTML = `<span style="color: gold">${effectDesc}</span>`
 
@@ -2738,7 +2753,26 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>`
     : ''
 
-  return `${nameHTML}<br>${levelText}${effectiveLevelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${investedGQHTML}${qualityOfLifeText}`
+  const maxLevelAPCheck = goldenQuarkUpgrades[upgradeKey].level >= upgrade.maxLevel ? '✔' : '✖'
+  const maxLevelAPHTML = `<br>${
+    upgrade.canExceedCap
+      ? i18next.t('singularity.toString.upgradeAPMaxOverclock', {
+        amount: 6,
+        level: format(upgrade.maxLevel, 0, true),
+        check: maxLevelAPCheck
+      })
+      : i18next.t('general.upgradeAPMax', { amount: 6, check: maxLevelAPCheck })
+  }`
+  const freeLevelAPHTML = hasGQFreeLevelCap(upgradeKey)
+    ? `<br>${
+      i18next.t('general.upgradeAPFreeLevelCap', {
+        amount: 6,
+        check: isDailyFreeUpgradeCapped(upgradeKey) ? '✔' : '✖'
+      })
+    }`
+    : ''
+
+  return `${nameHTML}<br>${levelText}${overclockHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${investedGQHTML}${qualityOfLifeText}${maxLevelAPHTML}${freeLevelAPHTML}`
 }
 
 export function updateMobileGQHTML (k: SingularityDataKeys) {

@@ -2661,3 +2661,10 @@ export const displayLevelsBlueberry = () => {
 }
 
 export const maxPurpleEnchantmentAP = 5 * ambrosiaUpgradeNames.length
+
+export const calculatePurpleEnchantmentAP = () =>
+  ambrosiaUpgradeNames.reduce((sum, key) => {
+    const enchantment = ambrosiaUpgrades[key].purpleAmbrosiaEnchantment
+    const invested = player.ambrosiaUpgrades[key].purpleAmbrosiaInvested ?? 0
+    return sum + (invested >= enchantment.costFormula(enchantment.maxLevel) ? 5 : 0)
+  }, 0)

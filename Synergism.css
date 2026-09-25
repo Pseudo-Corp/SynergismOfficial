@@ -7571,6 +7571,18 @@ header #obtainiumDisplay { color: pink; }
     }
 }
 
+.upgradeAPTotal {
+    /* width: 0 keeps the line out of the container's fit-content width; min-width fills the row */
+    width: 0;
+    min-width: 100%;
+    margin: 0 0 5px;
+    text-align: center;
+}
+
+#octeractUpgradeAP {
+    margin-top: 10px;
+}
+
 .purpleUpgradeAP {
     grid-area: ap;
     margin: 0;

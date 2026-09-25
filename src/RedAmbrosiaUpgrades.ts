@@ -608,6 +608,12 @@ export const maxRedAmbrosiaUpgradeAP = Object.values(redAmbrosiaUpgrades).reduce
   return acc + 10
 }, 0)
 
+const isRedAmbrosiaUpgradeMaxed = (key: RedAmbrosiaNames) =>
+  redAmbrosiaUpgrades[key].level >= redAmbrosiaUpgrades[key].maxLevel
+
+export const calculateRedAmbrosiaUpgradeAP = () =>
+  redAmbrosiaUpgradeNames.reduce((sum, key) => sum + (isRedAmbrosiaUpgradeMaxed(key) ? 10 : 0), 0)
+
 export const maximumAffordableLevel = (upgradeKey: RedAmbrosiaNames, redAmbrosiaAmount: number): number => {
   const upgrade = redAmbrosiaUpgrades[upgradeKey]
 
@@ -706,9 +712,14 @@ export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string
 
   const purchaseWarningSpan = `<span>${i18next.t('redAmbrosia.purchaseWarning')}</span>`
 
+  const maxLevelAPSpan = i18next.t('general.upgradeAPMax', {
+    amount: 10,
+    check: isRedAmbrosiaUpgradeMaxed(upgradeKey) ? '✔' : '✖'
+  })
+
   return `${nameSpan} <br> ${levelSpan} <br> ${descriptionSpan} <br> ${rewardDescSpan} <br> ${
     (!isMaxLevel) ? `${costNextLevelSpan} <br>` : ''
-  } ${spentSpan} <br> ${purchaseWarningSpan}`
+  } ${spentSpan} <br> ${maxLevelAPSpan} <br> ${purchaseWarningSpan}`
 }
 
 export const updateMobileRedAmbrosiaHTML = (k: RedAmbrosiaNames) => {

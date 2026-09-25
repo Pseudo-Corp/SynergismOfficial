@@ -1,31 +1,22 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { ambrosiaUpgradeNames, ambrosiaUpgrades, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
+import { calculatePurpleEnchantmentAP, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateAscensionScore } from './Calculate'
 import { campaignTokens } from './Campaign'
 import { calculateLeaderboardValue } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-leaderboard'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { displayLevelStuff } from './Levels'
-import { maxOcteractUpgradeAP, octeractUpgradeNames, octeractUpgrades } from './Octeracts'
+import { calculateOcteractUpgradeAP, maxOcteractUpgradeAP } from './Octeracts'
 import { calculatePurpleReactorAP, maxPurpleReactorAP } from './Purple'
-import {
-  maxPurpleAmbrosiaUpgradeAP,
-  purpleAmbrosiaUpgradeNames,
-  purpleAmbrosiaUpgrades
-} from './PurpleAmbrosiaUpgrades'
-import { maxRedAmbrosiaUpgradeAP, redAmbrosiaUpgradeNames, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
+import { calculatePurpleAmbrosiaUpgradeAP, maxPurpleAmbrosiaUpgradeAP } from './PurpleAmbrosiaUpgrades'
+import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { runeBlessings } from './RuneBlessings'
 import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
 import { runeSpirits } from './RuneSpirits'
 import { maxQuarkUpgradeAP, quarkUpgradeAP } from './Shop'
-import {
-  getGQUpgradeEffect,
-  goldenQuarkUpgradeNames,
-  goldenQuarkUpgrades,
-  maxGoldenQuarkUpgradeAP
-} from './singularity'
+import { calculateGQUpgradeAP, getGQUpgradeEffect, maxGoldenQuarkUpgradeAP } from './singularity'
 import { maxAPFromChallenges, type SingularityChallengeDataKeys } from './SingularityChallenges'
 import { format, player } from './Synergism'
 import { calculateSynthesisUpgradeAP, maxSynthesisUpgradeAP } from './Synthesis'
@@ -510,17 +501,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
   },
   singularityUpgrades: {
     maxPointValue: maxGoldenQuarkUpgradeAP,
-    pointsAwarded: (_cached: number) => {
-      let pointValue = 0
-      // Go through all sing upgrades. if the max level is NOT -1, add 5 points if the upgrade level equals max level
-      for (const key of goldenQuarkUpgradeNames) {
-        const upgrade = goldenQuarkUpgrades[key]
-        if (goldenQuarkUpgrades[key].level >= upgrade.maxLevel) {
-          pointValue += 6
-        }
-      }
-      return pointValue
-    },
+    pointsAwarded: (_cached: number) => calculateGQUpgradeAP(),
     updateValue: () => {
       return 0
     },
@@ -531,17 +512,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
   },
   octeractUpgrades: {
     maxPointValue: maxOcteractUpgradeAP,
-    pointsAwarded: (_cached: number) => {
-      let pointValue = 0
-      // Go through all octeract upgrades. if the max level is NOT -1, add 8 points if the upgrade level equals max level
-      for (const key of octeractUpgradeNames) {
-        const upgrade = octeractUpgrades[key]
-        if (upgrade.maxLevel !== -1 && octeractUpgrades[key].level >= upgrade.maxLevel) {
-          pointValue += 8
-        }
-      }
-      return pointValue
-    },
+    pointsAwarded: (_cached: number) => calculateOcteractUpgradeAP(),
     updateValue: () => {
       return 0
     },
@@ -552,15 +523,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
   },
   redAmbrosiaUpgrades: {
     maxPointValue: maxRedAmbrosiaUpgradeAP,
-    pointsAwarded: () => {
-      let pointValue = 0
-      for (const upgrade of redAmbrosiaUpgradeNames) {
-        if (redAmbrosiaUpgrades[upgrade].level >= redAmbrosiaUpgrades[upgrade].maxLevel) {
-          pointValue += 10
-        }
-      }
-      return pointValue
-    },
+    pointsAwarded: () => calculateRedAmbrosiaUpgradeAP(),
     updateValue: () => {
       return 0
     },
@@ -600,24 +563,8 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
   },
   purpleAmbrosiaUpgrades: {
     maxPointValue: maxSynthesisUpgradeAP + maxPurpleAmbrosiaUpgradeAP + maxPurpleEnchantmentAP,
-    pointsAwarded: () => {
-      let pointValue = calculateSynthesisUpgradeAP()
-      for (const key of purpleAmbrosiaUpgradeNames) {
-        const upgrade = purpleAmbrosiaUpgrades[key]
-        if (player.purpleAmbrosiaUpgrades[key] >= upgrade.costFormula(upgrade.maxLevel)) {
-          pointValue += 12
-        }
-      }
-      for (const key of ambrosiaUpgradeNames) {
-        const enchantment = ambrosiaUpgrades[key].purpleAmbrosiaEnchantment
-        if (
-          (player.ambrosiaUpgrades[key].purpleAmbrosiaInvested ?? 0) >= enchantment.costFormula(enchantment.maxLevel)
-        ) {
-          pointValue += 5
-        }
-      }
-      return pointValue
-    },
+    pointsAwarded: () =>
+      calculateSynthesisUpgradeAP() + calculatePurpleAmbrosiaUpgradeAP() + calculatePurpleEnchantmentAP(),
     updateValue: () => {
       return 0
     },

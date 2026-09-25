@@ -374,6 +374,12 @@ export const purpleAmbrosiaUpgradeNames = Object.keys(purpleAmbrosiaUpgrades) as
 
 export const maxPurpleAmbrosiaUpgradeAP = 12 * purpleAmbrosiaUpgradeNames.length
 
+export const calculatePurpleAmbrosiaUpgradeAP = () =>
+  purpleAmbrosiaUpgradeNames.reduce((sum, key) => {
+    const upgrade = purpleAmbrosiaUpgrades[key]
+    return sum + (player.purpleAmbrosiaUpgrades[key] >= upgrade.costFormula(upgrade.maxLevel) ? 12 : 0)
+  }, 0)
+
 export const maximumAffordableLevel = (
   upgradeKey: PurpleAmbrosiaNames,
   purpleAmbrosiaAmount: number
