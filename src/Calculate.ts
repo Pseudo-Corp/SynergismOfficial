@@ -21,7 +21,6 @@ import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import {
   calculateRedAmbrosiaReactantCapacityFromAmbrosia,
   PURPLE_REACTOR_OVERFLOW_EFFICIENCY,
-  type PurpleReactant,
   purpleReactantConversion
 } from './PurpleReactor'
 import { quarkHandler } from './Quark'
@@ -501,80 +500,75 @@ export const calculatePurpleOverflowConversion = (ambrosiaBarPoints: number, red
   }
 }
 
+const isPurpleReactorOverflowEnabled = () =>
+  player.encabulatorOvercapToggle && getPurpleAmbrosiaUpgradeEffects('libra', 'overcapToggleUnlocked')
+
+/**
+ * Reacts each tank's held excess against the other tank's remaining stock. This must run after
+ * the main reaction, so overflow only uses stock the Encabulator did not consume.
+ * Any unmatched excess is refunded to its regular bar.
+ */
+export const calculatePurpleOverflowResolution = (
+  ambrosiaExcessBarPoints: number,
+  redAmbrosiaExcessBarPoints: number,
+  storedAmbrosiaBarPoints: number,
+  storedRedAmbrosiaBarPoints: number
+) => {
+  if (!isPurpleReactorOverflowEnabled()) {
+    return {
+      ambrosiaOverflowBarPoints: 0,
+      redAmbrosiaOverflowBarPoints: 0,
+      storedAmbrosiaBarPointsSpent: 0,
+      storedRedAmbrosiaBarPointsSpent: 0,
+      ambrosiaRefundBarPoints: ambrosiaExcessBarPoints,
+      redAmbrosiaRefundBarPoints: redAmbrosiaExcessBarPoints,
+      purpleBarPointsGained: 0
+    }
+  }
+
+  const ambrosiaReaction = calculatePurpleOverflowConversion(ambrosiaExcessBarPoints, storedRedAmbrosiaBarPoints)
+  const redAmbrosiaReaction = calculatePurpleOverflowConversion(storedAmbrosiaBarPoints, redAmbrosiaExcessBarPoints)
+
+  return {
+    ambrosiaOverflowBarPoints: ambrosiaReaction.ambrosiaBarPointsSpent,
+    redAmbrosiaOverflowBarPoints: redAmbrosiaReaction.redAmbrosiaBarPointsSpent,
+    storedAmbrosiaBarPointsSpent: redAmbrosiaReaction.ambrosiaBarPointsSpent,
+    storedRedAmbrosiaBarPointsSpent: ambrosiaReaction.redAmbrosiaBarPointsSpent,
+    ambrosiaRefundBarPoints: Math.max(0, ambrosiaExcessBarPoints - ambrosiaReaction.ambrosiaBarPointsSpent),
+    redAmbrosiaRefundBarPoints: Math.max(0, redAmbrosiaExcessBarPoints - redAmbrosiaReaction.redAmbrosiaBarPointsSpent),
+    purpleBarPointsGained: ambrosiaReaction.purpleBarPointsGained + redAmbrosiaReaction.purpleBarPointsGained
+  }
+}
+
+/**
+ * Routes Bar Points into a reactant tank. Bar Points routed to a full tank are returned as excess;
+ * the caller either holds them for overflow or refunds them to the regular bar.
+ */
 export const calculatePurpleReactantRouting = (
   productionPerSecond: number,
   reservePercentage: number,
   storedBarPoints: number,
   capacity: number,
-  elapsedSeconds = 1,
-  dissolutionPerSecond = 0,
-  overflow?: { reactant: PurpleReactant; counterpartBarPoints: number }
+  elapsedSeconds: number
 ) => {
-  // Check edge case to avoid div by 0 and extraneous work
-  if (elapsedSeconds === 0) {
-    return {
-      storedBarPoints,
-      regularBarPoints: 0,
-      overflowBarPoints: 0,
-      overflowCounterpartBarPoints: 0,
-      purpleBarPointsGained: 0,
-      reserveRate: 0,
-      regularRate: 0,
-      overflowRate: 0,
-      overflowCounterpartRate: 0,
-      purpleBarPointsRate: 0
-    }
-  }
-
   const clampedStored = Math.min(capacity, storedBarPoints)
   const clampedReservePercentage = Math.min(100, Math.max(0, reservePercentage))
   const producedBarPoints = productionPerSecond * elapsedSeconds
   const requestedReserveBarPoints = clampedReservePercentage === 100
     ? producedBarPoints
     : producedBarPoints * clampedReservePercentage / 100
-  const dissolvedBarPoints = Math.min(clampedStored, dissolutionPerSecond * elapsedSeconds)
-  const storedAfterDissolution = clampedStored - dissolvedBarPoints
-  const reservedBarPoints = Math.min(requestedReserveBarPoints, capacity - storedAfterDissolution)
-  let overflowBarPoints = 0
-  let overflowCounterpartBarPoints = 0
-  let purpleBarPointsGained = 0
-  const requestedOverflowBarPoints = Math.max(0, requestedReserveBarPoints - reservedBarPoints)
-  if (
-    overflow && requestedOverflowBarPoints > 0 && player.encabulatorOvercapToggle
-    && getPurpleAmbrosiaUpgradeEffects('libra', 'overcapToggleUnlocked')
-  ) {
-    const reaction = overflow.reactant === 'ambrosia'
-      ? calculatePurpleOverflowConversion(requestedOverflowBarPoints, overflow.counterpartBarPoints)
-      : calculatePurpleOverflowConversion(overflow.counterpartBarPoints, requestedOverflowBarPoints)
-    overflowBarPoints = overflow.reactant === 'ambrosia'
-      ? reaction.ambrosiaBarPointsSpent
-      : reaction.redAmbrosiaBarPointsSpent
-    overflowCounterpartBarPoints = overflow.reactant === 'ambrosia'
-      ? reaction.redAmbrosiaBarPointsSpent
-      : reaction.ambrosiaBarPointsSpent
-    purpleBarPointsGained = reaction.purpleBarPointsGained
-  }
-  const unroundedRegularBarPoints = producedBarPoints - reservedBarPoints - overflowBarPoints
-  const roundingTolerance = 16 * Number.EPSILON * Math.max(
-    1,
-    Math.abs(producedBarPoints),
-    Math.abs(reservedBarPoints)
-  )
+  const reservedBarPoints = Math.min(requestedReserveBarPoints, capacity - clampedStored)
+  const unroundedRegularBarPoints = producedBarPoints - requestedReserveBarPoints
+  const roundingTolerance = 16 * Number.EPSILON * Math.max(1, Math.abs(producedBarPoints))
   const regularBarPoints = Math.abs(unroundedRegularBarPoints) <= roundingTolerance
     ? 0
     : unroundedRegularBarPoints
 
   return {
-    storedBarPoints: storedAfterDissolution + reservedBarPoints,
-    regularBarPoints,
-    overflowBarPoints,
-    overflowCounterpartBarPoints,
-    purpleBarPointsGained,
-    reserveRate: reservedBarPoints / elapsedSeconds,
-    regularRate: regularBarPoints / elapsedSeconds,
-    overflowRate: overflowBarPoints / elapsedSeconds,
-    overflowCounterpartRate: overflowCounterpartBarPoints / elapsedSeconds,
-    purpleBarPointsRate: purpleBarPointsGained / elapsedSeconds
+    storedBarPoints: clampedStored + reservedBarPoints,
+    reservedBarPoints,
+    excessBarPoints: Math.max(0, requestedReserveBarPoints - reservedBarPoints),
+    regularBarPoints
   }
 }
 
@@ -861,14 +855,12 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
 
   G.timeMultiplier = calculateGlobalSpeedMult()
 
-  let obtainiumGain = calculateResearchAutomaticObtainium(timeAdd)
-
   const resetAdd = {
     prestige: (player.prestigeCount > 0) ? timeAdd / Math.max(0.25, player.fastestprestige) : 0,
     offering: Math.floor(timeAdd),
     transcension: (player.transcendCount > 0) ? timeAdd / Math.max(0.25, player.fastesttranscend) : 0,
     reincarnation: (player.reincarnationCount > 0) ? timeAdd / Math.max(0.25, player.fastestreincarnate) : 0,
-    obtainium: obtainiumGain.times(timeAdd).times(G.timeMultiplier)
+    obtainium: calculateResearchAutomaticObtainium(timeAdd)
   }
 
   if (player.singularityChallenges.barDependence.enabled) {
@@ -946,9 +938,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
       automaticTools('addObtainium', timeTick)
     }
     addTimers('octeracts', timeTick)
-    addTimers('ambrosia', timeTick)
-    addTimers('redAmbrosia', timeTick)
-    addTimers('purpleHoney', timeTick)
+    addTimers('purpleReactor', timeTick)
 
     resourceGain(timeTick * G.timeMultiplier)
     generateAntsAndCrumbs(timeTick)

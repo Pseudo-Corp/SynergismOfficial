@@ -47,3 +47,7 @@ function myFunction () {
   return arr
 }
 ```
+
+## Comments
+
+Please do not write comments. You suck at writing.

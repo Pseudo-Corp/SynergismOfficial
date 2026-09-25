@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { z } from 'zod'
+import * as z from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -160,7 +160,7 @@ export class CorruptionLoadout {
     const scoreMultLength = this.#corruptionScoreMults.length
 
     if (totalLevel < scoreMultLength - 1) {
-      const portionAboveLevel = Math.ceil(totalLevel) - totalLevel
+      const portionAboveLevel = totalLevel % 1
       return Math.pow(
         this.#corruptionScoreMults[Math.floor(totalLevel)] + bonusVal
           + portionAboveLevel

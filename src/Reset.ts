@@ -30,7 +30,12 @@ import {
 import { CalcECC, challengeRequirement, resetChallengeSweep } from './Challenges'
 import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate, type SavedCorruption } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
-import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
+import {
+  autoBuyCubeUpgrades,
+  awardCubeResearchCookieUpgrade,
+  cubeAutomationIndices,
+  updateCubeUpgradeBG
+} from './Cubes'
 import { resetAnts } from './Features/Ants/player/reset'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { toggleAutoAntSacrificeThreshold } from './Features/Ants/toggles/auto-sacrifice'
@@ -47,13 +52,18 @@ import { importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
-import { isResearchMaxed, setResearchRoombaHighlight, updateResearchBG } from './Research'
+import { isResearchMaxed, researchData, setResearchRoombaHighlight, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, runes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { getShopUpgradeEffects } from './Shop'
-import { calculateMaxSingularityLookahead, calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
+import {
+  awardSingularityMilestoneFreeUpgrades,
+  calculateMaxSingularityLookahead,
+  calculateSingularityDebuff,
+  getGQUpgradeEffect
+} from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { blankSave, deepClone, format, player, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs, updateSubTabVisibility } from './Tabs'
@@ -159,10 +169,13 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       resetDetails.currencyVisible = true
       resetDetails.currencySrc = `Pictures/${iconSet}/Diamond.png`
       resetDetails.currencyText = `-${format(player.acceleratorBoostCost)}`
-      resetDetails.infoText = i18next.t('reset.details.acceleratorBoost', {
-        amount: format(player.prestigePoints),
-        required: format(player.acceleratorBoostCost)
-      })
+      resetDetails.infoText = i18next.t(
+        player.upgrades[88] === 1 ? 'reset.details.acceleratorBoostNoReset' : 'reset.details.acceleratorBoost',
+        {
+          amount: format(player.prestigePoints),
+          required: format(player.acceleratorBoostCost)
+        }
+      )
       resetDetails.infoColor = 'cyan'
       break
     case 'transcensionChallenge':
@@ -613,7 +626,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.autoChallengeIndex = 1
 
     // reset rest
-    resetResearches()
+    resetResearches('ascension')
     resetAnts(AntSacrificeTiers.ascension)
     resetTalismanData('ascension')
     player.reincarnationPoints = new Decimal()
@@ -622,8 +635,10 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     for (let j = 61; j <= 80; j++) {
       player.upgrades[j] = 0
     }
-    for (let j = 94; j <= 100; j++) {
-      player.upgrades[j] = 0
+    if (player.highestSingularityCount === 0) {
+      for (let j = 94; j <= 100; j++) {
+        player.upgrades[j] = 0
+      }
     }
     player.firstOwnedParticles = 0
     player.secondOwnedParticles = 0
@@ -824,8 +839,8 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     autoBuyCubeUpgrades()
 
     // Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
-    if (player.highestSingularityCount >= 35) {
-      if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
+    if (player.highestSingularityCount >= 10) {
+      if (player.autoOpenCubes && player.openCubes !== 0) {
         player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
       }
       if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
@@ -897,7 +912,9 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.wowAbyssals = 0
 
     for (let index = 1; index <= 50; index++) {
-      player.cubeUpgrades[index] = 0
+      if (!cubeAutomationIndices.includes(index)) {
+        player.cubeUpgrades[index] = 0
+      }
     }
   }
 
@@ -931,7 +948,6 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
     player.reincarnationPoints = Decimal.fromString('10')
     player.unlocks.reincarnate = true
     player.unlocks.rrow1 = true
-    player.researches[47] = 1
   }
   if (player.highestSingularityCount >= 4) { // Singularity 4
     player.obtainium = Decimal.fromNumber(Math.floor(
@@ -976,19 +992,20 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
     player.unlocks.blessings = true
     player.ants.crumbs = Decimal.fromString('1e100')
   }
-  if (player.highestSingularityCount >= 30) {
-    player.researches[130] = 1
-    player.researches[135] = 1
-    player.researches[145] = 1
-  }
   if (singularityReset && player.highestSingularityCount >= 100) {
     player.cubeUpgrades[51] = 1
-    awardAutosCookieUpgrade()
+    awardCubeResearchCookieUpgrade()
   }
 
   if (player.highestSingularityCount >= 244) {
     player.cubeUpgrades[71] = 1
     player.cubeUpgrades[72] = 1
+  }
+
+  if (player.highestSingularityCount > 0) {
+    for (let j = 81; j <= 100; j++) {
+      player.upgrades[j] = 1
+    }
   }
 
   if (player.platonicUpgrades[5] === 0 && getGQUpgradeEffect('platonicAlpha', 'unlocked')) {
@@ -1056,6 +1073,7 @@ export const singularity = (setSingNumber = -1) => {
   resetRuneSpirits('singularity')
   resetTalismanData('singularity')
   resetAnts(AntSacrificeTiers.singularity)
+  resetResearches('singularity')
 
   if (antiquitiesPurchased) {
     player.goldenQuarks += calculateGoldenQuarks()
@@ -1081,12 +1099,7 @@ export const singularity = (setSingNumber = -1) => {
 
     if (incrementHighestSing) {
       player.highestSingularityCount++
-      if (player.highestSingularityCount === 5) {
-        player.goldenQuarkUpgrades.goldenQuarks3.freeLevel += 1
-      }
-      if (player.highestSingularityCount === 10) {
-        player.goldenQuarkUpgrades.goldenQuarks3.freeLevel += 2
-      }
+      awardSingularityMilestoneFreeUpgrades(player.highestSingularityCount)
     }
   } else {
     const incrementHighestSing = player.singularityCount === player.highestSingularityCount
@@ -1094,6 +1107,7 @@ export const singularity = (setSingNumber = -1) => {
     player.singularityCount = setSingNumber
     if (incrementHighestSing) {
       player.highestSingularityCount++
+      awardSingularityMilestoneFreeUpgrades(player.highestSingularityCount)
     }
   }
 
@@ -1128,6 +1142,9 @@ export const singularity = (setSingNumber = -1) => {
   hold.runes = { ...player.runes }
   hold.talismans = { ...player.talismans }
   hold.cubeUpgrades[80] = player.cubeUpgrades[80]
+  for (const i of cubeAutomationIndices) {
+    hold.cubeUpgrades[i] = player.cubeUpgrades[i]
+  }
 
   hold.ants = deepClone()(player.ants)
 
@@ -1142,6 +1159,7 @@ export const singularity = (setSingNumber = -1) => {
     hold.worlds = Number(player.worlds)
   }
 
+  hold.researches = [...player.researches]
   hold.goldenQuarkUpgrades = { ...player.goldenQuarkUpgrades }
   hold.octUpgrades = { ...player.octUpgrades }
   hold.ambrosiaUpgrades = { ...player.ambrosiaUpgrades }
@@ -1293,32 +1311,23 @@ export const singularity = (setSingNumber = -1) => {
   saveSynergy()
 }
 
+// [research, automation upgrade] pairs: owning the research starts every Reincarnation with the upgrade bought
+const reincarnationAutomationResearches = [
+  [41, 88],
+  [42, 90],
+  [43, 91],
+  [44, 92],
+  [45, 93]
+] as const
+
 const resetUpgrades = (i: number) => {
   if (i > 2.5) {
     for (let j = 41; j < 61; j++) {
-      if (j !== 46) {
-        player.upgrades[j] = 0
-      }
+      player.upgrades[j] = 0
     }
 
-    if (player.researches[41] === 0) {
-      player.upgrades[46] = 0
-    }
-
-    if (player.researches[41] === 0) {
-      player.upgrades[88] = 0
-    }
-    if (player.researches[42] === 0) {
-      player.upgrades[90] = 0
-    }
-    if (player.researches[43] === 0) {
-      player.upgrades[91] = 0
-    }
-    if (player.researches[44] === 0) {
-      player.upgrades[92] = 0
-    }
-    if (player.researches[45] === 0) {
-      player.upgrades[93] = 0
+    for (const [research, upgrade] of reincarnationAutomationResearches) {
+      player.upgrades[upgrade] = player.researches[research]
     }
 
     player.upgrades[116] = 0
@@ -1374,32 +1383,13 @@ const resetUpgrades = (i: number) => {
   }
 }
 
-export const getResetResearches = () => {
-  // Array listing all the research indexes deserving of removal
-  // dprint-ignore
-  const destroy = [
-    6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 22, 23, 24, 25,
-    26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
-    51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 62, 63, 64, 65,
-    76, 81, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 96, 97, 98,
-    101, 102, 103, 104, 106, 107, 108, 109, 110, 116, 117, 118, 121, 122, 123,
-    126, 127, 128, 129, 131, 132, 133, 134, 136, 137, 139, 141, 142, 143, 144, 146, 147, 148, 149,
-    151, 152, 154, 156, 157, 158, 159, 161, 162, 163, 164, 166, 167, 169, 171, 172, 173, 174,
-    176, 177, 178, 179, 181, 182, 184, 186, 187, 188, 189, 191, 192, 193, 194, 196, 197, 199
-  ]
-
-  if (player.highestSingularityCount < 25) {
-    destroy.push(138, 153, 168, 183, 198)
-  }
-
-  return destroy
-}
-
-const resetResearches = () => {
+const resetResearches = (tier: keyof typeof resetTiers) => {
   player.obtainium = new Decimal()
 
-  for (const item of getResetResearches()) {
-    player.researches[item] = 0
+  for (let i = 1; i < player.researches.length; i++) {
+    if (resetTiers[researchData[i].minimumResetTier] <= resetTiers[tier]) {
+      player.researches[i] = 0
+    }
   }
 }
 

@@ -5,8 +5,9 @@ import mimeTypes from 'mime-types'
 import { randomBytes, timingSafeEqual } from 'node:crypto'
 import fsp from 'node:fs/promises'
 import path from 'node:path'
+import { z } from 'zod'
+import { startDiscordRpc } from './lib/discord.ts'
 import { enableSteamOverlay, initializeSteam } from './lib/steam-ipc.ts'
-import './lib/discord.ts' // Discord RPC
 
 if (process.platform === 'darwin') {
   app.commandLine.appendSwitch('enable-gpu-rasterization')
@@ -21,9 +22,8 @@ if (process.platform === 'darwin') {
 
 // Single instance lock — on Windows/Linux, custom protocol URLs launch a new
 // instance. We grab the lock so the second instance can forward the URL to us.
-const gotTheLock = app.requestSingleInstanceLock()
-if (!gotTheLock) {
-  app.quit()
+if (!app.requestSingleInstanceLock()) {
+  process.exit(0)
 }
 
 app.setAsDefaultProtocolClient('synergism')
@@ -121,6 +121,12 @@ async function handleProtocolUrl (raw: string): Promise<void> {
   }
 }
 
+function openExternal (url: URL) {
+  if (url.protocol === 'https:' || url.protocol === 'http:' || url.protocol === 'mailto:') {
+    shell.openExternal(url.toString())
+  }
+}
+
 function createWindow (): void {
   const windowState = windowStateKeeper({
     defaultWidth: 1920,
@@ -168,7 +174,7 @@ function createWindow (): void {
       const url = new URL(u)
       if (url.hostname !== 'synergism.cc') {
         event.preventDefault()
-        shell.openExternal(u)
+        openExternal(url)
       } else if (url.pathname.startsWith('/login')) {
         // OAuth login flows should go through the system browser so the
         // backend can redirect back via synergism:// protocol.
@@ -185,13 +191,26 @@ function createWindow (): void {
       const parsed = new URL(url)
       if (parsed.hostname === 'synergism.cc' && parsed.pathname.startsWith('/login')) {
         shell.openExternal(withAuthState(parsed))
-        return { action: 'deny' }
+      } else {
+        openExternal(parsed)
       }
     } catch {
     }
 
-    shell.openExternal(url)
     return { action: 'deny' }
+  })
+
+  let lastRendererCrash = 0
+
+  mainWindow.webContents.on('render-process-gone', (_event, details) => {
+    console.error('Renderer process gone:', details)
+    if (details.reason === 'clean-exit') return
+
+    const now = Date.now()
+    if (now - lastRendererCrash > 30_000) {
+      mainWindow?.webContents.reload()
+    }
+    lastRendererCrash = now
   })
 
   mainWindow.on('closed', () => {
@@ -226,18 +245,20 @@ app.whenReady().then(async () => {
     const url = new URL(request.url)
 
     if (url.hostname === 'synergism.cc') {
-      let filePath = url.pathname === '/' ? 'index.html' : url.pathname.replace(/^\//, '')
-      filePath = path.join(distPath, filePath)
-
       try {
-        const data = await fsp.readFile(filePath)
-        const ext = path.extname(filePath)
+        const relativePath = url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname.slice(1))
+        const filePath = path.resolve(distPath, relativePath)
 
-        return new Response(data, {
-          headers: {
-            'Content-Type': mimeTypes.contentType(ext) || 'application/octet-stream'
-          }
-        })
+        if (filePath.startsWith(distPath + path.sep)) {
+          const data = await fsp.readFile(filePath)
+          const ext = path.extname(filePath)
+
+          return new Response(data, {
+            headers: {
+              'Content-Type': mimeTypes.contentType(ext) || 'application/octet-stream'
+            }
+          })
+        }
       } catch {
       }
     }
@@ -264,11 +285,18 @@ if (initializeSteam()) {
   enableSteamOverlay()
 }
 
+startDiscordRpc()
+
 // Window control IPC handlers
-ipcMain.handle('window:setSize', (_, width: number, height: number) => {
+const windowDimensionSchema = z.number().int().positive()
+const zoomFactorSchema = z.number().min(0.5).max(3)
+
+ipcMain.handle('window:setSize', (_, width: unknown, height: unknown) => {
   if (!mainWindow) return
+  const parsedWidth = windowDimensionSchema.parse(width)
+  const parsedHeight = windowDimensionSchema.parse(height)
   if (mainWindow.isMaximized()) mainWindow.unmaximize()
-  mainWindow.setSize(width, height)
+  mainWindow.setSize(parsedWidth, parsedHeight)
   mainWindow.center()
 })
 
@@ -278,10 +306,11 @@ ipcMain.handle('window:getSize', () => {
   return { width, height }
 })
 
-ipcMain.handle('window:setZoomFactor', (_, factor: number) => {
+ipcMain.handle('window:setZoomFactor', (_, factor: unknown) => {
   if (!mainWindow) return
-  mainWindow.webContents.setZoomFactor(factor)
-  settingsStore.set('zoomFactor', factor)
+  const parsedFactor = zoomFactorSchema.parse(factor)
+  mainWindow.webContents.setZoomFactor(parsedFactor)
+  settingsStore.set('zoomFactor', parsedFactor)
 })
 
 ipcMain.handle('window:getZoomFactor', () => {

@@ -2,7 +2,7 @@
 
 import DOMPurify from 'dompurify'
 import i18next from 'i18next'
-import { z } from 'zod'
+import * as z from 'zod'
 import { achievementLevel } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -1231,9 +1231,7 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     // Run many times because Purple Bar Points is a resource with dynamic /s gains.
     // Timer Things
     for (let i = 0; i < minutes; i++) {
-      addTimers('ambrosia', 60)
-      addTimers('redAmbrosia', 60)
-      addTimers('purpleHoney', 60)
+      addTimers('purpleReactor', 60)
     }
 
     const addedStats = {

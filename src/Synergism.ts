@@ -188,7 +188,7 @@ import {
   updateMaxTokens,
   updateTokens
 } from './Campaign'
-import { lastUpdated, testing, ticksPerSecond, version } from './Config'
+import { lastUpdated, ticksPerSecond, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
 import { initMobileStorage, storageGetItem, storageSetItem } from './events/storage-events'
@@ -210,7 +210,7 @@ import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
 import { initializeAnnouncements, initializeMessages } from './Messages'
-import { blankOcteractLevelObject, setOcteractUpgradeLevels } from './Octeracts'
+import { blankOcteractLevelObject, clampOcteractFreeLevelsToCaps, setOcteractUpgradeLevels } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache } from './PseudoCoinUpgrades'
@@ -237,12 +237,17 @@ import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, qu
 import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthesis'
 // eslint-disable-next-line no-unassigned-import
 import './saves/verify'
-import { z } from 'zod'
+import * as z from 'zod'
 import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from './Purple'
 import { generatePurpleUpgradeTabHTML } from './PurpleUpgradeTab'
 import { getShopUpgradeEffects, type ShopUpgradeNames, shopUpgrades, updateShopLevels } from './Shop'
 import { generateShopTabHTML } from './ShopTab'
-import { blankGQLevelObject, calculateMaxSingularityLookahead, setGQUpgradeLevels } from './singularity'
+import {
+  blankGQLevelObject,
+  calculateMaxSingularityLookahead,
+  clampGQFreeLevelsToCaps,
+  setGQUpgradeLevels
+} from './singularity'
 import {
   getSingularityChallengeEffect,
   SingularityChallenge,
@@ -1054,7 +1059,7 @@ export const player: Player = {
   autoTesseracts: [false, false, false, false, false, false],
 
   saveString: 'Synergism-$VERSION$-$TIME$.txt',
-  exporttest: !testing,
+  exporttest: !TESTING,
 
   dayCheck: null,
   dayTimer: 0,
@@ -1319,14 +1324,14 @@ async function syncToSteamCloud (saveData: string) {
 
 const loadSynergy = (saveString: string): boolean => {
   const data = JSON.parse(atob(saveString))
-  if (testing) {
+  if (TESTING) {
     data.exporttest = false
   }
 
   Object.assign(G, { ...blankGlobals })
 
   if (data) {
-    if ((data.exporttest === false || data.exporttest === 'NO!') && !testing) {
+    if ((data.exporttest === false || data.exporttest === 'NO!') && !TESTING) {
       void Alert(i18next.t('testing.saveInLive2'))
       return false
     }
@@ -2191,6 +2196,7 @@ const getFormatter = (
 }
 
 const zeroDecimalForFormatting = new Decimal()
+let warned = false
 
 /**
  * This function displays the numbers such as 1,234 or 1.00e1234 or 1.00e1.234M.
@@ -2202,20 +2208,24 @@ const zeroDecimalForFormatting = new Decimal()
  * @param truncate truncates insignificant digits if true
  */
 export const format = (
-  input:
-    | Decimal
-    | number
-    | null
-    | undefined,
+  input: Decimal | number,
   accuracy = 0,
   long = false,
   truncate = true
 ): string => {
   if (input == null) {
+    if (!warned) {
+      console.trace(input, accuracy, long, truncate)
+      warned = true
+    }
     return '0 [null]'
   }
 
   if (Number.isNaN(input)) {
+    if (!warned) {
+      console.trace(input, accuracy, long, truncate)
+      warned = true
+    }
     return '0 [NaN]'
   }
 
@@ -3963,7 +3973,6 @@ export const updateAll = (): void => {
   if (
     player.toggles[8]
     && player.upgrades[88] === 1
-    && player.upgrades[46] === 1
     && player.prestigePoints.gte(player.acceleratorBoostCost)
   ) {
     boostAccelerator('max')
@@ -4284,6 +4293,9 @@ export const updateAll = (): void => {
       player.challenge15Exponent = calculateChallenge15Score()
       c15RewardUpdate()
     }
+    if (player.challenge15Exponent >= 1e15) {
+      player.unlocks.hepteracts = true
+    }
   }
 }
 
@@ -4454,9 +4466,7 @@ const tack = (dt: number) => {
     addTimers('goldenQuarks', dt)
     addTimers('octeracts', dt)
     addTimers('singularity', dt)
-    addTimers('ambrosia', dt)
-    addTimers('redAmbrosia', dt)
-    addTimers('purpleHoney', dt)
+    addTimers('purpleReactor', dt)
 
     // Triggers automatic rune sacrifice (adds milliseconds to payload timer)
     if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto', 'autoRune')) {
@@ -4647,7 +4657,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         if (player.toggles[41]) {
           void Notification(i18next.t('main.allCorruptionsZero'), 5000)
         }
-        player.corruptions.next.resetCorruptions()
+        player.corruptions.next.resetCorruptions(true)
       }
       event.preventDefault()
     }
@@ -4845,6 +4855,8 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   setRedAmbrosiaUpgradeLevels()
   setPurpleAmbrosiaUpgradeLevels()
   setPurpleReactorUpgradeLevels()
+  clampGQFreeLevelsToCaps()
+  clampOcteractFreeLevelsToCaps()
 
   updateAchievementPoints(true)
   if (player.talismans !== undefined) {
@@ -4944,7 +4956,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
 }
 
 window.addEventListener('load', async () => {
-  if (DEV || testing) {
+  if (DEV || TESTING) {
     const { worker } = await import('./mock/browser')
     await worker.start({
       serviceWorker: {
@@ -5046,8 +5058,8 @@ window.addEventListener('load', async () => {
         )
       }-${lastUpdated.getFullYear()}].`
       : ''
-    ver.innerHTML = `You're ${testing ? 'testing' : 'playing'} v${version} ${textUpdate} ${
-      testing ? `<br><span style="font-size: 1.3em" class="rainbowText">${i18next.t('testing.saveInLive')}</span>` : ''
+    ver.innerHTML = `You're ${TESTING ? 'testing' : 'playing'} v${version} ${textUpdate} ${
+      TESTING ? `<br><span style="font-size: 1.3em" class="rainbowText">${i18next.t('testing.saveInLive')}</span>` : ''
     }`
   }
   document.title = `Synergism v${version}`
@@ -5081,7 +5093,7 @@ window.addEventListener('load', async () => {
   // Which endpoint announcements come from depends on the login state, so wait for it to settle
   loginResolved.then(initializeAnnouncements).catch(console.error)
 
-  if (testing || !PROD) {
+  if (TESTING || !PROD) {
     Object.defineProperties(window, {
       player: { value: player },
       G: { value: G },

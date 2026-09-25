@@ -10,6 +10,11 @@ import {
   ungroupedAchievementData,
   ungroupedAchievementKeys
 } from './Achievements'
+import {
+  calculateSingularityUpgradePurchase,
+  type SingularityUpgradePurchaseOptions,
+  type SingularityUpgradePurchaseQuote
+} from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   CalcCorruptionStuff,
@@ -387,8 +392,8 @@ export const revealStuff = () => {
   document.documentElement.dataset.offeringAuto = // Auto Offering Shop Purchase
     getShopUpgradeEffects('offeringAuto', 'autoRune') ? 'true' : 'false'
 
-  document.documentElement.dataset.autoBuyFragments = // Auto Fragments Buy (After Cx1)
-    player.cubeUpgrades[51] > 0 && player.highestSingularityCount >= 40 ? 'true' : 'false'
+  document.documentElement.dataset.autoBuyFragments = // Auto Fragments Buy (Singularity 40)
+    player.highestSingularityCount >= 40 ? 'true' : 'false'
 
   const autoResearch = getShopUpgradeEffects('obtainiumAuto', 'autoResearch')
 
@@ -404,7 +409,7 @@ export const revealStuff = () => {
     player.highestSingularityCount > 0 ? 'true' : 'false'
 
   // Auto Open Cubes toggle
-  document.documentElement.dataset.autoOpenCubes = player.highestSingularityCount >= 35 ? 'true' : 'false'
+  document.documentElement.dataset.autoOpenCubes = player.highestSingularityCount >= 10 ? 'true' : 'false'
 
   document.documentElement.dataset.autoCubeUpgrades = // Auto Cube Upgrades
     player.highestSingularityCount >= 50 ? 'true' : 'false'
@@ -1107,6 +1112,8 @@ export const Confirm = async (text: string) =>
 
     DOMCacheGetOrSet('alertWrapper').style.display = 'none'
     DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('purchasePromptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('infoAlertWrapper').style.display = 'none'
 
     conf.style.display = 'block'
     confWrap.style.display = 'block'
@@ -1158,6 +1165,8 @@ export const Alert = (text: string): Promise<void> =>
 
     DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
     DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('purchasePromptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('infoAlertWrapper').style.display = 'none'
 
     conf.style.display = 'block'
     alertWrap.style.display = 'block'
@@ -1185,6 +1194,98 @@ export const Alert = (text: string): Promise<void> =>
     return p.promise
   })
 
+export interface InfoAlertSection {
+  label: string
+  html: () => string
+}
+
+export const infoAlertTableHTML = (headers: string[], rowsHTML: string) =>
+  `<table class="freeUpgradeInfoTable">
+    <thead><tr>${headers.map((header) => `<th>${header}</th>`).join('')}</tr></thead>
+    <tbody>${rowsHTML}</tbody>
+  </table>`
+
+export const infoAlertInactiveHTML = (text: string) => `<span class="freeUpgradeInfoInactive">${text}</span>`
+
+export const InfoAlert = (title: string, content: string | InfoAlertSection[]): Promise<void> =>
+  queue.enqueue(() => {
+    const conf = DOMCacheGetOrSet('confirmationBox')
+    const infoWrap = DOMCacheGetOrSet('infoAlertWrapper')
+    const overlay = DOMCacheGetOrSet('transparentBG')
+    const popup = DOMCacheGetOrSet('infoAlert')
+    const ok = DOMCacheGetOrSet('ok_infoAlert')
+    const sectionBar = DOMCacheGetOrSet('infoAlertSections')
+    const body = DOMCacheGetOrSet('infoAlertBody')
+
+    DOMCacheGetOrSet('alertWrapper').style.display = 'none'
+    DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
+    DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('purchasePromptWrapper').style.display = 'none'
+
+    const sections = typeof content === 'string' ? [] : content
+    const selectSection = (index: number) => {
+      body.innerHTML = sections[index].html()
+      sectionBar.querySelectorAll('button').forEach((button, i) => {
+        button.setAttribute('aria-pressed', `${i === index}`)
+      })
+    }
+
+    sectionBar.innerHTML = sections.map((section, i) =>
+      `<button type="button" data-section="${i}" aria-pressed="false">${section.label}</button>`
+    ).join('')
+    sectionBar.style.display = sections.length > 0 ? '' : 'none'
+
+    if (typeof content === 'string') {
+      body.innerHTML = content
+    } else {
+      selectSection(0)
+    }
+
+    conf.classList.add('infoConfirmation')
+    conf.style.display = 'block'
+    infoWrap.style.display = 'block'
+    overlay.style.display = 'block'
+    DOMCacheGetOrSet('infoAlertTitle').textContent = title
+    popup.focus()
+
+    const p = createDeferredPromise<void>()
+
+    const sectionListener = (e: MouseEvent) => {
+      const button = e.target instanceof Element ? e.target.closest('button') : null
+      if (button?.dataset.section !== undefined) {
+        selectSection(Number(button.dataset.section))
+      }
+    }
+
+    const listener = () => {
+      ok.removeEventListener('click', listener)
+      popup.removeEventListener('keyup', kbListener)
+      sectionBar.removeEventListener('click', sectionListener)
+
+      conf.style.display = 'none'
+      infoWrap.style.display = 'none'
+      overlay.style.display = 'none'
+      conf.classList.remove('infoConfirmation')
+      sectionBar.innerHTML = ''
+      p.resolve()
+    }
+
+    const kbListener = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape' && e.target instanceof Node && sectionBar.contains(e.target)) {
+        return
+      }
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
+        listener()
+      }
+    }
+
+    ok.addEventListener('click', listener, { once: true })
+    popup.addEventListener('keyup', kbListener)
+    sectionBar.addEventListener('click', sectionListener)
+
+    return p.promise
+  })
+
 export const Prompt = (text: string, defaultValue?: string): Promise<string | null> =>
   queue.enqueue(() => {
     const conf = DOMCacheGetOrSet('confirmationBox')
@@ -1196,6 +1297,8 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
 
     DOMCacheGetOrSet('alertWrapper').style.display = 'none'
     DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
+    DOMCacheGetOrSet('purchasePromptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('infoAlertWrapper').style.display = 'none'
 
     conf.style.display = 'block'
     confWrap.style.display = 'block'
@@ -1240,6 +1343,119 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
     ok.addEventListener('click', listener, { once: true })
     cancel.addEventListener('click', listener, { once: true })
     popup.querySelector('input')!.addEventListener('keyup', kbListener)
+
+    return p.promise
+  })
+
+/** Buy levels of Singularity-tier upgrades by level count or resource budget. */
+export const PurchasePrompt = (
+  options: SingularityUpgradePurchaseOptions & {
+    title: string
+    getLevel: () => number
+    getMaxLevel: () => number
+    resource: 'goldenQuarks' | 'octeracts' | 'ambrosia' | 'redAmbrosia' | 'purpleAmbrosia'
+  }
+): Promise<SingularityUpgradePurchaseQuote | null> =>
+  queue.enqueue(() => {
+    const conf = DOMCacheGetOrSet('confirmationBox')
+    const confWrap = DOMCacheGetOrSet('purchasePromptWrapper')
+    const overlay = DOMCacheGetOrSet('transparentBG')
+    const ok = DOMCacheGetOrSet('ok_purchasePrompt') as HTMLButtonElement
+    const cancel = DOMCacheGetOrSet('cancel_purchasePrompt')
+    const levels = DOMCacheGetOrSet('purchasePromptLevels') as HTMLInputElement
+    const cost = DOMCacheGetOrSet('purchasePromptCost') as HTMLInputElement
+    const summary = DOMCacheGetOrSet('purchasePromptSummary')
+
+    DOMCacheGetOrSet('alertWrapper').style.display = 'none'
+    DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
+    DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('infoAlertWrapper').style.display = 'none'
+
+    conf.classList.add('purchaseConfirmation')
+    conf.style.display = 'block'
+    confWrap.style.display = 'block'
+    overlay.style.display = 'block'
+    DOMCacheGetOrSet('purchasePromptTitle').textContent = options.title
+    DOMCacheGetOrSet('purchasePromptLevel').textContent = i18next.t('general.levelWithRatio', {
+      level: format(options.getLevel(), 0, true),
+      max: format(options.getMaxLevel(), 0, true)
+    })
+    DOMCacheGetOrSet('purchasePromptCostLabel').textContent = i18next.t(
+      `general.purchasePrompt.resource.${options.resource}`
+    )
+    levels.focus()
+
+    const p = createDeferredPromise<SingularityUpgradePurchaseQuote | null>()
+    let quote: SingularityUpgradePurchaseQuote | null = null
+
+    const onInput = (event?: Event) => {
+      const field = event?.target as HTMLInputElement | undefined
+      const input = field === cost ? 'cost' : 'levels'
+      const value = field?.value.trim() ?? '1'
+      const amount = value === '' ? Number.NaN : Number(value)
+      quote = calculateSingularityUpgradePurchase(options, amount, input)
+      ok.disabled = quote === null || quote.levels === 0
+
+      if (field !== levels) levels.value = quote === null ? '' : format(quote.levels, 0, true)
+      if (field !== cost) cost.value = quote === null ? '' : format(quote.cost, 2, true)
+
+      if (value === '') {
+        summary.textContent = ''
+      } else if (quote === null) {
+        summary.textContent = i18next.t('general.purchasePrompt.invalid')
+      } else if (quote.levels === 0) {
+        summary.textContent = i18next.t('general.purchasePrompt.unavailable')
+      } else if (amount === -1 || amount > (input === 'levels' ? quote.levels : options.getBalance())) {
+        summary.textContent = i18next.t(`general.purchasePrompt.summary.${options.resource}`, {
+          levels: format(quote.levels, 0, true),
+          cost: format(quote.cost, 2, true)
+        })
+      } else {
+        summary.textContent = ''
+      }
+    }
+
+    const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
+      const targetEl = target as HTMLButtonElement
+
+      if (targetEl === ok && ok.disabled) return
+
+      ok.removeEventListener('click', listener)
+      cancel.removeEventListener('click', listener)
+      levels.removeEventListener('keyup', kbListener)
+      cost.removeEventListener('keyup', kbListener)
+      levels.removeEventListener('input', onInput)
+      cost.removeEventListener('input', onInput)
+
+      conf.style.display = 'none'
+      confWrap.style.display = 'none'
+      overlay.style.display = 'none'
+      conf.classList.remove('purchaseConfirmation')
+
+      p.resolve(targetEl.id === ok.id ? quote : null)
+
+      levels.value = cost.value = ''
+      levels.blur()
+      cost.blur()
+    }
+
+    const kbListener = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        return listener({ target: ok })
+      } else if (e.key === 'Escape') {
+        return listener({ target: cancel })
+      }
+
+      return e.preventDefault()
+    }
+
+    ok.addEventListener('click', listener, { once: true })
+    cancel.addEventListener('click', listener, { once: true })
+    levels.addEventListener('keyup', kbListener)
+    cost.addEventListener('keyup', kbListener)
+    levels.addEventListener('input', onInput)
+    cost.addEventListener('input', onInput)
+    onInput()
 
     return p.promise
   })

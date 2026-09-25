@@ -1,9 +1,11 @@
 import i18next from 'i18next'
+import { calculateSingularityUpgradePurchase } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
 import { updateMaxTokens, updateTokens } from './Campaign'
+import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { format, formatAsPercentIncrease, formatTimeShort, player } from './Synergism'
-import { Alert, Prompt } from './UpdateHTML'
+import { Alert, InfoAlert, infoAlertInactiveHTML, infoAlertTableHTML, PurchasePrompt } from './UpdateHTML'
 import { memoize } from './Utility'
 
 type OcteractUpgradeRewards = {
@@ -994,14 +996,10 @@ export const initializeOcteractUpgradeMap = memoize(() => {
     lines.append(leftTrack, spine, rightTrack)
   }
 
-  container.replaceChildren(DOMCacheGetOrSet('toggleMaxedOcteractUpgrades'), lines)
+  container.replaceChildren(DOMCacheGetOrSet('octeractUpgradeAP'), lines, DOMCacheGetOrSet('octeractUpgradeFooter'))
 })
 
 export const octeractUpgradeNames = Object.keys(octeractUpgrades) as OcteractUpgrades[]
-
-export const maxOcteractUpgradeAP = Object.values(octeractUpgrades).reduce((acc) => {
-  return acc + 8
-}, 0)
 
 export const maximumAffordableLevel = (upgradeKey: OcteractUpgrades, octeractAmount: number): number => {
   const upgrade = octeractUpgrades[upgradeKey]
@@ -1028,6 +1026,8 @@ export const maximumAffordableLevel = (upgradeKey: OcteractUpgrades, octeractAmo
   return low
 }
 
+const octeractLevelReconstructionTolerance = 1e-10
+
 export const setOcteractUpgradeLevels = (): void => {
   for (const upgradeKey of octeractUpgradeNames) {
     const upgrade = octeractUpgrades[upgradeKey]
@@ -1035,7 +1035,10 @@ export const setOcteractUpgradeLevels = (): void => {
 
     upgrade.level = 0
 
-    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, 0)
+    // Accumulated purchase costs can round slightly below the cumulative level cost.
+    // Costs span ~1e-15 to ~1e103, so the tolerance must be relative. It is far below the
+    // smallest relative cost step of any upgrade (~6e-8 for octeractGain at max level).
+    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, oldInvested * octeractLevelReconstructionTolerance)
     const totalCost = upgrade.costFormula(maxAffordableLevel)
 
     upgrade.level = maxAffordableLevel
@@ -1075,6 +1078,178 @@ export const toggleMaxedOcteractUpgrades = (): void => {
     updateOcteractUpgradeVisibility(key)
   }
 }
+
+export type DailyOcteractFreeUpgradeKey = 'octeractGain' | 'octeractGain2' | 'octeractAscensionsOcteractGain'
+
+export interface DailyOcteractFreeUpgradeEntry {
+  freeLevels: () => number
+  /** Highest cap, used for achievement points. -1 means no cap */
+  freeLevelCap: number
+  /** For caps that grow over time; defaults to `freeLevelCap` */
+  currentFreeLevelCap?: () => number
+  /** `description` must be the full line from a single i18next.t call: nesting translated strings duplicates stat symbols */
+  requirement: { isUnlocked: () => boolean; description: () => string }
+  formula: () => string
+}
+
+const octeractCogenesisDivisor = () => player.highestSingularityCount >= 205 ? 640 : 1000
+
+export const dailyOcteractFreeUpgradeTable: Record<DailyOcteractFreeUpgradeKey, DailyOcteractFreeUpgradeEntry> = {
+  octeractGain: {
+    freeLevels: () =>
+      Math.max(
+        octeractUpgrades.octeractGain.level / 100,
+        Math.pow(
+          octeractUpgrades.octeractGain.level * player.octUpgrades.octeractGain.freeLevel / octeractCogenesisDivisor(),
+          0.5
+        )
+      ),
+    freeLevelCap: 20_000_000_000,
+    requirement: {
+      isUnlocked: () => player.highestSingularityCount >= 200,
+      description: () => i18next.t('octeract.freeUpgradeInfo.requirements.singularity', { singularity: 200 })
+    },
+    formula: () => i18next.t('octeract.freeUpgradeInfo.formulas.octeractGain', { divisor: octeractCogenesisDivisor() })
+  },
+  octeractGain2: {
+    freeLevels: () =>
+      Math.max(
+        octeractUpgrades.octeractGain2.level / 100,
+        Math.pow(
+          Math.pow(octeractUpgrades.octeractGain2.level, 2) * player.octUpgrades.octeractGain2.freeLevel / 125000,
+          0.333
+        )
+      ),
+    freeLevelCap: 5_000_000,
+    requirement: {
+      isUnlocked: () => player.highestSingularityCount >= 205,
+      description: () => i18next.t('octeract.freeUpgradeInfo.requirements.singularity', { singularity: 205 })
+    },
+    formula: () => i18next.t('octeract.freeUpgradeInfo.formulas.octeractGain2')
+  },
+  octeractAscensionsOcteractGain: {
+    freeLevels: () => getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevels'),
+    freeLevelCap: 2,
+    currentFreeLevelCap: () =>
+      1 + getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevelCapIncrease'),
+    requirement: {
+      isUnlocked: () => getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevels') > 0,
+      description: () => i18next.t('octeract.freeUpgradeInfo.requirements.redAmbrosiaFreeAccumulator')
+    },
+    formula: () => i18next.t('octeract.freeUpgradeInfo.formulas.octeractAscensionsOcteractGain')
+  }
+}
+
+export const dailyOcteractFreeUpgradeKeys = Object.keys(dailyOcteractFreeUpgradeTable) as DailyOcteractFreeUpgradeKey[]
+
+export const maxOcteractUpgradeAP = 8 * octeractUpgradeNames.length
+  + 8 * dailyOcteractFreeUpgradeKeys.filter((key) => dailyOcteractFreeUpgradeTable[key].freeLevelCap !== -1).length
+
+const hasOcteractFreeLevelCap = (key: OcteractUpgrades): key is DailyOcteractFreeUpgradeKey =>
+  key in dailyOcteractFreeUpgradeTable
+  && dailyOcteractFreeUpgradeTable[key as DailyOcteractFreeUpgradeKey].freeLevelCap !== -1
+
+const isOcteractUpgradeMaxed = (key: OcteractUpgrades): boolean =>
+  octeractUpgrades[key].maxLevel !== -1 && octeractUpgrades[key].level >= octeractUpgrades[key].maxLevel
+
+export const getOcteractUpgradeAP = (key: OcteractUpgrades): number =>
+  (isOcteractUpgradeMaxed(key) ? 8 : 0)
+  + (hasOcteractFreeLevelCap(key) && isOcteractFreeLevelAtHighestCap(key) ? 8 : 0)
+
+export const calculateOcteractUpgradeAP = () =>
+  octeractUpgradeNames.reduce((sum, key) => sum + getOcteractUpgradeAP(key), 0)
+
+const getCurrentOcteractFreeLevelCap = (key: DailyOcteractFreeUpgradeKey): number => {
+  const entry = dailyOcteractFreeUpgradeTable[key]
+  return entry.currentFreeLevelCap?.() ?? entry.freeLevelCap
+}
+
+const isDailyOcteractFreeUpgradeCapped = (key: DailyOcteractFreeUpgradeKey): boolean => {
+  const cap = getCurrentOcteractFreeLevelCap(key)
+  return cap !== -1 && player.octUpgrades[key].freeLevel >= cap
+}
+
+export const isOcteractFreeLevelAtHighestCap = (key: DailyOcteractFreeUpgradeKey): boolean => {
+  const cap = dailyOcteractFreeUpgradeTable[key].freeLevelCap
+  return cap !== -1 && player.octUpgrades[key].freeLevel >= cap
+}
+
+export const clampOcteractFreeLevelsToCaps = () => {
+  for (const key of dailyOcteractFreeUpgradeKeys) {
+    const cap = getCurrentOcteractFreeLevelCap(key)
+    if (cap !== -1) {
+      player.octUpgrades[key].freeLevel = Math.min(player.octUpgrades[key].freeLevel, cap)
+    }
+  }
+}
+
+export const getDailyOcteractFreeLevels = (key: DailyOcteractFreeUpgradeKey): number => {
+  const entry = dailyOcteractFreeUpgradeTable[key]
+  if (!entry.requirement.isUnlocked()) {
+    return 0
+  }
+  const cap = getCurrentOcteractFreeLevelCap(key)
+  const room = cap === -1 ? Number.POSITIVE_INFINITY : Math.max(0, cap - player.octUpgrades[key].freeLevel)
+  return Math.min(entry.freeLevels(), room)
+}
+
+export const awardDailyOcteractFreeUpgrades = (): Partial<Record<DailyOcteractFreeUpgradeKey, number>> => {
+  const gains = dailyOcteractFreeUpgradeKeys.map(getDailyOcteractFreeLevels)
+  const gainedLevels: Partial<Record<DailyOcteractFreeUpgradeKey, number>> = {}
+  dailyOcteractFreeUpgradeKeys.forEach((key, index) => {
+    if (gains[index] > 0) {
+      player.octUpgrades[key].freeLevel += gains[index]
+      gainedLevels[key] = gains[index]
+    }
+  })
+  return gainedLevels
+}
+
+const octeractFreeUpgradeInfoHTML = (): string => {
+  const summaryHTML = `<p class="freeUpgradeInfoSummary">${i18next.t('octeract.freeUpgradeInfo.summary')}</p>`
+
+  const rowsHTML = dailyOcteractFreeUpgradeKeys.map((key) => {
+    const entry = dailyOcteractFreeUpgradeTable[key]
+    const unlocked = entry.requirement.isUnlocked()
+    const cap = getCurrentOcteractFreeLevelCap(key)
+    const freeLevel = format(player.octUpgrades[key].freeLevel, 3, true)
+    const freeLevelText = cap === -1 ? freeLevel : `${freeLevel} / ${format(cap, 1, true)}`
+
+    let nextText: string
+    if (!unlocked) {
+      nextText = infoAlertInactiveHTML(i18next.t('octeract.freeUpgradeInfo.locked'))
+    } else if (isDailyOcteractFreeUpgradeCapped(key)) {
+      nextText = infoAlertInactiveHTML(i18next.t('octeract.freeUpgradeInfo.capped'))
+    } else {
+      nextText = `+${format(getDailyOcteractFreeLevels(key), 3, true)}`
+    }
+
+    let detailHTML = ''
+    if (!unlocked) {
+      detailHTML = `<tr class="freeUpgradeInfoInactive"><td colspan="3">${entry.requirement.description()}</td></tr>`
+    } else if (!isDailyOcteractFreeUpgradeCapped(key)) {
+      detailHTML = `<tr><td colspan="3">${entry.formula()}</td></tr>`
+    }
+
+    return `<tr>
+      <td>${octeractUpgrades[key].name()}</td>
+      <td>${nextText}</td>
+      <td>${freeLevelText}</td>
+    </tr>
+    ${detailHTML}`
+  }).join('')
+
+  return `${summaryHTML}${
+    infoAlertTableHTML([
+      i18next.t('octeract.freeUpgradeInfo.upgrade'),
+      i18next.t('octeract.freeUpgradeInfo.nextDaily'),
+      i18next.t('octeract.freeUpgradeInfo.freeLevels')
+    ], rowsHTML)
+  }`
+}
+
+export const showOcteractFreeUpgradeInfo = () =>
+  InfoAlert(i18next.t('octeract.freeUpgradeInfo.title'), octeractFreeUpgradeInfoHTML())
 
 export const blankOcteractLevelObject: Record<
   OcteractUpgrades,
@@ -1170,9 +1345,16 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
     }</span></b>`
     : ''
 
+  const fullyCapped = upgradeKey in dailyOcteractFreeUpgradeTable
+    && isOcteractFreeLevelAtHighestCap(upgradeKey as DailyOcteractFreeUpgradeKey)
+    && isMaxLevel
+  const fullyCappedText = fullyCapped
+    ? `<span style="color: gold" role="img" aria-label="${i18next.t('general.fullyCapped')}"> ★</span>`
+    : ''
+
   const levelHTML = `<span style="color: ${color}"> ${i18next.t('general.level')} ${
     format(octeractUpgrades[upgradeKey].level, 0, true)
-  }${maxLevel}${freeLevelText}</span>`
+  }${maxLevel}${freeLevelText}${fullyCappedText}</span>`
 
   const isAffordable = costNextLevel <= player.wowOcteracts
   let affordTime = ''
@@ -1212,7 +1394,22 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
     ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>`
     : ''
 
-  return `${nameHTML}<br>${levelHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${effectHTML}<br>${costHTML}${investedOcteractsHTML}${qualityOfLifeText}`
+  const maxLevelAPHTML = `<br>${
+    i18next.t('general.upgradeAPMax', {
+      amount: 8,
+      check: isOcteractUpgradeMaxed(upgradeKey) ? '✔' : '✖'
+    })
+  }`
+  const freeLevelAPHTML = hasOcteractFreeLevelCap(upgradeKey)
+    ? `<br>${
+      i18next.t('general.upgradeAPFreeLevelCap', {
+        amount: 8,
+        check: isOcteractFreeLevelAtHighestCap(upgradeKey) ? '✔' : '✖'
+      })
+    }`
+    : ''
+
+  return `${nameHTML}<br>${levelHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${effectHTML}<br>${costHTML}${investedOcteractsHTML}${qualityOfLifeText}${maxLevelAPHTML}${freeLevelAPHTML}`
 }
 
 export const buyOcteractUpgradeLevel = async (
@@ -1225,42 +1422,45 @@ export const buyOcteractUpgradeLevel = async (
     return Alert(i18next.t('octeract.buyLevel.alreadyMax'))
   }
 
-  const affordableLevel = maximumAffordableLevel(upgradeKey, player.wowOcteracts)
-  let levelsToPurchase = Math.min(1, affordableLevel - upgrade.level)
-
-  if (levelsToPurchase <= 0) {
+  const purchaseOptions = {
+    getMaxLevels: () => upgrade.maxLevel - upgrade.level,
+    getBalance: () => player.wowOcteracts,
+    getCost: (levels: number) => upgrade.costFormula(upgrade.level + levels) - upgrade.costFormula(upgrade.level)
+  }
+  const initialPurchase = calculateSingularityUpgradePurchase(purchaseOptions, 1, 'levels')
+  if (initialPurchase === null || initialPurchase.levels <= 0) {
     return Alert(i18next.t('singularity.goldenQuarks.poor'))
   }
 
-  if (event.shiftKey || buyMax) {
-    // Don't need to clip to maxLevel since maximumAffordableLevel guarantees it is within bounds
-    const maxPurchasableLevels = affordableLevel - upgrade.level
-    const levelAmountSelected = Number(
-      await Prompt(
-        i18next.t('octeract.buyLevel.buyPrompt', {
-          n: format(maxPurchasableLevels, 0, true)
-        })
-      )
-    )
-
-    if (isNaN(levelAmountSelected) || !isFinite(levelAmountSelected) || !Number.isInteger(levelAmountSelected)) {
-      // nan + Infinity checks
-      return Alert(i18next.t('general.validation.finite'))
-    }
-
-    if (levelAmountSelected === -1) {
-      levelsToPurchase = maxPurchasableLevels
-    } else if (levelAmountSelected <= 0) {
-      return Alert(i18next.t('octeract.buyLevel.cancelPurchase'))
-    } else {
-      levelsToPurchase = Math.min(levelAmountSelected, maxPurchasableLevels)
-    }
+  const selectedPurchase = event.shiftKey || buyMax
+    ? await PurchasePrompt({
+      ...purchaseOptions,
+      title: upgrade.name(),
+      getLevel: () => upgrade.level,
+      getMaxLevel: () => upgrade.maxLevel,
+      resource: 'octeracts'
+    })
+    : initialPurchase
+  if (selectedPurchase === null || selectedPurchase.levels <= 0) {
+    return
   }
 
-  const cost = upgrade.costFormula(upgrade.level + levelsToPurchase) - upgrade.costFormula(upgrade.level)
+  const purchase = calculateSingularityUpgradePurchase(
+    {
+      ...purchaseOptions,
+      getBalance: () => Math.min(purchaseOptions.getBalance(), selectedPurchase.cost)
+    },
+    selectedPurchase.levels,
+    'levels'
+  )
+  if (purchase === null || purchase.levels <= 0) {
+    return Alert(i18next.t('singularity.goldenQuarks.poor'))
+  }
+
+  const { levels: levelsToPurchase, cost } = purchase
   player.wowOcteracts -= cost
-  player.octUpgrades[upgradeKey].octeractsInvested += cost
   upgrade.level += levelsToPurchase
+  player.octUpgrades[upgradeKey].octeractsInvested = upgrade.costFormula(upgrade.level)
   updateTokens()
   updateMaxTokens()
   if (levelsToPurchase > 1) {

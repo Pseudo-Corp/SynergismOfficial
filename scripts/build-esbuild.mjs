@@ -39,6 +39,10 @@ const { values } = parseArgs({
     sourcemap: {
       type: 'boolean',
       default: false
+    },
+    testing: {
+      type: 'boolean',
+      default: false
     }
   },
   allowNegative: true
@@ -75,7 +79,8 @@ const buildOptions = {
   define: {
     PROD: `${options.prod}`,
     DEV: `${options.dev}`,
-    PLATFORM: JSON.stringify(options.platform)
+    PLATFORM: JSON.stringify(options.platform),
+    TESTING: `${values.testing}`
   },
   plugins: [bundleSummaryPlugin()]
 }

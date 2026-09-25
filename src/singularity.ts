@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
+import { calculateSingularityUpgradePurchase } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateBlueberryInventory,
@@ -8,15 +9,28 @@ import {
   calculateImmaculateAlchemyBonus
 } from './Calculate'
 import { updateMaxTokens, updateTokens } from './Campaign'
+import { addCodeAvailableUses, addCodeMaxUses } from './ImportExport'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getGlobalBonus, getPersonalBonus, getQuarkBonus } from './Quark'
 import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { singularity } from './Reset'
+import { Seed, seededRandom } from './RNG'
 import { runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
-import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
-import { isMobile, toOrdinal } from './Utility'
+import {
+  Alert,
+  Confirm,
+  InfoAlert,
+  infoAlertInactiveHTML,
+  infoAlertTableHTML,
+  Prompt,
+  PurchasePrompt,
+  revealStuff
+} from './UpdateHTML'
+import { isMobile, sumContents, toOrdinal } from './Utility'
 
 const funny32BitNumber = 2 ** 31 - 1
 
@@ -1859,7 +1873,7 @@ export const goldenQuarkUpgrades: {
     effectDescription: () => {
       const ambrosiaBarSpeedMult = getGQUpgradeEffect('singAmbrosiaGeneration', 'ambrosiaBarSpeedMult')
       return i18next.t('singularity.data.singAmbrosiaGeneration.effect', {
-        n: formatAsPercentIncrease(ambrosiaBarSpeedMult, 0)
+        n: formatAsPercentIncrease(ambrosiaBarSpeedMult, 2)
       })
     },
     name: () => i18next.t('singularity.data.singAmbrosiaGeneration.name'),
@@ -1879,7 +1893,7 @@ export const goldenQuarkUpgrades: {
     effectDescription: () => {
       const ambrosiaBarSpeedMult = getGQUpgradeEffect('singAmbrosiaGeneration2', 'ambrosiaBarSpeedMult')
       return i18next.t('singularity.data.singAmbrosiaGeneration2.effect', {
-        n: formatAsPercentIncrease(ambrosiaBarSpeedMult, 0)
+        n: formatAsPercentIncrease(ambrosiaBarSpeedMult, 2)
       })
     },
     name: () => i18next.t('singularity.data.singAmbrosiaGeneration2.name'),
@@ -1899,7 +1913,7 @@ export const goldenQuarkUpgrades: {
     effectDescription: () => {
       const ambrosiaBarSpeedMult = getGQUpgradeEffect('singAmbrosiaGeneration3', 'ambrosiaBarSpeedMult')
       return i18next.t('singularity.data.singAmbrosiaGeneration3.effect', {
-        n: formatAsPercentIncrease(ambrosiaBarSpeedMult, 0)
+        n: formatAsPercentIncrease(ambrosiaBarSpeedMult, 2)
       })
     },
     name: () => i18next.t('singularity.data.singAmbrosiaGeneration3.name'),
@@ -1919,7 +1933,7 @@ export const goldenQuarkUpgrades: {
     effectDescription: () => {
       const ambrosiaBarSpeedMult = getGQUpgradeEffect('singAmbrosiaGeneration4', 'ambrosiaBarSpeedMult')
       return i18next.t('singularity.data.singAmbrosiaGeneration4.effect', {
-        n: formatAsPercentIncrease(ambrosiaBarSpeedMult, 0)
+        n: formatAsPercentIncrease(ambrosiaBarSpeedMult, 2)
       })
     },
     name: () => i18next.t('singularity.data.singAmbrosiaGeneration4.name'),
@@ -2213,10 +2227,6 @@ export const blankGQLevelObject: Record<
   ])
 ) as Record<SingularityDataKeys, { freeLevel: number; goldenQuarksInvested: number }>
 
-export const maxGoldenQuarkUpgradeAP = Object.values(goldenQuarkUpgrades).reduce((acc) => {
-  return acc + 6
-}, 0)
-
 export function updateGoldenQuarkUpgradeVisibility (
   upgradeKey: SingularityDataKeys,
   element = DOMCacheGetOrSet(upgradeKey)
@@ -2245,6 +2255,403 @@ export function toggleMaxedGoldenQuarkUpgrades (): void {
   }
 }
 
+export type DailyFreeUpgradeKey =
+  | 'goldenQuarks1'
+  | 'goldenQuarks2'
+  | 'goldenQuarks3'
+  | 'singCubes1'
+  | 'singCubes2'
+  | 'singCubes3'
+  | 'singOfferings1'
+  | 'singOfferings2'
+  | 'singOfferings3'
+  | 'singObtainium1'
+  | 'singObtainium2'
+  | 'singObtainium3'
+  | 'ascensions'
+  | 'singAmbrosiaGeneration2'
+  | 'singAmbrosiaGeneration3'
+  | 'singAmbrosiaGeneration'
+  | 'singAmbrosiaGeneration4'
+
+export interface DailyFreeUpgradeEntry {
+  amount: number
+  weight: number
+  /** -1 means no cap */
+  freeLevelCap: number
+  /** `description` must be the full line from a single i18next.t call: nesting translated strings duplicates stat symbols */
+  requirement?: { isUnlocked: () => boolean; description: () => string }
+  flatBonus?: { amount: number; minSingularity: number }
+}
+
+export const dailyFreeUpgradeTable: Record<DailyFreeUpgradeKey, DailyFreeUpgradeEntry> = {
+  goldenQuarks1: {
+    amount: 0.2,
+    weight: 7,
+    freeLevelCap: 10_000,
+    flatBonus: { amount: 0.2, minSingularity: 20 }
+  },
+  goldenQuarks2: {
+    amount: 0.2,
+    weight: 2,
+    freeLevelCap: 2_000,
+    flatBonus: { amount: 0.2, minSingularity: 20 }
+  },
+  goldenQuarks3: {
+    amount: 0.2,
+    weight: 1,
+    freeLevelCap: 30_000,
+    flatBonus: { amount: 1, minSingularity: 20 }
+  },
+  singCubes1: { amount: 1, weight: 200, freeLevelCap: 1_000_000 },
+  singCubes2: { amount: 0.5, weight: 55, freeLevelCap: 100_000 },
+  singCubes3: { amount: 0.25, weight: 5, freeLevelCap: 10_000 },
+  singOfferings1: { amount: 1, weight: 200, freeLevelCap: 1_000_000 },
+  singOfferings2: { amount: 0.5, weight: 60, freeLevelCap: 100_000 },
+  singOfferings3: { amount: 0.25, weight: 5, freeLevelCap: 10_000 },
+  singObtainium1: { amount: 1, weight: 200, freeLevelCap: 1_000_000 },
+  singObtainium2: { amount: 0.5, weight: 60, freeLevelCap: 100_000 },
+  singObtainium3: { amount: 0.25, weight: 5, freeLevelCap: 10_000 },
+  ascensions: { amount: 1, weight: 200, freeLevelCap: 1_000_000 },
+  singAmbrosiaGeneration2: {
+    amount: 0.10,
+    weight: 10,
+    freeLevelCap: 5,
+    requirement: {
+      isUnlocked: () => player.singularityChallenges.noAmbrosiaUpgrades.completions >= 1,
+      description: () => i18next.t('singularity.freeUpgradeInfo.daily.requirements.noAmbrosiaUpgrades1')
+    }
+  },
+  singAmbrosiaGeneration3: {
+    amount: 0.07,
+    weight: 7,
+    freeLevelCap: 5,
+    requirement: {
+      isUnlocked: () => player.singularityChallenges.limitedTime.completions >= 1,
+      description: () => i18next.t('singularity.freeUpgradeInfo.daily.requirements.limitedTime1')
+    }
+  },
+  singAmbrosiaGeneration: {
+    amount: 0.04,
+    weight: 4,
+    freeLevelCap: 5,
+    requirement: {
+      isUnlocked: () => player.singularityChallenges.sadisticPrequel.completions >= 1,
+      description: () => i18next.t('singularity.freeUpgradeInfo.daily.requirements.sadisticPrequel1')
+    }
+  },
+  singAmbrosiaGeneration4: {
+    amount: 0.02,
+    weight: 1,
+    freeLevelCap: 5,
+    requirement: {
+      isUnlocked: () => player.singularityChallenges.taxmanLastStand.completions >= 1,
+      description: () => i18next.t('singularity.freeUpgradeInfo.daily.requirements.taxmanLastStand1')
+    }
+  }
+}
+
+export const dailyFreeUpgradeKeys = Object.keys(dailyFreeUpgradeTable) as DailyFreeUpgradeKey[]
+
+export const maxGoldenQuarkUpgradeAP = 6 * goldenQuarkUpgradeNames.length
+  + 6 * dailyFreeUpgradeKeys.filter((key) => dailyFreeUpgradeTable[key].freeLevelCap !== -1).length
+
+const hasGQFreeLevelCap = (key: SingularityDataKeys): key is DailyFreeUpgradeKey =>
+  key in dailyFreeUpgradeTable && dailyFreeUpgradeTable[key as DailyFreeUpgradeKey].freeLevelCap !== -1
+
+export const getGQUpgradeAP = (key: SingularityDataKeys): number =>
+  (goldenQuarkUpgrades[key].level >= goldenQuarkUpgrades[key].maxLevel ? 6 : 0)
+  + (hasGQFreeLevelCap(key) && isDailyFreeUpgradeCapped(key) ? 6 : 0)
+
+export const calculateGQUpgradeAP = () => sumContents(goldenQuarkUpgradeNames.map(getGQUpgradeAP))
+
+const getDailyFreeUpgradeRoom = (key: DailyFreeUpgradeKey): number => {
+  const cap = dailyFreeUpgradeTable[key].freeLevelCap
+  return cap === -1 ? Number.POSITIVE_INFINITY : Math.max(0, cap - player.goldenQuarkUpgrades[key].freeLevel)
+}
+
+export const isDailyFreeUpgradeCapped = (key: DailyFreeUpgradeKey): boolean => getDailyFreeUpgradeRoom(key) <= 0
+
+export const isDailyFreeUpgradeUnlocked = (key: DailyFreeUpgradeKey): boolean =>
+  dailyFreeUpgradeTable[key].requirement?.isUnlocked() ?? true
+
+export const clampGQFreeLevelsToCaps = () => {
+  for (const key of dailyFreeUpgradeKeys) {
+    const cap = dailyFreeUpgradeTable[key].freeLevelCap
+    if (cap !== -1) {
+      player.goldenQuarkUpgrades[key].freeLevel = Math.min(player.goldenQuarkUpgrades[key].freeLevel, cap)
+    }
+  }
+}
+
+export const getDailyFreeUpgradeWeight = (key: DailyFreeUpgradeKey): number => {
+  if (!isDailyFreeUpgradeUnlocked(key) || isDailyFreeUpgradeCapped(key)) {
+    return 0
+  }
+  return dailyFreeUpgradeTable[key].weight
+}
+
+const addDailyFreeUpgradeLevels = (key: DailyFreeUpgradeKey, amount: number): number => {
+  const gained = Math.min(amount, getDailyFreeUpgradeRoom(key))
+  player.goldenQuarkUpgrades[key].freeLevel += gained
+  return gained
+}
+
+export const getDailyFreeUpgradeRolls = () => {
+  let additive = 3 * Math.sqrt(player.highestSingularityCount)
+  additive += getOcteractUpgradeEffect('octeractImprovedDaily', 'extraGoldenQuarks')
+  additive += getShopUpgradeEffects('shopImprovedDaily2', 'freeSingularityUpgrades')
+  additive += getShopUpgradeEffects('shopImprovedDaily3', 'freeSingularityUpgrades')
+  additive += getShopUpgradeEffects('shopImprovedDaily4', 'freeSingularityUpgrades')
+  additive += getGQUpgradeEffect('platonicPhi', 'dailyCodes')
+  additive += getOcteractUpgradeEffect('octeractImprovedDaily3', 'extraGoldenQuarks')
+  additive += getSingularityChallengeEffect('sadisticPrequel', 'extraFree')
+
+  let multiplier = getOcteractUpgradeEffect('octeractImprovedDaily2', 'goldenQuarkMult')
+  multiplier *= getOcteractUpgradeEffect('octeractImprovedDaily3', 'goldenQuarkMult')
+  multiplier *= getSingularityChallengeEffect('sadisticPrequel', 'freeUpgradeMult')
+  if (player.highestSingularityCount >= 200) {
+    multiplier *= 2
+  }
+  multiplier *= PCoinUpgradeEffects.FREE_UPGRADE_PROMOCODE_BUFF
+
+  return {
+    additive,
+    multiplier,
+    rolls: Math.floor(additive * multiplier)
+  }
+}
+
+export const awardDailyFreeUpgrades = (): Partial<Record<DailyFreeUpgradeKey, number>> => {
+  const gainedLevels: Partial<Record<DailyFreeUpgradeKey, number>> = {}
+  const addLevels = (key: DailyFreeUpgradeKey, amount: number) => {
+    const gained = addDailyFreeUpgradeLevels(key, amount)
+    if (gained > 0) {
+      gainedLevels[key] = (gainedLevels[key] ?? 0) + gained
+    }
+  }
+
+  const { rolls } = getDailyFreeUpgradeRolls()
+  const weights = dailyFreeUpgradeKeys.map(getDailyFreeUpgradeWeight)
+  let totalWeight = sumContents(weights)
+
+  for (let i = 0; i < rolls && totalWeight > 0; i++) {
+    let remaining = totalWeight * seededRandom(Seed.PromoCodes)
+    let index = -1
+    for (let j = 0; j < weights.length; j++) {
+      if (weights[j] <= 0) {
+        continue
+      }
+      index = j
+      remaining -= weights[j]
+      if (remaining < 0) {
+        break
+      }
+    }
+
+    const key = dailyFreeUpgradeKeys[index]
+    addLevels(key, dailyFreeUpgradeTable[key].amount)
+
+    if (isDailyFreeUpgradeCapped(key)) {
+      weights[index] = 0
+      totalWeight = sumContents(weights)
+    }
+  }
+
+  for (const key of dailyFreeUpgradeKeys) {
+    const flatBonus = dailyFreeUpgradeTable[key].flatBonus
+    if (flatBonus !== undefined && player.highestSingularityCount >= flatBonus.minSingularity) {
+      addLevels(key, flatBonus.amount)
+    }
+  }
+
+  return gainedLevels
+}
+
+export const addCodeFreeUpgrades = {
+  goldenQuarks1: 0.01,
+  goldenQuarks3: 0.05
+}
+
+export const addCodeFreeUpgradeKeys = Object.keys(addCodeFreeUpgrades) as (keyof typeof addCodeFreeUpgrades)[]
+
+export const addCodeFreeUpgradeMinSingularity = 150
+
+export const awardAddCodeFreeUpgrades = (uses: number): Record<keyof typeof addCodeFreeUpgrades, number> => {
+  const gained = { goldenQuarks1: 0, goldenQuarks3: 0 }
+  if (player.highestSingularityCount >= addCodeFreeUpgradeMinSingularity) {
+    for (const key of addCodeFreeUpgradeKeys) {
+      gained[key] = addDailyFreeUpgradeLevels(key, addCodeFreeUpgrades[key] * uses)
+    }
+  }
+  return gained
+}
+
+export const singularityMilestoneFreeUpgrades: ReadonlyArray<
+  { singularity: number; key: DailyFreeUpgradeKey; amount: number }
+> = [
+  { singularity: 5, key: 'goldenQuarks3', amount: 1 },
+  { singularity: 10, key: 'goldenQuarks3', amount: 2 }
+]
+
+export const awardSingularityMilestoneFreeUpgrades = (reachedSingularity: number) => {
+  for (const milestone of singularityMilestoneFreeUpgrades) {
+    if (milestone.singularity === reachedSingularity) {
+      addDailyFreeUpgradeLevels(milestone.key, milestone.amount)
+    }
+  }
+}
+
+const dailyFreeUpgradeInfoHTML = (): string => {
+  const { additive, multiplier, rolls } = getDailyFreeUpgradeRolls()
+  const weights = dailyFreeUpgradeKeys.map(getDailyFreeUpgradeWeight)
+  const totalWeight = sumContents(weights)
+
+  const rollsHTML = `<p class="freeUpgradeInfoSummary">${
+    i18next.t('singularity.freeUpgradeInfo.daily.rolls', {
+      rolls: format(rolls, 0, true),
+      additive: format(additive, 2, true),
+      multiplier: format(multiplier, 2, true)
+    })
+  }</p>`
+
+  const maxedHTML = totalWeight === 0
+    ? `<p class="freeUpgradeInfoMaxed">${i18next.t('singularity.freeUpgradeInfo.daily.allMaxed')}</p>`
+    : ''
+
+  const rowsHTML = dailyFreeUpgradeKeys.map((key, index) => {
+    const entry = dailyFreeUpgradeTable[key]
+    const freeLevel = format(player.goldenQuarkUpgrades[key].freeLevel, 2, true)
+    const freeLevelText = entry.freeLevelCap === -1
+      ? freeLevel
+      : `${freeLevel} / ${format(entry.freeLevelCap, 0, true)}`
+
+    let chanceText: string
+    const unlocked = isDailyFreeUpgradeUnlocked(key)
+    if (!unlocked) {
+      chanceText = infoAlertInactiveHTML(i18next.t('singularity.freeUpgradeInfo.locked'))
+    } else if (isDailyFreeUpgradeCapped(key)) {
+      chanceText = infoAlertInactiveHTML(i18next.t('singularity.freeUpgradeInfo.daily.capped'))
+    } else {
+      chanceText = `${format(100 * weights[index] / totalWeight, 2, true)}%`
+    }
+
+    let rowHTML = `<tr>
+      <td>${goldenQuarkUpgrades[key].name()}</td>
+      <td>+${format(entry.amount, 2, true)}</td>
+      <td>${chanceText}</td>
+      <td>${freeLevelText}</td>
+    </tr>`
+
+    if (!unlocked && entry.requirement !== undefined) {
+      rowHTML += `<tr class="freeUpgradeInfoInactive">
+        <td colspan="4">${entry.requirement.description()}</td>
+      </tr>`
+    }
+
+    if (
+      entry.flatBonus !== undefined && player.highestSingularityCount >= entry.flatBonus.minSingularity
+      && !isDailyFreeUpgradeCapped(key)
+    ) {
+      rowHTML += `<tr>
+        <td colspan="4">${
+        i18next.t('singularity.freeUpgradeInfo.daily.flatBonus', {
+          amount: format(entry.flatBonus.amount, 2, true)
+        })
+      }</td>
+      </tr>`
+    }
+
+    return rowHTML
+  }).join('')
+
+  return `${rollsHTML}${maxedHTML}${
+    infoAlertTableHTML([
+      i18next.t('singularity.freeUpgradeInfo.upgrade'),
+      i18next.t('singularity.freeUpgradeInfo.daily.perRoll'),
+      i18next.t('singularity.freeUpgradeInfo.daily.chance'),
+      i18next.t('singularity.freeUpgradeInfo.freeLevels')
+    ], rowsHTML)
+  }`
+}
+
+const addFreeUpgradeInfoHTML = (): string => {
+  const unlocked = player.highestSingularityCount >= addCodeFreeUpgradeMinSingularity
+  const uses = addCodeAvailableUses()
+
+  const summaryHTML = unlocked
+    ? `<p class="freeUpgradeInfoSummary">${
+      i18next.t('singularity.freeUpgradeInfo.add.uses', {
+        uses: format(uses, 0, true),
+        max: format(addCodeMaxUses(), 0, true)
+      })
+    }</p>`
+    : `<p class="freeUpgradeInfoInactive">${
+      i18next.t('singularity.freeUpgradeInfo.add.requirement', {
+        singularity: addCodeFreeUpgradeMinSingularity
+      })
+    }</p>`
+
+  const rowsHTML = addCodeFreeUpgradeKeys.map((key) => {
+    const perAdd = addCodeFreeUpgrades[key]
+    const fromAvailable = unlocked
+      ? `+${format(perAdd * uses, 2, true)}`
+      : infoAlertInactiveHTML(i18next.t('singularity.freeUpgradeInfo.locked'))
+    return `<tr>
+      <td>${goldenQuarkUpgrades[key].name()}</td>
+      <td>+${format(perAdd, 2, true)}</td>
+      <td>${fromAvailable}</td>
+      <td>${format(player.goldenQuarkUpgrades[key].freeLevel, 2, true)}</td>
+    </tr>`
+  }).join('')
+
+  return `${summaryHTML}${
+    infoAlertTableHTML([
+      i18next.t('singularity.freeUpgradeInfo.upgrade'),
+      i18next.t('singularity.freeUpgradeInfo.add.perAdd'),
+      i18next.t('singularity.freeUpgradeInfo.add.fromAvailable'),
+      i18next.t('singularity.freeUpgradeInfo.freeLevels')
+    ], rowsHTML)
+  }`
+}
+
+const milestoneFreeUpgradeInfoHTML = (): string => {
+  const rowsHTML = singularityMilestoneFreeUpgrades.map((milestone) => {
+    const status = player.highestSingularityCount >= milestone.singularity
+      ? i18next.t('singularity.freeUpgradeInfo.milestones.obtained')
+      : infoAlertInactiveHTML(i18next.t('singularity.freeUpgradeInfo.milestones.notObtained'))
+    return `<tr>
+      <td>${
+      i18next.t('singularity.freeUpgradeInfo.milestones.singularity', { singularity: milestone.singularity })
+    }</td>
+      <td>${goldenQuarkUpgrades[milestone.key].name()}</td>
+      <td>+${format(milestone.amount, 2, true)}</td>
+      <td>${status}</td>
+    </tr>`
+  }).join('')
+
+  return `<p class="freeUpgradeInfoSummary">${i18next.t('singularity.freeUpgradeInfo.milestones.summary')}</p>${
+    infoAlertTableHTML([
+      i18next.t('singularity.freeUpgradeInfo.milestones.milestone'),
+      i18next.t('singularity.freeUpgradeInfo.upgrade'),
+      i18next.t('singularity.freeUpgradeInfo.milestones.reward'),
+      i18next.t('singularity.freeUpgradeInfo.milestones.status')
+    ], rowsHTML)
+  }`
+}
+
+const freeUpgradeInfoSections = [
+  { labelKey: 'singularity.freeUpgradeInfo.daily.section', html: dailyFreeUpgradeInfoHTML },
+  { labelKey: 'singularity.freeUpgradeInfo.add.section', html: addFreeUpgradeInfoHTML },
+  { labelKey: 'singularity.freeUpgradeInfo.milestones.section', html: milestoneFreeUpgradeInfoHTML }
+]
+
+export const showFreeUpgradeInfo = () =>
+  InfoAlert(
+    i18next.t('singularity.freeUpgradeInfo.title'),
+    freeUpgradeInfoSections.map(({ labelKey, html }) => ({ label: i18next.t(labelKey), html }))
+  )
+
 /**
  * Get the upgrade's HTML representation with all relevant information
  */
@@ -2255,7 +2662,7 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   const costNextLevel = getGQUpgradeCostTNL(upgradeKey)
   const maxLevel = `/${format(computeGQUpgradeMaxLevel(upgradeKey), 0, true)}`
   const effectDesc = upgrade.effectDescription()
-  const freeLevelMult = computeFreeLevelMultiplier()
+  const freeLevelMult = computeFreeLevelMultiplier(upgradeKey)
   const freeLevelsWithMult = player.goldenQuarkUpgrades[upgradeKey].freeLevel * freeLevelMult
   const totalEffectiveLevels = actualGQUpgradeTotalLevels(upgradeKey)
   const color = computeGQUpgradeMaxLevel(upgradeKey) === goldenQuarkUpgrades[upgradeKey].level
@@ -2307,9 +2714,23 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     }</span></b>`
     : ''
 
+  const fullyCapped = upgradeKey in dailyFreeUpgradeTable
+    && isDailyFreeUpgradeCapped(upgradeKey as DailyFreeUpgradeKey)
+    && goldenQuarkUpgrades[upgradeKey].level >= computeGQUpgradeMaxLevel(upgradeKey)
+  const fullyCappedText = fullyCapped
+    ? `<span style="color: gold" role="img" aria-label="${i18next.t('general.fullyCapped')}"> ★</span>`
+    : ''
+
   const levelText = `<span style="color: ${color}">${i18next.t('general.level')} ${
     format(goldenQuarkUpgrades[upgradeKey].level, 0, true)
-  }${maxLevel}${freeLevelText}</span>`
+  }${maxLevel}${freeLevelText}${fullyCappedText}</span>`
+
+  const overclockLevels = computeGQUpgradeMaxLevel(upgradeKey) - upgrade.maxLevel
+  const overclockHTML = overclockLevels > 0
+    ? `<br><span style="color: orchid">${
+      i18next.t('singularity.toString.overclockLevels', { levels: format(overclockLevels, 0, true) })
+    }</span>`
+    : ''
 
   // Upgrade Effect Text
   const upgradeEffectHTML = `<span style="color: gold">${effectDesc}</span>`
@@ -2332,7 +2753,26 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>`
     : ''
 
-  return `${nameHTML}<br>${levelText}${effectiveLevelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${investedGQHTML}${qualityOfLifeText}`
+  const maxLevelAPCheck = goldenQuarkUpgrades[upgradeKey].level >= upgrade.maxLevel ? '✔' : '✖'
+  const maxLevelAPHTML = `<br>${
+    upgrade.canExceedCap
+      ? i18next.t('singularity.toString.upgradeAPMaxOverclock', {
+        amount: 6,
+        level: format(upgrade.maxLevel, 0, true),
+        check: maxLevelAPCheck
+      })
+      : i18next.t('general.upgradeAPMax', { amount: 6, check: maxLevelAPCheck })
+  }`
+  const freeLevelAPHTML = hasGQFreeLevelCap(upgradeKey)
+    ? `<br>${
+      i18next.t('general.upgradeAPFreeLevelCap', {
+        amount: 6,
+        check: isDailyFreeUpgradeCapped(upgradeKey) ? '✔' : '✖'
+      })
+    }`
+    : ''
+
+  return `${nameHTML}<br>${levelText}${overclockHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${investedGQHTML}${qualityOfLifeText}${maxLevelAPHTML}${freeLevelAPHTML}`
 }
 
 export function updateMobileGQHTML (k: SingularityDataKeys) {
@@ -2392,6 +2832,8 @@ export const maximumAffordableLevel = (upgradeKey: SingularityDataKeys, goldenQu
   return low
 }
 
+const gqLevelReconstructionTolerance = 1e-10
+
 export const setGQUpgradeLevels = () => {
   for (const upgradeKey of goldenQuarkUpgradeNames) {
     const upgrade = goldenQuarkUpgrades[upgradeKey]
@@ -2399,7 +2841,10 @@ export const setGQUpgradeLevels = () => {
 
     upgrade.level = 0
 
-    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, 0)
+    // Accumulated purchase costs can round slightly below the cumulative level cost once costs
+    // exceed 2^53, so the tolerance must be relative. It is far below the smallest relative
+    // cost step of any upgrade (~2e-5 for uncapped Default upgrades at level 1e6).
+    const maxAffordableLevel = maximumAffordableLevel(upgradeKey, oldInvested * gqLevelReconstructionTolerance)
     const totalCost = getGQUpgradeCumulativeCost(upgradeKey, maxAffordableLevel)
 
     upgrade.level = maxAffordableLevel
@@ -2446,44 +2891,53 @@ export async function buyGQUpgradeLevel (
     return Alert(i18next.t('singularity.goldenQuarks.notHighEnoughLevel'))
   }
 
-  const GQBudget = player.goldenQuarks
-  const affordableLevel = maximumAffordableLevel(upgradeKey, GQBudget)
-
-  // This is either 0 or 1
-  let levelsToPurchase = Math.min(1, affordableLevel - goldenQuarkUpgrades[upgradeKey].level)
-  if (levelsToPurchase === 0) {
+  const purchaseOptions = {
+    getMaxLevels: () =>
+      player.highestSingularityCount >= upgrade.minimumSingularity
+        ? computeGQUpgradeMaxLevel(upgradeKey) - goldenQuarkUpgrades[upgradeKey].level
+        : 0,
+    getBalance: () => player.goldenQuarks,
+    getCost: (levels: number) =>
+      getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level + levels)
+      - getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level)
+  }
+  const initialPurchase = calculateSingularityUpgradePurchase(purchaseOptions, 1, 'levels')
+  if (initialPurchase === null || initialPurchase.levels <= 0) {
     return Alert(i18next.t('singularity.goldenQuarks.poor'))
   }
 
-  if (event.shiftKey || buyMax) {
-    const maxPurchasableLevels = affordableLevel - goldenQuarkUpgrades[upgradeKey].level
-    const amountLevelSelected = Number(
-      await Prompt(
-        i18next.t('singularity.goldenQuarks.spendPrompt', {
-          n: format(maxPurchasableLevels, 0, true)
-        })
-      )
-    )
-
-    if (isNaN(amountLevelSelected) || !isFinite(amountLevelSelected) || !Number.isInteger(amountLevelSelected)) {
-      return Alert(i18next.t('general.validation.finite'))
-    }
-
-    if (amountLevelSelected === -1) {
-      levelsToPurchase = maxPurchasableLevels
-    } else if (amountLevelSelected <= 0) {
-      return Alert(i18next.t('general.validation.zeroOrLess'))
-    } else {
-      levelsToPurchase = Math.min(amountLevelSelected, maxPurchasableLevels)
-    }
+  const selectedPurchase = event.shiftKey || buyMax
+    ? await PurchasePrompt({
+      ...purchaseOptions,
+      title: upgrade.name(),
+      getLevel: () => goldenQuarkUpgrades[upgradeKey].level,
+      getMaxLevel: () => computeGQUpgradeMaxLevel(upgradeKey),
+      resource: 'goldenQuarks'
+    })
+    : initialPurchase
+  if (selectedPurchase === null || selectedPurchase.levels <= 0) {
+    return
   }
 
-  const cost = getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level + levelsToPurchase)
-    - getGQUpgradeCumulativeCost(upgradeKey, goldenQuarkUpgrades[upgradeKey].level)
+  const purchase = calculateSingularityUpgradePurchase(
+    {
+      ...purchaseOptions,
+      getBalance: () => Math.min(purchaseOptions.getBalance(), selectedPurchase.cost)
+    },
+    selectedPurchase.levels,
+    'levels'
+  )
+  if (purchase === null || purchase.levels <= 0) {
+    return Alert(i18next.t('singularity.goldenQuarks.poor'))
+  }
 
+  const { levels: levelsToPurchase, cost } = purchase
   player.goldenQuarks -= cost
-  player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested += cost
   goldenQuarkUpgrades[upgradeKey].level += levelsToPurchase
+  player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested = getGQUpgradeCumulativeCost(
+    upgradeKey,
+    goldenQuarkUpgrades[upgradeKey].level
+  )
 
   if (upgradeKey === 'oneMind') {
     player.ascensionCounter = 0
@@ -2511,12 +2965,22 @@ export async function buyGQUpgradeLevel (
   revealStuff()
 }
 
-function computeFreeLevelMultiplier (): number {
+const freeLevelMultiplierExemptUpgrades: ReadonlySet<SingularityDataKeys> = new Set([
+  'singAmbrosiaGeneration',
+  'singAmbrosiaGeneration2',
+  'singAmbrosiaGeneration3',
+  'singAmbrosiaGeneration4'
+])
+
+function computeFreeLevelMultiplier (upgradeKey: SingularityDataKeys): number {
+  if (freeLevelMultiplierExemptUpgrades.has(upgradeKey)) {
+    return 1
+  }
   return getShopUpgradeEffects('shopSingularityPotency', 'freeUpgradeMult') + 0.3 / 100 * player.cubeUpgrades[75]
 }
 
 export function computeGQUpgradeFreeLevelSoftcap (upgradeKey: SingularityDataKeys): number {
-  const freeLevelMult = computeFreeLevelMultiplier()
+  const freeLevelMult = computeFreeLevelMultiplier(upgradeKey)
   const baseRealFreeLevels = freeLevelMult * player.goldenQuarkUpgrades[upgradeKey].freeLevel
   return (
     Math.min(goldenQuarkUpgrades[upgradeKey].level, baseRealFreeLevels)
@@ -3019,13 +3483,9 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: 'singularity.perks.coolQOLCubes.name',
-    levels: [25, 35],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[1]) {
-        return i18next.t('singularity.perks.coolQOLCubes.hasLevel1')
-      } else {
-        return i18next.t('singularity.perks.coolQOLCubes.default')
-      }
+    levels: [10],
+    description: () => {
+      return i18next.t('singularity.perks.coolQOLCubes.default')
     },
     ID: 'coolQOLCubes'
   },

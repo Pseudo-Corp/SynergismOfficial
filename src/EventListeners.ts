@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { displayAchievementProgress, resetAchievementProgressDisplay } from './Achievements'
-import { initializeAmbrosiaUpgradeLayout } from './AmbrosiaUI'
+import { initializeAmbrosiaLedgerModals, initializeAmbrosiaUpgradeLayout } from './AmbrosiaUI'
 import {
   ambrosiaEditAction,
   ambrosiaEditToString,
@@ -31,7 +31,6 @@ import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import { setChallengeFocus, toggleRetryChallenges } from './Challenges'
-import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
@@ -97,6 +96,7 @@ import { exitFastForward, getLotusTimeExpiresAt, getOwnedLotus, getTips, sendToW
 import {
   buyOcteractUpgradeLevel,
   octeractUpgradeNames,
+  showOcteractFreeUpgradeInfo,
   toggleMaxedOcteractUpgrades,
   upgradeOcteractToString
 } from './Octeracts'
@@ -135,6 +135,7 @@ import {
   calculateMaxSingularityLookahead,
   goldenQuarkUpgradeNames,
   initializeSingularityPerkTree,
+  showFreeUpgradeInfo,
   singularityPerkModalHTML,
   singularityPerks,
   teleportToSingularity,
@@ -879,7 +880,7 @@ export const generateEventHandlers = () => {
   registerSubTabSwitches()
   registerMobileSubTabLayout()
 
-  if (testing) {
+  if (TESTING) {
     const warp = document.createElement('button')
     const dayReset = document.createElement('button')
     warp.textContent = 'Click here to warp time! [TESTING ONLY]'
@@ -1663,6 +1664,11 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('dailyCode').addEventListener('mouseover', () => promocodesInfo('daily'))
   DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))
   DOMCacheGetOrSet('timeCode').addEventListener('mouseover', () => promocodesInfo('time'))
+  if (isMobile) {
+    const promocodeStatus = document.createElement('p')
+    promocodeStatus.id = 'promocodeStatus'
+    DOMCacheGetOrSet('promocodeinfo').before(promocodeStatus)
+  }
   DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener(
     'click',
     () => resetHistoryTogglePerSecond()
@@ -1819,6 +1825,7 @@ TODO: Fix this entire tab it's utter shit
   })
 
   DOMCacheGetOrSet('toggleMaxedGoldenQuarkUpgrades').addEventListener('click', toggleMaxedGoldenQuarkUpgrades)
+  DOMCacheGetOrSet('freeUpgradeInfoButton').addEventListener('click', showFreeUpgradeInfo)
 
   for (const key of goldenQuarkUpgradeNames) {
     if (key === 'offeringAutomatic') {
@@ -1903,6 +1910,7 @@ TODO: Fix this entire tab it's utter shit
 
   // Octeract Upgrades
   DOMCacheGetOrSet('toggleMaxedOcteractUpgrades').addEventListener('click', toggleMaxedOcteractUpgrades)
+  DOMCacheGetOrSet('octeractFreeUpgradeInfoButton').addEventListener('click', showOcteractFreeUpgradeInfo)
 
   for (const key of octeractUpgradeNames) {
     registerPurchasableModal({
@@ -1965,6 +1973,7 @@ TODO: Fix this entire tab it's utter shit
 
   // BLUEBERRY UPGRADES
   initializeAmbrosiaUpgradeLayout()
+  initializeAmbrosiaLedgerModals()
 
   for (const key of ambrosiaUpgradeNames) {
     const element = DOMCacheGetOrSet(key)

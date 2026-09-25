@@ -910,6 +910,10 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
       stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes3', 'cubes')
     },
     {
+      i18n: 'ModuleCubes4',
+      stat: () => getAmbrosiaUpgradeEffects('ambrosiaCubes4', 'cubes')
+    },
+    {
       i18n: 'RedAmbrosiaTutorial',
       stat: () => getRedAmbrosiaUpgradeEffects('tutorial', 'cubeMult')
     },

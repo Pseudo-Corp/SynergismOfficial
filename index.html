@@ -73,6 +73,37 @@
                 <button id="cancel_prompt" i18n="general.Cancel"></button>
             </div>
         </div>
+        <div id="infoAlertWrapper">
+            <div id="infoAlert" tabindex="-1" role="dialog" aria-labelledby="infoAlertTitle">
+                <p id="infoAlertTitle"></p>
+                <div id="infoAlertSections"></div>
+                <div id="infoAlertBody" class="scrollbar"></div>
+                <button id="ok_infoAlert" i18n="general.OK"></button>
+            </div>
+        </div>
+        <div id="purchasePromptWrapper">
+            <div id="purchasePrompt" role="dialog" aria-labelledby="purchasePromptTitle">
+                <div class="purchasePromptHeading">
+                    <p id="purchasePromptTitle"></p>
+                    <p id="purchasePromptLevel"></p>
+                </div>
+                <div class="purchasePromptHints">
+                    <p id="purchasePromptHint" i18n="general.purchasePrompt.hint"></p>
+                    <p id="purchasePromptHint2" i18n="general.purchasePrompt.hint2"></p>
+                </div>
+                <div class="purchasePromptInputs">
+                    <label for="purchasePromptLevels" i18n="general.purchasePrompt.levels"></label>
+                    <label id="purchasePromptCostLabel" for="purchasePromptCost"></label>
+                    <input id="purchasePromptLevels" type="text">
+                    <input id="purchasePromptCost" type="text">
+                </div>
+                <p id="purchasePromptSummary" role="status" aria-live="polite"></p>
+                <div class="purchasePromptButtons">
+                    <button id="ok_purchasePrompt" i18n="general.OK"></button>
+                    <button id="cancel_purchasePrompt" i18n="general.Cancel"></button>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="offlineBlur">
         <img id="logo" src="Pictures/logo.png" alt="The Synergism Logo">
@@ -261,33 +292,33 @@
                         <img class="img coin" src="Pictures/Default/Coin.png" alt="Coin" title="Coin" loading="lazy">
                         <div class="statDisplay" id="coinDisplay">1</div>
                     </div>
-                    <div class="currencyContainer">
-                        <img class="prestigeunlock img diamond" src="Pictures/Default/Diamond.png" alt="Diamond" title="Diamond" loading="lazy">
-                        <div class="prestigeunlock statDisplay" id="diamondDisplay">1</div>
+                    <div class="currencyContainer prestigeunlock">
+                        <img class="img diamond" src="Pictures/Default/Diamond.png" alt="Diamond" title="Diamond" loading="lazy">
+                        <div class="statDisplay" id="diamondDisplay">1</div>
                     </div>
-                    <div class="currencyContainer">
-                        <img class="prestigeunlock img offering" src="Pictures/Default/Offering.png" i18n="general.resources.offering" title="Offering" loading="lazy">
-                        <div class="prestigeunlock statDisplay" id="offeringDisplay">1</div>
+                    <div class="currencyContainer prestigeunlock">
+                        <img class="img offering" src="Pictures/Default/Offering.png" i18n="general.resources.offering" title="Offering" loading="lazy">
+                        <div class="statDisplay" id="offeringDisplay">1</div>
                     </div>
-                    <div class="currencyContainer">
-                        <img class="reincarnationunlock img quark" src="Pictures/Default/Quark.png" alt="Quark" title="Quark" loading="lazy">
-                        <div class="reincarnationunlock statDisplay" id="quarkDisplay">1</div>
+                    <div class="currencyContainer reincarnationunlock">
+                        <img class="img quark" src="Pictures/Default/Quark.png" alt="Quark" title="Quark" loading="lazy">
+                        <div class="statDisplay" id="quarkDisplay">1</div>
                     </div>
-                    <div class="currencyContainer">
-                        <img class="transcendunlock img mythos" src="Pictures/Default/Mythos.png" alt="Mythos" title="Mythos" loading="lazy">
-                        <div class="transcendunlock statDisplay" id="mythosDisplay">1</div>
+                    <div class="currencyContainer transcendunlock">
+                        <img class="img mythos" src="Pictures/Default/Mythos.png" alt="Mythos" title="Mythos" loading="lazy">
+                        <div class="statDisplay" id="mythosDisplay">1</div>
                     </div>
-                    <div class="currencyContainer">
-                        <img class="transcendunlock img mythosshard" src="Pictures/Default/MythosShard.png" alt="Mythos Shard" title="Mythos Shard" loading="lazy">
-                        <div class="transcendunlock statDisplay" id="mythosshardDisplay">1</div>
+                    <div class="currencyContainer transcendunlock">
+                        <img class="img mythosshard" src="Pictures/Default/MythosShard.png" alt="Mythos Shard" title="Mythos Shard" loading="lazy">
+                        <div class="statDisplay" id="mythosshardDisplay">1</div>
                     </div>
-                    <div class="currencyContainer">
-                        <img class="reincarnationunlock img particle" src="Pictures/Default/Particle.png" alt="Particle" title="Particle"  loading="lazy">
-                        <div class="reincarnationunlock statDisplay" id="particlesDisplay">1</div>
+                    <div class="currencyContainer reincarnationunlock">
+                        <img class="img particle" src="Pictures/Default/Particle.png" alt="Particle" title="Particle"  loading="lazy">
+                        <div class="statDisplay" id="particlesDisplay">1</div>
                     </div>
-                    <div class="currencyContainer">
-                        <img class="reincarnationunlock img obtanium" src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium" title="Obtainium" loading="lazy">
-                        <div class="reincarnationunlock statDisplay" id="obtainiumDisplay">1</div>
+                    <div class="currencyContainer reincarnationunlock">
+                        <img class="img obtanium" src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium" title="Obtainium" loading="lazy">
+                        <div class="statDisplay" id="obtainiumDisplay">1</div>
                     </div>
                 </div>
                 <div class="resetInformationContainer">
@@ -2997,6 +3028,8 @@
                         <button class="toggleMaxedUpgrades" id="toggleMaxedGoldenQuarkUpgrades" aria-pressed="false" i18n="general.maxedUpgradesShow"></button>
                     </div>
                     <div class="boxColor" id="actualSingularityUpgradeContainer">
+                        <p id="goldenQuarkUpgradeAP" class="upgradeAPTotal"></p>
+                        <button class="freeUpgradeInfoButton" id="freeUpgradeInfoButton" i18n="singularity.freeUpgradeInfo.button"></button>
                         <button class="singularityUpgrade" id="goldenQuarks1" i18n-aria-label="singularity.data.goldenQuarks1.description">
                             <img alt="goldenQuarks1" src="Pictures/Default/SingularityCurrency1.png" loading="lazy">
                         </button>
@@ -3272,7 +3305,11 @@
                         </div>
                     </div>
                     <div class="boxColor" id="octeractUpgradeContainer">
-                        <button class="toggleMaxedUpgrades" id="toggleMaxedOcteractUpgrades" aria-pressed="false" i18n="general.maxedUpgradesShow"></button>
+                        <p id="octeractUpgradeAP" class="upgradeAPTotal"></p>
+                        <div id="octeractUpgradeFooter">
+                            <button class="toggleMaxedUpgrades" id="toggleMaxedOcteractUpgrades" aria-pressed="false" i18n="general.maxedUpgradesShow"></button>
+                            <button class="freeUpgradeInfoButton" id="octeractFreeUpgradeInfoButton" i18n="octeract.freeUpgradeInfo.button"></button>
+                        </div>
                         <button class="octeractUpgrade" id="octeractStarter" i18n-aria-label="octeract.data.octeractStarter.description">
                             <img id="octeractStarterImage" src="Pictures/img_transparent.png" style="cursor: pointer">
                         </button>
@@ -3422,77 +3459,69 @@
                 <div id="singularityAmbrosia" class="singularityContainer">
                     <div id="ambrosiaWorkspace">
                         <div id="ambrosiaLedger">
-                            <section id="ambrosiaDisplay" class="ambrosiaLedgerRow" aria-labelledby="ambrosiaLedgerName">
-                                <div class="ambrosiaLedgerResource amberText">
-                                    <img src="Pictures/Default/Ambrosia.png" alt="" loading="lazy">
-                                    <div>
-                                        <p id="ambrosiaLedgerName" i18n="ambrosia.ambrosia"></p>
-                                        <p id="ambrosiaAmount" class="ambrosiaLedgerBalance" tabindex="0"></p>
-                                    </div>
-                                </div>
-                                <div class="ambrosiaLedgerGeneration">
-                                    <p id="ambrosiaLuck"></p>
-                                    <p id="ambrosiaAmountPerGeneration"></p>
-                                </div>
-                                <div class="ambrosiaLedgerBonuses">
-                                    <p id="ambrosiaCubeBonus"></p>
-                                    <p id="ambrosiaQuarkBonus"></p>
-                                    <p id="ambrosiaOfferingBonus" hidden></p>
-                                    <p id="ambrosiaObtainiumBonus" hidden></p>
-                                    <p id="ambrosiaBarBonus" hidden></p>
-                                </div>
+                            <div id="ambrosiaResources">
+                                <section id="ambrosiaDisplay" class="ambrosiaResource amberText" aria-labelledby="ambrosiaLedgerName">
+                                    <p id="ambrosiaResourceHeader" class="ambrosiaResourceHeader" tabindex="0">
+                                        <img src="Pictures/Default/Ambrosia.png" alt="" loading="lazy">
+                                        <span id="ambrosiaLedgerName" i18n="ambrosia.ambrosia"></span>
+                                    </p>
+                                    <p id="ambrosiaAmount" tabindex="0"></p>
+                                    <p id="ambrosiaLuck" class="ambrosiaResourceLuck" tabindex="0"></p>
+                                    <p id="ambrosiaLuckModifiers" class="ambrosiaResourceModifiers"></p>
+                                </section>
+                                <section id="redAmbrosiaDisplay" class="ambrosiaResource redText" aria-labelledby="redAmbrosiaLedgerName" hidden>
+                                    <p id="redAmbrosiaResourceHeader" class="ambrosiaResourceHeader" tabindex="0">
+                                        <img src="Pictures/RedAmbrosia/RedAmbrosia.png" alt="" loading="lazy">
+                                        <span id="redAmbrosiaLedgerName" i18n="redAmbrosia.redAmbrosia"></span>
+                                    </p>
+                                    <p id="redAmbrosiaAmount" tabindex="0"></p>
+                                    <p id="redAmbrosiaLuck" class="ambrosiaResourceLuck" tabindex="0"></p>
+                                    <p id="redAmbrosiaLuckModifiers" class="ambrosiaResourceModifiers" hidden></p>
+                                </section>
+                                <section id="purpleAmbrosiaDisplay" class="ambrosiaResource" aria-labelledby="purpleAmbrosiaLedgerName" hidden>
+                                    <p id="purpleAmbrosiaResourceHeader" class="ambrosiaResourceHeader" tabindex="0">
+                                        <img src="Pictures/PurpleAmbrosia/PurpleAmbrosia.png" alt="" loading="lazy">
+                                        <span id="purpleAmbrosiaLedgerName" i18n="purpleReactor.synthesis.purpleAmbrosia"></span>
+                                    </p>
+                                    <p id="purpleAmbrosiaAmount" tabindex="0"></p>
+                                </section>
+                            </div>
+                            <div id="ambrosiaLedgerBars">
                                 <div id="ambrosiaProgressBar" class="ambrosiaLedgerProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="ambrosia.ledger.ambrosiaProgress">
                                     <div id="ambrosiaProgress"></div>
+                                    <img src="Pictures/Default/Ambrosia.png" alt="" loading="lazy">
+                                    <span id="ambrosiaProgressGain" class="ambrosiaLedgerProgressGain"></span>
                                     <span id="ambrosiaProgressText"></span>
                                 </div>
-                            </section>
-                            <section id="redAmbrosiaDisplay" class="ambrosiaLedgerRow" aria-labelledby="redAmbrosiaLedgerName" hidden>
-                                <div id="pixelProgressBar" class="ambrosiaLedgerProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="ambrosia.ledger.redAmbrosiaProgress">
+                                <div id="pixelProgressBar" class="ambrosiaLedgerProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" i18n-aria-label="ambrosia.ledger.redAmbrosiaProgress" hidden>
                                     <div id="pixelProgress"></div>
+                                    <img src="Pictures/RedAmbrosia/RedAmbrosia.png" alt="" loading="lazy">
+                                    <span id="pixelProgressGain" class="ambrosiaLedgerProgressGain"></span>
                                     <span id="pixelProgressText"></span>
                                 </div>
-                                <div class="ambrosiaLedgerResource redText">
-                                    <img src="Pictures/RedAmbrosia/RedAmbrosia.png" alt="" loading="lazy">
-                                    <div>
-                                        <p id="redAmbrosiaLedgerName" i18n="redAmbrosia.redAmbrosia"></p>
-                                        <p id="redAmbrosiaAmount" class="ambrosiaLedgerBalance" tabindex="0"></p>
-                                    </div>
-                                </div>
-                                <div class="ambrosiaLedgerGeneration">
-                                    <p id="redAmbrosiaLuck"></p>
-                                    <p id="redAmbrosiaAmountPerGeneration"></p>
-                                </div>
-                                <div class="ambrosiaLedgerBonuses">
-                                    <p id="redAmbrosiaCubeBonus" hidden></p>
-                                    <p id="redAmbrosiaOfferingBonus" hidden></p>
-                                    <p id="redAmbrosiaObtainiumBonus" hidden></p>
-                                    <p id="redAmbrosiaLuckBonus" hidden></p>
-                                </div>
-                            </section>
-                            <section class="ambrosiaLedgerRow" aria-labelledby="blueberryLedgerName">
-                                <div id="purpleAmbrosiaDisplay" class="ambrosiaLedgerResource" hidden>
-                                    <img src="Pictures/PurpleAmbrosia/PurpleAmbrosia.png" alt="" loading="lazy">
-                                    <div>
-                                        <p i18n="purpleReactor.synthesis.purpleAmbrosia"></p>
-                                        <p id="purpleAmbrosiaAmount" class="ambrosiaLedgerBalance" tabindex="0"></p>
-                                    </div>
-                                </div>
-                                <div id="blueberryDisplay" class="ambrosiaLedgerResource">
-                                    <img src="Pictures/Default/Blueberries.png" alt="" loading="lazy">
-                                    <div>
-                                        <p id="blueberryLedgerName" i18n="ambrosia.ledger.blueberries"></p>
-                                        <p id="blueberryAmount" class="ambrosiaLedgerBalance" tabindex="0"></p>
-                                    </div>
-                                </div>
-                                <div class="ambrosiaLedgerBonuses">
-                                    <p id="blueberryLeoBonus" hidden></p>
-                                    <p id="blueberryVirgoBonus" hidden></p>
-                                    <p id="blueberryHoneyBonus" hidden></p>
-                                </div>
-                            </section>
+                            </div>
                         </div>
                         <div class="blueberryBoxColor Exalt1x1" id="blueberryUpgradeContainer" data-ambrosia-layout="blueberry">
+                            <p id="ambrosiaUpgradeAP" class="upgradeAPTotal" hidden></p>
                             <div id="ambrosiaUpgradeGrid">
+                                <p id="ambrosiaUpgradeRedAmbrosia" class="ambrosiaUpgradeCurrency redText" tabindex="0" hidden>
+                                    <img src="Pictures/RedAmbrosia/RedAmbrosia.png" alt="" loading="lazy">
+                                    <span id="ambrosiaUpgradeRedAmbrosiaAmount"></span>
+                                </p>
+                                <p id="ambrosiaUpgradePurpleAmbrosia" class="ambrosiaUpgradeCurrency" tabindex="0" hidden>
+                                    <img src="Pictures/PurpleAmbrosia/PurpleAmbrosia.png" alt="" loading="lazy">
+                                    <span id="ambrosiaUpgradePurpleAmbrosiaAmount"></span>
+                                </p>
+                                <div id="ambrosiaUpgradeCurrencies">
+                                    <p id="ambrosiaUpgradeAmbrosia" class="ambrosiaUpgradeCurrency amberText" tabindex="0">
+                                        <img src="Pictures/Default/Ambrosia.png" alt="" loading="lazy">
+                                        <span id="ambrosiaUpgradeAmbrosiaAmount"></span>
+                                    </p>
+                                    <div id="blueberryDisplay" class="ambrosiaUpgradeCurrency">
+                                        <img src="Pictures/Default/Blueberries.png" alt="" loading="lazy">
+                                        <p id="blueberryAmount" tabindex="0"></p>
+                                    </div>
+                                </div>
                                 <div class="ambrosiaUpgradeSection" data-ambrosia-kind="blueberry" id="blueberryUpgradeGroups">
                                     <button class="blueberryUpgrade" id="ambrosiaTutorial">
                                         <img src="Pictures/Default/BlueberryTutorial.png">

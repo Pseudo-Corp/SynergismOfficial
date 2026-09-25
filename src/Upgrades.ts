@@ -876,7 +876,7 @@ const constantUpgradeDescriptionData = (i: number) => {
   const [level, cost] = getConstUpgradeMetadata(i)
   const currentLevel = i >= 9
     ? `${format(Math.min(1, player.constantUpgrades[i]!))}/1`
-    : format(player.constantUpgrades[i])
+    : format(player.constantUpgrades[i]!)
 
   return {
     description: returnConstUpgDesc(i),

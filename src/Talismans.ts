@@ -713,9 +713,9 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
         purpleAmbrosiaDiscount: n >= 6 ? 0.80 : 1
       }
     },
-    inscriptionDesc: (_n) => {
+    inscriptionDesc: (n) => {
       return i18next.t('runes.talismans.purpleGem.inscription', {
-        val: format(10)
+        val: format(purpleGemInscriptValues[n])
       })
     },
     signatureDesc: () => i18next.t('runes.talismans.purpleGem.signature'),

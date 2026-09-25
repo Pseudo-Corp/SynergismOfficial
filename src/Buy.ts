@@ -559,7 +559,7 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
 }
 
 export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount) => {
-  if (player.upgrades[46] < 1) {
+  if (player.upgrades[88] < 1) {
     const calculateCost = createAcceleratorBoostCostCalculator()
     while (player.prestigePoints.gte(player.acceleratorBoostCost) && G.ticker < 1) {
       if (player.prestigePoints.gte(player.acceleratorBoostCost)) {
@@ -567,7 +567,7 @@ export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamoun
         player.acceleratorBoostCost = calculateCost(player.acceleratorBoostBought)
         player.transcendnoaccelerator = false
         player.reincarnatenoaccelerator = false
-        if (player.upgrades[46] < 0.5) {
+        if (player.upgrades[88] < 0.5) {
           for (let j = 21; j < 41; j++) {
             player.upgrades[j] = 0
           }
@@ -807,4 +807,53 @@ export const buyTesseractBuilding = (index: OneToFive, amount: number = player.t
   player[ascendBuildingIndex].owned = buyTo
   player.wowTesseracts.sub(actualCost)
   player[ascendBuildingIndex].cost = intCost * Math.pow(1 + buyTo, 3)
+}
+
+export type SingularityUpgradePurchaseQuote = { levels: number; cost: number }
+
+export type SingularityUpgradePurchaseOptions = {
+  getMaxLevels: () => number
+  getBalance: () => number
+  /** Total cost of buying this many additional levels from the current level. */
+  getCost: (levels: number) => number
+}
+
+export type SingularityUpgradePurchaseInput = 'levels' | 'cost'
+
+/** Quote a Singularity-tier upgrade purchase without changing player state. All limits are read afresh. */
+export const calculateSingularityUpgradePurchase = (
+  options: SingularityUpgradePurchaseOptions,
+  amount: number,
+  input: SingularityUpgradePurchaseInput
+): SingularityUpgradePurchaseQuote | null => {
+  if (
+    !Number.isFinite(amount)
+    || (amount < 0 && amount !== -1)
+    || (input === 'levels' && !Number.isInteger(amount))
+  ) {
+    return null
+  }
+
+  const remaining = options.getMaxLevels()
+  const balance = options.getBalance()
+  if (Number.isNaN(remaining) || Number.isNaN(balance)) {
+    return null
+  }
+
+  const maxLevels = Math.max(0, Math.floor(Math.min(remaining, Number.MAX_SAFE_INTEGER)))
+  const budget = Math.max(0, input === 'cost' && amount !== -1 ? Math.min(amount, balance) : balance)
+  let low = 0
+  let high = input === 'levels' && amount !== -1 ? Math.min(amount, maxLevels) : maxLevels
+
+  while (low < high) {
+    const middle = low + Math.ceil((high - low) / 2)
+    const cost = options.getCost(middle)
+    if (Number.isFinite(cost) && cost >= 0 && cost <= budget) {
+      low = middle
+    } else {
+      high = middle - 1
+    }
+  }
+
+  return { levels: low, cost: low === 0 ? 0 : options.getCost(low) }
 }

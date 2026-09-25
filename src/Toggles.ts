@@ -868,7 +868,7 @@ export const toggleAutoAscendResetMode = () => {
 }
 
 export const toggleautoopensCubes = (i: number) => {
-  if (player.highestSingularityCount >= 35) {
+  if (player.highestSingularityCount >= 10) {
     if (i === 1) {
       const oc = DOMCacheGetOrSet('openCubes')
       const oci = DOMCacheGetOrSet('cubeOpensInput')
@@ -1029,6 +1029,14 @@ export const toggleBlueberryLoadoutmode = () => {
 }
 
 export const confirmReply = (confirm = true) => {
+  if (DOMCacheGetOrSet('purchasePromptWrapper').style.display === 'block') {
+    ;(DOMCacheGetOrSet(confirm ? 'ok_purchasePrompt' : 'cancel_purchasePrompt') as HTMLButtonElement).click()
+    return
+  }
+  if (DOMCacheGetOrSet('infoAlertWrapper').style.display === 'block') {
+    ;(DOMCacheGetOrSet('ok_infoAlert') as HTMLButtonElement).click()
+    return
+  }
   if (DOMCacheGetOrSet('alertWrapper').style.display === 'block') {
     ;(DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()
   }

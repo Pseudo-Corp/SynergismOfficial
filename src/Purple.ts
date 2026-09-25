@@ -1344,7 +1344,7 @@ export const buyPurpleReactorUpgradeLevel = async (
   player.purpleReactor.purpleHoney -= purchase.cost
   player.spentPurpleHoney.upgrades += purchase.cost
   upgrade.level += purchase.amount
-  player.purpleReactorUpgrades[upgradeKey] += purchase.cost
+  player.purpleReactorUpgrades[upgradeKey] = upgrade.costFormula(upgrade.level)
 }
 
 export const calculatePurpleReactorAP = (): number => {

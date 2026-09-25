@@ -25,22 +25,21 @@ export interface IMultiBuy {
   cost: number
 }
 
+// Automation Cube Upgrades, which are kept through Singularity
 // dprint-ignore
-const cubeAutomationIndices = [
+export const cubeAutomationIndices = [
   4, 5, 6, 7, 8, 9, 10, // row 1
   20,                   // row 2
   26, 27,               // row 3
   48, 49                // row 5
 ]
 
+// Researches which boost Wow! Cube gain or Cube opening. Maxed by Cube Upgrade 51
 // dprint-ignore
-const researchAutomationIndices = [
-  41, 42, 43, 44, 45, 46, 47, 48, 49, 50, // row 2
-  61, 71, 72, 73, 74, 75, // row 3
-  124,                    // row 5
-  130, 135, 145, 150,     // row 6
-  175,                    // row 7
-  190                     // row 8
+const cubeResearchIndices = [
+  137, 138,                // row 6
+  152, 153, 167, 168,      // row 7
+  182, 183, 192, 197, 198  // row 8
 ]
 
 // dprint-ignore
@@ -121,7 +120,7 @@ export const cubeUpgradeDesc = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
   })
   c.style.color = 'var(--green-text-color)'
   d.textContent = i18next.t('cubes.cubeMetadata.level', {
-    value1: format(player.cubeUpgrades[i], 0, true),
+    value1: format(player.cubeUpgrades[i]!, 0, true),
     value2: format(maxLevel, 0, true)
   })
   d.style.color = 'white'
@@ -167,7 +166,7 @@ export const cubeUpgradeModalHTML = (
     <div class="cubeUpgradeModalCost ${costClass}">${costText}</div>
     <div class="cubeUpgradeModalLevel ${levelClass}">${
     i18next.t('cubes.cubeMetadata.level', {
-      value1: format(player.cubeUpgrades[i], 0, true),
+      value1: format(player.cubeUpgrades[i]!, 0, true),
       value2: format(maxLevel, 0, true)
     })
   }</div>
@@ -193,14 +192,8 @@ export const updateCubeUpgradeBG = (i: number) => {
   }
 }
 
-export const awardAutosCookieUpgrade = () => {
-  for (const i of cubeAutomationIndices) {
-    const maxLevel = getCubeMax(i)
-    player.cubeUpgrades[i] = maxLevel
-    updateCubeUpgradeBG(i)
-  }
-
-  for (const i of researchAutomationIndices) {
+export const awardCubeResearchCookieUpgrade = () => {
+  for (const i of cubeResearchIndices) {
     player.researches[i] = researchData[i].maxLevel
     updateResearchBG(i)
   }
@@ -243,7 +236,7 @@ export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
   }
 
   if (i === 51 && player.cubeUpgrades[51] > 0) {
-    awardAutosCookieUpgrade()
+    awardCubeResearchCookieUpgrade()
   }
 
   if (i === 57 && player.cubeUpgrades[57] > 0) {
