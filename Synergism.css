@@ -7506,9 +7506,8 @@ header #obtainiumDisplay { color: pink; }
     inset: 0;
     background: linear-gradient(to right, navy, darkturquoise);
     border-radius: inherit;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
+    clip-path: xywh(0 0 calc(var(--progress-fill, 0) * 100%) 100% round 5px);
+    transition: clip-path 0.4s ease;
 }
 
 #ambrosiaProgressText,

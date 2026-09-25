@@ -2301,7 +2301,7 @@ export const visualUpdateAmbrosia = () => {
     player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? totalTimePerSecondRed : 0
   )
 
-  DOMCacheGetOrSet('ambrosiaProgress').style.transform = `scaleX(${ambrosiaProgress})`
+  DOMCacheGetOrSet('ambrosiaProgress').style.setProperty('--progress-fill', `${ambrosiaProgress}`)
   let ambrosiaProgressDescription: string
   let redAmbrosiaProgressDescription: string
 
@@ -2326,7 +2326,7 @@ export const visualUpdateAmbrosia = () => {
     ambrosiaProgressDescription = i18next.t('ambrosia.notUnlocked')
   }
 
-  DOMCacheGetOrSet('pixelProgress').style.transform = `scaleX(${redAmbrosiaProgress})`
+  DOMCacheGetOrSet('pixelProgress').style.setProperty('--progress-fill', `${redAmbrosiaProgress}`)
 
   if (redUnlocked) {
     DOMCacheGetOrSet('pixelProgressText').textContent = i18next.t('ambrosia.ledger.progress', {
